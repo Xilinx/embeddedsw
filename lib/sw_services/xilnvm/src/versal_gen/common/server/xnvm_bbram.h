@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -64,6 +64,7 @@ extern "C" {
 #define XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED    (XNVM_EFUSE_BBRAM_TAG | 0x05U)
 #define XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT          (XNVM_EFUSE_BBRAM_TAG | 0x10U)
 #define XNVM_BBRAM_ERROR_IN_DMA_XFER              (XNVM_EFUSE_BBRAM_TAG | 0x20U)
+#define XNVM_BBRAM_INVALID_PARAM                  (XNVM_EFUSE_BBRAM_TAG | 0x30U)
 
 /***************************** Type Definitions *******************************/
 
@@ -75,14 +76,19 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen);
 /* Locks user data and prevent writes */
 int XNvm_BbramLockUsrDataWrite(void);
 
-/* Write 32-bit user data */
-int XNvm_BbramWriteUsrData(u32 UsrData);
+/* Write 32-bit general purpose user data */
+int XNvm_BbramWriteUsrData(u32 GeneralPurposeData);
 
 /* Read 32-bit user data */
 u32 XNvm_BbramReadUsrData(void);
 
 /* Zeroize BBRAM memory */
 int XNvm_BbramZeroize(void);
+
+#ifdef VERSAL_AIEPG2
+/* Write Configuration limiter parameters in BBRAM */
+int XNvm_BbramWriteConfigLimiterParams(u32 ClEnFlag, u32 ClMode, u32 MaxNumOfConfigs);
+#endif
 
 #ifdef __cplusplus
 }

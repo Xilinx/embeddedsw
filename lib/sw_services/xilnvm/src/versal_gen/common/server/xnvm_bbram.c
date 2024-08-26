@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -44,11 +44,30 @@
 #include "xnvm_bbram.h"
 #include "xnvm_bbram_hw.h"
 #include "xnvm_utils.h"
+#include "xnvm_defs.h"
 
 /*************************** Constant Definitions *****************************/
 
-#define REVERSE_POLYNOMIAL	(0x82F63B78U)
-				/**< Polynomial used for CRC calculation */
+#define REVERSE_POLYNOMIAL			(0x82F63B78U)
+						/**< Polynomial used for CRC calculation */
+
+#ifdef VERSAL_AIEPG2
+#define XNVM_CL_ENABLE_SHIFT			(30U)
+			/**< Shift for enabling Configuration Limiter feature */
+#define XNVM_CL_MODE_SHIFT			(28U)
+			/**< Shift for Counter mode in Configuration Limiter */
+#define XNVM_CL_MAX_COUNT_VAL			(0x0FFFFFFFU)
+/**< Max value of counter for total/failed configurations in configuration limiter*/
+#define XNVM_RTCFG_SECURESTATE_AHWROT_ADDR	(0xF201414CU)
+/**< Address of register in Run time configuration area where the state of A-HWRoT is stored */
+#define XNVM_RTCFG_SECURESTATE_SHWROT_ADDR	(0xF2014150U)
+/**< Address of register in Run time configuration area where the state of S-HWRoT is stored */
+#define XNVM_RTCFG_SECURESTATE_AHWROT		(0xA5A5A5A5U)
+/**< Value to indicate that Secure State of boot is A-HWRoT */
+#define XNVM_RTCFG_SECURESTATE_SHWROT		(0x96969696U)
+/**< Value to indicate that Secure State of boot is S-HWRoT */
+
+#endif
 
 /***************************** Type Definitions *******************************/
 
@@ -91,6 +110,7 @@ static INLINE void XNvm_BbramWriteReg(u32 Offset, u32 Data)
 static int XNvm_BbramEnablePgmMode(void);
 static inline int XNvm_BbramDisablePgmMode(void);
 static int XNvm_BbramValidateAesKeyCrc(const u32* Key);
+static int XNvm_BbramWriteBbram8(u32 Data);
 
 /*************************** Variable Definitions *****************************/
 
@@ -226,41 +246,72 @@ int XNvm_BbramLockUsrDataWrite(void)
 
 /******************************************************************************/
 /**
- * @brief	Writes user provided 32-bit data to BBRAM.
+ * @brief	Programs BBRAM_8 register
  *
- * @param   UsrData - 32-bit user data to be written to BBRAM
+ * @param	Data - 32-bit data to be written to BBRAM_8 register
  *
- * @return - XST_SUCCESS - User data written to BBRAM
- *         - XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED - User data locked for
- *							write.
+ * @return
+ * 		- XST_SUCCESS - successfully programmed data in BBRAM_8 register
+ *		- XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED - Failure since write is locked for the register
  *
  ******************************************************************************/
-int XNvm_BbramWriteUsrData(u32 UsrData)
+static int XNvm_BbramWriteBbram8(u32 Data)
 {
 	int Status = XST_FAILURE;
 	u32 LockStatus;
 	u32 ReadReg;
 
-    /**
+	/**
 	 * @{ Check for BBRAM Lock register for Lock.
-     *	  If it Locked then returns XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED
+	 *  If it Locked then returns XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED
 	 */
 	LockStatus = XNvm_BbramReadReg(XNVM_BBRAM_MSW_LOCK_REG);
-
 	if((LockStatus & XNVM_BBRAM_MSW_LOCK) == XNVM_BBRAM_MSW_LOCK) {
 		Status = (int)XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED;
 	}
 	else {
-
 		/**
-		 * 	Else writes User data to BBRAM and Return XST_SUCCESS
+		 * Writes provided data to BBRAM and returns XST_SUCCESS
 		 */
-		XNvm_BbramWriteReg(XNVM_BBRAM_8_REG, UsrData);
+		XNvm_BbramWriteReg(XNVM_BBRAM_8_REG, Data);
 		ReadReg = XNvm_BbramReadReg(XNVM_BBRAM_8_REG);
-		if (ReadReg == UsrData) {
+		if (ReadReg == Data) {
 			Status = XST_SUCCESS;
 		}
 	}
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	Writes user provided 32-bit data to BBRAM.
+ *
+ * @param	GeneralPurposeData - 32-bit user data to be written to BBRAM
+ *
+ * @return
+ * 		- XST_SUCCESS - User data written to BBRAM
+ * * 		- XNVM_BBRAM_INVALID_PARAM - Invalid input parameter
+ *		- XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED - Failure since write is locked for the register
+ *
+ * @note	Provisoning of general purpose data is allowed only
+ * 		if Symmetric/Asymeetric HWRoT boot is not enabled for Versal Gen 2 devices
+ *
+ ******************************************************************************/
+int XNvm_BbramWriteUsrData(u32 GeneralPurposeData)
+{
+	int Status = XST_FAILURE;
+#ifdef VERSAL_AIEPG2
+	u32 AHwRotState = Xil_In32(XNVM_RTCFG_SECURESTATE_AHWROT_ADDR);
+	u32 SHwRotState = Xil_In32(XNVM_RTCFG_SECURESTATE_SHWROT_ADDR);
+
+	if ((AHwRotState != XNVM_RTCFG_SECURESTATE_AHWROT) &&
+		(SHwRotState != XNVM_RTCFG_SECURESTATE_SHWROT)) {
+		Status = XNvm_BbramWriteBbram8(GeneralPurposeData);
+	}
+#else
+	Status = XNvm_BbramWriteBbram8(GeneralPurposeData);
+#endif
 
 	return Status;
 }
@@ -408,3 +459,75 @@ static int XNvm_BbramValidateAesKeyCrc(const u32* Key)
 END:
 	return Status;
 }
+
+#ifdef VERSAL_AIEPG2
+/******************************************************************************/
+/**
+ * @brief	This function provisions BBRAM_8 register with the parameters of
+ * 		configuration limiter.
+ * 		-------------------------------------------------------
+ *		| CL enable(31:30) | CL mode (29:28) | Counter (27:0) |
+ * 		-------------------------------------------------------
+ *
+ * 		CL enable indicates that the Configuration Limiter feature is
+ * 		enabled/disabled.
+ * 		CL mode indicates if the counter maintains the count of
+ * 		failed/total configurations.
+ * 		Counter indicates the counter of failed/total configurations
+ * 		depending on the CL mode.
+ *
+ * @param	ClEnFlag - Flag to indicate if the configuration limiter feature is enabled/disabled
+ * @param	ClMode - Flag to indicate if the counter maintains the count of failed/total
+ * 		configurations.
+ * @param	MaxNumOfConfigs - Value of maximum number of configurations(failed/total) which are
+ * 		allowed
+ *
+ * @return
+ * 		- XST_SUCCESS - Configuration parameters are written to BBRAM
+ * 		- XNVM_BBRAM_INVALID_PARAM - Invalid input parameter
+ *		- XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED - Failure since write is locked for the register
+ *
+ * @note	Provisoning of Configuration limiter parameters is allowed only
+ * 		in case of Symmetric/Asymeetric HWRoT boot.
+ *
+ ******************************************************************************/
+int XNvm_BbramWriteConfigLimiterParams(u32 ClEnFlag, u32 ClMode, u32 MaxNumOfConfigs)
+{
+	int Status = XST_FAILURE;
+	u32 AHwRotState = Xil_In32(XNVM_RTCFG_SECURESTATE_AHWROT_ADDR);
+	u32 SHwRotState = Xil_In32(XNVM_RTCFG_SECURESTATE_SHWROT_ADDR);
+	u32 ValToBeProvisioned;
+
+	if ((AHwRotState != XNVM_RTCFG_SECURESTATE_AHWROT) &&
+		(SHwRotState != XNVM_RTCFG_SECURESTATE_SHWROT)) {
+		Status = (int)XNVM_BBRAM_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((ClEnFlag != XNVM_BBRAM_CONFIG_LIMITER_DISABLED) &&
+		(ClEnFlag != XNVM_BBRAM_CONFIG_LIMITER_ENABLED)) {
+		Status = (int)XNVM_BBRAM_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((ClMode != XNVM_BBRAM_CONFIG_LIMITER_FAIL_CONFIGS_COUNT) &&
+		(ClMode != XNVM_BBRAM_CONFIG_LIMITER_TOTAL_CONFIGS_COUNT)) {
+		Status = (int)XNVM_BBRAM_INVALID_PARAM;
+		goto END;
+	}
+
+	if (MaxNumOfConfigs > XNVM_CL_MAX_COUNT_VAL) {
+		Status = (int)XNVM_BBRAM_INVALID_PARAM;
+		goto END;
+	}
+
+	ValToBeProvisioned = (ClEnFlag << XNVM_CL_ENABLE_SHIFT) | (ClMode << XNVM_CL_MODE_SHIFT);
+	ValToBeProvisioned = ValToBeProvisioned | MaxNumOfConfigs;
+
+	Status = XNvm_BbramWriteBbram8(ValToBeProvisioned);
+
+END:
+	return Status;
+
+}
+#endif

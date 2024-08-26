@@ -67,6 +67,16 @@ extern "C" {
 #define XNVM_EFUSE_ERROR_BYTE_SHIFT	(8U)
 #define XNVM_EFUSE_ERROR_NIBBLE_SHIFT	(4U)
 
+/**<
+ * BBRAM configuration limiter
+*/
+#define XNVM_BBRAM_CONFIG_LIMITER_DISABLED				(0x0U)
+#define XNVM_BBRAM_CONFIG_LIMITER_ENABLED				(0x3U)
+
+#define XNVM_BBRAM_CONFIG_LIMITER_FAIL_CONFIGS_COUNT			(0x0U)
+#define XNVM_BBRAM_CONFIG_LIMITER_TOTAL_CONFIGS_COUNT			(0x3U)
+
+
 /************************** Variable Definitions *****************************/
 #define XNVM_UDS_SIZE_IN_WORDS          (12U)
 #define XNVM_DME_USER_KEY_SIZE_IN_WORDS	(12U)
@@ -465,6 +475,9 @@ typedef enum {
 	XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS,
 	XNVM_API_ID_EFUSE_WRITE_UDS,
 	XNVM_API_ID_EFUSE_WRITE_DME_KEY,
+#ifdef VERSAL_AIEPG2
+	XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS,
+#endif
 	XNVM_API_MAX,
 } XNvm_ApiId;
 

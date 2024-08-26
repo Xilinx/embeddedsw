@@ -84,6 +84,9 @@ int XNvm_BbramCdoHandler(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_USER_DATA):
 	case XNVM_API(XNVM_API_ID_BBRAM_READ_USER_DATA):
 	case XNVM_API(XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA):
+#ifdef VERSAL_AIEPG2
+	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS):
+#endif
 		Status = XNvm_BbramCommonCdoHandler(Cmd);
 		break;
 	default:

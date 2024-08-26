@@ -56,6 +56,9 @@ static int XNvm_BbramClear(void);
 static int XNvm_BbramUsrDataWrite(u32 UsrData);
 static int XNvm_BbramUsrDataRead(u32 DstAddrLow, u32 DstAddrHigh);
 static int XNvm_BbramLockUsrData(void);
+#ifdef VERSAL_AIEPG2
+static int XNvm_BbramConfigLimiterParamsWrite(u32 ClEnFlag, u32 ClMode, u32 MaxNumOfConfigs);
+#endif
 
 /*************************** Function Definitions *****************************/
 
@@ -108,6 +111,11 @@ int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA):
 		Status = XNvm_BbramLockUsrData();
 		break;
+#ifdef VERSAL_AIEPG2
+	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS):
+		Status = XNvm_BbramConfigLimiterParamsWrite(Pload[0], Pload[1], Pload[2]);
+		break;
+#endif
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
@@ -240,4 +248,23 @@ static int XNvm_BbramLockUsrData(void)
 	return Status;
 }
 
-#endif
+#ifdef VERSAL_AIEPG2
+/*****************************************************************************/
+/**
+ * @brief       This function write configuration limiter params
+ *
+ * @return	- XST_SUCCESS - If the provisioning is successful
+ * 		- ErrorCode - If there is a failure
+ *
+ ******************************************************************************/
+static int XNvm_BbramConfigLimiterParamsWrite(u32 ClEnFlag, u32 ClMode, u32 MaxNumOfConfigs)
+{
+	volatile int Status = XST_FAILURE;
+
+	Status = XNvm_BbramWriteConfigLimiterParams(ClEnFlag, ClMode, MaxNumOfConfigs);
+
+	return Status;
+}
+#endif /* VERSAL_AIEPG2 */
+
+#endif /* PLM_NVM */

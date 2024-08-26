@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 3.1   skg  10/04/22 Added SlrIndex as part of payload based on user input
 *       skg  10/23/22 Added In body comments for APIs
 * 3.2   am   03/09/23 Replaced xnvm payload lengths with xmailbox payload lengths
+* 3.4   har  08/22/24 Added support for provisioning configuration limiter
 *
 * </pre>
 *
@@ -231,4 +232,51 @@ int XNvm_BbramLockUsrDataWrite(const XNvm_ClientInstance *InstancePtr)
 END:
 	return Status;
 }
+
+#ifdef VERSAL_AIEPG2
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function sends IPI request to provision the configuration limiter parameters
+ *
+ * @param	InstancePtr Pointer to the client instance
+ * @param	ClEnFlag - Flag to indicate if the configuration limiter feature is enabled/disabled
+ * @param	ClMode - Flag to indicate if the counter maintains the count of failed/total
+ * 		configurations.
+ * @param	MaxNumOfConfigs - Value of maximum number of configurations(failed/total) which are
+ * 		allowed
+ *
+ * @return
+ *		- XST_SUCCESS - If the provisioning is successful
+ *		- XST_FAILURE - If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_BbramWriteConfigLimiterParams(const XNvm_ClientInstance *InstancePtr, const u32 ClEnFlag,
+	const u32 ClMode, const u32 MaxNumOfConfigs)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
+
+	/**
+	 *  Performs input parameters validation. Return error code if input parameters are invalid
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) |
+		(u32)XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS));
+	Payload[1U] = ClEnFlag;
+	Payload[2U] = ClMode;
+	Payload[3U] = MaxNumOfConfigs;
+
+	/**
+	 *  Sends BBRAM_WRITE_CFG_LMT_PARAMS CDO command to PLM through IPI. Returns the response of BBRAM_WRITE_CFG_LMT_PARAMS status in PLM.
+	 */
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
+}
+#endif
 /*@}*/
