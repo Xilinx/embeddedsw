@@ -1,8 +1,7 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 /*****************************************************************************/
 /**
@@ -10,20 +9,14 @@
 * @file xsecure_sss.h
 *
 * This file contains macros and functions required for SSS configuration for
-* Versal
+* spartan ultrascale plus
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
-* 1.0   har     03/26/20 Initial Release
-* 4.2   har     03/26/20 Updated file version to sync with library version
-* 4.3   rpo     09/10/20 Changed the return type of some prototypes
-*       am      09/24/20 Resolved MISRA C violations
-*       har     10/12/20 Addressed security review comments
-*       bsv     10/19/20 Changed register writes to PMC SSS Cfg to mask writes
-* 5.0   bm      07/06/22 Refactor versal and versal_net code
+* 1.0   kpt     08/18/24 Initial Release
 *
 * </pre>
 * @endcond

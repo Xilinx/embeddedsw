@@ -55,6 +55,7 @@ examples:
     - supported_platforms:
       - Versal
       - VersalNet
+      - SPARTANUP
   xilsecure_versal_aes_server_example.c:
     - supported_platforms:
       - Versal

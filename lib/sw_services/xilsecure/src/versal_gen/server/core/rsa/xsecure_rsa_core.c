@@ -60,7 +60,6 @@
 #ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa.h"
 #include "xsecure_error.h"
-#include "xsecure_cryptochk.h"
 #include "xsecure_plat.h"
 
 /************************** Constant Definitions ****************************/

@@ -542,3 +542,110 @@ END:
 	XSecure_Out32(XSECURE_AES_KTE_GO_ADDRESS, XSECURE_AES_KTE_GO_DISABLE);
 	return Status;
 }
+
+/*******************************************************************************/
+/**
+ * @brief	This function validates the SHA Mode and initialize SHA instance.
+ *
+ * @param	InstancePtr - Pointer to the SHA instance.
+ * @param	ShaMode - SHA Mode.
+ *
+ * @return
+ *		XST_SUCCESS - Upon Success.
+ *		XST_FAILURE - Upon Failure.
+ *		XSECURE_SHA_INVALID_MODE_ERROR
+ ********************************************************************************/
+int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
+	XSecure_ShaMode ShaMode)
+{
+	volatile int Status = XST_FAILURE;
+
+	/** Initializes the SHA instance based on SHA Mode */
+	switch(ShaMode) {
+		/** SHA2-256 Mode */
+		case XSECURE_SHA2_256:
+			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA2_256_HASH_LEN;
+			InstancePtr->ShaMode = (u32)SHA256;
+			break;
+		/** SHA2-384 Mode */
+		case XSECURE_SHA2_384:
+			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA2_384_HASH_LEN;
+			InstancePtr->ShaMode = (u32)SHA384;
+			break;
+		/** SHA2-512 Mode */
+		case XSECURE_SHA2_512:
+            InstancePtr->ShaDigestSize = (u32)XSECURE_SHA_512_HASH_LEN;
+            InstancePtr->ShaMode = (u32)SHA512;
+            break;
+		/** SHA3-256 Mode */
+        case XSECURE_SHA3_256:
+            InstancePtr->ShaDigestSize = (u32)XSECURE_SHA3_256_HASH_LEN;
+            InstancePtr->ShaMode = (u32)SHA256;
+            break;
+		/** SHA3-384 Mode */
+		case XSECURE_SHA3_384:
+			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA3_384_HASH_LEN;
+			InstancePtr->ShaMode = (u32)SHA384;
+			break;
+		/** SHAKE-512 Mode */
+		case XSECURE_SHA3_512:
+			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA_512_HASH_LEN;
+			InstancePtr->ShaMode = (u32)SHA512;
+			break;
+		/** SHAKE-256 Mode */
+		case XSECURE_SHAKE_256:
+			InstancePtr->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
+			InstancePtr->ShaMode = SHAKE256;
+			break;
+		/** SHA invalid mode */
+		case XSECURE_SHA_INVALID_MODE:
+		default:
+			Status = (int)XSECURE_SHA_INVALID_PARAM;
+			break;
+	}
+
+	if (Status == XSECURE_SHA_INVALID_PARAM) {
+		goto END;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+END:
+	return Status;
+}
+
+/*******************************************************************************************/
+/**
+* @brief	This function transfer data to SHA engine from DMA
+*
+* @param    DmaPtr - Pointer to XPmcDma
+* @param    DataAddr - input data address
+* @param	Size - Input data size in words.
+* @param    IsLastUpdate - Last update
+*
+* @return
+*		XST_SUCCESS - Upon Success.
+*
+ *******************************************************************************************/
+int XSecure_ShaDmaXfer(XPmcDma *DmaPtr, u64 DataAddr, u32 Size, u8 IsLastUpdate)
+{
+	int Status = XST_FAILURE;
+
+	if (DmaPtr == NULL) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((IsLastUpdate != TRUE) && (IsLastUpdate != FALSE)) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+
+	XPmcDma_ByteAlignedTransfer(DmaPtr, XPMCDMA_SRC_CHANNEL, DataAddr,
+				(u32)Size, (u8)IsLastUpdate);
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}

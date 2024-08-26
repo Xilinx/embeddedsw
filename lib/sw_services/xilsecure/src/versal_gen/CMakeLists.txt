@@ -1,8 +1,10 @@
 # Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
-add_subdirectory(common)
-if("${XILSECURE_mode}" STREQUAL "server")
+if (NOT("${CMAKE_MACHINE}" STREQUAL "SPARTANUP"))
+  add_subdirectory(common)
+endif()
+if(("${XILSECURE_mode}" STREQUAL "server") OR ("${CMAKE_MACHINE}" STREQUAL "SPARTANUP"))
   add_subdirectory(server)
 else()
   add_subdirectory(client)

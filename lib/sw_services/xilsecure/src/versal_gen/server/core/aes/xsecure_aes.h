@@ -70,12 +70,6 @@ extern "C" {
  * @{
  */
 
-#define XSECURE_AES_KEY_DEC_SEL_BBRAM_RED		(0x0U)
-#define XSECURE_AES_KEY_DEC_SEL_BH_RED			(0x1U)
-#define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED		(0x2U)
-#define XSECURE_AES_KEY_DEC_SEL_EFUSE_USR0_RED		(0x3U)
-#define XSECURE_AES_KEY_DEC_SEL_EFUSE_USR1_RED		(0x4U)
-
 #define XSECURE_SECURE_GCM_TAG_SIZE			(16U)
 #define XSECURE_AES_KEY_SIZE_128BIT_WORDS		(4U)
 #define XSECURE_AES_KEY_SIZE_128BIT_BYTES		(16U)
@@ -84,35 +78,12 @@ extern "C" {
 
 #define XSECURE_AES_TIMEOUT_MAX				(0x1FFFFU)
 
-#define XSECURE_AES_INVALID_CFG				(0xFFFFFFFFU)
-
 #define XSECURE_AES_NO_CFG_DST_DMA			(0xFFFFFFFFU)
 
 #define XSECURE_AES_KEY_MASK_INDEX			(0xA0U)
 #define XSECURE_AES_DMA_SIZE				(16U)
 #define XSECURE_AES_DMA_LAST_WORD_ENABLE		(0x1U)
 #define XSECURE_AES_DMA_LAST_WORD_DISABLE		(0x0U)
-/* Key select values */
-#define XSECURE_AES_KEY_SEL_BBRAM_KEY			(0xBBDE6600U)
-#define XSECURE_AES_KEY_SEL_BBRAM_RD_KEY		(0xBBDE8200U)
-#define XSECURE_AES_KEY_SEL_BH_KEY			(0xBDB06600U)
-#define XSECURE_AES_KEY_SEL_BH_RD_KEY			(0xBDB08200U)
-#define XSECURE_AES_KEY_SEL_EFUSE_KEY			(0xEFDE6600U)
-#define XSECURE_AES_KEY_SEL_EFUSE_RED_KEY		(0xEFDE8200U)
-#define XSECURE_AES_KEY_SEL_EFUSE_USR_KEY0		(0xEF856601U)
-#define XSECURE_AES_KEY_SEL_EFUSE_USR_KEY1		(0xEF856602U)
-#define XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY0		(0xEF858201U)
-#define XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY1		(0xEF858202U)
-#define XSECURE_AES_KEY_SEL_KUP_KEY			(0xBDC98200U)
-#define XSECURE_AES_KEY_SEL_PUF_KEY			(0xDBDE8200U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_0			(0xBD858201U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_1			(0xBD858202U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_2			(0xBD858204U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_3			(0xBD858208U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_4			(0xBD858210U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_5			(0xBD858220U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_6			(0xBD858240U)
-#define XSECURE_AES_KEY_SEL_USR_KEY_7			(0xBD858280U)
 #define XSECURE_ENABLE_BYTE_SWAP		(0x1U)	/**< Enables data swap in AES */
 #define XSECURE_DISABLE_BYTE_SWAP		(0x0U)	/**< Disables data swap in AES */
 
@@ -124,33 +95,6 @@ extern "C" {
  */
 
 /**************************** Type Definitions *******************************/
-/** Used for selecting the Key source of AES Core. */
-typedef enum {
-	XSECURE_AES_BBRAM_KEY = 0,		/**< BBRAM Key */
-	XSECURE_AES_BBRAM_RED_KEY,		/**< BBRAM Red Key */
-	XSECURE_AES_BH_KEY,			/**< BH Key */
-	XSECURE_AES_BH_RED_KEY,			/**< BH Red Key */
-	XSECURE_AES_EFUSE_KEY,			/**< eFUSE Key */
-	XSECURE_AES_EFUSE_RED_KEY,		/**< eFUSE Red Key */
-	XSECURE_AES_EFUSE_USER_KEY_0,		/**< eFUSE User Key 0 */
-	XSECURE_AES_EFUSE_USER_KEY_1,		/**< eFUSE User Key 1 */
-	XSECURE_AES_EFUSE_USER_RED_KEY_0,	/**< eFUSE User Red Key 0 */
-	XSECURE_AES_EFUSE_USER_RED_KEY_1,	/**< eFUSE User Red Key 1 */
-	XSECURE_AES_KUP_KEY,			/**< KUP key */
-	XSECURE_AES_PUF_KEY,			/**< PUF key */
-	XSECURE_AES_USER_KEY_0,			/**< User Key 0 */
-	XSECURE_AES_USER_KEY_1,			/**< User Key 1 */
-	XSECURE_AES_USER_KEY_2,			/**< User Key 2 */
-	XSECURE_AES_USER_KEY_3,			/**< User Key 3 */
-	XSECURE_AES_USER_KEY_4,			/**< User Key 4 */
-	XSECURE_AES_USER_KEY_5,			/**< User Key 5 */
-	XSECURE_AES_USER_KEY_6,			/**< User Key 6 */
-	XSECURE_AES_USER_KEY_7,			/**< User Key 7 */
-	XSECURE_AES_EXPANDED_KEYS,		/**< Expanded keys */
-	XSECURE_AES_PUF_RED_EXPANDED_KEYS,	/**< AES PUF,RED,KUP keys */
-	XSECURE_AES_ALL_KEYS,			/**< AES All keys */
-	XSECURE_AES_INVALID_KEY,		/**< AES Invalid Key */
-} XSecure_AesKeySrc;
 
 /** Used for selecting the Key size of AES Core. */
 typedef enum {
@@ -194,6 +138,8 @@ typedef struct {
 	u32 IsEcbEn;           /**< ECB mode enable or disable */
 #endif
 } XSecure_Aes;
+
+extern const XSecure_AesKeyLookup AesKeyLookupTbl[XSECURE_MAX_KEY_SOURCES];
 
 /*****************************************************************************/
 /**
@@ -271,6 +217,9 @@ int XSecure_AesDpaCmDecryptData(const XSecure_Aes *AesInstance,
 	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr);
 
 void XSecure_AesSetDataContext(XSecure_Aes *InstancePtr);
+
+int XSecure_CfgSssAes(XPmcDma *DmaPtr, const XSecure_Sss *SssInstance);
+
 #ifdef __cplusplus
 }
 #endif

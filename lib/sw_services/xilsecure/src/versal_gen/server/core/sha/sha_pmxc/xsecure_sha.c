@@ -28,7 +28,6 @@
 #include "xsecure_error.h"
 #include "xsecure_utils.h"
 #include "xsecure_sha_hw.h"
-#include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -37,8 +36,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
-	XSecure_ShaMode ShaMode);
+
 static int XSecure_ShaWaitForDone(const XSecure_Sha *InstancePtr);
 
 /************************** Variable Definitions *****************************/
@@ -221,9 +219,18 @@ int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Si
 		goto END;
 	}
 
+	Status = XSecure_ValidateShaDataSize(Size);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+
 	/** Push Data to SHA2/3 engine. */
-	XPmcDma_ByteAlignedTransfer(InstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL, DataAddr,
+	Status = XSecure_ShaDmaXfer(InstancePtr->DmaPtr, DataAddr,
 				(u32)Size, (u8)InstancePtr->IsLastUpdate);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/** Wait for PMC DMA done bit to be set. */
 	Status = XPmcDma_WaitForDoneTimeout(InstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL);
@@ -436,24 +443,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to set the Data context bit of the
- * 		corresponding IPI channel if the previous data context is lost.
- *
- * @param	InstancePtr	Pointer to the XSecure_Sha instance
- *
- ******************************************************************************/
-void XSecure_ShaSetDataContext(XSecure_Sha *InstancePtr)
-{
-	if (InstancePtr->IsResourceBusy == (u32)XSECURE_RESOURCE_BUSY) {
-		InstancePtr->DataContextLost = XSECURE_SET_DATA_CONTEXT << InstancePtr->IpiMask;
-		InstancePtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
-		InstancePtr->PreviousShaIpiMask = InstancePtr->IpiMask;
-		InstancePtr->IpiMask = XSECURE_CLEAR_IPI_MASK;
-	}
-}
-
-/*****************************************************************************/
-/**
 * @brief	This function check whether hash calculation is completed or not.
 *
 * @param	InstancePtr - Pointer to the SHA instance.
@@ -469,75 +458,4 @@ static int XSecure_ShaWaitForDone(const XSecure_Sha *InstancePtr)
 			XSECURE_SHA_DONE_VALUE,
 			XSECURE_SHA_DONE_VALUE,
 			XSECURE_SHA_TIMEOUT_MAX);
-}
-
-/*******************************************************************************/
-/**
- * @brief	This function validates the SHA Mode and initialize SHA instance.
- *
- * @param	InstancePtr - Pointer to the SHA instance.
- * @param	ShaMode - SHA Mode.
- *
- * @return
- *		XST_SUCCESS - Upon Success.
- *		XST_FAILURE - Upon Failure.
- *		XSECURE_SHA_INVALID_MODE_ERROR
- ********************************************************************************/
-static int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
-	XSecure_ShaMode ShaMode)
-{
-	volatile int Status = XST_FAILURE;
-
-	/** Initializes the SHA instance based on SHA Mode */
-	switch(ShaMode) {
-		/** SHA2-256 Mode */
-		case XSECURE_SHA2_256:
-			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA2_256_HASH_LEN;
-			InstancePtr->ShaMode = (u32)SHA256;
-			break;
-		/** SHA2-384 Mode */
-		case XSECURE_SHA2_384:
-			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA2_384_HASH_LEN;
-			InstancePtr->ShaMode = (u32)SHA384;
-			break;
-		/** SHA2-512 Mode */
-		case XSECURE_SHA2_512:
-                        InstancePtr->ShaDigestSize = (u32)XSECURE_SHA_512_HASH_LEN;
-                        InstancePtr->ShaMode = (u32)SHA512;
-                        break;
-		/** SHA3-256 Mode */
-                case XSECURE_SHA3_256:
-                        InstancePtr->ShaDigestSize = (u32)XSECURE_SHA3_256_HASH_LEN;
-                        InstancePtr->ShaMode = (u32)SHA256;
-                        break;
-		/** SHA3-384 Mode */
-		case XSECURE_SHA3_384:
-			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA3_384_HASH_LEN;
-			InstancePtr->ShaMode = (u32)SHA384;
-			break;
-		/** SHAKE-512 Mode */
-		case XSECURE_SHA3_512:
-			InstancePtr->ShaDigestSize = (u32)XSECURE_SHA_512_HASH_LEN;
-			InstancePtr->ShaMode = (u32)SHA512;
-			break;
-		/** SHAKE-256 Mode */
-		case XSECURE_SHAKE_256:
-			InstancePtr->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
-			InstancePtr->ShaMode = SHAKE256;
-			break;
-		/** SHA invalid mode */
-		case XSECURE_SHA_INVALID_MODE:
-		default:
-			Status = (int)XSECURE_SHA_INVALID_PARAM;
-			break;
-	}
-
-	if (Status == XSECURE_SHA_INVALID_PARAM) {
-		goto END;
-	}
-	else {
-		Status = XST_SUCCESS;
-	}
-END:
-	return Status;
 }

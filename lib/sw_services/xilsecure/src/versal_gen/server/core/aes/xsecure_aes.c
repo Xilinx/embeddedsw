@@ -106,12 +106,8 @@
 #include "xsecure_aes_core_hw.h"
 #include "xil_util.h"
 #include "xsecure_error.h"
-#include "xsecure_cryptochk.h"
-#include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
-#define XSECURE_MAX_KEY_SOURCES			XSECURE_AES_EXPANDED_KEYS
-										/**< Max key source value */
 
 #define XSECURE_KEK_DEC_ENABLE			(0x1U)	/**< Triggers decryption operation
 											for black key */
@@ -126,16 +122,6 @@
 													data pushed in AES engine*/
 
 /**************************** Type Definitions *******************************/
-typedef struct {
-	u32 RegOffset;	/**< Register offset for key source */
-	u32 KeySrcSelVal;	/**< Selection value for key source */
-	u8  UsrWrAllowed;	/**< User write allowed or not for key source */
-	u8  DecAllowed;		/**< Decryption allowed or not for key source */
-	u8  EncAllowed;		/**< Encryption allowed or not for key source */
-	u8  KeyDecSrcAllowed;	/**< Key decryption source allowed */
-	u32 KeyDecSrcSelVal;	/**< Selection value for key decryption source*/
-	u32 KeyClearVal;	/**< Key source clear value*/
-} XSecure_AesKeyLookup;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Prototypes ******************************/
@@ -153,228 +139,6 @@ static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 static int XSecure_AesIvXfer(const XSecure_Aes *InstancePtr, u64 IvAddr);
 
 /************************** Variable Definitions *****************************/
-static const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
-{
-	/* BBRAM_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_BBRAM_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_INVALID_CFG
-	},
-
-	/* BBRAM_RED_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_BBRAM_RD_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_KEY_DEC_SEL_BBRAM_RED,
-	  XSECURE_AES_KEY_CLEAR_BBRAM_RED_KEY_MASK
-	},
-
-	/* BH_KEY */
-	{ XSECURE_AES_BH_KEY_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_BH_KEY,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_BH_KEY_MASK
-	},
-
-	/* BH_RED_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_BH_RD_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_KEY_DEC_SEL_BH_RED,
-	  XSECURE_AES_KEY_CLEAR_BH_RED_KEY_MASK
-	},
-
-	/* EFUSE_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_EFUSE_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_EFUSE_KEY_MASK
-	},
-
-	/* EFUSE_RED_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_EFUSE_RED_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_KEY_DEC_SEL_EFUSE_RED,
-	  XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_MASK
-	},
-
-	/* EFUSE_USER_KEY_0 */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_EFUSE_USR_KEY0,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_EFUSE_USER_KEY_0_MASK
-	},
-
-	/* EFUSE_USER_KEY_1 */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_EFUSE_USR_KEY1,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_EFUSE_USER_KEY_1_MASK
-	},
-
-	/* EFUSE_USER_RED_KEY_0 */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY0,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_KEY_DEC_SEL_EFUSE_USR0_RED,
-	  XSECURE_AES_KEY_CLEAR_EFUSE_USER_RED_KEY_0_MASK
-	},
-
-	/* EFUSE_USER_RED_KEY_1 */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY1,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_KEY_DEC_SEL_EFUSE_USR1_RED,
-	  XSECURE_AES_KEY_CLEAR_EFUSE_USER_RED_KEY_1_MASK
-	},
-
-	/* KUP_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_KUP_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK
-	},
-
-	/* PUF_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_PUF_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_PUF_KEY_MASK
-	},
-
-	/* USER_KEY_0 */
-	{ XSECURE_AES_USER_KEY_0_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_0,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_0_MASK
-	},
-
-	/* USER_KEY_1 */
-	{ XSECURE_AES_USER_KEY_1_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_1,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_1_MASK
-	},
-
-	/* USER_KEY_2 */
-	{ XSECURE_AES_USER_KEY_2_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_2,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_2_MASK
-	},
-
-	/* USER_KEY_3 */
-	{ XSECURE_AES_USER_KEY_3_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_3,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_3_MASK
-	},
-
-	/* USER_KEY_4 */
-	{ XSECURE_AES_USER_KEY_4_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_4,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_4_MASK
-	},
-
-	/* USER_KEY_5 */
-	{ XSECURE_AES_USER_KEY_5_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_5,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_5_MASK
-	},
-
-	/* USER_KEY_6 */
-	{ XSECURE_AES_USER_KEY_6_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_6,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_6_MASK
-	},
-
-	/* USER_KEY_7 */
-	{ XSECURE_AES_USER_KEY_7_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_7,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_7_MASK
-	}
-};
 
 /*****************************************************************************/
 /**
@@ -2098,18 +1862,7 @@ static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
 	int Status = XST_FAILURE;
 
 	/* Configure the SSS for AES. */
-#ifndef SDT
-	if (InstancePtr->PmcDmaPtr->Config.DeviceId == (u16)PMCDMA_0_DEVICE_ID) {
-#else
-	if (InstancePtr->PmcDmaPtr->Config.BaseAddress == PMCDMA_0_DEVICE_ID) {
-#endif
-		Status = XSecure_SssAes(&InstancePtr->SssInstance,
-				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);
-	}
-	else {
-		Status = XSecure_SssAes(&InstancePtr->SssInstance,
-				XSECURE_SSS_DMA1, XSECURE_SSS_DMA1);
-	}
+	Status = XSecure_CfgSssAes(InstancePtr->PmcDmaPtr, &InstancePtr->SssInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -2215,24 +1968,6 @@ static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 				XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 #endif
 	return Status;
-}
-/*****************************************************************************/
-/**
- * @brief	This function is used to set the Data context bit
- * 		of the corresponding IPI channel if the previous data context is lost.
- *
- * @param	InstancePtr		Pointer to the XSecure_Aes instance
- *
- *
- ******************************************************************************/
-void XSecure_AesSetDataContext(XSecure_Aes *InstancePtr) {
-
-	if (InstancePtr->IsResourceBusy == (u32)XSECURE_RESOURCE_BUSY) {
-		InstancePtr->DataContextLost = XSECURE_SET_DATA_CONTEXT << InstancePtr->IpiMask;
-		InstancePtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
-		InstancePtr->PreviousAesIpiMask = InstancePtr->IpiMask;
-		InstancePtr->IpiMask = XSECURE_CLEAR_IPI_MASK;
-	}
 }
 
 /*****************************************************************************/

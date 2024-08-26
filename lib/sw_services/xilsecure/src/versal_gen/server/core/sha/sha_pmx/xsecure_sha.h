@@ -126,8 +126,6 @@ int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 
 int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u32 DeviceId);
 
-void XSecure_Sha3SetDataContext(XSecure_Sha3 *InstancePtr);
-
 
 /* Initialization */
 int XSecure_ShaInitialize(XSecure_Sha *InstancePtr, XPmcDma *DmaPtr);

@@ -78,6 +78,11 @@ proc secure_drc {libhandle} {
 			file copy -force $entry "./src"
 		}
 
+		if {$mode != "server"} {
+			file delete -force ./src/xsecure_core.c
+			file delete -force ./src/xsecure_core.h
+		}
+
 		if {$mode == "server"} {
 			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/aes" *]] {
 				file copy -force $entry "./src"
