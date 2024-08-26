@@ -37,6 +37,7 @@
 *       dd   03/28/2023 Updated doxygen comments
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  07/30/2024 Fixed misrac violations
+*       kpt  08/26/2024 Changed XPLMI_SLV_EVENT_TIMEOUT timeout to two seconds
 *
 * </pre>
 *
@@ -155,7 +156,7 @@ enum SsitEventIndex {
 #define XPLMI_SSIT_ALL_SLAVE_SLRS_MASK	0xEU
 #define XPLMI_SSIT_ALL_SLRS_MASK		0xFU
 
-#define XPLMI_SLV_EVENT_TIMEOUT        (0x5000U)
+#define XPLMI_SLV_EVENT_TIMEOUT        (0x1E8480U) /**< Two seconds timeout for message events */
 #define XPLMI_SLR_INDEX_SHIFT          (6U)
 /**
  * @}
