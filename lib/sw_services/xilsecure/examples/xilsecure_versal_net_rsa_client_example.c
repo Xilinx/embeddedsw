@@ -69,8 +69,9 @@
 #include "xil_util.h"
 #include "xsecure_rsaclient.h"
 #include "xsecure_katclient.h"
+#ifndef VERSAL_AIEPG2
 #include "xsecure_plat_client.h"
-
+#endif
 /************************** Constant Definitions *****************************/
 #define XSECURE_RSA_SIZE		(512U)	/**< 512 bytes for 4096 bit data */
 #define XSECURE_RSA_SHARED_DATA_SIZE (XSECURE_RSA_SIZE + XSECURE_RSA_SIZE+\

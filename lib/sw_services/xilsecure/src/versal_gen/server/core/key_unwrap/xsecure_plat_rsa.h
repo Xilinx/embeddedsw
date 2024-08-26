@@ -57,6 +57,7 @@
 
 #include "xil_types.h"
 #include "xsecure_rsa_core.h"
+#include "xsecure_rsa_q.h"
 #include "xsecure_mgf.h"
 #include "Rsa.h"
 
@@ -66,13 +67,6 @@
 #define XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES (XSECURE_RSA_3072_SIZE_WORDS * 4U) /**< RSA default key size in bytes */
 #endif
 #define XSECURE_RSA_KEY_GEN_SIZE_IN_WORDS (XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES / 4U) /**< RSA key generation size in words */
-#define XSECURE_ECDSA_RSA_SOFT_RESET		(0xF1200040U) /**< ECDSA/RSA soft reset address */
-#define XSECURE_RSA_SIZE_IN_BYTES		(512U)	      /**< 512 bytes for 4096 bit data */
-#define XSECURE_PRIME_FACTOR_P_SIZE	(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES >> 1U)  /**< size of first prime factor(P) */
-#define XSECURE_PRIME_FACTOR_Q_SIZE	(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES >> 1U)  /**< size of first prime factor(Q) */
-#define XSECURE_PRIME_FACTOR_MAX_P_SIZE (XSECURE_RSA_SIZE_IN_BYTES >> 1U)      /**< 256 bytes size of first prime factor(P) */
-#define XSECURE_PRIME_FACTOR_MAX_Q_SIZE (XSECURE_RSA_SIZE_IN_BYTES >> 1U)      /**< 256 bytes size of first prime factor(Q) */
-
 #define XSECURE_RSA_MAX_KEY_GEN_SUPPORT	(2U) /**< Maximum keys that needs to be generated */
 #define XSECURE_RSA_KEY_STATUS_WAIT     (1U)          /**< RSA key status wait */
 #define XSECURE_RSA_2048_QUANT_SIZE  	(5U)          /**< RSA maximum quant size for 2048 bit key */
@@ -82,6 +76,12 @@
 #define XSECURE_RSA_PUBLIC_EXPONENT		(0x10001U)    /**< RSA public exponent value */
 #define XSECURE_RSA_PUB_EXP_SIZE		(4U)          /**< RSA public exponent size */
 #define XSECURE_KEY_PAIR_GEN_POLL_INTERVAL (100U) /**< Key pair generation poll interval */
+#define XSECURE_ECDSA_RSA_SOFT_RESET            (0xF1200040U) /**< ECDSA/RSA soft reset address */
+#define XSECURE_RSA_SIZE_IN_BYTES		(512U)	      /**< 512 bytes for 4096 bit data */
+#define XSECURE_PRIME_FACTOR_P_SIZE	(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES >> 1U)  /**< size of first prime factor(P) */
+#define XSECURE_PRIME_FACTOR_Q_SIZE	(XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES >> 1U)  /**< size of first prime factor(Q) */
+#define XSECURE_PRIME_FACTOR_MAX_P_SIZE (XSECURE_RSA_SIZE_IN_BYTES >> 1U)      /**< 256 bytes size of first prime factor(P) */
+#define XSECURE_PRIME_FACTOR_MAX_Q_SIZE (XSECURE_RSA_SIZE_IN_BYTES >> 1U)      /**< 256 bytes size of first prime factor(Q) */
 
 /***************************** Type Definitions ******************************/
 typedef RsaKeyPair XSecure_RsaKeyPtr;
@@ -124,21 +124,6 @@ typedef struct {
 } XSecure_RsaKey;
 
 typedef struct {
-	u8 InData[XSECURE_RSA_SIZE_IN_BYTES];  /**< Input data */
-	u8 Exp[XSECURE_RSA_SIZE_IN_BYTES];     /**< Exponent */
-	u8 Mod[XSECURE_RSA_SIZE_IN_BYTES];     /**< Modulus */
-	u8 P[XSECURE_PRIME_FACTOR_MAX_P_SIZE];     /**< Prime1 */
-	u8 Q[XSECURE_PRIME_FACTOR_MAX_Q_SIZE];     /**< Prime2 */
-	u8 DP[XSECURE_PRIME_FACTOR_MAX_P_SIZE];     /**< Prime1 */
-	u8 DQ[XSECURE_PRIME_FACTOR_MAX_Q_SIZE];     /**< Prime2 */
-	u8 QInv[XSECURE_PRIME_FACTOR_MAX_P_SIZE];   /**< Q inverse */
-	u8 Tot[XSECURE_RSA_SIZE_IN_BYTES];     /**< Totient */
-	u8 RN[XSECURE_RSA_SIZE_IN_BYTES];     /**< Precalculated modulus */
-	u8 RRN[XSECURE_RSA_SIZE_IN_BYTES];     /**< Precalculated modulus */
-	u32 PubExp;                            /**< Public Exponent */
-} XSecure_RsaOperationParam;
-
-typedef struct {
 	u8 Mod[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES];          /**< Modulus */
 	u32 PubExp[XSECURE_RSA_KEY_GEN_SIZE_IN_WORDS]; /**< Public exponent */
 } XSecure_RsaPubKey;
@@ -173,12 +158,6 @@ typedef struct {
 
 int XSecure_RsaOaepEncrypt(XSecure_Rsa *InstancePtr, XSecure_RsaOaepParam *OaepParam);
 int XSecure_RsaOaepDecrypt(XSecure_RsaPrivKey *PrivKey, XSecure_RsaOaepParam *OaepParam);
-int XSecure_RsaExpCRT(u8 *Hash, u8 *P, u8 *Q, u8 *Dp, u8 *Dq, u8 *Qinv, u8 *Pub,
-	u8 *Mod, int Len, u8 *Res);
-int XSecure_RsaExp(u8 *Hash, u8 *Exp, u8 *Mod, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
-	int Len, u8 *Res);
-int XSecure_RsaExpopt(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
-	int Len, u8 *Res);
 XSecure_RsaPrivKey* XSecure_GetRsaPrivateKey(u32 RsaIdx);
 XSecure_RsaPubKey* XSecure_GetRsaPublicKey(u32 RsaIdx);
 /**< API to retrieve RSA KEY in use index */

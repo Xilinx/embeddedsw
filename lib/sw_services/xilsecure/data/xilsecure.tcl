@@ -135,6 +135,9 @@ proc secure_drc {libhandle} {
 				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/key_unwrap" *]] {
 					file copy -force $entry "./src"
 				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/rsa/rsa_qmode" *]] {
+					file copy -force $entry "./src"
+				}
 				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/trng" *]] {
 					file copy -force $entry "./src"
 				}
@@ -159,6 +162,9 @@ proc secure_drc {libhandle} {
 					file copy -force $entry "./src"
 				}
 				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/key_zeroize" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/rsa/rsa_qmode" *]] {
 					file copy -force $entry "./src"
 				}
 				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/trng" *]] {
