@@ -177,6 +177,7 @@ class Domain(Repo):
             "pmu": ("microblaze-pmu", "", "microblaze"),
             "pmc": ("microblaze-plm", "", "microblaze"),
             "psm": ("microblaze-psm", "", "microblaze"),
+            "asu": ("microblaze_riscv", "", "microblaze"),
             "microblaze_riscv": ("microblaze_riscv", "", "microblaze_riscv"),
             "microblaze": ("microblaze", "", "microblaze"),
         }
@@ -204,15 +205,22 @@ class Domain(Repo):
                 utils.copy_file(specs_file, specs_copy_file)
                 break
 
-        if self.proc in ["psx_pmc_0", "psx_psm_0", "pmc_0"]:
-            utils.replace_line(
-                toolchain_file_copy,
-                'CMAKE_MACHINE "Versal',
-                '''
+        if self.proc in ["psx_pmc_0", "psx_psm_0", "pmc_0", "asu"]:
+            updated_string = '''
 set( CMAKE_MACHINE "VersalNet" CACHE STRING "cmake machine" FORCE)
 set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
-                '''
-                )
+'''
+            if self.proc == "asu":
+                utils.add_newline(
+                    toolchain_file_copy,
+                    updated_string
+                    )
+            else:
+                utils.replace_line(
+                    toolchain_file_copy,
+                    'CMAKE_MACHINE "Versal',
+                    updated_string
+                    )
 
         if "r5" in self.proc and "ZynqMP" in self.family:
             utils.replace_line(
@@ -274,8 +282,8 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
         else:
             out_dts_path = self.sdt
 
-        if "microblaze_riscv" in self.proc_ip_name or "microblaze" in self.proc_ip_name:
-            if "microblaze_riscv" in self.proc_ip_name:
+        if self.proc_ip_name in ["microblaze", "microblaze_riscv", "asu"]:
+            if self.proc_ip_name in ["microblaze_riscv", "asu"] :
                 lops_file = os.path.join(self.lops_dir, "lop-microblaze-riscv.dts")
                 processor = "riscv"
             else:
@@ -297,7 +305,7 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                 f'set( CMAKE_HW_FLAGS "{cflags}" )\n',
             )
 
-            if "microblaze_riscv" in self.proc_ip_name:
+            if self.proc_ip_name in ["microblaze_riscv", "asu"]:
                 bsp_linkflags = avail_cflag_data.get("linkflags")
                 utils.replace_line(
                     toolchain_file_copy,
