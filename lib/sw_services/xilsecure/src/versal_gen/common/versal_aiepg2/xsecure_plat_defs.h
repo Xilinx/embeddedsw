@@ -49,8 +49,33 @@ extern "C" {
 #define XSECURE_KEY_ID_LEN_IN_BYTES (128U) /**< Key id length in bytes */
 
 /************************** Variable Definitions *****************************/
+typedef enum {
+	XSECURE_RSA_EXPQ_MODE = 0, /**< RSA EXPQ mode */
+	XSECURE_RSA_CRT_MODE,      /**< RSA CRT mode */
+	XSECURE_RSA_EXPOPT_MODE    /**< RSA expopt mode */
+} XSecure_RsaOperationMode;
 
-/**************************** Type Definitions *******************************/
+typedef struct {
+	u64 ExpAddr;		/**< Exponent address */
+	u64 ModAddr;		/**< Modulus address */
+	u64 PAddr;			/**< First factor address */
+	u64 QAddr;			/**< Second factor address */
+	u64 DPAddr;			/**< Private exponent 1 */
+	u64 DQAddr;			/**< Private exponent 2 */
+	u64 QInvAddr;		/**< Q inverse address */
+	u64 TotAddr;		/**< Totient address */
+	u64 RNAddr;			/**< R address */
+	u64 RRNAddr;		/**< RR address */
+	u32 PSize;			/**< Size of first factor(P) in bytes */
+	u32 QSize;			/**< Size of first factor(Q) in bytes */
+	u32 PubExp;			/**< Public exponent */
+	u32 IsPrimeAvail;	/**< Prime number available */
+	u32 IsPrivExpAvail; /**< Private exponent available i.e. DP and DQ */
+	u32 IsTotAvail;		/**< Totient Available */
+	u32 IsPubExpAvail;	/**< Public exponent available */
+	XSecure_RsaOperationMode OpMode; /**< RSA operation mode */
+} XSecure_RsaKeyParam;
+
 /**< XilSecure API ids */
 typedef enum {
 	XSECURE_API_FEATURES = 0U,		/**< 0U */

@@ -252,7 +252,8 @@ typedef enum {
 	XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED, /**< 0xF4 - Crypto Accelerators are disabled */
 	XSECURE_ERR_KAT_NOT_EXECUTED,		    /**< 0xF5 - Error when KAT is not executed when
 							crypto kat efuse bit is enabled */
-	XSECURE_ERR_ASU_KTE_DONE_NOT_SET,	/**< 0xF6 - Error in Key Transfer to ASU */
+	XSECURE_RSA_GEN_SIGN_FAILED_ERROR,    /**< 0xF6 - Error when RSA sign generation is failed */
+	XSECURE_ERR_ASU_KTE_DONE_NOT_SET,	/**< 0xF7 - Error in Key Transfer to ASU */
 } XSecure_ErrorCodes;
 
 #define XSECURE_SHA3_KAT_FAILED_ERROR		XSECURE_SHA_KAT_FAILED_ERROR

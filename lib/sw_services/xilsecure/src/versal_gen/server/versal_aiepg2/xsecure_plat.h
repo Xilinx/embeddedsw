@@ -199,7 +199,7 @@ int XSecure_TrngInitNCfgHrngMode(void);
 XTrngpsx_Instance *XSecure_GetTrngInstance(void);
 int XSecure_InitiateASUKeyTransfer(void);
 int XSecure_ShaDmaXfer(XPmcDma *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
-
+int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length);
 /***************************** Variable Prototypes  ***************************/
 
 #ifdef __cplusplus

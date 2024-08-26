@@ -80,7 +80,7 @@
 #include "xil_util.h"
 #include "xsecure_rsaclient.h"
 #include "xsecure_katclient.h"
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET) && !defined(VERSAL_AIEPG2)
 #include "xsecure_plat_client.h"
 #endif
 
@@ -90,10 +90,9 @@
 									XSECURE_RSA_SIZE + XSECURE_RSA_SIZE)
 #define XSECURE_SHARED_BUF_SIZE		(XSECURE_SHARED_MEM_SIZE +\
 						XSECURE_RSA_SHARED_DATA_SIZE)
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
 #define XSECURE_PRIME_FACTOR_P_SIZE	(256U)  /**< 256 bytes size of first prime factor(P) */
 #define XSECURE_PRIME_FACTOR_Q_SIZE	(256U)  /**< 256 bytes size of first prime factor(Q) */
-
 /**************************** Type Definitions *******************************/
 
 static const u8 P[XSECURE_PRIME_FACTOR_P_SIZE] = {
@@ -503,7 +502,7 @@ static const u32 PublicExp = 0x1000100;
 /************************** Function Prototypes ******************************/
 
 static u32 SecureRsaExample(void);
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
 void ReverseArr(u8 *Arr, u8 *dst, u32 Size);
 #endif
 
@@ -514,7 +513,7 @@ static u32 Size = XSECURE_RSA_SIZE;
 /* shared memory allocation */
 static u8 SharedMem[XSECURE_SHARED_BUF_SIZE] __attribute__((aligned(64U)))
 										__attribute__ ((section (".data.SharedMem")));
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
 XSecure_RsaKeyParam RsaKeyParam __attribute__((aligned(64U))) __attribute__ ((section (".data.RsaKeyParam")));
 #endif
 
@@ -579,7 +578,7 @@ static u32 SecureRsaExample(void)
 	u32 Index;
 	XMailbox MailboxInstance;
 	XSecure_ClientInstance SecureClientInstance;
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
 
 	Xil_DCacheFlushRange((UINTPTR)Data, XSECURE_RSA_SIZE);
 	Xil_DCacheFlushRange((UINTPTR)Modulus, XSECURE_RSA_SIZE);
@@ -635,7 +634,7 @@ static u32 SecureRsaExample(void)
 
 	Xil_DCacheFlushRange((UINTPTR)Key, XSECURE_RSA_SIZE);
 
-#ifndef VERSAL_NET
+#if !defined(VERSAL_NET) && !defined(VERSAL_AIEPG2)
 	Status = Xil_SMemCpy(Key + XSECURE_RSA_SIZE, XSECURE_RSA_SIZE, PrivateExp,
 			XSECURE_RSA_SIZE, XSECURE_RSA_SIZE);
 	if (Status != XST_SUCCESS) {

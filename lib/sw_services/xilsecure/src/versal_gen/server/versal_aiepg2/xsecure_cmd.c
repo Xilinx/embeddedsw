@@ -193,6 +193,9 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
 		Status = XSecure_RsaIpiHandler(Cmd);
 		break;
+	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
+		Status = XSecure_PlatIpiHandler(Cmd);
+		break;
 #endif
 #ifndef PLM_ECDSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):

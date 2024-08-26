@@ -649,3 +649,36 @@ int XSecure_ShaDmaXfer(XPmcDma *DmaPtr, u64 DataAddr, u32 Size, u8 IsLastUpdate)
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function can copy the content of memory from 64-bit address
+ *          to 32-bit address and change endianness of destination data
+ *
+ * @param	DestAddress is the address of the destination where content of
+ * 			SrcAddr memory should be copied.
+ *
+ * @param	SrcAddress is the address of the source where copy should
+ * 			start from.
+ *
+ * @param	Length is size of memory to be copied in bytes.
+ *
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length)
+{
+	volatile int Status = XST_FAILURE;
+	u8 *Buf = (u8*)(UINTPTR)DestAddress;
+
+	Status = XPlmi_MemCpy64(DestAddress, SrcAddress, Length);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xil_SReverseData(Buf, Length);
+
+END:
+	return Status;
+}

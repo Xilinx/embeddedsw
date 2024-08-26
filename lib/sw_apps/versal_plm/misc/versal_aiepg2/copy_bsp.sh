@@ -128,6 +128,7 @@ cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/hmac/* $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/softsha2-384/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/ecc_keypair/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/key_zeroize/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/rsa/rsa_qmode/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/core/trng/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/versal_gen/common/versal_aiepg2/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/versal_gen/server/versal_aiepg2/* $BSP_DIR/libsrc/xilsecure/src/
