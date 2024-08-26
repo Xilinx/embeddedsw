@@ -18,6 +18,8 @@
 
 #cmakedefine versal @versal@
 #cmakedefine VERSAL @VERSAL@
+#cmakedefine VERSAL_NET @VERSAL_NET@
+#cmakedefine VERSAL_AIEPG2 @VERSAL_AIEPG2@
 #cmakedefine PSU_PMU @PSU_PMU@
 #cmakedefine PLATFORM_ZYNQMP @PLATFORM_ZYNQMP@
 #cmakedefine PLATFORM_ZYNQ @PLATFORM_ZYNQ@
