@@ -98,10 +98,10 @@ cp -r $SERVICES_DIR/xilpm/src/versal_common/common/* $BSP_DIR/libsrc/xilpm/src/
 
 mkdir -p $BSP_DIR/libsrc/xilnvm/src
 cp -r $SERVICES_DIR/xilnvm/src/Makefile $BSP_DIR/libsrc/xilnvm/src
-cp -r $SERVICES_DIR/xilnvm/src/versal_net/common/* $BSP_DIR/libsrc/xilnvm/src/
-cp -r $SERVICES_DIR/xilnvm/src/versal_net/server/* $BSP_DIR/libsrc/xilnvm/src/
-cp -r $SERVICES_DIR/xilnvm/src/common/server/* $BSP_DIR/libsrc/xilnvm/src/
-cp -r $SERVICES_DIR/xilnvm/src/common/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $SERVICES_DIR/xilnvm/src/versal_gen/versal_net/common/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $SERVICES_DIR/xilnvm/src/versal_gen/versal_net/server/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $SERVICES_DIR/xilnvm/src/versal_gen/common/server/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $SERVICES_DIR/xilnvm/src/versal_gen/common/* $BSP_DIR/libsrc/xilnvm/src/
 cp $BSP_DIR/libsrc/xilnvm/src/*.h $BSP_DIR/include/
 
 mkdir -p $BSP_DIR/libsrc/xilocp/src

@@ -27,9 +27,9 @@ proc nvm_drc {libhandle} {
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
 
-	set versal_dir "./src/versal"
-	set versal_net_dir    "./src/versal_net"
-	set versal_family_dir "./src/common"
+	set versal_dir "./src/versal_gen/versal"
+	set versal_net_dir    "./src/versal_gen/versal_net"
+	set versal_family_dir "./src/versal_gen/common"
 
 	set versal_client_dir "$versal_dir/client"
 	set versal_server_dir "$versal_dir/server"
