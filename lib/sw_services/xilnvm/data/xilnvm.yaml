@@ -15,7 +15,7 @@ type: library
 
 version: 3.3
 
-description: Xilinx NVM Library provides interface to accessing eFUSE and BBRAM of Versal.
+description: Xilinx NVM Library provides interface to accessing eFUSE and BBRAM.
 
 supported_processors:
   - psv_pmc
@@ -58,4 +58,9 @@ examples:
       - Versal
     - dependency_files:
       - xilnvm_efuse_versal_input.h
+  xilnvm_efuse_spartan_ultrascale_plus_example.c:
+    - supported_platforms:
+      - SPARTANUP
+    - dependency_files:
+      - xilnvm_efuse_spartan_ultrascale_plus_input.h
 ...

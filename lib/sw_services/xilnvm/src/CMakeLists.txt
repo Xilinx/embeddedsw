@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -8,16 +8,15 @@ find_package(common)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/xilnvm.cmake NO_POLICY_SCOPE)
 
-include_directories(${CMAKE_BINARY_DIR}/include)
-
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 
-add_subdirectory(common)
-if("${CMAKE_MACHINE}" STREQUAL "Versal")
-  add_subdirectory(versal)
-elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
-  add_subdirectory(versal_net)
+include_directories(${CMAKE_BINARY_DIR}/include)
+
+if("${CMAKE_MACHINE}" STREQUAL "Versal" OR "${CMAKE_MACHINE}" STREQUAL "VersalNet")
+  add_subdirectory(versal_gen)
+elseif(("${CMAKE_MACHINE}" STREQUAL "SPARTANUP") AND ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
+  add_subdirectory(spartanup)
 endif()
 
 collector_list (_sources PROJECT_LIB_SOURCES)
