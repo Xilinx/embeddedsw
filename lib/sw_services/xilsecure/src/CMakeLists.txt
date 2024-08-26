@@ -14,7 +14,7 @@ collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(${CMAKE_BINARY_DIR}/include)
 
 if(("${XILSECURE_mode}" STREQUAL "server") AND
-   (("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR
+   ((("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") AND (NOT("${CMAKE_MACHINE}" STREQUAL "SPARTANUP"))) OR
    (("${CMAKE_MACHINE}" STREQUAL "VersalNet") AND (NOT ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze"))))
   )
   message(FATAL_ERROR "XilSecure library is not supported for selected ${CMAKE_SYSTEM_PROCESSOR} processor in ${XILSECURE_mode} mode")
@@ -26,9 +26,15 @@ if(("${XILSECURE_mode}" STREQUAL "client") AND
 endif()
 
 collect (PROJECT_LIB_HEADERS xsecure_ver.h)
-if("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
+
+if(("${CMAKE_MACHINE}" STREQUAL "Versal") OR
+	("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
+  add_subdirectory(versal_gen)
+elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
   add_subdirectory(zynqmp)
-else ()
+elseif (("${CMAKE_MACHINE}" STREQUAL "SPARTANUP") AND
+  ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
+  add_subdirectory(spartanup)
   add_subdirectory(versal_gen)
 endif()
 
@@ -46,7 +52,12 @@ add_library(xilsecure STATIC ${_sources})
 get_headers(${_headers})
 
 set_target_properties(xilsecure PROPERTIES LINKER_LANGUAGE C)
-set_target_properties(xilsecure PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilsecure.a;${CMAKE_INCLUDE_PATH}/xsecure_config.h;${CMAKE_LIBRARY_PATH}/libxilsecure_plat.a;${clean_headers}")
+
+if (("${CMAKE_MACHINE}" STREQUAL "SPARTANUP") AND ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
+  set_target_properties(xilsecure PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilsecure.a;${CMAKE_INCLUDE_PATH}/xsecure_config.h;${clean_headers}")
+else()
+  set_target_properties(xilsecure PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilsecure.a;${CMAKE_INCLUDE_PATH}/xsecure_config.h;${CMAKE_LIBRARY_PATH}/libxilsecure_plat.a;${clean_headers}")
+endif()
 
 install(TARGETS xilsecure LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})
 install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION ${CMAKE_INCLUDE_PATH}/..)

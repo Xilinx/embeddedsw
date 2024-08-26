@@ -64,9 +64,7 @@
 #include "xil_assert.h"
 #include "xsecure_sha.h"
 #include "xil_util.h"
-#include "xsecure_cryptochk.h"
 #include "xsecure_plat.h"
-#include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_SHA3_START_NIST_PADDING_MASK		(0x06U)
@@ -761,24 +759,6 @@ int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u32 DeviceId) {
 END:
 	return Status;
 }
-/*****************************************************************************/
-/**
- * @brief	This function is used to set the Data context bit
- * 		of the corresponding IPI channel if the previous data context is lost.
- *
- * @param	InstancePtr		Pointer to the XSecure_Sha3 instance
- *
- *
- ******************************************************************************/
-void XSecure_Sha3SetDataContext(XSecure_Sha3 *InstancePtr) {
-
-	if (InstancePtr->IsResourceBusy == (u32)XSECURE_RESOURCE_BUSY) {
-		InstancePtr->DataContextLost = XSECURE_SET_DATA_CONTEXT << InstancePtr->IpiMask;
-		InstancePtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
-		InstancePtr->PreviousShaIpiMask = InstancePtr->IpiMask;
-		InstancePtr->IpiMask = XSECURE_CLEAR_IPI_MASK;
-	}
-}
 
 /****************************************************************************/
 /**
@@ -927,17 +907,4 @@ int XSecure_ShaDigest(XSecure_Sha *InstancePtr, XSecure_ShaMode Mode,
 int XSecure_ShaLookupConfig(XSecure_Sha *InstancePtr, u32 DeviceId)
 {
 	return XSecure_Sha3LookupConfig(InstancePtr, DeviceId);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function is used to set the Data context bit
- * 		of the corresponding IPI channel if the previous data context is lost.
- *
- * @param	InstancePtr	Pointer to the void instance
- *
- ******************************************************************************/
-void XSecure_ShaSetDataContext(XSecure_Sha *InstancePtr)
-{
-	XSecure_Sha3SetDataContext(InstancePtr);
 }

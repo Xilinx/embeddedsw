@@ -37,12 +37,17 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xsecure_sha_hw.h"
 #include "xsecure_error.h"
+#include "xsecure_aes_core_hw.h"
 #include "xpmcdma.h"
 #include "xtrngpsx.h"
 #include "xsecure_plat_defs.h"
 #include "xsecure_trng.h"
+#include "xsecure_core.h"
 
 /************************** Constant Definitions ****************************/
+
+#define XSECURE_SSS_ADDRESS		(0xF1110500U) /**< SSS base address */
+
 #define XSECURE_SSS_MAX_SRCS	(8U)	/**< Maximum resources */
 
 #define XSECURE_SSS_SHA3_MASK		(0xF0000U) /**<SSS SHA3 instance mask value*/
@@ -77,6 +82,7 @@ extern "C" {
 #define XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF XTRNGPSX_USER_CFG_REP_TEST_CUTOFF
 								/**< Rep test cutoff */
 #endif
+
 #define XSECURE_AES_KTE_GO_ADDRESS		(0xF11E0234U)	/**< AES KTE GO address */
 #define XSECURE_AES_KTE_RESTART_ADDRESS		(0xF11E0238U)	/**< AES Key Transfer Engine Restart register */
 #define XSECURE_AES_KTE_DONE_ADDRESS		(0xF11E023CU)	/**< AES Key Transfer Engine Done */
@@ -86,7 +92,44 @@ extern "C" {
 #define XSECURE_AES_KTE_DONE_MASK		(0x1U) 		/**< AES Key Transfer Engine Done mask */
 #define XSECURE_AES_KTE_CNT_MASK		(0x6U)		/**< AES Key Transfer Engine Count value */
 #define XSECURE_AES_KTE_DONE_POLL_TIMEOUT	(4000U)		/**< AES Key Transfer complete poll timeout */
+
+#define XSECURE_SSS_SBI_MASK	(0xF00000U)
+#define XSECURE_SSS_AES_MASK	(0xF000U)
+#define XSECURE_SSS_DMA1_MASK	(0xF0U)
+#define XSECURE_SSS_DMA0_MASK	(0xFU)
+#define XSECURE_SSS_SRC_SEL_MASK	(0xFU)
+#define XSECURE_SSS_SBI_DMA0_VAL	(0x500000U)
+#define XSECURE_SSS_SBI_DMA1_VAL	(0xB00000U)
+#define XSECURE_SSS_AES_DMA0_VAL	(0xE000U)
+#define XSECURE_SSS_AES_DMA1_VAL	(0x5000U)
+
+#define XCSUDMA_WORD_SIZE			(4U)	/**< WORD size */
+#define XSECURE_SHA_512_HASH_LEN		(64U) /**< SHA_512 block length */
+#define XSECURE_SHA3_256_HASH_LEN		(32U) /**< SHA3_256 block length */
+#define XSECURE_SHA2_256_BLOCK_LEN		(64U) /**< SHA2_256 block length */
+#define XSECURE_SHA3_BLOCK_LEN			(104U)/**< SHA3 block length */
+#define XSECURE_SHA2_384_BLOCK_LEN		(128U)/**< SHA2_384 block length */
+#define XSECURE_SHAKE_256_BLOCK_LEN		(136U)/**< SHAKE_256 block length */
+#define XSECURE_SHA3_384_HASH_LEN		(48U) /**< SHA3_384 hash length */
+#define XSECURE_SHA2_384_HASH_LEN		(48U) /**< SHA2_384 hash length */
+#define XSECURE_SHAKE_256_HASH_LEN		(32U) /**< SHAKE_256 hash length */
+#define XSECURE_SHA2_256_HASH_LEN		(32U) /**< SHA2_256 hash length */
+#define XSECURE_SHA3_384_HASH_WORD_LEN		(XSECURE_SHA3_384_HASH_LEN / XCSUDMA_WORD_SIZE)
+							/**< SHA3_384 hash word length */
+#define XSECURE_SHA2_384_HASH_WORD_LEN		(XSECURE_SHA2_384_HASH_LEN / XCSUDMA_WORD_SIZE)
+							/**< SHA2_384 hash word length */
+#define XSECURE_SHAKE_256_HASH_WORD_LEN		(XSECURE_SHAKE_256_HASH_LEN / XCSUDMA_WORD_SIZE)
+							/**< SHAKE_256 hash word length */
+#define XSECURE_SHA2_256_HASH_WORD_LEN		(XSECURE_SHA2_256_HASH_LEN / XCSUDMA_WORD_SIZE)
+							/**< SHA2_256 hash word length */
+
+#define SHA256					(0U) /** SHA256 mode */
+#define SHA384					(1U) /** SHA384 mode */
+#define SHA512					(2U) /** SHA512 mode */
+#define SHAKE256				(4U) /** SHAKE256 mode */
+
 /***************************** Type Definitions******************************/
+
 /*
  * Sources to be selected to configure secure stream switch.
  * XSECURE_SSS__IGNORE is added to make enum type int
@@ -113,6 +156,34 @@ typedef struct {
 	u8 IsLastChunkDest;     /**< Flag for last update in destination */
 }XSecure_AesDmaCfg;
 
+typedef struct {
+	u32 RegOffset;	/**< Register offset for key source */
+	u32 KeySrcSelVal;	/**< Selection value for key source */
+	u8  UsrWrAllowed;	/**< User write allowed or not for key source */
+	u8  DecAllowed;		/**< Decryption allowed or not for key source */
+	u8  EncAllowed;		/**< Encryption allowed or not for key source */
+	u8  KeyDecSrcAllowed;	/**< Key decryption source allowed */
+	u32 KeyDecSrcSelVal;	/**< Selection value for key decryption source*/
+	u32 KeyClearVal;	/**< Key source clear value*/
+} XSecure_AesKeyLookup;
+
+/***************************** static inline function ***************************/
+
+/*******************************************************************************************/
+/**
+* @brief	This function validates SHA input data size.
+*
+* @param	Size - Input data size in bytes.
+*
+* @return
+*		XST_SUCCESS - Upon Success.
+*
+ *******************************************************************************************/
+static inline int XSecure_ValidateShaDataSize(const u32 Size) {
+	(void)Size;
+	return XST_SUCCESS;
+}
+
 /***************************** Function Prototypes ***************************/
 
 void XSecure_SetRsaCryptoStatus(void);
@@ -127,6 +198,8 @@ int XSecure_ECCRandInit(void);
 int XSecure_TrngInitNCfgHrngMode(void);
 XTrngpsx_Instance *XSecure_GetTrngInstance(void);
 int XSecure_InitiateASUKeyTransfer(void);
+int XSecure_ShaDmaXfer(XPmcDma *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
+
 /***************************** Variable Prototypes  ***************************/
 
 #ifdef __cplusplus

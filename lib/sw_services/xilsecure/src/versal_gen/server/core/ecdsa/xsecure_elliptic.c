@@ -73,7 +73,6 @@
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_utils.h"
 #include "xil_util.h"
-#include "xsecure_cryptochk.h"
 #include "xsecure_plat.h"
 #ifdef SDT
 #include "xsecure_config.h"

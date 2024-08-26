@@ -48,8 +48,12 @@ extern "C" {
 #include "xsecure_error.h"
 #include "xtrngpsx.h"
 #include "xsecure_trng.h"
+#include "xsecure_core.h"
 
 /************************** Constant Definitions ****************************/
+
+#define XSECURE_SSS_ADDRESS		(0xF1110500U) /**< SSS base address */
+
 #define XSECURE_SSS_MAX_SRCS	(8U)	/**< Maximum resources */
 
 #define XSECURE_SSS_SHA3_0_MASK		(0xF0000U) /**<SSS SHA3 instance 0 mask value*/
@@ -87,7 +91,18 @@ extern "C" {
 								/**< Rep test cutoff */
 #endif
 
+#define XSECURE_SSS_SBI_MASK	(0xF00000U)
+#define XSECURE_SSS_AES_MASK	(0xF000U)
+#define XSECURE_SSS_DMA1_MASK	(0xF0U)
+#define XSECURE_SSS_DMA0_MASK	(0xFU)
+#define XSECURE_SSS_SRC_SEL_MASK	(0xFU)
+#define XSECURE_SSS_SBI_DMA0_VAL	(0x500000U)
+#define XSECURE_SSS_SBI_DMA1_VAL	(0xB00000U)
+#define XSECURE_SSS_AES_DMA0_VAL	(0xE000U)
+#define XSECURE_SSS_AES_DMA1_VAL	(0x5000U)
+
 /***************************** Type Definitions******************************/
+
 /** Sources to be selected to configure secure stream switch. */
 typedef enum {
 	XSECURE_SSS_DMA0 = 0, /**< DMA0 */
@@ -109,6 +124,17 @@ typedef struct {
 	u8 IsLastChunkSrc;      /**< Flag for last update in source */
 	u8 IsLastChunkDest;     /**< Flag for last update in destination */
 }XSecure_AesDmaCfg;
+
+typedef struct {
+	u32 RegOffset;	/**< Register offset for key source */
+	u32 KeySrcSelVal;	/**< Selection value for key source */
+	u8  UsrWrAllowed;	/**< User write allowed or not for key source */
+	u8  DecAllowed;		/**< Decryption allowed or not for key source */
+	u8  EncAllowed;		/**< Encryption allowed or not for key source */
+	u8  KeyDecSrcAllowed;	/**< Key decryption source allowed */
+	u32 KeyDecSrcSelVal;	/**< Selection value for key decryption source*/
+	u32 KeyClearVal;	/**< Key source clear value*/
+} XSecure_AesKeyLookup;
 
 /***************************** Function Prototypes ***************************/
 
