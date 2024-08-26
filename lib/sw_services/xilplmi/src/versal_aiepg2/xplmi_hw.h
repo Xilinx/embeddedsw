@@ -1,0 +1,1498 @@
+/******************************************************************************
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
+
+/*****************************************************************************/
+/**
+*
+* @file versal_aiepg2/xplmi_hw.h
+*
+* This is the header file which contains definitions for the versal_net hardware
+* registers.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date        Changes
+* ----- ---- -------- -------------------------------------------------------
+* 1.00  bm   07/06/2022 Initial release
+*       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
+*       ma   07/08/2022 Added support for secure lockdown
+*       ma   07/13/2022 Added RTC_CONTROL_SLVERR_EN_MASK macro
+*       ma   07/20/2022 Move PMC_PSM_ERR_REG_OFFSET to xplmi_error_common.h
+*       kpt  07/21/2022 Added DME FIPS cache register
+*       bm   07/22/2022 Update EAM logic for In-Place PLM Update
+*       bm   07/22/2022 Added compatibility check for In-Place PLM Update
+*       ma   07/25/2022 Enhancements to secure lockdown code
+* 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
+*       ng   11/11/2022 Fixed doxygen file name error
+*       sk   01/13/2023 Added Register/Mask defines for PMX LPD FPD CPM domain
+* 1.02  bm   04/28/2023 Added IRO_SWAP and sysmon related macros
+*       bm   05/22/2023 Update current CDO command offset in GSW Error Status
+*       bm   07/06/2023 Refactored Proc logic to more generic logic
+*       kpt  07/10/2023 Added macros related to DDRMC status check
+*       am   07/11/2023 Reduced the trace event buffer length to accommodate
+*                       IHT OP data store address
+*       ng   07/13/2023 Added support for system device-tree flow
+*       ro   08/03/2023 Updated XPAR_XIICPS_0_BASEADDR macro
+* 1.03  ma   10/10/2023 Enable Slave Error for PSM_GLOBAL
+*       mss  10/31/2023 Added PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK macro
+*       pre  14/12/2023 Fixed compilation warnings
+*       mss  01/09/2024 Added XPLMI_TOTAL_CHUNK_SIZE macro for Validating address
+*       pre  01/22/2024 Updated XPlmi_SetPmcIroFreq to support both ES1 and
+*                       production samples
+*       bm   03/02/2024 Make SD drive number logic order independent
+*       sk   05/07/2024 Added defines for WDT and IPI registers
+* 1.04  sk   08/26/2024 Updated EAM support for Versal Aiepg2
+*
+* </pre>
+*
+* @note
+*
+******************************************************************************/
+
+#ifndef XPLMI_HW_H
+#define XPLMI_HW_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/***************************** Include Files *********************************/
+#include "xplmi_config.h"
+#include "xparameters.h"
+#include "xil_io.h"
+#include "xil_hw.h"
+#include "xplmi_util.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
+
+/************************** Constant Definitions *****************************/
+
+/**************************** Type Definitions *******************************/
+
+/***************** Macros (Inline Functions) Definitions *********************/
+/*
+ * PMC_GLOBAL Base Address
+ */
+#ifndef PMC_GLOBAL_BASEADDR
+#define PMC_GLOBAL_BASEADDR     (0XF1110000U)
+#endif
+
+/*
+ * Register: PMC_GLOBAL_GLOBAL_CNTRL
+ */
+#define PMC_GLOBAL_GLOBAL_CNTRL    (PMC_GLOBAL_BASEADDR + 0X00000000U)
+#define PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK   (0X00000010U)
+#define PMC_GLOBAL_GLOBAL_CNTRL_SLVERR_ENABLE_MASK		(0X00000002U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_MULTI_BOOT
+ */
+#define PMC_GLOBAL_PMC_MULTI_BOOT    (PMC_GLOBAL_BASEADDR + 0X00000004U)
+
+/*
+ * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE0
+ */
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE0    (PMC_GLOBAL_BASEADDR + 0X00000030U)
+
+/*
+ * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE1
+ */
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE1    (PMC_GLOBAL_BASEADDR + 0X00000034U)
+
+/*
+ * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE2
+ */
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE2    (PMC_GLOBAL_BASEADDR + 0X00000038U)
+
+/*
+ * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE4
+ */
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE4    (PMC_GLOBAL_BASEADDR + 0X00000040U)
+
+/*
+ * Register: PMC_GLOBAL_PERS_GLOB_GEN_STORAGE1
+ */
+#define PMC_GLOBAL_PERS_GLOB_GEN_STORAGE1	(PMC_GLOBAL_BASEADDR + 0X00000054U)
+
+/* Defines for the bit in PGGS1 register which indicates whether to Log CDO offset */
+#define PMC_GLOBAL_LOG_CDO_OFFSET_SHIFT		(0x3U)
+#define PMC_GLOBAL_LOG_CDO_OFFSET_MASK		XPLMI_BIT(PMC_GLOBAL_LOG_CDO_OFFSET_SHIFT)
+
+/*
+ * Register: PMC_GLOBAL_PMC_GSW_ERR
+ */
+#define PMC_GLOBAL_PMC_GSW_ERR    (PMC_GLOBAL_BASEADDR + 0X00000064U)
+
+/*
+ * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE5
+ */
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE5	(PMC_GLOBAL_BASEADDR + 0X00000068U)
+
+/*
+ * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE6
+ */
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE6	(PMC_GLOBAL_BASEADDR + 0X0000006CU)
+
+/*
+ * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE7
+ */
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE7	(PMC_GLOBAL_BASEADDR + 0X00000070U)
+
+/*
+ * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE8
+ */
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE8	(PMC_GLOBAL_BASEADDR + 0X00000074U)
+
+
+/*
+ * Register: PMC_GLOBAL_PWR_STATUS
+ */
+#define PMC_GLOBAL_PWR_STATUS    (PMC_GLOBAL_BASEADDR + 0X00000100U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_SSS_CFG
+ */
+#define PMC_GLOBAL_PMC_SSS_CFG    (PMC_GLOBAL_BASEADDR + 0X00000500U)
+
+/*
+ * Register: PMC_GLOBAL_PRAM_ZEROIZE_SIZE
+ */
+#define PMC_GLOBAL_PRAM_ZEROIZE_SIZE    (PMC_GLOBAL_BASEADDR + 0X00000518U)
+
+/*
+ * Register: PMC_GLOBAL_PPU_1_RST_MODE
+ */
+#define PMC_GLOBAL_PPU_1_RST_MODE    (PMC_GLOBAL_BASEADDR + 0X00000624U)
+
+#define PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK   (0X00000010U)
+
+/*
+ * Register: PMC_GLOBAL_DONE
+ */
+#define PMC_GLOBAL_DONE    (PMC_GLOBAL_BASEADDR + 0X00000884U)
+
+/*
+ * Register: PMC_GLOBAL_SSIT_ERR
+ */
+#define PMC_GLOBAL_SSIT_ERR    (PMC_GLOBAL_BASEADDR + 0X00000958U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_FW_ERR
+ */
+#define PMC_GLOBAL_PMC_FW_ERR    (PMC_GLOBAL_BASEADDR + 0X00010100U)
+#define PMC_GLOBAL_PMC_FW_ERR_NCR_FLAG_MASK		(0x80000000U)
+#define PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK		(0x40000000U)
+#define PMC_GLOBAL_PMC_FW_ERR_DATA_MASK			(0x3FFFFFFFU)
+
+/*
+ * Register: PMC_GLOBAL_ROM_INT
+ */
+#define PMC_GLOBAL_ROM_INT		(PMC_GLOBAL_BASEADDR + 0X00011060U)
+
+/*
+ * Register: PMC_GLOBAL_ROM_INT_REASON
+ */
+#define PMC_GLOBAL_ROM_INT_REASON	(PMC_GLOBAL_BASEADDR + 0X00011508U)
+/*
+ * Register: PMC_GLOBAL_PMC_ERR1_STATUS
+ */
+#define PMC_GLOBAL_PMC_ERR1_STATUS    (PMC_GLOBAL_BASEADDR + 0X00020000U)
+#define PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK   (0X00000080U)
+#define PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK   (0X00000040U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR2_STATUS
+ */
+#define PMC_GLOBAL_PMC_ERR2_STATUS    (PMC_GLOBAL_BASEADDR + 0X00020004U)
+#define PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK   (0X80000000U)
+#define PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK   (0X40000000U)
+#define PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_SHIFT  (29U)
+#define PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK   (0X20000000U)
+#define PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK   (0X00020000U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR3_STATUS
+ */
+#define PMC_GLOBAL_PMC_ERR3_STATUS    (PMC_GLOBAL_BASEADDR + 0X00020008U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR1_TRIG
+ */
+#define PMC_GLOBAL_PMC_ERR1_TRIG	(PMC_GLOBAL_BASEADDR + 0X00020010U)
+#define PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK			(0x00000004U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR_OUT1_MASK
+ */
+#define PMC_GLOBAL_PMC_ERR_OUT1_MASK    (PMC_GLOBAL_BASEADDR + 0X00020020U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR_OUT1_EN
+ */
+#define PMC_GLOBAL_PMC_ERR_OUT1_EN    (PMC_GLOBAL_BASEADDR + 0X00020024U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR_OUT1_DIS
+ */
+#define PMC_GLOBAL_PMC_ERR_OUT1_DIS    (PMC_GLOBAL_BASEADDR + 0X00020028U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR_OUT2_MASK
+ */
+#define PMC_GLOBAL_PMC_ERR_OUT2_MASK    (PMC_GLOBAL_BASEADDR + 0X00020030U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR_OUT2_EN
+ */
+#define PMC_GLOBAL_PMC_ERR_OUT2_EN    (PMC_GLOBAL_BASEADDR + 0X00020034U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR_OUT2_DIS
+ */
+#define PMC_GLOBAL_PMC_ERR_OUT2_DIS    (PMC_GLOBAL_BASEADDR + 0X00020038U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR_OUT3_MASK
+ */
+#define PMC_GLOBAL_PMC_ERR_OUT3_MASK    (PMC_GLOBAL_BASEADDR + 0X00020110U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR_OUT3_EN
+ */
+#define PMC_GLOBAL_PMC_ERR_OUT3_EN    (PMC_GLOBAL_BASEADDR + 0X00020114U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR_OUT3_DIS
+ */
+#define PMC_GLOBAL_PMC_ERR_OUT3_DIS    (PMC_GLOBAL_BASEADDR + 0X00020118U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_POR1_MASK
+ */
+#define PMC_GLOBAL_PMC_POR1_MASK    (PMC_GLOBAL_BASEADDR + 0X00020040U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_POR1_EN
+ */
+#define PMC_GLOBAL_PMC_POR1_EN    (PMC_GLOBAL_BASEADDR + 0X00020044U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_POR1_DIS
+ */
+#define PMC_GLOBAL_PMC_POR1_DIS    (PMC_GLOBAL_BASEADDR + 0X00020048U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_POR2_MASK
+ */
+#define PMC_GLOBAL_PMC_POR2_MASK    (PMC_GLOBAL_BASEADDR + 0X00020050U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_POR3_MASK
+ */
+#define PMC_GLOBAL_PMC_POR3_MASK    (PMC_GLOBAL_BASEADDR + 0X00020120U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_POR2_EN
+ */
+#define PMC_GLOBAL_PMC_POR2_EN    (PMC_GLOBAL_BASEADDR + 0X00020054U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_POR2_DIS
+ */
+#define PMC_GLOBAL_PMC_POR2_DIS    (PMC_GLOBAL_BASEADDR + 0X00020058U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_POR3_EN
+ */
+#define PMC_GLOBAL_PMC_POR3_EN    (PMC_GLOBAL_BASEADDR + 0X00020124U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_POR3_DIS
+ */
+#define PMC_GLOBAL_PMC_POR3_DIS    (PMC_GLOBAL_BASEADDR + 0X00020128U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_IRQ1_MASK
+ */
+#define PMC_GLOBAL_PMC_IRQ1_MASK    (PMC_GLOBAL_BASEADDR + 0X00020060U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_IRQ1_EN
+ */
+#define PMC_GLOBAL_PMC_IRQ1_EN    (PMC_GLOBAL_BASEADDR + 0X00020064U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_IRQ1_DIS
+ */
+#define PMC_GLOBAL_PMC_IRQ1_DIS    (PMC_GLOBAL_BASEADDR + 0X00020068U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_IRQ2_MASK
+ */
+#define PMC_GLOBAL_PMC_IRQ2_MASK    (PMC_GLOBAL_BASEADDR + 0X00020070U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_IRQ3_MASK
+ */
+#define PMC_GLOBAL_PMC_IRQ3_MASK    (PMC_GLOBAL_BASEADDR + 0X00020130U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_IRQ2_EN
+ */
+#define PMC_GLOBAL_PMC_IRQ2_EN    (PMC_GLOBAL_BASEADDR + 0X00020074U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_IRQ2_DIS
+ */
+#define PMC_GLOBAL_PMC_IRQ2_DIS    (PMC_GLOBAL_BASEADDR + 0X00020078U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_IRQ3_EN
+ */
+#define PMC_GLOBAL_PMC_IRQ3_EN    (PMC_GLOBAL_BASEADDR + 0X00020134U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_IRQ3_DIS
+ */
+#define PMC_GLOBAL_PMC_IRQ3_DIS    (PMC_GLOBAL_BASEADDR + 0X00020138U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_SRST1_MASK
+ */
+#define PMC_GLOBAL_PMC_SRST1_MASK    (PMC_GLOBAL_BASEADDR + 0X00020080U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_SRST1_EN
+ */
+#define PMC_GLOBAL_PMC_SRST1_EN    (PMC_GLOBAL_BASEADDR + 0X00020084U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_SRST1_DIS
+ */
+#define PMC_GLOBAL_PMC_SRST1_DIS    (PMC_GLOBAL_BASEADDR + 0X00020088U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_SRST2_MASK
+ */
+#define PMC_GLOBAL_PMC_SRST2_MASK    (PMC_GLOBAL_BASEADDR + 0X00020090U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_SRST2_EN
+ */
+#define PMC_GLOBAL_PMC_SRST2_EN    (PMC_GLOBAL_BASEADDR + 0X00020094U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_SRST2_DIS
+ */
+#define PMC_GLOBAL_PMC_SRST2_DIS    (PMC_GLOBAL_BASEADDR + 0X00020098U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_SRST3_MASK
+ */
+#define PMC_GLOBAL_PMC_SRST3_MASK    (PMC_GLOBAL_BASEADDR + 0X00020140U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_SRST3_EN
+ */
+#define PMC_GLOBAL_PMC_SRST3_EN    (PMC_GLOBAL_BASEADDR + 0X00020144U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_SRST3_DIS
+ */
+#define PMC_GLOBAL_PMC_SRST3_DIS    (PMC_GLOBAL_BASEADDR + 0X00020148U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_BOOT_ERR
+ */
+#define PMC_GLOBAL_PMC_BOOT_ERR    (PMC_GLOBAL_BASEADDR + 0x00020100U)
+
+/*
+ * Register: PMC_GLOBAL_GICP0_IRQ_STATUS
+ */
+#define PMC_GLOBAL_GICP0_IRQ_STATUS    (PMC_GLOBAL_BASEADDR + 0X00030000U)
+
+/*
+ * Register: PMC_GLOBAL_GICP0_IRQ_MASK
+ */
+#define PMC_GLOBAL_GICP0_IRQ_MASK    (PMC_GLOBAL_BASEADDR + 0X00030004U)
+
+/*
+ * Register: PMC_GLOBAL_GICP0_IRQ_ENABLE
+ */
+#define PMC_GLOBAL_GICP0_IRQ_ENABLE    (PMC_GLOBAL_BASEADDR + 0X00030008U)
+
+/*
+ * Register: PMC_GLOBAL_GICP0_IRQ_DISABLE
+ */
+#define PMC_GLOBAL_GICP0_IRQ_DISABLE    (PMC_GLOBAL_BASEADDR + 0X0003000CU)
+
+/*
+ * Register: PMC_GLOBAL_GICP1_IRQ_STATUS
+ */
+#define PMC_GLOBAL_GICP1_IRQ_STATUS    (PMC_GLOBAL_BASEADDR + 0X00030014U)
+
+/*
+ * Register: PMC_GLOBAL_GICP2_IRQ_STATUS
+ */
+#define PMC_GLOBAL_GICP2_IRQ_STATUS    (PMC_GLOBAL_BASEADDR + 0X00030028U)
+
+/*
+ * Register: PMC_GLOBAL_GICP3_IRQ_STATUS
+ */
+#define PMC_GLOBAL_GICP3_IRQ_STATUS    (PMC_GLOBAL_BASEADDR + 0X0003003CU)
+
+/*
+ * Register: PMC_GLOBAL_GICP4_IRQ_STATUS
+ */
+#define PMC_GLOBAL_GICP4_IRQ_STATUS    (PMC_GLOBAL_BASEADDR + 0X00030050U)
+
+/*
+ * Register: PMC_GLOBAL_GICP5_IRQ_STATUS
+ */
+#define PMC_GLOBAL_GICP5_IRQ_STATUS    (PMC_GLOBAL_BASEADDR + 0X00030064U)
+
+/*
+ * Register: PMC_GLOBAL_GICP6_IRQ_STATUS
+ */
+#define PMC_GLOBAL_GICP6_IRQ_STATUS    (PMC_GLOBAL_BASEADDR + 0X00030078U)
+
+/*
+ * Register: PMC_GLOBAL_GICP7_IRQ_STATUS
+ */
+#define PMC_GLOBAL_GICP7_IRQ_STATUS    (PMC_GLOBAL_BASEADDR + 0X0003008CU)
+
+/*
+ * Register: PMC_GLOBAL_GICP_PMC_IRQ_STATUS
+ */
+#define PMC_GLOBAL_GICP_PMC_IRQ_STATUS    (PMC_GLOBAL_BASEADDR + 0X000300A0U)
+
+/*
+ * Register: PMC_GLOBAL_GICP_PMC_IRQ_ENABLE
+ */
+#define PMC_GLOBAL_GICP_PMC_IRQ_ENABLE    (PMC_GLOBAL_BASEADDR + 0X000300A8U)
+
+#define PMC_PSM_EN_REG_OFFSET			(0x4U)
+#define PMC_PSM_DIS_REG_OFFSET			(0x8U)
+
+/*
+ * Register: PMC_GLOBAL_IER
+ */
+#define PMC_GLOBAL_IER				(PMC_GLOBAL_BASEADDR + 0X00000018U)
+
+/*
+ * Register: PMC_GLOBAL_ISR
+ */
+#define PMC_GLOBAL_ISR				(PMC_GLOBAL_BASEADDR + 0X00000010U)
+
+/*
+ * TAMPER_INT mask value
+ */
+#define PMC_GLOBAL_TAMPER_INT_MASK	(0x00000008U)
+
+/*
+ * SSS_CFG_ERR mask value
+ */
+#define PMC_GLOBAL_SSS_CFG_ERR_MASK	(0x00000002U)
+
+/*
+ * Register: PMC_GLOBAL_TAMPER_RESP_0
+ */
+#define PMC_GLOBAL_TAMPER_RESP_0	(PMC_GLOBAL_BASEADDR + 0X00000530U)
+
+/*
+ * Register: PMC_GLOBAL_TAMPER_TRIG
+ */
+#define PMC_GLOBAL_TAMPER_TRIG		(PMC_GLOBAL_BASEADDR + 0X00000570U)
+#define PMC_GLOBAL_TAMPER_TRIG_VAL	(1U)
+
+/*
+ * Register: NPI_NIR
+ */
+#define NPI_NIR_BASEADDR	(0XF6000000U)
+#define NPI_NIR_REG_PCSR_LOCK	(NPI_NIR_BASEADDR + 0XCU)
+#define NPI_NIR_REG_PCSR_UNLOCK_VAL	(0XF9E8D7C6U)
+#define NPI_NIR_REG_ISR		(NPI_NIR_BASEADDR + 0X44U)
+#define NPI_NIR_REG_ISR_ERR_MASK	(0X7FU)
+#define NPI_NIR_ERR_TYPE	(NPI_NIR_BASEADDR + 0X204U)
+#define NPI_NIR_ERR_TYPE_ERR_MASK	(0X7U)
+#define NPI_NIR_AXI_WRSTRB_ERR_MASK	(0X40U)
+#define NPI_NIR_ERR_LOG_P0_INFO_0	(NPI_NIR_BASEADDR + 0X208U)
+#define NPI_NIR_ERR_LOG_P0_INFO_1	(NPI_NIR_BASEADDR + 0X20CU)
+
+/*
+ * Register: PS7_IPI_PMC_IMR
+ */
+#define PS7_IPI_PMC_IMR		(0xEB320014U)
+
+/* IPI Aperture TZ register base address */
+#define IPI_APER_TZ_000_ADDR			(0xEB3000BCU)
+#define IPI_APER_TZ_PMC_REQ_BUF_MASK	(0x4U)
+
+/*
+ * Register: CPM5N_SLCR_PS_UNCORR_IR_STATUS
+ */
+#define CPM5N_SLCR_PS_UNCORR_IR_STATUS				(0xE4A10320U)
+#define CPM5N_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK		(0x2U)
+#define CPM5N_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK		(0x4U)
+#define CPM5N_SLCR_PS_UNCORR_IR_STATUS_PCIE2_MASK		(0x8U)
+#define CPM5N_SLCR_PS_UNCORR_IR_STATUS_PCIE3_MASK		(0x10U)
+#define CPM5N_SLCR_PS_UNCORR_IR_STATUS_CDX_ERR_MASK		(0x40000)
+
+#define CPM5N_SLCR_PS_UNCORR_IR_MASK				(0xE4A10324U)
+#define CPM5N_SLCR_CDX_IR_STATUS				(0xE4A102F0U)
+#define CPM5N_SLCR_CDX_INTERRUPT_3_MASK				(0x08U)
+
+#define CPM5N_SLCR_PCIE0_IR_STATUS 				(0xE4A102A0U)
+#define CPM5N_SLCR_PCIE1_IR_STATUS 				(0xE4A102B4U)
+#define CPM5N_SLCR_PCIE2_IR_STATUS 				(0xE4A102C8U)
+#define CPM5N_SLCR_PCIE3_IR_STATUS 				(0xE4A102DCU)
+
+/* CPM5N CDX Registers */
+#define CPM5N_CDX_PCIEB_CSR_MISC_EVENT_STATUS				(0xE4402110U)
+#define CPM5N_CDX_PCIEB1_CSR_MISC_EVENT_STATUS				(0xE4412110U)
+#define CPM5N_CDX_PCIEB2_CSR_MISC_EVENT_STATUS				(0xE4422110U)
+#define CPM5N_CDX_PCIEB3_CSR_MISC_EVENT_STATUS				(0xE4432110U)
+#define CPM5N_LINK_UP_EVENT_MASK					(0x800U)
+
+/*
+ * Definitions required for checking DDRMC status
+ */
+#define DDRMC_PCSR_CONTROL_OFFSET	(0x00000004U)
+#define DDRMC_PCSR_CONTROL_PCOMPLETE_MASK	(0x00000001U)
+#define DDRMC_PCSR_STATUS_OFFSET	(0x00000008U)
+
+
+/*****************************************************************************/
+/**
+ * @brief        This function reads a 32-bit register
+ *
+ * @param        Addr is the address of the register
+ *
+ * @return       32-bit register value
+ *
+ ******************************************************************************/
+static inline  __attribute__((always_inline)) u32 XPlmi_In32(UINTPTR Addr)
+{
+	return Xil_In32(Addr);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function writes 32-bit value to 32-bit register
+ *
+ * @param	Addr is the address of the register
+ * @param	Value is the value to store in register
+ *
+ * @return	None
+ *
+******************************************************************************/
+static inline __attribute__((always_inline)) void XPlmi_Out32(UINTPTR Addr, u32 Value)
+{
+	Xil_Out32(Addr, Value);
+}
+
+/*****************************************************************************/
+/**
+ * @brief        This function reads a 64-bit register
+ *
+ * @param        Addr is the address of the register
+ *
+ * @return       32-bit value from 64-bit register
+ *
+ ******************************************************************************/
+static inline u32 XPlmi_In64(u64 Addr)
+{
+	return lwea(Addr);
+}
+
+/*****************************************************************************/
+/**
+ * @brief        This function reads an 8-bit value from a 64-bit register
+ *
+ * @param        Addr is the address of the register
+ *
+ * @return       8-bit value from 64-bit register
+ *
+ ******************************************************************************/
+static inline u8 XPlmi_InByte64(u64 Addr)
+{
+	return (u8)lbuea(Addr);
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function disables waking up of PPU1 processor
+ *
+ * @return      None
+ *
+ *****************************************************************************/
+static inline void XPlmi_PpuWakeUpDis(void)
+{
+	XPlmi_Out32(PMC_GLOBAL_PPU_1_RST_MODE,
+		XPlmi_In32(PMC_GLOBAL_PPU_1_RST_MODE) &
+		(~PMC_GLOBAL_PPU_1_RST_MODE_WAKEUP_MASK));
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function writes 32-bit value to 64-bit register
+ *
+ * @param	Addr is the address of the register
+ * @param	Data is the value to store in register
+ *
+ * @return	None
+ *
+******************************************************************************/
+static inline void XPlmi_Out64(u64 Addr, u32 Data)
+{
+	swea(Addr, Data);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function writes 8-bit value to 64-bit register
+ *
+ * @param	Addr is the address of the register
+ * @param	Data is the value to store in register
+ *
+ * @return	None
+ *
+******************************************************************************/
+static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
+{
+	sbea(Addr, Data);
+}
+
+/*
+ * Register: PMC Global PLM Error
+ */
+#define PMC_GLOBAL_PLM_ERR		(PMC_GLOBAL_BASEADDR + 0X00010100U)
+
+/*
+ * Definitions required from pmc_tap.h
+ */
+#ifndef PMC_TAP_BASEADDR
+#define PMC_TAP_BASEADDR		(0XF11A0000U)
+#endif
+#ifndef PMC_TAP_IDCODE
+#define PMC_TAP_IDCODE		(PMC_TAP_BASEADDR + 0X00000000U)
+#endif
+#define PMC_TAP_IDCODE_SI_REV_MASK	(0xF0000000U)
+#define PMC_TAP_IDCODE_SBFMLY_MASK	(0x001C0000U)
+#define PMC_TAP_IDCODE_DEV_MASK		(0x0003F000U)
+#define PMC_TAP_IDCODE_SIREV_DVCD_MASK	(PMC_TAP_IDCODE_SI_REV_MASK | \
+		PMC_TAP_IDCODE_SBFMLY_MASK | PMC_TAP_IDCODE_DEV_MASK)
+
+#define PMC_TAP_IDCODE_SI_REV_1		(0x00000000U)
+#define PMC_TAP_IDCODE_SBFMLY_S		(0x00080000U)
+#define PMC_TAP_IDCODE_DEV_80		(0x00028000U)
+#define PMC_TAP_IDCODE_ES1_VC1902	(PMC_TAP_IDCODE_SI_REV_1 | \
+	PMC_TAP_IDCODE_SBFMLY_S | PMC_TAP_IDCODE_DEV_80)
+
+#ifndef PMC_TAP_VERSION
+#define PMC_TAP_VERSION		(PMC_TAP_BASEADDR + 0X00000004U)
+#endif
+#define PMC_TAP_VERSION_PLATFORM_SHIFT		(24U)
+#define PMC_TAP_VERSION_PS_VERSION_SHIFT		(8U)
+#define PMC_TAP_VERSION_PS_VERSION_MASK		(0X0000FF00U)
+#define PMC_TAP_VERSION_PMC_VERSION_SHIFT		(0U)
+#ifndef PMC_TAP_VERSION_PMC_VERSION_MASK
+#define PMC_TAP_VERSION_PMC_VERSION_MASK		(0X000000FFU)
+#endif
+
+#define PMC_TAP_VERSION_SILICON			(0x0U)
+#define PMC_TAP_VERSION_SPP			(0x1U)
+#define PMC_TAP_VERSION_EMU			(0x2U)
+#define PMC_TAP_VERSION_QEMU			(0x3U)
+#define XPLMI_PLATFORM_MASK			(0x07000000U)
+#define XPLMI_PLATFORM		((XPlmi_In32(PMC_TAP_VERSION) & \
+					XPLMI_PLATFORM_MASK) >> \
+					PMC_TAP_VERSION_PLATFORM_SHIFT)
+
+#define PMC_TAP_SLVERR_CTRL		(PMC_TAP_BASEADDR + 0X0000001CU)
+#define XPLMI_SILICON_ES1_VAL	(0x10U)
+
+#define XLOADER_PMC_TAP_INST_MASK_0_OFFSET         (0xF11B0000U)
+/*
+ * PMC RAM Memory usage:
+ * 0xF2000000U to 0xF201011FU - Used by XilLoader to process CDO
+ * 0xF2014000U to 0xF2014FFFU - Used for PLM Runtime Configuration Registers
+ * 0xF2016000U to 0xF2016BFFU - Used for storing secure lockdown CDO proc data
+ * 0xF2019000U to 0xF201CFFFU - Used by XilPlmi to store PLM prints
+ * 0xF201D000U to 0xF201DFFFU - Used by XilPlmi to store PLM Trace Events
+ * 0xF201E000U to 0xF2020000U - Used by XilPdi to get boot Header copied by ROM
+ */
+#define XPLMI_PMCRAM_BASEADDR			(0xF2000000U)
+#define XPLMI_PMCRAM_LEN			(0x20000U)
+
+/* Loader chunk memory */
+#define XPLMI_PMCRAM_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR + 0x20U)
+#define XPLMI_PMCRAM_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8120U)
+
+/* Boot copy optimization buffer */
+#define XPLMI_COPY_OPTIMIZATION_QSPI_FLASHREADID_BUFFER			(XPLMI_PMCRAM_BASEADDR + 0x10200U) /* 8B */
+#define XPLMI_COPY_OPTIMIZATION_QSPI_SEND_BANK_READ_BUFFER		(XPLMI_PMCRAM_BASEADDR + 0x10208U) /* 12B */
+#define XPLMI_COPY_OPTIMIZATION_QSPI_WRITE_BUFFER				(XPLMI_PMCRAM_BASEADDR + 0x10214U) /* 12B */
+#define XPLMI_COPY_OPTIMIZATION_QSPIBUSWIDTH_BUFFER				(XPLMI_PMCRAM_BASEADDR + 0x10220U) /* 20B */
+#define XPLMI_COPY_OPTIMIZATION_OSPI_FLASHREADID_BUFFER			(XPLMI_PMCRAM_BASEADDR + 0x10234U) /* 8B */
+
+/* Log Buffer default address and length */
+#define XPLMI_DEBUG_LOG_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x19000U)
+#define XPLMI_DEBUG_LOG_BUFFER_LEN	(0x4000U) /* 16KB */
+
+/* Trace Buffer default address and length */
+#define XPLMI_TRACE_LOG_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x1D000U)
+#define XPLMI_TRACE_LOG_BUFFER_LEN	(0x200U)	/* 512B */
+
+/* Image Info Table related macros */
+#define XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x1DD00U)
+#define XPLMI_IMAGE_INFO_TBL_BUFFER_LEN		(0x300U)	/* 768B */
+
+/* PMC RAM secure lockdown reserved memory macros */
+#define XPLMI_PMCRAM_BUFFER_MEMORY			(XPLMI_PMCRAM_BASEADDR + 0x16000U)
+#define XPLMI_PMCRAM_BUFFER_MEMORY_LENGTH		(0xC00U)
+
+/*
+ * Definitions required from Efuse
+ */
+#define EFUSE_CACHE_BASEADDR		(0xF1250000U)
+#define EFUSE_CTRL_BASEADDR		(0xF1240000U)
+#define EFUSE_CTRL_WR_LOCK		(EFUSE_CTRL_BASEADDR + 0x0U)
+#define XPLMI_EFUSE_CTRL_UNLOCK_VAL	(0xDF0DU)
+#define XPLMI_EFUSE_CTRL_LOCK_VAL	(1U)
+
+#define EFUSE_CTRL_CFG			(EFUSE_CTRL_BASEADDR + 0x4U)
+#define EFUSE_CTRL_CFG_SLVERR_ENABLE_MASK	(0x20U)
+#define EFUSE_CTRL_ANLG_OSC_SW_1LP	(EFUSE_CTRL_BASEADDR + 0x60U)
+
+#define EFUSE_CACHE_MISC_CTRL	(EFUSE_CACHE_BASEADDR + 0xA0U)
+#define EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK	(0x600000U)
+
+#define EFUSE_CACHE_ANLG_TRIM_5		(EFUSE_CACHE_BASEADDR + 0X000000E0U)
+#define EFUSE_CACHE_ANLG_TRIM_7		(EFUSE_CACHE_BASEADDR + 0X000000F8U)
+#define EFUSE_CACHE_ROM_RSVD		(EFUSE_CACHE_BASEADDR + 0X00000090U)
+
+#define EFUSE_CACHE_DME_FIPS_CTRL  (EFUSE_CACHE_BASEADDR + 0x234U)
+#define EFUSE_CACHE_DME_FIPS_MODE_MASK (0X04000000U)
+#define XPLMI_EFUSE_FIPS_MODE_SHIFT   	(26U)
+
+#define EFUSE_ROM_SWDT_USAGE_MASK		(0xC0U)
+#define EFUSE_PLM_UPDATE_MASK			(0x400U)
+#define EFUSE_TRIM_LP_MASK			(0xFFFFU)
+#define EFUSE_CACHE_ROM_RSVD_IRO_SWAP_MASK	(0x00000100U)
+
+#define XPLMI_IPI_BASEADDR		(0xEB320000U)
+#define XPLMI_IPI_PMC_ISR_ADDR		(0xEB320010U)
+
+#ifndef SDT
+	#if defined(XPAR_XIPIPSU_0_DEVICE_ID) && (XPAR_XIPIPSU_0_BASE_ADDRESS == XPLMI_IPI_BASEADDR)
+		#define XPLMI_IPI_DEVICE_ID		XPAR_XIPIPSU_0_DEVICE_ID
+	#elif defined(XPAR_XIPIPSU_1_DEVICE_ID) && (XPAR_XIPIPSU_1_BASE_ADDRESS == XPLMI_IPI_BASEADDR)
+		#define XPLMI_IPI_DEVICE_ID		XPAR_XIPIPSU_1_DEVICE_ID
+	#endif
+#else
+	#if defined(XPAR_XIPIPSU_0_BASEADDR) && (XPAR_XIPIPSU_0_BASEADDR == XPLMI_IPI_BASEADDR)
+		#define XPLMI_IPI_DEVICE_ID		XPAR_XIPIPSU_0_BASEADDR
+	#elif defined(XPAR_XIPIPSU_1_BASEADDR) && (XPAR_XIPIPSU_1_BASEADDR == XPLMI_IPI_BASEADDR)
+		#define XPLMI_IPI_DEVICE_ID		XPAR_XIPIPSU_1_BASEADDR
+	#endif
+#endif
+
+/*
+ * Definition for QSPI to be included
+ */
+#if (!defined(PLM_QSPI_EXCLUDE) && defined(XPAR_XQSPIPSU_0_BASEADDR))
+#define XLOADER_QSPI
+#endif
+
+/*
+ * Definition for OSPI to be included
+ */
+#ifndef SDT
+#if (!defined(PLM_OSPI_EXCLUDE) && defined(XPAR_XOSPIPSV_0_DEVICE_ID))
+#define XLOADER_OSPI
+#define XLOADER_OSPI_DEVICE_ID		XPAR_XOSPIPSV_0_DEVICE_ID
+#define XLOADER_OSPI_BASEADDR		XPAR_XOSPIPSV_0_BASEADDR
+#endif
+#else
+#if (!defined(PLM_OSPI_EXCLUDE) && defined(XPAR_XOSPIPSV_0_BASEADDR))
+#define XLOADER_OSPI
+#define XLOADER_OSPI_DEVICE_ID		XPAR_XOSPIPSV_0_BASEADDR
+#define XLOADER_OSPI_BASEADDR		XPAR_XOSPIPSV_0_BASEADDR
+#endif
+#endif
+
+/*
+ * Definitions for SD to be included
+ */
+#if (!defined(PLM_SD_EXCLUDE) && defined(XPAR_XSDPS_0_BASEADDR) &&\
+		(XPAR_XSDPS_0_BASEADDR == 0xF1040000U))
+#define XLOADER_SD_0		(0U)
+#elif (!defined(PLM_SD_EXCLUDE) && defined(XPAR_XSDPS_1_BASEADDR) &&\
+		(XPAR_XSDPS_1_BASEADDR == 0xF1040000U))
+#define XLOADER_SD_0		(1U)
+#endif
+
+#if (!defined(PLM_SD_EXCLUDE) && defined(XPAR_XSDPS_0_BASEADDR) &&\
+		(XPAR_XSDPS_0_BASEADDR == 0xF1050000U))
+#define XLOADER_SD_1		(0U)
+#elif (!defined(PLM_SD_EXCLUDE) && defined(XPAR_XSDPS_1_BASEADDR) &&\
+		(XPAR_XSDPS_1_BASEADDR == 0xF1050000U))
+#define XLOADER_SD_1		(1U)
+#endif
+
+/*
+ * Definition for SBI to be included
+ */
+#if !defined(PLM_SBI_EXCLUDE)
+#define XLOADER_SBI
+#endif
+
+#if (!defined(PLM_USB_EXCLUDE) && defined(XPAR_XUSBPSU_0_BASEADDR) &&\
+		(XPAR_XUSBPSU_0_BASEADDR == 0xF1B00000U))
+#define XLOADER_USB
+#endif
+
+/*
+ * Definition for SEM to be included
+ */
+#if !defined(PLM_SEM_EXCLUDE) && (defined(XSEM_CFRSCAN_EN) ||\
+		defined(XSEM_NPISCAN_EN))
+#define XPLM_SEM
+#endif
+
+/*
+ * Definition for UART
+ */
+#if defined(XPAR_XUARTPSV_NUM_INSTANCES)
+#define XPLMI_UART_NUM_INSTANCES	XPAR_XUARTPSV_NUM_INSTANCES
+#else
+#define XPLMI_UART_NUM_INSTANCES	0U
+#endif
+
+#if defined(XPAR_XUARTPSV_0_BASEADDR)
+#define XPLMI_UART_0_BASEADDR	XPAR_XUARTPSV_0_BASEADDR
+#endif
+
+#if defined(XPAR_XUARTPSV_1_BASEADDR)
+#define XPLMI_UART_1_BASEADDR	XPAR_XUARTPSV_1_BASEADDR
+#endif
+
+/*
+ * Definition for PMC WDT to be included
+ */
+#define XPLMI_PMC_WDT_BASEADDR		(0xF03F0000U)
+#define XPLMI_PMC_GWDT_CNTRL_STATUS_REG	(0xF03F2000U)
+#define XPLMI_PMC_WDT_GWCSR_GWEN_MASK	(0x01U)
+
+#ifndef SDT
+	#if defined(XPAR_WDTTB_0_DEVICE_ID) && (XPAR_WDTTB_0_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_0_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
+	#elif defined(XPAR_WDTTB_1_DEVICE_ID) && (XPAR_WDTTB_1_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_1_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_WDTTB_1_DEVICE_ID
+	#elif defined(XPAR_WDTTB_2_DEVICE_ID) && (XPAR_WDTTB_2_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_2_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_WDTTB_2_DEVICE_ID
+	#elif defined(XPAR_WDTTB_3_DEVICE_ID) && (XPAR_WDTTB_3_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_3_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_WDTTB_3_DEVICE_ID
+	#elif defined(XPAR_WDTTB_4_DEVICE_ID) && (XPAR_WDTTB_4_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_4_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_WDTTB_4_DEVICE_ID
+	#elif defined(XPAR_WDTTB_5_DEVICE_ID) && (XPAR_WDTTB_5_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_5_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_WDTTB_5_DEVICE_ID
+	#elif defined(XPAR_WDTTB_6_DEVICE_ID) && (XPAR_WDTTB_6_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_6_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_WDTTB_6_DEVICE_ID
+	#endif
+#else
+	#if defined(XPAR_XWDTTB_0_BASEADDR) && (XPAR_XWDTTB_0_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_0_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_0_BASEADDR
+	#elif defined(XPAR_XWDTTB_1_BASEADDR) && (XPAR_XWDTTB_1_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_1_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_1_BASEADDR
+	#elif defined(XPAR_XWDTTB_2_BASEADDR) && (XPAR_XWDTTB_2_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_2_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_2_BASEADDR
+	#elif defined(XPAR_XWDTTB_3_BASEADDR) && (XPAR_XWDTTB_3_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_3_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_3_BASEADDR
+	#elif defined(XPAR_XWDTTB_4_BASEADDR) && (XPAR_XWDTTB_4_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_4_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_4_BASEADDR
+	#elif defined(XPAR_XWDTTB_5_BASEADDR) && (XPAR_XWDTTB_5_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_5_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_5_BASEADDR
+	#elif defined(XPAR_XWDTTB_6_BASEADDR) && (XPAR_XWDTTB_6_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
+			(XPAR_WDTTB_6_ENABLE_WINDOW_WDT == 0U)
+	#define XPLMI_PMC_WDT
+	#define XPLMI_PMC_WDT_DEVICE_ID		XPAR_XWDTTB_6_BASEADDR
+	#endif
+#endif
+
+#if ((defined(XPAR_XIICPS_0_BASEADDR) &&\
+                 (XPAR_XIICPS_0_BASEADDR == 0xF1000000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                               (XPAR_XIICPS_1_BASEADDR == 0xF1000000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                        (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)))
+#define XLOADER_PMC_IIC
+
+#endif
+
+/*
+ * Definitions required from crp.h
+ */
+#define CRP_BASEADDR		(0XF1260000U)
+#define CRP_BOOT_MODE_USER		(CRP_BASEADDR + 0X00000200U)
+#define CRP_BOOT_MODE_USER_BOOT_MODE_MASK		(0X0000000FU)
+#define CRP_BOOT_MODE_POR		(CRP_BASEADDR + 0X00000204U)
+#ifndef CRP_RESET_REASON
+#define CRP_RESET_REASON		(CRP_BASEADDR + 0X00000220U)
+#endif
+#define CRP_RST_SBI				(CRP_BASEADDR + 0X00000324U)
+#define CRP_RST_SBI_RESET_MASK			(0X00000001U)
+#define CRP_RST_PDMA				(CRP_BASEADDR + 0X00000328U)
+#define CRP_RST_PDMA_RESET1_MASK		(0X00000002U)
+#ifndef CRP_RST_NONPS
+#define CRP_RST_NONPS		(CRP_BASEADDR + 0X00000320U)
+#endif
+#define CRP_RST_NONPS_NPI_RESET_MASK		(0X10U)
+#define CRP_RST_NONPS_NPI_RESET_SHIFT		(0X4U)
+
+/*
+ * Register: CRP_RST_PS
+ */
+#ifndef CRP_RST_PS
+#define CRP_RST_PS		(CRP_BASEADDR + 0x0000031CU)
+#endif
+#define CRP_RST_PS_PMC_SRST_MASK		(0X00000008U)
+#define CRP_RST_PS_PMC_POR_MASK		(0X00000080U)
+
+/*
+ * Register: CRP_NOCPLL_CTRL
+ */
+#define CRP_NOCPLL_CTRL		((CRP_BASEADDR) + 0X00000050U)
+#define CRP_NOCPLL_CTRL_BYPASS_MASK	(0X00000008U)
+#define CRP_NOCPLL_CTRL_RESET_MASK	(0X00000001U)
+
+/*
+ * Register: CRP_NOCPLL_CFG
+ */
+#define CRP_NOCPLL_CFG		((CRP_BASEADDR) + 0X00000054U)
+
+/*
+ * Register: CRP_PLL_STATUS
+ */
+#define CRP_PLL_STATUS		((CRP_BASEADDR) + 0X00000060U)
+#define CRP_PLL_STATUS_NOCPLL_LOCK_MASK		(0X00000002U)
+
+/*
+ * Register: CRP_SYSMON_REF_CTRL
+ */
+#define CRP_SYSMON_REF_CTRL    ((CRP_BASEADDR) + 0X00000138U)
+#define CRP_SYSMON_REF_CTRL_SRCSEL_MASK    (0X00000004U)
+
+/*
+ * Definitions required from slave_boot.h
+ */
+#define SLAVE_BOOT_BASEADDR				(0XF1220000U)
+#define SLAVE_BOOT_SBI_MODE		(SLAVE_BOOT_BASEADDR + 0X00000000U)
+#define SLAVE_BOOT_SBI_MODE_JTAG_MASK			(0X00000002U)
+#define SLAVE_BOOT_SBI_MODE_SELECT_MASK			(0X00000001U)
+
+#define SLAVE_BOOT_SBI_CTRL		(SLAVE_BOOT_BASEADDR + 0X00000004U)
+#define SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK		(0X0000001CU)
+#define SLAVE_BOOT_SBI_CTRL_ENABLE_MASK		(0X00000001U)
+#define SLAVE_BOOT_SBI_CTRL_APB_ERR_RES_MASK	(0X00000020U)
+
+/*
+ * Register: SLAVE_BOOT_SBI_STATUS
+ */
+#define SLAVE_BOOT_SBI_STATUS		(SLAVE_BOOT_BASEADDR + 0X0000000CU)
+#define SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_MASK		(0XF0000000U)
+#define SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_MASK		(0X00F00000U)
+#define SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_MASK		(0X00001FF8U)
+#define SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_VAL			(0X1000U)
+#define SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_VAL		(0x800000U)
+#define SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_VAL		(0x80000000U)
+
+#define SLAVE_BOOT_SBI_IRQ_STATUS	(SLAVE_BOOT_BASEADDR + 0X00000300U)
+#define SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK		(0X00000004U)
+
+#define SLAVE_BOOT_SBI_IRQ_ENABLE	(SLAVE_BOOT_BASEADDR + 0X00000308U)
+#define SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK		(0X00000004U)
+
+#define XPLMI_SBI_CTRL_INTERFACE_SMAP			(0x0U)
+#define XPLMI_SBI_CTRL_INTERFACE_JTAG			(0x4U)
+
+#define PMC_GLOBAL_REG_PMC_ERR_OFFSET	(4U)
+
+#define XPLMI_LPDSLCR_MAX_ERR_CNT	(0x4U)
+#define XPLMI_PMC_MAX_ERR_CNT		(0x3U)
+
+/*
+ * Register: EFUSE_CACHE_IP_DISABLE_0
+ */
+#define EFUSE_CACHE_IP_DISABLE_0	(EFUSE_CACHE_BASEADDR + 0x00000018U)
+#define EFUSE_CACHE_IP_DISABLE_0_EID_MASK		(0x07FFC000U)
+#define EFUSE_CACHE_IP_DISABLE_0_EID_SEL_MASK		(0x04000000U)
+#define EFUSE_CACHE_IP_DISABLE_0_EID1_MASK		(0x000FC000U)
+#define EFUSE_CACHE_IP_DISABLE_0_EID1_SHIFT		(14U)
+#define EFUSE_CACHE_IP_DISABLE_0_EID2_MASK		(0x03F00000U)
+#define EFUSE_CACHE_IP_DISABLE_0_EID2_SHIFT		(20U)
+
+/*
+ * Register: PMC_TAP_SLR_TYPE
+ */
+#define PMC_TAP_SLR_TYPE		(PMC_TAP_BASEADDR + 0X00000024U)
+#define PMC_TAP_SLR_TYPE_VAL_MASK		(0X00000007U)
+
+/*
+ * Register: PMC_IOU_SLCR
+ */
+#ifndef PMC_IOU_SLCR_BASEADDR
+#define PMC_IOU_SLCR_BASEADDR      (0XF1060000U)
+#endif
+
+/*
+ * Register: PMC_IOU_SLCR_SD0_CDN_CTRL
+ */
+#define PMC_IOU_SLCR_SD0_CDN_CTRL    (PMC_IOU_SLCR_BASEADDR + 0X0000044CU)
+#define PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK    (0X00000001U)
+
+/*
+ * Register: PMC_IOU_SLCR_SD1_CDN_CTRL
+ */
+#define PMC_IOU_SLCR_SD1_CDN_CTRL    (PMC_IOU_SLCR_BASEADDR + 0X000004CCU)
+#define PMC_IOU_SLCR_SD1_CDN_CTRL_SD1_CDN_CTRL_MASK    (0X00000001U)
+
+/*
+ * Register: PMC_IOU_SLCR_CTRL
+ */
+#define PMC_IOU_SLCR_CTRL			(PMC_IOU_SLCR_BASEADDR + 0X00000700U)
+
+/*
+ * Register: PMC_IOU_SECURE_SLCR
+ */
+#define PMC_IOU_SECURE_SLCR_BASEADDR	(0XF1070000U)
+
+/*
+ * Register: PMC_IOU_SECURE_SLCR_CTRL
+ */
+#define PMC_IOU_SECURE_SLCR_CTRL	(PMC_IOU_SECURE_SLCR_BASEADDR + 0X00000040U)
+
+/*
+ * Register: PMC_RAM_CFG
+ */
+#define PMC_RAM_CFG_BASEADDR	(0XF1100000U)
+
+/*
+ * Register: PMC_ANALOG
+ */
+#define PMC_ANALOG_BASEADDR	(0XF1160000U)
+
+/*
+ * Register: PMC_ANALOG_SLVERR_CTRL
+ */
+#define PMC_ANALOG_SLVERR_CTRL	(PMC_ANALOG_BASEADDR + 0X00000050U)
+
+/*
+ * Register: AES
+ */
+#define AES_BASEADDR	(0XF11E0000U)
+
+/*
+ * Register: AES_SLV_ERR_CTRL
+ */
+#define AES_SLV_ERR_CTRL	(AES_BASEADDR + 0X00000210U)
+
+/*
+ * Register: BBRAM_CTRL
+ */
+#define BBRAM_CTRL_BASEADDR		(0XF11F0000U)
+
+/*
+ * Register: BBRAM_CTRL_SLV_ERR_CTRL
+ */
+#define BBRAM_CTRL_SLV_ERR_CTRL		(BBRAM_CTRL_BASEADDR + 0X00000034U)
+
+/*
+ * Register: ECDSA_RSA
+ */
+#define ECDSA_RSA_BASEADDR		(0XF1200000U)
+
+/*
+ * Register: ECDSA_RSA_APB_SLV_ERR_CTRL
+ */
+#define ECDSA_RSA_APB_SLV_ERR_CTRL		(ECDSA_RSA_BASEADDR + 0X00000044U)
+
+/*
+ * Register: SHA3
+ */
+#define SHA3_BASEADDR		(0XF1210000U)
+
+/*
+ * Register: SHA3_SHA_SLV_ERR_CTRL
+ */
+#define SHA3_SHA_SLV_ERR_CTRL		(SHA3_BASEADDR + 0X00000040U)
+
+/*
+ * Register: RTC
+ */
+#define RTC_BASEADDR		(0XF12A0000U)
+
+/*
+ * Register: RTC_CONTROL
+ */
+#define RTC_CONTROL		(RTC_BASEADDR + 0X00000040U)
+#define RTC_CONTROL_SLVERR_EN_MASK      (0X80000001U)
+
+/*
+ * XMPUs
+ */
+#define PMC_XMPU_BASEADDR		(0XF12F0000U)
+#define PMC_XMPU_SBI_BASEADDR		(0xF1330000U)
+#define PMC_XMPU_CFU_BASEADDR		(0xF1340000U)
+#define FPD_PKI_XMPU_BASEADDR		(0xEC820000U)
+#define FPD_MMU_XMPU_BASEADDR		(0xEC840000U)
+#define FPD_SLAVE_XMPU_BAESADDR		(0xEC810000U)
+#define FPD_CMN_XMPU_BASEADDR		(0xEC830000U)
+
+/* FPD Interconnect */
+#define FPD_INT_TOP_LVL_UNCORR_ERR_SRC_REGS_ADDR	(0xEC401000U)
+#define FPD_INT_UNCORR_ERR_SRC_REGS_1_ADDR		(0xEC401008U)
+#define FPD_INT_UNCORR_ERR_SRC_REGS_1_MASK		XPLMI_BIT(1)
+#define FPX_XMPU_PKI_FIREWALL_MASK			XPLMI_BIT(6)
+#define FPX_XMPU_MMU_FIREWALL_MASK			XPLMI_BIT(5)
+#define FPX_XMPU_FIREWALL_MASK				XPLMI_BIT(4)
+#define FPX_XMPU_CMN_FIREWALL_MASK			XPLMI_BIT(3)
+
+/* LPD Interconnect */
+#define LDP_INT_TOP_LVL_UNCORR_ERR_SRC_REGS_ADDR	(0xEA601000U)
+#define LPD_INT_UNCORR_ERR_SRC_REGS_0_MASK		XPLMI_BIT(0)
+#define LPD_INT_UNCORR_ERR_SRC_REGS_0_ADDR		(0xEA601004U)
+#define INTLPX_XPPU_FIREWALL_MASK			XPLMI_BIT(20)
+
+/* OCM Interconnect */
+#define OCM_INT_TOP_LVL_UNCORR_ERR_SRC_REGS_ADDR	(0xEA501000U)
+#define OCM_INT_UNCORR_ERR_SRC_REGS_0_MASK		XPLMI_BIT(0)
+#define OCM_INT_UNCORR_ERR_SRC_REGS_0_ADDR		(0xEA501004U)
+#define INTOCM_XMPU_SLAVES_FIREWALL_MASK		XPLMI_BIT(25)
+#define INTOCM_XMPU1_FIREWALL_MASK			XPLMI_BIT(24)
+#define INTOCM_XMPU0_FIREWALL_MASK			XPLMI_BIT(23)
+
+/* LPD OCM0 XMPU */
+#define LPD_XMPU_BASEADDR		(0xEB980000U)
+#define FPD_XMPU_BASEADDR		(0xEC810000U)
+#define OCM0_XMPU_BASEADDR		(0xEB400000U)
+#define OCM1_XMPU_BASEADDR		(0xEB980000U)
+#define OCM_SLVS_XMPU_BASEADDR		(0xEB5C0000U)
+#define LPD_AFIFS_XMPU_BASEADDR		(0xEB570000U)
+#define FPD_AFIFS_XMPU_BASEADDR		(0xEC870000U)
+
+/*
+ * XMPU Offsets
+ */
+#define XMPU_ERR_STATUS1_LO		(0x00000004U)
+#define XMPU_ERR_STATUS1_HI		(0x00000008U)
+#define XMPU_ERR_STATUS2		(0x0000000CU)
+#define XMPU_ISR			(0x00000010U)
+#define XMPU_IEN			(0x00000018U)
+
+/*
+ * XPPUs
+ */
+#define PMC_XPPU_BASEADDR		(0XF1310000U)
+#define PMC_XPPU_NPI_BASEADDR		(0XF1300000U)
+#define LPD_XPPU_BASEADDR		(0xEB990000U)
+
+/*
+ * XPPU Offsets
+ */
+#define XPPU_ERR_STATUS1		(0x00000004U)
+#define XPPU_ERR_STATUS2		(0x00000008U)
+#define XPPU_ISR			(0x00000010U)
+#define XPPU_IEN			(0x00000018U)
+
+/*
+ * Register: PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
+ */
+#define PMC_GLOBAL_ROM_VALIDATION_DIGEST_0    (PMC_GLOBAL_BASEADDR + 0X00000704U)
+/*
+ * Register: PMC_GLOBAL_PMC_FW_HASH_0
+ */
+#define PMC_GLOBAL_PMC_FW_HASH_0	(PMC_GLOBAL_BASEADDR + 0X00000750U)
+
+/*
+ * Definitions required for PMC, PS GPIO
+ */
+#define PMC_GPIO_DATA_0_OFFSET			(0xF1020040U)
+#define PMC_GPIO_DATA_1_OFFSET			(0xF1020044U)
+#define PS_GPIO_DATA_0_OFFSET			(0xFF0B0040U)
+#define PMC_INTPMC_CONFIG_ADDR			(0xF1400000U)
+#define PMC_TOP_LVL_UNCORR_ERR_SRC_REGS_ADDR    (0xF1401000U)
+#define PMC_UNCORR_ERR_SRC_REGS_1_ADDR		(0xF1401008U)
+#define PMC_UNCORR_ERR_SRC_REGS_1_MASK  	(0x02U)
+#define XPPU_NPI_FIREWALL_MASK			XPLMI_BIT(4)
+#define XPPU_FIREWALL_MASK			XPLMI_BIT(3)
+#define XMPU_SBI_FIREWALL_MASK			XPLMI_BIT(2)
+#define XMPU_PRAM_FIREWALL_MASK			XPLMI_BIT(1)
+#define XMPU_CFU_FIREWALL_MASK			XPLMI_BIT(0)
+
+
+
+/*
+ * Definitions required for PSMX GLOBAL
+ */
+#define PSMX_GLOBAL_REG_GLOBAL_CNTRL	(0xEBC90000U)
+#define PSMX_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK	(0x00000010U)
+
+/* Sysmon supply 0 address */
+#define XPLMI_SYSMON_SUPPLY0_ADDR		(0xF1271040U)
+#define XPLMI_SYSMON_SUPPLYX_MASK		(0x0000FFFFU)
+#define XPLMI_VCC_PMC_MP_MIN			(0.775f)
+#define XPLMI_VCC_PMC_HP_MIN			(0.854f)
+
+/* Slave error enable mask */
+#define XPLMI_SLAVE_ERROR_ENABLE_MASK	(0x1U)
+
+/*
+ * Definitions required for PSX_CRF
+ */
+#define PSX_CRF_BASEADDR		(0xEC200000U)
+
+#define PSX_CRF_RST_GIC			(PSX_CRF_BASEADDR + 0x00000320U)
+#define RST_GIC_RESET_MASK		(0x00000001U)
+
+#define PSX_CRF_RST_APU0		(PSX_CRF_BASEADDR + 0x00000300U)
+#define RST_APU_REG_OFFSET		(0x4U)
+#define APU_CLUSTER_COLD_RESET_MASK	(0x00000080U)
+#define APU_CLUSTER_WARM_RESET_MASK	(0x00000040U)
+#define APU_CORE_WARM_RESET_SHIFT	(0x2U)
+
+#define PSX_CRF_ACPU0_CLK_CTRL		(PSX_CRF_BASEADDR + 0x0000010CU)
+#define ACPU_CLK_CTRL_REG_OFFSET	(0x4U)
+#define ACPU0_CLK_CTRL_SRCSEL_MASK	(0x00000007U)
+#define ACPU0_CLK_CTRL_DIVISOR0_MASK	(0x0003FF00U)
+#define ACPU0_CLK_CTRL_CLKACT_MASK	(0x02000000U)
+#define ACPU0_CLK_CTRL_SRCSEL_VAL	(0x00000002U) //APLL1
+#define ACPU0_CLK_CTRL_DIVISOR0_VAL	(0x00000100U)
+#define ACPU0_CLK_CTRL_CLKACT_VAL	(0x02000000U)
+
+#define ACPU_CLK_CTRL_MASK		(ACPU0_CLK_CTRL_SRCSEL_MASK | \
+						ACPU0_CLK_CTRL_DIVISOR0_MASK | \
+						ACPU0_CLK_CTRL_CLKACT_MASK)
+
+#define ACPU_CLK_CTRL_VAL		(ACPU0_CLK_CTRL_SRCSEL_VAL | \
+						ACPU0_CLK_CTRL_DIVISOR0_VAL | \
+						ACPU0_CLK_CTRL_CLKACT_VAL)
+
+/*
+ * Definitions required for FPX_SLCR
+ */
+#define FPX_SLCR_BASEADDR		(0xEC8C0000U)
+
+#define FPX_SLCR_APU_CTRL		(FPX_SLCR_BASEADDR + 0x1000U)
+#define APU_CTRL_APU_LOCKSTEP_MASK	(0x0000000FU)
+
+
+/*
+ * Definitions required for LPX_SLCR
+ */
+#define LPD_SLCR_BASEADDR			(0xEB410000U)
+#define LPD_SLCR_EAM_PMC0_ERR0_MASK   		(( LPD_SLCR_BASEADDR ) + 0x00040040U)
+#define LPD_SLCR_EAM_PMC3_ERR0_MASK  		(( LPD_SLCR_BASEADDR ) + 0x00040160U)
+#define LPD_SLCR_EAM_PMC3_ERR0_DIS  		(( LPD_SLCR_BASEADDR ) + 0x000401A0U)
+#define LPD_SLCR_REG_EAM_ERR0_STATUS		(0xEB450000U)
+#define LPD_SLCR_GLOBAL_REG_ERR_OFFSET		(4U)
+#define LPDSLCR_EAM_PMC3_MASK_DIS_OFFSET	(0x40U)
+#define LPDSLCR_EAM_PMC3_MASK_EN_OFFSET		(0x20U)
+
+/*
+ * Definitions required for APU_CLUSTER
+ */
+#define APU_CLUSTER_BASEADDR		(0xECC00000U)
+#define APU_CLUSTER_OFFSET		(0x00100000U)
+#define APU_CLUSTER2_OFFSET		(0x00E00000U)
+
+#define APU_CLUSTER_CONFIG0_OFFSET	(0x00000020U)
+#define APU_CLUSTER_RVBARADDR0L_OFFSET	(0x00000040U)
+#define APU_CLUSTER_RVBARADDR0H_OFFSET	(0x00000044U)
+
+/*
+ * Definitions required for APU_PCLI
+ */
+#define APU_PCLI_BASEADDR		(0xECB10000U)
+#define APU_PCLI_CORE_OFFSET		(0x00000030U)
+#define APU_PCLI_CLUSTER_OFFSET		(0x00001000U)
+
+#define APU_PCLI_CLUSTER_PREQ_OFFSET		(0x00008004U)
+#define APU_PCLI_CLUSTER_PREQ_PREQ_MASK		(0x00000001U)
+#define APU_PCLI_CLUSTER_PSTATE_OFFSET		(0x00008008U)
+#define APU_PCLI_CLUSTER_PSTATE_PSTATE_MASK	(0x0000007FU)
+#define APU_PCLI_CLUSTER_PACTIVE_OFFSET		(0x0000800CU)
+#define APU_PCLI_CLUSTER_PACTIVE_PACCEPT_MASK	(0x01000000U)
+#define APU_CLUSTER_PSTATE_FULL_ON_VAL		(0x00000048U)
+#define APU_PCLI_CORE_PREQ_OFFSET		(0x00000004U)
+#define APU_PCLI_CORE_PREQ_PREQ_MASK		(0x00000001U)
+#define APU_PCLI_CORE_PSTATE_OFFSET		(0x00000008U)
+#define APU_PCLI_CORE_PSTATE_PSTATE_MASK	(0x0000003FU)
+#define APU_PCLI_CORE_PACTIVE_OFFSET		(0x0000000CU)
+#define APU_PCLI_CORE_PACTIVE_PACCEPT_MASK	(0x01000000U)
+#define APU_CORE_PSTATE_FULL_ON_VAL		(0x00000038U)
+
+#define GET_REGISTER_ADDR(BaseAddr, ModuleOffset, Addr, RegOffset)	\
+	(((BaseAddr) + (ModuleOffset)) + ((Addr) + (RegOffset)))
+
+#define GET_APU_CLUSTER_REG(ClusterNum, Offset)		\
+	GET_REGISTER_ADDR(APU_CLUSTER_BASEADDR,		\
+	((ClusterNum / 2U) * APU_CLUSTER2_OFFSET) + 	\
+	((ClusterNum % 2U) * APU_CLUSTER_OFFSET), Offset, 0U)
+
+#define GET_APU_PCLI_CLUSTER_REG(CoreNum, Offset)		\
+	GET_REGISTER_ADDR(APU_PCLI_BASEADDR, 0U, Offset, \
+		(CoreNum) * APU_PCLI_CLUSTER_OFFSET)
+
+#define GET_APU_PCLI_CORE_REG(CoreNum, Offset)		\
+	GET_REGISTER_ADDR(APU_PCLI_BASEADDR, 0U, Offset, \
+		(CoreNum) * APU_PCLI_CORE_OFFSET)
+
+/*
+ * Definitions required for RPU_CLUSTER
+ */
+#define RPU_CLUSTER_BASEADDR		(0xEB580000U)
+#define RPU_CLUSTER_OFFSET		(0x10000U)
+#define RPU_CLUSTER_CORE_OFFSET		(0x100U)
+
+#define RPU_CLUSTER_CORE_CFG0_OFFSET		(0x0U)
+#define RPU_CLUSTER_CORE_CFG0_TCMBOOT_MASK	(0x00000010U)
+#define RPU_CLUSTER_CORE_CFG0_REMAP_MASK	(0x00000020U)
+#define RPU_CLUSTER_CORE_CFG0_CPU_HALT_MASK	(0x00000001U)
+#define RPU_CLUSTER_CORE_VECTABLE_OFFSET	(0x10U)
+#define RPU_CLUSTER_CORE_VECTABLE_MASK		(0xFFFFFFE0U)
+#define RPU_CLUSTER_CFG_OFFSET			(0x00000800U)
+#define RPU_CLUSTER_CFG_SLSPLIT_MASK		(0x00000001U)
+
+#define PSX_CRL_BASEADDR		(0xEB5E0000U)
+#define CRL_RPU_CLK_CTRL_ADDR		(PSX_CRL_BASEADDR + 0x10CU)
+#define CRL_RST_RPU_ADDR		(PSX_CRL_BASEADDR + 0x310U)
+#define CRL_PSM_RST_MODE_ADDR		(PSX_CRL_BASEADDR + 0x380U)
+#define CRL_PSM_RST_WAKEUP_MASK		(0x4U)
+#define RPU_CLK_CTRL_CLKACT_MASK	(0x01000000U)
+#define RPU_A_TOPRESET_MASK		(0x00010000U)
+#define RPU_A_DBGRST_MASK		(0x00100000U)
+#define RPU_A_DCLS_TOPRESET_MASK	(0x00040000U)
+#define RPU_CORE0A_POR_MASK		(0x00000100U)
+#define RPU_CORE0A_RESET_MASK		(0x00000001U)
+
+#define GET_RPU_CLUSTER_CORE_REG(ClusterNum, CoreNum, Offset) \
+		GET_REGISTER_ADDR(RPU_CLUSTER_BASEADDR, \
+		(ClusterNum) * RPU_CLUSTER_OFFSET, Offset, \
+		(CoreNum) * RPU_CLUSTER_CORE_OFFSET)
+
+#define GET_RPU_CLUSTER_REG(ClusterNum, Offset) \
+		GET_REGISTER_ADDR(RPU_CLUSTER_BASEADDR, \
+		(ClusterNum) * RPU_CLUSTER_OFFSET, Offset, 0U)
+
+#define PMC_GLOBAL_PPU1_HW_INT_ADDR		(PMC_GLOBAL_BASEADDR + 0x00011500U)
+#define PMC_GLOBAL_PPU1_HW_INT_MASK_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011510U)
+#define PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011520U)
+#define PMC_GLOBAL_PPU1_HW_INT_DISABLE_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011530U)
+
+#define PMC_GLOBAL_PPU1_PL_INT_ADDR		(PMC_GLOBAL_BASEADDR + 0x00011504U)
+#define PMC_GLOBAL_PPU1_PL_INT_ENABLE_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011524U)
+
+#define PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK	(0x00000001U)
+#define PMC_GLOBAL_PPU1_HW_INT_MB_DATA_MASK	(0x00000002U)
+#define PMC_GLOBAL_PPU1_HW_INT_MB_INSTR_MASK	(0x00000004U)
+#define PMC_GLOBAL_PPU1_PL_INT_GPI_MASK		(0x00000001U)
+
+/* Uart base address */
+#define XPLMI_HW_UART0_BASEADDR		(0xF1920000U)
+#define XPLMI_HW_UART1_BASEADDR		(0xF1930000U)
+#define XPLMI_HW_PPU1_MDM_BASEADDR	(0xF0310000U)
+
+/*
+ * PMC IOmodule interrupts
+ */
+#define XPLMI_IOMODULE_PPU1_HW_INT		(16U)
+#define XPLMI_IOMODULE_PPU1_PL_INT		(17U)
+#define XPLMI_IOMODULE_ERR_IRQ			(18U)
+#define XPLMI_IOMODULE_CFRAME_SEU		(20U)
+#define XPLMI_IOMODULE_PMC_IPI			(28U)
+
+#define PMC_PMC_MB_IO_IRQ_ACK			(0xF030003CU)
+
+/* Memory map used for validating addresses */
+#define XPLMI_PSM_RAM_BASE_ADDR		(0xEBC00000U)
+#define XPLMI_PSM_RAM_HIGH_ADDR		(0xEBC2FFFFU)
+#define XPLMI_TCM0_BASE_ADDR		(0xEBA00000U)
+#define XPLMI_TCM0_HIGH_ADDR		(0xEBA6FFFFU)
+#define XPLMI_TCM1_BASE_ADDR		(0xEBA80000U)
+#define XPLMI_TCM1_HIGH_ADDR		(0xEBAEFFFFU)
+#define XPLMI_RSVD_BASE_ADDR		(0xA0000000U)
+#define XPLMI_RSVD_HIGH_ADDR		(0xAFFFFFFFU)
+#define XPLMI_M_AXI_FPD_MEM_HIGH_ADDR	(0xBFFFFFFFU)
+#define XPLMI_OCM_BASE_ADDR		(0xBBF00000U)
+#define XPLMI_OCM_HIGH_ADDR		(0xBBFFFFFFU)
+#define XPLMI_2GB_END_ADDR		(0x7FFFFFFFU)
+#define XPLMI_4GB_END_ADDR		(0xFFFFFFFFU)
+#define XPLMI_TOTAL_CHUNK_SIZE	(0x10400U)
+
+#ifdef SDT
+#define XCFRAME_DEVICE  (XPAR_XCFRAME_0_BASEADDR)
+#define XLOADER_QSPI_DEVICE		(XPAR_XQSPIPSU_0_BASEADDR)
+#define XLOADER_USB_DEVICE		(XPAR_XUSBPSU_0_BASEADDR)
+#define XILPLMI_IOMODULE_INTC_MAX_INTR_SIZE (XPAR_XIOMODULE_0_MAX_INTR_SIZE)
+#define IOMODULE_DEVICE (XPAR_XIOMODULE_0_BASEADDR)
+#define XLOADER_QSPI_CONNECTION_MODE (XPAR_XQSPIPSU_0_CONNECTION_MODE)
+#define XLOADER_QSPI_BUS_WIDTH (XPAR_XQSPIPSU_0_BUS_WIDTH)
+#else
+#define XCFRAME_DEVICE  (XPAR_XCFRAME_0_DEVICE_ID)
+#define XLOADER_QSPI_DEVICE		(XPAR_XQSPIPSU_0_DEVICE_ID)
+#define XLOADER_USB_DEVICE		(XPAR_XUSBPSU_0_DEVICE_ID)
+#define XILPLMI_IOMODULE_INTC_MAX_INTR_SIZE (XPAR_IOMODULE_INTC_MAX_INTR_SIZE)
+#define IOMODULE_DEVICE (XPAR_IOMODULE_0_DEVICE_ID)
+#define XLOADER_QSPI_CONNECTION_MODE (XPAR_XQSPIPSU_0_QSPI_MODE)
+#define XLOADER_QSPI_BUS_WIDTH (XPAR_XQSPIPSU_0_QSPI_BUS_WIDTH)
+#endif
+
+/************************** Function Prototypes ******************************/
+
+/************************** Variable Definitions *****************************/
+
+/**
+ * @}
+ * @endcond
+ */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif  /* XPLMI_HW_H */
