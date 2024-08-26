@@ -54,3 +54,8 @@ examples:
       - xilpuf_versal_net_example.h
     - supported_platforms:
       - VersalNet
+  xilpuf_spartan_ultrascale_plus_example.c:
+    - supported_platforms:
+      - SPARTANUP
+    - dependency_files:
+      - xilpuf_spartan_ultrascale_plus_example.h

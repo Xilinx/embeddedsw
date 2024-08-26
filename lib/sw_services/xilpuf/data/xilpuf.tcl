@@ -23,9 +23,9 @@ proc puf_drc {libhandle} {
 	set mode [common::get_property CONFIG.xpuf_mode $libhandle]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
-	set server "src/server/"
-	set client "src/client/"
-	set common  "src/common/"
+	set server "src/versal_gen/server/"
+	set client "src/versal_gen/client/"
+	set common  "src/versal_gen/common/"
 
 	if {$proc_type != "psv_pmc" && $proc_type != "psv_cortexa72" &&
 		$proc_type != "psv_cortexr5" && $proc_type != "psu_pmc" &&
