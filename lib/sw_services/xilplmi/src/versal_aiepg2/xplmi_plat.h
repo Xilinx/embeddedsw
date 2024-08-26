@@ -56,6 +56,7 @@
 *       sk   06/05/2024 Added defines for PLM Version in RTCA register
 * 2.1   har  06/24/2024 Incremented XPLMI_PLM_PLAT_RC_VERSION
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
+* 2.02  sk   08/26/2024 Updated EAM support for Versal Aiepg2
 *
 * </pre>
 *
@@ -739,6 +740,7 @@ u32 XPlmi_GetCryptoStatus(u32 Mask);
 u8 XPlmi_IsKatRan(u32 PlmKatMask);
 u32 XPlmi_GetRomIroFreq(void);
 XIOModule *XPlmi_GetIOModuleInst(void);
+int XPlmi_VersalAiepG2EAMHandler(void *Data);
 
 /* Functions defined in xplmi_plat_cmd.c */
 int XPlmi_InPlacePlmUpdate(XPlmi_Cmd *Cmd);

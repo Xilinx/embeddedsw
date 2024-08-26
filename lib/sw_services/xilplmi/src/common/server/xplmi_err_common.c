@@ -143,6 +143,7 @@
 *       ng   03/09/2024 Fixed format specifier for 32bit variables
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *       sk   05/07/2024 Added support for In Place Update Error Notify
+* 2.01  sk   08/26/2024 Updated EAM support for Versal Aiepg2
 *
 * </pre>
 *
@@ -167,9 +168,6 @@
  */
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_UPDATE_TYPE_INCREMENT	(1U)
-#define XPLMI_UPDATE_TYPE_DECREMENT	(2U)
-#define XPLMI_MAX_ERR_OUTS		(0xFFFFFFFFU)
 
 /* Command IDs supported in CDOs */
 #define XPLMI_EM_SET_ACTION_CMD_ID	(1U)
@@ -191,13 +189,13 @@
 /************************** Function Prototypes ******************************/
 static s32 (* PmSystemShutdown)(u32 SubsystemId, const u32 Type, const u32 SubType,
 				const u32 CmdType);
+#ifndef VERSAL_AIEPG2
 static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask);
+#endif
 static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask);
-static void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId);
 static void XPlmi_DumpRegisters(void);
 static void XPlmi_ErrOutNClearFwCR(u32 ErrorId);
-static u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType);
 
 /************************** Variable Definitions *****************************/
 static u32 EmSubsystemId = 0U;
@@ -433,7 +431,7 @@ static void XPlmi_TriggerSecureLockdown(u32 ErrorNodeId, u32 RegMask)
 	XPlmi_TriggerTamperResponse(TamperResponse,
 			XPLMI_TRIGGER_TAMPER_TASK);
 }
-
+#ifndef VERSAL_AIEPG2
 /****************************************************************************/
 /**
 * @brief    This function handles the PSM error routed to PLM.
@@ -499,7 +497,7 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
 		ErrorTable[ErrorId].Action = XPLMI_EM_ACTION_NONE;
 	}
 }
-
+#endif
 /****************************************************************************/
 /**
 * @brief    This function handles the Software error triggered from within PLM.
@@ -570,7 +568,7 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 		ErrorTable[ErrorId].Action = XPLMI_EM_ACTION_NONE;
 	}
 }
-
+#ifndef VERSAL_AIEPG2
 /****************************************************************************/
 /**
 * @brief    This function is the interrupt handler for PSM Errors.
@@ -630,7 +628,7 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 		}
 	}
 }
-
+#endif
 /****************************************************************************/
 /**
 * @brief    This function is the interrupt handler for Error subtype subsystem
@@ -772,6 +770,14 @@ END:
 ****************************************************************************/
 int XPlmi_ErrorTaskHandler(void *Data)
 {
+#ifdef VERSAL_AIEPG2
+	int Status = XST_FAILURE;
+
+	Status = XPlmi_VersalAiepG2EAMHandler(Data);
+
+	return Status;
+#else
+
 	u32 ErrStatus[XPLMI_PMC_MAX_ERR_CNT];
 	u32 ErrIrqMask[XPLMI_PMC_MAX_ERR_CNT];
 	u32 ErrIndex;
@@ -847,6 +853,7 @@ int XPlmi_ErrorTaskHandler(void *Data)
 	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_ERR_IRQ);
 
 	return XST_SUCCESS;
+#endif
 }
 
 /*****************************************************************************/
@@ -860,12 +867,13 @@ int XPlmi_ErrorTaskHandler(void *Data)
  * 			- None
  *
  *****************************************************************************/
-static void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId)
+void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId)
 {
 	u32 RegMask = XPlmi_ErrRegMask(ErrorId);
 	u32 Index;
+#ifndef VERSAL_AIEPG2
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
-
+#endif
 	switch (XPlmi_GetEventIndex(ErrorNodeType)) {
 	case XPLMI_NODETYPE_EVENT_PMC_INDEX:
 		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PMC_ERR1;
@@ -873,6 +881,7 @@ static void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId)
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS +
 			(Index * PMC_GLOBAL_REG_PMC_ERR_OFFSET), RegMask);
 		break;
+#ifndef VERSAL_AIEPG2
 	case XPLMI_NODETYPE_EVENT_PSM_INDEX:
 		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
 		/* Clear previous errors */
@@ -883,6 +892,15 @@ static void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId)
 			XPlmi_ErrOutNClearFwCR(ErrorId);
 		}
 		break;
+#else
+	case XPLMI_NODETYPE_EVENT_LPDSLCR_INDEX:
+		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_LPDSLCR_ERR0;
+		/* Clear previous errors */
+		XPlmi_Out32(LPD_SLCR_REG_EAM_ERR0_STATUS +
+			(Index * LPD_SLCR_GLOBAL_REG_ERR_OFFSET), RegMask);
+		break;
+
+#endif
 	case XPLMI_NODETYPE_EVENT_SW_INDEX:
 		XPlmi_ErrOutNClearFwCR(ErrorId);
 		break;
@@ -976,6 +994,7 @@ int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask)
 	return (int)Status;
 }
 
+#ifndef VERSAL_AIEPG2
 /*****************************************************************************/
 /**
  * @brief	This function disables the PSM error actions for the given mask.
@@ -1000,7 +1019,7 @@ int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask)
 
 	return (int)Status;
 }
-
+#endif
 /*****************************************************************************/
 /**
  * @brief	This function disables the responses for the given error.
@@ -1030,6 +1049,7 @@ int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask)
 		Status = XPlmi_EmDisablePmcErrors(
 				GET_PMC_ERR_ACTION_OFFSET(Index), RegMask);
 		break;
+#ifndef VERSAL_AIEPG2
 	case XPLMI_NODETYPE_EVENT_PSM_INDEX:
 		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
 		/**
@@ -1039,6 +1059,18 @@ int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask)
 		Status = XPlmi_EmDisablePsmErrors(
 				GET_PSM_ERR_ACTION_OFFSET(Index), RegMask);
 		break;
+#else
+	case XPLMI_NODETYPE_EVENT_LPDSLCR_INDEX:
+		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_LPDSLCR_ERR0;
+		/**
+		 * - For XPLMI_NODETYPE_EVENT_LPDSLCR - Disable IRQ to PMC,
+		 *   Interrupt.
+		 */
+		Status = XPlmi_EmDisableLpdSlcrErrors(
+				GET_LPDSLCR_PMC3_ERR_MASK(Index), RegMask);
+		break;
+
+#endif
 	case XPLMI_NODETYPE_EVENT_SW_INDEX:
 		/**
 		 * - For XPLMI_NODETYPE_EVENT_SW_INDEX - Do nothing.
@@ -1079,7 +1111,9 @@ static int XPlmi_EmEnableAction(XPlmi_EventType ErrorNodeType, u32 RegMask, u8 A
 	u32 Index;
 	u32 PmcActionMask;
 	u8 IrqAction = (u8)FALSE;
+#ifndef VERSAL_AIEPG2
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
+#endif
 
 	switch (Action) {
 	case XPLMI_EM_ACTION_POR:
@@ -1116,6 +1150,7 @@ static int XPlmi_EmEnableAction(XPlmi_EventType ErrorNodeType, u32 RegMask, u8 A
 		Status = EmEnableErrAction(GET_PMC_ERR_ACTION_ADDR(PmcActionMask,
 					Index), RegMask);
 		break;
+#ifndef VERSAL_AIEPG2
 	case XPLMI_NODETYPE_EVENT_PSM_INDEX:
 		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
 		/*
@@ -1135,6 +1170,17 @@ static int XPlmi_EmEnableAction(XPlmi_EventType ErrorNodeType, u32 RegMask, u8 A
 				GET_PSM_ERR_ACTION_OFFSET(Index), RegMask);
 		}
 		break;
+#else
+	case XPLMI_NODETYPE_EVENT_LPDSLCR_INDEX:
+		if (IrqAction == TRUE) {
+			Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_LPDSLCR_ERR0;
+			Status = EmEnableLpdSlcrErrAction(GET_LPDSLCR_PMC3_ERR_MASK(Index),
+							RegMask);
+		 } else {
+			 /* To be handled for SRST,IPOR,ERROUT */
+		 }
+		break;
+#endif
 	case XPLMI_NODETYPE_EVENT_SW_INDEX:
 		/* Do nothing */
 		Status = XST_SUCCESS;
@@ -1263,12 +1309,17 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 		/**
 		 * - Check for Valid handler.
 		 */
-		if((XPLMI_EM_ACTION_CUSTOM == ActionId) && (NULL == ErrorHandler) &&
-				(XPLMI_ERROR_PMC_PSM_NCR != ErrorId)) {
-			/* Null handler */
-			Status = XPLMI_INVALID_ERROR_HANDLER;
-			XPlmi_Printf(DEBUG_INFO, "Invalid Error Handler \n\r");
-			goto END;
+		if((XPLMI_EM_ACTION_CUSTOM == ActionId) && (NULL == ErrorHandler)) {
+		#ifndef VERSAL_AIEPG2
+			if ((XPLMI_ERROR_PMC_PSM_NCR != ErrorId)) {
+		#else
+			if ((XPLMI_ERROR_PSX_EAM_E3 != ErrorId)) {
+		#endif
+				/* Null handler */
+				Status = XPLMI_INVALID_ERROR_HANDLER;
+				XPlmi_Printf(DEBUG_INFO, "Invalid Error Handler \n\r");
+				goto END;
+			}
 		}
 
 		if((ActionId > XPLMI_EM_ACTION_INVALID) &&
@@ -1410,6 +1461,7 @@ END:
 	return Status;
 }
 
+#ifndef VERSAL_AIEPG2
 /*****************************************************************************/
 /**
  * @brief	This function initializes the PSM error actions. Disables all the
@@ -1474,6 +1526,7 @@ int XPlmi_PsEmInit(void)
 
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1592,7 +1645,7 @@ u32 XPlmi_GetEmSubsystemId(void)
  * @return	Number of ErrOuts count
  *
  *****************************************************************************/
-static u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType)
+u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType)
 {
 	u32 *NumErrOuts = XPlmi_GetNumErrOuts();
 

@@ -47,6 +47,7 @@
 *       ng   02/12/2024 optimised u8 vars to u32 for size reduction
 *       ma   03/05/2024 Fixed improper timestamp issue after In-place PLM update
 *       ma   03/15/2024 Do not stop PIT3 timer during In-place PLM update
+* 1.04  sk   08/26/2024 Updated EAM support for Versal Aiepg2
 *
 * </pre>
 *
@@ -422,9 +423,9 @@ int XPlmi_GenericHandler(XPlmi_ModuleOp Op)
 			GET_PMC_IRQ_MASK(GET_PMC_ERR_ACTION_OFFSET(Index)),
 			MASK32_ALL_HIGH);
 		}
-		for (Index = 0U; Index < XPLMI_PSM_MAX_ERR_CNT; Index++) {
-			(void)XPlmi_EmDisablePsmErrors(
-			GET_PSM_ERR_ACTION_OFFSET(Index), MASK32_ALL_HIGH);
+		for (Index = 0U; Index < XPLMI_LPDSLCR_MAX_ERR_CNT; Index++) {
+			(void)XPlmi_EmDisableLpdSlcrErrors(
+			GET_LPDSLCR_PMC3_ERR_MASK(Index), MASK32_ALL_HIGH);
 		}
 
 		/* Disable & Acknowledge Interrupts */

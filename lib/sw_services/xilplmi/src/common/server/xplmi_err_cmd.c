@@ -45,6 +45,7 @@
 * 1.08  ma   09/27/2023 Add secure lockdown to EAM error actions list
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       am   04/04/2024 Fixed doxygen warnings
+* 2.01  sk   08/26/2024 Updated EAM support for Versal Aiepg2
 *
 * </pre>
 *
@@ -147,17 +148,19 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
 
-	u32 *IsPsmCrChanged = XPlmi_GetPsmCrState();
 	XPlmi_EventType NodeType =
 			(XPlmi_EventType)XPlmi_EventNodeType(Cmd->Payload[0U]);
 	u32 ErrorAction = Cmd->Payload[1U];
 	u32 ErrorMasks = Cmd->Payload[2U];
+#ifndef VERSAL_AIEPG2
+	u32 *IsPsmCrChanged = XPlmi_GetPsmCrState();
 	u32 PmcPsmCrErrMask = (u32)1U << (u32)XPLMI_ERROR_PMC_PSM_CR;
 	u32 PmcPsmNCrErrMask = (u32)1U << (u32)XPLMI_ERROR_PMC_PSM_NCR;
-	u32 FwErrMask = (u32)1U << (u32)XPLMI_ERROR_FW_CR;
 	u32 PmcPsmCrErrVal = ErrorMasks & PmcPsmCrErrMask;
 	u32 PmcPsmNCrErrVal = ErrorMasks & PmcPsmNCrErrMask;
+	u32 FwErrMask = (u32)1U << (u32)XPLMI_ERROR_FW_CR;
 	u32 FwErrVal = ErrorMasks & FwErrMask;
+#endif
 	u32 SubsystemId;
 
 	XPLMI_EXPORT_CMD(XPLMI_CMD_ID_EM_SET_ACTION, XPLMI_MODULE_GENERIC_ID,
@@ -192,6 +195,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	}
 
 	if (NodeType == XPLMI_NODETYPE_EVENT_PMC_ERR1) {
+	#ifndef VERSAL_AIEPG2
 		/* Only allow HW error actions for PSM_CR error */
 		if (PmcPsmCrErrVal != 0U) {
 			if (ErrorAction >= XPLMI_EM_ACTION_SUBSYS_SHUTDN) {
@@ -220,8 +224,10 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 			Status = XPLMI_CANNOT_CHANGE_ACTION;
 			goto END;
 		}
+	#endif
 	}
 
+#ifndef VERSAL_AIEPG2
 	/*
 	 * Allow error action setting for PSM errors only if LPD is initialized
 	 */
@@ -232,7 +238,19 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		Status = XPLMI_LPD_UNINITIALIZED;
 		goto END;
 	}
+#else
+	/*
+	 * Allow error action setting for LPD SLCR errors only if LPD is initialized
+	 */
+	if ((XPlmi_GetEventIndex(NodeType) ==  XPLMI_NODETYPE_EVENT_LPDSLCR_INDEX) &&
+		(XPlmi_IsLpdInitialized() != (u8)TRUE)) {
+		XPlmi_Printf(DEBUG_INFO, "LPD is not initialized to configure "
+				"errors and actions in LPD SLCR\n\r");
+		Status = XPLMI_LPD_UNINITIALIZED;
+		goto END;
+	}
 
+#endif
 	Status = XPlmi_RestrictErrActions(NodeType, ErrorMasks, ErrorAction);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -243,10 +261,12 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
+#ifndef VERSAL_AIEPG2
 	if ((NodeType == XPLMI_NODETYPE_EVENT_PMC_ERR1) &&
 		(PmcPsmCrErrVal  != 0U)) {
 		*IsPsmCrChanged = (u32)TRUE;
 	}
+#endif
 
 END:
 	return Status;

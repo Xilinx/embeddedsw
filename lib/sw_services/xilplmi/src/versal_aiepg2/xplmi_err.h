@@ -29,7 +29,7 @@
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 * 1.02  ma   02/29/2024 Change protection unit error actions to PRINT_TO_LOG
 *                       to handle restoring of the error actions after IPU
-*
+* 1.02  sk   08/26/2024 Updated EAM support for Versal Aiepg2
 * </pre>
 *
 * @note
@@ -115,7 +115,8 @@ u32 *XPlmi_GetNumErrOuts(void);
 u32 *XPlmi_GetPsmCrState(void);
 void XPlmi_HandleLinkUpEvent(u32 Cpm5NPcieCdxIrStatusReg, u32 Cpm5NCdxPcieBReg, u32 ProcId);
 void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask);
-
+int XPlmi_EmDisableLpdSlcrErrors(u32 RegMaskAddr, u32 RegMask);
+int EmEnableLpdSlcrErrAction(u32 ErrMaskRegAddr, u32 RegMask);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
