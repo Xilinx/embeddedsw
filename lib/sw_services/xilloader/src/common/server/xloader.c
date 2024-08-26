@@ -317,6 +317,9 @@ int XLoader_Init(void)
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SetSecureState);
 
 #ifndef PLM_SECURE_EXCLUDE
+	/** - Decrements the count of configuration limiter */
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_UpdateCfgLimitCount, XLOADER_BBRAM_CL_DECREMENT_COUNT);
+
 	/** - Add task to the scheduler to handle Authenticated JTAG message */
 	Status = XLoader_AddAuthJtagToScheduler();
 	if (Status != XST_SUCCESS) {

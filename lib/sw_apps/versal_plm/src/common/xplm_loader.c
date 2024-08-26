@@ -78,6 +78,7 @@
 #include "xloader_plat.h"
 #include "xplmi_plat.h"
 #include "xplm_plat.h"
+#include "xloader_secure.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -150,6 +151,11 @@ int XPlm_LoadBootPdi(void *Arg)
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
 	}
+
+#ifndef PLM_SECURE_EXCLUDE
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_UpdateCfgLimitCount, XLOADER_BBRAM_CL_INCREMENT_COUNT);
+#endif
+
 	/* Save Boot PDI info */
 	Xloader_SaveBootPdiInfo(PdiInstPtr);
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "***********Boot PDI Load: Done***********\n\r");

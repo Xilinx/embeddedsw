@@ -672,6 +672,7 @@ int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 
 int XLoader_ClearAesKey(u32 *DecKeySrc);
 #endif
 int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
+int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
 #ifndef VERSAL_AIEPG2
 int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,

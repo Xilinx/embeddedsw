@@ -182,6 +182,25 @@ static inline int XLoader_AddDeviceStateChangeToScheduler(void)
 	return XST_SUCCESS;
 }
 
+
+/*****************************************************************************/
+/**
+* @brief	This function updates the configuration limiter count if
+*		Configuration limiter feature is enabled in case of secure boot.
+*		In case of eny error, secure lockdown is triggered.
+*
+* @return	XST_SUCCESS on success.
+*		Error code in case of failure
+*
+* @note		Not applicable in case of Versal
+*
+******************************************************************************/
+static inline int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
+{
+	(void)UpdateFlag;
+	return XST_SUCCESS;
+}
+
 /************************** Function Prototypes ******************************/
 u32 XLoader_GetKekSrc(void);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);

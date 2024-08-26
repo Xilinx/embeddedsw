@@ -52,6 +52,7 @@
 #include "xplmi_err.h"
 #include "xilpdi_plat.h"
 #include "xil_error_node.h"
+#include "xplmi_status.h"
 #ifndef PLM_SECURE_EXCLUDE
 #include "xsecure_init.h"
 #include "xsecure_error.h"
@@ -501,6 +502,76 @@ int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 
 
 	/* Not applicable for Versal Net */
 	return XST_FAILURE;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function updates the configuration limiter count if
+*		Configuration limiter feature is enabled in case of secure boot.
+*		In case of eny error, secure lockdown is triggered.
+*
+* @param	UpdateFlag - Indicates id the counter should be incremented or decremeted
+*
+* @return	XST_SUCCESS on success.
+*		Error code in case of failure
+*
+******************************************************************************/
+int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
+	u32 ReadReg;
+	int SHwRotStatus;
+	int AHwRotStatus;
+	u32 ReadCfgLimiterReg = XPlmi_In32(XLOADER_BBRAM_8_ADDRESS);
+	u32 MaxConfigsCnt = ReadCfgLimiterReg & XLOADER_BBRAM_CL_COUNTER_MASK;
+	u32 ClFeatureEn = ReadCfgLimiterReg & XLOADER_BBRAM_CL_FEATURE_EN_MASK;
+	u32 CLMode;
+
+	if ((UpdateFlag != XLOADER_BBRAM_CL_INCREMENT_COUNT) && (UpdateFlag != XLOADER_BBRAM_CL_DECREMENT_COUNT)) {
+		goto END;
+	}
+
+	if (ClFeatureEn == XLOADER_BBRAM_CL_FEATURE_ENABLE) {
+		ReadReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR);
+		SHwRotStatus = XLoader_CheckSecureState(ReadReg, SecureStateSHWRoT,
+			XPLMI_RTCFG_SECURESTATE_SHWROT);
+
+		ReadReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
+		AHwRotStatus = XLoader_CheckSecureState(ReadReg, SecureStateAHWRoT,
+			XPLMI_RTCFG_SECURESTATE_AHWROT);
+
+		if ((AHwRotStatus == XST_SUCCESS) || (SHwRotStatus == XST_SUCCESS)) {
+			if (UpdateFlag == XLOADER_BBRAM_CL_INCREMENT_COUNT){
+				MaxConfigsCnt++;
+			}
+			else {
+				if (MaxConfigsCnt == 0U) {
+					Status = XPlmi_UpdateStatus((XPlmiStatus_t)XLOADER_ERR_CONFIG_LIMIT_EXCEEDED,
+						Status);
+					XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK,
+						(u32)Status);
+					XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_TASK);
+					goto END;
+				}
+				MaxConfigsCnt--;
+			}
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_UPDATE_CONFIG_LIMITER_CNT_FAILED,
+				Status, StatusTmp, Xil_SecureRMW32, XLOADER_BBRAM_8_ADDRESS,
+				XLOADER_BBRAM_CL_COUNTER_MASK, MaxConfigsCnt);
+			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				goto END;
+			}
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+
 }
 
 #endif /* END OF PLM_SECURE_EXCLUDE */

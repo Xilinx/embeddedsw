@@ -260,7 +260,6 @@ static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePt
 static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr);
 static int XLoader_AuthJtag(u32 *TimeOut);
 
-static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
 static void XLoader_ClearKatStatusOnCfg(XilPdi *PdiPtr, u32 PlmKatMask);
 static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
 static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr);
@@ -3505,7 +3504,7 @@ END:
 * @return   XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)
+int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)
 {
 	int Status = XST_FAILURE;
 
