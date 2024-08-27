@@ -34,6 +34,7 @@
 *       rama 08/10/2023 Changed exception handler print to DEBUG_ALWAYS for
 *                       debug level_0 option
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
+*       pre  08/27/2024 Modified XPlm_ExceptionHandler for external linkage
 *
 * </pre>
 *
@@ -58,7 +59,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XPlm_ExceptionHandler(void *Data);
 
 /************************** Variable Definitions *****************************/
 extern u32 _stack;
@@ -99,7 +99,7 @@ void XPlm_ExceptionInit(void)
  * having Index and exception error code.
  *
  *****************************************************************************/
-static void XPlm_ExceptionHandler(void *Data)
+void XPlm_ExceptionHandler(void *Data)
 {
 	int Status = XST_FAILURE;
 	u8 SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &

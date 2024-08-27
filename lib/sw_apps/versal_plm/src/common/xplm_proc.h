@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 1.01  kc   03/23/2020 Minor code cleanup
 * 1.02  bm   07/17/2023 Removed XPlm_InitProc prototype, Added XPlm_ExceptionInit
 *                       prototype
+*       pre  08/27/2024 Added XPlm_ExceptionHandler for external linkage
 *
 * </pre>
 *
@@ -44,6 +45,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 void XPlm_ExceptionInit(void);
+void XPlm_ExceptionHandler(void *Data);
 
 #ifdef __cplusplus
 }
