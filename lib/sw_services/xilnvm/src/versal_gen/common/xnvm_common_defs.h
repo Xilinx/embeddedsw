@@ -53,11 +53,19 @@ extern "C" {
 #define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)
 #define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)
 #define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)
+#ifndef VERSAL_AIEPG2
 #define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)
+#else
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS                (12U)
+#endif
 #define XNVM_EFUSE_DNA_LEN_IN_WORDS			(4U)
 #define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)
+#ifndef VERSAL_AIEPG2
 #define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)
+#else
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS                 (384U)
+#endif
 #define XNVM_EFUSE_IV_LEN_IN_BYTES			(12U)
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES			(32U)
 #define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(32U)

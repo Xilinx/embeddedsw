@@ -120,6 +120,8 @@ static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32 *RegData);
 			/**< DME 2 corresponding User eFuse offset */
 #define XNVM_EFUSE_DME_3_USER_EFUSE_CACHE_OFFSET	(0x2D0U)
 			/**< DME 3 corresponding User eFuse offset */
+#define XNVM_EFUSE_PPK_HASH_UPPER_WORD_START_OFFSET	(8U)
+			/**< PPK HASH upper 128 bit hash start word offset */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -263,7 +265,7 @@ int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *E
 
 	if (EnvDisFlag != TRUE) {
 		/**
-		 *  Perform Environmental monitoring checks
+		 * Perform Environmental monitoring checks
 		 */
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -3074,7 +3076,40 @@ static int XNvm_EfusePrgmPpkHash(XNvm_PpkType PpkType, XNvm_PpkHash *EfuseHash)
 		Status = (Status |
 			(XNVM_EFUSE_ERR_WRITE_PPK0_HASH +
 			(PpkType << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
+		goto END;
 	}
+
+#ifdef VERSAL_AIEPG2
+	if(PpkType == XNVM_EFUSE_PPK0) {
+		EfusePrgmInfo.StartRow = XNVM_EFUSE_ADD_PPK0_HASH_START_ROW;
+                EfusePrgmInfo.ColStart = XNVM_EFUSE_ADD_PPK0_HASH_START_COL_NUM;
+                EfusePrgmInfo.ColEnd = XNVM_EFUSE_ADD_PPK0_HASH_END_COL_NUM;
+                EfusePrgmInfo.NumOfRows = XNVM_EFUSE_ADD_PPK0_HASH_NUM_OF_ROWS;
+                EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
+	}
+	else if(PpkType == XNVM_EFUSE_PPK1) {
+		EfusePrgmInfo.StartRow = XNVM_EFUSE_ADD_PPK1_HASH_START_ROW;
+                EfusePrgmInfo.ColStart = XNVM_EFUSE_ADD_PPK1_HASH_START_COL_NUM;
+                EfusePrgmInfo.ColEnd = XNVM_EFUSE_ADD_PPK1_HASH_END_COL_NUM;
+                EfusePrgmInfo.NumOfRows = XNVM_EFUSE_ADD_PPK1_HASH_NUM_OF_ROWS;
+                EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
+	}
+	else if (PpkType == XNVM_EFUSE_PPK2) {
+		EfusePrgmInfo.StartRow = XNVM_EFUSE_ADD_PPK2_HASH_START_ROW;
+                EfusePrgmInfo.ColStart = XNVM_EFUSE_ADD_PPK2_HASH_START_COL_NUM;
+                EfusePrgmInfo.ColEnd = XNVM_EFUSE_ADD_PPK2_HASH_END_COL_NUM;
+                EfusePrgmInfo.NumOfRows = XNVM_EFUSE_ADD_PPK2_HASH_NUM_OF_ROWS;
+                EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
+	}
+
+	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo,
+			&EfuseHash->Hash[XNVM_EFUSE_PPK_HASH_UPPER_WORD_START_OFFSET]);
+	if (Status != XST_SUCCESS) {
+		Status = (Status |
+			(XNVM_EFUSE_ERR_WRITE_PPK0_HASH +
+			(PpkType << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
+	}
+#endif
 
 END:
 	return Status;

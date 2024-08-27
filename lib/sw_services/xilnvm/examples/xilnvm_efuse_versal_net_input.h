@@ -412,7 +412,8 @@
 *	"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value will be converted to a hex buffer and will be written
 *	into the Versal eFUSE array. This value should
-*	be given in string format. It should be 64 characters long, valid
+*	be given in string format. It should be 64 characters long for
+*	versalnet and 96 characters long for versal_aiepg2, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered invalid
 *	and will not burn PPK0 hash.
 *	Note that,for writing the PPK0 hash, XNVM_EFUSE_WRITE_PPK0_HASH
@@ -422,7 +423,8 @@
 *	"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value will be converted to a hex buffer and will be written
 *	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
+*	be given in string format. It should be 64 characters long for
+*	versalnet and 96 characters long for versal_aiepg2, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered invalid
 *	and will not burn PPK1 hash.
 *	Note that,for writing the PPK1 hash, XNVM_EFUSE_WRITE_PPK1_HASH
@@ -432,7 +434,8 @@
 *	"0000000000000000000000000000000000000000000000000000000000000000"
 *	The value will be converted to a hex buffer and will be written
 *	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
+*	be given in string format. It should be 64 characters long for
+*	versalnet and 96 characters long for versal_aiepg2, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered invalid
 *	and will not burn PPK2 hash.
 *	Note that,for writing the PPK2 hash, XNVM_EFUSE_WRITE_PPK2_HASH
@@ -654,11 +657,21 @@ extern "C" {
 
 #define XNVM_EFUSE_USER_KEY_1	"0000000000000000000000000000000000000000000000000000000000000000"
 
+#ifndef VERSAL_AIEPG2
 #define XNVM_EFUSE_PPK0_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
 
 #define XNVM_EFUSE_PPK1_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
 
 #define XNVM_EFUSE_PPK2_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
+
+#else
+
+#define XNVM_EFUSE_PPK0_HASH    "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+
+#define XNVM_EFUSE_PPK1_HASH    "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+
+#define XNVM_EFUSE_PPK2_HASH    "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+#endif
 
 #define XNVM_EFUSE_META_HEADER_IV	"000000000000000000000000"
 
