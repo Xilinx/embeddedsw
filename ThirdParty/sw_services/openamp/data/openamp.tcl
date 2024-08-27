@@ -59,6 +59,7 @@ proc generate {libhandle} {
 	set crosscompile [string map {gcc ""} "${compiler}"]
 	set c_flags [common::get_property CONFIG.compiler_flags -object ${proc_instance}]
 	set extra_flags [common::get_property CONFIG.extra_compiler_flags -object ${proc_instance}]
+	set extra_flags "$extra_flags -DVIRTIO_USE_DCACHE"
 	set linclude [file normalize "../.."]
 	set extra_flags_oamp "${extra_flags} -I${linclude}/include"
 	set with_proxy [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == WITH_PROXY } ] ]
@@ -68,16 +69,15 @@ proc generate {libhandle} {
 	if { "${with_proxy}" == "true" } {
 		if {[string match "*-DUNDEFINE_FILE_OPS*" $extra_flags] != 1} {
 			set extra_flags "$extra_flags -DUNDEFINE_FILE_OPS"
-			common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
-			puts "updated extra flags=${extra_flags}"
 		}
 	} else {
 		if {[string match "*-DUNDEFINE_FILE_OPS*" $extra_flags] == 1} {
 			regsub -- {-DUNDEFINE_FILE_OPS} $extra_flags {} extra_flags
-			common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
-			puts "updated extra flags=${extra_flags}"
 		}
 	}
+
+	common::set_property -name VALUE -value "$extra_flags " -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
+	puts "updated extra flags=${extra_flags}"
 
 	# Generate cmake toolchain file
 	set toolchain_cmake "toolchain"
