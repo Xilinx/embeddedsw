@@ -171,6 +171,39 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed);
 static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t speed);
 #endif
 
+static void phy_identify(XEmacPs *xemacpsp, u32_t phy_addr, u32_t emacnum)
+{
+	u16_t phy_reg;
+	u16_t phy_id;
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_DETECT_REG,
+			&phy_reg);
+	XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
+			&phy_id);
+
+	if (((phy_reg != 0xFFFF) &&
+	     ((phy_reg & PHY_DETECT_MASK) == PHY_DETECT_MASK)) ||
+	    (phy_id == PHY_XILINX_PCS_PMA_ID1)) {
+		/* Found a valid PHY address */
+		LWIP_DEBUGF(NETIF_DEBUG, ("XEmacPs detect_phy: PHY detected at address %d.\r\n",
+					  phy_addr));
+		if (emacnum == 0) {
+			phymapemac0[phy_addr] = TRUE;
+		} else {
+			phymapemac1[phy_addr] = TRUE;
+		}
+
+		XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
+				&phy_reg);
+		if ((phy_reg != PHY_MARVELL_IDENTIFIER) &&
+		    (phy_reg != PHY_TI_IDENTIFIER) &&
+		    (phy_reg != PHY_REALTEK_IDENTIFIER) &&
+		    (phy_reg != PHY_ADI_IDENTIFIER)) {
+			xil_printf("WARNING: Not a Marvell or TI or Realtek or Xilinx PCS PMA Ethernet PHY or ADI Ethernet PHY. Please verify the initialization sequence\r\n");
+		}
+	}
+}
+
 static u32_t get_Xilinx_pcs_pma_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 {
 
@@ -274,40 +307,23 @@ static u32_t get_Xilinx_pcs_pma_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 
 void detect_phy(XEmacPs *xemacpsp)
 {
-	u16_t phy_reg;
-	u32_t phy_addr;
+	u32_t phy_addr = 0;
 	u32_t emacnum;
-	u16_t phy_id;
 
 	if (xemacpsp->Config.BaseAddress == XPAR_XEMACPS_0_BASEADDR)
 		emacnum = 0;
 	else
 		emacnum = 1;
-	for (phy_addr = 31; phy_addr > 0; phy_addr--) {
-		XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_DETECT_REG,
-							&phy_reg);
-		XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
-				&phy_id);
 
-		if (((phy_reg != 0xFFFF) &&
-			((phy_reg & PHY_DETECT_MASK) == PHY_DETECT_MASK)) ||
-			(phy_id == PHY_XILINX_PCS_PMA_ID1)) {
-			/* Found a valid PHY address */
-			LWIP_DEBUGF(NETIF_DEBUG, ("XEmacPs detect_phy: PHY detected at address %d.\r\n",
-																	phy_addr));
-			if (emacnum == 0)
-				phymapemac0[phy_addr] = TRUE;
-			else
-				phymapemac1[phy_addr] = TRUE;
+#ifdef SDT
+	phy_addr = xemacpsp->Config.PhyAddr;
+#endif
 
-			XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
-							&phy_reg);
-			if ((phy_reg != PHY_MARVELL_IDENTIFIER) &&
-				(phy_reg != PHY_TI_IDENTIFIER) &&
-				(phy_reg != PHY_REALTEK_IDENTIFIER) &&
-				(phy_reg != PHY_ADI_IDENTIFIER)) {
-				xil_printf("WARNING: Not a Marvell or TI or Realtek or Xilinx PCS PMA Ethernet PHY or ADI Ethernet PHY. Please verify the initialization sequence\r\n");
-			}
+	if (phy_addr != 0) {
+		phy_identify(xemacpsp, phy_addr, emacnum);
+	} else {
+		for (phy_addr = 31; phy_addr > 0; phy_addr--) {
+			phy_identify(xemacpsp, phy_addr, emacnum);
 		}
 	}
 }

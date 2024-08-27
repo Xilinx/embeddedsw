@@ -100,6 +100,7 @@ LONG XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
 #endif
 #ifdef SDT
 	InstancePtr->Config.PhyType = CfgPtr->PhyType;
+        InstancePtr->Config.PhyAddr = CfgPtr->PhyAddr;
 #endif
 
 	InstancePtr->Config.S1GDiv0 = CfgPtr->S1GDiv0;

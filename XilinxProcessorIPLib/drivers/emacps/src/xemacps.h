@@ -529,6 +529,7 @@ typedef struct {
 	char *PhyType;     /**< PhyType indicates which type of PHY interface is
 			     *  used (MII, GMII, RGMII, etc.
 			     */
+        u32 PhyAddr;
 #endif
 	u16 S1GDiv0;	/**< 1Gbps Clock Divider 0 */
 	u8 S1GDiv1;	/**< 1Gbps Clock Divider 1 */
