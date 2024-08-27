@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -107,7 +108,11 @@ static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 int app(struct rpmsg_device *rdev, void *priv)
 {
 	int ret, i;
+	struct rproc_plat_info arg;
 	char ept_name[EPT_NAME_LEN] = RPMSG_SERVICE_NAME;
+
+       arg.rpdev = rdev;
+       arg.rproc = priv;
 
 	/* Initialize RPMSG framework */
 	ML_INFO("Try to create rpmsg endpoint.\r\n");
@@ -130,25 +135,9 @@ int app(struct rpmsg_device *rdev, void *priv)
 		ML_INFO("Successfully created rpmsg endpoint.\r\n");
 	}
 
-	ML_INFO("Successfully created rpmsg endpoint.\r\n");
-	while(1) {
-		platform_poll(priv);
-		/* we got a shutdown request, exit */
-		if (shutdown_req) {
-			break;
-		}
-	}
-	ML_DBG("out of platform_poll loop\r\n");
+	ret = platform_poll_on_vdev_reset(&arg);
 
-	for (i = 0; i < ECHO_NUM_EPTS; i++) {
-		/*
-		 * Ensure that kernel does not destroy endpoint twice
-		 * by disabling NS announcement. Kernel will handle it.
-		 */
-		(&lept[i])->rdev->support_ns = 0;
-		rpmsg_destroy_ept(&lept[i]);
-	}
-	return 0;
+	return ret;
 }
 
 /*-----------------------------------------------------------------------------*
@@ -158,6 +147,7 @@ static void processing(void *unused_arg)
 {
 	void *platform;
 	struct rpmsg_device *rpdev;
+	int ret;
 
 	/* can't use ML_INFO, metal_log setup is in init_system */
 	LPRINTF("openamp lib version: %s (", openamp_version());
@@ -173,22 +163,45 @@ static void processing(void *unused_arg)
 	LPRINTF("Starting application...\r\n");
 
 	/* Initialize platform */
-	if (platform_init(0, NULL, &platform)) {
+	ret = platform_init(0, NULL, &platform);
+	if (ret) {
 		LPERROR("Failed to initialize platform.\r\n");
-	} else {
+		ML_ERR("RPU reboot is required to recover\r\n");
+		platform_cleanup(platform);
+		/*
+		 * If main function is returned in baremetal firmware,
+		 * RPU behavior is undefined. It's better to wait in
+		 * an infinite loop instead
+		 */
+		while (1)
+			;
+	}
+
+	/*
+	 * If host detach from remoteproc device, then destroy current rpmsg
+	 * device and create new one.
+	 */
+	while (1) {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
 						   VIRTIO_DEV_DEVICE,
 						   NULL, NULL);
-		if (!rpdev){
+		if (!rpdev) {
 			ML_ERR("Failed to create rpmsg virtio device.\r\n");
-		} else {
-			app(rpdev, platform);
-			platform_release_rpmsg_vdev(rpdev, platform);
-		}
-	}
+			ML_ERR("RPU reboot is required to recover\r\n");
+			platform_cleanup(platform);
 
-	ML_INFO("Stopping application...\r\n");
-	platform_cleanup(platform);
+			/*
+			 * If main function is returned in baremetal firmware,
+			 * RPU behavior is undefined. It's better to wait in
+			 * an infinite loop instead
+			 */
+			while (1)
+				;
+		}
+
+		app(rpdev, platform);
+		platform_release_rpmsg_vdev(rpdev, platform);
+	}
 
 	/* Terminate this task */
 	vTaskDelete(NULL);

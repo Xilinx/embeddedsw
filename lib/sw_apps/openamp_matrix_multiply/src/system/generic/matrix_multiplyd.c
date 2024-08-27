@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
@@ -31,7 +32,6 @@ typedef struct _matrix {
 
 /* Local variables */
 static struct rpmsg_endpoint lept;
-static int shutdown_req = 0;
 
 /*-----------------------------------------------------------------------------*
  *  Calculate the Matrix
@@ -93,6 +93,10 @@ static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 int app(struct rpmsg_device *rdev, void *priv)
 {
 	int ret;
+	struct rproc_plat_info arg;
+
+	arg.rpdev = rdev;
+	arg.rproc = priv;
 
 	ret = rpmsg_create_ept(&lept, rdev, RPMSG_SERVICE_NAME,
 			       RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
@@ -104,16 +108,9 @@ int app(struct rpmsg_device *rdev, void *priv)
 	}
 
 	ML_INFO("Waiting for events...\r\n");
-	while(1) {
-		platform_poll(priv);
-		/* we got a shutdown request, exit */
-		if (shutdown_req) {
-			break;
-		}
-	}
-	rpmsg_destroy_ept(&lept);
+	ret = platform_poll_on_vdev_reset(&arg);
 
-	return 0;
+	return ret;
 }
 
 /*-----------------------------------------------------------------------------*
@@ -126,28 +123,48 @@ int main(int argc, char *argv[])
 	int ret;
 
 	LPRINTF("Starting application...\r\n");
-
 	/* Initialize platform */
 	ret = platform_init(argc, argv, &platform);
 	if (ret) {
 		LPERROR("Failed to initialize platform.\r\n");
-		ret = -1;
-	} else {
+		ML_ERR("RPU reboot is required to recover\r\n");
+		platform_cleanup(platform);
+		/*
+		 * If main function is returned in baremetal firmware,
+		 * RPU behavior is undefined. It's better to wait in
+		 * an infinite loop instead
+		 */
+		while (1)
+			;
+	}
+
+	/*
+	 * If host detach from remoteproc device, then destroy current rpmsg
+	 * device and create new one.
+	 */
+	while (1) {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
 						   VIRTIO_DEV_DEVICE,
 						   NULL, NULL);
 		if (!rpdev) {
 			ML_ERR("Failed to create rpmsg virtio device.\r\n");
-			ret = -1;
-		} else {
-			app(rpdev, platform);
-			platform_release_rpmsg_vdev(rpdev, platform);
-			ret = 0;
+			ML_ERR("RPU reboot is required to recover\r\n");
+			platform_cleanup(platform);
+
+			/*
+			 * If main function is returned in baremetal firmware,
+			 * RPU behavior is undefined. It's better to wait in
+			 * an infinite loop instead
+			 */
+			while (1)
+				;
 		}
+
+		app(rpdev, platform);
+		platform_release_rpmsg_vdev(rpdev, platform);
 	}
 
+	/* Never reach here. */
 	ML_INFO("Stopping application...\r\n");
-	platform_cleanup(platform);
-
 	return ret;
 }
