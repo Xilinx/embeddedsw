@@ -72,7 +72,11 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
+#ifndef VERSAL_AIEPG2
 #define XNVM_EFUSE_PPK_HASH_STRING_LEN			(64U)
+#else
+#define XNVM_EFUSE_PPK_HASH_STRING_LEN                  (96U)
+#endif
 #define XNVM_EFUSE_ROW_STRING_LEN			(8U)
 #define XNVM_EFUSE_GLITCH_WR_LK_MASK			(0x80000000U)
 #define XNVM_EFUSE_DEC_EFUSE_ONLY_MASK			(0x0000ffffU)

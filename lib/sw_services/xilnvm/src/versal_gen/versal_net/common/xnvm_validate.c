@@ -160,8 +160,10 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 	u32 SecCtrlBits = 0U;
 	u32 PpkOffset = 0U;
 	u32 WrLkMask = 0U;
-
-    /**
+#ifdef VERSAL_AIEPG2
+	u32 UserFuseOffset = 0U;
+#endif
+	/**
 	 *  Read the security control bits at offset of SECURITY_CTRL
 	 */
 	SecCtrlBits = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
@@ -193,6 +195,33 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 			(PpkType << XNVM_EFUSE_ERROR_NIBBLE_SHIFT);
 		goto END;
 	}
+
+#ifdef VERSAL_AIEPG2
+	if (PpkType == XNVM_EFUSE_PPK0) {
+                UserFuseOffset = XNVM_EFUSE_CACHE_PPK0_USER_FUSE_OFFSET;
+        }
+        else if (PpkType == XNVM_EFUSE_PPK1) {
+                UserFuseOffset = XNVM_EFUSE_CACHE_PPK1_USER_FUSE_OFFSET;
+        }
+        else if (PpkType == XNVM_EFUSE_PPK2) {
+                UserFuseOffset = XNVM_EFUSE_CACHE_PPK2_USER_FUSE_OFFSET;
+        }
+        else {
+                Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+                goto END;
+        }
+
+	/**
+	 * Check for corresponding user eFuses for zeros for Versal_Aiepg2
+	 */
+	Status = XNvm_EfuseCheckZeros(UserFuseOffset,
+                        XNVM_EFUSE_PPK_HASH_USER_FUSE_NUM_OF_CACHE_ROWS);
+        if (Status != XST_SUCCESS) {
+                Status = (int)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD +
+                        (PpkType << XNVM_EFUSE_ERROR_NIBBLE_SHIFT);
+                goto END;
+        }
+#endif
 	if ((SecCtrlBits & WrLkMask) != 0U) {
 		Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
 			(XNVM_EFUSE_ERR_WRITE_PPK0_HASH +
