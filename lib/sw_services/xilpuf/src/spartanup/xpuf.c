@@ -37,6 +37,9 @@
 #define XPUF_AUX_MASK_VALUE                     (0x0FFFFFF0U)
 				/**< Mask value for AUX*/
 
+#define XPUF_OV_MASK_VALUE				(0x30000000U)
+				/**< Mask value for overflow*/
+
 #define XPUF_RESET_VAL					(1U)
 				/**< PUF reset value */
 
@@ -55,9 +58,35 @@
 #define XPUF_PMC_GLOBAL_PUF_ID_CAPTURE		(1 << 1U)
 				/**< PUF id capture mask */
 
-#define XPUF_KEY_GEN_ITERATIONS 6U /** PUF key generation iterations */
+#define XPUF_KEY_GEN_ITERATIONS	6U
+				/** PUF key generation iterations */
+
+#define XPUF_STATUS_MASK		(XPUF_STATUS_SYNDROME_WORD_RDY | XPUF_STATUS_KEY_RDY |
+									XPUF_AUX_MASK_VALUE | XPUF_OV_MASK_VALUE)
+								/**< PUF status mask */
 
 /********************Macros (Inline function) Definitions*********************/
+
+/*****************************************************************************/
+/**
+ * @brief	This function waits till Puf Syndrome ready bit is set and captures the
+ *           PUF status.
+ *
+ * @param	PufStatus PUF status
+ *
+ * @return
+ *		- XST_SUCCESS if Syndrome word is ready.
+ *		- XST_FAILURE if timeout occurred.
+ *
+ *****************************************************************************/
+static inline int XPuf_WaitForPufSynWordRdyAndCaptureStatus(u32 *PufStatus)
+{
+	return (int)Xil_WaitForEvents((UINTPTR)(XPUF_BASEADDR +
+		XPUF_PUF_STATUS_OFFSET),
+		XPUF_STATUS_MASK,
+		XPUF_STATUS_SYNDROME_WORD_RDY,
+		XPUF_STATUS_WAIT_TIMEOUT, PufStatus);
+}
 
 /*****************************************************************************/
 /**
@@ -74,39 +103,6 @@ static inline int XPuf_WaitForPufSynWordRdy(void)
 		XPUF_PUF_STATUS_OFFSET),
 		XPUF_STATUS_SYNDROME_WORD_RDY, XPUF_STATUS_SYNDROME_WORD_RDY,
 		XPUF_STATUS_WAIT_TIMEOUT);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function waits till Puf Syndrome ready bit is set.
- *
- * @return
- *		- XST_SUCCESS if Syndrome word is ready.
- *		- XST_FAILURE if timeout occurred.
- *
- *****************************************************************************/
-static inline int XPuf_WaitForPufSegmentRdy(void)
-{
-	return (int)Xil_WaitForEvent((UINTPTR)(XPUF_BASEADDR +
-		XPUF_PUF_STATUS_OFFSET),
-		XPUF_STATUS_SEG_RDY, XPUF_STATUS_SEG_RDY,
-		XPUF_STATUS_WAIT_TIMEOUT);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function waits till Puf done bit is set.
- *
- * @return
- *		- XST_SUCCESS on successful Puf Operation.
- *		- XST_FAILURE if timeout occurred.
- *
- *****************************************************************************/
-static inline int XPuf_WaitForKeyRdyStatus(void)
-{
-	return (int)Xil_WaitForEvent((UINTPTR)(XPUF_BASEADDR +
-		XPUF_PUF_STATUS_OFFSET), XPUF_STATUS_KEY_RDY,
-		XPUF_STATUS_KEY_RDY, XPUF_STATUS_WAIT_TIMEOUT);
 }
 
 /*****************************************************************************/
@@ -294,6 +290,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 	u32 Idx = 0U;
+	u32 PufStatus = 0U;
 
 	Status = XPuf_Cfg(PufData);
 	if (Status != XST_SUCCESS) {
@@ -309,8 +306,9 @@ int XPuf_Registration(XPuf_Data *PufData)
 	 * PUF helper data includes Syndrome data, CHash and Auxiliary data.
 	 * Capturing Syndrome data word by word.
 	 */
-	while (Idx < XPUF_4K_PUF_SYN_LEN_IN_WORDS) {
-		Status = XPuf_WaitForPufSynWordRdy();
+	while ((Idx < XPUF_4K_PUF_SYN_LEN_IN_WORDS) &&
+	((PufStatus & XPUF_STATUS_KEY_RDY) != XPUF_STATUS_KEY_RDY)) {
+		Status = XPuf_WaitForPufSynWordRdyAndCaptureStatus(&PufStatus);
 		if (Status != XST_SUCCESS) {
 			Status = XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT;
 			goto END;
@@ -324,17 +322,18 @@ int XPuf_Registration(XPuf_Data *PufData)
 	 * Once complete Syndrome data is captured and PUF operation is done,
 	 * read CHash, Auxiliary data and PUF ID.
 	 */
-	if (Idx == XPUF_4K_PUF_SYN_LEN_IN_WORDS) {
-		Status = XST_FAILURE;
-		Status  = XPuf_WaitForKeyRdyStatus();
-		if (Status != XST_SUCCESS) {
-			Status = XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT;
+	if (Idx == XPUF_4K_PUF_SYN_LEN_IN_WORDS &&
+		((PufStatus & XPUF_STATUS_KEY_RDY) == XPUF_STATUS_KEY_RDY)) {
+			/** Check for overflow and return XPUF_ERROR_PUF_OVERFLOW incase of error */
+		if ((PufStatus & XPUF_OV_MASK_VALUE) != 0U) {
+			Status = XPUF_ERROR_PUF_OVERFLOW;
 			goto END;
 		}
-		PufData->Chash = XPuf_ReadReg(XPUF_BASEADDR,
-			XPUF_PUF_CHASH_OFFSET);
-		PufData->Aux = (XPuf_ReadReg(XPUF_BASEADDR,
-			XPUF_PUF_STATUS_OFFSET) & XPUF_AUX_MASK_VALUE);
+		PufData->Chash = XPuf_ReadReg(XPUF_BASEADDR, XPUF_PUF_CHASH_OFFSET);
+		PufData->Aux = PufStatus & XPUF_AUX_MASK_VALUE;
+		Xil_Out32((XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET),
+			(XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE |
+			XPUF_PMC_GLOBAL_PUF_ID_CAPTURE));
 		XPuf_CapturePufID(PufData);
 	}
 	else {
@@ -456,7 +455,7 @@ static int XPuf_GeneratePufKey(XPuf_Data *PufData) {
 	u32 SynDataTmp;
 	u32 SynDataSize;
 
-	SynDataSize = XPUF_4K_PUF_TOT_SYN_LEN_IN_WORDS;
+	SynDataSize = XPUF_4K_PUF_SYN_LEN_IN_WORDS;
 	SynData = (u32*)(UINTPTR)PufData->SyndromeAddr;
 
 	for (Index = 0U;Index < XPUF_KEY_GEN_ITERATIONS;Index++) {
@@ -519,10 +518,10 @@ static int XPuf_GeneratePufKey(XPuf_Data *PufData) {
 	 */
 	Status = XPUF_ERROR_KEY_NOT_CONVERGED;
 	if ((VarPufStatus & XPUF_PUF_IC_MASK) == XPUF_PUF_IC_MASK) {
-		XPuf_CapturePufID(PufData);
 		Xil_Out32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET,
 			(XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE |
 			XPUF_PMC_GLOBAL_PUF_ID_CAPTURE));
+		XPuf_CapturePufID(PufData);
 		Status = XST_SUCCESS;
 	}
 
