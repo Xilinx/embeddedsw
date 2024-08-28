@@ -14,6 +14,7 @@ set(LWIP_INCLUDE_DIRS
     "${LWIP_DIR}/src"
     "${LWIP_DIR}/src/include"
     "${LWIP_DIR}/src/include/lwip"
+    "${LWIP_DIR}/src/include/netif"
     "${LWIP_DIR}/contrib/ports/xilinx/include/arch"
     "${LWIP_DIR}/contrib/ports/xilinx/include/netif"
 )

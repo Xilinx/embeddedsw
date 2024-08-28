@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +10,19 @@
 * @file xbir_nw.c
 *
 * This file contains network configuration functions.
+*
+* @note
+*
+* None.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who    Date       Changes
+* ----- ---- ---------- -------------------------------------------------------
+* 1.00  bsv   07/02/20   First release
+* 2.00  sd    08/20/24   Added link status check to handle
+*                        ethernet errors
 *
 ******************************************************************************/
 
@@ -23,6 +36,7 @@
 #include "lwip/priv/tcp_priv.h"
 #include "xbir_nw.h"
 #include "xbir_sys.h"
+#include "netif/xemacpsif.h"
 
 #if LWIP_DHCP==1
 #include "lwip/dhcp.h"
@@ -60,6 +74,8 @@ extern u32 EmacBaseAddr;
 int Xbir_NwCfgNetwork (struct netif *NetIf)
 {
 	int Status = XST_FAILURE;
+	struct xemac_s *xemac = NULL;
+	xemacpsif_s *xemacps = NULL;
 
 	/* Initialize lwip network stack */
 	lwip_init();
@@ -67,7 +83,7 @@ int Xbir_NwCfgNetwork (struct netif *NetIf)
 	/* Add network interface to the netif_list, and set it as default */
 	if (!xemac_add(NetIf, NULL, NULL, NULL,
 			(u8 *)Xbir_NwMacEthAddr, EmacBaseAddr)) {
-		Xbir_Printf(DEBUG_INFO, " ERROR: Error adding N/W interface\n\r");
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, "ERROR: Error adding N/W interface\n\r");
 		goto END;
 	}
 
@@ -76,6 +92,14 @@ int Xbir_NwCfgNetwork (struct netif *NetIf)
 
 	/* Specify that the network if(interface) is UP */
 	netif_set_up(NetIf);
+
+	xemac = (struct xemac_s *)(NetIf->state);
+	xemacps = (xemacpsif_s *)(xemac->state);
+
+	if(xemacps->eth_link_status == ETH_LINK_DOWN) {
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, "ERROR: Ethernet link is down...\n");
+		goto END;
+	}
 
 #if (LWIP_DHCP==1)
 	/* Create a new DHCP client for this interface.
@@ -89,7 +113,8 @@ int Xbir_NwCfgNetwork (struct netif *NetIf)
 
 	if (Xbir_dhcp_timoutcntr(GET) <= 0U) {
 		if ((NetIf->ip_addr.addr) == 0U) {
-			xil_printf("ERROR: DHCP request timed out\r\n");
+			Xbir_Printf(DEBUG_PRINT_ALWAYS, "WARNING: DHCP request timed out,"
+						" using default static IP\n\r");
 			Xbir_NwSetDefaultIp(&(NetIf->ip_addr),
 					&(NetIf->netmask), &(NetIf->gw));
 		}

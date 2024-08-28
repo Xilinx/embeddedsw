@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +10,19 @@
 * @file xbir_main.c
 *
 * This file contains startup code for the Xilinx boot image recovery tool
+*
+* @note
+*
+* None.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who    Date       Changes
+* ----- ---- ---------- -------------------------------------------------------
+* 1.00  bsv   07/02/20   First release
+* 2.00  sd    08/20/24   Update debug print level
+*                        to always
 *
 ******************************************************************************/
 
@@ -55,13 +68,13 @@ int main (void)
 
 	Status = Xbir_SysInit();
 	if (XST_SUCCESS != Status) {
-		Xbir_Printf(DEBUG_INFO, " ERROR: System intialization failed....");
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, "ERROR: System intialization failed...");
 		goto END;
 	}
 
 	Status = Xbir_NwCfgNetwork(&NetIf);
 	if (XST_SUCCESS != Status) {
-		Xbir_Printf(DEBUG_INFO, " ERROR: Network configuration failed....");
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, "ERROR: Network configuration failed...");
 		goto END;
 	}
 
@@ -71,11 +84,11 @@ int main (void)
 		Xbir_NwProcessPkts(&NetIf);
 	}
 	else {
-		Xbir_Printf(DEBUG_INFO, " ERROR: Web server setup failed....");
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, "ERROR: Web server setup failed...");
 	}
 
 END:
-	Xbir_Printf(DEBUG_INFO, " \r\n\r\nApplication closed..........\r\n");
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\r\n\r\nApplication closed...\r\n");
 	return Status;
 }
 
