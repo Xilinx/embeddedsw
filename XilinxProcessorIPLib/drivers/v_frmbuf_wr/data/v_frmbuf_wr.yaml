@@ -15,7 +15,7 @@ properties:
       - items:
         - enum:
           - xlnx,v-frmbuf-wr-2.5
-	  - xlnx,v-frmbuf-wr-3.0
+          - xlnx,v-frmbuf-wr-3.0
 
   reg:
     description: Physical base address and size of the controller register map
