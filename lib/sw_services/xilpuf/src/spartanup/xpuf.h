@@ -37,7 +37,6 @@ extern "C" {
  */
 
 #define XPUF_4K_PUF_SYN_LEN_IN_WORDS			(140U)
-#define XPUF_4K_PUF_TOT_SYN_LEN_IN_WORDS		(142U)
 #define XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS		(127U)
 #define XPUF_ID_LEN_IN_WORDS					(0x8U)
 #define XPUF_WORD_LENGTH						(0x4U)
@@ -80,6 +79,9 @@ extern "C" {
 		  * expected size */
 #define XPUF_ERROR_PUF_ID_ZERO_TIMEOUT			(0x09)
 		/** Error due to timeout while zeroizing PUF ID */
+
+#define XPUF_ERROR_PUF_OVERFLOW			(0xA)
+		/** Error due to PUF overflow  */
 
 #define XPUF_SHUTTER_VALUE				(0x01000020U)
 		/** Shutter value */
