@@ -33,7 +33,7 @@ extern "C" {
 #define XPUF_PMC_GLOBAL_BASEADDR	(0x040A0000U)
 
 #define XPUF_BASEADDR			(0x04080000U)
-					/**< PMC_GLOBAL Base Address */
+/**< PMC_GLOBAL Base Address */
 
 /**
  * @name  Offsets for PUF registers in PMC_GLOBAL module

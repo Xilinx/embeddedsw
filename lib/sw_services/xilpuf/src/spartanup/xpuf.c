@@ -33,37 +33,37 @@
 
 /************************** Constant Definitions *****************************/
 #define XPUF_STATUS_WAIT_TIMEOUT		(1000000U)
-				/**< Recommended software timeout is 1 second */
+/**< Recommended software timeout is 1 second */
 #define XPUF_AUX_MASK_VALUE                     (0x0FFFFFF0U)
-				/**< Mask value for AUX*/
+/**< Mask value for AUX*/
 
 #define XPUF_OV_MASK_VALUE				(0x30000000U)
-				/**< Mask value for overflow*/
+/**< Mask value for overflow*/
 
 #define XPUF_RESET_VAL					(1U)
-				/**< PUF reset value */
+/**< PUF reset value */
 
 #define XPUF_SET_VAL					(0U)
-				/**< PUF set value  */
+/**< PUF set value  */
 
 #define XPUF_PUF_AUX_ENABLE				(0xFU)
-				/**< PUF aux enable */
+/**< PUF aux enable */
 
 #define XPUF_PUF_IC_MASK				(1U << 31U)
-				/**< PUF IC mask */
+/**< PUF IC mask */
 
 #define XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE	(1U << 2U)
-				/**< PUF key capture mask */
+/**< PUF key capture mask */
 
 #define XPUF_PMC_GLOBAL_PUF_ID_CAPTURE		(1 << 1U)
-				/**< PUF id capture mask */
+/**< PUF id capture mask */
 
 #define XPUF_KEY_GEN_ITERATIONS	6U
-				/** PUF key generation iterations */
+/** PUF key generation iterations */
 
-#define XPUF_STATUS_MASK		(XPUF_STATUS_SYNDROME_WORD_RDY | XPUF_STATUS_KEY_RDY |
-									XPUF_AUX_MASK_VALUE | XPUF_OV_MASK_VALUE)
-								/**< PUF status mask */
+#define XPUF_STATUS_MASK		(XPUF_STATUS_SYNDROME_WORD_RDY | XPUF_STATUS_KEY_RDY | \
+XPUF_AUX_MASK_VALUE | XPUF_OV_MASK_VALUE)
+/**< PUF status mask */
 
 /********************Macros (Inline function) Definitions*********************/
 
@@ -82,10 +82,10 @@
 static inline int XPuf_WaitForPufSynWordRdyAndCaptureStatus(u32 *PufStatus)
 {
 	return (int)Xil_WaitForEvents((UINTPTR)(XPUF_BASEADDR +
-		XPUF_PUF_STATUS_OFFSET),
-		XPUF_STATUS_MASK,
-		XPUF_STATUS_SYNDROME_WORD_RDY,
-		XPUF_STATUS_WAIT_TIMEOUT, PufStatus);
+						XPUF_PUF_STATUS_OFFSET),
+				      XPUF_STATUS_MASK,
+				      XPUF_STATUS_SYNDROME_WORD_RDY,
+				      XPUF_STATUS_WAIT_TIMEOUT, PufStatus);
 }
 
 /*****************************************************************************/
@@ -100,9 +100,9 @@ static inline int XPuf_WaitForPufSynWordRdyAndCaptureStatus(u32 *PufStatus)
 static inline int XPuf_WaitForPufSynWordRdy(void)
 {
 	return (int)Xil_WaitForEvent((UINTPTR)(XPUF_BASEADDR +
-		XPUF_PUF_STATUS_OFFSET),
-		XPUF_STATUS_SYNDROME_WORD_RDY, XPUF_STATUS_SYNDROME_WORD_RDY,
-		XPUF_STATUS_WAIT_TIMEOUT);
+					       XPUF_PUF_STATUS_OFFSET),
+				     XPUF_STATUS_SYNDROME_WORD_RDY, XPUF_STATUS_SYNDROME_WORD_RDY,
+				     XPUF_STATUS_WAIT_TIMEOUT);
 }
 
 /*****************************************************************************/
@@ -118,11 +118,10 @@ static inline void XPuf_CfgGlobalVariationFilter(const u8 GlobalVarFilter)
 {
 	if (GlobalVarFilter == TRUE) {
 		XPuf_WriteReg(XPUF_BASEADDR, XPUF_PUF_CFG0_OFFSET,
-			(XPUF_CFG0_HASH_SEL | XPUF_CFG0_GLOBAL_FILTER_ENABLE));
-	}
-	else {
+			      (XPUF_CFG0_HASH_SEL | XPUF_CFG0_GLOBAL_FILTER_ENABLE));
+	} else {
 		XPuf_WriteReg(XPUF_BASEADDR, XPUF_PUF_CFG0_OFFSET,
-			XPUF_CFG0_HASH_SEL);
+			      XPUF_CFG0_HASH_SEL);
 	}
 }
 
@@ -142,8 +141,7 @@ static inline int XPuf_ClearPuf(void)
 	Xil_Out32(XPUF_BASEADDR + XPUF_PUF_CMD_OFFSET, XPUF_CMD_STOP);
 
 	Status = (int)Xil_WaitForEvent(XPUF_BASEADDR + XPUF_PUF_STATUS_OFFSET, XPUF_STATUS_ZZ_MASK,
-					XPUF_STATUS_ZZ_MASK, XPUF_STATUS_WAIT_TIMEOUT);
-
+				       XPUF_STATUS_ZZ_MASK, XPUF_STATUS_WAIT_TIMEOUT);
 
 	return Status;
 }
@@ -163,7 +161,8 @@ static inline int XPuf_ResetPuf(void)
 	volatile int SStatus = XST_FAILURE;
 
 	Status = XPuf_ClearPuf();
-	SStatus = Xil_SecureOut32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PUF_RST_OFFSET, XPUF_RESET_VAL);
+	SStatus = Xil_SecureOut32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PUF_RST_OFFSET,
+				  XPUF_RESET_VAL);
 
 	return (Status | SStatus);
 }
@@ -247,18 +246,17 @@ static int XPuf_Cfg(const XPuf_Data *PufData)
 	 * Update PUF Configuration1 register as 4k Registration mode.
 	 */
 	XPuf_WriteReg(XPUF_BASEADDR, XPUF_PUF_CFG1_OFFSET,
-		XPUF_CFG1_INIT_VAL_4K);
+		      XPUF_CFG1_INIT_VAL_4K);
 
 	/**
 	 * Update Shutter value in PUF_SHUT register.
 	 */
 	XPuf_WriteReg(XPUF_BASEADDR, XPUF_PUF_SHUT_OFFSET,
-		PufData->ShutterValue);
-
+		      PufData->ShutterValue);
 
 	/** Update PUF Ring Oscillator Swap setting. */
 	Xil_Out32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PUF_RO_SWAP_OFFSET,
-		PufData->RoSwapVal);
+		  PufData->RoSwapVal);
 
 	Status = XST_SUCCESS;
 END:
@@ -307,14 +305,14 @@ int XPuf_Registration(XPuf_Data *PufData)
 	 * Capturing Syndrome data word by word.
 	 */
 	while ((Idx < XPUF_4K_PUF_SYN_LEN_IN_WORDS) &&
-	((PufStatus & XPUF_STATUS_KEY_RDY) != XPUF_STATUS_KEY_RDY)) {
+	       ((PufStatus & XPUF_STATUS_KEY_RDY) != XPUF_STATUS_KEY_RDY)) {
 		Status = XPuf_WaitForPufSynWordRdyAndCaptureStatus(&PufStatus);
 		if (Status != XST_SUCCESS) {
 			Status = XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT;
 			goto END;
 		}
 		PufData->SyndromeData[Idx] = XPuf_ReadReg(XPUF_BASEADDR,
-			XPUF_PUF_WORD_OFFSET);
+					     XPUF_PUF_WORD_OFFSET);
 		Idx++;
 	}
 
@@ -323,8 +321,8 @@ int XPuf_Registration(XPuf_Data *PufData)
 	 * read CHash, Auxiliary data and PUF ID.
 	 */
 	if (Idx == XPUF_4K_PUF_SYN_LEN_IN_WORDS &&
-		((PufStatus & XPUF_STATUS_KEY_RDY) == XPUF_STATUS_KEY_RDY)) {
-			/** Check for overflow and return XPUF_ERROR_PUF_OVERFLOW incase of error */
+	    ((PufStatus & XPUF_STATUS_KEY_RDY) == XPUF_STATUS_KEY_RDY)) {
+		/** Check for overflow and return XPUF_ERROR_PUF_OVERFLOW incase of error */
 		if ((PufStatus & XPUF_OV_MASK_VALUE) != 0U) {
 			Status = XPUF_ERROR_PUF_OVERFLOW;
 			goto END;
@@ -332,11 +330,10 @@ int XPuf_Registration(XPuf_Data *PufData)
 		PufData->Chash = XPuf_ReadReg(XPUF_BASEADDR, XPUF_PUF_CHASH_OFFSET);
 		PufData->Aux = PufStatus & XPUF_AUX_MASK_VALUE;
 		Xil_Out32((XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET),
-			(XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE |
-			XPUF_PMC_GLOBAL_PUF_ID_CAPTURE));
+			  (XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE |
+			   XPUF_PMC_GLOBAL_PUF_ID_CAPTURE));
 		XPuf_CapturePufID(PufData);
-	}
-	else {
+	} else {
 		Status = XPUF_ERROR_SYN_DATA_ERROR;
 	}
 
@@ -410,7 +407,7 @@ int XPuf_ClearPufID(void)
 	 * Set least significant bit in the PUF_CLEAR register.
 	 */
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET,
-		XPUF_CLEAR_ID);
+		      XPUF_CLEAR_ID);
 
 	/**
 	 * The API waits for ID_ZERO bit to be set in PUF Status register.
@@ -418,12 +415,11 @@ int XPuf_ClearPufID(void)
 	 * else returns XST_SUCCESS.
 	 */
 	WaitStatus = (int)Xil_WaitForEvent((UINTPTR)(XPUF_BASEADDR +
-		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET), XPUF_STATUS_ID_ZERO,
-		XPUF_STATUS_ID_ZERO, XPUF_STATUS_WAIT_TIMEOUT);
+					   XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET), XPUF_STATUS_ID_ZERO,
+					   XPUF_STATUS_ID_ZERO, XPUF_STATUS_WAIT_TIMEOUT);
 	if (WaitStatus != XST_SUCCESS) {
 		Status = XPUF_ERROR_PUF_ID_ZERO_TIMEOUT;
-	}
-	else {
+	} else {
 		Status = XST_SUCCESS;
 	}
 
@@ -446,7 +442,8 @@ int XPuf_ClearPufID(void)
  *	-	@ref XROM_S7_PUF_REGEN_KEY_NOT_CONVERGED_ERROR
  *	-	@ref XST_SUCCESS - If PUF Key generated successfully
  ******************************************************************************/
-static int XPuf_GeneratePufKey(XPuf_Data *PufData) {
+static int XPuf_GeneratePufKey(XPuf_Data *PufData)
+{
 	u32 Index;
 	u32 SyndromeIndex = 0U;
 	volatile u32 VarPufStatus = 0U;
@@ -456,14 +453,15 @@ static int XPuf_GeneratePufKey(XPuf_Data *PufData) {
 	u32 SynDataSize;
 
 	SynDataSize = XPUF_4K_PUF_SYN_LEN_IN_WORDS;
-	SynData = (u32*)(UINTPTR)PufData->SyndromeAddr;
+	SynData = (u32 *)(UINTPTR)PufData->SyndromeAddr;
 
-	for (Index = 0U;Index < XPUF_KEY_GEN_ITERATIONS;Index++) {
+	for (Index = 0U; Index < XPUF_KEY_GEN_ITERATIONS; Index++) {
 		SyndromeIndex = 0U;
 		/*
 		 * Start the PUF in Regeneration mode
 		 */
-		Xil_Out32(XPUF_BASEADDR + XPUF_PUF_WORD_OFFSET, (PufData->Aux << XPUF_AUX_SHIFT_VALUE)| XPUF_PUF_AUX_ENABLE);
+		Xil_Out32(XPUF_BASEADDR + XPUF_PUF_WORD_OFFSET,
+			  (PufData->Aux << XPUF_AUX_SHIFT_VALUE) | XPUF_PUF_AUX_ENABLE);
 		Xil_Out32(XPUF_BASEADDR + XPUF_PUF_CHASH_OFFSET, PufData->Chash);
 		Xil_Out32(XPUF_BASEADDR + XPUF_PUF_CMD_OFFSET, XPUF_CMD_REGEN_ON_DEMAND);
 		VarPufStatus = Xil_In32(XPUF_BASEADDR + XPUF_PUF_STATUS_OFFSET);
@@ -472,11 +470,11 @@ static int XPuf_GeneratePufKey(XPuf_Data *PufData) {
 		 */
 		/* Indicates that the key is ready. Clears on read or CMD = STOP */
 		while ((VarPufStatus & XPUF_STATUS_KEY_RDY)
-					!= XPUF_STATUS_KEY_RDY) {
+		       != XPUF_STATUS_KEY_RDY) {
 
 			/* Indicates that the syndrome word is ready. Clears on read or CMD = STOP */
 			Status = XPuf_WaitForPufSynWordRdy();
-			if (Status !=XST_SUCCESS) {
+			if (Status != XST_SUCCESS) {
 				Status = XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT;
 				goto END;
 			}
@@ -519,8 +517,8 @@ static int XPuf_GeneratePufKey(XPuf_Data *PufData) {
 	Status = XPUF_ERROR_KEY_NOT_CONVERGED;
 	if ((VarPufStatus & XPUF_PUF_IC_MASK) == XPUF_PUF_IC_MASK) {
 		Xil_Out32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET,
-			(XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE |
-			XPUF_PMC_GLOBAL_PUF_ID_CAPTURE));
+			  (XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE |
+			   XPUF_PMC_GLOBAL_PUF_ID_CAPTURE));
 		XPuf_CapturePufID(PufData);
 		Status = XST_SUCCESS;
 	}
@@ -546,7 +544,7 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
 	 */
 	for (Index = 0U; Index < XPUF_ID_LEN_IN_WORDS; Index++) {
 		PufData->PufID[Index] = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
-			(XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET + (Index * XPUF_WORD_LENGTH)));
+						     (XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET + (Index * XPUF_WORD_LENGTH)));
 	}
 }
 
@@ -588,8 +586,8 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 	 *  Copy syndrome data from instance pointer to a local variable.
 	 */
 	Status = Xil_SMemCpy(SynData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
-		PufData->SyndromeData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
-		XPUF_4K_PUF_SYN_LEN_IN_BYTES);
+			     PufData->SyndromeData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
+			     XPUF_4K_PUF_SYN_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -650,12 +648,11 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 		for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
 			if (SubIndex == 3U) {
 				PufData->TrimmedSynData[DIndex] =
-				(SynData[SIndex] & XPUF_EFUSE_TRIM_MASK) |
-				(SynData[SIndex + 1U] >> 20U);
-			}
-			else {
+					(SynData[SIndex] & XPUF_EFUSE_TRIM_MASK) |
+					(SynData[SIndex + 1U] >> 20U);
+			} else {
 				PufData->TrimmedSynData[DIndex] =
-							SynData[SIndex];
+					SynData[SIndex];
 			}
 			SIndex++;
 			DIndex++;
@@ -665,13 +662,12 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 			if (SubIndex == 3U) {
 				PufData->TrimmedSynData[DIndex] =
 					(((SynData[SIndex] &
-					XPUF_EFUSE_TRIM_MASK) << 12U) |
-						(SynData[SIndex + 1U] >> 8U));
-			}
-			else {
+					   XPUF_EFUSE_TRIM_MASK) << 12U) |
+					 (SynData[SIndex + 1U] >> 8U));
+			} else {
 				PufData->TrimmedSynData[DIndex] =
-				((SynData[SIndex] << 12U) |
-						(SynData[SIndex + 1U] >> 20U));
+					((SynData[SIndex] << 12U) |
+					 (SynData[SIndex + 1U] >> 20U));
 			}
 			SIndex++;
 			DIndex++;
@@ -681,17 +677,16 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 			if (SubIndex == 2U) {
 				PufData->TrimmedSynData[DIndex] =
 					((SynData[SIndex] << 24U) |
-					((SynData[SIndex + 1U] &
-						XPUF_EFUSE_TRIM_MASK) >> 8U));
+					 ((SynData[SIndex + 1U] &
+					   XPUF_EFUSE_TRIM_MASK) >> 8U));
 				if (DIndex < (XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS - 1U)) {
 					PufData->TrimmedSynData[DIndex] |=
 						(SynData[SIndex + 2U] >> 28U);
 				}
-			}
-			else {
-				PufData->TrimmedSynData[DIndex]=
+			} else {
+				PufData->TrimmedSynData[DIndex] =
 					((SynData[SIndex] << 24U) |
-						(SynData[SIndex + 1U] >> 8U));
+					 (SynData[SIndex + 1U] >> 8U));
 			}
 			SIndex++;
 			DIndex++;
@@ -703,31 +698,29 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 				if (SubIndex == 3U) {
 					PufData->TrimmedSynData[DIndex] =
 						(((SynData[SIndex] &
-					XPUF_EFUSE_TRIM_MASK) << 4U) |
-						(SynData[SIndex + 1U] >> 16U));
+						   XPUF_EFUSE_TRIM_MASK) << 4U) |
+						 (SynData[SIndex + 1U] >> 16U));
 
-				}
-				else {
+				} else {
 					PufData->TrimmedSynData[DIndex] =
 						((SynData[SIndex] << 4U) |
-						(SynData[SIndex + 1U] >> 28U));
+						 (SynData[SIndex + 1U] >> 28U));
 				}
 				SIndex++;
 				DIndex++;
 			}
 
 			for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
-				if(SubIndex == 3U) {
+				if (SubIndex == 3U) {
 					PufData->TrimmedSynData[DIndex] =
 						(((SynData[SIndex] &
-					XPUF_EFUSE_TRIM_MASK) << 16U) |
-						(SynData[SIndex + 1U] >> 4U));
+						   XPUF_EFUSE_TRIM_MASK) << 16U) |
+						 (SynData[SIndex + 1U] >> 4U));
 
-				}
-				else {
-					PufData->TrimmedSynData[DIndex]=
+				} else {
+					PufData->TrimmedSynData[DIndex] =
 						((SynData[SIndex] << 16U) |
-						(SynData[SIndex + 1U] >> 16U));
+						 (SynData[SIndex + 1U] >> 16U));
 				}
 				SIndex++;
 				DIndex++;
@@ -737,15 +730,14 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 				if (SubIndex == 2U) {
 					PufData->TrimmedSynData[DIndex] =
 						((SynData[SIndex] << 28U) |
-						((SynData[SIndex + 1U] &
-						XPUF_EFUSE_TRIM_MASK) >> 4U));
+						 ((SynData[SIndex + 1U] &
+						   XPUF_EFUSE_TRIM_MASK) >> 4U));
 					PufData->TrimmedSynData[DIndex] |=
 						(SynData[SIndex + 2U] >> 24U);
-				}
-				else {
-					PufData->TrimmedSynData[DIndex]=
+				} else {
+					PufData->TrimmedSynData[DIndex] =
 						((SynData[SIndex] << 28U) |
-						(SynData[SIndex + 1U] >> 4U));
+						 (SynData[SIndex + 1U] >> 4U));
 				}
 				SIndex++;
 				DIndex++;
@@ -756,14 +748,13 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 				if (SubIndex == 3U) {
 					PufData->TrimmedSynData[DIndex] =
 						(((SynData[SIndex] &
-						XPUF_EFUSE_TRIM_MASK) << 8U) |
-						(SynData[SIndex + 1U] >> 12U));
+						   XPUF_EFUSE_TRIM_MASK) << 8U) |
+						 (SynData[SIndex + 1U] >> 12U));
 
-				}
-				else {
+				} else {
 					PufData->TrimmedSynData[DIndex] =
 						((SynData[SIndex] << 8U) |
-						(SynData[SIndex + 1U] >> 24U));
+						 (SynData[SIndex + 1U] >> 24U));
 				}
 				SIndex++;
 				DIndex++;
@@ -773,14 +764,13 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 				if (SubIndex == 2U) {
 					PufData->TrimmedSynData[DIndex] =
 						((SynData[SIndex] << 20U) |
-						((SynData[SIndex + 1U] &
-					XPUF_EFUSE_TRIM_MASK) >> 12U));
+						 ((SynData[SIndex + 1U] &
+						   XPUF_EFUSE_TRIM_MASK) >> 12U));
 
-				}
-				else {
-					PufData->TrimmedSynData[DIndex]=
+				} else {
+					PufData->TrimmedSynData[DIndex] =
 						((SynData[SIndex] << 20U) |
-						(SynData[SIndex + 1U] >> 12U));
+						 (SynData[SIndex + 1U] >> 12U));
 				}
 				SIndex++;
 				DIndex++;
@@ -793,7 +783,7 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 	 * and return XST_SUCCESS.
 	 */
 	PufData->TrimmedSynData[XPUF_LAST_WORD_OFFSET] &=
-						XPUF_LAST_WORD_MASK;
+		XPUF_LAST_WORD_MASK;
 	Status = XST_SUCCESS;
 
 END:
