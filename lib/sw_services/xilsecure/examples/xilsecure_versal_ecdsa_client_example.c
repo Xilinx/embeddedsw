@@ -76,6 +76,7 @@
 * 5.4   mb   04/13/2024 Added support for P-192 Curve
 *       mb   04/13/2024 Added support for P-224 Curve
 *       mb   07/05/2024 Ported all curves test API's into single generic API.
+*       pre  08/29/24 Added SSIT support
 *
 * </pre>
 *
@@ -93,6 +94,7 @@
 #include "xsecure_config.h"
 #endif
 /************************** Constant Definitions *****************************/
+#define SLR_INDEX XSECURE_SLR_INDEX_0 /* Change this for other SLRs */
 #define XSECURE_LITTLE_ENDIAN 0
 #define XSECURE_BIG_ENDIAN 1
 #define XSECURE_ECC_ENDIANNESS XSECURE_LITTLE_ENDIAN
@@ -442,6 +444,12 @@ int main()
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n shared memory initialization failed");
 		goto END;
+	}
+
+	Status = XSecure_InputSlrIndex(&SecureClientInstance, SLR_INDEX);
+	if (Status != XST_SUCCESS) {
+			xil_printf("invalid SlrIndex \r\n");
+			goto END;
 	}
 
 	Status = XSecure_EllipticSignGenKat(&SecureClientInstance, XSECURE_ECDSA_PRIME);

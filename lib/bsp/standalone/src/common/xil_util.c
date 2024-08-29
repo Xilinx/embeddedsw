@@ -92,6 +92,7 @@
 * 9.1   kpt      02/21/24 Added Xil_SChangeEndiannessAndCpy function
 * 9.2   kpt      06/24/24 Added Xil_SReverseData function
 *       pre      08/16/24 Added Xil_MemCpy64 function
+*       pre      08/29/24 Fixed compilation warning
 *
 * </pre>
 *
@@ -1497,6 +1498,6 @@ void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 			}
 		}
 #else
-	memcpy((void *)DstAddr, (void *)SrcAddr, Cnt);
+	memcpy((void *)(UINTPTR)DstAddr, (void *)(UINTPTR)SrcAddr, Cnt);
 #endif
 }

@@ -31,6 +31,7 @@
 *	yog  05/03/23 Fixed MISRA C violation of Rule 12.2
 *	yog  05/04/23 Fixed HIS COMF violations
 * 5.4   yog  04/29/24 Fixed doxygen warnings
+*       pre  08/29/24 APIs are updated for SSIT support
 *
 * </pre>
 *
@@ -116,7 +117,8 @@ int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_SHA3_UPDATE);
+	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+	                    | XSECURE_API_SHA3_UPDATE);
 	Payload[1U] = (u32)InDataAddr;
 	Payload[2U] = (u32)(InDataAddr >> 32);
 	Payload[3U] = (u32)(((u32)1U << XSECURE_SHA_UPDATE_CONTINUE_SHIFT)|
@@ -178,7 +180,8 @@ int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAdd
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_SHA3_UPDATE);
+	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+	                    | XSECURE_API_SHA3_UPDATE);
 	Payload[1U] = XSECURE_IPI_UNUSED_PARAM;
 	Payload[2U] = XSECURE_IPI_UNUSED_PARAM;
 	Payload[3U] = XSECURE_IPI_UNUSED_PARAM;
@@ -244,7 +247,8 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	Sha3InitializeMask = ((u32)1U) << XSECURE_SHA_FIRST_PACKET_SHIFT;
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_SHA3_UPDATE);
+	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+	                    | XSECURE_API_SHA3_UPDATE);
 	Payload[1U] = (u32)InDataAddr;
 	Payload[2U] = (u32)(InDataAddr >> XSECURE_ADDR_HIGH_SHIFT);
 	Payload[3U] = (Sha3InitializeMask) | Size;

@@ -22,6 +22,7 @@
 * 1.00  pre  07/11/2024 Initial release
 *       pre  07/30/2024 Fixed misrac and coverity violations
 *       pre  08/16/2024 Replaced XPlmi_MemCpy64 with Xil_MemCpy64
+*       pre  08/29/2024 Changed AES key registers used for secure communication
 *
 * </pre>
 *
@@ -139,7 +140,7 @@ static inline u32 XPlm_SsitCommGetMsgType(XPlmi_SecCommEstFlag SecSsitCommEst,u3
 **************************************************************************************************/
 static inline XSecure_AesKeySrc XPlm_SsitSecCommGetKeySrcofSlr(u32 SlrIndex)
 {
-	return (XSECURE_AES_USER_KEY_0 + (SlrIndex - 1U));
+	return (XSECURE_AES_USER_KEY_6 - (SlrIndex - 1U));
 }
 
 /*************************************************************************************************/
