@@ -1617,7 +1617,8 @@ proc mb_has_exceptions { hw_proc_handle } {
 # -------------------------------------------
 proc xcreate_mb_exc_config_file { } {
 
-    set hfilename [file join "src" "microblaze_exceptions_g.h"]
+    set standalone_version [get_standalone_version]
+    set hfilename [file join ".." "${standalone_version}" "src" "microblaze_exceptions_g.h"]
     file delete $hfilename
     set hconfig_file [open $hfilename w]
 
