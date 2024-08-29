@@ -70,6 +70,7 @@
 * 5.3   kpt    12/13/23 Add RSA quiet mode support
 *       kpt    01/19/23 Enable totient calculation and PWCT for XSecure_RsaExpQOperation
 * 5.4   kpt    06/30/24 Removed endianness changes
+*       pre    08/29/24 Added SSIT support
 *
 * </pre>
 ******************************************************************************/
@@ -85,6 +86,7 @@
 #endif
 
 /************************** Constant Definitions *****************************/
+#define SLR_INDEX XSECURE_SLR_INDEX_0 /* Change this for other SLRs */
 #define XSECURE_RSA_SIZE		(512U)	/**< 512 bytes for 4096 bit data */
 #define XSECURE_RSA_SHARED_DATA_SIZE (XSECURE_RSA_SIZE + XSECURE_RSA_SIZE+\
 									XSECURE_RSA_SIZE + XSECURE_RSA_SIZE)
@@ -646,6 +648,12 @@ static u32 SecureRsaExample(void)
 #endif
 
 	Xil_DCacheInvalidateRange((UINTPTR)Signature, XSECURE_RSA_SIZE);
+
+	Status = XSecure_InputSlrIndex(&SecureClientInstance, SLR_INDEX);
+	if (Status != XST_SUCCESS) {
+			xil_printf("invalid SlrIndex \r\n");
+			goto END;
+	}
 
 	Status = XSecure_RsaPrivateDecKat(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {

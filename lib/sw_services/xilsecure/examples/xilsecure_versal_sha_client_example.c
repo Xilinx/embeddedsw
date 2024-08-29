@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +20,7 @@
 * ------------------------------------------------------------------------------------------------------------
 * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
 * any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
-* which is acccessible to both client and server.
+* which is accessible to both client and server.
 *
 * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
 *
@@ -60,6 +60,7 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 *       kpt  04/11/22 Added comment on usage of shared memory
 * 5.2   am   05/03/23 Added KAT before crypto usage
+*       pre  08/29/24 Added SSIT support
 *
 * </pre>
 ******************************************************************************/
@@ -71,6 +72,7 @@
 #include "xsecure_katclient.h"
 
 /************************** Constant Definitions *****************************/
+#define SLR_INDEX XSECURE_SLR_INDEX_0 /* Change this for other SLRs */
 
 /**************************** Type Definitions *******************************/
 
@@ -190,6 +192,13 @@ static u32 SecureSha3Example(void)
 	}
 
 	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA3_HASH_LEN_IN_BYTES);
+
+	Status = XSecure_InputSlrIndex(&SecureClientInstance, SLR_INDEX);
+	if (Status != XST_SUCCESS) {
+			xil_printf("invalid SlrIndex \r\n");
+			goto END;
+	}
+
 	Status = XSecure_Sha3Kat(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {
 		xil_printf("SHA3-384 KAT failed, Status = %x \r\n ", Status);

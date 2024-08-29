@@ -30,6 +30,7 @@
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *	yog  05/04/23 Fixed HIS COMF violations
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
+*       pre  08/29/24 APIs are updated for SSIT support
 *
 * </pre>
 *
@@ -97,7 +98,8 @@ int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveT
 	XSecure_DCacheFlushRange(EcdsaParams, sizeof(XSecure_EllipticSignGenParams));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_ELLIPTIC_GENERATE_SIGN);
+	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+	                    | XSECURE_API_ELLIPTIC_GENERATE_SIGN);
 	Payload[1U] = (u32)Buffer;
 	Payload[2U] = (u32)(Buffer >> 32);
 	Payload[3U] = (u32)(SignAddr);
@@ -147,7 +149,8 @@ int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_ELLIPTIC_GENERATE_KEY);
+	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+	                    | XSECURE_API_ELLIPTIC_GENERATE_KEY);
 	Payload[1U] = CurveType;
 	Payload[2U] = (u32)PrivKeyAddr;
 	Payload[3U] = (u32)(PrivKeyAddr >> 32);
@@ -197,7 +200,8 @@ int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_ELLIPTIC_VALIDATE_KEY);
+	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+	                    | XSECURE_API_ELLIPTIC_VALIDATE_KEY);
 	Payload[1U] = CurveType;
 	Payload[2U] = (u32)KeyAddr;
 	Payload[3U] = (u32)(KeyAddr >> 32);
@@ -277,7 +281,8 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 	XSecure_DCacheFlushRange(EcdsaParams, sizeof(XSecure_EllipticSignVerifyParams));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_ELLIPTIC_VERIFY_SIGN);
+	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+	                    | XSECURE_API_ELLIPTIC_VERIFY_SIGN);
 	Payload[1U] = (u32)Buffer;
 	Payload[2U] = (u32)(Buffer >> 32);
 

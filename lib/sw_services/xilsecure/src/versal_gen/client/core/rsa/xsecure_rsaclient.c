@@ -29,6 +29,7 @@
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *	yog  05/04/23 Fixed HIS COMF violations
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
+*       pre  08/29/24 APIs are updated for SSIT support
 *
 * </pre>
 *
@@ -91,7 +92,8 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 	XSecure_DCacheFlushRange(RsaParams, sizeof(XSecure_RsaInParam));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_RSA_PRIVATE_DECRYPT);
+	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+	                    | XSECURE_API_RSA_PRIVATE_DECRYPT);
 	Payload[1U] = (u32)BufferAddr;
 	Payload[2U] = (u32)(BufferAddr >> 32);
 	Payload[3U] = (u32)(OutDataAddr);
@@ -164,7 +166,8 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 	XSecure_DCacheFlushRange(RsaParams, sizeof(XSecure_RsaInParam));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_RSA_PUBLIC_ENCRYPT);
+	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+	                    | XSECURE_API_RSA_PUBLIC_ENCRYPT);
 	Payload[1U] = (u32)BufferAddr;
 	Payload[2U] = (u32)(BufferAddr >> 32);
 	Payload[3U] = (u32)(OutDataAddr);
@@ -232,7 +235,8 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 	XSecure_DCacheFlushRange(SignParams, sizeof(XSecure_RsaSignParams));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_RSA_SIGN_VERIFY);
+	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
+	                    | XSECURE_API_RSA_SIGN_VERIFY);
 	Payload[1U] = (u32)BufferAddr;
 	Payload[2U] = (u32)(BufferAddr >> 32);
 
