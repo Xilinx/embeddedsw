@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.4   kal  07/24/24 Initial release
+*       sk   08/29/24 Added support for SDT flow
 *
 * </pre>
 *
@@ -31,6 +32,7 @@
 
 /************************** Constant Definitions *****************************/
 
+#define XSECURE_TYPE_PMC_DMA0	(1U) /**< DMA0 type */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -161,7 +163,7 @@ int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 
 	/** Configures the SSS for SHA hardware engine. */
 	Status = XSecure_SssSha(&InstancePtr->SssInstance,
-				InstancePtr->DmaPtr->Config.DeviceId, InstancePtr->SssShaCfg);
+				(u16)(InstancePtr->DmaPtr->Config.DmaType - XSECURE_TYPE_PMC_DMA0), InstancePtr->SssShaCfg);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}

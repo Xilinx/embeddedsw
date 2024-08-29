@@ -8,7 +8,7 @@ if(("${CMAKE_MACHINE}" STREQUAL "VersalNet") OR
   add_subdirectory(sha_pmx)
 endif()
 
-if(("${CMAKE_MACHINE}" STREQUAL "VersalGen2") OR
+if(("${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2") OR
   ("${CMAKE_MACHINE}" STREQUAL "SPARTANUP"))
   add_subdirectory(sha_pmxc)
 endif()

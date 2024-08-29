@@ -41,6 +41,7 @@ depends_libs:
   xilpdi: {}
   xilffs: {}
   xilmailbox: {}
+  xilsecure: {}
 
 examples:
   xilloader_add_image_store_pdi_client_example.c: []
