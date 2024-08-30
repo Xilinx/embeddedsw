@@ -1,0 +1,34 @@
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for xilsfl library.
+
+maintainers:
+  - Srikanth Boyapally <srikanth.boyapally@amd.com>
+
+type: library
+
+version: 1.0
+
+description: Xilinx Serial NOR Flash Library.
+
+supported_processors:
+  - psv_cortexa72
+  - psv_cortexr5
+  - psv_pmc
+  - psv_psm
+  - psx_cortexr52
+  - psx_cortexa78
+  - psx_pmc
+  - psx_psm
+
+supported_os:
+  - standalone
+  - freertos10_xilinx
+
+examples:
+        xilsfl_ospi_flash_readwrite_example.c:
+                - supported_platforms:
+                        - Versal
+                        - VersalNet
