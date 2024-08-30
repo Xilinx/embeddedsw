@@ -1,0 +1,23 @@
+###############################################################################
+# Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+# Modification History
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- -----------------------------------------------
+# 1.0   sb   8/20/24  Initial release
+##############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN LIBRARY xilsfl
+  OPTION drc = sfl_drc;
+  OPTION copyfiles = all;
+  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsfl,-lxil,-lgcc,-lc,--end-group";
+  OPTION desc = "Serial NOR Flash Library";
+  OPTION VERSION = 1.0;
+  OPTION NAME = xilsfl;
+
+END LIBRARY
