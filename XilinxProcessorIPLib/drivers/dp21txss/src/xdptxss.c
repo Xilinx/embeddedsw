@@ -1334,7 +1334,8 @@ u32 XDpTxSs_GetRxCapabilities(XDpTxSs *InstancePtr)
  * @note		None.
  *
  ******************************************************************************/
-u32 XDpTxSs_GetSinkCapabilities(XDpTxSs *InstancePtr, u8 *SinkCap, u8 *SinkExtendedCap)
+u32 XDpTxSs_GetSinkCapabilities(XDpTxSs *InstancePtr, u8 *SinkCap, u8 *SinkExtendedCap,
+		u8 *MaxLinkrate_128B)
 {
 	u32 Status;
 
@@ -1342,7 +1343,8 @@ u32 XDpTxSs_GetSinkCapabilities(XDpTxSs *InstancePtr, u8 *SinkCap, u8 *SinkExten
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Get RX device capabilities */
-	Status = XDp_TxGetSinkCapabilities(InstancePtr->DpPtr, SinkCap, SinkExtendedCap);
+	Status = XDp_TxGetSinkCapabilities(InstancePtr->DpPtr, SinkCap, SinkExtendedCap,
+								       MaxLinkrate_128B);
 
 	return Status;
 }

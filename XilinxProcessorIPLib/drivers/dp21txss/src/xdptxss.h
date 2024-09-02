@@ -482,8 +482,8 @@ void XDpTxSs_SetUserPixelWidth(XDpTxSs *InstancePtr, u8 UserPixelWidth,
 u32 XDpTxSs_SetVideoStream(XDpTxSs *InstancePtr, XVidC_VideoStream *VidStream,
 						   u8 stream);
 u8 XDpTxSs_GetNumOfMstStreams(XDpTxSs *InstancePtr);
-u32 XDpTxSs_GetSinkCapabilities(XDpTxSs *InstancePtr, u8 *SinkCap, u8 *SinkExtendedCap);
-
+u32 XDpTxSs_GetSinkCapabilities(XDpTxSs *InstancePtr, u8 *SinkCap, u8 *SinkExtendedCap,
+		u8 *MaxLinkrate_128B);
 #if (XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 /* Optional HDCP related functions */
 u32 XDpTxSs_Authenticate(XDpTxSs *InstancePtr);
