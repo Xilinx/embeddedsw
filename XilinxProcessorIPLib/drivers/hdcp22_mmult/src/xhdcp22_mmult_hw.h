@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,6 +61,9 @@
 // 0x17f : Memory 'NPrime' (16 * 32b)
 //         Word n : bit [31:0] - NPrime[n]
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define XHDCP22_MMULT_CTRL_ADDR_AP_CTRL     0x000
 #define XHDCP22_MMULT_CTRL_ADDR_GIE         0x004
@@ -87,4 +90,7 @@
 #define XHDCP22_MMULT_CTRL_WIDTH_NPRIME     32
 #define XHDCP22_MMULT_CTRL_DEPTH_NPRIME     16
 
+#ifdef __cplusplus
+}
+#endif
 /** @} */

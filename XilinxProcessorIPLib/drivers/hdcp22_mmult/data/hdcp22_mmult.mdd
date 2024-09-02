@@ -13,6 +13,6 @@ BEGIN driver hdcp22_mmult
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION name = hdcp22_mmult;
- OPTION version = 1.4;
+ OPTION version = 1.5;
 
 END driver
