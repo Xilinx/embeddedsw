@@ -1797,7 +1797,8 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxOverrideSyncPolarity(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 u32 XDp_TxSetRepeaterMode(XDp *InstancePtr, XDp_Tx_LttprMode mode);
-u32 XDp_TxGetSinkCapabilities(XDp *InstancePtr, u8 *SinkCap, u8 *SinkExtendedCap);
+u32 XDp_TxGetSinkCapabilities(XDp *InstancePtr, u8 *SinkCap, u8 *SinkExtendedCap,
+			      u8 *MaxLinkrate_128B);
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 #if XPAR_XDPRXSS_NUM_INSTANCES

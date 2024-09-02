@@ -479,7 +479,8 @@ u8 XDp_Tx_DecodeLinkBandwidth(XDp *InstancePtr)
  * @note	None.
  *
  *******************************************************************************/
-u32 XDp_TxGetSinkCapabilities(XDp *InstancePtr, u8 *SinkCap, u8 *SinkExtendedCap)
+u32 XDp_TxGetSinkCapabilities(XDp *InstancePtr, u8 *SinkCap, u8 *SinkExtendedCap,
+			      u8 *MaxLinkrate_128B)
 {
 	u32 Status;
 	u8 *Dpcd = SinkCap;
@@ -499,6 +500,11 @@ u32 XDp_TxGetSinkCapabilities(XDp *InstancePtr, u8 *SinkCap, u8 *SinkExtendedCap
 			       16, Dpcd);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
+		/* Read sink capabilities */
+	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE,
+			       1, MaxLinkrate_128B);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
 
 	return XST_SUCCESS;
 }
@@ -963,6 +969,7 @@ u32 XDp_TxCheckLinkStatus(XDp *InstancePtr, u8 LaneCount)
 	/* Retrieve AUX info. */
 	do {
 		/* Get lane and adjustment requests. */
+		XDp_WaitUs(InstancePtr, 100);
 		Status = XDp_TxGetLaneStatusAdjReqs(InstancePtr, ActiveSink);
 		if (Status != XST_SUCCESS) {
 			/* The AUX read failed. */
@@ -3028,6 +3035,13 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr, u8
 	u8 SameVsLevelCount = 0;
 	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 
+	/* UCD500 complaince expects the training pattern to be set off
+	 * before starting training.
+	 */
+	Status = XDp_TxSetTrainingPattern(InstancePtr,
+					  XDP_TX_TRAINING_PATTERN_SET_OFF, NumOfRepeaters);
+	if (Status != XST_SUCCESS)
+		return XDP_TX_TS_FAILURE;
 	/* Obtain the required delay for clock recovery as specified by the
 	 * RX device. */
 	DelayUs = XDp_TxGetTrainingDelay(InstancePtr, XDP_TX_TS_CLOCK_RECOVERY);
@@ -5111,23 +5125,32 @@ static u32 XDp_TxGetCdsInterlaneAlignStatus(XDp *InstancePtr)
  *******************************************************************************/
 static u32 XDp_Tx_2x_GetLinkTrainingDelay(XDp *InstancePtr)
 {
-	u8 AuxReadDelay;
+	u32 AuxReadDelay;
 	u32 DelayUs;
+	u8 AuxReadIntervalUnit;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	AuxReadDelay = XDp_TxRead_Aux_Interval(InstancePtr);
+	AuxReadDelay = (XDp_TxRead_Aux_Interval(InstancePtr));
 
-	if (AuxReadDelay < 0x05)
+	AuxReadIntervalUnit = (AuxReadDelay >> 7 & 0x01);
+
+	AuxReadIntervalUnit = (AuxReadIntervalUnit == 0) ? 2 : 1;
+
+	AuxReadDelay = (AuxReadDelay & 0x7F);
+
+	if (AuxReadDelay == 0)
+		DelayUs = 100;
+	else if (AuxReadDelay < 0x05)
 		DelayUs = (AuxReadDelay * 10) * XDP_LINK_ADJUST_TIMEOUT_IN_USEC;
 	else if (AuxReadDelay == 0x05)
 		DelayUs = XDP_LINK_ADJUST_TIMEOUT_IN_32MSEC;
 	else if (AuxReadDelay == 0x06)
 		DelayUs = XDP_LINK_ADJUST_TIMEOUT_IN_64MSEC;
 	else
-		DelayUs = XDP_LINK_ADJUST_TIMEOUT_IN_20MSEC;
+		DelayUs = (AuxReadDelay + 1) * AuxReadIntervalUnit * 1000;
 
 	return DelayUs;
 }
@@ -5412,7 +5435,6 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr, u8 Nu
 			if (Status != XST_SUCCESS)
 				return XDP_TX_TS_FAILURE;
 
-			XDp_WaitUs(InstancePtr, DelayUs);
 		} else {
 			ce_failure = 0;
 				/* Check if all lanes are inter aligned */
