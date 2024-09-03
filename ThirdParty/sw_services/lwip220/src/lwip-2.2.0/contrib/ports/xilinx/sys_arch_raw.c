@@ -38,6 +38,7 @@
 
 #ifdef __riscv
 #include "riscv_interface.h"
+#include "xpseudo_asm.h"
 #endif
 
 #include "arch/cc.h"
@@ -68,6 +69,11 @@ sys_arch_protect()
 #elif __aarch64__
 	cur = mfcpsr();
 	mtcpsr(cur | 0xC0);
+#elif __riscv
+	cur = csrr(XREG_MSTATUS);
+    /* If interrupts are globally enabled, disable it */
+	if (cur & XREG_MSTATUS_MIE_MASK)
+		riscv_disable_interrupts();
 #endif
 	return cur;
 }
@@ -83,6 +89,13 @@ sys_arch_unprotect(sys_prot_t lev)
 {
 #if defined (__arm__) || defined (__aarch64__)
 	mtcpsr(lev);
+#elif __riscv
+    /*
+     * If interrupts were globally enabled when the previous sys_arch_protect
+     * was called, enable it back.
+     */
+	if (lev & XREG_MSTATUS_MIE_MASK)
+	    riscv_enable_interrupts();
 #else
 	mtmsr(lev);
 #endif
