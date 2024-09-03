@@ -2174,6 +2174,10 @@ void XHdmi_DisplayHdcpDebugMenu(void) {
     xil_printf(" 11 - Disable HDCP 1.4 encryption\r\n");
     xil_printf(" 12 - Display log\r\n");
     xil_printf(" 13 - Display HDCP 2.2 cipher status\r\n");
+	xil_printf(" 14 - Set user HDCP preference to NONE\r\n");
+	xil_printf(" 15 - Set upstream capability to HDCP22\r\n");
+	xil_printf(" 16 - Set upstream capability to HDCP14\r\n");
+	xil_printf(" 17 - Set upstream capability to none\r\n");
 #elif defined (XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
     xil_printf(" 1 - Set upstream capability to none\r\n");
     xil_printf(" 2 - Set upstream capability to both\r\n");
@@ -2391,6 +2395,26 @@ static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    xil_printf("\r\n");
 	    break;
 #endif
+	case 14:
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+		XV_HdmiRxSs1_SetUserHdcpProtocol(&HdmiRxSs, XV_HDMIRXSS1_HDCP_NOUSERPREF);
+#endif
+		break;
+	case 15:
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+		XV_HdmiRxSs1_SetUserHdcpProtocol(&HdmiRxSs, XV_HDMIRXSS1_HDCP_22);
+#endif
+		break;
+	case 16:
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+		XV_HdmiRxSs1_SetUserHdcpProtocol(&HdmiRxSs,	XV_HDMIRXSS1_HDCP_14);
+#endif
+		break;
+	case 17:
+#ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
+		XV_HdmiRxSs1_SetUserHdcpProtocol(&HdmiRxSs, XV_HDMIRXSS1_HDCP_NONE);
+#endif
+		break;
 	    /* Exit */
 	case 99 :
 	    xil_printf("Returning to main menu.\r\n");
