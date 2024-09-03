@@ -104,13 +104,13 @@ set(USER_LINK_OMIT_ALL_SYMBOL_INFO )
 # -----------------------------------------
 
 # Add any libraries to be linked below, they will be added as extra libraries.
-# User need to update USER_LINK_DIRECTORIES below with these library paths.
+# User needs UserConfig.cmake to update USER_LINK_DIRECTORIES below with these library search paths.
 set(USER_LINK_LIBRARIES
 )
 
-# Add any directories to look for the libraries to be linked.
+# Add any directories below to search for the libraries to be linked.
 # Example 1: Adding /proj/compression/lib will pass -L/proj/compression/lib to the linker.
-# Example adding Adding ../../common/lib will consider the path as relative to this directory. and will pass the path to -L option.
+# Example 2: Adding ../../common/lib will consider the path as relative to this directory and will pass the path to -L option.
 set(USER_LINK_DIRECTORIES
 )
 
@@ -119,7 +119,7 @@ set(USER_LINK_DIRECTORIES
 set(USER_LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/lscript.ld")
 
 # Add linker options to be passed, they will be added as extra linker options
-# Example : adding -s will pass -s to the linker.
+# Example : Adding -s will pass -s to the linker.
 set(USER_LINK_OTHER_FLAGS
 )
 

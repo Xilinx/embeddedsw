@@ -14,7 +14,7 @@
 #if __riscv_xlen == 64
 #define INTPTR_DATAITEM			.quad
 #define REGSIZE				8
-#define DATAALIGN			4
+#define DATAALIGN			3
 #define SHIFT				4
 #define STORE				sd
 #define LOAD				ld
@@ -627,7 +627,7 @@ store_op_table:
 /*
  * Exception and interrupt vector tables
  */
-
+.align DATAALIGN
 .global RISCV_ExceptionVectorTable
 RISCV_ExceptionVectorTable:
     INTPTR_DATAITEM XNullHandler
