@@ -12,10 +12,10 @@ type: driver
 properties:
   compatible:
     items:
-      - const: xlnx,telluride-ufshc
+      - const: amd,versal2-ufs
   reg:
     description: Physical base address and size of the controller register map
-  xlnx,ufs-clk-freq-hz:
+  xlnx,clk-freq-hz:
     description: UFS Host Input clock frequency
   xlnx,cfg-clk-freq-hz:
     description: M-PHY configuration clock frequency
@@ -31,7 +31,7 @@ config:
 required:
     - compatible
     - reg: 1
-    - xlnx,ufs-clk-freq-hz
+    - xlnx,clk-freq-hz
     - xlnx,cfg-clk-freq-hz
     - xlnx,ref-pad-clk-freq-hz
     - xlnx,is-cache-coherent
