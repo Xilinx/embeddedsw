@@ -114,6 +114,13 @@ u32 XUfsPsxc_HostInitialize(XUfsPsxc *InstancePtr)
 		goto ERROR;
 	}
 
+	/* Read the Calibration values */
+	ReadReg = XUfsPsxc_ReadReg(XUFSPSXC_EFUSE_CACHE, XUFSPSXC_UFS_CAL_1);
+	InstancePtr->RxATTCompValL0 = (u8)ReadReg;
+	InstancePtr->RxATTCompValL1 = (u8)(ReadReg >> 8U);
+	InstancePtr->RxCTLECompValL0 = (u8)(ReadReg >> 16U);
+	InstancePtr->RxCTLECompValL1 = (u8)(ReadReg >> 24U);
+
 	Status = XUfsPsxc_PhyInit(InstancePtr);
 	if (Status != (u32)XUFSPSXC_SUCCESS) {
 		goto ERROR;

@@ -13,7 +13,7 @@
 *
 * This section contains information about the driver structures, user
 * API prototypes and all the defines required for the user to interact
-* with the driver. ufspsxc driver supports the UFS controller in Telluride
+* with the driver. ufspsxc driver supports the UFS controller in Versal Gen 2
 * SoC platform.
 *
 * <b>Initialization & Configuration</b>
@@ -552,9 +552,6 @@ enum Task_Tag {
 #define XUFSPSXC_CLK_SEL_26		26000000U
 #define XUFSPSXC_CLK_SEL_38P4	38400000U
 #define XUFSPSXC_CLK_SEL_52		52000000U
-
-/* TODO - Temporary defines for non-sdt flow, will be removed */
-#define XPAR_XUFSPSXC_0_NAME			"xlnx,telluride-ufshc"
 
 static INLINE void XUfsPsxc_FillUpiuHeader(XUfsPsxc_Xfer_CmdDesc *CmdDescPtr, u8 TransType, u32 Upiu_Dw0, u8 QueryTaskMangFn, u16 DataSegmentLen)
 {
