@@ -1,6 +1,6 @@
 /******************************************************************************
 # Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -612,6 +612,7 @@ int XV_HdmiRxSs1_CfgInitialize(XV_HdmiRxSs1 *InstancePtr,
   /* Default value */
   HdmiRxSs1Ptr->HdcpIsReady = (FALSE);
   XV_HdmiRxSs1_HdcpSetCapability(HdmiRxSs1Ptr, XV_HDMIRXSS1_HDCP_BOTH);
+	HdmiRxSs1Ptr->UserHdcpProt = XV_HDMIRXSS1_HDCP_NOUSERPREF;
 #endif
 
 #if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
