@@ -206,10 +206,15 @@ typedef struct
 */
 typedef enum
 {
-  XV_HDMIRXSS1_HDCP_NONE,       /**< No content protection */
-  XV_HDMIRXSS1_HDCP_14,         /**< HDCP 1.4 */
-  XV_HDMIRXSS1_HDCP_22,         /**< HDCP 2.2 */
-  XV_HDMIRXSS1_HDCP_BOTH        /**< Both HDCP 1.4 and 2.2 */
+	XV_HDMIRXSS1_HDCP_NONE,       /**< No content protection */
+	XV_HDMIRXSS1_HDCP_14,         /**< HDCP 1.4 */
+	XV_HDMIRXSS1_HDCP_22,         /**< HDCP 2.2 */
+	XV_HDMIRXSS1_HDCP_BOTH,
+	XV_HDMIRXSS1_HDCP_NOUSERPREF	/**< Control user selection.
+					  * to be used only with API
+					  * XV_HdmiRxSs1_SetUserHdcpProtocol
+					  * < Both HDCP 1.4 and 2.2>
+					  */
 } XV_HdmiRxSs1_HdcpProtocol;
 
 /**
@@ -507,6 +512,7 @@ typedef struct
   /**< HDCP specific */
   u32                           HdcpIsReady;    /**< HDCP ready flag */
   XV_HdmiRxSs1_HdcpEventQueue    HdcpEventQueue;         /**< HDCP event queue */
+	XV_HdmiRxSs1_HdcpProtocol	UserHdcpProt;	/**< User HDCP preference */
 #endif
 #ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
   u8                            *Hdcp22Lc128Ptr;     /**< Pointer to HDCP 2.2

@@ -1,5 +1,6 @@
 /******************************************************************************
 # Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+# Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -592,49 +593,114 @@ int XV_HdmiRxSs1_HdcpPoll(XV_HdmiRxSs1 *InstancePtr)
 #ifdef USE_HDCP_RX
 /*****************************************************************************/
 /**
-*
-* This function sets the active HDCP protocol and enables it.
-* The protocol can be set to either HDCP 1.4, 2.2, or None.
-*
-* @param InstancePtr is a pointer to the XV_HdmiRxSs1 instance.
-* @param Protocol is the requested content protection scheme of type
-*        XV_HdmiRxSs1_HdcpProtocol.
-*
-* @return
-*  - XST_SUCCESS if action was successful
-*  - XST_FAILURE if action was not successful
-*
-* @note   None.
-*
-******************************************************************************/
+ *
+ * This function sets the active HDCP protocol and enables it.
+ * XV_HdmiRxSs1_HdcpSetProtocol is intended to be used internally.
+ * Applications should API XV_HdmiRxSs1_SetUserHdcpProtocol
+ * instead of directly using XV_HdmiRxSs1_HdcpSetProtocol.
+ *
+ * The protocol can be set to either HDCP 1.4, 2.2, or None.
+ * XV_HDMIRXSS1_HDCP_NOUSERPREF is the default state and should
+ * be reset back to this state when application wants the HDCP
+ * configuration based on source connected.
+ *
+ * @param InstancePtr is a pointer to the XV_HdmiRxSs1 instance.
+ * @param Protocol is the requested content protection scheme of type
+ *        XV_HdmiRxSs1_HdcpProtocol.
+ *
+ * @return
+ *  - XST_SUCCESS if action was successful
+ *  - XST_FAILURE if action was not successful
+ *
+ * @note   None.
+ *
+ ******************************************************************************/
+
+int XV_HdmiRxSs1_SetUserHdcpProtocol(XV_HdmiRxSs1 *InstancePtr,
+				     XV_HdmiRxSs1_HdcpProtocol protocol)
+{
+	int Status = XST_SUCCESS;
+
+	Xil_AssertNonvoid((protocol == XV_HDMIRXSS1_HDCP_NONE) ||
+			  (protocol == XV_HDMIRXSS1_HDCP_NOUSERPREF) ||
+			  (protocol == XV_HDMIRXSS1_HDCP_14) ||
+			  (protocol == XV_HDMIRXSS1_HDCP_22));
+
+	XV_HdmiRx1_DdcHdcpDisable(InstancePtr->HdmiRx1Ptr);
+
+	InstancePtr->UserHdcpProt = protocol;
+
+#ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
+	if (protocol == XV_HDMIRXSS1_HDCP_14)
+		XHdcp22Rx_SetBroadcast(InstancePtr->Hdcp22Ptr, FALSE);
+	else
+		XHdcp22Rx_SetBroadcast(InstancePtr->Hdcp22Ptr, TRUE);
+#endif
+
+	if (protocol != XV_HDMIRXSS1_HDCP_NOUSERPREF)
+		Status =  XV_HdmiRxSs1_HdcpSetProtocol(InstancePtr, protocol);
+
+	if (InstancePtr->UserHdcpProt == XV_HDMIRXSS1_HDCP_NONE) {
+		XV_HdmiRx1_DdcHdcpDisable(InstancePtr->HdmiRx1Ptr);
+	} else {
+		XV_HdmiRx1_DdcHdcpEnable(InstancePtr->HdmiRx1Ptr);
+	}
+
+	/* Toggle HPD to get attention of upstream transmitter */
+	XV_HdmiRxSs1_ToggleHpd(InstancePtr);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function sets the active HDCP protocol and enables it.
+ * The protocol can be set to either HDCP 1.4, 2.2, or None.
+ *
+ * @param InstancePtr is a pointer to the XV_HdmiRxSs1 instance.
+ * @param Protocol is the requested content protection scheme of type
+ *        XV_HdmiRxSs1_HdcpProtocol.
+ *
+ * @return
+ *  - XST_SUCCESS if action was successful
+ *  - XST_FAILURE if action was not successful
+ *
+ * @note   None.
+ *
+ ******************************************************************************/
 int XV_HdmiRxSs1_HdcpSetProtocol(XV_HdmiRxSs1 *InstancePtr, XV_HdmiRxSs1_HdcpProtocol Protocol)
 {
-  /* Verify argument. */
-  Xil_AssertNonvoid(InstancePtr != NULL);
-  Xil_AssertNonvoid((Protocol == XV_HDMIRXSS1_HDCP_NONE) ||
-                    (Protocol == XV_HDMIRXSS1_HDCP_14)   ||
-                    (Protocol == XV_HDMIRXSS1_HDCP_22));
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Protocol == XV_HDMIRXSS1_HDCP_NONE ||
+			  Protocol == XV_HDMIRXSS1_HDCP_14   ||
+			  Protocol == XV_HDMIRXSS1_HDCP_22);
+	int Status;
 
-  int Status;
+	/* Set requested protocol */
+	if (InstancePtr->UserHdcpProt != XV_HDMIRXSS1_HDCP_NOUSERPREF &&
+	    Protocol != InstancePtr->UserHdcpProt)
+		return XST_SUCCESS;
 
-  /* Set requested protocol */
-  InstancePtr->HdcpProtocol = Protocol;
+	/* Set requested protocol */
+	InstancePtr->HdcpProtocol = Protocol;
 
-  /* Reset both protocols */
-  Status = XV_HdmiRxSs1_HdcpReset(InstancePtr);
-  if (Status != XST_SUCCESS) {
-    InstancePtr->HdcpProtocol = XV_HDMIRXSS1_HDCP_NONE;
-    return XST_FAILURE;
-  }
+	/* Reset both protocols */
+	Status = XV_HdmiRxSs1_HdcpReset(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		InstancePtr->HdcpProtocol = XV_HDMIRXSS1_HDCP_NONE;
+		return XST_FAILURE;
+	}
 
-  /* Enable the requested protocol */
-  Status = XV_HdmiRxSs1_HdcpEnable(InstancePtr);
-  if (Status != XST_SUCCESS) {
-    InstancePtr->HdcpProtocol = XV_HDMIRXSS1_HDCP_NONE;
-    return XST_FAILURE;
-  }
+	/* Enable the requested protocol */
+	Status = XV_HdmiRxSs1_HdcpEnable(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		InstancePtr->HdcpProtocol = XV_HDMIRXSS1_HDCP_NONE;
+		return XST_FAILURE;
+	}
 
-  return XST_SUCCESS;
+	return XST_SUCCESS;
 }
 #endif
 
