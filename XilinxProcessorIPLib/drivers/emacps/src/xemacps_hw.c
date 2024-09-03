@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -94,5 +94,27 @@ void XEmacPs_ResetHw(u32 BaseAddr)
 	/* Update the hash address registers with reset value */
 	XEmacPs_WriteReg(BaseAddr,XEMACPS_HASHL_OFFSET,0x0U);
 	XEmacPs_WriteReg(BaseAddr,XEMACPS_HASHH_OFFSET,0x0U);
+}
+
+/*****************************************************************************/
+/**
+* The register offset of a specific queue register is returned by this function.
+*
+* @param   RegName  Basename of the register
+* @param   Queue    Corresponsing Queue
+*
+* @return  Register offset
+******************************************************************************/
+u32 XEmacPs_GetQxOffset(XEmacPs_QxRegOffset RegName, u8 Queue)
+{
+	u32 Map[REG_END][MAX_QUEUES_FEASIBLE] = {
+		{ XEMACPS_TXQBASE_OFFSET, XEMACPS_TXQ1BASE_OFFSET }, /* TXQIBASE */
+		{ XEMACPS_RXQBASE_OFFSET, XEMACPS_RXQ1BASE_OFFSET }, /* RXQIBASE  */
+		{ 0, XEMACPS_DMA_RXQ1_BUFSIZE_OFFSET }, /* DMA_RXQI_BUFSIZE */
+		{ XEMACPS_ISR_OFFSET, XEMACPS_INTQ1_STS_OFFSET }, /* INTQI_STS */
+		{ 0, XEMACPS_INTQ1_IER_OFFSET },  /* INTQI_IER */
+		{ 0, XEMACPS_INTQ1_IDR_OFFSET }}; /* INTQI_IDR */
+
+	return Map[RegName][Queue];
 }
 /** @} */
