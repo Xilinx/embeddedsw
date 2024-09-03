@@ -28,6 +28,7 @@
 
 /***************************** Include Files *********************************/
 
+#include "xparameters.h"
 #include "xufspsxc_control.h"		/* UFS device driver */
 
 
@@ -72,10 +73,10 @@ u8 ConfigDesc[256];
 #define TEST 0x52
 
 /* Configuration Parameters */
-static u8 LunEnable[32] = {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-static u8 BootLunId[32] = {1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static u8 LunEnable[32] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static u8 BootLunId[32] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 static u8 Mem_Type[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-static u32 SIZE_MB[32] = {4096, 1024, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static u32 SIZE_MB[32] = {1024, 1024, 4096, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 #define XUFSPSXC_PRIMARY_LUN		XUFSPSXC_BLUN_A		/* Boot-LUN Enable Attribute ID */
 #define XUFSPSXC_SECONDARY_LUN		XUFSPSXC_BLUN_B		/* Boot-LUN Enable Attribute ID */
