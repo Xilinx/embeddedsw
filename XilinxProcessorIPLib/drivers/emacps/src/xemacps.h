@@ -327,7 +327,6 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
-#include "xil_util.h"
 #include "xemacps_hw.h"
 #include "xemacps_bd.h"
 #include "xemacps_bdring.h"
@@ -804,6 +803,23 @@ typedef struct XEmacPs_Instance {
 #define XEmacPs_GetRXWatermark(InstancePtr)                     \
 	XEmacPs_ReadReg((InstancePtr)->Config.BaseAddress,                \
 			XEMACPS_RXWATERMARK_OFFSET)
+
+/******************************************************************************/
+#define BIT(n)			(1U << n)
+#define SET_BIT(x, n)		(x | BIT(n))
+#define GET_BIT(x, n)		((x >> n) & 1U)
+#define CLEAR_BIT(x, n)		(x & (~BIT(n)))
+#define GENMASK(h, l)		(((~0U) << (l)) & \
+				(~0U >> (sizeof(int) * 8 - 1 - (h))))
+INLINE u32 get_num_set_bits(u32 n)	{
+	u8 count = 0;
+	while(n) {
+		n &= (n - 1);
+		count++;
+	}
+	return count;
+}
+/******************************************************************************/
 /*
  * Initialization functions in xemacps.c
  */

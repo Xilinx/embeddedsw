@@ -336,7 +336,7 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	if (InstancePtr->Version > 2) {
 		Reg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 				      XEMACPS_DCFG6_OFFSET);
-		InstancePtr->MaxQueues += GET_NUM_SET_BITS(Reg & 0xFF);
+		InstancePtr->MaxQueues += get_num_set_bits(Reg & 0xFF);
 	}
 
 	/* Setup hardware with default values */
