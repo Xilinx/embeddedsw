@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,17 +41,17 @@ XStatus I2CInitialize(XIicPs *Iic, const u32 ControllerID)
 	const XPm_Device *Device;
 	u16 I2CDeviceId;
 
+	Device = XPmDevice_GetById(ControllerID);
+	if (NULL == Device) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
 	/* Request the I2C controller */
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, ControllerID,
 				   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0,
 				   XPLMI_CMD_SECURE);
 	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Device = XPmDevice_GetById(ControllerID);
-	if (NULL == Device) {
-		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
@@ -81,6 +81,7 @@ XStatus I2CInitialize(XIicPs *Iic, const u32 ControllerID)
 	Config = XIicPs_LookupConfig(Device->Node.BaseAddress);
 #endif
 	if (NULL == Config) {
+		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -156,7 +157,8 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 
 	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
 	if (NULL == Regulator) {
-		Status = XPM_PM_INVALID_NODE;
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -171,7 +173,7 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 
 	RegulatorSlaveAddress = (u16)Regulator->I2cAddress;
 	for (i = 0; i < Regulator->Config.CmdLen; i++) {
-		if (j >= ((u32)Regulator->Config.CmdLen * 4U)) {
+		if (j >= MAX_I2C_COMMAND_LEN) {
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
@@ -179,7 +181,12 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 		MuxAddress = (u16)Regulator->Config.CmdArr[j];
 		j++;
 		BytesLen = Regulator->Config.CmdArr[j];
-		if (BytesLen > 3u) {
+
+		/*
+		 * First 2 bytes of a word are Mux address and length,
+		 * the I2C payload should not be more than 2 bytes.
+		 */
+		if (BytesLen > 2u) {
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
@@ -198,6 +205,7 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 		}
 	}
 
+	Status = XST_FAILURE;
 	while (ByteIndex < ((u32)Rail->I2cModes[Mode].CmdLen * 4U)) {
 		BytesLen = Rail->I2cModes[Mode].CmdArr[ByteIndex];
 
@@ -281,7 +289,8 @@ static XStatus XPmRail_GPIOControl(const XPm_Rail *Rail, u8 Mode)
 
 	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
 	if (NULL == Regulator) {
-		Status = XPM_PM_INVALID_NODE;
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -400,15 +409,7 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 		goto done;
 	}
 
-	if ((0U != Rail->ParentId) &&
-	    ((u32)XPM_NODESUBCL_POWER_REGULATOR == NODESUBCLASS(Rail->ParentId))) {
-		Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
-		if (NULL == Regulator) {
-			DbgErr = XPM_INT_ERR_INVALID_ARGS;
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-	} else {
+	if (0U == Rail->ParentId) {
 		PmDbg("Rail topology information unavailable so rail can not be controlled.\r\n");
 		Status = XST_SUCCESS;
 		goto done;
@@ -416,8 +417,16 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 
 	if (XPM_RAILTYPE_MODE_PMBUS == Rail->ControlType[Mode]) {
 		Status = XPmRail_PMBusControl(Rail, Mode);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
 	} else if (XPM_RAILTYPE_MODE_GPIO == Rail->ControlType[Mode]) {
 		Status = XPmRail_GPIOControl(Rail, Mode);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
 	} else {
 		Status = XST_SUCCESS;
 		goto done;
@@ -466,18 +475,18 @@ static int XPmRail_CyclicTempVoltAdj(void *Arg)
 	u8 *CurrentVoltMode;
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
-	UpperTempThresh = Rail->TempVoltAdj->UpperTempThresh;
-	LowerTempThresh = Rail->TempVoltAdj->LowerTempThresh;
-	UpperVoltMode = Rail->TempVoltAdj->UpperVoltMode;
-	LowerVoltMode = Rail->TempVoltAdj->LowerVoltMode;
-	CurrentVoltMode = &Rail->TempVoltAdj->CurrentVoltMode;
-
 	/* Validate that the argument passed in is a power rail */
 	if ((u32)XPM_NODETYPE_POWER_RAIL != NODETYPE(Rail->Power.Node.Id)) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+
+	UpperTempThresh = Rail->TempVoltAdj->UpperTempThresh;
+	LowerTempThresh = Rail->TempVoltAdj->LowerTempThresh;
+	UpperVoltMode = Rail->TempVoltAdj->UpperVoltMode;
+	LowerVoltMode = Rail->TempVoltAdj->LowerVoltMode;
+	CurrentVoltMode = &Rail->TempVoltAdj->CurrentVoltMode;
 
 	/*
 	 * If Root SysMon is not initialized yet, skip the cycle until
@@ -561,15 +570,14 @@ static XStatus XPmRail_VerifyController(const XPm_Rail *Rail)
 	const XPm_Regulator *Regulator;
 	u8 CntrlrEnabled = 0;
 
-	if ((0U != Rail->ParentId) &&
-	    ((u32)XPM_NODESUBCL_POWER_REGULATOR == NODESUBCLASS(Rail->ParentId))) {
-		Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
-		if (NULL == Regulator) {
-			DbgErr = XPM_INT_ERR_INVALID_ARGS;
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-	} else {
+	if (NULL == Rail) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
+	if (NULL == Regulator) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -704,12 +712,6 @@ static XStatus XPmRail_InitTempVoltAdj(const u32 *Args, u32 NumArgs)
 	 * temperature and make voltage adjustment, if needed.
 	 */
 	Rail = (XPm_Rail *)XPmPower_GetById(NodeId);
-	if (NULL == Rail) {
-		DbgErr = XPM_INT_ERR_INVALID_ARGS;
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	Status = XPmRail_VerifyController(Rail);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
@@ -744,12 +746,6 @@ static XStatus XPmRail_InitI2CMode(const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	if ((u32)XPM_RAILTYPE_MODE_PMBUS != (Args[1] & 0xFFU)) {
-		DbgErr = XPM_INT_ERR_INVALID_ARGS;
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Args[2]);
 	if (NULL == Regulator) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
@@ -779,12 +775,6 @@ static XStatus XPmRail_InitI2CMode(const u32 *Args, u32 NumArgs)
 	 *             0x02000002 0x01021a02 0x80
 	 */
 	for (i = 0U; i < NumModes; i++) {
-		if (k >= NumArgs) {
-			DbgErr = XPM_INT_ERR_INVALID_ARGS;
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-
 		Mode = (u8)(Args[k] & 0xFFU);
 		if (MAX_MODES <= Mode) {
 			DbgErr = XPM_INT_ERR_INVALID_ARGS;
@@ -842,12 +832,6 @@ static XStatus XPmRail_InitGPIOMode(const u32 *Args, u32 NumArgs)
 	 * arg5: len | mode3 = 0x303 0x0044 0x800 0x800
 	 */
 
-	if (4U > NumArgs) {
-		DbgErr = XPM_INT_ERR_INVALID_ARGS;
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	Rail = (XPm_Rail *)XPmPower_GetById(Args[Index]);
 	if (NULL == Rail) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
@@ -855,14 +839,7 @@ static XStatus XPmRail_InitGPIOMode(const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	Index++;
-	if ((u32)XPM_RAILTYPE_MODE_GPIO != (Args[Index] & 0xFFU)) {
-		DbgErr = XPM_INT_ERR_INVALID_ARGS;
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	Index++;
+	Index = Index + 2;
 	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Args[Index]);
 	if (NULL == Regulator) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
@@ -985,9 +962,6 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 
 	if (NULL == XPmPower_GetById(RailId)) {
 		Status = XPmPower_Init(&Rail->Power, RailId, BaseAddress, NULL);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
-		}
 	}
 
 	Rail->Power.Node.State = (u8)XPM_POWER_STATE_ON;
