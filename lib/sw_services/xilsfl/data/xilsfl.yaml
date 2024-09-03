@@ -11,7 +11,7 @@ type: library
 
 version: 1.0
 
-description: Xilinx Serial NOR Flash Library.
+description: Serial NOR Flash Library.
 
 supported_processors:
   - psv_cortexa72
