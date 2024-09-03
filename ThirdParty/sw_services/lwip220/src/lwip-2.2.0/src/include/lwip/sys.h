@@ -5,6 +5,8 @@
 
 /*
  * Copyright (c) 2001-2004 Swedish Institute of Computer Science.
+ * Copyright (C) 2007 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -502,13 +504,10 @@ u32_t sys_now(void);
 			      mtmsr(lev & ~0x2)
 #endif
 
-#if defined (__arm__) || defined (__aarch64__)
+#if defined (__arm__) || defined (__aarch64__) || defined (__riscv)
 #define SYS_ARCH_PROTECT(lev) lev = sys_arch_protect()
 #endif
 
-#ifdef __riscv
-#define SYS_ARCH_PROTECT(lev) riscv_disable_interrupts()
-#endif
 /**
  * @ingroup sys_prot
  * SYS_ARCH_UNPROTECT
@@ -523,12 +522,8 @@ u32_t sys_now(void);
 #define SYS_ARCH_UNPROTECT(lev)	mtmsr(lev)
 #endif
 
-#if defined (__arm__) || defined (__aarch64__)
+#if defined (__arm__) || defined (__aarch64__) || defined (__riscv)
 #define SYS_ARCH_UNPROTECT(lev) sys_arch_unprotect(lev)
-#endif
-
-#ifdef __riscv
-#define SYS_ARCH_UNPROTECT(lev) riscv_enable_interrupts()
 #endif
 
 sys_prot_t sys_arch_protect(void);
