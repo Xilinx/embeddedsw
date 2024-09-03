@@ -1,4 +1,4 @@
-# Copyright (c) 2024 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 project(xilsfl)
