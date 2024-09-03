@@ -666,7 +666,7 @@ typedef struct XEmacPs_Instance {
 *****************************************************************************/
 #define XEmacPs_IntQiEnable(InstancePtr, Queue, Mask)                       \
 	XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,             \
-			 XEMACPS_INTQI_IER_OFFSET[Queue],                   \
+			 XEmacPs_GetQxOffset(INTQI_IER, Queue),		\
 			 ((Mask) & XEMACPS_INTQ_IXR_ALL_MASK));
 
 /****************************************************************************/
@@ -689,7 +689,7 @@ typedef struct XEmacPs_Instance {
 *****************************************************************************/
 #define XEmacPs_IntQiDisable(InstancePtr, Queue, Mask)                      \
 	XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,             \
-			 XEMACPS_INTQI_IDR_OFFSET[Queue],			\
+			 XEmacPs_GetQxOffset(INTQI_IDR, Queue),		\
 			 ((Mask) & XEMACPS_INTQ_IXR_ALL_MASK));
 
 /****************************************************************************/

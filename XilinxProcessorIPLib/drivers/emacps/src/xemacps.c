@@ -375,8 +375,8 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	/* Setup DMA Rx Buffer size for remaining queues */
 	for (i=1; i< InstancePtr->MaxQueues; i++)
 			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-					XEMACPS_DMA_RXQI_BUFSIZE_OFFSET[i],
-					(u32)XEMACPS_RX_BUF_SIZE_JUMBO / (u32)XEMACPS_RX_BUF_UNIT);
+					 XEmacPs_GetQxOffset(DMA_RXQI_BUFSIZE, i),
+					 (u32)XEMACPS_RX_BUF_SIZE_JUMBO / (u32)XEMACPS_RX_BUF_UNIT);
 
 	if (InstancePtr->Version > 2) {
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_DMACR_OFFSET,
@@ -481,11 +481,11 @@ void XEmacPs_SetQueuePtr(XEmacPs *InstancePtr, UINTPTR QPtr, u8 QueueNum,
 
 	if (Direction == XEMACPS_SEND)
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XEMACPS_TXQIBASE_OFFSET[QueueNum],
+			XEmacPs_GetQxOffset(TXQIBASE, QueueNum),
 			(QPtr & ULONG64_LO_MASK));
 	else
 		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XEMACPS_RXQIBASE_OFFSET[QueueNum],
+			XEmacPs_GetQxOffset(RXQIBASE, QueueNum),
 			(QPtr & ULONG64_LO_MASK));
 
 #ifdef __aarch64__
