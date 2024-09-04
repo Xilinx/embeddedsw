@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -69,7 +69,7 @@ void EmacPsUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr)
 {
 	char *Frame = (char *) FramePtr;
 	char *SourceAddress = EmacPsMAC;
-	s32 Index;
+	unsigned int Index;
 
 	/* Destination address */
 	for (Index = 0; Index < XEMACPS_MAC_ADDR_SIZE; Index++) {
