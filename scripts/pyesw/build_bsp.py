@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module builds archive files (.a) for the created bsp. These archive files
@@ -59,14 +59,15 @@ class BSP:
         self.lib_config = domain_data["lib_config"]
         self.template = domain_data["template"]
         self.cmake_generator = utils.get_cmake_generator()
-        # Below replace command is meant only for maintaining the backward compatibility
-        # with 2023.2
-        find_common_domain_path = os.path.join(self.domain_path, "Findcommon.cmake")
-        utils.replace_line(
-            find_common_domain_path,
-            'option(NON_YOCTO "Non Yocto embeddedsw FLOW" OFF)',
-            'option(NON_YOCTO "Non Yocto embeddedsw FLOW" ON)',
-        )
+        if not "config" in domain_data:
+            # Below replace command is meant only for maintaining the backward compatibility
+            # with 2023.2
+            find_common_domain_path = os.path.join(self.domain_path, "Findcommon.cmake")
+            utils.replace_line(
+                find_common_domain_path,
+                'option(NON_YOCTO "Non Yocto embeddedsw FLOW" OFF)',
+                'option(NON_YOCTO "Non Yocto embeddedsw FLOW" ON)',
+            )
 	#Below code was added for backward compatibility.
         try:
             self.config = domain_data["config"]
