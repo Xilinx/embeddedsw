@@ -515,11 +515,7 @@ def write_into_file(out_file, content):
         f.write(content)
 
 def get_cmake_generator():
-    if os.name == "nt":
-        cmake_generator = "Ninja"
-    else:
-        cmake_generator = "Unix Makefiles"
-    return cmake_generator
+    return "Ninja"
 
 def discard_dump():
     if os.name == "nt":

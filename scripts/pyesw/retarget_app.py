@@ -61,7 +61,7 @@ def retarget_app(args):
                         if build_dir != app_build_dir:
                             utils.remove(app_build_dir)
             """
-            From 2024.1 release on wards cmake default generator moved to ninja as a part
+            From 2024.2 release on wards cmake default generator moved to ninja as a part
             of performance enhancment in case of old release workspace update app CMakeLists.txt
             to inline with ninja generator.
             """
