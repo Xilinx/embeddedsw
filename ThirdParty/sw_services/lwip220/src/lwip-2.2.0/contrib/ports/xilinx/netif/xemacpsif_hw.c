@@ -65,8 +65,19 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 	u32_t i;
 	u32_t phyfoundforemac0 = FALSE;
 	u32_t phyfoundforemac1 = FALSE;
+	u32_t gigeversion;
+	u32_t Reg;
 
 	xemacpsp = &xemacps->emacps;
+
+	gigeversion = ((Xil_In32(xemacpsp->Config.BaseAddress + 0xFC)) >> 16) & 0xFFF;
+	/* Get the number of queues */
+	xemacpsp->MaxQueues = 1;
+	if (gigeversion > 2) {
+		Reg = XEmacPs_ReadReg(xemacpsp->Config.BaseAddress,
+				      XEMACPS_DCFG6_OFFSET);
+		xemacpsp->MaxQueues += get_num_set_bits(Reg & 0xFF);
+	}
 
 #ifdef ZYNQMP_USE_JUMBO
 	XEmacPs_SetOptions(xemacpsp, XEMACPS_JUMBO_ENABLE_OPTION);
