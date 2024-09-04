@@ -11,10 +11,12 @@ import os
 import lopper
 import utils
 import re
+import logging
 from library_utils import Library
 from repo import Repo
 from validate_bsp import Validation
 from validate_hw import ValidateHW
+from utils import log_time
 
 class Domain(Repo):
     """
@@ -83,7 +85,8 @@ class Domain(Repo):
         if not utils.is_file(cpu_list_file):
             utils.runcmd(
                 f"lopper --werror -f -O {self.domain_dir} -i {self.lops_dir}/lop-cpulist.dts {self.sdt} > {dump}",
-                cwd = self.domain_dir
+                cwd = self.domain_dir,
+                log_message="Generating CPU list"
             )
         avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
         if self.proc not in avail_cpu_data.keys():
@@ -112,7 +115,8 @@ class Domain(Repo):
             if not utils.is_file(app_list_file) or not utils.is_file(lib_list_file):
                 utils.runcmd(
                     f"lopper --werror -f -O {self.domain_dir} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}",
-                    cwd = self.domain_dir
+                    cwd = self.domain_dir,
+                    log_message="Getting supported component list"
                 )
             proc_data = utils.fetch_yaml_data(app_list_file, "app_list")[self.proc]
             Validation.validate_template_name(
@@ -274,10 +278,12 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                 if utils.is_file(lops_file):
                     utils.runcmd(
                         f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
+                        log_message="Domain-specific DTS generation "
                     )
                 else:
                     utils.runcmd(
-                        f"lopper -f --enhanced -O {self.domain_dir} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}"
+                        f"lopper -f --enhanced -O {self.domain_dir} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
+                        log_message="Domain-specific DTS generation "
                     )
         else:
             out_dts_path = self.sdt
@@ -292,7 +298,8 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
 
             utils.runcmd(
                 f"lopper -f -O {self.domain_dir} --enhanced -i {lops_file} {out_dts_path} > {dump}",
-                cwd = self.domain_dir
+                cwd = self.domain_dir,
+                log_message="microblaze toolchain mapping lops calling"
             )
             cflags_file = os.path.join(self.domain_dir, "cflags.yaml")
             avail_cflag_data = utils.fetch_yaml_data(cflags_file, "cflags")
@@ -416,6 +423,7 @@ def lop_create_target(lop_cmds):
     '''
     return lop_file.replace('\\', '/')
 
+@log_time
 def create_domain(args):
     """
     Function that uses the above Domain class to create the baremetal domain.
@@ -480,7 +488,8 @@ def create_domain(args):
     _g.c files for available drivers in parallel.
     """
     utils.runcmd(
-        f"lopper -O {obj.libsrc_folder} -f {obj.sdt} -- baremetaldrvlist_xlnx {obj.proc} {obj.repo_yaml_path}"
+        f"lopper -O {obj.libsrc_folder} -f {obj.sdt} -- baremetaldrvlist_xlnx {obj.proc} {obj.repo_yaml_path}",
+        log_message="Generating driver list took"
     )
 
     # Read the driver list available in libsrc folder
@@ -614,7 +623,8 @@ def create_domain(args):
     lop_cmds.append([obj.include_folder, "module,baremetal_xparameters_xlnx", f"{obj.proc} {obj.repo_yaml_path}"])
     utils.write_into_file(config_lops_file, lop_create_target(lop_cmds))
     utils.runcmd(
-        f"lopper -O {obj.domain_dir} -i {config_lops_file} -f {obj.sdt}"
+        f"lopper -O {obj.domain_dir} -i {config_lops_file} -f {obj.sdt}",
+        log_message="Embedded software metadata generation"
     )
 
     # Copy the common cmake meta-data file to domain directory so that other modules can consume it
@@ -828,7 +838,19 @@ if __name__ == "__main__":
         help="Specify the processor mode (Default: 64-bit)",
         choices=["32-bit", "64-bit"],
     )
-
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help='Increase output verbosity'
+    )
 
     args = vars(parser.parse_args())
+    if args["verbose"] >= 1:
+        logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    else:
+        logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
+    logger = logging.getLogger(__name__)
+    logger.info( "Starting domain creation" )
     create_domain(args)
