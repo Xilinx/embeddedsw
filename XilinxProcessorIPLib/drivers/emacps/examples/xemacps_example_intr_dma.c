@@ -112,6 +112,8 @@
 *****************************************************************************/
 
 /***************************** Include Files ********************************/
+#include <assert.h>
+#include <stdlib.h>
 #include "xemacps_example.h"
 #include "xil_exception.h"
 
@@ -692,6 +694,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 	XEmacPs_Bd *Bd1Ptr;
 	XEmacPs_Bd *BdRxPtr;
 	u32 queue;
+	u32 count;
 	u8 i;
 
 	/*
@@ -863,7 +866,12 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 	/*
 	 * Wait for transmission to complete
 	 */
-	while (!FramesTx);
+	count = 0;
+	while (!FramesTx) {
+		count++;
+		assert(count != 0xFFFF && "ERROR: Transmission Failed!");
+		usleep(10);
+	}
 
 	/*
 	 * Now that the frame has been sent, post process our TxBDs.
@@ -897,7 +905,12 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 	/*
 	 * Wait for Rx indication
 	 */
-	while (!FramesRx);
+	count = 0;
+	while (!FramesRx) {
+		count++;
+		assert(count != 0xFFFF && "ERROR: Reception Failed!");
+		usleep(10);
+	}
 
 	/*
 	 * Now that the frame has been received, post process our RxBD.
