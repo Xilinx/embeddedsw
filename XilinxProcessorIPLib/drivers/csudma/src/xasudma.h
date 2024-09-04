@@ -6,7 +6,7 @@
 /**
 *
 * The file is a wrapper that calls APIs declared in xscudma.h This wrapper is
-* added for Telluride as there is no CSU DMA in Telluride and hence the ASUFW
+* added for Versal Gen2 as there is no CSU DMA in Versal Gen2 and hence the ASUFW
 * should have no reference to CSU DMA. This is a security requirement.
 *
 * The ASU_DMA is present inside ASU (Application Security Unit) module.
@@ -68,7 +68,7 @@
 * macros), range macros, structure typedefs that can be used to access the
 * Xilinx ASU_DMA core instance.
 *
-* The functionality wise ZU+ CSU_DMA and Telluride ASU_DMA are similar, so all
+* The functionality wise ZU+ CSU_DMA and Versal Gen2 ASU_DMA are similar, so all
 * ZU+ code is reused by wrapping in this file
 *
 * MODIFICATION HISTORY:
@@ -90,7 +90,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xcsudma.h"
-#if defined (TELLURIDE)
+#if defined (VERSAL_AIEPG2)
 
 /************************** Constant Definitions *****************************/
 /** Ranges of Size */
