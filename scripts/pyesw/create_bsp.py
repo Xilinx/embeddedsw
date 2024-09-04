@@ -190,7 +190,9 @@ class Domain(Repo):
 
         # Save unpruned SDT as it may be used later
         ori_sdt_path = os.path.join(self.sdt_folder, "sdt.dts")
-        utils.runcmd(f"lopper -f -O {self.domain_dir} --enhanced  --permissive {self.sdt} {ori_sdt_path} > {dump}")
+        if self.app != "versal_plm":
+            utils.runcmd(f"lopper -f -O {self.domain_dir} --enhanced  --permissive {self.sdt} {ori_sdt_path} > {dump}",
+                         log_message="unpruned SDT generation")
 
         toolchain_file_copy = None
         for val in proc_lops_specs_map.keys():
