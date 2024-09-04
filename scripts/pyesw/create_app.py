@@ -139,9 +139,9 @@ def create_app(args):
         obj.cmake_paths_append += " -D_AMD_GENERATED_=ON "
 
     if obj.template == "memory_tests":
-        utils.runcmd(f"{linker_cmd} memtest")
-    else:
-        utils.runcmd(linker_cmd)
+        utils.runcmd(f"{linker_cmd} memtest", log_message="Linker Generation")
+    elif obj.template != "versal_plm":
+        utils.runcmd(linker_cmd, log_message="Linker Generation")
 
     # Copy the static linker files from embeddedsw to the app src dir
     linker_dir = os.path.join(obj.app_src_dir, "linker_files")
