@@ -340,6 +340,9 @@ int main(void)
 
 	xil_printf("Entering into main() \r\n");
 
+	/* Initialize rand() with unique seed value */
+	srand((UINTPTR)__TIME__);
+
 	/*
 	 * Call the EmacPs DMA interrupt example , specify the parameters
 	 * generated in xparameters.h
@@ -707,6 +710,8 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 	if (GemVersion > 2) {
 		PayloadSize = (JUMBO_FRAME_SIZE - FRAME_HDR_SIZE);
 	}
+
+	PayloadSize = rand() % (PayloadSize + 1);
 
 	/* Excercise all available queues */
 	queue = packet % (EmacPsInstancePtr->MaxQueues);
