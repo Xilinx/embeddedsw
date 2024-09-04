@@ -103,11 +103,12 @@ class Domain(Repo):
             )
             sys.exit(1)
 
-        validate_obj = ValidateHW(
-            self.domain_dir, self.proc, self.os, self.sdt,
-            self.app, self.repo_yaml_path
-        )
-        validate_obj.validate_hw()
+        if self.app:
+            validate_obj = ValidateHW(
+                self.domain_dir, self.proc, self.os, self.sdt,
+                self.app, self.repo_yaml_path
+            )
+            validate_obj.validate_hw()
         if os.environ.get("VALIDATE_ARGS"):
             app_list_file = os.path.join(self.domain_dir, "app_list.yaml")
             lib_list_file = os.path.join(self.domain_dir, "lib_list.yaml")
