@@ -471,14 +471,13 @@ class Library(Repo):
             base_lib_build_dir = base_lib_build_dir.replace('\\', '/')
             utils.runcmd('cmake -DCONFIG="" -P CMakeFiles\clean_additional.cmake', cwd=base_lib_build_dir)
         else:
-            utils.runcmd(f"make -C {os.path.join('libsrc', lib, 'src')} clean", cwd=base_lib_build_dir)
+            utils.runcmd('cmake -DCONFIG="" -P CMakeFiles/clean_additional.cmake', cwd=base_lib_build_dir)
         # Remove library src folder from libsrc
         utils.remove(lib_path)
         # Remove cmake build folder from cmake build area.
         utils.remove(lib_build_dir)
         # Update library config file
         utils.update_yaml(self.domain_config_file, "domain", lib, None, action="remove")
-        if os.name == "nt":
-            dump = utils.discard_dump()
-            utils.runcmd(f"ninja CMakeFiles/rebuild_cache.util > {dump}", cwd=base_lib_build_dir)
+        dump = utils.discard_dump()
+        utils.runcmd(f"ninja CMakeFiles/rebuild_cache.util > {dump}", cwd=base_lib_build_dir)
         self.modify_cmake_subdirs([lib], action="remove")
