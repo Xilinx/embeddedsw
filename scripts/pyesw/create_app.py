@@ -208,41 +208,42 @@ def create_app(args):
         }
     utils.write_yaml(obj.app_config_file, data)
 
-    # Create a dummy folder to get compile_commands.json
-    compile_commands_dir = os.path.join(obj.app_src_dir, ".compile_commands")
-    utils.mkdir(compile_commands_dir)
-    obj.app_src_dir = obj.app_src_dir.replace('\\', '/')
-    obj.cmake_paths_append = obj.cmake_paths_append.replace('\\', '/')
-    dump = utils.discard_dump()
-    utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append} > {dump}', cwd=compile_commands_dir, log_message="Compile commands json Generation")
+    if not args["no_clangd"]:
+        # Create a dummy folder to get compile_commands.json
+        compile_commands_dir = os.path.join(obj.app_src_dir, ".compile_commands")
+        utils.mkdir(compile_commands_dir)
+        obj.app_src_dir = obj.app_src_dir.replace('\\', '/')
+        obj.cmake_paths_append = obj.cmake_paths_append.replace('\\', '/')
+        dump = utils.discard_dump()
+        utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append} > {dump}', cwd=compile_commands_dir, log_message="Compile commands json Generation")
 
-    '''
-    compile_commands.json file needs to be kept inside src directory.
-    Silent_discard needs to be true as for Empty Application, this file
-    is not created.
-    '''
-    utils.copy_file(os.path.join(compile_commands_dir, "compile_commands.json"), obj.app_src_dir, silent_discard=True)
+        '''
+        compile_commands.json file needs to be kept inside src directory.
+        Silent_discard needs to be true as for Empty Application, this file
+        is not created.
+        '''
+        utils.copy_file(os.path.join(compile_commands_dir, "compile_commands.json"), obj.app_src_dir, silent_discard=True)
 
-    '''
-    There are few GCC flags (e.g. -fno-tree-loop-distribute-patterns) that
-    clang server doesnt recognise for Code Intellisense. To get over this
-    "Unknown Argument" Error of clang, a .clangd file with below content is
-    to be kept in parallel to compile_commands.json file.
-    '''
-    clangd_ignore_content = f'''
+        '''
+        There are few GCC flags (e.g. -fno-tree-loop-distribute-patterns) that
+        clang server doesnt recognise for Code Intellisense. To get over this
+        "Unknown Argument" Error of clang, a .clangd file with below content is
+        to be kept in parallel to compile_commands.json file.
+        '''
+        clangd_ignore_content = f'''
 CompileFlags:
     Add: [-Wno-unknown-warning-option, -U__linux__, -U__clang__]
     Remove: [-m*, -f*]
 '''
-    clangd_ignore_file = os.path.join(obj.app_src_dir, ".clangd")
-    utils.write_into_file(clangd_ignore_file, clangd_ignore_content)
+        clangd_ignore_file = os.path.join(obj.app_src_dir, ".clangd")
+        utils.write_into_file(clangd_ignore_file, clangd_ignore_content)
 
-    '''
-    The generated compile_commands.json file has the directory path (where it
-    was created originally) in it. That directory needs to be maintained to
-    avoid clang error.
-    '''
-    utils.remove(os.path.join(compile_commands_dir, "*"), pattern=True)
+        '''
+        The generated compile_commands.json file has the directory path (where it
+        was created originally) in it. That directory needs to be maintained to
+        avoid clang error.
+        '''
+        utils.remove(os.path.join(compile_commands_dir, "*"), pattern=True)
 
     # Success prints if everything went well till this point.
     if utils.is_file(obj.app_config_file):
@@ -317,6 +318,13 @@ if __name__ == "__main__":
         action="count",
         default=0,
         help='Increase output verbosity'
+    )
+    parser.add_argument(
+        "--no_clangd",
+        action="store",
+        default=False,
+        help="Don't generate clangd meta-data useful for Vivado PLM kind of use cases (Default: False)",
+        choices=["False", "True"],
     )
 
     args = vars(parser.parse_args())
