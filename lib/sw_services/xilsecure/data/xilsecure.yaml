@@ -90,3 +90,6 @@ examples:
     - supported_platforms:
       - Versal
       - VersalNet
+  xilsecure_spartanup_sha_server_example.c:
+    - supported_platforms:
+      - SPARTANUP
