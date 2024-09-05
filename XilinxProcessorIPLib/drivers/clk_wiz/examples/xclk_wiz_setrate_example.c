@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.4 sd  5/21/20 Initial version for Clock Wizard Example
 * 1.6 sd 7/7/23   Add SDT support.
+* 1.8 sd 9/5/24   Add GetRate and multi clock support.
 * </pre>
 *
 ******************************************************************************/
@@ -130,6 +131,7 @@ u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, UINTPTR BaseAddress)
 	XClk_Wiz_Config *CfgPtr_Dynamic;
 	u32 Status = XST_FAILURE;
 	u32 Reg;
+	u64 Rate;
 
 	/*
 	 * Get the CLK_WIZ Dynamic reconfiguration driver instance
@@ -147,23 +149,34 @@ u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, UINTPTR BaseAddress)
 	 * Initialize the CLK_WIZ Dynamic reconfiguration driver
 	 */
 	Status = XClk_Wiz_CfgInitialize(&ClkWiz_Dynamic, CfgPtr_Dynamic,
-		 CfgPtr_Dynamic->BaseAddr);
+					CfgPtr_Dynamic->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
+	XClk_Wiz_GetRate(&ClkWiz_Dynamic, 0, &Rate);
+	Rate = Rate / XCLK_MHZ;
+	xil_printf("\nCurrent Rate %ld MHz\t \n",  Rate);
 	/* Calling Clock wizard dynamic reconfig */
 
 	XClk_Wiz_WriteReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
-	XClk_Wiz_SetRate(&ClkWiz_Dynamic, 200);
+	if (CfgPtr_Dynamic->NumClocks == 1) {
+		XClk_Wiz_SetRateHz(&ClkWiz_Dynamic, 200000000);
+	} else {
+		XClk_Wiz_SetLeafRateHz(&ClkWiz_Dynamic, 0, 50000000);
+	}
 
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic->BaseAddr, XCLK_US_WIZ_RECONFIG_OFFSET, (XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
+	XClk_Wiz_WriteReg(CfgPtr_Dynamic->BaseAddr, XCLK_US_WIZ_RECONFIG_OFFSET,
+			  (XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
 	Status = XClk_Wiz_WaitForLock(&ClkWiz_Dynamic);
 	if (Status != XST_SUCCESS) {
 		Reg = XClk_Wiz_ReadReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & CLK_LOCK;
 		xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected "\
-		": 0x1\n\r", Reg);
+			   ": 0x1\n\r", Reg);
 	}
 
+	XClk_Wiz_GetRate(&ClkWiz_Dynamic, 0, &Rate);
+	Rate = Rate / XCLK_MHZ;
+	xil_printf("\nThe Rate %ld MHz\t Expected 50 MHz \n",  Rate);
 	return Status;
 }
