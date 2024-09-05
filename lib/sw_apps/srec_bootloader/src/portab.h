@@ -1,7 +1,7 @@
 /******************************************************************************
 *
 * Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,9 @@
 #ifndef BL_PORTAB_H
 #define BL_PORTAB_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 typedef unsigned char   uint8;
 typedef unsigned short  uint16;
 typedef unsigned int    uint32;
@@ -57,5 +60,7 @@ typedef int    int32;
 /* }; */
 
 
-
+#ifdef __cplusplus
+}
+#endif
 #endif /* BL_PORTTAB_H */

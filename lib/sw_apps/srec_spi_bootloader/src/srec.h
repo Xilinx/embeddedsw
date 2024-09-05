@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,6 +13,10 @@
 
 #ifndef BL_SREC_H
 #define BL_SREC_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define SREC_MAX_BYTES        255  /* Maximum record length */
 #define SREC_DATA_MAX_BYTES   123  /* Maximum of 123 data bytes */
@@ -34,5 +39,9 @@ typedef struct srec_info_s {
 } srec_info_t;
 
 uint8   decode_srec_line (uint8 *sr_buf, srec_info_t *info);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* BL_SREC_H */

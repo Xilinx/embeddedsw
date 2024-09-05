@@ -1,7 +1,7 @@
 /******************************************************************************
 *
 * Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,9 +33,16 @@
 #ifndef BL_ERRORS_H
 #define BL_ERRORS_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define LD_MEM_WRITE_ERROR  1
 #define LD_SREC_LINE_ERROR  2
 #define SREC_PARSE_ERROR    3
 #define SREC_CKSUM_ERROR    4
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* BL_ERRORS_H */
