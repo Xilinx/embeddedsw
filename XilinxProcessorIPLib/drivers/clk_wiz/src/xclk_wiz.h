@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -82,6 +82,7 @@
 * 1.3 sd  4/09/20 Added versal support.
 * 1.4 sd  5/22/20 Added zynqmp set rate.
 * 1.6 sd  7/07/23 Added ST support.
+* 1.8 sd  8/19/24 Added XClk_Wiz_SetRateHz.
 * </pre>
 *
 ******************************************************************************/
@@ -300,7 +301,7 @@ static inline void XCLK_WIZ_BIT_RESET(UINTPTR BaseAddress, u32 RegisterOffset,
 *
 ****************************************************************************/
 static inline u32 XCLK_WIZ_GET_BITFIELD_VALUE(UINTPTR BaseAddress,
-		u32 RegisterOffset, u32 BitMask, u32 BitShift)
+	u32 RegisterOffset, u32 BitMask, u32 BitShift)
 {
 	return ((XClk_Wiz_ReadReg((BaseAddress), (RegisterOffset)) \
 		 & (BitMask)) >> (BitShift));
@@ -326,7 +327,7 @@ static inline u32 XCLK_WIZ_GET_BITFIELD_VALUE(UINTPTR BaseAddress,
 *
 ****************************************************************************/
 static inline void XCLK_WIZ_SET_BITFIELD_VALUE(UINTPTR BaseAddress, \
-		u32 RegisterOffset, u32 BitMask, u32 BitShift, u32 Value)
+	u32 RegisterOffset, u32 BitMask, u32 BitShift, u32 Value)
 {
 	XClk_Wiz_WriteReg((BaseAddress), (RegisterOffset), \
 			  ((XClk_Wiz_ReadReg((BaseAddress), (RegisterOffset)) & \
@@ -451,6 +452,8 @@ XClk_Wiz_Config *XClk_Wiz_LookupConfig(UINTPTR BaseAddress);
 
 u32 XClk_Wiz_SetRate(XClk_Wiz *InstancePtr, u64 SetRate);
 
+u32 XClk_Wiz_SetRateHz(XClk_Wiz  *InstancePtr, u64 SetRate);
+
 u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *Config,
 			   UINTPTR EffectiveAddr);
 
@@ -466,6 +469,12 @@ u32 XClk_Wiz_DisableClock(XClk_Wiz  *InstancePtr, u32 ClockId);
 void XClk_Wiz_SetInputRate(XClk_Wiz  *InstancePtr, double Rate);
 
 u32 XClk_Wiz_WaitForLock(XClk_Wiz  *InstancePtr);
+
+s32 XClk_Wiz_GetRate(XClk_Wiz  *InstancePtr, u32 ClockId, u64 *Rate);
+
+s32 XClk_Wiz_SetLeafRateHz(XClk_Wiz  *InstancePtr, u32 ClockId, u64 SetRate);
+
+void XClk_Wiz_SetMinErr(XClk_Wiz  *InstancePtr, u64 Minerr);
 
 #ifdef __cplusplus
 }
