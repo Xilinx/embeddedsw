@@ -31,6 +31,10 @@
 #ifndef WDDTB_HEADER_H		/* prevent circular inclusions */
 #define WDDTB_HEADER_H		/* by using protection macros */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
@@ -60,6 +64,10 @@ int WdtTbIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 int WinWdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 int WinWdtIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 int WdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif

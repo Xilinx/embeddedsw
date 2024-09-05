@@ -1,11 +1,15 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 #ifndef CANPS_HEADER_H		/* prevent circular inclusions */
 #define CANPS_HEADER_H		/* by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xil_types.h"
 #include "xil_assert.h"
@@ -27,6 +31,10 @@ int CanPsIntrExample(XIntc *IntcInstPtr, XCanPs *CanInstPtr,
 #else
 int CanPsPolledExample(XCanPs *CanInstPtr, UINTPTR BaseAddress);
 int CanPsIntrExample(XCanPs *CanInstPtr, UINTPTR BaseAddress);
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif
