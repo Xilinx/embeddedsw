@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *     sd  8/12/20 Added a setrate function that takes the rate in Hz.
 * 1.5 sd  5/22/20 Prevent return in void function
 * 1.6 sd  7/07/23 Added SDT support.
+* 1.8 sd  8/14/24 Added GetRate support.
 * </pre>
 ******************************************************************************/
 
@@ -42,12 +43,9 @@
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
 
-
 /*************************** Macros Definitions ******************************/
-
 
 /************************** Function Prototypes ******************************/
 
@@ -60,7 +58,6 @@
 static void StubErrCallBack(void *CallBackRef, u32 ErrorMask);
 
 /************************** Variable Definitions *****************************/
-
 
 /****************************************************************************/
 /**
@@ -98,12 +95,11 @@ u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *CfgPtr,
 	InstancePtr->Config.IntrParent = CfgPtr->IntrParent;
 #endif
 
-
 	/* Set all handlers to stub values, let user configure this data later
 	 */
 	InstancePtr->ClkOutOfRangeCallBack  = StubErrCallBack;
 	InstancePtr->ClkGlitchCallBack      = StubErrCallBack;
-	InstancePtr->ClkStopCallBack        = StubErrCallBack;
+	InstancePtr->ClkStopCallBack	    = StubErrCallBack;
 
 	InstancePtr->ErrorCallBack = StubErrCallBack;
 	InstancePtr->MinErr = 500000;
@@ -318,6 +314,76 @@ void XClk_Wiz_SetMinErr(XClk_Wiz  *InstancePtr, u64 Minerr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	InstancePtr->MinErr  = Minerr;
 }
+static void XClk_Wiz_UpdateO(XClk_Wiz  *InstancePtr, u32 ClockId)
+{
+	u32 HighTime;
+	u32 DivEdge;
+	u32 Reg;
+	u32 P5Enable;
+	u32 P5fEdge;
+	u32 RegisterOffset;
+
+	if (InstancePtr->OVal > XCLK_O_MAX) {
+		InstancePtr->OVal = XCLK_O_MAX;
+	}
+
+	if (ClockId < 3) {
+		RegisterOffset = XCLK_WIZ_REG3_OFFSET + ClockId * 8;
+	} else {
+		RegisterOffset = XCLK_WIZ_REG19_OFFSET + ClockId * 8;
+	}
+	HighTime = (InstancePtr->OVal / 4);
+	Reg = XCLK_WIZ_REG3_PREDIV2 | XCLK_WIZ_REG3_USED | XCLK_WIZ_REG3_MX;
+	if (InstancePtr->OVal % 4 <= 1) {
+		DivEdge = 0;
+	} else {
+		DivEdge = 1;
+	}
+	Reg |= (DivEdge << 8);
+	P5fEdge = InstancePtr->OVal % 2;
+	P5Enable = InstancePtr->OVal % 2;
+	Reg = Reg | P5Enable << XCLK_WIZ_CLKOUT0_P5EN_SHIFT | P5fEdge << XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, RegisterOffset, Reg);
+	Reg = HighTime | HighTime << 8;
+	RegisterOffset = RegisterOffset + 4;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, RegisterOffset, Reg);
+}
+static void XClk_Wiz_UpdateD(XClk_Wiz  *InstancePtr)
+{
+	u32 HighTime;
+	u32 DivEdge;
+	u32 Reg;
+
+	HighTime = (InstancePtr->DVal / 2);
+	Reg  = 0;
+	Reg = Reg & ~(1 << XCLK_WIZ_REG12_EDGE_SHIFT);
+	DivEdge = InstancePtr->DVal % 2;
+	Reg = Reg | DivEdge << XCLK_WIZ_REG12_EDGE_SHIFT;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG12_OFFSET, Reg);
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG13_OFFSET, Reg);
+
+}
+static void XClk_Wiz_UpdateM(XClk_Wiz  *InstancePtr)
+{
+	u32 HighTime;
+	u32 DivEdge;
+	u32 Reg;
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
+
+	DivEdge = InstancePtr->MVal % 2;
+	HighTime = InstancePtr->MVal / 2;
+	Reg = HighTime | HighTime << 8;
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG2_OFFSET, Reg);
+	Reg = XCLK_WIZ_REG1_PREDIV2 | XCLK_WIZ_REG1_EN | XCLK_WIZ_REG1_MX;
+
+	if (DivEdge) {
+		Reg = Reg | (1 << XCLK_WIZ_REG1_EDGE_SHIFT);
+	} else {
+		Reg = Reg & ~(1 << XCLK_WIZ_REG1_EDGE_SHIFT);
+	}
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG1_OFFSET, Reg);
+}
 /****************************************************************************/
 /**
 * Change the frequency to the given rate in Hz.
@@ -334,17 +400,12 @@ void XClk_Wiz_SetMinErr(XClk_Wiz  *InstancePtr, u64 Minerr)
 u32 XClk_Wiz_SetRateHz(XClk_Wiz  *InstancePtr, u64 SetRate)
 {
 	u32 Platform;
-	u32 HighTime;
-	u32 DivEdge;
 	u32 Reg;
-	u32 P5Enable;
-	u32 P5fEdge;
 	u32 Status = XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(SetRate != 0);
-
 
 	if (InstancePtr->Config.NumClocks  != 1 ) {
 		return Status;
@@ -366,46 +427,13 @@ u32 XClk_Wiz_SetRateHz(XClk_Wiz  *InstancePtr, u64 SetRate)
 	}
 
 	/* Implement O */
-	HighTime = (InstancePtr->OVal / 4);
-	Reg =  XCLK_WIZ_REG3_PREDIV2 | XCLK_WIZ_REG3_USED | XCLK_WIZ_REG3_MX;
-	if (InstancePtr->OVal % 4 <= 1) {
-		DivEdge = 0;
-	} else {
-		DivEdge = 1;
-	}
-	Reg |= (DivEdge << 8);
-	P5fEdge = InstancePtr->OVal % 2;
-	P5Enable = InstancePtr->OVal % 2;
-	Reg = Reg | P5Enable << XCLK_WIZ_CLKOUT0_P5EN_SHIFT | P5fEdge << XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT;
-	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG3_OFFSET, Reg);
-	Reg = HighTime | HighTime << 8;
-	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG4_OFFSET, Reg);
+	XClk_Wiz_UpdateO(InstancePtr, 0);
 
 	/* Implement D */
-	HighTime = (InstancePtr->DVal / 2);
-	Reg  = 0;
-	Reg = Reg & ~(1 << XCLK_WIZ_REG12_EDGE_SHIFT);
-	DivEdge = InstancePtr->DVal % 2;
-	Reg = Reg | DivEdge << XCLK_WIZ_REG12_EDGE_SHIFT;
-	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG12_OFFSET, Reg);
-	Reg = HighTime | HighTime << 8;
-	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG13_OFFSET, Reg);
+	XClk_Wiz_UpdateD(InstancePtr);
 
 	/* Implement M*/
-	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
-
-	DivEdge = InstancePtr->MVal % 2;
-	HighTime = InstancePtr->MVal / 2;
-	Reg = HighTime | HighTime << 8;
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG2_OFFSET, Reg);
-	Reg = XCLK_WIZ_REG1_PREDIV2 | XCLK_WIZ_REG1_EN | XCLK_WIZ_REG1_MX;
-
-	if (DivEdge) {
-		Reg = Reg | (1 << XCLK_WIZ_REG1_EDGE_SHIFT);
-	} else {
-		Reg = Reg & ~(1 << XCLK_WIZ_REG1_EDGE_SHIFT);
-	}
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG1_OFFSET, Reg);
+	XClk_Wiz_UpdateM(InstancePtr);
 	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG11_OFFSET, 0x2e);
 	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG14_OFFSET, 0xe80);
 	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG15_OFFSET, 0x4271);
@@ -415,12 +443,184 @@ u32 XClk_Wiz_SetRateHz(XClk_Wiz  *InstancePtr, u64 SetRate)
 
 	return XST_SUCCESS;
 }
+
+static u64 XClk_Wiz_GetVco(XClk_Wiz  *InstancePtr)
+{
+	u32 Reg;
+	u32 Div;
+	u64 Fvco;
+	u32 Edge;
+	u32 Low;
+	u32 High;
+	u32 Mult;
+	u32 Platform;
+
+	Platform = XGetPlatform_Info();
+
+	if (Platform != (u32)XPLAT_VERSAL) {
+		Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_ZYNQMP_REG0_OFFSET);
+		Div = Reg & XCLK_WIZ_REG0_DIV_MASK;
+		Mult = (Reg & XCLK_WIZ_REG0_FBMULT_MASK) >> XCLK_WIZ_REG0_FBMULT_SHIFT;
+	} else {
+		Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG1_OFFSET);
+		Edge = !!(Reg & XCLK_WIZ_REG1_EDGE_MASK);
+		Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG2_OFFSET);
+		Low = Reg & XCLK_WIZ_CLKFBOUT_L_MASK;
+		High = (Reg & XCLK_WIZ_CLKFBOUT_H_MASK) >> XCLK_WIZ_CLKFBOUT_H_SHIFT;
+		Mult = Low + High + Edge;
+
+		Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG13_OFFSET);
+		Low = Reg & XCLK_WIZ_CLKFBOUT_L_MASK;
+		High = (Reg & XCLK_WIZ_CLKFBOUT_H_MASK) >> XCLK_WIZ_CLKFBOUT_H_SHIFT;
+		Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG12_OFFSET);
+		Edge  = !!(Reg & XCLK_WIZ_EDGE_MASK);
+		Div = Low + High + Edge;
+	}
+
+	if (!Mult) {
+		Mult = 1;
+	}
+	if (!Div) {
+		Div = 1;
+	}
+
+#ifndef SDT
+	Fvco = (u64)InstancePtr->Config.PrimInClkFreq;
+	Fvco = (Fvco * Mult * XCLK_MHZ) / Div ;
+#else
+	Fvco = InstancePtr->Config.PrimInClkFreq  * Mult / Div;
+#endif
+	return Fvco;
+}
+/****************************************************************************/
+/**
+* Get the clock frequency for the given ClockId.
+*
+* @param	InstancePtr is the XClk_Wiz instance to operate on.
+* @param	ClockId is the output clock.
+* @param	Rate clock rate in Hz.
+*
+* @return
+*		- XST_SUCCESS getting the frequency was successful.
+*		- XST_FAILURE getting the frequency failed.
+*
+*****************************************************************************/
+s32 XClk_Wiz_GetRate(XClk_Wiz  *InstancePtr, u32 ClockId, u64 *Rate)
+{
+	u32 Status = XST_FAILURE;
+	u32 Platform;
+	u32 Reg;
+	u32 Leaf;
+	u64 Fvco;
+	u64 Freq;
+	u32 RegisterOffset;
+	u32 Edge;
+	u32 Low;
+	u32 High;
+	u32 DivO;
+	u32 P5en;
+	u32 Prediv;
+
+	Platform = XGetPlatform_Info();
+
+	if (InstancePtr->Config.NumClocks  < ClockId) {
+		return Status;
+	}
+
+	Fvco = XClk_Wiz_GetVco(InstancePtr);
+
+	if (Platform != (u32)XPLAT_VERSAL) {
+		RegisterOffset = XCLK_WIZ_ZYNQMP_REG2_OFFSET + ClockId * 12;
+		Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, RegisterOffset);
+		DivO = Reg & XCLK_WIZ_REG2_DIV_MASK;
+		Freq = Fvco / DivO;
+		*Rate = Freq;
+
+		return (s32)XST_SUCCESS;
+	} else {
+		if (ClockId < 3) {
+			RegisterOffset = XCLK_WIZ_REG3_OFFSET + ClockId * 8;
+		} else {
+			RegisterOffset = XCLK_WIZ_REG19_OFFSET + ClockId * 8;
+		}
+
+		Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, RegisterOffset);
+		Edge  = !!(Reg & XCLK_WIZ_CLKOUT0_P5FEDGE_MASK);
+		P5en  = !!(Reg & XCLK_WIZ_P5EN_MASK);
+		Prediv  = !!(Reg & XCLK_WIZ_REG3_PREDIV2);
+
+		RegisterOffset = RegisterOffset + 4;
+		Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, RegisterOffset);
+		Low = Reg & XCLK_WIZ_CLKFBOUT_L_MASK;
+		High = (Reg & XCLK_WIZ_CLKFBOUT_H_MASK) >> XCLK_WIZ_CLKFBOUT_H_SHIFT;
+		Leaf = High + Low + Edge;
+		DivO = (Prediv + 1) * Leaf + (Prediv * P5en);
+	}
+	if (!DivO) {
+		DivO = 1;
+	}
+	Freq = Fvco / DivO;
+	*Rate = Freq;
+
+	return (s32)XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* Set the clock rate frequency for the given ClockId.
+*
+* @param	InstancePtr is the XClk_Wiz instance to operate on.
+* @param	ClockId is the output clock.
+* @param	SetRate clock rate in Hz.
+*
+* @return
+*		- XST_SUCCESS Setting the rate was successful.
+*		- XST_FAILURE Setting rate was failed.
+*
+*****************************************************************************/
+s32 XClk_Wiz_SetLeafRateHz(XClk_Wiz  *InstancePtr, u32 ClockId, u64 SetRate)
+{
+	u32 Platform;
+	u32 DivO;
+	u32 RegisterOffset;
+	u64 Fvco;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(SetRate != 0);
+
+	Platform = XGetPlatform_Info();
+
+	Fvco = XClk_Wiz_GetVco(InstancePtr);
+
+	if (Platform != (u32)XPLAT_VERSAL) {
+		if (SetRate > Fvco) {
+			return XST_FAILURE;
+		}
+
+		RegisterOffset = XCLK_WIZ_ZYNQMP_REG2_OFFSET + ClockId * 12;
+		DivO = Fvco / SetRate;
+		if (DivO > XCLK_US_O_MAX) {
+			DivO = XCLK_US_O_MAX;
+		}
+		if (DivO < XCLK_US_O_MIN ) {
+			DivO = XCLK_US_O_MIN;
+		}
+		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, RegisterOffset, DivO);
+		return XST_SUCCESS;
+	}
+
+	InstancePtr->OVal = Fvco / SetRate;
+	XClk_Wiz_UpdateO(InstancePtr, ClockId);
+
+	return XST_SUCCESS;
+}
 /****************************************************************************/
 /**
 * Change the frequency to the given rate.
 *
 * @param	InstancePtr is the XClk_Wiz instance to operate on.
-* @param	SetRate is the frequency for which is desired.
+* @param	SetRate is the frequency for which is requested in MHz.
 *
 * @return
 *		- XST_SUCCESS frequency setting was successful.
@@ -431,11 +631,7 @@ u32 XClk_Wiz_SetRateHz(XClk_Wiz  *InstancePtr, u64 SetRate)
 u32 XClk_Wiz_SetRate(XClk_Wiz  *InstancePtr, u64 SetRate)
 {
 	u32 Platform;
-	u32 HighTime;
-	u32 DivEdge;
 	u32 Reg;
-	u32 P5Enable;
-	u32 P5fEdge;
 	u32 Status = XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -462,46 +658,12 @@ u32 XClk_Wiz_SetRate(XClk_Wiz  *InstancePtr, u64 SetRate)
 	}
 
 	/* Implement O */
-	HighTime = (InstancePtr->OVal / 4);
-	Reg =  XCLK_WIZ_REG3_PREDIV2 | XCLK_WIZ_REG3_USED | XCLK_WIZ_REG3_MX;
-	if (InstancePtr->OVal % 4 <= 1) {
-		DivEdge = 0;
-	} else {
-		DivEdge = 1;
-	}
-	Reg |= (DivEdge << 8);
-	P5fEdge = InstancePtr->OVal % 2;
-	P5Enable = InstancePtr->OVal % 2;
-	Reg = Reg | P5Enable << XCLK_WIZ_CLKOUT0_P5EN_SHIFT | P5fEdge << XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT;
-	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG3_OFFSET, Reg);
-	Reg = HighTime | HighTime << 8;
-	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG4_OFFSET, Reg);
-
+	XClk_Wiz_UpdateO(InstancePtr, 0);
 	/* Implement D */
-	HighTime = (InstancePtr->DVal / 2);
-	Reg  = 0;
-	Reg = Reg & ~(1 << XCLK_WIZ_REG12_EDGE_SHIFT);
-	DivEdge = InstancePtr->DVal % 2;
-	Reg = Reg | DivEdge << XCLK_WIZ_REG12_EDGE_SHIFT;
-	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG12_OFFSET, Reg);
-	Reg = HighTime | HighTime << 8;
-	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG13_OFFSET, Reg);
+	XClk_Wiz_UpdateD(InstancePtr);
 
 	/* Implement M*/
-	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
-
-	DivEdge = InstancePtr->MVal % 2;
-	HighTime = InstancePtr->MVal / 2;
-	Reg = HighTime | HighTime << 8;
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG2_OFFSET, Reg);
-	Reg = XCLK_WIZ_REG1_PREDIV2 | XCLK_WIZ_REG1_EN | XCLK_WIZ_REG1_MX;
-
-	if (DivEdge) {
-		Reg = Reg | (1 << XCLK_WIZ_REG1_EDGE_SHIFT);
-	} else {
-		Reg = Reg & ~(1 << XCLK_WIZ_REG1_EDGE_SHIFT);
-	}
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG1_OFFSET, Reg);
+	XClk_Wiz_UpdateM(InstancePtr);
 	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG11_OFFSET, 0x2e);
 	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG14_OFFSET, 0xe80);
 	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG15_OFFSET, 0x4271);

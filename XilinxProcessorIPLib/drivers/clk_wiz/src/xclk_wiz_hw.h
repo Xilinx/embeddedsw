@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,6 +67,21 @@ extern "C" {
 #define XCLK_WIZ_ZYNQMP_REG0_OFFSET	0x00000200
 #define XCLK_WIZ_ZYNQMP_REG2_OFFSET	0x00000208
 
+#define XCLK_WIZ_REG0_FBMULT_SHIFT	8
+#define XCLK_WIZ_REG0_FBMULT_WIDTH	8
+#define XCLK_WIZ_REG0_FBMULT_MASK	0xFF00
+#define XCLK_WIZ_REG0_DIV_MASK		0xFF
+#define XCLK_WIZ_REG0_DIV_WIDTH		8
+#define XCLK_WIZ_REG2_DIV_MASK		0xFF
+
+#define XCLK_WIZ_REG1_EDGE_SHIFT	8
+#define XCLK_WIZ_REG1_EDGE_MASK		0x100
+#define XCLK_WIZ_CLKFBOUT_L_MASK	0xFF
+#define XCLK_WIZ_CLKFBOUT_H_MASK	0xFF00
+#define XCLK_WIZ_CLKFBOUT_H_SHIFT	8
+
+#define XCLK_WIZ_EDGE_MASK			(1 << 10) /** Edge */
+#define XCLK_WIZ_P5EN_MASK			(1 << 8)  /** p5en */
 #define XCLK_WIZ_LOCK				1    /** Lock */
 #define XCLK_WIZ_REG3_PREDIV2			(1 << 11)    /**< Prediv2  3*/
 #define XCLK_WIZ_REG3_USED			(1 << 12)    /**< Prediv2  3*/
@@ -81,6 +96,7 @@ extern "C" {
 #define XCLK_WIZ_CLKOUT0_MX_SHIFT		9   /**< Shift bits for MUX */
 #define XCLK_WIZ_CLKOUT0_P5EN_SHIFT		13   /**< Shift bits for P5EN */
 #define XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT		15  /**< Shift bits for P5EDGE */
+#define XCLK_WIZ_CLKOUT0_P5FEDGE_MASK		(1 << 15)  /**< Mask for P5EDGE */
 #define XCLK_WIZ_REG12_EDGE_SHIFT		10  /**< Shift bits for Edge */
 #define XCLK_WIZ_REG1_EDGE_SHIFT		8  /**< Shift bits for Edge */
 /*@}*/
