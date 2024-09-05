@@ -1,7 +1,7 @@
 /******************************************************************************
 *
 * Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,9 @@
 #ifndef BL_SREC_H
 #define BL_SREC_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 #define SREC_MAX_BYTES        255  /* Maximum record length */
 #define SREC_DATA_MAX_BYTES   123  /* Maximum of 123 data bytes */
 
@@ -60,4 +63,7 @@ typedef struct srec_info_s {
 
 uint8   decode_srec_line (uint8 *sr_buf, srec_info_t *info);
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* BL_SREC_H */

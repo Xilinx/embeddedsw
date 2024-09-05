@@ -1,11 +1,15 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
 #ifndef _TEST_DEFINES_H_
 #define _TEST_DEFINES_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #define RESERVED		0x0fffff00
 #define TblBase1		0x80004000
@@ -178,8 +182,8 @@
 #define CAN_CLK_CTRL         0x15C /*CAN Reference Clock Control*/
 #define CAN_MIOCLK_CTRL      0x160 /*CAN MIO Clock Control*/
 #define DBG_CLK_CTRL         0x164 /*Debug Clock Control*/
-#define PCAP_CLK_CTRL        0x168 /*PCAP 2X Clock Contol*/
-#define TOPSW_CLK_CTRL       0x16C /*TOPSW CPU Clock Contol*/
+#define PCAP_CLK_CTRL        0x168 /*PCAP 2X Clock Control*/
+#define TOPSW_CLK_CTRL       0x16C /*TOPSW CPU Clock Control*/
 #define FPGA0_CLK_CTRL       0x170 /*FPGA 0 Output Clock Control*/
 #define FPGA0_THR_CTRL       0x174 /*FPGA 0 Clock Throttle Control*/
 #define FPGA0_THR_CNT        0x178 /*FPGA 0 Clock Throttle Count*/
@@ -321,4 +325,8 @@
 #define LVL_SHFTR_EN         0x900 /*Level Shifters Enable*/
 #define OCM_CFG              0x910 /*OCM Configuration*/
 
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* _TEST_DEFINES_H_*/
