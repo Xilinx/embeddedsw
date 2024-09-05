@@ -1017,7 +1017,7 @@ static void XPciePsu_IncreamentPMem(XPciePsu *InstancePtr)
 static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 {
 	u32 ConfigData = 0;
-	static u8 LastBusNum;
+	u8 LastBusNum;
 
 	u16 PCIeVendorID;
 	u16 PCIeDeviceID;
