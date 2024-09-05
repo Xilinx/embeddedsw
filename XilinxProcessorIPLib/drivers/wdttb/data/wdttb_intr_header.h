@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,10 @@
 #ifndef WDDTB_INTR_HEADER_H		/* prevent circular inclusions */
 #define WDDTB_INTR_HEADER_H		/* by using protection macros */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
@@ -53,5 +57,10 @@ int WinWdtIntrExample(XScuGic *IntcInstancePtr, \
                         u16 WdtTbIntrId);
 
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif
 

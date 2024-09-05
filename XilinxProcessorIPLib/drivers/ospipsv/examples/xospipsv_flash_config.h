@@ -40,6 +40,10 @@
 ******************************************************************************/
 #ifndef XOSPIPSV_FLASH_CONFIG_H
 #define XOSPIPSV_FLASH_CONFIG_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 /***************************** Include Files *********************************/
 
 #ifndef SDT
@@ -230,5 +234,9 @@ static INLINE u32 CalculateFCTIndex(u32 ReadId, u32 *FCTIndex)
 
 	return XST_FAILURE;
 }
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XOSPIPSV_FLASH_CONFIG_H */

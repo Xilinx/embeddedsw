@@ -1,10 +1,15 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 #ifndef UARTNS550_INTR_HEADER_H		/* prevent circular inclusions */
 #define UARTNS550_INTR_HEADER_H		/* by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xil_types.h"
 #include "xil_assert.h"
@@ -21,5 +26,9 @@ int UartNs550IntrExample(XScuGic* IntcInstancePtr, \
                              u16 UartNs550DeviceId, \
                              u16 UartNs550IntrId);
 
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 #endif

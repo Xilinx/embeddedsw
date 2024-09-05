@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,11 @@
 /***************************** Include Files *********************************/
 #ifndef XCORESIGHTPSDCC_H                /* prevent circular inclusions */
 #define XCORESIGHTPSDCC_H                /* by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if ! defined(__MICROBLAZE__) && ! defined(__riscv)
 #include <xil_types.h>
 
@@ -50,5 +55,10 @@ void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data);
 
 u8 XCoresightPs_DccRecvByte(u32 BaseAddress);
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif
 /** @} */
