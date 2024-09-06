@@ -24,6 +24,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _XEN_EVENTS_H_
 #define _XEN_EVENTS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xil_types.h"
 
 #define PAGE_SHIFT 12			// not really a good place for this
@@ -54,5 +58,9 @@ void init_events(void);
 int register_event_handler(u32 evtch_id, void (*fptr)(void));
 void unmask_evtchn(u32 port);
 void handle_event_irq(void* data);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _XEN_EVENTS_H_ */

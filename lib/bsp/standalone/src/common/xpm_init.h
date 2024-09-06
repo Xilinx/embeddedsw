@@ -1,5 +1,5 @@
 /******************************************************************************
-*Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+*Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 *SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,10 @@
 
 #ifndef XPM_INIT_H
 #define XPM_INIT_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -43,4 +47,9 @@ UINTPTR XpmGetNodeId(UINTPTR BaseAddress);
 UINTPTR XpmGetResetId(UINTPTR BaseAddress);
 
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif

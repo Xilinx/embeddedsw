@@ -1,10 +1,14 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *
 ******************************************************************************/
 #ifndef _XMICROBLAZE_H_
 #define _XMICROBLAZE_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifdef SDT
 #include "xil_types.h"
@@ -91,4 +95,9 @@ typedef struct {
 } XMicroblaze_Config;
 
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif // _XMICROBLAZE_H_

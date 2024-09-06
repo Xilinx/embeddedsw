@@ -29,6 +29,10 @@
 #ifndef XINTERRUPT_WRAP_H		/**< prevent circular inclusions */
 #define XINTERRUPT_WRAP_H		/**< by using protection macros */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xil_types.h"
 #include "xstatus.h"
 
@@ -121,6 +125,10 @@ extern int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 In
 extern s32 XGetEncodedIntrId(u32 LegacyIntrId, u32 TriggerType, u8 IntrType, u8 IntcType,
 			     u32 *IntrId);
 extern s32 XTriggerSoftwareIntr(u32 IntrId, UINTPTR IntcParent, u32 Cpu_Id);
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif  /* end of protection macro */

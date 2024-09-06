@@ -1,9 +1,13 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XIL_XARMV8_CONFIG_H_ /**< prevent circular inclusions */
 #define XIL_XARMV8_CONFIG_H_ /**< by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /***************************** Include Files ********************************/
 #ifdef SDT
@@ -17,4 +21,9 @@ extern XARMv8_Config XARMv8_ConfigTable;
 #define XGet_CpuFreq() XARMv8_ConfigTable.CpuFreq
 #define XGet_CpuId() XARMv8_ConfigTable.CpuId
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* XIL_XARMV8_CONFIG_H_ */

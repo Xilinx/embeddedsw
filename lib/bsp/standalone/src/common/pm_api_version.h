@@ -14,6 +14,10 @@
 #ifndef PM_API_VERSION_H_
 #define PM_API_VERSION_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*****************************************************************************/
 /**
  * @section EEMI_API_DETAIL XilPM EEMI API Version Detail
@@ -265,5 +269,9 @@ typedef enum {
 	PM_HNICX_NPI_DATA_XFER,				/**< 0x4A */
 	PM_API_MAX					/**< 0x4B */
 } XPm_ApiId;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  /* PM_API_VERSION_H_ */
