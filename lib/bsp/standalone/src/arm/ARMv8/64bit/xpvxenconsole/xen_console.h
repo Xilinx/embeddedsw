@@ -21,6 +21,11 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON A
 CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef _XEN_CONSOLE_H_
 
 typedef void (*callback_func)(char* data, int size);
@@ -37,3 +42,7 @@ int XPVXenConsole_Write(const char *BufferPtr);
 
 
 #endif /* _XEN_CONSOLE_H_ */
+
+#ifdef __cplusplus
+}
+#endif

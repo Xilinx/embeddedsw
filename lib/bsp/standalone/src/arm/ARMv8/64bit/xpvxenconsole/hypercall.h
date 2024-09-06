@@ -19,6 +19,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __HYPERCALL_H__
 #define __HYPERCALL_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xen.h"
 
 int HYPERVISOR_console_io(int cmd, int count, char *str);
@@ -27,3 +31,7 @@ int HYPERVISOR_memory_op(int cmd, void* param);
 int HYPERVISOR_event_channel_op(int cmd, void* param);
 
 #endif  /* __HYPERCALL_H__ */
+
+#ifdef __cplusplus
+}
+#endif

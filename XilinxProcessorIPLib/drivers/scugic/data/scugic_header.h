@@ -7,6 +7,10 @@
 #ifndef SCUGIC_HEADER_H		/* prevent circular inclusions */
 #define SCUGIC_HEADER_H		/* by using protection macros */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "xil_assert.h"
 #include "xil_types.h"
 #include "xstatus.h"
@@ -17,6 +21,10 @@ int ScuGicInterruptSetup(XScuGic *IntcInstancePtr, u16 DeviceId);
 #else
 int ScuGicSelfTestExample(u32 BaseAddr);
 int ScuGicInterruptSetup(XScuGic *IntcInstancePtr, u32 BaseAddr);
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif

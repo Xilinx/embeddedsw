@@ -18,6 +18,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #ifndef _ARM64_OPS_H_
 #define _ARM64_OPS_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 
 #define BUG() while(1){__asm volatile (".word 0xe7f000f0\n");} /* Undefined instruction; will call our fault handler. */
@@ -203,5 +208,9 @@ static __inline__ int synch_test_bit(int nr, volatile void *addr)
 	result = test_bit(nr, addr);
 	barrier();
 	return result;
+}
+#endif
+
+#ifdef __cplusplus
 }
 #endif
