@@ -616,7 +616,7 @@ extern "C" {
 #define XPM_MAX_EVENTHANDLER_ID		0x2U
 #define XPM_EVENT_CNTRS_BIT_MASK	0x7U
 #define XPM_ALL_EVENT_CNTRS_IN_USE	0x7U
-#define XPM_EVENT_CNTRS_MASK		0x3U
+#define XPM_EVENT_CNTRS_MASK		0x7U
 #endif
 
 /**************************** Type Definitions ******************************/
