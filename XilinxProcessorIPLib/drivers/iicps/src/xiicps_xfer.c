@@ -194,8 +194,8 @@ void XIicPs_MasterPolledRead(XIicPs *InstancePtr, s32 IsHold, s32 ByteCountVar)
 				} else {
 					XIicPs_WriteReg(BaseAddr,
 						XIICPS_TRANS_SIZE_OFFSET,
-						InstancePtr->RecvByteCount -
-						XIICPS_FIFO_DEPTH);
+						(u32)(InstancePtr->RecvByteCount -
+						XIICPS_FIFO_DEPTH));
 					InstancePtr->UpdateTxSize = 0;
 					ByteCountVar = InstancePtr->RecvByteCount;
 				}
@@ -313,8 +313,8 @@ void XIicPs_MasterIntrRead(XIicPs *InstancePtr, u32 *IntrStatusRegPtr,
 				} else {
 					XIicPs_WriteReg(BaseAddr,
 						XIICPS_TRANS_SIZE_OFFSET,
-						InstancePtr->RecvByteCount -
-						XIICPS_FIFO_DEPTH);
+						(u32)(InstancePtr->RecvByteCount -
+						XIICPS_FIFO_DEPTH));
 					InstancePtr->UpdateTxSize = 0;
 					ByteCnt = InstancePtr->RecvByteCount;
 				}
