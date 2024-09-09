@@ -47,6 +47,7 @@
 *       bm   03/02/2024 Make SD drive number logic order independent
 *       sk   05/07/2024 Added defines for WDT and IPI registers
 * 1.04  sk   08/26/2024 Updated EAM support for Versal Aiepg2
+*       yog  09/09/2024 Updated ASU memory region addresses
 *
 * </pre>
 *
@@ -1451,6 +1452,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /* Memory map used for validating addresses */
 #define XPLMI_PSM_RAM_BASE_ADDR		(0xEBC00000U)
 #define XPLMI_PSM_RAM_HIGH_ADDR		(0xEBC2FFFFU)
+#define XPLMI_ASU_RAM_BASE_ADDR		(0xEBE00000U)
+#define XPLMI_ASU_RAM_HIGH_ADDR		(0xEBE2FFFFU)
 #define XPLMI_TCM0_BASE_ADDR		(0xEBA00000U)
 #define XPLMI_TCM0_HIGH_ADDR		(0xEBA6FFFFU)
 #define XPLMI_TCM1_BASE_ADDR		(0xEBA80000U)

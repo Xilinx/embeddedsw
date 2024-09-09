@@ -48,6 +48,7 @@
 *       ma   03/05/2024 Fixed improper timestamp issue after In-place PLM update
 *       ma   03/15/2024 Do not stop PIT3 timer during In-place PLM update
 * 1.04  sk   08/26/2024 Updated EAM support for Versal Aiepg2
+*       yog  09/09/2024 Updated XPlmi_VerifyAddrRange API to handle ASU memory regions
 *
 * </pre>
 *
@@ -819,9 +820,9 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 		}
 	else {
 		if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
-			if ((StartAddr >= (u64)XPLMI_PSM_RAM_BASE_ADDR) &&
-				(EndAddr <= (u64)XPLMI_PSM_RAM_HIGH_ADDR)) {
-				/* PSM RAM is valid */
+			if ((StartAddr >= (u64)XPLMI_ASU_RAM_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_ASU_RAM_HIGH_ADDR)) {
+				/* ASU RAM is valid */
 				Status = XST_SUCCESS;
 			}
 			else if ((StartAddr >= (u64)XPLMI_TCM0_BASE_ADDR) &&
