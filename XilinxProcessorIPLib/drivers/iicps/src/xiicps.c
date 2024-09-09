@@ -307,7 +307,7 @@ void XIicPsSclHold(XIicPs *InstancePtr, u8 Enable)
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 
-	if(Enable == 1){
+	if(Enable == (u8)1){
 		XIicPs_WriteReg(BaseAddr, (u32)XIICPS_CR_OFFSET,
 					XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) |
 							(u32)XIICPS_CR_HOLD_MASK);
@@ -342,7 +342,7 @@ void XIicPsSetTimeOut(XIicPs *InstancePtr, u8 Value)
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 
-	TimeOutVal = XIicPs_ReadReg(BaseAddr, XIICPS_TIME_OUT_OFFSET);
+	TimeOutVal = (u8)XIicPs_ReadReg(BaseAddr, XIICPS_TIME_OUT_OFFSET);
 
 	if(TimeOutVal != Value){
 		XIicPs_WriteReg(BaseAddr, XIICPS_TIME_OUT_OFFSET, Value);
