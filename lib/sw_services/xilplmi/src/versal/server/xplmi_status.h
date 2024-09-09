@@ -127,6 +127,8 @@
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  08/16/2024 Added XPLMI_SSIT_NO_PENDING_EVENTS,XPLMI_SSIT_SECURE_COMM_KEYWRITE_FAILURE
 *                       error codes
+*       rama 09/05/2024 Added XPLM_ERR_STL_DIAG_TASK_CREATE, XPLM_ERR_STL_DIAG_TASK_REMOVE
+*                       error codes for STL diagnostic task scheduling
 *
 * </pre>
 *
@@ -394,6 +396,10 @@ typedef enum {
 						     IPI */
 	XPLM_ERR_PMC_RAM_MEMSET,	/**< 0x20A - Error while clearing the
 						PMC CDO region in PMC RAM */
+	XPLM_ERR_STL_DIAG_TASK_CREATE, /**< 0x20B - Error while creating
+								STL diagnostic task */
+	XPLM_ERR_STL_DIAG_TASK_REMOVE, /**< 0x20C - Error while removing
+								STL diagnostic task */
 
 	/** Status codes used in XLOADER */
 	/* PLM error codes specific to platform are from 0x2A0 to 0x2FF */

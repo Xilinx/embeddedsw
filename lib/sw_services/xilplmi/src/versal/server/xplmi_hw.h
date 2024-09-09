@@ -95,6 +95,8 @@
 *       mss  01/09/2024 Added XPLMI_TOTAL_CHUNK_SIZE macro for Validating address
 *       bm   03/02/2024 Make SD drive number logic order independent
 * 2.10  mb   08/14/2024 Added Mask values for PMC_TAP_INST_MASK_0 register
+*       rama 09/09/2024 Added macro for STL Test buffer in PMC RAM which takes
+*                       320 bytes of memory
 *
 * </pre>
 *
@@ -679,6 +681,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_COPY_OPTIMIZATION_QSPI_WRITE_BUFFER				(XPLMI_PMCRAM_BASEADDR + 0x10214U) /* 12B */
 #define XPLMI_COPY_OPTIMIZATION_QSPIBUSWIDTH_BUFFER				(XPLMI_PMCRAM_BASEADDR + 0x10220U) /* 20B */
 #define XPLMI_COPY_OPTIMIZATION_OSPI_FLASHREADID_BUFFER			(XPLMI_PMCRAM_BASEADDR + 0x10234U) /* 8B */
+
+/* XilStl DDRMC Parity Buffer */
+#ifdef PLM_ENABLE_STL
+#define XSTL_DDRMC_PARITY_BUFFER								(XPLMI_PMCRAM_BASEADDR + 0x10240U) /* 320B */
+#endif
 
 /* Log Buffer default address and length */
 #define XPLMI_DEBUG_LOG_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x19000U)
