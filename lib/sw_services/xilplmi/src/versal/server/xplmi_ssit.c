@@ -63,6 +63,7 @@
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  07/30/2024 Fixed misrac violations
 *       pre  08/16/2024 Replaced XPlmi_MemCpy64 with Xil_MemCpy64 at required places
+*       bm   09/09/2024 Updated Long Pulse duration to 10us
 *
 * </pre>
 *
@@ -107,7 +108,7 @@ static u32 XPlmi_SsitGetSlaveErrorMask(void);
 /* Timeout to wait for Slave SLRs ack during SLD Handshake - 1ms */
 #define XPLMI_WAIT_FOR_SLAVE_SLRS_ACK_TIMEOUT	(1000U)
 #define XPLMI_WAIT_FOR_ALL_SLRS_READY_TIMEOUT	(1000U)
-#define XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_US		(1U)
+#define XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_US		(10U)
 #define XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_NS		(XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_US * 1000)
 
 /* Ssit Event IPI Index */
