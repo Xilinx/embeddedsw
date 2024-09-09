@@ -23,6 +23,7 @@
 *       pre  07/30/2024 Fixed misrac and coverity violations
 *       pre  08/16/2024 Replaced XPlmi_MemCpy64 with Xil_MemCpy64
 *       pre  08/29/2024 Changed AES key registers used for secure communication
+*       pre  09/09/2024 Changed AES key registers used for secure communication at keywrite
 *
 * </pre>
 *
@@ -508,7 +509,7 @@ static void XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
  *************************************************************************************************/
 static int XPlm_SsitCommAesKeyWrite(u32 SlrIndex, u32 KeyAddr)
 {
-	XSecure_AesKeySrc KeySrc = XSECURE_AES_USER_KEY_0 + (SlrIndex - 1U);
+	XSecure_AesKeySrc KeySrc = XPlm_SsitSecCommGetKeySrcofSlr(SlrIndex);
 	const XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 	return XSecure_AesWriteKey(XSecureAesInstPtr, KeySrc, XSECURE_AES_KEY_SIZE_256, (u64)KeyAddr);
 }
