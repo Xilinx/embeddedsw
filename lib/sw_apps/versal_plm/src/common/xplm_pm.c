@@ -45,6 +45,7 @@
 *                       XPLMI_IPI_DEVICE_ID
 * 1.09  ng   11/11/2022 Updated doxygen comments
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
+* 1.12  rama 09/05/2024 Added STL diagnostic task scheduling
 *
 * </pre>
 *
@@ -73,8 +74,10 @@
 #include "xplmi_status.h"
 #include "xplmi_cdo.h"
 #include "xplm_plat.h"
+#include "xplmi_modules.h"
 #ifdef PLM_ENABLE_STL
 #include "xplm_stl.h"
+#include "xstl_plminterface.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -395,6 +398,20 @@ int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds)
 						Status);
 	}
 
+#ifdef PLM_ENABLE_STL
+	/* Add STL diagnostic task to the PLM scheduler */
+	Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_STL_ID, XStl_PlmStlDiagTask,
+				XStl_ErrorHandler, MilliSeconds, XPLM_TASK_PRIORITY_0, NULL,
+				XPLMI_PERIODIC_TASK);
+	if (XST_SUCCESS != Status) {
+		/* Update Error code in STL Status register */
+		XPlmi_Out32(XSTL_PMCRAM_BASE + XSTL_STATUS_REG_OFFSET,
+												XSTL_INTERNAL_ERR_MASK);
+		Status = XPlmi_UpdateStatus(XPLM_ERR_STL_DIAG_TASK_CREATE,
+						Status);
+	}
+#endif /* PLM_ENABLE_STL */
+
 END:
 	return Status;
 }
@@ -417,6 +434,16 @@ int XPlm_RemoveKeepAliveTask(void)
 		/* Update minor error value to status */
 		Status = (int)XPLM_PSM_ALIVE_REMOVE_TASK_ERR;
 	}
+
+#ifdef PLM_ENABLE_STL
+	/* Remove STL diagnostic task to the PLM scheduler */
+	Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_STL_ID,
+				XStl_PlmStlDiagTask, 0U, NULL);
+	if (XST_SUCCESS != Status) {
+		/* Update minor error value to status */
+		Status = (int)XPLM_ERR_STL_DIAG_TASK_REMOVE;
+	}
+#endif /* PLM_ENABLE_STL */
 
 	return Status;
 }
