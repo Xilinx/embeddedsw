@@ -1,0 +1,30 @@
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+
+%YAML 1.2
+---
+title: ASU Firmware
+
+maintainers:
+  - Mounika Akula <mounika.akula@amd.com>
+  - Durga Challa <durga.challa@amd.com>
+
+type: apps
+
+description: Application Security Unit Firmware for Versal Gen2 devices.
+
+depends_libs:
+    xiltimer: {}
+    xilasu: {}
+
+depends:
+    ipipsu:
+        - reg
+        - xlnx,ipi-bitmask
+
+
+supported_processors:
+  - asu
+
+supported_os:
+  - standalone
