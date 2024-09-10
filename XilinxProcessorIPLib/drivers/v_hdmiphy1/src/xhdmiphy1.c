@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -29,6 +29,7 @@
  * 		       dru clk freq to 200MHz for -1 GTHE4 and GTYE4 device
  * 1.3   ssh  18/10/22 Updated the extended txdiffctrl mask and added
  * 		       support for NI-DRU diabled case
+ * 1.4   ssh  10/09/24 Added DPLL clock primitive support for Versal
  * </pre>
  *
 *******************************************************************************/
@@ -1002,9 +1003,16 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
 		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128))) {
 #else
+#if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 1 || \
+		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 1)
+			if (!((MmcmPtr->ClkOut0Div > 1) && (MmcmPtr->ClkOut0Div <= 400) &&
+		  (MmcmPtr->ClkOut1Div > 1) && (MmcmPtr->ClkOut1Div <= 400) &&
+		  (MmcmPtr->ClkOut2Div > 1) && (MmcmPtr->ClkOut2Div <= 400))) {
+#else
 	if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 512) &&
 		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 512) &&
 		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 512))) {
+#endif
 #endif
 		return;
 	}

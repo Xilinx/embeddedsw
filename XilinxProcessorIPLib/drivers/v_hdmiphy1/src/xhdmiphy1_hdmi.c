@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1388,9 +1388,16 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 				(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
 				(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128)) {
 #else
-			if ((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 512) &&
-				(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 512) &&
-				(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 512)) {
+#if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 1 || \
+		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 1)
+			if ((MmcmPtr->ClkOut0Div > 1) && (MmcmPtr->ClkOut0Div <= 400) &&
+				(MmcmPtr->ClkOut1Div > 1) && (MmcmPtr->ClkOut1Div <= 400) &&
+				(MmcmPtr->ClkOut2Div > 1) && (MmcmPtr->ClkOut2Div <= 400)) {
+#else
+				if ((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 512) &&
+					(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 512) &&
+					(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 512)) {
+#endif
 #endif
 				Valid = (TRUE);
 			}
@@ -1616,9 +1623,16 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 				(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
 				(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128)) {
 #else
-			if ((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 512) &&
-				(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 512) &&
-				(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 512)) {
+#if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 1 || \
+		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 1)
+			if ((MmcmPtr->ClkOut0Div > 1) && (MmcmPtr->ClkOut0Div <= 400) &&
+				(MmcmPtr->ClkOut1Div > 1) && (MmcmPtr->ClkOut1Div <= 400) &&
+				(MmcmPtr->ClkOut2Div > 1) && (MmcmPtr->ClkOut2Div <= 400)) {
+#else
+				if ((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 512) &&
+					(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 512) &&
+					(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 512)) {
+#endif
 #endif
 				Valid = (TRUE);
 			}
@@ -1652,7 +1666,12 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		/* Increment divider */
 		Div++;
 #if ((XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP))
-	} while (!Valid && (Div > 0) && (Div < 124));
+#if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 1 || \
+		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 1)
+	} while (!Valid && (Div > 0) && (Div < 21));
+#else
+    } while (!Valid && (Div > 0) && (Div < 124));
+#endif
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4 || \
      XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 	} while (!Valid && (Div > 0) && (Div < 107));
