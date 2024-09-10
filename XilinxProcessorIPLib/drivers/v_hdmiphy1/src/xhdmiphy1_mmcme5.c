@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -35,6 +36,8 @@
 #include "xstatus.h"
 #include "xhdmiphy1.h"
 #include "xhdmiphy1_i.h"
+#if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 0 || \
+		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 0)
 #if ((XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5) || \
      (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP))
 
@@ -627,4 +630,5 @@ u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 	return XST_SUCCESS;
 }
 
+#endif
 #endif

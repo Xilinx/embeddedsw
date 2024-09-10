@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 project(v_hdmiphy1)
@@ -27,6 +27,7 @@ collect (PROJECT_LIB_HEADERS xhdmiphy1_gt.h)
 collect (PROJECT_LIB_HEADERS xhdmiphy1.h)
 collect (PROJECT_LIB_SOURCES xhdmiphy1_i.c)
 collect (PROJECT_LIB_SOURCES xhdmiphy1_mmcme5.c)
+collect (PROJECT_LIB_SOURCES xhdmiphy1_dplle5.c)
 collector_list (_sources PROJECT_LIB_SOURCES)
 collector_list (_headers PROJECT_LIB_HEADERS)
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
