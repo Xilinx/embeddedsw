@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,8 @@
 * 		       in XIOModule_DeviceInterruptHandler function to skip
 * 		       processing when IntrStatus is 0.
 * 2.15  ml   02/27/23  update functions return type to fix misra-c violation.
+* 2.17  adk  10/09/24  Add support for stdin/sdtout configuration in
+* 		       system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -369,4 +371,15 @@ u8 XIOModule_RecvByte(UINTPTR BaseAddress)
 	return (u8)XIomodule_In32(BaseAddress + XUL_RX_OFFSET);
 }
 
+#ifdef SDT
+#ifdef XPAR_STDIN_IS_IOMODULE
+void outbyte(char c) {
+         XIOModule_SendByte(STDOUT_BASEADDRESS, c);
+}
+
+char inbyte(void) {
+         return XIOModule_RecvByte(STDIN_BASEADDRESS);
+}
+#endif
+#endif
 /** @} */

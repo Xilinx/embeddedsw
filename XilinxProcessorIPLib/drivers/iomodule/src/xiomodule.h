@@ -241,6 +241,8 @@
 * 2.15  adk  04/14/23  Added support for system device-tree flow.
 * 2.16  ma   05/03/24 Added XIOModule_HandlerTable_Initialize function to
 *                       be called after In-place PLM update
+* 2.17  adk  10/09/24  Add support for stdin/sdtout configuration in
+* 		       system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
