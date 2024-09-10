@@ -671,9 +671,12 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_PMCRAM_BASEADDR			(0xF2000000U)
 #define XPLMI_PMCRAM_LEN			(0x20000U)
 
+#define XPLMI_CMD_LEN_TEMPBUF		(0x10U) /**< This buffer is used to
+			store commands which extend across 32K boundaries */
+
 /* Loader chunk memory */
-#define XPLMI_PMCRAM_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR + 0x20U)
-#define XPLMI_PMCRAM_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8120U)
+#define XPLMI_PMCRAM_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR + (XPLMI_CMD_LEN_TEMPBUF * 4U))
+#define XPLMI_PMCRAM_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8100U + (XPLMI_CMD_LEN_TEMPBUF * 4U))
 
 /* Boot copy optimization buffer */
 #define XPLMI_COPY_OPTIMIZATION_QSPI_FLASHREADID_BUFFER			(XPLMI_PMCRAM_BASEADDR + 0x10200U) /* 8B */

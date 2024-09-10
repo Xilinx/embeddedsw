@@ -83,8 +83,7 @@
 #include "xplmi_tamper.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_CMD_LEN_TEMPBUF		(0x8U) /**< This buffer is used to
-			store commands which extend across 32K boundaries */
+
 
 /**************************** Type Definitions *******************************/
 
