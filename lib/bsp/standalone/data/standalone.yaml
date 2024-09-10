@@ -22,6 +22,8 @@ depends:
         - reg
     coresightps_dcc:
         - reg
+    iomodule:
+        - reg
 
 examples:
     xil_nested_interrupts_example.c:

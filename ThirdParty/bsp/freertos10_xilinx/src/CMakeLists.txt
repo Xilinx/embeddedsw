@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 project(freertos)
@@ -20,6 +20,7 @@ collector_list (_headers PROJECT_LIB_HEADERS)
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 if (NOT ${YOCTO})
 file(COPY ${CMAKE_BINARY_DIR}/include/FreeRTOSConfig.h DESTINATION ${CMAKE_INCLUDE_PATH}/)
+file(COPY ${CMAKE_BINARY_DIR}/include/FreeRTOSUARTConfig.h DESTINATION ${CMAKE_INCLUDE_PATH}/)
 endif()
 add_library(freertos STATIC ${_sources})
 set_target_properties(freertos PROPERTIES LINKER_LANGUAGE C)
