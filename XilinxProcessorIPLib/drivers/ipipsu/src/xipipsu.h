@@ -44,6 +44,7 @@
  * 		     in system device-tree flow.
  * 2.14 sd 07/27/23  Update the target count.
  * 2.15 ht 01/11/24  Add PMC, PSM bitmasks macros for versal-net
+ * 2.16 ma 09/10/24  Updated to support VERSAL_AIEPG2 platform
  * </pre>
  *
  *****************************************************************************/
@@ -83,7 +84,11 @@ extern "C" {
  * would be generating the defines using lopper.
  */
 #ifdef	SDT
-#if defined (VERSAL_NET)
+#if defined (VERSAL_AIEPG2)
+#define XPAR_XIPIPS_TARGET_PMC_0_CH0_MASK			0x00000002U
+#define XPAR_XIPIPS_TARGET_PMC_0_CH1_MASK			0x00000100U
+#define XPAR_XIPIPS_TARGET_ASU_0_CH0_MASK			0x00000001U
+#elif defined (VERSAL_NET)
 #define XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK		0x00000002U
 #define XPAR_XIPIPS_TARGET_PSX_PMC_0_CH1_MASK		0x00000100U
 #define XPAR_XIPIPS_TARGET_PSX_PSM_0_CH0_MASK		0x00000001U

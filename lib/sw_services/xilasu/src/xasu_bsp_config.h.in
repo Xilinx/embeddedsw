@@ -1,0 +1,8 @@
+/******************************************************************************
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef XASU_BSP_CONFIG_H
+#define XASU_BSP_CONFIG_H
+
+#endif /* XASU_BSP_CONFIG_H */

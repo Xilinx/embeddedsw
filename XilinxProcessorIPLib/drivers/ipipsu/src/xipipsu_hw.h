@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 2.12  sd   02/24/22 Added support for VERSAL NET
 *       sd   05/05/22 Added xparameters.h
 * 2.14  sd   07/27/23 Update the target count
+* 2.26  ma   09/10/24 Updated to support VERSAL_AIEPG2 platform
 *
 * </pre>
 *
@@ -42,7 +43,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* Message RAM related params */
-#if defined (VERSAL_NET)
+#if defined (VERSAL_NET) || defined (VERSAL_AIEPG2)
 #define XIPIPSU_MSG_RAM_BASE 0xEB3F0000U  /**< IPI Message RAM base address */
 #elif defined (versal)
 #define XIPIPSU_MSG_RAM_BASE 0xFF3F0000U  /**< IPI Message RAM base address */
@@ -72,7 +73,7 @@ extern "C" {
 #define XIPIPSU_IER_OFFSET 0x18U  /**< Offset for Interrupt Enable Register */
 #define XIPIPSU_IDR_OFFSET 0x1CU  /**< Offset for Interrupt Disable Register */
 
-#if defined (VERSAL_NET)
+#if defined (VERSAL_NET) || defined (VERSAL_AIEPG2)
 #define XIPIPSU_BASE_ADDR	0xEB300000U /**< VERSAL NET IPI base address */
 #define XIPIPSU_ISR_BASE	0xEB300010U /**< VERSAL NET ISR base address */
 #elif defined (versal)
@@ -83,6 +84,8 @@ extern "C" {
 /* MASK of all valid IPI bits in above registers */
 #if defined (versal)
 #define XIPIPSU_ALL_MASK	0x000003FFU /**< All valid bit mask */
+#elif defined (VERSAL_AIEPG2)
+#define XIPIPSU_ALL_MASK    0x0000FFFFU /**< All valid bit mask */
 #else
 #define XIPIPSU_ALL_MASK	0x0F0F0301U /**< All valid bit mask */
 #endif

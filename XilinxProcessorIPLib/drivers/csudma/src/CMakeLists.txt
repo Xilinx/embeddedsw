@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 project(csudma)
@@ -15,6 +15,7 @@ collect (PROJECT_LIB_SOURCES xcsudma_selftest.c)
 collect (PROJECT_LIB_HEADERS xcsudma.h)
 collect (PROJECT_LIB_SOURCES xcsudma_g.c)
 collect (PROJECT_LIB_SOURCES xcsudma_intr.c)
+collect (PROJECT_LIB_HEADERS xasudma.h)
 collector_list (_sources PROJECT_LIB_SOURCES)
 collector_list (_headers PROJECT_LIB_HEADERS)
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)

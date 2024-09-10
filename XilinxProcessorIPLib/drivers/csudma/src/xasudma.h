@@ -119,25 +119,25 @@ extern "C" {
 
 /** Interrupt Enable/Disable/Mask/Status registers bit masks */
 #define XASUDMA_IXR_FIFO_OVERFLOW_MASK		XCSUDMA_IXR_FIFO_OVERFLOW_MASK
-	/**< FIFO overflow mask, it is valid only to Destination Channel */
+/**< FIFO overflow mask, it is valid only to Destination Channel */
 #define XASUDMA_IXR_INVALID_APB_MASK 		XCSUDMA_IXR_INVALID_APB_MASK
-	/**< Invalid APB access mask */
+/**< Invalid APB access mask */
 #define XASUDMA_IXR_FIFO_THRESHHIT_MASK		XCSUDMA_IXR_FIFO_THRESHHIT_MASK
-	/**< FIFO threshold hit indicator mask */
+/**< FIFO threshold hit indicator mask */
 #define XASUDMA_IXR_TIMEOUT_MEM_MASK		XCSUDMA_IXR_TIMEOUT_MEM_MASK
-	/**< Time out counter expired to access memory mask */
+/**< Time out counter expired to access memory mask */
 #define XASUDMA_IXR_TIMEOUT_STRM_MASK		XCSUDMA_IXR_TIMEOUT_STRM_MASK
-	/**< Time out counter expired to access stream mask */
+/**< Time out counter expired to access stream mask */
 #define XASUDMA_IXR_AXI_WRERR_MASK		XCSUDMA_IXR_AXI_WRERR_MASK
-	/**< AXI Read/Write error mask */
+/**< AXI Read/Write error mask */
 #define XASUDMA_IXR_DONE_MASK			XCSUDMA_IXR_DONE_MASK
-	/**< Done mask */
+/**< Done mask */
 #define XASUDMA_IXR_MEM_DONE_MASK		XCSUDMA_IXR_MEM_DONE_MASK
-	/**< Memory done mask, it is valid only for source channel*/
+/**< Memory done mask, it is valid only for source channel*/
 #define XASUDMA_IXR_SRC_MASK			XCSUDMA_IXR_SRC_MASK
-	/**< All interrupt mask for source */
+/**< All interrupt mask for source */
 #define XASUDMA_IXR_DST_MASK			XCSUDMA_IXR_DST_MASK
-	/**< All interrupt mask for destination */
+/**< All interrupt mask for destination */
 
 /**************************** Type Definitions *******************************/
 /**
@@ -348,12 +348,12 @@ static INLINE u32 XAsuDma_IsBusy(XAsuDma *InstancePtr, XAsuDma_Channel Channel)
 *
 ******************************************************************************/
 #ifndef SDT
-static INLINE XAsuDma_Config * XAsuDma_LookupConfig(u16 DeviceId)
+static INLINE XAsuDma_Config *XAsuDma_LookupConfig(u16 DeviceId)
 {
 	return XCsuDma_LookupConfig(DeviceId);
 }
 #else
-static INLINE XAsuDma_Config * XAsuDma_LookupConfig(UINTPTR BaseAddress)
+static INLINE XAsuDma_Config *XAsuDma_LookupConfig(UINTPTR BaseAddress)
 {
 	return XCsuDma_LookupConfig(BaseAddress);
 }
@@ -382,7 +382,7 @@ static INLINE XAsuDma_Config * XAsuDma_LookupConfig(UINTPTR BaseAddress)
 *
 ******************************************************************************/
 static INLINE s32 XAsuDma_CfgInitialize(XAsuDma *InstancePtr, XAsuDma_Config *CfgPtr,
-	u32 EffectiveAddr)
+					u32 EffectiveAddr)
 {
 	return XCsuDma_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr);
 }
@@ -418,7 +418,7 @@ static INLINE s32 XAsuDma_CfgInitialize(XAsuDma *InstancePtr, XAsuDma_Config *Cf
 *
 ******************************************************************************/
 static INLINE void XAsuDma_Transfer(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
-	u64 Addr, u32 Size, u8 EnDataLast)
+				    u64 Addr, u32 Size, u8 EnDataLast)
 {
 	XCsuDma_Transfer(InstancePtr, Channel, Addr, Size, EnDataLast);
 }
@@ -464,7 +464,7 @@ static INLINE void XAsuDma_64BitTransfer(XAsuDma *InstancePtr, XAsuDma_Channel C
 	u32 AddrLow, u32 AddrHigh, u32 Size, u8 EnDataLast)
 {
 	XCsuDma_64BitTransfer(InstancePtr, Channel, AddrLow, AddrHigh,
-		Size, EnDataLast);
+			      Size, EnDataLast);
 }
 
 /*****************************************************************************/
@@ -533,9 +533,9 @@ static INLINE u32 XAsuDma_GetSize(XAsuDma *InstancePtr, XAsuDma_Channel Channel)
 *
 ******************************************************************************/
 static INLINE void XAsuDma_Pause(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
-	XAsuDma_PauseType Type)
+				 XAsuDma_PauseType Type)
 {
-	XCsuDma_Pause(InstancePtr, Channel,Type);
+	XCsuDma_Pause(InstancePtr, Channel, Type);
 }
 
 /*****************************************************************************/
@@ -563,7 +563,7 @@ static INLINE void XAsuDma_Pause(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
 *
 ******************************************************************************/
 static INLINE s32 XAsuDma_IsPaused(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
-	XAsuDma_PauseType Type)
+				   XAsuDma_PauseType Type)
 {
 	return XCsuDma_IsPaused(InstancePtr, Channel, Type);
 }
@@ -593,7 +593,7 @@ static INLINE s32 XAsuDma_IsPaused(XAsuDma *InstancePtr, XAsuDma_Channel Channel
 *
 ******************************************************************************/
 static INLINE void XAsuDma_Resume(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
-	XAsuDma_PauseType Type)
+				  XAsuDma_PauseType Type)
 {
 	XCsuDma_Resume(InstancePtr, Channel, Type);
 }
@@ -715,7 +715,7 @@ static INLINE void XAsuDma_ClearCheckSum(XAsuDma *InstancePtr)
 *
 ******************************************************************************/
 static INLINE void XAsuDma_SetConfig(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
-	XAsuDma_Configure *ConfigurValues)
+				     XAsuDma_Configure *ConfigurValues)
 {
 	XCsuDma_SetConfig(InstancePtr, Channel, ConfigurValues);
 }
@@ -794,9 +794,9 @@ static INLINE void XAsuDma_SetConfig(XAsuDma *InstancePtr, XAsuDma_Channel Chann
 *
 ******************************************************************************/
 static INLINE void XAsuDma_GetConfig(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
-	XAsuDma_Configure *ConfigurValues)
+				     XAsuDma_Configure *ConfigurValues)
 {
-	XCsuDma_GetConfig(InstancePtr, Channel,ConfigurValues);
+	XCsuDma_GetConfig(InstancePtr, Channel, ConfigurValues);
 }
 
 /*****************************************************************************/
@@ -866,7 +866,7 @@ static INLINE u32 XAsuDma_IntrGetStatus(XAsuDma *InstancePtr, XAsuDma_Channel Ch
 *
 ******************************************************************************/
 static INLINE void XAsuDma_IntrClear(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
-	u32 Mask)
+				     u32 Mask)
 {
 	XCsuDma_IntrClear(InstancePtr, Channel, Mask);
 }
@@ -891,7 +891,7 @@ static INLINE void XAsuDma_IntrClear(XAsuDma *InstancePtr, XAsuDma_Channel Chann
 *
 ******************************************************************************/
 static INLINE void XAsuDma_EnableIntr(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
-	u32 Mask)
+				      u32 Mask)
 {
 	XCsuDma_EnableIntr(InstancePtr, Channel, Mask);
 }
@@ -916,7 +916,7 @@ static INLINE void XAsuDma_EnableIntr(XAsuDma *InstancePtr, XAsuDma_Channel Chan
 *
 ******************************************************************************/
 static INLINE void XAsuDma_DisableIntr(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
-	u32 Mask)
+				       u32 Mask)
 {
 	XCsuDma_DisableIntr(InstancePtr, Channel, Mask);
 }
@@ -997,17 +997,17 @@ static INLINE s32 XAsuDma_SelfTest(XAsuDma *InstancePtr)
 *
 ******************************************************************************/
 static INLINE void XAsuDma_ByteAlignedTransfer(XAsuDma *InstancePtr, XAsuDma_Channel Channel,
-					u64 Addr, u32 Size, u8 EnDataLast)
+	u64 Addr, u32 Size, u8 EnDataLast)
 {
 	XCsuDma_ByteAlignedTransfer(InstancePtr, Channel, Addr, Size, EnDataLast);
 }
 
 /******************************************************************************/
 
-#endif
+#endif /* VERSAL_AIEPG2 */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
+#endif /* XASUDMA_H */

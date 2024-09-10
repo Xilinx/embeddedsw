@@ -1,0 +1,18 @@
+%YAML 1.2
+---
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+title: Bindings for xilasu library.
+maintainers:
+  - Akula, Mounika <mounika.akula@amd.com>
+  - Challa, Durga <durga.challa@amd.com>
+type: library
+description: Xilinx Application Security Unit Library
+supported_processors: [cortexa78, cortexr52, asu]
+supported_os: [standalone]
+depends_libs:
+  xilmailbox: {}
+examples:
+  xasu_aes_example.c: []
+  xasu_ecc_example.c: []
+  xasu_rsa_example.c: []
