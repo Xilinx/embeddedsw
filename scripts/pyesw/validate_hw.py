@@ -87,6 +87,7 @@ class ValidateHW(Repo):
                 utils.write_into_file(config_lops_file, lop_create_target(lop_cmds))
                 utils.runcmd(
                     f"lopper -O {self.domain_dir} -i {config_lops_file} -f {self.sdt}",
-                    cwd = self.domain_dir
+                    cwd = self.domain_dir,
+                    log_message="HW validation assist"
                 )
                 utils.remove(config_lops_file)

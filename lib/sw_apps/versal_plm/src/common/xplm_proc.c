@@ -106,9 +106,9 @@ void XPlm_ExceptionHandler(void *Data)
 			PMC_TAP_SLR_TYPE_VAL_MASK);
 
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received Exception \n\r"
-		"MSR: 0x%08x, EAR: 0x%08x, EDR: 0x%08x, ESR: 0x%08x, \n\r"
+		"MSR: 0x%08x, EAR: 0x%x%08x, EDR: 0x%08x, ESR: 0x%08x, \n\r"
 		"R14: 0x%08x, R15: 0x%08x, R16: 0x%08x, R17: 0x%08x \n\r",
-		mfmsr(), mfear(), mfedr(), mfesr(),
+		mfmsr(), mfeare(), mfear(), mfedr(), mfesr(),
 		mfgpr(r14), mfgpr(r15), mfgpr(r16), mfgpr(r17));
 
 	(void)XLoader_SecureClear();

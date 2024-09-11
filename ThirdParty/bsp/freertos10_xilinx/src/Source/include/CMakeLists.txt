@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 collect (PROJECT_LIB_HEADERS croutine.h)
 collect (PROJECT_LIB_HEADERS message_buffer.h)
@@ -17,3 +17,6 @@ collect (PROJECT_LIB_HEADERS portable.h)
 collect (PROJECT_LIB_HEADERS StackMacros.h)
 collect (PROJECT_LIB_HEADERS list.h)
 collect (PROJECT_LIB_HEADERS projdefs.h)
+collect (PROJECT_LIB_HEADERS atomic.h)
+collect (PROJECT_LIB_HEADERS newlib-freertos.h)
+collect (PROJECT_LIB_HEADERS picolibc-freertos.h)

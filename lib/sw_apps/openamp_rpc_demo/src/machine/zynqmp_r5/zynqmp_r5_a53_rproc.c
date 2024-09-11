@@ -2,6 +2,7 @@
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
  * Copyright (c) 2021 Xilinx, Inc.
+ * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -34,6 +35,10 @@
 #define IPI_IER_OFFSET           0x00000018    /* IPI interrupt enable register offset */
 #define IPI_IDR_OFFSET           0x0000001C    /* IPI interrupt disable register offset */
 
+#ifdef USE_FREERTOS
+extern TaskHandle_t rpmsg_task;
+#endif /* USE_FREERTOS */
+
 static int zynqmp_r5_a53_proc_irq_handler(int vect_id, void *data)
 {
 	struct remoteproc *rproc = data;
@@ -50,6 +55,9 @@ static int zynqmp_r5_a53_proc_irq_handler(int vect_id, void *data)
 		atomic_flag_clear(&prproc->ipi_nokick);
 		metal_io_write32(prproc->kick_io, IPI_ISR_OFFSET,
 				 prproc->ipi_chn_mask);
+#ifdef USE_FREERTOS
+		xTaskResumeFromISR(rpmsg_task);
+#endif /* USE_FREERTOS */
 		return METAL_IRQ_HANDLED;
 	}
 	return METAL_IRQ_NOT_HANDLED;

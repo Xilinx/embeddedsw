@@ -9,13 +9,14 @@ required to build a particular template application.
 import utils
 import argparse, textwrap
 import os
+import logging
 from build_bsp import BSP
 from repo import Repo
 from validate_bsp import Validation
 from open_amp import create_openamp_app, open_amp_app_name, copy_openamp_app_overlay, openamp_lopper_run
 from open_amp import create_libmetal_app
 from validate_hw import ValidateHW
-
+from utils import log_time
 
 class App(BSP, Repo):
     """
@@ -51,7 +52,7 @@ class App(BSP, Repo):
         # (for compiler flags, linker flags etc.)
         self.app_config_file = os.path.join(self.app_src_dir, "app.yaml")
 
-
+@log_time
 def create_app(args):
     """
     Function that uses the above App class to create the template application.
@@ -115,7 +116,8 @@ def create_app(args):
         app_schema = utils.load_yaml(app_yaml_file)
         if app_schema.get("depends"):
             utils.runcmd(
-                f"lopper -O {obj.app_src_dir} {obj.sdt} -- bmcmake_metadata_xlnx {obj.proc} {srcdir} hwcmake_metadata {obj.repo_yaml_path}"
+                f"lopper -O {obj.app_src_dir} {obj.sdt} -- bmcmake_metadata_xlnx {obj.proc} {srcdir} hwcmake_metadata {obj.repo_yaml_path}",
+                log_message="App Hardware Meta-data Generation"
             )
 
     # Generates the metadata for linker script
@@ -137,9 +139,9 @@ def create_app(args):
         obj.cmake_paths_append += " -D_AMD_GENERATED_=ON "
 
     if obj.template == "memory_tests":
-        utils.runcmd(f"{linker_cmd} memtest")
-    else:
-        utils.runcmd(linker_cmd)
+        utils.runcmd(f"{linker_cmd} memtest", log_message="Linker Generation")
+    elif obj.template != "versal_plm":
+        utils.runcmd(linker_cmd, log_message="Linker Generation")
 
     # Copy the static linker files from embeddedsw to the app src dir
     linker_dir = os.path.join(obj.app_src_dir, "linker_files")
@@ -158,7 +160,8 @@ def create_app(args):
         if domain_data['os_config'][obj.os]:
             stdin = domain_data['os_config'][obj.os][f'{obj.os}_stdin']['value']
         utils.runcmd(
-            f"lopper -O {obj.app_src_dir} {obj.sdt} -- baremetal_gentestapp_xlnx {obj.proc} {obj.repo_yaml_path} {stdin}"
+            f"lopper -O {obj.app_src_dir} {obj.sdt} -- baremetal_gentestapp_xlnx {obj.proc} {obj.repo_yaml_path} {stdin}",
+            log_message="Peripheral tests meta-data generation"
         )
 
     # Copy psu_init* files for zynq and zynqmp fsbl app
@@ -205,41 +208,42 @@ def create_app(args):
         }
     utils.write_yaml(obj.app_config_file, data)
 
-    # Create a dummy folder to get compile_commands.json
-    compile_commands_dir = os.path.join(obj.app_src_dir, ".compile_commands")
-    utils.mkdir(compile_commands_dir)
-    obj.app_src_dir = obj.app_src_dir.replace('\\', '/')
-    obj.cmake_paths_append = obj.cmake_paths_append.replace('\\', '/')
-    dump = utils.discard_dump()
-    utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append} > {dump}', cwd=compile_commands_dir)
+    if not args["no_clangd"]:
+        # Create a dummy folder to get compile_commands.json
+        compile_commands_dir = os.path.join(obj.app_src_dir, ".compile_commands")
+        utils.mkdir(compile_commands_dir)
+        obj.app_src_dir = obj.app_src_dir.replace('\\', '/')
+        obj.cmake_paths_append = obj.cmake_paths_append.replace('\\', '/')
+        dump = utils.discard_dump()
+        utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append} > {dump}', cwd=compile_commands_dir, log_message="Compile commands json Generation")
 
-    '''
-    compile_commands.json file needs to be kept inside src directory.
-    Silent_discard needs to be true as for Empty Application, this file
-    is not created.
-    '''
-    utils.copy_file(os.path.join(compile_commands_dir, "compile_commands.json"), obj.app_src_dir, silent_discard=True)
+        '''
+        compile_commands.json file needs to be kept inside src directory.
+        Silent_discard needs to be true as for Empty Application, this file
+        is not created.
+        '''
+        utils.copy_file(os.path.join(compile_commands_dir, "compile_commands.json"), obj.app_src_dir, silent_discard=True)
 
-    '''
-    There are few GCC flags (e.g. -fno-tree-loop-distribute-patterns) that
-    clang server doesnt recognise for Code Intellisense. To get over this
-    "Unknown Argument" Error of clang, a .clangd file with below content is
-    to be kept in parallel to compile_commands.json file.
-    '''
-    clangd_ignore_content = f'''
+        '''
+        There are few GCC flags (e.g. -fno-tree-loop-distribute-patterns) that
+        clang server doesnt recognise for Code Intellisense. To get over this
+        "Unknown Argument" Error of clang, a .clangd file with below content is
+        to be kept in parallel to compile_commands.json file.
+        '''
+        clangd_ignore_content = f'''
 CompileFlags:
     Add: [-Wno-unknown-warning-option, -U__linux__, -U__clang__]
     Remove: [-m*, -f*]
 '''
-    clangd_ignore_file = os.path.join(obj.app_src_dir, ".clangd")
-    utils.write_into_file(clangd_ignore_file, clangd_ignore_content)
+        clangd_ignore_file = os.path.join(obj.app_src_dir, ".clangd")
+        utils.write_into_file(clangd_ignore_file, clangd_ignore_content)
 
-    '''
-    The generated compile_commands.json file has the directory path (where it
-    was created originally) in it. That directory needs to be maintained to
-    avoid clang error.
-    '''
-    utils.remove(os.path.join(compile_commands_dir, "*"), pattern=True)
+        '''
+        The generated compile_commands.json file has the directory path (where it
+        was created originally) in it. That directory needs to be maintained to
+        avoid clang error.
+        '''
+        utils.remove(os.path.join(compile_commands_dir, "*"), pattern=True)
 
     # Success prints if everything went well till this point.
     if utils.is_file(obj.app_config_file):
@@ -308,6 +312,26 @@ if __name__ == "__main__":
         help="Specify the .repo.yaml absolute path to use the set repo info",
         default='.repo.yaml',
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help='Increase output verbosity'
+    )
+    parser.add_argument(
+        "--no_clangd",
+        action="store",
+        default=False,
+        help="Don't generate clangd meta-data useful for Vivado PLM kind of use cases (Default: False)",
+        choices=["False", "True"],
+    )
 
     args = vars(parser.parse_args())
+    if args["verbose"] >= 1:
+        logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    else:
+        logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
+    logger = logging.getLogger(__name__)
+    logger.info( "Starting Creating APP" )
     create_app(args)

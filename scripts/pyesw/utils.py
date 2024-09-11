@@ -14,12 +14,35 @@ import glob
 import fileinput
 import shutil
 import yaml
+import time
+import logging
 import json
 import subprocess
 from pathlib import Path
 from distutils.dir_util import copy_tree
 from typing import Any, List, Optional, Dict, Union
 from collections.abc import MutableMapping
+from functools import wraps
+
+def get_logger(name):
+    return logging.getLogger(name)
+
+def log_time(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        logger = get_logger(__name__)
+        duration = end_time - start_time
+        if 'log_message' in kwargs:
+            log_message = kwargs['log_message']
+            if log_message != None:
+                logger.info(f"{log_message} took {duration:.2f} seconds")
+        else:
+            logger.info(f"Function {func.__name__} took {duration:.2f} seconds")
+        return result
+    return wrapper
 
 def delete_keys_from_dict(dictionary: dict, keys: str) -> dict:
     """
@@ -363,8 +386,8 @@ def replace_string(File, search_string: str, replace_string: str) -> None:
         err_msg = f"No such file exists: {File}"
         raise FileNotFoundError(err_msg)
 
-
-def runcmd(cmd, cwd=None, logfile=None) -> bool:
+@log_time
+def runcmd(cmd, cwd=None, logfile=None, log_message=None) -> bool:
     """
     Run the shell commands.
 
@@ -492,11 +515,7 @@ def write_into_file(out_file, content):
         f.write(content)
 
 def get_cmake_generator():
-    if os.name == "nt":
-        cmake_generator = "Ninja"
-    else:
-        cmake_generator = "Unix Makefiles"
-    return cmake_generator
+    return "Ninja"
 
 def discard_dump():
     if os.name == "nt":

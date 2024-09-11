@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,13 +18,15 @@ XPm_Regulator *XPmRegulator_GetById(u32 Id)
 	XPm_Regulator *Regulator = NULL;
 	u32 NodeClass = NODECLASS(Id);
 	u32 NodeSubClass = NODESUBCLASS(Id);
+	u32 NodeType = NODETYPE(Id);
 	u32 NodeIndex = NODEINDEX(Id);
 
 	if (((u32)XPM_NODECLASS_POWER == NodeClass) &&
 	    ((u32)XPM_NODESUBCL_POWER_REGULATOR == NodeSubClass) &&
+	    ((u32)XPM_NODETYPE_POWER_REGULATOR == NodeType) &&
 	    ((u32)XPM_NODEIDX_POWER_REGULATOR_MAX > NodeIndex)) {
 		Regulator = PmRegulators[NodeIndex];
-		/* Validate power node ID is same as given ID. */
+		/* Validate regulator node ID is same as given ID. */
 		if ((NULL != Regulator) && (Id != Regulator->Node.Id)) {
 			Regulator = NULL;
 		}

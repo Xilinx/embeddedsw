@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,10 @@
 * 8.0	sk   03/02/22 Add endif at the end of the file to fix misra_c_2012
 * 		      _directive_4_10 violation.
 * 8.2   asa  02/24/23 Add macros for R52.
+* 9.2   mus  09/06/24 CortexR52 integrated in VersalNet has 4 event counters,
+*                     where-as RPU in ZynqMP/Versal has 3 event
+*                     counters, updated macro's related to event counter
+*                     related masks accordingly.
 * </pre>
 *
 ******************************************************************************/
@@ -601,11 +605,19 @@ extern "C" {
 #define XPM_CNTRCFG15   14
 #define XPM_CNTRCFG16   15
 
+#if defined (ARMR52)
+#define XPM_NO_COUNTERS_AVAILABLE       0xFFU
+#define XPM_MAX_EVENTHANDLER_ID         0x3U
+#define XPM_EVENT_CNTRS_BIT_MASK        0xFU
+#define XPM_ALL_EVENT_CNTRS_IN_USE      0xFU
+#define XPM_EVENT_CNTRS_MASK            0xFU
+#else
 #define XPM_NO_COUNTERS_AVAILABLE 	0xFFU
 #define XPM_MAX_EVENTHANDLER_ID		0x2U
 #define XPM_EVENT_CNTRS_BIT_MASK	0x7U
 #define XPM_ALL_EVENT_CNTRS_IN_USE	0x7U
-#define XPM_EVENT_CNTRS_MASK		0x3U
+#define XPM_EVENT_CNTRS_MASK		0x7U
+#endif
 
 /**************************** Type Definitions ******************************/
 /**

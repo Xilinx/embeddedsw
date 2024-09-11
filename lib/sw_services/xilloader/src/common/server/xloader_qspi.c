@@ -42,6 +42,7 @@
 *       ng   08/09/2023 Removed redundant windbond flash size macro
 *       ng   12/27/2023 Reduced log level for less frequent prints
 *       ng   02/14/2024 removed int typecast for errors
+*       pre  09/06/2024 Setting the pre-scaler for QSPI clock from CIPS
 *
 * </pre>
 *
@@ -66,8 +67,10 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
-#define	XLOADER_WRITE_BUFFER_OFFSET	0xA
+#define XLOADER_WRITE_BUFFER_OFFSET   0xA
+#define XLOADER_MAX_PRESCALAR_VAL     16U
+#define XLOADER_DEFAULT_PRESCALR_VAL  XQSPIPSU_CLK_PRESCALE_8
+#define XLOADER_INVALID_PRESCALAR_VAL 0xFFU
 
 /************************** Function Prototypes ******************************/
 static int FlashReadID(XQspiPsu *QspiPsuPtr);
@@ -235,6 +238,14 @@ int XLoader_QspiInit(u32 DeviceFlags)
 	const XQspiPsu_Config *QspiConfig =
 		XQspiPsu_LookupConfig(XLOADER_QSPI_DEVICE);
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+	static const u8 GetBaudRateDivVal[XLOADER_MAX_PRESCALAR_VAL + 1U] = {
+		XLOADER_DEFAULT_PRESCALR_VAL, XLOADER_INVALID_PRESCALAR_VAL, XQSPIPSU_CLK_PRESCALE_2,
+		XLOADER_INVALID_PRESCALAR_VAL, XQSPIPSU_CLK_PRESCALE_4, XLOADER_INVALID_PRESCALAR_VAL,
+		XLOADER_INVALID_PRESCALAR_VAL, XLOADER_INVALID_PRESCALAR_VAL, XQSPIPSU_CLK_PRESCALE_8,
+		XLOADER_INVALID_PRESCALAR_VAL, XLOADER_INVALID_PRESCALAR_VAL,
+		XLOADER_INVALID_PRESCALAR_VAL, XLOADER_INVALID_PRESCALAR_VAL,
+		XLOADER_INVALID_PRESCALAR_VAL, XLOADER_INVALID_PRESCALAR_VAL,
+		XLOADER_INVALID_PRESCALAR_VAL, XQSPIPSU_CLK_PRESCALE_16};
 
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
 		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
@@ -287,8 +298,13 @@ int XLoader_QspiInit(u32 DeviceFlags)
 	/**
 	 * - Set the pre-scaler for QSPI clock.
 	 */
-	Status = XQspiPsu_SetClkPrescaler(&QspiPsuInstance,
-				XQSPIPSU_CLK_PRESCALE_8);
+	if(QspiPsuInstance.Config.BaudRateDiv <= (u8)XLOADER_MAX_PRESCALAR_VAL)
+	{
+		Status = XQspiPsu_SetClkPrescaler(&QspiPsuInstance, GetBaudRateDivVal[QspiPsuInstance.Config.BaudRateDiv]);
+	}
+	else {
+		Status = XST_INVALID_PARAM;
+	}
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_PRESCALER_CLK, Status);
 		XLoader_Printf(DEBUG_INFO, "XLOADER_ERR_QSPI_PRESCALER_CLK\r\n");

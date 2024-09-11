@@ -15,7 +15,7 @@ import utils
 import re
 from repo import Repo
 from open_amp import open_amp_copy_lib_src
-
+from utils import log_time
 
 class Library(Repo):
     """
@@ -284,6 +284,7 @@ class Library(Repo):
         return lib_list
 
 
+    @log_time
     def add_lib_for_apps(self, app_name):
         """
         Adds library to the bsp. Creates metadata if needed for the library,
@@ -333,6 +334,7 @@ class Library(Repo):
 
         return lib_list, cmake_cmd_append
 
+    @log_time
     def config_lib(self, comp_name, lib_list, cmake_cmd_append, is_app=False):
         lib_config = {}
         if lib_list:
@@ -353,11 +355,12 @@ class Library(Repo):
                 self.modify_cmake_subdirs(lib_list, action='add')
                 if is_app:
                     cmake_cmd_append = cmake_cmd_append.replace('\\', '/')
-                    utils.runcmd(f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_lib_list}" {cmake_cmd_append} -LH > cmake_lib_configs.txt', cwd = build_metadata)
+                    utils.runcmd(f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_lib_list}" {cmake_cmd_append} -LH > cmake_lib_configs.txt', cwd = build_metadata, log_message=None)
                 else:
                     utils.runcmd(
                         f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_lib_list}" -LH > cmake_lib_configs.txt',
-                        cwd = build_metadata
+                        cwd = build_metadata,
+                        log_message=None
                     )
                     utils.update_yaml(self.domain_config_file, "domain", "config", "reconfig")
             except:
@@ -468,14 +471,13 @@ class Library(Repo):
             base_lib_build_dir = base_lib_build_dir.replace('\\', '/')
             utils.runcmd('cmake -DCONFIG="" -P CMakeFiles\clean_additional.cmake', cwd=base_lib_build_dir)
         else:
-            utils.runcmd(f"make -C {os.path.join('libsrc', lib, 'src')} clean", cwd=base_lib_build_dir)
+            utils.runcmd('cmake -DCONFIG="" -P CMakeFiles/clean_additional.cmake', cwd=base_lib_build_dir)
         # Remove library src folder from libsrc
         utils.remove(lib_path)
         # Remove cmake build folder from cmake build area.
         utils.remove(lib_build_dir)
         # Update library config file
         utils.update_yaml(self.domain_config_file, "domain", lib, None, action="remove")
-        if os.name == "nt":
-            dump = utils.discard_dump()
-            utils.runcmd(f"ninja CMakeFiles/rebuild_cache.util > {dump}", cwd=base_lib_build_dir)
+        dump = utils.discard_dump()
+        utils.runcmd(f"ninja CMakeFiles/rebuild_cache.util > {dump}", cwd=base_lib_build_dir)
         self.modify_cmake_subdirs([lib], action="remove")

@@ -35,4 +35,6 @@ optional:
 examples:
    xsysmonpsv_intr_example.c:
     - interrupts
+   xsysmonpsv_polled_example.c:
+    - reg
 ...

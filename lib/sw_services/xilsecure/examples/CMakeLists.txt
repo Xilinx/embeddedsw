@@ -30,6 +30,8 @@ elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
     xilsecure_versal_net_ecdh_client_example.c;xilsecure_versal_net_keyunwrap_client_example.c;xilsecure_versal_net_trng_client_example.c;xilsecure_versal_net_rsa_client_example.c;)
 elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
     SET(COMMON_EXAMPLES xilsecure_aes_example.c;xilsecure_rsa_example.c;xilsecure_rsa_generic_example.c;xilsecure_sha_example.c;xilsecure_simple_aes_example.c;)
+elseif("${CMAKE_MACHINE}" STREQUAL "SPARTANUP")
+    SET(COMMON_EXAMPLES xilsecure_versal_aes_server_example.c;xilsecure_spartanup_sha_server_example.c;)
 endif()
 
 linker_gen("${CMAKE_CURRENT_SOURCE_DIR}/../../../../scripts/linker_files/")
