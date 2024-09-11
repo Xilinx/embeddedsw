@@ -15,7 +15,8 @@
 *
 * Ver   Who     Date     Changes
 * ----- ------- -------- ---------------------------------------------------
-* 9.3 	KSR     07/17/24 Initial release
+* 9.2 	KSR     07/17/24 Initial release
+* 9.2   asa     09/11/23 Fix link error for redefinion of ARMR5
 *
 * </pre>
 *
@@ -43,7 +44,9 @@ extern "C" {
 #if !defined (__aarch64__)
 #if !defined(ARMR52)
 #define ARMR52
+#if !defined(ARMR5)
 #define ARMR5
+#endif
 #endif
 #endif
 
