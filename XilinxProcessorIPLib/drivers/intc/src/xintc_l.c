@@ -63,7 +63,8 @@
 * 3.19  adk  08/05/24 In SDT flow inorder to loop over config table use the
 * 		      XPAR_INTC_NUM_DRV_INSTANCES define instead of config table
 * 		      to reduce the size.
-*
+* 3.19  ml   09/11/24 Typecasted the return value of XIntc_GetIntrStatus to void
+*                     to fix compilation warning  [-Wunused-value]
 * </pre>
 *
 ******************************************************************************/
@@ -692,7 +693,7 @@ static void XIntc_CascadeHandler(void *DeviceId)
 			 * Read the ISR again to handle architectures with
 			 * posted write bus access issues.
 			 */
-			XIntc_GetIntrStatus(CfgPtr->BaseAddress);
+			(void)XIntc_GetIntrStatus(CfgPtr->BaseAddress);
 
 			/*
 			 * If only the highest priority interrupt is to be
