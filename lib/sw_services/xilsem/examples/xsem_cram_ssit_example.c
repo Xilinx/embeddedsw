@@ -23,6 +23,9 @@
  *                           and Updated Copyright information
  * 0.5  anv      02/18/2024  Updated example to demonstrate the usage of
  *                           XSem_Ssit_CmdCfrGetTotalFrames API
+ * 0.6  anv      07/24/2024  Fixed incorrect prints for last seven CE location
+ *                           details & Added Macro protection to invoke
+ *                           CORR/CRC/UNCORR Err injection functions.
  * </pre>
  *
  *****************************************************************************/
@@ -272,11 +275,15 @@ static XStatus XSem_Ssit_ApiCfrGetStatusSlr(u32 TargetSlr, \
 		/* update data in to [out] param cram structure */
 		CfrStatusInfo->Status = StatusInfo.CramStatus;
 		xil_printf("CRAM Scan Status:%x\n",CfrStatusInfo->Status);
+		xil_printf("\n");
 		for(Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
 			CfrStatusInfo->ErrAddrH[Index] = StatusInfo.ErrAddrH[Index];
 			CfrStatusInfo->ErrAddrL[Index] = StatusInfo.ErrAddrL[Index];
-			xil_printf("Last Corrected Location_%x High Addr: %x Low Addr: %x\n",
-				Index,CfrStatusInfo->ErrAddrH,CfrStatusInfo->ErrAddrL);
+			xil_printf("Last Corrected Location_%x Low Addr : 0x%08x\n", \
+						Index,CfrStatusInfo->ErrAddrL[Index]);
+			xil_printf("Last Corrected Location_%x High Addr: 0x%08x\n", \
+						Index,CfrStatusInfo->ErrAddrH[Index]);
+			xil_printf("\n");
 		}
 		CfrStatusInfo->ErrCorCnt = StatusInfo.ErrCorCnt;
 		xil_printf("Total CE count: %x\n" ,CfrStatusInfo->ErrCorCnt);
@@ -424,6 +431,7 @@ static XStatus XSem_ApiCfrErrNjct_OnAllSLRs(XSemCfrErrInjData *ErrData)
 	return Status;
 }
 
+#ifdef XILSEM_CORR_ERRINJ_ENABLE
 /******************************************************************************
  * @brief	This function is used to inject 1-bit correctable error
  * 		in all SLRs
@@ -456,7 +464,9 @@ static XStatus Xsem_CfrApiInjctCorErr()
 
 	return Status;
 }
+#endif /* End of XILSEM_CORR_ERRINJ_ENABLE */
 
+#ifdef XILSEM_UNCORR_ERRINJ_ENABLE
 /******************************************************************************
  * @brief	This function is used to inject Uncorrectable error on all SLRs
  *
@@ -488,7 +498,9 @@ static XStatus Xsem_CfrApiInjctUnCorErr()
 
 	return Status;
 }
+#endif /* End of XILSEM_UNCORR_ERRINJ_ENABLE */
 
+#ifdef XILSEM_CRC_ERRINJ_ENABLE
 /******************************************************************************
  * @brief	This function is used to inject CRC error on all SLRs.
  * 		This error is treated as an correctable error.
@@ -527,6 +539,7 @@ static XStatus Xsem_CfrApiInjctCrcErr()
 
 	return Status;
 }
+#endif /* End of XILSEM_CRC_ERRINJ_ENABLE */
 #endif /* End of XILSEM_ERRINJ_ENABLE */
 
 /*****************************************************************************
@@ -838,13 +851,25 @@ int main(void)
 	xil_printf("==================================================\n\r");
 
 	/* Error injection : This example demonstrates how to inject
-	 * uncorrectable error in each SLR. If you want to inject CRC error,
-	 * you need to replace the function call Xsem_CfrApiInjctUnCorErr
-	 * with Xsem_CfrApiInjctCrcErr.
-	 * If you want to inject correctable error replace the function call
-	 * with Xsem_CfrApiInjctCorErr
+	 * error in each SLR.
+	 * If you want to inject CRC error,
+	 * you need to define XILSEM_CRC_ERRINJ_ENABLE macro.
+	 * If you want to inject correctable error define
+	 * XILSEM_CORR_ERRINJ_ENABLE macro
+	 * If you want to inject uncorrectable error define
+	 * XILSEM_UNCORR_ERRINJ_ENABLE macro
 	 */
+#if defined(XILSEM_UNCORR_ERRINJ_ENABLE)
+	Status = Xsem_CfrApiInjctUnCorErr();
+#elif defined(XILSEM_CRC_ERRINJ_ENABLE)
+	Status = Xsem_CfrApiInjctCrcErr();
+#elif defined(XILSEM_CORR_ERRINJ_ENABLE)
 	Status = Xsem_CfrApiInjctCorErr();
+#else
+	xil_printf("Not defined type of Error Injection to be done\n\r");
+	goto END;
+#endif
+
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error Injection Failed\n\r");
 		++FailCnt;
@@ -1066,7 +1091,7 @@ int main(void)
 	/* Read Total number of frames for master slr */
 	for(SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++) {
 		Status = XSem_Ssit_CmdCfrGetTotalFrames(&IpiInst, &IpiResp, \
-				RowLoc,SlrCnt,&FramesCnt);
+				RowLoc,SlrCnt,FramesCnt);
 		if ((XST_SUCCESS == Status) && (CMD_ACK_CFR_GET_TF == \
 			IpiResp.RespMsg1) && (SlrCnt == IpiResp.RespMsg2) && \
 			(RowLoc == IpiResp.RespMsg3)) {
