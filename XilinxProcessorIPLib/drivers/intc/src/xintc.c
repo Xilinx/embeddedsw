@@ -58,7 +58,8 @@
 * 3.19 adk  08/05/24 In SDT flow inorder to loop over config table use the
 * 		     XPAR_INTC_NUM_DRV_INSTANCES define instead of config table
 * 		     to reduce the size.
-*
+* 3.19 ml   09/11/24 Add conditional checks to fix compilation warning.
+*                    [-Wunused-variable]
 * </pre>
 *
 ******************************************************************************/
@@ -131,7 +132,9 @@ int XIntc_Initialize(XIntc *InstancePtr, UINTPTR BaseAddr)
 	u8 Id;
 	XIntc_Config *CfgPtr;
 	u32 NextBitMask = 1;
+#ifndef XPAR_MICROBLAZE_BASE_VECTORS
 	UINTPTR vector_base;
+#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
