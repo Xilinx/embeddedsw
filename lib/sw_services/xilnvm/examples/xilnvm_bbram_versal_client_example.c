@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 *       kpt     03/16/22 Removed IPI related code and added mailbox support
 * 3.1   skg     10/04/22 Added API to set SlrIndex
 * 3.2   ng      07/05/23 added support for system device tree flow
+*       pre     09/11/24 Removed SSIT support for this example
 *
 * </pre>
 *
@@ -135,7 +136,6 @@ static int XNvm_ValidateAesKey(const char *Key);
 static int BbramWriteUsrData(XNvm_ClientInstance *InstancePtr);
 static int BbramReadUsrData(XNvm_ClientInstance *InstancePtr);
 static int BbramLockUsrData(XNvm_ClientInstance *InstancePtr);
-static int XNvm_InputSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrIndex);
 
 /*****************************************************************************/
 /**
@@ -183,12 +183,6 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n shared memory initialization failed");
 		goto END;
-	}
-
-    Status = XNvm_InputSlrIndex(&NvmClientInstance, XNVM_SLR_INDEX_0);
-	if (Status != XST_SUCCESS) {
-			xil_printf("invalid SlrIndex \r\n");
-			goto END;
 	}
 
 	Status = BbramWriteAesKey(&NvmClientInstance);
@@ -350,27 +344,6 @@ static int XNvm_ValidateAesKey(const char *Key)
 	Status = (int)Xil_ValidateHexStr(Key);
 END:
 	return Status;
-}
-/******************************************************************************/
-/**
- * @brief	Adds the SLR Index.
- *
- * @param  InstancePtr is a pointer to instance XNvm_ClientInstance
- *
- * @param   SlrIndex - Number for slrId
- *
- *@return	- XST_SUCCESS - On valid input SlrIndex.
- *		    - XST_FAILURE - On non valid input SlrIndex
- *
- *******************************************************************************/
-static int XNvm_InputSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrIndex)
-{
-	if(SlrIndex >= XNVM_SLR_INDEX_0 && SlrIndex <= XNVM_SLR_INDEX_3){
-		InstancePtr->SlrIndex = SlrIndex;
-	    return XST_SUCCESS;
-	}
-	else
-		return  XST_FAILURE;
 }
 /** //! [XNvm BBRAM example] */
 /** @} */

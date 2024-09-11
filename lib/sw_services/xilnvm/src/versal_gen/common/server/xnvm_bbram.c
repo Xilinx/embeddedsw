@@ -31,6 +31,7 @@
 * 3.0   kal  08/01/2022 Added redundancy to XNvm_BbramEnablePgmMode function
 *       dc   08/29/2022 Changed u8 to u32 type
 * 3.1   skg  10/23/2022 Added In body comments for APIs
+*       pre  09/11/2024 Removed zeroization before writing key
 *
 * </pre>
 *
@@ -161,14 +162,6 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	 */
 	AesKey = (const u32 *) Key;
 
-	/**
-	 * As per hardware design, zeroization is must between two BBRAM
-	 * AES CRC Check requests
-	 */
-	ZeroizeStatus = XNvm_BbramZeroize();
-	if (ZeroizeStatus != XST_SUCCESS) {
-		goto END;
-	}
 
     /**
 	 *  Bring BBRAM to programming mode by writing Magic Word 0x757BDF0D to PGM_MODE register
@@ -191,7 +184,7 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 
     /**
 	 *  @{ Calculate CRC on input AES Key and write it to BBRAM_AES_CRC which triggers BBRAM CRC integrity check.
-     *     Wait for AES_CRC_DONE bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timout error.
+     *     Wait for AES_CRC_DONE bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timeout error.
      *     If AES_CRC_PASS bit is set in BBRAM_STATUS register, return XST_SUCCESS else return CRC mismatch error
 	 */
 	Status = XNvm_BbramValidateAesKeyCrc(AesKey);
@@ -348,7 +341,7 @@ int XNvm_BbramZeroize(void)
 
 	/**
 	 * @{ Write 1 to BBRAM_CTRL register.
-     *	  Wait for BBRAM_ZEROIZED bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timout error.
+     *	  Wait for BBRAM_ZEROIZED bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timeout error.
      *	  Return XST_SUCCESS
      */
 	XNvm_BbramWriteReg(XNVM_BBRAM_CTRL_REG, XNVM_BBRAM_CTRL_START_ZEROIZE);
