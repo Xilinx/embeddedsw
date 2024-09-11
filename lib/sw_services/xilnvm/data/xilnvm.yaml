@@ -66,4 +66,7 @@ examples:
   xilnvm_bbram_config_limiter_client_example.c:
     - supported_platforms:
       - VersalGen2
+  xilnvm_bbram_versal_ssit_client_example.c:
+    - supported_platforms:
+      - Versal
 ...
