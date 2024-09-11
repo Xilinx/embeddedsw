@@ -1,7 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* (c) Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -32,6 +31,9 @@
  *                         XilSEM CRAM status prints
  * 1.0   gayu  01/18/2024  Moved Error injection sequence in the end of
  *                         main function to get clear prints.
+ * 1.1   anv   07/24/2024  Fixed incorrect prints for last seven CE location
+ *                         details & Added Macro protection to invoke
+ *                         CORR/CRC/UNCORR Err injection functions.
  * </pre>
  *
  *****************************************************************************/
@@ -224,6 +226,7 @@ XStatus XSem_CfrApiErrNjct (XSemCfrErrInjData *ErrData)
 	return Status;
 }
 
+#ifdef XILSEM_CORR_ERRINJ_ENABLE
 /******************************************************************************
  * @brief	This function is used to inject 1-bit correctable error
  *
@@ -251,7 +254,9 @@ XStatus Xsem_CfrApiInjctCorErr()
 
 	return Status;
 }
+#endif /* End of XILSEM_CORR_ERRINJ_ENABLE */
 
+#ifdef XILSEM_UNCORR_ERRINJ_ENABLE
 /******************************************************************************
  * @brief	This function is used to inject Uncorrectable error
  *
@@ -281,7 +286,9 @@ XStatus Xsem_CfrApiInjctUnCorErr()
 
 	return Status;
 }
+#endif /* End of XILSEM_UNCORR_ERRINJ_ENABLE */
 
+#ifdef XILSEM_CRC_ERRINJ_ENABLE
 /******************************************************************************
  * @brief	This function is used to inject CRC error. This error is treated as
  * uncorrectable error.
@@ -317,6 +324,7 @@ XStatus Xsem_CfrApiInjctCrcErr()
 
 	return Status;
 }
+#endif /* End of XILSEM_CRC_ERRINJ_ENABLE */
 
 /******************************************************************************
  * @brief	This function checks if correctable error counter is incremented
@@ -361,6 +369,7 @@ void PrintErrReport(u32 IntialCorErrCnt)
 	u32 ErrQwordLoc = 0U;
 	u32 ErrFarLoc = 0U;
 	u32 ErrRowLoc = 0U;
+	u32 Index = 0U;
 
 	xil_printf("-----------------------------------------------------\n\r");
 	xil_printf("-----------------Print Report------------------------\n\r");
@@ -491,6 +500,16 @@ void PrintErrReport(u32 IntialCorErrCnt)
 			" Status = 0x%08x\n\r", CfrStatusInfo.Status);
 		FailCnt++;
 	}
+	xil_printf("CRAM Scan Status:%x\n",CfrStatusInfo.Status);
+	xil_printf("\n");
+	for(Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
+		xil_printf("Last Corrected Location_%x Low Addr : 0x%08x\n", \
+						Index,CfrStatusInfo.ErrAddrL[Index]);
+		xil_printf("Last Corrected Location_%x High Addr: 0x%08x\n", \
+						Index,CfrStatusInfo.ErrAddrH[Index]);
+		xil_printf("\n");
+	}
+	xil_printf("Total CE count: %x\n" ,CfrStatusInfo.ErrCorCnt);
 }
 #endif /* End of XILSEM_ERRINJ_ENABLE */
 
@@ -587,7 +606,6 @@ int main(void)
 	u32 TotalFrames[7];
 	u32 Id;
 	u32 FailCnt= 0;
-	u32 Index =0U;
 
 	/* Initialize IPI Driver
 	 * This initialization is required to get XilSEM event notifications
@@ -605,12 +623,7 @@ int main(void)
 	 * This is applicable when CRAM Scan is set for deferred start up.
 	 */
 	(void)XSem_CmdCfrGetStatus(&CfrStatusInfo);
-	xil_printf("CRAM Scan Status:%x\n",CfrStatusInfo.Status);
-	for(Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
-		xil_printf("Last Corrected Location_%x High Addr: %x Low Addr: %x\n", \
-				Index,CfrStatusInfo.ErrAddrH,CfrStatusInfo.ErrAddrL);
-	}
-	xil_printf("Total CE count: %x\n" ,CfrStatusInfo.ErrCorCnt);
+
 	IsInitDone = CfrStatusInfo.Status & CRAM_STATUS_INIT_DONE_MASK;
 	if (IsInitDone != CRAM_STATUS_INIT_DONE_MASK) {
 		Status = XSem_CfrApiInitCram();
@@ -719,15 +732,26 @@ int main(void)
 		goto END;
 	}
 
-	/* Error injection : This example demonstrates how to inject 1-bit
-	 * Correctable error. If you want to inject CRC error, you need to
-	 * replace the function call Xsem_CfrApiInjctCorErr
-	 * with Xsem_CfrApiInjctCrcErr.
-	 * If you want to inject uncorrectable error replace the function call
-	 * with Xsem_CfrApiInjctUnCorErr.
+	/* Error injection : This example demonstrates how to inject error.
+	 * If you want to inject CRC error, you need to
+	 * define XILSEM_CRC_ERRINJ_ENABLE macro
+	 * If you want to inject uncorrectable error define
+	 * XILSEM_UNCORR_ERRINJ_ENABLE macro
+	 * If you want to inject correctable error define
+	 * XILSEM_CORR_ERRINJ_ENABLE macro
 	 */
 
+#if defined(XILSEM_UNCORR_ERRINJ_ENABLE)
+	Status = Xsem_CfrApiInjctUnCorErr();
+#elif defined(XILSEM_CRC_ERRINJ_ENABLE)
+	Status = Xsem_CfrApiInjctCrcErr();
+#elif defined(XILSEM_CORR_ERRINJ_ENABLE)
 	Status = Xsem_CfrApiInjctCorErr();
+#else
+	xil_printf("Not defined type of Error Injection to be done\n\r");
+	goto END;
+#endif
+
 	if (Status == XST_SUCCESS){
 		IsErrorInjected = 1U;
 		}else{
