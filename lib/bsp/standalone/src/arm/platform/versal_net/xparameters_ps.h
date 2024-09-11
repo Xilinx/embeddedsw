@@ -22,6 +22,7 @@
 * 8.0	sb	05/10/23 Add Interrupt Id's for WWDT.
 * 9.0   dp      05/19/23 Update Interrupt IDs for USB
 * 9.1   dp      01/12/24 Update GIC base address
+* 9.2   asa     09/11/23 Fix link error for redefinion of ARMR5
 *
 * </pre>
 *
@@ -49,7 +50,9 @@ extern "C" {
 #if !defined (__aarch64__)
 #if !defined(ARMR52)
 #define ARMR52
+#if !defined(ARMR5)
 #define ARMR5
+#endif
 #endif
 #endif
 
