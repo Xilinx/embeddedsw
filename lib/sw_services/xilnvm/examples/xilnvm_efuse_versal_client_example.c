@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -68,6 +68,7 @@
  * 3.2   ng    07/05/2023 added support for system device tree flow
  *       vss   09/19/2023 Fixed MISRA-C Rule 2.5 violation
  * 3.3   har   12/04/2023 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
+ * 3.4 Â  vss Â  09/11/2024 Corrected debug prints in XilNvm_EfuseShowSecCtrlBits function
  *
  * </pre>
  *
@@ -1830,7 +1831,7 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 		xil_printf("CRC check on User key 0 is disabled\n\r");
 	}
 	else {
-		xil_printf("CRC check on User key 1 is disabled\n\r");
+		xil_printf("CRC check on User key 0 is enabled\n\r");
 	}
 	if (SecCtrlBits->UserKey0WrLk == TRUE) {
 		xil_printf("Programming User key 0 is disabled\n\r");
@@ -1842,7 +1843,7 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 		xil_printf("CRC check on User key 1 is disabled\n\r");
 	}
 	else {
-		xil_printf("CRC check on User key 1 is disabled\n\r");
+		xil_printf("CRC check on User key 1 is enabled\n\r");
 	}
 	if (SecCtrlBits->UserKey1WrLk == TRUE) {
 		xil_printf("Programming User key 1 is disabled\n\r");
