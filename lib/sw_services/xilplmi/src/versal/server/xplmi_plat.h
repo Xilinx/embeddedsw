@@ -54,6 +54,7 @@
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  08/16/2024 Removed XPLMI_SSIT_COPYTOSSITBUF_FAILED,XPLMI_SSIT_COPYFROMSSITBUF_FAILED
 *                       error codes
+*       rj   09/10/2024 Added PMC GPIO interrupt macro
 *
 * </pre>
 *
@@ -196,6 +197,7 @@ extern "C" {
  */
 #define XPLMI_GICP3_SRC30	(30U) /**< SD_0 Interrupt */
 #define XPLMI_GICP3_SRC31	(31U) /**< SD_0 Interrupt */
+#define XPLMI_GICP3_SRC26	(26U) /**< PMC GPIO Interrupt */
 
 /*
  * PMC GICP4 interrupts
