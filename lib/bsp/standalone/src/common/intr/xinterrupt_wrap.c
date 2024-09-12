@@ -23,6 +23,8 @@
 * 9.0   adk  27/04/23 Use XScuGic_LookupConfigBaseAddr() API for xsct flow
 * 9.1   mus  16/04/24 Add support for software generated interrupts.
 * 9.2   ml   05/08/24 Add Support for connecting fast interrupt for intc.
+* 9.2   adk  11/09/24 Update XGetPriorityTriggerType() with IntrId to IntrNum
+* 		      transformation.
 * </pre>
 *
 ******************************************************************************/
@@ -370,7 +372,11 @@ void XGetPriorityTriggerType( u32 IntrId, u8 *Priority, u8 *Trigger,  UINTPTR In
 {
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
 #if defined (XPAR_SCUGIC)
-		XScuGic_GetPriorityTriggerType(&XScuGicInstance, IntrId, Priority, Trigger);
+		u16 IntrNum = XGet_IntrId(IntrId);
+		u16 Offset = XGet_IntrOffset(IntrId);
+
+		IntrNum += Offset;
+		XScuGic_GetPriorityTriggerType(&XScuGicInstance, IntrNum, Priority, Trigger);
 #endif
 	}
 }
