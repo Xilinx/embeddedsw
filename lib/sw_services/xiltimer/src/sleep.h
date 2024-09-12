@@ -1,7 +1,7 @@
 /******************************************************************************
 *
 * Copyright (C) 2021 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *
 ******************************************************************************/
@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 *  1.0  adk	 24/11/21 Initial release.
 *  1.2  adk	 22/12/22 Fixed doxygen style and indentation issues.
+*  2.1  adk      11/09/24 Added missing prototype for msleep() API.
 *
 * </pre>
 *
@@ -78,6 +79,7 @@ extern "C" {
  }  )
 
 void usleep(unsigned long useconds);
+void msleep(unsigned long mseconds);
 void sleep(unsigned int seconds);
 
 #ifdef __cplusplus
