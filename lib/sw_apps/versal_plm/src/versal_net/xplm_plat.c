@@ -283,7 +283,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function performs post update activites like restoring
+ * @brief	This function performs post update activities like restoring
  *		KEK Src, KAT Status, Clearing Aes Key, regenerating DevAk, etc.
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -291,7 +291,7 @@ END:
  *****************************************************************************/
 int XPlm_PostPlmUpdate(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
 	u32 PlmUpdateIpiMask = XPlmi_GetPlmUpdateIpiMask();
 	#ifndef PLM_SECURE_EXCLUDE

@@ -814,7 +814,7 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 		}
 	}
 	else if((StartAddr >= (u64)XPLMI_PMCRAM_BASEADDR) &&
-			(EndAddr <= (u64)(XPLMI_PMCRAM_BASEADDR + XPLMI_TOTAL_CHUNK_SIZE))){
+			(EndAddr <= (u64)(XPLMI_PMCRAM_BASEADDR + XPLMI_TOTAL_CHUNK_SIZE - 1U))){
 				/* PMC RAM is valid*/
 			Status = XST_SUCCESS;
 		}

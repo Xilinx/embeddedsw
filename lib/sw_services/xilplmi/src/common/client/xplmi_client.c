@@ -159,7 +159,7 @@ int XPlmi_TamperTrigger (XPlmi_ClientInstance *InstancePtr, u32 TamperResponse)
 	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
 	 * response.
 	 */
-	XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
 
 END:
 	return Status;
