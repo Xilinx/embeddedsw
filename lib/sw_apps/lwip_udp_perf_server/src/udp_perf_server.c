@@ -181,7 +181,7 @@ static void udp_recv_perf_traffic(void *arg, struct udp_pcb *tpcb,
 #else
 	recv_id = ntohl(*((int *)(p->payload)));
 #endif
-	if (first && (recv_id == 0)) {
+	if (first && (recv_id == 0 || recv_id == 1)) {
 		/* First packet should always start with recv id 0.
 		 * However, If Iperf client is running with parallel
 		 * thread, then this condition will also avoid

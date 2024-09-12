@@ -180,7 +180,7 @@ static void udp_recv_perf_traffic(int sock)
 		/* first, check if the datagram is received in order */
 		recv_id = ntohl(*((int *)recv_buf));
 
-		if (first && (recv_id == 0)) {
+		if (first && (recv_id == 0 || recv_id == 1)) {
 			/* First packet should always start with recv id 0.
 			 * However, If Iperf client is running with parallel
 			 * thread, then this condition will also avoid
