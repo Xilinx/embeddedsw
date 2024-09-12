@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,8 @@
 * 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototypes of XUartLite_SendByte,
 *                     XUartLite_RecvByte APIs.
+* 3.11  adk  12/09/24 Since PLM has custom implementation of outbyte() API
+*       	      don't pull it for PLM template app case.
 * </pre>
 *
 ******************************************************************************/
@@ -93,16 +95,16 @@ u8 XUartLite_RecvByte(UINTPTR BaseAddress)
 	return (u8)XUartLite_ReadReg(BaseAddress, XUL_RX_FIFO_OFFSET);
 }
 
-#ifdef SDT
-#ifdef XPAR_STDIN_IS_UARTLITE
+#if defined (SDT) && defined (XPAR_STDIN_IS_UARTLITE)
+#if !defined(VERSAL_PLM)
 void outbyte(char c) {
          XUartLite_SendByte(STDOUT_BASEADDRESS, c);
 }
+#endif
 
 char inbyte(void) {
          return XUartLite_RecvByte(STDIN_BASEADDRESS);
 }
-#endif
 #endif
 
 /** @} */
