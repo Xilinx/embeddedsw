@@ -441,7 +441,8 @@ static int XLoader_SetImageInfo(XPlmi_Cmd *Cmd)
  *****************************************************************************/
 static int XLoader_GetImageInfoList(XPlmi_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int TempStatus = XST_FAILURE;
 	u64 DestAddr;
 	u32 MaxSize;
 	u32 NumEntries = 0U;
@@ -455,12 +456,13 @@ static int XLoader_GetImageInfoList(XPlmi_Cmd *Cmd)
 			XLOADER_BUFFER_MAX_SIZE_MASK);
 
 	/** Verify the destination address range before writing */
-	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + (u64)MaxSize - 1U);
-	if (Status != XST_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, TempStatus, XPlmi_VerifyAddrRange,
+						   DestAddr, (DestAddr + (u64)MaxSize - 1U));
+
+	if (Status != XST_SUCCESS || TempStatus != XST_SUCCESS) {
 		Status = XLOADER_ERR_INVALID_DEST_IMGINFOTBL_ADDRESS;
 		goto END;
 	}
-
 	Status = XLoader_LoadImageInfoTbl(DestAddr, MaxSize, &NumEntries);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -490,7 +492,8 @@ END:
  *****************************************************************************/
 static int XLoader_LoadReadBackPdi(XPlmi_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int TempStatus = XST_FAILURE;
 	XPlmi_ReadBackProps ReadBack;
 	XPlmi_ReadBackProps DefaultReadBack = {
 		XPLMI_READBACK_DEF_DST_ADDR, 0U, 0U
@@ -504,8 +507,10 @@ static int XLoader_LoadReadBackPdi(XPlmi_Cmd *Cmd)
 	ReadBack.ProcessedLen = 0U;
 
 	/** Verify the destination address range before writing */
-	Status = XPlmi_VerifyAddrRange(ReadBack.DestAddr, ReadBack.DestAddr + (u64)ReadBack.MaxSize - 1U);
-	if (Status != XST_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, TempStatus,XPlmi_VerifyAddrRange,ReadBack.DestAddr,
+						   (ReadBack.DestAddr + (u64)ReadBack.MaxSize - 1U));
+
+	if (Status != XST_SUCCESS || TempStatus != XST_SUCCESS) {
 		Status = XLOADER_ERR_INVALID_READBACK_PDI_DEST_ADDR;
 		goto END;
 	}
@@ -1179,10 +1184,7 @@ static int XLoader_VerifyDataAuth(XPlmi_Cmd *Cmd)
 		Signature = (u8*)SecurePtr.AcPtr->ImgSignature;
 	}
 
-	Status = XLoader_DataAuth(&SecurePtr, Hash, Signature);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END,Status,XLoader_DataAuth, &SecurePtr, Hash, Signature);
 
 END:
 	return Status;

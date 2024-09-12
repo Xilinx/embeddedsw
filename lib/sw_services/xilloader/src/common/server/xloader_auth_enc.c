@@ -1110,9 +1110,10 @@ static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash)
 	volatile int HashStatus = XST_FAILURE;
 	volatile int HashStatusTmp = XST_FAILURE;
 
-	HashStatus = Xil_SMemCmp_CT(PpkHash, XLOADER_EFUSE_PPK_HASH_LEN, (void *)EfusePpkOffset,
-								XLOADER_EFUSE_PPK_HASH_LEN, XLOADER_EFUSE_PPK_HASH_LEN);
-	HashStatusTmp = HashStatus;
+	XSECURE_TEMPORAL_IMPL(HashStatus,HashStatusTmp,Xil_SMemCmp_CT,PpkHash,
+						  XLOADER_EFUSE_PPK_HASH_LEN, (void *)EfusePpkOffset,
+						  XLOADER_EFUSE_PPK_HASH_LEN, XLOADER_EFUSE_PPK_HASH_LEN);
+
 	if ((HashStatus != XST_SUCCESS) || (HashStatusTmp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "Error: PPK Hash comparison failed\r\n");
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_COMPARE_FAIL, 0x0);
@@ -2501,11 +2502,13 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief       This function performs KAT test on AES crypto Engine
+* @brief    This function performs KAT test on AES crypto Engine
 *
-* @param       SecurePtr       Pointer to the XLoader_SecureParams instance.
+* @param    SecurePtr Pointer to the XLoader_SecureParams instance.
 *
-* @return      XST_SUCCESS on success and error code on failure
+* @return
+*           - XST_SUCCESS on success
+*           - error code on failure
 *
 ******************************************************************************/
 static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
@@ -3501,7 +3504,9 @@ END:
 * @param    Var - Value of secure state stored in variable
 * @param    ExpectedValue - Expected value of secure state
 *
-* @return   XST_SUCCESS on success and error code on failure
+* @return
+*           - XST_SUCCESS on success
+*           - error code on failure
 *
 ******************************************************************************/
 int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)
@@ -3649,11 +3654,13 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This function runs SHA3 KAT
+* @brief    This function runs SHA3 KAT
 *
-* @param	SecurePtr is pointer to the XLoader_SecureParams instance
+* @param    SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+*           - XST_SUCCESS on success
+*           - error code on failure
 *
 ******************************************************************************/
 static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
@@ -3699,11 +3706,10 @@ END:
 * @param	InData - Input Data
 * @param	DataSize - Input Data Size
 * @param	Hash - Pointer the tha u8 array
-* @param	Mode - SHA mode to be used refer XSecure_ShaMode
 *
 * @return
-*		XST_FAILURE - In case of failure
 *		XST_SUCCESS - In case of success
+*		XST_FAILURE - In case of failure
 *
 *******************************************************************************/
 static int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash)
@@ -3734,18 +3740,19 @@ END:
 /**
 * @brief	This function performs PPK and SPK authentication
 *
-* @param	SecurePtr 	Pointer to the XLoader_SecureParams
+* @param	SecurePtr       Pointer to the XLoader_SecureParams
+* @param	HBSignParams    Pointer to the XLoader_HBSignParams
 *
 * @return
-*		XST_FAILURE - In case of failure
 * 		XST_SUCCESS - In case of success
+*		ErrorCode on failure.
 *******************************************************************************/
 static int XLoader_AutheticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBSignParams *HBSignParams)
 {
 	volatile int Status = XST_FAILURE;
 	u8 SpkHash[XLOADER_SHA3_LEN];
-	volatile u8 IsEfuseAuth = (u8)TRUE;
-	volatile u8 IsEfuseAuthTmp = (u8)TRUE;
+	volatile u32 IsEfuseAuth = (u32)TRUE;
+	volatile u32 IsEfuseAuthTmp = (u32)TRUE;
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 ReadAuthReg = 0x0U;
@@ -3818,13 +3825,13 @@ static int XLoader_AutheticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBSi
 			(u8 *)&SecurePtr->AcPtr->Ppk,
 			HBSignParams->ActualPpkSize,
 			(u8 *)&SpkHash);
-	}
-	else {
-                /* Not supported */
-                XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
-                Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
-                goto END;
         }
+	else {
+		/* Not supported */
+		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+		goto END;
+	}
 
 	/* Check for SPK ID revocation */
 	if ((IsEfuseAuth == (u8)TRUE) || (IsEfuseAuthTmp == (u8)TRUE)) {
@@ -3909,8 +3916,8 @@ END:
  *				address.
  *
  * @return
- * 		XST_SUCCESS on success.
- * 		Errorcode in case failure.
+ *          - XST_SUCCESS on success.
+ *          - Errorcode on failure.
  *
  ******************************************************************************/
 static int XLoader_AuthHashBlockNDecHdrs(XLoader_SecureParams *SecurePtr,
@@ -4088,11 +4095,11 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 			(u8 *)&HashBlockHash);
 	}
 	else {
-                /** Not supported */
-                XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
-                Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
-                goto END;
-        }
+		/** Not supported */
+        XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
+        Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+        goto END;
+    }
 
 	XPlmi_Printf(DEBUG_INFO, "HashBlock Authentication is successful\n\r");
 
@@ -4113,7 +4120,7 @@ END:
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 * @param	SignBuff is pointer to the signature buffer
 * @param	SignatureLen is length of the signature
-* @param	Key is pointer to the LMS public key to be used
+* @param	KeyAddr is pointer to the LMS public key to be used
 * @param	KeyLen is length of the public key to be used
 * @param	Hash is pointer to the expected hash
 *
@@ -4196,31 +4203,31 @@ END:
 * @brief        This function increments the IV with given value.
 *
 * @param        Iv - Pointer to an array of 12 bytes which holds IV to be
-*                       increment.
+*                       incremented.
 * @param        IncrValue - Value with which IV needs to be incremented.
 *
 *******************************************************************************/
 static void XLoader_IvIncrement(u8 *Iv, u8 IncrValue)
 {
-        u8 *IvPtr = Iv;
-        u32 Carry = IncrValue;
-        u32 Result;
-        int Index;
+    u8 *IvPtr = Iv;
+    u32 Carry = IncrValue;
+    u32 Result;
+    int Index;
 
-        /*
-         * IV increment is done as below
-         * Repeat I = 0 to 11 OR till Carry becomes zero
-         * Get (Iv[I], carry) by performing Iv[I] + carry
-         */
-        for (Index = XLOADER_SECURE_IV_LEN_IN_BYTES - 1; Index >= 0; Index--) {
-                Result = *(IvPtr + Index) + Carry;
-                *(IvPtr + Index) = (u8)(Result & XLOADER_BYTE_MASK);
-                Carry = Result >> XLOADER_BYTE_SHIFT;
-                /* If carry is non zero continue else break */
-                if (Carry == 0x0U) {
-                        break;
-                }
-        }
+    /*
+    * IV increment is done as below
+    * Repeat I = 0 to 11 OR till Carry becomes zero
+    * Get (Iv[I], carry) by performing Iv[I] + carry
+    */
+    for (Index = XLOADER_SECURE_IV_LEN_IN_BYTES - 1; Index >= 0; Index--) {
+        Result = *(IvPtr + Index) + Carry;
+        *(IvPtr + Index) = (u8)(Result & XLOADER_BYTE_MASK);
+        Carry = Result >> XLOADER_BYTE_SHIFT;
+        /* If carry is non zero continue else break */
+       if (Carry == 0x0U) {
+           break;
+       }
+    }
 }
 
 /*****************************************************************************/
@@ -4578,7 +4585,9 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+*           - XST_SUCCESS on success.
+*           - ErrorCode on failure.
 *
 ******************************************************************************/
 static int XLoader_Shake256Kat(XLoader_SecureParams *SecurePtr)
@@ -4637,7 +4646,9 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+*           - XST_SUCCESS on success.
+*           - ErrorCode on failure.
 *
 ******************************************************************************/
 static int XLoader_Sha2256Kat(XLoader_SecureParams *SecurePtr)
@@ -4696,10 +4707,13 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+*           - XST_SUCCESS on success
+*           - error code on failure
 *
 ******************************************************************************/
-static int XLoader_HssSha256Kat(XLoader_SecureParams *SecurePtr) {
+static int XLoader_HssSha256Kat(XLoader_SecureParams *SecurePtr)
+{
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
@@ -4754,7 +4768,9 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+*           - XST_SUCCESS on success
+*           - error code on failure
 *
 ******************************************************************************/
 static int XLoader_HssShake256Kat(XLoader_SecureParams *SecurePtr) {
@@ -4812,7 +4828,9 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+*           - XST_SUCCESS on success
+*           - error code on failure
 *
 ******************************************************************************/
 static int XLoader_LmsSha2256Kat(XLoader_SecureParams *SecurePtr) {
@@ -4870,7 +4888,9 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+*           - XST_SUCCESS on success
+*           - error code on failure
 *
 ******************************************************************************/
 static int XLoader_LmsShake256Kat(XLoader_SecureParams *SecurePtr) {
@@ -4928,7 +4948,9 @@ END:
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 * @param	AuthType is public algorithm type
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+*           - XST_SUCCESS on success
+*           - error code on failure
 *
 ******************************************************************************/
 static int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType)
@@ -5097,9 +5119,9 @@ END:
 *               and compares the claculated hash with hash which is present in
 *               IHT Optional data for the respective partitions.
 *
-* @param	PdiPtr is pointer to the xilpdi instance
-* @param        HashPtr is pointer to Hash array
-* @param        PrtnHashIndex is index of partition hash in IHT optional data
+* @param    PdiPtr is pointer to the xilpdi instance
+* @param    HashPtr is pointer to Hash array
+* @param    PrtnHashIndex is index of partition hash in IHT optional data
 *
 * @return	XST_SUCCESS on success
 *               error code on failure
@@ -5251,6 +5273,7 @@ static int XLoader_AuthHdrs(const XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XilPdi_VerifyImgHdrs(MetaHdr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO, "Checksum validation of image headers "
@@ -5573,14 +5596,14 @@ int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
 			XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT);
-		if (Status != XST_SUCCESS && SecurePtr->NoLoad != XLOADER_NOLOAD_VAL) {
+		if ((Status != XST_SUCCESS) && (SecurePtr->NoLoad != XLOADER_NOLOAD_VAL)) {
 			if (ReadAuthReg != SecureStateAHWRoT) {
 				Status = XLoader_UpdateMinorErr(
 					XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0);
 			}
 			goto END;
 		}
-		else if (Status != XST_SUCCESS && SecurePtr->NoLoad == XLOADER_NOLOAD_VAL) {
+		else if ((Status != XST_SUCCESS) && (SecurePtr->NoLoad == XLOADER_NOLOAD_VAL)) {
 			Status = XST_SUCCESS;
 		}
 		else {
