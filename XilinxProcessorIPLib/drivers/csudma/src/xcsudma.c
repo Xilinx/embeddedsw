@@ -913,7 +913,7 @@ void XCsuDma_GetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 
 }
 
-#ifdef VERSAL_NET
+#if ! defined(versal) || ! defined(__microblaze__) || ! defined(PLATFORM_ZYNQMP)
 /*****************************************************************************/
 /**
 *

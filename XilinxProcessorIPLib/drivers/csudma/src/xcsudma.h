@@ -385,7 +385,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 					u64 Addr, u32 Size, u8 EnDataLast);
 void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 			   u32 AddrLow, u32 AddrHigh, u32 Size, u8 EnDataLast);
-#ifdef VERSAL_NET
+#if ! defined(versal) || ! defined(__microblaze__) || ! defined(PLATFORM_ZYNQMP)
 void XCsuDma_ByteAlignedTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 					u64 Addr, u32 Size, u8 EnDataLast);
 #endif
