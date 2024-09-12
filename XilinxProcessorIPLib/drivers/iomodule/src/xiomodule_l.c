@@ -35,6 +35,8 @@
 * 2.15  ml   02/27/23  update functions return type to fix misra-c violation.
 * 2.17  adk  10/09/24  Add support for stdin/sdtout configuration in
 * 		       system device-tree flow.
+*       adk  12/09/24  Since PLM has custom implementation of outbyte() API
+*       	       don't pull it for PLM template app case.
 * </pre>
 *
 ******************************************************************************/
@@ -371,15 +373,15 @@ u8 XIOModule_RecvByte(UINTPTR BaseAddress)
 	return (u8)XIomodule_In32(BaseAddress + XUL_RX_OFFSET);
 }
 
-#ifdef SDT
-#ifdef XPAR_STDIN_IS_IOMODULE
+#if defined (SDT) && defined (XPAR_STDIN_IS_IOMODULE)
+#if !defined(VERSAL_PLM)
 void outbyte(char c) {
          XIOModule_SendByte(STDOUT_BASEADDRESS, c);
 }
+#endif
 
 char inbyte(void) {
          return XIOModule_RecvByte(STDIN_BASEADDRESS);
 }
-#endif
 #endif
 /** @} */
