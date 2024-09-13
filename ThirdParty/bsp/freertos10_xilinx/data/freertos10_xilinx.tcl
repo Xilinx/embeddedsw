@@ -1450,7 +1450,8 @@ proc generate {os_handle} {
 	## Add constants specific to the microblaze
 	############################################################################
 	if { $proctype == "microblaze" } {
-		# Interrupt controller setting assumes only one is in use.
+		set intc_baseaddress [common::get_property CONFIG.C_BASEADDR [lindex [hsi::get_cells -hier -filter {IP_NAME==axi_intc}] 0]]
+		puts $config_file "#define configINTERRUPT_CONTROLLER_BASE_ADDRESS ($intc_baseaddress)"
 		puts $config_file "#define configINTERRUPT_CONTROLLER_TO_USE XPAR_INTC_SINGLE_DEVICE_ID"
 		puts $config_file "#define configINSTALL_EXCEPTION_HANDLERS 1"
 
