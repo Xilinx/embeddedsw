@@ -22,6 +22,7 @@
  *                     XAsufw_RCMW() function.
  *  	 ss   07/11/24 Added XAsufw_ChangeEndiannessAndCpy function.
  *       ss   08/20/24 Updated description for XAsufw_ChangeEndianness() function.
+ *       am   09/13/24 Fixed pointer conversion error for cpp compiler.
  *
  * </pre>
  *
@@ -144,10 +145,10 @@ s32 XAsufw_ChangeEndiannessAndCpy(void *Dest, const u32 DestSize, const void *Sr
 {
 	s32 Status = XASUFW_FAILURE;
 	volatile u32 Index;
-	const u8 *Src8 = (const u8 *) Src;
-	const u8 *Dst8 = (u8 *) Dest;
-	u8 *DestTemp = Dest;
-	const u8 *SrcTemp = Src;
+	const u8 *Src8 = (const u8 *)Src;
+	const u8 *Dst8 = (const u8 *)Dest;
+	u8 *DestTemp = (u8 *)Dest;
+	const u8 *SrcTemp = (const u8 *)Src;
 
 	if ((Dest == NULL) || (Src == NULL)) {
 		Status =  XASUFW_INVALID_PARAM;
