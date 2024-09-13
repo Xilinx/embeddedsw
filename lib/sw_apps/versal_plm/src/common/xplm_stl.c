@@ -23,6 +23,8 @@
 *       bsv  08/13/2021 Removed unwanted goto statements
 * 1.03  rama 01/18/2022 Included xplmi_status.h to fix compilation failure
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
+* 1.12 	svnr 09/05/2024 Save plm default exception handler in XStl_Init
+* 						and restore after noc ecc error injection
 *
 * </pre>
 *
@@ -40,7 +42,7 @@
 #include "xplm_stl.h"
 #include "xplm_pm.h"
 #include "xplmi_status.h"
-
+#include "xplm_proc.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -95,7 +97,7 @@ int XPlm_StlInit(void)
 {
 	int Status = XST_FAILURE;
 
-	Status = XStl_Init(XPlm_ChangeStlPeriodicity);
+	Status = XStl_Init(XPlm_ChangeStlPeriodicity, XPlm_ExceptionHandler);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_STL_MOD, Status);
 	}
