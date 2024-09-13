@@ -75,6 +75,10 @@ proc generate {libhandle} {
 			regsub -- {-DUNDEFINE_FILE_OPS} $extra_flags {} extra_flags
 		}
 	}
+
+	common::set_property -name VALUE -value "$extra_flags " -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
+	puts "updated extra flags=${extra_flags}"
+
 	# Generate cmake toolchain file
 	set toolchain_cmake "toolchain"
 	set fd [open "src/open-amp/cmake/platforms/${toolchain_cmake}.cmake" w]
@@ -87,7 +91,6 @@ proc generate {libhandle} {
 	puts $fd "set (CMAKE_C_FLAGS \"${c_flags} ${extra_flags_oamp}\" CACHE STRING \"\")"
 	if { [string match "freertos*" "${os}"] > 0 } {
 		puts $fd "set (CMAKE_SYSTEM_NAME \"FreeRTOS\" CACHE STRING \"\")"
-		set extra_flags "$extra_flags -DUSE_FREERTOS"
 	} else {
 		puts $fd "set (CMAKE_SYSTEM_NAME \"Generic\" CACHE STRING \"\")"
 	}
@@ -99,9 +102,6 @@ proc generate {libhandle} {
 	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY NEVER CACHE STRING \"\")"
 	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER CACHE STRING \"\")"
 	close $fd
-
-	common::set_property -name VALUE -value "$extra_flags " -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
-	puts "updated extra flags=${extra_flags}"
 
 	set os_platform_type "$::tcl_platform(platform)"
 	if { [string match -nocase "windows*" "${os_platform_type}"] == 0 } {

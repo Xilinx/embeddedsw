@@ -33,10 +33,6 @@
 #define _rproc_wait() __asm volatile("wfi")
 #endif /* !RPMSG_NO_IPI */
 
-#ifdef USE_FREERTOS
-extern TaskHandle_t rpmsg_task;
-#endif /* USE_FREERTOS */
-
 /* Polling information used by remoteproc operations.
  */
 static metal_phys_addr_t poll_phys_addr = POLL_BASE_ADDR;
@@ -260,11 +256,7 @@ int platform_poll_for_rpc(void *arg)
 				return ret;
 			break;
 		}
-#ifdef USE_FREERTOS
-		vTaskSuspend(rpmsg_task);
-#else
 		_rproc_wait();
-#endif /* USE_FREERTOS */
 		metal_irq_restore_enable(flags);
 #endif /* RPMSG_NO_IPI */
 	}
