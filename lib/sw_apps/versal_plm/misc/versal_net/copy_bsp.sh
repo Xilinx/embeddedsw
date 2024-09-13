@@ -187,6 +187,7 @@ cp $WORKING_DIR/xsysmonpsv_supplylist.h $BSP_DIR/libsrc/sysmonpsv/src/
 cp $STANDALONE_DIR/common/*.h  $BSP_DIR/include/
 cp $STANDALONE_DIR/common/clocking/*.h  $BSP_DIR/include/
 cp $STANDALONE_DIR/microblaze/*.h  $BSP_DIR/include/
+cp $WORKING_DIR/microblaze_exceptions_g.h $BSP_DIR/libsrc/standalone/src/
 
 # no inbyte and outbyte present in standalone
 cp $WORKING_DIR/inbyte.c $WORKING_DIR/outbyte.c  $BSP_DIR/libsrc/standalone/src/
