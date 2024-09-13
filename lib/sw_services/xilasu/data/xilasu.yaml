@@ -16,3 +16,5 @@ examples:
   xasu_aes_example.c: []
   xasu_ecc_example.c: []
   xasu_rsa_example.c: []
+  xasu_sha2_example.c: []
+  xasu_sha3_example.c: []
