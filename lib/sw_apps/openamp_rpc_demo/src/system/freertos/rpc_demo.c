@@ -36,7 +36,7 @@
 #define LPRINTF(format, ...) xil_printf(format, ##__VA_ARGS__)
 #define LPERROR(format, ...) LPRINTF("ERROR: " format, ##__VA_ARGS__)
 
-TaskHandle_t rpmsg_task;
+static TaskHandle_t comm_task;
 
 static void rpmsg_rpc_shutdown(struct rpmsg_rpc_data *rpc)
 {
@@ -218,7 +218,7 @@ int main(void)
 
 	/* Create the tasks */
 	stat = xTaskCreate(processing, ( const char * ) "HW2",
-				1024, NULL, 2, &rpmsg_task);
+				1024, NULL, 2, &comm_task);
 	if (stat != pdPASS) {
 		LPERROR("cannot create task\r\n");
 	} else {

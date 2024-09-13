@@ -70,7 +70,7 @@ original name of "rpmsg-openamp-demo-channel".
 
 static struct rpmsg_endpoint lept[ECHO_NUM_EPTS];
 static int shutdown_req = 0;
-TaskHandle_t rpmsg_task;
+static TaskHandle_t comm_task;
 
 /*-----------------------------------------------------------------------------*
  *  RPMSG endpoint callbacks
@@ -92,8 +92,6 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 	if (rpmsg_send(ept, data, len) < 0) {
 		ML_ERR("rpmsg_send failed\r\n");
 	}
-
-	vTaskSuspend(rpmsg_task);
 	return RPMSG_SUCCESS;
 }
 
@@ -218,7 +216,7 @@ int main(int ac, char **av)
 
 	/* Create the tasks */
 	stat = xTaskCreate(processing, ( const char * ) "HW2",
-				1024, NULL, 2, &rpmsg_task);
+				1024, NULL, 2, &comm_task);
 	if (stat != pdPASS) {
 		LPERROR("cannot create task\r\n");
 	} else {
