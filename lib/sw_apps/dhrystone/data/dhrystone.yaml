@@ -15,6 +15,9 @@ description: Dhrystone synthetic benchmark program for baremetal environment.
 depends_libs:
     xiltimer: {}
 
+depends:
+    tmrctr: [reg]
+
 supported_processors:
   - microblaze
   - microblaze_riscv
