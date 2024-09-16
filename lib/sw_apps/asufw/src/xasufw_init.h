@@ -45,6 +45,11 @@ typedef struct {
 } XAsufw_PerfTime;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#ifndef SDT
+#define XASUFW_IOMODULE_DEVICE_ID    XPAR_IOMODULE_0_DEVICE_ID
+#else
+#define XASUFW_IOMODULE_DEVICE_ID    XPAR_XIOMODULE_0_BASEADDR
+#endif
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_StartTimer(void);

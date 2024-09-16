@@ -68,7 +68,6 @@ s32 XSha_CfgInitialize(XSha *InstancePtr);
 s32 XSha_Start(XSha *InstancePtr, u32 ShaMode);
 s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 Data, u32 Size, u32 EndLast);
 s32 XSha_Finish(XSha *InstancePtr, u64 HashAddr, u32 HashBufSize, u8 IsLastOutput);
-void XSha_SetReset(XSha *InstancePtr);
 
 /************************************ Variable Definitions ***************************************/
 

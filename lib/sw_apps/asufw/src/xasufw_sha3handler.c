@@ -161,8 +161,7 @@ s32 XAsufw_Sha3Operation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 END:
 	if (Status != XASUFW_SUCCESS) {
-		/* Set SHA2/3 under reset */
-		XSha_SetReset(XAsufw_Sha3);
+		/* Release resources */
 		if (XAsufw_ReleaseResource(XASUFW_SHA3, QueueId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}

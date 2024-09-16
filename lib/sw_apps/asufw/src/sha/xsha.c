@@ -75,7 +75,6 @@ struct _XSha {
 static XSha_Config *XSha_LookupConfig(u16 DeviceId);
 static s32 XSha_CfgInstance(XSha *InstancePtr, u32 ShaMode);
 static inline s32 XSha_WaitForDone(XSha *InstancePtr);
-static inline void XSha_ReleaseReset(u32 Address);
 
 /************************************ Variable Definitions ***************************************/
 /*
@@ -242,7 +241,7 @@ s32 XSha_Start(XSha *InstancePtr, u32 ShaMode)
 	InstancePtr->ShaLen = 0;
 
 	/* Release Reset SHA2/3 engine */
-	XSha_ReleaseReset(InstancePtr->BaseAddress + XASU_SHA_RESET_OFFSET);
+	XAsufw_CryptoCoreReleaseReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
 
 	/* Select SHA Mode based on SHA type */
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_SHA_MODE_OFFSET, InstancePtr->ShaMode);
@@ -254,13 +253,12 @@ s32 XSha_Start(XSha *InstancePtr, u32 ShaMode)
 	/* Start SHA Engine. */
 	XAsufw_WriteReg(InstancePtr->BaseAddress, XASU_SHA_START_MASK);
 	InstancePtr->ShaState = XSHA_STARTED;
-
 	Status = XASUFW_SUCCESS;
 
 END:
 	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
 		/* Set SHA2/3 under reset on failure condition */
-		XSha_SetReset(InstancePtr);
+		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
 	}
 
 	return Status;
@@ -334,7 +332,7 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 Data, u32 Size, u32 E
 END:
 	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
 		/* Set SHA2/3 under reset on failure condition */
-		XSha_SetReset(InstancePtr);
+		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
 	}
 
 	return Status;
@@ -415,7 +413,7 @@ END:
 					XASU_SHA_NEXT_XOF_ENABLE_MASK);
 		} else {
 			/* Set SHA2/3 under reset */
-			XSha_SetReset(InstancePtr);
+			XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
 		}
 	}
 
@@ -504,31 +502,5 @@ static s32 XSha_CfgInstance(XSha *InstancePtr, u32 ShaMode)
 
 END:
 	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief   This function takes the hardware core out of reset.
- *
- * @param   Address		Register address of SHA core reset register.
- *
- *************************************************************************************************/
-static inline void XSha_ReleaseReset(u32 Address)
-{
-	XAsufw_WriteReg(Address, XASU_SHA_RESET_ASSERT_MASK);
-	XAsufw_WriteReg(Address, XASU_SHA_RESET_DEASSERT_MASK);
-}
-
-/*************************************************************************************************/
-/**
- * @brief   This function places the SHA hardware core into reset state.
- *
- * @param   InstancePtr		Pointer to the SHA instance.
- *
- *************************************************************************************************/
-void XSha_SetReset(XSha *InstancePtr)
-{
-	InstancePtr->ShaState = XSHA_INITALIZED;
-	XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_SHA_RESET_OFFSET, XASU_SHA_RESET_ASSERT_MASK);
 }
 /** @} */

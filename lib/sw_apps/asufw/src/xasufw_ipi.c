@@ -62,7 +62,7 @@ s32 XAsufw_IpiInit(void)
 	XIpiPsu_Config *IpiCfgPtr;
 
 	/* Load Config for ASU IPI */
-	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_BASEADDR);
+	IpiCfgPtr = XIpiPsu_LookupConfig(XASUFW_IPI_DEVICE_ID);
 	if (IpiCfgPtr == NULL) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_LOOKUP_CONFIG_FAILED, Status);
 		XFIH_GOTO(END);
