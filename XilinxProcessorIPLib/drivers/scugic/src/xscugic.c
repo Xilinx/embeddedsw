@@ -174,6 +174,8 @@
 * 5.2   ml   09/07/23 Compared with zero to fix MISRA-C_RULE_14.4 violation.
 * 5.2   ml   09/07/23 Added comments to fix HIS COMF violations.
 * 5.2   ml   09/07/23 Include xplatform_info.h  for all processors.
+* 5.4   mus  09/12/24 Updated XScuGic_Stop to disable the interrupts mapped to
+*                     current CPU. It fixes CR#1207524.
 * </pre>
 *
 ******************************************************************************/
@@ -1362,13 +1364,25 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 	LocalCpuID = CpuId;
 #endif /*#if defined (VERSAL_NET)*/
 
-	/*
-	 * Check if the interrupt are targeted to current cpu only or not.
-	 * Also remove current cpu from interrupt target register for all
-	 * interrupts.
-	 */
 	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
 	     Int_Id++) {
+
+       /*
+        * In case of GICv3 there are 2 interrupt modes,
+        * - 1 of N SPI interrupt selection: In this mode, GIC controller
+        *   sends interrupt to any available core, specific core can be
+        *   made available by using GICR_CTRL register in redistributor.
+        * - Interrupt routed to fixed affinity specified in GICD_IROUTER:
+        *   In this mode, interrupts are routed to specific core as specified
+        *   in GICD_IROUTER.
+        * We are not enabling 1 of N SPI interrupt selection in driver, interrupts
+        * are always routed to fixed affinity. That means interrupts are being
+        * routed only to one core. Also, GICv3 integrated in ARMR52 does not support
+        * 1 of N SPI interrupt selection mode.
+        * By default interrupts are routed to affinity 0 (core 0).
+        * There is no as such way to un-map interrupt, either interrupt mapped
+        * to current core needs to be disabled or re-map to another core.
+        */
 
 		Target_Cpu = XScuGic_DistReadReg(InstancePtr,
 						 XSCUGIC_IROUTER_OFFSET_CALC(Int_Id));
@@ -1378,13 +1392,16 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 			 * GIC distributor can not be disabled.
 			 */
 			DistDisable = 0;
+		} else {
+			/*
+			 * GICv3 does not have way to unmap specific interrupt, it has to be
+			 * disabled or re-map to other core. Disabling interrupts maaped to
+			 * current core is safe rather than re-mapping to other core.
+			 */
+			 XScuGic_DistWriteReg(InstancePtr,XSCUGIC_DISABLE_OFFSET +
+                         (((Int_Id) / 32U) * 4U), ((u32)0x00000001U << ((Int_Id) % 32U)));
+
 		}
-
-		/* Remove current CPU from interrupt target register */
-		Target_Cpu &= (~LocalCpuID);
-		XScuGic_DistWriteReg(InstancePtr,
-				     XSCUGIC_IROUTER_OFFSET_CALC(Int_Id), Target_Cpu);
-
 	}
 
 #else
@@ -1421,6 +1438,7 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 	 * and then disable distributor.
 	 */
 	if (DistDisable == (u32)1) {
+	 #if ! defined (GICv3)
 		for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
 		     Int_Id = Int_Id + 32U) {
 			/*
@@ -1431,6 +1449,7 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 							     Int_Id),
 					     0xFFFFFFFFU);
 		}
+	#endif
 		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, 0U);
 	}
 	/*
