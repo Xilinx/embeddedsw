@@ -58,6 +58,11 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#ifndef SDT
+#define XASUFW_IPI_DEVICE_ID    XPAR_XIPIPSU_0_DEVICE_ID
+#else
+#define XASUFW_IPI_DEVICE_ID    XPAR_XIPIPSU_0_BASEADDR
+#endif
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_IpiInit(void);

@@ -99,7 +99,7 @@ static void XAsufw_ExceptionEnable(void)
 	/* Register the IO module interrupt handler with the exception table */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 				     (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
-				     (void *) XPAR_XIOMODULE_0_BASEADDR);
+				     (void *) XASUFW_IOMODULE_DEVICE_ID);
 
 	/* Enable processor interrupts and exceptions */
 	Xil_ExceptionEnable();
@@ -119,8 +119,8 @@ static void XAsufw_ExceptionHandler(void *Data)
 {
 	/* Print processor registers when any exception occurs */
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Received Exception \n\r");
-	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "CSR(mstatus): 0x%x, CSR(mcause): 0x%x\r\n", csrr(mstatus),
-		      csrr(mcause));
+	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "CSR(mstatus): 0x%x, CSR(mcause): 0x%x, "
+			"CSR(mtval): 0x%x\r\n", csrr(mstatus), csrr(mcause), csrr(mtval));
 
 	/**
 	 * TODO: Need to add an illegal instruction trap here so that its respective handler will be
@@ -198,7 +198,7 @@ s32 XAsufw_StartTimer(void)
 	 * Initialize the IO Module so that it's ready to use, specify the device ID that is generated
 	 * in xparameters.h
 	 */
-	Status = XIOModule_Initialize(&IOModule, XPAR_XIOMODULE_0_BASEADDR);
+	Status = XIOModule_Initialize(&IOModule, XASUFW_IOMODULE_DEVICE_ID);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IOMODULE_INIT_FAILED, Status);
 		XFIH_GOTO(END);
