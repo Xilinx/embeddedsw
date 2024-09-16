@@ -97,6 +97,10 @@
 * 5.2   mus  07/19/23 Updated XScuGic_DeviceInterruptHandler to support SDT
 *                     flow.
 * 5.2   ml   09/07/23 Added comments to fix HIS COMF violations.
+* 5.4   mus  09/13/24 Updated XScuGic_InterruptUnmapFromCpuByDistAddr,
+*                     XScuGic_UnmapAllInterruptsFromCpuByDistAddr, and
+*                     XScuGic_DisableIntr APIs to skip un-mapping of interrupts
+*                     in case of GICv3.
 * </pre>
 *
 ******************************************************************************/
@@ -819,36 +823,28 @@ void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 		u8 Cpu_Id, u32 Int_Id)
 {
+/*
+ * For GICv3 1 of N SPI interrupt selection mode is not supported in
+ * driver. Specific interrupt can be routed to only specific core.
+ * Affinity of targeted core is programmed in GICD_IROUTER register.
+ * GICD_IROUTER does not have any provision to un-map interrupt for
+ * core, if we change affinity value, interrupt would be attached
+ * to other core. Hence, skipping unmapping of interrupt here to
+ * avoid un-intentional re-mapping of interrupt to other core.
+ */
+
+#if defined (GICv3)
+	(void)DistBaseAddress;
+	(void)Cpu_Id;
+	(void)Int_Id;
+#else
 	u32 RegValue;
-#if !defined (GICv3)
 	u32 Offset;
 	u32 Cpu_CoreId;
-#endif
 	/* Validate the input arguments */
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 
 	if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
-#if defined (GICv3)
-		u32 Temp;
-		Temp = Int_Id;
-
-		RegValue = XScuGic_ReadReg(DistBaseAddress,
-					   XSCUGIC_IROUTER_OFFSET_CALC(Temp));
-#if defined (VERSAL_NET)
-#if defined (ARMR52)
-		Temp = (Cpu_Id & XSCUGIC_COREID_MASK);
-#else
-		Temp = ((Cpu_Id & XSCUGIC_CLUSTERID_MASK) >> XSCUGIC_CLUSTERID_SHIFT);
-		Temp = (Temp << XSCUGIC_IROUTER_AFFINITY2_SHIFT);
-		Temp |= ((Cpu_Id & XSCUGIC_COREID_MASK) << XSCUGIC_IROUTER_AFFINITY1_SHIFT);
-#endif
-		RegValue &= ~Temp;
-#else
-		RegValue &= ~(Cpu_Id);
-#endif
-		XScuGic_WriteReg(DistBaseAddress, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
-				 RegValue);
-#else
 		/*
 		 * Call spinlock to protect multiple applications running at separate
 		 * CPUs to write to the same register. This macro also ensures that
@@ -872,8 +868,8 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 		 * is given only if spinlock mechanism is enabled by the user.
 		 */
 		XIL_SPINUNLOCK();
-#endif
 	}
+#endif
 }
 
 /****************************************************************************/
@@ -891,6 +887,19 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 		u8 Cpu_Id)
 {
+/*
+ * For GICv3 1 of N SPI interrupt selection mode is not supported in
+ * driver. Specific interrupt can be routed to only specific core.
+ * Affinity of targeted core is programmed in GICD_IROUTER register.
+ * GICD_IROUTER does not have any provision to un-map interrupt for
+ * core, if we change affinity value, interrupt would be attached
+ * to other core. Hence, skipping unmapping of interrupt here to
+ * avoid un-intentional re-mapping of interrupt to other core.
+ */
+#if defined (GICv3)
+	(void)DistBaseAddress;
+	(void)Cpu_Id;
+#else
 	u32 Int_Id;
 	u32 Target_Cpu;
 	u32 LocalCpuID = ((u32)1U << Cpu_Id);
@@ -923,6 +932,7 @@ void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 	 * is given only if spinlock mechanism is enabled by the user.
 	 */
 	XIL_SPINUNLOCK();
+#endif
 }
 
 /*****************************************************************************/
@@ -1028,16 +1038,19 @@ void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
 		return;
 	}
 #endif
-#if defined (VERSAL_NET)
-#if defined (ARMR52)
-	Cpu_Id = XGetCoreId();
-#else
-	Cpu_Id = XGetCoreId();
-	Cpu_Id |= (XGetClusterId() << XSCUGIC_CLUSTERID_SHIFT);
-#endif
-#endif
 
+/*
+ * For GICv3 1 of N SPI interrupt selection mode is not supported in
+ * driver. Specific interrupt can be routed to only specific core.
+ * Affinity of targeted core is programmed in GICD_IROUTER register.
+ * GICD_IROUTER does not have any provision to un-map interrupt for
+ * core, if we change affinity value, interrupt would be attached
+ * to other core. Hence, skipping unmapping of interrupt here to
+ * avoid un-intentional re-mapping of interrupt to other core.
+ */
+#if ! defined (GICv3)
 	XScuGic_InterruptUnmapFromCpuByDistAddr(DistBaseAddress, Cpu_Id, Int_Id);
+#endif
 	/*
 	 * Call spinlock to protect multiple applications running at separate
 	 * CPUs to write to the same register. This macro also ensures that

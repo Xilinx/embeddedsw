@@ -176,6 +176,10 @@
 * 5.2   ml   09/07/23 Include xplatform_info.h  for all processors.
 * 5.4   mus  09/12/24 Updated XScuGic_Stop to disable the interrupts mapped to
 *                     current CPU. It fixes CR#1207524.
+* 5.4   mus  09/12/24 Updated XScuGic_Disable, XScuGic_InterruptMaptoCpu,
+*                     and XScuGic_UnmapAllInterruptsFromCpu APIs to skip
+*                     Un-mapping of interrupts in case of GICv3.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -758,17 +762,18 @@ void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id)
 		return;
 	}
 #endif
-#if defined (VERSAL_NET)
-#if defined (ARMR52)
-	Cpu_Identifier = XGetCoreId();
-#else
-	Cpu_Identifier = XGetCoreId();
-	Cpu_Identifier |= (XGetClusterId() << XSCUGIC_CLUSTERID_SHIFT);
-#endif
-#endif
-
+	/*
+	 * For GICv3 1 of N SPI interrupt selection mode is not supported in
+	 * driver. Specific interrupt can be routed to only specific core.
+	 * Affinity of targeted core is programmed in GICD_IROUTER register.
+	 * GICD_IROUTER does not have any provision to un-map interrupt for
+	 * core, if we change affinity value, interrupt would be attached
+	 * to other core. Hence, skipping unmapping of interrupt here to
+	 * avoid un-intentional re-mapping of interrupt to other core.
+	 */
+#if ! defined(GICv3)
 	XScuGic_InterruptUnmapFromCpu(InstancePtr, Cpu_Identifier, Int_Id);
-
+#endif
 	/*
 	 * Call spinlock to protect multiple applications running at separate
 	 * CPUs to write to the same register. This macro also ensures that
@@ -1192,37 +1197,23 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_
 *****************************************************************************/
 void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_Id)
 {
+/*
+ * For GICv3 1 of N SPI interrupt selection mode is not supported in
+ * driver. Specific interrupt can be routed to only specific core.
+ * Affinity of targeted core is programmed in GICD_IROUTER register.
+ * GICD_IROUTER does not have any provision to un-map interrupt for
+ * core, if we change affinity value, interrupt would be attached
+ * to other core. Hence, skipping unmapping of interrupt here to
+ * avoid un-intentional re-mapping of interrupt to other core.
+ */
+#if defined (GICv3)
+        (void)InstancePtr;
+        (void)Cpu_Identifier;
+        (void)Int_Id;
+#else
 	u32 RegValue;
-#if defined (VERSAL_NET)
-	u32 Temp;
-#endif
 
 	if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
-#if defined (GICv3)
-		/*
-		 * Validate the input arguments
-		 */
-		Xil_AssertVoid(InstancePtr != NULL);
-
-		RegValue = XScuGic_DistReadReg(InstancePtr,
-					       XSCUGIC_IROUTER_OFFSET_CALC(Int_Id));
-
-#if defined (VERSAL_NET)
-#if defined (ARMR52)
-		Temp = (Cpu_Identifier & XSCUGIC_COREID_MASK);
-#else
-		Temp = ((Cpu_Identifier & XSCUGIC_CLUSTERID_MASK) >> XSCUGIC_CLUSTERID_SHIFT);
-		Temp = (Temp << XSCUGIC_IROUTER_AFFINITY2_SHIFT);
-		Temp |= ((Cpu_Identifier & XSCUGIC_COREID_MASK) << XSCUGIC_IROUTER_AFFINITY1_SHIFT);
-#endif
-		RegValue &= ~Temp;
-#else
-		RegValue &= ~Cpu_Identifier;
-#endif
-
-		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Int_Id),
-				     RegValue);
-#else
 		u32 Cpu_CoreId;
 		u32 Offset;
 
@@ -1255,8 +1246,8 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 
 		 * is given only if spinlock mechanism is enabled by the user.
 		 */
 		XIL_SPINUNLOCK();
-#endif
 	}
+#endif
 }
 /****************************************************************************/
 /**
@@ -1272,6 +1263,19 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 
 *****************************************************************************/
 void XScuGic_UnmapAllInterruptsFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier)
 {
+/*
+ * For GICv3 1 of N SPI interrupt selection mode is not supported in
+ * driver. Specific interrupt can be routed to only specific core.
+ * Affinity of targeted core is programmed in GICD_IROUTER register.
+ * GICD_IROUTER does not have any provision to un-map interrupt for
+ * core, if we change affinity value, interrupt would be attached
+ * to other core. Hence, skipping unmapping of interrupt here to
+ * avoid un-intentional re-mapping of interrupt to other core.
+ */
+#if defined (GICv3)
+	(void)InstancePtr;
+	(void)Cpu_Identifier;
+#else
 	u32 Int_Id;
 	u32 Target_Cpu;
 	u32 LocalCpuID = ((u32)1U << Cpu_Identifier);
@@ -1306,6 +1310,7 @@ void XScuGic_UnmapAllInterruptsFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier)
 	 * is given only if spinlock mechanism is enabled by the user.
 	 */
 	XIL_SPINUNLOCK();
+#endif
 }
 /****************************************************************************/
 /**
