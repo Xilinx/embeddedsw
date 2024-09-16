@@ -497,12 +497,13 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	 */
 	Intrs = (u32)XIICPS_IXR_ARB_LOST_MASK | (u32)XIICPS_IXR_RX_OVR_MASK |
 			(u32)XIICPS_IXR_RX_UNF_MASK | (u32)XIICPS_IXR_NACK_MASK;
+
+	XIicPs_MasterPolledRead(InstancePtr, IsHold, ByteCountVar);
+
 	/*
 	 * Poll the interrupt status register to find the errors.
 	 */
 	IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
-
-	XIicPs_MasterPolledRead(InstancePtr, IsHold, ByteCountVar);
 
 	if (InstancePtr->IsRepeatedStart == 0) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
