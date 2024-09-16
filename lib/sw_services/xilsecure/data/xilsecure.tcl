@@ -58,10 +58,6 @@ proc secure_drc {libhandle} {
 		IP_NAME=="psu_cortexr5" || IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
 	set is_versal_aiepg2 [hsi::get_cells -hier -filter {IP_NAME=="cortexr5" || IP_NAME=="cortexa72"}]
 
-
-	foreach entry [glob -nocomplain -types f [file join "$src" *]] {
-		file copy -force $entry "./src"
-        }
 	if {$proc_type == "psu_cortexa53" ||
 		$proc_type == "psu_cortexr5" || $proc_type == "psu_pmu"} {
 			foreach entry [glob -nocomplain -types f [file join $zynqmp *]] {
