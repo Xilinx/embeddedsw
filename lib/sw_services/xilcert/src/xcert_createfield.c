@@ -33,6 +33,7 @@
 *       har  05/03/2024 Fixed size when it is of long form
 * 1.3   har  05/07/2024 Added doxygen grouping and tags
 *			Fixed doxygen warnings
+*       har  09/17/2024 Fixed doxygen warnings
 *
 * </pre>
 * @note
@@ -86,15 +87,14 @@ static u32 XCert_GetTrailingZeroesCount(u8 Data);
 /**
  * @brief	This function creates DER encoded ASN.1 Integer
  *
- * @param	DataBuf is the pointer to the buffer where the encoded data
-		needs to be updated
- * @param	IntegerVal is the value of the ASN.1 Integer
- * @param	IntegerLen is the length of the value of the ASN.1 Integer
- * @param	FieldLen is the total length of the encoded ASN.1 Integer
+ * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
+ * @param	IntegerVal	Value of the ASN.1 Integer
+ * @param	IntegerLen	Length of the value of the ASN.1 Integer
+ * @param	FieldLen	Total length of the encoded ASN.1 Integer
  *
  * @return
  *		 - XST_SUCCESS  Successfully created DER encoded ASN.1 Integer
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	ASN.1 tag for Integer is 0x02.
  *
@@ -135,18 +135,17 @@ END:
 /**
  * @brief	This function creates DER encoded ASN.1 BitString
  *
- * @param	DataBuf is the pointer to the buffer where the encoded data
-		needs to be updated
- * @param	BitStringVal is the value of the ASN.1 BitString
- * @param	BitStringLen is the length of the value of the ASN.1 BitString in bytes
- * @param	IsLastByteFull is the flag to check if the last byte is full or not
+ * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
+ * @param	BitStringVal	Value of the ASN.1 BitString
+ * @param	BitStringLen	Length of the value of the ASN.1 BitString in bytes
+ * @param	IsLastByteFull	Flag to check if the last byte is full or not
  * 			- FALSE for Key Usage
  * 			- TRUE for Public Key
- * @param	FieldLen is the total length of the encoded ASN.1 BitString
+ * @param	FieldLen	Total length of the encoded ASN.1 BitString
  *
  * @return
  *		 - XST_SUCCESS  Successfully created DER encoded ASN.1 BitString
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	ASN.1 tag for BitString is 0x03
  *
@@ -189,15 +188,14 @@ END:
 /**
  * @brief	This function creates DER encoded ASN.1 OctetString
  *
- * @param	DataBuf is the pointer to the buffer where the encoded data
-		needs to be updated
- * @param	OctetStringVal is the value of the ASN.1 OctetString
- * @param	OctetStringLen is the length of the value of the ASN.1 OctetString
- * @param	FieldLen is the total length of the encoded ASN.1 OctetString
+ * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
+ * @param	OctetStringVal	Value of the ASN.1 OctetString
+ * @param	OctetStringLen	Length of the value of the ASN.1 OctetString
+ * @param	FieldLen	Total length of the encoded ASN.1 OctetString
  *
  * @return
  *		 - XST_SUCCESS  Successfully created DER encoded ASN.1 OctetString
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	ASN.1 tag for OctetString is 0x04
  *
@@ -236,17 +234,16 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function takes DER encoded data as input in form of byte array
- *			and updates it in the provided buffer.
+ *		and updates it in the provided buffer.
  *
- * @param	DataBuf is the pointer to the buffer where the encoded data
-			needs to be updated
- * @param	RawData is the DER encoded value as byte array to be updated in buffer
- * @param	LenOfRawDataVal is the length of DER encoded value
- * @param	RawDataFieldLen is the total length of the field
+ * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
+ * @param	RawData		DER encoded value as byte array to be updated in buffer
+ * @param	LenOfRawDataVal	Length of DER encoded value
+ * @param	RawDataFieldLen	Total length of the field
  *
  * @return
- *		- XST_SUCCESS - If update is successful
- *		- XST_FAILURE - Upon any failure
+ *		 - XST_SUCCESS  If update is successful
+ *		 - XST_FAILURE  In case of failure
  *
  ******************************************************************************/
 int XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, const u32 LenOfRawDataVal, u32* RawDataFieldLen)
@@ -270,10 +267,9 @@ END:
 /**
  * @brief	This function creates DER encoded ASN.1 Boolean
  *
- * @param	DataBuf is the pointer to the buffer where the encoded data
-		needs to be updated
- * @param	BooleanVal can be TRUE or FALSE
- * @param	FieldLen is the total length of the encoded ASN.1 Boolean
+ * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
+ * @param	BooleanVal	Can be TRUE or FALSE
+ * @param	FieldLen	Total length of the encoded ASN.1 Boolean
  *
  * @note	ASN.1 tag for Boolean is 0x01
  *
@@ -301,13 +297,13 @@ void XCert_CreateBoolean(u8* DataBuf, const u8 BooleanVal, u32* FieldLen)
  *		and updates in the provided pointer. In case the Length field
  *		requires more than one byte, it also shifts the value accordingly.
  *
- * @param	LenIdx is the pointer to the Length field of the encoded value
- * @param	Len is the length of the Value field in bytes
- * @param	ValIdx is the pointer to the Value field of the encoded value
+ * @param	LenIdx	Pointer to the Length field of the encoded value
+ * @param	Len	Length of the Value field in bytes
+ * @param	ValIdx	Pointer to the Value field of the encoded value
  *
  * @return
- *		- XST_SUCCESS - If updating encoded length is success
- *		- XST_FAILURE - Upon any failure
+ *		- XST_SUCCESS  If updating encoded length is success
+ *		- XST_FAILURE  Upon any failure
  *
  * @note	The Length field in DER encoded value identifies the number of
  *		bytes encoded in the Value field.
@@ -356,8 +352,7 @@ END:
  * @brief	This function takes a byte of data as input and returns number of
  * 		trailing zeroes in that byte.
  *
- * @param	Data is input byte for which number of trailing zeroes need to
- * 		be counted
+ * @param	Data	Input byte for which number of trailing zeroes need to be counted
  *
  * @return
  *		Number of trailing zeroes. In case the Data is 0 then number of
