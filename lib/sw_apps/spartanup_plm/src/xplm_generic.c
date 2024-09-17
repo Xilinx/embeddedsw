@@ -15,6 +15,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
+ *       ng   09/17/24 Fixed mask poll flags
  * </pre>
  *
  ******************************************************************************/
@@ -161,6 +162,9 @@ static int XPlm_MaskPoll(XPlm_Cmd *Cmd)
 		goto END;
 	}
 
+	if (Cmd->Len >= ExtLen) {
+		Flags = Cmd->Payload[XPLM_MASKPOLL_FLAGS_INDEX] & XPLM_MASKPOLL_FLAGS_MASK;
+	}
 	/* Mask Poll for expected value */
 	Status = XPlm_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs, NULL);
 
