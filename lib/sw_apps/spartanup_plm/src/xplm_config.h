@@ -32,12 +32,12 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-//#define XPLM_DEBUG_PRINTS
+#define XPLM_DEBUG_PRINTS
 
 // #define XPLM_PRINT_QEMU
 
-//#define XPLM_PRINT
-//#define XPLM_DEBUG
+#define XPLM_PRINT
+#define XPLM_DEBUG
 //#define XPLM_DEBUG_INFO
 //#define XPLM_DEBUG_DETAILED
 
