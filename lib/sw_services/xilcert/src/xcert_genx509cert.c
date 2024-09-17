@@ -33,6 +33,7 @@
 *	kal  07/24/2024 Code refactoring updates for versal_aiepg2
 *       har  08/08/2024 Added TCB Info extension in DevIk CSR
 *       har  08/23/2024 Removed HwType field in Extended Key usage extension for Versal Gen2 devices
+*       har  09/17/2024 Fixed doxygen warnings
 *
 *
 * </pre>
@@ -40,13 +41,13 @@
 *
 ******************************************************************************/
 /**
- * @defgroup xcert_apis XilCert APIs
+ * @addtogroup xcert_apis XilCert APIs
  * @{
  */
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
-#ifdef PLM_OCP_KEY_MNGMT
+#ifdef PLM_OCP_KEY_MNGMT`
 #include "xsecure_ellipticplat.h"
 #include "xsecure_sha384.h"
 #include "xcert_genx509cert.h"
@@ -189,14 +190,21 @@ static int XCert_GenDmePublicKeyAndStructExtnField(u8* CertReqInfoBuf, u32 *Len,
 /**
  * @brief	This function creates the X.509 Certificate/Certificate Signing Request(CSR)
  *
- * @param	X509CertAddr is the address of the X.509 Certificate buffer
- * @param	MaxCertSize is the maximum size of the X.509 Certificate buffer
- * @param	X509CertSize is the size of X.509 Certificate in bytes
- * @param	Cfg is structure which includes configuration for the X.509 Certificate.
+ * @param	X509CertAddr	Address of the X.509 Certificate buffer
+ * @param	MaxCertSize	Maximum size of the X.509 Certificate buffer
+ * @param	X509CertSize	Size of X.509 Certificate in bytes
+ * @param	Cfg		Pointer to structure which includes configuration for the X.509 Certificate.
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated X.509 certificate/CSR
- *		 - Error code  In case of failure
+ *		 - XST_INVALID_PARAM  Invalid function arguments
+ *		 - XCERT_ERR_X509_KAT_FAILED  Failure of SHA384 KAT
+ *		 - XCERT_ERR_X509_GEN_TBSCERT_DIGEST  Failure in SHA 384 digest calcuation for TBS certificate
+ *		 - XCERT_ERR_X509_GET_SIGN  Failure in getting stored signature
+ *		 - XSECURE_KAT_MAJOR_ERROR  Failure in Sign Generate KAT
+ *		 - XCERT_ERR_X509_CALC_SIGN  Failure in generating ephemeral key and signature
+ *		 - XCERT_ERR_X509_UPDATE_ENCODED_LEN  Failure in updating encoded length
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	Certificate  ::=  SEQUENCE  {
  *			tbsCertificate       TBSCertificate,
@@ -277,7 +285,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	Curr = Curr + SignAlgoLen;
 
 	/**
-	 * Calculate SHA2 Digest of the TBS certificate
+	 * Calculate SHA 384 Digest of the TBS certificate
 	 */
 	Status = XSecure_Sha384Digest(TbsCertStart, DataLen, HashTmp);
 	if (Status != XST_SUCCESS) {
@@ -434,8 +442,8 @@ static u32* XCert_GetNumOfEntriesInUserCfgDB(void)
  * @brief	This function checks if all the bytes in the provided buffer are
  *		zero.
  *
- * @param	Buffer - Pointer to the buffer
- * @param	BufferLen - Length of the buffer
+ * @param	Buffer		Pointer to the buffer
+ * @param	BufferLen	Length of the buffer
  *
  * @return
  *		 - XST_SUCCESS  If buffer is non-empty
@@ -469,12 +477,15 @@ END:
  * 		Certificate DB and returns the pointer to the corresponding entry in DB
  *		if all the other fields are valid.
  *
- * @param	SubsystemId - Subsystem ID for which user configuration is requested
- * @param	UserCfg - Pointer to the entry in DB for the provided Subsystem ID
+ * @param	SubsystemId	Subsystem ID for which user configuration is requested
+ * @param	KeyIndex	Index of the key for given subsystem ID
+ * @param	UserCfg		Pointer to the entry in DB for the provided Subsystem ID
  *
  * @return
  *		 - XST_SUCCESS  If subsystem ID is found and other fields are valid
- *		 - Error Code  Upon any failure
+ *		 - XCERT_ERR_X509_INVALID_USER_CFG  User configuration for given subsystem ID is invalid
+ *		 - XCERT_ERR_X509_USR_CFG_NOT_FOUND  User configuration for given subsystem ID is not found
+ *		 - XST_FAILURE  Upon any failure
  *
  ******************************************************************************/
 static int XCert_GetUserCfg(u32 SubsystemId, u32 KeyIndex, XCert_UserCfg **UserCfg)
@@ -531,19 +542,18 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function updates the user configuration to be used for
- * 		generating X.509 certificate.
- * 		- For DevIK certificate and DevIK CSR, it gets the user
+ * 		generating X.509 certificate
+ * 		For DevIK certificate and DevIK CSR, it gets the user
  * 		configuration from the DB
- * 		- For DevAK certificates, it gets the user cfg from DB. If DevIK
+ * 		For DevAK certificates, it gets the user cfg from DB. If DevIK
  * 		user cfg is available in DB then DevIK Subject shall be used as
- * 		Issuer in DevAK certificate.
+ * 		Issuer in DevAK certificate
  *
- * @param	Cfg - Pointer to the configuration to be used for generating
- * 		certificate
+ * @param	Cfg	Pointer to the configuration to be used for generating certificate
  *
  * @return
  *		 - XST_SUCCESS  User Cfg is successfully updated
- *		 - Error Code  Upon any failure
+ *		 - XST_FAILURE  Upon any failure
  *
  ******************************************************************************/
 static int XCert_UpdateUserCfg(XCert_Config* Cfg)
@@ -587,12 +597,12 @@ END:
  * @brief	This function finds the provided Subsystem ID in InfoStore DB and
  *		returns the pointer to the corresponding sign entry in DB.
  *
- * @param	SubsystemId - SubsystemId for which stored signature is requested
- * @param	SignStore - Pointer to the entry in DB for the provided Subsystem ID
+ * @param	SubsystemId	Subsystem ID for which stored signature is requested
+ * @param	SignStore	Pointer to the entry in DB for the provided Subsystem ID
  *
  * @return
  *		 - XST_SUCCESS  If subsystem ID is found
- *		 - Error Code  Upon any failure
+ *		 - XST_FAILURE  Upon any failure
  *
  ******************************************************************************/
 static int XCert_GetSignStored(u32 SubsystemId, XCert_SignStore **SignStore)
@@ -622,13 +632,16 @@ END:
  * @brief	This function stores the user provided value for the user configurable
  *		fields in the certificate as per the provided FieldType.
  *
- * @param	SubSystemId is the id of subsystem for which field data is provided
- * @param	FieldType is to identify the field for which input is provided
- * @param	Val is the value of the field provided by the user
- * @param	Len is the length of the value in bytes
+ * @param	SubSystemId	Id of subsystem for which field data is provided
+ * @param	FieldType	To identify the field for which input is provided
+ * @param	Val		Value of the field provided by the user
+ * @param	Len		Length of the value in bytes
+ * @param	KeyIndex	Index of the key for given subsystem ID
  *
  * @return
  *		 - XST_SUCCESS  If whole operation is success
+ *		 - XST_INVALID_PARAM  Failure due to invalid arguments
+ *		 - XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED  Exceed maximum limit of user configuration
  *		 - XST_FAILURE  Upon any failure
  *
  ******************************************************************************/
@@ -705,10 +718,10 @@ END:
 /**
  * @brief	This function creates the Version field of the TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where
  *		the Version field shall be added.
- * @param	Cfg is pointer to structure which includes configuration for the TBS Certificate.
- * @param	VersionLen is the length of the Version field
+ * @param	Cfg		Pointer to structure which includes configuration for the TBS Certificate.
+ * @param	VersionLen	Length of the Version field
  *
  * @note	Version  ::=  INTEGER  {  v1(0), v2(1), v3(2)  }
  *		This field describes the version of the encoded certificate.
@@ -737,14 +750,14 @@ static void XCert_GenVersionField(u8* TBSCertBuf, XCert_Config *Cfg, u32 *Versio
 /**
  * @brief	This function creates the Serial field of the TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where
  *		the Serial field shall be added.
- * @param	DataHash is the hash which is to be used as value in Serial field
- * @param	SerialLen is the length of the Serial field
+ * @param	DataHash	Hash which is to be used as value in Serial field
+ * @param	SerialLen	Length of the Serial field
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated Serial field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	CertificateSerialNumber  ::=  INTEGER
  *		The length of the serial must not be more than 20 bytes.
@@ -788,17 +801,16 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function creates the Signature Algorithm field.
- *		This field in present in TBS Certificate as well as the
- *		X509 certificate.
+ * @brief	This function creates the Signature Algorithm field. This field
+ * 		is present in TBS Certificate as well as the X.509 certificate.
  *
- * @param	CertBuf is the pointer in the Certificate buffer where
- *		the Signature Algorithm field shall be added.
- * @param	SignAlgoLen is the length of the SignAlgo field
+ * @param	CertBuf		Pointer in the Certificate buffer where the Signature Algorithm
+ * 		field shall be added.
+ * @param	SignAlgoLen	Length of the SignAlgo field
  *
  * @return
  *		 - XST_SUCCESS  Successfully created Signature Algorithm field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE In case of failure
  *
  * @note	AlgorithmIdentifier  ::=  SEQUENCE  {
  *		algorithm		OBJECT IDENTIFIER,
@@ -847,15 +859,15 @@ END:
 /**
  * @brief	This function creates the Issuer field in TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where
  *		the Issuer field shall be added.
- * @param	Issuer is the DER encoded value of the Issuer field
- * @param	IssuerValLen is the length of the DER encoded value
- * @param	IssuerLen is the length of the Issuer field
+ * @param	Issuer		DER encoded value of the Issuer field
+ * @param	IssuerValLen	Length of the DER encoded value
+ * @param	IssuerLen	Length of the Issuer field
  *
  * @return
  *		 - XST_SUCCESS  Successfully created Issuer field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	This function expects the user to provide the Issuer field in DER
  *		encoded format and it will be updated in the TBS Certificate buffer.
@@ -874,15 +886,15 @@ static inline int XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, const u32 Iss
 /**
  * @brief	This function creates the Validity field in TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where
  *		the Validity field shall be added.
- * @param	Validity is the DER encoded value of the Validity field
- * @param	ValidityValLen is the length of the DER encoded value
- * @param	ValidityLen is the length of the Validity field
+ * @param	Validity	DER encoded value of the Validity field
+ * @param	ValidityValLen	Length of the DER encoded value
+ * @param	ValidityLen	Length of the Validity field
  *
  * @return
  *		 - XST_SUCCESS  Successfully created Validity field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	This function expects the user to provide the Validity field in DER
  *		encoded format and it will be updated in the TBS Certificate buffer.
@@ -901,15 +913,15 @@ static inline int XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, const u32
 /**
  * @brief	This function creates the Subject field in TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where
  *		the Subject field shall be added.
- * @param	Subject is the DER encoded value of the Subject field
- * @param	SubjectValLen is the length of the DER encoded value
- * @param	SubjectLen is the length of the Subject field
+ * @param	Subject		DER encoded value of the Subject field
+ * @param	SubjectValLen	Length of the DER encoded value
+ * @param	SubjectLen	Length of the Subject field
  *
  * @return
  *		 - XST_SUCCESS  Successfully created Subject field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	This function expects the user to provide the Subject field in DER
  *		encoded format and it will be updated in the TBS Certificate buffer.
@@ -926,17 +938,17 @@ static inline int XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, const u32 S
 
 /*****************************************************************************/
 /**
- * @brief	This function creates the Public Key Algorithm Identifier sub-field.
- *		It is a part of Subject Public Key Info field present in
+ * @brief	This function creates the Public Key Algorithm Identifier sub-field. It
+ *		is a part of Subject Public Key Info field present in
  *		TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where
  *		the Public Key Algorithm Identifier sub-field shall be added.
- * @param	Len is the length of the Public Key Algorithm Identifier sub-field.
+ * @param	Len		Length of the Public Key Algorithm Identifier sub-field.
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated Public Key Algorithm Identifier sub-field.
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	AlgorithmIdentifier  ::=  SEQUENCE  {
  *		algorithm		OBJECT IDENTIFIER,
@@ -989,15 +1001,15 @@ END:
  * @brief	This function creates the Public Key Info field present in
  *		TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ * @param	TBSCertBuf		Pointer in the TBS Certificate buffer where
  *		the Public Key Info field shall be added.
- * @param	SubjectPublicKey is the public key of the Subject for which the
-  *		certificate is being created.
- * @param	PubKeyInfoLen is the length of the Public Key Info field.
+ * @param	SubjectPublicKey	Public key of the Subject for which the certificate is being
+ * 		created.
+ * @param	PubKeyInfoLen		Length of the Public Key Info field.
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated Public Key Info field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	SubjectPublicKeyInfo  ::=  SEQUENCE  {
 			algorithm            AlgorithmIdentifier,
@@ -1052,15 +1064,14 @@ END:
  * @brief	This function creates the Subject Key Identifier field present in
  * 		TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
+ * @param	TBSCertBuf		Pointer in the TBS Certificate buffer where
  *		the Subject Key Identifier field shall be added.
- * @param	SubjectPublicKey is the public key whose hash will be used as
- * 		Subject Key Identifier
- * @param	SubjectKeyIdentifierLen is the length of the Subject Key Identifier field.
+ * @param	SubjectPublicKey	Public key whose hash will be used as Subject Key Identifier
+ * @param	SubjectKeyIdentifierLen Length of the Subject Key Identifier field.
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated Subject Key Identifier field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	SubjectKeyIdentifierExtension  ::=  SEQUENCE  {
  *		extnID      OBJECT IDENTIFIER,
@@ -1130,15 +1141,14 @@ END:
  * @brief	This function creates the Authority Key Identifier field present in
  * 		TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
- *		the Authority Key Identifier field shall be added.
- * @param	IssuerPublicKey is the public key whose hash will be used as
- * 		Authority Key Identifier
- * @param	AuthorityKeyIdentifierLen is the length of the Authority Key Identifier field.
+ * @param	TBSCertBuf			Pointer in the TBS Certificate buffer where the Authority Key
+ * 		Identifier field shall be added.
+ * @param	IssuerPublicKey			Public key whose hash will be used as Authority Key Identifier
+ * @param	AuthorityKeyIdentifierLen 	Length of the Authority Key Identifier field.
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated Authority Key Identifier field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  * @note
  * 		id-ce-authorityKeyIdentifier OBJECT IDENTIFIER ::=  { id-ce 35 }
  *
@@ -1226,14 +1236,14 @@ END:
  * @brief	This function creates the TCB Info Extension(2.23.133.5.4.1)
  * 		field present in TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
- *		the TCB Info Extension field shall be added.
- * @param	Cfg is pointer to structure which includes configuration for the TBS Certificate.
- * @param	TcbInfoExtnLen is the length of the TCB Info Extension field.
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where the TCB Info Extension
+ * 		field shall be added.
+ * @param	Cfg		Pointer to structure which includes configuration for the TBS Certificate.
+ * @param	TcbInfoExtnLen	Length of the TCB Info Extension field.
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated TCB Info Extension field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note
  * 		tcg-dice-TcbInfo OBJECT IDENTIFIER ::= {tcg-dice 1}
@@ -1333,13 +1343,13 @@ END:
  * @brief	This function creates the UEID extension(2.23.133.5.4.4) field
  * 		present in TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
- *		the UEID extension field shall be added.
- * @param	UeidExnLen is the length of the UEID Extension field.
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where the UEID extension field
+ * 		shall be added.
+ * @param	UeidExnLen	Length of the UEID Extension field.
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated UEID Extension field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	tcg-dice-Ueid OBJECT IDENTIFIER ::= {tcg-dice 4}
  *		TcgUeid ::== SEQUENCE {
@@ -1415,9 +1425,9 @@ END:
  * @brief	This function updates the value of Key Usage extension field
  * 		present in TBS Certificate as per the KeyUsageOption.
  *
- * @param	KeyUsageVal is the pointer in the Key Usage value buffer where
- *		the Key Usage option shall be updated.
- * @param	KeyUsageOption is type of key usage which has to be updated
+ * @param	KeyUsageVal	Pointer in the Key Usage value buffer where the Key Usage option
+ * 		shall be updated.
+ * @param	KeyUsageOption	Type of key usage which has to be updated
  *
  ******************************************************************************/
 static void XCert_UpdateKeyUsageVal(u8* KeyUsageVal, XCert_KeyUsageOption KeyUsageOption)
@@ -1433,17 +1443,16 @@ static void XCert_UpdateKeyUsageVal(u8* KeyUsageVal, XCert_KeyUsageOption KeyUsa
  * @brief	This function creates the Key Usage extension field present in
  * 		TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
- *		the Key Usage extension field shall be added.
- * @param	Cfg is pointer to structure which includes configuration for the TBS Certificate.
- * @param	KeyUsageExtnLen is the length of the Key Usage Extension field.
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where the Key Usage extension
+ * 		field shall be added.
+ * @param	Cfg		Pointer to structure which includes configuration for the TBS Certificate.
+ * @param	KeyUsageExtnLen	Length of the Key Usage Extension field.
   *
  * @return
  *		 - XST_SUCCESS  Successfully generated Key Usage field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	id-ce-keyUsage OBJECT IDENTIFIER ::=  { id-ce 15 }
- *
  *		KeyUsage ::= BIT STRING {
  *			digitalSignature        (0),
  *			nonRepudiation          (1),
@@ -1521,14 +1530,14 @@ END:
  * @brief	This function creates the Extended Key Usage extension field
  * 		present in TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
- *		the Extended Key Usage extension field shall be added.
- * @param	Cfg is pointer to structure which includes configuration for the TBS Certificate.
- * @param	EkuLen is the length of the Extended Key Usage Extension field.
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where the Extended Key Usage
+ * 		extension field shall be added.
+ * @param	Cfg		Pointer to structure which includes configuration for the TBS Certificate.
+ * @param	EkuLen		Length of the Extended Key Usage Extension field.
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated Extended Key Usage field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	id-ce-extKeyUsage OBJECT IDENTIFIER ::= { id-ce 37 }
  *		ExtKeyUsageSyntax ::= SEQUENCE SIZE (1..MAX) OF KeyPurposeId
@@ -1603,15 +1612,15 @@ END:
 /**
  * @brief	This function creates the Subject Alternative Name extension field in TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
- *		the Subject Alternative Name extension field shall be added.
- * @param	SubAltName is the DER encoded value of the Subject Alternative Name extension field
- * @param	SubAltNameValLen is the length of the DER encoded value
- * @param	SubAltNameLen is the length of the Subject Alternative Name extension field
+ * @param	TBSCertBuf		Pointer in the TBS Certificate buffer where the Subject Alternative
+ * 		Name extension field shall be added.
+ * @param	SubAltName		DER encoded value of the Subject Alternative Name extension field
+ * @param	SubAltNameValLen	Length of the DER encoded value
+ * @param	SubAltNameLen		Length of the Subject Alternative Name extension field
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated Subject Alternative Name exetnsion field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	This function expects the user to provide the Subject Alternative Name extension
  *		field in DER encoded format and it will be updated in the TBS Certificate buffer.
@@ -1632,17 +1641,17 @@ static inline int XCert_GenSubAltNameField(u8* TBSCertBuf, u8* SubAltName, const
  * @brief	This function creates the X.509 v3 extensions field present in
  * 		TBS Certificate.
  *
- * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
- *		the X.509 V3 extensions field shall be added.
- * @param	Cfg is structure which includes configuration for the TBS Certificate.
- * @param	ExtensionsLen is the length of the X.509 V3 Extensions field.
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where the X.509 V3 extensions
+ * 		field shall be added.
+ * @param	Cfg		structure which includes configuration for the TBS Certificate.
+ * @param	ExtensionsLen	Length of the X.509 V3 Extensions field.
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated X.509 V3 Extensions field
- *		 - Error code  In case of failure
+ *		 - XCERT_ERR_X509_UPDATE_ENCODED_LEN  Failure in updating encoded length
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	Extensions  ::=  SEQUENCE SIZE (1..MAX) OF Extension
- *
  *		Extension  ::=  SEQUENCE  {
  *		extnID      OBJECT IDENTIFIER,
  *		critical    BOOLEAN DEFAULT FALSE,
@@ -1756,13 +1765,13 @@ END:
 /**
  * @brief	This function creates the Basic Constraints extension field
  *
- * @param	CertReqInfoBuf is the pointer in the buffer where
- *		the Basic Constraints extension field shall be added.
- * @param	Len is the length of the Basic Constraints Extension field.
+ * @param	CertReqInfoBuf	Pointer in the buffer where the Basic Constraints extension field
+ * 		shall be added.
+ * @param	Len		Length of the Basic Constraints Extension field.
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated Basic Constraints Extension field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	This extension shall be part of the CSR only
  *
@@ -1822,14 +1831,13 @@ END:
 /**
  * @brief	This function creates the DME extension field
  *
- * @param	CertReqInfoBuf is the pointer in the buffer where
- *		the DME extension field shall be added.
- * @param	Len is the length of the DME Extension field.
- * @param	DmeResp is pointer to XCert_DmeResponse
+ * @param	CertReqInfoBuf	Pointer in the buffer where the DME extension field shall be added.
+ * @param	Len		Length of the DME Extension field.
+ * @param	DmeResp		Pointer to structure which holds DME response
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated DME Extension field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	DmeExtension ::= SEQUENCE {
  *		dmePublicKey 	 	SubjectPublicKeyInfo,
@@ -1929,14 +1937,13 @@ END:
 /**
  * @brief	This function creates the DME public key and structure extension sub-field
  *
- * @param	CertReqInfoBuf is the pointer in the buffer where
- *		the DME structure extension field shall be added.
- * @param	Len is the length of the DME structure extension field.
- * @param	Dme is pointer to XCert_DmeChallenge
+ * @param	CertReqInfoBuf	Pointer in the buffer where DME structure extension field shall be added.
+ * @param	Len		Length of the DME structure extension field.
+ * @param	Dme		Pointer to XCert_DmeChallenge
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated DME public key and structure Extension sub-field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	This extension shall be part of the CSR only
  *
@@ -1997,14 +2004,14 @@ END:
  * @brief	This function creates the X.509 v3 extensions field present in
  * 		Certificate request Info.
  *
- * @param	CertReqInfoBuf is the pointer in the Certificate Request Info
- * 		buffer where extensions field shall be added.
- * @param	Cfg is structure which includes configuration for the Certificate Request Info
- * @param	ExtensionsLen is the length of the Extensions field.
+ * @param	CertReqInfoBuf	Pointer in the Certificate Request Info buffer where extensions
+ * 		field shall be added.
+ * @param	Cfg		Structure which includes configuration for the Certificate Request Info
+ * @param	ExtensionsLen	Length of the Extensions field.
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated Extensions field for Certification Request Info
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  ******************************************************************************/
 static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *ExtensionsLen)
@@ -2110,13 +2117,15 @@ END:
 /**
  * @brief	This function creates the TBS(To Be Signed) Certificate.
  *
- * @param	TBSCertBuf is the pointer to the TBS Certificate buffer
- * @param	Cfg is structure which includes configuration for the TBS Certificate.
- * @param	TBSCertLen is the length of the TBS Certificate
+ * @param	TBSCertBuf	Pointer to the TBS Certificate buffer
+ * @param	Cfg		Structure which includes configuration for the TBS Certificate.
+ * @param	TBSCertLen	Length of the TBS Certificate
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated TBS Certificate
- *		 - Error code  In case of failure
+ *		 - XCERT_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD  Error in generating Public Key Info field
+ *		 - XCERT_ERR_X509_UPDATE_ENCODED_LEN  Error in updating encoded length
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	TBSCertificate  ::=  SEQUENCE  {
  *			version         [0]  EXPLICIT Version DEFAULT v1,
@@ -2263,13 +2272,15 @@ END:
 /**
  * @brief	This function creates the Certification Request Info.
  *
- * @param	CertReqInfoBuf is address of the buffer which stores the Certification Request Info
- * @param	Cfg is structure which includes configuration for the Certification Request Info
- * @param	CertReqInfoLen is the length of the Certification Request Info
+ * @param	CertReqInfoBuf	Address of the buffer which stores the Certification Request Info
+ * @param	Cfg		Structure which includes configuration for the Certification Request Info
+ * @param	CertReqInfoLen	Length of the Certification Request Info
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated Certification Request Info
- *		 - Error code  In case of failure
+ *		 - XCERT_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD  Error in generating Public Key Info field
+ *		 - XCERT_ERR_X509_UPDATE_ENCODED_LEN  Error in updating encoded length
+ *		 - XST_FAILURE  In case of failure
  *
  ******************************************************************************/
 static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *CertReqInfoLen)
@@ -2330,13 +2341,13 @@ END:
 /**
  * @brief	This function creates the Signature field in the X.509 certificate
  *
- * @param	X509CertBuf is the pointer to the X.509 Certificate buffer
- * @param	Signature is value of the Signature field in X.509 certificate
- * @param	SignLen is the length of the Signature field
+ * @param	X509CertBuf	Pointer to the X.509 Certificate buffer
+ * @param	Signature	Value of the Signature field in X.509 certificate
+ * @param	SignLen		Length of the Signature field
  *
  * @return
  *		 - XST_SUCCESS  Successfully generated Sign field
- *		 - Error code  In case of failure
+ *		 - XST_FAILURE  In case of failure
  *
  * @note	Th signature value is encoded as a BIT STRING and included in the
  *		signature field. When signing, the ECDSA algorithm generates
@@ -2397,9 +2408,9 @@ END:
  * @brief	This function copies data to 32/64 bit address from
  *		local buffer.
  *
- * @param	Size 	- Length of data in bytes
- * @param	Src     - Pointer to the source buffer
- * @param	DstAddr - Destination address
+ * @param	Size	Length of data in bytes
+ * @param	Src	Pointer to the source buffer
+ * @param	DstAddr Destination address
  *
  *****************************************************************************/
 static void XCert_CopyCertificate(const u32 Size, const u8 *Src, const u64 DstAddr)
