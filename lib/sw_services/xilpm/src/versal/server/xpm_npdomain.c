@@ -1003,15 +1003,26 @@ XStatus XPmNpDomain_ClockGate(const XPm_Node *Node, u8 State)
 		goto done;
 	}
 
-	Status = XPmNpDomain_IsParentPowerNoc(Node, &DbgErr);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Support monolithic devices for now */
+	/* Exclude SSIT devices for now */
 	SlrType = XPm_GetSlrType();
 	if (SlrType != SLR_TYPE_MONOLITHIC_DEV) {
 		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/*
+	 * The register address for NOC packet switch referenced in this routine
+	 * is valid for VC1902 and VM1802 devices.  To expand this feature to
+	 * other devices, this address needs to be obtained from CDO.
+	 */
+	if ((PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 != (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) &&
+	    (PMC_TAP_IDCODE_DEV_SBFMLY_VM1802 != (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	Status = XPmNpDomain_IsParentPowerNoc(Node, &DbgErr);
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
