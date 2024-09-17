@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -38,6 +38,7 @@ required:
     - interrupt-parent
     - clocks
     - qspi-fbclk
+    - xlnx,baud-rate-div
 
 examples:
    xqspipsu_polldata_polltimeout_interrupt_example.c:
