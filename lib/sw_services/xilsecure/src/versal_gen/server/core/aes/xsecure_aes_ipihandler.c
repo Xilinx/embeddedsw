@@ -39,6 +39,8 @@
 *       mb    03/12/24   Added AES INIT call inside AES Operation INIT API
 *	ss    04/05/24   Fixed doxygen warnings
 * 5.4   yog   04/29/24   Fixed doxygen grouping and doxygen warnings.
+*       ma    09/17/24   Replaced XPlmi_MemCpy64 with XSecure_MemCpy64 in
+*                        XSecure_AesEncUpdate and XSecure_AesDecUpdate
 *
 * </pre>
 *
@@ -331,12 +333,8 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_AesInParams InParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&InParams, Addr, sizeof(InParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSecure_MemCpy64((u64)(UINTPTR)&InParams, Addr, sizeof(InParams));
 
-	Status = XST_FAILURE;
 	/** Ensure previous data context is not lost for the corresponding IPI channel */
 	Status = XSecure_AesIsDataContextLost();
 	if (Status != XST_SUCCESS) {
@@ -414,12 +412,8 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_AesInParams InParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&InParams, Addr, sizeof(InParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSecure_MemCpy64((u64)(UINTPTR)&InParams, Addr, sizeof(InParams));
 
-	Status = XST_FAILURE;
 	Status = XSecure_AesIsDataContextLost();
 	if (Status != XST_SUCCESS) {
 		goto END;
