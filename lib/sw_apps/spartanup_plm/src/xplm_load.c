@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  bm   05/31/24 Initial release
+ *       ng   09/17/24 Updated minor error mask for secure rom load api
  * </pre>
  *
  ******************************************************************************/
@@ -46,7 +47,7 @@
 #define XPLM_SIGNED_IMAGE_MASK		(0x000C0000U)
 #define XPLM_PUF_IMAGE_DETECTION_KEY_WORD	(0x50554649U) /* PUFI */
 
-#define XPLM_SEC_LOAD_MIN_ERR_MASK	(0xF00U)
+#define XPLM_SEC_LOAD_MIN_ERR_MASK	(0x3F00U)
 #define XPLM_PUFHD_AUX_CHASH_SIZE		(0x204U)
 #define XPLM_PUFHD_TOTAL_SIZE			(0x210U)
 #define XPLM_PUFHD_AUX_CHASH_SIZE_WORDS		(XPLM_PUFHD_AUX_CHASH_SIZE / XPLM_WORD_LEN)
