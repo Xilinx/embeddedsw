@@ -34,6 +34,7 @@
 * 1.19  sb  11/10/23 Add support for Winbond flash w25q256jw
 * 1.19  sb  11/10/23 Add support for ISSI flash is25lp02g
 * 1.20  sb  05/20/24 Add support for ISSI flash is25lp01gg
+* 1.20  sb  09/13/24 Updated examples to configure correct baud rate value
 *
 *</pre>
 *
@@ -451,6 +452,17 @@ static INLINE u32 CalculateFCTIndex(u32 ReadId, u32 *FCTIndex)
 	}
 
 	return XST_FAILURE;
+}
+
+static INLINE u8 CalculatePreScaler(u8 BaudRateDiv)
+{
+	u8 PreScaler = 0;
+	while(BaudRateDiv > 2){
+		BaudRateDiv >>= 1;
+		PreScaler++;
+	}
+
+	return PreScaler;
 }
 
 #ifdef __cplusplus

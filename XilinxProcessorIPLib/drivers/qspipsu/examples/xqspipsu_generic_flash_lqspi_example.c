@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -74,6 +74,7 @@
 * 1.18  sb  07/24/23 Fix wrong init sequence for spansion byte ID.
 * 1.18  sb  08/02/23 Add status check for XQspiPsu_SetClkPrescaler API.
 * 1.19  sb  01/12/24 Added support to set QSPI clock based on baud rate divisior
+* 1.20  sb  09/13/24 Updated examples to configure correct baud rate value
 *
 *</pre>
 *
@@ -328,6 +329,7 @@ int QspiPsuInterruptFlashExample(XQspiPsu *QspiPsuInstancePtr,
 	XQspiPsu_Config *QspiPsuConfig;
 	int ReadBfrSize;
 	u32 PageSize = 0;
+	u8 PreScaler;
 
 	ReadBfrSize = (PAGE_COUNT * MAX_PAGE_SIZE) +
 		      (DATA_OFFSET + DUMMY_SIZE) * 8;
@@ -399,7 +401,8 @@ int QspiPsuInterruptFlashExample(XQspiPsu *QspiPsuInstancePtr,
 	xil_printf("Set Prescalar...\n\r");
 	/* Configure qspi controller frequency based on Baud rate divisor if baud rate divisor is non zero*/
 	if(QspiPsuInstancePtr->Config.BaudRateDiv != (u8)0){
-		Status = XQspiPsu_SetClkPrescaler(QspiPsuInstancePtr, QspiPsuInstancePtr->Config.BaudRateDiv);
+		PreScaler = CalculatePreScaler(QspiPsuInstancePtr->Config.BaudRateDiv);
+		Status = XQspiPsu_SetClkPrescaler(QspiPsuInstancePtr, PreScaler);
 	} else {
 		Status = XQspiPsu_SetClkPrescaler(QspiPsuInstancePtr, XQSPIPSU_CLK_PRESCALE_8);
 	}
