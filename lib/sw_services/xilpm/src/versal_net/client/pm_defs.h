@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,8 +18,8 @@ extern "C" {
 /** @cond xilpm_internal */
 /*
  * NOTE: All macros defined in this file is to just maintain the
- *       compatibility with existing ZynqMP application.
- *       This macros will be deprecated in future.
+ *	 compatibility with existing ZynqMP application.
+ *	 This macros will be deprecated in future.
  */
 #warning This file will be deprecated in future. Please use xpm_defs.h.
 

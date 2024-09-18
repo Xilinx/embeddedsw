@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,7 +57,7 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 #define PmPrintCommon(DbgLevel, ...)					\
 	do {								\
 		if (((DbgLevel) & (XPlmiDbgCurrentTypes)) != (u8)FALSE) {\
-			XPm_Printf(DbgLevel, __func__,  __VA_ARGS__);\
+			XPm_Printf(DbgLevel, __func__,	__VA_ARGS__);\
 		}\
 	} while (XPM_FALSE_COND)
 
@@ -135,7 +135,7 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 // set the first n bits to 1, rest to 0
 #define BITMASK(n)				(u32)((1ULL << (n)) - 1ULL)
 // set width specified bits at offset to 1, rest to 0
-#define BITNMASK(offset, width) 		(BITMASK(width) << (offset))
+#define BITNMASK(offset, width)			(BITMASK(width) << (offset))
 
 #define ARRAY_SIZE(x)				(sizeof(x) / sizeof((x)[0]))
 
@@ -164,26 +164,26 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
  * This MACRO will require when need to strictly check for && as per the
  * implementation.
  *
- * @RET1        Variable to store the return value of function to be execute
- *              at at RHS during comparison.
- * @TYPE        Type of pointer which returns by the function to be execute at
- *              RHS during comparison.
- * @FUNC        The function to be execute at RHS during comparison.
- * @param       Other params are arguments to the called function
+ * @RET1	Variable to store the return value of function to be execute
+ *		at at RHS during comparison.
+ * @TYPE	Type of pointer which returns by the function to be execute at
+ *		RHS during comparison.
+ * @FUNC	The function to be execute at RHS during comparison.
+ * @param	Other params are arguments to the called function
  *
- * @return      XST_SUCCESS if condition become true else XST_FAILURE
+ * @return	XST_SUCCESS if condition become true else XST_FAILURE
  **/
 #define XPM_STRICT_CHECK_IF_NULL(STSTMP, RET1, TYPE, FUNC, ...) \
-	({                                                      \
-		volatile const TYPE *RET2 = (NULL);             \
-		RET1 = (NULL);                                  \
-		STSTMP = XST_FAILURE;                           \
-		RET1 = (TYPE *)(FUNC(__VA_ARGS__));             \
-		RET2 = (TYPE *)(FUNC(__VA_ARGS__));             \
-		if (((NULL) == RET1) && ((NULL) == RET2)) {     \
-			STSTMP = XST_SUCCESS;                   \
-		}                                               \
-		STSTMP;                                         \
+	({							\
+		volatile const TYPE *RET2 = (NULL);		\
+		RET1 = (NULL);					\
+		STSTMP = XST_FAILURE;				\
+		RET1 = (TYPE *)(FUNC(__VA_ARGS__));		\
+		RET2 = (TYPE *)(FUNC(__VA_ARGS__));		\
+		if (((NULL) == RET1) && ((NULL) == RET2)) {	\
+			STSTMP = XST_SUCCESS;			\
+		}						\
+		STSTMP;						\
 	})
 
 /**
@@ -203,17 +203,17 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
  *
  * @return	XST_SUCCESS if condition become true else XST_FAILURE
  **/
-#define XPM_STRICT_CHECK_IF_NOT_NULL(STSTMP, RET1, TYPE, FUNC, ...)     \
-	({                                                      \
-		volatile const TYPE *RET2 = NULL;               \
-		RET1 = NULL;                                    \
-		STSTMP = XST_FAILURE;                           \
-		RET1 = (TYPE *)(FUNC(__VA_ARGS__));             \
-		RET2 = (TYPE *)(FUNC(__VA_ARGS__));             \
-		if (((NULL) != RET1) && ((NULL) != RET2)) {     \
-			STSTMP = XST_SUCCESS;                   \
-		}                                               \
-		STSTMP;                                         \
+#define XPM_STRICT_CHECK_IF_NOT_NULL(STSTMP, RET1, TYPE, FUNC, ...)	\
+	({							\
+		volatile const TYPE *RET2 = NULL;		\
+		RET1 = NULL;					\
+		STSTMP = XST_FAILURE;				\
+		RET1 = (TYPE *)(FUNC(__VA_ARGS__));		\
+		RET2 = (TYPE *)(FUNC(__VA_ARGS__));		\
+		if (((NULL) != RET1) && ((NULL) != RET2)) {	\
+			STSTMP = XST_SUCCESS;			\
+		}						\
+		STSTMP;						\
 	})
 
 /**
@@ -224,24 +224,24 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
  * This MACRO will require when need to strictly check for && as per the
  * implementation.
  *
- * @LHS         Left hand side value wants to compare.
- * @TYPE        Return type of function to be execute at RHS during comparison.
- * @FUNC        The function to be execute at RHS during comparison.
- * @param       Other params are arguments to the called function
+ * @LHS		Left hand side value wants to compare.
+ * @TYPE	Return type of function to be execute at RHS during comparison.
+ * @FUNC	The function to be execute at RHS during comparison.
+ * @param	Other params are arguments to the called function
  *
- * @return      XST_SUCCESS if condition become true else XST_FAILURE
+ * @return	XST_SUCCESS if condition become true else XST_FAILURE
  **/
 #define XPM_STRICT_CHECK_IF_EQUAL_FOR_FUNC(STSTMP, LHS, TYPE, FUNC, ...)\
-	({                                                      \
-		volatile TYPE RET1 = ~(LHS);                    \
-		volatile TYPE RET2 = ~(LHS);                    \
-		STSTMP = XST_FAILURE;                           \
-		RET1 = (FUNC(__VA_ARGS__));                     \
-		RET2 = (FUNC(__VA_ARGS__));                     \
-		if (((LHS) == RET1) && ((LHS) == RET2)) {       \
-			STSTMP = XST_SUCCESS;                   \
-		}                                               \
-		STSTMP;                                         \
+	({							\
+		volatile TYPE RET1 = ~(LHS);			\
+		volatile TYPE RET2 = ~(LHS);			\
+		STSTMP = XST_FAILURE;				\
+		RET1 = (FUNC(__VA_ARGS__));			\
+		RET2 = (FUNC(__VA_ARGS__));			\
+		if (((LHS) == RET1) && ((LHS) == RET2)) {	\
+			STSTMP = XST_SUCCESS;			\
+		}						\
+		STSTMP;						\
 	})
 
 /**
@@ -252,24 +252,24 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
  * This MACRO will require when need to strictly check for && as per the
  * implementation.
  *
- * @LHS         Left hand side value wants to compare.
- * @TYPE        Return type of function to be execute at RHS during comparison.
- * @FUNC        The function to be execute at RHS during comparison.
- * @param       Other params are arguments to the called function
+ * @LHS		Left hand side value wants to compare.
+ * @TYPE	Return type of function to be execute at RHS during comparison.
+ * @FUNC	The function to be execute at RHS during comparison.
+ * @param	Other params are arguments to the called function
  *
- * @return      XST_SUCCESS if condition become true else XST_FAILURE
+ * @return	XST_SUCCESS if condition become true else XST_FAILURE
  **/
 #define XPM_STRICT_CHECK_IF_NOTEQUAL_FOR_FUNC(STSTMP, LHS, TYPE, FUNC, ...)\
-	({                                                      \
-		volatile TYPE RET1 = LHS;                       \
-		volatile TYPE RET2 = LHS;                       \
-		STSTMP = XST_FAILURE;                           \
-		RET1 = (FUNC(__VA_ARGS__));                     \
-		RET2 = (FUNC(__VA_ARGS__));                     \
-		if (((LHS) != RET1) && ((LHS) != RET2)) {       \
-			STSTMP = XST_SUCCESS;                   \
-		}                                               \
-		STSTMP;                                         \
+	({							\
+		volatile TYPE RET1 = LHS;			\
+		volatile TYPE RET2 = LHS;			\
+		STSTMP = XST_FAILURE;				\
+		RET1 = (FUNC(__VA_ARGS__));			\
+		RET2 = (FUNC(__VA_ARGS__));			\
+		if (((LHS) != RET1) && ((LHS) != RET2)) {	\
+			STSTMP = XST_SUCCESS;			\
+		}						\
+		STSTMP;						\
 	})
 
 /**
@@ -280,21 +280,21 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
  * This MACRO will require when need to strictly check for && as per the
  * implementation.
  *
- * @LHS         Left hand side value wants to compare.
- * @RHS         Right hand side value wants to compare.
- * @TYPE        Data type of LHS and RHS.
+ * @LHS		Left hand side value wants to compare.
+ * @RHS		Right hand side value wants to compare.
+ * @TYPE	Data type of LHS and RHS.
  *
- * @return      XST_SUCCESS if condition become true else XST_FAILURE
+ * @return	XST_SUCCESS if condition become true else XST_FAILURE
  **/
-#define XPM_STRICT_CHECK_IF_EQUAL(STSTMP, LHS, RHS, TYPE)               \
-	({                                                      \
-		volatile TYPE RET1 = LHS;                       \
-		volatile TYPE RET2 = ~(LHS);                    \
-		STSTMP = XST_FAILURE;                           \
-		if ((RET1 == (RHS)) && (RET2 == (~(RHS)))) {    \
-			STSTMP = XST_SUCCESS;                   \
-		}                                               \
-		STSTMP;                                         \
+#define XPM_STRICT_CHECK_IF_EQUAL(STSTMP, LHS, RHS, TYPE)		\
+	({							\
+		volatile TYPE RET1 = LHS;			\
+		volatile TYPE RET2 = ~(LHS);			\
+		STSTMP = XST_FAILURE;				\
+		if ((RET1 == (RHS)) && (RET2 == (~(RHS)))) {	\
+			STSTMP = XST_SUCCESS;			\
+		}						\
+		STSTMP;						\
 	})
 
 /**
@@ -305,21 +305,21 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
  * This MACRO will require when need to strictly check for && as per the
  * implementation.
  *
- * @LHS         Left hand side value wants to compare.
- * @RHS         Right hand side value wants to compare.
- * @TYPE        Data type of LHS and RHS.
+ * @LHS		Left hand side value wants to compare.
+ * @RHS		Right hand side value wants to compare.
+ * @TYPE	Data type of LHS and RHS.
  *
- * @return      XST_SUCCESS if condition become true else XST_FAILURE
+ * @return	XST_SUCCESS if condition become true else XST_FAILURE
  **/
-#define XPM_STRICT_CHECK_IF_NOTEQUAL(STSTMP, LHS, RHS, TYPE)            \
-	({                                                      \
-		volatile TYPE RET1 = LHS;                       \
-		volatile TYPE RET2 = ~(LHS);                    \
-		STSTMP = XST_FAILURE;                           \
-		if ((RET1 != (RHS)) && (RET2 != (~(RHS)))) {    \
-			STSTMP = XST_SUCCESS;                   \
-		}                                               \
-		STSTMP;                                         \
+#define XPM_STRICT_CHECK_IF_NOTEQUAL(STSTMP, LHS, RHS, TYPE)		\
+	({							\
+		volatile TYPE RET1 = LHS;			\
+		volatile TYPE RET2 = ~(LHS);			\
+		STSTMP = XST_FAILURE;				\
+		if ((RET1 != (RHS)) && (RET2 != (~(RHS)))) {	\
+			STSTMP = XST_SUCCESS;			\
+		}						\
+		STSTMP;						\
 	})
 
 /**
@@ -329,26 +329,26 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
  * critical functions. The macro requires a label to be passed to "go to".
  * This MACRO will require when need to check for || as per implementation.
  *
- * @RET1        Variable to store the return value of function to be execute
- *              at at RHS during comparison.
- * @TYPE        Type of pointer which returns by the function to be execute at
- *              RHS during comparison.
- * @FUNC        The function to be execute at RHS during comparison.
- * @param       Other params are arguments to the called function
+ * @RET1	Variable to store the return value of function to be execute
+ *		at at RHS during comparison.
+ * @TYPE	Type of pointer which returns by the function to be execute at
+ *		RHS during comparison.
+ * @FUNC	The function to be execute at RHS during comparison.
+ * @param	Other params are arguments to the called function
  *
- * @return      XST_SUCCESS if condition become true else XST_FAILURE
+ * @return	XST_SUCCESS if condition become true else XST_FAILURE
  **/
-#define XPM_CHECK_IF_NULL(STSTMP, RET1, TYPE, FUNC, ...)        \
-	({                                                      \
-		volatile const TYPE *RET2 = (NULL);             \
-		RET1 = (NULL);                                  \
-		STSTMP = XST_FAILURE;                           \
-		RET1 = (TYPE *)(FUNC(__VA_ARGS__));             \
-		RET2 = (TYPE *)(FUNC(__VA_ARGS__));             \
-		if (((NULL) == RET1) || ((NULL) == RET2)) {     \
-			STSTMP = XST_SUCCESS;                   \
-		}                                               \
-		STSTMP;                                         \
+#define XPM_CHECK_IF_NULL(STSTMP, RET1, TYPE, FUNC, ...)	\
+	({							\
+		volatile const TYPE *RET2 = (NULL);		\
+		RET1 = (NULL);					\
+		STSTMP = XST_FAILURE;				\
+		RET1 = (TYPE *)(FUNC(__VA_ARGS__));		\
+		RET2 = (TYPE *)(FUNC(__VA_ARGS__));		\
+		if (((NULL) == RET1) || ((NULL) == RET2)) {	\
+			STSTMP = XST_SUCCESS;			\
+		}						\
+		STSTMP;						\
 	})
 
 /**
@@ -358,26 +358,26 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
  * critical functions. The macro requires a label to be passed to "go to".
  * This MACRO will require when need to check for || as per implementation.
  *
- * @RET1        Variable to store the return value of function to be execute
- *              at at RHS during comparison.
- * @TYPE        Type of pointer which returns by the function to be execute at
- *              RHS during comparison.
- * @FUNC        The function to be execute at RHS during comparison.
- * @param       Other params are arguments to the called function
+ * @RET1	Variable to store the return value of function to be execute
+ *		at at RHS during comparison.
+ * @TYPE	Type of pointer which returns by the function to be execute at
+ *		RHS during comparison.
+ * @FUNC	The function to be execute at RHS during comparison.
+ * @param	Other params are arguments to the called function
  *
- * @return      XST_SUCCESS if condition become true else XST_FAILURE
+ * @return	XST_SUCCESS if condition become true else XST_FAILURE
  **/
-#define XPM_CHECK_IF_NOT_NULL(STSTMP, RET1, TYPE, FUNC, ...)    \
-	({                                                      \
-		volatile const TYPE *RET2 = NULL;               \
-		RET1 = NULL;                                    \
-		STSTMP = XST_FAILURE;                           \
-		RET1 = (TYPE *)(FUNC(__VA_ARGS__));             \
-		RET2 = (TYPE *)(FUNC(__VA_ARGS__));             \
-		if (((NULL) != RET1) || ((NULL) != RET2)) {     \
-			STSTMP = XST_SUCCESS;                   \
-		}                                               \
-		STSTMP;                                         \
+#define XPM_CHECK_IF_NOT_NULL(STSTMP, RET1, TYPE, FUNC, ...)	\
+	({							\
+		volatile const TYPE *RET2 = NULL;		\
+		RET1 = NULL;					\
+		STSTMP = XST_FAILURE;				\
+		RET1 = (TYPE *)(FUNC(__VA_ARGS__));		\
+		RET2 = (TYPE *)(FUNC(__VA_ARGS__));		\
+		if (((NULL) != RET1) || ((NULL) != RET2)) {	\
+			STSTMP = XST_SUCCESS;			\
+		}						\
+		STSTMP;						\
 	})
 
 /**
@@ -387,24 +387,24 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
  * critical functions. The macro requires a label to be passed to "go to".
  * This MACRO will require when need to check for || as per implementation.
  *
- * @LHS         Left hand side value wants to compare.
- * @TYPE        Return type of function to be execute at RHS during comparison.
- * @FUNC        The function to be execute at RHS during comparison.
- * @param       Other params are arguments to the called function
+ * @LHS		Left hand side value wants to compare.
+ * @TYPE	Return type of function to be execute at RHS during comparison.
+ * @FUNC	The function to be execute at RHS during comparison.
+ * @param	Other params are arguments to the called function
  *
- * @return      XST_SUCCESS if condition become true else XST_FAILURE
+ * @return	XST_SUCCESS if condition become true else XST_FAILURE
  **/
 #define XPM_CHECK_IF_EQUAL_FOR_FUNC(STSTMP, LHS, TYPE, FUNC, ...)\
-	({                                                      \
-		volatile TYPE RET1 = ~(LHS);                    \
-		volatile TYPE RET2 = ~(LHS);                    \
-		STSTMP = XST_FAILURE;                           \
-		RET1 = (FUNC(__VA_ARGS__));                     \
-		RET2 = (FUNC(__VA_ARGS__));                     \
-		if (((LHS) == RET1) || ((LHS) == RET2)) {       \
-			STSTMP = XST_SUCCESS;                   \
-		}                                               \
-		STSTMP;                                         \
+	({							\
+		volatile TYPE RET1 = ~(LHS);			\
+		volatile TYPE RET2 = ~(LHS);			\
+		STSTMP = XST_FAILURE;				\
+		RET1 = (FUNC(__VA_ARGS__));			\
+		RET2 = (FUNC(__VA_ARGS__));			\
+		if (((LHS) == RET1) || ((LHS) == RET2)) {	\
+			STSTMP = XST_SUCCESS;			\
+		}						\
+		STSTMP;						\
 	})
 
 /**
@@ -414,24 +414,24 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
  * critical functions. The macro requires a label to be passed to "go to".
  * This MACRO will require when need to check for || as per implementation.
  *
- * @LHS         Left hand side value wants to compare.
- * @TYPE        Return type of function to be execute at RHS during comparison.
- * @FUNC        The function to be execute at RHS during comparison.
- * @param       Other params are arguments to the called function
+ * @LHS		Left hand side value wants to compare.
+ * @TYPE	Return type of function to be execute at RHS during comparison.
+ * @FUNC	The function to be execute at RHS during comparison.
+ * @param	Other params are arguments to the called function
  *
- * @return      XST_SUCCESS if condition become true else XST_FAILURE
+ * @return	XST_SUCCESS if condition become true else XST_FAILURE
  **/
 #define XPM_CHECK_IF_NOTEQUAL_FOR_FUNC(STSTMP, LHS, TYPE, FUNC, ...)\
-	({                                                      \
-		volatile TYPE RET1 = LHS;                       \
-		volatile TYPE RET2 = LHS;                       \
-		STSTMP = XST_FAILURE;                           \
-		RET1 = (FUNC(__VA_ARGS__));                     \
-		RET2 = (FUNC(__VA_ARGS__));                     \
-		if (((LHS) != RET1) || ((LHS) != RET2)) {       \
-			STSTMP = XST_SUCCESS;                   \
-		}                                               \
-		STSTMP;                                         \
+	({							\
+		volatile TYPE RET1 = LHS;			\
+		volatile TYPE RET2 = LHS;			\
+		STSTMP = XST_FAILURE;				\
+		RET1 = (FUNC(__VA_ARGS__));			\
+		RET2 = (FUNC(__VA_ARGS__));			\
+		if (((LHS) != RET1) || ((LHS) != RET2)) {	\
+			STSTMP = XST_SUCCESS;			\
+		}						\
+		STSTMP;						\
 	})
 
 /**
@@ -441,21 +441,21 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
  * critical functions. The macro requires a label to be passed to "go to".
  * This MACRO will require when need to check for || as per implementation.
  *
- * @LHS         Left hand side value wants to compare.
- * @RHS         Right hand side value wants to compare.
- * @TYPE        Data type of LHS and RHS.
+ * @LHS		Left hand side value wants to compare.
+ * @RHS		Right hand side value wants to compare.
+ * @TYPE	Data type of LHS and RHS.
  *
- * @return      XST_SUCCESS if condition become true else XST_FAILURE
+ * @return	XST_SUCCESS if condition become true else XST_FAILURE
  **/
-#define XPM_CHECK_IF_EQUAL(STSTMP, LHS, RHS, TYPE)              \
-	({                                                      \
-		volatile TYPE RET1 = LHS;                       \
-		volatile TYPE RET2 = ~(LHS);                    \
-		STSTMP = XST_FAILURE;                           \
-		if ((RET1 == (RHS)) || (RET2 == (~(RHS)))) {    \
-			STSTMP = XST_SUCCESS;                   \
-		}                                               \
-		STSTMP;                                         \
+#define XPM_CHECK_IF_EQUAL(STSTMP, LHS, RHS, TYPE)		\
+	({							\
+		volatile TYPE RET1 = LHS;			\
+		volatile TYPE RET2 = ~(LHS);			\
+		STSTMP = XST_FAILURE;				\
+		if ((RET1 == (RHS)) || (RET2 == (~(RHS)))) {	\
+			STSTMP = XST_SUCCESS;			\
+		}						\
+		STSTMP;						\
 	})
 
 /**
@@ -465,21 +465,21 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
  * critical functions. The macro requires a label to be passed to "go to".
  * This MACRO will require when need to check for || as per implementation.
  *
- * @LHS         Left hand side value wants to compare.
- * @RHS         Right hand side value wants to compare.
- * @TYPE        Data type of LHS and RHS.
+ * @LHS		Left hand side value wants to compare.
+ * @RHS		Right hand side value wants to compare.
+ * @TYPE	Data type of LHS and RHS.
  *
- * @return      XST_SUCCESS if condition become true else XST_FAILURE
+ * @return	XST_SUCCESS if condition become true else XST_FAILURE
  **/
-#define XPM_CHECK_IF_NOTEQUAL(STSTMP, LHS, RHS, TYPE)           \
-	({                                                      \
-		volatile TYPE RET1 = LHS;                       \
-		volatile TYPE RET2 = ~(LHS);                    \
-		STSTMP = XST_FAILURE;                           \
-		if ((RET1 != (RHS)) || (RET2 != (~(RHS)))) {    \
-			STSTMP = XST_SUCCESS;                   \
-		}                                               \
-		STSTMP;                                         \
+#define XPM_CHECK_IF_NOTEQUAL(STSTMP, LHS, RHS, TYPE)		\
+	({							\
+		volatile TYPE RET1 = LHS;			\
+		volatile TYPE RET2 = ~(LHS);			\
+		STSTMP = XST_FAILURE;				\
+		if ((RET1 != (RHS)) || (RET2 != (~(RHS)))) {	\
+			STSTMP = XST_SUCCESS;			\
+		}						\
+		STSTMP;						\
 	})
 
 #define XPM_GOTO_LABEL_ON_CONDITION(condition, label) { \

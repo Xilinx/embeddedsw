@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -151,7 +151,7 @@ done:
  * @param Mask		Mask of bits field that control isolation
  * @param Format	Isolation control format
  * @param Dependencies	List of power domain node id that this isolation control
- * 			depends on.
+ *			depends on.
  * @param NumDependencies	Number of dependencies.
  *
  * @return	XST_SUCCESS or error code.
@@ -195,8 +195,8 @@ done:
  * @brief	Isolation control handling
  * @param IsoIdx	Isolation node index that need to control
  * @param Enable	Desired isolation output state.
- * 			0: isolation removal or disable
- * 			1: isolation installation or enable
+ *			0: isolation removal or disable
+ *			1: isolation installation or enable
  *
  * @return	XST_SUCCESS or error code.
  *
@@ -260,13 +260,13 @@ done:
 /****************************************************************************/
 /**
  * @brief	Isolation control process pending
- * 		This function is used as "refreshing" of all isolation nodes state
- * 		to make sure all pending isolation got attention and being process
+ *		This function is used as "refreshing" of all isolation nodes state
+ *		to make sure all pending isolation got attention and being process
  *		further. This should be called at device state transition.
  * @param IsoIdx	Isolation node index that need to control
  * @param Enable	Desired isolation output state.
- * 			0: isolation removal or disable
- * 			1: isolation installation or enable
+ *			0: isolation removal or disable
+ *			1: isolation installation or enable
  *
  * @return	XST_SUCCESS or error code.
  *
@@ -303,8 +303,8 @@ done:
  * @brief	Get state of isolation node
  * @param IsoIdx	Isolation node index that need to get state
  * @param State		Output state.
- * 			PM_ISOLATION_ON.
- * 			PM_ISOLATION_OFF
+ *			PM_ISOLATION_ON.
+ *			PM_ISOLATION_OFF
  *
  * @return	XST_SUCCESS or error code.
  *

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,8 +29,8 @@ typedef struct XPm_Iso {
 
 /* Polarity */
 typedef enum {
-        PM_ACTIVE_LOW,
-        PM_ACTIVE_HIGH,
+	PM_ACTIVE_LOW,
+	PM_ACTIVE_HIGH,
 }XPm_IsoPolarity;
 
 /* Isolation states */

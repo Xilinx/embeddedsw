@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,13 +27,13 @@ static XPlmi_AccessPerm_t XPlmi_PsmAccessPermBuff[PSM_API_MAX+1] = {
 
 static XPlmi_Module XPlmi_Psm =
 {
-        XPLMI_MODULE_XILPSM_ID,
-        XPlmi_PsmCmds,
-        PSM_API_MAX+1,
+	XPLMI_MODULE_XILPSM_ID,
+	XPlmi_PsmCmds,
+	PSM_API_MAX+1,
 		NULL,
 	XPlmi_PsmAccessPermBuff,
 #ifdef VERSAL_NET
-        NULL,
+	NULL,
 #endif
 };
 
@@ -118,7 +118,7 @@ void XPm_PsmModuleInit(void)
 /****************************************************************************/
 /**
  * @brief This Function is called by PSM to perform actions to finish suspend
- *       procedur of processor.
+ *	 procedur of processor.
  *
  * @param DeviceId	Device ID of processor
  *

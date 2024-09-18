@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,19 +29,19 @@ struct XPm_PldInitNodeOps {
 };
 
 struct XPm_PlDeviceNode {
-	XPm_Device Device;              /**< Device: Base class */
+	XPm_Device Device;		/**< Device: Base class */
 	SAVE_REGION(
-	u8 PowerBitMask;                /**< Current Power Domain Dependency */
-	u8 WfPowerBitMask;              /**< Desired Power Domain Dependency */
+	u8 PowerBitMask;		/**< Current Power Domain Dependency */
+	u8 WfPowerBitMask;		/**< Desired Power Domain Dependency */
 	u8 MemCtrlrCount;		/**< Link count for DDR Mem controllers */
 	u32 NocClockEnablement[MAX_NOC_CLOCK_ARRAY_SIZE];	/**< Bit array representing NoC clock enablement */
 	)
-	XPm_PlDevice *Parent;           /**< Parent of PLD */
-	XPm_PlDevice *NextPeer;         /**< Sibling/Peer of PLD */
-	XPm_PlDevice *Child;            /**< Child head PLD’s children */
+	XPm_PlDevice *Parent;		/**< Parent of PLD */
+	XPm_PlDevice *NextPeer;		/**< Sibling/Peer of PLD */
+	XPm_PlDevice *Child;		/**< Child head PLD’s children */
 	XPm_MemCtrlrDevice *MemCtrlr[MAX_PLAT_DDRMC_COUNT];	/**< Link to DDR Mem controllers */
 	XPm_PldInitNodeOps *Ops;	/**< Node Initialization Operations */
-	struct XPm_AieDeviceNode *AieDevice;       /**< Link to AIE Device */
+	struct XPm_AieDeviceNode *AieDevice;	   /**< Link to AIE Device */
 };
 
 /************************** Function Prototypes ******************************/
@@ -54,7 +54,7 @@ XStatus XPmPlDevice_GetParent(u32 NodeId, u32 *Resp);
 XStatus XPmPlDevice_IsValidPld(const XPm_PlDevice *PlDevice);
 XStatus XPmPlDevice_NocClkEnable(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
 XStatus XPmPlDevice_IfNocClkEnable(XPlmi_Cmd *Cmd, u32 BitArrayIdx, u16 State,
-		        u16 Mask, u32 Level);
+			u16 Mask, u32 Level);
 void XPmPlDevice_ReleaseAieDevice(XPm_PlDevice *PlDevice);
 void XPmPlDevice_GetAieParent(const XPm_Device* Device, const XPm_PlDevice **OutParent);
 void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId));

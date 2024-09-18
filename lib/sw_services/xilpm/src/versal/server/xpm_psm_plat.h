@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +15,7 @@
 extern "C" {
 #endif
 
-#define GLOBAL_CNTRL(BASE)      ((BASE) + PSM_GLOBAL_CNTRL)
+#define GLOBAL_CNTRL(BASE)	((BASE) + PSM_GLOBAL_CNTRL)
 
 /* PSM Global Registers */
 #define PSM_GLOBAL_CNTRL				(0x00000000U)

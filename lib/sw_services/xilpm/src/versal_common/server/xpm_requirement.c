@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -132,7 +133,7 @@ done:
 			requirements are triggered
  * @param Swap	Flag stating should current requirements be saved as next
  *
- * @note 	a) swap=false
+ * @note	a) swap=false
  *		Set scheduled requirements of a subsystem without swapping
  *		current and next requirements - means the current requirements
  *		will be dropped. Upon every self suspend, subsystem has to

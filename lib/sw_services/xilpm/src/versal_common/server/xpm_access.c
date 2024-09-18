@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -32,7 +32,7 @@ static XStatus XPmAccess_LookupEntry(u32 NodeId, u32 Offset,
 			/* Matching entry found, Look for aperture containing given offset */
 			XPm_NodeAper *Aper = Entry->Aperture;
 			while (NULL != Aper) {
-				if ((Offset >=  Aper->Offset) &&
+				if ((Offset >=	Aper->Offset) &&
 				    (Offset < (Aper->Offset + (Aper->Size * 4U)))) {
 					/* Found matching aperture */
 					Match->Entry = Entry;

@@ -21,7 +21,7 @@
 #include "xplmi_ssit.h"
 
 /* Scheduler owner ID for SSIT propagation task */
-#define XPM_SSIT_TEMP_PROP_ID   PM_DEV_AMS_ROOT
+#define XPM_SSIT_TEMP_PROP_ID	PM_DEV_AMS_ROOT
 /* Default task period */
 #define DEFAULT_SSIT_TEMP_PERIOD 100U
 
@@ -397,13 +397,13 @@ done:
 /****************************************************************************/
 /**
  * @brief This function starts the periodic task for SSIT temperature
- *        propagation. The task is only enabled on SSIT devices and only runs
- *        on primary SLR. If it is not enabled through RTCA then the task is
- *        never started. The task period is configured through RTCA and must
- *        be no lower than 10ms. Anything lower is rounded up to 10ms and any
- *        period which is not a multiple of 10 is rounded up. Once the
- *        task is enabled, it is expected to run for the lifetime of the
- *        system, it can not be disabled during runtime.
+ *	  propagation. The task is only enabled on SSIT devices and only runs
+ *	  on primary SLR. If it is not enabled through RTCA then the task is
+ *	  never started. The task period is configured through RTCA and must
+ *	  be no lower than 10ms. Anything lower is rounded up to 10ms and any
+ *	  period which is not a multiple of 10 is rounded up. Once the
+ *	  task is enabled, it is expected to run for the lifetime of the
+ *	  system, it can not be disabled during runtime.
  *
  * @param  None
  *

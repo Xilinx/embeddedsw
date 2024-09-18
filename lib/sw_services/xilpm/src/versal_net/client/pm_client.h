@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,9 +45,9 @@ extern "C" {
  * XPm_Proc - Processor structure
  */
 struct XPm_Proc {
-	const u32 DevId;                /**< Device ID */
-	const u32 PwrCtrl;              /**< Power Control Register Address */
-	const u32 PwrDwnMask;           /**< Power Down Mask */
+	const u32 DevId;		/**< Device ID */
+	const u32 PwrCtrl;		/**< Power Control Register Address */
+	const u32 PwrDwnMask;		/**< Power Down Mask */
 	XIpiPsu *Ipi;			/**< IPI Instance */
 };
 
@@ -69,14 +69,14 @@ extern char ProcName[7];
 
 /* Conditional debugging prints */
 #ifdef DEBUG_MODE
-	#define XPm_Dbg(MSG, ...) 	do { XPm_Print(MSG, ##__VA_ARGS__); } while (XPM_FALSE_COND)
+	#define XPm_Dbg(MSG, ...)	do { XPm_Print(MSG, ##__VA_ARGS__); } while (XPM_FALSE_COND)
 #else
 	#define XPm_Dbg(MSG, ...)	do {} while (XPM_FALSE_COND)
 #endif
 
 /* Define below macro to disable error prints for memory constrained applications */
 #ifndef DISABLE_ERROR_PRINTS
-	#define XPm_Err(MSG, ...) 	do { XPm_Print("ERROR: "MSG, ##__VA_ARGS__); } while (XPM_FALSE_COND)
+	#define XPm_Err(MSG, ...)	do { XPm_Print("ERROR: "MSG, ##__VA_ARGS__); } while (XPM_FALSE_COND)
 #else
 	#define XPm_Err(MSG, ...)	do {} while (XPM_FALSE_COND)
 #endif

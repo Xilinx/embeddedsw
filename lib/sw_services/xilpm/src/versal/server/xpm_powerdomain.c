@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022, Xilinx, Inc.  All rights reserved.
 * Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -795,41 +795,41 @@ XStatus XPm_PowerUpNoC(XPm_Node *Node)
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-        if ((u8)XPM_POWER_STATE_ON == Node->State) {
+	if ((u8)XPM_POWER_STATE_ON == Node->State) {
 			Status = XST_SUCCESS;
-                goto done;
-        } else {
-                Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_START, NULL, 0);
+		goto done;
+	} else {
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_START, NULL, 0);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_FUNC_INIT_START;
 			goto done;
 		}
-                Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_SCAN_CLEAR, NULL, 0);
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_SCAN_CLEAR, NULL, 0);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_FUNC_SCAN_CLEAR;
 			goto done;
 		}
 
-                Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_BISR, NULL, 0);
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_BISR, NULL, 0);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_FUNC_BISR;
 			goto done;
 		}
-                Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_MBIST_CLEAR, NULL, 0);
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_MBIST_CLEAR, NULL, 0);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_FUNC_MBIST_CLEAR;
 			goto done;
 		}
 
-                Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_FINISH, NULL, 0);
+		Status = XPmPowerDomain_InitDomain((XPm_PowerDomain *)Node, (u32)FUNC_INIT_FINISH, NULL, 0);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
 		}
-        }
+	}
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
-        return Status;
+	return Status;
 }
 
 XStatus XPm_PowerDwnNoC(void)
@@ -922,7 +922,7 @@ done:
 /****************************************************************************/
 /**
  * @brief This function is used if SysMon lower threshold registers are not
- *        programmed. Hardcoded minimum voltage values or EFUSE are used.
+ *	  programmed. Hardcoded minimum voltage values or EFUSE are used.
  *
  * @param  Rail: Pointer to power rail node
  * @param  RailVoltage: Current Sysmon voltage reading
@@ -930,8 +930,8 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
  *
  * @note If the lower threshold registers are programmed the PDI will be device
- *       dependent. Errors are returned to indicate mismatch in device and boot
- *       image.
+ *	 dependent. Errors are returned to indicate mismatch in device and boot
+ *	 image.
  *****************************************************************************/
 static XStatus SysmonVoltageCheck(const XPm_Rail *Rail, u32 RailVoltage)
 {
@@ -950,7 +950,7 @@ static XStatus SysmonVoltageCheck(const XPm_Rail *Rail, u32 RailVoltage)
 		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSFP)] = {0x2547AU, 0U},  /* 0.66V */
 		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_SOC)] = {0x25F5CU, 0U},   /* 0.745V */
 		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_RAM)] = {0x25F5CU, 0U},   /* 0.745V */
-		[RAILIDX(XPM_NODEIDX_POWER_VCCAUX)] = {0x2b333U, 0U},       /* 1.4V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCAUX)] = {0x2b333U, 0U},	    /* 1.4V */
 		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PL)] = {0x2547AU, 0U},    /* 0.66V */
 	};
 
@@ -1174,7 +1174,7 @@ XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u
 		 *
 		 * e.g.
 		 * pm_add_node 0x4534053 0x2 0x18224023 0x2 0x300 0x0040 0x100000 0x000000
-		 *                                          0x301 0x0040 0x100000 0x100000
+		 *					    0x301 0x0040 0x100000 0x100000
 		 * arg0: power domain controller id = 0x4534053 (PL Domain Controller)
 		 * arg1: type = 2 (GPIO)
 		 * arg2: GPIO id = 0x18224023 (PM_DEV_GPIO)
@@ -1875,37 +1875,37 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_MEM_INIT:
-                if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
-                        Status = XST_FAILURE;
-                        goto done;
-                }
-                if ((NULL != Ops) && (NULL != Ops->MemInit)) {
-                        Status = Ops->MemInit(PwrDomain, Args, NumArgs);
-                        if (XST_SUCCESS != Status) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		if ((NULL != Ops) && (NULL != Ops->MemInit)) {
+			Status = Ops->MemInit(PwrDomain, Args, NumArgs);
+			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_FUNC_MEM_INIT;
-                                goto done;
-                        }
+				goto done;
+			}
 			PwrDomain->InitFlag |= BIT16(FUNC_MEM_INIT);
-                }
+		}
 		Status = XST_SUCCESS;
-                break;
+		break;
 	case (u32)FUNC_HOUSECLEAN_COMPLETE:
-                if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
-                        Status = XST_FAILURE;
-                        goto done;
-                }
-                if ((NULL != Ops) && (NULL != Ops->HcComplete)) {
-                        Status = Ops->HcComplete(PwrDomain, Args, NumArgs);
-                        if (XST_SUCCESS != Status) {
+			Status = XST_FAILURE;
+			goto done;
+		}
+		if ((NULL != Ops) && (NULL != Ops->HcComplete)) {
+			Status = Ops->HcComplete(PwrDomain, Args, NumArgs);
+			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_FUNC_HOUSECLEAN_COMPLETE;
-                                goto done;
-                        }
+				goto done;
+			}
 			PwrDomain->InitFlag |= BIT16(FUNC_HOUSECLEAN_COMPLETE);
-                }
+		}
 		Status = XST_SUCCESS;
-                break;
+		break;
 	case (u32)FUNC_MIO_FLUSH:
 		if ((NULL != Ops) && (NULL != Ops->MioFlush)) {
 			Status = Ops->MioFlush(PwrDomain, Args, NumArgs);

@@ -89,7 +89,7 @@ maybe_unused static inline XStatus IsOnSecondarySLR(u32 SubsystemId)
 maybe_unused static inline XStatus XPm_PlatCmnFlush(const u32 SubsystemId)
 {
 	(void)SubsystemId;
-        return XST_SUCCESS;
+	return XST_SUCCESS;
 }
 int XPm_UpdateHandler(XPlmi_ModuleOp Op);
 #ifdef __cplusplus

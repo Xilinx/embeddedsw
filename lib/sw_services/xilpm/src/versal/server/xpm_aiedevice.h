@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2021 - 2022, Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,9 +29,9 @@ struct XPm_AieInitNodeOps {
 };
 
 struct XPm_AieDeviceNode {
-	XPm_Device Device;              /**< Device: Base class */
+	XPm_Device Device;		/**< Device: Base class */
 	struct XPm_AieInitNodeOps *Ops; /**< Node Initialization Operations */
-	XPm_PlDevice *Parent;           /**< Parent of Aie device */
+	XPm_PlDevice *Parent;		/**< Parent of Aie device */
 	XPm_AieNode *BaseDev;			/**< AIE device dependency */
 };
 

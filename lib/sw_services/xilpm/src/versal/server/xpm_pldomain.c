@@ -420,41 +420,41 @@ done:
 
 static void PldApplyTrim(u32 TrimType)
 {
-        u32 TrimVal;
+	u32 TrimVal;
 	volatile XStatus Status = XST_FAILURE;
 	volatile XStatus StatusTmp = XST_FAILURE;
-        Xuint128 VggTrim={0};
+	Xuint128 VggTrim={0};
 	const XPm_Device *EfuseCache;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 Platform;
 
-        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, EfuseCache, XPm_Device, XPmDevice_GetById, PM_DEV_EFUSE_CACHE);
-        if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-                DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+	Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, EfuseCache, XPm_Device, XPmDevice_GetById, PM_DEV_EFUSE_CACHE);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
-                goto done;
-        }
+		goto done;
+	}
 
-        /* Read the corresponding efuse registers for TRIM values */
-        switch (TrimType)
-        {
-                /* Read VGG trim efuse registers */
-                case XPM_PL_TRIM_VGG:
-                {
+	/* Read the corresponding efuse registers for TRIM values */
+	switch (TrimType)
+	{
+		/* Read VGG trim efuse registers */
+		case XPM_PL_TRIM_VGG:
+		{
 			PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CFRM_VGG_0_OFFSET,
 			       VggTrim.Word0);
-                        PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CFRM_VGG_1_OFFSET,
+			PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CFRM_VGG_1_OFFSET,
 			       VggTrim.Word1);
-                        PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CFRM_VGG_2_OFFSET,
+			PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CFRM_VGG_2_OFFSET,
 			       VggTrim.Word2);
-                        XCframe_VggTrim(&CframeIns, &VggTrim);
+			XCframe_VggTrim(&CframeIns, &VggTrim);
 			Status = XST_SUCCESS;
-                }
-                break;
-                /* Read CRAM trim efuse registers */
-                case XPM_PL_TRIM_CRAM:
-                {
-                        PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CRAM_OFFSET,
+		}
+		break;
+		/* Read CRAM trim efuse registers */
+		case XPM_PL_TRIM_CRAM:
+		{
+			PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_CRAM_OFFSET,
 			       TrimVal);
 
 			Platform = XPm_GetPlatform();
@@ -463,35 +463,35 @@ static void PldApplyTrim(u32 TrimType)
 			if ((TrimVal == 0U) && ((u32)PLATFORM_VERSION_SILICON == Platform)) {
 				TrimVal = CRAM_TRIM_RW_READ_VOLTAGE;
 			}
-                        XCframe_CramTrim(&CframeIns, TrimVal);
+			XCframe_CramTrim(&CframeIns, TrimVal);
 			Status = XST_SUCCESS;
-                }
-                break;
-                /* Read BRAM trim efuse registers */
-                case XPM_PL_TRIM_BRAM:
-                {
-                        PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_BRAM_OFFSET,
+		}
+		break;
+		/* Read BRAM trim efuse registers */
+		case XPM_PL_TRIM_BRAM:
+		{
+			PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_BRAM_OFFSET,
 			       TrimVal);
-                        XCframe_BramTrim(&CframeIns, TrimVal);
+			XCframe_BramTrim(&CframeIns, TrimVal);
 			Status = XST_SUCCESS;
-                }
-                break;
-                /* Read URAM trim efuse registers */
-                case XPM_PL_TRIM_URAM:
-                {
-                        PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_URAM_OFFSET,
+		}
+		break;
+		/* Read URAM trim efuse registers */
+		case XPM_PL_TRIM_URAM:
+		{
+			PmIn32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_TRIM_URAM_OFFSET,
 			       TrimVal);
-                        XCframe_UramTrim(&CframeIns, TrimVal);
+			XCframe_UramTrim(&CframeIns, TrimVal);
 			Status = XST_SUCCESS;
-                }
-                break;
-                default:
-                {
+		}
+		break;
+		default:
+		{
 			DbgErr = XPM_INT_ERR_INVALID_TRIM_TYPE;
 			Status = XST_FAILURE;
-                        break;
-                }
-        }
+			break;
+		}
+	}
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return;
@@ -536,7 +536,7 @@ static XStatus PldCfuInit(void)
 #endif
 	if (NULL == Config) {
 		DbgErr = XPM_INT_ERR_DEVICE_LOOKUP;
-                Status = XST_FAILURE;
+		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -561,19 +561,19 @@ done:
 }
 static XStatus PldCframeInit(void)
 {
-        XStatus Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 	const XCframe_Config *Config;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-        if (0U != CframeIns.IsReady) {
-                Status = XST_SUCCESS;
+	if (0U != CframeIns.IsReady) {
+		Status = XST_SUCCESS;
 		goto done;
-        }
-        /*
-         * Initialize the Cframe driver so that it's ready to use
+	}
+	/*
+	 * Initialize the Cframe driver so that it's ready to use
 	 * look up the configuration in the config table,
-         * then initialize it.
-         */
+	 * then initialize it.
+	 */
 #ifndef SDT
 	Config = XCframe_LookupConfig((u16)XPAR_XCFRAME_0_DEVICE_ID);
 #else
@@ -581,28 +581,28 @@ static XStatus PldCframeInit(void)
 #endif
 	if (NULL == Config) {
 		DbgErr = XPM_INT_ERR_DEVICE_LOOKUP;
-                Status = XST_FAILURE;
-                goto done;
-        }
+		Status = XST_FAILURE;
+		goto done;
+	}
 
-        Status = XCframe_CfgInitialize(&CframeIns, Config, Config->BaseAddress);
-        if (XST_SUCCESS != Status) {
+	Status = XCframe_CfgInitialize(&CframeIns, Config, Config->BaseAddress);
+	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_CFG_INIT;
-                goto done;
-        }
+		goto done;
+	}
 
-        /*
-         * Performs the self-test to check hardware build.
-         */
-        Status = XCframe_SelfTest(&CframeIns);
-        if (XST_SUCCESS != Status) {
+	/*
+	 * Performs the self-test to check hardware build.
+	 */
+	Status = XCframe_SelfTest(&CframeIns);
+	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_SELF_TEST;
-                goto done;
-        }
+		goto done;
+	}
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
-        return Status;
+	return Status;
 }
 
 static XStatus InitGtyAddrArr(u32 *GtArrPtr, const u32 ArrLen)
@@ -1757,9 +1757,9 @@ done:
 /**
  * @brief This function reduces the CFU clock frequency by dividing by 2
  *
- * @param       None
+ * @param	None
  *
- * @return      None
+ * @return	None
  *
  * @note	It is assumed that overflow will not occur for the CFU divisor
  *		register because the frequency is never configured such that
@@ -1784,9 +1784,9 @@ static void ReduceCfuClkFreq(void)
 /**
  * @brief This function resotres the CFU clock frequency by multiplying by 2
  *
- * @param       None
+ * @param	None
  *
- * @return      None
+ * @return	None
  *
  * @note	The clock frequency is reduced by dividing by 2 so to restore the
  *		original frequency it is multiplied by 2. This ensures that a global

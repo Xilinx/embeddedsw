@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -408,16 +408,16 @@ done:
 
 XPm_ClockNode* XPmClock_GetByIdx(u32 ClockIdx)
 {
-        XPm_ClockNode *Clk = NULL;
+	XPm_ClockNode *Clk = NULL;
 
-        if(MaxClkNodes < ClockIdx) {
-                goto done;
-        }
+	if(MaxClkNodes < ClockIdx) {
+		goto done;
+	}
 
-        Clk = ClkNodeList[ClockIdx];
+	Clk = ClkNodeList[ClockIdx];
 
 done:
-        return Clk;
+	return Clk;
 }
 
 
@@ -848,7 +848,7 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 			if ((Index + i) == Clk->Topology.NumNodes) {
 				break;
 			}
-			Type =  PtrNodes[Index + i].Type;
+			Type =	PtrNodes[Index + i].Type;
 			Clkflags = PtrNodes[Index + i].Clkflags;
 			Typeflags = PtrNodes[Index + i].Typeflags;
 

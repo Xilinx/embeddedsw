@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -545,8 +545,8 @@ done:
 /****************************************************************************/
 /**
  * @brief  This function returns groups present in pin based on
- *         pin ID. Index 0 returns the first 6 group IDs, index 6
- *         returns the next 6 group IDs, and so forth.
+ *	   pin ID. Index 0 returns the first 6 group IDs, index 6
+ *	   returns the next 6 group IDs, and so forth.
  *
  * @param PinId		Pin ID.
  * @param Index		Index of next function groups

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +29,7 @@
 #define TAG_ID_TYPE_GTYP				(12U)
 #define TAG_ID_TYPE_GTM					(13U)
 #define TAG_ID_TYPE_XRAM				(14U)
-#define TAG_ID_TYPE_LAGUNA             (15U)
+#define TAG_ID_TYPE_LAGUNA	       (15U)
 #define TAG_ID_ARRAY_SIZE				(256U)
 
 typedef struct XPm_NidbEfuseGrpInfo {
@@ -222,7 +222,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 
 		if (EfuseRowTag == PMC_EFUSE_BISR_EXIT_CODE) {
 			ExitCodeSeen = 1U;
-		} else if(EfuseRowTag==PMC_EFUSE_BISR_SKIP_CODE) { 	//SKIP Code Found
+		} else if(EfuseRowTag==PMC_EFUSE_BISR_SKIP_CODE) {	//SKIP Code Found
 			EfuseNextAddr += 4U;//then increment address and try again
 		} else {//Within Valid range and not a skip
 			//grab fields from the tag
@@ -231,7 +231,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 			EfuseBisrOptional = (EfuseRowTag & PMC_EFUSE_BISR_OPTIONAL_MASK)>>PMC_EFUSE_BISR_OPTIONAL_SHIFT;
 			if (XST_SUCCESS ==
 			    XPmBisr_TagSupportCheck(EfuseBisrTagId,
-			                            &XPmTagIdWhiteList)) {//check supported TAG_ID
+						    &XPmTagIdWhiteList)) {//check supported TAG_ID
 				if (EfuseBisrTagId == TagId) {//check if matched TAG_ID
 					switch(TagType) {
 					case TAG_ID_TYPE_ME:

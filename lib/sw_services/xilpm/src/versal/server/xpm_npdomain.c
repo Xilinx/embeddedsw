@@ -542,17 +542,17 @@ static void CleanupMemClearNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrLen
 			continue;
 		}
 
-                PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
+		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
 			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
-                PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
-        }
+		PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
+	}
 
-        for (i = 0U; i < DdrMcAddrLength; i++) {
+	for (i = 0U; i < DdrMcAddrLength; i++) {
 		if (0U == DdrMcAddresses[i]) {
 			continue;
 		}
-                PmOut32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
-                        NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
+		PmOut32(DdrMcAddresses[i] + NPI_PCSR_MASK_OFFSET,
+			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
 		PmOut32(DdrMcAddresses[i] + NPI_PCSR_CONTROL_OFFSET, 0);
 
 		if (1U == IsCrypto) {

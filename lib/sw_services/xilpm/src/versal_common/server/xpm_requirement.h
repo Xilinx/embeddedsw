@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,10 +18,10 @@ extern "C" {
 
 
 typedef enum {
-        RELEASE_ONE,
-        RELEASE_ALL,
-        RELEASE_UNREQUESTED,
-        RELEASE_DEVICE,
+	RELEASE_ONE,
+	RELEASE_ALL,
+	RELEASE_UNREQUESTED,
+	RELEASE_DEVICE,
 } XPm_ReleaseScope;
 
 /**

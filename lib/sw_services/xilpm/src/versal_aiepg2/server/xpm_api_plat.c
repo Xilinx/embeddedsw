@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -606,43 +606,43 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
  * +--------------------------------------------------------------------+
  * |Isolation Node ID(Node id include  class , subclass, type and Index)|
  * +--------------------------------------------+-----------------------+
- * |               rsvd[31:8]                   |      Format[7:0]      |
+ * |		   rsvd[31:8]			|      Format[7:0]	|
  * +--------------------------------------------+-----------------------+
- * |              Format specific payload (can be multiple words)       |
- * |                               ...                                  |
+ * |		  Format specific payload (can be multiple words)	|
+ * |				   ...					|
  * +--------------------------------------------+-----------------------+
- * |               rsvd[31:8]                   |      Format[7:0]      |
+ * |		   rsvd[31:8]			|      Format[7:0]	|
  * +--------------------------------------------+-----------------------+
- * |              Format specific payload (can be multiple words)       |
- * |                               ...                                  |
+ * |		  Format specific payload (can be multiple words)	|
+ * |				   ...					|
  * +--------------------------------------------------------------------+
- * |                               .                                    |
- * |                               .                                    |
- * |                               .                                    |
+ * |				   .					|
+ * |				   .					|
+ * |				   .					|
  * +--------------------------------------------------------------------+
  * Format entry for single word isolation control:
  * +--------------------------------------------+-----------------------+
- * |               rsvd[31:8]                   |      Format[7:0]      |
+ * |		   rsvd[31:8]			|      Format[7:0]	|
  * +--------------------------------------------+-----------------------+
- * |                           BaseAddress                              |
+ * |			       BaseAddress				|
  * +--------------------------------------------------------------------+
- * |                           Mask                                     |
+ * |			       Mask					|
  * +--------------------------------------------------------------------+
  *
  * Format entry for power domain dependencies:
  * +----------------+----------------------------+----------------------+
- * | rsvd[31:16]    | Dependencies Count[15:8]   |      Format[7:0]     |
+ * | rsvd[31:16]    | Dependencies Count[15:8]	 |	Format[7:0]	|
  * +-------------- -+ ---------------------------+----------------------+
- * |                   NodeID of Dependency0                            |
+ * |		       NodeID of Dependency0				|
  * +--------------------------------------------------------------------+
- * |                           ...                                      |
+ * |			       ...					|
  * +--------------------------------------------------------------------+
  *
  * Format entry for AFI interface control:
  * +--------------------------------------------+-----------------------+
- * |               rsvd[31:8]                   |      Format[7:0]      |
+ * |		   rsvd[31:8]			|      Format[7:0]	|
  * +--------------------------------------------+-----------------------+
- * |                           BaseAddress                              |
+ * |			       BaseAddress				|
  * +--------------------------------------------------------------------+
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code

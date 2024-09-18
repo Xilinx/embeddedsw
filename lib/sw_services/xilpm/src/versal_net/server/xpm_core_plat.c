@@ -160,75 +160,75 @@ void EnableWake(const struct XPm_Core *Core)
 
 XStatus XPmCore_StoreResumeAddr(const XPm_Core *Core, u64 Address)
 {
-        XStatus Status = XST_FAILURE;
-        u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-        /* Check for valid resume address */
-        if (0U == (Address & 1ULL)) {
-                DbgErr = XPM_INT_ERR_INVALID_RESUME_ADDR;
-                goto done;
-        }
+	/* Check for valid resume address */
+	if (0U == (Address & 1ULL)) {
+		DbgErr = XPM_INT_ERR_INVALID_RESUME_ADDR;
+		goto done;
+	}
 
-        if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
-                DbgErr = XPM_INT_ERR_INVALID_PROC;
-                goto done;
-        }
+	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+		DbgErr = XPM_INT_ERR_INVALID_PROC;
+		goto done;
+	}
 
-        /* Store the resume address to PSM reserved RAM location */
-        PsmToPlmEvent->ResumeAddress[Core->PsmToPlmEvent_ProcIdx] = Address;
-        Status = XST_SUCCESS;
+	/* Store the resume address to PSM reserved RAM location */
+	PsmToPlmEvent->ResumeAddress[Core->PsmToPlmEvent_ProcIdx] = Address;
+	Status = XST_SUCCESS;
 
 done:
-        XPm_PrintDbgErr(Status, DbgErr);
-        return Status;
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
 }
 
 XStatus XPmCore_HasResumeAddr(const XPm_Core *Core)
 {
-        XStatus Status = XST_FAILURE;
-        u64 ResumeAddr;
+	XStatus Status = XST_FAILURE;
+	u64 ResumeAddr;
 
-        if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
-                goto done;
-        }
+	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+		goto done;
+	}
 
-        ResumeAddr = PsmToPlmEvent->ResumeAddress[Core->PsmToPlmEvent_ProcIdx];
-        if (0U != (ResumeAddr & 1ULL)) {
-                Status = XST_SUCCESS;
-        }
+	ResumeAddr = PsmToPlmEvent->ResumeAddress[Core->PsmToPlmEvent_ProcIdx];
+	if (0U != (ResumeAddr & 1ULL)) {
+		Status = XST_SUCCESS;
+	}
 
 done:
-        return Status;
+	return Status;
 }
 
 XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag)
 {
-        XStatus Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
-        if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
-                goto done;
-        }
+	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+		goto done;
+	}
 
-        /* Store the CPU idle flag to PSM reserved RAM location */
-        PsmToPlmEvent->CpuIdleFlag[Core->PsmToPlmEvent_ProcIdx] = CpuIdleFlag;
-        Status = XST_SUCCESS;
+	/* Store the CPU idle flag to PSM reserved RAM location */
+	PsmToPlmEvent->CpuIdleFlag[Core->PsmToPlmEvent_ProcIdx] = CpuIdleFlag;
+	Status = XST_SUCCESS;
 
 done:
-        return Status;
+	return Status;
 }
 
 XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, u32 *CpuIdleFlag)
 {
-        XStatus Status = XST_FAILURE;
+	XStatus Status = XST_FAILURE;
 
-        if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
-                goto done;
-        }
+	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+		goto done;
+	}
 
-        /* Get the CPU idle flag from PSM reserved RAM location */
-        *CpuIdleFlag = PsmToPlmEvent->CpuIdleFlag[Core->PsmToPlmEvent_ProcIdx];
-        Status = XST_SUCCESS;
+	/* Get the CPU idle flag from PSM reserved RAM location */
+	*CpuIdleFlag = PsmToPlmEvent->CpuIdleFlag[Core->PsmToPlmEvent_ProcIdx];
+	Status = XST_SUCCESS;
 
 done:
-        return Status;
+	return Status;
 }

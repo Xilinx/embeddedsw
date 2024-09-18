@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,9 +16,9 @@ extern "C" {
 #endif
 
 
-#define GLOBAL_CNTRL(BASE)      ((BASE) + PSMX_GLOBAL_CNTRL)
-#define PROC_LOCATION_ADDRESS   (0xEBC26000U)
-#define PROC_LOCATION_LENGTH    (0x2000U)
+#define GLOBAL_CNTRL(BASE)	((BASE) + PSMX_GLOBAL_CNTRL)
+#define PROC_LOCATION_ADDRESS	(0xEBC26000U)
+#define PROC_LOCATION_LENGTH	(0x2000U)
 
 
 /* PSM Global Registers */

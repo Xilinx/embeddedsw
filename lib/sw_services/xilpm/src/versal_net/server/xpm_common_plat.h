@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,7 +18,7 @@
 extern "C" {
 #endif
 
-#define PMC_TAP_VERSION_PLATFORM_MASK           (0x0F000000U)
+#define PMC_TAP_VERSION_PLATFORM_MASK		(0x0F000000U)
 
 /* @TODO: Added below macro as workaorund to compile for AIEPG2 platform
  * Since it doesn't have PSM, this macro should not be required for the platform
@@ -32,12 +32,12 @@ extern "C" {
 
 #ifdef XPLMI_IPI_DEVICE_ID
 	#ifdef XPAR_XIPIPS_TARGET_PSX_PSM_0_CH0_MASK
-		#define PSM_IPI_INT_MASK                XPAR_XIPIPS_TARGET_PSX_PSM_0_CH0_MASK
+		#define PSM_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSX_PSM_0_CH0_MASK
 	#else
-		#define PSM_IPI_INT_MASK                XPAR_XIPIPS_TARGET_PSXL_PSM_0_CH0_MASK
+		#define PSM_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSXL_PSM_0_CH0_MASK
 	#endif
 #else
-	#define PSM_IPI_INT_MASK                (0U)
+	#define PSM_IPI_INT_MASK		(0U)
 #endif /* XPLMI_IPI_DEVICE_ID */
 
 #define XPM_POLL_TIMEOUT		(0X1000000U)

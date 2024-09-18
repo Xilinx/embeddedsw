@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,7 +34,7 @@ struct XPm_Power {
 };
 
 /* Support for up to 4 words of data for I2C commands */
-#define MAX_I2C_COMMAND_LEN     16
+#define MAX_I2C_COMMAND_LEN	16
 
 /************************** Function Prototypes ******************************/
 maybe_unused static inline void XPmPower_SetPsmRegInfo(XPm_Power *Power, const u32 *Args)

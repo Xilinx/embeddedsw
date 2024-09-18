@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +20,7 @@ extern "C" {
 #define FALSE_IMMEDIATE		(2U)	/* Remove isolation immediately */
 #define TRUE_PENDING_REMOVE	(3U)	/* Set isolation, but pending removal */
 
-#define CDO_ISO_ARG_FORMAT_MASK 	(0X00FFU)
+#define CDO_ISO_ARG_FORMAT_MASK		(0X00FFU)
 #define CDO_ISO_DEP_COUNT_MASK		(0xFF00U)
 #define CDO_ISO_DEP_COUNT_SHIFT		(8U)
 #define CDO_ISO_ARG_FORMAT(ARG) (ARG & CDO_ISO_ARG_FORMAT_MASK) /* Extract format field of the at given arg */
@@ -33,7 +33,7 @@ extern "C" {
 					      (NODEINDEX(NodeID) - (u32)XPM_NODEIDX_ISO_PL_PS_DTI0))
 
 typedef struct XPm_Iso {
-	XPm_Node Node; 	/**< Node: Node base class */
+	XPm_Node Node;	/**< Node: Node base class */
 	u32 Mask;
 	u32 Format;
 	u32 NumDependencies;

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,11 +37,11 @@ typedef struct XPm_PllClockNode XPm_PllClockNode;
 
 /**
  * PmPllContext - Structure for saving context of PLL registers.
- *              Contains variable to store default content of:
- * @ctrl        Control register
- * @cfg         Configuration register
- * @frac        Fractional control register
- * @flag        Indicates context saved or not
+ *		Contains variable to store default content of:
+ * @ctrl	Control register
+ * @cfg		Configuration register
+ * @frac	Fractional control register
+ * @flag	Indicates context saved or not
  *
  * Note: context of the PLL is saved when PM framework suspends a PLL (when
  * no node requires PLL to be locked).

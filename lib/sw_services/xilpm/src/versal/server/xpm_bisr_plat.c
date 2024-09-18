@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -97,9 +97,9 @@
 #define LAGUNA_FUSE_REPAIR_BITS	   (6U)
 #define HALF_TILE_NUM_PER_FRAME	   (48U)
 #define RCLK_TILES_NUM_IN_FRAME	   (4U)
-#define FDRO_BASEADDR              (0xF12C2000U)
-#define FSR_TILE_END               (95U)
-#define HALF_FSR_START             (48U)
+#define FDRO_BASEADDR		   (0xF12C2000U)
+#define FSR_TILE_END		   (95U)
+#define HALF_FSR_START		   (48U)
 #endif
 
 #ifdef XCVP1902
@@ -108,7 +108,7 @@
 #define NIDB_REPAIR_LOCK_VAL			(0x1U)
 
 /* Base address bit position */
-#define NPI_BASE_ADDRESS_OFFSET         	(16U)
+#define NPI_BASE_ADDRESS_OFFSET			(16U)
 
 #define EFUSE_CACHE_NIDB_0 (EFUSE_CACHE_BASEADDR + EFUSE_CACHE_NIDB_0_OFFSET)
 #define EFUSE_CACHE_NIDB_1 (EFUSE_CACHE_BASEADDR + EFUSE_CACHE_NIDB_1_OFFSET)
@@ -255,13 +255,13 @@ static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	u64 BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, PsFpd, XPm_PsFpDomain,
+	Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, PsFpd, XPm_PsFpDomain,
 				       XPmPower_GetById, PM_POWER_FPD);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-                DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-                Status = XST_FAILURE;
-                goto done;
-        }
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	BisrDataDestAddr = PsFpd->FpdSlcrBaseAddr + (u64)FPD_SLCR_BISR_CACHE_DATA_0_OFFSET;
 
@@ -328,13 +328,13 @@ static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 	u64 BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Cpm, XPm_CpmDomain,
+	Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Cpm, XPm_CpmDomain,
 				       XPmPower_GetById, PM_POWER_CPM);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-                DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-                Status = XST_FAILURE;
-                goto done;
-        }
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	BisrDataDestAddr = Cpm->CpmSlcrBaseAddr + (u64)CPM_SLCR_BISR_CACHE_DATA_0_OFFSET;
 
@@ -382,13 +382,13 @@ static XStatus XPmBisr_RepairCpm5(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	u64 BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Cpm, XPm_CpmDomain,
+	Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Cpm, XPm_CpmDomain,
 				       XPmPower_GetById, PM_POWER_CPM5);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-                DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-                Status = XST_FAILURE;
-                goto done;
-        }
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	BisrDataDestAddr = Cpm->CpmSlcrBaseAddr + (u64)CPM5_SLCR_BISR_CACHE_DATA_0_OFFSET;
 	/* Disable write protection */
@@ -497,13 +497,13 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 	/* Compilation warning fix */
 	(void)TagId;
 
-        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, AieDev, XPm_Device,
+	Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, AieDev, XPm_Device,
 				       XPmDevice_GetById, PM_DEV_AIE);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-                DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-                Status = XST_FAILURE;
-                goto done;
-        }
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	BaseAddr = (u64)VIVADO_ME_BASEADDR + ((u64)TagOptional << ME_BISR_EFUSE_OFFSET_SHIFT);
 	BisrDataDestAddr = BaseAddr + ME_BISR_FIXED_OFFSET;
@@ -637,7 +637,7 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 		// REPAIR_VALUE[63:32] = BISR Value[52:32]
 		//[95:64] init to 0
 		// REPAIR_TILE[70:64] = Q-tile[4:0]  (Align to LSB)
-		// REPAIR_COLUMN[78:71] = Column[1:0]    (Align to LSB)
+		// REPAIR_COLUMN[78:71] = Column[1:0]	 (Align to LSB)
 		// REPAIR_BLK_TYPE[81:79]=3’b101   (FUSE Tag is Hard-ip, i.e. MRMAC, SDFEC etc)
 		//[127:96] init to 0
 		HbExtendedRepair[0U] = HbRepairVal[0U]; //[31:0 ] (from second row)
@@ -656,8 +656,8 @@ static u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 		//Trigger repair command
 		XPm_Out32((CframeRowAddr + 0x60U), 0xDU);
 		XPm_Out32((CframeRowAddr + 0x64U), 0x0U);
-                XPm_Out32((CframeRowAddr + 0x68U), 0x0U);
-                XPm_Out32((CframeRowAddr + 0x6CU), 0x0U);
+		XPm_Out32((CframeRowAddr + 0x68U), 0x0U);
+		XPm_Out32((CframeRowAddr + 0x6CU), 0x0U);
 
 	}
 
@@ -909,8 +909,8 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 		/*
 		 * Form 32 bit repair word from 6 bits of repair word.
 		 * Only 6 bits in a word need to be modified with repair value.
-		 * bit     5      4     3     2     1     0
-		 * bit    26     22    18    14    10     6
+		 * bit	   5	  4	3     2     1	  0
+		 * bit	  26	 22    18    14    10	  6
 		 */
 		RepairWord = 0U;
 		for (i = 0U; i < 6U; i++) {
@@ -988,19 +988,19 @@ XStatus XPmBisr_Repair(u32 TagId)
 	u32 XPmTagIdWhiteList[TAG_ID_ARRAY_SIZE] = {0};
 	const XPm_Device *EfuseCache;
 
-        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, EfuseCache, XPm_Device,
+	Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, EfuseCache, XPm_Device,
 				       XPmDevice_GetById, PM_DEV_EFUSE_CACHE);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-                DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
-                goto done;
-        }
+		goto done;
+	}
 	Status = XPM_STRICT_CHECK_IF_EQUAL_FOR_FUNC(StatusTmp, PLATFORM_VERSION_SILICON, u32,
 					     XPm_GetPlatform);
 	if ((XST_SUCCESS != Status) && (XST_SUCCESS != StatusTmp)) {
-                Status = XST_SUCCESS;
-                goto done;
-        }
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	EfuseCacheBaseAddr = EfuseCache->Node.BaseAddress;
 	EfuseTagBitS1Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET);
@@ -1036,7 +1036,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 
 		if (EfuseRowTag == PMC_EFUSE_BISR_EXIT_CODE) {
 			ExitCodeSeen = 1U;
-		} else if(EfuseRowTag==PMC_EFUSE_BISR_SKIP_CODE) { 	//SKIP Code Found
+		} else if(EfuseRowTag==PMC_EFUSE_BISR_SKIP_CODE) {	//SKIP Code Found
 			EfuseNextAddr += 4U;//then increment address and try again
 		} else {//Within Valid range and not a skip
 			//grab fields from the tag
@@ -1045,7 +1045,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 			EfuseBisrOptional = (EfuseRowTag & PMC_EFUSE_BISR_OPTIONAL_MASK)>>PMC_EFUSE_BISR_OPTIONAL_SHIFT;
 			if (XST_SUCCESS ==
 			    XPmBisr_TagSupportCheck(EfuseBisrTagId,
-			                            &XPmTagIdWhiteList)) {//check supported TAG_ID
+						    &XPmTagIdWhiteList)) {//check supported TAG_ID
 				if (EfuseBisrTagId == TagId) {//check if matched TAG_ID
 					switch(TagType) {
 					case TAG_ID_TYPE_ME:
@@ -1219,10 +1219,10 @@ static XStatus XPmBisr_NidbRepairLane(u32 RepairLeftMostNIDBOnly)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i;
-	u32 RepairAddr  = 0x0U;
-	u32 NocSwId     = 0x0U;
+	u32 RepairAddr	= 0x0U;
+	u32 NocSwId	= 0x0U;
 	u32 RomRepairAddr = 0x0U;
-	u32 NidbAddr    = 0x0U;
+	u32 NidbAddr	= 0x0U;
 	u32 SlrType;
 	struct XPm_NidbEfuseGrpInfo NidbEfuseGrpInfo[MAX_NIDB_EFUSE_GROUPS];
 
@@ -1536,7 +1536,7 @@ done:
 
 /*****************************************************************************
  * @brief	This function decides which NIDB needs to be repaired based
- * 		on SlrType
+ *		on SlrType
  *
  * @param	SlrType if the current SLR is 1, 2 or 3
  *

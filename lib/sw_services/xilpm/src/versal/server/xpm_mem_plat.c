@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -250,9 +250,9 @@ static const XPm_StateTran XPmDDRDevTransitions[] = {
  * @brief  This function checks whether DRAMs are in self-refresh mode
  *
  * @return XST_SUCCESS if at least one DDRMC is enabled in the design and
- *         all the active DRAMs are in self-refresh mode,
- *         XST_FAILURE if no DDRMCs are enabled in the design or no DRAMs are
- *         in self-refresh mode
+ *	   all the active DRAMs are in self-refresh mode,
+ *	   XST_FAILURE if no DDRMCs are enabled in the design or no DRAMs are
+ *	   in self-refresh mode
  *
  * @note   None
  *

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -23,7 +23,7 @@ extern "C" {
 #define PSM_UPDATE_STATE_FINISHED	0x4U
 /*******************************************/
 
-/* This is the List of  of type that we use to save and restore*/
+/* This is the List of	of type that we use to save and restore*/
 #define LIST_OF_XPM_TYPE\
 	X(XPm_Node)\
 	X(XPm_Subsystem)\
