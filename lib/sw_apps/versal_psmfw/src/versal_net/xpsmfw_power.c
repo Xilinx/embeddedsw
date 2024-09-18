@@ -1075,7 +1075,7 @@ static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args)
 
 		Status = XPsmFw_UtilPollForMask(Args->ClusterPactive, Args->ClusterPacceptMask, ACPU_PACCEPT_TIMEOUT);
 		if (Status != XST_SUCCESS) {
-			XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
+			XPsmFw_Printf(DEBUG_ERROR,"%s: PACCEPT timeout for A78 Cluster %d..\n", __func__, Args->ClusterId);
 			goto done;
 		}
 		/* Clear PREQ bit */
@@ -1131,7 +1131,7 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_RMW32(Args->RstAddr,Args->WarmRstMask,~Args->WarmRstMask);
 	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,ACPU_PACCEPT_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
+		XPsmFw_Printf(DEBUG_ERROR,"%s: PACCEPT timeout for A78 Core %d..\n", __func__, Args->Id);
 		goto done;
 	}
 	/* Clear power down and wake interrupt status */
@@ -1185,7 +1185,7 @@ static XStatus XPsmFwACPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_RMW32(Args->RstAddr,Args->WarmRstMask,~Args->WarmRstMask);
 	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,ACPU_PACCEPT_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
+		XPsmFw_Printf(DEBUG_ERROR,"%s: PACCEPT timeout for A78 Cluster %d..\n", __func__, Args->ClusterId);
 		goto done;
 	}
 
@@ -1226,7 +1226,7 @@ static XStatus XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Poll the power stage status */
 	Status = XPsmFw_UtilPollForZero(Args->PwrStatusAddr, PSM_LOCAL_PWR_CTRL_GATES_MASK, Args->PwrDwnAckTimeout);
 	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_ERROR,"A78 core island power down ack timeout..\n");
+		XPsmFw_Printf(DEBUG_ERROR,"Island power down ack timeout for A78 core %d..\n", Args->Id);
 		goto done;
 	}
 
@@ -1251,7 +1251,7 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* poll for power state change */
 	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,ACPU_PACCEPT_TIMEOUT);
 	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR,"A78 Core PACCEPT timeout..\n");
+		XPsmFw_Printf(DEBUG_ERROR,"%s: PACCEPT timeout for A78 Core %d..\n", __func__, Args->Id);
 		goto done;
 	}
 
@@ -1276,7 +1276,7 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 
 		Status =  XPsmFw_UtilPollForMask(Args->ClusterPactive, Args->ClusterPacceptMask, ACPU_PACCEPT_TIMEOUT);
 		if (XST_SUCCESS != Status) {
-			XPsmFw_Printf(DEBUG_ERROR, "A78 Cluster PACCEPT timeout..\n");
+			XPsmFw_Printf(DEBUG_ERROR, "%s: PACCEPT timeout for A78 Cluster %d..\n", __func__, Args->ClusterId);
 			goto done;
 		}
 		/* Clear PREQ bit */
@@ -1385,7 +1385,7 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 
 	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,RPU_PACTIVE_TIMEOUT);
     if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_ERROR,"R52 Core PACCEPT timeout..\n");
+		XPsmFw_Printf(DEBUG_ERROR,"%s: PACCEPT timeout for R52 Core %d..\n", __func__, Args->Id);
         goto done;
 	}
 
@@ -1455,7 +1455,7 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/*poll for PACTIVE to go low*/
 	Status = XPsmFw_UtilPollForZero(Args->CorePactive, Args->CorePactiveMask, RPU_PACTIVE_TIMEOUT);
 	if(XST_SUCCESS != Status){
-		XPsmFw_Printf(DEBUG_ERROR,"Pactive bit is low\n");
+		XPsmFw_Printf(DEBUG_ERROR,"%s: Pactive bit is low for R52 core %d\n", __func__, Args->Id);
 		goto done;
 	}
 
@@ -1468,7 +1468,7 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/*poll for PACCEPT*/
 	Status = XPsmFw_UtilPollForMask(Args->CorePactive, Args->CorePacceptMask, RPU_PACTIVE_TIMEOUT);
 	if(XST_SUCCESS != Status){
-		XPsmFw_Printf(DEBUG_ERROR,"Paccept bit is not set\n");
+		XPsmFw_Printf(DEBUG_ERROR,"%s: Paccept bit is not set for R52 core %d\n", __func__, Args->Id);
 		goto done;
 	}
 
@@ -1506,7 +1506,7 @@ static XStatus XPsmFwMemPwrDwn(struct XPsmFwMemPwrCtrl_t *Args)
 		XPsmFw_RMW32(PSMX_LOCAL_REG_OCM_RET_CNTRL,Args->PwrStatusMask,Args->PwrStatusMask);
 		/*Check the retention mode is enabled or not*/
 		if((XPsmFw_Read32(PSMX_LOCAL_REG_LOC_AUX_PWR_STATE)&Args->PwrStateMask) != Args->PwrStateMask){
-			XPsmFw_Printf(DEBUG_ERROR,"Retention mode is not set\n");
+			XPsmFw_Printf(DEBUG_ERROR,"%s: OCM Retention mode is not set\n", __func__);
 			/*TBD: PSMX_LOCAL_REG_LOC_AUX_PWR_STATE bit is not setting to 1,uncomment once it is fixed*/
 			//goto done;
 		}
@@ -1518,7 +1518,7 @@ static XStatus XPsmFwMemPwrDwn(struct XPsmFwMemPwrCtrl_t *Args)
 		/*poll for disable retention*/
 		Status = XPsmFw_UtilPollForZero(PSMX_LOCAL_REG_LOC_AUX_PWR_STATE, Args->PwrStateMask, Args->PwrStateAckTimeout);
 		if (Status != XST_SUCCESS) {
-			XPsmFw_Printf(DEBUG_ERROR,"Retenstion is not disabled\n");
+			XPsmFw_Printf(DEBUG_ERROR,"%s: OCM Retention is not disabled\n", __func__);
 			goto done;
 		}
 	}
@@ -1535,7 +1535,7 @@ static XStatus XPsmFwMemPwrDwn(struct XPsmFwMemPwrCtrl_t *Args)
 	/*Read the OCM Power Status register*/
 	Status = XPsmFw_UtilPollForZero(Args->PwrStatusAddr, Args->PwrStatusMask, Args->PwrStateAckTimeout);
 	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR,"bit is not set\n");
+		XPsmFw_Printf(DEBUG_ERROR,"%s: OCM Power Status bit is not set\n", __func__);
 		goto done;
 	}
 
@@ -1564,7 +1564,7 @@ static XStatus XPsmFwMemPwrUp(struct XPsmFwMemPwrCtrl_t *Args)
 
 	Status = XPsmFw_UtilPollForMask(Args->PwrStatusAddr, Args->PwrStatusMask, Args->PwrStateAckTimeout);
 	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR,"bit is not set\n");
+		XPsmFw_Printf(DEBUG_ERROR,"%s: OCM Power Status bit is not set\n", __func__);
 		goto done;
 	}
 
@@ -1672,7 +1672,7 @@ static XStatus XTcmPwrUp(struct XPsmTcmPwrCtrl_t *Args)
 	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Tcm->PwrStateMask, Tcm->PwrStateMask);
 	Status = XPsmFw_UtilPollForMask(Tcm->PwrStatusAddr, Tcm->PwrStatusMask, Tcm->PwrStateAckTimeout);
 	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR,"TCM bit is not set\n");
+		XPsmFw_Printf(DEBUG_ERROR,"%s: TCM bit is not set for TCM ID %d\n", Args->Id);
 		goto done;
 	}
 
@@ -1700,7 +1700,7 @@ static XStatus XTcmPwrDown(struct XPsmTcmPwrCtrl_t *Args)
 		XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, Tcm->RetMask);
 		/*Ensure for Retention Mode taken effect*/
 		if((XPsmFw_Read32(PSMX_LOCAL_REG_LOC_AUX_PWR_STATE)&Tcm->PwrStateMask) != Tcm->PwrStateMask){
-			XPsmFw_Printf(DEBUG_ERROR,"Retention mode is not set\n");
+			XPsmFw_Printf(DEBUG_ERROR,"%s: Retention mode is not set for TCM %d\n", __func__, Args->Id);
 			/*TBD: PSMX_LOCAL_REG_LOC_AUX_PWR_STATE bit is not setting to 1,uncomment below line once it is fixed*/
 			//goto done;
 		}
@@ -1716,7 +1716,7 @@ static XStatus XTcmPwrDown(struct XPsmTcmPwrCtrl_t *Args)
 	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Tcm->PwrStateMask, ~Tcm->PwrStateMask);
 	Status = XPsmFw_UtilPollForZero(Tcm->PwrStatusAddr, Tcm->PwrStatusMask, Tcm->PwrStateAckTimeout);
 	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR,"TCM bit is not reset\n");
+		XPsmFw_Printf(DEBUG_ERROR,"%s: TCM bit is not reset for TCM ID %d\n", __func__, Args->Id);
 		goto done;
 	}
 
@@ -1742,7 +1742,7 @@ static XStatus XPsmFwMemPwrUp_Gem(struct XPsmFwMemPwrCtrl_t *Args)
 
 	Status = XPsmFw_UtilPollForMask(Args->PwrStatusAddr, Args->PwrStatusMask, Args->PwrStateAckTimeout);
 	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR,"bit is not set\n");
+		XPsmFw_Printf(DEBUG_ERROR,"%s: Gem Power status bit is not set\n", __func__);
 		goto done;
 	}
 
@@ -1772,7 +1772,7 @@ static XStatus XPsmFwMemPwrDwn_Gem(struct XPsmFwMemPwrCtrl_t *Args)
 	/*Read the gem Power Status register*/
 	Status = XPsmFw_UtilPollForZero(Args->PwrStatusAddr, Args->PwrStatusMask, Args->PwrStateAckTimeout);
 	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR,"bit is not set\n");
+		XPsmFw_Printf(DEBUG_ERROR,"%s: Gem power status bit is not set\n", __func__);
 		goto done;
 	}
 
