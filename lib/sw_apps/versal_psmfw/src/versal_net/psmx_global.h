@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -244,6 +244,10 @@ extern "C" {
  */
 #define PSMX_GLOBAL_REG_REQ_SWRST_INT_EN    ( ( PSMX_GLOBAL_REG_BASEADDR ) + (u32)0x00000418U )
 
+/**
+ * Register: PSMX_GLOBAL_REG_WAKEUP0_IRQ_EN
+ */
+#define PSMX_GLOBAL_REG_WAKEUP0_IRQ_EN    ( ( PSMX_GLOBAL_REG_BASEADDR ) + (u32)0x00000608U )
 /**
  * Register: PSMX_GLOBAL_REG_WAKEUP0_IRQ_STATUS
  */
