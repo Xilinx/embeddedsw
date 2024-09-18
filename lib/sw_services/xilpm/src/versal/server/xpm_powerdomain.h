@@ -28,11 +28,12 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 #define MAX_POWERDOMAINS			6U
 #define MAX_DOMAIN_CONTROL_MODES	2U
 
+/*Return success to null function*/
 #define XPM_HOUSECLEAN(PwrDomainNode, Func, Args, Num_Args, OutStatus) {\
 	if (PwrDomainNode->DomainOps->Func != NULL) { \
 		OutStatus = PwrDomainNode->DomainOps->Func(PwrDomainNode, Args, Num_Args);\
 	} else {\
-		OutStatus = XST_FAILURE;\
+		OutStatus = XST_SUCCESS;\
 	}\
 }
 
