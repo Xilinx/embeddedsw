@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,6 +54,7 @@ XStatus XPsmFw_UtilPollForMask(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 		 * Latch up the Register value again
 		 */
 		l_RegValue = Xil_In32(RegAddress);
+		usleep(1U);
 		/**
 		 * Decrement the TimeOut Count
 		 */
@@ -78,6 +80,7 @@ XStatus XPsmFw_UtilPollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 		 * Latch up the reg value again
 		 */
 		l_RegValue = Xil_In32(RegAddress);
+		usleep(1U);
 		/**
 		 * Decrement the timeout count
 		 */
@@ -92,6 +95,7 @@ void XPsmFw_UtilWait(u32 TimeOutCount)
 {
 	u32 TimeOut = TimeOutCount;
 	while (TimeOut > 0U) {
+		usleep(1U);
 		TimeOut--;
 	}
 }
