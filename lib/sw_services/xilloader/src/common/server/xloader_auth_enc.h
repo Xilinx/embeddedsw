@@ -427,6 +427,15 @@ extern "C" {
 	/**< Hash algorithm type SHA2-384 */
 #define XLOADER_HASH_ALGO_SHA3_384		(1U)
 	/**< Hash algorithm type SHA3-384 */
+#define XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN	(16U)
+	/**< Higher PPK HASH length in bytes */
+
+#define XLOADER_EFUSE_PPK0_USER_START_OFFSET	(0xF12502D0U)
+	/**< User Fuse offset for PPK0 to store upper 128 bits of Digest */
+#define XLOADER_EFUSE_PPK1_USER_START_OFFSET	(0xF12502E0U)
+	/**< User Fuse offset for PPK1 to store upper 128 bits of Digest */
+#define XLOADER_EFUSE_PPK2_USER_START_OFFSET	(0xF12502F0U)
+	/**< User Fuse offset for PPK2 to store upper 128 bits of Digest */
 
 #endif
 /**************************** Type Definitions *******************************/

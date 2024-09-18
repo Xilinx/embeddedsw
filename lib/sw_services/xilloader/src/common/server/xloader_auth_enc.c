@@ -135,6 +135,8 @@
 *                     XLoader_ProcessAuthEncPrtn after Block 0 processing is success
 *       mb   06/30/24 Fixed AES Decryption issue when KAT is enabled
 *       kal  07/24/24 Code refactoring and updates for versal_aiepg2
+*       kal  09/18/24 Updated XLoader_PpkVerify to verify 384 bit ppk hash
+*                     for Versal_AiePg2
 *
 * </pre>
 *
@@ -237,7 +239,7 @@ static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 	u64 SrcAddr, u64 DestAddr, u32 Size);
 static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 	XLoader_AesKekInfo *KeyDetails, XSecure_AesKeySrc *KeySrc);
-static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr);
+static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr, const u32 PpkSize);
 static int XLoader_VerifyRevokeId(u32 RevokeId);
 static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash);
 static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
@@ -1093,8 +1095,8 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This function compares calculated PPK hash with the
-* 			efuse PPK hash.
+* @brief	This function compares lower 256 bits of calculated PPK hash
+* 		with the efuse PPK hash.
 *
 * @param	EfusePpkOffset is PPK hash address of efuse.
 * @param	PpkHash is pointer to the PPK hash to be verified.
@@ -1115,7 +1117,7 @@ static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash)
 						  XLOADER_EFUSE_PPK_HASH_LEN, XLOADER_EFUSE_PPK_HASH_LEN);
 
 	if ((HashStatus != XST_SUCCESS) || (HashStatusTmp != XST_SUCCESS)) {
-		XPlmi_Printf(DEBUG_INFO, "Error: PPK Hash comparison failed\r\n");
+		XPlmi_Printf(DEBUG_INFO, "Error: PPK Hash - 256 bits comparison failed\r\n");
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_COMPARE_FAIL, 0x0);
 	}
 	else {
@@ -1150,6 +1152,9 @@ int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 	volatile u32 ReadRegTmp;
 	u32 PpkOffset;
 	u32 InvalidMask;
+#ifdef VERSAL_AIEPG2
+	u32 UserOffset = 0U;
+#endif
 
 	switch ((u32)PpkSelect) {
 		case XLOADER_PPK_SEL_0:
@@ -1175,7 +1180,7 @@ int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 		goto END;
 	}
 
-	/** - Check if PPK bits are valid or not by reading the EFUSE bits */
+	/** - Check if lower 256 PPK bits hash is valid or not by reading the PPK EFUSE bits */
 	ReadReg = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET) & InvalidMask;
 	ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_MISC_CTRL_OFFSET) & InvalidMask;
 	if ((ReadReg != 0x0U) || (ReadRegTmp != 0x0U)) {
@@ -1185,17 +1190,60 @@ int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PpkCompare, PpkOffset, PpkHash);
 
 	Status = XST_FAILURE;
-	/** - Check if valid PPK hash is all zeros */
+	/** - Check if valid lower 256 bit PPK hash is all zeros */
 	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_SMemCmp_CT, HashZeros,
 			XLOADER_EFUSE_PPK_HASH_LEN, (void *)PpkOffset,
 			XLOADER_EFUSE_PPK_HASH_LEN, XLOADER_EFUSE_PPK_HASH_LEN);
 	if ((HashStatus == XST_SUCCESS) || (HashStatusTmp == XST_SUCCESS)) {
 		Status = XLoader_UpdateMinorErr(
 			XLOADER_SEC_PPK_HASH_ALLZERO_INVLD, 0x0);
+		goto END;
 	}
 	else {
 		Status = XST_SUCCESS;
 	}
+
+#ifdef VERSAL_AIEPG2
+	if (PpkSelect == XLOADER_PPK_SEL_0) {
+		UserOffset = XLOADER_EFUSE_PPK0_USER_START_OFFSET;
+	}
+	else if (PpkSelect == XLOADER_PPK_SEL_1) {
+		UserOffset = XLOADER_EFUSE_PPK1_USER_START_OFFSET;
+	}
+	else if (PpkSelect == XLOADER_PPK_SEL_2) {
+		UserOffset = XLOADER_EFUSE_PPK2_USER_START_OFFSET;
+	}
+	else {
+		Status = XST_FAILURE;
+		goto END;
+	}
+	/** - Check if upper 128 PPK bits hash is valid or not by reading the User EFUSE bits */
+	HashStatus = Xil_SMemCmp_CT((void *)(PpkHash + XLOADER_EFUSE_PPK_HASH_LEN),
+				XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN,
+				(void *)UserOffset,
+                                XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN,
+				XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN);
+        HashStatusTmp = HashStatus;
+        if ((HashStatus != XST_SUCCESS) || (HashStatusTmp != XST_SUCCESS)) {
+                XPlmi_Printf(DEBUG_INFO, "Error: PPK Hash - Upper 128 bits comparison failed\r\n");
+                Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_COMPARE_FAIL, 0x0);
+		goto END;
+        }
+
+	Status = XST_FAILURE;
+	/** - Check if valid upper 128 bit PPK hash is all zeros */
+	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_SMemCmp_CT, HashZeros,
+			XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN, (void *)UserOffset,
+			XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN, XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN);
+	if ((HashStatus == XST_SUCCESS) || (HashStatusTmp == XST_SUCCESS)) {
+		Status = XLoader_UpdateMinorErr(
+			XLOADER_SEC_PPK_HASH_ALLZERO_INVLD, 0x0);
+		goto END;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+#endif
 
 END:
 	return Status;
@@ -1207,6 +1255,8 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 *
+* @param	PpkSize	is Size of the PPK to be verified
+*
 * @return
 * 			- XST_SUCCESS on success.
 * 			- XLOADER_SEC_ALL_PPK_REVOKED_ERR if all PPKs are revoked.
@@ -1215,7 +1265,7 @@ END:
 * 			- XLOADER_SEC_BUF_CLEAR_ERR if failed to clear buffer.
 *
 ******************************************************************************/
-static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr)
+static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr, const u32 PpkSize)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
@@ -1251,11 +1301,11 @@ static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr)
 	/** - Update PPK  */
 	if (SecurePtr->AuthJtagMessagePtr != NULL) {
 		Status = XSecure_ShaUpdate(ShaInstPtr,
-			(UINTPTR)&(SecurePtr->AuthJtagMessagePtr->PpkData), XLOADER_PPK_SIZE);
+			(UINTPTR)&(SecurePtr->AuthJtagMessagePtr->PpkData), PpkSize);
 	}
 	else {
 		Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)&SecurePtr->AcPtr->Ppk,
-			XLOADER_PPK_SIZE);
+			PpkSize);
 	}
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
@@ -2923,7 +2973,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	}
 
 	/** Verify PPK in the authenticated JTAG data. */
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_PpkVerify, &SecureParams);
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_PpkVerify, &SecureParams, XLOADER_PPK_SIZE);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL,
 			Status);
@@ -3797,7 +3847,8 @@ static int XLoader_AutheticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBSi
 			goto END;
 		}
 		/* Validate PPK hash */
-		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PpkVerify, SecurePtr);
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PpkVerify, SecurePtr,
+				HBSignParams->ActualPpkSize);
 	}
 
 	Status = XLoader_ShaDigestCalculation((u8 *)&SecurePtr->AcPtr->SpkHeader,
@@ -5616,7 +5667,7 @@ int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 		IsEfuseAuth = (u32)TRUE;
 		IsEfuseAuthTmp = (u32)TRUE;
 		/* Validate PPK hash */
-		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PpkVerify, SecurePtr);
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PpkVerify, SecurePtr, XLOADER_PPK_SIZE);
 	}
 
 	/* Perform SPK Validation */
