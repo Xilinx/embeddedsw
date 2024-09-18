@@ -46,6 +46,7 @@
 *                       boundaries
 * 1.8   skg  10/04/2022 Added masks for SLR ID and Zeriozing the SLR ID
 * 1.9   bm   07/11/2023 Added XPlmi_ClearEndStack member to XPlmi_Cmd structure
+*       pre  09/18/2024 Added XPLMI_SLR_INDEX_SHIFT, SLR index macros
 *
 * </pre>
 *
@@ -75,7 +76,16 @@ extern "C" {
 #define XPLMI_CMD_MODULE_ID_SHIFT		(8U)
 #define XPLMI_CMD_SLR_ID_MASK           (0X000000C0U)              /* Mask for extracting SlrIndex */
 #define XPLMI_SLR_ID_ZEROISE            ~(XPLMI_CMD_SLR_ID_MASK)  /* Mask for making SlrIndex Zero after use*/
+#define XPLMI_SLR_INDEX_SHIFT           (6U)                       /* Shift value for extracting SLRIndex */
 #define XPLMI_BEGIN_OFFSET_STACK_SIZE		(10U)
+/**
+ * SSIT SLR Index
+ */
+#define XPLMI_SSIT_MASTER_SLR_INDEX		(0U)
+#define XPLMI_SSIT_SLAVE0_SLR_INDEX		(1U)
+#define XPLMI_SSIT_SLAVE1_SLR_INDEX		(2U)
+#define XPLMI_SSIT_SLAVE2_SLR_INDEX		(3U)
+#define XPLMI_SSIT_INVALID_SLR_INDEX	(4U)
 
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_Cmd XPlmi_Cmd;
