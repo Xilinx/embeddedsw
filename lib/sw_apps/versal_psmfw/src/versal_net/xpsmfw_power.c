@@ -1189,13 +1189,15 @@ static XStatus XPsmFwACPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		goto done;
 	}
 
+	/* Clear PREQ bit */
+	XPsmFw_Write32(Args->CorePreq, 0U);
+
 	/* Clear power down and wake interrupt status */
 	XPsmFw_Write32(Args->CorePstate + APU_PCLI_CORE_ISR_POWER_OFFSET, Args->CorePreqMask);
 	XPsmFw_Write32(Args->CorePstate + APU_PCLI_CORE_ISR_WAKE_OFFSET, Args->CorePreqMask);
 
-
-	/* Clear PREQ bit */
-	XPsmFw_Write32(Args->CorePreq, 0U);
+	/* Disable PCLI_CORE_x_WAKE interrupt */
+	XPsmFw_Write32(Args->CorePstate + APU_PCLI_CORE_IDS_WAKE_OFFSET, Args->CorePreqMask);
 
 	/* Mark ACPUx powered up in LOCAL_PWR_STATUS register */
 	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, Args->PwrStateMask);
@@ -1258,6 +1260,10 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Clear PREQ bit */
 	XPsmFw_Write32(Args->CorePreq, 0U);
 
+	/* Clear status and disable PCLI_CORE_x_POWER interrupt */
+	XPsmFw_Write32(Args->CorePstate + APU_PCLI_CORE_ISR_POWER_OFFSET, Args->CorePreqMask);
+	XPsmFw_Write32(Args->CorePstate + APU_PCLI_CORE_IDS_POWER_OFFSET, Args->CorePreqMask);
+
 	Status = XPsmFwACPUxPwrDwn(Args);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -1281,6 +1287,9 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 		}
 		/* Clear PREQ bit */
 		XPsmFw_Write32(Args->ClusterPreq, 0U);
+		/* Clear power down interrupt status */
+		XPsmFw_Write32(Args->ClusterPstate + APU_PCLI_CLUSTER_ISR_POWER_OFFSET,
+			     Args->ClusterPreqMask);
 		ApuClusterState[Args->ClusterId] = 0U;
 	}
 
