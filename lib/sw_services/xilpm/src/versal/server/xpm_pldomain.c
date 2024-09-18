@@ -1326,29 +1326,38 @@ static XStatus AdcDacHouseClean(u32 SecLockDownInfo, u32 PollTimeOut)
 
 	/*TBD: add Bisr support for DAC*/
 
-	/* Run MBIST for each DAC */
-	XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (DacMbist),
-			(DacAddresses), ARRAY_SIZE(DacAddresses), (PollTimeOut));
-	/* Copy volatile to local to avoid MISRA */
-	XStatus LocalStatus = StatusTmp;
-	/* Required for redundancy */
-	if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
-		DbgErr = XPM_INT_ERR_DAC_MBIST;
-		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
+	/* Run DacMbist if houseclean disable mask is not set*/
+	if (PM_HOUSECLEAN_CHECK(DAC, MBIST)) {
+		/* Run MBIST for each DAC */
+		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (DacMbist),
+				(DacAddresses), ARRAY_SIZE(DacAddresses), (PollTimeOut));
+		/* Copy volatile to local to avoid MISRA */
+		XStatus LocalStatus = StatusTmp;
+		/* Required for redundancy */
+		if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
+			DbgErr = XPM_INT_ERR_DAC_MBIST;
+			XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
+		}
 	}
 
-	/* Run scan clear for each DAC */
-	Status = DacScanClear(DacAddresses, ARRAY_SIZE(DacAddresses), PollTimeOut);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_DAC_SCAN_CLEAR;
-		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
+	/* Run DacScanClear if houseclean disable mask is not set*/
+	if (PM_HOUSECLEAN_CHECK(DAC, SCAN)) {
+		/* Run scan clear for each DAC */
+		Status = DacScanClear(DacAddresses, ARRAY_SIZE(DacAddresses), PollTimeOut);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DAC_SCAN_CLEAR;
+			XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
+		}
 	}
 
-	/* Run scan clear for each ADC */
-	Status = AdcScanClear(AdcAddresses, ARRAY_SIZE(AdcAddresses), PollTimeOut);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_ADC_SCAN_CLEAR;
-		goto done;
+	/* Run AdcScanClear if houseclean disable mask is not set*/
+	if (PM_HOUSECLEAN_CHECK(ADC, SCAN)) {
+		/* Run scan clear for each ADC */
+		Status = AdcScanClear(AdcAddresses, ARRAY_SIZE(AdcAddresses), PollTimeOut);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_ADC_SCAN_CLEAR;
+			goto done;
+		}
 	}
 
 done:
