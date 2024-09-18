@@ -64,6 +64,8 @@
 *       ng   02/12/2024 optimised u8 vars to u32 for size reduction
 *       sk   02/18/2024 Added define for DDRMC Calib Check Status RTCA Reg init
 * 1.12  sk   06/05/2024 Added defines for PLM Version in RTCA register
+* 24.2  prt  09/18/2024 Updated the SDK_RELEASE_QUARTER as 2 and XPLMI_PLM_MINOR_VERSION as 2
+*
 * </pre>
 *
 * @note
@@ -83,10 +85,10 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* SDK release version */
 #define SDK_RELEASE_YEAR	"2024" /**< Specifies the SDK release year */
-#define SDK_RELEASE_QUARTER	"1"    /**< Specifies the SDK release quarter */
+#define SDK_RELEASE_QUARTER	"2"    /**< Specifies the SDK release quarter */
 
 #define XPLMI_PLM_MAJOR_VERSION		24U
-#define XPLMI_PLM_MINOR_VERSION		1U
+#define XPLMI_PLM_MINOR_VERSION		2U
 #define XPLMI_PLM_RC_VERSION		XPLMI_PLM_PLAT_RC_VERSION
 
 #define XPLMI_PLM_MAJOR_VERSION_SHIFT	24U
