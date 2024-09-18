@@ -106,6 +106,8 @@ s32 XAsufw_AllocateAesResources(u32 RequesterId)
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, RequesterId);
 	if (AsuDmaPtr != NULL) {
 		XAsufw_AllocateResource(XASUFW_AES, RequesterId);
+	} else {
+		Status = XASUFW_FAILURE;
 	}
 
 END:
@@ -212,7 +214,8 @@ static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 RequesterId)
 	    ((ResourceManager[Resource].State == XASUFW_RESOURCE_IS_IDLE) &&
 	     (ResourceManager[Resource].BlockedId != RequesterId))) {
 		Status = XASUFW_RESOURCE_UNAVAILABLE;
-	} else {
+	}
+	else {
 		Status = XASUFW_SUCCESS;
 	}
 

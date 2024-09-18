@@ -169,10 +169,16 @@ static XSha_Config *XSha_LookupConfig(u16 DeviceId)
 s32 XSha_CfgInitialize(XSha *InstancePtr)
 {
 	s32 Status = XASUFW_FAILURE;
-	XSha_Config *CfgPtr = XSha_LookupConfig(InstancePtr->DeviceId);
+	XSha_Config *CfgPtr = NULL;
 
 	/* Validate input parameters */
-	if ((InstancePtr == NULL) || (CfgPtr == NULL)) {
+	if (InstancePtr == NULL) {
+		Status = XASUFW_SHA_INVALID_PARAM;
+		XFIH_GOTO(END);
+	}
+
+	CfgPtr = XSha_LookupConfig(InstancePtr->DeviceId);
+	if (CfgPtr == NULL) {
 		Status = XASUFW_SHA_INVALID_PARAM;
 		XFIH_GOTO(END);
 	}

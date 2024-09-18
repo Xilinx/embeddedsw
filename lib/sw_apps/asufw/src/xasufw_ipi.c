@@ -146,7 +146,8 @@ s32 XAsufw_SendIpiToPlm(u32 *MsgBufPtr, u32 MsgBufLen)
 	}
 
 	/* Check if there is any pending IPI message */
-	Status = XIpiPsu_PollForAck(&IpiInst, XASUFW_IPI_PMC_MASK, 0xFFFFFFFFU);
+	/* TODO: Need to change timeout value */
+	Status = XIpiPsu_PollForAck(&IpiInst, XASUFW_IPI_PMC_MASK, 0x1FFFFFFFU);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);
 		XFIH_GOTO(END);
@@ -194,7 +195,8 @@ s32 XAsufw_ReadIpiRespFromPlm(u32 *RespBufPtr, u32 RespBufLen)
 	}
 
 	/* Check if the IPI interrupt is processed */
-	Status = XIpiPsu_PollForAck(&IpiInst, XASUFW_IPI_PMC_MASK, 0xFFFFFFFFU);
+	/* TODO: Need to change timeout value */
+	Status = XIpiPsu_PollForAck(&IpiInst, XASUFW_IPI_PMC_MASK, 0x1FFFFFFFU);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);
 		XFIH_GOTO(END);
