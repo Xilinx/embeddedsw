@@ -1239,21 +1239,50 @@ done:
 static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
+	u32 RetryCount = 0U;
 
 	/*Disable the Scan Clear and Mem Clear triggers*/
 	XPsmFw_RMW32(PSMX_GLOBAL_REG_SCAN_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
 	XPsmFw_RMW32(PSMX_GLOBAL_REG_MEM_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
 
-	/* Set the PSTATE field to power off the core */
-	XPsmFw_Write32(Args->CorePstate, 0U);
+	/*
+	 * TODO: Remove these retry P-channel request once actual reason for
+	 * PACCEPT failure and proper solution is found.
+	 */
 
-	/* Set PREQ field */
-	XPsmFw_Write32(Args->CorePreq, Args->CorePreqMask);
+	/* Retry sending P-Channel request for powering down core */
+	while (10U > RetryCount) {
+		/* Set the PSTATE field to power off the core */
+		XPsmFw_Write32(Args->CorePstate, 0U);
 
-	/* poll for power state change */
-	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,ACPU_PACCEPT_TIMEOUT);
-	if (Status != XST_SUCCESS) {
+		/* Set PREQ field */
+		XPsmFw_Write32(Args->CorePreq, Args->CorePreqMask);
+
+		/* poll for power state change */
+		Status = XPsmFw_UtilPollForMask(Args->CorePactive,
+						Args->CorePacceptMask,
+						ACPU_PACCEPT_TIMEOUT);
+		if (XST_SUCCESS == Status) {
+			break;
+		}
+
 		XPsmFw_Printf(DEBUG_ERROR,"%s: PACCEPT timeout for A78 Core %d..\n", __func__, Args->Id);
+		if (0x1U == XPsmFw_Read32(Args->CorePactive)) {
+			/* Core is already powered down */
+			Status = XST_SUCCESS;
+			break;
+		} else {
+			/* Clear PREQ bit */
+			XPsmFw_Write32(Args->CorePreq, 0U);
+			RetryCount++;
+		}
+	}
+
+	if (10U <= RetryCount) {
+		/*
+		 * Return failure when P-Channel request is not
+		 * accepted after 10 times retry
+		 */
 		goto done;
 	}
 
