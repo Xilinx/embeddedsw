@@ -33,6 +33,9 @@
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       ma   02/29/2024 Change protection unit error actions to PRINT_TO_LOG
 *                       to handle restoring of the error actions after IPU
+*       kj   09/18/2024 Added support for SW Error Handling in secondary SLR
+*                       and changed HBM CATTRIP SW Error Action in ErrorTable.
+*                       Also restricted HBM Cattrip error action to HW Errors.
 *
 * </pre>
 *
@@ -383,7 +386,7 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_STL_UE] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_HBM_SW_CATTRIP] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
 };
 
 /*****************************************************************************/
@@ -752,6 +755,44 @@ u32 *XPlmi_GetNumErrOuts(void)
 
 	return &NumErrOuts;
 }
+
+/****************************************************************************/
+/**
+* @brief	This function restricts error actions.
+*
+* @param	NodeType of Error
+* @param	RegMask of Error
+* @param	ErrorAction of the the Error
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+****************************************************************************/
+int XPlmi_RestrictErrActions(XPlmi_EventType NodeType,
+		u32 RegMask, u32 ErrorAction)
+{
+	int Status = XPLMI_INVALID_ERROR_ACTION;
+
+	/**
+	 * For HBM Cattrip, only support actions are:
+	 * - XPLMI_EM_ACTION_INVALID
+	 * - XPLMI_EM_ACTION_POR
+	 * - XPLMI_EM_ACTION_SRST
+	 * - XPLMI_EM_ACTION_CUSTOM
+	 * - XPLMI_EM_ACTION_ERROUT
+	 */
+	if ((NodeType == XPLMI_NODETYPE_EVENT_SW_ERR) &&
+		(RegMask == XIL_EVENT_ERROR_MASK_HBM_CATTRIP) &&
+		(ErrorAction > XPLMI_EM_ACTION_ERROUT)) {
+		XPlmi_Printf(DEBUG_GENERAL, "Only HW Error Actions are"
+			" supported for HBM CATTRIP\n\r");
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 /*****************************************************************************/

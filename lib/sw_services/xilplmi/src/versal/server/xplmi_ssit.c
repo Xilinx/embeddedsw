@@ -64,6 +64,9 @@
 *       pre  07/30/2024 Fixed misrac violations
 *       pre  08/16/2024 Replaced XPlmi_MemCpy64 with Xil_MemCpy64 at required places
 *       bm   09/09/2024 Updated Long Pulse duration to 10us
+*       kj   09/13/2024 Added support for SW Error Handling in secondary SLR
+*                       and changed HBM CATTRIP SW Error Action in ErrorTable.
+*                       Also restricted HBM Cattrip error action to HW Errors.
 *
 * </pre>
 *
@@ -1215,10 +1218,21 @@ int XPlmi_SsitSingleEamEventHandler(void *Data)
 	}
 
 	/**
-	 * - Trigger EAM event locally in Master SLR
-	 */
-	XPlmi_Out32(XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_TRIG,
-			XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_MASK);
+	* - Trigger EAM event locally in Master SLR
+	* - For Software Error Node, call the SW Err Handler with necessary Error Mask
+	* - Else, for Handware Errors, write to the register to propogate the event
+	*/
+	if (XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_ID == XIL_NODETYPE_EVENT_ERROR_SW_ERR) {
+		/* Trigger SW Error Action */
+		XPlmi_HandleSwError(XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_ID, XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_MASK);
+	}
+	else {
+		/**
+		* - Trigger EAM event locally in Master SLR
+		*/
+		XPlmi_Out32(XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_TRIG,
+						XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_MASK);
+	}
 
 END:
 	return Status;
