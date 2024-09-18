@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -149,12 +149,12 @@ enum XPm_ClockSubnodeType {
 #define CLK_DIVIDER_MAX_AT_ZERO		BIT(6)
 
 /* Type Flags for mux clock */
-#define CLK_MUX_INDEX_ONE               BIT(0)
-#define CLK_MUX_INDEX_BIT               BIT(1)
-#define CLK_MUX_HIWORD_MASK             BIT(2)
-#define CLK_MUX_READ_ONLY               BIT16(3)
-#define CLK_MUX_ROUND_CLOSEST           BIT(4)
-#define CLK_MUX_BIG_ENDIAN              BIT(5)
+#define CLK_MUX_INDEX_ONE		BIT(0)
+#define CLK_MUX_INDEX_BIT		BIT(1)
+#define CLK_MUX_HIWORD_MASK		BIT(2)
+#define CLK_MUX_READ_ONLY		BIT16(3)
+#define CLK_MUX_ROUND_CLOSEST		BIT(4)
+#define CLK_MUX_BIG_ENDIAN		BIT(5)
 
 /************************** Function Prototypes ******************************/
 XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,

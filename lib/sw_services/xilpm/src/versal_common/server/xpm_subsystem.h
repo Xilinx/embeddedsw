@@ -28,7 +28,7 @@ extern "C" {
 #define SUBSYSTEM_INIT_FINALIZED		((u8)1U << 0U)
 #define SUBSYSTEM_IS_CONFIGURED			((u8)1U << 1U)
 #define SUBSYSTEM_IDLE_SUPPORTED		((u8)1U << 2U)
-#define SUBSYSTEM_SUSCB_PRIORITIZE              ((u8)1U << 3U)
+#define SUBSYSTEM_SUSCB_PRIORITIZE		((u8)1U << 3U)
 
 /**
  * Helper macros to check subsystem specific flags.

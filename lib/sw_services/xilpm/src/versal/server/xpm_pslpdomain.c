@@ -388,7 +388,7 @@ static XStatus LpdLbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		}
 
 		/* Unwrite trigger bits */
-        PmRmw32(PMC_ANALOG_LBIST_ENABLE,
+	PmRmw32(PMC_ANALOG_LBIST_ENABLE,
 			(PMC_ANALOG_LBIST_ENABLE_LPD_MASK |
 			 PMC_ANALOG_LBIST_ENABLE_LPD_RPU_MASK), 0);
 	} else {
@@ -488,8 +488,8 @@ static XStatus XramMbist(u32 PollTimeOut)
 	const XPm_Device *Device = NULL;
 	u32 BaseAddr, RegValue;
 
-        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Device, XPm_Device, XPmDevice_GetById, PM_DEV_XRAM_0);
-        if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+	Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Device, XPm_Device, XPmDevice_GetById, PM_DEV_XRAM_0);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
 		/* device might not have XRAM IP, hence return success*/
 		Status = XST_SUCCESS;
 		goto done;
@@ -623,19 +623,19 @@ done:
 static void CleanupMemClearLpd(void)
 {
 	PmRmw32(PMC_ANALOG_OD_MBIST_RST,
-                (PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
-                 PMC_ANALOG_OD_MBIST_RST_LPD_RPU_MASK |
-                 PMC_ANALOG_OD_MBIST_RST_LPD_MASK), 0);
+		(PMC_ANALOG_OD_MBIST_RST_LPD_IOU_MASK |
+		 PMC_ANALOG_OD_MBIST_RST_LPD_RPU_MASK |
+		 PMC_ANALOG_OD_MBIST_RST_LPD_MASK), 0);
 
-        PmRmw32(PMC_ANALOG_OD_MBIST_SETUP,
-                (PMC_ANALOG_OD_MBIST_SETUP_LPD_IOU_MASK |
-                 PMC_ANALOG_OD_MBIST_SETUP_LPD_RPU_MASK |
-                 PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK),0);
+	PmRmw32(PMC_ANALOG_OD_MBIST_SETUP,
+		(PMC_ANALOG_OD_MBIST_SETUP_LPD_IOU_MASK |
+		 PMC_ANALOG_OD_MBIST_SETUP_LPD_RPU_MASK |
+		 PMC_ANALOG_OD_MBIST_SETUP_LPD_MASK),0);
 
-        PmRmw32(PMC_ANALOG_OD_MBIST_PG_EN,
-                (PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
-                 PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
-                 PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK),0);
+	PmRmw32(PMC_ANALOG_OD_MBIST_PG_EN,
+		(PMC_ANALOG_OD_MBIST_PG_EN_LPD_IOU_MASK |
+		 PMC_ANALOG_OD_MBIST_PG_EN_LPD_RPU_MASK |
+		 PMC_ANALOG_OD_MBIST_PG_EN_LPD_MASK),0);
 }
 
 /****************************************************************************/

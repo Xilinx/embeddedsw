@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -15,15 +15,15 @@ extern "C" {
 #define XPM_DATA_STRUCT_LCVERSION 0x1
 /****************** Data struct IDs **************/
 #define XPM_BYTEBUFFER_DS_ID		1U
-#define XPM_BYTEBUFFER_ADDR_DS_ID 	2U
-#define XPM_ALLNODES_DS_ID 		3U
-#define XPM_NUMNODES_DS_ID 		4U
-#define XPM_EVENTSEQ_DS_ID 		5U
+#define XPM_BYTEBUFFER_ADDR_DS_ID	2U
+#define XPM_ALLNODES_DS_ID		3U
+#define XPM_NUMNODES_DS_ID		4U
+#define XPM_EVENTSEQ_DS_ID		5U
 #define XPM_PENDINGEVENT_DS_ID		6U
 #define XPM_POSEMPTYSPACE_DS_ID		7U
 #define XPM_PMNOTIFIERS_DS_ID		8U
 #define XPM_SCHEDULERTASK_DS_ID		9U
-#define XPM_ALLSAVEREGIONSINFO_DS_ID    10U
+#define XPM_ALLSAVEREGIONSINFO_DS_ID	10U
 #define XPM_PREVNUMSAVEREGIONINFO_DS_ID 11U
 #define XPM_GICPROXYGROUPS_DS_ID	12U
 

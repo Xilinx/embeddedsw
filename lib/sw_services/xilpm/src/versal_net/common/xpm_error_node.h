@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,9 +14,9 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who 	 Date        Changes
+* Ver	Who	 Date	     Changes
 * ----- -------- -------- -------------------------------------------------------
-* 1.00  Abhyuday 26/08/2021 Initial release
+* 1.00	Abhyuday 26/08/2021 Initial release
 *
 * </pre>
 *
@@ -488,13 +488,13 @@ extern "C" {
 #define XPM_EVENT_ERROR_MASK_AXI_PAR_SPLITTER2	(0x00000200U)
 
 /** Error event mask for Memory Errors for Splitter3. */
-#define XPM_EVENT_ERROR_MASK_MEM_SPLITTER3    	(0x00000400U)
+#define XPM_EVENT_ERROR_MASK_MEM_SPLITTER3	(0x00000400U)
 
 /** Error event mask for Consolidated Errror indicating AXI parity Error for Splitter3. */
 #define XPM_EVENT_ERROR_MASK_AXI_PAR_SPLITTER3	(0x00000800U)
 
 /** Error event mask for APU Cluster 0 error. */
-#define XPM_EVENT_ERROR_MASK_APU_CLUSTER0 	(0x00001000U)
+#define XPM_EVENT_ERROR_MASK_APU_CLUSTER0	(0x00001000U)
 
 /** Error event mask for APU Cluster 1 error. */
 #define XPM_EVENT_ERROR_MASK_APU_CLUSTER1	(0x00002000U)
@@ -593,7 +593,7 @@ extern "C" {
 #define XPM_EVENT_ERROR_MASK_R52_A1_TFATAL	(0x00000200U)
 
 /** Error event mask for R52 A1 Core Timeout Error. */
-#define XPM_EVENT_ERROR_MASK_R52_A1_TIMEOUT    	(0x00000400U)
+#define XPM_EVENT_ERROR_MASK_R52_A1_TIMEOUT	(0x00000400U)
 
 /** Error event mask for Bit[24:20] pf ERREVNT for RPUA1. */
 #define XPM_EVENT_ERROR_MASK_B24_B20_RPUA1	(0x00000800U)
@@ -608,7 +608,7 @@ extern "C" {
 #define XPM_EVENT_ERROR_MASK_R52_B0_TFATAL	(0x00004000U)
 
 /** Error event mask for R52 A1 Core Timeout Error. */
-#define XPM_EVENT_ERROR_MASK_R52_B0_TIMEOUT    	(0x00008000U)
+#define XPM_EVENT_ERROR_MASK_R52_B0_TIMEOUT	(0x00008000U)
 
 /** Error event mask for Bit[24:20] pf ERREVNT for RPUB0. */
 #define XPM_EVENT_ERROR_MASK_B24_B20_RPUB0	(0x00010000U)
@@ -623,7 +623,7 @@ extern "C" {
 #define XPM_EVENT_ERROR_MASK_R52_B1_TFATAL	(0x00080000U)
 
 /** Error event mask for R52 A1 Core Timeout Error. */
-#define XPM_EVENT_ERROR_MASK_R52_B1_TIMEOUT    	(0x00100000U)
+#define XPM_EVENT_ERROR_MASK_R52_B1_TIMEOUT	(0x00100000U)
 
 /** Error event mask for Bit[24:20] pf ERREVNT for RPUB1. */
 #define XPM_EVENT_ERROR_MASK_B24_B20_RPUB1	(0x00200000U)
@@ -674,7 +674,7 @@ extern "C" {
 #define XPM_EVENT_ERROR_MASK_FATAL_AFI_FM	    (0x00000004U)
 
 /** Error event mask for Non Fatal Error from AFI FM in LPX. */
-#define XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM_LPX      (0x00000008U)
+#define XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM_LPX	    (0x00000008U)
 
 /** Error event mask for Non Fatal Error from AFI FM0 in FPX. */
 #define XPM_EVENT_ERROR_MASK_NFATAL_AFI_FM0_FPX	    (0x00000010U)

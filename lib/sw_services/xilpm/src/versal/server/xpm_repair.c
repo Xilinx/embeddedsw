@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 *****************************************************************************/
 #include "xpm_repair.h"
@@ -8,12 +8,12 @@
 #include "xpm_device.h"
 #include "xplmi_ssit.h"
 
-#define VDU_NPI_CACHE_DATA_REGISTER_OFFSET              0x104
+#define VDU_NPI_CACHE_DATA_REGISTER_OFFSET		0x104
 
 /* VDU Repair */
-#define VDU_PCSR_BISR_TRIGGER_MASK                      0x02000000
-#define VDU_PCSR_STATUS_BISR_DONE_MASK                  0x00010000
-#define VDU_PCSR_STATUS_BISR_PASS_MASK                  0x00020000
+#define VDU_PCSR_BISR_TRIGGER_MASK			0x02000000
+#define VDU_PCSR_STATUS_BISR_DONE_MASK			0x00010000
+#define VDU_PCSR_STATUS_BISR_PASS_MASK			0x00020000
 
 /* BFR Repair */
 #define BFR_NPI_CACHE_DATA_REGISTER_OFFSET		0x00000010U
@@ -31,42 +31,42 @@
 
 #ifdef XCVP1902
 /* Laguna Repair */
-#define VP1902_LAGUNA_FUSE_REDUNDANT_Y_LSB         (0U)
-#define VP1902_LAGUNA_FUSE_REDUNDANT_Y_BITS        (10U)
-#define VP1902_LAGUNA_FUSE_DEFECT_Y_LSB            (VP1902_LAGUNA_FUSE_REDUNDANT_Y_LSB + VP1902_LAGUNA_FUSE_REDUNDANT_Y_BITS)
-#define VP1902_LAGUNA_FUSE_DEFECT_Y_BITS           (10U)
-#define VP1902_LAGUNA_FUSE_DEFECT_X_LSB            (VP1902_LAGUNA_FUSE_DEFECT_Y_LSB + VP1902_LAGUNA_FUSE_DEFECT_Y_BITS)
-#define VP1902_LAGUNA_FUSE_DEFECT_X_BITS           (9U)
-#define VP1902_LAGUNA_FUSE_DRIVER_LSB              (VP1902_LAGUNA_FUSE_DEFECT_X_LSB + VP1902_LAGUNA_FUSE_DEFECT_X_BITS)
-#define VP1902_LAGUNA_FUSE_DRIVER_BITS             (3U)
-#define HALF_TILE_NUM_PER_FRAME                 (48U)
-#define FDRO_BASEADDR                           (0xF12C2000U)
-#define FSR_TILE_END                            (95U)
-#define HALF_FSR_START                          (48U)
-#define FRAME_BLOCK_TYPE_6                      (6U)
-#define CFRAME0_REG_FAR_BLOCKTYPE_SHIFT         (20U)
-#define EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET     (0x00000400U)
-#define EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET     (0x00000800U)
-#define CFRAME_REG_CMD_OFFSET                   (0x00000060U)
-#define CFRAME_REG_CMD_DLPARK                   (0x00000005U)
-#define CFRAME_BCAST_REG_BASEADDR               (0xF12EE000U)
-#define CFU_APB_CFU_ROW_RANGE_OFFSET            (0x0000006CU)
-#define CFU_APB_CFU_ROW_RANGE_HALF_FSR_MASK     (0x00000020U)
-#define CFRAME1_REG_BASEADDR                    (0xF12D2000U)
-#define CFRAME1_REG_CFRAME_FAR_TOP_OFFSET       (0x00000210U)
-#define CFRAME_REG_FAR_OFFSET                   (0x00000010U)
-#define CFRAME_REG_FRCNT_OFFSET                 (0x00000050U)
-#define VP1902_H_INTER_SLR_WIDTH                   (20U)
-#define VP1902_LAGUNA_ROWS                         (576U)
-#define VP1902_LAGUNA_WIDTH                        (117U)
-#define VP1902_BLUE_REGION_X_EW                    (VP1902_LAGUNA_WIDTH - VP1902_H_INTER_SLR_WIDTH)
-#define VP1902_BLUE_REGION_Y_NS                    (VP1902_LAGUNA_ROWS - 63U)
-#define VP1902_BLUE_REGION_Y_NS_IN_ROW             (VP1902_BLUE_REGION_Y_NS % 96U)
-#define FRAME_BUFFER_SIZE                       (100U)
+#define VP1902_LAGUNA_FUSE_REDUNDANT_Y_LSB	   (0U)
+#define VP1902_LAGUNA_FUSE_REDUNDANT_Y_BITS	   (10U)
+#define VP1902_LAGUNA_FUSE_DEFECT_Y_LSB		   (VP1902_LAGUNA_FUSE_REDUNDANT_Y_LSB + VP1902_LAGUNA_FUSE_REDUNDANT_Y_BITS)
+#define VP1902_LAGUNA_FUSE_DEFECT_Y_BITS	   (10U)
+#define VP1902_LAGUNA_FUSE_DEFECT_X_LSB		   (VP1902_LAGUNA_FUSE_DEFECT_Y_LSB + VP1902_LAGUNA_FUSE_DEFECT_Y_BITS)
+#define VP1902_LAGUNA_FUSE_DEFECT_X_BITS	   (9U)
+#define VP1902_LAGUNA_FUSE_DRIVER_LSB		   (VP1902_LAGUNA_FUSE_DEFECT_X_LSB + VP1902_LAGUNA_FUSE_DEFECT_X_BITS)
+#define VP1902_LAGUNA_FUSE_DRIVER_BITS		   (3U)
+#define HALF_TILE_NUM_PER_FRAME			(48U)
+#define FDRO_BASEADDR				(0xF12C2000U)
+#define FSR_TILE_END				(95U)
+#define HALF_FSR_START				(48U)
+#define FRAME_BLOCK_TYPE_6			(6U)
+#define CFRAME0_REG_FAR_BLOCKTYPE_SHIFT		(20U)
+#define EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET	(0x00000400U)
+#define EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET	(0x00000800U)
+#define CFRAME_REG_CMD_OFFSET			(0x00000060U)
+#define CFRAME_REG_CMD_DLPARK			(0x00000005U)
+#define CFRAME_BCAST_REG_BASEADDR		(0xF12EE000U)
+#define CFU_APB_CFU_ROW_RANGE_OFFSET		(0x0000006CU)
+#define CFU_APB_CFU_ROW_RANGE_HALF_FSR_MASK	(0x00000020U)
+#define CFRAME1_REG_BASEADDR			(0xF12D2000U)
+#define CFRAME1_REG_CFRAME_FAR_TOP_OFFSET	(0x00000210U)
+#define CFRAME_REG_FAR_OFFSET			(0x00000010U)
+#define CFRAME_REG_FRCNT_OFFSET			(0x00000050U)
+#define VP1902_H_INTER_SLR_WIDTH		   (20U)
+#define VP1902_LAGUNA_ROWS			   (576U)
+#define VP1902_LAGUNA_WIDTH			   (117U)
+#define VP1902_BLUE_REGION_X_EW			   (VP1902_LAGUNA_WIDTH - VP1902_H_INTER_SLR_WIDTH)
+#define VP1902_BLUE_REGION_Y_NS			   (VP1902_LAGUNA_ROWS - 63U)
+#define VP1902_BLUE_REGION_Y_NS_IN_ROW		   (VP1902_BLUE_REGION_Y_NS % 96U)
+#define FRAME_BUFFER_SIZE			(100U)
 
 static void LagunaRmwOneFrame_vp1902(u32 RowIndex,
-        u32 FrameAddr, u32 LowerTile, u32 UpperTile,
-        u32 LagunaDriverIndex, u32 LagunaXAdj, u32 CfuApbBaseAddr)
+	u32 FrameAddr, u32 LowerTile, u32 UpperTile,
+	u32 LagunaDriverIndex, u32 LagunaXAdj, u32 CfuApbBaseAddr)
 {
 	u32 CFrameAddr;
 	u32 FrameData[FRAME_BUFFER_SIZE];
@@ -83,7 +83,7 @@ static void LagunaRmwOneFrame_vp1902(u32 RowIndex,
 		goto done;
 	}
 	CFrameTopRow = (XPm_In32(CfuApbBaseAddr + CFU_APB_CFU_ROW_RANGE_OFFSET)
-	        & (u32)CFU_APB_CFU_ROW_RANGE_NUM_MASK) - 1U;
+		& (u32)CFU_APB_CFU_ROW_RANGE_NUM_MASK) - 1U;
 	/* Get CFRAME Address */
 	CFrameAddr = Pld->Cframe0RegBaseAddr + (XCFRAME_FRAME_OFFSET * (u32)RowIndex);
 
@@ -142,7 +142,7 @@ static void LagunaRmwOneFrame_vp1902(u32 RowIndex,
 	if (((XPlmi_GetSlrIndex() == 1U) || (XPlmi_GetSlrIndex() == 2U)) &&
 		(RowIndex == CFrameTopRow) &&
 		((LagunaXAdj < VP1902_BLUE_REGION_X_EW) && (UpperTile > VP1902_BLUE_REGION_Y_NS_IN_ROW))){
-	        for( Idx = UpperTile; Idx <= FSR_TILE_END; Idx++) {
+		for( Idx = UpperTile; Idx <= FSR_TILE_END; Idx++) {
 			if(Idx < HALF_TILE_NUM_PER_FRAME) {
 				FrameData[Idx] &= (0xFFFFFFFFU ^ (1U << XlrBitPosistion));
 			}
@@ -340,7 +340,7 @@ u32 XPmRepair_Laguna_vp1902(u32 EfuseTagAddr, u32 TagSize)
 	HalfFsr = (XPm_In32(CfuApbBaseAddr + CFU_APB_CFU_ROW_RANGE_OFFSET) &
 	    (u32)CFU_APB_CFU_ROW_RANGE_HALF_FSR_MASK) >> CFU_APB_CFU_ROW_RANGE_HALF_FSR_SHIFT;
 	NumberOfRows = XPm_In32(CfuApbBaseAddr + CFU_APB_CFU_ROW_RANGE_OFFSET)
-	        & (u32)CFU_APB_CFU_ROW_RANGE_NUM_MASK;
+		& (u32)CFU_APB_CFU_ROW_RANGE_NUM_MASK;
 
 	/* read 128bits CFRAME1_REG_CFRAME_FAR_TOP. type6 FAR is at bit 59:40*/
 	Temp = XPm_In32(CFRAME1_REG_BASEADDR + CFRAME1_REG_CFRAME_FAR_TOP_OFFSET + 0x0U);
@@ -406,7 +406,7 @@ u32 XPmRepair_Laguna_vp1902(u32 EfuseTagAddr, u32 TagSize)
 			FrameAddr = ((u32)FRAME_BLOCK_TYPE_6 << CFRAME0_REG_FAR_BLOCKTYPE_SHIFT) | LagunaXAdj;
 
 			LagunaRmwOneFrame_vp1902(RowIndex, FrameAddr, LowerTile,
-			        UpperTile, LagunaDriverIndex, LagunaXAdj, CfuApbBaseAddr);
+				UpperTile, LagunaDriverIndex, LagunaXAdj, CfuApbBaseAddr);
 		}
 	}
 

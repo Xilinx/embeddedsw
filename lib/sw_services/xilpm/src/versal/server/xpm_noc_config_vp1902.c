@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include <xpm_common.h>
@@ -22,9 +22,9 @@
 #define SLR3_NPS_12_RESPONSE_PATH_WRITE_VALUE	(0xFFFFFFFFU)
 
 /* following values are used as request and response ids */
-#define NSU_ID_SLR1                     	(0x00000401U)
-#define NSU_ID_SLR2                     	(0x00000801U)
-#define NSU_ID_SLR3                     	(0x00000C01U)
+#define NSU_ID_SLR1				(0x00000401U)
+#define NSU_ID_SLR2				(0x00000801U)
+#define NSU_ID_SLR3				(0x00000C01U)
 
 static XStatus XPm_SlaveNocConfigure_vp1902(const u32 SlrType);
 
@@ -80,11 +80,11 @@ done:
 }
 
 /*****************************************************************************
- * @brief       This NSU startup, moves to a functional state.
+ * @brief	This NSU startup, moves to a functional state.
  *
- * @param       NSUId NSU id
+ * @param	NSUId NSU id
  *
- * @return      none
+ * @return	none
  *
  ****************************************************************************/
 static void XPm_NsuStartup_vp1902(const u32 NsuId) {
@@ -129,8 +129,8 @@ static void XPm_NsuStartup_vp1902(const u32 NsuId) {
 
 /**********************************************************************************
  * @brief	This function calculates offset addresses from base based on output
- * 		and input ports, configues swith (NPS) and removes isolation, then
- * 		configues NIDBs required.
+ *		and input ports, configues swith (NPS) and removes isolation, then
+ *		configues NIDBs required.
  *
  * @param	SlrType if the current SLR is 1, 2 or 3
  *

@@ -245,7 +245,7 @@ done:
 /**
  * @brief  This function adds the Healthy boot monitor node through software.
  *
- * @param  DeviceId 	Device Id
+ * @param  DeviceId	Device Id
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -282,23 +282,23 @@ done:
 /****************************************************************************/
 /**
  * @brief  This function links a device to a subsystem with the given policies.
- *         It is a helper function serving the handling of subsystem <-> device
- *         requirements for PM_ADD_REQ command.
- *         There are a few special cases to be handled here, such as:
- *           - Requirements for PGGS/GGS nodes
+ *	   It is a helper function serving the handling of subsystem <-> device
+ *	   requirements for PM_ADD_REQ command.
+ *	   There are a few special cases to be handled here, such as:
+ *	     - Requirements for PGGS/GGS nodes
  *		* PM_ADD_NODE is called internally if the node is not present
- *           - Requirements for Healthy Boot Monitoring nodes
- *              * PM_ADD_NODE is called internally if the node is not present
- *           - Generic requirements for all the device nodes
- *              * Node must be present in the database through topology CDO
- *              or otherwise
+ *	     - Requirements for Healthy Boot Monitoring nodes
+ *		* PM_ADD_NODE is called internally if the node is not present
+ *	     - Generic requirements for all the device nodes
+ *		* Node must be present in the database through topology CDO
+ *		or otherwise
  *
- * @param  SubsystemId  Subsystem Id
- * @param  DeviceId     Device Id
- * @param  ReqFlags     Bit[0:1] - No-restriction(0)/Shared(1)/Time-Shared(2)/Nonshared(3)
- *                      Bit[2] - Secure(1)/Nonsecure(0) (Device mode)
- *                      Bit[3:5] - Reserved
- *                      Bit[6] - Pre-alloc flag
+ * @param  SubsystemId	Subsystem Id
+ * @param  DeviceId	Device Id
+ * @param  ReqFlags	Bit[0:1] - No-restriction(0)/Shared(1)/Time-Shared(2)/Nonshared(3)
+ *			Bit[2] - Secure(1)/Nonsecure(0) (Device mode)
+ *			Bit[3:5] - Reserved
+ *			Bit[6] - Pre-alloc flag
  * @param  Args		Node specific arguments
  *			- Pre-alloc capability bits
  *			- Quality of Service
@@ -373,8 +373,8 @@ done:
 /****************************************************************************/
 /**
  * @brief  This function links a node (dev/rst/subsys/regnode) to a subsystem.
- *         Requirement assignment could be made by XPm_RequestDevice() or
- *         XPm_SetRequirement() call.
+ *	   Requirement assignment could be made by XPm_RequestDevice() or
+ *	   XPm_SetRequirement() call.
  *
  * @param  Args		Node specific arguments
  * @param  NumArgs	Number of arguments
@@ -775,7 +775,7 @@ static void XPm_CheckLastResetReason(void)
  * @brief  Initialize XilPM library
  *
  * @param  IpiInst	IPI instance
- * @param  RequestCb 	Pointer to the request calbback handler
+ * @param  RequestCb	Pointer to the request calbback handler
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -947,8 +947,8 @@ XStatus XPm_GetApiVersion(u32 *Version)
  * source
  *
  * @param SubsystemId Initiator of the request
- * @param TargetNodeId  Core to be woken-up (currently must be same as initiator)
- * @param SourceNodeId  Source of the wake-up (Device that generates interrupt)
+ * @param TargetNodeId	Core to be woken-up (currently must be same as initiator)
+ * @param SourceNodeId	Source of the wake-up (Device that generates interrupt)
  * @param Enable      Flag stating should event be enabled or disabled
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
@@ -3015,7 +3015,7 @@ done:
  *
  * @param  DeviceId  Targeted device Id.
  * @param  Type      Type of the operating characteristics:
- *                       power, temperature, and latency
+ *			 power, temperature, and latency
  * @param  Result    Returns the value of operating characteristic type
  *
  * @return XST_SUCCESS if successful else either XST_NO_FEATURE or XST_FAILURE.
@@ -3049,12 +3049,12 @@ XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
 /**
  * @brief  Register a subsystem to be notified about the device event
  *
- * @param  IpiMask      IPI mask of current subsystem
- * @param  SubsystemId  Subsystem to be notified
+ * @param  IpiMask	IPI mask of current subsystem
+ * @param  SubsystemId	Subsystem to be notified
  * @param  NodeId     Node to which the event is related
- * @param  Event        Event in question
- * @param  Wake         Wake subsystem upon capturing the event if value 1
- * @param  Enable       Enable the registration for value 1, disable for value 0
+ * @param  Event	Event in question
+ * @param  Wake		Wake subsystem upon capturing the event if value 1
+ * @param  Enable	Enable the registration for value 1, disable for value 0
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -3139,7 +3139,7 @@ done:
  * or a reason code
  *
  * @note   To de-reset a device, the subsystem must be using the device, and
- * all the upstream reset line(s) must be de-asserted.  To reset a device, the
+ * all the upstream reset line(s) must be de-asserted.	To reset a device, the
  * subsystem must be the only user of the device, and all downstream devices
  * (in terms of reset dependency) must be already in reset state.  Otherwise,
  * this request will be denied.
@@ -3748,7 +3748,7 @@ u32 XPm_GetSubsystemId(u32 ImageId)
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note        None
+ * @note	None
  *
  ****************************************************************************/
 XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
@@ -4039,7 +4039,7 @@ done:
  *
  * @param SubsystemId		Subsystem ID
  * @param  DeviceId	Processor device ID
- * @param  SetAddress 	Specifies whether to set the start address.
+ * @param  SetAddress	Specifies whether to set the start address.
  * - 0 : do not set start address
  * - 1 : set start address
  * @param  Address	Address from which to resume when woken up.
@@ -4301,10 +4301,10 @@ static XStatus XPm_RequestHBMonDevice(const u32 SubsystemId, const u32 CmdType)
 /****************************************************************************/
 /**
  * @brief  This function can be used by a subsystem to Powerdown other
- * 	   processor or domain node or subsystem forcefully.
+ *	   processor or domain node or subsystem forcefully.
  *
  * @param SubsystemId	Subsystem ID
- * @param Node 		Processor or domain node or subsystem to be powered down
+ * @param Node		Processor or domain node or subsystem to be powered down
  * @param Ack		Ack request
  * @param CmdType	IPI command request type
  * @param IpiMask	IPI mask of initiator
@@ -4313,7 +4313,7 @@ static XStatus XPm_RequestHBMonDevice(const u32 SubsystemId, const u32 CmdType)
  * or a reason code
  *
  * @note   The affected PUs are not notified about the upcoming powerdown,
- *         and PLM does not wait for their WFI interrupt.
+ *	   and PLM does not wait for their WFI interrupt.
  *
  ****************************************************************************/
 XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
@@ -4434,7 +4434,7 @@ done:
 /****************************************************************************/
 /**
  * @brief  This function can be used by a subsystem to shutdown self or restart
- * 			self, Ps or system
+ *			self, Ps or system
  *
  * @param SubsystemId		Subsystem ID
  * @param  Type				Shutdown type

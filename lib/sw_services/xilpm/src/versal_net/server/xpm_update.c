@@ -59,23 +59,23 @@ void Init_SRInfo() {
  * from new offset to old offset of the member within the given struct Type.
  * The return of this macro is not only the offset but also the pointer to the data of the old member
  *  Let's  X and X' are the offset of old and new  data member.
- *         S and S' are offset of the save region.
+ *	   S and S' are offset of the save region.
  *
- *   +---------------+             +---------------+
- *   |               |             |               |
- *   |               |             |               |
- *   +---------------+ ---> S      |               |
- *   |     Save      |             |               |
- *   +---------------+             |               |
- *   |   PtrMember1  |             +---------------+ ----> S'
- *   +---------------+ ---> X      |               |
- *   |   PtrMember2  |             |    Save       |
- *   +---------------+             |               |
- *   |               |             +---------------+
- *   +---------------+             |  PtrMember1   |
- *                                 +---------------+ ----> X'
- *                                 |  PtrMember2   |
- *                                 +---------------+
+ *   +---------------+		   +---------------+
+ *   |		     |		   |		   |
+ *   |		     |		   |		   |
+ *   +---------------+ ---> S	   |		   |
+ *   |	   Save      |		   |		   |
+ *   +---------------+		   |		   |
+ *   |	 PtrMember1  |		   +---------------+ ----> S'
+ *   +---------------+ ---> X	   |		   |
+ *   |	 PtrMember2  |		   |	Save	   |
+ *   +---------------+		   |		   |
+ *   |		     |		   +---------------+
+ *   +---------------+		   |  PtrMember1   |
+ *				   +---------------+ ----> X'
+ *				   |  PtrMember2   |
+ *				   +---------------+
  *
  * It is important that there's no new data inserted between PtrMember1 and Save
  * With that condition, we have this following equation
@@ -217,7 +217,7 @@ static XPm_Node* GetSavedNodeAt(u32 Index)
 		return NULL;
 	}
 	u32 PrevNodeAddr = (u32)((XPm_Node**)SavedAllNodesAddr)[Index];
-	u32 ByteBufferOffset =  XPm_GetByteBufferOffset();
+	u32 ByteBufferOffset =	XPm_GetByteBufferOffset();
 	return (XPm_Node*)(PrevNodeAddr + ByteBufferOffset);
 }
 
@@ -310,7 +310,7 @@ static XStatus XPm_Subsystem_Restore(XPm_Subsystem *SavedNode, XPm_Subsystem *No
 	}
 	Status = XST_SUCCESS;
 done:
-	return  Status;
+	return	Status;
 }
 
 /**
@@ -325,7 +325,7 @@ MAKE_GENERIC_RESTORE_FUNC(XPm_Device, XPm_Node, Node)
  * @param Device pointer to a device
  * @param Subsystem pointer to a subsystem
  * @return NULL if there is no requirement between a given device and subsystem;
- * 	else return a pointer to XPm_Requirement.
+ *	else return a pointer to XPm_Requirement.
  */
 static XPm_Requirement *FindReqm(const XPm_Device *Device, const XPm_Subsystem *Subsystem)
 {
@@ -762,7 +762,7 @@ done:
  * @brief Restore all nodes. This is the top level function call for restoring ByteBuffer
  *
  * @return XST_SUCCESS if there's no error.
- * 	   XST_NO_FEATURE if there's no implementation of restore function for given nodeID
+ *	   XST_NO_FEATURE if there's no implementation of restore function for given nodeID
  */
 XStatus XPmUpdate_RestoreAllNodes(void)
 {

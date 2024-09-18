@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,7 +17,7 @@ extern "C" {
 
 #define FUNC_NAME_SIZE		(16U)		/* Function name string size */
 #define MAX_GROUPS_PER_RES	(6U)		/* Max No. of groups per query response */
-#define INVALID_FUNC_ID 	(0xFFFFU)
+#define INVALID_FUNC_ID		(0xFFFFU)
 #define END_OF_GRP		(0xFFU)		/* -1 */
 #define RESERVED_GRP		(0xFFFEU)	/* -2 */
 

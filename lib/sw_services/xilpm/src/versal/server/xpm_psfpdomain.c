@@ -184,7 +184,7 @@ static XStatus FpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	    (u32)PSM_GLOBAL_SCAN_CLEAR_PASS_STATUS) {
 		DbgErr = XPM_INT_ERR_SCAN_PASS;
 		Status = XST_FAILURE;
-                goto done;
+		goto done;
 	}
 
 done:
@@ -296,11 +296,11 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
-        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Psm, XPm_Psm, XPmDevice_GetById, PM_DEV_PSM_PROC);
-        if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
-                DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-                goto done;
-        }
+	Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Psm, XPm_Psm, XPmDevice_GetById, PM_DEV_PSM_PROC);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
 
 	Status = SendFpdHouseCleanReqToPsm((u32)FUNC_MBIST_CLEAR, &DbgErr);
 	if (XST_SUCCESS != Status) {

@@ -28,9 +28,9 @@ static u32 SavedCfuDivider = 0;
 /**
  * @brief This function reduces the CFU clock frequency by dividing by 2
  *
- * @param       None
+ * @param	None
  *
- * @return      XST_SUCCESS on successful operation.
+ * @return	XST_SUCCESS on successful operation.
  *
  * @note	It is assumed that overflow will not occur for the CFU divisor
  *		register because the frequency is never configured such that
@@ -67,10 +67,10 @@ done:
 /**
  * @brief This function resotres the CFU clock frequency by multiplying by 2
  *
- * @param       None
+ * @param	None
  *
- * @return      XST_SUCCESS on successful operation
- * 		XST_FAILURE on incorrect clock divider states
+ * @return	XST_SUCCESS on successful operation
+ *		XST_FAILURE on incorrect clock divider states
  *
  * @note	The clock frequency is reduced by dividing by 2 so to restore the
  *		original frequency it is multiplied by 2. This ensures that a global

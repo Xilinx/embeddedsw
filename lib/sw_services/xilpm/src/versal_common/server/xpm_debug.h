@@ -645,7 +645,7 @@ extern "C" {
 /* Error during PMC_ANALOG_OD_MBIST_PG_EN register writing in LpdMbist */
 #define XPM_INT_ERR_REG_WRT_LPDMBIST_PGEN		0x5004U
 
-/* Error during PMC_ANALOG_LBIST_RST_N  register writing in LpdLbist */
+/* Error during PMC_ANALOG_LBIST_RST_N	register writing in LpdLbist */
 #define XPM_INT_ERR_REG_WRT_LPDLBIST_RST_N		0x5005U
 /* Error during PMC_ANALOG_LBIST_ISOLATION_EN  register writing in LpdLbist */
 #define XPM_INT_ERR_REG_WRT_LPDLBIST_ISO_EN		0x5006U
@@ -683,7 +683,7 @@ extern "C" {
 /* Error during XRAM_PCSR_MASK register */
 #define XPM_INT_ERR_REG_WRT_XRAM_PCSR_MASK			0x5013U
 /* Error during MEM_CLEAR_TRIGGER_MASK in XRAM_PSCR_CONTROL register */
-#define XPM_INT_ERR_REG_WRT_XRAM_MEM_CLEAR_TRIGGER_0_MASK 	0x5014U
+#define XPM_INT_ERR_REG_WRT_XRAM_MEM_CLEAR_TRIGGER_0_MASK	0x5014U
 
 /* Error during PSM_GLOBAL_MBIST_RST register writing in FpdMbistClear */
 #define XPM_INT_ERR_REG_WRT_FPDMBISTCLR_RST		0x5015U
@@ -755,7 +755,7 @@ extern "C" {
 /* Error during ADC init */
 #define XPM_INT_ERR_ADC_INIT			0x5400U
 /* Error running DAC Mem Clear */
-#define XPM_INT_ERR_DAC_MBIST 	0x5401U
+#define XPM_INT_ERR_DAC_MBIST	0x5401U
 /* Error running DAC Scan Clear */
 #define XPM_INT_ERR_DAC_SCAN_CLEAR 0x5402U
 /* Error running ADC Scan Clear */

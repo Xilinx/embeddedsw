@@ -152,11 +152,11 @@ done:
 /****************************************************************************/
 /**
  * @brief	Check if a certain PLD Device is a valid device. Qualification
- * 		for a device to be called valid is:
- * 		- Should have a structure allocated
- * 		- Should have a valid existing parent (to prevent broken trees,
- * 		  as only 1 tree can exist). Exception is for PLD_0 because
- * 		  it's the root of the tree
+ *		for a device to be called valid is:
+ *		- Should have a structure allocated
+ *		- Should have a valid existing parent (to prevent broken trees,
+ *		  as only 1 tree can exist). Exception is for PLD_0 because
+ *		  it's the root of the tree
  *
  * @param PlDevice	PlDevice whose validity needs to be checked
  *
@@ -384,7 +384,7 @@ static XStatus Pld_ManagePower(XPm_PlDevice *PlDevice)
 	}
 
 	if (PlPowerBitMask != PlDevice->PowerBitMask) {
-		PlDevice->PowerBitMask  = PlPowerBitMask;
+		PlDevice->PowerBitMask	= PlPowerBitMask;
 	}
 
 	Status = XST_SUCCESS;

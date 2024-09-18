@@ -43,7 +43,7 @@ u32 ProcDevList[PROC_DEV_MAX] = {
 /****************************************************************************/
 /**
  * @brief This Function will power up processor by sending IPI to PSM for
- *       performing direct power up operation.
+ *	 performing direct power up operation.
  *
  * @param DeviceId	Device ID of processor
  *
@@ -74,7 +74,7 @@ done:
 /****************************************************************************/
 /**
  * @brief This Function will power down processor by sending IPI to PSM for
- *       performing direct power down operation.
+ *	 performing direct power down operation.
  *
  * @param DeviceId	Device ID of processor
  *

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -85,8 +86,8 @@ struct XPm_AieDomain {
  * AIE base device node
  */
 typedef struct XPm_AieNode {
-	XPm_Device Device;              /**< Device: Base class */
-	u32 DefaultClockDiv;            /**< Default AIE clock divider at boot */
+	XPm_Device Device;		/**< Device: Base class */
+	u32 DefaultClockDiv;		/**< Default AIE clock divider at boot */
 } XPm_AieNode;
 
 /************************** Function Prototypes ******************************/

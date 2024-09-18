@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -17,7 +17,7 @@ extern "C" {
 #endif
 
 maybe_unused static inline XStatus XPmRepair_Vdu(u32 EfuseTagAddr, u32 TagSize,
-                        u32 TagOptional, u32 *TagDataAddr)
+			u32 TagOptional, u32 *TagDataAddr)
 {
 	(void)EfuseTagAddr;
 	(void)TagSize;
@@ -46,11 +46,11 @@ XStatus XPmRepair_Cpm5n(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *Tag
 XStatus XPmRepair_Ddrmc5_Crypto(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 	 u32 *TagDataAddr);
 XStatus XPmRepair_Ddrmc5_Main(u32 EfuseTagAddr, u32 TagSize,
-                u32 TagOptional, u32 *TagDataAddr);
+		u32 TagOptional, u32 *TagDataAddr);
 XStatus XPmRepair_Hnicx_Dpu(u32 EfuseTagAddr, u32 TagSize,
-            u32 TagOptional, u32 *TagDataAddr);
+	    u32 TagOptional, u32 *TagDataAddr);
 XStatus XPmRepair_Hnicx_Lcs(u32 EfuseTagAddr, u32 TagSize,
-            u32 TagOptional, u32 *TagDataAddr);
+	    u32 TagOptional, u32 *TagDataAddr);
 #ifdef __cplusplus
 }
 #endif

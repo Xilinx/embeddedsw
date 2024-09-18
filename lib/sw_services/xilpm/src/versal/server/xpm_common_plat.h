@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,9 +19,9 @@ extern "C" {
 #endif
 
 #ifdef XPLMI_IPI_DEVICE_ID
-#define PSM_IPI_INT_MASK                XPAR_XIPIPS_TARGET_PSV_PSM_0_CH0_MASK
+#define PSM_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PSM_0_CH0_MASK
 #else
-#define PSM_IPI_INT_MASK                (0U)
+#define PSM_IPI_INT_MASK		(0U)
 #endif /* XPLMI_IPI_DEVICE_ID */
 
 /* Hack: These will increase code size.  Define them as needed. */
@@ -87,7 +87,7 @@ extern "C" {
 /**
  * Get a value at each bits to tell if skipping house cleaning function for given block
  * BLOCK are one of these(can be found under xpm_regs.h):
- * 		LPD, FPD, NPD, AIE, CPM, PLD, VDU, GT, HNIC, DDRMC, BFR, SDFEC, ILKN, PMC.
+ *		LPD, FPD, NPD, AIE, CPM, PLD, VDU, GT, HNIC, DDRMC, BFR, SDFEC, ILKN, PMC.
  *
  */
 #define PM_DISABLE_HOUSECLEAN_GET(BLOCK)( \
@@ -98,9 +98,9 @@ extern "C" {
  * Note:  The condition is evaluated redundantly to avoid glitches from altering
  * branching decision.
  * BLOCK are one of these(can be found under xpm_regs.h):
- * 		LPD, FPD, NPD, AIE, CPM, PLD, VDU, GT, HNIC, DDRMC, BFR, SDFEC, ILKN, PMC.
+ *		LPD, FPD, NPD, AIE, CPM, PLD, VDU, GT, HNIC, DDRMC, BFR, SDFEC, ILKN, PMC.
  * FUNC are one of these:
- *      SCAN, BISR, MBIST, LBIST, PLHC
+ *	SCAN, BISR, MBIST, LBIST, PLHC
  */
 #define PM_HOUSECLEAN_CHECK(BLOCK, FUNC) (	\
 	(!PM_CHECK_MASK(PM_DISABLE_HOUSECLEAN_GET(BLOCK), HOUSECLEAN_FUNC_DISABLE_ ##FUNC## _MASK)) ||	\
@@ -133,11 +133,11 @@ extern "C" {
 #define PMC_TAP_IDCODE_DEV_VP1902		((u32)0x0U << XPM_PMC_TAP_IDCODE_DEV_SHIFT)
 #define PMC_TAP_IDCODE_DEV_SBFMLY_VP1902	(XPM_PMC_TAP_IDCODE_SBFMLY_P_HS | PMC_TAP_IDCODE_DEV_VP1902)
 /* VE2302 */
-#define PMC_TAP_IDCODE_DEV_VE2302               ((u32)0x8U << XPM_PMC_TAP_IDCODE_DEV_SHIFT)
-#define PMC_TAP_IDCODE_DEV_SBFMLY_VE2302        (XPM_PMC_TAP_IDCODE_SBFMLY_SV | PMC_TAP_IDCODE_DEV_VE2302)
+#define PMC_TAP_IDCODE_DEV_VE2302		((u32)0x8U << XPM_PMC_TAP_IDCODE_DEV_SHIFT)
+#define PMC_TAP_IDCODE_DEV_SBFMLY_VE2302	(XPM_PMC_TAP_IDCODE_SBFMLY_SV | PMC_TAP_IDCODE_DEV_VE2302)
 /* VM1102 */
-#define PMC_TAP_IDCODE_DEV_VM1102               ((u32)0xAU << XPM_PMC_TAP_IDCODE_DEV_SHIFT)
-#define PMC_TAP_IDCODE_DEV_SBFMLY_VM1102        (XPM_PMC_TAP_IDCODE_SBFMLY_SV | PMC_TAP_IDCODE_DEV_VM1102)
+#define PMC_TAP_IDCODE_DEV_VM1102		((u32)0xAU << XPM_PMC_TAP_IDCODE_DEV_SHIFT)
+#define PMC_TAP_IDCODE_DEV_SBFMLY_VM1102	(XPM_PMC_TAP_IDCODE_SBFMLY_SV | PMC_TAP_IDCODE_DEV_VM1102)
 
 #define SLR_TYPE_MONOLITHIC_DEV			(0x7U)
 #define SLR_TYPE_SSIT_DEV_MASTER_SLR		(0x6U)
@@ -168,19 +168,19 @@ u8 XPm_PlatGetSlrIndex(void);
  *****************************************************************************/
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 
-#define NODE_SLR_IDX_SHIFT      12U
-#define NODE_SLR_IDX_MASK_BITS  0x3U
+#define NODE_SLR_IDX_SHIFT	12U
+#define NODE_SLR_IDX_MASK_BITS	0x3U
 
-#define NODE_SLR_IDX_MASK       ((u32)NODE_SLR_IDX_MASK_BITS << NODE_SLR_IDX_SHIFT)
+#define NODE_SLR_IDX_MASK	((u32)NODE_SLR_IDX_MASK_BITS << NODE_SLR_IDX_SHIFT)
 
 /* Timeout for event completion (in microseconds) */
-#define TIMEOUT_IOCTL_COMPL     (10000U)
+#define TIMEOUT_IOCTL_COMPL	(10000U)
 
 u32 IsNodeOnSecondarySLR(u32 DeviceId, u32 *SlrIndex);
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 XStatus XPm_SsitForwardApi(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs,
-                                const u32 CmdType, u32 *const Response);
+				const u32 CmdType, u32 *const Response);
 
 
 #ifdef __cplusplus

@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,7 +60,7 @@ done:
 /****************************************************************************/
 /**
  * @brief  This function returns number of groups in function based on
- *         function ID.
+ *	   function ID.
  *
  * @param FuncId	Function ID.
  * @param NumGroups	Number of groups.
@@ -85,8 +85,8 @@ XStatus XPmPinFunc_GetNumFuncGroups(u32 FuncId, u32 *NumGroups)
 /****************************************************************************/
 /**
  * @brief  This function returns groups present in function based on
- *         function ID. Index 0 returns the first 6 group IDs, index 6
- *         returns the next 6 group IDs, and so forth.
+ *	   function ID. Index 0 returns the first 6 group IDs, index 6
+ *	   returns the next 6 group IDs, and so forth.
  *
  * @param FuncId	Function ID.
  * @param Index		Index of next function groups

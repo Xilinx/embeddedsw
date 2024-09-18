@@ -8,7 +8,7 @@
 #include "xpm_pinfunc.h"
 
 /* TODO: Each function can not be mapped with their corresponding
- *       device. Keeping those devIdx as 0.
+ *	 device. Keeping those devIdx as 0.
  */
 static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 	[PIN_FUNC_SPI0] = {

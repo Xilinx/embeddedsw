@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,10 +30,10 @@ typedef struct XPm_PlDomain {
 } XPm_PlDomain;
 
 /* TRIM Types */
-#define XPM_PL_TRIM_VGG          (0x1U)
-#define XPM_PL_TRIM_CRAM         (0x2U)
-#define XPM_PL_TRIM_BRAM         (0x3U)
-#define XPM_PL_TRIM_URAM         (0x4U)
+#define XPM_PL_TRIM_VGG		 (0x1U)
+#define XPM_PL_TRIM_CRAM	 (0x2U)
+#define XPM_PL_TRIM_BRAM	 (0x3U)
+#define XPM_PL_TRIM_URAM	 (0x4U)
 
 /************************** Function Prototypes ******************************/
 XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,

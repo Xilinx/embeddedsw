@@ -182,7 +182,7 @@ struct XPmTcmPwrCtrl_t {
 };
 
 struct XPmFwGemPwrCtrl_t {
-        struct XPmFwMemPwrCtrl_t GemMemPwrCtrl;
+	struct XPmFwMemPwrCtrl_t GemMemPwrCtrl;
 	u32 ClkCtrlAddr; /**< Address of the clock control register */
 	u32 ClkCtrlMask; /**< Bit number in the clock control register */
 	u32 RstCtrlAddr; /**< Address of the reset control register */
@@ -209,7 +209,7 @@ maybe_unused static inline void XPmPower_SetPsmRegInfo(XPm_Power *Power, const u
 /* TODO: Added below for compilation only. Need to update/delete */
 /* Support for up to 7 words of data for I2C commands */
 #define MAX_I2C_COMMAND_LEN	28
-#define PSM_API_SHUTDOWN_PSM                   (9U) /** Shutdown PSM*/
+#define PSM_API_SHUTDOWN_PSM		       (9U) /** Shutdown PSM*/
 
 #ifdef __cplusplus
 }

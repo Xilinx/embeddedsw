@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,7 @@
 #include "xpm_common.h"
 
 #ifndef VERSAL_NET
-#define XPM_MAX_TIMEOUT 		(0x1FFFFFFF)
+#define XPM_MAX_TIMEOUT			(0x1FFFFFFF)
 #endif
 
 static XPmDevice_SoftResetInfo DeviceRstData[] = {
@@ -257,7 +257,7 @@ done:
  * NodeZdmaIdle() - Custom code to idle the ZDMA (GDMA and ADMA)
  *
  * @DeviceId:	 Device ID of ZDMA node
- * @BaseAddr:    ZDMA base address of the first channel
+ * @BaseAddr:	 ZDMA base address of the first channel
  */
 XStatus NodeZdmaIdle(u16 DeviceId, u32 BaseAddr)
 {

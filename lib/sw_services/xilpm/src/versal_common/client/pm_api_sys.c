@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -455,26 +455,26 @@ done:
  *
  * @param  DeviceId		Device for which status is requested
  * @param  NodeStatus		Structure pointer to store device status
- * 				- Status - The current power state of the device
- * 				 - For CPU nodes:
- * 				  - 0 : if CPU is powered down,
- * 				  - 1 : if CPU is active (powered up),
- * 				  - 8 : if CPU is suspending (powered up)
- * 				 - For power islands and power domains:
- * 				  - 0 : if island is powered down,
- * 				  - 2 : if island is powered up
- * 				 - For slaves:
- * 				  - 0 : if slave is powered down,
- * 				  - 1 : if slave is powered up,
- * 				  - 9 : if slave is in retention
+ *				- Status - The current power state of the device
+ *				 - For CPU nodes:
+ *				  - 0 : if CPU is powered down,
+ *				  - 1 : if CPU is active (powered up),
+ *				  - 8 : if CPU is suspending (powered up)
+ *				 - For power islands and power domains:
+ *				  - 0 : if island is powered down,
+ *				  - 2 : if island is powered up
+ *				 - For slaves:
+ *				  - 0 : if slave is powered down,
+ *				  - 1 : if slave is powered up,
+ *				  - 9 : if slave is in retention
  *
- * 				- Requirement - Requirements placed on the device by the caller
+ *				- Requirement - Requirements placed on the device by the caller
  *
- * 				- Usage
- * 				 - 0 : node is not used by any PU,
- * 				 - 1 : node is used by caller exclusively,
- * 				 - 2 : node is used by other PU(s) only,
- * 				 - 3 : node is used by caller and by other PU(s)
+ *				- Usage
+ *				 - 0 : node is not used by any PU,
+ *				 - 1 : node is used by caller exclusively,
+ *				 - 2 : node is used by other PU(s) only,
+ *				 - 3 : node is used by caller and by other PU(s)
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -838,11 +838,11 @@ done:
  * @brief  This function performs driver-like IOCTL functions on shared system
  * devices.
  *
- * @param DeviceId              ID of the device
- * @param IoctlId               IOCTL function ID
- * @param Arg1                  Argument 1
- * @param Arg2                  Argument 2
- * @param Response              Ioctl response
+ * @param DeviceId		ID of the device
+ * @param IoctlId		IOCTL function ID
+ * @param Arg1			Argument 1
+ * @param Arg2			Argument 2
+ * @param Response		Ioctl response
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -882,12 +882,12 @@ done:
  * @brief  This function performs driver-like IOCTL functions on shared system
  * devices.
  *
- * @param DeviceId              ID of the device
- * @param IoctlId               IOCTL function ID
- * @param Payload               Payload buffer
- * @param Response              Response buffer for Ioctl Response
- * @param PayloadSize           Payload buffer size
- * @param ResponseSize          Response buffer size
+ * @param DeviceId		ID of the device
+ * @param IoctlId		IOCTL function ID
+ * @param Payload		Payload buffer
+ * @param Response		Response buffer for Ioctl Response
+ * @param PayloadSize		Payload buffer size
+ * @param ResponseSize		Response buffer size
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1423,7 +1423,7 @@ done:
  * @brief  This function can be used to request power up of a CPU node
  * within the same PU, or to power up another PU.
  *
- * @param  TargetDevId     Device ID of the CPU or PU to be powered/woken up.
+ * @param  TargetDevId	   Device ID of the CPU or PU to be powered/woken up.
  * @param  SetAddress Specifies whether the start address argument is being passed.
  * - 0 : do not set start address
  * - 1 : set start address
@@ -1821,8 +1821,8 @@ done:
 /****************************************************************************/
 /**
  * @brief  This function is used by a CPU to announce a change in the
- *         maximum wake-up latency requirements for a specific device
- *         currently used by that CPU.
+ *	   maximum wake-up latency requirements for a specific device
+ *	   currently used by that CPU.
  *
  * @param  DeviceId	Device ID.
  * @param  Latency	Maximum wake-up latency required.
@@ -1831,7 +1831,7 @@ done:
  * or a reason code
  *
  * @note   Setting maximum wake-up latency can constrain the set of
- *         possible power states a resource can be put into.
+ *	   possible power states a resource can be put into.
  *
  ****************************************************************************/
 XStatus XPm_SetMaxLatency(const u32 DeviceId, const u32 Latency)
@@ -1861,11 +1861,11 @@ done:
  *
  * @param  DeviceId   Device ID.
  * @param  Type       Type of operating characteristic requested:
- *                    - power (current power consumption),
- *                    - latency (current latency in micro seconds to return
- *                               to active state),
- *                    - temperature (current temperature in Celsius
- *                                   (Q8.7 format)),
+ *		      - power (current power consumption),
+ *		      - latency (current latency in micro seconds to return
+ *				 to active state),
+ *		      - temperature (current temperature in Celsius
+ *				     (Q8.7 format)),
  * @param  Result     Used to return the requested operating characteristic.
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
@@ -1875,8 +1875,8 @@ done:
  *
  ****************************************************************************/
 XStatus XPm_GetOpCharacteristic(const u32 DeviceId,
-                                const enum XPmOpCharType Type,
-                                u32 *const Result)
+				const enum XPmOpCharType Type,
+				u32 *const Result)
 {
 	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -1892,7 +1892,7 @@ XStatus XPm_GetOpCharacteristic(const u32 DeviceId,
 	Status = Xpm_IpiReadBuff32(PrimaryProc, Result, NULL, NULL);
 
 done:
-        return Status;
+	return Status;
 }
 
 /****************************************************************************/
@@ -2172,13 +2172,13 @@ XStatus XPm_MmioRead(const u32 Address, u32 *const Value)
  * @param FeatureId	The feature ID (API-ID)
  * @param Version	Pointer to array of words (32-bit).
  *     - version[0] - If fails 0, else EEMI API ID version number (positive integer).
- *                    This is supported in version 1 and 2 of PM_FEATURE_CHECK.
+ *		      This is supported in version 1 and 2 of PM_FEATURE_CHECK.
  *     - version[1] - lower 32-bit (0 - 31) bitmask to check if IOCTL or QUERY ID
-                      is supported. If Bit 1 is set for PM_IOCTL, then IOCTL 1 is
- *                    supported. Only supported if API PM_FEATURE_CHECK version is 2.
+		      is supported. If Bit 1 is set for PM_IOCTL, then IOCTL 1 is
+ *		      supported. Only supported if API PM_FEATURE_CHECK version is 2.
  *     - version[2] - upper 32-bit bitmask to check support of IOCTL ID or QUERY ID.
- *                    if bit 0 is set for PM_IOCTL, then IOCTL number 32 is supported.
- *                    Only supported if API PM_FEATURE_CHECK version is 2.
+ *		      if bit 0 is set for PM_IOCTL, then IOCTL number 32 is supported.
+ *		      Only supported if API PM_FEATURE_CHECK version is 2.
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code

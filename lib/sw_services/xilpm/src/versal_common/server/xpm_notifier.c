@@ -133,7 +133,7 @@ static int XPmNotifier_SchedulerTask(void *Arg);
  * @param  NodeId     NodeId related to event
  * @param  Event      Event to be notified about
  * @param  Wake       Flag specifying whether the subsystem should be woken
- *                    upon event notification
+ *		      upon event notification
  *
  * @return None
  *
@@ -574,7 +574,7 @@ done:
 /****************************************************************************/
 /**
  * @brief  Notify target only if IPI acked for previous request else add as
- * 	   pending event.
+ *	   pending event.
  *
  * @param  IpiMask    IpiMask of the target
  * @param  Payload    Payload with callback data
@@ -697,7 +697,7 @@ done:
 /****************************************************************************/
 /**
  * @brief  This function triggers the notification if enabled for current
- *         NodeId and current event.
+ *	   NodeId and current event.
  *
  * @param  NodeId  NodeId for which event is occurred
  * @param  Event   Event type

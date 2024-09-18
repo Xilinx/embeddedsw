@@ -314,8 +314,8 @@ XStatus XPm_PlatInit(void)
 	}
 
 	/* Add repair NoC which is reset by NoC POR above*/
-        if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
-            (PMC_TAP_IDCODE_DEV_SBFMLY_VP1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+	    (PMC_TAP_IDCODE_DEV_SBFMLY_VP1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
 #ifdef XCVP1902
 		/* VP1902 device */
 		Status = XPm_NocConfig_vp1902();
@@ -717,7 +717,7 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 
 	if (NULL == PwrDomainNode) {
 		PmErr("Unable to find Power Domain for given Node Id\n\r");
 		Status = XPM_PM_INVALID_NODE;
-                goto done;
+		goto done;
 	}
 
 	switch (NODEINDEX(NodeId)) {
@@ -864,8 +864,8 @@ XStatus XPm_PlatAddNodePeriph(const u32 *Args, u32 PowerId)
 
 	Power = XPmPower_GetById(PowerId);
 	if (NULL == Power) {
-	        Status = XST_DEVICE_NOT_FOUND;
-	        goto done;
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
 	}
 
 	switch (Index) {
@@ -881,7 +881,7 @@ XStatus XPm_PlatAddNodePeriph(const u32 *Args, u32 PowerId)
 	default:
 		Status = XST_INVALID_PARAM;
 		break;
-        }
+	}
 
 done:
 	return Status;
@@ -1257,7 +1257,7 @@ done:
 /****************************************************************************/
 /**
  * @brief  This function allows adding node to clock, power, reset, mio
- * 			or device topology
+ *			or device topology
  *
  * @param  Args		Node specific arguments
  * @param NumArgs	number of arguments
@@ -1414,7 +1414,7 @@ done:
  * @brief  This function performs house cleaning for a power domain
  *
  * @param NodeId	Node ID of a power domain to be forced house clean
- * @return 		XST_SUCCESS if successful else error code.
+ * @return		XST_SUCCESS if successful else error code.
  *
  ****************************************************************************/
 XStatus XPm_ForceHouseClean(u32 NodeId)

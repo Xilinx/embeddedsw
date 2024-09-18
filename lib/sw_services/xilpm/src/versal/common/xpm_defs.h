@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,7 +32,7 @@ extern "C" {
  */
 #define PM_VERSION_MAJOR    1UL
 #define PM_VERSION_MINOR    0UL
-#define PM_VERSION      ((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
+#define PM_VERSION	((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
 /** @} */
 
 /**
@@ -371,7 +371,7 @@ typedef enum {
 	IOCTL_SET_GEM_CONFIG = 31,			/**< Set GEM config register value */
 	IOCTL_SET_USB_CONFIG = 32,			/**< Set USB config register value */
 	/* AIE1/AIEML Run Time Operations */
-	IOCTL_AIE_OPS = 33,                             /**< AIE1/AIEML Run Time Operations */
+	IOCTL_AIE_OPS = 33,				/**< AIE1/AIEML Run Time Operations */
 	IOCTL_GET_QOS = 34,				/**< Get Device QoS value */
 	IOCTL_GET_APU_OPER_MODE = 35,			/**< Get APU operation mode */
 	IOCTL_SET_APU_OPER_MODE = 36,			/**< Set APU operation mode */
@@ -441,8 +441,8 @@ enum XPmOpCharType {
  * PM notify events
  */
 enum XPmNotifyEvent {
-        EVENT_STATE_CHANGE = 1,				/**< State change event */
-        EVENT_ZERO_USERS = 2,				/**< Zero user event */
+	EVENT_STATE_CHANGE = 1,				/**< State change event */
+	EVENT_ZERO_USERS = 2,				/**< Zero user event */
 	EVENT_CPU_IDLE_FORCE_PWRDWN = 4,		/**< CPU idle event during force power down */
 };
 

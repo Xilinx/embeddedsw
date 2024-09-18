@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -271,7 +272,7 @@ static XStatus CpmResetSetState(const u32 State)
 	XStatus Status = XST_FAILURE;
 	const XPm_CpmDomain *Cpm;
 	u32 CpmPcsrReg;
-	u32 Platform =  XPm_GetPlatform();
+	u32 Platform =	XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
 	u32 IdCode = XPm_GetIdCode();
 
@@ -340,7 +341,7 @@ static u32 GetCpmPorResetStatus(void)
 	u32 ResetStatus = XPM_RST_STATE_DEASSERTED;
 	const XPm_CpmDomain *Cpm;
 	u32 PcrValue;
-	u32 Platform =  XPm_GetPlatform();
+	u32 Platform =	XPm_GetPlatform();
 	u32 PlatformVersion = XPm_GetPlatformVersion();
 	u32 IdCode = XPm_GetIdCode();
 

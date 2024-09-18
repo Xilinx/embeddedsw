@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -533,7 +533,7 @@ fail:
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
-        return Status;
+	return Status;
 }
 
 static XStatus Cpm5GtypMbist(u32 BaseAddress, u32 PollTimeOut)

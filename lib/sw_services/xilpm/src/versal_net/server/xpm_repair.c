@@ -1,33 +1,33 @@
 /******************************************************************************
  * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 #include "xpm_repair.h"
 #include "xpm_device.h"
 
 /* FPx Repair */
-#define NUM_OF_BISR_CACHE_DATA_REGIONS          5U
-#define BISR_CACHE_SUB_SIZE                     16U
+#define NUM_OF_BISR_CACHE_DATA_REGIONS		5U
+#define BISR_CACHE_SUB_SIZE			16U
 
 /*HNICX Repair*/
 #define HNICX_LCS_INDIRECT_NPI_BISR_CACHE_DATA0 (0x0009C074U)
 #define HNICX_DPU_INDIRECT_NPI_BISR_CACHE_DATA0		(0x30182500U)
 
 /* DDRMC5 repair */
-#define DDRMC5_NPI_CACHE_STATUS_MAIN_REGISTER_OFFSET    (0x00000254U)
-#define DDRMC5_NPI_CACHE_DATA_MAIN_REGISTER_OFFSET      (0x00000244U)
-#define DDRMC5_NPI_PCSR_CONTROL_REGISTER_OFFSET         (0x00000004U)
-#define DDRMC5_NPI_PCSR_BISR_MAIN_TRIGGER_MASK          (0x02000000U)
-#define DDRMC5_NPI_CACHE_STATUS_BISR_DONE_MASK          (0x00000001U)
-#define DDRMC5_NPI_CACHE_STATUS_BISR_PASS_MASK          (0x00000002U)
-#define DDRMC5_NPI_CLK_GATE_REGISTER_OFFSET             (0x00000238U)
-#define DDRMC5_NPI_CLK_GATE_MAIN_BISREN_MASK            (0x00000040U)
-#define DDRMC5_NPI_CLK_GATE_CRYPTO_BISREN_MASK          (0x00000080U)
-#define DDRMC5_NPI_CACHE_STATUS_CRYPTO_REGISTER_OFFSET  (0x00000414U)
-#define DDRMC5_NPI_CACHE_DATA_CRYPTO_REGISTER_OFFSET    (0x00000404U)
-#define DDRMC5_NPI_PCSR_BISR_CRYPTO_TRIGGER_MASK        (0x04000000U)
-#define DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET             (0x00000000U)
+#define DDRMC5_NPI_CACHE_STATUS_MAIN_REGISTER_OFFSET	(0x00000254U)
+#define DDRMC5_NPI_CACHE_DATA_MAIN_REGISTER_OFFSET	(0x00000244U)
+#define DDRMC5_NPI_PCSR_CONTROL_REGISTER_OFFSET		(0x00000004U)
+#define DDRMC5_NPI_PCSR_BISR_MAIN_TRIGGER_MASK		(0x02000000U)
+#define DDRMC5_NPI_CACHE_STATUS_BISR_DONE_MASK		(0x00000001U)
+#define DDRMC5_NPI_CACHE_STATUS_BISR_PASS_MASK		(0x00000002U)
+#define DDRMC5_NPI_CLK_GATE_REGISTER_OFFSET		(0x00000238U)
+#define DDRMC5_NPI_CLK_GATE_MAIN_BISREN_MASK		(0x00000040U)
+#define DDRMC5_NPI_CLK_GATE_CRYPTO_BISREN_MASK		(0x00000080U)
+#define DDRMC5_NPI_CACHE_STATUS_CRYPTO_REGISTER_OFFSET	(0x00000414U)
+#define DDRMC5_NPI_CACHE_DATA_CRYPTO_REGISTER_OFFSET	(0x00000404U)
+#define DDRMC5_NPI_PCSR_BISR_CRYPTO_TRIGGER_MASK	(0x04000000U)
+#define DDRMC_NPI_PCSR_MASK_REGISTER_OFFSET		(0x00000000U)
 
 XStatus XPmRepair_Lpx(u32 EfuseTagAddr, u32 TagSize,
 			u32 TagOptional, u32 *TagDataAddr)
@@ -178,7 +178,7 @@ done:
 }
 
 XStatus XPmRepair_Cpm5n(u32 EfuseTagAddr, u32 TagSize,
-                u32 TagOptional, u32 *TagDataAddr)
+		u32 TagOptional, u32 *TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
     u32 RegValue = 0U;
@@ -209,7 +209,7 @@ XStatus XPmRepair_Cpm5n(u32 EfuseTagAddr, u32 TagSize,
 		 | CPM5N_SLCR_BISR_CACHE_STATUS_DONE_PCIE_CDX_INTWRAP_MASK);
     Status = XPm_PollForMask(CPM5N_SLCR_BISR_CACHE_STATUS, RegValue, XPM_POLL_TIMEOUT);
     if (XST_SUCCESS != Status) {
-        goto done;
+	goto done;
     }
 
     /* Check for BISR pass */
@@ -225,7 +225,7 @@ done:
 }
 
 XStatus XPmRepair_Ddrmc5_Main(u32 EfuseTagAddr, u32 TagSize,
-                u32 TagOptional, u32 *TagDataAddr)
+		u32 TagOptional, u32 *TagDataAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddr = NPI_FIXED_BASEADDR | (TagOptional << NPI_EFUSE_ENDPOINT_SHIFT);
@@ -258,7 +258,7 @@ done:
 }
 
 XStatus XPmRepair_Ddrmc5_Crypto(u32 EfuseTagAddr, u32 TagSize,
-                u32 TagOptional, u32 *TagDataAddr)
+		u32 TagOptional, u32 *TagDataAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddr = NPI_FIXED_BASEADDR | (TagOptional << NPI_EFUSE_ENDPOINT_SHIFT);
@@ -309,20 +309,20 @@ static u32 XPmRepair_CopyIndirectNpi(u32 EfuseTagAddr, u32 TagSize, u64 BisrData
     /* Collect repair data from EFUSE and write to NPI indirect address */
     for (u32 TagRow = 0; TagRow<TagSize; TagRow++)
     {
-        if ((TagDataAddr == EFUSE_CACHE_TBITS1_BISR_RSVD) || (TagDataAddr == EFUSE_CACHE_TBITS2_BISR_RSVD))
-        {
-            TagDataAddr+=4;
-        }
-        TagData = XPm_In32(TagDataAddr);
-        u64 TmpAddr = BisrDataDestAddr+(TagRow<<2);
-        (void)XPmRepair_WriteIndirectNpi((u32)TmpAddr, TagData);
-        TagDataAddr += 4;
+	if ((TagDataAddr == EFUSE_CACHE_TBITS1_BISR_RSVD) || (TagDataAddr == EFUSE_CACHE_TBITS2_BISR_RSVD))
+	{
+	    TagDataAddr+=4;
+	}
+	TagData = XPm_In32(TagDataAddr);
+	u64 TmpAddr = BisrDataDestAddr+(TagRow<<2);
+	(void)XPmRepair_WriteIndirectNpi((u32)TmpAddr, TagData);
+	TagDataAddr += 4;
     }
     return TagDataAddr;
 }
 
 XStatus XPmRepair_Hnicx_Lcs(u32 EfuseTagAddr, u32 TagSize,
-            u32 TagOptional, u32 *TagDataAddr)
+	    u32 TagOptional, u32 *TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
     u32 RegValue;
@@ -340,13 +340,13 @@ XStatus XPmRepair_Hnicx_Lcs(u32 EfuseTagAddr, u32 TagSize,
     /* Wait for BISR to finish */
     Status = XPm_PollForMask(HNICX_NPI_0_BISR_CACHE_STATUS, HNICX_NPI_0_BISR_CACHE_STATUS_BISR_DONE_LCS_MASK, XPM_POLL_TIMEOUT);
     if (XST_SUCCESS != Status) {
-        goto done;
+	goto done;
     }
 
     /* Check for BISR pass */
     RegValue = XPm_In32(HNICX_NPI_0_BISR_CACHE_STATUS);
     if ((RegValue & (u32)HNICX_NPI_0_BISR_CACHE_STATUS_BISR_PASS_LCS_MASK) != (u32)HNICX_NPI_0_BISR_CACHE_STATUS_BISR_PASS_LCS_MASK) {
-        Status = XST_FAILURE;
+	Status = XST_FAILURE;
     }
 
 done:
@@ -354,7 +354,7 @@ done:
 }
 
 XStatus XPmRepair_Hnicx_Dpu(u32 EfuseTagAddr, u32 TagSize,
-            u32 TagOptional, u32 *TagDataAddr)
+	    u32 TagOptional, u32 *TagDataAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 RegValue;

@@ -1279,7 +1279,7 @@ static XStatus XPmPower_MemPwrUp(struct XPmFwMemPwrCtrl_t *Args)
 		goto done;
 	}
 
-	/* Unmask the OCM Power Down Interrupt  and retention mask*/
+	/* Unmask the OCM Power Down Interrupt	and retention mask*/
 	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN2_INT_EN, Args->GlobPwrStatusMask);
 	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN2_INT_EN, Args->RetMask);
 
@@ -1324,24 +1324,24 @@ static XStatus XPmPower_TcmRpuPwrUp(struct XPmTcmPwrCtrl_t *Args)
 			Status = XST_SUCCESS;
 		}
 	} else if ((TCM_C_0 == Args->Id) &&
-                   !CHECK_BIT(RegVal, Rpu2_Core0PwrCtrl.PwrStateMask)) {
+		   !CHECK_BIT(RegVal, Rpu2_Core0PwrCtrl.PwrStateMask)) {
 		Status = XPmPower_RpuReqPwrUp(&Rpu2_Core0PwrCtrl);
 	} else if ((TCM_C_1 == Args->Id) &&
-                   !CHECK_BIT(RegVal, Rpu2_Core1PwrCtrl.PwrStateMask)) {
+		   !CHECK_BIT(RegVal, Rpu2_Core1PwrCtrl.PwrStateMask)) {
 		/* Power up core 1 if RPU cluster C is in split mode */
-                Mode = XPm_In32(PSX_RPU_CLUSTER_C_CLUSTER_CFG) & PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK;
+		Mode = XPm_In32(PSX_RPU_CLUSTER_C_CLUSTER_CFG) & PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK;
 		if (PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK == Mode) {
 			Status = XPmPower_RpuReqPwrUp(&Rpu2_Core1PwrCtrl);
 		} else {
 			Status = XST_SUCCESS;
 		}
 	} else if ((TCM_D_0 == Args->Id) &&
-                   !CHECK_BIT(RegVal, Rpu3_Core0PwrCtrl.PwrStateMask)) {
+		   !CHECK_BIT(RegVal, Rpu3_Core0PwrCtrl.PwrStateMask)) {
 		Status = XPmPower_RpuReqPwrUp(&Rpu3_Core0PwrCtrl);
-        } else if ((TCM_D_1 == Args->Id) &&
+	} else if ((TCM_D_1 == Args->Id) &&
 		   !CHECK_BIT(RegVal, Rpu3_Core1PwrCtrl.PwrStateMask)) {
 		/* Power up core 1 if RPU cluster D is in split mode */
-                Mode = XPm_In32(PSX_RPU_CLUSTER_D_CLUSTER_CFG) & PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK;
+		Mode = XPm_In32(PSX_RPU_CLUSTER_D_CLUSTER_CFG) & PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK;
 		if (PSX_RPU_CLUSTER_CFG_SLSPLIT_MASK == Mode) {
 			Status = XPmPower_RpuReqPwrUp(&Rpu3_Core1PwrCtrl);
 		} else {
@@ -1397,7 +1397,7 @@ static XStatus XPmPower_TcmPwrUp(struct XPmTcmPwrCtrl_t *Args)
 	/* Wait for power to ramp up */
 	XPm_Wait(TCM_PWR_UP_WAIT_TIME);
 
-	/* Unmask the TCM Power Down Interrupt  and retention mask*/
+	/* Unmask the TCM Power Down Interrupt	and retention mask*/
 	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN1_INT_EN, Tcm->GlobPwrStatusMask);
 	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN1_INT_EN, Tcm->RetMask);
 

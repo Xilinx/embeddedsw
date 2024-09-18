@@ -219,7 +219,7 @@ XStatus XPm_PowerUpNoC(XPm_Node *Node)
 	(void)Node;
 	Status = XST_SUCCESS;
 
-        return Status;
+	return Status;
 }
 
 XStatus XPm_PowerDwnNoC(void)
@@ -249,13 +249,13 @@ XStatus XPm_PowerUpHnicx(void)
 	/* TODO: Add Power up sequence for HNICX */
 	Status = XST_SUCCESS;
 
-        return Status;
+	return Status;
 }
 
 /****************************************************************************/
 /**
  * @brief This function is used if SysMon lower threshold registers are not
- *        programmed. Hardcoded minimum voltage values or EFUSE are used.
+ *	  programmed. Hardcoded minimum voltage values or EFUSE are used.
  *
  * @param  Rail: Pointer to power rail node
  * @param  RailVoltage: Current Sysmon voltage reading
@@ -263,8 +263,8 @@ XStatus XPm_PowerUpHnicx(void)
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
  *
  * @note If the lower threshold registers are programmed the PDI will be device
- *       dependent. Errors are returned to indicate mismatch in device and boot
- *       image.
+ *	 dependent. Errors are returned to indicate mismatch in device and boot
+ *	 image.
  *****************************************************************************/
 static XStatus SysmonVoltageCheck(const XPm_Rail *Rail, u32 RailVoltage)
 {
@@ -283,7 +283,7 @@ static XStatus SysmonVoltageCheck(const XPm_Rail *Rail, u32 RailVoltage)
 		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PSFP)] = {0x2547AU, 0U},  /* 0.66V */
 		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_SOC)] = {0x25F5CU, 0U},   /* 0.745V */
 		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_RAM)] = {0x25F5CU, 0U},   /* 0.745V */
-		[RAILIDX(XPM_NODEIDX_POWER_VCCAUX)] = {0x2b333U, 0U},       /* 1.4V */
+		[RAILIDX(XPM_NODEIDX_POWER_VCCAUX)] = {0x2b333U, 0U},	    /* 1.4V */
 		[RAILIDX(XPM_NODEIDX_POWER_VCCINT_PL)] = {0x2547AU, 0U},    /* 0.66V */
 	};
 

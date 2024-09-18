@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
 * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -13,7 +13,7 @@
 #include "xpm_pinfunc.h"
 
 /* TODO: Each function can not be mapped with their corresponding
- *       device. Keeping those devIdx as 0.
+ *	 device. Keeping those devIdx as 0.
  */
 static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
 	[PIN_FUNC_SD0] = {

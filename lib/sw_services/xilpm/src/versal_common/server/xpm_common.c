@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,7 +67,7 @@ void XPm_Out32(u32 RegAddress, u32 l_Val)
 		Xil_Out32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET, 0x0U);
 		Xil_Out32(RegAddress, l_Val);
 		Xil_Out32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET, SavedWPROT);
-        } else {
+	} else {
 		Xil_Out32(RegAddress, l_Val);
 	}
 }
@@ -102,7 +102,7 @@ void XPm_RMW32(u32 RegAddress, u32 Mask, u32 Value)
 /****************************************************************************/
 /**
  * @brief  This function reads, modifies and writes one word (32 bit) to
- * 	   64 bit address
+ *	   64 bit address
  *
  * @param  RegAddress	64 bit address
  * @param  Value	32 bit mask
@@ -150,7 +150,7 @@ u32 XPm_GetPlatform(void)
 
 	if (NOT_INITIALIZED == DevPlatform) {
 		DevPlatform = (XPm_In32(PMC_TAP_VERSION) &
-		            PMC_TAP_VERSION_PLATFORM_MASK) >>
+			    PMC_TAP_VERSION_PLATFORM_MASK) >>
 			    PMC_TAP_VERSION_PLATFORM_SHIFT;
 	}
 
@@ -159,45 +159,45 @@ u32 XPm_GetPlatform(void)
 
 u32 XPm_GetPlatformVersion(void)
 {
-        static u32 DevPlatformVersion = NOT_INITIALIZED;
+	static u32 DevPlatformVersion = NOT_INITIALIZED;
 
-        if (NOT_INITIALIZED == DevPlatformVersion) {
-                if (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) {
-                        DevPlatformVersion = (XPm_In32(PMC_TAP_IDCODE) &
-                                PMC_TAP_IDCODE_SI_REV_MASK) >>
-                                PMC_TAP_IDCODE_SI_REV_SHIFT;
-                } else {
-                        DevPlatformVersion = (XPm_In32(PMC_TAP_VERSION) &
-                                PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
-                                PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT;
-                }
-        }
+	if (NOT_INITIALIZED == DevPlatformVersion) {
+		if (PLATFORM_VERSION_SILICON == XPm_GetPlatform()) {
+			DevPlatformVersion = (XPm_In32(PMC_TAP_IDCODE) &
+				PMC_TAP_IDCODE_SI_REV_MASK) >>
+				PMC_TAP_IDCODE_SI_REV_SHIFT;
+		} else {
+			DevPlatformVersion = (XPm_In32(PMC_TAP_VERSION) &
+				PMC_TAP_VERSION_PLATFORM_VERSION_MASK) >>
+				PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT;
+		}
+	}
 
-        return DevPlatformVersion;
+	return DevPlatformVersion;
 }
 
 u32 XPm_GetSlrType(void)
 {
-        static u32 DevSlrType = NOT_INITIALIZED;
+	static u32 DevSlrType = NOT_INITIALIZED;
 
-        if (NOT_INITIALIZED == DevSlrType) {
-                DevSlrType = PMC_TAP_SLR_TYPE_MASK &
-                          XPm_In32(PMC_TAP_SLR_TYPE_OFFSET +
-                                   PMC_TAP_BASEADDR);
-        }
+	if (NOT_INITIALIZED == DevSlrType) {
+		DevSlrType = PMC_TAP_SLR_TYPE_MASK &
+			  XPm_In32(PMC_TAP_SLR_TYPE_OFFSET +
+				   PMC_TAP_BASEADDR);
+	}
 
-        return DevSlrType;
+	return DevSlrType;
 }
 
 u32 XPm_GetIdCode(void)
 {
-        static u32 DevIdCode = NOT_INITIALIZED;
+	static u32 DevIdCode = NOT_INITIALIZED;
 
-        if (NOT_INITIALIZED == DevIdCode) {
-                DevIdCode = XPm_In32(PMC_TAP_IDCODE);
-        }
+	if (NOT_INITIALIZED == DevIdCode) {
+		DevIdCode = XPm_In32(PMC_TAP_IDCODE);
+	}
 
-        return DevIdCode;
+	return DevIdCode;
 }
 
 u32 XPm_GetPmcVersion(void)
@@ -206,7 +206,7 @@ u32 XPm_GetPmcVersion(void)
 
 	if (NOT_INITIALIZED == DevPmcVersion) {
 		DevPmcVersion = (XPm_In32(PMC_TAP_VERSION) &
-		            PMC_TAP_VERSION_PMC_VERSION_MASK) >>
+			    PMC_TAP_VERSION_PMC_VERSION_MASK) >>
 			    PMC_TAP_VERSION_PMC_VERSION_SHIFT;
 	}
 
@@ -232,7 +232,7 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...)
 /**
  * @brief This function unlocks the NPI PCSR registers.
  *
- * @param BaseAddr              Base address of the device
+ * @param BaseAddr		Base address of the device
  *
  *****************************************************************************/
 inline void XPm_UnlockPcsr(u32 BaseAddr)
@@ -244,7 +244,7 @@ inline void XPm_UnlockPcsr(u32 BaseAddr)
 /**
  * @brief This function locks the NPI PCSR registers.
  *
- * @param BaseAddr      Base address of the device
+ * @param BaseAddr	Base address of the device
  *
  *****************************************************************************/
 inline void XPm_LockPcsr(u32 BaseAddr)

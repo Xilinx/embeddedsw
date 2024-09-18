@@ -926,7 +926,7 @@ static XStatus SetDevCohVirtAttr(XPm_Requirement *Reqm, u32 ReqCaps,
 	/* Do nothing if required attributes are not present */
 	if ((0U == Mask) || (0U == BaseAddr)) {
 		Status = XST_SUCCESS;
-                goto done;
+		goto done;
 	}
 
 	if (1U == Enable) {
@@ -1532,7 +1532,7 @@ done:
  * @param DeviceId	Device Node ID
  *
  * @return	Pointer to requested XPm_Device
- *              NULL otherwise
+ *		NULL otherwise
  *
  * @note	Requires Complete Node ID
  *
@@ -2089,7 +2089,7 @@ done:
  * @param NextState		New state
  *
  * @return	XST_SUCCESS if transition was performed successfully.
- *              Error otherwise.
+ *		Error otherwise.
  *
  * @note	None
  *
@@ -2318,7 +2318,7 @@ done:
  *		from all subsystems
  * @param Device	Device whose state is about to be updated
  *
- * @return      Status of operation of updating device's state.
+ * @return	Status of operation of updating device's state.
  *
  * @note	None
  *
@@ -2378,11 +2378,11 @@ done:
  * @slave  Device      Device for which usage status need to be calculated
  *
  * @return  Usage status:
- *          - 0: No subsystem is currently using the device
- *          - 1: Only requesting subsystem is currently using the device
- *          - 2: Only other subsystems are currently using the device
- *          - 3: Both the current and at least one other subsystem is currently
- *               using the device
+ *	    - 0: No subsystem is currently using the device
+ *	    - 1: Only requesting subsystem is currently using the device
+ *	    - 2: Only other subsystems are currently using the device
+ *	    - 3: Both the current and at least one other subsystem is currently
+ *		 using the device
  *
  ****************************************************************************/
 u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *Device)
@@ -2411,7 +2411,7 @@ u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *D
  * @param  Device      Device whose clocks need to be checked
  *
  * @return XST_SUCCESS if any one clock for given device is active
- *         XST_FAILURE if all clocks for given device are inactive
+ *	   XST_FAILURE if all clocks for given device are inactive
  *
  ****************************************************************************/
 XStatus XPmDevice_IsClockActive(const XPm_Device *Device)
@@ -2457,7 +2457,7 @@ done:
  * @param  SubsystemId	Subsystem ID
  *
  * @return XST_SUCCESS if device is requested from subsystem
- *         XST_FAILURE if device is not requested or error code
+ *	   XST_FAILURE if device is not requested or error code
  *
  ****************************************************************************/
 XStatus XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId)

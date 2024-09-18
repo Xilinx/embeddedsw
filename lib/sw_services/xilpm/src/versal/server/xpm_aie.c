@@ -31,9 +31,9 @@
 
 #define AIE_CORE_STATUS_DONE_MASK   (1UL<<20U)
 
-#define XPM_AIE_OPS                    0U
-#define XPM_AIE2_OPS                   1U
-#define XPM_AIE_OPS_MAX                2U
+#define XPM_AIE_OPS		       0U
+#define XPM_AIE2_OPS		       1U
+#define XPM_AIE_OPS_MAX		       2U
 
 #define AieWrite64(addr, val) swea(addr, val)
 #define AieRead64(addr) lwea(addr)
@@ -220,7 +220,7 @@ done:
 /**
  * This function is used to scrub ECC enabled memories in the entire AIE array
  * Parameter: Action: ECC_SCRUB_DISABLE - Disable ECC scrub (disable PMEM Scrub using False event in all the Tiles)
- *		      ECC_SCRUB_ENABLE  - Enable ECC scrub (enable PMEM Scrub using True event in all the Tiles)
+ *		      ECC_SCRUB_ENABLE	- Enable ECC scrub (enable PMEM Scrub using True event in all the Tiles)
  *
  * @return
  *****************************************************************************/
@@ -315,7 +315,7 @@ static void Aie2ClockInit(const XPm_AieDomain *AieDomain, u32 BaseAddress)
 	/* Enable all column clocks */
 	for (u16 col = StartCol; col < EndCol; col++) {
 		AieWrite64(AIE2_TILE_BADDR(AieDomain->Array.NocAddress, col, 0) +
-				                AIE2_PL_MODULE_COLUMN_CLK_CTRL_OFFSET, 1U);
+						AIE2_PL_MODULE_COLUMN_CLK_CTRL_OFFSET, 1U);
 	}
 
 	/* Disable privileged write access */
@@ -1717,13 +1717,13 @@ static XStatus Aie1_SetL2CtrlNpiIntr(const XPm_Device *AieDev, u32 ColStart, u32
 /**
  * @brief This function zeroizes AIE1 data and/or program memory.
  *
- * @param AieDev 	AIE Device
- * @param ColStart 	Column start index for zeroization
- * @param ColEnd 	Column end index for zeroization
+ * @param AieDev	AIE Device
+ * @param ColStart	Column start index for zeroization
+ * @param ColEnd	Column end index for zeroization
  * @param Ops		Zeroization operation to be performed. Valid values are
- * 			AIE_OPS_ALL_MEM_ZEROIZATION
- * 			AIE_OPS_DATA_MEM_ZEROIZATION
- * 			AIE_OPS_PROG_MEM_ZEROIZATION
+ *			AIE_OPS_ALL_MEM_ZEROIZATION
+ *			AIE_OPS_DATA_MEM_ZEROIZATION
+ *			AIE_OPS_PROG_MEM_ZEROIZATION
  *
  * @return XST_SUCCESS if zeroization successful, error code otherwise.
  *****************************************************************************/
@@ -1942,14 +1942,14 @@ static XStatus Aie2_DisColClkBuff(const XPm_Device *AieDev, u32 ColStart, u32 Co
 /**
  * @brief This function zeroizes AIE2 data and/or program memory.
  *
- * @param AieDev 	AIE Device
- * @param ColStart 	Column start index for zeroization
- * @param ColEnd 	Column end index for zeroization
+ * @param AieDev	AIE Device
+ * @param ColStart	Column start index for zeroization
+ * @param ColEnd	Column end index for zeroization
  * @param Ops		Zeroization operation to be performed. Valid values are
- * 			AIE_OPS_ALL_MEM_ZEROIZATION
- * 			AIE_OPS_DATA_MEM_ZEROIZATION
- * 			AIE_OPS_PROG_MEM_ZEROIZATION
- * 			AIE_OPS_MEM_TILE_ZEROIZATION
+ *			AIE_OPS_ALL_MEM_ZEROIZATION
+ *			AIE_OPS_DATA_MEM_ZEROIZATION
+ *			AIE_OPS_PROG_MEM_ZEROIZATION
+ *			AIE_OPS_MEM_TILE_ZEROIZATION
  *
  * @return XST_SUCCESS if zeroization successful, error code otherwise.
  *****************************************************************************/

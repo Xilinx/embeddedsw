@@ -771,8 +771,8 @@ static XStatus XPmRail_InitI2CMode(const u32 *Args, u32 NumArgs)
 	 *
 	 * For example,
 	 * pm_add_node 0x432802b 0x1 0x442c002 0x2 0x300
-	 *             0x02000002 0x01021a02 0x00 0x301
-	 *             0x02000002 0x01021a02 0x80
+	 *	       0x02000002 0x01021a02 0x00 0x301
+	 *	       0x02000002 0x01021a02 0x80
 	 */
 	for (i = 0U; i < NumModes; i++) {
 		Mode = (u8)(Args[k] & 0xFFU);
@@ -823,7 +823,7 @@ static XStatus XPmRail_InitGPIOMode(const u32 *Args, u32 NumArgs)
 	 *
 	 * e.g.
 	 * pm_add_node 0x4328030 0x4 0x442c001 0x2 0x302 0x0044 0x800 0x0
-	 *                                         0x303 0x0044 0x800 0x800
+	 *					   0x303 0x0044 0x800 0x800
 	 * arg0: VCCINT_PL rail id = 0x4328030
 	 * arg1: type = 0x4 (GPIO)
 	 * arg2: regulator id = 0x442c001 (VCCINT_PL regulator id)

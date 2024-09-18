@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -150,23 +151,23 @@ done:
 
 u32 XPmPsm_FwIsPresent(void)
 {
-        u32 Reg = 0U;
-        const XPm_Psm *Psm;
-        const XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
+	u32 Reg = 0U;
+	const XPm_Psm *Psm;
+	const XPm_Power *Lpd = XPmPower_GetById(PM_POWER_LPD);
 
-        Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
-        if ((NULL == Psm) || ((u8)XPM_POWER_STATE_ON != Lpd->Node.State)) {
-                goto done;
-        }
+	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+	if ((NULL == Psm) || ((u8)XPM_POWER_STATE_ON != Lpd->Node.State)) {
+		goto done;
+	}
 
-        PmIn32(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr), Reg);
-        if (PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK ==
-                (Reg & PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)) {
-                Reg = 1U;
-        }
+	PmIn32(GLOBAL_CNTRL(Psm->PsmGlobalBaseAddr), Reg);
+	if (PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK ==
+		(Reg & PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)) {
+		Reg = 1U;
+	}
 
 done:
-        return Reg;
+	return Reg;
 }
 
 void XPmPsm_RegWrite(const u32 Offset, const u32 Value)
