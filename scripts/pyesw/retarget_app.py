@@ -60,6 +60,13 @@ def retarget_app(args):
                             app_build_dir = os.path.normcase(app_build_dir)
                         if build_dir != app_build_dir:
                             utils.remove(app_build_dir)
+            else:
+                """
+                In case build folder doesn't have compile_commands.json delete the
+                build folder for safer side.
+                """
+                utils.remove(app_build_dir)
+
             """
             From 2024.2 release on wards cmake default generator moved to ninja as a part
             of performance enhancment in case of old release workspace update app CMakeLists.txt
@@ -80,12 +87,6 @@ endif()
                     f'set_source_files_properties(${{_sources}} OBJECT_DEPENDS "${{CMAKE_LIBRARY_PATH}}/*.a")',
                     replace_header
                 )
-            else:
-                """
-                In case build folder doesn't have compile_commands.json delete the
-                build folder for safer side.
-                """
-                utils.remove(app_build_dir)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
