@@ -8,6 +8,7 @@
 #include "xplmi_dma.h"
 #include "xplmi_plat.h"
 #include "xplmi_scheduler.h"
+#include "xplmi_err.h"
 #include "xpm_regs.h"
 #include "xpm_device.h"
 #include "xpm_powerdomain.h"
@@ -194,13 +195,6 @@ XStatus XPmMem_HBMTempMonInitTask(void)
 			/* Nothing to do */
 			break;
 		}
-	}
-
-	/* Set the default error triggering action (before scheduling to avoid race condition)*/
-	Status = XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_SW_ERR, XIL_EVENT_ERROR_MASK_HBM_CATTRIP,
-				   XPLMI_EM_ACTION_SRST, NULL, 0U);
-	if (XST_SUCCESS != Status) {
-		goto done;
 	}
 
 	/* Schedule the HBM temp monitoring task with periodicity of HBM_TEMP_MON_PERIOD */

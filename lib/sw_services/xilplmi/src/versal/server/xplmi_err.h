@@ -27,6 +27,9 @@
 *       dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
 * 1.01  ma   02/29/2024 Change protection unit error actions to PRINT_TO_LOG
 *                       to handle restoring of the error actions after IPU
+*       kj   09/18/2024 Added support for SW Error Handling in secondary SLR
+*                       and changed HBM CATTRIP SW Error Action in ErrorTable.
+*                       Also restricted HBM Cattrip error action to HW Errors.
 *
 * </pre>
 *
@@ -61,27 +64,6 @@ extern "C" {
 #define GET_PMC_IRQ_MASK(RegOffset)	(PMC_GLOBAL_PMC_IRQ1_MASK + RegOffset) /**< PMC IRQ mask */
 #define GET_PMC_SRST_MASK(RegOffset)	(PMC_GLOBAL_PMC_SRST1_MASK + RegOffset) /**< PMC SRST mask */
 
-/****************************************************************************/
-/**
-* @brief	This function restricts error actions.
-*
-* @param	NodeType of Error
-* @param	RegMask of Error
-* @param	ErrorAction of the the Error
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-****************************************************************************/
-static inline int XPlmi_RestrictErrActions(XPlmi_EventType NodeType,
-		u32 RegMask, u32 ErrorAction)
-{
-	(void)NodeType;
-	(void)RegMask;
-	(void)ErrorAction;
-
-	return XST_SUCCESS;
-}
-
 /*****************************************************************************/
 /**
  * @brief	This function reconfigures error actions after the update
@@ -108,6 +90,7 @@ void XPlmi_DetectSlaveSlrTamper(void);
 void XPlmi_EnableSsitErrors(void);
 #endif
 u32 *XPlmi_GetNumErrOuts(void);
+int XPlmi_RestrictErrActions(XPlmi_EventType NodeType, u32 RegMask, u32 ErrorAction);
 u32 *XPlmi_GetPsmCrState(void);
 void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask);
 
