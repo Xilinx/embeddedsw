@@ -14,7 +14,6 @@
 #include "xpm_common.h"
 #include "xplmi_ipi.h"
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -23,6 +22,7 @@ extern "C" {
 #define PGGS_BASEADDR	(0xF1110050U)
 
 typedef struct XPm_Subsystem XPm_Subsystem;
+typedef struct XPm_Core XPm_Core;
 
 int XPm_RegisterWakeUpHandlers(void);
 
@@ -59,6 +59,7 @@ XStatus XPm_EnableDdrSr(const u32 SubsystemId);
 XStatus XPm_DisableDdrSr(const u32 SubsystemId);
 XStatus XPm_ForceHouseClean(u32 NodeId);
 void XPmPlDevice_SetStlInitFinishCb(void (*Handler)(void));
+void XPm_PlatChangeCoreState(XPm_Core *Core, const u32 State);
 
 #ifdef __cplusplus
 }

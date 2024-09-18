@@ -3877,11 +3877,7 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 
 	ENABLE_WFI(Core->SleepMask);
 
-	if (PM_SUSPEND_STATE_CPU_OFF == State) {
-		Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
-	} else {
-		Core->Device.Node.State = (u8)XPM_DEVSTATE_SUSPENDING;
-	}
+	XPm_PlatChangeCoreState(Core, State);
 
 	XPm_ClearScanClear();
 
