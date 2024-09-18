@@ -661,7 +661,6 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld, u32 PollTimeOut)
 		if (0U == GtyAddrs[i]) {
 			continue;
 		}
-
 		Status = XPm_PollForMask(GtyAddrs[i] + GTY_PCSR_STATUS_OFFSET,
 					GTY_PCSR_STATUS_HOUSECLEAN_DONE_MASK, PollTimeOut);
 		if (XST_SUCCESS != Status) {
@@ -1835,6 +1834,9 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		HcleanDone = 0;
+	}
 	/*
 	 * PL housecleaning requires CFU clock to run at a lower frequency for
 	 * proper operation. Divide the CFU clock frequency by 2 to reduce the
@@ -1889,19 +1891,21 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Unlock CFU writes */
 	PldCfuLock(Pld, 0U);
 
-	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
-	if ((0U == PlpdHouseCleanBypass) || (0U == LocalPlpdHCBypass)) {
-		Status = PlHouseClean(PLHCLEAN_INIT_NODE, PollTimeOut);
+	if(!IS_SECLOCKDOWN(SecLockDownInfo)) {
+		u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
+		if ((0U == PlpdHouseCleanBypass) || (0U == LocalPlpdHCBypass)) {
+			Status = PlHouseClean(PLHCLEAN_INIT_NODE, PollTimeOut);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_PL_HC;
+				goto fail;
+			}
+		}
+
+		Status = PldCfuInit();
 		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_PL_HC;
+			DbgErr = XPM_INT_ERR_CFU_INIT;
 			goto fail;
 		}
-	}
-
-	Status = PldCfuInit();
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_CFU_INIT;
-		goto fail;
 	}
 
 	if ((PLATFORM_VERSION_SILICON == Platform) || (PLATFORM_VERSION_FCV == Platform)) {
