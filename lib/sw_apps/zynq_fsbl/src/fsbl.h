@@ -222,6 +222,7 @@
 * 21.1   ng  07/13/23   Add SDT support
 * 21.2   ng  07/25/23   Fixed DDR address support in SDT
 * 21.3   dd  10/18/23   Updated SDK release year and SDK release quarter
+* 24.2	 prt 09/18/24	Updated SDK_RELEASE_QUARTER
 *
 * </pre>
 *
@@ -324,7 +325,7 @@ extern "C" {
  * SDK release version
  */
 #define SDK_RELEASE_YEAR	2024
-#define SDK_RELEASE_QUARTER	1
+#define SDK_RELEASE_QUARTER	2
 
 #define WORD_LENGTH_SHIFT	2
 

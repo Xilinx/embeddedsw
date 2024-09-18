@@ -57,6 +57,7 @@
 * 2.1   har  06/24/2024 Incremented XPLMI_PLM_PLAT_RC_VERSION
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 * 2.02  sk   08/26/2024 Updated EAM support for Versal Aiepg2
+* 24.2  prt	 09/18/2024 Updated XPLMI_PLM_PLAT_RC_VERSION to 0U
 *
 * </pre>
 *
@@ -82,7 +83,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 #define XPLMI_PLM_BANNER	"Xilinx Versal Aiepg2 Platform Loader and Manager\n\r" /**< PLM banner */
-#define XPLMI_PLM_PLAT_RC_VERSION	5U
+#define XPLMI_PLM_PLAT_RC_VERSION	0U
 
 #define XPLMI_PLM_USER_DEFINED_VERSION		XPAR_PLM_VERSION_USER_DEFINED
 
