@@ -38,6 +38,7 @@
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  07/30/2024 Fixed misrac violations
 *       kpt  08/26/2024 Changed XPLMI_SLV_EVENT_TIMEOUT timeout to two seconds
+*       pre  09/18/2024 Removed XPLMI_SLR_INDEX_SHIFT, SLR index macros
 *
 * </pre>
 *
@@ -90,15 +91,6 @@ extern "C" {
 typedef int (*XPlmi_EventHandler_t)(void *Data);
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-/**
- * SSIT SLR Index
- */
-#define XPLMI_SSIT_MASTER_SLR_INDEX		(0U)
-#define XPLMI_SSIT_SLAVE0_SLR_INDEX		(1U)
-#define XPLMI_SSIT_SLAVE1_SLR_INDEX		(2U)
-#define XPLMI_SSIT_SLAVE2_SLR_INDEX		(3U)
-#define XPLMI_SSIT_INVALID_SLR_INDEX	(4U)
-
 /* SSIT Maximum Slave SLRs */
 #define XPLMI_SSIT_MAX_SLAVE_SLRS			0x3U
 /* SSIT Maximum events per each array index*/
@@ -157,7 +149,6 @@ enum SsitEventIndex {
 #define XPLMI_SSIT_ALL_SLRS_MASK		0xFU
 
 #define XPLMI_SLV_EVENT_TIMEOUT        (0x1E8480U) /**< Two seconds timeout for message events */
-#define XPLMI_SLR_INDEX_SHIFT          (6U)
 /**
  * @}
  * @endcond

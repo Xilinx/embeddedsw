@@ -84,6 +84,7 @@
  *       pre  07/11/2024 Throwing error if IPI request length is greater than XPLMI_MAX_IPI_CMD_LEN
  *       pre  07/30/2024 Fixed misrac violation
  *       am   08/22/2024 Fixed IPI acknowledgement prior to executing handlers
+ *       pre  09/18/2024 Throwing error if SlrIndex is not valid
  *
  * </pre>
  *
@@ -589,6 +590,7 @@ int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 	u32 ApiId = Cmd->CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
 	u32 AccessPerm = XPLMI_NO_IPI_ACCESS;
 	const XPlmi_Module *Module = NULL;
+	u32 SlrIndex = (ApiId & XPLMI_CMD_SLR_ID_MASK) >> XPLMI_SLR_INDEX_SHIFT;
 
 	/** - Validate IPI source. */
 	if ((SrcIndex > XPLMI_IPI5_BUFFER_INDEX) ||
@@ -608,8 +610,8 @@ int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 	if (Module->AccessPermBufferPtr != NULL) {
 		/* Check if ApiId is greater than the max supported APIs by module */
 		if (ApiId >= Module->CmdCnt) {
-			/* If a Invalid Cmd Handler is registered skip throwing error */
-			if (Module->InvalidCmdHandler == NULL) {
+			/* If a Invalid Cmd Handler is registered and SlrIndex is valid, skip throwing error */
+			if ((Module->InvalidCmdHandler == NULL) || (SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX)) {
 				Status = XPLMI_ERR_VALIDATE_IPI_INVALID_API_ID;
 			}
 			else {
@@ -712,6 +714,7 @@ static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload)
 	u32 ModuleId = (CmdPtr->CmdId & XPLMI_CMD_MODULE_ID_MASK) >> XPLMI_CMD_MODULE_ID_SHIFT;
 	u32 ApiId = CmdPtr->CmdId & XPLMI_CMD_API_ID_MASK;
 	const XPlmi_Module *Module = NULL;
+	u32 SlrIndex = (ApiId & XPLMI_CMD_SLR_ID_MASK) >> XPLMI_SLR_INDEX_SHIFT;
 
 	/** - Validate Module registration. */
 	Module = XPlmi_GetModule(ModuleId);
@@ -722,7 +725,7 @@ static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload)
 
 	/* Check if it is within the commands registered */
 	if (ApiId >= Module->CmdCnt) {
-		if(Module->InvalidCmdHandler != NULL){
+		if ((Module->InvalidCmdHandler != NULL) && (SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX)) {
 			Status = Module->InvalidCmdHandler(Payload, (u32 *)CmdPtr->Response);
 		}
 		else{
