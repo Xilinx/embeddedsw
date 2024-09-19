@@ -22,6 +22,7 @@
  *                     the IPI interrupt to ASU
  *       ss   08/13/24 Changed XAsu_ClientInit function prototype and Initialized mailbox in
  *                     XAsu_ClientInit() API
+ *       ss   09/19/24 Added XAsu_CheckAsufwPrsntBit() API
  *
  * </pre>
  *
@@ -29,6 +30,7 @@
 
 /*************************************** Include Files *******************************************/
 #include "xasu_client.h"
+#include "xasu_status.h"
 
 /************************************ Constant Definitions ***************************************/
 /* TODO the shared memory shall be coming as part of design */
@@ -38,6 +40,13 @@
 #define XASU_QUEUE_BUFFER_FULL          0xFFU       /**< To indicate queue full state */
 #define XASU_CLIENT_READY               0xFFFFFFFFU /**< To indicate Client is ready */
 #define XASU_TARGET_IPI_INT_MASK        1U          /**< ASU IPI interrupt mask */
+
+#define ASU_GLOBAL_BASEADDR             (0xEBF80000U) /**< ASU GLOBAL register base address */
+#define ASU_GLOBAL_GLOBAL_CNTRL         (ASU_GLOBAL_BASEADDR + 0x00000000U) /**< ASU GLOBAL CNTRL
+                                                                             register address */
+
+#define ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK       0x10U          /**< ASU FW Present mask
+                                                                              value */
 
 /************************************** Type Definitions *****************************************/
 /*
@@ -57,6 +66,7 @@ static XAsu_Client *XAsu_GetClientInstance(void);
 static u32 XAsu_IsChannelQueueFull(XAsu_QueueInfo *QueueInfo);
 static s32 XAsu_SendIpi(void);
 static void XAsu_DoorBellToClient(void *CallBackRef);
+static s32 XAsu_CheckAsufwPrsntBit(void);
 
 /************************************ Variable Definitions ***************************************/
 static XMailbox MailboxInstance;        /**< Variable to Mailbox instance */
@@ -78,6 +88,12 @@ s32 XAsu_ClientInit(u8 DeviceId)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
+
+	Status = XAsu_CheckAsufwPrsntBit();
+	if (Status != XST_SUCCESS) {
+		Status = XASU_ASUFW_NOT_PRESENT;
+		goto END;
+	}
 
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, DeviceId);
 	if (Status != XST_SUCCESS) {
@@ -132,7 +148,7 @@ s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_QueueInfo *QueueInfo)
 
 	if (QueueInfo->NextFreeIndex == (XASU_MAX_BUFFERS - 1U)) {
 		/* TODO to point to zero index upon free */
-		QueueInfo->NextFreeIndex = XASU_QUEUE_BUFFER_FULL;
+		QueueInfo->NextFreeIndex = 0U;
 	} else {
 		QueueInfo->NextFreeIndex++;
 	}
@@ -282,4 +298,26 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 {
 	(void)CallBackRef;
 	RecvDone = TRUE;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief   This function returns status based on presence of ASUFW application.
+ *
+ *
+ * @return
+ *  -   XST_SUCCESS - upon success
+ *  -   XST_FAILURE - If there is a failure
+ *
+ *************************************************************************************************/
+static s32 XAsu_CheckAsufwPrsntBit(void)
+{
+	s32 Status = XST_FAILURE;
+
+	if ((Xil_In32(ASU_GLOBAL_GLOBAL_CNTRL) & ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) ==
+		ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }

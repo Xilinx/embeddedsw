@@ -18,6 +18,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vns  08/06/24 Initial release
+ *       ss   09/19/24 Added XASU_ASUFW_NOT_PRESENT error code
  *
  * </pre>
  *
@@ -43,6 +44,7 @@ extern "C" {
 enum XAsu_Status {
 	XASU_INVALID_ARGUMENT = 0x10,
 	XASU_QUEUE_FULL,
+	XASU_ASUFW_NOT_PRESENT,
 };
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
