@@ -354,8 +354,8 @@ static void XDmaPcie_BarMemoryAlloc(XDmaPcie *InstancePtr, u8 Bus,u8 Device,u8 F
 
 				if(Value[BarNo] > MaxBarSize) {
 					XDmaPcie_Dbg(
-						"Requested BAR size of %uK for bus: %d, dev: %d, "
-						"function: %d is out of range \n",
+						"Requested BAR size of %uK for bus: %02X, dev: %02X, "
+						"function: %02X is out of range \n",
 						(Value[BarNo] / 1024),Bus,Device,Function);
 					return XST_SUCCESS;
 				}
@@ -410,8 +410,8 @@ static void XDmaPcie_BarMemoryAlloc(XDmaPcie *InstancePtr, u8 Bus,u8 Device,u8 F
 
 				if(Value[BarNo] > MaxBarSize) {
 					XDmaPcie_Dbg(
-						"Requested BAR size of %uK for bus: %d, dev: %d, "
-						"function: %d is out of range \n",
+						"Requested BAR size of %uK for bus: %02X, dev: %02X, "
+						"function: %02X is out of range \n",
 						(Value[BarNo] / 1024),Bus,Device,Function);
 					return XST_SUCCESS;
 				}
@@ -515,7 +515,7 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 		if ((Size[Bar] & ~((u64)0xfU)) == 0x00U) {
 		   /* return saying that BAR is not implemented */
 			XDmaPcie_Dbg(
-				"bus: %d, device: %d, function: %d: BAR %d is "
+				"bus: %02X, device: %02X, function: %02X: BAR %d is "
 				"not implemented\r\n",
 				Bus, Device, Function, Bar);
 			continue;
@@ -525,7 +525,7 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 		if (Size[Bar] & XDMAPCIE_CFG_BAR_MEM_TYPE_MASK) {
 			/* Device required IO address space */
 			XDmaPcie_Dbg(
-				"bus: %d, device: %d, function: %d: BAR %d "
+				"bus: %02X, device: %02X, function: %02X: BAR %dX "
 				"required IO space; it is unassigned\r\n",
 				Bus, Device, Function, Bar);
 			continue;
@@ -575,7 +575,7 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 		}
 
 		XDmaPcie_Dbg(
-			"bus: %d, device: %d, function: %d: BAR %d, "
+			"bus: %02X, device: %02X, function: %02X: BAR %d, "
 			"ADDR: 0x%p size : %dK\r\n",
 			Bus, Device, Function, Bar, ReqAddr, (ReqSize / 1024UL));
 
