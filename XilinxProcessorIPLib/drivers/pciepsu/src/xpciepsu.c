@@ -727,8 +727,8 @@ static void XPciePsu_BarMemoryAlloc(XPciePsu *InstancePtr, u8 Bus,u8 Device,u8 F
 				if(Value[BarNo] > MaxBarSize) {
 
 					XPciePsu_Dbg(
-						"Requested BAR size of %uK for bus: %d, dev: %d, "
-						"function: %d is out of range \n",
+						"Requested BAR size of %uK for bus: %02X, dev: %02X, "
+						"function: %02X is out of range \n",
 						(Value[BarNo] / 1024),Bus,Device,Function);
 
 					return XST_SUCCESS;
@@ -785,8 +785,8 @@ static void XPciePsu_BarMemoryAlloc(XPciePsu *InstancePtr, u8 Bus,u8 Device,u8 F
 				if(Value[BarNo] > MaxBarSize) {
 
 					XPciePsu_Dbg(
-						"Requested BAR size of %uK for bus: %d, dev: %d, "
-						"function: %d is out of range \n",
+						"Requested BAR size of %uK for bus: %02X, dev: %02X, "
+						"function: %02X is out of range \n",
 						(Value[BarNo] / 1024),Bus,Device,Function);
 					return XST_SUCCESS;
 				}
@@ -891,7 +891,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 		if ((Size[Bar] & (~((u64)0xfU))) == 0x00U) {
 		   /* return saying that BAR is not implemented */
 			XPciePsu_Dbg(
-				"bus: %d, device: %d, function: %d: BAR %d is "
+				"bus: %02X, device: %02X, function: %02X: BAR %d is "
 				"not implemented\r\n",
 				Bus, Device, Function, Bar);
 			continue;
@@ -902,7 +902,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 				XPCIEPSU_BAR_MEM_TYPE_IO) {
 			/* Device required IO address space */
 			XPciePsu_Dbg(
-				"bus: %d, device: %d, function: %d: BAR %d "
+				"bus: %02X, device: %02X, function: %02X: BAR %d "
 				"required IO space; it is unassigned\r\n",
 				Bus, Device, Function, Bar);
 			continue;
@@ -956,7 +956,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 
 		}
 
-		XPciePsu_Dbg("bus: %d, device: %d, function: %d: BAR %d, "
+		XPciePsu_Dbg("bus: %02X, device: %02X, function: %02X: BAR %d, "
 				"ADDR: 0x%p size : %dK\r\n",
 				Bus, Device, Function, Bar, ReqAddr, (ReqSize / 1024UL));
 
@@ -1017,7 +1017,7 @@ static void XPciePsu_IncreamentPMem(XPciePsu *InstancePtr)
 static void XPciePsu_FetchDevicesInBus(XPciePsu *InstancePtr, u8 BusNum)
 {
 	u32 ConfigData = 0;
-	u8 LastBusNum;
+	static u8 LastBusNum;
 
 	u16 PCIeVendorID;
 	u16 PCIeDeviceID;
