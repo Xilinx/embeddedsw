@@ -44,7 +44,8 @@
 * 		       timeout loop.
 * 3.18 gm     07/25/23 Invoke XTtcPs_Release to release ttc node.
 * 3.18 ml     03/06/24 Added support for system device-tree flow.
-*
+* 3.20 ml     09/19/24 Revert the SDT changes for NUM_DEVICES to fix
+* 		       compilation warnings.
 *</pre>
 ******************************************************************************/
 
@@ -66,18 +67,9 @@
 
 /************************** Constant Definitions *****************************/
 #if defined (PLATFORM_ZYNQ)
-#ifndef SDT
 #define NUM_DEVICES    9U
 #else
-#define NUM_DEVICES    3U
-#endif
-
-#else
-#ifndef SDT
 #define NUM_DEVICES    12U
-#else
-#define NUM_DEVICES    4U
-#endif
 #endif
 
 /*
