@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -182,7 +182,7 @@ typedef void (*XTtcPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent);
  #define XTTCPS_MAX_INTERVAL_COUNT 0xFFFFFFFFU
  #endif
 
-#define XTTCPS_NUM_COUNTERS	3U
+#define XTTCPS_NUM_COUNTERS	1U
 /** @name Configuration options
  *
  * Options for the device. Each of the options is bit field, so more than one
