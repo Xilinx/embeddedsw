@@ -278,11 +278,17 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                                 f"lopper -f -O {self.sdt_folder} --enhanced -t {domain_name} -a domain_access --auto  -x '*.yaml' -i {domain_yaml} {self.sdt} {out_dts_path}"
                             )
             if not domain_dts:
+                lops_ttc_file = os.path.join(self.lops_dir, "lop-ttc-split.dts")
                 if utils.is_file(lops_file):
                     utils.runcmd(
-                        f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
+                        f"lopper -f --enhanced -O {self.domain_dir} -i {lops_ttc_file} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
                         log_message="Domain-specific DTS generation "
                     )
+                elif utils.is_file(lops_ttc_file):
+                    utils.runcmd(
+                        f"lopper -f --enhanced -O {self.domain_dir} -i {lops_ttc_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
+                        log_message="Domain-specific DTS generation "
+                     )
                 else:
                     utils.runcmd(
                         f"lopper -f --enhanced -O {self.domain_dir} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
