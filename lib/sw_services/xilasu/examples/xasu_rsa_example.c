@@ -21,6 +21,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.0   ss    08/20/24 Initial Release
+*       ss    09/19/24 Added print for client init failure
 *
 * </pre>
 **************************************************************************************************/
@@ -249,6 +250,7 @@ s32 main(void)
 
 	Status = XAsu_ClientInit(0U);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Client initialize failed:%08x \r\n", Status);
 		goto END;
 	}
 
