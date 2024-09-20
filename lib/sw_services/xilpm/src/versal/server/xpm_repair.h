@@ -59,28 +59,6 @@ maybe_unused static inline XStatus XPmRepair_Hnicx_Nthub(u32 EfuseTagAddr, u32 T
 	return XST_INVALID_PARAM;
 }
 
-maybe_unused static inline XStatus XPmRepair_Ddrmc5_Main(u32 EfuseTagAddr, u32 TagSize,
-		u32 TagOptional, u32 *TagDataAddr)
-{
-	(void)EfuseTagAddr;
-	(void)TagSize;
-	(void)TagOptional;
-	(void)TagDataAddr;
-
-	return XST_INVALID_PARAM;
-}
-
-maybe_unused static inline XStatus XPmRepair_Ddrmc5_Crypto(u32 EfuseTagAddr, u32 TagSize,
-		u32 TagOptional, u32 *TagDataAddr)
-{
-	(void)EfuseTagAddr;
-	(void)TagSize;
-	(void)TagOptional;
-	(void)TagDataAddr;
-
-	return XST_INVALID_PARAM;
-}
-
 maybe_unused static inline XStatus XPmRepair_Hnicx_Dpu(u32 EfuseTagAddr, u32 TagSize,
 					u32 TagOptional, u32 *TagDataAddr)
 {
@@ -106,6 +84,8 @@ maybe_unused static inline XStatus XPmRepair_Hnicx_Lcs(u32 EfuseTagAddr, u32 Tag
 /************************** Function Prototypes ******************************/
 XStatus XPmRepair_Vdu(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
 XStatus XPmRepair_Bfrb(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
+XStatus XPmRepair_Ddrmc5_Crypto(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
+XStatus XPmRepair_Ddrmc5_Main(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
 
 #ifdef XCVP1902
 u32 XPmRepair_Laguna_vp1902(u32 EfuseTagAddr, u32 TagSize);
