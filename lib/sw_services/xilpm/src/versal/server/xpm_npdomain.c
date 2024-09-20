@@ -721,6 +721,8 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
 				NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK,
 				NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK);
+			/* Lock writes */
+			XPm_LockPcsr(DdrMcAddresses[i]);
 		}
 
 		/* Run BISR */
@@ -730,13 +732,45 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			goto fail;
 		}
 
-		/* TODO: Add BISR for DDRMC5 and DDRMC5_CRYPTO tags */
+		/* BISR for DDRMC5 and DDRMC5_CRYPTO tags */
+		if (1U == IsCrypto) {
+			for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+				if (0U == DdrMcAddresses[i]) {
+					continue;
+				}
+				/* Unlock writes */
+				XPm_UnlockPcsr(DdrMcAddresses[i]);
+			}
+
+			Status = XPmBisr_Repair2(DDRMC5_MAIN_TAG_ID);
+			if (Status != XST_SUCCESS) {
+				DbgErr = XPM_INT_ERR_BISR_REPAIR;
+				goto fail;
+			}
+
+			Status = XPmBisr_Repair2(DDRMC5_CRYPTO_TAG_ID);
+			if (Status != XST_SUCCESS) {
+				DbgErr = XPM_INT_ERR_BISR_REPAIR;
+				goto fail;
+			}
+
+			for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
+				if (0U == DdrMcAddresses[i]) {
+					continue;
+				}
+				/* Lock writes */
+				XPm_LockPcsr(DdrMcAddresses[i]);
+			}
+		}
 
 		/* Disable Bisr clock */
 		for (i = 0U; i < ARRAY_SIZE(DdrMcAddresses); i++) {
 			if (0U == DdrMcAddresses[i]) {
 				continue;
 			}
+			/* Unlock writes */
+			XPm_UnlockPcsr(DdrMcAddresses[i]);
+
 			PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
 				NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK, 0);
 			/* Lock writes */
