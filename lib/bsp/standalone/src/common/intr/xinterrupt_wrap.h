@@ -22,6 +22,8 @@
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * 9.1   mus  16/04/24 Add support for software generated interrupts.
 * 9.2   ml   05/08/24 Add Support for connecting fast interrupt for intc.
+* 9.2   ml   09/20/24 Added conditional compilation checks to avoid unused
+* 		      declarations.
 * </pre>
 *
 ******************************************************************************/
@@ -115,8 +117,10 @@ extern int XDisconnectInterruptCntrl(u32 IntrId, UINTPTR IntcParent);
 extern int XStartInterruptCntrl(u32 Mode, UINTPTR IntcParent);
 extern void XEnableIntrId( u32 IntrId, UINTPTR IntcParent);
 extern void XDisableIntrId( u32 IntrId, UINTPTR IntcParent);
+#if defined (XPAR_SCUGIC)
 extern void XSetPriorityTriggerType( u32 IntrId, u8 Priority, UINTPTR IntcParent);
 extern void XGetPriorityTriggerType( u32 IntrId, u8 *Priority, u8 *Trigger, UINTPTR IntcParent);
+#endif
 extern void XStopInterruptCntrl( UINTPTR IntcParent);
 extern void XRegisterInterruptHandler( void *IntrHandler, UINTPTR IntcParent);
 extern int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,
