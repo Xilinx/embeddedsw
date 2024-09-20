@@ -93,7 +93,7 @@ XTmrCtr_Config *XTmrCtr_LookupConfig(UINTPTR BaseAddress)
 		 * If BaseAddress is 0, return Configuration for 0th instance of
 		 * AXI timer device.
 		 * As AXI timer instance base address varies based on designs,
-		 * driver examples can pass base address as 0 , to use avilable
+		 * driver examples can pass base address as 0 , to use available
 		 * instance of AXI timer.
 		 */
 		if ((XTmrCtr_ConfigTable[Index].BaseAddress == BaseAddress) ||
