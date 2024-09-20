@@ -16,7 +16,8 @@
  * Ver   Who  Date        Changes
  * ----- ---- ---------- -------------------------------------------------------
  * 5.4   kal  07/24/2024 Initial release
-*       sk   08/22/24 Added error code for key transfer to ASU
+ *       sk   08/22/24 Added error code for key transfer to ASU
+ *       mb   09/20/24 Added XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR
  *
  * </pre>
  *
@@ -254,6 +255,7 @@ typedef enum {
 							crypto kat efuse bit is enabled */
 	XSECURE_RSA_GEN_SIGN_FAILED_ERROR,    /**< 0xF6 - Error when RSA sign generation is failed */
 	XSECURE_ERR_ASU_KTE_DONE_NOT_SET,	/**< 0xF7 - Error in Key Transfer to ASU */
+	XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR,	/**< 0xF8 - Error when MemCpy is failed after RSA operation */
 } XSecure_ErrorCodes;
 
 #define XSECURE_SHA3_KAT_FAILED_ERROR		XSECURE_SHA_KAT_FAILED_ERROR
