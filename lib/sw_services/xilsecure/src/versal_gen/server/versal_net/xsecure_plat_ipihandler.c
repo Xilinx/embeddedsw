@@ -29,6 +29,7 @@
 *      kpt   05/26/2024 Add support for RSA CRT and RRN operation
 *      kpt   06/13/2024 Add support for RSA key generation.
 *      mb    07/31/2024 Added the check to validate Payload and command for NULL pointer
+*      mb    11/09/2024 Added Redundancy check for XPlmi_MemCpy64.
 *
 * </pre>
 *
@@ -218,6 +219,8 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 	u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
+	volatile int SStatusTmp = XST_FAILURE;
 	u64 RsaParamAddr = ((u64)RsaParamAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)RsaParamAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)DstAddrLow;
 	XSecure_RsaInParam RsaParams;
@@ -374,7 +377,10 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 		goto END;
 	}
 
-	Status = XPlmi_MemCpy64(DstAddr, (UINTPTR)OutDataPtr, RsaParams.Size);
+	XSECURE_TEMPORAL_IMPL(SStatus, SStatusTmp, XPlmi_MemCpy64, DstAddr, (UINTPTR)OutDataPtr, RsaParams.Size);
+	if ((SStatus != XST_SUCCESS) || (SStatusTmp != XST_SUCCESS)) {
+		Status = (int)XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR;
+	}
 
 END:
 	return Status;
