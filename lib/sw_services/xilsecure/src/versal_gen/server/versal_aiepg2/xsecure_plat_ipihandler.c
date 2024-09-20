@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.4  kpt   01/13/2023 Initial release
+*      mb    11/09/2024 Added Redundancy check for XPlmi_MemCpy64.
 *
 * </pre>
 *
@@ -101,6 +102,8 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 	u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
+	volatile int SStatusTmp = XST_FAILURE;
 	u64 RsaParamAddr = ((u64)RsaParamAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)RsaParamAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)DstAddrLow;
 	XSecure_RsaInParam RsaParams;
@@ -257,7 +260,10 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 		goto END;
 	}
 
-	Status = XPlmi_MemCpy64(DstAddr, (UINTPTR)OutDataPtr, RsaParams.Size);
+	XSECURE_TEMPORAL_IMPL(SStatus, SStatusTmp, XPlmi_MemCpy64, DstAddr, (UINTPTR)OutDataPtr, RsaParams.Size);
+	if ((SStatus != XST_SUCCESS) || (SStatusTmp != XST_SUCCESS)) {
+		Status = (int)XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR;
+	}
 
 END:
 	return Status;
