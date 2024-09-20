@@ -74,7 +74,7 @@
 *                     the same register. The spinlock mechanism used here
 *                     used exclusive load and store instructions. To ensure
 *                     that legacy behavior is not broken, unless someone
-*                     enables spinlocks explicitely in their applications
+*                     enables spinlocks explicitly in their applications
 *                     the existing flow will remain unchanged. On how to
 *                     enable spinlocks, please refer to the documentations
 *                     at: lib/bsp/standalone/src/arm/common/gcc/xil_spinlock.c
@@ -105,7 +105,6 @@
 *
 ******************************************************************************/
 
-
 /***************************** Include Files *********************************/
 
 #include "xil_types.h"
@@ -135,7 +134,6 @@ static void CPUInit(const XScuGic_Config *Config);
 static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress);
 
 /************************** Variable Definitions *****************************/
-
 
 /*****************************************************************************/
 /**
@@ -202,7 +200,6 @@ static void DistInit(const XScuGic_Config *Config)
 	 * non-secure interrupts.
 	 */
 
-
 	/*
 	 * For the Shared Peripheral Interrupts INT_ID[MAX..32], set:
 	 */
@@ -256,7 +253,7 @@ static void DistInit(const XScuGic_Config *Config)
 		 */
 		XScuGic_WriteReg(Config->DistBaseAddress,
 				 XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET,
-						 Int_Id),
+					 Int_Id),
 				 0xFFFFFFFFU);
 
 	}
@@ -748,7 +745,7 @@ void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 *
 *****************************************************************************/
 void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
-		u8 Cpu_Id, u32 Int_Id)
+	u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
 #if !defined (GICv3)
@@ -821,7 +818,7 @@ void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 *
 *****************************************************************************/
 void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
-		u8 Cpu_Id, u32 Int_Id)
+	u8 Cpu_Id, u32 Int_Id)
 {
 /*
  * For GICv3 1 of N SPI interrupt selection mode is not supported in
@@ -885,7 +882,7 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 *
 *****************************************************************************/
 void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
-		u8 Cpu_Id)
+	u8 Cpu_Id)
 {
 /*
  * For GICv3 1 of N SPI interrupt selection mode is not supported in
