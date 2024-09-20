@@ -468,6 +468,8 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 *****************************************************************************/
 static void TickHandler(void *CallBackRef, u32 StatusEvent)
 {
+	(void)CallBackRef;
+	(void)StatusEvent;
 	/*update the flag if interrupt has been occurred*/
 	UpdateFlag = TRUE;
 

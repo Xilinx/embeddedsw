@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 4.0   als  09/30/15 Creation of this file. Moved LookupConfig from xtmrctr.c.
 * 4.4	mn   07/31/17 Resolve Compilation warning
+* 4.13  ml   09/19/24 Fix compilation warning by removing unused variable.
 * </pre>
 *
 ******************************************************************************/
@@ -84,7 +85,6 @@ XTmrCtr_Config *XTmrCtr_LookupConfig(u16 DeviceId)
 #else
 XTmrCtr_Config *XTmrCtr_LookupConfig(UINTPTR BaseAddress)
 {
-	extern XTmrCtr_Config XTmrctr_ConfigTable[];
 	XTmrCtr_Config *CfgPtr = NULL;
 	u32 Index;
 

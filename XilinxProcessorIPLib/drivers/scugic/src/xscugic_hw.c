@@ -408,7 +408,7 @@ void XScuGic_DeviceInterruptHandler(void *DeviceId)
 #ifndef SDT
 	CfgPtr = &XScuGic_ConfigTable[(INTPTR)DeviceId];
 #else
-	CfgPtr = LookupConfigByBaseAddress((u32)DeviceId);
+	CfgPtr = LookupConfigByBaseAddress((UINTPTR)DeviceId);
 #endif
 
 #if defined (GICv3)
