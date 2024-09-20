@@ -25,6 +25,8 @@
 * 9.2   ml   05/08/24 Add Support for connecting fast interrupt for intc.
 * 9.2   adk  11/09/24 Update XGetPriorityTriggerType() with IntrId to IntrNum
 * 		      transformation.
+* 9.2   ml   19/09/24 Fix compilation warnings by typecasting and adding
+*                     conditional compilation checks.
 * </pre>
 *
 ******************************************************************************/
@@ -114,7 +116,9 @@ int XConfigInterruptCntrl(UINTPTR IntcParent)
 int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, UINTPTR IntcParent)
 {
 	int Status;
+#if defined (XPAR_SCUGIC)
 	int Doconnect = FALSE;
+#endif
 
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
 #if defined (XPAR_SCUGIC)
@@ -167,7 +171,6 @@ int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, U
 int XConnectToFastInterruptCntrl(u32 IntrId, void *IntrHandler, UINTPTR IntcParent)
 {
 	int Status;
-	int Doconnect = FALSE;
 
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_INTC) {
 #if defined (XPAR_AXI_INTC)
@@ -179,6 +182,7 @@ int XConnectToFastInterruptCntrl(u32 IntrId, void *IntrHandler, UINTPTR IntcPare
 		return XST_FAILURE;
 #endif
 	}
+	return XST_FAILURE;
 }
 #endif
 /*****************************************************************************/
@@ -323,6 +327,7 @@ void XDisableIntrId( u32 IntrId, UINTPTR IntcParent)
 	}
 }
 
+#if defined (XPAR_SCUGIC)
 /*****************************************************************************/
 /**
 *
@@ -339,7 +344,6 @@ void XDisableIntrId( u32 IntrId, UINTPTR IntcParent)
 ******************************************************************************/
 void XSetPriorityTriggerType( u32 IntrId, u8 Priority, UINTPTR IntcParent)
 {
-#if defined (XPAR_SCUGIC)
 	u8 Trigger = (((XGet_TriggerType(IntrId) == 1) ||
 		       (XGet_TriggerType(IntrId) == 2)) ? XINTR_IS_EDGE_TRIGGERED
 		      : XINTR_IS_LEVEL_TRIGGERED);
@@ -350,7 +354,6 @@ void XSetPriorityTriggerType( u32 IntrId, u8 Priority, UINTPTR IntcParent)
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
 		XScuGic_SetPriorityTriggerType(&XScuGicInstance, IntrNum, Priority, Trigger);
 	}
-#endif
 }
 
 /*****************************************************************************/
@@ -371,15 +374,14 @@ void XSetPriorityTriggerType( u32 IntrId, u8 Priority, UINTPTR IntcParent)
 void XGetPriorityTriggerType( u32 IntrId, u8 *Priority, u8 *Trigger,  UINTPTR IntcParent)
 {
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
-#if defined (XPAR_SCUGIC)
 		u16 IntrNum = XGet_IntrId(IntrId);
 		u16 Offset = XGet_IntrOffset(IntrId);
 
 		IntrNum += Offset;
 		XScuGic_GetPriorityTriggerType(&XScuGicInstance, IntrNum, Priority, Trigger);
-#endif
 	}
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -478,8 +480,10 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 	}
 #if defined (XPAR_SCUGIC)
 	ScuGicInitialized = TRUE;
-#endif
 	XSetPriorityTriggerType( IntrId, Priority, IntcParent);
+#else
+	(void)Priority;
+#endif
 	Status = XConnectToInterruptCntrl( IntrId, (Xil_ExceptionHandler) IntrHandler, \
 					   DriverInstance, IntcParent);
 	if (Status != XST_SUCCESS) {

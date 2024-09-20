@@ -22,8 +22,10 @@
 * 6.02  pkp  01/22/17 Added support for EL1 non-secure
 * 9.00  ml   03/03 23 Add description to fix doxygen warnings.
 * 9.01  bl   10/11/23 Add API Xil_MemMap
-* 9.2   ml   17/01/24 Modified description and code for Xil_MemMap API
+* 9.2   ml   01/17/24 Modified description and code for Xil_MemMap API
 *                     to fix doxygen warnings.
+* 9.2   ml   09/19/24 Corrected return type to fix compilation warning by
+*                     typecasting from 'UINTPTR'(long unsigned int) to 'void *'
 * </pre>
 *
 * @note
@@ -181,5 +183,5 @@ void *Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
 		section_offset += ttb_size;
 	}
 
-	return PhysAddr;
+	return (void *)PhysAddr;
 }
