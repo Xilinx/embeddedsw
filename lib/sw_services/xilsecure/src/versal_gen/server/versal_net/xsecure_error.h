@@ -42,6 +42,7 @@
  * 5.4   yog  04/29/2024 Fixed doxygen warnings.
  *       kpt  06/13/2024 Added XSECURE_ERR_RSA_KEY_PAIR_NOT_AVAIL
  *       kpt  06/13/2024 Added XSECURE_ERR_AES_KEY_UNWRAP_FAILED_ERROR
+ *       mb   09/20/2024 Added XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR
  *
  * </pre>
  *
@@ -222,7 +223,8 @@ typedef enum {
 	XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED, /**< 0xF4 - Crypto Accelerators are disabled */
 	XSECURE_ERR_KAT_NOT_EXECUTED,		    /**< 0xF5 - Error when KAT is not executed when
 							crypto kat efuse bit is enabled */
-	XSECURE_RSA_GEN_SIGN_FAILED_ERROR      /**< 0xF6 - Error when RSA sign generation is failed */
+	XSECURE_RSA_GEN_SIGN_FAILED_ERROR,     /**< 0xF6 - Error when RSA sign generation is failed */
+	XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR    /**< 0xF7 - Error when MemCpy is failed after RSA operation */
 } XSecure_ErrorCodes;
 
 /************************** Function Prototypes ******************************/
