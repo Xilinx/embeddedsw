@@ -46,6 +46,7 @@
 * 1.09  ng   11/11/2022 Updated doxygen comments
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 * 1.12  rama 09/05/2024 Added STL diagnostic task scheduling
+*       ma   09/20/2024 Skip error update to FW_ERR register for COSIM platform
 *
 * </pre>
 *
@@ -314,8 +315,6 @@ static int XPlm_KeepAliveTask(void *Arg)
 			 * with expected value.
 			 */
 			if (ActualCounterValue != XPlm_UpdatePsmCounterVal(XPLM_PSM_COUNTER_RETURN)) {
-				XPlmi_Printf(DEBUG_GENERAL, "%s ERROR: PSM is not alive\r\n",
-						__func__);
 				/* Clear RTCA register */
 				XPlmi_Out32(XPLM_PSM_ALIVE_COUNTER_ADDR,
 						0U);
@@ -326,8 +325,11 @@ static int XPlm_KeepAliveTask(void *Arg)
 				/* Remove Keep alive task in case of error */
 				Status = XPlm_RemoveKeepAliveTask();
 				/* Update the error status */
-				Status = XPlmi_UpdateStatus(XPLM_ERR_PSM_NOT_ALIVE,
-								Status);
+				if (XPLMI_PLATFORM != PMC_TAP_VERSION_COSIM) {
+					XPlmi_Printf(DEBUG_GENERAL, "%s ERROR: PSM is not alive\r\n",
+						__func__);
+					Status = XPlmi_UpdateStatus(XPLM_ERR_PSM_NOT_ALIVE, Status);
+				}
 				goto END;
 			}
 		}
