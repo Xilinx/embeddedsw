@@ -54,6 +54,7 @@
 *       ng   06/21/2023 Added support for system device-tree flow
 *       ng   01/28/2024 optimized u8 variables
 *       ma   03/05/2024 Fixed improper timestamp issue after In-place PLM update
+*       ma   09/20/2024 Increase scheduler frequency to 100ms for COSIM
 *
 * </pre>
 *
@@ -281,6 +282,7 @@ int XPlmi_StartTimer(void)
 	int Status =  XST_FAILURE;
 	u32 Pit3ResetValue;
 	XIOModule *IOModule = XPlmi_GetIOModuleInst();
+	u32 Platform;
 
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
 		IOModule->CfgPtr = XIOModule_LookupConfig(IOMODULE_DEVICE);
@@ -322,7 +324,8 @@ int XPlmi_StartTimer(void)
 		 * PLM scheduler is running too fast for QEMU, so increasing the
 		 * scheduler's poling time to 100ms for QEMU instead of 10ms
 		*/
-		if (XPLMI_PLATFORM == PMC_TAP_VERSION_QEMU) {
+		Platform = XPLMI_PLATFORM;
+		if ((Platform == PMC_TAP_VERSION_QEMU) || (Platform == PMC_TAP_VERSION_COSIM)) {
 			Pit3ResetValue = PmcIroFreq / XPLMI_PIT_FREQ_DIVISOR_QEMU;
 		} else {
 			Pit3ResetValue = PmcIroFreq / XPLMI_PIT_FREQ_DIVISOR;

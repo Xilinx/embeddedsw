@@ -48,6 +48,8 @@
 *       sk   05/07/2024 Added defines for WDT and IPI registers
 * 1.04  sk   08/26/2024 Updated EAM support for Versal Aiepg2
 *       yog  09/09/2024 Updated ASU memory region addresses
+*       ma   09/20/2024 Added PMC_TAP_VERSION_COSIM mask for COSIM platform
+*                       Also, corrected XPLMI_PLATFORM_MASK value
 *
 * </pre>
 *
@@ -712,7 +714,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define PMC_TAP_VERSION_SPP			(0x1U)
 #define PMC_TAP_VERSION_EMU			(0x2U)
 #define PMC_TAP_VERSION_QEMU			(0x3U)
-#define XPLMI_PLATFORM_MASK			(0x07000000U)
+#define PMC_TAP_VERSION_COSIM			(0x7U)
+#define XPLMI_PLATFORM_MASK			(0x0F000000U)
 #define XPLMI_PLATFORM		((XPlmi_In32(PMC_TAP_VERSION) & \
 					XPLMI_PLATFORM_MASK) >> \
 					PMC_TAP_VERSION_PLATFORM_SHIFT)
