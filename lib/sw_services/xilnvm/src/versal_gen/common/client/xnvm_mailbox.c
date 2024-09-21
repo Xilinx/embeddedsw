@@ -27,7 +27,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xnvm_mailbox_apis XilNVM mailbox APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xnvm_mailbox.h"
@@ -52,8 +55,8 @@
  * @param	MsgLen		Length of the message
  *
  * @return
- *	-	XST_SUCCESS - If the IPI send and receive is successful
- *	-	XST_FAILURE - If there is a failure
+ *		- XST_SUCCESS  If the IPI send and receive is successful
+ *		- XST_FAILURE  If there is a failure
  *
  * @note	Payload  consists of API id and call arguments to be written
  * 		in IPI buffer
@@ -65,7 +68,8 @@ int XNvm_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	u32 Response[RESPONSE_ARG_CNT];
 
 	/**
-	 *  Send IPI CDO to PLM. Return XST_FAILURE if sending data failed
+	 *  Send IPI CDO to PLM.
+	 *  Return XST_FAILURE, if failure in IPI send request.
 	 */
 	Status = (int)XMailbox_SendData(MailboxPtr, XNVM_TARGET_IPI_INT_MASK, MsgPtr, MsgLen,
 				XILMBOX_MSG_TYPE_REQ, TRUE);
@@ -75,7 +79,7 @@ int XNvm_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 
 	/**
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * If the timeout exceeds, then error is returned otherwise it returns the status of the IPI response.
 	 */
 	Status = (int)XMailbox_Recv(MailboxPtr, XNVM_TARGET_IPI_INT_MASK, Response, RESPONSE_ARG_CNT,
 				XILMBOX_MSG_TYPE_RESP);
@@ -91,23 +95,22 @@ END:
 
 /*****************************************************************************/
 /**
+* @brief	This function sets the instance of mailbox
 *
-* This function sets the instance of mailbox
-*
-* @param InstancePtr Pointer to the client instance
-* @param MailboxPtr Pointer to the mailbox instance
+* @param 	InstancePtr	Pointer to the client instance
+* @param 	MailboxPtr 	Pointer to the mailbox instance
 *
 * @return
-* 	- XST_SUCCESS	On successful initialization
-* 	- XST_FAILURE	On failure
+* 		- XST_SUCCESS  On successful initialization
+* 		- XST_FAILURE  On failure
 *
 ******************************************************************************/
 int XNvm_ClientInit(XNvm_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr) {
 	int Status = XST_FAILURE;
 
-    /**
-	 *  Perform input parameter validation on InstancePtr,if not NULL initialize the InstancePtr
-	 *  Return XST_FAILURE if NULL
+        /**
+	 *  Perform input parameter validation on InstancePtr.
+	 *  If not NULL initialize the InstancePtr, else return XST_FAILURE.
 	 */
 	if (InstancePtr != NULL) {
 			InstancePtr->MailboxPtr = MailboxPtr;
