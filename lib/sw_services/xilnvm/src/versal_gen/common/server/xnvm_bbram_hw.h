@@ -10,10 +10,6 @@
 *
 * @file xnvm_bbram_hw.h
 *
-* @addtogroup xnvm_bbram_hw_reg XilNvm BBRAM Hw reg
-* @{
-*
-* @cond xnvm_internal
 * This file contains NVM library BBRAM modules hardware register definitions
 *
 * <pre>
@@ -25,12 +21,10 @@
 * 2.1	am 	 08/19/2020 Resolved MISRA C violations.
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
 * 3.1   skg  10/23/2022 Added comments for macros
+* 3.3   ng   11/22/23 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
-* @endcond
 *******************************************************************************/
 #ifndef XNVM_BBRAM_HW_H
 #define XNVM_BBRAM_HW_H

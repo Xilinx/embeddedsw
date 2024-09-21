@@ -8,10 +8,7 @@
 /**
 *
 * @file versal/common/xnvm_defs.h
-* @addtogroup xnvm_versal_api_ids XilNvm Versal API IDs
-* @{
 *
-* @cond xnvm_internal
 * This file contains the xilnvm API IDs
 *
 * <pre>
@@ -32,11 +29,10 @@
 * 3.1   skg  10/28/22 Added comments
 * 3.3	vss  02/23/24 Added IPI support for eFuse read and write
 *	vss  05/20/24 Added IPI support for AES key write
+*       ng   11/22/24 Fixed doxygen grouping
 *
 * </pre>
-* @note
 *
-* @endcond
 ******************************************************************************/
 
 #ifndef XNVM_DEFS_H
@@ -52,9 +48,7 @@ extern "C" {
 #include "xnvm_common_defs.h"
 
 /************************** Constant Definitions ****************************/
-/**@cond xnvm_internal
- * @{
- */
+
 /**< Enable client printfs by setting XNVM_DEBUG to 1 */
 #define XNVM_DEBUG	(0U)
 
@@ -165,11 +159,6 @@ typedef enum {
 	XNVM_API_ID_EFUSE_WRITE_AES_KEYS,
 	XNVM_API_MAX,
 } XNvm_ApiId;
-
-/**
- * @}
- * @endcond
- */
 
 #ifdef __cplusplus
 }

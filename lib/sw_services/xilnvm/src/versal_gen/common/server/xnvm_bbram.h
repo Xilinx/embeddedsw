@@ -9,10 +9,7 @@
 /**
 *
 * @file xnvm_bbram.h
-* @addtogroup xnvm_bbram_apis XilNvm bbram APIs
-* @{
 *
-* @cond xnvm_internal
 * This file contains NVM library BBRAM API's declaration
 *
 * <pre>
@@ -27,11 +24,10 @@
 * 2.3   am   11/23/2020 Resolved MISRA C violation
 * 3.1   skg  10/23/2022 Added In body comments for APIs
 *       kal  03/08/2023 Added new error code XNVM_BBRAM_ERROR_IN_DMA_XFER
+* 3.3   ng   11/22/2023 Fixed doxygen grouping
+*
 * </pre>
 *
-* @note
-*
-* @endcond
 *******************************************************************************/
 #ifndef XNVM_BBRAM_H
 #define XNVM_BBRAM_H
