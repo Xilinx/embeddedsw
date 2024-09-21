@@ -25,6 +25,11 @@
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup xnvm_bbram_server_apis XilNvm BBRAM Server APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
@@ -48,7 +53,8 @@ static int XNvm_BbramWriteKeyFromCdoPload(u32 *Pload);
  *
  * @param 	Cmd is pointer to the command structure
  *
- * @return	- XST_SUCCESS - If the handler execution is successful
+ * @return
+ * 		- XST_SUCCESS - If the handler execution is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
@@ -58,7 +64,8 @@ int XNvm_BbramCdoHandler(XPlmi_Cmd *Cmd)
 	u32 *Pload = NULL;
 
 	/**
-	 * Perform input parameters validation. Return error code if input parameters are invalid
+	 * Validate input parameters.
+	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
 	if (NULL == Cmd) {
 		Status = XST_INVALID_PARAM;
@@ -72,8 +79,8 @@ int XNvm_BbramCdoHandler(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-    /**
-	 *  Calls the respected API handler from API ID
+        /**
+	 *  Call the respective handler based on API ID.
 	 */
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_AES_KEY_FROM_PLOAD):
@@ -105,7 +112,8 @@ END:
  *
  * @param 	Pload is pointer to the CDO payload
  *
- * @return	- XST_SUCCESS - If the programming is successful
+ * @return
+ * 		- XST_SUCCESS - If the programming is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
