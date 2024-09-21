@@ -204,7 +204,7 @@ static int XPuf_ChangeIroFreq(u32 IroFreq, u8 *IroFreqUpdated);
  *
  * @note	Helper data will be available in PufData->SyndromeData,
  *		PufData->Chash, PufData->Aux.
- *		PUF is only supported when using a nominal VCC_PMC of 0.70V or
+ *		PUF is only supported when using a nominal VCC_PMC of 0.70V and
  *		IRO frequency of 320 MHz
  *
  *****************************************************************************/
@@ -363,7 +363,7 @@ END:
  *		IRO frequency at the time of PUF regeneration
  *		- XST_FAILURE  Unexpected event
  *
- * @note	PUF is only supported when using a nominal VCC_PMC of 0.70V or
+ * @note	PUF is only supported when using a nominal VCC_PMC of 0.70V and
  *		IRO frequency of 320 MHz
  *
  *****************************************************************************/
@@ -1089,7 +1089,7 @@ END:
  * @brief	This function sets the IRO frequency.IRO frequency can be set
  *		to 320 MHz or 400 MHz
  *
- * @param	IroFreq IRO frequency to be set.
+ * @param	IroFreq IRO frequency to be set (0 for 320 MHz and 1 for 400 MHz)
  * @param	IroFreqUpdated Flag to indicate whether IRO frequency is updated.
  *
  * @return
