@@ -120,7 +120,7 @@ typedef enum {
 							* programming */
 
 
-	XNVM_EFUSE_ERR_WRITE_SECDBG_DIS_BIT_0 = 0x9A00,/**<0x9600 - Error in
+	XNVM_EFUSE_ERR_WRITE_SECDBG_DIS_BIT_0 = 0x9A00,/**<0x9A00 - Error in
 							* SECDBG_DIS_BIT_0
 							* efuse programming */
 

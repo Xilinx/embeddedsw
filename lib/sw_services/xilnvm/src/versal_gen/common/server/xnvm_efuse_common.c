@@ -101,11 +101,12 @@ static int XNvm_EfuseTemparatureCheck(float Temparature);
 
 /******************************************************************************/
 /**
- * @brief	This function reloads the cache of eFUSE so that can be directly
- * 			read from cache.
+ * @brief	This function reloads the eFUSE cache, so that eFUSE values
+ * 		can be directly read from cache.
  *
- * @return	- XST_SUCCESS - on successful cache reload.
- *		- XNVM_EFUSE_ERR_CACHE_LOAD - Error while loading the cache.
+ * @return
+ *		- XST_SUCCESS  On successful cache reload.
+ *		- XNVM_EFUSE_ERR_CACHE_LOAD  Error while loading the cache.
  *
  * @note	Not recommended to call this API frequently,if this API is called
  *		all the cache memory is reloaded by reading eFUSE array,
@@ -117,31 +118,31 @@ int XNvm_EfuseCacheReload(void)
 	volatile int Status = XST_FAILURE;
 	u32 CacheStatus;
 
-    /**
+	/**
 	 * @{ Write 1 to load bit of eFuse_CACHE_LOAD register.
-     *	  Wait for CACHE_DONE bit to set in EFUSE_STATUS register . If timed out return timeout error.
-     *	  Return XST_SUCCESS
-     */
+	 * Wait for CACHE_DONE bit to set in EFUSE_STATUS register.
+	 * If timed out return timeout error, else return XST_SUCCESS.
+	 */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_CACHE_LOAD_REG_OFFSET,
 			XNVM_EFUSE_CACHE_LOAD_MASK);
 
 	CacheStatus = Xil_WaitForEvent((UINTPTR)(XNVM_EFUSE_CTRL_BASEADDR +
 				XNVM_EFUSE_STATUS_REG_OFFSET),
-				XNVM_EFUSE_STATUS_CACHE_DONE,
-				XNVM_EFUSE_STATUS_CACHE_DONE,
-				XNVM_EFUSE_CACHE_LOAD_TIMEOUT_VAL);
+			XNVM_EFUSE_STATUS_CACHE_DONE,
+			XNVM_EFUSE_STATUS_CACHE_DONE,
+			XNVM_EFUSE_CACHE_LOAD_TIMEOUT_VAL);
 	if (CacheStatus != (u32)XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_CACHE_LOAD;
 		goto END;
 	}
 
-    /**
-	 *  @{ Read EFUSE_ISR_REG. If EFUSE_ISR_CHACE_ERROR set return cache load error.
-	 *     Return XST_SUCCES.
+	/**
+	 *  @{ Read EFUSE_ISR_REG.
+	 *  If EFUSE_ISR_CACHE_ERROR is set return cache load error else return XST_SUCCES.
 	 */
 	CacheStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-					XNVM_EFUSE_ISR_REG_OFFSET);
+			XNVM_EFUSE_ISR_REG_OFFSET);
 	if ((CacheStatus & XNVM_EFUSE_ISR_CACHE_ERROR) ==
 			XNVM_EFUSE_ISR_CACHE_ERROR) {
 		Status = (int)XNVM_EFUSE_ERR_CACHE_LOAD;
@@ -150,8 +151,8 @@ int XNvm_EfuseCacheReload(void)
 
 	Status = XST_SUCCESS;
 END:
-    /**
-	 *  Reset EFUSE_ISR_CACHE_ERROR bit to 1
+	/**
+	 *  Reset EFUSE_ISR_CACHE_ERROR bit to 1.
 	 */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_ISR_REG_OFFSET,
@@ -169,8 +170,8 @@ void XNvm_EfuseDisablePowerDown(void)
 {
 	volatile u32 PowerDownStatus = ~XNVM_EFUSE_PD_ENABLE;
 
-    /**
-	 *  Read EFUSE_PD_REG. If enable disable by writing EFUSE_PD_REG to 0
+        /**
+	 *  Read EFUSE_PD_REG. If enable disable by writing EFUSE_PD_REG to 0.
 	 */
 	PowerDownStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 						XNVM_EFUSE_PD_REG_OFFSET);
@@ -193,8 +194,9 @@ void XNvm_EfuseDisablePowerDown(void)
  *
  * @param	RdMode - Mode to be used for eFUSE read.
  *
- * @return	XST_SUCCESS - if Setting read mode is successful.
- *		XST_FAILURE - if there is a failure
+ * @return
+ *		- XST_SUCCESS  If Setting read mode is successful.
+ *		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
@@ -205,8 +207,8 @@ int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 	u32 RdModeVal = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
 	u32 Mask = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
 
-    /**
-	 *  Read EFUSE_CFG_REG register
+        /**
+	 *  Read EFUSE_CFG_REG register.
 	 */
 	RegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_CFG_REG_OFFSET);
@@ -217,8 +219,8 @@ int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 		Mask = XNVM_EFUSE_CFG_MARGIN_RD;
 	}
 
-    /**
-	 *  Read modify and write to EFUSE_CFG_REG
+        /**
+	 *  Read modify and write to EFUSE_CFG_REG to set the read mode.
 	 */
 	Xil_UtilRMW32((XNVM_EFUSE_CTRL_BASEADDR +
 				XNVM_EFUSE_CFG_REG_OFFSET),
@@ -231,6 +233,10 @@ int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 		goto END;
 	}
 
+	/**
+	 * Read back to check if the write is success, if success return
+	 * XST_SUCCESS else return error.
+	 */
 	RdModeVal = NewRegVal & XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK;
 	if (RdModeVal != Mask) {
 		goto END;
@@ -259,7 +265,7 @@ void XNvm_EfuseSetRefClk(void)
 
 /******************************************************************************/
 /**
- * @brief	This function enabled programming mode of eFUSE controller.
+ * @brief	This function enables programming mode of eFUSE controller.
  *
  *
  ******************************************************************************/
@@ -269,22 +275,23 @@ void XNvm_EfuseEnableProgramming(void)
 	 *  Read EFUSE_CFG_REG
 	 */
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-					XNVM_EFUSE_CFG_REG_OFFSET);
+			XNVM_EFUSE_CFG_REG_OFFSET);
 
-    /**
+	/**
 	 *  Enable eFuse program mode by writing EFUSE_CFG_REG register
 	 */
 	Cfg = Cfg | XNVM_EFUSE_CFG_ENABLE_PGM;
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_CFG_REG_OFFSET, Cfg);
+			XNVM_EFUSE_CFG_REG_OFFSET, Cfg);
 }
 
 /******************************************************************************/
 /**
  * @brief	This function disables programming mode of eFUSE controller.
  *
- * @return      XST_SUCCESS - if eFUSE programming is disabled successfully.
- *              XST_FAILURE - if there is a failure
+ * @return
+ *		- XST_SUCCESS  If eFUSE programming is disabled successfully.
+ *		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseDisableProgramming(void)
@@ -297,7 +304,7 @@ int XNvm_EfuseDisableProgramming(void)
 					XNVM_EFUSE_CFG_REG_OFFSET);
 
 	/**
-	 *  disable eFuse program mode by writing EFUSE_CFG_REG register
+	 *  Disable eFuse program mode by writing EFUSE_CFG_REG register
 	 */
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_ENABLE_PGM;
 	Status = Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
@@ -310,8 +317,9 @@ int XNvm_EfuseDisableProgramming(void)
 /**
  * @brief	This function disables Margin Read mode of eFUSE controller.
  *
- * @return      XST_SUCCESS - if resetting read mode is successful.
- *              XST_FAILURE - if there is a failure
+ * @return
+ *		- XST_SUCCESS  If resetting read mode is successful.
+ *		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XNvm_EfuseResetReadMode(void)
@@ -319,13 +327,13 @@ int XNvm_EfuseResetReadMode(void)
 	volatile int Status = XST_FAILURE;
 
 	/**
-	 *  Read EFUSE_CFG_REG
+	 *  Read EFUSE_CFG_REG register.
 	 */
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_CFG_REG_OFFSET);
 
 	/**
-	 *  Reset Read mode from margin read mode by writing the EFUSE_CFG_REG
+	 *  Reset read mode from margin read mode by writing the EFUSE_CFG_REG.
 	 */
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_MARGIN_RD;
 	Status = Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
@@ -397,18 +405,20 @@ void XNvm_EfuseInitTimers(void)
  * @param	Op     - Operation to be performed read/program(write).
  * @param	RdMode - Read mode for eFUSE read operation.
  *
- * @return	- XST_SUCCESS - eFUSE controller setup for given op.
- *		- XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
- *						register access.
- *
+ * @return
+ *		- XST_SUCCESS  eFUSE controller setup for given op.
+ *		- XNVM_EFUSE_ERR_UNLOCK  Failed to unlock eFUSE controller register access.
+ *		- XST_FAILURE  If eFUSE controller is not unlocked
+ *		- XNVM_EFUSE_ERR_PGM_TBIT_PATTERN  If TBITS pattern is not
+ *					matched with the expected value.
  ******************************************************************************/
 int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 			XNvm_EfuseRdMode RdMode)
 {
 	volatile int Status = XST_FAILURE;
 
-    /**
-	 *  Unlock eFuse controller to write into eFuse registers
+        /**
+	 *  Unlock eFuse controller to write into eFuse registers.
 	 */
 	Status = XNvm_EfuseUnlockController();
 	if (Status != XST_SUCCESS) {
@@ -416,7 +426,7 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 	}
 
 	/**
-	 *  Disable power down mode and set reference clock to eFuse
+	 *  Disable power down mode and set reference clock to eFuse.
 	 */
 	XNvm_EfuseDisablePowerDown();
 	XNvm_EfuseSetRefClk();
@@ -425,27 +435,27 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 		XNvm_EfuseEnableProgramming();
 	}
 
-    /**
-	 *  Set Read mode
+        /**
+	 *  Set read mode.
 	 */
 	Status = XNvm_EfuseSetReadMode(RdMode);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-    /**
-	 *   Initialize eFuse Timers
+        /**
+	 * Initialize eFuse Timers.
 	 */
 	XNvm_EfuseInitTimers();
 
 	/**
-     *	Enable programming of Xilinx reserved eFuse
+         * Enable programming of Xilinx reserved eFuse.
 	 */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_TEST_CTRL_REG_OFFSET, 0x00U);
 
-    /**
-	 *   Check for T bits enabled
+        /**
+	 * Check for T bits for the expected pattern.
 	 */
 	Status = XNvm_EfuseCheckForTBits();
 
@@ -457,8 +467,9 @@ END:
 /**
  * @brief	This function checks whether Tbits are programmed or not.
  *
- * @return	- XST_SUCCESS - On Success.
- *		- XNVM_EFUSE_ERR_PGM_TBIT_PATTERN - Error in T-Bit pattern.
+ * @return
+ *		- XST_SUCCESS  On Success.
+ *		- XNVM_EFUSE_ERR_PGM_TBIT_PATTERN  Error in T-Bit pattern.
  *
  ******************************************************************************/
 int XNvm_EfuseCheckForTBits(void)
@@ -471,8 +482,9 @@ int XNvm_EfuseCheckForTBits(void)
 			XNVM_EFUSE_STATUS_TBIT_1 |
 			XNVM_EFUSE_STATUS_TBIT_2 );
 
-    /**
-	 *  Read EFUSE_STATUS_REG. Return error code if Read register value not equals to Tbit mask
+        /**
+	 *  Read EFUSE_STATUS_REG register.
+	 *  Return error code if Read register value not equal to Tbit mask.
 	 */
 	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_STATUS_REG_OFFSET);
@@ -489,11 +501,12 @@ END :
 
 /******************************************************************************/
 /**
- * @brief	This function checks Device Temparature for
+ * @brief	This function checks device Temparature for
  * 		LP,MP and HP devices based on the Efuse value.
  *
- * @return	- XST_SUCCESS - On Temparature within thresholds.
- *		- XST_FAILURE - On Temparature not within thresholds.
+ * @return
+ *		- XST_SUCCESS  On Temparature within thresholds.
+ *		- XST_FAILURE  On Temparature not within thresholds.
  *
  ******************************************************************************/
 static int XNvm_EfuseTemparatureCheck(float Temparature)
@@ -505,9 +518,15 @@ static int XNvm_EfuseTemparatureCheck(float Temparature)
 	float TempMin;
 	float TempMax;
 
+	/**
+	 * Read BootEnvCtrl eFUSE register.
+	 */
 	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET);
-
+	/**
+	 * Get the boot time temparatures upper and lower limits
+	 * from the BootEnvCtrl register.
+	 */
 	EfuseTempMax = (ReadReg &
 		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_MASK) >>
 		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_SHIFT;
@@ -541,8 +560,10 @@ static int XNvm_EfuseTemparatureCheck(float Temparature)
 		goto END;
 	}
 
-	/* Junction temparature operating range for
-	 * eFUSE programming as per TSMC data sheet
+	/* Check junction temparature operational limits for
+	 * eFUSE programming as per TSMC data sheet.
+	 * if the temparature is within the limits return XST_SUCCESS
+	 * else XST_FAILURE.
 	 */
 
 	if (EfuseTempMin == XNVM_EFUSE_LP_RANGE_CHECK) {
@@ -568,8 +589,9 @@ END:
  * @brief	This function checks VCC_PMC voltage checks for
  * 		LP,MP and HP devices based on the Efuse value.
  *
- * @return	- XST_SUCCESS - On VCC_PMC within thresholds.
- *		- XST_FAILURE - On VCC_PMC not within thresholds.
+ * @return
+ *		- XST_SUCCESS  On VCC_PMC within thresholds.
+ *		- XST_FAILURE  On VCC_PMC not within thresholds.
  *
  ******************************************************************************/
 static int XNvm_EfusePmcVoltageCheck(float Voltage)
@@ -580,9 +602,15 @@ static int XNvm_EfusePmcVoltageCheck(float Voltage)
 	float VoltMin;
 	float VoltMax;
 
+	/**
+	 * Read BootEnvCtrl eFUSE register.
+	 */
 	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET);
 
+	/**
+	 * Get the boot time PMC temparature from the BootEnvCtrl register.
+	 */
 	EfuseVoltVal = (ReadReg &
 			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_MASK) >>
 			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_SHIFT;
@@ -617,6 +645,10 @@ static int XNvm_EfusePmcVoltageCheck(float Voltage)
 		goto END;
 	}
 
+	/**
+	 * Check if PMC voltage is within the limits (Min and Max).
+	 * If not in limits return XST_FAILURE else XST_SUCCESS.
+	 */
 	if ((Voltage < VoltMin) || (Voltage > VoltMax)) {
 		Status = XST_FAILURE;
 	}
@@ -635,8 +667,9 @@ END:
  *
  * @param	SysmonpsvSatBaseAddr - Pointer to SysMon base address
  *
- * @return	On Success reads and returns SupplyReg Id
- *		On Failure returns default SupplyReg value
+ * @return
+ * 		On Success  Reads and returns SupplyReg Id
+ *		On Failure  Returns default SupplyReg value
  *
  ******************************************************************************/
 u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr)
@@ -688,11 +721,11 @@ u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr)
  *
  * @param	SysMonInstPtr - Pointer to SysMon instance.
  *
- * @return	- XST_SUCCESS - On successful Voltage and Temparature checks.
- *		- XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE - Voltage is
- *								out of range
- *		- XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE - Temparature
- *								is out of range
+ * @return
+ *		- XST_SUCCESS  On successful Voltage and Temparature checks.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM  Input validation failure.
+ *		- XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE  Voltage is out of range
+ *		- XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE  Temparature is out of range
  *
  ******************************************************************************/
 int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
@@ -725,7 +758,9 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 	XSysMonPsv_WriteReg(
 			SysMonInstPtr->Config.BaseAddress + XSYSMONPSV_PCSR_LOCK,
 			XNVM_EFUSE_SYSMON_LOCK_CODE);
-
+	/**
+	 * Get the sysmon supply register id.
+	 */
 	SupplyReg = XNvm_GetSysmonSupplyRegId(
 		(UINTPTR)XNVM_EFUSE_SYSMONPSV_SAT0_BASEADDR);
 	if (SupplyReg == XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET) {
@@ -733,10 +768,18 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 			(UINTPTR)XNVM_EFUSE_SYSMONPSV_SAT1_BASEADDR);
 	}
 
+	/**
+	 * If supply register id is 0xFFFFFFFF, supply is not enabled, return error.
+	 */
 	if (SupplyReg == XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET) {
 		Status = (int)XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED;
 		goto END;
 	}
+
+	/**
+	 * If supplies are enabled for monitoring, get the new data
+	 * for the supply. If no new data is available, return error.
+	 */
 	Offset = XNVM_EFUSE_WORD_LEN *
 		(SupplyReg / XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG);
 	Shift = SupplyReg % XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG;
@@ -750,30 +793,44 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 		goto END;
 	}
 	else {
-		/* Clear the New data flag if its set */
+		/**
+		 * Else, clear the New data flag if its set
+		 */
 		XSysMonPsv_WriteReg(SysMonInstPtr->Config.BaseAddress +
 			Offset + XSYSMONPSV_NEW_DATA_FLAG0, ReadReg);
 	}
 
 	if (ReadReg != 0x00U) {
+		/**
+		 * Read the raw voltage value from the supply.
+		 */
 		RawVoltage = XSysMonPsv_ReadReg(
 				SysMonInstPtr->Config.BaseAddress +
 				XSYSMONPSV_SUPPLY +
 				(SupplyReg * XNVM_EFUSE_WORD_LEN));
 
+		/**
+		 * Convert raw to voltage.
+		 */
 		Voltage = XSysMonPsv_RawToVoltage(RawVoltage);
 		IntegralPart = (int)Voltage;
 		FractionalPart = (Voltage - IntegralPart) *
 					XNVM_EFUSE_FRACTION_MUL_VALUE;
 		XNvm_Printf(XNVM_DEBUG_GENERAL,"Voltage = %d.%06dV \r\n",
 				IntegralPart, FractionalPart);
+		/**
+		 * Check for voltage operating limits.
+		 * Return error if voltage is not withing operating limits.
+		 */
 		Status = XNvm_EfusePmcVoltageCheck(Voltage);
 		if (Status != XST_SUCCESS) {
 			Status = (int)XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE;
 			goto END;
 		}
 	}
-
+	/**
+	 * Read the raw temparature value from the sysmon satellite.
+	 */
 	RawTemp = XSysMonPsv_ReadReg(SysMonInstPtr->Config.BaseAddress +
 			XSYSMONPSV_TEMP_SAT);
 	Temparature = XSysMonPsv_FixedToFloat(RawTemp);
@@ -786,14 +843,19 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 	FractionalPart = (Temparature - IntegralPart) *
 				XNVM_EFUSE_FRACTION_MUL_VALUE;
 
-	/* Convert IntegralPart and FractionalPart to absolute values */
+	/**
+	 *  Convert IntegralPart and FractionalPart to absolute values.
+	 */
 	IntegralPart = (IntegralPart < 0) ? -IntegralPart : IntegralPart;
 	FractionalPart = (FractionalPart < 0) ? -FractionalPart : FractionalPart;
 
 	XNvm_Printf(XNVM_DEBUG_GENERAL,
 		"Device temperature on the chip = %c%d.%06dC \r\n",
 		Signchar, IntegralPart,FractionalPart);
-
+	/**
+	 * Check for temparature operating limits.
+	 * Return error if temparature is not withing operating limits.
+	 */
 	Status = XNvm_EfuseTemparatureCheck(Temparature);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
