@@ -70,6 +70,7 @@ typedef struct {
 		u32 DmeKey[XNVM_DME_KEY_CDO_PAYLOAD_LEN_IN_WORDS];
 		u32 PufCfg[XNVM_PUF_CFG_CDO_PAYLOAD_LEN_IN_WORDS];
 } XNvm_CdoEfuseKeys;
+
 typedef struct {
 	XNvm_CdoEfuseKeys Keys;
 	u8 MemClear;
