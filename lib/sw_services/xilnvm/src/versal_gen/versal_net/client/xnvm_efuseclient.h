@@ -8,11 +8,9 @@
 /**
 *
 * @file net/client/xnvm_efuseclient.h
-* @addtogroup xnvm_efuse_versal_net_client_apis XilNvm eFUSE Versal Net Client APIs
-* @{
-* @cond xnvm_internal
-* This file Contains the client function prototypes, defines and macros for
-* the programming and reading eFUSEs.
+*
+* This file contains the client function prototypes, defines and macros for
+* the eFUSE programming and read.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,9 +23,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xnvm_efuse_client_apis XilNvm eFUSE Client APIs
+ * @{
+ */
 
 #ifndef XNVM_EFUSECLIENT_H
 #define XNVM_EFUSECLIENT_H
