@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -8,9 +8,6 @@
 /**
 *
 * @file xnvm_efuseclient.c
-* @addtogroup xnvm_client_api XilNvm eFUSE Client API
-* @{
-* @details
 *
 * This file contains the implementation of the client interface functions for
 * eFUSE programming.
@@ -34,11 +31,10 @@
 * 3.1   skg  10/04/22 Added SlrIndex as part of payload based on user input
 *       skg  10/25/22 Added in body comments for APIs
 * 3.2   am   03/09/23 Replaced xnvm payload lengths with xmailbox payload lengths
-*	vss  09/19/23 Fixed MISRA-C 8.3 violation
+*       vss  09/19/23 Fixed MISRA-C 8.3 violation
+* 3.3   ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
-*
-* @note
 *
 ******************************************************************************/
 

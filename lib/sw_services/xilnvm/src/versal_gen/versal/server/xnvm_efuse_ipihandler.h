@@ -8,10 +8,7 @@
 /**
 *
 * @file versal/server/xnvm_efuse_ipihandler.h
-* @addtogroup xnvm_versal_apis XilNvm Versal APIs
-* @{
 *
-* @cond xnvm_internal
 * This file contains the xilnvm eFUSE IPI handler declaration.
 *
 * <pre>
@@ -19,15 +16,13 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kal   07/30/2021 Initial release
+* 1.00  kal  07/30/2021 Initial release
 * 2.4   bsv  09/09/2021 Added PLM_NVM macro
 * 3.3	vss  02/23/2024	Added IPI support for eFuse read and write
+*       ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
-* @endcond
 ******************************************************************************/
 
 #ifndef XNVM_EFUSE_IPIHANDLER_H_

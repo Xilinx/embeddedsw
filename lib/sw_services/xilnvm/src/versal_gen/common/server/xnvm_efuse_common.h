@@ -9,10 +9,7 @@
 /**
 *
 * @file xnvm_efuse_common.h
-* @addtogroup xnvm_efuse_apis XilNvm eFuse APIs
-* @{
 *
-* @cond xnvm_internal
 * This file contains function declarations of eFUSE APIs
 *
 * <pre>
@@ -24,14 +21,18 @@
 * 3.1   skg  10/25/2022 Added comments for macros and enums
 * 3.2   kum  04/11/2023 Moved Voltage and Temp macros for LP,MP,HP ranges from versal xnvm_efuse.h
 *	vss  09/19/2023	Fixed MISRA-C Rule 8.7 violation
-*  3.3  vss  12/31/2023 Added support for Program the eFuse protection bits only once
+* 3.3   vss  12/31/2023 Added support for Program the eFuse protection bits only once
+*       ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
-* @endcond
 *******************************************************************************/
+
+/**
+ * @addtogroup xnvm_efuse_server_apis XilNvm eFUSE Server APIs
+ * @{
+ */
+
 #ifndef XNVM_EFUSE_COMMON_H
 #define XNVM_EFUSE_COMMON_H
 

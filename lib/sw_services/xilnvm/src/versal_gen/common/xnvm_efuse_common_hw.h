@@ -7,9 +7,9 @@
 /******************************************************************************/
 /**
 *
-* @file xnvm_efuse_common_hw.h
-* @addtogroup xnvm_efuse_hw XilNvm eFuse controller registers
-* @{
+* @file versal/server/xnvm_efuse_hw.h
+*
+* This file contains NVM library eFUSE controller register definitions
 *
 * @cond xnvm_internal
 * This file contains eFUSE controller register definitions which are common
@@ -21,13 +21,10 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 3.0   kal  07/16/2022 Initial release
-* 3.2   kum 04/11/2023 moved BOOTENV, SYSMON related macros to common to make use for both veral and versalnet
+* 3.2   kum  04/11/2023 moved BOOTENV, SYSMON related macros to common to make use for both veral and versalnet
 *
 * </pre>
 *
-* @note
-*
-* @endcond
 *******************************************************************************/
 #ifndef XNVM_EFUSE_COMMON_HW_H
 #define XNVM_EFUSE_COMMON_HW_H

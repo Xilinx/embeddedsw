@@ -8,10 +8,7 @@
 /**
 *
 * @file xnvm_common_defs.h
-* @addtogroup xnvm_api_ids XilNvm API IDs
-* @{
 *
-* @cond xnvm_internal
 * This file contains the xilnvm Versal_Net API IDs
 *
 * <pre>
@@ -23,11 +20,10 @@
 * 3.2   ng   06/30/23 Added support for system device tree flow
 *       yog  09/13/23 Fixed review comments
 * 3.3	vss  02/23/24 Added IPI support for eFuse read and write
+*       ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
-* @note
 *
-* @endcond
 ******************************************************************************/
 
 #ifndef XNVM_COMMON_DEFS_H
@@ -45,7 +41,8 @@ extern "C" {
 #endif
 
 /************************** Constant Definitions ****************************/
-/**@cond xnvm_internal
+/**
+ * @cond xnvm_internal
  * @{
  */
 #define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)

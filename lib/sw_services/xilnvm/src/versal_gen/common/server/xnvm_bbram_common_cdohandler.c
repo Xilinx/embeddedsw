@@ -27,13 +27,17 @@
 * 3.1   skg   10/23/2022 Added In body comments for APIs
 *       kal   03/08/2023 Make status as volatile in XNvm_BbramKeyWrite
 * 3.2   kpt   07/31/2023 Assign key clear status only when status is XST_SUCCESS
-*	kpt   08/17/2023 Remove oring the Status with error code in XNvm_BbramKeyWrite
+*       kpt   08/17/2023 Remove oring the Status with error code in XNvm_BbramKeyWrite
+* 3.3   ng   11/22/23 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xnvm_bbram_server_apis XilNvm BBRAM Server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
