@@ -31,10 +31,6 @@
 * </pre>
 *
 ******************************************************************************/
-/**
- * @addtogroup xnvm_mailbox_apis XilNVM mailbox APIs
- * @{
- */
 #ifndef XNVM_MAILBOX_H
 #define XNVM_MAILBOX_H
 
@@ -106,8 +102,8 @@ static inline u32 Header(u32 Len, u32 ApiId)
  * @param	SlrIndex	Slr index to be set in instance
  *
  * @return
- * 			- XST_SUCCESS On valid input SlrIndex.
- *			- XST_FAILURE On invalid SlrIndex.
+ * 		- XST_SUCCESS On valid input SlrIndex.
+ *		- XST_FAILURE On invalid SlrIndex.
  *
  * @note	This function is applicable to only Versal
  *
@@ -117,7 +113,9 @@ static inline int XNvm_SetSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrInde
 	int Status = XST_FAILURE;
 
 	if (SlrIndex <= (u32)XNVM_SLR_IDX_3) {
-		/**< Validate SlrIndex and assign it to instance pointer */
+		/**
+		 * Validate SlrIndex and assign it to instance pointer
+		 */
 		InstancePtr->SlrIndex = SlrIndex;
 		Status = XST_SUCCESS;
 	}
