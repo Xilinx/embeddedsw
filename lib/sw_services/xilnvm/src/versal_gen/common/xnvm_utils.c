@@ -68,6 +68,11 @@
 /***************************** Type Definitions *******************************/
 
 /****************** Macros (Inline Functions) Definitions *********************/
+
+/*************************** Variable Definitions *****************************/
+
+/*************************** Function Definitions *****************************/
+
 /******************************************************************************/
 /**
  * @brief	This function reads the given register.
@@ -91,8 +96,6 @@ u32 XNvm_EfuseReadReg(u32 BaseAddress, u32 RegOffset)
  * @param	RegOffset is the register offset from the base address.
  * @param	Data is the 32-bit value to be written to the register.
  *
- * @return	None
- *
  ******************************************************************************/
 void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 {
@@ -104,9 +107,10 @@ void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
  * @brief	This function locks the eFUSE Controller to prevent accidental
  * 		writes to eFUSE controller registers.
  *
- * @return	- XST_SUCCESS - eFUSE controller locked.
- *		- XNVM_EFUSE_ERR_LOCK - Failed to lock eFUSE controller
- *					                register access.
+ * @return
+ *		- XST_SUCCESS  eFUSE controller locked.
+ *		- XNVM_EFUSE_ERR_LOCK  Failed to lock eFUSE controller
+ *		register access.
  *
  ******************************************************************************/
 int XNvm_EfuseLockController(void)
@@ -114,15 +118,14 @@ int XNvm_EfuseLockController(void)
 	int Status = XST_FAILURE;
 	volatile u32 LockStatus = ~XNVM_EFUSE_CTRL_WR_LOCKED;
 
-    /**
-	 *  Write lock Passcode in efuse control at offset of WR_LOCK_REG
-	 */
+        /** Write lock Passcode in EFUSE_CTRL_WR_LOCK_REG.*/
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_WR_LOCK_REG_OFFSET,
 			~XNVM_EFUSE_WR_UNLOCK_PASSCODE);
 	/**
-     *  Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_LOCK if not success
-     */
+	 * Read back EFUSE_CTRL_WR_LOCK_REG to check if write was successful.
+	 * Return XNVM_EFUSE_ERR_LOCK if not success.
+	 */
 	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
 	if(XNVM_EFUSE_CTRL_WR_LOCKED == LockStatus) {
@@ -140,9 +143,10 @@ int XNvm_EfuseLockController(void)
  * @brief	This function unlocks the eFUSE Controller for writing
  *		to its registers.
  *
- * @return	XST_SUCCESS - eFUSE controller locked.
- *		XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
- *							register access.
+ * @return
+ *		- XST_SUCCESS  eFUSE controller locked.
+ *		- XNVM_EFUSE_ERR_UNLOCK  Failed to unlock eFUSE controller
+ *		register access.
  *
  ******************************************************************************/
 int XNvm_EfuseUnlockController(void)
@@ -150,15 +154,14 @@ int XNvm_EfuseUnlockController(void)
 	int Status = XST_FAILURE;
 	volatile u32 LockStatus = ~XNVM_EFUSE_CTRL_WR_UNLOCKED;
 
-     /**
-	 *  Write unlock Passcode in efuse control at offset of WR_LOCK_REG
-	 */
+	/** Write unlock passcode in EFUSE_CTRL_WR_LOCK_REG */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_WR_LOCK_REG_OFFSET,
 				XNVM_EFUSE_WR_UNLOCK_PASSCODE);
 	/**
-     *  Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_UNLOCK if not success
-     */
+	 * Read back EFUSE_CTRL_WR_LOCK_REG register to check if write was successful.
+	 * Return XNVM_EFUSE_ERR_UNLOCK if not success.
+	 */
 	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
 	if(XNVM_EFUSE_CTRL_WR_UNLOCKED == LockStatus) {
@@ -171,21 +174,16 @@ int XNvm_EfuseUnlockController(void)
 	return Status;
 }
 
-
-/*************************** Variable Definitions *****************************/
-
-/*************************** Function Definitions *****************************/
-
-
 /******************************************************************************/
 /**
  * @brief	Validate the input string contains valid AES key.
  *
- * @param   Key - Pointer to AES key.
+ * @param   	Key - Pointer to AES key.
  *
- * @return - XST_SUCCESS - On valid input AES key string.
- *		   - XST_INVALID_PARAM - On invalid length of the input string.
- *		   - XST_FAILURE	- On non hexadecimal character in string
+ * @return
+ *		- XST_SUCCESS  On valid input AES key string.
+ *		- XST_INVALID_PARAM  On invalid length of the input string.
+ *		- XST_FAILURE  On non hexadecimal character in string
  *
  ******************************************************************************/
 int XNvm_ValidateAesKey(const char *Key)
@@ -193,12 +191,16 @@ int XNvm_ValidateAesKey(const char *Key)
 	int Status = XST_INVALID_PARAM;
 	u32 Len;
 
+	/** Validate the Key pointer, return XST_INVALID_PARAM if it is NULL.*/
 	if(NULL == Key) {
 		goto END;
 	}
 
 	Len = Xil_Strnlen(Key, XNVM_MAX_AES_KEY_LEN_IN_CHARS + 1U);
 
+	/**
+	 * Validate the key length, return XST_INVALID_PARAM if it is not supported.
+	 */
 	if ((Len != XNVM_256_BITS_AES_KEY_LEN_IN_CHARS) &&
 		(Len != XNVM_128_BITS_AES_KEY_LEN_IN_CHARS)) {
 		goto END;
@@ -228,9 +230,7 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 	volatile u32 Temp2Crc;
 
 	for (Idx = 0U; Idx < XNVM_AES_KEY_SIZE_IN_WORDS; Idx++) {
-		/**
-         *	Process each bits of 32-bit Value
-		 */
+		/** Process each bits of 32-bit Value.*/
 		Value = Key[XNVM_AES_KEY_SIZE_IN_WORDS - Idx - 1U];
 		for (BitNo = 0U; BitNo < 32U; BitNo++) {
 			Temp1Crc = Crc >> 1U;
@@ -244,9 +244,7 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 			Value = Value >> 1U;
 		}
 
-		/**
-         *	Get 5-bit from Address
-		 */
+		/** Get 5-bit from Address.*/
 		Value = XNVM_AES_KEY_SIZE_IN_WORDS - (u32)Idx;
 		for (BitNo = 0U; BitNo < 5U; BitNo++) {
 			Temp1Crc = Crc >> 1U;
@@ -261,9 +259,7 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 		}
 	}
 
-    /**
-	 *  Return CRC value upon success
-	 */
+	/** Return CRC value upon success. */
 	return Crc;
 }
 
@@ -275,8 +271,8 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
  * @param	Length	Length of the data in bytes.
  *
  * @return
- *		- XST_SUCCESS: If Zeroization is successful.
- *		- XST_FAILURE: If Zeroization is not successful.
+ *		- XST_SUCCESS  If Zeroization is successful.
+ *		- XST_FAILURE  If Zeroization is not successful.
  ********************************************************************************/
 int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 {
@@ -284,7 +280,7 @@ int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 	volatile u32 Index;
 
 	/**
-     *	Clear the decrypted data
+	 * Zeroize the buffer provided.
 	 */
 	Status = Xil_SMemSet(DataPtr, Length, 0, Length);
 	if (Status != XST_SUCCESS) {
@@ -292,7 +288,8 @@ int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 	}
 
 	/**
-     *	Read it back to verify
+	 * Read it back to verify.
+	 * Return success upon successful zeroization else return XST_FAILURE.
 	 */
 	Status = XST_FAILURE;
 	for (Index = 0U; Index < Length; Index++) {
@@ -317,11 +314,12 @@ END:
  * @param	CrcPassMask - Respective CRC pass mask in status register
  * @param	Crc - A 32 bit CRC value of an expected AES key.
  *
- * @return	- XST_SUCCESS - On successful CRC check.
- *		- XNVM_EFUSE_ERR_CRC_VERIFICATION - If AES boot key integrity
- *							check is failed.
- *		- XST_FAILURE - If AES boot key integrity check
- *							has not finished.
+ * @return
+ *		- XST_SUCCESS  On successful CRC check.
+ *		- XNVM_EFUSE_ERR_CRC_VERIFICATION  If AES boot key integrity
+ *		check is failed.
+ *		- XST_FAILURE  If AES boot key integrity check
+ *		has not finished.
  *
  * @note	For Calculating the CRC of the AES key use the
  *		XNvm_AesCrcCalc() function.
@@ -334,9 +332,10 @@ int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask,
 	u32 ReadReg;
 	u32 IsUnlocked = FALSE;
 
-    /**
-     *  Read the WR_LOCK_REG. Unlock the controller if read as locked
-     */
+	/**
+	 * Read the WR_LOCK_REG.
+	 * Unlock the controller if read status is locked.
+	 */
 	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
 	if(XNVM_EFUSE_CTRL_WR_LOCKED == ReadReg) {
@@ -347,22 +346,18 @@ int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask,
 		IsUnlocked = TRUE;
 	}
 
-	/**
-	 *  Write the crc to crcregoffset of eFuse_ctrl register
-	 */
+	/** Write the 32 bit crc to crc reg offset of eFuse_ctrl register. */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR, CrcRegOffSet, Crc);
 
-    /**
-	 *  Wait for crcdone
-	 */
+	/** Wait for crc_done. */
 	Status = (int)Xil_WaitForEvent((UINTPTR)(XNVM_EFUSE_CTRL_BASEADDR + XNVM_EFUSE_STATUS_REG_OFFSET),
 				CrcDoneMask, CrcDoneMask, XNVM_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-    /**
-	 *  Read efuse status register. If Crc is not done return XST_FAILURE
+	/**
+	 * Read efuse status register. If Crc is not done return XST_FAILURE.
 	 */
 	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_STATUS_REG_OFFSET);
@@ -370,8 +365,10 @@ int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask,
 	if ((ReadReg & CrcDoneMask) != CrcDoneMask) {
 		Status = XST_FAILURE;
 	}
+
 	/**
-	 *  Return XNVM_EFUSE_ERR_CRC_VERIFICATION if Crc is not Pass. Return XST_SUCCESS upon crc pass and done
+	 * Return XNVM_EFUSE_ERR_CRC_VERIFICATION if Crc is not Pass.
+	 * Return XST_SUCCESS upon crc done and pass.
 	 */
 	else if ((ReadReg & CrcPassMask) != CrcPassMask) {
 		Status = (int)XNVM_EFUSE_ERR_CRC_VERIFICATION;
@@ -380,9 +377,7 @@ int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask,
 		Status = XST_SUCCESS;
 	}
 END:
-    /**
-	 *  Lock efuse controller
-	 */
+	/** Lock efuse controller.*/
 	if (IsUnlocked == TRUE) {
 		LockStatus = XNvm_EfuseLockController();
 		if (XST_SUCCESS == Status) {
