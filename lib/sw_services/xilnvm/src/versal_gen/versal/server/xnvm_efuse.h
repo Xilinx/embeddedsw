@@ -9,10 +9,7 @@
 /**
 *
 * @file versal/server/xnvm_efuse.h
-* @addtogroup xnvm_versal_efuse_apis XilNvm Versal eFuse APIs
-* @{
 *
-* @cond xnvm_internal
 * This file contains function declarations of eFuse APIs
 *
 * <pre>
@@ -55,12 +52,10 @@
 *       vss  12/31/2023 Added support for Program the eFuse protection bits only once
 *       kpt  02/21/2024 Added generic handler
 *	vss  02/23/2024	Added IPI support for eFuse read and write
+*       ng   12/12/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
-* @endcond
 *******************************************************************************/
 #ifndef XNVM_EFUSE_H
 #define XNVM_EFUSE_H
@@ -113,10 +108,6 @@ extern "C" {
 #define XNVM_EFUSE_PROTECTION_BIT_PUF_CHASH_MASK	((u32)1U << XNVM_EFUSE_ROW_42_PROT_COLUMN)
 #define XNVM_EFUSE_PROTECTION_BIT_SECURITY_MISC_1_MASK	((u32)1U << XNVM_EFUSE_ROW_58_PROT_COLUMN)
 /** @} */
-
-/**
-* @}
-*/
 
 /***************************** Type Definitions *******************************/
 
@@ -285,5 +276,3 @@ int XNvm_EfuseReadAdditionalPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType
 #endif
 
 #endif	/* XNVM_EFUSE_H */
-
-/* @} */

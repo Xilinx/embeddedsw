@@ -31,13 +31,17 @@
 * 3.0   kal  08/01/2022 Added redundancy to XNvm_BbramEnablePgmMode function
 *       dc   08/29/2022 Changed u8 to u32 type
 * 3.1   skg  10/23/2022 Added In body comments for APIs
-*       pre  09/11/2024 Removed zeroization before writing key
+* 3.4   pre  09/11/2024 Removed zeroization before writing key
+*       ng   09/20/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 *******************************************************************************/
+
+/**
+ * @addtogroup xnvm_bbram_server_apis XilNvm BBRAM Server APIs
+ * @{
+ */
 
 /***************************** Include Files **********************************/
 #include "xil_io.h"
@@ -337,13 +341,11 @@ int XNvm_BbramZeroize(void)
 {
 	int Status = XST_FAILURE;
 
-	/* Initiate zeroization */
-
 	/**
-	 * @{ Write 1 to BBRAM_CTRL register.
-     *	  Wait for BBRAM_ZEROIZED bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timeout error.
-     *	  Return XST_SUCCESS
-     */
+	 * Write 1 to BBRAM_CTRL register.
+	 * Wait for BBRAM_ZEROIZED bit to set in BBRAM_STATUS register with timeout of 1 second.
+	 * If timed out return timout error. Return XST_SUCCESS.
+	 */
 	XNvm_BbramWriteReg(XNVM_BBRAM_CTRL_REG, XNVM_BBRAM_CTRL_START_ZEROIZE);
 	Status = (int)Xil_WaitForEvent((UINTPTR)(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG),
 		XNVM_BBRAM_STATUS_ZEROIZED,

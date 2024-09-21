@@ -90,18 +90,22 @@
 *       kal  03/07/2023 Added volatile keyword to avoid compiler optimization in
 *                       XNvm_EfuseWriteSecMisc1Fuses
 * 3.2   kum 04/11/2023  Moved common code to xnvm_efuse_common.c
-*	kpt 07/26/2023  Add missing else check in XNvm_EfuseReadPpkHash
+*       kpt  07/26/2023 Add missing else check in XNvm_EfuseReadPpkHash
 * 3.3   har 12/04/2023  Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
 *       vss 12/31/2023  Added support for Program the eFuse protection bits only once
 *       vss 02/23/2024	Added IPI support for eFuse read and write
 *       kpt 03/28/2024  Updated validation to allow additional PPK programming along with
 *                       PPK0/1/2 and additional ppk enable bit
+*       ng   12/12/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 *******************************************************************************/
+
+/**
+ * @addtogroup xnvm_efuse_server_apis XilNvm eFUSE Server APIs
+ * @{
+ */
 
 /***************************** Include Files **********************************/
 #include "sleep.h"
@@ -116,7 +120,7 @@
 /*************************** Constant Definitions *****************************/
 /**
  * @name eFuse macro definitions
- */
+  */
 /**< CRC for Aes zero key */
 #define XNVM_EFUSE_CRC_AES_ZEROS		(0x6858A3D5U)
 /**< Efuse total number of rows */
@@ -1231,8 +1235,8 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_EfusePufSecCtrlBits *PufSecCtrlBits)
 	}
 
 	/**
-	 * @{ Read directly from cache offset of the PUF_ECC_PUF_CTRL and also SEC_CRTL to fill the PufSecCtrlBits structure.
-	 *    Return XST_SUCESS if read is success.
+	 * Read directly from cache offset of the PUF_ECC_PUF_CTRL and also SEC_CRTL
+	 * to fill the PufSecCtrlBits structure. Return XST_SUCESS if read is success.
 	 */
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_PUF_AUX_ROW, &PufEccCtrlReg);
 	if (Status != XST_SUCCESS) {
@@ -1406,8 +1410,8 @@ int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv, XSysMonPsv *SysMonInstPtr)
 	WriteIvs.Ivs = EfuseIv;
 
     /**
-	 *  @{ Fill the XNvm_EfuseData global structure with the EfuseIv structure and call XNvm_EfuseWrite API.
-     *     Return the Status
+	 * Fill the XNvm_EfuseData global structure with the EfuseIv structure and
+	 * call XNvm_EfuseWrite API. Return the Status.
 	 */
 	Status = XNvm_EfuseWrite(&WriteIvs);
 END :
@@ -1454,8 +1458,8 @@ int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType)
 	}
 
     /**
-	 *   @{ Based on user input IvType Reads the efuse cache. Fills EfuseIv structure.
-	 *      If read cache fails zeroize the EfuseIv data and return XST_FAILURE.
+	 * Based on user input IvType Reads the efuse cache. Fills EfuseIv structure.
+	 * If read cache fails zeroize the EfuseIv data and return XST_FAILURE.
 	 */
 	if (IvType == XNVM_EFUSE_META_HEADER_IV_RANGE) {
 		Status = XNvm_EfuseReadCacheRange(
@@ -1752,8 +1756,9 @@ int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke, XSysMonPsv *SysMonInstPtr)
 	}
 
 	/**
-	 *	@{ Fill the XNvm_EfuseMiscCtrlBits structure with PPK INVLD inputs from user and fill the XNvm_EfuseData global structure with the MiscCtrlBits structure and call XNvm_EfuseWrite API.
-     *	   Return the Status.
+	 * Fill the XNvm_EfuseMiscCtrlBits structure with PPK INVLD inputs from user
+	 * and fill the XNvm_EfuseData global structure with the MiscCtrlBits structure
+	 * and call XNvm_EfuseWrite API. Return the Status.
 	 */
 	if (PpkRevoke == XNVM_EFUSE_PPK0) {
 		MiscCtrlBits.Ppk0Invalid = TRUE;

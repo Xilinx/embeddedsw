@@ -8,10 +8,7 @@
 /**
 *
 * @file xnvm_mailbox.h
-* @addtogroup xnvm_mailbox_apis XilNvm mailbox APIs
-* @{
 *
-* @cond xnvm_internal
 * This file contains declarations of xilmailbox generic interface APIs
 *
 * <pre>
@@ -29,13 +26,15 @@
 *       kal  09/14/23 Added XNvm_SetSlrIndex function
 *       vss  09/19/23 Fixed MISRA-C 12.2 violation
 * 3.3   tri  10/10/23 Fixed MISRA-C 5.5 violation
+*       ng   11/22/23 Fixed doxygen grouping
 *
 * </pre>
-* @note
 *
-* @endcond
 ******************************************************************************/
-
+/**
+ * @addtogroup xnvm_mailbox_apis XilNVM mailbox APIs
+ * @{
+ */
 #ifndef XNVM_MAILBOX_H
 #define XNVM_MAILBOX_H
 
@@ -49,7 +48,8 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-/**@cond xnvm_internal
+/**
+ * @cond xnvm_internal
  * @{
  */
 #define XILNVM_MODULE_ID			(11U)
@@ -105,10 +105,11 @@ static inline u32 Header(u32 Len, u32 ApiId)
  *
  * @param	SlrIndex	Slr index to be set in instance
  *
- * @return	XST_SUCCESS	On valid input SlrIndex.
- *		XST_FAILURE	On invalid SlrIndex.
+ * @return
+ * 			- XST_SUCCESS On valid input SlrIndex.
+ *			- XST_FAILURE On invalid SlrIndex.
  *
- * @Note	This function is applicable to only Versal
+ * @note	This function is applicable to only Versal
  *
  *******************************************************************************/
 static inline int XNvm_SetSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrIndex)

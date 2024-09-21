@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -8,9 +8,7 @@
 /**
 *
 * @file versal/client/xnvm_efuseclient.h
-* @addtogroup xnvm_efuse_versal_client_apis XilNvm eFUSE Versal Client APIs
-* @{
-* @cond xnvm_internal
+*
 * This file Contains the client function prototypes, defines and macros for
 * the eFUSE programming and read.
 *
@@ -25,13 +23,16 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 3.1   skg  10/04/22 Added SlrIndex Constants
 * 3.2   vss  09/19/23 Fixed MISRA-C Rule 2.5 violaion
+* 3.3   ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
-* @endcond
 ******************************************************************************/
+
+/**
+ * @addtogroup xnvm_efuse_client_apis XilNvm eFUSE Client APIs
+ * @{
+ */
 
 #ifndef XNVM_EFUSECLIENT_H
 #define XNVM_EFUSECLIENT_H

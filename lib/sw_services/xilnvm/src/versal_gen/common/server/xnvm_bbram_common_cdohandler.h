@@ -9,10 +9,7 @@
 /**
 *
 * @file xnvm_bbarm_common_cdohandler.h
-* @addtogroup xnvm_apis XilNvm bbram APIs
-* @{
 *
-* @cond xnvm_internal
 * This file contains the xilnvm BBRAM common cdo handler declaration.
 *
 * <pre>
@@ -23,12 +20,10 @@
 * 1.00  kal   07/05/2021 Initial release
 * 2.4   bsv  09/09/2021 Added PLM_NVM macro
 * 3.1   skg  10/23/2022 Added In body comments for APIs
+* 3.3   ng   11/22/23 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
-* @endcond
 ******************************************************************************/
 #ifndef XNVM_BBRAM_COMMON_CDOHANDLER_H_
 #define XNVM_BBRAM_COMMON_CDOHANDLER_H_
@@ -58,4 +53,3 @@ int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XNVM_BBRAM_COMMON_CDOHANDLER_H_ */
-/* @} */
