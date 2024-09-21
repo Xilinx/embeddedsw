@@ -8,9 +8,8 @@
 /**
  *
  * @file net/server/xnvm_efuse.h
- * @addtogroup xnvm_versal_net_efuse_apis XilNvm Versal Net eFuse APIs
- * @{
- * Header file for xnvm_efuse.c
+ *
+ * This file contains function declarations of eFuse APIs
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -20,7 +19,7 @@
  * 3.0   kal  07/12/2022 Initial release
  * 3.2   har  02/21/2023 Added support for writing ROM Rsvd bits
  *	 kpt  07/26/2023 Removed XNvm_EfuseReadCacheRange
- *       vss  12/31/2023 Added support for Program the eFuse protection bits only once
+ *   vss  12/31/2023 Added support for Program the eFuse protection bits only once
  *
  * </pre>
  *

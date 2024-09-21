@@ -9,9 +9,8 @@
  *
  * @file net/server/xnvm_cmd.h
  *
- * @addtogroup xnvm_versal_net_api_ids XilNvm Versal Net API IDs
- * @{
- * Header file for xnvm_cmd.c
+* This file Contains the client function prototypes, defines and macros for
+* the NVM programming.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -23,9 +22,14 @@
  *
  * </pre>
  *
- * @note
  *
  ******************************************************************************/
+
+/**
+ * @addtogroup xnvm_server_apis XilNvm Server APIs
+ * @{
+ */
+
 #ifndef XNVM_CMD_H_
 #define XNVM_CMD_H_
 

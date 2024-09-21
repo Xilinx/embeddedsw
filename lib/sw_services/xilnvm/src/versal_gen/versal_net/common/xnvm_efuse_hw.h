@@ -8,12 +8,10 @@
 /**
 *
 * @file net/server/xnvm_efuse_hw.h
-* @addtogroup xnvm_versal_net_Efuse_HW XilNvm Versal Net Efuse HW Reg
-* @{
+*
+* This file contains NVM library eFUSE controller register definitions
 *
 * @cond xnvm_internal
-* This file contains Versal_Net NVM library eFUSE controller register
-* definitions
 *
 * <pre>
 * MODIFICATION HISTORY:
