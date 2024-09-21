@@ -9,10 +9,7 @@
 /**
 *
 * @file versal/server/xnvm_efuse_error_plat.h
-* @addtogroup xnvm_versal_efuse_apis XilNvm versal eFuse APIs
-* @{
 *
-* @cond xnvm_internal
 * This file contains function declarations of eFUSE APIs
 *
 * <pre>
@@ -24,12 +21,10 @@
 * 3.1   kpt  01/21/2023 Added error codes for Additional PPKs
 * 3.2   kum  04/11/2023 Moved env error codes to common xnvm_efuse_error.h
 * 3.3   kpt  04/03/2024 Updated error code description
+*       ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
-* @endcond
 *******************************************************************************/
 #ifndef XNVM_EFUSE_ERROR_PLAT_H
 #define XNVM_EFUSE_ERROR_PLAT_H

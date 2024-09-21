@@ -32,12 +32,16 @@
 *       skg  12/07/2022 Added Additional PPKs support
 * 3.3	vss  02/23/2024	Added IPI support for eFuse read and write
 *	vss  05/20/2024 Added IPI support for AES key write
+*       ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xnvm_efuse_server_apis XilNvm eFUSE Server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
@@ -927,7 +931,7 @@ END:
 /**
  * @brief       This function reads the OffChip ID requested by the client
  *
- * @param	RevokeIdNum	OffChip ID number to be read
+ * @param	IdNum	OffChip ID number to be read
  *
  * @param	AddrLow		Lower 32 bit address of the OffChip ID
  *

@@ -8,9 +8,7 @@
 /**
 *
 * @file xnvm_bbramclient.h
-* @addtogroup xnvm_bbram_client_apis XilNvm BBram Client APIs
-* @{
-* @cond xnvm_internal
+*
 * This file Contains the client function prototypes, defines and macros for
 * the BBRAM programming.
 *
@@ -24,13 +22,16 @@
 * 3.1   skg  10/04/22 Added macro for SlrIndex shifting
 *       skg  10/23/22 Added In body comments for APIs
 * 3.4   har  08/22/24 Added support for provisioning configuration limiter
+* 3.4   ng   09/05/24 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xnvm_bbram_client_api XilNvm BBRAM Client APIs
+ * @{
+ */
 
 #ifndef XNVM_BBRAMCLIENT_H
 #define XNVM_BBRAMCLIENT_H
@@ -75,4 +76,3 @@ int XNvm_BbramWriteConfigLimiterParams(const XNvm_ClientInstance *InstancePtr, c
 #endif
 
 #endif  /* XNVM_BBRAMCLIENT_H */
-/* @} */

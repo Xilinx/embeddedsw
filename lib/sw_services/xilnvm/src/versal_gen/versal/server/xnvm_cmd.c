@@ -11,8 +11,6 @@
 *
 * This file contains the xilnvm IPI handler implementation.
 *
-* @cond xnvm_internal
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -29,12 +27,10 @@
 * 3.3   kpt  02/21/2024 Added generic handler
 *	vss  02/23/2024	Added IPI support for eFuse read and write
 *	vss  05/20/24 Added IPI support for AES key write
+*       ng   11/22/2024 Fixed doxygen grouping
 *
 * </pre>
 *
-* @note
-*
-* @endcond
 ******************************************************************************/
 
 /***************************** Include Files *********************************/

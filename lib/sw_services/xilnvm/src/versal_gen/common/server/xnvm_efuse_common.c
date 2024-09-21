@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,11 +26,10 @@
 *       kal  03/07/2023 Added volatile keyword for Status variables
 * 3.2   kum  04/11/2023 Moved Env monitor API's from versal xnvm_efuse.c to make use for both versal and versalnet
 *	vss  09/19/2023	Fixed MISRA-C Rule 8.7 violation
-*  3.3  vss  12/31/2023 Added support for Program the eFuse protection bits only once
+* 3.3   vss  12/31/2023 Added support for Program the eFuse protection bits only once
+*       ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
-*
-* @note
 *
 *******************************************************************************/
 

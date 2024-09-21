@@ -8,8 +8,6 @@
 /**
 *
 * @file xnvm_efuse_error.h
-* @addtogroup xnvm_efuse_api_ids XilNvm Efuse API IDs
-* @{
 *
 * This file contains the xilnvm Versal_Net API IDs
 *
@@ -25,10 +23,9 @@
 * 3.2   kum  04/11/23 Moved Env error codes to common to make use for both versal and versalnet
 * 3.3   ng   01/26/24 Fixed error number
 *	vss  02/23/24 Added IPI support for eFuse read and write
+*       ng   11/22/2023 Fixed doxygen grouping
 *
 * </pre>
-* @note
-*
 *
 ******************************************************************************/
 
@@ -45,7 +42,7 @@ extern "C" {
 /************************** Constant Definitions ****************************/
 
 /**
- * @addtogroup xilnvm_versal_common_error_codes XilNvm Error Codes
+ * @addtogroup xilnvm_error_codes XilNvm Error Codes
  * @{
  */
 
