@@ -96,6 +96,9 @@ def create_app(args):
         lib_list = list(domain_data['lib_info'].keys())
         # Special handling for libmetal
         lib_list = [lib.replace('libmetal', 'metal') for lib in lib_list]
+        # FixME: Link the math library by default for libmetal dependent drivers
+        if 'metal' in lib_list:
+            lib_list.append('m')
         if obj.os == "freertos":
             lib_list.append(obj.os)
         cpu_list_file = os.path.join(obj.domain_path, "cpulist.yaml")
