@@ -58,6 +58,19 @@ class ValidateHW(Repo):
     def validate_hw(self):
         app_dir = self.get_comp_dir(self.name)
         yaml_file = os.path.join(app_dir, "data", f"{self.name}.yaml")
+        """
+        FIXME: currently there is no processor specific checks in the
+        baremetal_validate_comp_xlnx assist but for dhrystone app we
+        need to check for timer hardware availability only for soft
+        microblaze processors.
+        """
+        if self.name == "dhrystone":
+            cpu_list_file = os.path.join(self.domain_dir, "cpulist.yaml")
+            avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
+            proc_ip_name = avail_cpu_data[self.proc]
+            if not proc_ip_name in ["microblaze", "microblaze_riscv"]:
+                return
+
         if utils.is_file(yaml_file, silent_discard=True):
             schema = utils.load_yaml(yaml_file)
             comp_list = []
