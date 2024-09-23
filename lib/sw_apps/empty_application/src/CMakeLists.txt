@@ -14,6 +14,9 @@ collect(PROJECT_LIB_DEPS xil)
 collect(PROJECT_LIB_DEPS gcc)
 collect(PROJECT_LIB_DEPS c)
 
+# Use CMAKE_LIBRARY_PATH in link_directories
+link_directories(${CMAKE_LIBRARY_PATH})
+
 aux_source_directory(${CMAKE_SOURCE_DIR} _sources)
 foreach (source ${_sources})
     get_filename_component(ext ${source} EXT)
