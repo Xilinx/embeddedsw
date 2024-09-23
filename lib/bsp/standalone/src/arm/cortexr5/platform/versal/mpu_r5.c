@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +46,7 @@
 * 		      properly.
 * 9.0   mus  04/20/23  Removed CortexR52 specific changes, separate file is
 *                      created for CortexR52.
+* 9.2   ml   20/09/24 Add support for AXI NOC2 DDR region in MPU initialization
 * </pre>
 *
 * @note
@@ -163,12 +164,14 @@ void Init_MPU(void)
 
 	Xil_DisableMPURegions();
 	Addr = 0x00000000U;
-#if defined(XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) || defined(XPAR_AXI_NOC_0_BASEADDRESS)
+#if defined(XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) || defined(XPAR_AXI_NOC_0_BASEADDRESS) || defined(XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR)
 #ifdef XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
 	/* If the DDR is present, configure region as per DDR size */
 	size = (XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR - XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) + 1;
 #elif defined(XPAR_AXI_NOC_0_BASEADDRESS)
 	size = (XPAR_AXI_NOC_0_HIGHADDRESS - XPAR_AXI_NOC_0_BASEADDRESS) + 1;
+#elif defined(XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR)
+	size = (XPAR_AXI_NOC2_DDR_LOW_0_HIGHADDR - XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR) + 1;
 #endif
 
 	if (size < 0x80000000) {
