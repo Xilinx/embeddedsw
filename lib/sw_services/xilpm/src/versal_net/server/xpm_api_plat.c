@@ -472,6 +472,11 @@ XStatus XPm_HookAfterPlmCdo(void)
 	Subsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
 	if (((u32)1U == XPmSubsystem_GetMaxSubsysIdx()) && (NULL != Subsystem) &&
 	    ((u8)ONLINE == Subsystem->State)) {
+		if ((u8)TRUE == XPlmi_IsPlmUpdateDone()) {
+			/** Skip adding Default Subsystem Requirements */
+			Status = XST_SUCCESS;
+			goto done;
+		}
 		Status = XPm_AddReqsDefaultSubsystem(Subsystem);
 		if (XST_SUCCESS != Status) {
 			goto done;
