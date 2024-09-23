@@ -47,7 +47,7 @@
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 
-#ifdef PLM_OCP_KEY_MNGMT`
+#ifdef PLM_OCP_KEY_MNGMT
 #include "xsecure_ellipticplat.h"
 #include "xsecure_sha384.h"
 #include "xcert_genx509cert.h"
