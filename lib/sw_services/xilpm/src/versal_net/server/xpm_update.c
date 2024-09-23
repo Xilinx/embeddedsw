@@ -41,7 +41,7 @@
 #include "xloader_ddr.h"
 
 #define XPM_UPDATE_PSM_RST_TIMEOUT 150000U /** < Timeout to wait for PSM firmware us */
-
+#define DONTCAREVAL 0xCAFECAFEU
 #define MAX_NUM_NODE 1000
 extern int XPlm_RemoveKeepAliveTask(void);
 static XPm_Node* AllNodes[MAX_NUM_NODE] = {NULL};
@@ -373,6 +373,34 @@ done:
 	return CurReq;
 }
 
+static XStatus CreateReqFrom(XPm_Requirement *SavedReq, XPm_Requirement **OutReq)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Device *SavedDevice = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_Requirement, SavedReq, SavedReq->Device);
+
+	XPm_Subsystem *SavedSubsystem = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_Requirement, SavedReq, SavedReq->Subsystem);
+
+	XPm_Subsystem* Subsystem = XPmSubsystem_GetById(SavedSubsystem->Id);
+	if (NULL == Subsystem)
+	{
+		PmErr("Subsystem 0x%x Not Found!\n\r", SavedSubsystem->Id);
+		goto done;
+	}
+	XPm_Device* Device = XPmDevice_GetById(SavedDevice->Node.Id);
+	if (NULL == Device)
+	{
+		PmErr("Device 0x%x Not Found!\n\r", SavedDevice->Node.Id);
+		goto done;
+	}
+	Status =  XPmRequirement_Add(Subsystem, Device, DONTCAREVAL ,DONTCAREVAL ,DONTCAREVAL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	*OutReq = FindReqm(Device, Subsystem);
+done:
+	return Status;
+}
+
 /**
  * @brief Restore requirements from a saved device to the running device node.
  *
@@ -393,13 +421,17 @@ static XStatus RestoreRequirements(XPm_Device *SavedNode, XPm_Device *Node)
 	while(NULL != SavedReq) {
 		XPm_Requirement* CurReq = GetCurReqFromSavedReq(SavedReq);
 		if (NULL == CurReq) {
-			PmWarn("Warning: Requirement not found %x %x\n\r", SavedReq->Device->Node.Id, SavedReq->Subsystem->Id);
-		}else {
-			Status = RESTORE_REGION(SavedReq, AllSaveRegionsInfo[Index_XPm_Requirement], CurReq);
-			if (XST_SUCCESS != Status){
+			Status = CreateReqFrom(SavedReq, &CurReq);
+			if (XST_SUCCESS != Status) {
+				PmWarn("Warning: Requirement not added %x %x\n\r", SavedReq->Device->Node.Id, SavedReq->Subsystem->Id);
 				goto done;
 			}
 		}
+		Status = RESTORE_REGION(SavedReq, AllSaveRegionsInfo[Index_XPm_Requirement], CurReq);
+		if (XST_SUCCESS != Status){
+			goto done;
+		}
+
 		SavedReq = GET_SAVED_PTR_MEMBER_FROM_TYPE(XPm_Requirement, SavedReq, SavedReq->NextSubsystem);
 	}
 	/* Restore Pending Requirement*/
@@ -468,6 +500,7 @@ MAKE_RESTORE_FUNC(XPm_NpDomain, XPm_PowerDomain, Domain)
 MAKE_RESTORE_FUNC(XPm_HnicxDomain, XPm_PowerDomain, Domain)
 MAKE_RESTORE_FUNC(XPm_CpmDomain, XPm_PowerDomain, Domain)
 MAKE_RESTORE_FUNC(XPm_PmcDomain, XPm_PowerDomain, Domain)
+MAKE_RESTORE_FUNC(XPm_MemRegnDevice, XPm_Device, Device)
 
 /**
  * @brief Get a pointer to a node that is within the DDR region
@@ -496,12 +529,41 @@ static XStatus AddMissingPlDevices(void)
 	XStatus Status = XST_FAILURE;
 	for (u32 i = 0; i< PrevNumNodes; i++){
 		XPm_Node* Node= GetSavedNodeAt(i);
+		if (NULL == Node) {
+			/** We keep going and try to restore the rest */
+			continue;
+		}
 		u32 NodeId = Node->Id;
 		if (NODECLASS(NodeId) == XPM_NODECLASS_DEVICE \
 			&&  NODESUBCLASS(NodeId) == XPM_NODESUBCL_DEV_PL) {
 			if (NULL == XPmDevice_GetById(NodeId)) {
 				u32 Args[1] = {NodeId};
-				Status = XPm_AddNode(Args, 1);
+				Status = XPm_AddNode(Args, ARRAY_SIZE(Args));
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+			}
+		}
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+static XStatus AddMissingMemRegnDevices(void)
+{
+	XStatus Status = XST_FAILURE;
+	for (u32 i = 0; i< PrevNumNodes; i++){
+		XPm_Node* Node= GetSavedNodeAt(i);
+		if (NULL == Node) {
+			/** We keep going and try to restore the rest */
+			continue;
+		}
+		u32 NodeId = Node->Id;
+		if (NODECLASS(NodeId) == XPM_NODECLASS_DEVICE \
+			&&  NODESUBCLASS(NodeId) == XPM_NODESUBCL_DEV_MEM_REGN) {
+			if (NULL == XPmDevice_GetById(NodeId)) {
+				u32 Args[5] = {NodeId, DONTCAREVAL, DONTCAREVAL, DONTCAREVAL, DONTCAREVAL};
+				Status = XPm_AddNode(Args,ARRAY_SIZE(Args));
 				if (XST_SUCCESS != Status) {
 					goto done;
 				}
@@ -513,6 +575,34 @@ done:
 	return Status;
 }
 
+
+static XStatus AddMissingxGGsDevices(void)
+{
+	XStatus Status = XST_FAILURE;
+	for (u32 i = 0; i< PrevNumNodes; i++){
+		XPm_Node* Node= GetSavedNodeAt(i);
+		if (NULL == Node) {
+			/** We keep going and try to restore the rest */
+			continue;
+		}
+		u32 NodeId = Node->Id;
+		if (NODECLASS(NodeId) == XPM_NODECLASS_DEVICE \
+			&& NODESUBCLASS(NodeId) == XPM_NODESUBCL_DEV_PERIPH
+			&& (NODETYPE(NodeId) == XPM_NODETYPE_DEV_PGGS
+				|| NODETYPE(NodeId) == XPM_NODETYPE_DEV_GGS)) {
+			if (NULL == XPmDevice_GetById(NodeId)) {
+				u32 Args[5] = {NodeId, PM_POWER_PMC, DONTCAREVAL, DONTCAREVAL, DONTCAREVAL};
+				Status = XPm_AddNode(Args, ARRAY_SIZE(Args));
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+			}
+		}
+	}
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
 /**
  * @brief A restore function for XPm_PlDevice node.
  *
@@ -709,6 +799,9 @@ static XStatus Class_Device_Restore(XPm_Device *SavedNode, XPm_Device *Node)
 	case XPM_NODESUBCL_DEV_MEM_CTRLR:
 		Status = RESTORE(XPm_MemCtrlrDevice, SavedNode, Node);
 		goto done;
+	case XPM_NODESUBCL_DEV_MEM_REGN:
+		Status = RESTORE(XPm_MemRegnDevice, SavedNode, Node);
+		goto done;
 	default:
 		break;
 	}
@@ -769,6 +862,14 @@ XStatus XPmUpdate_RestoreAllNodes(void)
 	XStatus Status = XST_FAILURE;
 	XPm_Node* FailedNode = NULL;
 	Status = AddMissingPlDevices();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	Status = AddMissingMemRegnDevices();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	Status = AddMissingxGGsDevices();
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

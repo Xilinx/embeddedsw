@@ -47,6 +47,7 @@ extern "C" {
 	X(XPm_OutClockNode)\
 	X(XPm_PlDevice)\
 	X(XPm_MemCtrlrDevice)\
+	X(XPm_MemRegnDevice)\
 	X(XPm_Core)\
 	X(XPm_Pmc)\
 	X(XPm_Psm)\
