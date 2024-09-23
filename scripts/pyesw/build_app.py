@@ -66,6 +66,9 @@ def build_app(args):
         lib_list = [lib.replace('libmetal', 'metal') for lib in lib_list]
         if obj.os == "freertos":
             lib_list.append(obj.os)
+        # FixME: Link the math library by default for libmetal dependent drivers
+        if 'metal' in lib_list:
+            lib_list.append('m')
         cpu_list_file = os.path.join(obj.domain_path, "cpulist.yaml")
         avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
         proc_ip_name = avail_cpu_data[obj.proc]
