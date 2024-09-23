@@ -44,8 +44,10 @@ struct XPm_AddrRegion {
 };
 /* DDR Memory regions device */
 struct XPm_MemRegnDevice {
-    XPm_Device Device;		/**< Device: Base class */
+    XPm_Device Device;	/**< Device: Base class */
+SAVE_REGION (
     XPm_AddrRegion AddrRegion;	/**< Memory regions */
+)
 };
 
 /* DDR Memory controller device */
