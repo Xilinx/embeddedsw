@@ -372,7 +372,6 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	const XPm_Regulator *Regulator;
 	u32 NodeIdx = NODEINDEX(Rail->Power.Node.Id);
 
 	if (Mode >= MAX_MODES) {
