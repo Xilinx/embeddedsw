@@ -66,8 +66,6 @@ extern "C" {
 #define XPM_INT_ERR_MBIST_GOOD			0x310CU
 /* MBIST GO bit not set */
 #define XPM_INT_ERR_MBIST_GO			0x310DU
-/* Error during power domain init and house clean*/
-#define XPM_INT_ERR_DOMAIN_INIT_AND_HC		0x310DU
 /* Invalid trim type */
 #define XPM_INT_ERR_INVALID_TRIM_TYPE		0x310EU
 /* Error during self test */
@@ -122,6 +120,8 @@ extern "C" {
 #define XPM_INT_ERR_CFU_CLK_DIVIDER		0x3127U
 /* Error during ams trim routine */
 #define XPM_INT_ERR_FUNC_AMS_TRIM		0x3128U
+/* Error during power domain init and house clean*/
+#define XPM_INT_ERR_DOMAIN_INIT_AND_HC		0x3129U
 /************************** LPD specific Errors ******************************/
 /************************** (0x3200) - (0x32FF) ******************************/
 /* Error during PMC-LPD DFX Isolation enable/disable */
@@ -723,15 +723,15 @@ extern "C" {
 /* Error releasing VDU_PL isolation */
 #define XPM_INT_ERR_VDU_PL_ISO			0x5200U
 /* Error running VDU BISR repair */
-#define XPM_INT_ERR_VDU_BISR_REPAIR		0x5202U
+#define XPM_INT_ERR_VDU_BISR_REPAIR		0x5201U
 /* Error running VDU ScanClear */
-#define XPM_INT_ERR_VDU_SCAN_CLEAR		0x5203U
+#define XPM_INT_ERR_VDU_SCAN_CLEAR		0x5202U
 /* Error running VDU Mem Clear */
-#define XPM_INT_ERR_VDU_MBIST			0x5204U
+#define XPM_INT_ERR_VDU_MBIST			0x5203U
 /* Error running VDU houseclean */
-#define XPM_INT_ERR_VDU_HC				0x5206U
+#define XPM_INT_ERR_VDU_HC			0x5204U
 /* Error during VDU Init */
-#define XPM_INT_ERR_VDU_INIT			0x5207U
+#define XPM_INT_ERR_VDU_INIT			0x5205U
 
 /*************************** BFRB Specific Errors ****************************/
 /************************** (0x5300) - (0x53FF) ******************************/
@@ -746,22 +746,22 @@ extern "C" {
 /* Error running BFRB Scan Clear */
 #define XPM_INT_ERR_BFRB_SCAN_CLEAR		0x5304U
 /* Error running BFRB houseclean */
-#define XPM_INT_ERR_BFRB_HC			0x5205U
+#define XPM_INT_ERR_BFRB_HC			0x5305U
 /* Error when asserting BFRB INITSTATE */
-#define XPM_INT_ERR_BFRB_INITSTATE_ASSERT	0x5206U
+#define XPM_INT_ERR_BFRB_INITSTATE_ASSERT	0x5306U
 
 /*************************** ADC/DAC Specific Errors ****************************/
 /************************** (0x5400) - (0x54FF) ******************************/
 /* Error during ADC init */
 #define XPM_INT_ERR_ADC_INIT			0x5400U
 /* Error running DAC Mem Clear */
-#define XPM_INT_ERR_DAC_MBIST	0x5401U
+#define XPM_INT_ERR_DAC_MBIST			0x5401U
 /* Error running DAC Scan Clear */
-#define XPM_INT_ERR_DAC_SCAN_CLEAR 0x5402U
+#define XPM_INT_ERR_DAC_SCAN_CLEAR		0x5402U
 /* Error running ADC Scan Clear */
-#define XPM_INT_ERR_ADC_SCAN_CLEAR 0x5403U
+#define XPM_INT_ERR_ADC_SCAN_CLEAR		0x5403U
 /* Error running ADC/DAC houseclean */
-#define XPM_INT_ERR_ADC_DAC_HC	0x5404U
+#define XPM_INT_ERR_ADC_DAC_HC			0x5404U
 /* Error during DAC init */
 #define XPM_INT_ERR_DAC_INIT			0x5405U
 
