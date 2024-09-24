@@ -182,6 +182,7 @@ static int XSecure_Sha3UpdateIpi(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 
 
 	if ((InputSize & XSECURE_IPI_FIRST_PACKET_MASK) != 0x0U) {
+		/* Initializes and starts the sha3 engine */
 		Status = XSecure_Sha3Init();
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -198,7 +199,9 @@ static int XSecure_Sha3UpdateIpi(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 		Status = XSecure_Sha3Finish(XSecureSha3InstPtr,
 				&Hash);
 		if (XST_SUCCESS == Status) {
+			/* Free Sha3 resource */
 			XSecure_MakeSha3Free();
+			/* copy hash to provided destination address using DMA */
 			Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
 				XSECURE_SHA3_HASH_LENGTH_IN_WORDS, XPLMI_PMCDMA_0);
 		}
