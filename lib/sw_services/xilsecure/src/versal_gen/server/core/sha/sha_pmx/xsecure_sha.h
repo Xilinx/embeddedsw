@@ -133,15 +133,15 @@ int XSecure_ShaInitialize(XSecure_Sha *InstancePtr, XPmcDma *DmaPtr);
 int XSecure_ShaStart(XSecure_Sha *InstancePtr, XSecure_ShaMode Mode);
 
 /* Data Transfer */
-int XSecure_ShaUpdate(XSecure_Sha *InstancePtr, u64 InDataAddr, const u32 Size);
+int XSecure_ShaUpdate(XSecure_Sha *InstancePtr, u64 InDataAddr, const u32 DataSize);
 
 int XSecure_ShaFinish(XSecure_Sha *InstancePtr, u64 HashAddr, const u32 HashSize);
 
 
 /* Complete SHA digest calculation */
 int XSecure_ShaDigest(XSecure_Sha *InstancePtr, XSecure_ShaMode Mode,
-		const u64 InDataAddr, const u32 Size, u64 HashAddr,
-		const u32 OutSize);
+		const u64 InDataAddr, const u32 DataSize, u64 HashAddr,
+		const u32 HashSize);
 
 int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr);
 
