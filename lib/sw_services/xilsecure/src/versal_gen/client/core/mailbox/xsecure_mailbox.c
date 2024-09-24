@@ -65,7 +65,7 @@
 int XSecure_InputSlrIndex(XSecure_ClientInstance *InstancePtr, u32 SlrIndex)
 {
 	int Status = XST_FAILURE;
-	if(SlrIndex >= XSECURE_SLR_INDEX_0 && SlrIndex <= XSECURE_SLR_INDEX_3){
+	if((SlrIndex >= (u32)XSECURE_SLR_INDEX_0) && (SlrIndex <= (u32)XSECURE_SLR_INDEX_3)){
 		InstancePtr->SlrIndex = SlrIndex;
 	    Status =  XST_SUCCESS;
 	}
