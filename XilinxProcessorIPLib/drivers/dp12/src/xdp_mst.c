@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1544,9 +1544,6 @@ u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts, u8 StartTs)
 			/* The AUX read transaction failed. */
 			return Status;
 		}
-		/* Error out if timed out. */
-		if (TimeoutCount > XDP_TX_ALLOCATE_PAYLOAD_MAX_TIMEOUT_COUNT)
-			return XST_ERROR_COUNT_MAX;
 
 		TimeoutCount++;
 		XDp_WaitUs(InstancePtr, 1000);
@@ -3537,7 +3534,7 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
 
 	XDp_WaitUs(InstancePtr, 1000);
 
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_MST_CONFIG, 0x3);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_MST_CONFIG, 0x7);
 
 	do {
 		Status = XDp_TxAuxRead(InstancePtr,
@@ -3547,10 +3544,6 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
 			return Status;
 		}
 
-		/* Error out if timed out. */
-		if (TimeoutCount > XDP_TX_VCP_TABLE_MAX_TIMEOUT_COUNT) {
-			return XST_ERROR_COUNT_MAX;
-		}
 
 		TimeoutCount++;
 		XDp_WaitUs(InstancePtr, 1000);
@@ -3558,6 +3551,7 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
 
 	/* Clear the ACT event received bit. */
 
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_MST_CONFIG, 0x01);
 
 	return XST_SUCCESS;
 }
