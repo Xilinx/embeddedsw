@@ -21,6 +21,7 @@
 *                     in Init_MPU function to initialize the MPU regions
 *                     in stead of using hard coded information inside
 *                     Init_MPU.
+* 9.2   mus  09/23/24 Added comments for MPU regions.
 * </pre>
 *
 * @note
@@ -77,18 +78,19 @@ void Init_MPU(void) __attribute__((__section__(".boot")));
 
 __attribute__((weak)) XMpuConfig_Initial InitialMpu_Config __attribute__((section(".bootdata"))) = {
 	{
-		/* 2 GB DDR */
+		/* 2 GB DDR DDRMC0_Region0_mem */
 		0x00000000U,
 		0x7FFFFFFF,
 		NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW,
 	},
 	{
-		/* 512 MB LPD to AFI fabric slave port */
+		/* 512 MB LPD_AXI_PL_mmap LPD to PL AXI interface */
 		0x80000000U,
 		0x1FFFFFFF,
 		DEVICE_NONSHARED | PRIV_RW_USER_RW,
 	},
 	{
+		/* 256 MB PCIe_Region0_mmap, 128 MB FPD_AXI_PL_mmap */
 		0xA0000000U,
 		0x17FFFFFF,
 		DEVICE_NONSHARED | PRIV_RW_USER_RW,
@@ -100,13 +102,16 @@ __attribute__((weak)) XMpuConfig_Initial InitialMpu_Config __attribute__((sectio
 		NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW,
 	},
 	{
-		/* 512 MB xSPI + 16 MB Coresight */
+		/* 512 MB OSPI_mem, 16 MB Coresight */
 		0xC0000000U,
 		0x20FFFFFF,
 		DEVICE_NONSHARED | PRIV_RW_USER_RW,
 	},
 	{
-		/* 2MB RPU GIC */
+		/*
+		 * 2MB RPU GIC
+		 * Note: This region is mandatory for using PS interrupts.
+		 */
 		0xE2000000U,
 		0x1FFFFF,
 		DEVICE_NONSHARED | PRIV_RW_USER_RW,
@@ -124,7 +129,12 @@ __attribute__((weak)) XMpuConfig_Initial InitialMpu_Config __attribute__((sectio
 		DEVICE_NONSHARED | PRIV_RW_USER_RW,
 	},
 	{
-		/* 16 MB FPD + 32 MB LPD */
+		/* 16 MB FPD + 32 MB LPD peripherals
+		 * Note:
+		 * 	- Refer "4 GB Detailed Address Map" table in VersalNet TRM
+		 * 	- This region is mandatory, since BSP boot code access few
+		 * 	  registers from LPD_SLCR region to identify warm boot.
+		 */
 		0xEA000000U,
 		0x2FFFFFF,
 		DEVICE_NONSHARED | PRIV_RW_USER_RW,
@@ -136,7 +146,7 @@ __attribute__((weak)) XMpuConfig_Initial InitialMpu_Config __attribute__((sectio
 		DEVICE_NONSHARED | PRIV_RW_USER_RW,
 	},
 	{
-		/* 64 MB PS_FPD_CMN */
+		/* 64 MB FPD_AXI_CMN_mem */
 		0xF8000000U,
 		0x3FFFFFF,
 		DEVICE_NONSHARED | PRIV_RW_USER_RW,
