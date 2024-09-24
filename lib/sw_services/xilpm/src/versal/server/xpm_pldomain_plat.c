@@ -1761,64 +1761,12 @@ done:
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * @brief This function reduces the CFU clock frequency by dividing by 2
- *
- * @param	None
- *
- * @return	None
- *
- * @note	It is assumed that overflow will not occur for the CFU divisor
- *		register because the frequency is never configured such that
- *		the upper bits would be set and overflow would occur.
- *
- *****************************************************************************/
-static void ReduceCfuClkFreq(void)
-{
-	u32 CfuDivider;
-
-	/* Get current CFU CLK divider value */
-	CfuDivider = XPm_In32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET) & CRP_CFU_REF_CTRL_DIVISOR0_MASK;
-
-	/* Divide the frequency by 2 */
-	CfuDivider <<= 1U;
-
-	/* Write clock freq divided by 2 */
-	XPm_RMW32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET, CRP_CFU_REF_CTRL_DIVISOR0_MASK, CfuDivider);
-}
-
-/*****************************************************************************/
-/**
- * @brief This function resotres the CFU clock frequency by multiplying by 2
- *
- * @param	None
- *
- * @return	None
- *
- * @note	The clock frequency is reduced by dividing by 2 so to restore the
- *		original frequency it is multiplied by 2. This ensures that a global
- *		variable is not required.
- *
- *****************************************************************************/
-static void RestoreCfuClkFreq(void)
-{
-	u32 CfuDivider;
-
-	/* Get current CFU CLK divider value */
-	CfuDivider = XPm_In32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET) & CRP_CFU_REF_CTRL_DIVISOR0_MASK;
-
-	/* Multiply the frequency by 2 */
-	CfuDivider >>= 1U;
-
-	/* Restore clock freq */
-	XPm_RMW32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET, CRP_CFU_REF_CTRL_DIVISOR0_MASK, CfuDivider);
-}
 
 static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	XStatus SStatus = XST_FAILURE;
 	XStatus RamRailPwrSts = XST_FAILURE;
 	XStatus AuxRailPwrSts = XST_FAILURE;
 	XStatus SocRailPwrSts = XST_FAILURE;
@@ -1842,7 +1790,10 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	 * proper operation. Divide the CFU clock frequency by 2 to reduce the
 	 * current frequency.
 	 */
-	ReduceCfuClkFreq();
+	Status = ReduceCfuClkFreq();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* If PL power is still not up, return error as PLD can't
 	   be initialized */
@@ -1983,7 +1934,13 @@ fail:
 
 done:
 	/* Restore the CFU clock frequency */
-	RestoreCfuClkFreq();
+	SStatus = RestoreCfuClkFreq();
+	if (XST_SUCCESS != SStatus) {
+		if (XST_SUCCESS == Status) {
+			Status = XST_FAILURE;
+		}
+		DbgErr = XPM_INT_ERR_CFU_CLK_DIVIDER;
+	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -2445,6 +2402,7 @@ done:
 XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 {
 	XStatus Status = XST_FAILURE;
+	XStatus SStatus = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_PlDomain *Pld;
 
@@ -2453,7 +2411,10 @@ XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 	 * proper operation. Divide the CFU clock frequency by 2 to reduce the
 	 * current frequency.
 	 */
-	ReduceCfuClkFreq();
+	Status = ReduceCfuClkFreq();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
@@ -2478,7 +2439,13 @@ XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 
 done:
 	/* Restore the CFU clock frequency */
-	RestoreCfuClkFreq();
+	SStatus = RestoreCfuClkFreq();
+	if (XST_SUCCESS != SStatus) {
+		if (XST_SUCCESS == Status) {
+			Status = XST_FAILURE;
+		}
+		DbgErr = XPM_INT_ERR_CFU_CLK_DIVIDER;
+	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
