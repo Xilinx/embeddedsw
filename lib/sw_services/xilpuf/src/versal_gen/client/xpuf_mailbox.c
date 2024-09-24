@@ -72,7 +72,7 @@
 int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Response[RESPONSE_ARG_CNT] = {0xFFFFFFFFU};
+	u32 Response[RESPONSE_ARG_CNT];
 
 	/** Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed. */
 	Status = (int)XMailbox_SendData(MailboxPtr, XPUF_TARGET_IPI_INT_MASK, MsgPtr, MsgLen,
