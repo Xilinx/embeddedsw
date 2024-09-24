@@ -110,3 +110,45 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function performs SHA3 Known Answer Tests (KAT's).
+ *
+ * @return
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_QUEUE_FULL, if Queue buffer is full.
+ * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_Sha3Kat(void)
+{
+	s32 Status = XST_FAILURE;
+	XAsu_ChannelQueueBuf *QueueBuf;
+	XAsu_QueueInfo *QueueInfo;
+
+	/** Get the pointer to QueueInfo structure for provided priority. */
+	QueueInfo = XAsu_GetQueueInfo(XASU_PRIORITY_HIGH);
+	if (QueueInfo == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/* Get Queue memory */
+	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
+	if (QueueBuf == NULL) {
+		Status = XASU_QUEUE_FULL;
+		goto END;
+	}
+
+	/** Update the request buffer. */
+	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_SHA_KAT_CMD_ID, 0U, XASU_MODULE_SHA3_ID,
+				  0U);
+
+	/** Send IPI request to ASU. */
+	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+
+END:
+	return Status;
+}

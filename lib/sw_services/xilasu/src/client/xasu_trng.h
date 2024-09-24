@@ -44,6 +44,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *RandomBuf, u32 Length);
+s32 XAsu_TrngKat(void);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

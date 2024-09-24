@@ -132,7 +132,7 @@ s32 XAsufw_Sha3Operation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		}
 	}
 
-	if ((Cmd->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
+	if ((Cmd->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE) {
 		AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_SHA3, QueueId);
 		if (AsuDmaPtr == NULL) {
 			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
