@@ -54,22 +54,22 @@ int XSecure_RsaPrivateDecryptKat(void)
 	volatile int SStatus = XST_FAILURE;
 	volatile u32 Index;
 	XSecure_Rsa XSecureRsaInstance;
-    u32 *RsaModulus = XSecure_GetKatRsaModulus();
-	u32 *RsaModExt = XSecure_GetKatRsaModExt();
-    u32 *RsaExpCtData = XSecure_GetKatRsaCtData();
-    u32 *RsaData = XSecure_GetKatRsaData();
-	u32 *RsaPrivateExp = XSecure_GetKatRsaPrivateExp();
+    u32 *RsaModulusPtr = XSecure_GetKatRsaModulus();
+	u32 *RsaModExtPtr = XSecure_GetKatRsaModExt();
+    u32 *RsaExpCtDataPtr = XSecure_GetKatRsaCtData();
+    u32 *RsaDataPtr = XSecure_GetKatRsaData();
+	u32 *RsaPrivateExpPtr = XSecure_GetKatRsaPrivateExp();
 	u32 RsaOutput[XSECURE_RSA_2048_SIZE_WORDS];
 
-	Status = XSecure_RsaInitialize(&XSecureRsaInstance, (u8 *)RsaModulus,
-		(u8 *)RsaModExt, (u8 *)RsaPrivateExp);
+	Status = XSecure_RsaInitialize(&XSecureRsaInstance, (u8 *)RsaModulusPtr,
+		(u8 *)RsaModExtPtr, (u8 *)RsaPrivateExpPtr);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_RSA_KAT_INIT_ERROR;
 		goto END;
 	}
 
 	Status = XST_FAILURE;
-	Status = XSecure_RsaPrivateDecrypt(&XSecureRsaInstance, (u8 *)RsaExpCtData,
+	Status = XSecure_RsaPrivateDecrypt(&XSecureRsaInstance, (u8 *)RsaExpCtDataPtr,
 		XSECURE_RSA_2048_KEY_SIZE, (u8 *)RsaOutput);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR;
@@ -79,7 +79,7 @@ int XSecure_RsaPrivateDecryptKat(void)
 	/* Initialized to error */
 	Status = (int)XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR;
 	for (Index = 0U; Index < XSECURE_RSA_2048_SIZE_WORDS; Index++) {
-		if (RsaOutput[Index] != RsaData[Index]) {
+		if (RsaOutput[Index] != RsaDataPtr[Index]) {
 			Status = (int)XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR;
 			goto END_CLR;
 		}
