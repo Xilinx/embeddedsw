@@ -47,6 +47,7 @@
 
 #define ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK       0x10U          /**< ASU FW Present mask
                                                                               value */
+#define XASU_ASUFW_BIT_CHECK_TIMEOUT_VALUE	0xFFFFFU	/**< ASUFW check timoeout value */
 
 /************************************** Type Definitions *****************************************/
 /*
@@ -88,6 +89,12 @@ s32 XAsu_ClientInit(u8 DeviceId)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
+
+	/* If already initialized returns success as no initialization is needed */
+	if (ClientInstancePtr->IsReady == XASU_CLIENT_READY) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
 
 	Status = XAsu_CheckAsufwPrsntBit();
 	if (Status != XST_SUCCESS) {
@@ -313,11 +320,17 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 static s32 XAsu_CheckAsufwPrsntBit(void)
 {
 	s32 Status = XST_FAILURE;
+	s32 Timeout = 0U;
 
-	if ((Xil_In32(ASU_GLOBAL_GLOBAL_CNTRL) & ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) ==
-		ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) {
-		Status = XST_SUCCESS;
+	for (Timeout = 0U; Timeout != XASU_ASUFW_BIT_CHECK_TIMEOUT_VALUE; Timeout++) {
+		if ((Xil_In32(ASU_GLOBAL_GLOBAL_CNTRL) & ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)
+			== ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) {
+				Status = XST_SUCCESS;
+				goto END;
+		}
+		usleep(1U);
 	}
 
+END:
 	return Status;
 }
