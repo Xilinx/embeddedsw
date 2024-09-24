@@ -55,6 +55,7 @@
 *       pre  08/16/2024 Removed XPLMI_SSIT_COPYTOSSITBUF_FAILED,XPLMI_SSIT_COPYFROMSSITBUF_FAILED
 *                       error codes
 *       rj   09/10/2024 Added PMC GPIO interrupt macro
+*       pre  09/24/2024 Removed new key from RTCA
 *
 * </pre>
 *
@@ -115,7 +116,6 @@ extern "C" {
 #define XPLMI_RTCFG_SSLR3_IV_ADDR  (XPLMI_RTCFG_BASEADDR + 0x344U) /**< Base address of IV of SSLR3 in master for secure comm*/
 #define XPLMI_SLR_CURRENTIV_ADDR   XPLMI_RTCFG_SSLR1_IV_ADDR /**< Base address of current IV in slave for secure comm*/
 #define XPLMI_SLR_NEWIV_ADDR       XPLMI_RTCFG_SSLR2_IV_ADDR /**< Base address of new IV in slave for secure comm*/
-#define XPLMI_SLR_NEWKEY_ADDR      XPLMI_RTCFG_SSLR3_IV_ADDR  /**< Base address of new key in slave for secure comm*/
 #endif
 
 /* Masks of PLM RunTime Configuration Registers */

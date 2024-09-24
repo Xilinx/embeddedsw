@@ -54,6 +54,7 @@
 *       jb   02/22/2024 Removed XPm_IdleRestartHandler from XPlmi_EmInit
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
+*       pre  09/24/2024 Changed function name to XPlm_SsitCommGetParamsPtr
 *
 * </pre>
 *
@@ -152,7 +153,7 @@ int XPlm_ModuleInit(void *Arg)
 	}
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-    Status = XPlmi_SsitEventsInit(XPlm_SsitCommGetFuncsPtr());
+    Status = XPlmi_SsitEventsInit(XPlm_SsitCommGetParamsPtr());
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

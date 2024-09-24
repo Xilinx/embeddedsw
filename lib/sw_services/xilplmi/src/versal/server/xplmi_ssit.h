@@ -39,6 +39,7 @@
 *       pre  07/30/2024 Fixed misrac violations
 *       kpt  08/26/2024 Changed XPLMI_SLV_EVENT_TIMEOUT timeout to two seconds
 *       pre  09/18/2024 Removed XPLMI_SLR_INDEX_SHIFT, SLR index macros
+*       pre  09/24/2024 Added key zeroization and saving new key in PPU RAM
 *
 * </pre>
 *
@@ -97,6 +98,7 @@ typedef int (*XPlmi_EventHandler_t)(void *Data);
 #define XPLMI_SSIT_MAX_BITS					32U
 /* SSIT Maximum message length */
 #ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+#define XPLMI_KEY_SIZE_BYTES       (32U) /**< Key size in bytes */
 #define XPLMI_IV_SIZE_WORDS        (4U) /**< IV size in words */
 #define XPLMI_IV_SIZE_BYTES        (XPLMI_IV_SIZE_WORDS * XPLMI_WORD_LEN) /**< IV size in bytes */
 #define HEADER_OFFSET              (0U) /**< Offset of header in command */
@@ -213,13 +215,14 @@ typedef struct
 	int (*ReceiveMessage)(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);
 	int (*AesKeyWrite)(u32 SlrIndex, u32 KeyAddr);
 	int (*KeyIvUpdate)(XPlmi_Cmd *Cmd);
-}XPlmi_SsitCommFunctions;
+	u32 NewKeyAddr;
+}XPlmi_SsitCommParams;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 /* Functions related to SSIT events between SLRs */
-int XPlmi_SsitEventsInit(XPlmi_SsitCommFunctions *XPlm_SsitCommFuncs);
+int XPlmi_SsitEventsInit(XPlmi_SsitCommParams *XPlm_SsitCommParams);
 u8 XPlmi_SsitIsIntrEnabled(void);
 void XPlmi_SsitSetIsIntrEnabled(u8 Value);
 void XPlmi_SsitErrHandler(void *Data);
