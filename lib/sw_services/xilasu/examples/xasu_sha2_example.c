@@ -54,6 +54,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.0   vns    08/28/24 Initial Release
+*       am     09/24/24 Added SDT support
 *
 * </pre>
  *************************************************************************************************/
@@ -66,20 +67,18 @@
 
 /************************************ Constant Definitions ***************************************/
 #define ASU_CACHE_DISABLE
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-
-#define ASU_SHA2_HASH_LEN_IN_BYTES 			(32U)
-#define ASU_SHA2_INPUT_DATA_LEN     		(5U)
+#define ASU_SHA2_HASH_LEN_IN_BYTES	(32U)	/**< ASU SHA2 input hash length in bytes */
+#define ASU_SHA2_INPUT_DATA_LEN		(5U)	/**< ASU SHA2 input data length */
 
 /************************************ Function Prototypes ****************************************/
-
-static u32 Asu_Sha2Example(void);
+static s32 Asu_Sha2Example(void);
 static void Asu_Sha2PrintHash(const u8 *Hash);
 
 /************************************ Variable Definitions ***************************************/
-
 static const char Data[ASU_SHA2_INPUT_DATA_LEN + 1U] __attribute__ ((section (".data.Data"))) =
 								"HELLO";
 
@@ -92,20 +91,16 @@ static const u8 ExpHash[ASU_SHA2_HASH_LEN_IN_BYTES] = {
 
 /*************************************************************************************************/
 /**
-*
-* Main function to call the Asu_Sha2Example
-*
-* @param	None
-*
-* @return
-*		- XST_FAILURE if the SHA calculation failed.
-*
-* @note		None
-*
+ * @brief	Main function to call the Asu_Sha2Example.
+ *
+ * @return
+ *		- XST_SUCCESS, if SHA2 hash successfully generated for given input data string.
+ *		- XST_FAILURE, if the SHA2 hash generation fails.
+ *
  *************************************************************************************************/
 int main(void)
 {
-	int Status = XST_FAILURE;
+	s32 Status = XST_FAILURE;
 
 #ifdef ASU_CACHE_DISABLE
 	Xil_DCacheDisable();
@@ -124,30 +119,25 @@ int main(void)
 
 /*************************************************************************************************/
 /**
-*
-* This function sends 'XILINX' to SHA-2 module for hashing.
-* The purpose of this function is to illustrate how to use the ASU SHA2 client service.
-*
-*
-* @return
-*		- XST_SUCCESS - SHA-2 hash successfully generated for given
-*				input data string.
-*		- XST_FAILURE - if the SHA-2 hash failed.
-*
-* @note		None.
-*
+ * @brief	This function sends 'HELLO' string to SHA2 module for hashing.
+ * 		The purpose of this function is to illustrate how to use the ASU SHA2 client APIs.
+ *
+ * @return
+ *		- XST_SUCCESS, if SHA2 hash successfully generated for given input data string.
+ *		- XST_FAILURE, if the SHA2 hash generation fails.
+ *
  *************************************************************************************************/
 /** //! [SHA2 example] */
-static u32 Asu_Sha2Example(void)
+static s32 Asu_Sha2Example(void)
 {
-	u64 DstAddr = (UINTPTR)&Sha2Hash;
-	u32 Status = XST_FAILURE;
+	s32 Status = XST_FAILURE;
 	u32 Size = 0U;
 	XAsu_ClientParams ClientParam;
 	XAsu_ShaOperationCmd ShaClientParam;
+	u64 DstAddr = (UINTPTR)&Sha2Hash;
 
 	/* Initialize client */
-	Status = XAsu_ClientInit(0U);
+	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Client initialize failed:%08x \r\n", Status);
 		goto END;
@@ -197,16 +187,16 @@ static u32 Asu_Sha2Example(void)
 	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA2_HASH_LEN_IN_BYTES);
 #endif
 
-
 END:
 	return Status;
 }
 
 /*************************************************************************************************/
 /**
-*
-* This function prints the given hash on the console
-*
+ * @brief	This function prints the given hash on the console.
+ *
+ * @param	Hash	Pointer to given array.
+ *
  *************************************************************************************************/
 static void Asu_Sha2PrintHash(const u8 *Hash)
 {
@@ -217,6 +207,5 @@ static void Asu_Sha2PrintHash(const u8 *Hash)
 	}
 	xil_printf(" \r\n ");
  }
-
 /** //! [SHA2 example] */
 /** @} */

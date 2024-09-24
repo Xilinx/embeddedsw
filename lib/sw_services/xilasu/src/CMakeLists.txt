@@ -29,7 +29,11 @@ if(NOT ${YOCTO})
 file(COPY ${CMAKE_BINARY_DIR}/include/xasu_bsp_config.h DESTINATION ${CMAKE_INCLUDE_PATH}/)
 endif()
 
-add_library(xilasu STATIC ${_headers})
+if("${XILASU_Mode}" STREQUAL "server")
+  add_library(xilasu STATIC ${_headers})
+else()
+  add_library(xilasu STATIC ${_sources})
+endif()
 
 get_headers(${_headers})
 
