@@ -54,6 +54,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.0   vns    08/28/24 Initial Release
+*       am     09/24/24 Added SDT support
 *
 * </pre>
  *************************************************************************************************/
@@ -66,20 +67,18 @@
 
 /************************************ Constant Definitions ***************************************/
 #define ASU_CACHE_DISABLE
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-
-#define ASU_SHA3_HASH_LEN_IN_BYTES 			(48U)
-#define ASU_SHA3_INPUT_DATA_LEN     		(5U)
+#define ASU_SHA3_HASH_LEN_IN_BYTES	(48U)	/**< ASU SHA3 input hash length in bytes */
+#define ASU_SHA3_INPUT_DATA_LEN		(5U)	/**< ASU SHA3 input data length */
 
 /************************************ Function Prototypes ****************************************/
-
-static u32 Asu_Sha3Example(void);
+static s32 Asu_Sha3Example(void);
 static void Asu_Sha3PrintHash(const u8 *Hash);
 
 /************************************ Variable Definitions ***************************************/
-
 static const char Data[ASU_SHA3_INPUT_DATA_LEN + 1U] __attribute__ ((section (".data.Data"))) =
 								"HELLO";
 
@@ -93,16 +92,12 @@ static const u8 ExpHash[ASU_SHA3_HASH_LEN_IN_BYTES] = {
 
 /*************************************************************************************************/
 /**
-*
-* Main function to call the Asu_Sha3Example
-*
-* @param	None
-*
-* @return
-*		- XST_FAILURE if the SHA calculation failed.
-*
-* @note		None
-*
+ * @brief	Main function to call the Asu_Sha3Example.
+ *
+ * @return
+ *		- XST_SUCCESS, if SHA3 hash successfully generated for given input data string.
+ *		- XST_FAILURE, if the SHA3 hash generation fails.
+ *
  *************************************************************************************************/
 int main(void)
 {
@@ -125,30 +120,25 @@ int main(void)
 
 /*************************************************************************************************/
 /**
-*
-* This function sends 'XILINX' to SHA-3 module for hashing.
-* The purpose of this function is to illustrate how to use the ASU SHA3 client service.
-*
-*
-* @return
-*		- XST_SUCCESS - SHA-3 hash successfully generated for given
-*				input data string.
-*		- XST_FAILURE - if the SHA-3 hash failed.
-*
-* @note		None.
-*
+ * @brief	This function sends 'HELLO' string to SHA3 module for hashing.
+ * 		The purpose of this function is to illustrate how to use the ASU SHA3 client APIs.
+ *
+ * @return
+ *		- XST_SUCCESS, if SHA3 hash successfully generated for given input data string.
+ *		- XST_FAILURE, if the SHA3 hash generation fails.
+ *
  *************************************************************************************************/
 /** //! [SHA3 example] */
-static u32 Asu_Sha3Example(void)
+static s32 Asu_Sha3Example(void)
 {
-	u64 DstAddr = (UINTPTR)&Sha3Hash;
-	u32 Status = XST_FAILURE;
+	s32 Status = XST_FAILURE;
 	u32 Size = 0U;
 	XAsu_ClientParams ClientParam;
 	XAsu_ShaOperationCmd ShaClientParam;
+	u64 DstAddr = (UINTPTR)&Sha3Hash;
 
 	/* Initialize client */
-	Status = XAsu_ClientInit(0U);
+	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Client initialize failed:%08x \r\n", Status);
 		goto END;
@@ -205,9 +195,10 @@ END:
 
 /*************************************************************************************************/
 /**
-*
-* This function prints the given hash on the console
-*
+ * @brief	This function prints the given hash on the console.
+ *
+ * @param	Hash	Pointer to given array.
+ *
  *************************************************************************************************/
 static void Asu_Sha3PrintHash(const u8 *Hash)
 {
@@ -218,6 +209,5 @@ static void Asu_Sha3PrintHash(const u8 *Hash)
 	}
 	xil_printf(" \r\n ");
  }
-
 /** //! [SHA3 example] */
 /** @} */

@@ -22,6 +22,7 @@
 * ----- ------ -------- ---------------------------------------------------------------------------
 * 1.0   yog    08/19/24 Initial Release
 *       ss     09/19/24 Added print for client init failure
+*       am     09/24/24 Added SDT support
 *
 * </pre>
  *************************************************************************************************/
@@ -76,17 +77,14 @@ static u8 Sign[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES] __attribute__ ((section (".da
 
 /*************************************************************************************************/
 /**
-*
-* @brief	Main function to call the XAsu_EccGenSign() and XAsu_EccVerifySign() API's
-*
-* @param	None
-*
-* @return
-*		- XST_SUCCESS if example runs successfully
-*		- ErrorCode if the example fails.
-*
-**************************************************************************************************/
-s32 main(void)
+ * @brief	Main function to call the XAsu_EccGenSign() and XAsu_EccVerifySign() API's.
+ *
+ * @return
+ *		- XST_SUCCESS if example runs successfully.
+ *		- ErrorCode if the example fails.
+ *
+ *************************************************************************************************/
+int main(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_ClientParams ClientParams;
@@ -102,7 +100,7 @@ s32 main(void)
 	CurveType = XASU_ECC_NIST_P256;
 	CurveLength = XASU_ECC_P256_SIZE_IN_BYTES;
 
-	Status = XAsu_ClientInit(0U);
+	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Client initialize failed:%08x \r\n", Status);
 		goto END;
