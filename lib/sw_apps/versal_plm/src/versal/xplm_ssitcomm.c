@@ -24,6 +24,7 @@
 *       pre  08/16/2024 Replaced XPlmi_MemCpy64 with Xil_MemCpy64
 *       pre  08/29/2024 Changed AES key registers used for secure communication
 *       pre  09/09/2024 Changed AES key registers used for secure communication at keywrite
+*       pre  09/24/2024 Added key zeroization and saving new key in PPU RAM
 *
 * </pre>
 *
@@ -60,6 +61,7 @@
 										                from header */
 #define XPLM_MODULE_AND_CFG_SEC_COMMCMD (0x12B) /**< module and API ID for config secure
                                     communictaion command */
+#define XPLM_KEY_SIZE_WORDS            (XPLMI_KEY_SIZE_BYTES/sizeof(u32)) /**< Key size in words */
 
 /**************************** Type Definitions ***************************************************/
 typedef enum{
@@ -193,12 +195,13 @@ static int XPlm_SsitCommKeyIvUpdate(XPlmi_Cmd *Cmd);
 
 /************************** Variable Definitions *************************************************/
 static u32 XPlm_SsitCommIV[XPLMI_IV_SIZE_WORDS];
-
-static XPlmi_SsitCommFunctions XPlm_SsitCommFuncs = {.SendMessage = XPlm_SsitCommSendMessage,
-											.ReceiveMessage = XPlm_SsitCommReceiveMessage,
-											.AesKeyWrite = XPlm_SsitCommAesKeyWrite,
-											.KeyIvUpdate = XPlm_SsitCommKeyIvUpdate
-											};
+static u32 XPlmi_SsitCommNewKey[XPLM_KEY_SIZE_WORDS]; /**< New key for secure SSIT communication */
+static XPlmi_SsitCommParams XPlm_SsitCommVar = {.SendMessage = XPlm_SsitCommSendMessage,
+												.ReceiveMessage = XPlm_SsitCommReceiveMessage,
+												.AesKeyWrite = XPlm_SsitCommAesKeyWrite,
+												.KeyIvUpdate = XPlm_SsitCommKeyIvUpdate,
+												.NewKeyAddr = (u32)XPlmi_SsitCommNewKey
+											   };
 
 /*****************************************************************************/
 /**
@@ -509,9 +512,21 @@ static void XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
  *************************************************************************************************/
 static int XPlm_SsitCommAesKeyWrite(u32 SlrIndex, u32 KeyAddr)
 {
+	int Status = XST_FAILURE;
+	int ZeroizeStatus = XST_FAILURE;
 	XSecure_AesKeySrc KeySrc = XPlm_SsitSecCommGetKeySrcofSlr(SlrIndex);
 	const XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-	return XSecure_AesWriteKey(XSecureAesInstPtr, KeySrc, XSECURE_AES_KEY_SIZE_256, (u64)KeyAddr);
+
+	Status = XSecure_AesWriteKey(XSecureAesInstPtr, KeySrc, XSECURE_AES_KEY_SIZE_256,
+	                            (u64)KeyAddr);
+
+	ZeroizeStatus = (int)Xil_SecureZeroize((u8 *)KeyAddr, XPLMI_KEY_SIZE_BYTES);
+
+	if(Status == XST_SUCCESS) {
+		Status = ZeroizeStatus;
+	}
+
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -540,7 +555,7 @@ static int XPlm_SsitCommKeyIvUpdate(XPlmi_Cmd *Cmd)
 		                      XPLMI_IV_SIZE_BYTES);
 
 		/* Write key */
-		Status = XPlm_SsitCommAesKeyWrite(SECCOMM_SLAVE_INDEX, XPLMI_SLR_NEWKEY_ADDR);
+		Status = XPlm_SsitCommAesKeyWrite(SECCOMM_SLAVE_INDEX, XPlm_SsitCommVar.NewKeyAddr);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XPLMI_SSIT_SECURE_COMM_KEYWRITE_FAILURE, Status);
 			goto END;
@@ -707,9 +722,9 @@ static int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsC
 static int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);
 
 /************************** Variable Definitions *************************************************/
-static XPlmi_SsitCommFunctions XPlm_SsitCommFuncs = {.SendMessage = XPlm_SsitCommSendMessage,
-											.ReceiveMessage = XPlm_SsitCommReceiveMessage,
-											};
+static XPlmi_SsitCommParams XPlm_SsitCommVar = {.SendMessage = XPlm_SsitCommSendMessage,
+												.ReceiveMessage = XPlm_SsitCommReceiveMessage,
+											   };
 
 /*************************************************************************************************/
 /**
@@ -793,13 +808,13 @@ static int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 
  * @brief	This function is used to get the pointer for SsitComm functions
  *
  * @return	Returns
- *		- Address of XPlm_SsitCommFuncs if secure PLM to PLM communictaion is enabled
+ *		- Address of XPlm_SsitCommVar if secure PLM to PLM communictaion is enabled
  *		- NULL if secure PLM to PLM communictaion is not enabled
  *
  *************************************************************************************************/
-XPlmi_SsitCommFunctions *XPlm_SsitCommGetFuncsPtr(void)
+XPlmi_SsitCommParams *XPlm_SsitCommGetParamsPtr(void)
 {
-	/* Returning address of XPlm_SsitCommFuncs */
-	return (&XPlm_SsitCommFuncs);
+	/* Returning address of XPlm_SsitCommVar */
+	return (&XPlm_SsitCommVar);
 }
 #endif
