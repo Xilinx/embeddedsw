@@ -2043,7 +2043,7 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 	}
 
 	Status = XST_FAILURE;
-
+	/* Check Gcm Tag matching status */
 	GcmStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
 			XSECURE_AES_STATUS_OFFSET);
 	GcmStatusTmp = XSecure_ReadReg(InstancePtr->BaseAddress,
@@ -2060,11 +2060,12 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
         Status = (u32)XST_SUCCESS;
 
 END:
-	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
-	if (Status != XST_SUCCESS) {
+	if (InstancePtr != NULL) {
+		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
+		/* Soft Reset Aes*/
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
-        return Status;
+    return Status;
 }
