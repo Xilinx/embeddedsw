@@ -258,6 +258,7 @@ s32 XSha_Start(XSha *InstancePtr, u32 ShaMode)
 END:
 	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
 		/* Set SHA2/3 under reset on failure condition */
+		InstancePtr->ShaState = XSHA_INITALIZED;
 		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
 	}
 
@@ -332,6 +333,7 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 Data, u32 Size, u32 E
 END:
 	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
 		/* Set SHA2/3 under reset on failure condition */
+		InstancePtr->ShaState = XSHA_INITALIZED;
 		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
 	}
 
@@ -413,6 +415,7 @@ END:
 					XASU_SHA_NEXT_XOF_ENABLE_MASK);
 		} else {
 			/* Set SHA2/3 under reset */
+			InstancePtr->ShaState = XSHA_INITALIZED;
 			XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
 		}
 	}
