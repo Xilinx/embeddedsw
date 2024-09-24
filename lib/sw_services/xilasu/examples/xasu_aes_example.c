@@ -57,6 +57,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   am   07/10/24 Initial release
  *       am   08/25/24 Added XASU_DISABLE_CACHE macro
+ *       am   09/24/24 Added SDT support
  *
  * </pre>
  *
@@ -73,11 +74,7 @@
 /************************************ Type Definitions *******************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-/**
- * User can configure this macro to enable/disable the cache. By default, in this examples cache is
- * disabled.
- */
-#define XASU_DISABLE_CACHE			(1U) /**< ASU cache disable */
+#define XASU_DISABLE_CACHE
 
 #define XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES	(32U) /**< AES payload data length in bytes */
 #define XASU_AES_AAD_LEN_IN_BYTES		(16U) /**< AES AAD length in bytes */
@@ -208,7 +205,7 @@ static u8 XAsu_AesGcmExpTag[XASU_AES_TAG_LEN_IN_BYTES] = {
 	0x0EU, 0x44U, 0xAAU, 0x5EU, 0xDFU, 0x0DU, 0xBEU, 0xBCU
 };
 
-/* AES Tag */
+/* AES tag */
 static u8 XAsu_AesTag[XASU_AES_TAG_LEN_IN_BYTES];
 
 /* AES Encrypted data */
@@ -230,10 +227,9 @@ static u8 XAsu_AesDecData[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES];
  *		- Error code on failure.
  *
  *************************************************************************************************/
-s32 main(void)
+int main(void)
 {
 	s32 Status = XST_FAILURE;
-	XMailbox MailboxInstance;
 
 	xil_printf("ASU AES Client Example: \r\n");
 
@@ -242,7 +238,7 @@ s32 main(void)
 #endif
 
 	/* Initialize the client instance */
-	Status = XAsu_ClientInit(0U);
+	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ASU Client initialize failed: %08x \r\n", Status);
 		goto END;
@@ -278,11 +274,9 @@ END:
 static s32 XAsu_AesGcmExample(void)
 {
 	s32 Status = XST_FAILURE;
-	u32 Index;
 	XAsu_AesKeyObject AesKeyObj;
 	XAsu_ClientParams AesClientParams;
 	Asu_AesParams AesParams;
-	u8 *XAsu_AesExpCt = (u8 *)XAsu_AesGcmExpCt;
 
 	/* Set Queue priority */
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
@@ -316,8 +310,16 @@ static s32 XAsu_AesGcmExample(void)
 	}
 
 	/* Comparison of encrypted Data with expected ciphertext data */
-	Status = Xil_SMemCmp_CT(XAsu_AesExpCt, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesEncData,
+	Status = Xil_SMemCmp_CT(XAsu_AesGcmExpCt, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesEncData,
 				XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ASU AES-GCM Example Failed at Encrypted data Comparison \r\n");
+		goto END;
+	}
+
+	/* Comparison of GCM tag with the expected GCM tag */
+	Status = Xil_SMemCmp_CT(XAsu_AesGcmExpTag, XASU_AES_TAG_LEN_IN_BYTES, XAsu_AesTag,
+				XASU_AES_TAG_LEN_IN_BYTES, XASU_AES_TAG_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ASU AES-GCM Example Failed at Encrypted data Comparison \r\n");
 		goto END;
@@ -326,7 +328,7 @@ static s32 XAsu_AesGcmExample(void)
 	xil_printf("AES-GCM Encrypted data: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesEncData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 
-	xil_printf("AES-GCM Tag: \n\r");
+	xil_printf("AES-GCM tag: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesTag, XASU_AES_TAG_LEN_IN_BYTES);
 
 	/* AES parameters structure initialization for decryption */
@@ -386,11 +388,9 @@ END:
 static s32 XAsu_AesCtrExample(void)
 {
 	s32 Status = XST_FAILURE;
-	u32 Index;
 	XAsu_AesKeyObject AesKeyObj;
 	XAsu_ClientParams AesClientParams;
 	Asu_AesParams AesParams;
-	u8 *XAsu_AesExpCt = (u8 *)XAsu_AesCtrExpCt;
 
 	/* Set Queue priority */
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
@@ -412,6 +412,12 @@ static s32 XAsu_AesCtrExample(void)
 	AesParams.OutputDataAddr = (u64)XAsu_AesEncData;
 	AesParams.DataLen = XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES;
 
+	/* No AAD and Tag for AES standard modes.(ECB, CBC, CFB, OFB, CTR). */
+	AesParams.AadAddr = 0U;
+	AesParams.AadLen = 0U;
+	AesParams.TagAddr = 0U;
+	AesParams.TagLen = 0U;
+
 	Status = XAsu_AesEncrypt(&AesClientParams, &AesParams);
 	if (Status != XST_SUCCESS) {
 		xil_printf("AES-CTR Encryption failed: %08x \r\n", Status);
@@ -419,7 +425,7 @@ static s32 XAsu_AesCtrExample(void)
 	}
 
 	/* Comparison of encrypted Data with expected ciphertext data */
-	Status = Xil_SMemCmp_CT(XAsu_AesExpCt, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesEncData,
+	Status = Xil_SMemCmp_CT(XAsu_AesCtrExpCt, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesEncData,
 				XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ASU AES-CTR Example Failed at Encrypted data Comparison \r\n");

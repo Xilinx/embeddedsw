@@ -89,7 +89,7 @@ inline u32 XAsu_CreateHeader(u8 CmdId, u8 UniqueId, u8 ModuleId, u8 CommandLen)
 XAsu_QueueInfo *XAsu_GetQueueInfo(u32 QueuePriority);
 XAsu_ChannelQueueBuf *XAsu_GetChannelQueueBuf(XAsu_QueueInfo *QueueInfo);
 s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_QueueInfo *QueueInfo);
-s32 XAsu_ClientInit(u8 DeviceId);
+s32 XAsu_ClientInit(u32 BaseAddress);
 /************************************ Variable Definitions ***************************************/
 
 #ifdef __cplusplus

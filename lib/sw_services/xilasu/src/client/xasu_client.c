@@ -75,17 +75,17 @@ static volatile u32 RecvDone = FALSE;	/**< Done flag */
 
 /*************************************************************************************************/
 /**
-*
-* @brief This function initializes the client instance.
-*
-* @param    DeviceId    The IPI Instance to be worked on
-*
-* @return
-* 	        - XST_SUCCESS	On successful initialization
-* 	        - XST_FAILURE	On failure
-*
-*************************************************************************************************/
-s32 XAsu_ClientInit(u8 DeviceId)
+ * @brief	This function initializes the client, mailbox instance, updates the channel queue
+ * 		information and sets an XAsu_DoorBellToClient() asynchronous callback function.
+ *
+ * @param	BaseAddress	Base address of the IPI channel assigned to APU/RPU/PL.
+ *
+ * @return
+ * 		- XST_SUCCESS, if client initialization is successful.
+ * 		- XST_FAILURE, if client initialization fails.
+ *,
+ *************************************************************************************************/
+s32 XAsu_ClientInit(u32 BaseAddress)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
@@ -102,7 +102,7 @@ s32 XAsu_ClientInit(u8 DeviceId)
 		goto END;
 	}
 
-	Status = (s32)XMailbox_Initialize(&MailboxInstance, DeviceId);
+	Status = (s32)XMailbox_Initialize(&MailboxInstance, BaseAddress);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
