@@ -18,6 +18,7 @@
 * ----- ---- ---------- ---------------------------------------------------------------------------
 * 1.00  pre  07/11/2024 Initial release
 *       pre  07/30/2024 Fixed misrac and coverity violations
+*       pre  09/24/2024 Changed function name to XPlm_SsitCommGetParamsPtr
 *
 * </pre>
 *
@@ -44,7 +45,7 @@ extern "C" {
 
 /************************** Function Prototypes **************************************************/
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-XPlmi_SsitCommFunctions *XPlm_SsitCommGetFuncsPtr(void);
+XPlmi_SsitCommParams *XPlm_SsitCommGetParamsPtr(void);
 #endif
 
 /************************** Variable Definitions *************************************************/

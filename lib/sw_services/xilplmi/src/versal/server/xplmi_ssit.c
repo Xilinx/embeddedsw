@@ -67,6 +67,7 @@
 *       kj   09/13/2024 Added support for SW Error Handling in secondary SLR
 *                       and changed HBM CATTRIP SW Error Action in ErrorTable.
 *                       Also restricted HBM Cattrip error action to HW Errors.
+*       pre  09/24/2024 Added key zeroization and saving new key in PPU RAM
 *
 * </pre>
 *
@@ -122,7 +123,6 @@ static u32 XPlmi_SsitGetSlaveErrorMask(void);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
-#define XPLMI_KEY_SIZE_BYTES             (32U) /**< Key size in bytes */
 #define XPLMI_ADDRESS_HIGH_OFFSET        (1U) /**< Offset of high address in payload */
 #define XPLMI_ADDRESS_LOW_OFFSET         (2U) /**< Offset of low address in payload */
 #define XPLMI_IV1_OFFSET_INCMD           (2U) /**< Offset of IV1 in command */
@@ -164,7 +164,7 @@ static void XPlmi_GetEventTableIndex(u8 SlrIndex, u8 *LocalEvTableIndex,
 		u8 *RemoteEvTableIndex);
 static u32 XPlmi_IsSldNotification(void);
 
-static XPlmi_SsitCommFunctions *XPlmi_SsitCommPtr;
+static XPlmi_SsitCommParams *XPlmi_SsitCommPtr;
 
 /************************** Variable Definitions *****************************/
 static XPlmi_SsitEventStruct_t *SsitEvents =
@@ -274,8 +274,9 @@ END:
 * @brief	This function is used to initialize the event structure and create
 * 			tasks for the events between Master and Slave SLRs
 *
-* @param    XPlm_SsitCommFuncs contains pointers to call back functions for
-*           encryption, decryption, keywrite and key-IV updation functionalities
+* @param    XPlm_SsitCommParams contains pointers to call back functions for
+*           encryption, decryption, keywrite, key-IV updation functionalities
+*           and new key address
 *
 * @return
 * 			- Returns XST_SUCCESS if success.
@@ -283,7 +284,7 @@ END:
 * 			- XPLM_ERR_TASK_CREATE if failed to create a task.
 *
 ****************************************************************************/
-int XPlmi_SsitEventsInit(XPlmi_SsitCommFunctions *XPlm_SsitCommFuncs)
+int XPlmi_SsitEventsInit(XPlmi_SsitCommParams *XPlm_SsitCommParams)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Idx;
@@ -392,7 +393,7 @@ int XPlmi_SsitEventsInit(XPlmi_SsitCommFunctions *XPlm_SsitCommFuncs)
 	Status = XPlmi_SsitRegisterEvent(XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX,
 			XPlmi_SsitSingleEamEventHandler, XPLMI_SSIT_ALL_SLAVE_SLRS_MASK);
 
-    XPlmi_SsitCommPtr = XPlm_SsitCommFuncs;
+    XPlmi_SsitCommPtr = XPlm_SsitCommParams;
 
 END:
 	return Status;
@@ -1220,7 +1221,7 @@ int XPlmi_SsitSingleEamEventHandler(void *Data)
 	/**
 	* - Trigger EAM event locally in Master SLR
 	* - For Software Error Node, call the SW Err Handler with necessary Error Mask
-	* - Else, for Handware Errors, write to the register to propogate the event
+	* - Else, for Handware Errors, write to the register to propagate the event
 	*/
 	if (XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_ID == XIL_NODETYPE_EVENT_ERROR_SW_ERR) {
 		/* Trigger SW Error Action */
@@ -2203,7 +2204,7 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
 				XPLMI_SLV_EVENT_TIMEOUT);
         if (Status != XST_SUCCESS) {
 			goto END;
-        }
+		}
 
         /**
 		 * Update IV and key with IV2 and key on success response and
@@ -2223,14 +2224,19 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
 			}
             XPlmi_SsitSetCommEstFlag(SlrIndex);
         }
+		else {
+			Status = (int)RespBuf[0];
+		}
       }
       else {
 		/* update new IV and new key with IV2 and key */
         Xil_MemCpy64((u64)XPLMI_SLR_NEWIV_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_IV2_OFFSET_INPAYLOAD],
 		       XPLMI_IV_SIZE_BYTES);
-        Xil_MemCpy64((u64)XPLMI_SLR_NEWKEY_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_KEY_OFFSET_INPAYLOAD],
-		       XPLMI_KEY_SIZE_BYTES);
-		Status = XST_SUCCESS;
+        Xil_MemCpy64((u64)XPlmi_SsitCommPtr->NewKeyAddr,
+		            (u64)(UINTPTR)&Cmd->Payload[XPLMI_KEY_OFFSET_INPAYLOAD], XPLMI_KEY_SIZE_BYTES);
+
+		Status = (int)Xil_SecureZeroize((u8 *)&Cmd->Payload[XPLMI_KEY_OFFSET_INPAYLOAD],
+		                                       XPLMI_KEY_SIZE_BYTES);
        }
 END:
 #else
