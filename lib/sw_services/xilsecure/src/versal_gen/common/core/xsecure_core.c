@@ -270,7 +270,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 void XSecure_AesSetDataContext(XSecure_Aes *InstancePtr) {
 
 	if (InstancePtr->IsResourceBusy == (u32)XSECURE_RESOURCE_BUSY) {
-		InstancePtr->DataContextLost = XSECURE_SET_DATA_CONTEXT << InstancePtr->IpiMask;
+		InstancePtr->DataContextLost = (u32)XSECURE_SET_DATA_CONTEXT << InstancePtr->IpiMask;
 		InstancePtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
 		InstancePtr->PreviousAesIpiMask = InstancePtr->IpiMask;
 		InstancePtr->IpiMask = XSECURE_CLEAR_IPI_MASK;
@@ -288,7 +288,7 @@ void XSecure_AesSetDataContext(XSecure_Aes *InstancePtr) {
 void XSecure_ShaSetDataContext(XSecure_Sha *InstancePtr)
 {
 	if (InstancePtr->IsResourceBusy == (u32)XSECURE_RESOURCE_BUSY) {
-		InstancePtr->DataContextLost = XSECURE_SET_DATA_CONTEXT << InstancePtr->IpiMask;
+		InstancePtr->DataContextLost = (u32)XSECURE_SET_DATA_CONTEXT << InstancePtr->IpiMask;
 		InstancePtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
 		InstancePtr->PreviousShaIpiMask = InstancePtr->IpiMask;
 		InstancePtr->IpiMask = XSECURE_CLEAR_IPI_MASK;
