@@ -816,9 +816,9 @@ int XSecure_ShaStart(XSecure_Sha *InstancePtr, XSecure_ShaMode Mode)
  *	-	XST_FAILURE - If there is a failure in SSS configuration
  *
  ******************************************************************************/
-int XSecure_ShaUpdate(XSecure_Sha *InstancePtr, u64 DataAddr, const u32 DataSize)
+int XSecure_ShaUpdate(XSecure_Sha *InstancePtr, u64 InDataAddr, const u32 DataSize)
 {
-	return XSecure_Sha3Update64Bit(InstancePtr, DataAddr, DataSize);
+	return XSecure_Sha3Update64Bit(InstancePtr, InDataAddr, DataSize);
 }
 
 /****************************************************************************/
@@ -882,14 +882,14 @@ int XSecure_ShaFinish(XSecure_Sha *InstancePtr, u64 HashAddr, const u32 HashSize
  *
  ******************************************************************************/
 int XSecure_ShaDigest(XSecure_Sha *InstancePtr, XSecure_ShaMode Mode,
-			const u64 InDataAddr, const u32 InSize, u64 HashAddr,
-			const u32 OutSize)
+			const u64 InDataAddr, const u32 DataSize, u64 HashAddr,
+			const u32 HashSize)
 {
-	(void)OutSize;
+	(void)HashSize;
 	(void)Mode;
 
 	return XSecure_Sha3Digest(InstancePtr, (UINTPTR)InDataAddr,
-				InSize, (XSecure_Sha3Hash *)(UINTPTR)HashAddr);
+				DataSize, (XSecure_Sha3Hash *)(UINTPTR)HashAddr);
 }
 
 /*****************************************************************************/
