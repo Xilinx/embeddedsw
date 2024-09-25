@@ -120,7 +120,7 @@ extern "C" {
 /** @name Address register bit masks
  * @{
  */
-#if defined (VERSAL_NET)
+#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
 #define XCSUDMA_ADDR_MASK	0xFFFFFFFFU	/**< Address mask */
 #else
 #define XCSUDMA_ADDR_MASK	0xFFFFFFFCU	/**< Address mask */
@@ -134,7 +134,7 @@ extern "C" {
  * @{
  */
 #define XCSUDMA_SIZE_MASK	0x1FFFFFFCU	/**< Mask for size */
-#if defined (VERSAL_NET)
+#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
 #define XCSUDMA_LAST_WORD_MASK	0x20000000U	/**< Last word check bit mask*/
 #define XCSUDMA_SIZE_SHIFT	0U		/**< Shift for size */
 #else
@@ -171,7 +171,7 @@ extern "C" {
 #define XCSUDMA_CTRL_APB_ERR_MASK	0x01000000U	/**< APB register
 							  *  access error
 							  *  mask */
-#define XCSUDMA_CTRL_ENDIAN_MASK	0x00800000U	/**< Endianess mask */
+#define XCSUDMA_CTRL_ENDIAN_MASK	0x00800000U	/**< Endianness mask */
 #define XCSUDMA_CTRL_BURST_MASK		0x00400000U	/**< AXI burst type
 							  *  mask */
 #define XCSUDMA_CTRL_TIMEOUT_MASK	0x003FFC00U	/**< Time out value
@@ -185,7 +185,7 @@ extern "C" {
 #define XCSUDMA_CTRL_SSS_FIFOTHRESH_SHIFT 25U		/**< SSS FIFO threshold
 							  *  shift */
 #define XCSUDMA_CTRL_APB_ERR_SHIFT	24U		/**< APB error shift */
-#define XCSUDMA_CTRL_ENDIAN_SHIFT	23U		/**< Endianess shift */
+#define XCSUDMA_CTRL_ENDIAN_SHIFT	23U		/**< Endianness shift */
 #define XCSUDMA_CTRL_BURST_SHIFT	22U		/**< AXI burst type
 							  *  shift */
 #define XCSUDMA_CTRL_TIMEOUT_SHIFT	10U		/**< Time out value
