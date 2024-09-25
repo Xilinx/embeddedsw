@@ -99,7 +99,7 @@ done:
 	return Status;
 }
 
-static XStatus I2CIdleBusWait(XIicPs *Iic)
+XStatus I2CIdleBusWait(XIicPs *Iic)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Timeout;
@@ -121,7 +121,7 @@ done:
 	return Status;
 }
 
-static XStatus I2CWrite(XIicPs *Iic, u16 SlaveAddr, u8 *Buffer, s32 ByteCount)
+XStatus I2CWrite(XIicPs *Iic, u16 SlaveAddr, u8 *Buffer, s32 ByteCount)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -154,8 +154,10 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 	u16 RegulatorSlaveAddress, MuxAddress;
 	u32 i = 0, j = 0, k = 0, BytesLen = 0, ByteIndex = 0;
 	u32 ControllerID;
+	u8 PI;
 
-	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
+	PI = Rail->ParentIndex;
+	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentIds[PI]);
 	if (NULL == Regulator) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
@@ -206,8 +208,8 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 	}
 
 	Status = XST_FAILURE;
-	while (ByteIndex < ((u32)Rail->I2cModes[Mode].CmdLen * 4U)) {
-		BytesLen = Rail->I2cModes[Mode].CmdArr[ByteIndex];
+	while (ByteIndex < ((u32)Rail->I2cModes[PI][Mode].CmdLen * 4U)) {
+		BytesLen = Rail->I2cModes[PI][Mode].CmdArr[ByteIndex];
 
 		/*
 		 * If the next BytesLen is 0, it means we are in the middle of
@@ -224,7 +226,7 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 
 		ByteIndex++;
 		for (k = 0; k < BytesLen; k++) {
-			WriteBuffer[k] = Rail->I2cModes[Mode].CmdArr[ByteIndex];
+			WriteBuffer[k] = Rail->I2cModes[PI][Mode].CmdArr[ByteIndex];
 			ByteIndex++;
 		}
 
@@ -287,7 +289,7 @@ static XStatus XPmRail_GPIOControl(const XPm_Rail *Rail, u8 Mode)
 		goto done;
 	}
 
-	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
+	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentIds[0]);
 	if (NULL == Regulator) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
@@ -373,6 +375,7 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 NodeIdx = NODEINDEX(Rail->Power.Node.Id);
+	u8 PI;
 
 	if (Mode >= MAX_MODES) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
@@ -408,19 +411,20 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 		goto done;
 	}
 
-	if (0U == Rail->ParentId) {
+	PI = Rail->ParentIndex;
+	if (0U == Rail->ParentIds[PI]) {
 		PmDbg("Rail topology information unavailable so rail can not be controlled.\r\n");
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	if (XPM_RAILTYPE_MODE_PMBUS == Rail->ControlType[Mode]) {
+	if (XPM_RAILTYPE_MODE_PMBUS == Rail->ControlType[PI][Mode]) {
 		Status = XPmRail_PMBusControl(Rail, Mode);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 
-	} else if (XPM_RAILTYPE_MODE_GPIO == Rail->ControlType[Mode]) {
+	} else if (XPM_RAILTYPE_MODE_GPIO == Rail->ControlType[PI][Mode]) {
 		Status = XPmRail_GPIOControl(Rail, Mode);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -568,6 +572,7 @@ static XStatus XPmRail_VerifyController(const XPm_Rail *Rail)
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_Regulator *Regulator;
 	u8 CntrlrEnabled = 0;
+	u8 PI;
 
 	if (NULL == Rail) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
@@ -575,7 +580,8 @@ static XStatus XPmRail_VerifyController(const XPm_Rail *Rail)
 		goto done;
 	}
 
-	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
+	PI = Rail->ParentIndex;
+	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentIds[PI]);
 	if (NULL == Regulator) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
@@ -737,6 +743,7 @@ static XStatus XPmRail_InitI2CMode(const u32 *Args, u32 NumArgs)
 	u32 i, j, k;
 	u8 NumModes, Mode;
 	const u32 CopySize = 4U;
+	u8 PI;
 
 	Rail = (XPm_Rail *)XPmPower_GetById(Args[0]);
 	if (NULL == Rail) {
@@ -752,7 +759,19 @@ static XStatus XPmRail_InitI2CMode(const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	Rail->ParentId = Args[2];
+	for (PI = 0; PI < MAX_PARENTS; PI++) {
+		if (0U == Rail->ParentIds[PI]) {
+			Rail->ParentIds[PI] = Args[2];
+			break;
+		}
+	}
+
+	if (PI == MAX_PARENTS) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	NumModes = (u8)Args[3];
 	if (MAX_MODES < NumModes) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
@@ -781,17 +800,17 @@ static XStatus XPmRail_InitI2CMode(const u32 *Args, u32 NumArgs)
 			goto done;
 		}
 
-		Rail->I2cModes[Mode].CmdLen = (u8)(Args[k] >> 8) & 0xFFU;
-		Rail->ControlType[Mode] = XPM_RAILTYPE_MODE_PMBUS;
+		Rail->I2cModes[PI][Mode].CmdLen = (u8)(Args[k] >> 8) & 0xFFU;
+		Rail->ControlType[PI][Mode] = XPM_RAILTYPE_MODE_PMBUS;
 		k++;
-		for (j = 0; j < Rail->I2cModes[Mode].CmdLen; j++) {
+		for (j = 0; j < Rail->I2cModes[PI][Mode].CmdLen; j++) {
 			if (k >= NumArgs) {
 				DbgErr = XPM_INT_ERR_INVALID_ARGS;
 				Status = XST_INVALID_PARAM;
 				goto done;
 			}
 
-			Status = Xil_SMemCpy(&Rail->I2cModes[Mode].CmdArr[j * 4U],
+			Status = Xil_SMemCpy(&Rail->I2cModes[PI][Mode].CmdArr[j * 4U],
 					     CopySize, &Args[k], CopySize, CopySize);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_INVALID_PARAM;
@@ -846,7 +865,7 @@ static XStatus XPmRail_InitGPIOMode(const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	Rail->ParentId = Args[Index];
+	Rail->ParentIds[0] = Args[Index];
 	Index++;
 	NumModes = (u8)Args[Index];
 	if (MAX_MODES < NumModes) {
@@ -882,7 +901,7 @@ static XStatus XPmRail_InitGPIOMode(const u32 *Args, u32 NumArgs)
 			goto done;
 		}
 
-		Rail->ControlType[Mode] = XPM_RAILTYPE_MODE_GPIO;
+		Rail->ControlType[0][Mode] = XPM_RAILTYPE_MODE_GPIO;
 		Rail->GPIOModes[Mode].ModeNumber = Mode;
 		Index++;
 		Rail->GPIOModes[Mode].Offset = (u16)Args[Index];

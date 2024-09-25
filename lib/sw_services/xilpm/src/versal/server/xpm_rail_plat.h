@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,7 +14,8 @@
 extern "C" {
 #endif
 
-#define MAX_MODES 4U
+#define MAX_MODES	4U
+#define MAX_PARENTS 	1U
 
 typedef enum {
 	XPM_RAILTYPE_MODE_PMBUS = 1,
@@ -45,10 +46,11 @@ typedef struct {
 typedef struct {
 	XPm_Power Power;
 	XPm_PgoodSource Source;
-	u32 ParentId;
-	XPm_RailType ControlType[MAX_MODES];
-	XPm_I2cCmd I2cModes[MAX_MODES];	  /** Modes information if parent regulator is controlled by I2C */
+	u32 ParentIds[MAX_PARENTS];
+	XPm_RailType ControlType[MAX_PARENTS][MAX_MODES];
+	XPm_I2cCmd I2cModes[MAX_PARENTS][MAX_MODES];	  /** Modes information if parent regulator is controlled by I2C */
 	XPm_GPIOCmd GPIOModes[MAX_MODES]; /** Modes information if parent regulator is controlled by GPIO */
+	u8 ParentIndex;
 	XPmRail_TempVoltAdj *TempVoltAdj;
 } XPm_Rail;
 
