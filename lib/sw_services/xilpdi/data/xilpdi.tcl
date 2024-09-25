@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -7,6 +8,8 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.00  kc  11/16/17 Initial Release
+#       kal 09/25/24 Remove deleting folders which are set in secure_drc
+#
 ##############################################################################
 
 #---------------------------------------------
@@ -18,7 +21,6 @@ proc pdi_drc {libhandle} {
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set versal_net "src/versal_net/"
 	set versal "src/versal/"
-	set versal_aiepg2 "src/versal_aiepg2/"
 	set common "src/common/"
 
 	foreach entry [glob -nocomplain -types f [file join ./src/ *]] {
@@ -42,10 +44,6 @@ proc pdi_drc {libhandle} {
 		}
 	}
 
-	file delete -force $versal_net
-	file delete -force $versal
-	file delete -force $versal_aiepg2
-	file delete -force $common
 }
 
 proc generate {libhandle} {

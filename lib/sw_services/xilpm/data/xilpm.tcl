@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 
@@ -59,7 +59,6 @@ proc generate {libhandle} {
 	set versal_net_common_dir "$versal_net_dir/common"
 	set versal_server_common_dir "$common_dir/server"
 	set common_header_dir "$common_dir/common"
-	set versal_aiepg2 "src/versal_aiepg2/"
 
 
 	switch $proctype {
@@ -122,7 +121,6 @@ proc generate {libhandle} {
 	if {($proctype == "psu_cortexa53") || ($proctype == "psu_cortexr5")} {
 		pmufw::gen_cfg_data [file join src pm_cfg_obj.c] $proctype
 	}
-	file delete -force $versal_aiepg2
 }
 
 proc copy_files_to_src {dir_path} {
