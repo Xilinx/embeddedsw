@@ -29,7 +29,8 @@
 #                       communication feature
 #
 #       pre  07/16/2024 Corrected typo
-
+#       kal  09/25/2024 Remove deleting folders which are set in secure_drc
+#
 ##############################################################################
 
 #---------------------------------------------
@@ -44,7 +45,6 @@ proc plmi_drc {libhandle} {
 	set os_type [hsi::get_os];
 	set versal_net "src/versal_net/"
 	set versal "src/versal/"
-	set versal_aiepg2 "src/versal_aiepg2/"
 	set common "src/common/"
 	set versal_client "$versal/client"
 	set versal_server "$versal/server"
@@ -190,11 +190,6 @@ proc plmi_drc {libhandle} {
 				}
 		}
 	}
-
-	file delete -force $versal_net
-	file delete -force $versal
-	file delete -force $versal_aiepg2
-	file delete -force $common
 }
 
 proc generate {libhandle} {

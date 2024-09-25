@@ -9,6 +9,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.00  kc   09/22/18 Initial Release
 # 1.01  dd   01/09/23 Added client Interface
+#       kal  09/25/24 Remove deleting folders which are set in secure_drc
 #
 ##############################################################################
 
@@ -24,7 +25,6 @@ proc loader_drc {libhandle} {
 	set os_type [hsi::get_os];
 	set versal_net "src/versal_net/"
 	set versal "src/versal/"
-	set versal_aiepg2 "src/versal_aiepg2/"
 	set common "src/common/"
 
 	set versal_client "$versal/client"
@@ -175,10 +175,6 @@ proc loader_drc {libhandle} {
 			}
 		}
 	}
-	file delete -force $versal_net
-	file delete -force $versal
-	file delete -force $versal_aiepg2
-	file delete -force $common
 }
 
 proc generate {libhandle} {

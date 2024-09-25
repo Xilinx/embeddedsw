@@ -34,6 +34,7 @@
 #       mb   04/23/24 Added xsecure_elliptic_p224_support parameter to enable/disable P224 curve
 #       kpt  06/13/24 Added xsecure_key_slot_addr
 #       kal  07/24/24 Code refactoring for versal_aiepg2 plaform
+#       kal  09/25/24 Remove deleting folders which are set in secure_drc
 #
 ##############################################################################
 
@@ -294,8 +295,6 @@ proc secure_drc {libhandle} {
 			}
 		}
 	}
-	file delete -force $versal_gen
-	file delete -force $zynqmp
 }
 
 proc generate {libhandle} {
