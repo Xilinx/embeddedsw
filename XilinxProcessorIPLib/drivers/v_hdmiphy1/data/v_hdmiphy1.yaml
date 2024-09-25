@@ -14,7 +14,7 @@ properties:
     OneOf:
       - items:
         - enum:
-          - xlnx,hdmi-gt-controller-1.0
+          - xlnx,hdmi-gt-controller-2.0
           - xlnx,v-hdmi-phy1-1.0
   reg:
     description: Physical base address and size of the controller register map
