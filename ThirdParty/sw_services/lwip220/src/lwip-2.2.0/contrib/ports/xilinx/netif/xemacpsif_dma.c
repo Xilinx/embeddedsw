@@ -69,7 +69,10 @@
 static UINTPTR tx_pbufs_storage[4*XLWIP_CONFIG_N_TX_DESC];
 static UINTPTR rx_pbufs_storage[4*XLWIP_CONFIG_N_RX_DESC];
 
+#ifndef SDT
 static s32_t emac_intr_num;
+#endif
+
 #if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
 volatile u32_t notifyinfo[4*XLWIP_CONFIG_N_TX_DESC];
 #endif
@@ -620,7 +623,9 @@ XStatus init_dma(struct xemac_s *xemac)
 	u32 *temp;
 
 	xemacpsif_s *xemacpsif = (xemacpsif_s *)(xemac->state);
+#ifndef SDT
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
+#endif
 
 	index = get_base_index_rxpbufsstorage (xemacpsif);
 	gigeversion = ((Xil_In32(xemacpsif->emacps.Config.BaseAddress + 0xFC)) >> 16) & 0xFFF;
