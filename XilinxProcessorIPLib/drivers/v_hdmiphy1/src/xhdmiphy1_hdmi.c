@@ -1125,6 +1125,14 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	u64 LineRate = 0;
 	XHdmiphy1_Mmcm *MmcmPtr;
 	XHdmiphy1_PllType PllType;
+	u64 clokoutdiv_dpll_lo;
+	u64 clokoutdiv_dpll_high;
+	u64 div_dpll_lo;
+	u64 div_dpll_high;
+
+
+
+
 
 	/* Suppress Warning Messages */
 	ChId = ChId;
@@ -1388,16 +1396,31 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 				(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
 				(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128)) {
 #else
-#if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 1 || \
-		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 1)
-			if ((MmcmPtr->ClkOut0Div > 1) && (MmcmPtr->ClkOut0Div <= 400) &&
-				(MmcmPtr->ClkOut1Div > 1) && (MmcmPtr->ClkOut1Div <= 400) &&
-				(MmcmPtr->ClkOut2Div > 1) && (MmcmPtr->ClkOut2Div <= 400)) {
-#else
-				if ((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 512) &&
-					(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 512) &&
-					(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 512)) {
-#endif
+
+			if (Dir == XHDMIPHY1_DIR_RX) {
+				if (InstancePtr->Config.RxClkPrimitive == 1 ){
+					clokoutdiv_dpll_lo = 1;
+					clokoutdiv_dpll_high = 400;
+				}
+				else{
+					clokoutdiv_dpll_lo = 0;
+					clokoutdiv_dpll_high = 512;
+				}
+			}
+			else{
+				if (InstancePtr->Config.TxClkPrimitive == 1 ){
+					clokoutdiv_dpll_lo = 1;
+					clokoutdiv_dpll_high = 400;
+				}
+				else{
+					clokoutdiv_dpll_lo = 0;
+					clokoutdiv_dpll_high = 512;
+				}
+			}
+
+			if ((MmcmPtr->ClkOut0Div > clokoutdiv_dpll_lo) && (MmcmPtr->ClkOut0Div <= clokoutdiv_dpll_high) &&
+			(MmcmPtr->ClkOut1Div > clokoutdiv_dpll_lo) && (MmcmPtr->ClkOut1Div <= clokoutdiv_dpll_high) &&
+				(MmcmPtr->ClkOut2Div > clokoutdiv_dpll_lo) && (MmcmPtr->ClkOut2Div <= clokoutdiv_dpll_high)) {
 #endif
 				Valid = (TRUE);
 			}
@@ -1623,16 +1646,33 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 				(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
 				(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128)) {
 #else
-#if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 1 || \
-		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 1)
-			if ((MmcmPtr->ClkOut0Div > 1) && (MmcmPtr->ClkOut0Div <= 400) &&
-				(MmcmPtr->ClkOut1Div > 1) && (MmcmPtr->ClkOut1Div <= 400) &&
-				(MmcmPtr->ClkOut2Div > 1) && (MmcmPtr->ClkOut2Div <= 400)) {
-#else
-				if ((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 512) &&
-					(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 512) &&
-					(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 512)) {
-#endif
+
+				if (Dir == XHDMIPHY1_DIR_RX) {
+					if (InstancePtr->Config.RxClkPrimitive == 1 ){
+						clokoutdiv_dpll_lo = 1;
+						clokoutdiv_dpll_high = 400;
+					}
+					else{
+						clokoutdiv_dpll_lo = 0;
+						clokoutdiv_dpll_high = 512;
+					}
+				}
+				else{
+					if (InstancePtr->Config.TxClkPrimitive == 1 ){
+						clokoutdiv_dpll_lo = 1;
+						clokoutdiv_dpll_high = 400;
+					}
+					else{
+						clokoutdiv_dpll_lo = 0;
+						clokoutdiv_dpll_high = 512;
+					}
+				}
+
+
+				if ((MmcmPtr->ClkOut0Div > clokoutdiv_dpll_lo) && (MmcmPtr->ClkOut0Div <= clokoutdiv_dpll_high) &&
+					(MmcmPtr->ClkOut1Div > clokoutdiv_dpll_lo) && (MmcmPtr->ClkOut1Div <= clokoutdiv_dpll_high) &&
+					(MmcmPtr->ClkOut2Div > clokoutdiv_dpll_lo) && (MmcmPtr->ClkOut2Div <= clokoutdiv_dpll_high)) {
+
 #endif
 				Valid = (TRUE);
 			}
@@ -1666,12 +1706,29 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		/* Increment divider */
 		Div++;
 #if ((XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP))
-#if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 1 || \
-		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 1)
-	} while (!Valid && (Div > 0) && (Div < 21));
-#else
-    } while (!Valid && (Div > 0) && (Div < 124));
-#endif
+
+		if (Dir == XHDMIPHY1_DIR_RX) {
+			if (InstancePtr->Config.RxClkPrimitive == 1 ){
+				div_dpll_lo = 0;
+				div_dpll_high = 21;
+			}
+			else{
+				div_dpll_lo = 0;
+				div_dpll_high = 124;
+			}
+		}
+		else{
+			if (InstancePtr->Config.TxClkPrimitive == 1 ){
+				div_dpll_lo = 0;
+				div_dpll_high = 21;
+			}
+			else{
+				div_dpll_lo = 0;
+				div_dpll_high = 124;
+			}
+		}
+
+		}while (!Valid && (Div > div_dpll_lo) && (Div < div_dpll_high));
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4 || \
      XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 	} while (!Valid && (Div > 0) && (Div < 107));
