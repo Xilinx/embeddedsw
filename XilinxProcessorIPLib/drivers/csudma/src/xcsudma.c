@@ -147,7 +147,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	u32 DataSize = 0U;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-#ifndef VERSAL_NET
+#if !defined(VERSAL_NET) && !defined(VERSAL_AIEPG2)
 	Xil_AssertVoid(((Addr) & (u64)(XCSUDMA_ADDR_LSB_MASK)) == (u64)0x00);
 #endif
 	Xil_AssertVoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
@@ -155,7 +155,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
 	DataSize = Size * XCSUDMA_WORD_SIZE;
 #else
 	DataSize = Size;
@@ -260,7 +260,7 @@ void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
 	DataSize = Size * XCSUDMA_WORD_SIZE;
 #else
 	DataSize = Size;
@@ -913,12 +913,16 @@ void XCsuDma_GetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 
 }
 
-#if ! defined(versal) || ! defined(__microblaze__) || ! defined(PLATFORM_ZYNQMP)
+#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
 /*****************************************************************************/
 /**
 *
 * This function sets the starting address and amount(size) of the data to be
 * transferred from/to the memory through the AXI interface in VERSAL NET.
+* ByteAlignedTransfer is defeatured in Versal Net device. However there is a
+* workaround to allow user software to use this feature while handling
+* endianness. Hence this function will continue to be supported with the
+* assumption that the workaround is implemented by calling software.
 *
 * @param	InstancePtr Pointer to XCsuDma instance to be worked on.
 * @param	Channel Type of channel

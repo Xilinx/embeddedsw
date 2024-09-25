@@ -98,7 +98,7 @@ typedef enum {
 /** @name Ranges of Size
  * @{
  */
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
 #define XCSUDMA_SIZE_MAX 0x1FFFFFFFU	/**< Maximum allowed no of bytes */
 #else
 #define XCSUDMA_SIZE_MAX 0x07FFFFFFU	/**< Maximum allowed no of words */
@@ -385,7 +385,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 					u64 Addr, u32 Size, u8 EnDataLast);
 void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 			   u32 AddrLow, u32 AddrHigh, u32 Size, u8 EnDataLast);
-#if ! defined(versal) || ! defined(__microblaze__) || ! defined(PLATFORM_ZYNQMP)
+#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
 void XCsuDma_ByteAlignedTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 					u64 Addr, u32 Size, u8 EnDataLast);
 #endif
