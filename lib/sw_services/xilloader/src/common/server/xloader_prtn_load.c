@@ -109,6 +109,7 @@
 *       kal  06/04/2024 Moved XLoader_SecureConfigMeasurement call to
 *       		XLoader_ProcessAuthEncPrtn
 *       mss  04/05/2024 Added logic to disable device copy optimization
+*       bm   09/25/2024 Fix Boot Device Copy Optimization logic
 * </pre>
 *
 * @note
@@ -140,8 +141,8 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U) /**< Indicates that PLM is not the partition owner */
-#define XLOADER_DISABLE_BOOT_COPY_OPTIMIZATION	(1U)
+#define XLOADER_SUCCESS_NOT_PRTN_OWNER			(0x100U) /**< Indicates that PLM is not the partition owner */
+#define XLOADER_BOOT_COPY_OPTIMIZATION_ENABLED		(0U) /**< Indicates Boot Device Copy Optimization is Enabled */
 
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr* PrtnHdr, u32 PrtnNum);
@@ -449,7 +450,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	u8 LastChunk = (u8)FALSE;
 	u8 Flags;
 	u32 DevCopyOptimization = (u32)(XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR) &
-											XLOADER_DEVICE_COPY_OPTIMIZATION_MASK);
+					XLOADER_DEVICE_COPY_OPTIMIZATION_MASK);
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 #ifdef PLM_PRINT_PERF_CDO_PROCESS
 	u64 CdoProcessTimeStart;
@@ -482,8 +483,8 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			ChunkLen = XLOADER_CHUNK_SIZE;
 		}
 		else {
-			if(DevCopyOptimization == XLOADER_DISABLE_BOOT_COPY_OPTIMIZATION){
-			Cdo.Cmd.KeyHoleParams.Func = PdiPtr->MetaHdr.DeviceCopy;
+			if (DevCopyOptimization == XLOADER_BOOT_COPY_OPTIMIZATION_ENABLED) {
+				Cdo.Cmd.KeyHoleParams.Func = PdiPtr->MetaHdr.DeviceCopy;
 			}
 		}
 	}
