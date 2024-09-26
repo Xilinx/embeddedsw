@@ -37,7 +37,6 @@ XStatus XPm_PlatAddNode(const u32 *Args, u32 NumArgs);
 
 XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version);
 
-int XPm_InitNodeCmdHandler(XPlmi_Cmd *Cmd);
 int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd);
 
 XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs);
