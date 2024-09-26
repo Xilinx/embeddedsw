@@ -16,9 +16,19 @@ description: Xilinx Programmable Device Image (PDI) Library.
 
 supported_processors:
   - psv_pmc
+  - psu_cortexa72
+  - psv_cortexa72
+  - psv_cortexr5
+  - microblaze
   - psxl_pmc
+  - psxl_cortexa78
+  - psxl_cortexr52
   - psx_pmc
   - pmc
+  - psx_cortexa78
+  - cortexa78
+  - psx_cortexr52
+  - cortexr52
 
 supported_os:
   - standalone
