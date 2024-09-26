@@ -48,6 +48,7 @@
 * 9.0    mus 07/27/23 Updated XGetCoreId API to support A9, R5 and A53 processor.
 * 9.1    mus 06/28/24 Fix typo in XGetCoreId, due to this XGetCoreId
 *                     always returns 0 in case of A78 processor CR#1204077.
+* 9.2    mus 09/23/24 Fix XGetBootStatus for VersalGen2.
 * </pre>
 *
 ******************************************************************************/
@@ -254,8 +255,29 @@ u8 XGetBootStatus(void)
 
 	return (Status & XPS_CORE_X_PWRDWN_EN_MASK);
 #else
+#if defined (VERSAL_AIEPG2)
+	u8 ClusterId = XGetClusterId();
+
+	/*
+	 * Offset between RPU_PCIL_X_PWRDWN registers of 2
+	 * consecutive clusters/cores are not consistent
+	 * across all 5 clusters.
+	 * - Cluster A,B: cluster offset 0x1000, core offset 0x100
+	 * - Cluster C,D,E: cluster offset 0x40, core offset 0x20
+	 */
+
+	if (ClusterId > 1) {
+		Addr = (XPS_RPU_PCIL_CLUSTER_C_D_E_OFFSET * (ClusterId - XPS_CLUSTER_C_ID)) + XPS_RPU_PCIL_C0_PWRDWN;
+		Addr += (XGetCoreId() * XPS_RPU_PCIL_CORE_OFFSET_FOR_CLUSTER_C_D_E);
+
+	} else {
+		Addr = (XPS_RPU_PCIL_CLUSTER_OFFSET * ClusterId) + XPS_RPU_PCIL_A0_PWRDWN;
+		Addr += (XGetCoreId() * XPS_RPU_PCIL_CORE_OFFSET);
+	}
+#else
 	Addr = (XPS_RPU_PCIL_CLUSTER_OFFSET * XGetClusterId()) + XPS_RPU_PCIL_A0_PWRDWN;
 	Addr += (XGetCoreId() * XPS_RPU_PCIL_CORE_OFFSET);
+#endif
 
 	Status = Xil_In32(Addr);
 
