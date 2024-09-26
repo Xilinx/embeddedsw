@@ -175,6 +175,7 @@ int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd)
 	XStatus Status = XST_FAILURE;
 	u32 CmdId = Cmd->CmdId & 0xFFU;
 	const u32 *Pload = Cmd->Payload;
+	u32 Len = Cmd->Len;
 
 	switch (CmdId) {
 	case PM_API(PM_BISR):
@@ -183,6 +184,9 @@ int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd)
 		}else{
 			Status =  XPmBisr_Repair(Pload[0]);
 		}
+		break;
+	case PM_API(PM_INIT_NODE):
+		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);
 		break;
 	case PM_API(PM_APPLY_TRIM):
 		Status = XPm_PldApplyTrim(Pload[0]);
@@ -661,83 +665,6 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
-	return Status;
-}
-
-int XPm_InitNodeCmdHandler(XPlmi_Cmd *Cmd)
-{
-	int Status = XST_FAILURE;
-	static u32 Pload[16U] = {0U};
-	static u32 Len = 0U;
-	const u32 *PloadPtr = Pload;
-	u32 PloadLen = Len;
-
-	/* First chunk of the command, copy it to resume data */
-	if (0U == Cmd->ProcessedLen) {
-		if (Cmd->PayloadLen == Cmd->Len) {
-			/* Entire command is available, process it */
-			Cmd->ResumeHandler = NULL;
-			PloadPtr = Cmd->Payload;
-			PloadLen = Cmd->Len;
-			goto process_cmd;
-		}
-
-		/* Reset the final payload before using */
-		memset(Pload, 0U, sizeof(Pload));
-		Len = 0U;
-
-		/* Copy the first payload chunk to final payload */
-		if (Cmd->PayloadLen <= ARRAY_SIZE(Pload)) {
-			for (Len = 0U; Len < Cmd->PayloadLen; Len++) {
-				Pload[Len] = Cmd->Payload[Len];
-			}
-		} else {
-			PmErr("Payload too big to resume, size 0x%x (given) > 0x%x (max)\r\n",
-				Cmd->PayloadLen, ARRAY_SIZE(Pload));
-			Cmd->ResumeHandler = NULL;
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-
-		/* Store the index of next payload in resume data */
-		Cmd->ResumeData[0U] = Cmd->PayloadLen;	/* Here, Len == Cmd->PayloadLen */
-
-		/* Partially processed, to be resumed after */
-		Status = XST_SUCCESS;
-		goto done;
-	} else {
-		/* Append next payload chunk to final payload */
-		if ((Cmd->ResumeData[0] == Cmd->ProcessedLen) &&
-		    (Cmd->ProcessedLen + Cmd->PayloadLen <= ARRAY_SIZE(Pload))) {
-			for (Len = Cmd->ProcessedLen; Len < Cmd->ProcessedLen + Cmd->PayloadLen; Len++) {
-				Pload[Len] = Cmd->Payload[Len - Cmd->ProcessedLen];
-			}
-		} else {
-			PmErr("Payload too big for final payload, size 0x%x (given) > 0x%x (max)\r\n",
-				Cmd->ProcessedLen + Cmd->PayloadLen, ARRAY_SIZE(Pload));
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-
-		/* Make sure we have full payload */
-		if (Len != Cmd->Len) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-
-		/* Ready to process, have full payload */
-		PloadPtr = Pload;
-		PloadLen = Len;
-	}
-
-process_cmd:
-	Status = XPm_InitNode(PloadPtr[0U], PloadPtr[1U], &PloadPtr[2U], PloadLen - 2U);
-	Cmd->Response[0U] = (u32)Status;
-
-done:
-	if (XST_SUCCESS != Status) {
-		PmErr("PM_INIT_NODE Failure, Err: 0x%x\r\n", Status);
-	}
 	return Status;
 }
 
