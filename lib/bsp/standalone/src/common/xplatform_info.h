@@ -42,6 +42,9 @@
 * 9.0    ml  09/14/23 Added U to numerical to fix MISRA-C violation for Rule
 *                     10.1 and 10.4
 * 9.2    ng  08/20/24 Added SpartanUP device support
+* 9.2    mus 09/23/24 Add definitions related to cluster/core specific offsets
+*                     for RPU_PCIL_X_PWRDWN register. They are applicable for
+*                     cluster C, D and E in VersalGen2 SoC.
 *
 * </pre>
 *
@@ -127,6 +130,22 @@ extern "C" {
 #define XPS_CORE_X_PWRDWN_EN_MASK	1U
 #endif
 #endif
+
+#if defined (VERSAL_AIEPG2)
+#define XPS_RPU_PCIL_C0_PWRDWN 0xEB4211C4U
+#define XPS_CLUSTER_C_ID	2U
+/*
+ * Offset between RPU_PCIL_X_PWRDWN registers of 2
+ * consecutive clusters starting from cluster C
+ * Note: For VERSAL_AIEPG2 SoC, offsets are different
+ * for Cluster A,B(cluster offset 0x1000, core offset 0x100)
+ * and Cluster C,D,E(cluster offset 0x40, core offset 0x20)
+ */
+
+#define XPS_RPU_PCIL_CLUSTER_C_D_E_OFFSET 0x40U
+#define XPS_RPU_PCIL_CORE_OFFSET_FOR_CLUSTER_C_D_E 0x20U
+#endif
+
 /**************************** Type Definitions *******************************/
 /**
  *@endcond
