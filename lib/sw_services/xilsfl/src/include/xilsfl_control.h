@@ -18,6 +18,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.0   sb  8/20/24  Initial release
+ * 1.0   sb  9/25/24  Add XSfl_FlashNonBlockingReadProcess API.
  *
  * </pre>
  *
@@ -59,6 +60,8 @@ u32 XSfl_FlashRegisterReadWrite(XSfl_Interface *SflInstnacePtr,
 		u8 *RxBfrPtr,u8 *TxBfrPtr, u32 *CmdBufferPtr,u8 Addrvalid);
 u32 XSfl_FlashCmdTransfer(XSfl_Interface *SflInstnacePtr,u8 Cmd);
 u32 XSfl_GetRealAddr(XSfl_Interface *SflInstnacePtr, u32 Address);
+u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteCount,
+                u8 *ReadBfrPtr, u64 RxAddr64bit);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/

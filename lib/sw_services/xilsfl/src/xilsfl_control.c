@@ -19,6 +19,8 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.0   sb  8/20/24  Initial release
+ * 1.0   sb  9/25/24  Update XSfl_FlashReadProcess() to support unaligned bytes read and
+ *                    add support for non-blocking read
  *
  * </pre>
  *
@@ -465,6 +467,104 @@ u32 XSfl_FlashReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteC
 		}
 
 		Status = SflInstancePtr->CntrlInfo.Transfer(SflInstancePtr->CntrlInfo.DeviceId, &SflMsg);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		ByteCount -= BytesToRead;
+		Address += BytesToRead;
+		ReadBfrPtr += BytesToRead;
+		BytesToRead = ByteCnt - BytesToRead;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function performs non-blocking read from the serial nor flash connected to specific interface.
+ *
+ * @param	Sfl_Handler is a index to the XSfl interface component to use.
+ * @param	Address contains the address of the flash that needs to be read.
+ * @param	ByteCount contains the total size to be erased.
+ * @param	ReadBfrPtr is the pointer to the read buffer to which valid received data should be
+ * 			written
+ * @param	RxAddr64bit is of the 64bit address of destination read buffer to which
+ *              valid received data should be written.
+ *
+ * @return	XST_SUCCESS if successful, else Error code.
+ *
+ ******************************************************************************/
+u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteCount,
+		u8 *ReadBfrPtr, u64 RxAddr64bit){
+	/* Validate the input arguments */
+	Xil_AssertNonvoid(SflInstancePtr != NULL);
+
+	u32 RealAddr;
+	u32 BytesToRead;
+	u32 ByteCnt = ByteCount;
+	u32 FlashMake;
+	u32 Addr = Address;
+	u8 FCTIndex;
+	u8 Status;
+
+	FlashMake = SflInstancePtr->SflFlashInfo.FlashMake;
+	FCTIndex = SflInstancePtr->SflFlashInfo.FlashIndex;
+
+	if ((Address < Flash_Config_Table[FCTIndex].FlashDeviceSize) &&
+			((Address + ByteCount) >= Flash_Config_Table[FCTIndex].FlashDeviceSize) &&
+			(SflInstancePtr->SflFlashInfo.ConnectionMode)) {
+		BytesToRead = (Flash_Config_Table[FCTIndex].FlashDeviceSize - Address);
+	}
+	else {
+		BytesToRead = ByteCount;
+	}
+
+	while (ByteCount != 0) {
+		/*
+		 * Translate address based on type of connection
+		 * If stacked assert the slave select based on address
+		 */
+		RealAddr = XSfl_GetRealAddr(SflInstancePtr, Address);
+
+		SflMsg.Opcode = (u8)Flash_Config_Table[FCTIndex].ReadCmd;
+		SflMsg.Addrsize = 4;
+		SflMsg.Addrvalid = 1;
+		SflMsg.TxBfrPtr = NULL;
+		SflMsg.RxBfrPtr = ReadBfrPtr;
+		SflMsg.ByteCount = BytesToRead;
+		SflMsg.Xfer64bit = 0;
+		if(RxAddr64bit >= XSFL_RXADDR_OVER_32BIT) {
+			SflMsg.RxAddr64bit = RxAddr64bit;
+			SflMsg.Xfer64bit = 1;
+		}
+
+		SflMsg.Addr = RealAddr;
+		SflMsg.Proto =  (u8)Flash_Config_Table[FCTIndex].Proto;
+		SflMsg.Dummy = (u8)Flash_Config_Table[FCTIndex].DummyCycles;
+		SflMsg.DualByteOpCode = 0;
+
+		if( Flash_Config_Table[FCTIndex].Proto >> 16){
+			SflMsg.Proto = Flash_Config_Table[FCTIndex].Proto >> 16;
+		}
+
+		if (SflInstancePtr->CntrlInfo.SdrDdrMode == XSFL_EDGE_MODE_DDR_PHY) {
+			SflMsg.Proto = Flash_Config_Table[FCTIndex].Proto >> 8;
+			SflMsg.Dummy = Flash_Config_Table[FCTIndex].DummyCycles >> 8;
+		}
+
+#ifdef XSFL_DEBUG
+		xil_printf("ReadCmd 0x%x\r\n", SflMsg.Opcode);
+#endif
+
+		if (Flash_Config_Table[FCTIndex].ExtOpCodeType == XSFL_DUAL_BYTE_OP_INVERT){
+			SflMsg.DualByteOpCode = (u8)(~SflMsg.Opcode);
+		} else if (Flash_Config_Table[FCTIndex].ExtOpCodeType == XSFL_DUAL_BYTE_OP_SAME){
+			SflMsg.DualByteOpCode = (u8)(SflMsg.Opcode);
+		}
+
+		Status = SflInstancePtr->CntrlInfo.NonBlockingTransfer(SflInstancePtr->CntrlInfo.DeviceId, &SflMsg);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
