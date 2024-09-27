@@ -3,6 +3,7 @@
  * All rights reserved.
  *
  * Copyright (c) 2021 Xilinx, Inc. All rights reserved.
+ * Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -23,7 +24,7 @@
 static XScuGic xInterruptController;
 
 /* Interrupt Controller setup */
-static int app_gic_initialize(void)
+static int32_t app_gic_initialize(void)
 {
 	uint32_t status;
 	XScuGic_Config *int_ctrl_config; /* interrupt controller configuration params */
@@ -66,7 +67,7 @@ static int app_gic_initialize(void)
 	 * logic in the ARM processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
+			(Xil_ExceptionHandler)&XScuGic_InterruptHandler,
 			&xInterruptController);
 
 	/* Disable the interrupt before enabling exception to avoid interrupts
@@ -78,7 +79,7 @@ static int app_gic_initialize(void)
 
 	/* Connect Interrupt ID with ISR */
 	XScuGic_Connect(&xInterruptController, IPI_IRQ_VECT_ID,
-			(Xil_ExceptionHandler)metal_xlnx_irq_isr,
+			(Xil_ExceptionHandler)&metal_xlnx_irq_isr,
 			(void *)IPI_IRQ_VECT_ID);
 
 	return 0;
@@ -91,12 +92,12 @@ static int app_gic_initialize(void)
  * c_pos - next rext record position
  * c_cnt - free running count of records to help sorting in case of overrun
  */
-extern char *get_rsc_trace_info(unsigned int *);
+extern char *get_rsc_trace_info(uint32_t *);
 static struct {
 	char * c_buf;
-	unsigned int c_len;
-	unsigned int c_pos;
-	unsigned int c_cnt;
+	uint32_t c_len;
+	uint32_t c_pos;
+	uint32_t c_cnt;
 } circ;
 
 static void rsc_trace_putchar(char c)
@@ -111,7 +112,7 @@ static void rsc_trace_logger(enum metal_log_level level,
 {
 	char msg[128];
 	char *p;
-	int len;
+	int32_t len;
 	va_list args;
 
 	/* prefix "cnt L6 ": record count and log level */
@@ -133,14 +134,14 @@ static void rsc_trace_logger(enum metal_log_level level,
 
 /* Main hw machinery initialization entry point, called from main()*/
 /* return 0 on success */
-int init_system(void)
+int32_t init_system(void)
 {
-	int ret;
+	int32_t ret;
 	struct metal_init_params metal_param = METAL_INIT_DEFAULTS;
 
 	circ.c_buf = get_rsc_trace_info(&circ.c_len);
 	if (circ.c_buf && circ.c_len){
-		metal_param.log_handler = rsc_trace_logger;
+		metal_param.log_handler = &rsc_trace_logger;
 		metal_param.log_level = METAL_LOG_DEBUG;
 		circ.c_pos = circ.c_cnt = 0;
 	};
@@ -153,7 +154,7 @@ int init_system(void)
 
 	/* Initialize metal Xilinx IRQ controller */
 	ret = metal_xlnx_irq_init();
-	if (ret) {
+	if (ret != 0) {
 		ML_ERR("metal_xlnx_irq_init failed.\r\n");
 	}
 
