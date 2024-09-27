@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -15,11 +15,12 @@ properties:
       - items:
         - enum:
           - xlnx,v-smpte-uhdsdi-tx-1.0
+          - xlnx,sdi-tx
   reg:
     description: Physical base addreiss and size of the controller register map
   xlnx,include-edh:
     description: Whether EDH inclusion true or false
-  xlnx,line-rate:
+  xlnx,sdiline-rate:
     description: SDI line rate SD-SDI, HD-SDI, 3G-SDI, 6G,12G..etc
   xlnx,c_str_st352:
     description: SDI Stream ST352 id.
@@ -28,7 +29,7 @@ required:
     - compatible
     - reg
     - xlnx,include-edh
-    - xlnx,line-rate
+    - xlnx,sdiline-rate
     - xlnx,c_str_st352
 
 config:
