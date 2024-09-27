@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -15,18 +15,19 @@ properties:
       - items:
         - enum:
           - xlnx,v-smpte-uhdsdi-rx-1.0
+          - xlnx,v-smpte-uhdsdi-rx
   reg:
     description: Physical base addreiss and size of the controller register map
   xlnx,include-edh:
     description: Whether EDH inclusion true or false
-  xlnx,line-rate:
+  xlnx,sdiline-rate:
     description: SDI line rate SD-SDI, HD-SDI, 3G-SDI, 6G,12G..etc
 
 required:
     - compatible
     - reg
     - xlnx,include-edh
-    - xlnx,line-rate
+    - xlnx,sdiline-rate
 
 config:
     - XV_SdiRx_Config
