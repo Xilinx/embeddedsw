@@ -15,6 +15,8 @@ properties:
       - items:
         - enum:
           - xlnx,mipi-dsi-tx-subsystem-2.3
+          - xlnx,dsi
+          - xlnx,mipi-dsi-tx-subsystem-3.0
   reg:
     description: Physical base address and size of the controller register map
   xlnx,highaddr:
