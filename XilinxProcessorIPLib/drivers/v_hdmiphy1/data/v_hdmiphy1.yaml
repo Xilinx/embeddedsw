@@ -14,6 +14,8 @@ properties:
     OneOf:
       - items:
         - enum:
+          - xlnx,v-hdmi-gt-controller-1.0
+          - xlnx,hdmi-gt-controller-1.0
           - xlnx,hdmi-gt-controller-2.0
           - xlnx,v-hdmi-phy1-1.0
   reg:
