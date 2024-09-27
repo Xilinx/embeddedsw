@@ -15,11 +15,12 @@ properties:
       - items:
         - enum:
           - xlnx,v-smpte-uhdsdi-rx-ss-2.0
+          - xlnx,v-smpte-uhdsdi-rx-ss
   reg:
     description: Physical base addreiss and size of the SDI controller register map
   xlnx,pixels-per-clock:
     description: Number of Pixels Per Clock processed by Subsystem
-  xlnx,line-rate:
+  xlnx,sdiline-rate:
     description: SDI supported line rate like 3G/6G/12G..etc
   xlnx,bpp:
     description: SDI BPP.
@@ -32,7 +33,7 @@ required:
     - compatible
     - reg
     - xlnx,pixels-per-clock
-    - xlnx,line-rate
+    - xlnx,sdiline-rate
     - xlnx,bpp
     - sdirx-present
     - sdirx-connected: phandle
