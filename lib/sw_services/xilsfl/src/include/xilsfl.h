@@ -20,6 +20,8 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.0   sb  8/20/24  Initial release
+ * 1.0   sb  9/25/24  Add XSfl_FlashRead API and callback for non blocking transfer
+ *                    in XSfl_CntrlInfo.
  *
  * </pre>
  *
@@ -254,6 +256,8 @@ typedef struct {
 	u32 (*SelectFlash)(u8 ChipSelNum);  /**< Callback reference for chip select */
 	u32 (*Transfer)(u8 Index, XSfl_Msg *SflMsg); /**< Callback reference for interface
 						      * transfer function */
+	u32 (*NonBlockingTransfer)(u8 Index, XSfl_Msg *SflMsg); /**< Callback reference for interface
+								 * non blocking transfer function */
 	u32 (*SetSdrDdr)(u8 Mode, u8 DualByteOpCode);	/**< Callback reference for controller configs */
 	u32 (*TransferDone)(u8 Index);		/**< Callback reference for flash read status */
 	u32 (*DeviceReset)(u8 Type);  /**< Callback reference for Device reset */
@@ -299,6 +303,8 @@ u32 XSfl_FlashReadStart(u8 SflHandler, u32 Address, u32 ByteCount,
 		u8 *ReadBfrPtr, u64 RxAddr64bit);
 u32 XSfl_FlashReadDone(u8 SflHandler);
 u32 XSfl_FlashGetInfo(u8 SflHandler, u8 Option, u32 *DataPtr);
+u32 XSfl_FlashRead(u8 SflHandler, u32 Address, u32 ByteCount,
+                u8 *ReadBfrPtr, u64 RxAddr64bit);
 
 /************************** Variable Definitions *****************************/
 #endif /* XILSFL_H */
