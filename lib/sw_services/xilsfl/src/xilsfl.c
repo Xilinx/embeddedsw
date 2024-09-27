@@ -19,6 +19,8 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.0   sb  8/20/24  Initial release
+ * 1.0   sb  9/25/24  Add check for bytecount in non-blocking read and
+ *                    add support for unaligned byte read
  *
  * </pre>
  *
@@ -70,7 +72,7 @@ u32 XSfl_FlashInit(u8 *SflHandler, XSfl_UserConfig SflUserOptions, u8 Controller
 
 	if(Idx >= XSFL_NUM_INSTANCES){
 #ifdef XSFL_DEBUG
-		xil_printf("Sfl instance index is excedded the max sfl no. of instances\n");
+		xil_printf("Sfl instance index is exceeded the max sfl no. of instances\n");
 #endif
 		return XST_FAILURE;
 	}
@@ -232,8 +234,16 @@ u32 XSfl_FlashReadStart(u8 SflHandler, u32 Address, u32 ByteCount,
 	Xil_AssertNonvoid(SflHandler < XSFL_NUM_INSTANCES);
 	Xil_AssertNonvoid(ReadBfrPtr != NULL);
 
+	/* Check is byte count is word aligned */
+	if((ByteCount % 4) != 0) {
+#ifdef XSFL_DEBUG
+		xil_printf("Byte count is not word aligned\n");
+#endif
+		return XST_FAILURE;
+	}
+
 	XSfl_Interface *SflInstancePtr = &SflInstance.Instance[SflHandler];
-	Status = XSfl_FlashReadProcess(SflInstancePtr,Address,ByteCount,ReadBfrPtr, RxAddr64bit);
+	Status = XSfl_FlashNonBlockingReadProcess(SflInstancePtr,Address,ByteCount,ReadBfrPtr, RxAddr64bit);
 	if (Status != XST_SUCCESS) {
 #ifdef XSFL_DEBUG
 		xil_printf("XSfl_FlashReadProcess Failed\n");
@@ -272,6 +282,41 @@ u32 XSfl_FlashReadDone(u8 SflHandler){
 /*****************************************************************************/
 /**
  *
+ * This function performs read from the flash.
+ *
+ * @param	SflHandler is a index to the Sfl interface component to use.
+ * @param	Address contains the address of the flash that needs to be read.
+ * @param	ByteCount contains the total size to be erased.
+ * @param	ReadBfrPtr is the pointer to the read buffer to which valid received data should be
+ * 			written
+ * @param	RxAddr64bit is of the 64bit address of destination read buffer to which
+ *              valid received data should be written.
+ *
+ * @return	XST_SUCCESS if successful, else error code.
+ *
+ ******************************************************************************/
+u32 XSfl_FlashRead(u8 SflHandler, u32 Address, u32 ByteCount,
+		u8 *ReadBfrPtr, u64 RxAddr64bit){
+	u32 Status;
+
+	/* Validate the input arguments */
+	Xil_AssertNonvoid(SflHandler < XSFL_NUM_INSTANCES);
+	Xil_AssertNonvoid(ReadBfrPtr != NULL);
+
+	XSfl_Interface *SflInstancePtr = &SflInstance.Instance[SflHandler];
+	Status = XSfl_FlashReadProcess(SflInstancePtr,Address,ByteCount,ReadBfrPtr, RxAddr64bit);
+	if (Status != XST_SUCCESS) {
+#ifdef XSFL_DEBUG
+		xil_printf("XSfl_FlashReadProcess Failed\n");
+#endif
+		return XST_FAILURE;
+	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
  * This function writes to the serial nor flash connected to the interface driver.
  *
  * @param	SflHandler is a index to the Sfl interface component to use.
@@ -298,7 +343,7 @@ u32 XSfl_FlashWrite(u8 SflHandler, u32 Address, u32 ByteCount,
 	XSfl_Interface *SflInstancePtr = &SflInstance.Instance[SflHandler];
 	PageSize = SflInstancePtr->SflFlashInfo.PageSize;
 
-	/* Calculate partial bytes if address is not alligned with Page size */
+	/* Calculate partial bytes if address is not aligned with Page size */
 	if((Address % PageSize) != 0 ){
 		PartialBytes = PageSize - (Address % PageSize);
 
@@ -380,7 +425,7 @@ u32 XSfl_FlashErase(u8 SflHandler, u32 Address, u32 ByteCount)
 	/* Check is the Address and byte count is aligned with sector size */
 	if(((Address % SectSize) != 0) || ((ByteCount % SectSize) != 0)) {
 #ifdef XSFL_DEBUG
-		xil_printf(" Addess or ByteCount is not aligned with sector size\n");
+		xil_printf(" Address or ByteCount is not aligned with sector size\n");
 #endif
 		return XST_FAILURE;
 	}

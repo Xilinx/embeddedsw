@@ -19,6 +19,8 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.0   sb  8/20/24 First release
+ * 1.0   sb  9/25/24 Update XSfl_OspiTransfer api to support unaligned bytes read
+ *                   and add support for non-blocking read
  *
  * </pre>
  *
@@ -43,6 +45,7 @@ u32 XSfl_OspiDeviceRest(u8 Type);
 u32 XSfl_OspiSelectFlash(u8 ChipSelNum);
 u32 XSfl_OspiSetSdrDdr(u8 Mode, u8 DualByteOpCode);
 u32 XSfl_OspiTransferDmaDone(u8 Index);
+u32 XSfl_OspiNonBlockingTransfer(u8 Index, XSfl_Msg *SflMsg) ;
 
 /************************** Variable Definitions *****************************/
 u8 Index=0;
@@ -181,11 +184,7 @@ u32 XSfl_OspiTransfer(u8 Index, XSfl_Msg *SflMsg) {
 		FlashMsg.ExtendedOpcode = SflMsg->DualByteOpCode;
 	}
 
-	if (FlashMsg.RxBfrPtr != NULL && FlashMsg.ByteCount > 8 ){
-		Status =XOspiPsv_StartDmaTransfer(&OspiInstance, &FlashMsg);
-	} else {
-		Status = XOspiPsv_PollTransfer(&OspiInstance, &FlashMsg);
-	}
+	Status = XOspiPsv_PollTransfer(&OspiInstance, &FlashMsg);
 
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -194,6 +193,62 @@ u32 XSfl_OspiTransfer(u8 Index, XSfl_Msg *SflMsg) {
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief
+ * Prepares the Flash message for non blocking transfer.
+ *
+ * @param	Index is the XOspiPsv instance index in the instance array.
+ * @param	SflMsg Pointer to the structure containing transfer data.
+ *
+ * @return
+ *		- XST_SUCCESS if successful.
+ *		- XST_FAILURE if fail to set.
+ *
+ ******************************************************************************/
+u32 XSfl_OspiNonBlockingTransfer(u8 Index, XSfl_Msg *SflMsg) {
+
+	/* Validate input parameters */
+	Xil_AssertNonvoid(SflMsg != NULL);
+	(void)Index;
+
+	u32 Status ;
+	static XOspiPsv_Msg FlashMsg;
+
+	FlashMsg.Opcode = SflMsg->Opcode;
+	FlashMsg.TxBfrPtr = SflMsg->TxBfrPtr;
+	FlashMsg.RxBfrPtr = SflMsg->RxBfrPtr;
+	FlashMsg.ByteCount = SflMsg->ByteCount;
+	FlashMsg.Dummy = SflMsg->Dummy;
+	FlashMsg.Addr = SflMsg->Addr;
+	FlashMsg.Addrsize = SflMsg->Addrsize;
+	FlashMsg.Addrvalid = SflMsg->Addrvalid;
+	FlashMsg.Proto = SflMsg->Proto;
+
+        if(SflMsg->Xfer64bit) {
+		FlashMsg.RxAddr64bit = SflMsg->RxAddr64bit;
+                FlashMsg.Xfer64bit = SflMsg->Xfer64bit;
+	}
+
+	if(FlashMsg.RxBfrPtr != NULL){
+		FlashMsg.Dummy = SflMsg->Dummy + OspiInstance.Extra_DummyCycle;
+		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	} else if(FlashMsg.RxBfrPtr == NULL) {
+		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	}
+
+	if (SflMsg->DualByteOpCode){
+		FlashMsg.ExtendedOpcode = SflMsg->DualByteOpCode;
+	}
+
+	Status = XOspiPsv_StartDmaTransfer(&OspiInstance, &FlashMsg);
+
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	return Status;
+}
 /*****************************************************************************/
 /**
  * @brief
@@ -305,6 +360,7 @@ u32 XSfl_OspiInit(XSfl_Interface *Ptr, const XSfl_UserConfig *UserConfig) {
 	}
 
 	Ptr->CntrlInfo.Transfer = XSfl_OspiTransfer;
+	Ptr->CntrlInfo.NonBlockingTransfer = XSfl_OspiNonBlockingTransfer;
 	Ptr->CntrlInfo.SelectFlash = XSfl_OspiSelectFlash;
 	Ptr->CntrlInfo.SetSdrDdr = XSfl_OspiSetSdrDdr;
 	Ptr->CntrlInfo.TransferDone = XSfl_OspiTransferDmaDone;
