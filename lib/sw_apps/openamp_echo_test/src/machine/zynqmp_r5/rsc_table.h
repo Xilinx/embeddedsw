@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * Copyright (c) 2021-2022 Xilinx, Inc. and Contributors. All rights reserved.
- * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -27,10 +27,10 @@ extern "C" {
 
 /* Resource table for the given remote */
 struct remote_resource_table {
-	unsigned int version;
-	unsigned int num;
-	unsigned int reserved[2];
-	unsigned int offset[NO_RESOURCE_ENTRIES];
+	uint32_t version;
+	uint32_t num;
+	uint32_t reserved[2];
+	uint32_t offset[NO_RESOURCE_ENTRIES];
 	/* rpmsg vdev entry */
 	struct fw_rsc_vdev rpmsg_vdev;
 	struct fw_rsc_vdev_vring rpmsg_vring0;
@@ -38,7 +38,7 @@ struct remote_resource_table {
 	struct fw_rsc_trace rsc_trace;
 }__attribute__((packed, aligned(0x100)));
 
-void *get_resource_table (int rsc_id, int *len);
+void *get_resource_table (uint32_t rsc_id, uint32_t *len);
 
 #if defined __cplusplus
 }

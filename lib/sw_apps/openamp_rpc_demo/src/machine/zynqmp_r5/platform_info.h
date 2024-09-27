@@ -103,7 +103,7 @@ struct remoteproc_priv {
 	struct metal_device *kick_dev;
 	struct metal_io_region *kick_io;
 #ifndef RPMSG_NO_IPI
-	unsigned int ipi_chn_mask; /**< IPI channel mask */
+	uint32_t ipi_chn_mask; /**< IPI channel mask */
 	atomic_int ipi_nokick;
 #endif /* !RPMSG_NO_IPI */
 };
@@ -119,7 +119,7 @@ struct remoteproc_priv {
  *
  * return 0 for success or negative value for failure
  */
-int platform_init(int argc, char *argv[], void **platform);
+int32_t platform_init(int32_t argc, char *argv[], void **platform);
 
 /**
  * platform_create_rpmsg_vdev - create rpmsg vdev
@@ -137,8 +137,8 @@ int platform_init(int argc, char *argv[], void **platform);
  * return pointer to the rpmsg virtio device
  */
 struct rpmsg_device *
-platform_create_rpmsg_vdev(void *platform, unsigned int vdev_index,
-			   unsigned int role,
+platform_create_rpmsg_vdev(void *platform, uint32_t vdev_index,
+			   uint32_t role,
 			   void (*rst_cb)(struct virtio_device *vdev),
 			   rpmsg_ns_bind_cb ns_bind_cb);
 
@@ -149,14 +149,14 @@ platform_create_rpmsg_vdev(void *platform, unsigned int vdev_index,
  *
  * return negative value for errors, otherwise 0.
  */
-int platform_poll(void *platform);
+int32_t platform_poll(void *platform);
 
 struct rproc_plat_info {
 	struct rpmsg_device *rpdev;
 	struct remoteproc *rproc;
 };
 
-int platform_poll_for_rpc(void *arg);
+int32_t platform_poll_for_rpc(void *arg);
 
 
 /**
