@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -107,6 +107,17 @@ extern "C" {
 #define PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM	0U
 #define PMF_SHUTDOWN_SUBTYPE_PS_ONLY	1U
 #define PMF_SHUTDOWN_SUBTYPE_SYSTEM	2U
+/**@}*/
+
+/**
+ * @name Feature Check bit mask macros
+ * @{
+ */
+/**
+ * Feature Check bit mask functionality
+ */
+#define BIT_MASK_SUPPORT_FUNC_ID_LEN	64U
+#define BIT_MASK_SUPPORT_BUF_LEN	 2U
 /**@}*/
 
 /** @cond INTERNAL */
