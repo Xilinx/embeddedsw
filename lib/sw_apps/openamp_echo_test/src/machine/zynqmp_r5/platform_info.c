@@ -69,7 +69,7 @@ static struct remoteproc_priv rproc_priv = {
 static struct remoteproc rproc_inst;
 
 /* External functions */
-extern int init_system(void);
+extern int32_t init_system(void);
 extern void cleanup_system(void);
 
 /* processor operations from r5 to a53. It defines
@@ -80,11 +80,11 @@ extern const struct remoteproc_ops zynqmp_r5_a53_proc_ops;
 static struct rpmsg_virtio_shm_pool shpool;
 
 static struct remoteproc *
-platform_create_proc(int proc_index, int rsc_index)
+platform_create_proc(uint32_t proc_index, uint32_t rsc_index)
 {
 	void *rsc_table;
-	int rsc_size;
-	int ret;
+	uint32_t rsc_size;
+	int32_t ret;
 	metal_phys_addr_t pa;
 
 	(void) proc_index;
@@ -123,7 +123,7 @@ platform_create_proc(int proc_index, int rsc_index)
 
 	/* parse resource table to remoteproc */
 	ret = remoteproc_set_rsc_table(&rproc_inst, rsc_table, rsc_size);
-	if (ret) {
+	if (ret != 0) {
 		ML_ERR("Failed to initialize remoteproc\r\n");
 		remoteproc_remove(&rproc_inst);
 		return NULL;
@@ -133,7 +133,7 @@ platform_create_proc(int proc_index, int rsc_index)
 	return &rproc_inst;
 }
 
-int platform_init(int argc, char *argv[], void **platform)
+int32_t platform_init(int32_t argc, char *argv[], void **platform)
 {
 	unsigned long proc_id = 0;
 	unsigned long rsc_id = 0;
@@ -167,8 +167,8 @@ int platform_init(int argc, char *argv[], void **platform)
 }
 
 struct  rpmsg_device *
-platform_create_rpmsg_vdev(void *platform, unsigned int vdev_index,
-			   unsigned int role,
+platform_create_rpmsg_vdev(void *platform, uint32_t vdev_index,
+			   uint32_t role,
 			   void (*rst_cb)(struct virtio_device *vdev),
 			   rpmsg_ns_bind_cb ns_bind_cb)
 {
@@ -177,7 +177,8 @@ platform_create_rpmsg_vdev(void *platform, unsigned int vdev_index,
 	struct virtio_device *vdev;
 	void *shbuf;
 	struct metal_io_region *shbuf_io;
-	int ret;
+	int32_t ret;
+	struct  rpmsg_device *ret_rpmsg_dev=NULL;
 
 	rpmsg_vdev = metal_allocate_memory(sizeof(*rpmsg_vdev));
 	if (!rpmsg_vdev)
@@ -206,11 +207,18 @@ platform_create_rpmsg_vdev(void *platform, unsigned int vdev_index,
 	ret =  rpmsg_init_vdev(rpmsg_vdev, vdev, ns_bind_cb,
 			       shbuf_io,
 			       &shpool);
-	if (ret) {
+	if (ret != 0) {
 		ML_ERR("failed rpmsg_init_vdev\r\n");
 		goto err2;
 	}
-	return rpmsg_virtio_get_rpmsg_device(rpmsg_vdev);
+
+	ret_rpmsg_dev = rpmsg_virtio_get_rpmsg_device(rpmsg_vdev);
+
+	if (rpmsg_vdev != NULL){
+		metal_free_memory(rpmsg_vdev);
+	}
+
+	return ret_rpmsg_dev;
 err2:
 	remoteproc_remove_virtio(rproc, vdev);
 err1:
@@ -218,14 +226,14 @@ err1:
 	return NULL;
 }
 
-int platform_poll_on_vdev_reset(void *arg)
+int32_t platform_poll_on_vdev_reset(void *arg)
 {
 	struct rproc_plat_info *data = arg;
 	struct rpmsg_device *rpdev = data->rpdev;
 	struct rpmsg_virtio_device *rvdev;
 	struct remoteproc *rproc = data->rproc;
 	struct remoteproc_priv *prproc;
-	unsigned int flags;
+	uint32_t flags;
 
 	if (!rproc || !rpdev)
 		return -EINVAL;
@@ -259,12 +267,12 @@ int platform_poll_on_vdev_reset(void *arg)
 	return 0;
 }
 
-int platform_poll(void *priv)
+int32_t platform_poll(void *priv)
 {
 	struct remoteproc *rproc = priv;
 	struct remoteproc_priv *prproc;
-	unsigned int flags;
-	int ret;
+	uint32_t flags;
+	int32_t ret;
 
 	prproc = rproc->priv;
 	while(1) {
@@ -272,7 +280,7 @@ int platform_poll(void *priv)
 		if (metal_io_read32(prproc->kick_io, 0)) {
 			ret = remoteproc_get_notification(rproc,
 							  RSC_NOTIFY_ID_ANY);
-			if (ret)
+			if (ret != 0)
 				return ret;
 			break;
 		}
@@ -283,7 +291,7 @@ int platform_poll(void *priv)
 			metal_irq_restore_enable(flags);
 			ret = remoteproc_get_notification(rproc,
 							  RSC_NOTIFY_ID_ANY);
-			if (ret)
+			if (ret != 0)
 				return ret;
 			break;
 		}

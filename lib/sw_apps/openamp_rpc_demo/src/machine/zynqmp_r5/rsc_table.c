@@ -2,7 +2,7 @@
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
  * Copyright (c) 2021-2022 Xilinx, Inc. and Contributors. All rights reserved.
- * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -65,20 +65,20 @@ struct remote_resource_table __resource resources = {
 	/* trace buffer for logs, accessible via debugfs */
 	.rsc_trace = {
 		.type =		RSC_TRACE,
-		.da =		(unsigned int)rsc_trace_buf,
+		.da =		(uint32_t)rsc_trace_buf,
 		.len =		sizeof(rsc_trace_buf),
 		.reserved =	0,
 		.name =		"r5_trace",
 	},
 };
 
-char *get_rsc_trace_info(unsigned int *len)
+char *get_rsc_trace_info(uint32_t *len)
 {
 	*len = sizeof(rsc_trace_buf);
 	return rsc_trace_buf;
 }
 
-void *get_resource_table (int rsc_id, int *len)
+void *get_resource_table (uint32_t rsc_id, uint32_t *len)
 {
 	(void) rsc_id;
 	*len = sizeof(resources);

@@ -20,25 +20,28 @@
 #define	MAX_SIZE		6
 #define NUM_MATRIX		2
 
-#define SHUTDOWN_MSG	0xEF56A55A
+#define SHUTDOWN_MSG	0xEF56A55AU
 
 #define LPRINTF(fmt, ...) xil_printf("%s():%u " fmt, __func__, __LINE__, ##__VA_ARGS__)
 #define LPERROR(fmt, ...) LPRINTF("ERROR: " fmt, ##__VA_ARGS__)
 
 typedef struct _matrix {
-	unsigned int size;
-	unsigned int elements[MAX_SIZE][MAX_SIZE];
+	uint32_t size;
+	uint32_t elements[MAX_SIZE][MAX_SIZE];
 } matrix;
 
 /* Local variables */
 static struct rpmsg_endpoint lept;
+
+
+int32_t app(struct rpmsg_device *rdev, void *priv);
 
 /*-----------------------------------------------------------------------------*
  *  Calculate the Matrix
  *-----------------------------------------------------------------------------*/
 static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r)
 {
-	unsigned int i, j, k;
+	uint32_t i, j, k;
 
 	memset(r, 0x0, sizeof(matrix));
 	r->size = m->size;
@@ -56,7 +59,7 @@ static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r)
 /*-----------------------------------------------------------------------------*
  *  RPMSG callbacks setup by remoteproc_resource_init()
  *-----------------------------------------------------------------------------*/
-static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
+static int32_t rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 			     uint32_t src, void *priv)
 {
 	matrix matrix_array[NUM_MATRIX];
@@ -75,7 +78,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 	Matrix_Multiply(&matrix_array[0], &matrix_array[1], &matrix_result);
 
 	/* Send the result of matrix multiplication back to host. */
-	if (rpmsg_send(ept, &matrix_result, sizeof(matrix)) < 0) {
+	if (rpmsg_send(ept, &matrix_result, (int32_t)sizeof(matrix)) < 0) {
 		ML_ERR("rpmsg_send failed\r\n");
 	}
 	return RPMSG_SUCCESS;
@@ -90,9 +93,9 @@ static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 /*-----------------------------------------------------------------------------*
  *  Application
  *-----------------------------------------------------------------------------*/
-int app(struct rpmsg_device *rdev, void *priv)
+int32_t app(struct rpmsg_device *rdev, void *priv)
 {
-	int ret;
+	int32_t ret;
 	struct rproc_plat_info arg;
 
 	arg.rpdev = rdev;
@@ -102,7 +105,7 @@ int app(struct rpmsg_device *rdev, void *priv)
 			       RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
 			       rpmsg_endpoint_cb,
 			       rpmsg_service_unbind);
-	if (ret) {
+	if (ret != 0) {
 		ML_ERR("Failed to create endpoint.\r\n");
 		return -1;
 	}
@@ -116,16 +119,16 @@ int app(struct rpmsg_device *rdev, void *priv)
 /*-----------------------------------------------------------------------------*
  *  Application entry point
  *-----------------------------------------------------------------------------*/
-int main(int argc, char *argv[])
+int32_t main(int argc, char *argv[])
 {
-	void *platform;
-	struct rpmsg_device *rpdev;
-	int ret;
+	void *platform = NULL;
+	struct rpmsg_device *rpdev = NULL;
+	int32_t ret;
 
 	LPRINTF("Starting application...\r\n");
 	/* Initialize platform */
 	ret = platform_init(argc, argv, &platform);
-	if (ret) {
+	if (ret != 0) {
 		LPERROR("Failed to initialize platform.\r\n");
 		ML_ERR("RPU reboot is required to recover\r\n");
 		platform_cleanup(platform);
@@ -146,7 +149,7 @@ int main(int argc, char *argv[])
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
 						   VIRTIO_DEV_DEVICE,
 						   NULL, NULL);
-		if (!rpdev) {
+		if (rpdev == NULL) {
 			ML_ERR("Failed to create rpmsg virtio device.\r\n");
 			ML_ERR("RPU reboot is required to recover\r\n");
 			platform_cleanup(platform);

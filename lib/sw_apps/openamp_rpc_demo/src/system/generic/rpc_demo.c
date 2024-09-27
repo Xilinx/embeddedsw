@@ -30,8 +30,9 @@
 #define REDEF_O_ACCMODE 0000003
 
 #define LPRINTF(format, ...) xil_printf(format, ##__VA_ARGS__)
-//#define LPRINTF(format, ...)
 #define LPERROR(format, ...) LPRINTF("ERROR: " format, ##__VA_ARGS__)
+
+int32_t app(struct rpmsg_device *rdev, void *priv);
 
 static void rpmsg_rpc_shutdown(struct rpmsg_rpc_data *rpc)
 {
@@ -42,18 +43,18 @@ static void rpmsg_rpc_shutdown(struct rpmsg_rpc_data *rpc)
 /*-----------------------------------------------------------------------------*
  *  Application specific
  *-----------------------------------------------------------------------------*/
-int app(struct rpmsg_device *rdev, void *priv)
+int32_t app(struct rpmsg_device *rdev, void *priv)
 {
 	struct rpmsg_rpc_data rpc;
 	struct rpmsg_rpc_syscall rpccall;
-	int fd, bytes_written, bytes_read;
+	int32_t fd, bytes_written, bytes_read;
 	char fname[] = "remote.file";
 	char wbuff[50];
 	char rbuff[1024];
 	char ubuff[50];
 	float fdata;
-	int idata;
-	int ret;
+	int32_t idata;
+	int32_t ret;
 
 	struct rproc_plat_info arg;
 	arg.rpdev = rdev;
@@ -66,7 +67,7 @@ int app(struct rpmsg_device *rdev, void *priv)
 			     &arg, platform_poll_for_rpc,
 			     rpmsg_rpc_shutdown);
 	rpmsg_set_default_rpc(&rpc);
-	if (ret) {
+	if (ret != 0) {
 		LPRINTF("Failed to initialize rpmsg rpc\r\n");
 		return -1;
 	}
@@ -108,20 +109,20 @@ int app(struct rpmsg_device *rdev, void *priv)
 		printf("\nRemote>Scanning user input from host..\r\n");
 		printf("\nRemote>Enter name\r\n");
 		ret = scanf("%s", ubuff);
-		if (ret) {
+		if (ret != 0) {
 			printf("\nRemote>Enter age\r\n");
 			ret = scanf("%d", &idata);
-			if (ret) {
+			if (ret != 0) {
 				printf("\nRemote>Enter value for pi\r\n");
 				ret = scanf("%f", &fdata);
-				if (ret) {
+				if (ret != 0) {
 					printf("\nRemote>User name = '%s'\r\n", ubuff);
 					printf("\nRemote>User age = '%d'\r\n", idata);
 					printf("\nRemote>User entered value of pi = '%f'\r\n", fdata);
 				}
 			}
 		}
-		if (!ret) {
+		if (ret == 0) {
 			scanf("%s", ubuff);
 			printf("Remote> Invalid value. Starting again....");
 		} else {
@@ -149,16 +150,16 @@ int app(struct rpmsg_device *rdev, void *priv)
 /*-----------------------------------------------------------------------------*
  *  Application entry point
  *-----------------------------------------------------------------------------*/
-int main(int argc, char *argv[])
+int32_t main(int32_t argc, char *argv[])
 {
 	void *platform;
 	struct rpmsg_device *rpdev;
-	int ret;
+	int32_t ret;
 
 	LPRINTF("Starting application...\r\n");
 	/* Initialize platform */
 	ret = platform_init(0, NULL, &platform);
-	if (ret) {
+	if (ret != 0) {
 		LPERROR("Failed to initialize platform.\r\n");
 		ML_ERR("RPU reboot is required to recover\r\n");
 		platform_cleanup(platform);
