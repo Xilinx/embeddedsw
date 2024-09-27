@@ -154,7 +154,7 @@ extern "C" {
 /**
  * @name eFuse Controller PGM_ADDR register
  */
-/**< eFuse Addres Shifts */
+/**< eFuse Address Shifts */
 #define XNVM_EFUSE_ADDR_COLUMN_SHIFT			(0U)
 #define XNVM_EFUSE_ADDR_ROW_SHIFT			(5U)
 #define XNVM_EFUSE_ADDR_PAGE_SHIFT			(13U)
@@ -434,8 +434,10 @@ extern "C" {
 #define XNVM_EFUSE_USER_KEY_NUM_OF_ROWS			(8U)
 #ifndef VERSAL_NET
 #define XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS			(8U)
+#define XNVM_EFUSE_BOOT_ENV_CTRL_NUM_OF_ROWS	(1U)
 #else
-#define XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS                 (32U)
+#define XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS         (32U)
+#define XNVM_EFUSE_BOOT_ENV_CTRL_NUM_OF_ROWS    (4U)
 #endif
 #define XNVM_EFUSE_DEC_EFUSE_ONLY_NUM_OF_ROWS		(1U)
 #define XNVM_EFUSE_SECURITY_MISC_1_NUM_OF_ROWS		(1U)
@@ -445,7 +447,6 @@ extern "C" {
 #define XNVM_EFUSE_PUF_AUX_NUM_OF_ROWS			(1U)
 #define XNVM_EFUSE_IV_NUM_OF_ROWS			(3U)
 #define XNVM_EFUSE_DNA_NUM_OF_ROWS			(4U)
-#define XNVM_EFUSE_BOOT_ENV_CTRL_NUM_OF_ROWS		(4U)
 /** @} */
 
 #ifdef __cplusplus
