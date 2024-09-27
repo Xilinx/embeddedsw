@@ -625,6 +625,8 @@ unsigned get_IEEE_phy_speed(XAxiEthernet *xaxiemacp)
 	if (isphy_pcspma(xaxiemacp, phy_addr)) {
 		return get_phy_negotiated_speed(xaxiemacp, phy_addr);
 	}
+
+	return 0;
 }
 
 unsigned configure_IEEE_phy_speed(XAxiEthernet *xaxiemacp, unsigned speed)
