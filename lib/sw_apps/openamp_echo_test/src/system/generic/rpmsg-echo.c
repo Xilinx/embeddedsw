@@ -68,23 +68,26 @@ original name of "rpmsg-openamp-demo-channel".
 
 static struct rpmsg_endpoint lept[ECHO_NUM_EPTS];
 
+int32_t app(struct rpmsg_device *rdev, void *priv);
+
+
 /*-----------------------------------------------------------------------------*
  *  RPMSG endpoint callbacks
  *-----------------------------------------------------------------------------*/
-static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
+static int32_t rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 			     uint32_t src, void *priv)
 {
 	(void)priv;
 	(void)src;
 
 	/* On reception of a shutdown we signal the application to terminate */
-	if ((*(unsigned int *)data) == SHUTDOWN_MSG) {
+	if ((*(uint32_t *)data) == SHUTDOWN_MSG) {
 		ML_INFO("shutdown message is received.\r\n");
 		return RPMSG_SUCCESS;
 	}
 
 	/* Send data back to host */
-	if (rpmsg_send(ept, data, len) < 0) {
+	if (rpmsg_send(ept, data, (int32_t)len) < 0) {
 		ML_ERR("rpmsg_send failed\r\n");
 	}
 	return RPMSG_SUCCESS;
@@ -99,9 +102,9 @@ static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 /*-----------------------------------------------------------------------------*
  *  Application
  *-----------------------------------------------------------------------------*/
-int app(struct rpmsg_device *rdev, void *priv)
+int32_t app(struct rpmsg_device *rdev, void *priv)
 {
-	int ret, i;
+	int32_t ret, i;
 	struct rproc_plat_info arg;
 	char ept_name[EPT_NAME_LEN] = RPMSG_SERVICE_NAME;
 
@@ -112,16 +115,16 @@ int app(struct rpmsg_device *rdev, void *priv)
 	ML_INFO("Try to create rpmsg endpoint.\r\n");
 	for (i = 0; i < ECHO_NUM_EPTS; i++) {
 		if (i != 0)
-			sprintf(ept_name, "%s%d", RPMSG_SERVICE_NAME, i);
+			snprintf(ept_name, EPT_NAME_LEN, "%s%d", RPMSG_SERVICE_NAME, i);
 
 		/* Initialize RPMSG framework */
 		ML_INFO("Try to create rpmsg endpoint %s.\r\n", ept_name);
 
 		ret = rpmsg_create_ept(&lept[i], rdev, ept_name,
 				       RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
-				       rpmsg_endpoint_cb,
-				       rpmsg_service_unbind);
-		if (ret) {
+				       &rpmsg_endpoint_cb,
+				       &rpmsg_service_unbind);
+		if (ret != 0) {
 			ML_ERR("Failed to create endpoint.\r\n");
 			return -1;
 		}
@@ -140,9 +143,9 @@ int app(struct rpmsg_device *rdev, void *priv)
  *-----------------------------------------------------------------------------*/
 int main(int argc, char *argv[])
 {
-	void *platform;
+	void *platform = NULL;
 	struct rpmsg_device *rpdev;
-	int ret;
+	int32_t ret;
 
 	/* can't use ML_INFO, metal_log setup is in init_system */
 	LPRINTF("openamp lib version: %s (", openamp_version());
@@ -158,7 +161,7 @@ int main(int argc, char *argv[])
 	LPRINTF("Starting application...\r\n");
 	/* Initialize platform */
 	ret = platform_init(argc, argv, &platform);
-	if (ret) {
+	if (ret != 0) {
 		LPERROR("Failed to initialize platform.\r\n");
 		ML_ERR("RPU reboot is required to recover\r\n");
 		platform_cleanup(platform);
