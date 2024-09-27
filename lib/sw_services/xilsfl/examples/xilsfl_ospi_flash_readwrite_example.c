@@ -27,6 +27,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------------------
  * 1.0   sb  8/20/24   Initial release
+ * 1.0   sb  9/25/24   Use XSfl_FlashRead to read unaligned bytes.
  *
  *</pre>
  ******************************************************************************/
@@ -55,7 +56,7 @@
 
 /*
  * Flash address to which data is to be written.
- * This test address should be aligned with sector offest address.
+ * This test address should be aligned with sector offset address.
  */
 #define TEST_ADDRESS		0x00
 
@@ -187,6 +188,30 @@ int SflReadWriteExample(void) {
 		ReadBuffer[Count] = 0;
 	}
 
+	Status = XSfl_FlashRead(SflHandler, TEST_ADDRESS, MaxData, ReadBuffer, RxAddr64bit);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Setup a pointer to the start of the data that was read into the read
+	 * buffer and verify the data read is the data that was written
+	 */
+	for (Count = 0; Count < MaxData;
+			Count++) {
+		if (ReadBuffer[Count] != WriteBuffer[Count]) {
+			return XST_FAILURE;
+		}
+	}
+
+        /* Clear the read buffer */
+	for (Count = 0; Count < ReadBfrSize; Count++) {
+		ReadBuffer[Count] = 0;
+	}
+
+	/*
+	 * Non-Blocking read start and data size should be word aligned.
+	 */
 	Status = XSfl_FlashReadStart(SflHandler, TEST_ADDRESS, MaxData, ReadBuffer, RxAddr64bit);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
