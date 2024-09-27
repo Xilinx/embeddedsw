@@ -102,7 +102,7 @@
  * 1.10 sk  08/20/19 Fixed issues in poll timeout feature.
  * 1.10 akm 08/22/19 Set recommended tap delay values for 37.5MHZ, 100MHZ and
  *		     150MHZ frequencies in Versal.
- * 1.10 akm 09/05/19 Added Multi Die Erase and Muti Die Read support.
+ * 1.10 akm 09/05/19 Added Multi Die Erase and Multi Die Read support.
  * 1.11 akm 11/07/19 Removed LQSPI register access in Versal.
  * 1.11	akm 11/15/19 Fixed Coverity deadcode warning in
  * 				XQspipsu_Calculate_Tapdelay().
@@ -123,11 +123,12 @@
  * 1.17 akm 12/16/22 Add timeout in QSPIPSU driver operation.
  * 1.17 akm 01/02/23 Use Xil_WaitForEvent() API for register bit polling.
  * 1.18 sb  06/07/23 Added support for system device-tree flow.
- * 1.18 sb  06/19/23 Add memory barrier instruction and convert IsBusy varible
+ * 1.18 sb  06/19/23 Add memory barrier instruction and convert IsBusy variable
  *                   to volatile.
  * 1.18 ht  07/18/23 Fixed GCC warnings.
  * 1.18 sb  08/01/23 Added support for Feed back clock
  * 1.19 sb  01/12/24 Added support for baud rate divisior
+ * 1.20 ht  09/27/24 Fix IAR warning.
  *
  * </pre>
  *
@@ -481,7 +482,7 @@ static inline void XQspiPsu_GenFifoEntryCSDeAssert(const XQspiPsu *InstancePtr)
 static inline void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 				     u32 ByteCount)
 {
-	(const void) CallBackRef;
+	(void) CallBackRef;
 	(void) StatusEvent;
 	(void) ByteCount;
 
