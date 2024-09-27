@@ -483,6 +483,8 @@ void eth_link_detect(struct netif *netif)
 	axieth_link_status(netif, xaxiemac, xaxiemacp);
 #endif
 			break;
+		default:
+			break;
 	}
 }
 

@@ -505,7 +505,9 @@ s32_t process_sent_bds(XAxiDma_BdRing *txring)
 {
 	XAxiDma_Bd *txbdset, *txbd;
 	int n_bds, i;
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
 	u32_t bdindex;
+#endif
 
 	/* obtain a list of processed BD's */
 	n_bds = XAxiDma_BdRingFromHw(txring, XAXIDMA_ALL_BDS, &txbdset);
@@ -514,7 +516,9 @@ s32_t process_sent_bds(XAxiDma_BdRing *txring)
 	}
 	/* free the pbuf associated with each BD */
 	for (i = 0, txbd = txbdset; i < n_bds; i++) {
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
 		bdindex = XAxiDma_BD_TO_INDEX(txring, txbd);
+#endif
 		struct pbuf *p = (struct pbuf *)(UINTPTR)XAxiDma_BdGetId(txbd);
 		pbuf_free(p);
 #if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
@@ -539,7 +543,9 @@ XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p)
 	XStatus status;
 	XAxiDma_BdRing *txring;
 	u32_t max_frame_size;
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
 	u32_t bdindex = 0;
+#endif
 
 #ifdef USE_JUMBO_FRAMES
 	max_frame_size = XAE_MAX_JUMBO_FRAME_SIZE - 18;
@@ -560,7 +566,9 @@ XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p)
 	}
 
 	for(q = p, txbd = txbdset; q != NULL; q = q->next) {
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
 		bdindex = XAxiDma_BD_TO_INDEX(txring, txbd);
+#endif
 		/* Send the data from the pbuf to the interface, one pbuf at a
 		 * time. The size of the data in each pbuf is kept in the ->len
 		 * variable.
@@ -657,7 +665,9 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	struct pbuf *p;
 	XStatus status;
 	u32_t i;
+#if !defined(__MICROBLAZE__) && !defined(__riscv__)
 	u32_t bd_space_index = 0;
+#endif
 	UINTPTR baseaddr;
 
 	xaxiemacif_s *xaxiemacif = (xaxiemacif_s *)(xemac->state);
