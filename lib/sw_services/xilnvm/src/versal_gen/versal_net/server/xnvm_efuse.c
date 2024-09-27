@@ -35,6 +35,7 @@
 * 3.3	kpt  02/01/2024 XNvm_EfuseWriteRoSwapEn only when RoSwap is non-zero
 *	vss  04/01/2024 Fixed MISRA-C 12.1 violation and EXPRESSION_WITH_MAGIC_NUMBERS coverity warning
 * 3.4   kal  05/07/2024 Fixed issue in all DME keys programming
+*		vss  07/26/2024 Corrected offchipids to be programmed
 *
 * </pre>
 *
@@ -734,8 +735,7 @@ int XNvm_EfuseWriteOffChipRevokeID(u32 EnvDisFlag, u32 OffchipIdNum)
 	 * Validate input parameters.
 	 * Return XNVM_EFUSE_ERR_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((OffchipIdNum == 0U) ||
-		(OffchipIdNum > XNVM_MAX_REVOKE_ID_FUSES)) {
+	if (OffchipIdNum > (XNVM_MAX_REVOKE_ID_FUSES - 1U)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
@@ -763,8 +763,8 @@ int XNvm_EfuseWriteOffChipRevokeID(u32 EnvDisFlag, u32 OffchipIdNum)
 	}
 
 	OffchipIdRow = XNVM_EFUSE_OFFCHIP_REVOKE_ID_START_ROW +
-			((OffchipIdNum - 1U)/ XNVM_EFUSE_MAX_BITS_IN_ROW);
-	OffchipIdCol = ((OffchipIdNum - 1U) % XNVM_EFUSE_MAX_BITS_IN_ROW);
+			(OffchipIdNum / XNVM_EFUSE_MAX_BITS_IN_ROW);
+	OffchipIdCol = (OffchipIdNum  % XNVM_EFUSE_MAX_BITS_IN_ROW);
 
 	Status = XST_FAILURE;
 	/**
