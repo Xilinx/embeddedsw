@@ -36,13 +36,66 @@ typedef struct {
 /***************************** Type Definitions *****************************/
 
 /****************** Macros (Inline Functions) Definitions *******************/
+#ifdef QDMA_PCIE_BRIDGE
+#define BDF_ENTRY_ADDR_LO              0x2420
+#define BDF_ENTRY_ADDR_HI              0x2424
+#define BDF_ENTRY_PASID                        0x2428
+#define BDF_ENTRY_FUNCTION             0x242C
+#define BDF_ENTRY_WINDOW               0x2430
+#define BDF_ENTRY_REG                  0x2434
+
+#define BDF_NUM_WINDOWS                        8
+#define BDF_ADDR_BOUNDARY              4096
+#define BDF_TABLE_ENTRY_OFF            0x20
+#define BDF_ACCESS_PERM                        0xC0000000
 
 /*************************** Variable Definitions ***************************/
 
 /*************************** Function Prototypes ****************************/
 
 
+/**
+* Additional programming for QDMA bridges for BAR access
+*/
+void XDmaPcie_QdmaAddPgm(XDmaPcie *InstancePtr)
+{
+       u32 i, Size;
 
+       Size = InstancePtr->Config.NpMemMaxAddr - InstancePtr->Config.NpMemBaseAddr;
+
+       for (i = 0; i < BDF_NUM_WINDOWS; i++) {
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_ADDR_LO + (i * BDF_TABLE_ENTRY_OFF),
+                         InstancePtr->Config.NpMemBaseAddr + (i * (Size/BDF_NUM_WINDOWS)));
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_ADDR_HI + (i * BDF_TABLE_ENTRY_OFF), 0x0);
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_ADDR_HI + (i * BDF_TABLE_ENTRY_OFF), 0x0);
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_PASID + (i * BDF_TABLE_ENTRY_OFF), 0x0);
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_FUNCTION + (i * BDF_TABLE_ENTRY_OFF), 0x0);
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_WINDOW + (i * BDF_TABLE_ENTRY_OFF),
+                         BDF_ACCESS_PERM + (Size/(BDF_NUM_WINDOWS * BDF_ADDR_BOUNDARY)));
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_REG + (i * BDF_TABLE_ENTRY_OFF), 0x0);
+       }
+
+       if (InstancePtr->Config.PMemBaseAddr == 0x0) {
+               return;
+       }
+
+       Size = InstancePtr->Config.PMemMaxAddr - InstancePtr->Config.PMemBaseAddr;
+
+       for (i = 0; i < BDF_NUM_WINDOWS; i++) {
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_ADDR_LO + (i * BDF_TABLE_ENTRY_OFF),
+                         InstancePtr->Config.PMemBaseAddr + (i * (Size/BDF_NUM_WINDOWS)));
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_ADDR_HI + (i * BDF_TABLE_ENTRY_OFF),
+                         ((InstancePtr->Config.PMemBaseAddr >> 16) >> 16));
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_ADDR_HI + (i * BDF_TABLE_ENTRY_OFF),
+                         ((InstancePtr->Config.PMemBaseAddr >> 16) >> 16));
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_PASID + (i * BDF_TABLE_ENTRY_OFF), 0x0);
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_FUNCTION + (i * BDF_TABLE_ENTRY_OFF), 0x0);
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_WINDOW + (i * BDF_TABLE_ENTRY_OFF),
+                         BDF_ACCESS_PERM + (Size/(BDF_NUM_WINDOWS * BDF_ADDR_BOUNDARY)));
+               Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_REG + (i * BDF_TABLE_ENTRY_OFF), 0x0);
+       }
+}
+#endif
 /****************************************************************************/
 /**
 * Initialize the XDmaPcie instance provided by the caller based on the
@@ -82,6 +135,16 @@ int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
+
+#if defined(QDMA_PCIE_BRIDGE)
+	#if defined(versal)
+		InstancePtr->Config.BaseAddress = InstancePtr->Config.Ecam;
+		InstancePtr->Config.Ecam = 0x80000000;
+        #else
+		InstancePtr->Config.Ecam = 0xA0000000;
+        #endif
+		XDmaPcie_QdmaAddPgm(InstancePtr);
+#endif
 
 #if defined(SDT) && defined(versal) && !defined(QDMA_PCIE_BRIDGE) && !defined(XDMA_PCIE_BRIDGE)
 	InstancePtr->Config.BaseAddress= InstancePtr->Config.Ecam;
@@ -525,7 +588,7 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 		if (Size[Bar] & XDMAPCIE_CFG_BAR_MEM_TYPE_MASK) {
 			/* Device required IO address space */
 			XDmaPcie_Dbg(
-				"bus: %02X, device: %02X, function: %02X: BAR %dX "
+				"bus: %02X, device: %02X, function: %02X: BAR %d"
 				"required IO space; it is unassigned\r\n",
 				Bus, Device, Function, Bar);
 			continue;
