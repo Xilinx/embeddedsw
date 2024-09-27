@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -380,7 +380,7 @@ static XStatus XPm_SendFeatureCheckRequest(const XPm_ApiId featureId,
 			status = pm_ipi_buff_read32(primary_master, version,
 						    NULL, NULL);
 		} else {
-			if (2U > len) {
+			if (BIT_MASK_SUPPORT_BUF_LEN > len) {
 				status = XST_INVALID_PARAM;
 				goto done;
 			}
@@ -1003,11 +1003,11 @@ XStatus XPm_IsFunctionSupported(const XPm_ApiId apiId, const u32 functionId)
 
 	XStatus status = (XStatus)XST_FAILURE;
 	u32 version = 0U;
-	u32 bitMask[2] = {0U};
+	u32 bitMask[BIT_MASK_SUPPORT_BUF_LEN] = {0U};
 
 	status = XPm_FeatureCheck(PM_FEATURE_CHECK, &version);
 	if ((XST_SUCCESS != status) || (PM_API_VERSION_2 != version) ||
-	    (64U <= functionId)) {
+	    (BIT_MASK_SUPPORT_FUNC_ID_LEN  <= functionId)) {
 		status = (XStatus)XST_FAILURE;
 		goto done;
 	}
