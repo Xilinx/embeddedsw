@@ -15,11 +15,12 @@ properties:
       - items:
         - enum:
           - xlnx,v-smpte-uhdsdi-tx-ss-2.0
+          - xlnx,sdi-tx
   reg:
     description: Physical base addreiss and size of the controller register map
   xlnx,pixels-per-clock:
     description: Number of Pixels Per Clock processed by Subsystem
-  xlnx,line-rate:
+  xlnx,sdiline-rate:
     description: SDI supported line rate like 3G/6G/12G..etc
   xlnx,Isstd_352:
     description: SDI standarad st_352 or not
@@ -38,7 +39,7 @@ required:
     - compatible
     - reg
     - xlnx,pixels-per-clock
-    - xlnx,line-rate
+    - xlnx,sdiline-rate
     - xlnx,Isstd_352
     - xlnx,bpp
     - sditx-present
