@@ -263,10 +263,15 @@ XStatus XPm_IsAddressInSubsystem(const u32 SubsystemId, u64 AddressofSubsystem,
 
 	Reqm = Subsystem->Requirements;
 
+	/* Iterate over all devices for particular subsystem */
 	while (NULL != Reqm) {
 		DeviceId = Reqm->Device->Node.Id;
 		SubClass = NODESUBCLASS(DeviceId);
 		Type = NODETYPE(DeviceId);
+		/*
+		 * Validate the address to confirm its inclusion within the
+		 * memory region devices.
+		 */
 		if ((u32)XPM_NODESUBCL_DEV_MEM_REGN == SubClass) {
 			MemRegnDevice  = (XPm_MemRegnDevice *)Reqm->Device;
 			StartAddress = MemRegnDevice->AddrRegion.Address;
@@ -274,6 +279,11 @@ XStatus XPm_IsAddressInSubsystem(const u32 SubsystemId, u64 AddressofSubsystem,
 				     MemRegnDevice->AddrRegion.Size;
 			if ((AddressofSubsystem >= StartAddress) &&
 				(AddressofSubsystem < EndAddress)) {
+				/*
+				 * Iterate through all DDRMC nodes and verify
+				 * whether the specified address falls within
+				 * any of their associated memory regions.
+				 */
 				for (u32 i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN;
 				     i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
 #ifdef XPM_NODEIDX_DEV_DDRMC_MAX_INT_1
@@ -292,6 +302,11 @@ XStatus XPm_IsAddressInSubsystem(const u32 SubsystemId, u64 AddressofSubsystem,
 								MCDev->Region[Cnt].Size;
 						if ((AddressofSubsystem >= StartAddress) &&
 						    (AddressofSubsystem < EndAddress)) {
+							/*
+							 * the memory controller
+							 * should be in running
+							 * state
+							 */
 							if ((u8)XPM_DEVSTATE_RUNNING !=
 							    MCDev->Device.Node.State) {
 								*IsValidAddress = 0U;
@@ -310,6 +325,10 @@ XStatus XPm_IsAddressInSubsystem(const u32 SubsystemId, u64 AddressofSubsystem,
 				Status = XST_SUCCESS;
 				goto done;
 			}
+		/*
+		 * Validate the address to confirm its inclusion within the
+		 * OCM devices.
+		 */
 		} else if (((u32)XPM_NODESUBCL_DEV_MEM == SubClass) &&
 			   ((u32)XPM_NODETYPE_DEV_OCM == Type)) {
 				MemDevice  = (XPm_MemDevice *)Reqm->Device;
@@ -317,6 +336,10 @@ XStatus XPm_IsAddressInSubsystem(const u32 SubsystemId, u64 AddressofSubsystem,
 				EndAddress = (u64)MemDevice->EndAddress;
 				if ((AddressofSubsystem >= StartAddress) &&
 					(AddressofSubsystem < EndAddress)) {
+					/*
+					 * The memory controller should be in
+					 * running state.
+					 */
 					if ((u8)XPM_DEVSTATE_RUNNING ==
 						MemDevice->Device.Node.State) {
 						*IsValidAddress = 1U;
@@ -362,6 +385,7 @@ XStatus XPm_GetAddrRegnForSubsystem(const u32 SubsystemId, XPm_AddrRegion *AddrR
 
 	Reqm = Subsystem->Requirements;
 
+	/* Iterate over all devices for particular subsystem */
 	while (NULL != Reqm) {
 		DeviceId = Reqm->Device->Node.Id;
 		SubClass = NODESUBCLASS(DeviceId);
