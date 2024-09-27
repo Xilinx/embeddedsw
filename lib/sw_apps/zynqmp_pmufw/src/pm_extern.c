@@ -1,6 +1,7 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
+ * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
  */
 
 #include "xpfw_config.h"
@@ -181,7 +182,6 @@ s32 PmExternWakeMasters(void)
 		status = PmMasterWake(master);
 		if (XST_SUCCESS != status) {
 			totalStatus = XST_FAILURE;
-			continue;
 		}
 	}
 
