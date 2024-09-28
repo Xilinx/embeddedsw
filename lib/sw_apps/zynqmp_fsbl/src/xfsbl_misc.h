@@ -20,6 +20,8 @@
 * 1.00  kc   10/21/13 Initial release
 * 2.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
 * 2.1   pre  29/12/23 XFsbl_PollTimeout function is removed
+* 6.3   ng   09/25/24 Return device ID as a number instead of pointer to string
+*                     in read-only memory region
 *
 * </pre>
 *
@@ -62,7 +64,7 @@ u32 XFsbl_GetDrvNumSD(u32 DeviceFlags);
 u32 XFsbl_PowerUpIsland(u32 PwrIslandMask);
 u32 XFsbl_IsolationRestore(u32 IsolationMask);
 void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib);
-const char *XFsbl_GetSiliconIdName(void);
+s32 XFsbl_GetSiliconIdName(void);
 const char *XFsbl_GetProcEng(void);
 u32 XFsbl_CheckSupportedCpu(u32 CpuId);
 u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u32 Size);

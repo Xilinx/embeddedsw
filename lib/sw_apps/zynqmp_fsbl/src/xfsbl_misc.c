@@ -22,6 +22,8 @@
 *       vns  01/29/17 Added API XFsbl_AdmaCopy to transfer data using ADMA
 * 6.1   ng   07/13/23 Added SDT support
 * 6.2   pre  29/12/23 XFsbl_PollTimeout function is removed
+* 6.3   ng   09/25/24 Return device ID as a number instead of pointer to string
+*                     in read-only memory region
 *
 * </pre>
 *
@@ -40,11 +42,6 @@
 #define XFSBL_NUM_DIGITS_IN_FILE_NAME 4
 
 /**************************** Type Definitions *******************************/
-typedef struct {
-	u32 Id;
-	char *Name;
-} XFsblPs_ZynqmpDevices;
-
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Prototypes ******************************/
 static void XFsbl_UndefHandler (void);
@@ -673,40 +670,58 @@ void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib)
 *
 * @param	none
 *
-* @return	string containing Device Id Name or "UNKN" if none found
+* @return	Device ID or "-1" if not found.
 *
 ******************************************************************************/
-const char *XFsbl_GetSiliconIdName(void)
+s32 XFsbl_GetSiliconIdName(void)
 {
 	/* Lookup table for Device-SVD Id and DeviceId Name */
-	static XFsblPs_ZynqmpDevices ZynqmpDevices[] = {
-		{0x10U, "3",},
-		{0x11U, "2",},
-		{0x20U, "5",},
-		{0x21U, "4",},
-		{0x30U, "7",},
-		{0x38U, "9",},
-		{0x39U, "6",},
-		{0x40U, "11",},
-		{0x50U, "15",},
-		{0x58U, "19",},
-		{0x59U, "17",},
-	};
 	u32 DevSvdId;
-	u32 Index;
+	s32 DeviceId = -1;
 
 	DevSvdId = XFsbl_In32(CSU_IDCODE);
 
 	DevSvdId &= CSU_IDCODE_DEVICE_CODE_MASK | CSU_IDCODE_SVD_MASK;
 	DevSvdId >>= CSU_IDCODE_SVD_SHIFT;
 
-	for (Index = 0U; Index < ARRAY_SIZE(ZynqmpDevices); Index++) {
-		if (ZynqmpDevices[Index].Id == DevSvdId) {
-			return ZynqmpDevices[Index].Name;
-		}
+	switch (DevSvdId) {
+		case 0x10U:
+			DeviceId = 3;
+			break;
+		case 0x11U:
+			DeviceId = 2;
+			break;
+		case 0x20U:
+			DeviceId = 5;
+			break;
+		case 0x21U:
+			DeviceId = 4;
+			break;
+		case 0x30U:
+			DeviceId = 7;
+			break;
+		case 0x38U:
+			DeviceId = 9;
+			break;
+		case 0x39U:
+			DeviceId = 6;
+			break;
+		case 0x40U:
+			DeviceId = 11;
+			break;
+		case 0x50U:
+			DeviceId = 15;
+			break;
+		case 0x58U:
+			DeviceId = 19;
+			break;
+		case 0x59U:
+			DeviceId = 17;
+			break;
+		default: DeviceId = -1;
 	}
 
-	return "UNKN";
+	return DeviceId;
 }
 
 /*****************************************************************************
