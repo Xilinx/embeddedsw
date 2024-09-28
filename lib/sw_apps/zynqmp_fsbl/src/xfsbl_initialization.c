@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -56,6 +56,7 @@
 * 9.0   bsv  10/15/21 Fixed bug to support secondary boot with non-zero
 *                     multiboot offset
 * 9.1   ng   07/13/23 Added SDT support
+* 9.2   ng   09/25/24 Fix prints to print device ID returned from XFsbl_GetSiliconIdName
 *
 * </pre>
 *
@@ -525,6 +526,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	u32 Index=0U;
 	u32 FsblProcType = 0;
 	char DevName[PART_NAME_LEN_MAX];
+	s32 SiliconId;
 
 	/**
 	 * Read the cluster ID and Update the Processor ID
@@ -619,10 +621,13 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, FsblProcType);
 
 	/* Build Device name and print it */
-	(void)XFsbl_Strcpy(DevName, "XCZU");
-	(void)XFsbl_Strcat(DevName, XFsbl_GetSiliconIdName());
-	(void)XFsbl_Strcat(DevName, XFsbl_GetProcEng());
-	XFsbl_Printf(DEBUG_GENERAL, ", Device Name: %s\n\r", DevName);
+	SiliconId = XFsbl_GetSiliconIdName();
+	(void)XFsbl_Strcpy(DevName, XFsbl_GetProcEng());
+	if (SiliconId < 0) {
+		XFsbl_Printf(DEBUG_GENERAL, ", Device Name: XCZUUNKN%s\n\r", DevName);
+	} else {
+		XFsbl_Printf(DEBUG_GENERAL, ", Device Name: XCZU%d%s\n\r", SiliconId, DevName);
+	}
 
 	/**
 	 * Register the exception handlers
