@@ -1,3 +1,140 @@
+Changes for 2024.2
+===============================
+axicdma_v4_14:
+Update dependency properties in the yaml for peripheral test
+Fix missing extern 'C' keyword from header files
+
+
+axidma_v9_19:
+Add lwip support for riscv
+Fix missing extern 'C' keyword from header files
+
+
+axivdma_v6_16:
+Fix missing extern 'C' keyword from header files
+Fix label of required property
+
+
+clk_wiz_v1_8:
+Fix missing extern 'C' keyword from header files
+clk_wiz: Add support for multiple clocks and GetRate function support
+
+
+csudma_v1_16:
+Fix Assert condition in XCsuDma_ByteAlignedTransfer
+Add support for ASU DMA0 and DMA1
+Update csudma yaml file with ASUDMA0 and 1 differentiation
+add spartanup device support
+Fix device reference to Versal Gen2
+Add support for ByteAlignedTransfer
+Add asufw application and xilasu library with SDT flow support
+Fix missing extern 'C' keyword from header files
+
+
+ddrcpsu_v1_7:
+Fix logic to select rank address bit
+
+
+ddrpsv_v1_6:
+Update the ddrpsv tcl to look for AXI NOC2
+update the regex in tcl for checking DDR region
+
+
+dmaps_v2_11:
+Fix missing extern 'C' keyword from header files
+
+
+mbox_v4_8:
+Optimize wait time with timeout reduction and usleep() inclusion.
+Fix missing extern 'C' keyword from header files
+
+mcdma_v1_11:
+Fix missing extern 'C' keyword from header files
+
+
+nandpsu_v1_14:
+Update version number
+Fix BBT mapping functions
+Move stack based BBT array to global instance to avoid stack overflow
+
+
+ospipsv_v1_11:
+Update driver version.
+Add support for Macronix flash part mx66uw2g345gxrix0
+Add support for x2/x4 operation
+Limit dummy value range in XOspiPsv_ConfigureAutoPolling()
+add spartanup device support
+Fix missing extern 'C' keyword from header files
+
+
+qspipsu_v1_20:
+Update driver version
+Add support for IS25LP01GG ISSI flash part
+Add support for baud rate divisor
+Update examples to configure correct baud rate value
+
+
+scuwdt_v2_6:
+Increment driver version
+Fix HIS_COMF violations
+Fix missing extern 'C' keyword from header files
+Update Copyright information
+
+
+spi_v4_13:
+Updated the driver version
+Add logic to wait for FIFO reset to complete
+Fix missing extern 'C' keyword from header files
+
+
+trafgen_v4_7:
+trafgen: Fix the Interrupt ID sequence in the SDT flow.
+
+
+wdtps_v3_8:
+Modify Instance name in the example to avoid multiple definition error.
+Fix missing extern 'C' keyword from header files.
+
+wdttb_v5_9:
+Increment driver version
+Port XWdtTb_Initialize() to SDT flow
+Add support for peripheral tests in SDT flow.
+Fix missing extern 'C' keyword from header files
+
+
+zdma_v1_19:
+Fix missing extern 'C' keyword from header files
+Fix SDT checks for interrupt header inclusion
+Fix dma-mode properties in the yaml
+
+
+xilffs_v5_3:
+Add example to test UFS interface
+Add support for UFS interface
+Add support for the new taxonomy convention
+
+
+xilmailbox_v1_10:
+Register GIC handler using device id
+Add support for the new taxonomy convention adopted for the IP NAMEs
+
+
+xilsem_v1_10:
+XilSEM client support for APU linux
+GT PCIe width downgrade fix when XilSEM is ON
+Auto initialization of XilSEM after partial reconfiguration is done in
+deferred mode
+Partial PDI load failure in NPI alone enabled design
+Correct prints for last seven CE locations in CRAM example
+
+
+
+
+
+
+
+
+
 Changes for 2024.1
 ===============================
 
