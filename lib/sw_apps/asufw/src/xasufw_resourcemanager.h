@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_resourcemanager.h
- * @addtogroup Overview
- * @{
  *
  * Header file for managing hardware resources which contains the list of hardware resources and
  * declarations for xasufw_resourcemanager.c file in ASUFW.
@@ -23,11 +21,15 @@
  *                     on resources mask and allocate resources
  *       ma   06/04/24 Check if random bytes are available or not for TRNG GetRandomBytes command
  *       ma   07/08/24 Add task based approach at queue level
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 #ifndef XASUFW_RESOURCEMANAGER_H
 #define XASUFW_RESOURCEMANAGER_H
 

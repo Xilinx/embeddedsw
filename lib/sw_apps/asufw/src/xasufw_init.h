@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_init.h
- * @addtogroup Overview
- * @{
  *
  * This file contains declarations for xasufw_init.c file in ASUFW.
  *
@@ -20,11 +18,15 @@
  * 1.0   ma   10/11/23 Initial release
  *       ma   02/08/24 Added performance related APIs
  *       ma   07/23/24 Added RTCA initialization related code
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 #ifndef XASUFW_INIT_H
 #define XASUFW_INIT_H
 
@@ -38,7 +40,7 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 
 /************************************** Type Definitions *****************************************/
-/* Performance measurement structure */
+/** @brief Performance measurement structure. */
 typedef struct {
 	u64 TPerfMs; /**< Whole part of time in milliseconds */
 	u64 TPerfMsFrac; /**< Fractional part of time in milliseconds */

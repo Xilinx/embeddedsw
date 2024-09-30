@@ -7,8 +7,6 @@
 /**
  *
  * @file xtask.c
- * @addtogroup Overview
- * @{
  *
  * This file contains task related code.
  *
@@ -24,11 +22,15 @@
  *       ma   04/30/24 Included dependent header file
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  08/25/24 Integrated FIH library
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xtask_apis Task Related APIs
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xtask.h"
 #include "xasufw_status.h"
@@ -52,7 +54,7 @@ u32 TaskTimeNow = 0U;
 
 /*************************************************************************************************/
 /**
- * @brief   This function is called during boot up which will initialize the task queues.
+ * @brief	This function is called during boot up which will initialize the task queues.
  *
  *************************************************************************************************/
 void XTask_Init(void)
@@ -66,17 +68,17 @@ void XTask_Init(void)
 
 /*************************************************************************************************/
 /**
- * @brief   This function creates the task and initializes its fields with the user parameters.
+ * @brief	This function creates the task and initializes its fields with the user parameters.
  *
- * @param   Priority    Priority of the task.
- * @param   TaskHandler Function pointer to the task handler.
- * @param   PrivData    Private data to be passed with task handler.
- * @param   Interval	Task interval if the task need to run periodically. For non-periodic tasks
- * 						interval need to be 0.
+ * @param	Priority	Priority of the task.
+ * @param	TaskHandler	Function pointer to the task handler.
+ * @param	PrivData	Private data to be passed with task handler.
+ * @param	Interval	Task interval if the task need to run periodically.
+ * 				For non-periodic tasks interval need to be 0.
  *
  * @return
- * 			- Returns pointer to the task node structure if the task is created successfully.
- *            Returns NULL if the task creation fails.
+ * 	- Returns pointer to the task node structure if the task is created successfully.
+ * 	- Returns NULL if the task creation fails.
  *
  *************************************************************************************************/
 XTask_TaskNode *XTask_Create(u32 Priority, XTask_Handler_t TaskHandler, void *PrivData,
@@ -89,14 +91,14 @@ XTask_TaskNode *XTask_Create(u32 Priority, XTask_Handler_t TaskHandler, void *Pr
 		XFIH_GOTO(END);
 	}
 
-	/* Find the empty slot for task in TaskList */
+	/** Find the empty slot for task in TaskList. */
 	for (Idx = 0U; Idx < XTASK_MAX; Idx++) {
 		if (TaskList[Idx].TaskHandler == NULL) {
 			break;
 		}
 	}
 
-	/* If the maximum allowed tasks are already created, do not create a new task */
+	/** If the maximum allowed tasks are already created, do not create a new task. */
 	if (Idx >= XTASK_MAX) {
 		xil_printf("Task create failed: too many tasks created\n");
 		XFIH_GOTO(END);
@@ -110,7 +112,7 @@ XTask_TaskNode *XTask_Create(u32 Priority, XTask_Handler_t TaskHandler, void *Pr
 	Task->PrivData = PrivData;
 	Task->Interval = Interval;
 
-	/* Update task delay and next dispatch time */
+	/** Update task delay and next dispatch time. */
 	if (Interval > 0U) {
 		(void)XTask_TriggerAfterDelay(Task, Interval);
 	}
@@ -121,20 +123,19 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function deletes the given task from the task queue. It will remove the task from
- * the task list and resets the structures fields.
+ * @brief	This function deletes the given task from the task queue.
  *
- * @param   Task    Task to be deleted from task list.
+ * @param	Task	Task to be deleted from task list.
  *
  *************************************************************************************************/
 void XTask_Delete(XTask_TaskNode *Task)
 {
-	/* If the list is not empty, remove the task from the task queue */
+	/** If the list is not empty, remove the task from the task queue. */
 	if (XLinkList_IsEmpty(&Task->TaskNode) != (u8)TRUE) {
 		XLinkList_RemoveItem(&Task->TaskNode);
 	}
 
-	/* Reset task members with default values */
+	/** Reset task structure members with default values. */
 	Task->Delay = 0U;
 	Task->TaskHandler = NULL;
 	Task->PrivData = NULL;
@@ -143,10 +144,10 @@ void XTask_Delete(XTask_TaskNode *Task)
 
 /*************************************************************************************************/
 /**
- * @brief   This function adds the task to the task queue so that it can be triggered based on its
- * priority. This function is called when the task needs to be executed.
+ * @brief	This function adds the task to the task queue so that it can be triggered based
+ * 		on its priority. This function is called when the task needs to be executed.
  *
- * @param   Task    Task pointer to be executed in the task list.
+ * @param	Task	Task pointer to be executed in the task list.
  *
  *************************************************************************************************/
 void XTask_TriggerNow(XTask_TaskNode *Task)
@@ -162,17 +163,17 @@ void XTask_TriggerNow(XTask_TaskNode *Task)
 
 /*************************************************************************************************/
 /**
- * @brief   This function is called when the task need to be executed after the given delay. It
- * will update the Delay field of the given task structure with the given delay value. When this
- * function is called, it will update the NextDispatchTime variable with given input Delay value
- * if it is greater than task delay value.
+ * @brief	This function is called when the task need to be executed after the given delay. It
+ * 		will update the Delay field of the given task structure with the given delay
+ * 		value. When this function is called, it will update the NextDispatchTime variable
+ * 		with given input Delay value if it is greater than task delay value.
  *
- * @param   Task    Pointer to the task node structure.
- * @param   Delay   Delay after which the task needs to be triggered.
+ * @param	Task	Pointer to the task node structure.
+ * @param	Delay	Delay after which the task needs to be triggered.
  *
  * @return
- * 			- Returns XASUFW_SCCESS on successful execution of the function.
- *          - Otherwise, returns an error code.
+ * 	- Returns XASUFW_SCCESS on successful execution of the function.
+ * 	- XASUFW_TASK_INVALID_HANDLER, if task handler is NULL.
  *
  *************************************************************************************************/
 s32 XTask_TriggerAfterDelay(XTask_TaskNode *Task, u32 Delay)
@@ -203,15 +204,15 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function updates the given task's event structure with the input event to trigger
- * the task when the particular event occurs.
+ * @brief	This function updates the given task's event structure with the input event to
+ * 		trigger the task when the particular event occurs.
  *
- * @param   Task    Pointer to the task node structure.
- * @param   Event   Pointer to the event node structure.
+ * @param	Task	Pointer to the task node structure.
+ * @param	Event	Pointer to the event node structure.
  *
  * @return
- * 			- Returns XASUFW_SCCESS on successful execution of the function.
- *          - Otherwise, returns an error code.
+ * 	- Returns XASUFW_SCCESS on successful execution of the function.
+ * 	- XASUFW_TASK_INVALID_HANDLER, if task handler is NULL.
  *
  *************************************************************************************************/
 s32 XTask_TriggerOnEvent(XTask_TaskNode *Task, XTask_TaskEvent *Event)
@@ -236,13 +237,12 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function is the notify function for the given event. This function needs to be
- * called on the occurrence of the event after which the dependent tasks needs to be triggered.
- * When this function is called, it will parse through the task node structures list to check if
- * if the task is dependent on the given event. If yes, this function will call XTask_TriggerNow
- * function to add the task to the task queue to be executed.
+ * @brief	This function is the notify function for the given event. This function needs to be
+ * 		called on the occurrence of the event after which the dependent tasks needs to be
+ * 		triggered.
  *
- * @param   Event   Pointer to the event node structure.
+ *
+ * @param	Event	Pointer to the event node structure.
  *
  *************************************************************************************************/
 void XTask_EventNotify(XTask_TaskEvent *Event)
@@ -251,8 +251,8 @@ void XTask_EventNotify(XTask_TaskEvent *Event)
 	u32 TaskEventBitVal;
 
 	/**
-	 * Parse through the task event structure to check if the given event has occured or not
-	 * If the event has occurred, update the event structure and trigger the task to be exected
+	 * Parse through the task event structure to check if the given event has occured or not.
+	 * If the event has occurred, update the event structure and trigger the task to be exected.
 	 */
 	for (Idx = 0U; Idx < XTASK_MAX; Idx++) {
 		TaskEventBitVal = 1U << (Idx & (XTASK_NUM_BITS_IN_U32 - 1U));
@@ -265,12 +265,12 @@ void XTask_EventNotify(XTask_TaskEvent *Event)
 
 /*************************************************************************************************/
 /**
- * @brief   This function returns the Delay of the given task node structure.
+ * @brief	This function returns the Delay of the given task node structure.
  *
- * @param   Task    Pointer to the task node structure.
+ * @param	Task	Pointer to the task node structure.
  *
  * @return
- * 			- Returns delay of the given task.
+ * 	- Returns delay of the given task.
  *
  *************************************************************************************************/
 u32 XTask_DelayTime(XTask_TaskNode *Task)
@@ -318,7 +318,7 @@ void XTask_DispatchLoop(void)
 		DeltaTime = TaskTimeNow - LastDispatchTime;
 		LastDispatchTime += DeltaTime;
 
-		/** TODO: Dispatch if any pending interrupts are present */
+		/* TODO: Dispatch if any pending interrupts are present */
 
 		/* Check delayed tasks to be triggered */
 		if ((NextDispatchTime != 0U) && (DeltaTime != 0U)) {
@@ -374,7 +374,7 @@ void XTask_DispatchLoop(void)
 		}
 
 		/* Nothing to do */
-		/** TODO: Wait for interrupts */
+		/* TODO: Wait for interrupts */
 	}
 }
 /** @} */

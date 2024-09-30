@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_hw.h
- * @addtogroup Overview
- * @{
  *
  * This file contains definitions for the ASU hardware registers.
  *
@@ -23,7 +21,6 @@
  * </pre>
  *
  *************************************************************************************************/
-
 #ifndef XASUFW_HW_H
 #define XASUFW_HW_H
 
@@ -83,4 +80,3 @@ extern "C" {
 #endif
 
 #endif  /* XASUFW_HW_H */
-/** @} */

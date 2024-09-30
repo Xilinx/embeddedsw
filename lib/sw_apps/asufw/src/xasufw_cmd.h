@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_cmd.h
- * @addtogroup Overview
- * @{
  *
  * This file contains declarations for xasufw_cmd.c file in ASUFW.
  *
@@ -21,11 +19,15 @@
  *       ma   04/18/24 Moved command handling related APIs from xasufw_sharedmem.c to this file
  *       ma   05/18/24 Added API to check resources availability before executing a command
  *       ma   07/08/24 Add task based approach at queue level
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 #ifndef XASUFW_CMD_H
 #define XASUFW_CMD_H
 

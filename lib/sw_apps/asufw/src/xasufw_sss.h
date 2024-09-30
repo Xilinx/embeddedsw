@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_sss.h
- * @addtogroup Overview
- * @{
  *
  * This file contains declarations for xasufw_sss.c file in ASUFW.
  *
@@ -18,11 +16,15 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   02/09/24 Initial release
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 #ifndef XASUFW_SSS_H
 #define XASUFW_SSS_H
 
@@ -36,15 +38,17 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 
 /************************************** Type Definitions *****************************************/
-/* @name Sources to be selected to configure Secure Stream Switch */
+/**
+ * @brief Sources to be selected to configure Secure Stream Switch.
+ */
 typedef enum {
-	XASUFW_SSS_DMA0 = 0U, /**< DMA0 */
-	XASUFW_SSS_AES, /**< AES */
-	XASUFW_SSS_SHA2, /**< SHA2 */
-	XASUFW_SSS_SHA3, /**< SHA3 */
-	XASUFW_SSS_PLI, /**< PLI */
-	XASUFW_SSS_DMA1, /**< DMA1 */
-	XASUFW_SSS_INVALID /**< Invalid */
+	XASUFW_SSS_DMA0 = 0U,	/**< DMA0 */
+	XASUFW_SSS_AES,		/**< AES */
+	XASUFW_SSS_SHA2,	/**< SHA2 */
+	XASUFW_SSS_SHA3,	/**< SHA3 */
+	XASUFW_SSS_PLI,		/**< PLI */
+	XASUFW_SSS_DMA1,	/**< DMA1 */
+	XASUFW_SSS_INVALID	/**< Invalid */
 } XAsufw_SssSrc;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

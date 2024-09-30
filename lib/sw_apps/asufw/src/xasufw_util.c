@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_util.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the code for util APIs in ASUFW.
  *
@@ -23,11 +21,15 @@
  *  	 ss   07/11/24 Added XAsufw_ChangeEndiannessAndCpy function.
  *       ss   08/20/24 Updated description for XAsufw_ChangeEndianness() function.
  *       am   09/13/24 Fixed pointer conversion error for cpp compiler.
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasufw_util.h"
 #include "xasufw_status.h"
@@ -46,22 +48,25 @@
 /**
  * @brief	This function will Read, Modify and Write to a register.
  *
- * @param	Addr	Address of the register
- * @param	Mask	Bits to be modified
- * @param	Value	Value to be written to the register
+ * @param	Addr	Address of the register.
+ * @param	Mask	Bits to be modified.
+ * @param	Value	Value to be written to the register.
  *
  *************************************************************************************************/
 void XAsufw_RMW(u32 Addr, u32 Mask, u32 Value)
 {
 	u32 Val;
 
-	/* Read the value from the register */
+	/** Read the value from the register. */
 	Val = XAsufw_ReadReg(Addr);
 
-	/* Reset designated bits in a register value to zero, and replace them with the given value */
+	/**
+	 * Reset designated bits in a register value to zero, and replace them with the
+	 * given value.
+	 */
 	Val = (Val & (~Mask)) | (Mask & Value);
 
-	/* Update the value to the register */
+	/** Update the value to the register. */
 	XAsufw_WriteReg(Addr, Val);
 }
 
@@ -69,27 +74,27 @@ void XAsufw_RMW(u32 Addr, u32 Mask, u32 Value)
 /**
  * @brief	This function will read, check and conditionally modify an address.
  *
- * @param	Addr	Address of the register
- * @param	Mask	Bits to be modified
- * @param	Value	Value to be written to the register
+ * @param	Addr	Address of the register.
+ * @param	Mask	Bits to be modified.
+ * @param	Value	Value to be written to the register.
  *
  *************************************************************************************************/
 void XAsufw_RCMW(u32 Addr, u32 Mask, u32 Value)
 {
 	u32 Val;
 
-	/* Read the value from the register */
+	/** Read the value from the register */
 	Val = XAsufw_ReadReg(Addr);
 
-	/* Check if the mask bits are already set */
+	/** Check if the mask bits are already set. */
 	if ((Val & Mask) != (Mask & Value)) {
-		/*
+		/**
 		 * Reset designated bits in a register value to zero, and replace them with the
 		 * given value.
 		 */
 		Val = (Val & (~Mask)) | (Mask & Value);
 
-		/* Update the value to the register */
+		/** Update the value to the register. */
 		XAsufw_WriteReg(Addr, Val);
 	}
 }
@@ -126,19 +131,19 @@ void XAsufw_CryptoCoreSetReset(u32 BaseAddress, u32 Offset)
  * @brief	This function changes the endianness of source data and copies it into
  * 		destination buffer.
  *
- * @param	Dest		Pointer to destination memory
- * @param	DestSize	Memory available at destination
- * @param	Src		Pointer to source memory
- * @param	SrcSize		Maximum data that can be copied from source
- * @param	CopyLen		Number of bytes to be copied
+ * @param	Dest		Pointer to the destination address.
+ * @param	DestSize	Size of the destination buffer in bytes.
+ * @param	Src		Pointer to the source address.
+ * @param	SrcSize		Size of the source buffer in bytes.
+ * @param	CopyLen		Number of bytes to be copied.
  *
  * @return
- *		- XASUFW_SUCCESS on success
- *		- XASUFW_FAILURE on failure
+ * 		- XASUFW_SUCCESS on success
+ * 		- XASUFW_FAILURE on failure
  * 		- XASUFW_INVALID_PARAM Invalid inputs
  *
  *************************************************************************************************/
-/**<TODO: Will remove this API when sending client patch */
+/*TODO: Will remove this API when sending client patch */
 s32 XAsufw_ChangeEndiannessAndCpy(void *Dest, const u32 DestSize, const void *Src,
 				  const u32 SrcSize,
 				  const u32 CopyLen)
@@ -178,12 +183,15 @@ s32 XAsufw_ChangeEndiannessAndCpy(void *Dest, const u32 DestSize, const void *Sr
 /**
  * @brief	This function changes the endianness of data and stores it in the same buffer.
  *
- * @param	Buffer	Pointer of the data to change endianness.
- * @param	Length	Length of the data in bytes which supports only for even lengths.
+ * @param	Buffer	Pointer to the buffer whose endianness needs to be changed.
+ * @param	Length	Length of the buffer in bytes.
  *
  * @return
  *	-	XASUFW_SUCCESS, when endianness change and copy is success.
  *	-	XASUFW_INVALID_PARAM, if input parameters are invalid.
+ *
+ * @note
+ * 	- Supports only for even lengths.
  *
  *************************************************************************************************/
 s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length)

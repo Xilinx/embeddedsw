@@ -7,8 +7,6 @@
 /**
  *
  * @file xtask.h
- * @addtogroup Overview
- * @{
  *
  * This file contains declarations for xtask.c file.
  *
@@ -21,11 +19,15 @@
  * 1.1   ma   02/02/24 Update task functionality to support periodic tasks
  *       ma   03/16/24 Added error codes at required places
  *       ma   07/08/24 Add task based approach at queue level
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xtask_apis Task Related APIs
+* @{
+*/
 #ifndef XTASK_H
 #define XTASK_H
 
@@ -37,17 +39,17 @@ extern "C" {
 #include "xlinklist.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XTASK_MAX               (32U) /**< Maximum tasks allowed to be created */
-#define XTASK_PRIORITIES        (16U) /**< Number of task priorities allowed */
+#define XTASK_MAX               (32U) /**< Maximum tasks allowed to be created. */
+#define XTASK_PRIORITIES        (16U) /**< Number of task priorities allowed. */
 
-#define XTASK_NUM_BITS_IN_U32   (32U)   /**< Maximum bits in unsigned int */
+#define XTASK_NUM_BITS_IN_U32   (32U) /**< Maximum bits in unsigned int. */
 
 /************************************** Type Definitions *****************************************/
 
 /** Type definition for task handler */
 typedef s32 (*XTask_Handler_t)(void *Arg);
 
-/** This structure contains task metadata */
+/** @brief This structure contains task metadata. */
 typedef struct {
 	u32 Priority; /**< Priority of the task */
 	u32 Delay; /**< Task delay */
@@ -57,7 +59,7 @@ typedef struct {
 	u32 Interval; /**< Task interval. For non-periodic tasks, interval should be 0 */
 } XTask_TaskNode;
 
-/** This structure contains the events list */
+/** @brief This structure contains the events list. */
 typedef struct {
 	u32 Tasks[(XTASK_MAX + XTASK_NUM_BITS_IN_U32 - 1U) / XTASK_NUM_BITS_IN_U32]; /**< Task events */
 } XTask_TaskEvent;
@@ -77,7 +79,7 @@ u32 XTask_DelayTime(XTask_TaskNode *Task);
 void XTask_DispatchLoop(void);
 
 /************************************ Variable Definitions ***************************************/
-/** Current time in us */
+/** Current time in us. */
 extern u32 TaskTimeNow;
 
 #ifdef __cplusplus
