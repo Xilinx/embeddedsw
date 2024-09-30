@@ -7,8 +7,6 @@
 /**
  *
  * @file xaes.h
- * @addtogroup Overview
- * @{
  *
  * This file Contains the function prototypes, defines and macros for the AES module.
  *
@@ -34,11 +32,11 @@
  *
  * </pre>
  *
- * @note
- *
- * @endcond
- *
 **************************************************************************************************/
+/**
+* @addtogroup xaes_server_apis AES Server APIs
+* @{
+*/
 #ifndef XAES_H_
 #define XAES_H_
 
@@ -55,8 +53,9 @@ extern "C" {
 /************************** Constant Definitions *************************************************/
 
 /************************************** Type Definitions *****************************************/
-typedef struct _XAes_Config XAes_Config;
-typedef struct _XAes XAes;
+typedef struct _XAes_Config XAes_Config; /**< This typedef is to create alias name
+						for _XAes_Config */
+typedef struct _XAes XAes; /**< This typedef is to create alias name for _XAes */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

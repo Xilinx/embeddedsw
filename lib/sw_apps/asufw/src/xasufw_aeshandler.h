@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_aeshandler.h
- * @addtogroup Overview
- * @{
  *
  * This file contains function declarations, macro and structure defines related to AES module in
  * ASUFW.
@@ -23,7 +21,10 @@
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 #ifndef XASUFW_AESHANDLER_H
 #define XASUFW_AESHANDLER_H
 

@@ -7,8 +7,7 @@
 /**
 *
 * @file xrsa.c
-* @addtogroup Overview
-* @{
+*
 * This file contains implementation of the interface functions for RSA hardware engine.
 *
 * <pre>
@@ -19,11 +18,15 @@
 * 1.0   ss   07/11/24 Initial release
 *       ss   08/20/24 Added 64-bit address support
 *       yog  08/25/24 Integrated FIH library
+*       ss   09/26/24 Fixed doxygen comments
 *
 * </pre>
 *
 **************************************************************************************************/
-
+/**
+* @addtogroup xrsa_server_apis RSA Server APIs
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xrsa.h"
 #include "Rsa.h"
@@ -32,26 +35,31 @@
 
 /************************************ Constant Definitions ***************************************/
 /* Definitions for peripheral RSA */
-#define XASU_RSA_BASEADDR			0xEBF50000U
-
+#define XASU_RSA_BASEADDR		(0xEBF50000U)	/**< RSA base address */
 #define XRSA_RESET_REG_OFFSET		(0x40U)		/**< RSA reset register offset */
 
-/**< Errors from IPcores library */
+/* Errors from IPcores library */
 #define XRSA_KEY_PAIR_COMP_ERROR	(1U)		/**< RSA IPcores keypair compare error */
-#define XRSA_RAND_GEN_ERROR		(2U)		/**< RSA IPcores random number gen error */
+#define XRSA_RAND_GEN_ERROR		(2U)		/**< RSA IPcores random number generation
+								error */
 
 #define XRSA_TOTAL_PARAMS		(9U)		/**< RSA total no of parameters */
 
 #define XRSA_MAX_KEY_SIZE_IN_BYTES	(512U)		/**< RSA max key size in bytes */
 #define XRSA_MAX_PRIME_SIZE_IN_BYTES	(256U)		/**< RSA max prime size in bytes */
 #define XRSA_PUBEXP_SIZE_IN_BYTES	(4U)		/**< RSA public exponent size in bytes */
-#define XRSA_MAX_PARAM_SIZE_IN_BYTES	(XRSA_TOTAL_PARAMS * XRSA_MAX_KEY_SIZE_IN_BYTES)
+#define XRSA_MAX_PARAM_SIZE_IN_BYTES	(XRSA_TOTAL_PARAMS * XRSA_MAX_KEY_SIZE_IN_BYTES) /**< Size
+							of memory allocated for RSA parameters */
 
-#define XRSA_HALF_LEN(x)		((x) >> 1U)	/**< Calculate half size */
+#define XRSA_HALF_LEN(x)		((x) >> 1U)	/**< Calculate half value */
 #define XRSA_BYTE_TO_BIT(x)		((x) << 3U)	/**< Byte to bit conversion */
 
-#define XRSA_TOTIENT_IS_PRSNT		(1U)		/**< indicates totient is present */
-#define XRSA_PRIME_NUM_IS_PRSNT		(2U)		/**< indicates prime num is present */
+#define XRSA_TOTIENT_IS_PRSNT		(1U)		/**< Indicates totient is present as
+								parameter for private decryption
+								operation*/
+#define XRSA_PRIME_NUM_IS_PRSNT		(2U)		/**< Indicates prime num is present as
+								parameter for private decryption
+								operation*/
 
 /************************************** Type Definitions *****************************************/
 
@@ -61,26 +69,26 @@
 static s32 XRsa_UpdateStatus(s32 Status);
 
 /************************************ Variable Definitions ***************************************/
-u8 Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES];
+u8 Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES]; /**< Memory allocated for RSA parameters */
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs the RSA Private CRT decrypt operation.
+ * @brief	This function performs RSA decryption using CRT algorithm for the provided
+ * 		message by using private key.
  *
- * @param	DmaPtr		DMA pointer used for DMA copy.
- * @param	Len		length of Input and Output data in bytes.
- * @param	InputDataAddr	address to buffer of input data.
- * @param	OutputDataAddr	address to buffer of output data.
- * @param	KeyParamAddr	address to all the parameters required for CRT operation.
+ * @param	DmaPtr		Pointer to the AsuDma instance.
+ * @param	Len		Length of Input and Output data in bytes.
+ * @param	InputDataAddr	Address of the input data buffer.
+ * @param	OutputDataAddr	Address of the input data buffer.
+ * @param	KeyParamAddr	Address to all the parameters required for private decrypt
+ * 				operation using CRT algorithm.
  *
  * @return
  *		- XASUFW_SUCCESS on success.
  *		- XASUFW_FAILURE on failure.
  *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
- *		- XASUFW_RSA_CRT_OP_ERROR on operation error.
- *		- XASUFW_RSA_RAND_GEN_ERROR on random number generation failure.
- *		- XASUFW_RSA_KEY_PAIR_COMP_ERROR on key pair comparison failure.
- *		- XASUFW_RSA_ERROR on other errors.
+* 		- Also can return termination error codes from 0x9CU to 0x9FU ,
+ * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
 s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
@@ -94,11 +102,13 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	u8 *PubExpoArr = (u8 *)KeyPtr + sizeof(XAsu_RsaCrtKeyComp);
 	u8 *OutData = PubExpoArr + XRSA_MAX_KEY_SIZE_IN_BYTES;
 
+	/** Validate the input arguments. */
 	if ((InputDataAddr == 0U) || (KeyParamAddr == 0U) || (OutputDataAddr == 0U)) {
 		Status = XASUFW_RSA_INVALID_PARAM;
 		XFIH_GOTO(END);
 	}
-	/* Release the RSA engine from reset */
+
+	/** Release the RSA engine from reset. */
 	XAsufw_CryptoCoreReleaseReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
 
 	Status = Xil_SMemSet(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, 0U,
@@ -107,25 +117,36 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 		XFIH_GOTO(END);
 	}
 
-	/* DMA transfer from client address to local buffer*/
+	/** Copy input data to server memory using DMA. */
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* DMA transfer from client address to local buffer*/
+	/** Copy key parameters to server memory using DMA. */
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
 			       sizeof(XAsu_RsaCrtKeyComp), 0U);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/* Copy public exponent to pointer. */
 	Status = Xil_SMemCpy(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, &(KeyPtr->PubKeyComp.PubExp),
 			     XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/** Endianness change from BE to LE for following components
+	 * - Input Data.
+	 * - Public exponent.
+	 * - Modulus.
+	 * - first prime number.
+	 * - second prime numbe.
+	 * - derived value of first prime number.
+	 * - derived value of second prime number.
+	 * - Inverse of derived value of second prime number.
+	*/
 	Status = XAsufw_ChangeEndianness(InData, Len);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
@@ -166,6 +187,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 		XFIH_GOTO(END);
 	}
 
+	/** Perform private decryption operation using CRT algorithm. */
 	XFIH_CALL(RSA_ExpCrtQ, XFihVar, Status, InData, (u8 *)KeyPtr->Prime1, (u8 *)KeyPtr->Prime2,
 		  (u8 *)KeyPtr->DP, (u8 *)KeyPtr->DQ, (u8 *)KeyPtr->QInv, PubExpoArr,
 		  (u8 *)KeyPtr->PubKeyComp.Modulus, XRSA_BYTE_TO_BIT(Len), OutData);
@@ -174,22 +196,24 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 		XFIH_GOTO(END);
 	}
 
+	/** Endianness change from LE to BE for output data. */
 	Status = XAsufw_ChangeEndianness(OutData, Len);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* DMA transfer from local buffer to client address*/
+	/** Copy output data to server memory using DMA. */
 	XFIH_CALL(XAsufw_DmaXfr, XFihVar, Status, DmaPtr, (u64)(UINTPTR)OutData, OutputDataAddr,
 		  Len, 0U);
 
 END:
+	/** Zeroize local copy of all the parameters. */
 	SStatus = Xil_SMemSet(Rsa_Data, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS, 0U,
 			      XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 
-	/* Reset the RSA engine */
+	/** Reset the RSA engine. */
 	XAsufw_CryptoCoreSetReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
 
 	return Status;
@@ -197,23 +221,22 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs the RSA Private Exponentiation decryption operation.
+ * @brief	This function performs RSA decryption for the provided message by using
+ * 		private key.
  *
- * @param	DmaPtr		DMA pointer used for DMA copy.
+ * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	Len		Length of Input and Output Data in bytes.
- * @param	InputDataAddr	address to buffer of input data.
- * @param	OutputDataAddr	address to buffer of output data.
- * @param	KeyParamAddr	address to the parameters required for RSA operation.
- * @param	ExpoAddr	address to exponential parameters required for RSA operation.
+ * @param	InputDataAddr	Address of the input data buffer.
+ * @param	OutputDataAddr	Address of the input data buffer.
+ * @param	KeyParamAddr	Address to the parameters required for RSA operation.
+ * @param	ExpoAddr	Address to exponential parameters required for RSA operation.
  *
  * @return
  *		- XASUFW_SUCCESS on success.
  *		- XASUFW_FAILURE on failure.
  *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
- *		- XASUFW_RSA_PVT_OP_ERROR on operation error.
- *		- XASUFW_RSA_RAND_GEN_ERROR on random number generation failure.
- *		- XASUFW_RSA_KEY_PAIR_COMP_ERROR on key pair comparison failure.
- *		- XASUFW_RSA_ERROR on other errors.
+ *		- Also can return termination error codes from 0x9CU to 0x9EU and 0xA0U,
+ * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
 s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
@@ -229,12 +252,13 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	u8 *PubExpoArr = RN + XRSA_MAX_KEY_SIZE_IN_BYTES;
 	u8 *OutData = PubExpoArr + XRSA_MAX_KEY_SIZE_IN_BYTES;
 
+	/** Validate the input arguments. */
 	if ((InputDataAddr == 0U) || (KeyParamAddr == 0U) || (OutputDataAddr == 0U)) {
 		Status = XASUFW_RSA_INVALID_PARAM;
 		XFIH_GOTO(END);
 	}
 
-	/* Release the RSA engine from reset */
+	/** Release the RSA engine from reset */
 	XAsufw_CryptoCoreReleaseReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
 
 	Status = Xil_SMemSet(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, 0U,
@@ -243,25 +267,34 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		XFIH_GOTO(END);
 	}
 
-	/* DMA transfer from client address to local buffer*/
+	/** Copy input data to server memory using DMA. */
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* DMA transfer from client address to local buffer*/
+	/** Copy key parameters to server memory using DMA. */
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
 			       sizeof(XAsu_RsaPvtKeyComp), 0U);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/* Copy public exponent to pointer*/
 	Status = Xil_SMemCpy(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, &(KeyPtr->PubKeyComp.PubExp),
 			     XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/** Endianness change from BE to LE for following components
+	 * - Input Data.
+	 * - Public exponent.
+	 * - Modulus.
+	 * - Private exponent.
+	 * - Prime number or totient.
+	 * - Pre calculated exponent values if available(R mod N,R square mod N).
+	*/
 	Status = XAsufw_ChangeEndianness(InData, Len);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
@@ -301,6 +334,9 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		}
 	}
 
+	/** Perform private exponentiation operation by calculating exponentiation values or with
+		pre calculated exponentiation values and with totient or prime numbers or without
+		totient and prime numbers based on available parameters. */
 	if (ExpoAddr == 0U) {
 		if (KeyPtr->PrimeCompOrTotientPrsnt == XRSA_TOTIENT_IS_PRSNT) {
 			XFIH_CALL(RSA_ExpQ, XFihVar, Status, InData, (u8 *)KeyPtr->PvtExp,
@@ -324,6 +360,8 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 			XFIH_GOTO(END);
 		}
 	} else {
+		/* DMA transfer of pre-calculated modulus values from client address to server
+		memory if available */
 		Status = XAsufw_DmaXfr(DmaPtr, ExpoAddr, (u64)(UINTPTR)RRN, sizeof(XAsu_RsaRModN),
 				       0U);
 		if (Status != XASUFW_SUCCESS) {
@@ -361,22 +399,24 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		}
 	}
 
+	/** Endianness change from LE to BE for output data. */
 	Status = XAsufw_ChangeEndianness(OutData, Len);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* DMA transfer from local buffer to client address*/
+	/** Copy output data to server memory using DMA. */
 	XFIH_CALL(XAsufw_DmaXfr, XFihVar, Status, DmaPtr, (u64)(UINTPTR)OutData, OutputDataAddr,
 		  Len, 0U);
 
 END:
+	/** Zeroize local copy of all the parameters. */
 	SStatus = Xil_SMemSet(Rsa_Data, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS, 0U,
 			      XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 
-	/* Reset the RSA engine */
+	/** Reset the RSA engine. */
 	XAsufw_CryptoCoreSetReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
 
 	return Status;
@@ -384,23 +424,22 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs the RSA Public Exponentiation encryption operation.
+ * @brief	This function performs RSA encryption for the provided message by using
+ * 		public key.
  *
- * @param	DmaPtr		DMA pointer used for DMA copy.
+ * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	Len		Length of Input and Output Data in bytes.
- * @param	InputDataAddr	address to buffer of input data.
- * @param	OutputDataAddr	address to buffer of output data.
- * @param	KeyParamAddr	address to the parameters required for RSA operation.
- * @param	ExpoAddr	address to exponential parameters required for RSA operation.
+ * @param	InputDataAddr	Address of the input data buffer.
+ * @param	OutputDataAddr	Address of the input data buffer.
+ * @param	KeyParamAddr	Address to the parameters required for RSA operation.
+ * @param	ExpoAddr	Address to exponential parameters required for RSA operation.
  *
  * @return
  *		- XASUFW_SUCCESS on success.
  *		- XASUFW_FAILURE on failure.
  *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
- *		- XASUFW_RSA_PUB_OP_ERROR on operation error.
- *		- XASUFW_RSA_RAND_GEN_ERROR on random number generation failure.
- *		- XASUFW_RSA_KEY_PAIR_COMP_ERROR on key pair comparison failure.
- *		- XASUFW_RSA_ERROR on other errors.
+ *		- Also can return termination error codes from 0x9CU to 0x9EU and 0xA1U,
+ * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
 s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
@@ -415,12 +454,13 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	u8 *PubExpoArr = RRN + XRSA_MAX_KEY_SIZE_IN_BYTES;
 	u8 *OutData = PubExpoArr + XRSA_MAX_KEY_SIZE_IN_BYTES;
 
+	/** Validate the input arguments. */
 	if ((InputDataAddr == 0U) || (KeyParamAddr == 0U) || (OutputDataAddr == 0U)) {
 		Status = XASUFW_RSA_INVALID_PARAM;
 		XFIH_GOTO(END);
 	}
 
-	/* Release the RSA engine from reset */
+	/** Release the RSA engine from reset. */
 	XAsufw_CryptoCoreReleaseReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
 
 	Status = Xil_SMemSet(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, 0U,
@@ -429,25 +469,32 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		XFIH_GOTO(END);
 	}
 
-	/* DMA transfer from client address to local buffer*/
+	/** Copy input data to server memory using DMA. */
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* DMA transfer from client address to local buffer*/
+	/** Copy key parameters to server memory using DMA. */
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
 			       sizeof(XAsu_RsaPvtKeyComp), 0U);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/* Copy public exponent to pointer*/
 	Status = Xil_SMemCpy(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, &(KeyPtr->PubExp),
 			     XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/** Endianness change from BE to LE for following components
+	 * - Input Data.
+	 * - Public exponent.
+	 * - Modulus.
+	 * - Pre calculated exponent value if available(R square mod N).
+	*/
 	Status = XAsufw_ChangeEndianness(InData, Len);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
@@ -463,9 +510,13 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		XFIH_GOTO(END);
 	}
 
+	/** Perform public exponentiation operation by calculating exponentiation values or with
+		pre calculated exponentiation values based on available parameters. */
 	if (ExpoAddr == 0) {
 		rsaexp(InData, PubExpoArr, (u8 *)KeyPtr->Modulus, XRSA_BYTE_TO_BIT(Len), OutData);
 	} else {
+		/* DMA transfer of pre-calculated modulus values from client address to server
+			memory */
 		Status = XAsufw_DmaXfr(DmaPtr, ExpoAddr, (u64)(UINTPTR)RRN, sizeof(XAsu_RsaRRModN),
 				       0U);
 		if (Status != XASUFW_SUCCESS) {
@@ -479,22 +530,24 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 			  OutData);
 	}
 
+	/** Endianness change from LE to BE for output data. */
 	Status = XAsufw_ChangeEndianness(OutData, Len);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* DMA transfer from local buffer to client address*/
+	/** Copy output data to server memory using DMA. */
 	XFIH_CALL(XAsufw_DmaXfr, XFihVar, Status, DmaPtr, (u64)(UINTPTR)OutData, OutputDataAddr,
 		  Len, 0U);
 
 END:
+	/** Zeroize local copy of all the parameters. */
 	SStatus = Xil_SMemSet(Rsa_Data, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS, 0U,
 			      XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 
-	/* Reset the RSA engine */
+	/** Reset the RSA engine. */
 	XAsufw_CryptoCoreSetReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
 
 	return Status;
@@ -502,9 +555,10 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function takes IPcores lib return status and map to respective ASUFW status.
+ * @brief	This function maps the status returned from IP cores to the respective error
+ * 		from xasufw_status.h.
  *
- * @param	Status	is the status which is to be updated.
+ * @param	Status	Status returned from IPcores library.
  *
  * @return
  *		- XASUFW_SUCCESS on success.
@@ -517,6 +571,7 @@ static s32 XRsa_UpdateStatus(s32 Status)
 {
 	s32 SStatus = XASUFW_FAILURE;
 
+	/* Updates status which relates to ASUFW_RSA module. */
 	if (Status == XRSA_RAND_GEN_ERROR) {
 		SStatus = XASUFW_RSA_RAND_GEN_ERROR;
 	} else if (Status == XRSA_KEY_PAIR_COMP_ERROR) {
@@ -529,3 +584,4 @@ static s32 XRsa_UpdateStatus(s32 Status)
 
 	return SStatus;
 }
+/** @} */
