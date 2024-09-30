@@ -58,12 +58,15 @@ endif()
 
 #Compile it as a static library
 if (("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze") OR
+   ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "pmu_microblaze"))
+string(FIND "${CMAKE_C_FLAGS}" "-flto" has_flto)
+# Custom command to build your one file.
+if (NOT ("${CMAKE_SYSTEM_NAME}" STREQUAL "FreeRTOS") AND
+    NOT (${has_flto} EQUAL -1))
 string(REPLACE "-Os -flto -ffat-lto-objects" "" CUSTOM_FLAGS ${CMAKE_C_FLAGS})
 # Split the flags into a cmake list (; separated)
 separate_arguments(CUSTOM_FLAGS UNIX_COMMAND ${CUSTOM_FLAGS})
-# Custom command to build your one file.
-if(NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "FreeRTOS")
 add_custom_command(
     OUTPUT microblaze_interrupt_handler.o
     COMMAND ${CMAKE_CXX_COMPILER}
