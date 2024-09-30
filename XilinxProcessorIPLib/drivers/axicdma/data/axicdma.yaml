@@ -66,20 +66,36 @@ examples:
 tapp:
     xaxicdma_example_simple_intr.c:
         declaration: XAxiCdma_SimpleIntrExample
+        memlist:
+            - ddr
+            - mig
+            - noc
         hwproperties:
             - interrupts
     xaxicdma_example_sg_intr.c:
         declaration: XAxiCdma_SgIntrExample
+        memlist:
+            - ddr
+            - mig
+            - noc
         hwproperties:
             - interrupts
             - xlnx,include-sg
     xaxicdma_example_sg_poll.c:
         declaration: XAxiCdma_SgPollExample
+        memlist:
+            - ddr
+            - mig
+            - noc
         hwproperties:
             - reg
             - xlnx,include-sg
     xaxicdma_example_simple_poll.c:
         declaration: XAxiCdma_SimplePollExample
+        memlist:
+            - ddr
+            - mig
+            - noc
         hwproperties:
             - reg
 ...
