@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_kat.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the code for SHA2/SHA3, RSA and ECC KAT command supported by ASUFW.
  *
@@ -26,11 +24,15 @@
  *       am   08/06/24 Added AES KAT
  *       am   08/24/24 Added AES DPA CM KAT support
  *       yog  08/25/24 Integrated FIH library
+ *       ss   09/26/24 Fixed doxygen comments
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasufw_kat.h"
 #include "xsha_hw.h"
@@ -51,19 +53,15 @@ static s32 XAsufw_AesDpaCmChecks(const u32 *P, const u32 *Q, const u32 *R, const
 /************************************ Variable Definitions ***************************************/
 #define XASUFW_KAT_MSG_LENGTH_IN_BYTES		(32U)	/**< SHA KAT message length in bytes */
 #define XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES	(256U)	/**< RSA KAT message length in bytes */
-#define XASUFW_DOUBLE_P256_SIZE_IN_BYTES	(64U)	/**< Double the size of P256 curve length */
-#define XASUFW_DOUBLE_P192_SIZE_IN_BYTES	(48U)	/**< Double the size of P192 curve length */
 #define XASUFW_AES_KEY_LEN_IN_BYTES		(32U)	/**< AES KAT Key length in bytes */
 #define XASUFW_AES_IV_LEN_IN_BYTES		(12U)	/**< AES KAT Iv length in bytes */
 #define XASUFW_AES_AAD_LEN_IN_BYTES		(16U)	/**< AES KAT AAD length in bytes */
 #define XASUFW_AES_TAG_LEN_IN_BYTES		(16U)	/**< AES KAT Tag length in bytes */
-#define XASUFW_KAT_MSG_LENGTH_IN_BYTES		(32U) /**< SHA KAT message length in bytes */
-#define XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES	(256U) /**< RSA KAT message length in bytes */
-#define XASUFW_DOUBLE_P256_SIZE_IN_BYTES	(64U) /**< Double the size of P256 curve length */
-#define XASUFW_DOUBLE_P192_SIZE_IN_BYTES	(48U) /**< Double the size of P192 curve length */
-#define XASUFW_AES_DATA_SPLIT_SIZE_IN_BYTES	(16U) /**< AES data split size in words */
-#define XASUFW_AES_CM_KAT_KEY_SIZE_IN_BYTES	(32U) /**< AES Key size in words */
-#define XASUFW_AES_CM_KAT_DATA_SIZE_IN_BYTES	(64U) /**< AES operation data in words */
+#define XASUFW_DOUBLE_P256_SIZE_IN_BYTES	(64U)	/**< Double the size of P256 curve length */
+#define XASUFW_DOUBLE_P192_SIZE_IN_BYTES	(48U)	/**< Double the size of P192 curve length */
+#define XASUFW_AES_DATA_SPLIT_SIZE_IN_BYTES	(16U)	/**< AES data split size in words */
+#define XASUFW_AES_CM_KAT_KEY_SIZE_IN_BYTES	(32U)	/**< AES Key size in words */
+#define XASUFW_AES_CM_KAT_DATA_SIZE_IN_BYTES	(64U)	/**< AES operation data in words */
 
 /* KAT message */
 static const u8 KatMessage[XASUFW_KAT_MSG_LENGTH_IN_BYTES] = {
@@ -291,15 +289,19 @@ static const u8 AesCmMiC[XASUFW_AES_DATA_SPLIT_SIZE_IN_BYTES] = {
 
 /*************************************************************************************************/
 /**
- * @brief   This function runs SHA KAT on the given SHA instance.
+ * @brief	This function runs SHA KAT on the given SHA instance for 256 bit digest size.
  *
- * @param   XAsufw_ShaInstance	SHA HW instance pointer.
- * @param   QueueId				Queue Unique ID.
- * @param   ShaResource			SHA2/SHA3 resource.
+ * @param	XAsufw_ShaInstance	Pointer to the SHA instance.
+ * @param	QueueId			Queue Unique ID.
+ * @param	ShaResource		SHA2/SHA3 resource.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful execution of the SHA KAT.
- *          - Otherwise, returns an error code.
+ *	- XASUFW_SUCCESS on successful execution of the SHA KAT.
+ *	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ *	- XASUFW_SHA_HASH_COMPARISON_FAILED, if expected and generated hash comparison fails.
+ *	- XASUFW_SHA_KAT_FAILED, when XAsufw_ShaKat API fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ *	- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
 s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaResource)
@@ -310,6 +312,7 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaReso
 	u8 OutVal[XSHA_SHA_256_HASH_LEN];
 	const u8 *ExpHash = NULL;
 
+	/** Check resource availability (DMA,SHA) and allocate them. */
 	AsuDmaPtr = XAsufw_AllocateDmaResource(ShaResource, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
@@ -317,17 +320,21 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaReso
 	}
 
 	XAsufw_AllocateResource(ShaResource, QueueId);
+
+	/** Perform SHA start operation. */
 	Status = XSha_Start(XAsufw_ShaInstance, XASU_SHA_MODE_SHA256);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/** Perform SHA update operation. */
 	Status = XSha_Update(XAsufw_ShaInstance, AsuDmaPtr, (UINTPTR)KatMessage,
 			     XASUFW_KAT_MSG_LENGTH_IN_BYTES, TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/** Perform SHA finish operation. */
 	Status = XSha_Finish(XAsufw_ShaInstance, (u64)(UINTPTR)OutVal, XSHA_SHA_256_HASH_LEN, FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
@@ -339,6 +346,7 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaReso
 		ExpHash = ExpSha3256Hash;
 	}
 
+	/** Compare generated hash with expected hash. */
 	Status = Xil_SMemCmp(OutVal, XSHA_SHA_256_HASH_LEN, ExpHash, XSHA_SHA_256_HASH_LEN,
 			     XSHA_SHA_256_HASH_LEN);
 	if (Status != XASUFW_SUCCESS) {
@@ -346,6 +354,7 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaReso
 	}
 
 END:
+	/** Zeroize local copy of output value. */
 	SStatus = Xil_SMemSet(&OutVal[0U], XSHA_SHA_256_HASH_LEN, 0U, XSHA_SHA_256_HASH_LEN);
 	if (Status == XASUFW_SUCCESS) {
 		Status = SStatus;
@@ -355,7 +364,7 @@ END:
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA_KAT_FAILED);
 	}
 
-	/* Release resources */
+	/** Release resources. */
 	if (XAsufw_ReleaseResource(ShaResource, QueueId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
@@ -365,13 +374,18 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function runs RSA KAT .
+ * @brief	This function runs RSA KAT for 2048 bit key size.
  *
- * @param   QueueId	Queue Unique ID.
+ * @param	QueueId	Queue Unique ID.
  *
  * @return
- * 		- Returns XASUFW_SUCCESS on successful execution of the RSA KAT.
- *		- Otherwise, returns an error code.
+ *	- XASUFW_SUCCESS on successful execution of the RSA KAT.
+ *	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ *	- XASUFW_RSA_ENCRYPT_DATA_COMPARISON_FAILED, if expected and generated encrypted message
+ *	comparison fails.
+ *	- XASUFW_RSA_KAT_FAILED, when XAsufw_RsaPubEncKat API fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ *	- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
 s32 XAsufw_RsaPubEncKat(u32 QueueId)
@@ -385,12 +399,14 @@ s32 XAsufw_RsaPubEncKat(u32 QueueId)
 	PubKeyParam.Keysize = XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES;
 	PubKeyParam.PubExp = RsaPublicExp;
 
+	/** Copy required parameters. */
 	Status = Xil_SMemCpy(PubKeyParam.Modulus, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaModulus,
 			     XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/** Check resource availability (DMA,RSA) and allocate them. */
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
@@ -399,18 +415,21 @@ s32 XAsufw_RsaPubEncKat(u32 QueueId)
 
 	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
 
+	/** Perform public exponentiation encryption operation. */
 	Status = XRsa_PubExp(AsuDmaPtr, PubKeyParam.Keysize, (u64)(UINTPTR)RsaData,
 			     (u64)(UINTPTR)OutVal, (u64)(UINTPTR)&PubKeyParam, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/** Compare generated encrypted message with expected. */
 	Status = Xil_SMemCmp(OutVal, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaExpectedCt,
 			     XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ENCRYPT_DATA_COMPARISON_FAILED;
 	}
 END:
+	/** Zeroize local copy of output value. */
 	SStatus = Xil_SMemSet(&OutVal[0U], XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, 0U,
 			      XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status == XASUFW_SUCCESS) {
@@ -420,7 +439,8 @@ END:
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_KAT_FAILED);
 	}
-	/* Release resources */
+
+	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS ) {
 		Status = XAsufw_UpdateErrorStatus(Status,
 						  XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
@@ -433,12 +453,18 @@ RET:
 /**
  * @brief	This function runs ECC KAT on ECC core for P-256 curve.
  *
- * @param	XAsufw_EccInstance	ECC HW instance pointer.
+ * @param	XAsufw_EccInstance	Pointer to the ECC instance.
  * @param	QueueId			Queue Unique ID.
  *
  * @return
- * 		- Returns XASUFW_SUCCESS on successful execution of the ECC KAT.
- * 		- Otherwise, returns an error code.
+ *	- XASUFW_SUCCESS on successful execution of the ECC KAT.
+ *	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ *	- XASUFW_ECC_PUBKEY_COMPARISON_FAILED, if public key generation fails.
+ *	- XASUFW_ECC_SIGNATURE_COMPARISON_FAILED, if generated and expected signature
+	comparison fails.
+ *	- XASUFW_ECC_KAT_FAILED, when XAsufw_EccCoreKat API fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ *	- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
 s32 XAsufw_EccCoreKat(XEcc *XAsufw_EccInstance, u32 QueueId)
@@ -449,19 +475,23 @@ s32 XAsufw_EccCoreKat(XEcc *XAsufw_EccInstance, u32 QueueId)
 	u8 GenPubKey[XASUFW_DOUBLE_P256_SIZE_IN_BYTES];
 	u8 GenSign[XASUFW_DOUBLE_P256_SIZE_IN_BYTES];
 
+	/** Check resource availability (DMA,ECC) and allocate them. */
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_ECC, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
 		XFIH_GOTO(END);
 	}
+
 	XAsufw_AllocateResource(XASUFW_ECC, QueueId);
 
+	/** Generates the public key using the provided private key. */
 	Status = XEcc_GeneratePublicKey(XAsufw_EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
 					XECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)EccPrivKey, (u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/** Compare the generated public key with expected public key. */
 	Status = Xil_SMemCmp(GenPubKey, XASUFW_DOUBLE_P256_SIZE_IN_BYTES, EccExpPubKeyP256,
 			     XASUFW_DOUBLE_P256_SIZE_IN_BYTES, XASUFW_DOUBLE_P256_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
@@ -469,12 +499,14 @@ s32 XAsufw_EccCoreKat(XEcc *XAsufw_EccInstance, u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
+	/** Validates the generated ECC public key. */
 	Status = XEcc_ValidatePublicKey(XAsufw_EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
 					XECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/** Generate signature using core API XEcc_GenerateSignature. */
 	Status = XEcc_GenerateSignature(XAsufw_EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
 					XECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)EccPrivKey, EccEphemeralKey,
 					(u64)(UINTPTR)EccHash, XECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenSign);
@@ -482,6 +514,7 @@ s32 XAsufw_EccCoreKat(XEcc *XAsufw_EccInstance, u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
+	/** Compare the generated signature with the expected. */
 	Status = Xil_SMemCmp(GenSign, XASUFW_DOUBLE_P256_SIZE_IN_BYTES, EccExpSignP256,
 			     XASUFW_DOUBLE_P256_SIZE_IN_BYTES, XASUFW_DOUBLE_P256_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
@@ -489,6 +522,7 @@ s32 XAsufw_EccCoreKat(XEcc *XAsufw_EccInstance, u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
+	/** Verify signature using core API XEcc_VerifySignature. */
 	Status = XEcc_VerifySignature(XAsufw_EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
 				      XECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenPubKey,
 				      (u64)(UINTPTR)EccHash, XECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenSign);
@@ -497,12 +531,14 @@ s32 XAsufw_EccCoreKat(XEcc *XAsufw_EccInstance, u32 QueueId)
 	}
 
 END:
+	/** Zeroize local copy of public key. */
 	SStatus = Xil_SMemSet(&GenPubKey[0U], XASUFW_DOUBLE_P256_SIZE_IN_BYTES, 0U,
 			      XASUFW_DOUBLE_P256_SIZE_IN_BYTES);
 	if (Status == XASUFW_SUCCESS) {
 		Status = SStatus;
 	}
 
+	/** Zeroize local copy of generated signature. */
 	SStatus = Xil_SMemSet(&GenSign[0U], XASUFW_DOUBLE_P256_SIZE_IN_BYTES, 0U,
 			      XASUFW_DOUBLE_P256_SIZE_IN_BYTES);
 	if (Status == XASUFW_SUCCESS) {
@@ -513,7 +549,7 @@ END:
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_KAT_FAILED);
 	}
 
-	/* Release resources */
+	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_ECC, QueueId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
@@ -528,8 +564,14 @@ END:
  * @param	QueueId		Queue Unique ID.
  *
  * @return
- * 		- Returns XASUFW_SUCCESS on successful execution of the ECC KAT.
- * 		- Otherwise, returns an error code.
+ *	- XASUFW_SUCCESS on successful execution of the ECC KAT.
+ *	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ *	- XASUFW_RSA_ECC_PUBKEY_COMPARISON_FAILED, if public key generation fails.
+ *	- XASUFW_RSA_ECC_SIGNATURE_COMPARISON_FAILED, if generated and expected signature
+	comparison fails.
+ *	- XASUFW_RSA_ECC_KAT_FAILED, when XAsufw_RsaEccKat API fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ *	- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
 s32 XAsufw_RsaEccKat(u32 QueueId)
@@ -540,6 +582,7 @@ s32 XAsufw_RsaEccKat(u32 QueueId)
 	u8 GenPubKey[XASUFW_DOUBLE_P192_SIZE_IN_BYTES];
 	u8 GenSign[XASUFW_DOUBLE_P192_SIZE_IN_BYTES];
 
+	/** Check resource availability (DMA,RSA) and allocate them. */
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
@@ -548,12 +591,14 @@ s32 XAsufw_RsaEccKat(u32 QueueId)
 
 	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
 
+	/** Generates the public key using the provided private key. */
 	Status = XRsa_EccGeneratePubKey(AsuDmaPtr, XASU_ECC_NIST_P192, XRSA_ECC_P192_SIZE_IN_BYTES,
 					(u64)(UINTPTR)EccPrivKey, (u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/** Compare the generated public key with expected public key. */
 	Status = Xil_SMemCmp(GenPubKey, XASUFW_DOUBLE_P192_SIZE_IN_BYTES, EccExpPubKeyP192,
 			     XASUFW_DOUBLE_P192_SIZE_IN_BYTES, XASUFW_DOUBLE_P192_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
@@ -561,12 +606,14 @@ s32 XAsufw_RsaEccKat(u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
+	/** Validates the generated ECC public key. */
 	Status = XRsa_EccValidatePubKey(AsuDmaPtr, XASU_ECC_NIST_P192, XRSA_ECC_P192_SIZE_IN_BYTES,
 					(u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
+	/** Generate signature using RSA core API XRsa_EccGenerateSignature. */
 	Status = XRsa_EccGenerateSignature(AsuDmaPtr, XASU_ECC_NIST_P192,
 					   XRSA_ECC_P192_SIZE_IN_BYTES, (u64)(UINTPTR)EccPrivKey, EccEphemeralKey,
 					   (u64)(UINTPTR)EccHash, XRSA_ECC_P192_SIZE_IN_BYTES, (u64)(UINTPTR)GenSign);
@@ -574,6 +621,7 @@ s32 XAsufw_RsaEccKat(u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
+	/** Compare the generated signature message with the expected. */
 	Status = Xil_SMemCmp(GenSign, XASUFW_DOUBLE_P192_SIZE_IN_BYTES, EccExpSignP192,
 			     XASUFW_DOUBLE_P192_SIZE_IN_BYTES, XASUFW_DOUBLE_P192_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
@@ -581,6 +629,7 @@ s32 XAsufw_RsaEccKat(u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
+	/** Verify signature using RSA core API XRsa_EccVerifySignature. */
 	Status = XRsa_EccVerifySignature(AsuDmaPtr, XASU_ECC_NIST_P192, XRSA_ECC_P192_SIZE_IN_BYTES,
 					 (u64)(UINTPTR)EccExpPubKeyP192, (u64)(UINTPTR)EccHash,
 					 XRSA_ECC_P192_SIZE_IN_BYTES, (u64)(UINTPTR)GenSign);
@@ -589,12 +638,14 @@ s32 XAsufw_RsaEccKat(u32 QueueId)
 	}
 
 END:
+	/** Zeroize local copy of public key. */
 	SStatus = Xil_SMemSet(&GenPubKey[0U], XASUFW_DOUBLE_P192_SIZE_IN_BYTES, 0U,
 			      XASUFW_DOUBLE_P192_SIZE_IN_BYTES);
 	if (Status == XASUFW_SUCCESS) {
 		Status = SStatus;
 	}
 
+	/** Zeroize local copy of generated signature. */
 	SStatus = Xil_SMemSet(&GenSign[0U], XASUFW_DOUBLE_P192_SIZE_IN_BYTES, 0U,
 			      XASUFW_DOUBLE_P192_SIZE_IN_BYTES);
 	if (Status == XASUFW_SUCCESS) {
@@ -605,7 +656,7 @@ END:
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_KAT_FAILED);
 	}
 
-	/* Release resources */
+	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
@@ -615,14 +666,21 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function runs AES KAT on the given AES instance.
+ * @brief	This function runs AES KAT on the given AES instance for 256 bit message length
+ * 		in GCM mode.
  *
- * @param	AesInstance	AES HW instance pointer.
+ * @param	AesInstance	Pointer to the AES instance.
  * @param	QueueId		Queue Unique ID.
  *
  * @return
- *		- Returns XASUFW_SUCCESS on successful execution of the AES KAT.
- *		- Otherwise, returns an error code.
+ *	- XASUFW_SUCCESS, on successful execution of the AES KAT.
+ *	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ *	- XASUFW_AES_WRITE_KEY_FAILED, if Key write to AES USER key register fails.
+ *	- XASUFW_AES_INIT_FAILED, if initialization of AES engine fails.
+ *	- XASUFW_AES_UPDATE_FAILED, if update of data to AES engine fails.
+ *	- XASUFW_AES_FINAL_FAILED, if completion of final AES operation fails.
+ *	- XASUFW_AES_KAT_FAILED, when XAsufw_AesGcmKat API fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
 s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
@@ -638,6 +696,7 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 	KeyObject.KeySrc = XASU_AES_USER_KEY_0;
 	KeyObject.KeySize = XASU_AES_KEY_SIZE_256_BITS;
 
+	/** Check resource availability (DMA,AES) and allocate them. */
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
@@ -646,13 +705,15 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 
 	XAsufw_AllocateResource(XASUFW_AES, QueueId);
 
+	/** Write the key into specified AES USER key registers. */
 	Status = XAes_WriteKey(AesInstance, AsuDmaPtr, (u64)(UINTPTR)&KeyObject);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_WRITE_KEY_FAILED);
 		XFIH_GOTO(END);
 	}
 
-	/* Encryption */
+	/**  Initializes the AES engine and load the provided key and IV to the AES engine
+		for encryption. */
 	Status = XAes_Init(AesInstance, AsuDmaPtr, (u64)(UINTPTR)&KeyObject, (u64)(UINTPTR)AesIv,
 			   XASUFW_AES_IV_LEN_IN_BYTES, XASU_AES_GCM_MODE, XASU_AES_ENCRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
@@ -660,6 +721,7 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
+	/** Perform AES update operation for AAD, message. */
 	Status = XAes_Update(AesInstance, AsuDmaPtr, (u64)(UINTPTR)AesAad, 0U,
 			     XASUFW_AES_AAD_LEN_IN_BYTES, FALSE);
 	if (Status != XASUFW_SUCCESS) {
@@ -674,6 +736,7 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
+	/** Perform AES final operation for encryption. */
 	Status = XAes_Final(AesInstance, AsuDmaPtr, (u32)(UINTPTR)AesTag,
 			    XASUFW_AES_TAG_LEN_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
@@ -681,7 +744,7 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
-	/* Comparison of encrypted Data with expected ciphertext data */
+	/** Comparison of encrypted data with expected ciphertext data. */
 	Status = Xil_SMemCmp_CT(ExpAesGcmCt, XASUFW_KAT_MSG_LENGTH_IN_BYTES, AesOutData,
 				XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASUFW_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XST_SUCCESS) {
@@ -689,7 +752,8 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
-	/* Decryption */
+	/**  Initializes the AES engine and load the provided key and IV to the AES engine
+		for decryption. */
 	Status = XAes_Init(AesInstance, AsuDmaPtr, (u64)(UINTPTR)&KeyObject, (u64)(UINTPTR)AesIv,
 			   XASUFW_AES_IV_LEN_IN_BYTES, XASU_AES_GCM_MODE, XASU_AES_DECRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
@@ -697,6 +761,7 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
+	/** Perform AES update operation for AAD, ciphertext. */
 	Status = XAes_Update(AesInstance, AsuDmaPtr, (u64)(UINTPTR)AesAad, 0U,
 			     XASUFW_AES_AAD_LEN_IN_BYTES, FALSE);
 	if (Status != XASUFW_SUCCESS) {
@@ -711,6 +776,7 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
+	/** Perform AES final operation for decryption. */
 	Status = XAes_Final(AesInstance, AsuDmaPtr, (u32)(UINTPTR)AesTag,
 			    XASUFW_AES_TAG_LEN_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
@@ -718,7 +784,7 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
-	/* Comparison of decrypted Data with expected input data */
+	/** Comparison of decrypted data with expected input data. */
 	Status = Xil_SMemCmp_CT(KatMessage, XASUFW_KAT_MSG_LENGTH_IN_BYTES, AesOutData,
 				XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASUFW_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XST_SUCCESS) {
@@ -727,6 +793,7 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 	}
 
 END:
+	/** Zeroize local copy of buffers. */
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)AesOutData, XASUFW_KAT_MSG_LENGTH_IN_BYTES);
 	ClearStatus |= Xil_SecureZeroize((u8 *)(UINTPTR)AesTag, XASUFW_AES_TAG_LEN_IN_BYTES);
 	if ((Status == XASUFW_SUCCESS) && (Status == XASUFW_SUCCESS)) {
@@ -737,7 +804,7 @@ END:
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_KAT_FAILED);
 	}
 
-	/* Release resources */
+	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_AES, QueueId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
@@ -749,12 +816,18 @@ END:
 /**
  * @brief	This function runs AES DPA CM KAT on the given AES instance.
  *
- * @param	AesInstance	AES HW instance pointer.
+ * @param	AesInstance	Pointer to the AES instance.
  * @param	QueueId		Queue Unique ID.
  *
  * @return
- *		- Returns XASUFW_SUCCESS on successful execution of the AES DPA CM KAT.
- *		- Otherwise, returns an error code.
+ *	- XASUFW_SUCCESS on successful execution of the AES DPA CM KAT.
+ *	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ *	- XASUFW_AES_DPA_CM_KAT_CHECK1_FAILED, if check1 has failed.
+ *	- XASUFW_AES_DPA_CM_KAT_CHECK2_FAILED, if check2 has failed.
+ *	- XASUFW_AES_DPA_CM_KAT_CHECK3_FAILED, if check3 has failed.
+ *	- XASUFW_AES_DPA_CM_KAT_CHECK4_FAILED, if check4 has failed.
+ *	- XASUFW_AES_DPA_CM_KAT_CHECK5_FAILED, if check5 has failed.
+ *	- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
 s32 XAsufw_AesDecryptDpaCmKat(XAes *AesInstance, u32 QueueId)
@@ -782,6 +855,7 @@ s32 XAsufw_AesDecryptDpaCmKat(XAes *AesInstance, u32 QueueId)
 	KeyObject.KeySrc = XASU_AES_USER_KEY_0;
 	KeyObject.KeySize = XASU_AES_KEY_SIZE_256_BITS;
 
+	/** Check resource availability (DMA,AES) and allocate them. */
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
@@ -790,7 +864,7 @@ s32 XAsufw_AesDecryptDpaCmKat(XAes *AesInstance, u32 QueueId)
 
 	XAsufw_AllocateResource(XASUFW_AES, QueueId);
 
-	/* Run DPA CM KAT on AES engine to know performance integrity */
+	/** Run DPA CM KAT on AES engine to know performance integrity. */
 	Status = XAes_DpaCmDecryptData(AesInstance, AsuDmaPtr, &KeyObject, (u32)(UINTPTR)AesCmData,
 				       (u32)(UINTPTR)Output0, sizeof(Output0));
 	if (Status != (u32)XASUFW_SUCCESS) {
@@ -799,13 +873,14 @@ s32 XAsufw_AesDecryptDpaCmKat(XAes *AesInstance, u32 QueueId)
 
 	Status = XASUFW_FAILURE;
 
-	/* Rerun the AES DPA CM KAT with same vectors of previous run */
+	/** Rerun the AES DPA CM KAT with same vectors of previous run. */
 	Status = XAes_DpaCmDecryptData(AesInstance, AsuDmaPtr, &KeyObject, (u32)(UINTPTR)AesCmData,
 				       (u32)(UINTPTR)Output1, sizeof(Output1));
 	if (Status != (u32)XASUFW_SUCCESS) {
 		goto END;
 	}
 
+	/** Perform AES DPA CM checks. */
 	Status = XST_FAILURE;
 	Status = XAsufw_AesDpaCmChecks(RM0, RM1, Mm0, Mm1);
 	if (Status != XST_SUCCESS) {
@@ -850,7 +925,7 @@ END:
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_DPA_CM_KAT_FAILED);
 	}
 
-	/* Release resources */
+	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_AES, QueueId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
@@ -868,14 +943,15 @@ END:
  * @param 	S is the pointer to the data array of size 4 words.
  *
  * @return
- *		- XASUFW_SUCCESS - When check is passed
- *		- XASUFW_FAILURE - when check is failed
+ *	- XASUFW_SUCCESS - When check is passed
+ *	- XASUFW_FAILURE - when check is failed
  *
  *************************************************************************************************/
 static s32 XAsufw_AesDpaCmChecks(const u32 *P, const u32 *Q, const u32 *R, const u32 *S)
 {
 	s32 Status = XASUFW_FAILURE;
 
+	/** Perform AES DPA CM checks. */
 	if (((P[0U] == 0U) && (P[1U] == 0U) && (P[2U] == 0U) && (P[3U] == 0U)) ||
 	    ((P[0U] == Q[0U]) && (P[1U] == Q[1U]) && (P[2U] == Q[2U]) && (P[3U] == Q[3U])) ||
 	    ((P[0U] == R[0U]) && (P[1U] == R[1U]) && (P[2U] == R[2U]) && (P[3U] == R[3U])) ||

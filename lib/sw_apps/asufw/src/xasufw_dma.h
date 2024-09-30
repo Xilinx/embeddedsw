@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_dma.h
- * @addtogroup Overview
- * @{
  *
  * This file contains declarations for xasufw_dma.c file in ASUFW.
  *
@@ -19,11 +17,15 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   03/23/24 Initial release
  *       ma   04/26/24 Change XAsufw_DmaXfr to XAsufw_StartDmaXfr
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 #ifndef XASUFW_DMA_H
 #define XASUFW_DMA_H
 
@@ -36,14 +38,14 @@ extern "C" {
 #include "xasufw_sss.h"
 
 /************************************ Constant Definitions ***************************************/
-/** DMA XFER flags */
-#define XASUFW_SRC_CH_AXI_FIXED		(0x1U)
-#define XASUFW_DST_CH_AXI_FIXED	    ((u32)0x1U << 16U)
+#define XASUFW_SRC_CH_AXI_FIXED	(0x1U) /** DMA XFER flags for source channel. */
+#define XASUFW_DST_CH_AXI_FIXED	((u32)0x1U << 16U) /** DMA XFER flags for destination channel. */
 
 /************************************** Type Definitions *****************************************/
+/** @brief The structure XAsufw_Dma is DMA instance data structure. */
 typedef struct {
-	XAsuDma AsuDma;
-	XAsufw_SssSrc SssDmaCfg;
+	XAsuDma AsuDma; /** ASU DMA driver instance data structure. */
+	XAsufw_SssSrc SssDmaCfg; /** SSS configuration. */
 } XAsufw_Dma;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

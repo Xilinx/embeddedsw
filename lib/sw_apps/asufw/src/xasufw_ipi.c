@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_ipi.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the IPI code for ASUFW.
  *
@@ -24,7 +22,10 @@
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasufw_ipi.h"
 #include "xasufw_sharedmem.h"
@@ -44,16 +45,16 @@
 
 /************************************ Variable Definitions ***************************************/
 #if defined(XPAR_XIPIPSU_0_BASEADDR)
-/* Instance of IPI Driver */
-static XIpiPsu IpiInst;
+static XIpiPsu IpiInst; /**< Instance of IPI Driver */
 
 /*************************************************************************************************/
 /**
- * @brief   This function initializes IPI driver, enables interrupts and initializes shared memory.
+ * @brief	This function initializes IPI driver, enables interrupts and initializes
+ * 		shared memory.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful initialization of IPI and shared memory.
- *          - Otherwise, returns an error code.
+ *		- XASUFW_SUCCESS, if initialization of IPI and shared memory is successful.
+ *		- XASUFW_IPI_LOOKUP_CONFIG_FAILED, if IPI lookup config failed fails.
  *
  *************************************************************************************************/
 s32 XAsufw_IpiInit(void)
@@ -61,17 +62,17 @@ s32 XAsufw_IpiInit(void)
 	s32 Status = XASUFW_FAILURE;
 	XIpiPsu_Config *IpiCfgPtr;
 
-	/* Load Config for ASU IPI */
+	/** Load Config for ASU IPI. */
 	IpiCfgPtr = XIpiPsu_LookupConfig(XASUFW_IPI_DEVICE_ID);
 	if (IpiCfgPtr == NULL) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_LOOKUP_CONFIG_FAILED, Status);
 		XFIH_GOTO(END);
 	}
 
-	/* Initialize the IPI driver */
+	/** Initialize the IPI driver. */
 	Status = XIpiPsu_CfgInitialize(&IpiInst, IpiCfgPtr, IpiCfgPtr->BaseAddress);
 
-	/* Enable IPI interrupt from PMC */
+	/** Enable IPI interrupt from PMC. */
 	XIpiPsu_InterruptEnable(&IpiInst, XASUFW_IPI_PMC_MASK);
 
 	XAsufw_Printf(DEBUG_DETAILED, "IPI interrupts are enabled\r\n");
@@ -82,9 +83,9 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function enables the IPI interrupt for the given IPI bit mask
+ * @brief	This function enables the IPI interrupt for the given IPI bit mask.
  *
- * @param   IpiBitMask  Bit mask of the IPI channel
+ * @param	IpiBitMask  Bit mask of the IPI channel
  *
  *************************************************************************************************/
 void XAsufw_EnableIpiInterrupt(u16 IpiBitMask)
@@ -94,11 +95,11 @@ void XAsufw_EnableIpiInterrupt(u16 IpiBitMask)
 
 /*************************************************************************************************/
 /**
- * @brief   This function a handler for IPI interrupts. This function simply disables the
- * interrupts when an IPI interrupt is received. Commands execution will be done as part of task
- * dispatch loop.
+ * @brief	This function a handler for IPI interrupts. This function simply disables the
+ * 		interrupts when an IPI interrupt is received. Commands execution will be done as
+ * 		part of task dispatch loop.
  *
- * @param   Data    Private data (Interrupt number in this case)
+ * @param	Data    Private data (Interrupt number in this case).
  *
  *************************************************************************************************/
 void XAsufw_IpiHandler(void *Data)
@@ -110,7 +111,7 @@ void XAsufw_IpiHandler(void *Data)
 	(void)Data;
 	XAsufw_Printf(DEBUG_DETAILED, "Received IPI interrupt: 0x%x\r\n", IpiIsr);
 
-	/* Trigger Queue tasks of the IPI channels on which the new request is received */
+	/** Trigger Queue tasks of the IPI channels on which the new request is received. */
 	while (IpiIsr != 0U) {
 		IpiMask = IpiIsr & (0x1U << Count);
 		if (IpiMask != 0U) {
@@ -124,28 +125,30 @@ void XAsufw_IpiHandler(void *Data)
 
 /*************************************************************************************************/
 /**
- * @brief   This function writes the given message to the ASU-PMC IPI buffer and triggers an IPI
- * interrupt to PLM.
+ * @brief	This function writes the given message to the ASU-PMC IPI buffer and triggers an
+ * 		IPI interrupt to PLM.
  *
- * @param   MsgBufPtr  IPI message to be written to ASU-PMC message buffer.
- * @param   MsgBufLen  IPI message length.
+ * @param	MsgBufPtr  IPI message to be written to ASU-PMC message buffer.
+ * @param	MsgBufLen  IPI message length.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS if IPI write to PLM is successful.
- *          - Otherwise, it returns an error code.
+ *		- XASUFW_SUCCESS, if IPI write to PLM is successful.
+ *		- XASUFW_IPI_POLL_FOR_ACK_FAILED, if IPI Poll for acknowledgement fails.
+ *		- XASUFW_IPI_WRITE_MESSAGE_FAILED, if IPI write message fails.
+ *		- XASUFW_IPI_TRIGGER_FAILED, if IPI trigger fails.
  *
  *************************************************************************************************/
 s32 XAsufw_SendIpiToPlm(u32 *MsgBufPtr, u32 MsgBufLen)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/* Validate the inputs */
+	/** Validate the inputs. */
 	if ((NULL == MsgBufPtr) || (MsgBufLen == 0U) || (MsgBufLen > XASUFW_IPI_MAX_MSG_LEN)) {
 		Status = XASUFW_IPI_INVALID_INPUT_PARAMETERS;
 		XFIH_GOTO(END);
 	}
 
-	/* Check if there is any pending IPI message */
+	/** Check if there is any pending IPI message. */
 	/* TODO: Need to change timeout value */
 	Status = XIpiPsu_PollForAck(&IpiInst, XASUFW_IPI_PMC_MASK, 0x1FFFFFFFU);
 	if (XASUFW_SUCCESS != Status) {
@@ -153,7 +156,7 @@ s32 XAsufw_SendIpiToPlm(u32 *MsgBufPtr, u32 MsgBufLen)
 		XFIH_GOTO(END);
 	}
 
-	/* Write IPI message to ASU-PMC message buffer */
+	/** Write IPI message to ASU-PMC message buffer. */
 	Status = XIpiPsu_WriteMessage(&IpiInst, XASUFW_IPI_PMC_MASK, MsgBufPtr, MsgBufLen,
 				      XIPIPSU_BUF_TYPE_MSG);
 	if (XASUFW_SUCCESS != Status) {
@@ -161,7 +164,7 @@ s32 XAsufw_SendIpiToPlm(u32 *MsgBufPtr, u32 MsgBufLen)
 		XFIH_GOTO(END);
 	}
 
-	/* Trigger an IPI interrupt to PLM */
+	/** Trigger an IPI interrupt to PLM. */
 	Status = XIpiPsu_TriggerIpi(&IpiInst, XASUFW_IPI_PMC_MASK);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_TRIGGER_FAILED, Status);
@@ -174,27 +177,30 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function reads the IPI response from PLM.
+ * @brief	This function reads the IPI response from PLM.
  *
- * @param   RespBufPtr Pointer tot he response buffer where the response to be copied.
- * @param   RespBufLen Length of the response to be copied.
+ * @param	RespBufPtr Pointer tot he response buffer where the response to be copied.
+ * @param	RespBufLen Length of the response to be copied.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS if IPI read response from PLM is successful.
- *          - Otherwise, it returns an error code.
+ *		- XASUFW_SUCCESS, if IPI read response from PLM is successful.
+ *		- XASUFW_IPI_INVALID_INPUT_PARAMETERS, if input arguments for IPI send/receive is
+ * 			invalid.
+ *		- XASUFW_IPI_POLL_FOR_ACK_FAILED, if IPI Poll for ack fails.
+ *		- XASUFW_IPI_READ_MESSAGE_FAILED, if IPI read message fails.
  *
  *************************************************************************************************/
 s32 XAsufw_ReadIpiRespFromPlm(u32 *RespBufPtr, u32 RespBufLen)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/* Validate inputs */
+	/** Validate inputs. */
 	if ((NULL == RespBufPtr) || (RespBufLen == 0U) || (RespBufLen > XASUFW_IPI_MAX_MSG_LEN)) {
 		Status = XASUFW_IPI_INVALID_INPUT_PARAMETERS;
 		XFIH_GOTO(END);
 	}
 
-	/* Check if the IPI interrupt is processed */
+	/** Check if the IPI interrupt is processed. */
 	/* TODO: Need to change timeout value */
 	Status = XIpiPsu_PollForAck(&IpiInst, XASUFW_IPI_PMC_MASK, 0x1FFFFFFFU);
 	if (XASUFW_SUCCESS != Status) {
@@ -202,7 +208,7 @@ s32 XAsufw_ReadIpiRespFromPlm(u32 *RespBufPtr, u32 RespBufLen)
 		XFIH_GOTO(END);
 	}
 
-	/* Read IPI response from PLM */
+	/** Read IPI response from PLM. */
 	Status = XIpiPsu_ReadMessage(&IpiInst, XASUFW_IPI_PMC_MASK, RespBufPtr, RespBufLen,
 				     XIPIPSU_BUF_TYPE_RESP);
 	if (XASUFW_SUCCESS != Status) {

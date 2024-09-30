@@ -6,9 +6,7 @@
 /*************************************************************************************************/
 /**
  *
- * @file xasu_config.h
- * @addtogroup Overview
- * @{
+ * @file xasufw_config.h
  *
  * This header file contains ASUFW configuration macros for users.
  *
@@ -23,11 +21,15 @@
  *       am   07/09/24 Fixed incorrect macro values for config enable and disable
  *       yog  07/11/24 Added macros to enable or disable support of NIST and Brainpool curves
  *       ma   07/26/24 Added XASUFW_TRNG_IN_PTRNG_MODE to run TRNG in PTRNG mode when enabled
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 #ifndef XASUFW_CONFIG_H
 #define XASUFW_CONFIG_H
 
@@ -51,21 +53,21 @@ extern "C" {
  * @name Supported ECC curves
  * @{
  */
-/**< Macros to enable / disable support of NIST and Brainpool curves */
-#define XASUFW_RSA_ECC_SUPPORT_NIST_P521	(XASUFW_CONFIG_ENABLE) /**< P521 curve support \
-configuration */
-#define XASUFW_RSA_ECC_SUPPORT_NIST_P192	(XASUFW_CONFIG_ENABLE) /**< P192 curve support \
-configuration */
-#define XASUFW_RSA_ECC_SUPPORT_NIST_P224	(XASUFW_CONFIG_ENABLE) /**< P224 curve support \
-configuration */
-#define XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P256	(XASUFW_CONFIG_ENABLE) /**< Brainpool P256 curve \
-support configuration */
-#define XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P320	(XASUFW_CONFIG_ENABLE) /**< Brainpool P320 curve \
-support configuration */
-#define XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P384	(XASUFW_CONFIG_ENABLE) /**< Brainpool P384 curve \
-support configuration */
-#define XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P512	(XASUFW_CONFIG_ENABLE) /**< Brainpool P512 curve \
-support configuration */
+/* Macros to enable / disable support of NIST and Brainpool curves */
+#define XASUFW_RSA_ECC_SUPPORT_NIST_P521	(XASUFW_CONFIG_ENABLE) /**< To enable/disable P521
+								curve support configuration */
+#define XASUFW_RSA_ECC_SUPPORT_NIST_P192	(XASUFW_CONFIG_ENABLE) /**< To enable/disable P192
+								curve support configuration */
+#define XASUFW_RSA_ECC_SUPPORT_NIST_P224	(XASUFW_CONFIG_ENABLE) /**< To enable/disable P224
+								curve support configuration */
+#define XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P256	(XASUFW_CONFIG_ENABLE) /**< To enable/disable
+							Brainpool P256 curve support configuration */
+#define XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P320	(XASUFW_CONFIG_ENABLE) /**< To enable/disable
+							Brainpool P320 curve support configuration */
+#define XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P384	(XASUFW_CONFIG_ENABLE) /**< To enable/disable
+							Brainpool P384 curve support configuration */
+#define XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P512	(XASUFW_CONFIG_ENABLE) /**< To enable/disable
+							Brainpool P512 curve support configuration */
 /** @} */
 
 /************************************** Type Definitions *****************************************/

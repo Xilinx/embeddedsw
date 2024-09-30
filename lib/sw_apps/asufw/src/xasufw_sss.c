@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_sss.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the code for Secure Stream Switch configuration in ASUFW.
  *
@@ -21,11 +19,15 @@
  *       ma   02/16/24 Remove unwanted print statement
  *       ma   03/16/24 Added error codes at required places
  *       yog  08/25/24 Integrated FIH library
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasufw_sss.h"
 #include "xasufw_status.h"
@@ -97,11 +99,11 @@ const u8 XAsufw_SssLookupTable[XASUFW_SSS_MAX_SRCS][XASUFW_SSS_MAX_SRCS] = {
 /**
  * @brief	This function configures secure stream switch to perform DMA loopback operation
  *
- * @param   DmaResource DMA resource for the DMA loopback operation
+ * @param	DmaResource	DMA resource for the DMA loopback operation
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful configuration of the switch.
- *          - Returns error code on invalid input arguments.
+ *		- XASUFW_SUCCESS, if configuration of the switch is successful.
+ *		- XASUFW_FAILURE, if configuration of the switch fails.
  *
  *************************************************************************************************/
 s32 XAsufw_SssDmaLoopback(XAsufw_SssSrc DmaResource)
@@ -122,14 +124,14 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function configures secure stream switch to perform DMA loopback operation with
- *          SHA hash calculation
+ * 		SHA hash calculation
  *
- * @param   DmaResource DMA resource for the DMA loopback operation with hash
- * @param   OutputSrc   Output source to be used for DMA loopback operation with hash
+ * @param	DmaResource	DMA resource for the DMA loopback operation with hash
+ * @param	OutputSrc	Output source to be used for DMA loopback operation with hash
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful configuration of the switch.
- *          - Returns error code on invalid input arguments.
+ *		- XASUFW_SUCCESS, if configuration of the switch is successful.
+ *		- XASUFW_FAILURE, if configuration of the switch fails.
  *
  *************************************************************************************************/
 s32 XAsufw_SssDmaLoopbackWithSha(XAsufw_SssSrc DmaResource, XAsufw_SssSrc OutputSrc)
@@ -150,13 +152,14 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function configures secure stream switch to perform DMA to PL interface and back
+ * @brief	This function configures secure stream switch to perform DMA to PL interface and
+ * 		back.
  *
- * @param   DmaResource DMA resource to be used for DMA to PL interface and back
+ * @param	DmaResource	DMA resource to be used for DMA to PL interface and back
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful configuration of the switch.
- *          - Returns error code on invalid input arguments.
+ *		- XASUFW_SUCCESS, if configuration of the switch is successful.
+ *		- XASUFW_FAILURE, if configuration of the switch fails.
  *
  *************************************************************************************************/
 s32 XAsufw_SssDmaToPli(XAsufw_SssSrc DmaResource)
@@ -178,12 +181,12 @@ END:
 /**
  * @brief	This function configures secure stream switch to perform SHA hash calculation using DMA
  *
- * @param   ShaResource SHA resource to be used for hash calculation using DMA
- * @param   InputSrc    Input DMA source to be used for hash calculation using DMA
+ * @param	ShaResource	SHA resource to be used for hash calculation using DMA
+ * @param	InputSrc	Input DMA source to be used for hash calculation using DMA
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful configuration of the switch.
- *          - Returns error code on invalid input arguments.
+ *		- XASUFW_SUCCESS, if configuration of the switch is successful.
+ *		- XASUFW_FAILURE, if configuration of the switch fails.
  *
  *************************************************************************************************/
 s32 XAsufw_SssShaWithDma(XAsufw_SssSrc ShaResource, XAsufw_SssSrc InputSrc)
@@ -191,7 +194,7 @@ s32 XAsufw_SssShaWithDma(XAsufw_SssSrc ShaResource, XAsufw_SssSrc InputSrc)
 	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
 
 	if (((InputSrc != XASUFW_SSS_DMA0) && (InputSrc != XASUFW_SSS_DMA1)) ||
-	    ((ShaResource != XASUFW_SSS_SHA2) && (ShaResource != XASUFW_SSS_SHA3))) {
+		((ShaResource != XASUFW_SSS_SHA2) && (ShaResource != XASUFW_SSS_SHA3))) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
 		XFIH_GOTO(END);
 	}
@@ -204,14 +207,14 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function configures secure stream switch to perform SHA2/SHA3 hash generation for
- *          PL interface
+ * @brief	This function configures secure stream switch to perform SHA2/SHA3 hash generation
+ * 		for PL interface
  *
- * @param   ShaResource SHA resource to be used for SSS configuration
+ * @param	ShaResource SHA resource to be used for SSS configuration
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful configuration of the switch.
- *          - Returns error code on invalid input arguments.
+ *		- XASUFW_SUCCESS, if configuration of SSS with SHA for PL interface is successful.
+ *		- XASUFW_FAILURE, if configuration of SSS with SHA for PL fails.
  *
  *************************************************************************************************/
 s32 XAsufw_SssShaForPli(XAsufw_SssSrc ShaResource)
@@ -232,13 +235,13 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function configures secure stream switch to perform encryption/decryption
- *          operation using DMA0/DMA1
+ * 		operation using DMA0/DMA1
  *
- * @param   InputSrc    Input source for the AES resource
+ * @param	InputSrc	Input source for the AES resource
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful configuration of the switch.
- *          - Returns error code on invalid input arguments.
+ *		- XASUFW_SUCCESS, if configuration of the switch is successful.
+ *		- XASUFW_FAILURE, if configuration of the switch fails.
  *
  *************************************************************************************************/
 s32 XAsufw_SssAesWithDma(XAsufw_SssSrc InputSrc)
@@ -259,11 +262,11 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function configures secure stream switch to perform encryption/decryption
- *          operation for PL interface
+ * 		operation for PL interface.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful configuration of the switch.
- *          - Returns error code on invalid input arguments.
+ *		- XASUFW_SUCCESS, if configuration of SSS with AES for PL interface is successful.
+ *		- XASUFW_FAILURE, if configuration of SSS with AES for PL fails.
  *
  *************************************************************************************************/
 s32 XAsufw_SssAesForPli(void)
@@ -277,13 +280,11 @@ s32 XAsufw_SssAesForPli(void)
 
 /*************************************************************************************************/
 /**
- * @brief	This function masks the secure stream switch value
+ * @brief	This function masks the secure stream switch value.
  *
- * @param   Resource    Resource for which input and output paths to be configured
- * @param   InputSrc    Input source for the SSS configuration
- * @param   OutputSrc   Output source for the SSS configuration
- *
- * @note	Resource, InputSrc and OutputSrc should be of type XAsufw_SssSrc
+ * @param	Resource	Resource for which input and output paths to be configured.
+ * @param	InputSrc	Input source for the SSS configuration.
+ * @param	OutputSrc	Output source for the SSS configuration.
  *
  *************************************************************************************************/
 static void XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
@@ -292,7 +293,7 @@ static void XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
 	u32 Mask = 0U;
 	u32 RegVal = XAsufw_ReadReg(XASUFW_LOCAL_SSS_CFG);
 
-	/* If DMA0 is input or output source, clear this configuration from other resources */
+	/** If DMA0 is input or output source, clear this configuration from other resources. */
 	if ((Resource == XASUFW_SSS_DMA0) || (InputSrc == XASUFW_SSS_DMA0) ||
 	    (OutputSrc == XASUFW_SSS_DMA0)) {
 		if ((RegVal & XASUFW_SSS_AES_MASK) == XASUFW_SSS_AES_DMA0_VAL) {
@@ -312,7 +313,7 @@ static void XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
 		}
 	}
 
-	/* If DMA1 is input or output source, clear this configuration from other resources */
+	/** If DMA1 is input or output source, clear this configuration from other resources. */
 	if ((Resource == XASUFW_SSS_DMA1) || (InputSrc == XASUFW_SSS_DMA1) ||
 	    (OutputSrc == XASUFW_SSS_DMA1)) {
 		if ((RegVal & XASUFW_SSS_AES_MASK) == XASUFW_SSS_AES_DMA1_VAL) {
@@ -332,7 +333,7 @@ static void XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
 		}
 	}
 
-	/* If PLI is input or output source, clear this configuration from other resources */
+	/** If PLI is input or output source, clear this configuration from other resources. */
 	if ((Resource == XASUFW_SSS_PLI) || (InputSrc == XASUFW_SSS_PLI) ||
 	    (OutputSrc == XASUFW_SSS_PLI)) {
 		if ((RegVal & XASUFW_SSS_DMA0_MASK) == XASUFW_SSS_DMA0_PLI_VAL) {
@@ -355,7 +356,7 @@ static void XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
 		}
 	}
 
-	/* If AES is input or output source, clear this configuration from other resources */
+	/** If AES is input or output source, clear this configuration from other resources. */
 	if ((Resource == XASUFW_SSS_AES) || (InputSrc == XASUFW_SSS_AES) ||
 	    (OutputSrc == XASUFW_SSS_AES)) {
 		if ((RegVal & XASUFW_SSS_DMA0_MASK) == XASUFW_SSS_DMA0_AES_VAL) {
@@ -378,17 +379,15 @@ static void XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
 
 /*************************************************************************************************/
 /**
- * @brief	This function configures the secure stream switch
+ * @brief	This function configures the secure stream switch.
  *
- * @param   Resource    Resource for which input and output paths to be configured
- * @param   InputSrc    Input source to be selected for the resource
- * @param   OutputSrc   Output source to be selected for the resource
+ * @param	Resource	Resource for which input and output paths to be configured.
+ * @param	InputSrc	Input source to be selected for the resource.
+ * @param	OutputSrc	Output source to be selected for the resource.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful configuration of the switch.
- *          - Returns error code on invalid input arguments.
- *
- * @note	Resource, InputSrc and OutputSrc should be of type XAsufw_SssSrc
+ *		- XASUFW_SUCCESS, if configuration of the switch is successful.
+ *		- XASUFW_SSS_INVALID_INPUT_PARAMETERS, if input parameters to SSS is invalid.
  *
  *************************************************************************************************/
 static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_SssSrc OutputSrc)
@@ -406,29 +405,29 @@ static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_
 	u32 InputShift;
 	u32 OutputShift;
 
-	/* Validate the input arguments */
+	/** Validate the input arguments. */
 	if ((Resource > XASUFW_SSS_INVALID) || (InputSrc > XASUFW_SSS_INVALID) ||
 	    (OutputSrc > XASUFW_SSS_INVALID)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
 		XFIH_GOTO(END);
 	}
 
-	/* Clear the previous configuration on the given resource and input/output sources */
+	/** Clear the previous configuration on the given resource and input/output sources. */
 	XAsufw_SssMask(Resource, InputSrc, OutputSrc);
 
-	/* Configure the input source of the given resource with source mentioned by InputSrc */
+	/** Configure the input source of the given resource with source mentioned by InputSrc. */
 	InputShift = (XASUFW_SSS_CFG_LEN_IN_BITS * (u32)Resource);
 	InputSrcCfg = (u32)XAsufw_SssLookupTable[Resource][InputSrc] << InputShift;
 
 	/**
 	 * SSS allows configuring only input source for any Resources connected to it. So to define
 	 * output source of given Resource, configure given Resource as input to source mentioned by
-	 * OutputSrc
+	 * OutputSrc.
 	 */
 	OutputShift = (XASUFW_SSS_CFG_LEN_IN_BITS * (u32)OutputSrc);
 	OutputSrcCfg = (u32)XAsufw_SssLookupTable[OutputSrc][Resource] << OutputShift;
 
-	/* Recalculating to verify values */
+	/** Recalculating to verify values. */
 	InputSrcCfgRedundant = (u32)XAsufw_SssLookupTable[Resource][InputSrc] << InputShift;
 	OutputSrcCfgRedundant = (u32)XAsufw_SssLookupTable[OutputSrc][Resource] << OutputShift;
 
@@ -437,11 +436,11 @@ static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_
 	OutputMask = (u32)XASUFW_SSS_SRC_SEL_MASK << OutputShift;
 	Mask = InputMask | OutputMask;
 
-	/** TODO: Add control flow integrity for this */
+	/* TODO: Add control flow integrity for this */
 	if ((SssCfg ^ (InputSrcCfgRedundant | OutputSrcCfgRedundant)) == 0U) {
 		RegVal = XAsufw_ReadReg(XASUFW_LOCAL_SSS_CFG);
 		RegVal &= ~Mask;
-		/** TODO: Replace with XAsufw_SecureOut32 */
+		/* TODO: Replace with XAsufw_SecureOut32 */
 		XAsufw_WriteReg(XASUFW_LOCAL_SSS_CFG, SssCfg | RegVal);
 		Status = XASUFW_SUCCESS;
 	}

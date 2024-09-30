@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_sharedmem.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the shared memory code for IPI communication in ASUFW.
  *
@@ -22,11 +20,15 @@
  *       ma   04/18/24 Moved command handling related functions to xasufw_cmd.c
  *       ma   07/08/24 Add task based approach at queue level
  *       ma   07/23/24 Updated communication channel info address with RTCA address
+ *       ss   09/26/24 Fixed doxygen comments
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasufw_sharedmem.h"
 #include "xasufw_memory.h"
@@ -37,20 +39,20 @@
 #include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
-/** Reserved address in ASU DATA RAM for channel buffers shared memory */
-#define XASUFW_SHARED_MEMORY_ADDRESS            0xEBE41000U
-#define XASUFW_SHARED_MEMORY_SIZE               0x8000U /**< 32KB for shared memory */
+#define XASUFW_SHARED_MEMORY_ADDRESS	0xEBE41000U /**< Reserved address in ASU DATA RAM  for
+							channel buffers shared memory */
+#define XASUFW_SHARED_MEMORY_SIZE	0x8000U /**< 32KB size for shared memory */
 
-#define XASUFW_MAX_PRIORITIES_SUPPORTED         16U /**< Maximum queue priorities supported */
+#define XASUFW_MAX_PRIORITIES_SUPPORTED	16U /**< Maximum queue priorities supported */
 
-/** Queue Unique ID related defines */
-#define XASUFW_P0_QUEUE				0x0U /**< P0 Queue */
-#define XASUFW_P1_QUEUE				0x1U /**< P1 Queue */
+/* Queue Unique ID related defines */
+#define XASUFW_P0_QUEUE			0x0U /**< P0 Queue */
+#define XASUFW_P1_QUEUE			0x1U /**< P1 Queue */
 #define XASUFW_CHANNELINDEX_MASK	0xFU /**< Channel index mask in Queue UniqueID */
 #define XASUFW_QUEUEINDEX_MASK		0xF0U /**< P0/P1 Queue index mask in Queue UniqueID */
 #define XASUFW_QUEUEINDEX_SHIFT		4U /**< Queue index shift in Queue UniqueID */
 
-/** TODO: To be deleted once the IPI channel information comes from user */
+/* TODO: To be deleted once the IPI channel information comes from user */
 #define XASUFW_IPI0_BIT_MASK            0x4U /**< IPI0 channel bit mask */
 #define XASUFW_IPI0_P0_QUEUE_PRIORITY   0x1U /**< IPI0 P0 queue priority */
 #define XASUFW_IPI0_P1_QUEUE_PRIORITY   0x2U /**< IPI0 P1 queue priority */
@@ -67,25 +69,27 @@ static void XAsufw_UpdateCommChannelUserConfig(void);
 static s32 XAsufw_ValidateCommChannelUserConfig(void);
 
 /************************************ Variable Definitions ***************************************/
-/** All IPI channels information received from user configuration */
+/* All IPI channels information received from user configuration */
 static XAsufw_CommChannelInfo *CommChannelInfo = (XAsufw_CommChannelInfo *)(UINTPTR)
 	XASUFW_RTCA_COMM_CHANNEL_INFO_ADDR;
 
-/** All channel's shared memory where the commands are received */
+/* All channel's shared memory where the commands are received */
 static XAsufw_SharedMemory *SharedMemory = (XAsufw_SharedMemory *)(UINTPTR)
 	XASUFW_SHARED_MEMORY_ADDRESS;
 
-/** All channel's task related information */
+/* All channel's task related information */
 static XAsufw_ChannelTasks CommChannelTasks;
 
 /*************************************************************************************************/
 /**
- * @brief   This function validates communication channel user configuration, sorts channel queues
- * based on their priorities given by user and enables corresponding IPI channel interrupts.
+ * @brief	This function validates communication channel user configuration, sorts channel
+ * 		queues based on their priorities given by user and enables corresponding IPI
+ * 		channel interrupts.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS if the IPI user configuration is valid.
- *          - Otherwise, returns an error code.
+ * 	- XASUFW_SUCCESS, if the IPI user configuration is valid.
+ * 	- XASUFW_INVALID_USER_CONFIG_RECEIVED, if the IPI user configuration is invalid.
+ * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 s32 XAsufw_SharedMemoryInit(void)
@@ -113,13 +117,13 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function updates communication channels information to the memory.
- *
- * TODO:    This need to be deleted once the IPI channel information comes from user
+ * @brief	This function updates communication channels information to the memory.
  *
  *************************************************************************************************/
+/* TODO:    This need to be deleted once the IPI channel information comes from user */
 static void XAsufw_UpdateCommChannelUserConfig(void)
 {
+	/** Update IPI communication channels information to memory. */
 	CommChannelInfo->NumOfIpiChannels = 2U;
 	CommChannelInfo->Channel[0U].IpiBitMask = XASUFW_IPI0_BIT_MASK;
 	CommChannelInfo->Channel[0U].P0QueuePriority = XASUFW_IPI0_P0_QUEUE_PRIORITY;
@@ -132,13 +136,13 @@ static void XAsufw_UpdateCommChannelUserConfig(void)
 
 /*************************************************************************************************/
 /**
- * @brief   This function is the task handler for the channel queues.
+ * @brief	This function is the task handler for the channel queues.
  *
- * @param   Arg	Task private data.
+ * @param	Arg	Task private data.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS if the IPI commands are executed successfully.
- *          - Otherwise, returns error code returned from the handlers.
+ *	- XASUFW_SUCCESS, if the IPI commands are executed successfully.
+ *	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 s32 XAsufw_QueueTaskHandler(void *Arg)
@@ -150,6 +154,7 @@ s32 XAsufw_QueueTaskHandler(void *Arg)
 	XAsu_ChannelQueue *ChannelQueue;
 	XAsu_ChannelQueueBuf *QueueBuf;
 
+	/** Check which queue has task whether P0/P1 queue. */
 	if (PxQueue == XASUFW_P0_QUEUE) {
 		XAsufw_Printf(DEBUG_GENERAL, "Running P0 task of channel %d\r\n", ChannelIndex);
 		ChannelQueue = &SharedMemory->ChannelMemory[ChannelIndex].P0ChannelQueue;
@@ -160,6 +165,8 @@ s32 XAsufw_QueueTaskHandler(void *Arg)
 		BufferIdx = CommChannelTasks.Channel[ChannelIndex].P1QueueBufIdx;
 	}
 
+	/** Check all buffers for any command is present and validate and allocate resource if valid
+		and update response after command is executed. */
 	for (; BufferIdx < XASU_MAX_BUFFERS; ++BufferIdx) {
 		if (ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus == XASU_COMMAND_IS_PRESENT) {
 			XAsufw_Printf(DEBUG_GENERAL, "Command is present. Channel: %d, Priority Queue: %d, "
@@ -174,22 +181,25 @@ s32 XAsufw_QueueTaskHandler(void *Arg)
 				}
 			} else {
 				XAsufw_Printf(DEBUG_GENERAL, "Validate command failed\r\n");
-				/**
-				 * TODO: Need to enhance this code to write the response only when invalid
-				 * command is received or the access permissions fail.
+				/*
+				 * TODO: Need to enhance this code to write the response only when
+				 * invalid command is received or the access permissions fail.
 				 * Currently, XAsufw_ValidateCommand only checks for invalid command
 				*/
-				/* Update command status in the request queue and the resopnse in response queue */
+				/** Update command status in the request queue and the resopnse in
+					response queue. */
 				QueueBuf->ReqBufStatus = XASU_COMMAND_EXECUTION_COMPLETE;
 				XAsufw_CommandResponseHandler(QueueBuf, (u32)Status);
 			}
 		}
 	}
 
+	/** Zeroize buffer index if max buffer index reached. */
 	if (BufferIdx == XASU_MAX_BUFFERS) {
 		BufferIdx = 0U;
 	}
 
+	/** Update buffer index for P0/P1 Queue. */
 	if (PxQueue == XASUFW_P0_QUEUE) {
 		CommChannelTasks.Channel[ChannelIndex].P0QueueBufIdx = BufferIdx;
 	} else {
@@ -201,17 +211,17 @@ s32 XAsufw_QueueTaskHandler(void *Arg)
 
 /*************************************************************************************************/
 /**
- * @brief   This function checks if P0 or P1 queue of the given IPI Mask has the new commands and
- * triggers the corresponding Queue Task accordingly.
+ * @brief	This function checks if P0 or P1 queue of the given IPI mask has the new commands
+ * 		and triggers the corresponding Queue Task accordingly.
  *
- * @param   IpiMask	IPI Mask on which the interrupt is received.
+ * @param   IpiMask	IPI mask on which the interrupt is received.
  *
  *************************************************************************************************/
 void XAsufw_TriggerQueueTask(u32 IpiMask)
 {
 	u32 ChannelIdx;
 
-	/* Get channel memory index from the IPI Mask */
+	/** Get channel memory index from the IPI mask. */
 	for (ChannelIdx = 0U; ChannelIdx < CommChannelInfo->NumOfIpiChannels; ++ChannelIdx) {
 		if (IpiMask == CommChannelInfo->Channel[ChannelIdx].IpiBitMask) {
 			break;
@@ -237,12 +247,12 @@ void XAsufw_TriggerQueueTask(u32 IpiMask)
 
 /*************************************************************************************************/
 /**
- * @brief   This function validates the communication channel configuration received as part of
- * LPD CDO.
+ * @brief	This function validates the communication channel configuration received as part of
+ *		LPD CDO.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS if the IPI user configuration is valid.
- *          - Otherwise, returns XASUFW_FAILURE.
+ * 	- XASUFW_SUCCESS, if the IPI user configuration is valid.
+ * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 static s32 XAsufw_ValidateCommChannelUserConfig(void)
@@ -251,13 +261,13 @@ static s32 XAsufw_ValidateCommChannelUserConfig(void)
 	u32 ChannelIndex;
 	u32 PrivData;
 
-	/**
+	/*
 	 * Update IPI channel information with some static data
 	 * TODO: To be deleted.
 	*/
 	XAsufw_UpdateCommChannelUserConfig();
 
-	/* Validate IPI channel information */
+	/** Validate IPI channel information. */
 	for (ChannelIndex = 0U; ChannelIndex < CommChannelInfo->NumOfIpiChannels; ++ChannelIndex) {
 		if ((CommChannelInfo->Channel[ChannelIndex].IpiBitMask <= XASUFW_IPI_PMC_MASK) ||
 		    (CommChannelInfo->Channel[ChannelIndex].IpiBitMask > XASUFW_IPI_NOBUF_6_MASK) ||
@@ -273,7 +283,7 @@ static s32 XAsufw_ValidateCommChannelUserConfig(void)
 				      CommChannelInfo->Channel[ChannelIndex].P1QueuePriority);
 			break;
 		}
-		/* Create P0 Queue Task of the channel corresponding to ChannelIndex */
+		/** Create P0 Queue Task of the channel corresponding to ChannelIndex. */
 		PrivData = ChannelIndex | (XASUFW_P0_QUEUE << XASUFW_QUEUEINDEX_SHIFT) |
 			   (CommChannelInfo->Channel[ChannelIndex]. IpiBitMask << XASUFW_IPI_MASK_SHIFT);
 		CommChannelTasks.Channel[ChannelIndex].P0QueueTask = XTask_Create(
@@ -282,7 +292,7 @@ static s32 XAsufw_ValidateCommChannelUserConfig(void)
 		SharedMemory->ChannelMemory[ChannelIndex].P0ChannelQueue.IsCmdPresent = FALSE;
 		CommChannelTasks.Channel[ChannelIndex].P0QueueBufIdx = 0U;
 
-		/* Create P1 Queue Task of the channel corresponding to ChannelIndex */
+		/** Create P1 Queue Task of the channel corresponding to ChannelIndex. */
 		PrivData = ChannelIndex | (XASUFW_P1_QUEUE << XASUFW_QUEUEINDEX_SHIFT) |
 			   (CommChannelInfo->Channel[ChannelIndex]. IpiBitMask << XASUFW_IPI_MASK_SHIFT);
 		CommChannelTasks.Channel[ChannelIndex].P1QueueTask = XTask_Create(
