@@ -50,6 +50,7 @@
 *       yog  09/09/2024 Updated ASU memory region addresses
 *       ma   09/20/2024 Added PMC_TAP_VERSION_COSIM mask for COSIM platform
 *                       Also, corrected XPLMI_PLATFORM_MASK value
+*       yog  09/30/2024 Corrected ASU RAM high address
 *
 * </pre>
 *
@@ -1459,7 +1460,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_PSM_RAM_BASE_ADDR		(0xEBC00000U)
 #define XPLMI_PSM_RAM_HIGH_ADDR		(0xEBC2FFFFU)
 #define XPLMI_ASU_RAM_BASE_ADDR		(0xEBE00000U)
-#define XPLMI_ASU_RAM_HIGH_ADDR		(0xEBE2FFFFU)
+#define XPLMI_ASU_RAM_HIGH_ADDR		(0xEBE5FFFFU)
 #define XPLMI_TCM0_BASE_ADDR		(0xEBA00000U)
 #define XPLMI_TCM0_HIGH_ADDR		(0xEBA6FFFFU)
 #define XPLMI_TCM1_BASE_ADDR		(0xEBA80000U)
