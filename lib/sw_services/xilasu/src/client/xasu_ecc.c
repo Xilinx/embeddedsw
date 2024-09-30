@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_ecc.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the implementation of the client interface functions for
  * ECC driver.
@@ -19,10 +17,15 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   yog  08/19/24 Initial release
+ *       yog  09/26/24 Added doxygen grouping and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
+/**
+ * @addtogroup xasu_ecc_client_apis ECC Client APIs
+ * @{
+*/
 
 /*************************************** Include Files *******************************************/
 #include "xasu_ecc.h"
@@ -42,15 +45,19 @@ static s32 XAsu_EccValidateCurveType(u32 CurveType);
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends request to ASU for signature generation.
+ * @brief	This function generates an ECDSA signature for the provided hash by using the
+ * 		given private key associated with the elliptic curve.
  *
- * @param	ClientParamsPtr	Pointer to client params structure.
- * @param	EccParamsPtr	Pointer to ECC params structure.
+ * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * 				input parameters.
+ * @param	EccParamsPtr	Pointer to XAsu_EccParams structure which holds the parameters of
+ * 				ECC input arguments.
  *
  * @return
- *		- XST_SUCCESS, if signature generated successfully
- *		- XASU_INVALID_ARGUMENT, if any argument is invalid
- *		- XST_FAILURE, if send IPI fails
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_QUEUE_FULL, if Queue buffer is full.
+ * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr)
@@ -59,7 +66,7 @@ s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParam
 	XAsu_ChannelQueueBuf *QueueBuf;
 	XAsu_QueueInfo *QueueInfo;
 
-	/* Validatations of inputs */
+	/** Validate input parameters. */
 	if ((ClientParamsPtr == NULL) || (EccParamsPtr == NULL)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -76,19 +83,21 @@ s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParam
 		goto END;
 	}
 
+	/** Get the pointer to QueueInfo structure for provided priority. */
 	QueueInfo = XAsu_GetQueueInfo(ClientParamsPtr->Priority);
 	if (QueueInfo == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/* Get Queue memory */
+	/* Get Queue memory. */
 	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
 	if (QueueBuf == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
+		Status = XASU_QUEUE_FULL;
 		goto END;
 	}
 
+	/** Update the request buffer. */
 	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_ECC_GEN_SIGNATURE_CMD_ID, 0U,
 				  XASU_MODULE_ECC_ID, 0U);
 	Status = Xil_SecureMemCpy((void *)&QueueBuf->ReqBuf.Arg[0],
@@ -97,6 +106,7 @@ s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParam
 		goto END;
 	}
 
+	/** Send IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
 
 END:
@@ -105,15 +115,19 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends request to ASU for signature verification
+ * @brief	This function verifies the validity of an ECDSA signature for the provided hash
+ * 		using the provided ecc public key.
  *
- * @param	ClientParamsPtr	Pointer to client params structure.
- * @param	EccParamsPtr	Pointer to ECC params structure.
+ * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * 				input parameters.
+ * @param	EccParamsPtr	Pointer to XAsu_EccParams structure which holds the parameters of
+ * 				ECC input arguments.
  *
  * @return
- *		- XST_SUCCESS, if signature verified successfully
- *		- XASU_INVALID_ARGUMENT, if any argument is invalid
- *		- XST_FAILURE, if send IPI fails
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_QUEUE_FULL, if Queue buffer is full.
+ * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr)
@@ -122,7 +136,7 @@ s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccPa
 	XAsu_ChannelQueueBuf *QueueBuf;
 	XAsu_QueueInfo *QueueInfo;
 
-	/* Validatations of inputs */
+	/** Validate input parameters. */
 	if ((ClientParamsPtr == NULL) || (EccParamsPtr == NULL)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -139,18 +153,20 @@ s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccPa
 		goto END;
 	}
 
+	/** Get the pointer to QueueInfo structure for provided priority. */
 	QueueInfo = XAsu_GetQueueInfo(ClientParamsPtr->Priority);
 	if (QueueInfo == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
-	/* Get Queue memory */
+	/* Get Queue memory. */
 	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
 	if (QueueBuf == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
+		Status = XASU_QUEUE_FULL;
 		goto END;
 	}
 
+	/** Update the request buffer. */
 	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_ECC_VERIFY_SIGNATURE_CMD_ID, 0U,
 				  XASU_MODULE_ECC_ID, 0U);
 	Status = Xil_SecureMemCpy((XAsu_EccParams *)&QueueBuf->ReqBuf.Arg[0],
@@ -159,6 +175,7 @@ s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccPa
 		goto END;
 	}
 
+	/** Send IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
 
 END:
@@ -167,14 +184,16 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends request to ASU for signature verification
+ * @brief	This function performs ECC Known Answer Tests (KAT's).
  *
- * @param	ClientParamsPtr	Pointer to client params structure.
+ * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * 				input parameters.
  *
  * @return
- *		- XST_SUCCESS, if ECC Kat runs succefully
- *		- XASU_INVALID_ARGUMENT, if any argument is invalid
- *		- XST_FAILURE, if send IPI fails
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_QUEUE_FULL, if Queue buffer is full.
+ * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr)
@@ -183,7 +202,7 @@ s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr)
 	XAsu_ChannelQueueBuf *QueueBuf;
 	XAsu_QueueInfo *QueueInfo;
 
-	/* Validatations of inputs */
+	/** Validate input parameters. */
 	if (ClientParamsPtr == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -195,20 +214,23 @@ s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr)
 		goto END;
 	}
 
+	/** Get the pointer to QueueInfo structure for provided priority. */
 	QueueInfo = XAsu_GetQueueInfo(ClientParamsPtr->Priority);
 	if (QueueInfo == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
-	/* Get Queue memory */
+
+	/* Get Queue memory. */
 	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
 	if (QueueBuf == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
+		Status = XASU_QUEUE_FULL;
 		goto END;
 	}
 
+	/** Update the request buffer. */
 	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_ECC_KAT_CMD_ID, 0U, XASU_MODULE_ECC_ID, 0U);
-
+	/** Send IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
 
 END:
@@ -222,8 +244,8 @@ END:
  * @param	CurveType	Curve type provided.
  *
  * @return
- *		- XST_SUCCESS, if curve type is valid
- *		- XST_FAILURE, if curve type is invalid
+ * 		- XST_SUCCESS, if curve type is valid.
+ * 		- XST_FAILURE, if curve type is invalid.
  *
  *************************************************************************************************/
 static s32 XAsu_EccValidateCurveType(u32 CurveType)

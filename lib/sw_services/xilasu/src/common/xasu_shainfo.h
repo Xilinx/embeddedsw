@@ -23,7 +23,10 @@
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_common_defs Common Defs
+ * @{
+*/
 #ifndef XASU_SHAINFO_H
 #define XASU_SHAINFO_H
 
@@ -52,6 +55,9 @@ extern "C" {
 #define XASU_SHA_FINISH					(0x4U) /**< SHA finish operation flag */
 
 /************************************** Type Definitions *****************************************/
+/**
+ * @brief This structure contains SHA params info
+ */
 typedef struct {
 	u64 DataAddr; /**< SHA2/3 data address */
 	u64 HashAddr; /**< SHA2/3 hash address */
@@ -72,3 +78,4 @@ typedef struct {
 #endif
 
 #endif  /* XASU_SHAINFO_H */
+/** @} */

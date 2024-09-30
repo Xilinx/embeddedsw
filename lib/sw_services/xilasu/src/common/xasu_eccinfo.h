@@ -22,6 +22,10 @@
  * </pre>
  *
  *************************************************************************************************/
+/**
+ * @addtogroup xasu_common_defs Common Defs
+ * @{
+*/
 
 #ifndef XASU_ECCINFO_H
 #define XASU_ECCINFO_H
@@ -53,6 +57,9 @@ extern "C" {
 #define XASU_ECC_BRAINPOOL_P384			23U /**< Brainpool P-384 curve */
 #define XASU_ECC_BRAINPOOL_P512			24U /**< Brainpool P-512 curve */
 /************************************** Type Definitions *****************************************/
+/**
+ * @brief This structure contains ECC params info
+ */
 typedef struct {
 	u32 CurveType; /**< Type of curve */
 	u32 KeyLen; /**< Length of the key */
@@ -71,10 +78,10 @@ typedef struct {
 /**
  * @brief	This function is to get the double curve length.
  *
- * @param	CurveLength	Length of the curve
+ * @param	CurveLength	Length of the curve.
  *
  * @return
- *	-	Double Curve length
+ *	-	Double Curve length.
  *
  *************************************************************************************************/
 static inline u32 XAsu_DoubleCurveLength(u32 CurveLength)
@@ -88,3 +95,4 @@ static inline u32 XAsu_DoubleCurveLength(u32 CurveLength)
 #endif
 
 #endif  /* XASU_ECCINFO_H */
+/** @} */
