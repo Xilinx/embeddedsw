@@ -7,8 +7,7 @@
 /**
  *
  * @file xasu_aes.h
- * @addtogroup Overview
- * @{
+ *
  * This file Contains the AES client function prototypes, defines and macros for the AES module.
  *
  * <pre>
@@ -21,7 +20,10 @@
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_aes_client_apis AES Client APIs
+ * @{
+*/
 #ifndef XASU_AES_H
 #define XASU_AES_H
 

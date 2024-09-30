@@ -7,8 +7,7 @@
 /**
  *
  * @file xasu_trng.h
- * @addtogroup
- * @{
+ *
  * This file Contains the TRNG client function prototypes, defines and macros for
  * the ASU TRNG hardware module.
  *
@@ -18,11 +17,15 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vns  08/23/24 Initial release
+ *       yog  09/26/24 Added doxygen groupings.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_trng_client_apis TRNG Client APIs
+ * @{
+*/
 #ifndef XASU_TRNG_H
 #define XASU_TRNG_H
 
@@ -52,3 +55,4 @@ s32 XAsu_TrngKat(void);
 #endif
 
 #endif  /* XASU_TRNG_H */
+/** @} */

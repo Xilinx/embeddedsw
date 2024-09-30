@@ -21,7 +21,10 @@
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_common_defs Common Defs
+ * @{
+*/
 #ifndef XASU_TRNGINFO_H
 #define XASU_TRNGINFO_H
 
@@ -56,3 +59,4 @@ extern "C" {
 #endif
 
 #endif  /* XASU_TRNGINFO_H */
+/** @} */
