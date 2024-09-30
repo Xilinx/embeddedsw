@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_client.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the ASU client initialization and generic queue management functions.
  *
@@ -23,18 +21,22 @@
  *       ss   08/13/24 Changed XAsu_ClientInit function prototype and Initialized mailbox in
  *                     XAsu_ClientInit() API
  *       ss   09/19/24 Added XAsu_CheckAsufwPrsntBit() API
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_client_info Client APIs AND Error Codes
+ * @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasu_client.h"
 #include "xasu_status.h"
 
 /************************************ Constant Definitions ***************************************/
 /* TODO the shared memory shall be coming as part of design */
-#define XASU_SHARED_MEMORY_P0_CH_QUEUE  0xEBE415B8U /** P0 queue shared memory */
+#define XASU_SHARED_MEMORY_P0_CH_QUEUE  0xEBE415B8U /**< P0 queue shared memory */
 #define XASU_SHARED_MEMORY_P1_CH_QUEUE  0xEBE41ADCU /**< P1 queue shared memory */
 
 #define XASU_QUEUE_BUFFER_FULL          0xFFU       /**< To indicate queue full state */
@@ -50,7 +52,7 @@
 #define XASU_ASUFW_BIT_CHECK_TIMEOUT_VALUE	0xFFFFFU	/**< ASUFW check timoeout value */
 
 /************************************** Type Definitions *****************************************/
-/*
+/**
  * This typedef contains all the parameters required to manage the client library
  * Also it holds the shared memory queue index details
  */
@@ -75,14 +77,13 @@ static volatile u32 RecvDone = FALSE;	/**< Done flag */
 
 /*************************************************************************************************/
 /**
- * @brief	This function initializes the client, mailbox instance, updates the channel queue
- * 		information and sets an XAsu_DoorBellToClient() asynchronous callback function.
+ * @brief	This function initializes the client instance.
  *
  * @param	BaseAddress	Base address of the IPI channel assigned to APU/RPU/PL.
  *
  * @return
- * 		- XST_SUCCESS, if client initialization is successful.
- * 		- XST_FAILURE, if client initialization fails.
+ * 		- XST_SUCCESS, On successful initialization.
+ * 		- XST_FAILURE, On failure.
  *,
  *************************************************************************************************/
 s32 XAsu_ClientInit(u32 BaseAddress)
@@ -96,12 +97,14 @@ s32 XAsu_ClientInit(u32 BaseAddress)
 		goto END;
 	}
 
+	/** Check for ASUFW present bit. */
 	Status = XAsu_CheckAsufwPrsntBit();
 	if (Status != XST_SUCCESS) {
 		Status = XASU_ASUFW_NOT_PRESENT;
 		goto END;
 	}
 
+	/** Initialize mailbox instance. */
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, BaseAddress);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -126,14 +129,14 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function updates the queue buffer status to notify the request is present
- *			generates a door bell to ASU.
+ * @brief	This function updates the queue buffer status to notify the request is present and
+ * 		generates a door bell to ASU.
  *
- * @param	QueueInfo	 Pointer to QueueInfo
+ * @param	QueueInfo	 Pointer to the XAsu_QueueInfo structure.
  *
  * @return
- * 			- Returns XST_SUCCESS upon successful update
- *          - Otherwise, returns an error code.
+ * 	- XST_SUCCESS upon successful update.
+ * 	- XST_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_QueueInfo *QueueInfo)
@@ -141,6 +144,7 @@ s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_QueueInfo *QueueInfo)
 	s32 Status = XST_FAILURE;
 	XAsu_ChannelQueueBuf *QueueBufPtr;
 
+	/** Validate input parameters. */
 	if (QueueInfo == NULL) {
 		goto END;
 	}
@@ -160,9 +164,10 @@ s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_QueueInfo *QueueInfo)
 		QueueInfo->NextFreeIndex++;
 	}
 
-	/* Set IsCmdPresent to TRUE to indicate that the command is present in the Queue */
+	/** Set IsCmdPresent to TRUE to indicate the command is present in the queue. */
 	QueueInfo->ChannelQueue->IsCmdPresent = TRUE;
 
+	/** Place an IPI request to ASU. */
 	Status = XAsu_SendIpi();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -177,14 +182,14 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function returns the pointer of free XAsufw_ChannelQueueBuf of the requested
- *			priority queue
+ * @brief	This function returns the pointer of the next free queue buffer of the requested
+ * 		priority queue.
  *
- * @param	QueueInfo	 Pointer to QueueInfo
+ * @param	QueueInfo	 Pointer to the XAsu_QueueInfo structure.
  *
  * @return
- * 			- Pointer to XAsufw_ChannelQueueBuf
- *          - Otherwise, returns NULL
+ * 	- Pointer to XAsufw_ChannelQueueBuf.
+ * 	- Otherwise, returns NULL.
  *
  *************************************************************************************************/
 XAsu_ChannelQueueBuf *XAsu_GetChannelQueueBuf(XAsu_QueueInfo *QueueInfo)
@@ -207,13 +212,13 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function returns either requested queue is full or not.
+ * @brief	This function returns either requested queue is full or not.
  *
- * @param	QueuePriority	 Priority of the queue
+ * @param	QueueInfo	 Pointer to the XAsu_QueueInfo structure.
  *
  * @return
- * 			- TRUE - if queue is full
- *          - Otherwise, returns FALSE
+ * 	- TRUE - if queue is full.
+ * 	- Otherwise, returns FALSE.
  *
  *************************************************************************************************/
 static u32 XAsu_IsChannelQueueFull(XAsu_QueueInfo *QueueInfo)
@@ -223,13 +228,14 @@ static u32 XAsu_IsChannelQueueFull(XAsu_QueueInfo *QueueInfo)
 
 /*************************************************************************************************/
 /**
- * @brief   This function returns the pointer to the XAsu_QueueInfo structure of provided priority
+ * @brief 	This function returns the pointer to the XAsu_QueueInfo structure of the provided
+ * 		priority.
  *
- * @param	QueuePriority	 Priority of the queue
+ * @param	QueuePriority	Priority of the queue.
  *
  * @return
- * 			- NULL if invalid input
- *          - Pointer to XAsu_QueueInfo
+ * 	- Pointer to XAsu_QueueInfo.
+ * 	- NULL if invalid input.
  *
  *************************************************************************************************/
 XAsu_QueueInfo *XAsu_GetQueueInfo(u32 QueuePriority)
@@ -250,11 +256,11 @@ XAsu_QueueInfo *XAsu_GetQueueInfo(u32 QueuePriority)
 
 /*************************************************************************************************/
 /**
- * @brief  This function sends an IPI request to ASU
+ * @brief	This function sends an IPI request to ASU.
  *
  * @return
- *	-	XST_SUCCESS - If the IPI is sent successfully
- *	-	XST_FAILURE - If there is a failure
+ * 	- XST_SUCCESS - If the IPI is sent successfully.
+ * 	- XST_FAILURE - If there is a failure.
  *
  *************************************************************************************************/
 static s32 XAsu_SendIpi(void)
@@ -278,11 +284,11 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function returns an instance pointer of ASU client interface.
+ * @brief	This function returns an instance pointer of ASU client interface.
  *
  *
  * @return
- * 			- It returns pointer to the XAsu_Client.
+ * 	- It returns pointer to the XAsu_Client.
  *
  *************************************************************************************************/
 static XAsu_Client *XAsu_GetClientInstance(void)
@@ -294,11 +300,9 @@ static XAsu_Client *XAsu_GetClientInstance(void)
 
 /****************************************************************************/
 /**
- * @brief  This function polls for the response
+ * @brief	This function polls for the response from ASUFW.
  *
- * @return
- *  -   XST_SUCCESS - upon success
- *  -   XST_FAILURE - If there is a failure
+ * @param	CallBackRef	Call back reference pointer.
  *
  ****************************************************************************/
 static void XAsu_DoorBellToClient(void *CallBackRef)
@@ -309,12 +313,11 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 
 /*************************************************************************************************/
 /**
- * @brief   This function returns status based on presence of ASUFW application.
- *
+ * @brief	This function returns ASUFW application present status.
  *
  * @return
- *  -   XST_SUCCESS - upon success
- *  -   XST_FAILURE - If there is a failure
+ * 	- XST_SUCCESS - upon success.
+ * 	- XST_FAILURE - If there is a failure.
  *
  *************************************************************************************************/
 static s32 XAsu_CheckAsufwPrsntBit(void)
@@ -334,3 +337,4 @@ static s32 XAsu_CheckAsufwPrsntBit(void)
 END:
 	return Status;
 }
+/** @} */

@@ -17,11 +17,15 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   08/20/24 Initial release
+ *       ss   09/23/24 Fixed doxygen comments
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_common_defs Common Defs
+ * @{
+*/
 #ifndef XASU_RSAINFO_H
 #define XASU_RSAINFO_H
 
@@ -50,12 +54,18 @@ extern "C" {
 #define XRSA_MAX_PRIME_SIZE_IN_WORDS	(64U) /**< RSA max prime size in words */
 
 /************************************** Type Definitions *****************************************/
+/**
+ * @brief This structure contains RSA public key parameters info.
+ */
 typedef struct {
 	u32 Keysize;					/**< Key size in bytes*/
 	u32 Modulus[XRSA_MAX_KEY_SIZE_IN_WORDS];	/**< Modulus Address */
 	u32 PubExp;					/**< Public exponent Address*/
 } XAsu_RsaPubKeyComp;
 
+/**
+ * @brief This structure contains RSA private key parameters info.
+ */
 typedef struct {
 	XAsu_RsaPubKeyComp PubKeyComp;			/**< Contains public key components */
 	u32 PvtExp[XRSA_MAX_KEY_SIZE_IN_WORDS];		/**< Private Exponent Address*/
@@ -66,6 +76,9 @@ typedef struct {
 						     2 : Array Consists Prime component*/
 } XAsu_RsaPvtKeyComp;
 
+/**
+ * @brief This structure contains RSA private key CRT parameters info.
+ */
 typedef struct {
 	XAsu_RsaPubKeyComp PubKeyComp;			/**< Contains public key components */
 	u32 Prime1[XRSA_MAX_PRIME_SIZE_IN_WORDS];	/**< Prime number 1 */
@@ -75,20 +88,29 @@ typedef struct {
 	u32 QInv[XRSA_MAX_PRIME_SIZE_IN_WORDS];		/**< Inverse of Q*/
 } XAsu_RsaCrtKeyComp;
 
+/**
+ * @brief This structure contains RSA exponent value (R square mod N).
+ */
 typedef struct {
 	u32 RRn[XRSA_MAX_KEY_SIZE_IN_WORDS];	/**< R square modN exponent value */
 } XAsu_RsaRRModN;
 
+/**
+ * @brief This structure contains RSA exponent values (R mod N,R square mod N).
+ */
 typedef struct {
 	XAsu_RsaRRModN RRModn;			/**< Contains R square modN component */
 	u32 Rn[XRSA_MAX_KEY_SIZE_IN_WORDS];	/**< R modN exponent value */
 } XAsu_RsaRModN;
 
+/**
+ * @brief This structure contains RSA params info.
+ */
 typedef struct {
-	u64 InputDataAddr; 	/**< RSA input data lower address */
-	u64 OutputDataAddr; 	/**< RSA output data higher address */
-	u64 ExpoCompAddr;	/**< RSA exponent data lower address */
-	u64 KeyCompAddr; 	/**< RSA key component higher address */
+	u64 InputDataAddr; 	/**< RSA input data address */
+	u64 OutputDataAddr; 	/**< RSA output data address */
+	u64 ExpoCompAddr;	/**< RSA exponent data address */
+	u64 KeyCompAddr; 	/**< RSA key component address */
 	u32 Len;		/**< Data Len */
 } XAsu_RsaClientParams;
 
@@ -102,3 +124,4 @@ typedef struct {
 #endif
 
 #endif  /* XASU_RSAINFO_H */
+/** @} */

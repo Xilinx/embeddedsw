@@ -7,8 +7,7 @@
 /**
  *
  * @file xasu_sha3.h
- * @addtogroup
- * @{
+ *
  * This file Contains the SHA3 client function prototypes, defines and macros for
  * the SHA3 hardware module.
  *
@@ -18,11 +17,15 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vns  06/04/24 Initial release
+ *       yog  09/26/24 Added doxygen groupings.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_sha3_client_apis SHA3 Client APIs
+ * @{
+*/
 #ifndef XASU_SHA3_H
 #define XASU_SHA3_H
 
@@ -51,3 +54,4 @@ s32 XAsu_Sha3Kat(void);
 #endif
 
 #endif  /* XASU_SHA3_H */
+/** @} */

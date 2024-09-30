@@ -6,9 +6,7 @@
 /*************************************************************************************************/
 /**
  *
- * @file xasufw_client.h
- * @addtogroup Overview
- * @{
+ * @file xasu_client.h
  *
  * This file contains declarations for xasu_client.c file in XilAsu library
  *
@@ -20,11 +18,15 @@
  * 1.0   vns  06/04/24 Initial release
  *       ss   08/13/24 Changed XAsu_ClientInit function prototype and addded XAsu_ClientParams
  *                     structure
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_client_info Client APIs AND Error Codes
+ * @{
+*/
 #ifndef XASU_CLIENT_H
 #define XASU_CLIENT_H
 
@@ -42,14 +44,15 @@ extern "C" {
 
 /************************************** Type Definitions *****************************************/
 
-/*
- * This contains the queue information
+/**
+ * @brief This contains the queue information
  */
 typedef struct {
 	XAsu_ChannelQueue *ChannelQueue;
 	u8 NextFreeIndex;
 } XAsu_QueueInfo;
 
+/** @brief This structure contains client parameters information. */
 typedef struct {
 	u8 Priority;    /**< Task Priority */
 	u8 Reserved;    /**< Reserved */
@@ -62,15 +65,16 @@ typedef struct {
 
 /*************************************************************************************************/
 /**
- * @brief   This function formats the command header with Module ID, Command ID and Command Length
+ * @brief	This function formats the command header with module ID, command ID and command
+ * 		length.
  *
- * @param   CmdId		Command ID to be updated
- * @param   UniqueId    Unique ID of the request
- * @param   ModuleId	Module ID to be updated
- * @param   CommandLen	Length of the command
+ * @param	CmdId		Command ID to be updated.
+ * @param	UniqueId	Unique ID of the request.
+ * @param	ModuleId	Module ID to be updated.
+ * @param	CommandLen	Length of the command.
  *
  * @return
- * 			- Header	Command Header.
+ * 	- Header	Command Header.
  *
  *************************************************************************************************/
 inline u32 XAsu_CreateHeader(u8 CmdId, u8 UniqueId, u8 ModuleId, u8 CommandLen)

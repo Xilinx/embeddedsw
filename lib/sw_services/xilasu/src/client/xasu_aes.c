@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_aes.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the implementation of the client interface functions for aes module.
  *
@@ -22,7 +20,10 @@
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_aes_client_apis AES Client APIs
+ * @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasu_aes.h"
 #include "xasu_def.h"
@@ -42,15 +43,19 @@ static inline s32 XAsu_AesValidateTag(u8 EngineMode, u64 TagAddr, u32 TagLen);
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends request to ASU to perform AES encryption operation on a given
- *		payload data.
+ * @brief	This function performs AES encryption operation on a given payload data with
+ * 		specified AES mode.
  *
- * @param	ClientParamsPtr	Pointer to XAsu_ClientParams structure.
- * @param	AesParamsPtr	Pointer to Asu_AesParams structure.
+ * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * 				input parameters.
+ * @param	AesParamsPtr	Pointer to Asu_AesParams structure which holds the parameters of
+ * 				AES input arguments.
  *
  * @return
- *		- Upon successful encryption of data, it returns XASUFW_SUCCESS.
- *		- Error code on failure.
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_QUEUE_FULL, if Queue buffer is full.
+ * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParamsPtr)
@@ -59,7 +64,7 @@ s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 	XAsu_ChannelQueueBuf *QueueBuf;
 	XAsu_QueueInfo *QueueInfo;
 
-	/* Validatations of inputs */
+	/** Validatations of inputs. */
 	if ((ClientParamsPtr == NULL) || (AesParamsPtr == NULL)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -76,13 +81,13 @@ s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 		goto END;
 	}
 
-	/* During multiple updates, address of output data should be zero while updating AAD */
+	/** During multiple updates, address of output data should be zero while updating AAD. */
 	if ((AesParamsPtr->OutputDataAddr == 0U) && (AesParamsPtr->AadAddr == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/* Minimum Length of Plaintext/Aad should be of atleast 8bits */
+	/** Minimum length of plaintext/AAD should be of atleast 8bits. */
 	if ((AesParamsPtr->DataLen == 0U) && (AesParamsPtr->AadLen == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -125,6 +130,7 @@ s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 		goto END;
 	}
 
+	/** Get the pointer to QueueInfo structure for provided priority. */
 	QueueInfo = XAsu_GetQueueInfo(ClientParamsPtr->Priority);
 	if (QueueInfo == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -138,6 +144,7 @@ s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 		goto END;
 	}
 
+	/** Update the request buffer. */
 	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_AES_OPERATION_CMD_ID, 0U,
 				  XASU_MODULE_AES_ID, 0U);
 
@@ -147,6 +154,7 @@ s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 		goto END;
 	}
 
+	/** Send IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
 
 END:
@@ -155,15 +163,19 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends request to ASU to perform AES decryption operation on a given
- *		encrypted data.
+ * @brief	This function performs AES decryption operation on a given payload data with
+ * 		specified AES mode.
  *
- * @param	ClientParamsPtr	Pointer to XAsu_ClientParams structure.
- * @param	AesParamsPtr	Pointer to Asu_AesParams structure.
+ * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * 				input parameters.
+ * @param	AesParamsPtr	Pointer to Asu_AesParams structure which holds the parameters of
+ * 				AES input arguments.
  *
  * @return
- *		- Upon successful decryption of data, it returns XASUFW_SUCCESS.
- *		- Error code on failure.
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_QUEUE_FULL, if Queue buffer is full.
+ * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParamsPtr)
@@ -172,7 +184,7 @@ s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 	XAsu_ChannelQueueBuf *QueueBuf;
 	XAsu_QueueInfo *QueueInfo;
 
-	/* Validatations of inputs */
+	/** Validatations of inputs. */
 	if ((ClientParamsPtr == NULL) || (AesParamsPtr == NULL)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -189,13 +201,13 @@ s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 		goto END;
 	}
 
-	/* During multiple updates, address of output data should be zero while updating AAD */
+	/** During multiple updates, address of output data should be zero while updating AAD. */
 	if ((AesParamsPtr->OutputDataAddr == 0U) && (AesParamsPtr->AadAddr == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/* Minimum Length of Plaintext/Aad should be of atleast 8bits */
+	/** Minimum length of plaintext/AAD should be of atleast 8bits. */
 	if ((AesParamsPtr->DataLen == 0U) && (AesParamsPtr->AadLen == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -238,6 +250,7 @@ s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 		goto END;
 	}
 
+	/** Get the pointer to QueueInfo structure for provided priority. */
 	QueueInfo = XAsu_GetQueueInfo(ClientParamsPtr->Priority);
 	if (QueueInfo == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -251,6 +264,7 @@ s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 		goto END;
 	}
 
+	/** Update the request buffer. */
 	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_AES_OPERATION_CMD_ID, 0U,
 				  XASU_MODULE_AES_ID, 0U);
 
@@ -260,6 +274,7 @@ s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 		goto END;
 	}
 
+	/** Send IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
 
 END:
@@ -268,11 +283,13 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends request to ASU to perform AES KAT operation.
+ * @brief	This function performs AES Known Answer Tests (KAT's).
  *
  * @return
- *		- XST_SUCCESS, if operation is successful
- *		- Error code, if operation fails
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_QUEUE_FULL, if Queue buffer is full.
+ * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_AesKat(void)
@@ -281,8 +298,8 @@ s32 XAsu_AesKat(void)
 	XAsu_ChannelQueueBuf *QueueBuf;
 	XAsu_QueueInfo *QueueInfo;
 
+	/** Get the pointer to QueueInfo structure for provided priority. */
 	QueueInfo = XAsu_GetQueueInfo(XASU_PRIORITY_HIGH);
-
 	if (QueueInfo == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -295,8 +312,10 @@ s32 XAsu_AesKat(void)
 		goto END;
 	}
 
+	/** Update the request buffer. */
 	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_AES_KAT_CMD_ID, 0U, XASU_MODULE_AES_ID, 0U);
 
+	/** Send IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
 
 END:
@@ -305,25 +324,25 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates IV for given AES engine mode.
+ * @brief	This function validates IV for a given AES engine mode.
  *
  * @param	EngineMode	AES engine mode.
- * @param	IvAddr		Address of buffer holding IV.
- * @param	IvLen		Lenght of the IV in bytes.
+ * @param	IvAddr		Address of the buffer holding IV.
+ * @param	IvLen		Length of the IV in bytes.
  *
  * @return
- *		- Upon successful validation of IV, it returns XST_SUCCESS.
- *		- Error code on failure.
+ *		- XASUFW_SUCCESS, if validation of IV is successful for a given engine mode.
+ *		- XASU_INVALID_ARGUMENT, if validation of IV address or IV length fails.
  *
  *************************************************************************************************/
 static inline s32 XAsu_AesValidateIv(u8 EngineMode, u64 IvAddr, u32 IvLen)
 {
 	s32 Status = XASU_INVALID_ARGUMENT;
 
-	/*
+	/**
 	 * IV Validation for respective AES engine modes
-	 * AES Standard mode (ECB, CBC, CTR, CFB, OFB).
-	 * AES MAC mode (GCM, CCM, GMAC, CMAC).
+	 * - AES Standard mode (ECB, CBC, CTR, CFB, OFB).
+	 * - AES MAC mode (GCM, CCM, GMAC, CMAC).
 	 *
 	 * |   Engine Mode     |   IvAddress    |   IvLength           |
 	 * |-------------------|----------------|----------------------|
@@ -361,26 +380,26 @@ static inline s32 XAsu_AesValidateIv(u8 EngineMode, u64 IvAddr, u32 IvLen)
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates Tag for given AES engine mode.
+ * @brief	This function validates tag arguments for a given AES mode.
  *
  * @param	EngineMode	AES engine mode.
- * @param	TagAddr		Address of the Input/Output Tag.
- * @param	TagLen		Length of Tag in bytes and it will be zero for all AES
- *				standard modes like, ECB, CBC, OFB, CFB, CTR
+ * @param	TagAddr		Address of the tag buffer.
+ * @param	TagLen		Length of the tag in bytes and it will be zero for all AES
+ *				standard modes like, ECB, CBC, OFB, CFB, CTR.
  *
  * @return
- *		- Upon successful validation of Tag, it returns XST_SUCCESS.
- *		- Error code on failure.
+ *		- XASUFW_SUCCESS, if the validation of the tag arguments is successful.
+ *		- XASU_INVALID_ARGUMENT, if tag arguments are invalid.
  *
  *************************************************************************************************/
 static inline s32 XAsu_AesValidateTag(u8 EngineMode, u64 TagAddr, u32 TagLen)
 {
 	s32 Status = XASU_INVALID_ARGUMENT;
 
-	/*
-	 * Tag Validation for respective AES engine modes
-	 * AES Standard mode (ECB, CBC, CTR, CFB, OFB).
-	 * AES MAC mode (GCM, CCM, GMAC, CMAC).
+	/**
+	 * Tag validation for respective AES engine modes
+	 * - AES Standard mode (ECB, CBC, CTR, CFB, OFB).
+	 * - AES MAC mode (GCM, CCM, GMAC, CMAC).
 	 *
 	 * |   Engine Mode       |   TagAddress   |   TagLength          |
 	 * |---------------------|----------------|----------------------|

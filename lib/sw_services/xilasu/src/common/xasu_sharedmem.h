@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_sharedmem.h
- * @addtogroup Overview
- * @{
  *
  * This header file defines the structures that are used for shared memory
  * communication between the client and the server. The structures include
@@ -27,7 +25,10 @@
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_common_defs Common Defs
+ * @{
+*/
 #ifndef XASU_SHAREDMEM_H
 #define XASU_SHAREDMEM_H
 
@@ -46,7 +47,7 @@ extern "C" {
 #define XASU_COMMAND_IN_PROGRESS			(0x2U) /**< Command is in progress by ASUFW */
 #define XASU_COMMAND_WAITING_FOR_RESOURCE	(0x3U) /**< Command is waiting for required resources */
 #define XASU_COMMAND_EXECUTION_COMPLETE		(0x4U) /**< Command execution is complete by ASUFW */
-/** Response buffers status */
+/* Response buffers status */
 #define XASU_RESPONSE_IS_PRESENT			(0x1U) /**< Response is written by ASUFW */
 
 #define XASU_RESPONSE_STATUS_INDEX			(0U) /**< Response status index in response buffer */

@@ -7,8 +7,7 @@
 /**
  *
  * @file xasu_sha2.h
- * @addtogroup
- * @{
+ *
  * This file Contains the SHA2 client function prototypes, defines and macros for
  * the SHA2 hardware module.
  *
@@ -18,11 +17,15 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vns  08/22/24 Initial release
+ *       yog  09/26/24 Added doxygen groupings.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_sha2_client_apis SHA2 Client APIs
+ * @{
+*/
 #ifndef XASU_SHA2_H
 #define XASU_SHA2_H
 
@@ -51,3 +54,4 @@ s32 XAsu_Sha2Kat(void);
 #endif
 
 #endif  /* XASU_SHA2_H */
+/** @} */

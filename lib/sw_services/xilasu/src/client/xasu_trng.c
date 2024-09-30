@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_trng.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the implementation of the client interface functions for
  * TRNG driver.
@@ -19,11 +17,15 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vns  08/27/24 Initial release
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_trng_client_apis TRNG Client APIs
+ * @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasu_def.h"
 #include "xasu_client.h"
@@ -43,16 +45,17 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends request to ASU, to get random number from TRNG
+ * @brief	This function generates random number using TRNG.
  *
- * @param	ClientParamPtr  Pointer to the XAsu_ClientParams structure which holds
- *              the client input arguments.
- * @param	BufPtr          Pointer to the buffer to store the random number.
- * @param       Length          Length of the random number to be stored in buffer.
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds
+ * 				client input arguments.
+ * @param	BufPtr		Pointer to the buffer to store the random number.
+ * @param	Length		Length of the buffer in bytes.
  *
  * @return
- *	        - XST_SUCCESS - upon successful request to asu
- *	        - XST_FAILURE - If there is a failure
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Length)
@@ -61,7 +64,7 @@ s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Len
 	XAsu_ChannelQueueBuf *QueueBuf;
 	XAsu_QueueInfo *QueueInfo;
 
-	/* Validatations of inputs */
+	/** Validate input parameters. */
 	if ((ClientParamPtr->Priority != XASU_PRIORITY_HIGH) &&
 	    (ClientParamPtr->Priority != XASU_PRIORITY_LOW)) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -72,6 +75,7 @@ s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Len
 		goto END;
 	}
 
+	/** Get the pointer to QueueInfo structure for provided priority. */
 	QueueInfo = XAsu_GetQueueInfo(ClientParamPtr->Priority);
 	if (QueueInfo == NULL) {
 		goto END;
@@ -82,9 +86,11 @@ s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Len
 		goto END;
 	}
 
+	/** Update the request buffer. */
 	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_TRNG_GET_RANDOM_BYTES_CMD_ID, 0U,
 				  XASU_MODULE_TRNG_ID, 0U);
 
+	/** Send IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
 	if (Status != XST_SUCCESS) {
 		goto END;
