@@ -20,12 +20,20 @@ FOREACH(DRIVER ${DRIVER_LIST})
 	set(drv_archive ${CMAKE_BINARY_DIR}/libsrc/${DRIVER}/src/lib${DRIVER}.a)
 	if (NOT (${drv_archive} IN_LIST OBJS))
 	    list(APPEND OBJS ${drv_archive})
-	    list(APPEND xil_mri "addlib ${drv_archive}\n")
 	endif()
     endforeach()
 ENDFOREACH()
-list(APPEND xil_mri "\"save\"\n")
-list(APPEND xil_mri "\"end\"\n")
+
+# Reverse the OBJS list to ensure correct order
+list(REVERSE OBJS)
+
+# Append the reversed OBJS to xil_mri
+foreach(drv_archive ${OBJS})
+    list(APPEND xil_mri "addlib ${drv_archive}\n")
+endforeach()
+
+list(APPEND xil_mri "save\n")
+list(APPEND xil_mri "end\n")
 file(WRITE ${CMAKE_BINARY_DIR}/libxil.mri ${xil_mri})
 
 set(XIL_LIB ${CMAKE_BINARY_DIR}/libxil.a)
