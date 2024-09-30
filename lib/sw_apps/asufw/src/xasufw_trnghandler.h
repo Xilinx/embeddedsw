@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_trnghandler.h
- * @addtogroup Overview
- * @{
  *
  * This file contains function declarations, macro and structure defines related to TRNG module in
  * ASUFW.
@@ -20,11 +18,15 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   05/20/24 Initial release
  *       ma   07/23/24 Added API to read any number of random bytes from TRNG
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 #ifndef XASUFW_TRNGHANDLER_H
 #define XASUFW_TRNGHANDLER_H
 

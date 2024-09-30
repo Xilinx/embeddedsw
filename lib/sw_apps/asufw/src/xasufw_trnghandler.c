@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_trnghandler.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the TRNG module commands supported by ASUFW.
  *
@@ -22,11 +20,15 @@
  *       ma   07/08/24 Add task based approach at queue level
  *       ma   07/23/24 Added API to read any number of random bytes from TRNG
  *       ma   07/26/24 Added support for PTRNG GetRandomBytes
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasufw_trnghandler.h"
 #include "xasufw_modules.h"
@@ -52,6 +54,7 @@
 	((Type *)(((char *)(Item) - offsetof(Type, Item)) + offsetof(Type, Member)))
 
 #ifdef XASUFW_TRNG_ENABLE_DRBG_MODE
+/** @brief This structure contains configuration information for DRBG instantiation. */
 typedef struct {
 	u32 Header; /**< DRBG Instantiate command header */
 	u8 *SeedPtr; /**< Initial seed pointer */
@@ -61,12 +64,14 @@ typedef struct {
 	u32 DFLen; /**< DF length */
 } XAsufw_DrbgInstantiateCmd;
 
+/** @brief This structure contains configuration information for DRBG reseed. */
 typedef struct {
 	u32 Header; /**< DRBG Reseed command header */
 	u8 *ReseedPtr; /**< Reseed pointer */
 	u32 DFLen; /**< DF length */
 } XAsufw_DrbgReseedCmd;
 
+/** @brief This structure contains configuration information for DRBG regenerate. */
 typedef struct {
 	u32 Header; /**< DRBG Generate command header */
 	u8 *RandBuf; /**< Pointer to buffer for storing random data */
@@ -90,12 +95,12 @@ static XAsufw_Module XAsufw_TrngModule; /**< ASUFW TRNG Module ID and commands a
 
 /*************************************************************************************************/
 /**
- * @brief   This function initialized the XAsufw_TrngCmds structure with supported commands and
- * initializes TRNG instance.
+ * @brief	This function initializes the TRNG module.
  *
  * @return
- * 			- On successful initialization of TRNG module, it returns XASUFW_SUCCESS.
- *            Otherwise, it returns an error code.
+ * 	- On successful initialization of TRNG module, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_TRNG_MODULE_REGISTRATION_FAILED, if TRNG module registration fails.
+ * 	- XASUFW_FAILURE, if thee is any failure.
  *
  *************************************************************************************************/
 s32 XAsufw_TrngInit(void)
@@ -103,7 +108,7 @@ s32 XAsufw_TrngInit(void)
 	s32 Status = XASUFW_FAILURE;
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 
-	/* Contains the array of ASUFW TRNG commands */
+	/** Contains the array of ASUFW TRNG commands. */
 	static const XAsufw_ModuleCmd XAsufw_TrngCmds[] = {
 		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngGetRandomBytes),
 		[XASU_TRNG_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngKat),
@@ -113,7 +118,7 @@ s32 XAsufw_TrngInit(void)
 		[XASU_TRNG_DRBG_GENERATE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngDrbgGenerate),
 	};
 
-	/* Contains the required resources for each supported command */
+	/** Contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_TrngResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_TrngCmds)] = {
 		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK |
 		XASUFW_TRNG_RANDOM_BYTES_MASK,
@@ -129,34 +134,35 @@ s32 XAsufw_TrngInit(void)
 	XAsufw_TrngModule.ResourcesRequired = XAsufw_TrngResourcesBuf;
 	XAsufw_TrngModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_TrngCmds);
 
+	/** Register TRNG module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_TrngModule);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_TRNG_MODULE_REGISTRATION_FAILED);
 	}
 
-	/* Initialize the TRNG core */
+	/** Initialize the TRNG instance. */
 	Status = XTrng_CfgInitialize(XAsufw_Trng);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
 #if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) || defined(XASUFW_TRNG_ENABLE_DRBG_MODE)
-	/* Perform health test on TRNG */
+	/** Perform health test on TRNG. */
 	Status = XTrng_PreOperationalSelfTests(XAsufw_Trng);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* Instantiate to complete initialization of TRNG in HRNG mode */
+	/** Instantiate to complete initialization of TRNG in HRNG mode. */
 	Status = XTrng_InitNCfgTrngMode(XAsufw_Trng, XTRNG_HRNG_MODE);
 	if (Status != XST_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* Enable auto proc mode for TRNG */
+	/** Enable auto proc mode for TRNG. */
 	Status = XTrng_EnableAutoProcMode(XAsufw_Trng);
 #else
-	/* Instantiate to complete initialization of TRNG in PTRNG mode */
+	/** Instantiate to complete initialization of TRNG in PTRNG mode. */
 	Status = XTrng_InitNCfgTrngMode(XAsufw_Trng, XTRNG_PTRNG_MODE);
 	if (Status != XST_SUCCESS) {
 		XFIH_GOTO(END);
@@ -169,12 +175,11 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function checks if random numbers are available in TRNG FIFO or not.
+ * @brief	This function checks if random numbers are available in TRNG FIFO or not.
  *
  * @return
- *          - XASUFW_SUCCESS If random numbers are available in TRNG FIFO.
- *          - XASUFW_TRNG_INVALID_PARAM If invalid parameter(s) passed to this function.
- *          - XASUFW_FAILURE If random numbers are not available in TRNG FIFO.
+ * 	- XASUFW_SUCCESS If random numbers are available in TRNG FIFO.
+ * 	- XASUFW_FAILURE If random numbers are not available in TRNG FIFO.
  *
  *************************************************************************************************/
 s32 XAsufw_TrngIsRandomNumAvailable(void)
@@ -193,17 +198,17 @@ s32 XAsufw_TrngIsRandomNumAvailable(void)
 
 /*************************************************************************************************/
 /**
- * @brief   This function is a handler for TRNG Get Random Bytes command.
+ * @brief	This function is a handler for TRNG Get Random Bytes command.
  *
- * @param   ReqBuf	Pointer to the request buffer.
- * @param   QueueId	Queue Unique ID.
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	QueueId	Queue Unique ID.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful execution of the command.
- *          - Otherwise, returns an error code.
+ * 	- XASUFW_SUCCESS - if read TRNG FIFO operation is successful.
+ * 	- XASUFW_FAILURE, if there is any other failure.
  *
- * @note    This IPI command must not be called when DRBG mode is enabled using
- *          XASUFW_TRNG_ENABLE_DRBG_MODE macro.
+ * @note	This IPI command must not be called when DRBG mode is enabled using
+ * 	XASUFW_TRNG_ENABLE_DRBG_MODE macro.
  *
  *************************************************************************************************/
 static s32 XAsufw_TrngGetRandomBytes(XAsu_ReqBuf *ReqBuf, u32 QueueId)
@@ -224,14 +229,14 @@ static s32 XAsufw_TrngGetRandomBytes(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 /*************************************************************************************************/
 /**
- * @brief   This function is a handler for TRNG KAT command.
+ * @brief	This function is a handler for TRNG KAT command.
  *
- * @param   ReqBuf	Pointer to the request buffer.
- * @param   QueueId	Queue Unique ID.
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	QueueId	Queue Unique ID.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful execution of the command.
- *          - Otherwise, returns an error code.
+ * 	- XASUFW_SUCCESS, if KAT is successful.
+ * 	- Error code, returned when XAsufw_ShaKat API fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_TrngKat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
@@ -246,23 +251,23 @@ static s32 XAsufw_TrngKat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
-	/* Uninstantiate TRNG before running KAT */
+	/** Uninstantiate TRNG before running KAT */
 	Status = XTrng_Uninstantiate(XAsufw_Trng);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* Run DRBG KAT. Change the TRNG mode to HRNG and enable autoproc mode after running KAT */
+	/** Run DRBG KAT. Change the TRNG mode to HRNG and enable autoproc mode after running KAT. */
 	Status = XTrng_DrbgKat(XAsufw_Trng);
 
-	/* Instantiate to complete initialization of TRNG in HRNG mode */
+	/** Instantiate to complete initialization of TRNG in HRNG mode */
 	SStatus = XTrng_InitNCfgTrngMode(XAsufw_Trng, XTRNG_HRNG_MODE);
 	if (SStatus != XST_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, SStatus);
 		XFIH_GOTO(END);
 	}
 
-	/* Enable auto proc mode for TRNG */
+	/** Enable auto proc mode for TRNG */
 	SStatus = XTrng_EnableAutoProcMode(XAsufw_Trng);
 	if (SStatus != XST_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, SStatus);
@@ -275,14 +280,14 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function is a handler for TRNG Get Info command.
+ * @brief	This function is a handler for TRNG Get Info command.
  *
- * @param   ReqBuf	Pointer to the request buffer.
- * @param   QueueId	Queue Unique ID.
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	QueueId	Queue Unique ID.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful execution of the command.
- *          - Otherwise, returns an error code.
+ * 	- Returns XASUFW_SUCCESS on successful execution of the command.
+ * 	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
 static s32 XAsufw_TrngGetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId)
@@ -294,14 +299,14 @@ static s32 XAsufw_TrngGetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 /*************************************************************************************************/
 /**
- * @brief   This function is a handler for TRNG DRBG instantiate command.
+ * @brief	This function is a handler for TRNG DRBG instantiate command.
  *
- * @param   ReqBuf	Pointer to the request buffer.
- * @param   QueueId	Queue Unique ID.
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	QueueId	Queue Unique ID.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful execution of the command.
- *          - Otherwise, returns an error code.
+ * 	- XASUFW_SUCCESS on successful execution of the command.
+ * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 static s32 XAsufw_TrngDrbgInstantiate(XAsu_ReqBuf *ReqBuf, u32 QueueId)
@@ -336,14 +341,14 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function is a handler for TRNG DRBG reseed command.
+ * @brief	This function is a handler for TRNG DRBG reseed command.
  *
- * @param   ReqBuf	Pointer to the request buffer.
- * @param   QueueId	Queue Unique ID.
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	QueueId	Queue Unique ID.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful execution of the command.
- *          - Otherwise, returns an error code.
+ * 	- XASUFW_SUCCESS on successful execution of the command.
+ * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 static s32 XAsufw_TrngDrbgReseed(XAsu_ReqBuf *ReqBuf, u32 QueueId)
@@ -360,14 +365,14 @@ static s32 XAsufw_TrngDrbgReseed(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 /*************************************************************************************************/
 /**
- * @brief   This function is a handler for TRNG DRBG generate command.
+ * @brief	This function is a handler for TRNG DRBG generate command.
  *
- * @param   ReqBuf	Pointer to the request buffer.
- * @param   QueueId	Queue Unique ID.
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	QueueId	Queue Unique ID.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful execution of the command.
- *          - Otherwise, returns an error code.
+ * 	- XASUFW_SUCCESS on successful execution of the command.
+ * 	- XASUFW_FAILURE, if tehre is any failure.
  *
  *************************************************************************************************/
 static s32 XAsufw_TrngDrbgGenerate(XAsu_ReqBuf *ReqBuf, u32 QueueId)
@@ -384,15 +389,16 @@ static s32 XAsufw_TrngDrbgGenerate(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 /*************************************************************************************************/
 /**
- * @brief   This function reads the requested number of random bytes from TRNG AUTOPROC FIFO.
+ * @brief	This function reads the requested number of random bytes from TRNG AUTOPROC FIFO.
  *
- * @param   RandomBuf	Pointer to the random buffer.
- * @param   Size		Size of the random buffer. The maximum allowed size is 96 Bytes (3 256-bit
- *                      random numbers)
+ * @param	RandomBuf	Pointer to the random buffer.
+ * @param	Size		Size of the random buffer. The maximum allowed size is 96 Bytes
+ * 				(3 256-bit random numbers).
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful execution of the command.
- *          - Otherwise, returns an error code.
+ * 	- XASUFW_SUCCESS on successful execution of the command.
+ * 	- XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE, if size of random buffer is invalid.
+ * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)

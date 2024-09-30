@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_sha3handler.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the SHA3 module commands supported by ASUFW.
  *
@@ -23,11 +21,15 @@
  *       ma   06/14/24 Add support for SHAKE256 XOF and also modify SHA APIs to take DMA pointer
  *                     for every update
  *       ma   07/08/24 Add task based approach at queue level
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasufw_sha3handler.h"
 #include "xsha_hw.h"
@@ -56,12 +58,12 @@ static XAsufw_Module XAsufw_Sha3Module; /**< ASUFW SHA3 Module ID and commands a
 
 /*************************************************************************************************/
 /**
- * @brief   This function initialized the XAsufw_Sha3Cmds structure with supported commands and
- * initializes SHA3 instance.
+ * @brief	This function initializes the SHA3 module.
  *
  * @return
- * 			- On successful initialization of SHA3 module, it returns XASUFW_SUCCESS.
- *            Otherwise, it returns an error code.
+ * 	- On successful initialization of SHA3 module, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_SHA3_MODULE_REGISTRATION_FAILED, if SHA3 module registration fails.
+ * 	- XASUFW_SHA3_INIT_FAILED, if SHA3 init fails.
  *
  *************************************************************************************************/
 s32 XAsufw_Sha3Init(void)
@@ -69,14 +71,14 @@ s32 XAsufw_Sha3Init(void)
 	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha3 = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 
-	/* Contains the array of ASUFW SHA3 commands */
+	/** Contains the array of ASUFW SHA3 commands. */
 	static const XAsufw_ModuleCmd XAsufw_Sha3Cmds[] = {
 		[XASU_SHA_OPERATION_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_Sha3Operation),
 		[XASU_SHA_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_Sha3Kat),
 		[XASU_SHA_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_Sha3GetInfo),
 	};
 
-	/* Contains the required resources for each supported command */
+	/** Contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_Sha3ResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_Sha3Cmds)] = {
 		[XASU_SHA_OPERATION_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK,
 		[XASU_SHA_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK,
@@ -88,12 +90,14 @@ s32 XAsufw_Sha3Init(void)
 	XAsufw_Sha3Module.ResourcesRequired = XAsufw_Sha3ResourcesBuf;
 	XAsufw_Sha3Module.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_Sha3Cmds);
 
+	/** Register SHA3 module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_Sha3Module);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_MODULE_REGISTRATION_FAILED);
 		XFIH_GOTO(END);
 	}
 
+	/** Initialize SHA3 instance. */
 	Status = XSha_CfgInitialize(XAsufw_Sha3);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_INIT_FAILED);
@@ -106,14 +110,18 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function is a handler for SHA3 operation command.
+ * @brief	This function is a handler for SHA3 operation command.
  *
- * @param   ReqBuf	Pointer to the request buffer.
- * @param   QueueId	Queue Unique ID.
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	QueueId	Queue Unique ID.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful execution of the command.
- *          - Otherwise, returns an error code.
+ * 	- XASUFW_SUCCESS - if SHA3 hash operation is successful.
+ * 	- XASUFW_SHA3_START_FAILED - if SHA3 start fails.
+ * 	- XASUFW_SHA3_UPDATE_FAILED - if SHA3 update fails.
+ * 	- XASUFW_SHA3_FINISH_FAILED - if SHA3 finish fails.
+ * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED - if DMA resource allocation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
  *
  *************************************************************************************************/
 s32 XAsufw_Sha3Operation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
@@ -124,6 +132,10 @@ s32 XAsufw_Sha3Operation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	XAsufw_Dma *AsuDmaPtr = NULL;
 
 	if ((Cmd->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
+		/**
+		 * If operation flags include SHA START, check SHA2 resource availability,
+		 * allocate it and perform SHA start operation.
+		 */
 		XAsufw_AllocateResource(XASUFW_SHA3, QueueId);
 		Status = XSha_Start(XAsufw_Sha3, Cmd->ShaMode);
 		if (Status != XASUFW_SUCCESS) {
@@ -133,6 +145,10 @@ s32 XAsufw_Sha3Operation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	}
 
 	if ((Cmd->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE) {
+		/**
+		 * If operation flags include SHA UPDATE, check DMA resource availability,
+		 * allocate it and perform SHA update operation.
+		 */
 		AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_SHA3, QueueId);
 		if (AsuDmaPtr == NULL) {
 			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
@@ -146,6 +162,7 @@ s32 XAsufw_Sha3Operation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	}
 
 	if ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
+		/** If operation flags include SHA FINISH, perform SHA finish operation. */
 		Status = XSha_Finish(XAsufw_Sha3, Cmd->HashAddr, Cmd->HashBufSize, Cmd->ShakeReserved);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_FINISH_FAILED);
@@ -161,7 +178,7 @@ s32 XAsufw_Sha3Operation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 END:
 	if (Status != XASUFW_SUCCESS) {
-		/* Release resources */
+		/** Release resources. */
 		if (XAsufw_ReleaseResource(XASUFW_SHA3, QueueId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
@@ -172,14 +189,14 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function is a handler for SHA3 KAT command.
+ * @brief	This function is a handler for SHA3 KAT command.
  *
- * @param   ReqBuf	Pointer to the request buffer.
- * @param   QueueId	Queue Unique ID.
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	QueueId	Queue Unique ID.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful execution of the command.
- *          - Otherwise, returns an error code.
+ * 	- XASUFW_SUCCESS, if KAT is successful.
+ * 	- Error code, returned when XAsufw_ShaKat API fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_Sha3Kat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
@@ -194,14 +211,14 @@ static s32 XAsufw_Sha3Kat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 /*************************************************************************************************/
 /**
- * @brief   This function is a handler for SHA3 Get Info command.
+ * @brief	This function is a handler for SHA3 Get Info command.
  *
- * @param   ReqBuf	Pointer to the request buffer.
- * @param   QueueId	Queue Unique ID.
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	QueueId	Queue Unique ID.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful execution of the command.
- *          - Otherwise, returns an error code.
+ * 	- Returns XASUFW_SUCCESS on successful execution of the command.
+ * 	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
 static s32 XAsufw_Sha3GetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId)

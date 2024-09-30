@@ -7,8 +7,6 @@
 /**
  *
  * @file xtrng_tests.c
- * @addtogroup Overview
- * @{
  *
  * This file contains Known Answer Tests and Health Tests for TRNG component.
  *
@@ -20,11 +18,15 @@
  * 1.0   ma   05/20/24 Initial release
  *       ma   07/26/24 Added platform check to skip DRBG KAT on QEMU
  *       yog  08/25/24 Integrated FIH library
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xtrng_server_apis TRNG Server APIs
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xtrng.h"
 #include "xasufw_status.h"
@@ -48,14 +50,15 @@ static s32 XTrng_HealthTest(XTrng *InstancePtr);
 
 /*************************************************************************************************/
 /**
- * @brief   This function runs DRBG self test i.e DRBG full cycle Instantiate+Reseed, Reseed and
- * Generate
+ * @brief	This function runs DRBG self test i.e DRBG full cycle Instantiate+Reseed,
+ * 		Reseed and Generate.
  *
- * @param   InstancePtr		Pointer to the TRNG instance.
+ * @param	InstancePtr	Pointer to the TRNG instance.
  *
  * @return
- * 			- Upon successfully running DRBG KAT, it returns XASUFW_SUCCESS.
- *          - Otherwise, it returns an error code.
+ * 	- Upon successfully running DRBG KAT, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_TRNG_KAT_FAILED_ERROR, if generated random number is mismatched with expected.
+ * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 s32 XTrng_DrbgKat(XTrng *InstancePtr)
@@ -162,13 +165,13 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function runs preoperational self tests and updates TRNG error state
+ * @brief	This function runs preoperational self tests and updates TRNG error state
  *
- * @param   InstancePtr		Pointer to the TRNG instance.
+ * @param	InstancePtr	Pointer to the TRNG instance.
  *
  * @return
- * 			- Upon success, it returns XASUFW_SUCCESS.
- *          - Otherwise, it returns an error code.
+ * 	- Upon success, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 s32 XTrng_PreOperationalSelfTests(XTrng *InstancePtr)
@@ -201,13 +204,13 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function runs health test on TRNG core.
+ * @brief	This function runs health test on TRNG core.
  *
- * @param   InstancePtr		Pointer to the TRNG instance.
+ * @param	InstancePtr	Pointer to the TRNG instance.
  *
  * @return
- * 			- Upon successful completion of health test on TRNG core, it returns XASUFW_SUCCESS.
- *          - Otherwise, it returns an error code.
+ * 	- Upon successful completion of health test on TRNG core, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 static s32 XTrng_HealthTest(XTrng *InstancePtr)

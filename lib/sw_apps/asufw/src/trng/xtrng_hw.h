@@ -7,8 +7,6 @@
 /**
  *
  * @file xtrng_hw.h
- * @addtogroup Overview
- * @{
  *
  * This header file contains macros for TRNG HW.
  *
@@ -155,4 +153,3 @@ extern "C" {
 #endif
 
 #endif  /* XTRNG_HW_H */
-/** @} */
