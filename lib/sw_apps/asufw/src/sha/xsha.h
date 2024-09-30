@@ -7,8 +7,6 @@
 /**
  *
  * @file xsha.h
- * @addtogroup Overview
- * @{
  *
  * This file Contains the function prototypes, defines and macros for the SHA2/3 hardware module.
  *
@@ -31,11 +29,15 @@
  * 1.0   ma   04/02/24 Initial release
  *       ma   06/14/24 Add support for SHAKE256 XOF and also modify SHA APIs to take DMA pointer
  *                     for every update
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xsha_server_apis SHA Server APIs
+* @{
+*/
 #ifndef XSHA_H
 #define XSHA_H
 
@@ -58,7 +60,8 @@ extern "C" {
 
 /************************************** Type Definitions *****************************************/
 typedef struct _XSha_Config XSha_Config;
-typedef struct _XSha XSha;
+                /**< This typedef is to create alias name for _XSha_Config. */
+typedef struct _XSha XSha; /**< This typedef is to create alias name for _XSha. */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
