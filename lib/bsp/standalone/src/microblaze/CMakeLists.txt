@@ -28,5 +28,8 @@ collect (PROJECT_LIB_SOURCES microblaze_scrub.S)
 collect(PROJECT_LIB_HEADERS xil_cache.h)
 if ((NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "FreeRTOS") AND
     ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
+    string(FIND "${CMAKE_C_FLAGS}" "-flto" has_flto)
+    if (${has_flto} EQUAL -1)
 	collect (PROJECT_LIB_SOURCES microblaze_interrupt_handler.c)
+    endif()
 endif()
