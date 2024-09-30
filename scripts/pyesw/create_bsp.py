@@ -381,15 +381,15 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
 
             utils.add_newline(
                 toolchain_file,
-                f'set( CMAKE_C_FLAGS "${{TOOLCHAIN_C_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} {compiler_flags} -I${{CMAKE_INCLUDE_PATH}}" CACHE STRING "CFLAGS")',
+                f'set( CMAKE_C_FLAGS "${{TOOLCHAIN_C_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} {compiler_flags} -I${{CMAKE_INCLUDE_PATH}}" CACHE STRING "CFLAGS" FORCE)',
             )
             utils.add_newline(
                 toolchain_file,
-                f'set( CMAKE_CXX_FLAGS "${{TOOLCHAIN_CXX_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} {compiler_flags} -I${{CMAKE_INCLUDE_PATH}}")',
+                f'set( CMAKE_CXX_FLAGS "${{TOOLCHAIN_CXX_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} {compiler_flags} -I${{CMAKE_INCLUDE_PATH}}" CACHE STRING "CXX FLAGS" FORCE)',
             )
             utils.add_newline(
                 toolchain_file,
-                f'set( CMAKE_ASM_FLAGS "${{TOOLCHAIN_ASM_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} {compiler_flags} -I${{CMAKE_INCLUDE_PATH}}")',
+                f'set( CMAKE_ASM_FLAGS "${{TOOLCHAIN_ASM_FLAGS}} ${{TOOLCHAIN_DEP_FLAGS}} -specs=${{CMAKE_SPECS_FILE}} {compiler_flags} -I${{CMAKE_INCLUDE_PATH}}" CACHE STRING "ASM FLAGS" FORCE)',
             )
         return compiler_flags
 
