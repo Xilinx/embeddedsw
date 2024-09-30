@@ -6,7 +6,7 @@
 /*************************************************************************************************/
 /**
 *
-* @file xrsa_ellipticcrvs.c
+* @file xrsa_eccinfo.c
 *
 * This file contains the curve information of all the ECDSA curves supported
 * in Versal.
@@ -17,13 +17,16 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   yog  07/11/24 Initial release
-*
+*       yog  09/26/24 Added doxygen groupings.
 * </pre>
 *
 * @note
 *
 ***************************************************************************************************/
-
+/**
+* @addtogroup xrsa_ecc_server_apis RSA ECC Server APIs
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xrsa_eccinfo.h"
 
@@ -1000,3 +1003,4 @@ u32 XRsa_EccCrvsGetCount(void)
 {
 	return sizeof(XRsa_EccCrvsDb) / sizeof(EcdsaCrvInfo);
 }
+/** @} */

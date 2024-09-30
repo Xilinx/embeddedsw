@@ -17,10 +17,15 @@
 * 1.0   yog  06/19/2024 Initial release
 *       yog  08/19/2024 Received Dma instance from handler
 *       yog  08/25/2024 Integrated FIH library
+*       yog  09/26/2024 Added doxygen groupings and fixed doxygen comments.
 *
 * </pre>
 *
 **************************************************************************************************/
+/**
+* @addtogroup xecc_server_apis ECC Server APIs
+* @{
+*/
 
 /*************************************** Include Files *******************************************/
 #include "xecc.h"
@@ -37,8 +42,8 @@
 #define XECC_CURVES_SUPPORTED		2U /**< Curves P-256 and P-384 are supported for ECC engine */
 #define XECC_RESET_ASSERT		(1U) /**< ECC reset assert value */
 #define XECC_RESET_DEASSERT		(0U) /**< ECC reset deassert value */
-#define XECC_TIMEOUT_MAX		(0x1FFFFU) /**< ECC done timeout \
-TBD: need to calculate as part of VNC */
+#define XECC_TIMEOUT_MAX		(0x1FFFFU) /**< ECC done timeout */
+						/* TBD: need to calculate as part of VNC */
 #define XECC_SIGN_VERIFICATION_OP_CODE	(0x0U) /**< OpCode for signature verification */
 #define XECC_PUB_KEY_VALIDATION_OP_CODE	(0x1U) /**< OpCode for public key validation */
 #define XECC_PUB_KEY_GENERATION_OP_CODE	(0x2U) /**< Opcode for Public Key Generation */
@@ -48,7 +53,7 @@ TBD: need to calculate as part of VNC */
 /************************************** Type Definitions *****************************************/
 
 /**
-* Structure to get curve info
+* @brief Structure to get curve info
 */
 typedef struct {
 	u32 CurveType; /**< Type of the curve */
@@ -56,7 +61,7 @@ typedef struct {
 } XEcc_CurveInfo;
 
 /**
-* This structure contains configuration information for a ECC core.
+* @brief This structure contains configuration information for a ECC core.
 * Each core should have an associated configuration structure.
 */
 struct _XEcc_Config {
@@ -65,7 +70,7 @@ struct _XEcc_Config {
 };
 
 /**
-* ECC driver instance data structure. A pointer to an instance data
+* @brief ECC driver instance data structure. A pointer to an instance data
 * structure is passed around by functions to refer to a specific driver
 * instance.
 */
@@ -111,13 +116,13 @@ static XEcc_CurveInfo XEcc_CurveInfoTable[XECC_CURVES_SUPPORTED] = {
 
 /*************************************************************************************************/
 /**
- * @brief	This function returns an instance pointer of the ECC HW based on Device ID.
+ * @brief	This function returns an ECC instance pointer of the provided device ID.
  *
- * @param	DeviceId	Unique device ID of the device for the lookup operation.
+ * @param	DeviceId	The device ID of ECC core.
  *
  * @return
  * 		- It returns pointer to the XEcc_Instance corresponding to the Device ID.
- * 		- It returns NULL if Device ID is invalid.
+ * 		- It returns NULL if the device ID is invalid.
  *
  *************************************************************************************************/
 XEcc *XEcc_GetInstance(u32 DeviceId)
@@ -138,14 +143,13 @@ END:
 /*************************************************************************************************/
 /**
 *
-* @brief	This function initializes ECC core. This function must be called prior using a
-*		ECC core.
+* @brief	This function initializes the ECC instance.
 *
-* @param	InstancePtr	Pointer to the XEcc instance.
+* @param	InstancePtr	Pointer to the Ecc instance.
 *
 * @return
-*		- Upon successful initialization, returns XASUFW_SUCCESS.
-*		- XASUFW_ECC_INVALID_PARAM, if InstancePtr or CfgPtr is NULL
+*		- XASUFW_SUCCESS, if initialization is successful.
+*		- XASUFW_ECC_INVALID_PARAM, if InstancePtr or CfgPtr is NULL.
 *
 **************************************************************************************************/
 s32 XEcc_Initialize(XEcc *InstancePtr)
@@ -153,6 +157,7 @@ s32 XEcc_Initialize(XEcc *InstancePtr)
 	s32 Status = XASUFW_FAILURE;
 	XEcc_Config *CfgPtr = NULL;
 
+	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_ECC_INVALID_PARAM;
 		XFIH_GOTO(END);
@@ -163,6 +168,7 @@ s32 XEcc_Initialize(XEcc *InstancePtr)
 		XFIH_GOTO(END);
 	}
 
+	/** Initialize ECC instance. */
 	InstancePtr->BaseAddress = CfgPtr->BaseAddress;
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	InstancePtr->CmConfig = XASUFW_ECC_CM_CONFIG;
@@ -174,25 +180,27 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function generates public key for a given curve type using	private key.
+ * @brief	This function generates the public key using the provided private key for the
+ * 		specified elliptic curve using ECC core.
  *
- * @param	InstancePtr	Pointer to the ECC instance.
- * @param	DmaPtr		Pointer to DMA instance.
+ * @param	InstancePtr	Pointer to the Ecc instance.
+ * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	CurveType	ECC curve type.
  * @param	CurveLen	Length of the curve in bytes.
- * @param	PrivKeyAddr	Address of the private key used to generate public key.
- *				Length of the private key shall be CurveLen.
- * @param	PubKeyAddr	Address to store the generated Public Key.
- *				Length of the public key shall be double of CurveLen since
- *				public key has both Qx, Qy components.
+ * @param	PrivKeyAddr	Address of the private key buffer, whose length shall be equal to
+ * 				CurveLen.
+ * @param	PubKeyAddr	Address of the buffer to store the generated public key, whose
+ * 				length shall be	equal to double of CurveLen as it contains both
+ * 				Qx, Qy components.
  *
  * @return
- * 		- Upon successful public key generation, it returns XASUFW_SUCCESS.
+ * 		- XASUFW_SUCCESS, if public key generated successfully.
  * 		- XASUFW_ECC_INVALID_PARAM, if InstancePtr is NULL or if curve type or curve length
- * 				is invalid
- * 		- XASUFW_ECC_INIT_NOT_DONE, if ECC component is not ready
- * 		- XASUFW_ECC_WRITE_DATA_FAIL - if write data to registers through DMA fails
- * 		- XASUFW_ECC_READ_DATA_FAIL - if read data from registers through DMA fails
+ * 				is invalid.
+ * 		- XASUFW_ECC_WRITE_DATA_FAIL, if write data to registers through DMA fails.
+ * 		- XASUFW_ECC_READ_DATA_FAIL, if read data from registers through DMA fails.
+ * 		- Also can return termination error codes from 0x21U to 0x2CU from core,
+ * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
 s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
@@ -203,6 +211,7 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u32 Offset = XECC_MEM_GEN_KEY_PVT_KEY_OFFSET;
 
+	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
@@ -216,14 +225,14 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		XFIH_GOTO(END);
 	}
 
-	/* Release Reset */
+	/** Release Reset. */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->BaseAddress, XECC_RESET_OFFSET);
 
-	/* Enable endianness for write and read operations */
+	/** Enable endianness for write and read operations. */
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_CFG_OFFSET,
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
-	/* Write private key to specified registers */
+	/** Copy private key to respective registers using DMA. */
 	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
@@ -231,13 +240,13 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		XFIH_GOTO(END);
 	}
 
-	/* Updates configuration and starts the operation */
+	/** Update configuration and start the operation. */
 	Status = XEcc_ConfigNStartOperation(InstancePtr, XECC_PUB_KEY_GENERATION_OP_CODE);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* Read and store the generated Public Key */
+	/** Copy public key from registers to destination address using DMA. */
 	Offset = XECC_MEM_PUB_KEY_X_OFFSET;
 	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(XAsufw_DmaXfr, XASUFW_ECC_READ_DATA_FAIL, XFihVar,
 					   Status, END, DmaPtr, (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset),
@@ -250,7 +259,7 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 
 END:
 	if (InstancePtr != NULL) {
-		/* Set ECC under reset */
+		/** Set ECC under reset. */
 		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XECC_RESET_OFFSET);
 	}
 
@@ -259,22 +268,23 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates public key for a given curve type.
+ * @brief	This function validates the provided ECDSA public key for the specified elliptic
+ * 		curve using ECC core.
  *
- * @param	InstancePtr	Pointer to the ECC instance.
- * @param	DmaPtr		Pointer to DMA instance.
+ * @param	InstancePtr	Pointer to the Ecc instance.
+ * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	CurveType	ECC curve type.
  * @param	CurveLen	Length of the curve in bytes.
- * @param	PubKeyAddr	Address of the public key to validate.
- *				Length of the public key shall be double of CurveLen since
- *				public key has both Qx, Qy components.
+ * @param	PubKeyAddr	Address of the public key buffer, whose length shall be equal to
+ * 				double of CurveLen as it contains both Qx, Qy components.
  *
  * @return
- * 		- Upon successful public key validation, it returns XASUFW_SUCCESS.
+ * 		- XASUFW_SUCCESS, if public key provided is valid.
  * 		- XASUFW_ECC_INVALID_PARAM, if InstancePtr is NULL or if curve type or curve length
  * 				is invalid.
- * 		- XASUFW_ECC_INIT_NOT_DONE, if ECC component is not ready.
  * 		- XASUFW_ECC_WRITE_DATA_FAIL - if write data to registers through DMA fails.
+ * 		- Also can return termination error codes from 0x21U to 0x2CU from core,
+ * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
 s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
@@ -284,6 +294,7 @@ s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u32 Offset = XECC_MEM_PUB_KEY_X_OFFSET;
 
+	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
@@ -297,14 +308,14 @@ s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		XFIH_GOTO(END);
 	}
 
-	/* Release Reset */
+	/** Release Reset. */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->BaseAddress, XECC_RESET_OFFSET);
 
-	/* Enable endianness for write and read operations */
+	/** Enable endianness for write and read operations. */
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_CFG_OFFSET,
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
-	/* Write public key to specified registers */
+	/** Copy public key to respective registers using DMA. */
 	Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
@@ -318,12 +329,12 @@ s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
 		XFIH_GOTO(END);
 	}
-	/* Updates configuration and starts the operation */
+	/** Update configuration and start the operation. */
 	Status = XEcc_ConfigNStartOperation(InstancePtr, XECC_PUB_KEY_VALIDATION_OP_CODE);
 
 END:
 	if (InstancePtr != NULL) {
-		/* Set ECC under reset */
+		/** Set ECC under reset. */
 		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XECC_RESET_OFFSET);
 	}
 
@@ -332,30 +343,31 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function generates signature for a given curve type, hash and private key.
+ * @brief	This function generates an ECDSA signature for the provided hash by using the
+ * 		given private key associated with the elliptic curve using ECC core.
  *
- * @param	InstancePtr	Pointer to the ECC instance.
- * @param	DmaPtr		Pointer to DMA instance.
+ * @param	InstancePtr	Pointer to the Ecc instance.
+ * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	CurveType	ECC curve type.
  * @param	CurveLen	Length of the curve in bytes.
- * @param	PrivKeyAddr	Address of the private key.
- *				Length of the private key shall be CurveLen.
- * @param	EphemeralKeyPtr	Pointer to ephemeral key.
- *				Length of the ephemeral key shall be CurveLen.
- * @param	HashAddr	Address of hash to which signature is to be generated.
+ * @param	PrivKeyAddr	Address of the private key buffer, whose length shall be equal to
+ * 				CurveLen.
+ * @param	EphemeralKeyPtr	Pointer to the ephemeral key buffer, whose length shall be equal to
+ * 				CurveLen.
+ * @param	HashAddr	Address of the hash on which signature has to be generated.
  * @param	HashBufLen	Length of the hash in bytes.
- * @param	SignAddr	Address to store the generated signature.
- *				Length of the signature shall be double of CurveLen since sign
- *				has both r, s components.
+ * @param	SignAddr	Address of the buffer to store the generated signature, whose
+ * 				length shall be	equal to double of CurveLen as it contains both
+ * 				r, s components.
  *
  * @return
- * 		- Upon successful Signature generation, it returns XASUFW_SUCCESS.
+ * 		- XASUFW_SUCCESS, if signature generation is successful.
  * 		- XASUFW_ECC_INVALID_PARAM, if InstancePtr is NULL or if curve type is invalid or
  * 			CurveLen and HashBufLen are invalid.
- * 		- XASUFW_ECC_INIT_NOT_DONE, if ECC component is not ready.
- * 		- XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL, if ephemeral key generation fails.
- * 		- XASUFW_ECC_WRITE_DATA_FAIL - if write data to registers through DMA fails.
- * 		- XASUFW_ECC_READ_DATA_FAIL - if read data from registers through DMA fails.
+ * 		- XASUFW_ECC_WRITE_DATA_FAIL, if write data to registers through DMA fails.
+ * 		- XASUFW_ECC_READ_DATA_FAIL,  if read data from registers through DMA fails.
+ * 		- Also can return termination error codes from 0x21U to 0x2CU from core,
+ * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
 s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
@@ -367,6 +379,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u32 Offset = XECC_MEM_GEN_SIGN_PVT_KEY_OFFSET;
 
+	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
@@ -380,14 +393,14 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		XFIH_GOTO(END);
 	}
 
-	/* Release Reset */
+	/** Release Reset. */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->BaseAddress, XECC_RESET_OFFSET);
 
-	/* Enable endianness for write and read operations */
+	/** Enable endianness for write and read operations. */
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_CFG_OFFSET,
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
-	/* Write private key to specified registers */
+	/** Copy private key and hash to respective registers using DMA.*/
 	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
@@ -395,31 +408,30 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		XFIH_GOTO(END);
 	}
 
-	/* Write Ephemeral key to specified registers */
-	Offset = XECC_MEM_EPHEMERAL_KEY_OFFSET;
-	Status = Xil_SMemCpy((u8 *)(InstancePtr->BaseAddress + Offset), CurveLen,
-			     EphemeralKeyPtr, CurveLen, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		XFIH_GOTO(END);
-	}
-
-	/* Write Hash to specified registers */
 	Offset = XECC_MEM_HASH_OFFSET;
 	Status = XAsufw_DmaXfr(DmaPtr, HashAddr,
-			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), HashBufLen, 0U);
+			(u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), HashBufLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
 		XFIH_GOTO(END);
 	}
 
-	/* Updates configuration and starts the operation */
+	/** Copy ephemeral key to respective registers. */
+	Offset = XECC_MEM_EPHEMERAL_KEY_OFFSET;
+	Status = Xil_SMemCpy((u8*)(InstancePtr->BaseAddress + Offset), CurveLen,
+			EphemeralKeyPtr, CurveLen, CurveLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECC_WRITE_DATA_FAIL;
+		XFIH_GOTO(END);
+	}
+
+	/** Update configuration and start the operation. */
 	Status = XEcc_ConfigNStartOperation(InstancePtr, XECC_SIGN_GENERATION_OP_CODE);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* Read and store the generated signature */
+	/** Copy generated signature from registers to destination address using DMA. */
 	Offset = XECC_MEM_SIGN_R_OFFSET;
 	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(XAsufw_DmaXfr, XASUFW_ECC_READ_DATA_FAIL, XFihVar,
 					   Status, END, DmaPtr, (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset),
@@ -432,7 +444,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 
 END:
 	if (InstancePtr != NULL) {
-		/* Set ECC under reset */
+		/** Set ECC under reset. */
 		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XECC_RESET_OFFSET);
 	}
 
@@ -441,27 +453,27 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function verifies the signature for a given curve type.
+ * @brief	This function verifies the validity of an ECDSA signature for the provided hash
+ * 		using the provided ecc public key on ECC core.
  *
- * @param	InstancePtr	Pointer to the ECC instance.
- * @param	DmaPtr		Pointer to DMA instance.
+ * @param	InstancePtr	Pointer to the Ecc instance.
+ * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	CurveType	ECC Curve type.
  * @param	CurveLen	Length of the curve in bytes.
- * @param	PubKeyAddr	Address of the public key.
- *				Length of the public key shall be double of CurveLen since
- *				public key has both Qx, Qy components.
- * @param	HashAddr	Address of hash.
- * @param	HashBufLen	Length of hash in bytes.
- * @param	SignAddr	Address of the signature to be verified.
- *				Length of the signature shall be double of CurveLen since sign
- *				has both r, s components.
+ * @param	PubKeyAddr	Address of the public key buffer, whose length shall be equal to
+ * 				double of CurveLen as it contains both Qx, Qy components.
+ * @param	HashAddr	Address of the hash for which signature has to be verified.
+ * @param	HashBufLen	Length of the hash in bytes.
+ * @param	SignAddr	Address of the signature buffer, whose length shall be equal to
+ * 				double of CurveLen as it contains both r, s components.
  *
  * @return
- * 		- Upon successful Signature Validation, it returns XASUFW_SUCCESS.
+ * 		- XASUFW_SUCCESS, if signature provided is valid.
  * 		- XASUFW_ECC_INVALID_PARAM, if InstancePtr is NULL or if curve type is invalid or
  * 			CurveLen and HashBufLen are invalid.
- * 		- XASUFW_ECC_INIT_NOT_DONE, if ECC component is not ready.
- * 		- XASUFW_ECC_WRITE_DATA_FAIL - if write data to registers through DMA fails.
+ * 		- XASUFW_ECC_WRITE_DATA_FAIL, if write data to registers through DMA fails.
+ * 		- Also can return termination error codes from 0x21U to 0x2CU from core,
+ * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
 s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
@@ -471,6 +483,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u32 Offset = XECC_MEM_SIGN_R_OFFSET;
 
+	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
@@ -484,14 +497,14 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 		XFIH_GOTO(END);
 	}
 
-	/* Release Reset */
+	/** Release Reset. */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->BaseAddress, XECC_RESET_OFFSET);
 
-	/* Enable endianness for write and read operations */
+	/** Enable endianness for write and read operations. */
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_CFG_OFFSET,
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
-	/* Write Signature to specified registers */
+	/** Copy signature, hash and public key to respective registers using DMA. */
 	Status = XAsufw_DmaXfr(DmaPtr, SignAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
@@ -506,7 +519,6 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 		XFIH_GOTO(END);
 	}
 
-	/* Write Hash to specified registers */
 	Offset = XECC_MEM_HASH_OFFSET;
 	Status = XAsufw_DmaXfr(DmaPtr, HashAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), HashBufLen, 0U);
@@ -515,7 +527,6 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 		XFIH_GOTO(END);
 	}
 
-	/* Write Public key to specified registers */
 	Offset = XECC_MEM_PUB_KEY_X_OFFSET;
 	Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
@@ -531,12 +542,12 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 		XFIH_GOTO(END);
 	}
 
-	/* Updates configuration and starts the operation */
+	/** Update configuration and start the operation. */
 	Status = XEcc_ConfigNStartOperation(InstancePtr, XECC_SIGN_VERIFICATION_OP_CODE);
 
 END:
 	if (InstancePtr != NULL) {
-		/* Set ECC under reset */
+		/** Set ECC under reset. */
 		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XECC_RESET_OFFSET);
 	}
 
@@ -545,27 +556,27 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function check whether specified operation is completed or not.
+ * @brief	This function will wait for ECC core completion.
  *
  * @param	InstancePtr	Pointer to the Ecc instance.
  *
  * @return
- * 		- XASUFW_SUCCESS, if operation is successful
- * 		- XASUFW_FAILURE, if operation fails
+ * 		- XASUFW_SUCCESS, if wait for done is successful.
+ * 		- XASUFW_FAILURE, upon timeout.
  *
  *************************************************************************************************/
 static inline s32 XEcc_WaitForDone(const XEcc *InstancePtr)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/* Check for ECC operation is completed with in Timeout(10sec) or not */
+	/** Check whether ECC operation is completed within Timeout(10sec) or not. */
 	Status = (s32)Xil_WaitForEvent(InstancePtr->BaseAddress + XECC_ISR_OFFSET,
 				       XECC_ISR_DONE_MASK, XECC_ISR_DONE_MASK, XECC_TIMEOUT_MAX);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* Clear interrupt */
+	/** Clear interrupt */
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_ISR_OFFSET, XECC_ISR_DONE_MASK);
 
 	/* Disable interrupt */
@@ -576,11 +587,15 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function is to update the control register for the respective operation.
+ * @brief	This function returns the control register configuration for the selected
+ * 		operation.
  *
  * @param	InstancePtr	Pointer to the Ecc instance.
- * @param	CurveType	Type of the curve.
- * @param	OpCode		ECC operation code.
+ * @param	OpCode		ECC operation code to select the operation.
+ * 				0 - Signature verification
+ * 				1 - public key validation
+ * 				2 - public key generation
+ * 				3 - signature generation
  *
  * @return
  * 		- Returns the value to be updated to the control register.
@@ -591,13 +606,11 @@ static inline u32 XEcc_ConfigureEngine(const XEcc *InstancePtr, u32 OpCode)
 	u32 CtrlRegValue = 0U;
 	u32 CurveType = InstancePtr->CurveInfo->CurveType;
 
-	/* Configure ECC curve type */
+	/** Configure ECC curve type, operation and countermeasures. */
 	CtrlRegValue = XECC_CTRL_CURVE_MASK & (CurveType << XECC_CTRL_CURVE_SHIFT);
 
-	/* Configure ECC operation */
 	CtrlRegValue |= XECC_CTRL_OPCODE_MASK & (OpCode << XECC_CTRL_OPCODE_SHIFT);
 
-	/* Configure ECC countermeasure */
 	if (InstancePtr->CmConfig == XASUFW_CONFIG_ENABLE) {
 		CtrlRegValue |= (XECC_SUPPRESS_SCP_MASK);
 	}
@@ -608,15 +621,15 @@ static inline u32 XEcc_ConfigureEngine(const XEcc *InstancePtr, u32 OpCode)
 /*************************************************************************************************/
 /**
 *
-* @brief	XEcc_LookupConfig returns a reference to an XEcc_Config structure based on the
-*		unique device id.
+* @brief	This function returns a pointer reference of XEcc_Config structure based on the
+*		device ID.
 *
-* @param	DeviceId	Unique device ID of the device for the lookup operation.
+* @param	DeviceId	The device ID of the ECC core.
 *
 * @return
-*		- It returns CfgPtr is a reference to a config record in the configuration table
-*		  corresponding to <i>DeviceId</i>
-* 		- It returns NULL if no match is found.
+* 		- CfgPtr, a reference to a config record in the configuration table
+* 			corresponding to <i>DeviceId</i>
+* 		- NULL, if no valid device ID is found.
 *
 **************************************************************************************************/
 static XEcc_Config *XEcc_LookupConfig(u32 DeviceId)
@@ -637,15 +650,20 @@ static XEcc_Config *XEcc_LookupConfig(u32 DeviceId)
 
 /*************************************************************************************************/
 /**
- * @brief	This function updates the configuration and starts the operation
+ * @brief	This function does the required configuration and starts the operation.
  *
  * @param	InstancePtr	Pointer to the Ecc instance.
- * @param	CurveType	Pointer to curve information
- * @param	OpCode		Memory offset to be used for getting the output
+ * @param	OpCode		ECC operation code to select the operation.
+ * 				0 - Signature verification
+ * 				1 - public key validation
+ * 				2 - public key generation
+ * 				3 - signature generation
  *
  * @return
- * 		- Upon successful operation, returns XASUFW_SUCCESS.
- *		- Otherwise, returns XASUFW_FAILURE.
+ * 		- XASUFW_SUCCESS, if operation is successful.
+ * 		- XASUFW_ECC_WAIT_FOR_DONE_TIMEOUT, upon time out.
+ * 		- Also can return termination error codes from 0x21U to 0x2CU from core,
+ * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
 static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode)
@@ -654,22 +672,24 @@ static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode)
 	u32 TerminationCode = 0U;
 	u32 CtrlRegValue = 0U;
 
-	/* Enable interrupt */
+	/** Enable interrupt, update configuration in control register and start the operation. */
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_IER_OFFSET, XECC_IER_DONE_MASK);
 
-	/* Update config and Set start */
 	CtrlRegValue = (XEcc_ConfigureEngine(InstancePtr, OpCode) |
 			XECC_CTRL_START_MASK);
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_CTRL_OFFSET, CtrlRegValue);
 
-	/* Wait for done interrupt */
+	/** Wait for done. */
 	Status = XEcc_WaitForDone(InstancePtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WAIT_FOR_DONE_TIMEOUT;
 		XFIH_GOTO(END);
 	}
 
-	/* Check for the status of operation by reading the error status*/
+	/**
+	 * Check for the status of operation by reading the termination code field in status
+	 * register and if there is a failure return the termination code received from core.
+	 */
 	TerminationCode = XAsufw_ReadReg(InstancePtr->BaseAddress + XECC_STATUS_OFFSET);
 	TerminationCode &= XECC_STATUS_TERMINATION_CODE_MASK;
 	if (TerminationCode != 0U) {
@@ -682,15 +702,15 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates input parameters
+ * @brief	This function validates input parameters.
  *
  * @param	InstancePtr	Pointer to the Ecc instance.
- * @param	CurveType	Type of curve
+ * @param	CurveType	Type of the curve.
  *
  * @return
- * 		- Upon successful validation, returns XASUFW_SUCCESS.
- *		- XASUFW_ECC_INVALID_PARAM, if InstancePtr is NULL or if curve type is invalid
- *		- XASUFW_ECC_INIT_NOT_DONE, if ECC component is not ready
+ * 		- XASUFW_SUCCESS, if inputs are validated successfully.
+ * 		- XASUFW_ECC_INVALID_PARAM, if InstancePtr is NULL or if curve type is invalid.
+ * 		- XASUFW_ECC_INIT_NOT_DONE, if ECC component is not ready.
  *
  *************************************************************************************************/
 static s32 XEcc_InputValidate(const XEcc *InstancePtr, u32 CurveType)
@@ -717,3 +737,4 @@ static s32 XEcc_InputValidate(const XEcc *InstancePtr, u32 CurveType)
 END:
 	return Status;
 }
+/** @} */

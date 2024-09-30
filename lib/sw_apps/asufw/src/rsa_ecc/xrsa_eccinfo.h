@@ -16,12 +16,17 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   yog  07/11/24 Initial release
+*       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
 *
 * </pre>
 *
 * @note
 *
 ***************************************************************************************************/
+/**
+* @addtogroup xrsa_ecc_server_apis RSA ECC Server APIs
+* @{
+*/
 #ifndef XRSA_ECCINFO_H_
 #define XRSA_ECCINFO_H_
 
@@ -38,7 +43,7 @@ extern "C" {
  * @name Supported ECC curves
  * @{
  */
-/**< Macros to enable/disable support of NIST P-192, P-224 and NIST P-521 curve */
+/** Macros to enable/disable support of NIST P-192, P-224 and NIST P-521 curve */
 #define XRSA_ECC_SUPPORT_NIST_P521	XASUFW_RSA_ECC_SUPPORT_NIST_P521
 #define XRSA_ECC_SUPPORT_NIST_P192	XASUFW_RSA_ECC_SUPPORT_NIST_P192
 #define XRSA_ECC_SUPPORT_NIST_P224	XASUFW_RSA_ECC_SUPPORT_NIST_P224
@@ -49,6 +54,7 @@ extern "C" {
 
 /** @} */
 
+/** This typedef is used to know the prime and binary curve values. */
 typedef enum {
 	XRSA_ECC_PRIME = 0,		/**< Prime curve value in Ecdsa.h */
 	XRSA_ECC_BINARY = 1,		/**< Binary curve value in Ecdsa.h */
@@ -65,3 +71,4 @@ u32 XRsa_EccCrvsGetCount(void);
 #endif
 
 #endif /* XRSA_ECCINFO_H */
+/** @} */

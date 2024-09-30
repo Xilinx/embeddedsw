@@ -123,4 +123,3 @@ extern "C" {
 #endif
 
 #endif /* XECC_HW_H_ */
-/** @} */

@@ -15,12 +15,13 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   yog  08/19/24 Initial release
+*       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
 *
 * </pre>
 *
 **************************************************************************************************/
 /**
-* @addtogroup xecc_server_apis ECC Server APIs
+* @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
 

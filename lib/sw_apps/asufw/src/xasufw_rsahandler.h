@@ -15,12 +15,13 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   ss   08/20/24 Initial Release
+*       ss   09/26/24 Fixed doxygen comments
 *
 * </pre>
 *
 **************************************************************************************************/
 /**
-* @addtogroup xrsa_server_apis RSA Server APIs
+* @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
 
@@ -41,7 +42,7 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-/**< RSA Command Structure Initialization function */
+/* RSA Command Structure Initialization function */
 s32 XAsufw_RsaInit(void);
 
 /************************************ Variable Definitions ***************************************/

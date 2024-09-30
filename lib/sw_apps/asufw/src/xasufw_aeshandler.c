@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_aeshandler.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the AES module commands supported by ASUFW.
  *
@@ -22,7 +20,10 @@
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasufw_aeshandler.h"
 #include "xaes.h"
@@ -50,12 +51,12 @@ static XAsufw_Module XAsufw_AesModule; /**< ASUFW AES Module ID and commands arr
 
 /*************************************************************************************************/
 /**
- * @brief	This function initialized the XAsufw_AesCmds structure with supported commands and
- *		initializes AES instance.
+ * @brief	This function initializes the AES module.
  *
  * @return
- *		- On successful initialization of AES module, it returns XASUFW_SUCCESS.
- *		- Otherwise, it returns an error code.
+ * 	- XASUFW_SUCCESS, if initialization of AES module is successful.
+ * 	- XASUFW_AES_MODULE_REGISTRATION_FAILED, if AES module registration fails.
+ * 	- XASUFW_AES_INIT_FAILED, if AES init fails.
  *
  *************************************************************************************************/
 s32 XAsufw_AesInit(void)
@@ -63,14 +64,14 @@ s32 XAsufw_AesInit(void)
 	s32 Status = XASUFW_FAILURE;
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 
-	/* Contains the array of ASUFW AES commands */
+	/** Contains the array of ASUFW AES commands. */
 	static const XAsufw_ModuleCmd XAsufw_AesCmds[] = {
 		[XASU_AES_OPERATION_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AesOperation),
 		[XASU_AES_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AesKat),
 		[XASU_AES_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AesGetInfo),
 	};
 
-	/* Contains the required resources for each supported command */
+	/** Contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_AesResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_AesCmds)] = {
 		[XASU_AES_OPERATION_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
 		[XASU_AES_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
@@ -82,12 +83,14 @@ s32 XAsufw_AesInit(void)
 	XAsufw_AesModule.ResourcesRequired = XAsufw_AesResourcesBuf;
 	XAsufw_AesModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_AesCmds);
 
+	/** Register AES module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_AesModule);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_MODULE_REGISTRATION_FAILED);
 		XFIH_GOTO(END);
 	}
 
+	/** Configure and initialize AES instance. */
 	Status = XAes_CfgInitialize(XAsufw_Aes);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
@@ -106,8 +109,13 @@ END:
  * @param	QueueId	Queue Unique ID.
  *
  * @return
- *		- Returns XASUFW_SUCCESS on successful execution of the command.
- *		- Otherwise, returns an error code.
+ * 	- XASUFW_SUCCESS, if encryption/decryption operation is successful.
+ * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ * 	- XASUFW_AES_WRITE_KEY_FAILED, if Key write to AES USER key register fails.
+ * 	- XASUFW_AES_INIT_FAILED, if initialization of AES engine fails.
+ * 	- XASUFW_AES_UPDATE_FAILED, if update of data to AES engine fails.
+ * 	- XASUFW_AES_FINAL_FAILED, if completion of final AES operation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
 static s32 XAsufw_AesOperation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
@@ -119,7 +127,7 @@ static s32 XAsufw_AesOperation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	u8 IsAllOpFlagsSet = FALSE;
 	XAsufw_Resource Resource;
 
-	/* Allocate DMA resource for AES */
+	/** Check and allocate DMA resource to AES, based on DMA availability. */
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
@@ -127,7 +135,7 @@ static s32 XAsufw_AesOperation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	}
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
-		/* Allocate resource for AES */
+		/** Allocate resource to AES, based on resource availability. */
 		XAsufw_AllocateResource(XASUFW_AES, QueueId);
 
 		Status = XAes_WriteKey(XAsufw_Aes, AsuDmaPtr, AesParamsPtr->KeyObjectAddr);
@@ -146,7 +154,8 @@ static s32 XAsufw_AesOperation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	}
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) {
-		/* Update AAD data to AES engine.
+		/**
+		 * Update AAD data to AES engine.
 		 * User can push data in one go(entire AAD and Plaintext data at once) to the
 		 * aes engine or in multiple chunks like, UPDATE(AAD data1), UPDATE(AAD data 2),
 		 * UPDATE(Plaintext data 1) and so on...
@@ -165,7 +174,8 @@ static s32 XAsufw_AesOperation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 				XFIH_GOTO(END);
 			}
 		}
-		/* Update payload data to AES engine.
+		/**
+		 * Update payload data to AES engine.
 		 * Updates can be single updates or multiple chunks.
 		 * For authentication only modes like CMAC, plaintext is not required.
 		 */
@@ -188,13 +198,13 @@ static s32 XAsufw_AesOperation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 			XFIH_GOTO(END);
 		}
 
-		/* Release the AES resource */
+		/** Release the AES resource. */
 		if (XAsufw_ReleaseResource(XASUFW_AES, QueueId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
 	}
 
-	/* Release the respective allocated DMA resource(DMA0, DMA1) for AES */
+	/* Release the respective allocated DMA resource(DMA0, DMA1) for AES. */
 	Resource = (AsuDmaPtr->AsuDma.Config.DmaType == XPAR_ASU_DMA0_DMA_TYPE) ?
 		   XASUFW_DMA0 : XASUFW_DMA1;
 	if (XAsufw_ReleaseResource(Resource, QueueId) != XASUFW_SUCCESS) {
@@ -203,7 +213,7 @@ static s32 XAsufw_AesOperation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 END:
 	if (Status != XASUFW_SUCCESS) {
-		/* Release the AES resource in the event of failure */
+		/** Release the resource in the event of failure. */
 		if (XAsufw_ReleaseResource(XASUFW_AES, QueueId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
@@ -214,19 +224,19 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function is a handler for AES KAT command.
+ * @brief	This function performs Known Answer Tests (KATs) on AES core.
  *
  * @param	ReqBuf	Pointer to the request buffer.
  * @param	QueueId	Queue Unique ID.
  *
  * @return
- *		- Returns XASUFW_SUCCESS on successful execution of the command.
- *		- Otherwise, returns an error code.
+ * 	- XASUFW_SUCCESS, if KAT is successful.
+ * 	- XASUFW_FAILURE, upon failure.
  *
  *************************************************************************************************/
 static s32 XAsufw_AesKat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
-	s32 Status = XASUFW_SUCCESS;
+	s32 Status = XASUFW_FAILURE;
 
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 
@@ -239,20 +249,21 @@ static s32 XAsufw_AesKat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 /*************************************************************************************************/
 /**
- * @brief	This function is a handler for AES Get Information command.
+ * @brief	This function is a handler for AES Get Info command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
  * @param	QueueId	Queue Unique ID.
  *
  * @return
- *		- Returns XASUFW_SUCCESS on successful execution of the command.
- *		- Otherwise, returns an error code.
+ *	- XASUFW_SUCCESS, if command execution is successful.
+ *	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
 static s32 XAsufw_AesGetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
-	s32 Status = XASUFW_SUCCESS;
+	s32 Status = XASUFW_FAILURE;
 
+	/* TODO: Implement XAsufw_AesGetInfo */
 	return Status;
 }
 /** @} */

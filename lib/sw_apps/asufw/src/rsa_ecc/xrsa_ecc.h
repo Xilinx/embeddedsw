@@ -7,8 +7,6 @@
 /**
  *
  * @file xrsa_ecc.h
- * @addtogroup Overview
- * @{
  * This file contains implementation of the interface functions for RSA hardware engine.
  *
  * <pre>
@@ -18,10 +16,15 @@
  * ----- ---- -------- -----------------------------------------------------------------------------
  * 1.0   yog  07/11/24 Initial release
  *       yog  08/19/24 Received Dma instance from handler
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  **************************************************************************************************/
+/**
+* @addtogroup xrsa_ecc_server_apis RSA ECC Server APIs
+* @{
+*/
 
 #ifndef XRSA_ECC_H
 #define XRSA_ECC_H
@@ -37,7 +40,7 @@ extern "C" {
 
 /************************************ Constant Definitions ***************************************/
 #define XRSA_ECC_P521_SIZE_IN_BYTES		(66U) /**< Size of NIST P-521 curve in bytes */
-#define XRSA_ECC_P192_SIZE_IN_BYTES		(24U) /**< Size of NIST P-521 curve in bytes */
+#define XRSA_ECC_P192_SIZE_IN_BYTES		(24U) /**< Size of NIST P-192 curve in bytes */
 #define XRSA_BASEADDRESS			(0xEBF50000U) /**< RSA base address */
 #define XRSA_RESET_OFFSET			(0x00000040U) /**< RSA reset offset */
 

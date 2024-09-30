@@ -7,8 +7,6 @@
 /**
  *
  * @file xaes_hw.h
- * @addtogroup Overview
- * @{
  *
  * This file Contains the macros for the AES hardware module.
  *
@@ -21,8 +19,6 @@
  *       am   08/24/24 Added macros related to split configuration register
  *
  * </pre>
- *
- * @endcond
  *
  *************************************************************************************************/
 
