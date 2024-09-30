@@ -7,8 +7,6 @@
 /**
  *
  * @file xsha_hw.h
- * @addtogroup Overview
- * @{
  *
  * This header file contains macros for SHA HW.
  *
@@ -79,4 +77,3 @@ extern "C" {
 #endif
 
 #endif  /* XSHA_HW_H */
-/** @} */

@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_sha3handler.h
- * @addtogroup Overview
- * @{
  *
  * This file contains function declarations, macro and structure defines related to SHA3 module in
  * ASUFW.
@@ -22,11 +20,15 @@
  *       ma   06/14/24 Add support for SHAKE256 XOF and also modify SHA APIs to take DMA pointer
  *                     for every update
  *       ma   07/08/24 Add task based approach at queue level
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 #ifndef XASUFW_SHA3HANDLER_H
 #define XASUFW_SHA3HANDLER_H
 
