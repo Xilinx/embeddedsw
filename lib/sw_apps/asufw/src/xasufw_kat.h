@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_kat.h
- * @addtogroup Overview
- * @{
  *
  * This file contains function declarations, macro and structure defines related to SHA, RSA, and
  * ECC KAT functionality in ASUFW.
@@ -24,11 +22,15 @@
  *       yog  08/21/24 Added kat support for ECC
  *       am   08/22/24 Added AES KAT
  *       am   08/24/24 Added AES DPA CM KAT support
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 #ifndef XASUFW_SHAKAT_H
 #define XASUFW_SHAKAT_H
 

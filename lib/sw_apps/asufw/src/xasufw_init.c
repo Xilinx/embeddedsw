@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_init.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the initialization code for ASUFW.
  *
@@ -24,11 +22,15 @@
  *       ma   03/16/24 Added error codes at required places
  *       ma   07/23/24 Added RTCA initialization related code
  *       yog  08/25/24 Integrated FIH library
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasufw_init.h"
 #include "xparameters.h"
@@ -76,7 +78,7 @@ static XIOModule IOModule; /* Instance of the IO Module */
 /*************************************************************************************************/
 /**
  * @brief	This function initializes interrupts, registers exception handler for all the
- * exceptions and enables processor interrupts and exceptions.
+ * 		exceptions and enables processor interrupts and exceptions.
  *
  *************************************************************************************************/
 static void XAsufw_ExceptionEnable(void)
@@ -86,22 +88,22 @@ static void XAsufw_ExceptionEnable(void)
 
 	XAsufw_Printf(DEBUG_GENERAL, "Exception Init Start\r\n");
 
-	/* Initialize processor registers related to interrupts and exceptions */
+	/** Initialize processor registers related to interrupts and exceptions. */
 	Xil_ExceptionInit();
 
-	/* Register exception handlers */
+	/** Register exception handlers. */
 	for (Index = XIL_EXCEPTION_ID_FIRST; Index <= XIL_EXCEPTION_ID_LAST; Index++) {
 		Xil_ExceptionRegisterHandler(Index, XAsufw_ExceptionHandler, (void *)Status);
 	}
 
-	/** TODO: Register separate handler for illegal instruction trap to execute secure lockdown */
+	/* TODO: Register separate handler for illegal instruction trap to execute secure lockdown */
 
-	/* Register the IO module interrupt handler with the exception table */
+	/** Register the IO module interrupt handler with the exception table. */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 				     (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
 				     (void *) XASUFW_IOMODULE_DEVICE_ID);
 
-	/* Enable processor interrupts and exceptions */
+	/** Enable processor interrupts and exceptions. */
 	Xil_ExceptionEnable();
 
 	XAsufw_Printf(DEBUG_GENERAL, "Exception Init Done\r\n");
@@ -109,25 +111,25 @@ static void XAsufw_ExceptionEnable(void)
 
 /*************************************************************************************************/
 /**
- * @brief	This is a function handler for all processor exceptions which will be called whenever
- * any exception occurs.
+ * @brief	This is a function handler for all processor exceptions which will be called
+ * 		whenever any exception occurs.
  *
- * @param	Data	Pointer to Error Status
+ * @param	Data	Pointer to the error status.
  *
  *************************************************************************************************/
 static void XAsufw_ExceptionHandler(void *Data)
 {
-	/* Print processor registers when any exception occurs */
+	/** Print processor registers when any exception occurs. */
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Received Exception \n\r");
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "CSR(mstatus): 0x%x, CSR(mcause): 0x%x, "
 			"CSR(mtval): 0x%x\r\n", csrr(mstatus), csrr(mcause), csrr(mtval));
 
-	/**
+	/*
 	 * TODO: Need to add an illegal instruction trap here so that its respective handler will be
 	 * called which will execute secure lockdown
 	 */
 
-	/* Just in case if control reaches here */
+	/** Enters infinite loop just in case if control reaches here. */
 	while (TRUE) {
 		;
 	}
@@ -135,8 +137,8 @@ static void XAsufw_ExceptionHandler(void *Data)
 
 /*************************************************************************************************/
 /**
- * @brief	This function initializes the Programmable Interval Timer. It sets timer options, PIT
- * reset values and starts the timer.
+ * @brief	This function initializes the Programmable Interval Timer. It sets timer options,
+ * 		PIT reset values and starts the timer.
  *
  * @param	Timer		PIT timer number to be initialized.
  * @param	ResetValue	Reset value of timer to be written before starting the timer.
@@ -159,14 +161,15 @@ static void XAsufw_InitPitTimer(u8 Timer, u32 ResetValue)
 	 */
 	XIOModule_SetResetValue(&IOModule, Timer, ResetValue);
 
-	/* Start the Programmable Interval Timers and they are decrementing by default */
+	/** Start the Programmable Interval Timers and they are decrementing by default. */
 	XIOModule_Timer_Start(&IOModule, Timer);
 }
 
 /*************************************************************************************************/
 /**
- * @brief	This function is the handler for IO Module PIT3 interrupt which will be called whenever
- *  PIT3 is expired. ASUFW loads the PIT1, 2 and 3 timers so that PIT3 expires for every 10ms.
+ * @brief	This function is the handler for IO Module PIT3 interrupt which will be called
+ * 		whenever PIT3 is expired. ASUFW loads the PIT1, 2 and 3 timers so that PIT3
+ * 		expires for every 10ms.
  *
  * @param	Data	Interrupt number that is received.
  *
@@ -179,12 +182,14 @@ static void XAsufw_Pit3TimerHandler(void *Data)
 
 /*************************************************************************************************/
 /**
- * @brief	This function is called during boot up of ASUFW to initialize IO module and PIT timer,
- *  and to also start IO module
+ * @brief	This function is called during boot up of ASUFW to initialize IO module and
+ * 		PIT timer, and also to start IO module.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful initialization of IOModule
- * 			- Returns unique error code on failure
+ * 	- Returns XASUFW_SUCCESS on successful initialization of IOModule.
+ * 	- XASUFW_IOMODULE_INIT_FAILED, if IO module initialization fails.
+ * 	- XASUFW_IOMODULE_SELF_TEST_FAILED, if IO module self test fails.
+ * 	- XASUFW_IOMODULE_START_FAILED, if IO module start fails.
  *
  *************************************************************************************************/
 s32 XAsufw_StartTimer(void)
@@ -195,8 +200,8 @@ s32 XAsufw_StartTimer(void)
 	u32 Pit3ResetValue = XASUFW_ASU_IRO_FREQ_320_MHZ / XASUFW_PIT_FREQ_DIVISOR;
 
 	/**
-	 * Initialize the IO Module so that it's ready to use, specify the device ID that is generated
-	 * in xparameters.h
+	 * Initialize the IO Module so that it's ready to use, specify the device ID that is
+	 * generated in xparameters.h.
 	 */
 	Status = XIOModule_Initialize(&IOModule, XASUFW_IOMODULE_DEVICE_ID);
 	if (XASUFW_SUCCESS != Status) {
@@ -204,14 +209,14 @@ s32 XAsufw_StartTimer(void)
 		XFIH_GOTO(END);
 	}
 
-	/* Perform a self-test to ensure that the hardware was built correctly */
+	/** Perform a self-test to ensure that the hardware was built correctly. */
 	Status = XIOModule_SelfTest(&IOModule);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IOMODULE_SELF_TEST_FAILED, Status);
 		XFIH_GOTO(END);
 	}
 
-	/* Start the IO Module to receive interrupts */
+	/** Start the IO Module to receive interrupts. */
 	Status = XIOModule_Start(&IOModule);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IOMODULE_START_FAILED, Status);
@@ -220,8 +225,8 @@ s32 XAsufw_StartTimer(void)
 
 	/**
 	 * Initialize and start the timer
-	 *   - Use PIT1 and PIT2 in prescaler mode
-	 *   - Set the Prescaler mode for PIT1, PIT2 and PIT3
+	 *   - Use PIT1 and PIT2 in prescaler mode.
+	 *   - Set the Prescaler mode for PIT1, PIT2 and PIT3.
 	 */
 	XAsufw_WriteReg(IOModule.BaseAddress + (u32)XGO_OUT_OFFSET,
 			MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
@@ -236,12 +241,13 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function is called during boot up of ASUFW which will connect the IO module
- * interrupt handlers to the processor interrupts. This function also calls XAsufw_ExceptionEnable
- * function to initialize and enable processor interrpts and exceptions.
+ * 		interrupt handlers to the processor interrupts. This function also calls
+ * 		XAsufw_ExceptionEnable function to initialize and enable processor interrpts
+ * 		and exceptions.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS on successful interrupt setup of IOModule interrupts
- * 			- Returns unique error code on failure
+ * 	- Returns XASUFW_SUCCESS on successful interrupt setup of IOModule interrupts.
+ * 	- XASUFW_IOMODULE_CONNECT_FAILED, if IO module connection fails.
  *
  *************************************************************************************************/
 s32 XAsufw_SetUpInterruptSystem(void)
@@ -251,7 +257,7 @@ s32 XAsufw_SetUpInterruptSystem(void)
 
 	IntrNum = XIN_IOMODULE_PIT_3_INTERRUPT_INTR;
 
-	/* Connect PIT3 interrupt to its handler */
+	/** Connect PIT3 interrupt to its handler. */
 	Status = XIOModule_Connect(&IOModule, IntrNum, (XInterruptHandler)XAsufw_Pit3TimerHandler,
 				   (void *)(u32)IntrNum);
 	if (XASUFW_SUCCESS != Status) {
@@ -259,12 +265,12 @@ s32 XAsufw_SetUpInterruptSystem(void)
 		XFIH_GOTO(END);
 	}
 
-	/* Enable the IO Module PIT3 interrupt */
+	/** Enable the IO Module PIT3 interrupt. */
 	XIOModule_Enable(&IOModule, IntrNum);
 
 	IntrNum = XASUFW_IOMODULE_IPI_INTRNUM;
 
-	/* Connect IPI interrupt to its handler */
+	/** Connect IPI interrupt to its handler. */
 	Status = XIOModule_Connect(&IOModule, IntrNum, (XInterruptHandler)XAsufw_IpiHandler,
 				   (void *)(u32)IntrNum);
 	if (XASUFW_SUCCESS != Status) {
@@ -274,7 +280,7 @@ s32 XAsufw_SetUpInterruptSystem(void)
 
 	XIOModule_Enable(&IOModule, IntrNum);
 
-	/* Enable interrupts and exceptions */
+	/** Enable interrupts and exceptions. */
 	XAsufw_ExceptionEnable();
 
 END:
@@ -283,11 +289,11 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function is used to read the 64 bit timer value. It reads from PIT1 and PIT2 and
- *          makes it 64 bit.
+ * @brief	This function is used to read the 64 bit timer value. It reads from PIT1 and PIT2
+ * 		and makes it 64 bit.
  *
  * @return
- * 			- Returns 64 bit timer value
+ * 	- Returns 64 bit timer value.
  *
  *************************************************************************************************/
 u64 XAsufw_GetTimerValue(void)
@@ -314,7 +320,7 @@ u64 XAsufw_GetTimerValue(void)
 /*************************************************************************************************/
 /**
  * @brief	This function measures the total time taken between two points for performance
- *          measurement.
+ * 		measurement.
  *
  * @param	TCur		Current time
  * @param	PerfTime	Variable to hold the time elapsed
@@ -327,11 +333,11 @@ void XAsufw_MeasurePerfTime(u64 TCur, XAsufw_PerfTime *PerfTime)
 	u64 TDiff;
 	u32 AsuIroFreqMHz = XASUFW_ASU_IRO_FREQ_320_MHZ / XASUFW_MEGA;
 
-	/* Get the difference between two points */
+	/** Get the difference between two points. */
 	TEnd = XAsufw_GetTimerValue();
 	TDiff = TCur - TEnd;
 
-	/* Convert TPerf into microseconds */
+	/** Convert TPerf into microseconds. */
 	PerfUs = TDiff / AsuIroFreqMHz;
 	PerfTime->TPerfMsFrac = PerfUs % XASUFW_KILO;
 	PerfTime->TPerfMs = PerfUs / XASUFW_KILO;

@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_status.h
- * @addtogroup Overview
- * @{
  *
  * This file comprises error codes and function prototypes essential for updating error codes
  * in ASUFW.
@@ -45,11 +43,15 @@
  *       yog  08/21/24 Rearranged ECC and RSA_ECC error codes
  *       am   08/01/24 Added error codes for AES handler functionality
  *       am   08/24/24 Added error codes related to AES decrypt CM KAT
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_server_error_codes Server Error Codes
+* @{
+*/
 #ifndef XASUFW_STATUS_H
 #define XASUFW_STATUS_H
 
@@ -64,7 +66,9 @@ extern "C" {
 #define XASUFW_ECC_TERMINATION_CODE_MASK       (0x20U) /**< Mask for termination code indication */
 
 /************************************** Type Definitions *****************************************/
-/* @name ASU error status values, maximum allowed value is 0x3FF */
+/**
+ * @brief ASU error status values, maximum allowed value is 0x3FF.
+ */
 enum XAsufw_Status {
 	XASUFW_SUCCESS, /**< ASUFW success */
 	XASUFW_FAILURE, /**< ASUFW failure */
@@ -106,7 +110,7 @@ enum XAsufw_Status {
 	XASUFW_ECC_INIT_FAILED, /**< ECC initialization failed */
 	XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL, /**< When ECC Generate public key operation fails */
 	XASUFW_ECC_VALIDATE_PUB_KEY_OPERATION_FAIL, /**< When ECC validate public key
-							operation fails*/
+							operation fails */
 	XASUFW_ECC_GEN_SIGN_OPERATION_FAIL, /**<  When ECC Generate signature operation fails */
 	XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL, /**<  When ECC verify signature operation fails */
 	XASUFW_ECC_WRITE_DATA_FAIL, /**< When writing data to memory fails */
@@ -138,7 +142,7 @@ enum XAsufw_Status {
 	XASUFW_RSA_ECC_PUBKEY_COMPARISON_FAILED, /**< RSA ECC public key comparison failed */
 	XASUFW_RSA_ECC_SIGNATURE_COMPARISON_FAILED, /**< RSA ECC signature comparison failed */
 	XASUFW_RSA_ECC_KAT_FAILED, /**< RSA ECC Kat failed */
-	XASUFW_SHA_INVALID_PARAM, /**< Invalid parameters to SHA APIs*/
+	XASUFW_SHA_INVALID_PARAM, /**< Invalid parameters to SHA APIs */
 	XASUFW_SHA_INIT_NOT_DONE, /**< SHA is not initialized */
 	XASUFW_SHA_STATE_MISMATCH_ERROR, /**< SHA state mismatch error. Occurs when previous SHA
 						state doesn't match before further update */
@@ -166,9 +170,12 @@ enum XAsufw_Status {
 	XASUFW_TRNG_INVALID_DF_LENGTH, /**< TRNG invalid DF length received */
 	XASUFW_TRNG_INVALID_SEED_LENGTH, /**< TRNG invalid seed length received */
 	XASUFW_TRNG_INVALID_SEED_LIFE, /**< TRNG invalid seed life received */
-	XASUFW_TRNG_INVALID_ADAPTPROPTEST_CUTOFF_VALUE, /**< TRNG invalid adaptproptestcutoff value */
-	XASUFW_TRNG_INVALID_REPCOUNTTEST_CUTOFF_VALUE, /**< TRNG invalid precounttestcutoff value */
-	XASUFW_TRNG_USER_CFG_COPY_ERROR, /**< TRNG user config structure copy to TRNG instance failed*/
+	XASUFW_TRNG_INVALID_ADAPTPROPTEST_CUTOFF_VALUE, /**< TRNG invalid adaptproptestcutoff
+								value */
+	XASUFW_TRNG_INVALID_REPCOUNTTEST_CUTOFF_VALUE, /**< TRNG invalid precounttestcutoff
+								value */
+	XASUFW_TRNG_USER_CFG_COPY_ERROR, /**< TRNG user config structure copy to TRNG instance
+						failed */
 	XASUFW_TRNG_INVALID_BUF_SIZE, /**< TRNG invalid buffer size */
 	XASUFW_TRNG_RESEED_REQUIRED_ERROR, /**< TRNG reseed required error */
 	XASUFW_TRNG_TIMEOUT_ERROR, /**< TRNG event timeout error */
@@ -186,7 +193,7 @@ enum XAsufw_Status {
 	XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE, /**< TRNG invalid random bytes requested */
 	XASUFW_TRNG_KAT_NOT_SUPPORTED_ON_QEMU, /**< TRNG DRBG KAT is not supported on QEMU */
 	XASUFW_AES_GLITCH_ERROR, /**< AES glitch error */
-	XASUFW_AES_INVALID_PARAM, /**< Invalid parameters to AES APIs*/
+	XASUFW_AES_INVALID_PARAM, /**< Invalid parameters to AES APIs */
 	XASUFW_AES_STATE_MISMATCH_ERROR, /**< AES state mismatch error. Occurs when previous AES
 						state doesn't match before further update */
 	XASUFW_AES_INVALID_KEY_OBJECT_ADDRESS, /**< AES invalid key object address */
@@ -220,7 +227,7 @@ enum XAsufw_Status {
 	XASUFW_RSA_INVALID_PARAM, /**< Invalid parameters to RSA APIs */
 	XASUFW_RSA_RAND_GEN_ERROR, /**< Random number generation failed to RSA APIs */
 	XASUFW_RSA_KEY_PAIR_COMP_ERROR, /**< Key pair comparison failure to RSA APIs */
-	XASUFW_RSA_ERROR,		/**< Any other error to RSA APIs */
+	XASUFW_RSA_ERROR, /**< Any other error to RSA APIs */
 	XASUFW_RSA_CRT_OP_ERROR, /**< Error in CRT operation */
 	XASUFW_RSA_PVT_OP_ERROR, /**< Error in Private exponentiation operation */
 	XASUFW_RSA_PUB_OP_ERROR, /**< Error in Public exponentiation operation */

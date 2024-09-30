@@ -7,8 +7,6 @@
 /**
  *
  * @file xlinklist.h
- * @addtogroup Overview
- * @{
  *
  * This file contains the code for linked list support.
  *
@@ -180,4 +178,3 @@ static inline void XLinkList_Concat(XLinkList *List1, XLinkList *List2)
 #endif
 
 #endif  /* XLINKLIST_H */
-/** @} */

@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_resourcemanager.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the hardware resource manager of ASUFW.
  *
@@ -22,11 +20,15 @@
  *                     on resources mask and allocate resources
  *       ma   06/04/24 Check if random bytes are available or not for TRNG GetRandomBytes command
  *       ma   07/08/24 Add task based approach at queue level
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasufw_debug.h"
 #include "xasufw_status.h"
@@ -83,13 +85,14 @@ void XAsufw_ResourceInit(void)
 
 /*************************************************************************************************/
 /**
- * @brief	Checks the availability of DMA and AES resources and allocates the resources.
+ * @brief	This function checks the availability of DMA and AES resources and allocates the
+ * 		resources.
  *
  * @param	RequesterId	The unique ID of the requester.
  *
  * @return
- *	-	XASUFW_SUCCESS on successful resources allocation.
- *	- 	Error code on failure of resources allocation.
+ * 	- XASUFW_SUCCESS on successful resources allocation.
+ * 	- XASUFW_FAILURE on failure of resources allocation.
  *
  *************************************************************************************************/
 s32 XAsufw_AllocateAesResources(u32 RequesterId)
@@ -97,12 +100,13 @@ s32 XAsufw_AllocateAesResources(u32 RequesterId)
 	s32 Status = XASUFW_FAILURE;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 
+	/** Check for the availability of AES resource. */
 	Status = XAsufw_IsResourceAvailable(XASUFW_AES, RequesterId);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* AES operation is dependent on DMA, so AES is allocated only when DMA is available */
+	/** AES operation is dependent on DMA, so AES is allocated only when DMA is available. */
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, RequesterId);
 	if (AsuDmaPtr != NULL) {
 		XAsufw_AllocateResource(XASUFW_AES, RequesterId);
@@ -116,13 +120,13 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	Release a hardware resource(s).
+ * @brief	This function releases AES and its dependent hardware resource(s).
  *
  * @param	RequesterId	The unique ID of the requester.
  *
  * @return
  * 	-	XASUFW_SUCCESS on successful resource(s) release.
- * 	-	Error code on invalid resource.
+ * 	-	XASUFW_FAILURE if failed to release resource(s).
  *
  *************************************************************************************************/
 s32 XAsufw_ReleaseAesResources(u32 RequesterId)
@@ -136,7 +140,7 @@ s32 XAsufw_ReleaseAesResources(u32 RequesterId)
 
 /*************************************************************************************************/
 /**
- * @brief	Release a hardware resource(s).
+ * @brief	This function releases requested hardware resource(s).
  *
  * @param	Resource	The hardware resource to be released.
  * @param	RequesterId	The unique ID of the requester.
@@ -158,7 +162,7 @@ s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 RequesterId)
 		XFIH_GOTO(END);
 	}
 
-	/* Release the requested resource */
+	/** Release the requested resource. */
 	ResourceManager[Resource].State = XASUFW_RESOURCE_IS_FREE;
 	ResourceManager[Resource].BlockedId = 0x0U;
 	while (AllocatedResources != 0x0U) {
@@ -179,7 +183,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	Allocates the resources
+ * @brief	This function allocates the requested resource.
  *
  * @param	Resource	The hardware resource to allocate.
  * @param	RequesterId	The unique ID of the requester.
@@ -195,14 +199,14 @@ void XAsufw_AllocateResource(XAsufw_Resource Resource, u32 RequesterId)
 
 /*************************************************************************************************/
 /**
- * @brief	Checks the availability of resource.
+ * @brief	This function checks the availability of resource.
  *
  * @param	Resource	The hardware resource to allocate.
  * @param	RequesterId	The unique ID of the requester.
  *
  * @return
- *	-	XASUFW_SUCCESS on successful resource allocation.
- *	- 	Error code upon resource unavailability
+ * 	-	XASUFW_SUCCESS, upon resource availability.
+ * 	- 	XASUFW_RESOURCE_UNAVAILABLE, upon resource unavailability
  *
  *************************************************************************************************/
 static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 RequesterId)
@@ -224,15 +228,16 @@ static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 RequesterId)
 
 /*************************************************************************************************/
 /**
- * @brief	This function checks if all the required resources to execute the command are available
- *  or not.
+ * @brief	This function checks if all the required resources to execute the command are
+ * 		available or not.
  *
- * @param	Resource	OR of all the hardware resources required for the command.
+ * @param	Resources	OR of all the hardware resources required for the command.
  * @param	RequesterId	The unique ID of the requester.
  *
  * @return
- *	-	XASUFW_SUCCESS if all the required resources are available.
- *	- 	Error code upon resource unavailability
+ * 	- XASUFW_SUCCESS if all the required resources are available.
+ * 	- XASUFW_RESOURCE_UNAVAILABLE, if any resource is not available.
+ * 	- XASUFW_RESOURCE_INVALID, if any resource is invalid.
  *
  *************************************************************************************************/
 s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 RequesterId)
@@ -314,15 +319,14 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	Allocates the available DMA for the requested hardware resource.
+ * @brief	This function allocates the available DMA for the requested hardware resource.
  *
  * @param	Resource	The hardware resource to allocate.
  * @param	RequesterId	The unique ID of the requester.
- * @param	AsuDmaPtr	The DMA pointer to be returned to the caller.
  *
  * @return
- *	-	XASUFW_SUCCESS on successful DMA allocation.
- *	-	Error code on resource unavailability.
+ *	-	Pointer to the DMA instance.
+ *	-	NULL, upon unavailability.
  *
  *************************************************************************************************/
 XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 RequesterId)
@@ -331,6 +335,7 @@ XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 RequesterId
 	u32 DmaDeviceId;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 
+	/** Check for availability of DMA. */
 	if (XAsufw_IsResourceAvailable(XASUFW_DMA0, RequesterId) == XASUFW_SUCCESS) {
 		DmaAllocate = XASUFW_DMA0;
 		DmaDeviceId = ASUDMA_0_DEVICE_ID;
@@ -341,6 +346,7 @@ XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 RequesterId
 		XFIH_GOTO(END);
 	}
 
+	/** Allocate DMA to the resource if DMA is available. */
 	if (DmaAllocate != XASUFW_INVALID) {
 		AsuDmaPtr = XAsufw_GetDmaInstance(DmaDeviceId);
 		XAsufw_AllocateResource(DmaAllocate, RequesterId);

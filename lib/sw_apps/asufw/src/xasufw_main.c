@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_main.c
- * @addtogroup Overview
- * @{
  *
  * This is the main file which contains code for the ASUFW
  *
@@ -33,11 +31,15 @@
  *       yog  08/21/24 Initialize ECC module
  *       am   08/01/24 Added AES module initialization
  *       yog  08/25/24 Initialize FIH
+ *       ss   09/26/24 Fixed doxygen comments
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 /*************************************** Include Files *******************************************/
 
 #include "xasufw_resourcemanager.h"
@@ -85,13 +87,15 @@ int main(void)
 	s32 Status = XASUFW_FAILURE;
 
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "\r\nVersal Gen2 Application Security Unit Firmware\r\n");
+
+	/** Initalize ASUFW. */
 	Status = XAsufw_Init();
 	if (XASUFW_SUCCESS != Status) {
 		XAsufw_Printf(DEBUG_GENERAL, "ASUFW init failed. Error: 0x%x\r\n", Status);
 		XFIH_GOTO(END);
 	}
 
-	/* Set FW_Is_Present bit before going to the task dispatch loop */
+	/** Set FW_Is_Present bit before going to the task dispatch loop. */
 	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
 		   ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
 
@@ -111,53 +115,58 @@ END:
  * 		starting the timer.
  *
  * @return
- *		- On successful initialization, it returns XASUFW_SUCCESS.
- *		Otherwise, it returns unique error code received from the callee function.
+ *		- XASUFW_SUCCESS, On successful initialization.
+ *		- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
 static s32 XAsufw_Init(void)
 {
 	s32 Status = XASUFW_FAILURE;
 
+	/** Initalize task queues. */
 	XTask_Init();
 
+	/** Initalize HW resource manager. */
 	XAsufw_ResourceInit();
 
+	/** Initalize ASUFW RTC area. */
 	XAsufw_RtcaInit();
 
+	/** Initalize PIT timer. */
 	Status = XAsufw_StartTimer();
 	if (XASUFW_SUCCESS != Status) {
 		XAsufw_Printf(DEBUG_GENERAL, "Timer init failed\r\n");
 		XFIH_GOTO(END);
 	}
 
-	/* Setup ASUFW interrupts and enable */
+	/** Setup ASUFW interrupts and enable. */
 	Status = XAsufw_SetUpInterruptSystem();
 	if (XASUFW_SUCCESS != Status) {
 		XAsufw_Printf(DEBUG_GENERAL, "ASUFW interrupt setup failed. Error: 0x%x\r\n", Status);
 		XFIH_GOTO(END);
 	}
 
+	/** Initalize DMA. */
 	Status = XAsufw_DmaInit();
 	if (XASUFW_SUCCESS != Status) {
 		XAsufw_Printf(DEBUG_GENERAL, "DMA init failed with error: 0x%x\r\n", Status);
 		XFIH_GOTO(END);
 	}
 
-	/* ASU IPI initialization */
+	/** ASU IPI initialization. */
 	Status = XAsufw_IpiInit();
 	if (XASUFW_SUCCESS != Status) {
 		XFIH_GOTO(END);
 	}
 
-	/* Communication channel and their shared memory initialization */
+	/** Communication channel and their shared memory initialization. */
 	Status = XAsufw_SharedMemoryInit();
 	if (XASUFW_SUCCESS != Status) {
 		XAsufw_Printf(DEBUG_GENERAL, "Comm channel and shared memory initialization failed\r\n");
 		XFIH_GOTO(END);
 	}
 
-	/* Initialize all ASUFW modules */
+	/** Initialize all ASUFW modules. */
 	Status = XAsufw_ModulesInit();
 
 END:
@@ -169,48 +178,48 @@ END:
  * @brief	This function initializes all modules supported by ASUFW.
  *
  * @return
- * 		- On successful initialization, it returns XASUFW_SUCCESS.
- *		Otherwise, it returns unique error code received from the caller function.
+ *		- XASUFW_SUCCESS, On successful initialization.
+ *		- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
 static s32 XAsufw_ModulesInit(void)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/* FIH initialization */
+	/** FIH library initialization. */
 	XFih_Init();
 
-	/* SHA2 module initialization */
+	/** SHA2 module initialization. */
 	Status = XAsufw_Sha2Init();
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* SHA3 module initialization */
+	/** SHA3 module initialization. */
 	Status = XAsufw_Sha3Init();
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* TRNG module initialization */
+	/** TRNG module initialization. */
 	Status = XAsufw_TrngInit();
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* RSA module initialization */
+	/** RSA module initialization. */
 	Status = XAsufw_RsaInit();
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* ECC module initialization */
+	/** ECC module initialization. */
 	Status = XAsufw_EccInit();
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/* AES module initialization */
+	/** AES module initialization. */
 	Status = XAsufw_AesInit();
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);

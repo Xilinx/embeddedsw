@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_util.h
- * @addtogroup Overview
- * @{
  *
  * This is the header file for ASUFW utilities code.
  *
@@ -22,11 +20,15 @@
  *       ma   05/20/24 Rename XASUFW_WORD_LEN macro and add XASUFW_BYTE_LEN_IN_BITS macro
  *       am   06/26/24 Added Reset set, unset and XASUFW_CONVERT_BYTES_TO_WORDS macros
  *       ss   07/11/24 Added XAsufw_ChangeEndiannessAndCpy function
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 #ifndef XASUFW_UTIL_H_
 #define XASUFW_UTIL_H_
 
@@ -44,7 +46,7 @@ extern "C" {
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASUFW_WORD_LEN_IN_BYTES		4U	/**< Word length in bytes */
-#define XASUFW_BYTE_LEN_IN_BITS			8U	/** < Byte length in bits */
+#define XASUFW_BYTE_LEN_IN_BITS			8U	/**< Byte length in bits */
 #define XASUFW_ARRAY_SIZE(x)	(u32)(sizeof(x) / sizeof(x[0U]))	/**< Size of array */
 #define XASUFW_CONVERT_BYTES_TO_WORDS(x)	((x) / (sizeof(int)))	/**< Converts bytes to
 									     integer words */
@@ -56,10 +58,10 @@ extern "C" {
 
 /*************************************************************************************************/
 /**
- * @brief	This function writes 32-bit value to 32-bit register
+ * @brief	This function writes 32-bit value to 32-bit register.
  *
- * @param	Addr	Address of the register
- * @param	Data	Value to store in register
+ * @param	Addr	Address of the register.
+ * @param	Value	Value to store in register.
  *
  *************************************************************************************************/
 static inline void XAsufw_WriteReg(u32 Addr, u32 Value)
@@ -69,12 +71,12 @@ static inline void XAsufw_WriteReg(u32 Addr, u32 Value)
 
 /*************************************************************************************************/
 /**
- * @brief	This function reads a 32 bit value from a 32-bit register
+ * @brief	This function reads a 32 bit value from a 32-bit register.
  *
- * @param	Addr	Address of the register
+ * @param	Addr	Address of the register.
  *
  * @return
- * 			- Returns 32-bit value from 32-bit register
+ * 			- Returns 32-bit value from 32-bit register.
  *
  *************************************************************************************************/
 static inline u32 XAsufw_ReadReg(u32 Addr)
@@ -99,3 +101,4 @@ s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length);
 #endif
 
 #endif /* XASUFW_UTIL_H_ */
+/** @} */

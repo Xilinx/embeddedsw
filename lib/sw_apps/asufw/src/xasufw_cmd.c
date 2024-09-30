@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_cmd.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the code for commands handling in ASUFW.
  *
@@ -22,11 +20,15 @@
  *       ma   04/18/24 Moved command handling related APIs from xasufw_sharedmem.c to this file
  *       ma   05/18/24 Added API to check resources availability before executing a command
  *       ma   07/08/24 Add task based approach at queue level
+ *       ss   09/26/24 Fixed doxygen comments
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 /*************************************** Include Files *******************************************/
 #include "xasufw_cmd.h"
 #include "xasufw_status.h"
@@ -44,12 +46,12 @@
 
 /*************************************************************************************************/
 /**
- * @brief   This function returns Module ID from the command header
+ * @brief	This function returns module ID from the command header.
  *
- * @param   Header	Command Header.
+ * @param	Header	Command Header.
  *
  * @return
- * 			- Returns Module ID.
+ * 	- Returns module ID.
  *
  *************************************************************************************************/
 static inline u32 XAsufw_GetModuleId(u32 Header)
@@ -63,13 +65,15 @@ static inline u32 XAsufw_GetModuleId(u32 Header)
 
 /*************************************************************************************************/
 /**
- * @brief   This function calls the registered command handler based on the QueueInfo.
+ * @brief	This function calls the registered command handler based on the QueueInfo.
  *
- * @param   QueueBuf	Pointer to the queue buffer
- * @param   QueueId		Queue Unique ID
+ * @param	QueueBuf	Pointer to the XAsu_ChannelQueueBuf structure.
+ * @param	QueueId		Queue Unique ID.
  *
  * @return
- * 			- Returns the status of the executed command.
+ * 	- XASUFW_SUCCESS, On successful execution of command.
+ * 	- XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, when module is not registered.
+ * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 QueueId)
@@ -80,6 +84,7 @@ s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 QueueId)
 	const XAsufw_Module *Module = NULL;
 	u32 IpiMask = QueueId >> XASUFW_IPI_MASK_SHIFT;
 
+	/** Get module ID. */
 	Module = XAsufw_GetModule(ModuleId);
 	if (Module == NULL) {
 		Status = XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED;
@@ -90,7 +95,7 @@ s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 QueueId)
 	Status = Module->Cmds[CmdId].CmdHandler(&QueueBuf->ReqBuf, QueueId);
 
 	/**
-	 * Update command status in the request queue, the resopnse in response queue and trigger an
+	 * Update command status in the request queue, the response in response queue and trigger an
 	 * interrupt to the requested channel.
 	 */
 	QueueBuf->ReqBufStatus = XASU_COMMAND_EXECUTION_COMPLETE;
@@ -103,14 +108,15 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function writes the given response to the corresponding response buffer.
+ * @brief	This function writes the given response to the corresponding response buffer.
  *
- * @param   QueueBuf    Pointer to the queue buffer
- * @param   Response	Status of the executed command
+ * @param	QueueBuf	Pointer	to the XAsu_ChannelQueueBuf structure.
+ * @param	Response	Status of the executed command.
  *
  *************************************************************************************************/
 void XAsufw_CommandResponseHandler(XAsu_ChannelQueueBuf *QueueBuf, s32 Response)
 {
+	/** Update response to the response buffer. */
 	QueueBuf->RespBuf.Header = QueueBuf->ReqBuf.Header;
 	QueueBuf->RespBuf.Arg[XASU_RESPONSE_STATUS_INDEX] = (u32)Response;
 	QueueBuf->RespBufStatus = XASU_RESPONSE_IS_PRESENT;
@@ -119,14 +125,16 @@ void XAsufw_CommandResponseHandler(XAsu_ChannelQueueBuf *QueueBuf, s32 Response)
 
 /*************************************************************************************************/
 /**
- * @brief   This function checks if the received command is valid and has required access
- * permissions or not. And returns status accordingly.
+ * @brief	This function checks if the received command is valid and has required access
+ * 		permissions or not and returns status accordingly.
  *
- * @param   ReqBuf  Pointer to the request buffer
+ * @param	ReqBuf	Pointer to the request buffer.
  *
  * @return
- * 			- Returns XASUFW_SUCCESS if the command validation is successful.
- *          - Otherwise, returns an error code.
+ *	- XASUFW_SUCCESS, if the command validation is successful.
+ *	- XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, when module is not registered.
+ *	- XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED, when invalid command ID is received.
+ *	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 s32 XAsufw_ValidateCommand(XAsu_ReqBuf *ReqBuf)
@@ -136,19 +144,20 @@ s32 XAsufw_ValidateCommand(XAsu_ReqBuf *ReqBuf)
 	u32 ModuleId = XAsufw_GetModuleId(ReqBuf->Header);
 	const XAsufw_Module *Module = NULL;
 
+	/** Get module ID. */
 	Module = XAsufw_GetModule(ModuleId);
 	if (Module == NULL) {
 		Status = XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED;
 		XFIH_GOTO(END);
 	}
 
-	/* Check if CmdId is greater than the max supported commands */
+	/** Check if Cmd ID is greater than the max supported commands */
 	if (CmdId >= Module->CmdCnt) {
 		Status = XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED;
 		XFIH_GOTO(END);
 	}
 
-	/** TODO: Access permissions check should happen here */
+	/* TODO: Access permissions check should happen here */
 	Status = XASUFW_SUCCESS;
 
 END:
@@ -157,14 +166,15 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief   This function checks if the required resources are available for the command or not.
+ * @brief	This function checks if the required resources are available for the command or not.
  *
- * @param   ReqBuf			Pointer to the request buffer
- * @param   QueueId	Queue Unique ID
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	QueueId	Queue Unique ID
  *
  * @return
- * 			- Returns XASUFW_SUCCESS if the required resources are available.
- *          - Otherwise, returns an error code.
+ *	- XASUFW_SUCCESS, if the required resources are available.
+ *	- XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, when module is not registered.
+ *	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 s32 XAsufw_CheckResources(XAsu_ReqBuf *ReqBuf, u32 QueueId)
@@ -175,13 +185,14 @@ s32 XAsufw_CheckResources(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	const XAsufw_Module *Module = NULL;
 	u16 ReqResources;
 
+	/** Get module ID. */
 	Module = XAsufw_GetModule(ModuleId);
 	if (Module == NULL) {
 		Status = XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED;
 		goto END;
 	}
 
-	/*
+	/**
 	 * If resources required array is registered with module, check if required resources are
 	 * available.
 	 */
