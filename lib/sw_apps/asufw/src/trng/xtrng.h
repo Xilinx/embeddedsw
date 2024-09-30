@@ -7,8 +7,6 @@
 /**
  *
  * @file xtrng.h
- * @addtogroup Overview
- * @{
  *
  * This header file contains structure definitions, function declarations and macros for TRNG HW.
  *
@@ -19,11 +17,15 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   05/20/24 Initial release
  *       ma   07/26/24 Removed XTrng_DisableAutoProcMode API and updated TRNG to support PTRNG mode
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+* @addtogroup xtrng_server_apis TRNG Server APIs
+* @{
+*/
 #ifndef XTRNG_H
 #define XTRNG_H
 
@@ -47,8 +49,9 @@ extern "C" {
 #define XTRNG_USER_CFG_REP_TEST_CUTOFF		33U /**< Cut off value for repetitive count test */
 
 /************************************** Type Definitions *****************************************/
-typedef struct _XTrng XTrng;
+typedef struct _XTrng XTrng; /**< This typedef is to create alias name for _XTrng. */
 
+/** This typedef is used to show the error state. */
 typedef enum {
 	XTRNG_UNHEALTHY = 0, /**< TRNG in unhealthy state */
 	XTRNG_HEALTHY, /**< TRNG in healthy state */
@@ -57,12 +60,14 @@ typedef enum {
 	XTRNG_STARTUP_TEST /**< TRNG in startup test state */
 } XTrng_ErrorState;
 
+/** This typedef is used to select TRNG mode. */
 typedef enum {
 	XTRNG_DRNG_MODE = 1, /**< DRNG Mode */
 	XTRNG_PTRNG_MODE, /**< PTRNG Mode */
 	XTRNG_HRNG_MODE /**< HRNG Mode */
 } XTrng_Mode;
 
+/** @brief This structure contains user configuration of TRNG. */
 typedef struct {
 	XTrng_Mode Mode; /**< TRNG Mode */
 	u32 SeedLife; /**< Seed life */
