@@ -7,8 +7,7 @@
 /**
  *
  * @file xasu_ecc.h
- * @addtogroup
- * @{
+ *
  * This file Contains the ECC client function prototypes, defines and macros for
  * the ECC hardware module.
  *
@@ -18,10 +17,15 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   yog  08/19/24 Initial release
+ *       yog  09/26/24 Added doxygen grouping and fixed doxygen comments
  *
  * </pre>
  *
  *************************************************************************************************/
+/**
+ * @addtogroup xasu_ecc_client_apis ECC Client APIs
+ * @{
+*/
 
 #ifndef XASU_ECC_H
 #define XASU_ECC_H

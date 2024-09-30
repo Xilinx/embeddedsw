@@ -7,8 +7,6 @@
 /**
  *
  * @file xasufw_status.h
- * @addtogroup Overview
- * @{
  *
  * This file contains ASU client error codes
  *
@@ -19,11 +17,15 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vns  08/06/24 Initial release
  *       ss   09/19/24 Added XASU_ASUFW_NOT_PRESENT error code
+ *       yog  09/26/24 Added doxygen groupings.
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_client_info Client APIs AND Error Codes
+ * @{
+*/
 #ifndef XASU_STATUS_H
 #define XASU_STATUS_H
 
@@ -38,8 +40,8 @@ extern "C" {
 
 /************************************** Type Definitions *****************************************/
 
-/*
- * This contains the client error codes
+/**
+ * This contains the client error codes.
  */
 enum XAsu_Status {
 	XASU_INVALID_ARGUMENT = 0x10,

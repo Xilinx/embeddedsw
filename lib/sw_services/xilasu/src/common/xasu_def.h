@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_def.h
- * @addtogroup Overview
- * @{
  *
  * This file contains the common definitions between server and client
  *
@@ -23,7 +21,10 @@
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xasu_common_defs Common Defs
+ * @{
+*/
 #ifndef XASU_DEF_H
 #define XASU_DEF_H
 
@@ -54,3 +55,4 @@ extern "C" {
 #endif
 
 #endif  /* XASU_DEF_H */
+/** @} */
