@@ -24,6 +24,8 @@
 * 	   vek  05/31/23  Added support for Programming PUF secure control bits
 *      kpt  09/02/23  Avoid returning XST_SUCCESS incase of fault injection
 *      yog  09/13/23  Fixed review comments
+* 3.4  kal  09/26/24  Updated AES, PPK and IV functions to pass EnvMonDis flag
+*                     to server through IPI commands
 *
 * </pre>
 *
@@ -50,17 +52,17 @@
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK		(0x00ffffffU)
 
 /************************** Function Prototypes ******************************/
-static void XNvm_EfuseCreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh);
-static void XNvm_EfuseCreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh);
-static void XNvm_EfuseCreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh);
+static void XNvm_EfuseCreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
+static void XNvm_EfuseCreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
+static void XNvm_EfuseCreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
 static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 StartOffset, u8 RegCount, u32 AddrLow, u32 AddrHigh);
 static void XNvm_EfuseCreateWritePufCmd(XNvm_PufWriteCdo* PufWrCdo, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseValidateNdWriteAesKey(const XNvm_ClientInstance *InstancePtr, XNvm_AesKeyWriteCdo *KeyWrCdo,
-		XNvm_AesKeyType KeyType, u64 Addr);
+		XNvm_AesKeyType KeyType, u64 Addr, u32 EnvMonDis);
 static int XNvm_EfuseValidatNdWritePpkHash(const XNvm_ClientInstance *InstancePtr, XNvm_PpkWriteCdo *PpkWrCdo,
-		XNvm_PpkType PpkType, u64 Addr);
+		XNvm_PpkType PpkType, u64 Addr, u32 EnvMonDis);
 static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr, XNvm_IvWriteCdo *IvWrCdo,
-		XNvm_IvType IvType, u64 Addr);
+		XNvm_IvType IvType, u64 Addr, u32 EnvMonDis);
 
 /************************** Variable Definitions *****************************/
 /*****************************************************************************/
@@ -108,7 +110,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	if (AesKeys->PrgmAesKey == TRUE) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming AES Key \r\n");
 		Status = XNvm_EfuseValidateNdWriteAesKey(InstancePtr, KeyWrCdo, XNVM_EFUSE_AES_KEY,
-					(u64)(UINTPTR)(AesKeys->AesKey));
+					(u64)(UINTPTR)(AesKeys->AesKey), (u32)EfuseData->EnvMonDisFlag);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "AES Key write failed;"
 				"Error Code = %x\r\n", Status);
@@ -122,7 +124,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	if (AesKeys->PrgmUserKey0 == TRUE) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming User Key 0 \r\n");
 		Status = XNvm_EfuseValidateNdWriteAesKey(InstancePtr, KeyWrCdo, XNVM_EFUSE_USER_KEY_0,
-					(u64)(UINTPTR)(AesKeys->UserKey0));
+					(u64)(UINTPTR)(AesKeys->UserKey0), (u32)EfuseData->EnvMonDisFlag);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "USER Key0 write failed;"
 				"Error Code = %x\r\n", Status);
@@ -136,7 +138,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	if (AesKeys->PrgmUserKey1 == TRUE) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming User Key 1 \r\n");
 		Status = XNvm_EfuseValidateNdWriteAesKey(InstancePtr, KeyWrCdo, XNVM_EFUSE_USER_KEY_1,
-					(u64)(UINTPTR)(AesKeys->UserKey1));
+					(u64)(UINTPTR)(AesKeys->UserKey1), (u32)EfuseData->EnvMonDisFlag);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "User Key1 write failed;"
 				"Error Code = %x\r\n", Status);
@@ -156,7 +158,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	if (EfusePpk->PrgmPpk0Hash == TRUE) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming PPK Hash 0 \r\n");
 		Status = XNvm_EfuseValidatNdWritePpkHash(InstancePtr, PpkWrCdo,
-				XNVM_EFUSE_PPK0, (u64)(UINTPTR)EfusePpk->Ppk0Hash);
+				XNVM_EFUSE_PPK0, (u64)(UINTPTR)EfusePpk->Ppk0Hash, (u32)EfuseData->EnvMonDisFlag);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "PPK0 hash write failed;"
 				"Error Code = %x\r\n", Status);
@@ -170,7 +172,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	if (EfusePpk->PrgmPpk1Hash == TRUE) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming PPK Hash 1 \r\n");
 		Status = XNvm_EfuseValidatNdWritePpkHash(InstancePtr, PpkWrCdo,
-				XNVM_EFUSE_PPK1, (u64)(UINTPTR)EfusePpk->Ppk1Hash);
+				XNVM_EFUSE_PPK1, (u64)(UINTPTR)EfusePpk->Ppk1Hash, (u32)EfuseData->EnvMonDisFlag);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "PPK1 hash write failed;"
 				"Error Code = %x\r\n", Status);
@@ -184,7 +186,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	if (EfusePpk->PrgmPpk2Hash == TRUE) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming PPK Hash 2 \r\n");
 		Status = XNvm_EfuseValidatNdWritePpkHash(InstancePtr, PpkWrCdo,
-				XNVM_EFUSE_PPK2, (u64)(UINTPTR)EfusePpk->Ppk2Hash);
+				XNVM_EFUSE_PPK2, (u64)(UINTPTR)EfusePpk->Ppk2Hash, (u32)EfuseData->EnvMonDisFlag);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "PPK2 hash write failed;"
 				"Error Code = %x\r\n", Status);
@@ -202,7 +204,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	 *     If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
 	Status = XST_FAILURE;
-	Status = XNvm_EfuseWriteIVs(InstancePtr, (u64)(UINTPTR)Ivs, FALSE);
+	Status = XNvm_EfuseWriteIVs(InstancePtr, (u64)(UINTPTR)Ivs, (u32)EfuseData->EnvMonDisFlag);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -246,10 +248,6 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	u32 TotalSize = sizeof(XNvm_EfuseIvs);
 	XNvm_IvWriteCdo *IvWrCdo = (XNvm_IvWriteCdo *)Payload;
 
-	if (EnvDisFlag != TRUE) {
-                //TODO Temp and Voltage checks
-        }
-
 	/**
 	 *  Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
@@ -289,7 +287,8 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	if (Ivs->PrgmMetaHeaderIv == TRUE) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming Metaheader IV \r\n");
 		Status = XNvm_EfuseValidateNdWriteIv(InstancePtr, IvWrCdo,
-				XNVM_EFUSE_META_HEADER_IV_RANGE, (u64)(UINTPTR)(Ivs->MetaHeaderIv));
+				XNVM_EFUSE_META_HEADER_IV_RANGE, (u64)(UINTPTR)(Ivs->MetaHeaderIv),
+				EnvDisFlag);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "Metaheader IV write failed;"
 				"Error Code = %x\r\n", Status);
@@ -303,7 +302,8 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	if (Ivs->PrgmBlkObfusIv == TRUE) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming Black IV \r\n");
 		Status = XNvm_EfuseValidateNdWriteIv(InstancePtr, IvWrCdo,
-				XNVM_EFUSE_BLACK_IV, (u64)(UINTPTR)(Ivs->BlkObfusIv));
+				XNVM_EFUSE_BLACK_IV, (u64)(UINTPTR)(Ivs->BlkObfusIv),
+				EnvDisFlag);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "Black IV write failed;"
 				"Error Code = %x\r\n", Status);
@@ -317,7 +317,8 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	if (Ivs->PrgmPlmIv == TRUE) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming PLM IV \r\n");
 		Status = XNvm_EfuseValidateNdWriteIv(InstancePtr, IvWrCdo,
-		XNVM_EFUSE_PLM_IV_RANGE, (u64)(UINTPTR)(Ivs->PlmIv));
+		XNVM_EFUSE_PLM_IV_RANGE, (u64)(UINTPTR)(Ivs->PlmIv),
+		EnvDisFlag);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "PLM IV write failed;"
 				"Error Code = %x\r\n", Status);
@@ -331,7 +332,8 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	if (Ivs->PrgmDataPartitionIv == TRUE) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming Data Parition IV \r\n");
 		Status = XNvm_EfuseValidateNdWriteIv(InstancePtr, IvWrCdo,
-		XNVM_EFUSE_DATA_PARTITION_IV_RANGE, (u64)(UINTPTR)(Ivs->DataPartitionIv));
+		XNVM_EFUSE_DATA_PARTITION_IV_RANGE, (u64)(UINTPTR)(Ivs->DataPartitionIv),
+		EnvDisFlag);
 		if (Status != XST_SUCCESS) {
 			XNvm_Printf(XNVM_DEBUG_GENERAL, "Data Partition IV write failed;"
 				"Error Code = %x\r\n", Status);
@@ -2634,14 +2636,17 @@ static void XNvm_EfuseCreateWritePufCmd(XNvm_PufWriteCdo* PufWrCdo, u32 AddrLow,
  * @param	KeyType		Type of the Key
  * @param	AddrLow		Lower Address of the key buffer
  * @param	AddrHigh	Higher Address of the key buffer
+ * @param       EnvMonDis       Environmental monitor disable flag
  *
  ******************************************************************************/
-static void XNvm_EfuseCreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh)
+static void XNvm_EfuseCreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType KeyType, u32 AddrLow,
+	u32 AddrHigh, u32 EnvMonDis)
 {
 	AesKeyWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_AES_KEY);
 	AesKeyWrCdo->Pload.KeyType = KeyType;
 	AesKeyWrCdo->Pload.AddrLow = AddrLow;
 	AesKeyWrCdo->Pload.AddrHigh = AddrHigh;
+	AesKeyWrCdo->Pload.EnvDisFlag = (u16)EnvMonDis;
 }
 
 /*****************************************************************************/
@@ -2652,14 +2657,17 @@ static void XNvm_EfuseCreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_A
  * @param	PpkType		Type of PPK
  * @param	AddrLow		Lower Address of the PPK Hash buffer
  * @param	AddrHigh	Higher Address of the PPK Hash buffer
+ * @param       EnvMonDis       Environmental monitor disable flag
  *
  ******************************************************************************/
-static void XNvm_EfuseCreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh)
+static void XNvm_EfuseCreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType PpkType, u32 AddrLow,
+	u32 AddrHigh, u32 EnvMonDis)
 {
 	PpkWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_PPK_HASH);
 	PpkWrCdo->Pload.PpkType = PpkType;
 	PpkWrCdo->Pload.AddrLow = AddrLow;
 	PpkWrCdo->Pload.AddrHigh = AddrHigh;
+	PpkWrCdo->Pload.EnvDisFlag = (u16)EnvMonDis;
 }
 
 /*****************************************************************************/
@@ -2670,14 +2678,17 @@ static void XNvm_EfuseCreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType
  * @param	IvType		Type of IV
  * @param	AddrLow		Lower Address of the IV buffer
  * @param	AddrHigh	Higher Address of the IV buffer
+ * @param       EnvMonDis       Environmental monitor disable flag
  *
  ******************************************************************************/
-static void XNvm_EfuseCreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh)
+static void XNvm_EfuseCreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvType, u32 AddrLow,
+	u32 AddrHigh, u32 EnvMonDis)
 {
 	IvWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_IV);
-	IvWrCdo->Pload.IvType = IvType;
+	IvWrCdo->Pload.IvType = (u16)IvType;
 	IvWrCdo->Pload.AddrLow = AddrLow;
 	IvWrCdo->Pload.AddrHigh = AddrHigh;
+	IvWrCdo->Pload.EnvDisFlag = (u16)EnvMonDis;
 }
 
 /*****************************************************************************/
@@ -2709,6 +2720,7 @@ static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 S
  * @param	KeyWrCdo	Pointer to the Write AES Key CDO
  * @param	KeyType		Type of the Key
  * @param	Addr		Aes Key address
+ * @param	EnvMonDis	Environmental monitor disable flag
  *
  * @return
  * 		- XST_SUCCESS  If the eFUSE programming is successful
@@ -2717,7 +2729,7 @@ static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 S
  *@section Implementation
  ******************************************************************************/
 static int XNvm_EfuseValidateNdWriteAesKey(const XNvm_ClientInstance *InstancePtr,
-		XNvm_AesKeyWriteCdo *KeyWrCdo, XNvm_AesKeyType KeyType, u64 Addr)
+		XNvm_AesKeyWriteCdo *KeyWrCdo, XNvm_AesKeyType KeyType, u64 Addr, u32 EnvMonDis)
 {
 	int Status = XST_FAILURE;
 
@@ -2732,7 +2744,8 @@ static int XNvm_EfuseValidateNdWriteAesKey(const XNvm_ClientInstance *InstancePt
 	/**
 	 * Create Payload for write Aes Key/User0 Key/User1 Key.
 	 */
-	XNvm_EfuseCreateWriteKeyCmd(KeyWrCdo, KeyType, (u32)(Addr), (u32)((Addr) >> XNVM_ADDR_HIGH_SHIFT));
+	XNvm_EfuseCreateWriteKeyCmd(KeyWrCdo, KeyType, (u32)(Addr),
+		(u32)((Addr) >> XNVM_ADDR_HIGH_SHIFT), EnvMonDis);
 
 	/**
 	 * Send XNvm_EfuseWriteAesKey CDO over IPI request to the PLM.
@@ -2755,6 +2768,7 @@ END:
  * @param	KeyWrCdo	Pointer to the Write AES Key CDO
  * @param	KeyType		Type of the Key
  * @param	Addr		Aes Key address
+ * @param       EnvMonDis       Environmental monitor disable flag
  *
  * @return
  * 		- XST_SUCCESS  If the eFUSE programming is successful
@@ -2763,7 +2777,7 @@ END:
  *@section Implementation
  ******************************************************************************/
 static int XNvm_EfuseValidatNdWritePpkHash(const XNvm_ClientInstance *InstancePtr,
-		XNvm_PpkWriteCdo *PpkWrCdo, XNvm_PpkType PpkType, u64 Addr)
+		XNvm_PpkWriteCdo *PpkWrCdo, XNvm_PpkType PpkType, u64 Addr, u32 EnvMonDis)
 {
 	int Status = XST_FAILURE;
 
@@ -2779,7 +2793,7 @@ static int XNvm_EfuseValidatNdWritePpkHash(const XNvm_ClientInstance *InstancePt
 	 * Create Payload for write PPK0/PPK1/PPK2 Hash
 	 */
 	XNvm_EfuseCreateWritePpkCmd(PpkWrCdo, PpkType, (u32)(Addr),
-			(u32)((Addr) >> XNVM_ADDR_HIGH_SHIFT));
+			(u32)((Addr) >> XNVM_ADDR_HIGH_SHIFT), EnvMonDis);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XNvm_EfuseWritePpkHash API.
@@ -2802,6 +2816,7 @@ END:
  * @param	KeyWrCdo	Pointer to the Write AES Key CDO
  * @param	KeyType		Type of the Key
  * @param	Addr		Aes Key address
+ * @param       EnvMonDis       Environmental monitor disable flag
  *
  * @return
  * 		- XST_SUCCESS  If the eFUSE programming is successful
@@ -2810,7 +2825,7 @@ END:
  *@section Implementation
  ******************************************************************************/
 static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr,
-		XNvm_IvWriteCdo *IvWrCdo, XNvm_IvType IvType, u64 Addr)
+		XNvm_IvWriteCdo *IvWrCdo, XNvm_IvType IvType, u64 Addr, u32 EnvMonDis)
 {
 	int Status = XST_FAILURE;
 
@@ -2825,7 +2840,8 @@ static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr,
 	/**
 	 * Create Payload for write IV
 	 */
-	XNvm_EfuseCreateWriteIvCmd(IvWrCdo, IvType, (u32)(Addr), (u32)((Addr) >> XNVM_ADDR_HIGH_SHIFT));
+	XNvm_EfuseCreateWriteIvCmd(IvWrCdo, IvType, (u32)(Addr),
+			(u32)((Addr) >> XNVM_ADDR_HIGH_SHIFT), EnvMonDis);
 
 	/**
 	 * Send an IPI request to the PLM by using the CDO command to call XNvm_EfuseWriteIv API.
