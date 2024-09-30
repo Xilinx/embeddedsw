@@ -16,6 +16,7 @@
 * ----- ---- ---------- -----------------------------------------------------------------------------
 * 1.0   yog  06/19/2024 First Release
 *       yog  08/19/2024 Received Dma instance from handler
+*       yog  09/26/2024 Added doxygen groupings and fixed doxygen comments.
 *
 * </pre>
 *
