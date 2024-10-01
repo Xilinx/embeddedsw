@@ -6,6 +6,10 @@
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
 #define XPARAMETERS_H   /* by using protection macros */
 
+#ifdef __cplusplus
+extern "c" {
+#endif
+
 #define XPAR_CPU_ID 4U
 
 #define STDIN_BASEADDRESS 0xFF000000
@@ -1847,4 +1851,9 @@
 #define XPAR_MAX_USER_MODULES 0U
 
 //#define XPAR_XILPM_ENABLED
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif  /* end of protection macro */
