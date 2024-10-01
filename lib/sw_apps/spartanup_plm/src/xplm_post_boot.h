@@ -36,10 +36,7 @@ extern "C"
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XPlm_EnableIntrSbiDataRdy(void);
 u32 XPlm_PostBoot(void);
-void XPlm_SetRunTimeEvent(const u32 Event);
-void XPlm_ClearRunTimeEvent(const u32 Event);
 void XPlm_EventLoop(void);
 
 /************************** Variable Definitions *****************************/

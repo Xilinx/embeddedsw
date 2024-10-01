@@ -29,7 +29,6 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 #define XPLM_SBI_BUF_ADDR	(0x0U)
-#define XPLM_SBI_READ_FLAGS_NONE (0x0U)
 
 /* SBI interface types */
 #define XPLM_SBI_IF_JTAG        (0x001U)

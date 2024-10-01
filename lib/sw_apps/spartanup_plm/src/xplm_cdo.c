@@ -86,7 +86,7 @@ void XPlm_ModuleRegister(XPlm_Module *Module)
  *****************************************************************************/
 static u32 XPlm_CmdExecute(XPlm_Cmd *CmdPtr)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 ModuleId = (CmdPtr->CmdId & XPLM_CMD_MODULE_ID_MASK) >> XPLM_CMD_MODULE_ID_SHIFT;
 	u32 ApiId = CmdPtr->CmdId & XPLM_CMD_API_ID_MASK;
 	const XPlm_Module *Module = NULL;
@@ -118,8 +118,9 @@ static u32 XPlm_CmdExecute(XPlm_Cmd *CmdPtr)
 
 	/** - Execute the API. */
 	Status = ModuleCmd->Handler(CmdPtr);
-	if (Status != XST_SUCCESS) {
-		Status = ((CmdPtr->CmdId & XPLM_CMD_ID_MASK) << XPLM_ERR_CMD_ID_SHIFT) | (Status & XPLM_MIN_ERR_MASK);
+	if (Status != (u32)XST_SUCCESS) {
+		Status = ((CmdPtr->CmdId & XPLM_CMD_ID_MASK) << XPLM_ERR_CMD_ID_SHIFT) |
+			 (Status & XPLM_MIN_ERR_MASK);
 		if (CmdPtr->DeferredError != (u8)TRUE) {
 			goto END;
 		}
@@ -154,7 +155,7 @@ END:
  *****************************************************************************/
 static u32 XPlm_CmdResume(XPlm_Cmd *CmdPtr)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	XPlm_Printf(DEBUG_DETAILED, "CMD Resume \n\r");
 
@@ -164,8 +165,9 @@ static u32 XPlm_CmdResume(XPlm_Cmd *CmdPtr)
 	}
 
 	Status = CmdPtr->ResumeHandler(CmdPtr);
-	if (Status != XST_SUCCESS) {
-		Status = ((CmdPtr->CmdId & XPLM_CMD_ID_MASK) << XPLM_ERR_CMD_ID_SHIFT) | (Status & XPLM_MIN_ERR_MASK);
+	if (Status != (u32)XST_SUCCESS) {
+		Status = ((CmdPtr->CmdId & XPLM_CMD_ID_MASK) << XPLM_ERR_CMD_ID_SHIFT) |
+			 (Status & XPLM_MIN_ERR_MASK);
 		XPlm_Printf(DEBUG_INFO, "CDO resume failed\r\n");
 		goto END;
 	}
@@ -257,9 +259,9 @@ static void XPlm_SetupCmd(XPlm_Cmd * Cmd, u32 *Buf, u32 BufLen)
  * 			- XPLM_ERR_CDO_CHECKSUM if CDO checksum fails.
  *
  *****************************************************************************/
-static int XPlm_CdoVerifyHeader(const XPlmCdo *CdoPtr)
+static u32 XPlm_CdoVerifyHeader(const XPlmCdo *CdoPtr)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 CheckSum = 0U;
 	const u32 *CdoHdr = CdoPtr->BufPtr;
 	u32 Index;
@@ -274,7 +276,7 @@ static int XPlm_CdoVerifyHeader(const XPlmCdo *CdoPtr)
 	}
 
 	/* Invert checksum */
-	CheckSum ^= 0xFFFFFFFFU;
+	CheckSum ^= XPLM_ALLFS;
 	if (CheckSum != CdoHdr[Index]) {
 		XPlm_Printf(DEBUG_INFO, "Config Object Checksum Failed\n\r");
 		Status = (u32)XPLM_ERR_CDO_CHECKSUM;
@@ -303,11 +305,11 @@ END:
  *****************************************************************************/
 u32 XPlm_InitCdo(XPlmCdo *CdoPtr)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Initialize the CDO structure variables */
 	Status = Xil_SMemSet(CdoPtr, sizeof(XPlmCdo), 0U, sizeof(XPlmCdo));
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 	/* Initialize the CDO buffer user params */
@@ -338,7 +340,7 @@ END:
  *****************************************************************************/
 static u32 XPlm_CdoCmdResume(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	XPlm_Cmd *CmdPtr = &CdoPtr->Cmd;
 	u32 PrintLen;
 
@@ -354,7 +356,7 @@ static u32 XPlm_CdoCmdResume(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size
 	CmdPtr->ProcessedCdoLen = CdoPtr->ProcessedCdoLen;
 	*Size = CmdPtr->PayloadLen;
 	Status = XPlm_CmdResume(CmdPtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		XPlm_Printf(DEBUG_GENERAL,
 			"CMD: 0x%08x Resume failed, Processed Cdo Length 0x%0x\n\r",
 			CmdPtr->CmdId, CdoPtr->ProcessedCdoLen * XPLM_WORD_LEN);
@@ -388,7 +390,7 @@ static u32 XPlm_CdoCmdResume(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size
  *****************************************************************************/
 static u32 XPlm_CdoCmdExecute(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	XPlm_Cmd *CmdPtr = &CdoPtr->Cmd;
 	u32 PrintLen;
 	u32 BufSize;
@@ -414,11 +416,9 @@ static u32 XPlm_CdoCmdExecute(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Siz
 		BufSize = BufLen * XPLM_WORD_LEN;
 		CdoPtr->TempCmdBuf = (u32 *)(CdoPtr->NextChunkAddr - BufSize);
 
-		/** Copy Cmd to temporary buffer */
-		Status = Xil_SMemCpy(CdoPtr->TempCmdBuf, BufSize,
-				BufPtr, BufSize,
-				BufSize);
-		if (Status != XST_SUCCESS) {
+		/* Copy Cmd to temporary buffer */
+		Status = Xil_SMemCpy(CdoPtr->TempCmdBuf, BufSize, BufPtr, BufSize, BufSize);
+		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XPLM_ERR_MEMCPY_CMD_EXEC;
 			goto END;
 		}
@@ -448,7 +448,7 @@ static u32 XPlm_CdoCmdExecute(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Siz
 			CdoPtr->ProcessedCdoLen + XPLM_CDO_HDR_LEN);
 	}
 	Status = XPlm_CmdExecute(CmdPtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		XPlm_Printf(DEBUG_PRINT_ALWAYS,
 			"CMD: 0x%08x execute failed, Processed Cdo Length 0x%0x\n\r",
 			CmdPtr->CmdId, (CdoPtr->ProcessedCdoLen + XPLM_CDO_HDR_LEN) * XPLM_WORD_LEN);
@@ -486,7 +486,7 @@ END:
  *****************************************************************************/
 u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Size = 0U;
 	u32 *BufPtr = CdoPtr->BufPtr;
 	u32 BufLen = CdoPtr->BufLen;
@@ -495,7 +495,7 @@ u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr)
 	/** - Verify the header for the first chunk of CDO */
 	if (CdoPtr->Cdo1stChunk == (u8)TRUE) {
 		Status = XPlm_CdoVerifyHeader(CdoPtr);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 		CdoPtr->Cdo1stChunk = (u8)FALSE;
@@ -564,7 +564,7 @@ u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr)
 			Status = XPlm_CdoCmdExecute(CdoPtr, BufPtr, BufLen, &Size);
 		}
 		CdoPtr->DeferredError |= CdoPtr->Cmd.DeferredError;
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 		/** - If command end is detected, exit the loop */

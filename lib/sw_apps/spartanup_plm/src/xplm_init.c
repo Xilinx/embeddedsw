@@ -68,8 +68,9 @@ XRom_HooksTbl *HooksTbl = (XRom_HooksTbl *)XROM_HOOKS_TBL_BASE_ADDR;
  * Enable interrupts from the hardware
  *
  *****************************************************************************/
-static void XPlm_ExceptionInit(void) {
-	u32 Status = XST_FAILURE;
+static void XPlm_ExceptionInit(void)
+{
+	u32 Status = (u32)XST_FAILURE;
 
 	Xil_ExceptionDisable();
 	Xil_ExceptionInit();
@@ -96,8 +97,7 @@ static void XPlm_ExceptionInit(void) {
  *****************************************************************************/
 static void XPlm_ExceptionHandler(void *Data) {
 	// print mcause register, implement it in assembly
-	XPlm_Printf(DEBUG_PRINT_ALWAYS, "Received Exception\n\r" \
-			"mcause: 0x%08x\r\n", csrr(mcause));
+	XPlm_Printf(DEBUG_PRINT_ALWAYS, "Received Exception\r\n mcause: 0x%08x\r\n", csrr(mcause));
 
 	XPlm_LogPlmErr((u32)Data);
 	/* Just in case if control reaches here */

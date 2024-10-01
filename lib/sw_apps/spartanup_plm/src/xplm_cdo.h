@@ -66,30 +66,38 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * Structure to store the offsets of begin-end pair CDO offsets.
+ */
 typedef struct {
-	u32 OffsetList[XPLM_BEGIN_OFFSET_STACK_SIZE];
-	int OffsetListTop;
+	u32 OffsetList[XPLM_BEGIN_OFFSET_STACK_SIZE];	/**< Array for CDO offsets. */
+	s32 OffsetListTop;	/**< Index of the top element in stack. */
 } XPlm_CdoParamsStack;
 
 typedef struct XPlm_Cmd XPlm_Cmd;
 
+/**
+ * Structure to store the information related to CDO commands.
+ */
 struct XPlm_Cmd {
-	u32 CmdId;
-	u32 Len;
-	u32 ProcessedLen;
-	u32 PayloadLen;
-	u32 *Payload;
-	int (*ResumeHandler)(XPlm_Cmd * CmdPtr);
-	u32 ResumeData[XPLM_CMD_RESUME_DATALEN];
-	XPlm_CdoParamsStack CdoParamsStack;
-	u32 BreakLength;
-	u32 ProcessedCdoLen;
-	u8 DeferredError;
-	u8 AckInPLM;
+	u32 CmdId; /**< Command ID */
+	u32 Len; /**< Command length */
+	u32 ProcessedLen; /**< Processed length */
+	u32 PayloadLen; /**< Payload length */
+	u32 *Payload; /**< Start address of payload */
+	u32 (*ResumeHandler)(XPlm_Cmd *CmdPtr); /**< CDO command handler function address to resume */
+	u32 ResumeData[XPLM_CMD_RESUME_DATALEN]; /**< Buffer to store required information to resume */
+	XPlm_CdoParamsStack CdoParamsStack; /**< Instance of @ref XPlm_CdoParamsStack */
+	u32 BreakLength; /**< Break command level */
+	u32 ProcessedCdoLen; /**< Length of the processed CDO command */
+	u8 DeferredError; /**< Defer error indicator */
 };
 
+/**
+ * Structure to hold the CDO command handler functions.
+ */
 typedef struct {
-	int (*Handler)(XPlm_Cmd *Cmd);
+	u32 (*Handler)(XPlm_Cmd *Cmd); /**< CDO cmd handler function */
 } XPlm_ModuleCmd;
 
 typedef struct {
