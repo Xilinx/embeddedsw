@@ -112,7 +112,6 @@ extern "C" {
 #define XPLM_BANK_REG_WR_CMD_BYTE_CNT	(2U)
 #define XPLM_BANK_REG_RD_CMD_BYTE_CNT	(1U)
 
-
 #define XOSPIPSV_READ_1_1_2	1U
 #define XOSPIPSV_READ_1_1_4	2U
 /**************************** Type Definitions *******************************/
@@ -124,7 +123,6 @@ u32 XPlm_QspiInit(XPlm_BootModes Mode);
 u32 XPlm_QspiCopy(u64 SrcAddr, u32 DestAddr, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
-
 
 #ifdef __cplusplus
 }

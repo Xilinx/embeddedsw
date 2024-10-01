@@ -20,6 +20,11 @@
  *
  ******************************************************************************/
 
+/**
+ * @addtogroup spartanup_plm_apis SpartanUP PLM APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplm_util.h"
 #include "xplm_debug.h"
@@ -30,7 +35,9 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/** @cond spartanup_plm_internal */
 #define XPLM_MASK_PRINT_PERIOD		(1000000U)
+/** @endcond */
 
 /************************** Function Prototypes ******************************/
 
@@ -53,7 +60,7 @@ void XPlm_UtilRMW(u32 RegAddr, u32 Mask, u32 Value)
 	Val = Xil_In32(RegAddr);
 
 	/**
-	 * - Reset designated bits in a register value to zero, and replace them
+	 * - Reset designated bits in a register value to zero and replace them
 	 *   with the specified value.
 	 */
 	Val = (Val & (~Mask)) | (Mask & Value);
@@ -76,7 +83,8 @@ void XPlm_UtilRMW(u32 RegAddr, u32 Mask, u32 Value)
  *		before reading them
  *
  * @return
- * 		- XST_SUCCESS on success and error code on failure
+ * 		- XST_SUCCESS on success.
+ * 		- XST_FAILURE on timeout.
  *
  *****************************************************************************/
 u32 XPlm_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
@@ -98,19 +106,19 @@ u32 XPlm_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
 	RegValue = Xil_In32(RegAddr);
 	/** - Loop until the expedted value is read or a timeout occurs. */
 	while (((RegValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOut)) {
-		/** - wait for 1 microsecond. */
+		/* wait for 1 microsecond. */
 		usleep(1U);
-		/**  - Clear the Latched Status if any. */
+		/* Clear the Latched Status if any. */
 		if (ClearHandler != NULL) {
 			ClearHandler();
 		}
-		/** - Read the register value again. */
+		/* Read the register value again. */
 		RegValue = Xil_In32(RegAddr);
-		/** - Decrement the TimeOut Count. */
+		/* Decrement the TimeOut Count. */
 		TimeLapsed++;
 		if ((TimeLapsed % XPLM_MASK_PRINT_PERIOD) == 0U) {
 			XPlm_Printf(DEBUG_GENERAL, "Polling 0x%0x Mask: 0x%0x "
-				"ExpectedValue: 0x%0x\n\r", RegAddr, Mask, ExpectedValue);
+				    "ExpectedValue: 0x%0x\n\r", RegAddr, Mask, ExpectedValue);
 		}
 	}
 	if (TimeLapsed < TimeOut) {
@@ -130,7 +138,8 @@ u32 XPlm_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
  * @param	TimeOutInUs is delay time in micro sec
  *
  * @return
- * 		- XST_SUCCESS on success and error code on failure
+ * 		- XST_SUCCESS on success.
+ * 		- XST_FAILURE on timeout.
  *
  ******************************************************************************/
 u32 XPlm_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
@@ -144,10 +153,10 @@ u32 XPlm_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
 
 	/** - Loop until the expedted value is read or a timeout occurs. */
 	while (((RegValue & Mask) != Mask) && (TimeOut > 0U)) {
-		/** - Read the register value again. */
+		/* Read the register value again. */
 		RegValue = Xil_In32(RegAddr);
 
-		/** - Decrement the TimeOut Count. */
+		/* Decrement the TimeOut Count. */
 		TimeOut--;
 	}
 
@@ -177,7 +186,7 @@ void XPlm_PrintArray (u32 DebugType, const u32 BufAddr, u32 Len, const char *Str
 
 	if (((DebugType) & XPlmDbgCurrentTypes) != 0U) {
 		XPlm_Printf(DebugType, "%s START, Len:0x%08x\r\n 0x%08x: ",
-			     Str, Len, Addr);
+			    Str, Len, Addr);
 		for (Index = 0U; Index < Len; Index++) {
 			XPlm_Printf(DebugType, "0x%08x ", Xil_In32(Addr));
 			if (((Index + 1U) % XPLM_WORD_LEN) == 0U) {
@@ -191,14 +200,17 @@ void XPlm_PrintArray (u32 DebugType, const u32 BufAddr, u32 Len, const char *Str
 	return;
 }
 
-
-void XPlm_MemCpy32(u32* DestPtr, const u32* SrcPtr, u32 Len)
+/** @cond spartanup_plm_internal */
+void XPlm_MemCpy32(u32 *DestPtr, const u32 *SrcPtr, u32 Len)
 {
 	u32 Index = 0U;
 
 	/* Loop and copy.  */
-	for(Index = 0U; Index < Len; Index++) {
+	for (Index = 0U; Index < Len; Index++) {
 		DestPtr[Index] = SrcPtr[Index];
 	}
 	return;
 }
+/** @endcond */
+
+/** @} end of spartanup_plm_apis group*/

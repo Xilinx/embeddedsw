@@ -17,6 +17,12 @@
  * </pre>
  *
  ******************************************************************************/
+
+/**
+ * @addtogroup spartanup_plm_apis SpartanUP PLM APIs
+ * @{
+ */
+
 #ifndef XPLM_GENERIC_H
 #define XPLM_GENERIC_H
 
@@ -32,7 +38,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /* Error codes for CFrame readback */
-/** Error if readback is disabled in secure */
+/** Error if readback is disabled in secure boot*/
 #define XPLM_ERR_RDBK_DISABLED		(0x2U)
 
 /** Error if the invalid interface type is selected for readback */
@@ -47,16 +53,13 @@ extern "C" {
 /** Error if failed to read the readback data from the SBI interface. */
 #define XPLM_ERR_RDBK_READ_TIMEOUT	(0x6U)
 
-
 /* Error codes for Set CDO cmd */
 /** Error if failed to set the memory with the value. */
 #define XPLM_ERR_SET_MEM		(0x2U)
 
-
 /* Error codes for Keyhole transfer */
 /** Error if failed to transfer the payload to CCU. */
 #define XPLM_ERR_KEYHOLE_XFER		(0x2U)
-
 
 /* Error codes for Log String */
 /** Error if the log string is greater than 256 characters. */
@@ -67,7 +70,6 @@ extern "C" {
 
 /** Error if failed to copy the log string from payload to buffer */
 #define XPLM_ERR_COPY_LOG_STR_TO_BUF	(0x4U)
-
 
 /* Error codes for Begin */
 /** Error if the number of nested begin exceeds the limit of 10. */
@@ -94,6 +96,9 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * Structure to hold the information to transfer the data to Capture Control Unit.
+ */
 typedef struct {
 	u32 SrcAddr; /**< Address to the keyhole payload */
 	u32 DestAddr; /**< Address to CCU write stream */
@@ -104,6 +109,8 @@ typedef struct {
 } XPlm_KeyHoleXfrParams;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+/** @cond spartanup_plm_internal */
 #define XPLM_READBK_INTF_TYPE_SMAP		(0x0U)
 #define XPLM_READBK_INTF_TYPE_JTAG		(0x1U)
 #define XPLM_READBACK_SRC_MASK			(0xFFU)
@@ -129,6 +136,7 @@ typedef struct {
 
 /* Define related to break */
 #define XPLM_BREAK_LEVEL_MASK			(0xFFU)
+/** @endcond */
 
 /************************** Function Prototypes ******************************/
 void XPlm_GenericInit(void);
@@ -142,3 +150,5 @@ void XPlm_GenericInit(void);
 #endif
 
 #endif /* XPLM_GENERIC_H */
+
+/** @} end of spartanup_plm_apis group*/
