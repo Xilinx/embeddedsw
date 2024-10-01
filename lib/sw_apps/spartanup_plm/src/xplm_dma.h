@@ -43,7 +43,7 @@ extern "C" {
 #define XPLM_DST_CH_AXI_FIXED		((u32)0x1U << 16U)	/**< Set DMA to Fixed mode for
 								  * destination channel. */
 
-#define XPLM_DMA_INCR_MODE		(0x0U)	/**< Set DMA mode to INCR.. */
+#define XPLM_DMA_INCR_MODE		(0x0U)	/**< Set DMA mode to INCR. */
 /** @} end of dma_flags group */
 
 /* SSS configurations and masks */

@@ -54,10 +54,10 @@ void XPlm_Print(u32 DebugType, const char8 *Ctrl1, ...);
 
 #if defined (XPLM_DEBUG_DETAILED)
 #define XPlmDbgCurrentTypes ((DEBUG_DETAILED) | (DEBUG_INFO) | \
-				(DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
+			     (DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
 #elif defined (XPLM_DEBUG_INFO)
 #define XPlmDbgCurrentTypes ((DEBUG_INFO) | (DEBUG_GENERAL) | \
-				(DEBUG_PRINT_ALWAYS))
+			     (DEBUG_PRINT_ALWAYS))
 #elif defined (XPLM_DEBUG)
 #define XPlmDbgCurrentTypes ((DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
 #elif defined (XPLM_PRINT)

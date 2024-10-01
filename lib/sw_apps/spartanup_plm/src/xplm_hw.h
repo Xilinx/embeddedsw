@@ -123,7 +123,6 @@ extern "C" {
 #define PMC_GLOBAL_OSPI_CLK_CTRL_DIVISOR_SHIFT  (8U)
 #define PMC_GLOBAL_PMCL_EAM_IRQ1_EN_CCU_TAMPER_FABRIC_SHIFT	(0x7U)
 
-
 /* Addresses for PMC TAP */
 #define PMC_TAP_BASEADDR			(0x040C0000U)
 #define PMC_TAP_VERSION			(PMC_TAP_BASEADDR + 0x4U)
@@ -144,7 +143,6 @@ extern "C" {
 
 /* Default values for PMC TAP */
 #define PMC_TAP_VERSION_SILICON		(0x0U)
-
 
 /* Addresses for SLAVE BOOT */
 #define SLAVE_BOOT_BASEADDR		(0x04110000U)

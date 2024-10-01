@@ -3,7 +3,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
  *
@@ -21,6 +20,11 @@
  *
  ******************************************************************************/
 
+/**
+ * @addtogroup ospi_apis OSPI APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplm_ospi.h"
 #include "xparameters.h"
@@ -31,7 +35,9 @@
 #include "xplm_hw.h"
 #include "xospipsv.h"		/* OSPIPSV device driver */
 /************************** Constant Definitions *****************************/
+/** @cond spartanup_plm_internal */
 #define XPLM_OSPI_TAP_GRAN_SEL_DEFAULT	(100000000U)
+/** @endcond */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -42,24 +48,23 @@ static u32 XPlm_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable);
 static u32 XPlm_FlashSetDDRMode(XOspiPsv *OspiPsvPtr);
 
 /************************** Variable Definitions *****************************/
-static XOspiPsv OspiPsvInstance;
-static u8 OspiFlashMake;
-static u32 OspiFlashSize = 0U;
+static XOspiPsv OspiPsvInstance; /**< OSPI instance. */
+static u8 OspiFlashMake; /**< OSPI flash manufacturer. */
+static u32 OspiFlashSize = 0U; /**< OSPI flash supported size. */
 
 /*****************************************************************************/
 /**
  * @brief	This function reads serial FLASH ID connected to the SPI interface.
- * 			It then deduces the make and size of the flash and obtains the
- * 			connection mode to point to corresponding parameters in the flash
- * 			configuration table. The flash driver will function based on this
- * 			and	it presently supports Micron 512Mb.
+ *		It then deduces the make and size of the flash and obtains the
+ *		connection mode to point to corresponding parameters in the flash
+ *		configuration table.
  *
- * @param	Ospi Instance Pointer
+ * @param	OspiPsvPtr is the pointer to the OSPI instance.
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XPLM_ERR_UNSUPPORTED_OSPI on unsupported OSPI flash.
- * 			- XPLM_ERR_UNSUPPORTED_OSPI_SIZE on unsupported OSPI flash size.
+ * 		- XST_SUCCESS on success.
+ * 		- XPLM_ERR_UNSUPPORTED_OSPI on unsupported OSPI flash.
+ * 		- XPLM_ERR_UNSUPPORTED_OSPI_SIZE on unsupported OSPI flash size.
  *
  *****************************************************************************/
 static u32 FlashReadID(XOspiPsv *OspiPsvPtr)
@@ -70,9 +75,7 @@ static u32 FlashReadID(XOspiPsv *OspiPsvPtr)
 	XOspiPsv_Msg FlashMsg = {0U};
 	u32 TempVal;
 
-	/**
-	 * - Read ID.
-	 */
+	/** - Read flash ID. */
 	FlashMsg.Opcode = READ_ID;
 	FlashMsg.Addrsize = 0U;
 	FlashMsg.Addrvalid = (u8)FALSE;
@@ -87,7 +90,7 @@ static u32 FlashReadID(XOspiPsv *OspiPsvPtr)
 	}
 
 	XPlm_Printf(DEBUG_PRINT_ALWAYS, "FlashID=0x%x 0x%x 0x%x\n\r",
-		ReadBuffer[0U], ReadBuffer[1U], ReadBuffer[2U]);
+		    ReadBuffer[0U], ReadBuffer[1U], ReadBuffer[2U]);
 
 	/**
 	 * - Deduce flash make.
@@ -95,20 +98,16 @@ static u32 FlashReadID(XOspiPsv *OspiPsvPtr)
 	if (ReadBuffer[0U] == MICRON_OCTAL_ID_BYTE0) {
 		OspiFlashMake = MICRON_OCTAL_ID_BYTE0;
 		XPlm_Printf(DEBUG_PRINT_ALWAYS, "MICRON\n\r");
-	}
-	else if (ReadBuffer[0U] == GIGADEVICE_OCTAL_ID_BYTE0) {
+	} else if (ReadBuffer[0U] == GIGADEVICE_OCTAL_ID_BYTE0) {
 		OspiFlashMake = GIGADEVICE_OCTAL_ID_BYTE0;
 		XPlm_Printf(DEBUG_PRINT_ALWAYS, "GIGADEVICE\n\r");
-	}
-	else if (ReadBuffer[0U] == ISSI_OCTAL_ID_BYTE0) {
+	} else if (ReadBuffer[0U] == ISSI_OCTAL_ID_BYTE0) {
 		OspiFlashMake = ISSI_OCTAL_ID_BYTE0;
 		XPlm_Printf(DEBUG_PRINT_ALWAYS, "ISSI\n\r");
-	}
-	else if (ReadBuffer[0U] == MACRONIX_OCTAL_ID_BYTE0) {
+	} else if (ReadBuffer[0U] == MACRONIX_OCTAL_ID_BYTE0) {
 		OspiFlashMake = MACRONIX_OCTAL_ID_BYTE0;
 		XPlm_Printf(DEBUG_PRINT_ALWAYS, "MACRONIX\n\r");
-	}
-	else {
+	} else {
 		Status = (u32)XPLM_ERR_UNSUPPORTED_OSPI_FLASH_MAKE;
 		goto END;
 	}
@@ -120,52 +119,38 @@ static u32 FlashReadID(XOspiPsv *OspiPsvPtr)
 	if (OspiFlashMake == MICRON_OCTAL_ID_BYTE0) {
 		if (ReadBuffer[2U] == MICRON_OCTAL_ID_BYTE2_512) {
 			OspiFlashSize = XPLM_FLASH_SIZE_512M;
-		}
-		else if (ReadBuffer[2U] == MICRON_OCTAL_ID_BYTE2_1G) {
+		} else if (ReadBuffer[2U] == MICRON_OCTAL_ID_BYTE2_1G) {
 			OspiFlashSize = XPLM_FLASH_SIZE_1G;
-		}
-		else if (ReadBuffer[2U] == MICRON_OCTAL_ID_BYTE2_2G) {
+		} else if (ReadBuffer[2U] == MICRON_OCTAL_ID_BYTE2_2G) {
 			OspiFlashSize = XPLM_FLASH_SIZE_2G;
-		}
-		else {
+		} else {
 			/* Do nothing */
 		}
-	}
-	else if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
+	} else if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
 		if (ReadBuffer[2U] == MACRONIX_OCTAL_ID_BYTE2_512) {
 			OspiFlashSize = XPLM_FLASH_SIZE_512M;
 		}
-	}
-	else if (OspiFlashMake == GIGADEVICE_OCTAL_ID_BYTE0) {
+	} else if (OspiFlashMake == GIGADEVICE_OCTAL_ID_BYTE0) {
 		if (ReadBuffer[2U] == GIGADEVICE_OCTAL_ID_BYTE2_256) {
 			OspiFlashSize = XPLM_FLASH_SIZE_256M;
-		}
-		else if (ReadBuffer[2U] == GIGADEVICE_OCTAL_ID_BYTE2_512) {
+		} else if (ReadBuffer[2U] == GIGADEVICE_OCTAL_ID_BYTE2_512) {
 			OspiFlashSize = XPLM_FLASH_SIZE_512M;
-		}
-		else if (ReadBuffer[2U] == GIGADEVICE_OCTAL_ID_BYTE2_1G) {
+		} else if (ReadBuffer[2U] == GIGADEVICE_OCTAL_ID_BYTE2_1G) {
 			OspiFlashSize = XPLM_FLASH_SIZE_1G;
-		}
-		else if (ReadBuffer[2U] == GIGADEVICE_OCTAL_ID_BYTE2_2G) {
+		} else if (ReadBuffer[2U] == GIGADEVICE_OCTAL_ID_BYTE2_2G) {
 			OspiFlashSize = XPLM_FLASH_SIZE_2G;
-		}
-		else {
+		} else {
 			/* Do nothing */
 		}
-	}
-	else if (ReadBuffer[2U] == XPLM_FLASH_SIZE_ID_256M) {
+	} else if (ReadBuffer[2U] == XPLM_FLASH_SIZE_ID_256M) {
 		OspiFlashSize = XPLM_FLASH_SIZE_256M;
-	}
-	else if (ReadBuffer[2U] == XPLM_FLASH_SIZE_ID_512M) {
+	} else if (ReadBuffer[2U] == XPLM_FLASH_SIZE_ID_512M) {
 		OspiFlashSize = XPLM_FLASH_SIZE_512M;
-	}
-	else if (ReadBuffer[2U] == XPLM_FLASH_SIZE_ID_1G) {
+	} else if (ReadBuffer[2U] == XPLM_FLASH_SIZE_ID_1G) {
 		OspiFlashSize = XPLM_FLASH_SIZE_1G;
-	}
-	else if (ReadBuffer[2U] == XPLM_FLASH_SIZE_ID_2G) {
+	} else if (ReadBuffer[2U] == XPLM_FLASH_SIZE_ID_2G) {
 		OspiFlashSize = XPLM_FLASH_SIZE_2G;
-	}
-	else {
+	} else {
 		/* Do nothing */
 	}
 
@@ -174,21 +159,16 @@ static u32 FlashReadID(XOspiPsv *OspiPsvPtr)
 		goto END;
 	}
 	/**
-	 * - Populate Device Id Data.
+	 * - Store device ID in OSPI instance.
 	 */
 	OspiPsvPtr->DeviceIdData = 0U;
 	if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
-		for (Index = 0U, TempVal = 0U; Index < 4U;
-			++Index, TempVal += XPLM_READ_ID_BYTES) {
-			OspiPsvPtr->DeviceIdData |=
-				(ReadBuffer[Index >> 1U] << TempVal);
+		for (Index = 0U, TempVal = 0U; Index < 4U; ++Index, TempVal += XPLM_READ_ID_BYTES) {
+			OspiPsvPtr->DeviceIdData |= (ReadBuffer[Index >> 1U] << TempVal);
 		}
-	}
-	else {
-		for (Index = 0U, TempVal = 0U; Index < 4U;
-			++Index, TempVal += XPLM_READ_ID_BYTES) {
-			OspiPsvPtr->DeviceIdData |=
-				(ReadBuffer[Index] << TempVal);
+	} else {
+		for (Index = 0U, TempVal = 0U; Index < 4U; ++Index, TempVal += XPLM_READ_ID_BYTES) {
+			OspiPsvPtr->DeviceIdData |= (ReadBuffer[Index] << TempVal);
 		}
 	}
 
@@ -200,20 +180,12 @@ END:
 /**
  * @brief	This function is used to initialize the ospi controller and driver.
  *
- * @param	Flags
- *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XPLM_ERR_PM_DEV_OSPI on OSPI device request fail.
- * 			- XPLM_ERR_OSPI_INIT on OSPI drive initialization fail.
- * 			- XPLM_ERR_OSPI_CFG on OSPI configuration fail.
- * 			- XPLM_ERR_OSPI_SEL_FLASH_CS0 on failure to select flash CS0
- * 			- XPLM_ERR_OSPI_READID on OSPI ReadID fail.
- * 			- XPLM_ERR_OSPI_CONN_MODE on unsupported OSPI mode.
- * 			- XPLM_ERR_OSPI_DUAL_BYTE_OP_DISABLE on failure to disable
- * 			dual byte operation.
- * 			- XPLM_ERR_OSPI_SDR_NON_PHY if unable to set the controller to
- * 			SDR NON PHY mode.
+ *		- XST_SUCCESS on success.
+ *		- XPLM_ERR_OSPI_INIT on OSPI drive initialization fail.
+ *		- XPLM_ERR_OSPI_CFG on OSPI configuration fail.
+ *		- XPLM_ERR_OSPI_SEL_FLASH_CS0 on failure to select flash CS0
+ *		- and errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
 u32 XPlm_OspiInit(void)
@@ -222,31 +194,25 @@ u32 XPlm_OspiInit(void)
 	XOspiPsv_Config *OspiConfig;
 	u32 RtcaCfg;
 
-	/**
-	 * - Initialize the OSPI instance.
-	*/
+	/** - Zeroize OSPI instance. */
 	memset(&OspiPsvInstance, 0, sizeof(OspiPsvInstance));
 
-	/**
-	 * - Initialize the OSPI driver so that it's ready to use.
-	*/
 	OspiConfig = XOspiPsv_LookupConfig(XPAR_XOSPIPSV_0_DEVICE_ID);
 	if (NULL == OspiConfig) {
 		Status = (u32)XPLM_ERR_OSPI_CFG;
 		goto END;
 	}
-	RtcaCfg = Xil_In32(XPLM_RTCFG_OSPI_CLK_CFG);
 
+	RtcaCfg = Xil_In32(XPLM_RTCFG_OSPI_CLK_CFG);
 	if ((RtcaCfg & XPLM_RTCFG_OSPI_ECO_MASK) == XPLM_RTCFG_OSPI_ECO_MASK) {
 		OspiConfig->InputClockHz = XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ;
-	}
-	else {
+	} else {
 		OspiConfig->InputClockHz = XPLM_OSPI_TAP_GRAN_SEL_DEFAULT;
 	}
 
 	/**
 	 * - Configure the OSPI driver.
-	*/
+	 */
 	Status = XOspiPsv_CfgInitialize(&OspiPsvInstance, OspiConfig);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_OSPI_INIT;
@@ -255,22 +221,22 @@ u32 XPlm_OspiInit(void)
 
 	/**
 	 * - Enable SLVERR.
-	*/
+	 */
 	XPlm_UtilRMW((OspiConfig->BaseAddress + XOSPIPSV_OSPIDMA_SRC_CTRL),
-			XOSPIPSV_OSPIDMA_SRC_CTRL_APB_ERR_RESP_MASK,
-			XOSPIPSV_OSPIDMA_SRC_CTRL_APB_ERR_RESP_MASK);
+		     XOSPIPSV_OSPIDMA_SRC_CTRL_APB_ERR_RESP_MASK,
+		     XOSPIPSV_OSPIDMA_SRC_CTRL_APB_ERR_RESP_MASK);
 	XPlm_UtilRMW((OspiConfig->BaseAddress + XOSPIPSV_OSPIDMA_DST_CTRL),
-			XOSPIPSV_OSPIDMA_DST_CTRL_APB_ERR_RESP_MASK,
-			XOSPIPSV_OSPIDMA_DST_CTRL_APB_ERR_RESP_MASK);
+		     XOSPIPSV_OSPIDMA_DST_CTRL_APB_ERR_RESP_MASK,
+		     XOSPIPSV_OSPIDMA_DST_CTRL_APB_ERR_RESP_MASK);
 
 	/**
 	 * - Enable IDAC controller in OSPI.
-	*/
+	 */
 	XOspiPsv_SetOptions(&OspiPsvInstance, XOSPIPSV_IDAC_EN_OPTION);
 
 	/**
 	 * - Set the prescaler for OSPIPSV clock.
-	*/
+	 */
 	XOspiPsv_SetClkPrescaler(&OspiPsvInstance, XOSPIPSV_CLK_PRESCALE_4);
 	Status = XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS0);
 	if (Status != (u32)XST_SUCCESS) {
@@ -278,12 +244,7 @@ u32 XPlm_OspiInit(void)
 		goto END;
 	}
 
-	/**
-	 * - Read flash ID and obtain all flash related information
-	 * It is important to call the read id function before
-	 * performing proceeding to any operation, including
-	 * preparing the WriteBuffer
-	 */
+	/** - Read and update flash ID. */
 	Status = FlashReadID(&OspiPsvInstance);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
@@ -298,30 +259,24 @@ u32 XPlm_OspiInit(void)
 	 * - Set the OSPI controller mode to DDR/SDR based on the RTCA configuration. Error out if
 	 * the configuration is DDR NON-PHY.
 	 */
-	if(((Xil_In32(PMC_TAP_VERSION) & PMC_TAP_VERSION_PLATFORM_MASK) >> PMC_TAP_VERSION_PLATFORM_SHIFT) == PMC_TAP_VERSION_SILICON) {
-		if ((RtcaCfg & XPLM_RTCFG_OSPI_PHY_MODE_MASK) == XPLM_RTCFG_OSPI_PHY_MODE_MASK)
-		{
-			if ((RtcaCfg & XPLM_RTCFG_OSPI_XDR_MODE_MASK) == XPLM_OQSPI_DDR_MODE)
-			{
+	if (((Xil_In32(PMC_TAP_VERSION) & PMC_TAP_VERSION_PLATFORM_MASK) >> PMC_TAP_VERSION_PLATFORM_SHIFT)
+	    == PMC_TAP_VERSION_SILICON) {
+		if ((RtcaCfg & XPLM_RTCFG_OSPI_PHY_MODE_MASK) == XPLM_RTCFG_OSPI_PHY_MODE_MASK) {
+			if ((RtcaCfg & XPLM_RTCFG_OSPI_XDR_MODE_MASK) == XPLM_OQSPI_DDR_MODE) {
 				OspiPsvInstance.SdrDdrMode = XOSPIPSV_EDGE_MODE_DDR_PHY;
 				Status = XPlm_FlashSetDDRMode(&OspiPsvInstance);
 				if (Status != (u32)XST_SUCCESS) {
 					goto END;
 				}
-			}
-			else
-			{
+			} else {
 				Status = XOspiPsv_SetSdrDdrMode(&OspiPsvInstance, XOSPIPSV_EDGE_MODE_SDR_PHY);
 				if (Status != (u32)XST_SUCCESS) {
 					Status = (u32)XPLM_ERR_OSPI_SET_SDR_PHY;
 					goto END;
 				}
 			}
-		}
-		else
-		{
-			if ((RtcaCfg & XPLM_RTCFG_OSPI_XDR_MODE_MASK) == XPLM_OQSPI_DDR_MODE)
-			{
+		} else {
+			if ((RtcaCfg & XPLM_RTCFG_OSPI_XDR_MODE_MASK) == XPLM_OQSPI_DDR_MODE) {
 				Status = (u32)XPLM_ERR_RTCA_OSPI_INVLD_DDR_PHY_CFG;
 				goto END;
 			}
@@ -329,6 +284,7 @@ u32 XPlm_OspiInit(void)
 		}
 	}
 
+	/** - Set the addressing mode to 4 byte addressing. */
 	Status = XPlm_FlashEnterExit4BAddMode(&OspiPsvInstance, TRUE);
 
 END:
@@ -338,21 +294,16 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to copy the data from OSPI flash to
- * 			destination address.
+ *		destination address.
  *
  * @param	SrcAddr is the address of the OSPI flash where copy should start
- *
  * @param	DestAddr is the address of the destination where it should copy to
- *
- * @param	Length Length of the bytes to be copied
+ * @param	Length is the length of the bytes to be copied
+ * @param	Flags not used
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XPLM_ERR_OSPI_COPY_OVERFLOW if source address outside the flash
- * 			range.
- * 			- XPLM_ERR_OSPI_SEL_FLASH_CS0 if OSPI driver is unable to select
- * 			flash CS0.
- * 			- XPLM_ERR_OSPI_READ on OSPI driver read fail.
+ *		- XST_SUCCESS on success.
+ *		- and errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
 u32 XPlm_OspiCopy(u64 SrcAddr, u32 DestAddr, u32 Length, u32 Flags)
@@ -366,29 +317,24 @@ u32 XPlm_OspiCopy(u64 SrcAddr, u32 DestAddr, u32 Length, u32 Flags)
 	u8 Dummy;
 
 	XPlm_Printf(DEBUG_INFO, "OSPI Reading Src 0x%0x, Dest 0x%08x, "
-		"Length 0x%0x, Flags 0x%0x\r\n", SrcAddrLow, DestAddr, Length, Flags);
+		    "Length 0x%0x, Flags 0x%0x\r\n", SrcAddrLow, DestAddr, Length, Flags);
 
-	/**
-	 * - Check OSPI flash size limit
-	*/
-
+	/** - Validate the flash size with the length to be copied. */
 	if ((SrcAddrLow + Length) > OspiFlashSize) {
 		Status = (u32)XPLM_ERR_OSPI_COPY_LENGTH_OVERFLOW;
 		XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", Status);
 		goto END;
 	}
 
+	/** - Generate the flash read command. */
 	TrfLen = Length;
-	/**
-	 * - Generate the Read cmd.
-	*/
 	FlashMsg.Addrsize = XPLM_OSPI_READ_ADDR_SIZE;
 	FlashMsg.Addrvalid = TRUE;
 	FlashMsg.TxBfrPtr = NULL;
 	FlashMsg.ByteCount = TrfLen;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 	FlashMsg.Addr = SrcAddrLow;
-	FlashMsg.RxBfrPtr = (u8*)(UINTPTR)DestAddr;
+	FlashMsg.RxBfrPtr = (u8 *)(UINTPTR)DestAddr;
 
 	if (OspiPsvInstance.SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 		Proto = XOSPIPSV_READ_8_8_8;
@@ -396,19 +342,16 @@ u32 XPlm_OspiCopy(u64 SrcAddr, u32 DestAddr, u32 Length, u32 Flags)
 			Dummy = XPLM_MACRONIX_OSPI_DDR_DUMMY_CYCLES +
 				OspiPsvInstance.Extra_DummyCycle;
 			ReadCmd = READ_CMD_OPI_MX;
-		}
-		else {
+		} else {
 			Dummy = XPLM_OSPI_DDR_DUMMY_CYCLES +
 				OspiPsvInstance.Extra_DummyCycle;
 		}
-	}
-	else {
+	} else {
 		if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
 			Dummy = OspiPsvInstance.Extra_DummyCycle;
 			ReadCmd = READ_CMD_4B;
 			Proto = XOSPIPSV_READ_1_1_1;
-		}
-		else {
+		} else {
 			Dummy = XPLM_OSPI_SDR_DUMMY_CYCLES +
 				OspiPsvInstance.Extra_DummyCycle;
 			Proto = XOSPIPSV_READ_1_1_8;
@@ -423,16 +366,12 @@ u32 XPlm_OspiCopy(u64 SrcAddr, u32 DestAddr, u32 Length, u32 Flags)
 		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
 	}
 
-
-	/**
-	 * - Otherwise start the transfer on the bus in polled mode.
-	*/
+	/** - Start the copy in polled mode. */
 	Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_OSPI_READ_DATA;
 		XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", Status);
 	}
-
 
 END:
 	return Status;
@@ -440,17 +379,19 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This API enters the flash device into 4 bytes addressing mode.
- * 			As per the Micron spec, before issuing the command to enter into
- * 			4 byte addr mode, a write enable command is issued.
+ * @brief	This API enters the flash device into 4-byte addressing mode.
+ *		As per the Micron spec, before issuing the command to enter into
+ *		4-byte addr mode, a write enable command is issued.
  *
- * @param	OspiPtr	pointer to the OSPIPSV driver component to use.
- * @param	Enable	0x1 to enter 4 byte addressing mode, 0x0 to exit 4 byte addressing mode.
+ * @param	OspiPsvPtr is the pointer to the OSPI instance.
+ * @param	Enable 0x1 to enter 4-byte addressing mode, 0x0 to exit 4-byte addressing mode.
  *
  * @return
- * 		- XST_SUCCESS on success.
+ *		- XST_SUCCESS on success.
+ *		- and errors from @ref XPlm_Status_t.
  *
-******************************************************************************/
+ */
+/******************************************************************************/
 static u32 XPlm_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 {
 	u32 Status = (u32)XST_FAILURE;
@@ -458,6 +399,7 @@ static u32 XPlm_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 	u8 FlashStatus = 0U;
 	XOspiPsv_Msg FlashMsg = {0U};
 
+	/** - Skip updating addressing mode for Macronix flash. */
 	if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
 		Status = (u32)XST_SUCCESS;
 		goto END;
@@ -465,18 +407,17 @@ static u32 XPlm_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 
 	if (Enable == 0x1U) {
 		Command = ENTER_4B_ADDR_MODE;
-	}
-	else {
+	} else {
 		Command = EXIT_4B_ADDR_MODE;
 	}
 
 	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
-	}
-	else {
+	} else {
 		FlashMsg.Proto = XOSPIPSV_WRITE_1_1_1;
 	}
 
+	/** - Set the flash to write mode. */
 	FlashMsg.Opcode = OSPI_WRITE_ENABLE_CMD;
 	FlashMsg.Addrsize = 0U;
 	FlashMsg.Addrvalid = (u8)FALSE;
@@ -491,6 +432,7 @@ static u32 XPlm_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 		goto END;
 	}
 
+	/** - Enable/Disable 4 byte addressing mode. */
 	FlashMsg.Opcode = Command;
 	FlashMsg.Addrvalid = (u8)FALSE;
 	FlashMsg.TxBfrPtr = NULL;
@@ -515,8 +457,7 @@ static u32 XPlm_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
 		FlashMsg.ByteCount = XPLM_OSPI_DDR_MODE_BYTE_CNT;
-	}
-	else {
+	} else {
 		FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
 		FlashMsg.ByteCount = XPLM_OSPI_DDR_MODE_BYTE_CNT;
 		FlashMsg.Proto = XOSPIPSV_READ_1_1_1;
@@ -536,6 +477,7 @@ static u32 XPlm_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 		}
 	}
 
+	/** - Disable flash write mode. */
 	FlashMsg.Opcode = WRITE_DISABLE_CMD;
 	FlashMsg.Addrsize = 0U;
 	FlashMsg.Addrvalid = (u8)FALSE;
@@ -547,8 +489,7 @@ static u32 XPlm_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 
 	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
 		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
-	}
-	else {
+	} else {
 		FlashMsg.Proto = XOSPIPSV_WRITE_1_1_1;
 	}
 
@@ -563,29 +504,32 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This function sets the flash device to Octal DDR mode.
-*
-* @param	OspiPsvPtr is a pointer to the OSPIPSV instance.
-*
-* @return
-* 			- XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
+ * @brief	This function sets the flash device to Octal DDR mode.
+ *
+ * @param	OspiPsvPtr is the pointer to the OSPI instance.
+ *
+ * @return
+ *		- XST_SUCCESS on success
+ *		- and errors from @ref XPlm_Status_t.
+ */
+/*****************************************************************************/
 static u32 XPlm_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 	u8 ConfigReg[2U] __attribute__ ((aligned(4U)));
 	u8 Data[2U] __attribute__ ((aligned(4U))) = {XPLM_WRITE_CFG_REG_VAL,
-		XPLM_WRITE_CFG_REG_VAL};
+						     XPLM_WRITE_CFG_REG_VAL
+						    };
 	u8 MacronixData[2U] __attribute__ ((aligned(4U))) = {
 		XPLM_MACRONIX_WRITE_CFG_REG_VAL,
-		XPLM_MACRONIX_WRITE_CFG_REG_VAL};
+		XPLM_MACRONIX_WRITE_CFG_REG_VAL
+	};
 	XOspiPsv_Msg FlashMsg = {0U};
 	u8 WriteRegOpcode = WRITE_CONFIG_REG;
 	u8 ReadRegOpcode = READ_CONFIG_REG;
 	u8 AddrSize = XPLM_OSPI_WRITE_CFG_REG_CMD_ADDR_SIZE;
 	u8 Dummy = XPLM_OSPI_SDR_DUMMY_CYCLES;
-	u8* TxData = &Data[0U];
+	u8 *TxData = &Data[0U];
 
 	if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
 		WriteRegOpcode = WRITE_CONFIG2_REG_MX;
@@ -594,7 +538,7 @@ static u32 XPlm_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		Dummy = XPLM_MACRONIX_OSPI_SET_DDR_DUMMY_CYCLES;
 		TxData = &MacronixData[0U];
 	}
-	/** Write enable command */
+	/** - Write enable command. */
 	FlashMsg.Opcode = OSPI_WRITE_ENABLE_CMD;
 	FlashMsg.Addrsize = 0U;
 	FlashMsg.Addrvalid = (u8)FALSE;
@@ -613,7 +557,7 @@ static u32 XPlm_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		goto END;
 	}
 
-	/** Write Config register */
+	/** - Write Config register. */
 	FlashMsg.Opcode = WriteRegOpcode;
 	FlashMsg.Addrvalid = (u8)TRUE;
 	FlashMsg.Addrsize = AddrSize;
@@ -635,7 +579,7 @@ static u32 XPlm_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 	}
 
 	if ((OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) &&
-		(OspiPsvPtr->DualByteOpcodeEn == 0U)) {
+	    (OspiPsvPtr->DualByteOpcodeEn == 0U)) {
 		Status = XOspiPsv_ConfigDualByteOpcode(OspiPsvPtr,
 						       (u32)XOSPIPSV_DUAL_BYTE_OP_ENABLE);
 		if (Status != (u32)XST_SUCCESS) {
@@ -650,7 +594,7 @@ static u32 XPlm_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		goto END;
 	}
 
-	/** Read Configuration register */
+	/** - Read back configuration register to validate it. */
 	FlashMsg.Opcode = ReadRegOpcode;
 	FlashMsg.Addrsize = XPLM_OSPI_READ_CFG_REG_CMD_ADDR_SIZE;
 	FlashMsg.Addr = 0U;
@@ -675,8 +619,10 @@ static u32 XPlm_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		Status = (u32)XPLM_ERR_OSPI_SET_DDR_CFG_MISMATCH;
 		goto END;
 	}
-	XPlm_Printf(DEBUG_PRINT_ALWAYS,"OSPI mode switched to DDR\n\r");
+	XPlm_Printf(DEBUG_PRINT_ALWAYS, "OSPI mode switched to DDR\n\r");
 
 END:
 	return Status;
 }
+
+/** @} end of ospi_apis group*/

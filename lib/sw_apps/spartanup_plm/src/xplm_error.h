@@ -33,24 +33,29 @@
 
 #define XPLM_SKIP_MULTIBOOT_RESET		(XPLM_ONE)
 
-/* Type Definition for PLM stages */
-typedef enum XPlm_Stages_ {
-	XPLM_PRE_BOOT_INIT_STAGE = 0x2U,
-	XPLM_FULL_PDI_INIT_STAGE = 0x4U,
-	XPLM_FPDI_CDO_LOAD_STAGE = 0x6U,
-	XPLM_FPDI_CDO_PROCESS_STAGE = 0x8U,
-	XPLM_RTCA_PROCESS_STAGE = 0xAU,
-	XPLM_POST_BOOT_STAGE = 0xCU,
-	XPLM_RUN_TIME_EVENT_PROCESS_STAGE = 0x10U,
-	XPLM_PPDI_EVENT_STAGE = 0x11U,
-	XPLM_PPDI_INIT_STAGE = 0x12U,
-	XPLM_PPDI_VALIDATION_STAGE = 0x13U,
-	XPLM_PPDI_HB_VALIDATION_STAGE = 0x14U,
-	XPLM_PPDI_CDO_LOAD_STAGE = 0x16U,
-	XPLM_PPDI_CDO_PROCESS_STAGE = 0x18U,
-} XPlm_Stages;
-
 /**************************** Type Definitions *******************************/
+/**
+ * @defgroup plm_stages PLM boot stages
+ * @{
+ */
+
+/** PLM boot stages. */
+typedef enum {
+	XPLM_PRE_BOOT_INIT_STAGE = 0x2U, /**< 0x2 - Pre Boot initialization stage */
+	XPLM_FULL_PDI_INIT_STAGE = 0x4U, /**< 0x4 - Full PDI initialization stage */
+	XPLM_FPDI_CDO_LOAD_STAGE = 0x6U, /**< 0x6 - Full PDI CDO loading stage */
+	XPLM_FPDI_CDO_PROCESS_STAGE = 0x8U, /**< 0x8 - Full PDI CDO processing stage */
+	XPLM_RTCA_PROCESS_STAGE = 0xAU, /**< 0xA - RTCA processing stage */
+	XPLM_POST_BOOT_STAGE = 0xCU, /**< 0xC - Post Boot configuration stage */
+	XPLM_RUN_TIME_EVENT_PROCESS_STAGE = 0x10U, /**< 0x10 - Run time event processing stage */
+	XPLM_PPDI_EVENT_STAGE = 0x11U, /**< 0x11 - Partial PDI event trigger stage */
+	XPLM_PPDI_INIT_STAGE = 0x12U, /**< 0x12 - Partial PDI initialization stage */
+	XPLM_PPDI_VALIDATION_STAGE = 0x13U, /**< 0x13 - Partial PDI validation stage */
+	XPLM_PPDI_HB_VALIDATION_STAGE = 0x14U, /**< 0x14 - Partial PDI hash block validation stage */
+	XPLM_PPDI_CDO_LOAD_STAGE = 0x16U, /**< 0x16 - Partial PDI CDO loading stage */
+	XPLM_PPDI_CDO_PROCESS_STAGE = 0x18U, /**< 0x18 - Partial PDI CDO processing stage */
+} XPlm_Stages;
+/** @} end of plm_stages group*/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

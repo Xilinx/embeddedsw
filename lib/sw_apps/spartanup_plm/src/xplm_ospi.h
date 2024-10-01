@@ -90,7 +90,6 @@ extern "C" {
 #define XPLM_MACRONIX_WRITE_CFG_REG_VAL		(0x02U)
 #define XPLM_OSPI_WRITE_DONE_MASK	(0x80U)
 
-
 #define XPLM_FLASH_SIZE_512M		(0x4000000U)
 #define XPLM_FLASH_SIZE_1G		(0x8000000U)
 #define XPLM_FLASH_SIZE_2G		(0x10000000U)
@@ -118,7 +117,6 @@ u32 XPlm_OspiInit(void);
 u32 XPlm_OspiCopy(u64 SrcAddr, u32 DestAddr, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
-
 
 #ifdef __cplusplus
 }

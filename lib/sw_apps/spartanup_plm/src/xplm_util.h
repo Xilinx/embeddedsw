@@ -53,7 +53,7 @@ u32 XPlm_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs);
 u32 XPlm_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
 		  void (*ClearHandler)(void));
 void XPlm_PrintArray (u32 DebugType, const u32 BufAddr, u32 Len, const char *Str);
-void XPlm_MemCpy32(u32* DestPtr, const u32* SrcPtr, u32 Len);
+void XPlm_MemCpy32(u32 *DestPtr, const u32 *SrcPtr, u32 Len);
 
 #ifdef __cplusplus
 }

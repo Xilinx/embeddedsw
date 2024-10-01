@@ -20,6 +20,11 @@
  *
  ******************************************************************************/
 
+/**
+ * @defgroup spartanup_plm_apis SpartanUP PLM APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplm_debug.h"
 #include "xplm_load.h"
@@ -39,16 +44,14 @@
 
 /*****************************************************************************/
 /**
- * @brief This is PLM main function
- *
- * @return	Ideally should not return, in case if it reaches end,
- *		error is returned
+ * @brief	Main function for Platform Loader and Manager.
  *
  *****************************************************************************/
 u32 main(void)
 {
 	volatile u32 Status = (u32)XST_FAILURE;
 
+	/** - Perform Pre-Boot initialization. */
 	Status = XPlm_Init();
 	if (Status != (u32)XST_SUCCESS) {
 		XPlm_ErrMgr(Status);
@@ -70,8 +73,10 @@ u32 main(void)
 		XPlm_ErrMgr(Status);
 	}
 
-	/* Process Run-time Events */
+	/** - Process Run-time Events. */
 	XSECURE_REDUNDANT_IMPL(XPlm_EventLoop);
 
 	/* Should never reach here */
 }
+
+/** @} end of spartanup_plm_apis group*/
