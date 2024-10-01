@@ -90,9 +90,11 @@ static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	 * NOTE: This is a temporary solution until topology support is
 	 * available.
 	 */
-	if ((PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) ||
-		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) ||
-		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+	u32 DevIdCode = (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK);
+	if ((PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR16XX_PARENT == DevIdCode)) {
 		IsCrypto = 1U;
 	}
 
@@ -300,9 +302,11 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		 * This is a workaround for xcvm2152, xcvr1602, xcvr1652. When NoC ScanClear runs
 		 * the NPI bus is corrupted, refer EDT-1070997.
 		 */
-		if ((PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) ||
-			(PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) ||
-			(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+		u32 DevIdCode = (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK);
+		if ((PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == DevIdCode) ||
+			(PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == DevIdCode) ||
+			(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == DevIdCode) ||
+			(PMC_TAP_IDCODE_DEV_SBFMLY_VR16XX_PARENT == DevIdCode)) {
 			/* Idle the PMC-NPI AXI bus */
 			XPm_RMW32(PMC_INT_REGS_NPI_AXI, PMC_INT_REGS_NPI_AXI_POWER_IDLEREQ_MASK, PMC_INT_REGS_NPI_AXI_POWER_IDLEREQ_MASK);
 
