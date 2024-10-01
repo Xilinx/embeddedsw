@@ -47,6 +47,16 @@
 * 9.0   mus  04/20/23  Removed CortexR52 specific changes, separate file is
 *                      created for CortexR52.
 * 9.2   ml   20/09/24 Add support for AXI NOC2 DDR region in MPU initialization
+* 9.2   mus  01/10/24 Existing configuration of MPU region for DDR in Init_MPU is incorrect.
+*                     In certain scenarios, where DDR is mapped at address other
+*                     than 0, some portion at the end of DDR is not being inclued.
+*                     For example, if 1 GB of DDR is mapped at address starting from
+*                     0x10_0000, said API configures MPU region with start address
+*                     0x0 and end address 0x3FFF_FFFF, so 1 MB of DDR region is not
+*                     included. It always start MPU region from 0x0 to take care of
+*                     TCM regions. Updated Init_MPU to configure DDR region based on
+*                     DDR end address, so that it would always include whole DDR
+*                     region into MPU region.
 * </pre>
 *
 * @note
@@ -167,11 +177,11 @@ void Init_MPU(void)
 #if defined(XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) || defined(XPAR_AXI_NOC_0_BASEADDRESS) || defined(XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR)
 #ifdef XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
 	/* If the DDR is present, configure region as per DDR size */
-	size = (XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR - XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) + 1;
+	size = XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR + 1;
 #elif defined(XPAR_AXI_NOC_0_BASEADDRESS)
-	size = (XPAR_AXI_NOC_0_HIGHADDRESS - XPAR_AXI_NOC_0_BASEADDRESS) + 1;
+	size = XPAR_AXI_NOC_0_HIGHADDRESS + 1;
 #elif defined(XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR)
-	size = (XPAR_AXI_NOC2_DDR_LOW_0_HIGHADDR - XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR) + 1;
+	size = XPAR_AXI_NOC2_DDR_LOW_0_HIGHADDR + 1;
 #endif
 
 	if (size < 0x80000000) {
