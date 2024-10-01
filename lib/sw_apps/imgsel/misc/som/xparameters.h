@@ -1,5 +1,13 @@
+/******************************************************************************
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
 #define XPARAMETERS_H   /* by using protection macros */
+
+#ifdef __cplusplus
+extern "c" {
+#endif
 
 /* Definition for CPU ID */
 #define XPAR_CPU_ID 0U
@@ -178,5 +186,9 @@
 #define XPAR_PSU_UART_1_REF_CLK UART1_REF
 
 /******************************************************************/
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  /* end of protection macro */

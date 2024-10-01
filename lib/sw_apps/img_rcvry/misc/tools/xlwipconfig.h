@@ -2,6 +2,7 @@
  * Copyright (c) 2001, 2002 Swedish Institute of Computer Science.
  * Copyright (C) 2007 - 2021 Xilinx, Inc.
  * All rights reserved.
+ * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -33,6 +34,9 @@
 #ifndef __XLWIPCONFIG_H_
 #define __XLWIPCONFIG_H_
 
+#ifdef __cplusplus
+extern "c" {
+#endif
 
 /* This is a generated file - do not edit */
 
@@ -40,5 +44,9 @@
 #define XLWIP_CONFIG_EMAC_NUMBER 0
 #define XLWIP_CONFIG_N_TX_DESC 64
 #define XLWIP_CONFIG_N_RX_DESC 64
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
