@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
+ *       ng   09/18/24 Fixed multiboot offset check
  * </pre>
  *
  ******************************************************************************/
@@ -40,7 +41,7 @@
 #define XPLM_PMC_FW_ERR_FIRST_ERR_SHIFT	(16U)
 
 /* Multiboot max offset */
-#define XPLM_MAX_MULTIBOOT_OFFSET	(0x80000000U)
+#define XPLM_MULTIBOOT_OFFSET	(0x8000U)
 
 /**************************** Type Definitions *******************************/
 
@@ -54,57 +55,62 @@ static void XPlm_CheckNTriggerSecLockdown(void);
 
 /*****************************************************************************/
 /**
- * This function is called for
- *	- logging PLM error into FW_ERR register
- *	- To execute secure lockdown when LckDwnEn efuse bit is programmed
- *	- To fallback to other boot pdi
+ * @brief	This function is used to log PLM error into FW_ERR register, execute secure
+ * lockdown when LckDwnEn efuse bit is programmed, fallback to other boot pdi.
  *
- * @param	ErrStatus is the error code written to the FW_ERR register
+ * @param	ErrStatus is the error code to be written to the FW_ERR register
  *
  *****************************************************************************/
-void XPlm_ErrMgr(u32 ErrStatus) {
+void XPlm_ErrMgr(u32 ErrStatus)
+{
 	XRomBootRom *InstancePtr = HooksTbl->InstancePtr;
 	u32 MultiBootVal = 0U;
 	u32 BootModeVal = 0U;
-	u32 DebugMode = 0U;
-	u32 DebugModeTmp = 0U;
-	u32 CurrPlmStage;
+	volatile u32 DebugMode = 0U;
+	volatile u32 DebugModeTmp = 0U;
+	volatile u32 CurrPlmStage;
+	volatile u32 CurrPlmStageTmp;
 
+	/** - Log PLM error to FW_ERR register. */
 	XPlm_LogPlmErr(ErrStatus);
 
+	/**
+	 * - If the current boot stage is @ref XPLM_POST_BOOT_STAGE or above, then set FW_CR in
+	 * FW_ERR register and enter infinite loop.
+	 * - Otherwise set FW_NCR in FW_ERR and:
+	 * 	- enter infinite loop, if debug mode is enabled in RTCA, or
+	 * 	- trigger secure lockdown if it's JTAG/SMAP/Select Serial boot mode, or
+	 * 	- increment multiboot offset if it's OSPI/QSPI boot mode or trigger secure lockdown
+	 * 	if the multiboot offset exceeds the supported flash limit.
+	 */
 	CurrPlmStage = Xil_In32(PMC_GLOBAL_PMC_FW_STATUS) & XPLM_FW_STATUS_STAGE_MASK;
-	if (CurrPlmStage >= XPLM_POST_BOOT_STAGE)
-	{
+	CurrPlmStageTmp = Xil_In32(PMC_GLOBAL_PMC_FW_STATUS) & XPLM_FW_STATUS_STAGE_MASK;
+	if ((CurrPlmStage >= XPLM_POST_BOOT_STAGE) && (CurrPlmStageTmp >= XPLM_POST_BOOT_STAGE)) {
 		XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_CR_MASK, PMC_GLOBAL_PMC_FW_ERR_CR_MASK);
-	}
-	else
-	{
+	} else {
 		DebugMode = Xil_In32(XPLM_RTCFG_DBG_CTRL);
 		DebugModeTmp = Xil_In32(XPLM_RTCFG_DBG_CTRL);
 		BootModeVal = Xil_In32(PMC_GLOBAL_BOOT_MODE_USER) & PMC_GLOBAL_BOOT_MODE_USER_MASK;
 
-		if ((DebugMode == XPLM_SKIP_MULTIBOOT_RESET) && (DebugModeTmp == XPLM_SKIP_MULTIBOOT_RESET))
-		{
+		if ((DebugMode == XPLM_SKIP_MULTIBOOT_RESET) && (DebugModeTmp == XPLM_SKIP_MULTIBOOT_RESET)) {
 			XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_NCR_MASK, PMC_GLOBAL_PMC_FW_ERR_NCR_MASK);
-		}
-		else if ((BootModeVal == XPLM_BOOT_MODE_JTAG) || (BootModeVal == XPLM_BOOT_MODE_SMAP) || (BootModeVal == XPLM_BOOT_MODE_SELECT_SERIAL))
-		{
+		} else if ((BootModeVal == XPLM_BOOT_MODE_JTAG) || (BootModeVal == XPLM_BOOT_MODE_SMAP)
+			   || (BootModeVal == XPLM_BOOT_MODE_SELECT_SERIAL)) {
 			XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_NCR_MASK, PMC_GLOBAL_PMC_FW_ERR_NCR_MASK);
 
-			XPlm_CheckNTriggerSecLockdown();
-		}
-		else if ((BootModeVal == XPLM_BOOT_MODE_QSPI24) || (BootModeVal == XPLM_BOOT_MODE_QSPI32) || (BootModeVal == XPLM_BOOT_MODE_OSPI))
-		{
+			XSECURE_REDUNDANT_IMPL(XPlm_CheckNTriggerSecLockdown);
+		} else if ((BootModeVal == XPLM_BOOT_MODE_QSPI24) || (BootModeVal == XPLM_BOOT_MODE_QSPI32)
+			   || (BootModeVal == XPLM_BOOT_MODE_OSPI)) {
 			MultiBootVal = Xil_In32(PMC_GLOBAL_MULTI_BOOT);
 			MultiBootVal += 1U;
 
-			if (MultiBootVal > InstancePtr->DeviceData) {
+			if (MultiBootVal >= (InstancePtr->DeviceData / XPLM_MULTIBOOT_OFFSET)) {
 				XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_NCR_MASK, PMC_GLOBAL_PMC_FW_ERR_NCR_MASK);
 
-				XPlm_CheckNTriggerSecLockdown();
+				XSECURE_REDUNDANT_IMPL(XPlm_CheckNTriggerSecLockdown);
 
 				/* Wait forever */
-				while(1U);
+				while (1U);
 			}
 			Xil_Out32(PMC_GLOBAL_MULTI_BOOT, MultiBootVal);
 			Xil_Out32(PMC_GLOBAL_RST_PMCL, XPLM_PMCL_RESET_VAL);
@@ -112,7 +118,7 @@ void XPlm_ErrMgr(u32 ErrStatus) {
 	}
 
 	/* Wait forever */
-	while(1U);
+	while (1U);
 }
 
 /*****************************************************************************/
@@ -154,10 +160,8 @@ void XPlm_LogPlmStage(XPlm_Stages Stage) {
  * This function triggers secure lockdown
  *
  *****************************************************************************/
-static void XPlm_TriggerSecLockdown()
+static void XPlm_TriggerSecLockdown(void)
 {
-	int Status = XST_FAILURE;
-
 	XPlm_Printf(DEBUG_PRINT_ALWAYS, "Triggering secure lockdown\n\r");
 
 	HooksTbl->XRom_ClearCrypto();
@@ -177,14 +181,14 @@ static void XPlm_TriggerSecLockdown()
  * triggers secure lockdown. Otherwise does nothing.
  *
  *****************************************************************************/
-static void XPlm_CheckNTriggerSecLockdown()
+static void XPlm_CheckNTriggerSecLockdown(void)
 {
 	u32 LckDwnEn = 0U;
 	u32 LckDwnEnTmp = 0U;
 
 	LckDwnEn = Xil_In32(XPLM_EFUSE_CACHE_CRC_EN_ADDR) & XPLM_EFUSE_LCKDWN_EN_MASK;
 	LckDwnEnTmp = Xil_In32(XPLM_EFUSE_CACHE_CRC_EN_ADDR) & XPLM_EFUSE_LCKDWN_EN_MASK;
-	if (LckDwnEn != 0U || LckDwnEnTmp != 0U) {
+	if ((LckDwnEn != 0U) || (LckDwnEnTmp != 0U)) {
 		XPlm_TriggerSecLockdown();
 	}
 }

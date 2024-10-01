@@ -79,10 +79,10 @@ void XPlm_UtilRMW(u32 RegAddr, u32 Mask, u32 Value)
  * 		- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlm_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
-		void (*ClearHandler)(void))
+u32 XPlm_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
+		  void (*ClearHandler)(void))
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 RegValue;
 	u32 TimeLapsed = 0U;
 	u32 TimeOut = TimeOutInUs;
@@ -114,7 +114,7 @@ int XPlm_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
 		}
 	}
 	if (TimeLapsed < TimeOut) {
-		Status = XST_SUCCESS;
+		Status = (u32)XST_SUCCESS;
 	}
 
 	return Status;
@@ -133,9 +133,9 @@ int XPlm_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
  * 		- XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int XPlm_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
+u32 XPlm_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 RegValue;
 	u32 TimeOut = TimeOutInUs;
 
@@ -152,7 +152,7 @@ int XPlm_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
 	}
 
 	if (TimeOut > 0U) {
-		Status = XST_SUCCESS;
+		Status = (u32)XST_SUCCESS;
 	}
 
 	return Status;

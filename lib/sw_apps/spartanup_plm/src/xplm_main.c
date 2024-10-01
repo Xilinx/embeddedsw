@@ -26,7 +26,6 @@
 #include "xplm_init.h"
 #include "xplm_status.h"
 #include "xplm_post_boot.h"
-#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -46,24 +45,28 @@
  *		error is returned
  *
  *****************************************************************************/
-int main(void)
+u32 main(void)
 {
-	u32 Status = XST_FAILURE;
+	volatile u32 Status = (u32)XST_FAILURE;
 
 	Status = XPlm_Init();
 	if (Status != (u32)XST_SUCCESS) {
 		XPlm_ErrMgr(Status);
 	}
 
+	/** - Load full PDI. */
+	Status = (u32)XPLM_ERR_GLITCH_DETECTED;
 	Status = XPlm_LoadFullPdi();
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		XPlm_ErrMgr(Status);
 	}
 
 	XPlm_Printf(DEBUG_PRINT_ALWAYS, "PLM Boot Done\n\r");
 
+	/** - Perform Post-Boot configuration. */
+	Status = (u32)XPLM_ERR_GLITCH_DETECTED;
 	Status = XPlm_PostBoot();
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		XPlm_ErrMgr(Status);
 	}
 

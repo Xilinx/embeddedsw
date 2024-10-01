@@ -82,6 +82,8 @@ extern "C" {
 /** Error if failed to store the end address */
 #define XPLM_ERR_BEGIN_END_ADDR_STORE		(0x5U)
 
+/** Error if failed to store the end offset of begin command. */
+#define XPLM_ERR_STORE_END_OFFSET		(0x6U)
 
 /* Error codes for End and Break CDO cmds */
 /** Error if begin and end cmds are not paired */
@@ -93,13 +95,12 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 typedef struct {
-	u32 SrcAddr;
-	u32 DestAddr;
-	u32 BaseAddr;
-	u32 Len;
-	u32 Keyholesize;
-	u32 Flags;
-	int (*Func) (u32 SrcAddr, u32 DestAddr, u32 Len, u32 Flags);
+	u32 SrcAddr; /**< Address to the keyhole payload */
+	u32 DestAddr; /**< Address to CCU write stream */
+	u32 BaseAddr; /**< Start address of the CCU write stream */
+	u32 Len; /**< Length of the payload to write */
+	u32 Keyholesize; /**< Keyhole limit */
+	u32 Flags; /**< Keyhole transfer DMA flags */
 } XPlm_KeyHoleXfrParams;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -112,16 +113,10 @@ typedef struct {
 #define XPLM_CCU_RD_STREAM_SIZE_BYTES		(0x00010000U)
 #define XPLM_CCU_RD_STREAM_SIZE_WORDS		(XPLM_BYTES_TO_WORDS(XPLM_CCU_RD_STREAM_SIZE_BYTES))
 #define XPLM_CCU_WR_STREAM_BASEADDR		(0x04070000U)
-#define XPLM_CCU_WR_STREAM_SIZE			(XPLM_CCU_RD_STREAM_SIZE)
 
 #define XPLM_READBK_SBI_CFG_MODE		(0x1U)
 
-#define XPLM_MASK_POLL_MIN_TIMEOUT		(1000000U)
-#define XPLM_MAXOUT_CMD_MIN_VAL			(1U)
-#define XPLM_MAXOUT_CMD_DEF_VAL			(8U)
 #define XPLM_CFI_DATA_OFFSET			(4U)
-#define XPLM_SIXTEEN_BYTE_MASK			(0xFU)
-#define XPLM_NUM_BITS_IN_WORD			(32U)
 
 /* Mask poll command flag descriptions */
 #define XPLM_MASKPOLL_LEN_EXT			(5U)
@@ -131,16 +126,12 @@ typedef struct {
 #define XPLM_MASKPOLL_FLAGS_BREAK		(0x3U)
 #define XPLM_MASKPOLL_FLAGS_BREAK_LEVEL_MASK	(0xFF000000U)
 #define XPLM_MASKPOLL_FLAGS_BREAK_LEVEL_SHIFT	(24U)
-/* if bit 31 in flags is set, then disable minimal timeout. */
-#define XPLM_MASKPOLL_FLAGS_DISABLE_MINIMAL_TIMEOUT	(XPLM_BIT(31))
-#define XPLM_MASK_POLL_32BIT_TYPE		(0U)
 
 /* Define related to break */
 #define XPLM_BREAK_LEVEL_MASK			(0xFFU)
 
 /************************** Function Prototypes ******************************/
 void XPlm_GenericInit(void);
-int XPlm_GetJumpOffSet(XPlm_Cmd *Cmd, u32 Level);
 
 /************************** Variable Definitions *****************************/
 

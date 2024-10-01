@@ -29,8 +29,6 @@
 #include "xplm_cdo.h"
 #include "sleep.h"
 #include "xplm_dma.h"
-#include "xplm_hooks.h"
-#include "xplm_load.h"
 #include "xplm_hw.h"
 
 /************************** Constant Definitions *****************************/
@@ -51,12 +49,9 @@
 #define XPLM_MASKPOLL_FLAGS_INDEX		(4U)
 #define XPLM_MASKPOLL_MINOR_ERROR_MASK		(0xFFFFU)
 
-#define XPLM_BEGIN_MAX_LOG_STR_LEN			(24U)
-#define XPLM_BEGIN_LOG_STR_BUF_END_INDEX	(XPLM_BEGIN_MAX_LOG_STR_LEN - 1U)
-#define XPLM_BEGIN_OFFSET_STACK_SIZE			(10U)
+#define XPLM_BEGIN_OFFSET_STACK_SIZE_LIMIT		((s32)XPLM_BEGIN_OFFSET_STACK_SIZE - 1)
 #define XPLM_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL	(1U)
 #define XPLM_BEGIN_CMD_EXTRA_OFFSET			(2U)
-#define XPLM_BEGIN_MAX_STRING_WORD_LEN		(XPLM_BEGIN_MAX_LOG_STR_LEN /  XPLM_WORD_LEN)
 
 #define XPLM_RDBK_DIS	(0x1U)
 
@@ -69,9 +64,10 @@
 #define XPLM_WR_KEYHOLE_CMD_RESUME_PAYLOAD_KEYHOLE_DATA_ARG_INDEX	(0x0U)
 
 /************************** Function Prototypes ******************************/
-static int XPlm_KeyHoleXfr(XPlm_KeyHoleXfrParams* KeyHoleXfrParams);
-static int XPlm_StackPush(XPlm_CdoParamsStack *CdoParamsStack, u32 *Data);
-static int XPlm_StackPop(XPlm_CdoParamsStack *CdoParamsStack, u32 PopLevel, u32 *Data);
+static u32 XPlm_KeyHoleXfr(XPlm_KeyHoleXfrParams *KeyHoleXfrParams);
+static u32 XPlm_StackPush(XPlm_CdoParamsStack *CdoParamsStack, u32 *Data);
+static u32 XPlm_StackPop(XPlm_CdoParamsStack *CdoParamsStack, u32 PopLevel, u32 *Data);
+static u32 XPlm_GetJumpOffSet(XPlm_Cmd *Cmd, u32 Level);
 
 /************************** Variable Definitions *****************************/
 
@@ -94,7 +90,7 @@ static XPlm_Module XPlm_Generic;
  * 		- XST_SUCCESS always.
  *
  *****************************************************************************/
-static int XPlm_Features(XPlm_Cmd *Cmd)
+static u32 XPlm_Features(XPlm_Cmd *Cmd)
 {
 	u32 Status = (u32)XST_FAILURE;
 
@@ -116,8 +112,9 @@ static int XPlm_Features(XPlm_Cmd *Cmd)
  * 		- XST_SUCCESS always.
  *
  *****************************************************************************/
-static int XPlm_Nop(XPlm_Cmd *Cmd)
+static u32 XPlm_Nop(XPlm_Cmd *Cmd)
 {
+	(void)Cmd;
 	XPlm_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
 
 	return XST_SUCCESS;
@@ -144,9 +141,9 @@ static int XPlm_Nop(XPlm_Cmd *Cmd)
  * 		- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlm_MaskPoll(XPlm_Cmd *Cmd)
+static u32 XPlm_MaskPoll(XPlm_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Addr = Cmd->Payload[XPLM_MASKPOLL_ADDR_INDEX];
 	u32 Mask = Cmd->Payload[XPLM_MASKPOLL_MASK_INDEX];
 	u32 ExpectedValue = Cmd->Payload[XPLM_MASKPOLL_EXP_VAL_INDEX];
@@ -159,6 +156,7 @@ static int XPlm_MaskPoll(XPlm_Cmd *Cmd)
 
 	/* Error out if Cmd length is greater than supported length */
 	if (Cmd->Len > (ExtLen + 1U)) {
+		Status = (u32)XPLM_ERR_MASK_POLL_INVLD_CMD_LEN;
 		goto END;
 	}
 
@@ -169,13 +167,13 @@ static int XPlm_MaskPoll(XPlm_Cmd *Cmd)
 	Status = XPlm_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs, NULL);
 
 	/* Print in case of failure or when DEBUG_INFO is enabled */
-	if ((Flags != XPLM_MASKPOLL_FLAGS_BREAK) && (Status != XST_SUCCESS)) {
+	if ((Flags != XPLM_MASKPOLL_FLAGS_BREAK) && (Status != (u32)XST_SUCCESS)) {
 		DebugLevel = DEBUG_GENERAL;
 	}
 
 	XPlm_Printf(DebugLevel, "MaskPoll: Addr: 0x%08x, Mask: 0x%0x, ExpVal: 0x%0x, Timeout: %u",
 		Addr, Mask, ExpectedValue, TimeOutInUs);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		XPlm_Printf(DebugLevel, ", RegVal: 0x%0x ...ERROR\r\n", Xil_In32(Addr));
 	}
 	else {
@@ -186,11 +184,11 @@ static int XPlm_MaskPoll(XPlm_Cmd *Cmd)
 	 * If command length is greater than Optional arguments length,
 	 * then flags and error code are processed
 	 */
-	if ((Cmd->Len >= ExtLen) && (Status != XST_SUCCESS)) {
+	if ((Cmd->Len >= ExtLen) && (Status != (u32)XST_SUCCESS)) {
 		MinErrCode = Cmd->Payload[ExtLen] & XPLM_MASKPOLL_MINOR_ERROR_MASK;
 		if (Flags == XPLM_MASKPOLL_FLAGS_SUCCESS) {
 			/* Ignore the error */
-			Status = XST_SUCCESS;
+			Status = (u32)XST_SUCCESS;
 		} else if (Flags == XPLM_MASKPOLL_FLAGS_DEFERRED_ERR) {
 			/* Defer the error till the end of CDO processing */
 			Cmd->DeferredError = (u8)TRUE;
@@ -201,12 +199,12 @@ static int XPlm_MaskPoll(XPlm_Cmd *Cmd)
 			/* Jump to "end" associated with break level */
 			Status = XPlm_GetJumpOffSet(Cmd, Level);
 		}
-		if ((Cmd->Len == (ExtLen + 1U)) && (MinErrCode != 0U) && (Status != XST_SUCCESS)) {
+		if ((Cmd->Len == (ExtLen + 1U)) && (MinErrCode != 0U) && (Status != (u32)XST_SUCCESS)) {
 			/*
 			 * Overwrite the error code with the error code value present
 			 * in payload argument.
 			 */
-			Status = (int)MinErrCode;
+			Status = (u32)MinErrCode;
 		}
 	}
 END:
@@ -227,7 +225,7 @@ END:
  * 		- XST_SUCCESS always.
  *
  *****************************************************************************/
-static int XPlm_MaskWrite(XPlm_Cmd *Cmd)
+static u32 XPlm_MaskWrite(XPlm_Cmd *Cmd)
 {
 	u32 Addr = Cmd->Payload[0U];
 	u32 Mask = Cmd->Payload[1U];
@@ -255,7 +253,7 @@ static int XPlm_MaskWrite(XPlm_Cmd *Cmd)
  * 		- XST_SUCCESS always.
  *
  *****************************************************************************/
-static int XPlm_Write(XPlm_Cmd *Cmd)
+static u32 XPlm_Write(XPlm_Cmd *Cmd)
 {
 	u32 Addr = Cmd->Payload[0U];
 	u32 Value = Cmd->Payload[1U];
@@ -280,7 +278,7 @@ static int XPlm_Write(XPlm_Cmd *Cmd)
  * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
-static int XPlm_Delay(XPlm_Cmd *Cmd)
+static u32 XPlm_Delay(XPlm_Cmd *Cmd)
 {
 	u32 Delay;
 
@@ -312,9 +310,9 @@ static int XPlm_Delay(XPlm_Cmd *Cmd)
  *		type is selected for readback.
  *
  *****************************************************************************/
-static int XPlm_CfiRead(XPlm_Cmd *Cmd)
+static u32 XPlm_CfiRead(XPlm_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 SrcType = Cmd->Payload[0U] & XPLM_READBACK_SRC_MASK;
 	u32 ReadLen = XPLM_CCU_RD_STREAM_SIZE_WORDS;
 	u32 Len = Cmd->Payload[3U];
@@ -354,8 +352,8 @@ static int XPlm_CfiRead(XPlm_Cmd *Cmd)
 	XPlm_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK, XPLM_READBK_SBI_CFG_MODE);
 
 	Status = XPlm_DmaXfr(CfiPayloadSrcAddr, XPLM_CCU_WR_STREAM_BASEADDR,
-			(Cmd->PayloadLen - XPLM_CFI_DATA_OFFSET), XPLM_PMCDMA_0);
-	if (Status != XST_SUCCESS) {
+			     (Cmd->PayloadLen - XPLM_CFI_DATA_OFFSET), XPLM_DMA_INCR_MODE);
+	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_RDBK_PAYLOAD_TO_CCU;
 		goto END;
 	}
@@ -365,8 +363,8 @@ static int XPlm_CfiRead(XPlm_Cmd *Cmd)
 		if (Len < XPLM_CCU_RD_STREAM_SIZE_WORDS) {
 			ReadLen = Len;
 		}
-		Status = XPlm_DmaSbiXfer(XPLM_CCU_RD_STREAM_BASEADDR, ReadLen, XPLM_SBI_READ_FLAGS_NONE);
-		if (Status != XST_SUCCESS) {
+		Status = XPlm_DmaSbiXfer(XPLM_CCU_RD_STREAM_BASEADDR, ReadLen, XPLM_DMA_INCR_MODE);
+		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XPLM_ERR_RDBK_CCU_READ;
 			goto END;
 		}
@@ -385,7 +383,7 @@ static int XPlm_CfiRead(XPlm_Cmd *Cmd)
 			XPLM_TIME_OUT_DEFAULT, NULL);
 	}
 
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_RDBK_READ_TIMEOUT;
 	}
 
@@ -412,15 +410,15 @@ END1:
 * @return
 *
 *****************************************************************************/
-static int XPlm_Set(XPlm_Cmd *Cmd)
+static u32 XPlm_Set(XPlm_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 DestAddr = Cmd->Payload[1U];
 	u32 Len = Cmd->Payload[2U];
 	u32 Val = Cmd->Payload[3U];
 
 	Status = XPlm_MemSet(DestAddr, Val, Len);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_SET_MEM;
 	}
 
@@ -441,9 +439,9 @@ static int XPlm_Set(XPlm_Cmd *Cmd)
 * @return
 *
 *****************************************************************************/
-static int XPlm_DmaWriteKeyHole(XPlm_Cmd *Cmd)
+static u32 XPlm_DmaWriteKeyHole(XPlm_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 DestAddr;
 	u32 SrcAddr;
 	u32 Len = Cmd->PayloadLen;
@@ -477,14 +475,12 @@ static int XPlm_DmaWriteKeyHole(XPlm_Cmd *Cmd)
 	KeyHoleXfrParams.BaseAddr = BaseAddr;
 	KeyHoleXfrParams.Len = Len * XPLM_WORD_LEN;
 	KeyHoleXfrParams.Keyholesize = Keyholesize;
-	KeyHoleXfrParams.Flags = XPLM_PMCDMA_0;
-	KeyHoleXfrParams.Func = NULL;
+	KeyHoleXfrParams.Flags = XPLM_DMA_INCR_MODE;
 	Status = XPlm_KeyHoleXfr(&KeyHoleXfrParams);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_KEYHOLE_XFER;
 	}
 
-END:
 	return Status;
 }
 
@@ -501,7 +497,7 @@ END:
  * 		- XPLM_ERR_MAX_LOG_STR_LEN if the string provided exceeds max length.
  *
  *****************************************************************************/
-static int XPlm_LogString(XPlm_Cmd *Cmd)
+static u32 XPlm_LogString(XPlm_Cmd *Cmd)
 {
 	u32 Len = Cmd->PayloadLen * XPLM_WORD_LEN;
 	u32 DebugFlag = DEBUG_PRINT_ALWAYS | XPLM_DEBUG_PRINT_STAGE_INFO_MASK ;
@@ -536,7 +532,7 @@ static int XPlm_LogString(XPlm_Cmd *Cmd)
  * 		- XST_SUCCESS always
  *
  *****************************************************************************/
-static int XPlm_LogAddress(XPlm_Cmd *Cmd)
+static u32 XPlm_LogAddress(XPlm_Cmd *Cmd)
 {
 	u32 Addr = Cmd->Payload[XPLM_LOG_ADDR_ARG_LOW_ADDR_INDEX];
 	u32 Val;
@@ -561,7 +557,7 @@ static int XPlm_LogAddress(XPlm_Cmd *Cmd)
  * 		- XST_SUCCESS always.
  *
  *****************************************************************************/
-static int XPlm_Marker(XPlm_Cmd *Cmd)
+static u32 XPlm_Marker(XPlm_Cmd *Cmd)
 {
 	XPlm_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
 
@@ -581,9 +577,9 @@ static int XPlm_Marker(XPlm_Cmd *Cmd)
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlm_Begin(XPlm_Cmd *Cmd)
+static u32 XPlm_Begin(XPlm_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 EndOffSet;
 	u32 StrLen;
 	u32 StartOffset;
@@ -592,23 +588,23 @@ static int XPlm_Begin(XPlm_Cmd *Cmd)
 	/* Push to stack, selection of 'StrLen' and 'StartOffset' based on processed length */
 	if (Cmd->ProcessedLen == 0U) {
 		/* Max 10 nested begin supported */
-		if (Cmd->CdoParamsStack.OffsetListTop == (int)(XPLM_BEGIN_OFFSET_STACK_SIZE - 1U)) {
+		if (Cmd->CdoParamsStack.OffsetListTop > XPLM_BEGIN_OFFSET_STACK_SIZE_LIMIT) {
 			Status = (u32)XPLM_ERR_MAX_NESTED_BEGIN;
-			XPlm_Printf(DEBUG_DETAILED,"Max %d nested begin supported\n", XPLM_BEGIN_OFFSET_STACK_SIZE);
+			XPlm_Printf(DEBUG_DETAILED, "Max %d nested begin supported\n", XPLM_BEGIN_OFFSET_STACK_SIZE);
 			goto END;
 		}
 
 		/* Calculate 'EndOffSet' based on command length */
 		if (Cmd->Len > XPLM_MAX_SHORT_CMD_LEN) {
-			EndOffSet = Cmd->ProcessedCdoLen + Cmd->Payload[0U] + XPLM_BEGIN_CMD_EXTRA_OFFSET+ 1U;
-		}
-		else {
+			EndOffSet = Cmd->ProcessedCdoLen + Cmd->Payload[0U] + XPLM_BEGIN_CMD_EXTRA_OFFSET + 1U;
+		} else {
 			EndOffSet = Cmd->ProcessedCdoLen + Cmd->Payload[0U] + XPLM_BEGIN_CMD_EXTRA_OFFSET;
 		}
 
 		/* Push "end" Offset to stack */
 		Status = XPlm_StackPush(&Cmd->CdoParamsStack, &EndOffSet);
-		if ( Status != XST_SUCCESS) {
+		if ( Status != (u32)XST_SUCCESS) {
+			Status = (u32)XPLM_ERR_STORE_END_OFFSET;
 			goto END;
 		}
 
@@ -617,8 +613,7 @@ static int XPlm_Begin(XPlm_Cmd *Cmd)
 
 		/* Print with timestamp if it is the beginning of the string */
 		DebugFlag = DEBUG_PRINT_ALWAYS | XPLM_DEBUG_PRINT_STAGE_INFO_MASK ;
-	}
-	else {
+	} else {
 		StrLen = Cmd->PayloadLen * XPLM_WORD_LEN;
 		StartOffset = 0U;
 
@@ -635,7 +630,7 @@ static int XPlm_Begin(XPlm_Cmd *Cmd)
 			XPlm_Printf_WoS(DEBUG_PRINT_ALWAYS, "\n\r");
 		}
 	}
-	Status = XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
 
 END:
 	return Status;
@@ -651,10 +646,10 @@ END:
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlm_End(XPlm_Cmd *Cmd)
+static u32 XPlm_End(XPlm_Cmd *Cmd)
 {
+	u32 Status = (u32)XST_FAILURE;
 	u32 EndLength = 0U;
-	int Status = XST_FAILURE;
 
 	/* Stack empty, End does not have begin */
 	if (Cmd->CdoParamsStack.OffsetListTop < 0) {
@@ -666,12 +661,12 @@ static int XPlm_End(XPlm_Cmd *Cmd)
 	/* Popped "end" length from stack should match with current ProcessedCdoLen */
 	Status = XPlm_StackPop(&Cmd->CdoParamsStack, XPLM_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL,
 			&EndLength);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
 	if (EndLength != Cmd->ProcessedCdoLen) {
-		Status = XST_FAILURE;
+		Status = (u32)XST_FAILURE;
 	}
 
 END:
@@ -689,9 +684,9 @@ END:
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlm_Break(XPlm_Cmd *Cmd)
+static u32 XPlm_Break(XPlm_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Level = 0U;
 
 	/*
@@ -769,10 +764,11 @@ void XPlm_GenericInit(void)
 * 		- XST_SUCCESS on success and error code on failure
 *
 *****************************************************************************/
-static int XPlm_KeyHoleXfr(XPlm_KeyHoleXfrParams* KeyHoleXfrParams)
+static u32 XPlm_KeyHoleXfr(XPlm_KeyHoleXfrParams *KeyHoleXfrParams)
 {
-	int Status = XST_FAILURE;
-	u32 LenTemp = (KeyHoleXfrParams->Keyholesize + KeyHoleXfrParams->BaseAddr) - KeyHoleXfrParams->DestAddr;
+	u32 Status = (u32)XST_FAILURE;
+	u32 LenTemp = (KeyHoleXfrParams->Keyholesize + KeyHoleXfrParams->BaseAddr) -
+		      KeyHoleXfrParams->DestAddr;
 
 	if (LenTemp > KeyHoleXfrParams->Len) {
 		LenTemp = KeyHoleXfrParams->Len;
@@ -783,8 +779,9 @@ static int XPlm_KeyHoleXfr(XPlm_KeyHoleXfrParams* KeyHoleXfrParams)
 		goto END;
 	}
 
-	Status = XPlm_DmaXfr(KeyHoleXfrParams->SrcAddr, KeyHoleXfrParams->DestAddr, LenTemp / XPLM_WORD_LEN, KeyHoleXfrParams->Flags);
-	if (Status != XST_SUCCESS) {
+	Status = XPlm_DmaXfr(KeyHoleXfrParams->SrcAddr, KeyHoleXfrParams->DestAddr, LenTemp / XPLM_WORD_LEN,
+			     KeyHoleXfrParams->Flags);
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 	KeyHoleXfrParams->SrcAddr += LenTemp;
@@ -802,8 +799,9 @@ static int XPlm_KeyHoleXfr(XPlm_KeyHoleXfrParams* KeyHoleXfrParams)
 			LenTemp = KeyHoleXfrParams->Len;
 		}
 
-		Status = XPlm_DmaXfr(KeyHoleXfrParams->SrcAddr, KeyHoleXfrParams->BaseAddr, LenTemp / XPLM_WORD_LEN, KeyHoleXfrParams->Flags);
-		if (Status != XST_SUCCESS) {
+		Status = XPlm_DmaXfr(KeyHoleXfrParams->SrcAddr, KeyHoleXfrParams->BaseAddr, LenTemp / XPLM_WORD_LEN,
+				     KeyHoleXfrParams->Flags);
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 		KeyHoleXfrParams->Len -= LenTemp;
@@ -827,9 +825,9 @@ END:
  * 		- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlm_StackPush(XPlm_CdoParamsStack *CdoParamsStack, u32 *Data)
+static u32 XPlm_StackPush(XPlm_CdoParamsStack *CdoParamsStack, u32 *Data)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	/* Validate stack top */
 	if (CdoParamsStack->OffsetListTop < -1) {
@@ -837,7 +835,7 @@ static int XPlm_StackPush(XPlm_CdoParamsStack *CdoParamsStack, u32 *Data)
 		goto END;
 	}
 
-	if (CdoParamsStack->OffsetListTop >= (int)(XPLM_BEGIN_OFFSET_STACK_SIZE - 1U)) {
+	if (CdoParamsStack->OffsetListTop >= XPLM_BEGIN_OFFSET_STACK_SIZE_LIMIT) {
 		XPlm_Printf(DEBUG_DETAILED, "End address stack is full\n");
 	} else {
 		CdoParamsStack->OffsetListTop++;
@@ -860,13 +858,13 @@ END:
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlm_StackPop(XPlm_CdoParamsStack *CdoParamsStack, u32 PopLevel, u32 *Data)
+static u32 XPlm_StackPop(XPlm_CdoParamsStack *CdoParamsStack, u32 PopLevel, u32 *Data)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Index;
 
 	/* Validate stack top */
-	if (CdoParamsStack->OffsetListTop >= (int)XPLM_BEGIN_OFFSET_STACK_SIZE) {
+	if (CdoParamsStack->OffsetListTop > XPLM_BEGIN_OFFSET_STACK_SIZE_LIMIT) {
 		Status = (u32)XPLM_ERR_INVLD_END_ADDR;
 		XPlm_Printf(DEBUG_DETAILED, "Invalid top in End address stack\n");
 		goto END;
@@ -900,9 +898,9 @@ END:
  * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlm_GetJumpOffSet(XPlm_Cmd *Cmd, u32 Level)
+static u32 XPlm_GetJumpOffSet(XPlm_Cmd *Cmd, u32 Level)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 PopAddr = 0U;
 
 	/*
@@ -917,8 +915,9 @@ int XPlm_GetJumpOffSet(XPlm_Cmd *Cmd, u32 Level)
 
 	/* If level > 1, then remove (Level - 1) lengths from stack */
 	if (Level > XPLM_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL) {
-		Status = XPlm_StackPop(&Cmd->CdoParamsStack, --Level, &PopAddr);
-		if ( Status != XST_SUCCESS) {
+		Level = Level - 1;
+		Status = XPlm_StackPop(&Cmd->CdoParamsStack, Level, &PopAddr);
+		if ( Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 	}

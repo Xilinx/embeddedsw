@@ -103,46 +103,11 @@ extern "C" {
 /**
  * Macros to select RX and TX transfer flags.
  */
-#define XOSPIPSV_MSG_FLAG_RX	0x2U
-#define XOSPIPSV_MSG_FLAG_TX	0x4U
-
 #define XOSPIPSV_OSPIDMA_SRC_CTRL    0X0000100CU
 #define XOSPIPSV_OSPIDMA_SRC_CTRL_APB_ERR_RESP_MASK    0X01000000U
 
 #define XOSPIPSV_OSPIDMA_DST_CTRL    0X0000180CU
 #define XOSPIPSV_OSPIDMA_DST_CTRL_APB_ERR_RESP_MASK    0X01000000U
-
-#define XOSPIPSV_IDAC_EN_OPTION	0x2U
-#define XOSPIPSV_CLK_PRESCALE_6		2U
-#define XOSPIPSV_CLK_PRESCALE_2		0U
-
-#define XOSPIPSV_SELECT_FLASH_CS0	0
-#define XOSPIPSV_CONNECTION_MODE_SINGLE		0x0U
-
-#define XOSPIPSV_HWPIN_RESET	0x0U
-#define XOSPIPSV_DUAL_BYTE_OP_DISABLE	0x0U
-
-#define XOSPIPSV_EDGE_MODE_SDR_NON_PHY		0x1U
-#define XOSPIPSV_EDGE_MODE_DDR_PHY			0x2U
-
-#define XOSPIPSV_READ_8_8_8	5U
-#define XOSPIPSV_READ_1_1_1	0U
-#define XOSPIPSV_READ_1_1_8	3U
-#define XOSPIPSV_READ_8_0_8	6U
-
-#define XOSPIPSV_WRITE_8_0_0	6U
-#define XOSPIPSV_WRITE_1_1_1	0U
-
-#define XOSPIPSV_DUAL_BYTE_OP_ENABLE	0x1U
-
-/* run-time OSPI configuration */
-#define XPLM_OSPI_INTI_FLAGS_EN_MASK            (0x80U)
-#define XPLM_OSPI_INIT_FLAG_SET_DDR_MODE_MASK   (0x02U)
-#define XPLM_OSPI_INIT_FLAG_SET_PHY_MODE_MASK   (0x01U)
-#define XPLM_OSPI_INIT_FLAG_SET_ECO_BIT_MASK    (0x10U)
-
-#define XPLM_OSPI_INIT_DEFAULT_CFG      (XPLM_ZERO)
-
 
 /**************************** Type Definitions *******************************/
 
@@ -150,7 +115,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 u32 XPlm_OspiInit(void);
-u32 XPlm_OspiCopy(u64 SrcAddr, u32 DestAddress, u32 Length, u32 Flags);
+u32 XPlm_OspiCopy(u64 SrcAddr, u32 DestAddr, u32 Length, u32 Flags);
 
 /************************** Variable Definitions *****************************/
 
