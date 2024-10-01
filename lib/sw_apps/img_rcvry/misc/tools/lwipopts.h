@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2001, 2002 Swedish Institute of Computer Science.
  * Copyright (C) 2007 - 2022 Xilinx, Inc.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -33,6 +33,10 @@
  */
 #ifndef __LWIPOPTS_H_
 #define __LWIPOPTS_H_
+
+#ifdef __cplusplus
+extern "c" {
+#endif
 
 #ifndef PROCESSOR_LITTLE_ENDIAN
 #define PROCESSOR_LITTLE_ENDIAN
@@ -112,5 +116,9 @@
 #define LWIP_DHCP_DOES_ACD_CHECK 0
 
 #define CONFIG_LINKSPEED_AUTODETECT 1
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
