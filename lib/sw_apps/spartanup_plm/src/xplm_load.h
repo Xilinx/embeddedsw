@@ -39,13 +39,6 @@
 
 #define XPLM_SECURE_GCM_TAG_SIZE	(16U) /** GCM Tag Size in Bytes */
 
-/**
- * SMAP bus width macros
- */
-#define SMAP_BUS_WIDTH_BYTE_LEN		(XPLM_SMAP_WD_PATTERN_SIZE)
-#define SMAP_BUS_WIDTH_WORD_LEN		(0x4U)
-#define SMAP_BUS_WIDTH_32_WORD		(0x000000DDU)
-
 #define WIDTH_DETECT_WORD	(0x665599AA)
 #define WIDTH_DETECT_WORD_LEN_B	(0x4U)
 #define WIDTH_DETECT_WORD_LEN_W	(XPLM_BYTES_TO_WORDS(WIDTH_DETECT_WORD_LEN_B))
@@ -66,7 +59,6 @@ typedef enum XPlm_BootModes_ {
 
 u32 XPlm_LoadFullPdi(void);
 u32 XPlm_LoadPartialPdi(void);
-u32 XPlm_IsSlaveBootMode(u32 BootMode);
 void XPlm_CaptureCriticalInfo(void);
 
 #endif /* XPLM_LOAD_H */
