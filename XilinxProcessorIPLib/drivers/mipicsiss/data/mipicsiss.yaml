@@ -15,6 +15,7 @@ properties:
       - items:
         - enum:
           - xlnx,mipi-csi2-rx-subsystem-5.4
+          - xlnx,mipi-csi2-rx-subsystem-5.0
           - xlnx,mipi-csi2-rx-subsystem-6.0
   reg:
     description: Physical base address and size of the controller register map
