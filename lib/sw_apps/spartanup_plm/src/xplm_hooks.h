@@ -19,6 +19,12 @@
  * </pre>
  *
  ******************************************************************************/
+
+/**
+ * @addtogroup spartanup_plm_apis SpartanUP PLM APIs
+ * @{
+ */
+
 #ifndef XPLM_HOOKS_H
 #define XPLM_HOOKS_H
 
@@ -28,18 +34,22 @@
 
 /* library includes */
 
+/** Hooks table address in PMC RAM. */
 #define XROM_HOOKS_TBL_BASE_ADDR	(0x0402F9C0U)
+
+/** @cond spartanup_plm_internal */
 #define XROM_PMCFW_RESERVED_WORDS	(24U)
 
-#define XSECURE_SECURE_HDR_SIZE		(48U)
-					/** Secure Header Size in Bytes*/
+#define XSECURE_SECURE_HDR_SIZE		(48U) /** Secure Header Size in Bytes*/
 #define XSECURE_SECURE_GCM_TAG_SIZE	(16U) /** GCM Tag Size in Bytes */
-
-#define XSECURE_SECURE_HDR_TOTAL_SIZE (XSECURE_SECURE_HDR_SIZE +\
-					XSECURE_SECURE_GCM_TAG_SIZE)
-#define XSECURE_SHA3_256_HASH_LEN			(32U)
+#define XSECURE_SECURE_HDR_TOTAL_SIZE (XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE)
+#define XSECURE_SHA3_256_HASH_LEN	(32U)
 #define XROM_AES_IV_SIZE		(12U) /** AES IV Size */
+/** @endcond */
 
+/**
+ * Constants to check for the Encryption status.
+ */
 typedef enum XEncryptionStatus_ {
 	XPLM_ENC_STATUS_UN_ENCRYPTED = 0x00000000U,	/**< un-encrypted image */
 	XPLM_ENC_STATUS_eFUSE_KEY = 0xA5C3C5A3U,	/**< stored in eFUSE, RED key */
@@ -47,18 +57,18 @@ typedef enum XEncryptionStatus_ {
 	XPLM_ENC_STATUS_eFUSE_FAMILY_KEK = 0xA5C3C5A7U,	/**< stored in eFUSE, encrypted with Family key, GREY key */
 	XPLM_ENC_STATUS_BH_PUF_KEK = 0xA35C7C53U,	/**< stored in BH, BLACK Key */
 	XPLM_ENC_STATUS_BH_FAMILY_KEK = 0xA35C7CA5U,	/**< stored in BH, GREY Key */
-}XEncryptionStatus;
+} XEncryptionStatus;
 
 typedef struct XRomAuthHeader_ {
 	u32 AuthAttributes;
-}XRomAuthHeader;
+} XRomAuthHeader;
 
 /** Type definition for Partition Type */
 typedef enum XRom_PartitionType_ {
-	XROM_HASHBLOCK_PARTITION = 0x0U,/** Hash Block Partition */
-	XROM_PMC_FW_PARTITION = 0x1U,	/** PMC firmware Partition */
-	XROM_DATA_PARTITION = 0x2U,	/** PMC Data Partition */
-}XRom_PartitionType;
+	XROM_HASHBLOCK_PARTITION = 0x0U,/**< Hash Block Partition */
+	XROM_PMC_FW_PARTITION = 0x1U,	/**< PMC firmware Partition */
+	XROM_DATA_PARTITION = 0x2U,	/**< PMC Data Partition */
+} XRom_PartitionType;
 
 typedef struct XRomTmpVar_ {
 	/**
@@ -111,7 +121,7 @@ typedef struct XRomTmpVar_ {
 	 * PPK Choice
 	 */
 	u32 PPKChTmp;
-}XRomTmpVar;
+} XRomTmpVar;
 
 typedef struct XRomSpkHeader_ {
 	u32 TotalSPKSize;
@@ -121,7 +131,7 @@ typedef struct XRomSpkHeader_ {
 	u32 SPKId;
 	u32 SPKPriv;
 	u32 Reserved[2];
-}XRomSpkHeader;
+} XRomSpkHeader;
 
 typedef enum {
 	XSECURE_HASH_INVALID_MODE 	= 0x0U,
@@ -135,10 +145,10 @@ typedef struct XRomBootHeader_ {
 	 * Offset:0
 	 */
 
-	 /**
-	  * Width Detection (0xAA995566)
-	  * Offset:0x10
-	  */
+	/**
+	 * Width Detection (0xAA995566)
+	 * Offset:0x10
+	 */
 	u32 WidthDetection;
 	/**
 	 * Image identification ("XLNX")
@@ -317,7 +327,7 @@ typedef struct XRomBootHeader_ {
 	/**
 	 * End: 0x340
 	 */
-}XRomBootHeader;
+} XRomBootHeader;
 /**
  * Type Definition for Boot ROM struct
  */
@@ -327,7 +337,7 @@ typedef struct XRomBootRom_ {
 	 * It holds the full boot header.
 	 * It will be used through out the PMC flow.
 	 */
-	XRomBootHeader* ImageHeader;
+	XRomBootHeader *ImageHeader;
 
 	volatile u32 BootStage;
 	/**
@@ -498,14 +508,14 @@ typedef struct XRomBootRom_ {
 	 */
 	u32 FlashOpcode;
 	/**
-     *  PufhdDigestStatus - This is used to skip Helper data digest validation or not
-     */
-    volatile u32 PufhdValidateDigest;
+	*  PufhdDigestStatus - This is used to skip Helper data digest validation or not
+	*/
+	volatile u32 PufhdValidateDigest;
 	/**
-     *  Ppk2OrPufHd - This is used to indicate PPK2 Hash or PUF HD Hash
-     */
+	*  Ppk2OrPufHd - This is used to indicate PPK2 Hash or PUF HD Hash
+	*/
 	volatile u32 Ppk2OrPufHd;
-}XRomBootRom;
+} XRomBootRom;
 
 /** Instance to process authentication/decryption/integrity of image in chunks */
 typedef struct XRomSecureChunk_ {
@@ -523,10 +533,13 @@ typedef struct XRomSecureChunk_ {
 							 */
 	u32 KeySource; 			/**< Device key source */
 	u32 DataCopied;			/**< Size of the data copied to destination */
-	u8* ScratchPadBuf;		/**< pointer to the scratch pad area */
+	u8 *ScratchPadBuf;		/**< pointer to the scratch pad area */
 } XRomSecureChunk;
 
-typedef void* XUnused_Var_t;
+/** Placeholder to reserve unused variables in ROM hooks table. */
+typedef void *XUnused_Var_t;
+
+/** Placeholder to reserve unused APIs in ROM hooks table. */
 typedef void (*XUnused_Func_t)(void);
 
 typedef struct XRom_HooksTbl_ {
@@ -538,31 +551,31 @@ typedef struct XRom_HooksTbl_ {
 	XUnused_Var_t UnusedB;
 
 	/* Function Pointers */
-	void (*XRom_Initialize_Instance)(XRomBootRom* InstancePtr);
-	u32 (*XRom_CaptureeFUSEAttribute)(XRomBootRom* InstancePtr);
+	void (*XRom_Initialize_Instance)(XRomBootRom *InstancePtr);
+	u32 (*XRom_CaptureeFUSEAttribute)(XRomBootRom *InstancePtr);
 	u32 (*XRom_PlHouseClean)(void);
-	void (*XRom_CaptureImageAttributes)(XRomBootRom* InstancePtr);
-	u32 (*XRom_HashAlgoSelectValidation)(XRomBootRom* const InstancePtr);
-	u32 (*XRom_AuthDataValidation)(XRomBootRom* InstancePtr);
+	void (*XRom_CaptureImageAttributes)(XRomBootRom *InstancePtr);
+	u32 (*XRom_HashAlgoSelectValidation)(XRomBootRom *const InstancePtr);
+	u32 (*XRom_AuthDataValidation)(XRomBootRom *InstancePtr);
 	XUnused_Func_t UnusedC[3U];
 	u32 (*XRom_CheckRevocationID)(u32 RevokeId);
-	u32 (*XRom_VerifyAllPPKHash)(XRomBootRom* InstancePtr, const u8* const KeyPtr);
-	u32 (*XRom_InitChunkInstance)(const XRomBootRom* InstancePtr,
-			XRomSecureChunk* ChunkInstPtr, XRom_PartitionType PartitionType);
+	u32 (*XRom_VerifyAllPPKHash)(XRomBootRom *InstancePtr, const u8 *const KeyPtr);
+	u32 (*XRom_InitChunkInstance)(const XRomBootRom *InstancePtr,
+				      XRomSecureChunk *ChunkInstPtr, XRom_PartitionType PartitionType);
 	u32 (*XRom_ValidateBootheaderIntegrity)(void);
-	u32 (*XRom_LoadSecureChunk)(XRomBootRom* InstancePtr, XRomSecureChunk* ChunkInstPtr);
+	u32 (*XRom_LoadSecureChunk)(XRomBootRom *InstancePtr, XRomSecureChunk *ChunkInstPtr);
 	XUnused_Func_t UnusedD[3U];
-	u32 (*XRom_SecureLoad)(XRomBootRom* InstancePtr, XRomSecureChunk* ChunkInstPtr);
-	u32 (*XRom_ProcessChunk)(const XRomBootRom* InstancePtr,
-			XRomSecureChunk* ChunkInstPtr);
+	u32 (*XRom_SecureLoad)(XRomBootRom *InstancePtr, XRomSecureChunk *ChunkInstPtr);
+	u32 (*XRom_ProcessChunk)(const XRomBootRom *InstancePtr,
+				 XRomSecureChunk *ChunkInstPtr);
 
-	XRomTmpVar* (*XRom_GetTemporalInstance)(void);
+	XRomTmpVar *(*XRom_GetTemporalInstance)(void);
 	XUnused_Func_t UnusedE;
-	u32 (*XRom_ShaDigestCalculation)(const u8* const InData, const u32 Size,
-		const XSecure_ShaMode Mode, u8 *Digest);
+	u32 (*XRom_ShaDigestCalculation)(const u8 *const InData, const u32 Size,
+					 const XSecure_ShaMode Mode, u8 *Digest);
 	XUnused_Func_t UnusedF[4U];
-	u32 (*XRom_ValidateHBAad)(XRomBootRom *InstancePtr, const u8* GcmTag);
-	u32 (*XRom_PullKeySource)(const XRomBootRom* InstancePtr, u32* KeySource);
+	u32 (*XRom_ValidateHBAad)(XRomBootRom *InstancePtr, const u8 *GcmTag);
+	u32 (*XRom_PullKeySource)(const XRomBootRom *InstancePtr, u32 *KeySource);
 	void (*XRom_MBistNScanClear)(void);
 	void (*XRom_ClearCrypto)(void);
 	XUnused_Func_t UnusedG[2U];
@@ -571,3 +584,5 @@ typedef struct XRom_HooksTbl_ {
 extern XRom_HooksTbl *HooksTbl;
 
 #endif /* XPLM_HOOKS_H */
+
+/** @} end of spartanup_plm_apis group*/

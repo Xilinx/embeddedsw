@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xplm_intr.c
+ * @file xplm_post_boot.c
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -17,6 +17,11 @@
  * </pre>
  *
  ******************************************************************************/
+
+/**
+ * @addtogroup spartanup_plm_apis SpartanUP PLM APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xiomodule.h"
@@ -45,7 +50,7 @@ static void XPlm_ClearRunTimeEvent(const u32 Event);
 static void XPlm_EnableIntrSbiDataRdy(void);
 static u32 XPlm_IntrInit(void);
 /************************** Variable Definitions *****************************/
-static volatile u32 RunTimeEvents = 0x0U;
+static volatile u32 RunTimeEvents = 0x0U; /**< To store the current Run Time event state. */
 
 /******************************************************************************/
 
@@ -54,7 +59,8 @@ static volatile u32 RunTimeEvents = 0x0U;
  * @brief	Initializes interrupt for loading partial PDI through slave boot
  *
  * @return
- * 		- XST_SUCCESS on success and error code on failure.
+ *		- XST_SUCCESS on success.
+ *		- XPLM_ERR_IO_MOD_INIT if failed to initialize IO module.
  *
  *****************************************************************************/
 static u32 XPlm_IntrInit(void)
@@ -94,7 +100,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is the interrupt handler for SBI data ready.
- * 		In this handler, PDI is loadeed through SBI interface.
+ * 		In this handler, PDI is loaded through SBI interface.
  *
  * @param	Data Not used
  *
@@ -121,14 +127,12 @@ static void XPlm_SbiLoadPdi(void *Data)
 static void XPlm_EnableIntrSbiDataRdy(void)
 {
 	/** - Clear SBI interrupt. */
-	XPlm_UtilRMW(SLAVE_BOOT_SBI_IRQ_STATUS,
-		      SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK,
-		      SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK);
+	XPlm_UtilRMW(SLAVE_BOOT_SBI_IRQ_STATUS, SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK,
+		     SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK);
 
 	/** - Enable SBI interrupt. */
-	XPlm_UtilRMW(SLAVE_BOOT_SBI_IRQ_ENABLE,
-		      SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK,
-		      SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
+	XPlm_UtilRMW(SLAVE_BOOT_SBI_IRQ_ENABLE, SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK,
+		     SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
 }
 
 /*****************************************************************************/
@@ -154,7 +158,7 @@ u32 XPlm_PostBoot(void)
 
 	XPlm_Printf(DEBUG_DETAILED, "Post Boot Configuration\n\r");
 
-	/** Clear All Run-Time Events */
+	/** - Clear All Run-Time Events. */
 	XPlm_ClearRunTimeEvent(XPLM_ALLFS);
 
 	XSECURE_REDUNDANT_IMPL(XPlm_CaptureCriticalInfo);
@@ -166,7 +170,10 @@ u32 XPlm_PostBoot(void)
 		XSECURE_REDUNDANT_IMPL(Xil_Out32, PMC_GLOBAL_PUF_DISABLE, PMC_GLOBAL_PUF_DISABLE_PUF_MASK);
 	}
 
-	/** - Enable Secondary boot if enabled in RTCA register and set the boot interface. */
+	/**
+	 * - Enable Secondary boot if enabled in RTCA register, set the boot interface and toggle
+	 *   SBI reset.
+	 */
 	SecBootConfig = Xil_In32(XPLM_RTCFG_SEC_BOOT_CTRL) & XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK;
 	SecBootConfigTmp = Xil_In32(XPLM_RTCFG_SEC_BOOT_CTRL) & XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK;
 	if ((SecBootConfig == XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK)
@@ -179,8 +186,8 @@ u32 XPlm_PostBoot(void)
 			goto END;
 		}
 		XPlm_UtilRMW(PMC_GLOBAL_RST_SBI, PMC_GLOBAL_RST_SBI_FULLMASK, XPLM_ZERO);
-		XPlm_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK |
-				SLAVE_BOOT_SBI_CTRL_ENABLE_MASK, SecBootInterf);
+		XPlm_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+			     SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK | SLAVE_BOOT_SBI_CTRL_ENABLE_MASK, SecBootInterf);
 	}
 
 	Status = XPlm_IntrInit();
@@ -188,6 +195,7 @@ END:
 	return Status;
 }
 
+/** @cond spartanup_plm_internal */
 static void XPlm_SetRunTimeEvent(const u32 Event)
 {
 	RunTimeEvents |= Event;
@@ -197,16 +205,31 @@ static void XPlm_ClearRunTimeEvent(const u32 Event)
 {
 	RunTimeEvents &= ~Event;
 }
+/** @endcond */
 
-void XPlm_EventLoop(void) {
+/*****************************************************************************/
+/**
+ * @brief	Run time event handler to process partial PDI on SBI interrupt.
+ * This handler runs infinitely and does not return.
+ *
+ *****************************************************************************/
+void XPlm_EventLoop(void)
+{
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Update PLM stage before entering infinite loop. */
 	XPlm_LogPlmStage(XPLM_RUN_TIME_EVENT_PROCESS_STAGE);
 
 	while (TRUE) {
+		/**
+		 * - On partial PDI load event
+		 *	- Load partial PDI,
+		 *	- reset SBI interrupt to receive SBI interrupts for loading partial PDIs
+		 *	again.
+		 * - If no event, update PLM stage and goto sleep.
+		 */
 		if ((RunTimeEvents & XPLM_RUN_TIME_PARTIAL_PDI_EVENT) ==
-				XPLM_RUN_TIME_PARTIAL_PDI_EVENT) {
+		    XPLM_RUN_TIME_PARTIAL_PDI_EVENT) {
 			/* Load Partial PDI */
 			Status = XPlm_LoadPartialPdi();
 			if (Status != (u32)XST_SUCCESS) {
@@ -221,3 +244,5 @@ void XPlm_EventLoop(void) {
 		mb_sleep();
 	}
 }
+
+/** @} end of spartanup_plm_apis group*/
