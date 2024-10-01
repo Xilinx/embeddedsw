@@ -46,6 +46,9 @@ static struct {
 	{ PM_POWER_VCCINT_CPM5N, 0x442c005, INFINEON_XDPE15284D_ID, INFINEON_XDPE15284D_NB }, \
 	{ PM_POWER_VCCINT_CPM5N, 0x442c006, TI_TPS53689_ID, TI_TPS53689_NB }, \
 };
+#if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
+    defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
+    defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
 
 /*
  * TBD - This routine should be moved to common code when a use case for it is
@@ -157,7 +160,15 @@ static XStatus XPmRail_IdentifyVendor(XPm_Rail *Rail)
 done:
 	return Status;
 }
-
+#else
+static XStatus XPmRail_IdentifyVendor(XPm_Rail *Rail)
+{
+	(void)Rail;
+	PmWarn("Unable to Identify Regulator Vendor of Rail 0x%x.\
+		Using default Regulator: 0x%x\r\n", Rail->Power.Node.Id, Rail->ParentIds[0]);
+	return XST_SUCCESS;
+}
+#endif
 XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 {
 	XStatus Status = XST_FAILURE;
