@@ -44,8 +44,7 @@ static u32 XPlm_DmaDrvInit(XPmcDma *DmaPtr, u32 BaseAddress);
 static void XPlm_SSSCfgDmaDma(void);
 static void XPlm_SSSCfgSbiDma(void);
 static void XPlm_SSSCfgDmaSbi(void);
-static int XPlm_DmaChXfer(u32 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags);
-static void XPlm_StartDma(u32 SrcAddr, u32 DestAddr, u32 Len, u32 Flags, XPmcDma** DmaPtrAddr);
+static u32 XPlm_DmaChXfer(u32 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags);
 
 /************************** Variable Definitions *****************************/
 static XPmcDma PmcDma;		/** Instance of the Pmc_Dma Device */
@@ -71,7 +70,7 @@ static u32 XPlm_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
 static u32 XPlm_DmaDrvInit(XPmcDma *DmaPtr, u32 BaseAddress)
 #endif
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	XPmcDma_Config *Config;
 
 	/*
@@ -90,7 +89,7 @@ static u32 XPlm_DmaDrvInit(XPmcDma *DmaPtr, u32 BaseAddress)
 	}
 
 	Status = (u32)XPmcDma_CfgInitialize(DmaPtr, Config, Config->BaseAddress);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_DMA_CFG;
 		goto END;
 	}
@@ -105,7 +104,7 @@ static u32 XPlm_DmaDrvInit(XPmcDma *DmaPtr, u32 BaseAddress)
 	 * Performs the self-test to check hardware build.
 	 */
 	Status = XPmcDma_SelfTest(DmaPtr);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_DMA_SELFTEST;
 	}
 
@@ -123,8 +122,8 @@ END:
  *****************************************************************************/
 u32 XPlm_DmaInit(void)
 {
-	u32 Status = XST_FAILURE;
 	/** - Initialise PMC_DMA0. */
+	u32 Status = (u32)XST_FAILURE;
 	Status = XPlm_DmaDrvInit(&PmcDma, PMCDMA_0_DEVICE);
 	return Status;
 }
@@ -194,9 +193,9 @@ static void XPlm_SSSCfgDmaSbi(void)
  * 			- XPLM_ERR_DMA_XFER_WAIT if DMA transfer failed to wait.
  *
  *****************************************************************************/
-static int XPlm_DmaChXfer(u32 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags)
+static u32 XPlm_DmaChXfer(u32 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	XPmcDma *DmaPtr = &PmcDma;
 
 	/* Setting PMC_DMA in AXI FIXED mode */
@@ -211,7 +210,7 @@ static int XPlm_DmaChXfer(u32 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags)
 	XPmcDma_Transfer(DmaPtr, Channel , Addr, Len, 0U);
 
 	Status = XPmcDma_WaitForDoneTimeout(DmaPtr, Channel);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_DMA_XFER_WAIT;
 		goto END;
 	}
@@ -244,9 +243,9 @@ END:
  * 			- XST_SUCCESS on success and error codes on failure
  *
  *****************************************************************************/
-int XPlm_SbiDmaXfer(u32 DestAddr, u32 Len, u32 Flags)
+u32 XPlm_SbiDmaXfer(u32 DestAddr, u32 Len, u32 Flags)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	XPlm_Printf(DEBUG_INFO, "SBI to Dma Xfer Dest 0x%08x, Len 0x%0x\r\n", DestAddr, Len);
 
@@ -271,9 +270,9 @@ int XPlm_SbiDmaXfer(u32 DestAddr, u32 Len, u32 Flags)
  * 			- XST_SUCCESS on success and error codes on failure
  *
  *****************************************************************************/
-int XPlm_DmaSbiXfer(u32 SrcAddr, u32 Len, u32 Flags)
+u32 XPlm_DmaSbiXfer(u32 SrcAddr, u32 Len, u32 Flags)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	XPlm_Printf(DEBUG_INFO, "Dma to SBI Xfer Src 0x%08x, Len 0x%0x\r\n", SrcAddr, Len);
 
@@ -303,29 +302,51 @@ int XPlm_DmaSbiXfer(u32 SrcAddr, u32 Len, u32 Flags)
  * 			wait for done.
  *
  *****************************************************************************/
-int XPlm_DmaXfr(u32 SrcAddr, u32 DestAddr, u32 Len, u32 Flags)
+u32 XPlm_DmaXfr(u32 SrcAddr, u32 DestAddr, u32 Len, u32 Flags)
 {
-	int Status = XST_FAILURE;
-	XPmcDma *DmaPtr;
+	u32 Status = (u32)XST_FAILURE;
+	XPmcDma *DmaPtr = &PmcDma;
 
 	if (Len == 0U) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
 
-	/** - Start the DMA transfer. */
-	XPlm_StartDma(SrcAddr, DestAddr, Len, Flags, &DmaPtr);
+	XPlm_Printf(DEBUG_INFO, "DMA Xfer Src 0x%08x, Dest 0x%08x, Len 0x%0x, Flags 0x%0x: ",
+		    SrcAddr, DestAddr, Len, Flags);
+
+	XPlm_PrintArray(DEBUG_DETAILED, SrcAddr, Len, "DMA Xfer Data");
+
+	/** - Configure @ref XPlm_SSSCfgDmaDma. */
+	XPlm_SSSCfgDmaDma();
+
+	/** - Configure DMA to FIXED mode based on the flags. */
+	/* Setting PMC_DMA in AXI Burst mode */
+	if ((Flags & XPLM_SRC_CH_AXI_FIXED) == XPLM_SRC_CH_AXI_FIXED) {
+		DmaCtrl.AxiBurstType = 1U;
+		XPmcDma_SetConfig(DmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
+	}
+	/* Setting PMC_DMA in AXI Burst mode */
+	if ((Flags & XPLM_DST_CH_AXI_FIXED) == XPLM_DST_CH_AXI_FIXED) {
+		DmaCtrl.AxiBurstType = 1U;
+		XPmcDma_SetConfig(DmaPtr, XPMCDMA_DST_CHANNEL, &DmaCtrl);
+	}
+
+	/** - Start data transfer in loop back mode and wait for the 'done' signal till timeout. */
+	XCsuDma_Transfer(DmaPtr, XPMCDMA_DST_CHANNEL, (u64)(DestAddr), Len, 0U);
+	XCsuDma_Transfer(DmaPtr, XPMCDMA_SRC_CHANNEL, (u64)(SrcAddr), Len, 0U);
+
 
 	/* Polling for transfer to be done */
 	Status = XPmcDma_WaitForDoneTimeout(DmaPtr, XPMCDMA_SRC_CHANNEL);
-	if (Status != XST_SUCCESS) {
-		XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%03x\r\n", XPLM_ERR_DMA_XFER_WAIT_SRC);
+	if (Status != (u32)XST_SUCCESS) {
+		XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", XPLM_ERR_DMA_XFER_WAIT_SRC);
 		goto END;
 	}
 
 	Status = XPmcDma_WaitForDoneTimeout(DmaPtr, XPMCDMA_DST_CHANNEL);
-	if (Status != XST_SUCCESS) {
-		XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%03x\r\n", XPLM_ERR_DMA_XFER_WAIT_DEST);
+	if (Status != (u32)XST_SUCCESS) {
+		XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", XPLM_ERR_DMA_XFER_WAIT_DEST);
 		goto END;
 	}
 	/* To acknowledge the transfer has completed */
@@ -349,48 +370,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used initiate the DMA to DMA transfer.
- *
- * @param	SrcAddr is address for SRC channel to fetch data from
- * @param	DestAddr is address for DST channel to store the data
- * @param	Len is length of the data in words
- * @param	Flags to select PMC DMA and DMA Burst type
- * @param	DmaPtrAddr is to store address to PmcDmaInstance
- *
- *****************************************************************************/
-static void XPlm_StartDma(u32 SrcAddr, u32 DestAddr, u32 Len, u32 Flags, XPmcDma** DmaPtrAddr)
-{
-	u8 EnLast = 0U;
-	XPmcDma *DmaPtr = &PmcDma;
-
-	XPlm_Printf(DEBUG_INFO, "DMA Xfer Src 0x%08x, Dest 0x%08x, Len 0x%0x, Flags 0x%0x: ",
-		   SrcAddr, DestAddr, Len, Flags);
-
-	XPlm_PrintArray(DEBUG_DETAILED, SrcAddr, Len, "DMA Xfer Data");
-
-	/* Configure the secure stream switch */
-	XPlm_SSSCfgDmaDma();
-
-	/* Setting PMC_DMA in AXI Burst mode */
-	if ((Flags & XPLM_SRC_CH_AXI_FIXED) == XPLM_SRC_CH_AXI_FIXED) {
-		DmaCtrl.AxiBurstType = 1U;
-		XPmcDma_SetConfig(DmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
-	}
-	/* Setting PMC_DMA in AXI Burst mode */
-	if ((Flags & XPLM_DST_CH_AXI_FIXED) == XPLM_DST_CH_AXI_FIXED) {
-		DmaCtrl.AxiBurstType = 1U;
-		XPmcDma_SetConfig(DmaPtr, XPMCDMA_DST_CHANNEL, &DmaCtrl);
-	}
-
-	/* Data transfer in loop back mode */
-	XCsuDma_Transfer(DmaPtr, XPMCDMA_DST_CHANNEL, (u64)(DestAddr), Len, EnLast);
-	XCsuDma_Transfer(DmaPtr, XPMCDMA_SRC_CHANNEL, (u64)(SrcAddr), Len, EnLast);
-	*DmaPtrAddr = DmaPtr;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function is used to Set the memory with a value.
+ * @brief	Set the memory with the provided value for the given length.
  *
  * @param	DestAddr is the address where the val need to be set
  * @param	Val is the value that has to be set
@@ -400,9 +380,9 @@ static void XPlm_StartDma(u32 SrcAddr, u32 DestAddr, u32 Len, u32 Flags, XPmcDma
  * 			- Status of the DMA transfer
  *
  *****************************************************************************/
-int XPlm_MemSet(u32 DestAddr, u32 Val, u32 Len)
+u32 XPlm_MemSet(u32 DestAddr, u32 Val, u32 Len)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 Count;
 	u32 Index;
 	u32 SrcAddr = DestAddr;
@@ -427,16 +407,15 @@ int XPlm_MemSet(u32 DestAddr, u32 Val, u32 Len)
 	Count = Len / XPLM_SET_CHUNK_SIZE ;
 
 	for (Index = 1U; Index < Count; ++Index) {
-		Status = XPlm_DmaXfr(SrcAddr, DestAddr, XPLM_SET_CHUNK_SIZE, XPLM_PMCDMA_0);
-		if (Status != XST_SUCCESS) {
+		Status = XPlm_DmaXfr(SrcAddr, DestAddr, XPLM_SET_CHUNK_SIZE, XPLM_DMA_INCR_MODE);
+		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 		DestAddr += (XPLM_SET_CHUNK_SIZE * XPLM_WORD_LEN);
 	}
 
 	/* DMA of residual bytes */
-	Status = XPlm_DmaXfr(SrcAddr, DestAddr, (Len % ChunkSize),
-		XPLM_PMCDMA_0);
+	Status = XPlm_DmaXfr(SrcAddr, DestAddr, (Len % ChunkSize), XPLM_DMA_INCR_MODE);
 
 END:
 	return Status;
@@ -455,7 +434,7 @@ END:
  *
  *****************************************************************************/
 u32 XPlm_SbiRead(u64 SrcAddr, u32 DestAddr, u32 Length, u32 Flags) {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 
 	(void)SrcAddr;
 

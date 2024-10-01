@@ -64,7 +64,6 @@ typedef enum {
 	/** 0x909 - Error if failed to initialize the CDO instance */
 	XPLM_ERR_INIT_CDO_INSTANCE,
 
-
 	/**
 	 * 0x90A - Error when valid CDO header ID is not present in CDO header.
 	 * Can happen when different partition type is processed as CDO
@@ -319,6 +318,21 @@ typedef enum {
 
 	/** 0x953 - Error if failed to validate PUF HD. */
 	XPLM_ERR_PUF_HD_DIGEST_VALIDATION,
+
+	/** 0x954 - Error if the command length exceeds the maximum supported. */
+	XPLM_ERR_MASK_POLL_INVLD_CMD_LEN,
+
+	/** 0x955 - Error if failed to initialize chunk instance. */
+	XPLM_ERR_INIT_CHUNK_INST,
+
+	/** 0x956 - Error if failed to reset crypto engines. */
+	XPLM_ERR_SECURE_CLR,
+
+	/** 0x957 - Error if failed to validate PUF digest for partial PDI. */
+	XPLM_ERR_PPDI_INVLD_PUF_DIGEST,
+
+	/** 0x958 - Error if Glitch detected. */
+	XPLM_ERR_GLITCH_DETECTED,
 
 	/* 0xA00 - 0xA10 are dedicated for PUF SHA Digest errors */
 	XPLM_ERR_PUF_SHA_DIGEST = 0xA00,

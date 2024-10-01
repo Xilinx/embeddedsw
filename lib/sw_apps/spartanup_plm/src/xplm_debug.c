@@ -27,7 +27,6 @@
 #include "xplm_error.h"
 #include "xplm_hw.h"
 #include "xstatus.h"
-
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
@@ -62,7 +61,7 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-XPlm_LogInfo *DebugLog = (XPlm_LogInfo *)(UINTPTR)XPLM_RTCFG_DBG_LOG_BUF_ADDR;
+XPlm_LogInfo *DebugLog = (XPlm_LogInfo *)XPLM_RTCFG_DBG_LOG_BUF_ADDR;
 
 /*****************************************************************************/
 /*****************************************************************************/

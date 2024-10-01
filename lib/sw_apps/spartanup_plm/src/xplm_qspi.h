@@ -52,11 +52,6 @@ extern "C" {
 #define XPLM_EXTADD_REG_RD_CMD	(0xC8U)
 #define XPLM_EXTADD_REG_WR_CMD	(0xC5U)
 
-#define XPLM_COMMAND_OFST	(0U) /* FLASH instruction */
-#define XPLM_ADDR_1_OFST	(1U) /* MSB byte of address to read or write */
-#define XPLM_ADDR_2_OFST	(2U) /* Middle byte of address to read or write */
-#define XPLM_ADDR_3_OFST	(3U) /* Middle byte of address to read or write */
-#define XPLM_ADDR_4_OFST	(4U) /* LSB byte of address to read or write */
 #define XPLM_DUMMY_CLOCKS	(8U) /* Number of dummy bytes for fast, dual and
 				     quad reads */
 
@@ -106,14 +101,6 @@ extern "C" {
 #define XPLM_MACRONIX_FLASH_1_8_V_SIZE_ID_512M       (0x3AU)
 #define XPLM_MACRONIX_FLASH_1_8_V_SIZE_ID_1G         (0x3BU)
 #define XPLM_MACRONIX_FLASH_1_8_V_SIZE_ID_2G		(0x3CU)
-
-/*Qspi width detection macros*/
-#define XPLM_QSPI_BUSWIDTH_DETECT_VALUE	(0xAA995566U)
-#define XPLM_QSPI_BUSWIDTH_PDI_OFFSET	(0x10U)
-#define XPLM_QSPI_BUSWIDTH_LENGTH		(0x10U)
-#define XPLM_QSPI_BUSWIDTH_ONE		(0U)
-#define XPLM_QSPI_BUSWIDTH_TWO		(1U)
-#define XPLM_QSPI_BUSWIDTH_FOUR		(2U)
 
 #define XPLM_READ_ID_CMD_TX_BYTE_CNT		(1U)
 #define XPLM_READ_ID_CMD_RX_BYTE_CNT		(4U)

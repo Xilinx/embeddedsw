@@ -49,7 +49,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int FlashReadID(XOspiPsv *OspiPsvPtr);
+static u32 FlashReadID(XOspiPsv *OspiPsvPtr);
 static u32 XPlm_QspiGetBusWidth(void);
 
 /************************** Variable Definitions *****************************/
@@ -78,9 +78,9 @@ static u8 QspiProto;
  * 			- XPLM_ERR_UNSUPPORTED_QSPI_FLASH_SIZE on unsupported flash size.
  *
  *****************************************************************************/
-static int FlashReadID(XOspiPsv *OspiPsvPtr)
+static u32 FlashReadID(XOspiPsv *OspiPsvPtr)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	XOspiPsv_Msg FlashMsg = {0U};
 	u8 ReadBuffer[4U] __attribute__ ((aligned(32U)));
 	u32 Index;
@@ -97,7 +97,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	FlashMsg.ByteCount = XPLM_READ_ID_CMD_RX_BYTE_CNT;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_QSPI_READ_ID;
 		goto END;
 	}
@@ -200,7 +200,7 @@ END:
  *****************************************************************************/
 u32 XPlm_QspiInit(XPlm_BootModes Mode)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	XOspiPsv_Config *OspiConfig;
 	u32 RtcaCfg;
 
@@ -215,13 +215,12 @@ u32 XPlm_QspiInit(XPlm_BootModes Mode)
 		XPlm_Printf(DEBUG_INFO, "unknown boot mode\r\n");
 		goto END;
 	}
+
 	/**
 	 * - Initialize the OSPI instance.
 	*/
-	memset(&OspiPsvInstance, 0U, sizeof(OspiPsvInstance));
-	/**
-	 * - Initialize the OSPI driver so that it's ready to use.
-	*/
+	memset(&OspiPsvInstance, 0, sizeof(OspiPsvInstance));
+
 	OspiConfig = XOspiPsv_LookupConfig(XPAR_XOSPIPSV_0_DEVICE_ID);
 	if (NULL == OspiConfig) {
 		Status = (u32)XPLM_ERR_QSPI_CFG_NOT_FOUND;
@@ -240,7 +239,7 @@ u32 XPlm_QspiInit(XPlm_BootModes Mode)
 	 * - Configure the OSPI driver.
 	*/
 	Status = XOspiPsv_CfgInitialize(&OspiPsvInstance, OspiConfig);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_QSPI_CFG_INIT;
 		goto END;
 	}
@@ -265,7 +264,7 @@ u32 XPlm_QspiInit(XPlm_BootModes Mode)
 	*/
 	(void)XOspiPsv_SetClkPrescaler(&OspiPsvInstance, XOSPIPSV_CLK_PRESCALE_4);
 	Status = XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS0);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_QSPI_FLASH_CS;
 		goto END;
 	}
@@ -277,7 +276,7 @@ u32 XPlm_QspiInit(XPlm_BootModes Mode)
 	 * preparing the WriteBuffer
 	 */
 	Status = (u32)FlashReadID(&OspiPsvInstance);
-	if (Status != XST_SUCCESS) {
+	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
@@ -295,7 +294,7 @@ u32 XPlm_QspiInit(XPlm_BootModes Mode)
 	if ((RtcaCfg & XPLM_RTCFG_OSPI_PHY_MODE_MASK) == XPLM_RTCFG_OSPI_PHY_MODE_MASK)
 	{
 		Status = XOspiPsv_SetSdrDdrMode(&OspiPsvInstance, XOSPIPSV_EDGE_MODE_SDR_PHY);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XPLM_ERR_OSPI_SET_SDR_PHY;
 			goto END;
 		}
@@ -365,9 +364,9 @@ END:
  * 			- XST_SUCCESS on success.
  *
  *****************************************************************************/
-static int SendBankSelect(u32 BankSel)
+static u32 SendBankSelect(u32 BankSel)
 {
-	int Status =  XST_FAILURE;
+	u32 Status =  XST_FAILURE;
 	XOspiPsv_Msg FlashMsg = {0U};
 	u8 ReadBuffer[10U] __attribute__ ((aligned(32U))) = {0U};
 	u8 WriteBuffer[10U] __attribute__ ((aligned(32U)));
@@ -392,7 +391,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 		FlashMsg.IsDDROpCode = FALSE;
 		Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XPLM_ERR_QSPI_BANK_SEL_SEND_WREN;
 			XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", Status);
 			goto END;
@@ -414,7 +413,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 		FlashMsg.IsDDROpCode = FALSE;
 		Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XPLM_ERR_QSPI_BANK_SEL_SEND_EXT_ADDR;
 			XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", Status);
 			goto END;
@@ -433,7 +432,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 		FlashMsg.IsDDROpCode = FALSE;
 		Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XPLM_ERR_QSPI_BANK_SEL_VERIFY_EXT_ADDR;
 			XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", Status);
 			goto END;
@@ -456,7 +455,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
 		FlashMsg.IsDDROpCode = FALSE;
 		Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XPLM_ERR_QSPI_BANK_SEL_SEND_EXT_ADDR;
 			XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", Status);
 			goto END;
@@ -475,7 +474,7 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
 		FlashMsg.IsDDROpCode = FALSE;
 		Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XPLM_ERR_QSPI_BANK_SEL_VERIFY_EXT_ADDR;
 			XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", Status);
 			goto END;
@@ -516,7 +515,7 @@ END:
  *****************************************************************************/
 u32 XPlm_QspiCopy(u64 SrcAddr, u32 DestAddr, u32 Length, u32 Flags)
 {
-	int Status = XST_FAILURE;
+	u32 Status = (u32)XST_FAILURE;
 	u32 OrigAddr;
 	u32 BankSel;
 	u32 RemainingBytes;
@@ -594,7 +593,7 @@ u32 XPlm_QspiCopy(u64 SrcAddr, u32 DestAddr, u32 Length, u32 Flags)
 					BankSel = SrcAddrLow / XPLM_BANKSIZE;
 				}
 				Status = SendBankSelect(BankSel);
-				if (Status != XST_SUCCESS) {
+				if (Status != (u32)XST_SUCCESS) {
 					Status = (u32)XPLM_ERR_QSPI_READ_BANK_SEL;
 					XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", Status);
 					goto END;
@@ -624,7 +623,7 @@ u32 XPlm_QspiCopy(u64 SrcAddr, u32 DestAddr, u32 Length, u32 Flags)
 		FlashMsg.ByteCount = TransferBytes;
 
 		Status = XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
-		if (Status != XST_SUCCESS) {
+		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XPLM_ERR_QSPI_READ;
 			XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", Status);
 			goto END;

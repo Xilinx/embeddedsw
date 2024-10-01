@@ -33,13 +33,18 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-/** DMA XFER flags */
-#define XPLM_SRC_CH_AXI_FIXED		(0x1U)
-#define XPLM_DMA_SRC_NONBLK		(0x1U << 1U)
-#define XPLM_DST_CH_AXI_FIXED		((u32)0x1U << 16U)
-#define XPLM_DMA_DST_NONBLK		((u32)0x1U << 17U)
-#define XPLM_PMCDMA_0			(0x100U)
-#define XPLM_DMA_SRC_NPI		(0x4U)
+/**
+ * @defgroup dma_flags DMA flags
+ * @brief Flags used to configure the DMA for transfers.
+ * @{
+ */
+#define XPLM_SRC_CH_AXI_FIXED		(0x1U)	/**< Set DMA to Fixed mode for source channel. */
+
+#define XPLM_DST_CH_AXI_FIXED		((u32)0x1U << 16U)	/**< Set DMA to Fixed mode for
+								  * destination channel. */
+
+#define XPLM_DMA_INCR_MODE		(0x0U)	/**< Set DMA mode to INCR.. */
+/** @} end of dma_flags group */
 
 /* SSS configurations and masks */
 #define XPLM_SSSCFG_SBI_MASK	(0x0000f000U)
@@ -54,8 +59,6 @@ extern "C" {
 #define XPLM_SSS_SBI_DMA	(0x5000U)
 
 #define XPLM_SET_CHUNK_SIZE	(0x8U)
-#define XPLM_WORD_LEN_MASK	(0x3U)
-#define XPLM_WORD_LEN_SHIFT	(0x2U)
 
 #ifndef SDT
 #define PMCDMA_0_DEVICE ((u32)PMCDMA_0_DEVICE_ID)
@@ -68,10 +71,10 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 u32 XPlm_DmaInit(void);
 XPmcDma *XPlm_GetDmaInstance(void);
-int XPlm_DmaXfr(u32 SrcAddr, u32 DestAddr, u32 Len, u32 Flags);
-int XPlm_SbiDmaXfer(u32 DestAddr, u32 Len, u32 Flags);
-int XPlm_DmaSbiXfer(u32 SrcAddr, u32 Len, u32 Flags);
-int XPlm_MemSet(u32 DestAddr, u32 Val, u32 Len);
+u32 XPlm_DmaXfr(u32 SrcAddr, u32 DestAddr, u32 Len, u32 Flags);
+u32 XPlm_SbiDmaXfer(u32 DestAddr, u32 Len, u32 Flags);
+u32 XPlm_DmaSbiXfer(u32 SrcAddr, u32 Len, u32 Flags);
+u32 XPlm_MemSet(u32 DestAddr, u32 Val, u32 Len);
 u32 XPlm_SbiRead(u64 SrcAddr, u32 DestAddr, u32 Length, u32 Flags);
 
 #ifdef __cplusplus

@@ -40,9 +40,11 @@
 
 /************************** Function Prototypes ******************************/
 static void XPlm_SbiLoadPdi(void *Data);
-
+static void XPlm_SetRunTimeEvent(const u32 Event);
+static void XPlm_ClearRunTimeEvent(const u32 Event);
+static void XPlm_EnableIntrSbiDataRdy(void);
+static u32 XPlm_IntrInit(void);
 /************************** Variable Definitions *****************************/
-static XIOModule IOModule; /* Instance of the IO Module */
 static volatile u32 RunTimeEvents = 0x0U;
 
 /******************************************************************************/
@@ -55,14 +57,14 @@ static volatile u32 RunTimeEvents = 0x0U;
  * 		- XST_SUCCESS on success and error code on failure.
  *
  *****************************************************************************/
-u32 XPlm_IntrInit(void)
+static u32 XPlm_IntrInit(void)
 {
 	u32 Status = (u32)XST_FAILURE;
+	static XIOModule IOModule;
 
 	/** - Initialize the IO Module. */
 	Status = XIOModule_Initialize(&IOModule, XPAR_IOMODULE_0_DEVICE_ID);
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_IO_MOD_INIT;
 		goto END;
 	}
@@ -101,10 +103,13 @@ END:
  *****************************************************************************/
 static void XPlm_SbiLoadPdi(void *Data)
 {
-	/** - disable the SBI data RDY interrupt. */
-	XPlm_UtilRMW(SLAVE_BOOT_SBI_IRQ_DISABLE,
-		      SLAVE_BOOT_SBI_IRQ_DISABLE_DATA_RDY_MASK,
-		      SLAVE_BOOT_SBI_IRQ_DISABLE_DATA_RDY_MASK);
+	(void)Data;
+
+	/** - Disable the SBI data RDY interrupt. */
+	XPlm_UtilRMW(SLAVE_BOOT_SBI_IRQ_DISABLE, SLAVE_BOOT_SBI_IRQ_DISABLE_DATA_RDY_MASK,
+		     SLAVE_BOOT_SBI_IRQ_DISABLE_DATA_RDY_MASK);
+
+	/** - Set run time event to trigger loading partial PDI. */
 	XPlm_SetRunTimeEvent(XPLM_RUN_TIME_PARTIAL_PDI_EVENT);
 }
 
@@ -113,7 +118,7 @@ static void XPlm_SbiLoadPdi(void *Data)
  * @brief	This function enables IRQ for next interrupt.
  *
  *****************************************************************************/
-void XPlm_EnableIntrSbiDataRdy(void)
+static void XPlm_EnableIntrSbiDataRdy(void)
 {
 	/** - Clear SBI interrupt. */
 	XPlm_UtilRMW(SLAVE_BOOT_SBI_IRQ_STATUS,
@@ -126,11 +131,23 @@ void XPlm_EnableIntrSbiDataRdy(void)
 		      SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
 }
 
-u32 XPlm_PostBoot(void) {
-	u32 Status = XST_FAILURE;
-	XRomBootRom *InstancePtr = HooksTbl->InstancePtr;
+/*****************************************************************************/
+/**
+ * @brief	Perform Post boot initialization tasks.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- XPLM_ERR_INVALID_SECONDARY_BOOT_INTF if the selected secondary
+ *		boot interface is not valid.
+ *
+ *****************************************************************************/
+u32 XPlm_PostBoot(void)
+{
+	u32 Status = (u32)XST_FAILURE;
 	u32 EfusePufhdInvalidBits;
+	u32 EfusePufhdInvalidBitsTmp;
 	u32 SecBootConfig;
+	u32 SecBootConfigTmp;
 	u32 SecBootInterf;
 
 	XPlm_LogPlmStage(XPLM_POST_BOOT_STAGE);
@@ -140,21 +157,24 @@ u32 XPlm_PostBoot(void) {
 	/** Clear All Run-Time Events */
 	XPlm_ClearRunTimeEvent(XPLM_ALLFS);
 
-	XPlm_CaptureCriticalInfo();
+	XSECURE_REDUNDANT_IMPL(XPlm_CaptureCriticalInfo);
 
 	/** - Disable PUF if PUFHD invalid efuse is blown. */
 	EfusePufhdInvalidBits = Xil_In32(EFUSE_XILINX_CTRL) & EFUSE_XILINX_CTRL_PUFHD_INVLD_MASK;
-	if (EfusePufhdInvalidBits != XPLM_ZERO) {
+	EfusePufhdInvalidBitsTmp = Xil_In32(EFUSE_XILINX_CTRL) & EFUSE_XILINX_CTRL_PUFHD_INVLD_MASK;
+	if ((EfusePufhdInvalidBits != XPLM_ZERO) || (EfusePufhdInvalidBitsTmp != XPLM_ZERO)) {
 		XSECURE_REDUNDANT_IMPL(Xil_Out32, PMC_GLOBAL_PUF_DISABLE, PMC_GLOBAL_PUF_DISABLE_PUF_MASK);
 	}
 
 	/** - Enable Secondary boot if enabled in RTCA register and set the boot interface. */
-	SecBootConfig = Xil_In32(XPLM_RTCFG_SEC_BOOT_CTRL);
-	if ((SecBootConfig & XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK) == XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK) {
+	SecBootConfig = Xil_In32(XPLM_RTCFG_SEC_BOOT_CTRL) & XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK;
+	SecBootConfigTmp = Xil_In32(XPLM_RTCFG_SEC_BOOT_CTRL) & XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK;
+	if ((SecBootConfig == XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK)
+	    && (SecBootConfigTmp == XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK)) {
 		SecBootInterf = (SecBootConfig & XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_MASK) >>
-					XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_SHIFT;
-		if ((SecBootInterf != XPLM_SBI_IF_JTAG) || (SecBootInterf != XPLM_SBI_IF_AXI_SLAVE) ||
-				(SecBootInterf != XPLM_SBI_IF_MCAP)) {
+				XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_SHIFT;
+		if ((SecBootInterf != XPLM_SBI_IF_JTAG) && (SecBootInterf != XPLM_SBI_IF_AXI_SLAVE)
+		    && (SecBootInterf != XPLM_SBI_IF_MCAP)) {
 			Status = (u32)XPLM_ERR_INVALID_SECONDARY_BOOT_INTF;
 			goto END;
 		}
@@ -164,28 +184,27 @@ u32 XPlm_PostBoot(void) {
 	}
 
 	Status = XPlm_IntrInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 END:
 	return Status;
 }
 
-
-void XPlm_SetRunTimeEvent(const u32 Event) {
+static void XPlm_SetRunTimeEvent(const u32 Event)
+{
 	RunTimeEvents |= Event;
 }
 
-void XPlm_ClearRunTimeEvent(const u32 Event) {
+static void XPlm_ClearRunTimeEvent(const u32 Event)
+{
 	RunTimeEvents &= ~Event;
 }
 
 void XPlm_EventLoop(void) {
 	u32 Status = (u32)XST_FAILURE;
 
+	/* Update PLM stage before entering infinite loop. */
+	XPlm_LogPlmStage(XPLM_RUN_TIME_EVENT_PROCESS_STAGE);
+
 	while (TRUE) {
-		XPlm_LogPlmStage(XPLM_RUN_TIME_EVENT_PROCESS_STAGE);
 		if ((RunTimeEvents & XPLM_RUN_TIME_PARTIAL_PDI_EVENT) ==
 				XPLM_RUN_TIME_PARTIAL_PDI_EVENT) {
 			/* Load Partial PDI */
@@ -198,6 +217,7 @@ void XPlm_EventLoop(void) {
 			/* Enable the SBI interrupt. */
 			XPlm_EnableIntrSbiDataRdy();
 		}
+		XPlm_LogPlmStage(XPLM_RUN_TIME_EVENT_PROCESS_STAGE);
 		mb_sleep();
 	}
 }
