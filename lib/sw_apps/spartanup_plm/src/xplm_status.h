@@ -20,6 +20,11 @@
  *
  ******************************************************************************/
 
+/**
+ * @addtogroup spartanup_plm_apis SpartanUP PLM APIs
+ * @{
+ */
+
 #ifndef XPLM_STATUS_H
 #define XPLM_STATUS_H
 
@@ -41,7 +46,7 @@ typedef enum {
 	XPLM_ERR_DMA_CFG,
 
 	/**
-	 * 0x903 - Error when DMA Self test fails. It occurs when DMA is in
+	 * 0x903 - Error when DMA Self-test fails. It occurs when DMA is in
 	 * reset and PLM tries to initialize it.
 	 */
 	XPLM_ERR_DMA_SELFTEST,
@@ -236,7 +241,7 @@ typedef enum {
 	/** 0x93A - Error if failed to initialize IO module. */
 	XPLM_ERR_IO_MOD_INIT,
 
-	/** 0x93B - Error if IO module self test failed. */
+	/** 0x93B - Error if IO module self-test failed. */
 	XPLM_ERR_IO_MOD_SELF_TEST,
 
 	/* Assert */
@@ -334,18 +339,18 @@ typedef enum {
 	/** 0x958 - Error if Glitch detected. */
 	XPLM_ERR_GLITCH_DETECTED,
 
-	/* 0xA00 - 0xA10 are dedicated for PUF SHA Digest errors */
+	/** 0xA00 to 0xA10 are dedicated for PUF SHA Digest errors */
 	XPLM_ERR_PUF_SHA_DIGEST = 0xA00,
 
-	/* Errors starting from 0xD00 are related to secure load rom hook. */
+	/** Errors starting from 0xD00 are related to secure load rom hook. */
 	XPLM_ERR_SEC_LOAD = 0xD00,
 
-	/* Exceptions are in range from 0xE00 to 0xE24, this range is derived from the RISC-V last exception ID. */
+	/** Exceptions are in range from 0xE00 to 0xE24, this range is derived from the RISC-V last exception ID. */
 	/* Exception has occurred during PLM initialization.*/
 	XPLM_ERR_EXCEPTION = 0xE00,
 	/* Error codes from 0xE00 to 0xE24 are reserved for exceptions. */
 
-	/* CDO command errors. */
+	/** Errors starting from 0x1000 are related to CDO command errors. */
 	XPLM_ERR_CDO_CMD = 0x1000,
 } XPlm_Status_t;
 
@@ -362,3 +367,5 @@ typedef enum {
 #endif
 
 #endif  /* XPLM_STATUS_H */
+
+/** @} end of spartanup_plm_apis group*/

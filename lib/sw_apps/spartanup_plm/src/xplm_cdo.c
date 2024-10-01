@@ -20,6 +20,11 @@
  *
  ******************************************************************************/
 
+/**
+ * @addtogroup spartanup_plm_apis SpartanUP PLM APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplm_cdo.h"
 #include "xplm_util.h"
@@ -30,6 +35,8 @@
 
 /************************** Constant Definitions *****************************/
 /* This buffer is used to store commands which extend across 32K boundaries */
+
+/** @cond spartanup_plm_internal */
 #define XPLM_CMD_LEN_TEMPBUF		(0x8U)
 #define XPLM_CMD_ID_MASK		(0x1FFU)
 #define XPLM_ERR_CMD_ID_SHIFT		(0x4U)
@@ -38,6 +45,7 @@
 #define XPLM_CMD_MODULE_ID_MASK		(0xFF00U)
 #define XPLM_CMD_LEN_MASK		(0xFF0000U)
 #define XPLM_CMD_MODULE_ID_SHIFT	(8U)
+/** @endcond */
 
 /**************************** Type Definitions *******************************/
 
@@ -46,17 +54,15 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-static XPlm_Module * Modules[XPLM_MAX_MODULES];
+static XPlm_Module *Modules[XPLM_MAX_MODULES];
 
 /*****************************************************************************/
 
 /*****************************************************************************/
 /**
- * @brief	This function registers the module.
+ * @brief	Register the Module.
  *
- * @param	Module is pointer to XPlmi Module
- *
- * @return	None
+ * @param	Module is pointer to XPlm Module
  *
  *****************************************************************************/
 void XPlm_ModuleRegister(XPlm_Module *Module)
@@ -71,17 +77,17 @@ void XPlm_ModuleRegister(XPlm_Module *Module)
 /*****************************************************************************/
 /**
  * @brief	This function will call the command handler registered with the
- * 			command. Command handler shall execute the command till the
- * 			payload length.
+ * 		command. Command handler shall execute the command till the
+ * 		payload length.
  *
  * @param	CmdPtr is pointer to command structure
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XPLM_ERR_MODULE_NOT_REGISTERED if the module is not registered.
- * 			- XPLM_ERR_CMD_APIID on invalid module and unregistered CMD ID.
- * 			- XPLM_ERR_CMD_HANDLER_NULL if command handler is not registered.
- * 			- XPLM_ERR_CDO_CMD on invalid CDO command handler.
+ * 		- XST_SUCCESS on success.
+ * 		- XPLM_ERR_MODULE_NOT_REGISTERED if the module is not registered.
+ * 		- XPLM_ERR_CMD_APIID on invalid module and unregistered CMD ID.
+ * 		- XPLM_ERR_CMD_HANDLER_NULL if command handler is not registered.
+ * 		- and errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
 static u32 XPlm_CmdExecute(XPlm_Cmd *CmdPtr)
@@ -92,7 +98,7 @@ static u32 XPlm_CmdExecute(XPlm_Cmd *CmdPtr)
 	const XPlm_Module *Module = NULL;
 	const XPlm_ModuleCmd *ModuleCmd = NULL;
 
-	/** - Validate Module registration. */
+	/** - Validate if the Module is registered. */
 	if (ModuleId < XPLM_MAX_MODULES) {
 		Module = Modules[ModuleId];
 	}
@@ -101,20 +107,20 @@ static u32 XPlm_CmdExecute(XPlm_Cmd *CmdPtr)
 		goto END;
 	}
 
-	/** - Validate if API is registered. */
+	/** - Validate if the API is registered. */
 	if (ApiId >= Module->CmdCnt) {
 		Status = (u32)XPLM_ERR_CMD_APIID;
 		goto END;
 	}
 
-	/** - Validate the module handler. */
+	/** - Validate if the handler for the API ID is registered. */
 	ModuleCmd = &Module->CmdAry[ApiId];
 	if (ModuleCmd->Handler == NULL) {
 		Status = (u32)XPLM_ERR_CMD_HANDLER_NULL;
 		goto END;
 	}
 	XPlm_Printf(DEBUG_DETAILED, "CMD 0x%0x, Len 0x%0x, PayloadLen 0x%0x \n\r",
-			CmdPtr->CmdId, CmdPtr->Len, CmdPtr->PayloadLen);
+		    CmdPtr->CmdId, CmdPtr->Len, CmdPtr->PayloadLen);
 
 	/** - Execute the API. */
 	Status = ModuleCmd->Handler(CmdPtr);
@@ -123,8 +129,7 @@ static u32 XPlm_CmdExecute(XPlm_Cmd *CmdPtr)
 			 (Status & XPLM_MIN_ERR_MASK);
 		if (CmdPtr->DeferredError != (u8)TRUE) {
 			goto END;
-		}
-		else {
+		} else {
 			/* If Deferred Error, log the error and continue */
 			XPlm_Printf(DEBUG_GENERAL, "Deferring CDO Error\n\r");
 			XPlm_LogPlmErr(Status);
@@ -132,9 +137,11 @@ static u32 XPlm_CmdExecute(XPlm_Cmd *CmdPtr)
 		}
 	}
 
-	/** - Increment the processed length and it can be used during resume */
+	/**
+	 * - Store the handler and processed payload length for resuming the command if it
+	 * spans across multiple chunks.
+	 */
 	CmdPtr->ProcessedLen += CmdPtr->PayloadLen;
-	/** - Assign the same handler for Resume */
 	CmdPtr->ResumeHandler = ModuleCmd->Handler;
 
 END:
@@ -144,13 +151,14 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function resumes the command after being partially executed.
- * 			Resume handler shall execute the command till the payload length.
+ * 		Resume handler shall execute the command till the payload length.
  *
  * @param	CmdPtr is pointer to command structure
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XPLM_ERR_INVLD_RESUME_HANDLER if handler is not valid.
+ * 		- XST_SUCCESS on success.
+ * 		- XPLM_ERR_INVLD_RESUME_HANDLER if handler is not valid.
+ * 		- and errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
 static u32 XPlm_CmdResume(XPlm_Cmd *CmdPtr)
@@ -159,11 +167,13 @@ static u32 XPlm_CmdResume(XPlm_Cmd *CmdPtr)
 
 	XPlm_Printf(DEBUG_DETAILED, "CMD Resume \n\r");
 
+	/** - Validate the handler. */
 	if (CmdPtr->ResumeHandler ==  NULL) {
 		Status = (u32)XPLM_ERR_INVLD_RESUME_HANDLER;
 		goto END;
 	}
 
+	/** - Execute the handler. */
 	Status = CmdPtr->ResumeHandler(CmdPtr);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = ((CmdPtr->CmdId & XPLM_CMD_ID_MASK) << XPLM_ERR_CMD_ID_SHIFT) |
@@ -172,7 +182,7 @@ static u32 XPlm_CmdResume(XPlm_Cmd *CmdPtr)
 		goto END;
 	}
 
-	/* Increment the processed length and it can be used during resume */
+	/** - Update the processed length if the current CDO command spans across multiple chunks. */
 	CmdPtr->ProcessedLen += CmdPtr->PayloadLen;
 
 END:
@@ -181,15 +191,15 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function will calculate the size of the command. Bits 16 to 23
- * 			denote the size of the command. If the value is 255, then the
- * 			word following CmdId would denote the size of the command.
+ * @brief	Calculate the size of the command. Bits 16 to 23 in command header denote the size
+ * of the command. If the value is 255, then the word following CmdId would denote the size of the
+ * command.
  *
- * @param	Buf is pointer to buffer
- * @param	Len is length of the command that is available in memory to parse
+ * @param	Buf is pointer to buffer with CDO command.
+ * @param	Len is length of the command that is available in memory to parse.
  *
  * @return
- * 			- Size of the command
+ * 		- Size of the command
  *
  *****************************************************************************/
 static u32 XPlm_CmdSize(const u32 *Buf, u32 Len)
@@ -221,11 +231,8 @@ static u32 XPlm_CmdSize(const u32 *Buf, u32 Len)
  * @param	BufLen is length of the buffer. It may not have total Command
  * length if buffer is not available.
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
-static void XPlm_SetupCmd(XPlm_Cmd * Cmd, u32 *Buf, u32 BufLen)
+static void XPlm_SetupCmd(XPlm_Cmd *Cmd, u32 *Buf, u32 BufLen)
 {
 	u32 HdrLen = 1U;
 
@@ -249,14 +256,14 @@ static void XPlm_SetupCmd(XPlm_Cmd * Cmd, u32 *Buf, u32 BufLen)
 
 /*****************************************************************************/
 /**
- * @brief	This function verifies CDO header.
+ * @brief	Validate the CDO header by calculating the sum of all words in the header.
  *
  * @param	CdoPtr is pointer to the CDO structure
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XPLM_ERR_CDO_HDR_ID on invalid CDO header.
- * 			- XPLM_ERR_CDO_CHECKSUM if CDO checksum fails.
+ * 		- XST_SUCCESS on success.
+ * 		- XPLM_ERR_CDO_HDR_ID on invalid CDO header.
+ * 		- XPLM_ERR_CDO_CHECKSUM if CDO checksum fails.
  *
  *****************************************************************************/
 static u32 XPlm_CdoVerifyHeader(const XPlmCdo *CdoPtr)
@@ -266,16 +273,19 @@ static u32 XPlm_CdoVerifyHeader(const XPlmCdo *CdoPtr)
 	const u32 *CdoHdr = CdoPtr->BufPtr;
 	u32 Index;
 
+	/** - Validate the header identification word with @ref XPLM_CDO_HDR_IDN_WRD. */
 	if (CdoHdr[1U] != XPLM_CDO_HDR_IDN_WRD) {
 		XPlm_Printf(DEBUG_INFO, "CDO Header Identification Failed\n\r");
 		Status = (u32)XPLM_ERR_CDO_HDR_ID;
 		goto END;
 	}
+
+	/** - Calculate the sum of all words in header. */
 	for (Index = 0U; Index < (XPLM_CDO_HDR_LEN - 1U); Index++) {
 		CheckSum += CdoHdr[Index];
 	}
 
-	/* Invert checksum */
+	/** - Invert the calculated checksum and verify with the checksum provided in header. */
 	CheckSum ^= XPLM_ALLFS;
 	if (CheckSum != CdoHdr[Index]) {
 		XPlm_Printf(DEBUG_INFO, "Config Object Checksum Failed\n\r");
@@ -285,10 +295,8 @@ static u32 XPlm_CdoVerifyHeader(const XPlmCdo *CdoPtr)
 		Status = XST_SUCCESS;
 	}
 
-	XPlm_Printf(DEBUG_INFO,
-		"Config Object Version 0x%08x\n\r", CdoHdr[2U]);
-	XPlm_Printf(DEBUG_INFO,
-		"Length 0x%08x\n\r", CdoHdr[3U]);
+	XPlm_Printf(DEBUG_INFO, "Config Object Version 0x%08x\n\r", CdoHdr[2U]);
+	XPlm_Printf(DEBUG_INFO, "Length 0x%08x\n\r", CdoHdr[3U]);
 
 END:
 	return Status;
@@ -300,24 +308,28 @@ END:
  *
  * @param	CdoPtr is pointer to the CDO structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- XST_FAILURE if failed to initialize the CDO structure to '0'.
  *
  *****************************************************************************/
 u32 XPlm_InitCdo(XPlmCdo *CdoPtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Initialize the CDO structure variables */
+	/** - Initialize the entire CDO structure members to '0'. */
 	Status = Xil_SMemSet(CdoPtr, sizeof(XPlmCdo), 0U, sizeof(XPlmCdo));
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
-	/* Initialize the CDO buffer user params */
+
+	/** - Update the structure to indicate its first chunk. */
 	CdoPtr->Cdo1stChunk = (u8)TRUE;
 
-	/* Always log CDO offset */
+	/** - Enable CDO offset logging. */
 	CdoPtr->LogCdoOffset = (u8)TRUE;
 
+	/** - Initialize the begin-end stack to '-1' to indicate it's empty. */
 	CdoPtr->Cmd.CdoParamsStack.OffsetListTop = -1;
 
 END:
@@ -327,7 +339,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function will update the command pointer and resume the
- * 			command from previous state.
+ * command from previous state.
  *
  * @param	CdoPtr Pointer to the CDO structure
  * @param	BufPtr Pointer to the buffer
@@ -335,7 +347,8 @@ END:
  * @param	Size Pointer to the Size consumed by the command execution
  *
  * @return
- * 			- XST_SUCCESS in case of success
+ * 		- XST_SUCCESS on success.
+ * 		- and errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
 static u32 XPlm_CdoCmdResume(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
@@ -358,14 +371,14 @@ static u32 XPlm_CdoCmdResume(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size
 	Status = XPlm_CmdResume(CmdPtr);
 	if (Status != (u32)XST_SUCCESS) {
 		XPlm_Printf(DEBUG_GENERAL,
-			"CMD: 0x%08x Resume failed, Processed Cdo Length 0x%0x\n\r",
-			CmdPtr->CmdId, CdoPtr->ProcessedCdoLen * XPLM_WORD_LEN);
+			    "CMD: 0x%08x Resume failed, Processed Cdo Length 0x%0x\n\r",
+			    CmdPtr->CmdId, CdoPtr->ProcessedCdoLen * XPLM_WORD_LEN);
 		PrintLen = CmdPtr->PayloadLen;
 		if (PrintLen > XPLM_CMD_LEN_TEMPBUF) {
 			PrintLen = XPLM_CMD_LEN_TEMPBUF;
 		}
 		XPlm_PrintArray(DEBUG_GENERAL, (u32)(UINTPTR)CmdPtr->Payload, PrintLen,
-				 "CMD payload");
+				"CMD payload");
 	}
 
 	CdoPtr->ProcessedCdoLen += *Size;
@@ -375,8 +388,7 @@ static u32 XPlm_CdoCmdResume(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size
 
 /*****************************************************************************/
 /**
- * @brief	This function copies gets the prepares the CMD pointer and
- * 			executes it.
+ * @brief	This function executes the CDO commands.
  *
  * @param	CdoPtr is pointer to the CDO structure
  * @param	BufPtr is pointer to the buffer
@@ -384,8 +396,9 @@ static u32 XPlm_CdoCmdResume(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size
  * @param	Size is pointer to the Size consumed by the command execution
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XPLM_ERR_MEMCPY_CMD_EXEC if mem copy command execution fails.
+ * 		- XST_SUCCESS on success.
+ * 		- XPLM_ERR_MEMCPY_CMD_EXEC if failed to save the current CDO command for resuming.
+ * 		- and errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
 static u32 XPlm_CdoCmdExecute(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
@@ -396,8 +409,7 @@ static u32 XPlm_CdoCmdExecute(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Siz
 	u32 BufSize;
 
 	/**
-	 * Break if CMD says END of commands,
-	 * irrespective of the CDO length
+	 * - Skip executing the remaining commands in CDO upon detecting the 'END' CDO command.
 	 */
 	if (BufPtr[0U] == XPLM_CMD_END) {
 		XPlm_Printf(DEBUG_INFO, "CMD END detected \n\r");
@@ -409,8 +421,8 @@ static u32 XPlm_CdoCmdExecute(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Siz
 	*Size = XPlm_CmdSize(BufPtr, BufLen);
 	CmdPtr->Len = *Size;
 	/**
-	 * Check if Cmd payload is less than buffer size, then copy to
-	 * the starting of the next chunk address.
+	 * - Save the current CDO command header information to the top of next chunk, if it spans
+	 * across multiple chunks.
 	 */
 	if ((*Size > BufLen) && (BufLen < XPLM_CMD_LEN_TEMPBUF)) {
 		BufSize = BufLen * XPLM_WORD_LEN;
@@ -429,8 +441,9 @@ static u32 XPlm_CdoCmdExecute(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Siz
 	}
 
 	/**
-	 * If size is greater than tempbuf, execute partially
-	 * and resume the cmd in next iteration
+	 * - Update the current command state to indicate that it should resume the broken command
+	 * on the next chunk if the command length is greater than the buffer length present in the
+	 * current chunk.
 	 */
 	if (*Size > BufLen) {
 		*Size = BufLen;
@@ -438,31 +451,33 @@ static u32 XPlm_CdoCmdExecute(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Siz
 	}
 	CmdPtr->BreakLength = 0U;
 
-	/** Execute the command */
 	XPlm_SetupCmd(CmdPtr, BufPtr, *Size);
 	CmdPtr->DeferredError = (u8)FALSE;
 	CmdPtr->ProcessedCdoLen = CdoPtr->ProcessedCdoLen;
-	/* Log Cdo Offset in PMC_FW_DATA */
+
+	/** - Store the current CDO command offset to PMC_FW_DATA if CDO offset logging is enabled. */
 	if (CdoPtr->LogCdoOffset == TRUE) {
 		Xil_Out32(PMC_GLOBAL_PMC_FW_DATA, CdoPtr->PartitionOffset +
-			CdoPtr->ProcessedCdoLen + XPLM_CDO_HDR_LEN);
+			  CdoPtr->ProcessedCdoLen + XPLM_CDO_HDR_LEN);
 	}
+
+	/** - Execute the command. */
 	Status = XPlm_CmdExecute(CmdPtr);
 	if (Status != (u32)XST_SUCCESS) {
 		XPlm_Printf(DEBUG_PRINT_ALWAYS,
-			"CMD: 0x%08x execute failed, Processed Cdo Length 0x%0x\n\r",
-			CmdPtr->CmdId, (CdoPtr->ProcessedCdoLen + XPLM_CDO_HDR_LEN) * XPLM_WORD_LEN);
+			    "CMD: 0x%08x execute failed, Processed Cdo Length 0x%0x\n\r",
+			    CmdPtr->CmdId, (CdoPtr->ProcessedCdoLen + XPLM_CDO_HDR_LEN) * XPLM_WORD_LEN);
 		PrintLen = CmdPtr->PayloadLen;
 		if (PrintLen > XPLM_CMD_LEN_TEMPBUF) {
 			PrintLen = XPLM_CMD_LEN_TEMPBUF;
 		}
 		XPlm_PrintArray(DEBUG_GENERAL, (u32)(UINTPTR)CmdPtr->Payload, PrintLen,
-				 "CMD Payload");
+				"CMD Payload");
 		goto END;
 	}
 
 	CdoPtr->ProcessedCdoLen += *Size;
-	if(CmdPtr->Len == (CmdPtr->PayloadLen - 1U)) {
+	if (CmdPtr->Len == (CmdPtr->PayloadLen - 1U)) {
 		CmdPtr->PayloadLen = CmdPtr->Len;
 		CdoPtr->CmdState = XPLM_CMD_STATE_START;
 		CdoPtr->CopiedCmdLen = 0U;
@@ -474,14 +489,14 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function process the CDO file.
+ * @brief	This function processes the CDO file.
  *
  * @param	CdoPtr is pointer to the CDO structure
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XPLM_ERR_INVALID_BREAK_LENGTH on invalid break length provided in
- * 			CDO.
+ * 		- XST_SUCCESS on success.
+ * 		- XPLM_ERR_INVALID_BREAK_LENGTH on invalid break length provided in CDO.
+ * 		- and errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
 u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr)
@@ -517,37 +532,34 @@ u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr)
 		CdoPtr->BufLen = BufLen;
 	}
 
-	/**
-	 * - In case CmdEnd is detected in previous iteration,
-	 * it just returns
-	 */
+	/** - Stop processing if command END is detected in previous iteration. */
 	if (CdoPtr->CmdEndDetected == (u8)TRUE) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
 
 	XPlm_Printf(DEBUG_INFO, "Processing CDO, Chunk Len 0x%08x\n\r", BufLen);
-	/**
-	 * - Check if cmd data is copied
-	 * partially during the last iteration
-	 */
+	/* Check if cmd data is copied partially during the last iteration */
 	if (CdoPtr->CopiedCmdLen > 0U) {
 		BufPtr = CdoPtr->TempCmdBuf;
 		BufLen += CdoPtr->CopiedCmdLen;
 		CdoPtr->CopiedCmdLen = 0x0U;
 	}
 
-	/** - Handle the break command occured in previous chunk */
+	/**
+	 * - Handle the break command occured in previous chunk.
+	 * 	- If the end is not present in current chunk, stop processing the current chunk.
+	 * 	- If the end is present in current chunk, jump to end command.
+	 */
 	if (CdoPtr->Cmd.BreakLength > 0U) {
 		RemainingLen = CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
 		if (RemainingLen >= BufLen) {
-			/** - If the end is not present in current chunk, skip this chunk */
+			/* If the end is not present in current chunk, skip this chunk */
 			CdoPtr->ProcessedCdoLen += BufLen;
 			Status = XST_SUCCESS;
 			goto END;
-		}
-		else {
-			/** - If the end is present in current chunk, jump to end command */
+		} else {
+			/* If the end is present in current chunk, jump to end command */
 			CdoPtr->ProcessedCdoLen += RemainingLen;
 			BufLen -= RemainingLen;
 			BufPtr = &BufPtr[RemainingLen];
@@ -555,9 +567,9 @@ u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr)
 		}
 	}
 
-	/** - Execute the commands in the Cdo Buffer */
+	/** - Start executing the commands from the Cdo Buffer. */
 	while (BufLen > 0U) {
-		/** - Check if cmd has to be resumed */
+		/* Check if cmd has to be resumed */
 		if (CdoPtr->CmdState == XPLM_CMD_STATE_RESUME) {
 			Status = XPlm_CdoCmdResume(CdoPtr, BufPtr, BufLen, &Size);
 		} else {
@@ -567,26 +579,25 @@ u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr)
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
-		/** - If command end is detected, exit the loop */
+		/* If command end is detected, exit the loop */
 		if (CdoPtr->CmdEndDetected == (u8)TRUE) {
 			goto END;
 		}
 
-		/** - Handle the break command processed in current chunk */
+		/* Handle the break command processed in current chunk */
 		if (CdoPtr->Cmd.BreakLength > 0U) {
 			if (CdoPtr->Cmd.BreakLength < CdoPtr->ProcessedCdoLen) {
 				Status = (u32)XPLM_ERR_INVALID_BREAK_LENGTH;
 				goto END;
 			}
 			if (BufLen > (Size + CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen)) {
-				/** - If the end is present in current chunk, jump to it */
+				/* If the end is present in current chunk, jump to it */
 				Size += CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
 				CdoPtr->ProcessedCdoLen += CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
 				CdoPtr->Cmd.BreakLength = 0U;
-			}
-			else {
-				/**
-				 * - If the end is not present in current chunk, skip processing
+			} else {
+				/*
+				 * If the end is not present in current chunk, skip processing
 				 * rest of the chunk
 				 */
 				CdoPtr->ProcessedCdoLen += BufLen - Size;
@@ -594,7 +605,7 @@ u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr)
 			}
 		}
 
-		/** - Update the parameters for next iteration */
+		/* Update the parameters for next iteration */
 		BufPtr = &BufPtr[Size];
 		BufLen -= Size;
 	}
@@ -604,3 +615,5 @@ u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr)
 END:
 	return Status;
 }
+
+/** @} end of spartanup_plm_apis group*/

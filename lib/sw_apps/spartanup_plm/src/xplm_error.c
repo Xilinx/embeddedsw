@@ -21,6 +21,11 @@
  *
  ******************************************************************************/
 
+/**
+ * @addtogroup spartanup_plm_apis SpartanUP PLM APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xil_io.h"
 #include "xplm_error.h"
@@ -29,6 +34,7 @@
 #include "xplm_hooks.h"
 
 /************************** Constant Definitions *****************************/
+/** @cond spartanup_plm_internal */
 #define XPLM_EFUSE_CACHE_CRC_EN_ADDR	(0x04161150U)
 #define XPLM_EFUSE_LCKDWN_EN_MASK	(0x8U)
 #define XPLM_PMCL_RESET_VAL		(1U)
@@ -42,6 +48,7 @@
 
 /* Multiboot max offset */
 #define XPLM_MULTIBOOT_OFFSET	(0x8000U)
+/** @endcond */
 
 /**************************** Type Definitions *******************************/
 
@@ -123,61 +130,67 @@ void XPlm_ErrMgr(u32 ErrStatus)
 
 /*****************************************************************************/
 /**
- * This function is called for logging PLM error into FW_ERR register
+ * @brief This function is called for logging PLM error into FW_ERR register
  *
- * @param	ErrStatus is the error code written to the FW_ERR register
+ * @param	ErrStatus is the error code to be written to the FW_ERR register
  *
  *****************************************************************************/
-void XPlm_LogPlmErr(u32 ErrStatus) {
+void XPlm_LogPlmErr(u32 ErrStatus)
+{
 	u32 FirstError;
 
 	FirstError = Xil_In32(PMC_GLOBAL_PMC_FW_ERR) & XPLM_PMC_FW_ERR_FIRST_ERR_MASK;
 
+	/** - Store the PLM error to FW_ERR register. */
 	if (FirstError == XPLM_ZERO) {
-		XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, XPLM_PMC_FW_ERR_FIRST_ERR_MASK, (ErrStatus << XPLM_PMC_FW_ERR_FIRST_ERR_SHIFT));
-	}
-	else {
+		XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, XPLM_PMC_FW_ERR_FIRST_ERR_MASK,
+			     (ErrStatus << XPLM_PMC_FW_ERR_FIRST_ERR_SHIFT));
+	} else {
 		XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, XPLM_PMC_FW_ERR_LAST_ERR_MASK, ErrStatus);
 	}
-	/** - Print the PLM Error */
+	/** - Print the PLM Error. */
 	XPlm_Printf(DEBUG_PRINT_ALWAYS, "PLM Error Status: 0x%08x\n\r", Xil_In32(PMC_GLOBAL_PMC_FW_ERR));
 }
 
 /*****************************************************************************/
 /**
- * This function is called for logging PLM stage to PERSISTENT GLOBAL GEN STORAGE 0 register
+ * @brief This function is called for logging PLM stage to PERSISTENT GLOBAL GEN STORAGE 0 register
  *
- * @param	Stage is the number to log to persistent global register
+ * @param	Stage is the number to log to FW_STATUS register
  *
  *****************************************************************************/
-void XPlm_LogPlmStage(XPlm_Stages Stage) {
+void XPlm_LogPlmStage(XPlm_Stages Stage)
+{
 	/* Log PLM Stage to FW_STATUS registers. */
 	XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_STATUS, XPLM_FW_STATUS_STAGE_MASK, Stage);
 }
 
 /*****************************************************************************/
 /**
- * This function triggers secure lockdown
+ * @brief This function triggers secure lockdown
  *
  *****************************************************************************/
 static void XPlm_TriggerSecLockdown(void)
 {
 	XPlm_Printf(DEBUG_PRINT_ALWAYS, "Triggering secure lockdown\n\r");
 
+	/** - Clear crypto engines. */
 	HooksTbl->XRom_ClearCrypto();
 
-	/* Toggle CCU */
+	/** - Reset capture control unit. */
 	Xil_Out32(PMC_GLOBAL_RST_CCU, 1U);
 	Xil_Out32(PMC_GLOBAL_RST_CCU, PMC_GLOBAL_RST_CCU_RESET_DEFVAL);
 
+	/** - Trigger PL house clean. */
 	(void)HooksTbl->XRom_PlHouseClean();
 
+	/** - Trigger MBist and Scan clear. */
 	HooksTbl->XRom_MBistNScanClear();
 }
 
 /*****************************************************************************/
 /**
- * This function checks the efuse bits and if secure lockdown is enabled,
+ * @brief This function checks the efuse bits and if secure lockdown is enabled,
  * triggers secure lockdown. Otherwise does nothing.
  *
  *****************************************************************************/
@@ -186,9 +199,12 @@ static void XPlm_CheckNTriggerSecLockdown(void)
 	u32 LckDwnEn = 0U;
 	u32 LckDwnEnTmp = 0U;
 
+	/** - Trigger secure lockdown - @ref XPlm_TriggerSecLockdown, if lockdown is enabled in efuse. */
 	LckDwnEn = Xil_In32(XPLM_EFUSE_CACHE_CRC_EN_ADDR) & XPLM_EFUSE_LCKDWN_EN_MASK;
 	LckDwnEnTmp = Xil_In32(XPLM_EFUSE_CACHE_CRC_EN_ADDR) & XPLM_EFUSE_LCKDWN_EN_MASK;
 	if ((LckDwnEn != 0U) || (LckDwnEnTmp != 0U)) {
 		XPlm_TriggerSecLockdown();
 	}
 }
+
+/** @} end of spartanup_plm_apis group*/

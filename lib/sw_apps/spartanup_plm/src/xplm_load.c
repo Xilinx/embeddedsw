@@ -21,6 +21,11 @@
  *
  ******************************************************************************/
 
+/**
+ * @addtogroup spartanup_plm_apis SpartanUP PLM APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplm_debug.h"
 #include "xil_types.h"
@@ -37,6 +42,7 @@
 #include "xplm_error.h"
 
 /************************** Constant Definitions *****************************/
+/** @cond spartanup_plm_internal */
 #define XPLM_METAHEADER_LEN		(0x140)
 #define XPLM_SECURE_CHUNK_BUFFER_ADDR		(0x0402C000U)
 #define XPLM_CHUNK_SIZE			(0x2000U)
@@ -55,39 +61,51 @@
 
 /* Using chunk buffer as temporary buffer to store PUF HD for digest */
 #define XPLM_TEMP_PUF_HD_BUFF		(XPLM_SECURE_CHUNK_BUFFER_ADDR)
+/** @endcond */
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static u32 (*XPlm_PullKeySourceRomHook)(const XRomBootRom* InstancePtr, u32* KeySource);
+static u32 (*XPlm_PullKeySourceRomHook)(const XRomBootRom *InstancePtr, u32 *KeySource);
 static u32 XPlm_SetPullKeySource(u32 PdiType);
-static u32 XPlm_ValidateHeaderChksum(const XRomBootRom* InstancePtr);
+static u32 XPlm_ValidateHeaderChksum(const XRomBootRom *InstancePtr);
 u32 XPlm_LoadBitstreamCdo(XRomBootRom *InstancePtr, u32 PdiType);
-static u32 XPlm_ValidateBootHeader(XRomBootRom* const InstancePtr);
-static u32 XPlm_ValidateHashBlock(XRomBootRom* const InstancePtr);
+static u32 XPlm_ValidateBootHeader(XRomBootRom *const InstancePtr);
+static u32 XPlm_ValidateHashBlock(XRomBootRom *const InstancePtr);
 static u32 XPlm_ProcessRtca(void);
 static u32 XPlm_SecureClear(XRomBootRom *InstancePtr);
-static void XPlm_ZeroizeCriticalMemory(const XRomBootRom* InstancePtr, u32 PdiType);
-static u32 XPlm_SecureValidations(XRomBootRom* const InstancePtr);
+static void XPlm_ZeroizeCriticalMemory(const XRomBootRom *InstancePtr, u32 PdiType);
+static u32 XPlm_SecureValidations(XRomBootRom *const InstancePtr);
 
 /************************** Variable Definitions *****************************/
+/**
+ * Structure to hold the information about PUF modes from Full boot PDI.
+ */
+/*****************************************************************************/
 static struct XPlm_FullPdiCrticalInfo_t {
-	u32 PUFMode;
+	u32 PUFMode; /**< PUF mode. */
 } FullPdiCriticalInfo;
+
+/** Holds the state of Red key. */
 static u32 RedKeyCleared = XPLM_ZERO;
 
-/******************************************************************************************/
-
+/*****************************************************************************/
+/**
+ * @brief	Store the PUF mode used during boot for validating partial PDIs.
+ */
+/*****************************************************************************/
 void XPlm_CaptureCriticalInfo(void)
 {
 	XRomBootRom *InstancePtr = HooksTbl->InstancePtr;
 
+	/** - Store the PUF mode from full boot to @ref FullPdiCriticalInfo. */
 	FullPdiCriticalInfo.PUFMode = InstancePtr->PUFMode;
 }
 
-static void XPlm_DumpChunkDebugInfo(XRomSecureChunk* ChunkInstPtr)
+/** @cond spartanup_plm_internal */
+static void XPlm_DumpChunkDebugInfo(XRomSecureChunk *ChunkInstPtr)
 {
 	XPlm_Printf(DEBUG_INFO, "IsLastChunk      : 0x%x\n\r", ChunkInstPtr->IsLastChunk);
 	XPlm_Printf(DEBUG_INFO, "PartitionType    : 0x%x\n\r", ChunkInstPtr->PartitionType);
@@ -100,20 +118,32 @@ static void XPlm_DumpChunkDebugInfo(XRomSecureChunk* ChunkInstPtr)
 	XPlm_Printf(DEBUG_INFO, "DataCopied       : 0x%x\n\r", ChunkInstPtr->DataCopied);
 	XPlm_Printf(DEBUG_INFO, "ScratchPadBuf    : 0x%x\n\r", ChunkInstPtr->ScratchPadBuf);
 }
+/** @endcond */
 
-static u32 XPlm_ProcessBitstream(const XRomBootRom* InstancePtr, XRomSecureChunk* ChunkInstPtr)
+/*****************************************************************************/
+/**
+ * @brief	This is the handler function to process the bitstream.
+ *
+ * @param	InstancePtr is the pointer to the ROM instance
+ * @param	ChunkInstPtr is the pointer to the chunk instance
+ *
+ * @returns
+ *		- Errors from @ref XPlm_Status_t.
+ */
+/*****************************************************************************/
+static u32 XPlm_ProcessBitstream(const XRomBootRom *InstancePtr, XRomSecureChunk *ChunkInstPtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 	XPlmCdo *CdoPtr = (XPlmCdo *)InstancePtr->FwData;
 
 	/* Save the stage information. */
-	XPlm_Stages prev_stage = (XPlm_Stages)(Xil_In32(PMC_GLOBAL_PMC_FW_STATUS) & XPLM_FW_STATUS_STAGE_MASK);
+	XPlm_Stages prev_stage = (XPlm_Stages)(Xil_In32(PMC_GLOBAL_PMC_FW_STATUS) &
+					       XPLM_FW_STATUS_STAGE_MASK);
 
 	if (CdoPtr->PdiType == XPLM_PDI_TYPE_FULL) {
 		/* Full PDI stage */
 		XPlm_LogPlmStage(XPLM_FPDI_CDO_PROCESS_STAGE);
-	}
-	else {
+	} else {
 		/* Partial PDI stage */
 		XPlm_LogPlmStage(XPLM_PPDI_CDO_PROCESS_STAGE);
 	}
@@ -124,12 +154,13 @@ static u32 XPlm_ProcessBitstream(const XRomBootRom* InstancePtr, XRomSecureChunk
 	CdoPtr->BufLen = ChunkInstPtr->SecureDataLen / 4U;
 	CdoPtr->NextChunkAddr = XPLM_SECURE_CHUNK_BUFFER_ADDR + 0x20U;
 
-
+	/** - Process CDO. */
 	Status = XPlm_ProcessCdo(CdoPtr);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
+	/** - Process RTCA if it's first chunk during full boot, otherwise skip processing RTCA. */
 	if ((CdoPtr->PdiType == XPLM_PDI_TYPE_FULL) && (ChunkInstPtr->ChunkNum == 0U)) {
 		Status = XPlm_ProcessRtca();
 		if (Status != (u32)XST_SUCCESS) {
@@ -151,9 +182,8 @@ END:
 /**
  * @brief	Read the OSPI configuration from RTCA and initialize the OSPI driver accordingly.
  *
- * @param	InstancePtr
- *
  * @return
+ *		- Errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
 static u32 XPlm_ProcessRtca(void)
@@ -167,19 +197,20 @@ static u32 XPlm_ProcessRtca(void)
 
 	OspiCfg = Xil_In32(XPLM_RTCFG_OSPI_CLK_CFG);
 	/** - Skip OSPI driver initialization if OSPI is not configured in RTCA. */
-	if (OspiCfg == XPLM_ZERO)
-	{
+	if (OspiCfg == XPLM_ZERO) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
 
+	/** - Assert OSPI reset. */
 	XPlm_UtilRMW(PMC_GLOBAL_RST_OSPI, PMC_GLOBAL_RST_OSPI_RESET_MASK, PMC_GLOBAL_RST_OSPI_RESET_MASK);
+
+	/** - Set the OSPI clock source to external or the clock divisor if configured in RTCA. */
 	if ((OspiCfg & XPLM_RTCFG_OSPI_EMCCLK_MASK) == XPLM_RTCFG_OSPI_EMCCLK_MASK) {
 		XPlm_UtilRMW(PMC_GLOBAL_OSPI_CLK_CTRL,
 			     PMC_GLOBAL_OSPI_CLK_CTRL_SRCSEL_MASK | PMC_GLOBAL_OSPI_CLK_CTRL_CLKACT_MASK,
 			     PMC_GLOBAL_OSPI_CLK_CTRL_SRCSEL_MASK | PMC_GLOBAL_OSPI_CLK_CTRL_CLKACT_MASK);
-	}
-	else {
+	} else {
 		RefClkDiv = OspiCfg & XPLM_RTCFG_OSPI_REF_CLK_DIV_MASK;
 
 		if ((RefClkDiv & XPLM_RTCFG_OSPI_REF_CLK_DIV_UNUSED_BITS_MASK) != 0) {
@@ -187,11 +218,16 @@ static u32 XPlm_ProcessRtca(void)
 			goto END;
 		}
 
-		XPlm_UtilRMW(PMC_GLOBAL_OSPI_CLK_CTRL, PMC_GLOBAL_OSPI_CLK_CTRL_DIVISOR_MASK, (RefClkDiv << PMC_GLOBAL_OSPI_CLK_CTRL_DIVISOR_SHIFT));
-		XPlm_UtilRMW(PMC_GLOBAL_OSPI_CLK_CTRL, PMC_GLOBAL_OSPI_CLK_CTRL_CLKACT_MASK, PMC_GLOBAL_OSPI_CLK_CTRL_CLKACT_MASK);
+		XPlm_UtilRMW(PMC_GLOBAL_OSPI_CLK_CTRL, PMC_GLOBAL_OSPI_CLK_CTRL_DIVISOR_MASK,
+			     (RefClkDiv << PMC_GLOBAL_OSPI_CLK_CTRL_DIVISOR_SHIFT));
+		XPlm_UtilRMW(PMC_GLOBAL_OSPI_CLK_CTRL, PMC_GLOBAL_OSPI_CLK_CTRL_CLKACT_MASK,
+			     PMC_GLOBAL_OSPI_CLK_CTRL_CLKACT_MASK);
 	}
+
+	/** - De-Assert OSPI reset. */
 	XPlm_UtilRMW(PMC_GLOBAL_RST_OSPI, PMC_GLOBAL_RST_OSPI_RESET_MASK, XPLM_ZERO);
 
+	/** - Initialize OSPI/QSPI driver based on the boot mode. */
 	if (InstancePtr->BootMode == XPLM_BOOT_MODE_OSPI) {
 		Status = XPlm_OspiInit();
 		if (Status != (u32)XST_SUCCESS) {
@@ -213,13 +249,12 @@ END:
 	return Status;
 }
 
-
 /*****************************************************************************/
 /**
- * @brief This is PLM main function
+ * @brief	Validate and load bitstream CDO.
  *
- * @return	Ideally should not return, in case if it reaches end,
- *		error is returned
+ * @return
+ *		- Errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
 u32 XPlm_LoadFullPdi(void)
@@ -230,19 +265,31 @@ u32 XPlm_LoadFullPdi(void)
 	XPlm_LogPlmStage(XPLM_FULL_PDI_INIT_STAGE);
 
 	XPlm_PullKeySourceRomHook = HooksTbl->XRom_PullKeySource;
+
+	/** - Validate key source. */
 	Status = XPlm_SetPullKeySource(XPLM_PDI_TYPE_FULL);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
 	XPlm_LogPlmStage(XPLM_FPDI_CDO_LOAD_STAGE);
+	/** - Load bitstream CDO. */
 	Status = XPlm_LoadBitstreamCdo(InstancePtr, XPLM_PDI_TYPE_FULL);
 
 END:
 	return Status;
 }
 
-u32 XPlm_LoadPartialPdi(void) {
+/*****************************************************************************/
+/**
+ * @brief	Validate parital PDI and process bitstream CDO.
+ *
+ * @return
+ *		- Errors from @ref XPlm_Status_t.
+ *
+ *****************************************************************************/
+u32 XPlm_LoadPartialPdi(void)
+{
 	volatile u32 Status = (u32)XST_FAILURE;
 	XRomBootRom *InstancePtr = HooksTbl->InstancePtr;
 	u32 WidthDetect;
@@ -269,32 +316,33 @@ u32 XPlm_LoadPartialPdi(void) {
 
 	XPlm_LogPlmStage(XPLM_PPDI_EVENT_STAGE);
 
+	/** - Clear CR bit in FW_ERR register. */
 	XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_CR_MASK, XPLM_ZERO);
 
+	/** - Clear zeroization pass/fail and completion status bits in FW_STATUS register. */
 	XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_STATUS, XPLM_FW_STATUS_ZEROIZE_COMPLETED_MASK |
-			XPLM_FW_STATUS_ZEROIZE_FAIL_MASK, XPLM_ZERO);
+		     XPLM_FW_STATUS_ZEROIZE_FAIL_MASK, XPLM_ZERO);
 
 	XPlm_LogPlmStage(XPLM_PPDI_INIT_STAGE);
 
-	/* Zeroize ROM Instance */
+	/** - Zeroize ROM Instance and re-initialize it. */
 	Status = Xil_SecureZeroize((u8 *)InstancePtr, sizeof(XRomBootRom));
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_PPDI_ROM_INST_ZEROIZE;
 		goto END;
 	}
-
-	/* Re-initialize ROM Instance */
 	HooksTbl->XRom_Initialize_Instance(InstancePtr);
 	InstancePtr->ImageHeader = (XRomBootHeader *)XPLM_BOOT_HEADER_START_ADDR;
 	InstancePtr->DeviceRead = XPlm_SbiRead;
 	InstancePtr->PUFMode = FullPdiCriticalInfo.PUFMode;
 
-	/* Capture Efuse Attributes */
+	/** - Capture Efuse Attributes. */
 	HooksTbl->XRom_CaptureeFUSEAttribute(InstancePtr);
 
 	/* Update the first word read from buffer to image header */
 	InstancePtr->ImageHeader->WidthDetection = WidthDetect;
 
+	/** - Read boot header from SBI buffer. */
 	Status = XPlm_SbiRead(XPLM_SBI_BUF_ADDR, ((u32)InstancePtr->ImageHeader) + WIDTH_DETECT_WORD_LEN_B,
 			      XPLM_BOOT_HDR_SIZE_WITHOUT_SMAP_WIDTH - WIDTH_DETECT_WORD_LEN_B,
 			      XPLM_DMA_INCR_MODE);
@@ -305,16 +353,19 @@ u32 XPlm_LoadPartialPdi(void) {
 
 	XPlm_LogPlmStage(XPLM_PPDI_VALIDATION_STAGE);
 
+	/** - Validate boot header. */
 	Status = XPlm_ValidateBootHeader(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
+	/** - Perform secure validations. */
 	Status = XPlm_SecureValidations(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
+	/** - Pull and validate Key source. */
 	Status = XPlm_SetPullKeySource(XPLM_PDI_TYPE_PARTIAL);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
@@ -322,20 +373,21 @@ u32 XPlm_LoadPartialPdi(void) {
 
 	XPlm_LogPlmStage(XPLM_PPDI_HB_VALIDATION_STAGE);
 
+	/** - Validate hash block. */
 	Status = XPlm_ValidateHashBlock(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
-
 	XPlm_LogPlmStage(XPLM_PPDI_CDO_LOAD_STAGE);
 
-	/* Check if Partition is revoked */
+	/** - Validate if Partition is revoked. */
 	Status = HooksTbl->XRom_CheckRevocationID(InstancePtr->ImageHeader->PartRevokeId);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
+	/** - Load bitstream CDO. */
 	Status = XPlm_LoadBitstreamCdo(InstancePtr, XPLM_PDI_TYPE_PARTIAL);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
@@ -347,7 +399,20 @@ END:
 	return Status;
 }
 
-u32 XPlm_LoadBitstreamCdo(XRomBootRom *InstancePtr, u32 PdiType) {
+/*****************************************************************************/
+/**
+ * @brief	Load bitstream CDO.
+ *
+ * @param	InstancePtr is the pointer to the ROM instance
+ * @param	PdiType is used to indicate whether it is a Full or Partial PDI.
+ *		Expected values are @ref XPLM_PDI_TYPE_FULL or @ref XPLM_PDI_TYPE_PARTIAL.
+ *
+ * @return
+ *		- Errors from @ref XPlm_Status_t.
+ *
+ *****************************************************************************/
+u32 XPlm_LoadBitstreamCdo(XRomBootRom *InstancePtr, u32 PdiType)
+{
 	volatile u32 Status = (u32)XST_FAILURE;
 	volatile u32 StatusTmp = (u32)XST_FAILURE;
 	volatile u32 SStatusTmp = (u32)XST_FAILURE;
@@ -356,8 +421,9 @@ u32 XPlm_LoadBitstreamCdo(XRomBootRom *InstancePtr, u32 PdiType) {
 
 	/** - Capture User define revision into RTCA register */
 	XSECURE_REDUNDANT_IMPL(Xil_Out32, XPLM_RTCFG_USER_DEF_REV,
-			InstancePtr->ImageHeader->UserDefRev);
+			       InstancePtr->ImageHeader->UserDefRev);
 
+	/** - Initialize CDO instance. */
 	Status = XPlm_InitCdo(&Cdo);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_INIT_CDO_INSTANCE;
@@ -377,12 +443,20 @@ u32 XPlm_LoadBitstreamCdo(XRomBootRom *InstancePtr, u32 PdiType) {
 
 	XPlm_Printf(DEBUG_INFO, "ChunkInstPtr->SrcAddr : 0x%x\n\r", (u32)ChunkInstance.SrcAddr);
 
+	/**
+	 * - Update the pointer to bitstream processing in @ref HooksTbl to @ref XPlm_ProcessBitstream
+	 * and validate if it's set correctly.
+	 */
 	HooksTbl->XRom_ProcessChunk = XPlm_ProcessBitstream;
 	if (HooksTbl->XRom_ProcessChunk != XPlm_ProcessBitstream) {
 		Status = (u32)XPLM_ERR_GLITCH_DETECTED;
 		goto END;
 	}
 
+	/**
+	 * - Start loading the bitstream using ROM hooks. If failed to load bitstream clear critical
+	 *   memory regions using @ref XPlm_ZeroizeCriticalMemory.
+	 */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, HooksTbl->XRom_SecureLoad, InstancePtr, &ChunkInstance);
 	if ((Status != (u32)XST_SUCCESS) || (StatusTmp != (u32)XST_SUCCESS) || (Status != StatusTmp)) {
 		XSECURE_REDUNDANT_IMPL(XPlm_ZeroizeCriticalMemory, InstancePtr, PdiType);
@@ -393,19 +467,31 @@ u32 XPlm_LoadBitstreamCdo(XRomBootRom *InstancePtr, u32 PdiType) {
 		goto END;
 	}
 
-	/* Clear the last executed CDO command offset on successful boot. */
+	/** - Clear the last executed CDO command offset on successful boot. */
 	Xil_Out32(PMC_GLOBAL_PMC_FW_DATA, 0x0U);
 
 END:
+	/** - Clear secure information and reset crypto engines using @ref XPlm_SecureClear. */
 	XSECURE_TEMPORAL_IMPL(StatusTmp, SStatusTmp, XPlm_SecureClear, InstancePtr);
 	if (Status == (u32)XST_SUCCESS) {
-		if ((StatusTmp != (u32)XST_SUCCESS) || (SStatusTmp != (u32)XST_SUCCESS) || (StatusTmp != SStatusTmp)) {
+		if ((StatusTmp != (u32)XST_SUCCESS) || (SStatusTmp != (u32)XST_SUCCESS)
+		    || (StatusTmp != SStatusTmp)) {
 			Status = (u32)XPLM_ERR_SECURE_CLR;
 		}
 	}
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	Clear secure information from RTCA and reset crypto engines.
+ *
+ * @param	InstancePtr is the pointer to the ROM instance
+ *
+ * @return
+ *		- Errors from @ref XPlm_Status_t.
+ *
+ *****************************************************************************/
 static u32 XPlm_SecureClear(XRomBootRom *InstancePtr)
 {
 	u32 Status = (u32)XST_SUCCESS;
@@ -413,6 +499,14 @@ static u32 XPlm_SecureClear(XRomBootRom *InstancePtr)
 	u32 SecureCtrl;
 	u32 SecureCtrlTmp;
 
+	/**
+	 * - If encryption is enabled,
+	 *	- clear RED keys if configured in RTCA,
+	 *		- assert AES soft reset,
+	 *		- assert AES key clear and validate it.
+	 *	- assert AES reset.
+	 * - Assert SHA reset.
+	 */
 	if ((InstancePtr->Encstatus != XPLM_ZERO) || (TmpInstancePtr->EncstatusTmp != XPLM_ZERO)) {
 		/* Clear Red Keys if configured in RTCA */
 		SecureCtrl = Xil_In32(XPLM_RTCFG_SECURE_CTRL_ADDR) & XPLM_RTCG_SEC_CTRL_RED_KEY_CLEAR_MASK;
@@ -437,8 +531,19 @@ END:
 
 }
 
-
-static u32 XPlm_PullKeySource(const XRomBootRom* InstancePtr, u32* KeySource) {
+/*****************************************************************************/
+/**
+ * @brief	Get the encryption keysource type and update the output parameter with keysource.
+ *
+ * @param	InstancePtr is the pointer to the ROM instance
+ * @param	KeySource is the output to save the key source
+ *
+ * @return
+ *		- Errors from @ref XPlm_Status_t.
+ *
+ *****************************************************************************/
+static u32 XPlm_PullKeySource(const XRomBootRom *InstancePtr, u32 *KeySource)
+{
 	u32 Status = (u32)XST_FAILURE;
 
 	Status = XPlm_PullKeySourceRomHook(InstancePtr, KeySource);
@@ -461,6 +566,14 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	Validate PUF digest.
+ *
+ * @return
+ *		- Errors from @ref XPlm_Status_t.
+ *
+ *****************************************************************************/
 static u32 XPlm_ValidatePufDigest(void)
 {
 	volatile u32 Status = (u32)XST_FAILURE;
@@ -476,31 +589,31 @@ static u32 XPlm_ValidatePufDigest(void)
 		goto END;
 	}
 
-	/** Zeroize local PUF HD buffer */
+	/** - Clear local PUF HD buffer. */
 	Status = Xil_SecureZeroize((u8 *)(UINTPTR)XPLM_TEMP_PUF_HD_BUFF, XPLM_PUFHD_TOTAL_SIZE);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_PPDI_PUF_HD_BUFF_ZEROIZE;
 		goto END;
 	}
 
-	/** Copy PUF HD Syndrome data from PMC_GLOBAL registers */
-	XPlm_MemCpy32((u32*)XPLM_TEMP_PUF_HD_BUFF, (u32 *)PMC_GLOBAL_PUF_SYN_0,
-			XPLM_PUFHD_AUX_CHASH_SIZE_WORDS);
+	/** - Store PUF HD Syndrome data from PMC_GLOBAL registers to local PUF HD buffer. */
+	XPlm_MemCpy32((u32 *)XPLM_TEMP_PUF_HD_BUFF, (u32 *)PMC_GLOBAL_PUF_SYN_0,
+		      XPLM_PUFHD_AUX_CHASH_SIZE_WORDS);
 
-	/** Calculate SHA Digest over the PUF HD copied into internal RAM */
+	/** - Calculate SHA Digest on the PUF HD. */
 	Status = (u32)XST_FAILURE;
 	Status = HooksTbl->XRom_ShaDigestCalculation((u8 *)XPLM_TEMP_PUF_HD_BUFF,
-			XPLM_PUFHD_TOTAL_SIZE, XSECURE_SHA3_256, PufHash);
+		 XPLM_PUFHD_TOTAL_SIZE, XSECURE_SHA3_256, PufHash);
 	if (Status != (u32)XST_SUCCESS) {
 		Status |= (u32)XPLM_ERR_PUF_SHA_DIGEST;
 		goto END;
 	}
 
-	/** Compare the Calculated SHA Digest with the Efuse Digest */
+	/** - Compare the calculated SHA Digest with the Efuse Digest. */
 	Status = (u32)XST_FAILURE;
 	Status = Xil_SMemCmp_CT((const u8 *)PufHash, XSECURE_SHA3_256_HASH_LEN,
-			(u32*)(UINTPTR)EFUSE_PPK2_0, XSECURE_SHA3_256_HASH_LEN,
-			XSECURE_SHA3_256_HASH_LEN);
+				(u32 *)(UINTPTR)EFUSE_PPK2_0, XSECURE_SHA3_256_HASH_LEN,
+				XSECURE_SHA3_256_HASH_LEN);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_PUF_HD_DIGEST_VALIDATION;
 	}
@@ -509,6 +622,18 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	Update the ROM hook to use @ref XPlm_PullKeySource for Full PDI or ROM implementation
+ * of PullKeySource for partial PDI.
+ *
+ * @param	PdiType is used to indicate whether it is a Full or Partial PDI.
+ *		Expected values are @ref XPLM_PDI_TYPE_FULL or @ref XPLM_PDI_TYPE_PARTIAL.
+ *
+ * @return
+ *		- Errors from @ref XPlm_Status_t.
+ *
+ *****************************************************************************/
 static u32 XPlm_SetPullKeySource(u32 PdiType)
 {
 	volatile u32 Status = (u32)XST_FAILURE;
@@ -530,22 +655,20 @@ static u32 XPlm_SetPullKeySource(u32 PdiType)
 		 */
 		InstancePtr->KEK = XPLM_ZERO;
 		TmpInstancePtr->KEKTmp = XPLM_ZERO;
-	}
-	else {
+	} else {
 		FullPdiEncryptionStatus = Xil_In32(PMC_GLOBAL_ENC_STATUS);
 		/* If Red Keys are cleared or key is different, specify ROM hook to regenerate KEK */
 		if ((FullPdiEncryptionStatus != InstancePtr->ImageHeader->EncryptionStatus) ||
-				(RedKeyCleared == XPLM_ALLFS)) {
+		    (RedKeyCleared == XPLM_ALLFS)) {
 			HooksTbl->XRom_PullKeySource = XPlm_PullKeySourceRomHook;
 			if ((InstancePtr->ImageHeader->EncryptionStatus != XPLM_ENC_STATUS_eFUSE_PUF_KEK) &&
 			    (InstancePtr->ImageHeader->EncryptionStatus != XPLM_ENC_STATUS_BH_PUF_KEK)) {
 				InstancePtr->KEK = XPLM_ZERO;
 				TmpInstancePtr->KEKTmp = XPLM_ZERO;
-			}
-			else {
+			} else {
 				/* Check if PUF is Disabled */
 				if ((Xil_In32(EFUSE_XILINX_CTRL) & EFUSE_XILINX_CTRL_PUFHD_INVLD_MASK) ==
-						EFUSE_XILINX_CTRL_PUFHD_INVLD_MASK) {
+				    EFUSE_XILINX_CTRL_PUFHD_INVLD_MASK) {
 					Status = (u32)XPLM_ERR_PPDI_PUF_DISABLED;
 					goto END;
 				}
@@ -556,8 +679,7 @@ static u32 XPlm_SetPullKeySource(u32 PdiType)
 					goto END;
 				}
 			}
-		}
-		else {
+		} else {
 			HooksTbl->XRom_PullKeySource = XPlm_PullKeySource;
 			InstancePtr->KEK = XPLM_ZERO;
 			TmpInstancePtr->KEKTmp = XPLM_ZERO;
@@ -574,13 +696,22 @@ END:
 /**
  * @brief	Validate Boot header
  *
+ * @param	InstancePtr is the pointer to the ROM instance
+ *
  * @return
+ * 		- XST_SUCCESS on success.
+ *		- XPLM_ERR_PPDI_INVALID_IMG_DET_WORD if failed to validate XLNX identification word.
+ *		- XPLM_ERR_PPDI_PMCFWLEN_NON_ZERO if failed to validate PMC firmware length.
+ *		- XPLM_ERR_PPDI_CDO_LEN_ALIGN if failed to validate alignment of CDO length.
+ *		- XPLM_ERR_PPDI_PUF_IMG_NOT_SUPPORTED if PUF image ID is set for partial PDI.
+ *		- and errors from @ref XPlm_Status_t.
  *
  ******************************************************************************/
-static u32 XPlm_ValidateBootHeader(XRomBootRom* const InstancePtr) {
+static u32 XPlm_ValidateBootHeader(XRomBootRom *const InstancePtr)
+{
 	u32 Status = (u32)XST_FAILURE;
 
-	/** - Check for XLNX identification word */
+	/** - Check for XLNX identification word. */
 	if (InstancePtr->ImageHeader->ImageId != XPLM_BH_IMAGE_DETECTION_KEY_WORD) {
 		Status = (u32)XPLM_ERR_PPDI_INVALID_IMG_DET_WORD;
 		goto END;
@@ -617,8 +748,8 @@ END:
 	return Status;
 }
 
-
-static u32 XPlm_EncStatusCheck(XRomBootRom* InstancePtr)
+/** @cond spartanup_plm_internal */
+static u32 XPlm_EncStatusCheck(XRomBootRom *InstancePtr)
 {
 	u32 Status = (u32)XPLM_ERR_PPDI_INVALID_BH_ENC_STATUS;
 	XRomTmpVar *TmpInstancePtr = HooksTbl->XRom_GetTemporalInstance();
@@ -638,8 +769,7 @@ static u32 XPlm_EncStatusCheck(XRomBootRom* InstancePtr)
 		case XPLM_ENC_STATUS_BH_FAMILY_KEK:
 			if (RedKeyCleared != XPLM_ZERO) {
 				Status = (u32)XPLM_ERR_PPDI_FAMILY_KEY_NOT_ALLOWED;
-			}
-			else {
+			} else {
 				InstancePtr->KEK = XPLM_ALLFS;
 				TmpInstancePtr->KEKTmp = XPLM_ALLFS;
 				Status = (u32)XST_SUCCESS;
@@ -651,8 +781,19 @@ static u32 XPlm_EncStatusCheck(XRomBootRom* InstancePtr)
 	}
 	return Status;
 }
+/** @endcond */
 
-static u32 XPlm_SecureValidations(XRomBootRom* const InstancePtr)
+/*****************************************************************************/
+/**
+ * @brief	Perform secure validations.
+ *
+ * @param	InstancePtr is the pointer to the ROM instance
+ *
+ * @return
+ *		- Errors from @ref XPlm_Status_t.
+ *
+ *****************************************************************************/
+static u32 XPlm_SecureValidations(XRomBootRom *const InstancePtr)
 {
 	XRomTmpVar *TmpInstancePtr = HooksTbl->XRom_GetTemporalInstance();
 	volatile u32 Status = (u32)XST_FAILURE;
@@ -669,9 +810,9 @@ static u32 XPlm_SecureValidations(XRomBootRom* const InstancePtr)
 
 	/* DEC_EFUSE_ONLY Check */
 	if ((InstancePtr->eFUSEEncstatus != XPLM_ZERO) ||
-			(TmpInstancePtr->eFUSEEncstatusTmp != XPLM_ZERO)) {
+	    (TmpInstancePtr->eFUSEEncstatusTmp != XPLM_ZERO)) {
 		if (InstancePtr->ImageHeader->EncryptionStatus !=
-				XPLM_ENC_STATUS_eFUSE_PUF_KEK) {
+		    XPLM_ENC_STATUS_eFUSE_PUF_KEK) {
 			Status = (u32)XPLM_ERR_PPDI_DEC_EFUSE_ONLY;
 			goto END;
 		}
@@ -679,9 +820,9 @@ static u32 XPlm_SecureValidations(XRomBootRom* const InstancePtr)
 
 	/* A-HWROT Check */
 	if ((InstancePtr->eFUSEAuthStatus != XPLM_ZERO) ||
-			(TmpInstancePtr->eFUSEAuthStatusTmp != XPLM_ZERO)) {
+	    (TmpInstancePtr->eFUSEAuthStatusTmp != XPLM_ZERO)) {
 		if ((InstancePtr->ImageHeader->ImageAttributes &
-			XPLM_SIGNED_IMAGE_MASK) != XPLM_SIGNED_IMAGE_MASK) {
+		     XPLM_SIGNED_IMAGE_MASK) != XPLM_SIGNED_IMAGE_MASK) {
 			Status = (u32)XPLM_ERR_PPDI_AHWROT_UNSIGNED_IMG;
 			goto END;
 		}
@@ -699,7 +840,7 @@ static u32 XPlm_SecureValidations(XRomBootRom* const InstancePtr)
 
 	/* Check if FPDI Auth Status is same as PPDI Auth Status */
 	if ((AuthStatus != InstancePtr->AuthEnabled) ||
-			(AuthStatusTmp != TmpInstancePtr->AuthEnabledTmp)) {
+	    (AuthStatusTmp != TmpInstancePtr->AuthEnabledTmp)) {
 		Status = (u32)XPLM_ERR_PPDI_SEC_TRANSITION_AUTH;
 		goto END;
 	}
@@ -709,9 +850,9 @@ static u32 XPlm_SecureValidations(XRomBootRom* const InstancePtr)
 	 * Do not allow boot unless the PPDI is authenticated
 	 */
 	if ((EncStatus != (u32)InstancePtr->ImageHeader->EncryptionStatus) ||
-			(EncStatusTmp != (u32)InstancePtr->ImageHeader->EncryptionStatus)) {
+	    (EncStatusTmp != (u32)InstancePtr->ImageHeader->EncryptionStatus)) {
 		if ((InstancePtr->AuthEnabled != XPLM_ALLFS) ||
-			(TmpInstancePtr->AuthEnabledTmp != XPLM_ALLFS)) {
+		    (TmpInstancePtr->AuthEnabledTmp != XPLM_ALLFS)) {
 			Status = (u32)XPLM_ERR_PPDI_SEC_TO_SEC_KEY_MISMATCH;
 			goto END;
 		}
@@ -726,33 +867,34 @@ END:
 /**
  * @brief	Checksum calculation & comparison of boot header
  *
- * @param	InstancePtr - BootROM Instance Pointer
+ * @param	InstancePtr is the pointer to the ROM instance
  *
  * @return
  *		- XPLM_ERR_CALC_BH_CHECKSUM - Error if failed to verify calcualted Boot Header checksum
  *		- XST_SUCCESS - If BootHeader Checksum verified Successfully
+ *
  ******************************************************************************/
-static u32 XPlm_ValidateHeaderChksum(const XRomBootRom* InstancePtr) {
+static u32 XPlm_ValidateHeaderChksum(const XRomBootRom *InstancePtr)
+{
 	u32 Status = (u32)XPLM_ERR_CALC_BH_CHECKSUM;
 	u32 Index;
 	u32 ChkSum;
-	const u32* LocalPtr;
+	const u32 *LocalPtr;
 
 	LocalPtr = &(InstancePtr->ImageHeader->WidthDetection);
 	ChkSum = XPLM_ZERO;
 
-	/* Calculate the checksum over the boot header excluding padding */
+	/** - Calculate the sum of all words in boot header. */
 	for (Index = XPLM_ZERO; Index < (XPLM_BOOT_HDR_CHECKSUM_END_OFFSET / XPLM_WORD_LEN); Index++) {
 		ChkSum += LocalPtr[Index];
 	}
 
-	/* Comparing the calculated checksum with image header checksum in case don't match return error */
+	/** - Invert the calculated checksum and verify with the checksum provided in boot header. */
 	ChkSum = (~(ChkSum)&XPLM_ALLFS);
 	if (ChkSum != InstancePtr->ImageHeader->HeaderChecksum) {
 		XPlm_Printf(DEBUG_INFO, "Chksum:0x%08x", ChkSum);
 		Status = (u32)XPLM_ERR_CALC_BH_CHECKSUM;
-	}
-	else {
+	} else {
 		Status = (u32)XST_SUCCESS;
 	}
 
@@ -763,7 +905,15 @@ static u32 XPlm_ValidateHeaderChksum(const XRomBootRom* InstancePtr) {
 /**
  * @brief	Validate hash block
  *
+ * @param	InstancePtr is the pointer to the ROM instance
+ *
  * @return
+ *		- XPLM_ERR_HASH_BLOCK_ZEROIZE if failed to zeroize hash block in PMC RAM.
+ *		- XPLM_ERR_HASH_BLOCK_READ_SBI_BUF if failed to read hash block data from SBI
+ *		buffer.
+ *		- XPLM_ERR_GCM_TAG_READ_SBI_BUF if failed to read GCM tag from SBI buffer.
+ *		- XPLM_ERR_HASH_BLOCK_AUTHENTICATION if failed to authenticate hash block
+ *		- and errors from @ref XPlm_Status_t.
  *
  ******************************************************************************/
 static u32 XPlm_ValidateHashBlock(XRomBootRom *const InstancePtr)
@@ -772,7 +922,7 @@ static u32 XPlm_ValidateHashBlock(XRomBootRom *const InstancePtr)
 	XRomTmpVar *TmpInstancePtr = HooksTbl->XRom_GetTemporalInstance();
 	static u8 HashBlockGcmTag[XPLM_SECURE_GCM_TAG_SIZE] __attribute__((aligned(16)));
 
-	/* update hash algorithm for authentication. */
+	/** - Update hash algorithm for authentication. */
 	Status = HooksTbl->XRom_HashAlgoSelectValidation(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
@@ -786,13 +936,16 @@ static u32 XPlm_ValidateHashBlock(XRomBootRom *const InstancePtr)
 		goto END;
 	}
 
+	/**
+	 * - Validate authentication if authentication is enabled. Otherwise, if encryption is
+	 *   enabled, copy hash block and GCM tag and validate AAD.
+	 */
 	if ((InstancePtr->AuthEnabled != XPLM_ZERO) || (TmpInstancePtr->AuthEnabledTmp != XPLM_ZERO)) {
 		Status = HooksTbl->XRom_AuthDataValidation(InstancePtr);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
-	}
-	else {
+	} else {
 		// copy hash block from buffer to PMC RAM
 		Status = XPlm_SbiRead(XPLM_SBI_BUF_ADDR, (u32)XPLM_HASH_BLOCK_ADDR_IN_RAM,
 				      InstancePtr->ImageHeader->HashBlockSize, XPLM_DMA_INCR_MODE);
@@ -801,7 +954,7 @@ static u32 XPlm_ValidateHashBlock(XRomBootRom *const InstancePtr)
 			goto END;
 		}
 
-		if((InstancePtr->Encstatus != XPLM_ZERO) || (TmpInstancePtr->EncstatusTmp != XPLM_ZERO)) {
+		if ((InstancePtr->Encstatus != XPLM_ZERO) || (TmpInstancePtr->EncstatusTmp != XPLM_ZERO)) {
 			/* Read the GCM Tag from PDI */
 			Status = (u32)XST_FAILURE;
 			Status = XPlm_SbiRead(XPLM_SBI_BUF_ADDR, (u32)HashBlockGcmTag,
@@ -820,12 +973,12 @@ static u32 XPlm_ValidateHashBlock(XRomBootRom *const InstancePtr)
 
 	/* Validate Hash Block Authentication Status (Glitch detection) */
 	if (((InstancePtr->AuthEnabled != XPLM_ZERO) || (TmpInstancePtr->AuthEnabledTmp != XPLM_ZERO)) &&
-			(InstancePtr->HashBlockAuthStatus != XPLM_ALLFS)) {
+	    (InstancePtr->HashBlockAuthStatus != XPLM_ALLFS)) {
 		Status = (u32)XPLM_ERR_HASH_BLOCK_AUTHENTICATION;
 		goto END;
 	}
 
-	/* Perform Boot Header validation. */
+	/** - Validate boot header integrity. */
 	Status = HooksTbl->XRom_ValidateBootheaderIntegrity();
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
@@ -839,8 +992,16 @@ END:
 	return Status;
 }
 
-
-static void XPlm_ZeroizeCriticalMemory(const XRomBootRom* InstancePtr, u32 PdiType)
+/*****************************************************************************/
+/**
+ * @brief	Zeroize critical memory regions.
+ *
+ * @param	InstancePtr is the pointer to the ROM instance
+ * @param	PdiType is used to indicate whether it is a Full or Partial PDI.
+ *		Expected values are @ref XPLM_PDI_TYPE_FULL or @ref XPLM_PDI_TYPE_PARTIAL.
+ *
+ *****************************************************************************/
+static void XPlm_ZeroizeCriticalMemory(const XRomBootRom *InstancePtr, u32 PdiType)
 {
 	volatile u32 Status = (u32)XST_FAILURE;
 	XRomTmpVar *TmpInstancePtr = HooksTbl->XRom_GetTemporalInstance();
@@ -852,20 +1013,20 @@ static void XPlm_ZeroizeCriticalMemory(const XRomBootRom* InstancePtr, u32 PdiTy
 		goto END;
 	}
 
-	/* Zeroize Chunk Buffer */
+	/** - Zeroize Chunk Buffer. */
 	Status = (u32)XST_FAILURE;
 	Status = Xil_SecureZeroize((u8 *)XPLM_SECURE_CHUNK_BUFFER_ADDR, XPLM_CHUNK_SIZE);
 	if (Status != (u32)XST_SUCCESS) {
 		ZeroizeStatus |= XPLM_FW_STATUS_ZEROIZE_FAIL_MASK;
 	}
 
-	/* zeroize Boot Header stored in RAM memory */
+	/** - Zeroize Boot Header stored in RAM memory. */
 	Status = (u32)XST_FAILURE;
 	Status = Xil_SecureZeroize((u8 *)InstancePtr->ImageHeader, XPLM_BOOT_HDR_TOTAL_SIZE);
 	if (Status != (u32)XST_SUCCESS) {
 		ZeroizeStatus |= XPLM_FW_STATUS_ZEROIZE_FAIL_MASK;
 	}
-	/* zeroize hash block in RAM memory */
+	/** - Zeroize hash block in RAM memory. */
 	Status = (u32)XST_FAILURE;
 	Status = Xil_SecureZeroize((u8 *)XPLM_HASH_BLOCK_ADDR_IN_RAM,
 				   InstancePtr->ImageHeader->HashBlockSize);
@@ -873,8 +1034,8 @@ static void XPlm_ZeroizeCriticalMemory(const XRomBootRom* InstancePtr, u32 PdiTy
 		ZeroizeStatus |= XPLM_FW_STATUS_ZEROIZE_FAIL_MASK;
 	}
 
+	/** - Zeroize RTCA Area if it's full boot PDI. */
 	if (PdiType != XPLM_PDI_TYPE_PARTIAL) {
-		/* zeroize RTCA Area for Full PDI Failures */
 		Status = (u32)XST_FAILURE;
 		Status = Xil_SecureZeroize((u8 *)XPLM_RTCFG_BASEADDR, XPLM_RTCFG_LENGTH_BYTES);
 		if (Status != (u32)XST_SUCCESS) {
@@ -882,10 +1043,12 @@ static void XPlm_ZeroizeCriticalMemory(const XRomBootRom* InstancePtr, u32 PdiTy
 		}
 	}
 
+	/** - Update the zeroization status to FW_STATUS register. */
 	XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_STATUS, XPLM_FW_STATUS_ZEROIZE_COMPLETED_MASK,
-			XPLM_FW_STATUS_ZEROIZE_COMPLETED_MASK);
-	XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_STATUS, XPLM_FW_STATUS_ZEROIZE_FAIL_MASK,
-			ZeroizeStatus);
+		     XPLM_FW_STATUS_ZEROIZE_COMPLETED_MASK);
+	XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_STATUS, XPLM_FW_STATUS_ZEROIZE_FAIL_MASK, ZeroizeStatus);
 END:
 	return;
 }
+
+/** @} end of spartanup_plm_apis group*/

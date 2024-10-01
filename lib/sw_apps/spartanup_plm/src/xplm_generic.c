@@ -20,6 +20,11 @@
  *
  ******************************************************************************/
 
+/**
+ * @addtogroup spartanup_plm_apis SpartanUP PLM APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplm_generic.h"
 #include "xplm_debug.h"
@@ -36,6 +41,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/** @cond spartanup_plm_internal */
 #define XPLM_LOG_ADDR_ARG_LOW_ADDR_INDEX	(0U)
 #define XPLM_LOG_ADDR_ARG_HIGH_ADDR_INDEX	(1U)
 #define XPLM_LOG_ADDR_MAX_ARGS		(2U)
@@ -62,18 +68,21 @@
 #define XPLM_WR_KEYHOLE_RESUME_DATA_KEYHOLE_ADDR_ARG_INDEX		(0x0U)
 #define XPLM_WR_KEYHOLE_RESUME_DATA_KEYHOLE_SIZE_ARG_INDEX		(0x1U)
 #define XPLM_WR_KEYHOLE_CMD_RESUME_PAYLOAD_KEYHOLE_DATA_ARG_INDEX	(0x0U)
-
+/** @endcond */
 /************************** Function Prototypes ******************************/
+/** @cond spartanup_plm_internal */
 static u32 XPlm_KeyHoleXfr(XPlm_KeyHoleXfrParams *KeyHoleXfrParams);
 static u32 XPlm_StackPush(XPlm_CdoParamsStack *CdoParamsStack, u32 *Data);
 static u32 XPlm_StackPop(XPlm_CdoParamsStack *CdoParamsStack, u32 PopLevel, u32 *Data);
 static u32 XPlm_GetJumpOffSet(XPlm_Cmd *Cmd, u32 Level);
+/** @endcond */
 
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
 /**
- * @brief	Contains the module ID and PLM generic commands array
+ * @brief	Stores the information about the module ID and the pointers to the
+ * CDO command handlers.
  *
  *****************************************************************************/
 static XPlm_Module XPlm_Generic;
@@ -81,10 +90,9 @@ static XPlm_Module XPlm_Generic;
 /*****************************************************************************/
 /*****************************************************************************/
 /**
- * @brief	This function checks if a particular PLM Command ID is supported
- * 			or not. Command ID is the only payload parameter.
+ * @brief	This function checks if a particular PLM Command ID is supported or not.
  *
- * @param	Cmd is pointer to the command structure
+ * @param	Cmd is pointer to the command structure with Command ID as the only payload.
  *
  * @return
  * 		- XST_SUCCESS always.
@@ -103,10 +111,10 @@ static u32 XPlm_Features(XPlm_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
- * @brief	This function provides no operation. The command is supported for
- * alignment purposes. Zero command payload parameters.
+ * @brief	This function provides no operation. The command is used for
+ * alignment purposes.
  *
- * @param	Cmd is pointer to the command structure
+ * @param	Cmd is not used and no payload is required
  *
  * @return
  * 		- XST_SUCCESS always.
@@ -122,23 +130,22 @@ static u32 XPlm_Nop(XPlm_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
- * @brief	This function provides 32 bit mask poll command execution.
- *		Command payload parameters are
- *		- Address
- *		- Mask
- *		- Expected Value
- *		- Timeout in us
- *		- Deferred Error flag - Optional
- *			0 - Return error in case of failure,
- *			1 - Ignore error, return success always
- *			2 - Defer error till the end of partition load
- *			3 - Break to end offset in case of failure
- *		- Error Code
+ * @brief	This function provides 32-bit mask poll command execution.
  *
- * @param	Cmd is pointer to the command structure
- *
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ *			- Address
+ *			- Mask
+ *			- Expected Value
+ *			- Timeout in us
+ *			- Deferred Error flag - Optional
+ *				0 - Return error in case of failure,
+ *				1 - Ignore error, return success always
+ *				2 - Defer error till the end of partition load
+ *				3 - Break to end offset in case of failure
+ *			- Error Code
  * @return
- * 		- XST_SUCCESS on success and error code on failure
+ * 		- XST_SUCCESS on success.
+ * 		- and errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
 static u32 XPlm_MaskPoll(XPlm_Cmd *Cmd)
@@ -154,16 +161,17 @@ static u32 XPlm_MaskPoll(XPlm_Cmd *Cmd)
 	u32 ExtLen = XPLM_MASKPOLL_LEN_EXT;
 	u32 MinErrCode = 0U;
 
-	/* Error out if Cmd length is greater than supported length */
+	/** - Error out if Cmd length is greater than supported length of 6 parameters. */
 	if (Cmd->Len > (ExtLen + 1U)) {
 		Status = (u32)XPLM_ERR_MASK_POLL_INVLD_CMD_LEN;
 		goto END;
 	}
 
+	/* Read flags from the CDO cmd. */
 	if (Cmd->Len >= ExtLen) {
 		Flags = Cmd->Payload[XPLM_MASKPOLL_FLAGS_INDEX] & XPLM_MASKPOLL_FLAGS_MASK;
 	}
-	/* Mask Poll for expected value */
+	/** - Poll for the expected value till timeout. */
 	Status = XPlm_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs, NULL);
 
 	/* Print in case of failure or when DEBUG_INFO is enabled */
@@ -172,17 +180,21 @@ static u32 XPlm_MaskPoll(XPlm_Cmd *Cmd)
 	}
 
 	XPlm_Printf(DebugLevel, "MaskPoll: Addr: 0x%08x, Mask: 0x%0x, ExpVal: 0x%0x, Timeout: %u",
-		Addr, Mask, ExpectedValue, TimeOutInUs);
+		    Addr, Mask, ExpectedValue, TimeOutInUs);
 	if (Status != (u32)XST_SUCCESS) {
 		XPlm_Printf(DebugLevel, ", RegVal: 0x%0x ...ERROR\r\n", Xil_In32(Addr));
-	}
-	else {
+	} else {
 		XPlm_Printf(DebugLevel, " ...DONE\r\n");
 	}
 
-	/*
-	 * If command length is greater than Optional arguments length,
-	 * then flags and error code are processed
+	/**
+	 * - Process flags and error code if available in command arguments.
+	 * If Flag is set to '0', return the error.
+	 * If Flag is set to '1', ignore the error and return XST_SUCCESS.
+	 * If Flag is set to '2', defer the error till the end of CDO processing.
+	 * If Flag is set to '3', Jump to "end" associated with break level.
+	 *
+	 * If error code is set, then return it instead of XST_FAILURE.
 	 */
 	if ((Cmd->Len >= ExtLen) && (Status != (u32)XST_SUCCESS)) {
 		MinErrCode = Cmd->Payload[ExtLen] & XPLM_MASKPOLL_MINOR_ERROR_MASK;
@@ -193,9 +205,8 @@ static u32 XPlm_MaskPoll(XPlm_Cmd *Cmd)
 			/* Defer the error till the end of CDO processing */
 			Cmd->DeferredError = (u8)TRUE;
 		} else if (Flags == XPLM_MASKPOLL_FLAGS_BREAK) {
-			Level = (Cmd->Payload[ExtLen - 1U] &
-					XPLM_MASKPOLL_FLAGS_BREAK_LEVEL_MASK) >>
-					XPLM_MASKPOLL_FLAGS_BREAK_LEVEL_SHIFT;
+			Level = (Cmd->Payload[ExtLen - 1U] & XPLM_MASKPOLL_FLAGS_BREAK_LEVEL_MASK) >>
+				XPLM_MASKPOLL_FLAGS_BREAK_LEVEL_SHIFT;
 			/* Jump to "end" associated with break level */
 			Status = XPlm_GetJumpOffSet(Cmd, Level);
 		}
@@ -213,13 +224,12 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function provides 32 bit mask write command execution.
- *  		Command payload parameters are
- *		- Address
- *		- Mask
- *		- Value
+ * @brief	This function provides 32-bit mask write command execution.
  *
- * @param	Cmd is pointer to the command structure
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ *			- Address
+ *			- Mask
+ *			- Value
  *
  * @return
  * 		- XST_SUCCESS always.
@@ -231,9 +241,8 @@ static u32 XPlm_MaskWrite(XPlm_Cmd *Cmd)
 	u32 Mask = Cmd->Payload[1U];
 	u32 Value = Cmd->Payload[2U];
 
-	XPlm_Printf(DEBUG_DETAILED,
-		"%s, Addr: 0x%08x,  Mask 0x%08x, Value: 0x%08x\n\r",
-		__func__, Addr, Mask, Value);
+	XPlm_Printf(DEBUG_DETAILED, "%s, Addr: 0x%08x,  Mask 0x%08x, Value: 0x%08x\n\r", __func__, Addr,
+		    Mask, Value);
 
 	XPlm_UtilRMW(Addr, Mask, Value);
 
@@ -243,11 +252,10 @@ static u32 XPlm_MaskWrite(XPlm_Cmd *Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function provides 32 bit Write command execution.
- *  		Command payload parameters are
- *		- Address
- *		- Value
  *
- * @param	Cmd is pointer to the command structure
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ *			- Address
+ *			- Value
  *
  * @return
  * 		- XST_SUCCESS always.
@@ -258,9 +266,7 @@ static u32 XPlm_Write(XPlm_Cmd *Cmd)
 	u32 Addr = Cmd->Payload[0U];
 	u32 Value = Cmd->Payload[1U];
 
-	XPlm_Printf(DEBUG_DETAILED,
-		"%s, Addr: 0x%0x,  Val: 0x%0x\n\r",
-		__func__, Addr, Value);
+	XPlm_Printf(DEBUG_DETAILED, "%s, Addr: 0x%0x,  Val: 0x%0x\n\r", __func__, Addr, Value);
 
 	Xil_Out32(Addr, Value);
 
@@ -270,12 +276,12 @@ static u32 XPlm_Write(XPlm_Cmd *Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function provides delay command execution.
- *  		Command payload parameter delay in micro seconds
+ *  		Command payload parameter delay in microseconds
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return
- * 			- XST_SUCCESS always.
+ * 		- XST_SUCCESS always.
  *
  *****************************************************************************/
 static u32 XPlm_Delay(XPlm_Cmd *Cmd)
@@ -283,9 +289,7 @@ static u32 XPlm_Delay(XPlm_Cmd *Cmd)
 	u32 Delay;
 
 	Delay = Cmd->Payload[0U];
-	XPlm_Printf(DEBUG_DETAILED,
-		"%s, Delay: %d\n\r",
-		__func__, Delay);
+	XPlm_Printf(DEBUG_DETAILED, "%s, Delay: %d\n\r", __func__, Delay);
 
 	usleep(Delay);
 
@@ -295,19 +299,23 @@ static u32 XPlm_Delay(XPlm_Cmd *Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function provides CFI READ command execution.
- *		Command payload parameters are
- *		- Params - SMPA/JTAG/DDR
- *		- High Dest Addr
- *		- Low Dest Addr
- *		- Read Length in number of words to be read from CFU
- *		- DATA (CFU READ Packets)
  *
- * @param	Cmd is pointer to the command structure
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ *			- Params - SMAP/JTAG
+ *			- Reserved
+ *			- Dest Addr
+ *			- Read Length in number of words to be read from CFU
+ *			- DATA (CFU READ Packets)
  *
  * @return
  *		- XST_SUCCESS on success.
- *		- XPLM_ERR_RDBK_INVALID_INFR_SEL Error if the invalid interface
- *		type is selected for readback.
+ *		- XPLM_ERR_RDBK_DISABLED if readback is disabled.
+ *		- XPLM_ERR_RDBK_INVALID_INFR_SEL if the invalid interface type is selected for
+ *		readback.
+ *		- XPLM_ERR_RDBK_PAYLOAD_TO_CCU if failed to send readback paylod to CCU.
+ *		- XPLM_ERR_RDBK_CCU_READ if failed to get readback data from CCU.
+ *		- XPLM_ERR_RDBK_READ_TIMEOUT if failed to get readback data from CCU within 268
+ *		seconds.
  *
  *****************************************************************************/
 static u32 XPlm_CfiRead(XPlm_Cmd *Cmd)
@@ -329,16 +337,16 @@ static u32 XPlm_CfiRead(XPlm_Cmd *Cmd)
 		goto END1;
 	}
 
-	/** Save previous SBI control configuration. */
+	/** - Save current SBI control configuration. */
 	SbiCtrlCfg = Xil_In32(SLAVE_BOOT_SBI_CTRL);
 
-	/** Set the SBI control register interface read from the command. */
+	/** - Set the readback interface in SBI control config based on the payload. */
 	if (SrcType == XPLM_READBK_INTF_TYPE_JTAG) {
 		XPlm_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
-			XPLM_READBK_INTF_TYPE_JTAG << SLAVE_BOOT_SBI_CTRL_INTERFACE_SHIFT);
+			     XPLM_READBK_INTF_TYPE_JTAG << SLAVE_BOOT_SBI_CTRL_INTERFACE_SHIFT);
 	} else if (SrcType == XPLM_READBK_INTF_TYPE_SMAP) {
 		XPlm_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
-			XPLM_READBK_INTF_TYPE_SMAP << SLAVE_BOOT_SBI_CTRL_INTERFACE_SHIFT);
+			     XPLM_READBK_INTF_TYPE_SMAP << SLAVE_BOOT_SBI_CTRL_INTERFACE_SHIFT);
 	} else {
 		/*
 		 * Return XPLM_ERR_RDBK_INVALID_INFR_SEL if the selected interface type
@@ -348,9 +356,10 @@ static u32 XPlm_CfiRead(XPlm_Cmd *Cmd)
 		goto END;
 	}
 
-	/** Set the SBI mode register to configuration mode. */
+	/** - Change the SBI mode to configuration mode. */
 	XPlm_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK, XPLM_READBK_SBI_CFG_MODE);
 
+	/** - Transfer the readback payload to CCU. */
 	Status = XPlm_DmaXfr(CfiPayloadSrcAddr, XPLM_CCU_WR_STREAM_BASEADDR,
 			     (Cmd->PayloadLen - XPLM_CFI_DATA_OFFSET), XPLM_DMA_INCR_MODE);
 	if (Status != (u32)XST_SUCCESS) {
@@ -358,7 +367,7 @@ static u32 XPlm_CfiRead(XPlm_Cmd *Cmd)
 		goto END;
 	}
 
-
+	/** - Transfer the readback data to SBI buffer. */
 	while (Len > 0U) {
 		if (Len < XPLM_CCU_RD_STREAM_SIZE_WORDS) {
 			ReadLen = Len;
@@ -373,14 +382,16 @@ static u32 XPlm_CfiRead(XPlm_Cmd *Cmd)
 
 	if (SrcType == XPLM_READBK_INTF_TYPE_SMAP) {
 		Status = XPlm_UtilPoll(SLAVE_BOOT_SBI_STATUS,
-			SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_MASK,
-			(SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_DEFVAL << SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_SHIFT),
-			XPLM_TIME_OUT_DEFAULT, NULL);
+				       SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_MASK,
+				       (SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_DEFVAL <<
+					SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_SHIFT),
+				       XPLM_TIME_OUT_DEFAULT, NULL);
 	} else {
 		Status = XPlm_UtilPoll(SLAVE_BOOT_SBI_STATUS,
-			SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_MASK,
-			(SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_DEFVAL << SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_SHIFT),
-			XPLM_TIME_OUT_DEFAULT, NULL);
+				       SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_MASK,
+				       (SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_DEFVAL <<
+					SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_SHIFT),
+				       XPLM_TIME_OUT_DEFAULT, NULL);
 	}
 
 	if (Status != (u32)XST_SUCCESS) {
@@ -388,9 +399,10 @@ static u32 XPlm_CfiRead(XPlm_Cmd *Cmd)
 	}
 
 END:
-	/** Restore previous SBI control configuration. */
+	/** - Restore saved SBI control configuration. */
 	Xil_Out32(SLAVE_BOOT_SBI_CTRL, SbiCtrlCfg);
-	XPlm_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK, SLAVE_BOOT_SBI_MODE_SELECT_DEFVAL);
+	XPlm_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK,
+		     SLAVE_BOOT_SBI_MODE_SELECT_DEFVAL);
 
 END1:
 	return Status;
@@ -398,18 +410,19 @@ END1:
 
 /*****************************************************************************/
 /**
-* @brief	This function provides SET command execution.
-*  		Command payload parameters are
-*		- High Dest Addr
-*		- Low Dest Addr
-*		- Length (Length of words to set to value)
-*		- Value
-*
-* @param	Cmd is pointer to the command structure
-*
-* @return
-*
-*****************************************************************************/
+ * @brief	This function provides SET command execution.
+ *
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ *			- Reserved
+ *			- Dest Addr
+ *			- Length (Length of words to set to value)
+ *			- Value
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- XPLM_ERR_SET_MEM if failed to set the memory with the value.
+ */
+/*****************************************************************************/
 static u32 XPlm_Set(XPlm_Cmd *Cmd)
 {
 	u32 Status = (u32)XST_FAILURE;
@@ -427,18 +440,19 @@ static u32 XPlm_Set(XPlm_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
-* @brief	This function provides DMA key hole write command execution.
-*  		Command payload parameters are
-*		- High Dest Addr
-*		- Low Dest Addr
-*		- Keyhole Size in bytes
-*		- DATA
-*
-* @param	Cmd is pointer to the command structure
-*
-* @return
-*
-*****************************************************************************/
+ * @brief	This function provides DMA keyhole write command execution.
+ *
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ *			- Reserved
+ *			- Dest Addr
+ *			- Keyhole Size in bytes
+ *			- DATA
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- XPLM_ERR_KEYHOLE_XFER if failed to write keyhole data to CCU.
+ *
+ *****************************************************************************/
 static u32 XPlm_DmaWriteKeyHole(XPlm_Cmd *Cmd)
 {
 	u32 Status = (u32)XST_FAILURE;
@@ -452,10 +466,12 @@ static u32 XPlm_DmaWriteKeyHole(XPlm_Cmd *Cmd)
 
 	XPlm_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
-	/** - Store the destination address and keyholesize in resume data */
+	/* Store the destination address and keyholesize in resume data */
 	if (Cmd->ProcessedLen == 0U) {
-		Cmd->ResumeData[XPLM_WR_KEYHOLE_RESUME_DATA_KEYHOLE_ADDR_ARG_INDEX] = Cmd->Payload[XPLM_WR_KEYHOLE_PAYLOAD_KEYHOLE_ADDR_ARG_INDEX];
-		Cmd->ResumeData[XPLM_WR_KEYHOLE_RESUME_DATA_KEYHOLE_SIZE_ARG_INDEX] = Cmd->Payload[XPLM_WR_KEYHOLE_PAYLOAD_KEYHOLE_SIZE_ARG_INDEX];
+		Cmd->ResumeData[XPLM_WR_KEYHOLE_RESUME_DATA_KEYHOLE_ADDR_ARG_INDEX] =
+			Cmd->Payload[XPLM_WR_KEYHOLE_PAYLOAD_KEYHOLE_ADDR_ARG_INDEX];
+		Cmd->ResumeData[XPLM_WR_KEYHOLE_RESUME_DATA_KEYHOLE_SIZE_ARG_INDEX] =
+			Cmd->Payload[XPLM_WR_KEYHOLE_PAYLOAD_KEYHOLE_SIZE_ARG_INDEX];
 		Keyholesize = Cmd->Payload[XPLM_WR_KEYHOLE_PAYLOAD_KEYHOLE_SIZE_ARG_INDEX] * XPLM_WORD_LEN;
 		SrcAddr = (u32)(UINTPTR) &Cmd->Payload[XPLM_WR_KEYHOLE_PAYLOAD_KEYHOLE_DATA_ARG_INDEX];
 		Len -= 3U;
@@ -469,6 +485,10 @@ static u32 XPlm_DmaWriteKeyHole(XPlm_Cmd *Cmd)
 	BaseAddr = Cmd->ResumeData[XPLM_WR_KEYHOLE_RESUME_DATA_KEYHOLE_ADDR_ARG_INDEX];
 
 	/* wrap the CCU keyhole address to the beginning upon exceeding the keyhole size. */
+	/**
+	 * - Start transferring the keyhole data to CCU, upon reaching the limit of keyhole size,
+	 * wrap the keyhole address to the beginning.
+	 */
 	DestAddr = (((Cmd->ProcessedLen - DestOffset) * XPLM_WORD_LEN) & (Keyholesize - 1U)) + BaseAddr;
 	KeyHoleXfrParams.SrcAddr = SrcAddr;
 	KeyHoleXfrParams.DestAddr = DestAddr;
@@ -488,13 +508,11 @@ static u32 XPlm_DmaWriteKeyHole(XPlm_Cmd *Cmd)
 /**
  * @brief	This function adds Debug string to PLM logs.
  *
- * @param	Cmd is pointer to the command structure
- *		Command payload parameters are
- *		- Debug String
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ *			- Debug String
  *
  * @return
- * 		- XST_SUCCESS on success.
- * 		- XPLM_ERR_MAX_LOG_STR_LEN if the string provided exceeds max length.
+ *		- XST_SUCCESS always.
  *
  *****************************************************************************/
 static u32 XPlm_LogString(XPlm_Cmd *Cmd)
@@ -508,7 +526,7 @@ static u32 XPlm_LogString(XPlm_Cmd *Cmd)
 	}
 
 	/* Print the string*/
-	XPlm_Printf_WoS(DebugFlag, "%.*s", Len,(u8 *)&Cmd->Payload[0U]);
+	XPlm_Printf_WoS(DebugFlag, "%.*s", Len, (u8 *)&Cmd->Payload[0U]);
 
 	/* Print new line */
 	if (Cmd->Len == (Cmd->ProcessedLen + Cmd->PayloadLen)) {
@@ -521,15 +539,13 @@ static u32 XPlm_LogString(XPlm_Cmd *Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function reads the value at an address and displays and adds
- * 			the value to PLM logs.
+ *		the value to PLM logs.
  *
- * @param	Cmd is pointer to the command structure
- *		Command payload parameters are
- *		- Low Address
- *		- High Address (Optional) (not used)
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ *			- Address
  *
  * @return
- * 		- XST_SUCCESS always
+ *		- XST_SUCCESS always
  *
  *****************************************************************************/
 static u32 XPlm_LogAddress(XPlm_Cmd *Cmd)
@@ -548,13 +564,12 @@ static u32 XPlm_LogAddress(XPlm_Cmd *Cmd)
 /**
  * @brief	This function provides Marker command execution.
  *
- * @param	Cmd is pointer to the command structure
- *              Command payload parameters are
- *              - Type
- *              - String
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ *			- Type
+ *			- String
  *
  * @return
- * 		- XST_SUCCESS always.
+ *		- XST_SUCCESS always.
  *
  *****************************************************************************/
 static u32 XPlm_Marker(XPlm_Cmd *Cmd)
@@ -567,14 +582,15 @@ static u32 XPlm_Marker(XPlm_Cmd *Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function provides start of the block.
- *  		Command payload parameters are
- *		- Offset : specifies no. of words until "end" of the block
- *		- String : optional for debugging purpose (max. 6 words)
  *
- * @param	Cmd is pointer to the command structure
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ *			- Offset : specifies no. of words until "end" of the block
+ *			- String : optional for debugging purpose (max. 6 words)
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ * 		- XST_SUCCESS on success.
+ * 		- XPLM_ERR_MAX_NESTED_BEGIN if the nested begin command exceeds the max limit.
+ * 		- XPLM_ERR_STORE_END_OFFSET if failed to store the end offset.
  *
  *****************************************************************************/
 static u32 XPlm_Begin(XPlm_Cmd *Cmd)
@@ -640,10 +656,12 @@ END:
 /**
  * @brief	This function provides end of the block.
  *
- * @param	Cmd is pointer to the command structure
+ * @param	Cmd is pointer to the command structure to retrieve the end offset.
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ * 		- XST_SUCCESS on success.
+ * 		- XPLM_ERR_INVLD_BEGIN_END_PAIR if begin-end commands are not correctly paired.
+ * 		- and errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
 static u32 XPlm_End(XPlm_Cmd *Cmd)
@@ -654,13 +672,13 @@ static u32 XPlm_End(XPlm_Cmd *Cmd)
 	/* Stack empty, End does not have begin */
 	if (Cmd->CdoParamsStack.OffsetListTop < 0) {
 		Status = (u32)XPLM_ERR_INVLD_BEGIN_END_PAIR;
-		XPlm_Printf(DEBUG_DETAILED,"End does not have valid begin\n");
+		XPlm_Printf(DEBUG_DETAILED, "End does not have valid begin\n");
 		goto END;
 	}
 
 	/* Popped "end" length from stack should match with current ProcessedCdoLen */
 	Status = XPlm_StackPop(&Cmd->CdoParamsStack, XPLM_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL,
-			&EndLength);
+			       &EndLength);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
@@ -678,10 +696,11 @@ END:
  * @brief	This function skips all the commands until the Levels
  * number of nested "end".
  *
- * @param	Cmd is pointer to the command structure
+ * @param	Cmd is pointer to the command structure with break level as payload.
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ * 		- XST_SUCCESS on success.
+ * 		- Errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
 static u32 XPlm_Break(XPlm_Cmd *Cmd)
@@ -707,14 +726,13 @@ static u32 XPlm_Break(XPlm_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
- * @brief	This function registers the PLM generic commands to the PLMI.
+ * @brief	Register the generic CDO command handlers.
  *
  *****************************************************************************/
 void XPlm_GenericInit(void)
 {
 	/* Contains the array of PLM generic commands */
-	static const XPlm_ModuleCmd XPlm_GenericCmds[] =
-	{
+	static const XPlm_ModuleCmd XPlm_GenericCmds[] = {
 		XPLM_MODULE_COMMAND(XPlm_Features),
 		XPLM_MODULE_COMMAND(XPlm_MaskPoll),
 		XPLM_MODULE_COMMAND(XPlm_MaskWrite),
@@ -754,6 +772,7 @@ void XPlm_GenericInit(void)
 	XPlm_ModuleRegister(&XPlm_Generic);
 }
 
+/** @cond spartanup_plm_internal */
 /*****************************************************************************/
 /**
 * @brief	This function provides DMA transfer to CCU in chunks of Keyholesize.
@@ -805,7 +824,7 @@ static u32 XPlm_KeyHoleXfr(XPlm_KeyHoleXfrParams *KeyHoleXfrParams)
 			goto END;
 		}
 		KeyHoleXfrParams->Len -= LenTemp;
-		KeyHoleXfrParams->SrcAddr +=LenTemp;
+		KeyHoleXfrParams->SrcAddr += LenTemp;
 	}
 	if (LenTemp < KeyHoleXfrParams->Keyholesize) {
 		KeyHoleXfrParams->DestAddr += LenTemp;
@@ -819,6 +838,7 @@ END:
 /**
  * @brief	This function pushes data on stack.
  *
+ * @param	CdoParamsStack is pointer to the structure to store end offset
  * @param	Data is pointer to the data to be stored on stack
  *
  * @return
@@ -851,6 +871,7 @@ END:
 /**
  * @brief	This function pops data from stack.
  *
+ * @param	CdoParamsStack is pointer to the structure to get the end offset
  * @param	PopLevel is the number of elements to remove from stack.
  * @param	Data is pointer to store removed data from stack.
  *
@@ -889,13 +910,13 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function gets the jump offset for break command and break
- * 			supported commands.
+ *		supported commands.
  *
  * @param	Cmd is pointer to the command structure
  * @param	Level is the break level
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ *		- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static u32 XPlm_GetJumpOffSet(XPlm_Cmd *Cmd, u32 Level)
@@ -909,7 +930,7 @@ static u32 XPlm_GetJumpOffSet(XPlm_Cmd *Cmd, u32 Level)
 	 * - Break level should be always less than no. of stack element
 	 */
 	if ((Level == 0U) || (Cmd->CdoParamsStack.OffsetListTop < 0) ||
-			(Level > (u32)(Cmd->CdoParamsStack.OffsetListTop + 1))) {
+	    (Level > (u32)(Cmd->CdoParamsStack.OffsetListTop + 1))) {
 		goto END;
 	}
 
@@ -932,3 +953,6 @@ static u32 XPlm_GetJumpOffSet(XPlm_Cmd *Cmd, u32 Level)
 END:
 	return Status;
 }
+/** @endcond */
+
+/** @} end of spartanup_plm_apis group*/
