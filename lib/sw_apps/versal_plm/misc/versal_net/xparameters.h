@@ -6,6 +6,10 @@
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
 #define XPARAMETERS_H   /* by using protection macros */
 
+#ifdef __cplusplus
+extern "c" {
+#endif
+
 #define XPAR_CPU_ID 4U
 
 
@@ -1709,5 +1713,9 @@
 #define XSECURE_ELLIPTIC_ENDIANNESS	0U	/* 0: Little Endian and 1: Big endian */
 
 #define XSECURE_KEY_SLOT_ADDR 0x00000000U /* Key slot address to store unwrapped keys */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  /* end of protection macro */

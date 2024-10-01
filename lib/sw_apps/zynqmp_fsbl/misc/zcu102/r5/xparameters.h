@@ -6,6 +6,10 @@
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
 #define XPARAMETERS_H   /* by using protection macros */
 
+#ifdef __cplusplus
+extern "c" {
+#endif
+
 /* Definition for CPU ID */
 #define XPAR_CPU_ID 0U
 
@@ -1690,4 +1694,9 @@
 #define FILE_SYSTEM_WORD_ACCESS
 #define XSECURE_TPM_ENABLE
 #define XPAR_XILPM_ENABLED
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif  /* end of protection macro */
