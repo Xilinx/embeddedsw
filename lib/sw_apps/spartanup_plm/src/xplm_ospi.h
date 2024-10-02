@@ -108,6 +108,12 @@ extern "C" {
 #define XOSPIPSV_OSPIDMA_DST_CTRL    0X0000180CU
 #define XOSPIPSV_OSPIDMA_DST_CTRL_APB_ERR_RESP_MASK    0X01000000U
 
+#ifndef SDT
+	#define XPLM_OSPI_DEVICE	XPAR_XOSPIPSV_0_DEVICE_ID
+#else
+	#define XPLM_OSPI_DEVICE	XPAR_XOSPIPSV_0_BASEADDR
+#endif // !SDT
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
