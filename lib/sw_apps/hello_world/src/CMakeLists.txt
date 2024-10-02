@@ -22,10 +22,13 @@ foreach (source ${_sources})
     list(APPEND src_ext ${ext})
 endforeach()
 
+if (NOT DEFINED PROJECT_TYPE)
 find_project_type ("${src_ext}" PROJECT_TYPE)
+endif()
 
 if("${PROJECT_TYPE}" STREQUAL "c++")
 collect(PROJECT_LIB_DEPS stdc++)
+set(CMAKE_C_COMPILER ${CMAKE_CXX_COMPILER})
 endif()
 collector_list (_deps PROJECT_LIB_DEPS)
 list (APPEND _deps ${USER_LINK_LIBRARIES})
