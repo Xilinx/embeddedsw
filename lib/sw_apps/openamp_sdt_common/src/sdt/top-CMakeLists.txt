@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 cmake_minimum_required (VERSION 3.0.2)
 if (POLICY CMP0048)
   cmake_policy(SET CMP0048 NEW)
@@ -11,17 +11,12 @@ endif()
 project (open_amp_apps C)
 
 include(CheckSymbolExists)
-check_symbol_exists(ARMR5 "xparameters_ps.h" HAS_ARMR5)
-if (HAS_ARMR5)
-  set (MACHINE "zynqmp_r5" CACHE STRING "" FORCE)
-  set (CROSS_PREFIX "armr5-none-eabi-" CACHE STRING "" FORCE)
-  set (CMAKE_SYSTEM_PROCESSOR "arm" CACHE STRING "" FORCE)
-  set (PROJECT_MACHINE "zynqmp_r5" CACHE STRING "" FORCE)
-  set( DEMO_LINK_FLAGS " -lmetal -lgcc" )
 
-else()
-    message( FATAL_ERROR "Invalid machine. CMake will exit" )
-endif()
+set (WITH_LIBMETAL_FIND OFF)
+set (MACHINE "zynqmp_r5" CACHE STRING "" FORCE)
+set (CROSS_PREFIX "armr5-none-eabi-" CACHE STRING "" FORCE)
+set (CMAKE_SYSTEM_PROCESSOR "arm" CACHE STRING "" FORCE)
+set (PROJECT_MACHINE "zynqmp_r5" CACHE STRING "" FORCE)
 
 set (OPENAMP_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 set (OPENAMP_BIN_ROOT "${CMAKE_CURRENT_BINARY_DIR}")
