@@ -207,7 +207,8 @@ def create_app(args):
     # Add domain path entry in the app configuration file.
     data = {"domain_path": obj.domain_path,
             "app_src_dir": esw_app_dir,
-            "template": obj.template
+            "template": obj.template,
+            "lang": args["lang"]
         }
     utils.write_yaml(obj.app_config_file, data)
 
@@ -328,6 +329,15 @@ if __name__ == "__main__":
         default=False,
         help="Don't generate clangd meta-data useful for Vivado PLM kind of use cases (Default: False)",
         choices=["False", "True"],
+    )
+    parser.add_argument(
+        "-l",
+        "--lang",
+        action="store",
+        default="c",
+        help="Specify the language (Default: c) this option is applicable only for \
+              hello_world and empty_application templates",
+        choices=["c", "c++"],
     )
 
     args = vars(parser.parse_args())
