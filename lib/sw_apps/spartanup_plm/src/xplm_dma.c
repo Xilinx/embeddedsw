@@ -41,11 +41,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-#ifndef SDT
-static u32 XPlm_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId);
-#else
-static u32 XPlm_DmaDrvInit(XPmcDma *DmaPtr, u32 BaseAddress);
-#endif
 static void XPlm_SSSCfgDmaDma(void);
 static void XPlm_SSSCfgSbiDma(void);
 static void XPlm_SSSCfgDmaSbi(void);
@@ -55,13 +50,9 @@ static u32 XPlm_DmaChXfer(u32 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags)
 static XPmcDma PmcDma;		/** Instance of the Pmc_Dma Device */
 static XPmcDma_Configure DmaCtrl = {0x40U, 0U, 0U, 0U, 0xFFEU, 0x80U, 0U, 0U, 0U, 0xFFFU, 0x8U};
 
-#ifndef SDT
 /*****************************************************************************/
 /**
- * @brief	Initialize the DMA Driver instance.
- *
- * @param	DmaPtr is pointer to the DMA instance
- * @param	DeviceId is the ID of the DMA to use
+ * @brief	Initialize the DMA driver instance.
  *
  * @return
  * 		- XST_SUCCESS on success.
@@ -69,41 +60,15 @@ static XPmcDma_Configure DmaCtrl = {0x40U, 0U, 0U, 0U, 0xFFEU, 0x80U, 0U, 0U, 0U
  * 		- XPLM_ERR_DMA_CFG if DMA driver configuration fails.
  * 		- XPLM_ERR_DMA_SELFTEST if DMA driver self test fails.
  *
-*****************************************************************************/
-static u32 XPlm_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
-#else
-/*****************************************************************************/
-/**
- * @brief	Initialize the DMA Driver instance.
- *
- * @param	DmaPtr is pointer to the DMA instance
- * @param	BaseAddress is the address of the DMA hardware
- *
- * @return
- * 		- XST_SUCCESS on success.
- * 		- XPLM_ERR_DMA_LOOKUP if DMA driver lookup fails.
- * 		- XPLM_ERR_DMA_CFG if DMA driver configuration fails.
- * 		- XPLM_ERR_DMA_SELFTEST if DMA driver self test fails.
- *
-*****************************************************************************/
-static u32 XPlm_DmaDrvInit(XPmcDma *DmaPtr, u32 BaseAddress)
-#endif
+ *****************************************************************************/
+u32 XPlm_DmaInit(void)
 {
 	u32 Status = (u32)XST_FAILURE;
 	XPmcDma_Config *Config;
+	XPmcDma *DmaPtr = &PmcDma;
 
-	/*
-	 * Initialize the PmcDma driver so that it's ready to use
-	 * look up the configuration in the config table,
-	 * then initialize it.
-	 */
-#ifndef SDT
 	/** - Fetch the DMA driver configuraion using DeviceID. */
-	Config = XPmcDma_LookupConfig((u16)DeviceId);
-#else
-	/** - Fetch the DMA driver configuraion using Baseaddress. */
-	Config = XPmcDma_LookupConfig(BaseAddress);
-#endif
+	Config = XPmcDma_LookupConfig(PMCDMA_0_DEVICE_ID);
 	if (NULL == Config) {
 		Status = (u32)XPLM_ERR_DMA_LOOKUP;
 		goto END;
@@ -129,26 +94,6 @@ static u32 XPlm_DmaDrvInit(XPmcDma *DmaPtr, u32 BaseAddress)
 	}
 
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function will initialize the DMA driver instance.
- *
- * @return
- * 		- XST_SUCCESS on success.
- * 		- and errors from @ref XPlm_DmaDrvInit.
- *
- *****************************************************************************/
-u32 XPlm_DmaInit(void)
-{
-	/** - Initialise PMC_DMA0. */
-	u32 Status = (u32)XST_FAILURE;
-
-	/** - Initialize the DMA driver for PMC_DMA0 using @ref XPlm_DmaDrvInit. */
-	Status = XPlm_DmaDrvInit(&PmcDma, PMCDMA_0_DEVICE_ID);
-
 	return Status;
 }
 
