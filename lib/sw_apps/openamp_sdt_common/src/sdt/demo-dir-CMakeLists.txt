@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 set (_cflags "${CMAKE_C_FLAGS} ${APP_EXTRA_C_FLAGS} -fdata-sections -ffunction-sections")
 set (_fw_dir "${APPS_SHARE_DIR}")
 
@@ -14,9 +14,9 @@ get_property (_linker_opt GLOBAL PROPERTY APP_LINKER_OPT)
 
 collect(PROJECT_LIB_DEPS xiltimer)
 collect(PROJECT_LIB_DEPS xilstandalone)
+collect(PROJECT_LIB_DEPS metal)
+collect(PROJECT_LIB_DEPS open_amp)
 collector_list (_deps PROJECT_LIB_DEPS)
-
-find_library(OPENAMP_LIB NAMES open_amp HINTS "${OPENAMP_DIR}/lib")
 
 get_property (OPENAMP_APP_NAME GLOBAL PROPERTY OPENAMP_APP_NAME)
 if(OPENAMP_APP_NAME STREQUAL "rpc_demo")
@@ -38,7 +38,7 @@ set (executable_name ${CMAKE_PROJECT_NAME})
 
 add_executable (${executable_name}.elf ${_sources})
 set_source_files_properties(${_sources} PROPERTIES COMPILE_FLAGS "${_cflags}")
-target_link_libraries(${executable_name}.elf -Wl,-Map=${executable_name}.map -Wl,--gc-sections ${_linker_opt} -Wl,--start-group ${OPENAMP_LIB} ${_deps} -Wl,--end-group)
+target_link_libraries(${executable_name}.elf -Wl,-Map=${executable_name}.map -Wl,--gc-sections ${_linker_opt} -Wl,--start-group  ${_deps} -Wl,--end-group)
 target_compile_definitions(${executable_name}.elf PUBLIC ${USER_COMPILE_DEFINITIONS})
 
 install (TARGETS ${executable_name}.elf RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
