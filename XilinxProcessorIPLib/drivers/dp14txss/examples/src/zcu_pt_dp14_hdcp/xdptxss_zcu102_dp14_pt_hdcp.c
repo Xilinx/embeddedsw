@@ -105,6 +105,11 @@ int gIsKeyWrittenInEeeprom = FALSE;
 #include "rx.h"
 #endif
 
+#ifdef SDT
+#define XPAR_XV_FRMBUFRD_NUM_INSTANCES XPAR_XV_FRMBUF_RD_NUM_INSTANCES
+#define XPAR_XV_FRMBUFWR_NUM_INSTANCES XPAR_XV_FRMBUF_WR_NUM_INSTANCES
+#endif
+
 void operationMenu();
 //void resetIp();
 void resetIp_wr();
@@ -1624,6 +1629,9 @@ u32 DpSs_SetupIntrSystem(void)
 		xil_printf("ERR: Frame Buffer Read interrupt connect failed!\r\n");
 		return XST_FAILURE;
 	}
+    XDisableIntrId(frmbufrd.FrmbufRd.Config.IntrId,
+		   frmbufrd.FrmbufRd.Config.IntrParent);
+
 #if ENABLE_HDCP_IN_DESIGN
 #if (ENABLE_HDCP1x_IN_TX || ENABLE_HDCP22_IN_TX)
 	Status = XSetupInterruptSystem(DpTxSsInst.TmrCtrPtr,
