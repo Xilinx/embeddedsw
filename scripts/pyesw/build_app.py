@@ -50,6 +50,11 @@ def build_app(args):
     if utils.is_file(cmake_cache):
         generate_bsp(args)
 
+    # check for lang option if exists update the PROJECT_TYPE variable accordingly
+    app_data = utils.fetch_yaml_data(obj.app_config_file, "lang")
+    if 'lang' in app_data:
+        if 'c++' in app_data['lang']:
+            obj.cmake_paths_append += " -DPROJECT_TYPE=c++"
     # Run make inside cmake configured build area
     obj.app_src_dir = obj.app_src_dir.replace('\\', '/')
     obj.cmake_paths_append = obj.cmake_paths_append.replace('\\', '/')
