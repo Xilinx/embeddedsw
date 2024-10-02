@@ -16,7 +16,7 @@ void outbyte(char c);
 }
 #endif
 
-#if !defined(VERSAL_PLM) && !defined(STDOUT_BASEADDRESS)
+#if !defined(VERSAL_PLM) && !defined(STDOUT_BASEADDRESS) && !defined(SPARTANUP_PLM)
 void outbyte(char c)
 {
     (void) c;

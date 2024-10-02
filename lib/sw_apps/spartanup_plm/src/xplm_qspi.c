@@ -207,7 +207,7 @@ u32 XPlm_QspiInit(XPlm_BootModes Mode)
 	/** - Zeroize QSPI instance. */
 	memset(&OspiPsvInstance, 0, sizeof(OspiPsvInstance));
 
-	OspiConfig = XOspiPsv_LookupConfig(XPAR_XOSPIPSV_0_DEVICE_ID);
+	OspiConfig = XOspiPsv_LookupConfig(XPLM_OSPI_DEVICE);
 	if (NULL == OspiConfig) {
 		Status = (u32)XPLM_ERR_QSPI_CFG_NOT_FOUND;
 		goto END;

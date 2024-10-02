@@ -374,7 +374,7 @@ u8 XIOModule_RecvByte(UINTPTR BaseAddress)
 }
 
 #if defined (SDT) && defined (XPAR_STDIN_IS_IOMODULE)
-#if !defined(VERSAL_PLM)
+#if !defined(VERSAL_PLM) && !defined(SPARTANUP_PLM)
 void outbyte(char c) {
          XIOModule_SendByte(STDOUT_BASEADDRESS, c);
 }

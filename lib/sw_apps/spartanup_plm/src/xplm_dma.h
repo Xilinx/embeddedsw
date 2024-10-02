@@ -60,12 +60,6 @@ extern "C" {
 
 #define XPLM_SET_CHUNK_SIZE	(0x8U)
 
-#ifndef SDT
-#define PMCDMA_0_DEVICE ((u32)PMCDMA_0_DEVICE_ID)
-#else
-#define PMCDMA_0_DEVICE PMCDMA_0_DEVICE_ID
-#endif
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/

@@ -38,6 +38,11 @@
 #include "xplm_load.h"
 
 /************************** Constant Definitions *****************************/
+#ifndef SDT
+	#define XPLM_IOMODULE_DEVICE	XPAR_IOMODULE_0_DEVICE_ID
+#else
+	#define XPLM_IOMODULE_DEVICE	XPAR_XIOMODULE_0_BASEADDR
+#endif // !SDT
 
 /**************************** Type Definitions *******************************/
 
@@ -69,7 +74,7 @@ static u32 XPlm_IntrInit(void)
 	static XIOModule IOModule;
 
 	/** - Initialize the IO Module. */
-	Status = XIOModule_Initialize(&IOModule, XPAR_IOMODULE_0_DEVICE_ID);
+	Status = XIOModule_Initialize(&IOModule, XPLM_IOMODULE_DEVICE);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_IO_MOD_INIT;
 		goto END;
