@@ -147,7 +147,7 @@ u32 XPlm_DmaInit(void)
 	u32 Status = (u32)XST_FAILURE;
 
 	/** - Initialize the DMA driver for PMC_DMA0 using @ref XPlm_DmaDrvInit. */
-	Status = XPlm_DmaDrvInit(&PmcDma, PMCDMA_0_DEVICE);
+	Status = XPlm_DmaDrvInit(&PmcDma, PMCDMA_0_DEVICE_ID);
 
 	return Status;
 }
