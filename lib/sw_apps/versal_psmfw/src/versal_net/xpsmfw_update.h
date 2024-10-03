@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,7 +22,6 @@ extern "C" {
 /*******************************************/
 void XPsmFw_StartShutdown(void);
 XStatus XPsm_DoShutdown(void);
-XStatus XPsmFw_ResetPsm(u32 Payload, u32* Response);
 XStatus XPsmFw_StoreData(void);
 XStatus XPsmFw_ReStoreData(void);
 u32 XPsmFw_GetUpdateState(void);
