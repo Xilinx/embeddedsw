@@ -572,7 +572,8 @@ u8 EnterPassword (u8 *Password)
 	i = 0;
 	while (1) {
 		/* Check if the UART has any data */
-#if defined (XPS_BOARD_VEK280)
+#if defined (XPS_BOARD_VEK280) || \
+		defined (XPS_BOARD_VCK190)
 		if (XUartPsv_IsReceiveData(UART_BASE_ADDRESS)) {
 			Data = XUartPsv_RecvByte(UART_BASE_ADDRESS);
 			XUartPsv_SendByte(UART_BASE_ADDRESS, '.');

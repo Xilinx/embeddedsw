@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,7 +33,8 @@
 #include "video_fmc.h"
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 #include "xiicps.h"
 #else
 #include "xiic.h"
@@ -41,7 +42,8 @@
 
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 #define I2C_REPEATED_START 0x01
 #define I2C_STOP 0x00
 #else
@@ -88,7 +90,8 @@ static unsigned Vfmc_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -147,7 +150,8 @@ static unsigned Vfmc_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -230,6 +234,11 @@ int Vfmc_I2cMuxSelect(void *IicPtr)
 	Status = Vfmc_I2cSend(IicPtr, 0x75,
 					   (u8 *)&Buffer, 1, (I2C_STOP));
 
+#elif defined (XPS_BOARD_VCK190)
+	/* Set TCA9548 U135 to select port 0 or 1 (HPC0/1)*/
+		Buffer = 0x02;
+	Status = Vfmc_I2cSend(IicPtr, 0x74,
+					   (u8 *)&Buffer, 1, (I2C_STOP));
 #endif
 
 	/* When a device is found, it returns one byte */
@@ -259,7 +268,8 @@ int Vfmc_HdmiInit(u16 GpioDeviceId, void *IicPtr)
 	int ByteCount;
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 	XIicPs *Iic_Ptr = IicPtr;
 #else
 	XIic *Iic_Ptr = IicPtr;
