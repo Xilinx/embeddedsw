@@ -956,10 +956,13 @@ END:
 			goto RET;
 		}
 	}
+	Status |= Xil_SecureOut32(PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
+	Status |= Xil_SecureOut32(PMC_XPPU_DYNAMIC_RECONFIG_EN, XOCP_XPPU_DISABLED);
+	if (Status != XST_SUCCESS) {
+		Status |= XOCP_DME_ERR;
+		goto RET;
 
-	Xil_Out32(PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
-	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, XOCP_XPPU_DISABLED);
-	Xil_Out32(PMC_XPPU_DYNAMIC_RECONFIG_EN, XOCP_XPPU_DISABLED);
+	}
 
 	if ((XppuEnabled == XOCP_XPPU_ENABLED) && (XppuEnabledTmp == XOCP_XPPU_ENABLED)) {
 		XppuStatus = Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
@@ -1086,8 +1089,8 @@ int XOcp_CheckAndExtendSecureState(void)
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	XOcp_SwPcrConfig *SwPcrConfig = XOcp_GetSwPcrConfigInstance();
-	u32 MeasureSecureConfig = FALSE;
-	u32 MeasureTapConfig = FALSE;
+	u32 MeasureSecureConfig = TRUE;
+	u32 MeasureTapConfig = TRUE;
 
 	if (SwPcrConfig->IsPcrConfigReceived != TRUE) {
 		XPlmi_Printf(DEBUG_INFO,"Secure State Measurement is not configured \r\n");
@@ -1853,7 +1856,8 @@ static void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig)
 *****************************************************************************/
 static int XOcp_CheckAndUpdateSecConfigState(u32 *MeasureSecureConfig)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	XOcp_SecureConfig EfuseConfig;
 
 	Status = Xil_SMemCpy((void*)(UINTPTR)&EfuseConfig, sizeof(XOcp_SecureConfig), (void*)(UINTPTR)&SecureConfig,
@@ -1864,17 +1868,16 @@ static int XOcp_CheckAndUpdateSecConfigState(u32 *MeasureSecureConfig)
 
 	XOcp_ReadSecureConfig(&SecureConfig);
 
-	Status = Xil_SMemCmp((void*)(UINTPTR)&EfuseConfig, sizeof(XOcp_SecureConfig), (void*)(UINTPTR)&SecureConfig,
+	XSECURE_TEMPORAL_IMPL(Status, SStatus, Xil_SMemCmp, (void*)(UINTPTR)&EfuseConfig, sizeof(XOcp_SecureConfig), (void*)(UINTPTR)&SecureConfig,
 						sizeof(XOcp_SecureConfig), sizeof(XOcp_SecureConfig));
-	if (Status != XST_SUCCESS) {
-		*MeasureSecureConfig = TRUE;
-		Status = XST_SUCCESS;
+	if ((Status == XST_SUCCESS) && (SStatus == XST_SUCCESS)) {
+		*MeasureSecureConfig = FALSE;
 	}
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
 }
-
 /*****************************************************************************/
 /**
  * @brief	This function compares tap configuration with previous configuration
@@ -1889,7 +1892,8 @@ END:
 *****************************************************************************/
 static int XOcp_CheckAndUpdateTapConfigState(u32 *MeasureTapConfig)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	XOcp_SecureTapConfig TapConfig;
 
 	Status = Xil_SMemCpy((void*)(UINTPTR)&TapConfig, sizeof(XOcp_SecureTapConfig), (void*)(UINTPTR)&SecureTapConfig,
@@ -1900,12 +1904,12 @@ static int XOcp_CheckAndUpdateTapConfigState(u32 *MeasureTapConfig)
 
 	XOcp_ReadTapConfig(&SecureTapConfig);
 
-	Status = Xil_SMemCmp((void*)(UINTPTR)&TapConfig, sizeof(XOcp_SecureTapConfig), (void*)(UINTPTR)&SecureTapConfig,
+	XSECURE_TEMPORAL_IMPL(Status, SStatus, Xil_SMemCmp, (void*)(UINTPTR)&TapConfig, sizeof(XOcp_SecureTapConfig), (void*)(UINTPTR)&SecureTapConfig,
 						sizeof(XOcp_SecureTapConfig), sizeof(XOcp_SecureTapConfig));
-	if (Status != XST_SUCCESS) {
-		*MeasureTapConfig = TRUE;
-		Status = XST_SUCCESS;
+	if ((Status == XST_SUCCESS) && (SStatus == XST_SUCCESS)) {
+		*MeasureTapConfig = FALSE;
 	}
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
