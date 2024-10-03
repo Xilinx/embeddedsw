@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +40,7 @@
 * 15.0 bsv 09/04/20  Add support for 2Gb flash parts
 * 21.1  ng 07/13/23  Add SDT support
 * 21.2  ng 07/25/23  Updated QSPI address support in SDT flow
+* 21.4   ng  10/03/24   Fix change in macro name for QSPI linear flash
 * </pre>
 *
 * @note
@@ -51,7 +52,7 @@
 #include "qspi.h"
 #include "image_mover.h"
 
-#if defined(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR) || defined(XPAR_PS7_QSPI_LINEAR_0_BASEADDR)
+#if defined(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR) || defined(XPAR_PS7_QSPI_LINEAR_0_BASEADDRESS)
 #include "xqspips_hw.h"
 #include "xqspips.h"
 
