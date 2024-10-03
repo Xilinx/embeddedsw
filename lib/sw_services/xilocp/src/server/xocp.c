@@ -805,8 +805,8 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 	volatile int XppuStatus = XST_FAILURE;
-	volatile u32 RegVal = XOCP_XPPU_ENABLED;
-	volatile u32 RegValtmp = XOCP_XPPU_ENABLED;
+	volatile u32 RegVal = ~XOCP_XPPU_ENABLED;
+	volatile u32 RegValtmp = ~XOCP_XPPU_ENABLED;
 	int ClearStatus = XST_FAILURE;
 #ifdef PLM_OCP_KEY_MNGMT
 	u32 *DevIkPubKey = (u32 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
@@ -1204,6 +1204,7 @@ int XOcp_StoreSwPcrConfigAndExtendSwPcr_0_1(u32 *Pload, u32 Len)
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XOcp_MeasureSecureStateAndExtendSwPcr();
 END:
 	return Status;
