@@ -5,7 +5,8 @@
 * @addtogroup IDT_8T49N24x
 * @{
 * <pre>
-* Copyright (c) 2016 Xilinx, Inc.
+* Copyright (c) 2016-2022 Xilinx, Inc.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (c) 2016 Adeas B.V. All rights reserved.
 *
 * MODIFICATION HISTORY:
@@ -29,7 +30,8 @@
 #include "idt_8t49n24x.h"
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 #include "xiicps.h"
 #else
 #include "xiic.h"
@@ -43,7 +45,8 @@
 #define IDT_8T49N24X_ADV_FUNC_EN 0 /* Enable unused APIs */
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 #define I2C_REPEATED_START 0x01
 #define I2C_STOP 0x00
 #else
@@ -121,7 +124,8 @@ static void IDT_8T49N24x_I2cReset(void *IicPtr)
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 	/* Do nothing
 	XIicPs *Iic_Ptr = IicPtr;
 	XIicPs_Reset(Iic_Ptr);*/
@@ -157,7 +161,8 @@ static unsigned IDT_8T49N24x_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -218,7 +223,8 @@ static unsigned IDT_8T49N24x_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
