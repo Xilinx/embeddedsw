@@ -1039,21 +1039,21 @@ static int XLoader_DumpDdrmcRegisters(void)
 			continue;
 		}
 
-	Xloader_DdrmcRegisters DdrmcRegisters[DDRMC_ARRAY_SIZE] = {
-		{"PCSR Status", DDRMC_PCSR_STATUS_OFFSET},
-		{"PCSR Control", DDRMC_PCSR_CONTROL_OFFSET},
-		{"CAL_PTR", DDRMC_OFFSET_CALIB_PTR},
-		{"CAL_ERR_SUB_STAGE", DDRMC_OFFSET_CALIB_ERR_SUB_STAGE},
-		{"CAL_ERR_RANK", DDRMC_OFFSET_CALIB_ERR_RANK},
-		{"CAL_ERR", DDRMC_OFFSET_CALIB_ERR},
-		{"CAL_ERROR_DATA_NIBBLE_1", DDRMC_OFFSET_CALIB_ERR_DATA_NIBBLE_1},
-		{"CAL_ERROR_DATA_NIBBLE_2", DDRMC_OFFSET_CALIB_ERR_DATA_NIBBLE_2}
-	};
+		Xloader_DdrmcRegisters DdrmcRegisters[DDRMC_ARRAY_SIZE] = {
+			{"PCSR Status", DDRMC_PCSR_STATUS_OFFSET},
+			{"PCSR Control", DDRMC_PCSR_CONTROL_OFFSET},
+			{"CAL_PTR", DDRMC_OFFSET_CALIB_PTR},
+			{"CAL_ERR_SUB_STAGE", DDRMC_OFFSET_CALIB_ERR_SUB_STAGE},
+			{"CAL_ERR_RANK", DDRMC_OFFSET_CALIB_ERR_RANK},
+			{"CAL_ERR", DDRMC_OFFSET_CALIB_ERR},
+			{"CAL_ERROR_DATA_NIBBLE_1", DDRMC_OFFSET_CALIB_ERR_DATA_NIBBLE_1},
+			{"CAL_ERROR_DATA_NIBBLE_2", DDRMC_OFFSET_CALIB_ERR_DATA_NIBBLE_2}
+		};
 
-	for (LoopCount=0U ; LoopCount<DDRMC_ARRAY_SIZE ; LoopCount++) {
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS,"%s : 0x%x\n\r", DdrmcRegisters[LoopCount].RegStr,
-		XPlmi_In32(BaseAddr + DdrmcRegisters[LoopCount].Offset));
-	}
+		for (LoopCount=0U ; LoopCount<DDRMC_ARRAY_SIZE ; LoopCount++) {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS,"%s : 0x%x\n\r", DdrmcRegisters[LoopCount].RegStr,
+			XPlmi_In32(BaseAddr + DdrmcRegisters[LoopCount].Offset));
+		}
 
 		++Ub;
 	}
