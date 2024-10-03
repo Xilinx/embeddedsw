@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,10 +58,48 @@ extern "C" {
  */
 XStatus XPsmfw_IpiManagerInit(void);
 
+/****************************************************************************/
+/**
+ * @brief	Interrupt handler for IPI
+ *
+ * @param SrcMask	Source mask
+ *
+ * @return	XST_SUCCESS if successful, otherwise XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask);
 
+/****************************************************************************/
+/**
+ * @brief	Sends IPI request to the target.
+ *
+ * @param IpiMask	IPI interrupt mask of target
+ * @param Payload	API ID and call arguments to be written in
+ *			IPI buffer
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
+ *		or a reason code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload);
 
+/****************************************************************************/
+/**
+ * @brief	Sends IPI response to the target.
+ *
+ * @param IpiMask	IPI interrupt mask of target
+ * @param Payload	IPI response
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
+ *		or a reason code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_IpiSendResponse(u32 IpiMask, u32 *Payload);
 
 #ifdef __cplusplus

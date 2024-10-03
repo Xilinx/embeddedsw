@@ -37,6 +37,14 @@
 #endif
 #define XPAR_IOMODULE_0_DEVICE_ID 0U
 
+/****************************************************************************/
+/**
+ * @brief	Main function. This is the entry point of the program.
+ *
+ * @return	Returns an integer value, typically 0 for successful execution
+ *
+ * @note	None
+ ****************************************************************************/
 int main(void)
 {
 	XStatus Status = XST_FAILURE;

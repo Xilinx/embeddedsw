@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,11 +64,17 @@ Done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * XPsmFw_DispatchIpiHandler() - Interrupt handler for IPI
+ * @brief	Interrupt handler for IPI
  *
- * @IpiInstPtr		Pointer to the IPI instance
- */
+ * @param SrcMask	Source mask
+ *
+ * @return	XST_SUCCESS if successful, otherwise XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
 {
 	XStatus Status = XST_FAILURE;
@@ -158,6 +164,15 @@ XStatus XPsmfw_IpiManagerInit(void)
 	return XST_FAILURE;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Dummy function
+ *
+ * @return	XST_FAILURE
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
 {
 	(void)SrcMask;
@@ -165,6 +180,15 @@ XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
 	return XST_FAILURE;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Dummy function
+ *
+ * @return	XST_FAILURE
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload)
 {
 	(void)IpiMask;
@@ -173,6 +197,15 @@ XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload)
 	return XST_FAILURE;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Dummy function
+ *
+ * @return	XST_FAILURE
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_IpiSendResponse(u32 IpiMask, u32 *Payload)
 {
 	(void)IpiMask;

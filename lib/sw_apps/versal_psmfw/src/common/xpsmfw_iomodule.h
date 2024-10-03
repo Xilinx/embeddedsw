@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -241,7 +241,29 @@ extern XIOModule IOModule;
 /************************ Function Prototype ************************/
 XStatus XPsmFw_IoModuleInit(u16 DeviceId);
 XStatus SetUpInterruptSystem(void);
+
+/******************************************************************************/
+/**
+*
+* @brief	Disables the interrupt system
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
 void XPsmFw_DisableInterruptSystem(void);
+
+/******************************************************************************/
+/**
+*
+* @brief	Stops the I/O module
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
 void XPsmFw_StopIoModule(void);
 void XPsmFw_IntrHandler(void *IntrNumber);
 #ifdef PSM_ENABLE_STL

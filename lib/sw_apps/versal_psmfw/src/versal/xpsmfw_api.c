@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -24,6 +24,17 @@
 #define PACK_PAYLOAD0(Payload, ApiId)	\
 	PACK_PAYLOAD(Payload, HEADER(0U, ApiId), 0U)
 
+/****************************************************************************/
+/**
+ * @brief	Performs necessary cleanup operation on FPD
+ *
+ * @param FunctionId	API ID
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFw_FpHouseClean(u32 FunctionId)
 {
 	XStatus Status = XST_FAILURE;
@@ -63,9 +74,9 @@ done:
 /****************************************************************************/
 /**
  * @brief	Process keep alive event from PLM to indicate that PSM is alive
- * 		and healthy.
+ *		and healthy.
  *
- * @return	XST_SUCCESS
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
  *
  * @note	None
  *
@@ -99,11 +110,11 @@ static XStatus XPsmFw_KeepAliveEvent(void)
 /**
  * @brief	Enable/Disable Isolation
  *
- * @param IsolationId	Isolation index
+ * @param IsolationIdx	Isolation index
  * @param Action	True - To enable Isolation
- * 			False - To disable Isolation
+ *			False - To disable Isolation
  *
- * @return	None
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
  *
  * @note	None
  *
@@ -182,8 +193,9 @@ done:
  * @brief	Process IPI commands
  *
  * @param Payload	API ID and call arguments
+ * @param Response	Output response to the source
  *
- * @return	XST_SUCCESS or error code
+ * @return	None
  *
  * @note	None
  *
@@ -230,7 +242,7 @@ void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response)
 /**
  * @brief	Trigger IPI of PLM to notify the event to PLM
  *
- * @return	XST_SUCCESS or error code
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
  *
  * @note	None
  *

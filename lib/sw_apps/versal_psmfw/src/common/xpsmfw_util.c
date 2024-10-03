@@ -91,6 +91,17 @@ XStatus XPsmFw_UtilPollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount)
 
 }
 
+/****************************************************************************/
+/**
+ * @brief	Waits for a specified timeout count
+ *
+ * @param TimeOutCount	The number of iterations to wait
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 void XPsmFw_UtilWait(u32 TimeOutCount)
 {
 	u32 TimeOut = TimeOutCount;
@@ -100,6 +111,21 @@ void XPsmFw_UtilWait(u32 TimeOutCount)
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief	Polls a register until a specified value is read or a timeout occurs
+ *
+ * @param RegAddress	The address of the register to poll
+ * @param Mask		The mask to apply to the register value
+ * @param Value		The expected value after masking
+ * @param TimeOutUs	The timeout period in microseconds
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
+ *		or a reason code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_UtilPollForValue(u32 RegAddress, u32 Mask, u32 Value, u32 TimeOutUs)
 {
 	XStatus Status = XST_FAILURE;
