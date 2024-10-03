@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,7 +35,8 @@
 #include "si5324drv.h"
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 #include "xiicps.h"
 #else
 #include "xiic.h"
@@ -43,7 +45,8 @@
 
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 #define I2C_REPEATED_START 0x01
 #define I2C_STOP 0x00
 #else
@@ -126,7 +129,8 @@ static unsigned Si5324_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -189,7 +193,8 @@ static unsigned Si5324_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
 {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
