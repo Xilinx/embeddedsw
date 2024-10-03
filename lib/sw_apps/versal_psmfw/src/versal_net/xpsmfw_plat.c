@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -8,6 +8,15 @@
 #include "xpsmfw_plat.h"
 #include "xpsmfw_power.h"
 
+/****************************************************************************/
+/**
+ * @brief	Handles power-up interrupts
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmfw_PwrUpHandler(void)
 {
 	u32 PwrUp0Status, PwrUp0IntMask, PwrUp1Status, PwrUp1IntMask;
@@ -26,6 +35,15 @@ XStatus XPsmfw_PwrUpHandler(void)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Handles power-down interrupts
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmfw_PwrDwnHandler(void)
 {
 	u32 PwrDwn0Status, PwrDwn0IntMask, PwrUp0Status, PwrUp0IntMask;
@@ -51,6 +69,15 @@ XStatus XPsmfw_PwrDwnHandler(void)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Handles wake-up interrupts
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmfw_WakeupHandler(void)
 {
 	u32 WakeupStatus, WakeupIntMask;
@@ -70,6 +97,15 @@ XStatus XPsmfw_WakeupHandler(void)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Handles power-down interrupts
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmfw_PwrCtlHandler(void)
 {
 	u32 PwrCtlStatus, PwrCtlIntMask;
@@ -84,6 +120,15 @@ XStatus XPsmfw_PwrCtlHandler(void)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Handles GIC P2 interrupts
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_GicP2Handler(void)
 {
 	/*no operation in versal net*/

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,8 +57,37 @@ extern "C" {
 #define IDCODE_DEV_SBFMLY_VC1902		(IDCODE_SBFMLY_S | IDCODE_DEV_VC1902)
 #define IDCODE_DEV_SBFMLY_VM1802		(IDCODE_SBFMLY_S | IDCODE_DEV_VM1802)
 
+/****************************************************************************/
+/**
+ * @brief	Retrieves platform information
+ *
+ * @return	Returns platform information as a 32-bit unsigned integer
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 u32 XPsmFw_GetPlatform(void);
+
+/****************************************************************************/
+/**
+ * @brief	Retrieves the ID code
+ *
+ * @return	Returns ID code as a 32-bit unsigned integer
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 u32 XPsmFw_GetIdCode(void);
+
+/****************************************************************************/
+/**
+ * @brief	Initializes the PSM firmware
+ *
+ * @return	XST_SUCCESS if initialization is successful, otherwise XST_FAILURE
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_Init(void);
 
 #ifdef __cplusplus

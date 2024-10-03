@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,8 +38,8 @@ static const struct GicP2HandlerTable_t GicHandlerTable[] = {
 /**
  * @brief	Dispatch handler for GICProxy2 interrupts.
  *
- * @param GICP2Status	GICP2 status register value
- * @param GICP2IntMask	GICP2 interrupt mask register value
+ * @param GicP2Status	GICP2 status register value
+ * @param GicP2IntMask	GICP2 interrupt mask register value
  *
  * @return	XST_SUCCESS or error code
  *
@@ -87,8 +88,6 @@ XStatus XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask)
 /******************************************************************************/
 /**
  * @brief	Disables GICProxy2 interrupts.
- *
- * @param	None
  *
  * @return	None
  *
