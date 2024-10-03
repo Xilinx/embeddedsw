@@ -3981,11 +3981,7 @@ static u32 XDp_TxSetTrainingPattern(XDp *InstancePtr, u32 Pattern, u8 NumOfRepea
 		}
 		/* Make the adjustments to both the DisplayPort TX core and the RX device. */
 
-		if ((Pattern == XDP_TX_TRAINING_PATTERN_SET_OFF)
-			|| (Pattern == XDP_TX_TRAINING_PATTERN_SET_TP1)) {
-			Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_TP_SET, 1, AuxData);
-		}
-		else {
+		if (Pattern == XDP_TX_TRAINING_PATTERN_SET_TP2){
 			/* adjust FFE_PRESET_VALUE_LANEx parameters based on receiver request*/
 			AuxData[1] =
 			InstancePtr->TxInstance.RxConfig.FfePresetValue[0] &
@@ -4009,6 +4005,8 @@ static u32 XDp_TxSetTrainingPattern(XDp *InstancePtr, u32 Pattern, u8 NumOfRepea
 			    InstancePtr->TxInstance.LinkConfig.LaneCount );
 
 			Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_TP_SET, 5, AuxData);
+		} else {
+			Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_TP_SET, 1, AuxData);
 		}
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
@@ -5382,13 +5380,13 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr, u8 Nu
 	if (Status != XST_SUCCESS)
 		return XDP_TX_TS_FAILURE;
 
+	Status = XDp_TxSetTrainingPattern(InstancePtr, XDP_TX_TRAINING_PATTERN_SET_TP2,
+					  NumOfRepeaters);
+	if (Status != XST_SUCCESS)
+		return XDP_TX_TS_FAILURE;
+
 	EqualizationTime = XDP_LINK_EQUALIZATION_TIMEOUT_IN_MSEC;
 	do {
-		Status = XDp_TxSetTrainingPattern(InstancePtr, XDP_TX_TRAINING_PATTERN_SET_TP2,
-										  NumOfRepeaters);
-
-		if (Status != XST_SUCCESS)
-			return XDP_TX_TS_FAILURE;
 		/* Obtain the required delay for clock recovery as specified by the
 		 * RX device.
 		 */
