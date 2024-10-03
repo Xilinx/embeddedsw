@@ -35,6 +35,7 @@
 *       har  06/10/24 Support to retain PCR log after In Place PLM update
 *       kal  06/27/24 Clearing first measurement in XOcp_GetSwPcrLog
 *       kal  07/24/2024 Code refactoring updates for versal_aiepg2
+*	vss  09/23/24 Modified code as per security best practices
 *
 *
 * </pre>
@@ -870,8 +871,9 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	}
 
 	/* Store the XPPU registers initial configuration */
-	Status = XOcp_DmeStoreXppuDefaultConfig();
-	if (Status != XST_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, SStatus, XOcp_DmeStoreXppuDefaultConfig);
+	if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
+		Status |= XOCP_DME_ERR;
 		goto RET;
 	}
 
@@ -1081,7 +1083,8 @@ END:
 *****************************************************************************/
 int XOcp_CheckAndExtendSecureState(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	XOcp_SwPcrConfig *SwPcrConfig = XOcp_GetSwPcrConfigInstance();
 	u32 MeasureSecureConfig = FALSE;
 	u32 MeasureTapConfig = FALSE;
@@ -1105,8 +1108,9 @@ int XOcp_CheckAndExtendSecureState(void)
 	}
 
 	if ((MeasureSecureConfig == TRUE) || (MeasureTapConfig == TRUE)) {
-		Status = XOcp_MeasureSecureState();
-		if (Status != XST_SUCCESS) {
+
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XOcp_MeasureSecureState);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status = (int)XOCP_ERR_SECURE_STATE_MEASUREMENT;
 			goto END;
 		}
