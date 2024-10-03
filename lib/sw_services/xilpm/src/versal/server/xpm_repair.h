@@ -71,7 +71,7 @@ maybe_unused static inline XStatus XPmRepair_Hnicx_Dpu(u32 EfuseTagAddr, u32 Tag
 }
 
 maybe_unused static inline XStatus XPmRepair_Hnicx_Lcs(u32 EfuseTagAddr, u32 TagSize,
-					u32 TagOptional, u32 *TagDataAddr)
+					u32 TagOptional, const u32 *TagDataAddr)
 {
 	(void)EfuseTagAddr;
 	(void)TagSize;
