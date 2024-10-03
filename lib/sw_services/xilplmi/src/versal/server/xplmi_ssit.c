@@ -68,6 +68,7 @@
 *                       and changed HBM CATTRIP SW Error Action in ErrorTable.
 *                       Also restricted HBM Cattrip error action to HW Errors.
 *       pre  09/24/2024 Added key zeroization and saving new key in PPU RAM
+*       pre  10/03/2024 Clearing SSIT errors after handling
 *
 * </pre>
 *
@@ -1257,6 +1258,8 @@ void XPlmi_SsitErrHandler(void *Data)
 	volatile u32 SldNotificationTmp;
 
 	XPlmi_PlmIntrClear(Id);
+	XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS, (PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR2_MASK >>
+	           (Id - XPLMI_IOMODULE_SSIT_ERR2)));
 	if (SsitEvents->IsIntrEnabled != (u8)TRUE) {
 		goto END;
 	}
