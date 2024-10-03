@@ -175,11 +175,6 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 
 	RegulatorSlaveAddress = (u16)Regulator->I2cAddress;
 	for (i = 0; i < Regulator->Config.CmdLen; i++) {
-		if (j >= MAX_I2C_COMMAND_LEN) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-
 		MuxAddress = (u16)Regulator->Config.CmdArr[j];
 		j++;
 		BytesLen = Regulator->Config.CmdArr[j];
@@ -197,6 +192,11 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 		for (k = 0; k < BytesLen; k++) {
 			WriteBuffer[k] = Regulator->Config.CmdArr[j];
 			j++;
+		}
+
+		if (j >= (u32)MAX_I2C_COMMAND_LEN) {
+			Status = XST_INVALID_PARAM;
+			goto done;
 		}
 
 		Status = I2CWrite(&IicInstance, MuxAddress, WriteBuffer,
