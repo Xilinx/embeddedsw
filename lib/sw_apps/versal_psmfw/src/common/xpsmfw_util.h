@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -65,7 +66,7 @@ XStatus XPsmFw_UtilPollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
  * Wait for a period represented by TimeOut
  * FIXME: Make it more meaningful. Clock Cycles or MilliSeconds
  *
- * @param Timeout is the value to count before we return this function
+ * @param TimeOutCount is the value to count before we return this function
  */
 void XPsmFw_UtilWait(u32 TimeOutCount);
 
@@ -75,7 +76,7 @@ void XPsmFw_UtilWait(u32 TimeOutCount);
  * @param RegAddress is the Address of the Register to be polled
  * @param Mask is the bit mask to poll for in the register value
  * @param Value is value to check agains after mask
- * @param TimeOutus is timeout value in microsecond
+ * @param TimeOutUs is timeout value in microsecond
  */
 XStatus XPsmFw_UtilPollForValue(u32 RegAddress, u32 Mask, u32 Value, u32 TimeOutUs);
 
