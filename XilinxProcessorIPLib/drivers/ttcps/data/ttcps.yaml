@@ -27,7 +27,7 @@ required:
     - compatible
     - reg
     - xlnx,clock-freq
-    - interrupts: 1
+    - interrupts: 3
     - interrupt-parent
 
 examples:
