@@ -33,6 +33,7 @@
 *       mb   05/23/2024 Added support for P-192
 *       mb   05/23/2024 Added support for P-224
 *       kal  07/24/2024 Code refacroring for versal_aiepg2.
+*	vss  10/01/2024	Changed existing implementation of AES CM KAT to same key and data
 *
 * </pre>
 *
@@ -75,23 +76,10 @@ static const u32 Data0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] =
                                0xa0a60b3dU, 0U, 0U, 0U, 0U, 0U, 0x2481322dU,
                                0x568dd5a8U, 0xed5e77d0U, 0x881ade93U};
 
-static const u32 Key1[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
-							{0x3ba3028aU, 0x84e787dfU, 0xe38a7a5dU, 0x707e72c8U,
-                             0x8cd04f4fU, 0x2883201fU, 0xa5b38c2dU, 0xe9deced3U};
-
-static const u32 Data1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] =
-							{0x0U, 0x0U, 0x0U, 0x0U, 0x96589f59U, 0x8e961c85U,
-                               0x3b3208d8U, 0x0U, 0x0U, 0x0U, 0x0U, 0x0U,
-                               0x328bde4aU, 0xfb2367d5U, 0x40ce658fU, 0xc9275e82U};
-
 static const u32 Ct0[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
 							{0x67020a3bU, 0x3adeecf6U, 0x0309b378U, 0x6ecad4ebU};
-static const u32 Ct1[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
-							{0x793391cbU, 0x6575906bU, 0x1a424078U, 0x632b0246U};
 static const u32 MiC0[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
 							{0x6400d21fU, 0x6363fc09U, 0x06d4f379U, 0x8809ca7eU};
-static const u32 MiC1[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
-							{0x3c459ea7U, 0x5a8aad6fU, 0x878e2a4cU, 0x887f1c82U};
 
 static const u8 KatMessage[XSECURE_KAT_MSG_LEN_IN_BYTES] = {
 	0x2FU, 0xBFU, 0x02U, 0x9EU, 0xE9U, 0xFBU, 0xD6U, 0x11U,
@@ -675,7 +663,7 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 
 	Status = XST_FAILURE;
 
-	Status = XSecure_AesDpaCmDecryptData(AesInstance, Key1, Data1, Output1);
+	Status = XSecure_AesDpaCmDecryptData(AesInstance, Key0, Data0, Output1);
 	if (Status != XST_SUCCESS) {
 		goto END_CLR;
 	}
@@ -712,10 +700,10 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 		 ((R0[2U] ^ RM0[2U]) != Ct0[2U])  || ((R0[3U] ^ RM0[3U]) != Ct0[3U])) ||
 		(((M0[0U] ^ Mm0[0U]) != MiC0[0U]) || ((M0[1U] ^ Mm0[1U]) != MiC0[1U]) ||
 		 ((M0[2U] ^ Mm0[2U]) != MiC0[2U]) || ((M0[3U] ^ Mm0[3U]) != MiC0[3U])) ||
-		(((R1[0U] ^ RM1[0U]) != Ct1[0U])  || ((R1[1U] ^ RM1[1U]) != Ct1[1U]) ||
-		((R1[2U] ^ RM1[2U]) != Ct1[2U])  || ((R1[3U] ^ RM1[3U]) != Ct1[3U])) ||
-		(((M1[0U] ^ Mm1[0U]) != MiC1[0U]) || ((M1[1U] ^ Mm1[1U]) != MiC1[1U]) ||
-		 ((M1[2U] ^ Mm1[2U]) != MiC1[2U]) || ((M1[3U] ^ Mm1[3U]) != MiC1[3U]))) {
+		(((R1[0U] ^ RM1[0U]) != Ct0[0U])  || ((R1[1U] ^ RM1[1U]) != Ct0[1U]) ||
+		((R1[2U] ^ RM1[2U]) != Ct0[2U])  || ((R1[3U] ^ RM1[3U]) != Ct0[3U])) ||
+		(((M1[0U] ^ Mm1[0U]) != MiC0[0U]) || ((M1[1U] ^ Mm1[1U]) != MiC0[1U]) ||
+		 ((M1[2U] ^ Mm1[2U]) != MiC0[2U]) || ((M1[3U] ^ Mm1[3U]) != MiC0[3U]))) {
 		Status = (int)XSECURE_AESDPACM_KAT_CHECK5_FAILED_ERROR;
 		goto END_CLR;
 	}
