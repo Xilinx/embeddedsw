@@ -273,6 +273,8 @@ static const XLoader_DeviceOps DeviceOps[] =
 #endif
 #ifdef XLOADER_UFS
 	{XLoader_UfsInit, XLoader_UfsCopy, XLoader_UfsRelease},
+#else
+	{NULL, NULL, NULL},
 #endif
 };
 
@@ -2262,17 +2264,17 @@ END:
 int XLoader_GetImageAndPrtnInfo(XilPdi *PdiPtr, u32 ImageId)
 {
 	int Status = XST_FAILURE;
-	u8 PrtnNum = 0U;
-	u8 Index;
+	u32 PrtnNum = 0U;
+	u32 Index;
 
 	/** Check if the given ImageId matches with any Images present in PDI. */
-	for (Index = 0U; Index < (u8)PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs; ++Index) {
+	for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs; ++Index) {
 		if (PdiPtr->MetaHdr.ImgHdr[Index].ImgID == ImageId) {
 			PdiPtr->ImageNum = Index;
 			PdiPtr->PrtnNum = PrtnNum;
 			break;
 		}
-		PrtnNum += (u8)PdiPtr->MetaHdr.ImgHdr[Index].NoOfPrtns;
+		PrtnNum += PdiPtr->MetaHdr.ImgHdr[Index].NoOfPrtns;
 	}
 
 	/** If not matched return error, else success. */

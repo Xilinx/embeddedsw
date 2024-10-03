@@ -5743,7 +5743,7 @@ static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr)
 		goto END;
 	}
 
-	Status = XSecure_ShaFinish(ShaInstPtr, (UINTPTR)&SpkHash, XLOADER_SHA3_LEN);
+	Status = XSecure_ShaFinish(ShaInstPtr, (u64)(UINTPTR)&SpkHash, XLOADER_SHA3_LEN);
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_SPK_HASH_CALCULATION_FAIL,
 			Status);
