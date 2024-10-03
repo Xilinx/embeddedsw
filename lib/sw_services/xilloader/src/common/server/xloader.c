@@ -175,6 +175,7 @@
 *       kal  06/29/2024 Make XLoader_LoadImage as a non-static function
 *       kal  07/24/2024 Code refactoring for versal_aiepg2 updates.
 *       mb   08/10/2024 Added support for loading cdo after secure boot.
+*       pre  10/03/2024 Clearing GSW error after PDI loading
 *
 * </pre>
 *
@@ -1018,6 +1019,7 @@ static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 
 	/* Mark PDI loading is completed */
 	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
+	XPlmi_Out32(PMC_GLOBAL_PMC_GSW_ERR, 0U);
 
 END:
 	return Status;
@@ -1048,7 +1050,6 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
 END:
 	SStatus = XLoader_ClearKeys(PdiPtr);
 	if (Status == XST_SUCCESS) {
@@ -1647,6 +1648,7 @@ END:
 	SStatus = XLoader_ClearKeys(PdiPtr);
 	if (Status == XST_SUCCESS) {
 		XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);
+		XPlmi_Out32(PMC_GLOBAL_PMC_GSW_ERR, 0U);
 		Status |= SStatus;
 	}
 	return Status;
