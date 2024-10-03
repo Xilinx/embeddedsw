@@ -17,7 +17,7 @@
 extern "C" {
 #endif
 
-XStatus XPmPlatAddProcDevice(u32 DeviceId, u32 Ipi, u32 *BaseAddr, XPm_Power *Power);
+XStatus XPmPlatAddProcDevice(u32 DeviceId, u32 Ipi, const u32 *BaseAddr, const XPm_Power *Power);
 
 #ifdef __cplusplus
 }
