@@ -399,8 +399,6 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 			SubSysHashDs->ValidData = TRUE;
 		}
 
-		XPlmi_PrintArray(DEBUG_DETAILED, (u64)(UINTPTR)DevAkData->EccPrvtKey,
-			XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PRVT KEY");
 		XPlmi_PrintArray(DEBUG_INFO, (u64)(UINTPTR)DevAkData->EccX,
 			XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY X");
 		XPlmi_PrintArray(DEBUG_INFO, (u64)(UINTPTR)DevAkData->EccY,
@@ -794,7 +792,7 @@ END:
  ******************************************************************************/
 static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 ReadReg;
 
 	/* Writes data to 32-bit address and checks for blind writes */
