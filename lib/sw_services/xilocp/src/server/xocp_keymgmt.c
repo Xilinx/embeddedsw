@@ -34,6 +34,7 @@
 *                     Add support to generate additional DevAk for key wrap
 *       har  07/19/24 Fixed issue in generating certificates for multiple subsystem
 *       har  08/08/24 Update FwHash for both DevIk certificate and DevIk CSR
+*	vss  09/23/24 Modified code as per security best practices
 *
 * </pre>
 * @note
@@ -733,6 +734,8 @@ int XOcp_ShutdownHandler(XPlmi_ModuleOp Op)
 	volatile int Status = XST_FAILURE;
 	static u32 OcpHandlerState = XPLMI_MODULE_NORMAL_STATE;
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
+	volatile u32 KeyMgmtReady = FALSE;
+	volatile u32 KeyMgmtReadyTmp = FALSE;
 
 	if (Op.Mode == XPLMI_MODULE_SHUTDOWN_INITIATE) {
 		if (OcpHandlerState == XPLMI_MODULE_NORMAL_STATE) {
@@ -748,7 +751,9 @@ int XOcp_ShutdownHandler(XPlmi_ModuleOp Op)
 		if (OcpHandlerState != XPLMI_MODULE_SHUTDOWN_INITIATED_STATE) {
 			goto END;
 		}
-		if (KeyInstPtr->KeyMgmtReady == TRUE) {
+		KeyMgmtReady = KeyInstPtr->KeyMgmtReady;
+		KeyMgmtReadyTmp = KeyInstPtr->KeyMgmtReady;
+		if ((KeyMgmtReady == TRUE) || (KeyMgmtReadyTmp == TRUE)) {
 			/* Zeroize DEVIK */
 			Status = XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_CTRL,
 				(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_STATUS);
