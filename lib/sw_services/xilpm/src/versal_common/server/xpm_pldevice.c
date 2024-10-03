@@ -761,7 +761,7 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	 * its own RM (partial) or a default RM present in one its parent RM or static image.
 	 */
 	if ((u8)XPM_DEVSTATE_INITIALIZING != PlDevice->Device.Node.State) {
-		XPm_PlDevice *Parent = PlDevice->Parent;
+		const XPm_PlDevice *Parent = PlDevice->Parent;
 		while (NULL != Parent) {
 			if ((u8)XPM_DEVSTATE_INITIALIZING == Parent->Device.Node.State) {
 				Status = XST_SUCCESS;
