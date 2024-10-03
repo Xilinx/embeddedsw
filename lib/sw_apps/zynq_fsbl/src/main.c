@@ -86,6 +86,7 @@
 * 21.1   ng  07/13/23   Add SDT support
 * 21.2   ng  07/25/23   Fixed DDR, WDT, NAND and QSPI addresses support in SDT
 * 21.3   ng  03/09/24   Fix format specifier for 32 bit variables
+* 21.4   ng  10/03/24   Fix change in macro name for QSPI linear flash
 *
 * </pre>
 *
@@ -208,7 +209,7 @@ u8 SystemInitFlag;
 extern ImageMoverType MoveImage;
 extern XDcfg *DcfgInstPtr;
 extern u8 BitstreamFlag;
-#if defined(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR) || defined(XPAR_PS7_QSPI_LINEAR_0_BASEADDR)
+#if defined(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR) || defined(XPAR_PS7_QSPI_LINEAR_0_BASEADDRESS)
 extern u32 QspiFlashSize;
 #endif
 /*****************************************************************************/
@@ -378,7 +379,7 @@ int main(void)
 	/*
 	 * QSPI BOOT MODE
 	 */
-#if defined(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR) || defined(XPAR_PS7_QSPI_LINEAR_0_BASEADDR)
+#if defined(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR) || defined(XPAR_PS7_QSPI_LINEAR_0_BASEADDRESS)
 
 #ifdef MMC_SUPPORT
 	/*
@@ -1427,7 +1428,7 @@ u32 NextValidImageCheck(void)
 	/*
 	 * Setting variable with maximum flash size based on boot mode
 	 */
-#if defined(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR) || defined(XPAR_PS7_QSPI_LINEAR_0_BASEADDR)
+#if defined(XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR) || defined(XPAR_PS7_QSPI_LINEAR_0_BASEADDRESS)
 	if (FlashReadBaseAddress == XPS_QSPI_LINEAR_BASEADDR) {
 		BootDevMaxSize = QspiFlashSize;
 	}
