@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,15 @@
 
 #define NOT_INITIALIZED			0xFFFFFFFFU
 
+/****************************************************************************/
+/**
+ * @brief	Retrieves platform information
+ *
+ * @return	Returns platform information as a 32-bit unsigned integer
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 u32 XPsmFw_GetPlatform(void)
 {
 	static u32 Platform = NOT_INITIALIZED;
@@ -48,6 +57,15 @@ done:
 	return Platform;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Retrieves the ID code
+ *
+ * @return	Returns ID code as a 32-bit unsigned integer
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 u32 XPsmFw_GetIdCode(void)
 {
 	static u32 IdCode = NOT_INITIALIZED;
@@ -63,6 +81,15 @@ done:
 	return IdCode;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Initializes the PSM firmware
+ *
+ * @return	XST_SUCCESS if initialization is successful, otherwise XST_FAILURE
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_Init(void)
 {
 	XStatus Status = XST_FAILURE;

@@ -16,6 +16,15 @@ extern u8 __update_mgr_a_fn_start[];
 extern u8 __update_mgr_a_fn_end[];
 static void XPsmFw_PsmUpdateMgr(void) __attribute__((section(".update_mgr_a")));
 
+/****************************************************************************/
+/**
+ * @brief	Update PSM firmware during runtime
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static void XPsmFw_PsmUpdateMgr(void) {
 
 	/** NOTE: this function is special.
@@ -44,13 +53,43 @@ static void XPsmFw_PsmUpdateMgr(void) {
 	);
 }
 
+/****************************************************************************/
+/**
+ * @brief	Get state of PSM update
+ *
+ * @return	Return state of PSM update
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 inline u32 XPsmFw_GetUpdateState(void){
 	return Xil_In32(PSM_UPDATE_REG_STATE);
 }
+
+/****************************************************************************/
+/**
+ * @brief	Set state of PSM update
+ *
+ * @param State	PSM update state
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 inline void XPsmFw_SetUpdateState(u32 State){
 	Xil_Out32(PSM_UPDATE_REG_STATE, State);
 }
 
+/****************************************************************************/
+/**
+ * @brief	Shutdown PSM
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsm_DoShutdown(){
 
 	XStatus Status = XST_FAILURE;
@@ -89,10 +128,28 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Start shutdown of PSM
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 void XPsmFw_StartShutdown(void){
 	XPsmFw_SetUpdateState(PSM_UPDATE_STATE_SHUTDOWN_START);
 }
 
+/****************************************************************************/
+/**
+ * @brief	Store dynamic data
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_StoreData(void){
 	XStatus Status = XST_FAILURE;
 
@@ -143,6 +200,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Restore dynamic data
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_ReStoreData(void){
 	XStatus Status = XST_FAILURE;
 

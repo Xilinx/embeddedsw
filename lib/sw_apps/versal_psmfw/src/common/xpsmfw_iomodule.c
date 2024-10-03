@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,15 @@
 
 XIOModule IOModule;
 
+/****************************************************************************/
+/**
+ * @brief	Handles the IPI interrupt for PSM
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static void XPsmFw_InterruptIpiHandler(void)
 {
 	u32 Mask;
@@ -63,6 +72,15 @@ done:
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief	Handles the power-up interrupt
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static void XPsmfw_InterruptPwrUpHandler(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -73,6 +91,15 @@ static void XPsmfw_InterruptPwrUpHandler(void)
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief	Handles the power-down interrupt
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static void XPsmfw_InterruptPwrDwnHandler(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -83,6 +110,15 @@ static void XPsmfw_InterruptPwrDwnHandler(void)
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief	Handles the power-down interrupt
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static void XPsmfw_InterruptWakeupHandler(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -93,6 +129,15 @@ static void XPsmfw_InterruptWakeupHandler(void)
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief	Handles the power control interrupt
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static void XPsmfw_InterruptPwrCtlHandler(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -103,6 +148,15 @@ static void XPsmfw_InterruptPwrCtlHandler(void)
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief	Handles the GIC P2 interrupt
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static void XPsmfw_InterruptGicP2Handler(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -241,9 +295,7 @@ END:
 * This function connects the interrupt handler of the IO Module to the
 * processor.
 *
-* @param    None.
-*
-* @return   None.
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE or error code
 *
 * @note     None.
 *
@@ -298,6 +350,16 @@ XStatus SetUpInterruptSystem(void)
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+*
+* @brief	Disables the interrupt system
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
 void XPsmFw_DisableInterruptSystem(void)
 {
 	for(u32 l_index = 0U; l_index < ARRAYSIZE(g_TopLevelInterruptTable); l_index++) {
@@ -307,6 +369,16 @@ void XPsmFw_DisableInterruptSystem(void)
 
 }
 
+/******************************************************************************/
+/**
+*
+* @brief	Stops the I/O module
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
 void XPsmFw_StopIoModule(void)
 {
 	XIOModule_Stop(&IOModule);

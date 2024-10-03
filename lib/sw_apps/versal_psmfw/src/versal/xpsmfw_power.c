@@ -324,6 +324,15 @@ enum XPsmFWPwrUpDwnType {
 	XPSMFW_PWR_UPDWN_REQUEST,
 };
 
+/****************************************************************************/
+/**
+ * @brief	Executes FPD BISR pre-requisites
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 void XPsmFw_FpdMbisr(void)
 {
 	/* Disable Remaining LP-FP isolation */
@@ -338,6 +347,15 @@ void XPsmFw_FpdMbisr(void)
 	/* Bisr will now be triggered by XilPM when this call returns */
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes FPD MBIST pre-requisites
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 void XPsmFw_FpdMbistClear(void)
 {
 	/* Disable Remaining LP-FP isolation */
@@ -350,6 +368,15 @@ void XPsmFw_FpdMbistClear(void)
 			     ~CRL_RST_FPD_SRST_MASK);
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes secure lockdown sequence for Versal
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 void XPsmFw_SecLockDown(void)
 {
 	/* Reset all group isolation */
@@ -357,6 +384,15 @@ void XPsmFw_SecLockDown(void)
 	XPsmFw_Write32(PSM_LOCAL_MISC_CNTRL, 0xFC000000U);
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes FPD pre-houseclean sequence for Versal
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_FpdPreHouseClean(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -395,6 +431,15 @@ XStatus XPsmFw_FpdPreHouseClean(void)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes FPD post-houseclean sequence for Versal
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 void XPsmFw_FpdPostHouseClean(void)
 {
 	/*
@@ -424,6 +469,17 @@ void XPsmFw_FpdPostHouseClean(void)
 	}
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes power-up sequence for specific power island
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwIslandPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -451,6 +507,18 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes power-up sequence for ACPUx core
+ *
+ * @param Args	Node specific arguments
+ * @param Type	Power-up type
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
 	XStatus Status = XST_FAILURE;
@@ -487,6 +555,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes direct power-up sequence for ACPUx core
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -558,6 +637,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes request power-up sequence for ACPUx core
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwACPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -576,6 +666,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes power-down sequence for specific power island in Versal
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwIslandPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -605,6 +706,18 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes power-down sequence for ACPUx core
+ *
+ * @param Args	Node specific arguments
+ * @param Type	Power-down type
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
 	XStatus Status = XST_FAILURE;
@@ -646,6 +759,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes direct power-down sequence for ACPUx core
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -699,6 +823,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes request power-down sequence for ACPUx core
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -733,6 +868,18 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes power-up sequence for RPUx core
+ *
+ * @param Args	Node specific arguments
+ * @param Type	Power-up type
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
 	XStatus Status = XST_FAILURE;
@@ -774,6 +921,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes direct power-up sequence for RPUx core
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -849,6 +1007,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes request power-up sequence for RPUx core
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwRPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -881,6 +1050,18 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes power-down sequence for RPUx core
+ *
+ * @param Args	Node specific arguments
+ * @param Type	Power-down type
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwRPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args, enum XPsmFWPwrUpDwnType Type)
 {
 	XStatus Status = XST_FAILURE;
@@ -917,6 +1098,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes direct power-down sequence for RPUx core
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -979,6 +1171,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes request power-down sequence for RPUx core
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwRPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -1003,6 +1206,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes power-up sequence for specific memory
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwMemPwrUp(struct XPsmFwMemPwrCtrl_t *Args)
 {
 	/* HERE */
@@ -1041,6 +1255,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Executes power-down sequence for specific memory
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XPsmFwMemPwrDown(struct XPsmFwMemPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -1072,6 +1297,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Powers up the TCM (Tightly Coupled Memory)
+ *
+ * @param Tcm	Pointer to the TCM power control structure
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XTcmPwrUp(struct XPsmTcmPwrCtrl_t *Tcm)
 {
 	XStatus Status = XST_FAILURE;
@@ -1113,6 +1349,17 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Powers down the TCM (Tightly Coupled Memory)
+ *
+ * @param Tcm	Pointer to the TCM power control structure
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus XTcmPwrDown(struct XPsmTcmPwrCtrl_t *Tcm)
 {
 	XStatus Status = XST_FAILURE;
@@ -1158,151 +1405,211 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * PowerUp_OCM_BANK0() - Power up OCM BANK0
+ * @brief	Powers up the OCM BANK0
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_OCM_BANK0(void)
 {
 	return XPsmFwMemPwrUp(&Ocm0PwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_OCM_BANK1() - Power up OCM BANK1
+ * @brief	Powers up the OCM BANK1
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_OCM_BANK1(void)
 {
 	return XPsmFwMemPwrUp(&Ocm1PwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_OCM_BANK2() - Power up OCM BANK2
+ * @brief	Powers up the OCM BANK2
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_OCM_BANK2(void)
 {
 	return XPsmFwMemPwrUp(&Ocm2PwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_OCM_BANK3() - Power up OCM BANK3
+ * @brief	Powers up the OCM BANK3
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_OCM_BANK3(void)
 {
 	return XPsmFwMemPwrUp(&Ocm3PwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_TCM0A() - Power up TCM0A memory
+ * @brief	Powers up the TCM0A memory
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_TCM0A(void)
 {
 	return XTcmPwrUp(&Tcm0APwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_TCM0B() - Power up TCM0B memory
+ * @brief	Powers up the TCM0B memory
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_TCM0B(void)
 {
 	return XTcmPwrUp(&Tcm0BPwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_TCM1A() - Power up TCM1A memory
+ * @brief	Powers up the TCM1A memory
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_TCM1A(void)
 {
 	return XTcmPwrUp(&Tcm1APwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_TCM1B() - Power up TCM1B memory
+ * @brief	Powers up the TCM1B memory
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_TCM1B(void)
 {
 	return XTcmPwrUp(&Tcm1BPwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_L2_BANK0() - Power up L2 BANK0
+ * @brief	Powers up the L2 BANK0
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_L2_BANK0(void)
 {
 	return XPsmFwMemPwrUp(&L2BankPwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_ACPU0() - Power up ACPU0
+ * @brief	Power up ACPU0 core
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_ACPU0(void)
 {
 	return XPsmFwACPUxReqPwrUp(&Acpu0PwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_ACPU1() - Power up ACPU1
+ * @brief	Power up ACPU1 core
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_ACPU1(void)
 {
 	return XPsmFwACPUxReqPwrUp(&Acpu1PwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_RPU() - Power up RPU
+ * @brief	Power up RPU core
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_RPU(void)
 {
 	return XPsmFwRPUxReqPwrUp(&Rpu0PwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_GEM0() - Power up GEM0
+ * @brief	Power up GEM0
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_GEM0(void)
 {
 	return XPsmFwMemPwrUp(&Gem0PwrCtrl.GemMemPwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_GEM1() - Power up GEM1
+ * @brief	Power up GEM1
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_GEM1(void)
 {
 	return XPsmFwMemPwrUp(&Gem1PwrCtrl.GemMemPwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerUp_FP() - Power up FPD
+ * @brief	Power up FPD
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerUp_FP(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -1315,11 +1622,15 @@ static XStatus PowerUp_FP(void)
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_OCM_BANK0() - Power down OCM BANK0
+ * @brief	Power down OCM BANK0
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_OCM_BANK0(void)
 {
 	/*
@@ -1335,11 +1646,15 @@ static XStatus PowerDwn_OCM_BANK0(void)
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_OCM_BANK1() - Power down OCM BANK1
+ * @brief	Power down OCM BANK1
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_OCM_BANK1(void)
 {
 	/*
@@ -1355,11 +1670,15 @@ static XStatus PowerDwn_OCM_BANK1(void)
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_OCM_BANK2() - Power down OCM BANK2
+ * @brief	Power down OCM BANK2
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_OCM_BANK2(void)
 {
 	/*
@@ -1375,11 +1694,15 @@ static XStatus PowerDwn_OCM_BANK2(void)
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_OCM_BANK3() - Power down OCM BANK3
+ * @brief	Power down OCM BANK3
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_OCM_BANK3(void)
 {
 	/*
@@ -1395,111 +1718,155 @@ static XStatus PowerDwn_OCM_BANK3(void)
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_TCM0A() - Power down TCM0A memory
+ * @brief	Power down TCM0A memory
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_TCM0A(void)
 {
 	return XTcmPwrDown(&Tcm0APwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_TCM0B() - Power down TCM0B memory
+ * @brief	Power down TCM0B memory
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_TCM0B(void)
 {
 	return XTcmPwrDown(&Tcm0BPwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_TCM1A() - Power down TCM1A memory
+ * @brief	Power down TCM1A memory
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_TCM1A(void)
 {
 	return XTcmPwrDown(&Tcm1APwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_TCM1B() - Power down TCM1B memory
+ * @brief	Power down TCM1B memory
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_TCM1B(void)
 {
 	return XTcmPwrDown(&Tcm1BPwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_L2_BANK0() - Power down L2 BANK0
+ * @brief	Power down L2 BANK0
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_L2_BANK0(void)
 {
 	return XPsmFwMemPwrDown(&L2BankPwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_ACPU0() - Power down ACPU0
+ * @brief	Power down ACPU0 core
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_ACPU0(void)
 {
 	return XPsmFwACPUxReqPwrDwn(&Acpu0PwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_ACPU1() - Power down ACPU1
+ * @brief	Power down ACPU1 core
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_ACPU1(void)
 {
 	return XPsmFwACPUxReqPwrDwn(&Acpu1PwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_RPU() - Power down RPU
+ * @brief	Power down RPU core
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_RPU(void)
 {
 	return XPsmFwRPUxReqPwrDwn(&Rpu0PwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_GEM0() - Power down GEM0
+ * @brief	Power down GEM0
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_GEM0(void)
 {
 	return XPsmFwMemPwrDown(&Gem0PwrCtrl.GemMemPwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_GEM1() - Power down GEM1
+ * @brief	Power down GEM1
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_GEM1(void)
 {
 	return XPsmFwMemPwrDown(&Gem1PwrCtrl.GemMemPwrCtrl);
 }
 
+/****************************************************************************/
 /**
- * PowerDwn_FP() - Power down FPD
+ * @brief	Power down FPD
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus PowerDwn_FP(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -1549,14 +1916,18 @@ static const struct PwrHandlerTable_t PwrUpDwnHandlerTable[] = {
 	{PSM_GLOBAL_REG_REQ_PWRUP_STATUS_ACPU1_MASK, PSM_GLOBAL_REG_REQ_PWRDWN_STATUS_ACPU1_MASK, PowerUp_ACPU1, PowerDwn_ACPU1},
 };
 
+/****************************************************************************/
 /**
- * XPsmFw_DispatchPwrUpHandler() - Power-up interrupt handler
+ * @brief	Power-up interrupt handler
  *
- * @PwrUpStatus    Power Up status register value
- * @PwrUpIntMask   Power Up interrupt mask register value
+ * @param PwrUpStatus	Power Up status register value
+ * @param PwrUpIntMask	Power Up interrupt mask register value
  *
- * @return         XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
 {
 	XStatus Status = XST_FAILURE;
@@ -1584,16 +1955,20 @@ XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * XPsmFw_DispatchPwrDwnHandler() - Power-down interrupt handler
+ * @brief	Power-down interrupt handler
  *
- * @PwrDwnStatus   Power Down status register value
- * @pwrDwnIntMask  Power Down interrupt mask register value
- * @PwrUpStatus    Power Up status register value
- * @PwrUpIntMask   Power Up interrupt mask register value
+ * @param PwrDwnStatus	Power Down status register value
+ * @param pwrDwnIntMask	Power Down interrupt mask register value
+ * @param PwrUpStatus	Power Up status register value
+ * @param PwrUpIntMask	Power Up interrupt mask register value
  *
- * @return         XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
 		u32 PwrUpStatus, u32 PwrUpIntMask)
 {
@@ -1624,11 +1999,15 @@ XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * ACPU0Wakeup() - Wake up ACPU0
+ * @brief	Wake up ACPU0
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus ACPU0Wakeup(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -1649,11 +2028,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * ACPU0Sleep() - Direct power down ACPU0
+ * @brief	Direct power down ACPU0
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus ACPU0Sleep(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -1674,11 +2057,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * ACPU1Wakeup() - Wake up ACPU1
+ * @brief	Wake up ACPU1
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus ACPU1Wakeup(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -1699,11 +2086,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * ACPU1Sleep() - Direct power down ACPU1
+ * @brief	Direct power down ACPU1
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus ACPU1Sleep(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -1724,11 +2115,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * R50Wakeup() - Wake up R50
+ * @brief	Wake up R50
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus R50Wakeup(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -1751,11 +2146,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * R50Sleep() - Direct power down R50
+ * @brief	Direct power down R50
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus R50Sleep(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -1778,11 +2177,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * R51Wakeup() - Wake up R51
+ * @brief	Wake up R51
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus R51Wakeup(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -1805,11 +2208,15 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * R51Sleep() - Direct power down R51
+ * @brief	Direct power down R51
  *
- * @return    XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 static XStatus R51Sleep(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -1838,7 +2245,7 @@ done:
  *
  * @param DeviceId	Device ID of processor
  *
- * @return	XST_SUCCESS or error code
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
  *
  * @note	None
  *
@@ -1874,7 +2281,7 @@ XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId)
  *
  * @param DeviceId	Device ID of processor
  *
- * @return	XST_SUCCESS or error code
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
  *
  * @note	None
  *
@@ -1918,14 +2325,18 @@ static const struct PwrCtlWakeupHandlerTable_t SleepHandlerTable[] = {
 	{ PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS_R51_MASK, R51Sleep},
 };
 
+/****************************************************************************/
 /**
- * XPsmFw_DispatchWakeupHandler() - Wakeup up interrupt handler
+ * @brief	Wake up interrupt handler
  *
- * @WakeupStatus    Wake Up status register value
- * @WakeupIntMask   Wake Up interrupt mask register value
+ * @param WakeupStatus	Wake Up status register value
+ * @param WakeupIntMask	Wake Up interrupt mask register value
  *
- * @return         XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_DispatchWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 {
 	XStatus Status = XST_FAILURE;
@@ -1947,14 +2358,18 @@ XStatus XPsmFw_DispatchWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * XPsmFw_DispatchPwrCtlHandler() - PwrCtl interrupt handler
+ * @brief	PwrCtl interrupt handler
  *
- * @PwrCtlStatus   Power Down status register value
- * @PwrCtlIntMask  Power Down interrupt mask register value
+ * @param PwrCtlStatus	Power Down status register value
+ * @param PwrCtlIntMask	Power Down interrupt mask register value
  *
- * @return         XST_SUCCESS or error code
- */
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask)
 {
 	XStatus Status = XST_FAILURE;
@@ -1976,12 +2391,17 @@ XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask)
 	return Status;
 }
 
+/****************************************************************************/
 /**
- * XPsmFw_GetPsmToPlmEventAddr() - Provides address of
- * PsmToPlmEvent
+ * @brief	Provides address of PsmToPlmEvent
  *
- * @EventAddr      Buffer pointer to store PsmToPlmEvent
- */
+ * @param EventAddr	Buffer pointer to store PsmToPlmEvent
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
 void XPsmFw_GetPsmToPlmEventAddr(u32 *EventAddr)
 {
 	*EventAddr = (u32)(&PsmToPlmEvent);

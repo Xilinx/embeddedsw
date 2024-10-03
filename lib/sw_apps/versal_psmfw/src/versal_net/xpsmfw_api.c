@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -26,9 +26,9 @@
 /****************************************************************************/
 /**
  * @brief	Process keep alive event from PLM to indicate that PSM is alive
- * 		and healthy.
+ *		and healthy.
  *
- * @return	XST_SUCCESS
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
  *
  * @note	None
  *
@@ -56,11 +56,14 @@ static XStatus XPsmFw_KeepAliveEvent(void)
 
 /****************************************************************************/
 /**
- * @brief Process CDO blob which contains multiple CDO commands.
+ * @brief	Process CDO blob which contains multiple CDO commands.
  *
  * @param CdoStartAddr	Address of the CDO blob
- * @param Len		Total length of CDO blob in word (32-bit)
- * @return		XST_SUCCESS if successfull else XST_FAILURE
+ * @param Length	Total length of CDO blob in word (32-bit)
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
  *
  ****************************************************************************/
 static XStatus XPsmFw_ProcessCdo(u32 CdoStartAddr, u32 Length)
@@ -147,7 +150,7 @@ static XStatus XPsmFw_ProcessCdo(u32 CdoStartAddr, u32 Length)
  * @param Payload	IPI payload
  * @param Response	Output response to the source
  *
- * @return	XST_SUCCESS or error code
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
  *
  * @note	None
  *
@@ -187,8 +190,9 @@ done:
  * @brief	Process IPI commands
  *
  * @param Payload	API ID and call arguments
+ * @param Response	Output response to the source
  *
- * @return	XST_SUCCESS or error code
+ * @return	None
  *
  * @note	None
  *
@@ -236,7 +240,7 @@ void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response)
 /**
  * @brief	Trigger IPI of PLM to notify the event to PLM
  *
- * @return	XST_SUCCESS or error code
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
  *
  * @note	None
  *
