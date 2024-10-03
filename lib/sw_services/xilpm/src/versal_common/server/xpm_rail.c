@@ -857,7 +857,7 @@ static XStatus XPmRail_InitGPIOMode(const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	Index = Index + 2;
+	Index = Index + 2U;
 	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Args[Index]);
 	if (NULL == Regulator) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;

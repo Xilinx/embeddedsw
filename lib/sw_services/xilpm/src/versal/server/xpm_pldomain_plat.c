@@ -1311,8 +1311,8 @@ done:
 
 static XStatus AdcDacHouseClean(u32 SecLockDownInfo, u32 PollTimeOut)
 {
-	XStatus Status = XST_FAILURE;
-	XStatus StatusTmp = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 DacAddresses[XPM_NODEIDX_DEV_DAC_MAX - XPM_NODEIDX_DEV_DAC_MIN + 1] = {0};
 	u32 AdcAddresses[XPM_NODEIDX_DEV_ADC_MAX - XPM_NODEIDX_DEV_ADC_MIN + 1] = {0};
