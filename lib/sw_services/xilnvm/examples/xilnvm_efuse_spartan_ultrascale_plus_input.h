@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -245,7 +245,6 @@ extern "C" {
 #define XNVM_EFUSE_PPK2_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
 
 #define XNVM_EFUSE_AES_IV		"000000000000000000000000"
-
 
 #define XNVM_EFUSE_REVOCATION_ID_0_FUSES	"00000000"
 #define XNVM_EFUSE_REVOCATION_ID_1_FUSES	"00000000"

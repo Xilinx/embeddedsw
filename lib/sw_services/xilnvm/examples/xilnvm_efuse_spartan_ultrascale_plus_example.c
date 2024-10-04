@@ -41,10 +41,10 @@
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BITS          (256U)
 #define XNVM_256_BITS_AES_KEY_LEN_IN_BYTES (256U / XIL_SIZE_OF_BYTE_IN_BITS)
 #define XNVM_256_BITS_AES_KEY_LEN_IN_CHARS (\
-					XNVM_256_BITS_AES_KEY_LEN_IN_BYTES * 2U)
+	XNVM_256_BITS_AES_KEY_LEN_IN_BYTES * 2U)
 #define XNVM_128_BITS_AES_KEY_LEN_IN_BYTES (128U / XIL_SIZE_OF_BYTE_IN_BITS)
 #define XNVM_128_BITS_AES_KEY_LEN_IN_CHARS (\
-					XNVM_128_BITS_AES_KEY_LEN_IN_BYTES * 2U)
+	XNVM_128_BITS_AES_KEY_LEN_IN_BYTES * 2U)
 #define XNVM_IV_STRING_LEN				(24U)
 #define XNVM_MAX_AES_KEY_LEN_IN_CHARS	XNVM_256_BITS_AES_KEY_LEN_IN_CHARS
 
@@ -65,28 +65,28 @@ static int XilNvm_EfuseShowUserFuses(void);
 static int XilNvm_EfuseShowCtrlBits(void);
 static int XilNvm_EfuseShowSecCtrlBits(void);
 static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
-	XNvm_EfuseSecCtrl *SecCtrl);
+				   XNvm_EfuseSecCtrl *SecCtrl);
 static int XilNvm_EfuseInitSpkRevokeId(XNvm_EfuseData *EfuseData,
-	XNvm_EfuseSpkRevokeId *SpkRevokeId);
+				       XNvm_EfuseSpkRevokeId *SpkRevokeId);
 static int XilNvm_EfuseInitAesRevokeId(XNvm_EfuseData *EfuseData,
-	XNvm_EfuseAesRevokeId *AesRevokeId);
+				       XNvm_EfuseAesRevokeId *AesRevokeId);
 static int XilNvm_EfuseInitIVs(XNvm_EfuseData *WriteEfuse,
-	XNvm_EfuseAesIvs *Ivs);
+			       XNvm_EfuseAesIvs *Ivs);
 static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *WriteEfuse,
-	XNvm_EfuseAesKeys *AesKeys);
+				   XNvm_EfuseAesKeys *AesKeys);
 static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *WriteEfuse,
-	XNvm_EfusePpkHash *PpkHash);
+				   XNvm_EfusePpkHash *PpkHash);
 static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *WriteEfuse,
-	XNvm_EfuseDecOnly *DecOnly);
+				   XNvm_EfuseDecOnly *DecOnly);
 static int XilNvm_EfuseInitUserFuses(XNvm_EfuseData *WriteEfuse,
-	XNvm_EfuseUserFuse *Data);
+				     XNvm_EfuseUserFuse *Data);
 static int XilNvm_EfusePerformCrcChecks(void);
 static int XilNvm_ValidateUserFuseStr(const char *UserFuseStr);
 static int XilNvm_PrepareAesKeyForWrite(const char *KeyStr, u8 *Dst, u32 Len);
 static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len);
 static int XilNvm_ValidateIvString(const char *IvStr);
 static int XilNvm_ValidateHash(const char *Hash, u32 Len);
-static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
+static void XilNvm_FormatData(const u8 *OrgDataPtr, u8 *SwapPtr, u32 Len);
 static int XilNvm_PrepareRevokeIdsForWrite(const char *RevokeIdStr,
 	u32 *Dst, u32 Len);
 static int XNvm_ValidateAesKey(const char *Key);
@@ -101,19 +101,18 @@ int main(void)
 		goto END;
 	}
 
-    Status = XilNvm_EfusePerformCrcChecks();
-    if (Status != XST_SUCCESS) {
-        goto END;
-    }
+	Status = XilNvm_EfusePerformCrcChecks();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XilNvm_EfuseReadFuses();
 
 END:
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\nspartan ultrascale pluse  Efuse example failed with err: %08x\n\r",
-									Status);
-	}
-	else {
+			   Status);
+	} else {
 		xil_printf("\r\nSuccessfully ran spartan ultrascale pluse Efuse example");
 	}
 	return Status;
@@ -148,10 +147,10 @@ END:
 static int XilNvm_EfuseWriteFuses(void)
 {
 	int Status = XST_FAILURE;
-    XNvm_EfuseData EfuseData;
+	XNvm_EfuseData EfuseData;
 	XNvm_EfusePpkHash PrgmPpkHash;
 	XNvm_EfuseAesKeys AesKey;
-    XNvm_EfuseAesIvs AesIv;
+	XNvm_EfuseAesIvs AesIv;
 	XNvm_EfuseUserFuse UserFuse;
 	XNvm_EfuseSpkRevokeId SpkRevokeId;
 	XNvm_EfuseAesRevokeId AesRevId;
@@ -184,10 +183,10 @@ static int XilNvm_EfuseWriteFuses(void)
 		goto END;
 	}
 
-    Status = XilNvm_EfuseInitSpkRevokeId(&EfuseData, &SpkRevokeId);
-    if (Status != XST_SUCCESS) {
-        goto END;
-    }
+	Status = XilNvm_EfuseInitSpkRevokeId(&EfuseData, &SpkRevokeId);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XilNvm_EfuseInitAesRevokeId(&EfuseData, &AesRevId);
 	if (Status != XST_SUCCESS) {
@@ -200,7 +199,7 @@ static int XilNvm_EfuseWriteFuses(void)
 	}
 
 	Status = XilNvm_EfuseInitUserFuses(&EfuseData, &UserFuse);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -242,7 +241,7 @@ static int XilNvm_EfuseReadFuses(void)
 	xil_printf("\n\r");
 
 	for (Index = XNVM_EFUSE_IV_RANGE;
-			Index <= XNVM_EFUSE_BLACK_IV; Index++) {
+	     Index <= XNVM_EFUSE_BLACK_IV; Index++) {
 		Status = XilNvm_EfuseShowIv(Index);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -292,8 +291,7 @@ END:
 static int XilNvm_EfuseShowDna(void)
 {
 	int Status = XST_FAILURE;
-    u32 Dna[XNVM_EFUSE_DNA_SIZE_IN_WORDS];
-
+	u32 Dna[XNVM_EFUSE_DNA_SIZE_IN_WORDS];
 
 	Status = XNvm_EfuseReadDna(Dna);
 	if (Status != XST_SUCCESS) {
@@ -322,19 +320,18 @@ static int XilNvm_EfuseShowPpkHash(XNvm_EfusePpkType PpkType)
 {
 	int Status = XST_FAILURE;
 	u32 Ppk[XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS] = {0U};
-    u32 ReadPpk[XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS] = {0U};
+	u32 ReadPpk[XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS] = {0U};
 	s8 Row;
 
 	Status = XNvm_EfuseReadPpkHash(PpkType, ReadPpk, XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
-	}
-	else {
+	} else {
 		XilNvm_FormatData((u8 *)ReadPpk, (u8 *)Ppk,
-				XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES);
+				  XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES);
 		xil_printf("\n\rPPK%d:", PpkType);
 		for (Row = (XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS - 1U);
-				Row >= 0; Row--) {
+		     Row >= 0; Row--) {
 			xil_printf("%08x", Ppk[Row]);
 		}
 	}
@@ -360,7 +357,7 @@ static int XilNvm_EfuseShowIv(XNvm_EfuseIvType IvType)
 {
 	int Status = XST_FAILURE;
 	u32 ReadIv[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS] = {0U};
-    u32 Iv[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS] = {0U};
+	u32 Iv[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS] = {0U};
 	s8 Row;
 
 	Status = XNvm_EfuseReadIv(IvType, ReadIv);
@@ -368,10 +365,10 @@ static int XilNvm_EfuseShowIv(XNvm_EfuseIvType IvType)
 		goto END;
 	}
 
-	xil_printf("\n\rIV%d:",IvType);
+	xil_printf("\n\rIV%d:", IvType);
 
 	XilNvm_FormatData((u8 *)ReadIv, (u8 *)Iv,
-			XNVM_EFUSE_AES_IV_SIZE_IN_BYTES);
+			  XNVM_EFUSE_AES_IV_SIZE_IN_BYTES);
 	for (Row = (XNVM_EFUSE_AES_IV_SIZE_IN_WORDS - 1U); Row >= 0; Row--) {
 		xil_printf("%08x", Iv[Row]);
 	}
@@ -447,14 +444,14 @@ END:
 static int XilNvm_EfuseShowUserFuses(void)
 {
 	int Status = XST_FAILURE;
-    u32 RegData;
+	u32 RegData;
 
 	Status = XNvm_EfuseReadUserFuse(&RegData);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-    xil_printf("Userfuse value:%08x", RegData);
+	xil_printf("Userfuse value:%08x", RegData);
 	xil_printf("\n\r");
 
 	Status = XST_SUCCESS;
@@ -486,7 +483,7 @@ END:
  *
  ******************************************************************************/
 static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *EfuseData,
-	XNvm_EfuseAesKeys *AesKeys)
+				   XNvm_EfuseAesKeys *AesKeys)
 {
 	int Status = XST_FAILURE;
 
@@ -494,12 +491,12 @@ static int XilNvm_EfuseInitAesKeys(XNvm_EfuseData *EfuseData,
 
 	if (AesKeys->PrgmAesKey == TRUE) {
 		Status = XilNvm_PrepareAesKeyForWrite(XNVM_EFUSE_AES_KEY,
-					(u8 *)AesKeys->AesKey,
-					XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
+						      (u8 *)AesKeys->AesKey,
+						      XNVM_EFUSE_AES_KEY_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-        EfuseData->AesKeys = AesKeys;
+		EfuseData->AesKeys = AesKeys;
 	}
 
 	Status = XST_SUCCESS;
@@ -534,7 +531,7 @@ END:
  *
  ******************************************************************************/
 static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *EfuseData,
-	XNvm_EfusePpkHash *PpkHash)
+				   XNvm_EfusePpkHash *PpkHash)
 {
 	int Status = XST_FAILURE;
 
@@ -545,14 +542,14 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *EfuseData,
 
 	if (PpkHash->PrgmPpk0Hash == TRUE) {
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK0_HASH,
-					XNVM_EFUSE_PPK_HASH_STRING_LEN);
-		if(Status != XST_SUCCESS) {
+					     XNVM_EFUSE_PPK_HASH_STRING_LEN);
+		if (Status != XST_SUCCESS) {
 			xil_printf("Ppk0Hash string validation failed\r\n");
 			goto END;
 		}
 		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK0_HASH,
-						(u8 *)PpkHash->Ppk0Hash,
-			XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
+						  (u8 *)PpkHash->Ppk0Hash,
+						  XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -560,28 +557,28 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *EfuseData,
 
 	if (PpkHash->PrgmPpk1Hash == TRUE) {
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK1_HASH,
-					XNVM_EFUSE_PPK_HASH_STRING_LEN);
-		if(Status != XST_SUCCESS) {
+					     XNVM_EFUSE_PPK_HASH_STRING_LEN);
+		if (Status != XST_SUCCESS) {
 			xil_printf("Ppk1Hash string validation failed\r\n");
 			goto END;
 		}
 		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK1_HASH,
-					(u8 *)PpkHash->Ppk1Hash,
-					XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
+						  (u8 *)PpkHash->Ppk1Hash,
+						  XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 	if (PpkHash->PrgmPpk2Hash == TRUE) {
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK2_HASH,
-					XNVM_EFUSE_PPK_HASH_STRING_LEN);
-		if(Status != XST_SUCCESS) {
+					     XNVM_EFUSE_PPK_HASH_STRING_LEN);
+		if (Status != XST_SUCCESS) {
 			xil_printf("Ppk1Hash string validation failed\r\n");
 			goto END;
 		}
 		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK2_HASH,
-					(u8 *)PpkHash->Ppk2Hash,
-					XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
+						  (u8 *)PpkHash->Ppk2Hash,
+						  XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -618,7 +615,7 @@ END:
  *
  ******************************************************************************/
 static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *EfuseData,
-	XNvm_EfuseDecOnly *DecOnly)
+				   XNvm_EfuseDecOnly *DecOnly)
 {
 	DecOnly->PrgmDeconly = XNVM_EFUSE_WRITE_DEC_EFUSE_ONLY;
 
@@ -677,67 +674,67 @@ typedef struct {
  *
  ******************************************************************************/
 static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
-	XNvm_EfuseSecCtrl *SecCtrl)
+				   XNvm_EfuseSecCtrl *SecCtrl)
 {
 	int Status = XST_FAILURE;
 
-    SecCtrl->PrgmAesCmDis = XNVM_EFUSE_XNVM_EFUSE_AES_CM_DIS;
-    SecCtrl->PrgmAesDis = XNVM_EFUSE_XNVM_EFUSE_AES_DIS;
-    SecCtrl->PrgmAesRdlk = XNVM_EFUSE_XNVM_AES_RD_LK;
-    SecCtrl->PrgmAesWrlk = XNVM_EFUSE_XNVM_AES_WR_LK;
-    SecCtrl->PrgmPpk0lck = XNVM_EFUSE_XNVM_PPK0_LK;
-    SecCtrl->PrgmPpk1lck = XNVM_EFUSE_XNVM_PPK1_LK;
-    SecCtrl->PrgmPpk2lck = XNVM_EFUSE_XNVM_PPK2_LK;
-    SecCtrl->PrgmJtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
-    SecCtrl->PrgmUserWrlk = XNVM_EFUSE_XNVM_USER_WR_LK;
-    SecCtrl->PrgmMemClrEn = XNVM_EFUSE_XNVM_MEM_CLR_EN;
-    SecCtrl->PrgmDnaWrlk = XNVM_EFUSE_XNVM_DNA_WR_LK;
-    SecCtrl->PrgmJtagErrDis = XNVM_EFUSE_XNVM_JTAG_ERR_DIS;
-    SecCtrl->PrgmJtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
-    SecCtrl->PrgmScanClr = XNVM_EFUSE_XNVM_SCAN_CLR_EN;
-    SecCtrl->PrgmHashPufOrKey = XNVM_EFUSE_XNVM_HASH_PUF_OR_KEY;
-    SecCtrl->PrgmAxiDis = XNVM_EFUSE_XNVM_AXI_DIS;
-    SecCtrl->PrgmMdmDis = XNVM_EFUSE_XNVM_MDM_DIS;
-    SecCtrl->PrgmIcapDis = XNVM_EFUSE_XNVM_ICAP_DIS;
-    SecCtrl->PrgmRmaDis = XNVM_EFUSE_XNVM_RMA_DIS;
-    SecCtrl->PrgmRmaEn = XNVM_EFUSE_XNVM_RMA_EN;
-    SecCtrl->PrgmCrcEn = XNVM_EFUSE_XNVM_CRC_EN;
-    SecCtrl->PrgmDftDis = XNVM_EFUSE_XNVM_DFT_DIS;
-    SecCtrl->PrgmLckdwn = XNVM_EFUSE_XNVM_LCKDWN_EN;
-    SecCtrl->PrgmPufTes2Dis = XNVM_EFUSE_XNVM_PUF_TEST_2_DIS;
-    SecCtrl->PrgmPpk0Invld = XNVM_EFUSE_XNVM_PPK0_INVLD;
-    SecCtrl->PrgmPpk1Invld = XNVM_EFUSE_XNVM_PPK1_INVLD;
-    SecCtrl->PrgmPpk2Invld = XNVM_EFUSE_XNVM_PPK2_INVLD;
-    SecCtrl->PrgmExportCtrl = XNVM_EFUSE_XNVM_EXP_CTRL;
+	SecCtrl->PrgmAesCmDis = XNVM_EFUSE_XNVM_EFUSE_AES_CM_DIS;
+	SecCtrl->PrgmAesDis = XNVM_EFUSE_XNVM_EFUSE_AES_DIS;
+	SecCtrl->PrgmAesRdlk = XNVM_EFUSE_XNVM_AES_RD_LK;
+	SecCtrl->PrgmAesWrlk = XNVM_EFUSE_XNVM_AES_WR_LK;
+	SecCtrl->PrgmPpk0lck = XNVM_EFUSE_XNVM_PPK0_LK;
+	SecCtrl->PrgmPpk1lck = XNVM_EFUSE_XNVM_PPK1_LK;
+	SecCtrl->PrgmPpk2lck = XNVM_EFUSE_XNVM_PPK2_LK;
+	SecCtrl->PrgmJtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
+	SecCtrl->PrgmUserWrlk = XNVM_EFUSE_XNVM_USER_WR_LK;
+	SecCtrl->PrgmMemClrEn = XNVM_EFUSE_XNVM_MEM_CLR_EN;
+	SecCtrl->PrgmDnaWrlk = XNVM_EFUSE_XNVM_DNA_WR_LK;
+	SecCtrl->PrgmJtagErrDis = XNVM_EFUSE_XNVM_JTAG_ERR_DIS;
+	SecCtrl->PrgmJtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
+	SecCtrl->PrgmScanClr = XNVM_EFUSE_XNVM_SCAN_CLR_EN;
+	SecCtrl->PrgmHashPufOrKey = XNVM_EFUSE_XNVM_HASH_PUF_OR_KEY;
+	SecCtrl->PrgmAxiDis = XNVM_EFUSE_XNVM_AXI_DIS;
+	SecCtrl->PrgmMdmDis = XNVM_EFUSE_XNVM_MDM_DIS;
+	SecCtrl->PrgmIcapDis = XNVM_EFUSE_XNVM_ICAP_DIS;
+	SecCtrl->PrgmRmaDis = XNVM_EFUSE_XNVM_RMA_DIS;
+	SecCtrl->PrgmRmaEn = XNVM_EFUSE_XNVM_RMA_EN;
+	SecCtrl->PrgmCrcEn = XNVM_EFUSE_XNVM_CRC_EN;
+	SecCtrl->PrgmDftDis = XNVM_EFUSE_XNVM_DFT_DIS;
+	SecCtrl->PrgmLckdwn = XNVM_EFUSE_XNVM_LCKDWN_EN;
+	SecCtrl->PrgmPufTes2Dis = XNVM_EFUSE_XNVM_PUF_TEST_2_DIS;
+	SecCtrl->PrgmPpk0Invld = XNVM_EFUSE_XNVM_PPK0_INVLD;
+	SecCtrl->PrgmPpk1Invld = XNVM_EFUSE_XNVM_PPK1_INVLD;
+	SecCtrl->PrgmPpk2Invld = XNVM_EFUSE_XNVM_PPK2_INVLD;
+	SecCtrl->PrgmExportCtrl = XNVM_EFUSE_XNVM_EXP_CTRL;
 
 	if ((SecCtrl->PrgmAesCmDis == TRUE) ||
-        (SecCtrl->PrgmAesDis == TRUE) ||
-        (SecCtrl->PrgmAesRdlk == TRUE) ||
-        (SecCtrl->PrgmAesWrlk == TRUE) ||
-        (SecCtrl->PrgmPpk0lck == TRUE) ||
-        (SecCtrl->PrgmPpk1lck == TRUE) ||
-        (SecCtrl->PrgmPpk2lck == TRUE) ||
-        (SecCtrl->PrgmJtagDis == TRUE) ||
-        (SecCtrl->PrgmUserWrlk == TRUE) ||
-        (SecCtrl->PrgmMemClrEn == TRUE) ||
-        (SecCtrl->PrgmDnaWrlk == TRUE) ||
-        (SecCtrl->PrgmJtagErrDis == TRUE) ||
-        (SecCtrl->PrgmJtagDis == TRUE) ||
-        (SecCtrl->PrgmScanClr == TRUE) ||
-        (SecCtrl->PrgmHashPufOrKey == TRUE) ||
-        (SecCtrl->PrgmAxiDis == TRUE) ||
-        (SecCtrl->PrgmMdmDis == TRUE) ||
-        (SecCtrl->PrgmIcapDis == TRUE) ||
-        (SecCtrl->PrgmRmaDis == TRUE) ||
-        (SecCtrl->PrgmRmaEn == TRUE) ||
-        (SecCtrl->PrgmCrcEn == TRUE) ||
-        (SecCtrl->PrgmDftDis == TRUE) ||
-        (SecCtrl->PrgmLckdwn == TRUE) ||
-        (SecCtrl->PrgmPufTes2Dis == TRUE) ||
-        (SecCtrl->PrgmPpk0Invld == TRUE) ||
-        (SecCtrl->PrgmPpk1Invld == TRUE) ||
-        (SecCtrl->PrgmPpk2Invld == TRUE) ||
-        (SecCtrl->PrgmExportCtrl == TRUE)) {
+	    (SecCtrl->PrgmAesDis == TRUE) ||
+	    (SecCtrl->PrgmAesRdlk == TRUE) ||
+	    (SecCtrl->PrgmAesWrlk == TRUE) ||
+	    (SecCtrl->PrgmPpk0lck == TRUE) ||
+	    (SecCtrl->PrgmPpk1lck == TRUE) ||
+	    (SecCtrl->PrgmPpk2lck == TRUE) ||
+	    (SecCtrl->PrgmJtagDis == TRUE) ||
+	    (SecCtrl->PrgmUserWrlk == TRUE) ||
+	    (SecCtrl->PrgmMemClrEn == TRUE) ||
+	    (SecCtrl->PrgmDnaWrlk == TRUE) ||
+	    (SecCtrl->PrgmJtagErrDis == TRUE) ||
+	    (SecCtrl->PrgmJtagDis == TRUE) ||
+	    (SecCtrl->PrgmScanClr == TRUE) ||
+	    (SecCtrl->PrgmHashPufOrKey == TRUE) ||
+	    (SecCtrl->PrgmAxiDis == TRUE) ||
+	    (SecCtrl->PrgmMdmDis == TRUE) ||
+	    (SecCtrl->PrgmIcapDis == TRUE) ||
+	    (SecCtrl->PrgmRmaDis == TRUE) ||
+	    (SecCtrl->PrgmRmaEn == TRUE) ||
+	    (SecCtrl->PrgmCrcEn == TRUE) ||
+	    (SecCtrl->PrgmDftDis == TRUE) ||
+	    (SecCtrl->PrgmLckdwn == TRUE) ||
+	    (SecCtrl->PrgmPufTes2Dis == TRUE) ||
+	    (SecCtrl->PrgmPpk0Invld == TRUE) ||
+	    (SecCtrl->PrgmPpk1Invld == TRUE) ||
+	    (SecCtrl->PrgmPpk2Invld == TRUE) ||
+	    (SecCtrl->PrgmExportCtrl == TRUE)) {
 		EfuseData->SecCtrlBits = SecCtrl;
 	}
 
@@ -768,30 +765,30 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
  *
  ******************************************************************************/
 static int XilNvm_EfuseInitSpkRevokeId(XNvm_EfuseData *EfuseData,
-	XNvm_EfuseSpkRevokeId *SpkRevokeId)
+				       XNvm_EfuseSpkRevokeId *SpkRevokeId)
 {
 	int Status = XST_FAILURE;
 
-    SpkRevokeId->PrgmSpkRevokeId = XNVM_EFUSE_WRITE_REVOKE_ID;
+	SpkRevokeId->PrgmSpkRevokeId = XNVM_EFUSE_WRITE_REVOKE_ID;
 	if ( SpkRevokeId->PrgmSpkRevokeId == TRUE) {
 		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_REVOCATION_ID_0_FUSES,
-			&SpkRevokeId->RevokeId[0U],
-			XNVM_EFUSE_ROW_STRING_LEN);
+				 (char *)XNVM_EFUSE_REVOCATION_ID_0_FUSES,
+				 &SpkRevokeId->RevokeId[0U],
+				 XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-	    Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_REVOCATION_ID_1_FUSES,
-			&SpkRevokeId->RevokeId[1U],
-			XNVM_EFUSE_ROW_STRING_LEN);
+		Status = XilNvm_PrepareRevokeIdsForWrite(
+				 (char *)XNVM_EFUSE_REVOCATION_ID_1_FUSES,
+				 &SpkRevokeId->RevokeId[1U],
+				 XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-	    Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_REVOCATION_ID_2_FUSES,
-			&SpkRevokeId->RevokeId[2U],
-			XNVM_EFUSE_ROW_STRING_LEN);
+		Status = XilNvm_PrepareRevokeIdsForWrite(
+				 (char *)XNVM_EFUSE_REVOCATION_ID_2_FUSES,
+				 &SpkRevokeId->RevokeId[2U],
+				 XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -828,16 +825,16 @@ END:
  *
  ******************************************************************************/
 static int XilNvm_EfuseInitAesRevokeId(XNvm_EfuseData *EfuseData,
-	XNvm_EfuseAesRevokeId *AesRevokeId)
+				       XNvm_EfuseAesRevokeId *AesRevokeId)
 {
 	int Status = XST_FAILURE;
 
-    AesRevokeId->PrgmAesRevokeId = XNVM_EFUSE_WRITE_AES_REVOKE_ID;
+	AesRevokeId->PrgmAesRevokeId = XNVM_EFUSE_WRITE_AES_REVOKE_ID;
 	if ( AesRevokeId->PrgmAesRevokeId == TRUE) {
 		Status = XilNvm_PrepareRevokeIdsForWrite(
-			(char *)XNVM_EFUSE_AES_REVOCATION_ID_EFUSE,
-			&AesRevokeId->AesRevokeId,
-			XNVM_EFUSE_ROW_STRING_LEN);
+				 (char *)XNVM_EFUSE_AES_REVOCATION_ID_EFUSE,
+				 &AesRevokeId->AesRevokeId,
+				 XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -872,19 +869,19 @@ END:
  *
  ******************************************************************************/
 static int XilNvm_EfuseInitIVs(XNvm_EfuseData *EfuseData,
-	XNvm_EfuseAesIvs *Ivs)
+			       XNvm_EfuseAesIvs *Ivs)
 {
 	int Status = XST_FAILURE;
 
-    Ivs->PrgmIv = XNVM_EFUSE_WRITE_AES_IV;
+	Ivs->PrgmIv = XNVM_EFUSE_WRITE_AES_IV;
 	if (Ivs->PrgmIv == TRUE) {
 		Status = XilNvm_PrepareIvForWrite(XNVM_EFUSE_AES_IV,
-						(u8 *)Ivs->AesIv,
-						XNVM_EFUSE_IV_LEN_IN_BITS);
+						  (u8 *)Ivs->AesIv,
+						  XNVM_EFUSE_IV_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-        EfuseData->Ivs = Ivs;
+		EfuseData->Ivs = Ivs;
 	}
 
 	Status = XST_SUCCESS;
@@ -916,22 +913,22 @@ END:
  *
  ******************************************************************************/
 static int XilNvm_EfuseInitUserFuses(XNvm_EfuseData *EfuseData,
-	XNvm_EfuseUserFuse *UserFuse)
+				     XNvm_EfuseUserFuse *UserFuse)
 {
 	int Status = XST_FAILURE;
 
-    UserFuse->PrgmUserEfuse = XNVM_EFUSE_WRITE_USER_FUSES;
-	if (UserFuse->PrgmUserEfuse== TRUE) {
+	UserFuse->PrgmUserEfuse = XNVM_EFUSE_WRITE_USER_FUSES;
+	if (UserFuse->PrgmUserEfuse == TRUE) {
 		Status = XilNvm_ValidateUserFuseStr(
-				(char *)XNVM_EFUSE_USER_FUSE);
+				 (char *)XNVM_EFUSE_USER_FUSE);
 		if (Status != XST_SUCCESS) {
 			xil_printf("UserFuse string validation failed\r\n");
 			goto END;
 		}
 		Status = Xil_ConvertStringToHex(
-				XNVM_EFUSE_USER_FUSE,
-				(u32 *)(UINTPTR)&UserFuse->UserFuseVal,
-                XNVM_EFUSE_ROW_STRING_LEN);
+				 XNVM_EFUSE_USER_FUSE,
+				 (u32 *)(UINTPTR)&UserFuse->UserFuseVal,
+				 XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -984,183 +981,153 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 
 	if (SecCtrlBits.AES_DIS == TRUE) {
 		xil_printf("\r\nAES is disabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("\r\nAES is not disabled\n\r");
 	}
 
 	if (SecCtrlBits.JTAG_ERR_OUT_DIS == TRUE) {
 		xil_printf("JTAG Error Out is disabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("JTAG Error Out is not disabled\n\r");
 	}
 	if (SecCtrlBits.JTAG_DIS == TRUE) {
 		xil_printf("JTAG is disabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("JTAG is not disabled\n\r");
 	}
 	if (SecCtrlBits.PPK0_WR_LK == TRUE) {
 		xil_printf("Locks writing to PPK0 efuse\n\r");
-	}
-	else {
+	} else {
 		xil_printf("Writing to PPK0 efuse is not locked\n\r");
 	}
 	if (SecCtrlBits.PPK1_WR_LK == TRUE) {
 		xil_printf("Locks writing to PPK1 efuse\n\r");
-	}
-	else {
+	} else {
 		xil_printf("Writing to PPK1 efuse is not locked\n\r");
 	}
 	if (SecCtrlBits.PPK2_WR_LK == TRUE) {
 		xil_printf("Locks writing to PPK2 efuse\n\r");
-	}
-	else {
+	} else {
 		xil_printf("Writing to PPK2 efuse is not locked\n\r");
 	}
 	if (SecCtrlBits.AES_RD_WR_LK_0 == TRUE || SecCtrlBits.AES_RD_WR_LK_1 == TRUE) {
 		xil_printf("AES read/write lock is enabled \n\r");
-	}
-	else {
+	} else {
 		xil_printf("AES read/write lock is enabled \n\r");
 	}
 	if (SecCtrlBits.AES_CM_DIS == TRUE) {
 		xil_printf("AES DPACM is disabled \n\r");
-	}
-	else {
+	} else {
 		xil_printf("AES DPACM is enabled \n\r");
 	}
 	if (SecCtrlBits.USER_WR_LK == TRUE) {
 		xil_printf("User write lock is enabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("User write lock is enabled\n\r");
 	}
-	if (SecCtrlBits.AXI_DISABLE== TRUE) {
+	if (SecCtrlBits.AXI_DISABLE == TRUE) {
 		xil_printf("AXI is disabled \n\r");
-	}
-	else {
+	} else {
 		xil_printf("AXI is enabled \n\r");
 	}
 	if (SecCtrlBits.DFT_DIS == TRUE) {
 		xil_printf("DFT boot mode is disabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("DFT boot mode is disabled\n\r");
 	}
 	if (SecCtrlBits.DNA_WR_LK == TRUE) {
 		xil_printf("DNA write lock is enabled \n\r");
-	}
-	else {
+	} else {
 		xil_printf("DNA write lock is disabled \n\r");
 	}
 	if (SecCtrlBits.EFUSE_CRC_EN == TRUE) {
 		xil_printf("EFUSE CRC is enabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("EFUSE CRC is disabled\n\r");
 	}
 	if (SecCtrlBits.EXPORT_CONTROL == TRUE) {
 		xil_printf("export control bit is enabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("export control bit is disabled\n\r");
 	}
 	if (SecCtrlBits.HASH_PUF_OR_KEY == TRUE) {
 		xil_printf("PUF hash is enabled \n\r");
-	}
-	else {
+	} else {
 		xil_printf("PUF hash is disabled \n\r");
 	}
 	if (SecCtrlBits.ICAP_DIS == TRUE) {
 		xil_printf("ICAP is disabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("ICAP is enabled\n\r");
 	}
-	if(SecCtrlBits.LCKDOWN == TRUE) {
+	if (SecCtrlBits.LCKDOWN == TRUE) {
 		xil_printf("secure lockdown is enabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("secure lockdown is disabled\n\r");
 	}
-    if(SecCtrlBits.MCAP_DIS == TRUE) {
+	if (SecCtrlBits.MCAP_DIS == TRUE) {
 		xil_printf("MCAP is disabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("MCAP is enabled\n\r");
 	}
-    if(SecCtrlBits.MDM_DISABLE_0 == TRUE || SecCtrlBits.MDM_DISABLE_1 == TRUE) {
+	if (SecCtrlBits.MDM_DISABLE_0 == TRUE || SecCtrlBits.MDM_DISABLE_1 == TRUE) {
 		xil_printf("MDM is disabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("MDM is enabled\n\r");
 	}
-    if(SecCtrlBits.MEM_CLEAR_EN == TRUE) {
+	if (SecCtrlBits.MEM_CLEAR_EN == TRUE) {
 		xil_printf("mem clear is enabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("mem clear is disabled\n\r");
 	}
-    if(SecCtrlBits.OSC_TRIMMED == TRUE) {
+	if (SecCtrlBits.OSC_TRIMMED == TRUE) {
 		xil_printf("Oscillator trim is enabled \n\r");
-	}
-	else {
+	} else {
 		xil_printf("Oscillator trim is disabled \n\r");
 	}
-    if(SecCtrlBits.PPK0_INVLD0 == TRUE || SecCtrlBits.PPK0_INVLD1 == TRUE) {
+	if (SecCtrlBits.PPK0_INVLD0 == TRUE || SecCtrlBits.PPK0_INVLD1 == TRUE) {
 		xil_printf("PPK0 is invalid\n\r");
-	}
-	else {
+	} else {
 		xil_printf("PPK0 is valid \n\r");
 	}
-    if(SecCtrlBits.PPK1_INVLD0 == TRUE || SecCtrlBits.PPK1_INVLD1 == TRUE) {
+	if (SecCtrlBits.PPK1_INVLD0 == TRUE || SecCtrlBits.PPK1_INVLD1 == TRUE) {
 		xil_printf("PPK1 is invalid\n\r");
-	}
-	else {
+	} else {
 		xil_printf("PPK1 is valid \n\r");
 	}
-    if(SecCtrlBits.PPK2_INVLD0 == TRUE || SecCtrlBits.PPK2_INVLD1 == TRUE) {
+	if (SecCtrlBits.PPK2_INVLD0 == TRUE || SecCtrlBits.PPK2_INVLD1 == TRUE) {
 		xil_printf("PPK2 is invalid\n\r");
-	}
-	else {
+	} else {
 		xil_printf("PPK2 is valid \n\r");
 	}
-    if(SecCtrlBits.PUF_TEST2_DIS == TRUE) {
+	if (SecCtrlBits.PUF_TEST2_DIS == TRUE) {
 		xil_printf("PUF test2 mode is disabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("PUF test2 mode is enabled \n\r");
 	}
-    if(SecCtrlBits.RMA_DISABLE_0 == TRUE || SecCtrlBits.RMA_DISABLE_1 == TRUE) {
+	if (SecCtrlBits.RMA_DISABLE_0 == TRUE || SecCtrlBits.RMA_DISABLE_1 == TRUE) {
 		xil_printf("RMA disable bits are programmed\n\r");
-	}
-	else {
+	} else {
 		xil_printf("RMA disable bits are not programmed \n\r");
 	}
-    if(SecCtrlBits.RMA_ENABLE_0 == TRUE || SecCtrlBits.RMA_ENABLE_1 == TRUE) {
+	if (SecCtrlBits.RMA_ENABLE_0 == TRUE || SecCtrlBits.RMA_ENABLE_1 == TRUE) {
 		xil_printf("RMA enable bits are programmed\n\r");
-	}
-	else {
+	} else {
 		xil_printf("RMA enable bits are not programmed \n\r");
 	}
-    if(SecCtrlBits.SCAN_CLEAR_EN == TRUE) {
+	if (SecCtrlBits.SCAN_CLEAR_EN == TRUE) {
 		xil_printf("scan clear is enabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("scan clear is disabled \n\r");
 	}
-    if(SecCtrlBits.SHA_DISABLE == TRUE) {
+	if (SecCtrlBits.SHA_DISABLE == TRUE) {
 		xil_printf("SHA is disabled\n\r");
-	}
-	else {
+	} else {
 		xil_printf("SHA is enabled \n\r");
 	}
-    if(SecCtrlBits.SVD_WR_LK == TRUE) {
+	if (SecCtrlBits.SVD_WR_LK == TRUE) {
 		xil_printf("SVD write lock is enabled \n\r");
-	}
-	else {
+	} else {
 		xil_printf("SVD write lock is disabled \n\r");
 	}
 
@@ -1187,20 +1154,19 @@ static int XilNvm_EfusePerformCrcChecks(void)
 
 	if (XNVM_EFUSE_CHECK_AES_KEY_CRC == TRUE) {
 		xil_printf("AES Key's CRC provided for verification: %08x\n\r",
-					XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
-		Status= XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_AES_CRC_OFFSET,
-					XNVM_EFUSE_STS_AES_CRC_PASS_MASK,
-					XNVM_EFUSE_STS_AES_CRC_DONE_MASK,
-					XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
+			   XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
+		Status = XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_AES_CRC_OFFSET,
+						  XNVM_EFUSE_STS_AES_CRC_PASS_MASK,
+						  XNVM_EFUSE_STS_AES_CRC_DONE_MASK,
+						  XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
 		if (Status != XST_SUCCESS) {
 			xil_printf("\r\nAES CRC check is failed\n\r");
-		}
-		else {
+		} else {
 			xil_printf("\r\nAES CRC check is passed\n\r");
 		}
 	} else {
-        Status = XST_SUCCESS;
-    }
+		Status = XST_SUCCESS;
+	}
 
 	return Status;
 }
@@ -1225,12 +1191,12 @@ static int XilNvm_PrepareAesKeyForWrite(const char *KeyStr, u8 *Dst, u32 Len)
 	int Status = XST_FAILURE;
 
 	if ((KeyStr == NULL) ||
-		(Dst == NULL) ||
-		(Len != XNVM_EFUSE_AES_KEY_LEN_IN_BITS)) {
+	    (Dst == NULL) ||
+	    (Len != XNVM_EFUSE_AES_KEY_LEN_IN_BITS)) {
 		goto END;
 	}
 	Status = XNvm_ValidateAesKey(KeyStr);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	Status = Xil_ConvertStringToHexLE(KeyStr, Dst, Len);
@@ -1259,13 +1225,13 @@ static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len)
 	int Status = XST_FAILURE;
 
 	if ((IvStr == NULL) ||
-		(Dst == NULL) ||
-		(Len != XNVM_EFUSE_IV_LEN_IN_BITS)) {
+	    (Dst == NULL) ||
+	    (Len != XNVM_EFUSE_IV_LEN_IN_BITS)) {
 		goto END;
 	}
 
 	Status = XilNvm_ValidateIvString(IvStr);
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		xil_printf("IV string validation failed\r\n");
 		goto END;
 	}
@@ -1296,9 +1262,9 @@ static int XilNvm_PrepareRevokeIdsForWrite(const char *RevokeIdStr,
 {
 	int Status = XST_INVALID_PARAM;
 
-	if(RevokeIdStr != NULL) {
+	if (RevokeIdStr != NULL) {
 		if (strnlen(RevokeIdStr, XNVM_EFUSE_ROW_STRING_LEN) ==
-			XNVM_EFUSE_ROW_STRING_LEN) {
+		    XNVM_EFUSE_ROW_STRING_LEN) {
 			Status = Xil_ConvertStringToHex(RevokeIdStr, Dst, Len);
 		}
 	}
@@ -1320,7 +1286,7 @@ static int XilNvm_ValidateUserFuseStr(const char *UserFuseStr)
 {
 	int Status = XST_INVALID_PARAM;
 
-	if(UserFuseStr != NULL) {
+	if (UserFuseStr != NULL) {
 		if (strlen(UserFuseStr) % XNVM_EFUSE_ROW_STRING_LEN == 0x00U) {
 			Status = XST_SUCCESS;
 		}
@@ -1357,8 +1323,8 @@ static int XilNvm_ValidateHash(const char *Hash, u32 Len)
 		goto END;
 	}
 
-	for(Index = 0U; Index < StrLen; Index++) {
-		if(Xil_IsValidHexChar(&Hash[Index]) != (u32)XST_SUCCESS) {
+	for (Index = 0U; Index < StrLen; Index++) {
+		if (Xil_IsValidHexChar(&Hash[Index]) != (u32)XST_SUCCESS) {
 			goto END;
 		}
 	}
@@ -1383,7 +1349,7 @@ static int XilNvm_ValidateIvString(const char *IvStr)
 {
 	int Status = XST_FAILURE;
 
-	if(NULL == IvStr) {
+	if (NULL == IvStr) {
 		goto END;
 	}
 
@@ -1405,12 +1371,11 @@ END:
  * 		Len        Length of the data in bytes
  *
  ******************************************************************************/
-static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
+static void XilNvm_FormatData(const u8 *OrgDataPtr, u8 *SwapPtr, u32 Len)
 {
 	u32 Index = 0U;
 	u32 ReverseIndex = (Len - 1U);
-	for(Index = 0U; Index < Len; Index++)
-	{
+	for (Index = 0U; Index < Len; Index++) {
 		SwapPtr[Index] = OrgDataPtr[ReverseIndex];
 		ReverseIndex--;
 	}
@@ -1432,14 +1397,14 @@ static int XNvm_ValidateAesKey(const char *Key)
 	int Status = XST_INVALID_PARAM;
 	u32 Len;
 
-	if(NULL == Key) {
+	if (NULL == Key) {
 		goto END;
 	}
 
 	Len = Xil_Strnlen(Key, XNVM_MAX_AES_KEY_LEN_IN_CHARS + 1U);
 
 	if ((Len != XNVM_256_BITS_AES_KEY_LEN_IN_CHARS) &&
-		(Len != XNVM_128_BITS_AES_KEY_LEN_IN_CHARS)) {
+	    (Len != XNVM_128_BITS_AES_KEY_LEN_IN_CHARS)) {
 		goto END;
 	}
 
