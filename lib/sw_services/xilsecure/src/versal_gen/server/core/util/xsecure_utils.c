@@ -22,7 +22,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_utils.h"
 #include "xsecure_plat.h"
@@ -37,8 +40,8 @@
 /**
  * @brief	This function takes the hardware core out of reset
  *
- * @param	BaseAddress	- Base address of the core
- * @param	Offset		- Offset of the reset register
+ * @param	BaseAddress	Base address of the core
+ * @param	Offset		Offset of the reset register
  *
  *****************************************************************************/
 void XSecure_ReleaseReset(UINTPTR BaseAddress, u32 Offset)
@@ -54,8 +57,8 @@ void XSecure_ReleaseReset(UINTPTR BaseAddress, u32 Offset)
 /**
  * @brief	This function places the hardware core into the reset
  *
- * @param	BaseAddress	- Base address of the core
- * @param	Offset		- Offset of the reset register
+ * @param	BaseAddress	Base address of the core
+ * @param	Offset		Offset of the reset register
  *
  *****************************************************************************/
 void XSecure_SetReset(UINTPTR BaseAddress, u32 Offset)
@@ -65,3 +68,4 @@ void XSecure_SetReset(UINTPTR BaseAddress, u32 Offset)
 	/* Clear bit when crypto is not in use */
 	XSecure_UpdateCryptoStatus(BaseAddress, XSECURE_CLEAR_BIT);
 }
+/** @} */

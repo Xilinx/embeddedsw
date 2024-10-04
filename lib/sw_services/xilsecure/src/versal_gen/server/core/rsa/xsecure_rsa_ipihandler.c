@@ -9,7 +9,7 @@
 *
 * @file xsecure_rsa_ipihandler.c
 *
-* This file contains the xilsecure RSA IPI handlers implementation.
+* This file contains the Xilsecure RSA IPI handlers implementation.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -57,13 +57,14 @@ static int XSecure_RsaSignVerify(u32 SrcAddrLow, u32 SrcAddrHigh);
 
 /*****************************************************************************/
 /**
- * @brief       This function calls respective IPI handler based on the API_ID
+ * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd is pointer to the command structure
+ * @param 	Cmd	is pointer to the command structure
  *
  * @return
- *	-	XST_SUCCESS - If the handler execution is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the handler execution is successful
+ *		 - XST_INVALID_PARAM  If Cmd is NULL or API ID is invalid
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd)
@@ -101,21 +102,21 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_RsaInitialize and
+ * @brief	This function handler calls XSecure_RsaInitialize and
  * 		XSecure_RsaPublicEncrypt server APIs
  *
- * @param	SrcAddrLow	 Lower 32 bit address of the XSecure_RsaInParam
+ * @param	SrcAddrLow	Lower 32 bit address of the XSecure_RsaInParam
  * 				structure
- * @param	SrcAddrHigh	 Higher 32 bit address of the XSecure_RsaInParam
+ * @param	SrcAddrHigh	Higher 32 bit address of the XSecure_RsaInParam
  * 				structure
- * @param	DstAddrLow	 Lower 32 bit address of the output data
+ * @param	DstAddrLow	Lower 32 bit address of the output data
  * 				where encrypted data to be stored
- * @param	DstAddrHigh	 Higher 32 bit address of the output data
+ * @param	DstAddrHigh	Higher 32 bit address of the output data
  * 				where encrypted data to be stored
  *
  * @return
- *	-	XST_SUCCESS - If the Rsa encryption is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the Rsa encryption is successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -153,7 +154,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_RsaSignVerification server
+ * @brief	This function handler calls XSecure_RsaSignVerification server
  * 		API
  *
  * @param	SrcAddrLow	Lower 32 bit address of the
@@ -162,8 +163,8 @@ END:
  * 				XSecure_RsaSignParams structure
  *
  * @return
- *	-	XST_SUCCESS - If the Rsa sign verification is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the Rsa sign verification is successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaSignVerify(u32 SrcAddrLow, u32 SrcAddrHigh)
@@ -187,3 +188,4 @@ END:
 }
 
 #endif
+/** @} */

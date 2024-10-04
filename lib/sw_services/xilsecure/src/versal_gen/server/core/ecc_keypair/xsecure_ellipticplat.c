@@ -10,7 +10,7 @@
 * @file xsecure_ellipticplat.c
 *
 * This file contains the implementation of the interface functions for ECC
-* engine specific to versal net platform.
+* engine specific to Versal Net platform.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -32,10 +32,11 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 
@@ -64,17 +65,19 @@ extern EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp);
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
- * This function generates 48-byte key for P-384 curve using TRNG.
+ * @brief	This function generates 48-byte key for P-384 curve using TRNG.
  *
- * @param	CrvType specifies the type of the ECC curve.
- * @param	PrivateKey is the pointer to XSecure_ElliptcPrivateKeyGen
+ * @param	CrvType	specifies the type of the ECC curve.
+ * @param	PrivateKey	is the pointer to XSecure_ElliptcPrivateKeyGen
  *
- * @return	XST_SUCCESS on success
- *		Error code otherwise
+ * @return
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM  If any input parameter is invalid
+ *		 - XST_FAILURE  On failure
  *
  * @note
- *      This API expects TRNG HW to be in HEALTHY state, This can
- *      be achieved by running preoperational health tests.
+ *	This API expects TRNG HW to be in HEALTHY state, This can
+ *	be achieved by running preoperational health tests.
  *
  *****************************************************************************/
 int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
@@ -178,17 +181,19 @@ RET:
 
 /*****************************************************************************/
 /**
- * This function generates 48-byte ephemeral key for P-384 curve using TRNG.
+ * @brief	This function generates 48-byte ephemeral key for P-384 curve using TRNG.
  *
- * @param	CrvType specifies the type of the ECC curve.
- * @param	EphemeralKeyAddr Address of ephemeral key
+ * @param	CrvType			Specifies the type of the ECC curve.
+ * @param	EphemeralKeyAddr	Address of ephemeral key
  *
- * @return	XST_SUCCESS on success
- *		Error code otherwise
+ * @return
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM  If any input parameter is invalid
+ *		 - XST_FAILURE  On failure
  *
  * @note
- *      This API expects TRNG HW to be in HEALTHY state, This can
- *      be achieved by running preoperational health tests.
+ *	This API expects TRNG HW to be in HEALTHY state, This can
+ *	be achieved by running preoperational health tests.
  *
  *****************************************************************************/
 int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
@@ -238,12 +243,16 @@ RET:
 /**
  * @brief	This function generates the signature on provided hash using ecc.
  *
- * @param	CrvType specifies the type of the ECC curve.
- * @param	Hash is the pointer to the hash of the data to be signed
- * @param	HashLen is the length of the hash.
- * @param	PrvtKey is the pointer to ECC private key.
- * @param	Signature is the pointer to the buffer where the ECC signature
- *		shall be stored.
+ * @param	CrvType		specifies the type of the ECC curve.
+ * @param	Hash		is the pointer to the hash of the data to be signed
+ * @param	HashLen		is the length of the hash.
+ * @param	PrvtKey		is the pointer to ECC private key.
+ * @param	Signature	is the pointer to the buffer where the ECC signature
+ *				shall be stored.
+ * @return
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM  If any input parameter is invalid
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
@@ -297,14 +306,16 @@ END:
  * @brief	This is a wrapper function which calls the IPCores API to perform ECDH and
  * 		generate shared secret.
  *
- * @param	CrvType - Curve Type of the keys used to generate shared secret
- * @param	PrvtKeyAddr - 64-bit address of the private key
- * @param	PubKeyAddr - 64-bit address of public key
- * @param	SharedSecretAddr - 64-bit address of buffer for storing shared secret
+ * @param	CrvType			Curve Type of the keys used to generate shared secret
+ * @param	PrvtKeyAddr		64-bit address of the private key
+ * @param	PubKeyAddr		64-bit address of public key
+ * @param	SharedSecretAddr	64-bit address of buffer for storing shared secret
  *
  * @return
  *		 - XST_SUCCESS  On success
- *		 - Errorcode  On failure
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM  If any input parameter is invalid
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  If elliptic curve data received is NULL
+ *		 - XST_FAILURE  On failure
  *
  * @note	Shared secret is calculated by performing scalar multiplication
  * 		on public key and private key provided as input.
@@ -402,3 +413,4 @@ END:
 	return Status;
 }
 #endif
+/** @} */

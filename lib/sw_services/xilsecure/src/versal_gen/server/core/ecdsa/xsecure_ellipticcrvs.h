@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -29,9 +29,11 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+/**
+* @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
+* @{
+*/
 #ifndef XSECURE_ELLIPTICCRVS_H_
 #define XSECURE_ELLIPTICCRVS_H_
 
@@ -70,3 +72,4 @@ u32 XSecure_EllipticCrvsGetCount(void);
 #endif /* XSECURE_ELLIPTICCRVS_H */
 
 #endif
+/** @} */

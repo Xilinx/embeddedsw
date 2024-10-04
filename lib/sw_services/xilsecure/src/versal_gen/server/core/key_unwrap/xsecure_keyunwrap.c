@@ -8,7 +8,7 @@
 /**
 *
 * @file xsecure_keyunwrap.c
-* This file contains versalnet specific code for xilsecure key unwrap.
+* This file contains Versal Net specific code for Xilsecure key unwrap.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -33,7 +33,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_keyunwrap_server_apis XilSecure Key Unwrap Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 
 #ifdef SDT
@@ -93,8 +96,10 @@ static u32 UpdatedFreeKeySlot = 0U;
  * @brief	This function updates the key free slot status address
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_ERR_KEY_STORE_SIZE  If key store size is invalid.
+ *		 - XSECURE_ERR_NO_FREE_KEY_SLOT  If there is no free key slot.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 static int XSecure_UpdateKeySlotStatusAddr(void)
@@ -147,7 +152,7 @@ END:
 /**
  * @brief	This function updates the key slot id as in use
  *
- * @param   KeySlotStatusAddr Key slot status address to be updated
+ * @param	KeySlotStatusAddr	Key slot status address to be updated
  *
  ******************************************************************************/
 static void XSecure_MarkKeySlotOccupied(u64 KeySlotStatusAddr)
@@ -167,11 +172,14 @@ static void XSecure_MarkKeySlotOccupied(u64 KeySlotStatusAddr)
  *              with metadata in Shared address between PMC and secure shell.
  *
  * @param	KeyWrapData is pointer to the XSecure_KeyWrapData instance.
- * @param	DmaPtr is ponter to DMA instance which is used for AES and SHA
+ * @param	DmaPtr is pointer to DMA instance which is used for AES and SHA
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid.
+ *		 - XSECURE_ERR_KEY_WRAP_SIZE_MISMATCH  If wrapped key size is invalid.
+ *		 - XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED  If AES key size is invalid.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
@@ -280,3 +288,4 @@ END:
 }
 
 #endif
+/** @} */

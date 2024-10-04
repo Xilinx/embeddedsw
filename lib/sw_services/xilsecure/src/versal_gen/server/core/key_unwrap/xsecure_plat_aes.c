@@ -8,7 +8,7 @@
 /**
 *
 * @file xsecure_plat_aes.c
-* This file contains versalnet specific code for xilsecure aes server.
+* This file contains Versal Net specific code for Xilsecure aes server.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,7 +22,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_plat_aes.h"
 #include "xsecure_error.h"
@@ -48,15 +51,15 @@ static int XSecure_AesEcbDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc
 /**
  * @brief	This function sets and initializes AES in ECB mode
  *
- * @param	InstancePtr	 Pointer to the XSecure_Aes instance
- * @param	KeySrc		 Key Source for decryption of the data
- * @param	KeySize		 Size of the AES key to be used for decryption is
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
+ * @param	KeySrc		Key Source for decryption of the data
+ * @param	KeySize		Size of the AES key to be used for decryption is
  *		 		- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
  *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *	-	ErrorCode   - On Failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XST_FAILURE  On Failure
  *
  *****************************************************************************/
 static int XSecure_AesEcbDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize)
@@ -78,12 +81,13 @@ END:
 /**
  * @brief	This function sets AES ECB mode
  *
- * @param	InstancePtr Pointer to the XSecure_Aes instance
- * @param	EcbModeFlag Flag to enable/disable ECB mode
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
+ * @param	EcbModeFlag	Flag to enable/disable ECB mode
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *	-	ErrorCode   - On Failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XSECURE_AES_INVALID_PARAM  On invalid parameter
+ *		 - XSECURE_AES_STATE_MISMATCH_ERROR  On state mismatch
  *
  *****************************************************************************/
 int XSecure_AesEcbCfg(XSecure_Aes *InstancePtr, u32 EcbModeFlag)
@@ -118,24 +122,24 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function writes AES key into XSECURE_AES_USER_KEY_7 and decrypts the data
- *          in ECB mode
+ *		in ECB mode
  *
- * @param	InstancePtr	 Pointer to the XSecure_Aes instance
- * @param	KeyAddr		 Address of the key to be programmed in XSECURE_AES_USER_KEY_7
- * @param	KeySize		 Size of the AES key to be used for decryption is
- *		 		- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
+ * @param	KeyAddr		Address of the key to be programmed in XSECURE_AES_USER_KEY_7
+ * @param	KeySize		Size of the AES key to be used for decryption is
+ *				- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
  *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  * @param	InDataAddr	Address of the encrypted data which needs to be
- *				  decrypted
+ *				decrypted
  * @param	OutDataAddr	Address of output buffer where the decrypted data
- *				  to be updated
- * @param	Size    Size of data to be decrypted in bytes, whereas number of bytes shall be aligned as below
- *                  - 16 byte aligned when it is not the last chunk
- *                  - 4 byte aligned when the data is the last chunk
+ *				to be updated
+ * @param	Size		Size of data to be decrypted in bytes, whereas number of bytes shall be aligned as below
+ *				- 16 byte aligned when it is not the last chunk
+ *				- 4 byte aligned when the data is the last chunk
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *	-	ErrorCode   - On Failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XST_FAILURE  On Failure
  *
  *****************************************************************************/
 int XSecure_AesEcbDecrypt(XSecure_Aes *InstancePtr, u64 KeyAddr, XSecure_AesKeySize KeySize, u64 InDataAddr,
@@ -181,22 +185,24 @@ END:
 /**
  * @brief	This function unwraps the given AES wrapped key.
  *
- * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	EphAesKey	- Address of the key to be programmed in XSECURE_AES_USER_KEY_7
- * @param	KeySize		- Size of the AES key to be used for decryption is
- *		 		- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
+ * @param	EphAesKey	Address of the key to be programmed in XSECURE_AES_USER_KEY_7
+ * @param	KeySize		Size of the AES key to be used for decryption is
+ *		 		XSECURE_AES_KEY_SIZE_128 for 128 bit key size
+ *				XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  * @param	AesWrapKey	Address of the wrapped key which needs to be
- *				  decrypted
+ *				decrypted
  * @param	OutDataAddr	Address of output buffer where the decrypted data
- *				  to be updated
- * @param	Size    Size of data to be decrypted in bytes, whereas number of bytes shall be aligned as below
- *                  - 16 byte aligned when it is not the last chunk
- *                  - 4 byte aligned when the data is the last chunk
+ *				to be updated
+ * @param	Size		Size of data to be decrypted in bytes, whereas number of bytes shall be aligned as below
+ *				- 16 byte aligned when it is not the last chunk
+ *				- 4 byte aligned when the data is the last chunk
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED  If AES key size is invalid.
+ *		 - XSECURE_ERR_AES_KEY_UNWRAP_FAILED_ERROR  If key unwrap is failed.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKeySize KeySize, u8 *AesWrapKey,
@@ -310,3 +316,4 @@ END:
 
 	return Status;
 }
+/** @} */

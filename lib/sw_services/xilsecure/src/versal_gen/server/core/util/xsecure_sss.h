@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,8 +27,12 @@
 * 5.0   bm      07/06/22 Refactor versal and versal_net code
 *
 * </pre>
-* @endcond
+*
 ******************************************************************************/
+/**
+* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+* @{
+*/
 #ifndef XSECURE_SSS_H
 #define XSECURE_SSS_H
 
@@ -72,4 +77,4 @@ extern const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRC
 #endif
 
 #endif /* XSECURE_SSS_H_ */
-/**@}*/
+/** @} */
