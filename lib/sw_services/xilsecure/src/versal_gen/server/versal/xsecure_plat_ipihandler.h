@@ -19,11 +19,9 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
-
 /**
-* @addtogroup xsecure_helper_server_apis Xilsecure Helper Server APIs
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
 * @{
 */
 #ifndef XSECURE_PLAT_IPIHANDLER_H_
@@ -44,3 +42,4 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XSECURE_PLAT_IPIHANDLER_H_ */
+/** @} */

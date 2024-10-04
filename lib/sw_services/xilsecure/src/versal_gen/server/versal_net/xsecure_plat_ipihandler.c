@@ -9,7 +9,7 @@
 *
 * @file xsecure_plat_ipihandler.c
 *
-* This file contains the xilsecure versalnet IPI handlers implementation.
+* This file contains the Xilsecure Versal Net IPI handlers implementation.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -33,10 +33,9 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Xilsecure Helper Server APIs
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
 * @{
 */
 /***************************** Include Files *********************************/
@@ -66,13 +65,14 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 
 /*****************************************************************************/
 /**
- * @brief   This function calls respective IPI handler based on the API_ID
+ * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd is pointer to the command structure
+ * @param	Cmd	is pointer to the command structure
  *
  * @return
- *	-	XST_SUCCESS - If the handler execution is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the handler execution is successful
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
@@ -127,15 +127,15 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief   This function sets or clears Crypto bit mask of given NodeId
+ * @brief	This function sets or clears Crypto bit mask of given NodeId
  *
- * @param   CryptoOp	    Operation to set or clear crypto bit mask
- * @param   CryptoMask	    Crypto Mask of the module
- * @param   CryptoVal       Crypto value to be updated
+ * @param	CryptoOp	Operation to set or clear crypto bit mask
+ * @param	CryptoMask	Crypto Mask of the module
+ * @param	CryptoVal	Crypto value to be updated
  *
  * @return
-	-	XST_SUCCESS - If set or clear is successful
- *	-	XST_FAILURE - On failure
+ *		 - XST_SUCCESS  If set or clear is successful
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 static int XSecure_UpdateCryptoMask(XSecure_CryptoStatusOp CryptoOp, u32 CryptoMask, u32 CryptoVal)
@@ -164,14 +164,15 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief   This function unwraps the input wrapped key and copies to secure shell.
+ * @brief	This function unwraps the input wrapped key and copies to secure shell.
  *
- * @param   KeyWrapAddrLow     Lower address of the XSecure_KeyWrapData structure.
- * @param   KeyWrapAddrHigh    Higher address of the XSecure_KeyWrapData structure.
+ * @param	KeyWrapAddrLow	Lower address of the XSecure_KeyWrapData structure.
+ * @param	KeyWrapAddrHigh	Higher address of the XSecure_KeyWrapData structure.
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *	-	ErrorCode - On failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XSECURE_ERR_INVALID_KEY_STORE_ADDR  If key store address is 0
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh)
@@ -198,21 +199,23 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_RsaInitialize and
- *              XSecure_RsaExp server API.
+ * @brief	This function handler calls XSecure_RsaInitialize and
+ *		XSecure_RsaExp server API.
  *
- * @param   RsaParamAddrLow  - Lower 32 bit address of the XSecure_RsaInParam
- *                             structure
- * @param   RsaParamAddrHigh - Higher 32 bit address of the XSecure_RsaInParam
- *                             structure
- * @param   DstAddrLow 	     - Lower 32 bit address of the output data
- *                             where decrypted data to be stored
- * @param   DstAddrHigh	     - Higher 32 bit address of the output data
- *                             where decrypted data to be stored
+ * @param	RsaParamAddrLow		Lower 32 bit address of the XSecure_RsaInParam
+ *					structure
+ * @param	RsaParamAddrHigh	Higher 32 bit address of the XSecure_RsaInParam
+ *					structure
+ * @param	DstAddrLow		Lower 32 bit address of the output data
+ *					where decrypted data to be stored
+ * @param	DstAddrHigh		Higher 32 bit address of the output data
+ *					where decrypted data to be stored
  *
  * @return
- *	-	XST_SUCCESS - If the Rsa decryption is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the Rsa decryption is successful
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid
+ *		 - XSECURE_RSA_GEN_SIGN_FAILED_ERROR  If RSA sign generation fails
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh,
@@ -262,13 +265,14 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 		goto END;
 	}
 
-	Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->InData, RsaParams.DataAddr,
-		RsaParams.Size);
+	Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->InData,
+		RsaParams.DataAddr, RsaParams.Size);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->Mod, RsaKeyParam.ModAddr, RsaParams.Size);
+	Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->Mod,
+		RsaKeyParam.ModAddr, RsaParams.Size);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -386,3 +390,4 @@ END:
 	return Status;
 }
 #endif
+/** @} */

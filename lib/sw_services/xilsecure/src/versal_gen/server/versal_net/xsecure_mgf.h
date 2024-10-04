@@ -76,3 +76,4 @@ XSecure_HashAlgInfo *XSecure_GetHashInstance(XSecure_ShaMode Shatype);
 #endif
 
 #endif /* XSECURE_MGF_H_ */
+/** @} */
