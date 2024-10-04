@@ -59,7 +59,6 @@ XStatus XPm_EnableDdrSr(const u32 SubsystemId);
 XStatus XPm_DisableDdrSr(const u32 SubsystemId);
 XStatus XPm_ForceHouseClean(u32 NodeId);
 void XPmPlDevice_SetStlInitFinishCb(void (*Handler)(void));
-void XPm_PlatChangeCoreState(XPm_Core *Core, const u32 State);
 
 #ifdef __cplusplus
 }
