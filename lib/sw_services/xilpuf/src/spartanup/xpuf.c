@@ -33,37 +33,31 @@
 
 /************************** Constant Definitions *****************************/
 #define XPUF_STATUS_WAIT_TIMEOUT		(1000000U)
-/**< Recommended software timeout is 1 second */
-#define XPUF_AUX_MASK_VALUE                     (0x0FFFFFF0U)
-/**< Mask value for AUX*/
+		/**< Recommended software timeout is 1 second */
 
-#define XPUF_OV_MASK_VALUE				(0x30000000U)
-/**< Mask value for overflow*/
+#define XPUF_AUX_MASK_VALUE			(0x0FFFFFF0U)	/**< Mask value for AUX*/
 
-#define XPUF_RESET_VAL					(1U)
-/**< PUF reset value */
+#define XPUF_OV_MASK_VALUE			(0x30000000U)	/**< Mask value for overflow*/
 
-#define XPUF_SET_VAL					(0U)
-/**< PUF set value  */
+#define XPUF_RESET_VAL				(1U)	/**< PUF reset value */
 
-#define XPUF_PUF_AUX_ENABLE				(0xFU)
-/**< PUF aux enable */
+#define XPUF_SET_VAL				(0U)	/**< PUF set value  */
 
-#define XPUF_PUF_IC_MASK				(1U << 31U)
-/**< PUF IC mask */
+#define XPUF_PUF_AUX_ENABLE			(0xFU)	/**< PUF aux enable */
 
-#define XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE	(1U << 2U)
-/**< PUF key capture mask */
+#define XPUF_PUF_IC_MASK			(1U << 31U)
+		/**< PUF iterative convergence mask */
 
-#define XPUF_PMC_GLOBAL_PUF_ID_CAPTURE		(1 << 1U)
-/**< PUF id capture mask */
+#define XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE		(1U << 2U)	/**< PUF key capture mask */
 
-#define XPUF_KEY_GEN_ITERATIONS	6U
-/** PUF key generation iterations */
+#define XPUF_PMC_GLOBAL_PUF_ID_CAPTURE		(1 << 1U)	/**< PUF ID capture mask */
 
-#define XPUF_STATUS_MASK		(XPUF_STATUS_SYNDROME_WORD_RDY | XPUF_STATUS_KEY_RDY | \
-XPUF_AUX_MASK_VALUE | XPUF_OV_MASK_VALUE)
-/**< PUF status mask */
+#define XPUF_KEY_GEN_ITERATIONS			6U
+		/**< PUF maximum key generation iterations to obtain PUF iterative convergence */
+
+#define XPUF_STATUS_MASK			(XPUF_STATUS_SYNDROME_WORD_RDY | XPUF_STATUS_KEY_RDY | \
+							XPUF_AUX_MASK_VALUE | XPUF_OV_MASK_VALUE)
+		/**< PUF status mask */
 
 /********************Macros (Inline function) Definitions*********************/
 
@@ -195,9 +189,6 @@ END:
 
 /************************** Function Prototypes ******************************/
 static void XPuf_CapturePufID(XPuf_Data *PufData);
-static int XPuf_ValidateAccessRules(const XPuf_Data *PufData);
-static int XPuf_UpdateHelperData(const XPuf_Data *PufData);
-static int XPuf_StartRegeneration(XPuf_Data *PufData);
 static int XPuf_GeneratePufKey(XPuf_Data *PufData);
 
 /************************** Function Definitions *****************************/
@@ -207,7 +198,7 @@ static int XPuf_GeneratePufKey(XPuf_Data *PufData);
  * @brief	This functions configures the PUF
  *
  * @param	PufData Pointer to XPuf_Data structure which includes options
- *		to configure PUF.
+ *					to configure PUF.
  *
  * @return
  *		- XST_SUCCESS  PUF registration successful
@@ -274,9 +265,10 @@ END:
  *		- XST_SUCCESS  PUF registration successful
  *		- XPUF_ERROR_INVALID_PARAM  PufData is NULL
  *		- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT  Timeout occurred while
- *		waiting for PUF Syndrome data
- *		- XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT  Timeout occurred while
- *		waiting for PUF done bit at the time of PUF registration
+ *			waiting for PUF Syndrome data
+ *		- XPUF_ERROR_PUF_OVERFLOW When PUF overflow error has occured
+ *		- XPUF_ERROR_SYN_DATA_ERROR Error when syndrome data is not generated
+ *      		properly
  *		- XST_FAILURE  Unexpected event
  *
  * @note	Helper data will be available in PufData->SyndromeData,
@@ -352,16 +344,14 @@ END:
  *		or external memory
  *
  * @param	PufData Pointer to XPuf_Data structure which includes options
- *		to configure PUF.
+ *					to configure PUF.
  *
  * @return
- *		- XST_SUCCESS on successful PUF Regeneration
- *		- XPUF_ERROR_INVALID_PARAM if PufData is NULL
- *		- XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT  Timeout occurred while
- *		waiting for PUF done bit
- *		- XPUF_ERROR_PUF_DONE_KEY_NT_RDY  Key ready bit and ID ready
- *		bit is not set
- *		- XPUF_ERROR_PUF_DONE_ID_NT_RDY  Id ready bit is not set
+ *		- XST_SUCCESS  PUF key regeneration successful
+ *		- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT  Timeout occurred while
+ *			waiting for PUF Syndrome data
+ *		- XPUF_ERROR_KEY_NOT_CONVERGED When PUF key is not converged
+ *		- XST_FAILURE  Unexpected event
  *
  *****************************************************************************/
 int XPuf_Regeneration(XPuf_Data *PufData)
@@ -431,16 +421,16 @@ int XPuf_ClearPufID(void)
  * @brief	This function will generate the Puf key form Aux data, Chash and
  * 		syndrome data
  *
- * @param	PufAuxData - AUX Data
- * @param	VarPufChash - CHASH Data
- * @param	SyndromeData - Pointer to the syndrome data
+ * @param	PufData Pointer to XPuf_Data structure which includes options
+ *					to configure PUF.
  *
  * @return
- *	-	@ref XST_FAILURE - Upon Failure
- *	-	@ref XROM_S7_PUF_REGEN_WR_TO_ERROR
- *	-	@ref XROM_S7_PUF_REGEN_KR_TO_ERROR
- *	-	@ref XROM_S7_PUF_REGEN_KEY_NOT_CONVERGED_ERROR
- *	-	@ref XST_SUCCESS - If PUF Key generated successfully
+ *		- XST_SUCCESS  PUF key regeneration successful
+ *		- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT  Timeout occurred while
+ *			waiting for PUF Syndrome data
+ *		- XPUF_ERROR_KEY_NOT_CONVERGED When PUF key is not converged
+ *		- XST_FAILURE  Unexpected event
+ *
  ******************************************************************************/
 static int XPuf_GeneratePufKey(XPuf_Data *PufData)
 {
@@ -532,7 +522,7 @@ END:
  * @brief	This function captures PUF ID generated into XPuf_Data.
  *
  * @param	PufData Pointer to XPuf_Data structure which includes options
- *		to configure PUF.
+ *					to configure PUF.
  *
  *****************************************************************************/
 static void XPuf_CapturePufID(XPuf_Data *PufData)
@@ -544,7 +534,7 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
 	 */
 	for (Index = 0U; Index < XPUF_ID_LEN_IN_WORDS; Index++) {
 		PufData->PufID[Index] = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
-						     (XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET + (Index * XPUF_WORD_LENGTH)));
+			(XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET + (Index * XPUF_WORD_LENGTH)));
 	}
 }
 
@@ -555,7 +545,7 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
  *
  *
  * @param	PufData Pointer to XPuf_Data structure which includes options
- *		to configure PUF.
+ *					to configure PUF.
  *
  * @return
  *		- XST_SUCCESS  Syndrome data is successfully trimmed

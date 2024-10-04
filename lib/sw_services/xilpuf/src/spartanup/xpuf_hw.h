@@ -30,13 +30,12 @@ extern "C" {
 /****************************** Include Files *********************************/
 /*************************** Constant Definitions *****************************/
 
-#define XPUF_PMC_GLOBAL_BASEADDR	(0x040A0000U)
+#define XPUF_PMC_GLOBAL_BASEADDR	(0x040A0000U)	/**< PMC global Base Address */
 
-#define XPUF_BASEADDR			(0x04080000U)
-/**< PMC_GLOBAL Base Address */
+#define XPUF_BASEADDR				(0x04080000U)	/**< PUF Base Address */
 
 /**
- * @name  Offsets for PUF registers in PMC_GLOBAL module
+ * @name  Offsets for PUF registers in PUF module
  * @{
  */
 /**< PUF register offsets */
@@ -48,14 +47,19 @@ extern "C" {
 #define XPUF_PUF_WORD_OFFSET		(0x00000040U)
 #define XPUF_PUF_CHASH_OFFSET		(0x000003C0U)
 #define XPUF_PUF_DBG_OFFSET			(0x00000068U)
+/** @} */
 
+/**
+ * @name  Offsets for PUF registers in PMC_GLOBAL module
+ * @{
+ */
+/**< PMC global PUF register offsets */
 #define XPUF_PMC_GLOBAL_PUF_RST_OFFSET			(0x00000064U)
 #define XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET		(0x0001F310U)
 #define XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET		(0x0001F32CU)
 #define XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET			(0x0001F330U)
 #define XPUF_PMC_GLOBAL_PUF_RO_SWAP_OFFSET		(0x0001F35CU)
 #define XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET	(0x0001F354U)
-
 /** @} */
 
 /**
@@ -75,7 +79,7 @@ extern "C" {
  */
 /**< PUF_CFG0 register definition */
 #define XPUF_CFG0_GLOBAL_FILTER_ENABLE		(0x01U)
-#define XPUF_CFG0_HASH_SEL			(0x02U)
+#define XPUF_CFG0_HASH_SEL					(0x02U)
 /** @} */
 
 /**
@@ -93,13 +97,14 @@ extern "C" {
  */
 /**< PUF_STATUS register definition */
 #define XPUF_STATUS_SYNDROME_WORD_RDY		((u32)0x01U << 0U)
-#define XPUF_STATUS_ID_ZERO			((u32)0x01U << 1U)
-#define XPUF_STATUS_ID_RDY			((u32)0x01U << 2U)
-#define XPUF_STATUS_KEY_RDY			((u32)0x01U << 3U)
-#define XPUF_STATUS_ZZ_MASK			((u32)0x01U << 1U)
-#define XPUF_STATUS_PUF_DONE		((u32)0x01U << 30U)
-#define XPUF_STATUS_SEG_RDY			((u32)0x01U << 2U)
+#define XPUF_STATUS_ID_ZERO					((u32)0x01U << 1U)
+#define XPUF_STATUS_ID_RDY					((u32)0x01U << 2U)
+#define XPUF_STATUS_KEY_RDY					((u32)0x01U << 3U)
+#define XPUF_STATUS_ZZ_MASK					((u32)0x01U << 1U)
+#define XPUF_STATUS_PUF_DONE				((u32)0x01U << 30U)
+#define XPUF_STATUS_SEG_RDY					((u32)0x01U << 2U)
 /** @} */
+
 /**< Clear PUF ID bit in PUF_STATUS register */
 #define XPUF_CLEAR_ID				(0x1U)
 
