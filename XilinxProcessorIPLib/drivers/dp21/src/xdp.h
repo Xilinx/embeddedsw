@@ -740,6 +740,8 @@ typedef struct {
 						the pixel width. */
 	u8 OverrideSyncPolarity;	/**< Overrides the Horizontal
 						and vertical sync polarity */
+	u64 VFreq;
+	u8 IsRxDp21;
 } XDp_MainStreamAttributes;
 
 typedef XDp_MainStreamAttributes XDp_TxMainStreamAttributes;
