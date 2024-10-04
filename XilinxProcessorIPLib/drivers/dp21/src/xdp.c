@@ -2246,6 +2246,7 @@ void XDp_RxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 *******************************************************************************/
 void XDp_RxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 {
+	u32 RegVal = 0;
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -2263,8 +2264,11 @@ void XDp_RxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 	}
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
+
+        RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,XDP_RX_OVER_LANE_COUNT_SET);
+        RegVal = RegVal | LaneCount;
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_LANE_COUNT_SET,
-								LaneCount);
+								RegVal);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_LOCAL_EDID_VIDEO,
 									0x1);
