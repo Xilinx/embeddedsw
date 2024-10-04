@@ -323,11 +323,13 @@ int XLoader_Init(void)
 	/** - Decrements the count of configuration limiter */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_UpdateCfgLimitCount, XLOADER_BBRAM_CL_DECREMENT_COUNT);
 
+#ifndef PLM_AUTH_JTAG_EXCLUDE
 	/** - Add task to the scheduler to handle Authenticated JTAG message */
 	Status = XLoader_AddAuthJtagToScheduler();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#endif
 
 	/**
 	 * - Add DAP status check task to the scheduler, this is
