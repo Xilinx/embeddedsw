@@ -1096,7 +1096,6 @@ XDp_MainStreamAttributes *XDPRxss_GetMsa(XDpRxSs *DpRxSsInst)
 			    XDP_RX_STREAM_MSA_OFFSET((Stream - 1)) + XDP_RX_INDIVIDUAL_MSA_NVID);
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Misc0 = rxMsamisc0;
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Misc1 = rxMsamisc1;
-		rxMsamisc0 = ((rxMsamisc0 >> 5) & 0x00000007);
 
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.HActive = DpHres;
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.VActive = DpVres;
@@ -1132,15 +1131,59 @@ XDp_MainStreamAttributes *XDPRxss_GetMsa(XDpRxSs *DpRxSsInst)
 
 		color_mode = XDpRxss_GetColorComponent(DpRxSsInst, Stream);
 
-		/* Calculate the pixel clock frequency. */
-		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].PixelClockHz =
-				(DpRxSsInst->UsrOpt.LinkRate * 27 * rxMsaMVid) / rxMsaMVid;
+		/* Calculate the pixel clock frequency based on channel coding set(8/10b or 128/132b) */
+		u32 Channel_Coding = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+									XDP_RX_DPCD_MAIN_LINK_CHANNEL_CODING_SET);
+		u32 recv_clk_freq=0;
+		float recv_frame_clk=0;
 
-		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.FrameRate =
-			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].PixelClockHz /
-			(DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.HTotal *
-			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.Timing.F0PVTotal);
+		if((Channel_Coding & 0x3) == 0x1){ //dp1.4 linkrates
+			recv_clk_freq =
+					(((int)DpRxSsInst->UsrOpt.LinkRate*27)*rxMsaMVid)/rxMsaNVid;
 
+			recv_frame_clk =
+				(int)( (recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total) < 0.0 ?
+						(recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total) :
+						(recv_clk_freq*1000000.0)/(DpHres_total * DpVres_total)+0.9
+						);
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].IsRxDp21 = 0;
+		}else{	//dp2.1 linkrates
+			u32 VFreq_lower = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+										0x1608);
+			u32 VFreq_higher = XDp_ReadReg(DpRxSsInst->DpPtr->Config.BaseAddr,
+										0x160C);
+			u64 VFreq = 0;
+			VFreq = VFreq_higher;
+			VFreq = (VFreq << 24) | VFreq_lower;
+			DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].VFreq = VFreq;
+		    DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].IsRxDp21 = 1;
+
+			recv_frame_clk =
+				(int)( (VFreq*1.0)/(DpHres_total * DpVres_total) < 0.0 ?
+						(VFreq*1.0)/(DpHres_total * DpVres_total) :
+						(VFreq*1.0)/(DpHres_total * DpVres_total)+0.9
+						);
+		}
+
+		XVidC_FrameRate recv_frame_clk_int = recv_frame_clk;
+		//Doing Approximation here
+		if (recv_frame_clk_int == 49 || recv_frame_clk_int == 51) {
+			recv_frame_clk_int = 50;
+		} else if (recv_frame_clk_int == 59 || recv_frame_clk_int == 61) {
+			recv_frame_clk_int = 60;
+		} else if (recv_frame_clk_int == 29 || recv_frame_clk_int == 31) {
+			recv_frame_clk_int = 30;
+		} else if (recv_frame_clk_int == 76 || recv_frame_clk_int == 74) {
+			recv_frame_clk_int = 75;
+		} else if (recv_frame_clk_int == 121 || recv_frame_clk_int == 119) {
+			recv_frame_clk_int = 120;
+		}
+
+
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].PixelClockHz = DpHres_total * DpVres_total * recv_frame_clk_int;
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.FrameRate =recv_frame_clk_int;
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].DynamicRange = XDpRxss_GetDynamicRange(DpRxSsInst, Stream);
+		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].YCbCrColorimetry = XDpRxss_GetColorimetry(DpRxSsInst, Stream);
 		DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.VmId =
 		XVidC_GetVideoModeId(DpHres, DpVres,
 				     DpRxSsInst->DpPtr->RxInstance.MsaConfig[(Stream - 1)].Vtm.FrameRate,
