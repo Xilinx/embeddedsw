@@ -35,10 +35,11 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 #include "xplmi_hw.h"
@@ -123,13 +124,14 @@ static XPlmi_Module XPlmi_Secure =
 /**
  * @brief	This function calls the handler for invalid commands
  *
+ * @param	Payload	is pointer to IPI payload data
  *
- * @param	Payload	   is pointer to IPI payload data
+ * @param	RespBuf	Buffer to store response of slaves
  *
- * @param   RespBuf buffer to store response of slaves
- *
- * @return 	XST_SUCCESS		    on successful communication
- * 		    error code      	On failure
+ * @return
+ *		 - XST_SUCCESS  On successful communication
+ *		 - XPLMI_ERR_CMD_APIID  On unregistered command ID.
+ *		 - XPLMI_SSIT_INTR_NOT_ENABLED  If interrupts are not enabled.
  *
  *****************************************************************************/
 static int XSecure_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
@@ -142,11 +144,11 @@ static int XSecure_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
  * @brief	This function checks if a particular Secure API ID is supported
  * or not.
  *
- * @param	ApiId is API ID in the IPI request
+ * @param	ApiId	is API ID in the IPI request
  *
  * @return
- *	-	XST_SUCCESS - Success
- *	-	XST_INVALID_PARAM - Unsupported API ID
+ *		 - XST_SUCCESS  Success
+ *		 - XST_INVALID_PARAM  Unsupported API ID
  *
  *****************************************************************************/
 static int XSecure_FeaturesCmd(u32 ApiId)
@@ -202,6 +204,13 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 /*****************************************************************************/
 /**
  * @brief	This function processes XilSecure IPI commands
+ *
+ * @param	Cmd	Pointer to the command structure
+ *
+ * @return
+ *		 - XST_SUCCESS  Upon success
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid
+ *		 - XSECURE_KAT_MAJOR_ERROR  If KAT fails
  *
  *****************************************************************************/
 static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
@@ -296,3 +305,4 @@ void XSecure_CmdsInit(void)
 	XPlmi_ModuleRegister(&XPlmi_Secure);
 
 }
+/** @} */

@@ -8,9 +8,8 @@
 /**
 *
 * @file xsecure_plat.h
-
 *
-* @note
+* This file contains Versal Net specific code for Xilsecure server.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -28,10 +27,9 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Xilsecure Helper Server APIs
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
 * @{
 */
 #ifndef XSECURE_PLAT_H
@@ -157,3 +155,4 @@ int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Lengt
 #endif
 
 #endif /** XSECURE_PLAT_H */
+/** @} */

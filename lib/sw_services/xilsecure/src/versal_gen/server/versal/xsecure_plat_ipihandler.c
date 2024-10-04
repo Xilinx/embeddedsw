@@ -8,7 +8,7 @@
 /**
 *
 * @file xsecure_plat_ipihandler.c
-* This file contains versal specific code for xilsecure server ipi hanlder.
+* This file contains versal specific code for xilsecure server ipi handler.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,7 +22,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
 #include "xplmi_dma.h"
@@ -45,13 +48,14 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 
 /*****************************************************************************/
 /**
- * @brief       This function calls respective IPI handler based on the API_ID
+ * @brief	This function calls respective IPI handler based on the API_ID
  *
  * @param 	Cmd is pointer to the command structure
  *
  * @return
- *	-	XST_SUCCESS - If the handler execution is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the handler execution is successful
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
@@ -85,7 +89,7 @@ END:
 #ifndef PLM_RSA_EXCLUDE
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_RsaInitialize and
+ * @brief	This function handler calls XSecure_RsaInitialize and
  * 		XSecure_RsaPrivateDecrypt server APIs
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the XSecure_RsaInParam
@@ -98,8 +102,8 @@ END:
  * 				where decrypted data to be stored
  *
  * @return
- *	-	XST_SUCCESS - If the Rsa decryption is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the Rsa decryption is successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -135,3 +139,4 @@ END:
 	return Status;
 }
 #endif
+/** @} */
