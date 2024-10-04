@@ -31,10 +31,11 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 
@@ -743,7 +744,7 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
  * @brief	This function calculates the total number of curves supported
  *
  * @return
- *	Number of curves supported
+ *		 - Number of curves supported
  *
  *****************************************************************************/
 u32 XSecure_EllipticCrvsGetCount(void)
@@ -752,3 +753,4 @@ u32 XSecure_EllipticCrvsGetCount(void)
 }
 
 #endif
+/** @} */

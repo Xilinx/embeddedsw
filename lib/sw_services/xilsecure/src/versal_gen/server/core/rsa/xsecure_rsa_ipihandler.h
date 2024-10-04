@@ -9,7 +9,7 @@
 *
 * @file xsecure_rsa_ipihandler.h
 *
-* This file contains the xilsecure RSA IPI Handler declaration.
+* This file contains the Xilsecure RSA IPI Handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,7 +22,6 @@
 * </pre>
 *
 ******************************************************************************/
-
 /**
 * @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
 * @{
@@ -50,3 +49,4 @@ int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XSECURE_RSA_IPIHANDLER_H_ */
+/** @} */

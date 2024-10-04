@@ -9,7 +9,7 @@
 *
 * @file xsecure_trng_ipihandler.h
 *
-* This file contains the xilsecure TRNG IPI handler declaration.
+* This file contains the Xilsecure TRNG IPI handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,7 +20,6 @@
 * 5.4  yog   04/29/24 Fixed doxygen grouping
 *
 * </pre>
-*
 *
 ******************************************************************************/
 /**
@@ -49,3 +48,4 @@ int XSecure_TrngIpiHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XSECURE_TRNG_IPIHANDLER_H_ */
+/** @} */

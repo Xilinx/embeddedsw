@@ -8,7 +8,7 @@
 /**
 *
 * @file xsecure_rsa_q.c
-* This file contains versalnet specific code for xilsecure rsa quiet mode server.
+* This file contains Versal Net specific code for Xilsecure rsa quiet mode server.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,7 +20,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_rsa_qmode_apis Xilsecure RSA QMODE Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 
 #ifdef SDT
@@ -47,20 +50,21 @@
 
 /*****************************************************************************/
 /**
- * @param	Hash  is the Hash of the exponentiation.
- * @param	P     is first factor, a positive integer.
- * @param	Q     is second factor, a positive integer.
- * @param	Dp    is first factor's CRT exponent, a positive integer.
- * @param	Dq    is second factor's CRT exponent, a positive integer.
- * @param	Qinv  is (first) CRT coefficient, a positive integer.
- * @param	Pub   is the public exponent to protect against the fault insertions.
- * @param	Mod   is the public modulus (p*q), if NULL, calculated internally.
- * @param	Len   is length of the full-length integer in bits.
- * @param	Res   is result of exponentiation r = (h^e) mod n.
+ * @param	Hash	is the Hash of the exponentiation.
+ * @param	P	is first factor, a positive integer.
+ * @param	Q	is second factor, a positive integer.
+ * @param	Dp	is first factor's CRT exponent, a positive integer.
+ * @param	Dq	is second factor's CRT exponent, a positive integer.
+ * @param	Qinv	is (first) CRT coefficient, a positive integer.
+ * @param	Pub	is the public exponent to protect against the fault insertions.
+ * @param	Mod	is the public modulus (p*q), if NULL, calculated internally.
+ * @param	Len	is length of the full-length integer in bits.
+ * @param	Res	is result of exponentiation r = (h^e) mod n.
  *
  * @return
- *		- XST_SUCCESS on success.
- *		- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_RSA_EXPONENT_INVALID_PARAM  If any input parameter is invalid.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_RsaExpCRT(u8 *Hash, u8 *P, u8 *Q, u8 *Dp, u8 *Dq, u8 *Qinv, u8 *Pub,
@@ -90,19 +94,20 @@ END:
 /**
  * @brief	This function perofrms the RSA exponentiation.
  *
- * @param	Hash  is Hash of the exponentiation.
- * @param	Exp   is exponent, a positive integer.
- * @param	Mod   is public modulus (p*q), if NULL, calculated internally.
- * @param	P     is first factor, a positive integer.
- * @param	Q     is second factor, a positive integer.
- * @param	Pub   is public exponent to protect against the fault insertions.
- * @param	Tot   is totient, a secret value equal to (p-1)*(q-1).
- * @param	Len   is length of the full-length integer in bits.
- * @param	Res   is result of exponentiation r = (h^e) mod n.
+ * @param	Hash	is Hash of the exponentiation.
+ * @param	Exp	is exponent, a positive integer.
+ * @param	Mod	is public modulus (p*q), if NULL, calculated internally.
+ * @param	P	is first factor, a positive integer.
+ * @param	Q	is second factor, a positive integer.
+ * @param	Pub	is public exponent to protect against the fault insertions.
+ * @param	Tot	is totient, a secret value equal to (p-1)*(q-1).
+ * @param	Len	is length of the full-length integer in bits.
+ * @param	Res	is result of exponentiation r = (h^e) mod n.
  *
  * @return
- *		- XST_SUCCESS on success.
- *		- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_RSA_EXPONENT_INVALID_PARAM  If any input parameter is invalid.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_RsaExp(u8 *Hash, u8 *Exp, u8 *Mod, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
@@ -131,21 +136,22 @@ END:
 /**
  * @brief	This function perofrms the RSA exponentiation using pre-calculated modulus.
  *
- * @param	Hash - is Hash of the exponentiation.
- * @param	Exp  - is exponent, a positive integer.
- * @param	Mod  - is public modulus (p*q), if NULL, calculated internally.
- * @param	RN   - is pre-calculated modulus RmodN
- * @param	RRN  - is pre-calculated modulus RRmodN
- * @param	P    - is first factor, a positive integer.
- * @param	Q    - is second factor, a positive integer.
- * @param	Pub  - is public exponent to protect against the fault insertions.
- * @param	Tot  - is totient, a secret value equal to (p-1)*(q-1).
- * @param	Len  - is length of the full-length integer in bits.
- * @param	Res  - is result of exponentiation r = (h^e) mod n.
+ * @param	Hash	is Hash of the exponentiation.
+ * @param	Exp	is exponent, a positive integer.
+ * @param	Mod	is public modulus (p*q), if NULL, calculated internally.
+ * @param	RN 	is pre-calculated modulus RmodN
+ * @param	RRN	is pre-calculated modulus RRmodN
+ * @param	P	is first factor, a positive integer.
+ * @param	Q	is second factor, a positive integer.
+ * @param	Pub	is public exponent to protect against the fault insertions.
+ * @param	Tot	is totient, a secret value equal to (p-1)*(q-1).
+ * @param	Len	is length of the full-length integer in bits.
+ * @param	Res	is result of exponentiation r = (h^e) mod n.
  *
  * @return
- *		- XST_SUCCESS on success.
- * 		- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_RSA_EXPONENT_INVALID_PARAM  If any input parameter is invalid.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_RsaExpopt(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
@@ -172,3 +178,4 @@ END:
 }
 
 #endif
+/** @} */

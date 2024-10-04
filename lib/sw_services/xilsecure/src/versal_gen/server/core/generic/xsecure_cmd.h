@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,9 +20,11 @@
  *
  * </pre>
  *
- * @note
- *
  ******************************************************************************/
+/**
+* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+* @{
+*/
 #ifndef XSECURE_CMD_H_
 #define XSECURE_CMD_H_
 
@@ -43,3 +46,4 @@ void XSecure_CmdsInit(void);
 #endif
 
 #endif /* XSECURE_CMD_H_ */
+/** @} */

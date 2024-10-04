@@ -54,7 +54,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_sha3_server_apis XilSecure SHA3 Server APIs
+* @addtogroup xsecure_sha_server_apis XilSecure SHA Server APIs
 * @{
 */
 #ifndef XSECURE_SHA_H
@@ -84,8 +84,8 @@ extern "C" {
 
 #define XSECURE_SHA3_BLOCK_LEN		(104U) /**< SHA min block length */
 
-#define XSECURE_PMC_DMA_MAX_TRANSFER	(0x1FFFFFFCU) /** < PMC DMA Max Transfer
-							  rate in bytes*/
+#define XSECURE_PMC_DMA_MAX_TRANSFER	(0x1FFFFFFCU)
+			/**< PMC DMA Max Transfer rate in bytes */
 #define XSECURE_SHA_TIMEOUT_MAX         (0x1FFFFU)
 
 #define XSECURE_HASH_SIZE_IN_BYTES      (48U)
@@ -156,3 +156,4 @@ void XSecure_ShaSetDataContext(XSecure_Sha *InstancePtr);
 #endif
 
 #endif /* XSECURE_SHA_H */
+/** @} */

@@ -9,7 +9,7 @@
 *
 * @file xsecure_elliptic_ipihandler.c
 *
-* This file contains the xilsecure elliptic IPI handlers implementation.
+* This file contains the Xilsecure elliptic IPI handlers implementation.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -69,13 +69,14 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh);
 
 /*****************************************************************************/
 /**
- * @brief       This function calls respective IPI handler based on the API_ID
+ * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd is pointer to the command structure
+ * @param 	Cmd	is pointer to the command structure
  *
  * @return
- *	-	XST_SUCCESS - If the handler execution is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the handler execution is successful
+ *		 - XST_INVALID_PARAM  If Cmd is NULL or API ID is invalid
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
@@ -123,7 +124,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_EllipticGenerateKey
+ * @brief	This function handler calls XSecure_EllipticGenerateKey
  * 		server API
  *
  * @param	CurveType	Is a type of elliptic curve
@@ -133,8 +134,9 @@ END:
  * @param	DstAddrHigh	Higher 32 bit address of the public key to be stored
  *
  * @return
- *	-	XST_SUCCESS - If the elliptic key generation is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the elliptic key generation is successful
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  If curve size is 0
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
@@ -179,7 +181,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_EllipticGenerateSignature
+ * @brief	This function handler calls XSecure_EllipticGenerateSignature
  * 		server API
  *
  * @param	SrcAddrLow	Lower 32 bit address of the
@@ -190,8 +192,9 @@ END:
  * @param	DstAddrHigh	Higher 32 bit address of the signature to be stored
  *
  * @return
- *	-	XST_SUCCESS - If the elliptic sign generation is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the elliptic sign generation is successful
+ *		 - XST_INVALID_PARAM  If curve size is 0
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -236,7 +239,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_EllipticValidateKey
+ * @brief	This function handler calls XSecure_EllipticValidateKey
  * 		server API
  *
  * @param	CurveType	Is a type of elliptic curve
@@ -244,8 +247,9 @@ END:
  * @param	SrcAddrHigh	Higher 32 bit address of the public key
  *
  * @return
- *	-	XST_SUCCESS - If the elliptic key validation is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the elliptic key validation is successful
+ *		 - XST_INVALID_PARAM  If curve size is 0
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticValidatePubKey(u32 CurveType, u32 SrcAddrLow,
@@ -274,7 +278,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_EllipticVerifySign
+ * @brief	This function handler calls XSecure_EllipticVerifySign
  * 		server API
  *
  * @param	SrcAddrLow	Lower 32 bit address of the
@@ -283,8 +287,9 @@ END:
  * 				XSecure_EllipticSignVerifyParams structure
  *
  * @return
- *	-	XST_SUCCESS - If the elliptic sign verify is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the elliptic sign verify is successful
+ *		 - XST_INVALID_PARAM  If curve size is 0
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
@@ -330,3 +335,4 @@ END:
 }
 
 #endif
+/** @} */

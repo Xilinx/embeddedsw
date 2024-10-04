@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022-2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,8 +23,12 @@
 * 5.1   har     01/23/23 Corrected the value of XSECURE_CRP_RST_PS_PS_SRST_MASK
 *
 * </pre>
-* @endcond
+*
 ******************************************************************************/
+/**
+* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+* @{
+*/
 #ifndef XSECURE_CRYPTOCHK_H
 #define XSECURE_CRYPTOCHK_H
 
@@ -77,4 +81,4 @@ int XSecure_CryptoCheck(void);
 #endif
 
 #endif /* XSECURE_CRYPTOCHK_H_ */
-/**@}*/
+/** @} */

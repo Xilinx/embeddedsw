@@ -47,7 +47,6 @@
 * </pre>
 *
 ******************************************************************************/
-
 /**
 * @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
 * @{
@@ -145,11 +144,11 @@ extern const XSecure_AesKeyLookup AesKeyLookupTbl[XSECURE_MAX_KEY_SOURCES];
 /**
  * @brief	This function returns AES ECB mode status
  *
- * @param	InstancePtr Pointer to the XSecure_Aes instance
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
  *
  * @return
- *			- TRUE  - If ECB mode is enabled
- *			- FALSE - If ECB mode is not supported/disabled
+ *		 - TRUE  If ECB mode is enabled
+ *		 - FALSE  If ECB mode is not supported/disabled
  *
  *****************************************************************************/
 static INLINE u32 XSecure_AesIsEcbModeEn(const XSecure_Aes *InstancePtr)
@@ -225,3 +224,4 @@ int XSecure_CfgSssAes(XPmcDma *DmaPtr, const XSecure_Sss *SssInstance);
 #endif
 
 #endif /* XSECURE_AES_H_ */
+/** @} */

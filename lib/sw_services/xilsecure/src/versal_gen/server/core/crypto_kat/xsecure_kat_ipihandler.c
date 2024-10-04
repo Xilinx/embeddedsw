@@ -9,7 +9,7 @@
 *
 * @file xsecure_kat_ipihandler.c
 *
-* This file contains the xilsecure KAT IPI handlers implementation.
+* This file contains the Xilsecure KAT IPI handlers implementation.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -28,9 +28,7 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
-
 /**
 * @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
 * @{
@@ -67,13 +65,14 @@ static int XSecure_ShaKat(void);
 
 /*****************************************************************************/
 /**
- * @brief       This function calls respective IPI handler based on the API_ID
+ * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd is pointer to the command structure
+ * @param 	Cmd	is pointer to the command structure
  *
  * @return
- *	-	XST_SUCCESS - If the handler execution is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the handler execution is successful
+ *		 - XST_INVALID_PARAM  If Cmd is NULL or invalid API ID is received.
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
@@ -142,11 +141,12 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_AesDecryptKat server API
+ * @brief	This function handler calls XSecure_AesDecryptKat server API
  *
  * @return
- *	-	XST_SUCCESS - If the KAT is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the KAT is successful
+ *		 - XSECURE_AES_KAT_BUSY  If AES is busy
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesDecKat(void)
@@ -187,12 +187,12 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_AesDecryptCmKat
- * 		server API
+ * @brief	This function handler calls XSecure_AesDecryptCmKat server API
  *
  * @return
- *	-	XST_SUCCESS - If the KAT is successful
- *	-	XST_FAILURE - If there is a failure
+ *		 - XST_SUCCESS  If the KAT is successful
+ *		 - XSECURE_AES_KAT_BUSY  If AES is busy
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesDecCmKat(void)
@@ -233,12 +233,12 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_AesEncryptKat
- * 		server API
+ * @brief	This function handler calls XSecure_AesEncryptKat server API
  *
  * @return
- *	-	XST_SUCCESS - If the KAT is successful
- *	-	XST_FAILURE - If there is a failure
+ *		 - XST_SUCCESS  If the KAT is successful
+ *		 - XSECURE_AES_KAT_BUSY  If AES is busy
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesEncKat(void)
@@ -280,14 +280,13 @@ END:
 #ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_EllipticVerifySignKat
- * 		server API
+ * @brief	This function handler calls XSecure_EllipticVerifySignKat server API
  *
- * @param	CurveClass	 Is a class of elliptic curve
+ * @param	CurveClass	Is a class of elliptic curve
  *
  * @return
- *	-	XST_SUCCESS - If the elliptic KAT is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the elliptic KAT is successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticSignVerifyKat(XSecure_EccCrvClass CurveClass)
@@ -306,14 +305,13 @@ static int XSecure_EllipticSignVerifyKat(XSecure_EccCrvClass CurveClass)
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_EllipticSignGenerateKat
- * 		server API
+ * @brief	This function handler calls XSecure_EllipticSignGenerateKat server API
  *
- * @param	CurveClass	 Is a class of elliptic curve
+ * @param	CurveClass	Is a class of elliptic curve
  *
  * @return
- *	-	XST_SUCCESS - If the elliptic KAT is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the elliptic KAT is successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
@@ -337,12 +335,11 @@ static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
 #ifndef PLM_RSA_EXCLUDE
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_RsaPublicEncryptKat server
- * 		API
+ * @brief	This function handler calls XSecure_RsaPublicEncryptKat server API
  *
  * @return
- *	-	XST_SUCCESS - If the Rsa Kat is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the Rsa Kat is successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaPubEncKat(void)
@@ -361,12 +358,11 @@ static int XSecure_RsaPubEncKat(void)
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_RsaPrivateDecryptKat server
- * 		API
+ * @brief	This function handler calls XSecure_RsaPrivateDecryptKat server API
  *
  * @return
- *	-	XST_SUCCESS - If the Rsa Kat is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the Rsa Kat is successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaPrivateDecKat(void)
@@ -388,11 +384,12 @@ static int XSecure_RsaPrivateDecKat(void)
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_ShaKat server API
+ * @brief	This function handler calls XSecure_ShaKat server API
  *
  * @return
- *	-	XST_SUCCESS - If the sha update/fnish is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the sha update/fnish is successful
+ *		 - XSECURE_SHA3_KAT_BUSY  If SHA3 is busy
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_ShaKat(void)
@@ -428,3 +425,4 @@ END:
 	}
 	return Status;
 }
+/** @} */

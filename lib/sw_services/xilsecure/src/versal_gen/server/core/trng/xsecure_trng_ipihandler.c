@@ -30,8 +30,6 @@
 *
 * </pre>
 *
-*
-*
 ******************************************************************************/
 /**
 * @addtogroup xsecure_trng_server_apis Xilsecure TRNG Server APIs
@@ -52,13 +50,14 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
 
 /*****************************************************************************/
 /**
- * @brief       This function calls respective IPI handler based on the API_ID
+ * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd is pointer to the command structure
+ * @param 	Cmd	is pointer to the command structure
  *
  * @return
- * 		- XST_SUCCESS - If the handler execution is successful
- * 		- ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the handler execution is successful
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_TrngIpiHandler(XPlmi_Cmd *Cmd)
@@ -88,18 +87,19 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_TrngGenerate server API to
- *              generate random number
+ * @brief	This function handler calls XSecure_TrngGenerate server API to
+ *		generate random number
  *
- * @param	SrcAddrLow	 Lower 32 bit address of the random
+ * @param	SrcAddrLow	Lower 32 bit address of the random
  * 				data buffer address.
- * @param	SrcAddrHigh	 Higher 32 bit address of the random
+ * @param	SrcAddrHigh	Higher 32 bit address of the random
  * 				data buffer address.
- * @param	Size		 Number of random bytes needs to be generated.
+ * @param	Size		Number of random bytes needs to be generated.
  *
  * @return
- * 		- XST_SUCCESS - If the generate is successful
- * 		- ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the generate is successful
+ *		 - XTRNGPSX_INVALID_BUF_SIZE  If input size is invalid.
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size)
@@ -120,3 +120,4 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
 END:
 	return Status;
 }
+/** @} */

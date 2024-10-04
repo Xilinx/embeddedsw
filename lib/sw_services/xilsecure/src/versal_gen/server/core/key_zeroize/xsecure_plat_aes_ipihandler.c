@@ -21,13 +21,11 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
 /**
 * @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
 * @{
 */
-
 /***************************** Include Files *********************************/
 #include "xsecure_plat_aes_ipihandler.h"
 #include "xsecure_aes_ipihandler.h"
@@ -43,11 +41,12 @@ static int XSecure_AesPerformOperationAndZeroizeKey(u32 AesParamsAddrLow, u32 Ae
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd is pointer to the command structure
+ * @param 	Cmd	is pointer to the command structure
  *
  * @return
- *		 - XST_SUCCESS  If the handler execution is successful
- *		 - ErrorCode  If there is a failure
+ *		 - XST_SUCCESS  If the handler execution is successful.
+ *		 - XST_INVALID_PARAM  If input parameter is invalid.
+ *		 - XST_FAILURE  If there is a failure.
  *
  ******************************************************************************/
 int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd)
@@ -84,14 +83,16 @@ END:
  *			- Encrypt/decrypt a single block of data using the provided key
  *			- Zeroize the key once the AES operation is done
  *
- * @param	AesParamsAddrLow - Lower 32 bit address of the XSecure_AesDataBlockParams structure.
- * @param	AesParamsAddrHigh - Upper 32 bit address of the XSecure_AesDataBlockParams structure.
- * @param	KeyAddrLow - Lower 32 bit address of the buffer which stores the key
- * @param	KeyAddrHigh - Upper 32 bit address of the buffer which stores the key
+ * @param	AesParamsAddrLow	Lower 32 bit address of the XSecure_AesDataBlockParams
+ * 					structure.
+ * @param	AesParamsAddrHigh	Upper 32 bit address of the XSecure_AesDataBlockParams
+ * 					structure.
+ * @param	KeyAddrLow		Lower 32 bit address of the buffer which stores the key
+ * @param	KeyAddrHigh		Upper 32 bit address of the buffer which stores the key
  *
  * @return
- *      -       XST_SUCCESS - In case of success
- *      -       Error Code in case of failure
+ *		 - XST_SUCCESS  In case of success
+ *		 - XST_FAILURE  In case of failure
  *
  ******************************************************************************/
 static int XSecure_AesPerformOperationAndZeroizeKey(u32 AesParamsAddrLow, u32 AesParamsAddrHigh, u32 KeyAddrLow, u32 KeyAddrHigh)
@@ -123,3 +124,4 @@ END_KEY_CLR:
 END:
 	return Status;
 }
+/** @} */

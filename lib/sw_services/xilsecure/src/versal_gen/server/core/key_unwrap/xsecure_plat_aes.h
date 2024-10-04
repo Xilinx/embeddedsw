@@ -8,7 +8,7 @@
 *
 * @file xsecure_plat_aes.h
 *
-* @note
+* This file contains Versal Net specific code for Xilsecure aes server.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,7 +20,6 @@
 *       kpt   06/13/24 Added AES key unwrap with padding support.
 *
 * </pre>
-*
 *
 ******************************************************************************/
 /**

@@ -11,8 +11,6 @@
 * This file contains the common defines, structures between different SHA
 * platforms
 *
-* @note
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -20,13 +18,13 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 5.4   kal  07/24/2024 Initial release
 *
-*
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
+/**
+* @addtogroup xsecure_sha_server_apis XilSecure SHA Server APIs
+* @{
+*/
 #ifndef XSECURE_SHA_COMMON_H
 #define XSECURE_SHA_COMMON_H
 
@@ -54,8 +52,8 @@ extern "C" {
 
 #define XSECURE_SHA3_BLOCK_LEN		(104U) /**< SHA min block length */
 
-#define XSECURE_PMC_DMA_MAX_TRANSFER	(0x1FFFFFFCU) /** < PMC DMA Max Transfer
-							  rate in bytes*/
+#define XSECURE_PMC_DMA_MAX_TRANSFER	(0x1FFFFFFCU)
+				/**< PMC DMA Max Transfer rate in bytes*/
 #define XSECURE_SHA_TIMEOUT_MAX         (0x1FFFFU)
 
 #define XSECURE_HASH_SIZE_IN_BYTES      (48U)
@@ -150,6 +148,5 @@ extern const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES];
 }
 #endif
 
-#endif /** XSECURE_SHA_H */
-
-/* @} */
+#endif /** XSECURE_SHA_COMMON_H */
+/** @} */

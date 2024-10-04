@@ -26,10 +26,11 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_hmac_apis Xilsecure HMAC APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 
 #include "xsecure_hmac.h"
@@ -58,16 +59,17 @@ static void XSecure_HmacXor(const u32 *Data, const u8 Value, u32 *Result);
 /*****************************************************************************/
 /**
  *
- * @brief
- * This function initializes the HMAC instance
+ * @brief	This function initializes the HMAC instance
  *
  * @param	InstancePtr	is the pointer to the XSecure_Hmac instance
  * @param	Sha3InstancePtr	is the pointer to the XSecure_Sha3 instance.
- * @param	KeyAddr holds the address of HMAC key.
- * @param	KeyLen variable holds the length of the key.
+ * @param	KeyAddr		holds the address of HMAC key.
+ * @param	KeyLen		variable holds the length of the key.
  *
- * @return	XST_SUCCESS if initialization was successful.
- * 		Error Code on failure.
+ * @return
+ *		 - XST_SUCCESS  If initialization was successful.
+ *		 - XSECURE_HMAC_INVALID_PARAM  If any input parameter is invalid.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_HmacInit(XSecure_Hmac *InstancePtr,
@@ -127,18 +129,18 @@ RET:
 
 /*****************************************************************************/
 /**
- *
- * @brief
- * This function updates the data to be authenticated, which can be called
- * repeatedly with chunks of the message to be authenticated
- * (len bytes at data).
+ * @brief	This function updates the data to be authenticated, which can be called
+ * 		repeatedly with chunks of the message to be authenticated
+ * 		(len bytes at data).
  *
  * @param	InstancePtr	is the pointer to the XSecure_Hmac instance
- * @param	DataAddr holds the address of data to be updated.
- * @param	Len variable holds the length of data.
+ * @param	DataAddr	holds the address of data to be updated.
+ * @param	Len		variable holds the length of data.
  *
- * @return	XST_SUCCESS if initialization was successful.
- *		Error Code on failure.
+ * @return
+ *		 - XST_SUCCESS  If initialization was successful.
+ *		 - XSECURE_HMAC_INVALID_PARAM  If any input parameter is invalid.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_HmacUpdate(XSecure_Hmac *InstancePtr, u64 DataAddr, u32 Len)
@@ -170,14 +172,15 @@ END:
 /*****************************************************************************/
 /**
  *
- * @brief
- * This function calculates the final HMAC
+ * @brief	This function calculates the final HMAC
  *
  * @param	InstancePtr	is the pointer to the XSecure_Hmac instance
- * @param	Hmac is the pointer of 48 bits which holds the resultant HMAC.
+ * @param	Hmac		is the pointer of 48 bits which holds the resultant HMAC.
  *
- * @return	XST_SUCCESS if initialization was successful.
- * 		Error Code on failure.
+ * @return
+ *		 - XST_SUCCESS  If initialization was successful.
+ *		 - XSECURE_HMAC_INVALID_PARAM  If any input parameter is invalid.
+ *		 - XST_FAILURE  On failure.
  *
  * @note	Though HMAC can be truncated, as the truncation of data may
  *		lead to security implications, this function always fills the
@@ -250,17 +253,17 @@ RET:
 /*****************************************************************************/
 /**
  *
- * @brief
- * This function pre process the key to SHA3 block length and the final key is
- * been stored into the K0 array.
+ * @brief	This function pre process the key to SHA3 block length and the final key is
+ * 		been stored into the K0 array.
  *
  * @param	InstancePtr	is the pointer to the XSecure_Hmac instance
- * @param	KeyAddr is the variable which holds the address of key for HMAC
- * @param	KeyLen variable holds the length of the key
- * @param	KeyOut is the variable which holds the output key buffer's address
+ * @param	KeyAddr		is the variable which holds the address of key for HMAC
+ * @param	KeyLen		variable holds the length of the key
+ * @param	KeyOut		is the variable which holds the output key buffer's address
  *
- * @return	XST_SUCCESS if initialization was successful.
- *		Error Code on failure.
+ * @return
+ *		 - XST_SUCCESS  If initialization was successful.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,
@@ -315,16 +318,13 @@ END:
 /*****************************************************************************/
 /**
  *
- * @brief
- * This function performs XOR operation on provided data of SHA3 block length
- * with constant provided on whole bytes of data and result is been updated.
+ * @brief	This function performs XOR operation on provided data of SHA3 block length
+ * 		with constant provided on whole bytes of data and result is been updated.
  *
- * @param	Data is the pointer which holds data to be XORed.
- * @param	Value with which XOR operation to be performed.
- * @param	Result is the pointer of SHA3 block length array which is been
+ * @param	Data	is the pointer which holds data to be XORed.
+ * @param	Value	with which XOR operation to be performed.
+ * @param	Result	is the pointer of SHA3 block length array which is been
  * 			updated with the result.
- *
- * @return	None.
  *
  ******************************************************************************/
 static void XSecure_HmacXor(const u32 *Data, const u8 Value, u32 *Result)
@@ -340,4 +340,4 @@ static void XSecure_HmacXor(const u32 *Data, const u8 Value, u32 *Result)
 		Result[Index] = Data[Index] ^ ValData;
 	}
 }
-
+/** @} */
