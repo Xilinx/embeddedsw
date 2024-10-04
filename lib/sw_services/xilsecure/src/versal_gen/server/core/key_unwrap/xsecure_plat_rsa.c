@@ -8,7 +8,7 @@
 /**
 *
 * @file xsecure_plat_rsa.c
-* This file contains versalnet specific code for xilsecure rsa server.
+* This file contains Versal Net specific code for Xilsecure rsa server.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -33,7 +33,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_rsa_server_apis Xilsecure RSA Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 
 #ifdef SDT
@@ -82,15 +85,17 @@ static int XSecure_GenerateRsaKeyPair(void* arg);
 /*****************************************************************************/
 /**
  * @brief	This function encodes the given message using PKCS #1 v2.0
- *          RSA Optimal Asymmetric Encryption Padding scheme.
- *              EM = 0x00 || maskedSeed || maskedDB
+ *		RSA Optimal Asymmetric Encryption Padding scheme.
+ *		EM = 0x00 || maskedSeed || maskedDB
  *
- * @param	OaepParam is pointer to the XSecure_RsaOaepParam instance.
- * @param	OutputAddr is address where the encoded data is stored.
+ * @param	OaepParam	is pointer to the XSecure_RsaOaepParam instance.
+ * @param	OutputAddr	is address where the encoded data is stored.
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_RSA_OAEP_INVALID_PARAM  On invalid parameter.
+ *		 - XSECURE_RSA_OAEP_INVALID_MSG_LEN  On invalid message length.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 static int XSecure_RsaOaepEncode(XSecure_RsaOaepParam *OaepParam, u64 OutputAddr)
@@ -174,15 +179,21 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function decodes the given message which is encoded with
- *              RSA Optimal Asymmetric Encryption Padding scheme i.e.
- *              EM = 0x00 || maskedSeed || maskedDB
+ *		RSA Optimal Asymmetric Encryption Padding scheme i.e.
+ *		EM = 0x00 || maskedSeed || maskedDB
  *
- * @param	OaepParam is pointer to the XSecure_RsaOaepParam instance.
- * @param	InputDataAddr is the address where decrypted output data is stored.
+ * @param	OaepParam	is pointer to the XSecure_RsaOaepParam instance.
+ * @param	InputDataAddr	is the address where decrypted output data is stored.
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_RSA_OAEP_INVALID_PARAM  On invalid parameter.
+ *		 - XSECURE_RSA_OAEP_BYTE_MISMATCH_ERROR  If byte mismatch.
+ *		 - XSECURE_RSA_OAEP_DATA_CPY_ERROR  If data copy fails.
+ *		 - XSECURE_RSA_OAEP_DATA_CMP_ERROR  If data compare fails.
+ *		 - XSECURE_RSA_OAEP_DB_MISMATCH_ERROR  If DB ia mismatched.
+ *		 - XSECURE_RSA_OAEP_INVALID_MSG_LEN  On invalid message length.
+ *		 - XST_FAILURE On failure.
  *
  ******************************************************************************/
 static int XSecure_RsaOaepDecode(XSecure_RsaOaepParam *OaepParam, u64 InputDataAddr)
@@ -284,12 +295,13 @@ END:
 /**
  * @brief	This function encodes the given message using RSA OAEP and encrypts it.
  *
- * @param	InstancePtr is pointer to the XSecure_Rsa instance.
- * @param	OaepParam is pointer to the XSecure_RsaOaepParam instance.
+ * @param	InstancePtr	is pointer to the XSecure_Rsa instance.
+ * @param	OaepParam	is pointer to the XSecure_RsaOaepParam instance.
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_RSA_OAEP_INVALID_PARAM  On invalid parameter.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_RsaOaepEncrypt(XSecure_Rsa *InstancePtr, XSecure_RsaOaepParam *OaepParam)
@@ -319,12 +331,13 @@ END:
 /**
  * @brief	This function decodes the given message and decrypts it using RSA OAEP.
  *
- * @param	PrivKey is pointer to the XSecure_RsaPrivKey instance.
- * @param	OaepParam is pointer to the XSecure_RsaOaepParam instance.
+ * @param	PrivKey	is pointer to the XSecure_RsaPrivKey instance.
+ * @param	OaepParam	is pointer to the XSecure_RsaOaepParam instance.
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_RSA_OAEP_INVALID_PARAM  On invalid parameter.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_RsaOaepDecrypt(XSecure_RsaPrivKey *PrivKey, XSecure_RsaOaepParam *OaepParam)
@@ -364,20 +377,21 @@ END:
 /*****************************************************************************/
 /**
  *
- * @param	Hash  is the Hash of the exponentiation.
- * @param	P     is first factor, a positive integer.
- * @param	Q     is second factor, a positive integer.
- * @param	Dp    is first factor's CRT exponent, a positive integer.
- * @param	Dq    is second factor's CRT exponent, a positive integer.
- * @param	Qinv  is (first) CRT coefficient, a positive integer.
- * @param	Pub   is the public exponent to protect against the fault insertions.
- * @param	Mod   is the public modulus (p*q), if NULL, calculated internally.
- * @param	Len   is length of the full-length integer in bits.
- * @param	Res   is result of exponentiation r = (h^e) mod n.
+ * @param	Hash	is the Hash of the exponentiation.
+ * @param	P	is first factor, a positive integer.
+ * @param	Q	is second factor, a positive integer.
+ * @param	Dp	is first factor's CRT exponent, a positive integer.
+ * @param	Dq	is second factor's CRT exponent, a positive integer.
+ * @param	Qinv	is (first) CRT coefficient, a positive integer.
+ * @param	Pub	is the public exponent to protect against the fault insertions.
+ * @param	Mod	is the public modulus (p*q), if NULL, calculated internally.
+ * @param	Len	is length of the full-length integer in bits.
+ * @param	Res	is result of exponentiation r = (h^e) mod n.
  *
  * @return
- *		- XST_SUCCESS on success.
- *		- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_RSA_EXPONENT_INVALID_PARAM  On invalid parameter.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_RsaExpCRT(u8 *Hash, u8 *P, u8 *Q, u8 *Dp, u8 *Dq, u8 *Qinv, u8 *Pub,
@@ -407,19 +421,20 @@ END:
 /**
  * @brief	This function perofrms the RSA exponentiation.
  *
- * @param	Hash  is Hash of the exponentiation.
- * @param	Exp   is exponent, a positive integer.
- * @param	Mod   is public modulus (p*q), if NULL, calculated internally.
- * @param	P     is first factor, a positive integer.
- * @param	Q     is second factor, a positive integer.
- * @param	Pub   is public exponent to protect against the fault insertions.
- * @param	Tot   is totient, a secret value equal to (p-1)*(q-1).
- * @param	Len   is length of the full-length integer in bits.
- * @param	Res   is result of exponentiation r = (h^e) mod n.
+ * @param	Hash	is Hash of the exponentiation.
+ * @param	Exp	is exponent, a positive integer.
+ * @param	Mod	is public modulus (p*q), if NULL, calculated internally.
+ * @param	P	is first factor, a positive integer.
+ * @param	Q	is second factor, a positive integer.
+ * @param	Pub	is public exponent to protect against the fault insertions.
+ * @param	Tot	is totient, a secret value equal to (p-1)*(q-1).
+ * @param	Len	is length of the full-length integer in bits.
+ * @param	Res	is result of exponentiation r = (h^e) mod n.
  *
  * @return
- *		- XST_SUCCESS on success.
- *		- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_RSA_EXPONENT_INVALID_PARAM  On invalid parameter.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_RsaExp(u8 *Hash, u8 *Exp, u8 *Mod, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
@@ -448,21 +463,22 @@ END:
 /**
  * @brief	This function perofrms the RSA exponentiation using pre-calculated modulus.
  *
- * @param	Hash - is Hash of the exponentiation.
- * @param	Exp  - is exponent, a positive integer.
- * @param	Mod  - is public modulus (p*q), if NULL, calculated internally.
- * @param	RN   - is pre-calculated modulus RmodN
- * @param	RRN  - is pre-calculated modulus RRmodN
- * @param	P    - is first factor, a positive integer.
- * @param	Q    - is second factor, a positive integer.
- * @param	Pub  - is public exponent to protect against the fault insertions.
- * @param	Tot  - is totient, a secret value equal to (p-1)*(q-1).
- * @param	Len  - is length of the full-length integer in bits.
- * @param	Res  - is result of exponentiation r = (h^e) mod n.
+ * @param	Hash	is Hash of the exponentiation.
+ * @param	Exp	is exponent, a positive integer.
+ * @param	Mod	is public modulus (p*q), if NULL, calculated internally.
+ * @param	RN	is pre-calculated modulus RmodN
+ * @param	RRN	is pre-calculated modulus RRmodN
+ * @param	P	is first factor, a positive integer.
+ * @param	Q	is second factor, a positive integer.
+ * @param	Pub	is public exponent to protect against the fault insertions.
+ * @param	Tot	is totient, a secret value equal to (p-1)*(q-1).
+ * @param	Len	is length of the full-length integer in bits.
+ * @param	Res	is result of exponentiation r = (h^e) mod n.
  *
  * @return
- *		- XST_SUCCESS on success.
- * 		- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_RSA_EXPONENT_INVALID_PARAM  On invalid parameter.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_RsaExpopt(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
@@ -492,8 +508,9 @@ END:
 /**
  * @brief	This function adds periodic task of generation RSA key pair to scheduler.
  *
- * @return	XST_SUCCESS on success.
- * @return	XSECURE_ERR_ADD_TASK_SCHEDULER if failed to add task to scheduler.
+ * @return
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_ERR_ADD_TASK_SCHEDULER  If failed to add task to scheduler.
  *
  ******************************************************************************/
 int XSecure_AddRsaKeyPairGenerationToScheduler(void)
@@ -518,8 +535,9 @@ int XSecure_AddRsaKeyPairGenerationToScheduler(void)
 /**
  * @brief	This function removes keypair generation task from scheduler.
  *
- * @return	XST_SUCCESS on success.
- * 	        XSECURE_ERR_REMOVE_TASK_SCHEDULER if failed to remove task from scheduler.
+ * @return
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_ERR_REMOVE_TASK_SCHEDULER  If failed to remove task from scheduler.
  *
  ******************************************************************************/
 static int XSecure_RemoveRsaKeyPairGenerationFromScheduler(void)
@@ -540,14 +558,15 @@ static int XSecure_RemoveRsaKeyPairGenerationFromScheduler(void)
 /**
  * @brief	This function performs the RSA key initialization.
  *
- * @param	RsaParam - is the pointer to XSecure_RsaKeyGenParam.
- * @param   KeyPairState - is the pointer to XSecure_RsaKeyPtr which holds the state of
- *                         key that needs to be generated.
- * @param	RsaKeyLen   - Length of RSA key length in bytes.
+ * @param	RsaParam	is the pointer to XSecure_RsaKeyGenParam.
+ * @param	KeyPairState	is the pointer to XSecure_RsaKeyPtr which holds the state of
+ *				key that needs to be generated.
+ * @param	RsaKeyLen	Length of RSA key length in bytes.
  *
  * @return
- *		- XST_SUCCESS on success.
- * 		- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_RSA_INVALID_PARAM  If input parameter is invalid.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 static int XSecure_RsaKeyGenInit(XSecure_RsaKeyGenParam* RsaParam, XSecure_RsaKeyPtr* KeyPairState, u32 RsaKeyLen)
@@ -608,13 +627,14 @@ END:
 /**
  * @brief	This function performs the RSA key generation in steps.
  *
- * @param	KeyPairState - is pointer to the XSecure_RsaKeyPtr.
- * @param	QuantSize    - Size of the key generation steps in terms of quant size
- *                         i.e. Half-size RSA key.
+ * @param	KeyPairState	is pointer to the XSecure_RsaKeyPtr.
+ * @param	QuantSize	Size of the key generation steps in terms of quant size
+ *				i.e. Half-size RSA key.
  *
  * @return
- *		- XST_SUCCESS on success.
- * 		- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_RSA_INVALID_PARAM  If input parameter is invalid.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 static int XSecure_RsaKeyGenerate(XSecure_RsaKeyPtr *KeyPairState, u32 QuantSize)
@@ -643,7 +663,7 @@ END:
  * @brief	This function returns RSA key inuse index.
  *
  * @return
- *		KeyInUse to indicate the key that is in use
+ *		 - KeyInUse  To indicate the key that is in use
  *
  ******************************************************************************/
 u32 XSecure_GetRsaKeyInUseIdx(void)
@@ -662,8 +682,8 @@ u32 XSecure_GetRsaKeyInUseIdx(void)
  * @brief	This function destroys the RSA key in use.
  *
  * @return
- *		- XST_SUCCESS on success.
- * 		- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_RsaDestroyKeyInUse(void)
@@ -706,8 +726,9 @@ END:
  * @brief	This function performs the RSA key generation.
  *
  * @return
- *		- XST_SUCCESS on success.
- * 		- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XSECURE_ERR_RSA_KEY_PAIR_GEN_SCHEDULER  If RSA key pair generation fails.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 static int XSecure_GenerateRsaKeyPair(void* arg)
@@ -792,7 +813,8 @@ END:
 /**
  * @brief	This function returns pointer to XSecure_RsaKeyMgmt instance.
  *
- * @return	RsaKeyMgmt - is pointer to the XSecure_RsaKeyMgmt instances.
+ * @return
+ *		 - RsaKeyMgmt  is pointer to the XSecure_RsaKeyMgmt instances.
  *
  ******************************************************************************/
 static XSecure_RsaKeyMgmt* XSecure_GetRsaKeyMgmtInstance(void) {
@@ -806,7 +828,7 @@ static XSecure_RsaKeyMgmt* XSecure_GetRsaKeyMgmtInstance(void) {
  * @brief	This function returns RSA private key.
  *
  * @return
- *		- Pointer to XSecure_RsaPrivKey or NULL otherwise.
+ * 		 - Pointer to XSecure_RsaPrivKey or NULL otherwise.
  *
  ******************************************************************************/
 XSecure_RsaPrivKey* XSecure_GetRsaPrivateKey(u32 RsaIdx)
@@ -826,7 +848,7 @@ XSecure_RsaPrivKey* XSecure_GetRsaPrivateKey(u32 RsaIdx)
  * @brief	This function returns RSA public key.
  *
  * @return
- *		- Pointer to XSecure_RsaPubKey or NULL otherwise.
+ *		 - Pointer to XSecure_RsaPubKey or NULL otherwise.
  *
  ******************************************************************************/
 XSecure_RsaPubKey* XSecure_GetRsaPublicKey(u32 RsaIdx)
@@ -845,12 +867,12 @@ XSecure_RsaPubKey* XSecure_GetRsaPublicKey(u32 RsaIdx)
 /**
  * @brief	This function returns RSA key index based on RsaKeyStatus.
  *
- * @param	RsaKeyIdx - is pointer to the variable containing RSA free index.
- * @param   RsaKeyStatus  -  Key status to be checked.
+ * @param	RsaKeyIdx	is pointer to the variable containing RSA free index.
+ * @param	RsaKeyStatus	Key status to be checked.
  *
  * @return
- *		- XST_SUCCESS on success.
- * 		- Error code on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 static int XSecure_GetRsaKeySlotIdx(u32 *RsaKeyIdx, u32 RsaKeyStatus)
@@ -876,7 +898,7 @@ static int XSecure_GetRsaKeySlotIdx(u32 *RsaKeyIdx, u32 RsaKeyStatus)
  * @brief	This function returns RSA free key generation param.
  *
  * @return
- *		- Pointer to XSecure_RsaKeyGenParam or NULL otherwise.
+ *		 - Pointer to XSecure_RsaKeyGenParam or NULL otherwise.
  *
  ******************************************************************************/
 static XSecure_RsaKeyGenParam* XSecure_GetRsaKeyGenParam(void)
@@ -902,3 +924,4 @@ END:
 }
 
 #endif
+/** @} */

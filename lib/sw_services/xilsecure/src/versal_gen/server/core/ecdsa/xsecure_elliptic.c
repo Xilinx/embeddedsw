@@ -63,7 +63,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 
@@ -100,15 +103,15 @@ static u32 XSecure_EllipticValidateAndGetCrvInfo(XSecure_EllipticCrvTyp CrvType,
  * @brief	This function generates Public Key for a given curve type using
  *		private key where both keys located at 64 bit address
  *
- * @param	CrvType  Is a type of elliptic curve
- * @param	DAddr    Address of static private key
- * @param	KeyAddr  Pointer to public key address
+ * @param	CrvType	Is a type of elliptic curve
+ * @param	DAddr	Address of static private key
+ * @param	KeyAddr	Pointer to public key address
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - When elliptic Curve is not supported
- *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *	-	XSECURE_ELLIPTIC_GEN_KEY_ERR - Error in generating Public key
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  When elliptic Curve is not supported
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
+ *		 - XSECURE_ELLIPTIC_GEN_KEY_ERR  Error in generating Public key
  *
  *****************************************************************************/
 int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
@@ -193,15 +196,14 @@ END:
 /**
  * @brief	This function generates Public Key for a given curve type
  *
- * @param	CrvType  Is a type of elliptic curve
- * @param	D        Pointer to static private key
- * @param	Key      Pointer to public key
+ * @param	CrvType	Is a type of elliptic curve
+ * @param	D	Pointer to static private key
+ * @param	Key	Pointer to public key
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - When elliptic Curve is not supported
- *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *	-	XSECURE_ELLIPTIC_GEN_KEY_ERR - Error in generating Public key
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  When elliptic Curve is not supported
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
  *
  *****************************************************************************/
 int XSecure_EllipticGenerateKey(XSecure_EllipticCrvTyp CrvType, const u8* D,
@@ -227,6 +229,7 @@ int XSecure_EllipticGenerateKey(XSecure_EllipticCrvTyp CrvType, const u8* D,
 	KeyAddr.Qx = (u64)(UINTPTR)Key->Qx;
 	KeyAddr.Qy = (u64)(UINTPTR)Key->Qy;
 
+	/** Generate public key with provided private key and curve type */
 	Status = XSecure_EllipticGenerateKey_64Bit(CrvType, (u64)(UINTPTR)D,
 			(XSecure_EllipticKeyAddr *) &KeyAddr);
 
@@ -239,20 +242,21 @@ END:
  * @brief	This function generates signature for a given hash and curve
  *		type where data is located at 64-bit address.
  *
- * @param	CrvType  Type of elliptic curve
- * @param	HashInfo  Pointer to Hash Data i.e. Hash Address and length
- * @param	DAddr     Address of the static private key
- * @param	KAddr     Ephemeral private key
- * @param	SignAddr  Pointer to signature address
+ * @param	CrvType		Type of elliptic curve
+ * @param	HashInfo	Pointer to Hash Data i.e. Hash Address and length
+ * @param	DAddr		Address of the static private key
+ * @param	KAddr		Ephemeral private key
+ * @param	SignAddr	Pointer to signature address
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *	-	XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM - When Bad random number used
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  If curve data pointer is NULL
+ *		 - XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM  When Bad random number used
  *						for sign generation
- *	-	XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN - Incorrect hash length for sign
+ *		 - XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN  Incorrect hash length for sign
  *							generation
- *	-	XST_FAILURE - On failure
+ *		 - XST_FAILURE  On any other failures
  *
  * @note
  * K, the ephemeral private key, shall be an unpredictable (cryptographically
@@ -337,7 +341,10 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
-	/** Generate signature with provided hash and curve type */
+	/**
+	 * Generate signature with provided hash, private key, ephemeral key
+	 * and curve type.
+	 */
 	XSECURE_TEMPORAL_IMPL(GenStatus, GenStatusTmp, Ecdsa_GenerateSign,
 		Crv, PaddedHash, Crv->Bits, D, K, (EcdsaSign *)&Sign);
 
@@ -385,21 +392,16 @@ END:
 /**
  * @brief	This function generates signature for a given hash and curve type
  *
- * @param	CrvType  Type of elliptic curve
- * @param	Hash     Pointer to the hash for which sign has to be generated
- * @param	HashLen  Length of the hash in bytes
- * @param	D        Pointer to the static private key
- * @param	K        Ephemeral private key
- * @param	Sign     Pointer to the signature
+ * @param	CrvType	Type of elliptic curve
+ * @param	Hash	Pointer to the hash for which sign has to be generated
+ * @param	HashLen	Length of the hash in bytes
+ * @param	D	Pointer to the static private key
+ * @param	K	Ephemeral private key
+ * @param	Sign	Pointer to the signature
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *	-	XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM - When Bad random number used
- *						for sign generation
- *	-	XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN - Incorrect hash
- *							length for sign generation
- *	-	XST_FAILURE - On failure
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
  *
  * @note
  * K, the ephemeral private key, shall be an unpredictable (cryptographically
@@ -441,6 +443,10 @@ int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType,
 	HashInfo.Addr = (u64)(UINTPTR)Hash;
 	HashInfo.Len = HashLen;
 
+	/**
+	 * Generate signature with provided hash, private key, ephemeral key
+	 * and curve type
+	 */
 	Status = XSecure_EllipticGenerateSignature_64Bit(CrvType,
 			(XSecure_EllipticHashData *) &HashInfo,
 			(u64)(UINTPTR)D,
@@ -456,16 +462,17 @@ END:
  * @brief	This function validates the public key for a given curve type
  *		where key is located at 64-bit address.
  *
- * @param	CrvType  Type of elliptic curve
- * @param	KeyAddr  Pointer to public key address
+ * @param	CrvType	Type of elliptic curve
+ * @param	KeyAddr	Pointer to public key address
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *	-	XSECURE_ELLIPTIC_KEY_ZERO - When Public key is zero
- *	-	XSECURE_ELLIPTIC_KEY_WRONG_ORDER - Wrong order of Public key
- *	-	XSECURE_ELLIPTIC_KEY_NOT_ON_CRV - When Key is not found on the curve
- *	-	XST_FAILURE - On failure
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  If curve data pointer is NULL
+ *		 - XSECURE_ELLIPTIC_KEY_ZERO  When Public key is zero
+ *		 - XSECURE_ELLIPTIC_KEY_WRONG_ORDER  Wrong order of Public key
+ *		 - XSECURE_ELLIPTIC_KEY_NOT_ON_CRV  When Key is not found on the curve
+ *		 - XST_FAILURE  On any other failures
  *
  *****************************************************************************/
 int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
@@ -547,16 +554,12 @@ END:
 /**
  * @brief	This function validates the public key for a given curve type
  *
- * @param	CrvType  Type of elliptic curve
- * @param	Key      Pointer to the public key
+ * @param	CrvType	Type of elliptic curve
+ * @param	Key	Pointer to the public key
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *	-	XSECURE_ELLIPTIC_KEY_ZERO - When Public key is zero
- *	-	XSECURE_ELLIPTIC_KEY_WRONG_ORDER - Wrong order of Public key
- *	-	XSECURE_ELLIPTIC_KEY_NOT_ON_CRV - When Key is not found on the curve
- *	-	XST_FAILURE - On failure
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
  *
  *****************************************************************************/
 int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
@@ -582,6 +585,7 @@ int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
 	KeyAddr.Qx = (u64)(UINTPTR)Key->Qx;
 	KeyAddr.Qy = (u64)(UINTPTR)Key->Qy;
 
+	/** Validate the public key for a given curve type */
 	Status = XSecure_EllipticValidateKey_64Bit(CrvType,
 			(XSecure_EllipticKeyAddr *) &KeyAddr);
 
@@ -594,22 +598,23 @@ END:
  * @brief	This function verifies the signature for a given hash, key and
  *		curve type where data is located at 64-bit address
  *
- * @param	CrvType   Type of elliptic curve
- * @param	HashInfo  Pointer to Hash Data i.e. Hash Address and length
- * @param	KeyAddr   Pointer to public key address
- * @param	SignAddr  Pointer to signature address
+ * @param	CrvType		Type of elliptic curve
+ * @param	HashInfo	Pointer to Hash Data i.e. Hash Address and length
+ * @param	KeyAddr		Pointer to public key address
+ * @param	SignAddr	Pointer to signature address
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *	-	XSECURE_ELLIPTIC_BAD_SIGN - When signature provided for verification is bad
- *	-	XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN - Incorrect hash length
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
+ *		 - XSECURE_ELLIPTIC_NON_SUPPORTED_CRV  If curve data pointer is NULL
+ *		 - XSECURE_ELLIPTIC_BAD_SIGN  When signature provided for verification is bad
+ *		 - XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN  Incorrect hash length
  *						for sign verification
- *	-	XSECURE_ELLIPTIC_VER_SIGN_R_ZERO - R set to zero
- *	-	XSECURE_ELLIPTIC_VER_SIGN_S_ZERO - S set to zero
- *	-	XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR - R is not within ECC order
- *	-	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR - S is not within ECC order
- *	-	XST_FAILURE - On failure
+ *		 - XSECURE_ELLIPTIC_VER_SIGN_R_ZERO  R set to zero
+ *		 - XSECURE_ELLIPTIC_VER_SIGN_S_ZERO  S set to zero
+ *		 - XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR  R is not within ECC order
+ *		 - XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR  S is not within ECC order
+ *		 - XST_FAILURE  On any other failures
  *
  *****************************************************************************/
 int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
@@ -689,7 +694,7 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
-	/** Verify signature with provided hash, key and curve type */
+	/** Verify signature with provided hash, public key and curve type */
 	XSECURE_TEMPORAL_IMPL(VerifyStatus, VerifyStatusTmp, Ecdsa_VerifySign,
 		Crv, PaddedHash, Crv->Bits, (EcdsaKey *)&Key, (EcdsaSign *)&Sign);
 
@@ -736,23 +741,15 @@ END:
  * @brief	This function verifies the signature for a given hash, key and
  *		curve type
  *
- * @param	CrvType  Type of elliptic curve
- * @param	Hash     Pointer to the hash for which sign has to be generated
- * @param	HashLen  Length of hash in bytes
- * @param	Key      Pointer to the public key
- * @param	Sign     Pointer to the signature
+ * @param	CrvType	Type of elliptic curve
+ * @param	Hash	Pointer to the hash for which sign has to be generated
+ * @param	HashLen	Length of hash in bytes
+ * @param	Key	Pointer to the public key
+ * @param	Sign	Pointer to the signature
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *	-	XSECURE_ELLIPTIC_BAD_SIGN - When signature provided for verification is bad
- *	-	XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN - Incorrect hash length
- *						for sign verification
- *	-	XSECURE_ELLIPTIC_VER_SIGN_R_ZERO - R set to zero
- *	-	XSECURE_ELLIPTIC_VER_SIGN_S_ZERO - S set to zero
- *	-	XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR - R is not within ECC order
- *	-	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR - S is not within ECC order
- *	-	XST_FAILURE - On failure
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_ELLIPTIC_INVALID_PARAM  On invalid argument
  *
  *****************************************************************************/
 int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
@@ -791,6 +788,7 @@ int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 	HashInfo.Addr = (u64)(UINTPTR)Hash;
 	HashInfo.Len = HashLen;
 
+	/** Verify signature with provided hash, public key and curve type */
 	Status = XSecure_EllipticVerifySign_64Bit(CrvType,
 			(XSecure_EllipticHashData *) &HashInfo,
 			(XSecure_EllipticKeyAddr *) &KeyAddr,
@@ -804,10 +802,10 @@ END:
 /**
  * @brief	This function gets the curve related information
  *
- * @param	CrvTyp  Type of the elliptic curve
+ * @param	CrvTyp	Type of the elliptic curve
  *
  * @return
- *	-	Crv - Curve information
+ *		 - Crv  Curve information
  *
  *****************************************************************************/
 EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp)
@@ -824,6 +822,7 @@ EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp)
 		goto END;
 	}
 
+	/** Get the curve data */
 	for (Index = 0U; Index < TotalCurves; Index++) {
 		if (XSecure_EllipticCrvsDb[Index].CrvType == (EcdsaCrvTyp)CrvTyp) {
 			Crv = &XSecure_EllipticCrvsDb[Index];
@@ -840,9 +839,9 @@ END:
  * @brief	This function copies data from 32/64 bit address to
  *		local buffer.
  *
- * @param	Size 	 Length of data in bytes
- * @param	Dst      Pointer to the destination buffer
- * @param	SrcAddr  Source address
+ * @param	Size	Length of data in bytes
+ * @param	Dst	Pointer to the destination buffer
+ * @param	SrcAddr	Source address
  *
  *****************************************************************************/
 void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr)
@@ -850,6 +849,10 @@ void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr)
 	u32 Index = 0U;
 	s32 RIndex = (s32)Size - 1;
 
+	/**
+	 * Copies data from provided address to local buffer based on the
+	 * endianness configured
+	 */
 	for (Index = 0U; (Index < Size) && (RIndex >= 0); Index++, RIndex--) {
 		if (XSECURE_ELLIPTIC_ENDIANNESS == XSECURE_ELLIPTIC_LITTLE_ENDIAN) {
 			Dst[Index] = XSecure_InByte64((SrcAddr + Index));
@@ -865,9 +868,9 @@ void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr)
  * @brief	This function copies data to 32/64 bit address from
  *		local buffer.
  *
- * @param	Size 	 Length of data in bytes
- * @param	Src      Pointer to the source buffer
- * @param	DstAddr  Destination address
+ * @param	Size	Length of data in bytes
+ * @param	Src	Pointer to the source buffer
+ * @param	DstAddr	Destination address
  *
  *****************************************************************************/
 void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr)
@@ -875,6 +878,10 @@ void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr)
 	u32 Index = 0U;
 	s32 RIndex = (s32)Size - 1;
 
+	/**
+	 * Copies data to provided address from local buffer based on the
+	 * endianness configured
+	 */
 	for (Index = 0U; (Index < Size) && (RIndex >= 0); Index++, RIndex--) {
 		if (XSECURE_ELLIPTIC_ENDIANNESS == XSECURE_ELLIPTIC_LITTLE_ENDIAN) {
 			XSecure_OutByte64((DstAddr + Index), Src[Index]);
@@ -893,11 +900,11 @@ void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr)
  *		- Copies data without changing any endianness when library is
  *		operating in big endain.
  *
- * @param	Size 	 Length of data in bytes
- * @param	SrcAddr  Address of the source buffer
- * @param	DstAddr  Destination address
+ * @param	Size	Length of data in bytes
+ * @param	SrcAddr	Address of the source buffer
+ * @param	DstAddr	Destination address
  *
- * @note	This is the helper function to convert the endianess as required.
+ * @note	This is the helper function to convert the endianness as required.
  *
  *****************************************************************************/
 void XSecure_FixEndiannessNCopy(const u32 Size, u64 DstAddr, const u64 SrcAddr)
@@ -919,11 +926,11 @@ void XSecure_FixEndiannessNCopy(const u32 Size, u64 DstAddr, const u64 SrcAddr)
 /**
  * @brief	This function validates and gets curve info and curve size in bytes
  *
- * @param	CrvType  Is a type of elliptic curve
- * @param	Crv      Pointer to EcdsaCrvInfo
+ * @param	CrvType	Is a type of elliptic curve
+ * @param	Crv	Pointer to EcdsaCrvInfo
  *
  * @return
- *	-	CrvSize - Size of curve in bytes
+ *		 - CrvSize  Size of curve in bytes
  *
  *****************************************************************************/
 static u32 XSecure_EllipticValidateAndGetCrvInfo(XSecure_EllipticCrvTyp CrvType,
@@ -945,10 +952,10 @@ static u32 XSecure_EllipticValidateAndGetCrvInfo(XSecure_EllipticCrvTyp CrvType,
 /**
  * @brief	This function gets curve size in bytes
  *
- * @param	CrvType  Is a type of elliptic curve
+ * @param	CrvType	Is a type of elliptic curve
  *
  * @return
- *	-	CrvSize - Size of curve in bytes
+ *		 - CrvSize  Size of curve in bytes
  *
  *****************************************************************************/
 u32 XSecure_EllipticGetCrvSize(const XSecure_EllipticCrvTyp CrvType)
@@ -956,6 +963,7 @@ u32 XSecure_EllipticGetCrvSize(const XSecure_EllipticCrvTyp CrvType)
 	u32 CrvSize = 0U;
 	const EcdsaCrvInfo* CrvInfo = (EcdsaCrvInfo *)XSecure_EllipticGetCrvData(CrvType);
 
+	/** Get curve size */
 	if (CrvInfo != NULL) {
 		CrvSize = (u32)CrvInfo->Bits / XSECURE_ECDSA_BITS_IN_BYTES;
 		CrvSize += (CrvSize % XSECURE_ECDSA_ALGN_CRV_SIZE_IN_BYTES);
@@ -965,3 +973,4 @@ u32 XSecure_EllipticGetCrvSize(const XSecure_EllipticCrvTyp CrvType)
 }
 
 #endif
+/** @} */

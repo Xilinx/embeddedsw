@@ -9,7 +9,7 @@
 *
 * @file xsecure_plat_elliptic_ipihandler.h
 *
-* This file contains the xilsecure platform IPI handler declaration.
+* This file contains the Xilsecure platform IPI handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,7 +20,6 @@
 * 5.4   yog  04/29/24 Fixed doxygen grouping.
 *
 * </pre>
-*
 *
 ******************************************************************************/
 /**
@@ -54,3 +53,4 @@ int XSecure_PlatEllipticIpiHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XSECURE_PLAT_ELLIPTIC_IPIHANDLER_H_ */
+/** @} */

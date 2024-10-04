@@ -72,7 +72,6 @@
 * @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
 * @{
 */
-
 #ifndef XSECURE_RSA_H_
 #define XSECURE_RSA_H_
 
@@ -131,3 +130,4 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 #endif
 
 #endif /* XSECURE_RSA_H_ */
+/** @} */

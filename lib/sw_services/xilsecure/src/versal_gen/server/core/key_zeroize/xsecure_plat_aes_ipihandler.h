@@ -20,13 +20,11 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
 /**
 * @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
 * @{
 */
-
 #ifndef XSECURE_PLAT_AES_IPIHANDLER_H_
 #define XSECURE_PLAT_AES_IPIHANDLER_H_
 
@@ -49,3 +47,4 @@ int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XSECURE_PLAT_AES_IPIHANDLER_H_ */
+/** @} */

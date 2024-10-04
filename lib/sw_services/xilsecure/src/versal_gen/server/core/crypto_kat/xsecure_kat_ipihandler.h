@@ -9,7 +9,7 @@
 *
 * @file xsecure_kat_ipihandler.h
 *
-* This file contains the xilsecure KAT IPI handler declaration.
+* This file contains the Xilsecure KAT IPI handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,7 +21,6 @@
 * 5.4   yog  04/29/24 Fixed doxygen grouping.
 *
 * </pre>
-*
 *
 ******************************************************************************/
 /**
@@ -51,3 +50,4 @@ int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XSECURE_KAT_IPIHANDLER_H_ */
+/** @} */

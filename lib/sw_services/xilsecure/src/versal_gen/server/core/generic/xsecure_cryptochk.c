@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_cryptochk.h"
 #include "xsecure_utils.h"
@@ -41,8 +44,8 @@
  * 		programmed and PL loading is done
  *
  * @return
- *	-	XST_SUCCESS - When crypto accelerators are enabled
- *	-	XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED - When crypto accelerators
+ *		 - XST_SUCCESS  When crypto accelerators are enabled
+ *		 - XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED  When crypto accelerators
  *		are disabled
  *
  ******************************************************************************/
@@ -70,3 +73,4 @@ int XSecure_CryptoCheck(void)
 
 	return Status;
 }
+/** @} */

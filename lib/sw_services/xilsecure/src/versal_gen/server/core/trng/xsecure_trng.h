@@ -54,3 +54,4 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,7 +35,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_sss.h"
 #include "xsecure_utils.h"
@@ -54,11 +57,11 @@ static int XSecure_SssCfg (const XSecure_Sss *InstancePtr,
 /**
  * @brief	This function initializes the secure stream switch instance
  *
- * @param	InstancePtr   - Instance pointer to the XSecure_Sss
+ * @param	InstancePtr	Instance pointer to the XSecure_Sss
  *
  * @return
- *	-	XST_SUCCESS - If initialization was successful
- *	-	XSECURE_SSS_INVALID_PARAM - On invalid parameter
+ *		 - XST_SUCCESS  If initialization was successful
+ *		 - XSECURE_SSS_INVALID_PARAM  On invalid parameter
  *
  *****************************************************************************/
 int XSecure_SssInitialize (XSecure_Sss *InstancePtr)
@@ -83,14 +86,14 @@ END:
 /**
  * @brief	This function configures the secure stream switch for AES engine
  *
- * @param	InstancePtr	- Instance pointer to the XSecure_Sss
- * @param	InputSrc	- Input DMA to be selected for AES engine
- * @param	OutputSrc	- Output DMA to be selected for AES engine
+ * @param	InstancePtr	Instance pointer to the XSecure_Sss
+ * @param	InputSrc	Input DMA to be selected for AES engine
+ * @param	OutputSrc	Output DMA to be selected for AES engine
  *
  * @return
- *	-	XST_SUCCESS - On successful configuration of the switch
- *	-	XSECURE_SSS_INVALID_PARAM - On invalid parameter
- *	-	XST_FAILURE - On failure to configure switch
+ *		 - XST_SUCCESS  On successful configuration of the switch
+ *		 - XSECURE_SSS_INVALID_PARAM  On invalid parameter
+ *		 - XST_FAILURE  On failure to configure switch
  *
  * @note	InputSrc, OutputSrc are of type XSecure_SssSrc
  *
@@ -141,16 +144,16 @@ END:
  * @brief	This function configures the secure stream switch for SHA hardware
  *		engine
  *
- * @param	InstancePtr	- Instance pointer to the XSecure_Sss
- * @param	DmaId		- Device ID of DMA which is to be used as an input to
- *				  the SHA engine
- * @param	Resource	- SHA resource for which input and output paths to be
- *				  configured
+ * @param	InstancePtr	Instance pointer to the XSecure_Sss
+ * @param	DmaId		Device ID of DMA which is to be used as an input to
+ *				the SHA engine
+ * @param	Resource	SHA resource for which input and output paths to be
+ *				configured
  *
  * @return
- *	-	XST_SUCCESS - On successful configuration of the switch
- *	-	XSECURE_SSS_INVALID_PARAM - On invalid parameter
- *	-	XST_FAILURE - On failure to configure switch
+ *		 - XST_SUCCESS  On successful configuration of the switch
+ *		 - XSECURE_SSS_INVALID_PARAM  On invalid parameter
+ *		 - XST_FAILURE  On failure to configure switch
  *
  *****************************************************************************/
 int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId,
@@ -197,13 +200,13 @@ END:
  * @brief	This function configures secure stream switch to set DMA in
  *		loop back mode
  *
- * @param	InstancePtr	- Instance pointer to the XSecure_Sss
- * @param	DmaId		- Device ID of DMA
+ * @param	InstancePtr	Instance pointer to the XSecure_Sss
+ * @param	DmaId		Device ID of DMA
  *
  * @return
- *	-	XST_SUCCESS - On successful configuration of the switch
- *	-	XSECURE_SSS_INVALID_PARAM - On invalid parameter
- *	-	XST_FAILURE - On failure to configure switch
+ *		 - XST_SUCCESS  On successful configuration of the switch
+ *		 - XSECURE_SSS_INVALID_PARAM  On invalid parameter
+ *		 - XST_FAILURE  On failure to configure switch
  *
  *****************************************************************************/
 int XSecure_SssDmaLoopBack(const XSecure_Sss *InstancePtr, u16 DmaId)
@@ -238,12 +241,12 @@ END:
  * @brief	This function sets the DMA source of type XSecure_SssSrc based
  * 		on the provided DMA device ID
 *
- * @param	DmaId		- Device ID of DMA
- * @param	Resource	- DMA source is updated into the pointer
+ * @param	DmaId		Device ID of DMA
+ * @param	Resource	DMA source is updated into the pointer
  *
  * @return
- *	-	XST_SUCCESS - If DMA ID is correct
- *	-	XST_FAILURE - On wrong DMA ID
+ *		 - XST_SUCCESS  If DMA ID is correct
+ *		 - XST_FAILURE  On wrong DMA ID
  *
  *****************************************************************************/
 static int XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
@@ -270,15 +273,15 @@ static int XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
 /**
  * @brief	This function configures the secure stream switch
  *
- * @param	InstancePtr	- Instance pointer to the XSecure_Sss
- * @param	Resource	- Resource for which input and output paths to be
- *				  configured
- * @param	InputSrc	- Input source to be selected for the resource
- * @param	OutputSrc	- Output source to be selected for the resource
+ * @param	InstancePtr	Instance pointer to the XSecure_Sss
+ * @param	Resource	Resource for which input and output paths to be
+ *				configured
+ * @param	InputSrc	Input source to be selected for the resource
+ * @param	OutputSrc	Output source to be selected for the resource
  *
  * @return
- *	-	XST_SUCCESS - On successful configuration of the switch
- *	-	XST_FAILURE - On unsuccessful configuration of the switch
+ *		 - XST_SUCCESS  On successful configuration of the switch
+ *		 - XST_FAILURE  On unsuccessful configuration of the switch
  *
  * @note	Resource, InputSrc, OutputSrc are of type XSecure_SssSrc
  *
@@ -346,4 +349,4 @@ static int XSecure_SssCfg (const XSecure_Sss *InstancePtr,
 
 	return Status;
 }
-
+/** @} */

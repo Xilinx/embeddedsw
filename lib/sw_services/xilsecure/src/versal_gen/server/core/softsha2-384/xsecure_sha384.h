@@ -8,8 +8,6 @@
 /**
 *
 * @file xsecure_sha384.h
-* @cond xsecure_internal
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,9 +19,11 @@
 *
 * </pre>
 *
-* @endcond
-*
 ******************************************************************************/
+/**
+* @addtogroup xsecure_soft_sha384_server_apis XilSecure Soft SHA384 Server APIs
+* @{
+*/
 #ifndef XSECURE_SHA384_H
 #define XSECURE_SHA384_H
 
@@ -59,3 +59,4 @@ int XSecure_Sha384Finish(XSecure_Sha2Hash *ResHash);
 #endif
 
 #endif /* XSECURE_SHA384_H */
+/** @} */
