@@ -25,7 +25,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_sss.h"
 #include "xsecure_sha_hw.h"
@@ -37,8 +40,7 @@
 /************************** Variable Definitions *****************************/
 
 /* XSecure_SssLookupTable[Input source][Resource] */
-const u8 XSecure_SssLookupTable
-		[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS] = {
+const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS] = {
 	/*+----+-----+-----+-----+-----+-----+-----+--------+
 	*|DMA0| DMA1| PTPI| AES | SHA | SBI | PZM |Invalid |
 	*+----+-----+-----+-----+-----+-----+-----+--------+
@@ -79,7 +81,7 @@ const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =
  * @param	Value		Register Value of SSS cfg register
  *
  * @return
- *	-	Mask - Mask value of corresponding InputSrc and OutputSrc
+ *		 - Mask  Mask value of corresponding InputSrc and OutputSrc
  *
  * @note	InputSrc, OutputSrc are of type XSecure_SssSrc
  *
@@ -90,6 +92,7 @@ const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =
 	u32 Mask = 0U;
 	u32 RegVal = Value;
 
+	/** Update SSS mask value */
 	if ((InputSrc == XSECURE_SSS_DMA0) || (OutputSrc == XSECURE_SSS_DMA0)) {
 		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA0_VAL) {
 			Mask |= XSECURE_SSS_SBI_MASK;
@@ -124,26 +127,27 @@ const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =
 /*****************************************************************************/
 /**
  *
- * @brief      This function validates the size
+ * @brief	This function validates whether size of the data is word aligned
+ *		and if it is the last chunk size should be qword aligned.
  *
- * @param      Size            Size of data in bytes.
- * @param      IsLastChunk     Last chunk indication
+ * @param	Size		Size of data in bytes.
+ * @param	IsLastChunk	Last chunk indication
  *
  * @return
- *     -       XST_SUCCESS on successful valdation
- *     -       Error code on failure
+ *		 - XST_SUCCESS  On successful valdation
+ *		 - XSECURE_AES_UNALIGNED_SIZE_ERROR  If unaligned size is given as input
  *
  ******************************************************************************/
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 {
 	int Status = XST_FAILURE;
 
-	/* Validate the Size */
+	/** Validate the size is 4-byte aligned or not */
 	if ((Size % XSECURE_WORD_SIZE) != 0x00U) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
 		goto END;
 	}
-	/* Validate the size based on last chunk */
+	/** Validate the size is 16-byte aligned when it is last chunk */
 	if ((IsLastChunk != TRUE) &&
 		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
@@ -157,16 +161,18 @@ END:
 /*****************************************************************************/
 /**
  *
- * @brief       This function configures the PMC DMA channels and transfers data
+ * @brief	This function sets the SRC and DEST channel endianness
+ * 		configurations of PMC DMA and transfers data.
  *
- * @param       PmcDmaPtr       Pointer to the XPmcDma instance.
- * @param       AesDmaCfg       DMA SRC and DEST channel configuration
- * @param       Size            Size of data in bytes.
- * @param	BaseAddress     Not applicable for versal
+ * @param	PmcDmaPtr	Pointer to the XPmcDma instance.
+ * @param	AesDmaCfg	DMA SRC and DEST channel configuration
+ * @param	Size		Size of data in bytes.
+ * @param	BaseAddress	Not applicable for versal
  *
  * @return
- *	-	XST_SUCCESS on successful configuration
- *	-	Error code on failure
+ *		 - XST_SUCCESS  On successful configuration
+ *		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg *AesDmaCfg, u32 Size, UINTPTR BaseAddress)
@@ -178,12 +184,16 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg 
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
-	/* Enable PMC DMA Src and Dst channels for byte swapping.*/
+	/** Enable PMC DMA Src and Dst channels for byte swapping.*/
 	if (AesDmaCfg->SrcChannelCfg == TRUE) {
 		XSecure_AesPmcDmaCfgEndianness(PmcDmaPtr,
 				XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 	}
 
+	/**
+	 * Sets the start address and size for both src and dest channels
+	 * as per the configuration
+	 */
 	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
 			((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
 		XSecure_AesPmcDmaCfgEndianness(PmcDmaPtr,
@@ -239,10 +249,10 @@ END:
  * @brief	This is a helper function to enable/disable byte swapping feature
  * 		of PMC DMA
  *
- * @param	InstancePtr  Pointer to the XPmcDma instance
- * @param	Channel 	 Channel Type
- *			- XPMCDMA_SRC_CHANNEL
- *			 -XPMCDMA_DST_CHANNEL
+ * @param	InstancePtr	Pointer to the XPmcDma instance
+ * @param	Channel		Channel Type
+ *				- XPMCDMA_SRC_CHANNEL
+ *				- XPMCDMA_DST_CHANNEL
  * @param	EndianType
  *			- 1 : Enable Byte Swapping
  *			- 0 : Disable Byte Swapping
@@ -263,3 +273,4 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 	/* Updates the PmcDma's channel with XPmcDma_Configure structure values */
 	XPmcDma_SetConfig(InstancePtr, Channel, &ConfigValues);
 }
+/** @} */

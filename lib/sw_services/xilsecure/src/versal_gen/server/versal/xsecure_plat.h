@@ -26,7 +26,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Xilsecure Helper Server APIs
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
 * @{
 */
 #ifndef XSECURE_PLAT_H
@@ -148,3 +148,4 @@ static inline void XSecure_SetRsaCryptoStatus(void)
 #endif
 
 #endif /** XSECURE_PLAT_H */
+/** @} */

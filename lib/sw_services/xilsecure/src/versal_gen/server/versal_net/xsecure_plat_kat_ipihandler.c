@@ -9,7 +9,7 @@
 *
 * @file xsecure_plat_kat_ipihandler.c
 *
-* This file contains the xilsecure KAT IPI handlers implementation.
+* This file contains the Xilsecure KAT IPI handlers implementation.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -29,10 +29,9 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
 /**
-* @addtogroup xsecure_kat_server_apis Xilsecure Kat Server APIs
+* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
 * @{
 */
 /***************************** Include Files *********************************/
@@ -59,13 +58,14 @@ static int XSecure_TrngKat(void);
 #endif
 /*****************************************************************************/
 /**
- * @brief       This function calls respective IPI handler based on the API_ID
+ * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd is pointer to the command structure
+ * @param 	Cmd	is pointer to the command structure
  *
  * @return
- *	-	XST_SUCCESS - If the handler execution is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the handler execution is successful
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
@@ -98,11 +98,11 @@ END:
 #ifndef PLM_SECURE_EXCLUDE
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_TrngPreOperationalSelfTests Server API
+ * @brief	This function handler calls XSecure_TrngPreOperationalSelfTests Server API
  *
  * @return
- *	-	XST_SUCCESS - If the KAT is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the KAT is successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_TrngKat(void)
@@ -127,11 +127,12 @@ static int XSecure_TrngKat(void)
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param	Cmd is pointer to the command structure
+ * @param	Cmd	is pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS  On Success
- *		 - Error Code  On failure
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 int XSecure_UpdateKatStatusIpiHandler(XPlmi_Cmd *Cmd)
@@ -234,3 +235,4 @@ int XSecure_UpdateKatStatusIpiHandler(XPlmi_Cmd *Cmd)
 END:
 	return Status;
 }
+/** @} */

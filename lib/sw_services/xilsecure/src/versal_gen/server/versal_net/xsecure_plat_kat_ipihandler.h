@@ -9,7 +9,7 @@
 *
 * @file xsecure_plat_kat_ipihandler.h
 *
-* This file contains the xilsecure KAT platform IPI handler declaration.
+* This file contains the Xilsecure KAT platform IPI handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,10 +21,9 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
 /**
-* @addtogroup xsecure_kat_server_apis Xilsecure Kat Server APIs
+* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
 * @{
 */
 #ifndef XSECURE_PLAT_KAT_IPIHANDLER_H_
@@ -50,3 +49,4 @@ int XSecure_UpdateKatStatusIpiHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XSECURE_PLAT_KAT_IPIHANDLER_H_ */
+/** @} */
