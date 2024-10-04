@@ -14,6 +14,8 @@
 #              which dma is not connected to one of the xxv instance.
 #              Fix pmufw bsp compilation error by generating dummy mcdma tx
 #              and rx interrupts nodes.
+# 06/08/24 ag  Fix bsp generation bug for multiple subcores inside the
+#              same xxv instance.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -74,7 +76,7 @@ proc xdefine_xxvethernet_include_file {drv_handle file_name drv_string} {
     foreach periph $periphs {
 	set file_handle [::hsi::utils::open_include_file $file_name]
 
-	xdefine_temac_params_include_file $file_handle $periph $device_id
+	xdefine_temac_params_include_file $drv_handle $file_handle $periph $device_id
 
 	# Create canonical definitions
 	xdefine_temac_params_canonical $file_handle $periph $device_id
@@ -180,23 +182,30 @@ proc xdefine_axi_target_params {periphs file_handle} {
    }
 }
 
-proc xdefine_temac_params_include_file {file_handle periph device_id} {
+proc xdefine_temac_params_include_file {drv_handle file_handle periph device_id} {
 	puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
 
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id"
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]"
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_HIGHADDR $periph]"
+	set num_cores [get_property CONFIG.NUM_OF_CORES $periph]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph NUM_CORES] $num_cores"
+	set ip_mem_handles [hsi::utils::get_ip_mem_ranges [get_cells -hier $drv_handle]]
+	for {set core 0} {$core < $num_cores} {incr core} {
+		set base_addr [get_property BASE_VALUE [lindex $ip_mem_handles $core]]
+		set high_addr [get_property HIGH_VALUE [lindex $ip_mem_handles $core]]
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph ${core}_BASEADDR] $base_addr"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph ${core}_HIGHADDR] $high_addr"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph ${core}_DEVICE_ID] $core"
 
-	set value [common::get_property CONFIG.Statistics_Counters $periph]
-	set value [is_property_set $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "STATS"] $value"
+		set value [common::get_property CONFIG.Statistics_Counters $periph]
+		set value [is_property_set $value]
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph ${core}_STATS] $value"
 
-	set phyaddr [common::get_property CONFIG.PHYADDR $periph]
-	set value [::hsi::utils::convert_binary_to_decimal $phyaddr]
-	if {[llength $value] == 0} {
-		set value 0
+		set phyaddr [common::get_property CONFIG.PHYADDR $periph]
+		set value [::hsi::utils::convert_binary_to_decimal $phyaddr]
+		if {[llength $value] == 0} {
+			set value 0
+		}
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph ${core}_PHYADDR] $value"
 	}
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "PHYADDR"] $value"
 }
 
 # ------------------------------------------------------------------
