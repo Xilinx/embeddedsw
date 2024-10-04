@@ -726,14 +726,6 @@ void XDp_TxCfgMsaEnSynchClkMode(XDp *InstancePtr, u8 Stream, u8 Enable)
 
         MsaConfig->SynchronousClockMode = Enable;
 
-	if (Enable == 1) {
-		MsaConfig->Misc0 |= (1 <<
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT);
-	}
-	else {
-		MsaConfig->Misc0 &= ~(1 <<
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT);
-	}
 }
 
 /******************************************************************************/
