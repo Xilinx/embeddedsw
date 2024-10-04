@@ -10,9 +10,9 @@
 #include "xplmi_update.h"
 #include "xpm_update_data.h"
 #ifdef CPPUTEST
-#define MAX_BYTEBUFFER_SIZE	(52U * 1024U)
+#define MAX_BYTEBUFFER_SIZE	(64U * 1024U)
 #else
-#define MAX_BYTEBUFFER_SIZE	(52U * 1024U)
+#define MAX_BYTEBUFFER_SIZE	(64U * 1024U)
 #endif
 
 #ifdef CPPUTEST
