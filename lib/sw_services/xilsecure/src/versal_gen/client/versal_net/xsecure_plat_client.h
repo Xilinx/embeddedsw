@@ -26,9 +26,8 @@
 * </pre>
 *
 ******************************************************************************/
-
 /**
-* @addtogroup xsecure_helper_client_apis Xilsecure Helper Client APIs
+* @addtogroup xsecure_helper_client_apis Platform specific helper APIs in Xilsecure client
 * @{
 */
 #ifndef XSECURE_PLAT_CLIENT_H
@@ -76,3 +75,4 @@ int XSecure_ReleaseRsaKey(XSecure_ClientInstance *InstancePtr);
 #endif
 
 #endif  /* XSECURE_PLAT_CLIENT_H */
+/** @} */

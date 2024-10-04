@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,10 +22,12 @@
 * 5.1   skg  12/16/22 Added IPI commands for Encrypt/Decrypt Init,update,Final
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_common_apis Xilsecure Common Apis
+* @{
+*/
 #ifndef XSECURE_PLAT_DEFS_H
 #define XSECURE_PLAT_DEFS_H
 
@@ -87,3 +89,4 @@ typedef enum {
 #endif
 
 #endif  /* XSECURE_PLAT_DEFS_H */
+/** @} */

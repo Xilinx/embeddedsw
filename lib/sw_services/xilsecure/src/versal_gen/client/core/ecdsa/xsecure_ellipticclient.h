@@ -26,7 +26,6 @@
 * </pre>
 *
 ******************************************************************************/
-
 /**
 * @addtogroup xsecure_ecdsa_client_apis XilSecure ECDSA Client APIs
 * @{
@@ -63,3 +62,4 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 #endif
 
 #endif  /* XSECURE_ELLIPTIC_CLIENT_H */
+/** @} */

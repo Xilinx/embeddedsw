@@ -28,9 +28,8 @@
 * </pre>
 *
 ******************************************************************************/
-
 /**
-* @addtogroup xsecure_sha3_client_apis XilSecure SHA3 Client APIs
+* @addtogroup xsecure_sha_client_apis XilSecure SHA Client APIs
 * @{
 */
 #ifndef XSECURE_SHACLIENT_H
@@ -69,3 +68,4 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 #endif
 
 #endif  /* XSECURE_SHACLIENT_H */
+/** @} */

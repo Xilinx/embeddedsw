@@ -20,7 +20,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_common_apis Xilsecure Common Apis
+* @{
+*/
 #ifndef XSECURE_CORE_H
 #define XSECURE_CORE_H
 
@@ -162,3 +165,4 @@ typedef enum {
 #endif
 
 #endif  /* XSECURE_CORE_H */
+/** @} */

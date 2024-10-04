@@ -12,6 +12,7 @@
 * This file contains the implementation of elliptic client interface APIs for
 * Versal Net.
 *
+* <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
@@ -22,7 +23,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_ecdsa_client_apis XilSecure ECDSA Client APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_mailbox.h"
 #include "xsecure_plat_elliptic_client.h"
@@ -48,14 +52,15 @@
  *
 * @param	InstancePtr	Pointer to the client instance
 * @param	CrvType		Type of elliptic curve
-* @param	PrivateKey	Pointer to the private key bufer
-* @param	PublicKey	Pointer to the public key bufer
+* @param	PrivateKey	Pointer to the private key buffer
+* @param	PublicKey	Pointer to the public key buffer
 * @param	SharedSecret	Pointer to the output buffer which shall
 * 				be used to store shared secret
  *
  * @return
- *		 - XST_SUCCESS - On Success
- *		 - Errorcode - On failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid.
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_GenSharedSecret(XSecure_ClientInstance *InstancePtr, u32 CrvType, const u8* PrivateKey,
@@ -82,8 +87,13 @@ int XSecure_GenSharedSecret(XSecure_ClientInstance *InstancePtr, u32 CrvType, co
 	Payload[6U] = (u32)SharedSecretAddr;
 	Payload[7U] = (u32)(SharedSecretAddr >> XSECURE_ADDR_HIGH_SHIFT);
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_GenSharedSecret
+	 * API and returns the status of the IPI response.
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
 }
+/** @} */

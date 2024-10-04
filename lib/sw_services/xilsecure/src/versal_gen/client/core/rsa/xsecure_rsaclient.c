@@ -34,7 +34,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_rsa_client_apis XilSecure RSA Client APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_rsaclient.h"
 
@@ -43,20 +46,20 @@
  * @brief	This function sends IPI request to Perform RSA decryption with
  * 		private key.
  *
- * @param	InstancePtr	 Pointer to the client instance
- * @param	KeyAddr		 Address of the Key
- * @param	InDataAddr	 Address of the data which has to be decrypted
- * @param	Size		 Key size in bytes, Input size also should be
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KeyAddr		Address of the Key
+ * @param	InDataAddr	Address of the data which has to be decrypted
+ * @param	Size		Key size in bytes, Input size also should be
  * 				same as key size mentioned. Inputs supported are
  *				- XSECURE_RSA_4096_KEY_SIZE,
  *				- XSECURE_RSA_2048_KEY_SIZE
  *				- XSECURE_RSA_3072_KEY_SIZE
- * @param	OutDataAddr	 Address of the buffer where resultant decrypted
+ * @param	OutDataAddr	Address of the buffer where resultant decrypted
  *				data to be stored
  *
  * @return
- *	-	XST_SUCCESS - If the update is successful
- *	-	XST_FAILURE - If there is a failure
+ *		 - XST_SUCCESS  If the update is successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr,
@@ -76,7 +79,8 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 	}
 
 	/**
-	 * Link Shared memory to RsaParams for IPI usage. If shared memory is not assigned return Size as 0
+	 * Link shared memory of size RsaParams to RsaParams structure for IPI usage.
+	 * Validates the size of the shared memory whether the required size is available or not.
 	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&RsaParams);
 
@@ -93,16 +97,15 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 
 	/* Fill IPI Payload */
 	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-	                    | XSECURE_API_RSA_PRIVATE_DECRYPT);
+				| XSECURE_API_RSA_PRIVATE_DECRYPT);
 	Payload[1U] = (u32)BufferAddr;
 	Payload[2U] = (u32)(BufferAddr >> 32);
 	Payload[3U] = (u32)(OutDataAddr);
 	Payload[4U] = (u32)(OutDataAddr >> 32);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaDecrypt api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaDecrypt
+	 * API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
@@ -115,26 +118,25 @@ END:
  * @brief	This function sends IPI request to Perform RSA encryption with
  * 		public key.
  *
- * @param	InstancePtr	 Pointer to the client instance
- * @param	KeyAddr		 Address of the Key
- * @param	InDataAddr	 Address of the data which has to be encrypted
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KeyAddr		Address of the Key
+ * @param	InDataAddr	Address of the data which has to be encrypted
  * 				with public key
- * @param	Size		 Key size in bytes, Input size also should be
+ * @param	Size		Key size in bytes, Input size also should be
  * 				same as key size mentioned. Inputs supported are
  *				- XSECURE_RSA_4096_KEY_SIZE,
  *				- XSECURE_RSA_2048_KEY_SIZE
  *				- XSECURE_RSA_3072_KEY_SIZE
- * @param	OutDataAddr	 Address of the buffer where resultant decrypted
+ * @param	OutDataAddr	Address of the buffer where resultant decrypted
  *							data to be stored
  *
  * @return
- *	-	XST_SUCCESS - If encryption was successful
- *	-	XSECURE_RSA_INVALID_PARAM - On invalid arguments
- *	-	XSECURE_RSA_STATE_MISMATCH_ERROR - If there is state mismatch
+ *		 - XST_SUCCESS  If encryption was successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr, const u64 InDataAddr,
-                                const u32 Size, const u64 OutDataAddr)
+				const u32 Size, const u64 OutDataAddr)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_RsaInParam *RsaParams = NULL;
@@ -150,7 +152,8 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 	}
 
 	/**
-	 * Link Shared memory to RsaParams for IPI usage. If shared memory is not assigned return Size as 0
+	 * Link shared memory of size RsaParams to RsaParams structure for IPI usage.
+	 * Validates the size of the shared memory whether the required size is available or not.
 	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&RsaParams);
 
@@ -167,16 +170,15 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 
 	/* Fill IPI Payload */
 	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-	                    | XSECURE_API_RSA_PUBLIC_ENCRYPT);
+				| XSECURE_API_RSA_PUBLIC_ENCRYPT);
 	Payload[1U] = (u32)BufferAddr;
 	Payload[2U] = (u32)(BufferAddr >> 32);
 	Payload[3U] = (u32)(OutDataAddr);
 	Payload[4U] = (u32)(OutDataAddr >> 32);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaEncrypt api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaEncrypt
+	 * API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
@@ -188,18 +190,17 @@ END:
 /**
  * @brief	This function sends IPI request to Perform RSA sign verification
  *
- * @param	InstancePtr	 Pointer to the client instance
- * @param	SignAddr 	 Address of the buffer which holds the
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	SignAddr 	Address of the buffer which holds the
  * 				decrypted RSA signature.
- * @param	HashAddr	 Address of the HashAddr which has the
+ * @param	HashAddr	Address of the HashAddr which has the
  * 				hash calculated on the data to be authenticated
- * @param	Size		 Length of Hash used
- * 				 For SHA3 it should be 48 bytes
+ * @param	Size		Length of Hash used
+ * 				For SHA3 it should be 48 bytes
  *
  * @return
- *	-	XST_SUCCESS - If decryption was successful
- *	-	XSECURE_RSA_INVALID_PARAM - On invalid arguments
- *	-	XST_FAILURE - In case of mismatch
+ *		 - XST_SUCCESS  If decryption was successful
+ *		 - XST_FAILURE  In case of mismatch
  *
  *****************************************************************************/
 int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 SignAddr, const u64 HashAddr,
@@ -219,7 +220,8 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 	}
 
 	/**
-	 * Link Shared memory to SignParams for IPI usage. If shared memory is not assigned return Size as 0
+	 * Link shared memory of size SignParams to SignParams structure for IPI usage.
+	 * Validates the size of the shared memory whether the required size is available or not.
 	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&SignParams);
 
@@ -236,17 +238,17 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 
 	/* Fill IPI Payload */
 	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-	                    | XSECURE_API_RSA_SIGN_VERIFY);
+				| XSECURE_API_RSA_SIGN_VERIFY);
 	Payload[1U] = (u32)BufferAddr;
 	Payload[2U] = (u32)(BufferAddr >> 32);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaSignVerify api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaSignVerify
+	 * API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
 }
+/** @} */

@@ -20,7 +20,6 @@
 * 5.4   yog  04/29/24 Fixed doxygen grouping.
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
 /**
@@ -53,3 +52,4 @@ int XSecure_GenSharedSecret(XSecure_ClientInstance *InstancePtr, u32 CrvType, co
 #endif
 
 #endif  /* XSECURE_PLAT_ELLIPTIC_CLIENT_H */
+/** @} */

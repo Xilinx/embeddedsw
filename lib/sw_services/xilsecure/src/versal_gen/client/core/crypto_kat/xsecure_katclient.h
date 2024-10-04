@@ -23,7 +23,6 @@
 * </pre>
 *
 ******************************************************************************/
-
 /**
 * @addtogroup xsecure_kat_client_apis XilSecure KAT Client APIs
 * @{
@@ -61,3 +60,4 @@ int XSecure_EllipticSignGenKat(XSecure_ClientInstance *InstancePtr, XSecure_EccC
 #endif
 
 #endif  /* XSECURE_KAT_CLIENT_H */
+/** @} */
