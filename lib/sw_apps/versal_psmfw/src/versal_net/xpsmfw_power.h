@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -155,148 +155,64 @@ struct PwrHandlerTable_t {
 	PwrFunction_t PwrDwnHandler;
 };
 
+/**
+ * @brief Structure to manage power control settings
+ */
 struct XPsmFwPwrCtrl_t {
-	enum ProcDeviceId Id;
-
-	/* Reset vector address register */
-	u32 ResetCfgAddr;
-
-	/* Bit number in the Power State (LOCAL and GLOBAL) Register */
-	u32 PwrStateMask;
-
-	/* Address of the PSM_LOCAL Power control register */
-	u32 PwrCtrlAddr;
-
-	/* Address of the PSM_LOCAL Power status register */
-	u32 PwrStatusAddr;
-
-	/* POWERON_TIMEOUT */
-	u32 PwrUpAckTimeout[PSM_LOCAL_PWR_CTRL_MAX_PWRUP_STAGES];
-
-	/* POWERON_SETTLE_TIME */
-	u32 PwrUpWaitTime[PSM_LOCAL_PWR_CTRL_MAX_PWRUP_STAGES];
-
-	/* POWEROFF_TIMEOUT */
-	u32 PwrDwnAckTimeout;
-
-	/* Address of the clock control register */
-	u32 ClkCtrlAddr;
-
-	/* Bit number in the clock control register */
-	u32 ClkCtrlMask;
-
-	/* RST_ACPU0_SEQ_PROP_TIME */
-	u32 ClkPropTime;
-
-	/* Bit number in MBIST registers */
-	u32 MbistBitMask;
-
-	/* Bit number in reset control registers */
-	u32 RstCtrlMask;
-
-	/* Address of the RST_APUX for Individual block */
-	u32 RstAddr;
-
-	/* Bit number for warm reset in RST_APUX*/
-	u32 WarmRstMask;
-
-	/* Address of the Cluster P-Channel Pstate */
-	u32 ClusterPstate;
-
-	/* Bit number in  Cluster P-Channel Pstate registers */
-	u32 ClusterPstateMask;
-
-	/* Value in  Cluster P-Channel Pstate registers */
-	u32 ClusterPstateValue;
-
-	/* Address of the Cluster P-Channel Request */
-	u32 ClusterPreq;
-
-	/* Bit number in  Cluster P-Channel Request registers */
-	u32 ClusterPreqMask;
-
-	/* Address of the Core P-Channel Pstate */
-	u32 CorePstate;
-
-	/* Bit number in  Core P-Channel Pstate registers */
-	u32 CorePstateMask;
-
-	/* Value in  Core P-Channel Pstate registers */
-	u32 CorePstateVal;
-
-	/* Address of the Core P-Channel Request */
-	u32 CorePreq;
-
-	/* Bit number in  Core P-Channel Request registers */
-	u32 CorePreqMask;
-
-	/* Address of the Core P-Channel Pactive and Accept/Deny */
-	u32 CorePactive;
-
-	/* Bit number in  Core P-Channel Pactive and Accept/Deny */
-	u32 CorePactiveMask;
-
-	/* Bit number in  Core P-Channel Pactive and Accept/Deny */
-	u32 CorePacceptMask;
-
-	/* Address of the Cluster P-Channel Pactive and Accept/Deny */
-	u32 ClusterPactive;
-
-	/* Bit number in  Cluster P-Channel Pactive and Accept/Deny */
-	u32 ClusterPacceptMask;
-
-	enum ClusteId ClusterId;
-
-	/* PCIL ISR Register*/
-	u32 PcilIsrAddr;
-
-	/* Pactive1 bit number*/
-	u8 Pactive1Mask;
-
-	/* core vectore table address*/
-	u32 VectTableAddr;
+	enum ProcDeviceId Id; /**< The processor device ID */
+	u32 ResetCfgAddr; /**< Reset vector address register */
+	u32 PwrStateMask; /**< Bit number in the Power State (LOCAL and GLOBAL) Register */
+	u32 PwrCtrlAddr; /**< Address of the PSM_LOCAL Power control register */
+	u32 PwrStatusAddr; /**< Address of the PSM_LOCAL Power status register */
+	u32 PwrUpAckTimeout[PSM_LOCAL_PWR_CTRL_MAX_PWRUP_STAGES]; /**< Power-up ack timeout for each power-up stage */
+	u32 PwrUpWaitTime[PSM_LOCAL_PWR_CTRL_MAX_PWRUP_STAGES]; /**< Power-up wait time for each power-up stage */
+	u32 PwrDwnAckTimeout; /**< Power-down acknowledgment timeout */
+	u32 ClkCtrlAddr; /**< Address of the clock control register */
+	u32 ClkCtrlMask; /**< Bit number in the clock control register */
+	u32 ClkPropTime; /**< Propagation time for the clock */
+	u32 MbistBitMask; /**< Bit number in MBIST registers */
+	u32 RstCtrlMask; /**< Bit number in reset control registers */
+	u32 RstAddr; /**< Address of the RST_APUX for Individual block */
+	u32 WarmRstMask; /**< Bit number for warm reset in RST_APUX */
+	u32 ClusterPstate; /**< Address of the Cluster P-Channel Pstate */
+	u32 ClusterPstateMask; /**< Bit number in Cluster P-Channel Pstate registers */
+	u32 ClusterPstateValue; /**< Value in Cluster P-Channel Pstate registers */
+	u32 ClusterPreq; /**< Address of the Cluster P-Channel Request */
+	u32 ClusterPreqMask; /**< Bit number in Cluster P-Channel Request registers */
+	u32 CorePstate; /**< Address of the Core P-Channel Pstate */
+	u32 CorePstateMask; /**< Bit number in Core P-Channel Pstate registers */
+	u32 CorePstateVal; /**< Value in Core P-Channel Pstate registers */
+	u32 CorePreq; /**< Address of the Core P-Channel Request */
+	u32 CorePreqMask; /**< Bit number in Core P-Channel Request registers */
+	u32 CorePactive; /**< Address of the Core P-Channel Pactive and Accept/Deny */
+	u32 CorePactiveMask; /**< Bit number in Core P-Channel Pactive and Accept/Deny */
+	u32 CorePacceptMask; /**< Bit number in Core P-Channel Pactive and Accept/Deny */
+	u32 ClusterPactive; /**< Address of the Cluster P-Channel Pactive and Accept/Deny */
+	u32 ClusterPacceptMask; /**< Bit number in Cluster P-Channel Pactive and Accept/Deny */
+	enum ClusteId ClusterId; /**< Specific cluster ID */
+	u32 PcilIsrAddr; /**< PCIL ISR Register */
+	u8 Pactive1Mask; /**< Pactive1 bit number */
+	u32 VectTableAddr; /**< Core vectore table address */
 
 };
 
+/**
+ * @brief Structure for memory power control in PSM firmware
+ */
 struct XPsmFwMemPwrCtrl_t {
-	/* Bit number in the Power State (LOCAL and GLOBAL) Register */
-	u32 PwrStateMask;
-
-	/* Address of the PSM_LOCAL chip enable register */
-	u32 ChipEnAddr;
-
-	/* Bit number in the PSM_LOCAL chip enable register */
-	u32 ChipEnMask;
-
-	/* Address of the PSM_LOCAL Power control register */
-	u32 PwrCtrlAddr;
-
-	/* Bit number in the PSM_LOCAL Power control register */
-	u32 PwrCtrlMask;
-
-	/* Address of the PSM_LOCAL Power status register */
-	u32 PwrStatusAddr;
-
-	/* Bit number in the PSM_LOCAL Power status register */
-	u32 PwrStatusMask;
-
-	/* mem_BANKx_ACK_PROP_TIMEOUT */
-	u32 PwrStateAckTimeout;
-
-	/* mem_BANKx_PWRUP_WAIT_TIME */
-	u32 PwrUpWaitTime;
-
-	/*retention bitmask in the PSMX_GLOBAL reg*/
-	u32 RetMask;
-
-	/*pwr status mask in PSMX_GLOBAL Reg*/
-	u32 GlobPwrStatusMask;
-
-	/*Address of PSMX_LOCAL retention ctrl register*/
-	u32 RetCtrlAddr;
-
-	/*Bit number in PSMX_LOCAL retention ctrl register*/
-	u32 RetCtrlMask;
+	u32 PwrStateMask; /**< Bit number in the Power State (LOCAL and GLOBAL) Register */
+	u32 ChipEnAddr; /**< Address of the PSM_LOCAL chip enable register */
+	u32 ChipEnMask; /**< Bit number in the PSM_LOCAL chip enable register */
+	u32 PwrCtrlAddr; /**< Address of the PSM_LOCAL Power control register */
+	u32 PwrCtrlMask; /**< Bit number in the PSM_LOCAL Power control register */
+	u32 PwrStatusAddr; /**< Address of the PSM_LOCAL Power status register */
+	u32 PwrStatusMask; /**< Bit number in the PSM_LOCAL Power status register */
+	u32 PwrStateAckTimeout; /**< Timeout for memory bank acknowledgment */
+	u32 PwrUpWaitTime; /**< Wait time for memory bank power-up */
+	u32 RetMask; /**< Retention bitmask in the PSMX_GLOBAL reg */
+	u32 GlobPwrStatusMask; /**< Power status mask in PSMX_GLOBAL reg */
+	u32 RetCtrlAddr; /**< Address of PSMX_LOCAL retention ctrl register */
+	u32 RetCtrlMask; /**< Bit number in PSMX_LOCAL retention ctrl register */
 
 };
 
