@@ -28,8 +28,8 @@ config:
 
 required:
     - compatible
-    - reg
     - flashbase
+    - ranges: 1
     - nand-bus-width
 
 examples:

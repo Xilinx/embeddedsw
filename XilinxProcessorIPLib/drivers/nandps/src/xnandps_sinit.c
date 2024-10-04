@@ -24,6 +24,7 @@
 * ----- ---- ----------  -----------------------------------------------
 * 1.00a nm   12/10/2010  First release
 * 2.8  akm   07/06/23    Update the driver to support for system device-tree flow.
+* 2.10 akm   10/04/24    Retrieve the 'reg' property value from smcc node 'ranges'
 * </pre>
 *
 ******************************************************************************/
@@ -84,7 +85,7 @@ XNandPs_Config *XNandPs_LookupConfig(UINTPTR BaseAddress)
 	u32 Index;
 
 	for (Index = 0U; XNandPs_ConfigTable[Index].Name != NULL; Index++) {
-		if (XNandPs_ConfigTable[Index].SmcBase == BaseAddress ||
+		if (XNandPs_ConfigTable[Index].FlashBase == BaseAddress ||
 		    !BaseAddress) {
 			CfgPtr = &XNandPs_ConfigTable[Index];
 			break;
