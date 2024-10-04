@@ -143,7 +143,9 @@ void Xil_DCacheDisable(void)
 void Xil_DCacheInvalidate(void)
 {
 	u32 currmask;
+#if defined (__GNUC__) || defined (__clang__)
 	u32 stack_start, stack_end, stack_size;
+#endif
 #if defined (ARMR52)
 	register u32 CsidReg, C7Reg;
 	u32 LineSize, NumWays;

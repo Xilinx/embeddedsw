@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -125,6 +125,7 @@ static const struct {
 	{ 0x100000000U, REGION_4G },
 };
 
+#ifdef	XPAR_PSU_R5_DDR_0_LOW_ADDR
 #if defined (__GNUC__)
 static u32 DDRSizeWarning  __attribute__((section(".bootdata")));
 static u32 DDRSizeIndex __attribute__((section(".bootdata")));
@@ -132,6 +133,7 @@ static u32 DDRSizeIndex __attribute__((section(".bootdata")));
 #pragma default_function_attributes = @ ".bootdata"
 static u32 DDRSizeWarning;
 static u32 DDRSizeIndex;
+#endif
 #endif
 
 /************************** Function Prototypes ******************************/

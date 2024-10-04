@@ -407,8 +407,7 @@ struct XUsbPsu_Ep {
 	 *   and received for OUT Ep
 	 */
 #if defined (__ICCARM__)
-#pragma data_alignment = 64
-	struct XUsbPsu_Trb EpTrb[NO_OF_TRB_PER_EP + 1U]; /**< One extra Trb is
+	struct XUsbPsu_Trb EpTrb[NO_OF_TRB_PER_EP + 1U] __attribute__((aligned(64))); /**< One extra Trb is
 							  * for Link Trb
 							  */
 #else
@@ -520,10 +519,8 @@ struct Usb_DevData {
  */
 struct XUsbPsu {
 #if defined (__ICCARM__)
-#pragma data_alignment = 64
-	SetupPacket SetupData;	/**< Setup data packet */
-#pragma data_alignment = 64
-	struct XUsbPsu_Trb Ep0_Trb;	/**< TRB for control transfers */
+	SetupPacket SetupData __attribute__((aligned(64)));	/**< Setup data packet */
+	struct XUsbPsu_Trb Ep0_Trb __attribute__((aligned(64)));	/**< TRB for control transfers */
 #else
 	SetupPacket SetupData ALIGNMENT_CACHELINE;
 	/**< Setup Packet buffer */
@@ -547,8 +544,8 @@ struct XUsbPsu {
 	void *DevDesc;		/**< Device descriptor pointer */
 	void *ConfigDesc;	/**< Config descriptor pointer */
 #if defined(__ICCARM__)
-#pragma data_alignment = XUSBPSU_EVENT_BUFFERS_SIZE
-	u8 EventBuffer[XUSBPSU_EVENT_BUFFERS_SIZE]; /**< Event buffer array */
+	u8 EventBuffer[XUSBPSU_EVENT_BUFFERS_SIZE]
+	__attribute__((aligned(XUSBPSU_EVENT_BUFFERS_SIZE))); /**< Event buffer array */
 #else
 	u8 EventBuffer[XUSBPSU_EVENT_BUFFERS_SIZE]
 	__attribute__((aligned(XUSBPSU_EVENT_BUFFERS_SIZE)));
