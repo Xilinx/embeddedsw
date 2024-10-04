@@ -33,6 +33,12 @@ supported_os:
   - standalone
   - freertos10_xilinx
 
+depends:
+    ipipsu:
+        - reg
+        - interrupts
+        - xlnx,ipi-bitmask
+
 examples:
   xsem_cram_example.c:
     - supported_platforms:
