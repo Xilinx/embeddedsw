@@ -40,11 +40,11 @@
 #define XPLM_PMCL_RESET_VAL		(1U)
 
 /* Masks for PMC FW ERR first and last */
-#define XPLM_PMC_FW_ERR_FIRST_ERR_MASK	(0x3FFF0000U)
-#define XPLM_PMC_FW_ERR_LAST_ERR_MASK	(0x00003FFFU)
+#define XPLM_PMC_FW_ERR_FIRST_ERR_MASK	(0xFFF000U)
+#define XPLM_PMC_FW_ERR_LAST_ERR_MASK	(0x000FFFU)
 
 /* Shift for PMC FW ERR First error */
-#define XPLM_PMC_FW_ERR_FIRST_ERR_SHIFT	(16U)
+#define XPLM_PMC_FW_ERR_FIRST_ERR_SHIFT	(12U)
 
 /* Multiboot max offset */
 #define XPLM_MULTIBOOT_OFFSET	(0x8000U)
@@ -130,26 +130,36 @@ void XPlm_ErrMgr(u32 ErrStatus)
 
 /*****************************************************************************/
 /**
- * @brief This function is called for logging PLM error into FW_ERR register
+ * @brief	This function is called for logging PLM error into FW_ERR BOOT_ERR register.
  *
  * @param	ErrStatus is the error code to be written to the FW_ERR register
  *
  *****************************************************************************/
 void XPlm_LogPlmErr(u32 ErrStatus)
 {
-	u32 FirstError;
+	u32 PlmFirstError;
+	u32 RomFirstError;
 
-	FirstError = Xil_In32(PMC_GLOBAL_PMC_FW_ERR) & XPLM_PMC_FW_ERR_FIRST_ERR_MASK;
+	PlmFirstError = Xil_In32(PMC_GLOBAL_PMC_FW_ERR) & XPLM_PMC_FW_ERR_FIRST_ERR_MASK;
+	RomFirstError = Xil_In32(PMC_GLOBAL_PMC_BOOT_ERR) & XPLM_PMC_FW_ERR_FIRST_ERR_MASK;
 
-	/** - Store the PLM error to FW_ERR register. */
-	if (FirstError == XPLM_ZERO) {
+	/** - Store PLM error to FW_ERR register. */
+	if (PlmFirstError == XPLM_ZERO) {
 		XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, XPLM_PMC_FW_ERR_FIRST_ERR_MASK,
 			     (ErrStatus << XPLM_PMC_FW_ERR_FIRST_ERR_SHIFT));
 	} else {
 		XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, XPLM_PMC_FW_ERR_LAST_ERR_MASK, ErrStatus);
 	}
-	/** - Print the PLM Error. */
-	XPlm_Printf(DEBUG_PRINT_ALWAYS, "PLM Error Status: 0x%08x\n\r", Xil_In32(PMC_GLOBAL_PMC_FW_ERR));
+
+	/** - Store PLM error to BOOT_ERR register. */
+	if (RomFirstError == XPLM_ZERO) {
+		XPlm_UtilRMW(PMC_GLOBAL_PMC_BOOT_ERR, XPLM_PMC_FW_ERR_FIRST_ERR_MASK,
+			     (ErrStatus << XPLM_PMC_FW_ERR_FIRST_ERR_SHIFT));
+	} else {
+		XPlm_UtilRMW(PMC_GLOBAL_PMC_BOOT_ERR, XPLM_PMC_FW_ERR_LAST_ERR_MASK, ErrStatus);
+	}
+	/** - Print PLM Error. */
+	XPlm_Printf(DEBUG_PRINT_ALWAYS, "PLM Error Status: 0x%03x\n\r", ErrStatus);
 }
 
 /*****************************************************************************/
