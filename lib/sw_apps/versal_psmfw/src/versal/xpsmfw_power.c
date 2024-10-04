@@ -1633,12 +1633,19 @@ static XStatus ACPU0Wakeup(void)
 {
 	XStatus Status = XST_FAILURE;
 
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_0]) {
+		Status = XPsmFwACPUxDirectPwrUp(&Acpu0PwrCtrl);
+		PsmToPlmEvent.CpuIdleFlag[ACPU_0] = 0U;
+		goto done;
+	}
+
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
 	/* Set the event bit for PLM */
 	PsmToPlmEvent.Event[ACPU_0] = PWR_UP_EVT;
 	Status = XPsmFw_NotifyPlmEvent();
 
+done:
 	return Status;
 }
 
@@ -1651,12 +1658,19 @@ static XStatus ACPU0Sleep(void)
 {
 	XStatus Status = XST_FAILURE;
 
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_0]) {
+		Status = XPsmFwACPUxDirectPwrDwn(&Acpu0PwrCtrl);
+		XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_EN, Acpu0PwrCtrl.PwrStateMask);
+		goto done;
+	}
+
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
 	/* Set the event bit for PLM */
 	PsmToPlmEvent.Event[ACPU_0] = PWR_DWN_EVT;
 	Status = XPsmFw_NotifyPlmEvent();
 
+done:
 	return Status;
 }
 
@@ -1669,12 +1683,19 @@ static XStatus ACPU1Wakeup(void)
 {
 	XStatus Status = XST_FAILURE;
 
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_1]) {
+		Status = XPsmFwACPUxDirectPwrUp(&Acpu1PwrCtrl);
+		PsmToPlmEvent.CpuIdleFlag[ACPU_1] = 0U;
+		goto done;
+	}
+
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
 	/* Set the event bit for PLM */
 	PsmToPlmEvent.Event[ACPU_1] = PWR_UP_EVT;
 	Status = XPsmFw_NotifyPlmEvent();
 
+done:
 	return Status;
 }
 
@@ -1687,12 +1708,19 @@ static XStatus ACPU1Sleep(void)
 {
 	XStatus Status = XST_FAILURE;
 
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_1]) {
+		Status = XPsmFwACPUxDirectPwrDwn(&Acpu1PwrCtrl);
+		XPsmFw_Write32(PSM_GLOBAL_REG_WAKEUP_IRQ_EN, Acpu1PwrCtrl.PwrStateMask);
+		goto done;
+	}
+
 	/* Check for any pending event */
 	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
 	/* Set the event bit for PLM */
 	PsmToPlmEvent.Event[ACPU_1] = PWR_DWN_EVT;
 	Status = XPsmFw_NotifyPlmEvent();
 
+done:
 	return Status;
 }
 
