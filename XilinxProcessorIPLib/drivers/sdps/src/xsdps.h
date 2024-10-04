@@ -101,6 +101,7 @@
 * 4.3   ap     10/11/23 Resolved compilation errors with Microblaze RISC-V
 * 4.3   ap     11/29/23 Add support for Sanitize feature.
 * 4.3   ap     12/22/23 Add support to read custom HS400 tap delay value from design for eMMC.
+* 4.4   ht     09/30/24 Fix IAR warnings.
 *
 * </pre>
 *
@@ -212,13 +213,16 @@ typedef struct {
 /**
  * ADMA2 32-Bit descriptor table
  */
+#ifdef __ICCARM__
+#pragma pack(push,1)
+#endif
 typedef struct {
 	u16 Attribute;		/**< Attributes of descriptor */
 	u16 Length;		/**< Length of current dma transfer */
 	u32 Address;		/**< Address of current dma transfer */
 #ifdef __ICCARM__
-#pragma data_alignment = 32
 } XSdPs_Adma2Descriptor32;
+#pragma pack(pop)
 #else
 }
 __attribute__((__packed__))XSdPs_Adma2Descriptor32;
@@ -227,13 +231,16 @@ __attribute__((__packed__))XSdPs_Adma2Descriptor32;
 /**
  * ADMA2 64-Bit descriptor table
  */
+#ifdef __ICCARM__
+#pragma pack(push,1)
+#endif
 typedef struct {
 	u16 Attribute;		/**< Attributes of descriptor */
 	u16 Length;		/**< Length of current dma transfer */
 	u64 Address;		/**< Address of current dma transfer */
 #ifdef __ICCARM__
-#pragma data_alignment = 32
 } XSdPs_Adma2Descriptor64;
+#pragma pack(pop)
 #else
 }  __attribute__((__packed__))XSdPs_Adma2Descriptor64;
 #endif
@@ -269,14 +276,8 @@ typedef struct {
 	u8  IsBusy;			/**< Busy Flag*/
 	u32 BlkSize;		/**< Block Size*/
 	u8  IsTuningDone;	/**< Flag to indicate HS200 tuning complete */
-#ifdef __ICCARM__
-#pragma data_alignment = 32
-	XSdPs_Adma2Descriptor32 Adma2_DescrTbl32[32];		/**< ADMA descriptor table 32 Bit */
-	XSdPs_Adma2Descriptor64 Adma2_DescrTbl64[32];		/**< ADMA descriptor table 64 Bit */
-#else
 	XSdPs_Adma2Descriptor32 Adma2_DescrTbl32[32] __attribute__ ((aligned(32)));	/**< ADMA descriptor table 32 Bit */
 	XSdPs_Adma2Descriptor64 Adma2_DescrTbl64[32] __attribute__ ((aligned(32)));	/**< ADMA descriptor table 64 Bit */
-#endif
 } XSdPs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
