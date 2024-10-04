@@ -160,6 +160,7 @@
 * 2.8  akm     07/06/23    Update the driver to support for system device-tree flow.
 * 2.9  sb      01/03/24    Add FlashBbt array in nandps structure for partial read/write operations
 *                          while reading and writing bbt in flash.
+* 2.10 akm     10/04/24    Retrieve the 'reg' property value from smcc node 'ranges'
 *
 * </pre>
 *
