@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -492,14 +492,7 @@ void XDpTxSs_ReportMsaInfo(XDpTxSs *InstancePtr)
 				"\tVert Start           	(0x1A0) : %u\n\r"
 				"\tMisc0                	(0x1A4) : 0x%08x\n\r"
 				"\tMisc1                	(0x1A8) : 0x%08x\n\r"
-				"\tUser Pixel Width     	(0x1B8) : %u\n\r"
-				"\tM Vid                	(0x1AC) : %u\n\r"
-				"\tN Vid                	(0x1B4) : %u\n\r"
-				"\tTransfer Unit Size   	(0x1B0) : %u\n\r"
-				"\tUser Data Count      	(0x1BC) : %u\n\r"
-				"\tMinimum bytes per TU 	(0x1C4) : %u\n\r"
-				"\tFractional bytes per TU	(0x1C8) : %u\n\r"
-				"\tInit wait              	(0x1CC) : %u\n\r",
+				"\tUser Pixel Width     	(0x1B8) : %u\n\r",
 		Stream,
 		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_HTOTAL+
 						StreamOffset[Stream - 1]),
@@ -524,11 +517,33 @@ void XDpTxSs_ReportMsaInfo(XDpTxSs *InstancePtr)
 		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_MISC1+
 				StreamOffset[Stream - 1]),
 		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_USER_PIXEL_WIDTH+
-				StreamOffset[Stream - 1]),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_M_VID+
-				StreamOffset[Stream - 1]),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_N_VID+
-				StreamOffset[Stream - 1]),
+				StreamOffset[Stream - 1])
+		);
+
+		if(InstancePtr->DpPtr->TxInstance.LinkConfig.TrainingMode == XDP_TX_TRAINING_MODE_DP14){
+			xil_printf(
+					"\tM Vid                	(0x1AC) : %u\n\r"
+					"\tN Vid                	(0x1B4) : %u\n\r",
+					XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_M_VID+
+								StreamOffset[Stream - 1]),
+					XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_N_VID+
+								StreamOffset[Stream - 1])
+			);
+		}else{
+			xil_printf(
+					"\tVFreq L                	(0x6D0) : 0x%08x\n\r"
+					"\tVFreq H                	(0x6D4) : 0x%08x\n\r",
+			XDp_ReadReg(TxConfig->BaseAddr, 0x6D0),
+			XDp_ReadReg(TxConfig->BaseAddr, 0X6D4)
+			);
+		}
+
+		xil_printf(
+		"\tTransfer Unit Size   	(0x1B0) : %u\n\r"
+		"\tUser Data Count      	(0x1BC) : %u\n\r"
+		"\tMinimum bytes per TU 	(0x1C4) : %u\n\r"
+		"\tFractional bytes per TU	(0x1C8) : %u\n\r"
+		"\tInit wait              	(0x1CC) : %u\n\r",
 		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_TU_SIZE+
 				StreamOffset[Stream - 1]),
 		XDp_ReadReg(TxConfig->BaseAddr,

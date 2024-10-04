@@ -2726,28 +2726,36 @@ static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream)
 	LinkRate = XDp_Tx_DecodeLinkBandwidth(InstancePtr->DpPtr);
 
 	/*Calculate pixel clock in HZ */
-	ClkFreq = (((u64)(LinkRate * 27 * MsaConfig->MVid)) * 1000000) /
-								MsaConfig->NVid;
+	if((LinkRate == XDP_TX_LINK_BW_SET_UHBR10) || (LinkRate == XDP_TX_LINK_BW_SET_UHBR20) || (LinkRate == XDP_TX_LINK_BW_SET_UHBR135)){
+		ClkFreq = MsaConfig->VFreq;
+	}else{
+		ClkFreq = (((u64)(LinkRate * 27 * MsaConfig->MVid)) * 1000000) /
+				MsaConfig->NVid;
+		if(MsaConfig->IsRxDp21){
+			ClkFreq = MsaConfig->VFreq;
+		}
+	}
 	MsaConfig->PixelClockHz = (u32) ClkFreq;
 
 	/*Calculate frame rate */
-	Fval = (ClkFreq * 1000000.0) / (MsaConfig->Vtm.Timing.HTotal *
+	Fval = (ClkFreq) / (MsaConfig->Vtm.Timing.HTotal *
                                 MsaConfig->Vtm.Timing.F0PVTotal);
-
 	Ival = (u32) Fval;
-
 	FrameRate = (u32) (Fval == (float) Ival) ? Ival : Ival + 1;
 
 	/* Round of frame rate */
-	if ((FrameRate == 59) || (FrameRate == 61)) {
+	if (FrameRate == 49 || FrameRate == 51) {
+		FrameRate = 50;
+	} else if (FrameRate == 59 || FrameRate == 61) {
 		FrameRate = 60;
-	}
-	else if ((FrameRate == 29) || (FrameRate == 31)) {
+	} else if (FrameRate == 29 || FrameRate == 31) {
 		FrameRate = 30;
-	}
-	else if ((FrameRate == 76) || (FrameRate == 74)) {
+	} else if (FrameRate == 76 || FrameRate == 74) {
 		FrameRate = 75;
+	} else if (FrameRate == 121 || FrameRate == 119) {
+		FrameRate = 120;
 	}
+
 	MsaConfig->Vtm.FrameRate = FrameRate;
 
 	/* Calculate horizontal front porch */
