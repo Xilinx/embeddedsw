@@ -39,6 +39,10 @@
  * </pre>
  *
  ******************************************************************************/
+/**
+* @addtogroup xsecure_error_codes Xilsecure Error Codes
+* @{
+*/
 #ifndef XSECURE_ERROR_H_
 #define XSECURE_ERROR_H_
 
@@ -132,7 +136,7 @@ typedef enum {
 	XSECURE_AES_UNALIGNED_SIZE_ERROR,	/**< 0x5C - Error when data is unaligned*/
 	XSECURE_AES_INVALID_MODE,             /**< 0x5D - Error when invalid mode is used for AES operation */
 
-	XSECURE_RSA_KAT_INIT_ERROR = 0x80,	/**< 0x80 - RSA KAT intialization failure */
+	XSECURE_RSA_KAT_INIT_ERROR = 0x80,	/**< 0x80 - RSA KAT initialization failure */
 
 	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR, /**< 0x81 - RSA KAT fails  */
 
@@ -201,3 +205,4 @@ typedef enum {
 #endif
 
 #endif /* XSECURE_ERROR_H_ */
+/** @} */

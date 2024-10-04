@@ -25,7 +25,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_mgf_server_apis XilSecure MGF Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 
 #include "xsecure_mgf.h"
@@ -55,12 +58,12 @@ static XSecure_HashAlgInfo XSecure_MgfHashList[] =
 /**
  * @brief	This function starts the sha engine
  *
- * @param	Shatype holds the XSecure_ShaMode value of choosen sha algo.
- * @param	InstancePtr is the pointer to SHA algorithm used.
+ * @param	Shatype		holds the XSecure_ShaMode value of chosen sha algo.
+ * @param	InstancePtr	is the pointer to SHA algorithm used.
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- Errorcode on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 static int XSecure_ShaMgfStart(XSecure_ShaMode Shatype, void *InstancePtr)
@@ -83,14 +86,14 @@ static int XSecure_ShaMgfStart(XSecure_ShaMode Shatype, void *InstancePtr)
 /**
  * @brief	This function updates the data to SHA algorithm
  *
- * @param	Shatype holds the XSecure_ShaMode value of choosen sha algo.
- * @param	InstancePtr is the pointer to SHA algorithm used.
- * @param	InDataAddr is the input data address.
- * @param	Size is the size of the input data.
+ * @param	Shatype		holds the XSecure_ShaMode value of chosen sha algo.
+ * @param	InstancePtr	is the pointer to SHA algorithm used.
+ * @param	InDataAddr	is the input data address.
+ * @param	Size		is the size of the input data.
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- Errorcode on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 static int XSecure_ShaMgfUpdate(XSecure_ShaMode Shatype, void *InstancePtr, u64 InDataAddr, u32 Size)
@@ -113,13 +116,13 @@ static int XSecure_ShaMgfUpdate(XSecure_ShaMode Shatype, void *InstancePtr, u64 
  * @brief	This function updates SHA engine with final data which includes
  * 		SHA padding and reads final hash on complete data
  *
- * @param	Shatype holds the XSecure_ShaMode value of choosen sha algo.
- * @param	InstancePtr is the pointer to SHA algorithm used.
- * @param	HashAddr is the address where the hash is stored.
+ * @param	Shatype		holds the XSecure_ShaMode value of chosen sha algo.
+ * @param	InstancePtr	is the pointer to SHA algorithm used.
+ * @param	HashAddr	is the address where the hash is stored.
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- Errorcode on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 static int XSecure_ShaMgfFinish(XSecure_ShaMode Shatype, void *InstancePtr, u64 HashAddr)
@@ -141,15 +144,15 @@ static int XSecure_ShaMgfFinish(XSecure_ShaMode Shatype, void *InstancePtr, u64 
 /**
  * @brief	This function updates and calculates sha digest on data.
  *
- * @param	Shatype holds the XSecure_ShaMode value of choosen sha algo.
- * @param	InstancePtr is the pointer to SHA algorithm used.
- * @param	InDataAddr is the input data address.
- * @param	Size is the size of the input data.
- * @param	HashAddr is the address where the hash is stored.
+ * @param	Shatype		holds the XSecure_ShaMode value of chosen sha algo.
+ * @param	InstancePtr	is the pointer to SHA algorithm used.
+ * @param	InDataAddr	is the input data address.
+ * @param	Size		is the size of the input data.
+ * @param	HashAddr	is the address where the hash is stored.
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- Errorcode on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 static int XSecure_ShaMgfDigest(XSecure_ShaMode Shatype, void *InstancePtr, u64 InputDataAddr, u32 Size, u64 HashAddr)
@@ -172,12 +175,9 @@ static int XSecure_ShaMgfDigest(XSecure_ShaMode Shatype, void *InstancePtr, u64 
  * @brief	This function converts a non-negative integer to an octet string of a
  * 		specified length.
  *
- * @param	Integer is the variable in which input should be provided.
- * @param	Size holds the required size.
- * @param	Convert is a pointer in which output will be updated.
- *
- * @return
- * 			- None
+ * @param	Integer	is the variable in which input should be provided.
+ * @param	Size	holds the required size.
+ * @param	Convert	is a pointer in which output will be updated.
  *
  ******************************************************************************/
 static inline void XSecure_I2Osp(u32 Integer, u32 Size, u8 *Convert)
@@ -190,13 +190,13 @@ static inline void XSecure_I2Osp(u32 Integer, u32 Size, u8 *Convert)
 /*****************************************************************************/
 /**
  * @brief	This function returns hash function list of user specified
- *              hash algorithm.
+ *		hash algorithm.
  *
- * @param	Shatype holds the XSecure_ShaMode value of choosen sha algo.
+ * @param	Shatype	holds the XSecure_ShaMode value of chosen sha algo.
  *
  * @return
- *              - Pointer to XSecure_HashAlgInfo instance
- *              - NULL otherwise
+ *		 - Pointer to XSecure_HashAlgInfo instance
+ *		 - NULL  Otherwise
  *
  ******************************************************************************/
 XSecure_HashAlgInfo *XSecure_GetHashInstance(XSecure_ShaMode Shatype)
@@ -213,16 +213,17 @@ XSecure_HashAlgInfo *XSecure_GetHashInstance(XSecure_ShaMode Shatype)
 /*****************************************************************************/
 /**
  * @brief	This function takes an input of variable length and
- *          a desired output length as input, and provides fixed output
- *          mask using cryptographic hash function. i.e. Mask Generation Function(MGF).
+ *		a desired output length as input, and provides fixed output
+ *		mask using cryptographic hash function. i.e. Mask Generation Function(MGF).
  *
- * @param	ShaType is of type XSecure_ShaMode.
- * @param	InstancePtr is pointer to the sha instance.
- * @param	MgfInput is pointer to XSecure_MgfInput instance.
+ * @param	ShaType		is of type XSecure_ShaMode.
+ * @param	InstancePtr	is pointer to the sha instance.
+ * @param	MgfInput	is pointer to XSecure_MgfInput instance.
  *
  * @return
- * 		- XST_SUCCESS on success.
- * 		- Errorcode on failure.
+ *		 - XST_SUCCESS  On success.
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid
+ *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
 int XSecure_MaskGenFunc(XSecure_ShaMode ShaType, void *InstancePtr, XSecure_MgfInput *MgfInput)

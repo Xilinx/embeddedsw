@@ -19,6 +19,10 @@
 * </pre>
 *
 ******************************************************************************/
+/**
+* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
+* @{
+*/
 #ifndef XSECURE_PLAT_KAT_H_
 #define XSECURE_PLAT_KAT_H_
 
@@ -42,3 +46,4 @@ int XSecure_RsaPrivateDecryptKat(void);
 #endif
 
 #endif /* XSECURE_PLAT_KAT_H_ */
+/** @} */

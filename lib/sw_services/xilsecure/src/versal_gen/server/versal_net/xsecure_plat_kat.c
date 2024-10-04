@@ -10,7 +10,7 @@
 *
 * @file xsecure_plat_kat.c
 *
-* This file contains known answer tests for versal net
+* This file contains known answer tests for Versal Net
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -33,10 +33,11 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_plat_kat.h"
 #include "xsecure_rsa.h"
@@ -61,13 +62,16 @@
 
 /*****************************************************************************/
 /**
- * This function performs KAT on HMAC (SHA3-384).
+ * @brief	This function performs KAT on HMAC (SHA3-384).
  *
- * @param SecureSha3 Pointer to SHA3 instance
+ * @param	SecureSha3	Pointer to SHA3 instance
  *
  * @return
- *	-	Error codes on failure
- *	-	XST_SUCCESS on success
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_HMAC_KAT_INIT_ERROR  If HMAC init fails
+ *		 - XSECURE_HMAC_KAT_UPDATE_ERROR  If HMAC update fails
+ *		 - XSECURE_HMAC_KAT_FINAL_ERROR  If HMAC final fails
+ *		 - XSECURE_HMAC_KAT_ERROR  If HMAC KAT fails
  *
  *****************************************************************************/
 int XSecure_HmacKat(XSecure_Sha3 *SecureSha3)
@@ -127,11 +131,12 @@ END:
 
 /*****************************************************************************/
 /**
- * This function performs KAT on SHA-384.
+ * @brief	This function performs KAT on SHA-384.
  *
  * @return
- *	-	Error codes on failure
- *	-	XST_SUCCESS on success
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_SHA384_KAT_ERROR  If SHA384 KAT fails
+ *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
 int XSecure_Sha384Kat(void)
@@ -178,17 +183,19 @@ END:
 
 /*****************************************************************************/
 /**
- * This function performs pairwise consistency test for generated RSA key pair using
+ * @brief	This function performs pairwise consistency test for generated RSA key pair using
  * OAEP encrypt and decrypt operation.
  *
- * @param PrivKey Pointer to the XSecure_RsaKey
- * @param PubKey  Pointer to the XSecure_RsaPubKey
- * @param ShaInstancePtr Pointer to the SHA instance used during OAEP encoding for MGF
- * @param Shatype is SHA algorithm type used for MGF
+ * @param	PrivKey		Pointer to the XSecure_RsaKey
+ * @param	PubKey		Pointer to the XSecure_RsaPubKey
+ * @param	ShaInstancePtr	Pointer to the SHA instance used during OAEP encoding for MGF
+ * @param	Shatype		is SHA algorithm type used for MGF
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *	-	ErrorCode   - On Failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid
+ *		 - XSECURE_RSA_PWCT_MEM_CMP_FAILED_ERROR  If RSA pwct comparison fails
+ *		 - XST_FAILURE  On Failure
  *
  *****************************************************************************/
 int XSecure_RsaPwct(XSecure_RsaPrivKey *PrivKey, XSecure_RsaPubKey *PubKey, void *ShaInstancePtr, XSecure_ShaMode Shatype)
@@ -264,10 +271,10 @@ END:
  * @brief	This function performs private decrypt KAT on RSA core
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR - When RSA KAT fails
- *	-	XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR - Error when RSA data not
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR  Error when RSA data not
  *							matched with expected data
+ *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
 int XSecure_RsaPrivateDecryptKat(void)
@@ -354,3 +361,4 @@ END:
 }
 
 #endif
+/** @} */
