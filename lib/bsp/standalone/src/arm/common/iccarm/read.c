@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,15 +21,18 @@
 #include "xparameters.h"
 #include "xil_types.h"
 
-size_t __read(sint32 handle, u8 * buffer, size_t size);
 
-size_t __read(sint32 handle, u8 * buffer, size_t size)
+extern char inbyte(void);
+
+size_t __read(sint32 handle,unsigned char * buffer, size_t size);
+
+size_t __read(sint32 handle,unsigned char * buffer, size_t size)
 {
 
 #ifdef STDIN_BASEADDRESS
   s32 i;
   s32 numbytes = 0;
-  char8* LocalBuf = buffer;
+  unsigned char *LocalBuf = buffer;
 
   (void)handle;
   if(LocalBuf != NULL) {
