@@ -35,7 +35,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_ecdsa_client_apis XilSecure ECDSA Client APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_ellipticclient.h"
 
@@ -54,13 +57,8 @@
  * @param	SignAddr	Address of the signature buffer
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *	-	XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM - When Bad random number
- *					used for sign generation
- *	-	XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN - Incorrect hash
- *					length for sign generation
- *	-	XST_FAILURE - On failure
+ *		 - XST_SUCCESS  On success
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveType, u64 HashAddr,
@@ -80,7 +78,8 @@ int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveT
 	}
 
 	/**
-	 * Link Shared memory to EcdsaParams for IPI usage. If shared memory is not assigned return Size as 0
+	 * Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage.
+	 * Validates the size of the shared memory whether the required size is available or not.
 	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EcdsaParams);
 
@@ -99,16 +98,15 @@ int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveT
 
 	/* Fill IPI Payload */
 	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-	                    | XSECURE_API_ELLIPTIC_GENERATE_SIGN);
+				| XSECURE_API_ELLIPTIC_GENERATE_SIGN);
 	Payload[1U] = (u32)Buffer;
 	Payload[2U] = (u32)(Buffer >> 32);
 	Payload[3U] = (u32)(SignAddr);
 	Payload[4U] = (u32)(SignAddr >> 32);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticGenSign api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticGenSign
+	 * API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
@@ -128,11 +126,8 @@ END:
  * 				stored.
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - When elliptic Curve
- *						is not supported
- *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *	-	XSECURE_ELLIPTIC_GEN_KEY_ERR - Error in generating Public key
+ *		 - XST_SUCCESS  On success
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveType, u64 PrivKeyAddr,
@@ -150,7 +145,7 @@ int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 
 	/* Fill IPI Payload */
 	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-	                    | XSECURE_API_ELLIPTIC_GENERATE_KEY);
+				| XSECURE_API_ELLIPTIC_GENERATE_KEY);
 	Payload[1U] = CurveType;
 	Payload[2U] = (u32)PrivKeyAddr;
 	Payload[3U] = (u32)(PrivKeyAddr >> 32);
@@ -158,9 +153,8 @@ int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	Payload[5U] = (u32)(PubKeyAddr >> 32);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticGenKey api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticGenKey
+	 * API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
@@ -175,16 +169,11 @@ END:
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	CurveType	Type of elliptic curve
- * @param	KeyAddr		Address of the pubilc key to be validated
+ * @param	KeyAddr		Address of the public key to be validated
  *
  * @return
- *	-	XST_SUCCESS 			- On success
- *	-	XSECURE_ELLIPTIC_INVALID_PARAM	- On invalid argument
- *	-	XSECURE_ELLIPTIC_KEY_ZERO	- When Public key is zero
- *	-	XSECURE_ELLIPTIC_KEY_WRONG_ORDER- Wrong order of Public key
- *	-	XSECURE_ELLIPTIC_KEY_NOT_ON_CRV	- When Key is not found on
- *						the curve
- *	-	XST_FAILURE			- On failure
+ *		 - XST_SUCCESS  On success
+ *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
 int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveType, u64 KeyAddr)
@@ -201,15 +190,14 @@ int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 
 	/* Fill IPI Payload */
 	Payload[0U] = HEADER(0, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
-	                    | XSECURE_API_ELLIPTIC_VALIDATE_KEY);
+				| XSECURE_API_ELLIPTIC_VALIDATE_KEY);
 	Payload[1U] = CurveType;
 	Payload[2U] = (u32)KeyAddr;
 	Payload[3U] = (u32)(KeyAddr >> 32);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticValidatePubKey api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticValidatePubKey
+	 * API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
@@ -231,19 +219,8 @@ END:
  * @param	SignAddr	Address of the signature buffer
 
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *	-	XSECURE_ELLIPTIC_BAD_SIGN - When signature provided
- *					for verification is bad
- *	-	XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN - Incorrect hash
- *						length for sign verification
- *	-	XSECURE_ELLIPTIC_VER_SIGN_R_ZERO - R set to zero
- *	-	XSECURE_ELLIPTIC_VER_SIGN_S_ZERO - S set to zero
- *	-	XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR - R is not within ECC
- *							order
- *	-	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR - S is not within ECC
- *							order
- *	-	XST_FAILURE - On failure
+ *		 - XST_SUCCESS  On success
+ *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
 int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveType, u64 HashAddr,
@@ -263,7 +240,8 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 	}
 
 	/**
-	 * Link Shared memory to EcdsaParams for IPI usage. If shared memory is not assigned return Size as 0
+	 * Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage.
+	 * Validates the size of the shared memory whether the required size is available or not.
 	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EcdsaParams);
 
@@ -287,12 +265,12 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 	Payload[2U] = (u32)(Buffer >> 32);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticVerifySignature api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticVerifySignature
+	 * API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
 }
+/** @} */

@@ -25,7 +25,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_kat_client_apis XilSecure KAT Client APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_plat_katclient.h"
 #include "xsecure_plat_defs.h"
@@ -47,11 +50,12 @@ static int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr,
  *
  * @brief	This function sends IPI request to PLM to perform TRNG KAT and health tests
  *
- * @param	InstancePtr  Pointer to the client instance
+ * @param	InstancePtr	Pointer to the client instance
  *
  * @return
- *	-	XST_SUCCESS - When KAT Pass
- *	-	Errorcode - On failure
+ *		 - XST_SUCCESS  When KAT Pass
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid.
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_TrngKat(XSecure_ClientInstance *InstancePtr)
@@ -68,6 +72,10 @@ int XSecure_TrngKat(XSecure_ClientInstance *InstancePtr)
 	Payload[0U] = HEADER(0U, XSECURE_API_KAT);
 	Payload[1U] = (u32)XSECURE_API_TRNG_KAT;
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_TrngKat
+	 * API and returns the status of the IPI response.
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
@@ -77,8 +85,7 @@ END:
 /*****************************************************************************/
 /**
  *
- * @brief	This function sends IPI request to PLM to set
- *          or clear kat mask of HNIC.
+ * @brief	This function sends IPI request to PLM to set or clear kat mask of HNIC.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	KatOp		Operation to set or clear KAT mask
@@ -86,8 +93,8 @@ END:
  * @param	KatMask		KAT mask
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *	-	Errorcode - On failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 int XSecure_UpdateHnicKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp,
@@ -110,8 +117,7 @@ END:
 /*****************************************************************************/
 /**
  *
- * @brief	This function sends IPI request to PLM to set
- *          or clear kat mask of CPM5N.
+ * @brief	This function sends IPI request to PLM to set or clear kat mask of CPM5N.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	KatOp		Operation to set or clear KAT mask
@@ -119,8 +125,8 @@ END:
  * @param	KatMask		KAT mask
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *	-	Errorcode - On failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 int XSecure_UpdateCpm5NKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp,
@@ -142,8 +148,7 @@ END:
 /*****************************************************************************/
 /**
  *
- * @brief	This function sends IPI request to PLM to set
- *          or clear kat mask of PCIDE.
+ * @brief	This function sends IPI request to PLM to set or clear kat mask of PCIDE.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	KatOp		Operation to set or clear KAT mask
@@ -151,8 +156,8 @@ END:
  * @param	KatMask		KAT mask
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *	-	Errorcode - On failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 int XSecure_UpdatePcideKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp,
@@ -173,7 +178,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function sets or clears KAT mask of PKI.
+ * @brief	This function sets or clears KAT mask of PKI.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	KatOp		Operation to set or clear KAT mask
@@ -181,8 +186,8 @@ END:
  * @param	KatMask		Pointer to the KAT mask
  *
  * @return
-	-	XST_SUCCESS - If set or clear is successful
- *	-	XST_FAILURE - On failure
+ *		 - XST_SUCCESS  If set or clear is successful
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 int XSecure_UpdatePkiKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp,
@@ -204,8 +209,7 @@ END:
 /*****************************************************************************/
 /**
  *
- * @brief	This function sends IPI request to PLM to set
- *          or clear kat mask of HNIC.
+ * @brief	This function sends IPI request to PLM to set or clear kat mask of HNIC.
  *
  * @param	InstancePtr	Pointer to the client instance
  * @param	KatOp		Operation to set or clear KAT mask
@@ -214,8 +218,9 @@ END:
  * @param	ApiId		IPI request API ID
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *	-	Errorcode - On failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid.
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr,
@@ -244,7 +249,12 @@ static int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr,
 		Payload[2U + Index] = KatMask[Index];
 	}
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to update Kat status in
+	 * XSecure_UpdateKatStatusIpiHandler API and returns the status of the IPI response.
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 END:
 	return Status;
 }
+/** @} */

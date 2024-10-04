@@ -62,3 +62,4 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 #endif
 
 #endif  /* XSECURE_RSA_CLIENT_H */
+/** @} */

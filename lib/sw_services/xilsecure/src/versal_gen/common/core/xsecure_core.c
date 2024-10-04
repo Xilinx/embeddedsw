@@ -19,7 +19,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_common_apis Xilsecure Common Apis
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_core.h"
 #include "xsecure_aes.h"
@@ -263,7 +266,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
  * @brief	This function is used to set the Data context bit
  * 		of the corresponding IPI channel if the previous data context is lost.
  *
- * @param	InstancePtr		Pointer to the XSecure_Aes instance
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
  *
  *
  ******************************************************************************/
@@ -299,12 +302,12 @@ void XSecure_ShaSetDataContext(XSecure_Sha *InstancePtr)
 /**
  * @brief	This function configures SSS to AES engine
  *
- * @param	DmaPtr	Pointer to the DMA instance
- * @param 	SssInstance Pointer to SSS instance
+ * @param	DmaPtr		Pointer to the DMA instance
+ * @param 	SssInstance	Pointer to SSS instance
  *
  * @return
- *	-	XST_SUCCESS on successful configuration
- *	-	Error code on failure
+ *		 - XST_SUCCESS  On successful configuration
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 int XSecure_CfgSssAes(XPmcDma *DmaPtr, const XSecure_Sss *SssInstance)
@@ -326,3 +329,4 @@ int XSecure_CfgSssAes(XPmcDma *DmaPtr, const XSecure_Sss *SssInstance)
 
 	return Status;
 }
+/** @} */

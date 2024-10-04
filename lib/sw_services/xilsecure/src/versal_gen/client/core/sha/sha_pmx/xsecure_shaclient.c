@@ -37,7 +37,10 @@
 *
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_sha_client_apis XilSecure SHA Client APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_shaclient.h"
 
@@ -55,12 +58,12 @@ static XSecure_ShaState Sha3State = XSECURE_SHA_UNINITIALIZED;
 
 /*****************************************************************************/
 /**
- * @brief       This function stores the Sha3 initialize state as initialized
- *              if the current state is uninitialized.
+ * @brief	This function stores the Sha3 initialize state as initialized
+ *		if the current state is uninitialized.
  *
  * @return
- *	-	XST_SUCCESS - If the Sha3 state is changed to initialized state
- *	-	XST_FAILURE - If the Sha3 is not in uninitialized state
+ *		 - XST_SUCCESS  If the Sha3 state is changed to initialized state
+ *		 - XST_FAILURE  If the Sha3 is not in uninitialized state
  *
  ******************************************************************************/
 int XSecure_Sha3Initialize(void)
@@ -77,7 +80,7 @@ int XSecure_Sha3Initialize(void)
 
 /*****************************************************************************/
 /**
- * @brief       This function sends IPI request to update the SHA3 engine
+ * @brief	This function sends IPI request to update the SHA3 engine
  *		with the input data
  *
  * @param	InstancePtr	Pointer to the client instance
@@ -86,8 +89,8 @@ int XSecure_Sha3Initialize(void)
  * @param	Size		Size of the data to be updated to SHA3 engine
  *
  * @return
- *	-	XST_SUCCESS - If the update is successful
- *	-	XST_FAILURE - If there is a failure
+ *		 - XST_SUCCESS  If the update is successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, u32 Size)
@@ -127,9 +130,8 @@ int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	Payload[5U] = XSECURE_IPI_UNUSED_PARAM;
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation
+	 * API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 	if (Status != XST_SUCCESS) {
@@ -152,10 +154,8 @@ END:
  * 				output hash
  *
  * @return
- *	-	XST_SUCCESS - If finished without any errors
- *	-	XSECURE_SHA3_INVALID_PARAM - On invalid parameter
- *	-	XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
- *	-	XST_FAILURE - If Sha3PadType is other than KECCAK or NIST
+ *		 - XST_SUCCESS  If finished without any errors
+ *		 - XST_FAILURE  If there is a failure
  *
  *****************************************************************************/
 int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAddr)
@@ -189,9 +189,8 @@ int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAdd
 	Payload[5U] = (u32)(OutDataAddr >> 32);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation
+	 * API and it returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 	if (Status != XST_SUCCESS) {
@@ -217,10 +216,8 @@ END:
  * @param	Size		Size of the data to be updated to SHA3 engine
  *
  * @return
- *	-	XST_SUCCESS - If the sha3 hash calculation is successful
- *	-	XSECURE_SHA3_INVALID_PARAM - On invalid parameter
- *	-	XSECURE_SHA3_STATE_MISMATCH_ERROR - If there is State mismatch
- *	-	XST_FAILURE - If there is a failure
+ *		 - XST_SUCCESS  If the sha3 hash calculation is successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, const u64 OutDataAddr, u32 Size)
@@ -237,7 +234,7 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	}
 
 	/**
-	 * Update Sha3State to initialised
+	 * Initialize SHA3
 	 */
 	Status = XSecure_Sha3Initialize();
 	if (Status != XST_SUCCESS) {
@@ -256,9 +253,8 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	Payload[5U] = (u32)(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation
+	 * API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
 				sizeof(Payload)/sizeof(u32));
@@ -273,3 +269,4 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 END:
 	return Status;
 }
+/** @} */
