@@ -233,3 +233,25 @@ examples:
             - src/dp21_tx_only/xvid_pat_gen.c
             - src/dp21_tx_only/xvid_clk_gen.c
             - src/platforms/vcu_mb/lscript.ld
+
+    src/dp21_pt/xdptxss_dp21_pt.c:
+        - dependency_files:
+            - src/dp21_pt/idt_8t49n24x.c
+            - src/dp21_pt/idt_8t49n24x.h
+            - src/dp21_pt/main.h
+            - src/dp21_pt/menus.c
+            - src/dp21_pt/passthrough.c
+            - src/dp21_pt/rx.c
+            - src/dp21_pt/rx.h
+            - src/dp21_pt/si5344drv.c
+            - src/dp21_pt/si5344drv.h
+            - src/dp21_pt/ti_lmk03318.c
+            - src/dp21_pt/ti_lmk03318.h
+            - src/dp21_pt/tx.c
+            - src/dp21_pt/tx.h
+            - src/dp21_pt/videofmc_defs.h
+            - src/dp21_pt/xdptxss_dp21_pt.c
+            - src/dp21_pt/xvid_clk_gen.c
+	    - src/dp21_pt/xvidframe_crc.c
+	    - src/dp21_pt/xvidframe_crc.h
+            - src/dp21_pt/lscript.ld
