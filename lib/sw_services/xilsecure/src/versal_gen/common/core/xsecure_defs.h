@@ -39,7 +39,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_common_apis Xilsecure Common Apis
+* @{
+*/
 #ifndef XSECURE_DEFS_H
 #define XSECURE_DEFS_H
 
@@ -88,7 +91,7 @@ extern "C" {
 #define XSECURE_API(ApiId)	((u32)ApiId)
 				/**< Macro to typecast XILSECURE API ID */
 
-#define XSECURE_API_ID_MASK	0xFFU
+#define XSECURE_API_ID_MASK	(0xFFU)
 				/**< Mask for API ID in Secure IPI command */
 
 #define XILSECURE_MODULE_ID			(0x05U)
@@ -103,7 +106,7 @@ extern "C" {
 #define XSECURE_IPI_MASK_DEF_VAL           (0xFFFFFFFFU)
 				/**< Default IPI mask value */
 #define XSECURE_ECDSA_PRIME		(XSECURE_ECC_PRIME)
-	/**< This macro is for backward compatibilty. For ECC Prime curves, use XSECURE_ECC_PRIME */
+	/**< This macro is for backward compatibility. For ECC Prime curves, use XSECURE_ECC_PRIME */
 #define XSecure_EllipticCrvClass	XSecure_EccCrvClass
 	/**< Alias for XSecure_EccCrvClass enum for backward compatibility */
 #define XSECURE_CLEAR_IPI_MASK 		(0U)
@@ -113,7 +116,7 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-/** Structure for input parameters for RSA Encryption and Decrytion */
+/** Structure for input parameters for RSA Encryption and Decryption */
 typedef struct {
 	u64 KeyAddr;	/**< Key Address */
 	u64 DataAddr;	/**< Data Address */
@@ -147,7 +150,7 @@ typedef struct {
 
 /**
  * Structure for input parameters for Initialisation of
- * AES Encrytion and Decrytion
+ * AES Encryption and Decryption
  */
 typedef struct {
 	u64 IvAddr;	/**< IV address */
@@ -156,7 +159,7 @@ typedef struct {
 	u32 KeySize;	/**< Size of AES key*/
 } XSecure_AesInitOps;
 
-/** Structure for input parameters for AES Encryption and Decrytion */
+/** Structure for input parameters for AES Encryption and Decryption */
 typedef struct {
 	u64 InDataAddr;	/**< Address of input data*/
 	u32 Size;	/**< Length of input data*/
@@ -165,7 +168,7 @@ typedef struct {
 
 /**
  * Structure for input parameters for AES
- * Encryption and Decrytion of single block of data.
+ * Encryption and Decryption of single block of data.
  */
 typedef struct {
 	u64 IvAddr;	/**< IV address */
@@ -221,3 +224,4 @@ typedef enum {
 #endif
 
 #endif  /* XSECURE_DEFS_H */
+/** @} */

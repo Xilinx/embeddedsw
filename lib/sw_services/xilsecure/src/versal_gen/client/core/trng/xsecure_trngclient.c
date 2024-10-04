@@ -28,23 +28,26 @@
 *
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_trng_client_apis XilSecure TRNG Client APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_trngclient.h"
 
 /*****************************************************************************/
 /**
  *
- * @brief	This function sends IPI request to generate
- *              random number
+ * @brief	This function sends IPI request to generate random number
  *
- * @param	InstancePtr  Pointer to the client instance.
- * @param	RandBufAddr  Rand Buffer address to store the generated random number.
- * @param	Size  Number of random bytes needs to be generated.
+ * @param	InstancePtr	Pointer to the client instance.
+ * @param	RandBufAddr	Rand Buffer address to store the generated random number.
+ * @param	Size		Number of random bytes needs to be generated.
  *
  * @return
- *	-	XST_SUCCESS - When KAT Pass
- *	-	Errorcode - On failure
+ *		 - XST_SUCCESS  When KAT Pass
+ *		 - XST_INVALID_PARAM  If any input parameters are invalid.
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_TrngGenerateRandNum(XSecure_ClientInstance *InstancePtr, u64 RandBufAddr, u32 Size)
@@ -68,8 +71,13 @@ int XSecure_TrngGenerateRandNum(XSecure_ClientInstance *InstancePtr, u64 RandBuf
 	Payload[2U] = (u32)(RandBufAddr >> 32);
 	Payload[3U] = Size;
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_TrngGenerateRandNum
+	 * API and returns the status of the IPI response.
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
 }
+/** @} */

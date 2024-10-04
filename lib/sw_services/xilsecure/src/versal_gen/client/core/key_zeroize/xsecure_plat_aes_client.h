@@ -21,7 +21,6 @@
 * </pre>
 *
 ******************************************************************************/
-
 /**
 * @addtogroup xsecure_aes_client_apis XilSecure AES Client APIs
 * @{
@@ -52,3 +51,4 @@ int XSecure_AesPerformOperationAndZeroizeKey(XSecure_ClientInstance *InstancePtr
 #endif
 
 #endif  /* XSECURE_PLAT_AES_CLIENT_H */
+/** @} */

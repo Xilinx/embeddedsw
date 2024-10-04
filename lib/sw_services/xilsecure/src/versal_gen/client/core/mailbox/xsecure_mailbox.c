@@ -35,7 +35,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_mailbox_apis XilSecure Mailbox APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xsecure_mailbox.h"
@@ -52,14 +55,14 @@
 
 /*****************************************************************************/
 /**
- * @brief	Adds the SLR Index.
+ * @brief	This function adds the SLR Index.
  *
- * @param  InstancePtr is a pointer to instance XSecure_ClientInstance
+ * @param	InstancePtr	is a pointer to instance XSecure_ClientInstance
+ * @param	SlrIndex	Number for slrId
  *
- * @param   SlrIndex - Number for slrId
- *
- *@return	- XST_SUCCESS - On valid input SlrIndex.
- *		    - XST_FAILURE - On non valid input SlrIndex
+ *@return
+ *		 - XST_SUCCESS  On valid input SlrIndex.
+ *		 - XST_FAILURE  On non valid input SlrIndex
  *
  ******************************************************************************/
 int XSecure_InputSlrIndex(XSecure_ClientInstance *InstancePtr, u32 SlrIndex)
@@ -74,18 +77,19 @@ int XSecure_InputSlrIndex(XSecure_ClientInstance *InstancePtr, u32 SlrIndex)
 
 /****************************************************************************/
 /**
- * @brief  This function sends IPI request to the target module and gets the
- * response from it
+ * @brief	This function sends IPI request to the target module and gets the
+ * 		response from it
  *
  * @param	MailboxPtr	Pointer to XMailbox
  * @param	MsgPtr		Pointer to the payload message
  * @param	MsgLen		Length of the message
  *
  * @return
- *	-	XST_SUCCESS - If the IPI send and receive is successful
- *	-	XST_FAILURE - If there is a failure
+ *		 - XST_SUCCESS  If the IPI send and receive is successful
+ *		 - XST_FAILURE  If there is a failure
+ *		 - Response received from server
  *
- * @note	Payload  consists of API id and call arguments to be written
+ * @note	Payload  consists of API ID and call arguments to be written
  * 		in IPI buffer
  *
  ****************************************************************************/
@@ -122,14 +126,14 @@ END:
 /*****************************************************************************/
 /**
 *
-* This function sets the instance of mailbox
+* @brief	This function sets the instance of mailbox
 *
-* @param InstancePtr Pointer to the client instance
-* @param MailboxPtr Pointer to the mailbox instance
+* @param	InstancePtr	Pointer to the client instance
+* @param	MailboxPtr	Pointer to the mailbox instance
 *
 * @return
-* 	- XST_SUCCESS - On successful initialization
-* 	- XST_FAILURE - On failure
+*		 - XST_SUCCESS  On successful initialization
+*		 - XST_FAILURE  On failure
 *
 ******************************************************************************/
 int XSecure_ClientInit(XSecure_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr)
@@ -148,3 +152,4 @@ int XSecure_ClientInit(XSecure_ClientInstance* const InstancePtr, XMailbox* cons
 
 	return Status;
 }
+/** @} */

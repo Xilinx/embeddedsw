@@ -23,7 +23,10 @@
 * @note
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_aes_client_apis XilSecure AES Client APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_plat_aes_client.h"
 #include "xsecure_defs.h"
@@ -52,10 +55,8 @@
  * @param 	AesDataParams	Pointer to the XSecure_AesDataBlockParams structure variable
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_AES_INVALID_PARAM - On invalid parameter
- *	-	XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch is occurred
- *	-	XST_FAILURE - On failure
+ *		 - XST_SUCCESS  On success
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 int XSecure_AesPerformOperationAndZeroizeKey(XSecure_ClientInstance *InstancePtr, u64 KeyAddr, const XSecure_AesDataBlockParams *AesDataParams)
@@ -109,12 +110,12 @@ int XSecure_AesPerformOperationAndZeroizeKey(XSecure_ClientInstance *InstancePtr
 	Payload[4U] = (u32)(KeyAddr >> XSECURE_ADDR_HIGH_SHIFT);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesOpNZeroizeKey.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesOpNZeroizeKey
+	 * API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
 }
+/** @} */

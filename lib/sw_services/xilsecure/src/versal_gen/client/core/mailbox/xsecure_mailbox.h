@@ -36,11 +36,9 @@
 * </pre>
 *
 ******************************************************************************/
-
 /**
 * @addtogroup xsecure_mailbox_apis XilSecure Mailbox APIs
 * @{
-
 */
 #ifndef XSECURE_MAILBOX_H
 #define XSECURE_MAILBOX_H
@@ -109,12 +107,11 @@ typedef enum{
  * @brief	This function sets slr index in the Secure client instance.
  *
  * @param	InstancePtr	Pointer to XSecure_ClientInstance
- *
  * @param	SlrIndex	Slr index to be set in instance
  *
  * @return
- *	-	XST_SUCCESS - On valid input SlrIndex.
- *	-	XST_FAILURE - On invalid SlrIndex.
+ *		 - XST_SUCCESS - On valid input SlrIndex.
+ *		 - XST_FAILURE - On invalid SlrIndex.
  *
  * @note	This function is applicable to only Versal
  *
@@ -124,7 +121,7 @@ static inline int XSecure_SetSlrIndex(XSecure_ClientInstance *InstancePtr, u32 S
 	int Status = XST_FAILURE;
 
 	if (SlrIndex <= (u32)XSECURE_SLR_INDEX_3) {
-		/**< Validate SlrIndex and assign it to instance pointer */
+		/** Validate SlrIndex and assign it to instance pointer */
 		InstancePtr->SlrIndex = SlrIndex;
 		Status = XST_SUCCESS;
 	}
@@ -143,3 +140,4 @@ int XSecure_InputSlrIndex(XSecure_ClientInstance *InstancePtr, u32 SlrIndex);
 #endif
 
 #endif  /* XSECURE_MAILBOX_H */
+/** @} */

@@ -43,7 +43,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XSECURE_TRNG_SEC_STRENGTH_IN_BYTES 32U
+#define XSECURE_TRNG_SEC_STRENGTH_IN_BYTES      (32U)
 
 /************************** Function Prototypes ******************************/
 
@@ -56,3 +56,4 @@ int XSecure_TrngGenerateRandNum(XSecure_ClientInstance *InstancePtr, u64 RandBuf
 #endif
 
 #endif  /* XSECURE_TRNGCLIENT_H */
+/** @} */
