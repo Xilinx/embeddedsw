@@ -260,8 +260,9 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr);
 static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePtr);
 static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr);
+#ifndef PLM_AUTH_JTAG_EXCLUDE
 static int XLoader_AuthJtag(u32 *TimeOut);
-
+#endif
 static void XLoader_ClearKatStatusOnCfg(XilPdi *PdiPtr, u32 PlmKatMask);
 static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
 static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr);
@@ -294,7 +295,9 @@ static int XLoader_HssSha256Kat(XLoader_SecureParams *SecurePtr);
 #endif
 
 /************************** Variable Definitions *****************************/
+#ifndef PLM_AUTH_JTAG_EXCLUDE
 static XLoader_AuthJtagStatus AuthJtagStatus = {0U};
+#endif
 
 /************************** Function Definitions *****************************/
 
@@ -2676,6 +2679,7 @@ static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr)
 	return Status;
 }
 
+#ifndef PLM_AUTH_JTAG_EXCLUDE
 /******************************************************************************/
 /**
  * @brief   This function adds periodic checks of the status of Auth
@@ -2897,6 +2901,12 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	volatile u8 UseDna;
 	volatile u8 UseDnaTmp;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+	u32 MsgLen = 0;
+#ifdef VERSAL_AIEPG2
+	u32 IdWord;
+	u8 SpkHash[XLOADER_SHA3_LEN];
+	u32 AuthType;
+#endif
 
 	/* To reduce stack usage, instance of XLoader_AuthJtagMessage is moved to
 	 * a structure called XLoader_StoreSecureData which resides at
@@ -2911,13 +2921,22 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 		goto END;
 	}
 
+#ifdef VERSAL_AIEPG2
+	IdWord = XPlmi_In32(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET);
+	if (IdWord == 0x58414A47U) {
+		MsgLen = XPlmi_In32(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET + XSECURE_WORD_SIZE);
+		MsgLen = MsgLen / XSECURE_WORD_SIZE;
+	}
+#else
+	MsgLen = XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS;
+#endif
 	/**
-	 * Read 512 words of authenticated JTAG data from the PMC TAP registers and
+	 * Read Authenticated JTAG data from the PMC TAP registers and
 	 * store it in a local buffer.
 	 */
-	Status = XPlmi_DmaXfr(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET,
+		Status = XPlmi_DmaXfr(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET,
 			(u64)(u32)SecureParams.AuthJtagMessagePtr,
-			XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS, XPLMI_PMCDMA_0);
+			MsgLen, XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_DMA_XFR, 0);
 		goto END;
@@ -2973,7 +2992,11 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	}
 
 	/** Verify PPK in the authenticated JTAG data. */
+#ifdef VERSAL_AIEPG2
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_PpkVerify, &SecureParams, SecureParams.AuthJtagMessagePtr->ActualPpkSize);
+#else
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_PpkVerify, &SecureParams, XLOADER_PPK_SIZE);
+#endif
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_PPK_VERIFY_FAIL,
 			Status);
@@ -2990,6 +3013,26 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 			Status);
 		goto END;
 	}
+
+#ifdef VERSAL_AIEPG2
+	Status = XLoader_ShaDigestCalculation((u8 *)&SecureParams.AuthJtagMessagePtr->SpkHeader,
+			XLOADER_SPK_HEADER_SIZE + SecureParams.AuthJtagMessagePtr->SpkHeader.TotalSPKSize,
+			&SpkHash[0]);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_HASH_CALC_FAIL,
+                                        Status);
+		goto END;
+	}
+
+	AuthType = XLoader_GetAuthPubAlgo(&SecureParams.AuthJtagMessagePtr->AuthHdr);
+	if ((AuthType == XLOADER_PUB_STRENGTH_RSA_4096) ||
+		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
+		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature, &SecureParams,
+			(u8 *)&SpkHash, &SecureParams.AuthJtagMessagePtr->PpkData,
+			(u8 *)&SecureParams.AuthJtagMessagePtr->SPKSignature);
+	}
+#endif
 
 	/** Calculate hash of the Authentication Header in the authenticated
 	 * JTAG data.
@@ -3008,6 +3051,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 		goto END;
 	}
 
+#ifndef VERSAL_AIEPG2
 	Status = XSecure_ShaUpdate(ShaInstPtr,
 		 (UINTPTR)&(SecureParams.AuthJtagMessagePtr->AuthHdr),
 		 XLOADER_AUTH_JTAG_DATA_AH_LENGTH);
@@ -3016,7 +3060,16 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 			XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL, Status);
 		goto END;
 	}
-
+#else
+	Status = XSecure_ShaUpdate(ShaInstPtr,
+		 (UINTPTR)&(SecureParams.AuthJtagMessagePtr->IdWord),
+		 (MsgLen - SecureParams.AuthJtagMessagePtr->ActualAuthJtagSignSize));
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(
+			XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL, Status);
+		goto END;
+	}
+#endif
 
 	Status = XSecure_ShaFinish(ShaInstPtr, (u64)(UINTPTR)&Sha3Hash, XLOADER_SHA3_LEN);
 	if (Status != XST_SUCCESS) {
@@ -3034,10 +3087,17 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	}
 
 	/** Verify signature of Auth Jtag data */
+#ifndef VERSAL_AIEPG2
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifySignature,
 		&SecureParams, Sha3Hash.Hash,
 		&(SecureParams.AuthJtagMessagePtr->PpkData),
 		(u8*)&(SecureParams.AuthJtagMessagePtr->EnableJtagSignature));
+#else
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifySignature,
+		&SecureParams, Sha3Hash.Hash,
+		&(SecureParams.AuthJtagMessagePtr->Spk),
+		(u8*)&(SecureParams.AuthJtagMessagePtr->EnableJtagSignature));
+#endif
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL, Status);
@@ -3072,6 +3132,7 @@ END:
 	}
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
