@@ -36,10 +36,12 @@
 *       kpt  06/30/24 Updated version number
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_common_apis Xilsecure Common Apis
+* @{
+*/
 #ifndef XSECURE_PLAT_DEFS_H
 #define XSECURE_PLAT_DEFS_H
 
@@ -349,9 +351,9 @@ typedef struct {
 /******************************************************************************/
 /**
  *
- * This function returns the HMAC crypto algorithm information.
+ * @brief	This function returns the HMAC crypto algorithm information.
  *
- * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
+ * @param	AlgInfo	Pointer to memory for holding the crypto algorithm information
  *
  ******************************************************************************/
 static __attribute__((always_inline)) inline
@@ -364,9 +366,9 @@ void XSecure_HmacGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
 /******************************************************************************/
 /**
  *
- * This function returns the SHA2 crypto algorithm information.
+ * @brief	This function returns the SHA2 crypto algorithm information.
  *
- * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
+ * @param	AlgInfo	Pointer to memory for holding the crypto algorithm information
  *
  ******************************************************************************/
 static __attribute__((always_inline)) inline
@@ -381,3 +383,4 @@ void XSecure_Sha2GetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
 #endif
 
 #endif  /* XSECURE_PLAT_DEFS_H */
+/** @} */

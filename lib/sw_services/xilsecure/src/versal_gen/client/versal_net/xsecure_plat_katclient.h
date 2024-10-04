@@ -62,3 +62,4 @@ int XSecure_UpdatePkiKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatO
 #endif
 
 #endif  /* XSECURE_PLAT_KATCLIENT_H */
+/** @} */

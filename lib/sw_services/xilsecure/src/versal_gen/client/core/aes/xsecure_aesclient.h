@@ -32,7 +32,6 @@
 * </pre>
 *
 ******************************************************************************/
-
 /**
 * @addtogroup xsecure_aes_client_apis XilSecure AES Client APIs
 * @{
@@ -84,7 +83,7 @@ typedef enum {
 }XSecure_AesKeySize;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XSECURE_AES_INVALID_PARAM       0x51    /**< Invalid Argument for AES */
+#define XSECURE_AES_INVALID_PARAM       (0x51U)    /**< Invalid Argument for AES */
 
 /************************** Variable Definitions *****************************/
 
@@ -119,3 +118,4 @@ int XSecure_AesGmacUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u
 #endif
 
 #endif  /* XSECURE_AES_CLIENT_H */
+/** @} */
