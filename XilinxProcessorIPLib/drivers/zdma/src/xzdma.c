@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 *       hk     07/19/19  Remove Versal clock and routing workarounds.
 * 1.10  hk     04/29/20  Enable Scatter Gather setup and Enable APIs for use
 *                        in applications directly.
+* 1.19	aj     10/04/24  Add Reset for write only register
 * </pre>
 *
 ******************************************************************************/
@@ -85,7 +86,6 @@ static void XZDma_GetConfigurations(XZDma *InstancePtr);
 s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 			u32 EffectiveAddr)
 {
-
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
@@ -670,6 +670,14 @@ void XZDma_Reset(XZDma *InstancePtr)
 		       XZDMA_CH_DATA_ATTR_OFFSET, XZDMA_DATA_ATTR_RESET_VALUE);
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
 		       XZDMA_CH_DSCR_ATTR_OFFSET, XZDMA_DSCR_ATTR_RESET_VALUE);
+	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
+                       XZDMA_CH_WR_ONLY_WORD0_OFFSET, XZDMA_CH_WR_ONLY_RESET_VALUE);
+	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
+                       XZDMA_CH_WR_ONLY_WORD1_OFFSET, XZDMA_CH_WR_ONLY_RESET_VALUE);
+	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
+                       XZDMA_CH_WR_ONLY_WORD2_OFFSET, XZDMA_CH_WR_ONLY_RESET_VALUE);
+	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
+                       XZDMA_CH_WR_ONLY_WORD3_OFFSET, XZDMA_CH_WR_ONLY_RESET_VALUE);
 
 	/* Clears total byte */
 	XZDma_TotalByteClear(InstancePtr);

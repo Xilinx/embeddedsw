@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vns     2/27/15  First release
 * 1.8   hk      7/19/19  Remove versal clock and routing workarounds.
+* 1.19	aj	10/04/24 Add reset mask for channel write only register.
 * </pre>
 *
 ******************************************************************************/
@@ -219,7 +220,8 @@ extern "C" {
 #define XZDMA_DSCR_ATTR_AXCACHE_SHIFT	(4U) /**< Descriptor cache shift */
 #define XZDMA_DSCR_ATTR_RESET_VALUE	(0x00000000U) /**< Dscr Attributes
 							*  reset value */
-
+#define XZDMA_CH_WR_ONLY_RESET_VALUE	(0x00000000U) /**< CH write only
+							*  reset value */
 /*@}*/
 
 /** @name Channel Source/Destination Word0 register bit mask
