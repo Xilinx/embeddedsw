@@ -95,12 +95,13 @@ static XPlm_Module XPlm_Generic;
  * @param	Cmd is pointer to the command structure with Command ID as the only payload.
  *
  * @return
- * 		- XST_SUCCESS always.
+ * 		- XST_SUCCESS on success.
+ * 		- XPLM_ERR_FEATURE_NOT_SUPPORTED if the CMD ID is not supported.
  *
  *****************************************************************************/
 static u32 XPlm_Features(XPlm_Cmd *Cmd)
 {
-	u32 Status = (u32)XST_FAILURE;
+	u32 Status = (u32)XPLM_ERR_FEATURE_NOT_SUPPORTED;
 
 	if (Cmd->Payload[0U] < XPlm_Generic.CmdCnt) {
 		Status = (u32)XST_SUCCESS;
@@ -125,7 +126,7 @@ static u32 XPlm_Nop(XPlm_Cmd *Cmd)
 	(void)Cmd;
 	XPlm_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
 
-	return XST_SUCCESS;
+	return (u32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -183,6 +184,7 @@ static u32 XPlm_MaskPoll(XPlm_Cmd *Cmd)
 		    Addr, Mask, ExpectedValue, TimeOutInUs);
 	if (Status != (u32)XST_SUCCESS) {
 		XPlm_Printf(DebugLevel, ", RegVal: 0x%0x ...ERROR\r\n", Xil_In32(Addr));
+		Status = XPLM_ERR_MASK_POLL_TIMEOUT;
 	} else {
 		XPlm_Printf(DebugLevel, " ...DONE\r\n");
 	}
@@ -533,7 +535,7 @@ static u32 XPlm_LogString(XPlm_Cmd *Cmd)
 		XPlm_Printf_WoS(DEBUG_PRINT_ALWAYS, "\n\r");
 	}
 
-	return XST_SUCCESS;
+	return (u32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -557,7 +559,7 @@ static u32 XPlm_LogAddress(XPlm_Cmd *Cmd)
 
 	XPlm_Printf(DEBUG_PRINT_ALWAYS, "Value at 0x%08x: %0x\n\r", Addr, Val);
 
-	return XST_SUCCESS;
+	return (u32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -576,7 +578,7 @@ static u32 XPlm_Marker(XPlm_Cmd *Cmd)
 {
 	XPlm_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
 
-	return XST_SUCCESS;
+	return (u32)XST_SUCCESS;
 }
 
 /*****************************************************************************/

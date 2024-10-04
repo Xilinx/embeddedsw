@@ -125,16 +125,13 @@ static u32 XPlm_CmdExecute(XPlm_Cmd *CmdPtr)
 	/** - Execute the API. */
 	Status = ModuleCmd->Handler(CmdPtr);
 	if (Status != (u32)XST_SUCCESS) {
-		Status = ((CmdPtr->CmdId & XPLM_CMD_ID_MASK) << XPLM_ERR_CMD_ID_SHIFT) |
-			 (Status & XPLM_MIN_ERR_MASK);
 		if (CmdPtr->DeferredError != (u8)TRUE) {
 			goto END;
-		} else {
-			/* If Deferred Error, log the error and continue */
-			XPlm_Printf(DEBUG_GENERAL, "Deferring CDO Error\n\r");
-			XPlm_LogPlmErr(Status);
-			Status = XST_SUCCESS;
 		}
+		/* If Deferred Error, log the error and continue */
+		XPlm_Printf(DEBUG_GENERAL, "Deferring CDO Error\n\r");
+		XPlm_LogPlmErr(Status);
+		Status = XST_SUCCESS;
 	}
 
 	/**
@@ -176,8 +173,6 @@ static u32 XPlm_CmdResume(XPlm_Cmd *CmdPtr)
 	/** - Execute the handler. */
 	Status = CmdPtr->ResumeHandler(CmdPtr);
 	if (Status != (u32)XST_SUCCESS) {
-		Status = ((CmdPtr->CmdId & XPLM_CMD_ID_MASK) << XPLM_ERR_CMD_ID_SHIFT) |
-			 (Status & XPLM_MIN_ERR_MASK);
 		XPlm_Printf(DEBUG_INFO, "CDO resume failed\r\n");
 		goto END;
 	}
