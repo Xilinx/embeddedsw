@@ -1048,7 +1048,9 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 	volatile int Status = XST_FAILURE;
 	static u8 LoaderHandlerState = XPLMI_MODULE_NORMAL_STATE;
 #ifndef PLM_SECURE_EXCLUDE
+#ifndef PLM_AUTH_JTAG_EXCLUDE
 	static u8 AuthJtagTaskRemoved = (u8)FALSE;
+#endif
 	static u8 DeviceStateTaskRemoved = (u8)FALSE;
 #endif
 
@@ -1058,12 +1060,15 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 
 			/** - Remove Scheduler tasks if they already exist. */
 #ifndef PLM_SECURE_EXCLUDE
+#ifndef PLM_AUTH_JTAG_EXCLUDE
 			Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_LOADER_ID,
 				XLoader_CheckAuthJtagIntStatus,
 				XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL, NULL);
 			if (Status == XST_SUCCESS) {
 				AuthJtagTaskRemoved = (u8)TRUE;
 			}
+#endif
+
 			Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_LOADER_ID,
 					XLoader_CheckDeviceStateChange,
 					XLOADER_DEVICE_STATE_POLL_INTERVAL, NULL);
@@ -1096,6 +1101,7 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 
 			/** - Add Scheduler tasks if they are removed during shutdown init */
 #ifndef PLM_SECURE_EXCLUDE
+#ifndef PLM_AUTH_JTAG_EXCLUDE
 			if (AuthJtagTaskRemoved == (u8)TRUE) {
 				Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
 					XLoader_CheckAuthJtagIntStatus, NULL,
@@ -1106,6 +1112,7 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 				}
 				AuthJtagTaskRemoved = (u8)FALSE;
 			}
+#endif
 			if (DeviceStateTaskRemoved == (u8)TRUE) {
 				Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
 					XLoader_CheckDeviceStateChange, NULL,
@@ -1246,7 +1253,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XSecure_Sha3Hash Sha3Hash;
 	u32 PcrNo;
-	
+
 
 #ifdef PLM_OCP_KEY_MNGMT
 	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];

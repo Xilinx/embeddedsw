@@ -541,6 +541,7 @@ typedef struct
 	u8 Padding1[8];	/**< Padding 1 */
 } XLoader_Vars;
 
+#ifndef VERSAL_AIEPG2
 /**< Authenticated Message structure */
 typedef struct {
 	u32 AuthHdr;	/**< Authentication Header */
@@ -556,6 +557,28 @@ typedef struct {
 	u32 EnableJtagSignature[XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE];
 				/**< Auth JTAG signature */
 } XLoader_AuthJtagMessage;
+#else
+/**< Authenticated Message structure */
+typedef struct {
+	u32 IdWord;
+	u32 AuthJtagMessageLen;
+	u32 AuthHdr;
+	u32 TotalPpkSize;
+	u32 ActualPpkSize;
+	u32 TotalAuthJtagSignSize;
+	u32 ActualAuthJtagSignSize;
+	u32 RevocationIdMsgType;
+	u32 Attrb;
+	u32 Dna[XLOADER_EFUSE_DNA_NUM_ROWS];
+	u32 JtagEnableTimeout;
+	u32 Alignment[2];
+	XLoader_RsaKey PpkData;
+	XLoader_SpkHeader SpkHeader;
+	XLoader_RsaKey Spk;
+	u8 SPKSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];
+	u8 EnableJtagSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];
+} XLoader_AuthJtagMessage;
+#endif /**< end of VERSAL_AIEPG2 */
 #endif
 
 typedef struct XLoader_SecureParams {
@@ -661,7 +684,6 @@ static INLINE u32 XLoader_GetAuthPubAlgo(const u32 *AuthHdrPtr)
 int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr);
 int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr);
-int XLoader_AddAuthJtagToScheduler(void);
 int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 	const XilPdi_PrtnHdr *PrtnHdr);
 int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
@@ -674,7 +696,10 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize);
 #endif
 void XLoader_ClearKatOnPPDI(XilPdi *PdiPtr, u32 PlmKatMask);
+#ifndef PLM_AUTH_JTAG_EXCLUDE
+int XLoader_AddAuthJtagToScheduler(void);
 int XLoader_CheckAuthJtagIntStatus(void *Arg);
+#endif
 int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash);
 int XLoader_IsAdditionalPpkValid(const u8 *PpkHash);
 int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 *PpkOffset);
