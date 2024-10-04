@@ -36,7 +36,6 @@
 * </pre>
 *
 ******************************************************************************/
-
 /**
 * @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
 * @{
@@ -172,3 +171,4 @@ int XSecure_RsaEcdsaZeroizeAndVerifyRam(u32 BaseAddress);
 #endif
 
 #endif /* XSECURE_RSA_CORE_H */
+/** @} */

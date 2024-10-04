@@ -9,7 +9,7 @@
 *
 * @file xsecure_aes_ipihandler.h
 *
-* This file contains the xilsecure AES IPI handler declaration.
+* This file contains the Xilsecure AES IPI handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,9 +22,7 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
-
 /**
 * @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
 * @{
@@ -55,3 +53,4 @@ int XSecure_AesKeyZeroize(u32 KeySrc);
 #endif
 
 #endif /* XSECURE_AES_IPIHANDLER_H_ */
+/** @} */

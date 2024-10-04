@@ -34,10 +34,11 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_init.h"
 #include "xsecure_cmd.h"
@@ -67,8 +68,8 @@ static XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId);
  * @brief	This function registers the handlers for XilSecure IPI commands
  *
  * @return
- *	-	XST_SUCCESS - On success
- *  -   ErrorCode   - On failure
+ *		 - XST_SUCCESS  On success
+ *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
 int XSecure_Init(void)
@@ -97,7 +98,7 @@ int XSecure_Init(void)
  * @brief	This function provides the pointer to the sha3 instance
  *
  * @return
- *	-	Pointer to the XSecure_Sha instance
+ *		 - Pointer to the XSecure_Sha instance
  *
  *****************************************************************************/
 XSecure_Sha *XSecure_GetSha3Instance(u32 DeviceId)
@@ -110,7 +111,7 @@ XSecure_Sha *XSecure_GetSha3Instance(u32 DeviceId)
  * @brief	This function provides the pointer to the sha2 instance
  *
  * @return
- *	-	Pointer to the XSecure_Sha instance
+ *		 - Pointer to the XSecure_Sha instance
  *
  *****************************************************************************/
 XSecure_Sha *XSecure_GetSha2Instance(u32 DeviceId)
@@ -121,10 +122,10 @@ XSecure_Sha *XSecure_GetSha2Instance(u32 DeviceId)
 /*****************************************************************************/
 /**
  * @brief	This function provides the pointer to the common Aes instance
- * which has to be used between PLM and xilsecure server
+ * 		which has to be used between PLM and xilsecure server
  *
  * @return
- *	-	Pointer to the XSecure_Aes instance
+ *		 - Pointer to the XSecure_Aes instance
  *
  *****************************************************************************/
 XSecure_Aes *XSecure_GetAesInstance(void)
@@ -138,10 +139,10 @@ XSecure_Aes *XSecure_GetAesInstance(void)
 /*****************************************************************************/
 /**
  * @brief	This function provides the pointer to the common Rsa instance
- * which has to be used between PLM and xilsecure server
+ * 		which has to be used between PLM and xilsecure server
  *
  * @return
- *	-	Pointer to the XSecure_Rsa instance
+ *		 - Pointer to the XSecure_Rsa instance
  *
  *****************************************************************************/
 XSecure_Rsa *XSecure_GetRsaInstance(void)
@@ -158,7 +159,7 @@ XSecure_Rsa *XSecure_GetRsaInstance(void)
  * 		based on the DevieId
  *
  * @return
- *	-	Pointer to the XSecure_Sha instance
+ *		 - Pointer to the XSecure_Sha instance
  *
  *****************************************************************************/
 static XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId)
@@ -175,3 +176,4 @@ static XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId)
 END:
 	return XSecure_ShaInstPtr;
 }
+/** @} */

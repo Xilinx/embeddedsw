@@ -10,7 +10,7 @@
 *
 * @file xsecure_kat.h
 *
-* This file contains KAT interface APIs for versal and versalnet
+* This file contains KAT interface APIs for Versal and Versal Net
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,7 +24,6 @@
 * </pre>
 *
 ******************************************************************************/
-
 /**
 * @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
 * @{
@@ -73,7 +72,7 @@ int XSecure_RsaPublicEncryptKat(void);
 XSecure_EllipticKey* XSecure_GetKatEccPublicKey(XSecure_EllipticCrvClass CrvClass);
 XSecure_EllipticSign* XSecure_GetKatEccExpSign(XSecure_EllipticCrvClass CrvClass);
 u8* XSecure_GetKatEccPrivateKey(XSecure_EllipticCrvClass CrvClass);
-u8* XSecure_GetKatEccEphimeralKey(XSecure_EllipticCrvTyp CrvType);
+u8* XSecure_GetKatEccEphemeralKey(XSecure_EllipticCrvTyp CrvType);
 int XSecure_EllipticVerifySignKat(XSecure_EllipticCrvClass CrvClass);
 int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass);
 int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_EllipticKeyAddr *PubKeyAddr);
@@ -88,3 +87,4 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3);
 #endif
 
 #endif /* XSECURE_KAT_H_ */
+/** @} */

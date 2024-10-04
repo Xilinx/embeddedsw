@@ -9,7 +9,7 @@
 *
 * @file xsecure_rsa_core.c
 *
-* This file contains the implementation of the versal specific RSA driver.
+* This file contains the implementation of the Versal specific RSA driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -51,7 +51,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xsecure_rsa_core.h"
@@ -100,8 +103,8 @@ static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0, u32 
  * @param	InstancePtr	 Pointer to the XSecure_Rsa instance
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_RSA_INVALID_PARAM - On invalid parameter
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_RSA_INVALID_PARAM  On invalid parameter
  *
 ******************************************************************************/
 int XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
@@ -113,13 +116,13 @@ int XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 		goto END;
 	}
 
-	/* Validate the input arguments */
+	/** Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_RSA_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Set RSA in use flag */
+	/** Set RSA in use flag */
 	XSecure_SetRsaCryptoStatus();
 
 	InstancePtr->BaseAddress = XSECURE_ECDSA_RSA_BASEADDR;
@@ -132,21 +135,21 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function handles the Public encryption and private decryption
- * 			of RSA operations with provided inputs
+ * 		of RSA operations with provided inputs
  *
- * @param	InstancePtr	 Pointer to the XSecure_Rsa instance
- * @param	Input		 Address of the buffer which contains the input
- *				  data to be encrypted/decrypted
- * @param	Result		 Address of buffer where resultant
- *				  encrypted/decrypted data to be stored
- * @param	RsaOp		 Flag to inform the operation to be performed
- * 				  is either encryption/decryption
- * @param	KeySize		 Size of the key in bytes
+ * @param	InstancePtr	Pointer to the XSecure_Rsa instance
+ * @param	Input		Address of the buffer which contains the input
+ *				data to be encrypted/decrypted
+ * @param	Result		Address of buffer where resultant
+ *				encrypted/decrypted data to be stored
+ * @param	RsaOp		Flag to inform the operation to be performed
+ * 				is either encryption/decryption
+ * @param	KeySize		Size of the key in bytes
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_RSA_INVALID_PARAM - On invalid parameter
- *	-	XST_FAILURE - On failure
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_RSA_INVALID_PARAM  On invalid parameter
+ *		 - XST_FAILURE  On failure
  *
 ******************************************************************************/
 int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
@@ -156,7 +159,7 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
 	volatile int ErrorCode = XST_FAILURE;
 	u32 Events;
 
-	/* Validate the input arguments */
+	/** Validate the input arguments */
 	if (InstancePtr == NULL) {
 		ErrorCode = (int)XSECURE_RSA_INVALID_PARAM;
 		goto END;
@@ -192,14 +195,14 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
 		XSECURE_ECDSA_RSA_RSA_CFG_WR_ENDIANNESS_MASK |
 		XSECURE_ECDSA_RSA_CFG_RD_ENDIANNESS_MASK);
 
-	/* Put Modulus, exponent, Mod extension in RSA RAM */
+	/** Put Modulus, exponent, Mod extension in RSA RAM */
 	XSecure_RsaPutData(InstancePtr);
 
 	/* Initialize Digest */
 	XSecure_RsaWriteMem(InstancePtr, Input,
 				XSECURE_RSA_RAM_DIGEST);
 
-	/* Initialize MINV values from Mod. */
+	/** Initialize MINV values from Mod. */
 	XSecure_RsaMod32Inverse(InstancePtr);
 
 	/* Configurations */
@@ -243,7 +246,7 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
 		goto END_RST;
 	}
 
-	/* Start the RSA operation. */
+	/** Start the RSA operation. */
 	if (InstancePtr->ModExtAddr != 0U) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_ECDSA_RSA_CTRL_OFFSET,
@@ -306,7 +309,7 @@ END:
  * @brief	This function writes all the RSA data used for decryption
  * 		(Modulus, Exponent) at the corresponding offsets in RSA RAM
  *
- * @param	InstancePtr  Pointer to the XSecure_Rsa instance
+ * @param	InstancePtr	Pointer to the XSecure_Rsa instance
  *
  ******************************************************************************/
 static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr)
@@ -333,9 +336,9 @@ static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr)
 /**
  * @brief	This function reads back the resulting data from RSA RAM
  *
- * @param	InstancePtr	 Pointer to the XSecure_Rsa instance
- * @param	RdDataAddr	 Address of the location where RSA output data
- *				  will be written
+ * @param	InstancePtr	Pointer to the XSecure_Rsa instance
+ * @param	RdDataAddr	Address of the location where RSA output data
+ *				will be written
  *
  ******************************************************************************/
 static void XSecure_RsaGetData(const XSecure_Rsa *InstancePtr, u64 RdDataAddr)
@@ -380,7 +383,7 @@ END: ;
  * @brief	This function calculates the MINV value and put it into RSA
  *		core registers
  *
- * @param	InstancePtr  Pointer to XSeure_Rsa instance
+ * @param	InstancePtr	Pointer to XSeure_Rsa instance
  *
  * @note	MINV is the 32-bit value of `-M mod 2**32`,
  *		where M is LSB 32 bits of the original modulus
@@ -418,9 +421,9 @@ static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr)
 /**
  * @brief	This function writes data to RSA RAM at a given offset
  *
- * @param	InstancePtr	 Pointer to the XSecure_Aes instance
- * @param	WrDataAddr	 Address of the data to be written to RSA RAM
- * @param	RamOffset	 Offset for the data to be written in RSA RAM
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
+ * @param	WrDataAddr	Address of the data to be written to RSA RAM
+ * @param	RamOffset	Offset for the data to be written in RSA RAM
  *
  ******************************************************************************/
 static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
@@ -485,11 +488,11 @@ static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
  * 		stored exponent, modulus and exponentiation key components along
  *		with digest
  *
- * @param	InstancePtr	 Pointer to the XSecure_Rsa instance
+ * @param	InstancePtr	Pointer to the XSecure_Rsa instance
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *	-	XSECURE_RSA_ZEROIZE_ERROR - On Zeroization Failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XSECURE_RSA_INVALID_PARAM  On invalid parameter
  *
  *****************************************************************************/
 int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr)
@@ -503,6 +506,7 @@ int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr)
 		goto END;
 	}
 
+	/** Zeroize and verify whole RSA RAM space */
 	Status = XSecure_RsaEcdsaZeroizeAndVerifyRam((u32)InstancePtr->BaseAddress);
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -516,11 +520,11 @@ END:
 /**
  * @brief	This function updates data length configuration.
  *
- * @param	InstancePtr	 Pointer to the XSecure_Rsa instance.
- * @param	Cfg0		 QSEL, Multiplication passes.
- * @param	Cfg1		 Number of Montgomery digits.
- * @param	Cfg2		 Memory location size.
- * @param	Cfg5		 Number of groups.
+ * @param	InstancePtr	Pointer to the XSecure_Rsa instance.
+ * @param	Cfg0		QSEL, Multiplication passes.
+ * @param	Cfg1		Number of Montgomery digits.
+ * @param	Cfg2		Memory location size.
+ * @param	Cfg5		Number of groups.
  *
 ******************************************************************************/
 static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0,
@@ -548,7 +552,7 @@ static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0,
  * @brief	This function returns PKCS padding as per the silicon version
  *
  * @return
- *	-	XSecure_Silicon2_TPadSha3
+ *		 - XSecure_Silicon2_TPadSha3
  *
 *****************************************************************************/
 u8* XSecure_RsaGetTPadding(void)
@@ -563,11 +567,11 @@ u8* XSecure_RsaGetTPadding(void)
 /**
  * @brief	This function verifies whole RSA or ECDSA memory space.
  *
- * @param	BaseAddress	 BaseAddress of RSA or ECDSA controller.
+ * @param	BaseAddress	BaseAddress of RSA or ECDSA controller.
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *	-	XSECURE_RSA_ECDSA_ZEROIZE_ERROR - On Zeroization Failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XST_FAILURE  On Failure
  *
  *****************************************************************************/
 static int XSecure_RsaEcdsaZeroizeVerify(u32 BaseAddress)
@@ -607,11 +611,11 @@ END:
 /**
  * @brief	This function clears and verifies whole RSA or ECDSA memory space.
  *
- * @param	BaseAddress	 BaseAddress of ECDSA or RSA controller.
+ * @param	BaseAddress	BaseAddress of ECDSA or RSA controller.
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *	-	XSECURE_RSA_ECDSA_ZEROIZE_ERROR - On Zeroization Failure
+ *		 - XST_SUCCESS  On Success
+ *		 - XST_FAILURE  On Failure
  *
  *****************************************************************************/
 int XSecure_RsaEcdsaZeroizeAndVerifyRam(u32 BaseAddress)
@@ -620,6 +624,7 @@ int XSecure_RsaEcdsaZeroizeAndVerifyRam(u32 BaseAddress)
 	volatile u32 DataOffset;
 	volatile int Status = XST_FAILURE;
 
+	/** Clears whole RSA or ECDSA RAM space */
 	do {
 		for (DataOffset = 0U; DataOffset < XSECURE_RSA_MAX_RD_WR_CNT; DataOffset++) {
 			XSecure_WriteReg(BaseAddress, XSECURE_ECDSA_RSA_CTRL_OFFSET,
@@ -632,9 +637,11 @@ int XSecure_RsaEcdsaZeroizeAndVerifyRam(u32 BaseAddress)
 		RamOffset++;
 	} while (RamOffset <= XSECURE_RSA_RAM_RES_Q);
 
+	/** Verify whether whole RSA or ECDSA RAM space is zeroized or not */
 	Status = XSecure_RsaEcdsaZeroizeVerify(BaseAddress);
 
 	return Status;
 }
 
 #endif
+/** @} */

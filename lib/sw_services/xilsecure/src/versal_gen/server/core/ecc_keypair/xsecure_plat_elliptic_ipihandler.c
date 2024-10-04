@@ -9,7 +9,7 @@
 *
 * @file xsecure_plat_elliptic_ipihandler.c
 *
-* This file contains the xilsecure versalnet IPI handlers implementation.
+* This file contains the Xilsecure versalnet IPI handlers implementation.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,7 +22,6 @@
 *       mb   07/31/24 Added the check to validate Payload for NULL pointer
 *
 * </pre>
-*
 *
 ******************************************************************************/
 /**
@@ -49,11 +48,12 @@ static int XSecure_GenSharedSecret(u32 CrvType, u32 PrvtKeyAddrLow, u32 PrvtKeyA
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd is pointer to the command structure
+ * @param	Cmd	is pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS  If the handler execution is successful
- *		 - ErrorCode  If there is a failure
+ *		 - XST_INVALID_PARAM  If any parameter is invalid.
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_PlatEllipticIpiHandler(XPlmi_Cmd *Cmd)
@@ -88,18 +88,18 @@ END:
  * @brief	This function handler calls XSecure_EcdhGetSecret server API to
  * 		generate the shared secret using ECDH.
  *
- * @param	CrvType  Type of elliptic curve
- * @param	PrvtKeyAddrLow  Lower 32 bit address of the private key buffer
- * @param	PrvtKeyAddrHigh  Upper 32 bit address of the private key buffer
- * @param	PubKeyAddrLow  Lower 32 bit address of the public key buffer
- * @param	PubKeyAddrHigh  Upper 32 bit address of the public key buffer
- * @param	SharedSecretAddrLow  Lower 32 bit address of the Shared Secret buffer
- * @param	SharedSecretAddrHigh  Upper 32 bit address of the Shared Secret buffer
+ * @param	CrvType			Type of elliptic curve
+ * @param	PrvtKeyAddrLow		Lower 32 bit address of the private key buffer
+ * @param	PrvtKeyAddrHigh		Upper 32 bit address of the private key buffer
+ * @param	PubKeyAddrLow		Lower 32 bit address of the public key buffer
+ * @param	PubKeyAddrHigh		Upper 32 bit address of the public key buffer
+ * @param	SharedSecretAddrLow	Lower 32 bit address of the Shared Secret buffer
+ * @param	SharedSecretAddrHigh	Upper 32 bit address of the Shared Secret buffer
  *
  * @return
  *		 - XST_SUCCESS  On Success
- *		 - Errorcode  On failure
-
+ *		 - XST_FAILURE  On failure
+ *
  ******************************************************************************/
 static int XSecure_GenSharedSecret(u32 CrvType, u32 PrvtKeyAddrLow, u32 PrvtKeyAddrHigh, u32 PubKeyAddrLow,
 	u32 PubKeyAddrHigh, u32 SharedSecretAddrLow, u32 SharedSecretAddrHigh)
@@ -115,3 +115,4 @@ static int XSecure_GenSharedSecret(u32 CrvType, u32 PrvtKeyAddrLow, u32 PrvtKeyA
 	return Status;
 }
 #endif /* PLM_ECDSA_EXCLUDE */
+/** @} */

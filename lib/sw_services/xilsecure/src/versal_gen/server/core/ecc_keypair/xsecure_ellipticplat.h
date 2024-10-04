@@ -10,7 +10,7 @@
 * @file xsecure_ellipticplat.h
 *
 * This file contains the macros and types related to elliptic curve information
-* which are specific to versal_net.
+* which are specific to Versal Net.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,8 +23,11 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
+/**
+* @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
+* @{
+*/
 #ifndef XSECURE_ELLIPTIC_PLAT_H_
 #define XSECURE_ELLIPTIC_PLAT_H_
 
@@ -67,3 +70,4 @@ int XSecure_EcdhGetSecret(XSecure_EllipticCrvTyp CrvType, u64 PrvtKeyAddr, u64 P
 #endif /* XSECURE_ELLIPTIC_PLAT_H */
 
 #endif
+/** @} */

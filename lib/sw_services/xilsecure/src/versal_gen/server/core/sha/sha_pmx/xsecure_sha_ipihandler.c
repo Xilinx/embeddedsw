@@ -36,10 +36,9 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
 /**
-* @addtogroup xsecure_sha3_server_apis XilSecure SHA3 Server APIs
+* @addtogroup xsecure_sha_server_apis XilSecure SHA Server APIs
 * @{
 */
 /***************************** Include Files *********************************/
@@ -71,13 +70,15 @@ static void XSecure_MakeSha3Free(void);
 
 /*****************************************************************************/
 /**
- * @brief       This function calls respective IPI handler based on the API_ID
+ * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd is pointer to the command structure
+ * @param	Cmd	is pointer to the command structure
  *
  * @return
  *	-	XST_SUCCESS - If the handler execution is successful
- *	-	ErrorCode - If there is a failure
+ *	-	XST_INVALID_PARAM - If cmd is NULL or if invalid API ID is received.
+ *	-	XST_DEVICE_BUSY - If IPI channel is busy
+ *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
@@ -101,6 +102,7 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 		}
 	}
 
+	/** Call the API handler according to API ID */
 	if ((Cmd->CmdId & XSECURE_API_ID_MASK) ==
 		XSECURE_API(XSECURE_API_SHA3_UPDATE)) {
 		Status = XSecure_ShaOperation(Cmd);
@@ -115,11 +117,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function initializes SHA3 instance.
+ * @brief	This function initializes SHA3 instance.
  *
  * @return
  *	-	XST_SUCCESS - If the initialization is successful
- *	-	ErrorCode - If there is a failure
+ *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_Sha3Init(void)
@@ -145,23 +147,23 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_Sha3Update64Bit or
+ * @brief	This function handler calls XSecure_Sha3Update64Bit or
  * 		XSecure_Sha3Finish based on the Continue bit in the command
  *
- * @param	SrcAddrLow	 Lower 32 bit address of the input data
+ * @param	SrcAddrLow	Lower 32 bit address of the input data
  * 				on which hash has to be calculated
- * @param	SrcAddrHigh	 Higher 32 bit address of the input data
+ * @param	SrcAddrHigh	Higher 32 bit address of the input data
  * 				on which hash has to be calculated
- * @param	Size		 Size of the input data in bytes to be
+ * @param	Size		Size of the input data in bytes to be
  * 				updated
- * @param	DstAddrLow	 Lower 32 bit address of the output data
+ * @param	DstAddrLow	Lower 32 bit address of the output data
  * 				where hash to be stored
- * @param	DstAddrHigh	 Higher 32 bit address of the output data
+ * @param	DstAddrHigh	Higher 32 bit address of the output data
  * 				where hash to be stored
  *
  * @return
  *	-	XST_SUCCESS - If the sha update/fnish is successful
- *	-	ErrorCode - If there is a failure
+ *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_Sha3UpdateIpi(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
@@ -214,14 +216,14 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function is used for single sha3digest or for multiple sha3 updates
+ * @brief	This function is used for single sha3digest or for multiple sha3 updates
  * 		based on the First packet bit and Continue bit in the command
  *
- * @param       Cmd is pointer to the command structure
+ * @param	Cmd	is pointer to the command structure
  *
  * @return
- *      -       XST_SUCCESS - If the sha Update/Finish/Digest is successful
- *      -       ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the sha Update/Finish/Digest is successful
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)
@@ -274,7 +276,7 @@ END:
 }
 /*****************************************************************************/
 /**
- * @brief       This function is used to mark the resource as free
+ * @brief	This function is used to mark the resource as free
  *
  ******************************************************************************/
 static void XSecure_MakeSha3Free(void)
@@ -286,12 +288,12 @@ static void XSecure_MakeSha3Free(void)
 }
 /*****************************************************************************/
 /**
- * @brief       This function is used to check whether any previous data
+ * @brief	This function is used to check whether any previous data
  * 		context is lost for the corresponding ipi channel or not
- *  @return
- *      -       XST_SUCCESS - If the context is available
- *      -       XST_DATA_LOST - If the context is lost
-
+ * @return
+ *		 - XST_SUCCESS  If the context is available
+ *		 - XST_DATA_LOST  If the context is lost
+ *
 ******************************************************************************/
  static int XSecure_ShaIsDataContextLost(void)
 {
@@ -306,3 +308,4 @@ static void XSecure_MakeSha3Free(void)
 
 	return Status;
 }
+/** @} */

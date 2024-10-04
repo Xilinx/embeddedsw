@@ -26,9 +26,11 @@
  *
  * </pre>
  *
- * @note
- *
  ******************************************************************************/
+/**
+* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+* @{
+*/
 #ifndef XSECURE_INIT_H_
 #define XSECURE_INIT_H_
 
@@ -61,3 +63,4 @@ XSecure_Rsa *XSecure_GetRsaInstance(void);
 #endif
 
 #endif /* XSECURE_INIT_H_ */
+/** @} */

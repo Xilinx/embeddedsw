@@ -22,7 +22,6 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
 /**
 * @addtogroup xsecure_hmac_apis Xilsecure HMAC APIs
@@ -77,3 +76,4 @@ extern "C" }
 #endif
 
 #endif /* XSECURE_HMAC_H_ */
+/** @} */

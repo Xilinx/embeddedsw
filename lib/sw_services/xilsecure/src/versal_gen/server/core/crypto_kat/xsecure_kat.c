@@ -10,7 +10,7 @@
 *
 * @file xsecure_kat.c
 *
-* This file contains known answer tests common for both versal and versalnet
+* This file contains known answer tests common for both Versal and VersalNet
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -36,9 +36,11 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xsecure_error.h"
@@ -388,7 +390,7 @@ static int XSecure_AesDecCmChecks(const u32 *P, const u32 *Q, const u32 *R,
  * @brief	This function returns message to perform KAT
  *
  * @return
- *			message to perform KAT
+ *		 - Message to perform KAT
  *
  *****************************************************************************/
 u8* XSecure_GetKatMessage(void) {
@@ -400,7 +402,7 @@ u8* XSecure_GetKatMessage(void) {
  * @brief	This function returns AES key for KAT
  *
  * @return
- *			AES key for KAT
+ *		 - AES key for KAT
  *
  *****************************************************************************/
 u8* XSecure_GetKatAesKey(void) {
@@ -412,7 +414,7 @@ u8* XSecure_GetKatAesKey(void) {
  * @brief	This function returns expected SHA3 hash for KAT
  *
  * @return
- *			Expected SHA3 hash for KAT
+ *		 - Expected SHA3 hash for KAT
  *
  *****************************************************************************/
 u8* XSecure_GetKatSha3ExpHash(void) {
@@ -425,7 +427,7 @@ u8* XSecure_GetKatSha3ExpHash(void) {
  * @brief	This function returns modulus for RSA KAT
  *
  * @return
- *			RSA modulus for KAT
+ *		 - RSA modulus for KAT
  *
  *****************************************************************************/
 u32* XSecure_GetKatRsaModulus(void) {
@@ -434,10 +436,11 @@ u32* XSecure_GetKatRsaModulus(void) {
 
 /*****************************************************************************/
 /**
- * @brief	This function returns public modext for RSA KAT
+ * @brief	This function returns public pre-calculated exponential
+ * 		(R^2 Mod N) value for RSA KAT
  *
  * @return
- *			RSA modext for KAT
+ *		 - RSA pre-calculated exponential (R^2 Mod N) value for KAT
  *
  *****************************************************************************/
 u32* XSecure_GetKatRsaModExt(void) {
@@ -449,7 +452,7 @@ u32* XSecure_GetKatRsaModExt(void) {
  * @brief	This function returns data for RSA KAT
  *
  * @return
- *			RSA modext for KAT
+ *		 - Input data to be encrypted for RSA KAT
  *
  *****************************************************************************/
 u32* XSecure_GetKatRsaData(void) {
@@ -461,7 +464,7 @@ u32* XSecure_GetKatRsaData(void) {
  * @brief	This function returns cipher text data for RSA KAT
  *
  * @return
- *			RSA modext for KAT
+ *		 - Expected cipher text for RSA KAT
  *
  *****************************************************************************/
 u32* XSecure_GetKatRsaCtData(void) {
@@ -473,7 +476,7 @@ u32* XSecure_GetKatRsaCtData(void) {
  * @brief	This function returns private exponent for RSA KAT
  *
  * @return
- *			RSA private exponent for KAT
+ *		 - RSA private exponent for KAT
  *
  *****************************************************************************/
 u32* XSecure_GetKatRsaPrivateExp(void) {
@@ -505,13 +508,10 @@ u32* XSecure_GetKatRsaPrivateExp(void) {
 /**
  * @brief	This function returns ECC public key to perform KAT
  *
- * @param	CrvClass ECC curve class
+ * @param	CrvClass	ECC curve class
  *
  * @return
- *			ECC public key
- *
- * @note
- *			ECC core expects key in reverse order
+ *		 - ECC public key
  *
  *****************************************************************************/
 XSecure_EllipticKey* XSecure_GetKatEccPublicKey(XSecure_EllipticCrvClass CrvClass) {
@@ -533,13 +533,10 @@ XSecure_EllipticKey* XSecure_GetKatEccPublicKey(XSecure_EllipticCrvClass CrvClas
 /**
  * @brief	This function returns ECC expected signature to perform KAT
  *
- * @param	CrvClass ECC curve class
+ * @param	CrvClass	ECC curve class
  *
  * @return
- *			ECC expected signature
- *
- * @note
- *			ECC core expects sign in reverse order
+ *		 - ECC expected signature
  *
  *****************************************************************************/
 XSecure_EllipticSign* XSecure_GetKatEccExpSign(XSecure_EllipticCrvClass CrvClass) {
@@ -561,12 +558,10 @@ XSecure_EllipticSign* XSecure_GetKatEccExpSign(XSecure_EllipticCrvClass CrvClass
 /**
  * @brief	This function returns ECC private key to perform KAT
  *
- * @param	CrvClass ECC curve class
+ * @param	CrvClass	ECC curve class
  *
  * @return
- *			ECC private key
- * @note
- *			ECC core expects key in reverse order
+ *		 - ECC private key
  *
  *****************************************************************************/
 u8* XSecure_GetKatEccPrivateKey(XSecure_EllipticCrvClass CrvClass) {
@@ -584,21 +579,18 @@ u8* XSecure_GetKatEccPrivateKey(XSecure_EllipticCrvClass CrvClass) {
 
 /*****************************************************************************/
 /**
- * @brief	This function returns ECC ehimeral key to perform KAT
+ * @brief	This function returns ECC ephemeral key to perform KAT
  *
- * @param	CrvType ECC curve type
+ * @param	CrvType	ECC curve type
  *
  * @return
- *			ECC ehimeral key
- *
- * @note
- *			ECC core expects key in reverse order
+ *		 - ECC ephemeral key
  *
  *****************************************************************************/
-u8* XSecure_GetKatEccEphimeralKey(XSecure_EllipticCrvTyp CrvType) {
+u8* XSecure_GetKatEccEphemeralKey(XSecure_EllipticCrvTyp CrvType) {
 	static u8 *K;
 
-	/* select ephimeral key as per the curve*/
+	/* select ephemeral key as per the curve*/
 	if (CrvType == XSECURE_ECC_NIST_P384) {
 		K = (u8*)K_P384;
 	}
@@ -625,18 +617,21 @@ u8* XSecure_GetKatEccEphimeralKey(XSecure_EllipticCrvTyp CrvType) {
  * @param 	AesInstance	Pointer to the XSecure_Aes instance
  *
  * @return
- *	-	XST_SUCCESS - When KAT Pass
- *	-	XSECURE_AESKAT_INVALID_PARAM - On invalid argument
- *	-	XSECURE_AESDPACM_KAT_CHECK1_FAILED_ERROR - Error when AESDPACM data
+ *		 - XST_SUCCESS  When KAT Pass
+ *		 - XSECURE_AESKAT_INVALID_PARAM  On invalid argument
+ *		 - XSECURE_AES_KAT_BUSY  when AES is busy
+ *		 - XSECURE_AES_STATE_MISMATCH_ERROR  If AES state is mismatched
+ *		 - XSECURE_AESDPACM_KAT_CHECK1_FAILED_ERROR  Error when AESDPACM data
  *						not matched with expected data
- *	-	XSECURE_AESDPACM_KAT_CHECK2_FAILED_ERROR - Error when AESDPACM data
+ *		 - XSECURE_AESDPACM_KAT_CHECK2_FAILED_ERROR  Error when AESDPACM data
  *						not matched with expected data
- *	-	XSECURE_AESDPACM_KAT_CHECK3_FAILED_ERROR - Error when AESDPACM data
+ *		 - XSECURE_AESDPACM_KAT_CHECK3_FAILED_ERROR  Error when AESDPACM data
  *						not matched with expected data
- *	-	XSECURE_AESDPACM_KAT_CHECK4_FAILED_ERROR - Error when AESDPACM data
+ *		 - XSECURE_AESDPACM_KAT_CHECK4_FAILED_ERROR  Error when AESDPACM data
  *						not matched with expected data
- *	-	XSECURE_AESDPACM_KAT_CHECK5_FAILED_ERROR - Error when AESDPACM data
+ *		 - XSECURE_AESDPACM_KAT_CHECK5_FAILED_ERROR  Error when AESDPACM data
  *						not matched with expected data
+ *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
 int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
@@ -672,7 +667,7 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	/* Perform KAT on AES engine to know performance integrity */
+	/** Perform KAT on AES engine to know performance integrity */
 	Status = XSecure_AesDpaCmDecryptData(AesInstance, Key0, Data0, Output0);
 	if (Status != XST_SUCCESS) {
 		goto END_CLR;
@@ -740,16 +735,17 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function performs checks for AES DPA CM KAT ouptut.
+ * @brief	This function performs checks for AES DPA CM KAT output.
  *
- * @param 	P is the pointer to the data array of size 4 words.
- * @param 	Q is the pointer to the data array of size 4 words.
- * @param 	R is the pointer to the data array of size 4 words.
- * @param 	S is the pointer to the data array of size 4 words.
+ * @param	P	is the pointer to the data array of size 4 words.
+ * @param	Q	is the pointer to the data array of size 4 words.
+ * @param	R	is the pointer to the data array of size 4 words.
+ * @param	S	is the pointer to the data array of size 4 words.
  *
  * @return
- *	- XST_SUCCESS - When check is passed
- *  - XST_FAILURE - when check is failed
+ *		 - XST_SUCCESS  When check is passed
+ *		 - XST_FAILURE  when check is failed
+ *
  *****************************************************************************/
 static int XSecure_AesDecCmChecks(const u32 *P, const u32 *Q, const u32 *R,
 	const u32 *S)
@@ -780,13 +776,17 @@ static int XSecure_AesDecCmChecks(const u32 *P, const u32 *Q, const u32 *R,
  * @param	AesInstance	Pointer to the XSecure_Aes instance
  *
  * @return
- *	-	XST_SUCCESS - When KAT Pass
- *	-	XSECURE_AESKAT_INVALID_PARAM - Invalid Argument
- *	-	XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR - Error when AES key write fails
- *	-	XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR - Error when AES decrypt init fails
- *	-	XSECURE_AES_KAT_GCM_TAG_MISMATCH_ERROR - Error when GCM tag not matched
+ *		 - XST_SUCCESS  When KAT Pass
+ *		 - XSECURE_AESKAT_INVALID_PARAM  Invalid Argument
+ *		 - XSECURE_AES_KAT_BUSY  Error when AES is busy
+ *		 - XSECURE_AES_STATE_MISMATCH_ERROR  Error when AES state is mismatched
+ *		 - XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR  Error when AES key write fails
+ *		 - XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR  Error when AES decrypt init fails
+ *		 - XSECURE_AES_KAT_UPDATE_AAD_FAILED_ERROR  Error when update AAD fails
+ *		 - XSECURE_AES_KAT_DECRYPT_UPDATE_FAILED_ERROR  Error when decrypt update fails
+ *		 - XSECURE_AES_KAT_GCM_TAG_MISMATCH_ERROR  Error when GCM tag not matched
  *			with user provided tag
- *	-	XSECURE_AES_KAT_DATA_MISMATCH_ERROR - Error when AES data not matched with
+ *		 - XSECURE_AES_KAT_DATA_MISMATCH_ERROR  Error when AES data not matched with
  *			expected data
  *
  *****************************************************************************/
@@ -814,7 +814,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	/* Write AES key */
+	/** Write AES key */
 	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)AesKey);
 	if (Status != XST_SUCCESS) {
@@ -824,6 +824,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 #ifdef VERSAL_AIEPG2
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
+	/** Configure AES engine to decryption */
 	Status = XST_FAILURE;
 	Status = XSecure_AesDecryptInit(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)AesIv);
@@ -832,6 +833,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		goto END_CLR;
 	}
 
+	/** Update AAD */
 	Status = XST_FAILURE;
 	Status = XSecure_AesUpdateAad(AesInstance, (UINTPTR)AesAadData,
 			XSECURE_KAT_AAD_SIZE_IN_BYTES);
@@ -840,6 +842,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		goto END;
 	}
 
+	/** Update input and output addresses to AES engine */
 	Status = XSecure_AesDecryptUpdate(AesInstance, (UINTPTR)AesCt,
 			(UINTPTR)DstVal, XSECURE_KAT_MSG_LEN_IN_BYTES, TRUE);
 	if (Status != XST_SUCCESS) {
@@ -847,6 +850,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		goto END_CLR;
 	}
 
+	/** Verify the GCM Tag */
 	Status = XST_FAILURE;
 	Status =  XSecure_AesDecryptFinal(AesInstance, (UINTPTR)AesGcmTag);
 	if (Status != XST_SUCCESS) {
@@ -856,6 +860,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 
 	/* Initialized to error */
 	Status = (int)XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
+	/** Validate the decrypted data with expected data provided */
 	for (Index = 0U; Index < XSECURE_KAT_MSG_LEN_IN_WORDS; Index++) {
 		if (DstVal[Index] != AesExpPt[Index]) {
 			/* Comparison failure of decrypted data */
@@ -889,15 +894,18 @@ END:
  * @param	AesInstance	Pointer to the XSecure_Aes instance
  *
  * @return
- *	-	XST_SUCCESS - When KAT Pass
- *	-	XSECURE_AESKAT_INVALID_PARAM - Invalid Argument
- *	-	XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR - Error when AES key write fails
- *	-	XSECURE_AES_KAT_ENCRYPT_INIT_FAILED_ERROR - Error when AES encrypt init fails
- *	-	XSECURE_AES_KAT_ENCRYPT_UPDATE_FAILED_ERROR - Error when AES encrypt update fails
- *	-	XSECURE_AES_KAT_ENCRYPT_FINAL_FAILED_ERROR - Error when AES encrypt final fails
- *	-	XSECURE_AES_KAT_GCM_TAG_MISMATCH_ERROR - Error when GCM tag not matched
+ *		 - XST_SUCCESS  When KAT Pass
+ *		 - XSECURE_AESKAT_INVALID_PARAM  Invalid Argument
+ *		 - XSECURE_AES_KAT_BUSY  Error when AES is busy
+ *		 - XSECURE_AES_STATE_MISMATCH_ERROR  Error when AES state is mismatched
+ *		 - XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR  Error when AES key write fails
+ *		 - XSECURE_AES_KAT_ENCRYPT_INIT_FAILED_ERROR  Error when AES encrypt init fails
+ *		 - XSECURE_AES_KAT_UPDATE_AAD_FAILED_ERROR  Error when update AAD fails
+ *		 - XSECURE_AES_KAT_ENCRYPT_UPDATE_FAILED_ERROR  Error when AES encrypt update fails
+ *		 - XSECURE_AES_KAT_ENCRYPT_FINAL_FAILED_ERROR  Error when AES encrypt final fails
+ *		 - XSECURE_KAT_GCM_TAG_MISMATCH_ERROR  Error when GCM tag not matched
  *			with user provided tag
- *	-	XSECURE_AES_KAT_DATA_MISMATCH_ERROR - Error when AES data not matched with
+ *		 - XSECURE_AES_KAT_DATA_MISMATCH_ERROR  Error when AES data not matched with
  *			expected data
  *
  *****************************************************************************/
@@ -927,7 +935,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	/* Write AES key */
+	/** Write AES key */
 	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)AesKey);
 	if (Status != XST_SUCCESS) {
@@ -937,6 +945,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 #ifdef VERSAL_AIEPG2
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
+	/** Configure AES engine to encryption */
 	Status = XST_FAILURE;
 	Status = XSecure_AesEncryptInit(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)AesIv);
@@ -945,6 +954,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		goto END_CLR;
 	}
 
+	/** Update AAD */
 	Status = XST_FAILURE;
 	Status = XSecure_AesUpdateAad(AesInstance, (UINTPTR)AesAadData,
 			XSECURE_KAT_AAD_SIZE_IN_BYTES);
@@ -953,6 +963,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		goto END_CLR;
 	}
 
+	/** Update input and output addresses to AES engine */
 	Status = XSecure_AesEncryptUpdate(AesInstance, (UINTPTR)AesPt,
 			(UINTPTR)DstVal, XSECURE_KAT_MSG_LEN_IN_BYTES, TRUE);
 	if (Status != XST_SUCCESS) {
@@ -960,6 +971,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		goto END_CLR;
 	}
 
+	/** Update output address to AES engine to store GCM Tag */
 	Status = XST_FAILURE;
 	Status =  XSecure_AesEncryptFinal(AesInstance, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
@@ -969,14 +981,16 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 
 	/* Initialized to error */
 	Status = (int)XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
+	/** Validate the encrypted data with expected data provided */
 	for (Index = 0U; Index < XSECURE_KAT_MSG_LEN_IN_WORDS; Index++) {
 		if (DstVal[Index] != AesExpCt[Index]) {
-			/* Comparison failure of decrypted data */
+			/* Comparison failure of encrypted data */
 			Status = (int)XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
 			goto END_CLR;
 		}
 	}
 
+	/** Validate the GCM Tag */
 	if (Index == XSECURE_KAT_MSG_LEN_IN_WORDS) {
 		Status = (int)XSECURE_KAT_GCM_TAG_MISMATCH_ERROR;
 		Status = Xil_SMemCmp_CT(GcmTag, sizeof(GcmTag), AesGcmTag, XSECURE_SECURE_GCM_TAG_SIZE,
@@ -1007,17 +1021,18 @@ END:
  *
  * @brief	This function performs known answer test(KAT) on SHA crypto engine
  *
- * @param	SecureSha3 Pointer to the XSecure_Sha3 instance
+ * @param	SecureSha3	Pointer to the XSecure_Sha3 instance
  *
  * @return
- *	-	XST_SUCCESS - When KAT Pass
- *	-	XSECURE_SHA3_INVALID_PARAM - On invalid argument
- *	-	XSECURE_SHA3_LAST_UPDATE_ERROR - Error when SHA3 last update fails
- *	-	XSECURE_SHA3_KAT_FAILED_ERROR - Error when SHA3 hash not matched with
+ *		 - XST_SUCCESS  When KAT Pass
+ *		 - XSECURE_SHA3_INVALID_PARAM  On invalid argument
+ *		 - XSECURE_SHA3_KAT_BUSY  Error when SHA3 is busy
+ *		 - XSECURE_SHA3_LAST_UPDATE_ERROR  Error when SHA3 last update fails
+ *		 - XSECURE_SHA3_KAT_FAILED_ERROR  Error when SHA3 hash not matched with
  *					expected hash
- *	-	XSECURE_SHA3_PMC_DMA_UPDATE_ERROR - Error when DMA driver fails to update
+ *		 - XSECURE_SHA3_PMC_DMA_UPDATE_ERROR  Error when DMA driver fails to update
  *					the data to SHA3
- *	-	XSECURE_SHA3_FINISH_ERROR - Error when SHA3 finish fails
+ *		 - XSECURE_SHA3_FINISH_ERROR  Error when SHA3 finish fails
  *
  ******************************************************************************/
 int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
@@ -1037,7 +1052,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 		goto END;
 	}
 
-	/* Configure SSS and start SHA-3 engine */
+	/** Configure SSS and start SHA-3 engine */
 	Status = XSecure_ShaStart(SecureSha3, XSECURE_SHA3_384);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
@@ -1050,7 +1065,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
         }
 #endif
 	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-
+	/** Update SHA3 engine with input data */
 	Status = XSecure_ShaUpdate(SecureSha3, (UINTPTR)KatMessage,
 			XSECURE_KAT_MSG_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
@@ -1059,13 +1074,14 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 	}
 
 	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-
+	/** Update SHA3 engine with padded data if required and reads the hash */
 	Status = XSecure_ShaFinish(SecureSha3, (u64)(UINTPTR)&OutVal, sizeof(OutVal));
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_SHA3_FINISH_ERROR;
 		goto END_RST;
 	}
 
+	/** Validate the generated hash with the provided expected hash */
 	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
 	for(Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
 		if (OutVal.Hash[Index] != ExpSha3Hash[Index]) {
@@ -1096,9 +1112,10 @@ END:
  * @brief	This function performs KAT on RSA core
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR - When RSA KAT fails
- *	-	XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR - Error when RSA data not
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_RSA_KAT_INIT_ERROR  Error when RSA init fails
+ *		 - XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR  When RSA KAT fails
+ *		 - XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR  Error when RSA data not
  *							matched with expected data
  *
  *****************************************************************************/
@@ -1111,6 +1128,7 @@ int XSecure_RsaPublicEncryptKat(void)
 	u32 RsaOutput[XSECURE_RSA_2048_SIZE_WORDS];
 	u32 PubExp = XSECURE_KAT_RSA_PUB_EXP;
 
+	/** Initialize the RSA instance */
 	Status = XSecure_RsaInitialize(&XSecureRsaInstance, (u8 *)RsaModulus,
 		(u8*)RsaModExt, (u8 *)&PubExp);
 	if (Status != XST_SUCCESS) {
@@ -1118,6 +1136,7 @@ int XSecure_RsaPublicEncryptKat(void)
 		goto END;
 	}
 
+	/** Perform the public encrypt operation */
 	Status = XST_FAILURE;
 	Status = XSecure_RsaPublicEncrypt(&XSecureRsaInstance, (u8 *)RsaData,
 		XSECURE_RSA_2048_KEY_SIZE, (u8 *)RsaOutput);
@@ -1128,6 +1147,7 @@ int XSecure_RsaPublicEncryptKat(void)
 
 	/* Initialized to error */
 	Status = (int)XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR;
+	/** Validate the encrypted data with the expected data provided */
 	for (Index = 0U; Index < XSECURE_RSA_2048_SIZE_WORDS; Index++) {
 		if (RsaOutput[Index] != RsaExpCtData[Index]) {
 			Status = (int)XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR;
@@ -1154,12 +1174,13 @@ END:
 /**
  * @brief	This function performs ECC sign verify known answer test(KAT) on ECC core
  *
- * @param	CrvClass  Type of ECC curve class either prime or binary curve
+ * @param	CrvClass	Type of ECC curve class either prime or binary curve
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR - When elliptic key is not valid
- *	-	Errorcode 	- when KAT fails
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR  When elliptic key is invalid
+ *		 - XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR  Error when input is invalid
+ *		 - XSECURE_ELLIPTIC_KAT_SIGN_VERIFY_ERROR  When signature is invalid
  *
  *****************************************************************************/
 int XSecure_EllipticVerifySignKat(XSecure_EllipticCrvClass CrvClass) {
@@ -1173,7 +1194,6 @@ int XSecure_EllipticVerifySignKat(XSecure_EllipticCrvClass CrvClass) {
 		goto END;
 	}
 
-	/** Verify the signature for the provided hash, key, and curve type */
 	Status = XSecure_EllipticValidateKey(XSECURE_ECC_NIST_P384, PubKey);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR;
@@ -1196,11 +1216,13 @@ END:
 /**
  * @brief	This function performs ECC sign generate known answer test(KAT) on ECC core
  *
- * @param	CrvClass  Type of ECC curve class either prime or binary class
+ * @param	CrvClass	Type of ECC curve class either prime or binary class
  *
  * @return
- *	-	XST_SUCCESS - when KAT passes
- *	-	Errorcode 	- when KAT fails
+ *		 - XST_SUCCESS  When KAT passes
+ *		 - XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR  When input is invalid.
+ *		 - XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_ERROR  When generate sign fails
+ *		 - XSECURE_ELLIPTIC_KAT_GENERATE_SIGNR_ERROR  When SignR is mismatched
  *
  *****************************************************************************/
 int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass) {
@@ -1211,7 +1233,7 @@ int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass) {
 	XSecure_EllipticSign GeneratedSign;
 	const XSecure_EllipticSign *ExpSign = XSecure_GetKatEccExpSign(CrvClass);
 	const u8 *D = XSecure_GetKatEccPrivateKey(CrvClass);
-	const u8 *K = XSecure_GetKatEccEphimeralKey(XSECURE_ECC_NIST_P384);
+	const u8 *K = XSecure_GetKatEccEphemeralKey(XSECURE_ECC_NIST_P384);
 	u32 Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
 
 	if ((ExpSign->SignR == NULL) || (ExpSign->SignS == NULL)
@@ -1223,7 +1245,10 @@ int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass) {
 	GeneratedSign.SignR = &Sign[0U];
 	GeneratedSign.SignS = &Sign[Size];
 
-	/** Generate signature for the provided hash and curve type */
+	/**
+	 * Generates signature for the provided hash and curve type
+	 * and then perform KAT using that signature.
+	 */
 	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P384, (u8*)&ExpEccSha3Hash[0U],
 				Size, D, K, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
@@ -1253,13 +1278,15 @@ END:
 /**
  * @brief	This function performs ECC pairwise consistency test on ECC core
  *
- * @param	Curvetype  Type of ECC curve used for authentication
- * @param	DAddr  Address of ECC private key
- * @param	PubKeyAddr  Address of ECC public key
+ * @param	Curvetype	Type of ECC curve used for authentication
+ * @param	DAddr		Address of ECC private key
+ * @param	PubKeyAddr	Address of ECC public key
  *
  * @return
- *	-	XST_SUCCESS - when KAT passes
- *	-	Errorcode - when KAT fails
+ *		 - XST_SUCCESS  When KAT passes
+ *		 - XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR  When input is invalid
+ *		 - XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_64BIT_ERROR  When generate signature fails
+ *		 - XSECURE_ELLIPTIC_KAT_64BIT_SIGN_VERIFY_ERROR  When verify sign is invalid
  *
  *****************************************************************************/
 int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_EllipticKeyAddr *PubKeyAddr) {
@@ -1268,10 +1295,10 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 	u8 Sign[XSECURE_ECC_P521_SIZE_IN_BYTES + XSECURE_ECC_P521_SIZE_IN_BYTES];
 	XSecure_EllipticSignAddr GeneratedSignAddr;
 	XSecure_EllipticHashData HashInfo;
-	u8 *K = XSecure_GetKatEccEphimeralKey(Curvetype);
+	u8 *K = XSecure_GetKatEccEphemeralKey(Curvetype);
 	u8 Size = 0U;
 
-	/* Get size as per the curve type*/
+	/** Get size as per the curve type */
 	if (Curvetype == XSECURE_ECC_NIST_P384) {
 		Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
 	}
@@ -1297,7 +1324,7 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 	GeneratedSignAddr.SignR = (u64)(UINTPTR)&Sign[0U];
 	GeneratedSignAddr.SignS = (u64)(UINTPTR)&Sign[Size];
 
-	/*Generate signature for given Hash and curve type*/
+	/** Generate signature for given Hash and curve type */
 	Status = XSecure_EllipticGenerateSignature_64Bit(Curvetype, &HashInfo,
 				DAddr, (u64)(UINTPTR)K, &GeneratedSignAddr);
 	if (Status != XST_SUCCESS) {
@@ -1306,7 +1333,7 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 	}
 
 	Status = XST_FAILURE;
-	/*Verify the signature*/
+	/** Verify the signature*/
 	Status = XSecure_EllipticVerifySign_64Bit(Curvetype, &HashInfo, PubKeyAddr, &GeneratedSignAddr);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_ELLIPTIC_KAT_64BIT_SIGN_VERIFY_ERROR;
@@ -1323,3 +1350,4 @@ END:
 	return Status;
 }
 #endif
+/** @} */

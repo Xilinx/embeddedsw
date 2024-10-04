@@ -152,3 +152,4 @@ u32 XSecure_EllipticGetCrvSize(const XSecure_EllipticCrvTyp CrvType);
 #endif
 
 #endif
+/** @} */

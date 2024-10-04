@@ -9,7 +9,7 @@
 *
 * @file xsecure_sha_ipihandler.h
 *
-* This file contains the xilsecure SHA3 IPI handler declaration.
+* This file contains the Xilsecure SHA3 IPI handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,10 +22,9 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
 /**
-* @addtogroup xsecure_sha3_server_apis XilSecure SHA3 Server APIs
+* @addtogroup xsecure_sha_server_apis XilSecure SHA Server APIs
 * @{
 */
 #ifndef XSECURE_SHA_IPIHANDLER_H_
@@ -46,3 +45,4 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XSECURE_SHA_IPIHANDLER_H_ */
+/** @} */

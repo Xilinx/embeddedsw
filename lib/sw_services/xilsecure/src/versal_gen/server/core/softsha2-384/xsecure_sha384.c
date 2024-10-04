@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 - 2023, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,10 +21,12 @@
 *       dd   10/11/23 MISRA-C violation Rule 1.1 fixed
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_soft_sha384_server_apis XilSecure Soft SHA384 Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xstatus.h"
 #include "xsecure_error.h"
@@ -42,14 +44,14 @@ sha384_context ShaCtx;
 /**
  * @brief	This function calculates the SHA2-384 digest on the given input data
  *
- * @param	Data		Pointer to buffer which stores input data
- * @param	Size		Size of the input data
- * @param	Hash		Pointer to buffer which stores calculated SHA2 hash
+ * @param	Data	Pointer to buffer which stores input data
+ * @param	Size	Size of the input data
+ * @param	Hash	Pointer to buffer which stores calculated SHA2 hash
  *
  * @return
- *	-	XST_SUCCESS - If digest calculation done successfully
- *	-	XSECURE_SHA384_INVALID_PARAM - On invalid parameter
- *	-	XST_FAILURE - Error condition
+ *		 - XST_SUCCESS  If digest calculation done successfully
+ *		 - XSECURE_SHA384_INVALID_PARAM  On invalid parameter
+ *
  ******************************************************************************/
 int XSecure_Sha384Digest(u8* Data, u32 Size, u8* Hash)
 {
@@ -83,13 +85,13 @@ void XSecure_Sha384Start(void)
 /**
  * @brief	This function updates the data to SHA2-384 update API in driver
  *
- * @param	Data		Pointer to buffer which stores input data
- * @param	Size		Size of the input data
+ * @param	Data	Pointer to buffer which stores input data
+ * @param	Size	Size of the input data
  *
  * @return
- *	-	XST_SUCCESS - If update done successfully
- *	-	XSECURE_SHA384_INVALID_PARAM - On invalid parameter
- *	-	XST_FAILURE - Error condition
+ *		 - XST_SUCCESS  If update done successfully
+ *		 - XSECURE_SHA384_INVALID_PARAM  On invalid parameter
+ *
  ******************************************************************************/
 int XSecure_Sha384Update(u8* Data, u32 Size)
 {
@@ -116,9 +118,9 @@ END:
  * @param	ResHash		Pointer to XSecure_Sha2Hash structure
  *
  * @return
- *	-	XST_SUCCESS - If digest calculation done successfully
- *	-	XSECURE_SHA384_INVALID_PARAM - On invalid parameter
- *	-	XST_FAILURE - Error condition
+ *		 - XST_SUCCESS  If digest calculation done successfully
+ *		 - XSECURE_SHA384_INVALID_PARAM  On invalid parameter
+ *
  ******************************************************************************/
 int XSecure_Sha384Finish(XSecure_Sha2Hash *ResHash)
 {
@@ -137,3 +139,4 @@ int XSecure_Sha384Finish(XSecure_Sha2Hash *ResHash)
 END:
 	return Status;
 }
+/** @} */

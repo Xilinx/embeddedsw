@@ -9,7 +9,7 @@
 *
 * @file xsecure_elliptic_ipihandler.h
 *
-* This file contains the xilsecure elliptic IPI handler declaration.
+* This file contains the Xilsecure elliptic IPI handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,7 +23,6 @@
 * </pre>
 *
 ******************************************************************************/
-
 /**
 * @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
 * @{
@@ -51,3 +50,4 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XSECURE_ELLIPTIC_IPIHANDLER_H_ */
+/** @} */

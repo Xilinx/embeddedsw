@@ -23,7 +23,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+* @{
+*/
 #ifndef XSECURE_UTILS_H_
 #define XSECURE_UTILS_H_
 
@@ -81,11 +84,12 @@ extern "C" {
 /**
  * @brief	Read from the register
  *
- * @param	BaseAddress - Contains the base address of the device
- * @param	RegOffset   - Contains the offset from the base address of the
- *			      device
+ * @param	BaseAddress	Contains the base address of the device
+ * @param	RegOffset	Contains the offset from the base address of the
+ *				device
  *
- * @return	The value read from the register
+ * @return
+ *		 - The value read from the register
  *
  ******************************************************************************/
 static inline u32 XSecure_ReadReg(UINTPTR BaseAddress, u16 RegOffset)
@@ -97,10 +101,10 @@ static inline u32 XSecure_ReadReg(UINTPTR BaseAddress, u16 RegOffset)
 /**
  * @brief	Write to the register
  *
- * @param	BaseAddress   - Contains the base address of the device
- * @param	RegOffset     - Contains the offset from the base address of the
+ * @param	BaseAddress	Contains the base address of the device
+ * @param	RegOffset	Contains the offset from the base address of the
  *				device
- * @param	RegisterValue - Is the value to be written to the register
+ * @param	RegisterValue	Is the value to be written to the register
  *
  ******************************************************************************/
 static inline void XSecure_WriteReg(UINTPTR BaseAddress,
@@ -111,9 +115,12 @@ static inline void XSecure_WriteReg(UINTPTR BaseAddress,
 
 /*****************************************************************************/
 /**
- * @brief        This function reads data from 64-bit address
+ * @brief	This function reads data from 64-bit address
  *
- * @param        Addr is the address
+ * @param	Addr	is the address
+ *
+ * @return
+ *		 - The value read from the provided address
  *
  ******************************************************************************/
 static inline u32 XSecure_In64(u64 Addr)
@@ -129,9 +136,12 @@ static inline u32 XSecure_In64(u64 Addr)
 
 /*****************************************************************************/
 /**
- * @brief        This function reads a byte from 64-bit address
+ * @brief	This function reads a byte from 64-bit address
  *
- * @param        Addr is the address
+ * @param	Addr	is the address
+ *
+ * @return
+ *		 - The value read from the provided address
  *
  ******************************************************************************/
 static inline u8 XSecure_InByte64(u64 Addr)
@@ -147,10 +157,10 @@ static inline u8 XSecure_InByte64(u64 Addr)
 
 /*****************************************************************************/
 /**
- * @brief        This function writes data to 64-bit address
+ * @brief	This function writes data to 64-bit address
  *
- * @param        Addr is the address
- * @param        Data is the value to be written
+ * @param	Addr	is the address
+ * @param	Data	is the value to be written
  *
  ******************************************************************************/
 static inline void XSecure_Out64(u64 Addr, u32 Data)
@@ -164,10 +174,10 @@ static inline void XSecure_Out64(u64 Addr, u32 Data)
 
 /*****************************************************************************/
 /**
- * @brief        This function writes 32 bit data to 64-bit address
+ * @brief	This function writes 32 bit data to 64-bit address
  *
- * @param        Addr is the address
- * @param        Data is the value to be written
+ * @param	Addr	is the address
+ * @param	Data	is the value to be written
  *
  ******************************************************************************/
 static inline void XSecure_OutWord64(u64 Addr, u32 Data)
@@ -181,10 +191,10 @@ static inline void XSecure_OutWord64(u64 Addr, u32 Data)
 
 /*****************************************************************************/
 /**
- * @brief        This function writes a byte to a 64-bit address
+ * @brief	This function writes a byte to a 64-bit address
  *
- * @param        Addr is the address
- * @param        Data is the value to be written
+ * @param	Addr	is the address
+ * @param	Data	is the value to be written
  *
  ******************************************************************************/
 static inline void XSecure_OutByte64(u64 Addr, u8 Data)
@@ -210,3 +220,4 @@ void XSecure_ReleaseReset(UINTPTR BaseAddress, u32 Offset);
 #endif
 
 #endif /* XSECURE_UTILS_H_ */
+/** @} */

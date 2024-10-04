@@ -61,3 +61,4 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr);
 #endif
 
 #endif /* XSECURE_KEY_UNWRAP_H_ */
+/** @} */
