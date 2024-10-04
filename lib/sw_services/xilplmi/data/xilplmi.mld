@@ -58,6 +58,7 @@ BEGIN LIBRARY xilplmi
   PARAM name = ssit_secure_plm_to_plm_comm_en, desc = "Enables or Disables SSIT secure PLM to PLM communication (valid only for Versal)", type = bool, default = false;
   PARAM name = plm_ecdsa_en, desc = "Enables or Disables ECDSA handlers", type = bool, default = true;
   PARAM name = plm_rsa_en, desc = "Enables or Disables RSA handlers", type = bool, default = true;
+  PARAM name = plm_auth_jtag_en, desc = "Enables or Disables Authenticated JTAG feature", type = bool, default = true;
   PARAM name = sem_override_dbg_lvl, desc = "Overrides plm_dbg_lvl as 0 for XilSEM designs if enabled (1) ", type = bool, default = true;
   PARAM name = user_modules_count, desc = "Number of User Modules", type = int, default = 0;
   PARAM name = xplmi_mode, desc = "Enables server mode for PMC and client mode for APU, RPU and Microblaze", type = enum, values = (mode = "client", mode = "server"), default = "server";

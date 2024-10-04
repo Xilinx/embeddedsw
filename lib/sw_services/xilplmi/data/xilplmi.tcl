@@ -445,6 +445,16 @@ proc xgen_opts_file {libhandle} {
 		}
 	}
 
+	# Get plm_auth_jtag_en value set by user, by default it is TRUE
+	set value [common::get_property CONFIG.plm_auth_jtag_en $libhandle]
+	if {$value == false} {
+		if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc" || $proc_type == "psv_pmc"} {
+			set file_handle [hsi::utils::open_include_file "xparameters.h"]
+			puts $file_handle "\n/* Authenticated JTAG code disable */"
+			puts $file_handle "#define PLM_AUTH_JTAG_EXCLUDE"
+		}
+	}
+
 	# Get timestamp_disable value set by user, by default it is FALSE
 	set value [common::get_property CONFIG.timestamp_en $libhandle]
 	if {$value == false} {
