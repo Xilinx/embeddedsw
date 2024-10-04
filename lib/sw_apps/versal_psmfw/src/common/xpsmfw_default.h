@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -68,10 +69,14 @@ extern "C" {
 
 /* Handler Table Structure */
 typedef void (*VoidFunction_t)(void);
+
+/**
+ * @brief Structure to hold handler information
+ */
 struct HandlerTable {
-	u32 Shift;
-	u32 Mask;
-	VoidFunction_t Handler;
+	u32 Shift; /**< The shift value for the handler */
+	u32 Mask; /**< The mask value for the handler */
+	VoidFunction_t Handler; /**< The function pointer to the handler */
 };
 
 #ifdef __cplusplus

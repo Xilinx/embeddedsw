@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,10 +33,14 @@ extern "C" {
 
 /* GIC Handler Table Structure */
 typedef void (*GicHandlerFunction_t)(void);
+
+/**
+ * @brief Structure to hold GIC P2 handler information
+ */
 struct GicP2HandlerTable_t {
-        u32 Mask;
-	GicHandlerFunction_t CpmHandler;
-	GicHandlerFunction_t Cpm5Handler;
+        u32 Mask; /**< The mask value for the GIC P2 handler */
+	GicHandlerFunction_t CpmHandler; /**< The handler function for CPM */
+	GicHandlerFunction_t Cpm5Handler; /**< The handler function for CPM5 */
 };
 
 XStatus XPsmFw_DispatchGicP2Handler(u32 GicP2Status, u32 GicP2IntMask);
