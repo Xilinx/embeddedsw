@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -148,128 +148,97 @@ enum ProcDeviceId {
 
 /* Power control and wakeup Handler Table Structure */
 typedef XStatus (*HandlerFunction_t)(void);
+
+/**
+ * @brief Structure for power control and wakeup handler table
+ */
 struct PwrCtlWakeupHandlerTable_t {
-        u32 Mask;
-        HandlerFunction_t Handler;
+        u32 Mask; /**< Mask for the power control or wakeup event */
+        HandlerFunction_t Handler; /**< Function pointer to the handler for the event */
 };
 
 /* Power Handler Table Structure */
 typedef XStatus (*PwrFunction_t)(void);
+
+/**
+ * @brief Structure for power handler table
+ */
 struct PwrHandlerTable_t {
-	u32 PwrUpMask;
-	u32 PwrDwnMask;
-	PwrFunction_t PwrUpHandler;
-	PwrFunction_t PwrDwnHandler;
+	u32 PwrUpMask; /**< Mask for the power-up event */
+	u32 PwrDwnMask; /**< Mask for the power-down event */
+	PwrFunction_t PwrUpHandler; /**< Function pointer to the handler for the power-up event */
+	PwrFunction_t PwrDwnHandler; /**< Function pointer to the handler for the power-down event */
 };
 
+/**
+ * @brief Structure to manage power control settings
+ */
 struct XPsmFwPwrCtrl_t {
-	enum ProcDeviceId Id;
-
-	/* Reset vector address register */
-	u32 ResetCfgAddr;
-
-	/* Bit number in the Power State (LOCAL and GLOBAL) Register */
-	u32 PwrStateMask;
-
-	/* Address of the PSM_LOCAL Power control register */
-	u32 PwrCtrlAddr;
-
-	/* Address of the PSM_LOCAL Power status register */
-	u32 PwrStatusAddr;
-
-	/* POWERON_TIMEOUT */
-	u32 PwrUpAckTimeout[PSM_LOCAL_PWR_CTRL_MAX_PWRUP_STAGES];
-
-	/* POWERON_SETTLE_TIME */
-	u32 PwrUpWaitTime[PSM_LOCAL_PWR_CTRL_MAX_PWRUP_STAGES];
-
-	/* POWEROFF_TIMEOUT */
-	u32 PwrDwnAckTimeout;
-
-	/* Address of the clock control register */
-	u32 ClkCtrlAddr;
-
-	/* Bit number in the clock control register */
-	u32 ClkCtrlMask;
-
-	/* RST_ACPU0_SEQ_PROP_TIME */
-	u32 ClkPropTime;
-
-	/* Bit number in MBIST registers */
-	u32 MbistBitMask;
-
-	/* Bit number in reset control registers */
-	u32 RstCtrlMask;
+	enum ProcDeviceId Id; /**< The processor device ID */
+	u32 ResetCfgAddr; /**< Reset vector address register */
+	u32 PwrStateMask; /**< Bit number in the Power State (LOCAL and GLOBAL) Register */
+	u32 PwrCtrlAddr; /**< Address of the PSM_LOCAL Power control register */
+	u32 PwrStatusAddr; /**< Address of the PSM_LOCAL Power status register */
+	u32 PwrUpAckTimeout[PSM_LOCAL_PWR_CTRL_MAX_PWRUP_STAGES]; /**< Power-up ack timeout for each power-up stage */
+	u32 PwrUpWaitTime[PSM_LOCAL_PWR_CTRL_MAX_PWRUP_STAGES]; /**< Power-up wait time for each power-up stage */
+	u32 PwrDwnAckTimeout; /**< Power-down acknowledgment timeout */
+	u32 ClkCtrlAddr; /**< Power-down acknowledgment timeout */
+	u32 ClkCtrlMask; /**< Bit number in the clock control register */
+	u32 ClkPropTime; /**< Propagation time for the clock */
+	u32 MbistBitMask; /**< Bit number in the MBIST registers */
+	u32 RstCtrlMask; /**< Bit number in the reset control registers */
 };
 
+/**
+ * @brief Structure for memory power control in PSM firmware
+ */
 struct XPsmFwMemPwrCtrl_t {
-	/* Bit number in the Power State (LOCAL and GLOBAL) Register */
-	u32 PwrStateMask;
-
-	/* Address of the PSM_LOCAL chip enable register */
-	u32 ChipEnAddr;
-
-	/* Bit number in the PSM_LOCAL chip enable register */
-	u32 ChipEnMask;
-
-	/* Address of the PSM_LOCAL Power control register */
-	u32 PwrCtrlAddr;
-
-	/* Bit number in the PSM_LOCAL Power control register */
-	u32 PwrCtrlMask;
-
-	/* Address of the PSM_LOCAL Power status register */
-	u32 PwrStatusAddr;
-
-	/* Bit number in the PSM_LOCAL Power status register */
-	u32 PwrStatusMask;
-
-	/* mem_BANKx_ACK_PROP_TIMEOUT */
-	u32 PwrStateAckTimeout;
-
-	/* mem_BANKx_PWRUP_WAIT_TIME */
-	u32 PwrUpWaitTime;
+	u32 PwrStateMask; /**< Bit number in the Power State (LOCAL and GLOBAL) Register */
+	u32 ChipEnAddr; /**< Address of the PSM_LOCAL chip enable register */
+	u32 ChipEnMask; /**< Bit number in the PSM_LOCAL chip enable register */
+	u32 PwrCtrlAddr; /**< Address of the PSM_LOCAL Power control register */
+	u32 PwrCtrlMask; /**< Bit number in the PSM_LOCAL Power control register */
+	u32 PwrStatusAddr; /**< Address of the PSM_LOCAL Power status register */
+	u32 PwrStatusMask; /**< Bit number in the PSM_LOCAL Power status register */
+	u32 PwrStateAckTimeout; /**< Timeout for memory bank acknowledgment */
+	u32 PwrUpWaitTime; /**< Wait time for memory bank power-up */
 };
 
-/*
+/**
+ * @brief Structure to manage TCM power control settings
+ *
  * As per EDT-994842, whenever one of the TCM banks is powered down, some of the
  * locations of other TCM is not accessible. Synchronize the TCM bank power
  * down as workaround. This structure is used for synchronizing TCM bank power
  * down.
  */
 struct XPsmTcmPwrCtrl_t {
-	struct XPsmFwMemPwrCtrl_t TcmMemPwrCtrl;
-
-	/* Id of TCM bank */
-	enum TcmBankId Id;
-
-	/* Current power state of the TCM bank */
-	enum TcmPowerState PowerState;
+	struct XPsmFwMemPwrCtrl_t TcmMemPwrCtrl; /**< Memory power control settings for the TCM */
+	enum TcmBankId Id; /**< Id of TCM bank */
+	enum TcmPowerState PowerState; /**< Current power state of the TCM bank */
 };
 
+/**
+ * @brief Structure for GEM power control in PSM firmware
+ */
 struct XPsmFwGemPwrCtrl_t {
-        struct XPsmFwMemPwrCtrl_t GemMemPwrCtrl;
-
-        /* Address of the clock control register */
-        u32 ClkCtrlAddr;
-
-        /* Bit number in the clock control register */
-        u32 ClkCtrlMask;
-
-        /* Address of the reset control register */
-        u32 RstCtrlAddr;
-
-        /* Bit number in the reset control register */
-        u32 RstCtrlMask;
+        struct XPsmFwMemPwrCtrl_t GemMemPwrCtrl; /**< Memory power control for GEM */
+        u32 ClkCtrlAddr; /**< Address of the clock control register */
+        u32 ClkCtrlMask; /**< Bit number in the clock control register */
+        u32 RstCtrlAddr; /**< Address of the reset control register */
+        u32 RstCtrlMask; /**< Bit number in the reset control register */
 };
 
+/**
+ * @brief Structure representing an event from PSM to PLM.
+ */
 struct PsmToPlmEvent_t {
-	u32 Version;	/* Version of the event structure */
-	u32 Event[PROC_DEV_MAX];
-	u32 CpuIdleFlag[PROC_DEV_MAX];
-	u64 ResumeAddress[PROC_DEV_MAX];
-	u32 ProcDataAddress;
-	u16 ProcDataLen;
+	u32 Version; /**< Version of the event structure */
+	u32 Event[PROC_DEV_MAX]; /**< Array of events for each processor device */
+	u32 CpuIdleFlag[PROC_DEV_MAX]; /**< Array of CPU idle flags for each processor device */
+	u64 ResumeAddress[PROC_DEV_MAX]; /**< Array of resume addresses for each processor device */
+	u32 ProcDataAddress; /**< Address of the processor data */
+	u16 ProcDataLen; /**< Length of the processor data */
 };
 
 XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);
