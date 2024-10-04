@@ -302,6 +302,11 @@ u32 XPlm_LoadPartialPdi(void)
 	while (TRUE) {
 		Status = XPlm_SbiRead(XPLM_SBI_BUF_ADDR, (u32)&WidthDetect, WIDTH_DETECT_WORD_LEN_B,
 				      XPLM_DMA_INCR_MODE);
+		if (Status != XST_SUCCESS) {
+			Status = XPLM_ERR_PPDI_SBI_BUF_READ_WIDTH_WORD;
+			goto END;
+		}
+
 		if (WidthDetect == WIDTH_DETECT_WORD) {
 			break;
 		}

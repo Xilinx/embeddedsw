@@ -303,13 +303,11 @@ u32 XPlm_DmaXfr(u32 SrcAddr, u32 DestAddr, u32 Len, u32 Flags)
 	/* Polling for transfer to be done */
 	Status = XPmcDma_WaitForDoneTimeout(DmaPtr, XPMCDMA_SRC_CHANNEL);
 	if (Status != (u32)XST_SUCCESS) {
-		XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", XPLM_ERR_DMA_XFER_WAIT_SRC);
 		goto END;
 	}
 
 	Status = XPmcDma_WaitForDoneTimeout(DmaPtr, XPMCDMA_DST_CHANNEL);
 	if (Status != (u32)XST_SUCCESS) {
-		XPlm_Printf(DEBUG_INFO, "PLM ERR: 0x%08x\r\n", XPLM_ERR_DMA_XFER_WAIT_DEST);
 		goto END;
 	}
 
@@ -341,7 +339,8 @@ END:
  * @param	Len is size of memory to be set in words
  *
  * @return
- * 		- Status of @ref XPlm_DmaXfr.
+ * 		- XST_SUCCESS on success.
+ * 		- XST_FAILURE if failed to set memory with specified value.
  *
  *****************************************************************************/
 u32 XPlm_MemSet(u32 DestAddr, u32 Val, u32 Len)
