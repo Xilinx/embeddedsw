@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -207,6 +207,9 @@ void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr)
 	u32 StreamOffset[4] = {0, XDP_RX_STREAM2_MSA_START_OFFSET,
 					XDP_RX_STREAM3_MSA_START_OFFSET,
 					XDP_RX_STREAM4_MSA_START_OFFSET};
+	u32 Linkrate=0;
+	Linkrate = XDpRxSs_ReadReg(RxConfig->BaseAddr,
+			XDP_RX_DPCD_LINK_BW_SET);
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	for (Stream = 1; Stream <= InstancePtr->Config.NumMstStreams; Stream++) {
@@ -223,13 +226,7 @@ void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr)
 			"\tVert Start                     (0x520) : %d\n\r"
 			"\tMisc0                          (0x528) : 0x%08X\n\r"
 			"\tMisc1                          (0x52C) : 0x%08X\n\r"
-			"\tUser Pixel Width               (0x010) : %d\n\r"
-			"\tM Vid                          (0x530) : %d\n\r"
-			"\tN Vid                          (0x534) : %d\n\r"
-			"\tM Aud			  (0x324) : %d\n\r"
-			"\tN Aud			  (0x328) : %d\n\r"
-			"\tVB-ID                          (0x538) : %d\n\r",
-
+			"\tUser Pixel Width               (0x010) : %d\n\r",
 		Stream,
 		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_HTOTAL +
 				StreamOffset[Stream - 1]),
@@ -256,17 +253,32 @@ void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr)
 		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_MISC1+
 				StreamOffset[Stream - 1]),
 		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_USER_PIXEL_WIDTH+
-				StreamOffset[Stream - 1]),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_MVID+
-				StreamOffset[Stream - 1]),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_NVID+
-				StreamOffset[Stream - 1]),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_AUDIO_MAUD+
-				StreamOffset[Stream - 1]),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_AUDIO_NAUD+
-				StreamOffset[Stream - 1]),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VBID+
 				StreamOffset[Stream - 1]));
+		if((Linkrate == 0x1) || (Linkrate == 0x2) || (Linkrate == 0x4)){
+			xil_printf(
+					"\tVFreq L                       (0x1608) : 0x%08X\n\r"
+					"\tVFreq H                       (0x160c) : 0x%08X\n\r",
+			XDp_ReadReg(RxConfig->BaseAddr,0x1608),
+			XDp_ReadReg(RxConfig->BaseAddr, 0x160c));
+		}else{
+			xil_printf(
+				"\tM Vid                          (0x530) : %d\n\r"
+				"\tN Vid                          (0x534) : %d\n\r",
+			XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_MVID+
+					StreamOffset[Stream - 1]),
+			XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_NVID+
+							StreamOffset[Stream - 1]));
+		}
+		xil_printf(
+				"\tM Aud			  	(0x324) : %d\n\r"
+				"\tN Aud			  	(0x328) : %d\n\r"
+				"\tVB-ID                (0x538) : %d\n\r",
+					XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_AUDIO_MAUD+
+							StreamOffset[Stream - 1]),
+					XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_AUDIO_NAUD+
+							StreamOffset[Stream - 1]),
+					XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VBID+
+							StreamOffset[Stream - 1]));
 
 		xil_printf("\n\r");
 	}
