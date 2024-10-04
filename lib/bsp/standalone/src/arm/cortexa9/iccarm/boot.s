@@ -1,5 +1,6 @@
 ;******************************************************************************
 ; Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+; Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ; SPDX-License-Identifier: MIT
 ;*****************************************************************************
 ;****************************************************************************
@@ -202,42 +203,42 @@ shareable_loop
 	mvn	r1, #0x1f			; set up the irq stack pointer
 	and	r2, r1, r0
 	orr	r2, r2, #0x12			; IRQ mode
-	msr	cpsr, r2			; was cpsr, apsr is considered synonym
+	msr	cpsr_cxsf, r2			; was cpsr, apsr is considered synonym
         ldr	r13,=SFE(IRQ_STACK)	        ; IRQ stack pointer
 
 	mrs	r0, cpsr			; get the current PSR
 	mvn	r1, #0x1f			; set up the supervisor stack pointer
 	and	r2, r1, r0
 	orr	r2, r2, #0x13			; supervisor mode
-	msr	cpsr, r2			; was cpsr, apsr is considered synonym
+	msr	cpsr_cxsf, r2			; was cpsr, apsr is considered synonym
         ldr	r13,=SFE(SVC_STACK)            ; Supervisor stack pointer
 
 	mrs	r0, cpsr			; get the current PSR
 	mvn	r1, #0x1f			; set up the Abort  stack pointer
 	and	r2, r1, r0
 	orr	r2, r2, #0x17			; Abort mode
-	msr	cpsr, r2			; was cpsr, apsr is considered synonym
+	msr	cpsr_cxsf, r2			; was cpsr, apsr is considered synonym
         ldr	r13,=SFE(ABT_STACK)             ; Abort stack pointer
 
 	mrs	r0, cpsr			; was cpsr, get the current PSR
 	mvn	r1, #0x1f			; set up the FIQ stack pointer
 	and	r2, r1, r0
 	orr	r2, r2, #0x11			; FIQ mode
-	msr	cpsr, r2			; was cpsr
+	msr	cpsr_cxsf, r2			; was cpsr
 	ldr	r13,=SFE(FIQ_STACK)		; FIQ stack pointer
 
 	mrs	r0, cpsr			; was cpsr, get the current PSR
 	mvn	r1, #0x1f			; set up the Undefine stack pointer
 	and	r2, r1, r0
 	orr	r2, r2, #0x1b			; Undefine mode
-	msr	cpsr, r2			; was cpsr
+	msr	cpsr_cxsf, r2			; was cpsr
 	ldr	r13,=SFE(UND_STACK)		; Undefine stack pointer
 
 	mrs	r0, cpsr			; was cpsr, get the current PSR
 	mvn	r1, #0x1f			; set up the system stack pointer
 	and	r2, r1, r0
 	orr	r2, r2, #0x1f			; SYS mode
-	msr	cpsr, r2			; was cpsr, apsr is considered synonym
+	msr	cpsr_cxsf, r2			; was cpsr, apsr is considered synonym
         ldr	r13,=SFE(CSTACK)                ; SYS stack pointer
 
 	;set scu enable bit in scu

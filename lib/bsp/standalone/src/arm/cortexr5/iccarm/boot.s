@@ -1,5 +1,6 @@
 ;******************************************************************************
 ; Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+; Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ; SPDX-License-Identifier: MIT
 ; *****************************************************************************/
 ; ****************************************************************************/
@@ -94,7 +95,7 @@ OKToRun
 	mvn	r1, #0x1f			; set up the irq stack pointer
 	and	r2, r1, r0
 	orr	r2, r2, #0x12			; IRQ mode
-	msr	cpsr, r2
+	msr	cpsr_cxsf, r2
 	ldr	r13,=SFE(IRQ_STACK)			; IRQ stack pointer
 	mov 	r14,#0
 
@@ -102,7 +103,7 @@ OKToRun
 	mvn	r1, #0x1f			; set up the supervisor stack pointer
 	and	r2, r1, r0
 	orr	r2, r2, #0x13			; supervisor mode
-	msr	cpsr, r2
+	msr	cpsr_cxsf, r2
 	ldr	r13,=SFE(SVC_STACK)			; Supervisor stack pointer
 	mov 	r14,#0
 
@@ -110,7 +111,7 @@ OKToRun
 	mvn	r1, #0x1f			; set up the Abort  stack pointer
 	and	r2, r1, r0
 	orr	r2, r2, #0x17			; Abort mode
-	msr	cpsr, r2
+	msr	cpsr_cxsf, r2
 	ldr	r13,=SFE(ABT_STACK)		; Abort stack pointer
 	mov 	r14,#0
 
@@ -118,7 +119,7 @@ OKToRun
 	mvn	r1, #0x1f			; set up the FIQ stack pointer
 	and	r2, r1, r0
 	orr	r2, r2, #0x11			; FIQ mode
-	msr	cpsr, r2
+	msr	cpsr_cxsf, r2
 	mov 	r8, #0
 	mov 	r9, #0
 	mov 	r10, #0
@@ -131,7 +132,7 @@ OKToRun
 	mvn	r1, #0x1f			; set up the Undefine stack pointer
 	and	r2, r1, r0
 	orr	r2, r2, #0x1b			; Undefine mode
-	msr	cpsr, r2
+	msr	cpsr_cxsf, r2
 	ldr	r13,=SFE(UND_STACK)		; Undefine stack pointer
 	mov 	r14,#0
 
@@ -139,7 +140,7 @@ OKToRun
 	mvn	r1, #0x1f			; set up the system stack pointer
 	and	r2, r1, r0
 	orr	r2, r2, #0x1F			; SYS mode
-	msr	cpsr, r2
+	msr	cpsr_cxsf, r2
 	ldr	r13,=SFE(CSTACK)		; SYS stack pointer
 	mov 	r14,#0
 
