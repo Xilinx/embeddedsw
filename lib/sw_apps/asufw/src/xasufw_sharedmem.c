@@ -21,6 +21,7 @@
  *       ma   07/08/24 Add task based approach at queue level
  *       ma   07/23/24 Updated communication channel info address with RTCA address
  *       ss   09/26/24 Fixed doxygen comments
+ *       ma   09/26/24 Removed static IPI configurations from code
  *
  * </pre>
  *
@@ -52,20 +53,11 @@
 #define XASUFW_QUEUEINDEX_MASK		0xF0U /**< P0/P1 Queue index mask in Queue UniqueID */
 #define XASUFW_QUEUEINDEX_SHIFT		4U /**< Queue index shift in Queue UniqueID */
 
-/* TODO: To be deleted once the IPI channel information comes from user */
-#define XASUFW_IPI0_BIT_MASK            0x4U /**< IPI0 channel bit mask */
-#define XASUFW_IPI0_P0_QUEUE_PRIORITY   0x1U /**< IPI0 P0 queue priority */
-#define XASUFW_IPI0_P1_QUEUE_PRIORITY   0x2U /**< IPI0 P1 queue priority */
-#define XASUFW_IPI1_BIT_MASK            0x8U /**< IPI1 channel bit mask */
-#define XASUFW_IPI1_P0_QUEUE_PRIORITY   0x0U /**< IPI1 P0 queue priority */
-#define XASUFW_IPI1_P1_QUEUE_PRIORITY   0x3U /**< IPI1 P1 queue priority */
-
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static void XAsufw_UpdateCommChannelUserConfig(void);
 static s32 XAsufw_ValidateCommChannelUserConfig(void);
 
 /************************************ Variable Definitions ***************************************/
@@ -113,25 +105,6 @@ s32 XAsufw_SharedMemoryInit(void)
 
 END:
 	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function updates communication channels information to the memory.
- *
- *************************************************************************************************/
-/* TODO:    This need to be deleted once the IPI channel information comes from user */
-static void XAsufw_UpdateCommChannelUserConfig(void)
-{
-	/** Update IPI communication channels information to memory. */
-	CommChannelInfo->NumOfIpiChannels = 2U;
-	CommChannelInfo->Channel[0U].IpiBitMask = XASUFW_IPI0_BIT_MASK;
-	CommChannelInfo->Channel[0U].P0QueuePriority = XASUFW_IPI0_P0_QUEUE_PRIORITY;
-	CommChannelInfo->Channel[0U].P1QueuePriority = XASUFW_IPI0_P1_QUEUE_PRIORITY;
-
-	CommChannelInfo->Channel[1U].IpiBitMask = XASUFW_IPI1_BIT_MASK;
-	CommChannelInfo->Channel[1U].P0QueuePriority = XASUFW_IPI1_P0_QUEUE_PRIORITY;
-	CommChannelInfo->Channel[1U].P1QueuePriority = XASUFW_IPI1_P1_QUEUE_PRIORITY;
 }
 
 /*************************************************************************************************/
@@ -261,13 +234,7 @@ static s32 XAsufw_ValidateCommChannelUserConfig(void)
 	u32 ChannelIndex;
 	u32 PrivData;
 
-	/*
-	 * Update IPI channel information with some static data
-	 * TODO: To be deleted.
-	*/
-	XAsufw_UpdateCommChannelUserConfig();
-
-	/** Validate IPI channel information. */
+	/* Validate IPI channel information */
 	for (ChannelIndex = 0U; ChannelIndex < CommChannelInfo->NumOfIpiChannels; ++ChannelIndex) {
 		if ((CommChannelInfo->Channel[ChannelIndex].IpiBitMask <= XASUFW_IPI_PMC_MASK) ||
 		    (CommChannelInfo->Channel[ChannelIndex].IpiBitMask > XASUFW_IPI_NOBUF_6_MASK) ||
