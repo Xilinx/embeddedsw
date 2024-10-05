@@ -55,25 +55,6 @@ typedef struct {
 } XAsufw_SharedMemory;
 
 /**
- * @brief This structure contains information of each communication channel.
- */
-typedef struct {
-	u16 IpiBitMask; /**< Bit mask of the IPI channel to enable interrupts */
-	u8 P0QueuePriority; /**< P0 Queue Priority of the channel */
-	u8 P1QueuePriority; /**< P1 Queue Priority of the channel */
-	u32 Reserved; /**< Reserved */
-} XAsufw_CommChannel;
-
-/**
- * @brief This structure contains information of all communication channels.
- */
-typedef struct {
-	u32 CommChannelInfoHeader; /**< Communication channel information header */
-	u32 NumOfIpiChannels; /**< Number of IPI channels to be enabled */
-	XAsufw_CommChannel Channel[XASUFW_MAX_IPI_CHANNELS]; /**< Communication channels information */
-} XAsufw_CommChannelInfo;
-
-/**
  * @brief This structure contains P0 and P1 queue tasks and queue task handler required info.
  */
 typedef struct {
@@ -87,7 +68,7 @@ typedef struct {
  * @brief This structure contains information about all channels tasks.
  */
 typedef struct {
-	XAsufw_QueueTasks Channel[XASUFW_MAX_IPI_CHANNELS]; /**< Queue task info of all channels */
+	XAsufw_QueueTasks Channel[XASU_MAX_IPI_CHANNELS]; /**< Queue task info of all channels */
 } XAsufw_ChannelTasks;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
