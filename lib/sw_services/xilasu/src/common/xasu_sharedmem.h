@@ -62,6 +62,15 @@ extern "C" {
 
 #define XASU_COMMAND_ARGS					(18U) /**< Command/response arguments */
 
+#define XASU_RTCA_BASEADDR			(0xEBE40000U) /**< ASUFW run time configuration area
+									base address */
+#define XASU_RTCA_COMM_CHANNEL_INFO_ADDR	(XASU_RTCA_BASEADDR + 0x10U) /**< Communication
+										channel info register
+										address */
+#define XASU_MAX_IPI_CHANNELS			(8U) /**< Maximum IPI channels supported by ASUFW */
+#define XASU_CHANNEL_MEMORY_OFFSET		(0x1000U) /**<Channel memory offset */
+#define XASU_CHANNEL_MEMORY_BASEADDR		(XASU_RTCA_BASEADDR + XASU_CHANNEL_MEMORY_OFFSET)
+
 /************************************** Type Definitions *****************************************/
 /** This structure is the request buffer */
 typedef struct {
@@ -99,6 +108,25 @@ typedef struct {
 	XAsu_ChannelQueue P0ChannelQueue; /**< P0 channel queue */
 	XAsu_ChannelQueue P1ChannelQueue; /**< P1 channel queue */
 } XAsu_ChannelMemory;
+
+/**
+ * @brief This structure contains information of each communication channel.
+ */
+typedef struct {
+	u8 P0QueuePriority; /**< P0 Queue Priority of the channel */
+	u8 P1QueuePriority; /**< P1 Queue Priority of the channel */
+	u16 IpiBitMask; /**< Bit mask of the IPI channel to enable interrupts */
+	u32 Reserved; /**< Reserved */
+} XAsu_CommChannel;
+
+/**
+ * @brief This structure contains information of all communication channels.
+ */
+typedef struct {
+	u32 CommChannelInfoHeader; /**< Communication channel information header */
+	u32 NumOfIpiChannels; /**< Number of IPI channels to be enabled */
+	XAsu_CommChannel Channel[XASU_MAX_IPI_CHANNELS]; /**< Communication channels information */
+} XAsu_CommChannelInfo;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

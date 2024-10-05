@@ -46,8 +46,6 @@ extern "C" {
 #define IPI_ASU_IER	(( IPI_ASU_BASEADDR) + ((u32)0x00000018U)) /**< ASU IPI Interrupt Enable Register */
 #define IPI_ASU_IDR	(( IPI_ASU_BASEADDR) + ((u32)0x0000001CU)) /**< ASU IPI Interrupt Disable Register */
 
-#define XASUFW_MAX_IPI_CHANNELS	8U /**< Maximum IPI channels supported by ASUFW */
-
 #define XASUFW_IPI_PMC_MASK	((u32)0x00000002U) /**< PMC IPI channel mask */
 #define XASUFW_IPI_NOBUF_6_MASK	((u32)0x00008000U) /**< IPI6 NoBuf channel mask */
 

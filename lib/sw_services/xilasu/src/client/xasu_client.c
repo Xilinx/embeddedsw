@@ -35,10 +35,6 @@
 #include "xasu_status.h"
 
 /************************************ Constant Definitions ***************************************/
-/* TODO the shared memory shall be coming as part of design */
-#define XASU_SHARED_MEMORY_P0_CH_QUEUE  0xEBE415B8U /**< P0 queue shared memory */
-#define XASU_SHARED_MEMORY_P1_CH_QUEUE  0xEBE41ADCU /**< P1 queue shared memory */
-
 #define XASU_QUEUE_BUFFER_FULL          0xFFU       /**< To indicate queue full state */
 #define XASU_CLIENT_READY               0xFFFFFFFFU /**< To indicate Client is ready */
 #define XASU_TARGET_IPI_INT_MASK        1U          /**< ASU IPI interrupt mask */
@@ -58,6 +54,7 @@
  */
 typedef struct {
 	XMailbox *MailboxPtr;
+	XAsu_ChannelMemory *ChannelMemoryPtr;
 	XAsu_QueueInfo P0Queue;
 	XAsu_QueueInfo P1Queue;
 	u32 IsReady;
@@ -72,6 +69,9 @@ static void XAsu_DoorBellToClient(void *CallBackRef);
 static s32 XAsu_CheckAsufwPrsntBit(void);
 
 /************************************ Variable Definitions ***************************************/
+static XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
+	XASU_RTCA_COMM_CHANNEL_INFO_ADDR; /** All IPI channels information received from user
+						configuration */
 static XMailbox MailboxInstance;        /**< Variable to Mailbox instance */
 static volatile u32 RecvDone = FALSE;	/**< Done flag */
 
@@ -90,6 +90,7 @@ s32 XAsu_ClientInit(u32 BaseAddress)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
+	u32 ChannelIdx;
 
 	/* If already initialized returns success as no initialization is needed */
 	if (ClientInstancePtr->IsReady == XASU_CLIENT_READY) {
@@ -110,11 +111,26 @@ s32 XAsu_ClientInit(u32 BaseAddress)
 		goto END;
 	}
 
+	/** Map the IPI shared memory of the channel */
+	for (ChannelIdx = 0U; ChannelIdx < CommChannelInfo->NumOfIpiChannels; ++ChannelIdx) {
+		if (MailboxInstance.Agent.IpiInst.Config.BitMask ==
+		    CommChannelInfo->Channel[ChannelIdx].IpiBitMask) {
+			break;
+		}
+	}
+
+	if (ChannelIdx == CommChannelInfo->NumOfIpiChannels) {
+		Status = XASU_IPI_CONFIG_NOT_FOUND;
+		goto END;
+	}
+
+	/* Assign channel shared memory */
+	ClientInstancePtr->ChannelMemoryPtr = XASU_CHANNEL_MEMORY_BASEADDR +
+					(XASU_CHANNEL_MEMORY_OFFSET * ChannelIdx);
+
 	ClientInstancePtr->MailboxPtr = &MailboxInstance;
-	ClientInstancePtr->P0Queue.ChannelQueue =
-		(XAsu_ChannelQueue *)XASU_SHARED_MEMORY_P0_CH_QUEUE;
-	ClientInstancePtr->P1Queue.ChannelQueue =
-		(XAsu_ChannelQueue *)XASU_SHARED_MEMORY_P1_CH_QUEUE;
+	ClientInstancePtr->P0Queue.ChannelQueue = &ClientInstancePtr->ChannelMemoryPtr->P0ChannelQueue;
+	ClientInstancePtr->P1Queue.ChannelQueue = &ClientInstancePtr->ChannelMemoryPtr->P1ChannelQueue;
 	ClientInstancePtr->P0Queue.NextFreeIndex = 0U;
 	ClientInstancePtr->P1Queue.NextFreeIndex = 0U;
 

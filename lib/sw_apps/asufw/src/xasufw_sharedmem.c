@@ -61,13 +61,13 @@
 static s32 XAsufw_ValidateCommChannelUserConfig(void);
 
 /************************************ Variable Definitions ***************************************/
-/* All IPI channels information received from user configuration */
-static XAsufw_CommChannelInfo *CommChannelInfo = (XAsufw_CommChannelInfo *)(UINTPTR)
-	XASUFW_RTCA_COMM_CHANNEL_INFO_ADDR;
-
 /* All channel's shared memory where the commands are received */
 static XAsufw_SharedMemory *SharedMemory = (XAsufw_SharedMemory *)(UINTPTR)
 	XASUFW_SHARED_MEMORY_ADDRESS;
+
+/* All IPI channels information received from user configuration */
+static XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
+	XASU_RTCA_COMM_CHANNEL_INFO_ADDR;
 
 /* All channel's task related information */
 static XAsufw_ChannelTasks CommChannelTasks;
