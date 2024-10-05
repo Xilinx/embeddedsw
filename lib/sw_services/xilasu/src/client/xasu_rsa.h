@@ -45,11 +45,10 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-/* RSA Client Operation functions */
 s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClientParamPtr);
 s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClientParamPtr);
 s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClientParamPtr);
-s32 XAsu_RsaKat(void);
+s32 XAsu_RsaKat(XAsu_ClientParams *ClientParamPtr);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

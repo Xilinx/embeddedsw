@@ -45,7 +45,7 @@ extern "C" {
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParamsPtr);
 s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParamsPtr);
-s32 XAsu_AesKat(void);
+s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

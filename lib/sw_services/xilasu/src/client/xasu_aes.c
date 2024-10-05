@@ -61,8 +61,8 @@ static inline s32 XAsu_AesValidateTag(u8 EngineMode, u64 TagAddr, u32 TagLen);
 s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParamsPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
 	/** Validatations of inputs. */
 	if ((ClientParamsPtr == NULL) || (AesParamsPtr == NULL)) {
@@ -130,32 +130,16 @@ s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 		goto END;
 	}
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(ClientParamsPtr->Priority);
-	if (QueueInfo == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
-	/* Get Queue memory */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		Status = XASU_QUEUE_FULL;
-		goto END;
-	}
+	Header = XAsu_CreateHeader(XASU_AES_OPERATION_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U);
 
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_AES_OPERATION_CMD_ID, 0U,
-				  XASU_MODULE_AES_ID, 0U);
-
-	Status = Xil_SecureMemCpy(QueueBuf->ReqBuf.Arg, sizeof(QueueBuf->ReqBuf.Arg),
-				  AesParamsPtr, sizeof(Asu_AesParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, AesParamsPtr,
+					sizeof(Asu_AesParams), Header);
 
 END:
 	return Status;
@@ -181,8 +165,8 @@ END:
 s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParamsPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
 	/** Validatations of inputs. */
 	if ((ClientParamsPtr == NULL) || (AesParamsPtr == NULL)) {
@@ -250,32 +234,16 @@ s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 		goto END;
 	}
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(ClientParamsPtr->Priority);
-	if (QueueInfo == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
-	/* Get Queue memory */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		Status = XASU_QUEUE_FULL;
-		goto END;
-	}
+	Header = XAsu_CreateHeader(XASU_AES_OPERATION_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U);
 
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_AES_OPERATION_CMD_ID, 0U,
-				  XASU_MODULE_AES_ID, 0U);
-
-	Status = Xil_SecureMemCpy(QueueBuf->ReqBuf.Arg, sizeof(QueueBuf->ReqBuf.Arg),
-				  AesParamsPtr, sizeof(Asu_AesParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, AesParamsPtr,
+					sizeof(Asu_AesParams), Header);
 
 END:
 	return Status;
@@ -285,6 +253,9 @@ END:
 /**
  * @brief	This function performs AES Known Answer Tests (KAT's).
  *
+ * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * 				input parameters.
+ *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
@@ -292,31 +263,33 @@ END:
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_AesKat(void)
+s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(XASU_PRIORITY_HIGH);
-	if (QueueInfo == NULL) {
+	/** Validate input parameters. */
+	if (ClientParamsPtr == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/* Get Queue memory */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		Status = XASU_QUEUE_FULL;
+	if ((ClientParamsPtr->Priority != XASU_PRIORITY_HIGH) &&
+	    (ClientParamsPtr->Priority != XASU_PRIORITY_LOW)) {
+		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_AES_KAT_CMD_ID, 0U, XASU_MODULE_AES_ID, 0U);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
 
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	Header = XAsu_CreateHeader(XASU_AES_KAT_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U);
+
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
 
 END:
 	return Status;
