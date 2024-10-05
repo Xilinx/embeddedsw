@@ -19,6 +19,7 @@
  *       ss   08/13/24 Changed XAsu_ClientInit function prototype and addded XAsu_ClientParams
  *                     structure
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       vns  09/30/24 Added support for asynchronous communication
  *
  * </pre>
  *
@@ -44,24 +45,35 @@ extern "C" {
 
 /************************************** Type Definitions *****************************************/
 
-/**
- * @brief This contains the queue information
- */
-typedef struct {
-	XAsu_ChannelQueue *ChannelQueue;
-	u8 NextFreeIndex;
-} XAsu_QueueInfo;
+typedef void (*XAsuClient_ResponseHandler) (void *CallBackRefPtr, u32 Status);
+                                            /**< Response handler */
+
 
 /** @brief This structure contains client parameters information. */
 typedef struct {
 	u8 Priority;    /**< Task Priority */
 	u8 Reserved;    /**< Reserved */
 	u16 Reserved2;  /**< Reserved */
-	void *CallBackFuncPtr;  /**< Call Back function pointer */
+	XAsuClient_ResponseHandler CallBackFuncPtr;  /**< Call Back function pointer */
 	void *CallBackRefPtr;   /**< Call Back reference pointer */
 } XAsu_ClientParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+
+/*************************************************************************************************/
+/**
+ * @brief   This function gets the unique ID from the provided header
+ *
+ * @param   Header		Header of the response/request buffer.
+ *
+ * @return
+ * 			- Unique ID	Returns the unique ID
+ *
+ *************************************************************************************************/
+inline u8 XAsu_GetUniqueId(u32 Header)
+{
+	return (u8)((Header & XASU_UNIQUE_REQ_ID_MASK) >> XASU_UNIQUE_REQ_ID_SHIFT);
+}
 
 /*************************************************************************************************/
 /**
@@ -90,10 +102,11 @@ inline u32 XAsu_CreateHeader(u8 CmdId, u8 UniqueId, u8 ModuleId, u8 CommandLen)
 }
 
 /************************************ Function Prototypes ****************************************/
-XAsu_QueueInfo *XAsu_GetQueueInfo(u32 QueuePriority);
-XAsu_ChannelQueueBuf *XAsu_GetChannelQueueBuf(XAsu_QueueInfo *QueueInfo);
-s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_QueueInfo *QueueInfo);
 s32 XAsu_ClientInit(u32 BaseAddress);
+s32 XAsu_ValidateClientParameters(XAsu_ClientParams *ClientParamPtr);
+s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuffer,
+				   u32 Size, u32 Header);
+u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr, u32 Size);
 /************************************ Variable Definitions ***************************************/
 
 #ifdef __cplusplus

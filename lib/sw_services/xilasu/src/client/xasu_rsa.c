@@ -61,10 +61,20 @@
 s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
 	/** Validatations of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (RsaClientParamPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	if (((RsaClientParamPtr->InputDataAddr == 0U) ||
 	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
 	     (RsaClientParamPtr->KeyCompAddr == 0U)) || ((RsaClientParamPtr->Len !=
@@ -74,38 +84,17 @@ s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClie
 		goto END;
 	}
 
-	if ((ClientParamPtr->Priority != XASU_PRIORITY_HIGH) &&
-	    (ClientParamPtr->Priority != XASU_PRIORITY_LOW)) {
-		Status = XASU_INVALID_ARGUMENT;
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(ClientParamPtr->Priority);
-	if (QueueInfo == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
+	Header = XAsu_CreateHeader(XASU_RSA_PUB_ENC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
-	/* Get Queue memory. */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		Status = XASU_QUEUE_FULL;
-		goto END;
-	}
-
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_RSA_PUB_ENC_CMD_ID, 0U,
-				  XASU_MODULE_RSA_ID, 0U);
-	Status = Xil_SecureMemCpy((XAsu_RsaClientParams *)QueueBuf->ReqBuf.Arg,
-				  sizeof(QueueBuf->ReqBuf.Arg), RsaClientParamPtr,
-				  sizeof(XAsu_RsaClientParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
+					sizeof(XAsu_RsaClientParams), Header);
 
 END:
 	return Status;
@@ -130,10 +119,20 @@ END:
 s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
 	/** Validatations of inputs. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (RsaClientParamPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	if (((RsaClientParamPtr->InputDataAddr == 0U) ||
 	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
 	     (RsaClientParamPtr->KeyCompAddr == 0U)) || ((RsaClientParamPtr->Len !=
@@ -143,39 +142,16 @@ s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClie
 		goto END;
 	}
 
-	if ((ClientParamPtr->Priority != XASU_PRIORITY_HIGH) &&
-	    (ClientParamPtr->Priority != XASU_PRIORITY_LOW)) {
-		Status = XASU_INVALID_ARGUMENT;
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(ClientParamPtr->Priority);
-	if (QueueInfo == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
+	Header = XAsu_CreateHeader(XASU_RSA_PVT_DEC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
-	/* Get Queue memory */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		Status = XASU_QUEUE_FULL;
-		goto END;
-	}
-
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_RSA_PVT_DEC_CMD_ID, 0U,
-				  XASU_MODULE_RSA_ID, 0U);
-	Status = Xil_SecureMemCpy((XAsu_RsaClientParams *)QueueBuf->ReqBuf.Arg,
-				  sizeof(QueueBuf->ReqBuf.Arg), RsaClientParamPtr,
-				  sizeof(XAsu_RsaClientParams));
-
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
+					sizeof(XAsu_RsaClientParams), Header);
 
 END:
 	return Status;
@@ -201,10 +177,20 @@ END:
 s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
-	/** Validatations of inputs. */
+	/** Validate input parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (RsaClientParamPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	if (((RsaClientParamPtr->InputDataAddr == 0U) ||
 	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
 	     (RsaClientParamPtr->KeyCompAddr == 0U)) || ((RsaClientParamPtr->Len !=
@@ -214,37 +200,17 @@ s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaC
 		goto END;
 	}
 
-	if ((ClientParamPtr->Priority != XASU_PRIORITY_HIGH) &&
-	    (ClientParamPtr->Priority != XASU_PRIORITY_LOW)) {
-		Status = XASU_INVALID_ARGUMENT;
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(ClientParamPtr->Priority);
-	if (QueueInfo == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-	/* Get Queue memory */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		Status = XASU_QUEUE_FULL;
-		goto END;
-	}
+	Header = XAsu_CreateHeader(XASU_RSA_PVT_CRT_DEC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_RSA_PVT_CRT_DEC_CMD_ID, 0U,
-				  XASU_MODULE_RSA_ID, 0U);
-	Status = Xil_SecureMemCpy((XAsu_RsaClientParams *)QueueBuf->ReqBuf.Arg,
-				  sizeof(QueueBuf->ReqBuf.Arg), RsaClientParamPtr,
-				  sizeof(XAsu_RsaClientParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
+					sizeof(XAsu_RsaClientParams), Header);
 
 END:
 	return Status;
@@ -254,6 +220,9 @@ END:
 /**
  * @brief	This function performs RSA Known Answer Tests (KAT's).
  *
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
+ * 					client input parameters.
+ *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
@@ -261,31 +230,27 @@ END:
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_RsaKat(void)
+s32 XAsu_RsaKat(XAsu_ClientParams *ClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(XASU_PRIORITY_HIGH);
-	if (QueueInfo == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-	/* Get Queue memory */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		Status = XASU_QUEUE_FULL;
+	/** Validate input parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_RSA_KAT_CMD_ID, 0U, XASU_MODULE_RSA_ID,
-				  0U);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
 
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	Header = XAsu_CreateHeader(XASU_RSA_KAT_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
+
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
 
 END:
 	return Status;
