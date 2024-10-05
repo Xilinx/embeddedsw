@@ -22,6 +22,7 @@
  *                     XAsu_ClientInit() API
  *       ss   09/19/24 Added XAsu_CheckAsufwPrsntBit() API
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       vns  09/30/24 Added support for asynchronous communication
  *
  * </pre>
  *
@@ -33,6 +34,7 @@
 /*************************************** Include Files *******************************************/
 #include "xasu_client.h"
 #include "xasu_status.h"
+#include "sleep.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_QUEUE_BUFFER_FULL          0xFFU       /**< To indicate queue full state */
@@ -55,25 +57,37 @@
 typedef struct {
 	XMailbox *MailboxPtr;
 	XAsu_ChannelMemory *ChannelMemoryPtr;
-	XAsu_QueueInfo P0Queue;
-	XAsu_QueueInfo P1Queue;
+	u8 P0NextFreeIndex;
+	u8 P1NextFreeIndex;
 	u32 IsReady;
 } XAsu_Client;
+
+/**
+ * This structure holds the call back reference of the requests to respond upon completion
+ */
+typedef struct {
+	XAsuClient_ResponseHandler CallBackFuncPtr;  /**< Call Back function pointer */
+	void *CallBackRefPtr;   /**< Call Back reference pointer */
+	u8 *RespBufferPtr;		/**< Buffer to store the response data */
+	u32 Size;				/**< Size of the response buffer */
+} XAsu_RefToCallBack;
+
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
 static XAsu_Client *XAsu_GetClientInstance(void);
-static u32 XAsu_IsChannelQueueFull(XAsu_QueueInfo *QueueInfo);
 static s32 XAsu_SendIpi(void);
 static void XAsu_DoorBellToClient(void *CallBackRef);
 static s32 XAsu_CheckAsufwPrsntBit(void);
+static u8 XAsu_GenerateUniqueId(void);
+static u8 XAsu_GetFreeIndex(u8 Priority);
 
 /************************************ Variable Definitions ***************************************/
 static XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
 	XASU_RTCA_COMM_CHANNEL_INFO_ADDR; /** All IPI channels information received from user
 						configuration */
 static XMailbox MailboxInstance;        /**< Variable to Mailbox instance */
-static volatile u32 RecvDone = FALSE;	/**< Done flag */
+static XAsu_RefToCallBack AsuCallBackRef[XASU_UNIQUE_ID_MAX]; /**< Entry of callback info */
 
 /*************************************************************************************************/
 /**
@@ -92,7 +106,12 @@ s32 XAsu_ClientInit(u32 BaseAddress)
 	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
 	u32 ChannelIdx;
 
-	/* If already initialized returns success as no initialization is needed */
+	/* Validate instance pointer */
+	if (ClientInstancePtr == NULL) {
+		goto END;
+	}
+
+	/** If already initialized returns success as no initialization is needed */
 	if (ClientInstancePtr->IsReady == XASU_CLIENT_READY) {
 		Status = XST_SUCCESS;
 		goto END;
@@ -129,10 +148,8 @@ s32 XAsu_ClientInit(u32 BaseAddress)
 					(XASU_CHANNEL_MEMORY_OFFSET * ChannelIdx);
 
 	ClientInstancePtr->MailboxPtr = &MailboxInstance;
-	ClientInstancePtr->P0Queue.ChannelQueue = &ClientInstancePtr->ChannelMemoryPtr->P0ChannelQueue;
-	ClientInstancePtr->P1Queue.ChannelQueue = &ClientInstancePtr->ChannelMemoryPtr->P1ChannelQueue;
-	ClientInstancePtr->P0Queue.NextFreeIndex = 0U;
-	ClientInstancePtr->P1Queue.NextFreeIndex = 0U;
+	ClientInstancePtr->P0NextFreeIndex = 0U;
+	ClientInstancePtr->P1NextFreeIndex = 0U;
 
 	ClientInstancePtr->IsReady = XASU_CLIENT_READY;
 
@@ -145,43 +162,107 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function validates the input client parameters.
+ *
+ * @param	ClientParamPtr	 	Pointer to the XAsu_ClientParams instance.
+ *
+ * @return
+ * 	- XST_SUCCESS upon successful validation.
+ * 	- XASU_INVALID_ARGUMENT, upon invalid arguments.
+ *	- XASU_INVALID_CLIENT_PARAM if ClientParamPtr is NULL
+ *	- XASU_INVALID_CALL_BACK_REF if CallBackFuncPtr is NULL
+ *	- XASU_INVALID_PRIORITY if invalid priority is selected
+ *
+ *************************************************************************************************/
+s32 XAsu_ValidateClientParameters(XAsu_ClientParams *ClientParamPtr)
+{
+    s32 Status = XASU_INVALID_ARGUMENT;
+
+    if (ClientParamPtr == NULL) {
+        Status = XASU_INVALID_CLIENT_PARAM;
+        goto END;
+    }
+
+    if (ClientParamPtr->CallBackFuncPtr == NULL) {
+		Status = XASU_INVALID_CALL_BACK_REF;
+		goto END;
+	}
+
+    if ((ClientParamPtr->Priority != XASU_PRIORITY_HIGH) &&
+	    (ClientParamPtr->Priority != XASU_PRIORITY_LOW)) {
+		Status = XASU_INVALID_PRIORITY;
+		goto END;
+	}
+
+    Status = XST_SUCCESS;
+
+END:
+    return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function updates the queue buffer status to notify the request is present and
  * 		generates a door bell to ASU.
  *
- * @param	QueueInfo	 Pointer to the XAsu_QueueInfo structure.
+ * @param	ClientParam	 	Pointer to the XAsu_ClientParams instance.
+ * @param	ReqBuffer		Pointer to the XAsu_ChannelQueueBuf's Request buffer data to be filled.
+ * @param	Size			Size of the request buffer in bytes.
+ * @param	Header			Header of the request buffer to be filled.
  *
  * @return
  * 	- XST_SUCCESS upon successful update.
  * 	- XST_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
-s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_QueueInfo *QueueInfo)
+s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuffer, u32 Size,
+				   u32 Header)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBufPtr;
+	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
+	u8 FreeIndex = 0U;
+	XAsu_ChannelQueueBuf *QueueBufPtr = NULL;
+	XAsu_ChannelQueue *ChannelQPtr = NULL;
 
 	/** Validate input parameters. */
-	if (QueueInfo == NULL) {
-		goto END;
+	if ((ClientParam == NULL) || (Header == 0U)) {
+		Status = XASU_INVALID_ARGUMENT;
 	}
-	/* Get Queue memory */
-	QueueBufPtr = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBufPtr == NULL) {
+	if (ClientInstancePtr->IsReady != XASU_CLIENT_READY) {
+		Status = XASU_CLIENT_NOT_INITIALIZED;
+	}
+
+	/** Get free queue buffer index of selected priority */
+	FreeIndex = XAsu_GetFreeIndex(ClientParam->Priority);
+	if (FreeIndex == XASU_MAX_BUFFERS) {
+		Status = XASU_QUEUE_FULL;
 		goto END;
 	}
 
+	if (ClientParam->Priority == XASU_PRIORITY_HIGH) {
+		QueueBufPtr = &ClientInstancePtr->ChannelMemoryPtr->P0ChannelQueue.
+						ChannelQueueBufs[FreeIndex];
+		ChannelQPtr = &ClientInstancePtr->ChannelMemoryPtr->P0ChannelQueue;
+    }
+	else {
+		QueueBufPtr = &ClientInstancePtr->ChannelMemoryPtr->P1ChannelQueue.
+						ChannelQueueBufs[FreeIndex];
+		ChannelQPtr = &ClientInstancePtr->ChannelMemoryPtr->P1ChannelQueue;
+	}
+
+	QueueBufPtr->ReqBuf.Header = Header;
+	if ((ReqBuffer != NULL) && (Size != 0x0U)) {
+		Status = Xil_SecureMemCpy((void *)QueueBufPtr->ReqBuf.Arg,
+					  sizeof(QueueBufPtr->ReqBuf.Arg), ReqBuffer, Size);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
 	QueueBufPtr->RespBufStatus = 0x0U;
 	QueueBufPtr->ReqBufStatus = XASU_COMMAND_IS_PRESENT;
 
-	if (QueueInfo->NextFreeIndex == (XASU_MAX_BUFFERS - 1U)) {
-		/* TODO to point to zero index upon free */
-		QueueInfo->NextFreeIndex = 0U;
-	} else {
-		QueueInfo->NextFreeIndex++;
-	}
-
 	/** Set IsCmdPresent to TRUE to indicate the command is present in the queue. */
-	QueueInfo->ChannelQueue->IsCmdPresent = TRUE;
+	ChannelQPtr->IsCmdPresent = TRUE;
 
 	/** Place an IPI request to ASU. */
 	Status = XAsu_SendIpi();
@@ -189,85 +270,41 @@ s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_QueueInfo *QueueInfo)
 		goto END;
 	}
 
-	while (!RecvDone);
-
-	RecvDone = FALSE;
 END:
 	return Status;
 }
 
 /*************************************************************************************************/
 /**
- * @brief	This function returns the pointer of the next free queue buffer of the requested
- * 		priority queue.
+ * @brief   This function registers call back parameters across the generated unique ID per request
  *
- * @param	QueueInfo	 Pointer to the XAsu_QueueInfo structure.
+ * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds
+ *              				the client input arguments.
+ * @param	RespBufferPtr		Buffer to hold the response from response buffer, if no data is
+ *								part of response buffer for the request the value shall be NULL.
+ * @param	Size				Size of the data to be filled in response buffer.
  *
  * @return
- * 	- Pointer to XAsufw_ChannelQueueBuf.
- * 	- Otherwise, returns NULL.
+ * 			- Unique ID used for registration (valid values are 0 to (XASU_UNIQUE_ID_MAX - 1))
+ *          - XASU_UNIQUE_ID_MAX - upon unique ID unavailability
  *
  *************************************************************************************************/
-XAsu_ChannelQueueBuf *XAsu_GetChannelQueueBuf(XAsu_QueueInfo *QueueInfo)
+u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr, u32 Size)
 {
-	XAsu_ChannelQueueBuf *QueueBuf = NULL;
+	u8 UniqueId = XAsu_GenerateUniqueId();
+	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
 
-	if (QueueInfo == NULL) {
+	if (UniqueId == XASU_UNIQUE_ID_MAX) {
 		goto END;
 	}
 
-	/* Check if Queue is full */
-	if (XAsu_IsChannelQueueFull(QueueInfo) != TRUE) {
-		QueueBuf =  &QueueInfo->ChannelQueue->ChannelQueueBufs[QueueInfo->NextFreeIndex];
-	}
-
+	/* Store the details for reference */
+	AsuCallBackRef[UniqueId].CallBackFuncPtr = ClientParamPtr->CallBackFuncPtr;
+	AsuCallBackRef[UniqueId].CallBackRefPtr = ClientParamPtr->CallBackRefPtr;
+	AsuCallBackRef[UniqueId].RespBufferPtr = RespBufferPtr;
+	AsuCallBackRef[UniqueId].Size = Size;
 END:
-	return QueueBuf;
-
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function returns either requested queue is full or not.
- *
- * @param	QueueInfo	 Pointer to the XAsu_QueueInfo structure.
- *
- * @return
- * 	- TRUE - if queue is full.
- * 	- Otherwise, returns FALSE.
- *
- *************************************************************************************************/
-static u32 XAsu_IsChannelQueueFull(XAsu_QueueInfo *QueueInfo)
-{
-	return (QueueInfo->NextFreeIndex <= (XASU_MAX_BUFFERS - 1U)) ? FALSE : TRUE;
-}
-
-/*************************************************************************************************/
-/**
- * @brief 	This function returns the pointer to the XAsu_QueueInfo structure of the provided
- * 		priority.
- *
- * @param	QueuePriority	Priority of the queue.
- *
- * @return
- * 	- Pointer to XAsu_QueueInfo.
- * 	- NULL if invalid input.
- *
- *************************************************************************************************/
-XAsu_QueueInfo *XAsu_GetQueueInfo(u32 QueuePriority)
-{
-	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
-	XAsu_QueueInfo *QueueInfo = NULL;
-
-	if (QueuePriority == XASU_PRIORITY_HIGH) {
-		QueueInfo = &ClientInstancePtr->P0Queue;
-	} else if (QueuePriority == XASU_PRIORITY_LOW) {
-		QueueInfo = &ClientInstancePtr->P1Queue;
-	} else {
-		QueueInfo = NULL;
-	}
-
-	return QueueInfo;
+	return UniqueId;
 }
 
 /*************************************************************************************************/
@@ -281,27 +318,15 @@ XAsu_QueueInfo *XAsu_GetQueueInfo(u32 QueuePriority)
  *************************************************************************************************/
 static s32 XAsu_SendIpi(void)
 {
-	s32 Status = XST_FAILURE;
 	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
 
-	if (ClientInstancePtr->IsReady != XASU_CLIENT_READY) {
-		goto END;
-	}
-
-	Status = (s32)XMailbox_Send(ClientInstancePtr->MailboxPtr,
-				    XASU_TARGET_IPI_INT_MASK, FALSE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-END:
-	return Status;
+	return((s32)XMailbox_Send(ClientInstancePtr->MailboxPtr,
+				    XASU_TARGET_IPI_INT_MASK, FALSE));
 }
 
 /*************************************************************************************************/
 /**
  * @brief	This function returns an instance pointer of ASU client interface.
- *
  *
  * @return
  * 	- It returns pointer to the XAsu_Client.
@@ -323,8 +348,40 @@ static XAsu_Client *XAsu_GetClientInstance(void)
  ****************************************************************************/
 static void XAsu_DoorBellToClient(void *CallBackRef)
 {
+	u8 BufferIdx;
+	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
+	XAsu_ChannelQueue *ChannelQueue = NULL;
+	u8 UniqueId;
+	u8 Priority = XASU_PRIORITY_HIGH;
+
 	(void)CallBackRef;
-	RecvDone = TRUE;
+
+	ChannelQueue = &ClientInstancePtr->ChannelMemoryPtr->P0ChannelQueue;
+	do {
+		for (BufferIdx = 0U; BufferIdx < XASU_MAX_BUFFERS; ++BufferIdx) {
+			if (ChannelQueue->ChannelQueueBufs[BufferIdx].RespBufStatus == XASU_RESPONSE_IS_PRESENT) {
+				/** Get UniqueID */
+				UniqueId = XAsu_GetUniqueId(ChannelQueue->ChannelQueueBufs[BufferIdx].RespBuf.Header);
+				/** Copy the response buffer data if any */
+				if (AsuCallBackRef[UniqueId].RespBufferPtr != NULL) {
+					memcpy(AsuCallBackRef[UniqueId].RespBufferPtr,
+					       &ChannelQueue->ChannelQueueBufs[BufferIdx].RespBuf.Arg[1],
+					       AsuCallBackRef[UniqueId].Size);
+				}
+				/** Call back to notify the completion */
+				if (AsuCallBackRef[UniqueId].CallBackFuncPtr != NULL) {
+					AsuCallBackRef[UniqueId].CallBackFuncPtr(AsuCallBackRef[UniqueId].CallBackRefPtr,
+						ChannelQueue->ChannelQueueBufs[BufferIdx].RespBuf.Arg[0]);
+					/** Clear the contents upon completion */
+					AsuCallBackRef[UniqueId].CallBackFuncPtr = NULL;
+					AsuCallBackRef[UniqueId].CallBackRefPtr = NULL;
+					(void)memset(&ChannelQueue->ChannelQueueBufs[BufferIdx], 0, sizeof(XAsu_ChannelQueueBuf));
+				}
+			}
+		}
+		ChannelQueue = &ClientInstancePtr->ChannelMemoryPtr->P1ChannelQueue;
+		Priority++;
+	} while (Priority <= XASU_PRIORITY_LOW);
 }
 
 /*************************************************************************************************/
@@ -352,5 +409,84 @@ static s32 XAsu_CheckAsufwPrsntBit(void)
 
 END:
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates an unique ID.
+ *
+ * @return	Unique ID
+ *			- 0 to (XASU_UNIQUE_ID_MAX-1) if AsuCallBackRef array has any empty index.
+ *			- XASU_UNIQUE_ID_MAX upon no free space is left
+ *
+ *************************************************************************************************/
+static u8 XAsu_GenerateUniqueId(void)
+{
+	static u8 UniqueId = XASU_UNIQUE_ID_MAX;
+	u8 TempId = UniqueId;
+
+	do {
+		if (UniqueId < (XASU_UNIQUE_ID_MAX - 1U)) {
+			UniqueId++;
+		}
+		else {
+			UniqueId = 0U;
+		}
+		/** Validate if the assigned unique ID is free */
+		if ((AsuCallBackRef[UniqueId].CallBackFuncPtr == NULL) &&
+		    (AsuCallBackRef[UniqueId].CallBackRefPtr == NULL)) {
+			break;
+		}
+	} while (UniqueId != TempId);
+
+	if (UniqueId == TempId) {
+		UniqueId = XASU_UNIQUE_ID_MAX;
+	}
+
+	return UniqueId;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function gets the free index of selected priority queue buffer.
+ *
+ * @param	Priority	Select the queue priority.
+ *
+ * @return	Free Index of the Channel queue buffer of the selected priority
+ *			- 0 to 7
+ *			- XASU_MAX_BUFFERS if no index is free
+ *
+ *************************************************************************************************/
+static u8 XAsu_GetFreeIndex(u8 Priority)
+{
+	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
+	XAsu_ChannelQueue *ChannelQPtr = NULL;
+	u8 *FreeIndexPtr = NULL;
+	u8 TempIndex;
+
+	/** Get next free index */
+	if (Priority == XASU_PRIORITY_HIGH) {
+		FreeIndexPtr = &ClientInstancePtr->P0NextFreeIndex;
+		ChannelQPtr = &ClientInstancePtr->ChannelMemoryPtr->P0ChannelQueue;
+	}
+	else {
+		FreeIndexPtr = &ClientInstancePtr->P1NextFreeIndex;
+		ChannelQPtr = &ClientInstancePtr->ChannelMemoryPtr->P1ChannelQueue;
+	}
+	if (*FreeIndexPtr == XASU_MAX_BUFFERS) {
+		*FreeIndexPtr = 0U;
+	}
+	TempIndex = *FreeIndexPtr;
+
+	while ((ChannelQPtr->ChannelQueueBufs[*FreeIndexPtr].ReqBufStatus != 0U) ||
+	       (ChannelQPtr->ChannelQueueBufs[*FreeIndexPtr].RespBufStatus != 0U)) {
+		*FreeIndexPtr = (*FreeIndexPtr + 1) % XASU_MAX_BUFFERS;
+		if (TempIndex == *FreeIndexPtr) {
+			*FreeIndexPtr = XASU_MAX_BUFFERS;
+			break;
+		}
+	}
+
+	return *FreeIndexPtr;
 }
 /** @} */

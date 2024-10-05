@@ -63,17 +63,16 @@ static s32 XAsu_EccValidateCurveType(u32 CurveType);
 s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
 	/** Validate input parameters. */
-	if ((ClientParamsPtr == NULL) || (EccParamsPtr == NULL)) {
-		Status = XASU_INVALID_ARGUMENT;
+	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if ((ClientParamsPtr->Priority != XASU_PRIORITY_HIGH) &&
-	    (ClientParamsPtr->Priority != XASU_PRIORITY_LOW)) {
+	if (EccParamsPtr == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -83,31 +82,17 @@ s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParam
 		goto END;
 	}
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(ClientParamsPtr->Priority);
-	if (QueueInfo == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
-	/* Get Queue memory. */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		Status = XASU_QUEUE_FULL;
-		goto END;
-	}
+	Header = XAsu_CreateHeader(XASU_ECC_GEN_SIGNATURE_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
 
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_ECC_GEN_SIGNATURE_CMD_ID, 0U,
-				  XASU_MODULE_ECC_ID, 0U);
-	Status = Xil_SecureMemCpy((void *)&QueueBuf->ReqBuf.Arg[0],
-				  sizeof(XAsu_EccParams), (void *)EccParamsPtr, sizeof(XAsu_EccParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EccParamsPtr,
+					sizeof(XAsu_EccParams), Header);
 
 END:
 	return Status;
@@ -133,17 +118,16 @@ END:
 s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
-	/** Validate input parameters. */
-	if ((ClientParamsPtr == NULL) || (EccParamsPtr == NULL)) {
-		Status = XASU_INVALID_ARGUMENT;
+	/* Validatations of inputs */
+	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if ((ClientParamsPtr->Priority != XASU_PRIORITY_HIGH) &&
-	    (ClientParamsPtr->Priority != XASU_PRIORITY_LOW)) {
+	if (EccParamsPtr == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -153,30 +137,18 @@ s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccPa
 		goto END;
 	}
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(ClientParamsPtr->Priority);
-	if (QueueInfo == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-	/* Get Queue memory. */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		Status = XASU_QUEUE_FULL;
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_ECC_VERIFY_SIGNATURE_CMD_ID, 0U,
-				  XASU_MODULE_ECC_ID, 0U);
-	Status = Xil_SecureMemCpy((XAsu_EccParams *)&QueueBuf->ReqBuf.Arg[0],
-				  sizeof(XAsu_EccParams), EccParamsPtr, sizeof(XAsu_EccParams));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Header = XAsu_CreateHeader(XASU_ECC_VERIFY_SIGNATURE_CMD_ID, UniqueId, XASU_MODULE_ECC_ID,
+					0U);
 
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EccParamsPtr,
+					sizeof(XAsu_EccParams), Header);
 
 END:
 	return Status;
@@ -199,39 +171,25 @@ END:
 s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
 	/** Validate input parameters. */
-	if (ClientParamsPtr == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
+	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if ((ClientParamsPtr->Priority != XASU_PRIORITY_HIGH) &&
-	    (ClientParamsPtr->Priority != XASU_PRIORITY_LOW)) {
-		Status = XASU_INVALID_ARGUMENT;
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(ClientParamsPtr->Priority);
-	if (QueueInfo == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
+	Header = XAsu_CreateHeader(XASU_ECC_KAT_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
 
-	/* Get Queue memory. */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		Status = XASU_QUEUE_FULL;
-		goto END;
-	}
-
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_ECC_KAT_CMD_ID, 0U, XASU_MODULE_ECC_ID, 0U);
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
 
 END:
 	return Status;

@@ -61,22 +61,36 @@
 s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *ShaClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
 	/** Validate input parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (ShaClientParamPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	if ((ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
 	    (ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
 	    (ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
-	if ((ClientParamPtr->Priority != XASU_PRIORITY_HIGH) &&
-	    (ClientParamPtr->Priority != XASU_PRIORITY_LOW)) {
+
+	if ((ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
+	    (ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
+	    (ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
-	if (ShaClientParamPtr->HashBufSize == 0U) {
+
+	if ((ShaClientParamPtr->DataAddr == 0U) ||
+	    (ShaClientParamPtr->HashBufSize == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -86,31 +100,17 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(ClientParamPtr->Priority);
-	if (QueueInfo == NULL) {
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
-	/* Get Queue memory */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		goto END;
-	}
+	Header = XAsu_CreateHeader(XASU_SHA_OPERATION_CMD_ID, UniqueId,
+				   XASU_MODULE_SHA2_ID, 0U);
 
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_SHA_OPERATION_CMD_ID, 0U,
-				  XASU_MODULE_SHA2_ID, 0U);
-
-	Status = Xil_SecureMemCpy((XAsu_ShaOperationCmd *)QueueBuf->ReqBuf.Arg,
-				  sizeof(QueueBuf->ReqBuf.Arg), ShaClientParamPtr,
-				  sizeof(XAsu_ShaOperationCmd));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, ShaClientParamPtr,
+						sizeof(XAsu_ShaOperationCmd), Header);
 
 END:
 	return Status;
@@ -120,6 +120,9 @@ END:
 /**
  * @brief	This function performs SHA2 Known Answer Tests (KAT's).
  *
+ * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * 				input parameters.
+ *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
@@ -127,32 +130,26 @@ END:
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_Sha2Kat(void)
+s32 XAsu_Sha2Kat(XAsu_ClientParams *ClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(XASU_PRIORITY_HIGH);
-	if (QueueInfo == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Get Queue memory */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		Status = XASU_QUEUE_FULL;
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_SHA_KAT_CMD_ID, 0U, XASU_MODULE_SHA2_ID,
-				  0U);
+	Header = XAsu_CreateHeader(XASU_SHA_KAT_CMD_ID, UniqueId, XASU_MODULE_SHA2_ID, 0U);
 
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
 
 END:
 	return Status;
