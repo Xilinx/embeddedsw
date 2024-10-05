@@ -43,6 +43,7 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+static void XAsu_EccCallBackRef(void *CallBackRef, u32 Status);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -72,6 +73,8 @@ static const u8 PubKey[] __attribute__ ((section (".data.PubKey"))) = {
 };
 
 static u8 Sign[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES] __attribute__ ((section (".data.Sign")));
+
+static u8 Notify = 0; /**< To notify the call back from client library */
 
 /************************************ Function Definitions ***************************************/
 
@@ -107,6 +110,9 @@ int main(void)
 	}
 
 	ClientParams.Priority = XASU_PRIORITY_HIGH;
+	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EccCallBackRef);
+	ClientParams.CallBackRefPtr = (void *)&ClientParams;
+
 	EccParams.CurveType = CurveType;
 	EccParams.DigestAddr = (u64)Hash;
 	EccParams.KeyAddr = (u64)PrivKey;
@@ -118,11 +124,17 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+	while(!Notify);
+	Notify = 0;
 
 	xil_printf("\r\n Generated Sign: ");
 	for (Index = 0; Index < XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES; Index++) {
 		xil_printf("%02x", Sign[Index]);
 	}
+
+	ClientParams.Priority = XASU_PRIORITY_HIGH;
+	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EccCallBackRef);
+	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
 	EccParams.CurveType = CurveType;
 	EccParams.DigestAddr = (u64)Hash;
@@ -132,6 +144,7 @@ int main(void)
 	EccParams.KeyLen = CurveLength;
 
 	Status = XAsu_EccVerifySign(&ClientParams, &EccParams);
+	while(!Notify);
 
 END:
 	if (Status != XST_SUCCESS) {
@@ -142,3 +155,23 @@ END:
 
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	Call back function which will be registered with library to notify the completion
+ * 		of request
+ *
+ * @param	CallBackRef	Pointer to the call back reference.
+ * @param	Status		Status of the request will be passed as an argument during callback
+ * 			- 0 Upon success
+ * 			- Error code from ASUFW application upon any error
+ *
+ *************************************************************************************************/
+  static void XAsu_EccCallBackRef(void *CallBackRef, u32 Status)
+ {
+	(void)CallBackRef;
+
+	xil_printf("Recieved response from library with Status = %x\n\r", Status);
+	/* Update the variable to notify the callback */
+	Notify = 1U;
+ }

@@ -86,6 +86,7 @@
 static s32 XAsu_AesGcmExample(void);
 static s32 XAsu_AesCtrExample(void);
 static void XAsu_AesPrintData(const u8 *Data, u32 DataLen);
+static void XAsu_AesCallBackRef(void *CallBackRef, u32 Status);
 
 /************************************ Variable Definitions ***************************************/
 #if defined (__GNUC__)
@@ -215,6 +216,8 @@ static u8 XAsu_AesEncData[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES];
 static u8 XAsu_AesDecData[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES];
 #endif
 
+static u8 Notify = 0; /**< To notify the call back from client library */
+
 /************************************ Function Definitions ***************************************/
 
 /*************************************************************************************************/
@@ -280,6 +283,8 @@ static s32 XAsu_AesGcmExample(void)
 
 	/* Set Queue priority */
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
+	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
+	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
 
 	/* AES parameters structure initialization for encryption */
 	AesParams.EngineMode = XASU_AES_GCM_MODE;
@@ -308,6 +313,8 @@ static s32 XAsu_AesGcmExample(void)
 		xil_printf("AES-GCM Encryption failed: %08x \r\n", Status);
 		goto END;
 	}
+	while(!Notify);
+	Notify = 0;
 
 	/* Comparison of encrypted Data with expected ciphertext data */
 	Status = Xil_SMemCmp_CT(XAsu_AesGcmExpCt, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesEncData,
@@ -330,6 +337,11 @@ static s32 XAsu_AesGcmExample(void)
 
 	xil_printf("AES-GCM tag: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesTag, XASU_AES_TAG_LEN_IN_BYTES);
+
+	/* AES decryption */
+	AesClientParams.Priority = XASU_PRIORITY_HIGH;
+	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
+	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
 
 	/* AES parameters structure initialization for decryption */
 	AesParams.EngineMode = XASU_AES_GCM_MODE;
@@ -358,6 +370,8 @@ static s32 XAsu_AesGcmExample(void)
 		xil_printf("AES-GCM Decryption failed: %08x \r\n", Status);
 		goto END;
 	}
+	while(!Notify);
+	Notify = 0;
 
 	xil_printf("AES-GCM Decrypted data: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesDecData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
@@ -394,6 +408,8 @@ static s32 XAsu_AesCtrExample(void)
 
 	/* Set Queue priority */
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
+	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
+	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
 
 	/* AES parameters structure initialization for encryption */
 	AesParams.EngineMode = XASU_AES_CTR_MODE;
@@ -423,6 +439,8 @@ static s32 XAsu_AesCtrExample(void)
 		xil_printf("AES-CTR Encryption failed: %08x \r\n", Status);
 		goto END;
 	}
+	while(!Notify);
+	Notify = 0;
 
 	/* Comparison of encrypted Data with expected ciphertext data */
 	Status = Xil_SMemCmp_CT(XAsu_AesCtrExpCt, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesEncData,
@@ -435,6 +453,9 @@ static s32 XAsu_AesCtrExample(void)
 	xil_printf("AES-CTR Encrypted data: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesEncData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 
+	AesClientParams.Priority = XASU_PRIORITY_HIGH;
+	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
+	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
 	/* AES parameters structure initialization for decryption */
 	AesParams.EngineMode = XASU_AES_CTR_MODE;
 	AesParams.OperationFlags = (XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL);
@@ -457,6 +478,9 @@ static s32 XAsu_AesCtrExample(void)
 		xil_printf("AES-CTR Decryption failed: %08x \r\n", Status);
 		goto END;
 	}
+
+	while(!Notify);
+	Notify = 0;
 
 	xil_printf("Decrypted data: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesDecData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
@@ -491,4 +515,25 @@ static void XAsu_AesPrintData(const u8 *Data, u32 DataLen)
 	}
 	xil_printf(" \r\n ");
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	Call back function which will be registered with library to notify the completion
+ *		of request
+ *
+ * @param	CallBackRef	Pointer to the call back reference.
+ * @param	Status		Status of the request will be passed as an argument during callback
+ * 			- 0 Upon success
+ * 			- Error code from ASUFW application upon any error
+ *
+ *************************************************************************************************/
+  static void XAsu_AesCallBackRef(void *CallBackRef, u32 Status)
+ {
+	(void)CallBackRef;
+
+	xil_printf("Recieved response from library with Status = %x\n\r", Status);
+	/* Update the variable to notify the callback */
+	Notify = 1U;
+
+ }
 /** @} */

@@ -41,6 +41,7 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+static void XAsu_RsaCallBackRef(void *CallBackRef, u32 Status);
 
 /************************************ Variable Definitions ***************************************/
 static const u8 XAsu_RsaCt[XASU_RSA_4096_KEY_SIZE_IN_BYTES] __attribute__ ((
@@ -209,6 +210,8 @@ static const u8 XAsu_RsaPrivateExp[XASU_RSA_4096_KEY_SIZE_IN_BYTES] __attribute_
 static const u32 XAsu_RsaPublicExp
 __attribute__ ((section (".data.XAsu_RsaPublicExp"))) = 0x1000100U;
 
+static u8 Notify = 0; /**< To notify the call back from client library */
+
 /************************************ Function Definitions ***************************************/
 
 /*************************************************************************************************/
@@ -233,6 +236,8 @@ int main(void)
 	Xil_DCacheDisable();
 
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_RsaCallBackRef);
+	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
 	PubKeyParam.Keysize = XASU_RSA_4096_KEY_SIZE_IN_BYTES;
 	PubKeyParam.PubExp = XAsu_RsaPublicExp;
@@ -262,12 +267,18 @@ int main(void)
 		xil_printf("\r\n Encrypt operation Status = %08x", Status);
 		goto END;
 	}
+	while(!Notify);
+	Notify = 0;
 	Status = Xil_SMemCmp_CT(XAsu_RsaCt, XASU_RSA_4096_KEY_SIZE_IN_BYTES, EncResult,
 				XASU_RSA_4096_KEY_SIZE_IN_BYTES, XASU_RSA_4096_KEY_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ASU RSA Example Failed at Encrypted data Comparison \r\n");
 		goto END;
 	}
+
+	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_RsaCallBackRef);
+	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
 	RsaClientParam.Len = XASU_RSA_4096_KEY_SIZE_IN_BYTES;
 	RsaClientParam.InputDataAddr = (u64)(UINTPTR)EncResult ;
@@ -279,6 +290,8 @@ int main(void)
 		xil_printf("\r\n Decrypt operation Status = %08x", Status);
 		goto END;
 	}
+	while(!Notify);
+	Notify = 0;
 	Status = Xil_SMemCmp_CT(XAsu_RsaPt, XASU_RSA_4096_KEY_SIZE_IN_BYTES, DecResult,
 				XASU_RSA_4096_KEY_SIZE_IN_BYTES, XASU_RSA_4096_KEY_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
@@ -290,3 +303,24 @@ int main(void)
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	Call back function which will be registered with library to notify the completion
+ * 			of request
+ *
+ * @param	CallBackRef	Pointer to the call back reference.
+ * @param	Status		Status of the request will be passed as an argument during callback
+ * 			- 0 Upon success
+ * 			- Error code from ASUFW application upon any error
+ *
+ *************************************************************************************************/
+  static void XAsu_RsaCallBackRef(void *CallBackRef, u32 Status)
+ {
+	(void)CallBackRef;
+
+	xil_printf("Recieved response from library with Status = %x\n\r", Status);
+	/* Update the variable to notify the callback */
+	Notify = 1U;
+
+ }
