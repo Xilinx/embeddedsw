@@ -46,7 +46,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *ShaClientParamPtr);
-s32 XAsu_Sha3Kat(void);
+s32 XAsu_Sha3Kat(XAsu_ClientParams *ClientParamPtr);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

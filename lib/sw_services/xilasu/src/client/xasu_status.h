@@ -48,6 +48,11 @@ enum XAsu_Status {
 	XASU_QUEUE_FULL,		/**< 0x11 - Channel queue is full */
 	XASU_ASUFW_NOT_PRESENT,		/**< 0x12 - ASU application FW is not present */
 	XASU_IPI_CONFIG_NOT_FOUND,	/**< 0x13 - IPI configuration is not found */
+	XASU_INVALID_UNIQUE_ID,		/**< 0x14 - Invalid unique ID */
+	XASU_CLIENT_NOT_INITIALIZED,/**< 0x15 - Client is not initialized */
+	XASU_INVALID_PRIORITY,		/**< 0x16 - Invalid Priority */
+	XASU_INVALID_CALL_BACK_REF,	/**< 0x17 - Invalid call back reference */
+	XASU_INVALID_CLIENT_PARAM,	/**< 0x18 - Invalid client parameter pointer */
 };
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

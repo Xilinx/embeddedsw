@@ -61,13 +61,12 @@
 s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Length)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
 	/** Validate input parameters. */
-	if ((ClientParamPtr->Priority != XASU_PRIORITY_HIGH) &&
-	    (ClientParamPtr->Priority != XASU_PRIORITY_LOW)) {
-		Status = XASU_INVALID_ARGUMENT;
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	if ((BufPtr == NULL) || (Length == 0U) || (Length > XASU_TRNG_RANDOM_NUM_IN_BYTES)) {
@@ -75,31 +74,18 @@ s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Len
 		goto END;
 	}
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(ClientParamPtr->Priority);
-	if (QueueInfo == NULL) {
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, BufPtr, Length);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
-	/* Get Queue memory */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		goto END;
-	}
+	Header = XAsu_CreateHeader(XASU_TRNG_GET_RANDOM_BYTES_CMD_ID, 0U,
+				   XASU_MODULE_TRNG_ID, 0U);
 
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_TRNG_GET_RANDOM_BYTES_CMD_ID, 0U,
-				  XASU_MODULE_TRNG_ID, 0U);
-
-	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-	/* Update requested buffer with the data */
-	Status = Xil_SMemCpy(BufPtr, Length, &QueueBuf->RespBuf.Arg[1],
-			     XASU_TRNG_RANDOM_NUM_IN_BYTES, XASU_TRNG_RANDOM_NUM_IN_BYTES);
-
 END:
 	return Status;
 }
@@ -108,6 +94,9 @@ END:
 /**
  * @brief	This function performs TRNG Known Answer Tests (KAT's).
  *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds
+ * 				client input arguments.
+ *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
@@ -115,32 +104,28 @@ END:
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_TrngKat(void)
+s32 XAsu_TrngKat(XAsu_ClientParams *ClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ChannelQueueBuf *QueueBuf;
-	XAsu_QueueInfo *QueueInfo;
+	u32 Header;
+	u8 UniqueId;
 
-	/** Get the pointer to QueueInfo structure for provided priority. */
-	QueueInfo = XAsu_GetQueueInfo(XASU_PRIORITY_HIGH);
-	if (QueueInfo == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
+	/** Validate input parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Get Queue memory */
-	QueueBuf = XAsu_GetChannelQueueBuf(QueueInfo);
-	if (QueueBuf == NULL) {
-		Status = XASU_QUEUE_FULL;
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
-	/** Update the request buffer. */
-	QueueBuf->ReqBuf.Header = XAsu_CreateHeader(XASU_TRNG_KAT_CMD_ID, 0U, XASU_MODULE_TRNG_ID,
-				  0U);
+	Header = XAsu_CreateHeader(XASU_TRNG_KAT_CMD_ID, UniqueId, XASU_MODULE_TRNG_ID, 0U);
 
 	/** Send IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(QueueInfo);
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
 
 END:
 	return Status;
