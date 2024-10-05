@@ -82,18 +82,6 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	if ((ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
-	    (ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
-	    (ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512)) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if ((ShaClientParamPtr->DataAddr == 0U) ||
-	    (ShaClientParamPtr->HashBufSize == 0U)) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
 	if ((ShaClientParamPtr->OperationFlags &
 	     (XASU_SHA_START | XASU_SHA_UPDATE | XASU_SHA_FINISH)) == 0x0U) {
 		Status = XASU_INVALID_ARGUMENT;

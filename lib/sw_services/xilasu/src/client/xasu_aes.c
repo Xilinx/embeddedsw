@@ -65,13 +65,12 @@ s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 	u8 UniqueId;
 
 	/** Validatations of inputs. */
-	if ((ClientParamsPtr == NULL) || (AesParamsPtr == NULL)) {
-		Status = XASU_INVALID_ARGUMENT;
+	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if ((ClientParamsPtr->Priority != XASU_PRIORITY_HIGH) &&
-	    (ClientParamsPtr->Priority != XASU_PRIORITY_LOW)) {
+	if (AesParamsPtr == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -169,13 +168,12 @@ s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 	u8 UniqueId;
 
 	/** Validatations of inputs. */
-	if ((ClientParamsPtr == NULL) || (AesParamsPtr == NULL)) {
-		Status = XASU_INVALID_ARGUMENT;
+	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if ((ClientParamsPtr->Priority != XASU_PRIORITY_HIGH) &&
-	    (ClientParamsPtr->Priority != XASU_PRIORITY_LOW)) {
+	if (AesParamsPtr == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -270,14 +268,8 @@ s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr)
 	u8 UniqueId;
 
 	/** Validate input parameters. */
-	if (ClientParamsPtr == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if ((ClientParamsPtr->Priority != XASU_PRIORITY_HIGH) &&
-	    (ClientParamsPtr->Priority != XASU_PRIORITY_LOW)) {
-		Status = XASU_INVALID_ARGUMENT;
+	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
