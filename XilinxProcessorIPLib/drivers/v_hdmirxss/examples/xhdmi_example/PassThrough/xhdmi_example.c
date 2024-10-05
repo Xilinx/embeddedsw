@@ -3297,15 +3297,6 @@ int main() {
 	/* Set the Application version in RXSs driver structure */
 	XV_HdmiRxSS_SetAppVersion(&HdmiRxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
 
-	/* Register HDMI RX SS Interrupt Handler with Interrupt Controller */
-#ifdef SDT
-	Status = XSetupInterruptSystem(&HdmiRxSs,
-				       (XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-				       HdmiRxSs.Config.IntrId[INTRNAME_HDMIRX],
-				       HdmiRxSs.Config.IntrParent,
-				       XINTERRUPT_DEFAULT_PRIORITY);
-#endif
-
 #if defined(__arm__) || (__aarch64__)
 #ifndef SDT
 #ifndef USE_HDCP
@@ -3695,7 +3686,20 @@ int main() {
 	}
 #endif
 #endif
-
+	/* Register HDMI RX SS Interrupt Handler with Interrupt Controller */
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+#ifdef SDT
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDMIRX],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:: Unable to register HDMI RX interrupt handler %d\r\n", Status);
+		return XST_FAILURE;
+	}
+#endif
+#endif
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #ifdef SDT
