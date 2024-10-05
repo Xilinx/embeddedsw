@@ -144,8 +144,8 @@ s32 XAsu_ClientInit(u32 BaseAddress)
 	}
 
 	/* Assign channel shared memory */
-	ClientInstancePtr->ChannelMemoryPtr = XASU_CHANNEL_MEMORY_BASEADDR +
-					(XASU_CHANNEL_MEMORY_OFFSET * ChannelIdx);
+	ClientInstancePtr->ChannelMemoryPtr = (XAsu_ChannelMemory *)(UINTPTR)(XASU_CHANNEL_MEMORY_BASEADDR +
+					(XASU_CHANNEL_MEMORY_OFFSET * ChannelIdx));
 
 	ClientInstancePtr->MailboxPtr = &MailboxInstance;
 	ClientInstancePtr->P0NextFreeIndex = 0U;
@@ -292,7 +292,6 @@ END:
 u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr, u32 Size)
 {
 	u8 UniqueId = XAsu_GenerateUniqueId();
-	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
 
 	if (UniqueId == XASU_UNIQUE_ID_MAX) {
 		goto END;

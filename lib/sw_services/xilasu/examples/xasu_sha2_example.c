@@ -77,6 +77,7 @@
 /************************************ Function Prototypes ****************************************/
 static s32 Asu_Sha2Example(void);
 static void Asu_Sha2PrintHash(const u8 *Hash);
+static void XAsu_Sha2CallBackRef(void *CallBackRef, u32 Status);
 
 /************************************ Variable Definitions ***************************************/
 static const char Data[ASU_SHA2_INPUT_DATA_LEN + 1U] __attribute__ ((section (".data.Data"))) =
@@ -88,6 +89,8 @@ static const u8 ExpHash[ASU_SHA2_HASH_LEN_IN_BYTES] = {
 	0x37, 0x33, 0xCD, 0x97, 0x7F, 0xF8, 0xEB, 0x18, 0xB9, 0x87, 0x35, 0x7E, 0x22, 0xCE, 0xD9, 0x9F,
 	0x46, 0x09, 0x7F, 0x31, 0xEC, 0xB2, 0x39, 0xE8, 0x78, 0xAE, 0x63, 0x76, 0x0E, 0x83, 0xE4, 0xD5
 };
+
+static u8 Notify = 0; /**< To notify the call back from client library */
 
 /*************************************************************************************************/
 /**
@@ -134,7 +137,6 @@ static s32 Asu_Sha2Example(void)
 	u32 Size = 0U;
 	XAsu_ClientParams ClientParam;
 	XAsu_ShaOperationCmd ShaClientParam;
-	u64 DstAddr = (UINTPTR)&Sha2Hash;
 
 	/* Initialize client */
 	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
@@ -152,10 +154,13 @@ static s32 Asu_Sha2Example(void)
 
 #ifndef ASU_CACHE_DISABLE
 	Xil_DCacheFlushRange((UINTPTR)Data, Size);
+	Xil_DCacheInvalidateRange((UINTPTR)Sha2Hash, SHA2_HASH_LEN_IN_BYTES);
 #endif
 
 	/* Inputs of client request */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_Sha2CallBackRef);
+	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
 	/* Inputs of SHA3 request */
 	ShaClientParam.DataAddr = (u64)(UINTPTR)Data;
@@ -171,21 +176,7 @@ static s32 Asu_Sha2Example(void)
 		xil_printf("Calculation of SHA digest failed, Status = %x \n\r", Status);
 		goto END;
 	}
-
-	xil_printf(" Calculated Hash \r\n ");
-	Asu_Sha2PrintHash((u8 *)(UINTPTR)&Sha2Hash);
-
-	Status = Xil_SMemCmp_CT(ExpHash, ASU_SHA2_HASH_LEN_IN_BYTES, Sha2Hash, ASU_SHA2_HASH_LEN_IN_BYTES,
-					ASU_SHA2_HASH_LEN_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Expected Hash \r\n");
-		Asu_Sha2PrintHash(ExpHash);
-		xil_printf("SHA Example Failed at Hash Comparison \r\n");
-	}
-
-#ifndef ASU_CACHE_DISABLE
-	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA2_HASH_LEN_IN_BYTES);
-#endif
+	while(!Notify);
 
 END:
 	return Status;
@@ -206,6 +197,41 @@ static void Asu_Sha2PrintHash(const u8 *Hash)
 		xil_printf("%02x ", Hash[Index]);
 	}
 	xil_printf(" \r\n ");
+ }
+
+/*************************************************************************************************/
+/**
+ * @brief	Call back function which will be registered with library to notify the completion of
+ * 			request
+ *
+ * @param	CallBackRef		Pointer to the call back reference.
+ * @param	Status			Status of the request will be passed as an argument during callback
+ * 							- 0 Upon success
+ * 							- Error code from ASUFW application upon any error
+ *
+ *************************************************************************************************/
+  static void XAsu_Sha2CallBackRef(void *CallBackRef, u32 Status)
+ {
+	(void)CallBackRef;
+	xil_printf("Example: Received response\n\r");
+	if (Status != 0x0U) {
+		xil_printf("SHA example is failed with the response %x\n\r", Status);
+		goto END;
+	}
+	xil_printf("Calculated SHA3 Hash \r\n ");
+	Asu_Sha2PrintHash((u8 *)(UINTPTR)&Sha2Hash);
+
+	Status = Xil_SMemCmp_CT(ExpHash, ASU_SHA2_HASH_LEN_IN_BYTES, Sha2Hash, ASU_SHA2_HASH_LEN_IN_BYTES,
+					ASU_SHA2_HASH_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Expected Hash \r\n");
+		Asu_Sha2PrintHash(ExpHash);
+		xil_printf("SHA Example Failed at Hash Comparison \r\n");
+	}
+END:
+	/* Update the variable to notify the callback */
+	Notify = 1U;
+
  }
 /** //! [SHA2 example] */
 /** @} */

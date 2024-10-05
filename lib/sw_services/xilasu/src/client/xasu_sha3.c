@@ -84,11 +84,6 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	if (ShaClientParamPtr->HashBufSize == 0U) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
 	if ((ShaClientParamPtr->OperationFlags &
 	     (XASU_SHA_START | XASU_SHA_UPDATE | XASU_SHA_FINISH)) == 0x0U) {
 		Status = XASU_INVALID_ARGUMENT;
