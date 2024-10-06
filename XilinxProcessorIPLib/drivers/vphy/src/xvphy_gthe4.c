@@ -219,13 +219,13 @@ u32 XVphy_Gthe4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 			} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_10GBPS) {
 				ChPtr->PllParams.Cdr[2] = 0x269;//0x01C4;
 		    } else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_810GBPS) {
-			  ChPtr->PllParams.Cdr[2] = 0x259;//0x01C4;
+			  ChPtr->PllParams.Cdr[2] = 0x01C4;//0x01C4;
 			} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_540GBPS) {
-				ChPtr->PllParams.Cdr[2] = 0x1B4;//0x01C4;
+				ChPtr->PllParams.Cdr[2] = 0x1C4;//0x01C4;
 			} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_270GBPS) {
-				ChPtr->PllParams.Cdr[2] = 0x1A3;//0x01B4;
+				ChPtr->PllParams.Cdr[2] = 0x1B4;//0x01B4;
 			} else {
-				ChPtr->PllParams.Cdr[2] = 0x193;//0x01A3;
+				ChPtr->PllParams.Cdr[2] = 0x1A3;//0x01A3;
 			}
 		}
 	}
