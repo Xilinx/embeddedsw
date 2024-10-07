@@ -232,6 +232,10 @@ enum {
 	XASUFW_AES_DPA_CM_KAT_CHECK5_FAILED, /**< AES DPA CM check5 failed */
 	XASUFW_AES_DPA_CM_KAT_FAILED, /**< AES DPA CM KAT failed */
 	XASUFW_RSA_INVALID_PARAM, /**< Invalid parameters to RSA APIs */
+	XASUFW_RSA_PUB_EXP_INVALID_VALUE, /**< Error in Public exponent value */
+	XASUFW_RSA_MOD_DATA_IS_ZERO, /**< Modulus data is zero */
+	XASUFW_RSA_MOD_DATA_INVALID, /**< Modulus data is less than input data */
+	XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL, /**< Modulus data is equal to input data */
 	XASUFW_RSA_RAND_GEN_ERROR, /**< Random number generation failed to RSA APIs */
 	XASUFW_RSA_KEY_PAIR_COMP_ERROR, /**< Key pair comparison failure to RSA APIs */
 	XASUFW_RSA_ERROR, /**< Any other error to RSA APIs */

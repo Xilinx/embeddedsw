@@ -35,9 +35,6 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
-#include "xasu_rsainfo.h"
-#include "xasufw_status.h"
-#include "xasufw_util.h"
 #include "xasufw_dma.h"
 
 /************************************ Constant Definitions ***************************************/
