@@ -292,20 +292,20 @@ static s32 XAsu_AesGcmExample(void)
 	AesParams.IsLast = TRUE;
 	AesParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
 
-	AesKeyObj.KeyAddress = (u64)XAsu_AesKey;
+	AesKeyObj.KeyAddress = (u64)(UINTPTR)XAsu_AesKey;
 	AesKeyObj.KeySize = XASU_AES_KEY_SIZE_256_BITS;
 	AesKeyObj.KeySrc = XASU_AES_USER_KEY_0;
-	AesParams.KeyObjectAddr = (u64)&AesKeyObj;
-	AesParams.IvAddr = (u64)XAsu_AesIv;
+	AesParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
+	AesParams.IvAddr = (u64)(UINTPTR)XAsu_AesIv;
 	AesParams.IvLen = XASU_AES_IV_LEN_IN_BYTES;
 
-	AesParams.InputDataAddr = (u64)XAsu_AesInputData;
-	AesParams.OutputDataAddr = (u64)XAsu_AesEncData;
+	AesParams.InputDataAddr = (u64)(UINTPTR)XAsu_AesInputData;
+	AesParams.OutputDataAddr = (u64)(UINTPTR)XAsu_AesEncData;
 	AesParams.DataLen = XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES;
-	AesParams.AadAddr = (u64)XAsu_AesAad;
+	AesParams.AadAddr = (u64)(UINTPTR)XAsu_AesAad;
 	AesParams.AadLen = XASU_AES_AAD_LEN_IN_BYTES;
 
-	AesParams.TagAddr = (u64)XAsu_AesTag;
+	AesParams.TagAddr = (u64)(UINTPTR)XAsu_AesTag;
 	AesParams.TagLen = XASU_AES_TAG_LEN_IN_BYTES;
 
 	Status = XAsu_AesEncrypt(&AesClientParams, &AesParams);
@@ -349,20 +349,20 @@ static s32 XAsu_AesGcmExample(void)
 	AesParams.IsLast = TRUE;
 	AesParams.OperationType = XASU_AES_DECRYPT_OPERATION;
 
-	AesKeyObj.KeyAddress = (u64)XAsu_AesKey;
+	AesKeyObj.KeyAddress = (u64)(UINTPTR)XAsu_AesKey;
 	AesKeyObj.KeySize = XASU_AES_KEY_SIZE_256_BITS;
 	AesKeyObj.KeySrc = XASU_AES_USER_KEY_0;
-	AesParams.KeyObjectAddr = (u64)&AesKeyObj;
-	AesParams.IvAddr = (u64)XAsu_AesIv;
+	AesParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
+	AesParams.IvAddr = (u64)(UINTPTR)XAsu_AesIv;
 	AesParams.IvLen = XASU_AES_IV_LEN_IN_BYTES;
 
-	AesParams.InputDataAddr = (u64)XAsu_AesEncData;
-	AesParams.OutputDataAddr = (u64)XAsu_AesDecData;
+	AesParams.InputDataAddr = (u64)(UINTPTR)XAsu_AesEncData;
+	AesParams.OutputDataAddr = (u64)(UINTPTR)XAsu_AesDecData;
 	AesParams.DataLen = XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES;
-	AesParams.AadAddr = (u64)XAsu_AesAad;
+	AesParams.AadAddr = (u64)(UINTPTR)XAsu_AesAad;
 	AesParams.AadLen = XASU_AES_AAD_LEN_IN_BYTES;
 
-	AesParams.TagAddr = (u64)XAsu_AesTag;
+	AesParams.TagAddr = (u64)(UINTPTR)XAsu_AesTag;
 	AesParams.TagLen = XASU_AES_TAG_LEN_IN_BYTES;
 
 	Status = XAsu_AesDecrypt(&AesClientParams, &AesParams);
@@ -417,15 +417,15 @@ static s32 XAsu_AesCtrExample(void)
 	AesParams.IsLast = TRUE;
 	AesParams.OperationType = XASU_AES_ENCRYPT_OPERATION;
 
-	AesKeyObj.KeyAddress = (u64)XAsu_AesKey;
+	AesKeyObj.KeyAddress = (u64)(UINTPTR)XAsu_AesKey;
 	AesKeyObj.KeySize = XASU_AES_KEY_SIZE_256_BITS;
 	AesKeyObj.KeySrc = XASU_AES_USER_KEY_0;
-	AesParams.KeyObjectAddr = (u64)&AesKeyObj;
-	AesParams.IvAddr = (u64)XAsu_AesIv;
+	AesParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
+	AesParams.IvAddr = (u64)(UINTPTR)XAsu_AesIv;
 	AesParams.IvLen = XASU_AES_IV_LEN_IN_BYTES;
 
-	AesParams.InputDataAddr = (u64)XAsu_AesInputData;
-	AesParams.OutputDataAddr = (u64)XAsu_AesEncData;
+	AesParams.InputDataAddr = (u64)(UINTPTR)XAsu_AesInputData;
+	AesParams.OutputDataAddr = (u64)(UINTPTR)XAsu_AesEncData;
 	AesParams.DataLen = XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES;
 
 	/* No AAD and Tag for AES standard modes.(ECB, CBC, CFB, OFB, CTR). */
@@ -462,15 +462,15 @@ static s32 XAsu_AesCtrExample(void)
 	AesParams.IsLast = TRUE;
 	AesParams.OperationType = XASU_AES_DECRYPT_OPERATION;
 
-	AesKeyObj.KeyAddress = (u64)XAsu_AesKey;
+	AesKeyObj.KeyAddress = (u64)(UINTPTR)XAsu_AesKey;
 	AesKeyObj.KeySize = XASU_AES_KEY_SIZE_256_BITS;
 	AesKeyObj.KeySrc = XASU_AES_USER_KEY_0;
-	AesParams.KeyObjectAddr = (u64)&AesKeyObj;
-	AesParams.IvAddr = (u64)XAsu_AesIv;
+	AesParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
+	AesParams.IvAddr = (u64)(UINTPTR)XAsu_AesIv;
 	AesParams.IvLen = XASU_AES_IV_LEN_IN_BYTES;
 
-	AesParams.InputDataAddr = (u64)XAsu_AesEncData;
-	AesParams.OutputDataAddr = (u64)XAsu_AesDecData;
+	AesParams.InputDataAddr = (u64)(UINTPTR)XAsu_AesEncData;
+	AesParams.OutputDataAddr = (u64)(UINTPTR)XAsu_AesDecData;
 	AesParams.DataLen = XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES;
 
 	Status = XAsu_AesDecrypt(&AesClientParams, &AesParams);
