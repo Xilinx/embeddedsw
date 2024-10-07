@@ -57,6 +57,7 @@
 *                     multiboot offset
 * 9.1   ng   07/13/23 Added SDT support
 * 9.2   ng   09/25/24 Fix prints to print device ID returned from XFsbl_GetSiliconIdName
+* 10.0  sd   10/03/24 Initilize WDT before Board Init function
 *
 * </pre>
 *
@@ -314,6 +315,31 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	}
 
 	/**
+	 * Validate the reset reason
+	 */
+	Status = XFsbl_ResetValidation();
+	if (XFSBL_SUCCESS != Status) {
+		goto END;
+	}
+
+	/**
+	 * Initialize the WDT drivers
+	 */
+#ifdef XFSBL_WDT_PRESENT
+	/*
+	 * Skip watching over APU using WDT during APU only restart
+	 * as PMU will watchover APU
+	 */
+	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
+		Status = XFsbl_InitWdt();
+		if (XFSBL_SUCCESS != Status) {
+			XFsbl_Printf(DEBUG_GENERAL,"WDT initialization failed \n\r");
+			goto END;
+		}
+	}
+#endif
+
+	/**
 	 * Place AES and SHA engines in reset
 	 */
 	XFsbl_Out32(CSU_AES_RESET, CSU_AES_RESET_RESET_MASK);
@@ -371,12 +397,12 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 			XFsbl_MarkDdrAsReserved(TRUE);
 		}
 #else
-	/* Do ECC Initialization of DDR if required */
-	Status = XFsbl_DdrEccInit();
-	if (XFSBL_SUCCESS != Status) {
-		goto END;
-	}
-	XFsbl_MarkDdrAsReserved(FALSE);
+		/* Do ECC Initialization of DDR if required */
+		Status = XFsbl_DdrEccInit();
+		if (XFSBL_SUCCESS != Status) {
+			goto END;
+		}
+		XFsbl_MarkDdrAsReserved(FALSE);
 #endif
 
 #if defined(XFSBL_PL_CLEAR) && defined(XFSBL_BS)
@@ -390,19 +416,12 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 		}
 #endif
 
-	/* Do board specific initialization if any */
-	Status = XFsbl_BoardInit();
-	if (XFSBL_SUCCESS != Status) {
-		goto END;
-	}
-
-	/**
-	 * Validate the reset reason
-	 */
-	Status = XFsbl_ResetValidation();
-	if (XFSBL_SUCCESS != Status) {
-		goto END;
+		/* Do board specific initialization if any */
+		Status = XFsbl_BoardInit();
+		if (XFSBL_SUCCESS != Status) {
+			goto END;
 		}
+
 	}
 
 	XFsbl_Printf(DEBUG_INFO,"Processor Initialization Done \n\r");
@@ -881,22 +900,6 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 			(BootMode == XFSBL_SD1_BOOT_MODE) ||
 			(BootMode == XFSBL_SD1_LS_BOOT_MODE) ||
 			(BootMode == XFSBL_USB_BOOT_MODE)) {
-		/**
-		 * Initialize the WDT and CSU drivers
-		 */
-#ifdef XFSBL_WDT_PRESENT
-		/*
-		 * Skip watching over APU using WDT during APU only restart
-		 * as PMU will watchover APU
-		 */
-		if (XFSBL_MASTER_ONLY_RESET != FsblInstance.ResetReason) {
-			Status = XFsbl_InitWdt();
-			if (XFSBL_SUCCESS != Status) {
-				XFsbl_Printf(DEBUG_GENERAL,"WDT initialization failed \n\r");
-				goto END;
-			}
-		}
-#endif
 
 		/* Initialize CSUDMA driver */
 		Status = XFsbl_CsuDmaInit(NULL);
