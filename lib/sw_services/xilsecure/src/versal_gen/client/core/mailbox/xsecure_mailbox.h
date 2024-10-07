@@ -32,6 +32,8 @@
 *	ss   04/05/24 Fixed doxygen warnings
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *       pre  08/16/24 Added XSECURE_SLR_INDEX_SHIFT macro
+*       hj   10/03/24 Removed XSecure_InputSlrIndex function as it is duplicate of
+*                     XSecure_SetSlrIndex
 *
 * </pre>
 *
@@ -133,7 +135,6 @@ static inline int XSecure_SetSlrIndex(XSecure_ClientInstance *InstancePtr, u32 S
 /************************** Function Definitions *****************************/
 int XSecure_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
 int XSecure_ClientInit(XSecure_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr);
-int XSecure_InputSlrIndex(XSecure_ClientInstance *InstancePtr, u32 SlrIndex);
 
 #ifdef __cplusplus
 }

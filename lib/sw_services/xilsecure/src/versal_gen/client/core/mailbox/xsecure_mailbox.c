@@ -31,6 +31,8 @@
 *	ss   04/05/24 Fixed doxygen warnings
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 *       pre  08/16/24 Added API to use SSIT support
+*       hj   10/03/24 Removed XSecure_InputSlrIndex function as it is duplicate of
+*                     XSecure_SetSlrIndex
 *
 * </pre>
 *
@@ -52,28 +54,6 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-
-/*****************************************************************************/
-/**
- * @brief	This function adds the SLR Index.
- *
- * @param	InstancePtr	is a pointer to instance XSecure_ClientInstance
- * @param	SlrIndex	Number for slrId
- *
- *@return
- *		 - XST_SUCCESS  On valid input SlrIndex.
- *		 - XST_FAILURE  On non valid input SlrIndex
- *
- ******************************************************************************/
-int XSecure_InputSlrIndex(XSecure_ClientInstance *InstancePtr, u32 SlrIndex)
-{
-	int Status = XST_FAILURE;
-	if((SlrIndex >= (u32)XSECURE_SLR_INDEX_0) && (SlrIndex <= (u32)XSECURE_SLR_INDEX_3)){
-		InstancePtr->SlrIndex = SlrIndex;
-	    Status =  XST_SUCCESS;
-	}
-	return  Status;
-}
 
 /****************************************************************************/
 /**
