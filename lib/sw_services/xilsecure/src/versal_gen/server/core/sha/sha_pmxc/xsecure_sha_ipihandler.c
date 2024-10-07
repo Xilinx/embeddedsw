@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.4   kal  07/24/24 Initial release
+*       tri  10/07/24 Added easier approach to enable SHA2 Crypto engine in PMC
 *
 * </pre>
 *
@@ -37,6 +38,8 @@
 #include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
+
+static XSecure_Sha *XSecureShaInstPtr = NULL;
 
 /************************** Function Prototypes *****************************/
 
@@ -101,18 +104,29 @@ END:
 static int XSecure_ShaModeInit(u32 ShaMode)
 {
 	int Status = XST_FAILURE;
-	XSecure_Sha *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
+
+	if ((ShaMode  == XSECURE_SHA3_384) || (ShaMode  == XSECURE_SHAKE_256) ||
+	    (ShaMode == XSECURE_SHA3_256) || (ShaMode  == XSECURE_SHA3_512)) {
+		XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	}
+	else if ((ShaMode == XSECURE_SHA2_384) || (ShaMode == XSECURE_SHA2_256) ||
+		 (ShaMode == XSECURE_SHA2_512)) {
+		XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
+	}
+	else {
+		XSecure_Printf(DEBUG_PRINT_ALWAYS, "Invalid SHA mode\r\n");
+	}
 
 	if (NULL == PmcDmaInstPtr) {
 		goto END;
 	}
 
-	Status = XSecure_ShaInitialize(XSecureSha3InstPtr, PmcDmaInstPtr);
+	Status = XSecure_ShaInitialize(XSecureShaInstPtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XSecure_ShaStart(XSecureSha3InstPtr, (XSecure_ShaMode)ShaMode);
+	Status = XSecure_ShaStart(XSecureShaInstPtr, (XSecure_ShaMode)ShaMode);
 
 END:
 	return Status;
@@ -143,16 +157,15 @@ static int XSecure_ShaModeUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 				u32 EndLast)
 {
 	int Status = XST_FAILURE;
-	XSecure_Sha *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	u64 DataAddr = ((u64)SrcAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)SrcAddrLow;
 
 	if (EndLast == TRUE) {
-		Status = XSecure_ShaLastUpdate(XSecureSha3InstPtr);
+		Status = XSecure_ShaLastUpdate(XSecureShaInstPtr);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
-	Status = XSecure_ShaUpdate(XSecureSha3InstPtr, DataAddr, Size);
+	Status = XSecure_ShaUpdate(XSecureShaInstPtr, DataAddr, Size);
 END:
 	return Status;
 }
@@ -176,11 +189,10 @@ END:
 static int XSecure_ShaModeFinish(u32 OutAddrLow, u32 OutAddrHigh, u32 HashSize)
 {
 	int Status = XST_FAILURE;
-	XSecure_Sha *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	u64 DstAddr = ((u64)OutAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)OutAddrLow;
 	XSecure_Sha3Hash Hash = {0U};
 
-	Status = XSecure_ShaFinish(XSecureSha3InstPtr, (u64)(UINTPTR)&Hash, HashSize);
+	Status = XSecure_ShaFinish(XSecureShaInstPtr, (u64)(UINTPTR)&Hash, HashSize);
 	if (Status == XST_SUCCESS) {
 		Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
 				XSECURE_SHA3_HASH_LENGTH_IN_WORDS, XPLMI_PMCDMA_0);
