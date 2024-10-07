@@ -46,9 +46,12 @@
 #define XAES_TIMEOUT_MAX		(0x1FFFFU) /**<  AES maximum timeout value */
 #define XAES_INVALID_CFG		(0xFFFFFFFFU) /**<  AES invalid configuration */
 
-#define XAES_INITIALIZED		(0x1U) /**< AES in initialized state */
-#define XAES_STARTED			(0x2U) /**< AES in start state */
-#define XAES_UPDATED			(0x3U) /**< AES in update state */
+typedef enum {
+	XAES_INITIALIZED = 0x1, /**< AES in initialized state */
+	XAES_STARTED, /**< AES in start state */
+	XAES_UPDATE_IN_PROGRESS, /**< AES is in progress state during multiple data chunk updates */
+	XAES_UPDATE_COMPLETED, /**< AES is in completed state after the final data chunk update */
+} XAes_State;
 
 /**************************** Type Definitions ***************************************************/
 /**
@@ -216,13 +219,13 @@ static XAes_Config AesConfigTable[XASU_XAES_NUM_INSTANCES] = {
 struct _XAes {
 	u32 AesBaseAddress; /**< AES Base address */
 	u32 KeyBaseAddress; /**< Key Vault Base address */
-	u16 DeviceId; /**< DeviceId is the unique ID of the device */
-	u16 AesCmConfig; /**< AES counter Measure configuration */
-	XAsufw_Dma *AsuDmaPtr; /**< PMCDMA Instance Pointer */
-	u8 OperationType; /**< AES operation type (Encryption/Decryption) */
-	u8 AesState; /**< Aes internal State machine */
-	u8 EngineMode; /**< Aes Engine mode*/
-	u8 Reserved; /**< Reserved */
+	u16 DeviceId;		/**< DeviceId is the unique ID of the device */
+	u16 AesCmConfig;	/**< AES counter Measure configuration */
+	XAsufw_Dma *AsuDmaPtr;	/**< PMCDMA Instance Pointer */
+	XAes_State AesState;	/**< Aes internal State machine */
+	u8 OperationType;	/**< AES operation type (Encryption/Decryption) */
+	u8 EngineMode;		/**< Aes Engine mode*/
+	u16 Reserved;		/**< Reserved */
 };
 
 static XAes XAes_Instance[XASU_XAES_NUM_INSTANCES]; /**< ASUFW AES HW instances */
@@ -263,7 +266,7 @@ XAes *XAes_GetInstance(u16 DeviceId)
 	XAes *XAes_InstancePtr = NULL;
 
 	if (DeviceId >= XASU_XAES_NUM_INSTANCES) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	XAes_InstancePtr = &XAes_Instance[DeviceId];
@@ -286,19 +289,19 @@ END:
  *************************************************************************************************/
 s32 XAes_CfgInitialize(XAes *InstancePtr)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XAes_Config *CfgPtr;
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	CfgPtr = XAes_LookupConfig(InstancePtr->DeviceId);
 	if (CfgPtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Initialize AES instance. */
@@ -320,11 +323,12 @@ END:
  * @param	InstancePtr	Pointer to the XAes instance.
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	KeyObjectAddr	Address of Aes key object structure, which contains
- *				- Pointer to the key buffer.
- *				- Key size.
+ *				- KeyAddress is address of user key.
+ *				- KeySize is size of the user key.
  *			  	  - XASUFW_AES_KEY_SIZE_128 for 128 bit key size
  *				  - XASUFW_AES_KEY_SIZE_256 for 256 bit key size
- *				- Key source selection.
+ *				- KeySrc which indicates which hardware user key to be used to
+ * 				  store the user key.
  *			  	  - XASU_AES_USER_KEY_0
  *				  - XASU_AES_USER_KEY_1
  *				  - XASU_AES_USER_KEY_2
@@ -346,31 +350,29 @@ END:
 /* TODO: In future, this API can be moved/modified after Key vault implementation. */
 s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_AES_GLITCH_ERROR);
-	s32 Sstatus = XFih_VolatileAssign(XASUFW_AES_INVALID_IV);
-	s32 ClearStatus = XFih_VolatileAssign(XASUFW_AES_INVALID_IV);
-	s32 ClearStatusTmp = XFih_VolatileAssign(XASUFW_AES_INVALID_IV);
-	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
+	XFih_Var XFihKeyClear;
+	volatile u32 Index = 0U;
 	u32 Key[XASU_AES_KEY_SIZE_256BIT_IN_WORDS];
 	u32 Offset;
-	u32 Index;
-	u32 KeySizeInWords;
+	u32 KeySizeInWords = 0U;
 	XAsu_AesKeyObject KeyObject;
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if (KeyObjectAddr == 0U) {
 		Status = XASUFW_AES_INVALID_KEY_OBJECT_ADDRESS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Initialize the AES instance with ASU DMA pointer. */
@@ -381,32 +383,33 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr)
 	 * ASU DMA.
 	 */
 	Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, KeyObjectAddr,
-			       (u64)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject), 0U);
+		(u64)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject), 0U);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END_CLR);
+		goto END_CLR;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((KeyObject.KeySrc < XASU_AES_USER_KEY_0) ||
-	    (KeyObject.KeySrc > XASU_AES_USER_KEY_7)) {
+			(KeyObject.KeySrc > XASU_AES_USER_KEY_7)) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END_CLR;
 	}
 
 	if (AesKeyLookupTbl[KeyObject.KeySrc].UsrWrAllowed != XASU_TRUE) {
 		Status = XASUFW_AES_INVALID_KEY_SRC;
-		XFIH_GOTO(END);
+		goto END_CLR;
 	}
 
 	if ((KeyObject.KeySize != XASU_AES_KEY_SIZE_128_BITS) &&
-	    (KeyObject.KeySize != XASU_AES_KEY_SIZE_256_BITS)) {
+			(KeyObject.KeySize != XASU_AES_KEY_SIZE_256_BITS)) {
 		Status = XASUFW_AES_INVALID_KEY_SIZE;
-		XFIH_GOTO(END);
+		goto END_CLR;
 	}
 
 	Offset = AesKeyLookupTbl[KeyObject.KeySrc].RegOffset;
 	if (Offset == XAES_INVALID_CFG) {
 		Status = XASUFW_AES_INVALID_KEY_SRC;
-		XFIH_GOTO(END);
+		goto END_CLR;
 	}
 
 	if (KeyObject.KeySize == XASU_AES_KEY_SIZE_128_BITS) {
@@ -415,11 +418,14 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr)
 		KeySizeInWords = XASU_AES_KEY_SIZE_256BIT_IN_WORDS;
 	}
 
-	/** Copy Key from 64-bit address space to local array using ASU DMA. */
-	XFIH_CALL_GOTO(XAsufw_DmaXfr, XFihVar, Status, END_CLR, InstancePtr->AsuDmaPtr,
-		       (u64)KeyObject.KeyAddress, (u64)(UINTPTR)Key,
-		       (KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES), 0U);
+	/** Copy Key from 64-bit address space to local array using SSS DMA loopback. */
+	Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr,  (u64)KeyObject.KeyAddress,
+			(u64)(UINTPTR)Key, (KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES), 0U);
+	if (Status != XASUFW_SUCCESS) {
+		goto END_CLR;
+	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/**
 	 * Traverse to Offset of last word of respective USER key register
 	 * (i.e., XAES_USER_KEY_X_7), where X = 0 to 7 USER key.
@@ -431,15 +437,22 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr)
 		XAsufw_WriteReg((InstancePtr->KeyBaseAddress + Offset), Xil_Htonl(Key[Index]));
 		Offset = Offset - XASUFW_WORD_LEN_IN_BYTES;
 	}
+	if ((Index == KeySizeInWords) && (KeySizeInWords != 0U)) {
+		Status = XASUFW_SUCCESS;
+	}
 
 END_CLR:
-	/** Clear buffers. */
-	Sstatus = Xil_SMemSet(&KeyObject, sizeof(XAsu_AesKeyObject), 0U, sizeof(XAsu_AesKeyObject));
-	ClearStatus = Xil_SecureZeroize((u8 *)Key, XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
-	ClearStatusTmp = Xil_SecureZeroize((u8 *)Key, XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
-	if (Status == XASUFW_SUCCESS) {
-		Status = (ClearStatus | ClearStatusTmp | Sstatus);
-	}
+	/** Clear local key object structure. */
+	XFIH_CALL(Xil_SecureZeroize, XFihKeyClear, ClearStatus, (u8 *)(UINTPTR)&KeyObject,
+		sizeof(XAsu_AesKeyObject));
+
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	/** Clear local key array. */
+	XFIH_CALL(Xil_SecureZeroize, XFihKeyClear, ClearStatus, (u8 *)Key,
+		XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
+
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
 	return Status;
@@ -452,12 +465,13 @@ END:
  *
  * @param	InstancePtr	Pointer to the XAes instance.
  * @param	DmaPtr		Pointer to the AsuDma instance.
- * @param	KeyObjectAddr	Address of AES key object structure, which contains
- *				- Pointer to the key buffer.
- *				- Key size.
+ * @param	KeyObjectAddr	Address of Aes key object structure, which contains
+ *				- KeyAddress is address of user key.
+ *				- KeySize is size of the user key.
  *			  	  - XASUFW_AES_KEY_SIZE_128 for 128 bit key size
  *				  - XASUFW_AES_KEY_SIZE_256 for 256 bit key size
- *				- Key source selection.
+ *				- KeySrc which indicates which hardware user key to be used to
+ * 				  store the user key.
  *			  	  - XASU_AES_USER_KEY_0
  *				  - XASU_AES_USER_KEY_1
  *				  - XASU_AES_USER_KEY_2
@@ -486,29 +500,30 @@ END:
 s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAddr, u32 IvLen,
 	      u8 EngineMode, u8 OperationType)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
-	s32 Sstatus = XFih_VolatileAssign(XASUFW_FAILURE);
-	XAsu_AesKeyObject KeyObject;;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
+	XFih_Var XFihKeyClear;
+	XAsu_AesKeyObject KeyObject;
 
 	/** Validate the input arguments.*/
 	if (InstancePtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if ((InstancePtr->AesState != XAES_INITIALIZED)) {
 		Status = XASUFW_AES_STATE_MISMATCH_ERROR;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if (KeyObjectAddr == 0U) {
 		Status = XASUFW_AES_INVALID_KEY_OBJECT_ADDRESS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Initialize the AES instance with ASU DMA pointer. */
@@ -519,49 +534,51 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 	 * ASU DMA.
 	 */
 	Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, KeyObjectAddr,
-			       (u64)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject), 0U);
+		(u64)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject), 0U);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (KeyObject.KeySrc >= XAES_MAX_KEY_SOURCES) {
 		Status = XASUFW_AES_INVALID_KEY_SRC;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if ((KeyObject.KeySize != XASU_AES_KEY_SIZE_128_BITS) &&
-	    (KeyObject.KeySize != XASU_AES_KEY_SIZE_256_BITS)) {
+			(KeyObject.KeySize != XASU_AES_KEY_SIZE_256_BITS)) {
 		Status = XASUFW_AES_INVALID_KEY_SIZE;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if ((EngineMode > XASU_AES_GCM_MODE) && (EngineMode != XASU_AES_CMAC_MODE) &&
 			(EngineMode != XASU_AES_GHASH_MODE)) {
 		Status = XASUFW_AES_INVALID_ENGINE_MODE;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if ((OperationType != XASU_AES_ENCRYPT_OPERATION) &&
-	    (OperationType != XASU_AES_DECRYPT_OPERATION)) {
+			(OperationType != XASU_AES_DECRYPT_OPERATION)) {
 		Status = XASUFW_AES_INVALID_OPERATION_TYPE;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Check whether key is zeroed or not. */
 	Status = XAes_CheckKeyZeroedStatus(InstancePtr, KeyObject.KeySrc);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Initialize the AES instance. */
 	InstancePtr->EngineMode = EngineMode;
 	InstancePtr->OperationType = OperationType;
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/* Validate the IV with respect to the user provided engine mode */
 	Status = XAsu_AesValidateIv(InstancePtr->EngineMode, IvAddr, IvLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_INVALID_IV;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/* Release reset of AES engine */
@@ -578,10 +595,11 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 
 	/** Process and load IV to AES engine. */
 	if ((InstancePtr->EngineMode != XASU_AES_ECB_MODE) &&
-			(InstancePtr->EngineMode != XASU_AES_ECB_MODE)) {
+			(InstancePtr->EngineMode != XASU_AES_CMAC_MODE)) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAes_ProcessAndLoadIv(InstancePtr, IvAddr, IvLen);
 		if (Status != XASUFW_SUCCESS) {
-			XFIH_GOTO(END);
+			goto END;
 		}
 	}
 
@@ -589,15 +607,15 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 	InstancePtr->AesState = XAES_STARTED;
 
 END:
-	/** Clear buffers. */
-	Sstatus = Xil_SMemSet(&KeyObject, sizeof(XAsu_AesKeyObject), 0U, sizeof(XAsu_AesKeyObject));
+	/** Clear local key object buffer. */
+	XFIH_CALL(Xil_SecureZeroize, XFihKeyClear, ClearStatus, (u8 *)(UINTPTR)&KeyObject,
+		sizeof(XAsu_AesKeyObject));
 	if ((InstancePtr != NULL) && (Status != XASUFW_SUCCESS)) {
 		/** Set AES under reset upon failure. */
 		XAes_SetReset(InstancePtr);
 	}
-	if (Status == XASUFW_SUCCESS) {
-		Status = Sstatus;
-	}
+
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	return Status;
 }
@@ -632,28 +650,28 @@ END:
 s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDataAddr,
 		u32 DataLength, u8 IsLastChunk)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if ((InstancePtr->AesState != XAES_STARTED) &&
-	    (InstancePtr->AesState != XAES_UPDATED)) {
+			(InstancePtr->AesState != XAES_UPDATE_IN_PROGRESS)) {
 		Status = XASUFW_AES_STATE_MISMATCH_ERROR;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if (InDataAddr == 0U) {
 		Status = XASUFW_AES_INVALID_INPUT_DATA;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/**
@@ -663,19 +681,24 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 	 */
 	if ((DataLength == 0U) || (DataLength > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 		Status = XASUFW_AES_INVALID_INPUT_DATA_LENGTH;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if ((IsLastChunk != XASU_TRUE) && (IsLastChunk != XASU_FALSE)) {
 		Status = XASUFW_AES_INVALID_ISLAST_CHUNK;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
-	if (((InstancePtr->EngineMode == XASU_AES_CBC_MODE) ||
-	     (InstancePtr->EngineMode == XASU_AES_ECB_MODE)) &&
-	    ((DataLength % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U)) {
+	/**
+	 * For the ECB, CBC, and CFB modes, the plaintext must be a sequence of one or more
+	 * complete data blocks.
+	 */
+	if (((InstancePtr->EngineMode == XASU_AES_ECB_MODE) ||
+			(InstancePtr->EngineMode == XASU_AES_CBC_MODE) ||
+			(InstancePtr->EngineMode == XASU_AES_CFB_MODE)) &&
+			((DataLength % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U)) {
 		Status = XASUFW_AES_UNALIGNED_BLOCK_SIZE_INPUT_LENGTH;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Initialize the AES instance with ASU DMA pointer. */
@@ -691,9 +714,9 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 
 	/** Configure DMA with AES and transfer the data to AES engine. */
 	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, InDataAddr, OutDataAddr, DataLength,
-					   IsLastChunk);
+		IsLastChunk);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/**
@@ -704,8 +727,15 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 		XAes_ClearConfigAad(InstancePtr);
 	}
 
-	/** Update AES state machine to updated. */
-	InstancePtr->AesState = XAES_UPDATED;
+	/**
+	 * Update the AES state machine to XAES_UPDATE_IN_PROGRESS or XAES_UPDATE_COMPLETED based
+	 * on the IsLastChunk flag set by the user.
+	 */
+	if (IsLastChunk == TRUE) {
+		InstancePtr->AesState = XAES_UPDATE_COMPLETED;
+	} else {
+		InstancePtr->AesState = XAES_UPDATE_IN_PROGRESS;
+	}
 
 END:
 	if ((InstancePtr != NULL) && (Status != XASUFW_SUCCESS)) {
@@ -736,38 +766,37 @@ END:
  *************************************************************************************************/
 s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihTagStatus;
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
-	if (InstancePtr->AesState != XAES_UPDATED) {
+	if (InstancePtr->AesState != XAES_UPDATE_COMPLETED) {
 		Status = XASUFW_AES_STATE_MISMATCH_ERROR;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Validate the tag with respect to the user provided engine mode. */
-	Status = XAsu_AesValidateTag(InstancePtr->EngineMode, TagAddr, TagLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_AES_INVALID_TAG;
-		XFIH_GOTO(END);
-	}
+	XFIH_CALL_GOTO(XAsu_AesValidateTag, XFihTagStatus, Status, END, InstancePtr->EngineMode,
+		TagAddr, TagLen);
 
 	/** Initialize the AES instance with ASU DMA pointer. */
 	InstancePtr->AsuDmaPtr = DmaPtr;
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Wait for AES operation to complete. */
 	Status = XAes_WaitForDone(InstancePtr);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/**
@@ -776,9 +805,10 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 	 * - For decryption, compares the generated tag with the provided tag.
 	 */
 	if ((InstancePtr->EngineMode == XASU_AES_CCM_MODE) ||
-	    (InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
-	    (InstancePtr->EngineMode == XASU_AES_CMAC_MODE)) {
-		Status = XAes_ProcessTag(InstancePtr, TagAddr, TagLen);
+			(InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
+			(InstancePtr->EngineMode == XASU_AES_CMAC_MODE)) {
+		XFIH_CALL(XAes_ProcessTag, XFihTagStatus, Status, InstancePtr, TagAddr,
+			TagLen);
 	}
 
 END:
@@ -806,7 +836,7 @@ END:
 static XAes_Config *XAes_LookupConfig(u16 DeviceId)
 {
 	XAes_Config *CfgPtr = NULL;
-	u32 Index;
+	u32 Index = 0U;
 
 	/* Checks for all the instances */
 	for (Index = 0U; Index < XASU_XAES_NUM_INSTANCES; Index++) {
@@ -833,7 +863,7 @@ static XAes_Config *XAes_LookupConfig(u16 DeviceId)
  *************************************************************************************************/
 static s32 XAes_CheckKeyZeroedStatus(const XAes *InstancePtr, u32 KeySrc)
 {
-	s32 Status = XASUFW_AES_ZEROED_KEY_NOT_ALLOWED;
+	CREATE_VOLATILE(Status, XASUFW_AES_ZEROED_KEY_NOT_ALLOWED);
 	u32 KeyZeroedStatus;
 
 	/** Read the key zeroized status register. */
@@ -861,10 +891,11 @@ static void XAes_ConfigCounterMeasures(const XAes *InstancePtr)
 {
 	if (InstancePtr->AesCmConfig == XASUFW_CONFIG_ENABLE) {
 		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_CM_OFFSET),
-				XAES_CM_ENABLE_MASK);
-	} else {
+			XAES_CM_ENABLE_MASK);
+	}
+	else {
 		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_CM_OFFSET),
-				XAES_CM_DISABLE_MASK);
+			XAES_CM_DISABLE_MASK);
 	}
 }
 
@@ -880,10 +911,10 @@ static void XAes_ConfigAesOperation(const XAes *InstancePtr)
 {
 	if (InstancePtr->OperationType == XASU_AES_ENCRYPT_OPERATION) {
 		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
-				(InstancePtr->EngineMode | (XAES_MODE_CONFIG_ENC_DEC_MASK)));
+			(InstancePtr->EngineMode | (XAES_MODE_CONFIG_ENC_DEC_MASK)));
 	} else {
 		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
-				InstancePtr->EngineMode);
+			InstancePtr->EngineMode);
 	}
 }
 
@@ -901,7 +932,7 @@ static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize)
 	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_SIZE_OFFSET), KeySize);
 
 	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_SEL_OFFSET),
-			AesKeyLookupTbl[KeySrc].KeySrcSelVal);
+		AesKeyLookupTbl[KeySrc].KeySrcSelVal);
 
 	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET), XAES_KEY_LOAD_VAL_MASK);
 }
@@ -922,11 +953,12 @@ static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize)
  *************************************************************************************************/
 static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 {
-	volatile s32 Status = XASUFW_AES_GLITCH_ERROR;
-	volatile s32 ClearStatus = XASUFW_FAILURE;
-	volatile s32 ClearStatusTmp = XASUFW_FAILURE;
-	u32 Index;
-	u32 Iv[XASU_AES_IV_SIZE_128BIT_IN_WORDS];
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 ClearStatus = XASUFW_FAILURE;
+	XFih_Var XFihIvClear;
+	u32 Index = 0U;
+	u32 Iv[XASU_AES_IV_SIZE_128BIT_IN_WORDS] = {0U};
+	u32 IvLength = IvLen;
 
 	/**
 	 * For AES-GCM mode, if the IV length is not 96 bits, calculate GHASH and
@@ -934,29 +966,29 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 	 * In all other cases, copy IV from 64-bit address space to local array using ASU DMA.
 	 */
 	if ((InstancePtr->EngineMode == XASU_AES_GCM_MODE) &&
-	    (IvLen != XASU_AES_IV_SIZE_96BIT_IN_BYTES)) {
-		Status = XAes_GHashCal(InstancePtr, IvAddr, (u32)Iv, IvLen);
+			(IvLength != XASU_AES_IV_SIZE_96BIT_IN_BYTES)) {
+		Status = XAes_GHashCal(InstancePtr, IvAddr, (u32)Iv, IvLength);
 		if (Status != XASUFW_SUCCESS) {
-			XFIH_GOTO(END);
+			goto END;
 		}
-		IvLen = XASU_AES_IV_SIZE_128BIT_IN_BYTES;
+		IvLength = XASU_AES_IV_SIZE_128BIT_IN_BYTES;
 	} else {
 		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, IvAddr, (u64)(UINTPTR)Iv,
-				       IvLen, 0U);
+				       IvLength, 0U);
 		if (Status != XASUFW_SUCCESS) {
-			XFIH_GOTO(END);
+			goto END;
 		}
 	}
 
 	/** Write IV to the respective IV registers, by changing the endianness. */
-	for (Index = 0U; Index < XASUFW_CONVERT_BYTES_TO_WORDS(IvLen); Index++) {
+	for (Index = 0U; Index < XASUFW_CONVERT_BYTES_TO_WORDS(IvLength); Index++) {
 		XAsufw_WriteReg((InstancePtr->AesBaseAddress +
 				 (XAES_IV_IN_3_OFFSET - (Index * XASUFW_WORD_LEN_IN_BYTES))),
 				Xil_Htonl(Iv[Index]));
 	}
 
 	if ((InstancePtr->EngineMode == XASU_AES_GCM_MODE) &&
-	    (IvLen == XASU_AES_IV_SIZE_96BIT_IN_BYTES)) {
+			(IvLength  == XASU_AES_IV_SIZE_96BIT_IN_BYTES)) {
 		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_IV_IN_0_OFFSET), 0x01U);
 	}
 
@@ -965,11 +997,10 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 
 END:
 	/** Zeroize local IV buffer. */
-	ClearStatus = Xil_SecureZeroize((u8 *)Iv, XASU_AES_IV_SIZE_128BIT_IN_BYTES);
-	ClearStatusTmp = Xil_SecureZeroize((u8 *)Iv, XASU_AES_IV_SIZE_128BIT_IN_BYTES);
-	if (Status == XASUFW_SUCCESS) {
-		Status = (ClearStatus | ClearStatusTmp);
-	}
+	XFIH_CALL(Xil_SecureZeroize, XFihIvClear, ClearStatus, (u8 *)Iv,
+		XASU_AES_IV_SIZE_128BIT_IN_BYTES);
+
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	return Status;
 }
@@ -990,7 +1021,7 @@ END:
  *************************************************************************************************/
 static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 ReadModeConfigReg;
 
 	/* Store the mode configuration of previous mode i.e., GCM mode. */
@@ -1005,13 +1036,14 @@ static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen)
 	/** Configure DMA with AES and transfer the data to AES engine. */
 	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, IvAddr, 0U, IvLen, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/* Disable auth mask and restore mode configuration. */
 	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
 			(ReadModeConfigReg & (~(XAES_MODE_CONFIG_AUTH_MASK))));
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Get newly generated IV from the MAC registers. */
 	Status = XAes_ReadTag(InstancePtr, IvGen, XASU_AES_MAX_TAG_LENGTH_IN_BYTES);
 
@@ -1034,8 +1066,8 @@ END:
  *************************************************************************************************/
 static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen)
 {
-	s32 Status = XASUFW_AES_TAG_GENERATE_FAILED;
-	u32 Index;
+	CREATE_VOLATILE(Status, XASUFW_AES_TAG_GENERATE_FAILED);
+	volatile u32 Index = 0U;
 	u32 *TagPtr = (u32 *)TagOutAddr;
 
 	for (Index = 0U; Index < XASUFW_CONVERT_BYTES_TO_WORDS(TagLen); Index++) {
@@ -1043,14 +1075,13 @@ static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen)
 						 (XAES_MAC_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
 		/*
 		 * If AES DPA CM is enabled then, read MAC from both MAC_OUT and MAC_MASK_OUT registers,
-		 * If disabled, no need read the MAC_MASK_OUT register as it contains zero.
+		 * If disabled, no need to read the MAC_MASK_OUT register as it contains zeros.
 		 */
 #ifdef XASUFW_AES_CM_CONFIG
 		TagPtr[Index] ^= Xil_EndianSwap32(XAsufw_ReadReg(InstancePtr->AesBaseAddress +
 						  (XAES_MAC_MASK_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
 #endif
 	}
-
 	if (Index == XASUFW_CONVERT_BYTES_TO_WORDS(TagLen)) {
 		Status = XASUFW_SUCCESS;
 	}
@@ -1074,8 +1105,8 @@ static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen)
  *************************************************************************************************/
 static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLen)
 {
-	s32 Status = XASUFW_AES_TAG_COMPARE_FAILED;
-	u32 Index ;
+	CREATE_VOLATILE(Status, XASUFW_AES_TAG_COMPARE_FAILED);
+	volatile u32 Index = 0U;
 	u32 ReadReg;
 	const u32 *TagPtr = (const u32 *)TagInAddr;
 
@@ -1084,17 +1115,16 @@ static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLe
 					   (XAES_MAC_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
 		/*
 		 * If AES DPA CM is enabled then, read MAC from both MAC_OUT and MAC_MASK_OUT registers,
-		 * If disabled, no need read the MAC_MASK_OUT register as it contains zero.
+		 * If disabled, no need to read the MAC_MASK_OUT register as it contains zeros.
 		 */
 #ifdef XASUFW_AES_CM_CONFIG
 		ReadReg ^= Xil_EndianSwap32(XAsufw_ReadReg(InstancePtr->AesBaseAddress +
 					    (XAES_MAC_MASK_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
 #endif
 		if (ReadReg != TagPtr[Index]) {
-			XFIH_GOTO(END);
+			goto END;
 		}
 	}
-
 	if (Index == XASUFW_CONVERT_BYTES_TO_WORDS(TagLen)) {
 		Status = XASUFW_SUCCESS;
 	}
@@ -1121,24 +1151,23 @@ END:
  *************************************************************************************************/
 static s32 XAes_ProcessTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen)
 {
-	s32 Status = XASUFW_FAILURE;
-	u8 Tag[XASU_AES_MAX_TAG_LENGTH_IN_BYTES];
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u8 Tag[XASU_AES_MAX_TAG_LENGTH_IN_BYTES] = {0U};
 
 	if (InstancePtr->OperationType == XASU_AES_ENCRYPT_OPERATION) {
 		/* Generate tag, if AES operation type is encryption. */
 		Status = XAes_ReadTag(InstancePtr, (u32)Tag, TagLen);
 		if (Status != XASUFW_SUCCESS) {
-			XFIH_GOTO(END);
+			goto END;
 		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/*
 		 * Copy generated tag from local array to 64-bit address space using
 		 * SSS DMA loopback.
 		 */
 		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, (u64)(UINTPTR)Tag, TagAddr,
 				       TagLen, 0U);
-		if (Status != XASUFW_SUCCESS) {
-			XFIH_GOTO(END);
-		}
 	} else {
 		/*
 		 * Copy tag from 64-bit address space to local array using SSS DMA
@@ -1147,13 +1176,12 @@ static s32 XAes_ProcessTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen)
 		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, TagAddr, (u64)(UINTPTR)Tag,
 				       TagLen, 0U);
 		if (Status != XASUFW_SUCCESS) {
-			XFIH_GOTO(END);
+			goto END;
 		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/* Generate and verify the tag, if AES operation type is decryption. */
 		Status = XAes_ReadNVerifyTag(InstancePtr, (u32)Tag, TagLen);
-		if (Status != XASUFW_SUCCESS) {
-			XFIH_GOTO(END);
-		}
 	}
 
 END:
@@ -1222,12 +1250,12 @@ static void XAes_ClearConfigAad(const XAes *InstancePtr)
 static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u64 OutDataAddr, u32 Size,
 				     u8 IsLastChunk)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Configure SSS. */
 	Status = XAsufw_SssAesWithDma(InstancePtr->AsuDmaPtr->SssDmaCfg);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/* If OutDataAddr is non-zero address then, configure destination channel and transfer. */
@@ -1239,11 +1267,12 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 	XAsuDma_ByteAlignedTransfer(&InstancePtr->AsuDmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL,
 				    InDataAddr, Size, IsLastChunk);
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Wait till the ASU source DMA done bit to set. */
 	Status = XAsuDma_WaitForDoneTimeout(&InstancePtr->AsuDmaPtr->AsuDma,
 					    XCSUDMA_SRC_CHANNEL);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Acknowledge the transfer has completed from source. */
@@ -1251,11 +1280,12 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 			  XCSUDMA_IXR_DONE_MASK);
 
 	if (OutDataAddr != 0U) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Wait till the ASU destination DMA done bit to set. */
 		Status = XAsuDma_WaitForDoneTimeout(&InstancePtr->AsuDmaPtr->AsuDma,
 						    XCSUDMA_DST_CHANNEL);
 		if (Status != XASUFW_SUCCESS) {
-			XFIH_GOTO(END);
+			goto END;
 		}
 
 		/** Acknowledge the transfer has completed from destination. */
@@ -1280,7 +1310,7 @@ END:
  *************************************************************************************************/
 static s32 XAes_WaitForDone(const XAes *InstancePtr)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/* Check for AES operation is completed within Timeout(10sec) or not. */
 	Status = (s32)Xil_WaitForEvent((InstancePtr->AesBaseAddress + XAES_INTERRUPT_STATUS_OFFSET),
@@ -1324,8 +1354,8 @@ static void XAes_SetReset(XAes *InstancePtr)
 s32 XAes_DpaCmDecryptData(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyObjPtr,
 			  u32 InputDataAddr, u32 OutputDataAddr, u32 DataLength)
 {
-	s32 Status = XASUFW_FAILURE;;
-	u32 Index;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 Index = 0U;
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
@@ -1380,6 +1410,7 @@ s32 XAes_DpaCmDecryptData(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObje
 	/** Load key to AES engine. */
 	XAes_LoadKey(InstancePtr, KeyObjPtr->KeySrc, KeyObjPtr->KeySize);
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, InputDataAddr, OutputDataAddr, DataLength, XASU_TRUE);
 
 END:
