@@ -1438,7 +1438,6 @@ s32 XAes_DpaCmDecryptData(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObje
 {
 	s32 Status = XASUFW_FAILURE;;
 	u32 Index;
-	u32 ReadReg = 0U;
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
