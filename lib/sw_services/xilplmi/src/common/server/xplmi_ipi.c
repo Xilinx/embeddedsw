@@ -85,6 +85,8 @@
  *       pre  07/30/2024 Fixed misrac violation
  *       am   08/22/2024 Fixed IPI acknowledgement prior to executing handlers
  *       pre  09/18/2024 Throwing error if SlrIndex is not valid
+ *       pre  10/07/2024 Executing invalid command handler registered for SEM module
+ *                       irrespective of SLR index field
  *
  * </pre>
  *
@@ -611,7 +613,8 @@ int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 		/* Check if ApiId is greater than the max supported APIs by module */
 		if (ApiId >= Module->CmdCnt) {
 			/* If a Invalid Cmd Handler is registered and SlrIndex is valid, skip throwing error */
-			if ((Module->InvalidCmdHandler == NULL) || (SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX)) {
+			if ((Module->InvalidCmdHandler == NULL) || ((SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX)
+			    && (ModuleId != XPLMI_MODULE_SEM_ID))) {
 				Status = XPLMI_ERR_VALIDATE_IPI_INVALID_API_ID;
 			}
 			else {
@@ -725,7 +728,8 @@ static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload)
 
 	/* Check if it is within the commands registered */
 	if (ApiId >= Module->CmdCnt) {
-		if ((Module->InvalidCmdHandler != NULL) && (SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX)) {
+		if ((Module->InvalidCmdHandler != NULL) && ((SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX) ||
+		    (ModuleId == XPLMI_MODULE_SEM_ID))) {
 			Status = Module->InvalidCmdHandler(Payload, (u32 *)CmdPtr->Response);
 		}
 		else{
