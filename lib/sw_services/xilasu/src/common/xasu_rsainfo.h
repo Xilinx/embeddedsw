@@ -35,7 +35,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
-
+#include "xil_util.h"
 /************************************ Constant Definitions ***************************************/
 
 /* RSA module command IDs */
@@ -50,7 +50,8 @@ extern "C" {
 #define XRSA_3072_KEY_SIZE		(384U) /**< 3072 bit key size in bytes */
 #define XRSA_4096_KEY_SIZE		(512U) /**< 4096 bit key size in bytes */
 
-#define XRSA_MAX_KEY_SIZE_IN_WORDS	(128U) /**< RSA max key size in words */
+#define XRSA_MAX_KEY_SIZE_IN_WORDS	(XRSA_4096_KEY_SIZE / 4U) /**< RSA max key size in
+										words */
 #define XRSA_MAX_PRIME_SIZE_IN_WORDS	(64U) /**< RSA max prime size in words */
 
 /************************************** Type Definitions *****************************************/
@@ -115,6 +116,26 @@ typedef struct {
 } XAsu_RsaClientParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates key len for RSA
+ *
+ * @param	Addr	Address of the register
+ * @param	Data	Value to store in register
+ *
+ *************************************************************************************************/
+static inline s32 XAsu_RsaValidateKeySize(u32 Len)
+{
+	s32 Status = XST_FAILURE;
+
+        if ((Len == XRSA_2048_KEY_SIZE) || (Len == XRSA_3072_KEY_SIZE) ||
+		(Len == XRSA_4096_KEY_SIZE)) {
+			Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
 
 /************************************ Function Prototypes ****************************************/
 
