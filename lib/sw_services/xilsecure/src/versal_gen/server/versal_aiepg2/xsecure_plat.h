@@ -7,11 +7,8 @@
 /**
 *
 * @file xsecure_plat.h
-* @addtogroup xsecure_plat.h XilSecure Versal_Aiepg2 APIs
-* @{
-* @cond xsecure_internal
 *
-* @note
+* This file contains Versal_AiePg2 specific code for Xilsecure server.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,10 +20,11 @@
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
+/**
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
+* @{
+*/
 #ifndef XSECURE_PLAT_H
 #define XSECURE_PLAT_H
 

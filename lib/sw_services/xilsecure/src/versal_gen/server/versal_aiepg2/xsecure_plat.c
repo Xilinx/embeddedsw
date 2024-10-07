@@ -8,7 +8,7 @@
 /**
 *
 * @file xsecure_plat.c
-* This file contains versal_aiepg2 specific code for xilsecure server.
+* This file contains VersalAiePg2 specific code for Xilsecure server.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,7 +21,10 @@
 * </pre>
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_sss.h"
 #include "xsecure_sha.h"
@@ -39,8 +42,7 @@
 /************************** Variable Definitions *****************************/
 
 /* XSecure_SssLookupTable[Input source][Resource] */
-const u8 XSecure_SssLookupTable
-		[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS] = {
+const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS] = {
 	/*+----+------+------+------+------+-----+------+--------+
 	*|DMA0| DMA1  | PTPI | AES  | SHA3 | SBI | SHA2 | Invalid|
 	*+----+-------+------+------+------+-----+------+--------+
@@ -82,12 +84,12 @@ static void XSecure_UpdateEcdsaCryptoStatus(u32 Op);
 /**
  * @brief	This function masks the secure stream switch value
  *
- * @param	InputSrc	- Input source to be selected for the resource
- * @param	OutputSrc	- Output source to be selected for the resource
- * @param   Value       - Register Value of SSS cfg register
+ * @param	InputSrc	Input source to be selected for the resource
+ * @param	OutputSrc	Output source to be selected for the resource
+ * @param	Value		Register Value of SSS cfg register
  *
  * @return
- *	-	Mask - Mask value of corresponding InputSrc and OutputSrc
+ *		Mask	Mask value of corresponding InputSrc and OutputSrc
  *
  * @note	InputSrc, OutputSrc are of type XSecure_SssSrc
  *
@@ -166,8 +168,8 @@ void XSecure_SetRsaCryptoStatus()
 /**
  * @brief	This function updates the crypto indicator bit of AES, SHA and ECC
  *
- * @param	BaseAddress	- Base address of the core
- * @param   Op          - To set or clear the bit
+ * @param	BaseAddress	Base address of the core
+ * @param	Op		To set or clear the bit
  *
  *****************************************************************************/
 void XSecure_UpdateCryptoStatus(UINTPTR BaseAddress, u32 Op)
@@ -194,6 +196,8 @@ void XSecure_UpdateCryptoStatus(UINTPTR BaseAddress, u32 Op)
 /*****************************************************************************/
 /**
  * @brief	This function updates ECC crypto indicator
+ *
+ * @param       Op	To set or clear the bit
  *
  *****************************************************************************/
 static void XSecure_UpdateEcdsaCryptoStatus(u32 Op)
@@ -233,14 +237,13 @@ void XSecure_ConfigureDmaByteSwap(u32 Op)
 /*****************************************************************************/
 /**
  *
- * @brief      This function validates the size
+ * @brief	This function is not applicable for Versal_AiePg2.
  *
- * @param      Size            Size of data in bytes.
- * @param      IsLastChunk     Last chunk indication
+ * @param	Size		Size of data in bytes.
+ * @param	IsLastChunk	Last chunk indication
  *
  * @return
- *     -       XST_SUCCESS on successful valdation
- *     -       Error code on failure
+ *		Always returns XST_SUCCESS
  *
  ******************************************************************************/
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
@@ -254,15 +257,18 @@ int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 /*****************************************************************************/
 /**
  *
- * @brief       This function configures the PMC DMA channels and transfers data
+ * @brief	This function sets the SRC and DEST channel endianness
+ * 		configurations of PMC DMA and transfers data.
  *
- * @param       PmcDmaPtr       Pointer to the XPmcDma instance.
- * @param       AesDmaCfg       DMA SRC and DEST channel configuration
- * @param       Size            Size of data in bytes.
+ * @param	PmcDmaPtr	Pointer to the XPmcDma instance.
+ * @param	AesDmaCfg	DMA SRC and DEST channel configuration
+ * @param	Size		Size of data in bytes.
+ * @param	BaseAddress	AES BaseAddress
  *
  * @return
- *	-	XST_SUCCESS on successful configuration
- *	-	Error code on failure
+ *		 - XST_SUCCESS  On successful configuration
+ * 		 - XSECURE_AES_INVALID_PARAM  If any input parameter is invalid
+ *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
 int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDmaCfg, u32 Size, UINTPTR BaseAddress)
@@ -338,13 +344,12 @@ END:
  * @brief	This is a helper function to enable/disable byte swapping feature
  * 		of PMC DMA
  *
- * @param	InstancePtr  Pointer to the XPmcDma instance
- * @param	Channel 	 Channel Type
- *			- XPMCDMA_SRC_CHANNEL
- *			 -XPMCDMA_DST_CHANNEL
- * @param	EndianType
- *			- 1 : Enable Byte Swapping
- *			- 0 : Disable Byte Swapping
+ * @param	InstancePtr	Pointer to the XPmcDma instance
+ * @param	Channel		Channel Type
+ *				- XPMCDMA_SRC_CHANNEL
+ *			 	- XPMCDMA_DST_CHANNEL
+ * @param	EndianType	1 : Enable Byte Swapping
+ *				0 : Disable Byte Swapping
  *
  *
  ******************************************************************************/
@@ -365,14 +370,14 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 
 /*****************************************************************************/
 /**
- * @brief	This function generates Random number of given size
+ * @brief	This function generates random number of given size
  *
- * @param Output is pointer to the output buffer
- * @param Size is the number of random bytes to be read
+ * @param	Output	Pointer to the output buffer
+ * @param	Size	Number of random bytes to be read
  *
  * @return
- *	-	XST_SUCCESS - On Success
- *  -   XST_FAILURE - On Failure
+ *		 - XST_SUCCESS  On Success
+ *  		 - XST_FAILURE  On Failure
  *
  *****************************************************************************/
 int XSecure_GetRandomNum(u8 *Output, u32 Size)
@@ -417,11 +422,11 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function initializes the trng in HRNG mode if it is not initialized
- *          and it is applicable only for VersalNet
+ *		and it is applicable only for Versal_AiePg2
  *
  * @return
- *		- XST_SUCCESS On Successful initialization
- *      - XST_FAILURE On Failure
+ *		- XST_SUCCESS  On Successful initialization
+ *      	- XST_FAILURE  On Failure
  *
  *****************************************************************************/
 int XSecure_ECCRandInit(void)
@@ -459,8 +464,8 @@ END:
  * @brief	This function initialize and configures the TRNG into HRNG mode of operation.
  *
  * @return
- *			- XST_SUCCESS upon success.
- *			- Error code on failure.
+ *		- XST_SUCCESS  Upon success.
+ *		- XST_FAILURE  On failure.
  *
  *****************************************************************************/
 int XSecure_TrngInitNCfgHrngMode(void)
@@ -514,8 +519,8 @@ XTrngpsx_Instance *XSecure_GetTrngInstance(void)
  * @brief	This function initiates the key transfer to ASU
  *
  * @return
- * 		- XST_SUCCESS on successfull key transfer to ASU
- * 		- XSECURE_ERR_ASU_KTE_DONE_NOT_SET on transfer failure
+ * 		- XST_SUCCESS  On successfull key transfer to ASU
+ * 		- XSECURE_ERR_ASU_KTE_DONE_NOT_SET  On transfer failure
  *
  *****************************************************************************/
 int XSecure_InitiateASUKeyTransfer(void)
@@ -547,13 +552,14 @@ END:
 /**
  * @brief	This function validates the SHA Mode and initialize SHA instance.
  *
- * @param	InstancePtr - Pointer to the SHA instance.
- * @param	ShaMode - SHA Mode.
+ * @param	InstancePtr	Pointer to the SHA instance.
+ * @param	ShaMode		SHA Mode
  *
  * @return
- *		XST_SUCCESS - Upon Success.
- *		XST_FAILURE - Upon Failure.
- *		XSECURE_SHA_INVALID_MODE_ERROR
+ *		- XST_SUCCESS  Upon Success.
+ *		- XST_FAILURE  Upon Failure.
+ *		- XSECURE_SHA_INVALID_MODE_ERROR  In case of invalid sha mode config.
+ *
  ********************************************************************************/
 int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 	XSecure_ShaMode ShaMode)
@@ -618,13 +624,14 @@ END:
 /**
 * @brief	This function transfer data to SHA engine from DMA
 *
-* @param    DmaPtr - Pointer to XPmcDma
-* @param    DataAddr - input data address
-* @param	Size - Input data size in words.
-* @param    IsLastUpdate - Last update
+* @param	DmaPtr		Pointer to XPmcDma
+* @param	DataAddr	Input data address
+* @param	Size		Input data size in words.
+* @param	IsLastUpdate	Last update flag
 *
 * @return
-*		XST_SUCCESS - Upon Success.
+*		 - XST_SUCCESS  Upon Success.
+*		 - XST_FAILURE  Upon Failure.
 *
  *******************************************************************************************/
 int XSecure_ShaDmaXfer(XPmcDma *DmaPtr, u64 DataAddr, u32 Size, u8 IsLastUpdate)
@@ -655,16 +662,17 @@ END:
  * @brief	This function can copy the content of memory from 64-bit address
  *          to 32-bit address and change endianness of destination data
  *
- * @param	DestAddress is the address of the destination where content of
+ * @param	DestAddress	The address of the destination where content of
  * 			SrcAddr memory should be copied.
  *
- * @param	SrcAddress is the address of the source where copy should
+ * @param	SrcAddress	The address of the source where copy should
  * 			start from.
  *
- * @param	Length is size of memory to be copied in bytes.
+ * @param	Length		Size of memory to be copied in bytes.
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ *		 - XST_SUCCESS  On success and error code on failure
+ *		 - XST_FAILURE  In case of any failure
  *
  *****************************************************************************/
 int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length)
