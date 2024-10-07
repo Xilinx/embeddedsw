@@ -124,7 +124,6 @@ static s32 XAsufw_AesOperation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	Asu_AesParams *AesParamsPtr = (Asu_AesParams *)ReqBuf->Arg;
 	XAsufw_Dma *AsuDmaPtr = NULL;
-	u8 IsAllOpFlagsSet = XASU_FALSE;
 	XAsufw_Resource Resource;
 
 	/** Check and allocate DMA resource to AES, based on DMA availability. */
