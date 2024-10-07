@@ -40,6 +40,7 @@
 #include "xasufw_cmd.h"
 #include "xasu_eccinfo.h"
 #include "xfih.h"
+#include "xasu_rsainfo.h"
 
 /************************************ Constant Definitions ***************************************/
 

@@ -21,6 +21,7 @@
  *       am   06/26/24 Added Reset set, unset and XASUFW_CONVERT_BYTES_TO_WORDS macros
  *       ss   07/11/24 Added XAsufw_ChangeEndiannessAndCpy function
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       ss   10/05/24 Added XAsufw_IsBufferNonZero function.
  *
  * </pre>
  *
@@ -47,6 +48,15 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASU_TRUE		(TRUE)
 #define XASU_FALSE		(FALSE)
+
+#define FIH_VOLATILE 0
+#if FIH_VOLATILE
+#define CREATE_VOLATILE(x,y)		s32 x = XFih_VolatileAssign(y)
+#define ASSIGN_VOLATILE(x,y)		x = XFih_VolatileAssign(y)
+#else
+#define CREATE_VOLATILE(x,y)		volatile s32 x = y
+#define ASSIGN_VOLATILE(x,y)		x = y
+#endif
 
 #define XASUFW_WORD_LEN_IN_BYTES		4U	/**< Word length in bytes */
 #define XASUFW_BYTE_LEN_IN_BITS			8U	/**< Byte length in bits */
@@ -96,6 +106,7 @@ s32 XAsufw_ChangeEndiannessAndCpy(void *Dest, const u32 DestSize, const void *Sr
 				  const u32 SrcSize,
 				  const u32 CopyLen);
 s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length);
+s32 XAsufw_IsBufferNonZero(u8 *Buffer, u32 Length);
 
 /************************************ Variable Definitions ***************************************/
 
