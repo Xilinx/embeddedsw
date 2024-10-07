@@ -32,11 +32,11 @@ extern "C" {
 
 /************************************ Constant Definitions ***************************************/
 /* Definitions for driver ECC */
-#define XASU_XECC_NUM_INSTANCES			1U
+#define XASU_XECC_NUM_INSTANCES			(1U)
 
 /* Definitions for peripheral ECC0 */
-#define XASU_XECC_0_DEVICE_ID			0U
-#define XASU_XECC_0_BASEADDR			0xEBF00000U
+#define XASU_XECC_0_DEVICE_ID			(0U)
+#define XASU_XECC_0_BASEADDR			(0xEBF00000U)
 
 /**
  * @name  CTRL register
@@ -51,8 +51,11 @@ extern "C" {
 #define XECC_CTRL_CURVE_SHIFT			(0x00000005U)
 #define XECC_CTRL_SUPPRESS_SCP2_MASK		(0x00000100U)
 #define XECC_CTRL_SUPPRESS_SCP_MASK		(0x00000200U)
-#define XECC_SUPPRESS_SCP_MASK			(XECC_CTRL_SUPPRESS_SCP_MASK | \
-	XECC_CTRL_SUPPRESS_SCP2_MASK)
+#define XECC_CTRL_SIGN_VERIFICATION_OP_CODE	(0x00000000U)
+#define XECC_CTRL_PUB_KEY_VALIDATION_OP_CODE	(0x00000001U)
+#define XECC_CTRL_PUB_KEY_GENERATION_OP_CODE	(0x00000002U)
+#define XECC_CTRL_SIGN_GENERATION_OP_CODE	(0x00000003U)
+
 /**
  * @name  Status register
  * @{
@@ -101,11 +104,8 @@ extern "C" {
  */
 /**< ECC RAM data endianness configuration register offset */
 #define XECC_CFG_OFFSET				(0x0000005CU)
-#define XECC_CFG_CLEAR_ENDIANNESS_MASK		(0x00000000U)
 #define XECC_CFG_WR_ENDIANNESS_MASK		(0x00000001U)
 #define XECC_CFG_RD_ENDIANNESS_MASK		(0x00000002U)
-#define XECC_CFG_WR_RD_ENDIANNESS_MASK		(XECC_CFG_WR_ENDIANNESS_MASK | \
-	XECC_CFG_RD_ENDIANNESS_MASK)
 
 #define XECC_MEM_SIGN_R_OFFSET			(0x00000200U)
 #define XECC_MEM_SIGN_S_OFFSET			(0x00000230U)
