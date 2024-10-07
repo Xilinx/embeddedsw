@@ -36,6 +36,9 @@ extern "C" {
 #include "xil_types.h"
 
 /************************************ Constant Definitions ***************************************/
+#define XASU_TRUE		(TRUE)
+#define XASU_FALSE		(FALSE)
+
 /* Module ID */
 #define XASU_MODULE_TRNG_ID	(0U) /**< TRNGs module ID */
 #define XASU_MODULE_SHA2_ID	(1U) /**< SHA2 module ID */

@@ -69,7 +69,7 @@ extern "C" {
 /**
  * @brief ASU error status values, maximum allowed value is 0x3FF.
  */
-enum XAsufw_Status {
+enum {
 	XASUFW_SUCCESS, /**< ASUFW success */
 	XASUFW_FAILURE, /**< ASUFW failure */
 	XASUFW_INVALID_PARAM, /**< Invalid parameters to ASUFW */

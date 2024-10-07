@@ -161,7 +161,7 @@ s32 XAsufw_Sha2Operation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 	if ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
 		/** If operation flags include SHA FINISH, perform SHA finish operation. */
-		Status = XSha_Finish(XAsufw_Sha2, Cmd->HashAddr, Cmd->HashBufSize, FALSE);
+		Status = XSha_Finish(XAsufw_Sha2, Cmd->HashAddr, Cmd->HashBufSize, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_FINISH_FAILED);
 			XFIH_GOTO(END);

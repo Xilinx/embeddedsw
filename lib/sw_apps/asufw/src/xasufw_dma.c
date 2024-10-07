@@ -160,11 +160,11 @@ XAsufw_Dma *XAsufw_GetDmaInstance(u32 BaseAddress)
 	 * only if they are ready.
 	 */
 	if (BaseAddress == ASUDMA_0_DEVICE_ID) {
-		if (AsuDma0.AsuDma.IsReady != (u32)FALSE) {
+		if (AsuDma0.AsuDma.IsReady != XASU_FALSE) {
 			AsuDmaPtr = &AsuDma0;
 		}
 	} else if (BaseAddress == ASUDMA_1_DEVICE_ID) {
-		if (AsuDma1.AsuDma.IsReady != (u32)FALSE) {
+		if (AsuDma1.AsuDma.IsReady != XASU_FALSE) {
 			AsuDmaPtr = &AsuDma1;
 		}
 	} else {
@@ -189,7 +189,7 @@ XAsufw_Dma *XAsufw_GetDmaInstance(u32 BaseAddress)
  *************************************************************************************************/
 s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Wait until the given DMA channel transfer completes. */
 	Status = XAsuDma_WaitForDone(&DmaPtr->AsuDma, Channel);
@@ -227,7 +227,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Validate input parameters. */
 	if (DmaPtr == NULL) {
@@ -244,7 +244,7 @@ s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u
 
 	/** Configure the secure stream switch. */
 	Status = XAsufw_SssDmaLoopback(DmaPtr->SssDmaCfg);
-	if (Status != (s32)XASUFW_SUCCESS) {
+	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
@@ -338,7 +338,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_DmaXfr(XAsufw_Dma *AsuDmaPtr, u64 SrcAddr, u64 DstAddr, const u32 Size, u32 Flags)
 {
-	u32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	u32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Start DMA transfer. */
 	Status = XAsufw_StartDmaXfr(AsuDmaPtr, SrcAddr, DstAddr, Size, Flags);

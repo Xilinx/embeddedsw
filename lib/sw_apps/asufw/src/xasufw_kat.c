@@ -306,7 +306,7 @@ static const u8 AesCmMiC[XASUFW_AES_DATA_SPLIT_SIZE_IN_BYTES] = {
  *************************************************************************************************/
 s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaResource)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 	u8 OutVal[XSHA_SHA_256_HASH_LEN];
@@ -329,13 +329,13 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaReso
 
 	/** Perform SHA update operation. */
 	Status = XSha_Update(XAsufw_ShaInstance, AsuDmaPtr, (UINTPTR)KatMessage,
-			     XASUFW_KAT_MSG_LENGTH_IN_BYTES, TRUE);
+			     XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
 	/** Perform SHA finish operation. */
-	Status = XSha_Finish(XAsufw_ShaInstance, (u64)(UINTPTR)OutVal, XSHA_SHA_256_HASH_LEN, FALSE);
+	Status = XSha_Finish(XAsufw_ShaInstance, (u64)(UINTPTR)OutVal, XSHA_SHA_256_HASH_LEN, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
@@ -390,7 +390,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_RsaPubEncKat(u32 QueueId)
 {
-	s32 Status  = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status  = XFih_VolatileAssign(XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XAsu_RsaPubKeyComp PubKeyParam;
 	XAsufw_Dma *AsuDmaPtr = NULL;
@@ -469,7 +469,7 @@ RET:
  *************************************************************************************************/
 s32 XAsufw_EccCoreKat(XEcc *XAsufw_EccInstance, u32 QueueId)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 	u8 GenPubKey[XASUFW_DOUBLE_P256_SIZE_IN_BYTES];
@@ -576,7 +576,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_RsaEccKat(u32 QueueId)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 	u8 GenPubKey[XASUFW_DOUBLE_P192_SIZE_IN_BYTES];
@@ -685,8 +685,8 @@ END:
  *************************************************************************************************/
 s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
-	s32 ClearStatus = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 ClearStatus = XFih_VolatileAssign(XASUFW_FAILURE);
 	XAsufw_Dma *AsuDmaPtr = NULL;
 	XAsu_AesKeyObject KeyObject;
 	u8 AesOutData[XASUFW_KAT_MSG_LENGTH_IN_BYTES];
@@ -723,14 +723,14 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 
 	/** Perform AES update operation for AAD, message. */
 	Status = XAes_Update(AesInstance, AsuDmaPtr, (u64)(UINTPTR)AesAad, 0U,
-			     XASUFW_AES_AAD_LEN_IN_BYTES, FALSE);
+			     XASUFW_AES_AAD_LEN_IN_BYTES, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
 		XFIH_GOTO(END);
 	}
 
 	Status = XAes_Update(AesInstance, AsuDmaPtr, (u64)(UINTPTR)KatMessage,
-			     (u64)(UINTPTR)AesOutData, XASUFW_KAT_MSG_LENGTH_IN_BYTES, TRUE);
+			     (u64)(UINTPTR)AesOutData, XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
 		XFIH_GOTO(END);
@@ -763,14 +763,14 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 
 	/** Perform AES update operation for AAD, ciphertext. */
 	Status = XAes_Update(AesInstance, AsuDmaPtr, (u64)(UINTPTR)AesAad, 0U,
-			     XASUFW_AES_AAD_LEN_IN_BYTES, FALSE);
+			     XASUFW_AES_AAD_LEN_IN_BYTES, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
 		XFIH_GOTO(END);
 	}
 
 	Status = XAes_Update(AesInstance, AsuDmaPtr, (u64)(UINTPTR)ExpAesGcmCt,
-			     (u64)(UINTPTR)AesOutData, XASUFW_KAT_MSG_LENGTH_IN_BYTES, TRUE);
+			     (u64)(UINTPTR)AesOutData, XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
 		XFIH_GOTO(END);
@@ -832,8 +832,8 @@ END:
  *************************************************************************************************/
 s32 XAsufw_AesDecryptDpaCmKat(XAes *AesInstance, u32 QueueId)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
-	s32 ClearStatus = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 ClearStatus = XFih_VolatileAssign(XASUFW_FAILURE);
 	XAsufw_Dma *AsuDmaPtr = NULL;
 	XAsu_AesKeyObject KeyObject;
 	u32 *AesCmCtPtr = (u32 *)(UINTPTR)AesCmCt;
@@ -867,7 +867,7 @@ s32 XAsufw_AesDecryptDpaCmKat(XAes *AesInstance, u32 QueueId)
 	/** Run DPA CM KAT on AES engine to know performance integrity. */
 	Status = XAes_DpaCmDecryptData(AesInstance, AsuDmaPtr, &KeyObject, (u32)(UINTPTR)AesCmData,
 				       (u32)(UINTPTR)Output0, sizeof(Output0));
-	if (Status != (u32)XASUFW_SUCCESS) {
+	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
@@ -876,7 +876,7 @@ s32 XAsufw_AesDecryptDpaCmKat(XAes *AesInstance, u32 QueueId)
 	/** Rerun the AES DPA CM KAT with same vectors of previous run. */
 	Status = XAes_DpaCmDecryptData(AesInstance, AsuDmaPtr, &KeyObject, (u32)(UINTPTR)AesCmData,
 				       (u32)(UINTPTR)Output1, sizeof(Output1));
-	if (Status != (u32)XASUFW_SUCCESS) {
+	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 

@@ -221,7 +221,7 @@ static s32 XAsufw_TrngGetRandomBytes(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 #if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE)
 	Status = XTrng_ReadTrngFifo(XAsufw_Trng, RandomBuf, XTRNG_SEC_STRENGTH_IN_BYTES);
 #else
-	Status = XTrng_Generate(XAsufw_Trng, (u8 *)RandomBuf, XTRNG_SEC_STRENGTH_IN_BYTES, FALSE);
+	Status = XTrng_Generate(XAsufw_Trng, (u8 *)RandomBuf, XTRNG_SEC_STRENGTH_IN_BYTES, XASU_FALSE);
 #endif /* XASUFW_TRNG_ENABLE_PTRNG_MODE */
 
 	return Status;
@@ -327,7 +327,7 @@ static s32 XAsufw_TrngDrbgInstantiate(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	UsrCfg.Mode = XTRNG_DRNG_MODE;
 	UsrCfg.DFLength = (u8)Cmd->DFLen;
 	UsrCfg.SeedLife = Cmd->SeedLife;
-	UsrCfg.IsBlocking = TRUE;
+	UsrCfg.IsBlocking = XASU_TRUE;
 
 	Status = XTrng_Instantiate(XAsufw_Trng, Cmd->SeedPtr, Cmd->SeedLen, Cmd->PersStrPtr, &UsrCfg);
 

@@ -254,7 +254,7 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 	}
 
 	for (Loop = 0U; (Loop < XASUFW_INVALID), (ReqResources != 0U); ++Loop) {
-		TempResource = ReqResources & (1 << Loop);
+		TempResource = ReqResources & (1U << Loop);
 		switch (TempResource) {
 			case XASUFW_DMA_RESOURCE_MASK:
 				if (XAsufw_IsResourceAvailable(XASUFW_DMA0, RequesterId) == XASUFW_SUCCESS) {
