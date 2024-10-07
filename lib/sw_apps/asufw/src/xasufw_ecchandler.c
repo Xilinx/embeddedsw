@@ -51,10 +51,10 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsufw_EccKat(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_EccGetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_EccGenSign(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_EccVerifySign(XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_EccGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_EccModule; /**< ASUFW ECC Module ID and commands array */
@@ -128,11 +128,11 @@ END:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_EccGenSign(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XEcc *XAsufw_Ecc = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
-	XAsu_EccParams *EccParamsPtr = (XAsu_EccParams *)ReqBuf->Arg;
+	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u32 CurveType = 0U;
@@ -203,11 +203,11 @@ END:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource not allocated and trying to release.
  *
  *************************************************************************************************/
-static s32 XAsufw_EccVerifySign(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XEcc *XAsufw_Ecc = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
-	XAsu_EccParams *EccParamsPtr = (XAsu_EccParams *)ReqBuf->Arg;
+	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u32 CurveType = 0U;
@@ -269,7 +269,7 @@ END:
  * 	- Error code, returned when XAsufw_EccCoreKat or XAsufw_RsaEccKat API fails.
  *
  *************************************************************************************************/
-static s32 XAsufw_EccKat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XEcc *XAsufw_Ecc = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
@@ -298,7 +298,7 @@ END:
  *	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
-static s32 XAsufw_EccGetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_EccGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 

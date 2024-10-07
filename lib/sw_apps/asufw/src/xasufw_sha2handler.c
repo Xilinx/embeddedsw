@@ -48,8 +48,9 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsufw_Sha2Kat(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_Sha2GetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_Sha2Kat(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_Sha2GetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_Sha2Module; /**< ASUFW SHA2 Module ID and commands array */
@@ -122,11 +123,11 @@ END:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
  *
  *************************************************************************************************/
-s32 XAsufw_Sha2Operation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
-	XAsu_ShaOperationCmd *Cmd = (XAsu_ShaOperationCmd *)ReqBuf->Arg;
+	const XAsu_ShaOperationCmd *Cmd = (const XAsu_ShaOperationCmd *)ReqBuf->Arg;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 
 	if ((Cmd->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
@@ -194,7 +195,7 @@ END:
  * 	- Error code, returned when XAsufw_ShaKat API fails.
  *
  *************************************************************************************************/
-static s32 XAsufw_Sha2Kat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_Sha2Kat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
@@ -216,7 +217,7 @@ static s32 XAsufw_Sha2Kat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
  * 	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
-static s32 XAsufw_Sha2GetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_Sha2GetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 

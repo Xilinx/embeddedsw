@@ -82,7 +82,7 @@ struct _XSha {
 /************************************ Function Prototypes ****************************************/
 static XSha_Config *XSha_LookupConfig(u16 DeviceId);
 static s32 XSha_CfgInstance(XSha *InstancePtr, u32 ShaMode);
-static inline s32 XSha_WaitForDone(XSha *InstancePtr);
+static inline s32 XSha_WaitForDone(const XSha *InstancePtr);
 
 /************************************ Variable Definitions ***************************************/
 /**
@@ -173,7 +173,7 @@ static XSha_Config *XSha_LookupConfig(u16 DeviceId)
 s32 XSha_CfgInitialize(XSha *InstancePtr)
 {
 	s32 Status = XASUFW_FAILURE;
-	XSha_Config *CfgPtr = NULL;
+	const XSha_Config *CfgPtr = NULL;
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
@@ -445,7 +445,7 @@ END:
  * 		- XASUFW_FAILURE, upon timeout.
  *
  *************************************************************************************************/
-static inline s32 XSha_WaitForDone(XSha *InstancePtr)
+static inline s32 XSha_WaitForDone(const XSha *InstancePtr)
 {
 	s32 Status = XST_FAILURE;
 

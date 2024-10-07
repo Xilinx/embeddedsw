@@ -83,12 +83,12 @@ typedef struct {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsufw_TrngGetRandomBytes(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_TrngKat(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_TrngGetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_TrngDrbgInstantiate(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_TrngDrbgReseed(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_TrngDrbgGenerate(XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_TrngGetRandomBytes(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_TrngKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_TrngGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_TrngModule; /**< ASUFW TRNG Module ID and commands array */
@@ -185,7 +185,7 @@ END:
 s32 XAsufw_TrngIsRandomNumAvailable(void)
 {
 	s32 Status = XASUFW_FAILURE;
-	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
+	const XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 
 #if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE)
 	Status = XTrng_IsRandomNumAvailable(XAsufw_Trng);
@@ -211,10 +211,10 @@ s32 XAsufw_TrngIsRandomNumAvailable(void)
  * 	XASUFW_TRNG_ENABLE_DRBG_MODE macro.
  *
  *************************************************************************************************/
-static s32 XAsufw_TrngGetRandomBytes(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_TrngGetRandomBytes(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
+	const XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	u32 *RandomBuf = (u32 *)XAsufw_ContainerOf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 			 XASUFW_RESP_TRNG_RANDOM_BYTES_OFFSET;
 
@@ -239,7 +239,7 @@ static s32 XAsufw_TrngGetRandomBytes(XAsu_ReqBuf *ReqBuf, u32 QueueId)
  * 	- Error code, returned when XAsufw_ShaKat API fails.
  *
  *************************************************************************************************/
-static s32 XAsufw_TrngKat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_TrngKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 	s32 SStatus = XASUFW_FAILURE;
@@ -290,7 +290,7 @@ END:
  * 	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
-static s32 XAsufw_TrngGetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_TrngGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 
@@ -309,7 +309,7 @@ static s32 XAsufw_TrngGetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId)
  * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
-static s32 XAsufw_TrngDrbgInstantiate(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 #if defined(XASUFW_TRNG_ENABLE_DRBG_MODE)
@@ -351,7 +351,7 @@ END:
  * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
-static s32 XAsufw_TrngDrbgReseed(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 #if defined(XASUFW_TRNG_ENABLE_DRBG_MODE)
@@ -375,7 +375,7 @@ static s32 XAsufw_TrngDrbgReseed(XAsu_ReqBuf *ReqBuf, u32 QueueId)
  * 	- XASUFW_FAILURE, if tehre is any failure.
  *
  *************************************************************************************************/
-static s32 XAsufw_TrngDrbgGenerate(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 #if defined(XASUFW_TRNG_ENABLE_DRBG_MODE)
@@ -405,7 +405,7 @@ s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
 {
 	s32 Status = XASUFW_FAILURE;
 #if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) && !defined(XASUFW_TRNG_ENABLE_DRBG_MODE)
-	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
+	const XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	u32 Bytes = Size;
 	u8 *BufAddr = RandomBuf;
 	u8 LocalBuf[XTRNG_SEC_STRENGTH_IN_BYTES];
