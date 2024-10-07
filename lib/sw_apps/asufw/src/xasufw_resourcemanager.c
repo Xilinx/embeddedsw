@@ -34,11 +34,10 @@
 #include "xasufw_status.h"
 #include "xasufw_resourcemanager.h"
 #include "xasufw_trnghandler.h"
-#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 
-#define XASUFW_MAX_RESOURCES				XASUFW_INVALID          /**< Maximum hardware resources */
+#define XASUFW_MAX_RESOURCES		(u32)XASUFW_INVALID          /**< Maximum hardware resources */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -56,7 +55,7 @@ typedef enum {
 typedef struct {
 	XAsufw_ResourceState State;	/**< State of the resource */
 	u32 AllocatedResources;		/**< Each bit represents the allocated resources info */
-	u32 BlockedId;				/**< ID of the requester which has blocked the resource */
+	u32 OwnerId;			/**< ID of the requester which has blocked the resource */
 } XAsufw_ResourceManager;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -76,10 +75,10 @@ void XAsufw_ResourceInit(void)
 {
 	u32 Index;
 
-	for (Index = 0U; Index < (u32)XASUFW_MAX_RESOURCES; Index++) {
+	for (Index = 0U; Index < XASUFW_MAX_RESOURCES; Index++) {
 		ResourceManager[Index].State = XASUFW_RESOURCE_IS_FREE;
 		ResourceManager[Index].AllocatedResources = 0x0U;
-		ResourceManager[Index].BlockedId = 0x0U;
+		ResourceManager[Index].OwnerId = 0x0U;
 	}
 }
 
@@ -103,7 +102,7 @@ s32 XAsufw_AllocateAesResources(u32 RequesterId)
 	/** Check for the availability of AES resource. */
 	Status = XAsufw_IsResourceAvailable(XASUFW_AES, RequesterId);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** AES operation is dependent on DMA, so AES is allocated only when DMA is available. */
@@ -131,11 +130,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_ReleaseAesResources(u32 RequesterId)
 {
-	s32 Status = XASUFW_FAILURE;
-
-	Status = XAsufw_ReleaseResource(XASUFW_AES, RequesterId);
-
-	return Status;
+	return XAsufw_ReleaseResource(XASUFW_AES, RequesterId);
 }
 
 /*************************************************************************************************/
@@ -156,15 +151,15 @@ s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 RequesterId)
 	u32 Index = 0x0U;
 	u32 AllocatedResources = ResourceManager[Resource].AllocatedResources;
 
-	if ((ResourceManager[Resource].BlockedId != RequesterId) ||
+	if ((ResourceManager[Resource].OwnerId != RequesterId) ||
 	    (ResourceManager[Resource].State == XASUFW_RESOURCE_IS_BUSY)) {
 		Status = XASUFW_RESOURCE_RELEASE_NOT_ALLOWED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Release the requested resource. */
 	ResourceManager[Resource].State = XASUFW_RESOURCE_IS_FREE;
-	ResourceManager[Resource].BlockedId = 0x0U;
+	ResourceManager[Resource].OwnerId = 0x0U;
 	while (AllocatedResources != 0x0U) {
 		if ((AllocatedResources & 0x1U) != 0x0U) {
 			ResourceManager[Index].AllocatedResources &= ~(1U << (u32)Resource);
@@ -191,10 +186,8 @@ END:
  *************************************************************************************************/
 void XAsufw_AllocateResource(XAsufw_Resource Resource, u32 RequesterId)
 {
-
-	ResourceManager[Resource].BlockedId = RequesterId;
+	ResourceManager[Resource].OwnerId = RequesterId;
 	ResourceManager[Resource].State = XASUFW_RESOURCE_IS_IDLE;
-
 }
 
 /*************************************************************************************************/
@@ -216,7 +209,7 @@ static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 RequesterId)
 	/* Check resource availability */
 	if ((ResourceManager[Resource].State == XASUFW_RESOURCE_IS_BUSY) ||
 	    ((ResourceManager[Resource].State == XASUFW_RESOURCE_IS_IDLE) &&
-	     (ResourceManager[Resource].BlockedId != RequesterId))) {
+	     (ResourceManager[Resource].OwnerId != RequesterId))) {
 		Status = XASUFW_RESOURCE_UNAVAILABLE;
 	}
 	else {
@@ -250,10 +243,10 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 
 	if (Resources == 0U) {
 		Status = XASUFW_SUCCESS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
-	for (Loop = 0U; (Loop < XASUFW_INVALID), (ReqResources != 0U); ++Loop) {
+	for (Loop = 0U; ((Loop < XASUFW_INVALID) && (ReqResources != 0U)); ++Loop) {
 		TempResource = ReqResources & (1U << Loop);
 		switch (TempResource) {
 			case XASUFW_DMA_RESOURCE_MASK:
@@ -301,13 +294,13 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 		}
 
 		if (Status == XASUFW_RESOURCE_UNAVAILABLE) {
-			XFIH_GOTO(END);
+			goto END;
 		}
 
 		if (TempResource != 0x0U) {
 			Status = XAsufw_IsResourceAvailable(Resource, RequesterId);
 			if (Status != XASUFW_SUCCESS) {
-				XFIH_GOTO(END);
+				goto END;
 			}
 		}
 		ReqResources = ReqResources & (~TempResource);
@@ -343,7 +336,7 @@ XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 RequesterId
 		DmaAllocate = XASUFW_DMA1;
 		DmaDeviceId = ASUDMA_1_DEVICE_ID;
 	} else {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Allocate DMA to the resource if DMA is available. */

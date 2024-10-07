@@ -41,7 +41,6 @@
 #include "xasufw_debug.h"
 #include "xasufw_kat.h"
 #include "xasu_shainfo.h"
-#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -95,14 +94,13 @@ s32 XAsufw_Sha3Init(void)
 	Status = XAsufw_ModuleRegister(&XAsufw_Sha3Module);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_MODULE_REGISTRATION_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Initialize SHA3 instance. */
 	Status = XSha_CfgInitialize(XAsufw_Sha3);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_INIT_FAILED);
-		XFIH_GOTO(END);
 	}
 
 END:
@@ -141,7 +139,7 @@ static s32 XAsufw_Sha3Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		Status = XSha_Start(XAsufw_Sha3, Cmd->ShaMode);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_START_FAILED);
-			XFIH_GOTO(END);
+			goto END;
 		}
 	}
 
@@ -153,12 +151,12 @@ static s32 XAsufw_Sha3Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_SHA3, QueueId);
 		if (AsuDmaPtr == NULL) {
 			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-			XFIH_GOTO(END);
+			goto END;
 		}
 		Status = XSha_Update(XAsufw_Sha3, AsuDmaPtr, Cmd->DataAddr, Cmd->DataSize, Cmd->IsLast);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_UPDATE_FAILED);
-			XFIH_GOTO(END);
+			goto END;
 		}
 	}
 
@@ -167,7 +165,7 @@ static s32 XAsufw_Sha3Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		Status = XSha_Finish(XAsufw_Sha3, Cmd->HashAddr, Cmd->HashBufSize, Cmd->ShakeReserved);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_FINISH_FAILED);
-			XFIH_GOTO(END);
+			goto END;
 		}
 		if ((Cmd->ShaMode == XASU_SHA_MODE_SHAKE256) &&
 		    (Cmd->ShakeReserved != XASU_SHA_NEXT_XOF_ENABLE_MASK)) {
@@ -202,12 +200,9 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_Sha3Kat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
-	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha3 = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 
-	Status = XAsufw_ShaKat(XAsufw_Sha3, QueueId, XASUFW_SHA3);
-
-	return Status;
+	return XAsufw_ShaKat(XAsufw_Sha3, QueueId, XASUFW_SHA3);
 }
 
 /*************************************************************************************************/
@@ -226,6 +221,7 @@ static s32 XAsufw_Sha3GetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 
+	/** TODO: Add SHA3 Get Info command */
 	return Status;
 }
 /** @} */

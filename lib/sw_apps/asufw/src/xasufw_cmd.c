@@ -36,7 +36,6 @@
 #include "xasufw_resourcemanager.h"
 #include "xasufw_util.h"
 #include "xasufw_debug.h"
-#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -148,13 +147,13 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf)
 	Module = XAsufw_GetModule(ModuleId);
 	if (Module == NULL) {
 		Status = XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Check if Cmd ID is greater than the max supported commands */
 	if (CmdId >= Module->CmdCnt) {
 		Status = XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/* TODO: Access permissions check should happen here */
@@ -199,7 +198,6 @@ s32 XAsufw_CheckResources(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	if (Module->ResourcesRequired != NULL) {
 		ReqResources = Module->ResourcesRequired[CmdId];
 		Status = XAsufw_CheckResourceAvailability(ReqResources, QueueId);
-		XFIH_GOTO(END);
 	}
 
 END:

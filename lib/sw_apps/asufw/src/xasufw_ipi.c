@@ -28,11 +28,10 @@
 */
 /*************************************** Include Files *******************************************/
 #include "xasufw_ipi.h"
-#include "xasufw_sharedmem.h"
+#include "xasufw_queuescheduler.h"
 #include "xasufw_debug.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
-#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_IPI_MAX_MSG_LEN          8U /**< Maximum IPI buffer length */
@@ -66,7 +65,7 @@ s32 XAsufw_IpiInit(void)
 	IpiCfgPtr = XIpiPsu_LookupConfig(XASUFW_IPI_DEVICE_ID);
 	if (IpiCfgPtr == NULL) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_LOOKUP_CONFIG_FAILED, Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Initialize the IPI driver. */
@@ -145,7 +144,7 @@ s32 XAsufw_SendIpiToPlm(const u32 *MsgBufPtr, u32 MsgBufLen)
 	/** Validate the inputs. */
 	if ((NULL == MsgBufPtr) || (MsgBufLen == 0U) || (MsgBufLen > XASUFW_IPI_MAX_MSG_LEN)) {
 		Status = XASUFW_IPI_INVALID_INPUT_PARAMETERS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Check if there is any pending IPI message. */
@@ -153,7 +152,7 @@ s32 XAsufw_SendIpiToPlm(const u32 *MsgBufPtr, u32 MsgBufLen)
 	Status = XIpiPsu_PollForAck(&IpiInst, XASUFW_IPI_PMC_MASK, 0x1FFFFFFFU);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Write IPI message to ASU-PMC message buffer. */
@@ -161,14 +160,14 @@ s32 XAsufw_SendIpiToPlm(const u32 *MsgBufPtr, u32 MsgBufLen)
 				      XIPIPSU_BUF_TYPE_MSG);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_WRITE_MESSAGE_FAILED, Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Trigger an IPI interrupt to PLM. */
 	Status = XIpiPsu_TriggerIpi(&IpiInst, XASUFW_IPI_PMC_MASK);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_TRIGGER_FAILED, Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 END:
@@ -197,7 +196,7 @@ s32 XAsufw_ReadIpiRespFromPlm(u32 *RespBufPtr, u32 RespBufLen)
 	/** Validate inputs. */
 	if ((NULL == RespBufPtr) || (RespBufLen == 0U) || (RespBufLen > XASUFW_IPI_MAX_MSG_LEN)) {
 		Status = XASUFW_IPI_INVALID_INPUT_PARAMETERS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Check if the IPI interrupt is processed. */
@@ -205,7 +204,7 @@ s32 XAsufw_ReadIpiRespFromPlm(u32 *RespBufPtr, u32 RespBufLen)
 	Status = XIpiPsu_PollForAck(&IpiInst, XASUFW_IPI_PMC_MASK, 0x1FFFFFFFU);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Read IPI response from PLM. */

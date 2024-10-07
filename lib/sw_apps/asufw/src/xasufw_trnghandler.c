@@ -34,6 +34,7 @@
 #include "xasufw_modules.h"
 #include "xasufw_status.h"
 #include "xtrng.h"
+#include "xtrng_hw.h"
 #include "xasu_trnginfo.h"
 #include "xasufw_hw.h"
 #include "xasufw_resourcemanager.h"
@@ -50,7 +51,7 @@
 
 /************************************** Type Definitions *****************************************/
 /* Calculate the structure member address from Item and structure Type */
-#define XAsufw_ContainerOf(Item, Type, Member)    \
+#define XAsufw_GetRespBuf(Item, Type, Member)    \
 	((Type *)(((char *)(Item) - offsetof(Type, Item)) + offsetof(Type, Member)))
 
 #ifdef XASUFW_TRNG_ENABLE_DRBG_MODE
@@ -143,20 +144,20 @@ s32 XAsufw_TrngInit(void)
 	/** Initialize the TRNG instance. */
 	Status = XTrng_CfgInitialize(XAsufw_Trng);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 #if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) || defined(XASUFW_TRNG_ENABLE_DRBG_MODE)
 	/** Perform health test on TRNG. */
 	Status = XTrng_PreOperationalSelfTests(XAsufw_Trng);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Instantiate to complete initialization of TRNG in HRNG mode. */
 	Status = XTrng_InitNCfgTrngMode(XAsufw_Trng, XTRNG_HRNG_MODE);
 	if (Status != XST_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Enable auto proc mode for TRNG. */
@@ -164,9 +165,6 @@ s32 XAsufw_TrngInit(void)
 #else
 	/** Instantiate to complete initialization of TRNG in PTRNG mode. */
 	Status = XTrng_InitNCfgTrngMode(XAsufw_Trng, XTRNG_PTRNG_MODE);
-	if (Status != XST_SUCCESS) {
-		XFIH_GOTO(END);
-	}
 #endif /* XASUFW_TRNG_ENABLE_PTRNG_MODE */
 
 END:
@@ -215,7 +213,7 @@ static s32 XAsufw_TrngGetRandomBytes(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
-	u32 *RandomBuf = (u32 *)XAsufw_ContainerOf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+	u32 *RandomBuf = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 			 XASUFW_RESP_TRNG_RANDOM_BYTES_OFFSET;
 
 #if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE)
@@ -248,30 +246,28 @@ static s32 XAsufw_TrngKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	if (XASUFW_PLATFORM == PMC_TAP_VERSION_PLATFORM_QEMU) {
 		XAsufw_Printf(DEBUG_GENERAL, "INFO: DRBG KAT is not supported on QEMU\r\n");
 		Status = XASUFW_TRNG_KAT_NOT_SUPPORTED_ON_QEMU;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Uninstantiate TRNG before running KAT */
 	Status = XTrng_Uninstantiate(XAsufw_Trng);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
-	/** Run DRBG KAT. Change the TRNG mode to HRNG and enable autoproc mode after running KAT. */
 	Status = XTrng_DrbgKat(XAsufw_Trng);
 
 	/** Instantiate to complete initialization of TRNG in HRNG mode */
 	SStatus = XTrng_InitNCfgTrngMode(XAsufw_Trng, XTRNG_HRNG_MODE);
 	if (SStatus != XST_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, SStatus);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Enable auto proc mode for TRNG */
 	SStatus = XTrng_EnableAutoProcMode(XAsufw_Trng);
 	if (SStatus != XST_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, SStatus);
-		XFIH_GOTO(END);
 	}
 
 END:
@@ -294,6 +290,7 @@ static s32 XAsufw_TrngGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 
+	/** TODO: Need to add support TRNG Get Info command */
 	return Status;
 }
 
@@ -320,11 +317,11 @@ static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	/* Disable auto proc mode before running KAT */
 	Status = XTrng_Uninstantiate(XAsufw_Trng);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/* Initiate TRNG */
-	UsrCfg.Mode = XTRNG_DRNG_MODE;
+	UsrCfg.Mode = XTRNG_DRBG_MODE;
 	UsrCfg.DFLength = (u8)Cmd->DFLen;
 	UsrCfg.SeedLife = Cmd->SeedLife;
 	UsrCfg.IsBlocking = XASU_TRUE;
@@ -403,8 +400,9 @@ static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
  *************************************************************************************************/
 s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 #if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) && !defined(XASUFW_TRNG_ENABLE_DRBG_MODE)
+	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	const XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	u32 Bytes = Size;
 	u8 *BufAddr = RandomBuf;
@@ -412,24 +410,22 @@ s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
 
 	if (Size > XASUFW_MAX_RANDOM_BYTES_ALLOWED) {
 		Status = XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	while (Bytes != 0U) {
 		while (XTrng_IsRandomNumAvailable(XAsufw_Trng) != XASUFW_SUCCESS);
 		if (Bytes >= XTRNG_SEC_STRENGTH_IN_BYTES) {
-			Status = XTrng_ReadTrngFifo(XAsufw_Trng, (u32 *)BufAddr, XTRNG_SEC_STRENGTH_IN_BYTES);
+			XFIH_CALL_GOTO(XTrng_ReadTrngFifo, XFihVar, Status, END, XAsufw_Trng, (u32 *)BufAddr,
+							XTRNG_SEC_STRENGTH_IN_BYTES);
 			BufAddr += XTRNG_SEC_STRENGTH_IN_BYTES;
 			Bytes -= XTRNG_SEC_STRENGTH_IN_BYTES;
 		} else {
-			Status = XTrng_ReadTrngFifo(XAsufw_Trng, (u32 *)LocalBuf, XTRNG_SEC_STRENGTH_IN_BYTES);
-			if (Status == XASUFW_SUCCESS) {
-				Status = Xil_SMemCpy(BufAddr, Bytes, LocalBuf, XTRNG_SEC_STRENGTH_IN_BYTES, Bytes);
-			}
+			XFIH_CALL_GOTO(XTrng_ReadTrngFifo, XFihVar, Status, END, XAsufw_Trng, (u32 *)LocalBuf,
+							XTRNG_SEC_STRENGTH_IN_BYTES);
+			XFIH_CALL_GOTO(Xil_SMemCpy, XFihVar, Status, END, BufAddr, Bytes, LocalBuf,
+							XTRNG_SEC_STRENGTH_IN_BYTES, Bytes);
 			Bytes = 0U;
-		}
-		if (Status != XASUFW_SUCCESS) {
-			XFIH_GOTO(END);
 		}
 	}
 

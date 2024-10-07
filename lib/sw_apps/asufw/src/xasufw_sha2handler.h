@@ -38,7 +38,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
-#include "xasufw_cmd.h"
+#include "xasu_sharedmem.h"
 
 /************************************ Constant Definitions ***************************************/
 

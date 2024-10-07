@@ -41,6 +41,7 @@
 #include "xasu_eccinfo.h"
 #include "xfih.h"
 #include "xasu_rsainfo.h"
+#include "xasufw_util.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -307,7 +308,7 @@ static const u8 AesCmMiC[XASUFW_AES_DATA_SPLIT_SIZE_IN_BYTES] = {
  *************************************************************************************************/
 s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaResource)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 	u8 OutVal[XSHA_SHA_256_HASH_LEN];
@@ -317,7 +318,7 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaReso
 	AsuDmaPtr = XAsufw_AllocateDmaResource(ShaResource, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	XAsufw_AllocateResource(ShaResource, QueueId);
@@ -325,20 +326,22 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaReso
 	/** Perform SHA start operation. */
 	Status = XSha_Start(XAsufw_ShaInstance, XASU_SHA_MODE_SHA256);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Perform SHA update operation. */
 	Status = XSha_Update(XAsufw_ShaInstance, AsuDmaPtr, (UINTPTR)KatMessage,
 			     XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Perform SHA finish operation. */
 	Status = XSha_Finish(XAsufw_ShaInstance, (u64)(UINTPTR)OutVal, XSHA_SHA_256_HASH_LEN, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if (ShaResource == XASUFW_SHA2) {
@@ -347,6 +350,7 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaReso
 		ExpHash = ExpSha3256Hash;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Compare generated hash with expected hash. */
 	Status = Xil_SMemCmp(OutVal, XSHA_SHA_256_HASH_LEN, ExpHash, XSHA_SHA_256_HASH_LEN,
 			     XSHA_SHA_256_HASH_LEN);
