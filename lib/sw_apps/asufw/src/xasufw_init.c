@@ -70,7 +70,7 @@
 static void XAsufw_ExceptionEnable(void);
 static void XAsufw_ExceptionHandler(void *Data);
 static void XAsufw_InitPitTimer(u8 Timer, u32 ResetValue);
-static void XAsufw_Pit3TimerHandler(void *Data);
+static void XAsufw_Pit3TimerHandler(const void *Data);
 
 /************************************ Variable Definitions ***************************************/
 static XIOModule IOModule; /* Instance of the IO Module */
@@ -174,7 +174,7 @@ static void XAsufw_InitPitTimer(u8 Timer, u32 ResetValue)
  * @param	Data	Interrupt number that is received.
  *
  *************************************************************************************************/
-static void XAsufw_Pit3TimerHandler(void *Data)
+static void XAsufw_Pit3TimerHandler(const void *Data)
 {
 	/* Update TaskTimeNow every time the scheduler handler is called for every 10ms */
 	TaskTimeNow += XASUFW_PIT3_TIMER_TICK;

@@ -68,7 +68,7 @@ static inline void XLinkList_Init(XLinkList *List)
  * 			- Returns TRUE if given list is empty. Otherwise, returns FALSE.
  *
  *************************************************************************************************/
-static inline u8 XLinkList_IsEmpty(XLinkList *List)
+static inline u8 XLinkList_IsEmpty(const XLinkList *List)
 {
 	return (u8)((List->Next == List) || (List->Next == NULL));
 }
@@ -128,7 +128,7 @@ static inline void XLinkList_AddItemLast(XLinkList *Item, XLinkList *List)
  * @param   List2   Second linked list to be concatinated at the end of first list
  *
  *************************************************************************************************/
-static inline void XLinkList_Concat(XLinkList *List1, XLinkList *List2)
+static inline void XLinkList_Concat(XLinkList *List1, const XLinkList *List2)
 {
 	if (XLinkList_IsEmpty(List2) != (u8)TRUE) {
 		List1->Prev->Next = List2->Next;

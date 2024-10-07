@@ -48,7 +48,6 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_Sha3Init(void);
-s32 XAsufw_Sha3Operation(XAsu_ReqBuf *ReqBuf, u32 QueueId);
 
 /************************************ Variable Definitions ***************************************/
 

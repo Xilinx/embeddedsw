@@ -47,7 +47,7 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 /** @brief This structure contains function pointer to command handler. */
 typedef struct {
-	s32 (*CmdHandler)(XAsu_ReqBuf *ReqBuf, u32 QueueId); /**< Command handler */
+	s32 (*CmdHandler)(const XAsu_ReqBuf *ReqBuf, u32 QueueId); /**< Command handler */
 } XAsufw_ModuleCmd;
 
 typedef u16 XAsufw_ResourcesRequired;

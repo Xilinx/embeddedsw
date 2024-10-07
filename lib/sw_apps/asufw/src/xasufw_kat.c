@@ -843,8 +843,8 @@ s32 XAsufw_AesDecryptDpaCmKat(XAes *AesInstance, u32 QueueId)
 	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	XAsufw_Dma *AsuDmaPtr = NULL;
 	XAsu_AesKeyObject KeyObject;
-	u32 *AesCmCtPtr = (u32 *)(UINTPTR)AesCmCt;
-	u32 *AesCmMiCPtr = (u32 *)(UINTPTR)AesCmMiC;
+	const u32 *AesCmCtPtr = (u32 *)(UINTPTR)AesCmCt;
+	const u32 *AesCmMiCPtr = (u32 *)(UINTPTR)AesCmMiC;
 
 	u32 Output0[XASUFW_AES_CM_KAT_DATA_SIZE_IN_BYTES];
 	u32 Output1[XASUFW_AES_CM_KAT_DATA_SIZE_IN_BYTES];

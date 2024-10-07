@@ -215,7 +215,7 @@ END:
  * 	- XASUFW_TASK_INVALID_HANDLER, if task handler is NULL.
  *
  *************************************************************************************************/
-s32 XTask_TriggerOnEvent(XTask_TaskNode *Task, XTask_TaskEvent *Event)
+s32 XTask_TriggerOnEvent(const XTask_TaskNode *Task, XTask_TaskEvent *Event)
 {
 	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 Idx = Task - TaskList;
@@ -273,7 +273,7 @@ void XTask_EventNotify(XTask_TaskEvent *Event)
  * 	- Returns delay of the given task.
  *
  *************************************************************************************************/
-u32 XTask_DelayTime(XTask_TaskNode *Task)
+u32 XTask_DelayTime(const XTask_TaskNode *Task)
 {
 	return Task->Delay;
 }
@@ -301,7 +301,7 @@ void XTask_DispatchLoop(void)
 	u32 LastDispatchTime = TaskTimeNow;
 	u32 Idx;
 	XTask_TaskNode *Task;
-	XLinkList *HTask;
+	const XLinkList *HTask;
 	XLinkList *LTask;
 	u32 Priority;
 	u32 DeltaTime;

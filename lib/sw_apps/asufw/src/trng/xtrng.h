@@ -83,17 +83,17 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 XTrng *XTrng_GetInstance(u16 DeviceId);
 s32 XTrng_CfgInitialize(XTrng *InstancePtr);
-s32 XTrng_Instantiate(XTrng *InstancePtr, u8 *Seed, u32 SeedLength, u8 *PersStr,
-		      XTrng_UserConfig *UserCfg);
-s32 XTrng_Reseed(XTrng *InstancePtr, u8 *Seed, u8 DLen);
+s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const u8 *PersStr,
+	const XTrng_UserConfig *UserCfg);
+s32 XTrng_Reseed(XTrng *InstancePtr, const u8 *Seed, u8 DLen);
 s32 XTrng_Generate(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResistance);
 s32 XTrng_Uninstantiate(XTrng *InstancePtr);
 s32 XTrng_InitNCfgTrngMode(XTrng *InstancePtr, XTrng_Mode Mode);
 s32 XTrng_DrbgKat(XTrng *InstancePtr);
 s32 XTrng_PreOperationalSelfTests(XTrng *InstancePtr);
 s32 XTrng_EnableAutoProcMode(XTrng *InstancePtr);
-s32 XTrng_ReadTrngFifo(XTrng *InstancePtr, u32 *OutputBuf, u32 OutputBufSize);
-s32 XTrng_IsRandomNumAvailable(XTrng *InstancePtr);
+s32 XTrng_ReadTrngFifo(const XTrng *InstancePtr, u32 *OutputBuf, u32 OutputBufSize);
+s32 XTrng_IsRandomNumAvailable(const XTrng *InstancePtr);
 
 /************************************ Variable Definitions ***************************************/
 
