@@ -114,9 +114,9 @@ int main(void)
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
 	EccParams.CurveType = CurveType;
-	EccParams.DigestAddr = (u64)Hash;
-	EccParams.KeyAddr = (u64)PrivKey;
-	EccParams.SignAddr = (u64)Sign;
+	EccParams.DigestAddr = (u64)(UINTPTR)Hash;
+	EccParams.KeyAddr = (u64)(UINTPTR)PrivKey;
+	EccParams.SignAddr = (u64)(UINTPTR)Sign;
 	EccParams.DigestLen = CurveLength;
 	EccParams.KeyLen = CurveLength;
 
@@ -137,9 +137,9 @@ int main(void)
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
 	EccParams.CurveType = CurveType;
-	EccParams.DigestAddr = (u64)Hash;
-	EccParams.KeyAddr = (u64)PubKey;
-	EccParams.SignAddr = (u64)Sign;
+	EccParams.DigestAddr = (u64)(UINTPTR)Hash;
+	EccParams.KeyAddr = (u64)(UINTPTR)PubKey;
+	EccParams.SignAddr = (u64)(UINTPTR)Sign;
 	EccParams.DigestLen = CurveLength;
 	EccParams.KeyLen = CurveLength;
 
