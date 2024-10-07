@@ -34,6 +34,7 @@
 #include "xsha_hw.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasu_def.h"
 #include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -70,7 +71,6 @@ struct _XSha {
 	u16 DeviceId; /**< DeviceId is the unique ID of the device */
 	XAsufw_Dma *AsuDmaPtr; /**< DMA instance assigned for SHA operation */
 	XAsufw_SssSrc SssShaCfg; /**< SHA SSS configuration */
-	u32 IsReady; /**< SHA component ready state */
 	u32 ShaMode; /**< SHA Mode */
 	u32 ShaDigestSize; /**< SHA digest size */
 	XSha_State ShaState; /**< SHA current state */
@@ -81,7 +81,7 @@ struct _XSha {
 
 /************************************ Function Prototypes ****************************************/
 static XSha_Config *XSha_LookupConfig(u16 DeviceId);
-static s32 XSha_CfgInstance(XSha *InstancePtr, u32 ShaMode);
+static s32 XSha_ValidateModeAndInit(XSha *InstancePtr, u32 ShaMode);
 static inline s32 XSha_WaitForDone(const XSha *InstancePtr);
 
 /************************************ Variable Definitions ***************************************/
@@ -120,7 +120,7 @@ XSha *XSha_GetInstance(u16 DeviceId)
 	XSha *XSha_InstancePtr = NULL;
 
 	if (DeviceId >= XASU_XSHA_NUM_INSTANCES) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	XSha_InstancePtr = &XSha_Instance[DeviceId];
@@ -178,13 +178,13 @@ s32 XSha_CfgInitialize(XSha *InstancePtr)
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_SHA_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	CfgPtr = XSha_LookupConfig(InstancePtr->DeviceId);
 	if (CfgPtr == NULL) {
 		Status = XASUFW_SHA_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Initialize SHA instance. */
@@ -195,7 +195,6 @@ s32 XSha_CfgInitialize(XSha *InstancePtr)
 	} else {
 		InstancePtr->SssShaCfg = XASUFW_SSS_SHA3;
 	}
-	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	InstancePtr->ShaState = XSHA_INITALIZED;
 	Status = XASUFW_SUCCESS;
 
@@ -222,27 +221,22 @@ s32 XSha_Start(XSha *InstancePtr, u32 ShaMode)
 {
 	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
-	/** Validate SHA state is initialized or not. */
-	if (InstancePtr->ShaState != XSHA_INITALIZED) {
-		Status = XASUFW_SHA_STATE_MISMATCH_ERROR;
-		XFIH_GOTO(END);
-	}
-
-	/** Validate input parameters. */
+	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_SHA_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
-	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
-		Status = XASUFW_SHA_INIT_NOT_DONE;
-		XFIH_GOTO(END);
+	/* Validate SHA state is initialized or not */
+	if (InstancePtr->ShaState != XSHA_INITALIZED) {
+		Status = XASUFW_SHA_STATE_MISMATCH_ERROR;
+		goto END;
 	}
 
 	/** Validate the SHA mode and initialize SHA instance based on SHA mode. */
-	Status = XSha_CfgInstance(InstancePtr, ShaMode);
+	Status = XSha_ValidateModeAndInit(InstancePtr, ShaMode);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	InstancePtr->ShaLen = 0;
@@ -277,7 +271,7 @@ END:
  *
  * @param	InstancePtr	Pointer to the SHA instance.
  * @param	DmaPtr		Pointer to the AsuDma instance.
- * @param	Data		Address of the input data buffer for hashing.
+ * @param	InDataAddr	Address of input data on which the digest will be calculated.
  * @param	Size		Input data size in bytes.
  * @param	EndLast		Indicates the last update.
  *
@@ -289,25 +283,44 @@ END:
  * 	- XASUFW_FAILURE, if there is any other failure.
  *
  *************************************************************************************************/
-s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 Data, u32 Size, u8 EndLast)
+s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size, u32 EndLast)
 {
 	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Validate input parameters. */
-	if ((InstancePtr == NULL) || (EndLast > XSHA_LAST_WORD) || (DmaPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XASUFW_SHA_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
-	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
-		Status = XASUFW_SHA_INIT_NOT_DONE;
-		XFIH_GOTO(END);
+	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
+		Status = XASUFW_SHA_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InDataAddr == 0U) {
+		Status = XASUFW_SHA_INVALID_INPUT_DATA_ADDRESS;
+		goto END;
+	}
+
+	/**
+	 * The maximum length of input data should be less than 0x1FFFFFFC bytes, which is the
+	 * ASU DMA's maximum supported data transfer length.
+	 */
+	if (Size > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) {
+		Status = XASUFW_SHA_INVALID_INPUT_DATA_SIZE;
+		goto END;
+	}
+
+	if (EndLast > XSHA_LAST_WORD) {
+		Status = XASUFW_SHA_INVALID_END_LAST;
+		goto END;
 	}
 
 	/** Validate SHA state is started or not. */
 	if ((InstancePtr->ShaState != XSHA_STARTED) && (InstancePtr->ShaState != XSHA_UPDATED)) {
 		Status = XASUFW_SHA_STATE_MISMATCH_ERROR;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	InstancePtr->ShaLen += Size;
@@ -316,17 +329,17 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 Data, u32 Size, u8 En
 	/** Configures the SSS for SHA hardware engine. */
 	Status = XAsufw_SssShaWithDma(InstancePtr->SssShaCfg, InstancePtr->AsuDmaPtr->SssDmaCfg);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Push Data to SHA2/3 engine using DMA and check for PMC DMA done bit. */
-	XAsuDma_ByteAlignedTransfer(&InstancePtr->AsuDmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL, Data, Size,
+	XAsuDma_ByteAlignedTransfer(&InstancePtr->AsuDmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL, InDataAddr, Size,
 				    EndLast);
 
 	Status = XAsuDma_WaitForDoneTimeout(&InstancePtr->AsuDmaPtr->AsuDma, XASUDMA_SRC_CHANNEL);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_FAILURE;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Acknowledge the transfer has completed. */
@@ -374,33 +387,43 @@ s32 XSha_Finish(XSha *InstancePtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutp
 	u32 ShaDigestSizeInWords;
 
 	/** Validate input parameters. */
-	if ((InstancePtr == NULL) || (HashBufSize < InstancePtr->ShaDigestSize)) {
+	if (InstancePtr == NULL) {
 		Status = XASUFW_SHA_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
+	}
+
+	if (HashAddr == 0U) {
+		Status = XASUFW_SHA_INVALID_HASH_ADDRESS;
+		goto END;
+	}
+
+	if ((HashBufSize == 0U) || (HashBufSize < InstancePtr->ShaDigestSize)) {
+		Status = XASUFW_SHA_INVALID_HASH_SIZE;
+		goto END;
 	}
 
 	if ((InstancePtr->ShaType == XASU_XSHA_1_TYPE) &&
 	    (InstancePtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
 	    (HashBufSize > XSHA_SHAKE_256_MAX_HASH_LEN)) {
-		Status = XASUFW_SHA_INVALID_PARAM;
-		XFIH_GOTO(END);
+		Status = XASUFW_SHA_INVALID_HASH_SIZE;
+		goto END;
 	}
 
-	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
-		Status = XASUFW_SHA_INIT_NOT_DONE;
-		XFIH_GOTO(END);
+	if (NextXofOutput > XASU_SHA_NEXT_XOF_ENABLE_MASK) {
+		Status = XASUFW_SHA_NEXT_XOF_INVALID_MASK;
+		goto END;
 	}
 
 	/** Validate SHA state is updated/started. */
 	if ((InstancePtr->ShaState != XSHA_STARTED) && (InstancePtr->ShaState != XSHA_IS_ENDLAST)) {
 		Status = XASUFW_SHA_STATE_MISMATCH_ERROR;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Check the SHA2/3 DONE bit. */
 	Status = XSha_WaitForDone(InstancePtr);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Read out the digest in reverse order and store in the Buffer. */
@@ -470,9 +493,9 @@ static inline s32 XSha_WaitForDone(const XSha *InstancePtr)
  * 	- XASUFW_SHA_MODE_GLITCH_DETECTED, if sha mode updated is glitched.
  *
  *************************************************************************************************/
-static s32 XSha_CfgInstance(XSha *InstancePtr, u32 ShaMode)
+static s32 XSha_ValidateModeAndInit(XSha *InstancePtr, u32 ShaMode)
 {
-	s32 Status = XASUFW_FAILURE;
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Initialize the SHA instance based on SHA Mode. */
 	switch (ShaMode) {
@@ -494,7 +517,7 @@ static s32 XSha_CfgInstance(XSha *InstancePtr, u32 ShaMode)
 		/* SHAKE-256 Mode */
 		case XASU_SHA_MODE_SHAKE256:
 			if (InstancePtr->ShaType == XASU_XSHA_0_TYPE) {
-				Status = XASUFW_SHA_INVALID_PARAM;
+				Status = XASUFW_SHA_INVALID_SHA_TYPE;
 			} else {
 				InstancePtr->ShaDigestSize = XSHA_SHAKE_256_HASH_LEN;
 				InstancePtr->ShaMode = XASU_SHA_MODE_SHAKE256;
@@ -502,12 +525,12 @@ static s32 XSha_CfgInstance(XSha *InstancePtr, u32 ShaMode)
 			break;
 		/* Invalid Mode */
 		default:
-			Status = XASUFW_SHA_INVALID_PARAM;
+			Status = XASUFW_SHA_INVALID_SHA_MODE;
 			break;
 	}
 
-	if (Status == XASUFW_SHA_INVALID_PARAM) {
-		XFIH_GOTO(END);
+	if ((Status == XASUFW_SHA_INVALID_SHA_TYPE) || (Status == XASUFW_SHA_INVALID_SHA_MODE)) {
+		goto END;
 	}
 
 	/* Validate SHA Mode entered case is correct or not */
