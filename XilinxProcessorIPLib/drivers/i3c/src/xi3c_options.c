@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---  -------- ---------------------------------------------
 * 1.00  gm   03/18/24 Add Scl clock configuration support
+* 1.1   gm   10/07/24 Set Data Hold Time based on IP revision value.
 * </pre>
 *
 ******************************************************************************/
@@ -73,7 +74,17 @@ s32 XI3c_SetSClk(XI3c *InstancePtr, u32 SclkHz, u8 Mode)
 	THold = (TLow * 4)/10;
 	CorePeriodNs = XI3C_CEIL_DIV(1000000000, InstancePtr->Config.InputClockHz);
 
-	THold = (THold < 5) ? 5 : THold;
+	/*
+	 * Data Hold Time.
+	 * For initial IP (revision number = 0), minimum Data Hold Time is 5.
+	 * For updated IP (revision number > 0), minimum Data Hold Time is 6.
+	 * Updated IP now supports achieving high data rate with low reference
+	 * frequency.
+	 */
+	if (XI3c_GetRevisionNumber(InstancePtr) == 0)
+		THold = (THold < 5) ? 5 : THold;
+	else
+		THold = (THold < 6) ? 6 : THold;
 
 	XI3c_WriteReg(InstancePtr->Config.BaseAddress, XI3C_SCL_HIGH_TIME_OFFSET,
 		      ((THigh-2) & XI3C_18BITS_MASK));

@@ -19,6 +19,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------.
 * 1.00  gm  01/25/24 First release
+* 1.1   gm  10/07/24 Added macros for Version Register bit fields.
 *
 * </pre>
 *
@@ -77,6 +78,20 @@ extern "C" {
 #define XI3C_OD_SCL_LOW_TIME_OFFSET		0x58	/**< I3C OD SCL LOW  Register */
 #define XI3C_TARGET_ADDR_BCR			0x60	/**< I3C Target dynamic Address and BCR Register */
 /* @} */
+
+
+/**
+ * @name Version Register mask(s)
+ * @{
+ */
+
+#define  XI3C_INTERNAL_REVISION_MASK		0x0000000F	/**< BITS 3:0   - Internal revision */
+#define  XI3C_CORE_PATCH_REVISION_MASK		0x000000F0	/**< BITS 7:4   - Patch revision */
+#define  XI3C_CORE_REVISION_NUM_MASK		0x0000FF00	/**< BITS 15:8  - Revision number */
+#define  XI3C_CORE_VERSION_MINOR_MASK		0x00FF0000	/**< BITS 23:16 - Minor version */
+#define  XI3C_CORE_VERSION_MAJOR_MASK		0xFF000000	/**< BITS 31:24 - Major version */
+
+#define  XI3C_CORE_REVISION_NUM_SHIFT		8		/**< Revision number shift */
 
 /**
  * @name Reset Register mask(s)
