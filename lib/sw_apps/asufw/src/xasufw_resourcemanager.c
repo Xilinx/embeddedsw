@@ -98,7 +98,7 @@ void XAsufw_ResourceInit(void)
 s32 XAsufw_AllocateAesResources(u32 RequesterId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XAsufw_Dma *AsuDmaPtr = NULL;
+	const XAsufw_Dma *AsuDmaPtr = NULL;
 
 	/** Check for the availability of AES resource. */
 	Status = XAsufw_IsResourceAvailable(XASUFW_AES, RequesterId);

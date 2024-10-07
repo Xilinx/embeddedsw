@@ -61,8 +61,8 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_IpiInit(void);
-void XAsufw_IpiHandler(void *Data);
-s32 XAsufw_SendIpiToPlm(u32 *MsgBufPtr, u32 MsgBufLen);
+void XAsufw_IpiHandler(const void *Data);
+s32 XAsufw_SendIpiToPlm(const u32 *MsgBufPtr, u32 MsgBufLen);
 s32 XAsufw_ReadIpiRespFromPlm(u32 *RespBufPtr, u32 RespBufLen);
 void XAsufw_EnableIpiInterrupt(u16 IpiBitMask);
 

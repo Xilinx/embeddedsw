@@ -73,9 +73,9 @@ XTask_TaskNode *XTask_Create(u32 Priority, XTask_Handler_t TaskHandler, void *Pr
 void XTask_Delete(XTask_TaskNode *Task);
 void XTask_TriggerNow(XTask_TaskNode *Task);
 s32 XTask_TriggerAfterDelay(XTask_TaskNode *Task, u32 Delay);
-s32 XTask_TriggerOnEvent(XTask_TaskNode *Task, XTask_TaskEvent *Event);
+s32 XTask_TriggerOnEvent(const XTask_TaskNode *Task, XTask_TaskEvent *Event);
 void XTask_EventNotify(XTask_TaskEvent *Event);
-u32 XTask_DelayTime(XTask_TaskNode *Task);
+u32 XTask_DelayTime(const XTask_TaskNode *Task);
 void XTask_DispatchLoop(void);
 
 /************************************ Variable Definitions ***************************************/

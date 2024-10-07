@@ -103,18 +103,18 @@ struct _XTrng {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XTrng_ReseedInternal(XTrng *InstancePtr, u8 *Seed, u8 DLen, u8 *PerStr);
-static s32 XTrng_WritePersString(XTrng *InstancePtr, u8 *PersString);
+static s32 XTrng_ReseedInternal(XTrng *InstancePtr, const u8 *Seed, u8 DLen, const u8 *PerStr);
+static s32 XTrng_WritePersString(const XTrng *InstancePtr, const u8 *PersString);
 static s32 XTrng_WaitForReseed(XTrng *InstancePtr);
 static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize);
-static s32 XTrng_WriteSeed(XTrng *InstancePtr, u8 *Seed, u8 DLen);
+static s32 XTrng_WriteSeed(const XTrng *InstancePtr, const u8 *Seed, u8 DLen);
 static inline s32 XTrng_WaitForEvent(UINTPTR Addr, u32 EventMask, u32 Event, u32 Timeout);
-static s32 XTrng_Set(XTrng *InstancePtr);
-static s32 XTrng_Reset(XTrng *InstancePtr);
-static s32 XTrng_PrngReset(XTrng *InstancePtr);
-static s32 XTrng_PrngSet(XTrng *InstancePtr);
-static void XTrng_UpdateConf0(XTrng *InstancePtr, u32 DitVal, u32 RepCountTestCutoff);
-static void XTrng_UpdateConf1(XTrng *InstancePtr, u32 DFLen, u32 AdaptPropTestCutoff);
+static s32 XTrng_Set(const XTrng *InstancePtr);
+static s32 XTrng_Reset(const XTrng *InstancePtr);
+static s32 XTrng_PrngReset(const XTrng *InstancePtr);
+static s32 XTrng_PrngSet(const XTrng *InstancePtr);
+static void XTrng_UpdateConf0(const XTrng *InstancePtr, u32 DitVal, u32 RepCountTestCutoff);
+static void XTrng_UpdateConf1(const XTrng *InstancePtr, u32 DFLen, u32 AdaptPropTestCutoff);
 
 /************************************ Variable Definitions ***************************************/
 /** The configuration table for TRNG devices */
@@ -198,7 +198,7 @@ static XTrng_Config *XTrng_LookupConfig(u16 DeviceId)
 s32 XTrng_CfgInitialize(XTrng *InstancePtr)
 {
 	s32 Status = XASUFW_FAILURE;
-	XTrng_Config *CfgPtr;
+	const XTrng_Config *CfgPtr;
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
@@ -240,7 +240,7 @@ END_RET:
  * 	- XASUFW_FAILURE, On failure
  *
  *************************************************************************************************/
-static s32 XTrng_Set(XTrng *InstancePtr)
+static s32 XTrng_Set(const XTrng *InstancePtr)
 {
 	s32 Status = XASUFW_FAILURE;
 
@@ -272,7 +272,7 @@ END:
  * 	- XASUFW_FAILURE, On failure
  *
  *************************************************************************************************/
-static s32 XTrng_Reset(XTrng *InstancePtr)
+static s32 XTrng_Reset(const XTrng *InstancePtr)
 {
 	s32 Status = XASUFW_FAILURE;
 
@@ -293,7 +293,7 @@ static s32 XTrng_Reset(XTrng *InstancePtr)
  * 	- XASUFW_FAILURE, On failure
  *
  *************************************************************************************************/
-static s32 XTrng_PrngSet(XTrng *InstancePtr)
+static s32 XTrng_PrngSet(const XTrng *InstancePtr)
 {
 	s32 Status = XASUFW_FAILURE;
 
@@ -320,7 +320,7 @@ END:
  * 	- XASUFW_FAILURE, On failure
  *
  *************************************************************************************************/
-static s32 XTrng_PrngReset(XTrng *InstancePtr)
+static s32 XTrng_PrngReset(const XTrng *InstancePtr)
 {
 	s32 Status = XASUFW_FAILURE;
 
@@ -340,7 +340,7 @@ static s32 XTrng_PrngReset(XTrng *InstancePtr)
  * @param	RepCountTestCutoff	Cutoff value for repetitive count test.
  *
  *************************************************************************************************/
-static void XTrng_UpdateConf0(XTrng *InstancePtr, u32 DitVal, u32 RepCountTestCutoff)
+static void XTrng_UpdateConf0(const XTrng *InstancePtr, u32 DitVal, u32 RepCountTestCutoff)
 {
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_TRNG_CONF0_OFFSET,
 			(DitVal & XASU_TRNG_CONF0_DIT_MASK) |
@@ -358,7 +358,7 @@ static void XTrng_UpdateConf0(XTrng *InstancePtr, u32 DitVal, u32 RepCountTestCu
  * @param	AdaptPropTestCutoff	Cutoff value for adaptive count test.
  *
  *************************************************************************************************/
-static void XTrng_UpdateConf1(XTrng *InstancePtr, u32 DFLen, u32 AdaptPropTestCutoff)
+static void XTrng_UpdateConf1(const XTrng *InstancePtr, u32 DFLen, u32 AdaptPropTestCutoff)
 {
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_TRNG_CONF1_OFFSET,
 			(DFLen & XASU_TRNG_CONF1_DLEN_MASK) |
@@ -396,8 +396,8 @@ static void XTrng_UpdateConf1(XTrng *InstancePtr, u32 DFLen, u32 AdaptPropTestCu
  * 	- XASUFW_FAILURE On unexpected failure
  *
  *************************************************************************************************/
-s32 XTrng_Instantiate(XTrng *InstancePtr, u8 *Seed, u32 SeedLength, u8 *PersStr,
-		      XTrng_UserConfig *UserCfg)
+s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const u8 *PersStr,
+	const XTrng_UserConfig *UserCfg)
 {
 	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
@@ -539,7 +539,7 @@ END:
  * 	- XASUFW_FAILURE On unexpected failure.
  *
  *************************************************************************************************/
-s32 XTrng_Reseed(XTrng *InstancePtr, u8 *Seed, u8 DLen)
+s32 XTrng_Reseed(XTrng *InstancePtr, const u8 *Seed, u8 DLen)
 {
 	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
@@ -827,7 +827,7 @@ END:
  * 	- XASUFW_START_RESEED_FAILED If reseed operation failed.
  *
  *************************************************************************************************/
-static s32 XTrng_ReseedInternal(XTrng *InstancePtr, u8 *Seed, u8 DLen, u8 *PerStr)
+static s32 XTrng_ReseedInternal(XTrng *InstancePtr, const u8 *Seed, u8 DLen, const u8 *PerStr)
 {
 	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 PersMask = XASU_TRNG_CTRL_PERSODISABLE_MASK;
@@ -936,7 +936,7 @@ static s32 XTrng_WaitForReseed(XTrng *InstancePtr)
 	/** Check whether TRNG operation is completed within Timeout or not. */
 	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(XTrng_WaitForEvent, XASUFW_TRNG_TIMEOUT_ERROR, XFihVar, Status,
 					   END, (UINTPTR)(InstancePtr->BaseAddress + XASU_TRNG_STATUS_OFFSET),
-					   XASU_TRNG_STATUS_DONE_MASK, XASU_TRNG_STATUS_DONE_MASK, XTRNG_RESEED_TIMEOUT * 2);
+					   XASU_TRNG_STATUS_DONE_MASK, XASU_TRNG_STATUS_DONE_MASK, (XTRNG_RESEED_TIMEOUT * 2U));
 
 	if (XASUFW_PLATFORM != PMC_TAP_VERSION_PLATFORM_PROTIUM) {
 		if ((XAsufw_ReadReg(InstancePtr->BaseAddress + XASU_TRNG_STATUS_OFFSET) &
@@ -1044,7 +1044,7 @@ END:
  * 	- XASUFW_FAILURE On failure.
  *
  *************************************************************************************************/
-static s32 XTrng_WriteSeed(XTrng *InstancePtr, u8 *Seed, u8 DLen)
+static s32 XTrng_WriteSeed(const XTrng *InstancePtr, const u8 *Seed, u8 DLen)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 SeedLen = (DLen + 1U) * XTRNG_BLOCK_LEN_IN_BYTES;
@@ -1089,7 +1089,7 @@ END:
  *          - XASUFW_FAILURE On failure.
  *
  *************************************************************************************************/
-static s32 XTrng_WritePersString(XTrng *InstancePtr, u8 *PersString)
+static s32 XTrng_WritePersString(const XTrng *InstancePtr, const u8 *PersString)
 {
 	s32 Status = XASUFW_FAILURE;
 	volatile u8 Idx = 0U;
@@ -1143,7 +1143,7 @@ static inline s32 XTrng_WaitForEvent(UINTPTR Addr, u32 EventMask, u32 Event, u32
  * 	- XASUFW_FAILURE If random numbers are not available in TRNG FIFO.
  *
  *************************************************************************************************/
-s32 XTrng_IsRandomNumAvailable(XTrng *InstancePtr)
+s32 XTrng_IsRandomNumAvailable(const XTrng *InstancePtr)
 {
 	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 RandomBytes;
@@ -1179,7 +1179,7 @@ END:
  * 	- XASUFW_TRNG_INVALID_BUF_SIZE If buffer is less that 256 bits or NULL.
  *
  *************************************************************************************************/
-s32 XTrng_ReadTrngFifo(XTrng *InstancePtr, u32 *OutputBuf, u32 OutputBufSize)
+s32 XTrng_ReadTrngFifo(const XTrng *InstancePtr, u32 *OutputBuf, u32 OutputBufSize)
 {
 	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 *Buffer = OutputBuf;

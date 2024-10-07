@@ -155,7 +155,7 @@ END:
 s32 XEcc_Initialize(XEcc *InstancePtr)
 {
 	s32 Status = XASUFW_FAILURE;
-	XEcc_Config *CfgPtr = NULL;
+	const XEcc_Config *CfgPtr = NULL;
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {

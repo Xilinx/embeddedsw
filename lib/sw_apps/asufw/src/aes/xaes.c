@@ -241,7 +241,7 @@ static XAes XAes_Instance[XASU_XAES_NUM_INSTANCES]; /**< ASUFW AES HW instances 
  *		- XASUFW_AES_INVALID_ENGINE_MODE, if AES engine mode is invalid.
  *
  *************************************************************************************************/
-static inline s32 XAes_ValidateIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
+static inline s32 XAes_ValidateIv(const XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 {
 	s32 Status = XASUFW_AES_INVALID_IV;
 
@@ -299,7 +299,7 @@ static inline s32 XAes_ValidateIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
  *		- XASUFW_AES_INVALID_ENGINE_MODE, if AES engine mode is invalid.
  *
  *************************************************************************************************/
-static inline s32 XAes_ValidateTag(XAes *InstancePtr, u64 TagAddr, u32 TagLen)
+static inline s32 XAes_ValidateTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen)
 {
 	s32 Status = XASUFW_AES_INVALID_TAG;
 
@@ -350,20 +350,20 @@ static inline s32 XAes_ValidateTag(XAes *InstancePtr, u64 TagAddr, u32 TagLen)
 
 /************************** Function Prototypes **************************************************/
 static XAes_Config *XAes_LookupConfig(u16 DeviceId);
-static s32 XAes_CheckKeyZeroedStatus(XAes *InstancePtr, u32 KeySrc);
-static void XAes_ConfigCounterMeasures(XAes *InstancePtr);
-static void XAes_ConfigAesOperation(XAes *InstancePtr);
-static void XAes_LoadKey(XAes *InstancePtr, u32 KeySrc, u32 KeySize);
+static s32 XAes_CheckKeyZeroedStatus(const XAes *InstancePtr, u32 KeySrc);
+static void XAes_ConfigCounterMeasures(const XAes *InstancePtr);
+static void XAes_ConfigAesOperation(const XAes *InstancePtr);
+static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
 static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen);
 static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen);
-static s32 XAes_ReadTag(XAes *InstancePtr, u32 TagOutAddr, u32 TagLen);
-static s32 XAes_ReadNVerifyTag(XAes *InstancePtr, u32 TagInAddr, u32 TagLen);
-static s32 XAes_ProcessTag(XAes *InstancePtr, u64 TagAddr, u32 TagLen);
-static void XAes_ConfigAad(XAes *InstancePtr);
-static void XAes_ClearConfigAad(XAes *InstancePtr);
-static s32 XAes_CfgDmaWithAesAndXfer(XAes *InstancePtr, u64 InDataAddr, u64 OutDataAddr, u32 Size,
-				     u8 IsLastChunk);
-static s32 XAes_WaitForDone(XAes *InstancePtr);
+static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen);
+static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLen);
+static s32 XAes_ProcessTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen);
+static void XAes_ConfigAad(const XAes *InstancePtr);
+static void XAes_ClearConfigAad(const XAes *InstancePtr);
+static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u64 OutDataAddr,
+	u32 Size, u8 IsLastChunk);
+static s32 XAes_WaitForDone(const XAes *InstancePtr);
 static void XAes_SetReset(XAes *InstancePtr);
 
 /*************************************************************************************************/
@@ -406,7 +406,7 @@ END:
 s32 XAes_CfgInitialize(XAes *InstancePtr)
 {
 	s32 Status = XASUFW_FAILURE;
-	XAes_Config *CfgPtr;
+	const XAes_Config *CfgPtr;
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
@@ -943,7 +943,7 @@ static XAes_Config *XAes_LookupConfig(u16 DeviceId)
  *		- XASUFW_AES_ZEROED_KEY_NOT_ALLOWED, if key is zeroized.
  *
  *************************************************************************************************/
-static s32 XAes_CheckKeyZeroedStatus(XAes *InstancePtr, u32 KeySrc)
+static s32 XAes_CheckKeyZeroedStatus(const XAes *InstancePtr, u32 KeySrc)
 {
 	s32 Status = XASUFW_AES_ZEROED_KEY_NOT_ALLOWED;
 	u32 KeyZeroedStatus;
@@ -969,7 +969,7 @@ static s32 XAes_CheckKeyZeroedStatus(XAes *InstancePtr, u32 KeySrc)
  * 		every start of AES operation.
  *
  *************************************************************************************************/
-static void XAes_ConfigCounterMeasures(XAes *InstancePtr)
+static void XAes_ConfigCounterMeasures(const XAes *InstancePtr)
 {
 	if (InstancePtr->AesCmConfig == XASUFW_CONFIG_ENABLE) {
 		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_CM_OFFSET),
@@ -988,7 +988,7 @@ static void XAes_ConfigCounterMeasures(XAes *InstancePtr)
  * @param	InstancePtr	Pointer to the XAes instance.
  *
  *************************************************************************************************/
-static void XAes_ConfigAesOperation(XAes *InstancePtr)
+static void XAes_ConfigAesOperation(const XAes *InstancePtr)
 {
 	if (InstancePtr->OperationType == XASU_AES_ENCRYPT_OPERATION) {
 		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
@@ -1008,7 +1008,7 @@ static void XAes_ConfigAesOperation(XAes *InstancePtr)
  * @param	KeySize		Size of the key.
  *
  *************************************************************************************************/
-static void XAes_LoadKey(XAes *InstancePtr, u32 KeySrc, u32 KeySize)
+static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize)
 {
 	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_SIZE_OFFSET), KeySize);
 
@@ -1144,7 +1144,7 @@ END:
  *		- XASUFW_AES_TAG_GENERATE_FAILED, if tag read fails.
  *
  *************************************************************************************************/
-static s32 XAes_ReadTag(XAes *InstancePtr, u32 TagOutAddr, u32 TagLen)
+static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen)
 {
 	s32 Status = XASUFW_AES_TAG_GENERATE_FAILED;
 	u32 Index;
@@ -1184,12 +1184,12 @@ static s32 XAes_ReadTag(XAes *InstancePtr, u32 TagOutAddr, u32 TagLen)
  *		- XASUFW_AES_TAG_COMPARE_FAILED, if tag comparision fails.
  *
  *************************************************************************************************/
-static s32 XAes_ReadNVerifyTag(XAes *InstancePtr, u32 TagInAddr, u32 TagLen)
+static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLen)
 {
 	s32 Status = XASUFW_AES_TAG_COMPARE_FAILED;
 	u32 Index ;
 	u32 ReadReg;
-	u32 *TagPtr = (u32 *)TagInAddr;
+	const u32 *TagPtr = (const u32 *)TagInAddr;
 
 	for (Index = 0U; Index < XASUFW_CONVERT_BYTES_TO_WORDS(TagLen); Index++) {
 		ReadReg = Xil_EndianSwap32(XAsufw_ReadReg(InstancePtr->AesBaseAddress +
@@ -1231,7 +1231,7 @@ END:
  *		- XASUFW_FAILURE, if read/verification of the tag fails.
  *
  *************************************************************************************************/
-static s32 XAes_ProcessTag(XAes *InstancePtr, u64 TagAddr, u32 TagLen)
+static s32 XAes_ProcessTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen)
 {
 	s32 Status = XASUFW_FAILURE;
 	u8 Tag[XASU_AES_MAX_TAG_LENGTH_IN_BYTES];
@@ -1279,7 +1279,7 @@ END:
  * @param	InstancePtr	Pointer to the XAes instance.
  *
  *************************************************************************************************/
-static void XAes_ConfigAad(XAes *InstancePtr)
+static void XAes_ConfigAad(const XAes *InstancePtr)
 {
 	if ((InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
 	    (InstancePtr->EngineMode == XASU_AES_CCM_MODE)) {
@@ -1308,7 +1308,7 @@ static void XAes_ConfigAad(XAes *InstancePtr)
  * @param	InstancePtr	Pointer to the XAes instance.
  *
  *************************************************************************************************/
-static void XAes_ClearConfigAad(XAes *InstancePtr)
+static void XAes_ClearConfigAad(const XAes *InstancePtr)
 {
 	/** Clear AUTH and AUTH_WITH_NO_PAYLOAD bits in AES mode configuration register. */
 	XAsufw_RMW((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
@@ -1331,7 +1331,7 @@ static void XAes_ClearConfigAad(XAes *InstancePtr)
  *		- XASUFW_FAILURE, upon any failure.
  *
  *************************************************************************************************/
-static s32 XAes_CfgDmaWithAesAndXfer(XAes *InstancePtr, u64 InDataAddr, u64 OutDataAddr, u32 Size,
+static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u64 OutDataAddr, u32 Size,
 				     u8 IsLastChunk)
 {
 	s32 Status = XASUFW_FAILURE;
@@ -1390,7 +1390,7 @@ END:
  *		- XASUFW_FAILURE, upon timeout.
  *
  *************************************************************************************************/
-static s32 XAes_WaitForDone(XAes *InstancePtr)
+static s32 XAes_WaitForDone(const XAes *InstancePtr)
 {
 	s32 Status = XASUFW_FAILURE;
 

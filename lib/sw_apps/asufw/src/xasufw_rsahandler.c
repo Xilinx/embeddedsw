@@ -42,11 +42,11 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsufw_RsaKat(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaGetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaPubEnc(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaPvtDec(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaPvtCrtDec(XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_RsaGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_RsaModule; /**< ASUFW RSA Module ID and commands array */
@@ -113,10 +113,10 @@ s32 XAsufw_RsaInit(void)
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaPubEnc(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XAsu_RsaClientParams *Cmd = (XAsu_RsaClientParams *)ReqBuf->Arg;
+	const XAsu_RsaClientParams *Cmd = (const XAsu_RsaClientParams *)ReqBuf->Arg;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 
 	/** Check resource availability (DMA and RSA) and allocate them. */
@@ -157,10 +157,10 @@ RET:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaPvtDec(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XAsu_RsaClientParams *Cmd = (XAsu_RsaClientParams *)ReqBuf->Arg;
+	const XAsu_RsaClientParams *Cmd = (const XAsu_RsaClientParams *)ReqBuf->Arg;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 
 	/** Check resource availability (DMA,RSA and TRNG) and allocate them. */
@@ -205,10 +205,10 @@ RET:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaPvtCrtDec(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XAsu_RsaClientParams *Cmd = (XAsu_RsaClientParams *)ReqBuf->Arg;
+	const XAsu_RsaClientParams *Cmd = (const XAsu_RsaClientParams *)ReqBuf->Arg;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 
 	/** Check resource availability (DMA,RSA and TRNG) and allocate them. */
@@ -250,7 +250,7 @@ RET:
  * 	- Error code, returned when XAsufw_RsaPubEncKat API fails.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaKat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 
@@ -272,7 +272,7 @@ static s32 XAsufw_RsaKat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
  * 	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaGetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 

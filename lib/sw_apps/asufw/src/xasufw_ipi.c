@@ -102,7 +102,7 @@ void XAsufw_EnableIpiInterrupt(u16 IpiBitMask)
  * @param	Data    Private data (Interrupt number in this case).
  *
  *************************************************************************************************/
-void XAsufw_IpiHandler(void *Data)
+void XAsufw_IpiHandler(const void *Data)
 {
 	u32 IpiIsr = XAsufw_ReadReg(IPI_ASU_ISR);
 	u32 Count = 0U;
@@ -138,7 +138,7 @@ void XAsufw_IpiHandler(void *Data)
  *		- XASUFW_IPI_TRIGGER_FAILED, if IPI trigger fails.
  *
  *************************************************************************************************/
-s32 XAsufw_SendIpiToPlm(u32 *MsgBufPtr, u32 MsgBufLen)
+s32 XAsufw_SendIpiToPlm(const u32 *MsgBufPtr, u32 MsgBufLen)
 {
 	s32 Status = XASUFW_FAILURE;
 

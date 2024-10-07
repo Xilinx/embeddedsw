@@ -42,9 +42,9 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsufw_AesOperation(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_AesKat(XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_AesGetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_AesGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_AesModule; /**< ASUFW AES Module ID and commands array */
@@ -118,11 +118,11 @@ END:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_AesOperation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
-	Asu_AesParams *AesParamsPtr = (Asu_AesParams *)ReqBuf->Arg;
+	const Asu_AesParams *AesParamsPtr = (const Asu_AesParams *)ReqBuf->Arg;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 	XAsufw_Resource Resource;
 
@@ -233,7 +233,7 @@ END:
  * 	- XASUFW_FAILURE, upon failure.
  *
  *************************************************************************************************/
-static s32 XAsufw_AesKat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 
@@ -258,7 +258,7 @@ static s32 XAsufw_AesKat(XAsu_ReqBuf *ReqBuf, u32 QueueId)
  *	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
-static s32 XAsufw_AesGetInfo(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_AesGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 
