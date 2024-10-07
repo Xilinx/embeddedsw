@@ -108,7 +108,7 @@ const u8 XAsufw_SssLookupTable[XASUFW_SSS_MAX_SRCS][XASUFW_SSS_MAX_SRCS] = {
  *************************************************************************************************/
 s32 XAsufw_SssDmaLoopback(XAsufw_SssSrc DmaResource)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	if ((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
@@ -136,7 +136,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_SssDmaLoopbackWithSha(XAsufw_SssSrc DmaResource, XAsufw_SssSrc OutputSrc)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	if (((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) ||
 	    ((OutputSrc != XASUFW_SSS_SHA2) && (OutputSrc != XASUFW_SSS_SHA3))) {
@@ -164,7 +164,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_SssDmaToPli(XAsufw_SssSrc DmaResource)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	if ((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
@@ -191,7 +191,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_SssShaWithDma(XAsufw_SssSrc ShaResource, XAsufw_SssSrc InputSrc)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	if (((InputSrc != XASUFW_SSS_DMA0) && (InputSrc != XASUFW_SSS_DMA1)) ||
 		((ShaResource != XASUFW_SSS_SHA2) && (ShaResource != XASUFW_SSS_SHA3))) {
@@ -219,7 +219,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_SssShaForPli(XAsufw_SssSrc ShaResource)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	if ((ShaResource != XASUFW_SSS_SHA2) && (ShaResource != XASUFW_SSS_SHA3)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
@@ -246,7 +246,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_SssAesWithDma(XAsufw_SssSrc InputSrc)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	if ((InputSrc != XASUFW_SSS_DMA0) && (InputSrc != XASUFW_SSS_DMA1)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
@@ -271,7 +271,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_SssAesForPli(void)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	Status = XAsufw_SssCfg(XASUFW_SSS_AES, XASUFW_SSS_PLI, XASUFW_SSS_PLI);
 
@@ -392,7 +392,7 @@ static void XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
  *************************************************************************************************/
 static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_SssSrc OutputSrc)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 InputSrcCfg = 0x0U;
 	u32 OutputSrcCfg = 0x0U;
 	volatile u32 InputSrcCfgRedundant = 0x0U;

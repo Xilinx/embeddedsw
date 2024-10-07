@@ -110,10 +110,10 @@ static u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv);
 s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
 			   u64 PubKeyAddr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	s32 ClearStatus = XFih_VolatileAssign((s32)XASUFW_FAILURE);
-	s32 ClearStatusTmp = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 ClearStatus = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 ClearStatusTmp = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 CurveSize = 0U;
 	u8 PrivKey[XRSA_ECC_P521_SIZE_IN_BYTES];
 	u8 PubKey[XRSA_ECC_P521_SIZE_IN_BYTES + XRSA_ECC_P521_SIZE_IN_BYTES];
@@ -221,11 +221,11 @@ END:
  *************************************************************************************************/
 s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PubKeyAddr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u32 CurveSize = 0U;
-	s32 ClearStatus = XFih_VolatileAssign((s32)XASUFW_FAILURE);
-	s32 ClearStatusTmp = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 ClearStatus = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 ClearStatusTmp = XFih_VolatileAssign(XASUFW_FAILURE);
 	u8 PubKey[XRSA_ECC_P521_SIZE_IN_BYTES + XRSA_ECC_P521_SIZE_IN_BYTES];
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
@@ -333,10 +333,10 @@ END:
 s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
 			      const u8 *EphemeralKeyPtr, u64 HashAddr, u32 HashBufLen, u64 SignAddr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	s32 ClearStatus = XFih_VolatileAssign((s32)XASUFW_FAILURE);
-	s32 ClearStatusTmp = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 ClearStatus = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 ClearStatusTmp = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 CurveSize = 0U;
 	u8 PrivKey[XRSA_ECC_P521_SIZE_IN_BYTES];
 	u8 Signature[XRSA_ECC_P521_SIZE_IN_BYTES + XRSA_ECC_P521_SIZE_IN_BYTES];
@@ -482,10 +482,10 @@ END:
 s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PubKeyAddr,
 			    u64 HashAddr, u32 HashBufLen, u64 SignAddr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	s32 ClearStatus = XFih_VolatileAssign((s32)XASUFW_FAILURE);
-	s32 ClearStatusTmp = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 ClearStatus = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 ClearStatusTmp = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 CurveSize = 0U;
 	u8 PubKey[XRSA_ECC_P521_SIZE_IN_BYTES + XRSA_ECC_P521_SIZE_IN_BYTES];
 	u8 Signature[XRSA_ECC_P521_SIZE_IN_BYTES + XRSA_ECC_P521_SIZE_IN_BYTES];

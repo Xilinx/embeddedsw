@@ -124,7 +124,7 @@ static s32 XAsufw_AesOperation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	Asu_AesParams *AesParamsPtr = (Asu_AesParams *)ReqBuf->Arg;
 	XAsufw_Dma *AsuDmaPtr = NULL;
-	u8 IsAllOpFlagsSet = FALSE;
+	u8 IsAllOpFlagsSet = XASU_FALSE;
 	XAsufw_Resource Resource;
 
 	/** Check and allocate DMA resource to AES, based on DMA availability. */
@@ -168,7 +168,7 @@ static s32 XAsufw_AesOperation(XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		    (AesParamsPtr->EngineMode != XASU_AES_CTR_MODE) &&
 		    (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) {
 			Status = XAes_Update(XAsufw_Aes, AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
-					     AesParamsPtr->AadLen, FALSE);
+					     AesParamsPtr->AadLen, XASU_FALSE);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
 				XFIH_GOTO(END);

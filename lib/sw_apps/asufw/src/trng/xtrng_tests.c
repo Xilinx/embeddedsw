@@ -63,7 +63,7 @@ static s32 XTrng_HealthTest(XTrng *InstancePtr);
  *************************************************************************************************/
 s32 XTrng_DrbgKat(XTrng *InstancePtr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	XTrng_UserConfig UsrCfg;
 	u8 RandBuf[XTRNG_SEC_STRENGTH_IN_BYTES];
 
@@ -129,7 +129,7 @@ s32 XTrng_DrbgKat(XTrng *InstancePtr)
 	UsrCfg.DFLength = XTRNG_KAT_DEFAULT_DF_lENGTH;
 	UsrCfg.Mode = XTRNG_DRNG_MODE;
 	UsrCfg.SeedLife = XTRNG_KAT_DEFAULT_SEED_LIFE;
-	UsrCfg.IsBlocking = TRUE;
+	UsrCfg.IsBlocking = XASU_TRUE;
 
 	Status = XTrng_Instantiate(InstancePtr, ExtSeed, XTRNG_KAT_SEED_LEN_IN_BYTES, PersString,
 				   &UsrCfg);
@@ -142,7 +142,7 @@ s32 XTrng_DrbgKat(XTrng *InstancePtr)
 		XFIH_GOTO(END);
 	}
 
-	Status = XTrng_Generate(InstancePtr, RandBuf, XTRNG_SEC_STRENGTH_IN_BYTES, TRUE);
+	Status = XTrng_Generate(InstancePtr, RandBuf, XTRNG_SEC_STRENGTH_IN_BYTES, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
@@ -176,7 +176,7 @@ END:
  *************************************************************************************************/
 s32 XTrng_PreOperationalSelfTests(XTrng *InstancePtr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/* Reset the TRNG state */
 	Status = XTrng_Uninstantiate(InstancePtr);
@@ -215,7 +215,7 @@ END:
  *************************************************************************************************/
 static s32 XTrng_HealthTest(XTrng *InstancePtr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	XTrng_UserConfig UsrCfg;
 
 	UsrCfg.Mode = XTRNG_HRNG_MODE;
@@ -223,7 +223,7 @@ static s32 XTrng_HealthTest(XTrng *InstancePtr)
 	UsrCfg.RepCountTestCutoff = XTRNG_USER_CFG_REP_TEST_CUTOFF;
 	UsrCfg.DFLength = XTRNG_USER_CFG_DF_LENGTH;
 	UsrCfg.SeedLife = XTRNG_USER_CFG_SEED_LIFE;
-	UsrCfg.IsBlocking = TRUE;
+	UsrCfg.IsBlocking = XASU_TRUE;
 
 	Status = XTrng_Instantiate(InstancePtr, NULL, 0U, NULL, &UsrCfg);
 	if (Status != XASUFW_SUCCESS) {

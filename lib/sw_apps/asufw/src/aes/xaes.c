@@ -79,8 +79,8 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 	{
 		XAES_INVALID_CFG,
 		XAES_KEY_SEL_EFUSE_KEY_RED_0_VALUE,
-		FALSE,
-		TRUE,
+		XASU_FALSE,
+		XASU_TRUE,
 		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_0_VALUE,
 		XAES_KEY_CLEAR_EFUSE_KEY_RED_0_MASK,
 		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_0_MASK
@@ -90,8 +90,8 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 	{
 		XAES_INVALID_CFG,
 		XAES_KEY_SEL_EFUSE_KEY_RED_1_VALUE,
-		FALSE,
-		TRUE,
+		XASU_FALSE,
+		XASU_TRUE,
 		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_1_VALUE,
 		XAES_KEY_CLEAR_EFUSE_KEY_RED_1_MASK,
 		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_1_MASK
@@ -101,8 +101,8 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 	{
 		XAES_USER_KEY_0_0_OFFSET,
 		XAES_KEY_SEL_USER_KEY_0_VALUE,
-		TRUE,
-		FALSE,
+		XASU_TRUE,
+		XASU_FALSE,
 		XAES_INVALID_CFG,
 		XAES_KEY_CLEAR_USER_KEY_0_MASK,
 		XAES_KEY_ZEROED_STATUS_USER_KEY_0_MASK
@@ -112,8 +112,8 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 	{
 		XAES_USER_KEY_1_0_OFFSET,
 		XAES_KEY_SEL_USER_KEY_1_VALUE,
-		TRUE,
-		FALSE,
+		XASU_TRUE,
+		XASU_FALSE,
 		XAES_INVALID_CFG,
 		XAES_KEY_CLEAR_USER_KEY_1_MASK,
 		XAES_KEY_ZEROED_STATUS_USER_KEY_1_MASK
@@ -123,8 +123,8 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 	{
 		XAES_USER_KEY_2_0_OFFSET,
 		XAES_KEY_SEL_USER_KEY_2_VALUE,
-		TRUE,
-		FALSE,
+		XASU_TRUE,
+		XASU_FALSE,
 		XAES_INVALID_CFG,
 		XAES_KEY_CLEAR_USER_KEY_2_MASK,
 		XAES_KEY_ZEROED_STATUS_USER_KEY_2_MASK
@@ -134,8 +134,8 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 	{
 		XAES_USER_KEY_3_0_OFFSET,
 		XAES_KEY_SEL_USER_KEY_3_VALUE,
-		TRUE,
-		FALSE,
+		XASU_TRUE,
+		XASU_FALSE,
 		XAES_INVALID_CFG,
 		XAES_KEY_CLEAR_USER_KEY_3_MASK,
 		XAES_KEY_ZEROED_STATUS_USER_KEY_3_MASK
@@ -145,8 +145,8 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 	{
 		XAES_USER_KEY_4_0_OFFSET,
 		XAES_KEY_SEL_USER_KEY_4_VALUE,
-		TRUE,
-		FALSE,
+		XASU_TRUE,
+		XASU_FALSE,
 		XAES_INVALID_CFG,
 		XAES_KEY_CLEAR_USER_KEY_4_MASK,
 		XAES_KEY_ZEROED_STATUS_USER_KEY_4_MASK
@@ -156,8 +156,8 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 	{
 		XAES_USER_KEY_5_0_OFFSET,
 		XAES_KEY_SEL_USER_KEY_5_VALUE,
-		TRUE,
-		FALSE,
+		XASU_TRUE,
+		XASU_FALSE,
 		XAES_INVALID_CFG,
 		XAES_KEY_CLEAR_USER_KEY_5_MASK,
 		XAES_KEY_ZEROED_STATUS_USER_KEY_5_MASK
@@ -167,8 +167,8 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 	{
 		XAES_USER_KEY_6_0_OFFSET,
 		XAES_KEY_SEL_USER_KEY_6_VALUE,
-		TRUE,
-		FALSE,
+		XASU_TRUE,
+		XASU_FALSE,
 		XAES_INVALID_CFG,
 		XAES_KEY_CLEAR_USER_KEY_6_MASK,
 		XAES_KEY_ZEROED_STATUS_USER_KEY_6_MASK
@@ -178,8 +178,8 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 	{
 		XAES_USER_KEY_7_0_OFFSET,
 		XAES_KEY_SEL_USER_KEY_7_VALUE,
-		TRUE,
-		FALSE,
+		XASU_TRUE,
+		XASU_FALSE,
 		XAES_INVALID_CFG,
 		XAES_KEY_CLEAR_USER_KEY_7_MASK,
 		XAES_KEY_ZEROED_STATUS_USER_KEY_7_MASK
@@ -189,8 +189,8 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 	{
 		XAES_INVALID_CFG,
 		XAES_KEY_SEL_PUF_KEY_VALUE,
-		FALSE,
-		FALSE,
+		XASU_FALSE,
+		XASU_FALSE,
 		XAES_INVALID_CFG,
 		XAES_KEY_CLEAR_PUF_KEY_MASK,
 		XAES_KEY_ZEROED_STATUS_PUF_KEY_MASK
@@ -465,10 +465,10 @@ END:
 /* TODO: In future, this API can be moved/modified after Key vault implementation. */
 s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_AES_GLITCH_ERROR);
-	s32 Sstatus = XFih_VolatileAssign((s32)XASUFW_AES_INVALID_IV);
-	s32 ClearStatus = XFih_VolatileAssign((s32)XASUFW_AES_INVALID_IV);
-	s32 ClearStatusTmp = XFih_VolatileAssign((s32)XASUFW_AES_INVALID_IV);
+	s32 Status = XFih_VolatileAssign(XASUFW_AES_GLITCH_ERROR);
+	s32 Sstatus = XFih_VolatileAssign(XASUFW_AES_INVALID_IV);
+	s32 ClearStatus = XFih_VolatileAssign(XASUFW_AES_INVALID_IV);
+	s32 ClearStatusTmp = XFih_VolatileAssign(XASUFW_AES_INVALID_IV);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u32 Key[XASU_AES_KEY_SIZE_256BIT_IN_WORDS];
 	u32 Offset;
@@ -511,7 +511,7 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr)
 		XFIH_GOTO(END);
 	}
 
-	if (AesKeyLookupTbl[KeyObject.KeySrc].UsrWrAllowed != TRUE) {
+	if (AesKeyLookupTbl[KeyObject.KeySrc].UsrWrAllowed != XASU_TRUE) {
 		Status = XASUFW_AES_INVALID_KEY_SRC;
 		XFIH_GOTO(END);
 	}
@@ -605,8 +605,8 @@ END:
 s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAddr, u32 IvLen,
 	      u8 EngineMode, u8 OperationType)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
-	s32 Sstatus = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Sstatus = XFih_VolatileAssign(XASUFW_FAILURE);
 	XAsu_AesKeyObject KeyObject;;
 
 	/** Validate the input arguments.*/
@@ -750,7 +750,7 @@ END:
 s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDataAddr,
 		u32 DataLength, u8 IsLastChunk)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
@@ -779,7 +779,7 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 		XFIH_GOTO(END);
 	}
 
-	if ((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) {
+	if ((IsLastChunk != XASU_TRUE) && (IsLastChunk != XASU_FALSE)) {
 		Status = XASUFW_AES_INVALID_ISLAST_CHUNK;
 		XFIH_GOTO(END);
 	}
@@ -849,7 +849,7 @@ END:
  *************************************************************************************************/
 s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
@@ -1010,7 +1010,7 @@ static void XAes_ConfigAesOperation(XAes *InstancePtr)
  *************************************************************************************************/
 static void XAes_LoadKey(XAes *InstancePtr, u32 KeySrc, u32 KeySize)
 {
-	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_SIZE_OFFSET), (u32)KeySize);
+	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_SIZE_OFFSET), KeySize);
 
 	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_SEL_OFFSET),
 			AesKeyLookupTbl[KeySrc].KeySrcSelVal);
@@ -1115,7 +1115,7 @@ static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen)
 			(XAES_MODE_CONFIG_AUTH_MASK | InstancePtr->EngineMode));
 
 	/** Configure DMA with AES and transfer the data to AES engine. */
-	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, IvAddr, 0U, IvLen, TRUE);
+	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, IvAddr, 0U, IvLen, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
@@ -1395,7 +1395,7 @@ static s32 XAes_WaitForDone(XAes *InstancePtr)
 	s32 Status = XASUFW_FAILURE;
 
 	/* Check for AES operation is completed within Timeout(10sec) or not. */
-	Status = Xil_WaitForEvent((InstancePtr->AesBaseAddress + XAES_INTERRUPT_STATUS_OFFSET),
+	Status = (s32)Xil_WaitForEvent((InstancePtr->AesBaseAddress + XAES_INTERRUPT_STATUS_OFFSET),
 				  XAES_INTERRUPT_STATUS_DONE_MASK, XAES_INTERRUPT_STATUS_DONE_MASK, XAES_TIMEOUT_MAX);
 
 	return Status;
@@ -1486,14 +1486,14 @@ s32 XAes_DpaCmDecryptData(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObje
 
 	/** Write AES key. */
 	Status = XAes_WriteKey(InstancePtr, DmaPtr, (u64)(UINTPTR)KeyObjPtr);
-	if (Status != (u32)XASUFW_SUCCESS) {
+	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
 	/** Load key to AES engine. */
 	XAes_LoadKey(InstancePtr, KeyObjPtr->KeySrc, KeyObjPtr->KeySize);
 
-	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, InputDataAddr, OutputDataAddr, DataLength, TRUE);
+	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, InputDataAddr, OutputDataAddr, DataLength, XASU_TRUE);
 
 END:
 	return Status;
