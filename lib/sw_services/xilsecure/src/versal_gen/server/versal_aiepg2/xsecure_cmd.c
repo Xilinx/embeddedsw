@@ -8,7 +8,7 @@
 *
 * @file xsecure_cmd.c
 *
-* This file contains the xilsecure IPI handler implementation.
+* This file contains the Xilsecure IPI handler implementation.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,10 +20,11 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
 #include "xsecure_error.h"
@@ -110,10 +111,11 @@ static XPlmi_Module XPlmi_Secure =
  * @brief	This function checks if a particular Secure API ID is supported
  * or not.
  *
- * @param	ApiId is API ID in the IPI request
+ * @param	ApiId	API ID in the IPI request
  *
- * @return	XST_SUCCESS in case of success
- *		XST_INVALID_PARAM in case of unsupported API ID
+ * @return
+ *		 - XST_SUCCESS  In case of success
+ *		 - XST_INVALID_PARAM  In case of unsupported API ID
  *
  *****************************************************************************/
 static int XSecure_FeaturesCmd(u32 ApiId)
@@ -167,9 +169,17 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	return Status;
 
 }
+
 /*****************************************************************************/
 /**
  * @brief	This function processes XilSecure IPI commands
+ *
+ * @param	Cmd	Pointer to the command structure
+ *
+ * @return
+ *		 - XST_SUCCESS  Upon success
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid
+ *		 - XSECURE_KAT_MAJOR_ERROR  If KAT fails
  *
  *****************************************************************************/
 static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
