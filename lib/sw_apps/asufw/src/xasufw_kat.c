@@ -752,6 +752,14 @@ s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
+	/** Comparison of generated GCM tag with the expected GCM tag. */
+	Status = Xil_SMemCmp_CT(ExpAesGcmTag, XASUFW_AES_TAG_LEN_IN_BYTES, AesTag,
+				XASUFW_AES_TAG_LEN_IN_BYTES, XASUFW_AES_TAG_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ASU AES KAT Failed at Encrypted data Comparison \r\n");
+		XFIH_GOTO(END);
+	}
+
 	/**  Initializes the AES engine and load the provided key and IV to the AES engine
 		for decryption. */
 	Status = XAes_Init(AesInstance, AsuDmaPtr, (u64)(UINTPTR)&KeyObject, (u64)(UINTPTR)AesIv,
@@ -833,7 +841,6 @@ END:
 s32 XAsufw_AesDecryptDpaCmKat(XAes *AesInstance, u32 QueueId)
 {
 	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
-	s32 ClearStatus = XFih_VolatileAssign(XASUFW_FAILURE);
 	XAsufw_Dma *AsuDmaPtr = NULL;
 	XAsu_AesKeyObject KeyObject;
 	u32 *AesCmCtPtr = (u32 *)(UINTPTR)AesCmCt;
