@@ -203,6 +203,7 @@ enum {
 	XASUFW_AES_INVALID_PARAM, /**< Invalid parameters to AES APIs */
 	XASUFW_AES_STATE_MISMATCH_ERROR, /**< AES state mismatch error. Occurs when previous AES
 						state doesn't match before further update */
+	XASUFW_AES_KEY_CLEAR_ERROR, /**< AES key clear error */
 	XASUFW_AES_INVALID_KEY_OBJECT_ADDRESS, /**< AES invalid key object address */
 	XASUFW_AES_INVALID_KEY_SRC, /**< AES invalid key source */
 	XASUFW_AES_INVALID_KEY_SIZE, /**< AES invalid key size */

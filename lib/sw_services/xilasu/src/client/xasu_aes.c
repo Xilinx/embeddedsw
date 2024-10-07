@@ -87,7 +87,7 @@ s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClientP
 	}
 
 	/**
-	 * Both InputDataAddr/OutputDataAddr and AadAddr cannot be zero.
+	 * Both InputDataAddr/OutputDataAddr and AadAddr cannot be zero at once.
 	 */
 	if (((AesClientParamPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) &&
 		(((AesClientParamPtr->OutputDataAddr == 0U) && (AesClientParamPtr->AadAddr == 0U)) ||
@@ -100,6 +100,7 @@ s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClientP
 	 * The minimum length of plaintext/AAD data must be at least 8 bits, while the
 	 * maximum length should be less than 0x1FFFFFFC bytes, which is the
 	 * ASU DMA's maximum supported data transfer length.
+	 * Both Input data and AAD length cannot be zero at once.
 	 */
 	if ((((AesClientParamPtr->DataLen == 0U) ||
 			(AesClientParamPtr->DataLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) &&
@@ -114,6 +115,18 @@ s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClientP
 	if ((AesClientParamPtr->EngineMode > XASU_AES_GCM_MODE) &&
 			(AesClientParamPtr->EngineMode != XASU_AES_CMAC_MODE) &&
 			(AesClientParamPtr->EngineMode != XASU_AES_GHASH_MODE)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/**
+	 * For the ECB, CBC, and CFB modes, the plaintext must be a sequence of one or more
+	 * complete data blocks.
+	 */
+	if (((AesClientParamPtr->EngineMode == XASU_AES_ECB_MODE) ||
+			(AesClientParamPtr->EngineMode == XASU_AES_CBC_MODE) ||
+			(AesClientParamPtr->EngineMode == XASU_AES_CFB_MODE)) &&
+			((AesClientParamPtr->DataLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -234,6 +247,18 @@ s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClientP
 	if ((AesClientParamPtr->EngineMode > XASU_AES_GCM_MODE) &&
 			(AesClientParamPtr->EngineMode != XASU_AES_CMAC_MODE) &&
 			(AesClientParamPtr->EngineMode != XASU_AES_GHASH_MODE)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/**
+	 * For the ECB, CBC, and CFB modes, the plaintext must be a sequence of one or more
+	 * complete data blocks.
+	 */
+	if (((AesClientParamPtr->EngineMode == XASU_AES_ECB_MODE) ||
+			(AesClientParamPtr->EngineMode == XASU_AES_CBC_MODE) ||
+			(AesClientParamPtr->EngineMode == XASU_AES_CFB_MODE)) &&
+			((AesClientParamPtr->DataLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
