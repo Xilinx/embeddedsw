@@ -260,7 +260,6 @@ s32 XSha_Start(XSha *InstancePtr, u32 ShaMode)
 	/** Start SHA Engine. */
 	XAsufw_WriteReg(InstancePtr->BaseAddress, XASU_SHA_START_MASK);
 	InstancePtr->ShaState = XSHA_STARTED;
-	Status = XASUFW_SUCCESS;
 
 END:
 	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
