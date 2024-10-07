@@ -446,7 +446,7 @@ int main()
 		goto END;
 	}
 
-	Status = XSecure_InputSlrIndex(&SecureClientInstance, SLR_INDEX);
+	Status = XSecure_SetSlrIndex(&SecureClientInstance, SLR_INDEX);
 	if (Status != XST_SUCCESS) {
 			xil_printf("invalid SlrIndex \r\n");
 			goto END;

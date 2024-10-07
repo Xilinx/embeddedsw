@@ -236,7 +236,7 @@ int main(void)
 	Xil_DCacheFlushRange((UINTPTR)Data, XSECURE_DATA_SIZE);
 	Xil_DCacheFlushRange((UINTPTR)Aad, XSECURE_AAD_SIZE);
 
-	Status = XSecure_InputSlrIndex(&SecureClientInstance, XSECURE_SLR_INDEX_0);
+	Status = XSecure_SetSlrIndex(&SecureClientInstance, XSECURE_SLR_INDEX_0);
 	if (Status != XST_SUCCESS) {
 			xil_printf("\r\nInvalid SlrIndex\r\n");
 			goto END;
