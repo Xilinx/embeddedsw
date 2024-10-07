@@ -73,7 +73,7 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static void XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
+static s32 XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
 			   XAsufw_SssSrc OutputSrc);
 static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_SssSrc OutputSrc);
 
@@ -108,11 +108,11 @@ const u8 XAsufw_SssLookupTable[XASUFW_SSS_MAX_SRCS][XASUFW_SSS_MAX_SRCS] = {
  *************************************************************************************************/
 s32 XAsufw_SssDmaLoopback(XAsufw_SssSrc DmaResource)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Status = XASUFW_FAILURE;
 
 	if ((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Status = XAsufw_SssCfg(DmaResource, DmaResource, XASUFW_SSS_INVALID);
@@ -127,24 +127,24 @@ END:
  * 		SHA hash calculation
  *
  * @param	DmaResource	DMA resource for the DMA loopback operation with hash
- * @param	OutputSrc	Output source to be used for DMA loopback operation with hash
+ * @param	ShaResource	Output SHA resource to be used for DMA loopback operation with hash
  *
  * @return
  *		- XASUFW_SUCCESS, if configuration of the switch is successful.
  *		- XASUFW_FAILURE, if configuration of the switch fails.
  *
  *************************************************************************************************/
-s32 XAsufw_SssDmaLoopbackWithSha(XAsufw_SssSrc DmaResource, XAsufw_SssSrc OutputSrc)
+s32 XAsufw_SssDmaLoopbackWithSha(XAsufw_SssSrc DmaResource, XAsufw_SssSrc ShaResource)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Status = XASUFW_FAILURE;
 
 	if (((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) ||
-	    ((OutputSrc != XASUFW_SSS_SHA2) && (OutputSrc != XASUFW_SSS_SHA3))) {
+	    ((ShaResource != XASUFW_SSS_SHA2) && (ShaResource != XASUFW_SSS_SHA3))) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
-	Status = XAsufw_SssCfg(DmaResource, DmaResource, OutputSrc);
+	Status = XAsufw_SssCfg(DmaResource, DmaResource, ShaResource);
 
 END:
 	return Status;
@@ -164,11 +164,11 @@ END:
  *************************************************************************************************/
 s32 XAsufw_SssDmaToPli(XAsufw_SssSrc DmaResource)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Status = XASUFW_FAILURE;
 
 	if ((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Status = XAsufw_SssCfg(DmaResource, XASUFW_SSS_PLI, XASUFW_SSS_PLI);
@@ -182,24 +182,24 @@ END:
  * @brief	This function configures secure stream switch to perform SHA hash calculation using DMA
  *
  * @param	ShaResource	SHA resource to be used for hash calculation using DMA
- * @param	InputSrc	Input DMA source to be used for hash calculation using DMA
+ * @param	DmaResource	Input DMA resource to be used for hash calculation using DMA
  *
  * @return
  *		- XASUFW_SUCCESS, if configuration of the switch is successful.
  *		- XASUFW_FAILURE, if configuration of the switch fails.
  *
  *************************************************************************************************/
-s32 XAsufw_SssShaWithDma(XAsufw_SssSrc ShaResource, XAsufw_SssSrc InputSrc)
+s32 XAsufw_SssShaWithDma(XAsufw_SssSrc ShaResource, XAsufw_SssSrc DmaResource)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Status = XASUFW_FAILURE;
 
-	if (((InputSrc != XASUFW_SSS_DMA0) && (InputSrc != XASUFW_SSS_DMA1)) ||
+	if (((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) ||
 		((ShaResource != XASUFW_SSS_SHA2) && (ShaResource != XASUFW_SSS_SHA3))) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
-	Status = XAsufw_SssCfg(ShaResource, InputSrc, XASUFW_SSS_INVALID);
+	Status = XAsufw_SssCfg(ShaResource, DmaResource, XASUFW_SSS_INVALID);
 
 END:
 	return Status;
@@ -219,11 +219,11 @@ END:
  *************************************************************************************************/
 s32 XAsufw_SssShaForPli(XAsufw_SssSrc ShaResource)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Status = XASUFW_FAILURE;
 
 	if ((ShaResource != XASUFW_SSS_SHA2) && (ShaResource != XASUFW_SSS_SHA3)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Status = XAsufw_SssCfg(ShaResource, XASUFW_SSS_PLI, XASUFW_SSS_INVALID);
@@ -237,23 +237,23 @@ END:
  * @brief	This function configures secure stream switch to perform encryption/decryption
  * 		operation using DMA0/DMA1
  *
- * @param	InputSrc	Input source for the AES resource
+ * @param	DmaResource	Input DMA resource for the AES resource
  *
  * @return
  *		- XASUFW_SUCCESS, if configuration of the switch is successful.
  *		- XASUFW_FAILURE, if configuration of the switch fails.
  *
  *************************************************************************************************/
-s32 XAsufw_SssAesWithDma(XAsufw_SssSrc InputSrc)
+s32 XAsufw_SssAesWithDma(XAsufw_SssSrc DmaResource)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Status = XASUFW_FAILURE;
 
-	if ((InputSrc != XASUFW_SSS_DMA0) && (InputSrc != XASUFW_SSS_DMA1)) {
+	if ((DmaResource != XASUFW_SSS_DMA0) && (DmaResource != XASUFW_SSS_DMA1)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
-	Status = XAsufw_SssCfg(XASUFW_SSS_AES, InputSrc, InputSrc);
+	Status = XAsufw_SssCfg(XASUFW_SSS_AES, DmaResource, DmaResource);
 
 END:
 	return Status;
@@ -271,11 +271,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_SssAesForPli(void)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
-
-	Status = XAsufw_SssCfg(XASUFW_SSS_AES, XASUFW_SSS_PLI, XASUFW_SSS_PLI);
-
-	return Status;
+	return XAsufw_SssCfg(XASUFW_SSS_AES, XASUFW_SSS_PLI, XASUFW_SSS_PLI);
 }
 
 /*************************************************************************************************/
@@ -287,9 +283,10 @@ s32 XAsufw_SssAesForPli(void)
  * @param	OutputSrc	Output source for the SSS configuration.
  *
  *************************************************************************************************/
-static void XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
+static s32 XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
 			   XAsufw_SssSrc OutputSrc)
 {
+	s32 Status = XASUFW_FAILURE;
 	u32 Mask = 0U;
 	u32 RegVal = XAsufw_ReadReg(XASUFW_LOCAL_SSS_CFG);
 
@@ -374,7 +371,9 @@ static void XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
 	}
 
 	RegVal &= ~Mask;
-	XAsufw_WriteReg(XASUFW_LOCAL_SSS_CFG, RegVal);
+	Status = XAsufw_SecureOut32(XASUFW_LOCAL_SSS_CFG, RegVal);
+
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -392,7 +391,7 @@ static void XAsufw_SssMask(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc,
  *************************************************************************************************/
 static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_SssSrc OutputSrc)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 InputSrcCfg = 0x0U;
 	u32 OutputSrcCfg = 0x0U;
 	volatile u32 InputSrcCfgRedundant = 0x0U;
@@ -409,11 +408,14 @@ static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_
 	if ((Resource > XASUFW_SSS_INVALID) || (InputSrc > XASUFW_SSS_INVALID) ||
 	    (OutputSrc > XASUFW_SSS_INVALID)) {
 		Status = XASUFW_SSS_INVALID_INPUT_PARAMETERS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Clear the previous configuration on the given resource and input/output sources. */
-	XAsufw_SssMask(Resource, InputSrc, OutputSrc);
+	Status = XAsufw_SssMask(Resource, InputSrc, OutputSrc);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
 
 	/** Configure the input source of the given resource with source mentioned by InputSrc. */
 	InputShift = (XASUFW_SSS_CFG_LEN_IN_BITS * (u32)Resource);
@@ -436,13 +438,11 @@ static s32 XAsufw_SssCfg(XAsufw_SssSrc Resource, XAsufw_SssSrc InputSrc, XAsufw_
 	OutputMask = (u32)XASUFW_SSS_SRC_SEL_MASK << OutputShift;
 	Mask = InputMask | OutputMask;
 
-	/* TODO: Add control flow integrity for this */
 	if ((SssCfg ^ (InputSrcCfgRedundant | OutputSrcCfgRedundant)) == 0U) {
 		RegVal = XAsufw_ReadReg(XASUFW_LOCAL_SSS_CFG);
 		RegVal &= ~Mask;
-		/* TODO: Replace with XAsufw_SecureOut32 */
-		XAsufw_WriteReg(XASUFW_LOCAL_SSS_CFG, SssCfg | RegVal);
-		Status = XASUFW_SUCCESS;
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_SecureOut32(XASUFW_LOCAL_SSS_CFG, SssCfg | RegVal);
 	}
 
 END:

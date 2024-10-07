@@ -46,10 +46,8 @@ extern "C" {
 #endif
 
 /*************************************** Include Files *******************************************/
-#include "xasufw_sss.h"
 #include "xasufw_dma.h"
 #include "xasu_shainfo.h"
-#include "xsha_hw.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XSHA_SHA_256_HASH_LEN			(32U) /**< SHA2/3 256 hash length */

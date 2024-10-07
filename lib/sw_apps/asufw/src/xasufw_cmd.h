@@ -16,7 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   01/02/24 Initial release
- *       ma   04/18/24 Moved command handling related APIs from xasufw_sharedmem.c to this file
+ *       ma   04/18/24 Moved command handling related APIs to this file
  *       ma   05/18/24 Added API to check resources availability before executing a command
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
@@ -37,7 +37,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
-#include "xasufw_sharedmem.h"
+#include "xasufw_queuescheduler.h"
 
 /************************************ Constant Definitions ***************************************/
 

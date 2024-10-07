@@ -29,7 +29,6 @@
 #include "xasufw_modules.h"
 #include "xil_types.h"
 #include "xasufw_status.h"
-#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -60,7 +59,7 @@ s32 XAsufw_ModuleRegister(XAsufw_Module *Module)
 
 	if ((ModuleId >= XASUFW_MAX_MODULES) || (Modules[ModuleId] != NULL)) {
 		Status = XASUFW_MODULE_REGISTRATION_FAILED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Modules[ModuleId] = Module;

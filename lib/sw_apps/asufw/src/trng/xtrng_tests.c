@@ -17,7 +17,6 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   05/20/24 Initial release
  *       ma   07/26/24 Added platform check to skip DRBG KAT on QEMU
- *       yog  08/25/24 Integrated FIH library
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
@@ -32,7 +31,6 @@
 #include "xasufw_status.h"
 #include "xil_util.h"
 #include "xasufw_hw.h"
-#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XTRNG_KAT_DEFAULT_DF_lENGTH 7U /**<Default Derivative function length of TRNG KAT*/
@@ -63,7 +61,7 @@ static s32 XTrng_HealthTest(XTrng *InstancePtr);
  *************************************************************************************************/
 s32 XTrng_DrbgKat(XTrng *InstancePtr)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XTrng_UserConfig UsrCfg;
 	u8 RandBuf[XTRNG_SEC_STRENGTH_IN_BYTES];
 
@@ -123,41 +121,43 @@ s32 XTrng_DrbgKat(XTrng *InstancePtr)
 
 	Status = Xil_SMemSet(&UsrCfg, sizeof(XTrng_UserConfig), 0U, sizeof(XTrng_UserConfig));
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	UsrCfg.DFLength = XTRNG_KAT_DEFAULT_DF_lENGTH;
-	UsrCfg.Mode = XTRNG_DRNG_MODE;
+	UsrCfg.Mode = XTRNG_DRBG_MODE;
 	UsrCfg.SeedLife = XTRNG_KAT_DEFAULT_SEED_LIFE;
 	UsrCfg.IsBlocking = XASU_TRUE;
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XTrng_Instantiate(InstancePtr, ExtSeed, XTRNG_KAT_SEED_LEN_IN_BYTES, PersString,
 				   &UsrCfg);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XTrng_Reseed(InstancePtr, ReseedEntropy, UsrCfg.DFLength);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XTrng_Generate(InstancePtr, RandBuf, XTRNG_SEC_STRENGTH_IN_BYTES, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCmp(ExpectedOutput, XTRNG_SEC_STRENGTH_IN_BYTES, RandBuf,
 			     XTRNG_SEC_STRENGTH_IN_BYTES, XTRNG_SEC_STRENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_TRNG_KAT_FAILED_ERROR;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XTrng_Uninstantiate(InstancePtr);
-	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
-	}
 
 END:
 	return Status;
@@ -176,27 +176,24 @@ END:
  *************************************************************************************************/
 s32 XTrng_PreOperationalSelfTests(XTrng *InstancePtr)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/* Reset the TRNG state */
 	Status = XTrng_Uninstantiate(InstancePtr);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (XASUFW_PLATFORM != PMC_TAP_VERSION_PLATFORM_QEMU) {
 		Status = XTrng_DrbgKat(InstancePtr);
 		if (Status != XASUFW_SUCCESS) {
-			XFIH_GOTO(END);
+			goto END;
 		}
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XTrng_HealthTest(InstancePtr);
-	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
-	}
-
-	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;
@@ -215,7 +212,7 @@ END:
  *************************************************************************************************/
 static s32 XTrng_HealthTest(XTrng *InstancePtr)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XTrng_UserConfig UsrCfg;
 
 	UsrCfg.Mode = XTRNG_HRNG_MODE;
@@ -227,13 +224,11 @@ static s32 XTrng_HealthTest(XTrng *InstancePtr)
 
 	Status = XTrng_Instantiate(InstancePtr, NULL, 0U, NULL, &UsrCfg);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XTrng_Uninstantiate(InstancePtr);
-	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
-	}
 
 END:
 	return Status;

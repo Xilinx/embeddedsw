@@ -21,7 +21,6 @@
  *       ma   02/08/24 Added performance related APIs
  *       ma   03/16/24 Added error codes at required places
  *       ma   07/23/24 Added RTCA initialization related code
- *       yog  08/25/24 Integrated FIH library
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
@@ -42,11 +41,10 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xasufw_memory.h"
-#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U) /**< IO Module PIT1 prescaler source mask */
-#define XASUFW_ASU_IRO_FREQ_320_MHZ				(320000000U) /**< ASU IRO frequency 320Mhz */
+#define XASUFW_ASU_IRO_FREQ_IN_HZ				(500000000U) /**< ASU IRO frequency 500Mhz */
 #define XASUFW_IOMODULE_IPI_INTRNUM				(28U) /**< IPI interrupt number in IO Module */
 #define XASUFW_PIT3_TIMER_TICK					(10U) /**< PIT3 timer tick in milli-seconds */
 
@@ -83,7 +81,7 @@ static XIOModule IOModule; /* Instance of the IO Module */
  *************************************************************************************************/
 static void XAsufw_ExceptionEnable(void)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Status = XASUFW_FAILURE;
 	u16 Index;
 
 	XAsufw_Printf(DEBUG_GENERAL, "Exception Init Start\r\n");
@@ -194,10 +192,10 @@ static void XAsufw_Pit3TimerHandler(const void *Data)
  *************************************************************************************************/
 s32 XAsufw_StartTimer(void)
 {
-	s32 Status =  XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Status = XASUFW_FAILURE;
 	u32 Pit1ResetValue = XASUFW_PIT1_RESET_VALUE;
 	u32 Pit2ResetValue = XASUFW_PIT2_RESET_VALUE;
-	u32 Pit3ResetValue = XASUFW_ASU_IRO_FREQ_320_MHZ / XASUFW_PIT_FREQ_DIVISOR;
+	u32 Pit3ResetValue = XASUFW_ASU_IRO_FREQ_IN_HZ / XASUFW_PIT_FREQ_DIVISOR;
 
 	/**
 	 * Initialize the IO Module so that it's ready to use, specify the device ID that is
@@ -206,21 +204,21 @@ s32 XAsufw_StartTimer(void)
 	Status = XIOModule_Initialize(&IOModule, XASUFW_IOMODULE_DEVICE_ID);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IOMODULE_INIT_FAILED, Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Perform a self-test to ensure that the hardware was built correctly. */
 	Status = XIOModule_SelfTest(&IOModule);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IOMODULE_SELF_TEST_FAILED, Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Start the IO Module to receive interrupts. */
 	Status = XIOModule_Start(&IOModule);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IOMODULE_START_FAILED, Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/**
@@ -252,7 +250,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_SetUpInterruptSystem(void)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Status = XASUFW_FAILURE;
 	u8 IntrNum;
 
 	IntrNum = XIN_IOMODULE_PIT_3_INTERRUPT_INTR;
@@ -262,7 +260,7 @@ s32 XAsufw_SetUpInterruptSystem(void)
 				   (void *)(u32)IntrNum);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IOMODULE_CONNECT_FAILED, Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Enable the IO Module PIT3 interrupt. */
@@ -275,7 +273,7 @@ s32 XAsufw_SetUpInterruptSystem(void)
 				   (void *)(u32)IntrNum);
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IOMODULE_CONNECT_FAILED, Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	XIOModule_Enable(&IOModule, IntrNum);
@@ -331,7 +329,7 @@ void XAsufw_MeasurePerfTime(u64 TCur, XAsufw_PerfTime *PerfTime)
 	u64 TEnd;
 	u64 PerfUs;
 	u64 TDiff;
-	u32 AsuIroFreqMHz = XASUFW_ASU_IRO_FREQ_320_MHZ / XASUFW_MEGA;
+	u32 AsuIroFreqMHz = XASUFW_ASU_IRO_FREQ_IN_HZ / XASUFW_MEGA;
 
 	/** Get the difference between two points. */
 	TEnd = XAsufw_GetTimerValue();
@@ -345,7 +343,7 @@ void XAsufw_MeasurePerfTime(u64 TCur, XAsufw_PerfTime *PerfTime)
 
 /*************************************************************************************************/
 /**
- * @brief	This function prints time stamp for ASUFW.
+ * @brief	This function prints time stamp for ASUFW in milli seconds.
  *
  *************************************************************************************************/
 void XAsufw_PrintAsuTimeStamp(void)

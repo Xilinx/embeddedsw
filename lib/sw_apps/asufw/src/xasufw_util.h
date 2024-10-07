@@ -97,6 +97,9 @@ static inline u32 XAsufw_ReadReg(u32 Addr)
 	return Xil_In32(Addr);
 }
 
+#define XAsufw_SecureOut32			(Xil_SecureOut32) /**< Writes data to 32-bit address and checks
+									for blind writes */
+
 /************************************ Function Prototypes ****************************************/
 void XAsufw_RMW(u32 Addr, u32 Mask, u32 Value);
 void XAsufw_RCMW(u32 Addr, u32 Mask, u32 Value);
