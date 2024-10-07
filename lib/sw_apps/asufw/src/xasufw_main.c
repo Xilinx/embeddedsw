@@ -46,7 +46,7 @@
 #include "xasufw_init.h"
 #include "xasufw_debug.h"
 #include "xasufw_ipi.h"
-#include "xasufw_sharedmem.h"
+#include "xasufw_queuescheduler.h"
 #include "xasufw_status.h"
 #include "xtask.h"
 #include "xasufw_dma.h"
@@ -92,10 +92,13 @@ int main(void)
 	Status = XAsufw_Init();
 	if (XASUFW_SUCCESS != Status) {
 		XAsufw_Printf(DEBUG_GENERAL, "ASUFW init failed. Error: 0x%x\r\n", Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
-	/** Set FW_Is_Present bit before going to the task dispatch loop. */
+	/**
+	 * Set FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register.
+	 * Clients need to check this bit before sending any requests to ASUFW.
+	 */
 	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
 		   ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
 
@@ -105,14 +108,28 @@ int main(void)
 	 */
 	XTask_DispatchLoop();
 
+	/**
+	 * Clear FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register if code reaches here which
+	 * it is not supposed to reach.
+	 * TODO: Need to add code for clearing security critical data if any.
+	 */
+	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK, 0x0U);
+	while (1U);
+
 END:
 	return Status;
 }
 
 /*************************************************************************************************/
 /**
- * @brief	This function initializes ASU microblaze by enabling exceptions, interrupts and
- * 		starting the timer.
+ * @brief	This function performs ASU system initialization. It does the following as part of
+ * initialization:
+ *        - Start Microblaze PIT timer
+ *        - Set up interrupts
+ *        - Initialize DMAs
+ *        - Initialize IPI and enable interrupts
+ *        - Initialize IPI shared memory
+ *        - Initialize all the modules of ASUFW
  *
  * @return
  *		- XASUFW_SUCCESS, On successful initialization.
@@ -135,36 +152,33 @@ static s32 XAsufw_Init(void)
 	/** Initalize PIT timer. */
 	Status = XAsufw_StartTimer();
 	if (XASUFW_SUCCESS != Status) {
-		XAsufw_Printf(DEBUG_GENERAL, "Timer init failed\r\n");
-		XFIH_GOTO(END);
+		XAsufw_Printf(DEBUG_GENERAL, "Timer init failed with error: 0x%x\r\n", Status);
+		goto END;
 	}
 
 	/** Setup ASUFW interrupts and enable. */
 	Status = XAsufw_SetUpInterruptSystem();
 	if (XASUFW_SUCCESS != Status) {
-		XAsufw_Printf(DEBUG_GENERAL, "ASUFW interrupt setup failed. Error: 0x%x\r\n", Status);
-		XFIH_GOTO(END);
+		XAsufw_Printf(DEBUG_GENERAL, "ASUFW interrupt setup failed with error: 0x%x\r\n", Status);
+		goto END;
 	}
 
 	/** Initalize DMA. */
 	Status = XAsufw_DmaInit();
 	if (XASUFW_SUCCESS != Status) {
 		XAsufw_Printf(DEBUG_GENERAL, "DMA init failed with error: 0x%x\r\n", Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** ASU IPI initialization. */
 	Status = XAsufw_IpiInit();
 	if (XASUFW_SUCCESS != Status) {
-		XFIH_GOTO(END);
+		XAsufw_Printf(DEBUG_GENERAL, "IPI init failed with error: 0x%x\r\n", Status);
+		goto END;
 	}
 
 	/** Communication channel and their shared memory initialization. */
-	Status = XAsufw_SharedMemoryInit();
-	if (XASUFW_SUCCESS != Status) {
-		XAsufw_Printf(DEBUG_GENERAL, "Comm channel and shared memory initialization failed\r\n");
-		XFIH_GOTO(END);
-	}
+	XAsufw_ChannelConfigInit();
 
 	/** Initialize all ASUFW modules. */
 	Status = XAsufw_ModulesInit();
@@ -192,37 +206,37 @@ static s32 XAsufw_ModulesInit(void)
 	/** SHA2 module initialization. */
 	Status = XAsufw_Sha2Init();
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** SHA3 module initialization. */
 	Status = XAsufw_Sha3Init();
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** TRNG module initialization. */
 	Status = XAsufw_TrngInit();
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** RSA module initialization. */
 	Status = XAsufw_RsaInit();
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** ECC module initialization. */
 	Status = XAsufw_EccInit();
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** AES module initialization. */
 	Status = XAsufw_AesInit();
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Modules init done\r\n");

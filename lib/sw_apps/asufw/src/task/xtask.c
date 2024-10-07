@@ -21,7 +21,6 @@
  *       ma   03/16/24 Added error codes at required places
  *       ma   04/30/24 Included dependent header file
  *       ma   07/08/24 Add task based approach at queue level
- *       yog  08/25/24 Integrated FIH library
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
@@ -35,7 +34,6 @@
 #include "xtask.h"
 #include "xasufw_status.h"
 #include "xil_printf.h"
-#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -88,7 +86,7 @@ XTask_TaskNode *XTask_Create(u32 Priority, XTask_Handler_t TaskHandler, void *Pr
 	u32 Idx;
 
 	if ((Priority >= XTASK_PRIORITIES) || (TaskHandler == NULL)) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Find the empty slot for task in TaskList. */
@@ -101,7 +99,7 @@ XTask_TaskNode *XTask_Create(u32 Priority, XTask_Handler_t TaskHandler, void *Pr
 	/** If the maximum allowed tasks are already created, do not create a new task. */
 	if (Idx >= XTASK_MAX) {
 		xil_printf("Task create failed: too many tasks created\n");
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Task = &TaskList[Idx];
@@ -178,12 +176,12 @@ void XTask_TriggerNow(XTask_TaskNode *Task)
  *************************************************************************************************/
 s32 XTask_TriggerAfterDelay(XTask_TaskNode *Task, u32 Delay)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Status = XASUFW_FAILURE;
 
 	/* TODO: Validate Delay with max value */
 	if (Task->TaskHandler == NULL) {
 		Status = XASUFW_TASK_INVALID_HANDLER;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Task->Delay = Delay;
@@ -217,12 +215,12 @@ END:
  *************************************************************************************************/
 s32 XTask_TriggerOnEvent(const XTask_TaskNode *Task, XTask_TaskEvent *Event)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Status = XASUFW_FAILURE;
 	u32 Idx = Task - TaskList;
 
 	if (Task->TaskHandler == NULL) {
 		Status = XASUFW_TASK_INVALID_HANDLER;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/* Update given task event structure for the given task */
@@ -297,7 +295,7 @@ u32 XTask_DelayTime(const XTask_TaskNode *Task)
  *************************************************************************************************/
 void XTask_DispatchLoop(void)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 Status = XASUFW_FAILURE;
 	u32 LastDispatchTime = TaskTimeNow;
 	u32 Idx;
 	XTask_TaskNode *Task;

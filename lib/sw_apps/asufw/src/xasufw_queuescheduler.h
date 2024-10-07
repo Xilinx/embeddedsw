@@ -6,9 +6,9 @@
 /*************************************************************************************************/
 /**
  *
- * @file xasufw_sharedmem.h
+ * @file xasufw_queuescheduler.h
  *
- * This file contains declarations for xasufw_sharedmem.c file in ASUFW.
+ * This file contains declarations for xasufw_queuescheduler.c file in ASUFW.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -27,8 +27,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_SHAREDMEM_H
-#define XASUFW_SHAREDMEM_H
+#ifndef XASUFW_QUEUESCHEDULER_H
+#define XASUFW_QUEUESCHEDULER_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -74,7 +74,7 @@ typedef struct {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsufw_SharedMemoryInit(void);
+void XAsufw_ChannelConfigInit(void);
 void XAsufw_TriggerQueueTask(u32 IpiMask);
 
 /************************************ Variable Definitions ***************************************/
@@ -83,5 +83,5 @@ void XAsufw_TriggerQueueTask(u32 IpiMask);
 }
 #endif
 
-#endif  /* XASUFW_SHAREDMEM_H */
+#endif  /* XASUFW_QUEUESCHEDULER_H */
 /** @} */

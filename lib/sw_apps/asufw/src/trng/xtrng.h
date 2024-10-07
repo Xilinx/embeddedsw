@@ -35,7 +35,6 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
-#include "xtrng_hw.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XTRNG_DEFAULT_SEED_LIFE				256U /**< Default seed life */
@@ -62,7 +61,7 @@ typedef enum {
 
 /** This typedef is used to select TRNG mode. */
 typedef enum {
-	XTRNG_DRNG_MODE = 1, /**< DRNG Mode */
+	XTRNG_DRBG_MODE = 1, /**< DRBG Mode */
 	XTRNG_PTRNG_MODE, /**< PTRNG Mode */
 	XTRNG_HRNG_MODE /**< HRNG Mode */
 } XTrng_Mode;

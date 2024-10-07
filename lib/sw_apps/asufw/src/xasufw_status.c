@@ -30,7 +30,17 @@
 #include "xasufw_status.h"
 
 /************************************ Constant Definitions ***************************************/
-/* Masks of 32 bit error code to derive above mentioned errors */
+/**
+ * Error status of ASUFW :
+ * The error status of ASUFW is represented by a 32-bit value, which can be broken down as
+ * outlined below. Each error code is referenced through the XAsufw_Status enum or respective
+ * BSP error codes.
+ * Bit 31-30    : Buffer clear Status, 31st bit high represents failure and 30th bit high
+ * 		          represents success.
+ * Bit 29-20    : Final error Code
+ * Bit 19-10    : Second error code which is responsible for failure
+ * Bit 9-0      : First error code which is responsible for failure
+ */
 #define XASUFW_FIRST_ERROR_CODE_MASK	        (0x000003FFU) /**< Mask of first error */
 #define XASUFW_SECOND_ERROR_CODE_MASK           (0x000FFC00U) /**< Mask of second error */
 #define XASUFW_SECOND_ERROR_CODE_SHIFT          (10U)		  /**< Second error shift value */
@@ -105,7 +115,7 @@ s32 XAsufw_UpdateBufStatus(s32 ErrorStatus, s32 BufStatus)
 	}
 
 	if ((Status != 0x0U) &&  ((Status & XASUFW_BUF_CLEAR_STATUS_FAILURE_MASK) == 0x0U)) {
-		Status &= ~(XASUFW_BUF_CLEAR_STATUS_MASK);
+		Status &= (~XASUFW_BUF_CLEAR_STATUS_MASK);
 		Status |= (BufStatus != XASUFW_SUCCESS) ? XASUFW_BUF_CLEAR_STATUS_FAILURE_MASK
 			  : XASUFW_BUF_CLEAR_STATUS_SUCCESS_MASK;
 	}

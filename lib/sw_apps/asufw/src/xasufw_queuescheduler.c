@@ -6,9 +6,11 @@
 /*************************************************************************************************/
 /**
  *
- * @file xasufw_sharedmem.c
+ * @file xasufw_queuescheduler.c
  *
- * This file contains the shared memory code for IPI communication in ASUFW.
+ * This file contains the shared memory code for IPI communication in ASUFW. This file provides
+ * functionality for initializing IPI shared memory, validating the user configuration data,
+ * creating queue level tasks and scheduling them when the commands are received from clients.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -31,13 +33,13 @@
 * @{
 */
 /*************************************** Include Files *******************************************/
-#include "xasufw_sharedmem.h"
+#include "xasufw_queuescheduler.h"
 #include "xasufw_memory.h"
 #include "xasufw_cmd.h"
 #include "xasufw_debug.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
-#include "xfih.h"
+#include "xil_util.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_SHARED_MEMORY_ADDRESS	0xEBE41000U /**< Reserved address in ASU DATA RAM  for
@@ -58,7 +60,6 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsufw_ValidateCommChannelUserConfig(void);
 
 /************************************ Variable Definitions ***************************************/
 /* All channel's shared memory where the commands are received */
@@ -70,42 +71,7 @@ static XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
 	XASU_RTCA_COMM_CHANNEL_INFO_ADDR;
 
 /* All channel's task related information */
-static XAsufw_ChannelTasks CommChannelTasks;
-
-/*************************************************************************************************/
-/**
- * @brief	This function validates communication channel user configuration, sorts channel
- * 		queues based on their priorities given by user and enables corresponding IPI
- * 		channel interrupts.
- *
- * @return
- * 	- XASUFW_SUCCESS, if the IPI user configuration is valid.
- * 	- XASUFW_INVALID_USER_CONFIG_RECEIVED, if the IPI user configuration is invalid.
- * 	- XASUFW_FAILURE, if there is any failure.
- *
- *************************************************************************************************/
-s32 XAsufw_SharedMemoryInit(void)
-{
-	s32 Status = XASUFW_FAILURE;
-	u32 ChannelIndex;
-
-	Status = XAsufw_ValidateCommChannelUserConfig();
-	if (XASUFW_SUCCESS != Status) {
-		Status = XASUFW_INVALID_USER_CONFIG_RECEIVED;
-		XFIH_GOTO(END);
-	}
-	XAsufw_Printf(DEBUG_GENERAL, "User config parameters validated\r\n");
-
-	/* Enable IPI interrupts from other channels */
-	for (ChannelIndex = 0x0U; ChannelIndex < CommChannelInfo->NumOfIpiChannels; ++ChannelIndex) {
-		XAsufw_EnableIpiInterrupt(CommChannelInfo->Channel[ChannelIndex].IpiBitMask);
-	}
-
-	Status = XASUFW_SUCCESS;
-
-END:
-	return Status;
-}
+static XAsufw_ChannelTasks CommChannelTasks = { 0U };
 
 /*************************************************************************************************/
 /**
@@ -206,12 +172,14 @@ void XAsufw_TriggerQueueTask(u32 IpiMask)
 	 * task
 	 */
 	if (ChannelIdx != CommChannelInfo->NumOfIpiChannels) {
-		if (SharedMemory->ChannelMemory[ChannelIdx].P0ChannelQueue.IsCmdPresent == XASU_TRUE) {
+		if ((SharedMemory->ChannelMemory[ChannelIdx].P0ChannelQueue.IsCmdPresent == XASU_TRUE) &&
+			(CommChannelTasks.Channel[ChannelIdx].P0QueueTask != NULL)) {
 			XTask_TriggerNow(CommChannelTasks.Channel[ChannelIdx].P0QueueTask);
 			SharedMemory->ChannelMemory[ChannelIdx].P0ChannelQueue.IsCmdPresent = XASU_FALSE;
 		}
 
-		if (SharedMemory->ChannelMemory[ChannelIdx].P1ChannelQueue.IsCmdPresent == XASU_TRUE) {
+		if ((SharedMemory->ChannelMemory[ChannelIdx].P1ChannelQueue.IsCmdPresent == XASU_TRUE) &&
+			(CommChannelTasks.Channel[ChannelIdx].P1QueueTask != NULL)) {
 			XTask_TriggerNow(CommChannelTasks.Channel[ChannelIdx].P1QueueTask);
 			SharedMemory->ChannelMemory[ChannelIdx].P1ChannelQueue.IsCmdPresent = XASU_FALSE;
 		}
@@ -220,17 +188,13 @@ void XAsufw_TriggerQueueTask(u32 IpiMask)
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates the communication channel configuration received as part of
- *		LPD CDO.
- *
- * @return
- * 	- XASUFW_SUCCESS, if the IPI user configuration is valid.
- * 	- XASUFW_FAILURE, if there is any failure.
+ * @brief	This function initializes the IPI shared memory, validates the communication channel
+ * configuration received as part of ASU CDO, creates queue level tasks based on the priority set
+ * by the user and enables corresponding IPI channel interrupts.
  *
  *************************************************************************************************/
-static s32 XAsufw_ValidateCommChannelUserConfig(void)
+void XAsufw_ChannelConfigInit(void)
 {
-	s32 Status = XASUFW_FAILURE;
 	u32 ChannelIndex;
 	u32 PrivData;
 
@@ -267,12 +231,9 @@ static s32 XAsufw_ValidateCommChannelUserConfig(void)
 					(void *)PrivData, 0x0U);
 		SharedMemory->ChannelMemory[ChannelIndex].P1ChannelQueue.IsCmdPresent = XASU_FALSE;
 		CommChannelTasks.Channel[ChannelIndex].P1QueueBufIdx = 0U;
-	}
 
-	if (ChannelIndex == CommChannelInfo->NumOfIpiChannels) {
-		Status = XASUFW_SUCCESS;
+		/* Enable IPI interrupt from the channel */
+		XAsufw_EnableIpiInterrupt(CommChannelInfo->Channel[ChannelIndex].IpiBitMask);
 	}
-
-	return Status;
 }
 /** @} */

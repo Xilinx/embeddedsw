@@ -43,15 +43,20 @@ extern "C" {
  * @name Supported ECC curves
  * @{
  */
-/** Macros to enable/disable support of NIST P-192, P-224 and NIST P-521 curve */
 #define XRSA_ECC_SUPPORT_NIST_P521	XASUFW_RSA_ECC_SUPPORT_NIST_P521
+	/**< Macro to enable/disable support of NIST P-521 curve */
 #define XRSA_ECC_SUPPORT_NIST_P192	XASUFW_RSA_ECC_SUPPORT_NIST_P192
+	/**< Macro to enable/disable support of NIST P-192 curve */
 #define XRSA_ECC_SUPPORT_NIST_P224	XASUFW_RSA_ECC_SUPPORT_NIST_P224
+	/**< Macro to enable/disable support of NIST P-224 curve */
 #define XRSA_ECC_SUPPORT_BRAINPOOL_P256	XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P256
+	/**< Macro to enable/disable support of Brainpool P-256 curve */
 #define XRSA_ECC_SUPPORT_BRAINPOOL_P320	XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P320
+	/**< Macro to enable/disable support of Brainpool P-320 curve */
 #define XRSA_ECC_SUPPORT_BRAINPOOL_P384	XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P384
+	/**< Macro to enable/disable support of Brainpool P-384 curve */
 #define XRSA_ECC_SUPPORT_BRAINPOOL_P512	XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P512
-
+	/**< Macro to enable/disable support of Brainpool P-512 curve */
 /** @} */
 
 /** This typedef is used to know the prime and binary curve values. */

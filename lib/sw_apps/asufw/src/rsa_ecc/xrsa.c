@@ -84,7 +84,7 @@ u8 Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES]; /**< Memory allocated for RSA paramet
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	Len		Length of Input and Output data in bytes.
  * @param	InputDataAddr	Address of the input data buffer.
- * @param	OutputDataAddr	Address of the input data buffer.
+ * @param	OutputDataAddr	Address of the output data buffer.
  * @param	KeyParamAddr	Address to all the parameters required for private decrypt
  * 				operation using CRT algorithm.
  *
@@ -238,7 +238,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 		  (u8 *)KeyPtr->PubKeyComp.Modulus, XRSA_BYTE_TO_BIT(Len), OutData);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XRsa_UpdateStatus(Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Endianness change from LE to BE for output data. */
@@ -254,7 +254,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	SStatus = XAsufw_DmaMemSet(DmaPtr, Rsa_Data, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
+	SStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)Rsa_Data, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
 					XRSA_TOTAL_PARAMS);
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
@@ -273,7 +273,7 @@ END:
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	Len		Length of Input and Output Data in bytes.
  * @param	InputDataAddr	Address of the input data buffer.
- * @param	OutputDataAddr	Address of the input data buffer.
+ * @param	OutputDataAddr	Address of the output data buffer.
  * @param	KeyParamAddr	Address to the parameters required for RSA operation.
  * @param	ExpoAddr	Address to exponential parameters required for RSA operation.
  *
@@ -482,7 +482,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XRsa_UpdateStatus(Status);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Endianness change from LE to BE for output data. */
@@ -498,7 +498,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	SStatus = XAsufw_DmaMemSet(DmaPtr, Rsa_Data, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
+	SStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)Rsa_Data, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
 					XRSA_TOTAL_PARAMS);
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
@@ -517,7 +517,7 @@ END:
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	Len		Length of Input and Output Data in bytes.
  * @param	InputDataAddr	Address of the input data buffer.
- * @param	OutputDataAddr	Address of the input data buffer.
+ * @param	OutputDataAddr	Address of the output data buffer.
  * @param	KeyParamAddr	Address to the parameters required for RSA operation.
  * @param	ExpoAddr	Address to exponential parameters required for RSA operation.
  *
@@ -534,7 +534,6 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
-	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u8 *InData = Rsa_Data;
 	XAsu_RsaPubKeyComp *KeyPtr = (XAsu_RsaPubKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
 	u8 *RRN = (u8 *)KeyPtr + sizeof(XAsu_RsaPubKeyComp);
@@ -654,7 +653,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	SStatus = XAsufw_DmaMemSet(DmaPtr, Rsa_Data, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
+	SStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)Rsa_Data, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
 					XRSA_TOTAL_PARAMS);
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);

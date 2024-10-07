@@ -34,12 +34,12 @@
 #include "xasufw_modules.h"
 #include "xasufw_status.h"
 #include "xsha.h"
+#include "xsha_hw.h"
 #include "xasufw_util.h"
 #include "xasufw_resourcemanager.h"
 #include "xasufw_debug.h"
 #include "xasufw_kat.h"
 #include "xasu_shainfo.h"
-#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -93,14 +93,13 @@ s32 XAsufw_Sha2Init(void)
 	Status = XAsufw_ModuleRegister(&XAsufw_Sha2Module);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_MODULE_REGISTRATION_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Initialize SHA2 instance. */
 	Status = XSha_CfgInitialize(XAsufw_Sha2);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_INIT_FAILED);
-		XFIH_GOTO(END);
 	}
 
 END:
@@ -139,7 +138,7 @@ static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		Status = XSha_Start(XAsufw_Sha2, Cmd->ShaMode);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_START_FAILED);
-			XFIH_GOTO(END);
+			goto END;
 		}
 	}
 
@@ -151,12 +150,12 @@ static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_SHA2, QueueId);
 		if (AsuDmaPtr == NULL) {
 			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-			XFIH_GOTO(END);
+			goto END;
 		}
 		Status = XSha_Update(XAsufw_Sha2, AsuDmaPtr, Cmd->DataAddr, Cmd->DataSize, Cmd->IsLast);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_UPDATE_FAILED);
-			XFIH_GOTO(END);
+			goto END;
 		}
 	}
 
@@ -165,7 +164,7 @@ static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		Status = XSha_Finish(XAsufw_Sha2, Cmd->HashAddr, Cmd->HashBufSize, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_FINISH_FAILED);
-			XFIH_GOTO(END);
+			goto END;
 		}
 		if (XAsufw_ReleaseResource(XASUFW_SHA2, QueueId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
@@ -197,12 +196,9 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_Sha2Kat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
-	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 
-	Status = XAsufw_ShaKat(XAsufw_Sha2, QueueId, XASUFW_SHA2);
-
-	return Status;
+	return XAsufw_ShaKat(XAsufw_Sha2, QueueId, XASUFW_SHA2);
 }
 
 /*************************************************************************************************/
@@ -221,6 +217,7 @@ static s32 XAsufw_Sha2GetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 
+	/** TODO: Implement SHA2 Get Info command */
 	return Status;
 }
 /** @} */
