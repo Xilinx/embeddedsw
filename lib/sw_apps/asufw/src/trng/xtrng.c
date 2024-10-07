@@ -42,12 +42,12 @@
 #define XTRNG_RESEED_TIMEOUT			1500000U	/**< Reseed timeout in micro-seconds. */
 #define XTRNG_GENERATE_TIMEOUT			1500000U	/**< Generate timeout in micro-seconds. */
 #define XTRNG_BLOCK_LEN_IN_BYTES		16U	/**< TRNG block length length in bytes. */
-#define XTRNG_MIN_SEEDLIFE				1U	/**< Minimum seed life. */
-#define XTRNG_MAX_SEEDLIFE				0x80000 /**< Maximum seed life 2^19. */
-#define XTRNG_SEC_STRENGTH_IN_BURSTS	2U	/**< Security strength in 128-bit bursts. */
+#define XTRNG_MIN_SEEDLIFE			1U	/**< Minimum seed life. */
+#define XTRNG_MAX_SEEDLIFE			0x80000U /**< Maximum seed life 2^19. */
+#define XTRNG_SEC_STRENGTH_IN_BURSTS		2U	/**< Security strength in 128-bit bursts. */
 #define XTRNG_BURST_SIZE_IN_WORDS 		4U	/**< Burst size in words. */
-#define XTRNG_DF_MIN_LENGTH				2U	/**< Minimum DF input length. */
-#define XTRNG_DF_MAX_LENGTH				0x1FU	/**< Maximum DF input length. */
+#define XTRNG_DF_MIN_LENGTH			2U	/**< Minimum DF input length. */
+#define XTRNG_DF_MAX_LENGTH			0x1FU	/**< Maximum DF input length. */
 #define XTRNG_AUTOPROC_NRNPS_VALUE		0x3FU /**< Autoproc NRNPS value. */
 
 #define XTRNG_DF_NUM_OF_BYTES_BEFORE_MIN_700CLKS_WAIT	8U
@@ -392,7 +392,7 @@ static void XTrng_UpdateConf1(XTrng *InstancePtr, u32 DFLen, u32 AdaptPropTestCu
 s32 XTrng_Instantiate(XTrng *InstancePtr, u8 *Seed, u32 SeedLength, u8 *PersStr,
 		      XTrng_UserConfig *UserCfg)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Validate input parameters. */
 	if ((UserCfg == NULL) || (InstancePtr == NULL)) {
@@ -457,8 +457,8 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, u8 *Seed, u32 SeedLength, u8 *PersStr,
 		XFIH_GOTO(END);
 	}
 
-	if ((UserCfg->Mode != XTRNG_PTRNG_MODE) && (UserCfg->IsBlocking != TRUE) &&
-	    (UserCfg->IsBlocking != FALSE)) {
+	if ((UserCfg->Mode != XTRNG_PTRNG_MODE) && (UserCfg->IsBlocking != XASU_TRUE) &&
+	    (UserCfg->IsBlocking != XASU_FALSE)) {
 		Status = XASUFW_INVALID_BLOCKING_MODE;
 		XFIH_GOTO(END);
 	}
@@ -535,7 +535,7 @@ END:
  *************************************************************************************************/
 s32 XTrng_Reseed(XTrng *InstancePtr, u8 *Seed, u8 DLen)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
@@ -575,7 +575,7 @@ s32 XTrng_Reseed(XTrng *InstancePtr, u8 *Seed, u8 DLen)
 	}
 
 	/** Wait for reseed operation and check CTF flag. */
-	if ((InstancePtr->State == XTRNG_RESEED_STATE) && (InstancePtr->UserCfg.IsBlocking != TRUE)) {
+	if ((InstancePtr->State == XTRNG_RESEED_STATE) && (InstancePtr->UserCfg.IsBlocking != XASU_TRUE)) {
 		Status = XTrng_WaitForReseed(InstancePtr);
 		if (Status != XASUFW_SUCCESS) {
 			XFIH_GOTO(END);
@@ -616,7 +616,7 @@ END:
  *************************************************************************************************/
 s32 XTrng_Generate(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResistance)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Validate input parameters. */
 	if ((InstancePtr == NULL) || (RandBuf == NULL)) {
@@ -644,11 +644,11 @@ s32 XTrng_Generate(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResi
 		XFIH_GOTO(END);
 	}
 
-	if ((PredResistance != TRUE) && (PredResistance != FALSE)) {
+	if ((PredResistance != XASU_TRUE) && (PredResistance != XASU_FALSE)) {
 		Status = XASUFW_INVALID_PREDRES_VALUE;
 	}
 
-	if ((InstancePtr->UserCfg.Mode == XTRNG_PTRNG_MODE) && (PredResistance == TRUE)) {
+	if ((InstancePtr->UserCfg.Mode == XTRNG_PTRNG_MODE) && (PredResistance == XASU_TRUE)) {
 		Status = XASUFW_INVALID_PREDRES_VALUE;
 		XFIH_GOTO(END);
 	}
@@ -662,14 +662,14 @@ s32 XTrng_Generate(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResi
 	if ((InstancePtr->UserCfg.Mode == XTRNG_DRNG_MODE) ||
 	    (InstancePtr->UserCfg.Mode == XTRNG_HRNG_MODE)) {
 		if (InstancePtr->UserCfg.Mode == XTRNG_DRNG_MODE) {
-			if ((PredResistance == TRUE) &&
+			if ((PredResistance == XASU_TRUE) &&
 			    (InstancePtr->TrngStats.ElapsedSeedLife > 0U)) {
 				Status = XASUFW_TRNG_RESEED_REQUIRED_ERROR;
 				XFIH_GOTO(END);
 			}
 		}
 		/** Wait for reseed operation and check CTF flag in DRNG and HRNG modes. */
-		if ((InstancePtr->State == XTRNG_RESEED_STATE) && (InstancePtr->UserCfg.IsBlocking != TRUE)) {
+		if ((InstancePtr->State == XTRNG_RESEED_STATE) && (InstancePtr->UserCfg.IsBlocking != XASU_TRUE)) {
 			Status = XTrng_WaitForReseed(InstancePtr);
 			if (Status != XASUFW_SUCCESS) {
 				XFIH_GOTO(END);
@@ -705,7 +705,7 @@ s32 XTrng_Generate(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResi
 	if (InstancePtr->UserCfg.Mode == XTRNG_HRNG_MODE) {
 		/** Auto reseed in HRNG mode */
 		if ((InstancePtr->TrngStats.ElapsedSeedLife >= InstancePtr->UserCfg.SeedLife) ||
-		    (PredResistance == TRUE)) {
+		    (PredResistance == XASU_TRUE)) {
 			Status = XTrng_Reseed(InstancePtr, NULL, InstancePtr->UserCfg.DFLength);
 		}
 	}
@@ -734,7 +734,7 @@ END:
  *************************************************************************************************/
 s32 XTrng_Uninstantiate(XTrng *InstancePtr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
@@ -794,7 +794,7 @@ s32 XTrng_InitNCfgTrngMode(XTrng *InstancePtr, XTrng_Mode Mode)
 	UsrCfg.RepCountTestCutoff = XTRNG_USER_CFG_REP_TEST_CUTOFF;
 	UsrCfg.DFLength = XTRNG_USER_CFG_DF_LENGTH;
 	UsrCfg.SeedLife = XTRNG_USER_CFG_SEED_LIFE;
-	UsrCfg.IsBlocking = TRUE;
+	UsrCfg.IsBlocking = XASU_TRUE;
 
 	Status = XTrng_Instantiate(InstancePtr, NULL, 0U, NULL, &UsrCfg);
 	if (Status != XASUFW_SUCCESS) {
@@ -823,7 +823,7 @@ END:
  *************************************************************************************************/
 static s32 XTrng_ReseedInternal(XTrng *InstancePtr, u8 *Seed, u8 DLen, u8 *PerStr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 PersMask = XASU_TRNG_CTRL_PERSODISABLE_MASK;
 
 	/** Configure given DF Len. */
@@ -925,7 +925,7 @@ END:
  *************************************************************************************************/
 static s32 XTrng_WaitForReseed(XTrng *InstancePtr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 
 	/** Check whether TRNG operation is completed within Timeout or not. */
@@ -965,8 +965,8 @@ END:
  *************************************************************************************************/
 static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
-	s32 SStatus = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 SStatus = XFih_VolatileAssign(XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u8 Idx = 0U;
 	u8 NumofBursts = 0U;
@@ -975,7 +975,7 @@ static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSiz
 	u32 Size = RandBufSize / XASUFW_WORD_LEN_IN_BYTES;
 	u32 SingleGenModeVal = 0U;
 
-	if (InstancePtr->UserCfg.PredResistance == TRUE) {
+	if (InstancePtr->UserCfg.PredResistance == XASU_TRUE) {
 		SingleGenModeVal = XASU_TRNG_CTRL_SINGLEGENMODE_MASK;
 	}
 	/** Set PRNG mode to generate. */
@@ -1140,7 +1140,7 @@ static inline s32 XTrng_WaitForEvent(UINTPTR Addr, u32 EventMask, u32 Event, u32
  *************************************************************************************************/
 s32 XTrng_IsRandomNumAvailable(XTrng *InstancePtr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 RandomBytes;
 
 	/** Validate input parameters. */
@@ -1176,7 +1176,7 @@ END:
  *************************************************************************************************/
 s32 XTrng_ReadTrngFifo(XTrng *InstancePtr, u32 *OutputBuf, u32 OutputBufSize)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 *Buffer = OutputBuf;
 	u32 Idx;
 
@@ -1220,7 +1220,7 @@ END:
  *************************************************************************************************/
 s32 XTrng_EnableAutoProcMode(XTrng *InstancePtr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {

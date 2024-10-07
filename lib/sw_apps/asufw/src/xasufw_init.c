@@ -83,7 +83,7 @@ static XIOModule IOModule; /* Instance of the IO Module */
  *************************************************************************************************/
 static void XAsufw_ExceptionEnable(void)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u16 Index;
 
 	XAsufw_Printf(DEBUG_GENERAL, "Exception Init Start\r\n");
@@ -130,7 +130,7 @@ static void XAsufw_ExceptionHandler(void *Data)
 	 */
 
 	/** Enters infinite loop just in case if control reaches here. */
-	while (TRUE) {
+	while (XASU_TRUE) {
 		;
 	}
 }
@@ -194,7 +194,7 @@ static void XAsufw_Pit3TimerHandler(void *Data)
  *************************************************************************************************/
 s32 XAsufw_StartTimer(void)
 {
-	s32 Status =  XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status =  XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 Pit1ResetValue = XASUFW_PIT1_RESET_VALUE;
 	u32 Pit2ResetValue = XASUFW_PIT2_RESET_VALUE;
 	u32 Pit3ResetValue = XASUFW_ASU_IRO_FREQ_320_MHZ / XASUFW_PIT_FREQ_DIVISOR;
@@ -252,7 +252,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_SetUpInterruptSystem(void)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u8 IntrNum;
 
 	IntrNum = XIN_IOMODULE_PIT_3_INTERRUPT_INTR;

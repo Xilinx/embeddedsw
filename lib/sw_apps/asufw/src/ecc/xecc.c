@@ -206,7 +206,7 @@ END:
 s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
 			   u64 PrivKeyAddr, u64 PubKeyAddr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u32 Offset = XECC_MEM_GEN_KEY_PVT_KEY_OFFSET;
@@ -290,7 +290,7 @@ END:
 s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
 			   u64 PubKeyAddr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u32 Offset = XECC_MEM_PUB_KEY_X_OFFSET;
 
@@ -374,7 +374,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			   u64 PrivKeyAddr, const u8 *EphemeralKeyPtr, u64 HashAddr, u32 HashBufLen,
 			   u64 SignAddr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u32 Offset = XECC_MEM_GEN_SIGN_PVT_KEY_OFFSET;
@@ -479,7 +479,7 @@ END:
 s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
 			 u64 PubKeyAddr, u64 HashAddr, u32 HashBufLen, u64 SignAddr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u32 Offset = XECC_MEM_SIGN_R_OFFSET;
 

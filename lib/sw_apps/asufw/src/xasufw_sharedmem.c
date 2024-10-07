@@ -162,7 +162,7 @@ s32 XAsufw_QueueTaskHandler(void *Arg)
 				/** Update command status in the request queue and the resopnse in
 					response queue. */
 				QueueBuf->ReqBufStatus = XASU_COMMAND_EXECUTION_COMPLETE;
-				XAsufw_CommandResponseHandler(QueueBuf, (u32)Status);
+				XAsufw_CommandResponseHandler(QueueBuf, Status);
 			}
 		}
 	}
@@ -206,14 +206,14 @@ void XAsufw_TriggerQueueTask(u32 IpiMask)
 	 * task
 	 */
 	if (ChannelIdx != CommChannelInfo->NumOfIpiChannels) {
-		if (SharedMemory->ChannelMemory[ChannelIdx].P0ChannelQueue.IsCmdPresent == TRUE) {
+		if (SharedMemory->ChannelMemory[ChannelIdx].P0ChannelQueue.IsCmdPresent == XASU_TRUE) {
 			XTask_TriggerNow(CommChannelTasks.Channel[ChannelIdx].P0QueueTask);
-			SharedMemory->ChannelMemory[ChannelIdx].P0ChannelQueue.IsCmdPresent = FALSE;
+			SharedMemory->ChannelMemory[ChannelIdx].P0ChannelQueue.IsCmdPresent = XASU_FALSE;
 		}
 
-		if (SharedMemory->ChannelMemory[ChannelIdx].P1ChannelQueue.IsCmdPresent == TRUE) {
+		if (SharedMemory->ChannelMemory[ChannelIdx].P1ChannelQueue.IsCmdPresent == XASU_TRUE) {
 			XTask_TriggerNow(CommChannelTasks.Channel[ChannelIdx].P1QueueTask);
-			SharedMemory->ChannelMemory[ChannelIdx].P1ChannelQueue.IsCmdPresent = FALSE;
+			SharedMemory->ChannelMemory[ChannelIdx].P1ChannelQueue.IsCmdPresent = XASU_FALSE;
 		}
 	}
 }
@@ -256,7 +256,7 @@ static s32 XAsufw_ValidateCommChannelUserConfig(void)
 		CommChannelTasks.Channel[ChannelIndex].P0QueueTask = XTask_Create(
 					CommChannelInfo->Channel[ChannelIndex].P0QueuePriority, XAsufw_QueueTaskHandler,
 					(void *)PrivData, 0x0U);
-		SharedMemory->ChannelMemory[ChannelIndex].P0ChannelQueue.IsCmdPresent = FALSE;
+		SharedMemory->ChannelMemory[ChannelIndex].P0ChannelQueue.IsCmdPresent = XASU_FALSE;
 		CommChannelTasks.Channel[ChannelIndex].P0QueueBufIdx = 0U;
 
 		/** Create P1 Queue Task of the channel corresponding to ChannelIndex. */
@@ -265,7 +265,7 @@ static s32 XAsufw_ValidateCommChannelUserConfig(void)
 		CommChannelTasks.Channel[ChannelIndex].P1QueueTask = XTask_Create(
 					CommChannelInfo->Channel[ChannelIndex].P1QueuePriority, XAsufw_QueueTaskHandler,
 					(void *)PrivData, 0x0U);
-		SharedMemory->ChannelMemory[ChannelIndex].P1ChannelQueue.IsCmdPresent = FALSE;
+		SharedMemory->ChannelMemory[ChannelIndex].P1ChannelQueue.IsCmdPresent = XASU_FALSE;
 		CommChannelTasks.Channel[ChannelIndex].P1QueueBufIdx = 0U;
 	}
 

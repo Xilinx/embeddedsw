@@ -45,6 +45,9 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XASU_TRUE		(TRUE)
+#define XASU_FALSE		(FALSE)
+
 #define XASUFW_WORD_LEN_IN_BYTES		4U	/**< Word length in bytes */
 #define XASUFW_BYTE_LEN_IN_BITS			8U	/**< Byte length in bits */
 #define XASUFW_ARRAY_SIZE(x)	(u32)(sizeof(x) / sizeof(x[0U]))	/**< Size of array */

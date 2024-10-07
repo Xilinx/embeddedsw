@@ -158,7 +158,7 @@ s32 XAsufw_ChangeEndiannessAndCpy(void *Dest, const u32 DestSize, const void *Sr
 	if ((Dest == NULL) || (Src == NULL)) {
 		Status =  XASUFW_INVALID_PARAM;
 	} else if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen) ||
-		   ((CopyLen % 2U) != 0) ) {
+		   ((CopyLen % 2U) != 0U) ) {
 		Status =  XASUFW_INVALID_PARAM;
 	}
 	/* Return error for overlap string */
