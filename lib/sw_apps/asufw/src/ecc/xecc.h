@@ -34,7 +34,6 @@ extern "C" {
 #endif
 
 /*************************************** Include Files *******************************************/
-#include "xasufw_sss.h"
 #include "xasufw_dma.h"
 #include "xecc_hw.h"
 

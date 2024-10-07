@@ -41,16 +41,14 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 #define XRSA_ECC_P521_SIZE_IN_BYTES		(66U) /**< Size of NIST P-521 curve in bytes */
 #define XRSA_ECC_P192_SIZE_IN_BYTES		(24U) /**< Size of NIST P-192 curve in bytes */
-#define XRSA_BASEADDRESS			(0xEBF50000U) /**< RSA base address */
-#define XRSA_RESET_OFFSET			(0x00000040U) /**< RSA reset offset */
 
-#define XRSA_ECC_CURVE_TYPE_NIST_P521		(0x5U) /**<  Curve type value for P-521 curve*/
-#define XRSA_ECC_CURVE_TYPE_NIST_P192		(0x1U) /**<  Curve type value for P-192 curve*/
-#define XRSA_ECC_CURVE_TYPE_NIST_P224		(0x2U) /**<  Curve type value for P-224 curve*/
-#define XRSA_ECC_CURVE_TYPE_BRAINPOOL_P256	(0x15U) /**<  Curve type for brainpool P-256 curve */
-#define XRSA_ECC_CURVE_TYPE_BRAINPOOL_P320	(0x16U) /**<  Curve type for brainpool P-320 curve */
-#define XRSA_ECC_CURVE_TYPE_BRAINPOOL_P384	(0x17U) /**<  Curve type for brainpool P-384 curve */
-#define XRSA_ECC_CURVE_TYPE_BRAINPOOL_P512	(0x18U) /**<  Curve type for brainpool P-512 curve */
+#define XRSA_ECC_CURVE_TYPE_NIST_P521		(0x5U) /**< Curve type value for P-521 curve*/
+#define XRSA_ECC_CURVE_TYPE_NIST_P192		(0x1U) /**< Curve type value for P-192 curve*/
+#define XRSA_ECC_CURVE_TYPE_NIST_P224		(0x2U) /**< Curve type value for P-224 curve*/
+#define XRSA_ECC_CURVE_TYPE_BRAINPOOL_P256	(0x15U) /**< Curve type for brainpool P-256 curve */
+#define XRSA_ECC_CURVE_TYPE_BRAINPOOL_P320	(0x16U) /**< Curve type for brainpool P-320 curve */
+#define XRSA_ECC_CURVE_TYPE_BRAINPOOL_P384	(0x17U) /**< Curve type for brainpool P-384 curve */
+#define XRSA_ECC_CURVE_TYPE_BRAINPOOL_P512	(0x18U) /**< Curve type for brainpool P-512 curve */
 
 /************************************** Type Definitions *****************************************/
 
