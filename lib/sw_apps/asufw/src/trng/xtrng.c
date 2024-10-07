@@ -198,12 +198,18 @@ static XTrng_Config *XTrng_LookupConfig(u16 DeviceId)
 s32 XTrng_CfgInitialize(XTrng *InstancePtr)
 {
 	s32 Status = XASUFW_FAILURE;
-	XTrng_Config *CfgPtr = XTrng_LookupConfig(InstancePtr->DeviceId);
+	XTrng_Config *CfgPtr;
 
 	/** Validate input parameters. */
-	if ((InstancePtr == NULL) || (CfgPtr == NULL)) {
+	if (InstancePtr == NULL) {
 		Status = XASUFW_TRNG_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END_RET;
+	}
+
+	CfgPtr = XTrng_LookupConfig(InstancePtr->DeviceId);
+	if (CfgPtr == NULL) {
+		Status = XASUFW_TRNG_INVALID_PARAM;
+		goto END;
 	}
 
 	/** Initialize TRNG instance. */
@@ -215,10 +221,11 @@ s32 XTrng_CfgInitialize(XTrng *InstancePtr)
 	Status = XASUFW_SUCCESS;
 
 END:
-	if (Status != XASUFW_SUCCESS) {
+	if ((InstancePtr != NULL) && (Status != XASUFW_SUCCESS)) {
 		InstancePtr->ErrorState = XTRNG_ERROR;
 	}
 
+END_RET:
 	return Status;
 }
 
@@ -500,7 +507,6 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, u8 *Seed, u32 SeedLength, u8 *PersStr,
 		}
 	}
 
-	Status = XASUFW_SUCCESS;
 	InstancePtr->ErrorState = XTRNG_HEALTHY;
 
 END:
@@ -900,7 +906,6 @@ static s32 XTrng_ReseedInternal(XTrng *InstancePtr, u8 *Seed, u8 DLen, u8 *PerSt
 	}
 
 	InstancePtr->State = XTRNG_RESEED_STATE;
-	Status = XASUFW_SUCCESS;
 	InstancePtr->TrngStats.ElapsedSeedLife = 0U;
 
 END:
