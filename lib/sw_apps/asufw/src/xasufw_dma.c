@@ -292,6 +292,7 @@ s32 XAsufw_DmaMemSet(XAsufw_Dma *DmaPtr, u32 DestAddr, u32 Val, u32 Len)
 	s32 Status = XASUFW_FAILURE;
 	u32 Index;
 	u64 SrcAddr = DestAddr;
+	u32 DstAddr = DestAddr;
 
 	if (Len == 0U) {
 		Status = XASUFW_SUCCESS;
@@ -299,8 +300,8 @@ s32 XAsufw_DmaMemSet(XAsufw_Dma *DmaPtr, u32 DestAddr, u32 Val, u32 Len)
 	}
 
 	for (Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; ++Index) {
-		XAsufw_WriteReg(DestAddr, Val);
-		DestAddr += XASUFW_WORD_LEN_IN_BYTES;
+		XAsufw_WriteReg(DstAddr, Val);
+		DstAddr += XASUFW_WORD_LEN_IN_BYTES;
 	}
 
 	if (Len == (XASUFW_WORD_LEN_IN_BYTES * XASUFW_WORD_LEN_IN_BYTES)) {
@@ -308,7 +309,7 @@ s32 XAsufw_DmaMemSet(XAsufw_Dma *DmaPtr, u32 DestAddr, u32 Val, u32 Len)
 		XFIH_GOTO(END);
 	}
 
-	Status = XAsufw_StartDmaXfr(DmaPtr, SrcAddr, DestAddr,
+	Status = XAsufw_StartDmaXfr(DmaPtr, SrcAddr, DstAddr,
 				    (Len - (XASUFW_WORD_LEN_IN_BYTES * sizeof(u32))), XASUFW_SRC_CH_AXI_FIXED);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
