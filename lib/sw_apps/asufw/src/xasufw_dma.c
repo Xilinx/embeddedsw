@@ -19,7 +19,6 @@
  *       ma   04/26/24 Change XAsufw_DmaXfr to XAsufw_StartDmaXfr and add defines for AxiBurstType
  *       ma   05/20/24 Rename XASUFW_WORD_LEN macro to XASUFW_WORD_LEN_IN_BYTES
  *                      Add condition check XAsufw_DmaMemSet if length is 16 bytes, skip DMAXfer
- *       yog  08/25/24 Integrated FIH library
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *
  * </pre>
@@ -34,7 +33,6 @@
 #include "xasufw_util.h"
 #include "xasufw_status.h"
 #include "xasufw_debug.h"
-#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_XASUDMA_DEST_CTRL_OFFSET		(0x80CU) /**< ASU DMA destination control offset. */
@@ -72,7 +70,7 @@ static XAsuDma_Configure DmaCtrl = {0x40U, 0U, 0U, 0U, 0xFFEU, 0x80U, 0U, 0U, 0U
  *************************************************************************************************/
 static s32 XAsufw_DmaDrvInit(XAsufw_Dma *DmaPtr, u32 DeviceId)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XAsuDma_Config *Config;
 
 	/**
@@ -82,13 +80,13 @@ static s32 XAsufw_DmaDrvInit(XAsufw_Dma *DmaPtr, u32 DeviceId)
 	Config = XAsuDma_LookupConfig(DeviceId);
 	if (NULL == Config) {
 		Status = XASUFW_ERR_DMA_LOOKUP;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Status = XAsuDma_CfgInitialize(&DmaPtr->AsuDma, Config, Config->BaseAddress);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ERR_DMA_CFG;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/* Enable SLVERR */
@@ -98,6 +96,7 @@ static s32 XAsufw_DmaDrvInit(XAsufw_Dma *DmaPtr, u32 DeviceId)
 		   XCSUDMA_CTRL_APB_ERR_MASK);
 
 	/** Performs the self-test to check hardware build. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsuDma_SelfTest(&DmaPtr->AsuDma);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ERR_DMA_SELFTEST;
@@ -128,14 +127,15 @@ END:
  *************************************************************************************************/
 s32 XAsufw_DmaInit(void)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Initialise ASU_DMA0 & ASU_DMA1 */
 	Status = XAsufw_DmaDrvInit(&AsuDma0, ASUDMA_0_DEVICE_ID);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaDrvInit(&AsuDma1, ASUDMA_1_DEVICE_ID);
 
 END:
@@ -189,13 +189,13 @@ XAsufw_Dma *XAsufw_GetDmaInstance(u32 BaseAddress)
  *************************************************************************************************/
 s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Wait until the given DMA channel transfer completes. */
 	Status = XAsuDma_WaitForDone(&DmaPtr->AsuDma, Channel);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ERR_NON_BLOCK_DMA_WAIT;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** To acknowledge the transfer has completed, clear the given channel done interrupt bits. */
@@ -227,19 +227,19 @@ END:
  *************************************************************************************************/
 s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Validate input parameters. */
 	if (DmaPtr == NULL) {
 		Status = XASUFW_ERR_DMA_INSTANCE_NULL;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	XAsufw_Printf(DEBUG_INFO, "DMA Xfer Src 0x%0x%08x, Dest 0x%0x%08x, Len 0x%0x, Flags 0x%0x: ",
 		      (u32)(SrcAddr >> 32U), (u32)SrcAddr, (u32)(DestAddr >> 32U), (u32)DestAddr, Len, Flags);
 	if ( Len == 0U) {
 		Status = XASUFW_SUCCESS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Configure the secure stream switch. */
@@ -267,8 +267,6 @@ s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u
 	XAsuDma_ByteAlignedTransfer(&DmaPtr->AsuDma, XASUDMA_SRC_CHANNEL, SrcAddr, Len,
 				    XASUFW_DMA_NOT_LAST_INPUT);
 
-	Status = XASUFW_SUCCESS;
-
 END:
 	return Status;
 }
@@ -289,14 +287,14 @@ END:
  *************************************************************************************************/
 s32 XAsufw_DmaMemSet(XAsufw_Dma *DmaPtr, u32 DestAddr, u32 Val, u32 Len)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 Index;
 	u64 SrcAddr = DestAddr;
 	u32 DstAddr = DestAddr;
 
 	if (Len == 0U) {
 		Status = XASUFW_SUCCESS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	for (Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; ++Index) {
@@ -306,7 +304,7 @@ s32 XAsufw_DmaMemSet(XAsufw_Dma *DmaPtr, u32 DestAddr, u32 Val, u32 Len)
 
 	if (Len == (XASUFW_WORD_LEN_IN_BYTES * XASUFW_WORD_LEN_IN_BYTES)) {
 		Status = XASUFW_SUCCESS;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Status = XAsufw_StartDmaXfr(DmaPtr, SrcAddr, DstAddr,
@@ -315,6 +313,7 @@ s32 XAsufw_DmaMemSet(XAsufw_Dma *DmaPtr, u32 DestAddr, u32 Val, u32 Len)
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_WaitForDmaDone(DmaPtr, XASUDMA_SRC_CHANNEL);
 	Status |= XAsufw_WaitForDmaDone(DmaPtr, XASUDMA_DST_CHANNEL);
 
@@ -339,19 +338,22 @@ END:
  *************************************************************************************************/
 s32 XAsufw_DmaXfr(XAsufw_Dma *AsuDmaPtr, u64 SrcAddr, u64 DstAddr, const u32 Size, u32 Flags)
 {
-	u32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Start DMA transfer. */
 	Status = XAsufw_StartDmaXfr(AsuDmaPtr, SrcAddr, DstAddr, Size, Flags);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Wait for DMA to complete the transfer. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_WaitForDmaDone(AsuDmaPtr, XCSUDMA_SRC_CHANNEL);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_WaitForDmaDone(AsuDmaPtr, XCSUDMA_DST_CHANNEL);
 
 END:

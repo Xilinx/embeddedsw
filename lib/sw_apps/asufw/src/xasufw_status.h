@@ -11,16 +11,6 @@
  * This file comprises error codes and function prototypes essential for updating error codes
  * in ASUFW.
  *
- * Error status of ASUFW :
- * The error status of ASUFW is represented by a 32-bit value, which can be broken down as
- * outlined below. Each error code is referenced through the XAsufw_Status enum or respective
- * BSP error codes.
- * Bit 31-30    : Buffer clear Status, 31st bit high represents failure and 30th bit high
- * 		  represents success.
- * Bit 29-20    : Final error Code
- * Bit 19-10    : Second error code which is responsible for failure
- * Bit 9-0      : First error code which is responsible for failure
- *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -209,7 +199,7 @@ enum {
 	XASUFW_AES_INVALID_KEY_SIZE, /**< AES invalid key size */
 	XASUFW_AES_INVALID_IV, /**< AES invalid IV length/address for respective engine modes */
 	XASUFW_AES_INVALID_ENGINE_MODE, /**< AES invalid engine mode */
-	XASUFW_AES_ZEROED_KEY_NOT_ALLOWED,  /**< AES zeroed key not allowed */
+	XASUFW_AES_KEY_ZEROIZED,  /**< AES zeroed key not allowed */
 	XASUFW_AES_INVALID_OPERATION_TYPE, /**< AES invalid encrypt/decrypt operation type */
 	XASUFW_AES_INVALID_INPUT_DATA, /**< AES invalid input data */
 	XASUFW_AES_INVALID_INPUT_DATA_LENGTH, /**< AES invalid input data length */

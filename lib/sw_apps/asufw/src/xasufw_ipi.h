@@ -38,16 +38,20 @@ extern "C" {
 #include "xipipsu.h"
 
 /************************************ Constant Definitions ***************************************/
-#define IPI_ASU_BASEADDR	XPAR_XIPIPSU_0_BASEADDR /**< ASU IPI Base address */
-#define IPI_ASU_TRIG	(( IPI_ASU_BASEADDR) + ((u32)0x00000000U)) /**< ASU IPI Interrupt Status
+#define IPI_ASU_BASEADDR		XPAR_XIPIPSU_0_BASEADDR /**< ASU IPI Base address */
+#define IPI_ASU_TRIG			(IPI_ASU_BASEADDR + 0x00000000U) /**< ASU IPI Interrupt Status
 									Register */
-#define IPI_ASU_ISR	(( IPI_ASU_BASEADDR) + ((u32)0x00000010U)) /**< ASU IPI Interrupt Status Register */
-#define IPI_ASU_IMR	(( IPI_ASU_BASEADDR) + ((u32)0x00000014U)) /**< ASU IPI Interrupt Mask Register */
-#define IPI_ASU_IER	(( IPI_ASU_BASEADDR) + ((u32)0x00000018U)) /**< ASU IPI Interrupt Enable Register */
-#define IPI_ASU_IDR	(( IPI_ASU_BASEADDR) + ((u32)0x0000001CU)) /**< ASU IPI Interrupt Disable Register */
+#define IPI_ASU_ISR				(IPI_ASU_BASEADDR + 0x00000010U) /**< ASU IPI Interrupt Status
+									Register */
+#define IPI_ASU_IMR				(IPI_ASU_BASEADDR + 0x00000014U) /**< ASU IPI Interrupt Mask
+									Register */
+#define IPI_ASU_IER				(IPI_ASU_BASEADDR + 0x00000018U) /**< ASU IPI Interrupt Enable
+									Register */
+#define IPI_ASU_IDR				(IPI_ASU_BASEADDR + 0x0000001CU) /**< ASU IPI Interrupt Disable
+									Register */
 
-#define XASUFW_IPI_PMC_MASK	((u32)0x00000002U) /**< PMC IPI channel mask */
-#define XASUFW_IPI_NOBUF_6_MASK	((u32)0x00008000U) /**< IPI6 NoBuf channel mask */
+#define XASUFW_IPI_PMC_MASK		(0x00000002U) /**< PMC IPI channel mask */
+#define XASUFW_IPI_NOBUF_6_MASK	(0x00008000U) /**< IPI6 NoBuf channel mask */
 
 /************************************** Type Definitions *****************************************/
 

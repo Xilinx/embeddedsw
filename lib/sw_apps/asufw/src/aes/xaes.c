@@ -43,7 +43,7 @@
 #define XAES_PUF_KEY			(0xAU) /**< PUF key */
 #define XAES_EXPANDED_KEYS		(0xBU) /**< Expanded keys in AES engine */
 #define XAES_MAX_KEY_SOURCES		XAES_EXPANDED_KEYS /**< Maximum key source value */
-#define XAES_TIMEOUT_MAX		(0x1FFFFU) /**<  AES maximum timeout value */
+#define XAES_TIMEOUT_MAX		(0x1FFFFU) /**<  AES maximum timeout value in micro seconds */
 #define XAES_INVALID_CFG		(0xFFFFFFFFU) /**<  AES invalid configuration */
 
 typedef enum {
@@ -234,7 +234,7 @@ static XAes XAes_Instance[XASU_XAES_NUM_INSTANCES]; /**< ASUFW AES HW instances 
 
 /************************** Function Prototypes **************************************************/
 static XAes_Config *XAes_LookupConfig(u16 DeviceId);
-static s32 XAes_CheckKeyZeroedStatus(const XAes *InstancePtr, u32 KeySrc);
+static s32 XAes_IsKeyZeroized(const XAes *InstancePtr, u32 KeySrc);
 static void XAes_ConfigCounterMeasures(const XAes *InstancePtr);
 static void XAes_ConfigAesOperation(const XAes *InstancePtr);
 static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
@@ -564,7 +564,7 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 	}
 
 	/** Check whether key is zeroed or not. */
-	Status = XAes_CheckKeyZeroedStatus(InstancePtr, KeyObject.KeySrc);
+	Status = XAes_IsKeyZeroized(InstancePtr, KeyObject.KeySrc);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -705,8 +705,9 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 	InstancePtr->AsuDmaPtr = DmaPtr;
 
 	/**
-	 * If the output data address is zero, the input data will be considered as AAD data,
-	 * configure AES AAD configurations before pushing AAD data to AES engine.
+	 * If the output data address is zero, the input data will be considered as AAD data.
+	 * Configure AES AAD configurations before pushing AAD data to AES engine and clear AAD
+	 * configuration post DMA transfer.
 	 */
 	if (OutDataAddr == 0U) {
 		XAes_ConfigAad(InstancePtr);
@@ -719,10 +720,6 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 		goto END;
 	}
 
-	/**
-	 * If the output data address is zero, the input data will be considered as AAD data,
-	 * clear configuration of AAD.
-	 */
 	if (OutDataAddr == 0U) {
 		XAes_ClearConfigAad(InstancePtr);
 	}
@@ -858,12 +855,12 @@ static XAes_Config *XAes_LookupConfig(u16 DeviceId)
  *
  * @return
  *		- XASUFW_SUCCESS, if key is not zeroized.
- *		- XASUFW_AES_ZEROED_KEY_NOT_ALLOWED, if key is zeroized.
+ *		- XASUFW_AES_KEY_ZEROIZED, if key is zeroized.
  *
  *************************************************************************************************/
-static s32 XAes_CheckKeyZeroedStatus(const XAes *InstancePtr, u32 KeySrc)
+static s32 XAes_IsKeyZeroized(const XAes *InstancePtr, u32 KeySrc)
 {
-	CREATE_VOLATILE(Status, XASUFW_AES_ZEROED_KEY_NOT_ALLOWED);
+	CREATE_VOLATILE(Status, XASUFW_AES_KEY_ZEROIZED);
 	u32 KeyZeroedStatus;
 
 	/** Read the key zeroized status register. */
@@ -879,7 +876,8 @@ static s32 XAes_CheckKeyZeroedStatus(const XAes *InstancePtr, u32 KeySrc)
 
 /*************************************************************************************************/
 /**
- * @brief	This function configures AES DPA counter measures by reading user configuration.
+ * @brief	This function configures the AES engine for encrypt/decrypt operation based on the
+ * 		OperationType selected by the client while sending the request.
  *
  * @param	InstancePtr	Pointer to the XAes instance.
  *

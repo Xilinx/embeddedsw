@@ -35,7 +35,6 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xasu_def.h"
-#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 #define	XSHA_LAST_WORD					(1U) /**< SHA last word value */
@@ -46,8 +45,8 @@
 typedef enum {
 	XSHA_INITALIZED = 0x1, /**< SHA in initialized state */
 	XSHA_STARTED, /**< SHA in start state */
-	XSHA_UPDATED, /**< SHA in updated state */
-	XSHA_IS_ENDLAST, /**< SHA end last is received */
+	XSHA_UPDATE_IN_PROGRESS, /**< SHA is in progress state during multiple data chunk updates */
+	XSHA_UPDATE_COMPLETED, /**< SHA is in completed state after the final data chunk update */
 } XSha_State;
 
 /**
@@ -58,7 +57,7 @@ struct _XSha_Config {
 	u16 DeviceId; /**< DeviceId is the unique ID of the device */
 	u16 ShaType; /**< SHA Type SHA2/SHA3 */
 	u32 BaseAddress; /**< BaseAddress is the physical base address of the device's registers */
-} ;
+};
 
 /**
 * @brief SHA driver instance structure. A pointer to an instance data
@@ -172,7 +171,7 @@ static XSha_Config *XSha_LookupConfig(u16 DeviceId)
  *************************************************************************************************/
 s32 XSha_CfgInitialize(XSha *InstancePtr)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XSha_Config *CfgPtr = NULL;
 
 	/** Validate input parameters. */
@@ -219,7 +218,7 @@ END:
  *************************************************************************************************/
 s32 XSha_Start(XSha *InstancePtr, u32 ShaMode)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -285,7 +284,7 @@ END:
  *************************************************************************************************/
 s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size, u32 EndLast)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
@@ -318,7 +317,8 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 	}
 
 	/** Validate SHA state is started or not. */
-	if ((InstancePtr->ShaState != XSHA_STARTED) && (InstancePtr->ShaState != XSHA_UPDATED)) {
+	if ((InstancePtr->ShaState != XSHA_STARTED) &&
+		(InstancePtr->ShaState != XSHA_UPDATE_IN_PROGRESS)) {
 		Status = XASUFW_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -336,6 +336,7 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 	XAsuDma_ByteAlignedTransfer(&InstancePtr->AsuDmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL, InDataAddr, Size,
 				    EndLast);
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsuDma_WaitForDoneTimeout(&InstancePtr->AsuDmaPtr->AsuDma, XASUDMA_SRC_CHANNEL);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_FAILURE;
@@ -346,9 +347,9 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 	XAsuDma_IntrClear(&InstancePtr->AsuDmaPtr->AsuDma, XASUDMA_SRC_CHANNEL, XASUDMA_IXR_DONE_MASK);
 
 	if (EndLast == XSHA_LAST_WORD) {
-		InstancePtr->ShaState = XSHA_IS_ENDLAST;
+		InstancePtr->ShaState = XSHA_UPDATE_COMPLETED;
 	} else {
-		InstancePtr->ShaState = XSHA_UPDATED;
+		InstancePtr->ShaState = XSHA_UPDATE_IN_PROGRESS;
 	}
 
 END:
@@ -380,11 +381,11 @@ END:
  *************************************************************************************************/
 s32 XSha_Finish(XSha *InstancePtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutput)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
-	u32 Index = 0U;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	volatile u32 Index = 0U;
 	u32 *HashPtr = (u32 *)(UINTPTR)HashAddr;
 	u32 ShaDigestAddr;
-	u32 ShaDigestSizeInWords;
+	u32 ShaDigestSizeInWords = 0U;
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
@@ -415,7 +416,8 @@ s32 XSha_Finish(XSha *InstancePtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutp
 	}
 
 	/** Validate SHA state is updated/started. */
-	if ((InstancePtr->ShaState != XSHA_STARTED) && (InstancePtr->ShaState != XSHA_IS_ENDLAST)) {
+	if ((InstancePtr->ShaState != XSHA_STARTED) &&
+		(InstancePtr->ShaState != XSHA_UPDATE_COMPLETED)) {
 		Status = XASUFW_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -426,6 +428,7 @@ s32 XSha_Finish(XSha *InstancePtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutp
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Read out the digest in reverse order and store in the Buffer. */
 	ShaDigestSizeInWords = HashBufSize / XASUFW_WORD_LEN_IN_BYTES;
 	ShaDigestAddr = InstancePtr->BaseAddress + XASU_SHA_DIGEST_0_OFFSET;
@@ -435,8 +438,7 @@ s32 XSha_Finish(XSha *InstancePtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutp
 		HashPtr++;
 		ShaDigestAddr += XASUFW_WORD_LEN_IN_BYTES;
 	}
-
-	if (Index == ShaDigestSizeInWords) {
+	if ((Index == ShaDigestSizeInWords) && (ShaDigestSizeInWords != 0U)) {
 		Status = XASUFW_SUCCESS;
 	}
 
@@ -470,13 +472,9 @@ END:
  *************************************************************************************************/
 static inline s32 XSha_WaitForDone(const XSha *InstancePtr)
 {
-	s32 Status = XST_FAILURE;
-
 	/* Check whether SHA operation is completed within Timeout(10sec) or not. */
-	Status = (s32)Xil_WaitForEvent(InstancePtr->BaseAddress + XASU_SHA_DONE_OFFSET,
-				       XASU_SHA_DONE_MASK, XASU_SHA_DONE_MASK, XSHA_TIMEOUT_MAX);
-
-	return Status;
+	return (s32)Xil_WaitForEvent(InstancePtr->BaseAddress + XASU_SHA_DONE_OFFSET,
+			XASU_SHA_DONE_MASK, XASU_SHA_DONE_MASK, XSHA_TIMEOUT_MAX);
 }
 
 /*************************************************************************************************/
@@ -495,7 +493,7 @@ static inline s32 XSha_WaitForDone(const XSha *InstancePtr)
  *************************************************************************************************/
 static s32 XSha_ValidateModeAndInit(XSha *InstancePtr, u32 ShaMode)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Initialize the SHA instance based on SHA Mode. */
 	switch (ShaMode) {
