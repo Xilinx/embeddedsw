@@ -39,16 +39,16 @@
 #include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XECC_CURVES_SUPPORTED		2U /**< Curves P-256 and P-384 are supported for ECC engine */
+#define XECC_CURVES_SUPPORTED		(2U) /**< Curves P-256 and P-384 are supported for ECC engine */
 #define XECC_RESET_ASSERT		(1U) /**< ECC reset assert value */
 #define XECC_RESET_DEASSERT		(0U) /**< ECC reset deassert value */
 #define XECC_TIMEOUT_MAX		(0x1FFFFU) /**< ECC done timeout */
 						/* TBD: need to calculate as part of VNC */
-#define XECC_SIGN_VERIFICATION_OP_CODE	(0x0U) /**< OpCode for signature verification */
-#define XECC_PUB_KEY_VALIDATION_OP_CODE	(0x1U) /**< OpCode for public key validation */
-#define XECC_PUB_KEY_GENERATION_OP_CODE	(0x2U) /**< Opcode for Public Key Generation */
-#define XECC_SIGN_GENERATION_OP_CODE	(0x3U) /**< OpCode for signature generation */
 #define XECC_DOUBLE_CURVE_LENGTH_SHIFT	(0x1U) /**< Shift value to double the curve length */
+#define XECC_SUPPRESS_SCP_SCP2_MASK	(XECC_CTRL_SUPPRESS_SCP_MASK | \
+		XECC_CTRL_SUPPRESS_SCP2_MASK)  /**< Mask for enabling suppress SCP and SCP2 */
+#define XECC_CFG_WR_RD_ENDIANNESS_MASK	(XECC_CFG_WR_ENDIANNESS_MASK | \
+		XECC_CFG_RD_ENDIANNESS_MASK)  /**< Mask for enabling write and read endianness */
 
 /************************************** Type Definitions *****************************************/
 
@@ -130,7 +130,7 @@ XEcc *XEcc_GetInstance(u32 DeviceId)
 	XEcc *XEcc_InstancePtr = NULL;
 
 	if (DeviceId >= XASU_XECC_NUM_INSTANCES) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	XEcc_InstancePtr = &XEcc_Instance[DeviceId];
@@ -160,12 +160,12 @@ s32 XEcc_Initialize(XEcc *InstancePtr)
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_ECC_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 	CfgPtr = XEcc_LookupConfig(InstancePtr->DeviceId);
 	if (CfgPtr == NULL) {
 		Status = XASUFW_ECC_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Initialize ECC instance. */
@@ -206,7 +206,7 @@ END:
 s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
 			   u64 PrivKeyAddr, u64 PubKeyAddr)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u32 Offset = XECC_MEM_GEN_KEY_PVT_KEY_OFFSET;
@@ -214,7 +214,12 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
+	}
+
+	if ((DmaPtr == NULL) || (PrivKeyAddr == 0U) || (PubKeyAddr == 0U)) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
 	}
 
 	CurveInfo = &XEcc_CurveInfoTable[CurveType];
@@ -222,7 +227,7 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 
 	if (CurveLen != CurveInfo->CurveBytes) {
 		Status = XASUFW_ECC_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Release Reset. */
@@ -233,29 +238,36 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
 	/** Copy private key to respective registers using DMA. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Update configuration and start the operation. */
-	Status = XEcc_ConfigNStartOperation(InstancePtr, XECC_PUB_KEY_GENERATION_OP_CODE);
-	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
-	}
+	XFIH_CALL_GOTO(XEcc_ConfigNStartOperation, XFihVar, Status, END, InstancePtr,
+			XECC_CTRL_PUB_KEY_GENERATION_OP_CODE);
 
 	/** Copy public key from registers to destination address using DMA. */
 	Offset = XECC_MEM_PUB_KEY_X_OFFSET;
-	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(XAsufw_DmaXfr, XASUFW_ECC_READ_DATA_FAIL, XFihVar,
-					   Status, END, DmaPtr, (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset),
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset),
 					   PubKeyAddr, CurveLen, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECC_READ_DATA_FAIL;
+		goto END;
+	}
 
 	Offset = XECC_MEM_PUB_KEY_Y_OFFSET;
-	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(XAsufw_DmaXfr, XASUFW_ECC_READ_DATA_FAIL, XFihVar,
-					   Status, END, DmaPtr, (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset),
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset),
 					   (PubKeyAddr + CurveLen), CurveLen, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECC_READ_DATA_FAIL;
+		goto END;
+	}
 
 END:
 	if (InstancePtr != NULL) {
@@ -290,14 +302,20 @@ END:
 s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
 			   u64 PubKeyAddr)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u32 Offset = XECC_MEM_PUB_KEY_X_OFFSET;
 
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
+	}
+
+	if ((DmaPtr == NULL) || (PubKeyAddr == 0U)) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
 	}
 
 	CurveInfo = &XEcc_CurveInfoTable[CurveType];
@@ -305,7 +323,7 @@ s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 
 	if (CurveLen != CurveInfo->CurveBytes) {
 		Status = XASUFW_ECC_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Release Reset. */
@@ -316,21 +334,26 @@ s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
 	/** Copy public key to respective registers using DMA. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		XFIH_GOTO(END);
+		goto END;
 	}
+
 	Offset = XECC_MEM_PUB_KEY_Y_OFFSET;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, (PubKeyAddr + CurveLen),
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		XFIH_GOTO(END);
+		goto END;
 	}
+
 	/** Update configuration and start the operation. */
-	Status = XEcc_ConfigNStartOperation(InstancePtr, XECC_PUB_KEY_VALIDATION_OP_CODE);
+	XFIH_CALL(XEcc_ConfigNStartOperation, XFihVar, Status, InstancePtr,
+			XECC_CTRL_PUB_KEY_VALIDATION_OP_CODE);
 
 END:
 	if (InstancePtr != NULL) {
@@ -374,7 +397,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			   u64 PrivKeyAddr, const u8 *EphemeralKeyPtr, u64 HashAddr, u32 HashBufLen,
 			   u64 SignAddr)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u32 Offset = XECC_MEM_GEN_SIGN_PVT_KEY_OFFSET;
@@ -382,7 +405,13 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
+	}
+
+	if ((DmaPtr == NULL) || (PrivKeyAddr == 0U) || (EphemeralKeyPtr == NULL) ||
+			(HashAddr == 0U) || (SignAddr == 0U)) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
 	}
 
 	CurveInfo = &XEcc_CurveInfoTable[CurveType];
@@ -390,7 +419,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 
 	if ((CurveLen != CurveInfo->CurveBytes) || (HashBufLen != CurveInfo->CurveBytes)) {
 		Status = XASUFW_ECC_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Release Reset. */
@@ -401,46 +430,55 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
 	/** Copy private key and hash to respective registers using DMA.*/
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Offset = XECC_MEM_HASH_OFFSET;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, HashAddr,
 			(u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), HashBufLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Copy ephemeral key to respective registers. */
 	Offset = XECC_MEM_EPHEMERAL_KEY_OFFSET;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy((u8*)(InstancePtr->BaseAddress + Offset), CurveLen,
 			EphemeralKeyPtr, CurveLen, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Update configuration and start the operation. */
-	Status = XEcc_ConfigNStartOperation(InstancePtr, XECC_SIGN_GENERATION_OP_CODE);
-	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
-	}
+	XFIH_CALL_GOTO(XEcc_ConfigNStartOperation, XFihVar, Status, END, InstancePtr,
+			XECC_CTRL_SIGN_GENERATION_OP_CODE);
 
 	/** Copy generated signature from registers to destination address using DMA. */
 	Offset = XECC_MEM_SIGN_R_OFFSET;
-	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(XAsufw_DmaXfr, XASUFW_ECC_READ_DATA_FAIL, XFihVar,
-					   Status, END, DmaPtr, (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset),
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset),
 					   SignAddr, CurveLen, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECC_READ_DATA_FAIL;
+		goto END;
+	}
 
 	Offset = XECC_MEM_SIGN_S_OFFSET;
-	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(XAsufw_DmaXfr, XASUFW_ECC_READ_DATA_FAIL, XFihVar,
-					   Status, END, DmaPtr, (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset),
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset),
 					   (SignAddr + CurveLen), CurveLen, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECC_READ_DATA_FAIL;
+		goto END;
+	}
 
 END:
 	if (InstancePtr != NULL) {
@@ -479,14 +517,20 @@ END:
 s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
 			 u64 PubKeyAddr, u64 HashAddr, u32 HashBufLen, u64 SignAddr)
 {
-	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 	u32 Offset = XECC_MEM_SIGN_R_OFFSET;
 
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
+	}
+
+	if ((DmaPtr == NULL) || (PubKeyAddr == 0U) || (HashAddr == 0U) || (SignAddr == 0U)) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
 	}
 
 	CurveInfo = &XEcc_CurveInfoTable[CurveType];
@@ -494,7 +538,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 
 	if ((CurveLen != CurveInfo->CurveBytes) || (HashBufLen != CurveInfo->CurveBytes)) {
 		Status = XASUFW_ECC_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Release Reset. */
@@ -505,45 +549,53 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
 	/** Copy signature, hash and public key to respective registers using DMA. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, SignAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		XFIH_GOTO(END);
+		goto END;
 	}
+
 	Offset = XECC_MEM_SIGN_S_OFFSET;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, SignAddr + CurveLen,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Offset = XECC_MEM_HASH_OFFSET;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, HashAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), HashBufLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Offset = XECC_MEM_PUB_KEY_X_OFFSET;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		XFIH_GOTO(END);
+		goto END;
 	}
+
 	Offset = XECC_MEM_PUB_KEY_Y_OFFSET;
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, (PubKeyAddr + CurveLen),
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + Offset), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WRITE_DATA_FAIL;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Update configuration and start the operation. */
-	Status = XEcc_ConfigNStartOperation(InstancePtr, XECC_SIGN_VERIFICATION_OP_CODE);
+	XFIH_CALL(XEcc_ConfigNStartOperation, XFihVar, Status, InstancePtr,
+			XECC_CTRL_SIGN_VERIFICATION_OP_CODE);
 
 END:
 	if (InstancePtr != NULL) {
@@ -573,7 +625,7 @@ static inline s32 XEcc_WaitForDone(const XEcc *InstancePtr)
 	Status = (s32)Xil_WaitForEvent(InstancePtr->BaseAddress + XECC_ISR_OFFSET,
 				       XECC_ISR_DONE_MASK, XECC_ISR_DONE_MASK, XECC_TIMEOUT_MAX);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Clear interrupt */
@@ -612,7 +664,7 @@ static inline u32 XEcc_ConfigureEngine(const XEcc *InstancePtr, u32 OpCode)
 	CtrlRegValue |= XECC_CTRL_OPCODE_MASK & (OpCode << XECC_CTRL_OPCODE_SHIFT);
 
 	if (InstancePtr->CmConfig == XASUFW_CONFIG_ENABLE) {
-		CtrlRegValue |= (XECC_SUPPRESS_SCP_MASK);
+		CtrlRegValue |= (XECC_SUPPRESS_SCP_SCP2_MASK);
 	}
 
 	return CtrlRegValue;
@@ -668,7 +720,7 @@ static XEcc_Config *XEcc_LookupConfig(u32 DeviceId)
  *************************************************************************************************/
 static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 TerminationCode = 0U;
 	u32 CtrlRegValue = 0U;
 
@@ -683,7 +735,7 @@ static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode)
 	Status = XEcc_WaitForDone(InstancePtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WAIT_FOR_DONE_TIMEOUT;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/**
@@ -719,17 +771,17 @@ static s32 XEcc_InputValidate(const XEcc *InstancePtr, u32 CurveType)
 
 	if (InstancePtr == NULL) {
 		Status = XASUFW_ECC_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
 		Status = XASUFW_ECC_INIT_NOT_DONE;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if ((CurveType != XECC_CURVE_TYPE_NIST_P256) && (CurveType != XECC_CURVE_TYPE_NIST_P384)) {
 		Status = XASUFW_ECC_INVALID_PARAM;
-		XFIH_GOTO(END);
+		goto END;
 	} else {
 		Status = XASUFW_SUCCESS;
 	}

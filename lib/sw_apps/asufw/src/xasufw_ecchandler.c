@@ -99,14 +99,14 @@ s32 XAsufw_EccInit(void)
 	Status = XAsufw_ModuleRegister(&XAsufw_EccModule);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_MODULE_REGISTRATION_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Initialize ECC instance. */
 	Status = XEcc_Initialize(XAsufw_Ecc);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INIT_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 END:
@@ -152,7 +152,7 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	AsuDmaPtr = XAsufw_AllocateDmaResource(ResourceId, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 	XAsufw_AllocateResource(ResourceId, QueueId);
 
@@ -226,7 +226,7 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	AsuDmaPtr = XAsufw_AllocateDmaResource(ResourceId, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 	XAsufw_AllocateResource(ResourceId, QueueId);
 
@@ -277,7 +277,7 @@ static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	/** Perform KAT on P-256 curve using ECC core. */
 	Status = XAsufw_EccCoreKat(XAsufw_Ecc, QueueId);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		goto END;
 	}
 	/** Perform KAT on P-192 curve using RSA core. */
 	Status = XAsufw_RsaEccKat(QueueId);
