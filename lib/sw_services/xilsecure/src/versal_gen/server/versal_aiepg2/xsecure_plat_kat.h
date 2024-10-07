@@ -8,7 +8,7 @@
 * @file xsecure_plat_kat.h
 *
 *
-* This file contains KAT interface APIs for versal_aiepg2
+* This file contains KAT interface APIs for VersalAiePg2
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -19,14 +19,13 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
 /**
-* @addtogroup xsecure_kat_server_apis Xilsecure Kat Server APIs
+* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
 * @{
 */
-#ifndef XSECURE_KAT_PLAT_H_
-#define XSECURE_KAT_PLAT_H_
+#ifndef XSECURE_PLAT_KAT_H_
+#define XSECURE_PLAT_KAT_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -63,4 +62,4 @@ int XSecure_LmsShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr);
 }
 #endif
 
-#endif /* XSECURE_KAT_PLAT_H_ */
+#endif /* XSECURE_PLAT_KAT_H_ */
