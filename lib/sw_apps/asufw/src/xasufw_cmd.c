@@ -137,7 +137,7 @@ void XAsufw_CommandResponseHandler(XAsu_ChannelQueueBuf *QueueBuf, s32 Response)
  *	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
-s32 XAsufw_ValidateCommand(XAsu_ReqBuf *ReqBuf)
+s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
@@ -177,7 +177,7 @@ END:
  *	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
-s32 XAsufw_CheckResources(XAsu_ReqBuf *ReqBuf, u32 QueueId)
+s32 XAsufw_CheckResources(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;

@@ -363,7 +363,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	}
 
 	/** Copy ephemeral key to local address and change the endianness of the data. */
-	Status = Xil_SMemCpy((u8 *)EphemeralKey, CurveLen, (u8 *)EphemeralKeyPtr, CurveLen, CurveLen);
+	Status = Xil_SMemCpy((u8 *)EphemeralKey, CurveLen, (const u8 *)EphemeralKeyPtr, CurveLen, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 		XFIH_GOTO(END_CLR);
