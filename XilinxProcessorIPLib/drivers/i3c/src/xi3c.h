@@ -62,6 +62,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------
 * 1.00  gm  02/09/24 First release
+* 1.1   gm  10/07/24 Added XI3c_GetRevisionNumber() for reading revision
+* 		      number.
 * </pre>
 *
 ******************************************************************************/
@@ -496,6 +498,25 @@ extern "C" {
 #define XI3c_GetSclOdLowTime(InstancePtr)				\
 	((XI3c_ReadReg(InstancePtr->Config.BaseAddress,			\
 		       XI3C_OD_SCL_LOW_TIME_OFFSET)) & XI3C_18BITS_MASK)
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Gets Core Revision number of I3C.
+*
+* @param        InstancePtr is a pointer to the XI3c instance.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*		u32 XI3c_GetRevisionNumber(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_GetRevisionNumber(InstancePtr)					\
+	(((XI3c_ReadReg(InstancePtr->Config.BaseAddress,			\
+		       XI3C_VERSION_OFFSET)) & XI3C_CORE_REVISION_NUM_MASK)	\
+		       >> XI3C_CORE_REVISION_NUM_SHIFT)
 
 /**************************** Type Definitions *******************************/
 
