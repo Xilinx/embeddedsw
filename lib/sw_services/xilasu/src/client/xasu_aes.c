@@ -28,6 +28,7 @@
 #include "xasu_aes.h"
 #include "xasu_def.h"
 #include "xasu_status.h"
+#include "xasu_aes_common.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -36,8 +37,6 @@
 /************************************ Macros (Inline Functions) Definitions **********************/
 
 /************************************ Function Prototypes ****************************************/
-static inline s32 XAsu_AesValidateIv(u8 EngineMode, u64 IvAddr, u32 IvLen);
-static inline s32 XAsu_AesValidateTag(u8 EngineMode, u64 TagAddr, u32 TagLen);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -58,78 +57,90 @@ static inline s32 XAsu_AesValidateTag(u8 EngineMode, u64 TagAddr, u32 TagLen);
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParamsPtr)
+s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
 
 	/** Validatations of inputs. */
-	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if (AesParamsPtr == NULL) {
+	if (AesClientParamPtr == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if ((AesParamsPtr->InputDataAddr == 0U) || (AesParamsPtr->KeyObjectAddr == 0U)) {
+	if ((AesClientParamPtr->OperationFlags &
+			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) == 0x0U) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/** During multiple updates, address of output data should be zero while updating AAD. */
-	if ((AesParamsPtr->OutputDataAddr == 0U) && (AesParamsPtr->AadAddr == 0U)) {
+	if (((AesClientParamPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) &&
+		(AesClientParamPtr->KeyObjectAddr == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/** Minimum length of plaintext/AAD should be of atleast 8bits. */
-	if ((AesParamsPtr->DataLen == 0U) && (AesParamsPtr->AadLen == 0U)) {
+	/**
+	 * Both InputDataAddr/OutputDataAddr and AadAddr cannot be zero.
+	 */
+	if (((AesClientParamPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) &&
+		(((AesClientParamPtr->OutputDataAddr == 0U) && (AesClientParamPtr->AadAddr == 0U)) ||
+		((AesClientParamPtr->InputDataAddr == 0U) && (AesClientParamPtr->AadAddr == 0U)))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if ((AesParamsPtr->EngineMode > XASU_AES_GCM_MODE) &&
-	    (AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE) &&
-	    (AesParamsPtr->EngineMode != XASU_AES_GHASH_MODE)) {
+	/**
+	 * The minimum length of plaintext/AAD data must be at least 8 bits, while the
+	 * maximum length should be less than 0x1FFFFFFC bytes, which is the
+	 * ASU DMA's maximum supported data transfer length.
+	 */
+	if ((((AesClientParamPtr->DataLen == 0U) ||
+			(AesClientParamPtr->DataLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) &&
+			(AesClientParamPtr->AadLen == 0U)) ||
+			(((AesClientParamPtr->AadLen == 0U) ||
+			(AesClientParamPtr->AadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) &&
+			(AesClientParamPtr->DataLen == 0U))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if (((AesParamsPtr->OperationFlags & XASU_AES_INIT) != XASU_AES_INIT) &&
-	    ((AesParamsPtr->OperationFlags & XASU_AES_UPDATE) != XASU_AES_UPDATE) &&
-	    ((AesParamsPtr->OperationFlags & XASU_AES_FINAL) != XASU_AES_FINAL) &&
-	    ((AesParamsPtr->OperationFlags &
-	      (XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) !=
-	     (XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL))) {
+	if ((AesClientParamPtr->EngineMode > XASU_AES_GCM_MODE) &&
+			(AesClientParamPtr->EngineMode != XASU_AES_CMAC_MODE) &&
+			(AesClientParamPtr->EngineMode != XASU_AES_GHASH_MODE)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if ((AesParamsPtr->IsLast != XASU_TRUE) && (AesParamsPtr->IsLast != XASU_FALSE)) {
+	if ((AesClientParamPtr->IsLast != TRUE) && (AesClientParamPtr->IsLast != FALSE)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if (AesParamsPtr->OperationType != XASU_AES_ENCRYPT_OPERATION) {
+	if (AesClientParamPtr->OperationType != XASU_AES_ENCRYPT_OPERATION) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	Status = XAsu_AesValidateIv(AesParamsPtr->EngineMode, AesParamsPtr->IvAddr, AesParamsPtr->IvLen);
+	Status = XAsu_AesValidateIv(AesClientParamPtr->EngineMode, AesClientParamPtr->IvAddr,
+		AesClientParamPtr->IvLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XAsu_AesValidateTag(AesParamsPtr->EngineMode, AesParamsPtr->TagAddr, AesParamsPtr->TagLen);
+	Status = XAsu_AesValidateTag(AesClientParamPtr->EngineMode, AesClientParamPtr->TagAddr,
+		AesClientParamPtr->TagLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -137,7 +148,7 @@ s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 
 	Header = XAsu_CreateHeader(XASU_AES_OPERATION_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U);
 
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, AesParamsPtr,
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, AesClientParamPtr,
 					sizeof(Asu_AesParams), Header);
 
 END:
@@ -161,78 +172,95 @@ END:
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParamsPtr)
+s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
 
 	/** Validatations of inputs. */
-	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if (AesParamsPtr == NULL) {
+	if (AesClientParamPtr == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if ((AesParamsPtr->InputDataAddr == 0U) || (AesParamsPtr->KeyObjectAddr == 0U)) {
+	if ((ClientParamPtr->Priority != XASU_PRIORITY_HIGH) &&
+			(ClientParamPtr->Priority != XASU_PRIORITY_LOW)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/** During multiple updates, address of output data should be zero while updating AAD. */
-	if ((AesParamsPtr->OutputDataAddr == 0U) && (AesParamsPtr->AadAddr == 0U)) {
+	if ((AesClientParamPtr->OperationFlags &
+			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) == 0x0U) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/** Minimum length of plaintext/AAD should be of atleast 8bits. */
-	if ((AesParamsPtr->DataLen == 0U) && (AesParamsPtr->AadLen == 0U)) {
+	if (((AesClientParamPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) &&
+		(AesClientParamPtr->KeyObjectAddr == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if ((AesParamsPtr->EngineMode > XASU_AES_GCM_MODE) &&
-	    (AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE) &&
-	    (AesParamsPtr->EngineMode != XASU_AES_GHASH_MODE)) {
+	/**
+	 * Both InputDataAddr/OutputDataAddr and AadAddr cannot be zero.
+	 */
+	if (((AesClientParamPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) &&
+		(((AesClientParamPtr->OutputDataAddr == 0U) && (AesClientParamPtr->AadAddr == 0U)) ||
+		((AesClientParamPtr->InputDataAddr == 0U) && (AesClientParamPtr->AadAddr == 0U)))) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+	/**
+	 * The minimum length of plaintext/AAD data must be at least 8 bits, while the
+	 * maximum length should be less than 0x1FFFFFFC bytes, which is the
+	 * ASU DMA's maximum supported data transfer length.
+	 */
+	if ((((AesClientParamPtr->DataLen == 0U) ||
+			(AesClientParamPtr->DataLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) &&
+			(AesClientParamPtr->AadLen == 0U)) ||
+			(((AesClientParamPtr->AadLen == 0U) ||
+			(AesClientParamPtr->AadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) &&
+			(AesClientParamPtr->DataLen == 0U))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if (((AesParamsPtr->OperationFlags & XASU_AES_INIT) != XASU_AES_INIT) &&
-	    ((AesParamsPtr->OperationFlags & XASU_AES_UPDATE) != XASU_AES_UPDATE) &&
-	    ((AesParamsPtr->OperationFlags & XASU_AES_FINAL) != XASU_AES_FINAL) &&
-	    ((AesParamsPtr->OperationFlags &
-	      (XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) !=
-	     (XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL))) {
+	if ((AesClientParamPtr->EngineMode > XASU_AES_GCM_MODE) &&
+			(AesClientParamPtr->EngineMode != XASU_AES_CMAC_MODE) &&
+			(AesClientParamPtr->EngineMode != XASU_AES_GHASH_MODE)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if ((AesParamsPtr->IsLast != XASU_TRUE) && (AesParamsPtr->IsLast != XASU_FALSE)) {
+	if ((AesClientParamPtr->IsLast != TRUE) && (AesClientParamPtr->IsLast != FALSE)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if (AesParamsPtr->OperationType != XASU_AES_DECRYPT_OPERATION) {
+	if (AesClientParamPtr->OperationType != XASU_AES_DECRYPT_OPERATION) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	Status = XAsu_AesValidateIv(AesParamsPtr->EngineMode, AesParamsPtr->IvAddr, AesParamsPtr->IvLen);
+	Status = XAsu_AesValidateIv(AesClientParamPtr->EngineMode, AesClientParamPtr->IvAddr,
+		AesClientParamPtr->IvLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XAsu_AesValidateTag(AesParamsPtr->EngineMode, AesParamsPtr->TagAddr, AesParamsPtr->TagLen);
+	Status = XAsu_AesValidateTag(AesClientParamPtr->EngineMode, AesClientParamPtr->TagAddr,
+		AesClientParamPtr->TagLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -240,7 +268,7 @@ s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 
 	Header = XAsu_CreateHeader(XASU_AES_OPERATION_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U);
 
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, AesParamsPtr,
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, AesClientParamPtr,
 					sizeof(Asu_AesParams), Header);
 
 END:
@@ -287,122 +315,4 @@ END:
 	return Status;
 }
 
-/*************************************************************************************************/
-/**
- * @brief	This function validates IV for a given AES engine mode.
- *
- * @param	EngineMode	AES engine mode.
- * @param	IvAddr		Address of the buffer holding IV.
- * @param	IvLen		Length of the IV in bytes.
- *
- * @return
- *		- XASUFW_SUCCESS, if validation of IV is successful for a given engine mode.
- *		- XASU_INVALID_ARGUMENT, if validation of IV address or IV length fails.
- *
- *************************************************************************************************/
-static inline s32 XAsu_AesValidateIv(u8 EngineMode, u64 IvAddr, u32 IvLen)
-{
-	s32 Status = XASU_INVALID_ARGUMENT;
-
-	/**
-	 * IV Validation for respective AES engine modes
-	 * - AES Standard mode (ECB, CBC, CTR, CFB, OFB).
-	 * - AES MAC mode (GCM, CCM, GMAC, CMAC).
-	 *
-	 * |   Engine Mode     |   IvAddress    |   IvLength           |
-	 * |-------------------|----------------|----------------------|
-	 * | AES-ECB, AES-CMAC |     N/A        |      N/A             |
-	 * | AES-GCM           |   Non-zero     |  Any non-zero Length |
-	 * | Remaining modes   |   Non-zero     |  12 or 16 Bytes      |
-	 */
-	switch (EngineMode) {
-		case XASU_AES_ECB_MODE:
-		case XASU_AES_CMAC_MODE:
-			if ((IvAddr == 0U) && (IvLen == 0U)) {
-				Status = XST_SUCCESS;
-			}
-			break;
-		case XASU_AES_GCM_MODE:
-			if ((IvAddr != 0U) && (IvLen != 0U)) {
-				Status = XST_SUCCESS;
-			}
-			break;
-		case XASU_AES_CBC_MODE:
-		case XASU_AES_CFB_MODE:
-		case XASU_AES_OFB_MODE:
-		case XASU_AES_CTR_MODE:
-			if ((IvAddr != 0U) && ((IvLen == XASU_AES_IV_SIZE_96BIT_IN_BYTES) ||
-					       (IvLen == XASU_AES_IV_SIZE_128BIT_IN_BYTES))) {
-				Status = XST_SUCCESS;
-			}
-			break;
-		default:
-			Status = XASU_INVALID_ARGUMENT;
-			break;
-	}
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function validates tag arguments for a given AES mode.
- *
- * @param	EngineMode	AES engine mode.
- * @param	TagAddr		Address of the tag buffer.
- * @param	TagLen		Length of the tag in bytes and it will be zero for all AES
- *				standard modes like, ECB, CBC, OFB, CFB, CTR.
- *
- * @return
- *		- XASUFW_SUCCESS, if the validation of the tag arguments is successful.
- *		- XASU_INVALID_ARGUMENT, if tag arguments are invalid.
- *
- *************************************************************************************************/
-static inline s32 XAsu_AesValidateTag(u8 EngineMode, u64 TagAddr, u32 TagLen)
-{
-	s32 Status = XASU_INVALID_ARGUMENT;
-
-	/**
-	 * Tag validation for respective AES engine modes
-	 * - AES Standard mode (ECB, CBC, CTR, CFB, OFB).
-	 * - AES MAC mode (GCM, CCM, GMAC, CMAC).
-	 *
-	 * |   Engine Mode       |   TagAddress   |   TagLength          |
-	 * |---------------------|----------------|----------------------|
-	 * | Standard mode       |     N/A        |      N/A             |
-	 * | AES-GCM, CMAC       |   Non-zero     |  8<=TagLen<=16       |
-	 * | AES-CCM             |   Non-zero     |  4,6,8,10,12,14,16   |
-	 *
-	 * NIST recommends using a tag length of atleast 64 bits to provide adequate protection
-	 * against guessing attacks.
-	 */
-	switch (EngineMode) {
-		case XASU_AES_CBC_MODE:
-		case XASU_AES_CFB_MODE:
-		case XASU_AES_OFB_MODE:
-		case XASU_AES_CTR_MODE:
-		case XASU_AES_ECB_MODE:
-			if ((TagAddr == 0U) && (TagLen == 0U)) {
-				Status = XST_SUCCESS;
-			}
-			break;
-		case XASU_AES_CCM_MODE:
-			if ((TagAddr != 0U) && ((TagLen % XASU_AES_EVEN_MODULUS == 0U) &&
-						(TagLen >= XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES) &&
-						(TagLen <= XASU_AES_MAX_TAG_LENGTH_IN_BYTES))) {
-				Status = XST_SUCCESS;
-			}
-			break;
-		case XASU_AES_GCM_MODE:
-		case XASU_AES_CMAC_MODE:
-			if ((TagAddr != 0U) && ((TagLen >= XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES) &&
-						(TagLen <= XASU_AES_MAX_TAG_LENGTH_IN_BYTES))) {
-				Status = XST_SUCCESS;
-			}
-			break;
-		default:
-			Status = XASU_INVALID_ARGUMENT;
-			break;
-	}
-	return Status;
-}
 /** @} */
