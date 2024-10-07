@@ -33,6 +33,9 @@
 #include "xasufw_cmd.h"
 #include "xasufw_kat.h"
 #include "xasu_def.h"
+#include "xasu_rsainfo.h"
+#include "xasufw_status.h"
+#include "xasufw_util.h"
 #include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -123,7 +126,7 @@ static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		XFIH_GOTO(RET);
+		goto RET;
 	}
 
 	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
@@ -167,7 +170,7 @@ static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		XFIH_GOTO(RET);
+		goto RET;
 	}
 
 	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
@@ -215,7 +218,7 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		XFIH_GOTO(RET);
+		goto RET;
 	}
 
 	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
@@ -252,12 +255,9 @@ RET:
  *************************************************************************************************/
 static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
-	s32 Status = XASUFW_FAILURE;
-
 	/** Perform KAT on 2048 bit key size. */
-	Status = XAsufw_RsaPubEncKat(QueueId);
 
-	return Status;
+	return XAsufw_RsaPubEncKat(QueueId);
 }
 
 /*************************************************************************************************/
@@ -274,6 +274,7 @@ static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
  *************************************************************************************************/
 static s32 XAsufw_RsaGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
+	/* TODO: Implement XAsufw_RsaGetInfo */
 	s32 Status = XASUFW_FAILURE;
 
 	return Status;
