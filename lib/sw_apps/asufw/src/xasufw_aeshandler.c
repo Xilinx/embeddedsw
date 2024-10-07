@@ -87,14 +87,13 @@ s32 XAsufw_AesInit(void)
 	Status = XAsufw_ModuleRegister(&XAsufw_AesModule);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_MODULE_REGISTRATION_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Configure and initialize AES instance. */
 	Status = XAes_CfgInitialize(XAsufw_Aes);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
-		XFIH_GOTO(END);
 	}
 
 END:
@@ -130,7 +129,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, QueueId);
 	if (AsuDmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
@@ -140,15 +139,15 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		Status = XAes_WriteKey(XAsufw_Aes, AsuDmaPtr, AesParamsPtr->KeyObjectAddr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_WRITE_KEY_FAILED);
-			XFIH_GOTO(END);
+			goto END;
 		}
 
 		Status = XAes_Init(XAsufw_Aes, AsuDmaPtr, AesParamsPtr->KeyObjectAddr,
-				   AesParamsPtr->IvAddr, AesParamsPtr->IvLen,
-				   AesParamsPtr->EngineMode, AesParamsPtr->OperationType);
+			AesParamsPtr->IvAddr, AesParamsPtr->IvLen,
+			AesParamsPtr->EngineMode, AesParamsPtr->OperationType);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
-			XFIH_GOTO(END);
+			goto END;
 		}
 	}
 
@@ -167,10 +166,10 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		    (AesParamsPtr->EngineMode != XASU_AES_CTR_MODE) &&
 		    (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) {
 			Status = XAes_Update(XAsufw_Aes, AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
-					     AesParamsPtr->AadLen, XASU_FALSE);
+				AesParamsPtr->AadLen, XASU_FALSE);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
-				XFIH_GOTO(END);
+				goto END;
 			}
 		}
 		/**
@@ -181,11 +180,11 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		if ((AesParamsPtr->InputDataAddr != 0U) &&
 		    (AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE)) {
 			Status = XAes_Update(XAsufw_Aes, AsuDmaPtr, AesParamsPtr->InputDataAddr,
-					     AesParamsPtr->OutputDataAddr, AesParamsPtr->DataLen,
-					     AesParamsPtr->IsLast);
+				AesParamsPtr->OutputDataAddr, AesParamsPtr->DataLen,
+				AesParamsPtr->IsLast);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
-				XFIH_GOTO(END);
+				goto END;
 			}
 		}
 	}
@@ -194,7 +193,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		Status = XAes_Final(XAsufw_Aes, AsuDmaPtr, AesParamsPtr->TagAddr, AesParamsPtr->TagLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_FINAL_FAILED);
-			XFIH_GOTO(END);
+			goto END;
 		}
 
 		/** Release the AES resource. */
@@ -235,15 +234,9 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 {
-	s32 Status = XASUFW_FAILURE;
-
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 
-	Status = XAsufw_AesGcmKat(XAsufw_Aes, QueueId);
-
-	XAsufw_Printf(DEBUG_GENERAL, "AES: KAT status: 0x%x\r\n", Status);
-
-	return Status;
+	return XAsufw_AesGcmKat(XAsufw_Aes, QueueId);;
 }
 
 /*************************************************************************************************/
