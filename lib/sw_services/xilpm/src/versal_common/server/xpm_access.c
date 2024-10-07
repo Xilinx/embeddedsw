@@ -464,8 +464,16 @@ XStatus XPmAccess_MaskWriteReg(u32 SubsystemId, u32 DeviceId,
 
 	PmDbg("RMW M:0x%x V:0x%x @ (0x%x + 0x%x)\r\n",
 			Mask, Value, BaseAddress, Offset);
-
-	PmRmw32((BaseAddress + Offset), Mask, Value);
+	/**
+	 * If for all the 32bit writes (i.e mask = 0xffffffff), simply write to entire address
+	 * for any other mask, use PmRmw32()
+	 */
+	if (0xFFFFFFFFU == Mask) {
+		PmOut32((BaseAddress + Offset), Value);
+	}
+	else {
+		PmRmw32((BaseAddress + Offset), Mask, Value);
+	}
 
 done:
 	return Status;
