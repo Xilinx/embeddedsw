@@ -643,8 +643,7 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 		XFIH_GOTO(END);
 	}
 
-	if ((KeyObject.KeySrc >= XAES_MAX_KEY_SOURCES) ||
-	    (KeyObject.KeySrc < XASU_AES_EFUSE_KEY_RED_0)) {
+	if (KeyObject.KeySrc >= XAES_MAX_KEY_SOURCES) {
 		Status = XASUFW_AES_INVALID_KEY_SRC;
 		XFIH_GOTO(END);
 	}
@@ -655,8 +654,8 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 		XFIH_GOTO(END);
 	}
 
-	if ((EngineMode < XASU_AES_CBC_MODE) || ((EngineMode > XASU_AES_GCM_MODE) &&
-		(EngineMode != XASU_AES_CMAC_MODE) && (EngineMode != XASU_AES_GHASH_MODE))) {
+	if ((EngineMode > XASU_AES_GCM_MODE) && (EngineMode != XASU_AES_CMAC_MODE) &&
+			(EngineMode != XASU_AES_GHASH_MODE)) {
 		Status = XASUFW_AES_INVALID_ENGINE_MODE;
 		XFIH_GOTO(END);
 	}
