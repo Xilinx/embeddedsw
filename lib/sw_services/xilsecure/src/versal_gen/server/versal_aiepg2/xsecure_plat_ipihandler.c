@@ -8,7 +8,7 @@
 *
 * @file xsecure_plat_ipihandler.c
 *
-* This file contains the xilsecure versalnet IPI handlers implementation.
+* This file contains the Xilsecure VersalAiePg2 IPI handlers implementation.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,7 +23,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Xilsecure Helper Server APIs
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server.
 * @{
 */
 /***************************** Include Files *********************************/
@@ -46,13 +46,14 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 
 /*****************************************************************************/
 /**
- * @brief   This function calls respective IPI handler based on the API_ID
+ * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd is pointer to the command structure
+ * @param	Cmd	Pointer to the command structure
  *
  * @return
- *	-	XST_SUCCESS - If the handler execution is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the handler execution is successful
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
@@ -78,24 +79,25 @@ END:
 }
 
 #ifndef PLM_RSA_EXCLUDE
-
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_RsaInitialize and
- *              XSecure_RsaExp server API.
+ * @brief	This function handler calls XSecure_RsaInitialize and
+ *		XSecure_RsaExp server API.
  *
- * @param   RsaParamAddrLow  - Lower 32 bit address of the XSecure_RsaInParam
- *                             structure
- * @param   RsaParamAddrHigh - Higher 32 bit address of the XSecure_RsaInParam
- *                             structure
- * @param   DstAddrLow 	     - Lower 32 bit address of the output data
- *                             where decrypted data to be stored
- * @param   DstAddrHigh	     - Higher 32 bit address of the output data
- *                             where decrypted data to be stored
+ * @param	RsaParamAddrLow		Lower 32 bit address of the XSecure_RsaInParam
+ *					structure
+ * @param	RsaParamAddrHigh	Higher 32 bit address of the XSecure_RsaInParam
+ *					structure
+ * @param	DstAddrLow		Lower 32 bit address of the output data
+ *					where decrypted data to be stored
+ * @param	DstAddrHigh		Higher 32 bit address of the output data
+ *					where decrypted data to be stored
  *
  * @return
- *	-	XST_SUCCESS - If the Rsa decryption is successful
- *	-	ErrorCode - If there is a failure
+ *		 - XST_SUCCESS  If the Rsa decryption is successful
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid
+ *		 - XSECURE_RSA_GEN_SIGN_FAILED_ERROR  If RSA sign generation fails
+ *		 - XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrHigh,

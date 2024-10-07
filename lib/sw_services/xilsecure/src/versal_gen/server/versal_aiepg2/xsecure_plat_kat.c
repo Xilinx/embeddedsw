@@ -2,14 +2,12 @@
 * Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
-
 /*****************************************************************************/
 /**
 *
 * @file xsecure_plat_kat.c
 *
-* This file contains known answer tests for versal_aiepg2
+* This file contains known answer tests for Versal_AiePg2
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,10 +18,11 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xsecure_plat_kat.h"
 #include "xsecure_hmac.h"
@@ -1036,13 +1035,16 @@ static u8 LmsShake256PubKey[XSECURE_LMS_PUB_KEY_TOTAL_SIZE] = {
 
 /*****************************************************************************/
 /**
- * This function performs KAT on HMAC (SHA3-384).
+ * @brief	This function performs KAT on HMAC (SHA3-384).
  *
- * @param SecureSha3 Pointer to SHA3 instance
+ * @param	SecureSha3	Pointer to SHA3 instance
  *
  * @return
- *	-	Error codes on failure
- *	-	XST_SUCCESS on success
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_HMAC_KAT_INIT_ERROR  If HMAC init fails
+ *		 - XSECURE_HMAC_KAT_UPDATE_ERROR  If HMAC update fails
+ *		 - XSECURE_HMAC_KAT_FINAL_ERROR  If HMAC final fails
+ *		 - XSECURE_HMAC_KAT_ERROR  If HMAC KAT fails
  *
  *****************************************************************************/
 int XSecure_HmacKat(XSecure_Sha *SecureSha)
@@ -1102,11 +1104,12 @@ END:
 
 /*****************************************************************************/
 /**
- * This function performs KAT on SHA-384.
+ * @brief	This function performs KAT on SHA-384.
  *
  * @return
- *	-	Error codes on failure
- *	-	XST_SUCCESS on success
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_SHA384_KAT_ERROR  If SHA384 KAT fails
+ *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
 int XSecure_Sha384Kat(void)
@@ -1156,10 +1159,10 @@ END:
  * @brief	This function performs private decrypt KAT on RSA core
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR - When RSA KAT fails
- *	-	XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR - Error when RSA data not
+ *		 - XST_SUCCESS  On success
+ *		 - XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR  Error when RSA data not
  *							matched with expected data
+ *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
 int XSecure_RsaPrivateDecryptKat(void)
@@ -1220,7 +1223,6 @@ END:
  * @brief	This function performs known answer test(KAT) on SHA-2 crypto engine
  *
  * @param	SecureSha2 Pointer to the XSecure_Sha instance
- *
  *
  ******************************************************************************/
 int XSecure_Sha2256Kat(XSecure_Sha *SecureSha2)
@@ -1348,7 +1350,8 @@ END:
  * @brief	This function performs KAT on LMS - SHA2 256.
  *
  * @return
- *	-	@ref XST_SUCCESS - If LMS SHA2 256 KAT is passed.
+ *		 - XST_SUCCESS - If LMS SHA2 256 KAT is passed.
+ *
  ******************************************************************************/
 int XSecure_HssSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr)
 {
@@ -1384,7 +1387,8 @@ END:
  * @brief	This function performs KAT on LMS SHAKE 256.
  *
  * @return
- *	-	@ref XST_SUCCESS - If LMS SHAKE256 KAT is passed.
+ *		 - XST_SUCCESS - If LMS SHAKE256 KAT is passed.
+ *
  ******************************************************************************/
 int XSecure_HssShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr)
 {
@@ -1422,8 +1426,7 @@ END:
  * @param	None
  *
  * @return
- *	-	@ref XST_SUCCESS - If LMS SHA2 256 KAT is passed.
- *	-	@ref XROM_S3_LMS_SHA2_256_KAT_ERROR
+ *		 - XST_SUCCESS - If LMS SHA2 256 KAT is passed.
  ******************************************************************************/
 int XSecure_LmsSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {
 	return XSecure_LmsSignatureVerification(ShaInstPtr, DmaPtr,
@@ -1441,8 +1444,8 @@ int XSecure_LmsSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {
  * @brief	This function performs KAT on LMS SHAKE 256.
  *
  * @return
- *	-	@ref XST_SUCCESS - If LMS SHAKE256 KAT is passed.
- *	-	@ref XROM_S3_LMS_SHAKE_256_KAT_ERROR
+ *		 - XST_SUCCESS - If LMS SHAKE256 KAT is passed.
+ *
  ******************************************************************************/
 int XSecure_LmsShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {
 	return XSecure_LmsSignatureVerification(ShaInstPtr, DmaPtr,

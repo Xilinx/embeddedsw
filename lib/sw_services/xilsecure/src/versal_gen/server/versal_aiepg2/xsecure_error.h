@@ -8,7 +8,7 @@
  *
  * @file xsecure_error.h
  *
- * This file contains xilsecure error codes
+ * This file contains Xilsecure error codes
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -21,9 +21,11 @@
  *
  * </pre>
  *
- * @note
- *
  ******************************************************************************/
+/**
+* @addtogroup xsecure_error_codes Xilsecure Error Codes
+* @{
+*/
 #ifndef XSECURE_ERROR_H_
 #define XSECURE_ERROR_H_
 
@@ -35,10 +37,6 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-/**
- * @addtogroup xilsecure_versal_aiepg2_error_codes XilSecure Error Codes
- * @{
- */
 typedef enum {
 	XSECURE_SHA_INIT_ERROR = 0x02,		/**< 0x02 - Error when SHA
 						   init fails. */
@@ -64,8 +62,7 @@ typedef enum {
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */
-	XSECURE_AES_KEY_CLEAR_ERROR,
-						/**< 0x41 - AES key clear error */
+	XSECURE_AES_KEY_CLEAR_ERROR,		/**< 0x41 - AES key clear error */
 	XSECURE_AES_DPA_CM_NOT_SUPPORTED,	/**< 0x42 - AES DPA CM is not
 						   supported on device */
 	XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR, /**< 0x43 - Error when AES key write
@@ -130,7 +127,7 @@ typedef enum {
 	XSECURE_RSA_OAEP_BYTE_MISMATCH_ERROR,         /**< 0x75 - RSA OAEP data byte mismatch error */
 	XSECURE_RSA_PWCT_MEM_CMP_FAILED_ERROR,        /**< 0x76 - RSA PWCT failed */
 
-	XSECURE_RSA_KAT_INIT_ERROR = 0x80,	/**< 0x80 - RSA KAT intialization failure */
+	XSECURE_RSA_KAT_INIT_ERROR = 0x80,	/**< 0x80 - RSA KAT initialization failure */
 
 	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR, /**< 0x81 - RSA KAT fails  */
 

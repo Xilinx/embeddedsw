@@ -19,10 +19,12 @@
 *       sk   08/22/24 Added support for key transfer to ASU
 *
 * </pre>
-* @note
 *
 ******************************************************************************/
-
+/**
+* @addtogroup xsecure_common_apis Xilsecure Common Apis
+* @{
+*/
 #ifndef XSECURE_PLAT_DEFS_H
 #define XSECURE_PLAT_DEFS_H
 

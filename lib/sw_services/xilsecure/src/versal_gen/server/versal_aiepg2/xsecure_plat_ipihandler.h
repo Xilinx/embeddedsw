@@ -8,7 +8,7 @@
 *
 * @file xsecure_plat_ipihandler.h
 *
-* This file contains the xilsecure platform IPI handler declaration.
+* This file contains the Xilsecure platform IPI handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,7 +22,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Xilsecure Helper Server APIs
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
 * @{
 */
 #ifndef XSECURE_PLAT_IPIHANDLER_H_
