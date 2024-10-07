@@ -20,6 +20,7 @@
 * 4.3   am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
 * 5.0   bm   07/06/22 Refactor versal and versal_net code
+* 5.4   tri  10/07/24 Added maximum supported hash size macro
 *
 * </pre>
 *
@@ -46,6 +47,8 @@ extern "C" {
 #define XSECURE_SHA3_0_DEVICE_ID		(0U) /**< SHA3 0 device id */
 
 #define XSECURE_SHA_0_DEVICE_ID			(XSECURE_SHA3_0_DEVICE_ID)
+
+#define XSECURE_MAX_HASH_SIZE_IN_BYTES          (48U)  /**< SHA3 maximum supported hash size */
 
 /** @name Register Map
  *

@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   bm   07/06/22 Initial release
+* 5.4   tri  09/25/24 Added maximum supported hash size macro
 *
 * </pre>
 *
@@ -48,6 +49,8 @@ extern "C" {
 #define XSECURE_SHA_0_DEVICE_ID			(XSECURE_SHA3_0_DEVICE_ID)
 
 #define XSECURE_SHA_1_DEVICE_ID			(XSECURE_SHA3_1_DEVICE_ID)
+
+#define XSECURE_MAX_HASH_SIZE_IN_BYTES          (48U)  /**< SHA3 maximum supported hash size */
 
 /** @name Register Map
  *

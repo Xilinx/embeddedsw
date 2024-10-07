@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 5.4   kal  07/24/2024 Initial release
+*       tri  10/07/2024 Added maximum supported hash size
 *
 * </pre>
 *
@@ -62,13 +63,13 @@ extern "C" {
 					/**< SHA 3 hash length in bits */
 
 #define XSECURE_SHA3_HASH_LENGTH_IN_WORDS		\
-					(XSECURE_SHA3_HASH_LENGTH_IN_BITS / 32U)
+					(XSECURE_MAX_HASH_SIZE_IN_BYTES / 4U)
 					/**< SHA 3 hash length in words */
 
 /***************************** Type Definitions******************************/
 
 typedef struct {
-	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES];
+	u8 Hash[XSECURE_MAX_HASH_SIZE_IN_BYTES];
 } XSecure_Sha3Hash;
 
 /* Sha3 driver states */
