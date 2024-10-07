@@ -39,8 +39,8 @@
 #define XRSA_RESET_REG_OFFSET		(0x40U)		/**< RSA reset register offset */
 
 /* Errors from IPcores library */
-#define XRSA_KEY_PAIR_COMP_ERROR	(1U)		/**< RSA IPcores keypair compare error */
-#define XRSA_RAND_GEN_ERROR		(2U)		/**< RSA IPcores random number generation
+#define XRSA_KEY_PAIR_COMP_ERROR	(1)		/**< RSA IPcores keypair compare error */
+#define XRSA_RAND_GEN_ERROR		(2)		/**< RSA IPcores random number generation
 								error */
 
 #define XRSA_TOTAL_PARAMS		(9U)		/**< RSA total no of parameters */
@@ -52,7 +52,7 @@
 							of memory allocated for RSA parameters */
 
 #define XRSA_HALF_LEN(x)		((x) >> 1U)	/**< Calculate half value */
-#define XRSA_BYTE_TO_BIT(x)		((x) << 3U)	/**< Byte to bit conversion */
+#define XRSA_BYTE_TO_BIT(x)		((s32)((x) << 3U)) /**< Byte to bit conversion */
 
 #define XRSA_TOTIENT_IS_PRSNT		(1U)		/**< Indicates totient is present as
 								parameter for private decryption
@@ -94,8 +94,8 @@ u8 Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES]; /**< Memory allocated for RSA paramet
 s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
 	       u64 KeyParamAddr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
-	s32 SStatus = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 SStatus = XFih_VolatileAssign(XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u8 *InData = Rsa_Data;
 	XAsu_RsaCrtKeyComp *KeyPtr = (XAsu_RsaCrtKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
@@ -242,8 +242,8 @@ END:
 s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
 		u64 KeyParamAddr, u64 ExpoAddr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
-	s32 SStatus = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 SStatus = XFih_VolatileAssign(XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u8 *InData = Rsa_Data;
 	XAsu_RsaPvtKeyComp *KeyPtr = (XAsu_RsaPvtKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
@@ -445,8 +445,8 @@ END:
 s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
 		u64 KeyParamAddr, u64 ExpoAddr)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
-	s32 SStatus = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 SStatus = XFih_VolatileAssign(XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u8 *InData = Rsa_Data;
 	XAsu_RsaPubKeyComp *KeyPtr = (XAsu_RsaPubKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
@@ -512,7 +512,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 
 	/** Perform public exponentiation operation by calculating exponentiation values or with
 		pre calculated exponentiation values based on available parameters. */
-	if (ExpoAddr == 0) {
+	if (ExpoAddr == 0U) {
 		rsaexp(InData, PubExpoArr, (u8 *)KeyPtr->Modulus, XRSA_BYTE_TO_BIT(Len), OutData);
 	} else {
 		/* DMA transfer of pre-calculated modulus values from client address to server

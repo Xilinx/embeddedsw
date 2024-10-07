@@ -178,7 +178,7 @@ void XTask_TriggerNow(XTask_TaskNode *Task)
  *************************************************************************************************/
 s32 XTask_TriggerAfterDelay(XTask_TaskNode *Task, u32 Delay)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/* TODO: Validate Delay with max value */
 	if (Task->TaskHandler == NULL) {
@@ -217,7 +217,7 @@ END:
  *************************************************************************************************/
 s32 XTask_TriggerOnEvent(XTask_TaskNode *Task, XTask_TaskEvent *Event)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 Idx = Task - TaskList;
 
 	if (Task->TaskHandler == NULL) {
@@ -297,7 +297,7 @@ u32 XTask_DelayTime(XTask_TaskNode *Task)
  *************************************************************************************************/
 void XTask_DispatchLoop(void)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 LastDispatchTime = TaskTimeNow;
 	u32 Idx;
 	XTask_TaskNode *Task;

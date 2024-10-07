@@ -109,7 +109,7 @@ s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 		goto END;
 	}
 
-	if ((AesParamsPtr->IsLast != TRUE) && (AesParamsPtr->IsLast != FALSE)) {
+	if ((AesParamsPtr->IsLast != XASU_TRUE) && (AesParamsPtr->IsLast != XASU_FALSE)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -212,7 +212,7 @@ s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamsPtr, Asu_AesParams *AesParams
 		goto END;
 	}
 
-	if ((AesParamsPtr->IsLast != TRUE) && (AesParamsPtr->IsLast != FALSE)) {
+	if ((AesParamsPtr->IsLast != XASU_TRUE) && (AesParamsPtr->IsLast != XASU_FALSE)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}

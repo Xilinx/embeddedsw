@@ -220,7 +220,7 @@ END:
  *************************************************************************************************/
 s32 XSha_Start(XSha *InstancePtr, u32 ShaMode)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Validate SHA state is initialized or not. */
 	if (InstancePtr->ShaState != XSHA_INITALIZED) {
@@ -290,9 +290,9 @@ END:
  * 	- XASUFW_FAILURE, if there is any other failure.
  *
  *************************************************************************************************/
-s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 Data, u32 Size, u32 EndLast)
+s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 Data, u32 Size, u8 EndLast)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 
 	/** Validate input parameters. */
 	if ((InstancePtr == NULL) || (EndLast > XSHA_LAST_WORD) || (DmaPtr == NULL)) {
@@ -368,7 +368,7 @@ END:
  *************************************************************************************************/
 s32 XSha_Finish(XSha *InstancePtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutput)
 {
-	s32 Status = XFih_VolatileAssign((s32)XASUFW_FAILURE);
+	s32 Status = XFih_VolatileAssign(XASUFW_FAILURE);
 	u32 Index = 0U;
 	u32 *HashPtr = (u32 *)(UINTPTR)HashAddr;
 	u32 ShaDigestAddr;
