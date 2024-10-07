@@ -143,9 +143,16 @@ enum {
 	XASUFW_RSA_ECC_SIGNATURE_COMPARISON_FAILED, /**< RSA ECC signature comparison failed */
 	XASUFW_RSA_ECC_KAT_FAILED, /**< RSA ECC Kat failed */
 	XASUFW_SHA_INVALID_PARAM, /**< Invalid parameters to SHA APIs */
-	XASUFW_SHA_INIT_NOT_DONE, /**< SHA is not initialized */
 	XASUFW_SHA_STATE_MISMATCH_ERROR, /**< SHA state mismatch error. Occurs when previous SHA
 						state doesn't match before further update */
+	XASUFW_SHA_INVALID_INPUT_DATA_ADDRESS, /**< SHA invalid input data address */
+	XASUFW_SHA_INVALID_INPUT_DATA_SIZE, /**< SHA invalid input data size */
+	XASUFW_SHA_INVALID_END_LAST, /**< SHA invalid end last */
+	XASUFW_SHA_INVALID_HASH_ADDRESS, /**< SHA invalid hash address */
+	XASUFW_SHA_INVALID_HASH_SIZE, /**< SHA invalid hash size */
+	XASUFW_SHA_NEXT_XOF_INVALID_MASK, /**< SHA invalid next xof mask */
+	XASUFW_SHA_INVALID_SHA_TYPE, /**< SHA invalid type */
+	XASUFW_SHA_INVALID_SHA_MODE, /**< SHA invalid mode */
 	XASUFW_SHA_MODE_GLITCH_DETECTED, /**< Configured SHA mode is not matching with the input */
 	XASUFW_SHA_HASH_COMPARISON_FAILED, /**< SHA Hash comparison failed */
 	XASUFW_SHA_KAT_FAILED, /**< SHA KAT failed */

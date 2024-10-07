@@ -35,6 +35,7 @@
 #include "xasu_client.h"
 #include "xasu_status.h"
 #include "sleep.h"
+#include "xasu_def.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_QUEUE_BUFFER_FULL          0xFFU       /**< To indicate queue full state */

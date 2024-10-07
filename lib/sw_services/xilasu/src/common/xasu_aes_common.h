@@ -6,27 +6,25 @@
 /*************************************************************************************************/
 /**
  *
- * @file xasu_def.h
+ * @file xasu_aes_common.h
+ * @addtogroup Overview
+ * @{
  *
- * This file contains the common definitions between server and client
+ * This file contains the AES function prototypes which are common across the client and server.
  *
  * <pre>
  * MODIFICATION HISTORY:
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
- * 1.0   vns  06/04/24 Initial release
- *       am   08/01/24 Added macro for AES module Id.
+ * 1.0   am   10/03/24 Initial release
  *
  * </pre>
  *
  *************************************************************************************************/
-/**
- * @addtogroup xasu_common_defs Common Defs
- * @{
-*/
-#ifndef XASU_DEF_H
-#define XASU_DEF_H
+
+#ifndef XASU_AES_COMMON_H
+#define XASU_AES_COMMON_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,31 +32,23 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xstatus.h"
 
-/************************************ Constant Definitions ***************************************/
-#define XASU_TRUE		(TRUE)
-#define XASU_FALSE		(FALSE)
+/************************** Constant Definitions *************************************************/
 
-/* Module ID */
-#define XASU_MODULE_TRNG_ID			(0U) /**< TRNGs module ID */
-#define XASU_MODULE_SHA2_ID			(1U) /**< SHA2 module ID */
-#define XASU_MODULE_SHA3_ID			(2U) /**< SHA3 module ID */
-#define XASU_MODULE_ECC_ID			(3U) /**< ECC module ID */
-#define XASU_MODULE_RSA_ID			(4U) /**< RSA module ID */
-#define XASU_MODULE_AES_ID			(5U) /**< AES module ID */
-
-#define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
-						/** < ASU DMA maximum transfer rate in bytes. */
+/************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
-/************************************ Function Prototypes ****************************************/
-
 /************************************ Variable Definitions ***************************************/
+
+/************************************ Function Prototypes ****************************************/
+s32 XAsu_AesValidateIv(u8 EngineMode, u64 IvAddr, u32 IvLen);
+s32 XAsu_AesValidateTag(u8 EngineMode, u64 TagAddr, u32 TagLen);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XASU_DEF_H */
+#endif  /* XAES_H */
 /** @} */
