@@ -76,19 +76,49 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	if ((ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
-	    (ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
-	    (ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
-	    (ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256)) {
+	if ((ShaClientParamPtr->OperationFlags &
+			(XASU_SHA_START | XASU_SHA_UPDATE | XASU_SHA_FINISH)) == 0x0U) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if ((ShaClientParamPtr->OperationFlags &
-	     (XASU_SHA_START | XASU_SHA_UPDATE | XASU_SHA_FINISH)) == 0x0U) {
+	if ((((ShaClientParamPtr->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE) &&
+			(ShaClientParamPtr->DataAddr == 0U)) ||
+			(((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) &&
+			(ShaClientParamPtr->HashAddr == 0U))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
+
+	/**
+	 * The maximum length of input data should be less than 0x1FFFFFFC bytes, which is the
+	 * ASU DMA's maximum supported data transfer length.
+	 */
+	 if (((ShaClientParamPtr->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE) &&
+			(ShaClientParamPtr->DataSize > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) &&
+			(ShaClientParamPtr->HashBufSize == 0U)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
+			(ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
+			(ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+			(ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((ShaClientParamPtr->IsLast != TRUE) && (ShaClientParamPtr->IsLast != FALSE)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {

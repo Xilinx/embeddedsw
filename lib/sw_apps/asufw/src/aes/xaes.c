@@ -33,6 +33,8 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xasufw_config.h"
+#include "xasu_def.h"
+#include "xasu_aes_common.h"
 #include "xfih.h"
 
 /************************** Constant Definitions *************************************************/
@@ -226,127 +228,6 @@ struct _XAes {
 static XAes XAes_Instance[XASU_XAES_NUM_INSTANCES]; /**< ASUFW AES HW instances */
 
 /************************** Inline Function Definitions ******************************************/
-
-/*************************************************************************************************/
-/**
- * @brief	This function validates IV for given AES engine mode.
- *
- * @param	InstancePtr	Pointer to the XAes instance.
- * @param	IvAddr		Address of the buffer holding IV.
- * @param	IvLen		Length of the IV in bytes.
- *
- * @return
- *		- XASUFW_SUCCESS, if validation of IV is successful for the given engine mode.
- *		- XASUFW_AES_INVALID_IV, if validation of IV address or IV length fails.
- *		- XASUFW_AES_INVALID_ENGINE_MODE, if AES engine mode is invalid.
- *
- *************************************************************************************************/
-static inline s32 XAes_ValidateIv(const XAes *InstancePtr, u64 IvAddr, u32 IvLen)
-{
-	s32 Status = XASUFW_AES_INVALID_IV;
-
-	/**
-	 * IV Validation for respective AES engine modes
-	 * - AES Standard mode (ECB, CBC, CTR, CFB, OFB).
-	 * - AES MAC mode (GCM, CCM, GMAC, CMAC).
-	 *
-	 * |   Engine Mode     |   IvAddress    |   IvLength           |
-	 * |-------------------|----------------|----------------------|
-	 * | AES-ECB, AES-CMAC |     N/A        |      N/A             |
-	 * | AES-GCM           |   Non-zero     |  Any non-zero Length |
-	 * | Remaining modes   |   Non-zero     |  12 or 16 Bytes      |
-	 */
-	switch (InstancePtr->EngineMode) {
-		case XASU_AES_ECB_MODE:
-		case XASU_AES_CMAC_MODE:
-			if ((IvAddr == 0U) && (IvLen == 0U)) {
-				Status = XASUFW_SUCCESS;
-			}
-			break;
-		case XASU_AES_GCM_MODE:
-			if ((IvAddr != 0U) && (IvLen != 0U)) {
-				Status = XASUFW_SUCCESS;
-			}
-			break;
-		case XASU_AES_CBC_MODE:
-		case XASU_AES_CFB_MODE:
-		case XASU_AES_OFB_MODE:
-		case XASU_AES_CTR_MODE:
-			if ((IvAddr != 0U) && ((IvLen == XASU_AES_IV_SIZE_96BIT_IN_BYTES) ||
-					       (IvLen == XASU_AES_IV_SIZE_128BIT_IN_BYTES))) {
-				Status = XASUFW_SUCCESS;
-			}
-			break;
-		default:
-			Status = XASUFW_AES_INVALID_ENGINE_MODE;
-			break;
-	}
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function validates tag arguments for given AES engine mode.
- *
- * @param	InstancePtr	Pointer to the XAes instance.
- * @param	TagAddr		Address of the tag buffer.
- * @param	TagLen		Length of the tag in bytes and it will be zero for all AES
- *				standard modes like, ECB, CBC, OFB, CFB, CTR
- *
- * @return
- *		- XASUFW_SUCCESS, if validation of tag arguments is successful.
- *		- XASUFW_AES_INVALID_TAG, if validation of tag arguments fails.
- *		- XASUFW_AES_INVALID_ENGINE_MODE, if AES engine mode is invalid.
- *
- *************************************************************************************************/
-static inline s32 XAes_ValidateTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen)
-{
-	s32 Status = XASUFW_AES_INVALID_TAG;
-
-	/**
-	 * Tag Validation for respective AES engine modes
-	 * - AES Standard mode (ECB, CBC, CTR, CFB, OFB).
-	 * - AES MAC mode (GCM, CCM, GMAC, CMAC).
-	 *
-	 * |   Engine Mode       |   TagAddress   |   TagLength          |
-	 * |---------------------|----------------|----------------------|
-	 * | Standard mode       |     N/A        |      N/A             |
-	 * | AES-GCM, CMAC       |   Non-zero     |  8<=TagLen<=16       |
-	 * | AES-CCM             |   Non-zero     |  4,6,8,10,12,14,16   |
-	 *
-	 * NIST recommends using a tag length of atleast 64 bits to provide adequate protection
-	 * against guessing attacks.
-	 */
-	switch (InstancePtr->EngineMode) {
-		case XASU_AES_CBC_MODE:
-		case XASU_AES_CFB_MODE:
-		case XASU_AES_OFB_MODE:
-		case XASU_AES_CTR_MODE:
-		case XASU_AES_ECB_MODE:
-			if ((TagAddr == 0U) && (TagLen == 0U)) {
-				Status = XASUFW_SUCCESS;
-			}
-			break;
-		case XASU_AES_CCM_MODE:
-			if ((TagAddr != 0U) && (((TagLen % XASUFW_EVEN_MODULUS) == 0U) &&
-						(TagLen >= XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES) &&
-						(TagLen <= XASU_AES_MAX_TAG_LENGTH_IN_BYTES))) {
-				Status = XASUFW_SUCCESS;
-			}
-			break;
-		case XASU_AES_GCM_MODE:
-		case XASU_AES_CMAC_MODE:
-			if ((TagAddr != 0U) && ((TagLen >= XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES) &&
-						(TagLen <= XASU_AES_MAX_TAG_LENGTH_IN_BYTES))) {
-				Status = XASUFW_SUCCESS;
-			}
-			break;
-		default:
-			Status = XASUFW_AES_INVALID_ENGINE_MODE;
-			break;
-	}
-	return Status;
-}
 
 /************************** Function Prototypes **************************************************/
 static XAes_Config *XAes_LookupConfig(u16 DeviceId);
@@ -660,12 +541,6 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 		XFIH_GOTO(END);
 	}
 
-	/** Validate the IV with respect to the user provided engine mode. */
-	Status = XAes_ValidateIv(InstancePtr, IvAddr, IvLen);
-	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
-	}
-
 	if ((OperationType != XASU_AES_ENCRYPT_OPERATION) &&
 	    (OperationType != XASU_AES_DECRYPT_OPERATION)) {
 		Status = XASUFW_AES_INVALID_OPERATION_TYPE;
@@ -682,7 +557,14 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 	InstancePtr->EngineMode = EngineMode;
 	InstancePtr->OperationType = OperationType;
 
-	/** Release reset of AES engine. */
+	/* Validate the IV with respect to the user provided engine mode */
+	Status = XAsu_AesValidateIv(InstancePtr->EngineMode, IvAddr, IvLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_INVALID_IV;
+		XFIH_GOTO(END);
+	}
+
+	/* Release reset of AES engine */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
 
 	/** Configure AES DPA counter measures. */
@@ -695,7 +577,8 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 	XAes_LoadKey(InstancePtr, KeyObject.KeySrc, KeyObject.KeySize);
 
 	/** Process and load IV to AES engine. */
-	if (InstancePtr->EngineMode != XASU_AES_ECB_MODE) {
+	if ((InstancePtr->EngineMode != XASU_AES_ECB_MODE) &&
+			(InstancePtr->EngineMode != XASU_AES_ECB_MODE)) {
 		Status = XAes_ProcessAndLoadIv(InstancePtr, IvAddr, IvLen);
 		if (Status != XASUFW_SUCCESS) {
 			XFIH_GOTO(END);
@@ -773,7 +656,12 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 		XFIH_GOTO(END);
 	}
 
-	if (DataLength == 0U) {
+	/**
+	 * The minimum length of plaintext/AAD data must be at least 8 bits, while the
+	 * maximum length should be less than 0x1FFFFFFC bytes, which is the
+	 * ASU DMA's maximum supported data transfer length.
+	 */
+	if ((DataLength == 0U) || (DataLength > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 		Status = XASUFW_AES_INVALID_INPUT_DATA_LENGTH;
 		XFIH_GOTO(END);
 	}
@@ -867,8 +755,9 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 	}
 
 	/** Validate the tag with respect to the user provided engine mode. */
-	Status = XAes_ValidateTag(InstancePtr, TagAddr, TagLen);
+	Status = XAsu_AesValidateTag(InstancePtr->EngineMode, TagAddr, TagLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_INVALID_TAG;
 		XFIH_GOTO(END);
 	}
 

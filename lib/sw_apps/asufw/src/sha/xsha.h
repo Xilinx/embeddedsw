@@ -69,7 +69,7 @@ typedef struct _XSha XSha; /**< This typedef is to create alias name for _XSha. 
 XSha *XSha_GetInstance(u16 DeviceId);
 s32 XSha_CfgInitialize(XSha *InstancePtr);
 s32 XSha_Start(XSha *InstancePtr, u32 ShaMode);
-s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 Data, u32 Size, u8 EndLast);
+s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size, u32 EndLast);
 s32 XSha_Finish(XSha *InstancePtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutput);
 
 /************************************ Variable Definitions ***************************************/
