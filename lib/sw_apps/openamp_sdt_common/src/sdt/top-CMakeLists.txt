@@ -37,9 +37,9 @@ include (collect)
 include (options)
 include (depends)
 
-if (_AMD_GENERATED_)
-  set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_AMD_GENERATED_" )
-endif()
+# Lopper run is default so ensure that the generated header is picked up.
+# This symbol tells app to use generated header
+set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_AMD_GENERATED_" )
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "FreeRTOS")
   set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DUSE_FREERTOS" )
