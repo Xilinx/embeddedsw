@@ -22,7 +22,7 @@ endif()
 
 if(("${XILSECURE_mode}" STREQUAL "client") AND
 	(NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS)))
-    message(WARNING "XilSecure library requires xilmailbox library in client mode.")
+    message(FATAL_ERROR "XilSecure library requires xilmailbox library in client mode.")
 endif()
 
 collect (PROJECT_LIB_HEADERS xsecure_ver.h)
