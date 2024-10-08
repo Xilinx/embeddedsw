@@ -41,6 +41,7 @@
 * 5.4   yog   04/29/24   Fixed doxygen grouping and doxygen warnings.
 *       ma    09/17/24   Replaced XPlmi_MemCpy64 with XSecure_MemCpy64 in
 *                        XSecure_AesEncUpdate and XSecure_AesDecUpdate
+*       tri   10/08/24   Configure DmaSwap before transferring IV to AES engine
 *
 * </pre>
 *
@@ -774,6 +775,10 @@ static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAdd
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+#ifdef VERSAL_AIEPG2
+	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
+#endif
 
 	/** Selecting the AES Encryption/Decryption operation */
 	if (OperationId == (u32)XSECURE_ENCRYPT) {
