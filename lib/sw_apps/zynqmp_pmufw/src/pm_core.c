@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -1160,7 +1160,7 @@ static void PmSecureAes(const PmMaster *const master,
 {
 	u32 Status = XST_SUCCESS;
 #ifndef XSK_ACCESS_PUF_USER_EFUSE
-	XilSKey_Puf InstancePtr;
+	XilSKey_Puf InstancePtr = {0U};
 #endif
 	u64 WrAddr = ((u64)SrcAddrHigh << 32U) | SrcAddrLow;
 	XSecure_AesParams *Aes = (XSecure_AesParams *)(UINTPTR)WrAddr;
