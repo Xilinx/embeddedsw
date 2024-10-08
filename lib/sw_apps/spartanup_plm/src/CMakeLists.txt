@@ -59,9 +59,6 @@ collect (PROJECT_LIB_HEADERS xplm_post_boot.h)
 collect (PROJECT_LIB_SOURCES xplm_qspi.c)
 collect (PROJECT_LIB_HEADERS xplm_qspi.h)
 
-collect (PROJECT_LIB_SOURCES xplm_sbi.c)
-collect (PROJECT_LIB_HEADERS xplm_sbi.h)
-
 collect (PROJECT_LIB_HEADERS xplm_status.h)
 
 collect (PROJECT_LIB_SOURCES xplm_util.c)

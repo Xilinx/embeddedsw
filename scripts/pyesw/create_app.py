@@ -294,6 +294,7 @@ if __name__ == "__main__":
             - lwip_echo_server
             - freertos_hello_world
             - versal_plm
+            - spartanup_plm
             - versal_psmfw
             - freertos_lwip_echo_server
             - freertos_lwip_tcp_perf_client

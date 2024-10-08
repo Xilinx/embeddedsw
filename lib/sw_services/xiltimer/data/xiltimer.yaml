@@ -37,6 +37,7 @@ supported_processors:
   - psx_psm
   - psm
   - asu
+  - pmc_riscv
 
 supported_os:
   - standalone
