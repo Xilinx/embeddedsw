@@ -1,6 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* Copyright (C) 2022 AMD, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,7 +16,8 @@
 *
 * @note
 *
-* None.
+* It's a reference example and the data size should be less than or equal
+* to FIFO size.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -26,6 +26,8 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00a sd  06/10/22 First release
 * 1.3   sd   11/17/23 Added support for system device-tree flow
+* 1.4   gm   10/06/24 Added return statements, remove resetfifos and remove
+*                     hard coded values.
 * </pre>
 *
 ******************************************************************************/
@@ -37,17 +39,21 @@
 #include "xi3cpsx_pr.h"
 
 #ifndef SDT
-#define I3C_DEVICE_ID		XPAR_XI3CPSX_0_DEVICE_ID
+#define I3C_DEVICE_ID		XPAR_XI3CPSX_1_DEVICE_ID
 #else
-#define I3C_DEVICE_ID		XPAR_XI3CPSX_0_BASEADDR
+#define I3C_DEVICE_ID		XPAR_XI3CPSX_1_BASEADDR
 #endif
 
 #ifndef SDT
-#define I3C_SLAVE_ID		XPAR_XI3CPSX_1_DEVICE_ID
+#define I3C_SLAVE_ID		XPAR_XI3CPSX_0_DEVICE_ID
 #else
-#define I3C_SLAVE_ID		XPAR_XI3CPSX_1_BASEADDR
+#define I3C_SLAVE_ID		XPAR_XI3CPSX_0_BASEADDR
 #endif
-#define LEN 10
+#define LEN 128
+#define I3C_SLAVE_STATIC_ADDR	0x5d
+
+u8 RxData[LEN];
+u8 TxDataTest[LEN];
 
 XI3cPsx Xi3cPs_InstanceMaster;
 XI3cPsx *InstancePtr = &Xi3cPs_InstanceMaster;
@@ -117,81 +123,70 @@ int I3cPsxSlaveLoopbackExample(u16 DeviceId)
 int I3cPsxSlaveLoopbackExample(UINTPTR BaseAddress)
 #endif
 {
-
 	s32 Ret;
 	XI3cPsx_Config *CfgPtr;
-	u8 RxData[LEN];
-	XI3cPsx_Cmd DAA_Cmd;
-	u8 TxData[4] = { 0xAA, 0xBB, 0xCC, 0xDD};
-	u8 TxDataTest[LEN] = { 55, 23, 24, 25, 26, 27, 28, 29, 30, 31   };
-	struct CmdInfo CmdInfo;
-	u16 RxLen;
+	XI3cPsx_Cmd Cmd;
 	int Index;
 
-	xil_printf("I3C Slave test application\n\r");
-
+	/*
+	 * Slave configuration
+	 */
 	CfgPtr = XI3cPsx_LookupConfig(I3C_SLAVE_ID);
+
 	XI3cPsx_CfgInitialize(InstancePtrSlave, CfgPtr, CfgPtr->BaseAddress);
 
+	XI3cPsx_SetupSlave(InstancePtrSlave, I3C_SLAVE_STATIC_ADDR);
 
-	XI3cPsx_SetupSlave(InstancePtrSlave, 0x5d);
-
+	/*
+	 * Master configuration
+	 */
 #ifndef SDT
 	CfgPtr = XI3cPsx_LookupConfig(DeviceId);
 #else
 	CfgPtr = XI3cPsx_LookupConfig(BaseAddress);
 #endif
+
 	XI3cPsx_CfgInitialize(InstancePtr, CfgPtr, CfgPtr->BaseAddress);
 
-	/*
-	 * It is necessary to provide SCL clocks to the DWC_mipi_i3c Slave controller to make it come
-	 * out of the reset. This can be achieved by scheduling any transfer (dummy transfer) to the
-	 * controller ending in a STOP before initiating valid transfers. The dummy transfer is ignored by
-	 * the DWC_mipi_i3c Slave.
-	 *
-	 * So doing a dummy transter
-	*/
 	XI3cPsx_ResetFifos(InstancePtr);
-	CmdInfo.RxLen = 1;
-	CmdInfo.RxBuff = RxData;
-	CmdInfo.SlaveAddr = 0;
-	CmdInfo.Cmd = I3C_CCC_GETDCR;
-	Ret =	XI3cPsx_SendTransferCmd(InstancePtr, &CmdInfo);
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-			 XI3CPSX_DEVICE_CTRL, XI3CPSX_DEVICE_CTRL_ENABLE_MASK | XI3CPSX_DEVICE_CTRL_RESUME_MASK);
 
-
-	DAA_Cmd.TransCmd = COMMAND_PORT_ARG_DATA_LEN(3) | COMMAND_PORT_TRANSFER_ARG;
-	DAA_Cmd.TransArg = (COMMAND_PORT_SPEED(0) |
-			    COMMAND_PORT_DEV_INDEX(0) |
-			    COMMAND_PORT_TID(3) |
-			    COMMAND_PORT_TOC |
-			    COMMAND_PORT_ROC);
-	DAA_Cmd.RxBuf = NULL;
-	Ret = XI3cPsx_MasterSendPolled(InstancePtr, (u8 *) &TxData, 3, DAA_Cmd);
-
-	Ret = XI3cPsx_SlaveRecvPolled(InstancePtrSlave, (u8 *)&RxData);
-	xil_printf("Data from slave is  %x %x %x\n", RxData[0], RxData[1], RxData[2]);
-
-	XI3cPsx_ResetFifos(InstancePtr);
-	DAA_Cmd.TransCmd = 0x000a101a ;
-	DAA_Cmd.TransArg = 0x48000000;
-	Ret = XI3cPsx_SlaveSendPolled(InstancePtrSlave, &TxDataTest,
-				      LEN, DAA_Cmd);
-	RxLen = LEN;
-	DAA_Cmd.RxBuf = RxData;
-	DAA_Cmd.TransCmd = COMMAND_PORT_ARG_DATA_LEN(0xa) | COMMAND_PORT_TRANSFER_ARG;
-	DAA_Cmd.TransArg = (COMMAND_PORT_SPEED(0) |
-			    COMMAND_PORT_DEV_INDEX(0) |
-			    COMMAND_PORT_TOC |
-			    COMMAND_PORT_READ_TRANSFER |
-			    COMMAND_PORT_ROC);
-	Ret = XI3cPsx_MasterRecvPolled(InstancePtr, RxData, RxLen, &DAA_Cmd);
-
-	for ( Index = 0 ; Index < LEN; Index++) {
-		xil_printf("Data at slave is  %d\n", RxData[Index]);
+	for (Index = 0; Index < LEN; Index++) {
+		TxDataTest[Index] = Index;
+		RxData[Index] = 0;
 	}
 
-	xil_printf(" Successfully ran the I3C test\n");
-	return 0;
+	/*
+	 * Transfer Argument
+	 */
+	Cmd.TransArg = COMMAND_PORT_ARG_DATA_LEN(LEN) | COMMAND_PORT_TRANSFER_ARG;
+
+	/*
+	 * Transfer Command
+	 */
+	Cmd.TransCmd = (COMMAND_PORT_SPEED(0) |
+			COMMAND_PORT_DEV_INDEX(0) |
+			COMMAND_PORT_TID(3) |
+			COMMAND_PORT_TOC |
+			COMMAND_PORT_ROC);
+	Cmd.RxBuf = NULL;
+	Ret = XI3cPsx_MasterSendPolled(InstancePtr,(u8 *) &TxDataTest, LEN, Cmd);
+	if (Ret != XST_SUCCESS)
+		return XST_FAILURE;
+
+	Ret = XI3cPsx_SlaveRecvPolled(InstancePtrSlave, (u8 *)&RxData);
+	if (Ret != XST_SUCCESS)
+		return XST_FAILURE;
+
+	for(Index = 0; Index < LEN; Index++)
+	   xil_printf("Data from slave is  %d\n", RxData[Index]);
+
+	for(Index = 0; Index < LEN; Index++){
+		if(RxData[Index] != TxDataTest[Index]){
+			xil_printf("Data mismatch at index 0x%x \r\n", Index);
+			xil_printf("Expected 0x%x got 0x%x \r\n",TxDataTest[Index], RxData[Index]);
+			return XST_FAILURE;
+		}
+	}
+
+	return XST_SUCCESS;
 }
