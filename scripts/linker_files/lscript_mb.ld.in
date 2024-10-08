@@ -62,7 +62,7 @@ SECTIONS
    __DTOR_LIST__ = .;
    ___DTORS_LIST___ = .;
    KEEP (*crtend.o(.dtors))
-   KEEP (*(EXCLUDE_FILE(*crtbegin.o) .dtors))        
+   KEEP (*(EXCLUDE_FILE(*crtbegin.o) .dtors))
    KEEP (*(SORT(.dtors.*)))
    KEEP (*(.dtors))
    PROVIDE(__DTOR_END__ = .);
