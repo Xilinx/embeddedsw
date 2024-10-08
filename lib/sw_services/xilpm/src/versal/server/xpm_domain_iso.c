@@ -244,7 +244,7 @@ static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 	},
 	[XPM_NODEIDX_ISO_CPM5_PL_DFX] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_CPM5_PL_DFX),
-		.Node.BaseAddress = 0U,
+		.Node.BaseAddress = CPM5_SLCR_BASEADDR,
 		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = 0U,
 		.Polarity = (u8)PM_ACTIVE_HIGH,
@@ -252,7 +252,7 @@ static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 	},
 	[XPM_NODEIDX_ISO_CPM5_PL] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_CPM5_PL),
-		.Node.BaseAddress = 0U,
+		.Node.BaseAddress = CPM5_SLCR_BASEADDR,
 		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = 0U,
 		.Polarity = (u8)PM_ACTIVE_HIGH,
@@ -300,7 +300,7 @@ static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 	},
 	[XPM_NODEIDX_ISO_CPM5_GT_DFX] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_CPM5_GT_DFX),
-		.Node.BaseAddress = 0U,
+		.Node.BaseAddress = CPM5_SLCR_BASEADDR,
 		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = 0U,
 		.Polarity = (u8)PM_ACTIVE_HIGH,
@@ -308,7 +308,7 @@ static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 	},
 	[XPM_NODEIDX_ISO_CPM5_GT] = {
 		.Node.Id = ISOID(XPM_NODEIDX_ISO_CPM5_GT),
-		.Node.BaseAddress = 0U,
+		.Node.BaseAddress = CPM5_SLCR_BASEADDR,
 		.Node.State = (u8)PM_ISOLATION_ON,
 		.Mask = 0U,
 		.Polarity = (u8)PM_ACTIVE_HIGH,
