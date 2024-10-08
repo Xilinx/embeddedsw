@@ -3,18 +3,30 @@
 * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 /*****************************************************************************/
-
-/******************************************************************************
-* I3C spec defines the following:
+/**
+*
+* @file xi3cpsx_pr.h
+* @addtogroup Overview
+* @{
+*
+* This file contains the following:
 * Common command codes (CCC)
 * Error types
 * Command structure/framing
 * Characterisitcs registers
 *
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who Date     Changes
+* ----- --- -------- -----------------------------------------------.
+* 1.00  sd  06/10/22 First release
+* 1.4   gm  10/07/24 Added DBP and slave transmit macros.
+*
+* </pre>
+*
 ******************************************************************************/
-
 #ifndef XI3CPS_PR_H
 #define XI3CPS_PR_H
 
@@ -82,6 +94,7 @@ extern "C" {
 #define COMMAND_PORT_READ_TRANSFER	BIT(28)
 #define COMMAND_PORT_SDAP		BIT(27)
 #define COMMAND_PORT_ROC		BIT(26)
+#define COMMAND_PORT_DBP		BIT(25)
 #define COMMAND_PORT_SPEED(x)		((x) << 21)
 #define COMMAND_PORT_DEV_INDEX(x)	((x) << 16)
 #define COMMAND_PORT_CP			BIT(15)
@@ -90,6 +103,7 @@ extern "C" {
 
 #define COMMAND_PORT_ARG_DATA_LEN(x)	((x) << 16)
 #define COMMAND_PORT_ARG_DATA_LEN_MAX	65536
+#define COMMAND_PORT_SLAVE_TRANSMIT	0x0
 #define COMMAND_PORT_TRANSFER_ARG	0x01
 
 #define COMMAND_PORT_SDA_DATA_BYTE_3(x)	((x) << 24)
