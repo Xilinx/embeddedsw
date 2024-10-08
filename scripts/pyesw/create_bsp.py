@@ -59,6 +59,7 @@ class Domain(Repo):
         """
         with open(self.sdt, "r") as file:
             content = file.read()
+            family_str = re.findall("[ \t\n]*family = \"(.*?)\"", content)
             if "cpus_a53" in content or 'family = "ZynqMP";' in content:
                 return "ZynqMP"
             elif "cpus_a72" in content or 'family = "Versal";' in content:
@@ -71,6 +72,8 @@ class Domain(Repo):
                 return "VersalGen2"
             elif "cpus_a78" in content:
                 return "VersalNet"
+            elif family_str:
+                return family_str[0]
 
     def _validate_inputs(self):
         """
@@ -180,6 +183,7 @@ class Domain(Repo):
             "r5": ("cortexr5", "lop-r5-imux", "arm"),
             "a9": ("cortexa9", "", "arm"),
             "pmu": ("microblaze-pmu", "", "microblaze"),
+            "pmc_riscv": ("microblaze_riscv", "", "microblaze_riscv"),
             "pmc": ("microblaze-plm", "", "microblaze"),
             "psm": ("microblaze-psm", "", "microblaze"),
             "asu": ("microblaze_riscv", "", "microblaze"),
@@ -250,6 +254,18 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                 f'set( CMAKE_SUBMACHINE "VersalGen2" CACHE STRING "cmake submachine" FORCE)',
             )
 
+        if self.family == "SpartanUP":
+            utils.add_newline(
+                toolchain_file_copy,
+                f'set(CMAKE_MACHINE "{self.family}")'
+            )
+
+        if self.app:
+            utils.add_newline(
+                toolchain_file_copy,
+                f'set(TEMPLATE "{self.app}")'
+            )
+
         # freertos needs a separate CMAKE_SYSTEM_NAME
         if "freertos" in self.os:
             utils.add_newline(toolchain_file_copy, "set( CMAKE_SYSTEM_NAME FreeRTOS)")
@@ -291,8 +307,8 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
         else:
             out_dts_path = self.sdt
 
-        if self.proc_ip_name in ["microblaze", "microblaze_riscv", "asu"]:
-            if self.proc_ip_name in ["microblaze_riscv", "asu"] :
+        if self.proc_ip_name in ["microblaze", "microblaze_riscv", "asu", "pmc_riscv"]:
+            if self.proc_ip_name in ["microblaze_riscv", "asu", "pmc_riscv"] :
                 lops_file = os.path.join(self.lops_dir, "lop-microblaze-riscv.dts")
                 processor = "riscv"
             else:
@@ -361,6 +377,14 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
             compiler_flags (str): returns the new compiler flags that were set.
         """
         compiler_flags = ""
+        app_yaml_dict = utils.load_yaml(os.path.join(self.get_comp_dir(app_name), "data", f"{app_name}.yaml"))
+        if app_yaml_dict.get("extra_compiler_flags"):
+            utils.replace_line(
+                toolchain_file,
+                f'set( APPLICATION_SPECIFIC_FLAGS ""  CACHE STRING "Extra Application specific Flags")',
+                f'set( APPLICATION_SPECIFIC_FLAGS "{app_yaml_dict.get("extra_compiler_flags","")}"  CACHE STRING "Extra Application specific Flags")\n',
+            )
+
         if app_name == "zynqmp_fsbl" or self.proc_mode == "32-bit":
             if app_name == "zynqmp_fsbl":
                 if "a53" in proc:
@@ -823,6 +847,7 @@ if __name__ == "__main__":
             - lwip_udp_perf_server
             - dhrystone
             - zynqmp_dram_test
+            - spartanup_plm
         """
         ),
     )
