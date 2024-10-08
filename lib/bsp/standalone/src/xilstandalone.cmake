@@ -50,6 +50,8 @@ elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
     set(PLATFORM_ZYNQMP " ")
 elseif("${CMAKE_MACHINE}" STREQUAL "Zynq")
     set(PLATFORM_ZYNQ " ")
+elseif("${CMAKE_MACHINE}" STREQUAL "SpartanUP")
+    set(SPARTANUP " ")
 endif()
 
 if("${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2")
@@ -95,6 +97,11 @@ endif()
 if(("${CMAKE_MACHINE}" STREQUAL "VersalNet") AND
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze"))
     set(VERSALNET_PLM " ")
+endif()
+
+if(("${CMAKE_MACHINE}" STREQUAL "SpartanUP") AND
+   ("${TEMPLATE}" STREQUAL "spartanup_plm"))
+    set(SPARTANUP_PLM " ")
 endif()
 
 string(FIND "${CMAKE_C_FLAGS}" "-flto" has_flto)

@@ -14,8 +14,13 @@ type: apps
 description: Platform Loader and Manager for SpartanUP.
 
 supported_processors:
-  - psxl_pmc
+  - pmc_riscv
 
 supported_os:
   - standalone
+
+depends_libs:
+    xiltimer: {}
+
+extra_compiler_flags: -Os -flto -ffat-lto-objects
 ...
