@@ -20,6 +20,8 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------.
 * 1.00  sd  06/10/22 First release
+* 1.4   gm  10/07/24 Added macros for reading write and read fifo leves,
+* 		     enable and disable interrupts, and register offset.
 *
 * </pre>
 *
@@ -88,6 +90,88 @@ extern "C" {
 ******************************************************************************/
 #define XI3cPsx_WriteReg(BaseAddress, RegOffset, RegisterValue) \
 	XI3cPsx_Out32((BaseAddress) + (u32)(RegOffset), (u32)(RegisterValue))
+
+/****************************************************************************/
+/**
+*
+* Read Tx FIFO level.
+*
+* @param        InstancePtr is the instance of I3cPs
+*
+* @return       None.
+*
+* @note         C-Style signature:
+*               void XI3cPsx_WrFifoLevel(XI3cPsx *InstancePtr)
+*
+*****************************************************************************/
+#define XI3cPsx_WrFifoLevel(InstancePtr)				     \
+	(u8)(XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,		     \
+			     XI3CPSX_DATA_BUFFER_STATUS_LEVEL)		     \
+	     & XI3CPSX_DATA_BUFFER_STATUS_LEVEL_TX_BUF_EMPTY_LOC_MASK)
+
+/****************************************************************************/
+/**
+*
+* Read Rx FIFO level.
+*
+* @param        InstancePtr is the instance of I3cPs
+*
+* @return       None.
+*
+* @note         C-Style signature:
+*               void XI3cPsx_RdFifoLevel(XI3cPsx *InstancePtr)
+*
+*****************************************************************************/
+#define XI3cPsx_RdFifoLevel(InstancePtr)				     \
+	(u8)((XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,		     \
+			      XI3CPSX_DATA_BUFFER_STATUS_LEVEL)	     	     \
+	     & XI3CPSX_DATA_BUFFER_STATUS_LEVEL_RX_BUF_BLR_MASK)	     \
+	     >> XI3CPSX_DATA_BUFFER_STATUS_LEVEL_RX_BUF_BLR_SHIFT)
+
+/*****************************************************************************/
+/**
+*
+* Enable interrupts
+*
+* @param        Base address of the XI3cPsx core instance.
+* @param        interrupt mask value.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u16 XI3cPsx_EnableInterrupts(XI3cPsx *InstancePtr, u32 IntrMask)
+*
+******************************************************************************/
+#define XI3cPsx_EnableInterrupts(BaseAddress, IntrMask) 		          \
+	XI3cPsx_WriteReg((BaseAddress), XI3CPSX_INTR_STATUS_EN,		          \
+			 ((XI3cPsx_ReadReg(BaseAddress, XI3CPSX_INTR_STATUS_EN))| \
+			 (IntrMask)));					          \
+	XI3cPsx_WriteReg((BaseAddress), XI3CPSX_INTR_SIGNAL_EN,		          \
+			 ((XI3cPsx_ReadReg(BaseAddress, XI3CPSX_INTR_SIGNAL_EN))| \
+			 (IntrMask)))
+
+/*****************************************************************************/
+/**
+*
+* Disable interrupts
+*
+* @param        Base address of the XI3cPsx core instance.
+* @param        interrupt mask value.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               u16 XI3cPsx_DisableInterrupts(XI3cPsx *InstancePtr, u32 IntrMask)
+*
+******************************************************************************/
+#define XI3cPsx_DisableInterrupts(BaseAddress, IntrMask)			\
+	XI3cPsx_WriteReg((BaseAddress), XI3CPSX_INTR_STATUS_EN,			\
+			 ((XI3cPsx_ReadReg(BaseAddress, XI3CPSX_INTR_STATUS_EN))\
+			 & ~(IntrMask)));					\
+	XI3cPsx_WriteReg((BaseAddress), XI3CPSX_INTR_SIGNAL_EN,			\
+			 ((XI3cPsx_ReadReg(BaseAddress, XI3CPSX_INTR_SIGNAL_EN))\
+			 & ~(IntrMask)))
+
 
 #define XI3CPSX_NS_1SEC			1000000000
 
@@ -264,6 +348,9 @@ extern "C" {
 #define XI3CPSX_RESPONSE_QUEUE_PORT_RESPONSE_WIDTH   32
 #define XI3CPSX_RESPONSE_QUEUE_PORT_RESPONSE_MASK    0xffffffff
 #define XI3CPSX_RESPONSE_QUEUE_PORT_RESPONSE_DEFVAL  0x0
+
+#define XI3CPSX_RESPONSE_ERR_STS_SHIFT			28
+#define XI3CPSX_RESPONSE_ERR_STS_MASK			0xf0000000
 
 /**
  * Register: XI3CPSX_TX_RX_DATA_PORT
@@ -889,6 +976,26 @@ extern "C" {
 #define XI3CPSX_INTR_FORCE_TX_THLD_FORCE_EN_DEFVAL  0x0
 
 /**
+ * @name interrupt Register  (INTR) mask(s)
+ * @{
+ */
+#define XI3CPSX_INTR_TX_THLD			0x00000001	/**< BIT 0 - Transmit Buffer Threshold */
+#define XI3CPSX_INTR_RX_THLD			0x00000002	/**< BIT 1 - Receive Buffer Threshold */
+#define XI3CPSX_INTR_IBI_THLD			0x00000004	/**< BIT 2 - IBI Buffer Threshold */
+#define XI3CPSX_INTR_CMD_QUEUE_READY		0x00000008	/**< BIT 3 - Command Queue Ready */
+#define XI3CPSX_INTR_RESP_READY			0x00000010	/**< BIT 4 - Response Queue Ready */
+#define XI3CPSX_INTR_TRANSFER_ABORT		0x00000020	/**< BIT 5 - Transfer Abort */
+#define XI3CPSX_INTR_CCC_UPDATED		0x00000040	/**< BIT 6 - CCC Table Updated */
+#define XI3CPSX_INTR_DYN_ADDR_ASSGN		0x00000100	/**< BIT 8 - Dynamic Address Assigned - only in slave mode */
+#define XI3CPSX_INTR_TRANSFER_ERR		0x00000200	/**< BIT 9 - Transfer Error */
+#define XI3CPSX_INTR_DEFSLV			0x00000400	/**< BIT 10 - Define Slave CCC Received */
+#define XI3CPSX_INTR_READ_REQ_RECV		0x00000800	/**< BIT 11 - Read Request Received */
+#define XI3CPSX_INTR_IBI_UPDATED		0x00001000	/**< BIT 12 - IBI status is updated */
+#define XI3CPSX_INTR_BUSOWNER_UPDATED		0x00002000	/**< BIT 13 - Role of the controller changes from being
+								  a Master to Slave or vice versa */
+#define XI3CPSX_INTR_BUS_RESET_DONE		0x00008000	/**< BIT 15 - Bus Reset Pattern Generation Done */
+
+/**
  * Register: XI3CPSX_QUEUE_STATUS_LEVEL
  */
 #define XI3CPSX_QUEUE_STATUS_LEVEL    ( ( XI3CPSX_BASEADDR ) + 0x0000004C )
@@ -1185,6 +1292,7 @@ extern "C" {
 #define XI3CPSX_SLV_CHAR_CTRL_DEVICE_ROLE_WIDTH   2
 #define XI3CPSX_SLV_CHAR_CTRL_DEVICE_ROLE_MASK    0x000000c0
 #define XI3CPSX_SLV_CHAR_CTRL_DEVICE_ROLE_DEFVAL  0x1
+#define XI3CPSX_SLV_CHAR_CTRL_DEVICE_ROLE_SLAVE  0x2
 
 /* access_type: rw */
 #define XI3CPSX_SLV_CHAR_CTRL_HDR_CAPABLE_SHIFT   5
@@ -1349,12 +1457,14 @@ extern "C" {
 #define XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_HCNT_WIDTH   8
 #define XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_HCNT_MASK    0x00ff0000
 #define XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_HCNT_DEFVAL  0xa
+#define XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_HCNT_VAL     8
 
 /* access_type: rw */
 #define XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_LCNT_SHIFT   0
 #define XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_LCNT_WIDTH   8
 #define XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_LCNT_MASK    0x000000ff
 #define XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_LCNT_DEFVAL  0x10
+#define XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_LCNT_VAL     50
 
 /**
  * Register: XI3CPSX_SCL_I3C_PP_TIMING
@@ -1369,12 +1479,14 @@ extern "C" {
 #define XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_HCNT_WIDTH   8
 #define XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_HCNT_MASK    0x00ff0000
 #define XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_HCNT_DEFVAL  0xa
+#define XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_HCNT_VAL     8
 
 /* access_type: rw */
 #define XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_LCNT_SHIFT   0
 #define XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_LCNT_WIDTH   8
 #define XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_LCNT_MASK    0x000000ff
 #define XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_LCNT_DEFVAL  0xa
+#define XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_LCNT_VAL     8
 
 /**
  * Register: XI3CPSX_SCL_I2C_FM_TIMING
@@ -2999,8 +3111,6 @@ extern "C" {
 #define XI3CPSX_EXT_DEBUG_REG_2_DEBUG_PORT_47_32_MASK    0x0000ffff
 #define XI3CPSX_EXT_DEBUG_REG_2_DEBUG_PORT_47_32_DEFVAL  0x0
 
-#define XI3cPsx_EnableInterrupts(BaseAddress, IntrMask) \
-	XI3cPsx_WriteReg((BaseAddress), XI3CPSX_INTR_STATUS_EN, (IntrMask))
 #ifdef __cplusplus
 }
 #endif
