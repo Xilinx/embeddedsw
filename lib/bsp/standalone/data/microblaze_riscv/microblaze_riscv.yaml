@@ -18,6 +18,7 @@ properties:
           - xlnx,microblaze_riscv
           - xlnx,microblaze-riscv-1.0
           - xlnx,asu-microblaze_riscv
+          - xlnx,pmc-microblaze_riscv
 
 required:
     - timebase-frequency
