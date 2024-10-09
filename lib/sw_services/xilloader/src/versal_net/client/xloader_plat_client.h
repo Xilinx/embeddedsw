@@ -18,6 +18,7 @@
  * 1.00  dd   01/09/24 Initial release
  *       har  02/16/24 Added XLoader_GetOptionalData API
  *       har  03/05/24 Fixed doxygen warnings
+ *       kpt  10/04/24 Added support to validate partial and optimized authentication enabled PDI
  *
  * </pre>
  *
@@ -49,12 +50,14 @@ typedef struct {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XLOADER_PDI_SRC_DDR			(0xF)	/**< Source of PDI is DDR */
 #define XLOADER_PDI_SRC_IS			(0x10)	/**< Source of PDI is Image Store */
+#define XLOADER_PDI_TYPE_FULL		        (0x1U)  /**< PDI type full */
+#define XLOADER_PDI_TYPE_PARTIAL	        (0x2U)  /**< PDI type partial */
 
 /************************************ Function Prototypes ****************************************/
 int XLoader_ConfigureJtagState(XLoader_ClientInstance *InstancePtr, u32 Flag);
 int XLoader_ReadDdrCryptoPerfCounters(XLoader_ClientInstance *InstancePtr, u32 NodeId,
 		XLoader_DDRCounters *CryptoCounters);
-int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr);
+int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr, const u32 PdiType);
 int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr,
 	const XLoader_OptionalDataInfo* OptionalDataInfo, u64 DestAddr, u32 *DestSize);
 

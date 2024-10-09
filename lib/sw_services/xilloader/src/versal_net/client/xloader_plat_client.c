@@ -19,6 +19,7 @@
  * 1.00  dd   01/09/24 Initial release
  *       har  02/16/24 Added XLoader_GetOptionalData API
  *       har  03/05/24 Fixed doxygen warnings
+ *       kpt  10/04/24 Added support to validate partial and optimized authentication enabled PDI
  *
  * </pre>
  *
@@ -87,6 +88,13 @@
 #define XLOADER_WORD_LEN			(4U)	/**< Length of word in bytes*/
 #define XLOADER_WORD_LEN_SHIFT			(2U)	/**< Shift to convert word in bytes */
 #define XLOADER_PARTITION_SIZE			(128U) /**< Size of partition in bytes*/
+
+#define XIH_OPT_DATA_HDR_ID_MASK	(0xFFFFU) /**< Optional data id mask */
+#define XIH_OPT_DATA_HDR_LEN_MASK	(0xFFFF0000U) /**< Optional data length mask */
+#define XIH_OPT_DATA_HDR_LEN_SHIFT	(16U) /**< shift value to extract optional data length */
+#define XIH_OPT_DATA_LEN_OFFSET		(4U) /**< Optional data length offset */
+#define XIH_OPT_DATA_DEF_LEN		(2U) /**< Default optional data length */
+#define XIH_OPT_HASH_TBL_DATA_ID	(3U) /**< Optional data id for hash table */
 
 /**************************** Type Definitions *******************************/
 /**
@@ -169,13 +177,30 @@ typedef struct {
 	u32 Checksum; /**< checksum of the partition header */
 } XilLoader_PrtnHdr __attribute__ ((aligned(16U)));
 
+typedef struct {
+	u32 PrtnNum; /**< Partition Number */
+	u8 PrtnHash[XLOADER_SHA3_HASH_LEN_IN_BYTES]; /**< Partition hash */
+} XilPdi_PrtnHashInfo;
+
+typedef struct {
+	u32 IsAuthOptimized; /**< Flag to indicate authentication optimization */
+	u32 HashTblSize; /**< Hash table size */
+	XilPdi_PrtnHashInfo *StartOffset; /**< Start offset of digest table */
+} XilPdi_HashTblInfo;
+
 /************************** Function Prototypes ******************************/
-static int XLoader_VerifyPrtnAuth(XLoader_ClientInstance *InstancePtr, u64 PrtnAddr, u32 PrtnLen, u64 ACAddr);
+static int XLoader_VerifyPrtnAuth(XLoader_ClientInstance *InstancePtr, u64 PrtnAddr, u32 PrtnLen, u32 PrtnIdx, u64 ACAddr,
+		XilPdi_HashTblInfo *HashTblInfo);
 static int XLoader_VerifyDataAuth(XLoader_ClientInstance *InstancePtr, u64 HashAddr, u64 ACAddr, u32 SignatureSelect);
+static int XLoader_ValidateBhAndPlmNPmcCdoAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr, u64 *MhOffset);
+static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr, const u64 MhOffset,
+	const u32 PrtnStartIdx);
 static int XLoader_VerifyPlmNPmcCdoAuth(XLoader_ClientInstance *InstancePtr, u64 PdiAddr, u64 BhAddr);
+u64 XLoader_SearchOptionalData(u64 StartAddress, u64 EndAddress, u32 DataId);
+static int XLoader_CheckAndCompareHashFromIHTOptionalData(u64 HashAddr, XilPdi_HashTblInfo *HashTblInfo, u32 PrtnHashIndex);
 
 /************************** Variable Definitions *****************************/
-XMailbox MailboxInstance;
+
 XSecure_ClientInstance SecureClientInstance;
 u8 NextHash[XLOADER_SHA3_HASH_LEN_IN_BYTES];
 
@@ -327,9 +352,78 @@ END:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+* @brief	This function search offset of optional data address
+*
+* @param	StartAddress is start address of IHT optional data
+* @param	EndAddress is end address of IHT optional data
+* @param	DataId is to identify type of data in data structure
+*
+* @return
+*		- Offset on getting successful optional data offset address
+*		for given data Id.
+*
+*****************************************************************************/
+u64 XLoader_SearchOptionalData(u64 StartAddress, u64 EndAddress, u32 DataId)
+{
+	u64 Offset = StartAddress;
+	u32 Data;
+
+	while (Offset < EndAddress) {
+		Data = (u32)Xil_In64((UINTPTR)Offset);
+		if ((Data & XIH_OPT_DATA_HDR_ID_MASK) != DataId) {
+			Offset += (u32)(((Data & XIH_OPT_DATA_HDR_LEN_MASK) >>
+				XIH_OPT_DATA_HDR_LEN_SHIFT) << XLOADER_WORD_LEN_SHIFT);
+		}
+		else {
+			break;
+		}
+	}
+
+	return Offset;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function checks whether Authentication optimization is
+*               enabled or not.
+*
+* @param	StartAddress is start address of IHT optional data
+* @param	OptionalDataLen is size of IHT optional data
+* @param	HashTbl is pointer to XilPdi_HashTblInfo
+*
+* @return
+*		- XST_SUCCESS On Success
+*               - XST_FAILURE On Failure
+*
+*****************************************************************************/
+static int XLoader_IsAuthOptimized(u64 OptionalDataStartAddr, u32 OptionalDataLen, XilPdi_HashTblInfo  *HashTbl)
+{
+	int Status = XST_FAILURE;
+	u64 OptionalDataEndAddr = OptionalDataStartAddr + OptionalDataLen;
+	u64 Offset;
+
+	HashTbl->IsAuthOptimized = FALSE;
+	Offset = XLoader_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr, XIH_OPT_HASH_TBL_DATA_ID);
+	if (Offset < OptionalDataEndAddr) {
+		HashTbl->IsAuthOptimized = TRUE;
+		HashTbl->HashTblSize = ((Xil_In64((UINTPTR)Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
+				XIH_OPT_DATA_HDR_LEN_SHIFT) << XLOADER_WORD_LEN_SHIFT;
+		HashTbl->HashTblSize -= XIH_OPT_DATA_DEF_LEN;
+		HashTbl->HashTblSize /= sizeof(XilPdi_PrtnHashInfo);
+		HashTbl->StartOffset = (XilPdi_PrtnHashInfo*)(UINTPTR)(Offset + XIH_OPT_DATA_LEN_OFFSET);
+	}
+
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
 /*****************************************************************************/
 /**
- * @brief	This function sends IPI request to validate authenticated PDI
+ * @brief	This function sends IPI request to validate Boot Header, PLM
+ *               and PMC CDO authentication
  *
  * @param	InstancePtr - Pointer to XLoader_ClientInstance
  * @param	PdiAddr - Address where authenticated PDI is present
@@ -338,64 +432,25 @@ END:
  *		 - XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr)
+static int XLoader_ValidateBhAndPlmNPmcCdoAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr,
+		u64 *MhOffset)
 {
 	int Status = XST_FAILURE;
 	u64 BhAddr = PdiAddr + XLOADER_SMAP_WD_PATTERN_SIZE;
 	u64 BhAcAddr = BhAddr + XLOADER_BH_SIZE;
 	u8 Sha3Hash[XLOADER_SHA3_HASH_LEN_IN_BYTES];
 	XilLoader_BootHdr* BootHdrPtr = (XilLoader_BootHdr*)(UINTPTR)BhAddr;
-	u64 MhAddr = PdiAddr + BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst;
-	XilLoader_ImgHdrTbl* IhtPtr = (XilLoader_ImgHdrTbl*)(UINTPTR)MhAddr;
-	u64 MhAcAddr = PdiAddr + ((u64)(IhtPtr->AcOffset) << XLOADER_WORD_LEN_SHIFT);
-	XilLoader_PrtnHdr PrtnHdr[XIH_MAX_PRTNS];
-	u32 TotalLengthOfPrtnHdr = IhtPtr->NoOfPrtns * XLOADER_PARTITION_SIZE;
 	u32 IsSignedImg = BootHdrPtr->ImgAttrb & XLOADER_BH_IMG_ATTRB_SIGNED_IMG_MASK;
 	u64 HashAddr = (UINTPTR)&Sha3Hash;
-	u64 ImgHdrAddr = PdiAddr + (IhtPtr->ImgHdrAddr * XLOADER_WORD_LEN);
-	u64 PrtnAddr;
-	u64 PrtnAcAddr;
-	u32 TotalSize;
-	u32 Idx;
 
 	if (IsSignedImg != XLOADER_BH_IMG_ATTRB_SIGNED_IMG_MASK) {
 		xil_printf("Bootloader must be authenticated to authenticate rest of the partitions \r\n");
 		goto END;
 	}
 
-	Status = (int)XMailbox_Initialize(&MailboxInstance, 0U);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Mailbox initialize failed:%08x \r\n", Status);
-		goto END;
-	}
-
-	Status = XSecure_ClientInit(&SecureClientInstance, &MailboxInstance);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Client initialize failed:%08x \r\n", Status);
-		goto END;
-	}
-
-	/*
-	 * Run all Known Answer Tests
-	*/
-	Status =  XSecure_RsaPublicEncKat(&SecureClientInstance);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status =  XSecure_Sha3Kat(&SecureClientInstance);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XSecure_EllipticSignVerifyKat(&SecureClientInstance, XSECURE_ECC_PRIME);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	/*
 	 * Calculate bootheader hash
-	*/
+	 */
 	Status = XSecure_Sha3Digest(&SecureClientInstance, BhAddr, HashAddr, XLOADER_BH_SIZE_WO_PADDING);
 	if(Status != XST_SUCCESS) {
 		goto END;
@@ -403,7 +458,7 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 
 	/*
 	 * Verify bootheader signature
-	*/
+	 */
 	Status = XLoader_VerifyDataAuth(InstancePtr, HashAddr, BhAcAddr, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -414,18 +469,101 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 
 	/*
 	 * Calculate hash for PLM and PMC CDO and verify signature
-	*/
+	 */
 	Status = XLoader_VerifyPlmNPmcCdoAuth(InstancePtr, PdiAddr, BhAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	else {
 		xil_printf("Verified signature for PLM and PMC CDO \r\n");
+		*MhOffset = BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst;
 	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function checks whether Partition hash is present or not
+*               and compares the claculated hash with hash which is present in
+*               IHT Optional data for the respective partitions.
+*
+* @param       HashPtr is pointer to calculated Hash
+* @param       XilPdi_HashTblInfo is pointer to Hash table info
+* @param       PrtnHashIndex is index of partition hash in IHT optional data
+*
+* @return	XST_SUCCESS on success
+*               error code on failure
+*
+******************************************************************************/
+static int XLoader_CheckAndCompareHashFromIHTOptionalData(u64 HashAddr, XilPdi_HashTblInfo *HashTblInfo,
+		u32 PrtnHashIndex)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	u32 Index = 0U;
+
+	for (Index = 0U; Index < HashTblInfo->HashTblSize; Index++) {
+		if (HashTblInfo->StartOffset[Index].PrtnNum == PrtnHashIndex) {
+			break;
+		}
+	}
+
+	if (Index < HashTblInfo->HashTblSize) {
+		 /*
+		  * Compare the calculated hash of respective partition with the hash which is
+	          * present in IHT Optional data.
+	          */
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT, HashTblInfo->StartOffset[Index].PrtnHash,
+			XLOADER_SHA3_HASH_LEN_IN_BYTES, (u8*)(UINTPTR)HashAddr,
+			XLOADER_SHA3_HASH_LEN_IN_BYTES, XLOADER_SHA3_HASH_LEN_IN_BYTES);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			goto END;
+		}
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to validate Meta Header and partition
+ *              authentication
+ *
+ * @param	InstancePtr - Pointer to XLoader_ClientInstance
+ * @param	PdiAddr - Address where authenticated PDI is present
+ * @param       MhOffset - Offset where meta header is present
+ * @param       PrtnStartIdx - Partition start offset i.e. 0 for PPDI and 1 for Full PDI
+ *
+ * @return
+ *		 - XST_SUCCESS on success and error code on failure
+ *
+ ******************************************************************************/
+static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr, const u64 MhOffset,
+	const u32 PrtnStartIdx)
+{
+	int Status = XST_FAILURE;
+	u8 Sha3Hash[XLOADER_SHA3_HASH_LEN_IN_BYTES];
+	u64 MhAddr = PdiAddr + MhOffset;
+	XilLoader_ImgHdrTbl* IhtPtr = (XilLoader_ImgHdrTbl*)(UINTPTR)MhAddr;
+	u64 MhAcAddr = PdiAddr + ((u64)(IhtPtr->AcOffset) << XLOADER_WORD_LEN_SHIFT);
+	XilLoader_PrtnHdr PrtnHdr[XIH_MAX_PRTNS];
+	u32 TotalLengthOfPrtnHdr = IhtPtr->NoOfPrtns * XLOADER_PARTITION_SIZE;
+	u64 HashAddr = (UINTPTR)&Sha3Hash;
+	u64 ImgHdrAddr = PdiAddr + (IhtPtr->ImgHdrAddr * XLOADER_WORD_LEN);
+	u64 PrtnAddr;
+	u64 PrtnAcAddr;
+	u32 TotalSize;
+	u32 Idx;
+	u32 HashIdx = 1U;
+	u32 AuthCertSize;
+	XilPdi_HashTblInfo HashTblInfo;
 
 	/*
 	 * Calculate Image Header Table hash
-	*/
+	 */
 	Status = XSecure_Sha3Digest(&SecureClientInstance, MhAddr, HashAddr,
 		XLOADER_IHT_SIZE + (IhtPtr->OptionalDataLen * 4));
 	if(Status != XST_SUCCESS) {
@@ -434,13 +572,20 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 
 	/*
 	 * Verify Image Header Table signature
-	*/
+	 */
 	Status = XLoader_VerifyDataAuth(InstancePtr, HashAddr, MhAcAddr, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	else {
 		xil_printf("Verified signature for Image Header Table \r\n");
+	}
+
+	/* Check if authentication is optimized */
+	Status = XLoader_IsAuthOptimized((MhAddr + XLOADER_IHT_SIZE), (IhtPtr->OptionalDataLen * XLOADER_WORD_LEN),
+			&HashTblInfo);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	/*
@@ -453,8 +598,14 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 		goto END;
 	}
 
-	Status = XSecure_Sha3Update(&SecureClientInstance, MhAcAddr,
-		(XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE));
+	if (HashTblInfo.IsAuthOptimized != TRUE) {
+		AuthCertSize = (XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE);
+	}
+	else {
+		AuthCertSize = (XLOADER_AUTH_CERT_MIN_SIZE - (2U * XLOADER_PARTITION_SIG_SIZE));
+	}
+
+	Status = XSecure_Sha3Update(&SecureClientInstance, MhAcAddr, AuthCertSize);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -472,10 +623,15 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 		goto END;
 	}
 
-	/*
-	 * Verify signature for Metaheader excluding Image Header Table
-	*/
-	Status = XLoader_VerifyDataAuth(InstancePtr, HashAddr, MhAcAddr, FALSE);
+	if (HashTblInfo.IsAuthOptimized != TRUE) {
+		/*
+		 * Verify signature for Metaheader excluding Image Header Table
+		 */
+		Status = XLoader_VerifyDataAuth(InstancePtr, HashAddr, MhAcAddr, FALSE);
+	}
+	else {
+		Status = XLoader_CheckAndCompareHashFromIHTOptionalData(HashAddr, &HashTblInfo, 0U);
+	}
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -490,27 +646,98 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 		goto END;
 	}
 
-	/**
-	 * Partition 0 is PLM. Hence Idx starts from 1 for PLM loadable partitions
-	 * Verify signature for each partition in case it is authenticated
-	 */
-	for (Idx = 1U; Idx < IhtPtr->NoOfPrtns; ++Idx) {
+	/* Verify signature for each partition in case it is authenticated */
+	for (Idx = PrtnStartIdx; Idx < IhtPtr->NoOfPrtns; ++Idx) {
 		if (PrtnHdr[Idx].AuthCertificateOfst != 0U) {
 			PrtnAddr = PdiAddr + ((u64)(PrtnHdr[Idx].DataWordOfst) << XLOADER_WORD_LEN_SHIFT);
 			PrtnAcAddr = PdiAddr + ((u64)(PrtnHdr[Idx].AuthCertificateOfst) << XLOADER_WORD_LEN_SHIFT);
-
 			Status = XLoader_VerifyPrtnAuth(InstancePtr, PrtnAddr,
 				(PrtnHdr[Idx].TotalDataWordLen << XLOADER_WORD_LEN_SHIFT) - XLOADER_AUTH_CERT_MIN_SIZE,
-				PrtnAcAddr);
+				HashIdx, PrtnAcAddr, &HashTblInfo);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 			xil_printf("Verified signature for partition %d \n\r", Idx);
 		}
+		HashIdx++;
 	}
 	xil_printf("Verified signature for all partitions \r\n");
 
 	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to validate authenticated PDI
+ *              based on PDI type
+ *
+ * @param	InstancePtr - Pointer to XLoader_ClientInstance
+ * @param	PdiAddr - Address where authenticated PDI is present
+ * @param       PdiType -  Value to indicate Full or Partial PDI
+ *
+ * @return
+ *		 - XST_SUCCESS on success and error code on failure
+ *
+ ******************************************************************************/
+int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr, const u32 PdiType)
+{
+	int Status = XST_FAILURE;
+	u64 MhOffset;
+	u32 PrtnIdx = 0U;
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr ==  NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((PdiType != XLOADER_PDI_TYPE_FULL) && (PdiType != XLOADER_PDI_TYPE_PARTIAL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XSecure_ClientInit(&SecureClientInstance, InstancePtr->MailboxPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/*
+	 * Run all Known Answer Tests
+	 */
+	Status =  XSecure_RsaPublicEncKat(&SecureClientInstance);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status =  XSecure_Sha3Kat(&SecureClientInstance);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_EllipticSignVerifyKat(&SecureClientInstance, XSECURE_ECC_PRIME);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (PdiType != XLOADER_PDI_TYPE_PARTIAL) {
+		Status = XLoader_ValidateBhAndPlmNPmcCdoAuth(InstancePtr, PdiAddr, &MhOffset);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		/**
+		 * Fpr full PDI Partition 0 is PLM. Hence Idx starts from 1 for PLM loadable partitions
+		 */
+		PrtnIdx = 1U;
+	}
+	else {
+		/* For partial PDI Idx starts from 0 for PLM loadable partitions as there is no PLM */
+		MhOffset = XLOADER_SMAP_WD_PATTERN_SIZE;
+		PrtnIdx = 0U;
+	}
+
+	Status = XLoader_ValidateMhAndPrtnAuth(InstancePtr, PdiAddr, MhOffset, PrtnIdx);
 
 END:
 	return Status;
@@ -531,7 +758,8 @@ END:
  *		 - XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static int XLoader_VerifyPrtnAuth(XLoader_ClientInstance *InstancePtr, u64 PrtnAddr, u32 PrtnLen, u64 ACAddr)
+static int XLoader_VerifyPrtnAuth(XLoader_ClientInstance *InstancePtr, u64 PrtnAddr, u32 PrtnLen, u32 PrtnIdx, u64 ACAddr,
+	XilPdi_HashTblInfo *HashTblInfo)
 {
 	int Status = XST_FAILURE;
 	int Block = 0U;
@@ -578,7 +806,12 @@ static int XLoader_VerifyPrtnAuth(XLoader_ClientInstance *InstancePtr, u64 PrtnA
 		}
 
 		if (Block == 0U) {
-			Status = XLoader_VerifyDataAuth(InstancePtr, HashAddr, ACAddr, FALSE);
+			if (HashTblInfo->IsAuthOptimized != TRUE) {
+				Status = XLoader_VerifyDataAuth(InstancePtr, HashAddr, ACAddr, FALSE);
+			}
+			else {
+				Status = XLoader_CheckAndCompareHashFromIHTOptionalData(HashAddr, HashTblInfo, PrtnIdx);
+			}
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
