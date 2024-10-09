@@ -62,6 +62,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  pre  07/10/24 Initial release
+ *       pre  09/30/24 Added comment which says only 12bytes of IV are being used
  *
  * </pre>
  *
@@ -182,7 +183,10 @@ int main(void)
 		goto END;
 	}
 
-	/* Invoke Generate for IV and print, SharedMem contains random data from this call */
+	/**
+	 * Invoke Generate for IV, SharedMem contains random data from this call.
+	 * Only 12 bytes will be used for each IV
+	 */
 	Status = XTrngpsv_Generate(&Trngpsv, (u8 *)SsitSecCommData.IVsandKey.IVs, XPLMI_KEY_SIZE_BYTES,
 	                          XTRNGPSV_FALSE);
 	if (Status != XST_SUCCESS) {
