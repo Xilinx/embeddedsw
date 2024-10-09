@@ -50,6 +50,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK		(0x00ffffffU)
+#define XNVM_SHIFT_1_BIT					(1U)
 
 /************************** Function Prototypes ******************************/
 static void XNvm_EfuseCreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
@@ -2178,6 +2179,8 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	XNvm_EfuseFipsInfoBits *FipsInfoBitsData = (XNvm_EfuseFipsInfoBits *)FipsInfoBits;
 	u32 HighAddr;
 	u32 LowAddr;
+	u8 FipsVersionUpperBits;
+	u8 FipsVersionLowerBit;
 
 	/**
 	 *  Perform input parameter validation on InstancePtr.
@@ -2229,15 +2232,19 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadIpDisable0Reg, XNVM_WORD_LEN);
 
-	FipsInfoBitsData->FipsMode =
-		(u8)((ReadDmeFipsReg &
+	FipsInfoBitsData->FipsMode = (u8)((ReadDmeFipsReg &
 		XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_MASK) >>
 		XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_SHIFT);
 
-	FipsInfoBitsData->FipsVersion =
-		(u8)((ReadIpDisable0Reg &
-		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_MASK) >>
-		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_SHIFT);
+	FipsVersionUpperBits = (u8)((ReadIpDisable0Reg &
+		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_2_1_MASK) >>
+		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_2_1_SHIFT);
+
+	FipsVersionLowerBit = (u8)(ReadIpDisable0Reg &
+		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_0_MASK) >>
+		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_0_SHIFT;
+
+	FipsInfoBitsData->FipsVersion = (FipsVersionUpperBits << XNVM_SHIFT_1_BIT) | FipsVersionLowerBit;
 
 END:
 	return Status;
