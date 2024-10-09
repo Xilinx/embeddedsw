@@ -69,6 +69,7 @@
 *                       Also restricted HBM Cattrip error action to HW Errors.
 *       pre  09/24/2024 Added key zeroization and saving new key in PPU RAM
 *       pre  10/03/2024 Clearing SSIT errors after handling
+*       pre  10/09/24 Added support for get secure communication status command
 *
 * </pre>
 *
@@ -2245,6 +2246,49 @@ END:
 #else
 	(void)Cmd;
 	Status = (int)XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
+#endif
+    return Status;
+}
+
+/*************************************************************************************************/
+/**
+* @brief   This function gives SSIT secure communication status
+*                     Command payload parameters are
+*          * SLR index for which secure communication status is requested
+*
+* @param      Cmd is pointer to the command structure
+*
+* @return
+*                     - Returns the Status of get secure communication status command
+*
+**************************************************************************************************/
+int XPlmi_GetSsitSecCommStatus(XPlmi_Cmd *Cmd)
+{
+	int Status = (int)XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
+#ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+    u32 SlrType= XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK;
+	u32 SlrIndex;
+
+    if (SlrType == XPLMI_SSIT_MONOLITIC) {
+		Status = (int)XPLMI_INVALID_SLR_TYPE;
+		goto END;
+    }
+
+    if (SlrType == XPLMI_SSIT_MASTER_SLR) {
+		/* Get slr number from received payload */
+        SlrIndex = Cmd->Payload[0U] & XPLMI_SSIT_MAX_SLAVE_SLRS;
+		if (SlrIndex == 0U) {
+			Status = (int)XPLMI_INVALID_SLR_TYPE;
+			goto END;
+		}
+
+		Cmd->Response[1U] = (u32)XPlmi_SsitGetSecCommEstFlag(SlrIndex);
+
+		Status = XST_SUCCESS;
+      }
+END:
+#else
+	(void)Cmd;
 #endif
     return Status;
 }

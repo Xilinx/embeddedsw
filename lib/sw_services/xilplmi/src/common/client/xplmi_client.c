@@ -18,6 +18,7 @@
  * 1.00  dd   01/09/24 Initial release
  *       pre  07/10/24 Added support for configure secure communication command and also added
  *                     SSIT support
+ *       pre  09/30/24 Added XPlmi_GetSecureCommStatus API
  *
  * </pre>
  *
@@ -246,6 +247,48 @@ int XPlmi_ConfigSecureComm(XPlmi_ClientInstance *InstancePtr, XPlmi_SsitSecComm 
 	 * response.
 	 */
 	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends IPI request to get secure communication status
+ *
+ * @param	InstancePtr  Pointer to the client instance
+ * @param   SlrIndex     SLR number for which secure communication establishment status is needed
+ * @param   SecCommStatus Pointer to variable to which secure communication status is to be written
+ *
+ * @return
+ *			 - XST_SUCCESS on success.
+ *			 - XST_FAILURE on failure.
+ *
+ *************************************************************************************************/
+int XPlmi_GetSecureCommStatus(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex, u32 *SecCommStatus)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
+
+    /**
+	 * - Performs input parameters validation. Return error code if input parameters are invalid
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (SecCommStatus == NULL)) {
+		goto END;
+	}
+
+	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_1, (u32)XPLMI_GETSECCOMM_STATUS_CMD_ID);
+	Payload[1U] = SlrIndex;
+
+	/**
+	 * - Send an IPI request to the PLM by using the XPlmi_GetSecureCommStatus CDO command
+	 * Wait for IPI response from PLM with a timeout.
+	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
+	 * response.
+	 */
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+
+	*SecCommStatus = InstancePtr->Response[1U];
+
 END:
 	return Status;
 }

@@ -57,6 +57,7 @@
 * 2.1   har  06/24/2024 Incremented XPLMI_PLM_PLAT_RC_VERSION
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 * 24.2  prt  09/18/2024 Updated XPLMI_PLM_PLAT_RC_VERSION to 0U
+*       pre  09/30/2024 Added XPlmi_GetSsitSecCommStatus define
 *
 * </pre>
 *
@@ -462,6 +463,7 @@ typedef enum {
 #define XPlmi_SsitSyncSlaves	NULL /**< SSIT sync slaves */
 #define XPlmi_SsitWaitSlaves	NULL /**< SSIT wait slaves */
 #define XPlmi_SsitCfgSecComm    NULL /**< SSIT configure secure communication */
+#define XPlmi_GetSsitSecCommStatus NULL /**< SSIT get secure communication status */
 
 /*
  * DDRMC Defines
