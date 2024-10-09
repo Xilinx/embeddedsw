@@ -501,10 +501,12 @@ int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig)
 	/**
 	 * Program and verify the glitch config bits.
 	 */
-	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &GlitchDetVal);
-	if (Status != XST_SUCCESS) {
-		Status = (Status | XNVM_EFUSE_ERR_WRITE_GLITCH_CFG);
-		goto END;
+	if (GlitchDetVal != 0U) {
+		Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &GlitchDetVal);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_WRITE_GLITCH_CFG);
+			goto END;
+		}
 	}
 
 	if (GlitchDetWrLk != 0U) {
