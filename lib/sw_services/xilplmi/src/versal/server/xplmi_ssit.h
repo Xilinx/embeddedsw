@@ -40,6 +40,7 @@
 *       kpt  08/26/2024 Changed XPLMI_SLV_EVENT_TIMEOUT timeout to two seconds
 *       pre  09/18/2024 Removed XPLMI_SLR_INDEX_SHIFT, SLR index macros
 *       pre  09/24/2024 Added key zeroization and saving new key in PPU RAM
+*       pre  09/30/24 Added support for get secure communication status command
 *
 * </pre>
 *
@@ -246,6 +247,7 @@ int XPlmi_SsitSendMsgEventAndGetResp(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize,
 int XPlmi_SendIpiCmdToSlaveSlr(u32 * Payload, u32 * RespBuf);
 int XPlmi_SsitSingleEamEventHandler(void *Data);
 int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd);
+int XPlmi_GetSsitSecCommStatus(XPlmi_Cmd *Cmd);
 
 /* SSIT Sync Related functions */
 int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd);

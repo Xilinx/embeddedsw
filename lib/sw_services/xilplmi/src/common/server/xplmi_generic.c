@@ -120,6 +120,7 @@
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  07/16/2024 Added command routing to slave SLRs
 *       pre  08/22/2024 Modified XPlmi_GetReadbackLen for external linkage
+*       pre  09/30/24 Added support for get secure communication status command
 *
 * </pre>
 *
@@ -2379,6 +2380,8 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_ListMaskWrite),
 		XPLMI_MODULE_COMMAND(XPlmi_ListMaskPoll),
 		XPLMI_MODULE_COMMAND(XPlmi_SsitCfgSecComm),
+		XPLMI_MODULE_COMMAND(NULL),
+		XPLMI_MODULE_COMMAND(XPlmi_GetSsitSecCommStatus),
 	};
 
 	/* Buffer to store access permissions of xilplmi generic module */
@@ -2432,8 +2435,10 @@ void XPlmi_GenericInit(void)
 		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_LIST_MASK_POLL_CMD_ID),
 #ifdef VERSAL_NET
         XPLMI_ALL_IPI_NO_ACCESS(XPLMI_SSIT_CFG_SEC_COMM_CMD_ID),
+		XPLMI_ALL_IPI_NO_ACCESS(XPLMI_GETSECCOMM_STATUS_CMD_ID),
 #else
 		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_SSIT_CFG_SEC_COMM_CMD_ID),
+		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_GETSECCOMM_STATUS_CMD_ID),
 #endif
 	};
 

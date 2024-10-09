@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
  *       pre  07/10/24 Added support for configure secure communication command
+ *       pre  09/30/24 Added support for get secure communication status command
  *
  * </pre>
  *
@@ -81,6 +82,7 @@ extern "C" {
 #define XPLMI_LIST_MASK_WRITE_CMD_ID	(41U) /**< command id for list mask write */
 #define XPLMI_LIST_MASK_POLL_CMD_ID	    (42U) /**< command id for list mask poll */
 #define XPLMI_CONFIG_SECCOMM_CMD_ID     (43U) /**< command id for secure communication configuration */
+#define XPLMI_GETSECCOMM_STATUS_CMD_ID  (45U) /**< command id to get secure communication status */
 #define XPLMI_CDO_END_CMD_ID		    (0xFFU) /**< command id for CDO end */
 
 #define XPLMI_HEADER_LEN_0			(0U) /**< Header Length 0 */
