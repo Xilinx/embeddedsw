@@ -21,6 +21,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.00  har   12/11/23 Initial release
+*       kpt   10/04/24 Added support to validate authentication enabled partial PDI
 *
 * </pre>
 *
@@ -70,6 +71,8 @@
 /************************************ Constant Definitions ***************************************/
 /* Example defines below, update with required values*/
 #define PDI_SRC_ADDR		(0x1000000U) /**< Address where authenticated PDI is available */
+#define PDI_TYPE		(XLOADER_PDI_TYPE_FULL) /**< XLOADER_PDI_TYPE_FULL for full PDI
+						XLOADER_PDI_TYPE_PARTIAL for partial PDI */
 
 /************************************** Type Definitions *****************************************/
 
@@ -154,7 +157,7 @@ static int ValidateAuthPdi(XLoader_ClientInstance *InstancePtr)
 
 	Xil_DCacheInvalidateRange((UINTPTR)PdiAddr, sizeof(PdiAddr));
 
-	Status =  XLoader_ValidatePdiAuth(InstancePtr, PdiAddr);
+	Status =  XLoader_ValidatePdiAuth(InstancePtr, PdiAddr, PDI_TYPE);
 
 	Xil_DCacheInvalidateRange((UINTPTR)PdiAddr, sizeof(PdiAddr));
 
