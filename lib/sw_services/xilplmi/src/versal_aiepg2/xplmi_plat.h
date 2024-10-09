@@ -58,6 +58,7 @@
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 * 2.02  sk   08/26/2024 Updated EAM support for Versal Aiepg2
 * 24.2  prt	 09/18/2024 Updated XPLMI_PLM_PLAT_RC_VERSION to 0U
+*       pre  09/30/2024 Added XPlmi_GetSsitSecCommStatus define
 *
 * </pre>
 *
@@ -314,7 +315,7 @@ typedef enum {
 /* PLMI GENERIC MODULE Data Structures IDs */
 #define XPLMI_WDT_DS_ID			(0x01U) /**< WDT data structure Id */
 #define XPLMI_TRACELOG_DS_ID		(0x02U) /**< Trace log data structure Id */
-#define XPLMI_LPDINITIALIZED_DS_ID	(0x03U) /**< LPD intialized data structure Id */
+#define XPLMI_LPDINITIALIZED_DS_ID	(0x03U) /**< LPD initialized data structure Id */
 #define XPLMI_RESERVED_DS_ID		(0x04U) /**< Update RESERVED DS ID */
 #define XPLMI_UART_BASEADDR_DS_ID	(0x05U) /**< UART base address data structure Id */
 #define XPLMI_ERROR_TABLE_DS_ID		(0x06U) /**< Error table data structure Id */
@@ -469,6 +470,7 @@ typedef enum {
 #define XPlmi_SsitSyncSlaves	NULL /**< SSIT sync slaves */
 #define XPlmi_SsitWaitSlaves	NULL /**< SSIT wait slaves */
 #define XPlmi_SsitCfgSecComm    NULL /**< SSIT configure secure communication */
+#define XPlmi_GetSsitSecCommStatus NULL /**< SSIT get secure communication status */
 
 /*
  * DDRMC Defines

@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
  *       pre  07/10/24 Added support for configure secure communication command
+ *       pre  09/30/24 Added XPlmi_GetSecureCommStatus API
  *
  * </pre>
  *
@@ -62,6 +63,7 @@ int XPlmi_TamperTrigger (XPlmi_ClientInstance *InstancePtr, u32 TamperResponse);
 int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Addr, u32 Len);
 int XPlmi_ConfigSecureComm(XPlmi_ClientInstance *InstancePtr,
                            XPlmi_SsitSecComm *SsitSecCommDataPtr);
+int XPlmi_GetSecureCommStatus(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex, u32 *SecCommStatus);
 int XPlmi_InputSlrIndex(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex);
 
 /************************************ Variable Definitions ***************************************/

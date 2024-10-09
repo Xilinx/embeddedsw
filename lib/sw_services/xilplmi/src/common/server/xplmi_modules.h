@@ -43,6 +43,7 @@
 *       bm   07/24/2023 Type cast IPI Access macros properly
 * 2.0   ng   11/11/2023 Implemented user modules
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
+*       pre  09/30/24 Added support for get secure communication status command
 *
 * </pre>
 *
@@ -211,6 +212,7 @@ typedef struct {
 #define XPLMI_LIST_MASK_WRITE_CMD_ID	(41U)
 #define XPLMI_LIST_MASK_POLL_CMD_ID	(42U)
 #define XPLMI_SSIT_CFG_SEC_COMM_CMD_ID (43U)
+#define XPLMI_GETSECCOMM_STATUS_CMD_ID (45U)
 #define XPLMI_CDO_END_CMD_ID		(0xFFU)
 
 /************************** Function Prototypes ******************************/
