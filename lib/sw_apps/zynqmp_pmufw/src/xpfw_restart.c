@@ -42,11 +42,11 @@ FSBL_Store_Restore_Info_Struct FSBL_Store_Restore_Info = {0U};
 #define	XPFW_RESTART_STATE_DONE 2U
 
 /* Check if PMU has access to FPD WDT (psu_wdt_1) and LPD WDT (psu_wdt_0)*/
-#if defined(XPMU_FPDWDT) && defined(XPMU_LPDWDT)
+#if defined(XPMU_FPDWDT) || defined(XPMU_LPDWDT)
 	#include "xwdtps.h"
 	#define WDT_INSTANCE_COUNT	XPAR_XWDTPS_NUM_INSTANCES
 #else /* XPMU_FPDWDT */
-	#error "ENABLE_RECOVERY is defined but psu_wdt_0 & psu_wdt_1 is not assigned to PMU"
+	#error "ENABLE_RECOVERY is defined but psu_wdt_0 or psu_wdt_1 is not assigned to PMU"
 #endif
 
 /* Check if PMU has access to TTC_9 */
@@ -67,7 +67,11 @@ FSBL_Store_Restore_Info_Struct FSBL_Store_Restore_Info = {0U};
 #define WDT_CRV_SHIFT 12U
 #define WDT_PRESCALER 4096U
 
-#define WDT_CLK_PER_SEC ((XPMU_FPDWDT_WDT_CLK) / (WDT_PRESCALER))
+#if defined(XPMU_FPDWDT_WDT_CLK)
+	#define WDT_CLK_PER_SEC ((XPMU_FPDWDT_WDT_CLK) / (WDT_PRESCALER))
+#else
+	#define WDT_CLK_PER_SEC ((XPMU_LPDWDT_WDT_CLK) / (WDT_PRESCALER))
+#endif
 
 #define TTC_PRESCALER			15U
 #define TTC_COUNT_PER_SEC_DIV_CONST	    65535U
@@ -96,6 +100,7 @@ typedef struct XPfwRestartTracker {
 } XPfwRestartTracker;
 
 static XPfwRestartTracker RstTrackerList[] ={
+#if defined(XPMU_FPDWDT)
 		{
 			.Master = &pmMasterApu_g,
 			.RestartState = XPFW_RESTART_STATE_BOOT,
@@ -115,6 +120,9 @@ static XPfwRestartTracker RstTrackerList[] ={
 			.RestartScope = PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM,
 #endif
 		},
+#endif
+
+#if defined(XPMU_LPDWDT)
 		{
 				.Master = &pmMasterRpu0_g,
 				.RestartState = XPFW_RESTART_STATE_BOOT,
@@ -153,6 +161,7 @@ static XPfwRestartTracker RstTrackerList[] ={
 				.RestartScope = PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM,
 	#endif
 		},
+#endif
 };
 
 static XWdtPs_Config* GetWdtCfgPtr(u32 BaseAddress)
