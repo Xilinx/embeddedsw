@@ -2795,38 +2795,37 @@ int XLoader_CheckAuthJtagIntStatus(void *Arg)
 		(InterruptStatusTmp == XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK)) {
 		XPlmi_Out32(XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET,
 			XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK);
-		/**
-		  * - Check if Auth JTAG Lock disable efuse bits are set.
-		  * If set then allow limited number of attempts to enable JTAG.
-		  *
-		  */
-		LockDisStatus = XPlmi_In32(
-			XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
-			XLOADER_AUTH_JTAG_LOCK_DIS_MASK;
-		LockDisStatusTmp = XPlmi_In32(
-			XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
-			XLOADER_AUTH_JTAG_LOCK_DIS_MASK;
-		if ((LockDisStatus == XLOADER_AUTH_JTAG_LOCK_DIS_MASK) ||
-			(LockDisStatusTmp == XLOADER_AUTH_JTAG_LOCK_DIS_MASK)) {
-			if ((AuthJtagStatus.AuthFailCounter >= XLOADER_AUTH_JTAG_MAX_ATTEMPTS) ||
-				(AuthJtagStatus.AuthFailCounterTmp >= XLOADER_AUTH_JTAG_MAX_ATTEMPTS)) {
-				/**
-				 * - When AUTH_JTAG_LOCK_DIS eFuse is programmed, allow only one
-				 * failed attempt for AuthJTag message. For the second failure
-				 * trigger secure lock down.
-				 *
-				 */
-				XPlmi_TriggerTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK,
-				XPLMI_TRIGGER_TAMPER_TASK);
-				goto END;
-			}
-		}
 
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_AuthJtag,
 			&AuthJtagStatus.JtagTimeOut);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			AuthJtagStatus.AuthFailCounter += 1U;
 			AuthJtagStatus.AuthFailCounterTmp += 1U;
+			/**
+			 * - Check if Auth JTAG Lock disable efuse bits are set.
+			 * If set then allow limited number of attempts to enable JTAG.
+			 *
+			 */
+			LockDisStatus = XPlmi_In32(
+					XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+				XLOADER_AUTH_JTAG_LOCK_DIS_MASK;
+			LockDisStatusTmp = XPlmi_In32(
+					XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+				XLOADER_AUTH_JTAG_LOCK_DIS_MASK;
+			if ((LockDisStatus == XLOADER_AUTH_JTAG_LOCK_DIS_MASK) ||
+					(LockDisStatusTmp == XLOADER_AUTH_JTAG_LOCK_DIS_MASK)) {
+				if ((AuthJtagStatus.AuthFailCounter >= XLOADER_AUTH_JTAG_MAX_ATTEMPTS) ||
+						(AuthJtagStatus.AuthFailCounterTmp >= XLOADER_AUTH_JTAG_MAX_ATTEMPTS)) {
+					/**
+					 * - When AUTH_JTAG_LOCK_DIS eFuse is programmed, allow only one
+					 * failed attempt for AuthJTag message. For the second failure
+					 * trigger secure lock down.
+					 *
+					 */
+					XPlmi_TriggerTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK,
+							XPLMI_TRIGGER_TAMPER_TASK);
+				}
+			}
 			goto END;
 		}
 
