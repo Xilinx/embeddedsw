@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +29,9 @@
 *                     is 64-bit processor
 * 8.1   dp   12/23/22 Updated UINTPTR and INTPTR to point to 64bit data types
 *                     incase of microblaze 32-bit with extended address enabled
-* 9.0   ml   14/04/23 Add parenthesis on sub-expression to fix misra-c violation.
+* 9.0   ml   04/14/23 Add parenthesis on sub-expression to fix misra-c violation.
+* 9.2   ml   09/26/24 Removed checks to fix below compilation warning
+*                     XPAR_MICROBLAZE_ADDR_SIZE is not defined, evaluates to 0
 * </pre>
 *
 ******************************************************************************/
@@ -47,9 +49,7 @@ extern "C" {
 #include <stdint.h>
 #include <stddef.h>
 #include "bspconfig.h"
-#ifndef SDT
 #include "xparameters.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 
