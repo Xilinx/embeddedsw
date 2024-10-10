@@ -561,7 +561,7 @@ u32 XUartPsv_ReceiveBuffer(XUartPsv *InstancePtr)
 s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 {
 	u16 BAUDIDIV_Value;	/* Value for integer baud rate divisor */
-	u8 BAUDFDIV_Value;	/* Value for fractional baud rate divisor */
+	u32 BAUDFDIV_Value;	/* Value for fractional baud rate divisor */
 	u32 BAUDDIV_Value;
 	u32 CalcBaudRate;	/* Calculated baud rate */
 	u32 BaudError;		/* Diff between calculated and requested
@@ -569,7 +569,7 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 						 */
 	u16 Best_BAUDIDIV = 0U;	/* Best value for integer baud rate
 				 * divisor */
-	u8 Best_BAUDFDIV = 0U;	/* Best value for fractional baud rate
+	u32 Best_BAUDFDIV = 0U;	/* Best value for fractional baud rate
 				 * divisor
 				 */
 	u32 Best_Error = 0xFFFFFFFFU;
@@ -602,7 +602,7 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate)
 
 	/* Calculate the baud divisor integer value */
 	BAUDIDIV_Value = (u16)(InputClk / (BaudRate * 16U));
-	BAUDFDIV_Value = (u8)(InputClk % (BaudRate * 16U));
+	BAUDFDIV_Value = (u32)(InputClk % (BaudRate * 16U));
 
 	Best_BAUDIDIV = BAUDIDIV_Value;
 	Best_BAUDFDIV = BAUDFDIV_Value;
