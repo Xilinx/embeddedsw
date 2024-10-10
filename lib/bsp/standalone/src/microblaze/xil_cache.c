@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,8 @@
 * 9.1   mus  11/29/23 Removed check for DcacheUseWriteback from
 *                     microblaze_invalidate_dcache, it fixes infinite loop
 *                     in case of HW designs where DcacheUseWriteback=1.
+* 9.2   ml   09/30/23 typecasted with void where necessary to suppress unused parameters
+*                     warnings and added checks to fix unused variable.
 * </pre>
 *
 *
@@ -40,7 +42,9 @@
 
 /************************** Variable Definitions *****************************/
 #ifdef SDT
+#ifndef VERSAL_PLM
 static XMicroblaze_Config *CfgPtr = XGet_CpuCfgPtr();
+#endif
 #endif
 
 /****************************************************************************/
@@ -124,6 +128,9 @@ void microblaze_flush_dcache_range(UINTPTR cacheaddr, u32 len) {
 			mtmsr(temp);
 		}
 	}
+#else
+	 (void)cacheaddr;
+	 (void)len;
 #endif
 }
 
@@ -188,6 +195,9 @@ void microblaze_invalidate_dcache_range(UINTPTR cacheaddr, u32 len) {
 			mtmsr(temp);
 		}
 	}
+#else
+	(void)cacheaddr;
+	(void)len;
 #endif
 }
 
@@ -230,6 +240,9 @@ void microblaze_flush_cache_ext_range(UINTPTR cacheaddr, u32 len) {
 			startadr += (CfgPtr->DcacheLineLen * 4);
 		}
 	}
+#else
+        (void)cacheaddr;
+        (void)len;
 #endif
 }
 
@@ -272,6 +285,9 @@ void microblaze_invalidate_cache_ext_range(UINTPTR cacheaddr, u32 len) {
 			startadr += (CfgPtr->DcacheLineLen * 4);
 		}
 	}
+#else
+        (void)cacheaddr;
+        (void)len;
 #endif
 }
 
@@ -327,6 +343,9 @@ void microblaze_invalidate_icache_range(UINTPTR cacheaddr, u32 len) {
 			mtmsr(temp);
 		}
 	}
+#else
+        (void)cacheaddr;
+        (void)len;
 #endif
 }
 
@@ -393,6 +412,9 @@ void Xil_L1DCacheFlushRange(UINTPTR Addr,u32 Len) {
 	} else {
 		microblaze_invalidate_dcache_range((Addr), (Len));
 	}
+#else
+        (void)Addr;
+        (void)Len;
 #endif
 }
 

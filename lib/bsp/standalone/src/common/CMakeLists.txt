@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_SOURCES print.c)
@@ -45,7 +45,11 @@ add_subdirectory(clocking)
 endif()
 endif()
 if (NOT ${YOCTO})
-add_subdirectory(intr)
+	string(FIND "${CMAKE_C_FLAGS}" "-flto" has_flto)
+	string(FIND "${CMAKE_C_FLAGS}" "VERSAL_psm" is_psm_mb)
+	if (${is_psm_mb} EQUAL -1 AND ${has_flto} EQUAL -1)
+		add_subdirectory(intr)
+	endif()
 else()
 collect (PROJECT_LIB_HEADERS sleep.h)
 collect (PROJECT_LIB_HEADERS xparameters.h)
