@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *       cog    07/04/23 Add support for SDT
 * 1.2   dc     10/16/23 Doxygen documenatation update
 *       dc     03/22/24 Update hw version
+* 1.3   dc     09/23/24 Add frequency range MODEL_PARAM
 *
 * </pre>
 * @addtogroup dfeofdm Overview
@@ -63,6 +64,8 @@
 * @endcond
 */
 #define XDFEOFDM_COMPATIBLE_STRING                                             \
+	"xlnx,xdfe-ofdm-2.2" /**< Device name property. */
+#define XDFEOFDM_COMPATIBLE_STRING_2_1                                         \
 	"xlnx,xdfe-ofdm-2.1" /**< Device name property. */
 #define XDFEOFDM_PLATFORM_DEVICE_DIR                                           \
 	"/sys/bus/platform/devices/" /**< Device location in a file system. */
@@ -197,12 +200,16 @@ static s32 XDfeOfdm_IsDeviceCompatible(char *DeviceNamePtr,
 
 		/* Check does "compatible" device property has name of this
 		   driver instance */
-		if (NULL ==
-		    strstr(CompatibleString, XDFEOFDM_COMPATIBLE_STRING)) {
-			metal_log(
-				METAL_LOG_ERROR,
-				"No compatible property match.(Driver:%s, Device:%s)\n",
-				XDFEOFDM_COMPATIBLE_STRING, CompatibleString);
+		if ((NULL ==
+		     strstr(CompatibleString, XDFEOFDM_COMPATIBLE_STRING)) &&
+		    (NULL == strstr(CompatibleString,
+				    XDFEOFDM_COMPATIBLE_STRING_2_1))) {
+			metal_log(METAL_LOG_ERROR,
+				  "No compatible property match. "
+				  "(Driver:\"%s\" or \"%s\", Device:\"%s\")\n",
+				  XDFEOFDM_COMPATIBLE_STRING,
+				  XDFEOFDM_COMPATIBLE_STRING_2_1,
+				  CompatibleString);
 			metal_device_close(DevicePtr);
 			continue;
 		}
