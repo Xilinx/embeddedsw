@@ -29,6 +29,7 @@
 *       dc     02/29/24 Correct sw major/minor version numbers
 *       dc     03/22/24 Update hw version
 * 1.3   dc     06/18/24 Add FR1 and FR2 frequency range
+*       dc     09/23/24 Add frequency range MODEL_PARAM
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -508,12 +509,14 @@ static void XDfeOfdm_SetNextFTSequence(XDfeOfdm_CCCfg *CCCfg,
 *           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-static u32 XDfeOfdm_CheckFTSequenceLength(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg *NextCCCfg,
+static u32 XDfeOfdm_CheckFTSequenceLength(XDfeOfdm *InstancePtr,
+					  XDfeOfdm_CCCfg *NextCCCfg,
 					  u32 NewFTLength)
 {
 	u32 Index;
 	u32 CurrentFTLength = 0;
-	Xil_AssertVoid(InstancePtr->FrequencyRange <= XDFEOFDM_FREQUENCY_RANGE_2);
+	Xil_AssertNonvoid(InstancePtr->Config.FrequencyRange <=
+			  XDFEOFDM_FREQUENCY_RANGE_2);
 
 	/* Calculate expected FT sequence length */
 	for (Index = 0; Index < XDFEOFDM_CC_SEQ_LENGTH_MAX; Index++) {
@@ -522,7 +525,8 @@ static u32 XDfeOfdm_CheckFTSequenceLength(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg 
 			continue;
 		}
 
-		if(InstancePtr->FrequencyRange == XDFEOFDM_FREQUENCY_RANGE_1) {
+		if (InstancePtr->Config.FrequencyRange ==
+		    XDFEOFDM_FREQUENCY_RANGE_1) {
 			switch (NextCCCfg->CarrierCfg[Index].Numerology) {
 			case XDFEOFDM_CARRIER_CONFIGURATION1_NUMEROLOGY_15kHz:
 				CurrentFTLength += 1U;
@@ -535,7 +539,8 @@ static u32 XDfeOfdm_CheckFTSequenceLength(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg 
 				break;
 			default:
 				metal_log(METAL_LOG_ERROR,
-					  "Wrong Numerology on CCID %d\n", Index);
+					  "Wrong Numerology on CCID %d\n",
+					  Index);
 				return XST_FAILURE;
 			}
 		} else {
@@ -557,7 +562,8 @@ static u32 XDfeOfdm_CheckFTSequenceLength(XDfeOfdm *InstancePtr, XDfeOfdm_CCCfg 
 				break;
 			default:
 				metal_log(METAL_LOG_ERROR,
-					  "Wrong Numerology on CCID %d\n", Index);
+					  "Wrong Numerology on CCID %d\n",
+					  Index);
 				return XST_FAILURE;
 			}
 		}
@@ -867,9 +873,9 @@ static void XDfeOfdm_SetOutputDelay(const XDfeOfdm *InstancePtr,
 static u32 XDfeOfdm_GetOutputDelay(const XDfeOfdm *InstancePtr,
 				   const XDfeOfdm_CCCfg *CCCfg, s32 CCID)
 {
-	Xil_AssertVoid((InstancePtr->Config.AntennaInterleave == 1U) ||
-		       (InstancePtr->Config.AntennaInterleave == 2U) ||
-		       (InstancePtr->Config.AntennaInterleave == 4U));
+	Xil_AssertNonvoid((InstancePtr->Config.AntennaInterleave == 1U) ||
+			  (InstancePtr->Config.AntennaInterleave == 2U) ||
+			  (InstancePtr->Config.AntennaInterleave == 4U));
 	u32 Ail = InstancePtr->Config.AntennaInterleave;
 	u32 Index;
 	for (Index = 0; Index < XDFEOFDM_CC_SEQ_LENGTH_MAX; Index++) {
@@ -1091,6 +1097,10 @@ void XDfeOfdm_Configure(XDfeOfdm *InstancePtr, XDfeOfdm_Cfg *Cfg)
 				    XDFEOFDM_VERSION_MAJOR_OFFSET, Version);
 
 	ModelParam = XDfeOfdm_ReadReg(InstancePtr, XDFEOFDM_MODEL_PARAM_OFFSET);
+	InstancePtr->Config.FrequencyRange =
+		XDfeOfdm_RdBitField(XDFEOFDM_MODEL_PARAM_FREQUENCY_RANGE_WIDTH,
+				    XDFEOFDM_MODEL_PARAM_FREQUENCY_RANGE_OFFSET,
+				    ModelParam);
 	InstancePtr->Config.NumAntenna =
 		XDfeOfdm_RdBitField(XDFEOFDM_MODEL_PARAM_NUM_ANTENNA_WIDTH,
 				    XDFEOFDM_MODEL_PARAM_NUM_ANTENNA_OFFSET,
@@ -1131,7 +1141,6 @@ void XDfeOfdm_Initialize(XDfeOfdm *InstancePtr, XDfeOfdm_Init *Init)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEOFDM_STATE_CONFIGURED);
 	Xil_AssertVoid(Init != NULL);
-	Xil_AssertVoid(Init->FrequencyRange <= XDFEOFDM_FREQUENCY_RANGE_2);
 
 	/* Enable OFDM */
 	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_STATE_OFDM_ENABLE_OFFSET,
@@ -1142,7 +1151,6 @@ void XDfeOfdm_Initialize(XDfeOfdm *InstancePtr, XDfeOfdm_Init *Init)
 	   can be understood as length 0 or 1 */
 	InstancePtr->NotUsedCCID = 0;
 	InstancePtr->CCSequenceLength = Init->CCSequenceLength;
-	InstancePtr->FrequencyRange = Init->FrequencyRange;
 
 	/* Write 0 to FT Sequence length */
 	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_FT_SEQUENCE_LENGTH_NEXT_OFFSET,
@@ -1908,8 +1916,8 @@ u32 XDfeOfdm_AddCC(XDfeOfdm *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 	}
 
 	/* Check FT sequence length */
-	if (XST_FAILURE ==
-	    XDfeOfdm_CheckFTSequenceLength(InstancePtr, &CCCfg, FTSeq->Length)) {
+	if (XST_FAILURE == XDfeOfdm_CheckFTSequenceLength(InstancePtr, &CCCfg,
+							  FTSeq->Length)) {
 		metal_log(METAL_LOG_ERROR, "Wrong FT sequence length in %s\n",
 			  __func__);
 		return XST_FAILURE;
@@ -1966,8 +1974,8 @@ u32 XDfeOfdm_RemoveCC(XDfeOfdm *InstancePtr, s32 CCID,
 		XDFEOFDM_CARRIER_CONFIGURATION1_ENABLE_DISABLED;
 
 	/* Check FT sequence length */
-	if (XST_FAILURE ==
-	    XDfeOfdm_CheckFTSequenceLength(InstancePtr, &CCCfg, FTSeq->Length)) {
+	if (XST_FAILURE == XDfeOfdm_CheckFTSequenceLength(InstancePtr, &CCCfg,
+							  FTSeq->Length)) {
 		metal_log(METAL_LOG_ERROR, "Wrong FT sequence length in %s\n",
 			  __func__);
 		return XST_FAILURE;
@@ -2058,8 +2066,8 @@ u32 XDfeOfdm_UpdateCC(XDfeOfdm *InstancePtr, s32 CCID,
 	CCCfg.CarrierCfg[CCID].OutputDelay = CarrierCfg->OutputDelay;
 
 	/* Check FT sequence length */
-	if (XST_FAILURE ==
-	    XDfeOfdm_CheckFTSequenceLength(InstancePtr, &CCCfg, FTSeq->Length)) {
+	if (XST_FAILURE == XDfeOfdm_CheckFTSequenceLength(InstancePtr, &CCCfg,
+							  FTSeq->Length)) {
 		metal_log(METAL_LOG_ERROR, "Wrong FT sequence length in %s\n",
 			  __func__);
 		return XST_FAILURE;
@@ -2296,6 +2304,51 @@ u32 XDfeOfdm_GetTuserOutFrameLocation(const XDfeOfdm *InstancePtr)
 		InstancePtr, XDFEOFDM_TUSER_OUTFRAME_LOCATION_OFFSET,
 		XDFEOFDM_TUSER_OUTFRAME_LOCATION_BF_WIDTH,
 		XDFEOFDM_TUSER_OUTFRAME_LOCATION_BF_OFFSET);
+}
+
+/****************************************************************************/
+/**
+*
+* Sets the TUSER CC Update trigger where bit location would indicate which bit
+* to be used for sending cc update triggering on TUSER (DL_DOUT IF and
+* M_AXIS_TBASE IF).
+* TUSER bit width is fixed to its default value of 8. Therefore, legal values
+* of FRAME_BIT are 0 to 7.
+*
+* @param    InstancePtr Pointer to the OFDM instance.
+* @param    TuserCCUpdateTrigger Requested TUSER CC update trigger.
+*
+****************************************************************************/
+void XDfeOfdm_SetTuserCCUpdateTrigger(const XDfeOfdm *InstancePtr,
+				      u32 TuserCCUpdateTrigger)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(TuserCCUpdateTrigger <
+		       (1 << XDFEOFDM_TUSER_CC_UPDATE_TRIGGER_BF_WIDTH));
+	Xil_AssertVoid(InstancePtr->StateId == XDFEOFDM_STATE_OPERATIONAL);
+
+	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_TUSER_CC_UPDATE_TRIGGER_OFFSET,
+			  TuserCCUpdateTrigger);
+}
+
+/****************************************************************************/
+/**
+*
+* Gets the TUSER CC Update trigger.
+*
+* @param    InstancePtr Pointer to the OFDM instance.
+*
+* @return   TUSER CC Update trigger
+*
+****************************************************************************/
+u32 XDfeOfdm_GetTuserCCUpdateTrigger(const XDfeOfdm *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return XDfeOfdm_RdRegBitField(
+		InstancePtr, XDFEOFDM_TUSER_CC_UPDATE_TRIGGER_OFFSET,
+		XDFEOFDM_TUSER_CC_UPDATE_TRIGGER_BF_WIDTH,
+		XDFEOFDM_TUSER_CC_UPDATE_TRIGGER_BF_OFFSET);
 }
 
 /****************************************************************************/

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,6 +61,7 @@
 *       dc     06/28/23 Add phase compensation calculation
 * 1.2   dc     10/16/23 Doxygen documenatation update
 *       dc     10/17/23 Support for FFT size 512
+* 1.3   dc     09/23/24 Add frequency range MODEL_PARAM
 * </pre>
 *
 ******************************************************************************/
@@ -97,8 +98,8 @@ extern "C" {
 
 /* Model_Param */
 #define XDFEOFDM_MODEL_PARAM_OFFSET 0x08U /**< Register offset */
-#define XDFEOFDM_MODEL_PARAM_RESERVED_OFFSET 0U
-#define XDFEOFDM_MODEL_PARAM_RESERVED_WIDTH 1U
+#define XDFEOFDM_MODEL_PARAM_FREQUENCY_RANGE_OFFSET 0U
+#define XDFEOFDM_MODEL_PARAM_FREQUENCY_RANGE_WIDTH 1U
 #define XDFEOFDM_MODEL_PARAM_NUM_ANTENNA_OFFSET 4U
 #define XDFEOFDM_MODEL_PARAM_NUM_ANTENNA_WIDTH 4U
 #define XDFEOFDM_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET 16U
@@ -203,6 +204,11 @@ extern "C" {
 #define XDFEOFDM_TUSER_OUTFRAME_LOCATION_OFFSET 0x60U /**< Register offset */
 #define XDFEOFDM_TUSER_OUTFRAME_LOCATION_BF_OFFSET 0U
 #define XDFEOFDM_TUSER_OUTFRAME_LOCATION_BF_WIDTH 8U
+
+/* TUSER CC Update Trigger Location register */
+#define XDFEOFDM_TUSER_CC_UPDATE_TRIGGER_OFFSET 0x64U /**< Register offset */
+#define XDFEOFDM_TUSER_CC_UPDATE_TRIGGER_BF_OFFSET 0U
+#define XDFEOFDM_TUSER_CC_UPDATE_TRIGGER_BF_WIDTH 8U
 
 /* FT Sequence */
 #define XDFEOFDM_FT_SEQUENCE_LENGTH_CURRENT_OFFSET                             \
