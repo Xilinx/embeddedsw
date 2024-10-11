@@ -41,6 +41,7 @@
 *       ng   01/28/2024 optimized u8 variables
 *       ng   02/14/2024 removed int typecast for errors
 *       ma   03/05/2024 Define IOModule instance as static in XPlmi_GetIOModuleInst
+*       pre  10/07/2024 Added XPlmi_CheckSlaveErrors function
 *
 * </pre>
 *
@@ -789,3 +790,29 @@ XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
 
 	return BufferList;
 }
+
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+/*************************************************************************************************/
+/**
+ * @brief	This function checks slave errors
+ *
+ *************************************************************************************************/
+void XPlmi_CheckSlaveErrors(void)
+{
+	u8 SlaveSlrNo = XPLMI_SSIT_SLAVE0_SLR_INDEX;
+	u32 SlavesSlrMask = XPlmi_GetSlavesSlrMask();
+
+	if (XPlmi_SsitIsIntrEnabled() == TRUE) {
+		/* Read slave SLR errors if the boot failure is due to slave SLRs */
+		while (SlavesSlrMask) {
+			if(XPlmi_SsitIsEventPending(SlaveSlrNo, XPLMI_SLAVE_ERR_NOTIFY_EVENT_INDEX) ==
+		       TRUE) {
+			XPlmi_SlaveSlrErrEventHandler((void *)(UINTPTR)SlaveSlrNo);
+		   }
+		   SlaveSlrNo += 1U;
+		   SlavesSlrMask = (SlavesSlrMask >> 1U);
+		}
+	}
+}
+
+#endif

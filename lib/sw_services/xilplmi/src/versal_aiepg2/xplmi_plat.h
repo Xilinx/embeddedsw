@@ -59,6 +59,7 @@
 * 2.02  sk   08/26/2024 Updated EAM support for Versal Aiepg2
 * 24.2  prt	 09/18/2024 Updated XPLMI_PLM_PLAT_RC_VERSION to 0U
 *       pre  09/30/2024 Added XPlmi_GetSsitSecCommStatus define
+*       pre  10/07/2024 Added XPlmi_CheckSlaveErrors function
 *
 * </pre>
 *
@@ -595,6 +596,12 @@ static inline int XPlmi_SsitEventsInit(void)
 {
 	/* Not Applicable for versalnet */
 	return XST_SUCCESS;
+}
+
+static inline void XPlmi_CheckSlaveErrors(void)
+{
+	/* Not applicable for versal_aiepg2 */
+	return;
 }
 #endif
 

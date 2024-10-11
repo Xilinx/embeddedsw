@@ -69,7 +69,8 @@
 *                       Also restricted HBM Cattrip error action to HW Errors.
 *       pre  09/24/2024 Added key zeroization and saving new key in PPU RAM
 *       pre  10/03/2024 Clearing SSIT errors after handling
-*       pre  10/09/24 Added support for get secure communication status command
+*       pre  10/09/2024 Added support for get secure communication status command
+*       pre  10/11/2024 Added slave error notification at slave and processing at master
 *
 * </pre>
 *
@@ -100,6 +101,7 @@ static u32 XPlmi_SsitGetSlaveErrorMask(void);
  * PMC RAM allocated for SSIT Events
  *   -SsitEvents structure address - 0xF2015000U
  *   -Event Vector Table address - 0xF2015800U
+ *   -Slave error notification address - 0xF20159F0U
  *   -Event Buffers on Master SLR
  *     -Slave SLR0 Event Buffer - 0xF2015A00U
  *     -Slave SLR1 Event Buffer - 0xF2015C00U
@@ -158,7 +160,6 @@ static inline u32 XPlmi_CheckCfgSecCommCmd(u32 Header)
 
 /************************** Function Prototypes ******************************/
 static XPlmi_TaskNode *XPlmi_SsitCreateTask(u8 SlrIndex);
-static u8 XPlmi_SsitIsEventPending(u8 SlrIndex, u32 EventIndex);
 static int XPlmi_SsitEventHandler(void *Data);
 static int XPlmi_SsitSyncEventHandler(u32 SlavesMask, u32 TimeOut, u8 IsWait);
 static int XPlmi_SsitMsgEventHandler(void *Data);
@@ -394,6 +395,14 @@ int XPlmi_SsitEventsInit(XPlmi_SsitCommParams *XPlm_SsitCommParams)
 	/** - Register Single EAM Event (SEE) */
 	Status = XPlmi_SsitRegisterEvent(XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX,
 			XPlmi_SsitSingleEamEventHandler, XPLMI_SSIT_ALL_SLAVE_SLRS_MASK);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+	/** - Register slave error notify event */
+	Status = XPlmi_SsitRegisterEvent(XPLMI_SLAVE_ERR_NOTIFY_EVENT_INDEX,
+			XPlmi_SlaveSlrErrEventHandler, XPLMI_SSIT_ALL_SLAVE_SLRS_MASK);
 
     XPlmi_SsitCommPtr = XPlm_SsitCommParams;
 
@@ -785,7 +794,7 @@ static void XPlmi_GetEventTableIndex(u8 SlrIndex, u8 *LocalEvTableIndex,
 * 			- Returns XST_SUCCESS if success. Otherwise, returns an error code
 *
 ****************************************************************************/
-static u8 XPlmi_SsitIsEventPending(u8 SlrIndex, u32 EventIndex)
+u8 XPlmi_SsitIsEventPending(u8 SlrIndex, u32 EventIndex)
 {
 	u8 EventPending = (u8)TRUE;
 	u64 SlrAddr;
@@ -1084,13 +1093,16 @@ static int XPlmi_SsitEventHandler(void *Data)
 	Xil_MemCpy64((u64)(u32)&RemoteEventTable, RemoteEventTableAddr,
 	              sizeof(XPlmi_SsitEventVectorTable_t));
 
-	Status = XPlmi_UpdateStatus(XPLMI_SSIT_NO_PENDING_EVENTS, 0U);
-
 	/* Loop through the event table and execute the pending event handlers */
 	for ( ; Index < XPLMI_SSIT_MAX_EVENT32_INDEX; ++Index) {
 		if ((RemoteEventTable.Events32[Index] ^
 				EventVectorTable[LocalEvTableIndex].Events32[Index]) != 0x0U) {
 			for ( ; Idx < XPLMI_SSIT_MAX_EVENTS; ++Idx) {
+				/* Process only if event origin matches */
+				if ((XPLMI_BIT(SlrIndex) & SsitEvents->Events[Idx].EventOrigin) == 0x0U) {
+					continue;
+				}
+
 				/* Event Mask of the corresponding event */
 				EventMask = XPLMI_BIT(Idx % XPLMI_SSIT_MAX_BITS);
 				/* Check if the event is pending */
@@ -1107,6 +1119,7 @@ static int XPlmi_SsitEventHandler(void *Data)
 				}
 			}
 		} else {
+			Status = XST_SUCCESS;
 			Idx += XPLMI_SSIT_MAX_BITS;
 		}
 	}
@@ -1236,6 +1249,38 @@ int XPlmi_SsitSingleEamEventHandler(void *Data)
 		XPlmi_Out32(XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_TRIG,
 						XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_MASK);
 	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief   This function is the event handler for the SSIT slave error notify event
+ *
+ * @param   Data is the SLR index where the event occurred
+ *
+ * @return  Returns the Status of SSIT slave error notify event processing
+ *
+ *************************************************************************************************/
+int XPlmi_SlaveSlrErrEventHandler(void *Data)
+{
+	int Status = XST_FAILURE;
+	u8 SlrIndex = (u8)(u32)Data;
+	u64 SlrAddr = XPlmi_SsitGetSlrAddr(XPLMI_SLAVE_ERROR_ADDRESS, SlrIndex);
+
+	/* Validate SLR address */
+	if (SlrAddr == 0U) {
+		Status = (int)XPLMI_INVALID_SLR_INDEX;
+		goto END;
+	}
+
+	/* Read error status of slave and print */
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Error occurred in SLR%01x, PLM Error Status: 0x%08x\n\r", SlrIndex,
+	             XPlmi_In64(SlrAddr));
+
+	/* Acknowledge event */
+	Status = XPlmi_SsitAcknowledgeEvent(SlrIndex, XPLMI_SLAVE_ERR_NOTIFY_EVENT_INDEX);
 
 END:
 	return Status;
@@ -1468,6 +1513,43 @@ static u32 XPlmi_IsSldNotification(void)
 	}
 END:
 	return IsSld;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function notifies master SLR about the error occurrence in slave SLR
+ *          if NOC configuration is done. Otherwise, PLM halts.
+ *
+ * @param   ErrStatus Error status to be written to XPLMI_SLAVE_ERROR_ADDRESS
+ *
+ *************************************************************************************************/
+void XPlmi_SsitSlaveErrorNotify(u32 ErrStatus)
+{
+	int Status = (int)XPLMI_SSIT_EVENT_IS_PENDING;
+
+	/* Notify master about error occurrence after basic NOC configuration */
+	if (XPlmi_SsitIsIntrEnabled() == TRUE) {
+		/* Write error status to ERROR NOTIFICATION ADDRESS in PMC shared memory */
+		if (XPlmi_SsitIsEventPending(XPLMI_SSIT_MASTER_SLR_INDEX,
+		    XPLMI_SLAVE_ERR_NOTIFY_EVENT_INDEX) == FALSE) {
+			XPlmi_Out64(XPLMI_SLAVE_ERROR_ADDRESS, ErrStatus);
+
+			/* Trigger slave error notify event to master */
+			Status = XPlmi_SsitTriggerEvent(XPLMI_SSIT_MASTER_SLR_INDEX,
+						XPLMI_SLAVE_ERR_NOTIFY_EVENT_INDEX);
+		}
+
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "\n\rError %08x occurred while triggering SSIT event",
+						Status);
+		}
+	}
+	else {
+		/* If boot PDI is not done in slave SLR, PLM does not process further */
+		while(TRUE) {
+			;
+		}
+	}
 }
 
 #else

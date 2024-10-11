@@ -129,6 +129,7 @@
 *                       error codes
 *       rama 09/05/2024 Added XPLM_ERR_STL_DIAG_TASK_CREATE, XPLM_ERR_STL_DIAG_TASK_REMOVE
 *                       error codes for STL diagnostic task scheduling
+*       pre  10/07/2024 Removed XPLMI_SSIT_NO_PENDING_EVENTS error code
 *
 * </pre>
 *
@@ -364,9 +365,7 @@ typedef enum {
 	XPLMI_SSIT_SECURE_COMM_FAIL_AT_SLAVE_DECRYPTION, /**< 0x1B2 - Error if secure plm
 	                to plm communication fails at decryption on slave side*/
 	XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS, /**< 0x1B3 - Error when IPI request size exceeds */
-	XPLMI_SSIT_NO_PENDING_EVENTS, /**<  0x1B4 - Error when there are no pending events and
-	                 the task is triggered to handle an event */
-	XPLMI_SSIT_SECURE_COMM_KEYWRITE_FAILURE, /**< 0x1B5 - Error if key write fails during
+	XPLMI_SSIT_SECURE_COMM_KEYWRITE_FAILURE, /**< 0x1B4 - Error if key write fails during
 	                 secure plm to plm communication establishment */
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */

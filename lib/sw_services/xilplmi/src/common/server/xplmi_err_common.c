@@ -144,6 +144,7 @@
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *       sk   05/07/2024 Added support for In Place Update Error Notify
 * 2.01  sk   08/26/2024 Updated EAM support for Versal Aiepg2
+*       pre  10/07/2024 Added slave error notification
 *
 * </pre>
 *
@@ -258,6 +259,10 @@ void XPlmi_ErrMgr(int ErrStatusVal)
 		 * else just return, so that we receive next requests
 		 */
 		if (XPlmi_IsLoadBootPdiDone() == FALSE) {
+			#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+			/* Check slave errors */
+			XPlmi_CheckSlaveErrors();
+			#endif
 
 			/** Trigger FW CR error by setting CR_Flag in FW_ERR register */
 			XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_CR_FLAG_MASK,
@@ -321,12 +326,10 @@ void XPlmi_ErrMgr(int ErrStatusVal)
 		}
 	}
 	else {
-		if (XPlmi_IsLoadBootPdiDone() == FALSE) {
-			/* If boot PDI is not done in slave SLR, PLM does not process further */
-			while(TRUE) {
-				;
-			}
-		}
+		#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+		/* Perform error notification action */
+		XPlmi_SsitSlaveErrorNotify((u32)ErrStatus);
+		#endif
 	}
 
 	return;
