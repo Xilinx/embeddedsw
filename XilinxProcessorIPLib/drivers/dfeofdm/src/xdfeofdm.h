@@ -56,6 +56,7 @@
 *       dc     10/17/23 Support for FFT size 512
 *       cog    02/21/24 Fixed SDT runtime issue
 * 1.3   dc     06/18/24 Add FR1 and FR2 frequency range
+*       dc     09/23/24 Add frequency range MODEL_PARAM
 *
 * </pre>
 * @endcond
@@ -280,9 +281,6 @@ typedef struct {
  */
 typedef struct {
 	u32 CCSequenceLength; /**< CC Sequence Length */
-	u32 FrequencyRange; /**< [0, 1] Frequency ranges:
-				     - 0 = FR1 (default)
-				     - 1 = FR2 */
 } XDfeOfdm_Init;
 
 /**
@@ -411,6 +409,9 @@ typedef struct {
 	char *Name; /**< Unique name of the device */
 #endif
 	metal_phys_addr_t BaseAddr; /**< Instance base address */
+	u32 FrequencyRange; /**< [0, 1] Frequency ranges:
+				     - 0 = FR1 (default)
+				     - 1 = FR2 */
 	u32 NumAntenna; /**< Number of antennas */
 	u32 AntennaInterleave; /**< Antenna interleave */
 	u32 PhaseCompensation; /**< [0,1] Phase compensation
@@ -426,9 +427,6 @@ typedef struct {
 	XDfeOfdm_StateId StateId; /**< StateId */
 	s32 NotUsedCCID; /**< Not used CCID */
 	u32 CCSequenceLength; /**< Exact sequence length */
-	u32 FrequencyRange; /**< [0, 1] Frequency ranges:
-				     - 0 = FR1 (default)
-				     - 1 = FR2 */
 	char NodeName[XDFEOFDM_NODE_NAME_MAX_LENGTH]; /**< Node name */
 	struct metal_io_region *Io; /**< Libmetal I/O structure */
 	struct metal_device *Device; /**< Libmetal device structure */
@@ -503,6 +501,9 @@ void XDfeOfdm_SetTriggersCfg(const XDfeOfdm *InstancePtr,
 void XDfeOfdm_SetTuserOutFrameLocation(const XDfeOfdm *InstancePtr,
 				       u32 TuserOutFrameLocation);
 u32 XDfeOfdm_GetTuserOutFrameLocation(const XDfeOfdm *InstancePtr);
+void XDfeOfdm_SetTuserCCUpdateTrigger(const XDfeOfdm *InstancePtr,
+				      u32 TuserCCUpdateTrigger);
+u32 XDfeOfdm_GetTuserCCUpdateTrigger(const XDfeOfdm *InstancePtr);
 
 void XDfeOfdm_GetEventStatus(const XDfeOfdm *InstancePtr,
 			     XDfeOfdm_Status *Status);
