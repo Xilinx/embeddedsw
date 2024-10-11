@@ -41,6 +41,7 @@
 *       pre  09/18/2024 Removed XPLMI_SLR_INDEX_SHIFT, SLR index macros
 *       pre  09/24/2024 Added key zeroization and saving new key in PPU RAM
 *       pre  09/30/24 Added support for get secure communication status command
+*       pre  10/07/2024 Added slave error notification at slave and processing at master
 *
 * </pre>
 *
@@ -79,7 +80,8 @@ extern "C" {
 #define XPLMI_SLR_EVENT_RESP_BUFFER_ADDR			0xF2015A00U
 /* Space between SLR event buffers */
 #define XPLMI_SLR_REQ_AND_RESP_MAX_SIZE_IN_WORDS	0x80U
-
+/* Slave error notification address */
+#define XPLMI_SLAVE_ERROR_ADDRESS	0xF20159F0U
 /**
  * SSIT SLR Masks
  */
@@ -134,6 +136,7 @@ enum SsitEventIndex {
 	XPLMI_SLRS_MESSAGE_EVENT_INDEX,
 	XPLMI_SEM_NOTIFY_ERR_EVENT_INDEX,
 	XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX,
+	XPLMI_SLAVE_ERR_NOTIFY_EVENT_INDEX,
 	XPLMI_SSIT_MAX_EVENTS
 };
 
@@ -227,6 +230,9 @@ int XPlmi_SsitEventsInit(XPlmi_SsitCommParams *XPlm_SsitCommParams);
 u8 XPlmi_SsitIsIntrEnabled(void);
 void XPlmi_SsitSetIsIntrEnabled(u8 Value);
 void XPlmi_SsitErrHandler(void *Data);
+int XPlmi_SlaveSlrErrEventHandler(void *Data);
+u8 XPlmi_SsitIsEventPending(u8 SlrIndex, u32 EventIndex);
+void XPlmi_SsitSlaveErrorNotify(u32 ErrStatus);
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 u8 XPlmi_GetSlrIndex(void);

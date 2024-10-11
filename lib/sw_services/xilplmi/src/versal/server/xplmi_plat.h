@@ -56,6 +56,7 @@
 *                       error codes
 *       rj   09/10/2024 Added PMC GPIO interrupt macro
 *       pre  09/24/2024 Removed new key from RTCA
+*       pre  10/07/2024 Added XPlmi_CheckSlaveErrors function
 *
 * </pre>
 *
@@ -614,6 +615,9 @@ void XPlmi_NotifySldSlaveSlrs(void);
 void XPlmi_InterSlrSldHandshake(void);
 void XPlmi_SetXRamAvailable(void);
 XIOModule *XPlmi_GetIOModuleInst(void);
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+void XPlmi_CheckSlaveErrors(void);
+#endif
 
 /************************** Variable Definitions *****************************/
 
