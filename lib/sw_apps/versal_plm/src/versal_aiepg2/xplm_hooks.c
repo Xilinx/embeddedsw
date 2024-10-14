@@ -21,6 +21,7 @@
 *                       XPLMI_IPI_DEVICE_ID
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
+*       ma   09/23/2024 Added support for PSM-PLM IPI events
 *
 * </pre>
 *
@@ -89,7 +90,7 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 	/* In-Place PLM Update is applicable only for versalnet */
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
 #ifdef XPLMI_IPI_DEVICE_ID
-		XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask);
+		XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask, NULL);
 #endif /* XPLMI_IPI_DEVICE_ID */
 		XPlmi_LpdInit();
 		/* Call LibPM hook */

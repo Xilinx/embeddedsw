@@ -54,6 +54,7 @@
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 * 2.1   mb   06/21/2024 Added error code for AES initialization fail
 *       pre  07/14/2024 Added error code for exceeding IPI buffer size
+*       ma   09/23/2024 Added error codes related to PSM to PLM IPI events
 *
 * </pre>
 *
@@ -300,6 +301,9 @@ typedef enum {
 						retry later */
 	XPLMI_ERR_STORE_DATA_BACKUP,	/**< 0x1BC - Error when data structure storing fails */
 	XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS, /**< 0x1BD - Error when IPI request size exceeds */
+	XPlMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK, /**< 0x1BE PSM IPI handler task received
+						invalid buffer index*/
+	XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID, /**< 0x1BF PSM IPI event structure not initialized */
 
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */

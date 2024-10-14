@@ -267,6 +267,8 @@ XStatus XPm_GetPsmToPlmEventAddr(void)
 	Status = XPm_IpiRead(PSM_IPI_INT_MASK, &Response);
 	if (XST_SUCCESS == Status) {
 		PsmToPlmEvent = (struct PsmToPlmEvent_t *)Response[1];
+		/* Update PsmToPlmEventInfo in xilplmi */
+		XPlmi_SetPsmToPlmEventInfo(&PsmToPlmEvent->EventInfo);
 	} else if (XST_INVALID_PARAM == Status) {
 		PmErr("PSM-PLM versions may be out of sync. "
 		      "PSM_TO_PLM_EVENT_ADDR unsupported.\n\r");
