@@ -176,6 +176,7 @@
 *       kal  07/24/2024 Code refactoring for versal_aiepg2 updates.
 *       mb   08/10/2024 Added support for loading cdo after secure boot.
 *       pre  10/03/2024 Clearing GSW error after PDI loading
+*       obs  09/30/2024 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -219,7 +220,7 @@
 #define XLOADER_IMAGE_INFO_TBL_MAX_NUM	(XPLMI_IMAGE_INFO_TBL_BUFFER_LEN / \
 		sizeof(XLoader_ImageInfo)) /**< Maximum number of image info
 					     tables in the available buffer */
-#define XLOADER_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)
+#define XLOADER_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)  /**< Mask for PCR Measurement index */
 
 /************************** Function Prototypes ******************************/
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr);
@@ -2257,7 +2258,7 @@ END:
  *		given ImgID in the PDI instance
  *
  * @param	PdiPtr		Pdi instance pointer
- * @param	ImgID		Image id of a subsystem
+ * @param	ImageID		Image id of a subsystem
  *
  * @return	- XST_SUCCESS on success
  *		- XST_FAILURE on failure

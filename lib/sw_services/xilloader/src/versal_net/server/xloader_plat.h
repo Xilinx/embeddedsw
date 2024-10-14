@@ -44,6 +44,7 @@
 *       kal  06/29/2024 Rename XLoader_LoadPsmElf to XLoader_LoadLpdAndPsmElf
 *       pre  08/22/2024 Added error codes related to XLoader_CfiSelectiveRead command
 *       pre  08/25/2024 Defined XLoader_VerifyDataAuth for PLM_SECURE_EXCLUDE mode
+*       obs  09/30/2024 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -244,9 +245,7 @@ enum {
 	/**< 0x29 - Error when frame address is not in the range */
 	XLOADER_INVALID_FRAME_ADDRESS,
 
-	/**< 0x2A - Error when frame count added with start frame address exceeds last frame
-	 * address
-	 */
+	/**< 0x2A - Error when frame count added with start frame address exceeds last frame address */
 	XLOADER_FRAME_COUNT_EXCEEDS_LASTFRAME,
 
 	/* Platform specific Minor Error Codes start from 0x100 */

@@ -43,6 +43,7 @@
 *       mss  05/03/2024 Fixed doxygen warnings
 *       kal  06/29/2024 Rename XLoader_LoadPsmElf to XLoader_LoadLpdAndPsmElf
 *       pre  08/22/2024 Added error codes related to XLoader_CfiSelectiveRead command
+*       obs  09/30/2024 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -79,7 +80,7 @@ extern "C" {
 #define XLOADER_PDI_SRC_SBI		(0x9U) /**< PDI source SBI */
 #define XLOADER_PDI_SRC_SMAP		(0xAU) /**< PDI source SMAP */
 #define XLOADER_PDI_SRC_UFS		(0xBU) /**< PDI source PCIE used for now as UFS*/
-#define XLOADER_PDI_SRC_PCIE		(0xBU)
+#define XLOADER_PDI_SRC_PCIE		(0xBU) /**< PDI source PCIE */
 #define XLOADER_PDI_SRC_SDLS_B1		(0xEU) /**< PDI source SDLS_B1 */
 #define XLOADER_PDI_SRC_DDR		(0xFU) /**< PDI source DDR */
 #define XLOADER_PDI_SRC_IS		(0x10U) /**< PDI source Image Store */
@@ -114,7 +115,7 @@ extern "C" {
 #define XLOADER_MEASURE_UPDATE		(1U) /**< Data measure update */
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
 
-#define XLOADER_VERSAL_AIEPG2_PDI_VERSION_1	(0x00010000U)
+#define XLOADER_VERSAL_AIEPG2_PDI_VERSION_1	(0x00010000U) /**< PDI Version */
 
 /* Minor Error Codes */
 enum {
@@ -246,9 +247,7 @@ enum {
 	/**< 0x29 - Error when frame address is not in the range */
 	XLOADER_INVALID_FRAME_ADDRESS,
 
-	/**< 0x2A - Error when frame count added with start frame address exceeds last frame
-	 * address
-	 */
+	/**< 0x2A - Error when frame count added with start frame address exceeds last frame address */
 	XLOADER_FRAME_COUNT_EXCEEDS_LASTFRAME,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
@@ -272,6 +271,8 @@ enum {
 
 	/** 0x106 - I2c bus busy error */
 	XLOADER_ERR_I2C_BUS_BUSY,
+
+	/** 0x107 - Error during memset on UFS Bootfile */
 	XLOADER_ERR_MEMSET_UFS_BOOT_FILE,
 
 };
@@ -304,7 +305,7 @@ typedef struct {
 		{"DDR", XLOADER_DDR_INDEX}, /* DDR - 0xF */\
 	}/**< Get PDI source info */
 
-#define XLoader_VerifyDataAuth NULL
+#define XLoader_VerifyDataAuth NULL  /**< Reserved */
 
 /*****************************************************************************/
 /**
