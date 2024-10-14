@@ -144,8 +144,8 @@ int XCsuDma_IntrExample(XCsuDma *CsuDmaInstance, UINTPTR BaseAddress);
 #endif
 void IntrHandler(void *CallBackRef);
 
-static void SrcHandler(void *CallBackRef, u32 Event);
-static void DstHandler(void *CallBackRef, u32 Event);
+static void SrcHandler(u32 Event);
+static void DstHandler(u32 Event);
 
 /************************** Variable Definitions *****************************/
 
@@ -514,11 +514,11 @@ void IntrHandler(void *CallBackRef)
 
 
 	if (SrcPending != 0x00) {
-		SrcHandler(XCsuDmaPtr, SrcPending);
+		SrcHandler(SrcPending);
 	}
 
 	if (DstPending != 0x00) {
-		DstHandler(XCsuDmaPtr, DstPending);
+		DstHandler(DstPending);
 	}
 }
 
@@ -535,7 +535,7 @@ void IntrHandler(void *CallBackRef)
 * @note		None.
 *
 ******************************************************************************/
-static void SrcHandler(void *CallBackRef, u32 Event)
+static void SrcHandler(u32 Event)
 {
 	if (Event & XCSUDMA_IXR_INVALID_APB_MASK) {
 		/*
@@ -591,7 +591,7 @@ static void SrcHandler(void *CallBackRef, u32 Event)
 * @note		None.
 *
 ******************************************************************************/
-static void DstHandler(void *CallBackRef, u32 Event)
+static void DstHandler(u32 Event)
 {
 	if (Event & XCSUDMA_IXR_FIFO_OVERFLOW_MASK) {
 		/*
