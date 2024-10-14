@@ -85,10 +85,10 @@ static XStatus XPsmFw_KeepAliveEvent(void)
 
 
 #ifdef PSM_ENABLE_STL
-	Status = XPsmFw_PeriodicStlHook();
-#else
-	Status = XST_SUCCESS;
+	/* Set periodic STL trigger flag */
+	PeriodicStlTrigger = 1U;
 #endif
+	Status = XST_SUCCESS;
 
 	return Status;
 }
