@@ -379,7 +379,7 @@ static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert)
 /**
  * @brief	Mask generation function with SHA3.
  *
- * @param	Sha3InstancePtr is pointer to the XSecure_Sha3 instance.
+ * @param	ShaInstancePtr is pointer to the XSecure_Sha3 instance.
  * @param	Out is pointer in which output of this function will be stored.
  * @param	OutLen specifies the required length.
  * @param	Input is pointer which holds the input data for	which mask should
