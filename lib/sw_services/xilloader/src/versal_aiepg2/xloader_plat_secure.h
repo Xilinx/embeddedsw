@@ -32,6 +32,7 @@
 *       yog  02/23/2024 Added XLOADER_SEC_CURVE_NOT_SUPPORTED error
 *       am   03/02/2024 Added XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR
 *                       and XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR enum
+*       obs  09/30/2024 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -72,8 +73,8 @@ extern "C" {
 			/**< Mask to get the value of mode in Configuration Limiter register */
 #define XLOADER_BBRAM_CL_FEATURE_EN_MASK		(0xC0000000U)
 			/**< Mask to get the value of Feature enable in Configuration Limiter register */
-#define XLOADER_BBRAM_CL_FAILED_CONFIGS_MODE		(0x0U)
-#define XLOADER_BBRAM_CL_FEATURE_ENABLE			(0x3U)
+#define XLOADER_BBRAM_CL_FAILED_CONFIGS_MODE		(0x0U)  /**< Number of failed configurations selected as mode for Configuration Limiter */
+#define XLOADER_BBRAM_CL_FEATURE_ENABLE			(0x3U)  /**< Value when Configuration Limiter feature is enabled */
 
 /**************************** Type Definitions *******************************/
 typedef enum {

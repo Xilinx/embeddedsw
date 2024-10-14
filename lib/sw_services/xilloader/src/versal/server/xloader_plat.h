@@ -34,6 +34,7 @@
 *       mss  04/15/2024 Added Xloader_DdrmcRegisters Structure
 *       mss  05/03/2024 Fixed doxygen warnings
 *       pre  08/22/2024 Added error codes related to XLoader_CfiSelectiveRead command
+*       obs  09/30/2024 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -239,9 +240,7 @@ enum {
 	/**< 0x29 - Error when frame address is not in the range */
 	XLOADER_INVALID_FRAME_ADDRESS,
 
-	/**< 0x2A - Error when frame count added with start frame address exceeds last frame
-	 * address
-	 */
+	/**< 0x2A - Error when frame count added with start frame address exceeds last frame address */
 	XLOADER_FRAME_COUNT_EXCEEDS_LASTFRAME,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
@@ -275,7 +274,7 @@ typedef struct {
 		{"DDR", XLOADER_DDR_INDEX}, /* DDR - 0xF */\
 	} /**< PDI source info */
 
-#define XLoader_VerifyDataAuth NULL
+#define XLoader_VerifyDataAuth NULL  /**< Reserved */
 
 /*****************************************************************************/
 /**

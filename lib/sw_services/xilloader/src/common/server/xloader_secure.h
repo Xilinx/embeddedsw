@@ -59,6 +59,7 @@
 *       bsv  02/11/22 Code optimization to reduce text size
 *       kpt  02/18/22 Removed Flags param from XLoader_SecureInit function prototype
 * 1.08  dc   07/12/22 Moved error codes related to buffer clear to xplmi_status.h
+*       obs  09/30/2024 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -98,8 +99,8 @@ extern "C" {
 			/**< DEC_ONLY fuse mask in Security Misc0 register */
 #define XLOADER_EFUSE_MISC_CTRL_OFFSET			(0xF12500A0U)
 			/**< Misc CTRL register */
-#define XLOADER_BBRAM_CL_INCREMENT_COUNT		(0xFFFFFFFFU)
-#define XLOADER_BBRAM_CL_DECREMENT_COUNT		(0x0U)
+#define XLOADER_BBRAM_CL_INCREMENT_COUNT		(0xFFFFFFFFU)  /**< Flag to indicate if counter in Configuration Limiter should be incremented */
+#define XLOADER_BBRAM_CL_DECREMENT_COUNT		(0x0U)  /**< Flag to indicate if counter in Configuration Limiter should be decremented */
 
 /**************************** Type Definitions *******************************/
 typedef struct {
