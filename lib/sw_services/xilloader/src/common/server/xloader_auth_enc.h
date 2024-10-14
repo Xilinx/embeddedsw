@@ -61,6 +61,7 @@
 *       am   03/02/24 Added XLOADER_OPTIMIZED_AUTH_CERT_MIN_SIZE macro
 *       har  03/05/24 Fixed doxygen warnings
 *       kpt  03/15/24 Updated RSA KAT to use 2048-bit key
+*       obs  09/30/2024 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -142,7 +143,7 @@ extern "C" {
 						+ XLOADER_SPK_SIG_SIZE \
 						+ 8U)
 		/**< Minimum Size of Optimized Authentication Certificate(in bytes) */
-#define XLOADER_AC_AH_REVOKE_ID_MASK		(0xFFU)
+#define XLOADER_AC_AH_REVOKE_ID_MASK		(0xFFU)  /**< Mask for Revocation ID */
 
 
 #define XLOADER_ECDSA_P384_KEYSIZE		(48U)
