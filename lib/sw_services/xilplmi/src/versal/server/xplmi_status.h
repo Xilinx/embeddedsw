@@ -130,6 +130,7 @@
 *       rama 09/05/2024 Added XPLM_ERR_STL_DIAG_TASK_CREATE, XPLM_ERR_STL_DIAG_TASK_REMOVE
 *                       error codes for STL diagnostic task scheduling
 *       pre  10/07/2024 Removed XPLMI_SSIT_NO_PENDING_EVENTS error code
+*       ma   09/23/2024 Added error codes related to PSM to PLM IPI events
 *
 * </pre>
 *
@@ -367,6 +368,10 @@ typedef enum {
 	XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS, /**< 0x1B3 - Error when IPI request size exceeds */
 	XPLMI_SSIT_SECURE_COMM_KEYWRITE_FAILURE, /**< 0x1B4 - Error if key write fails during
 	                 secure plm to plm communication establishment */
+	XPlMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK, /**< 0x1B6 PSM IPI handler task received
+						invalid buffer index*/
+	XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID, /**< 0x1B7 PSM IPI event structure not initialized */
+
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
