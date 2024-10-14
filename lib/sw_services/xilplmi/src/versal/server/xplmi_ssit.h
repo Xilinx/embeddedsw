@@ -215,11 +215,11 @@ typedef enum
 
 typedef struct
 {
-	int (*SendMessage)(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);
-	int (*ReceiveMessage)(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);
-	int (*AesKeyWrite)(u32 SlrIndex, u32 KeyAddr);
-	int (*KeyIvUpdate)(XPlmi_Cmd *Cmd);
-	u32 NewKeyAddr;
+	int (*SendMessage)(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);  /**< This function sends the message/response in the Buf with or without encryption */
+	int (*ReceiveMessage)(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);  /**< This function receives the message/response with or without decryption */
+	int (*AesKeyWrite)(u32 SlrIndex, u32 KeyAddr);  /**< Writes the key provided into respective SLR's AES key registers */
+	int (*KeyIvUpdate)(XPlmi_Cmd *Cmd); /**< This function updates the key and IV with new key and new IV */
+	u32 NewKeyAddr; /**< Address of new key used for secure communication */
 }XPlmi_SsitCommParams;
 
 /***************** Macros (Inline Functions) Definitions *********************/

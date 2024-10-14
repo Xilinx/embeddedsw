@@ -734,7 +734,7 @@ int EmEnableLpdSlcrErrAction(u32 ErrMaskRegAddr, u32 RegMask)
 /**
  * @brief	This function disables the LPD SCLR error actions for the given mask.
  *
- * @param	RegOffset is the offset for the PMC ERR, POR ,IRQ mask,SRST mask
+ * @param	RegMaskAddr is the offset for the PMC ERR, POR ,IRQ mask,SRST mask
  * @param	RegMask is the register mask of the error to be disabled
  *
  * @return

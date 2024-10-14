@@ -84,13 +84,13 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 #define XPLMI_PLM_BANNER	"Xilinx Versal Net Platform Loader and Manager\n\r" /**< PLM banner */
-#define XPLMI_PLM_PLAT_RC_VERSION	0U
+#define XPLMI_PLM_PLAT_RC_VERSION	0U  /**< PLM Plat RC Version */
 
-#define XPLMI_PLM_USER_DEFINED_VERSION		XPAR_PLM_VERSION_USER_DEFINED
+#define XPLMI_PLM_USER_DEFINED_VERSION		XPAR_PLM_VERSION_USER_DEFINED  /**< PLM User Defined Version */
 
 /* Maximum procs supported */
-#define XPLMI_MAX_PSM_BUFFERS		(40U)
-#define XPLMI_MAX_PMC_BUFFERS		(20U)
+#define XPLMI_MAX_PSM_BUFFERS		(40U)  /**< Maximum PSM Buffers */
+#define XPLMI_MAX_PMC_BUFFERS		(20U)  /**< Maximum PMC Buffers */
 
 /* PLM RunTime Configuration Area Base Address */
 #define XPLMI_RTCFG_BASEADDR			(0xF2014000U) /**< Runtime configuration base address */
@@ -112,15 +112,15 @@ extern "C" {
 #define XPLMI_RTCFG_PLM_RSVD_DDR_ADDR				(XPLMI_RTCFG_BASEADDR + 0x2A8U) /**< Baseadress of DDR region reserved for PLM */
 #define XPLMI_RTCFG_PLM_RSVD_DDR_SIZE				(XPLMI_RTCFG_BASEADDR + 0x2ACU) /**< Size of DDR region reserved for PLM */
 #define XPLMI_RTCFG_VID_OVERRIDE				(XPLMI_RTCFG_BASEADDR + 0x2B0U) /**< VID override */
-#define XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK			(XPLMI_RTCFG_BASEADDR + 0x2B4U)
-#define XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF		(XPLMI_RTCFG_BASEADDR + 0x2B8U)
-#define XPLMI_RTCFG_INPLACE_UPDATE_ERR_IPOR_TIMEOUT		(XPLMI_RTCFG_BASEADDR + 0x2BCU)
+#define XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK			(XPLMI_RTCFG_BASEADDR + 0x2B4U)  /**< RTCA register to save IPI Mask */
+#define XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF		(XPLMI_RTCFG_BASEADDR + 0x2B8U) /**< RTCA Register to save response buffer address */
+#define XPLMI_RTCFG_INPLACE_UPDATE_ERR_IPOR_TIMEOUT		(XPLMI_RTCFG_BASEADDR + 0x2BCU) /**< RTCA Register to store timeout in milli seconds before IPOR */
 #define XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR			(XPLMI_RTCFG_BASEADDR + 0x300U) /**< Skip DDRMC Calib Check */
-#define XPLMI_INVALID_RESP_BUFF_ADDR				(0xFFFFFFFFU)
-#define XPLMI_INVALID_IPI_MASK					(0x0U)
+#define XPLMI_INVALID_RESP_BUFF_ADDR				(0xFFFFFFFFU)  /**< Invalid Response Buffer Address */
+#define XPLMI_INVALID_IPI_MASK					(0x0U)  /**< Invalid IPI Mask */
 #define XPLMI_INVALID_PLM_RSVD_DDR_ADDR				(0x0U)	/**< Invalid reserved DDR address */
 #define XPLMI_INVALID_PLM_RSVD_DDR_SIZE				(0U)	/**< Invalid reserved DDR size */
-#define XPLMI_REG_OFFSET_BYTE_4					(4U)
+#define XPLMI_REG_OFFSET_BYTE_4					(4U)  /**< Register Offset by 4 bytes */
 
 #define XPLMI_ROM_SERVICE_TIMEOUT			(1000000U) /**< ROM service timeout */
 #define XPLMI_MILLI_SEC_TIME_MULTIPLIER 		(0x10000U) /**< factor for ~1msec for 320MHz to 400MHz range */
@@ -659,7 +659,7 @@ static inline void XPlmi_InterSlrSldHandshake(void)
 /**
  * @brief	This function sets ACK's the IPI request
  *
- * @param	PLmErr value of Plm error
+ * @param	PlmErr value of Plm error
  * @param	RomErr value of ROM error
  *
  * @return	None

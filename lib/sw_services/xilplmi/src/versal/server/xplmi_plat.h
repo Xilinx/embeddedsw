@@ -83,13 +83,13 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_PLM_BANNER	"Xilinx Versal Platform Loader and Manager \n\r" /**< PLM banner */
-#define XPLMI_PLM_PLAT_RC_VERSION	0U
+#define XPLMI_PLM_PLAT_RC_VERSION	0U  /**< PLM Plat RC Version */
 
-#define XPLMI_PLM_USER_DEFINED_VERSION		XPAR_PLM_VERSION_USER_DEFINED
+#define XPLMI_PLM_USER_DEFINED_VERSION		XPAR_PLM_VERSION_USER_DEFINED   /**< PLM User Defined Version */
 
 /* Maximum procs supported */
-#define XPLMI_MAX_PSM_BUFFERS		(10U)
-#define XPLMI_MAX_PMC_BUFFERS		(5U)
+#define XPLMI_MAX_PSM_BUFFERS		(10U)  /**< Maximum PSM Buffers */
+#define XPLMI_MAX_PMC_BUFFERS		(5U)   /**< Maximum PMC Buffers */
 
 #define XPLMI_RTCFG_BASEADDR			(0xF2014000U) /**< Runtime configuration base address */
 

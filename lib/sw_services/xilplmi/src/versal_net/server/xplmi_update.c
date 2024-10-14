@@ -104,7 +104,7 @@ static u8 PlmUpdateStateTmp;
 static u32 UpdatePdiAddr = XPLMI_INVALID_UPDATE_ADDR;
 EXPORT_GENERIC_DS(UpdatePdiAddr, XPLMI_UPDATE_PDIADDR_DS_ID,
 	XPLMI_UPDATE_PDIADDR_VER, XPLMI_UPDATE_PDIADDR_LCVER,
-	sizeof(UpdatePdiAddr), (u32)(UINTPTR)&UpdatePdiAddr);
+	sizeof(UpdatePdiAddr), (u32)(UINTPTR)&UpdatePdiAddr);   /**< Macro to Export Data Structures */
 static u32 DbStartAddr; /** Db Start Address */
 static u32 DbEndAddr; /** Db End Address */
 

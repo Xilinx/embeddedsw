@@ -65,6 +65,7 @@
 *       sk   02/18/2024 Added define for DDRMC Calib Check Status RTCA Reg init
 * 1.12  sk   06/05/2024 Added defines for PLM Version in RTCA register
 * 24.2  prt  09/18/2024 Updated the SDK_RELEASE_QUARTER as 2 and XPLMI_PLM_MINOR_VERSION as 2
+*       obs  09/30/2024 Fixed Doxygen Warnings
 *
 * </pre>
 *
@@ -87,13 +88,13 @@ extern "C" {
 #define SDK_RELEASE_YEAR	"2024" /**< Specifies the SDK release year */
 #define SDK_RELEASE_QUARTER	"2"    /**< Specifies the SDK release quarter */
 
-#define XPLMI_PLM_MAJOR_VERSION		24U
-#define XPLMI_PLM_MINOR_VERSION		2U
-#define XPLMI_PLM_RC_VERSION		XPLMI_PLM_PLAT_RC_VERSION
+#define XPLMI_PLM_MAJOR_VERSION		24U /**< PLM Major Version */
+#define XPLMI_PLM_MINOR_VERSION		2U  /**< PLM Minor Version */
+#define XPLMI_PLM_RC_VERSION		XPLMI_PLM_PLAT_RC_VERSION  /**< PLM RC Version */
 
-#define XPLMI_PLM_MAJOR_VERSION_SHIFT	24U
-#define XPLMI_PLM_MINOR_VERSION_SHIFT	16U
-#define XPLMI_PLM_RC_VERSION_SHIFT	 8U
+#define XPLMI_PLM_MAJOR_VERSION_SHIFT	24U  /**< PLM Major Version Shift */
+#define XPLMI_PLM_MINOR_VERSION_SHIFT	16U  /**< PLM Minor Version Shift */
+#define XPLMI_PLM_RC_VERSION_SHIFT	 8U  /**< PLM RC Version Shift */
 
 /*
  * Device Copy flag related macros
