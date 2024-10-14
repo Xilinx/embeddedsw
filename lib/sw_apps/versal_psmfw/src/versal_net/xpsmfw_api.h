@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -90,8 +90,6 @@ extern "C" {
 #define PSM_KEEP_ALIVE_COUNTER_ADDR	(0xF20140C8U)
 #define IPI_PSM_ISR_ADDR		(0xEB310010U)
 #define PMC_IPI_BIT			(0x2U)
-
-#define PM_PSM_TO_PLM_EVENT	(1U)
 
 #define PSM_API_DIRECT_PWR_DWN	(1U)
 #define PSM_API_DIRECT_PWR_UP	(2U)
