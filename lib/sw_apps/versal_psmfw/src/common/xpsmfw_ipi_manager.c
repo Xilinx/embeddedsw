@@ -101,11 +101,9 @@ XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
 
 /****************************************************************************/
 /**
- * @brief	Sends IPI request to the target.
+ * @brief	Triggers IPI to the target.
  *
  * @param IpiMask	IPI interrupt mask of target
- * @param Payload	API ID and call arguments to be written in
- *			IPI buffer
  *
  * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
  *		or a reason code
@@ -113,21 +111,9 @@ XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
  * @note	None
  *
  ****************************************************************************/
-XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload)
+XStatus XPsmFw_IpiTrigger(u32 IpiMask)
 {
-	XStatus Status = XST_FAILURE;
-
-	Status = XIpiPsu_WriteMessage(IpiInstPtr, IpiMask, Payload,
-				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
-	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_ERROR, "%s: ERROR writing to IPI request buffer\n", __func__);
-		goto done;
-	}
-
-	Status = XIpiPsu_TriggerIpi(IpiInstPtr, IpiMask);
-
-done:
-	return Status;
+	return XIpiPsu_TriggerIpi(IpiInstPtr, IpiMask);
 }
 
 /****************************************************************************/
@@ -189,7 +175,7 @@ XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
  * @note	None
  *
  ****************************************************************************/
-XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload)
+XStatus XPsmFw_IpiSendResponse(u32 IpiMask, u32 *Payload)
 {
 	(void)IpiMask;
 	(void)Payload;
@@ -206,10 +192,9 @@ XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload)
  * @note	None
  *
  ****************************************************************************/
-XStatus XPsmFw_IpiSendResponse(u32 IpiMask, u32 *Payload)
+XStatus XPsmFw_IpiTrigger(u32 IpiMask)
 {
 	(void)IpiMask;
-	(void)Payload;
 
 	return XST_FAILURE;
 }
