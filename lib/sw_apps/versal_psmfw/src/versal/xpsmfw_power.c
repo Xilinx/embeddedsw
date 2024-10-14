@@ -53,6 +53,7 @@ volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
 	.Version	= PSM_TO_PLM_EVENT_VERSION,
 	.EventInfo.PmEvent	= 0U,
 	.EventInfo.StlEvent	= 0U,
+	.StlId = 0U,
 	.Event		= {0x0},
 	.CpuIdleFlag 	= {0x0},
 	.ResumeAddress 	= {0x0},
