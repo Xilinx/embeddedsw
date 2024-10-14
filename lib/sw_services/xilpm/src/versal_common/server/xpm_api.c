@@ -842,8 +842,6 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 	}
 	XPlmi_ModuleRegister(&XPlmi_Pm);
 
-	XPm_PsmModuleInit();
-
 	Status = XPm_RegisterWakeUpHandlers();
 	if (Status != XST_SUCCESS) {
 		goto done;

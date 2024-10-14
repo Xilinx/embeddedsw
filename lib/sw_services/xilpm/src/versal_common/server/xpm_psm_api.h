@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,10 +20,6 @@
 extern "C" {
 #endif
 
-#define PM_PSM_TO_PLM_EVENT			(1U)
-#define PSM_API_MIN				PM_PSM_TO_PLM_EVENT
-#define PSM_API_MAX				PM_PSM_TO_PLM_EVENT
-
 #define PSM_API_DIRECT_PWR_DWN			(1U)
 #define PSM_API_DIRECT_PWR_UP			(2U)
 #define PSM_API_FPD_HOUSECLEAN			(3U)
@@ -33,7 +29,7 @@ extern "C" {
 
 #define FUNC_SECLOCKDOWN	(11U)
 
-#define PSM_TO_PLM_EVENT_VERSION		(0x2U)
+#define PSM_TO_PLM_EVENT_VERSION		(0x3U)
 #define PWR_UP_EVT				(0x1U)
 #define PWR_DWN_EVT				(0x100U)
 
@@ -48,7 +44,7 @@ struct PsmToPlmEvent_t {
 	u16 ProcDataLen;
 };
 
-void XPm_PsmModuleInit(void);
+XStatus XPm_ProcessPsmCmd(void);
 XStatus XPm_PwrDwnEvent(const u32 DeviceId);
 XStatus XPm_WakeUpEvent(const u32 DeviceId);
 XStatus XPm_GetPsmToPlmEventAddr(void);
