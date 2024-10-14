@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -129,8 +129,8 @@ u8 ZDmaSrcBuf[SIZE]; /**< Source buffer */
 u8 ZDmaDstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
 u8 ZDmaSrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
 #endif
-volatile static u32 Done = 0;				/**< Done flag */
-volatile static u32 ErrorStatus = 0;			/**< Error Status flag*/
+static volatile u32 Done = 0;				/**< Done flag */
+static volatile u32 ErrorStatus = 0;			/**< Error Status flag*/
 
 #ifndef TESTAPP_GEN
 /*****************************************************************************/
@@ -489,6 +489,7 @@ int SetupInterruptSystem(INTC *IntcInstancePtr,
 ******************************************************************************/
 static void DoneHandler(void *CallBackRef)
 {
+	Xil_AssertVoid(CallBackRef != NULL);
 	Done = 1;
 
 }
@@ -507,5 +508,6 @@ static void DoneHandler(void *CallBackRef)
 ******************************************************************************/
 static void ErrorHandler(void *CallBackRef, u32 Mask)
 {
+	Xil_AssertVoid(CallBackRef != NULL);
 	ErrorStatus = Mask;
 }
