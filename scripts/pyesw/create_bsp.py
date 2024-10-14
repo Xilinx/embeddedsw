@@ -377,13 +377,14 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
             compiler_flags (str): returns the new compiler flags that were set.
         """
         compiler_flags = ""
-        app_yaml_dict = utils.load_yaml(os.path.join(self.get_comp_dir(app_name), "data", f"{app_name}.yaml"))
-        if app_yaml_dict.get("extra_compiler_flags"):
-            utils.replace_line(
-                toolchain_file,
-                f'set( APPLICATION_SPECIFIC_FLAGS ""  CACHE STRING "Extra Application specific Flags")',
-                f'set( APPLICATION_SPECIFIC_FLAGS "{app_yaml_dict.get("extra_compiler_flags","")}"  CACHE STRING "Extra Application specific Flags")\n',
-            )
+        if app_name:
+            app_yaml_dict = utils.load_yaml(os.path.join(self.get_comp_dir(app_name), "data", f"{app_name}.yaml"))
+            if app_yaml_dict.get("extra_compiler_flags"):
+                utils.replace_line(
+                    toolchain_file,
+                    f'set( APPLICATION_SPECIFIC_FLAGS ""  CACHE STRING "Extra Application specific Flags")',
+                    f'set( APPLICATION_SPECIFIC_FLAGS "{app_yaml_dict.get("extra_compiler_flags","")}"  CACHE STRING "Extra Application specific Flags")\n',
+                )
 
         if app_name == "zynqmp_fsbl" or self.proc_mode == "32-bit":
             if app_name == "zynqmp_fsbl":
