@@ -616,7 +616,7 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 
 		}
 		XPlmi_LpdInit();
 #ifdef XPLMI_IPI_DEVICE_ID
-		Status = XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask);
+		Status = XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask, XPm_ProcessPsmCmd);
 		if (XST_SUCCESS != Status) {
 			PmErr("Error %u in IPI initialization\r\n", Status);
 		}
