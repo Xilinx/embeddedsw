@@ -711,7 +711,11 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 		PayloadSize = (JUMBO_FRAME_SIZE - FRAME_HDR_SIZE);
 	}
 
-	PayloadSize = rand() % (PayloadSize + 1);
+	/*
+	 * If the PayloadSize is less than 64, GEM performs padding.
+	 * Create a random packet size between 64 and PayloadSize.
+	 */
+	PayloadSize = rand() % (PayloadSize - 64 + 1) + 64;
 
 	/* Excercise all available queues */
 	queue = packet % (EmacPsInstancePtr->MaxQueues);
