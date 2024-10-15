@@ -10,6 +10,9 @@
 
 #include "xparameters.h"
 
+#include "xmcdma.h"
+#include "xaxiethernet.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -20,12 +23,18 @@ extern "C" {
 #define INTC		XScuGic
 #endif
 
+#ifndef SDT
 int AxiEthernetSgDmaIntrExample(INTC * IntcInstancePtr,
 				XAxiEthernet * AxiEthernetInstancePtr,
 				XMcdma * DmaInstancePtr,
 				u16 AxiEthernetDeviceId,
 				u16 AxiDmaDeviceId,
 				u16 AxiEthernetIntrId);
+#else
+int AxiEthernetSgDmaIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
+				XMcdma *DmaInstancePtr,
+				UINTPTR AxiEthernetBaseAddress);
+#endif
 
 #ifdef __cplusplus
 }
