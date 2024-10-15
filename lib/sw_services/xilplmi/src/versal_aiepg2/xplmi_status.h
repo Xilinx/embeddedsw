@@ -777,6 +777,7 @@ typedef enum {
 	XLOADER_ERR_LMS_GET_DMA, /**< 0x661 Failed to get DMA instance for LMS KAT */
 	XLOADER_ERR_CONFIG_LIMIT_EXCEEDED, /**< 0x662 Error when the configuration limit is exceeded */
 	XLOADER_ERR_UPDATE_CONFIG_LIMITER_CNT_FAILED, /**< 0x663 Error when the configuration limiter update failed */
+	XLOADER_ERR_KEY_AUTH_FAIL, /**< 0x664 Error when authetication of keys is failed */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XOCP_PCR_ERR_SWPCR_DUP_CONFIG = 0x6A0, /**< 0x6A0 Duplicate Pcr configuration provided */
