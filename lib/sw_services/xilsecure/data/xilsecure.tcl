@@ -50,8 +50,10 @@ proc secure_drc {libhandle} {
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
 	set src "src"
-	set zynqmp "src/zynqmp/"
-	set versal_gen "src/versal_gen/"
+	set zynqmp "src/server/zynqmp/"
+	set client "src/client/"
+	set common "src/common/"
+	set server "src/server/"
 
 	set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexr52" ||
 		IP_NAME=="psx_cortexr52" || IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
@@ -71,7 +73,7 @@ proc secure_drc {libhandle} {
 			$proc_type processor and $mode mode";
 			return;
 		}
-		foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/core" *]] {
+		foreach entry [glob -nocomplain -types f [file join "$common/core" *]] {
 			file copy -force $entry "./src"
 		}
 
@@ -81,99 +83,99 @@ proc secure_drc {libhandle} {
 		}
 
 		if {$mode == "server"} {
-			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/aes" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$server/core/aes" *]] {
 				file copy -force $entry "./src"
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/rsa" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$server/core/rsa" *]] {
 				file copy -force $entry "./src"
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/ecdsa" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$server/core/ecdsa" *]] {
 				file copy -force $entry "./src"
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/crypto_kat" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$server/core/crypto_kat" *]] {
 				file copy -force $entry "./src"
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/generic" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$server/core/generic" *]] {
 				file copy -force $entry "./src"
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/util" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$server/core/util" *]] {
 				file copy -force $entry "./src"
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/sha" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$server/core/sha" *]] {
 					file copy -force $entry "./src"
 			}
 			if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" ||
 				$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 				$proc_type == "psu_cortexr5" || $proc_type == "psv_cortexr5"} {
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/sha/sha_pmx" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/sha/sha_pmx" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/versal" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/versal" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/versal" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$common/versal" *]] {
 					file copy -force $entry "./src"
 				}
 			} elseif {$proc_type == "psx_pmc" || $proc_type == "psxl_pmc" ||
 				$proc_type == "psxl_cortexa78" || $proc_type == "psx_cortexa78" ||
                                 $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52"} {
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/sha/sha_pmx" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/sha/sha_pmx" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/hmac" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/hmac" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/ecc_keypair" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/ecc_keypair" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/key_zeroize" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/key_zeroize" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/key_unwrap" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/key_unwrap" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/rsa/rsa_qmode" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/rsa/rsa_qmode" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/trng" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/trng" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/versal_net" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/versal_net" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/softsha2-384" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/softsha2-384" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/versal_net" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$common/versal_net" *]] {
 					file copy -force $entry "./src"
 				}
 			} elseif {$proc_type == "pmc" ||
                                 $proc_type == "cortexa78" || $proc_type == "cortexr52"} {
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/sha/sha_pmxc" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/sha/sha_pmxc" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/hmac" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/hmac" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/ecc_keypair" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/ecc_keypair" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/key_zeroize" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/key_zeroize" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/rsa/rsa_qmode" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/rsa/rsa_qmode" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/trng" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/trng" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/core/softsha2-384" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/core/softsha2-384" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/server/versal_aiepg2" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/versal_aiepg2" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/versal_aiepg2" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$common/versal_aiepg2" *]] {
 					file copy -force $entry "./src"
 				}
 			}
@@ -222,71 +224,71 @@ proc secure_drc {libhandle} {
 				error "This library requires xilmailbox library in the Board Support Package.";
 			}
 
-			foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/aes" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$client/core/aes" *]] {
 				file copy -force $entry "./src"
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/rsa" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$client/core/rsa" *]] {
 				file copy -force $entry "./src"
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/ecdsa" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$client/core/ecdsa" *]] {
 				file copy -force $entry "./src"
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/crypto_kat" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$client/core/crypto_kat" *]] {
 				file copy -force $entry "./src"
 			}
-			foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/mailbox" *]] {
+			foreach entry [glob -nocomplain -types f [file join "$client/core/mailbox" *]] {
 				file copy -force $entry "./src"
 			}
 			if {($proc_type == "microblaze" && [llength $is_versal] > 0) ||
 				$proc_type == "psu_pmc" || $proc_type == "psv_pmc" ||
 				$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 				$proc_type == "psv_cortexr5" || $proc_type == "psv_cortexr5"} {
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/versal" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$common/versal" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/sha/sha_pmx" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$client/core/sha/sha_pmx" *]] {
                                         file copy -force $entry "./src"
                                 }
 			} elseif {($proc_type == "microblaze" && [llength $is_versal_net] > 0) ||
 				$proc_type == "psx_pmc" || $proc_type == "psxl_pmc" ||
 				$proc_type == "psxl_cortexa78" || $proc_type == "psx_cortexa78" ||
 				$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52"} {
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/versal_net" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$common/versal_net" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/versal_net" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$client/versal_net" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/sha/sha_pmx" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$client/core/sha/sha_pmx" *]] {
                                         file copy -force $entry "./src"
                                 }
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/key_zeroize" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$client/core/key_zeroize" *]] {
                                         file copy -force $entry "./src"
                                 }
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/ecc_keypair" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$client/core/ecc_keypair" *]] {
                                         file copy -force $entry "./src"
                                 }
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/trng" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$client/core/trng" *]] {
                                         file copy -force $entry "./src"
                                 }
 			} elseif {($proc_type == "microblaze" && [llength $is_versal_aiepg2] > 0) ||
                                 $proc_type == "cortexa78" || $proc_type == "cortexr52"} {
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/sha/sha_pmxc" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$client/core/sha/sha_pmxc" *]] {
                                         file copy -force $entry "./src"
                                 }
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/key_zeroize" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$client/core/key_zeroize" *]] {
                                         file copy -force $entry "./src"
                                 }
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/ecc_keypair" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$client/core/ecc_keypair" *]] {
                                         file copy -force $entry "./src"
                                 }
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/core/trng" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$client/core/trng" *]] {
                                         file copy -force $entry "./src"
                                 }
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/common/versal_aiepg2" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$common/versal_aiepg2" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_gen/client/versal_aiepg2" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$client/versal_aiepg2" *]] {
 					file copy -force $entry "./src"
 				}
 			} else {

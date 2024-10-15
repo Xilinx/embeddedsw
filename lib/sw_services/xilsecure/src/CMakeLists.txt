@@ -27,15 +27,20 @@ endif()
 
 collect (PROJECT_LIB_HEADERS xsecure_ver.h)
 
-if(("${CMAKE_MACHINE}" STREQUAL "Versal") OR
-	("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
-  add_subdirectory(versal_gen)
-elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
-  add_subdirectory(zynqmp)
-elseif (("${CMAKE_MACHINE}" STREQUAL "SPARTANUP") AND
-  ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
-  add_subdirectory(spartanup)
-  add_subdirectory(versal_gen)
+if((("${CMAKE_MACHINE}" STREQUAL "Versal") OR
+	("${CMAKE_MACHINE}" STREQUAL "VersalNet")) AND
+	("${XILSECURE_mode}" STREQUAL "client"))
+  add_subdirectory(client)
+  add_subdirectory(common)
+elseif ((("${CMAKE_MACHINE}" STREQUAL "Versal") OR
+        ("${CMAKE_MACHINE}" STREQUAL "VersalNet")) AND
+        ("${XILSECURE_mode}" STREQUAL "server"))
+   add_subdirectory(server)
+   add_subdirectory(common)
+elseif(("${CMAKE_MACHINE}" STREQUAL "ZynqMP") OR
+	(("${CMAKE_MACHINE}" STREQUAL "SPARTANUP") AND
+	("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze")))
+   add_subdirectory(server)
 endif()
 
 collector_list (_sources PROJECT_LIB_SOURCES)
