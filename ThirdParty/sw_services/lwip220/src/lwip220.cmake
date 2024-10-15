@@ -159,7 +159,11 @@ set(ICMP_TTL ${lwip220_icmp_ttl})
 if (${lwip220_ipv6_enable})
    set(LWIP_IPV6 " ")
 endif()
-set(LWIP_IGMP ${lwip220_igmp_options})
+
+#IGMP options
+if (${lwip220_igmp_options})
+    set(LWIP_IGMP 1)
+endif()
 
 #IP options
 set(IP_OPTIONS ${lwip220_ip_options})
