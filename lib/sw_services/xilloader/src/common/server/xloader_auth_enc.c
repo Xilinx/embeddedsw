@@ -269,7 +269,7 @@ static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_ClearAesKeysOnCfg(void);
 
 #ifdef VERSAL_AIEPG2
-static int XLoader_AutheticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBSignParams *HBSignParams);
+static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBSignParams *HBSignParams);
 static int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash);
 static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
         XLoader_HBSignParams *HBSignParams);
@@ -2358,20 +2358,21 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		 * Validate the HashBlock 1 integrity with HashBlock 1 hash
 		 * present in HashBlock 0
 		 */
-		Status = XST_FAILURE;
-		Status = XLoader_ValidateHashBlock1Integrity(SecurePtr);
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_ValidateHashBlock1Integrity,
+			SecurePtr);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		/* Validate HashBlock AAD */
+		/**
+		 * Validate HashBlock AAD.
+		 */
 		HBAesParams.HashBlockOffset = MetaHdr->ImgHdrTbl.HashBlockOffset * XIH_PRTN_WORD_LEN;
 		HBAesParams.HashBlockSize = MetaHdr->ImgHdrTbl.HashBlockSize * XIH_PRTN_WORD_LEN;
 		HBAesParams.KeySrc = KeySrc;
 		HBAesParams.IvPtr = (u8 *)&MetaHdr->ImgHdrTbl.IvMetaHdr;
-
-		Status = XST_FAILURE;
-		Status = XLoader_ValidateHashBlockAAD(SecurePtr, &HBAesParams);
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_ValidateHashBlockAAD,
+			SecurePtr, &HBAesParams);
 		if (Status != XST_SUCCESS) {
 			XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_AAD_VALIDATE, Status);
 			goto END;
@@ -2381,8 +2382,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	/**
 	 * Verify Integrity of Total MetaHeader
 	 */
-	Status = XST_FAILURE;
-	Status = XLoader_ValidateMetaHdrIntegrity(SecurePtr);
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_ValidateMetaHdrIntegrity, SecurePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -3857,7 +3857,7 @@ END:
 * 		XST_SUCCESS - In case of success
 *		ErrorCode on failure.
 *******************************************************************************/
-static int XLoader_AutheticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBSignParams *HBSignParams)
+static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBSignParams *HBSignParams)
 {
 	volatile int Status = XST_FAILURE;
 	u8 SpkHash[XLOADER_SHA3_LEN];
@@ -4153,9 +4153,10 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 	 * Skip PPK hash comparison for BH auth
 	 * Authenticate SPK using PPK
 	 */
-	Status = XLoader_AutheticateKeys(SecurePtr, HBSignParams);
+	Status = XLoader_AuthenticateKeys(SecurePtr, HBSignParams);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO, "Spk Authentication Failed\r\n");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_KEY_AUTH_FAIL, Status);
 		goto END;
 	}
 
@@ -4246,7 +4247,7 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha *ShaInstPtr = NULL;
-	u32 AuthType;
+	u32 AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
 
 	XPlmi_Printf(DEBUG_INFO, "LMS Authentication\n\r");
 
@@ -4274,8 +4275,7 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
-
+	Status = XST_FAILURE;
 	if (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS) {
 		/** Initiate data authentication using LMS-HSS */
 		Status = XSecure_HssInit(ShaInstPtr, SecurePtr->PmcDmaInstPtr,
@@ -4286,6 +4286,7 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 		}
 
 		/** Calculate Digest of data to be authenticated as per LMS-HSS */
+		Status = XST_FAILURE;
 		Status = XSecure_LmsHashMessage(ShaInstPtr,
 				Hash, SecurePtr->HashDigestLen, SecurePtr->SignHashAlgo);
 		if (Status != XST_SUCCESS) {
@@ -4293,6 +4294,7 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 		}
 
 		/** Complete data authentication using LMS-HSS */
+		Status = XST_FAILURE;
 		Status = XSecure_HssFinish(ShaInstPtr, SecurePtr->PmcDmaInstPtr,
 				SignBuff, SignatureLen);
 	}
@@ -4393,6 +4395,7 @@ static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
 	}
 
 	/** Calculate HashBlock AAD and validate with the tag read */
+	Status = XST_FAILURE;
 	Status = XSecure_AesUpdateAadAndValidate(SecurePtr->AesInstPtr,
 		(UINTPTR)MetaHdrPtr->HashBlock.HashData, HBParams->HashBlockSize,
 		(UINTPTR)HashBlockGcmTag);
@@ -5082,9 +5085,6 @@ static int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType)
 		}
 		else if (AuthType == XLOADER_PUB_STRENGTH_LMS) {
 			Status = XLoader_LmsShake256Kat(SecurePtr);
-		}
-		if (Status != XST_SUCCESS) {
-			goto END;
 		}
 	}
 	else if (SecurePtr->SignHashAlgo == XSECURE_SHA2_256) {
