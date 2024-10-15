@@ -296,7 +296,7 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
             if not domain_dts:
                 if utils.is_file(lops_file):
                     utils.runcmd(
-                        f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
+                        f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc} {self.app}",
                         log_message="Domain-specific DTS generation "
                     )
                 else:
@@ -488,7 +488,7 @@ def create_domain(args):
     # Create lops file
     config_lops_file = os.path.join(obj.domain_dir, "lop-config.dts")
     lop_cmds = []
-    lop_cmds.append([bspsrc, "module,baremetal_bspconfig_xlnx", f"{obj.proc} {os_srcdir}"])
+    lop_cmds.append([bspsrc, "module,baremetal_bspconfig_xlnx", f"{obj.proc} {os_srcdir} {obj.app}"])
     lop_cmds.append([bspcomsrc, "module,bmcmake_metadata_xlnx", f"{obj.proc} {os_srcdir} hwcmake_metadata {obj.repo_yaml_path}"])
 
     # Copy cmake file that contains cmake utility APIs to a common location.
@@ -648,7 +648,7 @@ def create_domain(args):
     build_metadata = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp")
     utils.mkdir(build_metadata)
 
-    lop_cmds.append([obj.include_folder, "module,baremetal_xparameters_xlnx", f"{obj.proc} {obj.repo_yaml_path}"])
+    lop_cmds.append([obj.include_folder, "module,baremetal_xparameters_xlnx", f"{obj.proc} {obj.repo_yaml_path} {obj.app}"])
     utils.write_into_file(config_lops_file, lop_create_target(lop_cmds))
     utils.runcmd(
         f"lopper -O {obj.domain_dir} -i {config_lops_file} -f {obj.sdt}",
