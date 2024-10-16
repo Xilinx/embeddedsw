@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,16 +26,16 @@ u32 ProcDevList[PROC_DEV_MAX] = {
 	[ACPU_13] = PM_DEV_ACPU_3_1,
 	[ACPU_14] = PM_DEV_ACPU_3_2,
 	[ACPU_15] = PM_DEV_ACPU_3_3,
-	[RPU0_0] = PM_DEV_RPU_A_0,
-	[RPU0_1] = PM_DEV_RPU_A_1,
-	[RPU1_0] = PM_DEV_RPU_B_0,
-	[RPU1_1] = PM_DEV_RPU_B_1,
-	[RPU2_0] = PM_DEV_RPU_C_0,
-	[RPU2_1] = PM_DEV_RPU_C_1,
-	[RPU3_0] = PM_DEV_RPU_D_0,
-	[RPU3_1] = PM_DEV_RPU_D_1,
-	[RPU4_0] = PM_DEV_RPU_E_0,
-	[RPU4_1] = PM_DEV_RPU_E_1,
+	[RPUA_0] = PM_DEV_RPU_A_0,
+	[RPUA_1] = PM_DEV_RPU_A_1,
+	[RPUB_0] = PM_DEV_RPU_B_0,
+	[RPUB_1] = PM_DEV_RPU_B_1,
+	[RPUC_0] = PM_DEV_RPU_C_0,
+	[RPUC_1] = PM_DEV_RPU_C_1,
+	[RPUD_0] = PM_DEV_RPU_D_0,
+	[RPUD_1] = PM_DEV_RPU_D_1,
+	[RPUE_0] = PM_DEV_RPU_E_0,
+	[RPUE_1] = PM_DEV_RPU_E_1,
 };
 
 XStatus XPmPlatAddProcDevice(u32 DeviceId, u32 Ipi, u32 *BaseAddr, XPm_Power *Power)

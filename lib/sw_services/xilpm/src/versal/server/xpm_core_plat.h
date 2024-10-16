@@ -32,6 +32,10 @@ static inline XStatus XPmCore_PlatClkReq(const XPm_ClockHandle *ClkHandles)
 {
 	return XPmClock_Request(ClkHandles);
 }
+maybe_unused static inline void XPmCore_EnablePcil(XPm_Core *Core)
+{
+	(void)Core;
+}
 
 #ifdef __cplusplus
 }

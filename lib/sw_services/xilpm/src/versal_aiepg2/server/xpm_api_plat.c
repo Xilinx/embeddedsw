@@ -428,6 +428,16 @@ done:
 	return Status;
 }
 
+XStatus XPm_HookAfterBootPdi(void)
+{
+	/* TODO: Review where interrupts need to be enabled */
+	/* Enable power related interrupts to PMC */
+	XPm_RMW32(PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN, PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN_MASK,
+		  PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN_MASK);
+
+	return XST_SUCCESS;
+}
+
 static XStatus PldInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;

@@ -3877,6 +3877,9 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 		/* Required by MISRA */
 	}
 
+	/* Enable PCIL */
+	XPmCore_EnablePcil(Core);
+
 	XPm_ClearScanClear();
 
 done:

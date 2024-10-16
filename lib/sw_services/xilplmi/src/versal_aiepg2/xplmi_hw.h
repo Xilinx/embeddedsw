@@ -51,6 +51,7 @@
 *       ma   09/20/2024 Added PMC_TAP_VERSION_COSIM mask for COSIM platform
 *                       Also, corrected XPLMI_PLATFORM_MASK value
 *       yog  09/30/2024 Corrected ASU RAM high address
+*	nb   10/07/2024 Add PMC IOMODULE interrupt for power interrupts
 *
 * </pre>
 *
@@ -1453,6 +1454,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_IOMODULE_ERR_IRQ			(18U)
 #define XPLMI_IOMODULE_CFRAME_SEU		(20U)
 #define XPLMI_IOMODULE_PMC_IPI			(28U)
+#define XPLMI_IOMODULE_PMC_PWR_MB		(30U)
 
 #define PMC_PMC_MB_IO_IRQ_ACK			(0xF030003CU)
 

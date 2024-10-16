@@ -49,6 +49,7 @@
 *       ma   03/15/2024 Do not stop PIT3 timer during In-place PLM update
 * 1.04  sk   08/26/2024 Updated EAM support for Versal Aiepg2
 *       yog  09/09/2024 Updated XPlmi_VerifyAddrRange API to handle ASU memory regions
+*       nb   09/16/2024 Register interrupt for PMC power interrupts
 *
 * </pre>
 *
@@ -77,6 +78,7 @@
 #include "xplmi_proc.h"
 #include "xil_util.h"
 #include "xplmi_err.h"
+#include "xpm_power_handlers.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_ROM_VERSION_1_0		(0x10U) /**< ROM version 1 */
@@ -1224,4 +1226,28 @@ XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
 	}
 
 	return BufferList;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function registers and enables power related interrupt
+ *
+ * @return	XST_SUCCESS on success and XST_FAILURE or other error code on
+ *		failure.
+ *
+ *****************************************************************************/
+int XPlmi_RegisterNEnablePwrIntr(void)
+{
+	int Status = XST_FAILURE;
+
+	Status = XPlmi_RegisterHandler(XPLMI_IOMODULE_PMC_PWR_MB, XPm_PwrIntrHandler,
+				       (void *)XPLMI_IOMODULE_PMC_PWR_MB);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_PMC_PWR_MB);
+
+END:
+	return Status;
 }

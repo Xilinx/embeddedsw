@@ -13,57 +13,57 @@ void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u
 {
 	RpuCore->RpuBaseAddr = BaseAddress[0U];
 	RpuCore->ClusterBaseAddr = BaseAddress[1U];
-	const XPm_PsLpDomain *PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
+
 	if (PM_DEV_RPU_A_0 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_A0_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUA_CORE0_MASK;
-		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_A0_ISR_OFFSET;
+		RpuCore->PcilIsr = PSXC_RPU_CLUSTER_A0_CORE_0_PWRDWN;
 	} else if (PM_DEV_RPU_A_1 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_A1_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUA_CORE1_MASK;
-		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_A1_ISR_OFFSET;
+		RpuCore->PcilIsr = PSXC_RPU_CLUSTER_A1_CORE_1_PWRDWN;
 	} else if (PM_DEV_RPU_B_0 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_B0_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUB_CORE0_MASK;
-		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_B0_ISR_OFFSET;
+		RpuCore->PcilIsr = PSXC_RPU_CLUSTER_B0_CORE_0_PWRDWN;
 	} else if (PM_DEV_RPU_B_1 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_B1_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUB_CORE1_MASK;
-		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_B1_ISR_OFFSET;
+		RpuCore->PcilIsr = PSXC_RPU_CLUSTER_B1_CORE_1_PWRDWN;
 	} else if (PM_DEV_RPU_C_0 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_C0_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUC_CORE0_MASK;
-		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_C0_ISR_OFFSET;
+		RpuCore->PcilIsr = PSXC_RPU_CLUSTER_C0_CORE_0_PWRDWN;
 	} else if (PM_DEV_RPU_C_1 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_C1_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUC_CORE1_MASK;
-		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_C1_ISR_OFFSET;
+		RpuCore->PcilIsr = PSXC_RPU_CLUSTER_C1_CORE_1_PWRDWN;
 	} else if (PM_DEV_RPU_D_0 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_D0_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUD_CORE0_MASK;
-		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_D0_ISR_OFFSET;
+		RpuCore->PcilIsr = PSXC_RPU_CLUSTER_D0_CORE_0_PWRDWN;
 	} else if (PM_DEV_RPU_D_1 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_D1_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUD_CORE1_MASK;
-		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_D1_ISR_OFFSET;
+		RpuCore->PcilIsr = PSXC_RPU_CLUSTER_D1_CORE_1_PWRDWN;
 	} else if (PM_DEV_RPU_E_0 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_E0_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUE_CORE0_MASK;
-		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_E0_ISR_OFFSET;
+		RpuCore->PcilIsr = PSXC_RPU_CLUSTER_E0_CORE_0_PWRDWN;
 	} else if (PM_DEV_RPU_E_1 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = PSXC_LPX_SLCR_RPU_E1_POWER_DWN_MASK;
 		RpuCore->Core.WakeUpMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUE_CORE1_MASK;
-		RpuCore->PcilIsr = PsLpd->LpdSlcrBaseAddr + PSXC_LPX_SLCR_RPU_PCIL_E1_ISR_OFFSET;
+		RpuCore->PcilIsr = PSXC_RPU_CLUSTER_E1_CORE_1_PWRDWN;
 	}
 }
 
@@ -153,7 +153,7 @@ void XPmRpuCore_SetTcmBoot(const u32 DeviceId, const u8 TcmBootFlag){
 XStatus XPm_PlatRpucoreHalt(XPm_Core *Core){
 	XStatus Status = XST_FAILURE;
 	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
-	u32 Reg = 0;
+	u32 Reg = 0U;
 
 	if((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State){
 		/* Put RPU in  halt state */

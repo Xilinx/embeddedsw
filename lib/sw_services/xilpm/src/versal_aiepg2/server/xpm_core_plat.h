@@ -31,6 +31,8 @@ XStatus XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address);
 XStatus XPmCore_HasResumeAddr(const XPm_Core *Core);
 XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag);
 XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, u32 *CpuIdleFlag);
+void XPmCore_EnablePcil(XPm_Core *Core);
+void XPmCore_AfterDirectPwrUp(XPm_Core *Core);
 
 maybe_unused static inline  XStatus XPm_PlatSendDirectPowerDown(const XPm_Core *Core)
 {

@@ -21,6 +21,7 @@ extern "C" {
 							XPM_RPU_CPUHALT_MASK)
 #define XPM_RPU_CORE_RUN(ResumeCfg)		PmRmw32(ResumeCfg, XPM_RPU_CPUHALT_MASK,\
 							~XPM_RPU_CPUHALT_MASK)
+#define XPM_RPU_CPUHALT_MASK		BIT(0)
 
 typedef struct XPm_RpuCore XPm_RpuCore;
 
