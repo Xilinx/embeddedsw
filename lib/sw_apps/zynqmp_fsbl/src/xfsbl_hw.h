@@ -31,6 +31,7 @@
 * 6.0   bsv  08/03/22 Fix ECC error count for R5 FSBL
 * 6.1   ng   07/13/23 Added SDT support
 * 6.2   ng   06/05/24 Fixed the WDT mask macro
+* 10.2  ng   10/15/24 Added new mask to identify sub family from IDCODE
 *
 * </pre>
 *
@@ -168,6 +169,10 @@ extern "C" {
 #define CSU_IDCODE_SVD_MASK		(0x7U << CSU_IDCODE_SVD_SHIFT)
 #define CSU_IDCODE_DEVICE_CODE_SHIFT	15U
 #define CSU_IDCODE_DEVICE_CODE_MASK	(0xFU << CSU_IDCODE_DEVICE_CODE_SHIFT)
+#define CSU_IDCODE_SUB_FAMILY_SHIFT	19U
+#define CSU_IDCODE_SUB_FAMILY_MASK	(0x3U << CSU_IDCODE_SUB_FAMILY_SHIFT)
+#define CSU_IDCODE_SUB_DEV_SVD_MASK	(CSU_IDCODE_SUB_FAMILY_MASK | CSU_IDCODE_DEVICE_CODE_MASK \
+					 | CSU_IDCODE_SVD_MASK)
 
 /* efuse */
 
