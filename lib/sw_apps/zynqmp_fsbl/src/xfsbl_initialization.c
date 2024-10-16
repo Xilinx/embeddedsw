@@ -56,7 +56,8 @@
 * 9.0   bsv  10/15/21 Fixed bug to support secondary boot with non-zero
 *                     multiboot offset
 * 9.1   ng   07/13/23 Added SDT support
-* 9.2   ng   09/25/24 Fix prints to print device ID returned from XFsbl_GetSiliconIdName
+* 10.0  ng   09/25/24 Fix prints to print device ID returned from XFsbl_GetSiliconIdName
+* 10.1  ng   10/15/24 Change print format for unknown device and handle KRIA K24 SOM
 *
 * </pre>
 *
@@ -624,7 +625,9 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	SiliconId = XFsbl_GetSiliconIdName();
 	(void)XFsbl_Strcpy(DevName, XFsbl_GetProcEng());
 	if (SiliconId < 0) {
-		XFsbl_Printf(DEBUG_GENERAL, ", Device Name: XCZUUNKN%s\n\r", DevName);
+		XFsbl_Printf(DEBUG_GENERAL, ", Device Name: XCZUxx%s\n\r", DevName);
+	} else if (SiliconId == 0) {
+		XFsbl_Printf(DEBUG_GENERAL, ", Device Name: Kria K24 SOM\n\r");
 	} else {
 		XFsbl_Printf(DEBUG_GENERAL, ", Device Name: XCZU%d%s\n\r", SiliconId, DevName);
 	}
