@@ -175,7 +175,7 @@ portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 	}
 	else
 	{
-		LWIP_DEBUGF(NETIF_DEBUGF, ("Queue is full\r\n"));
+		LWIP_DEBUGF(NETIF_DEBUG, ("Queue is full\r\n"));
 		/* The queue was already full. */
 		xReturn = ERR_MEM;
 		SYS_STATS_INC( mbox.err );
