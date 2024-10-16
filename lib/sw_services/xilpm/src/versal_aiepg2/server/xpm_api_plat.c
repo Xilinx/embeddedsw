@@ -936,3 +936,50 @@ int XPm_UpdateHandler(XPlmi_ModuleOp Op)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  Add platform specific periph node.
+ *
+ * @param  PowerId	Power domain ID of node.
+ * @param  Args		Node specific data.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ ****************************************************************************/
+XStatus XPm_PlatAddNodePeriph(const u32 *Args, u32 PowerId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 BaseAddr;
+	u32 DeviceId;
+	u32 Index;
+	XPm_AieNode *AieDevice;
+	XPm_Power *Power;
+
+	DeviceId = Args[0];
+	BaseAddr = Args[2];
+	Index = NODEINDEX(DeviceId);
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+	        Status = XST_DEVICE_NOT_FOUND;
+	        goto done;
+	}
+
+	switch (Index) {
+	case (u32)XPM_NODEIDX_DEV_AIE:
+		AieDevice = (XPm_AieNode *)XPm_AllocBytes(sizeof(XPm_AieNode));
+		if (NULL == AieDevice) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+
+		Status = XPmDevice_Init(&AieDevice->Device, DeviceId, BaseAddr, Power, NULL, NULL);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+        }
+
+done:
+	return Status;
+}

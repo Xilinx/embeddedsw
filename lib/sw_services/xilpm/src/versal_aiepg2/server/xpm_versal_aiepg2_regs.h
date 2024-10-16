@@ -853,3 +853,11 @@
 /* TODO: Check these values are correct */
 #define PSXC_LPX_SLCR_POWER_DWN_IRQ_DIS_RPU_SHIFT		(4U)
 #define PSXC_GLOBAL_REG_PWR_CTRL1_IRQ_RPU_X_COREX_SHIFT		(4U)
+
+/*
+ * AIE2PS
+ */
+
+#ifndef VIVADO_ME_BASEADDR
+       #define VIVADO_ME_BASEADDR                                      (0x20000000000UL)
+#endif

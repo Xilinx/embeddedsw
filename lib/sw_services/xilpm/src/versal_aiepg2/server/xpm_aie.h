@@ -7,11 +7,25 @@
 #ifndef XPM_AIE_H_
 #define XPM_AIE_H_
 
+#include "xpm_pldevice.h"
 #include "xpm_powerdomain.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define AIE_GENV2                (2U)
+
+/* AI Engine dimensions */
+#define ARR_GENV(ArrWord)      ((u16)((ArrWord) & 0xFFFFU))
+#define ARR_ROWS(ArrWord)      ((u16)((ArrWord) & 0xFFFFU))
+#define ARR_COLS(ArrWord)      ((u16)(((ArrWord) >> 16U) & 0xFFFFU))
+#define ARR_AIEROWS(ArrWord)   ((u16)(((ArrWord) >> 16U) & 0xFFFFU))
+#define ARR_MEMROWS(ArrWord)   ((u16)(((ArrWord) >> 8U) & 0xFFU))
+#define ARR_SHMROWS(ArrWord)   ((u16)((ArrWord) & 0xFFU))
+#define ARR_TROWOFF(ArrWord)   ((u8)(((ArrWord) >> 16U) & 0xFFU))
+#define ARR_RCOLOFF(ArrWord)   ((u8)(((ArrWord) >> 8U) & 0xFFU))
+#define ARR_LCOLOFF(ArrWord)   ((u8)((ArrWord) & 0xFFU))
 
 typedef struct XPm_AieArray XPm_AieArray;
 typedef struct XPm_AieDomain XPm_AieDomain;
@@ -50,6 +64,14 @@ struct XPm_AieDomain {
 	XPm_AieArray Array;	/**< AIE device instance */
 	XPm_AieDomainOpHooks Hooks;	/**< Hooks for AIE domain ops */
 };
+
+/**
+ * AIE base device node
+ */
+typedef struct XPm_AieNode {
+	XPm_Device Device;              /**< Device: Base class */
+	u32 DefaultClockDiv;            /**< Default AIE clock divider at boot */
+} XPm_AieNode;
 
 /************************** Function Prototypes ******************************/
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
