@@ -32,6 +32,7 @@ XStatus XPm_HookAfterPlmCdo(void);
 XStatus XPm_HookAfterBootPdi(void);
 XStatus XPm_PlatAddNode(const u32 *Args, u32 NumArgs);
 XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version);
+XStatus XPm_PlatAddNodePeriph(const u32 *Args, u32 PowerId);
 int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd);
 XStatus XPm_PlatAddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 				     u32 ReqFlags, const u32 *Args, u32 NumArgs);
@@ -48,14 +49,6 @@ maybe_unused static inline XStatus XPm_PlatAddDevice(const u32 *Args, u32 NumArg
 	(void)Args;
 	(void)NumArgs;
 	return XST_INVALID_PARAM;
-}
-
-maybe_unused static inline XStatus XPm_PlatAddNodePeriph(const u32 *Args, u32 PowerId)
-{
-	/*unused function in versal net*/
-	(void)Args;
-	(void)PowerId;
-	return XST_FAILURE;
 }
 
 XStatus XPm_PlatInit(void);
