@@ -29,6 +29,7 @@ int XPm_RegisterWakeUpHandlers(void);
 
 XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs);
 XStatus XPm_HookAfterPlmCdo(void);
+XStatus XPm_HookAfterBootPdi(void);
 XStatus XPm_PlatAddNode(const u32 *Args, u32 NumArgs);
 XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version);
 int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd);

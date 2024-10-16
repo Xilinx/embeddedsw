@@ -22,6 +22,7 @@
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 *       ma   09/23/2024 Added support for PSM-PLM IPI events
+* 1.12  nb   10/09/2024 Add XilPM hook to XPlm_HookAfterBootPdi
 *
 * </pre>
 *
@@ -129,6 +130,13 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+
+		/* Register power control interrupt handler */
+		Status = XPlmi_RegisterNEnablePwrIntr();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
 		/* Call LibPM hook */
 		Status = XPm_HookAfterPlmCdo();
 		if (XST_SUCCESS != Status) {
@@ -151,6 +159,10 @@ END:
 int XPlm_HookAfterBootPdi(void *Arg)
 {
 	(void)Arg;
+	int Status = XST_FAILURE;
 
-	return XST_SUCCESS;
+	/* Call XilPM hook */
+	Status = XPm_HookAfterBootPdi();
+
+	return Status;
 }

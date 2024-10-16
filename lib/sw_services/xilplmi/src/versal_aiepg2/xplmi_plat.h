@@ -751,6 +751,7 @@ u8 XPlmi_IsKatRan(u32 PlmKatMask);
 u32 XPlmi_GetRomIroFreq(void);
 XIOModule *XPlmi_GetIOModuleInst(void);
 int XPlmi_VersalAiepG2EAMHandler(void *Data);
+int XPlmi_RegisterNEnablePwrIntr(void);
 
 /* Functions defined in xplmi_plat_cmd.c */
 int XPlmi_InPlacePlmUpdate(XPlmi_Cmd *Cmd);

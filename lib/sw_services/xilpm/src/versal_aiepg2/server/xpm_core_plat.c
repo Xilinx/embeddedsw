@@ -7,6 +7,7 @@
 #include "xpm_notifier.h"
 #include "xpm_rpucore.h"
 #include "xpm_debug.h"
+#include "xpm_apucore.h"
 
 static void EnableWake(const struct XPm_Core *Core)
 {
@@ -84,6 +85,14 @@ XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 
 done:
 	return Status;
+}
+
+inline void XPmCore_AfterDirectPwrUp(XPm_Core *Core)
+{
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
+	Core->isCoreUp = 1U;
+	/* Send notification about core state change */
+	XPmNotifier_Event(Core->Device.Node.Id, (u32)EVENT_STATE_CHANGE);
 }
 
 XStatus ResetAPUGic(const u32 DeviceId)
@@ -181,6 +190,24 @@ XStatus XPmCore_HasResumeAddr(const XPm_Core *Core)
 
 done:
 	return Status;
+}
+
+void XPmCore_EnablePcil(XPm_Core *Core)
+{
+	const XPm_ApuCore *ApuCore;
+	const XPm_RpuCore *RpuCore;
+
+	/* Enable core PCIL */
+	if ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Core->Device.Node.Id)) {
+		ApuCore = (XPm_ApuCore *)Core;
+		XPm_Out32(ApuCore->PcilPwrDwnReg + APU_PCIL_CORE_IEN_POWER_OFFSET,
+			  APU_PCIL_CORE_PWRDWN_MASK);
+	} else if ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Core->Device.Node.Id)) {
+		RpuCore = (XPm_RpuCore *)Core;
+		XPm_Out32(RpuCore->PcilIsr, PSXC_RPU_CLUSTER_CORE_PWRDWN_MASK);
+	} else {
+		/* Required for MISRA */
+	}
 }
 
 XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag)

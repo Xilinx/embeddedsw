@@ -9,7 +9,7 @@
 
 #include "xpm_defs.h"
 #include "xpm_node.h"
-#include "xpm_versal_gen2_regs.h"
+#include "xpm_versal_aiepg2_regs.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,6 +47,7 @@ extern "C" {
 #define ACPU_PACCEPT_TIMEOUT		(1000U)
 #define RPU_PACTIVE_TIMEOUT		(1000U)
 
+
 enum ProcDeviceId {
 	ACPU_0,
 	ACPU_1,
@@ -64,16 +65,16 @@ enum ProcDeviceId {
 	ACPU_13,
 	ACPU_14,
 	ACPU_15,
-	RPU0_0,
-	RPU0_1,
-	RPU1_0,
-	RPU1_1,
-	RPU2_0,
-	RPU2_1,
-	RPU3_0,
-	RPU3_1,
-	RPU4_0,
-	RPU4_1,
+	RPUA_0,
+	RPUA_1,
+	RPUB_0,
+	RPUB_1,
+	RPUC_0,
+	RPUC_1,
+	RPUD_0,
+	RPUD_1,
+	RPUE_0,
+	RPUE_1,
 	PROC_DEV_MAX,
 };
 
@@ -161,7 +162,9 @@ struct XPmFwPwrCtrl_t {
 	u32 ClkCtrlAddr; /**< Address of the clock control register */
 	u32 ClkPropTime; /**< RST_ACPU0_SEQ_PROP_TIME */
 	u32 RstAddr; /**< Address of the RST_APUX for Individual block */
-
+	u32 ScanMemClearMask; /**< Mask for scan/mem clear trigger */
+	u32 PwrCtrlMask; /**< Mask for power_dwn/wakeup IRQ */
+	u32 PwrUpDwnMask; /**< Mask for REQ PWRUP/DOWN IRQ */
 };
 
 /* OCM power control structure */
@@ -179,6 +182,7 @@ struct XPmTcmPwrCtrl_t {
 	struct XPmFwMemPwrCtrl_t TcmMemPwrCtrl;
 	enum TcmBankId Id; /**< Id of TCM bank */
 	enum TcmPowerState PowerState; /**< Current power state of the TCM bank */
+	u32 PwrDwnStatusMask;
 };
 
 struct XPmFwGemPwrCtrl_t {
@@ -191,6 +195,19 @@ struct XPmFwGemPwrCtrl_t {
 	u32 PwrUpWaitTime; /**< mem_BANKx_PWRUP_WAIT_TIME */
 };
 
+/* Power Handler Table Structure */
+struct PwrHandlerTable_t {
+	u32 PwrUpMask;
+	u32 PwrDwnMask;
+	struct XPmFwPwrCtrl_t *Args;
+};
+
+/* Power control and wakeup Handler Table Structure */
+struct PwrCtlWakeupHandlerTable_t {
+	u32 DeviceId;
+	u32 Mask;
+	struct XPmFwPwrCtrl_t *Args;
+};
 
 /************************** Function Prototypes ******************************/
 XStatus XPm_DirectPwrDwn(const u32 DeviceId);
@@ -199,6 +216,15 @@ XStatus XPmPower_SendIslandPowerDwnReq(const XPm_Node *Node);
 XStatus XPmPower_SendIslandPowerUpReq(const XPm_Node *Node);
 XStatus XPmPower_PlatSendPowerUpReq(XPm_Node *Node);
 XStatus XPmPower_PlatSendPowerDownReq(const XPm_Node *Node);
+XStatus XPm_DispatchApuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);
+XStatus XPm_DispatchRpuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);
+XStatus XPm_DispatchApuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
+                                     u32 PwrUpStatus, u32 PwrUpIntMask);
+XStatus XPm_DispatchRpuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
+                                     u32 PwrUpStatus, u32 PwrUpIntMask);
+XStatus XPm_DispatchApuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
+XStatus XPm_DispatchRpuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
+XStatus XPm_DispatchPwrCtrlHandler(u32 PwrRstStatus, u32 PwrRstMask);
 
 maybe_unused static inline void XPmPower_SetPsmRegInfo(XPm_Power *Power, const u32 *Args)
 {
