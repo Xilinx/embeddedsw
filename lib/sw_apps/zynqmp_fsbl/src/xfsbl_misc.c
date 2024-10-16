@@ -24,6 +24,7 @@
 * 6.2   pre  29/12/23 XFsbl_PollTimeout function is removed
 * 6.3   ng   09/25/24 Return device ID as a number instead of pointer to string
 *                     in read-only memory region
+* 10.2  ng   10/15/24 Update lookup table with new device ID codes
 *
 * </pre>
 *
@@ -42,6 +43,11 @@
 #define XFSBL_NUM_DIGITS_IN_FILE_NAME 4
 
 /**************************** Type Definitions *******************************/
+typedef struct {
+	u32 Id;
+	u32 Name;
+} XFsblPs_ZynqmpDevices;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Prototypes ******************************/
 static void XFsbl_UndefHandler (void);
@@ -676,52 +682,58 @@ void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib)
 s32 XFsbl_GetSiliconIdName(void)
 {
 	/* Lookup table for Device-SVD Id and DeviceId Name */
-	u32 DevSvdId;
-	s32 DeviceId = -1;
+	static XFsblPs_ZynqmpDevices ZynqmpDevices[] = {
+		{ 0x088U,  1U },
+		{ 0x0D0U, 67U },
+		{ 0x0D1U, 65U },
+		{ 0x0D2U, 55U },
+		{ 0x0D3U, 57U },
+		{ 0x0D4U, 42U },
+		{ 0x0D5U, 63U },
+		{ 0x0D6U, 64U },
+		{ 0x112U,  0U },
+		{ 0x111U,  2U },
+		{ 0x110U,  3U },
+		{ 0x121U,  4U },
+		{ 0x120U,  5U },
+		{ 0x130U,  7U },
+		{ 0x139U,  6U },
+		{ 0x138U,  9U },
+		{ 0x140U, 11U },
+		{ 0x150U, 15U },
+		{ 0x159U, 17U },
+		{ 0x158U, 19U },
+		{ 0x1E1U, 21U },
+		{ 0x1E3U, 23U },
+		{ 0x1E5U, 25U },
+		{ 0x1E4U, 27U },
+		{ 0x1E0U, 28U },
+		{ 0x1E2U, 29U },
+		{ 0x1E6U, 39U },
+		{ 0x1FDU, 43U },
+		{ 0x1F8U, 46U },
+		{ 0x1FFU, 47U },
+		{ 0x1FBU, 48U },
+		{ 0x1FEU, 49U },
+		{ 0x1F9U, 58U },
+		{ 0x1FCU, 59U },
+	};
+	u32 SubDevSvdId;
+	u32 Index;
+	u32 DevName = -1;
 
-	DevSvdId = XFsbl_In32(CSU_IDCODE);
+	SubDevSvdId = XFsbl_In32(CSU_IDCODE);
+	SubDevSvdId &= CSU_IDCODE_SUB_DEV_SVD_MASK;
+	SubDevSvdId >>= CSU_IDCODE_SVD_SHIFT;
 
-	DevSvdId &= CSU_IDCODE_DEVICE_CODE_MASK | CSU_IDCODE_SVD_MASK;
-	DevSvdId >>= CSU_IDCODE_SVD_SHIFT;
-
-	switch (DevSvdId) {
-		case 0x10U:
-			DeviceId = 3;
+	for (Index = 0U; Index < ARRAY_SIZE(ZynqmpDevices); Index++) {
+		if (ZynqmpDevices[Index].Id == SubDevSvdId) {
+			DevName = ZynqmpDevices[Index].Name;
 			break;
-		case 0x11U:
-			DeviceId = 2;
-			break;
-		case 0x20U:
-			DeviceId = 5;
-			break;
-		case 0x21U:
-			DeviceId = 4;
-			break;
-		case 0x30U:
-			DeviceId = 7;
-			break;
-		case 0x38U:
-			DeviceId = 9;
-			break;
-		case 0x39U:
-			DeviceId = 6;
-			break;
-		case 0x40U:
-			DeviceId = 11;
-			break;
-		case 0x50U:
-			DeviceId = 15;
-			break;
-		case 0x58U:
-			DeviceId = 19;
-			break;
-		case 0x59U:
-			DeviceId = 17;
-			break;
-		default: DeviceId = -1;
+		}
 	}
 
-	return DeviceId;
+	return DevName;
 }
 
 /*****************************************************************************
@@ -736,15 +748,15 @@ s32 XFsbl_GetSiliconIdName(void)
 ******************************************************************************/
 const char *XFsbl_GetProcEng(void)
 {
-	u32 DevSvdId = XFsbl_In32(CSU_IDCODE);
-	DevSvdId &= CSU_IDCODE_DEVICE_CODE_MASK | CSU_IDCODE_SVD_MASK;
-	DevSvdId >>= CSU_IDCODE_SVD_SHIFT;
+	u32 SubDevSvdId = XFsbl_In32(CSU_IDCODE);
+	SubDevSvdId &= CSU_IDCODE_SUB_DEV_SVD_MASK;
+	SubDevSvdId >>= CSU_IDCODE_SVD_SHIFT;
 
 	if ((XFsbl_In32(EFUSE_IPDISABLE) & EFUSE_IPDISABLE_CG_MASK) ==
 			EFUSE_IPDISABLE_CG_MASK) {
 		return "CG";
 	}
-	else if((DevSvdId == 0x20U) || (DevSvdId == 0x21U) || (DevSvdId == 0x30U))
+	else if((SubDevSvdId == 0x120U) || (SubDevSvdId == 0x121U) || (SubDevSvdId == 0x130U))
 	{
 		if ((XFsbl_In32(EFUSE_IPDISABLE) & EFUSE_IPDISABLE_VCU_DIS_MASK) ==
 				EFUSE_IPDISABLE_VCU_DIS_MASK) {
@@ -755,6 +767,10 @@ const char *XFsbl_GetProcEng(void)
 			return "EV";
 		}
 
+	}
+	else if(((SubDevSvdId >= 0xD0U) && (SubDevSvdId <= 0xD6U)) || ((SubDevSvdId >= 0x1E0U) && (SubDevSvdId <= 0x1FFU)))
+	{
+		return "DR";
 	}
 	else
 	{
