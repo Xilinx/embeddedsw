@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2004 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -134,7 +135,7 @@ proc xdefine_params_include_file {file_handle periph device_id} {
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]$uSuffix"
                 puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_HIGHADDR $periph]$uSuffix"
-		if {$ip_name != "mdm" && $ip_name != "tmr_sem"} {
+		if {$ip_name != "mdm" && $ip_name != "tmr_sem" && $ip_name != "mdm_riscv"} {
 			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BAUDRATE"] [common::get_property CONFIG.C_BAUDRATE $periph]$uSuffix"
 			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "USE_PARITY"] [common::get_property CONFIG.C_USE_PARITY $periph]$uSuffix"
 			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ODD_PARITY"] [common::get_property CONFIG.C_ODD_PARITY $periph]$uSuffix"
@@ -180,7 +181,7 @@ proc xdefine_params_canonical {file_handle periph device_id} {
 		set canonical_name [format "%s_HIGHADDR" $canonical_tag]
 		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_HIGHADDR]$uSuffix"
 
-		if {$ip_name != "mdm" && $ip_name != "tmr_sem"} {
+		if {$ip_name != "mdm" && $ip_name != "tmr_sem" && $ip_name != "mdm_riscv"} {
 			# Handle BAUDRATE argument
 			set canonical_name [format "%s_BAUDRATE" $canonical_tag]
 			puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_BAUDRATE]$uSuffix"
