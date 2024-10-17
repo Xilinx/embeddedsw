@@ -30,8 +30,13 @@
 
 /*************************** Constant Definitions *****************************/
 
+/**@cond xnvm_internal
+ * @{
+ */
 /**< Polynomial used for CRC calculation */
 #define REVERSE_POLYNOMIAL			(0x82F63B78U)
+
+/**< Efuse clock programming related macros */
 #define XNVM_EFUSE_CLK_CTRL_ADDR	(0x040A003CU)
 #define XNVM_EFUSE_IO_CTRL_ADDR		(0x040A00E8U)
 #define XNVM_EFUSE_EMC_CLK_EN_VAL	(1 << 1U)
@@ -39,15 +44,15 @@
 #define XNVM_EFUSE_TPRGM_VALUE \
 	(((5.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000.0f))
 #define XNVM_EFUSE_TRD_VALUE	\
- (((15.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (100000000.0f))
+	(((15.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (100000000.0f))
 #define XNVM_EFUSE_TSUHPS_VALUE \
- (((67.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
+	(((67.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
 #define XNVM_EFUSE_TSUHPSCS_VALUE \
- (((46.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
+	(((46.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
 #define XNVM_EFUSE_TSUHCS_VALUE \
- (((30.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
+	(((30.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
 
-/* Timer related macros */
+/**<  Timer related macros */
 #define Tpgm() \
 	Xil_Ceil(XNVM_EFUSE_TPRGM_VALUE)
 #define Trd() \
@@ -58,6 +63,12 @@
 	Xil_Ceil(XNVM_EFUSE_TSUHPSCS_VALUE)
 #define Tsu_h_cs() \
 	Xil_Ceil(XNVM_EFUSE_TSUHCS_VALUE)
+
+/**
+ * @}
+ * @endcond
+ */
+
 
 /***************************** Function Definitions *******************************/
 
@@ -87,28 +98,27 @@ static int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 	u32 RdModeVal = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
 	u32 Mask = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
 
-    /**
+	/**
 	 *  Read EFUSE_CFG_REG register
 	 */
 	RegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-			XNVM_EFUSE_CFG_OFFSET);
-	if(XNVM_EFUSE_NORMAL_RD == RdMode) {
+				   XNVM_EFUSE_CFG_OFFSET);
+	if (XNVM_EFUSE_NORMAL_RD == RdMode) {
 		Mask = XNVM_EFUSE_CFG_NORMAL_RD;
-	}
-	else {
+	} else {
 		Mask = XNVM_EFUSE_CFG_MARGIN_RD;
 	}
 
-    /**
+	/**
 	 *  Read modify and write to EFUSE_CFG_REG
 	 */
 	Xil_UtilRMW32((XNVM_EFUSE_CTRL_BASEADDR +
-				XNVM_EFUSE_CFG_OFFSET),
-				XNVM_EFUSE_CFG_MARGIN_RD_MASK,
-				Mask);
+		       XNVM_EFUSE_CFG_OFFSET),
+		      XNVM_EFUSE_CFG_MARGIN_RD_MASK,
+		      Mask);
 
 	NewRegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-			XNVM_EFUSE_CFG_OFFSET);
+				      XNVM_EFUSE_CFG_OFFSET);
 	if (RegVal != (NewRegVal & (~XNVM_EFUSE_CFG_MARGIN_RD_MASK))) {
 		goto END;
 	}
@@ -150,14 +160,14 @@ static void XNvm_EfuseEnableProgramming(void)
 	 *  Read EFUSE_CFG_REG
 	 */
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-					XNVM_EFUSE_CFG_OFFSET);
+				    XNVM_EFUSE_CFG_OFFSET);
 
-    /**
+	/**
 	 *  Enable eFuse program mode by writing EFUSE_CFG_REG register
 	 */
 	Cfg = Cfg | XNVM_EFUSE_CFG_ENABLE_PGM;
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_CFG_OFFSET, Cfg);
+			   XNVM_EFUSE_CFG_OFFSET, Cfg);
 }
 
 /******************************************************************************/
@@ -175,14 +185,14 @@ int XNvm_EfuseDisableProgramming(void)
 	 *  Read EFUSE_CFG_REG
 	 */
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-					XNVM_EFUSE_CFG_OFFSET);
+				    XNVM_EFUSE_CFG_OFFSET);
 
 	/**
 	 *  disable eFuse program mode by writing EFUSE_CFG_REG register
 	 */
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_ENABLE_PGM;
 	Status = Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
-				XNVM_EFUSE_CFG_OFFSET, Cfg);
+				 XNVM_EFUSE_CFG_OFFSET, Cfg);
 
 	return Status;
 }
@@ -203,14 +213,14 @@ int XNvm_EfuseResetReadMode(void)
 	 *  Read EFUSE_CFG_REG
 	 */
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-					XNVM_EFUSE_CFG_OFFSET);
+				    XNVM_EFUSE_CFG_OFFSET);
 
 	/**
 	 *  Reset Read mode from margin read mode by writing the EFUSE_CFG_REG
 	 */
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_MARGIN_RD;
 	Status = Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
-				XNVM_EFUSE_CFG_OFFSET, Cfg);
+				 XNVM_EFUSE_CFG_OFFSET, Cfg);
 
 	return Status;
 }
@@ -225,26 +235,26 @@ static void XNvm_EfuseInitTimers(void)
 	/* CLK_FREQ = 1/CLK_PERIOD */
 	/* TPGM = ceiling(5us/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_TPGM_OFFSET, Tpgm());
+			   XNVM_EFUSE_TPGM_OFFSET, Tpgm());
 
 	/* TRD = ceiling(150ns/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_TRD_OFFSET, Trd());
+			   XNVM_EFUSE_TRD_OFFSET, Trd());
 
 	/* TSU_H_PS = ceiling(67ns/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_TSU_H_PS_OFFSET,
-				Tsu_h_ps());
+			   XNVM_EFUSE_TSU_H_PS_OFFSET,
+			   Tsu_h_ps());
 
 	/* TSU_H_PS_CS = ceiling(46ns/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_TSU_H_PS_CS_OFFSET,
-				Tsu_h_ps_cs());
+			   XNVM_EFUSE_TSU_H_PS_CS_OFFSET,
+			   Tsu_h_ps_cs());
 
 	/* TSU_H_CS = ceiling(30ns/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_TSU_H_CS_OFFSET,
-				Tsu_h_cs());
+			   XNVM_EFUSE_TSU_H_CS_OFFSET,
+			   Tsu_h_cs());
 }
 
 /******************************************************************************/
@@ -256,16 +266,16 @@ static void XNvm_EfuseInitTimers(void)
  * @param	RdMode - Read mode for eFUSE read operation.
  *
  * @return	- XST_SUCCESS - eFUSE controller setup for given op.
- *		- XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
+ *			- XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
  *						register access.
  *
  ******************************************************************************/
 int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
-			XNvm_EfuseRdMode RdMode)
+			      XNvm_EfuseRdMode RdMode)
 {
 	volatile int Status = XST_FAILURE;
 
-    /**
+	/**
 	 *  Unlock eFuse controller to write into eFuse registers
 	 */
 	Status = XNvm_EfuseUnlockController();
@@ -279,7 +289,7 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 		XNvm_EfuseEnableProgramming();
 	}
 
-    /**
+	/**
 	 *  Set Read mode
 	 */
 	Status = XNvm_EfuseSetReadMode(RdMode);
@@ -287,18 +297,18 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 		goto END;
 	}
 
-    /**
+	/**
 	 *   Initialize eFuse Timers
 	 */
 	XNvm_EfuseInitTimers();
 
 	/**
-     *	Enable programming of Xilinx reserved eFuse
+	*	Enable programming of Xilinx reserved eFuse
 	 */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-			XNVM_EFUSE_TEST_CTRL_REG_OFFSET, 0x00U);
+			   XNVM_EFUSE_TEST_CTRL_REG_OFFSET, 0x00U);
 
-    /**
+	/**
 	 *   Check for T bits enabled
 	 */
 	Status = XNvm_EfuseCheckForTBits();
@@ -321,13 +331,12 @@ static int XNvm_EfuseCheckForTBits(void)
 	volatile u32 ReadReg = ~(XNVM_EFUSE_STATUS_TBIT_0);
 	u32 TbitMask = XNVM_EFUSE_STATUS_TBIT_0;
 
-    /**
+	/**
 	 *  Read EFUSE_STATUS_REG. Return error code if Read register value not equals to Tbit mask
 	 */
 	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_STS_OFFSET);
-	if ((ReadReg & TbitMask) != TbitMask)
-	{
+				    XNVM_EFUSE_STS_OFFSET);
+	if ((ReadReg & TbitMask) != TbitMask) {
 		Status = (int)XNVM_EFUSE_ERR_PGM_TBIT_PATTERN;
 		goto END;
 	}
@@ -360,8 +369,6 @@ u32 XNvm_EfuseReadReg(u32 BaseAddress, u32 RegOffset)
  * @param	RegOffset is the register offset from the base address.
  * @param	Data is the 32-bit value to be written to the register.
  *
- * @return	None
- *
  ******************************************************************************/
 void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 {
@@ -383,21 +390,20 @@ int XNvm_EfuseLockController(void)
 	int Status = XST_FAILURE;
 	volatile u32 LockStatus = ~XNVM_EFUSE_WRITE_LOCKED;
 
-    /**
+	/**
 	 *  Write lock Passcode in efuse control at offset of WR_LOCK_REG
 	 */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-			XNVM_EFUSE_WR_LOCK_OFFSET,
-			~XNVM_EFUSE_WR_UNLOCK_VALUE);
+			   XNVM_EFUSE_WR_LOCK_OFFSET,
+			   ~XNVM_EFUSE_WR_UNLOCK_VALUE);
 	/**
-     *  Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_LOCK if not success
-     */
+	*  Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_LOCK if not success
+	*/
 	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-					XNVM_EFUSE_WR_LOCK_OFFSET);
-	if(XNVM_EFUSE_WRITE_LOCKED == LockStatus) {
+				       XNVM_EFUSE_WR_LOCK_OFFSET);
+	if (XNVM_EFUSE_WRITE_LOCKED == LockStatus) {
 		Status = XST_SUCCESS;
-	}
-	else {
+	} else {
 		Status = (int)XNVM_EFUSE_ERR_LOCK;
 	}
 
@@ -419,21 +425,20 @@ int XNvm_EfuseUnlockController(void)
 	int Status = XST_FAILURE;
 	volatile u32 LockStatus = ~XNVM_EFUSE_WR_UNLOCK_VALUE;
 
-     /**
+	/**
 	 *  Write unlock Passcode in efuse control at offset of WR_LOCK_REG
 	 */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_WR_LOCK_OFFSET,
-				XNVM_EFUSE_WR_UNLOCK_VALUE);
+			   XNVM_EFUSE_WR_LOCK_OFFSET,
+			   XNVM_EFUSE_WR_UNLOCK_VALUE);
 	/**
-     *  Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_UNLOCK if not success
-     */
+	*  Read the WR_LOCK_REG if above write was successful. Return XNVM_EFUSE_ERR_UNLOCK if not success
+	*/
 	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-					XNVM_EFUSE_WR_LOCK_OFFSET);
-	if(XNVM_EFUSE_WRITE_UNLOCKED == LockStatus) {
+				       XNVM_EFUSE_WR_LOCK_OFFSET);
+	if (XNVM_EFUSE_WRITE_UNLOCKED == LockStatus) {
 		Status = XST_SUCCESS;
-	}
-	else {
+	} else {
 		Status = (int)XNVM_EFUSE_ERR_UNLOCK;
 	}
 
@@ -460,7 +465,7 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 
 	for (Idx = 0U; Idx < XNVM_AES_KEY_SIZE_IN_WORDS; Idx++) {
 		/**
-         *	Process each bits of 32-bit Value
+		*	Process each bits of 32-bit Value
 		 */
 		Value = Key[XNVM_AES_KEY_SIZE_IN_WORDS - Idx - 1U];
 		for (BitNo = 0U; BitNo < 32U; BitNo++) {
@@ -468,15 +473,14 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 			Temp2Crc = Temp1Crc ^ REVERSE_POLYNOMIAL;
 			if (((Value ^ Crc) & 0x1U) != 0U) {
 				Crc = Temp2Crc;
-			}
-			else {
+			} else {
 				Crc = Temp1Crc;
 			}
 			Value = Value >> 1U;
 		}
 
 		/**
-         *	Get 5-bit from Address
+		*	Get 5-bit from Address
 		 */
 		Value = XNVM_AES_KEY_SIZE_IN_WORDS - (u32)Idx;
 		for (BitNo = 0U; BitNo < 5U; BitNo++) {
@@ -484,15 +488,14 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 			Temp2Crc = Temp1Crc ^ REVERSE_POLYNOMIAL;
 			if (((Value ^ Crc) & 0x1U) != 0U) {
 				Crc = Temp2Crc;
-			}
-			else {
+			} else {
 				Crc = Temp1Crc;
 			}
 			Value = Value >> 1U;
 		}
 	}
 
-    /**
+	/**
 	 *  Return CRC value upon success
 	 */
 	return Crc;
@@ -515,7 +518,7 @@ int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 	volatile u32 Index;
 
 	/**
-     *	Clear the decrypted data
+	*	Clear the decrypted data
 	 */
 	Status = Xil_SMemSet(DataPtr, Length, 0, Length);
 	if (Status != XST_SUCCESS) {
@@ -523,7 +526,7 @@ int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 	}
 
 	/**
-     *	Read it back to verify
+	*	Read it back to verify
 	 */
 	Status = XST_FAILURE;
 	for (Index = 0U; Index < Length; Index++) {
