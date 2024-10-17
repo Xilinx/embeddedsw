@@ -16,9 +16,12 @@ properties:
     OneOf:
       - items:
         - enum:
+          - xlnx,mdm-3.2
           - xlnx,axi-uartlite-2.0
           - xlnx,xps-uartlite-1.00.a
           - xlnx,psv-pmc-ppu1-mdm-1.0
+          - xlnx,mdm-riscv-1.0
+          - xlnx,tmr-sem-1.0
   reg:
     description: Physical base address and size of the controller register map.
   xlnx,use-parity:
