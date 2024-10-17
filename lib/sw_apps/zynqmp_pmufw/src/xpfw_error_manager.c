@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -517,6 +518,10 @@ s32 XPfw_EmProcessError(u8 ErrorType)
 	if (Status != XST_SUCCESS) {
 		goto Done;
 	}
+
+	/* Ack the Processed Error */
+	XPfw_Write32(RegAddress, ErrRegVal);
+
 	for (Index = 1U; Index < EM_ERR_ID_MAX; Index++) {
 		if (ErrorTable[Index].Type == ErrorType) {
 			/* check if this error is triggered */
@@ -534,8 +539,6 @@ s32 XPfw_EmProcessError(u8 ErrorType)
 
 		}
 	}
-	/* Ack the Processed Error */
-	XPfw_Write32(RegAddress, ErrRegVal);
 
 Done:
 	return Status;
