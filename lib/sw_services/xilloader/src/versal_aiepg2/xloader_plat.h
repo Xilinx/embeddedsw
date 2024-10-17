@@ -8,7 +8,6 @@
 /**
 *
 * @file versal_aiepg2/xloader_plat.h
-* @addtogroup xloader_apis XilLoader versal_aiepg2 specific APIs
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -46,9 +45,6 @@
 *       obs  09/30/2024 Fixed Doxygen Warnings
 *
 * </pre>
-*
-* @note
-*
 *
 ******************************************************************************/
 

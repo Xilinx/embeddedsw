@@ -221,8 +221,8 @@ int XLoader_ConfigureJtagState(XLoader_ClientInstance *InstancePtr, u32 Flag)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
+	/**
+	 * - Perform input parameters validation. Return XST_FAILURE if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -262,8 +262,8 @@ int XLoader_ReadDdrCryptoPerfCounters(XLoader_ClientInstance *InstancePtr, u32 N
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
+	/**
+	 * - Perform input parameters validation. Return XST_FAILURE if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -312,7 +312,7 @@ int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr, const XLoader_O
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U];
 
 	/**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
+	 * - Perform input parameters validation. Return XST_FAILURE if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;

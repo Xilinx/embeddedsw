@@ -68,9 +68,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_dma.h"
@@ -146,9 +149,6 @@ static u32 XPlmi_CmdSize(const u32 *Buf, u32 Len)
  * @param	BufLen is length of the buffer. It may not have total Command
  * length if buffer is not available.
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf, u32 BufLen)
 {
@@ -174,7 +174,7 @@ static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf, u32 BufLen)
 
 /*****************************************************************************/
 /**
- * @brief	This function verifies CDO header.
+ * @brief	This function verifies CDO header by comparing checksum
  *
  * @param	CdoPtr is pointer to the CDO structure
  *
@@ -265,7 +265,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function will update the command pointer and resume the
+ * @brief	This function will save processed length and resume the
  * 			command from previous state.
  *
  * @param	CdoPtr Pointer to the CDO structure

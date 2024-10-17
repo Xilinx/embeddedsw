@@ -29,9 +29,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_wdt.h"
@@ -155,7 +158,7 @@ END:
  * @brief	This function disables the WDT. This is required when LPD is
  * 			powered down and if LPD MIO is used. Also required when	debugging.
  *
- * @return	None
+ * @param	NodeId is not applicable for versal platform.
  *
  *****************************************************************************/
 void XPlmi_DisableWdt(u32 NodeId)
@@ -168,8 +171,6 @@ void XPlmi_DisableWdt(u32 NodeId)
 /**
  * @brief	This function Sets the PLM Status.
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_SetPlmLiveStatus(void)
 {
@@ -179,8 +180,6 @@ void XPlmi_SetPlmLiveStatus(void)
 /*****************************************************************************/
 /**
  * @brief	This function clears the PLM status.
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_ClearPlmLiveStatus(void)
@@ -192,8 +191,6 @@ void XPlmi_ClearPlmLiveStatus(void)
 /**
  * @brief	This function is handler for WDT. Scheduler calls this function
  * 			periodically to check the PLM Live status and to toggle the MIO.
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_WdtHandler(void)

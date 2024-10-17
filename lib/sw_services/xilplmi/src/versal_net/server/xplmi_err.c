@@ -36,9 +36,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
@@ -506,8 +509,6 @@ u32 *XPlmi_GetPsmCrState(void)
 /**
  * @brief	This function reconfigures error actions after the update
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_ReconfigErrActions(void)
 {
@@ -588,8 +589,6 @@ u8 XPlmi_GetEventIndex(XPlmi_EventType ErrorNodeType)
 * @param    Cpm5NCdxPcieBReg is the Pcie Bridge Misc Status register address
 * @param    ProcId is the ProcId for PCIE0/1/2/3 link up event
 *
-* @return   None
-*
 ****************************************************************************/
 void XPlmi_HandleLinkUpEvent(u32 Cpm5NPcieCdxIrStatusReg,
 		u32 Cpm5NCdxPcieBReg, u32 ProcId)
@@ -650,8 +649,6 @@ void XPlmi_HandleLinkUpEvent(u32 Cpm5NPcieCdxIrStatusReg,
 *
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
-*
-* @return   None
 *
 ****************************************************************************/
 static void XPlmi_CpmErrHandler(u32 ErrorNodeId, u32 RegMask)
@@ -736,8 +733,6 @@ END:
 * @param    BaseAddr is the base address of the XPPU
 * @param    ProtUnitStr is string prefix to be used while printing event info
 *
-* @return   None
-*
 ****************************************************************************/
 static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 {
@@ -763,8 +758,6 @@ static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 *
 * @param    BaseAddr is the base address of the XMPU
 * @param    ProtUnitStr is string prefix to be used while printing event info
-*
-* @return   None
 *
 ****************************************************************************/
 static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
@@ -797,9 +790,6 @@ static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 *
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
-*
-* @return
-* 			- None
 *
 ****************************************************************************/
 void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
@@ -912,8 +902,6 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 /**
 * @brief    This function dumps EAM Error status registers and Gic Status
 * registers
-*
-* @return   None
 *
 ****************************************************************************/
 void XPlmi_DumpErrNGicStatus(void)

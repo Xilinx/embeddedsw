@@ -45,9 +45,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_update.h"
@@ -183,7 +186,7 @@ END:
 *
 * @return	XST_SUCCESS on success and error code on failure
 *
-* @Note		No Functions should be called inside this function as this code
+* @note		No Functions should be called inside this function as this code
 *		will be relocated during run time and the relative jumps used for
 *		the function calls can not be resolved. However, inline functions
 *		can be used provided they are forced to be inline using compiler

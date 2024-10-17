@@ -24,7 +24,7 @@
  *************************************************************************************************/
 
 /**
- * @addtogroup xplmi_client_apis XilPlmi Client APIs
+ * @addtogroup xilplmi_client_apis XilPlmi Client APIs
  * @{
  */
 
@@ -107,7 +107,7 @@ int XPlmi_InPlacePlmUpdate_DDR(XPlmi_ClientInstance *Ptr,const u32 Flag, u32 DDR
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends IPI request to In place plm update status through Imgae store
+ * @brief	This function sends IPI request to In place plm update status through Image store
  *
  * @param	Ptr	Pointer to XPlmi_ClientInstance
  * @param	Flag	To enable / disable jtag

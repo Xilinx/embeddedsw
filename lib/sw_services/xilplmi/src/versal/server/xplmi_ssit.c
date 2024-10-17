@@ -74,9 +74,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_ssit.h"
@@ -219,9 +222,6 @@ u32 XPlmi_GetSlavesSlrMask(void)
 /**
 * @brief    This function is used to accumulate the mask of all slave SLRs
 *
-* @return
-* 			- None
-*
 ****************************************************************************/
 static void XPlmi_UpdateSlavesSlrMask(u32 SlavesMask)
 {
@@ -233,9 +233,6 @@ static void XPlmi_UpdateSlavesSlrMask(u32 SlavesMask)
 * @brief    This function is used to set the SSIT interrupts enabled status
 *
 * @param    Value is interrupts enabled status
-*
-* @return
-* 			- None
 *
 ****************************************************************************/
 void XPlmi_SsitSetIsIntrEnabled(u8 Value)
@@ -755,9 +752,6 @@ END:
 * @param    SlrIndex is the index of the SLR
 * @param    LocalEvTableIndex is the local event table index
 * @param    RemoteEvTableIndex is the remote event table index
-*
-* @return
-* 			- none
 *
 ****************************************************************************/
 static void XPlmi_GetEventTableIndex(u8 SlrIndex, u8 *LocalEvTableIndex,
@@ -1292,9 +1286,6 @@ END:
 *
 * @param    Data is the IoModule interrupt ID which is passed to the handler
 *
-* @return
-* 			- None
-*
 ****************************************************************************/
 void XPlmi_SsitErrHandler(void *Data)
 {
@@ -1462,9 +1453,6 @@ END:
 /**
  * @brief	This function acknowledges all SSIT ERR IRQ bits in iomodule
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 static void XPlmi_AckrSsitIrq(void)
 {
@@ -1475,9 +1463,6 @@ static void XPlmi_AckrSsitIrq(void)
 /**
  * @brief	This function clears latched SSIT errors in PMC_ERROR2_STATUS
  *			register
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 static void XPlmi_ClearSsitErrs(void)
@@ -2118,9 +2103,6 @@ END:
  * @brief	This function notifies other SLRs about Secure Lockdown or tamper
  *			condition in SSIT devices.
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 void XPlmi_NotifySldSlaveSlrs(void)
 {
@@ -2148,9 +2130,6 @@ END:
 /**
  * @brief	This function performs handshake between SLRs on SSIT ERR lines.
  *			This has to be done on SSIT devices before doing secure lockdown
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_InterSlrSldHandshake(void)
@@ -2224,7 +2203,8 @@ END:
 * @param      Cmd is pointer to the command structure
 *
 * @return
-*                     - Returns the Status of SSIT config secure communication command
+*                     - XST_SUCCESS  If command is successful
+*                     - XST_FAILURE  If there is failure
 *
 *****************************************************************************/
 int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)

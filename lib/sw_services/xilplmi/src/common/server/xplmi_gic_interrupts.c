@@ -37,6 +37,11 @@
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplmi_gic_interrupts.h"
 #include "xplmi_hw.h"

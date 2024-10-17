@@ -8,9 +8,7 @@
 /**
 *
 * @file xloader_intr.c
-* @addtogroup xloader_apis XilLoader Versal APIs
-* @{
-* @cond xloader_internal
+*
 * This file contains the code related to the interrupt handling.
 *
 * <pre>
@@ -52,10 +50,12 @@
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xloader_server_apis XilLoader Server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
@@ -133,6 +133,9 @@ int XLoader_IntrInit(void)
  * @return
  * 			- XST_SUCCESS on success and error code on failure.
  *
+ * @note
+ *		SBI interface setting for JTAG/SMAP/AXI/HSDP should be set before
+ *		this handler.
  *****************************************************************************/
 static int XLoader_SbiLoadPdi(void *Data)
 {

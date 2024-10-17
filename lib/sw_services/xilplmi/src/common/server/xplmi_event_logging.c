@@ -9,9 +9,7 @@
 /**
 *
 * @file xplmi_event_logging.c
-* @addtogroup xplmi_apis XilPlmi Versal APIs
-* @{
-* @cond xplmi_internal
+*
 * This is the file which contains event logging related code.
 *
 * <pre>
@@ -56,10 +54,12 @@
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_event_logging.h"

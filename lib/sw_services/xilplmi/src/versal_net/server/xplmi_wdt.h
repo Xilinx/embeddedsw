@@ -8,9 +8,7 @@
 /**
 *
 * @file versal_net/xplmi_wdt.h
-* @addtogroup xplmi_apis XilPlmi versal_net APIs
-* @{
-* @cond xplmi_internal
+*
 * This file contains declarations related to WDT in versal_net
 *
 * <pre>
@@ -99,8 +97,7 @@ void XPlmi_WdtHandler(void);
 #endif  /* XPLMI_WDT_H */
 
 /**
-+ * @}
-+ * @endcond
-+ */
+* @}
+* @endcond
+*/
 
-/** @} */

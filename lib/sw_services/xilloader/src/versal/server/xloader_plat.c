@@ -43,6 +43,11 @@
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup xloader_server_apis XilLoader Server APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xloader.h"
 #include "xilpdi.h"
@@ -381,7 +386,7 @@ static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
 		default:
 			break;
 	}
-	/** Set Aarch state 64 Vs 32 bit and vection location for 32 bit */
+	/** Set Aarch state 64 Vs 32 bit and vector location for 32 bit */
 	if (ExecState == XIH_PH_ATTRB_A72_EXEC_ST_AA64) {
 		RegVal |= ExecMask;
 	}
@@ -476,7 +481,8 @@ END:
  * 			SD boot modes
 
  * @param	SecBootMode is the secondary boot mode value
- * @param	PdiSrc is pointer to the source of PDI
+ * @param	PdiPtr Pointer to PDI instance
+ * @param	PdiSrc Pointer to the source of PDI
  * @param	PdiAddr is the pointer to the address of the Pdi
 
  @return
