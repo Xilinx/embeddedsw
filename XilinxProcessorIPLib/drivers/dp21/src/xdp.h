@@ -1042,6 +1042,8 @@ typedef struct {
 	u8 ColorimetryThroughVsc;		/**< Enable / Disable of sending
                                                         colorimetry information
                                                         through VSC packet */
+	u8 SideBandMsgCapable; /**< SideBand Message Support */
+	u8 isRxMstCapable; /**< Sink MST Capable Status */
 	XDp_TxLttprConfig LttprConfig;	/**< Configuration structure
 					  * for the Lttpr.
 					  */
@@ -1778,7 +1780,7 @@ void XDp_RxMstSetPbn(XDp *InstancePtr, u8 PortNum, u16 PbnVal);
 
 /* xdp_selftest.c: Self test function. */
 u32 XDp_SelfTest(XDp *InstancePtr);
-
+u8 Dp_GetMstSideBandMsgStatus(XDp *InstancePtr);
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp_spm.c: Stream policy maker functions. */
 void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream);
