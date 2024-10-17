@@ -70,10 +70,8 @@ cp -r $SERVICES_DIR/xilffs/src/include/* $BSP_DIR/include/
 
 mkdir -p $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/common/all/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/zynqmp/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/common/all/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilsecure/src/zynqmp/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilsecure/src/server/zynqmp/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/zynqmp/*.h $BSP_DIR/include/
 
 cp -r $SERVICES_DIR/xilpm/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilpm/src/zynqmp/client/common/* $BSP_DIR/libsrc/xilpm/src/
