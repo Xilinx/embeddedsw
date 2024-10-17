@@ -37,9 +37,13 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xloader_server_apis XilLoader Server APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
 #include "xloader.h"

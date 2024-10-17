@@ -9,9 +9,7 @@
 /**
 *
 * @file xplmi_generic.c
-* @addtogroup xplmi_apis XilPlmi Versal APIs
-* @{
-* @cond xplmi_internal
+*
 * This is the file which contains general commands.
 *
 * <pre>
@@ -124,10 +122,13 @@
 *
 * </pre>
 *
-* @note
-* @endcond
 *
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_generic.h"
@@ -2325,10 +2326,6 @@ static int XPlmi_InvalidCmdHandler(u32 *Payload, u32 *RespBuf){
 /**
  * @brief	This function registers the PLM generic commands to the PLMI.
  *
- * @param	None
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_GenericInit(void)
@@ -2464,8 +2461,6 @@ void XPlmi_GenericInit(void)
 /**
  * @brief	This function gives the address of ReadBack Properties instance
  *
- * @param	None
- *
  * @return	Address of ReadBack variable which is static to this function
  *
  *****************************************************************************/
@@ -2486,7 +2481,7 @@ static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void)
  *		instance is copied
  *
  * @return
- * 			- None
+ * 			- XST_SUCCESS on successful read and error code on failure.
  *
  *****************************************************************************/
 int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
@@ -2509,7 +2504,7 @@ int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
  * 		set.
  *
  * @return
- * 			- None
+ * 			- XST_SUCCESS on successful write and error code on failure.
  *
  *****************************************************************************/
 int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack)
@@ -2702,6 +2697,7 @@ END:
 /**
  * @brief	This function pushes data on stack.
  *
+ * @param	CdoParamsStack is pointer to the CDO stack parameters
  * @param	Data is pointer to the data to be stored on stack
  *
  * @return
@@ -2736,6 +2732,7 @@ END:
 /**
  * @brief	This function pops data from stack.
  *
+ * @param	CdoParamsStack is pointer to the CDO stack parameters
  * @param	PopLevel is the number of elements to remove from stack.
  * @param	Data is pointer to store removed data from stack.
  *

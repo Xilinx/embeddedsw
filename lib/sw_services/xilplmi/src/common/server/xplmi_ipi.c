@@ -94,6 +94,12 @@
  * @note
  *
  ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplmi.h"
 #include "xplmi_ipi.h"

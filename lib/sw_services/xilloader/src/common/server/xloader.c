@@ -180,9 +180,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xloader_server_apis XilLoader Server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
@@ -500,6 +503,7 @@ END:
  *
  * @param	PdiPtr is instance pointer pointing to PDI details
  * @param	RegValue is the value of the Multiboot register
+ * @param	PdiAddr is the PDI address
  *
  * @return
  * 			- XST_SUCCESS on success.
@@ -2053,6 +2057,8 @@ END:
 /**
  * @brief	This function is used to read the Address based-on PDI Id from
  *              Image Store
+ * @param	PdiId	Index of the PDI stored
+ * @param	PdiAddr	Pointer to the PDI address
  *
  * @return
  *		- XST_SUCCESS on success
@@ -2097,6 +2103,8 @@ END:
 /**
  * @brief	This function is used to save the BootPDI info
  *
+ * @param	BootPdiPtr Pointer to the PDI instance
+ *
  *****************************************************************************/
 void Xloader_SaveBootPdiInfo(XilPdi *BootPdiPtr)
 {
@@ -2136,6 +2144,7 @@ XilPdi *XLoader_GetPdiInstance(void)
  *
  * @param	PdiPtr Pointer to PdiInstance
  *
+ * @return
  *		- XST_SUCCESS on success
  *		- ErrorCode on failure
  *
@@ -2160,11 +2169,13 @@ static int XLoader_ClearKeys(XilPdi * PdiPtr)
  * @brief	This function initializes PDI Instance pointer for extracting
  *		Metaheader and OptionalData
  *
+ * @param	Cmd		Pointer to the command structure
  * @param	PdiPtr		Pointer to PdiInstance
  * @param	SrcAddr		Address of the PDI
  * @param	DestAddr	Address of the destination buffer
  * @param	DestSize	Size of the destination buffer
  *
+ * @return
  *		- XST_SUCCESS on success
  *		- ErrorCode on failure
  *
@@ -2232,6 +2243,7 @@ END:
  *
  * @param	PdiPtr		Pointer to XilPdi instance
  *
+ * @return
  *		- XST_SUCCESS on success
  *		- XST_FAILURE on failure
  *

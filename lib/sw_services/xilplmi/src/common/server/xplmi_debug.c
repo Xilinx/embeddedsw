@@ -46,9 +46,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi.h"
@@ -264,9 +267,6 @@ END:
  * @brief	This function prints and logs the terminal prints to debug log buffer
  *
  * @param	c is the character to be printed and logged
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void outbyte(char c)

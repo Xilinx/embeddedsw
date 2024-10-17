@@ -144,6 +144,11 @@
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup xloader_server_apis XilLoader Server APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplmi.h"
 #ifndef PLM_SECURE_EXCLUDE
@@ -2559,9 +2564,7 @@ END:
 *
 * @param    SecurePtr Pointer to the XLoader_SecureParams instance.
 *
-* @return
-*           - XST_SUCCESS on success
-*           - error code on failure
+* @return      XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
@@ -3614,9 +3617,7 @@ END:
 * @param    Var - Value of secure state stored in variable
 * @param    ExpectedValue - Expected value of secure state
 *
-* @return
-*           - XST_SUCCESS on success
-*           - error code on failure
+* @return   XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)
@@ -3769,8 +3770,8 @@ END:
 * @param    SecurePtr is pointer to the XLoader_SecureParams instance
 *
 * @return
-*           - XST_SUCCESS on success
-*           - error code on failure
+* 	    - XST_SUCCESS on success
+* 	    - XLOADER_ERR_KAT_FAILED on kat failure
 *
 ******************************************************************************/
 static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
@@ -3818,8 +3819,8 @@ END:
 * @param	Hash - Pointer the tha u8 array
 *
 * @return
-*		XST_SUCCESS - In case of success
-*		XST_FAILURE - In case of failure
+*		- XST_SUCCESS in case of success
+*		- XST_FAILURE in case of failure
 *
 *******************************************************************************/
 static int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash)
@@ -3854,8 +3855,11 @@ END:
 * @param	HBSignParams    Pointer to the XLoader_HBSignParams
 *
 * @return
-* 		XST_SUCCESS - In case of success
-*		ErrorCode on failure.
+*		- XLOADER_ERR_KAT_FAILED if KAT failed
+*		- XLOADER_SEC_GLITCH_DETECTED_ERROR if Error glitch detected
+*		- XLOADER_ERR_PPK_HASH_CALC_FAIL if Error in PPK hash calculation
+*		- XLOADER_ERR_SPK_HASH_CALC_FAIL if Error in SPK hash calculation
+* 		- XST_SUCCESS in case of success
 *******************************************************************************/
 static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBSignParams *HBSignParams)
 {
@@ -4699,9 +4703,7 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return
-*           - XST_SUCCESS on success.
-*           - ErrorCode on failure.
+* @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 static int XLoader_Shake256Kat(XLoader_SecureParams *SecurePtr)
@@ -4760,9 +4762,7 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return
-*           - XST_SUCCESS on success.
-*           - ErrorCode on failure.
+* @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 static int XLoader_Sha2256Kat(XLoader_SecureParams *SecurePtr)
@@ -4821,9 +4821,7 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return
-*           - XST_SUCCESS on success
-*           - error code on failure
+* @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 static int XLoader_HssSha256Kat(XLoader_SecureParams *SecurePtr)
@@ -4882,9 +4880,7 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return
-*           - XST_SUCCESS on success
-*           - error code on failure
+* @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 static int XLoader_HssShake256Kat(XLoader_SecureParams *SecurePtr) {
@@ -4942,9 +4938,8 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return
-*           - XST_SUCCESS on success
-*           - error code on failure
+* @return	XST_SUCCESS on success and error code on failure
+
 *
 ******************************************************************************/
 static int XLoader_LmsSha2256Kat(XLoader_SecureParams *SecurePtr) {
@@ -5002,9 +4997,8 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return
-*           - XST_SUCCESS on success
-*           - error code on failure
+* @return	XST_SUCCESS on success and error code on failure
+
 *
 ******************************************************************************/
 static int XLoader_LmsShake256Kat(XLoader_SecureParams *SecurePtr) {
@@ -5062,9 +5056,7 @@ END:
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 * @param	AuthType is public algorithm type
 *
-* @return
-*           - XST_SUCCESS on success
-*           - error code on failure
+* @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 static int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType)

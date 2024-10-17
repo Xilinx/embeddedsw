@@ -36,6 +36,11 @@
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplmi_cmd.h"
 #include "xplmi_debug.h"

@@ -25,7 +25,7 @@
  *************************************************************************************************/
 
 /**
- * @addtogroup xplmi_client_apis XilPlmi Client APIs
+ * @addtogroup xilplmi_client_apis XilPlmi Client APIs
  * @{
  */
 

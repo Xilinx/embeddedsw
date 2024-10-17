@@ -53,9 +53,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_scheduler.h"
@@ -151,9 +154,6 @@ static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,
 * @brief	The function initializes scheduler and returns the
 * 			initialization status.
 *
-* @return
-* 			- None
-*
 ****************************************************************************/
 void XPlmi_SchedulerInit(void)
 {
@@ -177,9 +177,6 @@ void XPlmi_SchedulerInit(void)
 *
 * @param	Data - Not used currently. Added as a part of generic interrupt
 * 			handler
-*
-* @return
-* 			- None
 *
 ****************************************************************************/
 void XPlmi_SchedulerHandler(void *Data)

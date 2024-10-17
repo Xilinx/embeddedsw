@@ -55,9 +55,13 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xloader_sd_apis XilLoader SD APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
 #include "xloader_sd.h"
@@ -400,8 +404,6 @@ END:
  * @brief	This function is used to close the boot file and unmount the
  * 			file system.
  *
- * @param	None
- *
  * @return
  * 			- XST_SUCCESS on success.
  * 			- XLOADER_ERR_SD_F_CLOSE if failed to close file in SD filesystem.
@@ -695,8 +697,6 @@ END:
 /**
  * @brief	This function is used to restore the card detect value to
  * 			PMC_IOU_SLCR registers.
- *
- * @param	None
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure.

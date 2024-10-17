@@ -45,9 +45,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_dma.h"
@@ -134,8 +137,6 @@ static u8 XRamAvailable = (u8)FALSE; /** Flag to indicate XRAM is available */
 /*****************************************************************************/
 /**
  * @brief	This function sets XRAM Available Flag
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_SetXRamAvailable(void) {
@@ -230,9 +231,6 @@ u32 *XPlmi_GetLpdInitialized(void)
  * @brief	This function performs initialization of platform specific RCTA
  *			registers
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 void XPlmi_RtcaPlatInit(void)
 {
@@ -247,9 +245,6 @@ void XPlmi_RtcaPlatInit(void)
 /*****************************************************************************/
 /**
  * @brief	This function prints ROM version using ROM digest value.
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_PrintRomVersion(void)
@@ -405,9 +400,6 @@ XPlmi_CircularBuffer *XPlmi_GetTraceLogInst(void)
  * @param	SrcAddr is the pointer to the SrcAddr variable
  * @param	DestAddrRead is the pointer to the DestAddrRead variable
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 void XPlmi_GetReadbackSrcDest(u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead)
 {
@@ -433,9 +425,6 @@ void XPlmi_GetReadbackSrcDest(u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead)
  * @brief	This will add the GIC interrupt task handler to the TaskQueue.
  *
  * @param	PlmIntrId is the GIC interrupt ID of the task
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_GicAddTask(u32 PlmIntrId)
@@ -493,9 +482,6 @@ int XPlmi_RegisterNEnableIpi(void)
 /**
  * @brief	This function registers and enables IPI interrupt
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 void XPlmi_EnableIomoduleIntr(void)
 {
@@ -550,12 +536,15 @@ int XPlmi_SetPmcIroFreq(void)
 
 /*****************************************************************************/
 /**
-* @brief	This functions provides the PIT1 and PIT2 reset values
-*
-* @return
-* 			- XST_SUCCESS always.
-*
-*****************************************************************************/
+ * @brief	This functions provides the PIT1 and PIT2 reset values
+ *
+ * @param	Pit1ResetValue is the pointer to store the PIT1 reset value.
+ * @param	Pit2ResetValue is the pointer to store the PIT12 reset value.
+ *
+ * @return
+ * 			- XST_SUCCESS always.
+ *
+ *****************************************************************************/
 int XPlmi_GetPitResetValues(u32 *Pit1ResetValue, u32 *Pit2ResetValue)
 {
 	*Pit1ResetValue = XPLMI_PIT1_RESET_VALUE;
@@ -684,9 +673,6 @@ u32 XPlmi_GetIpiIntrId(u32 BufferIndex)
 /**
  * @brief	This function enables IPI interrupt
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 void XPlmi_EnableIpiIntr(void)
 {
@@ -697,9 +683,6 @@ void XPlmi_EnableIpiIntr(void)
 /**
  * @brief	This function clears IPI interrupt
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 void XPlmi_ClearIpiIntr(void)
 {
@@ -709,9 +692,6 @@ void XPlmi_ClearIpiIntr(void)
 /*****************************************************************************/
 /**
  * @brief	This function Disables CFRAME Isolation
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_DisableCFrameIso(void)
@@ -730,9 +710,6 @@ void XPlmi_DisableCFrameIso(void)
  * @brief	This function returns KAT status from RCTA area.
  *
  * @param	PlmKatStatus is the pointer to the variable which holds kat status
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)

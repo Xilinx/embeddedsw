@@ -43,9 +43,14 @@
  *
  * </pre>
  *
- * @note
  *
  ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplmi_sysmon.h"
 #include "sleep.h"
@@ -89,8 +94,6 @@ XSysMonPsv* XPlmi_GetSysmonInst(void)
  *
  * @param	Addr is the address of Sysmon Mask register
  * @param	Value is the configuration to be written to Control register
- *
- * @return	None
  *
  *****************************************************************************/
 static void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value)
@@ -170,8 +173,6 @@ END:
  *
  * @param	WaitInMSecVal is the time in milliseconds for which the firmware must
  *              wait before proceeding after over temperature event clears up
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_SysMonOTDetect(u32 WaitInMSecVal)

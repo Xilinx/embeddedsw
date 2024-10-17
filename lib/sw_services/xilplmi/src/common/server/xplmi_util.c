@@ -48,9 +48,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_util.h"
@@ -88,9 +91,6 @@
  * @param	RegAddr is the address of the register
  * @param	Mask denotes the bits to be modified
  * @param	Value is the value to be written to the register
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value)
@@ -306,9 +306,6 @@ int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 TimeOutInUs
  * @param	LowAddr is lower 32-bits of 64-bit address
  * @param	Value is value to be updated
  *
- * @return
- * 			- None
- *
  ******************************************************************************/
 void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
 {
@@ -326,9 +323,6 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
 * @param	BufAddr pointer to the  buffer to be printed
 * @param	Len length of the bytes to be printed
 * @param	Str pointer to the data that is printed along the data
-*
-* @return
-* 			- None
 *
 *****************************************************************************/
 void XPlmi_PrintArray (u16 DebugType, const u64 BufAddr, u32 Len,

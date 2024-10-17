@@ -34,6 +34,11 @@
 *
 *****************************************************************************/
 
+/**
+ * @addtogroup xloader_usb_apis XilLoader USB APIs
+ * @{
+ */
+
 /***************************** Include Files ********************************/
 #include "xplmi_hw.h"
 #include "xloader_usb.h"
@@ -200,7 +205,7 @@ END:
 *			DDR address where the image resides.
 * @param	Destination Address is the address to which the memory chunk
 * 			is to be copied.
-* @param	Number of Bytes to be copied
+* @param	Length Number of Bytes to be copied
 * @param	Flags is unused and is only passed to maintain compatibility
 *			with copy functions of other boot modes
 *

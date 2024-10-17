@@ -36,12 +36,14 @@
 *       kj   09/18/2024 Added support for SW Error Handling in secondary SLR
 *                       and changed HBM CATTRIP SW Error Action in ErrorTable.
 *                       Also restricted HBM Cattrip error action to HW Errors.
-*
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
@@ -452,8 +454,6 @@ u8 XPlmi_GetEventIndex(XPlmi_EventType ErrorNodeType)
 /**
  * @brief	This function sets the sysmon clock to IRO for ES1 silicon
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_SysmonClkSetIro(void) {
 	u32 SiliconVal = XPlmi_In32(PMC_TAP_VERSION) &
@@ -472,8 +472,6 @@ void XPlmi_SysmonClkSetIro(void) {
 * @param    Cpm5PcieIrStatusReg is the PCIE0/1 IR status register address
 * @param    Cpm5DmaCsrIntDecReg is the DMA0/1 CSR INT DEC register address
 * @param    ProcId is the ProcId for PCIE0/1 link down error
-*
-* @return   None
 *
 ****************************************************************************/
 void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
@@ -537,8 +535,6 @@ void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
 *
-* @return   None
-*
 ****************************************************************************/
 static void XPlmi_CpmErrHandler(u32 ErrorNodeId, u32 RegMask)
 {
@@ -589,8 +585,6 @@ static void XPlmi_CpmErrHandler(u32 ErrorNodeId, u32 RegMask)
 * @param    BaseAddr is the base address of the XPPU
 * @param    ProtUnitStr is string prefix to be used while printing event info
 *
-* @return   None
-*
 ****************************************************************************/
 static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 {
@@ -617,8 +611,6 @@ static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 *
 * @param    BaseAddr is the base address of the XMPU
 * @param    ProtUnitStr is string prefix to be used while printing event info
-*
-* @return   None
 *
 ****************************************************************************/
 static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
@@ -651,9 +643,6 @@ static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 *
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
-*
-* @return
-* 			- None
 *
 ****************************************************************************/
 void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
@@ -700,8 +689,6 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 * @brief    This function dumps EAM Error status registers and Gic Status
 * registers
 *
-* @return   None
-*
 ****************************************************************************/
 void XPlmi_DumpErrNGicStatus(void)
 {
@@ -728,8 +715,6 @@ void XPlmi_DumpErrNGicStatus(void)
  *
  * @param	PmcErrStatus is the pointer to the error status array
  * @param	Index is the PMC Error register Index
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_ClearSsitErrors(u32 *PmcErrStatus, u32 Index)
@@ -802,8 +787,6 @@ int XPlmi_RestrictErrActions(XPlmi_EventType NodeType,
  * @brief	This function detects and handles tamper condition occured on
  *		slave SLRs
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_DetectSlaveSlrTamper(void)
 {
@@ -834,8 +817,6 @@ void XPlmi_DetectSlaveSlrTamper(void)
  *
  * @param	Id is the IoModule Intr ID
  *
- * @return	None
- *
  *****************************************************************************/
 static void XPlmi_RegisterSsitErrHandlers(u32 Id)
 {
@@ -853,8 +834,6 @@ static void XPlmi_RegisterSsitErrHandlers(u32 Id)
  * @param	ErrorNodeId is the node ID for the error event
  * @param	RegMask is the register mask of the error received
  *
- * @return	None
- *
  *****************************************************************************/
 static void XPlmi_HandleSsitErr2(u32 ErrorNodeId, u32 RegMask)
 {
@@ -869,8 +848,6 @@ static void XPlmi_HandleSsitErr2(u32 ErrorNodeId, u32 RegMask)
 /****************************************************************************/
 /**
 * @brief    This function enables the SSIT interrupts
-*
-* @return   None
 *
 ****************************************************************************/
 void XPlmi_EnableSsitErrors(void)

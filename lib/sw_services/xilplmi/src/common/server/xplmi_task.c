@@ -48,9 +48,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_task.h"
@@ -157,8 +160,6 @@ XPlmi_TaskNode* XPlmi_GetTaskInstance(int (*Handler)(void *Arg),
  *
  * @param	Task Pointer to the task node
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_TaskTriggerNow(XPlmi_TaskNode *Task)
 {
@@ -172,8 +173,6 @@ void XPlmi_TaskTriggerNow(XPlmi_TaskNode *Task)
 /*****************************************************************************/
 /**
  * @brief	This function initializes the task queues list.
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_TaskInit(void)
@@ -192,8 +191,6 @@ void XPlmi_TaskInit(void)
  * @brief	This function will be checking for tasks in the queue based on the
  * priority. After calling every task handlers, next high priority task will
  * be called.
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_TaskDispatchLoop(void)

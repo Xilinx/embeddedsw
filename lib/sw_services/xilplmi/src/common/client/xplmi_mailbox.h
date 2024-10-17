@@ -24,7 +24,7 @@
  *************************************************************************************************/
 
 /**
- * @addtogroup xplmi_mailbox_apis XilPlmi Mailbox APIs
+ * @addtogroup xilplmi_mailbox_apis XilPlmi Mailbox APIs
  * @{
  */
 
