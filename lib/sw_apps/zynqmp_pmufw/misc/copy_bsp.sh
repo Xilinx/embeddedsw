@@ -56,10 +56,8 @@ cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/*.h $BSP_DIR/include/
 rm -r $BSP_DIR/libsrc/xilfpga/src/interface/
 mkdir -p $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/common/all/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/zynqmp/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/common/all/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilsecure/src/zynqmp/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilsecure/src/server/zynqmp/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/zynqmp/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilskey/ $BSP_DIR/libsrc/
 
 # remove the xilskey library files which are not required for PMU
