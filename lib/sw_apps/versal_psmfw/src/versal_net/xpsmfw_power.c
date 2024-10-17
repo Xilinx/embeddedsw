@@ -1091,6 +1091,43 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief	Waits for P-Channel state to be stable for new request
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+static XStatus XPsmFwACPUxWaitForPstable(struct XPsmFwPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+
+	Status = XPsmFw_UtilPollForZero(Args->CorePreq, Args->CorePreqMask, ACPU_PACCEPT_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		XPsmFw_Printf(DEBUG_ERROR, "%s Waiting for PREQ to become zero failed for ACPU%d..\n", __func__, Args->Id);
+		goto done;
+	}
+
+	Status = XPsmFw_UtilPollForZero(Args->CorePactive, Args->CorePacceptMask, ACPU_PACCEPT_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		XPsmFw_Printf(DEBUG_ERROR, "%s Waiting for PACCEPT to become zero failed for ACPU%d..\n", __func__, Args->Id);
+		goto done;
+	}
+
+	Status = XPsmFw_UtilPollForZero(Args->CorePactive, APU_PCIL_CORE_PDENY_MASK, ACPU_PACCEPT_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		XPsmFw_Printf(DEBUG_ERROR, "%s Waiting for PDENY to become zero failed for ACPU%d..\n", __func__, Args->Id);
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief	Executes power-up sequence for ACPUx core
  *
  * @param Args	Node specific arguments
@@ -1145,6 +1182,14 @@ static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	/*Removes Isolation to the APU*/
 	XPsmFw_RMW32(Args->PwrCtrlAddr,PSMX_LOCAL_REG_APU0_CORE0_PWR_CNTRL_ISOLATION_MASK,
 			~PSMX_LOCAL_REG_APU0_CORE0_PWR_CNTRL_ISOLATION_MASK);
+
+	/* Clear previous request if any */
+	XPsmFw_Write32(Args->CorePreq, 0U);
+
+	Status = XPsmFwACPUxWaitForPstable(Args);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	XPsmFw_Write32(Args->CorePstate, Args->CorePstateVal);
 	XPsmFw_Write32(Args->CorePreq, Args->CorePreqMask);
@@ -1332,6 +1377,14 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/*Disable the Scan Clear and Mem Clear triggers*/
 	XPsmFw_RMW32(PSMX_GLOBAL_REG_SCAN_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
 	XPsmFw_RMW32(PSMX_GLOBAL_REG_MEM_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
+
+	/* Clear previous request if any */
+	XPsmFw_Write32(Args->CorePreq, 0U);
+
+	Status = XPsmFwACPUxWaitForPstable(Args);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/*
 	 * TODO: Remove these retry P-channel request once actual reason for
