@@ -8,9 +8,6 @@
 /**
 *
 * @file versal_net/xplmi_update.h
-* @addtogroup xplmi_apis XilPlmi versal_net APIs
-* @{
-* @cond xplmi_internal
 * This file contains declarations related to PLM update process in versal_net
 *
 * <pre>
@@ -30,8 +27,6 @@
 *
 * </pre>
 *
-* @note
-* @endcond
 *
 ******************************************************************************/
 

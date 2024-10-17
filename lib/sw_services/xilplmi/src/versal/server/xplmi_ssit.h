@@ -9,9 +9,7 @@
 /**
 *
 * @file versal/xplmi_ssit.h
-* @addtogroup xplmi_apis XilPlmi Versal APIs
-* @{
-* @cond xplmi_internal
+*
 * This file contains declarations for SSIT functions
 *
 * <pre>
@@ -44,9 +42,6 @@
 *       pre  10/07/2024 Added slave error notification at slave and processing at master
 *
 * </pre>
-*
-* @note
-* @endcond
 *
 ******************************************************************************/
 

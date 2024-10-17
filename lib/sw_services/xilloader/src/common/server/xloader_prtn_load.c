@@ -116,6 +116,11 @@
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup xloader_server_apis XilLoader Server APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xpm_nodeid.h"
 #include "xplmi_hw.h"

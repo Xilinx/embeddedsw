@@ -55,9 +55,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xloader_server_apis XilLoader Server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_update.h"
@@ -210,9 +213,10 @@ XLoader_ImageStore* XLoader_GetPdiList(void)
 *****************************************************************************/
 XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void)
 {
+
+	/* Instance containing ATF handoff params */
 	static XilPdi_ATFHandoffParams ATFHandoffParams
-		__attribute__ ((aligned(4U))) = {0}; /**< Instance containing
-							 ATF handoff params */
+		__attribute__ ((aligned(4U))) = {0};
 
 	EXPORT_LOADER_DS(ATFHandoffParams, XLOADER_ATF_HANDOFF_PARAMS_DS_ID,
 		XLOADER_ATF_HANDOFF_PARAMS_VERSION,
@@ -501,6 +505,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
  *			SD boot modes
  *
  * @param	SecBootMode is the secondary boot mode value
+ * @param	PdiPtr Pointer to the PDI instance
  * @param	PdiSrc is pointer to the source of PDI
  * @param	PdiAddr is the pointer to the address of the Pdi
  *

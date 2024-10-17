@@ -8,9 +8,7 @@
 /**
 *
 * @file xplmi_err_cmd.c
-* @addtogroup xplmi_apis XilPlmi Versal APIs
-* @{
-* @cond xplmi_internal
+*
 * This file contains error management commands code for the PLM.
 *
 * <pre>
@@ -49,10 +47,12 @@
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_err_common.h"

@@ -130,9 +130,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xloader_server_apis XilLoader Server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xloader_secure.h"

@@ -8,9 +8,7 @@
 /**
 *
 * @file versal/xplmi_wdt.h
-* @addtogroup xplmi_apis XilPlmi Versal APIs
-* @{
-* @cond xplmi_internal
+
 * This file contains declarations related to WDT in versal
 *
 * <pre>
@@ -26,10 +24,7 @@
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *
 * </pre>
-*
-* @note
-* @endcond
-*
+
 ******************************************************************************/
 
 #ifndef XPLMI_WDT_H
@@ -76,8 +71,7 @@ void XPlmi_WdtHandler(void);
 #endif  /* XPLMI_WDT_H */
 
 /**
-+ * @}
-+ * @endcond
-+ */
+ * @}
+ * @endcond
+ */
 
-/** @} */

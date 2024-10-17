@@ -25,9 +25,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_modules.h"
@@ -52,8 +55,6 @@ XPlmi_Module * Modules[XPLMI_ALL_MODULES_MAX];
  * @brief	This function registers the module.
  *
  * @param	Module is pointer to XPlmi Module
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_ModuleRegister(XPlmi_Module *Module)

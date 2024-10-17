@@ -52,9 +52,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_plat.h"
@@ -284,8 +287,6 @@ int XPlmi_PreInit(void)
  * @brief	This function performs initialization of platform specific RCTA
  *		registers
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_RtcaPlatInit(void)
 {
@@ -298,8 +299,6 @@ void XPlmi_RtcaPlatInit(void)
 /*****************************************************************************/
 /**
  * @brief	This function prints ROM version using ROM digest value.
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_PrintRomVersion(void)
@@ -464,8 +463,6 @@ END:
  * @param	SrcAddr is the pointer to the SrcAddr variable
  * @param	DestAddrRead is the pointer to the DestAddrRead variable
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_GetReadbackSrcDest(u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead)
 {
@@ -482,8 +479,6 @@ void XPlmi_GetReadbackSrcDest(u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead)
  *
  * @param	PlmIntrId is the GIC interrupt ID of the task
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_GicAddTask(u32 PlmIntrId)
 {
@@ -497,8 +492,6 @@ void XPlmi_GicAddTask(u32 PlmIntrId)
 * @brief    This function is the Ipi interrupt handler for the device.
 *
 * @param    CallbackRef is a dummy argument
-*
-* @return   None
 *
 ****************************************************************************/
 void XPlmi_IpiIntrHandler(void *CallbackRef)
@@ -562,7 +555,9 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function provides
+ * @brief	This function provides handler for HW interrupts
+ *
+ * @param	CallbackRef
  *
  * @return	XST_SUCCESS on success and XST_FAILURE on failure
  *
@@ -597,8 +592,6 @@ static void XPlmi_HwIntrHandler(void *CallbackRef)
 /*****************************************************************************/
 /**
  * @brief	This function registers and enables IPI interrupt
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_EnableIomoduleIntr(void)
@@ -769,8 +762,6 @@ static u32 XPlmi_GetIoIntrMask(void)
 * @brief	This function enables the IOModule interrupts with provided value.
 *
 * @param	Value to be written to the IER register of IOModule
-*
-* @return	None.
 *
 *****************************************************************************/
 static void XPlmi_SetIoIntrMask(u32 Value)
@@ -994,8 +985,6 @@ u32 XPlmi_GetRomKatStatus(void)
  *
  * @param	PlmKatStatus is the pointer to the variable which holds kat status
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
 {
@@ -1022,8 +1011,6 @@ void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
 /*****************************************************************************/
 /**
  * @brief	This function clears SSS Cfg error set during ROM PCR Extension
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_ClearSSSCfgErr(void)

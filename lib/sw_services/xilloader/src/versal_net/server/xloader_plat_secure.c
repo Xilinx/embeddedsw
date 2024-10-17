@@ -37,9 +37,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xloader_server_apis XilLoader Server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
@@ -392,7 +395,7 @@ int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 *
 * @param	PpkHash is pointer to the PPK hash.
 *
-* @return	XST_FAILURE always return failue, as this api is not applicable for
+* @return	XST_FAILURE always return failure, as this api is not applicable for
 * versal_net
 *
 ******************************************************************************/
@@ -412,7 +415,7 @@ int XLoader_IsAdditionalPpkValid(const u8 *PpkHash) {
 * @param	InvalidMask Pointer to the PPK invalid mask
 * @param	PpkOffset   Pointer to the efuse cache PPK start offset
 *
-* @return	XST_FAILURE always return failue, as this api is not applicable for
+* @return	XST_FAILURE always return failure, as this api is not applicable for
 * versal_net
 *
 ******************************************************************************/

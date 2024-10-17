@@ -70,6 +70,11 @@
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplmi.h"
 #include "xplmi_debug.h"
@@ -93,11 +98,13 @@ static void XPlmi_PrintEarlyLog(void);
 
 /******************************************************************************/
 /**
-* @brief	This function  will initialize the PLMI module.
-*
-* @return   None.
-*
-****************************************************************************/
+ * @brief	This function will initialize the PLMI module.
+ *
+ * @return
+ *			- XST_SUCCESS on success.
+ *			- XPLMI_ERR_PRE_INIT if pre initialization fails.
+ *
+ ****************************************************************************/
 int XPlmi_Init(void)
 {
 	int Status = XST_FAILURE;
@@ -205,8 +212,6 @@ END:
  * different modules. As a part of init functions, modules can register the
  * command handlers, interrupt handlers with the interface layer.
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_LpdInit(void)
 {
@@ -248,8 +253,6 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function prints PLM banner
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_PrintPlmBanner(void)
@@ -305,8 +308,6 @@ void XPlmi_PrintPlmBanner(void)
 /**
  * @brief	This function prints early log.
  *
- * @return	None
- *
  *****************************************************************************/
 static void XPlmi_PrintEarlyLog(void)
 {
@@ -334,8 +335,6 @@ static void XPlmi_PrintEarlyLog(void)
 /**
  * @brief	This function resets LpdInitialized variable to 0.
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_ResetLpdInitialized(void)
 {
@@ -352,7 +351,7 @@ void XPlmi_ResetLpdInitialized(void)
 /**
  * @brief	This function sets LpdInitialized variable with given flag.
  *
- * @return	None
+ * @param	Flag to set the UART or LPD WDT initialization state.
  *
  *****************************************************************************/
 void XPlmi_SetLpdInitialized(u32 Flag)
@@ -366,7 +365,7 @@ void XPlmi_SetLpdInitialized(u32 Flag)
 /**
  * @brief	This function clears LpdInitialized variable with given flag.
  *
- * @return	None
+ * @param	Flag to unset the UART or LPD WDT initialization state.
  *
  *****************************************************************************/
 void XPlmi_UnSetLpdInitialized(u32 Flag)
@@ -383,8 +382,6 @@ void XPlmi_UnSetLpdInitialized(u32 Flag)
  *
  * @param	PlmKatStatus contains the KAT status updated by PLM
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_UpdateKatStatus(u32 PlmKatStatus)
 {
@@ -396,8 +393,6 @@ void XPlmi_UpdateKatStatus(u32 PlmKatStatus)
 /*****************************************************************************/
 /**
  * @brief	This function is called to get KAT status.
- *
- * @return	None
  *
  *****************************************************************************/
 u32 XPlmi_GetKatStatus(void)
@@ -411,8 +406,6 @@ u32 XPlmi_GetKatStatus(void)
  *          PlmKatMask.
  *
  * @param   PlmKatMask contains the kat mask that needs to be set
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_SetKatMask(u32 PlmKatMask)
@@ -429,8 +422,6 @@ void XPlmi_SetKatMask(u32 PlmKatMask)
  *          PlmKatMask.
  *
  * @param   PlmKatMask contains the kat mask that needs to be cleared
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_ClearKatMask(u32 PlmKatMask)
