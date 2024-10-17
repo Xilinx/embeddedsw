@@ -40,7 +40,7 @@ extern "C" {
 /**@cond xnvm_internal
  * @{
  */
- /**< Aes key lengths in different sizes*/
+/**< Aes key lengths in different sizes*/
 #define XNVM_256_BITS_AES_KEY_LEN_IN_BYTES (256U / XIL_SIZE_OF_BYTE_IN_BITS)
 #define XNVM_256_BITS_AES_KEY_LEN_IN_CHARS (XNVM_256_BITS_AES_KEY_LEN_IN_BYTES * 2U)
 #define XNVM_128_BITS_AES_KEY_LEN_IN_BYTES (128U / XIL_SIZE_OF_BYTE_IN_BITS)
@@ -65,7 +65,7 @@ void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data);
 int XNvm_EfuseLockController(void);
 int XNvm_EfuseUnlockController(void);
 int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
-			XNvm_EfuseRdMode RdMode);
+			      XNvm_EfuseRdMode RdMode);
 int XNvm_EfuseResetReadMode(void);
 int XNvm_EfuseDisableProgramming(void);
 
