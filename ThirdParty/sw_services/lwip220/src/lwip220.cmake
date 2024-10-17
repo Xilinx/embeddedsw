@@ -72,6 +72,7 @@ option(lwip220_igmp_options "IGMP Options" OFF)
 option(lwip220_udp_options "UDP Options" ON)
 option(lwip220_udp "Is UDP required" ON)
 set(lwip220_udp_ttl 255 CACHE STRING "UDP TTL value")
+option(lwip220_udp_block_tx "Application sending a UDP packet blocks till the pkt is txed" OFF)
 
 option(lwip220_tcp_options "Is TCP required ?" ON)
 option(lwip220_tcp "Is TCP required ?" ON)
@@ -177,9 +178,27 @@ set(IP_DEFAULT_TTL ${lwip220_ip_default_ttl})
 #UDP options
 if (${lwip220_udp})
     set(LWIP_UDP 1)
+else()
+    set(LWIP_UDP 0)
 endif()
 
 set(UDP_TTL ${lwip220_udp_ttl})
+
+# Check for UDP Block TX till complete
+if (${LWIP_UDP} EQUAL 0)
+    if (${lwip220_udp_block_tx})
+        message(WARNING "UDP block on TX is set but UDP is disabled. Disabling the block on TX flag.")
+        set(LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE 0)
+    else()
+        set(LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE 0)
+    endif()
+else()
+    if (${lwip220_udp_block_tx})
+        set(LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE 1)
+    else()
+        set(LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE 0)
+    endif()
+endif()
 
 #TCP options
 if (${lwip220_tcp})

@@ -57,6 +57,7 @@
 
 #cmakedefine LWIP_UDP @LWIP_UDP@
 #cmakedefine UDP_TTL @UDP_TTL@
+#cmakedefine LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE @LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE@
 
 #cmakedefine LWIP_TCP @LWIP_TCP@
 #cmakedefine TCP_MSS @TCP_MSS@
