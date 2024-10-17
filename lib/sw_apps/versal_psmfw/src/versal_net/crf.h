@@ -74,11 +74,10 @@ extern "C" {
 #define PSX_CRF_RST_APU2                                   ( ( PSX_CRF_BASEADDR ) + ((u32)0x00000308U) )
 #define PSX_CRF_RST_APU3                                   ( ( PSX_CRF_BASEADDR ) + ((u32)0x0000030CU) )
 
-#define PSX_CRF_RST_APU_CORE0_WARM_RST_MASK             ((u32)0x00000011U)
-#define PSX_CRF_RST_APU_CORE1_WARM_RST_MASK             ((u32)0x00000022U)
-#define PSX_CRF_RST_APU_CORE2_WARM_RST_MASK             ((u32)0x00000044U)
-#define PSX_CRF_RST_APU_CORE3_WARM_RST_MASK             ((u32)0x00000088U)
-#define PSX_CRF_RST_APU_WARM_RST_MASK                   ((u32)0x000000F0U)
+#define PSX_CRF_RST_APU_CORE0_RST_MASK             ((u32)0x00000011U)
+#define PSX_CRF_RST_APU_CORE1_RST_MASK             ((u32)0x00000022U)
+#define PSX_CRF_RST_APU_CORE2_RST_MASK             ((u32)0x00000044U)
+#define PSX_CRF_RST_APU_CORE3_RST_MASK             ((u32)0x00000088U)
 /**
  * CRF APU clock Control
  */
