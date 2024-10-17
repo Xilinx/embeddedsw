@@ -221,26 +221,30 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Enabling stream #%d\n",
 				    XDP_TX_STREAM_ID1 + StreamIndex);
 			XDp_TxMstCfgStreamEnable(InstancePtr, XDP_TX_STREAM_ID1 + StreamIndex);
-			XDp_TxSetStreamSelectFromSinkList(InstancePtr,
-							  XDP_TX_STREAM_ID1 + StreamIndex,
-							  StreamIndex);
+
+			if (Dp_GetMstSideBandMsgStatus(InstancePtr))
+				XDp_TxSetStreamSelectFromSinkList(InstancePtr,
+								  XDP_TX_STREAM_ID1 + StreamIndex,
+								  StreamIndex);
 			XDp_TxSetStartTimeslot(InstancePtr, XDP_TX_STREAM_ID1 + StreamIndex);
 		}
 		xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Enum Path Resource Request.\n\r");
 
-		Status = XDp_TxSendEnumPathResourceRequest(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,
-				    "SS INFO:MST:Enum Path Request fail !\n\r\n\r");
-			return Status;
+		if (Dp_GetMstSideBandMsgStatus(InstancePtr)) {
+			Status = XDp_TxSendEnumPathResourceRequest(InstancePtr);
+			if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,
+						"SS INFO:MST:Enum Path Request fail !\n\r\n\r");
+				return Status;
+			}
+			Status = XDp_TxCheckLinkStatus(InstancePtr,
+							   InstancePtr->TxInstance.LinkConfig.LaneCount);
+			if (Status == XST_SUCCESS)
+				xdbg_printf(XDBG_DEBUG_GENERAL,
+						"SS INFO:MST: Link is up after Enum path request\n\r\n\r");
+			else
+				return Status;
 		}
-		Status = XDp_TxCheckLinkStatus(InstancePtr,
-					       InstancePtr->TxInstance.LinkConfig.LaneCount);
-		if (Status == XST_SUCCESS)
-			xdbg_printf(XDBG_DEBUG_GENERAL,
-				    "SS INFO:MST: Link is up after Enum path request\n\r\n\r");
-		else
-			return Status;
 
 		/* Clear virtual channel payload ID table in TX and all
 		 * downstream RX devices
@@ -263,11 +267,15 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Reading (MST) Sink "
 			"EDID...\n\r");
 
-		/* Read EDID of first sink */
-		Sink1 = InstancePtr->TxInstance.Topology.SinkList[0];
-		XDp_TxGetRemoteEdid(InstancePtr, Sink1->LinkCountTotal,
-				Sink1->RelativeAddress, Edid);
-
+		if (Dp_GetMstSideBandMsgStatus(InstancePtr)) {
+			/* Read EDID of first sink */
+			Sink1 = InstancePtr->TxInstance.Topology.SinkList[0];
+			XDp_TxGetRemoteEdid(InstancePtr, Sink1->LinkCountTotal,
+					Sink1->RelativeAddress, Edid);
+		} else {
+			/* Get EDID */
+			XDp_TxGetEdid(InstancePtr, Edid);
+		}
 		/* Check video mode for EDID preferred video mode */
 		if (VidMode == XVIDC_VM_USE_EDID_PREFERRED) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Using "
@@ -875,8 +883,6 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 		return XST_BUFFER_TOO_SMALL;
 	}
 
-	/* Check MST mode */
-	MstCapable = XDp_TxMstCapable(InstancePtr);
 
 	/* This check is done so that this function check can be called from
 	 * anywhere and it will precaculate the required total timeslots based
@@ -1045,6 +1051,12 @@ static u32 Dp_GetTopology(XDp *InstancePtr)
 	/* Clear node and sink */
 	InstancePtr->TxInstance.Topology.NodeTotal = 0;
 	InstancePtr->TxInstance.Topology.SinkTotal = 0;
+
+	if (!Dp_GetMstSideBandMsgStatus(InstancePtr)) {
+		InstancePtr->TxInstance.NumOfMstStreams = 1;
+		InstancePtr->TxInstance.Topology.SinkTotal = 1;
+		return XST_SUCCESS;
+	}
 
 	/* Discover topology and find total sinks */
 	Status = XDp_TxDiscoverTopology(InstancePtr);
