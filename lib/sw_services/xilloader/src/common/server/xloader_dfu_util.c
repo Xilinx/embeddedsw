@@ -30,6 +30,12 @@
 * </pre>
 *
 *****************************************************************************/
+
+/**
+ * @addtogroup xloader_usb_apis XilLoader USB APIs
+ * @{
+ */
+/***************************** Include Files *********************************/
 #include "xplmi_hw.h"
 #include "xloader_dfu_util.h"
 #ifdef XLOADER_USB

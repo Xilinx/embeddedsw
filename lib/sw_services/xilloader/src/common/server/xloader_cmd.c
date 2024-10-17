@@ -90,10 +90,12 @@
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xloader_server_apis XilLoader Server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
@@ -207,7 +209,7 @@ static XPlmi_Module XPlmi_Loader;
  * @param	Cmd is pointer to the command structure
  *
  * @return
- * 			- XST_SUCCESS on success.
+ *		- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XLoader_Features(XPlmi_Cmd *Cmd)
@@ -234,14 +236,14 @@ static int XLoader_Features(XPlmi_Cmd *Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function provides load DDR copy image execution.
- * 			Command payload parameters are
- *				* Img ID - of ddr copied image
- *				* Func ID - to verify with the FuncID of the image copied to DDR
  *
- * @param	Cmd is pointer to the command structure
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ *			- Img ID - of ddr copied image
+ *			- Func ID - to verify with the FuncID of the image
+ *			copied to DDR
  *
  * @return
- * 			- XST_SUCCESS on success and error code on failure
+ * 		- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XLoader_LoadDdrCpyImg(XPlmi_Cmd *Cmd)
@@ -269,12 +271,11 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd *Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function provides PDI execution from DDR.
- * 			Command payload parameters are
- *				* PdiSrc - Boot Mode values, DDR, PCIe.
- *				* PdiAddr - 64bit PDI address located in the Source.
- *				* Response - stores the partial PDI load status.
  *
- * @param	Cmd is pointer to the command structure
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ *			- PdiSrc - Boot Mode values, DDR, PCIe.
+ *			- PdiAddr - 64bit PDI address located in the Source.
+ *			- Response - stores the partial PDI load status.
  *
  * @return
  * 			- XST_SUCCESS on success
@@ -410,7 +411,7 @@ END:
  * @param	Cmd is pointer to the command structure
  *
  * @return
- * 			- XST_SUCCESS on success.
+ *		- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XLoader_SetImageInfo(XPlmi_Cmd *Cmd)
@@ -1317,4 +1318,3 @@ void XLoader_CmdsInit(void)
  * @endcond
  */
 
-/** @} */

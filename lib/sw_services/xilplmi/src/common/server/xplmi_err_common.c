@@ -148,9 +148,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_err_common.h"
@@ -207,9 +210,6 @@ static u32 EmSubsystemId = 0U;
  *
  * @param	ErrStatusVal is the error code written to the FW_ERR register
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 void XPlmi_LogPlmErr(int ErrStatusVal) {
 	int ErrStatus = ErrStatusVal;
@@ -232,9 +232,6 @@ void XPlmi_LogPlmErr(int ErrStatusVal) {
  * @brief	This function is called in PLM error cases.
  *
  * @param	ErrStatusVal is the error code written to the FW_ERR register
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_ErrMgr(int ErrStatusVal)
@@ -343,9 +340,6 @@ void XPlmi_ErrMgr(int ErrStatusVal)
 * @param    ErrorMasks is the Register mask of the Errors
 * @param    SubsystemId is the Subsystem ID for the error node.
 *
-* @return
-* 			- None
-*
 ****************************************************************************/
 void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId,
 		u32 ErrorMasks, u32 SubsystemId)
@@ -416,9 +410,6 @@ u32 XPlmi_GetErrorId(u32 ErrorNodeId, u32 RegMask)
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
 *
-* @return
-* 			- None
-*
 ****************************************************************************/
 static void XPlmi_TriggerSecureLockdown(u32 ErrorNodeId, u32 RegMask)
 {
@@ -441,9 +432,6 @@ static void XPlmi_TriggerSecureLockdown(u32 ErrorNodeId, u32 RegMask)
 *
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
-*
-* @return
-* 			- None
 *
 ****************************************************************************/
 static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
@@ -507,9 +495,6 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
 *
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
-*
-* @return
-* 			- None
 *
 ****************************************************************************/
 void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
@@ -579,9 +564,6 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
 *
-* @return
-* 			- None
-*
 ****************************************************************************/
 static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 {
@@ -640,9 +622,6 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
 *
-* @return
-* 			- None
-*
 ****************************************************************************/
 static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask)
 {
@@ -683,9 +662,6 @@ static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask)
  * @brief	This function detects and handles tamper condition in EAM IRQ
  * 			interrupt handler
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 static void XPlmi_DetectAndHandleTamper(void)
 {
@@ -725,9 +701,6 @@ static void XPlmi_DetectAndHandleTamper(void)
 *           will add the task to the task queue.
 *
 * @param    CallbackRef is presently the interrupt number that is received
-*
-* @return
-* 			- None
 *
 ****************************************************************************/
 void XPlmi_ErrIntrHandler(void *CallbackRef)
@@ -865,9 +838,6 @@ int XPlmi_ErrorTaskHandler(void *Data)
  *
  * @param	ErrorNodeType is the node type for the error event
  * @param	ErrorId is the index of the error to be cleared
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId)
@@ -1535,9 +1505,6 @@ int XPlmi_PsEmInit(void)
 /**
  * @brief	This function dumps the registers which can help debugging.
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 static void XPlmi_DumpRegisters(void)
 {
@@ -1573,9 +1540,6 @@ static void XPlmi_DumpRegisters(void)
  * @brief	This function sets clock source to IRO for ES1 silicon and resets
  * the device.
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 void XPlmi_SoftResetHandler(void)
 {
@@ -1593,9 +1557,6 @@ void XPlmi_SoftResetHandler(void)
 /**
  * @brief	This function sets clock source to IRO for ES1 silicon and triggers
  * FW NCR error.
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_TriggerFwNcrError(void)
@@ -1616,9 +1577,6 @@ void XPlmi_TriggerFwNcrError(void)
  * @brief	This function sets EmSubsystemId
  *
  * @param	Id pointer to set the EmSubsystemId
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_SetEmSubsystemId(const u32 *Id)
@@ -1733,8 +1691,7 @@ int XPlmi_ClearNpiErrors(void)
 /**
  * @brief	This function updates error out count and clears PMC FW_CR error
  *
- * @return
- * 			- None
+ * @param	ErrorId is the Error number for which error out count to be updated.
  *
  *****************************************************************************/
 static void XPlmi_ErrOutNClearFwCR(u32 ErrorId)

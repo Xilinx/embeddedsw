@@ -55,9 +55,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_dma.h"
@@ -243,9 +246,6 @@ XPmcDma *XPlmi_GetDmaInstance(UINTPTR BaseAddress)
  *
  * @param	Flags to select PMC DMA
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 static void XPlmi_SSSCfgDmaDma(u32 Flags)
 {
@@ -272,9 +272,6 @@ static void XPlmi_SSSCfgDmaDma(u32 Flags)
  * @brief	This function is used set SSS configuration for SBI to DMA.
  *
  * @param	Flags to select PMC DMA
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 static void XPlmi_SSSCfgSbiDma(u32 Flags)
@@ -312,9 +309,6 @@ static void XPlmi_SSSCfgSbiDma(u32 Flags)
  *
  * @param	Flags to select PMC DMA
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 static void XPlmi_SSSCfgDmaPzm(u32 Flags)
 {
@@ -339,9 +333,6 @@ static void XPlmi_SSSCfgDmaPzm(u32 Flags)
  * @brief	This function is used set SSS configuration for DMA to SBI transfer.
  *
  * @param	Flags to select PMC DMA
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 static void XPlmi_SSSCfgDmaSbi(u32 Flags)
@@ -968,9 +959,6 @@ END:
  * 			required to support non blocking DMA.
  *
  * @param	Val to be set
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_SetMaxOutCmds(u8 Val)

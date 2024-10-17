@@ -34,9 +34,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_tamper.h"
@@ -100,8 +103,6 @@ u32 XPlmi_SldState(void)
  *		a task. The possible values are: XPLMI_TRIGGER_TAMPER_TASK,
  *		XPLMI_TRIGGER_TAMPER_IMMEDIATE.
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_TriggerTamperResponse(u32 Response, u32 Flag)
 {
@@ -140,7 +141,8 @@ END:
  *
  * @param	Data is unused
  *
- * @return	None
+ * @return
+ * 			- No status return, waits forever for ROM to complete secure lockdown.
  *
  *****************************************************************************/
 static int XPlmi_ProcessTamperResponse(void *Data)
@@ -276,8 +278,6 @@ END:
  * @param	ErrorNodeId - Node Identifier
  * @param	ErrorMask   - Mask Identifier
  *
- * @return  None
- *
  *****************************************************************************/
 static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 		const u32 ErrorMask)
@@ -337,8 +337,10 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 /**
  * @brief	This function triggers secure lockdown if haltboot efuses are programmed.
  *
- * @return	None
- *
+ * @param	Flag denotes whether processing has to occur immediately or as a task.
+ * 			The possible values are:
+ * 				- XPLMI_TRIGGER_TAMPER_TASK,
+ *				- XPLMI_TRIGGER_TAMPER_IMMEDIATE.
  ******************************************************************************/
 void XPlmi_TriggerSLDOnHaltBoot(u32 Flag)
 {

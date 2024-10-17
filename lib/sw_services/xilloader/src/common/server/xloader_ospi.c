@@ -49,6 +49,11 @@
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup xloader_ospi_apis XilLoader OSPI APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
 #include "xloader_ospi.h"
@@ -101,7 +106,7 @@ static FlashInfo FlashConfigTable[] = {
  * 			configuration table. The flash driver will function based on this
  * 			and	it presently supports Micron 512Mb.
  *
- * @param	Ospi Instance Pointer
+ * @param	OspiPsvPtr Pointer to the Ospi Instance
  *
  * @return
  * 			- XST_SUCCESS on success.
@@ -529,6 +534,8 @@ END:
  *
  * @param	Length Length of the bytes to be copied
  *
+ * @param	Flags Flags for the DMA
+ *
  * @return
  * 			- XST_SUCCESS on success.
  * 			- XLOADER_ERR_OSPI_COPY_OVERFLOW if source address outside the flash
@@ -803,11 +810,11 @@ END:
  * 			4 byte addr mode, a write enable command is issued.
  *
  * @param	OspiPtr is a pointer to the OSPIPSV driver component to use.
- * @param	Enable is a either 1 or 0 if 1 then enters 4 byte if 0 exits.
+ * @param	Enable 0x1 to enter 4-byte addressing mode, 0x0 to exit 4-byte addressing mode.
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XLOADER_ERR_OSPI_4BMODE on OSPI driver unable to
+ * 		- XST_SUCCESS on success.
+ * 		- XLOADER_ERR_OSPI_4BMODE on OSPI driver unable to
  * 			enter/exit 4B mode.
  *
 ******************************************************************************/

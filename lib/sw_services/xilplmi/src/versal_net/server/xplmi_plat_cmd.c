@@ -8,9 +8,7 @@
 /**
 *
 * @file versal_net/xplmi_plat_cmd.c
-* @addtogroup xplmi_apis XilPlmi versal_net APIs
-* @{
-* @cond xplmi_internal
+*
 * This file contains versalnet specific cmds and modules logic.
 *
 * <pre>
@@ -40,10 +38,12 @@
 *
 * </pre>
 *
-* @note
-* @endcond
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_modules.h"
@@ -93,8 +93,6 @@ static XPlmi_BufferList AddressBufferList = {0U};
 /*****************************************************************************/
 /**
  * @brief	This function initializes Address Buffer List
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_SetAddrBufferList(void)

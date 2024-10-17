@@ -58,9 +58,12 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
+
+/**
+ * @addtogroup xilplmi_server_apis XilPlmi server APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xplmi_proc.h"
@@ -113,9 +116,6 @@ u32 *XPlmi_GetPmcIroFreq(void)
 *
 * @param	Timer is PIT timer number to be initialized
 * @param	ResetValue is the reset value of timer when started.
-*
-* @return
-* 			- None
 *
 *****************************************************************************/
 static void XPlmi_InitPitTimer(u32 Timer, u32 ResetValue)
@@ -188,9 +188,6 @@ u64 XPlmi_GetTimerValue(void)
  * @param	IroFreq is the frequency at which PMC IRO is running
  * @param	PerfTime is the pointer to variable holding the performance time
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq,
 		XPlmi_PerfTime *PerfTime)
@@ -213,9 +210,6 @@ static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq,
  * @param	TCur is current time
  * @param	PerfTime is the variable to hold the time elapsed
  *
- * @return
- * 			- None
- *
  *****************************************************************************/
 void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime)
 {
@@ -226,9 +220,6 @@ void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime)
 /*****************************************************************************/
 /**
  * @brief	This function prints the ROM time.
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_PrintRomTime(void)
@@ -251,9 +242,6 @@ void XPlmi_PrintRomTime(void)
 /*****************************************************************************/
 /**
  * @brief	This function prints the PLM time stamp.
- *
- * @return
- * 			- None
  *
  *****************************************************************************/
 void XPlmi_PrintPlmTimeStamp(void)
@@ -431,9 +419,6 @@ END:
 *
 * @param    CallbackRef is presently the interrupt number that is received.
 *
-* @return
-* 			- None
-*
 ****************************************************************************/
 void XPlmi_IntrHandler(void *CallbackRef)
 {
@@ -449,9 +434,6 @@ void XPlmi_IntrHandler(void *CallbackRef)
 * @brief    This function will enable the Iomodule interrupt.
 *
 * @param    IntrId Interrupt ID as specified in the xplmi_proc.h
-*
-* @return
-* 			- None
 *
 ****************************************************************************/
 void XPlmi_PlmIntrEnable(u32 IntrId)

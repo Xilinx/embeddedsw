@@ -23,9 +23,13 @@
  *       ng   02/14/2024 removed int typecast for errors
  * </pre>
  *
- * @note
  *
  ******************************************************************************/
+
+/**
+ * @addtogroup xloader_server_apis XilLoader Server APIs
+ * @{
+ */
 
 /***************************** Include Files **********************************/
 #include "xparameters.h"
@@ -88,11 +92,9 @@ static u32 Xloader_CheckForTimeout(void);
  * This function parse the handshake command request coming from MB and
  * calls the function for handshake process.
  *
- * @param   CmdPtr is pointer to the command structure.
+ * @param	Cmd is pointer to the command structure.
  *
  * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
- *
- * @note		None.
  *
  *******************************************************************************/
 int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
@@ -203,8 +205,6 @@ END:
  *
  * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
  *
- * @note		None.
- *
  *******************************************************************************/
 static int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 		u32 DataBuffOffset, u32 CtrlReg)
@@ -301,9 +301,9 @@ END:
  * @param    I2cHsPtr is i2c handshake command structure pointer.
  * @param    Cmd is pointer to the command structure.
  *
- * @return	None
- *
- * @note	None.
+ * @return
+ *		- XST_SUCCESS on success
+ *		- XLOADER_ERR_MAX_BASE_ADDR on max base DDR address.
  *
  *******************************************************************************/
 
@@ -364,14 +364,11 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function is to check the timeout.
  *
- * This function is to check the timeout.
- *
- * @param    None.
- *
- * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
- *
- * @note		None.
+ * @return
+ *		- XST_SUCCESS on success
+ *		- XST_FAILURE on failure
  *
  *******************************************************************************/
 static u32 Xloader_CheckForTimeout(void)

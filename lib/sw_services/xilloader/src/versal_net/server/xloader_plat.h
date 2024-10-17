@@ -8,7 +8,6 @@
 /**
 *
 * @file versal_net/xloader_plat.h
-* @addtogroup xloader_apis XilLoader versal_net specific APIs
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -47,9 +46,6 @@
 *       obs  09/30/2024 Fixed Doxygen Warnings
 *
 * </pre>
-*
-* @note
-*
 *
 ******************************************************************************/
 
