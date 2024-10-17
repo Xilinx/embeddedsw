@@ -2716,6 +2716,7 @@ extern "C" {
 #define XDP_DPCD_FAUX_CAP_MASK					0x01
 /* 0x00021: MSTM_CAP */
 #define XDP_DPCD_MST_CAP_MASK					0x01
+#define XDP_DPCD_MST_SIDEBAND_MSG_CAP			0x02
 
 /* *** Definitions for DP 1.4 :: DPCD parameters. */
 /* 0x00021: DPCD_NUM_OF_AUDIO_ENDPOINTS - read only register. */
