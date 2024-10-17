@@ -301,6 +301,30 @@ void XDp_TxMstCfgModeDisable(XDp *InstancePtr)
 
 /******************************************************************************/
 /**
+ * This function will get status of MST SideBand message support.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return	None.
+ *
+ * @note	When disabled, the driver will behave in MST/SST without
+ *		sideband message support.
+ *
+*******************************************************************************/
+u8 Dp_GetMstSideBandMsgStatus(XDp *InstancePtr)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
+	if (InstancePtr->TxInstance.isRxMstCapable &&
+			InstancePtr->TxInstance.SideBandMsgCapable)
+		return 1;
+
+	return 0;
+}
+/******************************************************************************/
+/**
  * This function will check if the immediate downstream RX device is capable of
  * multi-stream transport (MST) mode. A DisplayPort Configuration Data (DPCD)
  * version of 1.2 or higher is required and the MST capability bit in the DPCD
@@ -333,6 +357,8 @@ u32 XDp_TxMstCapable(XDp *InstancePtr)
 		return XST_NO_FEATURE;
 	}
 
+	InstancePtr->TxInstance.SideBandMsgCapable = 0;
+	InstancePtr->TxInstance.isRxMstCapable = 0;
 	/* Check that the RX device has a DisplayPort Configuration Data (DPCD)
 	 * version greater than or equal to 1.2 to be able to support MST
 	 * functionality. */
@@ -351,21 +377,38 @@ u32 XDp_TxMstCapable(XDp *InstancePtr)
 		/* The AUX read transaction failed. */
 		return Status;
 	}
-	else if ((AuxData & XDP_DPCD_MST_CAP_MASK) !=
-						XDP_DPCD_MST_CAP_MASK) {
-		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1) {
-			u8 RxCodingCap;
+	if (AuxData & XDP_DPCD_MST_CAP_MASK) {
+		InstancePtr->TxInstance.SideBandMsgCapable = 1;
+		InstancePtr->TxInstance.isRxMstCapable = 1;
+		return XST_SUCCESS;
+	} else {
+		u8 SinkChannelcodingCap;
+		u8 TxChannelCoding;
 
-			/* Check if the RX device has MST capabilities.. */
-			Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_ML_CH_CODING_CAP, 1, &RxCodingCap);
-			if (Status != XST_SUCCESS) {
-				/* The AUX read transaction failed. */
-				return Status;
-			}
-			if ((RxCodingCap & XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_128B_132B_MASK))
-				return XST_SUCCESS;
-			}
-		return XST_NO_FEATURE;
+		if (AuxData & XDP_DPCD_MST_SIDEBAND_MSG_CAP)
+			InstancePtr->TxInstance.SideBandMsgCapable = 1;
+
+		/* Check if the RX device has MST capabilities.. */
+		Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_ML_CH_CODING_SET,
+				       1, &TxChannelCoding);
+		if (Status != XST_SUCCESS)
+			return Status;
+
+		/* if DS is not MST then TX should operate as SST */
+		if (TxChannelCoding & XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_8B_10B_MASK)
+			return XST_FAILURE;
+
+		/* Check RX Channel Coding capability */
+		Status = XDp_TxAuxRead(InstancePtr, XDP_EDID_DPCD_MAINLINKCHANNELCODING,
+				       1, &SinkChannelcodingCap);
+		if (Status != XST_SUCCESS)
+			return Status;
+
+		/* if DS is not MST but supports 128B then we support MST framing */
+		if ((SinkChannelcodingCap & XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_128B_132B_MASK))
+			return XST_SUCCESS;
+
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;
@@ -432,6 +475,13 @@ u32 XDp_TxMstEnable(XDp *InstancePtr)
 		AuxData = 0;
 		AuxData = XDP_DPCD_UP_IS_SRC_MASK | XDP_DPCD_UP_REQ_EN_MASK |
 								XDP_DPCD_MST_EN_MASK;
+		Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_MSTM_CTRL, 1, &AuxData);
+		if (Status != XST_SUCCESS) {
+			/* The AUX write transaction failed. */
+			return Status;
+		}
+	} else {
+		AuxData = XDP_DPCD_UP_IS_SRC_MASK;
 		Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_MSTM_CTRL, 1, &AuxData);
 		if (Status != XST_SUCCESS) {
 			/* The AUX write transaction failed. */
@@ -598,10 +648,8 @@ void XDp_TxSetStartTimeslot(XDp *InstancePtr, u8 Stream)
 						(Stream == XDP_TX_STREAM_ID2) ||
 						(Stream == XDP_TX_STREAM_ID3) ||
 						(Stream == XDP_TX_STREAM_ID4));
-	/* Check MST mode */
-	MstCapable = XDp_TxMstCapable(InstancePtr);
-	if (MstCapable == XST_SUCCESS ||
-	    InstancePtr->TxInstance.MstEnable == 1) {
+
+	if (InstancePtr->TxInstance.MstEnable == 1) {
 		if (LinkConfig->TrainingMode == XDP_TX_TRAINING_MODE_DP21)
 			MsaConfig->StartTs = 0;
 		else
@@ -920,6 +968,8 @@ void XDp_TxTopologySortSinksByTiling(XDp *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
+	if (!Dp_GetMstSideBandMsgStatus(InstancePtr))
+		return;
 	for (CurrIndex = 0; CurrIndex <
 			(InstancePtr->TxInstance.Topology.SinkTotal - 1);
 			CurrIndex++) {
@@ -1405,6 +1455,9 @@ u32 XDp_TxSendEnumPathResourceRequest(XDp *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
+	if (!Dp_GetMstSideBandMsgStatus(InstancePtr))
+		return XST_SUCCESS;
+
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device.
 	 */
@@ -1492,15 +1545,19 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 		if (Status != XST_SUCCESS)
 			return Status;
 
-		MstStream =
-			&InstancePtr->TxInstance.MstStreamConfig[StreamIndex];
+		if (Dp_GetMstSideBandMsgStatus(InstancePtr)) {
+			MstStream =
+					&InstancePtr->TxInstance.MstStreamConfig[StreamIndex];
 
-		Status = XDp_TxSendSbMsgAllocatePayload(InstancePtr,
-			MstStream->LinkCountTotal, MstStream->RelativeAddress,
-			StreamIndex + XDP_TX_STREAM_ID1, MstStream->MstPbn);
+			Status = XDp_TxSendSbMsgAllocatePayload(InstancePtr,
+								MstStream->LinkCountTotal,
+								MstStream->RelativeAddress,
+								StreamIndex + XDP_TX_STREAM_ID1,
+								MstStream->MstPbn);
 
-		if (Status != XST_SUCCESS)
-			return Status;
+			if (Status != XST_SUCCESS)
+				return Status;
+		}
 	}
 
 	return XST_SUCCESS;
@@ -1668,9 +1725,10 @@ u32 XDp_TxClearPayloadVcIdTable(XDp *InstancePtr)
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
-
-	/* Send CLEAR_PAYLOAD_ID_TABLE request. */
-	Status = XDp_TxSendSbMsgClearPayloadIdTable(InstancePtr);
+	if (Dp_GetMstSideBandMsgStatus(InstancePtr)) {
+		/* Send CLEAR_PAYLOAD_ID_TABLE request. */
+		Status = XDp_TxSendSbMsgClearPayloadIdTable(InstancePtr);
+	}
 
 	return Status;
 }

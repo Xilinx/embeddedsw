@@ -417,14 +417,12 @@ u8 XDp_TxGet_LttprRepeaterCount(u8 NumOfRepeaters)
  ******************************************************************************/
 static void XDp_TxSet_MainLinkChannelCoding(XDp *InstancePtr, u8 LinkRate)
 {
-	if (InstancePtr->TxInstance.LinkConfig.LinkTraining2x) {
-		if (((LinkRate == XDP_TX_LINK_BW_SET_SW_UHBR10) ||
-		   (LinkRate == XDP_TX_LINK_BW_SET_SW_UHBR20) ||
-		   (LinkRate == XDP_TX_LINK_BW_SET_SW_UHBR135))) {
-			XDp_Tx_2x_LttprModeSet(InstancePtr, XDP_TX_LTTPR_NON_TRANSPARENT);
-			XDp_Tx_2x_ChannelCodingSet(InstancePtr, 0x02);
-			return;
-		}
+	if (((LinkRate == XDP_TX_LINK_BW_SET_SW_UHBR10) ||
+	    (LinkRate == XDP_TX_LINK_BW_SET_SW_UHBR20) ||
+	    (LinkRate == XDP_TX_LINK_BW_SET_SW_UHBR135))) {
+		XDp_Tx_2x_LttprModeSet(InstancePtr, XDP_TX_LTTPR_NON_TRANSPARENT);
+		XDp_Tx_2x_ChannelCodingSet(InstancePtr, 0x02);
+		return;
 	}
 
 	XDp_Tx_2x_LttprModeSet(InstancePtr, XDP_TX_LTTPR_TRANSPARENT);
@@ -3058,7 +3056,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr, u8
 	InstancePtr->TxInstance.LinkConfig.VsLevel = 0;
 	InstancePtr->TxInstance.LinkConfig.PeLevel = 0;
 
-
+#ifdef LL_CTS
 	/* UCD500 complaince expects the LaneCount to be set here,
 	 * it has to match the max cap of Sink device that supports.
 	 */
@@ -3074,6 +3072,7 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr, u8
 				    InstancePtr->TxInstance.LinkConfig.LinkRate);
 	if (Status != XST_SUCCESS)
 		return XDP_TX_TS_FAILURE;
+#endif
 
 	Status = XDp_TxSetTrainingPattern(InstancePtr,
 					XDP_TX_TRAINING_PATTERN_SET_TP1, NumOfRepeaters);
@@ -3484,6 +3483,9 @@ static u32 XDp_TxGetLaneStatusAdjReqs(XDp *InstancePtr, u8 NumOfRepeaters)
 		Status = XDp_TxAuxRead(InstancePtr, LttprOffset + 3,
 				2, &InstancePtr->TxInstance.RxConfig.LaneStatusAdjReqs[4]);
 	}
+
+	InstancePtr->TxInstance.RxConfig.FfePresetValue[0] = InstancePtr->TxInstance.RxConfig.LaneStatusAdjReqs[4];
+	InstancePtr->TxInstance.RxConfig.FfePresetValue[1] = InstancePtr->TxInstance.RxConfig.LaneStatusAdjReqs[5];
 
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -4852,6 +4854,9 @@ static void XDp_Tx_2x_LttprModeSet(XDp *InstancePtr, XDp_Tx_LttprMode mode)
 {
 	u8 LttprMode = mode;
 
+	if (!InstancePtr->TxInstance.LinkConfig.IsDsRepeater)
+		return;
+
 	if (InstancePtr->TxInstance.LinkConfig.OverrideRepeaterMode)
 		LttprMode = InstancePtr->TxInstance.LinkConfig.OverrideLttprMode;
 
@@ -5425,17 +5430,13 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr, u8 Nu
 			if (!(DelayUs > 1))
 				return XDP_TX_TS_FAILURE;
 
-			Status = XDp_Tx_2x_GetFfePresetValues(InstancePtr);
-			if (Status != XST_SUCCESS)
-				return XDP_TX_TS_FAILURE;
-
-			Status =
-			XDp_Tx_2x_AdjustFfePresetValues(InstancePtr,
-							InstancePtr->TxInstance.
-							LinkConfig.LaneCount);
-			/* The AUX read failed. */
-			if (Status != XST_SUCCESS)
-				return XDP_TX_TS_FAILURE;
+				Status =
+						XDp_Tx_2x_AdjustFfePresetValues(InstancePtr,
+								InstancePtr->TxInstance.
+								LinkConfig.LaneCount);
+				/* The AUX read failed. */
+				if (Status != XST_SUCCESS)
+					return XDP_TX_TS_FAILURE;
 
 		} else {
 			ce_failure = 0;
