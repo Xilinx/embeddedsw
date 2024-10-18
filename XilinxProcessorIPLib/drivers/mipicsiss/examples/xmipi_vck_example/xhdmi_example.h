@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -146,6 +146,10 @@ extern XIicPs Ps_Iic0, Ps_Iic1;
 #endif
 
 /************************** Function Prototypes ******************************/
+#ifdef SDT
+void enable_hdmi_interrupt();
+void disable_hdmi_interrupt();
+#endif
 #ifdef __cplusplus
 }
 #endif

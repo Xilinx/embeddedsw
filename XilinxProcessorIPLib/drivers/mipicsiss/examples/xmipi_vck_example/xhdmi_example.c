@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1560,6 +1560,42 @@ void EnableColorBar(XHdmiphy1                *Hdmiphy1Ptr,
 }
 #endif
 
+
+#ifdef SDT
+/*****************************************************************************/
+/**
+* Function to enable HDMI Interrupts.
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+
+void enable_hdmi_interrupt(void)
+{
+int Status;
+
+XEnableIntrId( XV_HdmiTxSs_ConfigPtr->IntrId[0],
+				XV_HdmiTxSs_ConfigPtr->IntrParent);
+xil_printf("Registered HDMI TX interrupt handler");
+}
+
+/*****************************************************************************/
+/**
+* Function to disable HDMI Interrupts.
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void disable_hdmi_interrupt(void)
+{
+XDisableIntrId(XV_HdmiTxSs_ConfigPtr->IntrId[0],
+				XV_HdmiTxSs_ConfigPtr->IntrParent);
+    xil_printf("Disable HDMI TX interrupt handler");
+}
+#endif
+
 /*****************************************************************************/
 /**
 *
@@ -1753,18 +1789,6 @@ int config_hdmi() {
 		       ("ERR:: HDMI TX Subsystem Initialization failed %d\r\n",
 		        Status);
 	}
-
-#ifdef SDT
-	Status = XSetupInterruptSystem(&HdmiTxSs,
-				XV_HdmiTxSS_HdmiTxIntrHandler,
-				XV_HdmiTxSs_ConfigPtr->IntrId[0],
-				XV_HdmiTxSs_ConfigPtr->IntrParent,
-				XINTERRUPT_DEFAULT_PRIORITY);
-    if (Status == XST_FAILURE) {
-        xil_printf("ERR:: Unable to register HDMI TX interrupt handler");
-		xil_printf("ERR:: HDMI TX SS initialization error\r\n");
-		return XST_FAILURE; }
-#endif
 
 	/* Set the Application version in TXSs driver structure */
 	XV_HdmiTxSS_SetAppVersion(&HdmiTxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
@@ -1961,7 +1985,19 @@ int config_hdmi() {
 				(void *)Hdmiphy1ErrorCallback,
 				(void *)&Hdmiphy1);
 
-
+#ifdef SDT
+	Status = XSetupInterruptSystem(&HdmiTxSs,
+				XV_HdmiTxSS_HdmiTxIntrHandler,
+				XV_HdmiTxSs_ConfigPtr->IntrId[0],
+				XV_HdmiTxSs_ConfigPtr->IntrParent,
+				XINTERRUPT_DEFAULT_PRIORITY);
+    if (Status == XST_FAILURE) {
+        xil_printf("ERR:: Unable to register HDMI TX interrupt handler");
+		xil_printf("ERR:: HDMI TX SS initialization error\r\n");
+		return XST_FAILURE; }
+    /* disable intterupt. enable only if switched to HDMI */
+    disable_hdmi_interrupt();
+#endif
 	xil_printf("---------------------------------\r\n");
 
     return 0 ;
