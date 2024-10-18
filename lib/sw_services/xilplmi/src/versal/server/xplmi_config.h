@@ -226,6 +226,12 @@ extern "C" {
  */
 //#define PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
 
+/**
+ * Enable the below define to enable the feature to get optional data for Versal
+ */
+//#define PLM_GET_OPT_DATA_EN
+
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/

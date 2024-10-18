@@ -431,7 +431,6 @@ int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
 int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd);
 int XLoader_LoadLpdAndPsmElf(void);
 int XLoader_CheckAndUpdateSecureState(void);
-int XLoader_ExtractOptionalData(XPlmi_Cmd* Cmd, u32 *TotalDataSize);
 
 /************************** Variable Definitions *****************************/
 
