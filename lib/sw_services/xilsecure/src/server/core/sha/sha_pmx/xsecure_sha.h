@@ -49,6 +49,7 @@
 * 5.1	mmd  07/09/23 Included header file for crypto algorithm information
 *		vss	 07/14/23 Added IsResourceBusy and IpiMask variables in Xsecure_Sha instance
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
+*       tri  10/16/24 Fixed redefined warning
 *
 * </pre>
 *
@@ -93,9 +94,6 @@ extern "C" {
 #define XSECURE_SHA3_HASH_LENGTH_IN_BITS		(384U)
 					/**< SHA 3 hash length in bits */
 
-#define XSECURE_SHA3_HASH_LENGTH_IN_WORDS		\
-					(XSECURE_SHA3_HASH_LENGTH_IN_BITS / 32U)
-					/**< SHA 3 hash length in words */
 
 /***************************** Type Definitions******************************/
 
