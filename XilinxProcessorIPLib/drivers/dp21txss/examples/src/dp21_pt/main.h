@@ -48,9 +48,18 @@
 
 #include "xvidframe_crc.h"
 
+#ifdef SDT
+#define XPAR_XV_FRMBUFRD_NUM_INSTANCES XPAR_XV_FRMBUF_RD_NUM_INSTANCES
+#define XPAR_XV_FRMBUFWR_NUM_INSTANCES XPAR_XV_FRMBUF_WR_NUM_INSTANCES
+#endif
+
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */
+#ifndef SDT
 #include "xintc.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 #else
 /* For ARM/Zynq SoC systems. */
 #ifndef SDT
@@ -63,6 +72,7 @@
 #include "videofmc_defs.h"
 #include "idt_8t49n24x.h"
 
+#ifndef SDT
 #if XPAR_XV_FRMBUFRD_NUM_INSTANCES
 #include "xv_frmbufrd_l2.h"
 #define FRMBUF_RD_DEVICE_ID  XPAR_XV_FRMBUFRD_0_DEVICE_ID
@@ -72,9 +82,16 @@
 #include "xv_frmbufwr_l2.h"
 #define FRMBUF_WR_DEVICE_ID  XPAR_XV_FRMBUFWR_0_DEVICE_ID
 #endif
+#else
+#if XPAR_XV_FRMBUFRD_NUM_INSTANCES
+#include "xv_frmbufrd_l2.h"
+#define FRMBUF_RD_DEVICE_ID  XPAR_XV_FRMBUFRD_0_DEVICE_ID
+#endif
 
-#ifdef XPAR_XV_AXI4S_REMAP_NUM_INSTANCES
-#include "xv_axi4s_remap.h"
+#if XPAR_XV_FRMBUFWR_NUM_INSTANCES
+#include "xv_frmbufwr_l2.h"
+#define FRMBUF_WR_DEVICE_ID  XPAR_XV_FRMBUFWR_0_DEVICE_ID
+#endif
 #endif
 
 #include "xgpio.h"

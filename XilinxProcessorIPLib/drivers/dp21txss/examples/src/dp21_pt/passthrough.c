@@ -237,6 +237,7 @@ void DpPt_Main(void){
 		xil_printf("ERR:DPRX SS start failed\n\r");
 		return;
 	}
+	DpRxSs_Setup();
 #endif
 
 #ifdef Tx
