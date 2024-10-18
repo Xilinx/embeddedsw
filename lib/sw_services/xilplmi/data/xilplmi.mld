@@ -56,6 +56,7 @@ BEGIN LIBRARY xilplmi
   PARAM name = plm_add_ppks_en, desc = "Enables or Disables additional PPKs", type = bool, default = false;
   PARAM name = ssit_plm_to_plm_comm_en, desc = "Enables or Disables SSIT PLM to PLM communication (valid only for Versal)", type = bool, default = true;
   PARAM name = ssit_secure_plm_to_plm_comm_en, desc = "Enables or Disables SSIT secure PLM to PLM communication (valid only for Versal)", type = bool, default = false;
+  PARAM name = plm_get_opt_data_en, esc = "Enables or Disables the feature to get optional data (valid only for Versal)", type = bool, default = false;
   PARAM name = plm_ecdsa_en, desc = "Enables or Disables ECDSA handlers", type = bool, default = true;
   PARAM name = plm_rsa_en, desc = "Enables or Disables RSA handlers", type = bool, default = true;
   PARAM name = plm_auth_jtag_en, desc = "Enables or Disables Authenticated JTAG feature", type = bool, default = true;

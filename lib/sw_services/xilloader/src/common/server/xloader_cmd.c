@@ -196,6 +196,10 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_AC_HIGH_ADDR_IDX		(4U)
 #endif
 
+#ifdef PLM_GET_OPT_DATA_EN
+#define XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK		(0x1FU)
+	/**< Mask for PDI Src in Extract Metaheader command */
+#endif
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -965,6 +969,94 @@ static void XLoader_GetExportableBuffer(u32 *Buffer, u32 MaskVal, u32 SizeVal)
 	}
 }
 
+#ifdef PLM_GET_OPT_DATA_EN
+/*************************************************************************************************/
+/**
+ * @brief	This function gets optional data from the PDI available in DDR or
+ * 		Image Store and copies it in the destination buffer
+ *
+ * @param	Cmd is pointer to the command structure
+ * @param	TotalDataSize is size of destination buffer in bytes
+ *
+ * @return
+ *			 - XST_SUCCESS on success.
+ *			 - XST_FAILURE on failure.
+ *
+ **************************************************************************************************/
+static int XLoader_ExtractOptionalData(XPlmi_Cmd* Cmd, u32 *TotalDataSize)
+{
+	int Status = XST_FAILURE;
+	XilPdi* PdiPtr = XLoader_GetPdiInstance();
+	u64 SrcAddr = (u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_HIGH_INDEX];
+	u64 DestAddr = (u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_HIGH_INDEX];
+	u32 DestSize = (u32)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX];
+	u32 DataId = Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX] >>
+		XLOADER_DATA_ID_SHIFT;
+	u64 OptionalDataStartAddr;
+	u64 OptionalDataEndAddr;
+	u64 OptDataAddr;
+	u64 OptDataHdr;
+	u32 OptDataLen;
+
+	if ((Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX] &
+		XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK) == XLOADER_PDI_SRC_IS) {
+		Status = XLoader_IsPdiAddrLookup(Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDI_ID_INDEX],
+			&SrcAddr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	else {
+		SrcAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX]) |
+				(SrcAddr << 32U);
+	}
+
+	DestAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX]) |
+			(DestAddr << 32U);
+
+	Status = XLoader_InitPdiInstanceForExtractMHAndOptData(Cmd, PdiPtr, SrcAddr, DestAddr, DestSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	OptionalDataStartAddr = XILPDI_PMCRAM_IHT_DATA_ADDR;
+	OptionalDataEndAddr = XILPDI_PMCRAM_IHT_DATA_ADDR + (u64)(PdiPtr->MetaHdr.ImgHdrTbl.OptionalDataLen * XPLMI_WORD_LEN);
+
+	OptDataAddr = XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,
+		DataId);
+	if (OptDataAddr > OptionalDataEndAddr) {
+		Status = XLOADER_ERR_OPT_DATA_NOT_FOUND;
+		goto END;
+	}
+
+	OptDataHdr = Xil_In64((UINTPTR)OptDataAddr);
+	OptDataLen = ((OptDataHdr & XIH_OPT_DATA_HDR_LEN_MASK) >> XIH_OPT_DATA_LEN_SHIFT) <<
+		XILPDI_WORD_LEN_SHIFT;
+
+	if (OptDataLen > *TotalDataSize) {
+		/**
+		 * If the buffer size is not enough to contain the optional data then update
+		 * destination size with the required length and return XLOADER_ERR_INVALID_OPT_DATA_BUFF_SIZE
+		 * error.
+		*/
+		*TotalDataSize = OptDataLen;
+		Status = XLOADER_ERR_INVALID_OPT_DATA_BUFF_SIZE;
+		goto END;
+	}
+
+	Status = XPlmi_MemCpy64(DestAddr, OptDataAddr, OptDataLen);
+	if (Status != XST_SUCCESS) {
+		Status = XLOADER_ERR_OPT_DATA_COPY_FAILED;
+		goto END;
+	}
+
+	*TotalDataSize = OptDataLen;
+
+END:
+	return Status;
+}
+#endif
+
 /*****************************************************************************/
 /**
  * @brief	This function decrypts the metaheader during run-time and exports
@@ -1064,10 +1156,14 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 		TotalDataSize += DataSize;
 		XPlmi_Printf(DEBUG_INFO, "Extracted Metaheader Successfully\n\r");
 	}
-	else {
+
+#ifdef PLM_GET_OPT_DATA_EN
+	if((Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX] &
+		XLOADER_GET_OPT_DATA_FLAG) == XLOADER_GET_OPT_DATA_FLAG) {
 		TotalDataSize = DestSize;
 		Status = XLoader_ExtractOptionalData(Cmd, &TotalDataSize);
 	}
+#endif
 
 END:
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;

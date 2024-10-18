@@ -455,6 +455,22 @@ proc xgen_opts_file {libhandle} {
 		}
 	}
 
+	# Get plm_get_opt_data_en value set by user, by default it is FALSE
+	# This feature should be always enabled for Versal Net irrespective of the value of parameter
+	# This will be disabled by default for Versal and enabled only if the value is set as TRUE
+	set value [common::get_property CONFIG.plm_get_opt_data_en $libhandle]
+	if {$proc_type == "psv_pmc"} {
+		if {$value == true} {
+			set file_handle [hsi::utils::open_include_file "xparameters.h"]
+			puts $file_handle "\n/* Enables the feature to get optional data for Versal */"
+			puts $file_handle "#define PLM_GET_OPT_DATA_EN"
+		}
+	} else {
+		set file_handle [hsi::utils::open_include_file "xparameters.h"]
+		puts $file_handle "\n/* Enables the feature to get optional data for Versal */"
+		puts $file_handle "#define PLM_GET_OPT_DATA_EN"
+	}
+
 	# Get timestamp_disable value set by user, by default it is FALSE
 	set value [common::get_property CONFIG.timestamp_en $libhandle]
 	if {$value == false} {

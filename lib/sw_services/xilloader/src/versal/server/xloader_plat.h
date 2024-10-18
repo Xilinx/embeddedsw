@@ -421,26 +421,6 @@ static inline int XLoader_CheckAndUpdateSecureState(void)
 	return XST_SUCCESS;
 }
 
-/*************************************************************************************************/
-/**
- * @brief	This function gets optional data from the PDI available in DDR or
- * 		Image Store and copies it in the destination buffer
- *
- * @param	Cmd is pointer to the command structure
- * @param	TotalDataSize is size of destination buffer in bytes
- *
- * @return
- *			 - XST_SUCCESS always
- *
- **************************************************************************************************/
-static inline int XLoader_ExtractOptionalData(XPlmi_Cmd* Cmd, u32 *TotalDataSize)
-{
-	(void)Cmd;
-	*TotalDataSize = 0U;
-	/* Not Applicable for Versal */
-	return XST_SUCCESS;
-}
-
 /************************** Function Prototypes ******************************/
 XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void);
 void XLoader_SetJtagTapToReset(void);
