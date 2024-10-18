@@ -152,6 +152,11 @@ extern "C" {
 #endif
 
 /**
+ * Enable the feature to get optional data
+ */
+#define PLM_GET_OPT_DATA_EN
+
+/**
  * @name PLM DEBUG MODE options
  *
  * By default, PLM would get built in release mode, which implies any

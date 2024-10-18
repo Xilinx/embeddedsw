@@ -83,6 +83,8 @@ typedef struct {
 } XLoader_CfiSelReadbackParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XLOADER_PDI_SRC_DDR			(0xF)	/**< Source of PDI is DDR */
+#define XLOADER_PDI_SRC_IS			(0x10)	/**< Source of PDI is Image Store */
 
 /************************************ Function Prototypes ****************************************/
 
@@ -107,6 +109,8 @@ int XLoader_GetATFHandOffParams(XLoader_ClientInstance * InstancePtr, u64 BuffAd
 int XLoader_CfiSelectiveReadback(XLoader_ClientInstance *InstancePtr,
                                  XLoader_CfiSelReadbackParams *SelectiveReadbackPtr);
 int XLoader_InputSlrIndex(XLoader_ClientInstance *InstancePtr, u32 SlrIndex);
+int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr,
+		const XLoader_OptionalDataInfo* OptionalDataInfo, u64 DestAddr, u32 *DestSize);
 
 /************************************ Variable Definitions ***************************************/
 

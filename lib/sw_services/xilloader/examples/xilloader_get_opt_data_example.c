@@ -65,7 +65,7 @@
 **************************************************************************************************/
 
 /*************************************** Include Files *******************************************/
-#include "xloader_plat_client.h"
+#include "xloader_client.h"
 #include "xil_cache.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -78,6 +78,9 @@
 #define PDI_ID					(0x3)
 	/**< PDI ID of the PDI available in Image Store. Mandatory option when PDI_SRC is selected as Image Store */
 #define OPT_DATA_BUFFER_SIZE_IN_BYTES		(0x200U)	/**< Size of optional data buffer */
+
+#define XLOADER_ERR_INVALID_OPT_DATA_BUFF_SIZE	(0x25)
+		/**< Error when buffer size given by user is less than the optional data length*/
 
 /************************************** Type Definitions *****************************************/
 
@@ -163,8 +166,7 @@ static int GetOptDataFromPdi(XLoader_ClientInstance *InstancePtr)
 	u64 PdiAddr = PDI_SRC_ADDR;
 	u32 DestSize = OPT_DATA_BUFFER_SIZE_IN_BYTES;
 	XLoader_OptionalDataInfo OptDataParams;
-
-	Xil_DCacheInvalidateRange((UINTPTR)PdiAddr, sizeof(PdiAddr));
+	int Idx;
 
 	OptDataParams.PdiSrc = PDI_SRC;
 	OptDataParams.DataId = DATA_ID;
@@ -181,9 +183,32 @@ static int GetOptDataFromPdi(XLoader_ClientInstance *InstancePtr)
 		goto END;
 	}
 
+	Xil_DCacheInvalidateRange((UINTPTR)&OptDataParams, sizeof(OptDataParams));
+	Xil_DCacheInvalidateRange((UINTPTR)&OptData, sizeof(OptData));
+	Xil_DCacheInvalidateRange((UINTPTR)&DestSize, sizeof(DestSize));
+
 	Status = XLoader_GetOptionalData(InstancePtr, &OptDataParams, (u64)(UINTPTR)&OptData, &DestSize);
 
-	Xil_DCacheInvalidateRange((UINTPTR)PdiAddr, sizeof(PdiAddr));
+	Xil_DCacheInvalidateRange((UINTPTR)&OptDataParams, sizeof(OptDataParams));
+	Xil_DCacheInvalidateRange((UINTPTR)&OptData, sizeof(OptData));
+	Xil_DCacheInvalidateRange((UINTPTR)&DestSize, sizeof(DestSize));
+
+	if (Status != XST_SUCCESS) {
+		xil_printf("Unable to extract optional data ; Status = %x \r\n", Status);
+		if (Status == XLOADER_ERR_INVALID_OPT_DATA_BUFF_SIZE) {
+			xil_printf("Size of buffer is not enough to store optional data;" \
+				"Required buffer size shoould be %d bytes", DestSize);
+		}
+		goto END;
+	}
+	else {
+		xil_printf("Size of optional data = %d bytes \r\n", DestSize);
+		xil_printf("Optional data : \r\n");;
+		for (Idx = 0 ; Idx < DestSize; Idx++) {
+			xil_printf("%x", OptData[Idx]);
+		}
+		xil_printf("\r\n");
+	}
 
 END:
 	return Status;

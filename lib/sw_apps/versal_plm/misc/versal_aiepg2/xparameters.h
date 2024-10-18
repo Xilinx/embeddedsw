@@ -1732,6 +1732,9 @@ extern "c" {
 
 #define XSECURE_KEY_SLOT_ADDR 0x00000000U /* Key slot address to store unwrapped keys */
 
+/* Macro to enable the feature to get optional data */
+#define PLM_GET_OPT_DATA_EN
+
 #ifdef __cplusplus
 }
 #endif

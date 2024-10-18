@@ -600,3 +600,65 @@ int XLoader_InputSlrIndex(XLoader_ClientInstance *InstancePtr, u32 SlrIndex)
 
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends IPI request to get optional data from the PDI available in DDR or
+ * 		Image Store.
+ *
+ * @param	InstancePtr 		Pointer to the client instance.
+ * @param	OptionalDataInfo	Pointer to XLoader_OptionalDataInfo structure
+ * @param	DestAddr		Address of the output buffer wheren optional data shall be copied
+ * @param	DestSize		Size of destination buffer in bytes
+ *
+ * @return
+ *		 - XST_SUCCESS  on success.
+ *		 - XST_FAILURE  on failure.
+ *
+**************************************************************************************************/
+int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr, const XLoader_OptionalDataInfo* OptionalDataInfo,
+	u64 DestAddr, u32 *DestSize)
+{
+	int Status = XST_FAILURE;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U];
+
+	/**
+	 * - Performs input parameters validation. Return error code if input parameters are invalid
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	Payload[0U] = PACK_XLOADER_HEADER(0, XLOADER_CMD_ID_EXTRACT_METAHEADER);
+
+	if (OptionalDataInfo->PdiSrc == XLOADER_PDI_SRC_DDR) {
+		Payload[1U] = OptionalDataInfo->PdiAddrHigh;
+		Payload[2U] = OptionalDataInfo->PdiAddrLow;
+	}
+	else if (OptionalDataInfo->PdiSrc == XLOADER_PDI_SRC_IS){
+		Payload[1U] = OptionalDataInfo->PdiId;
+		Payload[2U] = 0x0U;
+	}
+	else {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	Payload[3U] = (u32)(DestAddr >> XLOADER_ADDR_HIGH_SHIFT);
+	Payload[4U] = (u32)(DestAddr);
+	Payload[5U] = *DestSize;
+	Payload[6U] = (OptionalDataInfo->DataId << XLOADER_DATA_ID_SHIFT) | (XLOADER_GET_OPT_DATA_FLAG |
+		OptionalDataInfo->PdiSrc);
+
+	/**
+	 * - Send an IPI request to the PLM by using the XLoader_GetOptionalData command
+	 * - Wait for IPI response from PLM with a timeout.
+	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
+	 * response.
+	 */
+	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload)/sizeof(u32));
+	*DestSize = InstancePtr->Response[1U];
+
+END:
+	return Status;
+}
