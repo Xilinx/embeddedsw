@@ -48,8 +48,7 @@ typedef enum {
 	ECDSA_NIST_K571,		/**< NIST K-571 curve */
 	ECDSA_NIST_B571,		/**< NIST B-571 curve */
 	ECDSA_SECT_193R1,		/**< SECT 193R1 curve */
-	ECDSA_SM2_FP256,		/**< SM2 FP 256 curve */
-	ECDSA_BRAINPOOL_P160,		/**< Brainpool P-160 curve */
+	ECDSA_BRAINPOOL_P160 = 18,	/**< Brainpool P-160 curve */
 	ECDSA_BRAINPOOL_P192,		/**< Brainpool P-192 curve */
 	ECDSA_BRAINPOOL_P224,		/**< Brainpool P-224 curve */
 	ECDSA_BRAINPOOL_P256,		/**< Brainpool P-256 curve */
