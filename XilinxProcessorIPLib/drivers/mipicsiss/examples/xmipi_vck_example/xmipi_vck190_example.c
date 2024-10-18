@@ -1,6 +1,6 @@
  /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 #include "xdsitxss.h"
 #include "sensor_cfgs.h"
 #include "xv_hdmitxss.h"
+#include "xhdmi_example.h"
 
 int config_hdmi();
 
@@ -688,6 +689,7 @@ xil_printf("\r\n Wrong Input Selection, Default(1920x1080p60) is Selected\r\n");
 int main() {
 
 	u32 Status = XST_FAILURE;
+	u8 prev_VideoDestn;
 
 
 	Pipeline_Cfg.ActiveLanes = 4;
@@ -760,6 +762,7 @@ int main() {
 		return XST_FAILURE;
 	}
 #endif
+
 	Status = config_csi_cap_path();
 	if (Status == XST_FAILURE) {
 		xil_printf("CSI Capture Pipe Configuration failed.\r\n");
@@ -769,6 +772,7 @@ int main() {
 	InitDSI();
 	xil_printf("InitDSI Done \n\r");
 	}
+
 	Status = config_hdmi();
 		if (Status == XST_FAILURE) {
 			xil_printf("HDMI  TX Configuration failed.\r\n");
@@ -795,9 +799,15 @@ int main() {
 		return XST_FAILURE;
 	}
 	if(Pipeline_Cfg.VideoDestn == XVIDDES_DSI){
-	EnableDSI();
+		EnableDSI();
 	}
+#ifdef SDT
+	else {
+		enable_hdmi_interrupt();
+	}
+#endif
 
+#ifndef SDT
 		/* Main loop */
 			do {
 				XMipi_DisplayMainMenu();
@@ -814,11 +824,7 @@ int main() {
 
 				if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI) {
 					xil_printf("Set DSI as destination \r\n");
-#ifndef SDT
 					XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
-#else
-					XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_BASE);
-#endif
 					Reset_IP_Pipe();
 					SetupDSI();
 					TxRestartColorbar = (FALSE);
@@ -834,6 +840,66 @@ int main() {
 				}
 
             } while (1);
+#else
+            /* Main loop */
+			prev_VideoDestn = Pipeline_Cfg.VideoDestn;
+			do {
+				XMipi_DisplayMainMenu();
+				Pipeline_Cfg.VideoDestn = New_Cfg.VideoDestn ;
+				Pipeline_Cfg.VideoMode = New_Cfg.VideoMode ;
 
+				/* logic to maintain prev state of the destination */
+				if (prev_VideoDestn == Pipeline_Cfg.VideoDestn)
+				continue;
+				else
+				prev_VideoDestn = Pipeline_Cfg.VideoDestn;
+
+					if (Pipeline_Cfg.VideoDestn == XVIDDES_HDMI) {
+						xil_printf("Set HDMI as destination \r\n");
+						disable_hdmi_interrupt();
+						usleep(5000);
+						/* reset capture pipe */
+						XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_BASE);
+						Reset_IP_Pipe();
+
+						TxBusy            = (FALSE);
+						TxRestartColorbar = (TRUE);
+						config_csi_cap_path( );
+						SelectHDMIOutput();
+						enable_hdmi_interrupt();
+						usleep(5000);
+						start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
+					}
+
+					if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI) {
+						xil_printf("Set DSI as destination \r\n");
+						/* disable HDMI interrupt, display switched*/
+						disable_hdmi_interrupt();
+						usleep(5000);
+						/* reset capture pipe */
+						XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_BASE);
+						Reset_IP_Pipe();
+
+						SetupDSI();
+						TxRestartColorbar = (FALSE);
+						TxBusy            = (TRUE);
+						IsStreamUp        = (FALSE);
+
+						Status = config_csi_cap_path();
+						if (Status == XST_FAILURE) {
+							xil_printf("CSI Capture Pipe Configuration failed.\n\r");
+							return XST_FAILURE;
+						}
+
+						SelectDSIOutput();
+						InitDSI();
+						xil_printf("InitDSI Done \n\r");
+
+						start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
+						EnableDSI();
+					}
+
+	    } while (1);
+#endif
   return 0;
 }
