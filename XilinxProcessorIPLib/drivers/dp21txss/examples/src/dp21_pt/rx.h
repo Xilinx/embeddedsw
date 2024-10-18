@@ -30,7 +30,11 @@
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */
+#ifndef SDT
 #include "xintc.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 #else
 /* For ARM/Zynq SoC systems. */
 #ifndef SDT

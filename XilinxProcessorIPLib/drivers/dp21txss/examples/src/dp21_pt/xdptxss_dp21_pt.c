@@ -522,9 +522,7 @@ u32 DpSs_Main(void)
 #ifdef Rx
 	/* issue HPD at here to inform DP source */
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
-//	xil_printf("ND dpss_main all interrupt(other than tp1,tp2 and tp3) disabled\r\n");
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x80000000);
-//	xil_printf("ND dpss_main unplug interrupt  enabled\r\n");
 	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 50000);
 #endif
 
@@ -749,133 +747,6 @@ void CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 #ifdef Rx
 void CalculateCRC(void)
 {
-
-#if 0 //ND added for rx
-	u32 overflow;
-		u32 loop = 0;
-		u32 misses = 0;
-		/* Reset CRC Test Counter in DP DPCD Space */
-		VidFrameCRC.TEST_CRC_CNT = 0;
-
-		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
-			     (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
-			      VidFrameCRC.TEST_CRC_CNT));
-
-		/* Set pixel mode as per lane count - it is default behavior
-		 * User has to adjust this accordingly if there is change in pixel
-		 * width programming
-		 * */
-
-		/* Set pixel mode as per lane count - it
-		 * is default behavior Reset DTG */
-		XDp_RxSetUserPixelWidth(DpRxSsInst.DpPtr,
-					DpRxSsInst.UsrOpt.LaneCount);
-		XDp_RxDtgDis(DpRxSsInst.DpPtr);
-		XDp_RxDtgEn(DpRxSsInst.DpPtr);
-		CustomWaitUs(DpRxSsInst.DpPtr, 100000);
-		VidFrameCRC.Mode_422 =
-				(XVidFrameCrc_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-						      XDP_RX_MSA_MISC0) >> 1) & 0x3 ;
-
-		if(VidFrameCRC.Mode_422 != 0x1 ) {
-		XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-					  0x4);
-		}
-		else{
-		XVidFrameCrc_WriteReg(VIDEO_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
-				  0x4 | 0x80000000);
-		}
-
-		XVidFrameCrc_Reset();
-
-		/* Add delay (~40 ms) for Frame CRC to compute on couple of frames */
-		CustomWaitUs(DpRxSsInst.DpPtr, 400000);
-		CustomWaitUs(DpRxSsInst.DpPtr, 400000);
-
-		// reading the overflow twice to clear the bit set
-		overflow = (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-							    XDP_RX_USER_FIFO_OVERFLOW)) & 0x00000111;
-		overflow = (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-							    XDP_RX_USER_FIFO_OVERFLOW)) & 0x00000111;
-		overflow = 0;
-
-		//reading overflow in loop of 500
-		//in ideal scenario it should never be set
-		while (loop < 500) {
-			loop++;
-			overflow |= (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-								    XDP_RX_USER_FIFO_OVERFLOW)) & 0x00000111;
-			CustomWaitUs(DpRxSsInst.DpPtr, 800);
-		}
-
-		misses = (XVidFrameCrc_ReadReg(VIDEO_CRC_BASEADDR,
-				VIDEO_FRAME_CRC_MISSES)) & 0x00000FFF;
-
-
-		/* Read computed values from Frame CRC
-		 * module and MISC0 for colorimetry */
-		VidFrameCRC.Pixel_r  =
-			XVidFrameCrc_ReadReg(VIDEO_CRC_BASEADDR,
-					    VIDEO_FRAME_CRC_VALUE_G_R) & 0xFFFF;
-		VidFrameCRC.Pixel_g  =
-			XVidFrameCrc_ReadReg(VIDEO_CRC_BASEADDR,
-					    VIDEO_FRAME_CRC_VALUE_G_R) >> 16;
-		VidFrameCRC.Pixel_b  =
-			XVidFrameCrc_ReadReg(VIDEO_CRC_BASEADDR,
-					    VIDEO_FRAME_CRC_VALUE_B) & 0xFFFF;
-
-		/* Write CRC values to DPCD TEST CRC space */
-		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
-						VidFrameCRC.Pixel_r);
-		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
-						VidFrameCRC.Pixel_g);
-		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
-						VidFrameCRC.Pixel_b);
-
-
-		if (overflow == 0 && misses == 0) {
-	    // Set CRC only when overflow is not there and no b2b CRC mismatch
-		VidFrameCRC.TEST_CRC_CNT = 1;
-		} else if (overflow && misses) {
-			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
-					 0x2);
-			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
-					0x2);
-			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
-					0x2);
-			//not setting CRC available bit
-			// for overflow CRC forced to 0x0
-			//for b2b miss CRC forced to 0x1
-			// helps in identifying at TX report
-		} else if (overflow) {
-				overflow_count++;
-				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
-						 0x0);
-				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
-						0x0);
-				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
-						0x0);
-		} else if (misses) {
-				missed_count++;
-				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
-					     0x1);
-				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
-						0x1);
-				XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
-						0x1);
-		}
-		VidFrameCRC.TEST_CRC_CNT = 1;
-
-
-		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
-				 (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
-				  VidFrameCRC.TEST_CRC_CNT));
-
-		xil_printf("[Video CRC] R/Cr: 0x%x, G/Y: 0x%x, B/Cb: 0x%x\r\n\n",
-			   VidFrameCRC.Pixel_r, VidFrameCRC.Pixel_g,
-			   VidFrameCRC.Pixel_b);
-#endif
-
     u32 RegVal;
     u8 color_mode = 0;
  /* Reset CRC Test Counter in DP DPCD Space. */
@@ -1255,7 +1126,7 @@ u32 DpSs_SetupIntrSystem(void)
 	}
 
 #if XPAR_XV_FRMBUFWR_NUM_INSTANCES
-	Status = XSetupInterruptSystem(&frmbufwr, (Xil_InterruptHandler)XVFrmbufWr_InterruptHandler,
+	Status = XSetupInterruptSystem(&frmbufwr, XVFrmbufWr_InterruptHandler,
 				       frmbufwr.FrmbufWr.Config.IntrId,
 				       frmbufwr.FrmbufWr.Config.IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
@@ -1281,7 +1152,7 @@ u32 DpSs_SetupIntrSystem(void)
 	}
 
 #if XPAR_XV_FRMBUFRD_NUM_INSTANCES
-	Status = XSetupInterruptSystem(&frmbufrd, (Xil_InterruptHandler)XVFrmbufRd_InterruptHandler,
+	Status = XSetupInterruptSystem(&frmbufrd, XVFrmbufRd_InterruptHandler,
 				       frmbufrd.FrmbufRd.Config.IntrId,
 				       frmbufrd.FrmbufRd.Config.IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
