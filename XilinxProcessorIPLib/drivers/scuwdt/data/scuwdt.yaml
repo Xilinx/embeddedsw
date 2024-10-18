@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ---
 title: Bindings for ScuWdt controller
@@ -36,7 +36,5 @@ tapp:
         declaration: ScuWdtIntrExample
         hwproperties:
             - interrupts
-   xscuwdt_polled_example.c:
-        declaration: ScuWdtPolledExample
 
 ...
