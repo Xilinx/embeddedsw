@@ -446,6 +446,320 @@ SP701 passthrough app migrated for SDT support.
 
 
 
+xiethernet_v5_18:
+Add C++ Linkage support
+Update yaml to support peripheral test application generation
+
+
+cframe_v1_7:
+Added CFI selective readback Support
+
+
+cfupmc_v1_8:
+Add support for the new taxonomy convention adopted for the IP Names
+
+
+dp21_v2_3:
+Add support for Displayport MultiStreams
+Add LTTPR Support for displayport TX subsystem
+Update training flow to fix Link Layer CTS
+
+
+dp21txss_v2_3:
+Update XDpTxSs_GetSinkCapabilities()
+Add LTTPR support API's
+Update PixelClockHz to 64-bit to support higher datarates
+
+
+emaclite_v4_10:
+Add C++ Linkage support
+
+
+emacps_v3_21:
+Multi packet support was added
+Random packet size
+Enabled Priority queuing on Tx and RX
+Enabled Screening registers for Rx priority queuing
+
+
+i3c_v1_1:
+Update driver version
+Add odd parity support to address during dynamic address assignment
+Move SlaveInfo to i3c device instance
+Add device count config parameter
+Add IBI and Hot Join support
+Expose XI3C_BusInit to examples
+Set Hold Time based on IP revision
+
+
+i3cpsx_v1_4:
+Update the driver version
+Use macros instead of hard code values
+Fix missing extern 'C' keyword from header files
+Enhance send/receive functions and improve interrupt handling
+Update examples with return statements, remove resetfifos and hardcoded values
+
+
+iicps_v3_20:
+Update driver version
+Update 10-bit address mode support
+Fix Misra violations
+Reorder XIicPs_MasterPolledRead call in XIicPs_MasterRecvPolled for proper
+error detection
+
+
+pciepsu_v2_0:
+Added support for BAR address alignment based on requested BAR size.
+Fix format specifier in BAR address debug message
+
+
+uartns550_v3_11:
+Update driver version number
+Expose XUartNs550_UpdateStats to user applications
+
+
+uartps_v3_15:
+Update uartps driver version number
+Fix redefinition compilation warning
+
+
+xdmapcie_v2_0:
+Add support for BAR address alignment based on requested BAR size.
+Add support for QDMA Window programming, which takes care of AXI address
+translations.
+Fix format specifier in BAR address debug message
+
+
+xxvethernet_v1_10:
+Add C++ Linkage support
+
+
+xilcert_v1_3:
+Fixed doxygen warnings
+Generate certificate for additional DevAk
+Updates to SHA APIs with respect to code refactoring xilsecure library.
+Add TCB Info extension for DevIk CSR
+Remove HwType for Versal Gen2 devices
+Updated doxygen comments for RTF docs
+Remove extra token at end of #ifdef directive
+
+
+xilloader_v2_1:
+Fixed doxygen warnings
+Fix Misra-C violations
+Restart Image to Support loading from Boot PDI Present in Image Store
+Added freertos10_xilinx as supported os
+Changed all the device copies from PPU RAM to PMC RAM to add boot support in
+isolation enabled design.
+Added AES initialization code before KAT's run
+Add support for the new taxonomy convention
+Added support to generate additional DevAk for each subsystem
+Added CFI selective readback command support
+Add support for loading the partial PDI through JTAG as a secondary
+boot device after secure boot.
+Support for Setting the pre-scaler for QSPI clock from CIPS
+Added UFS boot support for Versal_2ve_2vm
+
+
+xilnvm_v3_4:
+Check for user efuse cache space for DME keys
+Added eFuse write enable macros in SDT flow
+Programming support for AES keys from linux
+Add support to read/write efuses via IPI and code cleanup
+Add xilnvm library support for spartan ultrascale plus
+Provisioning Configuration Limiter parameters
+Update ppk-hash 384 bit programming for Versal_2ve_2vm
+Removed zeroization during key write at server side
+Doxygen updates for RTF
+VersalNet - Corrected offchipid range to be programmed
+
+
+xilocp_v1_4:
+Retain HW/SW PCR log after In place PLM update
+Zeroize N-1 measurement for the first measurement calculation.
+Add support for the new taxonomy convention adopted for the IP NAMES
+Get personalization string for additional DevAK
+Support to generate additional DevAk per subsystem
+Attestation with additional DevAk for KeyWrap
+Generate certificate for additional DevAk
+When XPPU is not enabled by default, dont restore aperture configurations
+Updates to SHA APIs with respect to code refactoring xilsecure library.
+Disable KeyUnwrap for Versal_2ve_2vm and update XOcp_GenSubSysDevAk call in
+xilloader
+Fix update in DevAkIndex array
+Add TCB Info extension for DevIk CSR
+
+
+xilpdi_v1_10:
+Fixed doxygen comments
+Add support for the new taxonomy convention adopted for the IP NAMES
+Add freertos10_xilinx as supported os for xilpdi
+Added PDI format support for Versal_2ve_2vm
+
+
+xilplmi_v2_1:
+Fixed doxygen comments
+Make xplmi_error_node header file common to server and client.
+Added logic to notify In-Place update error & also delay IPOR based on the
+configured timeout
+Add freertos10_xilinx as supported os for xilplmi
+PLM version is populated as per below format
+in the RTCA Region [MajorVer,MinorVer,RC#,Customer defined Version]
+Glitch detector access in client and server mode
+Add RSA keypair generation support
+Implemented secure communication between PLMs
+Added register node to access PMC analog registers
+Remove check to restrict crypto access when crypto KAT enable efuse bit
+is blown and KAT is not ran during runtime requests
+
+
+xilpm_v5_3:
+Support mem-ranges cdo command from Vivado & use it in subsystem restart
+L20 DDRMC & Crypto BISR support
+Support CFRAME writes using ioctl
+Support PMC EMIO as wakeup source
+
+
+xilpuf_v2_4:
+Fixed doxygen comments
+Fixed issue in case of regeneration from eFUSE
+Add support for the new taxonomy convention adopted for the IP NAMES
+Add support to read/write efuses via IPI
+Add xilpuf library support for spartan ultrascale plus
+Fix capturing key ready and AUX value
+Formatting code
+Fix for Misra C rule 9.3
+Updated doxygen comments
+Corrected comments in function header
+
+
+xilsecure_v5_4:
+Doxygen fixes
+Fix typo in ECDSA
+Fix backward compatability issue with respect to API ID
+Add support for NIST P-192 and P-224 curves
+Add support for RSA CRT and RRN operation
+Add RSA keypair generation support
+Add AES key unwrap padding support
+Add support for key store address configuration
+Update keyvault map
+Fix compilation failure in decoupling flow
+Fix RSA endianness and validate input arguments
+Increment algorithm version
+Add support for the new taxonomy convention adopted for the IP NAMES
+Remove check to restrict crypto access
+Attest RSA public key with DevAk private key
+Code refactoring for Versal_2ve_2vm updates and SDT support/Updates for
+ZynqMp, Versal, VersalNet and Versal_2ve_2vm
+Validate command and payload before use
+Optimize xilsecure_versal_ecdsa_client_example
+Add Key Transfer to ASU via IPI
+Add xilsecure library support for spartan ultrascale plus
+Add RsaPrivateDecrypt for Versal_2ve_2vm - RSA SCA support
+Added SSIT support for RSA, ECDSA and SHA client libraries
+Added SDT flow support for PLM build for Versal_2ve_2vm
+Add SHA example for spartanup
+Use XSecure_MemCpy64 instead of XPlmi_MemCpy64 when copying small chunks of
+data.
+Fix issue in copy of files
+Add Redundancy check for XPlmi_MemCpy64
+Remove deleting folders in library tcl files
+
+
+xilsfl_v1_0:
+Initial version
+
+
+libmetal_v2_8:
+Deprecate zynq7000
+Enable Freertos in Vitis unified
+
+
+openamp_v1_11:
+Deprecate zynq7000
+Enable Freertos in Vitis unified
+Enable attach/detach for mpsoc / versal
+
+
+lwip220_v1_1:
+Fix include path for debug header
+Add C++ linkage support
+Add support on board PHY DT node
+Update CMake for missing include paths
+Fix critical section handling for MB-V
+Get number of GEM queues runtime in sync with emacps driver updates
+Fix compilation warnings
+
+
+v_hdmiphy1_v2_9:
+Add clock primitive properties in yaml file
+Added DPLL Support for Versal Devices
+Added min max for DPLL
+data: Update generic string to support IP version change
+
+
+v_hdmitxss1_v3_6:
+xhdmi_example: Fix Rx FRL training failing with higher r…
+examples: Fix PT application to work with advance design
+Add XV_HdmiRxSs1_SetUserHdcpProtocol() API
+Add menu options for XV_HdmiRxSs1_SetUserH…
+Added support for vck190 in hdcp_key_utility
+
+
+v_hdmirxss1_v3_6:
+xhdmi_example: Fix Rx FRL training failing with higher r…
+examples: Fix PT application to work with advance design
+Add XV_HdmiRxSs1_SetUserHdcpProtocol() API
+Add menu options for XV_HdmiRxSs1_SetUserH…
+Added support for vck190 in hdcp_key_utility
+
+
+v_hdmirxss_v6_6:
+Fix interrupt registration sequence in PT app
+PassThroughVersal: Fix interrupt registration sequence in…
+RxOnly: Fix Rxonly application for different platforms
+PassThrough: Fix passthrough mode for microblaze platform
+
+
+v_hdmitxss_v6_5:
+Fix interrupt registration sequence in PT app
+PassThroughVersal: Fix interrupt registration sequence in…
+PassThrough: Fix passthrough mode for microblaze platform
+
+
+v_sditx:
+Yaml changes made for generic compatible string
+SPDIF interrupt example fixed with correct interrupt mapping ID's.
+
+
+v_sdirx:
+Yaml changes made for generic compatible string
+SPDIF interrupt example fixed with correct interrupt mapping ID's.
+
+
+v_sditxss:
+Yaml changes made for generic compatible string
+SPDIF interrupt example fixed with correct interrupt mapping ID's.
+
+
+v_sdirxss:
+Yaml changes made for generic compatible string
+SPDIF interrupt example fixed with correct interrupt mapping ID's.
+
+
+spdif:
+Yaml changes made for generic compatible string
+SPDIF interrupt example fixed with correct interrupt mapping ID's.
+
+
+mipi_csi2_rx_ss:
+Yaml changes made for generic compatible string
+SP701 passthrough app migrated for SDT support.
+
+
+mipi_dsi_tx_ss:
+Yaml changes made for generic compatible string
+SP701 passthrough app migrated for SDT support.
 
 
 
