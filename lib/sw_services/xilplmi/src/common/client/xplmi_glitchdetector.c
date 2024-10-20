@@ -22,6 +22,7 @@
  * 1.00  pre  06/09/2024 Initial release
  *       pre  07/17/2024 Used register node to access PMC analog registers and fixed
  *                       misrac warnings
+ *       pre  10/19/2024 Added support for PL microblaze
  *
  * </pre>
  *
@@ -32,9 +33,10 @@
 /***************************** Include Files *****************************************************/
 #include "xplmi_glitchdetector.h"
 #include "xil_io.h"
-#include "xscugic.h"
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
-#include "pm_api_sys.h"
+#include "xil_cache.h"
+#include "xplmi_client.h"
+#include "xilmailbox_ipips_control.h"
 #endif
 
 /************************** Constant Definitions *************************************************/
@@ -57,14 +59,30 @@
 #define XPLMI_WIDTH_BITS_SHIFT      (8U) /**< Shift value to place bits of width */
 #define XPLMI_WORD_LEN              (4U) /**< Word size in bytes */
 #define XPLMI_GD1_STATUS_POS        (16U) /**< Bit position of glitch detector1 status */
+#ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
+#define XPLMI_PM_MODULE_ID			(2U) /**< Module ID for xilpm */
+#define XPLMI_PM_MODULE_ID_MASK		((u32)XPLMI_PM_MODULE_ID << XPLMI_MODULE_ID_SHIFT) /**< Module
+											ID mask */
+#define XPLMI_IOCTL_MASK_WRITE_REG  (29U) /**<  Write command ID */
+#define XPLMI_IOCTL_READ_REG        (28U) /**< Read command ID */
+#define XPLMI_PM_IOCTL              (0x22U) /**< PM IOCTL command ID */
+#endif
 
 /**************************** Type Definitions ***************************************************/
 
 /***************** Macros (Inline Functions) Definitions *****************************************/
+#ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
+static inline u32 PACK_XILPM_HEADER(u32 Len, u32 ApiId)
+{
+	return ((Len << XPLMI_PAYLOAD_LEN_SHIFT) | XPLMI_PM_MODULE_ID_MASK | (ApiId));
+}
 
 /************************** Function Prototypes **************************************************/
 
 /************************** Variable Definitions *************************************************/
+static XMailbox MailboxInstance;
+static XPlmi_ClientInstance PlmiClientInstance;
+#endif
 
 /*************************************************************************************************/
 /**
@@ -80,17 +98,30 @@ int XPlmi_WriteReg32(u32 Offset, u32 Data)
 {
 	int Status = XST_FAILURE;
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
-	u32 Payload[XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE];
-	u32 Response;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
 
-	/* Frame payload */
-	Payload[0] = Offset;
-	Payload[1] = XGLITCHDETECTOR_SECURE_WRITE_DEFAULT;
-	Payload[2] = Data;
-	/* Send PM command */
-	Status = XPm_DevIoctl2(PM_REG_PMC_ANALOG_ID, IOCTL_MASK_WRITE_REG, Payload,
-			XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE, &Response,
-			XGLITCHDETECTOR_SECURE_DEFAULT_RESPONSE_SIZE);
+    /**
+	 * - Return error code if parameters are invalid
+	 */
+	if (PlmiClientInstance.MailboxPtr == NULL) {
+		goto END;
+	}
+
+	Payload[0U] = PACK_XILPM_HEADER(XPLMI_HEADER_LEN_5, (u32)XPLMI_PM_IOCTL);
+	Payload[1U] = PM_REG_PMC_ANALOG_ID;
+	Payload[2U] = XPLMI_IOCTL_MASK_WRITE_REG;
+	Payload[3U] = Offset;
+	Payload[4U] = XGLITCHDETECTOR_SECURE_WRITE_DEFAULT;
+	Payload[5U] = Data;
+
+	/**
+	 * - Send an IPI request to the PLM by using the XPm_DevIoctl2 CDO command
+	 * Wait for IPI response from PLM with a timeout.
+	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
+	 * response.
+	 */
+	Status = XPlmi_ProcessMailbox(&PlmiClientInstance, Payload, sizeof(Payload) / sizeof(u32));
+END:
 #else
 	/* Write value to register */
 	Xil_Out32(PMC_ANALOG_BASE_ADDR + Offset, Data);
@@ -114,17 +145,30 @@ static int XPlmi_UpdateReg32(u32 Offset, u32 Mask, u32 Data)
 {
 	int Status = XST_FAILURE;
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
-	u32 Payload[XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE];
-	u32 Response;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
 
-    /* Frame payload */
-	Payload[0] = Offset;
-	Payload[1] = Mask;
-	Payload[2] = Data;
-	/* Send PM command */
-	Status = XPm_DevIoctl2(PM_REG_PMC_ANALOG_ID, IOCTL_MASK_WRITE_REG, Payload,
-			XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE, &Response,
-			XGLITCHDETECTOR_SECURE_DEFAULT_RESPONSE_SIZE);
+    /**
+	 * - Return error code if parameters are invalid
+	 */
+	if (PlmiClientInstance.MailboxPtr == NULL) {
+		goto END;
+	}
+
+	Payload[0U] = PACK_XILPM_HEADER(XPLMI_HEADER_LEN_5, (u32)XPLMI_PM_IOCTL);
+	Payload[1U] = PM_REG_PMC_ANALOG_ID;
+	Payload[2U] = XPLMI_IOCTL_MASK_WRITE_REG;
+	Payload[3U] = Offset;
+	Payload[4U] = Mask;
+	Payload[5U] = Data;
+
+	/**
+	 * - Send an IPI request to the PLM by using the XPm_DevIoctl2 CDO command
+	 * Wait for IPI response from PLM with a timeout.
+	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
+	 * response.
+	 */
+	Status = XPlmi_ProcessMailbox(&PlmiClientInstance, Payload, sizeof(Payload) / sizeof(u32));
+END:
 #else
     /* Read register value */
 	u32 RegVal = Xil_In32(PMC_ANALOG_BASE_ADDR + Offset);
@@ -144,24 +188,48 @@ static int XPlmi_UpdateReg32(u32 Offset, u32 Mask, u32 Data)
  * @param	Offset Offset of the register.
  * @param   Data Value to be read.
  *
+ * @return  XST_SUCCESS on success
+ *          error code on failure
 **************************************************************************************************/
-void XPlmi_ReadReg32(u32 Offset, u32 *Data)
+int XPlmi_ReadReg32(u32 Offset, u32 *Data)
 {
+	int Status = XST_FAILURE;
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
-	u32 Payload[XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
 
-    /* Frame payload */
-	Payload[0] = Offset;
-	Payload[1] = XGLITCHDETECTOR_SECURE_READ_DEFAULT;
-	Payload[2] = XGLITCHDETECTOR_SECURE_READ_DEFAULT;
-	/* Send PM command */
-	(void)XPm_DevIoctl2(PM_REG_PMC_ANALOG_ID, IOCTL_READ_REG, Payload,
-			XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE, Data,
-			XGLITCHDETECTOR_SECURE_DEFAULT_RESPONSE_SIZE);
+    /**
+	 * -  Return error code if parameters are invalid
+	 */
+	if (PlmiClientInstance.MailboxPtr == NULL) {
+		goto END;
+	}
+
+	Payload[0U] = PACK_XILPM_HEADER(XPLMI_HEADER_LEN_5, (u32)XPLMI_PM_IOCTL);
+	Payload[1U] = PM_REG_PMC_ANALOG_ID;
+	Payload[2U] = XPLMI_IOCTL_READ_REG;
+	Payload[3U] = Offset;
+	Payload[4U] = XGLITCHDETECTOR_SECURE_READ_DEFAULT;
+	Payload[5U] = XGLITCHDETECTOR_SECURE_READ_DEFAULT;
+
+	/**
+	 * - Send an IPI request to the PLM by using the XPm_DevIoctl2 CDO command
+	 * Wait for IPI response from PLM with a timeout.
+	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
+	 * response.
+	 */
+	Status = XPlmi_ProcessMailbox(&PlmiClientInstance, Payload, sizeof(Payload) / sizeof(u32));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	*Data = PlmiClientInstance.Response[1U];
+END:
 #else
 	/* Read register value */
 	*Data = Xil_In32(PMC_ANALOG_BASE_ADDR + Offset);
+	Status = XST_SUCCESS;
 #endif
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -220,7 +288,7 @@ int XPlmi_ChangeGlitchDetectorState(u8 GlitchDetectorNum,eStatus EnableStatus)
 	u32 Data = 0;
 
 	/* Frame data to be written */
-	if(EnableStatus == DISABLE) {
+	if (EnableStatus == DISABLE) {
 		Data = 1U << (GlitchDetectorNum * XPLMI_GD1_STATUS_POS);
 	}
 
@@ -236,17 +304,66 @@ int XPlmi_ChangeGlitchDetectorState(u8 GlitchDetectorNum,eStatus EnableStatus)
  *
  * @param   GlitchDetectorNum is the number of glitch detector whose status
  *          is to be read
+ * @param   GlitchDetStatus holds the status
  *
  * @return  Status of glitch detector
  *
   ************************************************************************************************/
-u8 XPlmi_GlitchDetectorStatus(u8 GlitchDetectorNum)
+int XPlmi_GlitchDetectorStatus(u8 GlitchDetectorNum, u8 *GlitchDetStatus)
 {
-	u8 Status;
+	int Status = XST_FAILURE;
 	u32 RegVal = 0;
 
-	XPlmi_ReadReg32(GD_CTRL_OFFSET, &RegVal);
-	Status = (RegVal >> (GlitchDetectorNum * XPLMI_GD1_STATUS_POS)) & 0x01;
+	Status = XPlmi_ReadReg32(GD_CTRL_OFFSET, &RegVal);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
+	*GlitchDetStatus = (RegVal >> (GlitchDetectorNum * XPLMI_GD1_STATUS_POS)) & 0x01;
+
+END:
 	return Status;
 }
+
+#ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
+/*************************************************************************************************/
+/**
+ * @brief	This function initializes the mailbox and sets the client instance
+ *
+ * @return  Status of initialization
+ *
+  ************************************************************************************************/
+int XPlmi_MailboxInitialize(void)
+{
+	int Status = XST_FAILURE;
+
+	#ifdef XPLMI_CACHE_DISABLE
+		Xil_DCacheDisable();
+	#endif
+
+	#ifndef SDT
+	Status = (int)XMailbox_Initialize(&MailboxInstance, 0U);
+	#else
+	Status = (int)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
+	#endif
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XPlmi_ClientInit(&PlmiClientInstance, &MailboxInstance);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * Poll for an acknowledgement using Observation Register.
+ *
+ * @return      XST_SUCCESS in case of success
+ *              XST_FAILURE in case of failure
+ */
+/****************************************************************************/
+int XPlmi_PollforDone(void)
+{
+	return (int)XIpiPs_PollforDone(&MailboxInstance);
+}
+#endif

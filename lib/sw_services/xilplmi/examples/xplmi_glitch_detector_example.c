@@ -37,6 +37,7 @@
  * 1.00  pre  06/09/2024 Initial release
  *       pre  07/15/2024 Added support for SDT flow and fixed misrac warnings
  *       pre  07/26/2024 Corrected base address for SDT flow
+ *       pre  10/19/2024 Added support for PL microblaze
  *
  * </pre>
  *
@@ -51,13 +52,12 @@
 #include "xil_printf.h"
 #include "xstatus.h"
 #include "sleep.h"
-#include "xscugic.h"
-#ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
-#include "pm_api_sys.h"
-#include "xipipsu.h"
+#ifdef __microblaze__
+#include "xintc.h"
 #else
-#include "xil_io.h"
+#include "xscugic.h"
 #endif
+#include "xil_io.h"
 
 /************************************ Constant Definitions ***************************************/
 #define GD_STATUS_OFFSET         0x00004 /**< GD_STATUS register offset */
@@ -93,8 +93,12 @@ static void GlitchDetectorISR(void);
 static u8 GlitchDetected0; /* Flag to indicate glitch detection on glitch detector0 */
 static u8 GlitchDetected1; /* Flag to indicate glitch detection on glitch detector1 */
 
+#ifdef __microblaze__
+static XIntc InterruptController; /* Instance of the Interrupt Controller */
+#else
 static XScuGic InterruptController; /* Instance of the Interrupt Controller */
 static XScuGic_Config *GicConfig; /* The configuration parameters of the controller */
+#endif
 
 /*************************************************************************************************/
 /**
@@ -105,29 +109,55 @@ static XScuGic_Config *GicConfig; /* The configuration parameters of the control
   ************************************************************************************************/
 static void GlitchDetectorISR(void)
 {
-	u32 RegVal;
+	u32 RegVal = 0U;
+	int Status = XST_FAILURE;
 
+#ifdef __microblaze__
+	XIntc_Disable(&InterruptController, DEVICE_INT_ID);
+#else
 	XScuGic_Disable(&InterruptController, DEVICE_INT_ID);
+#endif
+
+#ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
+	/**
+	 * Interrupt occurs as soon as write is done to GD_CTRL registers
+	 * during glitch generation i.e., before reading its response. So,
+	 * to avoid of loss of next IPI command, polling for ack is done here
+	 */
+	Status = XPlmi_PollforDone();
+	if (Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+#endif
 
 	/* Reading glitch detector status */
-	XPlmi_ReadReg32(GD_STATUS_OFFSET, &RegVal);
+	Status = XPlmi_ReadReg32(GD_STATUS_OFFSET, &RegVal);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Reset glitch detectors */
-	XPlmi_WriteReg32(GD_CTRL_OFFSET, RESET_GD_STATUS_VAL);
-
-	/* Clear IRQ status of glitch detector */
-	Xil_Out32(GICP4_IRQ_STATUS_ADDR, GD_IRQ_STATUS_CLEAR);
+	Status = XPlmi_WriteReg32(GD_CTRL_OFFSET, RESET_GD_STATUS_VAL);
 
 	xil_printf("\n\rGlitchDetectorISR(): GD0 = %d, GD1 = %d", (RegVal & 1U), ((RegVal >> 1)& 1U));
 
-	if(RegVal & 1U) {
+END:
+	/* Clear IRQ status of glitch detector in PMC GLOBAL */
+	Xil_Out32(GICP4_IRQ_STATUS_ADDR, GD_IRQ_STATUS_CLEAR);
+
+	if (RegVal & 1U) {
 		GlitchDetected0 = XPLMI_SET;
 	}
-	if(((RegVal >> 1)& 1U)) {
+	if (((RegVal >> 1)& 1U)) {
 		GlitchDetected1 = XPLMI_SET;
 	}
 
+#ifdef __microblaze__
+	XIntc_Enable(&InterruptController, DEVICE_INT_ID);
+#else
 	XScuGic_Enable(&InterruptController, DEVICE_INT_ID);
+#endif
 }
 
 /*************************************************************************************************/
@@ -140,6 +170,7 @@ static void GlitchDetectorISR(void)
 void GenerateTestGlitch(u8 GdNum)
 {
 	u32 value;
+	int Status = XST_FAILURE;
 
 	if (GdNum == GLITCH_DETECTOR0) {
 		value = GD0_TEST_GLITCH_GENVALUE;
@@ -151,9 +182,15 @@ void GenerateTestGlitch(u8 GdNum)
            (PMC_ANALOG_BASE_ADDR + GD_CTRL_OFFSET), value);
 
 	/* Generate glitch */
-	XPlmi_WriteReg32(GD_CTRL_OFFSET, value);
+	Status = XPlmi_WriteReg32(GD_CTRL_OFFSET, value);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Glitch generation failed\n\r");
+	}
 
-	XPlmi_WriteReg32(GD_CTRL_OFFSET, GD_TEST_GLITCH_STOPVALUE);
+	Status = XPlmi_WriteReg32(GD_CTRL_OFFSET, GD_TEST_GLITCH_STOPVALUE);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Test glitch stop failed\n\r");
+	}
 }
 
 int main()
@@ -172,47 +209,44 @@ int main()
     u8 GlitchDetectorNum = GLITCH_DETECTOR1;
 
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
-	XIpiPsu IpiInst;
-	XIpiPsu_Config *IpiCfgPtr;
+	Status = XPlmi_MailboxInitialize();
+	if (Status != XST_SUCCESS) {
+		xil_printf("Mailbox initialization failed\n\r");
+		goto END;
+	}
+#endif
 
-	/* Look Up the config data */
+#ifdef __microblaze__
 #ifndef SDT
-	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
+	Status = XIntc_Initialize(&InterruptController, XPAR_INTC_0_DEVICE_ID);
 #else
-	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_BASEADDR);
+    Status = XIntc_Initialize(&InterruptController, XPAR_INTC_0_BASEADDR);
 #endif
-	if (NULL == IpiCfgPtr) {
-		Status = XST_FAILURE;
-		xil_printf("IPI lookup config failed\n");
+	if (Status != XST_SUCCESS) {
+		xil_printf("INTC driver initialization failed\r\n");
 		goto END;
 	}
 
-	/* Init with the Cfg Data */
-	Status = XIpiPsu_CfgInitialize(&IpiInst, IpiCfgPtr,
-				       IpiCfgPtr->BaseAddress);
-	if (XST_SUCCESS != Status) {
-		xil_printf("ERROR #%d in configuring IPI\n", Status);
+	Status = XIntc_Connect(&InterruptController, DEVICE_INT_ID,
+	          (XInterruptHandler)GlitchDetectorISR, 0U);
+	if (Status != XST_SUCCESS) {
+		xil_printf("INTC connection failed\r\n");
 		goto END;
 	}
 
-	/* Clear Any existing Interrupts */
-	XIpiPsu_ClearInterruptStatus(&IpiInst, XIPIPSU_ALL_MASK);
-
-	/* XilPM Initialize */
-	Status = XPm_InitXilpm(&IpiInst);
-	if (XST_SUCCESS != Status) {
-		xil_printf("XPm_InitXilpm() failed with error: %d\r\n", Status);
+	Status = XIntc_Start(&InterruptController, XIN_REAL_MODE);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Interrupt controller start failed %08x\r\n",Status);
 		goto END;
 	}
 
-	/* Finalize Initialization */
-	Status = XPm_InitFinalize();
-	if (XST_SUCCESS != Status) {
-		xil_printf("XPm_initfinalize() failed\r\n");
-		goto END;
-	}
-#endif
+	XIntc_Enable(&InterruptController, DEVICE_INT_ID);
 
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+	                            (Xil_ExceptionHandler) XIntc_InterruptHandler,
+	                            (void *) &InterruptController);
+
+#else
 #ifndef SDT
 	GicConfig = XScuGic_LookupConfig(XPAR_SCUGIC_0_DEVICE_ID);
 #else
@@ -230,32 +264,36 @@ int main()
 		goto END;
 	}
 
-    XScuGic_CfgInitialize(&InterruptController, GicConfig, GicConfig->CpuBaseAddress);
-    XScuGic_Connect(&InterruptController, DEVICE_INT_ID, (Xil_InterruptHandler) GlitchDetectorISR,
-	               0);
+    Status = XScuGic_Connect(&InterruptController, DEVICE_INT_ID,
+	          (Xil_InterruptHandler)GlitchDetectorISR, 0U);
+	if (Status != XST_SUCCESS) {
+		xil_printf("SCUGIC connection failed\r\n");
+		goto END;
+	}
 
     XScuGic_Enable(&InterruptController, DEVICE_INT_ID);
 
     Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 	                            (Xil_ExceptionHandler) XScuGic_InterruptHandler,
 	                            (void *) &InterruptController);
+#endif
     Xil_ExceptionEnable();
 
 	Status = XPlmi_ConfigureGlitchDetector(Depth, Width, RefVoltage, UserRegVal,
 	                                       GlitchDetectorNum);
     if (Status != XST_SUCCESS) {
-	xil_printf("Configuration reset failed\n\r");
+		xil_printf("Configuration reset failed\n\r");
 		goto END;
     }
 
     GenerateTestGlitch(GLITCH_DETECTOR0);
-	sleep(10);
+	sleep(1);
 
     GenerateTestGlitch(GLITCH_DETECTOR1);
-	sleep(10);
+	sleep(1);
 
 END:
-	if((GlitchDetected0 == XPLMI_SET) && (GlitchDetected1 == XPLMI_SET) &&
+	if ((GlitchDetected0 == XPLMI_SET) && (GlitchDetected1 == XPLMI_SET) &&
 	  (Status == XST_SUCCESS)) {
 		xil_printf("Successfully ran glitch detector example\n\r");
 	}
