@@ -19,6 +19,7 @@
 * 1.00  pre  06/09/2024 Initial release
 *       pre  07/17/2024 Used register node to access PMC analog registers and fixed misrac warnings
 *       pre  07/26/2024 Enabled server mode as default mode
+*       pre  10/19/2024 Added support for PL microblaze
 *
 * </pre>
 *
@@ -67,9 +68,13 @@ typedef enum
 int XPlmi_ConfigureGlitchDetector(u8 Depth, u8 Width, u8 RefVoltage, u8 UserRegVal,
                                   u8 GlitchDetectorNum);
 int XPlmi_ChangeGlitchDetectorState(u8 GlitchDetectorNum,eStatus EnableStatus);
-u8 XPlmi_GlitchDetectorStatus(u8 GlitchDetectorNum);
+int XPlmi_GlitchDetectorStatus(u8 GlitchDetectorNum, u8 *GlitchDetStatus);
 int XPlmi_WriteReg32(u32 Offset, u32 Data);
-void XPlmi_ReadReg32(u32 Offset, u32 *Data);
+int XPlmi_ReadReg32(u32 Offset, u32 *Data);
+#ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
+int XPlmi_MailboxInitialize(void);
+int XPlmi_PollforDone(void);
+#endif
 
 /************************** Variable Definitions *************************************************/
 

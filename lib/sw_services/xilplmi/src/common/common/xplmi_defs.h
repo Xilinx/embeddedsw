@@ -18,6 +18,7 @@
  * 1.00  dd   01/09/24 Initial release
  *       pre  07/10/24 Added support for configure secure communication command
  *       pre  09/30/24 Added support for get secure communication status command
+ *       pre  10/19/24 Added XPLMI_HEADER_LEN_5 and XPLMI_HEADER_LEN_6 macros
  *
  * </pre>
  *
@@ -90,6 +91,8 @@ extern "C" {
 #define XPLMI_HEADER_LEN_2			(2U) /**< Header Length 2 */
 #define XPLMI_HEADER_LEN_3			(3U) /**< Header Length 3 */
 #define XPLMI_HEADER_LEN_4			(4U) /**< Header Length 4 */
+#define XPLMI_HEADER_LEN_5			(5U) /**< Header Length 5 */
+#define XPLMI_HEADER_LEN_6			(6U) /**< Header Length 6 */
 
 #define XPLMI_KEY_SIZE_WORDS (8U) /**< Key size in words */
 #define XPLMI_KEY_SIZE_BYTES (32U) /**< Key size in bytes */
