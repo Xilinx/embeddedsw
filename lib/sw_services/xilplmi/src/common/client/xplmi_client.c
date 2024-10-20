@@ -19,6 +19,7 @@
  *       pre  07/10/24 Added support for configure secure communication command and also added
  *                     SSIT support
  *       pre  09/30/24 Added XPlmi_GetSecureCommStatus API
+ *       pre  10/19/24 Fixed compilation warning
  *
  * </pre>
  *
@@ -307,7 +308,7 @@ END:
 int XPlmi_InputSlrIndex(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex)
 {
 	int Status = XST_FAILURE;
-	if(SlrIndex >= XPLMI_SLR_INDEX_0 && SlrIndex <= XPLMI_SLR_INDEX_3){
+	if (SlrIndex <= XPLMI_SLR_INDEX_3) {
 		InstancePtr->SlrIndex = SlrIndex;
 	    Status = XST_SUCCESS;
 	}
