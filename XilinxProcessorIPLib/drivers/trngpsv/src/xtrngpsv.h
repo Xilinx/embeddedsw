@@ -85,7 +85,7 @@
 
 #include "xil_types.h"
 #include "xstatus.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "sleep.h"
 #include "xtrngpsv_hw.h"
 #include "xtrngpsv_alginfo.h"
