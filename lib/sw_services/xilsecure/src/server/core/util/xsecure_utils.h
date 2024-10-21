@@ -41,7 +41,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xil_assert.h"
 #include "xil_mem.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 
 /************************** Constant Definitions ****************************/
 #define XSECURE_RESET_SET			(1U) /**< To set the core into reset */

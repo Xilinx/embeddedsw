@@ -49,7 +49,7 @@
 #include "xsecure_rsa.h"
 #endif
 #include "xsecure_kat.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 
 #ifdef SDT
 #include "xsecure_config.h"

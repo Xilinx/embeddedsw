@@ -41,7 +41,7 @@
 #include "xsecure_plat_kat_ipihandler.h"
 #include "xsecure_defs.h"
 #include "xsecure_error.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "xsecure_init.h"
 #include "xplmi.h"
 

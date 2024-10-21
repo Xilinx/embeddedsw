@@ -31,7 +31,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_cryptoalginfo.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_AES_MAJOR_VERSION	5 /**< Major version of AES */

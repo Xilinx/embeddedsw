@@ -40,7 +40,7 @@
 #include "xsecure_defs.h"
 #include "xsecure_trng.h"
 #include "xsecure_trng_ipihandler.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "xsecure_init.h"
 
 /************************** Constant Definitions *****************************/
