@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +20,7 @@ extern "C" {
 /**
  * Register: IOU_AXI_WPRTCN
  */
-#define IOU_AXI_WPRTCN		( ( IOU_SLCR_BASEADDR ) + ((u32)0X00000000U) )
+#define IOU_AXI_WPRTCN		( ( IOU_SECURE_SLCR_BASEADDR ) + ((u32)0X00000000U) )
 
 #define GEM0_AXI_AWPROT_SHIFT		0U
 #define GEM0_AXI_AWPROT_MASK		((u32)0x00000007U)
@@ -37,7 +38,7 @@ extern "C" {
 /**
  * Register: IOU_AXI_RPRTCN
  */
-#define IOU_AXI_RPRTCN		( ( IOU_SLCR_BASEADDR ) + ((u32)0X00000004U) )
+#define IOU_AXI_RPRTCN		( ( IOU_SECURE_SLCR_BASEADDR ) + ((u32)0X00000004U) )
 
 #define GEM0_AXI_ARPROT_SHIFT		0U
 #define GEM0_AXI_ARPROT_MASK		((u32)0x00000007U)
