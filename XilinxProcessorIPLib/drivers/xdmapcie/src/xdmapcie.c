@@ -75,6 +75,7 @@ void XDmaPcie_QdmaAddPgm(XDmaPcie *InstancePtr)
                Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_REG + (i * BDF_TABLE_ENTRY_OFF), 0x0);
        }
 
+#if defined(__aarch64__) || defined(__arch64__)
        if (InstancePtr->Config.PMemBaseAddr == 0x0) {
                return;
        }
@@ -94,6 +95,7 @@ void XDmaPcie_QdmaAddPgm(XDmaPcie *InstancePtr)
                          BDF_ACCESS_PERM + (Size/(BDF_NUM_WINDOWS * BDF_ADDR_BOUNDARY)));
                Xil_Out32(InstancePtr->Config.BaseAddress + BDF_ENTRY_REG + (i * BDF_TABLE_ENTRY_OFF), 0x0);
        }
+#endif
 }
 #endif
 /****************************************************************************/
