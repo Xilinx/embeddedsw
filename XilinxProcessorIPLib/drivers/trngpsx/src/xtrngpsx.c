@@ -37,7 +37,7 @@
 #include "xtrngpsx.h"
 #include "xtrngpsx_hw.h"
 #include "sleep.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "xstatus.h"
 
 /************************** Constant Definitions *****************************/
