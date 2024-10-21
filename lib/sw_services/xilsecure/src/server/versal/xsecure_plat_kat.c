@@ -31,7 +31,7 @@
 #ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa.h"
 #endif
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "xsecure_kat.h"
 #include "xsecure_plat_kat.h"
 

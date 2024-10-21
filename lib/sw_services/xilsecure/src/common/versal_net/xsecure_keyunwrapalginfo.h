@@ -30,7 +30,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_cryptoalginfo.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_KEYUNWRAP_MAJOR_VERSION	5U /**< Major version of Keyunwrap */
