@@ -27,7 +27,7 @@
 #include "xsecure_plat_kat.h"
 #include "xsecure_hmac.h"
 #include "xsecure_error.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "xsecure_sha384.h"
 #include "xsecure_rsa.h"
 

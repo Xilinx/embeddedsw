@@ -107,7 +107,7 @@
 #include "xsecure_utils.h"
 #include "xsecure_aes.h"
 #include "xsecure_aes_core_hw.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/

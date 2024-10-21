@@ -75,7 +75,7 @@
 #include "xsecure_elliptic.h"
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_utils.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "xsecure_plat.h"
 #ifdef SDT
 #include "xsecure_config.h"

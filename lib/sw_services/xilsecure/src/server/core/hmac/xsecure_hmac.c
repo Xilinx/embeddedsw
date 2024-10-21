@@ -37,7 +37,7 @@
 #include "xsecure_sha_hw.h"
 #include "xsecure_error.h"
 #include "xsecure_utils.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 
 /************************** Function Prototypes ******************************/
 static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,

@@ -66,7 +66,7 @@
 #include "xsecure_sha_hw.h"
 #include "xil_assert.h"
 #include "xsecure_sha.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "xsecure_plat.h"
 
 /************************** Constant Definitions *****************************/

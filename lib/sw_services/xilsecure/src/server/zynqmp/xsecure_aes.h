@@ -88,7 +88,7 @@ extern "C" {
 /************************** Include Files ***********************************/
 #include "xsecure_aes_hw.h"
 #include "xcsudma.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "xsecure_sss.h"
 #include "xsecure_aesalginfo.h"
 

@@ -48,7 +48,7 @@
 #include "xsecure_utils.h"
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_error.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "xsecure_init.h"
 #include "xsecure_cryptochk.h"
 

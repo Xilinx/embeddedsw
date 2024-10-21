@@ -32,7 +32,7 @@
 /***************************** Include Files *********************************/
 #include "xsecure_plat_katclient.h"
 #include "xsecure_plat_defs.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 
 /************************** Constant Definitions *****************************/
 

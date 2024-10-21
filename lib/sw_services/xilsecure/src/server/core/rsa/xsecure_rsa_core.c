@@ -59,7 +59,7 @@
 #include "xparameters.h"
 #include "xsecure_rsa_core.h"
 #include "xsecure_ecdsa_rsa_hw.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa.h"
 #include "xsecure_error.h"
