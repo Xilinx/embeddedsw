@@ -40,7 +40,7 @@
 */
 /***************************** Include Files *********************************/
 #include "xsecure_defs.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "xplmi_plat.h"
 #include "xsecure_plat_ipihandler.h"
 #include "xsecure_keyunwrap.h"

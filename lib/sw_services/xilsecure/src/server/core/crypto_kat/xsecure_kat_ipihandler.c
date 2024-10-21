@@ -40,7 +40,7 @@
 #include "xsecure_kat_ipihandler.h"
 #include "xplmi.h"
 #include "xsecure_error.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 #include "xsecure_init.h"
 
 /************************** Constant Definitions *****************************/

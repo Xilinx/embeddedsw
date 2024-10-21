@@ -75,7 +75,7 @@
 
 #include "xsecure.h"
 #include "xparameters.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 
 static XSecure_Aes SecureAes;
 static XSecure_Rsa Secure_Rsa;
