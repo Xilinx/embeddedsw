@@ -21,6 +21,7 @@
  *                     for every update
  *       yog  08/25/24 Integrated FIH library
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       am   10/22/24 Replaced XSHA_SHA_256_HASH_LEN with XASU_SHA_256_HASH_LEN
  *
  * </pre>
  *
@@ -398,14 +399,14 @@ s32 XSha_Finish(XSha *InstancePtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutp
 		goto END;
 	}
 
-	if ((HashBufSize == 0U) || (HashBufSize < InstancePtr->ShaDigestSize)) {
+	if ((HashBufSize == 0U) || (HashBufSize != InstancePtr->ShaDigestSize)) {
 		Status = XASUFW_SHA_INVALID_HASH_SIZE;
 		goto END;
 	}
 
 	if ((InstancePtr->ShaType == XASU_XSHA_1_TYPE) &&
 	    (InstancePtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
-	    (HashBufSize > XSHA_SHAKE_256_MAX_HASH_LEN)) {
+	    (HashBufSize > XASU_SHAKE_256_MAX_HASH_LEN)) {
 		Status = XASUFW_SHA_INVALID_HASH_SIZE;
 		goto END;
 	}
@@ -499,17 +500,17 @@ static s32 XSha_ValidateModeAndInit(XSha *InstancePtr, u32 ShaMode)
 	switch (ShaMode) {
 		/* SHA2-256 Mode */
 		case XASU_SHA_MODE_SHA256:
-			InstancePtr->ShaDigestSize = XSHA_SHA_256_HASH_LEN;
+			InstancePtr->ShaDigestSize = XASU_SHA_256_HASH_LEN;
 			InstancePtr->ShaMode = XASU_SHA_MODE_SHA256;
 			break;
 		/* SHA2-384 Mode */
 		case XASU_SHA_MODE_SHA384:
-			InstancePtr->ShaDigestSize = XSHA_SHA_384_HASH_LEN;
+			InstancePtr->ShaDigestSize = XASU_SHA_384_HASH_LEN;
 			InstancePtr->ShaMode = XASU_SHA_MODE_SHA384;
 			break;
 		/* SHA2-512 Mode */
 		case XASU_SHA_MODE_SHA512:
-			InstancePtr->ShaDigestSize = XSHA_SHA_512_HASH_LEN;
+			InstancePtr->ShaDigestSize = XASU_SHA_512_HASH_LEN;
 			InstancePtr->ShaMode = XASU_SHA_MODE_SHA512;
 			break;
 		/* SHAKE-256 Mode */
@@ -517,7 +518,7 @@ static s32 XSha_ValidateModeAndInit(XSha *InstancePtr, u32 ShaMode)
 			if (InstancePtr->ShaType == XASU_XSHA_0_TYPE) {
 				Status = XASUFW_SHA_INVALID_SHA_TYPE;
 			} else {
-				InstancePtr->ShaDigestSize = XSHA_SHAKE_256_HASH_LEN;
+				InstancePtr->ShaDigestSize = XASU_SHAKE_256_HASH_LEN;
 				InstancePtr->ShaMode = XASU_SHA_MODE_SHAKE256;
 			}
 			break;
