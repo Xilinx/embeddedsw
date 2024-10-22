@@ -60,8 +60,6 @@
 #                          consumed by only ARM based BSP's, we can skip
 #                          it for firmware processor BSP. It fixes CR#1105828
 # 1.5   sg    08/04/23     Added VersalNet support
-# 1.5   ml    06/19/24     Update to look for AXI NOC2 as well in Versal platform
-#                          to generate related DDR macros
 #
 ###############################################################################
 set file_handle 0
@@ -148,7 +146,6 @@ proc define_addr_params {drv_handle file_name} {
    set is_ddr_low_1 0
    set is_ddr_low_2 0
    set is_ddr_low_3 0
-   set is_ddr_ch_0 0
    set is_ddr_ch_1 0
    set is_ddr_ch_2 0
    set is_ddr_ch_3 0
@@ -205,22 +202,12 @@ proc define_addr_params {drv_handle file_name} {
 
 
 			set is_ddr_low_3 1
-                } elseif {[string match "C*_DDR_CH0*" $block_name]} {
-                        #
-                        # ddr_region_id specifies index of base_addr_list/high_addr_list
-                        # for this DDR region
-                        #
-                        set ddr_region_id 4
-                        xddrpsv_handle_address_details $i $periph $block_name $is_ddr_ch_1 $ddr_region_id
-
-
-                        set is_ddr_ch_0 1
 		} elseif {[string match "C*_DDR_CH1*" $block_name]} {
 			#
 			# ddr_region_id specifies index of base_addr_list/high_addr_list
 			# for this DDR region
 			#
-			set ddr_region_id 5
+			set ddr_region_id 4
 			xddrpsv_handle_address_details $i $periph $block_name $is_ddr_ch_1 $ddr_region_id
 
 
@@ -230,7 +217,7 @@ proc define_addr_params {drv_handle file_name} {
 			# ddr_region_id specifies index of base_addr_list/high_addr_list
 			# for this DDR region
 			#
-			set ddr_region_id 6
+			set ddr_region_id 5
 			xddrpsv_handle_address_details $i $periph $block_name $is_ddr_ch_2 $ddr_region_id
 
 			set is_ddr_ch_2 1
@@ -239,7 +226,7 @@ proc define_addr_params {drv_handle file_name} {
 			# ddr_region_id specifies index of base_addr_list/high_addr_list
 			# for this DDR region
 			#
-			set ddr_region_id 7
+			set ddr_region_id 6
 			xddrpsv_handle_address_details $i $periph $block_name $is_ddr_ch_3  $ddr_region_id
 
 			set is_ddr_ch_3 1
@@ -292,19 +279,8 @@ proc define_addr_params {drv_handle file_name} {
 		puts $file_handle ""
 	}
 
-        if {$is_ddr_ch_0 == 1} {
-                set ddr_region_id 4
-                set value  [lindex $base_addr_list $ddr_region_id]
-                puts $file_handle ""
-                puts $file_handle "#define XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR $value"
-
-                set value  [lindex $high_addr_list $ddr_region_id]
-                puts $file_handle "#define XPAR_AXI_NOC2_DDR_LOW_0_HIGHADDR $value"
-                puts $file_handle ""
-        }
-
 	if {$is_ddr_ch_1 == 1} {
-		set ddr_region_id 5
+		set ddr_region_id 4
 		set value  [lindex $base_addr_list $ddr_region_id]
 		puts $file_handle ""
 		puts $file_handle "#define XPAR_AXI_NOC_DDR_CH_1_BASEADDR $value"
@@ -315,7 +291,7 @@ proc define_addr_params {drv_handle file_name} {
 	}
 
 	if {$is_ddr_ch_2 == 1} {
-		set ddr_region_id 6
+		set ddr_region_id 5
 		set value  [lindex $base_addr_list $ddr_region_id]
 		puts $file_handle "#define XPAR_AXI_NOC_DDR_CH_2_BASEADDR $value"
 
@@ -326,7 +302,7 @@ proc define_addr_params {drv_handle file_name} {
 
 
 	if {$is_ddr_ch_3 == 1} {
-		set ddr_region_id 7
+		set ddr_region_id 6
 		set value  [lindex $base_addr_list $ddr_region_id]
 		puts $file_handle "#define XPAR_AXI_NOC_DDR_CH_3_BASEADDR $value"
 
