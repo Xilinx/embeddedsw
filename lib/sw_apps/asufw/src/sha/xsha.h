@@ -30,6 +30,7 @@
  *       ma   06/14/24 Add support for SHAKE256 XOF and also modify SHA APIs to take DMA pointer
  *                     for every update
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       am   10/22/24 Moved hash length macros to common xasu_shainfo header file.
  *
  * </pre>
  *
@@ -50,11 +51,6 @@ extern "C" {
 #include "xasu_shainfo.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XSHA_SHA_256_HASH_LEN			(32U) /**< SHA2/3 256 hash length */
-#define XSHA_SHA_384_HASH_LEN			(48U) /**< SHA2/3 384 hash length */
-#define XSHA_SHA_512_HASH_LEN			(64U) /**< SHA2/3 512 hash length */
-#define XSHA_SHAKE_256_HASH_LEN			(32U) /**< SHAKE 256 hash length */
-#define XSHA_SHAKE_256_MAX_HASH_LEN     (136U) /**< SHAKE 256 maximum hash length */
 
 /************************************** Type Definitions *****************************************/
 typedef struct _XSha_Config XSha_Config;

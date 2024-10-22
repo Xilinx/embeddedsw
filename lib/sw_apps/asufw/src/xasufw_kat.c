@@ -25,6 +25,7 @@
  *       am   08/24/24 Added AES DPA CM KAT support
  *       yog  08/25/24 Integrated FIH library
  *       ss   09/26/24 Fixed doxygen comments
+ *       am   10/22/24 Replaced XSHA_SHA_256_HASH_LEN with XASU_SHA_256_HASH_LEN
  *
  * </pre>
  *
@@ -74,7 +75,7 @@ static const u8 KatMessage[XASUFW_KAT_MSG_LENGTH_IN_BYTES] = {
 };
 
 /* SHA2 256 hash for above KAT message */
-static const u8 ExpSha2256Hash[XSHA_SHA_256_HASH_LEN] = {
+static const u8 ExpSha2256Hash[XASU_SHA_256_HASH_LEN] = {
 	0x03U, 0xFBU, 0xA3U, 0xBBU, 0x9BU, 0x90U, 0xBBU, 0x5FU,
 	0xF1U, 0x07U, 0xC0U, 0x43U, 0x63U, 0xF7U, 0x99U, 0x34U,
 	0xECU, 0xE9U, 0x56U, 0xB2U, 0x3CU, 0xFAU, 0x13U, 0xC7U,
@@ -82,7 +83,7 @@ static const u8 ExpSha2256Hash[XSHA_SHA_256_HASH_LEN] = {
 };
 
 /* SHA3 256 hash for above KAT message */
-static const u8 ExpSha3256Hash[XSHA_SHA_256_HASH_LEN] = {
+static const u8 ExpSha3256Hash[XASU_SHA_256_HASH_LEN] = {
 	0xBCU, 0x64U, 0xDCU, 0xBBU, 0x66U, 0xDDU, 0x08U, 0xA5U,
 	0xC1U, 0x11U, 0xE6U, 0xB3U, 0x55U, 0x60U, 0xF1U, 0xC3U,
 	0x3EU, 0x6DU, 0xE8U, 0x6AU, 0x15U, 0xDFU, 0x6CU, 0xF3U,
@@ -311,7 +312,7 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaReso
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XAsufw_Dma *AsuDmaPtr = NULL;
-	u8 OutVal[XSHA_SHA_256_HASH_LEN];
+	u8 OutVal[XASU_SHA_256_HASH_LEN];
 	const u8 *ExpHash = NULL;
 
 	/** Check resource availability (DMA,SHA) and allocate them. */
@@ -339,7 +340,7 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaReso
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Perform SHA finish operation. */
-	Status = XSha_Finish(XAsufw_ShaInstance, (u64)(UINTPTR)OutVal, XSHA_SHA_256_HASH_LEN, XASU_FALSE);
+	Status = XSha_Finish(XAsufw_ShaInstance, (u64)(UINTPTR)OutVal, XASU_SHA_256_HASH_LEN, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -352,15 +353,15 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaReso
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Compare generated hash with expected hash. */
-	Status = Xil_SMemCmp(OutVal, XSHA_SHA_256_HASH_LEN, ExpHash, XSHA_SHA_256_HASH_LEN,
-			     XSHA_SHA_256_HASH_LEN);
+	Status = Xil_SMemCmp(OutVal, XASU_SHA_256_HASH_LEN, ExpHash, XASU_SHA_256_HASH_LEN,
+			     XASU_SHA_256_HASH_LEN);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SHA_HASH_COMPARISON_FAILED;
 	}
 
 END:
 	/** Zeroize local copy of output value. */
-	SStatus = Xil_SMemSet(&OutVal[0U], XSHA_SHA_256_HASH_LEN, 0U, XSHA_SHA_256_HASH_LEN);
+	SStatus = Xil_SMemSet(&OutVal[0U], XASU_SHA_256_HASH_LEN, 0U, XASU_SHA_256_HASH_LEN);
 	if (Status == XASUFW_SUCCESS) {
 		Status = SStatus;
 	}

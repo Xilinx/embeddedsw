@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vns  08/22/24 Initial release
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       am   10/22/24 Fixed validation of hash buffer size.
  *
  * </pre>
  *
@@ -99,15 +100,20 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	if (((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) &&
-			(ShaClientParamPtr->HashBufSize == 0U)) {
+	if ((ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
+			(ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
+			(ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if ((ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
-			(ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
-			(ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512)) {
+	if (((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) &&
+			(((ShaClientParamPtr->ShaMode == XASU_SHA_MODE_SHA256) &&
+			(ShaClientParamPtr->HashBufSize != XASU_SHA_256_HASH_LEN)) ||
+			((ShaClientParamPtr->ShaMode == XASU_SHA_MODE_SHA384) &&
+			(ShaClientParamPtr->HashBufSize != XASU_SHA_384_HASH_LEN)) ||
+			((ShaClientParamPtr->ShaMode == XASU_SHA_MODE_SHA512) &&
+			(ShaClientParamPtr->HashBufSize != XASU_SHA_512_HASH_LEN)))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
