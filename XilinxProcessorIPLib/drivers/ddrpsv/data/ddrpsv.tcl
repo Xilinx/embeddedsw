@@ -60,6 +60,8 @@
 #                          consumed by only ARM based BSP's, we can skip
 #                          it for firmware processor BSP. It fixes CR#1105828
 # 1.5   sg    08/04/23     Added VersalNet support
+# 1.6   ml    10/22/24     Update to look for AXI NOC2 as well in Versal platform
+#                          to generate related DDR macros
 #
 ###############################################################################
 set file_handle 0
@@ -163,7 +165,7 @@ proc define_addr_params {drv_handle file_name} {
 	set i 0
 	foreach block_name $interface_block_names {
 
-		if {[string match "C*_DDR_LOW0*" $block_name]} {
+		if {[string match "C*_DDR_LOW0*" $block_name] || [string match "C*_DDR_CH0_LEGACY*" $block_name]} {
 			#
 			# ddr_region_id specifies index of base_addr_list/high_addr_list
 			# for this DDR region
@@ -172,7 +174,7 @@ proc define_addr_params {drv_handle file_name} {
 			xddrpsv_handle_address_details $i $periph $block_name $is_ddr_low_0 $ddr_region_id
 			set is_ddr_low_0 1
 
-		} elseif {[string match "C*_DDR_LOW1*" $block_name]} {
+		} elseif {[string match "C*_DDR_LOW1*" $block_name] || [string match "C*_DDR_CH0_MED*" $block_name]} {
 					#
 			# ddr_region_id specifies index of base_addr_list/high_addr_list
 			# for this DDR region
@@ -181,7 +183,7 @@ proc define_addr_params {drv_handle file_name} {
 			xddrpsv_handle_address_details $i $periph $block_name $is_ddr_low_1 $ddr_region_id
 			set is_ddr_low_1 1
 
-		} elseif {[string match "C*_DDR_LOW2*" $block_name]} {
+		} elseif {[string match "C*_DDR_LOW2*" $block_name] || [string match "C*_DDR_CH0_HIGH_0*" $block_name]} {
 			#
 			# ddr_region_id specifies index of base_addr_list/high_addr_list
 			# for this DDR region
@@ -192,7 +194,7 @@ proc define_addr_params {drv_handle file_name} {
 
 			set is_ddr_low_2 1
 
-		} elseif {[string match "C*_DDR_LOW3*" $block_name]} {
+		} elseif {[string match "C*_DDR_LOW3*" $block_name] || [string match "C*_DDR_CH0_HIGH_1*" $block_name]} {
 			#
 			# ddr_region_id specifies index of base_addr_list/high_addr_list
 			# for this DDR region
@@ -202,6 +204,7 @@ proc define_addr_params {drv_handle file_name} {
 
 
 			set is_ddr_low_3 1
+
 		} elseif {[string match "C*_DDR_CH1*" $block_name]} {
 			#
 			# ddr_region_id specifies index of base_addr_list/high_addr_list
@@ -209,7 +212,6 @@ proc define_addr_params {drv_handle file_name} {
 			#
 			set ddr_region_id 4
 			xddrpsv_handle_address_details $i $periph $block_name $is_ddr_ch_1 $ddr_region_id
-
 
 			set is_ddr_ch_1 1
 		} elseif {[string match "C*_DDR_CH2*" $block_name]} {
