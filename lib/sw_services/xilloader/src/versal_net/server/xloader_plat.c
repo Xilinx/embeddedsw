@@ -116,6 +116,12 @@
 #define XLOADER_INVALID_DEVAK_INDEX			(0xFFFFFFFFU) /**< INVALID DEVAK INDEX */
 #endif
 
+#define XLOADER_EFUSE_ROM_RSVD_OFFSET			(0xF1250090U)
+	/**< ROM Reserved eFuse cache offset */
+#define XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK	(0x00000200U)
+	/**< AUTH_KEYS_TO_HASH eFuse bit mask */
+#define XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT	(9U)
+	/**< AUTH_KEYS_TO_HASH eFuse bit shift */
 /**
  * @{
  * @cond DDR calibration errors
@@ -1394,18 +1400,27 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 {
 	int Status = XLOADER_ERR_SECURE_CONFIG_MEASUREMENT;
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
-	u32 IsAuthenticated = SecurePtr->IsAuthenticated;
-	u32 IsEncrypted = SecurePtr->IsEncrypted;
+	volatile u32 IsAuthenticated = SecurePtr->IsAuthenticated;
+	volatile u32 IsAuthenticatedTmp = SecurePtr->IsAuthenticated;
+	volatile u32 IsEncrypted = SecurePtr->IsEncrypted;
+	volatile u32 IsEncryptedTmp = SecurePtr->IsEncrypted;
 	u32 MeasureIdx = (PcrInfo & XOCP_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
 	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
 	XSecure_Sha3Hash Sha3Hash = {0U};
+	volatile u32 IsAuthKeysToHashEnabled = (XPlmi_In32(XLOADER_EFUSE_ROM_RSVD_OFFSET) &
+			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK) >>
+			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT;;
+	volatile u32 IsAuthKeysToHashEnabledTmp = (XPlmi_In32(XLOADER_EFUSE_ROM_RSVD_OFFSET) &
+			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK) >>
+			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT;;
 
 	if (PcrInfo == XOCP_PCR_INVALID_VALUE) {
                 Status = XST_SUCCESS;
                 goto END;
         }
 
-	if(IsAuthenticated == (u8)TRUE) {
+	if(((IsAuthKeysToHashEnabled != 0U) || (IsAuthKeysToHashEnabledTmp != 0U)) &&
+		((IsAuthenticated == (u8)TRUE) || (IsAuthenticatedTmp == (u8)TRUE))) {
 		Status = XLoader_SpkMeasurement(SecurePtr, &Sha3Hash);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -1427,8 +1442,8 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 		MeasureIdx = MeasureIdx + 1;
 
 	}
-	if (IsEncrypted == (u8)TRUE) {
-		if (IsAuthenticated != (u8)TRUE) {
+	if ((IsEncrypted == (u8)TRUE) || (IsEncryptedTmp == (u8)TRUE)) {
+		if ((IsAuthenticated != (u8)TRUE) || (IsAuthenticatedTmp != (u8)TRUE)) {
 			Status = XLoader_EncRevokeIdMeasurement(SecurePtr, &Sha3Hash);
 			if (Status != XST_SUCCESS) {
 				goto END;
