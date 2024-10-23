@@ -35,6 +35,7 @@
 *       mss  05/03/2024 Fixed doxygen warnings
 *       pre  08/22/2024 Added error codes related to XLoader_CfiSelectiveRead command
 *       obs  09/30/2024 Fixed Doxygen Warnings
+*       pre  10/22/2024 Added XLOADER_ERR_CMD_NOT_SUPPORTED error code
 *
 * </pre>
 *
@@ -239,6 +240,9 @@ enum {
 
 	/**< 0x2A - Error when frame count added with start frame address exceeds last frame address */
 	XLOADER_FRAME_COUNT_EXCEEDS_LASTFRAME,
+
+	/**< 0x2B - Error when command given is not supported */
+	XLOADER_ERR_CMD_NOT_SUPPORTED,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
 };

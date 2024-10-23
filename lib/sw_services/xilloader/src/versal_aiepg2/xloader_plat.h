@@ -43,6 +43,7 @@
 *       kal  06/29/2024 Rename XLoader_LoadPsmElf to XLoader_LoadLpdAndPsmElf
 *       pre  08/22/2024 Added error codes related to XLoader_CfiSelectiveRead command
 *       obs  09/30/2024 Fixed Doxygen Warnings
+*       pre  10/22/2024 Added XLOADER_ERR_CMD_NOT_SUPPORTED error code
 *
 * </pre>
 *
@@ -245,6 +246,9 @@ enum {
 
 	/**< 0x2A - Error when frame count added with start frame address exceeds last frame address */
 	XLOADER_FRAME_COUNT_EXCEEDS_LASTFRAME,
+
+	/**< 0x2B - Error when command given is not supported */
+	XLOADER_ERR_CMD_NOT_SUPPORTED,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
 	/** 0x100 - Invalid JTAG/DAP config request */
