@@ -46,6 +46,7 @@
 *       sk    03/13/24 Fixed doxygen comments format
 *       pre   08/22/2024 Added XLoader_CfiSelectiveRead command execution
 *       pre   08/25/2024 Fixed build issue for PLM_DEBUG_MODE
+*       pre   10/22/2024 Made CFI_selective_read feature configurable
 *
 * </pre>
 *
@@ -82,6 +83,7 @@
 
 #define XLOADER_CFRAME_DATACLEAR_CHECK_CMD_ID	(0xCU) /**< Data clear check command Id */
 
+#ifdef PLM_ENABLE_CFI_SELECTIVE_READ
 /* Defines related to selective cfi readback */
 #define XLOADER_SELREADBACK_ROW_BIT_POS       (23U) /**< Start position of row bits */
 #define XLOADER_SELREADBACK_ROW_MASK          (0x1FU) /**< Mask to read row bits */
@@ -93,6 +95,7 @@
 #define XLOADER_CFU_MAX_BLOCKTYPE             (6U) /**< Maximum value of block type */
 #define XLOADER_CFU_ROW_RANGE_ADDR            (0xF12B006CU) /**< Address of CFU_ROW_RANGE
                                                             register */
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -365,6 +368,7 @@ END:
 int XLoader_CfiSelectiveRead(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
+#ifdef PLM_ENABLE_CFI_SELECTIVE_READ
 	u32 LastFrameAddr;
 	u64 SrcAddr;
 	u32 ReadLen;
@@ -459,5 +463,9 @@ int XLoader_CfiSelectiveRead(XPlmi_Cmd *Cmd)
 	}
 
 END:
+#else
+    (void)Cmd;
+	Status = XLOADER_ERR_CMD_NOT_SUPPORTED;
+#endif
 	return Status;
 }

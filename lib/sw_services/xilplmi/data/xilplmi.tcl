@@ -30,6 +30,7 @@
 #
 #       pre  07/16/2024 Corrected typo
 #       kal  09/25/2024 Remove deleting folders which are set in secure_drc
+#       pre  10/22/2024 Added configurable option for CFI selective read feature
 #
 ##############################################################################
 
@@ -429,7 +430,6 @@ proc xgen_opts_file {libhandle} {
 	set value [common::get_property CONFIG.plm_ecdsa_en $libhandle]
 	if {$value == false} {
 		if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc" || $proc_type == "psv_pmc"} {
-			set file_handle [hsi::utils::open_include_file "xparameters.h"]
 			puts $file_handle "\n/* ECDSA code disable */"
 			puts $file_handle "#define PLM_ECDSA_EXCLUDE"
 		}
@@ -439,7 +439,6 @@ proc xgen_opts_file {libhandle} {
 	set value [common::get_property CONFIG.plm_rsa_en $libhandle]
 	if {$value == false} {
 		if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc" || $proc_type == "psv_pmc"} {
-			set file_handle [hsi::utils::open_include_file "xparameters.h"]
 			puts $file_handle "\n/* RSA code disable */"
 			puts $file_handle "#define PLM_RSA_EXCLUDE"
 		}
@@ -449,7 +448,6 @@ proc xgen_opts_file {libhandle} {
 	set value [common::get_property CONFIG.plm_auth_jtag_en $libhandle]
 	if {$value == false} {
 		if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc" || $proc_type == "psv_pmc"} {
-			set file_handle [hsi::utils::open_include_file "xparameters.h"]
 			puts $file_handle "\n/* Authenticated JTAG code disable */"
 			puts $file_handle "#define PLM_AUTH_JTAG_EXCLUDE"
 		}
@@ -475,10 +473,16 @@ proc xgen_opts_file {libhandle} {
 	set value [common::get_property CONFIG.timestamp_en $libhandle]
 	if {$value == false} {
 		if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
-			set file_handle [hsi::utils::open_include_file "xparameters.h"]
 			puts $file_handle "\n/* Time Stamp Disable */"
 			puts $file_handle "#define PLM_BANNER_TIMESTAMP_EXCLUDE"
 		}
+	}
+
+	# Get cfi_selective_read_en value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.cfi_selective_read_en $libhandle]
+	if {$value == true} {
+		puts $file_handle "\n/* CFI selective read enable */"
+		puts $file_handle "#define PLM_ENABLE_CFI_SELECTIVE_READ"
 	}
 
 	# Get user_modules count set by user, by default it is 0

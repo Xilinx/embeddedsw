@@ -25,6 +25,7 @@
 #       sk   06/05/2024 Added config for User Defined PLM Version
 #       pre  07/11/2024 Added configurable option for SSIT secure PLM to PLM
 #                       communication feature
+#       pre  10/22/2024 Added configurable option for CFI selective read feature
 #
 ##############################################################################
 
@@ -66,4 +67,5 @@ BEGIN LIBRARY xilplmi
   PARAM name = xplmi_cache_disable, desc = "Enables/Disables Cache for XilPlmi client library", type = bool, default = true;
   PARAM name = plm_version_user_defined, desc = "User defined PLM version", type = int, default = 0;
   PARAM name = timestamp_en, desc = "Enables or Disables Time Stamp prints", type = bool, default = true;
+  PARAM name = cfi_selective_read_en, desc = "Enables or Disables CFI selective read", type = bool, default = false;
 END LIBRARY

@@ -148,6 +148,11 @@ if (NOT XILPLMI_timestamp_en)
   set(PLM_BANNER_TIMESTAMP_EXCLUDE " ")
 endif()
 
+option(XILPLMI_cfi_selective_read_en "Enables or disables CFI selective read" OFF)
+if (XILPLMI_cfi_selective_read_en)
+  set(PLM_ENABLE_CFI_SELECTIVE_READ " ")
+endif()
+
 set(XILPLMI_user_modules_count "0" CACHE STRING "Number of User Modules.")
 set(XILPLMI_USER_MODULES_COUNT "${XILPLMI_user_modules_count}")
 

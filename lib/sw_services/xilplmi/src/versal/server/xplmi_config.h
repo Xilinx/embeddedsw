@@ -49,6 +49,7 @@
 * 1.10  ng   06/21/2023 Added support for system device-tree flow
 *       ng   03/20/2024 Added CDO debug prints
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
+*       pre  10/22/2024 Added configurable option for CFI selective read feature
 * </pre>
 *
 * @note
@@ -231,6 +232,8 @@ extern "C" {
  */
 //#define PLM_GET_OPT_DATA_EN
 
+/* Enable the below define to enable CFI selective read */
+//#define PLM_ENABLE_CFI_SELECTIVE_READ
 
 /************************** Function Prototypes ******************************/
 
