@@ -29,6 +29,7 @@
 * 1.02  ng   06/21/2023 Added support for system device-tree flow
 * 1.03  am   01/31/2024 Added PLM_OCP_KEY_MNGMT configuration macro
 *       ng   03/20/2024 Added CDO debug prints
+*       pre  10/22/2024 Added configurable option for CFI selective read feature
 *
 * </pre>
 *
@@ -189,6 +190,9 @@ extern "C" {
 //#define PLM_PRINT_PERF_CDO_PROCESS
 //#define PLM_PRINT_PERF_KEYHOLE
 //#define PLM_PRINT_PERF_PL
+
+/* Enable the below define to enable CFI selective read */
+//#define PLM_ENABLE_CFI_SELECTIVE_READ
 
 /************************** Function Prototypes ******************************/
 
