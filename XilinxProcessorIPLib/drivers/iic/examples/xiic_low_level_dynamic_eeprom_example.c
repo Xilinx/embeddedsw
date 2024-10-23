@@ -346,16 +346,10 @@ u8 EepromReadByte(u8 *BufferPtr, u8 ByteCount)
 						     EepromIicAddr,
 						     (u8 *) &Address,
 						     sizeof(Address),
-						     XIIC_STOP);
+						     XIIC_REPEATED_START);
 		}
 
 	} while (SentByteCount != sizeof(Address));
-
-	StatusReg = XIic_ReadReg(IIC_BASE_ADDRESS, XIIC_SR_REG_OFFSET);
-
-	while ((StatusReg & XIIC_SR_BUS_BUSY_MASK)) {
-		StatusReg = XIic_ReadReg(IIC_BASE_ADDRESS, XIIC_SR_REG_OFFSET);
-	}
 
 	do {
 		/*
