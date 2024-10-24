@@ -36,6 +36,7 @@
 *       kal  06/27/24 Clearing first measurement in XOcp_GetSwPcrLog
 *       kal  07/24/2024 Code refactoring updates for versal_aiepg2
 *	vss  09/23/24 Modified code as per security best practices
+* 1.4   vss  10/24/24 Modified xppu disabled macro and it's corresponding code as per security best practices
 *
 *
 * </pre>
@@ -80,7 +81,7 @@
 #define XOCP_DOUBLE_NUM_OF_WORDS	(2U) /**< To double number of words */
 #define XOCP_XPPU_MAX_APERTURES         (19U) /**< Maximum XPPU apertures */
 #define XOCP_XPPU_ENABLED               (0x46E56A7CU) /**< XPPU enabled */
-#define XOCP_XPPU_DISABLED		(0x0U) /**< XPPU disabled */
+#define XOCP_XPPU_DISABLED			(~XOCP_XPPU_ENABLED) /**< XPPU disabled */
 #define XOCP_XPPU_MASTER_ID_0           (17U) /**< XPPU master id 0 */
 #define XOCP_XPPU_MASTER_ID_1           (18U) /**< XPPU master id 1 */
 #define XOCP_GET_ALL_PCR_MASK           (0x000000FFU) /**< All PCR read mask */
@@ -805,8 +806,8 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 	volatile int XppuStatus = XST_FAILURE;
-	volatile u32 RegVal = ~XOCP_XPPU_ENABLED;
-	volatile u32 RegValtmp = ~XOCP_XPPU_ENABLED;
+	volatile u32 RegVal = XOCP_PMC_XPPU_CTRL_DISABLE_VAL;
+	volatile u32 RegValtmp = XOCP_PMC_XPPU_CTRL_DISABLE_VAL;
 	int ClearStatus = XST_FAILURE;
 #ifdef PLM_OCP_KEY_MNGMT
 	u32 *DevIkPubKey = (u32 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
@@ -816,8 +817,8 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	XOcp_DmeResponse *DmeResponse = XOcp_GetDmeResponse();
 	XOcp_Dme *DmePtr = &RomDmeInput;
 	XTrngpsx_Instance *TrngInstance = NULL;
-	volatile u32 XppuEnabled =  ~XOCP_XPPU_ENABLED;
-	volatile u32 XppuEnabledTmp =  ~XOCP_XPPU_ENABLED;
+	volatile u32 XppuEnabled = XOCP_XPPU_DISABLED;
+	volatile u32 XppuEnabledTmp = XOCP_XPPU_DISABLED;
 	u32 Index;
 
 	/*
@@ -900,7 +901,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	/* If XPPU is not enabled, enable XPPU */
 	RegVal = (Xil_In32(PMC_XPPU_CTRL) & PMC_XPPU_CTRL_ENABLE_MASK);
 	RegValtmp = (Xil_In32(PMC_XPPU_CTRL) & PMC_XPPU_CTRL_ENABLE_MASK);
-	if ((RegVal == XOCP_XPPU_DISABLED) || (RegValtmp == XOCP_XPPU_DISABLED)) {
+	if ((RegVal != XOCP_PMC_XPPU_CTRL_ENABLE_VAL) || (RegVal != XOCP_PMC_XPPU_CTRL_ENABLE_VAL)) {
 		Status = Xil_SecureRMW32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_ENABLE_MASK,
 			XOCP_PMC_XPPU_CTRL_ENABLE_VAL);
 		if (Status != XST_SUCCESS) {
@@ -946,8 +947,8 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 				XOCP_ECC_P384_SIZE_BYTES,
 				XOCP_ECC_P384_SIZE_BYTES);
 END:
-	if ((RegVal == PMC_XPPU_CTRL_ENABLE_MASK) &&
-		(RegValtmp == PMC_XPPU_CTRL_ENABLE_MASK)) {
+	if ((RegVal == XOCP_PMC_XPPU_CTRL_ENABLE_VAL) &&
+		(RegValtmp == XOCP_PMC_XPPU_CTRL_ENABLE_VAL)) {
 		XppuStatus = XOcp_DmeRestoreXppuDefaultConfig();
 		if (XppuStatus != XST_SUCCESS) {
 			if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
