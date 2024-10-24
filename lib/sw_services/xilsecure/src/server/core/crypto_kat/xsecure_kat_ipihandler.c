@@ -25,6 +25,7 @@
 *                       since trng is being initialised in server API's
 * 5.4   yog  04/29/2024 Fixed doxygen grouping and doxygen warnings.
 * 	kal  07/24/2024 Code refactoring for versal_aiepg2
+*	vss  10/23/2024 Removed AES duplicate code
 *
 * </pre>
 *
@@ -159,8 +160,7 @@ static int XSecure_AesDecKat(void)
 		goto END;
 	}
 
-	if ((XSecureAesInstPtr->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
-		(XSecureAesInstPtr->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
+	if (XSecureAesInstPtr->AesState == XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_KAT_BUSY;
 		goto END;
 	}
@@ -205,8 +205,7 @@ static int XSecure_AesDecCmKat(void)
 		goto END;
 	}
 
-	if ((XSecureAesInstPtr->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
-		(XSecureAesInstPtr->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
+	if (XSecureAesInstPtr->AesState == XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_KAT_BUSY;
 		goto END;
 	}
@@ -251,8 +250,7 @@ static int XSecure_AesEncKat(void)
 		goto END;
 	}
 
-	if ((XSecureAesInstPtr->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
-		(XSecureAesInstPtr->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
+	if (XSecureAesInstPtr->AesState == XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_KAT_BUSY;
 		goto END;
 	}

@@ -34,6 +34,7 @@
 *       mb   05/23/2024 Added support for P-224
 *       kal  07/24/2024 Code refacroring for versal_aiepg2.
 *	vss  10/01/2024	Changed existing implementation of AES CM KAT to same key and data
+*	vss  10/23/2024 Removed AES duplicate code
 *
 * </pre>
 *
@@ -644,8 +645,7 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	if ((AesInstance->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
-		(AesInstance->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
+	if (AesInstance->AesState == XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_KAT_BUSY;
 		goto END;
 	}
@@ -791,8 +791,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	if ((AesInstance->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
-		(AesInstance->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
+	if (AesInstance->AesState == XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_KAT_BUSY;
 		goto END;
 	}
@@ -912,8 +911,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	if ((AesInstance->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
-		(AesInstance->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
+	if (AesInstance->AesState == XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_KAT_BUSY;
 		goto END;
 	}
