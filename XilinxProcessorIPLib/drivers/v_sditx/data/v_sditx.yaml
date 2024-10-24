@@ -15,7 +15,6 @@ properties:
       - items:
         - enum:
           - xlnx,v-smpte-uhdsdi-tx-1.0
-          - xlnx,sdi-tx
   reg:
     description: Physical base addreiss and size of the controller register map
   xlnx,include-edh:
