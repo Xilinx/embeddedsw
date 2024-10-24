@@ -43,6 +43,7 @@
 *	    vss  09/07/2023 Reverted the fix for NO_EFFECT coverity warning
 * 5.3   kpt  11/28/2023 Added XSECURE_AES_PUF_RED_EXPANDED_KEYS
 * 5.4   yog  04/29/2024 Fixed doxygen grouping and doxygen warnings.
+*	vss  10/23/2024 Removed AES duplicate code
 *
 * </pre>
 *
@@ -110,8 +111,7 @@ typedef enum {
 typedef enum {
 	XSECURE_AES_UNINITIALIZED,		/**< Uninitialized state */
 	XSECURE_AES_INITIALIZED,		/**< Initialized state */
-	XSECURE_AES_ENCRYPT_INITIALIZED,	/**< Encrypt initialized state */
-	XSECURE_AES_DECRYPT_INITIALIZED		/**< Decrypt initialised state */
+	XSECURE_AES_OPERATION_INITIALIZED
 } XSecure_AesState;
 
 /**
