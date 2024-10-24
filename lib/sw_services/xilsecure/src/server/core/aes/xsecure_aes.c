@@ -95,6 +95,7 @@
 *                       and XSecure_AesDecryptData
 *       kpt  03/22/2024 Fix overrun issue
 * 5.4   yog  04/29/2024 Fixed doxygen warnings.
+*	vss  10/23/2024 Removed AES duplicate code
 *
 * </pre>
 *
@@ -133,13 +134,17 @@ static int XSecure_AesWaitForDone(const XSecure_Aes *InstancePtr);
 static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize);
 static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr);
-static int XSecure_AesOpInit(const XSecure_Aes *InstancePtr,
-	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr);
+static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
+	XSecure_AesKeySize KeySize, u64 IvAddr, u32 Mode);
 static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
 	XSecure_AesDmaCfg *AesDmaCfg, u32 Size);
 static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u8 IsLastChunk);
 static int XSecure_AesIvXfer(const XSecure_Aes *InstancePtr, u64 IvAddr);
+static int XSecure_AesKeyLoadandIvXfer(const XSecure_Aes *InstancePtr,
+	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr);
+static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAddr,
+	u64 OutDataAddr, u32 Size, u8 IsLastChunk);
 
 /************************** Variable Definitions *****************************/
 
@@ -433,8 +438,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	}
 #endif
 	/* Validate AES state */
-	if ((InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) &&
-		(InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED)) {
+	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END_RST;
 	}
@@ -650,72 +654,13 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XSecure_AesKeySize KeySize, u64 IvAddr)
 {
 	volatile int Status = XST_FAILURE;
-	volatile u32 KeyZeroedStatus = XSECURE_PUF_KEY_ZEROED_MASK;
 
-	/** Validate the input arguments */
-	if (InstancePtr == NULL) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
+	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr, XSECURE_AES_MODE_DEC);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if (KeySrc >= XSECURE_MAX_KEY_SOURCES) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
-	}
-
-	if ((XSECURE_AES_KEY_SIZE_128 != KeySize) &&
-		 (XSECURE_AES_KEY_SIZE_256 != KeySize)) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
-	}
-
-	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
-		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END_RST;
-	}
-
-	KeyZeroedStatus = XSecure_ReadReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_ZEROED_STATUS_OFFSET);
-	if ((KeySrc == XSECURE_AES_PUF_KEY) &&
-		((KeyZeroedStatus & XSECURE_PUF_KEY_ZEROED_MASK) == XSECURE_PUF_KEY_ZEROED_MASK)) {
-		Status = (int)XSECURE_AES_ZERO_PUF_KEY_NOT_ALLOWED;
-		goto END;
-	}
-
-	if(InstancePtr->NextBlkLen == 0U) {
-		XSecure_ReleaseReset(InstancePtr->BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
-	}
-
-	/* Key selected does not allow decryption */
-	if (AesKeyLookupTbl[KeySrc].DecAllowed == FALSE) {
-		Status = XST_FAILURE;
-		goto END_RST;
-	}
-
-	/** Configure AES for decryption and starts the operation */
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_DEC);
-
-	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr);
-	if (Status != XST_SUCCESS) {
-		goto END_RST;
-	}
-	/* Update the state */
-	InstancePtr->AesState = XSECURE_AES_DECRYPT_INITIALIZED;
-
-	Status = XST_SUCCESS;
-
-END_RST:
-	if (Status != XST_SUCCESS) {
-		/*
-		 * Issue a soft to reset to AES engine and
-		 * set the AES state back to initialization state
-		 */
-		InstancePtr->NextBlkLen = 0U;
-		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
-		XSecure_SetReset(InstancePtr->BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
-	}
+	InstancePtr->AesState = XSECURE_AES_OPERATION_INITIALIZED;
 
 END:
 	return Status;
@@ -752,53 +697,7 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 {
 	int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
-	if (InstancePtr == NULL) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE))) {
-		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
-		goto END_RST;
-	}
-	/* Validate the size for last chunk */
-	Status = XSecure_AesValidateSize(Size, IsLastChunk);
-	if (Status != XST_SUCCESS) {
-		goto END_RST;
-	}
-	/* Validate the AES state */
-	if (InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED) {
-		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END_RST;
-	}
-	/* Enable AES Data swap */
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
-
-	/** Update the AES engine with provided input and output addresses */
-	Status = XSecureAesUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
-	if (Status != XST_SUCCESS) {
-		goto END_RST;
-	}
-
-	if ((XSecure_AesIsEcbModeEn(InstancePtr) == TRUE) && (IsLastChunk == TRUE)) {
-		/* Wait for AES Done for last chunk in ECB mode */
-		Status = XSecure_AesWaitForDone(InstancePtr);
-	}
-
-END_RST:
-	if (Status != XST_SUCCESS) {
-		/*
-		 * Issue a soft to reset to AES engine and
-		 * set the AES state back to initialization state
-		 */
-		InstancePtr->NextBlkLen = 0U;
-		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
-		XSecure_SetReset(InstancePtr->BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
-	}
-
+	Status = XSecure_ValidateAndUpdateData(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
 END:
 	return Status;
 }
@@ -845,7 +744,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END_RST;
 	}
 
-	if (InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED) {
+	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END_RST;
 	}
@@ -973,7 +872,7 @@ int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	if (InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED) {
+	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -1018,63 +917,14 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XSecure_AesKeySize KeySize, u64 IvAddr)
 {
 	volatile int Status = XST_FAILURE;
-	volatile u32 KeyZeroedStatus = XSECURE_PUF_KEY_ZEROED_MASK;
 
-	/** Validate the input arguments */
-	if (InstancePtr == NULL) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	if (KeySrc >= XSECURE_MAX_KEY_SOURCES) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
-	}
-
-	if ((KeySize != XSECURE_AES_KEY_SIZE_128) &&
-		(KeySize != XSECURE_AES_KEY_SIZE_256)) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
-	}
-
-	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
-		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END_RST;
-	}
-
-	KeyZeroedStatus = XSecure_ReadReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_ZEROED_STATUS_OFFSET);
-	if ((KeySrc == XSECURE_AES_PUF_KEY) &&
-		((KeyZeroedStatus & XSECURE_PUF_KEY_ZEROED_MASK) == XSECURE_PUF_KEY_ZEROED_MASK)) {
-		Status = (int)XSECURE_AES_ZERO_PUF_KEY_NOT_ALLOWED;
-		goto END;
-	}
-
-	XSecure_ReleaseReset(InstancePtr->BaseAddress,
-				XSECURE_AES_SOFT_RST_OFFSET);
-
-	/* Key selected does not allow Encryption */
-	if (AesKeyLookupTbl[KeySrc].EncAllowed == FALSE) {
-		Status = XST_FAILURE;
-		goto END_RST;
-	}
-
-	/** Configure AES for encryption and starts the operation */
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_ENC);
-
-	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr);
+	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr, XSECURE_AES_MODE_ENC);
 	if(Status != XST_SUCCESS) {
-		goto END_RST;
+		goto END;
 	}
 
-	InstancePtr->AesState = XSECURE_AES_ENCRYPT_INITIALIZED;
+	InstancePtr->AesState = XSECURE_AES_OPERATION_INITIALIZED;
 
-END_RST:
-	if (Status != XST_SUCCESS) {
-		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
-		XSecure_SetReset(InstancePtr->BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
-	}
 
 END:
 	return Status;
@@ -1111,49 +961,8 @@ int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 {
 	int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
-	if ((InstancePtr == NULL)) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
-	}
+	Status = XSecure_ValidateAndUpdateData(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
 
-	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE))) {
-		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
-		goto END_RST;
-	}
-	/* Validate the size for last chunk*/
-	Status = XSecure_AesValidateSize(Size, IsLastChunk);
-	if (Status != XST_SUCCESS) {
-		goto END_RST;
-	}
-	/* Validate the AES state */
-	if (InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) {
-		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END_RST;
-	}
-	/* Enable AES Data swap */
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
-
-	/** Update the AES engine with provided input and output addresses */
-	Status = XSecureAesUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
-	if (Status != XST_SUCCESS) {
-		goto END_RST;
-	}
-
-	if ((XSecure_AesIsEcbModeEn(InstancePtr) == TRUE) && (IsLastChunk == TRUE)) {
-		/* Wait for AES Done for last chunk in ECB mode */
-		Status = XSecure_AesWaitForDone(InstancePtr);
-	}
-
-END_RST:
-	if (Status != XST_SUCCESS) {
-		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
-		XSecure_SetReset(InstancePtr->BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
-	}
-
-END:
 	return Status;
 }
 
@@ -1195,7 +1004,7 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END_RST;
 	}
 
-	if (InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) {
+	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END_RST;
 	}
@@ -1296,7 +1105,7 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	if (InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) {
+	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -1809,7 +1618,7 @@ static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr)
  *		 - XST_FAILURE  On failure
  *
  ******************************************************************************/
-static int XSecure_AesOpInit(const XSecure_Aes *InstancePtr,
+static int XSecure_AesKeyLoadandIvXfer(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr)
 {
 	volatile int Status = XST_FAILURE;
@@ -1937,8 +1746,7 @@ int XSecure_AesGmacCfg(XSecure_Aes *InstancePtr, u32 IsGmacEn)
 		goto END_RST;
 	}
 
-	if ((InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) &&
-		(InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED)) {
+	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END_RST;
 	}
@@ -2042,8 +1850,7 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 	}
 
 	/* Validate AES state */
-	if ((InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) &&
-		(InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED)) {
+	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -2103,4 +1910,185 @@ END:
 
     return Status;
 }
+
+
+/*****************************************************************************/
+/**
+ * @brief	This function validates and updates the mode of the AES and loads
+ *           key and transfers IV to the AES engine.
+ *
+ * @param	InstancePtr	- Pointer to the XSecure_Aes instance
+ * @param	KeySrc		- Key Source for decryption of the data
+ * @param	KeySize		- Size of the AES key to be used for decryption is
+ *		 		- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
+ *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	IvAddr		- Address to the buffer holding IV
+ * @param   Mode        -
+ *
+ * @return
+ *	-	XST_SUCCESS - On successful init
+ *	-	XSECURE_AES_INVALID_PARAM - On invalid parameter
+ *	-	XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *	-	XST_FAILURE - On failure to configure switch
+ *
+ ******************************************************************************/
+static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
+	XSecure_AesKeySize KeySize, u64 IvAddr, u32 Mode)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 KeyZeroedStatus = XSECURE_PUF_KEY_ZEROED_MASK;
+	u32 IsKeySrcAllowed = FALSE;
+
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (KeySrc >= XSECURE_MAX_KEY_SOURCES) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END_RST;
+	}
+
+	if ((XSECURE_AES_KEY_SIZE_128 != KeySize) &&
+		 (XSECURE_AES_KEY_SIZE_256 != KeySize)) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END_RST;
+	}
+
+	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
+		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
+		goto END_RST;
+	}
+
+	KeyZeroedStatus = XSecure_ReadReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_ZEROED_STATUS_OFFSET);
+	if ((KeySrc == XSECURE_AES_PUF_KEY) &&
+		((KeyZeroedStatus & XSECURE_PUF_KEY_ZEROED_MASK) == XSECURE_PUF_KEY_ZEROED_MASK)) {
+		Status = (int)XSECURE_AES_ZERO_PUF_KEY_NOT_ALLOWED;
+		goto END;
+	}
+
+	if (Mode == XSECURE_AES_MODE_DEC) {
+		IsKeySrcAllowed = AesKeyLookupTbl[KeySrc].DecAllowed;
+	}
+	else if (Mode == XSECURE_AES_MODE_ENC) {
+		IsKeySrcAllowed = AesKeyLookupTbl[KeySrc].EncAllowed;
+	}
+	else {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END_RST;
+	}
+
+	if(InstancePtr->NextBlkLen == 0U) {
+		XSecure_ReleaseReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	}
+
+	/* Key selected does not allow decryption or encryption */
+	if (IsKeySrcAllowed == FALSE) {
+		Status = XST_FAILURE;
+		goto END_RST;
+	}
+
+	/* Configure AES for decryption/encryption */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_AES_MODE_OFFSET, Mode);
+
+	Status = XSecure_AesKeyLoadandIvXfer(InstancePtr, KeySrc, KeySize, IvAddr);
+
+END_RST:
+	if (Status != XST_SUCCESS) {
+		/*
+		 * Issue a soft to reset to AES engine and
+		 * set the AES state back to initialization state
+		 */
+		InstancePtr->NextBlkLen = 0U;
+		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
+		XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to update the data to AES engine and stores the
+ *          resultant data at specified address
+ *
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
+ * @param	InDataAddr	Address of the encrypted data which needs to be
+ *				  encrypted
+ * @param	OutDataAddr	Address of output buffer where the encrypted data
+ *				  to be updated
+ * @param	Size    Size of data to be decrypted in bytes, whereas number of bytes shall be aligned as below
+ *                  - 16 byte aligned when it is not the last chunk
+ *                  - 4 byte aligned when the data is the last chunk
+ * @param	IsLastChunk	 If this is the last update of data to be encrypted,
+ *		 		  this parameter should be set to TRUE otherwise FALSE
+ *
+ * @return
+ *	-	XST_SUCCESS - On successful encryption of the data
+ *	-	XSECURE_AES_INVALID_PARAM - On invalid parameter
+ *	-	XSECURE_AES_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *	-	XST_FAILURE - On failure
+ *
+ ******************************************************************************/
+static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAddr,
+	u64 OutDataAddr, u32 Size, u8 IsLastChunk)
+{
+	int Status = XST_FAILURE;
+
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE))) {
+		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
+		goto END_RST;
+	}
+	/* Validate the size for last chunk */
+	Status = XSecure_AesValidateSize(Size, IsLastChunk);
+	if (Status != XST_SUCCESS) {
+		goto END_RST;
+	}
+	/* Validate the AES state */
+	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
+		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
+		goto END_RST;
+	}
+	/* Enable AES Data swap */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
+
+
+	Status = XSecureAesUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
+	if (Status != XST_SUCCESS) {
+		goto END_RST;
+	}
+
+	if ((XSecure_AesIsEcbModeEn(InstancePtr) == TRUE) && (IsLastChunk == TRUE)) {
+		/* Wait for AES Done for last chunk in ECB mode */
+		Status = XSecure_AesWaitForDone(InstancePtr);
+	}
+
+END_RST:
+	if (Status != XST_SUCCESS) {
+		/*
+		 * Issue a soft to reset to AES engine and
+		 * set the AES state back to initialization state
+		 */
+		InstancePtr->NextBlkLen = 0U;
+		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
+		XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	}
+
+END:
+	return Status;
+}
+
 /** @} */
