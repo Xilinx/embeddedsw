@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -133,7 +133,7 @@
 
 #define RXBD_CNT				128	/* Number of RxBDs to use */
 #define TXBD_CNT				128	/* Number of TxBDs to use */
-#define BD_ALIGNMENT			XAXIDMA_BD_MINIMUM_ALIGNMENT
+#define BD_ALIGNMENT			XAXIDMA_BD_MINIMUM_ALIGNMENT*2
 									/* Byte alignment of BDs */
 #define PAYLOAD_SIZE			1000 /* Payload size used in examples */
 #define BD_USR0_OFFSET			0 /* AXI4-Stream Control Word offset from
@@ -475,7 +475,6 @@ int AxiEthernetSgDmaIntrExample(XAxiEthernet *AxiEthernetInstancePtr,
 	int AxiDevType;
 	UINTPTR AxiDmaBaseAddress;
 #endif
-
 	/*************************************/
 	/* Setup device for first-time usage */
 	/*************************************/
