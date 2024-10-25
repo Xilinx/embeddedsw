@@ -57,6 +57,8 @@
 *       sk   03/13/2024 Fixed doxygen comments format
 * 1.10  ng   04/30/2024 Fixed doxygen grouping
 *       ng   07/02/2024 Removed dependency on xilplmi library
+*       kpt  10/25/2024 Add SMAP_BUS_WIDTH_LENGTH while calculationg optional data
+*                       start address
 *
 * </pre>
 *
@@ -78,6 +80,8 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XILPDI_PDI_TYPE_PARTIAL_METAHEADER		(0x5U)
+
+#define XILPDI_PDI_TYPE_PARTIAL                         (0x2U)
 
 #define XILPDI_PMCRAM_BASEADDR			(0xF2000000U)
 
@@ -381,7 +385,8 @@ int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
 	 * - Read the IHT Optional data from Metaheader
 	 */
 	OptionalDataStartAddress = MetaHdrPtr->FlashOfstAddr + MetaHdrPtr->MetaHdrOfst + XIH_IHT_LEN;
-	if (PdiType == XILPDI_PDI_TYPE_PARTIAL_METAHEADER) {
+	if ((PdiType == XILPDI_PDI_TYPE_PARTIAL_METAHEADER) ||
+		(PdiType == XILPDI_PDI_TYPE_PARTIAL)) {
 		OptionalDataStartAddress += SMAP_BUS_WIDTH_LENGTH;
 	}
 
