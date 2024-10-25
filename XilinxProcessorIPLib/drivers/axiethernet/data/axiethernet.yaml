@@ -138,22 +138,4 @@ examples:
     xaxiethernet_mcdma_ping_req_example.c:
         - axistream-connected: 3
 
-tapp:
-    xaxiethernet_example_intr_sgdma.c:
-        dependency_files:
-            - xaxiethernet_example_util.c
-            - xaxiethernet_example.h
-        axistream-connected: 2
-        declaration: AxiEthernetSgDmaIntrExample
-        hwproperties:
-             - interrupts
-
-    xaxiethernet_example_intr_mcdma.c:
-        dependency_files:
-            - xaxiethernet_example_util.c
-            - xaxiethernet_example.h
-        axistream-connected: 3
-        hwproperties:
-             - interrupts
-
 ...
