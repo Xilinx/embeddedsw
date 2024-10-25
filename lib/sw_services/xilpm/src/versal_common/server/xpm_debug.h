@@ -568,12 +568,14 @@ extern "C" {
 #define XPM_INT_ERR_I2C_INIT			0x4802U
 /* I2c write error */
 #define XPM_INT_ERR_I2C_WRITE			0x4803U
+#if defined (VERSAL_DVS)
 /* Failed to set voltage to upper limit */
 #define XPM_INT_ERR_RAIL_UPPER_VOLT		0x4804U
 /* Failed to set voltage to lower limit */
 #define XPM_INT_ERR_RAIL_LOWER_VOLT		0x4805U
 /* Controller regulating rail is disabled */
 #define XPM_INT_ERR_RAIL_CONTROLLER_DISABLED	0x4806U
+#endif
 /* VID adjustment failed */
 #define XPM_INT_ERR_VID_ADJUST			0x4807U
 /* Invalid VID value */

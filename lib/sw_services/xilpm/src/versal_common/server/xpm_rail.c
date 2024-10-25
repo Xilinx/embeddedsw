@@ -461,6 +461,7 @@ done:
 	return Status;
 }
 
+#if defined (VERSAL_DVS)
 /*
  * This routine is invoked periodically by the task scheduler and its
  * task is to determine if a voltage adjustment is needed, based on current
@@ -733,6 +734,7 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+#endif /* VERSAL_DVS */
 
 static XStatus XPmRail_InitI2CMode(const u32 *Args, u32 NumArgs)
 {
@@ -960,9 +962,11 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 			Rail->Power.Node.BaseAddress = Args[3];
 			Status = XST_SUCCESS;
 			break;
+#if defined (VERSAL_DVS)
 		case (u32)XPM_RAILTYPE_TEMPVOLTADJ:
 			Status = XPmRail_InitTempVoltAdj(Args, NumArgs);
 			break;
+#endif
 		case (u32)XPM_RAILTYPE_MODE_GPIO:
 			Status = XPmRail_InitGPIOMode(Args, NumArgs);
 			break;

@@ -28,6 +28,7 @@ typedef enum {
 	XPM_PGOOD_SYSMON = 1,
 } XPm_PgoodSource;
 
+#if defined (VERSAL_DVS)
 typedef struct {
 	u32 UpperTempThresh;
 	u32 LowerTempThresh;
@@ -35,6 +36,7 @@ typedef struct {
 	u8 LowerVoltMode;
 	u8 CurrentVoltMode;
 } XPmRail_TempVoltAdj;
+#endif
 
 typedef struct {
 	u8 ModeNumber;		/** Power mode number */
@@ -51,7 +53,9 @@ typedef struct {
 	XPm_I2cCmd I2cModes[MAX_PARENTS][MAX_MODES];	  /** Modes information if parent regulator is controlled by I2C */
 	XPm_GPIOCmd GPIOModes[MAX_MODES]; /** Modes information if parent regulator is controlled by GPIO */
 	u8 ParentIndex;
+#if defined (VERSAL_DVS)
 	XPmRail_TempVoltAdj *TempVoltAdj;
+#endif
 } XPm_Rail;
 
 #ifdef __cplusplus
