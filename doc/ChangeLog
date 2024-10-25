@@ -129,7 +129,7 @@ Correct prints for last seven CE locations in CRAM example
 
 
 
-xiethernet_v5_18:
+axiethernet_v5_18:
 Add C++ Linkage support
 Update yaml to support peripheral test application generation
 
@@ -444,6 +444,213 @@ mipi_dsi_tx_ss:
 Yaml changes made for generic compatible string
 SP701 passthrough app migrated for SDT support.
 
+bram_v4_11 :
+Fix missing extern 'C' keyword from header files
+bram: Add support for lmb ram
+
+
+can_v3_9 :
+Increment driver version
+Fix missing extern 'C' keyword from header files
+
+
+canps_v3_9 :
+Increment driver version
+Fix missing extern 'C' keyword from header files
+
+
+dfeccf_v1_8 :
+Switchable parameter in YAML
+
+
+dfeofdm_v1_3 :
+Add frequency range MODEL_PARAM
+Add FR1 and FR2 frequency range
+
+
+dsirxss_v1_1 :
+Yaml updates to support example app in GUI
+
+
+emc_v4_4 :
+Fix missing extern 'C' keyword from header files
+
+
+gpio_v4_12 :
+Increment driver version
+Fix missing extern 'C' keyword from header files
+
+
+iic_v3_12 :
+Increment driver version
+Fix missing extern 'C' keyword from header files
+
+
+intc_v3_19 :
+XilinxProcessorIPLib: drivers: intc: Fix the SDT flow size issues
+intc: Remove Unused variable and return value
+
+
+tmrctr:
+Optimize wait time with timeout reduction and usleep() inclusion.
+Fix missing extern 'C' keyword in header files
+
+
+iomodule_v2_17 :
+esw: Update the code to support iomodule for stdin/sdtout configuration in sdt flow
+esw: Fix multiple definition of `outbyte' error for PLM for no uart enabled designs
+drivers: Fix missing extern 'C' keyword in header files
+spartanup_plm: Add SDT support
+
+
+ipipsu_v2_16 :
+Add asufw application and xilasu library with SDT flow support
+
+
+llfifo_v5_8 :
+Update Copyright information
+
+
+mutex_v4_9 :
+Increment driver version
+Fix missing extern 'C' keyword from header files
+
+
+qspips_v3_13 :
+Increment driver version
+Fix missing extern 'C' keyword from header files
+
+
+scugic_v5_4 :
+scugic: Update driver version
+scugic: Fix compilation errors reported by C++ compiler
+scugic: Add support for VersalGen2
+drivers: Fix missing extern 'C' keyword in header files
+scugic: Fix hang due to repeated interrupts on GICv3 based devices
+scugic: Skip un-mapping of interrupts in case of GICv3
+peripheral_tests: Fix compilation warnings
+peripheral_tests: Fixed source code-format issue.
+
+
+sdps_v4_4 :
+Fix IAR compilation warnings
+
+
+sysmonpsu_v3_0 :
+Fixes writing to Alarm Threshold registers updated to support threshold hysteresis mode
+Fixes writing to OT Upper alarm threshold register to overwrite default OT value
+
+
+tmrctr_v4_13 :
+tmrctr: Fix the typo of interrupt property in tapp section
+tmrctr
+Fix missing extern 'C' keyword in header files
+peripheral_tests: Fix compilation warnings
+peripheral_tests: Fixed source code-format issue.
+
+
+trngpsx_v1_3 :
+Add support for the new taxonomy convention adopted for the IP Names
+drivers: Fix for security review comments
+
+
+ttcps_v3_20 :
+drivers: Update minor versions
+drivers: Fix missing extern 'C' keyword in header files
+peripheral_tests: Fix compilation warnings
+peripheral_tests: Fixed source code-format issue.
+ttcps: Add support for multiple counters in SDT flow
+Revert "ttcps: Add support for multiple counters in SDT flow"
+
+
+uartlite_v3_11 :
+ Fix multiple definition of `outbyte' error for PLM for no uart enabled designs
+Fix missing extern 'C' keyword from header files
+
+
+uartpsv_v1_11 :
+Increment driver version
+Fix missing extern 'C' keyword from header files
+
+
+usb_v5_7 :
+drivers: Update minor versions
+drivers: Fix missing extern 'C' keyword in header files
+
+
+usbpsu_v1_16 :
+usbpsu: Update driver version
+usbpsu: Fix compilation error
+bsp: standalone: Fix IAR compilation warnings
+
+
+xilfpga_v6_7 :
+Add support for the new taxonomy convention adopted for the IP NAMEs
+
+
+xiltimer_v2_1 :
+sw_services: xiltimer: Use canonical definitions for sleep and interval timers
+esw: Add support for cortexa53-32 bit configuration
+overall: Add support for the new taxonomy convention adopted for the IP NAMEs.
+sw_services: xiltimer: Update minor version
+scripts: Add support for ASU processor
+lib: sw_services: xiltimer: Add missing prototype for msleep() API
+lib: sw_services: xiltimer: For PSM microblaze sleep timer should always be running out of processor instructions
+scripts: Add support for SpartanUp PLM in BSP and the workflow
+sw_services: xiltimer: Fix default values for sleep and tick timers
+
+
+standalone_v9_2 :
+bsp:standalone:common:Add Xil_SReverseData
+bsp: standalone: Update translation table to support AXI_NOC2_DDR_CH_O memory
+BSP: ARMv8: Fix translation table for specific VersalNet based HW design
+esw: Add support for cortexa53-32 bit configuration
+bsp: Disable Xil_AssertCallbackRoutine usage for PLM
+lib: bsp: standalone: Inline the memory high address define value
+BSP: Fix XGetCoreId for CortexA78 processor
+lib:bsp:standalone Add CMakeLists.txt file for Versal_Gen2 specific directories
+BSP: VersalGen2: Add xparameters_ps file
+BSP: ARMv8: Add translation for VersalGen2 APU
+BSP: cortexr5: Add support for VersalGen2 RPU
+BSP: microblaze: Fix microblaze_disable_interrupts in SDT flow
+lib: bsp: standalone: Update the microblaze hardware exception handling in SDT flow
+esw: Update the FILENAME macro to fix the executable size issue in sdt flow
+lib: Add missing config parameter zynqmp_fsbl_bsp support in SDT flow
+freertos10_xilinx: Port FreeRTOS based interrupt API's to SDT flow
+freertos10_xilinx: Fixed source code-format issue.
+bsp: standalone: common: Add bit helper functions
+sw_services:xilsecure: Added SSIT support for kat client APIs
+bsp: standalone: add spartanup device support
+bsp: Move the platform specific macro definitions from toolchain and scripts to bspconfig
+scripts: Add support for ASU processor
+sw_services:xilsecure: Added SSIT support for RSA, ECDSA and SHA client libraries APIs
+BSP: riscv: Fix alignment issues related to MB-V 64 bit variant
+BSP: Fix xpm_counter_arm_example failure on VersalNet RPU
+BSP: Fix XPM_EVENT_CNTRS_MASK for CortexR5
+esw: Inline the STDIN define generation with xsct flow
+esw: Update the code to support iomodule for stdin/sdtout configuration in sdt flow
+Revert "bsp: standalone: common: Add bit helper functions"
+lib: bsp: standalone: intr_wrapper: updated XGetPriorityTriggerType() with IntrId to IntrNum transform
+bsp: standalone: Add option for xclocking enable
+drivers: Fix missing extern 'C' keyword in header files
+bsp: Fix multiple definition linking error
+lib: bsp: Add an empty function for getimeofday
+peripheral_tests: Fix compilation warnings
+bsp: standalone: Add support for AXI NOC2 DDR region in MPU initialization
+BSP: cortexr5: VersaNet: Add comments for MPU regions
+BSP: microblaze: Revert SDT flow related changes in hw_exception_handler
+BSP: microblaze: Fix exception enablement for firmware processors
+BSP: microblaze: Update microblaze_exceptions_g.h inclusion logic
+lib: bsp: standalone: When microblaze is compile with flto add special handling for microblaze_interrupt_handler.c
+BSP: Fix XGetBootStatus for VersalGen2 SoC
+BSP: cortexr5: versal: Fix MPU region for DDR
+BSP: arm: common: Fix linker issues in c++ apps build with SDT flow
+spartanup_plm: Add SDT support
+bsp: standalone: Fix IAR compilation warnings
+lib:bsp:standalone: Update the descriptions for BSP config options
+scripts: Add support for SpartanUp PLM in BSP and the workflow
+bsp: standalone: Fix plm/psmfw compilation warnings
+lib: bsp: Move secure API's to xil_sutil.c
 
 
 
