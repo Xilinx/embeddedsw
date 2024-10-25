@@ -87,6 +87,7 @@ maybe_unused static inline XStatus IsOnSecondarySLR(u32 SubsystemId)
 	(void)SubsystemId;
 	return XST_FAILURE;
 }
+void XPm_PlatChangeCoreState(XPm_Core *Core, const u32 State);
 #ifdef __cplusplus
 }
 #endif
