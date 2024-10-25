@@ -388,6 +388,15 @@ done:
 	return Status;
 }
 
+void XPm_PlatChangeCoreState(XPm_Core *Core, const u32 State)
+{
+	if (PM_SUSPEND_STATE_CPU_OFF == State) {
+		Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
+	} else {
+		Core->Device.Node.State = (u8)XPM_DEVSTATE_SUSPENDING;
+	}
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function is to link devices to the default subsystem.
