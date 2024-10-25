@@ -84,7 +84,7 @@ enum XIntrType {
 #define XGet_BaseAddr(IntParent)	(IntParent & XINTC_BASEADDR_MASK)
 #define XGet_IntrId(IntId)		(IntId & XINTC_INTRID_MASK)
 #define XGet_TriggerType(IntId)		((IntId & XINTC_TRIGGER_MASK) >> XINTC_TRIGGER_SHIFT)
-#define XGet_IntrOffset(IntId)		((XIsIntrTypeSGI(IntrId) == 1) ? 0 : (( XGet_IntrType(IntId) == 1) ? 16 : 32)) /* For PPI offset is 16 and for SPI it is 32 */
+#define XGet_IntrOffset(IntId)		((XIsIntrTypeSGI(IntId) == 1) ? 0 : (( XGet_IntrType(IntId) == 1) ? 16 : 32)) /* For PPI offset is 16 and for SPI it is 32 */
 #define XIsIntrTypeSGI(IntId)		((IntId & XINTC_IS_SGI_INTR_MASK) >> XINTC_IS_SGI_INTR_SHIFT)
 
 /*****************************************************************************/

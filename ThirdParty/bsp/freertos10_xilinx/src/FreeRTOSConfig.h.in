@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef _FREERTOSCONFIG_H
@@ -22,7 +22,7 @@
 #cmakedefine01	configUSE_NEWLIB_REENTRANT		@configUSE_NEWLIB_REENTRANT@
 #cmakedefine01	configUSE_QUEUE_SETS			@configUSE_QUEUE_SETS@
 #cmakedefine01	configUSE_TASK_NOTIFICATIONS		@configUSE_TASK_NOTIFICATIONS@
-#cmakedefine01	configUSE_STATS_FORMATTING_FUNCTION	@configUSE_STATS_FORMATTING_FUNCTION@
+#cmakedefine01	configUSE_STATS_FORMATTING_FUNCTIONS	@configUSE_STATS_FORMATTING_FUNCTIONS@
 #cmakedefine01	configUSE_IDLE_HOOK			@configUSE_IDLE_HOOK@
 #cmakedefine01	configUSE_TICK_HOOK			@configUSE_TICK_HOOK@
 #cmakedefine01	configUSE_MALLOC_FAILED_HOOK		@configUSE_MALLOC_FAILED_HOOK@
