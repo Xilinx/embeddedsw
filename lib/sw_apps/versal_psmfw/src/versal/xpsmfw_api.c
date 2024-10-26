@@ -11,6 +11,19 @@
 #include "xpsmfw_stl.h"
 #include "xpsmfw_dvsec_common.h"
 
+#define PACK_PAYLOAD(Payload, Arg0, Arg1)	\
+	Payload[0] = (u32)Arg0;		\
+	Payload[1] = (u32)Arg1;         \
+	XPsmFw_Printf(DEBUG_DETAILED, "%s(%x)\r\n", __func__, Arg1);
+
+#define XILPM_MODULE_ID			(0x06U)
+#define HEADER(len, ApiId)		(u32)(((u32)len << 16) |		\
+					      ((u32)XILPM_MODULE_ID << 8) |	\
+					      (ApiId))
+
+#define PACK_PAYLOAD0(Payload, ApiId)	\
+	PACK_PAYLOAD(Payload, HEADER(0U, ApiId), 0U)
+
 /****************************************************************************/
 /**
  * @brief	Performs necessary cleanup operation on FPD
@@ -236,7 +249,12 @@ void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response)
  ****************************************************************************/
 XStatus XPsmFw_NotifyPlmEvent(void)
 {
-	PsmToPlmEvent.EventInfo.PmEvent = 1U;
+	XStatus Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT];
 
-	return XPsmFw_IpiTrigger(IPI_PSM_IER_PMC_MASK);
+	PACK_PAYLOAD0(Payload, PM_PSM_TO_PLM_EVENT);
+
+	Status = XPsmFw_IpiSend(IPI_PSM_IER_PMC_MASK, Payload);
+
+	return Status;
 }

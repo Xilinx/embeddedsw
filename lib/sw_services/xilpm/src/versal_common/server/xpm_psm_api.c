@@ -20,17 +20,33 @@
 #include "xpm_requirement.h"
 #include "xpm_cpmdomain.h"
 
+static XPlmi_ModuleCmd XPlmi_PsmCmds[PSM_API_MAX+1];
+static XPlmi_AccessPerm_t XPlmi_PsmAccessPermBuff[PSM_API_MAX+1] = {
+	[PM_PSM_TO_PLM_EVENT] = XPLMI_SECURE_IPI_ACCESS,
+};
+
+static XPlmi_Module XPlmi_Psm =
+{
+	XPLMI_MODULE_XILPSM_ID,
+	XPlmi_PsmCmds,
+	PSM_API_MAX+1,
+		NULL,
+	XPlmi_PsmAccessPermBuff,
+#ifdef VERSAL_NET
+	NULL,
+#endif
+};
+
 /* This replicates PsmToPlmEvent stored at PSM reserved RAM location */
 volatile struct PsmToPlmEvent_t *PsmToPlmEvent;
 
-XStatus XPm_ProcessPsmCmd(void)
+static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
 	XStatus Status = XST_FAILURE, EventStatus;
 	u32 Idx;
 	const XPm_Power *Lpd;
 
 	PmDbg("Processing Psm Event\n\r");
-	PsmToPlmEvent->EventInfo.PmEvent = 0U;
 
 	Lpd = XPmPower_GetById(PM_POWER_LPD);
 	if (NULL == Lpd) {
@@ -66,12 +82,37 @@ XStatus XPm_ProcessPsmCmd(void)
 		}
 	}
 
+	Cmd->Response[0] = (u32)Status;
+
 done:
-	if (XST_SUCCESS != Status) {
+	if (XST_SUCCESS == Status) {
+		Cmd->ResumeHandler = NULL;
+	} else {
 		PmErr("Error %d in handling PSM event\r\n", Status);
 	}
 
 	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief	Initialize PSM module which processes IPI from PSM
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+void XPm_PsmModuleInit(void)
+{
+	u32 Idx;
+
+	for (Idx = 1; Idx < XPlmi_Psm.CmdCnt; Idx++) {
+		XPlmi_PsmCmds[Idx].Handler = XPm_ProcessPsmCmd;
+	}
+	XPlmi_ModuleRegister(&XPlmi_Psm);
 }
 
 /****************************************************************************/

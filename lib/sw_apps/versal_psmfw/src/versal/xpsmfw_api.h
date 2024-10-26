@@ -91,6 +91,8 @@ extern "C" {
 #define IPI_PSM_ISR_ADDR		(0xFF310010U)
 #define PMC_IPI_BIT			(0x2U)
 
+#define PM_PSM_TO_PLM_EVENT	(1U)
+
 #define PSM_API_DIRECT_PWR_DWN	(1U)
 #define PSM_API_DIRECT_PWR_UP	(2U)
 #define PSM_API_FPD_HOUSECLEAN	(3U)
