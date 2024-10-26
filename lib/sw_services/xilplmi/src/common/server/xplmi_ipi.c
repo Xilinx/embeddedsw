@@ -87,7 +87,6 @@
  *       pre  09/18/2024 Throwing error if SlrIndex is not valid
  *       pre  10/07/2024 Executing invalid command handler registered for SEM module
  *                       irrespective of SLR index field
- *       ma   09/23/2024 Added support for PSM to PLM IPI event handler
  *
  * </pre>
  *
@@ -123,20 +122,12 @@
 #define XPLMI_ACCESS_PERM_MASK		(0x3U)
 #define XPLMI_ACCESS_PERM_SHIFT		(0x2U)
 
-#ifdef PLM_ENABLE_STL
-#define XPLMI_PSM_TO_STL_EVENTS_CMD_ID	(0x6U)
-#endif /* PLM_ENABLE_STL */
-
 /************************** Function Prototypes ******************************/
 static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex);
 static XPlmi_SubsystemHandler XPlmi_GetPmSubsystemHandler(
 	XPlmi_SubsystemHandler SubsystemHandler);
 static int XPlmi_IpiDispatchHandler(void *Data);
 static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload);
-static XStatus (*XPlmi_PsmIpiHandler)(void);
-#ifndef VERSAL_AIEPG2
-static int XPlmi_PsmIpiDispatchHandler(void *Data);
-#endif /* VERSAL_AIEPG2 */
 
 /************************** Variable Definitions *****************************/
 
@@ -144,7 +135,6 @@ static int XPlmi_PsmIpiDispatchHandler(void *Data);
 /* Instance of IPI Driver */
 static XIpiPsu IpiInst;
 static XIpiPsu_Config *IpiCfgPtr;
-static volatile PsmToPlmEventInfo_t *PsmToPlmEventInfo = NULL;
 
 /*****************************************************************************/
 /**
@@ -204,15 +194,13 @@ END:
  *
  * @param	SubsystemHandler is handler to XilPm API called to retrieve
  *		Subsystem Id using Ipi mask
- * @param	PsmIpiHandler is the handler for PSM IPI interrupts
  *
  * @return
  * 			- XST_SUCCESS on success.
  * 			- XPLM_ERR_TASK_CREATE if failed to create task.
  *
  *****************************************************************************/
-int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler,
-		XPlmi_PsmIpiHandler_t PsmIpiHandler)
+int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
@@ -241,21 +229,9 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler,
 		IpiIntrId = XPlmi_GetIpiIntrId(IpiCfgPtr->TargetList[Index].BufferIndex);
 		Task = XPlmi_GetTaskInstance(NULL, NULL, IpiIntrId);
 		if (Task == NULL) {
-#ifndef VERSAL_AIEPG2
-			if (IpiCfgPtr->TargetList[Index].BufferIndex ==
-				IPI_PSM_BUFFER_INDEX) {
-				Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_1,
-						XPlmi_PsmIpiDispatchHandler,
-						(void *)IpiCfgPtr->TargetList[Index].BufferIndex);
-			}
-			else
-#endif
-			{
-				Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_1,
-						XPlmi_IpiDispatchHandler,
-						(void *)IpiCfgPtr->TargetList[Index].BufferIndex);
-			}
-
+			Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_1,
+					XPlmi_IpiDispatchHandler,
+					(void *)IpiCfgPtr->TargetList[Index].BufferIndex);
 			if (Task == NULL) {
 				Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
 				XPlmi_Printf(DEBUG_INFO, "IPI Interrupt task creation "
@@ -270,7 +246,6 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler,
 	XPlmi_Out32(XIPIPSU_BASE_ADDR, XPLMI_SLAVE_ERROR_ENABLE_MASK);
 
 	(void) XPlmi_GetPmSubsystemHandler(SubsystemHandler);
-	XPlmi_PsmIpiHandler = PsmIpiHandler;
 
 	/** - Register and Enable the IPI IRQ. */
 	Status = XPlmi_RegisterNEnableIpi();
@@ -308,100 +283,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function assigns PsmToPlmEventInfo structure address.
- *
- * @param	EventInfo is the pointer to PsmToPlmEventInfo structure
- *
- *****************************************************************************/
-void XPlmi_SetPsmToPlmEventInfo(volatile PsmToPlmEventInfo_t *EventInfo)
-{
-	PsmToPlmEventInfo = EventInfo;
-}
-
-#ifndef VERSAL_AIEPG2
-/*****************************************************************************/
-/**
- * @brief	This is the handler for PSM IPI interrupts.
- *
- * @param	Data is the buffer index of the PSM IPI channel.
- *
- * @return
- * 			- XST_SUCCESS on success
- * 			- XPlMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK if input IPI index
- *            does not match with PSM IPI channel.
- *          - XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID if PSM to PLM structure
- *            is not valid
- * 			- Other error codes returned through the called functions.
- *
- *****************************************************************************/
-static int XPlmi_PsmIpiDispatchHandler(void *Data)
-{
-	int Status = XST_FAILURE;
-#ifdef PLM_ENABLE_STL
-	const XPlmi_Module *Module = NULL;
-	static const XPlmi_ModuleCmd *PsmStlModuleCmd = NULL;
-#endif
-
-	if ((u32)Data != IPI_PSM_BUFFER_INDEX) {
-		Status = (int)XPlMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK;
-		goto END;
-	}
-
-	if (PsmToPlmEventInfo == NULL) {
-		Status = (int)XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID;
-		goto END;
-	}
-
-	if ((XPlmi_IsLpdInitialized() == (u8)TRUE) &&
-	    (PsmToPlmEventInfo->PmEvent == (u32)TRUE) &&
-	    (XPlmi_PsmIpiHandler != NULL)) {
-		Status = (int)XPlmi_PsmIpiHandler();
-		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "Error: PSM-PLM event status: 0x%x\r\n",
-					Status);
-		}
-	} else {
-		Status = XST_SUCCESS;
-	}
-
-#ifdef PLM_ENABLE_STL
-	if (PsmStlModuleCmd == NULL) {
-		Module = XPlmi_GetModule(XPLMI_MODULE_STL_ID);
-		if (Module != NULL) {
-			PsmStlModuleCmd = &Module->CmdAry[XPLMI_PSM_TO_STL_EVENTS_CMD_ID];
-		} else {
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_NOT_REGISTERED, 0);
-			goto END;
-		}
-	}
-
-	if ((XPlmi_IsLpdInitialized() == (u8)TRUE) &&
-	    (PsmToPlmEventInfo->StlEvent == (u32)TRUE)) {
-		if (PsmStlModuleCmd->Handler(NULL) != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "Error: PSM-STL event failed\r\n");
-		}
-	}
-#endif
-
-END:
-	if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
-		/* Clear and enable PSM IPI interrupt */
-		XPlmi_Out32(IPI_PMC_ISR, IPI_PMC_ISR_PSM_BIT_MASK);
-		XPlmi_Out32(IPI_PMC_IER, IPI_PMC_ISR_PSM_BIT_MASK);
-	}
-
-	/**
-	 * Clear and enable the IPI interrupt
-	 */
-	XPlmi_ClearIpiIntr();
-	XPlmi_EnableIpiIntr();
-
-	return Status;
-}
-#endif
-
-/*****************************************************************************/
-/**
  * @brief	This is the handler for IPI interrupts.
  *
  * @param	Data is the buffer index of the IPI channel interrupt that is
@@ -420,6 +301,9 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
 	u32 MaskIndex;
 	XPlmi_Cmd Cmd = {0U};
+#ifndef VERSAL_AIEPG2
+	u32 PendingPsmIpi = (u32)FALSE;
+#endif
 
 	for (MaskIndex = 0U; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
 		if (IpiInst.Config.TargetList[MaskIndex].BufferIndex == (u32)Data) {
@@ -435,6 +319,11 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 		Cmd.AckInPLM = (u8)TRUE;
 		Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
 		Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
+#ifndef VERSAL_AIEPG2
+		if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
+			PendingPsmIpi = (u32)TRUE;
+		}
+#endif
 
 		/**
 		 * Read the IPI command and arguments
@@ -482,6 +371,15 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 		}
 		Cmd.Payload = (u32 *)&Payload[1U];
 
+#ifndef VERSAL_AIEPG2
+		/* Ack PSM IPIs before running handlers */
+		if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
+			PendingPsmIpi = (u32)FALSE;
+			XPlmi_Out32(IPI_PMC_ISR,
+				IPI_PMC_ISR_PSM_BIT_MASK);
+		}
+#endif
+
 		/**
 		 * Execute the IPI command
 		*/
@@ -503,7 +401,14 @@ END:
 			 * Ack all IPIs
 			 */
 			if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
+#ifndef VERSAL_AIEPG2
+				if ((IPI_PMC_ISR_PSM_BIT_MASK != Cmd.IpiMask) ||
+				    (PendingPsmIpi == (u32)TRUE)) {
+					XPlmi_Out32(IPI_PMC_ISR, Cmd.IpiMask);
+				}
+#else
 				XPlmi_Out32(IPI_PMC_ISR, Cmd.IpiMask);
+#endif
 				XPlmi_Out32(IPI_PMC_IER, Cmd.IpiMask);
 			}
 		}
