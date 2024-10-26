@@ -256,7 +256,6 @@ typedef struct {
 struct PsmToPlmEvent_t {
 	u32 Version;	/* Version of the event structure */
 	PsmToPlmEventInfo_t EventInfo;	/**< PSM to PLM event info */
-	u32 StlId;	/**< This indicates failed STL ID */
 	u32 Event[PROC_DEV_MAX];
 	u32 CpuIdleFlag[PROC_DEV_MAX];
 	u64 ResumeAddress[PROC_DEV_MAX];

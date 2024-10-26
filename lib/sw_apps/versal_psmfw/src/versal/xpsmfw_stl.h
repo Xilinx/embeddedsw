@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -26,7 +26,6 @@ extern "C" {
  */
 #define XSTL_HEADER(len, ApiId)		(((len) << 16U) | (XSTL_MODULE_ID << 8U) | ((u32)ApiId))
 
-extern volatile u32 PeriodicStlTrigger;
 /************************ Function Prototype ************************/
 XStatus XPsmFw_StartUpStlHook(void);
 XStatus XPsmFw_PeriodicStlHook(void);
