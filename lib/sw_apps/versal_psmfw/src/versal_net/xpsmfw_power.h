@@ -248,19 +248,12 @@ struct XPsmFwGemPwrCtrl_t {
         u32 RstCtrlMask;
 };
 
-typedef struct {
-	u32 PmEvent;	/**< This indicates PM event from PSM to PLM */
-	u32 StlEvent;	/**< This indicates STL event from PSM to PLM */
-} PsmToPlmEventInfo_t;
-
 struct PsmToPlmEvent_t {
 	u32 Version;	/* Version of the event structure */
-	PsmToPlmEventInfo_t EventInfo;	/**< PSM to PLM event info */
 	u32 Event[PROC_DEV_MAX];
 	u32 CpuIdleFlag[PROC_DEV_MAX];
 	u64 ResumeAddress[PROC_DEV_MAX];
 };
-extern volatile struct PsmToPlmEvent_t PsmToPlmEvent;
 
 XStatus XPsmFw_DispatchPwrUp0Handler(u32 PwrUpStatus, u32 PwrUpIntMask);
 XStatus XPsmFw_DispatchPwrUp1Handler(u32 PwrUpStatus, u32 PwrUpIntMask);

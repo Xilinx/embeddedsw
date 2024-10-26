@@ -73,6 +73,22 @@ XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask);
 
 /****************************************************************************/
 /**
+ * @brief	Sends IPI request to the target.
+ *
+ * @param IpiMask	IPI interrupt mask of target
+ * @param Payload	API ID and call arguments to be written in
+ *			IPI buffer
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
+ *		or a reason code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPsmFw_IpiSend(u32 IpiMask, u32 *Payload);
+
+/****************************************************************************/
+/**
  * @brief	Sends IPI response to the target.
  *
  * @param IpiMask	IPI interrupt mask of target
@@ -85,20 +101,6 @@ XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask);
  *
  ****************************************************************************/
 XStatus XPsmFw_IpiSendResponse(u32 IpiMask, u32 *Payload);
-
-/****************************************************************************/
-/**
- * @brief	Triggers IPI to the target.
- *
- * @param IpiMask	IPI interrupt mask of target
- *
- * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
- *		or a reason code
- *
- * @note	None
- *
- ****************************************************************************/
-XStatus XPsmFw_IpiTrigger(u32 IpiMask);
 
 #ifdef __cplusplus
 }

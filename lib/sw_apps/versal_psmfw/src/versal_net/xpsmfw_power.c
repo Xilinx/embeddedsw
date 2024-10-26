@@ -40,15 +40,12 @@
 /**
  * NOTE: Older PsmToPlmEvent version (0x1U) only consists Event array
  *       while new version (0x2U) adds CpuIdleFlag and ResumeAddress in it.
- *       version (0x3U) adds PmEvent and StlEvent in it.
  */
-#define PSM_TO_PLM_EVENT_VERSION		(0x3U)
+#define PSM_TO_PLM_EVENT_VERSION		(0x2U)
 #define PWR_UP_EVT						(0x1U)
 #define PWR_DWN_EVT                     (0x100U)
-volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
+static volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
 	.Version	= PSM_TO_PLM_EVENT_VERSION,
-	.EventInfo.PmEvent	= 0U,
-	.EventInfo.StlEvent	= 0U,
 	.Event		= {0x0},
 	.CpuIdleFlag 	= {0x0},
 	.ResumeAddress 	= {0x0},
