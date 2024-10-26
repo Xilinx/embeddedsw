@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 #include "xpsmfw_stl.h"
@@ -9,9 +9,8 @@
 #ifdef PSM_ENABLE_STL
 #include "xstl_psminterface.h"
 #include "xpsmfw_iomodule.h"
-#include "xpsmfw_power.h"
 static void XPsmfw_NotifyStlErrEvent(u32 StlId);
-volatile u32 PeriodicStlTrigger;
+
 /****************************************************************************/
 /**
  * @brief	Hook function to run startup PSM STLs
@@ -23,7 +22,6 @@ volatile u32 PeriodicStlTrigger;
  ****************************************************************************/
 XStatus XPsmFw_StartUpStlHook(void)
 {
-	PeriodicStlTrigger = 0U;
 	/* Update Version of PSM and run start-up STLs */
 	XStl_PsmInit();
 	return XST_SUCCESS;
@@ -84,9 +82,12 @@ END:
 *******************************************************************************/
 static void XPsmfw_NotifyStlErrEvent(u32 StlId)
 {
-	PsmToPlmEvent.EventInfo.StlEvent = 1U;
-	/* Update STL ID in RTCA and trigger IPI to PLM */
-	PsmToPlmEvent.StlId = StlId;
-	return XPsmFw_IpiTrigger(IPI_PSM_IER_PMC_MASK);
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+
+	/* Frame the IPI payload buffer */
+	Payload[0] = XSTL_HEADER((u32)1U, XSTL_ERR_NOTIFY_CMD);
+	Payload[1] = StlId;
+
+	(void)XPsmFw_IpiSend(IPI_PSM_IER_PMC_MASK, Payload);
 }
 #endif /* PSM_ENABLE_STL */

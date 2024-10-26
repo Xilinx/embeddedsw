@@ -35,9 +35,6 @@
 #ifdef VERSAL_NET
 #include "xpsmfw_update.h"
 #endif
-#ifdef PSM_ENABLE_STL
-#include "xpsmfw_stl.h"
-#endif
 #define XPAR_IOMODULE_0_DEVICE_ID 0U
 
 /****************************************************************************/
@@ -111,13 +108,6 @@ done:
 #else
 	/* Put Microblaze to Sleep in an infinite loop */
 	do{
-#ifdef PSM_ENABLE_STL
-		/* Check if STL task to be run */
-		if (1U == PeriodicStlTrigger) {
-			PeriodicStlTrigger = 0U;
-			(void)XPsmFw_PeriodicStlHook();
-		}
-#endif /* End of PSM_ENABLE_STL */
 		mb_sleep();
 	} while(TRUE);
 #endif
