@@ -18,6 +18,7 @@
  * 1.00  dd   01/09/24 Initial release
  *       har  03/05/24 Fixed doxygen warnings
  *       pre  08/22/24 Added XLoader_CfiSelectiveReadback, XLoader_InputSlrIndex functions
+ *       pre  10/26/24 Removed XLoader_LoadReadBackPdi API
  *
  * </pre>
  *
@@ -97,8 +98,6 @@ int XLoader_GetImageInfoList(XLoader_ClientInstance *InstancePtr, u64 Buff_Addr,
 		u32 *NumEntries);
 int XLoader_ExtractMetaheader(XLoader_ClientInstance *InstancePtr, u64 PdiSrcAddr,
 		u64 DestBuffAddr, u32 DestBuffSize);
-int XLoader_LoadReadBackPdi(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc PdiSrc, u64 PdiAddr,
-		u64 ReadbackDdrDestAddr, u32 Maxsize, u32 *Sizecopied);
 int XLoader_UpdateMultiboot(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc BootMode,
 		XLoader_FlashType Type, u32 ImageLocation);
 int XLoader_AddImageStorePdi(XLoader_ClientInstance *InstancePtr, u32 PdiId,

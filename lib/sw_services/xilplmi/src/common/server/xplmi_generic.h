@@ -60,6 +60,7 @@
 *       jb   04/11/2024 Moved proc count for PSM and PMC procs to platform
 *			specific files
 *       pre  08/22/2024 Modified XPlmi_GetReadbackLen for external linkage
+*       pre  10/26/2024 Removed XPlmi_GetReadBackPropsValue and XPlmi_SetReadBackProps APIs
 *
 * </pre>
 *
@@ -182,8 +183,6 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
-int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal);
-int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack);
 int XPlmi_ExecuteProc(u32 ProcId);
 int XPlmi_SetBufferList(u32 Address, u16 Size);
 XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType);
