@@ -18,6 +18,7 @@
  * 1.00  dd   01/09/24 Initial release
  *       har  03/05/24 Fixed doxygen warnings
  *       pre  08/22/24 Added XLoader_CfiSelectiveReadback, XLoader_InputSlrIndex functions
+ *       pre  10/26/24 Removed XLoader_LoadReadBackPdi API
  *
  * </pre>
  *
@@ -284,70 +285,6 @@ int XLoader_ExtractMetaheader(XLoader_ClientInstance *InstancePtr, u64 PdiSrcAdd
 	 * response.
 	 */
 	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
-
-END:
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function sends IPI request to Extract meta header.
- *
- * @param	InstancePtr 		Pointer to the client instance.
- * @param	PdiSrc				Boot Mode values, DDR.
- * @param	PdiAddr				64bit PDI address located in the Source.
- * @param	ReadbackDdrDestAddr	64bit DDR destination address.
- * @param	Maxsize				MaxSize of the buffer present at destination address in bytes.
- * @param	Sizecopied			Readback processed length in bytes.
- *
- * @return
- *			 - XST_SUCCESS on success.
- *			 - XST_FAILURE on failure.
- *
- **************************************************************************************************/
-int XLoader_LoadReadBackPdi(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc PdiSrc, u64 PdiAddr,
-		u64 ReadbackDdrDestAddr, u32 Maxsize, u32 *Sizecopied)
-{
-	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U];
-	u32 Continue = 0;
-
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/**
-	 * - Typically be Continue[31 bit] set to 0,
-	 * In case the first call indicated that more entries are available then this can be set to 1
-	 * present we are not supporting more entries , So returning XST_FAILURE if continue parameter
-	 * is 1.
-	 */
-	Continue = ((Maxsize & XLOADER_MSB_MASK) >> 31);
-	if (Continue != 0) {
-		goto END;
-	}
-
-	Payload[0U] = PACK_XLOADER_HEADER(XLOADER_HEADER_LEN_6,
-					(u32)XLOADER_CMD_ID_LOAD_READBACK_PDI);
-	Payload[1U] = PdiSrc;
-	Payload[2U] = (u32)(PdiAddr >> XLOADER_ADDR_HIGH_SHIFT);
-	Payload[3U] = (u32)(PdiAddr);
-	Payload[4U] = (u32)(ReadbackDdrDestAddr >> XLOADER_ADDR_HIGH_SHIFT);
-	Payload[5U] = (u32)(ReadbackDdrDestAddr);
-	Payload[6U] = Maxsize;
-
-	/**
-	 * - Send an IPI request to the PLM by using the XLoader_LoadReadBackPdi CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
-
-	*Sizecopied = InstancePtr->Response[1];
 
 END:
 	return Status;
