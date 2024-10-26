@@ -31,11 +31,7 @@ else()
     SET_PROPERTY(CACHE XILTIMER_tick_timer PROPERTY STRINGS "None")
 endif()
 
-if ("${CMAKE_SYSTEM_NAME}" STREQUAL "FreeRTOS")
-	option(XILTIMER_en_interval_timer "Enable Interval Timer" ON)
-else()
 	option(XILTIMER_en_interval_timer "Enable Interval Timer" OFF)
-endif()
 
 
 if ("${XILTIMER_sleep_timer}" STREQUAL "${XILTIMER_tick_timer}")
@@ -71,6 +67,7 @@ elseif (${_len} GREATER 1)
 	if (${XILTIMER_en_interval_timer})
 		list(GET TOTAL_TIMER_INSTANCES 1 tick_timer)
 	else()
+		set(tick_timer None)
 		set(XTIMER_NO_TICK_TIMER 1)
 	endif()
     elseif(${sleep_timer_len} EQUAL 1)
@@ -86,10 +83,12 @@ elseif (${_len} GREATER 1)
 	    endif()
 	endif()
     endif()
-    if ((("${XILTIMER_tick_timer}" STREQUAL "None") OR
-	("${XILTIMER_tick_timer}" STREQUAL "None;")) AND
-	(NOT (${XILTIMER_en_interval_timer})))
-        set(XTIMER_NO_TICK_TIMER 1)
+    if (("${XILTIMER_tick_timer}" STREQUAL "None") OR
+	("${XILTIMER_tick_timer}" STREQUAL "None;"))
+	if (NOT (${XILTIMER_en_interval_timer}))
+		set(tick_timer None)
+	endif()
+	set(XTIMER_NO_TICK_TIMER 1)
     endif()
 elseif (${_len} EQUAL 1)
     if ((("${XILTIMER_tick_timer}" STREQUAL "None;") OR

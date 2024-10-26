@@ -323,6 +323,10 @@ class Library(Repo):
                         cmake_cmd_append += f" -D{key}={value}"
         if app_name == "zynqmp_fsbl":
             cmake_cmd_append += " -Dstandalone_zynqmp_fsbl_bsp=ON"
+        # for freertos os we need to enable interval timer always
+        if "freertos" in self.os:
+            cmake_cmd_append += " -DXILTIMER_en_interval_timer=ON"
+
         if schema and schema.get("os_config", {}):
             if schema.get("os_config", {})[self.os]:
                 self.os_config = schema.get("os_config", {})[self.os]
