@@ -1,7 +1,9 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 if (("${XILTIMER_sleep_timer}" STREQUAL "Default") OR
-    ("${XILTIMER_tick_timer}" STREQUAL "None"))
+    ("${XILTIMER_sleep_timer}" STREQUAL "Default;") OR
+    ("${XILTIMER_tick_timer}" STREQUAL "None") OR
+    ("${XILTIMER_tick_timer}" STREQUAL "None;"))
     add_subdirectory(default_timer)
 endif()
 
