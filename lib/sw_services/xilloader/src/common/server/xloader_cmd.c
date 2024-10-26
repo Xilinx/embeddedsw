@@ -87,6 +87,7 @@
 *       ng   02/14/2024 removed int typecast for errors
 *       sk   03/13/24 Fixed doxygen comments format
 *       pre  08/22/2024 Additions for XLoader_CfiSelectiveRead
+*       pre  10/26/2024 Removed XLoader_LoadReadBackPdi
 *
 * </pre>
 *
@@ -145,9 +146,6 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_CMD_GET_IMG_INFO_LIST_DESTADDR_HIGH_INDEX	(0U)
 #define XLOADER_CMD_GET_IMG_INFO_LIST_DESTADDR_LOW_INDEX	(1U)
 #define XLOADER_CMD_GET_IMG_INFO_LIST_MAXLEN_INDEX	(2U)
-#define XLOADER_CMD_READBACK_PDIADDR_HIGH_INDEX		(3U)
-#define XLOADER_CMD_READBACK_PDIADDR_LOW_INDEX		(4U)
-#define XLOADER_CMD_READBACK_MAXLEN_INDEX		(5U)
 #define XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX		(0U)
 #define XLOADER_CMD_MULTIBOOT_IMG_LOCATION_INDEX	(1U)
 #define XLOADER_CMD_IMGSTORE_PDI_ID_INDEX		(0U)
@@ -160,7 +158,6 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_RESP_CMD_EXEC_STATUS_INDEX	(0U)
 #define XLOADER_RESP_CMD_LOAD_PDI_STATUS_INDEX	(1U)
 #define XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED	(1U)
-#define XLOADER_RESP_CMD_READBACK_PROCESSED_LEN_INDEX	(1U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_UID_INDEX		(1U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_PID_INDEX		(2U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_FUNCID_INDEX		(3U)
@@ -200,6 +197,7 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK		(0x1FU)
 	/**< Mask for PDI Src in Extract Metaheader command */
 #endif
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -477,71 +475,6 @@ static int XLoader_GetImageInfoList(XPlmi_Cmd *Cmd)
 
 END:
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function provides loading of ReadBack PDI overriding
- *  destination address of readback data.
- *  Command payload parameters are
- *	- PdiSrc - Boot Mode values, DDR
- *	- PdiAddr - 64bit PDI address located in the Source
- *	- ReadbackDdrDestAddr - 64bit DDR destination address
- *	- MaxSize - MaxSize of the buffer present at destination address
- *
- * @param	Cmd is pointer to the command structure
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- *****************************************************************************/
-static int XLoader_LoadReadBackPdi(XPlmi_Cmd *Cmd)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int TempStatus = XST_FAILURE;
-	XPlmi_ReadBackProps ReadBack;
-	XPlmi_ReadBackProps DefaultReadBack = {
-		XPLMI_READBACK_DEF_DST_ADDR, 0U, 0U
-	};
-
-	ReadBack.DestAddr = (u64)Cmd->Payload[XLOADER_CMD_READBACK_PDIADDR_HIGH_INDEX];
-	ReadBack.DestAddr = ((u64)(Cmd->Payload[XLOADER_CMD_READBACK_PDIADDR_LOW_INDEX]) |
-		(ReadBack.DestAddr << 32U));
-	ReadBack.MaxSize = Cmd->Payload[XLOADER_CMD_READBACK_MAXLEN_INDEX] &
-		XLOADER_BUFFER_MAX_SIZE_MASK;
-	ReadBack.ProcessedLen = 0U;
-
-	/** Verify the destination address range before writing */
-	XSECURE_TEMPORAL_IMPL(Status, TempStatus,XPlmi_VerifyAddrRange,ReadBack.DestAddr,
-						   (ReadBack.DestAddr + (u64)ReadBack.MaxSize - 1U));
-
-	if (Status != XST_SUCCESS || TempStatus != XST_SUCCESS) {
-		Status = XLOADER_ERR_INVALID_READBACK_PDI_DEST_ADDR;
-		goto END;
-	}
-
-	Status = XPlmi_SetReadBackProps(&ReadBack);
-	if (Status != XST_SUCCESS) {
-		Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
-		goto END;
-	}
-	Status = XLoader_LoadSubsystemPdi(Cmd);
-
-	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
-	Status = XPlmi_GetReadBackPropsValue(&ReadBack);
-	if (Status != XST_SUCCESS) {
-		if (Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] == (u32)XST_SUCCESS) {
-			Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
-		}
-		goto END;
-	}
-	Cmd->Response[XLOADER_RESP_CMD_READBACK_PROCESSED_LEN_INDEX] =
-		ReadBack.ProcessedLen;
-END:
-	Status = XPlmi_SetReadBackProps(&DefaultReadBack);
-	if (Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] == (u32)XST_SUCCESS) {
-		Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
-	}
 	return Status;
 }
 
@@ -1307,7 +1240,7 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_SetImageInfo),
 	XPLMI_MODULE_COMMAND(XLoader_GetImageInfoList),
 	XPLMI_MODULE_COMMAND(XLoader_ExtractMetaheader),
-	XPLMI_MODULE_COMMAND(XLoader_LoadReadBackPdi),
+	XPLMI_MODULE_COMMAND(NULL),
 	XPLMI_MODULE_COMMAND(XLoader_UpdateMultiboot),
 	XPLMI_MODULE_COMMAND(XLoader_AddImageStorePdi),
 	XPLMI_MODULE_COMMAND(XLoader_RemoveImageStorePdi),
@@ -1335,7 +1268,7 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_SET_IMAGE_INFO),
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_GET_IMAGE_INFO_LIST),
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_EXTRACT_METAHEADER),
-	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_LOAD_READBACK_PDI),
+	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_RESERVED),
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_UPDATE_MULTIBOOT),
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_ADD_IMAGESTORE_PDI),
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_REMOVE_IMAGESTORE_PDI),
