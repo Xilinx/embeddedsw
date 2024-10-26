@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +20,7 @@ extern "C" {
 #ifdef SDT
  #if defined(PLATFORM_ZYNQMP)
   #ifdef __aarch64__
-   #define INTC_DEVICE_ID	XPAR_GIC_A53_BASEADDR		/* ZynqMP APU */
+   #define INTC_DEVICE_ID	XPAR_GIC_BASEADDR		/* ZynqMP APU */
   #else
    #define INTC_DEVICE_ID	XPAR_GIC_R5_BASEADDR		/* ZynqMP RPU */
   #endif
