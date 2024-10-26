@@ -18,6 +18,7 @@
  * 1.00  dd   01/09/24 Initial release
  *       har  03/05/24 Fixed doxygen warnings
  *       pre  08/22/24 Added XLOADER_CFI_SEL_READBACK_ID
+ *       pre  10/26/24 Made XLOADER_CMD_ID_LOAD_READBACK_PDI command ID as reserved
  *
  * </pre>
  *
@@ -45,7 +46,7 @@ extern "C" {
 #define XLOADER_CMD_ID_SET_IMAGE_INFO           (4U) /**< command id for set Image info */
 #define XLOADER_CMD_ID_GET_IMAGE_INFO_LIST      (5U) /**< command id for get Image info list */
 #define XLOADER_CMD_ID_EXTRACT_METAHEADER       (6U) /**< command id for Extract meta header */
-#define XLOADER_CMD_ID_LOAD_READBACK_PDI        (7U) /**< command id for load readback pdi */
+#define XLOADER_CMD_ID_RESERVED        			(7U) /**< Reserved command id */
 #define XLOADER_CMD_ID_UPDATE_MULTIBOOT         (8U) /**< command id for update Multiboot */
 #define XLOADER_CMD_ID_ADD_IMAGESTORE_PDI       (9U) /**< command id for add Imagestore pdi */
 #define XLOADER_CMD_ID_REMOVE_IMAGESTORE_PDI    (10U) /**< command id for remove Imagestore pdi */

@@ -119,6 +119,8 @@
 *       pre  07/16/2024 Added command routing to slave SLRs
 *       pre  08/22/2024 Modified XPlmi_GetReadbackLen for external linkage
 *       pre  09/30/24 Added support for get secure communication status command
+*       pre  10/26/2024 Removed XPlmi_GetReadBackPropsValue, XPlmi_SetReadBackProps and
+*                       XPlmi_GetReadBackPropsInstance APIs
 *
 * </pre>
 *
@@ -206,7 +208,6 @@
 /************************** Function Prototypes ******************************/
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
         XPlmi_Cmd* Cmd);
-static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void);
 static int XPlmi_DmaUnalignedXfer(u64* SrcAddr, u64* DestAddr, u32* Len,
 	u8 Flag);
 static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams);
@@ -819,19 +820,8 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	u32 Count = Len;
 	u32 Offset;
 	u32 XferLen;
-	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
 	u64 Dest = DestAddr;
 	u64 Src = SrcAddr;
-
-	/** - Check if Readback Dest Addr is Overridden. */
-	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) && (XPLMI_SBI_DEST_ADDR != Dest)) {
-		Dest = ReadBackPtr->DestAddr;
-		if ((Len + ReadBackPtr->ProcessedLen) > ReadBackPtr->MaxSize) {
-			Status = XPLMI_ERR_READBACK_BUFFER_OVERFLOW;
-			XPlmi_Printf(DEBUG_INFO, "ReadBack Buffer Overflow\n\r");
-			goto END;
-		}
-	}
 
 	/**
 	 * For NPI READ command, the source address needs to be
@@ -869,13 +859,6 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_UNALIGNED_DMA_XFER,
 			Status);
-		goto END;
-	}
-
-	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) &&
-			(XPLMI_SBI_DEST_ADDR != Dest)) {
-		ReadBackPtr->ProcessedLen += Len;
-		ReadBackPtr->DestAddr += ((u64)Len * XPLMI_WORD_LEN);
 	}
 
 END:
@@ -1111,7 +1094,6 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 	u64 SrcAddr;
 	u64 DestAddrRead;
 	u64 DestAddr = 0UL;
-	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
 	u32 ReadLen;
 	u32 Len = Cmd->Payload[3U];
 	u32 CfiPayloadSrcAddr = (u32)(&Cmd->Payload[XPLMI_CFI_DATA_OFFSET]);
@@ -1131,21 +1113,10 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 	 * to set the SBI mode correctly.
 	*/
 	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
-		/* Check if Readback Dest Addr is Overridden */
-		if (XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) {
-			DestAddr = ReadBackPtr->DestAddr;
-			if ((Len + ReadBackPtr->ProcessedLen) >
-				ReadBackPtr->MaxSize) {
-				Status = XPLMI_ERR_READBACK_BUFFER_OVERFLOW;
-				XPlmi_Printf(DEBUG_INFO, "ReadBack Buffer Overflow\n\r");
-				goto END;
-			}
-		}
-		else {
-			DestAddrHigh = Cmd->Payload[1U];
-			DestAddrLow =  Cmd->Payload[2U];
-			DestAddr = (DestAddrHigh << 32U) | DestAddrLow;
-		}
+		DestAddrHigh = Cmd->Payload[1U];
+		DestAddrLow =  Cmd->Payload[2U];
+		DestAddr = (DestAddrHigh << 32U) | DestAddrLow;
+
 		Status = XPlmi_DmaXfr(SrcAddr, DestAddr, ReadLen,
 				XPLMI_PMCDMA_1 | XPLMI_DMA_SRC_NONBLK);
 	} else {
@@ -1170,6 +1141,7 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
 	/** Set MaxOutCommands of PMC_DMA1 to 8 */
 	XPlmi_SetMaxOutCmds(XPLMI_MAXOUT_CMD_DEF_VAL);
 
@@ -1204,13 +1176,9 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 		Len -= ReadLen;
 	}
 
-	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
-		if (XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) {
-			ReadBackPtr->ProcessedLen += Cmd->Payload[3U];
-			ReadBackPtr->DestAddr += ((u64)Cmd->Payload[3U] * XPLMI_WORD_LEN);
-		}
+	 if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
 		goto END;
-	}
+    }
 
 	Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
 		SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_MASK,
@@ -2455,68 +2423,6 @@ void XPlmi_GenericInit(void)
 #endif
 
 	XPlmi_ModuleRegister(&XPlmi_Generic);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function gives the address of ReadBack Properties instance
- *
- * @return	Address of ReadBack variable which is static to this function
- *
- *****************************************************************************/
-static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void)
-{
-	static XPlmi_ReadBackProps ReadBack = {
-		XPLMI_READBACK_DEF_DST_ADDR, 0U, 0U
-	};
-
-	return &ReadBack;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function gets the ReadBack Properties Value after readback
- *
- * @param	ReadBackVal is the pointer to which the readback properties
- *		instance is copied
- *
- * @return
- * 			- XST_SUCCESS on successful read and error code on failure.
- *
- *****************************************************************************/
-int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
-{
-	int Status = XST_FAILURE;
-	const XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
-
-	Status = Xil_SMemCpy(ReadBackVal, sizeof(XPlmi_ReadBackProps),
-			ReadBackPtr, sizeof(XPlmi_ReadBackProps),
-			sizeof(XPlmi_ReadBackProps));
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function sets the ReadBack Properties Value
- *
- * @param	ReadBack is the pointer to the Readback Instance that has to be
- * 		set.
- *
- * @return
- * 			- XST_SUCCESS on successful write and error code on failure.
- *
- *****************************************************************************/
-int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack)
-{
-	int Status = XST_FAILURE;
-	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
-
-	Status = Xil_SMemCpy(ReadBackPtr, sizeof(XPlmi_ReadBackProps),
-			ReadBack, sizeof(XPlmi_ReadBackProps),
-			sizeof(XPlmi_ReadBackProps));
-
-	return Status;
 }
 
 /*****************************************************************************/

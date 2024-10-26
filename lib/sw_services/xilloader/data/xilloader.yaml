@@ -55,7 +55,6 @@ examples:
   xilloader_load_image_client_example.c: []
   xilloader_load_pdi_client_example.c: []
   xilloader_load_pdi_from_is_client_example.c: []
-  xilloader_load_readback_pdi_client_example.c: []
   xilloader_read_ddr_crypto_perf_counters_client_example.c:
     - supported_platforms:
       - VersalNet
