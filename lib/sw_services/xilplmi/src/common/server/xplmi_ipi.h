@@ -42,7 +42,6 @@
 * 1.08  bm   06/23/2023 Added IPI access permissions validation
 * 1.09  bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 * 1.10  sk   05/07/2024 Added declaration for get ipi instance function
-*       ma   09/23/2024 Added support for PSM to PLM IPI event handler
 *
 * </pre>
 *
@@ -80,26 +79,17 @@ extern "C" {
 #define IPI_PMC_ISR_IPI5_BIT_MASK	(0x80U)
 #define IPI_NO_BUF_CHANNEL_INDEX	(0xFFFFU)
 
-/* PSM IPI defines */
-#define IPI_PSM_BUFFER_INDEX        (0U)
-
 /* Command header secure bit defines */
 #define IPI_CMD_HDR_SECURE_BIT_MASK		(0x1000000U)
 #define IPI_CMD_HDR_SECURE_BIT_SHIFT		(24U)
 
 /**************************** Type Definitions *******************************/
-typedef struct {
-    u32 PmEvent;
-    u32 StlEvent;
-} PsmToPlmEventInfo_t;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 typedef u32 (*XPlmi_SubsystemHandler)(u32 IpiMask);
-typedef XStatus (*XPlmi_PsmIpiHandler_t)(void);
 
 /************************** Function Prototypes ******************************/
-int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler,
-		XPlmi_PsmIpiHandler_t PsmIpiHandler);
+int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler);
 int XPlmi_IpiWrite(u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLen, u8 Type);
 int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);
 int XPlmi_IpiTrigger(u32 DestCpuMask);
@@ -108,7 +98,6 @@ int XPlmi_IpiDrvInit(void);
 int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
 void XPlmi_IpiEnable(u32 IpiMask);
 XIpiPsu *XPlmi_GetIpiInstance(void);
-void XPlmi_SetPsmToPlmEventInfo(volatile PsmToPlmEventInfo_t *EventInfo);
 
 /************************** Variable Definitions *****************************/
 
