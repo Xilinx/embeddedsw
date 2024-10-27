@@ -24,6 +24,7 @@
 * 1.3   kpt  01/22/2024 Added support to extend secure state into SWPCR
 *       kpt  02/21/2024 Add support for DME CSR extension
 * 1.4   har  06/10/2024 Add data structure IDs for OCP module
+*       vss  10/24/2024 Added xppu disabled value macro for dynamic reconfiguration
 *
 * </pre>
 *
@@ -57,6 +58,8 @@ extern "C" {
 							/**< PPU1 configuration value */
 #define XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE	(0x31U)
 							  /**< Dynamic reconfiguration set value */
+#define XOCP_XPPU_DYNAMIC_RECONFIG_DISABLE_VAL		(0x0U)
+							  /**< Dynamic reconfiguration disable value */
 #define XOCP_PMC_XPPU_CTRL_ENABLE_VAL			(0x1U) /**< XPPU enable value */
 #define XOCP_PMC_XPPU_CTRL_DISABLE_VAL			(0x0U) /**< XPPU disable value */
 #define XOcp_MemCopy								XPlmi_DmaXfr
