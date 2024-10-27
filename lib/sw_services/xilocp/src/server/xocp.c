@@ -37,6 +37,7 @@
 *       kal  07/24/2024 Code refactoring updates for versal_aiepg2
 *	vss  09/23/24 Modified code as per security best practices
 * 1.4   vss  10/24/24 Modified xppu disabled macro and it's corresponding code as per security best practices
+*       vss  10/24/24 Added redundancy checks for dynamic reconfiguration as per security best practices
 *
 *
 * </pre>
@@ -957,12 +958,18 @@ END:
 			goto RET;
 		}
 	}
-	Status |= Xil_SecureOut32(PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
-	Status |= Xil_SecureOut32(PMC_XPPU_DYNAMIC_RECONFIG_EN, XOCP_XPPU_DISABLED);
-	if (Status != XST_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, SStatus, Xil_SecureOut32,
+				PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
+	if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
 		Status |= XOCP_DME_ERR;
 		goto RET;
+	}
 
+	XSECURE_TEMPORAL_IMPL(Status, SStatus, Xil_SecureOut32,
+				PMC_XPPU_DYNAMIC_RECONFIG_EN, XOCP_XPPU_DYNAMIC_RECONFIG_DISABLE_VAL);
+	if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
+		Status |= XOCP_DME_ERR;
+		goto RET;
 	}
 
 	if ((XppuEnabled == XOCP_XPPU_ENABLED) && (XppuEnabledTmp == XOCP_XPPU_ENABLED)) {
