@@ -163,9 +163,6 @@ __attribute__( ( always_inline ) ) static inline uint8_t ucPortCountLeadingZeros
 #define portMEMORY_BARRIER() 				asm volatile( "" ::: "memory" )
 /*-----------------------------------------------------------*/
 
-#if( XPAR_MICROBLAZE_USE_STACK_PROTECTION )
-#define portHAS_STACK_OVERFLOW_CHECKING 1
-#endif
 /*-----------------------------------------------------------*/
 
 /* Task function macros as described on the FreeRTOS.org WEB site. */
