@@ -35,6 +35,7 @@
 * 4.5   nsk 08/07/19  Add macro to support testapp generation for polled mode
 * 5.7   sb  07/12/23  Added support for system device-tree flow.
 * 5.9   ht  07/22/24  Add support for peripheral tests in SDT flow.
+* 5.10  ht  10/28/24  Fix compilation warnings in SDT flow peripheral tests.
 *</pre>
 ******************************************************************************/
 
@@ -145,6 +146,9 @@ int WdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 	int Count = 0;
 	XWdtTb_Config *Config;
 
+#ifdef SDT
+	(void*)WdtTbInstancePtr;
+#endif
 	/*
 	 * Initialize the WDTTB driver so that it's ready to use look up
 	 * configuration in the config table, then initialize it.
