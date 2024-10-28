@@ -459,12 +459,10 @@ proc xgen_opts_file {libhandle} {
 	set value [common::get_property CONFIG.plm_get_opt_data_en $libhandle]
 	if {$proc_type == "psv_pmc"} {
 		if {$value == true} {
-			set file_handle [hsi::utils::open_include_file "xparameters.h"]
 			puts $file_handle "\n/* Enables the feature to get optional data for Versal */"
 			puts $file_handle "#define PLM_GET_OPT_DATA_EN"
 		}
 	} else {
-		set file_handle [hsi::utils::open_include_file "xparameters.h"]
 		puts $file_handle "\n/* Enables the feature to get optional data for Versal */"
 		puts $file_handle "#define PLM_GET_OPT_DATA_EN"
 	}
