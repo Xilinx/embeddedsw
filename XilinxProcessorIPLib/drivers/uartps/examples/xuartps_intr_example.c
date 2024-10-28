@@ -35,6 +35,7 @@
 * 3.8   adk     10/05/19 Don't update the DeviceId variable in peripheral test
 *			 app case.
 * 3.12	gm	09/26/22 Corrected SetRecvTimeout description details.
+* 3.16	ht	10/28/24 Fix compilation warnings in SDT flow peripheral tests
 *
 * </pre>
 ****************************************************************************/
@@ -370,6 +371,7 @@ int UartPsIntrExample(XUartPs *UartInstPtr, UINTPTR BaseAddress)
 ***************************************************************************/
 void Handler(void *CallBackRef, u32 Event, unsigned int EventData)
 {
+	Xil_AssertVoid(CallBackRef != NULL);
 	/* All of the data has been sent */
 	if (Event == XUARTPS_EVENT_SENT_DATA) {
 		TotalSentCount = EventData;
