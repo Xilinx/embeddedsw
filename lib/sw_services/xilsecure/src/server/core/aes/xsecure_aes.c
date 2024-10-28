@@ -86,7 +86,7 @@
 *       ng   07/13/2023 Added SDT support
 *       kpt  07/20/2023 Added volatile keyword for SStatus variable in XSecure_AesDecryptFinal
 *       kpt  07/20/2023 Renamed XSecure_AesDpaCmDecryptKat to XSecure_AesDpaCmDecryptData
-*	    kpt  07/27/2023 Initialize KeySizeInWords to zero to avoid invalid value incase of glitch
+*	    kpt  07/27/2023 Initialize KeySizeInWords to zero to avoid invalid value in case of glitch
 *       vss  09/11/2023 Fixed Coverity warning EXPRESSION_WITH_MAGIC_NUMBERS and MISRA-C Rule 10.1 violation
 *       vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
 *       vss  09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
@@ -96,6 +96,7 @@
 *       kpt  03/22/2024 Fix overrun issue
 * 5.4   yog  04/29/2024 Fixed doxygen warnings.
 *	vss  10/23/2024 Removed AES duplicate code
+*       vss  10/28/2024 Removed END label in XSecure_AesDecryptUpdate
 *
 * </pre>
 *
@@ -698,7 +699,7 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	int Status = XST_FAILURE;
 
 	Status = XSecure_ValidateAndUpdateData(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
-END:
+
 	return Status;
 }
 
