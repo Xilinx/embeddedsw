@@ -24,6 +24,7 @@
 *		       Generic watchdog window.
 * 5.7	sb    07/12/23 Added support for system device-tree flow.
 * 5.9	ht    07/22/24 Add support for peripheral tests in SDT flow.
+* 5.10  ht    10/28/24 Fix compilation warnings in SDT flow peripheral tests.
 *
 * </pre>
 *
@@ -127,6 +128,9 @@ int GWdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 	int RefreshReg = 0;
 	XWdtTb_Config *Config;
 
+#ifdef SDT
+	(void*)WdtTbInstancePtr;
+#endif
 	/*
 	 * Initialize the WDTPSV driver so that it's ready to use look up
 	 * configuration in the config table, then initialize it.
