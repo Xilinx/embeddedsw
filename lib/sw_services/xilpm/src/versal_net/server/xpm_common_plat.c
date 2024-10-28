@@ -21,7 +21,7 @@
 	#ifdef CPPUTEST
 		#define MAX_BYTEBUFFER_SIZE	(52U * 1024U)
 	#else
-		#define MAX_BYTEBUFFER_SIZE	(64U * 1024U)
+		#define MAX_BYTEBUFFER_SIZE	(78U * 1024U)
 	#endif
 	#pragma message("XILPM_BYTEBUFFER_SIZE_IN_KB is <= 0 or not defined, using default size " STR(MAX_BYTEBUFFER_SIZE) " bytes")
 #endif
