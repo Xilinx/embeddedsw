@@ -121,6 +121,7 @@
 *       pre  09/30/24 Added support for get secure communication status command
 *       pre  10/26/2024 Removed XPlmi_GetReadBackPropsValue, XPlmi_SetReadBackProps and
 *                       XPlmi_GetReadBackPropsInstance APIs
+*       bm   10/29/2024 Fix chunk boundary handling in KeyholeXfr logic
 *
 * </pre>
 *
@@ -2471,7 +2472,7 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 		goto END2;
 	}
 
-	if (Src < XPLMI_PMCRAM_CHUNK_MEMORY_1) {
+	if (Src < (XPLMI_PMCRAM_CHUNK_MEMORY_1 - (XPLMI_CMD_LEN_TEMPBUF * XPLMI_WORD_LEN))) {
 		Src = XPLMI_PMCRAM_CHUNK_MEMORY_1;
 	}
 	else {
