@@ -1727,7 +1727,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 					break;
 				}
 			}
-		} else if (PM_POWER_ME == PwrDomain->Power.Node.Id) {
+		} else if ((PM_POWER_ME == PwrDomain->Power.Node.Id) ||  (PM_POWER_ME2 == PwrDomain->Power.Node.Id)){
 			/* Request AIE device once AIE initialization is done. */
 			Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_AIE,
 						   XPM_MAX_CAPABILITY,
