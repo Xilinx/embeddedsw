@@ -1309,6 +1309,53 @@ done:
 	return Status;
 }
 
+/* Ub reset release for DAC*/
+static XStatus DacUbEnable(const u32 *DacAddresses, u32 ArrLen){
+
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 i = 0U;
+
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == DacAddresses[i]) {
+			continue;
+		}
+
+		/* Unlock PCSR */
+		XPm_UnlockPcsr(DacAddresses[i]);
+
+		XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PSCR_CONTOL_RST_N_UBLAZE_RFDC_MASK,
+			~DAC_NPI_PSCR_CONTOL_RST_N_UBLAZE_RFDC_MASK);
+		/*Turn on MB clocks */
+		XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PSCR_CONTOL_EN_UBLAZE_CLK_RFDC_MASK,
+			DAC_NPI_PSCR_CONTOL_EN_UBLAZE_CLK_RFDC_MASK);
+		usleep(1);
+		/*release reset*/
+		XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PSCR_CONTOL_RST_N_UBLAZE_RFDC_MASK,
+			DAC_NPI_PSCR_CONTOL_RST_N_UBLAZE_RFDC_MASK);
+		/*check SLEEP_UBLAZE*/
+		if (DAC_NPI_PSCR_STATUS_SLEEP_UBLAZE_RFDC_MASK !=
+			(XPm_In32(DacAddresses[i] + NPI_PCSR_STATUS_OFFSET) & DAC_NPI_PSCR_STATUS_SLEEP_UBLAZE_RFDC_MASK)) {
+			DbgErr = XPM_INT_ERR_SLEEP_UBLAZE;
+			goto done;
+		}
+	}
+	Status = XST_SUCCESS;
+
+done:
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == DacAddresses[i]) {
+			continue;
+		}
+
+		/* Lock PCSR */
+		XPm_LockPcsr(DacAddresses[i]);
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 static XStatus AdcDacHouseClean(u32 SecLockDownInfo, u32 PollTimeOut)
 {
 	volatile XStatus Status = XST_FAILURE;
@@ -1347,6 +1394,13 @@ static XStatus AdcDacHouseClean(u32 SecLockDownInfo, u32 PollTimeOut)
 			DbgErr = XPM_INT_ERR_DAC_SCAN_CLEAR;
 			XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 		}
+	}
+
+	/* reset release Ub before loading the UB firmware into DAC UBLAZE data and inst memories*/
+	Status = DacUbEnable(DacAddresses, ARRAY_SIZE(DacAddresses));
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_DAC_SCAN_CLEAR;
+		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
 	/* Run AdcScanClear if houseclean disable mask is not set*/
