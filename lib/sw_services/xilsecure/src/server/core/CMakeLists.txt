@@ -3,7 +3,7 @@
 
 add_subdirectory(aes)
 add_subdirectory(sha)
-if (NOT(("${CMAKE_MACHINE}" STREQUAL "SPARTANUP")))
+if (NOT(("${CMAKE_MACHINE}" STREQUAL "SpartanUP")))
   add_subdirectory(rsa)
   add_subdirectory(ecdsa)
   add_subdirectory(crypto_kat)
