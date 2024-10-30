@@ -205,17 +205,12 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 int XSecure_ValidateShaDataSize(const u32 Size);
 int XSecure_ShaDmaXfer(XPmcDma *DmaPtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
-
+int XSecure_CryptoCheck(void);
 
 /**
  * @}
  * @endcond
  */
-static int XSecure_CryptoCheck(void)
-{
-	/* Not applicable for spartan ultrascal plus */
-	return XST_SUCCESS;
-}
 
 /***************************** Variable Prototypes  ***************************/
 
