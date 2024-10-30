@@ -67,7 +67,9 @@ static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.Iv")));
 static XNvm_EfuseData EfuseData __attribute__ ((section (".data.EfuseData")));;
 
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
+#if (XPUF_WRITE_PUF_HASH_IN_EFUSE)
 static XNvm_EfusePpkHash PrgmPpkHash  __attribute__ ((section (".data.PrgmPpkHash")));
+#endif
 static u8 PufPpkHash[XPUF_PPK_HASH_SIZE_IN_BYTES];
 #endif
 
@@ -93,7 +95,9 @@ static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 static int XPuf_ValidateUserInput();
 static int XPuf_GenerateKey(XPmcDma *DmaPtr);
 static int XPuf_GenerateBlackKey(XPmcDma *DmaPtr);
+#if (XPUF_WRITE_BLACK_KEY_OPTION == TRUE)
 static int XPuf_ProgramBlackKeynIV();
+#endif
 static void XPuf_ShowPufSecCtrlBits();
 static void XPuf_ShowData(const u8 *Data, u32 Len);
 static int XPuf_FormatAesKey(const u8 *Key, u8 *FormattedKey, u32 KeyLen);
@@ -108,7 +112,6 @@ static int XPuf_WritePufSecCtrlBits();
 int main(void)
 {
 	int Status = XST_FAILURE;
-	XPmcDma PmcDma;
 	XPmcDma_Config *Config;
 	XPmcDma PmcDmaInstance;
 
