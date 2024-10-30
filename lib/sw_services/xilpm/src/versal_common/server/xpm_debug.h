@@ -772,6 +772,8 @@ extern "C" {
 #define XPM_INT_ERR_ADC_DAC_HC			0x5404U
 /* Error during DAC init */
 #define XPM_INT_ERR_DAC_INIT			0x5405U
+/* Error during DAC Ub Enable */
+#define XPM_INT_ERR_SLEEP_UBLAZE		0x5406U
 
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
