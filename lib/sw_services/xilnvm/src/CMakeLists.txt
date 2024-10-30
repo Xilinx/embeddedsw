@@ -13,9 +13,14 @@ collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 
 include_directories(${CMAKE_BINARY_DIR}/include)
 
+if(("${XILNVM_mode}" STREQUAL "client") AND
+	(NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS)))
+    message(WARNING "XilNvm library requires xilmailbox library in client mode.")
+endif()
+
 if("${CMAKE_MACHINE}" STREQUAL "Versal" OR "${CMAKE_MACHINE}" STREQUAL "VersalNet")
   add_subdirectory(versal_gen)
-elseif(("${CMAKE_MACHINE}" STREQUAL "SPARTANUP") AND ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
+elseif(("${CMAKE_MACHINE}" STREQUAL "SpartanUP") AND ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
   add_subdirectory(spartanup)
 endif()
 
