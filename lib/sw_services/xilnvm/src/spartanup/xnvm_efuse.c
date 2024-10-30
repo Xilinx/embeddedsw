@@ -635,7 +635,6 @@ static int XNvm_EfusePrgmIv(XNvm_EfuseAesIvs *AesIv)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePrgmInfo AesIvInfo = {0U};
-	u32 Crc = 0U;
 
 	AesIvInfo.StartRow = XNVM_EFUSE_AES_IV_START_ROW;
 	AesIvInfo.NumOfRows = XNVM_EFUSE_AES_IV_NUM_OF_ROWS;
@@ -1655,11 +1654,11 @@ static int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 OffsetCount, u32 *RowDat
 
 	for (Count = 0; Count < OffsetCount; Count++) {
 		Status = XST_FAILURE;
-		Status = XNvm_EfuseReadCache(StartOffset, Data);
+		Status = XNvm_EfuseReadCache(Row, Data);
 		if (Status != XST_SUCCESS) {
 			break;
 		}
-		StartOffset += XNVM_EFUSE_WORD_LEN;
+		Row += XNVM_EFUSE_WORD_LEN;
 		Data++;
 	}
 
@@ -1887,7 +1886,6 @@ int XNvm_EfuseReadIv(XNvm_EfuseIvType IvType, u32 *IvData)
 {
 	int Status = XST_FAILURE;
 	u32 IvStartOffset = 0U;
-	u32 OffsetCnt = 0U;
 
 	if (IvData ==  NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;

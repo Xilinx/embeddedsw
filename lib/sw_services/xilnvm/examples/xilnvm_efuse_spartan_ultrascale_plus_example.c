@@ -1150,7 +1150,6 @@ END:
 static int XilNvm_EfusePerformCrcChecks(void)
 {
 	int Status = XST_FAILURE;
-	u32 Cnt = 0U;
 
 	if (XNVM_EFUSE_CHECK_AES_KEY_CRC == TRUE) {
 		xil_printf("AES Key's CRC provided for verification: %08x\n\r",
