@@ -14,7 +14,7 @@ collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(${CMAKE_BINARY_DIR}/include)
 
 if(("${XILSECURE_mode}" STREQUAL "server") AND
-   ((("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") AND (NOT("${CMAKE_MACHINE}" STREQUAL "SPARTANUP"))) OR
+   ((("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") AND (NOT("${CMAKE_MACHINE}" STREQUAL "SpartanUP"))) OR
    (("${CMAKE_MACHINE}" STREQUAL "VersalNet") AND (NOT ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze"))))
   )
   message(FATAL_ERROR "XilSecure library is not supported for selected ${CMAKE_SYSTEM_PROCESSOR} processor in ${XILSECURE_mode} mode")
@@ -38,7 +38,7 @@ elseif ((("${CMAKE_MACHINE}" STREQUAL "Versal") OR
    add_subdirectory(server)
    add_subdirectory(common)
 elseif(("${CMAKE_MACHINE}" STREQUAL "ZynqMP") OR
-	(("${CMAKE_MACHINE}" STREQUAL "SPARTANUP") AND
+	(("${CMAKE_MACHINE}" STREQUAL "SpartanUP") AND
 	("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze")))
    add_subdirectory(server)
 endif()
@@ -58,7 +58,7 @@ get_headers(${_headers})
 
 set_target_properties(xilsecure PROPERTIES LINKER_LANGUAGE C)
 
-if (("${CMAKE_MACHINE}" STREQUAL "SPARTANUP") AND ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
+if (("${CMAKE_MACHINE}" STREQUAL "SpartanUP") AND ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze"))
   set_target_properties(xilsecure PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilsecure.a;${CMAKE_INCLUDE_PATH}/xsecure_config.h;${clean_headers}")
 else()
   set_target_properties(xilsecure PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilsecure.a;${CMAKE_INCLUDE_PATH}/xsecure_config.h;${CMAKE_LIBRARY_PATH}/libxilsecure_plat.a;${clean_headers}")

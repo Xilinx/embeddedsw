@@ -55,11 +55,11 @@ examples:
     - supported_platforms:
       - Versal
       - VersalNet
-      - SPARTANUP
   xilsecure_versal_aes_server_example.c:
     - supported_platforms:
       - Versal
       - VersalNet
+      - SpartanUP
   xilsecure_versal_ecdsa_client_example.c:
     - supported_platforms:
       - Versal
@@ -92,4 +92,4 @@ examples:
       - VersalNet
   xilsecure_spartanup_sha_server_example.c:
     - supported_platforms:
-      - SPARTANUP
+      - SpartanUP
