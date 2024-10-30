@@ -555,3 +555,20 @@ void XSecure_ShaSetDataContext(XSecure_Sha *InstancePtr)
 {
 	(void)InstancePtr;
 }
+
+/***************************************************************************/
+/**
+ * @brief	This function checks if the EXPORT control eFuse is
+ * 		programmed and PL loading is done
+ *
+ * @return
+ *	-	XST_SUCCESS - When crypto accelerators are enabled
+ *	-	XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED - When crypto accelerators
+ *		are disabled
+ *
+ ******************************************************************************/
+int XSecure_CryptoCheck(void)
+{
+	/* Not applicable for spartan ultrascal plus */
+	return XST_SUCCESS;
+}
