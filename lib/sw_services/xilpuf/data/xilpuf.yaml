@@ -30,10 +30,6 @@ supported_processors:
 supported_os:
   - standalone
 
-depends_libs:
-  xilplmi: {}
-  xilmailbox: {}
-
 examples:
   xilpuf_enc_dec_data_example.c: []
   xilpuf_example.c:
@@ -56,6 +52,6 @@ examples:
       - VersalNet
   xilpuf_spartan_ultrascale_plus_example.c:
     - supported_platforms:
-      - SPARTANUP
+      - SpartanUP
     - dependency_files:
       - xilpuf_spartan_ultrascale_plus_example.h
