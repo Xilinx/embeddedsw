@@ -114,6 +114,10 @@
 #endif
 #ifdef PLM_OCP_KEY_MNGMT
 #define XLOADER_INVALID_DEVAK_INDEX			(0xFFFFFFFFU) /**< INVALID DEVAK INDEX */
+#define XLOADER_OPT_DATA_HDR_LEN			(4U)	/**< Length of optional data header in bytes*/
+#define XLOADER_OPT_DATA_CHECKSUM_LEN			(4U)	/**< Length of optional data checksum in bytes*/
+#define XLOADER_OPT_DATA_OFFSET				(4U)	/**< Offset from where the data starts in optional data */
+#define XLOADER_DEFAULT_SUBSYSTEM_ID			(0x1C000000U)	/**< Default subsystem ID */
 #endif
 
 #define XLOADER_EFUSE_ROM_RSVD_OFFSET			(0xF1250090U)
@@ -1850,3 +1854,51 @@ int XLoader_CheckAndUpdateSecureState(void)
 
 	return Status;
 }
+
+#ifdef PLM_OCP_KEY_MNGMT
+/*****************************************************************************/
+/**
+ * @brief	This function gets the app version from the optional data and
+ * 		stores it with the corresponding subsystem ID.
+ *
+ * @param	OptionalDataLen	Length of optional data
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure
+ *
+*****************************************************************************/
+int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataId)
+{
+	int Status = XST_FAILURE;
+	u64 OptionalDataStartAddr = XILPDI_PMCRAM_IHT_DATA_ADDR;
+	u64 OptionalDataEndAddr = OptionalDataStartAddr + (OptionalDataLen << XILPDI_WORD_LEN_SHIFT);
+	u64 OptDataAddr;
+	u64 OptDataHdr;
+	u32 OptDataLen;
+	u32 SubsystemId;
+	u64 AppVersionAddr;
+	u32 AppVersionLen;
+
+	OptDataAddr = XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,
+			OptionalDataId);
+	if (OptDataAddr < OptionalDataEndAddr) {
+		OptDataHdr = XPlmi_In64((UINTPTR)OptDataAddr);
+		OptDataLen = ((OptDataHdr & XIH_OPT_DATA_HDR_LEN_MASK) >> XIH_OPT_DATA_LEN_SHIFT) <<
+			XILPDI_WORD_LEN_SHIFT;
+		AppVersionAddr = OptDataAddr + XLOADER_OPT_DATA_OFFSET;
+		AppVersionLen = OptDataLen - (XLOADER_OPT_DATA_HDR_LEN + XLOADER_OPT_DATA_CHECKSUM_LEN);
+		SubsystemId = XLOADER_DEFAULT_SUBSYSTEM_ID | (OptionalDataId & 0xF);
+
+		Status = XOcp_SetAppVersion(SubsystemId, AppVersionAddr, AppVersionLen);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+#endif

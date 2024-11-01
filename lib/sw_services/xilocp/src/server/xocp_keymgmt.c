@@ -243,6 +243,15 @@ int XOcp_RegenSubSysDevAk(void)
 					goto END;
 				}
 
+				Status = XPlmi_MemCpy64((u64)(UINTPTR)DevAkData->AppVersion,
+					(u64)(UINTPTR)SubSysHashDs->AppVersion,
+					SubSysHashDs->AppVersionLen);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
+
+				DevAkData->AppVersionLen = SubSysHashDs->AppVersionLen;
+
 				XSECURE_TEMPORAL_CHECK(END, Status, XOcp_GenerateDevAk, DevAkData->SubSystemId);
 				break;
 			}
@@ -1168,4 +1177,60 @@ int XOcp_GenSubSysDevAk(u32 SubsystemID, u64 InHash)
 END:
 	return Status;
 }
+
+#ifndef VERSAL_AIEPG2
+/*****************************************************************************/
+/**
+ * @brief	This function stores the app version for the given subsystem ID
+ *
+ * @param	SubsystemID is the ID of image.
+ * @param	AppVersion  Address of the App version
+ * @param	AppVersionLen Length of the App version
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XOcp_SetAppVersion(u32 SubsystemID, u64 AppVersion, u32 AppVersionLen)
+{
+	int Status = XST_FAILURE;
+	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
+	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
+	XOcp_SubSysHash *SubSysHashDs = XOcp_GetSubSysHash();
+	u32 KeyIndex = 0U;
+
+	Status = XOcp_GetSubSysDevAkIndex(SubsystemID, DevAkIndex);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	while ((KeyIndex < XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM) &&
+		(DevAkIndex[KeyIndex] != XOCP_INVALID_DEVAK_INDEX)) {
+
+		SubSysHashDs = SubSysHashDs + DevAkIndex[KeyIndex];
+		DevAkData = DevAkData + DevAkIndex[KeyIndex];
+		Status = XPlmi_MemCpy64((u64)(UINTPTR)DevAkData->AppVersion,
+					AppVersion, AppVersionLen);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		DevAkData->AppVersionLen = AppVersionLen;
+
+		Status = XPlmi_MemCpy64((u64)(UINTPTR)SubSysHashDs->AppVersion,
+					AppVersion, AppVersionLen);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		SubSysHashDs->AppVersionLen = AppVersionLen;
+
+		KeyIndex++;
+	}
+
+END:
+	return Status;
+}
+#endif
+
+
 #endif /* PLM_OCP_KEY_MNGMT */
