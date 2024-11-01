@@ -1,5 +1,28 @@
 Changes for 2024.2
 ===============================
+coresightps_dcc_v1_11:
+Add support for the new taxonomy convention adopted for the IP NAMEs
+Fix missing extern 'C' keyword from header files
+
+
+rfdc_v12_3 :
+Increased the max VCO ADC frequency to 13.2 GHz for Gen 3 devices
+
+
+sysmon_v7_10 :
+Fixed issue with interrupt masks.
+
+
+sysmonpsv_v5_0 :
+Updated the driver version to 5.0
+Temperature and Supply averaging functions added
+Updated yaml to support polled example
+
+
+xilpki_v2_2 :
+Add support for SDT flow.
+
+
 axicdma_v4_14:
 Update dependency properties in the yaml for peripheral test
 Fix missing extern 'C' keyword from header files
@@ -564,7 +587,7 @@ Revert "ttcps: Add support for multiple counters in SDT flow"
 
 
 uartlite_v3_11 :
- Fix multiple definition of `outbyte' error for PLM for no uart enabled designs
+Fix multiple definition of `outbyte' error for PLM for no uart enabled designs
 Fix missing extern 'C' keyword from header files
 
 
@@ -967,7 +990,6 @@ SP701 passthrough app migrated for SDT support.
 mipi_dsi_tx_ss:
 Yaml changes made for generic compatible string
 SP701 passthrough app migrated for SDT support.
-
 
 
 Changes for 2024.1
@@ -1454,7 +1476,7 @@ mutex_v4_8:
 Add support for compiling examples in yocto flow
 
 nandps_v2_9:
- Move stack based BBT array to global instance to avoid stack overflow.
+Move stack based BBT array to global instance to avoid stack overflow.
 Add support for compiling examples in Yocto flow.
 
 nandpsu_v1_13:
