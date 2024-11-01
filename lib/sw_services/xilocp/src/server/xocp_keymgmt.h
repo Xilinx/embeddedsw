@@ -76,6 +76,8 @@ extern "C" {
 							/**< Invalid DEVAK index value*/
 #define XOCP_INVALID_USR_CFG_INDEX			(0xFFFFFFFFU)
 							/**< Invalid user configuration index */
+#define XOCP_APP_VERSION_MAX_LENGTH			(64U)
+							/**< Max length of app version in bytes */
 
 /**************************** Type Definitions *******************************/
 /**
@@ -94,6 +96,8 @@ typedef struct {
 typedef struct {
 	u32 SubSystemId;	/**< Corresponding Sub system ID */
 	u8 SubSysHash[XSECURE_HASH_SIZE_IN_BYTES]; /**< Hash of the subsystem */
+	u8 AppVersion[XOCP_APP_VERSION_MAX_LENGTH];	/**< App version */
+	u32 AppVersionLen;		/**< Length of app version */
 	u32 ValidData;		/**< Valid Data */
 } XOcp_SubSysHash;
 
@@ -103,6 +107,8 @@ typedef struct {
 typedef struct {
 	u32 SubSystemId;	/**< Corresponding Sub system ID */
 	u32 KeyIndex;		/**< Index of DevAk for the subsystem */
+	u32 AppVersionLen;		/**< Length of app version */
+	u8 AppVersion[XOCP_APP_VERSION_MAX_LENGTH];		/**< App version */
 	u8 PerString[XTRNGPSX_PERS_STRING_LEN_IN_BYTES];/**< Personalization string */
 	u8 SubSysHash[XSECURE_HASH_SIZE_IN_BYTES]; /**< Hash of the subsystem */
 	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES]; /**< ECC DevAK private key */
@@ -129,6 +135,10 @@ int XOcp_RegenSubSysDevAk(void);
 int XOcp_ShutdownHandler(XPlmi_ModuleOp Op);
 int XOcp_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
 int XOcp_GenSharedSecretwithDevAk(u32 SubSystemId, u64 PubKeyAddr, u64 SharedSecretAddr);
+#ifndef VERSAL_AIEPG2
+int XOcp_SetAppVersion(u32 SubsystemID, u64 AppVersion, u32 AppVersionLen);
+#endif
+
 #ifdef __cplusplus
 }
 #endif

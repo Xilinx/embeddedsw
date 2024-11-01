@@ -214,6 +214,9 @@
 #include "xplmi_wdt.h"
 #include "xloader_plat.h"
 #include "xplmi_err.h"
+#ifdef VERSAL_NET
+#include "xocp_keymgmt.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -224,6 +227,17 @@
 		sizeof(XLoader_ImageInfo)) /**< Maximum number of image info
 					     tables in the available buffer */
 #define XLOADER_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)  /**< Mask for PCR Measurement index */
+
+#ifdef PLM_OCP_KEY_MNGMT
+#define XLOADER_PMC_SUBSYSTEM_ID			(0x1C000001U)
+						/**< PMC Subsystem ID */
+#define XLOADER_SUBSYTEM_ID_MASK			(0x1C00000FU)
+						/**< Mask to get subsystem ID */
+#define XLOADER_LOWEST_NIBBLE_MASK			(0xF)
+						/**< Mask to get lowest nibble */
+#define XLOADER_MIN_APP_VERSION_OPT_DATA_ID		(0x2000U)
+			/**< Minimum value of optional data ID for app version */
+#endif
 
 /************************** Function Prototypes ******************************/
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr);
@@ -534,6 +548,9 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	volatile u32 DecKeySrcTmp;
 #endif
 	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
+#ifdef PLM_OCP_KEY_MNGMT
+	u32 Index;
+#endif
 
 	SecureParams.PdiPtr = PdiPtr;
 	/** Read Boot header */
@@ -853,6 +870,25 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+#ifdef PLM_OCP_KEY_MNGMT
+	for (Index = 0; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs; Index++) {
+
+		if (PdiPtr->MetaHdr.ImgHdr[Index].ImgID == XLOADER_PMC_SUBSYSTEM_ID) {
+			continue;
+		}
+
+		if ((PdiPtr->MetaHdr.ImgHdr[Index].ImgID & XLOADER_SUBSYTEM_ID_MASK) == PdiPtr->MetaHdr.ImgHdr[Index].ImgID) {
+			Status = XLoader_StoreAppVersion(PdiPtr->MetaHdr.ImgHdrTbl.OptionalDataLen,
+				XLOADER_MIN_APP_VERSION_OPT_DATA_ID | (PdiPtr->MetaHdr.ImgHdr[Index].ImgID & XLOADER_LOWEST_NIBBLE_MASK));
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XOCP_ERR_STORE_APP_VERSION_FOR_DEVAK_CERT, Status);
+				goto END;
+			}
+		}
+	}
+#endif
+
 
 END:
 	return Status;
