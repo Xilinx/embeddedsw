@@ -195,6 +195,7 @@ typedef enum {
 /************************** Function Prototypes ******************************/
 int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config *Cfg);
 int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8* Val, u32 Len, u32 KeyIndex);
+u32* XCert_GetSpkId(void);
 
 
 #ifdef __cplusplus
