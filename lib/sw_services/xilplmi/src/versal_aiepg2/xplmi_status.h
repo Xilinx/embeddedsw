@@ -791,6 +791,8 @@ typedef enum {
 		/**< 0x6C1 Storing user configuration for more than 4 subsystems is not allowed */
 	XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED,
 		/**< 0x6C2 Key Management operation is disabled */
+	XOCP_ERR_STORE_APP_VERSION_FOR_DEVAK_CERT,
+		/**< 0x6C3 Error in storing app version for DevAk certificate */
 
 	XLOADER_TRNG_INIT_FAIL,
 		/**< 0x6CB Error when TRNG driver look

@@ -435,6 +435,9 @@ int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
 int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd);
 int XLoader_LoadLpdAndPsmElf(void);
 int XLoader_CheckAndUpdateSecureState(void);
+#ifdef PLM_OCP_KEY_MNGMT
+int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataId);
+#endif
 
 /************************** Variable Definitions *****************************/
 
