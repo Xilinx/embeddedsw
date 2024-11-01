@@ -186,6 +186,22 @@ static int XCert_GenDmeExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeResponse
 static int XCert_GenDmePublicKeyAndStructExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeChallenge *Dme);
 
 /************************** Function Definitions *****************************/
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides the pointer to the static variable SpkId
+ *
+ * @return
+ *		 - Pointer to the static variable SPK ID.
+ *
+ *****************************************************************************/
+u32* XCert_GetSpkId(void)
+{
+	static u32 SpkId;
+
+	return &SpkId;
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function creates the X.509 Certificate/Certificate Signing Request(CSR)
