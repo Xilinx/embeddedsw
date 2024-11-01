@@ -557,6 +557,8 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 		CertConfig.AppCfg.IssuerPrvtKey = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
 		CertConfig.AppCfg.IssuerPublicKey = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
 		CertConfig.AppCfg.FwHash = DevAkData->SubSysHash;
+		CertConfig.AppCfg.FwVersion = DevAkData->AppVersion;
+		CertConfig.AppCfg.FwVersionLen = DevAkData->AppVersionLen;
 	}
 
 	Status = XCert_GenerateX509Cert(XOcp_GetX509CertPtr->CertAddr,

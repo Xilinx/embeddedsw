@@ -158,6 +158,8 @@ typedef struct {
 	u8* IssuerPublicKey;	/**< Issuer Public Key */
 	u8* FwHash;		/**< Firmware Hash */
 	XCert_DmeResponse* DmeResp; /**< DME configuration */
+	u8* FwVersion;		/**< Version of application for which hash is provided */
+	u32 FwVersionLen;	/**< Length of version of application for which hash is provided */
 }XCert_AppCfg;
 
 /**

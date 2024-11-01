@@ -78,7 +78,11 @@ extern "C" {
 #define XCERT_LEN_OF_VERSION_FIELD					(0x3U)
 						/**< Length of Version field */
 #define XCERT_LOWER_NIBBLE_MASK				(0xFU)
-			/**< Mask to get lower nibble */
+						/**< Mask to get lower nibble */
+#define XCERT_WORD_LEN							(0x04U)
+						/**< Length of word in bytes */
+#define XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES				(127U)
+		/**< Max length for which short form encoding of length is used */
 
 /************************** Function Prototypes ******************************/
 int XCert_CreateInteger(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32 *FieldLen);
@@ -88,6 +92,7 @@ int XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStri
 int XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, const u32 LenOfRawDataVal, u32* RawDataFieldLen);
 void XCert_CreateBoolean(u8* DataBuf, const u8 BooleanVal, u32* FieldLen);
 int XCert_UpdateEncodedLength(u8* LenIdx, u32 Len, u8* ValIdx);
+void XCert_ExtractBytesAndCreateIntegerField(u8* DataBuf, u32 IntegerVal, u32* FieldLen);
 
 #ifdef __cplusplus
 }

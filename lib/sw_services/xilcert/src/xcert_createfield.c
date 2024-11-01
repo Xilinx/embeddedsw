@@ -59,13 +59,9 @@
 #include "xsecure_utils.h"
 
 /************************** Constant Definitions *****************************/
-#define XCERT_MAX_FIELD_VAL_LENGTH					(200U)
-					/**< Max length of value of field */
 #define XCERT_BIT7_MASK 						(0x80U)
 					/**< Mask to get bit 7*/
 
-#define XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES				(127U)
-	/**< Max length for which short form encoding of length is used */
 #define XCERT_LONG_FORM_2_BYTES_MAX_LENGTH_IN_BYTES			(255U)
 	/**< Max length for which long form encoding of length is used */
 #define XCERT_LONG_FORM_LENGTH_1BYTE					(0x81U)
@@ -78,6 +74,12 @@
 					/**< Mask to get byte 1 */
 #define XCERT_LENGTH_OF_BYTE_IN_BITS					(8U)
 					/**< Length of byte in bits */
+#define XCERT_SHIFT_24							(24U)
+					/**< Shift by 24 places */
+#define XCERT_SHIFT_16							(16U)
+					/**< Shift by 16 places */
+#define XCERT_SHIFT_8							(8U)
+					/**< Shift by 8 places */
 
 /************************** Function Prototypes ******************************/
 static u32 XCert_GetTrailingZeroesCount(u8 Data);
@@ -375,6 +377,32 @@ static u32 XCert_GetTrailingZeroesCount(u8 Data)
 
 	return Count;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function extracts each byte from the integer value and create
+ * 		DER encoded ASN.1 Integer.
+ *
+ * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
+ * @param	IntegerVal	Value of the ASN.1 Integer
+ * @param	FieldLen	Total length of the encoded ASN.1 Integer
+ *
+ ******************************************************************************/
+
+void XCert_ExtractBytesAndCreateIntegerField(u8* DataBuf, u32 IntegerVal, u32* FieldLen)
+{
+	u8* Curr = DataBuf;
+
+	*(Curr++) = XCERT_ASN1_TAG_INTEGER;
+	*(Curr++) = XCERT_WORD_LEN;
+	*(Curr++) = (IntegerVal >> XCERT_SHIFT_24) & XCERT_BYTE0_MASK;
+	*(Curr++) = (IntegerVal >> XCERT_SHIFT_16) & XCERT_BYTE0_MASK;
+	*(Curr++) = (IntegerVal >> XCERT_SHIFT_8) & XCERT_BYTE0_MASK;
+	*(Curr++) = IntegerVal & XCERT_BYTE0_MASK;
+
+	*FieldLen = (u8)(Curr - DataBuf);
+}
+
 #endif  /* PLM_OCP_KEY_MNGMT */
 
 /**
