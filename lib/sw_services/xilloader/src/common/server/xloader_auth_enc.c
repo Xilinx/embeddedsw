@@ -172,6 +172,11 @@
 #include "xsecure_lms_core.h"
 #include "xsecure_plat_kat.h"
 #endif
+#ifdef VERSAL_NET
+#ifdef PLM_OCP_KEY_MNGMT
+#include "xcert_genx509cert.h"
+#endif
+#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -5130,6 +5135,11 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 		&SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl;
 	XLoader_AuthCertificate *AuthCert = (XLoader_AuthCertificate *)
 		XPLMI_PMCRAM_CHUNK_MEMORY_1;
+#ifdef VERSAL_NET
+#ifdef PLM_OCP_KEY_MNGMT
+	u32* SpkId = XCert_GetSpkId();
+#endif
+#endif
 
 	XPlmi_Printf(DEBUG_INFO, "Authentication of"
 			" Image header table\n\r");
@@ -5195,6 +5205,12 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 
 	XPlmi_Printf(DEBUG_INFO, "Authentication of Image header table is "
 			"successful\n\r");
+
+#ifdef VERSAL_NET
+#ifdef PLM_OCP_KEY_MNGMT
+	*SpkId = SecurePtr->AcPtr->SpkId;
+#endif
+#endif
 
 END:
 	if (Status != XST_SUCCESS) {
