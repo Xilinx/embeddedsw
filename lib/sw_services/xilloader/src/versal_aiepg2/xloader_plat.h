@@ -416,6 +416,28 @@ static inline int Xloader_SsitEoPdiSync(XilPdi *PdiPtr)
 
 	return XST_SUCCESS;
 }
+
+#ifdef PLM_OCP_KEY_MNGMT
+/*****************************************************************************/
+/**
+ * @brief	This function gets the app version from the optional data and
+ * 		stores it with the corresponding subsystem ID.
+ *
+ * @param	OptionalDataLen	Length of optional data
+ *
+ * @return
+ * 		- XST_SUCCESS always.
+ *
+*****************************************************************************/
+static inline int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataId)
+{
+	(void)OptionalDataLen;
+	(void)OptionalDataId;
+	/* Not Applicable for Telluride */
+	return XST_SUCCESS;
+}
+#endif
+
 /************************** Function Prototypes ******************************/
 XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void);
 int XLoader_StartImage(XilPdi *PdiPtr);
