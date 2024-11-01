@@ -85,6 +85,11 @@ static const u8 Oid_DmeStructExtn[] = {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U,
 /** @} */
 
 /************************** Macro Definitions *****************************/
+#define XCERT_RTCA_SPK_ID_ADDR				(0xF2014364U)
+			/**< Address of the SPK ID stored in RTCA */
+#define XCERT_RTCA_PLM_VERSION_ADDR			(0xF2014320U)
+			/**< Address of the PLM version stored in RTCA */
+
 #define XCERT_PMC_SUBSYSTEM_ID				(0x1C000001U)
 			/**< PMC Subsystem ID*/
 
@@ -106,19 +111,19 @@ static const u8 Oid_DmeStructExtn[] = {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U,
 			/**< To indicate uncompressed public key */
 #define XCERT_MAX_LEN_OF_KEYUSAGE_VAL			(2U)
 			/**< Maximum length of value of key usage */
-
-#define XCERT_WORD_LEN					(0x04U)
-			/**< Length of word in bytes */
 #define XCERT_LEN_OF_BYTE_IN_BITS			(8U)
 			/**< Length of byte in bits */
 #define XCERT_AUTH_KEY_ID_OPTIONAL_PARAM		(0x80U)
 			/**< Optional parameter in Authority Key Identifier field*/
+#define XOCP_APP_VERSION_MAX_LENGTH			(64U)
+							/**< Max length of app version in bytes */
 
 /** @name Optional parameter tags
  * @{
  */
  /**< Tags for optional parameters */
 #define XCERT_OPTIONAL_PARAM_0_TAG			(0xA0U)
+#define XCERT_OPTIONAL_PARAM_2_TAG			(0xA2U)
 #define XCERT_OPTIONAL_PARAM_3_TAG			(0xA3U)
 #define XCERT_OPTIONAL_PARAM_6_TAG			(0xA6U)
 /** @} */
@@ -184,6 +189,10 @@ static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Ex
 static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *CertReqInfoLen);
 static int XCert_GenDmeExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeResponse *DmeResp);
 static int XCert_GenDmePublicKeyAndStructExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeChallenge *Dme);
+#ifndef VERSAL_AIEPG2
+static int XCert_GenFwVersionField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *FwVersionLen);
+static void XCert_GenSecurityVersionField(u8* TBSCertBuf, u32 *SvnLen);
+#endif
 
 /************************** Function Definitions *****************************/
 
@@ -232,7 +241,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	u8 X509CertBuf[1024];
+	u8 X509CertBuf[2000];
 	u8* Start = X509CertBuf;
 	u8* Curr = Start;
 	u8* SequenceLenIdx;
@@ -396,7 +405,10 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
-	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
+
 	*X509CertSize = Curr - Start;
 
 	XCert_CopyCertificate(*X509CertSize, (u8 *)X509CertBuf, X509CertAddr);
@@ -1281,11 +1293,18 @@ END:
  *			digest OCTET STRING
  *		}
  *
- * 		As per requirement, only fwids needs to be included in the extension.
- *		For DevIk certificates, the value of fwid shall be SHA3-384 hash of
- *		PLM and PMC CDO.
- *		For DevAk certificates, the value of fwid shall be SHA3-384 hash of
- *		the application.
+ * 		As per requirement, version, svn and fwids needs to be included in the extension.
+ *		For DevIk certificates,
+ *		- The value of version shall be the version of PLM
+ *		- The value of svn shall be the SPK ID used during boot (assuming that the same SPK ID
+ *		is used for all partitions)
+ *		- The value of fwid shall be SHA3-384 hash of PLM and PMC CDO.
+ *
+ *		For DevAk certificates,
+ *		- The value of version shall be provided via the user optional data in the PDI.
+ *		- The value of svn shall be the SPK ID used during boot (assuming that the same SPK ID
+ *		is used for all partitions)
+ *		- The value of fwid shall be SHA3-384 hash of the application.
  *
  ******************************************************************************/
 static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TcbInfoExtnLen)
@@ -1298,8 +1317,14 @@ static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Tcb
 	u8* OctetStrValIdx;
 	u8* TcbInfoSequenceLenIdx;
 	u8* TcbInfoSequenceValIdx;
-	u8* OptionalTagLenIdx;
-	u8* OptionalTagValIdx;
+#ifndef VERSAL_AIEPG2
+	u8* OptionalTag2LenIdx;
+	u8* OptionalTag2ValIdx;
+	u8* OptionalTag3LenIdx;
+	u8* OptionalTag3ValIdx;
+#endif
+	u8* OptionalTag6LenIdx;
+	u8* OptionalTag6ValIdx;
 	u8* FwIdSequenceLenIdx;
 	u8* FwIdSequenceValIdx;
 	u32 OidLen;
@@ -1323,9 +1348,31 @@ static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Tcb
 	TcbInfoSequenceLenIdx = Curr++;
 	TcbInfoSequenceValIdx = Curr;
 
+#ifndef VERSAL_AIEPG2
+	*(Curr++) = XCERT_OPTIONAL_PARAM_2_TAG;
+	OptionalTag2LenIdx = Curr++;
+	OptionalTag2ValIdx = Curr;
+
+	Status = XCert_GenFwVersionField(Curr, Cfg, &FieldLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + FieldLen;
+
+	*OptionalTag2LenIdx = (u8)(Curr - OptionalTag2ValIdx);
+
+	*(Curr++) = XCERT_OPTIONAL_PARAM_3_TAG;
+	OptionalTag3LenIdx = Curr++;
+	OptionalTag3ValIdx = Curr;
+
+	XCert_GenSecurityVersionField(Curr, &FieldLen);
+	Curr = Curr + FieldLen;
+
+	*OptionalTag3LenIdx = (u8)(Curr - OptionalTag3ValIdx);
+#endif
 	*(Curr++) = XCERT_OPTIONAL_PARAM_6_TAG;
-	OptionalTagLenIdx = Curr++;
-	OptionalTagValIdx = Curr;
+	OptionalTag6LenIdx = Curr++;
+	OptionalTag6ValIdx = Curr;
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	FwIdSequenceLenIdx = Curr++;
@@ -1344,10 +1391,35 @@ static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Tcb
 	Curr = Curr + FieldLen;
 
 	*FwIdSequenceLenIdx = (u8)(Curr - FwIdSequenceValIdx);
-	*OptionalTagLenIdx = (u8)(Curr - OptionalTagValIdx);
-	*TcbInfoSequenceLenIdx = (u8)(Curr - TcbInfoSequenceValIdx);
-	*OctetStrLenIdx = (u8)(Curr - OctetStrValIdx);
-	*SequenceLenIdx = (u8)(Curr - SequenceValIdx);
+	*OptionalTag6LenIdx = (u8)(Curr - OptionalTag6ValIdx);
+
+	Status = XCert_UpdateEncodedLength(TcbInfoSequenceLenIdx, (u32)(Curr - TcbInfoSequenceValIdx), TcbInfoSequenceValIdx);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
+		goto END;
+	}
+	if ((*TcbInfoSequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*TcbInfoSequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
+
+	Status = XCert_UpdateEncodedLength(OctetStrLenIdx, (u32)(Curr - OctetStrValIdx), OctetStrValIdx);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
+		goto END;
+	}
+	if ((*OctetStrLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*OctetStrLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
+
+	Status = XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
+		goto END;
+	}
+	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
+
 	*TcbInfoExtnLen = (u32)(Curr - TBSCertBuf);
 
 END:
@@ -1761,14 +1833,18 @@ static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u3
 		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
-	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
 
 	Status =  XCert_UpdateEncodedLength(OptionalTagLenIdx, (u32)(Curr - OptionalTagValIdx), OptionalTagValIdx);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
-	Curr = Curr + ((*OptionalTagLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	if ((*OptionalTagLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*OptionalTagLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
 
 	*ExtensionsLen = (u32)(Curr - TBSCertBuf);
 
@@ -1929,19 +2005,25 @@ static int XCert_GenDmeExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeResponse
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Curr = Curr + ((*DmeSequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	if ((*DmeSequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*DmeSequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
 
 	Status = XCert_UpdateEncodedLength(OctetStrLenIdx, (u32)(Curr - OctetStrValIdx), OctetStrValIdx);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Curr = Curr + ((*OctetStrLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	if ((*OctetStrLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*OctetStrLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
 
 	Status = XCert_UpdateEncodedLength(SequenceLenIdx, (u32)(Curr - SequenceValIdx), SequenceValIdx);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
 
 	*Len = (u32)(Curr - CertReqInfoBuf);
 
@@ -2104,25 +2186,34 @@ static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Ex
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
 
 	Status = XCert_UpdateEncodedLength(SetLenIdx, (u32)(Curr - SetValIdx), SetValIdx);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Curr = Curr + ((*SetLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	if ((*SetLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*SetLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
 
 	Status = XCert_UpdateEncodedLength(ExtnReqSeqLenIdx, (u32)(Curr - ExtnReqSeqValIdx), ExtnReqSeqValIdx);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Curr = Curr + ((*ExtnReqSeqLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	if ((*ExtnReqSeqLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*ExtnReqSeqLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
 
 	Status = XCert_UpdateEncodedLength(OptionalTagLenIdx, (u32)(Curr - OptionalTagValIdx), OptionalTagValIdx);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Curr = Curr + ((*OptionalTagLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	if ((*OptionalTagLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*OptionalTagLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
+
 	*ExtensionsLen = (u32)(Curr - CertReqInfoBuf);
 
 END:
@@ -2276,7 +2367,9 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
-	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
 
 	*TBSCertLen = (u32)(Curr - Start);
 
@@ -2344,7 +2437,9 @@ static int XCert_GenCertReqInfo(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Cert
 		Status = (int)XCERT_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
-	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	if ((*SequenceLenIdx & (u8)(~XCERT_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
+		Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
+	}
 
 	*CertReqInfoLen = (u32)(Curr - Start);
 
@@ -2437,6 +2532,64 @@ static void XCert_CopyCertificate(const u32 Size, const u8 *Src, const u64 DstAd
 		XSecure_OutByte64((DstAddr + Index), Src[Index]);
 	}
 }
+
+#ifndef VERSAL_AIEPG2
+/*****************************************************************************/
+/**
+ * @brief	This function creates the Version sub-field present in the TCB Info extension
+ * 		of the TBS Certificate.
+ *
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where the FwVersion field shall be added.
+ * @param	Cfg		Pointer to structure which includes configuration for the TBS Certificate.
+ * @param	FwVersionLen	Length of the Version sub-field
+ *
+ * @return
+ *		 - XST_SUCCESS  Successfully generated Version sub-field
+ *		 - XST_FAILURE  In case of failure
+ *
+ ******************************************************************************/
+static int XCert_GenFwVersionField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *FwVersionLen)
+{
+	int Status = XST_FAILURE;
+	u32 FwVersion;
+
+	if (Cfg->AppCfg.IsSelfSigned == TRUE) {
+		FwVersion = XCert_In32(XCERT_RTCA_PLM_VERSION_ADDR);
+		XCert_ExtractBytesAndCreateIntegerField(TBSCertBuf, FwVersion, FwVersionLen);
+		Status = XST_SUCCESS;
+	}
+	else {
+		/**
+		 * In case app version is not provided, create empty Fw Version field of maximum posssible size
+		*/
+		if (Cfg->AppCfg.FwVersionLen == 0U) {
+			XPlmi_MemSetBytes(Cfg->AppCfg.FwVersion, XOCP_APP_VERSION_MAX_LENGTH, 0U, XOCP_APP_VERSION_MAX_LENGTH);
+			Cfg->AppCfg.FwVersionLen = XOCP_APP_VERSION_MAX_LENGTH;
+		}
+		Status = XCert_CreateInteger(TBSCertBuf, Cfg->AppCfg.FwVersion,
+			Cfg->AppCfg.FwVersionLen, FwVersionLen);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function creates the Security Version sub-field present in the TCB Info extension
+ * 		of the TBS Certificate.
+ *
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where the Security Version field shall be added.
+ * @param	SvnLen		Length of the Security Version sub-field
+ *
+ ******************************************************************************/
+static void XCert_GenSecurityVersionField(u8* TBSCertBuf, u32 *SvnLen)
+{
+	u32* Svn = XCert_GetSpkId();
+
+	XCert_ExtractBytesAndCreateIntegerField(TBSCertBuf, *Svn, SvnLen);
+}
+#endif
+
 #endif  /* PLM_OCP_KEY_MNGMT */
 
 /**
