@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -74,8 +74,8 @@ u32 XCsiSs_SelfTest(XCsiSs *InstancePtr)
 		}
 	}
 #if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
-	if (InstancePtr->XMipiRxPhyPtr) {
-		Status = XMipi_Rx_Phy_SelfTest(InstancePtr->XMipiRxPhyPtr);
+	if (InstancePtr->MipiRxPhyPtr) {
+		Status = XMipi_Rx_Phy_SelfTest(InstancePtr->MipiRxPhyPtr);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,"ERR::XMIPI RX PHY Self test "
 			"failed\n\r");
