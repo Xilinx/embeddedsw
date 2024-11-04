@@ -130,6 +130,25 @@ Fix missing extern 'C' keyword from header files
 Fix SDT checks for interrupt header inclusion
 Fix dma-mode properties in the yaml
 
+spartanup_plm:
+Added new firmware for Platform Management Controller, which provides secure
+boot, bitstream/CDO processing, partial PDI loading and PL readback.
+Add PLM support
+Add secure boot
+Add CDO/bitstream processing.
+Add Partial PDI loading
+
+asufw:
+Added new firmware for Application Secure unit(ASU), which provides an
+interface for communication using shared memory from other subsystems.
+
+xilasu:
+Added new library XilASU, which operates in both server and client mode.
+Server mode is applicable only on RISC V processor while building ASUFW
+application and all other masters can include this library in client mode to
+avail the ASUFW crypto accelerators services via IPI shared memory
+communication.
+Added client interface APIs for SHA2/SHA3/TRNG/ECC/RSA/AES
 
 xilffs_v5_3:
 Add example to test UFS interface
@@ -265,7 +284,16 @@ Add support for loading the partial PDI through JTAG as a secondary
 boot device after secure boot.
 Support for Setting the pre-scaler for QSPI clock from CIPS
 Added UFS boot support for Versal_2ve_2vm
-
+Removed LoadReadBackPdi feature support since it is unused
+SPK and SPKID need to be extended to PCR only if AUTH_KEYS_TO_HASH eFuse is
+programmed.
+Add support to validate
+- Authenticated partial PDI
+- Authenticated optimization enabled Full/Partial PDI
+Send device into secure lock down on receiving invalid AuthJTag message when
+AUTH_JTAG_LOCK_DIS eFuse is programmed.
+During boot, before loading any partition, check and update the configuration
+limiter as per the user configured configuration limiter mode
 
 xilnvm_v3_4:
 Check for user efuse cache space for DME keys
@@ -278,7 +306,9 @@ Update ppk-hash 384 bit programming for Versal_2ve_2vm
 Removed zeroization during key write at server side
 Doxygen updates for RTF
 VersalNet - Corrected offchipid range to be programmed
-
+Update eFuse client library to pass EnvMonDis flag for VersalNet
+Invalidate cache before and after reading efuses in client
+Misra C and doxygen formatting
 
 xilocp_v1_4:
 Retain HW/SW PCR log after In place PLM update
@@ -294,7 +324,7 @@ Disable KeyUnwrap for Versal_2ve_2vm and update XOcp_GenSubSysDevAk call in
 xilloader
 Fix update in DevAkIndex array
 Add TCB Info extension for DevIk CSR
-
+Added temporal redundancy checks for DME
 
 xilpdi_v1_10:
 Fixed doxygen comments
@@ -317,7 +347,11 @@ Implemented secure communication between PLMs
 Added register node to access PMC analog registers
 Remove check to restrict crypto access when crypto KAT enable efuse bit
 is blown and KAT is not ran during runtime requests
-
+Added support for handling PSM to PLM IPI events
+Add support for Authenticated JTAG for versal_aiepg2 devices
+Change SSIT timeout for slave message events
+Added glitch detector support for PL microblaze
+Fix chunk boundary handling in KeyholeXfr logic
 
 xilpm_v5_3:
 Support mem-ranges cdo command from Vivado & use it in subsystem restart
@@ -337,7 +371,8 @@ Formatting code
 Fix for Misra C rule 9.3
 Updated doxygen comments
 Corrected comments in function header
-
+Misra C fixes
+Update doxygen comments for spartanup
 
 xilsecure_v5_4:
 Doxygen fixes
@@ -370,6 +405,18 @@ data.
 Fix issue in copy of files
 Add Redundancy check for XPlmi_MemCpy64
 Remove deleting folders in library tcl files
+Misra C fixes
+Fixed doxygen grouping and doxygen updates for Versal_2ve_2vm
+SHA2 enablement for Versal_2ve_2vm
+Removed XSecure_InpuSlrIndex as it is duplicate
+Configure DmaSwap before transfer of IV for Versal_2ve_2vm
+Add README for xilsecure and remove versal_gen folder
+Remove ECDSA_SM2_FP256 from code base
+Replace xil_util.h with xil_sutil.h
+Removed duplicate code in AES
+Added maximum supported hash size macro for spartan ultrascale plus
+Changed FATAL_ERROR to WARNING for CMake Build files generation
+Removed END label in XSecure_AesDecryptUpdate
 
 
 xilsfl_v1_0:
