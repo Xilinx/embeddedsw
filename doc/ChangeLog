@@ -5,21 +5,21 @@ Add support for the new taxonomy convention adopted for the IP NAMEs
 Fix missing extern 'C' keyword from header files
 
 
-rfdc_v12_3 :
+rfdc_v12_3:
 Increased the max VCO ADC frequency to 13.2 GHz for Gen 3 devices
 
 
-sysmon_v7_10 :
+sysmon_v7_10:
 Fixed issue with interrupt masks.
 
 
-sysmonpsv_v5_0 :
+sysmonpsv_v5_0:
 Updated the driver version to 5.0
 Temperature and Supply averaging functions added
 Updated yaml to support polled example
 
 
-xilpki_v2_2 :
+xilpki_v2_2:
 Add support for SDT flow.
 
 
@@ -185,12 +185,14 @@ Add support for the new taxonomy convention adopted for the IP Names
 
 
 dp21_v2_3:
+Fix video issue with aorus monitor
 Add support for Displayport MultiStreams
 Add LTTPR Support for displayport TX subsystem
 Update training flow to fix Link Layer CTS
 
 
-dp21txss_v2_3:
+dp21txss_v2_4:
+Fix video issue with aorus monitor
 Update XDpTxSs_GetSinkCapabilities()
 Add LTTPR support API's
 Update PixelClockHz to 64-bit to support higher datarates
@@ -514,51 +516,52 @@ mipi_dsi_tx_ss:
 Yaml changes made for generic compatible string
 SP701 passthrough app migrated for SDT support.
 
-bram_v4_11 :
+bram_v4_11:
 Fix missing extern 'C' keyword from header files
 bram: Add support for lmb ram
 
 
-can_v3_9 :
+can_v3_9:
 Increment driver version
 Fix missing extern 'C' keyword from header files
 
 
-canps_v3_9 :
+canps_v3_9:
 Increment driver version
 Fix missing extern 'C' keyword from header files
 
 
-dfeccf_v1_8 :
+dfeccf_v1_8:
 Switchable parameter in YAML
 
 
-dfeofdm_v1_3 :
+dfeofdm_v1_3:
 Add frequency range MODEL_PARAM
 Add FR1 and FR2 frequency range
 
 
-dsirxss_v1_1 :
+dsirxss_v1_1:
 Yaml updates to support example app in GUI
 
 
-emc_v4_4 :
+emc_v4_4:
 Fix missing extern 'C' keyword from header files
 
 
-gpio_v4_12 :
+gpio_v4_12:
 Increment driver version
 Fix missing extern 'C' keyword from header files
 
 
-iic_v3_12 :
+iic_v3_12:
 Increment driver version
 Fix missing extern 'C' keyword from header files
 
 
-intc_v3_19 :
+intc_v3_19:
 XilinxProcessorIPLib: drivers: intc: Fix the SDT flow size issues
 intc: Remove Unused variable and return value
+tmrctr: Fix missing extern 'C' keyword in header files
 
 
 tmrctr:
@@ -566,32 +569,32 @@ Optimize wait time with timeout reduction and usleep() inclusion.
 Fix missing extern 'C' keyword in header files
 
 
-iomodule_v2_17 :
+iomodule_v2_17:
 esw: Update the code to support iomodule for stdin/sdtout configuration in sdt flow
 esw: Fix multiple definition of `outbyte' error for PLM for no uart enabled designs
 drivers: Fix missing extern 'C' keyword in header files
 spartanup_plm: Add SDT support
 
 
-ipipsu_v2_16 :
+ipipsu_v2_16:
 Add asufw application and xilasu library with SDT flow support
 
 
-llfifo_v5_8 :
+llfifo_v5_8:
 Update Copyright information
 
 
-mutex_v4_9 :
+mutex_v4_9:
 Increment driver version
 Fix missing extern 'C' keyword from header files
 
 
-qspips_v3_13 :
+qspips_v3_13:
 Increment driver version
 Fix missing extern 'C' keyword from header files
 
 
-scugic_v5_4 :
+scugic_v5_4:
 scugic: Update driver version
 scugic: Fix compilation errors reported by C++ compiler
 scugic: Add support for VersalGen2
@@ -602,29 +605,28 @@ peripheral_tests: Fix compilation warnings
 peripheral_tests: Fixed source code-format issue.
 
 
-sdps_v4_4 :
+sdps_v4_4:
 Fix IAR compilation warnings
 
 
-sysmonpsu_v3_0 :
+sysmonpsu_v3_0:
 Fixes writing to Alarm Threshold registers updated to support threshold hysteresis mode
 Fixes writing to OT Upper alarm threshold register to overwrite default OT value
 
 
-tmrctr_v4_13 :
+tmrctr_v4_13:
 tmrctr: Fix the typo of interrupt property in tapp section
-tmrctr
-Fix missing extern 'C' keyword in header files
+tmrctr: Fix missing extern 'C' keyword in header files
 peripheral_tests: Fix compilation warnings
 peripheral_tests: Fixed source code-format issue.
 
 
-trngpsx_v1_3 :
+trngpsx_v1_3:
 Add support for the new taxonomy convention adopted for the IP Names
 drivers: Fix for security review comments
 
 
-ttcps_v3_20 :
+ttcps_v3_20:
 drivers: Update minor versions
 drivers: Fix missing extern 'C' keyword in header files
 peripheral_tests: Fix compilation warnings
@@ -633,32 +635,32 @@ ttcps: Add support for multiple counters in SDT flow
 Revert "ttcps: Add support for multiple counters in SDT flow"
 
 
-uartlite_v3_11 :
+uartlite_v3_11:
 Fix multiple definition of `outbyte' error for PLM for no uart enabled designs
 Fix missing extern 'C' keyword from header files
 
 
-uartpsv_v1_11 :
+uartpsv_v1_11:
 Increment driver version
 Fix missing extern 'C' keyword from header files
 
 
-usb_v5_7 :
+usb_v5_7:
 drivers: Update minor versions
 drivers: Fix missing extern 'C' keyword in header files
 
 
-usbpsu_v1_16 :
+usbpsu_v1_16:
 usbpsu: Update driver version
 usbpsu: Fix compilation error
 bsp: standalone: Fix IAR compilation warnings
 
 
-xilfpga_v6_7 :
+xilfpga_v6_7:
 Add support for the new taxonomy convention adopted for the IP NAMEs
 
 
-xiltimer_v2_1 :
+xiltimer_v2_1:
 sw_services: xiltimer: Use canonical definitions for sleep and interval timers
 esw: Add support for cortexa53-32 bit configuration
 overall: Add support for the new taxonomy convention adopted for the IP NAMEs.
@@ -670,7 +672,7 @@ scripts: Add support for SpartanUp PLM in BSP and the workflow
 sw_services: xiltimer: Fix default values for sleep and tick timers
 
 
-standalone_v9_2 :
+standalone_v9_2:
 bsp:standalone:common:Add Xil_SReverseData
 bsp: standalone: Update translation table to support AXI_NOC2_DDR_CH_O memory
 BSP: ARMv8: Fix translation table for specific VersalNet based HW design
