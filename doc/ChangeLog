@@ -1,5 +1,19 @@
 Changes for 2024.2
 ===============================
+v_frmbuf_wr_v5_0:
+Added Y_U_V12 bit video format support in drivers and example application.
+Added Alpha formats 8bit support in the driver
+Added Tile format support for telluride devices
+
+vprocss_v2_14:
+Example application is corrected for Deinterlacer only mode.
+
+
+dp21rxss_v1_3:
+Added support for DP2.1 Passthrough mode
+Added  sideband messages only sink support
+
+
 coresightps_dcc_v1_11:
 Add support for the new taxonomy convention adopted for the IP NAMEs
 Fix missing extern 'C' keyword from header files
@@ -508,13 +522,15 @@ SPDIF interrupt example fixed with correct interrupt mapping ID's.
 
 
 mipi_csi2_rx_ss:
-Yaml changes made for generic compatible string
+Yaml changes made for generic compatible string 
 SP701 passthrough app migrated for SDT support.
+MIPI VCK190 app updated to support proper switching between MIPI DSI and HDMI display.
 
 
 mipi_dsi_tx_ss:
-Yaml changes made for generic compatible string
+Yaml changes made for generic compatible string 
 SP701 passthrough app migrated for SDT support.
+MIPI VCK190 app updated to support proper switching between MIPI DSI and HDMI display.
 
 bram_v4_11:
 Fix missing extern 'C' keyword from header files
