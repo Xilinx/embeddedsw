@@ -65,11 +65,12 @@ done:
 	return Status;
 }
 
-XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part, u32 Ops)
+XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part, u32 Ops, u32 Arg3)
 {
 	XStatus Status = XST_FAILURE;
 	(void)Id;
 	(void)SubsystemId;
+	(void)Arg3;
 
 	u32 NumArgs = 4U;
 	u32 ArgBuf[4U];
@@ -87,6 +88,11 @@ XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part,
 	}
 
 	/* To-Do: Add Permission Check */
+
+	if (IOCTL_AIE_OPS != IoctlId) {
+		Status = XPM_ERR_IOCTL;
+		goto done;
+	}
 
 	Status = Aie_Operations(Part, Ops);
 

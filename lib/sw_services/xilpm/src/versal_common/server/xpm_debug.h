@@ -487,6 +487,12 @@ extern "C" {
 #define XPM_INT_ERR_AIE_PROG_MEM_ZEROISATION	0x4113U
 /* Error during zeroization of data memory */
 #define XPM_INT_ERR_AIE_DATA_MEM_ZEROISATION	0x4114U
+/* Error during zeriozation of uc memory */
+#define XPM_INT_ERR_AIE_UC_ZEROISATION		0x4115U
+/* Error during NMU config indicating invalid column */
+#define XPM_INT_ERR_AIE_NMU_CONFIG		0x4116U
+/* Error during Handshake OPS indicating length of data is too large */
+#define XPM_INT_ERR_UC_PRIVATE_DM_MAX_SIZE	0x4117U
 
 /************************** PMC specific Errors ******************************/
 /************************** (0x4200) - (0x42FF) ******************************/

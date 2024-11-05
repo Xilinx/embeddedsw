@@ -1,6 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,23 +59,25 @@ maybe_unused static inline XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id Io
 
 	return XPM_ERR_IOCTL;
 }
-maybe_unused static inline XStatus XPm_AieOperation(u32 SubsystemId, u32 Id,
-						    pm_ioctl_id IoctlId, u32 Part, u32 Ops, u32 Arg3)
-{
-	(void)SubsystemId;
-	(void)Id;
-	(void)IoctlId;
-	(void)Part;
-	(void)Ops;
-	(void)Arg3;
 
-	return XPM_ERR_IOCTL;
-}
+XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 LowAdd, u32 HighAdd, u32 Arg3);
+
 maybe_unused static inline XStatus XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)
 {
 	(void)SubsystemId;
 	(void)AieDeviceId;
 	(void)Value;
+
+	return XPM_ERR_IOCTL;
+}
+maybe_unused static inline XStatus XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
+				  u32 *const Response, u8 Write)
+{
+	(void)DeviceId;
+	(void)Arg1;
+	(void)Value;
+	(void)Response;
+	(void)Write;
 
 	return XPM_ERR_IOCTL;
 }
@@ -111,6 +112,17 @@ maybe_unused static u32 XPm_GetUsbCurrPwrOffset(const u32 DeviceId)
 
 	return CurrPwrOffset;
 }
+/*maybe_unused static inline XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
+		const u32 *Perms, u32 Type, u32 CmdType)
+{
+	(void)RegNum;
+	(void)SubsystemId;
+	(void)Perms;
+	(void)Type;
+	(void)CmdType;
+
+	return XST_SUCCESS;
+}*/
 
 maybe_unused static inline XStatus XPm_GetSsitTemp(u32 DeviceId,
 			pm_ioctl_id IoctlId, u32 Offset, u32 *const Response)
