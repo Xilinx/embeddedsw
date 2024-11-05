@@ -659,8 +659,9 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		Status = XPm_AieISRClear(SubsystemId, DeviceId, Arg1);
 		break;
 	case IOCTL_AIE_OPS:
+	case IOCTL_AIE2PS_OPS:
 		Status = XPm_AieOperation(SubsystemId, DeviceId, IoctlId, Arg1,
-					  Arg2);
+					  Arg2, Arg3);
 		break;
 	case IOCTL_READ_REG:
 		Status = XPmAccess_ReadReg(SubsystemId, DeviceId, IoctlId,
