@@ -306,7 +306,7 @@ else()
     set(TCP_OVERSIZE TCP_MSS)
 endif()
 
-if (${temac_use_jumbo_frames})
+if (${lwip220_temac_use_jumbo_frames})
     set(USE_JUMBO_FRAMES 1)
 endif()
 
