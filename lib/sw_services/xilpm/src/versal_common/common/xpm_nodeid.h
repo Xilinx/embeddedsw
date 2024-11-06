@@ -394,6 +394,19 @@ extern "C" {
 #define PM_RST_SWDT_4				(0xC4100E7U)
 #define PM_RST_SWDT_3				(0xC4100E8U)
 #define PM_RST_SWDT_2				(0xC4100E9U)
+#define PM_RST_UFS				(0xC104103U)
+#define PM_RST_CAN_FD_2				(0xC104104U)
+#define PM_RST_CAN_FD_3				(0xC104105U)
+#define PM_RST_I3C_2				(0xC410106U)
+#define PM_RST_I3C_3				(0xC410107U)
+#define PM_RST_I3C_4				(0xC410108U)
+#define PM_RST_I3C_5				(0xC410109U)
+#define PM_RST_I3C_6				(0xC41010AU)
+#define PM_RST_I3C_7				(0xC41010BU)
+#define PM_RST_TTC_4				(0xC10410CU)
+#define PM_RST_TTC_5				(0xC10410DU)
+#define PM_RST_TTC_6				(0xC10410EU)
+#define PM_RST_TTC_7				(0xC10410FU)
 /** @} */
 
 /**
@@ -612,6 +625,10 @@ extern "C" {
 #define PM_CLK_LPD_WWDT2			(0x82080CDU)
 #define PM_CLK_LPD_WWDT3			(0x82080CEU)
 #define PM_CLK_LPD_WWDT4			(0x82080CFU)
+#define PM_CLK_TTC4				(0x82080D0U)
+#define PM_CLK_TTC5				(0x82080D1U)
+#define PM_CLK_TTC6				(0x82080D2U)
+#define PM_CLK_TTC7				(0x82080D3U)
 /** @} */
 
 /**
@@ -992,6 +1009,19 @@ extern "C" {
 #define PM_DEV_LPD_SWDT_3			(0x18224113U)
 #define PM_DEV_LPD_SWDT_4			(0x18224114U)
 #define PM_DEV_IPI_ASU				(0x18224115U)
+#define PM_DEV_UFS				(0x18224116U)
+#define PM_DEV_I2C_2				(0x18224117U)
+#define PM_DEV_I2C_3				(0x18224118U)
+#define PM_DEV_I2C_4				(0x18224119U)
+#define PM_DEV_I2C_5				(0x1822411AU)
+#define PM_DEV_I2C_6				(0x1822411BU)
+#define PM_DEV_I2C_7				(0x1822411CU)
+#define PM_DEV_CAN_FD_2				(0x1822411DU)
+#define PM_DEV_CAN_FD_3				(0x1822411EU)
+#define PM_DEV_TTC_4				(0x1822411FU)
+#define PM_DEV_TTC_5				(0x18224120U)
+#define PM_DEV_TTC_6				(0x18224121U)
+#define PM_DEV_TTC_7				(0x18224122U)
 /** @} */
 
 /**
