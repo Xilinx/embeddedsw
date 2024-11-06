@@ -1046,9 +1046,12 @@ static struct XPsmFwGemPwrCtrl_t Gem1PwrCtrl = {
         .RstCtrlMask = CRL_RST_GEM1_RESET_MASK,
 };
 
+/**
+ * @brief Enumeration for power up/down types
+ */
 enum XPsmFWPwrUpDwnType {
-	XPSMFW_PWR_UPDWN_DIRECT,
-	XPSMFW_PWR_UPDWN_REQUEST,
+	XPSMFW_PWR_UPDWN_DIRECT,	/**< Direct power up/down operation */
+	XPSMFW_PWR_UPDWN_REQUEST,	/**< Request-based power up/down operation */
 };
 
 /****************************************************************************/

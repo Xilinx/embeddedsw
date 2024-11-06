@@ -95,48 +95,61 @@ extern "C" {
 #define ACPU_PACCEPT_TIMEOUT				(1000U)
 #define RPU_PACTIVE_TIMEOUT				(1000U)
 #define A78_CLUSTER_CONFIGURED	(0x1U)
+
+/**
+ * @brief Represents the power states of the TCM.
+ */
 enum TcmPowerState {
-	STATE_POWER_DEFAULT,
-	STATE_POWER_ON,
-	STATE_POWER_DOWN,
+	STATE_POWER_DEFAULT,	/**< Default power state */
+	STATE_POWER_ON,		/**< Power on state */
+	STATE_POWER_DOWN,	/**< Power down state */
 };
 
+/**
+ * @brief Identifies the TCM banks.
+ */
 enum TcmBankId {
-	TCM_A_0,
-	TCM_A_1,
-	TCM_B_0,
-	TCM_B_1,
+	TCM_A_0,	/**< TCM bank for cluster A, core 0 */
+	TCM_A_1,	/**< TCM bank for cluster A, core 1 */
+	TCM_B_0,	/**< TCM bank for cluster B, core 0 */
+	TCM_B_1,	/**< TCM bank for cluster B, core 1 */
 };
 
+/**
+ * @brief Identifies the processor devices.
+ */
 enum ProcDeviceId {
-	ACPU_0,
-	ACPU_1,
-	ACPU_2,
-	ACPU_3,
-	ACPU_4,
-	ACPU_5,
-	ACPU_6,
-	ACPU_7,
-	ACPU_8,
-	ACPU_9,
-	ACPU_10,
-	ACPU_11,
-	ACPU_12,
-	ACPU_13,
-	ACPU_14,
-	ACPU_15,
-	RPU0_0,
-	RPU0_1,
-	RPU1_0,
-	RPU1_1,
-	PROC_DEV_MAX,
+	ACPU_0,		/**< Application CPU 0 */
+	ACPU_1,		/**< Application CPU 1 */
+	ACPU_2,		/**< Application CPU 2 */
+	ACPU_3,		/**< Application CPU 3 */
+	ACPU_4,		/**< Application CPU 4 */
+	ACPU_5,		/**< Application CPU 5 */
+	ACPU_6,		/**< Application CPU 6 */
+	ACPU_7,		/**< Application CPU 7 */
+	ACPU_8,		/**< Application CPU 8 */
+	ACPU_9,		/**< Application CPU 9 */
+	ACPU_10,	/**< Application CPU 10 */
+	ACPU_11,	/**< Application CPU 11 */
+	ACPU_12,	/**< Application CPU 12 */
+	ACPU_13,	/**< Application CPU 13 */
+	ACPU_14,	/**< Application CPU 14 */
+	ACPU_15,	/**< Application CPU 15 */
+	RPU0_0,		/**< Real-time Processing Unit cluster 0, core 0 */
+	RPU0_1,		/**< Real-time Processing Unit cluster 0, core 1 */
+	RPU1_0,		/**< Real-time Processing Unit cluster 1, core 0 */
+	RPU1_1,		/**< Real-time Processing Unit cluster 1, core 1 */
+	PROC_DEV_MAX,	/**< Maximum number of processor devices */
 };
 
+/**
+ * @brief Identifies the clusters.
+ */
 enum ClusteId{
-	CLUSTER_0,
-	CLUSTER_1,
-	CLUSTER_2,
-	CLUSTER_3,
+	CLUSTER_0,	/**< Cluster 0 */
+	CLUSTER_1,	/**< Cluster 1 */
+	CLUSTER_2,	/**< Cluster 2 */
+	CLUSTER_3,	/**< Cluster 3 */
 };
 
 /* Power control and wakeup Handler Table Structure */

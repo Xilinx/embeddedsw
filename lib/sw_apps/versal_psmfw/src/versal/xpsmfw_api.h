@@ -103,14 +103,14 @@ extern "C" {
  *  PM init node functions
  */
 enum XPmInitFunctions {
-	FUNC_INIT_START,
-	FUNC_INIT_FINISH,
-	FUNC_SCAN_CLEAR,
-	FUNC_BISR,
-	FUNC_MBIST_LBIST,
-	FUNC_ME_INITREG,
-	FUNC_MBIST_CLEAR,
-	FUNC_SECLOCKDOWN = 11U
+	FUNC_INIT_START,	/**< Start of the initialization process */
+	FUNC_INIT_FINISH,	/**< End of the initialization process */
+	FUNC_SCAN_CLEAR,	/**< Clear scan chains */
+	FUNC_BISR,		/**< Built-In Self-Repair function */
+	FUNC_MBIST_LBIST,	/**< Memory BIST (Built-In Self-Test) and Logic BIST */
+	FUNC_ME_INITREG,	/**< Initialize ME (Microcontroller Engine) registers */
+	FUNC_MBIST_CLEAR,	/**< Clear MBIST results */
+	FUNC_SECLOCKDOWN = 11U	/**< Secure lockdown function */
 };
 
 XStatus XPsmFw_NotifyPlmEvent(void);
