@@ -125,25 +125,34 @@ extern "C" {
 #define XPSMFW_PWRON_VCCPSINTFP_POST_POR_WAIT	      MICROSECOND_TO_TICKS(1U)
 #define XPSMFW_PWRON_RST_FPD_WAIT_TIME		      NANOSECOND_TO_TICKS(40U)
 
+/**
+ * @brief Represents the power states of the TCM.
+ */
 enum TcmPowerState {
-	STATE_POWER_DEFAULT,
-	STATE_POWER_ON,
-	STATE_POWER_DOWN,
+	STATE_POWER_DEFAULT,	/**< Default power state */
+	STATE_POWER_ON,		/**< Power on state */
+	STATE_POWER_DOWN,	/**< Power down state */
 };
 
+/**
+ * @brief Identifies the TCM banks.
+ */
 enum TcmBankId {
-	TCM_0_A,
-	TCM_0_B,
-	TCM_1_A,
-	TCM_1_B,
+	TCM_0_A,	/**< TCM bank 0, section A */
+	TCM_0_B,	/**< TCM bank 0, section B */
+	TCM_1_A,	/**< TCM bank 1, section A */
+	TCM_1_B,	/**< TCM bank 1, section B */
 };
 
+/**
+ * @brief Identifies the processor devices.
+ */
 enum ProcDeviceId {
-	ACPU_0,
-	ACPU_1,
-	RPU0_0,
-	RPU0_1,
-	PROC_DEV_MAX,
+	ACPU_0,		/**< Application CPU 0 */
+	ACPU_1,		/**< Application CPU 1 */
+	RPU0_0,		/**< Real-time Processing Unit 0, core 0 */
+	RPU0_1,		/**< Real-time Processing Unit 0, core 1 */
+	PROC_DEV_MAX,	/**< Maximum number of processor devices */
 };
 
 /* Power control and wakeup Handler Table Structure */
