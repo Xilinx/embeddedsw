@@ -53,6 +53,8 @@
 #define SSIT_TOP_SLR_1 1U
 #define SSIT_TOP_SLR_2 2U
 
+#define XPM_RFCOM_HOUSECLEAN_LONG_WAIT_US 20U
+
 static XCframe CframeIns={0}; /* CFRAME Driver Instance */
 static XCfupmc CfupmcIns={0}; /* CFU Driver Instance */
 static volatile u32 PlpdHouseCleanBypass = 0;
@@ -1146,6 +1148,14 @@ static XStatus DacScanClear(const u32 *DacAddresses, u32 ArrLen, u32 PollTimeOut
 		/* Unlock PCSR */
 		XPm_UnlockPcsr(DacAddresses[i]);
 
+		/* set TEST_SAFE bit*/
+		Status = XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PCSR_MASK_TEST_SAFE_MASK,
+				DAC_NPI_PCSR_MASK_TEST_SAFE_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DAC_TEST_SAFE_SET;
+			goto done;
+		}
+
 		/* Trigger Scan Clear */
 		Status = XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
 				DAC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
@@ -1154,6 +1164,9 @@ static XStatus DacScanClear(const u32 *DacAddresses, u32 ArrLen, u32 PollTimeOut
 			goto done;
 		}
 	}
+
+	/* Wait 20us */
+	usleep(XPM_RFCOM_HOUSECLEAN_LONG_WAIT_US);
 
 	/* Wait for ScanClear done and check ScanClear PASS for each DAC */
 	for (i = 0U; i < ArrLen; i++) {
@@ -1174,6 +1187,13 @@ static XStatus DacScanClear(const u32 *DacAddresses, u32 ArrLen, u32 PollTimeOut
 				(XPm_In32(DacAddresses[i] + NPI_PCSR_STATUS_OFFSET) & DAC_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK)) {
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_PASS;
 			Status = XST_FAILURE;
+			goto done;
+		}
+
+		/* unset TEST_SAFE bit*/
+		Status = XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PCSR_MASK_TEST_SAFE_MASK, 0U);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DAC_TEST_SAFE_UNSET;
 			goto done;
 		}
 	}
@@ -1211,6 +1231,14 @@ static XStatus AdcScanClear(const u32 *AdcAddresses, u32 ArrLen, u32 PollTimeOut
 		/* Unlock PCSR */
 		XPm_UnlockPcsr(AdcAddresses[i]);
 
+		/* set TEST_SAFE bit */
+		Status = XPm_PcsrWrite(AdcAddresses[i], ADC_NPI_PCSR_MASK_TEST_SAFE_MASK,
+				ADC_NPI_PCSR_MASK_TEST_SAFE_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_ADC_TEST_SAFE_SET;
+			goto done;
+		}
+
 		/* Trigger Scan Clear */
 		Status = XPm_PcsrWrite(AdcAddresses[i], ADC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
 				ADC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
@@ -1219,6 +1247,9 @@ static XStatus AdcScanClear(const u32 *AdcAddresses, u32 ArrLen, u32 PollTimeOut
 			goto done;
 		}
 	}
+
+	/* Wait 20us */
+	usleep(XPM_RFCOM_HOUSECLEAN_LONG_WAIT_US);
 
 	/* Wait for ScanClear done and check ScanClear PASS for each ADC */
 	for (i = 0U; i < ArrLen; i++) {
@@ -1239,6 +1270,13 @@ static XStatus AdcScanClear(const u32 *AdcAddresses, u32 ArrLen, u32 PollTimeOut
 				(XPm_In32(AdcAddresses[i] + NPI_PCSR_STATUS_OFFSET) & ADC_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK)) {
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_PASS;
 			Status = XST_FAILURE;
+			goto done;
+		}
+
+		/* unset TEST_SAFE bit */
+		Status = XPm_PcsrWrite(AdcAddresses[i], ADC_NPI_PCSR_MASK_TEST_SAFE_MASK, 0U);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_ADC_TEST_SAFE_UNSET;
 			goto done;
 		}
 	}
