@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,8 @@
  * 1.3   sd   03/03/21    Doxygen Fixes
  * 1.4   sd   23/06/21    Fix MISRA-C warnings
  * 1.6   kpt  03/16/22    Added shared memory API's for IPI utilization
+ * 1.11  ht   11/12/24    Update description of MsgLen
+ *
  *</pre>
  *
  *@note
@@ -66,7 +68,7 @@ u32 XMailbox_Send(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking)
  * @param InstancePtr Pointer to the XMailbox instance
  * @param RemoteId is the Mask of the CPU to which IPI is to be triggered
  * @param BufferPtr is the pointer to Buffer which contains the message to be sent
- * @param MsgLen is the length of the buffer/message
+ * @param MsgLen is the number of messages (each message is 4bytes)
  * @param BufferType is the type of buffer (XILMBOX_MSG_TYPE_REQ (OR)
  *	  XILMBOX_MSG_TYPE_RESP)
  * @param Is_Blocking if set trigger the notification in blocking mode
@@ -107,7 +109,7 @@ u32 XMailbox_SendData(XMailbox *InstancePtr, u32 RemoteId, void *BufferPtr,
  * @param SourceId is the Mask for the CPU which has sent the message
  * @param BufferPtr is the pointer to Buffer to which the read message needs
  *	  to be stored
- * @param MsgLen is the length of the buffer/message
+ * @param MsgLen is the number of messages (each message is 4bytes)
  * @param BufferType is the type of buffer (XILMBOX_MSG_TYPE_REQ or
  *	  XILMBOX_MSG_TYPE_RESP)
  *

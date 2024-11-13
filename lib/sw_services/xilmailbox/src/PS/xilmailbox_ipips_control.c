@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.8   ht   07/24/23    Restructure the code for more modularity.
  * 1.9   sd   11/23/23    Clear the interrupts after calling the user handler.
+ * 1.11  ht   11/12/24    Update description of MsgLen
  *
  *  *</pre>
  *
@@ -122,7 +123,7 @@ u32 XIpiPs_Send(XMailbox *InstancePtr, u8 Is_Blocking)
  * @param InstancePtr Pointer to the XMailbox instance
  * @param MsgBufferPtr is the pointer to Buffer which contains the message to
  *        be sent
- * @param MsgLen is the length of the buffer/message
+ * @param MsgLen is the number of messages (each message is 4bytes)
  * @param BufferType is the type of buffer
  * @param Is_Blocking if set trigger the notification in blocking mode
  *
@@ -164,7 +165,7 @@ u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr,
  * @param InstancePtr Pointer to the XMailbox instance
  * @param MsgBufferPtr is the pointer to Buffer to which the read message needs
  *        to be stored
- * @param MsgLen is the length of the buffer/message
+ * @param MsgLen is the number of messages (each message is 4bytes)
  * @param BufferType is the type of buffer
  *
  * @return
