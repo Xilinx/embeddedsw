@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,6 +50,7 @@
  *	 ht   05/30/23	  Added support for system device-tree flow.
  * 1.9   ht   09/12/23	  Added code for versioning of library.
  *	 sd   11/23/23	  Clear the interrupts after calling the user handler.
+ * 1.11  ht   11/12/24    Update description of XMAILBOX_MAX_MSG_LEN
  *
  *</pre>
  *
@@ -74,7 +75,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XILMBOX_MSG_TYPE_REQ	(0x00000001U) /**< Message type buffer */
 #define XILMBOX_MSG_TYPE_RESP	(0x00000002U) /**< Response type buffer */
-#define XMAILBOX_MAX_MSG_LEN	8U     /**< Maximum message length */
+#define XMAILBOX_MAX_MSG_LEN	8U     /**< Maximum number of Messages (each 4-bytes long) */
 
 /**
  * Payload lengths
