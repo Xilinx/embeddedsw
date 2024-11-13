@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,8 @@
 * 2.10	sd	07/14/21	Fix a unused label warning
 * 2.12	sd	03/29/22	Make the message pointer in XIpiPsu_WriteMessage constant
 * 2.14	ht	06/13/23	Restructured the code for more modularity
+* 2.17	ht	11/08/24	Update description of Msglength for XIpiPsu_ReadMessage
+* 				and XIpiPsu_WriteMessage.
 * </pre>
 *
 *****************************************************************************/
@@ -194,7 +196,7 @@ XStatus XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask,
  * @param 	InstancePtr Pointer to current IPI instance
  * @param 	SrcCpuMask Device Mask for the CPU which has sent the message
  * @param 	MsgPtr Pointer to Buffer to which the read message needs to be stored
- * @param 	MsgLength Length of the buffer/message
+ * @param 	MsgLength Number of messages (each message is 4bytes)
  * @param 	BufferType Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)
  *
  * @return	XST_SUCCESS if successful
@@ -251,7 +253,7 @@ END:
  * @param	InstancePtr Pointer to current IPI instance
  * @param	DestCpuMask Device Mask for the destination CPU
  * @param	MsgPtr Pointer to Buffer which contains the message to be sent
- * @param	MsgLength Length of the buffer/message
+ * @param	MsgLength Number of messages (each message is 4bytes)
  * @param	BufferType Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)
  *
  * @return	XST_SUCCESS if successful

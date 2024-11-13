@@ -10,7 +10,7 @@
 * @addtogroup ipipsu_api IPIPSU APIs
 * @{
 *
-* The xipipsu_hw.h file contains macro definitions for low level Harware related
+* The xipipsu_hw.h file contains macro definitions for low level Hardware related
 * params.
 *
 * <pre>
@@ -25,7 +25,8 @@
 * 2.12  sd   02/24/22 Added support for VERSAL NET
 *       sd   05/05/22 Added xparameters.h
 * 2.14  sd   07/27/23 Update the target count
-* 2.26  ma   09/10/24 Updated to support VERSAL_AIEPG2 platform
+* 2.16  ma   09/10/24 Updated to support VERSAL_AIEPG2 platform
+* 2.17  ht   11/08/24 Update description of XIPIPSU_MSG_BUF_SIZE
 *
 * </pre>
 *
@@ -50,7 +51,7 @@ extern "C" {
 #else
 #define XIPIPSU_MSG_RAM_BASE 0xFF990000U  /**< IPI Message RAM base address */
 #endif
-#define XIPIPSU_MSG_BUF_SIZE 8U	/**< Size in Words */
+#define XIPIPSU_MSG_BUF_SIZE 8U	/**< Buffer size for up to 8 messages, each 4-bytes long */
 #define XIPIPSU_MAX_BUFF_INDEX	7U /**< Maximum Buffer Index */
 
 /* EIGHT pairs of TWO buffers(msg+resp) of THIRTY TWO bytes each */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *                   CR-965028.
 *
 * 2.14  ht  05/30/23 Added support for system device-tree flow.
+* 2.17  ht  11/08/24 Update description of TEST_MSG_LEN.
 * </pre>
 *
 ******************************************************************************/
@@ -58,7 +59,7 @@
 #ifndef SDT
 #define TEST_CHANNEL_ID	XPAR_XIPIPSU_0_DEVICE_ID
 #endif
-/* Test message length in words. Max is 8 words (32 bytes) */
+/* Number of messages (each message is 4bytes). Max number of messages is 8 */
 #define TEST_MSG_LEN	8
 /* Interrupt Controller device ID */
 #ifndef SDT
