@@ -59,6 +59,7 @@
 *       ng   07/02/2024 Removed dependency on xilplmi library
 *       kpt  10/25/2024 Add SMAP_BUS_WIDTH_LENGTH while calculationg optional data
 *                       start address
+* 1.11  kpt  11/05/2024 Add XilPdi_ReadOptionalData to read optional data
 *
 * </pre>
 *
@@ -361,7 +362,6 @@ END:
 int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
 {
 	int Status = XST_FAILURE;
-	u64 OptionalDataStartAddress;
 
 	/**
 	 * Clear 2KB PMC RAM which is allocated to store IHT OPTIONAL DATA
@@ -380,6 +380,29 @@ int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
 		XilPdi_Printf("Device Copy Failed \n\r");
 		goto END;
 	}
+
+	Status = XilPdi_ReadOptionalData(MetaHdrPtr, PdiType);
+
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function reads optional data in Image Header Table.
+*
+* @param	MetaHdrPtr is pointer to MetaHeader table.
+* @param    PdiType    is PDI type
+*
+* @return
+* 			- XST_SUCCESS on successful read.
+* 			- XST_FAILURE on unsuccessful copy.
+*
+*****************************************************************************/
+int XilPdi_ReadOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
+{
+	int Status = XST_FAILURE;
+	u64 OptionalDataStartAddress;
 
 	/**
 	 * - Read the IHT Optional data from Metaheader
