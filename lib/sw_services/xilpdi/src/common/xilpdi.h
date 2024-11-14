@@ -68,6 +68,7 @@
 *       dd   08/11/2023 Updated doxygen comments
 *       kpt  12/04/2023 Move XilPdi_BootHdr to platform specific files
 *       am   03/02/2024 Added IsAuthOptimized variable in XilPdi_MetaHdr structure
+* 1.11  kpt  11/05/2024 Add XilPdi_ReadOptionalData to read optional data
 *
 * </pre>
 *
@@ -575,6 +576,7 @@ int XilPdi_ValidateChecksum(const void *Buffer, u32 Length);
 XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent(u32 PrtnNum, u32 HashTableSize);
 int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr);
 u64 XilPdi_SearchOptionalData(u64 StartAddress, u64 EndAddress, u32 DataId);
+int XilPdi_ReadOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType);
 
 /** @} */
 #ifdef __cplusplus
