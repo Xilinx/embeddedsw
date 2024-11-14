@@ -177,6 +177,7 @@
 *       mb   08/10/2024 Added support for loading cdo after secure boot.
 *       pre  10/03/2024 Clearing GSW error after PDI loading
 *       obs  09/30/2024 Fixed Doxygen Warnings
+* 1.09  kpt  11/05/2024 Fixed issue in reading optional data
 *
 * </pre>
 *
@@ -2219,8 +2220,14 @@ static int XLoader_ClearKeys(XilPdi * PdiPtr)
 int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr, u64 SrcAddr, u64 DestAddr, u32 DestSize)
 {
 	int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	u32 IdString;
 	u64 MetaHdrOfst;
+
+	Status = Xil_SMemSet(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	IdString = XPlmi_In64(SrcAddr + XIH_BH_IMAGE_IDENT_OFFSET);
 	if (IdString == XIH_BH_IMAGE_IDENT) {
@@ -2246,9 +2253,8 @@ int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr
 
 	/** Check if Metaheader offset is pointing to a valid location */
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER) {
-		MetaHdrOfst = SrcAddr + (u64)XPlmi_In64(SrcAddr +
-				XIH_BH_META_HDR_OFFSET);
-
+		PdiPtr->MetaHdr.MetaHdrOfst = XPlmi_In64(SrcAddr + XIH_BH_META_HDR_OFFSET);
+		MetaHdrOfst = SrcAddr + (u64)PdiPtr->MetaHdr.MetaHdrOfst;
 		Status = XPlmi_VerifyAddrRange(MetaHdrOfst, MetaHdrOfst +
 				(XPLMI_WORD_LEN - 1U));
 		if (Status != XST_SUCCESS) {
@@ -2264,11 +2270,44 @@ int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr
 	}
 
 	PdiPtr->IpiMask = Cmd->IpiMask;
-	/** Extract Metaheader using PdiInit */
-	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
-			XLOADER_PDI_SRC_DDR, SrcAddr);
+	if ((Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX] &
+		XLOADER_GET_OPT_DATA_FLAG) != XLOADER_GET_OPT_DATA_FLAG) {
+		/** Extract Metaheader using PdiInit */
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
+				XLOADER_PDI_SRC_DDR, SrcAddr);
+	}
+	else {
+		/* Extract optional data */
+		Status = DeviceOps[XLOADER_DDR_INDEX].Init(PdiPtr->PdiType);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		/**
+		 * - Get the device copy function for the given boot mode.
+	         */
+		PdiPtr->MetaHdr.FlashOfstAddr = SrcAddr;
+		PdiPtr->MetaHdr.DeviceCopy = DeviceOps[XLOADER_DDR_INDEX].Copy;
+		PdiPtr->MetaHdr.DmaCopy = XPlmi_MemCpy64;
+		Status = XilPdi_ReadImgHdrTbl(&PdiPtr->MetaHdr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = XilPdi_ValidateChecksum(&PdiPtr->MetaHdr.ImgHdrTbl, XIH_IHT_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = XilPdi_ReadOptionalData(&PdiPtr->MetaHdr, PdiPtr->PdiType);
+	}
 
 END:
+	SStatus = DeviceOps[XLOADER_DDR_INDEX].Release();
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
+
 	return Status;
 }
 
