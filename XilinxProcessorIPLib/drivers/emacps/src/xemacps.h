@@ -414,8 +414,9 @@ extern "C" {
 /**< Enable the TX checksum offload
  *   This option defaults to enabled (set) */
 
-#define XEMACPS_JUMBO_ENABLE_OPTION	0x00004000U
-#define XEMACPS_SGMII_ENABLE_OPTION	0x00008000U
+#define XEMACPS_JUMBO_ENABLE_OPTION	        0x00004000U
+#define XEMACPS_SGMII_ENABLE_OPTION	        0x00008000U
+#define XEMACPS_GIGABIT_MODE_ENABLE_OPTION	0x00010000U
 
 #define XEMACPS_DEFAULT_OPTIONS                     \
 	((u32)XEMACPS_FLOW_CONTROL_OPTION |                  \
@@ -546,6 +547,7 @@ typedef struct {
  */
 typedef struct XEmacPs_Instance {
 	XEmacPs_Config Config;	/* Hardware configuration */
+	u32 IsHighSpeed;    /* Device is High Speed 10G */
 	u32 IsStarted;		/* Device is currently started */
 	u32 IsReady;		/* Device is initialized and ready */
 	u32 Options;		/* Current options word */

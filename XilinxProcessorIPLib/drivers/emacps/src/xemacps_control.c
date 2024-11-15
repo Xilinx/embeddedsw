@@ -522,11 +522,13 @@ LONG XEmacPs_SetOptions(XEmacPs *InstancePtr, u32 Options)
 					XEMACPS_HDR_VLAN_SIZE;
 		InstancePtr->RxBufMask = XEMACPS_RXBUF_LEN_JUMBO_MASK;
 	}
-
 	if (((Options & XEMACPS_SGMII_ENABLE_OPTION) != 0x00000000U) &&
-		(InstancePtr->Version > 2)) {
-		RegNewNetCfg |= (XEMACPS_NWCFG_SGMIIEN_MASK |
-						XEMACPS_NWCFG_PCSSEL_MASK);
+		(InstancePtr->Version > 2) ) {
+		if(InstancePtr->IsHighSpeed)
+			/* Enable Gigabit mode for 1G+ Speeds */
+			RegNewNetCfg |= XEMACPS_NWCFG_1000_MASK;
+		else
+			RegNewNetCfg |= (XEMACPS_NWCFG_PCSSEL_MASK | XEMACPS_NWCFG_SGMIIEN_MASK);
 	}
 
 	/* Officially change the NET_CONFIG registers if it needs to be
@@ -690,10 +692,11 @@ LONG XEmacPs_ClearOptions(XEmacPs *InstancePtr, u32 Options)
 
 	if (((Options & XEMACPS_SGMII_ENABLE_OPTION) != 0x00000000U) &&
 		(InstancePtr->Version > 2)) {
-		RegNewNetCfg &= (u32)(~(XEMACPS_NWCFG_SGMIIEN_MASK |
-						XEMACPS_NWCFG_PCSSEL_MASK));
-	}
-
+		if(InstancePtr->IsHighSpeed)
+			RegNewNetCfg &= (u32)(~XEMACPS_NWCFG_1000_MASK);
+		else
+			RegNewNetCfg &= (u32)(~(XEMACPS_NWCFG_PCSSEL_MASK | XEMACPS_NWCFG_SGMIIEN_MASK));
+        }
 	/* Officially change the NET_CONFIG registers if it needs to be
 	 * modified.
 	 */
