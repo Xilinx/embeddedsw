@@ -71,8 +71,11 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-#define EMACPS_LOOPBACK_SPEED    100	/* 100Mbps */
-#define EMACPS_LOOPBACK_SPEED_1G 1000	/* 1000Mbps */
+#define EMACPS_LOOPBACK_SPEED    	100	/* 100Mbps */
+#define EMACPS_LOOPBACK_SPEED_1G 	1000	/* 1000Mbps */
+#define EMACPS_LOOPBACK_SPEED_2_5G 	2500	/* 5000Mbps */
+#define EMACPS_LOOPBACK_SPEED_5G 	5000	/* 5000Mbps */
+#define EMACPS_LOOPBACK_SPEED_10G 	10000	/* 10000Mbps */
 #define EMACPS_PHY_DELAY_SEC     4	/* Amount of time to delay waiting on
 					   PHY to reset */
 #define EMACPS_SLCR_DIV_MASK	0xFC0FC0FF
