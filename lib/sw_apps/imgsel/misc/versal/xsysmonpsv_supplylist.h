@@ -11,7 +11,7 @@
 #define XSYSMONPSV_SUPPLYLIST
 
 #ifdef __cplusplus
-extern "c" {
+extern "C" {
 #endif
 
 /*

@@ -35,7 +35,7 @@
 #define __XLWIPCONFIG_H_
 
 #ifdef __cplusplus
-extern "c" {
+extern "C" {
 #endif
 
 /* This is a generated file - do not edit */

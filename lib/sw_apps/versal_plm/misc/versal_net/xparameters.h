@@ -7,7 +7,7 @@
 #define XPARAMETERS_H   /* by using protection macros */
 
 #ifdef __cplusplus
-extern "c" {
+extern "C" {
 #endif
 
 #define XPAR_CPU_ID 4U
