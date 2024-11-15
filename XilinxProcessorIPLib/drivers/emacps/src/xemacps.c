@@ -40,6 +40,7 @@
 /***************************** Include Files *********************************/
 
 #include "xemacps.h"
+#include "xemacps_pcs.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -152,6 +153,7 @@ LONG XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
 ******************************************************************************/
 void XEmacPs_Start(XEmacPs *InstancePtr)
 {
+	u32 IntrMasks;
 	u32 Reg;
 	u8 i;
 
@@ -207,10 +209,13 @@ void XEmacPs_Start(XEmacPs *InstancePtr)
 		}
 	}
 
-	/* Enable TX and RX interrupts */
-	XEmacPs_IntEnable(InstancePtr, (XEMACPS_IXR_TX_ERR_MASK |
-			  XEMACPS_IXR_RX_ERR_MASK | (u32)XEMACPS_IXR_FRAMERX_MASK |
-			  (u32)XEMACPS_IXR_TXCOMPL_MASK));
+        /* Enable TX and RX interrupts */
+	IntrMasks = (u32)XEMACPS_IXR_TX_ERR_MASK | (u32)XEMACPS_IXR_RX_ERR_MASK |
+	      (u32)XEMACPS_IXR_FRAMERX_MASK | (u32)XEMACPS_IXR_TXCOMPL_MASK;
+	if (InstancePtr->IsHighSpeed)
+		IntrMasks |=  (u32)XEMACPS_IXR_USXGMII_MASK;
+
+	XEmacPs_IntEnable(InstancePtr, IntrMasks);
 
 	/* Enable TX & RX Interrupts of all queues */
 	for (i=1; i < InstancePtr->MaxQueues; i++)
@@ -309,9 +314,10 @@ void XEmacPs_Stop(XEmacPs *InstancePtr)
 ******************************************************************************/
 void XEmacPs_Reset(XEmacPs *InstancePtr)
 {
+	s8 EmacPs_zero_MAC[6] = { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };
+	u32 nw_ctrl, nw_cfg;
 	u32 Reg;
 	u8 i;
-	s8 EmacPs_zero_MAC[6] = { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
@@ -321,8 +327,9 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	InstancePtr->Options = XEMACPS_DEFAULT_OPTIONS;
 
 	InstancePtr->Version = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, 0xFC);
-
 	InstancePtr->Version = (InstancePtr->Version >> 16) & 0xFFF;
+
+	InstancePtr->IsHighSpeed = XEmacPs_IsHighSpeedPCS(InstancePtr->Config.BaseAddress);
 
 	InstancePtr->MaxMtuSize = XEMACPS_MTU;
 	InstancePtr->MaxFrameSize = XEMACPS_MTU + XEMACPS_HDR_SIZE +
@@ -339,27 +346,42 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 		InstancePtr->MaxQueues += get_num_set_bits(Reg & 0xFF);
 	}
 
+	nw_ctrl  = XEMACPS_NWCTRL_STATCLR_MASK;
+	nw_ctrl |= XEMACPS_NWCTRL_MDEN_MASK;
+	nw_ctrl &= (u32)(~XEMACPS_NWCTRL_LOOPEN_MASK);
+	if(InstancePtr->IsHighSpeed)
+		nw_ctrl |= XEMACPS_BIT(ENABLE_HS_MAC);
+
 	/* Setup hardware with default values */
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-			XEMACPS_NWCTRL_OFFSET,
-			(XEMACPS_NWCTRL_STATCLR_MASK |
-			XEMACPS_NWCTRL_MDEN_MASK) &
-			(u32)(~XEMACPS_NWCTRL_LOOPEN_MASK));
+			XEMACPS_NWCTRL_OFFSET,nw_ctrl);
 
-	Reg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+	nw_cfg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XEMACPS_NWCFG_OFFSET);
-	Reg &= XEMACPS_NWCFG_MDCCLKDIV_MASK;
-
-	Reg = Reg | (u32)XEMACPS_NWCFG_100_MASK |
-			(u32)XEMACPS_NWCFG_FDEN_MASK |
-			(u32)XEMACPS_NWCFG_UCASTHASHEN_MASK;
+	nw_cfg &= XEMACPS_NWCFG_MDCCLKDIV_MASK;
+	nw_cfg |= (u32)XEMACPS_NWCFG_FDEN_MASK;
+	nw_cfg |= (u32)XEMACPS_NWCFG_UCASTHASHEN_MASK;
+	if(InstancePtr->IsHighSpeed) {
+		nw_cfg |= (u32)XEMACPS_NWCFG_PCSSEL_MASK;
+		/* Enable Gigabit mode for 1G+ Speeds */
+		nw_cfg |= (u32)XEMACPS_NWCFG_1000_MASK;
+	} else {
+		nw_cfg |= (u32)XEMACPS_NWCFG_100_MASK;
+	}
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
-					XEMACPS_NWCFG_OFFSET, Reg);
+				XEMACPS_NWCFG_OFFSET, nw_cfg);
+
 	if (InstancePtr->Version > 2) {
-		XEmacPs_WriteReg(InstancePtr->Config.BaseAddress, XEMACPS_NWCFG_OFFSET,
-			(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress, XEMACPS_NWCFG_OFFSET) |
-				XEMACPS_NWCFG_DWIDTH_64_MASK));
+			nw_cfg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+									XEMACPS_REG(NWCFG));
+			if(InstancePtr->IsHighSpeed)
+				nw_cfg |= XEMACPS_NWCFG_DWIDTH_128_MASK;
+			else
+				nw_cfg |= XEMACPS_NWCFG_DWIDTH_64_MASK;
+
+			XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+							XEMACPS_REG(NWCFG), nw_cfg);
 	}
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
@@ -386,6 +408,9 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 #endif
 			(u32)XEMACPS_DMACR_INCR16_AHB_BURST));
 	}
+
+	if (InstancePtr->IsHighSpeed)
+		XEmacPs_SetupPCS(InstancePtr);
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 			   XEMACPS_TXSR_OFFSET, XEMACPS_SR_ALL_MASK);
