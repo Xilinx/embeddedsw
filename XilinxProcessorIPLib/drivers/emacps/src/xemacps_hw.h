@@ -685,6 +685,21 @@ typedef enum { TXQIBASE = 0U, RXQIBASE, DMA_RXQI_BUFSIZE,
 #define XEmacPs_WriteReg(BaseAddress, RegOffset, Data) \
     XEmacPs_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data))
 
+#define XEMACPS_REG(name)      XEMACPS_##name##_OFFSET
+#define XEMACPS_BIT(name)      ((u32)0x1U << (XEMACPS_##name##_OFFSET))
+#define XEMACPS_BF(name, value)\
+       (((value) & (((u32)0x1U << XEMACPS_##name##_SIZE) - (u32)0x1U)) \
+        << XEMACPS_##name##_OFFSET)
+#define XEMACPS_BFEXT(name, value)\
+       (((value) >> XEMACPS_##name##_OFFSET)           \
+        & ((1 << XEMACPS_##name##_SIZE) - 1))
+#define XEMACPS_BFINS(name, value, old)\
+       (((old) & ~(((1 << XEMACPS_##name##_SIZE) - 1)  \
+                   << XEMACPS_##name##_OFFSET))                    \
+        | XEMACPS_BF(name, value))
+
+
+
 /************************** Function Prototypes *****************************/
 /*
  * Perform reset operation to the emacps interface
