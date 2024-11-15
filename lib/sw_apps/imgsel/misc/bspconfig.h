@@ -8,7 +8,7 @@
 #define BSPCONFIG_H  /* by using protection macros */
 
 #ifdef __cplusplus
-extern "c" {
+extern "C" {
 #endif
 
 #define MICROBLAZE_PVR_NONE

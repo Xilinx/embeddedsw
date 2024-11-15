@@ -35,7 +35,7 @@
 #define __LWIPOPTS_H_
 
 #ifdef __cplusplus
-extern "c" {
+extern "C" {
 #endif
 
 #ifndef PROCESSOR_LITTLE_ENDIAN

@@ -18,7 +18,7 @@
 #define _XFPGA_CONFIG_H
 
 #ifdef __cplusplus
-extern "c" {
+extern "C" {
 #endif
 
 #include <xilfpga_pcap_common.h>

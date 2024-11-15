@@ -7,7 +7,7 @@
 #define XPARAMETERS_H   /* by using protection macros */
 
 #ifdef __cplusplus
-extern "c" {
+extern "C" {
 #endif
 
 /* Definition for CPU ID */
