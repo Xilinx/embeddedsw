@@ -2700,7 +2700,6 @@ static XStatus XPm_AddNodeMonitor(const u32 *Args, u32 NumArgs)
 	if ((((u32)XPM_NODETYPE_MONITOR_SYSMON_PMC != NodeType) &&
 	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_PS != NodeType) &&
 	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_CPM5N != NodeType) &&
-	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_MMI != NodeType) &&
 	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_NPD != NodeType)) ||
 	    ((u32)XPM_NODEIDX_MONITOR_MAX <= NODEINDEX(NodeId))) {
 		Status = XST_INVALID_PARAM;

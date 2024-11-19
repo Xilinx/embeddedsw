@@ -47,9 +47,6 @@
 #include "xpm_debug.h"
 #include "xpm_pldevice.h"
 #include "xpm_powerdomain.h"
-#include "xpm_mmidomain.h"
-#include "xpm_ispdomain.h"
-#include "xpm_vcudomain.h"
 #include "xpm_aie.h"
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
@@ -513,8 +510,6 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 
 	case (u32)XPM_NODEIDX_POWER_NOC:
 	case (u32)XPM_NODEIDX_POWER_PLD:
 	case (u32)XPM_NODEIDX_POWER_ME2:
-	case (u32)XPM_NODEIDX_POWER_VCU:
-	case (u32)XPM_NODEIDX_POWER_ISP:
 		Status = XPmPowerDomain_InitDomain(PwrDomainNode, Function,
 						   Args, NumArgs);
 		break;
@@ -766,9 +761,6 @@ XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
 	u32 ParentId;
 	XPm_Power *PowerParent = NULL;
 	XPm_AieDomain *AieDomain;
-	XPm_MmiDomain *MmiDomain;
-	XPm_IspDomain *IspDomain;
-	XPm_VcuDomain *VcuDomain;
 
 	/* Warning Fix */
 	(void)NumArgs;
@@ -798,30 +790,6 @@ XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
 		}
 		Status = XPmAieDomain_Init(AieDomain, PowerId, BitMask, PowerParent,
 				&Args[3U], (NumArgs - 3U));
-		break;
-	case (u32)XPM_NODETYPE_POWER_DOMAIN_MMI:
-		MmiDomain = (XPm_MmiDomain *)XPm_AllocBytes(sizeof(XPm_MmiDomain));
-		if (NULL == MmiDomain) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-		Status = XPmMmiDomain_Init(MmiDomain, PowerId, 0U, PowerParent);
-		break;
-	case (u32)XPM_NODETYPE_POWER_DOMAIN_VCU:
-		VcuDomain = (XPm_VcuDomain *)XPm_AllocBytes(sizeof(XPm_VcuDomain));
-		if (NULL == VcuDomain) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-		Status = XPmVcuDomain_Init(VcuDomain, PowerId, 0U, PowerParent);
-		break;
-	case (u32)XPM_NODETYPE_POWER_DOMAIN_ISP:
-		IspDomain = (XPm_IspDomain *)XPm_AllocBytes(sizeof(XPm_IspDomain));
-		if (NULL == IspDomain) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-		Status = XPmIspDomain_Init(IspDomain, PowerId, 0U, PowerParent);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
