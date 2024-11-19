@@ -59,6 +59,7 @@
 * 10.0  ng   09/25/24 Fix prints to print device ID returned from XFsbl_GetSiliconIdName
 * 10.1  sd   10/03/24 Initialize WDT before Board Init function
 * 10.2  ng   10/15/24 Change print format for unknown device and handle KRIA K24 SOM
+* 10.3  sd   11/19/24 Skip WDT for jtag bootmode
 *
 * </pre>
 *
@@ -275,6 +276,9 @@ static u32 XFsbl_GetResetReason (void)
 u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 {
 	u32 Status;
+#ifdef XFSBL_WDT_PRESENT
+	u32 BootMode;
+#endif
 #ifdef XFSBL_ENABLE_DDR_SR
 	u32 RegValue;
 #endif
@@ -323,19 +327,28 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 		goto END;
 	}
 
-	/**
-	 * Initialize the WDT drivers
-	 */
 #ifdef XFSBL_WDT_PRESENT
-	/*
-	 * Skip watching over APU using WDT during APU only restart
-	 * as PMU will watchover APU
-	 */
-	if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
-		Status = XFsbl_InitWdt();
-		if (XFSBL_SUCCESS != Status) {
-			XFsbl_Printf(DEBUG_GENERAL,"WDT initialization failed \n\r");
-			goto END;
+	/**
+	 * Read Boot Mode register
+	*/
+	BootMode = XFsbl_In32(CRL_APB_BOOT_MODE_USER) &
+		CRL_APB_BOOT_MODE_USER_BOOT_MODE_MASK;
+
+	/**
+	 * Skip WDT Init for Jtag bootmode
+	*/
+	if(BootMode != XFSBL_JTAG_BOOT_MODE) {
+		/*
+		* Initialize the WDT drivers, Skip watching over
+		* APU using WDT during APU only restart
+		* as PMU will watchover APU
+		*/
+		if (XFSBL_MASTER_ONLY_RESET != FsblInstancePtr->ResetReason) {
+			Status = XFsbl_InitWdt();
+			if (XFSBL_SUCCESS != Status) {
+				XFsbl_Printf(DEBUG_GENERAL,"WDT initialization failed \n\r");
+				goto END;
+			}
 		}
 	}
 #endif
