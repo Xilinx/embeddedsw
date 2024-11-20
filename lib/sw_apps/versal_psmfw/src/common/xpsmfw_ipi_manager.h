@@ -69,7 +69,7 @@ XStatus XPsmfw_IpiManagerInit(void);
  * @note	None
  *
  ****************************************************************************/
-XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask);
+XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask, u8 *IsIpiAcked);
 
 /****************************************************************************/
 /**

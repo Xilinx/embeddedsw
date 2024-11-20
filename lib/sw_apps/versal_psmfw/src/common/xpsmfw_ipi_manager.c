@@ -75,7 +75,7 @@ Done:
  * @note	None
  *
  ****************************************************************************/
-XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
+XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask, u8 *IsIpiAcked)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[XPSMFW_IPI_MAX_MSG_LEN] = {0};
@@ -91,7 +91,7 @@ XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
 	if (XST_SUCCESS != Status) {
 		XPsmFw_Printf(DEBUG_ERROR, "Failure to read IPI msg\r\n");
 	} else {
-		XPsmFw_ProcessIpi(&Payload[0], &Response[0]);
+		XPsmFw_ProcessIpi(&Payload[0], &Response[0], IsIpiAcked);
 
 		Status = XPsmFw_IpiSendResponse(IPI_PSM_IER_PMC_MASK, Response);
 	}
@@ -159,9 +159,10 @@ XStatus XPsmfw_IpiManagerInit(void)
  * @note	None
  *
  ****************************************************************************/
-XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask)
+XStatus XPsmFw_DispatchIpiHandler(u32 SrcMask, u8 *IsIpiAcked)
 {
 	(void)SrcMask;
+	(void)IsIpiAcked;
 
 	return XST_FAILURE;
 }

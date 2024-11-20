@@ -117,7 +117,7 @@ enum XPmInitFunctions {
 };
 
 XStatus XPsmFw_NotifyPlmEvent(void);
-void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response);
+void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response, u8 *IsIpiAcked);
 
 /**
  *
