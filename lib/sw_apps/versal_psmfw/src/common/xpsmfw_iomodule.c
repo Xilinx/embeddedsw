@@ -48,6 +48,7 @@ static void XPsmFw_InterruptIpiHandler(void)
 {
 	u32 Mask;
 	XStatus Status = XST_FAILURE;
+	u8 IsIpiAcked = 0U;
 
 	Mask = XPsmFw_Read32(IPI_PSM_ISR);
 
@@ -58,14 +59,16 @@ static void XPsmFw_InterruptIpiHandler(void)
 	}
 
 #if defined(XPAR_XIPIPSU_0_DEVICE_ID) || defined(XPAR_XIPIPSU_0_BASEADDR)
-	Status = XPsmFw_DispatchIpiHandler(IPI_PSM_ISR_PMC_MASK);
+	Status = XPsmFw_DispatchIpiHandler(IPI_PSM_ISR_PMC_MASK, &IsIpiAcked);
 #else
 	XPsmFw_Printf(DEBUG_ERROR, "PSM IPI channel is not enabled\r\n");
 #endif
 
 done:
-	/*Clear PSM IPI ISR */
-	XPsmFw_Write32(IPI_PSM_ISR, Mask);
+	if (0U == IsIpiAcked) {
+		/*Clear PSM IPI ISR if not cleared earlier */
+		XPsmFw_Write32(IPI_PSM_ISR, Mask);
+	}
 
 	if (XST_SUCCESS != Status) {
 		XPsmFw_Printf(DEBUG_ERROR, "Error in handling IPI interrupt\r\n");

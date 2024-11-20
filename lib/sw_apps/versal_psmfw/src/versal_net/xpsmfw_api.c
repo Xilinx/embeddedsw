@@ -184,7 +184,7 @@ done:
  * @note	None
  *
  ****************************************************************************/
-void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response)
+void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response, u8 *IsIpiAcked)
 {
 	XStatus Status = XST_FAILURE;
 	u32 ApiId = Payload[0];
@@ -198,6 +198,7 @@ void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response)
 			break;
 		case PSM_API_KEEP_ALIVE:
 			Status = XPsmFw_KeepAliveEvent();
+			*IsIpiAcked = 1U;
 			break;
 		case PSM_API_GET_PSM_TO_PLM_EVENT_ADDR:
 			XPsmFw_GetPsmToPlmEventAddr(&Response[1]);
