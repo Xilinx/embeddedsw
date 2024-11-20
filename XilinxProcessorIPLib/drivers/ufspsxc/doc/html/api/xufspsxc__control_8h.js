@@ -1,0 +1,25 @@
+var xufspsxc__control_8h =
+[
+    [ "XUFSPSXC_LOWLEVEL_H_", "xufspsxc__control_8h.html#ga281e93b3445e60af8166923832e56789", null ],
+    [ "XUfsPsxc_CardInitialize", "xufspsxc__control_8h.html#gafa5f97c1a585f348eb57d7cfa82b5080", null ],
+    [ "XUfsPsxc_ConfigureTxRxAttributes", "xufspsxc__control_8h.html#ga9d5217db85b9198686faa9f2dabd07b4", null ],
+    [ "XUfsPsxc_EnableMPhy", "xufspsxc__control_8h.html#ga46c30f50e646ad1e1a080ef88b80eb70", null ],
+    [ "XUfsPsxc_FillAttrUpiu", "xufspsxc__control_8h.html#ga88763b7077bb9b4880c84156663dc1cb", null ],
+    [ "XUfsPsxc_FillDescUpiu", "xufspsxc__control_8h.html#gac6c05905f6fcef83ac0da3b72887164b", null ],
+    [ "XUfsPsxc_FillFlagUpiu", "xufspsxc__control_8h.html#ga4f01785053f7c891ffceab509d137b1e", null ],
+    [ "XUfsPsxc_FillNopOutUpiu", "xufspsxc__control_8h.html#ga033076869a57d47e1742f555bb6a0276", null ],
+    [ "XUfsPsxc_FillReadCmdUpiu", "xufspsxc__control_8h.html#ga12ee1bec882160b1a0f4d273ad4af0e3", null ],
+    [ "XUfsPsxc_FillTestUnitRdyUpiu", "xufspsxc__control_8h.html#gafd68bf712ad71a509ba5e9715d8b2827", null ],
+    [ "XUfsPsxc_FillWriteCmdUpiu", "xufspsxc__control_8h.html#ga3c13cdebf8362d85f77b3b15fe52d2c3", null ],
+    [ "XUfsPsxc_GetLUNInfo", "xufspsxc__control_8h.html#ga353f784dcc8a50185ea407bc0dcb4768", null ],
+    [ "XUfsPsxc_HostInitialize", "xufspsxc__control_8h.html#gae0db9d094adbe197913f6c107e0f02ef", null ],
+    [ "XUfsPsxc_PhyInit", "xufspsxc__control_8h.html#ga2c5da410d2eefa54129eb56efb13bc3f", null ],
+    [ "XUfsPsxc_ProcessUpiu", "xufspsxc__control_8h.html#ga5c93689c07193dfa1a85d9b093596b0e", null ],
+    [ "XUfsPsxc_ReadDeviceInfo", "xufspsxc__control_8h.html#ga029d0b5ef73c6cd4daaf455d82afbd57", null ],
+    [ "XUfsPsxc_ReadPhyReg", "xufspsxc__control_8h.html#ga35add787c05c073b7b1a404d54425f78", null ],
+    [ "XUfsPsxc_SendUICCmd", "xufspsxc__control_8h.html#ga3466d6c88ad459aef56d2d686ff077c8", null ],
+    [ "XUfsPsxc_Set4KBlkSize", "xufspsxc__control_8h.html#ga13fea34df11f07626308ad42623497ff", null ],
+    [ "XUfsPsxc_SetHce", "xufspsxc__control_8h.html#ga9d2af8ff970bc14578e9b35d1969d460", null ],
+    [ "XUfsPsxc_SetRmmiConfig", "xufspsxc__control_8h.html#ga186554489b15b12e4d3e6d07669f317f", null ],
+    [ "XUfsPsxc_WritePhyReg", "xufspsxc__control_8h.html#ga506adfb0eda2bedee784c7abee535397", null ]
+];
