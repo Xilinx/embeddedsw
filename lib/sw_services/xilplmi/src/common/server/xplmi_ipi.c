@@ -88,6 +88,8 @@
  *       pre  10/07/2024 Executing invalid command handler registered for SEM module
  *                       irrespective of SLR index field
  *       ma   09/23/2024 Added support for PSM to PLM IPI event handler
+ *       jb   11/13/2024 Updated logic to ack IPI interrupts earlier instead of
+ *			 ack after handling events
  *
  * </pre>
  *
@@ -342,6 +344,11 @@ static int XPlmi_PsmIpiDispatchHandler(void *Data)
 	static const XPlmi_ModuleCmd *PsmStlModuleCmd = NULL;
 #endif
 
+	if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
+		/* Clear PSM IPI interrupt */
+		XPlmi_Out32(IPI_PMC_ISR, IPI_PMC_ISR_PSM_BIT_MASK);
+	}
+
 	if ((u32)Data != IPI_PSM_BUFFER_INDEX) {
 		Status = (int)XPlMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK;
 		goto END;
@@ -385,8 +392,7 @@ static int XPlmi_PsmIpiDispatchHandler(void *Data)
 
 END:
 	if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
-		/* Clear and enable PSM IPI interrupt */
-		XPlmi_Out32(IPI_PMC_ISR, IPI_PMC_ISR_PSM_BIT_MASK);
+		/* Enable PSM IPI interrupt */
 		XPlmi_Out32(IPI_PMC_IER, IPI_PMC_ISR_PSM_BIT_MASK);
 	}
 
