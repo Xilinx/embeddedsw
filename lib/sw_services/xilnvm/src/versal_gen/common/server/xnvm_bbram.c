@@ -33,6 +33,7 @@
 * 3.1   skg  10/23/2022 Added In body comments for APIs
 * 3.4   pre  09/11/2024 Removed zeroization before writing key
 *       ng   09/20/2024 Fixed doxygen grouping
+* 3.5   pre  11/21/2024 Removed zeroization before writing key
 *
 * </pre>
 *
@@ -164,15 +165,6 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	 * Assign the key address to local pointer.
 	 */
 	AesKey = (const u32 *) Key;
-
-	/**
-	 * As per hardware design, zeroization is must between two BBRAM
-	 * AES CRC Check requests.
-	 */
-	ZeroizeStatus = XNvm_BbramZeroize();
-	if (ZeroizeStatus != XST_SUCCESS) {
-		goto END;
-	}
 
         /**
 	 *  Bring BBRAM to programming mode by writing Magic Word 0x757BDF0D to PGM_MODE register.
@@ -353,7 +345,7 @@ int XNvm_BbramZeroize(void)
 	/**
 	 * Write 1 to BBRAM_CTRL register.
 	 * Wait for BBRAM_ZEROIZED bit to set in BBRAM_STATUS register with timeout of 1 second.
-	 * If timed out return timout error. Return XST_SUCCESS.
+	 * If timed out return timeout error. Return XST_SUCCESS.
 	 */
 	XNvm_BbramWriteReg(XNVM_BBRAM_CTRL_REG, XNVM_BBRAM_CTRL_START_ZEROIZE);
 	Status = (int)Xil_WaitForEvent((UINTPTR)(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG),
@@ -385,7 +377,7 @@ static inline int XNvm_BbramEnablePgmMode(void)
 	/**
 	 * Write PassCode 0x757BDF0DU to BBRAM_PGM_MODE register to enable programming mode.
          * Wait for BBRAM_PGM_MODE_DONE bit to set in BBRAM_STATUS register with timeout of 1 second.
-	 * If timed out return timout error else Return XST_SUCCESS.
+	 * If timed out return timeout error else Return XST_SUCCESS.
          */
 	XNvm_BbramWriteReg(XNVM_BBRAM_PGM_MODE_REG,
 	                   XNVM_EFUSE_PGM_MODE_PASSCODE);
