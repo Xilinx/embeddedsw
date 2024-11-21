@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *       kal     05/12/20 Adds Zeroization before every BBRAM write.
 * 2.1	am	10/10/20 Changed function return type and type of
 *			 status variable from u32 to int
+*       pre     11/21/24 Added zeroization before writing key
 *
 * </pre>
 *
@@ -135,6 +136,11 @@ static int BbramWriteAesKey(void)
 	/* Convert key given in macro and assign it to the variable */
 	Xil_ConvertStringToHexLE((char *)XNVM_BBRAM_AES_KEY,
 				AesKey, XNVM_BBRAM_AES_KEY_LEN_IN_BITS);
+
+	Status = XNvm_BbramZeroize();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Write AES key to BBRAM */
 	Status = XNvm_BbramWriteAesKey(AesKey,

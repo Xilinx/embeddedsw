@@ -27,6 +27,7 @@
 * 3.1   skg     10/04/22 Added API to set SlrIndex
 * 3.2   ng      07/05/23 added support for system device tree flow
 *       pre     09/11/24 Removed SSIT support for this example
+*       pre     11/21/24 Added zeroization before writing key
 *
 * </pre>
 *
@@ -182,6 +183,11 @@ int main(void)
 			XNVM_SHARED_MEM_SIZE);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n shared memory initialization failed");
+		goto END;
+	}
+
+	Status = XNvm_BbramZeroize(&NvmClientInstance);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
