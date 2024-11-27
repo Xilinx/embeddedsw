@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
+ * 1.01  ng   11/05/24 Add boot time measurements
  * </pre>
  *
  ******************************************************************************/
@@ -53,6 +54,9 @@
 
 #define XPLM_PMC_GLOBAL_FW_ERR_CR_NCR_MASK	(PMC_GLOBAL_PMCL_EAM_ERR_OUT1_EN_PMC_FW_NCR_ERR_MASK | PMC_GLOBAL_PMCL_EAM_ERR_OUT1_EN_PMC_FW_CR_ERR_MASK)
 /** @endcond */
+
+#define XPLM_PMC_IRO_FREQ_HZ		((u32)510000000U)
+#define XPLM_PMC_IRO_FREQ_MHZ		(XPLM_PMC_IRO_FREQ_HZ / XPLM_MEGA)
 
 /**************************** Type Definitions *******************************/
 
@@ -101,7 +105,6 @@ static void XPlm_ExceptionInit(void)
  *****************************************************************************/
 static void XPlm_ExceptionHandler(void *Data)
 {
-	// print mcause register, implement it in assembly
 	XPlm_Printf(DEBUG_PRINT_ALWAYS, "Received Exception\r\n mcause: 0x%08x\r\n", csrr(mcause));
 
 	/** - Log the PLM error with the received input param "Data" as error and loop infinitely */
@@ -172,6 +175,150 @@ static void XPlm_PrintBanner(void)
 
 /*****************************************************************************/
 /**
+ * @brief	This function returns pointer to IO module instance.
+ *
+ * @return	Pointer to IO Module instance.
+ *
+ *****************************************************************************/
+XIOModule *XPlm_GetIOModuleInst(void)
+{
+	static XIOModule IOModule;
+	return &IOModule;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This functions returns the operating frequency of PMCL.
+ *
+ * @return
+ * 		- IRO frequency of PMC in Hz.
+ *
+ *****************************************************************************/
+u32 XPlm_PmcIroFreq(void)
+{
+	u32 IroClkDiv;
+
+	IroClkDiv = Xil_In32(PMC_GLOBAL_PMCL_MAIN_IRO_CLK_CTRL);
+	IroClkDiv &= PMC_GLOBAL_PMCL_MAIN_IRO_CLK_CTRL_DIVISOR_MASK;
+	IroClkDiv >>= PMC_GLOBAL_PMCL_MAIN_IRO_CLK_CTRL_DIVISOR_SHIFT;
+
+	return (XPLM_PMC_IRO_FREQ_HZ / IroClkDiv);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function captures the 32-bit timer count from both PIT1 & PIT2 and
+ * returns the timer count as 64-bit value.
+ *
+ * @return	Returns 64 bit timer value
+ *
+ ******************************************************************************/
+u64 XPlm_GetTimerValue(void)
+{
+	u64 TimerValue;
+	u64 TPit1;
+	u32 TPit2;
+	XIOModule *IOModule = XPlm_GetIOModuleInst();
+
+	TPit1 = XIOModule_GetValue(IOModule, (u8)XPLM_PIT1);
+	TPit2 = XIOModule_GetValue(IOModule, (u8)XPLM_PIT2);
+
+	/*
+	 * Pit1 starts at 0 and preload the full value
+	 * after pit2 expires. So, recasting TPit1 0 value
+	 * to highest so that u64 comparison works for
+	 * Tpit1 0 and TPit1 0xfffffffe
+	 */
+	if (TPit1 == 0U) {
+		TPit1 = XPLM_PIT1_CYCLE_VALUE;
+	}
+
+	TimerValue = (TPit1 << 32U) | (u64)TPit2;
+
+	return TimerValue;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function prints the total time taken between two points for performance
+ * measurement.
+ *
+ * @param	TCur is the current time
+ * @param	TStart is the start time
+ * @param	IroFreq is the frequency at which PMC IRO is running in MHz
+ * @param	PerfTime is the pointer to variable holding the performance time
+ *
+ *****************************************************************************/
+void XPlm_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq, XPlm_PerfTime *PerfTime)
+{
+	u64 PerfUs;
+	u64 TDiff = TCur - TStart;
+	u32 PmcIroFreqMHz = IroFreq / XPLM_MEGA;
+
+	/* Convert TPerf into microseconds */
+	PerfUs = TDiff / (u64)PmcIroFreqMHz;
+	PerfTime->TPerfMsFrac = PerfUs % (u64)XPLM_KILO;
+	PerfTime->TPerfMs = PerfUs / (u64)XPLM_KILO;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function prints the ROM time.
+ *
+ *****************************************************************************/
+void XPlm_PrintRomTime(void)
+{
+	u64 PmcRomTime;
+	XPlm_PerfTime PerfTime;
+
+	/* Get PMC ROM time */
+	PmcRomTime = (u64)Xil_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE0);
+	PmcRomTime |= (u64)Xil_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1) << 32U;
+
+	/* Print time stamp of PLM */
+	XPlm_GetPerfTime(((u64)XPLM_PIT1_CYCLE_VALUE << 32U) | XPLM_PIT2_CYCLE_VALUE, PmcRomTime,
+			 XPlm_PmcIroFreq(), &PerfTime);
+	XPlm_Printf(DEBUG_PRINT_ALWAYS, "%u.%03u ms: ROM Time\r\n",
+		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function prints the PLM time.
+ *
+ *****************************************************************************/
+void XPlm_PrintPlmTime(void)
+{
+	u64 PmcRomTime;
+	XPlm_PerfTime PerfTime;
+	u32 TPit1;
+	u32 TPit2;
+	u64 TCur;
+
+	TPit1 = Xil_In32(RV_IOMODULE_PIT1_COUNTER);
+	TPit2 = Xil_In32(RV_IOMODULE_PIT2_COUNTER);
+
+	/* Get PMC ROM time */
+	PmcRomTime = (u64)Xil_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE0);
+	PmcRomTime |= (u64)Xil_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1) << 32U;
+
+	Xil_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2, TPit2);
+	Xil_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE3, TPit1);
+
+	if (TPit1 == XPLM_ZERO) {
+		TPit1 = XPLM_PIT1_CYCLE_VALUE;
+	}
+
+	TCur = ((u64)TPit1 << 32U) | TPit2;
+
+	/* Print time stamp of PLM */
+	XPlm_GetPerfTime(PmcRomTime, TCur, XPlm_PmcIroFreq(), &PerfTime);
+	XPlm_Printf(DEBUG_PRINT_ALWAYS, "%u.%03u ms: PLM Time\r\n",
+		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
+}
+
+/*****************************************************************************/
+/**
  * @brief	Perform Pre-Boot initialization tasks for Exceptions, RTCA,
  * Log buffer, and CDO commands handlers.
  *
@@ -191,6 +338,7 @@ u32 XPlm_Init(void)
 	/** - Enable EAM error outs for PMC FW CR and NCR errors. */
 	XPlm_UtilRMW(PMC_GLOBAL_PMCL_EAM_ERR_OUT1_EN, XPLM_PMC_GLOBAL_FW_ERR_CR_NCR_MASK,
 		     XPLM_PMC_GLOBAL_FW_ERR_CR_NCR_MASK);
+
 	/** - Initialize exceptions. */
 	XPlm_ExceptionInit();
 	Xil_AssertSetCallback(XPlm_PrintAssertInfo);

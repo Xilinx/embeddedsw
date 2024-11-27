@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
+ * 1.01  ng   11/05/24 Add boot time measurements
  * </pre>
  *
  ******************************************************************************/
@@ -65,6 +66,8 @@ u32 main(void)
 	}
 
 	XPlm_Printf(DEBUG_PRINT_ALWAYS, "PLM Boot Done\n\r");
+	XPlm_PrintPlmTime();
+	XPlm_PrintRomTime();
 
 	/** - Perform Post-Boot configuration. */
 	Status = (u32)XPLM_ERR_GLITCH_DETECTED;

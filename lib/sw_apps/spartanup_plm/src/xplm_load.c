@@ -8,7 +8,7 @@
  *
  * @file xplm_load.c
  *
- * This is the file which contains code loading of PDI.
+ * This file contains definitions for PDI loading and processing..
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -17,6 +17,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  bm   05/31/24 Initial release
  *       ng   09/17/24 Updated minor error mask for secure rom load api
+ * 1.01  ng   11/05/24 Add boot time measurements
  * </pre>
  *
  ******************************************************************************/
@@ -40,6 +41,7 @@
 #include "xplm_qspi.h"
 #include "xplm_hw.h"
 #include "xplm_error.h"
+#include "xplm_init.h"
 
 /************************** Constant Definitions *****************************/
 /** @cond spartanup_plm_internal */
@@ -294,6 +296,8 @@ u32 XPlm_LoadPartialPdi(void)
 	XRomBootRom *InstancePtr = HooksTbl->InstancePtr;
 	u32 WidthDetect;
 	u32 SbiFifoRemainingDataLen;
+	u64 TStart, TCur;
+	XPlm_PerfTime PerfTime;
 
 	/**
 	 * - Read one word from SBI FIFO buffer, if it matches with 0x665599AA, then proceed.
@@ -320,6 +324,8 @@ u32 XPlm_LoadPartialPdi(void)
 	}
 
 	XPlm_LogPlmStage(XPLM_PPDI_EVENT_STAGE);
+
+	TStart = XPlm_GetTimerValue();
 
 	/** - Clear CR bit in FW_ERR register. */
 	XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_CR_MASK, XPLM_ZERO);
@@ -398,7 +404,11 @@ u32 XPlm_LoadPartialPdi(void)
 		goto END;
 	}
 
+	TCur = XPlm_GetTimerValue();
 	XPlm_Printf(DEBUG_GENERAL, "Partial PDI Loaded Successfully\n\r");
+	XPlm_GetPerfTime(TStart, TCur, XPlm_PmcIroFreq(), &PerfTime);
+	XPlm_Printf(DEBUG_PRINT_ALWAYS, "%u.%03u ms: PLM Time\r\n",
+		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 
 END:
 	return Status;

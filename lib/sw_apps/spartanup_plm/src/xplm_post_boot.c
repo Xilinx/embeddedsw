@@ -14,6 +14,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
+ * 1.01  ng   11/05/24 Add boot time measurements
  * </pre>
  *
  ******************************************************************************/
@@ -36,13 +37,16 @@
 #include "xplm_status.h"
 #include "xplm_dma.h"
 #include "xplm_load.h"
+#include "xplm_init.h"
 
 /************************** Constant Definitions *****************************/
+/** @cond spartanup_plm_internal */
 #ifndef SDT
 	#define XPLM_IOMODULE_DEVICE	XPAR_IOMODULE_0_DEVICE_ID
 #else
 	#define XPLM_IOMODULE_DEVICE	XPAR_XIOMODULE_0_BASEADDR
 #endif // !SDT
+/** @endcond */
 
 /**************************** Type Definitions *******************************/
 
@@ -54,6 +58,7 @@ static void XPlm_SetRunTimeEvent(const u32 Event);
 static void XPlm_ClearRunTimeEvent(const u32 Event);
 static void XPlm_EnableIntrSbiDataRdy(void);
 static u32 XPlm_IntrInit(void);
+static void XPlm_TimerInit(void);
 /************************** Variable Definitions *****************************/
 static volatile u32 RunTimeEvents = 0x0U; /**< To store the current Run Time event state. */
 
@@ -71,35 +76,66 @@ static volatile u32 RunTimeEvents = 0x0U; /**< To store the current Run Time eve
 static u32 XPlm_IntrInit(void)
 {
 	u32 Status = (u32)XST_FAILURE;
-	static XIOModule IOModule;
+	XIOModule *IOModule = XPlm_GetIOModuleInst();
 
-	/** - Initialize the IO Module. */
-	Status = XIOModule_Initialize(&IOModule, XPLM_IOMODULE_DEVICE);
+	/** - Initialize IO Module. */
+	Status = XIOModule_Initialize(IOModule, XPLM_IOMODULE_DEVICE);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_IO_MOD_INIT;
 		goto END;
 	}
 
 	riscv_disable_interrupts();
+
 	/**
 	 * - Register the SBI RDY interrupt to enable the PDI loading from
 	 * SBI interface.
 	 */
-	(void)XIOModule_Connect(&IOModule, 17U, XPlm_SbiLoadPdi, (void *)0U);
+	(void)XIOModule_Connect(IOModule, XPLM_SBI_INTERRUPT_ID, XPlm_SbiLoadPdi, (void *)0U);
+
 	/*
 	 * Register the IO module interrupt handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 				     (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
 				     (void *)0);
+
 	/** - Enable SBI data RDY interrupt. */
 	XPlm_EnableIntrSbiDataRdy();
-	/** - Enable the interrupt to receive interrupts for SBI RDY. */
-	XIOModule_Enable(&IOModule, 17U);
-	riscv_enable_interrupts();
 
+	/** - Enable the interrupt to receive interrupts for SBI RDY. */
+	XIOModule_Enable(IOModule, XPLM_SBI_INTERRUPT_ID);
+	riscv_enable_interrupts();
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function configures PIT2 as prescalar for PIT1, sets the reset values and
+ * starts the timers.
+ *
+ *****************************************************************************/
+static void XPlm_TimerInit(void)
+{
+	XIOModule *IOModule = XPlm_GetIOModuleInst();
+
+	/** - Configure PIT2 as prescaler for PIT1. */
+	Xil_Out32(RV_IOMODULE_GPO1, RV_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
+
+	/**
+	 * - Set reset values of PIT1 to @ref XPLM_PIT1_RESET_VALUE and PIT2 to
+	 * @ref XPLM_PIT2_RESET_VALUE.
+	 */
+	XIOModule_SetResetValue(IOModule, XPLM_PIT1, XPLM_PIT1_RESET_VALUE);
+	XIOModule_SetResetValue(IOModule, XPLM_PIT2, XPLM_PIT2_RESET_VALUE);
+
+	/** - Configure PIT2 to auto reolad to reset value. */
+	XIOModule_Timer_SetOptions(IOModule, XPLM_PIT2, XTC_AUTO_RELOAD_OPTION);
+
+	/** - Start both PIT1 and PIT2 timers. */
+	XIOModule_Timer_Start(IOModule, XPLM_PIT1);
+	XIOModule_Timer_Start(IOModule, XPLM_PIT2);
 }
 
 /*****************************************************************************/
@@ -195,7 +231,15 @@ u32 XPlm_PostBoot(void)
 			     SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK | SLAVE_BOOT_SBI_CTRL_ENABLE_MASK, SecBootInterf);
 	}
 
+	/** - Initialize interrupts. */
 	Status = XPlm_IntrInit();
+	if (Status != XST_SUCCESS)
+	{
+		goto END;
+	}
+
+	/** - Initialize timers. */
+	XPlm_TimerInit();
 END:
 	return Status;
 }

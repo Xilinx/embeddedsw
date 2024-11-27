@@ -14,6 +14,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   07/31/24 Initial release
+ * 1.01  ng   11/05/24 Add boot time measurements
  * </pre>
  *
  ******************************************************************************/
@@ -29,6 +30,9 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 #define XPLM_SBI_BUF_ADDR	(0x0U)
+
+/* Interrupt ID for SBI */
+#define	XPLM_SBI_INTERRUPT_ID	(17U)
 
 /* SBI interface types */
 #define XPLM_SBI_IF_JTAG        (0x001U)
@@ -78,8 +82,18 @@ extern "C" {
 #define XPLM_RTCFG_OSPI_PHY_MODE_SHIFT          (0x9U)
 #define XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_SHIFT	(0x1U)
 
+/* Addresses for RV_IOMODULE */
+#define RV_IOMODULE_BASEADDR                    (0x04040000U)
+#define RV_IOMODULE_GPO1                        (RV_IOMODULE_BASEADDR + 0x10U)
+#define RV_IOMODULE_PIT1_COUNTER                (RV_IOMODULE_BASEADDR + 0x44U)
+#define RV_IOMODULE_PIT2_COUNTER                (RV_IOMODULE_BASEADDR + 0x54U)
+
+/* Masks for RV_IOMODULE */
+#define RV_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK (0x2U)
+
 /* Addresses for PMC GLOBAL */
 #define PMC_GLOBAL_BASEADDR                     (0x040A0000U)
+#define PMC_GLOBAL_PMCL_MAIN_IRO_CLK_CTRL       (PMC_GLOBAL_BASEADDR + 0x30U)
 #define PMC_GLOBAL_OSPI_CLK_CTRL                (PMC_GLOBAL_BASEADDR + 0x38U)
 #define PMC_GLOBAL_RST_PMCL                     (PMC_GLOBAL_BASEADDR + 0x50U)
 #define PMC_GLOBAL_RST_OSPI                     (PMC_GLOBAL_BASEADDR + 0x58U)
@@ -87,6 +101,10 @@ extern "C" {
 #define PMC_GLOBAL_RST_CCU                      (PMC_GLOBAL_BASEADDR + 0x60U)
 #define PMC_GLOBAL_BOOT_MODE_USER               (PMC_GLOBAL_BASEADDR + 0x7CU)
 #define PMC_GLOBAL_SSS_CFG                      (PMC_GLOBAL_BASEADDR + 0x90U)
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE0		(PMC_GLOBAL_BASEADDR + 0xA0U)
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE1		(PMC_GLOBAL_BASEADDR + 0xA4U)
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE2		(PMC_GLOBAL_BASEADDR + 0xA8U)
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE3		(PMC_GLOBAL_BASEADDR + 0xACU)
 #define PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0       (PMC_GLOBAL_BASEADDR + 0xC0U)
 #define PMC_GLOBAL_MULTI_BOOT                   (PMC_GLOBAL_BASEADDR + 0x130U)
 #define PMC_GLOBAL_AUTH_STATUS                  (PMC_GLOBAL_BASEADDR + 0x144U)
@@ -104,6 +122,7 @@ extern "C" {
 #define PMC_GLOBAL_PUF_SYN_0			(PMC_GLOBAL_BASEADDR + 0x1F368U)
 
 /* Masks for PMC GLOBAL */
+#define PMC_GLOBAL_PMCL_MAIN_IRO_CLK_CTRL_DIVISOR_MASK (0x00000F00U)
 #define PMC_GLOBAL_OSPI_CLK_CTRL_CLKACT_MASK    (0x02000000U)
 #define PMC_GLOBAL_OSPI_CLK_CTRL_DIVISOR_MASK   (0x00003F00U)
 #define PMC_GLOBAL_OSPI_CLK_CTRL_SRCSEL_MASK    (0x00000001U)
@@ -121,6 +140,7 @@ extern "C" {
 #define PMC_GLOBAL_RST_CCU_RESET_DEFVAL	(XPLM_ZERO)
 
 /* Shifts for PMC GLOBAL */
+#define PMC_GLOBAL_PMCL_MAIN_IRO_CLK_CTRL_DIVISOR_SHIFT (8U)
 #define PMC_GLOBAL_OSPI_CLK_CTRL_DIVISOR_SHIFT  (8U)
 #define PMC_GLOBAL_PMCL_EAM_IRQ1_EN_CCU_TAMPER_FABRIC_SHIFT	(0x7U)
 
