@@ -23,6 +23,7 @@
 * 1.0   yog    08/19/24 Initial Release
 *       ss     09/19/24 Added print for client init failure
 *       am     09/24/24 Added SDT support
+*       yog    11/27/24 Handling the error returned from server
 *
 * </pre>
  *************************************************************************************************/
@@ -74,7 +75,8 @@ static const u8 PubKey[] __attribute__ ((section (".data.PubKey"))) = {
 
 static u8 Sign[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES] __attribute__ ((section (".data.Sign")));
 
-static u8 Notify = 0; /**< To notify the call back from client library */
+volatile u8 Notify = 0U; /**< To notify the call back from client library. */
+volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned from server. */
 
 /************************************ Function Definitions ***************************************/
 
@@ -113,6 +115,7 @@ int main(void)
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EccCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
+	ErrorStatus = XST_FAILURE;
 	EccParams.CurveType = CurveType;
 	EccParams.DigestAddr = (u64)(UINTPTR)Hash;
 	EccParams.KeyAddr = (u64)(UINTPTR)PrivKey;
@@ -126,6 +129,9 @@ int main(void)
 	}
 	while(!Notify);
 	Notify = 0;
+	if (ErrorStatus != XST_SUCCESS) {
+		goto END;
+	}
 
 	xil_printf("\r\n Generated Sign: ");
 	for (Index = 0; Index < XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES; Index++) {
@@ -136,6 +142,7 @@ int main(void)
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EccCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
+	ErrorStatus = XST_FAILURE;
 	EccParams.CurveType = CurveType;
 	EccParams.DigestAddr = (u64)(UINTPTR)Hash;
 	EccParams.KeyAddr = (u64)(UINTPTR)PubKey;
@@ -144,11 +151,17 @@ int main(void)
 	EccParams.KeyLen = CurveLength;
 
 	Status = XAsu_EccVerifySign(&ClientParams, &EccParams);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	while(!Notify);
+	Notify = 0;
 
 END:
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n ECC client example failed with Status = %08x", Status);
+	} else if (ErrorStatus != XST_SUCCESS) {
+		xil_printf("\r\n ECC client example failed with error from server = %08x", ErrorStatus);
 	} else {
 		xil_printf("\r\n Successfully ran ECC client example ");
 	}
@@ -167,11 +180,11 @@ END:
  * 			- Error code from ASUFW application upon any error
  *
  *************************************************************************************************/
-  static void XAsu_EccCallBackRef(void *CallBackRef, u32 Status)
- {
+static void XAsu_EccCallBackRef(void *CallBackRef, u32 Status)
+{
 	(void)CallBackRef;
 
-	xil_printf("Recieved response from library with Status = %x\n\r", Status);
+	ErrorStatus = Status;
 	/* Update the variable to notify the callback */
 	Notify = 1U;
- }
+}
