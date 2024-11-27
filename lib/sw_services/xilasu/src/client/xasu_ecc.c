@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   yog  08/19/24 Initial release
  *       yog  09/26/24 Added doxygen grouping and fixed doxygen comments.
+ *       yog  11/27/24 Included input parameters validation.
  *
  * </pre>
  *
@@ -40,6 +41,7 @@
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsu_EccValidateCurveType(u32 CurveType);
+static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -72,12 +74,7 @@ s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParam
 		goto END;
 	}
 
-	if (EccParamsPtr == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if (XAsu_EccValidateCurveType(EccParamsPtr->CurveType) != XST_SUCCESS) {
+	if (XAsu_ValidateEccParameters(EccParamsPtr) != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -127,12 +124,7 @@ s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccPa
 		goto END;
 	}
 
-	if (EccParamsPtr == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if (XAsu_EccValidateCurveType(EccParamsPtr->CurveType) != XST_SUCCESS) {
+	if (XAsu_ValidateEccParameters(EccParamsPtr) != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -218,6 +210,41 @@ static s32 XAsu_EccValidateCurveType(u32 CurveType)
 		Status = XST_SUCCESS;
 	}
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the input ECC parameters.
+ *
+ * @param	EccParamsPtr	Pointer to XAsu_EccParams structure which holds the parameters of
+ * 				ECC input arguments.
+ *
+ * @return
+ * 	- XST_SUCCESS upon successful validation.
+ * 	- XASU_INVALID_ARGUMENT, upon invalid arguments.
+ *
+ *************************************************************************************************/
+static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr)
+{
+	s32 Status = XST_FAILURE;
+
+	if (EccParamsPtr == NULL) {
+		goto END;
+	}
+
+	if ((EccParamsPtr->DigestAddr == 0U) || (EccParamsPtr->KeyAddr == 0U) ||
+		(EccParamsPtr->SignAddr == 0U) || (EccParamsPtr->KeyLen != EccParamsPtr->DigestLen)) {
+		goto END;
+	}
+
+	if (XAsu_EccValidateCurveType(EccParamsPtr->CurveType) != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
 	return Status;
 }
 /** @} */
