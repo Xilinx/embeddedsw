@@ -30,6 +30,8 @@
 *			  all supported processors.
 * 1.8	ht	05/30/23  Added support for system device-tree flow.
 * 1.11	ht	11/12/24  Update description of TEST_MSG_LEN
+* 	ht	11/25/24  Update Message length to accommodate for CRC bytes when
+* 			  IPI CRC is enabled
 * </pre>
 *
 *
@@ -59,8 +61,16 @@
 #define REMOTE_CHANNEL_ID	XPAR_XIPIPSU_0_BIT_MASK
 #endif
 
+#ifdef ENABLE_IPI_CRC
+/*
+ * Subtracting 1 from the message length to accommodate for the CRC bytes when
+ * IPI CRC is enabled.
+ * */
+#define TEST_MSG_LEN	7
+#else
 /* Number of messages (each message is 4bytes). Max number of messages is 8 */
 #define TEST_MSG_LEN	8
+#endif
 
 /*****************************************************************************/
 XMailbox XMboxInstance;
