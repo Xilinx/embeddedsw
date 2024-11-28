@@ -45,6 +45,8 @@
  * 2.14 sd 07/27/23  Update the target count.
  * 2.15 ht 01/11/24  Add PMC, PSM bitmasks macros for versal-net
  * 2.16 ma 09/10/24  Updated to support VERSAL_AIEPG2 platform
+ * 2.17 ht 11/25/24  Update Max Message length to accommodate for CRC bytes
+ *                   when IPI CRC is enabled
  * </pre>
  *
  *****************************************************************************/
@@ -64,7 +66,6 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XIPIPSU_BUF_TYPE_MSG	(0x001U) /**< Message type buffer */
 #define XIPIPSU_BUF_TYPE_RESP	(0x002U) /**< Response buffer */
-#define XIPIPSU_MAX_MSG_LEN		XIPIPSU_MSG_BUF_SIZE /**< Maximum message length */
 #define XIPIPSU_CRC_INDEX		(0x7U) /**< Index where the CRC is stored */
 #define XIPIPSU_W0_TO_W6_SIZE	(28U)	       /**< Size of the word 0 to word 6 */
 
@@ -76,6 +77,16 @@ extern "C" {
 
 #if ENABLE_IPI_CRC_VAL
 #define ENABLE_IPI_CRC  /**< Enable CalculateCRC API*/
+#endif
+
+#ifdef ENABLE_IPI_CRC
+/*
+ * Subtracting 1 from the message length to accommodate for the CRC bytes when
+ * IPI CRC is enabled.
+ * */
+#define XIPIPSU_MAX_MSG_LEN             (XIPIPSU_MSG_BUF_SIZE-1)
+#else
+#define XIPIPSU_MAX_MSG_LEN		XIPIPSU_MSG_BUF_SIZE	/**< Maximum message length */
 #endif
 
 /*
