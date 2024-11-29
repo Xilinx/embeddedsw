@@ -1,0 +1,248 @@
+Name,CmdId,IPI5_MASK,IPI4_MASK,IPI3_MASK,IPI2_MASK,IPI1_MASK,IPI0_MASK,SSIT_EVENT_MASK,IPI_PSM_MASK,Category,Description
+plmi_features,0x100,3,3,3,3,3,3,0,3,IPI,Checks if an Api Id is valid for the plmi module
+mask_poll,0x101,0,0,0,0,0,0,0,0,CDO,Read a 32-bit address until expected value or timeout
+mask_write,0x102,0,0,0,0,0,0,0,0,CDO,Read Modify Write to specified 32-bit address with the specifed value and mask
+write,0x103,0,0,0,0,0,0,0,0,CDO,Write specified value to the 32-bit address specified
+delay,0x104,0,0,0,0,0,0,0,0,CDO,Delay in micro seconds
+dma_write,0x105,0,0,0,0,0,0,0,0,CDO,Dma transfer of data present in the payload to the specified destination address
+mask_poll64,0x106,0,0,0,0,0,0,0,0,CDO,Read a 64-bit address until expected value or timeout
+mask_write64,0x107,0,0,0,0,0,0,0,0,CDO,Read Modify Write to specified 32-bit address with the specifed value and mask
+write64,0x108,0,0,0,0,0,0,0,0,CDO,Write specified value to the 64-bit address specified
+dma_xfer,0x109,0,0,0,0,0,0,0,0,CDO,Dma transfer of data present in the specified source address to the destination address for the specified length
+init_seq,0x10a,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+cframe_read,0x10b,0,0,0,0,0,0,0,0,CDO,Readback of Cframe data
+set,0x10c,0,0,0,0,0,0,0,0,CDO,Memset of specified address range with specified value
+dma_write_key_hole,0x10d,0,0,0,0,0,0,0,0,CDO,DMA Keyhole transfer for the specified address range and size
+ssit_sync_master,0x10e,0,0,0,0,0,0,0,0,CDO,Sync with Master SLR
+ssit_sync_slaves,0x10f,0,0,0,0,0,0,0,0,CDO,Sync with Slaves SLR
+ssit_wait_slaves,0x110,0,0,0,0,0,0,0,0,CDO,Wait for Slave SLRs
+nop,0x111,0,0,0,0,0,0,0,0,CDO,No Operation
+get_device_id,0x112,3,3,3,3,3,3,0,3,IPI,Get device id value
+event_logging,0x113,1,1,1,1,1,1,0,1,IPI,Event logging operations
+set_board,0x114,0,0,0,0,0,0,0,0,CDO,Set Board Name
+get_board,0x115,3,3,3,3,3,3,0,3,IPI,Get Board Name
+set_wdt_param,0x116,0,0,0,0,0,0,0,0,CDO,Set WDT paramters
+log_string,0x117,0,0,0,0,0,0,0,0,CDO,Print the string present in payload
+log_address,0x118,0,0,0,0,0,0,0,0,CDO,Read and print the value present in the specified address location
+marker,0x119,0,0,0,0,0,0,0,0,CDO,"No Operation, used for CDO metadata"
+proc,0x11a,0,0,0,0,0,0,0,0,CDO,Defines a procedure consisting of CDO commands
+begin,0x11b,0,0,0,0,0,0,0,0,CDO,Begins a CDO block
+end,0x11c,0,0,0,0,0,0,0,0,CDO,Ends a CDO block
+break,0x11d,0,0,0,0,0,0,0,0,CDO,Breaks a CDO block by jumping to the specified end level
+ot_check,0x11e,0,0,0,0,0,0,0,0,CDO,Checks for OT condition and waits till it resolves
+psm_sequence,0x11f,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+inplace_plm_update,0x120,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+scatter_write,0x121,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+scatter_write2,0x122,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+tamper_trigger,0x123,1,1,1,1,1,1,0,1,IPI,Trigger Tamper Response
+set_fips_kat_mask,0x124,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+set_ipi_access,0x125,0,0,0,0,0,0,0,0,CDO,Sets Ipi Access permissions
+run_proc,0x126,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+list_set,0x127,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+list_write,0x128,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+list_mask_write,0x129,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+list_mask_poll,0x12a,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+configure_secure_communication,0x12b,3,3,3,3,3,3,0,3,IPI,Configures secure communication between master and slave SLR
+get_secure_communication_status,0x12d,3,3,3,3,3,3,0,3,IPI,Read secure communication status between master and slave SLR
+pm_get_api_version,0x201,3,3,3,3,3,3,0,3,IPI,Gives version number of the API
+pm_set_configuration,0x202,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_get_node_status,0x203,3,3,3,3,3,3,0,3,IPI,Obtains information about the current state of device
+pm_get_op_characteristic,0x204,3,3,3,3,3,3,0,3,IPI,Gets operating characteristics of a device
+pm_register_notifier,0x205,3,3,3,3,3,3,0,3,IPI,Register a subsystem to be notified about the device event
+pm_request_suspend,0x206,3,3,3,3,3,3,0,3,IPI,Send suspend request  to another subsystem
+pm_self_suspend,0x207,3,3,3,3,3,3,0,3,IPI,Suspend a child subsystem
+pm_force_powerdown,0x208,3,3,3,3,3,3,0,3,IPI,Powerdown other processor or domain node or subsystem forcefull
+pm_abort_suspend,0x209,3,3,3,3,3,3,0,3,IPI,Aborting suspend of a child subsystem.
+pm_request_wakeup,0x20a,3,3,3,3,3,3,0,3,IPI,Start-up and wake-up a child subsyste
+pm_set_wakeup_source,0x20b,3,3,3,3,3,3,0,3,IPI,Set wake up source
+pm_system_shutdown,0x20c,3,3,3,3,3,3,0,3,IPI,"Shutdown self or restart self, Ps or system"
+pm_request_node,0x20d,3,3,3,3,3,3,0,3,IPI,Request the usage of a device
+pm_release_node,0x20e,3,3,3,3,3,3,0,3,IPI,Release the usage of a device
+pm_set_requirement,0x20f,3,3,3,3,3,3,0,3,IPI,Announce a change in requirements for a specific device which is currently in use
+pm_set_max_latency,0x210,3,3,3,3,3,3,0,3,IPI,Set maximum allowed latency for the device
+pm_reset_assert,0x211,3,3,3,3,3,3,0,3,IPI,Reset or de-reset a device
+pm_reset_get_status,0x212,3,3,3,3,3,3,0,3,IPI,Reads the device reset state
+pm_mmio_write,0x213,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_mmio_read,0x214,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_init_finalize,0x215,3,3,3,3,3,3,0,3,IPI,Initializes subsystem and releases unused devices
+pm_fpga_load,0x216,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_fpga_get_status,0x217,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_get_chipid,0x218,3,3,3,3,3,3,0,3,IPI,Request the version and ID code of a chip
+pm_secure_rsa_aes,0x219,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_secure_sha,0x21a,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_secure_rsa,0x21b,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_pinctrl_request,0x21c,3,3,3,3,3,3,0,3,IPI,Requests the pin.
+pm_pinctrl_release,0x21d,3,3,3,3,3,3,0,3,IPI,Release the pin.
+pm_pinctrl_get_function,0x21e,3,3,3,3,3,3,0,3,IPI,Reads the pin function
+pm_pinctrl_set_function,0x21f,3,3,3,3,3,3,0,3,IPI,Sets the pin function
+pm_pinctrl_config_param_get,0x220,3,3,3,3,3,3,0,3,IPI,Reads the pin parameter value
+pm_pinctrl_config_param_set,0x221,3,3,3,3,3,3,0,3,IPI,Sets the pin parameter value
+pm_ioctl,0x222,3,3,3,3,3,3,0,3,IPI,Performs driver-like IOCTL functions on shared system device
+pm_query_data,0x223,3,3,3,3,3,3,0,3,IPI,Queries information about the platform resources
+pm_clock_enable,0x224,3,3,3,3,3,3,0,3,IPI,Enables the clock
+pm_clock_disable,0x225,3,3,3,3,3,3,0,3,IPI,Disables the clock
+pm_clock_getstate,0x226,3,3,3,3,3,3,0,3,IPI,Reads the clock state
+pm_clock_setdivider,0x227,3,3,3,3,3,3,0,3,IPI,Sets the divider value of the clock
+pm_clock_getdivider,0x228,3,3,3,3,3,3,0,3,IPI,Gets the divider value of the clock
+pm_clock_setrate,0x229,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_clock_getrate,0x22a,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_clock_setparent,0x22b,3,3,3,3,3,3,0,3,IPI,Sets the parent of the clock
+pm_clock_getparent,0x22c,3,3,3,3,3,3,0,3,IPI,Gets the parent of the clock
+pm_secure_image,0x22d,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_fpga_read,0x22e,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_secure_aes,0x22f,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_pll_set_parameter,0x230,3,3,3,3,3,3,0,3,IPI,Sets the parameter of PLL clock
+pm_pll_get_parameter,0x231,3,3,3,3,3,3,0,3,IPI,Gets the parameter of PLL clock
+pm_pll_set_mode,0x232,3,3,3,3,3,3,0,3,IPI,Sets the mode of PLL clock
+pm_pll_get_mode,0x233,3,3,3,3,3,3,0,3,IPI,Gets the mode of PLL clock
+pm_register_access,0x234,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_efuse_access,0x235,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_add_subsystem,0x236,0,0,0,0,0,0,0,0,CDO,Configures the platform resources for the new subsystem
+pm_destroy_subsystem,0x237,0,0,0,0,0,0,0,0,CDO,Releases all the resources of a subsystem
+pm_describe_nodes,0x238,0,0,0,0,0,0,0,0,CDO,Provides topology information
+pm_add_node,0x239,0,0,0,0,0,0,0,0,CDO,Allows adding node
+pm_add_node_parent,0x23a,0,0,0,0,0,0,0,0,CDO,Allows adding parent to any node or device
+pm_add_node_name,0x23b,0,0,0,0,0,0,0,0,CDO,Links a node (dev/rst/subsys/regnode) to a subsystem
+pm_add_requirement,0x23c,0,0,0,0,0,0,0,0,CDO,Returns supported version of the given API
+pm_set_current_subsystem,0x23d,0,0,0,0,0,0,0,0,Unsupported,Need to remove from code
+pm_init_node,0x23e,0,0,0,0,0,0,0,0,CDO,Node initialization that cannot be done using generic commands
+pm_feature_check,0x23f,0,0,0,0,0,0,0,0,CDO,Supported version of the given API
+pm_iso_control,0x240,0,0,0,0,0,0,0,0,CDO,Allows to control isolation nodes
+pm_activate_subsystem,0x241,3,3,3,3,3,3,0,3,IPI/CDO,Activates subsystem
+pm_set_node_access,0x242,0,0,0,0,0,0,0,0,CDO,Adds node entry to the access table
+pm_bisr,0x243,0,0,0,0,0,0,0,0,CDO,Trigger complex BISR function base on tag id
+pm_apply_trim,0x244,0,0,0,0,0,0,0,0,CDO,Trigger complex TRIM function base on trim type
+pm_noc_clock_enable,0x245,0,0,0,0,0,0,0,0,CDO,NoC clock enablement
+pm_if_noc_clock_enable,0x246,0,0,0,0,0,0,0,0,CDO,Check the current and previous NoC clock enablement state
+pm_force_houseclean,0x247,0,0,0,0,0,0,0,0,CDO,Performs house cleaning for a power domain
+pm_fpga_get_version,0x248,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_fpga_get_feature_list,0x249,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_hnicx_npi_data_xfer,0x24A,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+sem_table_command,0x300,0,0,0,0,0,0,0,0,CDO,Sem Descriptor Table
+cram_init,0x301,3,3,3,3,3,3,0,3,IPI,Cram Initialize
+cram_start,0x302,3,3,3,3,3,3,0,3,IPI,Cram Start
+cram_stop,0x303,3,3,3,3,3,3,0,3,IPI,Cram Stop
+cram_error_injection,0x304,3,3,3,3,3,3,0,3,IPI,Cram Error Injection
+npi_start,0x305,3,3,3,3,3,3,0,3,IPI,Npi Start
+npi_stop,0x306,3,3,3,3,3,3,0,3,IPI,Npi Stop
+npi_error_injection,0x307,3,3,3,3,3,3,0,3,IPI,Npi Error Injection
+sem_event_register,0x308,3,3,3,3,3,3,0,3,IPI,Register for SEM Event
+sem_read_config,0x309,3,3,3,3,3,3,0,3,IPI,Sem Read Config
+sem_read_npi_golden_sha,0x30A,3,3,3,3,3,3,0,3,IPI,Read NPI Golden SHA
+sem_cram_read_frame_ecc,0x30B,3,3,3,3,3,3,0,3,IPI,Read CRAM Frame ECC
+sem_ssit_read_golden_sha,0x30C,3,3,3,3,3,3,0,3,IPI,Read Golden SHA SSIT
+sem_ssit_read_status,0x30D,3,3,3,3,3,3,0,3,IPI,Read SEM Status SSIT
+secure_features,0x500,1,1,1,1,1,1,0,1,IPI,Secure Features
+rsa_sign_verify,0x501,1,1,1,1,1,1,0,1,IPI,Rsa signature verification
+rsa_public_encrypt,0x502,1,1,1,1,1,1,0,1,IPI,RSA public encryption
+rsa_private_decrypt,0x503,1,1,1,1,1,1,0,1,IPI,RSA private decryption
+sha3_update,0x504,1,1,1,1,1,1,0,1,IPI,SHA3 digest calculation
+elliptic_generate_key,0x505,1,1,1,1,1,1,0,1,IPI,Ecc public key generation
+elliptic_generate_sign,0x506,1,1,1,1,1,1,0,1,IPI,Ecc signature generation
+elliptic_validate_key,0x507,1,1,1,1,1,1,0,1,IPI,Ecc validate public key
+elliptic_verify_sign,0x508,1,1,1,1,1,1,0,1,IPI,Ecc verify signature
+aes_init,0x509,1,1,1,1,1,1,0,1,IPI,Aes initialize
+aes_op_init,0x50a,1,1,1,1,1,1,0,1,IPI,Aes Encryption/Decryption init
+aes_update_aad,0x50b,1,1,1,1,1,1,0,1,IPI,Aes AAD update
+aes_encrypt_update,0x50c,1,1,1,1,1,1,0,1,IPI,Aes Encrypt Update
+aes_encrypt_final,0x50d,1,1,1,1,1,1,0,1,IPI,Aes Encrypt Final
+aes_decrypt_update,0x50e,1,1,1,1,1,1,0,1,IPI,Aes Decrypt Update
+aes_decrypt_final,0x50f,1,1,1,1,1,1,0,1,IPI,Aes Decrypt Final
+aes_key_zero,0x510,1,1,1,1,1,1,0,1,IPI,Aes Key Zero
+aes_write_key,0x511,1,1,1,1,1,1,0,1,IPI,Aes Write Key
+aes_lock_user_key,0x512,1,1,1,1,1,1,0,1,IPI,Aes Lock User Key
+aes_kek_decrypt,0x513,1,1,1,1,1,1,0,1,IPI,Aes Kek Decrypt
+aes_set_dpa_cm,0x514,1,1,1,1,1,1,0,1,IPI,Aes Set Dpa Cm
+kat,0x515,1,1,1,1,1,1,0,1,IPI,Kats of crypto engines
+trng_generate,0x516,0,0,0,0,0,0,0,0,Unsupported,Generate Trng
+aes_perform_operation,0x517,1,1,1,1,1,1,0,1,IPI,Aes Perform Operation
+update_hnic_crypto_status,0x518,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+update_cpm5n_crypto_status,0x519,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+update_pcide_crypto_status,0x51a,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+update_pki_crypto_status,0x51b,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+update_ddr_kat_status,0x51c,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+update_hnic_kat_status,0x51d,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+update_cpm5n_kat_status,0x51e,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+update_pcide_kat_status,0x51f,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+update_pki_kat_status,0x520,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+gen_shared_secret,0x521,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+get_key_wrap_rsa_public_key,0x522,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+key_unwrap,0x523,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+aes_perform_operation_and_zeroize_key,0x524,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+Rsa_release_key,0x526,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+sha_finish,0x527,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+pm_psm_to_plm_event,0x601,3,3,3,3,3,3,0,3,IPI,PSM to PLM Event
+loader_features,0x700,3,3,3,3,3,3,0,3,IPI,Loader Features
+load_subsystem_pdi,0x701,3,3,3,3,3,3,0,3,IPI,Load Subsystem PDI
+load_ddrcpy_img,0x702,3,3,3,3,3,3,0,3,IPI,Load Image from Image Store
+get_image_info,0x703,3,3,3,3,3,3,0,3,IPI,Get Image Info
+set_image_info,0x704,0,0,0,0,0,0,0,0,CDO,Set Image Info
+get_image_info_list,0x705,3,3,3,3,3,3,0,3,IPI,Get Image Info List
+extract_metaheader,0x706,3,3,3,3,3,3,0,3,IPI,Extract metaheader from PDI
+load_readback_pdi,0x707,1,1,1,1,1,1,0,1,IPI,Load Readback PDI
+update_multiboot,0x708,1,1,1,1,1,1,0,1,IPI,Update Multiboot Register
+add_image_store_pdi,0x709,3,3,3,3,3,3,0,0,IPI,Add PDI to Image Store
+remove_image_store_pdi,0x70a,3,3,3,3,3,3,0,0,IPI,Remove PDI from Image Store
+get_atf_handoff_params,0x70b,3,3,3,3,3,3,0,3,IPI,Get ATF Handoff Parameters
+cframe_data_clear_check,0x70c,0,0,0,0,0,0,0,0,CDO,Check if Cframe Data is cleared properly
+write_image_store_pdi,0x70d,0,0,0,0,0,0,0,0,CDO,Write PDI into Image Store while booting
+config_jtag_state,0x70e,0,0,0,0,0,0,0,0,Unsupported,Unsupported
+read_ddr_crypto_counters,0x70f,0,0,0,0,0,0,0,0,Unsupported,Unsupported
+i2c_handshake,0x710,0,0,0,0,0,0,0,0,Unsupported,Unsupported
+Cfi_selective_readback,0x712,0,0,0,0,0,0,0,0,IPI,Reads given number of cframes from the start frame given
+em_features,0x800,3,3,3,3,3,3,0,3,CDO/IPI,Error Management Features
+em_set_action,0x801,3,3,3,3,3,3,0,3,CDO/IPI,Set Error Action
+nvm_features,0xb00,3,3,3,3,3,3,0,3,IPI,Features of XilNvm
+bbram_write_aes_key,0xb01,1,1,1,1,1,1,0,1,IPI,Bbram Write Aes Key
+bbram_zeroize,0xb02,1,1,1,1,1,1,0,1,IPI,Zeroize bbram
+bbram_write_user_data,0xb03,1,1,1,1,1,1,0,1,IPI,Bbram Write User Data
+bbram_read_user_data,0xb04,3,3,3,3,3,3,0,3,IPI,Bbram Read User Data
+bbram_lock_write_user_data,0xb05,1,1,1,1,1,1,0,1,IPI,Bbram Lock Write User Data
+efuse_write,0xb06,1,1,1,1,1,1,0,1,IPI,Efuse write
+efuse_write_puf,0xb07,1,1,1,1,1,1,0,1,IPI,Efuse write PUF
+efuse_puf_user_fuse_write,0xb08,1,1,1,1,1,1,0,1,IPI,Efuse puf user fuse write
+efuse_read_iv,0xb09,3,3,3,3,3,3,0,3,IPI,Efuse read iv
+efuse_read_revocation_id,0xb0a,3,3,3,3,3,3,0,3,IPI,Efuse read revocation id
+efuse_read_offchip_revocation_id,0xb0b,3,3,3,3,3,3,0,3,IPI,Efuse read offchip revocation id
+efuse_read_user_fuses,0xb0c,3,3,3,3,3,3,0,3,IPI,Efuse read user fuses
+efuse_read_misc_ctrl_bits,0xb0d,3,3,3,3,3,3,0,3,IPI,Efuse read misc ctrl bits
+efuse_read_sec_ctrl_bits,0xb0e,3,3,3,3,3,3,0,3,IPI,Efuse read sec ctrl bits
+efuse_read_sec_misc1_bits,0xb0f,3,3,3,3,3,3,0,3,IPI,Efuse read sec misc bits
+efuse_read_boot_env_ctrl_bits,0xb10,3,3,3,3,3,3,0,3,IPI,Efuse read boot env ctrl bits
+efuse_read_puf_sec_ctrl_bits,0xb11,3,3,3,3,3,3,0,3,IPI,Efuse read PUF sec ctrl bits
+efuse_read_ppk_hash,0xb12,3,3,3,3,3,3,0,3,IPI,Efuse read ppk hash
+efuse_read_dec_efuse_only,0xb13,3,3,3,3,3,3,0,3,IPI,Efuse read dec efuse only
+efuse_read_dna,0xb14,3,3,3,3,3,3,0,3,IPI,Efuse read dna
+efuse_read_puf_user_fuse,0xb15,3,3,3,3,3,3,0,3,IPI,Efuse read PUF user fuse
+efuse_read_puf,0xb16,3,3,3,3,3,3,0,3,IPI,Read Efuse PUF
+efuse_write_dme_key_from_pload,0xb17,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+efuse_write_dme_revoke,0xb18,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+efuse_write_plm_update,0xb19,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+efuse_write_boot_mode_disable,0xb1a,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+efuse_write_crc,0xb1b,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+efuse_write_dme_mode,0xb1c,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+efuse_write_puf_hd_from_pload,0xb1d,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+efuse_write_puf,0xb1e,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+efuse_write_rom_rsvd,0xb1f,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+efuse_write_puf_ctrl_bits,0xb20,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+efuse_read_cache,0xb21,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+efuse_reload_n_prgm_prot_bits,0xb22,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+puf_features,0xc00,3,3,3,3,3,3,0,3,IPI,PUF features
+puf_registration,0xc01,1,1,1,1,1,1,0,1,IPI,PUF registration
+puf_regeneration,0xc02,3,3,3,3,3,3,0,3,IPI,PUF regeneration
+puf_clear_puf_id,0xc03,3,3,3,3,3,3,0,3,IPI,Clear PUF id
+ocp_features,0xd00,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+extend_hwpcr,0xd01,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+get_hwpcr,0xd02,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+get_hwpcrlog,0xd03,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+gen_dme_resp,0xd04,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+devak_input,0xd05,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+get_cert_user_cfg,0xd06,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+get_x509_cert,0xd07,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+attest_with_devak,0xd08,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+set_swpcr_config,0xd09,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+extend_swpcr,0xd0a,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+get_swpcr,0xd0b,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+get_swpcrlog,0xd0c,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+get_swpcrdata,0xd0d,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+gen_shared_secret_with_devak,0xd0e,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
