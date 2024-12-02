@@ -8,7 +8,7 @@
  *
  * @file xasufw_kat.c
  *
- * This file contains the code for SHA2/SHA3, RSA and ECC KAT command supported by ASUFW.
+ * This file contains the code for SHA2/SHA3, RSA, ECC and ECDH KAT command supported by ASUFW.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -26,6 +26,7 @@
  *       yog  08/25/24 Integrated FIH library
  *       ss   09/26/24 Fixed doxygen comments
  *       am   10/22/24 Replaced XSHA_SHA_256_HASH_LEN with XASU_SHA_256_HASH_LEN
+ *       ss   12/02/24 Added kat support for ECDH
  *
  * </pre>
  *
@@ -288,6 +289,16 @@ static const u8 AesCmCt[XASUFW_AES_DATA_SPLIT_SIZE_IN_BYTES] = {
 static const u8 AesCmMiC[XASUFW_AES_DATA_SPLIT_SIZE_IN_BYTES] = {
 	0x64U, 0x00U, 0xD2U, 0x1FU, 0x63U, 0x63U, 0xFCU, 0x09U,
 	0x06U, 0xD4U, 0xF3U, 0x79U, 0x88U, 0x09U, 0xCAU, 0x7EU
+};
+
+static const u8 EcdhPrivKey[XRSA_ECC_P192_SIZE_IN_BYTES] = {
+	0xE5U, 0xCEU, 0x89U, 0xA3U, 0x4AU, 0xDDU, 0xDFU, 0x25U, 0xFFU, 0x3BU, 0xF1U, 0xFFU, 0xE6U,
+	0x80U, 0x3FU, 0x57U, 0xD0U, 0x22U, 0x0DU, 0xE3U, 0x11U, 0x87U, 0x98U, 0xEAU
+};
+
+static const u8 EcdhExpSharedSecret[XRSA_ECC_P192_SIZE_IN_BYTES] = {
+	0x12U, 0xF5U, 0xE2U, 0x72U, 0x5DU, 0x81U, 0x47U, 0x18U, 0x31U, 0x55U, 0x54U, 0xACU, 0x4DU,
+	0x95U, 0x8BU, 0xDFU, 0xECU, 0x86U, 0x8CU, 0xA8U, 0x23U, 0xDCU, 0xE5U, 0x65U
 };
 
 /*************************************************************************************************/
@@ -974,6 +985,72 @@ static s32 XAsufw_AesDpaCmChecks(const u32 *P, const u32 *Q, const u32 *R, const
 		Status = XASUFW_SUCCESS;
 	}
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs ECDH KAT on RSA core for P-192 curve.
+ *
+ * @param	QueueId		Queue Unique ID.
+ *
+ * @return
+ * 		- Returns XASUFW_SUCCESS on successful execution of the ECC KAT.
+ * 		- Otherwise, returns an error code.
+ *
+ *************************************************************************************************/
+s32 XAsufw_P192EcdhKat(u32 QueueId)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 SStatus = XASUFW_FAILURE;
+	XAsufw_Dma *AsuDmaPtr = NULL;
+	u8 SharedSecret[XRSA_ECC_P192_SIZE_IN_BYTES];
+
+	/** Allocate required resources (DMA,RSA and TRNG). */
+	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
+	if (AsuDmaPtr == NULL) {
+		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+		goto END;
+	}
+
+	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
+	XAsufw_AllocateResource(XASUFW_TRNG, QueueId);
+
+	/** Generates the shared secret using the known private key and public key. */
+	Status = XRsa_EcdhGenSharedSecret(AsuDmaPtr, XRSA_ECC_CURVE_TYPE_NIST_P192,
+				XRSA_ECC_P192_SIZE_IN_BYTES, (u64)(UINTPTR)EcdhPrivKey,
+				(u64)(UINTPTR)EccExpPubKeyP192, (u64)(UINTPTR)SharedSecret, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		XFIH_GOTO(END_CLR);
+	}
+
+	/** Compare the generated shared secret with expected shared secret. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCmp(SharedSecret, XRSA_ECC_P192_SIZE_IN_BYTES, EcdhExpSharedSecret,
+			     XRSA_ECC_P192_SIZE_IN_BYTES, XRSA_ECC_P192_SIZE_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECDH_SECRET_COMPARISON_FAILED;
+	}
+
+END_CLR:
+
+	/** Zeroize local copy of shared secret. */
+	SStatus = Xil_SMemSet(&SharedSecret[0U], XRSA_ECC_P192_SIZE_IN_BYTES, 0U,
+			      XRSA_ECC_P192_SIZE_IN_BYTES);
+	if (Status == XASUFW_SUCCESS) {
+		Status = SStatus;
+	}
+
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECDH_KAT_FAILED);
+	}
+
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+
+END:
 	return Status;
 }
 /** @} */

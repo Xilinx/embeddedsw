@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   yog  07/11/24 Initial release
  *       yog  08/19/24 Added XAsu_EccParams structure, module command ID's and curve type values
+ *       ss   12/02/24 Added support for ECDH
  *
  * </pre>
  *
@@ -45,6 +46,8 @@ extern "C" {
 #define XASU_ECC_VERIFY_SIGNATURE_CMD_ID	1U /**< Command ID for ECC sign verification */
 #define XASU_ECC_KAT_CMD_ID			2U /**< Command ID for ECC KAT command */
 #define XASU_ECC_GET_INFO_CMD_ID		3U /**< Command ID for ECC Get Info command */
+#define XASU_ECDH_SHARED_SECRET_CMD_ID		4U /**< Command ID for ECC Get Info command */
+#define XASU_ECDH_KAT_CMD_ID			5U /**< Command ID for ECC KAT command */
 
 /* ECC curve Type values */
 #define XASU_ECC_NIST_P192			1U /**< NIST P-192 curve */
@@ -70,6 +73,15 @@ typedef struct {
 	u64 SignAddr; /**< Signature address */
 } XAsu_EccParams;
 
+typedef struct {
+	u32 CurveType; /**< Type of curve */
+	u32 KeyLen; /**< Length of the key */
+	u64 PvtKeyAddr; /**< Private Key address */
+	u64 PubKeyAddr; /**< Public Key address */
+	u64 SharedSecretAddr; /**< Shared Secret address */
+	u64 SharedSecretObjIdAddr; /**< 0 : if SharedSecretAddr is not null
+				non zero: if SharedSecretAddr is null */
+} XAsu_EcdhParams;
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/

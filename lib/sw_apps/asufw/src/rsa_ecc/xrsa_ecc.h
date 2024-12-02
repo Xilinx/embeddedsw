@@ -17,6 +17,7 @@
  * 1.0   yog  07/11/24 Initial release
  *       yog  08/19/24 Received Dma instance from handler
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       ss   12/02/24 Added support for ECDH
  *
  * </pre>
  *
@@ -41,10 +42,14 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 #define XRSA_ECC_P521_SIZE_IN_BYTES		(66U) /**< Size of NIST P-521 curve in bytes */
 #define XRSA_ECC_P192_SIZE_IN_BYTES		(24U) /**< Size of NIST P-192 curve in bytes */
+#define XRSA_ECC_P384_SIZE_IN_BYTES		(48U) /**< Size of NIST P-384 curve in bytes */
+#define XRSA_ECC_P256_SIZE_IN_BYTES		(32U) /**< Size of NIST P-256 curve in bytes */
 
 #define XRSA_ECC_CURVE_TYPE_NIST_P521		(0x5U) /**< Curve type value for P-521 curve*/
 #define XRSA_ECC_CURVE_TYPE_NIST_P192		(0x1U) /**< Curve type value for P-192 curve*/
 #define XRSA_ECC_CURVE_TYPE_NIST_P224		(0x2U) /**< Curve type value for P-224 curve*/
+#define XRSA_ECC_CURVE_TYPE_NIST_P256		(0x3U) /**<  Curve type value for P-256 curve*/
+#define XRSA_ECC_CURVE_TYPE_NIST_P384		(0x4U) /**<  Curve type value for P-384 curve*/
 #define XRSA_ECC_CURVE_TYPE_BRAINPOOL_P256	(0x15U) /**< Curve type for brainpool P-256 curve */
 #define XRSA_ECC_CURVE_TYPE_BRAINPOOL_P320	(0x16U) /**< Curve type for brainpool P-320 curve */
 #define XRSA_ECC_CURVE_TYPE_BRAINPOOL_P384	(0x17U) /**< Curve type for brainpool P-384 curve */
@@ -62,6 +67,8 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 			      const u8 *EphemeralKeyPtr, u64 HashAddr, u32 HashBufLen, u64 SignAddr);
 s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PubKeyAddr,
 			    u64 HashAddr, u32 HashBufLen, u64 SignAddr);
+s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
+			    u64 PubKeyAddr, u64 SharedSecretAddr, u64 SharedSecretObjIdAddr);
 EcdsaCrvInfo *XRsa_EccGetCrvData(u32 CurveType);
 
 /************************************ Variable Definitions ***************************************/

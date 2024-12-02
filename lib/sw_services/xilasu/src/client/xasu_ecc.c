@@ -19,6 +19,7 @@
  * 1.0   yog  08/19/24 Initial release
  *       yog  09/26/24 Added doxygen grouping and fixed doxygen comments.
  *       yog  11/27/24 Included input parameters validation.
+ *       ss   12/02/24 Added support for ECDH
  *
  * </pre>
  *
@@ -179,6 +180,100 @@ s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr)
 	}
 
 	Header = XAsu_CreateHeader(XASU_ECC_KAT_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates an ECDH shared secret by using the given public key and
+ * 		given private key associated with the elliptic curve.
+ *
+ * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * 				input parameters
+ * @param	EcdhParamsPtr	Pointer to XAsu_EcdhParams structure which holds the parameters of
+ * 				ECDH input arguments.
+ *
+ * @return
+ *		- XST_SUCCESS, if signature generated successfully
+ *		- XASU_INVALID_ARGUMENT, if any argument is invalid
+ *		- XASU_INVALID_UNIQUE_ID, if unique ID is invalid
+ *		- XST_FAILURE, if send IPI fails
+ *
+ *************************************************************************************************/
+s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams *EcdhParamsPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validate input parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (EcdhParamsPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (XAsu_EccValidateCurveType(EcdhParamsPtr->CurveType) != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	Header = XAsu_CreateHeader(XASU_ECDH_SHARED_SECRET_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EcdhParamsPtr,
+					sizeof(XAsu_EcdhParams), Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function performs ECDH Known Answer Tests (KAT's).
+ *
+ * @param	ClientParamsPtr	Pointer to client params structure.
+ *
+ * @return
+ *		- XST_SUCCESS, if ECDH Kat runs succefully
+ *		- XASU_INVALID_UNIQUE_ID, if unique ID is invalid
+ *		- XST_FAILURE, if send IPI fails
+ *
+ *************************************************************************************************/
+s32 XAsu_EcdhKat(XAsu_ClientParams *ClientParamsPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validate input parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	Header = XAsu_CreateHeader(XASU_ECDH_KAT_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);

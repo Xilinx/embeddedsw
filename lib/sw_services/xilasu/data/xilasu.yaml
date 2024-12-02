@@ -18,3 +18,4 @@ examples:
   xasu_rsa_example.c: []
   xasu_sha2_example.c: []
   xasu_sha3_example.c: []
+  xasu_ecdh_example.c: []
