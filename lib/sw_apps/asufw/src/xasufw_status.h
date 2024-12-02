@@ -196,6 +196,7 @@ enum {
 						state doesn't match before further update */
 	XASUFW_AES_KEY_CLEAR_ERROR, /**< AES key clear error */
 	XASUFW_AES_INVALID_KEY_OBJECT_ADDRESS, /**< AES invalid key object address */
+	XASUFW_AES_INVALID_KEY_ADDRESS, /**< AES invalid key address */
 	XASUFW_AES_INVALID_KEY_SRC, /**< AES invalid key source */
 	XASUFW_AES_INVALID_KEY_SIZE, /**< AES invalid key size */
 	XASUFW_AES_INVALID_IV, /**< AES invalid IV length/address for respective engine modes */

@@ -43,8 +43,7 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsu_AesEncrypt(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClientParamPtr);
-s32 XAsu_AesDecrypt(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClientParamPtr);
+s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClientParamPtr);
 s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr);
 
 /************************************ Variable Definitions ***************************************/

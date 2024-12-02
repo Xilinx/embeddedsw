@@ -40,9 +40,6 @@
 /************************** Constant Definitions *************************************************/
 
 /************************** Macros Definitions ***************************************************/
-#define XAES_PUF_KEY			(0xAU) /**< PUF key */
-#define XAES_EXPANDED_KEYS		(0xBU) /**< Expanded keys in AES engine */
-#define XAES_MAX_KEY_SOURCES		XAES_EXPANDED_KEYS /**< Maximum key source value */
 #define XAES_TIMEOUT_MAX		(0x1FFFFU) /**<  AES maximum timeout value in micro seconds */
 #define XAES_INVALID_CFG		(0xFFFFFFFFU) /**<  AES invalid configuration */
 
@@ -79,29 +76,7 @@ struct _XAes_Config {
 
 /************************** Variable Definitions *************************************************/
 /** This array of structure defines look up table for AES key. */
-static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
-	/** EFUSE_KEY_RED_0 */
-	{
-		XAES_INVALID_CFG,
-		XAES_KEY_SEL_EFUSE_KEY_RED_0_VALUE,
-		XASU_FALSE,
-		XASU_TRUE,
-		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_0_VALUE,
-		XAES_KEY_CLEAR_EFUSE_KEY_RED_0_MASK,
-		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_0_MASK
-	},
-
-	/** EFUSE_KEY_RED_1 */
-	{
-		XAES_INVALID_CFG,
-		XAES_KEY_SEL_EFUSE_KEY_RED_1_VALUE,
-		XASU_FALSE,
-		XASU_TRUE,
-		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_1_VALUE,
-		XAES_KEY_CLEAR_EFUSE_KEY_RED_1_MASK,
-		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_1_MASK
-	},
-
+static const XAes_KeyLookup AesKeyLookupTbl [XASU_AES_MAX_KEY_SOURCES] = {
 	/** USER_KEY_0 */
 	{
 		XAES_USER_KEY_0_0_OFFSET,
@@ -190,6 +165,28 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 		XAES_KEY_ZEROED_STATUS_USER_KEY_7_MASK
 	},
 
+	/** EFUSE_KEY_0 */
+	{
+		XAES_INVALID_CFG,
+		XASU_FALSE,
+		XASU_FALSE,
+		XASU_TRUE,
+		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_0_VALUE,
+		XAES_KEY_CLEAR_EFUSE_KEY_0_MASK,
+		XAES_KEY_ZEROED_STATUS_EFUSE_KEY_0_MASK
+	},
+
+	/** EFUSE_KEY_1 */
+	{
+		XAES_INVALID_CFG,
+		XASU_FALSE,
+		XASU_FALSE,
+		XASU_TRUE,
+		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_1_VALUE,
+		XAES_KEY_CLEAR_EFUSE_KEY_1_MASK,
+		XAES_KEY_ZEROED_STATUS_EFUSE_KEY_1_MASK
+	},
+
 	/** PUF_KEY */
 	{
 		XAES_INVALID_CFG,
@@ -199,6 +196,28 @@ static const XAes_KeyLookup AesKeyLookupTbl [XAES_MAX_KEY_SOURCES] = {
 		XAES_INVALID_CFG,
 		XAES_KEY_CLEAR_PUF_KEY_MASK,
 		XAES_KEY_ZEROED_STATUS_PUF_KEY_MASK
+	},
+
+	/** EFUSE_KEY_RED_0 */
+	{
+		XAES_INVALID_CFG,
+		XAES_KEY_SEL_EFUSE_KEY_RED_0_VALUE,
+		XASU_FALSE,
+		XASU_TRUE,
+		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_0_VALUE,
+		XAES_KEY_CLEAR_EFUSE_KEY_RED_0_MASK,
+		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_0_MASK
+	},
+
+	/** EFUSE_KEY_RED_1 */
+	{
+		XAES_INVALID_CFG,
+		XAES_KEY_SEL_EFUSE_KEY_RED_1_VALUE,
+		XASU_FALSE,
+		XASU_TRUE,
+		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_1_VALUE,
+		XAES_KEY_CLEAR_EFUSE_KEY_RED_1_MASK,
+		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_1_MASK
 	},
 };
 
@@ -389,9 +408,13 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr)
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if ((KeyObject.KeySrc < XASU_AES_USER_KEY_0) ||
-			(KeyObject.KeySrc > XASU_AES_USER_KEY_7)) {
-		Status = XASUFW_AES_INVALID_PARAM;
+	if (KeyObject.KeyAddress == 0U) {
+		Status = XASUFW_AES_INVALID_KEY_ADDRESS;
+		goto END_CLR;
+	}
+
+	if (KeyObject.KeySrc > XASU_AES_USER_KEY_7) {
+		Status = XASUFW_AES_INVALID_KEY_SRC;
 		goto END_CLR;
 	}
 
@@ -540,7 +563,7 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if (KeyObject.KeySrc >= XAES_MAX_KEY_SOURCES) {
+	if (KeyObject.KeySrc >= XASU_AES_MAX_KEY_SOURCES) {
 		Status = XASUFW_AES_INVALID_KEY_SRC;
 		goto END;
 	}
