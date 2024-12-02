@@ -305,37 +305,38 @@ extern "C" {
  * @name  KEY_ZEROED_STATUS register
  * @{
  */
-/**< ASU_KEY_ZEROED_STATUS register offset and definitions */
 #define XAES_KEY_ZEROED_STATUS_OFFSET			(0x00000008U)
-/**< AES key Zeroed register offset */
+	/**< AES key Zeroed register offset */
+#define XAES_KEY_ZEROED_STATUS_RESET_VAL		(0x00003FFEU)
+	/**< AES key Zeroed status reset value */
 #define XAES_KEY_ZEROED_STATUS_PUF_KEY_MASK		(0x00002000U)
-/**< Puf key zeroed mask */
+	/**< Puf key zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_1_MASK	(0x00001000U)
-/**< eFuse red key 1 zeroed mask */
+	/**< eFuse red key 1 zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_0_MASK	(0x00000800U)
-/**< eFuse red key 0 zeroed mask */
+	/**< eFuse red key 0 zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_EFUSE_KEY_1_MASK		(0x00000400U)
-/**< eFuse key 1 zeroed mask */
+	/**< eFuse key 1 zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_EFUSE_KEY_0_MASK		(0x00000200U)
-/**< eFuse key 0 zeroed mask */
+	/**< eFuse key 0 zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_USER_KEY_7_MASK		(0x00000100U)
-/**< User key 7 zeroed mask */
+	/**< User key 7 zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_USER_KEY_6_MASK		(0x00000080U)
-/**< User key 6 zeroed mask */
+	/**< User key 6 zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_USER_KEY_5_MASK		(0x00000040U)
-/**< User key 5 zeroed mask */
+	/**< User key 5 zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_USER_KEY_4_MASK		(0x00000020U)
-/**< User key 4 zeroed mask */
+	/**< User key 4 zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_USER_KEY_3_MASK		(0x00000010U)
-/**< User key 3 zeroed mask */
+	/**< User key 3 zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_USER_KEY_2_MASK		(0x00000008U)
-/**< User key 2 zeroed mask */
+	/**< User key 2 zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_USER_KEY_1_MASK		(0x00000004U)
-/**< User key 1 zeroed mask */
+	/**< User key 1 zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_USER_KEY_0_MASK		(0x00000002U)
-/**< User key 0 zeroed mask */
+	/**< User key 0 zeroed mask */
 #define XAES_KEY_ZEROED_STATUS_AES_KEY_MASK		(0x00000001U)
-/**< Expanded key in AES engine zeroed mask */
+	/**< Expanded key in AES engine zeroed mask */
 /** @} */
 
 /**

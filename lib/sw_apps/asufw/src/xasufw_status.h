@@ -201,7 +201,7 @@ enum {
 	XASUFW_AES_INVALID_KEY_SIZE, /**< AES invalid key size */
 	XASUFW_AES_INVALID_IV, /**< AES invalid IV length/address for respective engine modes */
 	XASUFW_AES_INVALID_ENGINE_MODE, /**< AES invalid engine mode */
-	XASUFW_AES_KEY_ZEROIZED,  /**< AES zeroed key not allowed */
+	XASUFW_AES_KEY_ZEROED,  /**< AES zeroed key not allowed */
 	XASUFW_AES_INVALID_OPERATION_TYPE, /**< AES invalid encrypt/decrypt operation type */
 	XASUFW_AES_INVALID_INPUT_DATA, /**< AES invalid input data */
 	XASUFW_AES_INVALID_INPUT_DATA_LENGTH, /**< AES invalid input data length */
