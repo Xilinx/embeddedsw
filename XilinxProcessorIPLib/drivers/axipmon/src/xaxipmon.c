@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -97,6 +97,7 @@
 *                     Changed the prototype of XAxiPmon_CfgInitialize API.
 * 6.7   sd   17/11/18 Fix Doxygen reported warnings
 * 6.10  ht   06/23/23 Added support for system device-tree flow.
+* 6.12  ht   12/01/24 Fix GCC warnings
 * </pre>
 *
 *****************************************************************************/
@@ -176,8 +177,10 @@ s32 XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr, XAxiPmon_Config *ConfigPtr,
 	InstancePtr->Config.Is32BitFiltering = ConfigPtr->Is32BitFiltering;
 
 	InstancePtr->Config.ScaleFactor = ConfigPtr->ScaleFactor;
+#ifdef SDT
 	InstancePtr->Config.IntId = ConfigPtr->IntId;
 	InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
+#endif
 
 	if ((ConfigPtr->ModeProfile == ConfigPtr->ModeTrace)
 	    || (ConfigPtr->ModeAdvanced == 1U)) {

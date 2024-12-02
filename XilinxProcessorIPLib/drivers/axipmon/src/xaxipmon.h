@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -237,6 +237,7 @@
 * 6.6   ms   04/18/17 Modified tcl file to add suffix U for all macro
 *                     definitions of axipmon in xparameters.h
 * 6.10  ht   06/23/23 Added support for system device-tree flow.
+* 6.12  ht   12/01/24 Fix GCC warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -444,9 +445,11 @@ typedef struct {
 	u8  ModeProfile;		/**< Profile Mode */
 	u8  ModeTrace;			/**< Trace Mode */
 	u8  Is32BitFiltering;   /**< 32 bit filtering enabled */
+#ifdef SDT
 	u32 IntId; /**< Interrupt ID on GIC **/
 	UINTPTR IntrParent;	/** Bit[0] Interrupt parent type Bit[64/32:1]
 				 * Parent base address */
+#endif
 } XAxiPmon_Config;
 
 
