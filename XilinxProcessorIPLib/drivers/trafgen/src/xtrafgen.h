@@ -183,6 +183,7 @@
 *                    definitions of trafgen in xparameters.h
 * 4.4   sd   09/03/20 Updated makefile for parallel execution.
 * 4.7   ar   03/07/24 Modified trafgen intr examples added macro for Interrupt ID.
+* 4.8   ht   12/01/24 Fixed GCC warnings.
 * </pre>
 ******************************************************************************/
 
@@ -316,10 +317,11 @@ typedef struct XTrafGen_Config {
 	u32 Mode;		/**< Atgmode_l2 */
 	u32 ModeType;		/**< Axismode */
 	u32 AddressWidth;	/**< AddressWidth */
+#ifdef SDT
 	u32 IntId[2]; /**< Interrupt ID on GIC **/
 	UINTPTR IntrParent; 	/** Bit[0] Interrupt parent type Bit[64/32:1]
 				 * Parent base address */
-
+#endif
 } XTrafGen_Config;
 
 /**
