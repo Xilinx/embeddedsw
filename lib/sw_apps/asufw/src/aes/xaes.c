@@ -42,6 +42,8 @@
 /************************** Macros Definitions ***************************************************/
 #define XAES_TIMEOUT_MAX		(0x1FFFFU) /**<  AES maximum timeout value in micro seconds */
 #define XAES_INVALID_CFG		(0xFFFFFFFFU) /**<  AES invalid configuration */
+#define XASUFW_AES_KEY_NOT_ZEROIZED	(0x0) /**< Key in AES subsystem is not zeroized. */
+#define XASUFW_AES_KEY_ZEROIZED		(0xF) /**< Key in AES subsystem is zeroized. */
 
 typedef enum {
 	XAES_INITIALIZED = 0x1, /**< AES in initialized state */
@@ -588,7 +590,8 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 
 	/** Check whether key is zeroed or not. */
 	Status = XAes_IsKeyZeroized(InstancePtr, KeyObject.KeySrc);
-	if (Status != XASUFW_SUCCESS) {
+	if (Status == XASUFW_AES_KEY_ZEROIZED) {
+		Status = XASUFW_AES_KEY_ZEROED;
 		goto END;
 	}
 
@@ -877,21 +880,22 @@ static XAes_Config *XAes_LookupConfig(u16 DeviceId)
  * @param	KeySrc		Key source.
  *
  * @return
- *		- XASUFW_SUCCESS, if key is not zeroized.
  *		- XASUFW_AES_KEY_ZEROIZED, if key is zeroized.
+ * 		- XASUFW_AES_KEY_NOT_ZEROIZED, if key is not zeroized
  *
  *************************************************************************************************/
 static s32 XAes_IsKeyZeroized(const XAes *InstancePtr, u32 KeySrc)
 {
 	CREATE_VOLATILE(Status, XASUFW_AES_KEY_ZEROIZED);
-	u32 KeyZeroedStatus;
+	volatile u32 ReadKeyZeroedStatus = XAES_KEY_ZEROED_STATUS_RESET_VAL;
 
 	/** Read the key zeroized status register. */
-	KeyZeroedStatus = XAsufw_ReadReg(InstancePtr->KeyBaseAddress + XAES_KEY_ZEROED_STATUS_OFFSET);
+	ReadKeyZeroedStatus = XAsufw_ReadReg(InstancePtr->KeyBaseAddress +
+		XAES_KEY_ZEROED_STATUS_OFFSET);
 
 	/** Check the key zeroized status with its zeroized mask. */
-	if ((KeyZeroedStatus & AesKeyLookupTbl[KeySrc].KeyZeroedStatusMask) == 0U) {
-		Status = XASUFW_SUCCESS;
+	if ((ReadKeyZeroedStatus & AesKeyLookupTbl[KeySrc].KeyZeroedStatusMask) == 0U) {
+		Status = XASUFW_AES_KEY_NOT_ZEROIZED;
 	}
 
 	return Status;
