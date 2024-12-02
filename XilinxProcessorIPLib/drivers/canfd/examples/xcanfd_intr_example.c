@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,7 @@
 * 2.3	sne  07/11/19 Added Protocol Exception support in EventHandler and updated
 *		      Bus Off EventHandler.
 * 2.8	ht   06/19/23 Added support for system device-tree flow
+* 2.10	ht   12/01/24 Fixed GCC warnings
 *
 *
 * </pre>
@@ -180,11 +181,11 @@ static u32 TxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES];
 static u32 RxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES];
 
 /* Asynchronous error occurred */
-volatile static int LoopbackError;
+static volatile int LoopbackError;
 /* Received a frame */
-volatile static int RecvDone;
+static volatile int RecvDone;
 /* Frame was sent successfully */
-volatile static int SendDone;
+static volatile int SendDone;
 
 /*****************************************************************************/
 /**
@@ -415,7 +416,7 @@ static int SendFrame(XCanFd *InstancePtr)
 	u32 TxBufferNumber;
 	u8 *FramePtr;
 	u32 Index;
-	int NofBytes;
+	u32 NofBytes;
 
 	/*
 	 * Create correct values for Identifier and Data Length Code Register.
@@ -468,6 +469,7 @@ static int SendFrame(XCanFd *InstancePtr)
 ******************************************************************************/
 static void SendHandler(void *CallBackRef)
 {
+	Xil_AssertVoid(CallBackRef != NULL);
 	/* The frame was sent successfully. Notify the task context */
 	SendDone = TRUE;
 }
@@ -492,7 +494,7 @@ static void RecvHandler(void *CallBackRef)
 {
 	XCanFd *CanPtr = (XCanFd *)CallBackRef;
 	int Status;
-	int Index;
+	u32 Index;
 	u8 *FramePtr;
 	u32 Dlc;
 
@@ -557,6 +559,7 @@ static void RecvHandler(void *CallBackRef)
 static void ErrorHandler(void *CallBackRef, u32 ErrorMask)
 {
 	XCanFd *CanPtr = (XCanFd *)CallBackRef;
+	Xil_AssertVoid(CanPtr != NULL);
 
 	if (ErrorMask & XCANFD_ESR_ACKER_MASK) {
 
