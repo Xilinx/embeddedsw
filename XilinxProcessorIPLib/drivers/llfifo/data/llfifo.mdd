@@ -18,7 +18,7 @@ BEGIN driver llfifo
   OPTION supported_peripherals = (axi_fifo_mm_s_v[4-9]_[1-9]);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 5.8;
+  OPTION VERSION = 5.9;
   OPTION NAME = llfifo;
 
 END driver
