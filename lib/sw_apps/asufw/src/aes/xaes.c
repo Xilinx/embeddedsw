@@ -845,6 +845,226 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function decrypts the black key (encrypted key) from the eFuse and decrypted
+ * 		key will be stored in the corresponding efuse red key registers of AES key vault.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	DmaPtr		Pointer to the AsuDma instance.
+ * @param	DecKeySel	Select the source for the key to be decrypted
+ * 		 - EFUSE_Key_0 - 0xEF856601
+ * 		 - EFUSE_Key_1 - 0xEF856602
+ * @param	DecKeySize	Size of the key to be decrypted.
+ * 		 - 0x0 - 128 bit key
+ * 		 - 0x2 - 256 bit key
+ * @param	IvAddr		Address of the buffer holding IV.
+ * @param	IvLen		Length of the IV in bytes.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if decryption of balck key is successful.
+ *		- XASUFW_AES_INVALID_PARAM, if InstancePtr or DmaPtr is NULL or ASU DMA is not
+ * 			ready.
+ *		- XASUFW_AES_INVALID_KEY_SRC, if key source is invalid.
+ *		- XASUFW_AES_INVALID_KEY_SIZE, if key size is invalid.
+ *		- XASUFW_AES_INVALID_IV, if IV is invalid.
+ *
+ *************************************************************************************************/
+s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeySel, u8 DecKeySize,
+	u64 IvAddr, u32 IvLen)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate the input arguments. */
+	if (InstancePtr == NULL) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((DecKeySel != XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_0_VALUE) &&
+			(DecKeySel != XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_1_VALUE)) {
+		Status = XASUFW_AES_INVALID_KEY_SRC;
+		goto END;
+	}
+
+	if ((DecKeySize != XASU_AES_KEY_SIZE_128_BITS) &&
+			(DecKeySize != XASU_AES_KEY_SIZE_256_BITS)) {
+		Status = XASUFW_AES_INVALID_KEY_SIZE;
+		goto END;
+	}
+
+	/** Initialize the AES instance. */
+	InstancePtr->AsuDmaPtr = DmaPtr;
+	InstancePtr->EngineMode = XASU_AES_GCM_MODE;
+	InstancePtr->OperationType = XASU_AES_DECRYPT_OPERATION;
+
+	/** Validate the IV with respect to the user provided engine mode. */
+	Status = XAsu_AesValidateIv(InstancePtr->EngineMode, IvAddr, IvLen);
+	if(Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_INVALID_IV;
+		goto END;
+	}
+
+	/** Release soft reset of AES engine. */
+	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
+
+	/** Configure AES DPA counter measures. */
+	XAes_ConfigCounterMeasures(InstancePtr);
+
+	/** Set the AES engine to enable key decrypt operation mode. */
+	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_DEC_MODE_OFFSET),
+		XAES_KEY_DEC_MODE_VALUE);
+
+	/**
+	 * Select the key to be decrypted.
+	 * Note that if any other key source is used for decryption, the decryption will fail and
+	 * the core will load zeroes on the data port when such invalid key is selected.
+	 */
+	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_TO_BE_DEC_SEL_OFFSET), (u32)DecKeySel);
+
+	/** Select the size of the key to be decrypted. */
+	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_TO_BE_DEC_SIZE_OFFSET), DecKeySize);
+
+	/** Select key source as PUF_key. */
+	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_SEL_OFFSET), XAES_KEY_SEL_PUF_KEY_VALUE);
+
+	/** Select the size of PUF key as 256-bit.  */
+	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_SIZE_OFFSET), XASU_AES_KEY_SIZE_256_BITS);
+
+	/** Configure AES engine mode and select decrypt operation. */
+	XAes_ConfigAesOperation(InstancePtr);
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Process and load Iv to AES engine. */
+	Status = XAes_ProcessAndLoadIv(InstancePtr, IvAddr, IvLen);
+	if (Status != XASUFW_SUCCESS) {
+		goto END_CLR;
+	}
+
+	/** Load key to AES engine. */
+	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET), XAES_KEY_LOAD_MASK);
+
+	/** Trigger the key decryption operation. */
+	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_DEC_TRIG_OFFSET),
+		XAES_KEY_DEC_TRIG_MASK);
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Wait for AES decrypt operation to complete. */
+	Status = XAes_WaitForDone(InstancePtr);
+
+END_CLR:
+	/** Set AES under reset. */
+	XAes_SetReset(InstancePtr);
+
+	/** Disable the key decryption operation. */
+	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_DEC_TRIG_OFFSET),
+		XAES_KEY_DEC_TRIG_DISABLE);
+
+	/** Set the AES engine to disable key decrypt operation mode. */
+	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_DEC_MODE_OFFSET),
+		XAES_KEY_DEC_MODE_DISABLE);
+
+	/** Reset source of key to be decrypted. */
+	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_TO_BE_DEC_SEL_OFFSET),
+		XAES_KEY_TO_BE_DEC_SEL_DISABLE);
+
+	/** Clear mode config mask. */
+	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
+		XAES_MODE_CONFIG_DISABLE);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function updates data and key to the AES engine in split mode with DPA CM
+ * 		enabled.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	DmaPtr		Pointer to the AsuDma instance.
+ * @param 	KeyObjPtr	Pointer to the XAsu_AesKeyObject instance.
+ * @param 	InputDataAddr	Input data address.
+ * @param 	OutputDataAddr	Output address where the decrypted data to be stored.
+ * @param	DataLength	Length of both input/output data in bytes.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if decryption of data is successful.
+ *		- XASUFW_AES_INVALID_PARAM, if InstancePtr or DmaPtr or KeyObjPtr is NULL or
+ * 			ASU DMA is not ready or input or output address is invalid.
+ *
+ *************************************************************************************************/
+s32 XAes_DpaCmDecryptData(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyObjPtr,
+			  u32 InputDataAddr, u32 OutputDataAddr, u32 DataLength)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 Index = 0U;
+
+	/** Validate the input arguments. */
+	if (InstancePtr == NULL) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((KeyObjPtr == NULL) || (InputDataAddr == 0U) || (OutputDataAddr == 0U)) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (DataLength == 0U) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Initialize the AES instance with ASU DMA pointer. */
+	InstancePtr->AsuDmaPtr = DmaPtr;
+
+	/** Release soft reset of AES engine. */
+	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
+
+	/** Configure AES engine for decrypt operation. */
+	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
+			XASU_AES_GCM_MODE);
+
+	/** Configure AES engine in split mode to update data and key to AES core. */
+	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_SPLIT_CFG_OFFSET),
+			(XAES_SPLIT_CFG_KEY_SPLIT_VALUE | XAES_SPLIT_CFG_DATA_SPLIT_VALUE));
+
+	/** Configure AES DPA counter measures. */
+	XAes_ConfigCounterMeasures(InstancePtr);
+
+	/** Write key mask value. */
+	for (Index = 0U; Index < XASU_AES_KEY_SIZE_256BIT_IN_WORDS; Index++) {
+		XAsufw_WriteReg((InstancePtr->KeyBaseAddress + (XAES_KEY_MASK_0_OFFSET +
+				 (u32)(Index * XASUFW_WORD_LEN_IN_BYTES))), 0x0U);
+	}
+
+	/** Write AES key. */
+	Status = XAes_WriteKey(InstancePtr, DmaPtr, (u64)(UINTPTR)KeyObjPtr);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Load key to AES engine. */
+	XAes_LoadKey(InstancePtr, KeyObjPtr->KeySrc, KeyObjPtr->KeySize);
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, InputDataAddr, OutputDataAddr, DataLength, XASU_TRUE);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function returns a pointer reference of XAes_Config structure based on the
  * 		device ID.
  *
@@ -920,7 +1140,7 @@ static void XAes_ConfigCounterMeasures(const XAes *InstancePtr)
 	}
 	else {
 		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_CM_OFFSET),
-			XAES_CM_DISABLE_MASK);
+			XAES_CM_DISABLE);
 	}
 }
 
@@ -959,7 +1179,7 @@ static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize)
 	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_SEL_OFFSET),
 		AesKeyLookupTbl[KeySrc].KeySrcSelVal);
 
-	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET), XAES_KEY_LOAD_VAL_MASK);
+	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET), XAES_KEY_LOAD_MASK);
 }
 
 /*************************************************************************************************/
@@ -1018,7 +1238,7 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 	}
 
 	/** Trigger IV Load. */
-	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET), XAES_IV_LOAD_VAL_MASK);
+	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET), XAES_IV_LOAD_MASK);
 
 END:
 	/** Zeroize local IV buffer. */
@@ -1356,89 +1576,5 @@ static void XAes_SetReset(XAes *InstancePtr)
 {
 	InstancePtr->AesState = XAES_INITIALIZED;
 	XAsufw_CryptoCoreSetReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function updates data and key to the AES engine in split mode with DPA CM
- * 		enabled.
- *
- * @param	InstancePtr	Pointer to the XAes instance.
- * @param	DmaPtr		Pointer to the AsuDma instance.
- * @param 	KeyObjPtr	Pointer to the XAsu_AesKeyObject instance.
- * @param 	InputDataAddr	Input data address.
- * @param 	OutputDataAddr	Output address where the decrypted data to be stored.
- * @param	DataLength	Length of both input/output data in bytes.
- *
- * @return
- *		- XASUFW_SUCCESS, if decryption of data is successful.
- *		- XASUFW_AES_INVALID_PARAM, if InstancePtr or DmaPtr or KeyObjPtr is NULL or
- * 			ASU DMA is not ready or input or output address is invalid.
- *
- *************************************************************************************************/
-s32 XAes_DpaCmDecryptData(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyObjPtr,
-			  u32 InputDataAddr, u32 OutputDataAddr, u32 DataLength)
-{
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u32 Index = 0U;
-
-	/** Validate the input arguments. */
-	if (InstancePtr == NULL) {
-		Status = XASUFW_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
-		Status = XASUFW_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	if ((KeyObjPtr == NULL) || (InputDataAddr == 0U) || (OutputDataAddr == 0U)) {
-		Status = XASUFW_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	if (DataLength == 0U) {
-		Status = XASUFW_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Initialize the AES instance with ASU DMA pointer. */
-	InstancePtr->AsuDmaPtr = DmaPtr;
-
-	/** Release soft reset of AES engine. */
-	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
-
-	/** Configure AES engine for decrypt operation. */
-	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
-			XASU_AES_GCM_MODE);
-
-	/** Configure AES engine in split mode to update data and key to AES core. */
-	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_SPLIT_CFG_OFFSET),
-			(XAES_SPLIT_CFG_KEY_SPLIT_VALUE | XAES_SPLIT_CFG_DATA_SPLIT_VALUE));
-
-	/** Configure AES DPA counter measures. */
-	XAes_ConfigCounterMeasures(InstancePtr);
-
-	/** Write key mask value. */
-	for (Index = 0U; Index < XASU_AES_KEY_SIZE_256BIT_IN_WORDS; Index++) {
-		XAsufw_WriteReg((InstancePtr->KeyBaseAddress + (XAES_KEY_MASK_0_OFFSET +
-				 (u32)(Index * XASUFW_WORD_LEN_IN_BYTES))), 0x0U);
-	}
-
-	/** Write AES key. */
-	Status = XAes_WriteKey(InstancePtr, DmaPtr, (u64)(UINTPTR)KeyObjPtr);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
-	}
-
-	/** Load key to AES engine. */
-	XAes_LoadKey(InstancePtr, KeyObjPtr->KeySrc, KeyObjPtr->KeySize);
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, InputDataAddr, OutputDataAddr, DataLength, XASU_TRUE);
-
-END:
-	return Status;
 }
 /** @} */
