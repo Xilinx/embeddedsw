@@ -18,6 +18,7 @@
  * 1.0   yog  08/19/24 Initial release
  *       am   09/13/24 Fixed array initialization error for cpp compiler
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       ss   12/02/24 Added support for ECDH
  *
  * </pre>
  *
@@ -55,6 +56,8 @@ static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
 static s32 XAsufw_EccGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
 static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
 static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_EccModule; /**< ASUFW ECC Module ID and commands array */
@@ -80,6 +83,8 @@ s32 XAsufw_EccInit(void)
 		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccVerifySign),
 		[XASU_ECC_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccKat),
 		[XASU_ECC_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccGetInfo),
+		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EcdhGenSharedSecret),
+		[XASU_ECDH_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EcdhKat),
 	};
 
 	/** Contains the required resources for each supported command. */
@@ -88,6 +93,10 @@ s32 XAsufw_EccInit(void)
 		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK,
 		[XASU_ECC_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK,
 		[XASU_ECC_GET_INFO_CMD_ID] = 0U,
+		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		[XASU_ECDH_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 	};
 
 	XAsufw_EccModule.Id = XASU_MODULE_ECC_ID;
@@ -259,6 +268,53 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function is a handler for ECDH secret generation operation command.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	QueueId	Queue Unique ID.
+ *
+ * @return
+ *	- Returns XASUFW_SUCCESS on successful execution of the command.
+ *	- Otherwise, returns an error code.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_EcdhParams *EcdhParamsPtr = (const XAsu_EcdhParams *)ReqBuf->Arg;
+	XAsufw_Dma *AsuDmaPtr = NULL;
+
+	/** Allocate required resources (DMA, RSA and TRNG). */
+	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
+	if (AsuDmaPtr == NULL) {
+		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+		goto END;
+	}
+	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
+	XAsufw_AllocateResource(XASUFW_TRNG, QueueId);
+
+	/** Generate shared secret using public key and private key based on curve type. */
+	Status = XRsa_EcdhGenSharedSecret(AsuDmaPtr, EcdhParamsPtr->CurveType,
+					EcdhParamsPtr->KeyLen, EcdhParamsPtr->PvtKeyAddr,
+					EcdhParamsPtr->PubKeyAddr, EcdhParamsPtr->SharedSecretAddr,
+					EcdhParamsPtr->SharedSecretObjIdAddr);
+
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECDH_GEN_SECRET_OPERATION_FAIL);
+	}
+
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+
+END:
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function performs Known Answer Tests (KATs) utilizing both ECC and RSA cores.
  *
  * @param	ReqBuf	Pointer to XAsu_ReqBuf structure.
@@ -284,6 +340,24 @@ static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 END:
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function performs Known Answer Tests (KATs) utilizing RSA cores.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	QueueId	Queue Unique ID.
+ *
+ * @return
+ * 		- Returns XASUFW_SUCCESS on successful execution of the command.
+ *		- Otherwise, returns an error code.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+{
+	/** Perform KAT on P-192 curve using RSA core. */
+	return XAsufw_P192EcdhKat(QueueId);
 }
 
 /*************************************************************************************************/

@@ -34,6 +34,7 @@
  *       am   08/01/24 Added error codes for AES handler functionality
  *       am   08/24/24 Added error codes related to AES decrypt CM KAT
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       ss   12/02/24 Added error codes for ECDH
  *
  * </pre>
  *
@@ -237,6 +238,13 @@ enum {
 	XASUFW_RSA_ENCRYPT_DATA_COMPARISON_FAILED, /**< Error when RSA encrypt output comparision
 							failed */
 	XASUFW_RSA_KAT_FAILED, /**< Error when RSA KAT failed */
+	XASUFW_ECDH_INVALID_POINT_ON_CRV, /**< Error when generated point is invalid */
+	XASUFW_ECDH_RAND_GEN_ERROR, /**< Random number generation failed to ECDH APIs */
+	XASUFW_ECDH_OTHER_ERROR, /**< Any generic error from ECDH APIs */
+	XASUFW_ECDH_GEN_SECRET_OPERATION_FAIL, /**< Error when generate secret failed */
+	XASUFW_ECDH_SECRET_COMPARISON_FAILED, /**< Error when generated secret comparision
+							failed */
+	XASUFW_ECDH_KAT_FAILED, /**< Error when ECDH KAT failed */
 };
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

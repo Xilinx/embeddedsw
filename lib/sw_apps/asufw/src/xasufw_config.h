@@ -22,6 +22,7 @@
  *       yog  07/11/24 Added macros to enable or disable support of NIST and Brainpool curves
  *       ma   07/26/24 Added XASUFW_TRNG_IN_PTRNG_MODE to run TRNG in PTRNG mode when enabled
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       ss   12/02/24 Added support for NIST curves P-256,P-384
  *
  * </pre>
  *
@@ -59,6 +60,10 @@ extern "C" {
 #define XASUFW_RSA_ECC_SUPPORT_NIST_P192	(XASUFW_CONFIG_ENABLE) /**< To enable/disable P192
 								curve support configuration */
 #define XASUFW_RSA_ECC_SUPPORT_NIST_P224	(XASUFW_CONFIG_ENABLE) /**< To enable/disable P224
+								curve support configuration */
+#define XASUFW_RSA_ECC_SUPPORT_NIST_P256	(XASUFW_CONFIG_ENABLE) /**< To enable/disable P256
+								curve support configuration */
+#define XASUFW_RSA_ECC_SUPPORT_NIST_P384	(XASUFW_CONFIG_ENABLE) /**< To enable/disable P384
 								curve support configuration */
 #define XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P256	(XASUFW_CONFIG_ENABLE) /**< To enable/disable
 							Brainpool P256 curve support configuration */

@@ -17,6 +17,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   yog  07/11/24 Initial release
 *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+*       ss   12/02/24 Added support for NIST curves P-256,P-384
 *
 * </pre>
 *
@@ -49,6 +50,10 @@ extern "C" {
 	/**< Macro to enable/disable support of NIST P-192 curve */
 #define XRSA_ECC_SUPPORT_NIST_P224	XASUFW_RSA_ECC_SUPPORT_NIST_P224
 	/**< Macro to enable/disable support of NIST P-224 curve */
+#define XRSA_ECC_SUPPORT_NIST_P256	XASUFW_RSA_ECC_SUPPORT_NIST_P256
+	/**< Macro to enable/disable support of NIST P-256 curve */
+#define XRSA_ECC_SUPPORT_NIST_P384	XASUFW_RSA_ECC_SUPPORT_NIST_P384
+	/**< Macro to enable/disable support of NIST P-384 curve */
 #define XRSA_ECC_SUPPORT_BRAINPOOL_P256	XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P256
 	/**< Macro to enable/disable support of Brainpool P-256 curve */
 #define XRSA_ECC_SUPPORT_BRAINPOOL_P320	XASUFW_RSA_ECC_SUPPORT_BRAINPOOL_P320

@@ -19,6 +19,7 @@
 *       yog  08/19/24 Received Dma instance from handler
 *       yog  08/25/24 Integrated FIH library
 *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+*       ss   12/02/24 Added support for ECDH
 *
 * </pre>
 *
@@ -37,11 +38,16 @@
 
 /************************************ Constant Definitions ***************************************/
 #define XRSA_ECC_ALGN_CRV_SIZE_IN_BYTES		(2U)	/**< Align ECDSA curve size in bytes. */
+
 #define XRSA_BASEADDRESS			(0xEBF50000U) /**< RSA base address */
 #define XRSA_RESET_OFFSET			(0x00000040U) /**< RSA reset offset */
+
+#define XECDH_SHARED_SEC_OBJ_ID_SIZE		(0X4U)
+						/**< Size of shared secret object
+						 * ID in bytes. */
+
 /* Return value in case of success from IP Cores */
 #define XRSA_ECC_SUCCESS			ELLIPTIC_SUCCESS /**< Success from IP Cores. */
-
 /* Validate Public Key error codes from IP Cores */
 #define XRSA_ECC_KEY_ZERO			ELLIPTIC_KEY_ZERO
 							/**< Error from IP Cores
@@ -52,7 +58,6 @@
 #define XRSA_ECC_KEY_NOT_ON_CRV			ELLIPTIC_KEY_NOT_ON_CRV
 							/**< Error from IP Cores
 							 * if key point is not on curve. */
-
 /* Verify Sign error codes from IP Cores */
 #define XRSA_ECC_BAD_SIGN			ELLIPTIC_BAD_SIGN /**< Error from IP Cores
 								   * if bad sign. */
@@ -69,7 +74,6 @@
 #define XRSA_ECC_VER_SIGN_S_ORDER_ERROR		ELLIPTIC_VER_SIGN_S_ORDER_ERROR
 							/**< Error from IP Cores if sign S
 							 * is in wrong order. */
-
 /* Generate sign error codes from IP Cores */
 #define XRSA_ECC_GEN_SIGN_BAD_R			ELLIPTIC_GEN_SIGN_BAD_R
 							/**< Error from IP Cores
@@ -80,6 +84,8 @@
 #define XRSA_ECC_GEN_SIGN_INCORRECT_HASH_LEN	ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN
 							/**< Error from IP Cores if hash length
 							 * is incorrect. */
+#define XRSA_ECC_GEN_POINT_INVALID		(0x01)	/**< Error from IP Cores
+							 * if generated point is invalid. */
 
 /************************************** Type Definitions *****************************************/
 
@@ -636,6 +642,8 @@ EcdsaCrvInfo *XRsa_EccGetCrvData(u32 CurveType)
 	if ((CurveType != XRSA_ECC_CURVE_TYPE_NIST_P521) &&
 	    (CurveType != XRSA_ECC_CURVE_TYPE_NIST_P192) &&
 	    (CurveType != XRSA_ECC_CURVE_TYPE_NIST_P224) &&
+	    (CurveType != XRSA_ECC_CURVE_TYPE_NIST_P256) &&
+	    (CurveType != XRSA_ECC_CURVE_TYPE_NIST_P384) &&
 	    (CurveType != XRSA_ECC_CURVE_TYPE_BRAINPOOL_P256) &&
 	    (CurveType != XRSA_ECC_CURVE_TYPE_BRAINPOOL_P320) &&
 	    (CurveType != XRSA_ECC_CURVE_TYPE_BRAINPOOL_P384) &&
@@ -677,5 +685,153 @@ static u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
 	}
 
 	return CurveSize;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates an ECDH shared secret by using the given public key and
+ * 		given private key associated with the elliptic curve.
+ *
+ * @param	DmaPtr - Pointer to DMA instance.
+ * @param	CurveType - Curve Type of the keys used to generate shared secret
+ * @param	CurveLen - Length of the curve in bytes.
+ * @param	PrivKeyAddr - 64-bit address of the private key
+ * @param	PubKeyAddr - 64-bit address of public key
+ * @param	SharedSecretAddr - 64-bit address of buffer for storing shared secret
+ * @param	SharedSecretObjIdAddr - 64-bit address of buffer for storing shared secret ID
+ *
+ * @return
+ *	-	XASUFW_SUCCESS, on successful operation
+ *	-	XASUFW_ECDH_INVALID_POINT_ON_CRV,on allocation of point failure
+ *	-	XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameters are invalid
+ *	-	XASUFW_RSA_ECC_WRITE_DATA_FAIL, if write data through DMA fails
+ *	-	XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails
+ *	-	XASUFW_ECDH_OTHER_ERROR, if operation fails due to any other error from IP cores
+ *	-	XASUFW_FAILURE, if operation fails due to any other reasons
+ *
+ *************************************************************************************************/
+s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
+		u64 PubKeyAddr, u64 SharedSecretAddr, u64 SharedSecretObjIdAddr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihEcdh;
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	u8 SharedSecret[XRSA_ECC_P521_SIZE_IN_BYTES];
+	u8 PrivKey[XRSA_ECC_P521_SIZE_IN_BYTES];
+	u8 PubKey[XRSA_ECC_P521_SIZE_IN_BYTES + XRSA_ECC_P521_SIZE_IN_BYTES];
+	u8 SharedSecretObjId[XECDH_SHARED_SEC_OBJ_ID_SIZE];
+	EcdsaCrvInfo *Crv = NULL;
+	EcdsaKey Key;
+	u32 CurveSize = 0U;
+
+	/** Validate the input arguments. */
+	if ((DmaPtr == NULL) || (PrivKeyAddr == 0U) || (PubKeyAddr == 0U)) {
+		Status = XASUFW_RSA_ECC_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((SharedSecretAddr == 0U) && (SharedSecretObjIdAddr == 0U)) {
+		Status = XASUFW_RSA_ECC_INVALID_PARAM;
+		goto END;
+	}
+
+	CurveSize = XRsa_EccValidateAndGetCrvInfo(CurveType, &Crv);
+	if ((CurveSize == 0U) || (CurveLen != CurveSize) || (Crv == NULL)) {
+		Status = XASUFW_RSA_ECC_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Copy public key to local address using DMA and change endianness of the data. */
+	Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr, (u64)(UINTPTR)PubKey,
+			       XAsu_DoubleCurveLength(CurveLen), 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
+		goto END_CLR;
+	}
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
+	if (Status != XASUFW_SUCCESS) {
+		goto END_CLR;
+	}
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_ChangeEndianness((PubKey + CurveLen), CurveLen);
+	if (Status != XASUFW_SUCCESS) {
+		goto END_CLR;
+	}
+
+	Key.Qx = (u8 *)(UINTPTR)PubKey;
+	Key.Qy = (u8 *)(UINTPTR)(PubKey + CurveLen);
+
+	/** Copy private key to local address using DMA and change endianness of the data. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr, (u64)(UINTPTR)PrivKey, CurveLen, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
+		goto END_CLR;
+	}
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_ChangeEndianness(PrivKey, CurveLen);
+	if (Status != XASUFW_SUCCESS) {
+		goto END_CLR;
+	}
+
+	/** Release Reset. */
+	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	XFIH_CALL(Ecdsa_CDH_Q, XFihEcdh, Status, Crv, PrivKey, (EcdsaKey *)&Key, SharedSecret);
+
+	/** Set RSA under reset. */
+	XAsufw_CryptoCoreSetReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
+
+	if ((XRSA_ECC_GEN_POINT_INVALID == Status)) {
+		Status = XASUFW_ECDH_INVALID_POINT_ON_CRV;
+		goto END_CLR;
+	} else if ((XASUFW_TRNG_INVALID_PARAM == Status) || (XASUFW_TRNG_INVALID_STATE == Status)
+			|| (XASUFW_TRNG_INVALID_BUF_SIZE == Status)) {
+				Status = XASUFW_ECDH_RAND_GEN_ERROR;
+				goto END_CLR;
+
+	} else if (XRSA_ECC_SUCCESS == Status) {
+		Status = XASUFW_SUCCESS;
+	} else{
+		Status = XASUFW_ECDH_OTHER_ERROR;
+	}
+	/** Copy shared secret to destination address if not null using DMA and
+		change endianness of the data. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_ChangeEndianness(SharedSecret, CurveLen);
+	if (Status != XASUFW_SUCCESS) {
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if (SharedSecretAddr == 0U) {
+		/* TODO: Store shared secret in keyvault and update SharedSecretObjId */
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)SharedSecretObjId,
+					SharedSecretObjIdAddr, XECDH_SHARED_SEC_OBJ_ID_SIZE, 0U);
+	} else {
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)SharedSecret, SharedSecretAddr,
+					CurveLen, 0U);
+	}
+	if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_ECC_READ_DATA_FAIL;
+	}
+
+END_CLR:
+
+	/** Zeroize local private key copy. */
+	XFIH_CALL(Xil_SecureZeroize, XFihEcdh, ClearStatus, (u8 *)(UINTPTR)PrivKey,
+					XRSA_ECC_P521_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	/** Zeroize local copy of shared secret. */
+	XFIH_CALL(Xil_SecureZeroize, XFihEcdh, ClearStatus, (u8 *)(UINTPTR)SharedSecret,
+					XRSA_ECC_P521_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+END:
+
+	return Status;
 }
 /** @} */

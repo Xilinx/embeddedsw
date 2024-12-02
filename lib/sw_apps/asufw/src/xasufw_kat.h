@@ -23,6 +23,7 @@
  *       am   08/22/24 Added AES KAT
  *       am   08/24/24 Added AES DPA CM KAT support
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       ss   12/02/24 Added kat support for ECDH
  *
  * </pre>
  *
@@ -60,6 +61,7 @@ s32 XAsufw_EccCoreKat(XEcc *XAsufw_EccInstance, u32 QueueId);
 s32 XAsufw_RsaEccKat(u32 QueueId);
 s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId);
 s32 XAsufw_AesDecryptDpaCmKat(XAes *AesInstance, u32 QueueId);
+s32 XAsufw_P192EcdhKat(u32 QueueId);
 
 /************************************ Variable Definitions ***************************************/
 
