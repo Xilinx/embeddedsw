@@ -77,16 +77,21 @@ extern "C" {
 #define XASU_AES_GHASH_MODE		(0xEU) /**< AES GHASH mode */
 
 /* AES key source */
-#define XASU_AES_EFUSE_KEY_RED_0	(0x0U) /**< EFUSE Red key 0 */
-#define XASU_AES_EFUSE_KEY_RED_1	(0x1U) /**< EFUSE Red key 1 */
-#define XASU_AES_USER_KEY_0		(0x2U) /**< User Key 0 */
-#define XASU_AES_USER_KEY_1		(0x3U) /**< User Key 1 */
-#define XASU_AES_USER_KEY_2		(0x4U) /**< User Key 2 */
-#define XASU_AES_USER_KEY_3		(0x5U) /**< User Key 3 */
-#define XASU_AES_USER_KEY_4		(0x6U) /**< User Key 4 */
-#define XASU_AES_USER_KEY_5		(0x7U) /**< User Key 5 */
-#define XASU_AES_USER_KEY_6		(0x8U) /**< User Key 6 */
-#define XASU_AES_USER_KEY_7		(0x9U) /**< User Key 7 */
+#define XASU_AES_USER_KEY_0		(0x0U) /**< User Key 0 */
+#define XASU_AES_USER_KEY_1		(0x1U) /**< User Key 1 */
+#define XASU_AES_USER_KEY_2		(0x2U) /**< User Key 2 */
+#define XASU_AES_USER_KEY_3		(0x3U) /**< User Key 3 */
+#define XASU_AES_USER_KEY_4		(0x4U) /**< User Key 4 */
+#define XASU_AES_USER_KEY_5		(0x5U) /**< User Key 5 */
+#define XASU_AES_USER_KEY_6		(0x6U) /**< User Key 6 */
+#define XASU_AES_USER_KEY_7		(0x7U) /**< User Key 7 */
+#define XASU_AES_EFUSE_KEY_0		(0x8U) /**< Efuse key 0 */
+#define XASU_AES_EFUSE_KEY_1		(0x9U) /**< Efuse key 1 */
+#define XASU_AES_PUF_KEY		(0xAU) /**< PUF key */
+#define XASU_AES_EFUSE_KEY_RED_0	(0xBU) /**< Efuse Red key 0 */
+#define XASU_AES_EFUSE_KEY_RED_1	(0xCU) /**< Efuse Red key 1 */
+#define XASU_AES_EXPANDED_KEYS		(0xDU) /**< Expanded keys in AES engine */
+#define XASU_AES_MAX_KEY_SOURCES	XASU_AES_EXPANDED_KEYS /**< Maximum key source value */
 
 /* AES key size */
 #define XASU_AES_KEY_SIZE_128_BITS	(0x0U) /**< 128 bits AES key size  */

@@ -83,8 +83,8 @@
 #define XASU_AES_TAG_LEN_IN_BYTES		(16U) /**< AES Tag length in bytes */
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsu_AesGcmExample(void);
-static s32 XAsu_AesCtrExample(void);
+static void XAsu_AesGcmExample(void);
+static void XAsu_AesCtrExample(void);
 static void XAsu_AesPrintData(const u8 *Data, u32 DataLen);
 static void XAsu_AesCallBackRef(void *CallBackRef, u32 Status);
 
@@ -218,6 +218,9 @@ static u8 XAsu_AesDecData[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES];
 
 static u8 Notify = 0; /**< To notify the call back from client library */
 
+static u32 ErrorStatus = XST_FAILURE; /**< Variable holds the status of the AES operation from
+					client library and gets updated during callback. */
+
 /************************************ Function Definitions ***************************************/
 
 /*************************************************************************************************/
@@ -248,17 +251,10 @@ int main(void)
 	}
 
 	/* AES-CTR example */
-	Status = XAsu_AesCtrExample();
-	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n ASU AES-CTR client example failed \r\n");
-	}
+	XAsu_AesCtrExample();
 
 	/* AES-GCM example */
-	Status = XAsu_AesGcmExample();
-	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n ASU AES-GCM client example failed \r\n");
-		goto END;
-	}
+	XAsu_AesGcmExample();
 
 END:
 	return Status;
@@ -269,17 +265,16 @@ END:
  * @brief	This  function performs AES encryption and decryption operation on a given data
  *		using AES-GCM engine mode.
  *
- * @return
- *		- Upon successful encryption and decryption operation, it returns XASUFW_SUCCESS.
- *		- Error code on failure.
- *
  *************************************************************************************************/
-static s32 XAsu_AesGcmExample(void)
+static void XAsu_AesGcmExample(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_AesKeyObject AesKeyObj;
 	XAsu_ClientParams AesClientParams;
 	Asu_AesParams AesParams;
+	ErrorStatus = XST_FAILURE;
+
+	xil_printf("\r\n AES-GCM Example: \r\n");
 
 	/* Set Queue priority */
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
@@ -308,13 +303,19 @@ static s32 XAsu_AesGcmExample(void)
 	AesParams.TagAddr = (u64)(UINTPTR)XAsu_AesTag;
 	AesParams.TagLen = XASU_AES_TAG_LEN_IN_BYTES;
 
-	Status = XAsu_AesEncrypt(&AesClientParams, &AesParams);
+	Status = XAsu_AesOperation(&AesClientParams, &AesParams);
 	if (Status != XST_SUCCESS) {
 		xil_printf("AES-GCM Encryption failed: %08x \r\n", Status);
 		goto END;
 	}
 	while(!Notify);
+
+	if (ErrorStatus != XST_SUCCESS) {
+		goto END;
+	}
+
 	Notify = 0;
+	ErrorStatus = XST_FAILURE;
 
 	/* Comparison of encrypted Data with expected ciphertext data */
 	Status = Xil_SMemCmp_CT(XAsu_AesGcmExpCt, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesEncData,
@@ -365,7 +366,7 @@ static s32 XAsu_AesGcmExample(void)
 	AesParams.TagAddr = (u64)(UINTPTR)XAsu_AesTag;
 	AesParams.TagLen = XASU_AES_TAG_LEN_IN_BYTES;
 
-	Status = XAsu_AesDecrypt(&AesClientParams, &AesParams);
+	Status = XAsu_AesOperation(&AesClientParams, &AesParams);
 	if (Status != XST_SUCCESS) {
 		xil_printf("AES-GCM Decryption failed: %08x \r\n", Status);
 		goto END;
@@ -373,20 +374,28 @@ static s32 XAsu_AesGcmExample(void)
 	while(!Notify);
 	Notify = 0;
 
+	if (ErrorStatus != XST_SUCCESS) {
+		goto END;
+	}
+
 	xil_printf("AES-GCM Decrypted data: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesDecData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 
 	/* Comparison of decrypted Data with expected input data */
 	Status = Xil_SMemCmp_CT(XAsu_AesInputData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesDecData,
 				XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ASU AES-GCM Example Failed at Decrypted data Comparison \r\n");
-		goto END;
-	}
-	xil_printf("Successfully ran ASU AES-GCM Example\n\r");
 
 END:
-	return Status;
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n AES-GCM client example failed with Status = %08x", Status);
+	}
+	else if (ErrorStatus != XST_SUCCESS) {
+		xil_printf("\r\n AES-GCM client example failed with error from server = %08x", ErrorStatus);
+		Status = ErrorStatus;
+	}
+	else {
+		xil_printf("\r\n Successfully ran AES-GCM client example ");
+	}
 }
 
 /*************************************************************************************************/
@@ -394,17 +403,16 @@ END:
  * @brief	This  function performs AES encryption and decryption operation on a given data
  *		using AES-CTR engine mode.
  *
- * @return
- *		- Upon successful encryption and decryption operation, it returns XASUFW_SUCCESS.
- *		- Error code on failure.
- *
  *************************************************************************************************/
-static s32 XAsu_AesCtrExample(void)
+static void XAsu_AesCtrExample(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_AesKeyObject AesKeyObj;
 	XAsu_ClientParams AesClientParams;
 	Asu_AesParams AesParams;
+	ErrorStatus = XST_FAILURE;
+
+	xil_printf("\r\n AES-CTR Example: \r\n");
 
 	/* Set Queue priority */
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
@@ -434,13 +442,19 @@ static s32 XAsu_AesCtrExample(void)
 	AesParams.TagAddr = 0U;
 	AesParams.TagLen = 0U;
 
-	Status = XAsu_AesEncrypt(&AesClientParams, &AesParams);
+	Status = XAsu_AesOperation(&AesClientParams, &AesParams);
 	if (Status != XST_SUCCESS) {
 		xil_printf("AES-CTR Encryption failed: %08x \r\n", Status);
 		goto END;
 	}
 	while(!Notify);
+
+	if (ErrorStatus != XST_SUCCESS) {
+		goto END;
+	}
+
 	Notify = 0;
+	ErrorStatus = XST_FAILURE;
 
 	/* Comparison of encrypted Data with expected ciphertext data */
 	Status = Xil_SMemCmp_CT(XAsu_AesCtrExpCt, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesEncData,
@@ -473,7 +487,7 @@ static s32 XAsu_AesCtrExample(void)
 	AesParams.OutputDataAddr = (u64)(UINTPTR)XAsu_AesDecData;
 	AesParams.DataLen = XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES;
 
-	Status = XAsu_AesDecrypt(&AesClientParams, &AesParams);
+	Status = XAsu_AesOperation(&AesClientParams, &AesParams);
 	if (Status != XST_SUCCESS) {
 		xil_printf("AES-CTR Decryption failed: %08x \r\n", Status);
 		goto END;
@@ -482,20 +496,28 @@ static s32 XAsu_AesCtrExample(void)
 	while(!Notify);
 	Notify = 0;
 
+	if (ErrorStatus != XST_SUCCESS) {
+		goto END;
+	}
+
 	xil_printf("Decrypted data: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesDecData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 
 	/* Comparison of decrypted Data with expected input data */
 	Status = Xil_SMemCmp_CT(XAsu_AesInputData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesDecData,
 				XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ASU AES-CTR Example Failed at Decrypted data Comparison \r\n");
-		goto END;
-	}
-	xil_printf("Successfully ran ASU AES-CTR Example\n\r");
 
 END:
-	return Status;
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n AES-CTR client example failed with Status = %08x", Status);
+	}
+	else if (ErrorStatus != XST_SUCCESS) {
+		xil_printf("\r\n AES-CTR client example failed with error from server = %08x", ErrorStatus);
+		Status = ErrorStatus;
+	}
+	else {
+		xil_printf("\r\n Successfully ran AES-CTR client example ");
+	}
 }
 
 /*************************************************************************************************/
@@ -527,13 +549,13 @@ static void XAsu_AesPrintData(const u8 *Data, u32 DataLen)
  * 			- Error code from ASUFW application upon any error
  *
  *************************************************************************************************/
-  static void XAsu_AesCallBackRef(void *CallBackRef, u32 Status)
- {
+static void XAsu_AesCallBackRef(void *CallBackRef, u32 Status)
+{
 	(void)CallBackRef;
 
-	xil_printf("Recieved response from library with Status = %x\n\r", Status);
+	ErrorStatus = Status;
+
 	/* Update the variable to notify the callback */
 	Notify = 1U;
-
- }
+}
 /** @} */
