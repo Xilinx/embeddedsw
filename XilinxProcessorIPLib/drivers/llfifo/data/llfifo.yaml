@@ -14,7 +14,10 @@ properties:
   compatible:
     OneOf:
       - items:
-        - const: xlnx,axi-fifo-mm-s-4.2
+        - enum:
+          - xlnx,axi-fifo-mm-s-4.2
+          - xlnx,axi-fifo-mm-s-4.3
+          - xlnx,axi-fifo-mm-s
   reg:
     description: Physical base address and size of the controller register map
 
