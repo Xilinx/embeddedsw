@@ -42,6 +42,7 @@
 *       sk   02/26/2024 Added support for Infineon OSPI flash part
 *       ng   03/05/2024 Added support for Macronix OSPI 2G flash part
 *       sk   03/16/2024 Added support for Spansion Die config
+*       pre  12/03/2024 Added support to reset OSPI device through OSPI controller in telluride
 *
 * </pre>
 *
@@ -317,14 +318,6 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	}
 
 	/**
-	 * - Request driver to reset the OSPI flash device.
-	*/
-	Status = (int)XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/**
 	 * - Initialize the OSPI instance.
 	*/
 	Status = XPlmi_MemSetBytes(&OspiPsvInstance, sizeof(OspiPsvInstance), 0U,
@@ -349,6 +342,15 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_CFG, Status);
 		XLoader_Printf(DEBUG_INFO,"XLOADER_ERR_OSPI_CFG\r\n");
+		goto END;
+	}
+
+#ifdef VERSAL_AIEPG2
+	Status = (int)XOspiPsv_DeviceResetViaOspi(&OspiPsvInstance, XOSPIPSV_HWPIN_RESET);
+#else
+	Status = (int)XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
+#endif
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
