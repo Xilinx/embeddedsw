@@ -361,6 +361,36 @@ extern "C" {
 #define PSM_ERR1_STATUS_RPLL_LOCK_MASK				(0x00008000U)
 
 /**
+ * PSM Local Module
+ */
+#define PSM_LOCAL_REG_BASEADDR					(0xFFC88000U)
+#define PSM_LOCAL_REG_SIZE						(0x8000U)
+
+/**
+ * PSM RAM INSTR CTRL Module
+ */
+#define PSM_RAM_INSTR_ECC_CTRL_REG_BASEADDR		(0xFFCA0000U)
+#define PSM_RAM_INSTR_ECC_CTRL_SIZE				(0x10000U)
+
+/**
+ * PSM RAM DATA CTRL Module
+ */
+#define PSM_RAM_DATA_ECC_CTRL_REG_BASEADDR		(0xFFCB0000U)
+#define PSM_RAM_DATA_ECC_CTRL_SIZE				(0x10000U)
+
+/**
+ * PSM TMR Manager Module
+ */
+#define PSM_TMR_MANAGER_REG_BASEADDR			(0xFFCC0000U)
+#define PSM_TMR_MANAGER_SIZE					(0x10000U)
+
+/**
+ * PSM TMR Inject Module
+ */
+#define PSM_TMR_INJECT_REG_BASEADDR				(0xFFCD0000U)
+#define PSM_TMR_INJECT_SIZE						(0x10000U)
+
+/**
  * LPD IOU SLCR Module
  */
 #define LPD_IOU_SLCR_WPROT0_OFFSET				(0x00000728U)

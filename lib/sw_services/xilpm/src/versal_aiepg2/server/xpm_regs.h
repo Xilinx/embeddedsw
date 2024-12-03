@@ -11,6 +11,35 @@
 extern "C" {
 #endif
 
+/* TBD: Placeholders for now, will be fixed in future by creating
+		a range-checker api specific to architecture
+*/
+/**
+ * PSM Local Module
+ */
+#define PSM_LOCAL_REG_BASEADDR					(0U)
+#define PSM_LOCAL_REG_SIZE						(0U)
+/**
+ * PSM RAM INSTR CTRL Module
+ */
+#define PSM_RAM_INSTR_ECC_CTRL_REG_BASEADDR		(0U)
+#define PSM_RAM_INSTR_ECC_CTRL_SIZE				(0U)
+/**
+ * PSM RAM DATA CTRL Module
+ */
+#define PSM_RAM_DATA_ECC_CTRL_REG_BASEADDR		(0U)
+#define PSM_RAM_DATA_ECC_CTRL_SIZE				(0U)
+/**
+ * PSM TMR Manager Module
+ */
+#define PSM_TMR_MANAGER_REG_BASEADDR			(0U)
+#define PSM_TMR_MANAGER_SIZE					(0U)
+/**
+ * PSM TMR Inject Module
+ */
+#define PSM_TMR_INJECT_REG_BASEADDR				(0U)
+#define PSM_TMR_INJECT_SIZE						(0U)
+
 /**
  * Base Addresses
  */

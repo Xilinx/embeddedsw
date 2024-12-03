@@ -101,6 +101,10 @@ extern "C" {
 #define PSM_API_CDO_PROC	(0x8U)
 #define PSM_API_SHUTDOWN_PSM	(0x9U)
 
+/* IPI Command for PLM to PSM read/write Forwarding */
+#define PSM_API_READ_ACCESS					(0xAU)
+#define PSM_API_MASK_WRITE_ACCESS			(0xBU)
+
 #define PSM_API_DOMAIN_ISO_GETTER_HEADER	(0U)
 #define PSM_API_DOMAIN_ISO_SETTER_HEADER	(1U)
 /**
