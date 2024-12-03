@@ -42,8 +42,15 @@ extern "C" {
 #define XASU_RSA_PUB_ENC_CMD_ID		(0U) /**< Command ID for RSA public encryption */
 #define XASU_RSA_PVT_DEC_CMD_ID		(1U) /**< Command ID for RSA private decryption */
 #define XASU_RSA_PVT_CRT_DEC_CMD_ID	(2U) /**< Command ID for RSA private CRT decryption */
-#define XASU_RSA_KAT_CMD_ID		(3U) /**< Command ID for RSA KAT command */
-#define XASU_RSA_GET_INFO_CMD_ID	(4U) /**< Command ID for RSA Get Info command */
+#define XASU_RSA_OAEP_SHA2_CMD_ID	(3U) /**< Command ID for OAEP enc/dec with SHA2 */
+#define XASU_RSA_OAEP_SHA3_CMD_ID	(4U) /**< Command ID for OAEP enc/dec with SHA3 */
+#define XASU_RSA_PKCS_CMD_ID		(5U) /**< Command ID for PKCS enc/dec */
+#define XASU_RSA_PSS_SHA2_CMD_ID	(6U) /**< Command ID for PSS sign gen/ver with SHA2 */
+#define XASU_RSA_PSS_SHA3_CMD_ID	(7U) /**< Command ID for PSS sign gen/ver with SHA3 */
+#define XASU_RSA_PKCS_SHA2_CMD_ID	(8U) /**< Command ID for PKCS sign gen/ver with SHA2 */
+#define XASU_RSA_PKCS_SHA3_CMD_ID	(9U) /**< Command ID for PKCS sign gen/ver with SHA3 */
+#define XASU_RSA_KAT_CMD_ID		(10U) /**< Command ID for RSA KAT command */
+#define XASU_RSA_GET_INFO_CMD_ID	(11U) /**< Command ID for RSA Get Info command */
 
 /* RSA key size */
 #define XRSA_2048_KEY_SIZE		(256U) /**< 2048 bit key size in bytes */
@@ -53,6 +60,16 @@ extern "C" {
 #define XRSA_MAX_KEY_SIZE_IN_WORDS	(XRSA_4096_KEY_SIZE / 4U) /**< RSA max key size in
 										words */
 #define XRSA_MAX_PRIME_SIZE_IN_WORDS	(64U) /**< RSA max prime size in words */
+
+/* RSA input data type for sign generation or verification */
+#define XASU_RSA_HASHED_INPUT_DATA		(1U)	/**< Input data hash is already
+									calculated */
+
+/* RSA operation flags */
+#define XASU_RSA_ENCRYPTION			(1U)	/**< Encryption operation */
+#define XASU_RSA_EXPONENTIATION_DECRYPTION	(2U)	/**< Exponentiation Decryption operation */
+#define XASU_RSA_SIGN_GENERATION		(3U)	/**< Sign Generation operation */
+#define XASU_RSA_SIGN_VERIFICATION		(4U)	/**< Sign Verification operation */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -113,7 +130,42 @@ typedef struct {
 	u64 ExpoCompAddr;	/**< RSA exponent data address */
 	u64 KeyCompAddr; 	/**< RSA key component address */
 	u32 Len;		/**< Data Len */
+	u32 KeySize;		/**< Key Size */
 } XAsu_RsaClientParams;
+
+/**
+ * @brief This structure contains RSA padding params info.
+ */
+typedef struct {
+	XAsu_RsaClientParams  XAsu_ClientComp;	/**< Contains client components */
+	u64 SignatureDataAddr;	/**< RSA signature data address */
+	u32 SignatureLen;	/**< RSA signature data length */
+	u32 SaltLen;		/**< RSA salt len for PSS padding */
+	u8 DigestType;		/**< SHA digest type */
+	u8 InputDataType;	/**<	0 : Hash is to be calculated
+					1 : Hashed input is sent */
+	u8 OperationFlag;	/**<	1 : Encryption
+					2 : Exponentiation Decryption
+					3 : Sign Generation
+					4 : Sign Verification */
+	u8 Reserved;
+} XAsu_RsaClientPaddingParams;
+
+/**
+ * @brief This structure contains RSA OAEP padding params info.
+ */
+typedef struct {
+	XAsu_RsaClientParams  XAsu_ClientComp;	/**< Contains client components */
+	u64 OptionalLabelAddr;	/**< RSA optional label address for OAEP padding */
+	u32 OptionalLabelSize;	/**< RSA optional label size for OAEP padding */
+	u8 DigestType;		/**< SHA digest type */
+	u8 OperationFlag;	/**<	1 : Encryption
+					2 : Exponentiation Decryption
+					3 : Sign Generation
+					4 : Sign Verification */
+	u8 Reserved;
+	u8 Reserved1;
+} XAsu_RsaClientOaepPaddingParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

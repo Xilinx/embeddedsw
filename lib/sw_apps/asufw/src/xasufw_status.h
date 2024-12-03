@@ -235,8 +235,55 @@ enum {
 	XASUFW_RSA_CRT_OP_ERROR, /**< Error in CRT operation */
 	XASUFW_RSA_PVT_OP_ERROR, /**< Error in Private exponentiation operation */
 	XASUFW_RSA_PUB_OP_ERROR, /**< Error in Public exponentiation operation */
+	XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR, /**< Error when MGF returns error for data block */
+	XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR, /**< Error when MGF returns error seed buffer*/
+	XASUFW_RSA_ZEROIZE_MEMSET_FAIL, /**< Error when memory zeroization fails */
+	XASUFW_RSA_OAEP_ENCRYPT_ERROR, /**< Error when OAEP encryption operation fails */
+	XASUFW_RSA_OAEP_ENCODE_ERROR, /**< Error when OAEP encode operation fails */
+	XASUFW_RSA_OAEP_INVALID_LEN, /**< Error when OAEP input len is invalid */
+	XASUFW_RSA_OAEP_DECRYPT_ERROR, /**< Error when OAEP decryption operation fails */
+	XASUFW_RSA_OAEP_DECODE_ERROR, /**< Error when OAEP decode operation fails */
+	XASUFW_RSA_OAEP_OCTET_ONE_CMP_FAIL, /**< Error when OAEP decode operation fails for first
+							octet comparsion failure */
+	XASUFW_RSA_OAEP_HASH_CMP_FAIL,	/**< Error when OAEP decode operation fails for hash
+							comparsion failure */
+	XASUFW_RSA_OAEP_ONE_SEP_CMP_FAIL, /**< Error when OAEP decode operation fails for message
+							seperation comparsion failure */
+	XASUFW_RSA_PKCS_ENCRYPT_ERROR, /**< Error when PKCS encryption operation fails */
+	XASUFW_RSA_PKCS_ENCODE_ERROR, /**< Error when PKCS encode operation fails */
+	XASUFW_RSA_PKCS_SIGN_GEN_ERROR, /**< Error when PKCS sign generation operation fails */
+	XASUFW_RSA_PKCS_INVALID_LEN, /**< Error when PKCS input len is invalid */
+	XASUFW_RSA_PKCS_DECRYPT_ERROR, /**< Error when PKCS decryption operation fails */
+	XASUFW_RSA_PKCS_DECODE_ERROR, /**< Error when PKCS decode operation fails */
+	XASUFW_RSA_PKCS_OCTET_ONE_CMP_FAIL, /**< Error when PKCS decode operation fails for first
+							octet comparsion failure */
+	XASUFW_RSA_PKCS_OCTET_TWO_CMP_FAIL, /**< Error when PKCS decode operation fails for second
+							octet comparsion failure */
+	XASUFW_RSA_PKCS_ZERO_SEP_CMP_FAIL, /**< Error when PKCS decode operation fails for zero
+							seperation comparsion failure */
+	XASUFW_RSA_PKCS_SIGN_VER_ERROR, /**< Error when PKCS sign verification operation fails */
+	XASUFW_RSA_PSS_INVALID_LEN,	/**< Error when PSS signature len is invalid */
+	XASUFW_RSA_PSS_SIGN_GEN_ERROR, /**< Error when PSS sign generation operation fails */
+	XASUFW_RSA_PSS_ENCODE_ERROR, /**< Error when PSS encode operation fails */
+	XASUFW_RSA_PSS_NO_SALT_NO_RANDOM_STRING, /**< Error when PSS encode operation fails for
+							invalid salt input */
+	XASUFW_RSA_PSS_RIGHT_MOST_CMP_FAIL, /**< Error when PSS decode operation fails for last
+							octet comparsion failure */
+	XASUFW_RSA_PSS_LEFT_MOST_BIT_CMP_FAIL, /**< Error when PSS decode operation fails for first
+							bit in first octet comparsion failure */
+	XASUFW_RSA_PSS_DB_LEFT_MOST_BYTE_CMP_FAIL, /**< Error when PSS decode operation fails for first
+							octet comparsion failure */
+	XASUFW_RSA_PSS_DB_BYTE_ONE_CMP_FAIL, /**< Error when PSS decode operation fails for first
+							second octet comparsion failure */
+	XASUFW_RSA_PSS_HASH_CMP_FAIL, /**< Error when PSS decode operation fails for hash
+							comparsion failure */
+	XASUFW_RSA_PSS_SIGN_VER_ERROR, /**< Error when PSS sign verification operation fails */
+	XASUFW_RSA_PSS_DECODE_ERROR, /**< Error when PSS decode operation fails */
+	XASUFW_RSA_INVALID_OP_FLAG_ERROR, /**< Error when invalid operation flag is given */
 	XASUFW_RSA_MODULE_REGISTRATION_FAILED, /**< RSA module registration failed */
 	XASUFW_RSA_ENCRYPT_DATA_COMPARISON_FAILED, /**< Error when RSA encrypt output comparision
+							failed */
+	XASUFW_RSA_DECRYPT_DATA_COMPARISON_FAILED, /**< Error when RSA decrypt output comparision
 							failed */
 	XASUFW_RSA_KAT_FAILED, /**< Error when RSA KAT failed */
 	XASUFW_ECDH_INVALID_POINT_ON_CRV, /**< Error when generated point is invalid */

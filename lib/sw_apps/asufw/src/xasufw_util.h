@@ -69,6 +69,7 @@ extern "C" {
 
 #define XASUFW_EVEN_MODULUS			(2U)	/**< Modulus to determine evenness */
 
+#define XASUFW_I2OSP_LIMIT		(256U) /**< Integer to octet stream primitive limit */
 /*************************************************************************************************/
 /**
  * @brief	This function writes 32-bit value to 32-bit register.
@@ -95,6 +96,23 @@ static inline void XAsufw_WriteReg(u32 Addr, u32 Value)
 static inline u32 XAsufw_ReadReg(u32 Addr)
 {
 	return Xil_In32(Addr);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function converts a non-negative integer to an octet string of a
+ * 		specified length
+ *
+ * @param	Integer	Variable in which input should be provided.
+ * @param	Size	Holds the required size.
+ * @param	Convert	Pointer in which output will be updated.
+ *
+ *************************************************************************************************/
+static inline void XAsufw_I2Osp(u32 Integer, u32 Size, u8 *Convert)
+{
+	if (Integer < XASUFW_I2OSP_LIMIT) {
+		Convert[Size - 1U] = (u8)Integer;
+	}
 }
 
 #define XAsufw_SecureOut32			(Xil_SecureOut32) /**< Writes data to 32-bit address and checks

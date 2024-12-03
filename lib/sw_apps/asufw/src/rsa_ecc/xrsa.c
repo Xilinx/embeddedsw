@@ -46,13 +46,8 @@
 #define XRSA_RAND_GEN_ERROR		(2)		/**< RSA IPcores random number generation
 								error */
 
-#define XRSA_TOTAL_PARAMS		(9U)		/**< RSA total no of parameters */
-
-#define XRSA_MAX_KEY_SIZE_IN_BYTES	(512U)		/**< RSA max key size in bytes */
 #define XRSA_MAX_PRIME_SIZE_IN_BYTES	(256U)		/**< RSA max prime size in bytes */
 #define XRSA_PUBEXP_SIZE_IN_BYTES	(4U)		/**< RSA public exponent size in bytes */
-#define XRSA_MAX_PARAM_SIZE_IN_BYTES	(XRSA_TOTAL_PARAMS * XRSA_MAX_KEY_SIZE_IN_BYTES) /**< Size
-							of memory allocated for RSA parameters */
 
 #define XRSA_HALF_LEN(x)		((x) >> 1U)	/**< Calculate half value */
 #define XRSA_BYTE_TO_BIT(x)		((s32)((x) << 3U)) /**< Byte to bit conversion */
@@ -74,7 +69,7 @@ static s32 XRsa_ValidatePubExp(u8 *BuffAddr);
 static s32 XRsa_ValidateModulus(u8 *BuffAddr, u8 *InputData, u32 Len);
 
 /************************************ Variable Definitions ***************************************/
-u8 Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES]; /**< Memory allocated for RSA parameters */
+static u8  Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES] __attribute__ ((section (".rsa_data_block")));
 
 /*************************************************************************************************/
 /**
@@ -92,7 +87,7 @@ u8 Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES]; /**< Memory allocated for RSA paramet
  *		- XASUFW_SUCCESS on success.
  *		- XASUFW_FAILURE on failure.
  *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
-* 		- Also can return termination error codes from 0x9CU to 0x9FU ,
+ * 		- Also can return termination error codes from 0x9CU to 0x9FU ,
  * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
@@ -102,7 +97,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	u8 *InData = Rsa_Data;
+	u8 *InData = XRsa_GetDataBlockAddr();
 	XAsu_RsaCrtKeyComp *KeyPtr = (XAsu_RsaCrtKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
 	u8 *PubExpoArr = (u8 *)KeyPtr + sizeof(XAsu_RsaCrtKeyComp);
 	u8 *OutData = PubExpoArr + XRSA_MAX_KEY_SIZE_IN_BYTES;
@@ -254,7 +249,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	SStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)Rsa_Data, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
+	SStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)InData, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
 					XRSA_TOTAL_PARAMS);
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
@@ -291,7 +286,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	u8 *InData = Rsa_Data;
+	u8 *InData = XRsa_GetDataBlockAddr();
 	XAsu_RsaPvtKeyComp *KeyPtr = (XAsu_RsaPvtKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
 	u8 *RRN = (u8 *)KeyPtr + sizeof(XAsu_RsaPvtKeyComp);
 	u8 *RN = RRN + XRSA_MAX_KEY_SIZE_IN_BYTES;
@@ -498,7 +493,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	SStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)Rsa_Data, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
+	SStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)InData, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
 					XRSA_TOTAL_PARAMS);
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
@@ -534,7 +529,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
-	u8 *InData = Rsa_Data;
+	u8 *InData = XRsa_GetDataBlockAddr();
 	XAsu_RsaPubKeyComp *KeyPtr = (XAsu_RsaPubKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
 	u8 *RRN = (u8 *)KeyPtr + sizeof(XAsu_RsaPubKeyComp);
 	u8 *PubExpoArr = RRN + XRSA_MAX_KEY_SIZE_IN_BYTES;
@@ -573,7 +568,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	/** Copy key parameters to server memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
-			       sizeof(XAsu_RsaPvtKeyComp), 0U);
+			       sizeof(XAsu_RsaPubKeyComp), 0U);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -653,7 +648,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	SStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)Rsa_Data, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
+	SStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)InData, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
 					XRSA_TOTAL_PARAMS);
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
@@ -662,6 +657,19 @@ END:
 	XAsufw_CryptoCoreSetReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
 
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is used to get RSA data block address.
+ *
+ * @return
+ *		- Address of the data block.
+ *
+ *************************************************************************************************/
+u8 *XRsa_GetDataBlockAddr(void)
+{
+	return Rsa_Data;
 }
 
 /*************************************************************************************************/
@@ -714,7 +722,7 @@ static s32 XRsa_ValidatePubExp(u8 *BuffAddr)
 				BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 2U] << 8U |
 					BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 1U];
 
-	if((PubExpVal != 0U) && (PubExpVal != 1U) && (PubExpVal != 3U)) {
+	if ((PubExpVal != 0U) && (PubExpVal != 1U) && (PubExpVal != 3U)) {
 		Status = XASUFW_SUCCESS;
 	}
 	return Status;
@@ -740,7 +748,7 @@ static s32 XRsa_ValidateModulus(u8 *BuffAddr, u8 *InputData, u32 Len)
 	volatile u32 Index = 0U;
 
 	for (Index = 0U; Index < Len; Index++) {
-		if(BuffAddr[Index] > InputData[Index]) {
+		if (BuffAddr[Index] > InputData[Index]) {
 			Status = XASUFW_SUCCESS;
 			break;
 		}
@@ -750,7 +758,7 @@ static s32 XRsa_ValidateModulus(u8 *BuffAddr, u8 *InputData, u32 Len)
 		}
 	}
 
-	if(Index == Len) {
+	if (Index == Len) {
 		Status = XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL;
 	}
 

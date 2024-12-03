@@ -141,6 +141,31 @@ static const u8 RsaModulus[XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES] = {
 	0xD1U, 0x05U, 0xD2U, 0x23U
 };
 
+static const u8 RsaPvtExp[XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES] = {
+	0x0AU, 0xA8U, 0x1BU, 0x41U, 0xB1U, 0x20U, 0xD3U, 0x7DU, 0x17U, 0xCCU, 0xF2U, 0xADU,
+	0x14U, 0x2EU, 0x53U, 0xC3U, 0x5BU, 0x36U, 0x06U, 0x94U, 0xE1U, 0x10U, 0x70U, 0xF0U,
+	0xFCU, 0x74U, 0xA1U, 0x76U, 0xE3U, 0x16U, 0xD1U, 0xB6U, 0x8DU, 0xD5U, 0x6BU, 0x36U,
+	0x11U, 0xB7U, 0xACU, 0xF1U, 0x4EU, 0x2DU, 0x9CU, 0x2CU, 0xE6U, 0xB7U, 0x24U, 0x05U,
+	0xE3U, 0xEDU, 0x5FU, 0xC2U, 0x15U, 0x63U, 0x7EU, 0x84U, 0x73U, 0x32U, 0x7DU, 0x07U,
+	0xE9U, 0x72U, 0x09U, 0x13U, 0x50U, 0x82U, 0x35U, 0x96U, 0x1FU, 0x66U, 0x3FU, 0x3EU,
+	0xEDU, 0x69U, 0x25U, 0xCEU, 0xBDU, 0xDAU, 0xD5U, 0xB0U, 0x04U, 0x88U, 0x9CU, 0x06U,
+	0xB2U, 0x8DU, 0x13U, 0x3FU, 0xEDU, 0xFAU, 0xE2U, 0x8BU, 0xF1U, 0x41U, 0xADU, 0xBDU,
+	0x52U, 0x2FU, 0x8FU, 0xAEU, 0x59U, 0xA7U, 0xE1U, 0xBDU, 0xDAU, 0xD5U, 0x1DU, 0xFDU,
+	0xD8U, 0x4BU, 0x1DU, 0x08U, 0x1FU, 0x28U, 0x1BU, 0xC4U, 0x58U, 0x05U, 0xF2U, 0xAAU,
+	0x74U, 0x8AU, 0xB1U, 0xEBU, 0xEDU, 0xF5U, 0x0BU, 0xBBU, 0xB6U, 0x16U, 0x8DU, 0x2BU,
+	0xE3U, 0x81U, 0xC5U, 0x23U, 0xC8U, 0x34U, 0x37U, 0x6DU, 0xE0U, 0xE6U, 0xF3U, 0xA8U,
+	0x57U, 0xAFU, 0xA2U, 0xABU, 0x74U, 0xAEU, 0xA1U, 0x33U, 0x6EU, 0x81U, 0x0BU, 0x73U,
+	0x23U, 0x39U, 0xE2U, 0xCBU, 0xD6U, 0xA0U, 0xE5U, 0xBFU, 0x6DU, 0x4AU, 0x23U, 0x10U,
+	0x1BU, 0x5BU, 0xAAU, 0x6EU, 0xDAU, 0x76U, 0x11U, 0x7CU, 0xB5U, 0xFBU, 0xCAU, 0xE2U,
+	0xF8U, 0xB5U, 0x54U, 0x10U, 0x29U, 0x5CU, 0x30U, 0x19U, 0x0DU, 0x09U, 0x85U, 0x9AU,
+	0x2DU, 0xFBU, 0x7AU, 0xB7U, 0xA2U, 0xFBU, 0xCBU, 0xA7U, 0x83U, 0x08U, 0xB2U, 0x87U,
+	0x81U, 0xDDU, 0x6BU, 0x52U, 0x91U, 0xC1U, 0x10U, 0x4DU, 0x1DU, 0x55U, 0xA1U, 0x5EU,
+	0xACU, 0xFCU, 0x3CU, 0x6AU, 0x1CU, 0x0FU, 0xDCU, 0x55U, 0x64U, 0x0FU, 0x56U, 0x2CU,
+	0x37U, 0x2FU, 0xF7U, 0xE6U, 0x90U, 0xE8U, 0x99U, 0xE3U, 0x06U, 0x34U, 0xF8U, 0xF2U,
+	0xE2U, 0x90U, 0x1CU, 0x5CU, 0xD9U, 0xA8U, 0x45U, 0x72U, 0x40U, 0x94U, 0x5CU, 0x3CU,
+	0x28U, 0x32U, 0x44U, 0xD1U
+};
+
 static const u8 RsaExpectedCt[XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES] = {
 	0x3BU, 0xCEU, 0xC0U, 0x73U, 0xA9U, 0x93U, 0x58U, 0x71U, 0x94U, 0xAFU, 0xB8U, 0xE9U,
 	0x6EU, 0x51U, 0x81U, 0x5AU, 0xE6U, 0x0FU, 0xCCU, 0x17U, 0x08U, 0xA9U, 0xD0U, 0x1FU,
@@ -391,7 +416,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function runs RSA KAT for 2048 bit key size.
+ * @brief	This function runs RSA KAT for encryption and decryption using 2048 bit key.
  *
  * @param	QueueId	Queue Unique ID.
  *
@@ -400,18 +425,19 @@ END:
  *	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  *	- XASUFW_RSA_ENCRYPT_DATA_COMPARISON_FAILED, if expected and generated encrypted message
  *	comparison fails.
- *	- XASUFW_RSA_KAT_FAILED, when XAsufw_RsaPubEncKat API fails.
+ *	- XASUFW_RSA_KAT_FAILED, when XAsufw_RsaEncDecKat API fails.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *	- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
-s32 XAsufw_RsaPubEncKat(u32 QueueId)
+s32 XAsufw_RsaEncDecKat(u32 QueueId)
 {
 	s32 Status  = XFih_VolatileAssign(XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XAsu_RsaPubKeyComp PubKeyParam;
+	XAsu_RsaPvtKeyComp PvtKeyParam;
 	XAsufw_Dma *AsuDmaPtr = NULL;
-	u8 OutVal[XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES];
+	u8 Result[XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES];
 
 	PubKeyParam.Keysize = XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES;
 	PubKeyParam.PubExp = RsaPublicExp;
@@ -423,6 +449,12 @@ s32 XAsufw_RsaPubEncKat(u32 QueueId)
 		XFIH_GOTO(END);
 	}
 
+	PvtKeyParam.PubKeyComp = PubKeyParam;
+	PvtKeyParam.PrimeCompOrTotientPrsnt = 0U;
+
+	Xil_SMemCpy(PvtKeyParam.PvtExp, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaPvtExp,
+		    XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
+
 	/** Check resource availability (DMA,RSA) and allocate them. */
 	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
 	if (AsuDmaPtr == NULL) {
@@ -432,22 +464,37 @@ s32 XAsufw_RsaPubEncKat(u32 QueueId)
 
 	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
 
-	/** Perform public exponentiation encryption operation. */
-	Status = XRsa_PubExp(AsuDmaPtr, PubKeyParam.Keysize, (u64)(UINTPTR)RsaData,
-			     (u64)(UINTPTR)OutVal, (u64)(UINTPTR)&PubKeyParam, 0U);
+	Status = XRsa_PvtExp(AsuDmaPtr, PvtKeyParam.PubKeyComp.Keysize, (u64)(UINTPTR)RsaExpectedCt,
+			     (u64)(UINTPTR)Result, (u64)(UINTPTR)&PvtKeyParam, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
 	/** Compare generated encrypted message with expected. */
-	Status = Xil_SMemCmp(OutVal, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaExpectedCt,
+	Status = Xil_SMemCmp(Result, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaData,
+			     XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_DECRYPT_DATA_COMPARISON_FAILED;
+	}
+
+	/** Perform public exponentiation encryption operation. */
+	Status = XRsa_PubExp(AsuDmaPtr, PubKeyParam.Keysize, (u64)(UINTPTR)RsaData,
+			     (u64)(UINTPTR)Result, (u64)(UINTPTR)&PubKeyParam, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		XFIH_GOTO(END);
+	}
+
+	/** Compare generated encrypted message with expected. */
+	Status = Xil_SMemCmp(Result, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaExpectedCt,
 			     XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ENCRYPT_DATA_COMPARISON_FAILED;
+		XFIH_GOTO(END);
 	}
+
 END:
 	/** Zeroize local copy of output value. */
-	SStatus = Xil_SMemSet(&OutVal[0U], XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, 0U,
+	SStatus = Xil_SMemSet(&Result[0U], XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, 0U,
 			      XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status == XASUFW_SUCCESS) {
 		Status = SStatus;
