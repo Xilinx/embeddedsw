@@ -35,7 +35,8 @@
 * 3.3	kpt  02/01/2024 XNvm_EfuseWriteRoSwapEn only when RoSwap is non-zero
 *	vss  04/01/2024 Fixed MISRA-C 12.1 violation and EXPRESSION_WITH_MAGIC_NUMBERS coverity warning
 * 3.4   kal  05/07/2024 Fixed issue in all DME keys programming
-*		vss  07/26/2024 Corrected offchipids to be programmed
+*       vss  07/26/2024 Corrected offchipids to be programmed
+*       kal  11/13/2024 Corrected logic in XNvm_EfuseWriteRevocationID function
 *
 * </pre>
 *
@@ -641,6 +642,8 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 	int CloseStatus = XST_FAILURE;
 	u32 RevokeIdRow;
 	u32 RevokeIdCol;
+	u32 Offset;
+	u32 StartCol;
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
@@ -673,16 +676,22 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
 		goto END;
 	}
-
+	/**
+	 * Compute start column and row offset values.
+	 */
 	if (RevokeIdNum <= XNVM_EFUSE_REVOKE_ID_127) {
-		RevokeIdRow = XNVM_EFUSE_REVOKE_ID_0_TO_127_START_ROW;
-		RevokeIdCol = XNVM_EFUSE_REVOKE_ID_0_TO_127_START_COL_NUM;
-	} else {
-		RevokeIdRow = XNVM_EFUSE_REVOKE_ID_128_TO_255_START_ROW;
-		RevokeIdCol = XNVM_EFUSE_REVOKE_ID_128_TO_255_START_COL_NUM;
+		Offset = 0U;
+		StartCol = XNVM_EFUSE_REVOKE_ID_0_TO_127_START_COL_NUM;
 	}
-	RevokeIdRow = RevokeIdRow + (RevokeIdNum / XNVM_EFUSE_BITS_IN_A_BYTE);
-	RevokeIdCol = RevokeIdCol + (RevokeIdNum % XNVM_EFUSE_BITS_IN_A_BYTE);
+	else {
+		Offset = XNVM_MAX_REVOKE_ID_FUSES / 2U;
+		StartCol = XNVM_EFUSE_REVOKE_ID_128_TO_255_START_COL_NUM;
+	}
+	/**
+	 * Calculate the Row and Column numbers based on the revoke id number input provided.
+	 */
+	RevokeIdRow = XNVM_EFUSE_REVOKE_ID_START_ROW + ((RevokeIdNum - Offset) / XNVM_EFUSE_BITS_IN_A_BYTE);
+	RevokeIdCol = StartCol + (RevokeIdNum % XNVM_EFUSE_BITS_IN_A_BYTE);
 
 	Status = XST_FAILURE;
 
