@@ -189,7 +189,7 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 	 *  Check for zeros in eFuse. Return XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD if not success
 	 */
 	Status = XNvm_EfuseCheckZeros(PpkOffset,
-			XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS);
+			XNVM_EFUSE_PPK_HASH_NUM_OF_CACHE_ROWS);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD +
 			(PpkType << XNVM_EFUSE_ERROR_NIBBLE_SHIFT);
@@ -266,7 +266,7 @@ int XNvm_EfuseValidateIvWriteReq(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 		 *   Check Zeros at offset of Black_Iv. Return XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD if not success
 		 */
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_BLACK_IV_0_OFFSET,
-				XNVM_EFUSE_IV_NUM_OF_ROWS);
+				XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
 		if (Status != XST_SUCCESS) {
 			Status = (int)XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD;
 			goto END;
@@ -454,28 +454,28 @@ static int XNvm_EfuseAreAllIvsProgrammed(void)
 	int Status = XST_FAILURE;
 
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_ROWS);
+					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
 	if (Status == XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_METAHEADER_IV_MUST_BE_PRGMD;
 		goto END;
 	}
 
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_BLACK_IV_0_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_ROWS);
+					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
 	if (Status == XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
 		goto END;
 	}
 
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PLM_IV_RANGE_0_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_ROWS);
+					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
 	if (Status == XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_PLM_IV_MUST_BE_PRGMD;
 		goto END;
 	}
 
 	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_DATA_PARTITION_IV_RANGE_0_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_ROWS);
+					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
 	if (Status == XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_DATA_PARTITION_IV_MUST_BE_PRGMD;
 		goto END;
