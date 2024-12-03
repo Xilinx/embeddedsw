@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2021 - 2021 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -9,9 +9,18 @@
 
 #include "xpm_node.h"
 #include "xpm_power.h"
+#include "xpm_regs.h"
 
 #ifdef __cplusplus
 extern "C" {
+#endif
+
+/* Enable PLM to PSM Access Communication */
+#ifdef VERSAL_NET
+#define XPM_ENABLE_PLM_TO_PSM_FORWARDING
+#else
+/* By default, feature is disabled for versal, telluride architecture */
+// #define XPM_ENABLE_PLM_TO_PSM_FORWARDING
 #endif
 
 typedef struct XPm_RegNode XPm_RegNode;
@@ -99,6 +108,15 @@ XStatus XPmAccess_UpdateTable(XPm_NodeAccess *NodeEntry,
 
 /* Debug only function meant for printing regnodes and "Node Access Table" */
 void XPmAccess_PrintTable(void);
+
+#ifdef XPM_ENABLE_PLM_TO_PSM_FORWARDING
+/* Forward PLM read event to psm using IPI. */
+XStatus XPm_ReadAccessForwarding(u32 BaseAddress, u32 Offset, u32 *DataIn);
+
+/* Forward PLM mask write event to psm using IPI. */
+XStatus XPm_MaskWriteAccessForwarding(u32 BaseAddress, u32 Offset,
+										u32 Mask, u32 Value);
+#endif
 
 /* IOCTL handlers */
 XStatus XPmAccess_ReadReg(u32 SubsystemId,

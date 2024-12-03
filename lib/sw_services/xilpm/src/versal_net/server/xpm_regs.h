@@ -179,6 +179,36 @@ extern "C" {
 #define RPU_CORE0A_POR_MASK		(0x00000100U)
 #define RPU_CORE0A_RESET_MASK		(0x00000001U)
 
+/**
+ * PSM Local Module
+ */
+#define PSM_LOCAL_REG_BASEADDR					(0xEBC88000U)
+#define PSM_LOCAL_REG_SIZE						(0x8000U)
+
+/**
+ * PSM RAM INSTR CTRL Module
+ */
+#define PSM_RAM_INSTR_ECC_CTRL_REG_BASEADDR		(0xEBCA0000U)
+#define PSM_RAM_INSTR_ECC_CTRL_SIZE				(0x10000U)
+
+/**
+ * PSM RAM DATA CTRL Module
+ */
+#define PSM_RAM_DATA_ECC_CTRL_REG_BASEADDR		(0xEBCB0000U)
+#define PSM_RAM_DATA_ECC_CTRL_SIZE				(0x10000U)
+
+/**
+ * PSM TMR Manager Module
+ */
+#define PSM_TMR_MANAGER_REG_BASEADDR			(0xEBCC0000U)
+#define PSM_TMR_MANAGER_SIZE					(0x10000U)
+
+/**
+ * PSM TMR Inject Module
+ */
+#define PSM_TMR_INJECT_REG_BASEADDR				(0xEBCD0000U)
+#define PSM_TMR_INJECT_SIZE						(0x10000U)
+
 /* EFUSE_CACHE registers */
 /* putting def guard because , xplmi_hw.h already defined this */
 #ifndef EFUSE_CACHE_BASEADDR

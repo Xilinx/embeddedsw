@@ -10,6 +10,10 @@
 #include "xpm_device.h"
 #include "xpm_subsystem.h"
 #include "xplmi.h"
+#ifdef XPM_ENABLE_PLM_TO_PSM_FORWARDING
+#include "xpm_ipi.h"
+#include "xpm_psm.h"
+#endif
 
 static XPm_RegNode *PmRegnodes;
 static XPm_NodeAccess *PmNodeAccessTable;
@@ -351,6 +355,99 @@ done:
 	return Status;
 }
 
+#ifdef XPM_ENABLE_PLM_TO_PSM_FORWARDING
+/****************************************************************************/
+/**
+ * @brief This Function will forward plm read event to psm using IPI.
+ *
+ * @param BaseAddress			Base Address of the register to read from
+ * @param Offset				Offset value to the base address
+ * @param DataIn				Reference variable to hold read value
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
+ *
+ * @note none
+ *
+ ****************************************************************************/
+XStatus XPm_ReadAccessForwarding(u32 BaseAddress, u32 Offset, u32 *DataIn)
+{
+	XStatus Status = XST_FAILURE;
+
+	u32 RegAddress = BaseAddress + Offset;
+	/* check whether LPD and PSM FW is loaded properly or not */
+	if (1U != XPmPsm_FwIsPresent()) {
+		Status = XST_NOT_ENABLED;
+		goto done;
+	}
+
+	/* construct IPI Payload for read command */
+	u32 Payload[PAYLOAD_ARG_CNT];
+	Payload[0] = PSM_API_READ_ACCESS;
+	Payload[1] = RegAddress;
+
+	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	if (XST_SUCCESS != Status){
+		goto done;
+	}
+	Status = XPm_IpiRead(PSM_IPI_INT_MASK, &Payload);
+	if (XST_SUCCESS != Status){
+		goto done;
+	}
+	*DataIn = Payload[1];
+
+done:
+	/* We have an error condition from either of the if-cond */
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief This Function will forward plm mask write event to psm using IPI.
+ *
+ * @param BaseAddress			Base Address of the register to read from
+ * @param Offset				Offset value to the base address
+ * @param Mask					Mask value to the base address
+ * @param Value					Value to be written
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
+ *
+ * @note none
+ *
+ ****************************************************************************/
+XStatus XPm_MaskWriteAccessForwarding(u32 BaseAddress, u32 Offset, u32 Mask, u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+
+	u32 RegAddress = BaseAddress + Offset;
+	/* check whether LPD and PSM FW is loaded properly or not */
+	if (1U != XPmPsm_FwIsPresent()) {
+		Status = XST_NOT_ENABLED;
+		goto done;
+	}
+
+	/* construct IPI Payload for mask write command */
+	u32 Payload[PAYLOAD_ARG_CNT];
+	Payload[0] = PSM_API_MASK_WRITE_ACCESS;
+	Payload[1] = RegAddress;
+	Payload[2] = Mask;
+	Payload[3] = Value;
+
+	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	if (XST_SUCCESS != Status){
+		goto done;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
+}
+#endif
+
 /****************************************************************************/
 /**
  * @brief  IOCTL read action handler (Reads given offset - 1 32-bit word)
@@ -404,6 +501,32 @@ XStatus XPmAccess_ReadReg(u32 SubsystemId, u32 DeviceId,
 
 	PmDbg("RD @ (0x%x + 0x%x)\r\n", BaseAddress, Offset);
 
+	u32 RegAddress = BaseAddress + Offset;
+	/**
+	 * Check if PLM is accessing either of PSM Address Space:
+	 * - PSMX_LOCAL_REG
+	 * - PSM_RAM_INSTR_ECC_CTRL
+	 * - PSM_RAM_DATA_ECC_CTRL
+	 * - PSM_TMR_MANAGER
+	 * - PSM_TMR_INJECT
+	 */
+	if ((RegAddress >= PSM_LOCAL_REG_BASEADDR 				&& (RegAddress <= PSM_LOCAL_REG_BASEADDR + PSM_LOCAL_REG_SIZE)) ||
+		(RegAddress >= PSM_RAM_INSTR_ECC_CTRL_REG_BASEADDR	&& (RegAddress <= PSM_RAM_INSTR_ECC_CTRL_REG_BASEADDR + PSM_RAM_INSTR_ECC_CTRL_SIZE)) ||
+		(RegAddress >= PSM_RAM_DATA_ECC_CTRL_REG_BASEADDR 	&& (RegAddress <= PSM_RAM_DATA_ECC_CTRL_REG_BASEADDR + PSM_RAM_DATA_ECC_CTRL_SIZE)) ||
+		(RegAddress >= PSM_TMR_MANAGER_REG_BASEADDR 		&& (RegAddress <= PSM_TMR_MANAGER_REG_BASEADDR + PSM_TMR_MANAGER_SIZE)) ||
+		(RegAddress >= PSM_TMR_INJECT_REG_BASEADDR			&& (RegAddress <= PSM_TMR_INJECT_REG_BASEADDR + PSM_TMR_INJECT_SIZE))) {
+#ifdef XPM_ENABLE_PLM_TO_PSM_FORWARDING
+		Status = XPm_ReadAccessForwarding(BaseAddress, Offset, &DataIn);
+		*Response = DataIn;
+		if (XST_SUCCESS != Status) {
+			*Response = 0U;
+		}
+		goto done;
+#else
+		Status = XST_NO_FEATURE;
+		goto done;
+#endif
+	}
 	PmIn32((BaseAddress + Offset), DataIn);
 	*Response = DataIn;
 
@@ -464,6 +587,30 @@ XStatus XPmAccess_MaskWriteReg(u32 SubsystemId, u32 DeviceId,
 
 	PmDbg("RMW M:0x%x V:0x%x @ (0x%x + 0x%x)\r\n",
 			Mask, Value, BaseAddress, Offset);
+
+	u32 RegAddress = BaseAddress + Offset;
+	/**
+	 * Check if PLM is accessing either of PSM Address Space:
+	 * - PSMX_LOCAL_REG
+	 * - PSM_RAM_INSTR_ECC_CTRL
+	 * - PSM_RAM_DATA_ECC_CTRL
+	 * - PSM_TMR_MANAGER
+	 * - PSM_TMR_INJECT
+	 */
+	if ((RegAddress >= PSM_LOCAL_REG_BASEADDR 				&& (RegAddress <= PSM_LOCAL_REG_BASEADDR + PSM_LOCAL_REG_SIZE)) ||
+		(RegAddress >= PSM_RAM_INSTR_ECC_CTRL_REG_BASEADDR	&& (RegAddress <= PSM_RAM_INSTR_ECC_CTRL_REG_BASEADDR + PSM_RAM_INSTR_ECC_CTRL_SIZE)) ||
+		(RegAddress >= PSM_RAM_DATA_ECC_CTRL_REG_BASEADDR 	&& (RegAddress <= PSM_RAM_DATA_ECC_CTRL_REG_BASEADDR + PSM_RAM_DATA_ECC_CTRL_SIZE)) ||
+		(RegAddress >= PSM_TMR_MANAGER_REG_BASEADDR 		&& (RegAddress <= PSM_TMR_MANAGER_REG_BASEADDR + PSM_TMR_MANAGER_SIZE)) ||
+		(RegAddress >= PSM_TMR_INJECT_REG_BASEADDR			&& (RegAddress <= PSM_TMR_INJECT_REG_BASEADDR + PSM_TMR_INJECT_SIZE))) {
+#ifdef XPM_ENABLE_PLM_TO_PSM_FORWARDING
+		Status = XPm_MaskWriteAccessForwarding(BaseAddress, Offset, Mask, Value);
+		goto done;
+#else
+		Status = XST_NO_FEATURE;
+		goto done;
+#endif
+	}
+
 	/**
 	 * If for all the 32bit writes (i.e mask = 0xffffffff), simply write to entire address
 	 * for any other mask, use PmRmw32()

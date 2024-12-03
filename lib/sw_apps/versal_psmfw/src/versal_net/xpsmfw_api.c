@@ -214,6 +214,14 @@ void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response, u8 *IsIpiAcked)
 			XPsmFw_StartShutdown();
 			Status = XST_SUCCESS;
 			break;
+		case PSM_API_READ_ACCESS:
+			Response[1] = XPsmFw_Read32(Payload[1]);
+			Status = XST_SUCCESS;
+			break;
+		case PSM_API_MASK_WRITE_ACCESS:
+			XPsmFw_RMW32(Payload[1], Payload[2], Payload[3]);
+			Status = XST_SUCCESS;
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;

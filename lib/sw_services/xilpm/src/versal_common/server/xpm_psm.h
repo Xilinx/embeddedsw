@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +10,10 @@
 
 #include "xpm_core.h"
 #include "xpm_psm_plat.h"
+
+/* IPI Command for PLM to PSM read/write Forwarding */
+#define PSM_API_READ_ACCESS					(0xAU)
+#define PSM_API_MASK_WRITE_ACCESS			(0xBU)
 
 #ifdef __cplusplus
 extern "C" {

@@ -99,6 +99,10 @@ extern "C" {
 #define PSM_API_DOMAIN_ISO	(6U)
 #define PSM_API_GET_PSM_TO_PLM_EVENT_ADDR	(7U)
 
+/* IPI Command for PLM to PSM read/write Forwarding */
+#define PSM_API_READ_ACCESS					(0xAU)
+#define PSM_API_MASK_WRITE_ACCESS			(0xBU)
+
 /**
  *  PM init node functions
  */
