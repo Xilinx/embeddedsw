@@ -120,7 +120,7 @@
 #define XLOADER_DEFAULT_SUBSYSTEM_ID			(0x1C000000U)	/**< Default subsystem ID */
 #endif
 
-#define XLOADER_EFUSE_ROM_RSVD_OFFSET			(0xF1250090U)
+#define XLOADER_EFUSE_ROM_RSVD_CACHE_ADDRESS		(0xF1250090U)
 	/**< ROM Reserved eFuse cache offset */
 #define XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK	(0x00000200U)
 	/**< AUTH_KEYS_TO_HASH eFuse bit mask */
@@ -1411,10 +1411,10 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 	u32 MeasureIdx = (PcrInfo & XOCP_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
 	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
 	XSecure_Sha3Hash Sha3Hash = {0U};
-	volatile u32 IsAuthKeysToHashEnabled = (XPlmi_In32(XLOADER_EFUSE_ROM_RSVD_OFFSET) &
+	volatile u32 IsAuthKeysToHashEnabled = (XPlmi_In32(XLOADER_EFUSE_ROM_RSVD_CACHE_ADDRESS) &
 			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK) >>
 			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT;;
-	volatile u32 IsAuthKeysToHashEnabledTmp = (XPlmi_In32(XLOADER_EFUSE_ROM_RSVD_OFFSET) &
+	volatile u32 IsAuthKeysToHashEnabledTmp = (XPlmi_In32(XLOADER_EFUSE_ROM_RSVD_CACHE_ADDRESS) &
 			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK) >>
 			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT;;
 
