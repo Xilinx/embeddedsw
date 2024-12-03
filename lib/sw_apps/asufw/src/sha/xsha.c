@@ -462,6 +462,52 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function gives hash length for provided sha type.
+ *
+ * @param	ShaType	SHA mode selection.
+ * @param	HashLen	The length which is to be returned.
+ *
+ * @return
+ *		- XASUFW_SUCCESS on modulus data is greater than input data.
+ *		- XASUFW_RSA_MOD_DATA_INVALID on modulus data less than input data.
+ *		- XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL on modulus data equal to input data.
+ *
+ *************************************************************************************************/
+s32 XSha_GetHashLen(u8 ShaType, u32 *HashLen)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	switch (ShaType) {
+		/* SHA2-256 Mode */
+		case XASU_SHA_MODE_SHA256:
+			*HashLen = XASU_SHA_256_HASH_LEN;
+			Status = XASUFW_SUCCESS;
+			break;
+		/* SHA2-384 Mode */
+		case XASU_SHA_MODE_SHA384:
+			*HashLen = XASU_SHA_384_HASH_LEN;
+			Status = XASUFW_SUCCESS;
+			break;
+		/* SHA2-512 Mode */
+		case XASU_SHA_MODE_SHA512:
+			*HashLen = XASU_SHA_512_HASH_LEN;
+			Status = XASUFW_SUCCESS;
+			break;
+		/* SHAKE-256 Mode */
+		case XASU_SHA_MODE_SHAKE256:
+			*HashLen  = XASU_SHAKE_256_HASH_LEN;
+			Status = XASUFW_SUCCESS;
+			break;
+		/* Invalid Mode */
+		default:
+			Status = XASUFW_SHA_INVALID_SHA_MODE;
+			break;
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function will wait for SHA core completion.
  *
  * @param	InstancePtr	Pointer to the SHA instance.

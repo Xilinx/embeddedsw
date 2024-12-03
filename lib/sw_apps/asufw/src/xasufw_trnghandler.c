@@ -45,9 +45,9 @@
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_RESP_TRNG_RANDOM_BYTES_OFFSET	2U /**< TRNG Random numbers start word offset in
-													response buffer */
+										response buffer */
 
-#define XASUFW_MAX_RANDOM_BYTES_ALLOWED			96U /**< Maximum random bytes can be requested */
+#define XASUFW_MAX_RANDOM_BYTES_ALLOWED		510U /**< Maximum random bytes can be requested */
 
 /************************************** Type Definitions *****************************************/
 /* Calculate the structure member address from Item and structure Type */

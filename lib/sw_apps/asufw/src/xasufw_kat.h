@@ -56,7 +56,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaResource);
-s32 XAsufw_RsaPubEncKat(u32 QueueId);
+s32 XAsufw_RsaEncDecKat(u32 QueueId);
 s32 XAsufw_EccCoreKat(XEcc *XAsufw_EccInstance, u32 QueueId);
 s32 XAsufw_RsaEccKat(u32 QueueId);
 s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId);

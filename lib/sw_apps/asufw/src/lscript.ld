@@ -5,6 +5,7 @@
 
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x400;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x800;
+_RSA_DATA_SIZE = DEFINED(_RSA_DATA_SIZE) ? _RSA_DATA_SIZE : 0x1400;
 
 /* Define Memories in the system */
 
@@ -12,7 +13,10 @@ MEMORY
 {
    tmr_ram_cntlr_Mem : ORIGIN = 0xEBE00000, LENGTH = 0x60000
    tmr_ram_instr_cntlr_Mem : ORIGIN = 0xEBE00000, LENGTH = 0x40000
-   tmr_ram_data_cntlr_Mem : ORIGIN = 0xEBE40000, LENGTH = 0x20000
+   tmr_ram_data_Confg_Mem : ORIGIN = 0xEBE40000, LENGTH = 0x1000
+   tmr_ram_data_ipi_shared_Mem : ORIGIN = 0xEBE41000, LENGTH = 0x8000
+   tmr_ram_data_cntlr_Mem : ORIGIN = 0xEBE49000, LENGTH = 0x15C00
+   tmr_ram_data_rsa_Mem : ORIGIN = 0xEBE5EC00, LENGTH = _RSA_DATA_SIZE
 }
 
 /* Specify the default entry point to the program */
@@ -172,6 +176,15 @@ SECTIONS
    *(COMMON)
    __bss_end = .;
 } > tmr_ram_cntlr_Mem
+
+.rsa_data_block (NOLOAD):
+{
+   __rsa_data_block_start = .;
+   *(.rsa_data_block)
+   *(.rsa_data_block.*)
+   *(.gnu.linkonce.rs.*)
+   __rsa_data_block_end = .;
+} > tmr_ram_data_rsa_Mem
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
