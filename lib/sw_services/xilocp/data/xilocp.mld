@@ -24,7 +24,7 @@ BEGIN LIBRARY xilocp
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilocp,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Open Compute Platform(OCP) support Library. Supported only for Versal Net";
-  OPTION VERSION = 1.4;
+  OPTION VERSION = 1.5;
   OPTION NAME = xilocp;
   PARAM name = xocp_cache_disable, desc = "Enables/Disables Cache for XilOcp client library", type = bool, default = true;
 END LIBRARY
