@@ -31,7 +31,7 @@
 #include "xpsmfw_ipi_manager.h"
 #include "xpsmfw_plat.h"
 
-#define XPSMFW_MB_MSR_BIP_MASK		(0x8U)
+#define XPSMFW_MB_MSR_BIP_MASK		(0x8U) /**< Mask for Break In Progress */
 
 XIOModule IOModule;
 

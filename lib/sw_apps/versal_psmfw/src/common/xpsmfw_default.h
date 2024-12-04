@@ -44,28 +44,26 @@ extern "C" {
 /* REGDB Headers */
 #include "ipi.h"
 
-/* Register Access Macros */
-#define XPsmFw_Write32(Addr, Value)  Xil_Out32((Addr), (Value))
+#define XPsmFw_Write32(Addr, Value)  Xil_Out32((Addr), (Value)) /**< Register Access Macro */
 
-#define XPsmFw_Read32(Addr)  Xil_In32((Addr))
+#define XPsmFw_Read32(Addr)  Xil_In32((Addr)) /**< Register Access Macro */
 
-#define XPsmFw_RMW32  XPsmFw_UtilRMW
+#define XPsmFw_RMW32  XPsmFw_UtilRMW /**< Register Access Macro */
 
-#define ARRAYSIZE(x)	(u32)(sizeof(x)/sizeof(x[0]))
+#define ARRAYSIZE(x)	(u32)(sizeof(x)/sizeof(x[0])) /**< Calculates array size */
 
-#define MICROSECOND_TO_TICKS(x)		((x) * (((u32)XPAR_CPU_CORE_CLOCK_FREQ_HZ)/1000000U))
-#define NANOSECOND_TO_TICKS(x)			((MICROSECOND_TO_TICKS(x))/1000U)
+#define MICROSECOND_TO_TICKS(x)		((x) * (((u32)XPAR_CPU_CORE_CLOCK_FREQ_HZ)/1000000U)) /**< Microseconds to ticks conversion */
+#define NANOSECOND_TO_TICKS(x)			((MICROSECOND_TO_TICKS(x))/1000U) /**< Nanoseconds to ticks conversion */
 
-/* Custom Flags */
-#define MASK32_ALL_HIGH	((u32)0xFFFFFFFFU)
-#define MASK32_ALL_LOW	((u32)0x0U)
+#define MASK32_ALL_HIGH	((u32)0xFFFFFFFFU) /**< Mask for 32bit value */
+#define MASK32_ALL_LOW	((u32)0x0U) /**< Mask for 32bit value */
 
 
-#define YES 0x01U
-#define NO 0x00U
+#define YES 0x01U /**< Custom Flags */
+#define NO 0x00U /**< Custom Flags */
 
-#define TRUE_VALUE	(u8)(1U)
-#define FALSE_VALUE	(u8)(0U)
+#define TRUE_VALUE	(u8)(1U) /**< Custom Flags */
+#define FALSE_VALUE	(u8)(0U) /**< Custom Flags */
 
 /* Handler Table Structure */
 typedef void (*VoidFunction_t)(void);

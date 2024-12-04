@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,10 +32,22 @@ extern "C" {
 #endif
 
 /**
+ * @defgroup pmc_global_module PMC Global register definitions
+ * @{
+ */
+/**
  * Register: PMC_GLOBAL_PWR_SUPPLY_STATUS
  */
 #define PMC_GLOBAL_PWR_SUPPLY_STATUS    ( ( PMC_GLOBAL_BASEADDR ) + 0X0000010CU )
 
+/**
+ * @name PMC Global Power Supply Status register operations
+ * @ingroup pmc_global_module
+ * @{
+ */
+/**
+ * PMC Global Power Supply Status register operation
+ */
 #define PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_SHIFT   7U
 #define PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_WIDTH   1U
 #define PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK    0X00000080U
@@ -66,9 +79,15 @@ extern "C" {
 #define PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_PMC_SHIFT   0U
 #define PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_PMC_WIDTH   1U
 #define PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_PMC_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: PMC_GLOBAL_DOMAIN_ISO_CNTRL
+ * @name PMC Global Domain Isolation Control register operations
+ * @ingroup pmc_global_module
+ * @{
+ */
+/**
+ * PMC Global Domain Isolation Control register operation
  */
 #define PMC_GLOBAL_DOMAIN_ISO_CNTRL_VCCAUX_VCCRAM_SHIFT   18U
 #define PMC_GLOBAL_DOMAIN_ISO_CNTRL_VCCAUX_VCCRAM_WIDTH   1U
@@ -143,6 +162,8 @@ extern "C" {
 #define PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_TEST_SHIFT   0U
 #define PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_TEST_WIDTH   1U
 #define PMC_GLOBAL_DOMAIN_ISO_CNTRL_FPD_PL_TEST_MASK    0X00000001U
+/** @} */
+/** @} */
 
 #ifdef __cplusplus
 }

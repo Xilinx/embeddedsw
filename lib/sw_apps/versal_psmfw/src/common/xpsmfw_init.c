@@ -30,7 +30,7 @@
 #include "xpsmfw_stl.h"
 #endif
 
-#define NOT_INITIALIZED			0xFFFFFFFFU
+#define NOT_INITIALIZED			0xFFFFFFFFU /**< Indicates non-initialized value */
 
 /****************************************************************************/
 /**
