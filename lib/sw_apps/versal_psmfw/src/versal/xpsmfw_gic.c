@@ -26,7 +26,7 @@
 #include "xpsmfw_dvsec_common.h"
 #include "psm_global.h"
 
-#define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask))
+#define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask)) /**< Check specific bit of register */
 
 static const struct GicP2HandlerTable_t GicHandlerTable[] = {
 	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK, XPsmFw_DvsecWrite, XPsmFw_Cpm5DvsecHandler},

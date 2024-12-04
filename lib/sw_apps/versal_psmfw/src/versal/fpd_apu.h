@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,10 @@ extern "C" {
 #endif
 
 /**
+ * @defgroup fpd_apu_module Registers related to FPD APU
+ * @{
+ */
+/**
  * FPD_APU Base Address
  */
 #define FPD_APU_BASEADDR      0XFD5C0000U
@@ -40,6 +45,14 @@ extern "C" {
  */
 #define FPD_APU_PWRCTL    ( ( FPD_APU_BASEADDR ) + 0X00000090U )
 
+/**
+ * @name FPD APU Power Control register operations
+ * @ingroup fpd_apu_module
+ * @{
+ */
+/**
+ * FPD APU Power Control register operation
+ */
 #define FPD_APU_PWRCTL_CLREXMONREQ_SHIFT   17U
 #define FPD_APU_PWRCTL_CLREXMONREQ_WIDTH   1U
 #define FPD_APU_PWRCTL_CLREXMONREQ_MASK    0X00020000U
@@ -51,12 +64,21 @@ extern "C" {
 #define FPD_APU_PWRCTL_CPUPWRDWNREQ_SHIFT   0U
 #define FPD_APU_PWRCTL_CPUPWRDWNREQ_WIDTH   2U
 #define FPD_APU_PWRCTL_CPUPWRDWNREQ_MASK    0X00000003U
+/** @} */
 
 /**
  * Register: FPD_APU_PWRSTAT
  */
 #define FPD_APU_PWRSTAT    ( ( FPD_APU_BASEADDR ) + 0X00000094U )
 
+/**
+ * @name FPD APU Power Status register operations
+ * @ingroup fpd_apu_module
+ * @{
+ */
+/**
+ * FPD APU Power Status register operation
+ */
 #define FPD_APU_PWRSTAT_CLREXMONACK_SHIFT   17U
 #define FPD_APU_PWRSTAT_CLREXMONACK_WIDTH   1U
 #define FPD_APU_PWRSTAT_CLREXMONACK_MASK    0X00020000U
@@ -68,12 +90,22 @@ extern "C" {
 #define FPD_APU_PWRSTAT_DBGNOPWRDWN_SHIFT   0U
 #define FPD_APU_PWRSTAT_DBGNOPWRDWN_WIDTH   2U
 #define FPD_APU_PWRSTAT_DBGNOPWRDWN_MASK    0X00000003U
+/** @} */
 
-/* APU reset vector address */
+/**
+ * @name FPD APU Reset Vector Baseaddress
+ * @ingroup fpd_apu_module
+ * @{
+ */
+/**
+ * APU reset vector address
+ */
 #define FPD_APU_RVBARADDR0L		( ( FPD_APU_BASEADDR ) + 0x00000040U )
 #define FPD_APU_RVBARADDR0H		( ( FPD_APU_BASEADDR ) + 0x00000044U )
 #define FPD_APU_RVBARADDR1L		( ( FPD_APU_BASEADDR ) + 0x00000048U )
 #define FPD_APU_RVBARADDR1H		( ( FPD_APU_BASEADDR ) + 0x0000004CU )
+/** @} */
+/** @} */
 
 #ifdef __cplusplus
 }

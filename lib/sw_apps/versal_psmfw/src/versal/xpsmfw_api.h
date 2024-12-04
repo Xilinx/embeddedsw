@@ -15,6 +15,19 @@ extern "C" {
 #include "xparameters.h"
 #include "xpsmfw_default.h"
 
+/**
+ * @defgroup psm_node_details PSMFW Versal Node Details
+ * @{
+ */
+
+/**
+ * @name Required macros to create Node ID
+ * @ingroup psm_node_details
+ * @{
+ */
+/**
+ * Required macro to create Node ID
+ */
 #define NODE_CLASS_SHIFT	26U
 #define NODE_SUBCLASS_SHIFT	20U
 #define NODE_TYPE_SHIFT		14U
@@ -56,7 +69,16 @@ extern "C" {
 #define XPSMFW_NODEIDX_ISO_CPM5_PL_DFX	(41U)
 #define XPSMFW_NODEIDX_ISO_CPM5_GT	(42U)
 #define XPSMFW_NODEIDX_ISO_CPM5_GT_DFX	(43U)
+/** @} */
 
+/**
+ * @name PSMFW Node IDs
+ * @ingroup psm_node_details
+ * @{
+ */
+/**
+ * PSMFW Node ID
+ */
 #define XPSMFW_DEV_ACPU_0	NODEID(XPSMFW_NODECLASS_DEVICE,		\
 				       XPSMFW_NODESUBCL_DEV_CORE,	\
 				       XPSMFW_NODETYPE_DEV_CORE_APU,	\
@@ -86,11 +108,20 @@ extern "C" {
 				       XPSMFW_NODESUBCL_POWER_DOMAIN,	\
 				       XPSMFW_NODETYPE_POWER_DOMAIN_CPM,\
 				       XPSMFW_NODEIDX_POWER_CPM5)
+/** @} */
 
-#define PSM_KEEP_ALIVE_COUNTER_ADDR	(0xF20140C8U)
-#define IPI_PSM_ISR_ADDR		(0xFF310010U)
-#define PMC_IPI_BIT			(0x2U)
+#define PSM_KEEP_ALIVE_COUNTER_ADDR	(0xF20140C8U) /**< PSM keep alive counter address */
+#define IPI_PSM_ISR_ADDR		(0xFF310010U) /**< PSM IPI ISR address */
+#define PMC_IPI_BIT			(0x2U) /**< PMC IPI bit mask */
 
+/**
+ * @name PSMFW API IDs
+ * @ingroup psm_node_details
+ * @{
+ */
+/**
+ * PSMFW API ID
+ */
 #define PSM_API_DIRECT_PWR_DWN	(1U)
 #define PSM_API_DIRECT_PWR_UP	(2U)
 #define PSM_API_FPD_HOUSECLEAN	(3U)
@@ -98,6 +129,8 @@ extern "C" {
 #define PSM_API_KEEP_ALIVE	(5U)
 #define PSM_API_DOMAIN_ISO	(6U)
 #define PSM_API_GET_PSM_TO_PLM_EVENT_ADDR	(7U)
+/** @} */
+/** @} */
 
 /* IPI Command for PLM to PSM read/write Forwarding */
 #define PSM_API_READ_ACCESS					(0xAU)

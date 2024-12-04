@@ -35,17 +35,17 @@
 #include "crf.h"
 #include "pmc_global.h"
 #include <assert.h>
-#define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask))
+#define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask)) /**< Check specific bit of register */
 
 /**
  * NOTE: Older PsmToPlmEvent version (0x1U) only consists Event array
  *       while new version (0x2U) adds CpuIdleFlag and ResumeAddress in it.
  *       version (0x3U) adds PmEvent and StlEvent in it.
  */
-#define PSM_TO_PLM_EVENT_VERSION		(0x3U)
-#define PWR_UP_EVT				(0x1U)
-#define PWR_DWN_EVT				(0x100U)
-#define PROC_DATA_LEN				(32*1024)
+#define PSM_TO_PLM_EVENT_VERSION		(0x3U) /**< PSM to PLM event version */
+#define PWR_UP_EVT				(0x1U) /**< Power up event */
+#define PWR_DWN_EVT				(0x100U) /**< Power down event */
+#define PROC_DATA_LEN				(32*1024) /**< Proc data length */
 
 static u8 ProcData[PROC_DATA_LEN];
 
