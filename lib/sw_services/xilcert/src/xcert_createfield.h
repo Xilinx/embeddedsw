@@ -20,6 +20,7 @@
 * 1.0   har  01/09/2023 Initial release
 * 1.2   am   01/31/2024 Moved entire file under PLM_OCP_KEY_MNGMT macro
 *       kpt  02/21/2024 Added support for DME extension
+*       kpt  11/19/2024 Add UTF8 encoding support for version field
 *
 * </pre>
 * @note
@@ -92,7 +93,8 @@ int XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStri
 int XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, const u32 LenOfRawDataVal, u32* RawDataFieldLen);
 void XCert_CreateBoolean(u8* DataBuf, const u8 BooleanVal, u32* FieldLen);
 int XCert_UpdateEncodedLength(u8* LenIdx, u32 Len, u8* ValIdx);
-void XCert_ExtractBytesAndCreateIntegerField(u8* DataBuf, u32 IntegerVal, u32* FieldLen);
+int XCert_CreateIntegerFieldFromByteArray(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32* FieldLen);
+int XCert_BuildPlmVersionAndCreateRawField(u8* DataBuf, const u32 IntegerVal, u32* FieldLen);
 
 #ifdef __cplusplus
 }

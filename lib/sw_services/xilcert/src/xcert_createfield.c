@@ -34,6 +34,7 @@
 * 1.3   har  05/07/2024 Added doxygen grouping and tags
 *			Fixed doxygen warnings
 *       har  09/17/2024 Fixed doxygen warnings
+*       kpt  11/19/2024 Add UTF8 encoding support for version field
 *
 * </pre>
 * @note
@@ -81,8 +82,35 @@
 #define XCERT_SHIFT_8							(8U)
 					/**< Shift by 8 places */
 
+#define XCERT_DOT_UTF8_ENCODING                                          (0x2EU)
+					/**< dot utf8 encoding */
+
+#define XCERT_SMALLEST_3_DIGIT_VAL                                       (100U)
+					/**< Smallest three digit value */
+
+#define XCERT_SMALLEST_2_DIGIT_VAL                                       (10U)
+					/**< Smallest two digit value */
+
+#define XCERT_MAX_VER_LEN                                                (15U)
+					/**< Maximum version length */
+
+#define XCERT_PLM_VER_START_IDX                                          (2U)
+					/**< PLM version start index */
+
+#define XCERT_PLM_VER_DEF_MSB_VAL                                        "20"
+					/**< PLM version default MSB value */
+
+#define XCERT_PLM_VER_LEN_INIT_VAL                                       (2U)
+					/**< PLM version initial value */
+
+#define XCERT_ZERO_ASCII_VAL                                             (0x30U)
+					/**< Zero ascii value in hex */
+
 /************************** Function Prototypes ******************************/
 static u32 XCert_GetTrailingZeroesCount(u8 Data);
+static u32 XCert_ConvertNumToString(u32 Num, u8 *Out);
+static u32 XCert_BuildPlmVerNumber(u32 Num, u8 *Out);
+static u32 XCert_GetFirstNonZeroByteOffset(const u8* Data, u32 Cnt);
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -104,28 +132,23 @@ static u32 XCert_GetTrailingZeroesCount(u8 Data);
 int XCert_CreateInteger(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32* FieldLen)
 {
 	int Status = XST_FAILURE;
+	u32 IntegerFieldLen;
 	u8* Curr = DataBuf;
 	u8* IntegerLenIdx;
 	u8* IntegerValIdx;
 
 	*(Curr++) = XCERT_ASN1_TAG_INTEGER;
+
 	IntegerLenIdx = Curr++;
 	IntegerValIdx = Curr;
 
-	/**
-	 * If the most significant bit in the first byte of IntegerVal is set,
-	 * then the value must be prepended with 0x00.
-	 */
-	if ((*IntegerVal & XCERT_BIT7_MASK) == XCERT_BIT7_MASK) {
-		*(Curr++) = 0x0;
-	}
-
-	Status  = Xil_SMemCpy(Curr, IntegerLen, IntegerVal, IntegerLen, IntegerLen);
+	Status = XCert_CreateIntegerFieldFromByteArray(Curr, IntegerVal, IntegerLen,
+		&IntegerFieldLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Curr = Curr + IntegerLen;
+	Curr = Curr + IntegerFieldLen;
 	*IntegerLenIdx = (u8)(Curr - IntegerValIdx);
 	*FieldLen = (u8)(Curr - DataBuf);
 
@@ -380,27 +403,173 @@ static u32 XCert_GetTrailingZeroesCount(u8 Data)
 
 /*****************************************************************************/
 /**
+ * @brief	This function takes a byte array as input and returns offset of an
+ *              starting non-zero byte
+ *
+ *
+ * @param	Data	Input byte array
+ * @param	Cnt	Number of bytes in a given array
+ *
+ * @return
+ *		Offset of first non-zero byte in a given array
+ *
+ ******************************************************************************/
+static u32 XCert_GetFirstNonZeroByteOffset(const u8* Data, u32 Cnt)
+{
+	u32 Offset = 0;
+
+	while (Offset < Cnt) {
+		if (Data[Offset] != 0U) {
+			break;
+		}
+		Offset++;
+	}
+
+	return Offset;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function extracts each byte from the integer value and create
  * 		DER encoded ASN.1 Integer.
  *
  * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
- * @param	IntegerVal	Value of the ASN.1 Integer
+ * @param	IntegerVal	Pointer to the Value of the ASN.1 Integer
+ * @param       IntegerLen      Length of the integer
  * @param	FieldLen	Total length of the encoded ASN.1 Integer
  *
+ * @return
+ *		- XST_SUCCESS  Successfully created DER encoded ASN.1 integer
+ *		- XST_FAILURE  In case of failure
+ *
  ******************************************************************************/
-
-void XCert_ExtractBytesAndCreateIntegerField(u8* DataBuf, u32 IntegerVal, u32* FieldLen)
+int XCert_CreateIntegerFieldFromByteArray(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen,
+	u32* FieldLen)
 {
+	int Status = XST_FAILURE;
+	u32 Offset = 0U;
 	u8* Curr = DataBuf;
 
-	*(Curr++) = XCERT_ASN1_TAG_INTEGER;
-	*(Curr++) = XCERT_WORD_LEN;
-	*(Curr++) = (IntegerVal >> XCERT_SHIFT_24) & XCERT_BYTE0_MASK;
-	*(Curr++) = (IntegerVal >> XCERT_SHIFT_16) & XCERT_BYTE0_MASK;
-	*(Curr++) = (IntegerVal >> XCERT_SHIFT_8) & XCERT_BYTE0_MASK;
-	*(Curr++) = IntegerVal & XCERT_BYTE0_MASK;
+	Offset = XCert_GetFirstNonZeroByteOffset(IntegerVal, IntegerLen - 1U);
+	/**
+	 * If the most significant bit in the first byte of IntegerVal is set,
+	 * then the value must be prepended with 0x00.
+	 */
+	if ((IntegerVal[Offset] & XCERT_BIT7_MASK) == XCERT_BIT7_MASK) {
+		*(Curr++) = 0x0;
+	}
 
-	*FieldLen = (u8)(Curr - DataBuf);
+	Status  = Xil_SMemCpy(Curr, IntegerLen - Offset, &IntegerVal[Offset], IntegerLen - Offset,
+			IntegerLen - Offset);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Curr = Curr + (IntegerLen - Offset);
+	*FieldLen = (u32)(Curr - DataBuf);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function converts a maximum three digit number to string
+ *
+ * @param	Num	Number that needs to be converted
+ * @param	Out	Value of the string
+ *
+ * @return
+ *              Length of converted output string
+ *
+ ******************************************************************************/
+static u32 XCert_ConvertNumToString(u32 Num, u8 *Out)
+{
+	u32 InputData = Num;
+	u32 Divisor = 0U;
+	u32 Len = 0U;
+
+	if (InputData >= XCERT_SMALLEST_3_DIGIT_VAL) {
+		Divisor = XCERT_SMALLEST_3_DIGIT_VAL;
+	}
+	else if (InputData < XCERT_SMALLEST_2_DIGIT_VAL) {
+		Out[Len++] = (u8)(InputData + XCERT_ZERO_ASCII_VAL);
+		Divisor = 0U;
+	}
+	else {
+		Divisor = XCERT_SMALLEST_2_DIGIT_VAL;
+	}
+
+	while (Divisor > 0U) {
+		Out[Len++] = (u8)((InputData / Divisor) + XCERT_ZERO_ASCII_VAL);
+		InputData = InputData % Divisor;
+		Divisor = Divisor / 10U;
+	}
+
+	return Len;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function builds PLM version string in below format
+ *              MajorVersion.MinorVersion.RCVersion.UserDefinedVersion
+ *              i.e. 2024.2.0.0
+ *
+ * @param	Num	Number that needs to be converted
+ * @param	Out	Pointer to memory where PLM version number
+ *			will be stored in string format.
+ *
+ * @return
+ *              Length of converted output string
+ *
+ ******************************************************************************/
+static u32 XCert_BuildPlmVerNumber(u32 Num, u8 *Out)
+{
+	u32 Len = 0U;
+	u32 Data;
+	u8 *OutStr = Out;
+
+	Data = (Num >> XCERT_SHIFT_24) & XCERT_BYTE0_MASK;
+	Len += XCert_ConvertNumToString(Data, OutStr);
+
+	OutStr[Len++] = XCERT_DOT_UTF8_ENCODING;
+
+	Data = (Num >> XCERT_SHIFT_16) & XCERT_BYTE0_MASK;
+	Len += XCert_ConvertNumToString(Data, &OutStr[Len]);
+
+	OutStr[Len++] = XCERT_DOT_UTF8_ENCODING;
+
+	Data = (Num >> XCERT_SHIFT_8) & XCERT_BYTE0_MASK;
+	Len += XCert_ConvertNumToString(Data, &OutStr[Len]);
+
+	OutStr[Len++] = XCERT_DOT_UTF8_ENCODING;
+
+	Data = Num & XCERT_BYTE0_MASK;
+	Len += XCert_ConvertNumToString(Data, &OutStr[Len]);
+
+	return Len;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function builds PLM version number and creates raw data from byte array.
+ *
+ * @param	DataBuf		Pointer to the buffer where the encoded data needs to be updated
+ * @param	IntegerVal	Value of the ASN.1 Integer
+ * @param	FieldLen	Total length of the encoded ASN.1 UTF8 string
+ *
+ *
+ ******************************************************************************/
+int XCert_BuildPlmVersionAndCreateRawField(u8* DataBuf, const u32 IntegerVal, u32* FieldLen)
+{
+	int Status = XST_FAILURE;
+	u8 VersionData[XCERT_MAX_VER_LEN] = XCERT_PLM_VER_DEF_MSB_VAL;
+	u32 VersionLength = XCERT_PLM_VER_LEN_INIT_VAL;
+
+	VersionLength += XCert_BuildPlmVerNumber(IntegerVal, &VersionData[XCERT_PLM_VER_START_IDX]);
+
+	Status = XCert_CreateRawDataFromByteArray(DataBuf, VersionData, VersionLength, FieldLen);
+
+	return Status;
 }
 
 #endif  /* PLM_OCP_KEY_MNGMT */
