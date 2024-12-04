@@ -1,0 +1,87 @@
+%YAML 1.2
+---
+# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# # SPDX-License-Identifier: MIT
+title: Bindings for VISP
+maintainers:
+  - anil mamidala <anil.mamidala@amd.com>
+  - vishnu <vishnuvardhan.ravuri@amd.com>
+type: driver
+properties:
+  compatible:
+    OneOf:
+      - items:
+          - enum:
+            - xlnx,visp-ss-1.0
+            - xlnx,visp-ss-lilo-1.0
+            - xlnx,visp-ss-limo-1.0
+            - xlxx,visp-ss-mimo-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,num_streams:
+    description: Number of streams
+  xlnx,rpu:
+    description: Rpu id
+  xlnx,io_mode:
+    description: Port0 mode type 0 - menas disabled,1 - means LILO, 2 - means LIMO
+      and 3 - means MIMO
+  xlnx,iba0_frame_rate:
+    description: IBA0 supported frame rate
+  xlnx,iba0_data_format:
+    description: IBA0 supported data format
+  xlnx,iba0_ppc:
+    description: IBA0 supported PPC
+  xlnx,iba0_max-width:
+    description: Maximum columns supported by core instance
+  xlnx,iba0_max-height:
+    description: Maximum rows supported by core instance
+config:
+   - xvisp_ss_Config
+required:
+  - compatible
+  - reg
+  - xlnx,num_streams
+  - xlnx,rpu
+  - xlnx,io_mode
+  - xlnx,iba0_frame_rate
+  - xlnx,iba0_data_format
+  - xlnx,iba0_ppc
+  - xlnx,iba0_max-width
+  - xlnx,iba0_max-height
+  - xlnx,iba0_vcid
+  - xlnx,oba0_mp_bpp
+  - xlnx,oba0_mp_ppc
+  - xlnx,oba0_mp_data_format
+  - xlnx,oba0_sp_bpp
+  - xlnx,oba0_sp_ppc
+  - xlnx,oba0_sp_data_format
+  - xlnx,iba1_frame_rate
+  - xlnx,iba1_data_format
+  - xlnx,iba1_ppc
+  - xlnx,iba1_max-width
+  - xlnx,iba1_max-height
+  - xlnx,iba1_vcid
+  - xlnx,iba2_frame_rate
+  - xlnx,iba2_data_format
+  - xlnx,iba2_ppc
+  - xlnx,iba2_max-width
+  - xlnx,iba2_max-height
+  - xlnx,iba2_vcid
+  - xlnx,iba3_frame_rate
+  - xlnx,iba3_data_format
+  - xlnx,iba3_ppc
+  - xlnx,iba3_max-width
+  - xlnx,iba3_max-height
+  - xlnx,iba3_vcid
+  - xlnx,iba4_frame_rate
+  - xlnx,iba4_data_format
+  - xlnx,iba4_ppc
+  - xlnx,iba4_max-width
+  - xlnx,iba4_max-height
+  - xlnx,iba4_vcid
+  - xlnx,oba1_mp_bpp
+  - xlnx,oba1_mp_ppc
+  - xlnx,oba1_mp_data_format
+  - xlnx,oba1_sp_bpp
+  - xlnx,oba1_sp_ppc
+  - xlnx,oba1_sp_data_format
