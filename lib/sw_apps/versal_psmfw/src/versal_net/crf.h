@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,10 @@ extern "C" {
 #endif
 
 /**
+ * @defgroup crf_module_vn FPD Clock and Reset control registers
+ * @{
+ */
+/**
  * CRF base address
  */
 #define CRF_BASEADDR                                  ((u32)0xEC200000U)
@@ -41,25 +45,53 @@ extern "C" {
  */
 #define CRF_RST_APU                                   ( ( CRF_BASEADDR ) + ((u32)0x00000300U) )
 
+/**
+ * @name APU reset control register masks
+ * @ingroup crf_module_vn
+ * @{
+ */
+/**
+ * APU reset control register mask
+ */
 #define CRF_RST_APU_ACPU0_MASK                        ((u32)0x00000001U)
 #define CRF_RST_APU_ACPU1_MASK                        ((u32)0x00000002U)
 #define CRF_RST_APU_GIC_RESET_MASK                    ((u32)0x00000080U)
 #define CRF_RST_APU_L2_RESET_MASK                     ((u32)0x00000100U)
 #define CRF_RST_APU_ACPU0_PWRON_MASK                  ((u32)0x00000400U)
 #define CRF_RST_APU_ACPU1_PWRON_MASK                  ((u32)0x00000800U)
+/** @} */
 
+/**
+ * @name APU reset control register shifts
+ * @ingroup crf_module_vn
+ * @{
+ */
+/**
+ * APU reset control register shift
+ */
 #define CRF_RST_APU_ACPU0_SHIFT                       (0)
 #define CRF_RST_APU_ACPU1_SHIFT                       (1)
 #define CRF_RST_APU_ACPU_GIC_RESET_SHIFT              (7)
 #define CRF_RST_APU_ACPU_L2_RESET_SHIFT               (8)
 #define CRF_RST_APU_ACPU0_PWRON_SHIFT                 (10)
 #define CRF_RST_APU_ACPU1_PWRON_SHIFT                 (11)
+/** @} */
 
 /**
  * CRF APU clock Control
  */
 #define CRF_ACPU_CTRL                                 ( ( CRF_BASEADDR ) + ((u32)0x0000010CU) )
+
+/**
+ * @name APU clock control register masks
+ * @ingroup crf_module_vn
+ * @{
+ */
+/**
+ * APU clock control register mask
+ */
 #define CRF_ACPU_CTRL_CLKACT_MASK                     ((u32)0x02000000U)
+/** @} */
 
 /**
  * PSX_CRF base address
@@ -67,25 +99,58 @@ extern "C" {
 #define PSX_CRF_BASEADDR                                  ((u32)0xEC200000U)
 
 /**
+ * @name Reset control registers for APU clusters
+ * @ingroup crf_module_vn
+ * @{
+ */
+/**
  * CRF APU reset Control
  */
 #define PSX_CRF_RST_APU0                                   ( ( PSX_CRF_BASEADDR ) + ((u32)0x00000300U) )
 #define PSX_CRF_RST_APU1                                   ( ( PSX_CRF_BASEADDR ) + ((u32)0x00000304U) )
 #define PSX_CRF_RST_APU2                                   ( ( PSX_CRF_BASEADDR ) + ((u32)0x00000308U) )
 #define PSX_CRF_RST_APU3                                   ( ( PSX_CRF_BASEADDR ) + ((u32)0x0000030CU) )
+/** @} */
 
+/**
+ * @name Reset control register masks for APU cores
+ * @ingroup crf_module_vn
+ * @{
+ */
+/**
+ * Reset control register masks for APU core
+ */
 #define PSX_CRF_RST_APU_CORE0_RST_MASK             ((u32)0x00000011U)
 #define PSX_CRF_RST_APU_CORE1_RST_MASK             ((u32)0x00000022U)
 #define PSX_CRF_RST_APU_CORE2_RST_MASK             ((u32)0x00000044U)
 #define PSX_CRF_RST_APU_CORE3_RST_MASK             ((u32)0x00000088U)
+/** @} */
+
+/**
+ * @name APU clock control register masks
+ * @ingroup crf_module_vn
+ * @{
+ */
 /**
  * CRF APU clock Control
+ */
+#define PSX_CRF_ACPU_CTRL_CLKACT_MASK                     ((u32)0x02000000U)
+/** @} */
+
+/**
+ * @name Clock control registers for APU clusters
+ * @ingroup crf_module_vn
+ * @{
+ */
+/**
+ * Clock control registers for APU cluster
  */
 #define PSX_CRF_ACPU0_CLK_CTRL                                 ( ( PSX_CRF_BASEADDR ) + ((u32)0x0000010CU) )
 #define PSX_CRF_ACPU1_CLK_CTRL                                 ( ( PSX_CRF_BASEADDR ) + ((u32)0x00000110U) )
 #define PSX_CRF_ACPU2_CLK_CTRL                                 ( ( PSX_CRF_BASEADDR ) + ((u32)0x00000114U) )
 #define PSX_CRF_ACPU3_CLK_CTRL                                 ( ( PSX_CRF_BASEADDR ) + ((u32)0x00000118U) )
-#define PSX_CRF_ACPU_CTRL_CLKACT_MASK                     ((u32)0x02000000U)
+/** @} */
+/** @} */
 
 
 #ifdef __cplusplus

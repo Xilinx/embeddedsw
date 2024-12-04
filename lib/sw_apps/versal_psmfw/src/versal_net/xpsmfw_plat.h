@@ -41,23 +41,23 @@ extern "C" {
  */
 #define IPI_BASEADDR      (0XEB300000U)
 
-#define UART0_BASEADDR (0xF1920000U)
-#define UART1_BASEADDR (0xF1930000U)
-#define IOMODULE_BASEADDR (0xEBC80000U)
+#define UART0_BASEADDR (0xF1920000U) /**< UART0 base address */
+#define UART1_BASEADDR (0xF1930000U) /**< UART1 base address */
+#define IOMODULE_BASEADDR (0xEBC80000U) /**< IOMODULE base address */
 
-#define XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK (0x00000002U)
+#define XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK (0x00000002U) /**< PMC channel 0 mask */
 
-#define PSM_GLOBAL_REG_GLOBAL_CNTRL PSMX_GLOBAL_REG_GLOBAL_CNTRL
-#define PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK PSMX_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK
+#define PSM_GLOBAL_REG_GLOBAL_CNTRL PSMX_GLOBAL_REG_GLOBAL_CNTRL /**< PSM Global control register */
+#define PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK PSMX_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK /**< Check if FW is present */
 
-#define PSM_GLOBAL_REG_ERR1_TRIG PSMX_GLOBAL_REG_PSM_ERR1_TRIG
-#define PSM_GLOBAL_REG_ERR1_TRIG_PSM_B_NCR_MASK PSMX_GLOBAL_REG_PSM_ERR1_TRIG_SRC3_MASK
+#define PSM_GLOBAL_REG_ERR1_TRIG PSMX_GLOBAL_REG_PSM_ERR1_TRIG /**< Error trigger register */
+#define PSM_GLOBAL_REG_ERR1_TRIG_PSM_B_NCR_MASK PSMX_GLOBAL_REG_PSM_ERR1_TRIG_SRC3_MASK /**< Error trigger register NCR mask */
 
 /** PSM update related save and restore region */
 extern u8 __psm_data_saved_start[];
 extern u8 __psm_data_saved_end[];
-#define XPSM_DATA_SAVED_START	((u32)(__psm_data_saved_start))
-#define XPSM_DATA_SAVED_END	((u32)(__psm_data_saved_end))
+#define XPSM_DATA_SAVED_START	((u32)(__psm_data_saved_start)) /**< Start of saved data region */
+#define XPSM_DATA_SAVED_END	((u32)(__psm_data_saved_end)) /**< End of saved data region */
 
 XStatus XPsmfw_PwrUpHandler(void);
 XStatus XPsmfw_PwrDwnHandler(void);

@@ -31,9 +31,20 @@
 extern "C" {
 #endif
 
-#define APU_CLUSTER0_BASEADDR 0xECC00000U
+/**
+ * @defgroup apu_reset_vector APU cluster reset vectors
+ * @{
+ */
+#define APU_CLUSTER0_BASEADDR 0xECC00000U /**< APU cluster 0 base address */
 
-/* APU reset vector address */
+/**
+ * @name APU cluster 0 reset vector registers
+ * @ingroup apu_reset_vector
+ * @{
+ */
+/**
+ * Reset vector address for APU cluster 0 core
+ */
 #define APU_CLUSTER0_RVBARADDR0L ( (APU_CLUSTER0_BASEADDR) + 0x00000040U)
 #define APU_CLUSTER0_RVBARADDR0H ( (APU_CLUSTER0_BASEADDR) + 0x00000044U)
 #define APU_CLUSTER0_RVBARADDR1L ( (APU_CLUSTER0_BASEADDR) + 0x00000048U)
@@ -42,10 +53,18 @@ extern "C" {
 #define APU_CLUSTER0_RVBARADDR2H ( (APU_CLUSTER0_BASEADDR) + 0x00000054U)
 #define APU_CLUSTER0_RVBARADDR3L ( (APU_CLUSTER0_BASEADDR) + 0x00000058U)
 #define APU_CLUSTER0_RVBARADDR3H ( (APU_CLUSTER0_BASEADDR) + 0x0000005CU)
+/** @} */
 
-#define APU_CLUSTER1_BASEADDR 0xECD00000U
+#define APU_CLUSTER1_BASEADDR 0xECD00000U /**< APU cluster 1 base address */
 
-/* APU reset vector address */
+/**
+ * @name APU cluster 1 reset vector registers
+ * @ingroup apu_reset_vector
+ * @{
+ */
+/**
+ * Reset vector address for APU cluster 1 core
+ */
 #define APU_CLUSTER1_RVBARADDR0L ( (APU_CLUSTER1_BASEADDR) + 0x00000040U)
 #define APU_CLUSTER1_RVBARADDR0H ( (APU_CLUSTER1_BASEADDR) + 0x00000044U)
 #define APU_CLUSTER1_RVBARADDR1L ( (APU_CLUSTER1_BASEADDR) + 0x00000048U)
@@ -54,10 +73,18 @@ extern "C" {
 #define APU_CLUSTER1_RVBARADDR2H ( (APU_CLUSTER1_BASEADDR) + 0x00000054U)
 #define APU_CLUSTER1_RVBARADDR3L ( (APU_CLUSTER1_BASEADDR) + 0x00000058U)
 #define APU_CLUSTER1_RVBARADDR3H ( (APU_CLUSTER1_BASEADDR) + 0x0000005CU)
+/** @} */
 
-#define APU_CLUSTER2_BASEADDR 0xECE00000U
+#define APU_CLUSTER2_BASEADDR 0xECE00000U /**< APU cluster 2 base address */
 
-/* APU2 reset vector address */
+/**
+ * @name APU cluster 2 reset vector registers
+ * @ingroup apu_reset_vector
+ * @{
+ */
+/**
+ * Reset vector address for APU cluster 2 core
+ */
 #define APU_CLUSTER2_RVBARADDR0L ( (APU_CLUSTER2_BASEADDR) + 0x00000040U)
 #define APU_CLUSTER2_RVBARADDR0H ( (APU_CLUSTER2_BASEADDR) + 0x00000044U)
 #define APU_CLUSTER2_RVBARADDR1L ( (APU_CLUSTER2_BASEADDR) + 0x00000048U)
@@ -66,10 +93,18 @@ extern "C" {
 #define APU_CLUSTER2_RVBARADDR2H ( (APU_CLUSTER2_BASEADDR) + 0x00000054U)
 #define APU_CLUSTER2_RVBARADDR3L ( (APU_CLUSTER2_BASEADDR) + 0x00000058U)
 #define APU_CLUSTER2_RVBARADDR3H ( (APU_CLUSTER2_BASEADDR) + 0x0000005CU)
+/** @} */
 
-#define APU_CLUSTER3_BASEADDR 0xECF00000U
+#define APU_CLUSTER3_BASEADDR 0xECF00000U /**< APU cluster 3 base address */
 
-/* APU3 reset vector address */
+/**
+ * @name APU cluster 3 reset vector registers
+ * @ingroup apu_reset_vector
+ * @{
+ */
+/**
+ * Reset vector address for APU cluster 3 core
+ */
 #define APU_CLUSTER3_RVBARADDR0L ( (APU_CLUSTER3_BASEADDR) + 0x00000040U)
 #define APU_CLUSTER3_RVBARADDR0H ( (APU_CLUSTER3_BASEADDR) + 0x00000044U)
 #define APU_CLUSTER3_RVBARADDR1L ( (APU_CLUSTER3_BASEADDR) + 0x00000048U)
@@ -78,9 +113,23 @@ extern "C" {
 #define APU_CLUSTER3_RVBARADDR2H ( (APU_CLUSTER3_BASEADDR) + 0x00000054U)
 #define APU_CLUSTER3_RVBARADDR3L ( (APU_CLUSTER3_BASEADDR) + 0x00000058U)
 #define APU_CLUSTER3_RVBARADDR3H ( (APU_CLUSTER3_BASEADDR) + 0x0000005CU)
+/** @} */
+/** @} */
 
-#define APU_PCIL_BASEADDR 0xECB10000U
+/**
+ * @defgroup apu_pcil_regs APU Power Control Interface Logic registers
+ * @{
+ */
+#define APU_PCIL_BASEADDR 0xECB10000U /**< APU PCIL base address */
 
+/**
+ * @name APU PCIL registers for Clusters
+ * @ingroup apu_pcil_regs
+ * @{
+ */
+/**
+ * APU PCIL register for Cluster
+ */
 #define APU_PCIL_CLUSTER_0_PSTATE  ( (APU_PCIL_BASEADDR) + 0x00008008U)
 #define APU_PCIL_CLUSTER_0_PREQ  ( (APU_PCIL_BASEADDR) + 0x00008004U)
 #define APU_PCIL_CLUSTER_0_PACTIVE  ( (APU_PCIL_BASEADDR) + 0x0000800CU)
@@ -93,7 +142,16 @@ extern "C" {
 #define APU_PCIL_CLUSTER_3_PSTATE  ( (APU_PCIL_BASEADDR) + 0x0000B008U)
 #define APU_PCIL_CLUSTER_3_PREQ  ( (APU_PCIL_BASEADDR) + 0x0000B004U)
 #define APU_PCIL_CLUSTER_3_PACTIVE  ( (APU_PCIL_BASEADDR) + 0x0000B00CU)
+/** @} */
 
+/**
+ * @name APU PCIL registers for Cores
+ * @ingroup apu_pcil_regs
+ * @{
+ */
+/**
+ * APU PCIL register for Core
+ */
 #define APU_PCIL_CORE_0_PSTATE  ( (APU_PCIL_BASEADDR) + 0x00000008U)
 #define APU_PCIL_CORE_0_PREQ  ( (APU_PCIL_BASEADDR) + 0x00000004U)
 #define APU_PCIL_CORE_0_PACTIVE  ( (APU_PCIL_BASEADDR) + 0x0000000CU)
@@ -106,7 +164,6 @@ extern "C" {
 #define APU_PCIL_CORE_3_PSTATE  ( (APU_PCIL_BASEADDR) + 0x00000098U)
 #define APU_PCIL_CORE_3_PREQ  ( (APU_PCIL_BASEADDR) + 0x00000094U)
 #define APU_PCIL_CORE_3_PACTIVE  ( (APU_PCIL_BASEADDR) + 0x0000009CU)
-
 #define APU_PCIL_CORE_4_PSTATE  ( (APU_PCIL_BASEADDR) + 0x000000C8U)
 #define APU_PCIL_CORE_4_PREQ  ( (APU_PCIL_BASEADDR) + 0x000000C4U)
 #define APU_PCIL_CORE_4_PACTIVE  ( (APU_PCIL_BASEADDR) + 0x000000CCU)
@@ -143,29 +200,67 @@ extern "C" {
 #define APU_PCIL_CORE_15_PREQ  ( (APU_PCIL_BASEADDR) + 0x000002D4U)
 #define APU_PCIL_CORE_15_PSTATE  ( (APU_PCIL_BASEADDR) + 0x000002D8U)
 #define APU_PCIL_CORE_15_PACTIVE  ( (APU_PCIL_BASEADDR) + 0x000002DCU)
+/** @} */
 
+/**
+ * @name APU PCIL mask and value registers for Cluster
+ * @ingroup apu_pcil_regs
+ * @{
+ */
+/**
+ * APU PCIL mask or value register for Cluster
+ */
 #define APU_PCIL_CLUSTER_PSTATE_MASK        ((u32)0x0000007FU)
 #define APU_PCIL_CLUSTER_PSTATE_VAL        ((u32)0x00000048U)
 #define APU_PCIL_CLUSTER_PREQ_MASK        ((u32)0x00000001U)
 #define APU_PCIL_CLUSTER_PACCEPT_MASK        ((u32)0x01000000U)
+/** @} */
 
+/**
+ * @name APU PCIL mask and value registers for Core
+ * @ingroup apu_pcil_regs
+ * @{
+ */
+/**
+ * APU PCIL mask or value register for Core
+ */
 #define APU_PCIL_CORE_PSTATE_MASK        ((u32)0x0000003FU)
 #define APU_PCIL_CORE_PSTATE_VAL        ((u32)0x00000008U)
 #define APU_PCIL_CORE_PREQ_MASK        ((u32)0x00000001U)
 #define APU_PCIL_CORE_PACCEPT_MASK        ((u32)0x01000000U)
 #define APU_PCIL_CORE_PDENY_MASK        ((u32)0x02000000U)
+/** @} */
 
+/**
+ * @name APU PCIL interrupt register offsets for Clusters and Cores
+ * @ingroup apu_pcil_regs
+ * @{
+ */
+/**
+ * APU PCIL interrupt register offset for Cluster or Core
+ */
 #define APU_PCIL_CORE_IDS_POWER_OFFSET		((u32)0x00000014U)
 #define APU_PCIL_CORE_IDS_WAKE_OFFSET		((u32)0x00000024U)
 #define APU_PCIL_CORE_ISR_POWER_OFFSET		((u32)0x00000008U)
 #define APU_PCIL_CORE_ISR_WAKE_OFFSET		((u32)0x00000018U)
 #define APU_PCIL_CLUSTER_ISR_POWER_OFFSET		((u32)0x00000008U)
 #define APU_PCIL_CLUSTER_ISR_WAKE_OFFSET		((u32)0x00000018U)
+/** @} */
+/** @} */
 
+/**
+ * @defgroup apu_dbg_regs Debug registers for APU
+ * @{
+ */
 /**
  * CORESIGHT_APU0CORE0_DBG Base Address
  */
 #define CORESIGHT_APU0CORE0_DBG_BASEADDR      (0xF0B40000U)
+
+/**
+ * @name Debug registers for APU cluster 0 core 0
+ * @{
+ */
 /**
  * Register: CORESIGHT_APU0CORE0_DBG_EDPRCR
  */
@@ -184,6 +279,8 @@ extern "C" {
 #define CORESIGHT_APU0CORE0_DBG_EDPRCR_CORENPDRQ_SHIFT   (0U)
 #define CORESIGHT_APU0CORE0_DBG_EDPRCR_CORENPDRQ_WIDTH   (1U)
 #define CORESIGHT_APU0CORE0_DBG_EDPRCR_CORENPDRQ_MASK    (0x00000001U)
+/** @} */
+/** @} */
 
 #ifdef __cplusplus
 }

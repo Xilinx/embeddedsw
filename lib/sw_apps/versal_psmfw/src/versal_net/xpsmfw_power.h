@@ -31,18 +31,50 @@
 extern "C" {
 #endif
 
-#define FPD_SLCR_BASEADDR                             ((u32)0xFD610000U)
+/**
+ * @defgroup versalnet_regs Versal NET Registers
+ * @{
+ */
+#define FPD_SLCR_BASEADDR	((u32)0xFD610000U) /**< FPD System Level Control Register base address */
+
+/**
+ * @name FPD System Level Control Registers
+ * @ingroup versalnet_regs
+ * @{
+ */
+/**
+ * FPD System Level Control Register
+ */
 #define FPD_SLCR_WPROT0                               ( ( FPD_SLCR_BASEADDR ) + ((u32)0x00000000U) )
 #define FPD_SLCR_BISR_CACHE_CTRL_0                    ( ( FPD_SLCR_BASEADDR ) + ((u32)0x00000400U) )
 #define FPD_SLCR_BISR_CACHE_STATUS                    ( ( FPD_SLCR_BASEADDR ) + ((u32)0x00000408U) )
+/** @} */
 
-#define PMC_ANALOG_BASEADDR                           ((u32)0xF1160000U)
+#define PMC_ANALOG_BASEADDR	((u32)0xF1160000U) /**< PMC Analog base address */
+
+/**
+ * @name PMC Analog On-Demand MBIST Registers
+ * @ingroup versalnet_regs
+ * @{
+ */
+/**
+ * PMC Analog On-Demand MBIST register
+ */
 #define PMC_ANALOG_OD_MBIST_RST                       ( ( PMC_ANALOG_BASEADDR ) + ((u32)0x00020100U) )
 #define PMC_ANALOG_OD_MBIST_PG_EN                     ( ( PMC_ANALOG_BASEADDR ) + ((u32)0x00020104U) )
 #define PMC_ANALOG_OD_MBIST_SETUP                     ( ( PMC_ANALOG_BASEADDR ) + ((u32)0x00020108U) )
 #define PMC_ANALOG_OD_MBIST_DONE                      ( ( PMC_ANALOG_BASEADDR ) + ((u32)0x00020110U) )
 #define PMC_ANALOG_OD_MBIST_GOOD                      ( ( PMC_ANALOG_BASEADDR ) + ((u32)0x00020114U) )
+/** @} */
 
+/**
+ * @name Timing configurations
+ * @ingroup versalnet_regs
+ * @{
+ */
+/**
+ * Timing configuration
+ */
 #define XPSMFW_OCM_B0_I0_PWR_STATE_ACK_TIMEOUT             MICROSECOND_TO_TICKS(5U)
 #define XPSMFW_OCM_B0_I1_PWR_STATE_ACK_TIMEOUT             MICROSECOND_TO_TICKS(5U)
 #define XPSMFW_OCM_B0_I2_PWR_STATE_ACK_TIMEOUT             MICROSECOND_TO_TICKS(5U)
@@ -95,6 +127,8 @@ extern "C" {
 #define ACPU_PACCEPT_TIMEOUT				(1000U)
 #define RPU_PACTIVE_TIMEOUT				(1000U)
 #define A78_CLUSTER_CONFIGURED	(0x1U)
+/** @} */
+/** @} */
 
 /**
  * @brief Represents the power states of the TCM.
