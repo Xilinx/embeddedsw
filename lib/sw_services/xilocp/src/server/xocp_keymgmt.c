@@ -35,6 +35,7 @@
 *       har  07/19/24 Fixed issue in generating certificates for multiple subsystem
 *       har  08/08/24 Update FwHash for both DevIk certificate and DevIk CSR
 *	vss  09/23/24 Modified code as per security best practices
+*       kpt  12/03/24 Updated IsCsr value to False during DevAk certificate generation
 *
 * </pre>
 * @note
@@ -553,6 +554,7 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 		CertConfig.SubSystemId = SubSystemId;
 		CertConfig.KeyIndex = DevAkData->KeyIndex;
 		CertConfig.AppCfg.IsSelfSigned = FALSE;
+		CertConfig.AppCfg.IsCsr = FALSE;
 		CertConfig.AppCfg.SubjectPublicKey = (u8 *)(UINTPTR)DevAkData->EccX;
 		CertConfig.AppCfg.IssuerPrvtKey = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
 		CertConfig.AppCfg.IssuerPublicKey = (u8 *)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
