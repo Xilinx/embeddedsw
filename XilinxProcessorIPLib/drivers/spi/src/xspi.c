@@ -84,6 +84,7 @@
 * 4.10  akm  02/21/23 Avoid data loss in interrupt mode with TX HALF EMPTY
 *                     Interrupt enabled.
 * 4.13  ap   08/20/24 Added logic to wait for FIFO reset to complete.
+* 4.14  sb   12/03/24 Fixed GCC warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -1369,7 +1370,6 @@ void XSpi_InterruptHandler(void *InstancePtr)
 void XSpi_Abort(XSpi *InstancePtr)
 {
 	u16 ControlReg;
-	u32 Status;
 	u32 Timeout = 1000U;
 
 	/*
@@ -1401,7 +1401,7 @@ void XSpi_Abort(XSpi *InstancePtr)
 
 	/* Wait for Tx and Rx FIFO reset to complete */
 	if (InstancePtr->HasFifos) {
-		Status = Xil_WaitForEvent(InstancePtr->BaseAddr + XSP_CR_OFFSET,
+		Xil_WaitForEvent(InstancePtr->BaseAddr + XSP_CR_OFFSET,
 				XSP_CR_TXFIFO_RESET_MASK | XSP_CR_RXFIFO_RESET_MASK,
 				XSP_CR_RESET_DONE_MASK, Timeout);
 	}
