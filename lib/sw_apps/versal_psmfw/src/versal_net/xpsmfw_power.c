@@ -35,16 +35,16 @@
 #include "crf.h"
 #include "pmc_global.h"
 #include <assert.h>
-#define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask))
+#define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask)) /**< Check specific bit of register */
 
 /**
  * NOTE: Older PsmToPlmEvent version (0x1U) only consists Event array
  *       while new version (0x2U) adds CpuIdleFlag and ResumeAddress in it.
  *       version (0x3U) adds PmEvent and StlEvent in it.
  */
-#define PSM_TO_PLM_EVENT_VERSION		(0x3U)
-#define PWR_UP_EVT						(0x1U)
-#define PWR_DWN_EVT                     (0x100U)
+#define PSM_TO_PLM_EVENT_VERSION	(0x3U) /**< PSM to PLM event version */
+#define PWR_UP_EVT			(0x1U) /**< Power up event */
+#define PWR_DWN_EVT                     (0x100U) /**< Power down event */
 volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
 	.Version	= PSM_TO_PLM_EVENT_VERSION,
 	.EventInfo.PmEvent	= 0U,
@@ -53,7 +53,7 @@ volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
 	.CpuIdleFlag 	= {0x0},
 	.ResumeAddress 	= {0x0},
 };
-#define NUM_CLUSTER 4U
+#define NUM_CLUSTER 4U /**< Total number of clusters */
 static u8  ApuClusterState[NUM_CLUSTER]  = {0U};
 
 /****************************************************************************/

@@ -7,8 +7,8 @@
 #include "xil_util.h"
 #include "xpsmfw_iomodule.h"
 #include "xpsmfw_power.h"
-#define PSM_IOMODULE_IRQ_PENDING_INTC_IRQ_MASK 0xFFFF0000U;
-#define min(a,b)	(((a) < (b)) ? (a) : (b))
+#define PSM_IOMODULE_IRQ_PENDING_INTC_IRQ_MASK 0xFFFF0000U; /**< I/O module external interrupt input signal mask */
+#define min(a,b)	(((a) < (b)) ? (a) : (b)) /**< Get minimum value */
 
 #define XPSM_RESET_VECTOR	(0xEBC00000U) /**< Reset vector */
 extern u32 __update_mgr_b_start[];
