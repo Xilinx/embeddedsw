@@ -31,27 +31,69 @@
 extern "C" {
 #endif
 
-#define FPD_SLCR_BASEADDR                             ((u32)0xFD610000U)
+/**
+ * @defgroup versal_regs Versal Registers
+ * @{
+ */
+#define FPD_SLCR_BASEADDR		((u32)0xFD610000U) /**< FPD SLCR base address */
+
+/**
+ * @name FPD System Level Control Registers
+ * @ingroup versal_regs
+ * @{
+ */
+/**
+ * FPD System Level Control Register
+ */
 #define FPD_SLCR_WPROT0                               ( ( FPD_SLCR_BASEADDR ) + ((u32)0x00000000U) )
 #define FPD_SLCR_BISR_CACHE_CTRL_0                    ( ( FPD_SLCR_BASEADDR ) + ((u32)0x00000400U) )
 #define FPD_SLCR_BISR_CACHE_STATUS                    ( ( FPD_SLCR_BASEADDR ) + ((u32)0x00000408U) )
+/** @} */
 
-#define LPD_SLCR_BASEADDR                             ((u32)0xFF410000U)
+#define LPD_SLCR_BASEADDR		((u32)0xFF410000U) /**< LPD SLCR base address */
+
+/**
+ * @name LPD System Level Control Registers
+ * @ingroup versal_regs
+ * @{
+ */
+/**
+ * LPD System Level Control Register
+ */
 #define LPD_SLCR_PERSISTENT0                          ( ( LPD_SLCR_BASEADDR ) + ((u32)0x00000020U) )
 #define LPD_SLCR_BISR_CACHE_CTRL_0                    ( ( LPD_SLCR_BASEADDR ) + ((u32)0x00000100U) )
 #define LPD_SLCR_BISR_CACHE_STATUS                    ( ( LPD_SLCR_BASEADDR ) + ((u32)0x00000108U) )
+/** @} */
 
-#define PMC_ANALOG_BASEADDR                           ((u32)0xF1160000U)
+#define PMC_ANALOG_BASEADDR		((u32)0xF1160000U) /**< PMC Analog register base address */
+
+/**
+ * @name PMC Analog On-Demand MBIST Registers
+ * @ingroup versal_regs
+ * @{
+ */
+/**
+ * PMC Analog On-Demand MBIST Register
+ */
 #define PMC_ANALOG_OD_MBIST_RST                       ( ( PMC_ANALOG_BASEADDR ) + ((u32)0x00020100U) )
 #define PMC_ANALOG_OD_MBIST_PG_EN                     ( ( PMC_ANALOG_BASEADDR ) + ((u32)0x00020104U) )
 #define PMC_ANALOG_OD_MBIST_SETUP                     ( ( PMC_ANALOG_BASEADDR ) + ((u32)0x00020108U) )
 #define PMC_ANALOG_OD_MBIST_DONE                      ( ( PMC_ANALOG_BASEADDR ) + ((u32)0x00020110U) )
 #define PMC_ANALOG_OD_MBIST_GOOD                      ( ( PMC_ANALOG_BASEADDR ) + ((u32)0x00020114U) )
+/** @} */
 
-#define PSM_GLOBAL_ACPU0_MBIST_BIT_MASK               ((u32)0x00000002U)
-#define PSM_GLOBAL_ACPU1_MBIST_BIT_MASK               ((u32)0x00000004U)
-#define PSM_GLOBAL_RPU_MBIST_BIT_MASK                 ((u32)0x00000020U)
+#define PSM_GLOBAL_ACPU0_MBIST_BIT_MASK               ((u32)0x00000002U) /**< ACPU0 MBIST bit mask */
+#define PSM_GLOBAL_ACPU1_MBIST_BIT_MASK               ((u32)0x00000004U) /**< ACPU1 MBIST bit mask */
+#define PSM_GLOBAL_RPU_MBIST_BIT_MASK                 ((u32)0x00000020U) /**< RPU MBIST bit mask */
 
+/**
+ * @name Timing configurations
+ * @ingroup versal_regs
+ * @{
+ */
+/**
+ * Timing configuration
+ */
 //TODO: TBD
 #define XPSMFW_ACPU_CTRL_CLK_PROP_TIME                ((u32)2000)
 
@@ -124,6 +166,8 @@ extern "C" {
 #define XPSMFW_PWRON_VCCINTFP_TIMEOUT		      MICROSECOND_TO_TICKS(40U)
 #define XPSMFW_PWRON_VCCPSINTFP_POST_POR_WAIT	      MICROSECOND_TO_TICKS(1U)
 #define XPSMFW_PWRON_RST_FPD_WAIT_TIME		      NANOSECOND_TO_TICKS(40U)
+/** @} */
+/** @} */
 
 /**
  * @brief Represents the power states of the TCM.

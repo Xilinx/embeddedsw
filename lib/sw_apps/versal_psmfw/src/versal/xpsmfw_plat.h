@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,9 +42,9 @@ extern "C" {
  */
 #define IPI_BASEADDR      (0XFF300000U)
 
-#define UART0_BASEADDR (0xFF000000U)
-#define UART1_BASEADDR (0xFF010000U)
-#define IOMODULE_BASEADDR (0xFFC80000U)
+#define UART0_BASEADDR (0xFF000000U) /**< UART0 base address */
+#define UART1_BASEADDR (0xFF010000U) /**< UART1 base address */
+#define IOMODULE_BASEADDR (0xFFC80000U) /**< IOMODULE base address */
 
 XStatus XPsmfw_PwrUpHandler(void);
 XStatus XPsmfw_PwrDwnHandler(void);

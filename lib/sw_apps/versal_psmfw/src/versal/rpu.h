@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,10 @@ extern "C" {
 #endif
 
 /**
+ * @defgroup rpu_module Versal Realtime Processing Unit registers
+ * @{
+ */
+/**
  * RPU Base Address
  */
 #define RPU_BASEADDR      0XFF9A0000U
@@ -40,6 +45,14 @@ extern "C" {
  */
 #define RPU_RPU_GLBL_CNTL    ( ( RPU_BASEADDR ) + 0X00000000U )
 
+/**
+ * @name RPU Global Control register operations
+ * @ingroup rpu_module
+ * @{
+ */
+/**
+ * RPU Global Control register operation
+ */
 #define RPU_RPU_GLBL_CNTL_GIC_AXPROT_SHIFT   10U
 #define RPU_RPU_GLBL_CNTL_GIC_AXPROT_WIDTH   1U
 #define RPU_RPU_GLBL_CNTL_GIC_AXPROT_MASK    0X00000400U
@@ -79,39 +92,66 @@ extern "C" {
 #define RPU_RPU_GLBL_CNTL_CFGEE_SHIFT   0U
 #define RPU_RPU_GLBL_CNTL_CFGEE_WIDTH   1U
 #define RPU_RPU_GLBL_CNTL_CFGEE_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: RPU_RPU_GLBL_STATUS
  */
 #define RPU_RPU_GLBL_STATUS    ( ( RPU_BASEADDR ) + 0X00000004U )
 
+/**
+ * @name RPU Global status register operations
+ * @ingroup rpu_module
+ * @{
+ */
+/**
+ * RPU Global status register operation
+ */
 #define RPU_RPU_GLBL_STATUS_DBGNOPWRDWN_SHIFT   0U
 #define RPU_RPU_GLBL_STATUS_DBGNOPWRDWN_WIDTH   1U
 #define RPU_RPU_GLBL_STATUS_DBGNOPWRDWN_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: RPU_RPU_0_PWRDWN
  */
 #define RPU_RPU_0_PWRDWN    ( ( RPU_BASEADDR ) + 0X00000108U )
 
-#define RPU_RPU_0_PWRDWN_EN_SHIFT   0U
-#define RPU_RPU_0_PWRDWN_EN_WIDTH   1U
-#define RPU_RPU_0_PWRDWN_EN_MASK    0X00000001U
-
 /**
  * Register: RPU_RPU_1_PWRDWN
  */
 #define RPU_RPU_1_PWRDWN    ( ( RPU_BASEADDR ) + 0X00000208U )
 
+/**
+ * @name RPU power-down register operations
+ * @ingroup rpu_module
+ * @{
+ */
+/**
+ * RPU power-down register operation
+ */
+#define RPU_RPU_0_PWRDWN_EN_SHIFT   0U
+#define RPU_RPU_0_PWRDWN_EN_WIDTH   1U
+#define RPU_RPU_0_PWRDWN_EN_MASK    0X00000001U
+
 #define RPU_RPU_1_PWRDWN_EN_SHIFT   0U
 #define RPU_RPU_1_PWRDWN_EN_WIDTH   1U
 #define RPU_RPU_1_PWRDWN_EN_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: RPU_ERR_INJ
  */
 #define RPU_RPU_ERR_INJ     ( ( RPU_BASEADDR ) + 0X00000020U )
 
+/**
+ * @name Reserved register operations
+ * @ingroup rpu_module
+ * @{
+ */
+/**
+ * Reserved register operation
+ */
 #define RPU_RPU_ERR_INJ_DCCMINP_SHIFT   0U
 #define RPU_RPU_ERR_INJ_DCCMINP_WIDTH   8U
 #define RPU_RPU_ERR_INJ_DCCMINP_MASK    0X000000FFU
@@ -119,13 +159,23 @@ extern "C" {
 #define RPU_RPU_ERR_INJ_DCCMINP2_SHIFT   8U
 #define RPU_RPU_ERR_INJ_DCCMINP2_WIDTH   8U
 #define RPU_RPU_ERR_INJ_DCCMINP2_MASK    0X0000FF00U
+/** @} */
 
-/* RPU config register */
+/**
+ * @name RPU configuration registers
+ * @ingroup rpu_module
+ * @{
+ */
+/**
+ * RPU config register
+ */
 #define RPU_RPU_0_CFG		( ( RPU_BASEADDR ) + 0x00000100U )
 #define RPU_RPU_1_CFG		( ( RPU_BASEADDR ) + 0x00000200U )
 
 #define RPU_HIVEC_ADDR		(0xFFFC0000U)
 #define RPU_VINITHI_MASK	(0x4U)
+/** @} */
+/** @} */
 
 #ifdef __cplusplus
 }

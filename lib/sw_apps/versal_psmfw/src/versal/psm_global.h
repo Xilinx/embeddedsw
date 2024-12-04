@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,27 +32,47 @@ extern "C" {
 #endif
 
 /**
+ * @defgroup psm_global_module Versal PSM Global register definitions
+ * @{
+ */
+/**
  * PSM Global base address
  */
 #define PSM_GLOBAL_BASEADDR		((u32)0xFFC90000U)
 
 /**
- * PSM Local Scan Clear
+ * @name PSM Global GIC interrupt registers
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * PSM Global GIC interrupt register
  */
 #define PSM_GLOBAL_GICP_PSM_IRQ_STATUS 	( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x000020A0U) )
 #define PSM_GLOBAL_GICP_PSM_IRQ_MASK	( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x000020A4U) )
 #define PSM_GLOBAL_GICP_PSM_IRQ_EN		( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x000020A8U) )
 #define PSM_GLOBAL_GICP_PSM_IRQ_DIS		( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x000020ACU) )
-
-#define PSM_GLOBAL_GICP_GICP2_MASK	((u32)0x4U)
-
 #define PSM_GLOBAL_GICP0_IRQ_STATUS	( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x00002000U) )
+#define PSM_GLOBAL_GICP2_IRQ_STATUS ( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x00002028U) )
+#define PSM_GLOBAL_GICP2_IRQ_MASK	( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x0000202CU) )
+#define PSM_GLOBAL_GICP2_INT_EN		( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x00002030U) )
+#define PSM_GLOBAL_GICP2_INT_DIS	( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x00002034U) )
+/** @} */
+
+/**
+ * @name PSM Global GIC interrupt register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * PSM Global GIC interrupt register operation
+ */
+#define PSM_GLOBAL_GICP_GICP2_MASK	((u32)0x4U)
 
 #define PSM_GLOBAL_GICP0_IRQ_STATUS_IPI_PSM_SHIFT	29U
 #define PSM_GLOBAL_GICP0_IRQ_STATUS_IPI_PSM_WIDTH	1U
 #define PSM_GLOBAL_GICP0_IRQ_STATUS_IPI_PSM_MASK	((u32)0x20000000U)
 
-#define PSM_GLOBAL_GICP2_IRQ_STATUS ( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x00002028U) )
 #define PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_UNCORR_ERR_SHIFT	11U
 #define PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_UNCORR_ERR_WIDTH	0x1U
 #define PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_UNCORR_ERR_MASK		((u32)0x800U)
@@ -62,11 +83,7 @@ extern "C" {
 #define PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_WIDTH		0x1U
 #define PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK		((u32)0x100U)
 #define PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK			((u32)0x100000U)
-
-#define PSM_GLOBAL_GICP2_IRQ_MASK	( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x0000202CU) )
-#define PSM_GLOBAL_GICP2_INT_EN		( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x00002030U) )
-#define PSM_GLOBAL_GICP2_INT_DIS	( ( PSM_GLOBAL_BASEADDR ) + ((u32)0x00002034U) )
-
+/** @} */
 
 /**
  * PSM_GLOBAL_REG Base Address
@@ -74,16 +91,26 @@ extern "C" {
 #define PSM_GLOBAL_REG_BASEADDR      0XFFC90000U
 
 /**
- * Register: PSM_GLOBAL_REG_GLOBAL_CNTRL
+ * @name PSM Global Power registers
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * PSM Global Power register
  */
 #define PSM_GLOBAL_REG_GLOBAL_CNTRL			( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000000U )
-
-#define	PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK	0X00000010U
+#define PSM_GLOBAL_REG_APU_PWR_STATUS_INIT    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000008U )
+/** @} */
 
 /**
- * Register: PSM_GLOBAL_REG_APU_PWR_STATUS_INIT
+ * @name PSM Global Power Status register operations
+ * @ingroup psm_global_module
+ * @{
  */
-#define PSM_GLOBAL_REG_APU_PWR_STATUS_INIT    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000008U )
+/**
+ * PSM Global Power status register operation
+ */
+#define	PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK	0X00000010U
 
 #define PSM_GLOBAL_REG_APU_PWR_STATUS_INIT_ACPU1_SHIFT   1U
 #define PSM_GLOBAL_REG_APU_PWR_STATUS_INIT_ACPU1_WIDTH   1U
@@ -92,12 +119,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_APU_PWR_STATUS_INIT_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_APU_PWR_STATUS_INIT_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_APU_PWR_STATUS_INIT_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_PWR_STATE
  */
 #define PSM_GLOBAL_REG_PWR_STATE    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000100U )
 
+/**
+ * @name PSM Global Power State register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * PSM Global Power state register operation
+ */
 #define PSM_GLOBAL_REG_PWR_STATE_FP_SHIFT   22U
 #define PSM_GLOBAL_REG_PWR_STATE_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_PWR_STATE_FP_MASK    0X00400000U
@@ -161,12 +197,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_PWR_STATE_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_PWR_STATE_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_PWR_STATE_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_PWRUP_STATUS
  */
 #define PSM_GLOBAL_REG_REQ_PWRUP_STATUS    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000110U )
 
+/**
+ * @name Power-up Request Status register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power-up Request Status register operation
+ */
 #define PSM_GLOBAL_REG_REQ_PWRUP_STATUS_FP_SHIFT   22U
 #define PSM_GLOBAL_REG_REQ_PWRUP_STATUS_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRUP_STATUS_FP_MASK    0X00400000U
@@ -226,12 +271,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_PWRUP_STATUS_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_PWRUP_STATUS_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRUP_STATUS_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_PWRUP_INT_MASKU
  */
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_MASK    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000114U )
 
+/**
+ * @name Power-up Request Interrupt Mask Register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power-up Request Interrupt Mask Register operation
+ */
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_MASK_FP_SHIFT   22U
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_MASK_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_MASK_FP_MASK    0X00400000U
@@ -291,12 +345,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_MASK_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_MASK_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_MASK_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_PWRUP_INT_EN
  */
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_EN    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000118U )
 
+/**
+ * @name Power-up Request Interrupt Enable register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power-up Request Interrupt Enable register operation
+ */
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_EN_FP_SHIFT   22U
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_EN_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_EN_FP_MASK    0X00400000U
@@ -356,12 +419,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_EN_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_EN_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_EN_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_PWRUP_INT_DIS
  */
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_DIS    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X0000011CU )
 
+/**
+ * @name Power-up Request Interrupt Disable register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power-up Request Interrupt Disable register operation
+ */
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_DIS_FP_SHIFT   22U
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_DIS_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_DIS_FP_MASK    0X00400000U
@@ -421,12 +493,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_DIS_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_DIS_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRUP_INT_DIS_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_PWRUP_TRIG
  */
 #define PSM_GLOBAL_REG_REQ_PWRUP_TRIG    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000120U )
 
+/**
+ * @name Power-up Request Interrupt Trigger register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power-up Request Interrupt Trigger register operation
+ */
 #define PSM_GLOBAL_REG_REQ_PWRUP_TRIG_FP_SHIFT   22U
 #define PSM_GLOBAL_REG_REQ_PWRUP_TRIG_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRUP_TRIG_FP_MASK    0X00400000U
@@ -486,12 +567,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_PWRUP_TRIG_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_PWRUP_TRIG_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRUP_TRIG_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_PWRDWN_STATUS
  */
 #define PSM_GLOBAL_REG_REQ_PWRDWN_STATUS    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000210U )
 
+/**
+ * @name Power-down Request Status register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power-down Request Status register operation
+ */
 #define PSM_GLOBAL_REG_REQ_PWRDWN_STATUS_FP_SHIFT   22U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_STATUS_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_STATUS_FP_MASK    0X00400000U
@@ -551,12 +641,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_PWRDWN_STATUS_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_STATUS_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_STATUS_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_PWRDWN_INT_MASKU
  */
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_MASK    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000214U )
 
+/**
+ * @name Power-down Request Interrupt Mask register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power-down Request Interrupt Mask register operation
+ */
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_MASK_FP_SHIFT   22U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_MASK_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_MASK_FP_MASK    0X00400000U
@@ -616,12 +715,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_MASK_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_MASK_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_MASK_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_PWRDWN_INT_EN
  */
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_EN    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000218U )
 
+/**
+ * @name Power-down Request Interrupt Enable register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power-down Request Interrupt Enable register operation
+ */
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_EN_FP_SHIFT   22U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_EN_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_EN_FP_MASK    0X00400000U
@@ -681,12 +789,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_EN_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_EN_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_EN_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_PWRDWN_INT_DIS
  */
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_DIS    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X0000021CU )
 
+/**
+ * @name Power-down Request Interrupt Disable register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power-down Request Interrupt Disable register operation
+ */
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_DIS_FP_SHIFT   22U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_DIS_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_DIS_FP_MASK    0X00400000U
@@ -746,12 +863,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_DIS_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_DIS_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_INT_DIS_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_PWRDWN_TRIG
  */
 #define PSM_GLOBAL_REG_REQ_PWRDWN_TRIG    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000220U )
 
+/**
+ * @name Power-down Request Interrupt Trigger register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power-down Request Interrupt Trigger register operation
+ */
 #define PSM_GLOBAL_REG_REQ_PWRDWN_TRIG_FP_SHIFT   22U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_TRIG_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_TRIG_FP_MASK    0X00400000U
@@ -811,12 +937,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_PWRDWN_TRIG_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_TRIG_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_PWRDWN_TRIG_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_SWRST_STATUS
  */
 #define PSM_GLOBAL_REG_REQ_SWRST_STATUS    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000410U )
 
+/**
+ * @name PSM Reset Request status register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * PSM Reset Request status register operation
+ */
 #define PSM_GLOBAL_REG_REQ_SWRST_STATUS_FP_SHIFT   30U
 #define PSM_GLOBAL_REG_REQ_SWRST_STATUS_FP_WIDTH   1U
 
@@ -858,9 +993,15 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_SWRST_STATUS_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_SWRST_STATUS_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_SWRST_STATUS_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: PSM_GLOBAL_REG_REQ_SWRST_INT_MASKU
+ * @name PSM Reset Request interrupt mask registers
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * PSM Reset Request interrupt mask register
  */
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_MASK_FP_SHIFT   30U
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_MASK_FP_WIDTH   1U
@@ -905,12 +1046,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_MASK_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_MASK_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_MASK_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_SWRST_INT_EN
  */
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_EN    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000418U )
 
+/**
+ * @name PSM Reset Request interrupt enable register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * PSM Reset Request interrupt enable register operation
+ */
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_EN_FP_SHIFT   30U
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_EN_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_EN_FP_MASK    0X40000000U
@@ -954,9 +1104,15 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_EN_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_EN_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_EN_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
- * Register: PSM_GLOBAL_REG_REQ_SWRST_INT_DIS
+ * @name PSM Reset Request interrupt disable register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * PSM Reset Request interrupt disable register operation
  */
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_DIS_FP_SHIFT   30U
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_DIS_FP_WIDTH   1U
@@ -1001,12 +1157,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_DIS_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_DIS_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_SWRST_INT_DIS_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_REQ_SWRST_TRIG
  */
 #define PSM_GLOBAL_REG_REQ_SWRST_TRIG    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000420U )
 
+/**
+ * @name PSM Reset Request interrupt trigger register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * PSM Reset Request interrupt trigger register operation
+ */
 #define PSM_GLOBAL_REG_REQ_SWRST_TRIG_FP_SHIFT   30U
 #define PSM_GLOBAL_REG_REQ_SWRST_TRIG_FP_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_SWRST_TRIG_FP_MASK    0X40000000U
@@ -1050,12 +1215,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_REQ_SWRST_TRIG_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_REQ_SWRST_TRIG_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_REQ_SWRST_TRIG_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS
  */
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000700U )
 
+/**
+ * @name Wake-up Request interrupt status register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Wake-up Request interrupt status register operation
+ */
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS_INTFPD_SHIFT   27U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS_INTFPD_WIDTH   1U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS_INTFPD_MASK    0X08000000U
@@ -1131,12 +1305,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_WAKEUP_IRQ_MASKU
  */
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_MASK    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000704U )
 
+/**
+ * @name Wake-up Request interrupt mask register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Wake-up Request interrupt mask register operation
+ */
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_MASK_INTFPD_SHIFT   27U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_MASK_INTFPD_WIDTH   1U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_MASK_INTFPD_MASK    0X08000000U
@@ -1212,12 +1395,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_MASK_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_MASK_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_MASK_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_WAKEUP_IRQ_EN
  */
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_EN    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000708U )
 
+/**
+ * @name Wake-up Request interrupt enable register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Wake-up Request interrupt enable register operation
+ */
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_EN_INTFPD_SHIFT   27U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_EN_INTFPD_WIDTH   1U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_EN_INTFPD_MASK    0X08000000U
@@ -1293,12 +1485,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_EN_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_EN_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_EN_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_WAKEUP_IRQ_DIS
  */
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_DIS    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X0000070CU )
 
+/**
+ * @name Wake-up Request interrupt disable register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Wake-up Request interrupt disable register operation
+ */
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_DIS_INTFPD_SHIFT   27U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_DIS_INTFPD_WIDTH   1U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_DIS_INTFPD_MASK    0X08000000U
@@ -1374,12 +1575,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_DIS_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_DIS_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_DIS_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_WAKEUP_IRQ_TRIG
  */
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_TRIG    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000710U )
 
+/**
+ * @name Wake-up Request interrupt trigger register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Wake-up Request interrupt trigger register operation
+ */
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_TRIG_INTFPD_SHIFT   27U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_TRIG_INTFPD_WIDTH   1U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_TRIG_INTFPD_MASK    0X08000000U
@@ -1455,12 +1665,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_TRIG_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_TRIG_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_WAKEUP_IRQ_TRIG_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS
  */
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000714U )
 
+/**
+ * @name Power Control Request interrupt status register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power Control Request interrupt status register operation
+ */
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS_FPD_SUPPLY_SHIFT   24U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS_FPD_SUPPLY_WIDTH   1U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS_FPD_SUPPLY_MASK    0X01000000U
@@ -1500,12 +1719,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_PWR_CTRL_IRQ_MASKU
  */
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_MASK    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000718U )
 
+/**
+ * @name Power Control Request interrupt status register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power Control Request interrupt status register operation
+ */
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_MASK_FPD_SUPPLY_SHIFT   24U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_MASK_FPD_SUPPLY_WIDTH   1U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_MASK_FPD_SUPPLY_MASK    0X01000000U
@@ -1545,12 +1773,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_MASK_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_MASK_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_MASK_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN
  */
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X0000071CU )
 
+/**
+ * @name Power Control Request interrupt enable register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power Control Request interrupt enable register operation
+ */
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN_FPD_SUPPLY_SHIFT   24U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN_FPD_SUPPLY_WIDTH   1U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN_FPD_SUPPLY_MASK    0X01000000U
@@ -1590,12 +1827,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_EN_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_PWR_CTRL_IRQ_DIS
  */
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_DIS    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000720U )
 
+/**
+ * @name Power Control Request interrupt disable register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power Control Request interrupt disable register operation
+ */
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_DIS_FPD_SUPPLY_SHIFT   24U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_DIS_FPD_SUPPLY_WIDTH   1U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_DIS_FPD_SUPPLY_MASK    0X01000000U
@@ -1635,12 +1881,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_DIS_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_DIS_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_DIS_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_PWR_CTRL_IRQ_TRIG
  */
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_TRIG    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000724U )
 
+/**
+ * @name Power Control Request interrupt trigger register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * Power Control Request interrupt trigger register operation
+ */
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_TRIG_FPD_SUPPLY_SHIFT   24U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_TRIG_FPD_SUPPLY_WIDTH   1U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_TRIG_FPD_SUPPLY_MASK    0X01000000U
@@ -1680,12 +1935,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_TRIG_ACPU0_SHIFT   0U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_TRIG_ACPU0_WIDTH   1U
 #define PSM_GLOBAL_REG_PWR_CTRL_IRQ_TRIG_ACPU0_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_MBIST_RSTN
  */
 #define PSM_GLOBAL_REG_MBIST_RSTN    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000900U )
 
+/**
+ * @name MBIST memory reset control register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * MBIST memory reset control register operation
+ */
 #define PSM_GLOBAL_REG_MBIST_RSTN_INT_FPD_SHIFT   4U
 #define PSM_GLOBAL_REG_MBIST_RSTN_INT_FPD_WIDTH   1U
 #define PSM_GLOBAL_REG_MBIST_RSTN_INT_FPD_MASK    0X00000010U
@@ -1705,12 +1969,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_MBIST_RSTN_APU_SHIFT   0U
 #define PSM_GLOBAL_REG_MBIST_RSTN_APU_WIDTH   1U
 #define PSM_GLOBAL_REG_MBIST_RSTN_APU_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_MBIST_PG_EN
  */
 #define PSM_GLOBAL_REG_MBIST_PG_EN    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000904U )
 
+/**
+ * @name MBIST memory PG_EN signals control register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * MBIST memory PG_EN signals control register operation
+ */
 #define PSM_GLOBAL_REG_MBIST_PG_EN_INT_FPD_SHIFT   4U
 #define PSM_GLOBAL_REG_MBIST_PG_EN_INT_FPD_WIDTH   1U
 #define PSM_GLOBAL_REG_MBIST_PG_EN_INT_FPD_MASK    0X00000010U
@@ -1730,12 +2003,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_MBIST_PG_EN_APU_SHIFT   0U
 #define PSM_GLOBAL_REG_MBIST_PG_EN_APU_WIDTH   1U
 #define PSM_GLOBAL_REG_MBIST_PG_EN_APU_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_MBIST_SETUP
  */
 #define PSM_GLOBAL_REG_MBIST_SETUP    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000908U )
 
+/**
+ * @name MBIST memory SETUP_1 signal control register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * MBIST memory SETUP_1 signal control register operation
+ */
 #define PSM_GLOBAL_REG_MBIST_SETUP_INT_FPD_SHIFT   4U
 #define PSM_GLOBAL_REG_MBIST_SETUP_INT_FPD_WIDTH   1U
 #define PSM_GLOBAL_REG_MBIST_SETUP_INT_FPD_MASK    0X00000010U
@@ -1755,12 +2037,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_MBIST_SETUP_APU_SHIFT   0U
 #define PSM_GLOBAL_REG_MBIST_SETUP_APU_WIDTH   1U
 #define PSM_GLOBAL_REG_MBIST_SETUP_APU_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_MBIST_DONE
  */
 #define PSM_GLOBAL_REG_MBIST_DONE    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000910U )
 
+/**
+ * @name MBIST memory DONE status register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * MBIST memory DONE status register operation
+ */
 #define PSM_GLOBAL_REG_MBIST_DONE_INT_FPD_SHIFT   4U
 #define PSM_GLOBAL_REG_MBIST_DONE_INT_FPD_WIDTH   1U
 #define PSM_GLOBAL_REG_MBIST_DONE_INT_FPD_MASK    0X00000010U
@@ -1780,12 +2071,21 @@ extern "C" {
 #define PSM_GLOBAL_REG_MBIST_DONE_APU_SHIFT   0U
 #define PSM_GLOBAL_REG_MBIST_DONE_APU_WIDTH   1U
 #define PSM_GLOBAL_REG_MBIST_DONE_APU_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_MBIST_GO
  */
 #define PSM_GLOBAL_REG_MBIST_GO    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00000914U )
 
+/**
+ * @name MBIST memory GO status register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * MBIST memory GO status register operation
+ */
 #define PSM_GLOBAL_REG_MBIST_GO_INT_FPD_SHIFT   4U
 #define PSM_GLOBAL_REG_MBIST_GO_INT_FPD_WIDTH   1U
 #define PSM_GLOBAL_REG_MBIST_GO_INT_FPD_MASK    0X00000010U
@@ -1805,15 +2105,26 @@ extern "C" {
 #define PSM_GLOBAL_REG_MBIST_GO_APU_SHIFT   0U
 #define PSM_GLOBAL_REG_MBIST_GO_APU_WIDTH   1U
 #define PSM_GLOBAL_REG_MBIST_GO_APU_MASK    0X00000001U
+/** @} */
 
 /**
  * Register: PSM_GLOBAL_REG_ERR1_TRIG
  */
 #define PSM_GLOBAL_REG_ERR1_TRIG    ( ( PSM_GLOBAL_REG_BASEADDR ) + 0X00001010U )
 
+/**
+ * @name PSM Error Trigger register operations
+ * @ingroup psm_global_module
+ * @{
+ */
+/**
+ * PSM Error Trigger register operation
+ */
 #define PSM_GLOBAL_REG_ERR1_TRIG_PSM_B_NCR_SHIFT  	(3U)
 #define PSM_GLOBAL_REG_ERR1_TRIG_PSM_B_NCR_WIDTH	(1U)
 #define PSM_GLOBAL_REG_ERR1_TRIG_PSM_B_NCR_MASK		(0X00000008U)
+/** @} */
+/** @} */
 
 #ifdef __cplusplus
 }
