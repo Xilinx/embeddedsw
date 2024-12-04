@@ -24,6 +24,7 @@
 *       kpt  02/21/2024 Add support for DME extension
 * 1.3   har  05/02/2024 Fixed doxygen warnings
 *       har  06/07/2023 Added support for Key index
+*       kpt  11/19/2024 Add UTF8 encoding support for version field
 *
 *
 * </pre>
@@ -198,7 +199,6 @@ typedef enum {
 int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config *Cfg);
 int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8* Val, u32 Len, u32 KeyIndex);
 u32* XCert_GetSpkId(void);
-
 
 #ifdef __cplusplus
 }

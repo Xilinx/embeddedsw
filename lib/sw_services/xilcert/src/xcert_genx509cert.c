@@ -34,7 +34,7 @@
 *       har  08/08/2024 Added TCB Info extension in DevIk CSR
 *       har  08/23/2024 Removed HwType field in Extended Key usage extension for Versal Gen2 devices
 *       har  09/17/2024 Fixed doxygen warnings
-*
+*       kpt  11/19/2024 Add UTF8 encoding support for version field
 *
 * </pre>
 * @note
@@ -116,16 +116,22 @@ static const u8 Oid_DmeStructExtn[] = {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U,
 #define XCERT_AUTH_KEY_ID_OPTIONAL_PARAM		(0x80U)
 			/**< Optional parameter in Authority Key Identifier field*/
 #define XOCP_APP_VERSION_MAX_LENGTH			(64U)
-							/**< Max length of app version in bytes */
+							/**< Maximum length of app version in bytes */
+
+#define XOCP_APP_VERSION_MIN_LENGTH			(1U)
+							/**< Minimum length of app version in bytes */
 
 /** @name Optional parameter tags
  * @{
  */
  /**< Tags for optional parameters */
-#define XCERT_OPTIONAL_PARAM_0_TAG			(0xA0U)
-#define XCERT_OPTIONAL_PARAM_2_TAG			(0xA2U)
-#define XCERT_OPTIONAL_PARAM_3_TAG			(0xA3U)
-#define XCERT_OPTIONAL_PARAM_6_TAG			(0xA6U)
+#define XCERT_OPTIONAL_PARAM_0_CONSTRUCTED_TAG			(0xA0U)
+#define XCERT_OPTIONAL_PARAM_3_CONSTRUCTED_TAG			(0xA3U)
+#define XCERT_OPTIONAL_PARAM_6_CONSTRUCTED_TAG			(0xA6U)
+
+#define XCERT_OPTIONAL_PARAM_2_PRIMITIVE_TAG	(0x82U)
+#define XCERT_OPTIONAL_PARAM_3_PRIMITIVE_TAG	(0x83U)
+
 /** @} */
 
 /** @name DNA
@@ -191,7 +197,7 @@ static int XCert_GenDmeExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeResponse
 static int XCert_GenDmePublicKeyAndStructExtnField(u8* CertReqInfoBuf, u32 *Len, XCert_DmeChallenge *Dme);
 #ifndef VERSAL_AIEPG2
 static int XCert_GenFwVersionField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *FwVersionLen);
-static void XCert_GenSecurityVersionField(u8* TBSCertBuf, u32 *SvnLen);
+static int XCert_GenSecurityVersionField(u8* TBSCertBuf, u32 *SvnLen);
 #endif
 
 /************************** Function Definitions *****************************/
@@ -1317,14 +1323,8 @@ static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Tcb
 	u8* OctetStrValIdx;
 	u8* TcbInfoSequenceLenIdx;
 	u8* TcbInfoSequenceValIdx;
-#ifndef VERSAL_AIEPG2
-	u8* OptionalTag2LenIdx;
-	u8* OptionalTag2ValIdx;
-	u8* OptionalTag3LenIdx;
-	u8* OptionalTag3ValIdx;
-#endif
-	u8* OptionalTag6LenIdx;
-	u8* OptionalTag6ValIdx;
+	u8* OptionalTagLenIdx;
+	u8* OptionalTagValIdx;
 	u8* FwIdSequenceLenIdx;
 	u8* FwIdSequenceValIdx;
 	u32 OidLen;
@@ -1349,30 +1349,29 @@ static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Tcb
 	TcbInfoSequenceValIdx = Curr;
 
 #ifndef VERSAL_AIEPG2
-	*(Curr++) = XCERT_OPTIONAL_PARAM_2_TAG;
-	OptionalTag2LenIdx = Curr++;
-	OptionalTag2ValIdx = Curr;
-
+	*(Curr++) = XCERT_OPTIONAL_PARAM_2_PRIMITIVE_TAG;
+	OptionalTagLenIdx = Curr++;
+	OptionalTagValIdx = Curr;
 	Status = XCert_GenFwVersionField(Curr, Cfg, &FieldLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	Curr = Curr + FieldLen;
+	*OptionalTagLenIdx = (u8)(Curr - OptionalTagValIdx);
 
-	*OptionalTag2LenIdx = (u8)(Curr - OptionalTag2ValIdx);
-
-	*(Curr++) = XCERT_OPTIONAL_PARAM_3_TAG;
-	OptionalTag3LenIdx = Curr++;
-	OptionalTag3ValIdx = Curr;
-
-	XCert_GenSecurityVersionField(Curr, &FieldLen);
+	*(Curr++) = XCERT_OPTIONAL_PARAM_3_PRIMITIVE_TAG;
+	OptionalTagLenIdx = Curr++;
+	OptionalTagValIdx = Curr;
+	Status = XCert_GenSecurityVersionField(Curr, &FieldLen);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Curr = Curr + FieldLen;
-
-	*OptionalTag3LenIdx = (u8)(Curr - OptionalTag3ValIdx);
+	*OptionalTagLenIdx = (u8)(Curr - OptionalTagValIdx);
 #endif
-	*(Curr++) = XCERT_OPTIONAL_PARAM_6_TAG;
-	OptionalTag6LenIdx = Curr++;
-	OptionalTag6ValIdx = Curr;
+	*(Curr++) = XCERT_OPTIONAL_PARAM_6_CONSTRUCTED_TAG;
+	OptionalTagLenIdx = Curr++;
+	OptionalTagValIdx = Curr;
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	FwIdSequenceLenIdx = Curr++;
@@ -1391,7 +1390,7 @@ static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *Tcb
 	Curr = Curr + FieldLen;
 
 	*FwIdSequenceLenIdx = (u8)(Curr - FwIdSequenceValIdx);
-	*OptionalTag6LenIdx = (u8)(Curr - OptionalTag6ValIdx);
+	*OptionalTagLenIdx = (u8)(Curr - OptionalTagValIdx);
 
 	Status = XCert_UpdateEncodedLength(TcbInfoSequenceLenIdx, (u32)(Curr - TcbInfoSequenceValIdx), TcbInfoSequenceValIdx);
 	if (Status != XST_SUCCESS) {
@@ -1763,7 +1762,7 @@ static int XCert_GenX509v3ExtensionsField(u8* TBSCertBuf,  XCert_Config* Cfg, u3
 	u8* OptionalTagValIdx;
 	u32 Len;
 
-	*(Curr++) = XCERT_OPTIONAL_PARAM_3_TAG;
+	*(Curr++) = XCERT_OPTIONAL_PARAM_3_CONSTRUCTED_TAG;
 	OptionalTagLenIdx = Curr++;
 	OptionalTagValIdx = Curr;
 
@@ -2127,7 +2126,7 @@ static int XCert_GenCsrExtensions(u8* CertReqInfoBuf, XCert_Config* Cfg, u32 *Ex
 	u32 Len;
 	u32 OidLen;
 
-	*(Curr++) = XCERT_OPTIONAL_PARAM_0_TAG;
+	*(Curr++) = XCERT_OPTIONAL_PARAM_0_CONSTRUCTED_TAG;
 	OptionalTagLenIdx = Curr++;
 	OptionalTagValIdx = Curr;
 
@@ -2261,7 +2260,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCe
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	*(Curr++) = XCERT_OPTIONAL_PARAM_0_TAG;
+	*(Curr++) = XCERT_OPTIONAL_PARAM_0_CONSTRUCTED_TAG;
 	*(Curr++) = XCERT_LEN_OF_VERSION_FIELD;
 
 	/**
@@ -2544,30 +2543,33 @@ static void XCert_CopyCertificate(const u32 Size, const u8 *Src, const u64 DstAd
  * @param	FwVersionLen	Length of the Version sub-field
  *
  * @return
- *		 - XST_SUCCESS  Successfully generated Version sub-field
- *		 - XST_FAILURE  In case of failure
+ *              - XST_SUCCESS  Successfully generated Version sub-field
+ *              - XST_FAILURE  In case of failure
  *
  ******************************************************************************/
 static int XCert_GenFwVersionField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *FwVersionLen)
 {
 	int Status = XST_FAILURE;
 	u32 FwVersion;
+	u8* Curr = TBSCertBuf;
 
 	if (Cfg->AppCfg.IsSelfSigned == TRUE) {
 		FwVersion = XCert_In32(XCERT_RTCA_PLM_VERSION_ADDR);
-		XCert_ExtractBytesAndCreateIntegerField(TBSCertBuf, FwVersion, FwVersionLen);
-		Status = XST_SUCCESS;
+		Status = XCert_BuildPlmVersionAndCreateRawField(Curr, FwVersion, FwVersionLen);
 	}
 	else {
 		/**
-		 * In case app version is not provided, create empty Fw Version field of maximum posssible size
+		 * In case app version is not provided, create Fw Version field with zero as a value
 		*/
 		if (Cfg->AppCfg.FwVersionLen == 0U) {
-			XPlmi_MemSetBytes(Cfg->AppCfg.FwVersion, XOCP_APP_VERSION_MAX_LENGTH, 0U, XOCP_APP_VERSION_MAX_LENGTH);
-			Cfg->AppCfg.FwVersionLen = XOCP_APP_VERSION_MAX_LENGTH;
+			*Curr = XCERT_NULL_VALUE;
+			*FwVersionLen = XOCP_APP_VERSION_MIN_LENGTH;
+			Status = XST_SUCCESS;
 		}
-		Status = XCert_CreateInteger(TBSCertBuf, Cfg->AppCfg.FwVersion,
-			Cfg->AppCfg.FwVersionLen, FwVersionLen);
+		else {
+			Cfg->AppCfg.FwVersionLen = Xil_Strnlen((char*)Cfg->AppCfg.FwVersion, Cfg->AppCfg.FwVersionLen);
+			Status = XCert_CreateRawDataFromByteArray(Curr, Cfg->AppCfg.FwVersion, Cfg->AppCfg.FwVersionLen, FwVersionLen);
+		}
 	}
 
 	return Status;
@@ -2578,15 +2580,26 @@ static int XCert_GenFwVersionField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *FwVer
  * @brief	This function creates the Security Version sub-field present in the TCB Info extension
  * 		of the TBS Certificate.
  *
- * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where the Security Version field shall be added.
+ * @param	TBSCertBuf	Pointer in the TBS Certificate buffer where the Security Version
+ *                              field shall be added.
  * @param	SvnLen		Length of the Security Version sub-field
  *
+ * @return
+ *              - XST_SUCCESS  Successfully generated security version field
+ *              - XST_FAILURE  In case of failure
+ *
  ******************************************************************************/
-static void XCert_GenSecurityVersionField(u8* TBSCertBuf, u32 *SvnLen)
+static int XCert_GenSecurityVersionField(u8* TBSCertBuf, u32 *SvnLen)
 {
+	int Status = XST_FAILURE;
 	u32* Svn = XCert_GetSpkId();
+	u32 IntegerVal;
+	u8* Curr = TBSCertBuf;
 
-	XCert_ExtractBytesAndCreateIntegerField(TBSCertBuf, *Svn, SvnLen);
+	IntegerVal = Xil_EndianSwap32(*Svn);
+	Status = XCert_CreateIntegerFieldFromByteArray(Curr, (u8*)&IntegerVal, XCERT_WORD_LEN, SvnLen);
+
+	return Status;
 }
 #endif
 
