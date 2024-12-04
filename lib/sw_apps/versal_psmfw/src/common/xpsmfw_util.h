@@ -34,7 +34,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xstatus.h"
 
-#define BIT(n)		(1U << (n))
+#define BIT(n)		(1U << (n)) /**< Create bitmask with a single bit set */
 
 
 /**

@@ -36,18 +36,24 @@ extern "C" {
 #include "xiomodule.h"
 #include "xpsmfw_ipi_manager.h"
 
-/*
- * PSM_IOMODULE_BASEADDR
- */
-#define PSM_IOMODULE_BASEADDR			(IOMODULE_BASEADDR)
-
 extern XIOModule IOModule;
 
-/*
- * PSM_IOMODULE_IRQ_STATUS
+/**
+ * @defgroup iomodule IOMODULE related registers
+ * @{
  */
-#define PSM_IOMODULE_IRQ_STATUS							( ( PSM_IOMODULE_BASEADDR ) + ((u32)0x00000030U) )
+#define PSM_IOMODULE_BASEADDR		(IOMODULE_BASEADDR) /**< IO Module base address */
 
+#define PSM_IOMODULE_IRQ_STATUS		((PSM_IOMODULE_BASEADDR) + ((u32)0x00000030U)) /**< IO Module interrupt status register */
+
+/**
+ * @name IOMODULE interrupt status register operations
+ * @ingroup iomodule
+ * @{
+ */
+/**
+ * IOMODULE interrupt status register operation
+ */
 #define PSM_IOMODULE_IRQ_STATUS_PWR_CNT_REQ_SHIFT		31
 #define PSM_IOMODULE_IRQ_STATUS_PWR_CNT_REQ_WIDTH		1
 #define PSM_IOMODULE_IRQ_STATUS_PWR_CNT_REQ_MASK		((u32)0x80000000U)
@@ -107,12 +113,18 @@ extern XIOModule IOModule;
 #define PSM_IOMODULE_IRQ_STATUS_PIT1_SHIFT				3
 #define PSM_IOMODULE_IRQ_STATUS_PIT1_WIDTH				1
 #define PSM_IOMODULE_IRQ_STATUS_PIT1_MASK				((u32)0x00000008U)
+/** @} */
 
-/*
- * PSM_IOMODULE_IRQ_PENDING
+#define PSM_IOMODULE_IRQ_PENDING	((PSM_IOMODULE_BASEADDR) + ((u32)0x00000034U)) /**< IO Module interrupt pending register */
+
+/**
+ * @name IOMODULE interrupt pending register operations
+ * @ingroup iomodule
+ * @{
  */
-#define PSM_IOMODULE_IRQ_PENDING						( ( PSM_IOMODULE_BASEADDR ) + ((u32)0x00000034U) )
-
+/**
+ * IOMODULE interrupt pending register operation
+ */
 #define PSM_IOMODULE_IRQ_PENDING_PWR_CNT_REQ_SHIFT		31
 #define PSM_IOMODULE_IRQ_PENDING_PWR_CNT_REQ_WIDTH		1
 #define PSM_IOMODULE_IRQ_PENDING_PWR_CNT_REQ_MASK		((u32)0x80000000U)
@@ -172,12 +184,18 @@ extern XIOModule IOModule;
 #define PSM_IOMODULE_IRQ_PENDING_PIT1_SHIFT				3
 #define PSM_IOMODULE_IRQ_PENDING_PIT1_WIDTH				1
 #define PSM_IOMODULE_IRQ_PENDING_PIT1_MASK				((u32)0x00000008U)
+/** @} */
 
-/*
- * PSM_IOMODULE_IRQ_ACK
+#define PSM_IOMODULE_IRQ_ACK		((PSM_IOMODULE_BASEADDR) + ((u32)0x0000003CU)) /**< IO Module interrupt ack register */
+
+/**
+ * @name IOMODULE interrupt ack register operations
+ * @ingroup iomodule
+ * @{
  */
-#define PSM_IOMODULE_IRQ_ACK							( ( PSM_IOMODULE_BASEADDR ) + ((u32)0x0000003CU) )
-
+/**
+ * IOMODULE interrupt ack register operation
+ */
 #define PSM_IOMODULE_IRQ_ACK_PWR_CNT_REQ_SHIFT			31
 #define PSM_IOMODULE_IRQ_ACK_PWR_CNT_REQ_WIDTH			1
 #define PSM_IOMODULE_IRQ_ACK_PWR_CNT_REQ_MASK			((u32)0x80000000U)
@@ -237,6 +255,8 @@ extern XIOModule IOModule;
 #define PSM_IOMODULE_IRQ_ACK_PIT1_SHIFT					3
 #define PSM_IOMODULE_IRQ_ACK_PIT1_WIDTH					1
 #define PSM_IOMODULE_IRQ_ACK_PIT1_MASK					((u32)0x00000008U)
+/** @} */
+/** @} */
 
 /************************ Function Prototype ************************/
 XStatus XPsmFw_IoModuleInit(u16 DeviceId);

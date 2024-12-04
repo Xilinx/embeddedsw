@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,7 +37,16 @@ extern "C" {
 #include "xpsmfw_config.h"
 #include "xil_types.h"
 
+/**
+ * @defgroup debug_psmfw Debug configurations for PSMFW
+ * @{
+ */
 
+/**
+ * @name Debug levels for PSMFW
+ * @ingroup debug_psmfw
+ * @{
+ */
 /**
  * Debug levels for PSMFW
  */
@@ -49,7 +59,16 @@ extern "C" {
 #define DEBUG_ERROR (0x0U) /* Error messages */
 #define DEBUG_DETAILED (0x0U) /* More debug information */
 #endif
+/** @} */
 
+/**
+ * @name Current debug type
+ * @ingroup debug_psmfw
+ * @{
+ */
+/**
+ * Current debug type
+ */
 #if defined(XPSMFW_DEBUG_DETAILED)
 #define XPfwDbgCurrentTypes ((DEBUG_DETAILED) | (DEBUG_ERROR) |\
 		(DEBUG_PRINT_ALWAYS))
@@ -60,9 +79,11 @@ extern "C" {
 #else
 #define XPfwDbgCurrentTypes (0U)
 #endif
+/** @} */
 
 #define XPsmFw_Printf(DebugType,...)\
-	if(((DebugType) & XPfwDbgCurrentTypes) != (u8)XST_SUCCESS){xil_printf(__VA_ARGS__);}
+	if(((DebugType) & XPfwDbgCurrentTypes) != (u8)XST_SUCCESS){xil_printf(__VA_ARGS__);} /**< Print output on console according to debug type */
+/** @} */
 
 #ifdef __cplusplus
 }

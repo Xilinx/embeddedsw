@@ -34,6 +34,19 @@ extern "C" {
 #include "xparameters.h"
 #include "xpsmfw_default.h"
 
+/**
+ * @defgroup ipi_info IPI related macros
+ * @{
+ */
+
+/**
+ * @name IPI related macros
+ * @ingroup ipi_info
+ * @{
+ */
+/**
+ * IPI related macro definition
+ */
 #if defined(XPAR_XIPIPSU_0_DEVICE_ID) || defined(XPAR_XIPIPSU_0_BASEADDR)
 #include "xipipsu.h"
 
@@ -51,6 +64,8 @@ extern "C" {
 #else
 #define IPI_PSM_IER_PMC_MASK 0U
 #endif
+/** @} */
+/** @} */
 
 /**
  * Initialize the IPI driver instance

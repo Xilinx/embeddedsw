@@ -38,7 +38,7 @@
 #ifdef PSM_ENABLE_STL
 #include "xpsmfw_stl.h"
 #endif
-#define XPAR_IOMODULE_0_DEVICE_ID 0U
+#define XPAR_IOMODULE_0_DEVICE_ID 0U /**< IOMODULE 0 Device ID */
 
 /****************************************************************************/
 /**

@@ -33,20 +33,31 @@ extern "C" {
 
 #include "xpsmfw_plat.h"
 
+/**
+ * defgroup debug_config Debug Configurations
+ * @{
+ */
 /*Check if UART is present in design */
 #if defined (STDOUT_BASEADDRESS)
 /*Check if MDM uart or PS Uart */
 #if (STDOUT_BASEADDRESS == 0xF0310000U)
-#define DEBUG_PMC_UART_MDM
+#define DEBUG_PMC_UART_MDM /**< Define PMC MDM UART */
 #elif (STDOUT_BASEADDRESS == 0xFFCF0000U)
-#define DEBUG_PSM_UART_MDM
+#define DEBUG_PSM_UART_MDM /**< Define PSM MDM UART */
 #elif ((STDOUT_BASEADDRESS == UART0_BASEADDR) || (STDOUT_BASEADDRESS == UART1_BASEADDR))
-#define DEBUG_UART_PS
+#define DEBUG_UART_PS /**< Define PS UART */
 #endif
 #endif
 
 /************* User Configurable Options ***************/
-/* PSMFW print levels */
+/**
+ * @name PSMFW print levels
+ * @ingroup debug_config
+ * @{
+ */
+/**
+ * PSMFW print level
+ */
 #if defined (DEBUG_UART_PS)
 #define XPSMFW_PRINT_ALWAYS_VAL		(1U)
 #else
@@ -54,11 +65,16 @@ extern "C" {
 #endif
 #define XPSMFW_DEBUG_ERROR_VAL		(0U)
 #define XPSMFW_DEBUG_DETAILED_VAL	(0U)
+/** @} */
 
+/**
+ * @name PSMFW Debug options
+ * @ingroup debug_config
+ * @{
+ */
 /**
  * PSMFW Debug options
  */
-
 #if XPSMFW_PRINT_ALWAYS_VAL
 #define XPSMFW_PRINT_ALWAYS
 #endif
@@ -70,6 +86,7 @@ extern "C" {
 #if XPSMFW_DEBUG_DETAILED_VAL
 #define XPSMFW_DEBUG_DETAILED
 #endif
+/** @} */
 
 /**
  * PSMFW Date and Time enable/disable option
@@ -88,8 +105,9 @@ extern "C" {
 
 /* List all PSM build flags here */
 #if (XPSMFW_DATE_TIME_EXCLUDE_VAL) && (!defined(XPSMFW_DATE_TIME_EXCLUDE))
-#define XPSMFW_DATE_TIME_EXCLUDE
+#define XPSMFW_DATE_TIME_EXCLUDE /**< Date and Time enable/disable macro */
 #endif
+/** @} */
 
 #ifdef __cplusplus
 }
