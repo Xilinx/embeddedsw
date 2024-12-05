@@ -389,7 +389,7 @@ u64 XLoader_SearchOptionalData(u64 StartAddress, u64 EndAddress, u32 DataId)
 * @brief	This function checks whether Authentication optimization is
 *               enabled or not.
 *
-* @param	StartAddress is start address of IHT optional data
+* @param	OptionalDataStartAddr is start address of IHT optional data
 * @param	OptionalDataLen is size of IHT optional data
 * @param	HashTbl is pointer to XilPdi_HashTblInfo
 *
@@ -489,8 +489,8 @@ END:
 *               and compares the claculated hash with hash which is present in
 *               IHT Optional data for the respective partitions.
 *
-* @param       HashPtr is pointer to calculated Hash
-* @param       XilPdi_HashTblInfo is pointer to Hash table info
+* @param       HashAddr is Address fo the calculated Hash
+* @param       HashTblInfo is pointer to Hash table info
 * @param       PrtnHashIndex is index of partition hash in IHT optional data
 *
 * @return	XST_SUCCESS on success

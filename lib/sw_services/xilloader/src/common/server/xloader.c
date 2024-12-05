@@ -2342,10 +2342,10 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function provides Image number and partition number of a
- *		given ImgID in the PDI instance
+ *		given ImgId in the PDI instance
  *
  * @param	PdiPtr		Pdi instance pointer
- * @param	ImageID		Image id of a subsystem
+ * @param	ImageId		Image id of a subsystem
  *
  * @return	- XST_SUCCESS on success
  *		- XST_FAILURE on failure
