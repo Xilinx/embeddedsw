@@ -8,12 +8,9 @@
 #include "xpm_rail.h"
 #include "xpm_regulator.h"
 
-#define RENESAS_ISL69260_ID	0x49d28100
-#define RENESAS_ISL69260_NB	4
-#define INFINEON_XDPE15284D_ID	0x8a03
-#define INFINEON_XDPE15284D_NB	2
+#define RENESAS_ISL69260_ID	0x81D249
+#define INFINEON_XDPE15284D_ID	0x38A
 #define TI_TPS53689_ID		0x544953689000
-#define TI_TPS53689_NB		6
 
 #define PMBUS_IC_DEVICE_ID	0xAD
 #define DEVICE_ID_LEN_MAX	8
@@ -37,14 +34,13 @@ static struct {
 	u32 RailId;
 	u32 RegulatorId;
 	u64 IcDeviceId;
-	u8 IcDeviceId_Bytes;
 } MV_Regulators[] = { \
-	{ PM_POWER_VCCINT_PL, 0x442c001, RENESAS_ISL69260_ID, RENESAS_ISL69260_NB }, \
-	{ PM_POWER_VCCINT_PL, 0x442c002, INFINEON_XDPE15284D_ID, INFINEON_XDPE15284D_NB }, \
-	{ PM_POWER_VCCINT_PL, 0x442c003, TI_TPS53689_ID, TI_TPS53689_NB }, \
-	{ PM_POWER_VCCINT_CPM5N, 0x442c004, RENESAS_ISL69260_ID, RENESAS_ISL69260_NB }, \
-	{ PM_POWER_VCCINT_CPM5N, 0x442c005, INFINEON_XDPE15284D_ID, INFINEON_XDPE15284D_NB }, \
-	{ PM_POWER_VCCINT_CPM5N, 0x442c006, TI_TPS53689_ID, TI_TPS53689_NB }, \
+	{ PM_POWER_VCCINT_PL, 0x442c001, RENESAS_ISL69260_ID }, \
+	{ PM_POWER_VCCINT_PL, 0x442c002, INFINEON_XDPE15284D_ID }, \
+	{ PM_POWER_VCCINT_PL, 0x442c003, TI_TPS53689_ID }, \
+	{ PM_POWER_VCCINT_CPM5N, 0x442c004, RENESAS_ISL69260_ID }, \
+	{ PM_POWER_VCCINT_CPM5N, 0x442c005, INFINEON_XDPE15284D_ID }, \
+	{ PM_POWER_VCCINT_CPM5N, 0x442c006, TI_TPS53689_ID }, \
 };
 #if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
     defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
@@ -115,7 +111,6 @@ static XStatus XPmRail_IdentifyVendor(XPm_Rail *Rail)
 				if (Rail->ParentIds[j] == MV_Regulators[i].RegulatorId) {
 					Regulator = XPmRegulator_GetById(Rail->ParentIds[j]);
 					I2cAddress = Regulator->I2cAddress;
-					Bytes = MV_Regulators[i].IcDeviceId_Bytes;
 
 					if (NULL == Iic) {
 						Iic = XPmRail_GetIicInstance();
@@ -136,18 +131,29 @@ static XStatus XPmRail_IdentifyVendor(XPm_Rail *Rail)
 						goto done;
 					}
 
+					/* The first byte has the length of PMBUS_IC_DEVICE_ID */
 					Buffer[0] = PMBUS_IC_DEVICE_ID;
-					Status = I2CRead(Iic, I2cAddress, Buffer, (s32)Bytes);
+					Status = I2CRead(Iic, I2cAddress, Buffer, 1);
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}
 
-					for (s8 k = ((s8)Bytes - 1); k >= 0; k--) {
+					Bytes = Buffer[0];
+					Buffer[0] = PMBUS_IC_DEVICE_ID;
+					Status = I2CRead(Iic, I2cAddress, Buffer, ((s32)Bytes + 1));
+					if (XST_SUCCESS != Status) {
+						goto done;
+					}
+
+					for (u8 k = 1; k <= Bytes; k++) {
 						IcDeviceId = (IcDeviceId << 8) | Buffer[k];
 					}
 
 					if (IcDeviceId == MV_Regulators[i].IcDeviceId) {
 						Rail->ParentIndex = j;
+						PmDbg("Rail: 0x%x, Regulator: 0x%x, IC_DEVICE_ID: 0x%x%08x, "
+						      "Regulator Index: %d\r\n", RailId, MV_Regulators[i].RegulatorId,
+						      (u32)(IcDeviceId >> 32), (u32)IcDeviceId, Rail->ParentIndex);
 						break;
 					}
 				}
