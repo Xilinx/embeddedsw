@@ -75,6 +75,7 @@ extern "C" {
 /**< Macro to typecast XILSECURE API ID */
 #define XNVM_API(ApiId)	((u32)ApiId)
 
+/**< Macro to extract the API_ID from CmdId */
 #define XNVM_API_ID_MASK	(0xFFU)
 
 /************************** Variable Definitions *****************************/
@@ -82,82 +83,82 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 typedef struct {
-	u64 PufFuseDataAddr;
-	u32 StartPufFuseRow;
-	u32 NumOfPufFusesRows;
-	u8 EnvMonitorDis;
-	u8 PrgmPufFuse;
+	u64 PufFuseDataAddr;	/**< PufUserFuseData Address */
+	u32 StartPufFuseRow;	/**< Start Puf user eFuse row number */
+	u32 NumOfPufFusesRows;	/**< Number of Puf user eFuses to be programmed */
+	u8 EnvMonitorDis;	/**< Environmentol Monitor disable flag */
+	u8 PrgmPufFuse;		/**< Program flag TRUE/FALSE */
 } XNvm_EfusePufFuseAddr;
 #else
 /**< Puf helper data*/
 typedef struct {
-	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
-	u8 PrgmPufHelperData;
-	u8 PrgmPufSecCtrlBits;
-	u8 EnvMonitorDis;
-	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
-	u32 Chash;
-	u32 Aux;
+	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;/**< PufSecCtrlBits Data */
+	u8 PrgmPufHelperData;	/**< Program flag for PUF HD TRUE/FALSE */
+	u8 PrgmPufSecCtrlBits;	/**< Program flag for PUF SecCtrlBits TRUE/FALSE */
+	u8 EnvMonitorDis;	/**< Environmentol Monitor disable flag */
+	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];	/**< Formatted PUF HD */
+	u32 Chash;		/**< Chash value to be programmed to Chash eFuses */
+	u32 Aux;		/**< Aux value to be programmed to AUX eFuses */
 }XNvm_EfusePufHdAddr;
 #endif
 
 #ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
 typedef struct {
-	u32 Chash;
-	u32 Aux;
-	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
+	u32 Chash;	/**< Chash value to be programmed to Chash eFuses */
+	u32 Aux;	/**< Aux value to be programmed to AUX eFuses */
+	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];/**< Formatted PUF HD */
 } XNvm_EfusePufData;
 #endif
 
 #ifdef XNVM_EN_ADD_PPKS
 typedef struct {
-	u8 PrgmPpk3Hash;
-	u8 PrgmPpk4Hash;
-	u32 Ppk3Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
-	u32 Ppk4Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+	u8 PrgmPpk3Hash; /**< Program flag for PPK3 Hash TRUE/FALSE */
+	u8 PrgmPpk4Hash; /**< Program flag for PPK4 Hash TRUE/FALSE */
+	u32 Ppk3Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS]; /**< Data to be programmed to PPK3 Hash eFuses */
+	u32 Ppk4Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS]; /**< Data to be programmed to PPK4 Hash eFuses */
 } XNvm_EfuseAdditionalPpkHash;
 #endif
 
 /**< XilNVM API ids, IDs ranging from an enum value of 24 to 35 are used by IPI */
 typedef enum {
-	XNVM_API_FEATURES = 0,
-	XNVM_API_ID_BBRAM_WRITE_AES_KEY,
-	XNVM_API_ID_BBRAM_ZEROIZE,
-	XNVM_API_ID_BBRAM_WRITE_USER_DATA,
-	XNVM_API_ID_BBRAM_READ_USER_DATA,
-	XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA,
-	XNVM_API_ID_EFUSE_WRITE,
-	XNVM_API_ID_EFUSE_WRITE_PUF,
-	XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE,
-	XNVM_API_ID_EFUSE_READ_IV,
-	XNVM_API_ID_EFUSE_READ_REVOCATION_ID,
-	XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID,
-	XNVM_API_ID_EFUSE_READ_USER_FUSES,
-	XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS,
-	XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS,
-	XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS,
-	XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS,
-	XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS,
-	XNVM_API_ID_EFUSE_READ_PPK_HASH,
-	XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY,
-	XNVM_API_ID_EFUSE_READ_DNA,
-	XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE,
-	XNVM_API_ID_EFUSE_READ_PUF,
-	XNVM_API_ID_EFUSE_READ_CACHE,
-	XNVM_API_ID_EFUSE_WRITE_IV,
-	XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC1,
-	XNVM_API_ID_EFUSE_WRITE_PUF_DATA,
-	XNVM_API_ID_EFUSE_WRITE_OFF_CHIP_ID,
-	XNVM_API_ID_EFUSE_WRITE_USER_EFUSE,
-	XNVM_API_ID_EFUSE_WRITE_REVOCATION_ID,
-	XNVM_API_ID_EFUSE_WRITE_PPK_HASH,
-	XNVM_API_ID_EFUSE_WRITE_ANLG_TRIM,
-	XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL,
-	XNVM_API_ID_EFUSE_WRITE_MISC_CTRL,
-	XNVM_API_ID_EFUSE_WRITE_SECURITY_CTRL,
-	XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL,
-	XNVM_API_ID_EFUSE_WRITE_AES_KEYS,
-	XNVM_API_MAX,
+	XNVM_API_FEATURES = 0,			/**< 0U */
+	XNVM_API_ID_BBRAM_WRITE_AES_KEY,	/**< 1U */
+	XNVM_API_ID_BBRAM_ZEROIZE,		/**< 2U */
+	XNVM_API_ID_BBRAM_WRITE_USER_DATA,	/**< 3U */
+	XNVM_API_ID_BBRAM_READ_USER_DATA,	/**< 4U */
+	XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA,	/**< 5U */
+	XNVM_API_ID_EFUSE_WRITE,		/**< 6U */
+	XNVM_API_ID_EFUSE_WRITE_PUF,		/**< 7U */
+	XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE,	/**< 8U */
+	XNVM_API_ID_EFUSE_READ_IV,		/**< 9U */
+	XNVM_API_ID_EFUSE_READ_REVOCATION_ID,	/**< 10U */
+	XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID,	/**< 11U */
+	XNVM_API_ID_EFUSE_READ_USER_FUSES,	/**< 12U */
+	XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS,	/**< 13U */
+	XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS,	/**< 14U */
+	XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS,	/**< 15U */
+	XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS,	/**< 16U */
+	XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS,	/**< 17U */
+	XNVM_API_ID_EFUSE_READ_PPK_HASH,	/**< 18U */
+	XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY,	/**< 19U */
+	XNVM_API_ID_EFUSE_READ_DNA,		/**< 20U */
+	XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE,	/**< 21U */
+	XNVM_API_ID_EFUSE_READ_PUF,		/**< 22U */
+	XNVM_API_ID_EFUSE_READ_CACHE,		/**< 23U */
+	XNVM_API_ID_EFUSE_WRITE_IV,		/**< 24U */
+	XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC1,	/**< 25U */
+	XNVM_API_ID_EFUSE_WRITE_PUF_DATA,	/**< 26U */
+	XNVM_API_ID_EFUSE_WRITE_OFF_CHIP_ID,	/**< 27U */
+	XNVM_API_ID_EFUSE_WRITE_USER_EFUSE,	/**< 28U */
+	XNVM_API_ID_EFUSE_WRITE_REVOCATION_ID,	/**< 29U */
+	XNVM_API_ID_EFUSE_WRITE_PPK_HASH,	/**< 30U */
+	XNVM_API_ID_EFUSE_WRITE_ANLG_TRIM,	/**< 31U */
+	XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL,	/**< 32U */
+	XNVM_API_ID_EFUSE_WRITE_MISC_CTRL,	/**< 33U */
+	XNVM_API_ID_EFUSE_WRITE_SECURITY_CTRL,	/**< 34U */
+	XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL,	/**< 35U */
+	XNVM_API_ID_EFUSE_WRITE_AES_KEYS,	/**< 36U */
+	XNVM_API_MAX,				/**< 37U */
 } XNvm_ApiId;
 
 #ifdef __cplusplus
