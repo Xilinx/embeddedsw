@@ -45,101 +45,111 @@ extern "C" {
  * @cond xnvm_internal
  * @{
  */
-#define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
-#define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)
-#define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)
-#define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)
-#define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)
+#define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)	/**< PUF syndrome data formatted */
+#define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)	/**< Number of revocation ID eFuses */
+#define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)	/**< Number of offchip revocation ID eFuses */
+#define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)	/**< AES key length in words */
+#define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)	/**< eFuse IV length in words */
 #ifndef VERSAL_AIEPG2
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)	/**< PPK Hash length in words for Versal and VersalNet */
 #else
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS                (12U)
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS                (12U)	/**< PPK Hash length in words for VersalAiePg2 */
 #endif
-#define XNVM_EFUSE_DNA_LEN_IN_WORDS			(4U)
-#define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)
-#define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)
+#define XNVM_EFUSE_DNA_LEN_IN_WORDS			(4U)	/**< DNA length in words */
+#define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)	/**< IV length in words */
+#define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)	/**< AES key length in bits */
 #ifndef VERSAL_AIEPG2
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)	/**< PPK hash length in bits for Versal and VersalNet */
 #else
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS                 (384U)
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS                 (384U)	/**< PPK hash length in bits for VersalAiePg2 */
 #endif
-#define XNVM_EFUSE_IV_LEN_IN_BYTES			(12U)
-#define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES			(32U)
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(32U)
-#define XNVM_IV_STRING_LEN				(24U)
-#define XNVM_WORD_LEN					(4U)
-#define XNVM_EFUSE_CRC_AES_ZEROS			(0x6858A3D5U)
-#define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)
+#define XNVM_EFUSE_IV_LEN_IN_BYTES			(12U)	/**< IV length in bits */
+#define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES			(32U)	/**< Aes key length in bytes */
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(32U)	/**< PPK hash length in bytes */
+#define XNVM_IV_STRING_LEN				(24U)	/**< IV length in string */
+#define XNVM_WORD_LEN					(4U)	/**< WORD length */
+#define XNVM_EFUSE_CRC_AES_ZEROS			(0x6858A3D5U)	/**< CRC value for all zero key */
+#define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)	/**< Maximum bits in a row */
 #define XNVM_MAX_REVOKE_ID_FUSES		(XNVM_NUM_OF_REVOKE_ID_FUSES	\
-						* XNVM_EFUSE_MAX_BITS_IN_ROW)
+						* XNVM_EFUSE_MAX_BITS_IN_ROW)	/**< Maximum revocation ID eFuses */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+/** Structure for Hash data to be programmed to eFuses */
 typedef struct {
 	u32 Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
 } XNvm_PpkHash;
 
+/** Structure for IV data */
 typedef struct {
 	u32 Iv[XNVM_EFUSE_IV_LEN_IN_WORDS];
 } XNvm_Iv;
 
+/** Structure for Aes key data */
 typedef struct {
 	u32 Key[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS];
 } XNvm_AesKey;
 
+/** Structure for DNA data */
 typedef struct {
 	u32 Dna[XNVM_EFUSE_DNA_LEN_IN_WORDS];
 } XNvm_Dna;
 
+/** Enum for IV types */
 typedef enum {
-	XNVM_EFUSE_META_HEADER_IV_RANGE = 0,
-	XNVM_EFUSE_BLACK_IV,
-	XNVM_EFUSE_PLM_IV_RANGE,
-	XNVM_EFUSE_DATA_PARTITION_IV_RANGE
+	XNVM_EFUSE_META_HEADER_IV_RANGE = 0,	/**< 0U */
+	XNVM_EFUSE_BLACK_IV,			/**< 1U */
+	XNVM_EFUSE_PLM_IV_RANGE,		/**< 2U */
+	XNVM_EFUSE_DATA_PARTITION_IV_RANGE	/**< 3U */
 } XNvm_IvType;
 
+/** Enum for PPK types */
 typedef enum {
-	XNVM_EFUSE_PPK0 = 0,
-	XNVM_EFUSE_PPK1,
-	XNVM_EFUSE_PPK2,
+	XNVM_EFUSE_PPK0 = 0,	/**< 0U */
+	XNVM_EFUSE_PPK1,	/**< 1U */
+	XNVM_EFUSE_PPK2,	/**< 2U */
 #ifdef XNVM_EN_ADD_PPKS
-	XNVM_EFUSE_PPK3,
-	XNVM_EFUSE_PPK4
+	XNVM_EFUSE_PPK3,	/**< 3U */
+	XNVM_EFUSE_PPK4		/**< 4U */
 #endif
 } XNvm_PpkType;
 
+/** Enum for Aes key types */
 typedef enum {
-	XNVM_EFUSE_AES_KEY = 0,
-	XNVM_EFUSE_USER_KEY_0,
-	XNVM_EFUSE_USER_KEY_1,
+	XNVM_EFUSE_AES_KEY = 0,	/**< 0U */
+	XNVM_EFUSE_USER_KEY_0,	/**< 1U */
+	XNVM_EFUSE_USER_KEY_1,	/**< 2U */
 } XNvm_AesKeyType;
 
+/** Enum for Revocation IDs */
 typedef enum {
-	XNVM_EFUSE_REVOCATION_ID_0 = 0,
-	XNVM_EFUSE_REVOCATION_ID_1,
-	XNVM_EFUSE_REVOCATION_ID_2,
-	XNVM_EFUSE_REVOCATION_ID_3,
-	XNVM_EFUSE_REVOCATION_ID_4,
-	XNVM_EFUSE_REVOCATION_ID_5,
-	XNVM_EFUSE_REVOCATION_ID_6,
-	XNVM_EFUSE_REVOCATION_ID_7
+	XNVM_EFUSE_REVOCATION_ID_0 = 0,	/**< 0U */
+	XNVM_EFUSE_REVOCATION_ID_1,	/**< 1U */
+	XNVM_EFUSE_REVOCATION_ID_2,	/**< 2U */
+	XNVM_EFUSE_REVOCATION_ID_3,	/**< 3U */
+	XNVM_EFUSE_REVOCATION_ID_4,	/**< 4U */
+	XNVM_EFUSE_REVOCATION_ID_5,	/**< 5U */
+	XNVM_EFUSE_REVOCATION_ID_6,	/**< 6U */
+	XNVM_EFUSE_REVOCATION_ID_7	/**< 7U */
 } XNvm_RevocationId;
 
+/** Enum for Offchip revocation IDs */
 typedef enum {
-	XNVM_EFUSE_INVLD = -1,
-	XNVM_EFUSE_OFFCHIP_REVOKE_ID_0 = 0,
-	XNVM_EFUSE_OFFCHIP_REVOKE_ID_1,
-	XNVM_EFUSE_OFFCHIP_REVOKE_ID_2,
-	XNVM_EFUSE_OFFCHIP_REVOKE_ID_3,
-	XNVM_EFUSE_OFFCHIP_REVOKE_ID_4,
-	XNVM_EFUSE_OFFCHIP_REVOKE_ID_5,
-	XNVM_EFUSE_OFFCHIP_REVOKE_ID_6,
-	XNVM_EFUSE_OFFCHIP_REVOKE_ID_7
+	XNVM_EFUSE_INVLD = -1,			/**< -1 */
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_0 = 0,	/**< 0U */
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_1,		/**< 1U */
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_2,		/**< 2U */
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_3,		/**< 3U */
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_4,		/**< 4U */
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_5,		/**< 5U */
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_6,		/**< 6U */
+	XNVM_EFUSE_OFFCHIP_REVOKE_ID_7		/**< 7U */
 } XNvm_OffchipId;
 
+/** Structure for Secure Ctrl Bits */
 typedef struct {
 	u8 AesDis;
 	u8 JtagErrOutDis;
@@ -164,6 +174,7 @@ typedef struct {
 #endif
 } XNvm_EfuseSecCtrlBits;
 
+/** Structure for Puf Secure Ctrl Bits */
 typedef struct {
 	u8 PufRegenDis;
 	u8 PufHdInvalid;
@@ -175,6 +186,7 @@ typedef struct {
 #endif
 } XNvm_EfusePufSecCtrlBits;
 
+/** Structure for Misc Ctrl Bits */
 typedef struct {
 	u8 GlitchDetHaltBootEn;
 	u8 GlitchDetRomMonitorEn;
@@ -193,6 +205,7 @@ typedef struct {
 #endif
 } XNvm_EfuseMiscCtrlBits;
 
+/** Structure for SecMisc1 Ctrl Bits */
 typedef struct {
 	u8 LpdMbistEn;
 	u8 PmcMbistEn;
@@ -201,6 +214,7 @@ typedef struct {
 	u8 SysmonTempMonEn;
 } XNvm_EfuseSecMisc1Bits;
 
+/** Structure for BootEnvCtrl Bits */
 typedef struct {
 	u8 PrgmSysmonTempHot;
 	u8 PrgmSysmonVoltPmc;
@@ -215,6 +229,7 @@ typedef struct {
 	u8 SysmonTempCold;
 } XNvm_EfuseBootEnvCtrlBits;
 
+/** Structure for Glitch Config Bits */
 typedef struct {
 	u8 PrgmGlitch;
 	u8 GlitchDetWrLk;
@@ -223,6 +238,7 @@ typedef struct {
 	u8 GdHaltBootEn;
 } XNvm_EfuseGlitchCfgBits;
 
+/** Structure for Aes keys data */
 typedef struct {
 	u8 PrgmAesKey;
 	u8 PrgmUserKey0;
@@ -232,6 +248,7 @@ typedef struct {
 	u32 UserKey1[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS];
 } XNvm_EfuseAesKeys;
 
+/** Struture for Ppk hash data */
 typedef struct {
 	u8 PrgmPpk0Hash;
 	u8 PrgmPpk1Hash;
@@ -241,6 +258,7 @@ typedef struct {
 	u32 Ppk2Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
 } XNvm_EfusePpkHash;
 
+/** Structure for IV data */
 typedef struct {
 	u8 PrgmMetaHeaderIv;
 	u8 PrgmBlkObfusIv;
@@ -252,27 +270,31 @@ typedef struct {
 	u32 DataPartitionIv[XNVM_EFUSE_IV_LEN_IN_WORDS];
 } XNvm_EfuseIvs;
 
-
+/** Structure for DecryptOnly data */
 typedef struct {
 	u8 PrgmDecOnly;
 } XNvm_EfuseDecOnly;
 
+/** Structure for RevokeId data */
 typedef struct {
 	u32 PrgmRevokeId;
 	u32 RevokeId[XNVM_NUM_OF_REVOKE_ID_FUSES];
 } XNvm_EfuseRevokeIds;
 
+/** Structure for OffchipId data */
 typedef struct {
 	u32 PrgmOffchipId;
 	u32 OffChipId[XNVM_NUM_OF_OFFCHIP_ID_FUSES];
 } XNvm_EfuseOffChipIds;
 
+/** Structure for User eFuses data */
 typedef struct {
 	u32 StartUserFuseNum;
 	u32 NumOfUserFuses;
 	u64 UserFuseDataAddr;
 } XNvm_EfuseUserDataAddr;
 
+/** Structure for holding addresses of eFuse data structures */
 typedef struct {
 	u64 EnvMonDisFlag;
 	u64 AesKeyAddr;

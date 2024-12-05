@@ -43,14 +43,16 @@
 #include "xnvm_defs.h"
 
 /************************** Constant Definitions *****************************/
-#define XNVM_ADDR_HIGH_SHIFT					(32U)
-#define XNVM_MAX_PAYLOAD_LEN					(7U)
+#define XNVM_ADDR_HIGH_SHIFT	(32U)	/**< Shift to get upper 32 bits of address */
+#define XNVM_MAX_PAYLOAD_LEN	(7U)	/**< Maximum IPI payload length */
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK		(0x00ffffffU)
+						/**< PUF ECC/AUX Mask */
 #define XNVM_SHIFT_1_BIT					(1U)
+						/**< Shift value for 1 bit shift */
 
 /************************** Function Prototypes ******************************/
 static void XNvm_EfuseCreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
@@ -2813,8 +2815,8 @@ END:
  * PPK0/PPK1/PPK2 HASH
  *
  * @param	InstancePtr 	Pointer to the client instance
- * @param	KeyWrCdo	Pointer to the Write AES Key CDO
- * @param	KeyType		Type of the Key
+ * @param	PpkWrCdo	Pointer to the Write AES Key CDO
+ * @param	PpkType		Type of the Key
  * @param	Addr		Aes Key address
  * @param       EnvMonDis       Environmental monitor disable flag
  *
@@ -2861,8 +2863,8 @@ END:
  * IV's as requested by the user
  *
  * @param	InstancePtr 	Pointer to the client instance
- * @param	KeyWrCdo	Pointer to the Write AES Key CDO
- * @param	KeyType		Type of the Key
+ * @param	IvWrCdo		Pointer to the Write AES Key CDO
+ * @param	IvType		Type of the Key
  * @param	Addr		Aes Key address
  * @param       EnvMonDis       Environmental monitor disable flag
  *
