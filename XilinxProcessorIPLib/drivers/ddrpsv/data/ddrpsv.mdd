@@ -11,6 +11,6 @@ BEGIN driver ddrpsv
         OPTION supported_peripherals = (axi_noc noc_mc_ddr4 axi_noc2);
         OPTION driver_state = ACTIVE;
         OPTION copyfiles = all;
-        OPTION VERSION = 1.6;
+        OPTION VERSION = 1.7;
         OPTION NAME = ddrpsv;
 END driver
