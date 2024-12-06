@@ -81,7 +81,6 @@
 #include "xplmi_proc.h"
 #include "xil_util.h"
 #include "xplmi_err.h"
-#include "xpm_power_handlers.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_ROM_VERSION_1_0		(0x10U) /**< ROM version 1 */
@@ -1215,26 +1214,3 @@ XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
 	return BufferList;
 }
 
-/*****************************************************************************/
-/**
- * @brief	This function registers and enables power related interrupt
- *
- * @return	XST_SUCCESS on success and XST_FAILURE or other error code on
- *		failure.
- *
- *****************************************************************************/
-int XPlmi_RegisterNEnablePwrIntr(void)
-{
-	int Status = XST_FAILURE;
-
-	Status = XPlmi_RegisterHandler(XPLMI_IOMODULE_PMC_PWR_MB, XPm_PwrIntrHandler,
-				       (void *)XPLMI_IOMODULE_PMC_PWR_MB);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_PMC_PWR_MB);
-
-END:
-	return Status;
-}

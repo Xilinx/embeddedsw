@@ -48,6 +48,7 @@
 #include "xpm_pldevice.h"
 #include "xpm_powerdomain.h"
 #include "xpm_aie.h"
+#include "xpm_power_handlers.h"
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
 		Status = XPlmi_GicRegisterHandler(GicId, SrcId, \
@@ -404,10 +405,40 @@ done:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function registers and enables power related interrupt
+ *
+ * @return	XST_SUCCESS on success and XST_FAILURE or other error code on
+ *		failure.
+ *
+ *****************************************************************************/
+XStatus RegisterNEnablePwrIntr(void)
+{
+	int Status = XST_FAILURE;
+
+	Status = XPlmi_RegisterHandler(XPLMI_IOMODULE_PMC_PWR_MB, (GicIntHandler_t)(void *)XPm_PwrIntrHandler,
+				       (void *)XPLMI_IOMODULE_PMC_PWR_MB);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_PMC_PWR_MB);
+
+END:
+	return Status;
+}
+
 XStatus XPm_HookAfterPlmCdo(void)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
+
+	/* Registers all  power related interrupt post PLM cdo loaded*/
+	Status = RegisterNEnablePwrIntr();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* If default subsystem is present, attempt to add requirements if needed. */
 	Subsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);

@@ -131,12 +131,6 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 			goto END;
 		}
 
-		/* Register power control interrupt handler */
-		Status = XPlmi_RegisterNEnablePwrIntr();
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
 		/* Call LibPM hook */
 		Status = XPm_HookAfterPlmCdo();
 		if (XST_SUCCESS != Status) {
