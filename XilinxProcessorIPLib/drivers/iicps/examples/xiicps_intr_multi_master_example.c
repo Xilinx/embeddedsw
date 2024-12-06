@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -115,7 +115,7 @@ volatile u32 ArbitrationLost;
 * @note		None.
 *
 *******************************************************************************/
-s32 main(void)
+int main(void)
 {
 	s32 Status;
 
