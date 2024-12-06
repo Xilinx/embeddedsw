@@ -9,7 +9,9 @@
 #include "xpm_common.h"
 #include "xpm_node.h"
 #ifdef VERSAL_NET
+#ifndef VERSAL_AIEPG2
 #include "xpm_update.h"
+#endif
 #endif
 
 void XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress)
@@ -23,6 +25,8 @@ void XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress)
 	Node->Flags = 0;
 	Node->LatencyMarg = XPM_MAX_LATENCY;
 #ifdef VERSAL_NET
+#ifndef VERSAL_AIEPG2
 	XPmUpdate_AllNodes_Add(Node);
+#endif
 #endif
 }
