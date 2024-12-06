@@ -19,7 +19,9 @@
 #include "xpm_regs.h"
 #include "xpm_requirement.h"
 #ifdef VERSAL_NET
+#ifndef VERSAL_AIEPG2
 #include "xpm_update.h"
+#endif
 #endif
 
 /* this needs to be global to run the unit tests independently*/
@@ -655,7 +657,9 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 		goto done;
 	}
 	#ifdef VERSAL_NET
+	#ifndef VERSAL_AIEPG2
 		XPmUpdate_AllNodes_Add((XPm_Node*)Subsystem);
+	#endif
 	#endif
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,6 @@
 #include "xpm_common.h"
 #include "xpm_debug.h"
 #include "xplmi_update.h"
-#include "xpm_update_data.h"
 #ifdef CPPUTEST
 #define MAX_BYTEBUFFER_SIZE	(67U * 1024U)
 #else
@@ -32,17 +31,6 @@ static int XPm_ByteBufferOps(u32 Op, u64 Addr, void *Data);
 /* Handler for Address of ByteBUffer during store and restore operation (PLM update) */
 static int XPm_PrevByteBufferOps(u32 Op, u64 Addr, void *Data);
 
-/* Save but not restore whole ByteBuffer through special XPm_ByteBufferOps */
-EXPORT_DS_W_HANDLER(ByteBuffer, \
-	XPLMI_MODULE_XILPM_ID, XPM_BYTEBUFFER_DS_ID, \
-	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
-	sizeof(ByteBuffer), (u32)(UINTPTR)ByteBuffer , XPm_ByteBufferOps);
-
-/* Save and restore whole PrevBBAddr */
-EXPORT_DS_W_HANDLER(PrevBBAddr, \
-	XPLMI_MODULE_XILPM_ID, XPM_BYTEBUFFER_ADDR_DS_ID, \
-	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \
-	sizeof(PrevBBAddr), (u32)(UINTPTR)(&PrevBBAddr), XPm_PrevByteBufferOps);
 
 void *XPm_AllocBytes(u32 SizeInBytes)
 {

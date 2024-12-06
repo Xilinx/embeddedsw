@@ -67,6 +67,7 @@ static XPmNotifier PmNotifiers[XPM_NOTIFIERS_COUNT];
 static volatile u32 SchedulerTask = (u32)NOT_PRESENT;
 
 #ifdef VERSAL_NET
+#ifndef VERSAL_AIEPG2
 #include "xpm_update.h"
 #include "xpm_update_data.h"
 
@@ -121,6 +122,7 @@ XStatus XPmNotifier_RestoreErrorEvents(void)
 done:
 	return Status;
 }
+#endif
 #endif
 
 static int XPmNotifier_SchedulerTask(void *Arg);
