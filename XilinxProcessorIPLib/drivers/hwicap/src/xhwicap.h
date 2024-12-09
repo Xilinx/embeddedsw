@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -164,6 +164,7 @@
 *                      function prototypes from the header file.
 * 11.5 Nava   09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
 * 11.6 Nava   06/28/23 Added support for system device-tree flow.
+* 11.7 Nava   12/02/24 Fixed mismatch between IDCODE array size and initialization value.
 *
 * </pre>
 *
@@ -188,8 +189,8 @@ extern "C" {
 #define DEVICE_TYPE_ULTRA_PLUS		3
 
 #define NUM_7SERIES_IDCODES		32
-#define NUM_ULTRA_SERIES_IDCODES	13
-#define NUM_ULTRA_PLUS_SERIES_IDCODES	12
+#define NUM_ULTRA_SERIES_IDCODES	14
+#define NUM_ULTRA_PLUS_SERIES_IDCODES	28
 
 #define PCAP_CR_OFFSET         0xFFCA3008 /**< PCAP CR Register */
 
