@@ -69,6 +69,7 @@
 *       kpt  12/04/2023 Move XilPdi_BootHdr to platform specific files
 *       am   03/02/2024 Added IsAuthOptimized variable in XilPdi_MetaHdr structure
 * 1.11  kpt  11/05/2024 Add XilPdi_ReadOptionalData to read optional data
+*       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *
 * </pre>
 *
@@ -308,7 +309,6 @@ typedef struct {
 	u32 MetaHdrOfst; /**< Offset to the start of meta header */
 	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length,
 			u32 Flags); /**< Function pointer for device copy */
-	int (*DmaCopy) (u64 DestAddr, u64 SrcAddr, u32 Length); /** Function pointer for DMA copy*/
 	u32 DigestTableSize; /**< Digest table size in bytes */
 	u32 IsAuthOptimized; /**< Authentication optimization enabled or disabled by the user */
 } XilPdi_MetaHdr __attribute__ ((aligned(16U)));

@@ -27,7 +27,7 @@
 *       bm   03/16/2023 Added print when DDRMC dump is skipped
 *       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
-*       sk   05/31/2023 Addded function to get Bootpdiinfo storage
+*       sk   05/31/2023 Added function to get Bootpdiinfo storage
 *       sk   06/12/2023 Removed XLoader_GetPdiInstance function definition
 *       rama 08/10/2023 Changed DDRMC register dump prints to DEBUG_ALWAYS for
 *                       debug level_0 option
@@ -38,6 +38,7 @@
 *                       Destination Execution Address
 *       sk   03/13/24 Fixed doxygen comments format
 *       mss  04/12/24 Added code to dump DDRMC error logs
+*       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *
 * </pre>
 *
@@ -504,7 +505,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 		#ifdef XLOADER_SD_0
 			*PdiSrc = XLOADER_PDI_SRC_SD0 |
 				XLOADER_SD_RAWBOOT_MASK |
-				(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
+				(PdiPtr->MetaHdr->ImgHdrTbl.SBDAddr
 				<< XLOADER_SD_ADDR_SHIFT);
 		#else
 			*PdiSrc = XLOADER_PDI_SRC_SD0;
@@ -515,7 +516,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 		#ifdef XLOADER_SD_1
 			*PdiSrc = XLOADER_PDI_SRC_SD1 |
 				XLOADER_SD_RAWBOOT_MASK |
-				(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
+				(PdiPtr->MetaHdr->ImgHdrTbl.SBDAddr
 				<< XLOADER_SD_ADDR_SHIFT);
 		#else
 			*PdiSrc = XLOADER_PDI_SRC_SD1;
@@ -526,7 +527,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 		#ifdef XLOADER_SD_1
 			*PdiSrc = XLOADER_PDI_SRC_SD1_LS |
 				XLOADER_SD_RAWBOOT_MASK |
-				(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
+				(PdiPtr->MetaHdr->ImgHdrTbl.SBDAddr
 				<< XLOADER_SD_ADDR_SHIFT);
 		#else
 			*PdiSrc = XLOADER_PDI_SRC_SD1_LS;
@@ -874,7 +875,7 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	/* Assign the partition header to local variable */
 	const XilPdi_PrtnHdr * PrtnHdr =
-			&(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+			&(PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
 
 	/**
 	 * - Get the destination CPU from the partition header.
@@ -1084,7 +1085,7 @@ u8 XLoader_SkipMJtagWorkAround(XilPdi *PdiPtr)
 	u32 RstReason;
 	u8 Check = (u8)FALSE;
 
-	if (PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID ==
+	if (PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID ==
 			PM_MISC_MJTAG_WA_IMG) {
 		RstReason = XPlmi_In32(PMC_GLOBAL_PERS_GEN_STORAGE2);
 		/**
@@ -1215,7 +1216,7 @@ int Xloader_SsitEoPdiSync(XilPdi *PdiPtr)
 		 * - Validate if end of PDI Sync bit set in IHT Attribute.
 		 * Otherwise return XST_SUCCESS.
 		 */
-		if ((PdiPtr->MetaHdr.ImgHdrTbl.Attr & XIH_IHT_ATTR_EOPDI_SYNC_MASK)
+		if ((PdiPtr->MetaHdr->ImgHdrTbl.Attr & XIH_IHT_ATTR_EOPDI_SYNC_MASK)
 					== XIH_IHT_ATTR_EOPDI_SYNC_MASK) {
 			/**
 			 * - Sync with master to update slave status.

@@ -127,6 +127,7 @@
 *                     and trying to do secure boot
 * 2.1   kpt  12/13/23 Reset PMC TRNG when exception occurs
 *       ng   01/28/24 u8 variables optimization
+*       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *
 * </pre>
 *
@@ -220,7 +221,7 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	}
 
 	/** - Read partition header from meta header. */
-	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+	PrtnHdr = &(PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
 	SecurePtr->PdiPtr = PdiPtr;
 	SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	/**
@@ -368,7 +369,7 @@ static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
 	/**
 	 * - Initiate the data copy.
 	*/
-	Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(NextBlkAddr,
+	Status = SecurePtr->PdiPtr->MetaHdr->DeviceCopy(NextBlkAddr,
 			SecurePtr->NextChunkAddr, CopyLen,
 			XPLMI_DEVICE_COPY_STATE_INITIATE | SecurePtr->DmaFlags);
 	if (Status != XST_SUCCESS) {
@@ -584,26 +585,26 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 		}
 #ifndef VERSAL_AIEPG2
 		/** - Copy checksum hash */
-		ChecksumOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
+		ChecksumOffset = SecurePtr->PdiPtr->MetaHdr->FlashOfstAddr +
 				((u64)SecurePtr->PrtnHdr->ChecksumWordOfst *
 					XIH_PRTN_WORD_LEN);
-		Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(ChecksumOffset,
+		Status = SecurePtr->PdiPtr->MetaHdr->DeviceCopy(ChecksumOffset,
 			(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
 #else
 		if (SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) {
 			Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
-				SecurePtr->PdiPtr->MetaHdr.HashBlock.HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
+				SecurePtr->PdiPtr->MetaHdr->HashBlock.HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
 				XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
 		}
 		else {
 			/* For a partial PDI in the absence of PLM, the partition number
 			 * starts with 0, but in HashBlock at index 0 MetaHeader
-			 * hash is present, partion hashes start from index 1
+			 * hash is present, partition hashes start from index 1
 			 * Hence it is always PrtnNum + 1 indicates the corresponding
 			 * partition hash in HashBlock
 			 */
 			Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
-				SecurePtr->PdiPtr->MetaHdr.HashBlock.HashData[SecurePtr->PdiPtr->PrtnNum + 1U].PrtnHash,
+				SecurePtr->PdiPtr->MetaHdr->HashBlock.HashData[SecurePtr->PdiPtr->PrtnNum + 1U].PrtnHash,
                                 XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
 		}
 #endif
@@ -656,7 +657,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	SecurePtr->ProcessedLen = 0U;
 	/** Process 1st block */
 	if (SecurePtr->BlockNum == 0x0U) {
-		SrcAddr = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
+		SrcAddr = SecurePtr->PdiPtr->MetaHdr->FlashOfstAddr +
 			((u64)(SecurePtr->PrtnHdr->DataWordOfst) << XPLMI_WORD_LEN_SHIFT);
 	}
 	else {
@@ -755,7 +756,7 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 	 * - Copy the next chunk securely, and then wait for the process to
 	 *   be completed.
 	 */
-	Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(SrcAddr,
+	Status = SecurePtr->PdiPtr->MetaHdr->DeviceCopy(SrcAddr,
 		SecurePtr->ChunkAddr, TotalSize, (Flags | SecurePtr->DmaFlags));
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(

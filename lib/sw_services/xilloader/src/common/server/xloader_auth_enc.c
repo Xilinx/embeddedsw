@@ -137,6 +137,7 @@
 *       kal  07/24/24 Code refactoring and updates for versal_aiepg2
 *       kal  09/18/24 Updated XLoader_PpkVerify to verify 384 bit ppk hash
 *                     for Versal_AiePg2
+*       pre  12/09/24 use PMC RAM for Metaheader instead of PPU1 RAM
 *
 * </pre>
 *
@@ -350,13 +351,13 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 		SecurePtr->SecureEn = (u8)TRUE;
 		SecureTempParams->SecureEn = (u8)TRUE;
 
-		AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
+		AcOffset = SecurePtr->PdiPtr->MetaHdr->FlashOfstAddr +
 			((u64)SecurePtr->PrtnHdr->AuthCertificateOfst *
 				XIH_PRTN_WORD_LEN);
 		SecurePtr->AcPtr = AuthCert;
 
 		/* Copy Authentication certificate */
-		Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(AcOffset,
+		Status = SecurePtr->PdiPtr->MetaHdr->DeviceCopy(AcOffset,
 			(UINTPTR)SecurePtr->AcPtr,
 				XLOADER_AUTH_CERT_MIN_SIZE, SecurePtr->DmaFlags);
 		if (Status != XST_SUCCESS) {
@@ -512,7 +513,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 		}
 #ifdef VERSAL_AIEPG2
 		Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
-				SecurePtr->PdiPtr->MetaHdr.HashBlock.HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
+				SecurePtr->PdiPtr->MetaHdr->HashBlock.HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
 				XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -551,7 +552,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 	u32 ReadEncReg;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
-	u32 MetaHeaderKeySrc = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc;
+	u32 MetaHeaderKeySrc = SecurePtr->PdiPtr->MetaHdr->ImgHdrTbl.EncKeySrc;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 
 	XPlmi_Printf(DEBUG_INFO, "Performing security checks\n\r");
@@ -707,8 +708,8 @@ static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePt
 	 * efuse black key.
 	 * Otherwise return XLOADER_SEC_ENC_ONLY_KEYSRC_ERR.
 	 */
-	IsEncKeySrc = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc;
-	IsEncKeySrcTmp = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc;
+	IsEncKeySrc = SecurePtr->PdiPtr->MetaHdr->ImgHdrTbl.EncKeySrc;
+	IsEncKeySrcTmp = SecurePtr->PdiPtr->MetaHdr->ImgHdrTbl.EncKeySrc;
 	if ((IsEncKeySrc != XLOADER_EFUSE_BLK_KEY) ||
 		(IsEncKeySrcTmp != XLOADER_EFUSE_BLK_KEY)) {
 		XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set, "
@@ -722,10 +723,10 @@ static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePt
 	 * Otherwise return XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR.
 	 */
 	PufHdLocation =
-		XilPdi_GetPufHdMetaHdr(&(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl))
+		XilPdi_GetPufHdMetaHdr(&(SecurePtr->PdiPtr->MetaHdr->ImgHdrTbl))
 		>> XIH_PH_ATTRB_PUFHD_SHIFT;
 	PufHdLocationTmp =
-		XilPdi_GetPufHdMetaHdr(&(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl))
+		XilPdi_GetPufHdMetaHdr(&(SecurePtr->PdiPtr->MetaHdr->ImgHdrTbl))
 		>> XIH_PH_ATTRB_PUFHD_SHIFT;
 	if ((PufHdLocation != XLOADER_PUF_HD_EFUSE) ||
 		(PufHdLocationTmp != XLOADER_PUF_HD_EFUSE)) {
@@ -737,7 +738,7 @@ static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePt
 
 	/** - Validate MetaHdr IV range with eFUSE IV */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_ValidateIV,
-		SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.IvMetaHdr,
+		SecurePtr->PdiPtr->MetaHdr->ImgHdrTbl.IvMetaHdr,
 		(u32*)XLOADER_EFUSE_IV_METAHDR_START_OFFSET);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
@@ -2051,7 +2052,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 	volatile int Status = XLoader_UpdateMinorErr(XLOADER_SEC_DEC_INVALID_KEYSRC_SEL,
 		0x0);
 	u32 *DecKeyMask = &SecurePtr->PdiPtr->DecKeySrc;
-	const XilPdi_BootHdr *BootHdr = SecurePtr->PdiPtr->MetaHdr.BootHdrPtr;
+	const XilPdi_BootHdr *BootHdr = SecurePtr->PdiPtr->MetaHdr->BootHdrPtr;
 	u32 KekStat = 0U;
 	volatile u32 PdiKeySrcTmp;
 	u32 DecryptBlkKey = (u32)FALSE;
@@ -2309,7 +2310,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	}
 	else {
 		if ((SecurePtr->PdiPtr->DecKeySrc & XLOADER_EFUSE_RED_KEY) == 0x0U) {
-			Status = Xil_SMemCpy(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.KekIv,
+			Status = Xil_SMemCpy(SecurePtr->PdiPtr->MetaHdr->ImgHdrTbl.KekIv,
 				(XLOADER_SECURE_IV_NUM_ROWS * sizeof(u32)),
 				(u32*)XLOADER_EFUSE_IV_BLACK_OBFUS_START_OFFSET,
 				(XLOADER_SECURE_IV_NUM_ROWS * sizeof(u32)),
@@ -2323,7 +2324,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	KeyDetails.PufHdLocation = XilPdi_GetPufHdMetaHdr(&MetaHdr->ImgHdrTbl) >>
 		XIH_IHT_ATTR_PUFHD_SHIFT;
 	KeyDetails.PdiKeySrc = MetaHdr->ImgHdrTbl.EncKeySrc;
-	KeyDetails.KekIvAddr = (UINTPTR)SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.KekIv;
+	KeyDetails.KekIvAddr = (UINTPTR)SecurePtr->PdiPtr->MetaHdr->ImgHdrTbl.KekIv;
 
 	/** Select the Key Source */
 	Status = XLoader_AesKeySelect(SecurePtr, &KeyDetails, &KeySrc);
@@ -3445,14 +3446,14 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	static u64 ProcessTime;
 	XPlmi_PerfTime PerfTime;
 #endif
-	u32 PcrInfo = SecurePtr->PdiPtr->MetaHdr.ImgHdr[SecurePtr->PdiPtr->ImageNum].PcrInfo;
+	u32 PcrInfo = SecurePtr->PdiPtr->MetaHdr->ImgHdr[SecurePtr->PdiPtr->ImageNum].PcrInfo;
 
 	XPlmi_Printf(DEBUG_INFO,
 			"Processing Block %u\n\r", SecurePtr->BlockNum);
 	SecurePtr->ProcessedLen = 0U;
 	/** - Process the 1st block */
 	if (SecurePtr->BlockNum == 0x0U) {
-		SrcAddr = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
+		SrcAddr = SecurePtr->PdiPtr->MetaHdr->FlashOfstAddr +
 				((u64)(SecurePtr->PrtnHdr->DataWordOfst) << XPLMI_WORD_LEN_SHIFT);
 	}
 	else {
@@ -3821,7 +3822,7 @@ END:
 *
 * @param	InData - Input Data
 * @param	DataSize - Input Data Size
-* @param	Hash - Pointer the tha u8 array
+* @param	Hash - Pointer the hash u8 array
 *
 * @return
 *		- XST_SUCCESS in case of success
@@ -3981,7 +3982,7 @@ static int XLoader_AuthHdrsWithHashBlock(XLoader_SecureParams *SecurePtr,
         XLoader_HBSignParams *HBSignParams)
 {
 	volatile int Status = XST_FAILURE;
-	XilPdi_MetaHdr *MetaHdr = &SecurePtr->PdiPtr->MetaHdr;
+	XilPdi_MetaHdr *MetaHdr = SecurePtr->PdiPtr->MetaHdr;
 
 	/** Read IHT and PHT to structures and verify checksum */
 	XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
@@ -4044,8 +4045,8 @@ static int XLoader_AuthHashBlockNDecHdrs(XLoader_SecureParams *SecurePtr,
         XLoader_HBSignParams *HBSignParams, u64 BufferAddr)
 {
 	volatile int Status = XST_FAILURE;
-	XilPdi_MetaHdr *MetaHdr = &SecurePtr->PdiPtr->MetaHdr;
-	/** Autheticate HashBlock corresponing to MetaHeader */
+	XilPdi_MetaHdr *MetaHdr = SecurePtr->PdiPtr->MetaHdr;
+	/** Autheticate HashBlock corresponding to MetaHeader */
 	Status = XLoader_AuthenticateHashBlock(SecurePtr, HBSignParams);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -4074,7 +4075,7 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 {
 	volatile int Status = XST_FAILURE;
 	u8 HashBlockHash[XLOADER_SHA3_LEN];
-	XilPdi_MetaHdr *MetaHdrPtr = &SecurePtr->PdiPtr->MetaHdr;
+	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
 	XLoader_AuthCertificate *AuthCert = (XLoader_AuthCertificate *)
                 XPLMI_PMCRAM_CHUNK_MEMORY_1;
 	u32 ReadOffset;
@@ -4369,7 +4370,7 @@ static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
 				XLoader_HBAesParams *HBParams)
 {
 	int Status = XST_FAILURE;
-	XilPdi_MetaHdr *MetaHdrPtr = &SecurePtr->PdiPtr->MetaHdr;
+	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
 	u8 HashBlockGcmTag[XSECURE_SECURE_GCM_TAG_SIZE] = {0U};
 	u8 Iv[XLOADER_SECURE_IV_LEN_IN_BYTES] = {0U};
 	u32 TagOffset;
@@ -4441,7 +4442,7 @@ int XLoader_ValidateHashBlock1Integrity(XLoader_SecureParams *SecurePtr)
 	int StatusTmp = XST_FAILURE;
 	u8 HashBlock1Hash[XLOADER_SHA3_LEN];
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	XilPdi_MetaHdr *MetaHdrPtr = &SecurePtr->PdiPtr->MetaHdr;
+	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
 	u32 ReadOffset = MetaHdrPtr->ImgHdrTbl.HashBlockOffset * XIH_PRTN_WORD_LEN;
 	u32 HashBlockSize = MetaHdrPtr->ImgHdrTbl.HashBlockSize * XIH_PRTN_WORD_LEN;
 
@@ -4547,7 +4548,7 @@ int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr)
 	int StatusTmp = XST_FAILURE;
 	u8 MetaHdrHash[XLOADER_SHA3_LEN];
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	XilPdi_MetaHdr *MetaHdrPtr = &SecurePtr->PdiPtr->MetaHdr;
+	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
 	volatile u32 TotalSize = MetaHdrPtr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
 
 	/** Get DMA instance */
@@ -5132,7 +5133,7 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 	XSecure_Sha *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	u64 AcOffset;
 	XilPdi_ImgHdrTbl *ImgHdrTbl =
-		&SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl;
+		&SecurePtr->PdiPtr->MetaHdr->ImgHdrTbl;
 	XLoader_AuthCertificate *AuthCert = (XLoader_AuthCertificate *)
 		XPLMI_PMCRAM_CHUNK_MEMORY_1;
 #ifdef VERSAL_NET
@@ -5154,10 +5155,10 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 	}
 
 	/** - Copy Authentication certificate from PDI to PMCRAM */
-	AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
+	AcOffset = SecurePtr->PdiPtr->MetaHdr->FlashOfstAddr +
 		((u64)(ImgHdrTbl->AcOffset) << XPLMI_WORD_LEN_SHIFT);
 
-	Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(AcOffset,
+	Status = SecurePtr->PdiPtr->MetaHdr->DeviceCopy(AcOffset,
 			(UINTPTR)SecurePtr->AcPtr, XLOADER_AUTH_CERT_MIN_SIZE, 0U);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_COPY_FAIL,
@@ -5253,9 +5254,9 @@ static int XLoader_CheckAndCompareHashFromIHTOptionalData(XilPdi *PdiPtr, u8 *Ha
 	XilPdi_PrtnHashInfo* PrtnHashData = NULL;
 	XilPdi_PrtnHashInfo* PrtnHashDataTmp = NULL;
 
-	if (PdiPtr->MetaHdr.IsAuthOptimized == (u32)TRUE) {
+	if (PdiPtr->MetaHdr->IsAuthOptimized == (u32)TRUE) {
 		XSECURE_REDUNDANT_CALL(PrtnHashData, PrtnHashDataTmp, XilPdi_IsPrtnHashPresent,
-			PrtnHashIndex, PdiPtr->MetaHdr.DigestTableSize);
+			PrtnHashIndex, PdiPtr->MetaHdr->DigestTableSize);
 		if((PrtnHashData == NULL) || (PrtnHashDataTmp == NULL)) {
 			Status = XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR;
 			goto END;
@@ -5304,7 +5305,7 @@ static int XLoader_AuthHdrs(const XLoader_SecureParams *SecurePtr,
 	int ClearStatus = XST_FAILURE;
 	XSecure_Sha3Hash Sha3Hash;
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	u32 AuthCertSize = (SecurePtr->PdiPtr->MetaHdr.IsAuthOptimized == (u32)TRUE)?
+	u32 AuthCertSize = (SecurePtr->PdiPtr->MetaHdr->IsAuthOptimized == (u32)TRUE)?
 		XLOADER_OPTIMIZED_AUTH_CERT_MIN_SIZE :
 		(XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE);
 
@@ -5372,7 +5373,7 @@ static int XLoader_AuthHdrs(const XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	if (SecurePtr->PdiPtr->MetaHdr.IsAuthOptimized == (u32)TRUE) {
+	if (SecurePtr->PdiPtr->MetaHdr->IsAuthOptimized == (u32)TRUE) {
 		/** Skip sign verification, compare the MetaHeader hash from IHT Optional data.
 		 *  Passing Partition hash index as zero for MetaHeader.
 		 */
@@ -5440,7 +5441,7 @@ static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr, XilPdi_MetaHdr 
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen << XPLMI_WORD_LEN_SHIFT;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
-	u32 AuthCertSize = (SecurePtr->PdiPtr->MetaHdr.IsAuthOptimized == (u32)TRUE)?
+	u32 AuthCertSize = (SecurePtr->PdiPtr->MetaHdr->IsAuthOptimized == (u32)TRUE)?
 		XLOADER_OPTIMIZED_AUTH_CERT_MIN_SIZE :
 		(XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE);
 
@@ -5485,7 +5486,7 @@ static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr, XilPdi_MetaHdr 
 		goto END;
 	}
 
-	if (SecurePtr->PdiPtr->MetaHdr.IsAuthOptimized == (u32)TRUE) {
+	if (SecurePtr->PdiPtr->MetaHdr->IsAuthOptimized == (u32)TRUE) {
 		/** Skip sign verification, compare the MetaHeader hash from IHT Optional data.
 		 *  Passing Partition hash index as zero for MetaHeader.
 		 */
@@ -5616,7 +5617,7 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 
 	/** Verify the hash */
 	if (SecurePtr->BlockNum == 0x00U) {
-		if (SecurePtr->PdiPtr->MetaHdr.IsAuthOptimized == (u32)TRUE) {
+		if (SecurePtr->PdiPtr->MetaHdr->IsAuthOptimized == (u32)TRUE) {
 			/**
 			 * Skip sign verification, compare the hash of respective partition
 			 * which uses same keys.

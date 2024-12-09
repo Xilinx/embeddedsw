@@ -51,7 +51,8 @@
 *       ma   09/20/2024 Added PMC_TAP_VERSION_COSIM mask for COSIM platform
 *                       Also, corrected XPLMI_PLATFORM_MASK value
 *       yog  09/30/2024 Corrected ASU RAM high address
-*	nb   10/07/2024 Add PMC IOMODULE interrupt for power interrupts
+*	    nb   10/07/2024 Add PMC IOMODULE interrupt for power interrupts
+*       pre  12/09/2024 Added METAHEADER_INSTANCE_ADDRESS and RTCA_LEN_IN_BYTES macros
 *
 * </pre>
 *
@@ -573,6 +574,11 @@ extern "C" {
 #define DDRMC_PCSR_CONTROL_PCOMPLETE_MASK	(0x00000001U)
 #define DDRMC_PCSR_STATUS_OFFSET	(0x00000008U)
 
+/**< Address of PDI instance */
+#define METAHEADER_INSTANCE_ADDRESS	(0xF2013000U)
+
+/**< Length of RTCA in bytes */
+#define RTCA_LEN_IN_BYTES	(0x1000U)
 
 /*****************************************************************************/
 /**

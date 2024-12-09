@@ -49,6 +49,7 @@
 * 2.10  mb   08/14/2024 Added Mask values for PMC_TAP_INST_MASK_0 register
 *       ma   09/20/2024 Added PMC_TAP_VERSION_COSIM mask for COSIM platform
 *                       Also, corrected XPLMI_PLATFORM_MASK value
+*       pre  12/09/2024 Added METAHEADER_INSTANCE_ADDRESS and RTCA_LEN_IN_BYTES macros
 *
 * </pre>
 *
@@ -1521,6 +1522,12 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XLOADER_QSPI_CONNECTION_MODE (XPAR_XQSPIPSU_0_QSPI_MODE)
 #define XLOADER_QSPI_BUS_WIDTH (XPAR_XQSPIPSU_0_QSPI_BUS_WIDTH)
 #endif
+
+/**< Address of PDI instance */
+#define METAHEADER_INSTANCE_ADDRESS	(0xF2013000U)
+
+/**< Length of RTCA in bytes */
+#define RTCA_LEN_IN_BYTES	(0x1000U)
 
 /************************** Function Prototypes ******************************/
 

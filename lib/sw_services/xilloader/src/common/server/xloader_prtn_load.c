@@ -110,6 +110,7 @@
 *       		XLoader_ProcessAuthEncPrtn
 *       mss  04/05/2024 Added logic to disable device copy optimization
 *       bm   09/25/2024 Fix Boot Device Copy Optimization logic
+*       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 * </pre>
 *
 * @note
@@ -182,15 +183,15 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 			"+++Loading Image#: 0x%0x, Name: %s, Id: 0x%08x\n\r",
 			PdiPtr->ImageNum,
-			(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
-			PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
+			(char *)PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgName,
+			PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
 	}
 	else {
 		XPlmi_Printf(DEBUG_GENERAL,
 			"+++Skipping Image#: 0x%0x, Name: %s, Id: 0x%08x\n\r",
 			PdiPtr->ImageNum,
-			(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
-			PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
+			(char *)PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgName,
+			PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
 	}
 
 	XPlmi_Printf(DEBUG_INFO, "------------------------------------\r\n");
@@ -199,7 +200,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	 * - Validate and load the image partitions.
 	 */
 	for (PrtnIndex = 0U;
-		PrtnIndex < PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
+		PrtnIndex < PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 		++PrtnIndex) {
 		/**
 		 * - Clear NPI errors before loading each partition.
@@ -214,12 +215,12 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		if (PdiPtr->DelayLoad == (u8)FALSE) {
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "---Loading Partition#: 0x%0x, "
 					"Id: 0x%0x\r\n", PdiPtr->PrtnNum,
-					PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].PrtnId);
+					PdiPtr->MetaHdr->PrtnHdr[PdiPtr->PrtnNum].PrtnId);
 		}
 		else {
 			XPlmi_Printf(DEBUG_GENERAL, "---Skipping Partition#: 0x%0x, "
 					"Id: 0x%0x\r\n", PdiPtr->PrtnNum,
-					PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].PrtnId);
+					PdiPtr->MetaHdr->PrtnHdr[PdiPtr->PrtnNum].PrtnId);
 		}
 
 		PrtnLoadTime = XPlmi_GetTimerValue();
@@ -227,7 +228,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		 * - Validate the partition header.
 		 */
 		Status = XLoader_PrtnHdrValidation(
-				&(PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum]), PdiPtr->PrtnNum);
+				&(PdiPtr->MetaHdr->PrtnHdr[PdiPtr->PrtnNum]), PdiPtr->PrtnNum);
 		/**
 		 * - If PLM is not partition owner then skip this partition.
 		 */
@@ -254,7 +255,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		XPlmi_Printf(DEBUG_PRINT_PERF,
 			" %u.%03u ms for Partition#: 0x%0x, Size: %u Bytes\n\r",
 			(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac, PdiPtr->PrtnNum,
-			(PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].TotalDataWordLen) *
+			(PdiPtr->MetaHdr->PrtnHdr[PdiPtr->PrtnNum].TotalDataWordLen) *
 			XPLMI_WORD_LEN);
 
 		++PdiPtr->PrtnNum;
@@ -285,7 +286,7 @@ END:
 		}
 	}
 END1:
-	if (NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID) ==
+	if (NODESUBCLASS(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID) ==
 				(u32)XPM_NODESUBCL_DEV_PL) {
 		DDRMCCalibCheck = XPlmi_In32(XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR);
 		for (Ub = 0U; Ub < MAX_DEV_DDRMC; Ub++) {
@@ -375,9 +376,9 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	XLoader_SecureParams *SecureParams = (XLoader_SecureParams *)SecureParamsPtr;
 	u32 PrtnNum = PdiPtr->PrtnNum;
 #ifndef VERSAL_AIEPG2
-	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
 #endif
-	u32 PcrInfo = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PcrInfo;
+	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 
 	/** Verify the destination address range before writing */
@@ -394,7 +395,7 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	if ((SecureParams->SecureEn == (u8)FALSE) &&
 			(SecureTempParams->SecureEn == (u8)FALSE) &&
 			(SecureParams->IsCheckSumEnabled == (u8)FALSE)) {
-		Status = PdiPtr->MetaHdr.DeviceCopy(DeviceCopy->SrcAddr,
+		Status = PdiPtr->MetaHdr->DeviceCopy(DeviceCopy->SrcAddr,
 			DeviceCopy->DestAddr,DeviceCopy->Len, DeviceCopy->Flags);
 	}
 	else {
@@ -413,11 +414,11 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 		ImageMeasureInfo.DataAddr = DeviceCopy->DestAddr;
 		ImageMeasureInfo.DataSize = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
 #else
-		ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&SecureParams->PdiPtr->MetaHdr.HashBlock.HashData[PrtnNum].PrtnHash;
+		ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&SecureParams->PdiPtr->MetaHdr->HashBlock.HashData[PrtnNum].PrtnHash;
                 ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN << XPLMI_WORD_LEN_SHIFT;
 #endif
 		ImageMeasureInfo.PcrInfo = PcrInfo;
-		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
+		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 		ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
 		/* Update the data for measurement, only VersalNet */
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
@@ -463,7 +464,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	u64 CdoProcessTime = 0U;
 	XPlmi_PerfTime PerfTime;
 #endif
-	u32 PcrInfo = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PcrInfo;
+	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
@@ -477,8 +478,8 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	}
 	Cdo.NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	Cdo.SubsystemId = XPm_GetSubsystemId(
-		PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
-	Cdo.PartitionOffset = PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].DataWordOfst;
+		PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
+	Cdo.PartitionOffset = PdiPtr->MetaHdr->PrtnHdr[PdiPtr->PrtnNum].DataWordOfst;
 	SecureParams->IsCdo = (u8)TRUE;
 	if ((SecureParams->SecureEn == (u8)FALSE) &&
 		(SecureTempParams->SecureEn == (u8)FALSE) &&
@@ -489,7 +490,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 		}
 		else {
 			if (DevCopyOptimization == XLOADER_BOOT_COPY_OPTIMIZATION_ENABLED) {
-				Cdo.Cmd.KeyHoleParams.Func = PdiPtr->MetaHdr.DeviceCopy;
+				Cdo.Cmd.KeyHoleParams.Func = PdiPtr->MetaHdr->DeviceCopy;
 			}
 		}
 	}
@@ -511,7 +512,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			else {
 				Flags = XPLMI_DEVICE_COPY_STATE_BLK;
 			}
-			Status = PdiPtr->MetaHdr.DeviceCopy(DeviceCopy->SrcAddr,
+			Status = PdiPtr->MetaHdr->DeviceCopy(DeviceCopy->SrcAddr,
 				ChunkAddr, ChunkLen, (DeviceCopy->Flags | Flags));
 			if (Status != XST_SUCCESS) {
 					goto END;
@@ -544,7 +545,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 				Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted = (u8)TRUE;
 				Cdo.NextChunkAddr = ChunkAddr;
 				/** Initiate the data copy */
-				Status = PdiPtr->MetaHdr.DeviceCopy(
+				Status = PdiPtr->MetaHdr->DeviceCopy(
 					DeviceCopy->SrcAddr, ChunkAddr,
 					ChunkLen, DeviceCopy->Flags |
 					XPLMI_DEVICE_COPY_STATE_INITIATE);
@@ -626,11 +627,11 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)Cdo.BufPtr;
 			ImageMeasureInfo.DataSize = ChunkLenTemp;
 #else
-			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&SecureParams->PdiPtr->MetaHdr.HashBlock.HashData[SecureParams->PdiPtr->PrtnNum].PrtnHash;
+			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&SecureParams->PdiPtr->MetaHdr->HashBlock.HashData[SecureParams->PdiPtr->PrtnNum].PrtnHash;
 			ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN << XPLMI_WORD_LEN_SHIFT;
 #endif
 			ImageMeasureInfo.PcrInfo = PcrInfo;
-			ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID;
+			ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
 			/* Update the data for measurement, only VersalNet */
 			Status = XLoader_DataMeasurement(&ImageMeasureInfo);
@@ -681,7 +682,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	u8 TempVal;
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	/* Assign the partition header to local variable */
-	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
 
 	/** Read Partition Type */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
@@ -692,7 +693,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	PrtnParams.DeviceCopy.Flags = 0U;
 
 	if (PdiPtr->PdiType != XLOADER_PDI_TYPE_RESTORE) {
-		PrtnParams.DeviceCopy.SrcAddr = PdiPtr->MetaHdr.FlashOfstAddr +
+		PrtnParams.DeviceCopy.SrcAddr = PdiPtr->MetaHdr->FlashOfstAddr +
 			((u64)PrtnHdr->DataWordOfst << XPLMI_WORD_LEN_SHIFT);
 	}
 
@@ -705,7 +706,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 				else {
 					TrfLen = PrtnParams.DeviceCopy.Len;
 				}
-				Status = PdiPtr->MetaHdr.DeviceCopy(PrtnParams.DeviceCopy.SrcAddr,
+				Status = PdiPtr->MetaHdr->DeviceCopy(PrtnParams.DeviceCopy.SrcAddr,
 					XPLMI_PMCRAM_CHUNK_MEMORY, TrfLen, 0U);
 				if (Status != XST_SUCCESS) {
 					Status = XPlmi_UpdateStatus(XLOADER_ERR_DELAY_LOAD, Status);

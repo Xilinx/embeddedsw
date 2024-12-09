@@ -122,6 +122,7 @@
 *       mss  04/05/2024 Added XLOADER_DEVICE_COPY_OPTIMIZATION_MASK macro
 *       pre  08/22/2024 Added XLoader_CfiSelectiveRead function
 *       obs  09/30/2024 Fixed Doxygen Warnings
+*       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *
 * </pre>
 *
@@ -331,7 +332,7 @@ typedef struct {
 	u8 PdiIndex; /**< Index in DeviceOps array */
 	u8 SlrType; /**< SLR Type */
 	u32 PdiSrc; /**< PDI source */
-	XilPdi_MetaHdr MetaHdr; /**< Metaheader of the PDI */
+	XilPdi_MetaHdr *MetaHdr; /**< Metaheader of the PDI */
 	XLoader_HandoffParam HandoffParam[XLOADER_MAX_HANDOFF_CPUS];	/**< Handoff Param for each CPU */
 	u32 IpiMask; /**< Info about which master has sent the request*/
 	u32 ClearAtfHandoff; /**< Flag to clear ATF Handoff params before loading
@@ -348,7 +349,7 @@ typedef struct {
 #endif
 	u32 DigestIndex; 	/**< Digest index for data measurement */
 	u32 ImagePrtnId; /**< Partition number in the Image */
-} XilPdi;
+} XilPdi __attribute__ ((aligned(4U)));
 
 /*
 * This BootPDI info struct is to store required config
