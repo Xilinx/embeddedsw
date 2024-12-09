@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2003 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY
@@ -10,6 +10,7 @@
 #               ug570
 # 11.5 09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
 # 11.6 06/28/23 Added support for system device-tree flow.
+# 11.7 12/02/24 Fixed mismatch between IDCODE array size and initialization value.
 ##############################################################################
 OPTION psf_version = 2.1;
 
@@ -18,7 +19,7 @@ BEGIN driver hwicap
 OPTION supported_peripherals = axi_hwicap_v[0-9]_[0-9]; 
 OPTION driver_state = ACTIVE;
 OPTION copyfiles = all;
-OPTION VERSION = 11.6;
+OPTION VERSION = 11.7;
 OPTION NAME = hwicap;
 
 END DRIVER
