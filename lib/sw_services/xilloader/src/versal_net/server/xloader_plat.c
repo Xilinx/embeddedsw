@@ -52,6 +52,7 @@
 *       har  06/07/2024 Updated condition to check if optional data is not found
 *       kal  06/29/2024 Update InPlace update to load LPD and PSM
 *       har  07/02/2024 Added support to generate additional DevAk
+*       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *
 * </pre>
 *
@@ -536,7 +537,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 		#ifdef XLOADER_SD_0
 			*PdiSrc = XLOADER_PDI_SRC_SDLS_B0 |
 				XLOADER_SD_RAWBOOT_MASK |
-				(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
+				(PdiPtr->MetaHdr->ImgHdrTbl.SBDAddr
 				<< XLOADER_SD_ADDR_SHIFT);
 		#else
 			*PdiSrc = XLOADER_PDI_SRC_SDLS_B0;
@@ -547,7 +548,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 		#ifdef XLOADER_SD_0
 			*PdiSrc = XLOADER_PDI_SRC_SD_B1 |
 				XLOADER_SD_RAWBOOT_MASK |
-				(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
+				(PdiPtr->MetaHdr->ImgHdrTbl.SBDAddr
 				<< XLOADER_SD_ADDR_SHIFT);
 		#else
 			*PdiSrc = XLOADER_PDI_SRC_SD_B1;
@@ -558,7 +559,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 		#ifdef XLOADER_SD_0
 			*PdiSrc = XLOADER_PDI_SRC_SDLS_B1 |
 				XLOADER_SD_RAWBOOT_MASK |
-				(PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr
+				(PdiPtr->MetaHdr->ImgHdrTbl.SBDAddr
 				<< XLOADER_SD_ADDR_SHIFT);
 		#else
 			*PdiSrc = XLOADER_PDI_SRC_SDLS_B1;
@@ -886,7 +887,7 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	/** - Assign the partition header to local variable */
 	const XilPdi_PrtnHdr * PrtnHdr =
-			&(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+			&(PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
 
 	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 	DstnCluster = XilPdi_GetDstnCluster(PrtnHdr);
@@ -1180,7 +1181,7 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 	int Status = XLOADER_ERR_HDR_MEASUREMENT;
 #ifdef PLM_OCP
 	XLoader_ImageMeasureInfo ImageInfo = {0U};
-	XilPdi_MetaHdr * MetaHdrPtr = &PdiPtr->MetaHdr;
+	XilPdi_MetaHdr * MetaHdrPtr = PdiPtr->MetaHdr;
 
 	/**
 	 * - Start the hash calculation for the meta header.

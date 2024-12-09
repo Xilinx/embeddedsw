@@ -88,6 +88,7 @@
 *       sk   03/13/24 Fixed doxygen comments format
 *       pre  08/22/2024 Additions for XLoader_CfiSelectiveRead
 *       pre  10/26/2024 Removed XLoader_LoadReadBackPdi
+*       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *
 * </pre>
 *
@@ -953,7 +954,7 @@ static int XLoader_ExtractOptionalData(XPlmi_Cmd* Cmd, u32 *TotalDataSize)
 	}
 
 	OptionalDataStartAddr = XILPDI_PMCRAM_IHT_DATA_ADDR;
-	OptionalDataEndAddr = XILPDI_PMCRAM_IHT_DATA_ADDR + (u64)(PdiPtr->MetaHdr.ImgHdrTbl.OptionalDataLen * XPLMI_WORD_LEN);
+	OptionalDataEndAddr = XILPDI_PMCRAM_IHT_DATA_ADDR + (u64)(PdiPtr->MetaHdr->ImgHdrTbl.OptionalDataLen * XPLMI_WORD_LEN);
 
 	OptDataAddr = XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,
 		DataId);
@@ -1040,7 +1041,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 			goto END;
 		}
 
-		DataSize = (PdiPtr->MetaHdr.ImgHdrTbl.TotalHdrLen * XPLMI_WORD_LEN) +
+		DataSize = (PdiPtr->MetaHdr->ImgHdrTbl.TotalHdrLen * XPLMI_WORD_LEN) +
 				XIH_IHT_LEN;
 		if (DestSize < DataSize) {
 			Status = XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE;
@@ -1048,22 +1049,22 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 		}
 
 		/** Zeroize non-exportable fields of image header table */
-		XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.ImgHdrTbl,
+		XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr->ImgHdrTbl,
 			XLOADER_IMG_HDR_TBL_EXPORT_MASK0, XIH_IHT_LEN);
 		/** Zeroize non-exportable fields of image headers */
-		for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs; Index++) {
-			XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.ImgHdr[Index],
+		for (Index = 0U; Index < PdiPtr->MetaHdr->ImgHdrTbl.NoOfImgs; Index++) {
+			XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr->ImgHdr[Index],
 				XLOADER_IMG_HDR_EXPORT_MASK0, XIH_IH_LEN);
 		}
 		/** Zeroize non-exportable fields of partition headers */
-		for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns; Index++) {
-			XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.PrtnHdr[Index],
+		for (Index = 0U; Index < PdiPtr->MetaHdr->ImgHdrTbl.NoOfPrtns; Index++) {
+			XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr->PrtnHdr[Index],
 				XLOADER_PRTN_HDR_EXPORT_MASK0, XIH_PH_LEN);
 		}
 
 		/** Copy image header table to destination address*/
 		DataSize = XIH_IHT_LEN;
-		Status = XPlmi_DmaXfr((u64)(UINTPTR)&PdiPtr->MetaHdr.ImgHdrTbl, DestAddr,
+		Status = XPlmi_DmaXfr((u64)(UINTPTR)&PdiPtr->MetaHdr->ImgHdrTbl, DestAddr,
 				DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -1071,8 +1072,8 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 		TotalDataSize += DataSize;
 		DestAddr += DataSize;
 		/** Copy image headers to destination address*/
-		DataSize = XIH_IH_LEN * PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
-		Status = XPlmi_DmaXfr((u64)(UINTPTR)PdiPtr->MetaHdr.ImgHdr, DestAddr,
+		DataSize = XIH_IH_LEN * PdiPtr->MetaHdr->ImgHdrTbl.NoOfImgs;
+		Status = XPlmi_DmaXfr((u64)(UINTPTR)PdiPtr->MetaHdr->ImgHdr, DestAddr,
 				DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -1080,8 +1081,8 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 		TotalDataSize += DataSize;
 		DestAddr += DataSize;
 		/** Copy partition headers to destination address*/
-		DataSize = XIH_PH_LEN * PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns;
-		Status = XPlmi_DmaXfr((u64)(UINTPTR)PdiPtr->MetaHdr.PrtnHdr, DestAddr,
+		DataSize = XIH_PH_LEN * PdiPtr->MetaHdr->ImgHdrTbl.NoOfPrtns;
+		Status = XPlmi_DmaXfr((u64)(UINTPTR)PdiPtr->MetaHdr->PrtnHdr, DestAddr,
 				DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
 			goto END;

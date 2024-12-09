@@ -84,7 +84,7 @@
 * 1.10  bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *       nb   06/28/2023 Add ERR2 trigger and status macros for SMON9
 *       bm   07/06/2023 Refactored Proc logic to more generic logic
-*       am   07/11/2023 Reduced the trace event buffer length to accomodate
+*       am   07/11/2023 Reduced the trace event buffer length to accommodate
 *                       IHT OP data store address
 *       ng   07/13/2023 Added support for system device-tree flow
 *       bm   09/07/2023 Allow loading of ELFs into XRAM
@@ -99,6 +99,7 @@
 *                       320 bytes of memory
 *       ma   09/20/2024 Added PMC_TAP_VERSION_COSIM mask for COSIM platform
 *                       Also, corrected XPLMI_PLATFORM_MASK value
+*       pre  12/09/2024 Added METAHEADER_INSTANCE_ADDRESS and RTCA_LEN_IN_BYTES macros
 *
 * </pre>
 *
@@ -498,6 +499,12 @@ extern "C" {
 #define CPM5_DMA0_CSR_INT_DEC							(0xFCE20E10U)
 #define CPM5_DMA1_CSR_INT_DEC							(0xFCEA0E10U)
 #define CPM5_DMA_CSR_LINK_DOWN_MASK						(0x1U)
+
+/**< Address of Metaheader instance */
+#define METAHEADER_INSTANCE_ADDRESS                     (0xF2013000U)
+
+/**< Length of RTCA in bytes */
+#define RTCA_LEN_IN_BYTES                               (0x1000U)
 
 /*****************************************************************************/
 /**
