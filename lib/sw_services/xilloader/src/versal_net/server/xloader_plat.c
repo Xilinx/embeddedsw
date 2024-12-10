@@ -53,6 +53,7 @@
 *       kal  06/29/2024 Update InPlace update to load LPD and PSM
 *       har  07/02/2024 Added support to generate additional DevAk
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
+*       obs  12/10/2024 Fixed GCC Warnings
 *
 * </pre>
 *
@@ -527,6 +528,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 		u64 *PdiAddr)
 {
 	int Status = XST_FAILURE;
+	(void)PdiPtr;
 
 	/**
 	 * - Get the PDI source address for the secondary boot device.

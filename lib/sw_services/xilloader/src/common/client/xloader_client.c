@@ -530,7 +530,7 @@ int XLoader_InputSlrIndex(XLoader_ClientInstance *InstancePtr, u32 SlrIndex)
 {
 	int Status = XST_FAILURE;
 
-	if(SlrIndex >= XLOADER_SLR_INDEX_0 && SlrIndex <= XLOADER_SLR_INDEX_3){
+	if (SlrIndex <= XLOADER_SLR_INDEX_3) {
 		InstancePtr->SlrIndex = SlrIndex;
 	    Status = XST_SUCCESS;
 	}
