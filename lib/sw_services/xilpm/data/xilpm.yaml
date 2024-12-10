@@ -37,11 +37,6 @@ supported_processors:
 supported_os:
   - standalone
   - freertos10_xilinx
-depends:
-    ipipsu:
-        - reg
-        - xlnx,ipi-bitmask
-        - interrupts
 
 # TODO: Need to add remaining driver list which are the dependencies for this
 #       component.
