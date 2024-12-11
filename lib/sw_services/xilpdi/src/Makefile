@@ -1,7 +1,9 @@
 ###############################################################################
 # Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ###############################################################################
+DRIVER_LIB_VERSION = v1.0
 
 COMPILER=
 ARCHIVER=
@@ -20,31 +22,35 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-PDI_DIR = .
-OUTS = *.o
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
-PDI_SRCS := $(wildcard *.c)
-PDI_OBJS = $(addprefix $(PDI_DIR)/, $(PDI_SRCS:%.c=%.o))
-
-INCLUDEFILES=$(PDI_DIR)/xilpdi.h
+LIBPDI_DIR = .
+LIBPDI_SRCS := $(wildcard *.c)
+LIBPDI_HDRS := $(wildcard *.h)
+LIBPDI_OBJS = $(addprefix $(LIBPDI_DIR)/, $(LIBPDI_SRCS:%.c=%.o))
 
 libs: libxilpdi.a
 
-libxilpdi.a: print_msg_xilpdi $(PDI_OBJS)
-	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${PDI_OBJS}
-
 print_msg_xilpdi:
-	@echo "Compiling Xilpdi Library"
+	@echo "Compiling XilPDI Library"
+
+libxilpdi.a: print_msg_xilpdi $(LIBPDI_OBJS)
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${LIBPDI_OBJS}
+
+DEPFILES := $(LIBPDI_SRCS:%.c=$(LIBPDI_DIR)%.d)
+
+include $(wildcard $(DEPFILES))
+
+include $(wildcard ../../../../dep.mk)
+
+$(LIBPDI_DIR)/%.o: $(LIBPDI_DIR)/%.c
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -c $< -o $@
 
 .PHONY: include
 include: libxilpdi_includes
 
 libxilpdi_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+	${CP} ${LIBPDI_HDRS} ${INCLUDEDIR}
 
 clean:
-	rm -rf $(PDI_DIR)/${OBJECTS}
+	rm -rf $(LIBPDI_OBJS)
 	rm -rf ${RELEASEDIR}/${LIB}
-
-$(PDI_DIR)/%.o: $(PDI_DIR)/%.c $(INCLUDEFILES)
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
+	rm -rf ${DEPFILES}
