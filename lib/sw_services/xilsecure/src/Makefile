@@ -1,7 +1,9 @@
 ###############################################################################
 # Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ###############################################################################
+DRIVER_LIB_VERSION = v1.0
 
 COMPILER=
 ARCHIVER=
@@ -14,18 +16,6 @@ CUSTOM_COMPILER_FLAGS=
 endif
 LIB=libxilsecure.a
 
-RELEASEDIR=../../../lib
-INCLUDEDIR=../../../include
-INCLUDES=-I./. -I${INCLUDEDIR}
-
-SECURE_DIR = .
-OUTS = *.o
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
-SECURE_SRCS := $(wildcard *.c)
-SECURE_OBJS = $(addprefix $(SECURE_DIR)/, $(SECURE_SRCS:%.c=%.o))
-
-INCLUDEFILES := $(wildcard *.h)
-
 ifeq ($(notdir $(COMPILER)) , iccarm)
 	EXTRA_ARCHIVE_FLAGS=--create
 else
@@ -36,7 +26,19 @@ else
 endif
 endif
 
+RELEASEDIR=../../../lib
+INCLUDEDIR=../../../include
+INCLUDES=-I./. -I${INCLUDEDIR}
+
+SECURE_DIR = .
+SECURE_SRCS := $(wildcard *.c)
+SECURE_HDRS := $(wildcard *.h)
+SECURE_OBJS = $(addprefix $(SECURE_DIR)/, $(SECURE_SRCS:%.c=%.o))
+
 libs: libxilsecure.a
+
+print_msg_secure:
+	@echo "Compiling XilSecure Library"
 
 libxilsecure.a: print_msg_secure $(SECURE_OBJS)
 ifneq ("$(wildcard $(SECURE_DIR)/$(LIB))","")
@@ -46,18 +48,16 @@ else
 	 $(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${SECURE_OBJS}
 endif
 
-print_msg_secure:
-	@echo "Compiling XilSecure Library"
+$(SECURE_DIR)/%.o: $(SECURE_DIR)/%.c
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -c $< -o $@
 
 .PHONY: include
 include: libxilsecure_includes
 
 libxilsecure_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+	${CP} ${SECURE_HDRS} ${INCLUDEDIR}
 
 clean:
-	rm -rf $(SECURE_DIR)/${OBJECTS}
+	rm -rf $(SECURE_OBJS)
 	rm -rf ${RELEASEDIR}/${LIB}
-
-$(SECURE_DIR)/%.o: $(SECURE_DIR)/%.c $(INCLUDEFILES)
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
+	rm -rf ${DEPFILES}

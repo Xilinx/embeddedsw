@@ -3,6 +3,7 @@
 # Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ###############################################################################
+DRIVER_LIB_VERSION = v1.0
 
 COMPILER=
 ARCHIVER=
@@ -22,30 +23,34 @@ INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
 LIBLOADER_DIR = .
-OUTS = *.o
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 LIBLOADER_SRCS := $(wildcard *.c)
+LIBLOADER_HDRS := $(wildcard *.h)
 LIBLOADER_OBJS = $(addprefix $(LIBLOADER_DIR)/, $(LIBLOADER_SRCS:%.c=%.o))
 
-INCLUDEFILES=$(LIBLOADER_DIR)/xloader.h
-
 libs: libxilloader.a
+
+print_msg_xilloader:
+	@echo "Compiling XilLoader Library"
 
 libxilloader.a: print_msg_xilloader $(LIBLOADER_OBJS)
 	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${LIBLOADER_OBJS}
 
-print_msg_xilloader:
-	@echo "Compiling XilLoader Library"
+DEPFILES := $(LIBLOADER_SRCS:%.c=$(LIBLOADER_DIR)%.d)
+
+include $(wildcard $(DEPFILES))
+
+include $(wildcard ../../../../dep.mk)
+
+$(LIBLOADER_DIR)/%.o: $(LIBLOADER_DIR)/%.c
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -c $< -o $@
 
 .PHONY: include
 include: libxilloader_includes
 
 libxilloader_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+	${CP} ${LIBLOADER_HDRS} ${INCLUDEDIR}
 
 clean:
-	rm -rf $(LIBLOADER_DIR)/${OBJECTS}
+	rm -rf $(LIBLOADER_OBJS)
 	rm -rf ${RELEASEDIR}/${LIB}
-
-$(LIBLOADER_DIR)/%.o: $(LIBLOADER_DIR)/%.c $(INCLUDEFILES)
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
+	rm -rf ${DEPFILES}

@@ -3,6 +3,7 @@
 # Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ###############################################################################
+DRIVER_LIB_VERSION = v1.0
 
 COMPILER=
 ARCHIVER=
@@ -22,30 +23,34 @@ INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
 LIBPLMI_DIR = .
-OUTS = *.o
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 LIBPLMI_SRCS := $(wildcard *.c)
+LIBPLMI_HDRS := $(wildcard *.h)
 LIBPLMI_OBJS = $(addprefix $(LIBPLMI_DIR)/, $(LIBPLMI_SRCS:%.c=%.o))
 
-INCLUDEFILES=$(LIBPLMI_DIR)/*.h
-
 libs: libxilplmi.a
+
+print_msg_xilplmi:
+	@echo "Compiling XilPLMI Library"
 
 libxilplmi.a: print_msg_xilplmi $(LIBPLMI_OBJS)
 	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${LIBPLMI_OBJS}
 
-print_msg_xilplmi:
-	@echo "Compiling XilPLMI Library"
+DEPFILES := $(LIBPLMI_SRCS:%.c=$(LIBPLMI_DIR)%.d)
+
+include $(wildcard $(DEPFILES))
+
+include $(wildcard ../../../../dep.mk)
+
+$(LIBPLMI_DIR)/%.o: $(LIBPLMI_DIR)/%.c
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -c $< -o $@
 
 .PHONY: include
 include: libxilplmi_includes
 
 libxilplmi_includes:
-	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+	${CP} ${LIBPLMI_HDRS} ${INCLUDEDIR}
 
 clean:
-	rm -rf $(LIBPLMI_DIR)/${OBJECTS}
+	rm -rf $(LIBPLMI_OBJS)
 	rm -rf ${RELEASEDIR}/${LIB}
-
-$(LIBPLMI_DIR)/%.o: $(LIBPLMI_DIR)/%.c $(INCLUDEFILES)
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
+	rm -rf ${DEPFILES}
