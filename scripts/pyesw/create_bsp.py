@@ -46,6 +46,7 @@ class Domain(Repo):
         self.drv_info = {}
         self.os_info = {}
         self.proc_mode = args["mode"]
+        self.compiler = args["compiler"]
         utils.mkdir(self.domain_dir)
         self.proc_ip_name = self._validate_inputs()
 
@@ -202,7 +203,10 @@ class Domain(Repo):
         toolchain_file_copy = None
         for val in proc_lops_specs_map.keys():
             if val in self.proc_ip_name:
-                toolchain_file_name = f"{proc_lops_specs_map[val][0]}_toolchain.cmake"
+                if "gcc" in self.compiler:
+                    toolchain_file_name = f"{proc_lops_specs_map[val][0]}_toolchain.cmake"
+                else:
+                    toolchain_file_name = f"{proc_lops_specs_map[val][0]}_{self.compiler}_toolchain.cmake"
                 toolchain_file_path = utils.get_high_precedence_path(
                     self.repo_paths_list, "toolchain File", "cmake", "toolchainfiles", toolchain_file_name
                 )
@@ -473,9 +477,12 @@ def create_domain(args):
             -DCMAKE_INCLUDE_PATH={obj.include_folder} \
             -DCMAKE_MODULE_PATH={obj.domain_dir} \
             -DCMAKE_TOOLCHAIN_FILE={obj.toolchain_file} \
-            -DCMAKE_SPECS_FILE={obj.specs_file} \
             -DCMAKE_VERBOSE_MAKEFILE=ON"
 
+    if "gcc" in obj.compiler:
+        cmake_paths_append += f" -DCMAKE_SPECS_FILE={obj.specs_file} "
+    else:
+        cmake_paths_append += " -Wno-dev "
 
     # Copy the standalone bsp src file.
     os_dir_path = obj.get_comp_dir("standalone")
@@ -585,6 +592,7 @@ def create_domain(args):
         "proc": obj.proc,
         "proc_config": {},
         "template": obj.app,
+        "compiler": obj.compiler,
         "compiler_flags": obj.compiler_flags,
         "include_folder": utils.get_rel_path(obj.include_folder, obj.domain_dir),
         "lib_folder": utils.get_rel_path(obj.lib_folder, obj.domain_dir),
@@ -770,9 +778,13 @@ endfunction(_my_hook_end_of_configure)
     "Unknown Argument" Error of clang, a .clangd file with below content is
     to be kept in parallel to compile_commands.json file.
     '''
+    if "gcc" in obj.compiler:
+        cmd_to_add = "Add: [-Wno-unknown-warning-option, -U__linux__, -U__clang__]"
+    else:
+        cmd_to_add = "Add: [-Wno-unknown-warning-option, -U__linux__]"
     clangd_ignore_content = f'''
 CompileFlags:
-    Add: [-Wno-unknown-warning-option, -U__linux__, -U__clang__]
+    {cmd_to_add}
     Remove: [-m*, -f*]
 '''
     clangd_ignore_file = os.path.join(obj.libsrc_folder, ".clangd")
@@ -873,6 +885,14 @@ if __name__ == "__main__":
         action="count",
         default=0,
         help='Increase output verbosity'
+    )
+    parser.add_argument(
+        "-c",
+        "--compiler",
+        action="store",
+        default="gcc",
+        help="Specify the compiler (Default: gcc)",
+        choices=["gcc", "armclang", "armcc", "iar"],
     )
 
     args = vars(parser.parse_args())

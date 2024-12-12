@@ -52,8 +52,11 @@ class BSP:
             -DCMAKE_INCLUDE_PATH={self.include_folder} \
             -DCMAKE_MODULE_PATH={self.domain_path} \
             -DCMAKE_TOOLCHAIN_FILE={self.toolchain_file} \
-            -DCMAKE_SPECS_FILE={self.specs_file} \
             -DCMAKE_VERBOSE_MAKEFILE=ON"
+        if domain_data.get("compiler", "gcc") == "gcc":
+            self.cmake_paths_append += f" -DCMAKE_SPECS_FILE={self.specs_file} "
+        else:
+            self.cmake_paths_append += " -Wno-dev "
 
         self.drvlist = self.getdrv_list()
         self.lib_config = domain_data["lib_config"]

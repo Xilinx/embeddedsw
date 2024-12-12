@@ -1,5 +1,6 @@
 ;/******************************************************************************
 ;* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+;* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ;* SPDX-License-Identifier: MIT
 ;******************************************************************************/
 ;/*****************************************************************************/
@@ -179,11 +180,13 @@ InitEL3
    msr	S3_1_C15_C2_0, x0			; CPUACTLR_EL1
 
 ; Program the counter frequency
+#if !defined (XPAR_XILTIMER_ENABLED)
 #if defined (versal)
    ldr	x0, =XPAR_CPU_CORTEXA72_0_TIMESTAMP_CLK_FREQ
 #else
    ldr	x0, =XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ
    msr	CNTFRQ_EL0, x0
+#endif
 #endif
 
 ; Enable hardware coherency between cores
