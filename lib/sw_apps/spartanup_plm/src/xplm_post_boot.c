@@ -15,6 +15,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
  * 1.01  ng   11/05/24 Add boot time measurements
+ * 1.01  ng   12/04/24 Fix secondary boot control
  * </pre>
  *
  ******************************************************************************/
@@ -38,13 +39,14 @@
 #include "xplm_dma.h"
 #include "xplm_load.h"
 #include "xplm_init.h"
+#include "xplm_util.h"
 
 /************************** Constant Definitions *****************************/
 /** @cond spartanup_plm_internal */
 #ifndef SDT
-	#define XPLM_IOMODULE_DEVICE	XPAR_IOMODULE_0_DEVICE_ID
+#define XPLM_IOMODULE_DEVICE	XPAR_IOMODULE_0_DEVICE_ID
 #else
-	#define XPLM_IOMODULE_DEVICE	XPAR_XIOMODULE_0_BASEADDR
+#define XPLM_IOMODULE_DEVICE	XPAR_XIOMODULE_0_BASEADDR
 #endif // !SDT
 /** @endcond */
 
@@ -191,9 +193,9 @@ u32 XPlm_PostBoot(void)
 	u32 Status = (u32)XST_FAILURE;
 	u32 EfusePufhdInvalidBits;
 	u32 EfusePufhdInvalidBitsTmp;
-	u32 SecBootConfig;
-	u32 SecBootConfigTmp;
+	u32 SecBootRtcaCfg;
 	u32 SecBootInterf;
+	u32 SecBootEn;
 
 	XPlm_LogPlmStage(XPLM_POST_BOOT_STAGE);
 
@@ -215,26 +217,29 @@ u32 XPlm_PostBoot(void)
 	 * - Enable Secondary boot if enabled in RTCA register, set the boot interface and toggle
 	 *   SBI reset.
 	 */
-	SecBootConfig = Xil_In32(XPLM_RTCFG_SEC_BOOT_CTRL) & XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK;
-	SecBootConfigTmp = Xil_In32(XPLM_RTCFG_SEC_BOOT_CTRL) & XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK;
-	if ((SecBootConfig == XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK)
-	    && (SecBootConfigTmp == XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK)) {
-		SecBootInterf = (SecBootConfig & XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_MASK) >>
-				XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_SHIFT;
+	SecBootRtcaCfg = Xil_In32(XPLM_RTCFG_SEC_BOOT_CTRL);
+	SecBootEn = SecBootRtcaCfg & XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK;
+	if (SecBootEn  == XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK) {
+		SecBootInterf = SecBootRtcaCfg & XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_MASK;
+		SecBootInterf >>= XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_SHIFT;
 		if ((SecBootInterf != XPLM_SBI_IF_JTAG) && (SecBootInterf != XPLM_SBI_IF_AXI_SLAVE)
 		    && (SecBootInterf != XPLM_SBI_IF_MCAP)) {
 			Status = (u32)XPLM_ERR_INVALID_SECONDARY_BOOT_INTF;
 			goto END;
 		}
+
+		/* Take SBI out of reset */
 		XPlm_UtilRMW(PMC_GLOBAL_RST_SBI, PMC_GLOBAL_RST_SBI_FULLMASK, XPLM_ZERO);
+
+		/* Set SBI interface as per the user config */
 		XPlm_UtilRMW(SLAVE_BOOT_SBI_CTRL,
-			     SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK | SLAVE_BOOT_SBI_CTRL_ENABLE_MASK, SecBootInterf);
+			     SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK | SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
+			     ((SecBootInterf << XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_SHIFT) | SecBootEn));
 	}
 
 	/** - Initialize interrupts. */
 	Status = XPlm_IntrInit();
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
