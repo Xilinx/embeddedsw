@@ -192,7 +192,7 @@ s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Wait until the given DMA channel transfer completes. */
-	Status = XAsuDma_WaitForDone(&DmaPtr->AsuDma, Channel);
+	Status = XAsuDma_WaitForDoneTimeout(&DmaPtr->AsuDma, Channel);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ERR_NON_BLOCK_DMA_WAIT;
 		goto END;

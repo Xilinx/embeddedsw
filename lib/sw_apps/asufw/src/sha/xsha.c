@@ -411,7 +411,8 @@ s32 XSha_Finish(XSha *InstancePtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutp
 		goto END;
 	}
 
-	if (NextXofOutput > XASU_SHA_NEXT_XOF_ENABLE_MASK) {
+	if ((InstancePtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
+		(NextXofOutput > XASU_SHA_NEXT_XOF_ENABLE_MASK)) {
 		Status = XASUFW_SHA_NEXT_XOF_INVALID_MASK;
 		goto END;
 	}
