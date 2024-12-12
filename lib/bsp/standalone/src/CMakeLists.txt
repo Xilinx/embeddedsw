@@ -124,7 +124,13 @@ foreach(ASM_S_FILE ${ASM_S_FILES})
 endforeach()
 add_library(xilstandalone STATIC ${_sources} ${ASM_O_FILES})
 elseif("${proc_compiler}" STREQUAL "iccarm.exe")
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
 set(ASM_s_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/iccarm/boot.s  ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/iccarm/asm_vectors.s)
+set(CPU_C_FLAGS --cpu Cortex-R5 --fpu VFPv3_D16)
+elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9")
+set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexa9/iccarm/boot.S  ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexa9/iccarm/asm_vectors.s  ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexa9/iccarm/translation_table.s)
+set(CPU_C_FLAGS --cpu=Cortex-A9 -Om -e)
+endif()
 foreach(ASM_s_FILE ${ASM_s_FILES})
     # Get the file name without the extension
     get_filename_component(FILE_NAME ${ASM_s_FILE} NAME_WE)
@@ -134,7 +140,7 @@ foreach(ASM_s_FILE ${ASM_s_FILES})
     # Add a custom command to convert .s to .o
     add_custom_command(
         OUTPUT ${ASM_O_FILE}
-        COMMAND ${CMAKE_ASM_COMPILER} --cpu Cortex-R5 --fpu VFPv3_D16 -o ${ASM_O_FILE} ${ASM_s_FILE} -I${CMAKE_INCLUDE_PATH}
+        COMMAND ${CMAKE_ASM_COMPILER} ${CPU_C_FLAGS} -o ${ASM_O_FILE} ${ASM_s_FILE} -I${CMAKE_INCLUDE_PATH}
         DEPENDS ${ASM_s_FILE}
     )
 
