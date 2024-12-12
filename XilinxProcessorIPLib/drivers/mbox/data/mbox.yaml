@@ -11,8 +11,11 @@ type: driver
 
 properties:
   compatible:
-    items:
-      - const: xlnx,mailbox-2.1
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,mailbox-2.1
+          - xlnx,mailbox
   reg:
     description: Physical base address and size of the controller register map
   xlnx,use-fsl:

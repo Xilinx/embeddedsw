@@ -16,7 +16,7 @@ BEGIN driver mbox
   OPTION supported_peripherals = (xps_mailbox mailbox);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.8;
+  OPTION VERSION = 4.9;
   OPTION NAME = mbox;
   
 END driver
