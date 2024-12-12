@@ -1,7 +1,11 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2023-2024 Advanced Micro Devices, Inc.  All rights reserved.
 
+if("${proc_compiler}" STREQUAL "armcc")
+add_subdirectory(armcc)
+else()
 add_subdirectory(gcc)
+endif()
 
 collect (PROJECT_LIB_HEADERS smc.h)
 collect (PROJECT_LIB_SOURCES xil_cache.c)

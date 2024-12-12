@@ -1,5 +1,6 @@
 ;******************************************************************************
 ; Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+; Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ; SPDX-License-Identifier: MIT
 ;*****************************************************************************
 ;****************************************************************************
@@ -53,7 +54,7 @@
 ;****************************************************************************
 
 
-
+#include "bspconfig.h"
 #include "xparameters.h"
 #include "xil_errata.h"
 
@@ -70,7 +71,9 @@
 	IMPORT _vector_table
 	IMPORT __main
 	IMPORT Xil_ExceptionInit
+#if !defined(XPAR_XILTIMER_ENABLED)
 	IMPORT XTime_SetTime
+#endif
 #if defined SLEEP_TIMER_BASEADDR
 	IMPORT XTime_StartTTCTimer
 #endif
@@ -364,10 +367,12 @@ Sync
 	mov	r2, #0x80000000			; enable cycle counter
 	mcr	p15, 0, r2, c9, c12, 1
 
+#if !defined(XPAR_XILTIMER_ENABLED)
 ; Reset and start Global Timer
     mov	r0, #0x0
     mov	r1, #0x0
     bl XTime_SetTime
+#endif
 
 ; Reset and start Triple Timer counter
 	#if defined SLEEP_TIMER_BASEADDR

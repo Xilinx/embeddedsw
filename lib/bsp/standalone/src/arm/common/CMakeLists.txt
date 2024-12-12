@@ -3,7 +3,7 @@
 
 if("${proc_compiler}" STREQUAL "armclang")
   add_subdirectory(armclang)
-else()
+elseif(NOT ("${proc_compiler}" STREQUAL "armcc"))
   add_subdirectory(gcc)
 endif()
 collect (PROJECT_LIB_SOURCES putnum.c)
