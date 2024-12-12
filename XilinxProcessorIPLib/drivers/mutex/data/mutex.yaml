@@ -11,8 +11,12 @@ type: driver
 
 properties:
   compatible:
-    items:
-      - const: xlnx,mutex-2.1
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,mutex-2.1
+          - xlnx,mutex
+
   reg:
     description: Physical base address and size of the controller register map
   xlnx,num-mutex:

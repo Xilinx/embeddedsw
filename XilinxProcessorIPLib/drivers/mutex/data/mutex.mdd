@@ -22,7 +22,7 @@ BEGIN driver mutex
   OPTION supported_peripherals = (mutex);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.9;
+  OPTION VERSION = 4.10;
   OPTION NAME = mutex;
   
 END driver
