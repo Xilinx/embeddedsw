@@ -256,6 +256,7 @@ extern "C" {
 #define PM_RST_RAM_1				(0xC410073U)
 #define PM_RST_USB1_PHY				(0xC104078U)
 #define PM_RST_WWDT				(0xC410079U)
+#define PM_RST_UFS_PHY				(0xC10407CU)
 #define PM_RST_SYSMON_CFG_CPM5N			(0xC41007EU)
 #define PM_RST_SYSMON_CFG_PMC			(0xC41007FU)
 #define PM_RST_SYSMON_SEQ_CPM5N			(0xC410080U)
@@ -1172,6 +1173,8 @@ extern "C" {
  * Versal Register Nodes
  */
 #define PM_REG_CRP				(0x30000001U)
+#define PM_REG_PMC_IOU_SLCR			(0x30000002U)
+#define PM_REG_EFUSE_CACHE			(0x30000003U)
 /** @} */
 
 #ifdef __cplusplus
