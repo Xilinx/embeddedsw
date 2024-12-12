@@ -83,9 +83,7 @@ s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Len
 				   XASU_MODULE_TRNG_ID, 0U);
 
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+
 END:
 	return Status;
 }

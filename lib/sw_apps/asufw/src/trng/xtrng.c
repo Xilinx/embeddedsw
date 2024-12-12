@@ -782,6 +782,12 @@ s32 XTrng_InitNCfgTrngMode(XTrng *InstancePtr, XTrng_Mode Mode)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XTrng_UserConfig UsrCfg;
 
+	/** Validate input parameters. */
+	if (InstancePtr == NULL) {
+		Status = XASUFW_TRNG_INVALID_PARAM;
+		goto END;
+	}
+
 	if (InstancePtr->State != XTRNG_UNINITIALIZED_STATE) {
 		Status = XTrng_Uninstantiate(InstancePtr);
 		if (Status != XASUFW_SUCCESS) {
