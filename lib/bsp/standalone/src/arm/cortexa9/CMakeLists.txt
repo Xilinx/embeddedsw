@@ -3,7 +3,7 @@
 
 if("${proc_compiler}" STREQUAL "armcc")
 add_subdirectory(armcc)
-else()
+elseif(NOT ("${proc_compiler}" STREQUAL "iccarm.exe"))
 add_subdirectory(gcc)
 endif()
 
