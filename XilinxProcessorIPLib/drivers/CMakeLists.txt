@@ -37,11 +37,12 @@ list(APPEND xil_mri "end\n")
 file(WRITE ${CMAKE_BINARY_DIR}/libxil.mri ${xil_mri})
 
 set(XIL_LIB ${CMAKE_BINARY_DIR}/libxil.a)
-if(NOT ("${proc_compiler}" STREQUAL "armclang"))
-	set(CUSTOM_COMMAND ${CMAKE_AR} -M<${CMAKE_BINARY_DIR}/libxil.mri)
-else()
+if(("${proc_compiler}" STREQUAL "armclang") OR
+   ("${proc_compiler}" STREQUAL "armcc"))
 	list(REVERSE OBJS)
 	set(CUSTOM_COMMAND ${CMAKE_AR} -cr ${XIL_LIB} ${OBJS})
+else()
+	set(CUSTOM_COMMAND ${CMAKE_AR} -M<${CMAKE_BINARY_DIR}/libxil.mri)
 endif()
 add_custom_target(combined ALL
 	COMMAND ${CUSTOM_COMMAND}

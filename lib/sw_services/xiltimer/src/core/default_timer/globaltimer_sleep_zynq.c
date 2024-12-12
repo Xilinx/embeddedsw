@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -101,7 +101,9 @@ static void XGlobalTimer_Start(XTimer *InstancePtr)
 static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
 					XTimer_DelayType DelayType)
 {
+#if defined(__GNUC__)
 	(void) InstancePtr;
+#endif
 	XTime tEnd, tCur;
 #ifndef SDT
         u32 CpuFreq = XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ;
