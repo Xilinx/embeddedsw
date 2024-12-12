@@ -123,6 +123,25 @@ foreach(ASM_S_FILE ${ASM_S_FILES})
     list(APPEND ASM_O_FILES ${ASM_O_FILE})
 endforeach()
 add_library(xilstandalone STATIC ${_sources} ${ASM_O_FILES})
+elseif("${proc_compiler}" STREQUAL "iccarm.exe")
+set(ASM_s_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/iccarm/boot.s  ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/iccarm/asm_vectors.s)
+foreach(ASM_s_FILE ${ASM_s_FILES})
+    # Get the file name without the extension
+    get_filename_component(FILE_NAME ${ASM_s_FILE} NAME_WE)
+
+    set(ASM_O_FILE ${CMAKE_CURRENT_BINARY_DIR}/${FILE_NAME}.o)
+
+    # Add a custom command to convert .s to .o
+    add_custom_command(
+        OUTPUT ${ASM_O_FILE}
+        COMMAND ${CMAKE_ASM_COMPILER} --cpu Cortex-R5 --fpu VFPv3_D16 -o ${ASM_O_FILE} ${ASM_s_FILE} -I${CMAKE_INCLUDE_PATH}
+        DEPENDS ${ASM_s_FILE}
+    )
+
+    # Add the .o file to a list of object files
+    list(APPEND ASM_O_FILES ${ASM_O_FILE})
+endforeach()
+add_library(xilstandalone STATIC ${_sources} ${ASM_O_FILES})
 else()
 add_library(xilstandalone STATIC ${_sources})
 endif()
