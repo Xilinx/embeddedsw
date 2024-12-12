@@ -13,6 +13,9 @@
  *********************************************************************/
 
 #include "csu.h"
+#ifdef ENABLE_CSU_MULTIBOOT
+#include "pm_binding.h"
+#endif
 #include "pm_core.h"
 #include "pm_node.h"
 #include "pm_proc.h"
@@ -1392,6 +1395,11 @@ static void PmSystemShutdown(PmMaster* const master, const u32 type,
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
+
+#ifdef ENABLE_CSU_MULTIBOOT
+	/* Re-store Multiboot register value */
+	XPfw_Write32(CSU_MULTI_BOOT, GetCsuMultibootVal());
+#endif
 
 	/* Now distinguish the restart scope depending on the subtype */
 	switch (subtype) {

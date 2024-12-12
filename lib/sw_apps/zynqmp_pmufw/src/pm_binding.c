@@ -1,6 +1,7 @@
 /*
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
+ * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
  */
 
 #include "xpfw_config.h"
@@ -11,6 +12,9 @@
  * management (PM) within PMU firmware.
  *********************************************************************/
 
+#ifdef ENABLE_CSU_MULTIBOOT
+#include "csu.h"
+#endif
 #include "pm_binding.h"
 #include "pm_defs.h"
 #include "pm_common.h"
@@ -41,6 +45,18 @@
 		PMU_IOMODULE_GPI1_MIO_WAKE_4_MASK | \
 		PMU_IOMODULE_GPI1_MIO_WAKE_5_MASK)
 
+#ifdef ENABLE_CSU_MULTIBOOT
+static u32 CsuMultibootRegVal;
+
+/**
+ * GetCsuMultibootVal() - Get CSU multiboot register value
+ */
+u32 GetCsuMultibootVal(void)
+{
+	return CsuMultibootRegVal;
+}
+#endif
+
 /**
  * XPfw_PmInit() - initializes PM firmware
  *
@@ -63,6 +79,11 @@ void XPfw_PmInit(void)
 		PmMasterDefaultConfig();
 		PmNodeConstruct();
 	}
+
+#ifdef ENABLE_CSU_MULTIBOOT
+	/* Store Multiboot register value */
+	CsuMultibootRegVal = XPfw_Read32(CSU_MULTI_BOOT);
+#endif
 }
 
 /**
