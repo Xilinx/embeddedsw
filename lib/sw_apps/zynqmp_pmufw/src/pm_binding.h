@@ -1,6 +1,7 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
+ * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
  */
 
 /*********************************************************************
@@ -51,6 +52,11 @@ void XPfw_DapFpdWakeEvent(void);
 
 /* Call from DAP event handlers to inform PM about the RPU power state change */
 void XPfw_DapRpuWakeEvent(void);
+
+#ifdef ENABLE_CSU_MULTIBOOT
+/* Get CSU multiboot register value */
+u32 GetCsuMultibootVal(void);
+#endif
 
 #ifdef __cplusplus
 }

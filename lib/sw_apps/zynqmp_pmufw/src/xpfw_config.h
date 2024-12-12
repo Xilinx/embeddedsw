@@ -33,6 +33,7 @@ extern "C" {
 #define CONNECT_PMU_GPO_2_VAL          0
 #define OVERTEMP_DEGC                  90.0
 #define EXT_RESET_MIO_PIN_VAL          35
+#define ENABLE_CSU_MULTIBOOT
 #endif
 
 /**
@@ -136,6 +137,10 @@ extern "C" {
  * 	- EXT_RESET_MIO_PIN_STATE_VAL : Board external reset MIO pin active state (0-1)
  *	- ENABLE_DYNAMIC_MIO_CONFIG: Enables IOCTL support for configuring MIO
  *				     regiisters
+ *	- ENABLE_CSU_MULTIBOOT: Allows the storage and restoration of the multiboot
+ *				register during the PMU firmware initialization and
+ *				restart processes, ensuring the boot partition is
+ *				maintained during a restart.
  */
 #ifndef ENABLE_PM_VAL
 #define	ENABLE_PM_VAL						(1U)
@@ -307,6 +312,10 @@ extern "C" {
 
 #ifndef ENABLE_SMMU_VAL
 #define ENABLE_SMMU_VAL					(0U)
+#endif
+
+#ifndef ENABLE_CSU_MULTIBOOT_VAL
+#define ENABLE_CSU_MULTIBOOT_VAL			(0U)
 #endif
 
 /*
@@ -615,6 +624,10 @@ extern "C" {
 
 #if (ENABLE_SMMU_VAL) && (!defined(ENABLE_SMMU))
 #define ENABLE_SMMU
+#endif
+
+#if (ENABLE_CSU_MULTIBOOT_VAL) && (!defined(ENABLE_CSU_MULTIBOOT))
+#define ENABLE_CSU_MULTIBOOT
 #endif
 
 #ifdef __cplusplus
