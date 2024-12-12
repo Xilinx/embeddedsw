@@ -15,6 +15,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   07/31/24 Initial release
  * 1.01  ng   11/05/24 Add boot time measurements
+ * 1.01  ng   12/04/24 Fix secondary boot control
  * </pre>
  *
  ******************************************************************************/
@@ -35,9 +36,9 @@ extern "C" {
 #define	XPLM_SBI_INTERRUPT_ID	(17U)
 
 /* SBI interface types */
-#define XPLM_SBI_IF_JTAG        (0x001U)
-#define XPLM_SBI_IF_AXI_SLAVE   (0x010U)
-#define XPLM_SBI_IF_MCAP        (0x100U)
+#define XPLM_SBI_IF_JTAG        (0x1U)
+#define XPLM_SBI_IF_AXI_SLAVE   (0x2U)
+#define XPLM_SBI_IF_MCAP        (0x4U)
 
 #define XPLM_RAM_BASEADDR		(0x04020000U)
 
@@ -80,7 +81,7 @@ extern "C" {
 /* Shifts for PLM RunTime Configuration Registers */
 #define XPLM_RTCFG_OSPI_XDR_MODE_SHIFT          (0x8U)
 #define XPLM_RTCFG_OSPI_PHY_MODE_SHIFT          (0x9U)
-#define XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_SHIFT	(0x1U)
+#define XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_SHIFT	(0x2U)
 
 /* Addresses for RV_IOMODULE */
 #define RV_IOMODULE_BASEADDR                    (0x04040000U)
