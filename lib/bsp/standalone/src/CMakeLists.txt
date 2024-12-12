@@ -78,6 +78,46 @@ add_library(xilstandalone STATIC ${_sources} microblaze_interrupt_handler.o)
 else()
 add_library(xilstandalone STATIC ${_sources})
 endif()
+elseif("${proc_compiler}" STREQUAL "armclang")
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72")
+set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/ARMv8/64bit/armclang/asm_vectors.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/ARMv8/64bit/armclang/boot.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/ARMv8/64bit/platform/versal/armclang/translation_table.S)
+set(CLANG_TARGET --target=aarch64-arm-none-eabi)
+set(CLANG_CPU --cpu=8-A.64)
+elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
+set(ASM_S_FILES ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/asm_vectors.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang//boot.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/xil-crt0.S ${CMAKE_CURRENT_SOURCE_DIR}/arm/cortexr5/armclang/cpu_init.S)
+set(CLANG_TARGET --target=arm-arm-none-eabi)
+set(CLANG_CPU --cpu=Cortex-R5)
+endif()
+foreach(ASM_S_FILE ${ASM_S_FILES})
+    # Get the file name without the extension
+    get_filename_component(FILE_NAME ${ASM_S_FILE} NAME_WE)
+
+    # Define the names of the .s and .o files
+    if ("${FILE_NAME}" STREQUAL "boot")
+        set(ASM_s_FILE ${CMAKE_CURRENT_BINARY_DIR}/${FILE_NAME}_post.s)
+    else()
+        set(ASM_s_FILE ${CMAKE_CURRENT_BINARY_DIR}/${FILE_NAME}.s)
+    endif()
+    set(ASM_O_FILE ${CMAKE_CURRENT_BINARY_DIR}/${FILE_NAME}.o)
+
+    # Add a custom command to convert .S to .s
+    add_custom_command(
+        OUTPUT ${ASM_s_FILE}
+	COMMAND ${CMAKE_C_COMPILER} ${CLANG_TARGET} -I ${CMAKE_INCLUDE_PATH} -I ${CMAKE_BINARY_DIR}/include -E -o ${ASM_s_FILE} ${ASM_S_FILE}
+        DEPENDS ${ASM_S_FILE}
+    )
+
+    # Add a custom command to convert .s to .o
+    add_custom_command(
+        OUTPUT ${ASM_O_FILE}
+	COMMAND ${CMAKE_ASM_COMPILER} ${CLANG_CPU} -o ${ASM_O_FILE} ${ASM_s_FILE} --depend=$$*.d
+        DEPENDS ${ASM_s_FILE}
+    )
+
+    # Add the .o file to a list of object files
+    list(APPEND ASM_O_FILES ${ASM_O_FILE})
+endforeach()
+add_library(xilstandalone STATIC ${_sources} ${ASM_O_FILES})
 else()
 add_library(xilstandalone STATIC ${_sources})
 endif()

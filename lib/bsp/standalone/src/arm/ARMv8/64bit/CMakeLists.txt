@@ -1,6 +1,10 @@
-# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
-add_subdirectory(gcc)
+if("${proc_compiler}" STREQUAL "armclang")
+  add_subdirectory(armclang)
+else()
+  add_subdirectory(gcc)
+endif()
 add_subdirectory(platform)
 collect (PROJECT_LIB_HEADERS xreg_cortexa53.h)
 collect (PROJECT_LIB_HEADERS xil_mmu.h)
