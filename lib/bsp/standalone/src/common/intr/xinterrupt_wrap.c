@@ -484,7 +484,7 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 #else
 	(void)Priority;
 #endif
-	Status = XConnectToInterruptCntrl( IntrId, (Xil_ExceptionHandler) IntrHandler, \
+	Status = XConnectToInterruptCntrl( IntrId, IntrHandler, \
 					   DriverInstance, IntcParent);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;

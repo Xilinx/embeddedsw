@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 if("${proc_compiler}" STREQUAL "armclang")
   add_subdirectory(armclang)
-else()
+elseif(NOT ("${proc_compiler}" STREQUAL "iccarm.exe"))
   add_subdirectory(gcc)
 endif()
 add_subdirectory(platform)
