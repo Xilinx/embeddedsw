@@ -37,7 +37,9 @@ extern "C" {
 
 struct PsmToPlmEvent_t {
 	u32 Version;	/* Version of the event structure */
+#ifdef XPLMI_IPI_DEVICE_ID
 	PsmToPlmEventInfo_t EventInfo;
+#endif
 	u32 StlId;	/**< This indicates failed STL ID */
 	u32 Event[PROC_DEV_MAX];
 	u32 CpuIdleFlag[PROC_DEV_MAX];

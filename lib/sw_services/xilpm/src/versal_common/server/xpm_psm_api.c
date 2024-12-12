@@ -30,7 +30,9 @@ XStatus XPm_ProcessPsmCmd(void)
 	const XPm_Power *Lpd;
 
 	PmDbg("Processing Psm Event\n\r");
+#ifdef XPLMI_IPI_DEVICE_ID
 	PsmToPlmEvent->EventInfo.PmEvent = 0U;
+#endif
 
 	Lpd = XPmPower_GetById(PM_POWER_LPD);
 	if (NULL == Lpd) {
@@ -268,7 +270,9 @@ XStatus XPm_GetPsmToPlmEventAddr(void)
 	if (XST_SUCCESS == Status) {
 		PsmToPlmEvent = (struct PsmToPlmEvent_t *)Response[1];
 		/* Update PsmToPlmEventInfo in xilplmi */
+#ifdef XPLMI_IPI_DEVICE_ID
 		XPlmi_SetPsmToPlmEventInfo(&PsmToPlmEvent->EventInfo);
+#endif
 	} else if (XST_INVALID_PARAM == Status) {
 		PmErr("PSM-PLM versions may be out of sync. "
 		      "PSM_TO_PLM_EVENT_ADDR unsupported.\n\r");
