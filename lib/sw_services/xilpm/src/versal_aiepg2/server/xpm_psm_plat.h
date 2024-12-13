@@ -28,7 +28,7 @@ extern "C" {
 #define XPM_PSM_WAKEUP_MASK				BIT(2)
 #define PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK	(0x00000010U)
 #define XPM_MAX_POLL_TIMEOUT				(0x10000000U)
-#define XPM_SET_PROC_LIST_PLAT XPlmi_SetBufferList(PROC_LOCATION_ADDRESS, PROC_LOCATION_LENGTH)
+#define XPM_SET_PROC_LIST_PLAT 				(0U)
 
 maybe_unused static inline XStatus XPmPsm_SendPowerUpReq(XPm_Power *Power)
 {
