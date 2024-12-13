@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *                    examples.
 * 1.12	sne 04/25/22 Added volatile keyword for Seconds variable.
 * 1.13	ht  06/21/23 Added support for system device-tree flow.
+* 1.15  ht  12/13/24 Fix C++ compilation warnings and errors in SDT flow.
 * </pre>
 ****************************************************************************/
 
@@ -181,7 +182,7 @@ int RtcPsuSecondsIntrExample(XRtcPsu *RtcInstPtr, UINTPTR BaseAddress)
 #ifndef SDT
 	Status = SetupInterruptSystem(IntcInstPtr, RtcInstPtr, RtcIntrId);
 #else
-	Status = XSetupInterruptSystem(RtcInstPtr, &XRtcPsu_InterruptHandler,
+	Status = XSetupInterruptSystem(RtcInstPtr, (void *)&XRtcPsu_InterruptHandler,
 				       Config->IntrId[1],
 				       Config->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
@@ -234,6 +235,7 @@ int RtcPsuSecondsIntrExample(XRtcPsu *RtcInstPtr, UINTPTR BaseAddress)
 ***************************************************************************/
 void Handler(void *CallBackRef, u32 Event)
 {
+	Xil_AssertVoid(CallBackRef != NULL);
 	/* A new second event */
 	if (Event == XRTCPSU_EVENT_SECS_GEN) {
 		Seconds++;
