@@ -285,7 +285,7 @@ static int XCanFdIntrExample(UINTPTR BaseAddress)
 #ifndef SDT
 	Status = SetupInterruptSystem(CanFdInstPtr);
 #else
-	Status = XSetupInterruptSystem(CanFdInstPtr, &XCanFd_IntrHandler,
+	Status = XSetupInterruptSystem(CanFdInstPtr, (void *)&XCanFd_IntrHandler,
 				       ConfigPtr->IntrId,
 				       ConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
