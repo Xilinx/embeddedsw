@@ -50,6 +50,7 @@
 * 1.04  sk   08/26/2024 Updated EAM support for Versal Aiepg2
 *       yog  09/09/2024 Updated XPlmi_VerifyAddrRange API to handle ASU memory regions
 *       nb   09/16/2024 Register interrupt for PMC power interrupts
+*       sk   12/13/2024 Updated PSM buffer defines to PPU RAM
 *
 * </pre>
 *
@@ -117,12 +118,12 @@
 /* PMC IRO Frequency related macros */
 #define XPLMI_PMC_IRO_FREQ_233_MHZ	(233000000U) /**< PMC IRO frequency 233Mhz */
 
-#define XPLMI_PSM_BUFFER_DS_VER 	(1U) /**< PSM buffers Data structure version */
-#define XPLMI_PSM_BUFFER_DS_LCVER 	(1U) /**< PSM buffers Data structure LC version */
+#define XPLMI_PPU_BUFFER_DS_VER 	(1U) /**< PPU buffers Data structure version */
+#define XPLMI_PPU_BUFFER_DS_LCVER 	(1U) /**< PPU buffers Data structure LC version */
 #define XPLMI_PMC_BUFFER_DS_VER 	(1U) /**< PMC buffers Data structure version */
 #define XPLMI_PMC_BUFFER_DS_LCVER 	(1U) /**< PMC buffers Data structure LC version */
-#define XPLMI_PSM_BUFFER_LIST_DS_VER 	(1U) /**< PSM buffer list Data structure version */
-#define XPLMI_PSM_BUFFER_LIST_DS_LCVER 	(1U) /**< PSM buffer list Data structure LC version */
+#define XPLMI_PPU_BUFFER_LIST_DS_VER 	(1U) /**< PPU buffer list Data structure version */
+#define XPLMI_PPU_BUFFER_LIST_DS_LCVER 	(1U) /**< PPU buffer list Data structure LC version */
 #define XPLMI_PMC_BUFFER_LIST_DS_VER 	(1U) /**< PMC buffer list Data structure version */
 #define XPLMI_PMC_BUFFER_LIST_DS_LCVER 	(1U) /**< PMC buffer list Data structure LC version */
 
@@ -160,6 +161,7 @@ static XInterruptHandler g_TopLevelInterruptTable[] = {
 	XPlmi_IntrHandler,
 	XPlmi_ErrIntrHandler,
 };
+
 
  /* Default IRO frequency during ROM phase is 233MHz */
 static u32 RomIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ;
@@ -1166,7 +1168,7 @@ u8 XPlmi_IsKatRan(u32 PlmKatMask)
 /**
  * @brief	This function defines BufferList and returns the address of the same
  *
- * @param	BufferListType is the proc list type if it is stored in PMC or PSM RAM
+ * @param	BufferListType is the proc list type if it is stored in PMC or PPU RAM
  *
  * @return	BufferList is the address of BufferList structure
  *
@@ -1177,26 +1179,26 @@ XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
 	 * - Create static BufferList structure and initialize with zero during
 	 * initial call.
 	 */
-	static XPlmi_BufferList PsmBufferList = {0U};
-	static XPlmi_BufferData PsmBuffers[XPLMI_MAX_PSM_BUFFERS + 1U] = {0U};
+	static XPlmi_BufferList PpuBufferList = {0U};
+	static XPlmi_BufferData PpuBuffers[XPLMI_MAX_PPU_BUFFERS + 1U] = {0U};
 	static XPlmi_BufferList PmcBufferList = {0U};
 	static XPlmi_BufferData PmcBuffers[XPLMI_MAX_PMC_BUFFERS + 1U] = {0U};
-	XPlmi_BufferList *BufferList = &PsmBufferList;
+	XPlmi_BufferList *BufferList = &PpuBufferList;
 
-	EXPORT_GENERIC_DS(PsmBuffers, XPLMI_PSM_BUFFER_DS_ID, XPLMI_PSM_BUFFER_DS_VER, \
-			XPLMI_PSM_BUFFER_DS_LCVER, sizeof(PsmBuffers), (u32)(UINTPTR)PsmBuffers);
+	EXPORT_GENERIC_DS(PpuBuffers, XPLMI_PPU_BUFFER_DS_ID, XPLMI_PPU_BUFFER_DS_VER, \
+			XPLMI_PPU_BUFFER_DS_LCVER, sizeof(PpuBuffers), (u32)(UINTPTR)PpuBuffers);
 
 	EXPORT_GENERIC_DS(PmcBuffers, XPLMI_PMC_BUFFER_DS_ID, XPLMI_PMC_BUFFER_DS_VER, \
 			XPLMI_PMC_BUFFER_DS_LCVER, sizeof(PmcBuffers), (u32)(UINTPTR)PmcBuffers);
 
-	EXPORT_GENERIC_DS(PsmBufferList, XPLMI_PSM_BUFFER_LIST_DS_ID, XPLMI_PSM_BUFFER_LIST_DS_VER, \
-			XPLMI_PSM_BUFFER_LIST_DS_LCVER, sizeof(XPlmi_BufferList), (u32)(UINTPTR)&PsmBufferList);
+	EXPORT_GENERIC_DS(PpuBufferList, XPLMI_PPU_BUFFER_LIST_DS_ID, XPLMI_PPU_BUFFER_LIST_DS_VER, \
+			XPLMI_PPU_BUFFER_LIST_DS_LCVER, sizeof(XPlmi_BufferList), (u32)(UINTPTR)&PpuBufferList);
 
 	EXPORT_GENERIC_DS(PmcBufferList, XPLMI_PMC_BUFFER_LIST_DS_ID, XPLMI_PMC_BUFFER_LIST_DS_VER, \
 			XPLMI_PMC_BUFFER_LIST_DS_LCVER, sizeof(XPlmi_BufferList), (u32)(UINTPTR)&PmcBufferList);
-	PsmBufferList.Data = PsmBuffers;
-	PsmBufferList.MaxBufferCount = XPLMI_MAX_PSM_BUFFERS;
-	PmcBufferList.Data = PmcBuffers;
+	PpuBufferList.Data = PpuBuffers;
+	PpuBufferList.MaxBufferCount = XPLMI_MAX_PPU_BUFFERS;
+	PmcBufferList.Data = PpuBuffers;
 	PmcBufferList.MaxBufferCount = XPLMI_MAX_PMC_BUFFERS;
 
 	if (BufferListType == XPLMI_PMC_BUFFER_LIST) {

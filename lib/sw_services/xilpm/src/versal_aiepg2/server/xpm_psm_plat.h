@@ -26,11 +26,9 @@ extern "C" {
 /* TODO: Remove all the macros underneath. Added for compilation only */
 #define XPM_RPU_CPUHALT_MASK				BIT(0)
 #define XPM_PSM_WAKEUP_MASK				BIT(2)
-#define PROC_LOCATION_ADDRESS	(0xEBC26000U)
-#define PROC_LOCATION_LENGTH	(0x2000U)
 #define PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK	(0x00000010U)
 #define XPM_MAX_POLL_TIMEOUT				(0x10000000U)
-#define XPM_SET_PROC_LIST_PLAT	XPlmi_SetBufferList(PROC_LOCATION_ADDRESS, PROC_LOCATION_LENGTH)
+#define XPM_SET_PROC_LIST_PLAT XPlmi_SetBufferList(PROC_LOCATION_ADDRESS, PROC_LOCATION_LENGTH)
 
 maybe_unused static inline XStatus XPmPsm_SendPowerUpReq(XPm_Power *Power)
 {

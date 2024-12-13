@@ -60,6 +60,7 @@
 * 24.2  prt	 09/18/2024 Updated XPLMI_PLM_PLAT_RC_VERSION to 0U
 *       pre  09/30/2024 Added XPlmi_GetSsitSecCommStatus define
 *       pre  10/07/2024 Added XPlmi_CheckSlaveErrors function
+* 2.03  sk   12/13/2024 Added defines for PPU Proc Buffers
 *
 * </pre>
 *
@@ -90,7 +91,7 @@ extern "C" {
 #define XPLMI_PLM_USER_DEFINED_VERSION		XPAR_PLM_VERSION_USER_DEFINED   /**< PLM User Defined Version */
 
 /* Maximum procs supported */
-#define XPLMI_MAX_PSM_BUFFERS		(40U)  /**< Maximum PSM Buffers */
+#define XPLMI_MAX_PPU_BUFFERS		(40U)  /**< Maximum PPU Buffers */
 #define XPLMI_MAX_PMC_BUFFERS		(20U)  /**< Maximum PMC Buffers */
 
 /* PLM RunTime Configuration Area Base Address */
@@ -126,6 +127,12 @@ extern "C" {
 #define XPLMI_ROM_SERVICE_TIMEOUT			(1000000U) /**< ROM service timeout */
 #define XPLMI_MILLI_SEC_TIME_MULTIPLIER 		(0x10000U) /**< factor for ~1msec for 320MHz to 400MHz range */
 #define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U) /**< PMC IRO frequency 320Mhz */
+
+extern u8 __ProcBuffer_start[];
+extern u8 __ProcBuffer_end[];
+
+#define PROC_LOCATION_ADDRESS	((u32)(unsigned char *)__ProcBuffer_start)
+#define PROC_LOCATION_LENGTH	((u32)(__ProcBuffer_end - __ProcBuffer_start))
 
 /**************************** Type Definitions *******************************/
 /* Minor Error Codes */
@@ -323,11 +330,11 @@ typedef enum {
 #define XPLMI_IS_PSMCR_CHANGED_DS_ID	(0x07U) /**< PSMCR status check data structure Id */
 #define XPLMI_NUM_ERROUTS_DS_ID		(0x08U) /**< Number of error outs data structure Id */
 #define XPLMI_BOARD_PARAMS_DS_ID	(0x09U) /**< Board parameters data structure Id */
-#define XPLMI_PSM_BUFFER_DS_ID		(0x0AU) /**< PSM Buffers data structure Id */
+#define XPLMI_PPU_BUFFER_DS_ID		(0x0AU) /**< PSM Buffers data structure Id */
 #define XPLMI_PMC_BUFFER_DS_ID		(0x0BU) /**< PMC Buffers data structure Id */
 #define XPLMI_UPDATE_PDIADDR_DS_ID	(0x10U) /**< Update IPI mask data structure Id */
 #define XPLMI_XIOMODULE_DS_ID		(0x11U) /**< IOModule data structure Id */
-#define XPLMI_PSM_BUFFER_LIST_DS_ID	(0x12U) /**< PSM Buffers data structure Id */
+#define XPLMI_PPU_BUFFER_LIST_DS_ID	(0x12U) /**< PSM Buffers data structure Id */
 #define XPLMI_PMC_BUFFER_LIST_DS_ID	(0x13U) /**< PMC Buffers data structure Id */
 
 /*

@@ -9,6 +9,7 @@ _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x2000;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x100;
 _USER_CODE_SIZE = DEFINED(_USER_CODE_SIZE) ? _USER_CODE_SIZE : 0x4000;
 _PLM_UPDATE_CODE_SIZE = DEFINED(_PLM_UPDATE_CODE_SIZE) ? _PLM_UPDATE_CODE_SIZE : 0x200;
+_PROCBUFFER_SIZE = DEFINED(_PROCBUFFER_SIZE) ? _PROCBUFFER_SIZE : 0x2800;
 /* Define Memories in the system */
 
 MEMORY
@@ -232,6 +233,14 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _PLM_UPDATE_CODE_SIZE;
    __update_mgr_b_end = .;
 } > update_mgr_Mem
+
+/* Define the .ProcBuffer section */
+.ProcBuffer (NOLOAD) : {
+ __ProcBuffer_start = .;
+   KEEP(*(.ProcBuffer))
+   . += _PROCBUFFER_SIZE;
+   __ProcBuffer_end = .;
+} > tmr_ram_cntlr_Mem
 
 .xplm_modules (INFO) : {
    KEEP (*(.xplm_modules))

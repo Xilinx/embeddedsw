@@ -23,6 +23,7 @@
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 *       ma   09/23/2024 Added support for PSM-PLM IPI events
 * 1.12  nb   10/09/2024 Add XilPM hook to XPlm_HookAfterBootPdi
+* 1.13  sk   12/13/2024 Added proc buffer init in XPlm_HookBeforePmcCdo
 *
 * </pre>
 *
@@ -66,9 +67,12 @@
 *****************************************************************************/
 int XPlm_HookBeforePmcCdo(void *Arg)
 {
+	int Status = XST_FAILURE;
 	(void)Arg;
 
-	return XST_SUCCESS;
+	Status = XPlmi_SetBufferList(PROC_LOCATION_ADDRESS, PROC_LOCATION_LENGTH);
+
+	return Status;
 }
 
 /*****************************************************************************/
