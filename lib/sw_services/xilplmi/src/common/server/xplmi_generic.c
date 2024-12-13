@@ -1647,9 +1647,11 @@ int XPlmi_SetBufferList(u32 Address, u16 Size)
 {
 	int Status = XST_FAILURE;
 	XPlmi_BufferList *BufferList = XPlmi_GetBufferList(XPLMI_PSM_BUFFER_LIST);
+
+#ifndef VERSAL_AIEPG2
+
 	u32 StartAddr;
 	u32 EndAddr;
-
 	/**
 	 * - Validate the allocated memory address range.
 	 *   Otherwise return an error.
@@ -1665,7 +1667,9 @@ int XPlmi_SetBufferList(u32 Address, u16 Size)
 		Status = (int)XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE;
 		goto END;
 	}
-
+#else
+	Status = XST_SUCCESS;
+#endif
 	/**
 	 * - Initialize first Data address of PSM BufferList to the given Address
 	 * and BufferMemSize with the given Size
