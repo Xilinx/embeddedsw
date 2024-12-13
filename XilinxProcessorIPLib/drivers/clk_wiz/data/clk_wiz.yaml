@@ -18,6 +18,7 @@ properties:
           - xlnx,clocking-wizard
           - xlnx,clocking-wizard-6.0
           - xlnx,clk-wizard-1.0
+          - xlnx,clkx5-wiz-1.0
 
   reg:
     description: Physical base address and size of the controller register map

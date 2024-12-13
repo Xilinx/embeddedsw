@@ -15,9 +15,9 @@
 OPTION psf_version = 2.1;
 
 BEGIN driver clk_wiz
-	OPTION supported_peripherals = (clk_wiz clk_wizard);
+	OPTION supported_peripherals = (clk_wiz clk_wizard clkx5_wiz);
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.8;
+	OPTION VERSION = 1.9;
 	OPTION NAME = clk_wiz;
 END driver
