@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 3.7   ht     06/28/23 Added support for system device-tree flow.
 *              07/10/23 Updated conditional macros for interrupt headers.
 * 3.8   rma    01/12/23 Update example code to fix compilation warnings.
+* 3.10  ht     12/13/24 Fix C++ compilation errors and warnings in SDT flow.
 * </pre>
 *
 ******************************************************************************/
@@ -287,7 +288,7 @@ int CanPsIntrExample(XCanPs *CanInstPtr, UINTPTR BaseAddress)
 				       CanInstPtr,
 				       CanIntrId);
 #else
-	Status = XSetupInterruptSystem(CanInstPtr, &XCanPs_IntrHandler,
+	Status = XSetupInterruptSystem(CanInstPtr, (void *)&XCanPs_IntrHandler,
 				       ConfigPtr->IntrId,
 				       ConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
