@@ -768,6 +768,7 @@ XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
 	}
 
 	Subsystem->Flags &= (u8)(~SUBSYSTEM_IS_CONFIGURED);
+	Subsystem->Flags &= (u8)(~SUBSYSTEM_IDLE_CB_IS_SENT);
 
 	Status = XPmSubsystem_ForceDownCleanup(Subsystem->Id);
 	if(XST_SUCCESS != Status) {
