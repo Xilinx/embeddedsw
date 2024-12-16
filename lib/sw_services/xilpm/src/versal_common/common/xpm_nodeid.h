@@ -124,6 +124,7 @@ extern "C" {
 #define PM_POWER_TCM_1_C			(0x410405DU)
 #define PM_POWER_TCM_1_D			(0x410405EU)
 #define PM_POWER_TCM_1_E			(0x410405FU)
+#define PM_POWER_VCCINT_ME			(0x4328061U)
 /** @} */
 
 /**
