@@ -36,6 +36,7 @@
 *       pre  08/22/2024 Added error codes related to XLoader_CfiSelectiveRead command
 *       obs  09/30/2024 Fixed Doxygen Warnings
 *       pre  10/22/2024 Added XLOADER_ERR_CMD_NOT_SUPPORTED error code
+*       bm   11/11/2024 Move I2C Handshake feature to common code
 *
 * </pre>
 *
@@ -106,7 +107,6 @@ extern "C" {
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
 
 #define XLoader_ConfigureJtagState	(NULL) /**< Configure JTAG State */
-#define XLoader_MbPmcI2cHandshake	(NULL) /**< DDRMB - PMC I2C Handshake */
 
 /* Minor Error Codes */
 enum {
@@ -243,6 +243,21 @@ enum {
 
 	/**< 0x2B - Error when command given is not supported */
 	XLOADER_ERR_CMD_NOT_SUPPORTED,
+
+	/** 0x2C - Error when Max ddr base addr */
+	XLOADER_ERR_MAX_BASE_ADDR,
+
+	/** 0x2D - Handshake process timeout */
+	XLOADER_ERR_HS_TIMEOUT,
+
+	/** 0x2E - I2c transaction error */
+	XLOADER_ERR_I2C_TRANSACTION,
+
+	/** 0x2F - I2c bus busy error */
+	XLOADER_ERR_I2C_BUS_BUSY,
+
+	/** 0x30 - Error while releasing I2C device used for Handshake */
+	XLOADER_ERR_I2C_DEV_RELEASE,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
 };

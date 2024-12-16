@@ -100,6 +100,7 @@
 *       ma   09/20/2024 Added PMC_TAP_VERSION_COSIM mask for COSIM platform
 *                       Also, corrected XPLMI_PLATFORM_MASK value
 *       pre  12/09/2024 Added METAHEADER_INSTANCE_ADDRESS and RTCA_LEN_IN_BYTES macros
+*       bm   12/16/2024 Move I2C Handshake feature to common code
 *
 * </pre>
 *
@@ -826,6 +827,16 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 #if defined(XPAR_XUARTPSV_1_BASEADDR)
 #define XPLMI_UART_1_BASEADDR	XPAR_XUARTPSV_1_BASEADDR
+#endif
+
+#if ((defined(XPAR_XIICPS_0_BASEADDR) &&\
+                 (XPAR_XIICPS_0_BASEADDR == 0xF1000000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                               (XPAR_XIICPS_1_BASEADDR == 0xF1000000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                        (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)))
+#define XLOADER_PMC_IIC
+
 #endif
 
 /*

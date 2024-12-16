@@ -31,6 +31,7 @@
 #       pre  07/16/2024 Corrected typo
 #       kal  09/25/2024 Remove deleting folders which are set in secure_drc
 #       pre  10/22/2024 Added configurable option for CFI selective read feature
+#       bm   11/11/2024 Added config option for I2C Handshake feature
 #
 ##############################################################################
 
@@ -493,6 +494,15 @@ proc xgen_opts_file {libhandle} {
 	puts $file_handle "\n/* plm version user defined */"
 	puts $file_handle [format %s%d%s "#define XPAR_PLM_VERSION_USER_DEFINED " [expr $value]  "U"]
 
+	# if plm_i2c_mb_handshake set by user or ddr5 exists in design then enable PLM_I2C_MB_HANDSHAKE
+	set value [common::get_property CONFIG.plm_i2c_mb_handshake $libhandle]
+	set ddr5 [expr {[hsi::get_cells -hier -filter {IP_NAME==noc_mc_ddr5}] ne ""}]
+	if {$value == true || $ddr5 == 1} {
+		puts $file_handle "\n/* PLM I2C MB Handshake */"
+		puts $file_handle "\n#define PLM_I2C_MB_HANDSHAKE"
+	}
+
 	puts $file_handle "\n"
+
 	close $file_handle
 }

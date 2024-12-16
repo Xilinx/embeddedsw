@@ -21,6 +21,7 @@
  * 1.1   ro   08/1/2023  Handle i2c handshake across CDO Chunk boundary
  *       dd   08/11/2023 Updated doxygen comments
  *       ng   02/14/2024 removed int typecast for errors
+ *       bm   11/11/2024 Move I2C Handshake feature to common code
  * </pre>
  *
  *
@@ -39,9 +40,12 @@
 #include "xplmi_hw.h"
 #include "xplmi_debug.h"
 #include "xpm_rail.h"
+#include "xloader.h"
+#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
 #include "xloader_plat.h"
-#ifdef XLOADER_PMC_IIC
 #include "xiicps.h"
+#include "xplmi.h"
+#include "xpm_api.h"
 
 /************************** Constant Definitions ******************************/
 #define XLOADER_MAX_BASE_ADDR_QUEUE (8U)
@@ -100,6 +104,7 @@ static u32 Xloader_CheckForTimeout(void);
 int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	u32 HsTimeoutStatus = TRUE;
 	u32 Index = 0U;
 	u32 HsDoneStatus = 0U;
@@ -191,6 +196,10 @@ UPDATE_INDEX:
 	}
 
 END:
+	SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC, XPLMI_CMD_SECURE);
+	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
+		Status = XLOADER_ERR_I2C_DEV_RELEASE;
+	}
 	return Status;
 }
 /*****************************************************************************/
@@ -390,23 +399,5 @@ static u32 Xloader_CheckForTimeout(void)
 	Status = TRUE;
 END:
 	return Status;
-}
-
-#else
-/*****************************************************************************/
-/**
- * This function parse the handshake command request coming from MB and
- * calls the function for handshake process.
- *
- * @param   Cmd is pointer to the command structure.
- *
- * @return
- *			 - XST_FAILURE  Always.
- *
- *******************************************************************************/
-int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
-{
-	(void) Cmd;
-	return XST_FAILURE;
 }
 #endif

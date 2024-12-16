@@ -123,7 +123,7 @@
 *       pre  08/22/2024 Added XLoader_CfiSelectiveRead function
 *       obs  09/30/2024 Fixed Doxygen Warnings
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
-*
+*       bm   12/16/2024 Move I2C Handshake feature to common code
 * </pre>
 *
 ******************************************************************************/
@@ -142,6 +142,7 @@ extern "C" {
 #include "xplmi_dma.h"
 #include "xcfupmc.h"
 #include "xloader_defs.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_SUCCESS		(u32)XST_SUCCESS	/**< Alias for XST_SUCCESS */
@@ -305,6 +306,11 @@ typedef struct {
 #define XLOADER_UFS_ADDR_SHIFT		(0x4U)
 
 #endif
+
+#if !defined(XLOADER_PMC_IIC) || !defined(PLM_I2C_MB_HANDSHAKE)
+#define XLoader_MbPmcI2cHandshake	(NULL) /**< DDRMB - PMC I2C Handshake */
+#endif
+
 /**************************** Type Definitions *******************************/
 /*
  * This stores the handoff Address of the different cpu's
@@ -451,6 +457,9 @@ int XLoader_ClearATFHandoffParams(XilPdi* PdiPtr);
 int XLoader_LoadImage(XilPdi *PdiPtr);
 int XLoader_GetImageAndPrtnInfo(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_CfiSelectiveRead(XPlmi_Cmd *Cmd);
+#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
+int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd);
+#endif
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);
