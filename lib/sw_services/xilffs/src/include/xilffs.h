@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,7 +40,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* Library version info */
 #define XILFFS_MAJOR_VERSION	5U
-#define XILFFS_MINOR_VERSION	2U
+#define XILFFS_MINOR_VERSION	4U
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
