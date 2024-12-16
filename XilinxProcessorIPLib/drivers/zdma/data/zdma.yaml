@@ -13,7 +13,11 @@ type: driver
 properties:
   compatible:
     items:
-      - const: xlnx,zynqmp-dma-1.0
+      OneOf:
+      - items:
+        - enum:
+          - xlnx,zynqmp-dma-1.0
+          - amd,versal2-dma-1.0
   reg:
     description: Physical base address and size of the controller register map
   xlnx,dma-mode:
