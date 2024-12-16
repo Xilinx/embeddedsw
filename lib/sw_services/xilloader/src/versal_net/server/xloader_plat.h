@@ -45,6 +45,7 @@
 *       pre  08/25/2024 Defined XLoader_VerifyDataAuth for PLM_SECURE_EXCLUDE mode
 *       obs  09/30/2024 Fixed Doxygen Warnings
 *       pre  10/22/2024 Added XLOADER_ERR_CMD_NOT_SUPPORTED error code
+*       bm   11/11/2024 Move I2C Handshake feature to common code
 *
 * </pre>
 *
@@ -248,6 +249,21 @@ enum {
 	/**< 0x2B - Error when command given is not supported */
 	XLOADER_ERR_CMD_NOT_SUPPORTED,
 
+	/** 0x2C - Error when Max ddr base addr */
+	XLOADER_ERR_MAX_BASE_ADDR,
+
+	/** 0x2D - Handshake process timeout */
+	XLOADER_ERR_HS_TIMEOUT,
+
+	/** 0x2E - I2c transaction error */
+	XLOADER_ERR_I2C_TRANSACTION,
+
+	/** 0x2F - I2c bus busy error */
+	XLOADER_ERR_I2C_BUS_BUSY,
+
+	/** 0x30 - Error while releasing I2C device used for Handshake */
+	XLOADER_ERR_I2C_DEV_RELEASE,
+
 	/* Platform specific Minor Error Codes start from 0x100 */
 	/** 0x100 - Invalid JTAG/DAP config request */
 	XLOADER_ERR_INVALID_JTAG_OPERATION = 0x100,
@@ -257,18 +273,6 @@ enum {
 
 	/** 0x102 - Pcomplete not done for given DDR device id */
 	XLOADER_ERR_PCOMPLETE_NOT_DONE,
-
-	/** 0x103 - Error when Max ddr base addr */
-	XLOADER_ERR_MAX_BASE_ADDR,
-
-	/** 0x104 - Handshake process timeout */
-	XLOADER_ERR_HS_TIMEOUT,
-
-	/** 0x105 - I2c transaction error */
-	XLOADER_ERR_I2C_TRANSACTION,
-
-	/** 0x106 - I2c bus busy error */
-	XLOADER_ERR_I2C_BUS_BUSY,
 
 };
 
@@ -432,7 +436,6 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
 int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
-int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd);
 int XLoader_LoadLpdAndPsmElf(void);
 int XLoader_CheckAndUpdateSecureState(void);
 #ifdef PLM_OCP_KEY_MNGMT

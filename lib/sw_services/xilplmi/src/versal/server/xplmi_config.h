@@ -50,6 +50,7 @@
 *       ng   03/20/2024 Added CDO debug prints
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  10/22/2024 Added configurable option for CFI selective read feature
+*       bm   11/11/2024 Added config option for I2C Handshake feature
 * </pre>
 *
 * @note
@@ -234,6 +235,9 @@ extern "C" {
 
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ
+
+/* Enable the below define to enable PMC I2C Handshake Feature*/
+//#define PLM_I2C_MB_HANDSHAKE
 
 /************************** Function Prototypes ******************************/
 

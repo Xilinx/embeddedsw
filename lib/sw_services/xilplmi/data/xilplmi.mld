@@ -69,4 +69,5 @@ BEGIN LIBRARY xilplmi
   PARAM name = plm_version_user_defined, desc = "User defined PLM version", type = int, default = 0;
   PARAM name = timestamp_en, desc = "Enables or Disables Time Stamp prints", type = bool, default = true;
   PARAM name = cfi_selective_read_en, desc = "Enables or Disables CFI selective read", type = bool, default = false;
+  PARAM name = plm_i2c_mb_handshake, desc = "Enable I2C to MB Handshake", type = bool, default = false;
 END LIBRARY
