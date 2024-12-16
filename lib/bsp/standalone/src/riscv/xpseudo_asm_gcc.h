@@ -51,7 +51,7 @@ extern "C" {
 		"csrwi " stringify(csr) ", " stringify(v) "\n" \
 	)
 
-#define csrr(csr)	({unsigned int rval = 0U;			       \
+#define csrr(csr)	({unsigned long rval = 0U;			       \
 		__asm__ __volatile__("csrr %0," stringify(csr) : "=r" (rval)); \
 		rval;							       \
 	})
@@ -69,7 +69,7 @@ extern "C" {
 		: : "r" (v)		      \
 	)
 
-#define mfgpr(rn)	({unsigned int rval;		      \
+#define mfgpr(rn)	({unsigned long rval;		      \
 		__asm__ __volatile__(			      \
 				 "mv %0,x" stringify(rn) "\n" \
 				 : "=r" (rval)		      \
@@ -87,30 +87,30 @@ extern "C" {
 #define ecall()		__asm__ __volatile__("ecall\n")
 
 #define rdtime()	({					   \
-		register u32 rval;				   \
+		register unsigned long rval;			   \
 		__asm__ __volatile__ ( "rdtime %0" : "=r" (rval)); \
 		rval;						   \
 	})
 
 /************** Atomic Macros (Inline Functions) Definitions ****************/
 
-#define atomic(instr, addr, data) ({unsigned int rval;	       \
-		__asm__ __volatile__(			       \
-			stringify(instr) " %0, %1, (%2)\n"     \
-			: "=r" (rval) : "r" (data), "r" (addr) \
-			    );				       \
-		rval;					       \
-	})
+#define atomic_w(instr, addr, data) ({register unsigned int rval;	   \
+				  __asm__ __volatile__(			   \
+				    stringify(instr) " %0, %1, (%2)\n"	   \
+				    : "=r" (rval) : "r" (data), "r" (addr) \
+				  );					   \
+				  rval;					   \
+				 })
 
-#define amoswap_w(addr, data) atomic(amoswap.w, addr, data)
-#define amoadd_w(addr, data)  atomic(amoadd.w,  addr, data)
-#define amoand_w(addr, data)  atomic(amoand.w,  addr, data)
-#define amoor_w(addr, data)   atomic(amoor.w,   addr, data)
-#define amoxor_w(addr, data)  atomic(amoxor.w,  addr, data)
-#define amomax_w(addr, data)  atomic(amomax.w,  addr, data)
-#define amomaxu_w(addr, data) atomic(amomaxu.w, addr, data)
-#define amomin_w(addr, data)  atomic(amomin.w,  addr, data)
-#define amominu_w(addr, data) atomic(amominu.w, addr, data)
+#define amoswap_w(addr, data) atomic_w(amoswap.w, addr, data)
+#define amoadd_w(addr, data)  atomic_w(amoadd.w,  addr, data)
+#define amoand_w(addr, data)  atomic_w(amoand.w,  addr, data)
+#define amoor_w(addr, data)   atomic_w(amoor.w,   addr, data)
+#define amoxor_w(addr, data)  atomic_w(amoxor.w,  addr, data)
+#define amomax_w(addr, data)  atomic_w(amomax.w,  addr, data)
+#define amomaxu_w(addr, data) atomic_w(amomaxu.w, addr, data)
+#define amomin_w(addr, data)  atomic_w(amomin.w,  addr, data)
+#define amominu_w(addr, data) atomic_w(amominu.w, addr, data)
 
 #define lr_w(addr) ({unsigned int rval;				     \
 		__asm__ __volatile__ (				     \
@@ -128,24 +128,32 @@ extern "C" {
 	})
 
 #if __riscv_xlen == 64
-#define amoswap_d(addr, data) atomic(amoswap.d, addr, data)
-#define amoadd_d(addr, data)  atomic(amoadd.d,  addr, data)
-#define amoand_d(addr, data)  atomic(amoand.d,  addr, data)
-#define amoor_d(addr, data)   atomic(amoor.d,   addr, data)
-#define amoxor_d(addr, data)  atomic(amoxor.d,  addr, data)
-#define amomax_d(addr, data)  atomic(amomax.d,  addr, data)
-#define amomaxu_d(addr, data) atomic(amomaxu.d, addr, data)
-#define amomin_d(addr, data)  atomic(amomin.d,  addr, data)
-#define amominu_d(addr, data) atomic(amominu.d, addr, data)
+#define atomic_d(instr, addr, data) ({register unsigned long rval;	   \
+				  __asm__ __volatile__(			   \
+				    stringify(instr) " %0, %1, (%2)\n"	   \
+				    : "=r" (rval) : "r" (data), "r" (addr) \
+				  );					   \
+				  rval;					   \
+				 })
 
-#define lr_d(addr) ({unsigned int rval;				     \
+#define amoswap_d(addr, data) atomic_d(amoswap.d, addr, data)
+#define amoadd_d(addr, data)  atomic_d(amoadd.d,  addr, data)
+#define amoand_d(addr, data)  atomic_d(amoand.d,  addr, data)
+#define amoor_d(addr, data)   atomic_d(amoor.d,   addr, data)
+#define amoxor_d(addr, data)  atomic_d(amoxor.d,  addr, data)
+#define amomax_d(addr, data)  atomic_d(amomax.d,  addr, data)
+#define amomaxu_d(addr, data) atomic_d(amomaxu.d, addr, data)
+#define amomin_d(addr, data)  atomic_d(amomin.d,  addr, data)
+#define amominu_d(addr, data) atomic_d(amominu.d, addr, data)
+
+#define lr_d(addr) ({unsigned long rval;			     \
 		__asm__ __volatile__ (				     \
 			"lr.d\t%0, (%1)\n" : "=r"(rval) : "r" (addr) \
 			     );					     \
 		rval;						     \
 	})
 
-#define sc_d(addr, data) ({unsigned int rval;		      \
+#define sc_d(addr, data) ({unsigned long rval;		      \
 		__asm__ __volatile__ (			      \
 			"sc.d\t%0, %1, (%2)\n"		      \
 			: "=r"(rval) : "r" (data), "r" (addr) \
