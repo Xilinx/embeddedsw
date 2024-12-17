@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -12,7 +12,7 @@ OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (ps7_cortexa9);
 OPTION default_os = "standalone_v7_0";
-OPTION VERSION = 2.12;
+OPTION VERSION = 2.13;
 OPTION NAME = cpu_cortexa9;
 
 

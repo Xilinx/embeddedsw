@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -19,7 +19,7 @@ OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (microblaze_riscv);
 OPTION default_os = "standalone_v7_3";
-OPTION VERSION = 1.1;
+OPTION VERSION = 1.2;
 OPTION NAME = cpu_riscv;
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = riscv64-unknown-elf-gcc;
