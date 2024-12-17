@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,4 +23,11 @@
 *                      loops to memset conversions. It fixes CR#1090083.
 *
 ******************************************************************************/
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __cplusplus
+}
+#endif
 /** @} */

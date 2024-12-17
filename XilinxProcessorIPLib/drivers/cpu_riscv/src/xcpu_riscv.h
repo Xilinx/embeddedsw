@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,4 +18,11 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 1.0   sa   11/22/19 Initial version
 ******************************************************************************/
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __cplusplus
+}
+#endif
 /** @} */

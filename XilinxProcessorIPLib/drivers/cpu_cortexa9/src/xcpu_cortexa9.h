@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,4 +23,11 @@
 #                     extra compiler flags. Now, user can remove default flags
 #                     from extra compiler flags. It fixes CR#998768.
 ******************************************************************************/
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __cplusplus
+}
+#endif
 /** @} */
