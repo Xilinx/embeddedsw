@@ -41,6 +41,7 @@
 *                       are available in all examples. This is a fix for
 *                       CR-965028.
 * 6.4   sd     07/08/23 Added SDT support.
+* 6.6   sd     12/16/24 Update the DDR_HIGH_ADDR to support BRAM..
 *
 * </pre>
 *
@@ -72,6 +73,10 @@
 #define DDR_HIGH_ADDR		XPAR_AXI_7SDDR_0_S_AXI_HIGHADDR
 #elif XPAR_MPMC_0_MPMC_HIGHADDR
 #define DDR_HIGH_ADDR		XPAR_MPMC_0_MPMC_HIGHADDR
+#elif XPAR_BRAM_0_HIGHADDR
+#define DDR_HIGH_ADDR		XPAR_BRAM_0_HIGHADDR
+#elif XPAR_XBRAM_0_HIGHADDR
+#define DDR_HIGH_ADDR		XPAR_XBRAM_0_HIGHADDR
 #endif
 
 #ifndef DDR_HIGH_ADDR

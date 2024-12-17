@@ -12,7 +12,7 @@ BEGIN driver tft
   OPTION supported_peripherals = (axi_tft);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 6.5;
+  OPTION VERSION = 6.6;
   OPTION NAME = tft;
 
 END driver
