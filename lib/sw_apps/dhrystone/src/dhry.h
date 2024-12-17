@@ -414,6 +414,10 @@
 #ifndef __DRHY_H_
 #define __DRHY_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if defined (__GNUC__) && !defined (__clang__) && !defined (__ICCARM__)
 
 /* Compiler and system dependent definitions: */
@@ -531,4 +535,7 @@ typedef struct record {
 	} Rec_Type, *Rec_Pointer;
 
 #endif /* defined (__GNUC__) && !defined (__clang__) && !defined (__ICCARM__) */
+#ifdef __cplusplus
+}
+#endif
 #endif /* __DRHY_H_ */
