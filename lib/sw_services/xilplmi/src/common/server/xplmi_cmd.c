@@ -121,7 +121,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 
 	/** - Validate the module handler. */
 	ModuleCmd = &Module->CmdAry[ApiId];
-	if (ModuleCmd->Handler == NULL) {
+	if (ModuleCmd == NULL || ModuleCmd->Handler == NULL) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_HANDLER_NULL, 0);
 		goto END;
 	}
