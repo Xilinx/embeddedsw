@@ -5,10 +5,12 @@ This module updates the application meta-data app.yaml and CMakeLists.txt
 for the new platform using the domain information provided.
 """
 
-import utils
 import argparse
 import os
+
+import utils
 from build_bsp import BSP
+
 
 class RetargetApp(BSP):
     def __init__(self, args):
@@ -87,8 +89,7 @@ endif()
                     f'set_source_files_properties(${{_sources}} OBJECT_DEPENDS "${{CMAKE_LIBRARY_PATH}}/*.a")',
                     replace_header
                 )
-
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to change platform for a given application",
         usage='use "python %(prog)s --help" for more information',
@@ -115,5 +116,8 @@ if __name__ == "__main__":
         action="store",
         help="Specify the App Build Directory",
     )
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args(arguments))
     retarget_app(args)
+
+if __name__ == "__main__":
+    main()

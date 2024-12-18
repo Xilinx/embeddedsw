@@ -5,11 +5,14 @@ This module facilitates the validation of a created BSP with respect to a
 template application.
 """
 
-import argparse, textwrap
-from library_utils import Library
-from build_bsp import BSP
-import os, sys
+import argparse
+import os
+import sys
+import textwrap
+
 import utils
+from build_bsp import BSP
+from library_utils import Library
 from validate_hw import ValidateHW
 
 
@@ -171,8 +174,7 @@ class Validation(BSP, Library):
 
         print(f"Available Templates for the given BSP are {template_possible}.")
 
-
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to validate the given BSP for a given template",
         usage='use "python %(prog)s --help" for more information',
@@ -239,8 +241,7 @@ if __name__ == "__main__":
         help="Specify the .repo.yaml absolute path to use the set repo info",
         default='.repo.yaml',
     )
-
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args(arguments))
     obj = Validation(args)
     if args.get("get_apps"):
         obj.get_valid_template_list()
@@ -248,3 +249,6 @@ if __name__ == "__main__":
         obj.validate_template_for_bsp()
     else:
         assert False, "Either use get_apps option or provide a template name."
+
+if __name__ == "__main__":
+    main()

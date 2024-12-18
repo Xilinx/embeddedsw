@@ -4,13 +4,15 @@
 This module re creates the bsp for a given domain and system device-tree.
 """
 
-import utils
 import argparse
+import inspect
 import os
+
+import utils
+from build_bsp import BSP
 from create_bsp import Domain, create_domain
 from library_utils import Library
-from build_bsp import BSP
-import inspect
+
 
 class RegenBSP(BSP, Library):
     """
@@ -144,7 +146,7 @@ def regenerate_bsp(args):
     obj = RegenBSP(args)
     obj.modify_bsp(args)
 
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Regenerate the BSP",
         usage='use "python %(prog)s --help" for more information',
@@ -171,5 +173,7 @@ if __name__ == "__main__":
         help="Specify the .repo.yaml absolute path to use the set repo info",
         default='.repo.yaml',
     )
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args(arguments))
     regenerate_bsp(args)
+if __name__ == "__main__":
+    main()

@@ -5,9 +5,10 @@ This module builds archive files (.a) for the created bsp. These archive files
 include os, driver and library related archives.
 """
 
-import utils
 import argparse
 import os
+
+import utils
 
 
 class BSP:
@@ -123,8 +124,7 @@ def generate_bsp(args):
     obj = BSP(args)
     obj.build_bsp()
 
-
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Build the created bsp",
         usage='use "python %(prog)s --help" for more information',
@@ -138,5 +138,8 @@ if __name__ == "__main__":
         help="Domain directory Path",
         required=True,
     )
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args(arguments))
     generate_bsp(args)
+
+if __name__ == "__main__":
+    main()

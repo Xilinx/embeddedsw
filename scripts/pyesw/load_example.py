@@ -1,12 +1,14 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module loads the driver example meta-data
 """
-import utils
 import argparse
 import os
+
+import utils
 from build_bsp import BSP
+
 
 def cmake_drv_custom_target(proc, libsrc_folder, sdt, cmake_drv_name_list, cmake_drv_path_list):
     cmake_cmd = f'''
@@ -102,8 +104,7 @@ def load_bsp(args):
     obj = LoadExample(args)
     obj.update_example()
 
-
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Load the example meta-data for a given domain",
         usage='use "python %(prog)s --help" for more information',
@@ -117,5 +118,8 @@ if __name__ == "__main__":
         help="Domain directory Path",
         required=True,
     )
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args(arguments))
     load_bsp(args)
+
+if __name__ == "__main__":
+    main()

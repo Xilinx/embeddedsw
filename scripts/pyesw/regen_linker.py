@@ -1,15 +1,17 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module regenerates the linker script for a given template application
 using the domain information provided to it.
 """
 
-import utils
 import argparse
 import os
+
+import utils
 from build_bsp import BSP
 from repo import Repo
+
 
 class RegenLinker(BSP, Repo):
     """
@@ -74,8 +76,7 @@ linker_gen({linker_dir})
 
     # Success prints if everything went well till this point.
     print(f"Successfully Regenerated linker script at {obj.app_src_dir}")
-
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to create a template App using the BSP path",
         usage='use "python %(prog)s --help" for more information',
@@ -99,5 +100,8 @@ if __name__ == "__main__":
         help="Specify the .repo.yaml absolute path to use the set repo info",
         default='.repo.yaml',
     )
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args(arguments))
     regen_linker(args)
+
+if __name__ == "__main__":
+    main()

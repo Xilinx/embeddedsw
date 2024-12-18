@@ -6,13 +6,15 @@ parameters.
 """
 
 import argparse
-import sys
 import os
+import sys
+
 import utils
-from library_utils import Library
 from build_bsp import BSP
+from library_utils import Library
 from regen_bsp import regenerate_bsp
 from validate_hw import ValidateHW
+
 
 class Bsp_config(BSP, Library):
     """
@@ -194,8 +196,7 @@ def configure_bsp(args):
         if os.environ.get("OSF"):
             args.update({'sdt':obj.sdt})
             regenerate_bsp(args)
-
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to modify BSP Settings",
         usage='use "python %(prog)s --help" for more information',
@@ -247,5 +248,8 @@ if __name__ == "__main__":
         help="Specify the .repo.yaml absolute path to use the set repo info",
         default='.repo.yaml',
     )
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args(arguments))
     configure_bsp(args)
+
+if __name__ == "__main__":
+    main()

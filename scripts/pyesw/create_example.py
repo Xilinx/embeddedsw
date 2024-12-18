@@ -6,11 +6,13 @@ provided to it. It generates the directory structure and the metadata
 required to build a particular driver or library example.
 """
 
-import utils
-import argparse, textwrap
-import os
+import argparse
 import fileinput
+import os
 import sys
+import textwrap
+
+import utils
 from build_bsp import BSP
 from repo import Repo
 from validate_bsp import Validation
@@ -167,8 +169,7 @@ CompileFlags:
     if utils.is_file(obj.app_config_file):
         print(f"Successfully Created Application sources at {obj.app_src_dir}")
 
-
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to create driver or library example using the BSP path",
         usage='use "python %(prog)s --help" for more information',
@@ -209,6 +210,8 @@ if __name__ == "__main__":
         help="Specify the .repo.yaml absolute path to use the set repo info",
         default='.repo.yaml',
     )
-
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args(arguments))
     create_example(args)
+
+if __name__ == "__main__":
+    main()

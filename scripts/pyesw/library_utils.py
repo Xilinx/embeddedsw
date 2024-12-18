@@ -9,13 +9,15 @@ module independently is not intended.
 """
 
 
-import sys
 import os
-import utils
 import re
-from repo import Repo
+import sys
+
+import utils
 from open_amp import open_amp_copy_lib_src
+from repo import Repo
 from utils import log_time
+
 
 class Library(Repo):
     """

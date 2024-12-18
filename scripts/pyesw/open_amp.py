@@ -9,7 +9,6 @@ build steps.
 import os
 import re
 import sys
-import lopper
 
 import utils
 from utils import is_file
@@ -243,11 +242,11 @@ def openamp_lopper_run(openamp_overlay, original_sdt, bsp_sdt,
         'psu_cortexr5_1' : 'a53_0',
     }
 
-    lops_dir = os.path.join(utils.get_dir_path(lopper.__file__), "lops")
+
     lops = ["lop-load.dts", "lop-xlate-yaml.dts"]
     lopper_cmd = "lopper -f -v  --enhanced  --permissive -i " + openamp_overlay
     for lop in lops:
-        lopper_cmd += " -i " + lops_dir + "/" + lop
+        lopper_cmd += " -i " + lop
     # add remote role for this Lopper run after the lop-openamp-versal.dts lop
     output_sdt = os.path.join(app_src_dir, "openamp_output.dts")
     lopper_cmd += " -O . " + original_sdt + " " + output_sdt

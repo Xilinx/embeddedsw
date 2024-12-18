@@ -5,18 +5,22 @@ This module creates the template application using the domain information
 provided to it. It generates the directory structure and the metadata
 required to build a particular template application.
 """
+import argparse
+import logging
+import os
+import sys
+import textwrap
 
 import utils
-import argparse, textwrap
-import os
-import logging
 from build_bsp import BSP
+from open_amp import (copy_openamp_app_overlay, create_libmetal_app,
+                      create_openamp_app, open_amp_app_name,
+                      openamp_lopper_run)
 from repo import Repo
-from validate_bsp import Validation
-from open_amp import create_openamp_app, open_amp_app_name, copy_openamp_app_overlay, openamp_lopper_run
-from open_amp import create_libmetal_app
-from validate_hw import ValidateHW
 from utils import log_time
+from validate_bsp import Validation
+from validate_hw import ValidateHW
+
 
 class App(BSP, Repo):
     """
@@ -253,8 +257,7 @@ CompileFlags:
     if utils.is_file(obj.app_config_file):
         print(f"Successfully Created Application sources at {obj.app_src_dir}")
 
-
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to create a template App using the BSP path",
         usage='use "python %(prog)s --help" for more information',
@@ -340,8 +343,7 @@ if __name__ == "__main__":
               hello_world and empty_application templates",
         choices=["c", "c++"],
     )
-
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args(arguments))
     if args["verbose"] >= 1:
         logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     else:
@@ -349,3 +351,6 @@ if __name__ == "__main__":
     logger = logging.getLogger(__name__)
     logger.info( "Starting Creating APP" )
     create_app(args)
+
+if __name__ == "__main__":
+    main()
