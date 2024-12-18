@@ -36,7 +36,7 @@ set(CUSTOM_COMPILE_OPTIONS " -Wall -Wextra -Warray-bounds=2 -Wformat=2 -Wno-main
 string(APPEND CMAKE_C_FLAGS ${CUSTOM_COMPILE_OPTIONS})
 
 add_library(xilplmi STATIC ${_sources})
-
+target_compile_options(xilplmi PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
 get_headers(${_headers})
 
 set_target_properties(xilplmi PROPERTIES LINKER_LANGUAGE C)
