@@ -1021,6 +1021,7 @@ int XPmUpdate_ShutdownHandler(XPlmi_ModuleOp Op)
 
 	if (XPLMI_MODULE_SHUTDOWN_INITIATE == Op.Mode) {
 		if (XPLMI_MODULE_NORMAL_STATE == GenericHandlerState ) {
+#ifndef VERSAL_AIEPG2
 			/** Remove check PSM alive task */
 			Status = XPlm_RemoveKeepAliveTask();
 			if (XST_SUCCESS != Status) {
@@ -1032,6 +1033,7 @@ int XPmUpdate_ShutdownHandler(XPlmi_ModuleOp Op)
 				XPlmi_Printf(DEBUG_GENERAL, "PSM shutdown failed\n\r");
 				goto done;
 			}
+#endif
 			GenericHandlerState = XPLMI_MODULE_SHUTDOWN_INITIATED_STATE;
 			Status = XST_SUCCESS;
 		}

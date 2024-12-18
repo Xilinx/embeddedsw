@@ -43,7 +43,6 @@
 #include "xparameters.h"
 #include "xplmi_update.h"
 #include "xplmi.h"
-#include "xpm_psm.h"
 #include "xilpdi.h"
 #include "xloader.h"
 #include "xloader_plat.h"
@@ -87,61 +86,6 @@ void XPlm_EnablePlatformSlaveErrors(void)
 	/* TODO Add versalnet specific slave errors */
 	return;
 }
-
-#ifdef XPLMI_IPI_DEVICE_ID
-/*****************************************************************************/
-/**
-* @brief	This function updates the keep alive status variable
-*
-* @param	Val to set the status as started or not started or error
-*
-* @return	PsmKeepAliveStatus
-*
-*****************************************************************************/
-u32 XPlm_SetPsmAliveStsVal(u32 Val)
-{
-	static u32 PsmKeepAliveStatus __attribute__ ((aligned(4U)))
-			= XPLM_PSM_ALIVE_NOT_STARTED;
-	EXPORT_XILPSM_DS(PsmKeepAliveStatus, XPM_PSM_KEEP_ALIVE_STS_DS_ID,
-		XPLMI_PSM_KEEP_ALIVE_STS_VER, XPLMI_PSM_KEEP_ALIVE_STS_LCVER,
-		sizeof(PsmKeepAliveStatus), (u32)(UINTPTR)&PsmKeepAliveStatus);
-
-	if(Val != XPLM_PSM_ALIVE_RETURN) {
-		/* Update the Keep Alive Status */
-		PsmKeepAliveStatus = Val;
-	}
-
-	return PsmKeepAliveStatus;
-}
-
-/*****************************************************************************/
-/**
-* @brief	This function updates the counter value
-*
-* @param	Val to Increment or Clear the CounterVal variable
-*
-* @return	CounterVal
-*
-*****************************************************************************/
-u32 XPlm_UpdatePsmCounterVal(u32 Val)
-{
-	static u32 CounterVal __attribute__ ((aligned(4U))) = 0U;
-	EXPORT_XILPSM_DS(CounterVal, XPM_PSM_COUNTER_DS_ID, XPLMI_PSM_COUNTER_VER,
-		XPLMI_PSM_COUNTER_LCVER, sizeof(CounterVal), (u32)(UINTPTR)&CounterVal);
-
-	if(Val == XPLM_PSM_COUNTER_INCREMENT) {
-		/* Increment the counter value */
-		CounterVal++;
-	}else if(Val == XPLM_PSM_COUNTER_CLEAR){
-		/* Clear the counter value */
-		CounterVal = 0U;
-	} else{
-		/* To avoid Misra-C violation  */
-	}
-
-	return CounterVal;
-}
-#endif /* XPLMI_IPI_DEVICE_ID */
 
 /*****************************************************************************/
 /**

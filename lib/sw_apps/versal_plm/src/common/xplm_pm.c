@@ -62,8 +62,9 @@
 #include "xplm_pm.h"
 #include "xpm_api.h"
 #include "xpm_ipi.h"
+#ifndef VERSAL_AIEPG2
 #include "xpm_psm.h"
-#include "xpm_subsystem.h"
+#endif
 #include "xplmi_scheduler.h"
 #include "xplmi_util.h"
 #include "xloader.h"
@@ -243,6 +244,7 @@ END:
 }
 
 #ifdef XPLMI_IPI_DEVICE_ID
+#ifndef VERSAL_AIEPG2
 /*****************************************************************************/
 /**
 * @brief	This function sends keep alive IPI event to PSM
@@ -449,4 +451,5 @@ int XPlm_RemoveKeepAliveTask(void)
 
 	return Status;
 }
+#endif /* VERSAL_AIEPGE2 */
 #endif /* XPLMI_IPI_DEVICE_ID */
