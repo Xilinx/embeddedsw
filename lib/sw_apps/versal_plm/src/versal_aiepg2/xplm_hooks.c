@@ -37,14 +37,19 @@
 /***************************** Include Files *********************************/
 #include "xplm_hooks.h"
 #include "xpm_api.h"
-#include "xpm_subsystem.h"
-#include "xplmi_update.h"
 #include "xplmi_wdt.h"
 #include "xplmi_plat.h"
 #include "xplmi_ipi.h"
 #include "xplmi.h"
-#include "xpm_psm_api.h"
-#include "xpm_psm.h"
+#include "xloader_plat.h"
+/** TODO: remove this condition when psm is removed */
+#if defined(XILPM_RUNTIME)
+#include "xpm_subsystem.h"
+#include "xpm_alloc.h"
+#else
+#include "xpm_alloc.h"
+#endif
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -89,37 +94,21 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 	int Status = XST_FAILURE;
 
 	(void)Arg;
-
-	/* In-Place PLM Update is applicable only for versalnet */
-	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
-#ifdef XPLMI_IPI_DEVICE_ID
-		XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask, NULL);
-#endif /* XPLMI_IPI_DEVICE_ID */
-		XPlmi_LpdInit();
-		/* Call LibPM hook */
-		Status = XPm_HookAfterPlmCdo();
-		if (XST_SUCCESS != Status) {
-			goto END;
-		}
-
-		Status = XPlmi_SetBufferList(PROC_LOCATION_ADDRESS, PROC_LOCATION_LENGTH);
+	/*
+	 * if ROM SWDT usage EFUSE is enabled and no WDT is configured,
+	 * enable WDT with default timeout
+	 */
+	Status = XPlmi_DefaultSWdtConfig();
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
-	else {
-		/*
-		 * if ROM SWDT usage EFUSE is enabled and no WDT is configured,
-		 * enable WDT with default timeout
-		 */
-		Status = XPlmi_DefaultSWdtConfig();
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
 
-		/* Call LibPM hook */
-		Status = XPm_HookAfterPlmCdo();
-		if (XST_SUCCESS != Status) {
-			goto END;
-		}
+	/* Call LibPM hook */
+	Status = XPm_HookAfterPlmCdo();
+	if (XST_SUCCESS != Status) {
+		goto END;
 	}
+
 
 END:
 	return Status;
@@ -140,6 +129,6 @@ int XPlm_HookAfterBootPdi(void *Arg)
 
 	/* Call XilPM hook */
 	Status = XPm_HookAfterBootPdi();
-
+	(void)XPm_DumpMemUsage();
 	return Status;
 }

@@ -27,7 +27,6 @@ supported_processors:
   - psx_cortexa78
   - cortexa78
   - psx_pmc
-  - pmc
   - psx_psm
   - psm
   - psx_cortexr52

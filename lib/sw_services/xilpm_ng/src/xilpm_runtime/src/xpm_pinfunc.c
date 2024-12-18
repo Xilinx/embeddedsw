@@ -1,0 +1,1182 @@
+/******************************************************************************
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
+#include "xil_util.h"
+#include "xpm_pinfunc.h"
+
+#define FUNC_QUERY_NAME_LEN	(FUNC_NAME_SIZE)
+
+/****************************************************************************/
+/**
+ * @brief  This function returns total number of functions available.
+ *
+ * @param NumFuncs	Number of functions.
+ *
+ * @return XST_SUCCESS.
+ *
+ ****************************************************************************/
+XStatus XPmPinFunc_GetNumFuncs(u32 *NumFuncs)
+{
+	*NumFuncs = (u32)MAX_FUNCTION;
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function returns function name based on function ID.
+ *
+ * @param FuncId	Function ID.
+ * @param FuncName	Name of the function.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
+ *
+ ****************************************************************************/
+XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_PinFunc *PinFunc = NULL;
+	const u32 CopySize = FUNC_QUERY_NAME_LEN;
+
+	Status = Xil_SMemSet(FuncName, FUNC_QUERY_NAME_LEN, 0, FUNC_QUERY_NAME_LEN);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	PinFunc = XPmPinFunc_GetById(FuncId);
+	if (NULL == PinFunc) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = Xil_SMemCpy(FuncName, CopySize, &PinFunc->Name[0], CopySize, CopySize);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function returns number of groups in function based on
+ *         function ID.
+ *
+ * @param FuncId	Function ID.
+ * @param NumGroups	Number of groups.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
+ *
+ ****************************************************************************/
+XStatus XPmPinFunc_GetNumFuncGroups(u32 FuncId, u32 *NumGroups)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_PinFunc *PinFunc = NULL;
+
+	PinFunc = XPmPinFunc_GetById(FuncId);
+	if (NULL != PinFunc) {
+		*NumGroups = PinFunc->NumGroups;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function returns groups present in function based on
+ *         function ID. Index 0 returns the first 6 group IDs, index 6
+ *         returns the next 6 group IDs, and so forth.
+ *
+ * @param FuncId	Function ID.
+ * @param Index		Index of next function groups
+ * @param Groups	Function groups.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code.
+ *
+ ****************************************************************************/
+XStatus XPmPinFunc_GetFuncGroups(u32 FuncId, u32 Index, u16 *Groups)
+{
+	XStatus Status = XST_FAILURE;
+	u32 i;
+	u32 num_read;
+	const XPm_PinFunc *PinFunc = NULL;
+	u32 Size = MAX_GROUPS_PER_RES * sizeof(u16);
+
+	Status = Xil_SMemSet(Groups, Size, (s32)END_OF_GRP, Size);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	PinFunc = XPmPinFunc_GetById(FuncId);
+	if ((NULL == PinFunc) || (Index > PinFunc->NumGroups)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Read up to 6 group IDs from Index */
+	if ((PinFunc->NumGroups - Index) > MAX_GROUPS_PER_RES) {
+		num_read = MAX_GROUPS_PER_RES;
+	} else {
+		num_read = PinFunc->NumGroups - Index;
+	}
+
+	for (i = 0; i < num_read; i++) {
+		Groups[i] = PinFunc->Groups[i + Index];
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/* TODO: Each function can not be mapped with their corresponding
+ *       device. Keeping those devIdx as 0.
+ */
+static XPm_PinFunc PmPinFuncs[MAX_FUNCTION] = {
+	[PIN_FUNC_SD0] = {
+		.Id = (u8)PIN_FUNC_SD0,
+		.Name = "sd0",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_0,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x4U,
+		.NumPins = 10U,
+		.NumGroups = 2U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SD0_0,
+			PIN_GRP_SD0_1,
+		}),
+	},
+	[PIN_FUNC_SD1] = {
+		.Id = (u8)PIN_FUNC_SD1,
+		.Name = "sd1",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_1,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x2U,
+		.NumPins = 10U,
+		.NumGroups = 2U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SD1_0,
+			PIN_GRP_SD1_1,
+		}),
+	},
+	[PIN_FUNC_SMP] = {
+		.Id = (u8)PIN_FUNC_SMP,
+		.Name = "smp",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x80U,
+		.PmioRegMask = 0x300U,
+		.NumPins = 1U,
+		.NumGroups = 6U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SMP_0,
+			PIN_GRP_SMP_1,
+			PIN_GRP_SMP_2,
+			PIN_GRP_SMP_3,
+			PIN_GRP_SMP_4,
+			PIN_GRP_SMP_5,
+		}),
+	},
+	[PIN_FUNC_CAN0] = {
+		.Id = (u8)PIN_FUNC_CAN0,
+		.Name = "can0",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_CAN_FD_0,
+		.LmioRegMask = 0x180U,
+		.PmioRegMask = 0x180U,
+		.NumPins = 2U,
+		.NumGroups = 18U,
+		.Groups = ((u16 []) {
+			PIN_GRP_CAN0_0,
+			PIN_GRP_CAN0_1,
+			PIN_GRP_CAN0_2,
+			PIN_GRP_CAN0_3,
+			PIN_GRP_CAN0_4,
+			PIN_GRP_CAN0_5,
+			PIN_GRP_CAN0_6,
+			PIN_GRP_CAN0_7,
+			PIN_GRP_CAN0_8,
+			PIN_GRP_CAN0_9,
+			PIN_GRP_CAN0_10,
+			PIN_GRP_CAN0_11,
+			PIN_GRP_CAN0_12,
+			PIN_GRP_CAN0_13,
+			PIN_GRP_CAN0_14,
+			PIN_GRP_CAN0_15,
+			PIN_GRP_CAN0_16,
+			PIN_GRP_CAN0_17,
+		}),
+	},
+	[PIN_FUNC_CAN1] = {
+		.Id = (u8)PIN_FUNC_CAN1,
+		.Name = "can1",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_CAN_FD_1,
+		.LmioRegMask = 0x180U,
+		.PmioRegMask = 0x180U,
+		.NumPins = 2U,
+		.NumGroups = 19U,
+		.Groups = ((u16 []) {
+			PIN_GRP_CAN1_0,
+			PIN_GRP_CAN1_1,
+			PIN_GRP_CAN1_2,
+			PIN_GRP_CAN1_3,
+			PIN_GRP_CAN1_4,
+			PIN_GRP_CAN1_5,
+			PIN_GRP_CAN1_6,
+			PIN_GRP_CAN1_7,
+			PIN_GRP_CAN1_8,
+			PIN_GRP_CAN1_9,
+			PIN_GRP_CAN1_10,
+			PIN_GRP_CAN1_11,
+			PIN_GRP_CAN1_12,
+			PIN_GRP_CAN1_13,
+			PIN_GRP_CAN1_14,
+			PIN_GRP_CAN1_15,
+			PIN_GRP_CAN1_16,
+			PIN_GRP_CAN1_17,
+			PIN_GRP_CAN1_18,
+		}),
+	},
+	[PIN_FUNC_GEM0] = {
+		.Id = (u8)PIN_FUNC_GEM0,
+		.Name = "gem0",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_GEM_0,
+		.LmioRegMask = 0x4U,
+		.PmioRegMask = 0x6U,
+		.NumPins = 12U,
+		.NumGroups = 2U,
+		.Groups = ((u16 []) {
+			PIN_GRP_GEM0_0,
+			PIN_GRP_GEM0_1,
+		}),
+	},
+	[PIN_FUNC_GEM1] = {
+		.Id = (u8)PIN_FUNC_GEM1,
+		.Name = "gem1",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_GEM_1,
+		.LmioRegMask = 0x4U,
+		.PmioRegMask = 0x6U,
+		.NumPins = 12U,
+		.NumGroups = 2U,
+		.Groups = ((u16 []) {
+			PIN_GRP_GEM1_0,
+			PIN_GRP_GEM1_1,
+		}),
+	},
+	[PIN_FUNC_I2C0] = {
+		.Id = (u8)PIN_FUNC_I2C0,
+		.Name = "i2c0",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_I2C_0,
+		.LmioRegMask = 0x200U,
+		.PmioRegMask = 0x80U,
+		.NumPins = 2U,
+		.NumGroups = 18U,
+		.Groups = ((u16 []) {
+			PIN_GRP_I2C0_0,
+			PIN_GRP_I2C0_1,
+			PIN_GRP_I2C0_2,
+			PIN_GRP_I2C0_3,
+			PIN_GRP_I2C0_4,
+			PIN_GRP_I2C0_5,
+			PIN_GRP_I2C0_6,
+			PIN_GRP_I2C0_7,
+			PIN_GRP_I2C0_8,
+			PIN_GRP_I2C0_9,
+			PIN_GRP_I2C0_10,
+			PIN_GRP_I2C0_11,
+			PIN_GRP_I2C0_12,
+			PIN_GRP_I2C0_13,
+			PIN_GRP_I2C0_14,
+			PIN_GRP_I2C0_15,
+			PIN_GRP_I2C0_16,
+			PIN_GRP_I2C0_17,
+		}),
+	},
+	[PIN_FUNC_I2C1] = {
+		.Id = (u8)PIN_FUNC_I2C1,
+		.Name = "i2c1",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_I2C_1,
+		.LmioRegMask = 0x200U,
+		.PmioRegMask = 0x80U,
+		.NumPins = 2U,
+		.NumGroups = 19U,
+		.Groups = ((u16 []) {
+			PIN_GRP_I2C1_0,
+			PIN_GRP_I2C1_1,
+			PIN_GRP_I2C1_2,
+			PIN_GRP_I2C1_3,
+			PIN_GRP_I2C1_4,
+			PIN_GRP_I2C1_5,
+			PIN_GRP_I2C1_6,
+			PIN_GRP_I2C1_7,
+			PIN_GRP_I2C1_8,
+			PIN_GRP_I2C1_9,
+			PIN_GRP_I2C1_10,
+			PIN_GRP_I2C1_11,
+			PIN_GRP_I2C1_12,
+			PIN_GRP_I2C1_13,
+			PIN_GRP_I2C1_14,
+			PIN_GRP_I2C1_15,
+			PIN_GRP_I2C1_16,
+			PIN_GRP_I2C1_17,
+			PIN_GRP_I2C1_18,
+		}),
+	},
+	[PIN_FUNC_SPI0] = {
+		.Id = (u8)PIN_FUNC_SPI0,
+		.Name = "spi0",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SPI_0,
+		.LmioRegMask = 0x80U,
+		.PmioRegMask = 0x100U,
+		.NumPins = 3U,
+		.NumGroups = 6U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SPI0_0,
+			PIN_GRP_SPI0_1,
+			PIN_GRP_SPI0_2,
+			PIN_GRP_SPI0_3,
+			PIN_GRP_SPI0_4,
+			PIN_GRP_SPI0_5,
+		}),
+	},
+	[PIN_FUNC_SPI1] = {
+		.Id = (u8)PIN_FUNC_SPI1,
+		.Name = "spi1",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SPI_1,
+		.LmioRegMask = 0x80U,
+		.PmioRegMask = 0x100U,
+		.NumPins = 3U,
+		.NumGroups = 6U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SPI1_0,
+			PIN_GRP_SPI1_1,
+			PIN_GRP_SPI1_2,
+			PIN_GRP_SPI1_3,
+			PIN_GRP_SPI1_4,
+			PIN_GRP_SPI1_5,
+		}),
+	},
+	[PIN_FUNC_USB0] = {
+		.Id = (u8)PIN_FUNC_USB0,
+		.Name = "usb0",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_USB_0,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x6U,
+		.NumPins = 13U,
+		.NumGroups = 1U,
+		.Groups = ((u16 []) {
+			PIN_GRP_USB0_0,
+		}),
+	},
+	[PIN_FUNC_USB1] = {
+		.Id = (u8)PIN_FUNC_USB1,
+		.Name = "usb1",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_USB_1,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x8U,
+		.NumPins = 13U,
+		.NumGroups = 1U,
+		.Groups = ((u16 []) {
+			PIN_GRP_USB1_0,
+		}),
+	},
+	[PIN_FUNC_EMIO0] = {
+		.Id = (u8)PIN_FUNC_EMIO0,
+		.Name = "emio0",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x10U,
+		.PmioRegMask = 0x0U,
+		.NumPins = 2U,
+		.NumGroups = 1U,
+		.Groups = ((u16 []) {
+			PIN_GRP_EMIO0_0,
+		}),
+	},
+	[PIN_FUNC_GPIO0] = {
+		.Id = (u8)PIN_FUNC_GPIO0,
+		.Name = "gpio0",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_GPIO_PMC,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x60U,
+		.NumPins = 1U,
+		.NumGroups = 26U,
+		.Groups = ((u16 []) {
+			PIN_GRP_GPIO0_0,
+			PIN_GRP_GPIO0_1,
+			PIN_GRP_GPIO0_2,
+			PIN_GRP_GPIO0_3,
+			PIN_GRP_GPIO0_4,
+			PIN_GRP_GPIO0_5,
+			PIN_GRP_GPIO0_6,
+			PIN_GRP_GPIO0_7,
+			PIN_GRP_GPIO0_8,
+			PIN_GRP_GPIO0_9,
+			PIN_GRP_GPIO0_10,
+			PIN_GRP_GPIO0_11,
+			PIN_GRP_GPIO0_12,
+			PIN_GRP_GPIO0_13,
+			PIN_GRP_GPIO0_14,
+			PIN_GRP_GPIO0_15,
+			PIN_GRP_GPIO0_16,
+			PIN_GRP_GPIO0_17,
+			PIN_GRP_GPIO0_18,
+			PIN_GRP_GPIO0_19,
+			PIN_GRP_GPIO0_20,
+			PIN_GRP_GPIO0_21,
+			PIN_GRP_GPIO0_22,
+			PIN_GRP_GPIO0_23,
+			PIN_GRP_GPIO0_24,
+			PIN_GRP_GPIO0_25,
+		}),
+	},
+	[PIN_FUNC_GPIO1] = {
+		.Id = (u8)PIN_FUNC_GPIO1,
+		.Name = "gpio1",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_GPIO_PMC,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x60U,
+		.NumPins = 1U,
+		.NumGroups = 26U,
+		.Groups = ((u16 []) {
+			PIN_GRP_GPIO1_0,
+			PIN_GRP_GPIO1_1,
+			PIN_GRP_GPIO1_2,
+			PIN_GRP_GPIO1_3,
+			PIN_GRP_GPIO1_4,
+			PIN_GRP_GPIO1_5,
+			PIN_GRP_GPIO1_6,
+			PIN_GRP_GPIO1_7,
+			PIN_GRP_GPIO1_8,
+			PIN_GRP_GPIO1_9,
+			PIN_GRP_GPIO1_10,
+			PIN_GRP_GPIO1_11,
+			PIN_GRP_GPIO1_12,
+			PIN_GRP_GPIO1_13,
+			PIN_GRP_GPIO1_14,
+			PIN_GRP_GPIO1_15,
+			PIN_GRP_GPIO1_16,
+			PIN_GRP_GPIO1_17,
+			PIN_GRP_GPIO1_18,
+			PIN_GRP_GPIO1_19,
+			PIN_GRP_GPIO1_20,
+			PIN_GRP_GPIO1_21,
+			PIN_GRP_GPIO1_22,
+			PIN_GRP_GPIO1_23,
+			PIN_GRP_GPIO1_24,
+			PIN_GRP_GPIO1_25,
+		}),
+	},
+	[PIN_FUNC_GPIO2] = {
+		.Id = (u8)PIN_FUNC_GPIO2,
+		.Name = "gpio2",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_GPIO,
+		.LmioRegMask = 0x40U,
+		.PmioRegMask = 0x0U,
+		.NumPins = 1U,
+		.NumGroups = 26U,
+		.Groups = ((u16 []) {
+			PIN_GRP_GPIO2_0,
+			PIN_GRP_GPIO2_1,
+			PIN_GRP_GPIO2_2,
+			PIN_GRP_GPIO2_3,
+			PIN_GRP_GPIO2_4,
+			PIN_GRP_GPIO2_5,
+			PIN_GRP_GPIO2_6,
+			PIN_GRP_GPIO2_7,
+			PIN_GRP_GPIO2_8,
+			PIN_GRP_GPIO2_9,
+			PIN_GRP_GPIO2_10,
+			PIN_GRP_GPIO2_11,
+			PIN_GRP_GPIO2_12,
+			PIN_GRP_GPIO2_13,
+			PIN_GRP_GPIO2_14,
+			PIN_GRP_GPIO2_15,
+			PIN_GRP_GPIO2_16,
+			PIN_GRP_GPIO2_17,
+			PIN_GRP_GPIO2_18,
+			PIN_GRP_GPIO2_19,
+			PIN_GRP_GPIO2_20,
+			PIN_GRP_GPIO2_21,
+			PIN_GRP_GPIO2_22,
+			PIN_GRP_GPIO2_23,
+			PIN_GRP_GPIO2_24,
+			PIN_GRP_GPIO2_25,
+		}),
+	},
+	[PIN_FUNC_MDIO0] = {
+		.Id = (u8)PIN_FUNC_MDIO0,
+		.Name = "mdio0",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x100U,
+		.PmioRegMask = 0x100U,
+		.NumPins = 2U,
+		.NumGroups = 2U,
+		.Groups = ((u16 []) {
+			PIN_GRP_MDIO0_0,
+			PIN_GRP_MDIO0_1,
+		}),
+	},
+	[PIN_FUNC_MDIO1] = {
+		.Id = (u8)PIN_FUNC_MDIO1,
+		.Name = "mdio1",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x280U,
+		.PmioRegMask = 0x180U,
+		.NumPins = 2U,
+		.NumGroups = 2U,
+		.Groups = ((u16 []) {
+			PIN_GRP_MDIO1_0,
+			PIN_GRP_MDIO1_1,
+		}),
+	},
+	[PIN_FUNC_OSPI0] = {
+		.Id = (u8)PIN_FUNC_OSPI0,
+		.Name = "ospi0",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_OSPI,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x2U,
+		.NumPins = 10U,
+		.NumGroups = 1U,
+		.Groups = ((u16 []) {
+			PIN_GRP_OSPI0_0,
+		}),
+	},
+	[PIN_FUNC_PCIE0] = {
+		.Id = (u8)PIN_FUNC_PCIE0,
+		.Name = "pcie0",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x100U,
+		.PmioRegMask = 0x380U,
+		.NumPins = 4U,
+		.NumGroups = 3U,
+		.Groups = ((u16 []) {
+			PIN_GRP_PCIE0_0,
+			PIN_GRP_PCIE0_1,
+			PIN_GRP_PCIE0_2,
+		}),
+	},
+	[PIN_FUNC_QSPI0] = {
+		.Id = (u8)PIN_FUNC_QSPI0,
+		.Name = "qspi0",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_QSPI,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x6U,
+		.NumPins = 10U,
+		.NumGroups = 1U,
+		.Groups = ((u16 []) {
+			PIN_GRP_QSPI0_0,
+		}),
+	},
+	[PIN_FUNC_SMAP0] = {
+		.Id = (u8)PIN_FUNC_SMAP0,
+		.Name = "smap0",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x4U,
+		.NumPins = 36U,
+		.NumGroups = 1U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SMAP0_0,
+		}),
+	},
+	[PIN_FUNC_UART0] = {
+		.Id = (u8)PIN_FUNC_UART0,
+		.Name = "uart0",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_UART_0,
+		.LmioRegMask = 0x20U,
+		.PmioRegMask = 0x40U,
+		.NumPins = 2U,
+		.NumGroups = 9U,
+		.Groups = ((u16 []) {
+			PIN_GRP_UART0_0,
+			PIN_GRP_UART0_1,
+			PIN_GRP_UART0_2,
+			PIN_GRP_UART0_3,
+			PIN_GRP_UART0_4,
+			PIN_GRP_UART0_5,
+			PIN_GRP_UART0_6,
+			PIN_GRP_UART0_7,
+			PIN_GRP_UART0_8,
+		}),
+	},
+	[PIN_FUNC_UART1] = {
+		.Id = (u8)PIN_FUNC_UART1,
+		.Name = "uart1",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_UART_1,
+		.LmioRegMask = 0x20U,
+		.PmioRegMask = 0x40U,
+		.NumPins = 2U,
+		.NumGroups = 9U,
+		.Groups = ((u16 []) {
+			PIN_GRP_UART1_0,
+			PIN_GRP_UART1_1,
+			PIN_GRP_UART1_2,
+			PIN_GRP_UART1_3,
+			PIN_GRP_UART1_4,
+			PIN_GRP_UART1_5,
+			PIN_GRP_UART1_6,
+			PIN_GRP_UART1_7,
+			PIN_GRP_UART1_8,
+		}),
+	},
+	[PIN_FUNC_WWDT0] = {
+		.Id = (u8)PIN_FUNC_WWDT0,
+		.Name = "wwdt0",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x300U,
+		.PmioRegMask = 0x200U,
+		.NumPins = 5U,
+		.NumGroups = 8U,
+		.Groups = ((u16 []) {
+			PIN_GRP_WWDT0_0,
+			PIN_GRP_WWDT0_1,
+			PIN_GRP_WWDT0_2,
+			PIN_GRP_WWDT0_3,
+			PIN_GRP_WWDT0_4,
+			PIN_GRP_WWDT0_5,
+			PIN_GRP_WWDT0_6,
+			PIN_GRP_WWDT0_7,
+		}),
+	},
+	[PIN_FUNC_WWDT1] = {
+		.Id = (u8)PIN_FUNC_WWDT1,
+		.Name = "wwdt1",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x300U,
+		.PmioRegMask = 0x200U,
+		.NumPins = 5U,
+		.NumGroups = 7U,
+		.Groups = ((u16 []) {
+			PIN_GRP_WWDT1_0,
+			PIN_GRP_WWDT1_1,
+			PIN_GRP_WWDT1_2,
+			PIN_GRP_WWDT1_3,
+			PIN_GRP_WWDT1_4,
+			PIN_GRP_WWDT1_5,
+			PIN_GRP_WWDT1_6,
+		}),
+	},
+	[PIN_FUNC_SD0_CD] = {
+		.Id = (u8)PIN_FUNC_SD0_CD,
+		.Name = "sd0_cd",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_0,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x4U,
+		.NumPins = 1U,
+		.NumGroups = 2U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SD0_CD_0,
+			PIN_GRP_SD0_CD_1,
+		}),
+	},
+	[PIN_FUNC_SD0_PC] = {
+		.Id = (u8)PIN_FUNC_SD0_PC,
+		.Name = "sd0_pc",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_0,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x4U,
+		.NumPins = 1U,
+		.NumGroups = 2U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SD0_PC_0,
+			PIN_GRP_SD0_PC_1,
+		}),
+	},
+	[PIN_FUNC_SD0_WP] = {
+		.Id = (u8)PIN_FUNC_SD0_WP,
+		.Name = "sd0_wp",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_0,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x4U,
+		.NumPins = 1U,
+		.NumGroups = 2U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SD0_WP_0,
+			PIN_GRP_SD0_WP_1,
+		}),
+	},
+	[PIN_FUNC_SD1_PC] = {
+		.Id = (u8)PIN_FUNC_SD1_PC,
+		.Name = "sd1_pc",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_1,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x2U,
+		.NumPins = 1U,
+		.NumGroups = 2U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SD1_PC_0,
+			PIN_GRP_SD1_PC_1,
+		}),
+	},
+	[PIN_FUNC_TRACE0] = {
+		.Id = (u8)PIN_FUNC_TRACE0,
+		.Name = "trace0",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x8U,
+		.PmioRegMask = 0x10U,
+		.NumPins = 17U,
+		.NumGroups = 3U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TRACE0_0,
+			PIN_GRP_TRACE0_1,
+			PIN_GRP_TRACE0_2,
+		}),
+	},
+	[PIN_FUNC_SD1_DQS] = {
+		.Id = (u8)PIN_FUNC_SD1_DQS,
+		.Name = "sd1_dqs",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SDIO_1,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x2U,
+		.NumPins = 1U,
+		.NumGroups = 2U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SD1_DQS_0,
+			PIN_GRP_SD1_DQS_1,
+		}),
+	},
+	[PIN_FUNC_SPI0_SS] = {
+		.Id = (u8)PIN_FUNC_SPI0_SS,
+		.Name = "spi0_ss",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SPI_0,
+		.LmioRegMask = 0x80U,
+		.PmioRegMask = 0x100U,
+		.NumPins = 3U,
+		.NumGroups = 6U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SPI0_SS_0,
+			PIN_GRP_SPI0_SS_1,
+			PIN_GRP_SPI0_SS_2,
+			PIN_GRP_SPI0_SS_3,
+			PIN_GRP_SPI0_SS_4,
+			PIN_GRP_SPI0_SS_5,
+		}),
+	},
+	[PIN_FUNC_SPI1_SS] = {
+		.Id = (u8)PIN_FUNC_SPI1_SS,
+		.Name = "spi1_ss",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_SPI_1,
+		.LmioRegMask = 0x80U,
+		.PmioRegMask = 0x100U,
+		.NumPins = 3U,
+		.NumGroups = 6U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SPI1_SS_0,
+			PIN_GRP_SPI1_SS_1,
+			PIN_GRP_SPI1_SS_2,
+			PIN_GRP_SPI1_SS_3,
+			PIN_GRP_SPI1_SS_4,
+			PIN_GRP_SPI1_SS_5,
+		}),
+	},
+	[PIN_FUNC_GEM_TSU0] = {
+		.Id = (u8)PIN_FUNC_GEM_TSU0,
+		.Name = "gem_tsu0",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x4U,
+		.PmioRegMask = 0x6U,
+		.NumPins = 1U,
+		.NumGroups = 4U,
+		.Groups = ((u16 []) {
+			PIN_GRP_GEM_TSU0_0,
+			PIN_GRP_GEM_TSU0_1,
+			PIN_GRP_GEM_TSU0_2,
+			PIN_GRP_GEM_TSU0_3,
+		}),
+	},
+	[PIN_FUNC_OSPI0_SS] = {
+		.Id = (u8)PIN_FUNC_OSPI0_SS,
+		.Name = "ospi0_ss",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_OSPI,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x2U,
+		.NumPins = 2U,
+		.NumGroups = 1U,
+		.Groups = ((u16 []) {
+			PIN_GRP_OSPI0_SS_0,
+		}),
+	},
+	[PIN_FUNC_QSPI0_SS] = {
+		.Id = (u8)PIN_FUNC_QSPI0_SS,
+		.Name = "qspi0_ss",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_QSPI,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x6U,
+		.NumPins = 2U,
+		.NumGroups = 1U,
+		.Groups = ((u16 []) {
+			PIN_GRP_QSPI0_SS_0,
+		}),
+	},
+	[PIN_FUNC_TEST_CLK] = {
+		.Id = (u8)PIN_FUNC_TEST_CLK,
+		.Name = "test_clk",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x8U,
+		.NumPins = 4U,
+		.NumGroups = 1U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TEST_CLK_0,
+		}),
+	},
+	[PIN_FUNC_TTC0_CLK] = {
+		.Id = (u8)PIN_FUNC_TTC0_CLK,
+		.Name = "ttc0_clk",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_0,
+		.LmioRegMask = 0x280U,
+		.PmioRegMask = 0x280U,
+		.NumPins = 1U,
+		.NumGroups = 9U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TTC0_CLK_0,
+			PIN_GRP_TTC0_CLK_1,
+			PIN_GRP_TTC0_CLK_2,
+			PIN_GRP_TTC0_CLK_3,
+			PIN_GRP_TTC0_CLK_4,
+			PIN_GRP_TTC0_CLK_5,
+			PIN_GRP_TTC0_CLK_6,
+			PIN_GRP_TTC0_CLK_7,
+			PIN_GRP_TTC0_CLK_8,
+		}),
+	},
+	[PIN_FUNC_TTC0_WAV] = {
+		.Id = (u8)PIN_FUNC_TTC0_WAV,
+		.Name = "ttc0_wav",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_0,
+		.LmioRegMask = 0x280U,
+		.PmioRegMask = 0x280U,
+		.NumPins = 1U,
+		.NumGroups = 9U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TTC0_WAV_0,
+			PIN_GRP_TTC0_WAV_1,
+			PIN_GRP_TTC0_WAV_2,
+			PIN_GRP_TTC0_WAV_3,
+			PIN_GRP_TTC0_WAV_4,
+			PIN_GRP_TTC0_WAV_5,
+			PIN_GRP_TTC0_WAV_6,
+			PIN_GRP_TTC0_WAV_7,
+			PIN_GRP_TTC0_WAV_8,
+		}),
+	},
+	[PIN_FUNC_TTC1_CLK] = {
+		.Id = (u8)PIN_FUNC_TTC1_CLK,
+		.Name = "ttc1_clk",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_1,
+		.LmioRegMask = 0x280U,
+		.PmioRegMask = 0x280U,
+		.NumPins = 1U,
+		.NumGroups = 9U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TTC1_CLK_0,
+			PIN_GRP_TTC1_CLK_1,
+			PIN_GRP_TTC1_CLK_2,
+			PIN_GRP_TTC1_CLK_3,
+			PIN_GRP_TTC1_CLK_4,
+			PIN_GRP_TTC1_CLK_5,
+			PIN_GRP_TTC1_CLK_6,
+			PIN_GRP_TTC1_CLK_7,
+			PIN_GRP_TTC1_CLK_8,
+		}),
+	},
+	[PIN_FUNC_TTC1_WAV] = {
+		.Id = (u8)PIN_FUNC_TTC1_WAV,
+		.Name = "ttc1_wav",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_1,
+		.LmioRegMask = 0x280U,
+		.PmioRegMask = 0x280U,
+		.NumPins = 1U,
+		.NumGroups = 9U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TTC1_WAV_0,
+			PIN_GRP_TTC1_WAV_1,
+			PIN_GRP_TTC1_WAV_2,
+			PIN_GRP_TTC1_WAV_3,
+			PIN_GRP_TTC1_WAV_4,
+			PIN_GRP_TTC1_WAV_5,
+			PIN_GRP_TTC1_WAV_6,
+			PIN_GRP_TTC1_WAV_7,
+			PIN_GRP_TTC1_WAV_8,
+		}),
+	},
+	[PIN_FUNC_TTC2_CLK] = {
+		.Id = (u8)PIN_FUNC_TTC2_CLK,
+		.Name = "ttc2_clk",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_2,
+		.LmioRegMask = 0x280U,
+		.PmioRegMask = 0x280U,
+		.NumPins = 1U,
+		.NumGroups = 9U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TTC2_CLK_0,
+			PIN_GRP_TTC2_CLK_1,
+			PIN_GRP_TTC2_CLK_2,
+			PIN_GRP_TTC2_CLK_3,
+			PIN_GRP_TTC2_CLK_4,
+			PIN_GRP_TTC2_CLK_5,
+			PIN_GRP_TTC2_CLK_6,
+			PIN_GRP_TTC2_CLK_7,
+			PIN_GRP_TTC2_CLK_8,
+		}),
+	},
+	[PIN_FUNC_TTC2_WAV] = {
+		.Id = (u8)PIN_FUNC_TTC2_WAV,
+		.Name = "ttc2_wav",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_2,
+		.LmioRegMask = 0x280U,
+		.PmioRegMask = 0x280U,
+		.NumPins = 1U,
+		.NumGroups = 9U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TTC2_WAV_0,
+			PIN_GRP_TTC2_WAV_1,
+			PIN_GRP_TTC2_WAV_2,
+			PIN_GRP_TTC2_WAV_3,
+			PIN_GRP_TTC2_WAV_4,
+			PIN_GRP_TTC2_WAV_5,
+			PIN_GRP_TTC2_WAV_6,
+			PIN_GRP_TTC2_WAV_7,
+			PIN_GRP_TTC2_WAV_8,
+		}),
+	},
+	[PIN_FUNC_TTC3_CLK] = {
+		.Id = (u8)PIN_FUNC_TTC3_CLK,
+		.Name = "ttc3_clk",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_3,
+		.LmioRegMask = 0x280U,
+		.PmioRegMask = 0x280U,
+		.NumPins = 1U,
+		.NumGroups = 9U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TTC3_CLK_0,
+			PIN_GRP_TTC3_CLK_1,
+			PIN_GRP_TTC3_CLK_2,
+			PIN_GRP_TTC3_CLK_3,
+			PIN_GRP_TTC3_CLK_4,
+			PIN_GRP_TTC3_CLK_5,
+			PIN_GRP_TTC3_CLK_6,
+			PIN_GRP_TTC3_CLK_7,
+			PIN_GRP_TTC3_CLK_8,
+		}),
+	},
+	[PIN_FUNC_TTC3_WAV] = {
+		.Id = (u8)PIN_FUNC_TTC3_WAV,
+		.Name = "ttc3_wav",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_TTC_3,
+		.LmioRegMask = 0x280U,
+		.PmioRegMask = 0x280U,
+		.NumPins = 1U,
+		.NumGroups = 9U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TTC3_WAV_0,
+			PIN_GRP_TTC3_WAV_1,
+			PIN_GRP_TTC3_WAV_2,
+			PIN_GRP_TTC3_WAV_3,
+			PIN_GRP_TTC3_WAV_4,
+			PIN_GRP_TTC3_WAV_5,
+			PIN_GRP_TTC3_WAV_6,
+			PIN_GRP_TTC3_WAV_7,
+			PIN_GRP_TTC3_WAV_8,
+		}),
+	},
+	[PIN_FUNC_TEST_SCAN] = {
+		.Id = (u8)PIN_FUNC_TEST_SCAN,
+		.Name = "test_scan",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x20U,
+		.NumPins = 38U,
+		.NumGroups = 1U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TEST_SCAN_0,
+		}),
+	},
+	[PIN_FUNC_TRACE0_CLK] = {
+		.Id = (u8)PIN_FUNC_TRACE0_CLK,
+		.Name = "trace0_clk",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x8U,
+		.PmioRegMask = 0x10U,
+		.NumPins = 1U,
+		.NumGroups = 3U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TRACE0_CLK_0,
+			PIN_GRP_TRACE0_CLK_1,
+			PIN_GRP_TRACE0_CLK_2,
+		}),
+	},
+	[PIN_FUNC_UART0_CTRL] = {
+		.Id = (u8)PIN_FUNC_UART0_CTRL,
+		.Name = "uart0_ctrl",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_UART_0,
+		.LmioRegMask = 0x20U,
+		.PmioRegMask = 0x40U,
+		.NumPins = 2U,
+		.NumGroups = 9U,
+		.Groups = ((u16 []) {
+			PIN_GRP_UART0_CTRL_0,
+			PIN_GRP_UART0_CTRL_1,
+			PIN_GRP_UART0_CTRL_2,
+			PIN_GRP_UART0_CTRL_3,
+			PIN_GRP_UART0_CTRL_4,
+			PIN_GRP_UART0_CTRL_5,
+			PIN_GRP_UART0_CTRL_6,
+			PIN_GRP_UART0_CTRL_7,
+			PIN_GRP_UART0_CTRL_8,
+		}),
+	},
+	[PIN_FUNC_UART1_CTRL] = {
+		.Id = (u8)PIN_FUNC_UART1_CTRL,
+		.Name = "uart1_ctrl",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_UART_1,
+		.LmioRegMask = 0x20U,
+		.PmioRegMask = 0x40U,
+		.NumPins = 2U,
+		.NumGroups = 9U,
+		.Groups = ((u16 []) {
+			PIN_GRP_UART1_CTRL_0,
+			PIN_GRP_UART1_CTRL_1,
+			PIN_GRP_UART1_CTRL_2,
+			PIN_GRP_UART1_CTRL_3,
+			PIN_GRP_UART1_CTRL_4,
+			PIN_GRP_UART1_CTRL_5,
+			PIN_GRP_UART1_CTRL_6,
+			PIN_GRP_UART1_CTRL_7,
+			PIN_GRP_UART1_CTRL_8,
+		}),
+	},
+	[PIN_FUNC_OSPI0_RST_N] = {
+		.Id = (u8)PIN_FUNC_OSPI0_RST_N,
+		.Name = "ospi0_rst_n",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_QSPI,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x2U,
+		.NumPins = 1U,
+		.NumGroups = 1U,
+		.Groups = ((u16 []) {
+			PIN_GRP_OSPI0_RST_N_0,
+		}),
+	},
+	[PIN_FUNC_QSPI0_FBCLK] = {
+		.Id = (u8)PIN_FUNC_QSPI0_FBCLK,
+		.Name = "qspi0_fbclk",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_QSPI,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x6U,
+		.NumPins = 1U,
+		.NumGroups = 1U,
+		.Groups = ((u16 []) {
+			PIN_GRP_QSPI0_FBCLK_0,
+		}),
+	},
+	[PIN_FUNC_SYSMON_I2C0] = {
+		.Id = (u8)PIN_FUNC_SYSMON_I2C0,
+		.Name = "sysmon_i2c0",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x380U,
+		.PmioRegMask = 0x0U,
+		.NumPins = 2U,
+		.NumGroups = 18U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SYSMON_I2C0_0,
+			PIN_GRP_SYSMON_I2C0_1,
+			PIN_GRP_SYSMON_I2C0_2,
+			PIN_GRP_SYSMON_I2C0_3,
+			PIN_GRP_SYSMON_I2C0_4,
+			PIN_GRP_SYSMON_I2C0_5,
+			PIN_GRP_SYSMON_I2C0_6,
+			PIN_GRP_SYSMON_I2C0_7,
+			PIN_GRP_SYSMON_I2C0_8,
+			PIN_GRP_SYSMON_I2C0_9,
+			PIN_GRP_SYSMON_I2C0_10,
+			PIN_GRP_SYSMON_I2C0_11,
+			PIN_GRP_SYSMON_I2C0_12,
+			PIN_GRP_SYSMON_I2C0_13,
+			PIN_GRP_SYSMON_I2C0_14,
+			PIN_GRP_SYSMON_I2C0_15,
+			PIN_GRP_SYSMON_I2C0_16,
+			PIN_GRP_SYSMON_I2C0_17,
+		}),
+	},
+	[PIN_FUNC_OSPI0_ECC_FAIL] = {
+		.Id = (u8)PIN_FUNC_OSPI0_ECC_FAIL,
+		.Name = "ospi0_ecc_fail",
+		.DevIdx = (u16)XPM_NODEIDX_DEV_OSPI,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x2U,
+		.NumPins = 1U,
+		.NumGroups = 2U,
+		.Groups = ((u16 []) {
+			PIN_GRP_OSPI0_ECC_FAIL_0,
+			PIN_GRP_OSPI0_ECC_FAIL_1,
+		}),
+	},
+	[PIN_FUNC_TAMPER_TRIGGER] = {
+		.Id = (u8)PIN_FUNC_TAMPER_TRIGGER,
+		.Name = "tamper_trigger",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x0U,
+		.PmioRegMask = 0x380U,
+		.NumPins = 1U,
+		.NumGroups = 8U,
+		.Groups = ((u16 []) {
+			PIN_GRP_TAMPER_TRIGGER_0,
+			PIN_GRP_TAMPER_TRIGGER_1,
+			PIN_GRP_TAMPER_TRIGGER_2,
+			PIN_GRP_TAMPER_TRIGGER_3,
+			PIN_GRP_TAMPER_TRIGGER_4,
+			PIN_GRP_TAMPER_TRIGGER_5,
+			PIN_GRP_TAMPER_TRIGGER_6,
+			PIN_GRP_TAMPER_TRIGGER_7,
+		}),
+	},
+	[PIN_FUNC_SYSMON_I2C0_ALRT] = {
+		.Id = (u8)PIN_FUNC_SYSMON_I2C0_ALRT,
+		.Name = "sysmon_i2c0_alrt",
+		.DevIdx = 0U,
+		.LmioRegMask = 0x380U,
+		.PmioRegMask = 0x0U,
+		.NumPins = 1U,
+		.NumGroups = 18U,
+		.Groups = ((u16 []) {
+			PIN_GRP_SYSMON_I2C0_ALRT_0,
+			PIN_GRP_SYSMON_I2C0_ALRT_1,
+			PIN_GRP_SYSMON_I2C0_ALRT_2,
+			PIN_GRP_SYSMON_I2C0_ALRT_3,
+			PIN_GRP_SYSMON_I2C0_ALRT_4,
+			PIN_GRP_SYSMON_I2C0_ALRT_5,
+			PIN_GRP_SYSMON_I2C0_ALRT_6,
+			PIN_GRP_SYSMON_I2C0_ALRT_7,
+			PIN_GRP_SYSMON_I2C0_ALRT_8,
+			PIN_GRP_SYSMON_I2C0_ALRT_9,
+			PIN_GRP_SYSMON_I2C0_ALRT_10,
+			PIN_GRP_SYSMON_I2C0_ALRT_11,
+			PIN_GRP_SYSMON_I2C0_ALRT_12,
+			PIN_GRP_SYSMON_I2C0_ALRT_13,
+			PIN_GRP_SYSMON_I2C0_ALRT_14,
+			PIN_GRP_SYSMON_I2C0_ALRT_15,
+			PIN_GRP_SYSMON_I2C0_ALRT_16,
+			PIN_GRP_SYSMON_I2C0_ALRT_17,
+		}),
+	},
+};
+
+/****************************************************************************/
+/**
+ * @brief  This function returns handle to requested XPm_PinFunc struct
+ *
+ * @param FuncId	Function ID.
+ *
+ * @return Pointer to XPm_PinFunc if successful, NULL otherwise
+ *
+ ****************************************************************************/
+XPm_PinFunc *XPmPinFunc_GetById(u32 FuncId)
+{
+	XPm_PinFunc *PinFunc = NULL;
+
+	if ((u32)MAX_FUNCTION > FuncId) {
+		PinFunc = &PmPinFuncs[FuncId];
+	}
+
+	return PinFunc;
+}
