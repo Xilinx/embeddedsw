@@ -468,10 +468,10 @@ proc xgen_opts_file {libhandle} {
 		puts $file_handle "#define PLM_GET_OPT_DATA_EN"
 	}
 
-	# Get timestamp_disable value set by user, by default it is FALSE
+	# Get timestamp_en value set by user, by default it is TRUE
 	set value [common::get_property CONFIG.timestamp_en $libhandle]
 	if {$value == false} {
-		if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
+		if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc" || $proc_type == "psv_pmc"} {
 			puts $file_handle "\n/* Time Stamp Disable */"
 			puts $file_handle "#define PLM_BANNER_TIMESTAMP_EXCLUDE"
 		}

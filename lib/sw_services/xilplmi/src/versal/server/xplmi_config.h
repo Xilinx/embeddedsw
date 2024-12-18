@@ -51,6 +51,7 @@
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  10/22/2024 Added configurable option for CFI selective read feature
 *       bm   11/11/2024 Added config option for I2C Handshake feature
+*       obs  12/13/2024 Added PLM_BANNER_TIMESTAMP_EXCLUDE macro
 * </pre>
 *
 * @note
@@ -188,6 +189,10 @@ extern "C" {
  */
 //#define PLM_ENABLE_STL
 
+/**
+ * Enable the below define to disable PLM banner timestamp in Versal
+ */
+//#define PLM_BANNER_TIMESTAMP_EXCLUDE
 
 
 /**
