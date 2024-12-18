@@ -771,8 +771,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_IMAGE_INFO_TBL_BUFFER_LEN		(0x300U)	/* 768B */
 
 /* PMC RAM secure lockdown reserved memory macros */
-#define XPLMI_PMCRAM_BUFFER_MEMORY			(XPLMI_PMCRAM_BASEADDR + 0x16000U)
-#define XPLMI_PMCRAM_BUFFER_MEMORY_LENGTH		(0xC00U)
+/* FIXME: using SSIT PLM to PLM communication space. Remove this asap */
+#define XPLMI_PMCRAM_BUFFER_MEMORY			(XPLMI_PMCRAM_BASEADDR + 0x15000U)
+#define XPLMI_PMCRAM_BUFFER_MEMORY_LENGTH		(0x2000U)
 
 /*
  * Definitions required from Efuse
