@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -70,8 +71,10 @@ extern "C" {
 int XPlm_PmInit(void);
 int XPlm_ProcessPmcCdo(void *Arg);
 #ifdef XPLMI_IPI_DEVICE_ID
+#ifndef VERSAL_AIEPG2
 int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds);
 int XPlm_RemoveKeepAliveTask(void);
+#endif
 #endif /* XPLMI_IPI_DEVICE_ID */
 
 #ifdef __cplusplus

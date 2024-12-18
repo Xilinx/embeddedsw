@@ -123,7 +123,9 @@ int XPlm_AddStartUpTasks(void)
 		{XPlm_LoadBootPdi, NULL},
 		{XPlm_HookAfterBootPdi, NULL},
 #ifdef XPLMI_IPI_DEVICE_ID
+#ifndef VERSAL_AIEPG2
 		{XPlm_CreateKeepAliveTask, (void *)&MilliSeconds},
+#endif
 #endif /* XPLMI_IPI_DEVICE_ID */
 #ifdef XPLM_SEM
 		{XPlm_SemScanInit, NULL},
