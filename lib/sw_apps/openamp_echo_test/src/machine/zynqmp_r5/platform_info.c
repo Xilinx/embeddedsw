@@ -212,13 +212,7 @@ platform_create_rpmsg_vdev(void *platform, uint32_t vdev_index,
 		goto err2;
 	}
 
-	ret_rpmsg_dev = rpmsg_virtio_get_rpmsg_device(rpmsg_vdev);
-
-	if (rpmsg_vdev != NULL){
-		metal_free_memory(rpmsg_vdev);
-	}
-
-	return ret_rpmsg_dev;
+	return rpmsg_virtio_get_rpmsg_device(rpmsg_vdev);
 err2:
 	remoteproc_remove_virtio(rproc, vdev);
 err1:
