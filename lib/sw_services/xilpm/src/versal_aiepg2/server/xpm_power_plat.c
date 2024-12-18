@@ -801,6 +801,42 @@ CREATE_TABLE_RPU_PWRUPDOWNHANDLER(5, 2)
 CREATE_TABLE_RPU_WAKEUP_HANDLER(5, 2)
 CREATE_TABLE_RPU_SLEEP_HANDLER(5, 2)
 
+/****************************************************************************/
+/**
+ * @brief	Waits for P-Channel state to be stable for new request
+ *
+ * @param Args	Node specific arguments
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+static XStatus XPm_PCILWaitForPstable(struct XPmFwPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+	Status = XPm_PollForZero(Args->CorePcilAddr + APU_PCIL_CORE_PREQ_OFFSET, APU_PCIL_CORE_PREQ_MASK, ACPU_PACCEPT_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Waiting for PREQ to become zero failed for ACPU%d..\n", __func__, Args->Id);
+		goto done;
+	}
+
+	Status = XPm_PollForZero(Args->CorePcilAddr + APU_PCIL_CORE_PACTIVE_OFFSET, APU_PCIL_CORE_PACCEPT_MASK, ACPU_PACCEPT_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Waiting for PACCEPT to become zero failed for ACPU%d..\n", __func__, Args->Id);
+		goto done;
+	}
+
+	Status = XPm_PollForZero(Args->CorePcilAddr + APU_PCIL_CORE_PACTIVE_OFFSET, APU_PCIL_CORE_PDENY_MASK, ACPU_PACCEPT_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Waiting for PDENY to become zero failed for ACPU%d..\n", __func__, Args->Id);
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
 static XStatus XPmPower_IslandPwrUp(struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -877,23 +913,26 @@ static XStatus XPmPower_ACpuPwrUp(struct XPmFwPwrCtrl_t *Args)
 
 		ApuClusterState[Args->ClusterId] = A78_CLUSTER_CONFIGURED;
 	}
-
 	/* Set PSTATE and PREQ */
 	XPm_Out32(Args->CorePcilAddr + APU_PCIL_CORE_PSTATE_OFFSET, APU_PCIL_CORE_PSTATE_VAL);
 	XPm_Out32(Args->CorePcilAddr + APU_PCIL_CORE_PREQ_OFFSET, APU_PCIL_CORE_PREQ_MASK);
 
-	/* Poll for PACCEPT. Skip for SPP */
-	if (PLATFORM_VERSION_SPP != XPm_GetPlatform()) {
-		Status = XPm_PollForMask(Args->CorePcilAddr + APU_PCIL_CORE_PACTIVE_OFFSET, APU_PCIL_CORE_PACCEPT_MASK, ACPU_PACCEPT_TIMEOUT);
-		if (XST_SUCCESS != Status) {
-			PmErr("A78 Cluster PACCEPT timeout..\n");
-			goto done;
-		}
+	/* APU core release warm reset */
+	XPm_RMW32(Args->RstAddr, Args->WarmRstMask, ~Args->WarmRstMask);
+	/* Poll for PACCEPT */
+	Status = XPm_PollForMask(Args->CorePcilAddr + APU_PCIL_CORE_PACTIVE_OFFSET, APU_PCIL_CORE_PACCEPT_MASK, ACPU_PACCEPT_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		PmErr("A78 Cluster PACCEPT timeout..\n");
+		goto done;
 	}
-
 	/* Clear PREQ bit */
 	XPm_Out32(Args->CorePcilAddr + APU_PCIL_CORE_PREQ_OFFSET, 0U);
-
+	/* Wait for PStable */
+	Status = XPm_PCILWaitForPstable(Args);
+	if (XST_SUCCESS != Status) {
+		PmErr("A78 Cluster PStable timeout..\n");
+		goto done;
+	}
 	Status = XST_SUCCESS;
 
 done:
@@ -920,14 +959,11 @@ static XStatus XPmPower_ACpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeA
 	/* Mark ACPUx powered up in LOCAL_PWR_STATUS register */
 	XPm_RMW32(PMXC_GLOBAL_PMC_MSTR_PWR_STATE_0, Args->PwrStateMask, Args->PwrStateMask);
 
-	/* APU core release warm reset */
-	XPm_RMW32(Args->RstAddr, Args->WarmRstMask, ~Args->WarmRstMask);
-
 	/* Clear APU_PCIL core ISR wake bit */
 	XPm_Out32(Args->CorePcilAddr + APU_PCIL_CORE_ISR_WAKE_OFFSET, APU_PCIL_CORE_PREQ_MASK);
 
 	/*TODO: Check if power down status needs to be cleared */
-	//XPm_Out32(Args->CorePcilAddr + APU_PCIL_CORE_ISR_POWER_OFFSET, APU_PCIL_CORE_PREQ_MASK);
+	XPm_Out32(Args->CorePcilAddr + APU_PCIL_CORE_ISR_POWER_OFFSET, APU_PCIL_CORE_PREQ_MASK);
 
 	/*
 	* Unmask interrupt for all Power-up Requests and Reset Requests that
@@ -970,8 +1006,7 @@ static XStatus XPmPower_ACpuPwrDwn(struct XPmFwPwrCtrl_t *Args)
 	XStatus Status = XST_FAILURE;
 
 	/* Reset the APU core */
-	XPm_RMW32(Args->RstAddr, Args->WarmRstMask & PSX_CRF_RST_APU_WARM_RST_MASK,
-		     Args->WarmRstMask);
+	XPm_RMW32(Args->RstAddr, Args->WarmRstMask , Args->WarmRstMask);
 
 	/* Enable protected writes */
 	XPm_Out32(Args->PwrCtrlAddr + PSXC_LPX_SLCR_APU_CORE_PWR_CNTRL_WPROT_OFFSET, 0U);
@@ -1029,16 +1064,21 @@ static XStatus XPmPower_ACpuDirectPwrDwn(struct XPmFwPwrCtrl_t *Args)
 	XPm_Out32(Args->CorePcilAddr + APU_PCIL_CORE_PREQ_OFFSET, APU_PCIL_CORE_PREQ_MASK);
 
 	/* Poll for PACCEPT. Skip for SPP. */
-	if (PLATFORM_VERSION_SPP != XPm_GetPlatform()) {
-		Status = XPm_PollForMask(Args->CorePcilAddr + APU_PCIL_CORE_PACTIVE_OFFSET, APU_PCIL_CORE_PACCEPT_MASK, ACPU_PACCEPT_TIMEOUT);
-		if (XST_SUCCESS != Status) {
-			PmErr("A78 Core PACCEPT timeout..\n");
-			goto done;
-		}
+	Status = XPm_PollForMask(Args->CorePcilAddr + APU_PCIL_CORE_PACTIVE_OFFSET, APU_PCIL_CORE_PACCEPT_MASK, ACPU_PACCEPT_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		PmErr("A78 Core PACCEPT timeout..\n");
+		goto done;
 	}
 
 	/* Clear PREQ bit */
 	XPm_Out32(Args->CorePcilAddr + APU_PCIL_CORE_PREQ_OFFSET, 0U);
+
+	/* Wait for PStable */
+	Status = XPm_PCILWaitForPstable(Args);
+	if (XST_SUCCESS != Status) {
+		PmErr("A78 Cluster PStable timeout..\n");
+		goto done;
+	}
 
 	Status = XPmPower_ACpuPwrDwn(Args);
 	if (XST_SUCCESS != Status) {
@@ -1087,17 +1127,22 @@ static XStatus XPmPower_ACpuReqPwrDwn(struct XPmFwPwrCtrl_t *Args)
 	/* Set PREQ field */
 	XPm_Out32(Args->CorePcilAddr + APU_PCIL_CORE_PREQ_OFFSET, APU_PCIL_CORE_PREQ_MASK);
 
-	/* Poll for PACCEPT. Skip for SPP. */
-	if (PLATFORM_VERSION_SPP != XPm_GetPlatform()) {
-		Status = XPm_PollForMask(Args->CorePcilAddr + APU_PCIL_CORE_PACTIVE_OFFSET, APU_PCIL_CORE_PACCEPT_MASK, ACPU_PACCEPT_TIMEOUT);
-		if (XST_SUCCESS != Status) {
-			PmErr("A78 Core PACCEPT timeout..\n");
-			goto done;
-		}
+	/* Poll for PACCEPT */
+	Status = XPm_PollForMask(Args->CorePcilAddr + APU_PCIL_CORE_PACTIVE_OFFSET, APU_PCIL_CORE_PACCEPT_MASK, ACPU_PACCEPT_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		PmErr("A78 Core PACCEPT timeout..\n");
+		goto done;
 	}
 
 	/* Clear PREQ bit */
 	XPm_Out32(Args->CorePcilAddr + APU_PCIL_CORE_PREQ_OFFSET, 0U);
+
+	/* Wait for PStable */
+	Status = XPm_PCILWaitForPstable(Args);
+	if (XST_SUCCESS != Status) {
+		PmErr("A78 Cluster PStable timeout..\n");
+		goto done;
+	}
 
 	/* Disable the core power down interrupt */
 	XPm_Out32(Args->CorePcilAddr + APU_PCIL_CORE_IDS_POWER_OFFSET, APU_PCIL_CORE_IDS_POWER_MASK);
