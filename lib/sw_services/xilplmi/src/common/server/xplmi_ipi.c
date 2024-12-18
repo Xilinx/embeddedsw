@@ -421,6 +421,7 @@ END:
  *****************************************************************************/
 static int XPlmi_IpiDispatchHandler(void *Data)
 {
+	XPlmi_SubsystemHandler SubsystemHandler;
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
@@ -477,8 +478,13 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 			Cmd.SubsystemId = XPLMI_PMC_IMAGE_ID;
 		}
 		else {
+			SubsystemHandler = XPlmi_GetPmSubsystemHandler(NULL);
+			if (SubsystemHandler == NULL){
+				Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, XST_FAILURE);
+				goto END;
+			}
 			Cmd.SubsystemId =
-				(*XPlmi_GetPmSubsystemHandler(NULL))(Cmd.IpiMask);
+				SubsystemHandler(Cmd.IpiMask);
 		}
 
 		Cmd.Len = (Cmd.CmdId >> 16U) & 255U;
