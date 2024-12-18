@@ -1460,7 +1460,8 @@ u32 XDp_TxSetDownspread(XDp *InstancePtr, u8 Enable)
 		return XST_DEVICE_NOT_FOUND;
 	}
 
-	InstancePtr->TxInstance.LinkConfig.DownspreadControl = Enable;
+	/* DP2.1 IP doesn't support spreading of the clock so force disable Clock Spread */
+	InstancePtr->TxInstance.LinkConfig.DownspreadControl = 0;
 
 	/* Write downspread enable to the DisplayPort TX core. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_DOWNSPREAD_CTRL,
