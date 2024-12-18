@@ -47,6 +47,41 @@ function (collect name)
   set_property (GLOBAL APPEND PROPERTY "COLLECT_${name}_LIST" "${_list}")
 endfunction (collect)
 
+function(collect_by_extension name extension)
+  # Retrieve the collector's base directory
+  collector_base(_base "${name}")
+
+  string(COMPARE NOTEQUAL "${_base}" "" _has_base)
+  if(NOT _has_base)
+    message(FATAL_ERROR "No base directory set for collector '${name}'")
+  endif()
+
+  # Current directory where this function is called
+  set(current_dir "${CMAKE_CURRENT_LIST_DIR}")
+
+  # Collect files matching the extension in the current directory and subdirectories
+  file(GLOB files CONFIGURE_DEPENDS "${current_dir}/${extension}")
+
+  # Initialize list to store adjusted file paths
+  set(_list)
+
+  # Process each file
+  foreach(s IN LISTS files)
+    # Ensure we have the absolute path (GLOB_RECURSE provides absolute paths)
+    get_filename_component(abs_s "${s}" ABSOLUTE)
+
+    # Adjust the path to be relative to the collector's base directory
+    file(RELATIVE_PATH rel_s "${_base}" "${abs_s}")
+
+    # Append the adjusted path to the list
+    list(APPEND _list "${rel_s}")
+  endforeach()
+
+  # Append the adjusted paths to the collector's list property
+  set_property(GLOBAL APPEND PROPERTY "COLLECT_${name}_LIST" "${_list}")
+endfunction()
+
+
 function(LIST_INDEX index match PROP)
     foreach (prop ${PROP})
         if ("${prop}" STREQUAL "${match}")
