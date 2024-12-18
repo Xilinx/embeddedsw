@@ -7,22 +7,24 @@ generic requirements. It doesnt have any main() function and running
 this module independently is not intended.
 """
 
-import os
-import sys
-import re
-import glob
 import fileinput
-import shutil
-import yaml
-import time
-import logging
+import glob
 import json
+import logging
+import os
+import re
+import shutil
 import subprocess
-from pathlib import Path
-from distutils.dir_util import copy_tree
-from typing import Any, List, Optional, Dict, Union
+import sys
+import time
 from collections.abc import MutableMapping
+from distutils.dir_util import copy_tree
 from functools import wraps
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
+
+import yaml
+
 
 def get_logger(name):
     return logging.getLogger(name)

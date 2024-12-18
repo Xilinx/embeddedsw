@@ -5,16 +5,16 @@ This module builds an already created app. It doesn't contain any members
 other than main().
 """
 
-import utils
-import os
 import argparse
-from build_bsp import generate_bsp
-from build_bsp import BSP
+import os
+
+import utils
+from build_bsp import BSP, generate_bsp
 from create_app import App
-from validate_bsp import Validation
-from open_amp import openamp_app_configure_common
-from open_amp import openamp_lopper_run
+from open_amp import openamp_app_configure_common, openamp_lopper_run
 from utils import is_file
+from validate_bsp import Validation
+
 
 class Build_App(BSP):
     """
@@ -89,7 +89,7 @@ def build_app(args):
     utils.copy_file(f"{obj.app_build_dir}/compile_commands.json", obj.app_src_dir, silent_discard=True)
     utils.runcmd("cmake --build . --parallel 22 --verbose", cwd=obj.app_build_dir)
 
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description=f"""\b
             Use this script to build the created app.
@@ -99,7 +99,6 @@ if __name__ == "__main__":
         usage='use "python %(prog)s --help" for more information',
         formatter_class=argparse.RawTextHelpFormatter,
     )
-
     # Get the app_path created by the user
     parser.add_argument(
         "-w",
@@ -129,6 +128,8 @@ if __name__ == "__main__":
         help="Specify the .repo.yaml absolute path to use the set repo info",
         default='.repo.yaml',
     )
-
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args(arguments))
     build_app(args)
+
+if __name__ == "__main__":
+    main()

@@ -7,11 +7,13 @@ correct path for different components within embeddedsw. It doesnt have
 any main() function and running this module independently is not intended.
 """
 
-import os, sys
-import glob
-import re
-import utils
 import argparse
+import glob
+import os
+import re
+import sys
+
+import utils
 
 
 class Repo:
@@ -89,7 +91,8 @@ Rules that decide the priority order:
 4. For multiple versioned paths having the same versions, priority shifts
     from left to right of the entered paths, left one having the higher priority.
 """
-def resolve_paths(repo_paths):
+def resolve_paths(args):
+    repo_paths = args['set_repo_path']
     path_dict = {
         'paths' : {},
         'os'    : {},
@@ -140,7 +143,7 @@ def resolve_paths(repo_paths):
 
     utils.write_yaml('.repo.yaml', path_dict)
 
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to set ESW Repo Path",
         usage='use "python %(prog)s --help" for more information',
@@ -154,5 +157,8 @@ if __name__ == "__main__":
         help="Embeddedsw directory Path",
         required=True,
     )
-    args = vars(parser.parse_args())
-    resolve_paths(args['set_repo_path'])
+    args = vars(parser.parse_args(arguments))
+    resolve_paths(args)
+
+if __name__ == "__main__":
+    main()

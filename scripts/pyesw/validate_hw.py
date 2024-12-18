@@ -9,8 +9,10 @@ is not intended.
 """
 
 import os
+
 import utils
 from repo import Repo
+
 
 def lop_create_target(lop_cmds):
     lop_file = f'''

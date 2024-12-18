@@ -1,9 +1,11 @@
 # Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-import utils
 import argparse
 import os
+
+import utils
 from build_bsp import BSP
+
 
 class ReconfigBSP(BSP):
     """
@@ -68,8 +70,7 @@ def reconfig_bsp(args):
         utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.domain_path} -DSUBDIR_LIST="ALL" {obj.cmake_paths_append} {cmake_cmd_append}', cwd=build_metadata)
 
         utils.update_yaml(obj.domain_config_file, "path", "path", obj.domain_path, action="add")
-
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Reconfig the BSP",
         usage='use "python %(prog)s --help" for more information',
@@ -83,5 +84,8 @@ if __name__ == "__main__":
         help="Domain directory Path",
         required=True,
     )
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args(arguments))
     reconfig_bsp(args)
+
+if __name__ == "__main__":
+    main()

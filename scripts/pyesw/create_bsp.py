@@ -5,18 +5,20 @@ This module creates a domain and a bsp for the passed processor, os and system
 device tree combination.
 """
 
-import argparse, textwrap
-import sys
-import os
-import lopper
-import utils
-import re
+import argparse
 import logging
+import os
+import re
+import sys
+import textwrap
+
+import utils
 from library_utils import Library
 from repo import Repo
+from utils import log_time
 from validate_bsp import Validation
 from validate_hw import ValidateHW
-from utils import log_time
+
 
 class Domain(Repo):
     """
@@ -36,7 +38,6 @@ class Domain(Repo):
         self.toolchain_file = None
         self.sdt = utils.get_abs_path(args["sdt"])
         self.family = self._get_family()
-        self.lops_dir = os.path.join(utils.get_dir_path(lopper.__file__), "lops")
         self.include_folder = os.path.join(self.domain_dir, "include")
         self.lib_folder = os.path.join(self.domain_dir, "lib")
         self.libsrc_folder = os.path.join(self.domain_dir, "libsrc")
@@ -88,7 +89,7 @@ class Domain(Repo):
         dump = utils.discard_dump()
         if not utils.is_file(cpu_list_file):
             utils.runcmd(
-                f"lopper --werror -f -O {self.domain_dir} -i {self.lops_dir}/lop-cpulist.dts {self.sdt} > {dump}",
+                f"lopper --werror -f -O {self.domain_dir} -i lop-cpulist.dts {self.sdt} > {dump}",
                 cwd = self.domain_dir,
                 log_message="Generating CPU list"
             )
@@ -210,7 +211,7 @@ class Domain(Repo):
                 toolchain_file_path = utils.get_high_precedence_path(
                     self.repo_paths_list, "toolchain File", "cmake", "toolchainfiles", toolchain_file_name
                 )
-                lops_file = os.path.join(self.lops_dir, f"{proc_lops_specs_map[val][1]}.dts")
+                lops_file = f"{proc_lops_specs_map[val][1]}.dts"
                 toolchain_file_copy = os.path.join(self.domain_dir, toolchain_file_name)
                 utils.copy_file(toolchain_file_path, toolchain_file_copy)
                 specs_file = utils.get_high_precedence_path(
@@ -313,10 +314,10 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
 
         if self.proc_ip_name in ["microblaze", "microblaze_riscv", "asu", "pmc_riscv"]:
             if self.proc_ip_name in ["microblaze_riscv", "asu", "pmc_riscv"] :
-                lops_file = os.path.join(self.lops_dir, "lop-microblaze-riscv.dts")
+                lops_file = "lop-microblaze-riscv.dts"
                 processor = "riscv"
             else:
-                lops_file = os.path.join(self.lops_dir, "lop-microblaze.dts")
+                lops_file = "lop-microblaze.dts"
                 processor = "microblaze"
 
             utils.runcmd(
@@ -794,8 +795,7 @@ CompileFlags:
     if utils.is_file(obj.domain_config_file):
         print(f"Successfully created Domain at {obj.domain_dir}")
 
-
-if __name__ == "__main__":
+def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Create bsp for the given sdt, os, processor and template app",
         usage='use "python %(prog)s --help" for more information',
@@ -895,7 +895,7 @@ if __name__ == "__main__":
         choices=["gcc", "armclang", "armcc", "iar"],
     )
 
-    args = vars(parser.parse_args())
+    args = vars(parser.parse_args(arguments))
     if args["verbose"] >= 1:
         logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     else:
@@ -903,3 +903,6 @@ if __name__ == "__main__":
     logger = logging.getLogger(__name__)
     logger.info( "Starting domain creation" )
     create_domain(args)
+
+if __name__ == "__main__":
+    main()
