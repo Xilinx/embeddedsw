@@ -40,3 +40,4 @@ depends_libs:
     xilnvm: {}
     xilocp: {}
     xilcert: {}
+    xilpm_ng: {}

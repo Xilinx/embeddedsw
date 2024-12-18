@@ -1,5 +1,5 @@
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.14.7)
@@ -19,9 +19,6 @@ if("${CMAKE_MACHINE}" STREQUAL "Versal")
         add_subdirectory(versal)
 elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
         add_subdirectory(versal_net)
-	if("${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2")
-		add_subdirectory(versal_aiepg2)
-	endif()
 elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
         add_subdirectory(zynqmp/client)
 else()

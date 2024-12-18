@@ -61,8 +61,8 @@
 /***************************** Include Files *********************************/
 #include "xplm_pm.h"
 #include "xpm_api.h"
-#include "xpm_ipi.h"
 #ifndef VERSAL_AIEPG2
+#include "xpm_ipi.h"
 #include "xpm_psm.h"
 #endif
 #include "xplmi_scheduler.h"
@@ -81,7 +81,7 @@
 #include "xplm_stl.h"
 #include "xstl_plminterface.h"
 #endif
-
+#include "xpm_nodeid.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/

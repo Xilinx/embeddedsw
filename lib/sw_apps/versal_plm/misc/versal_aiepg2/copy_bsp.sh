@@ -84,18 +84,26 @@ cp -r $SERVICES_DIR/xilloader/src/versal_aiepg2/*.h $BSP_DIR/include/
 cp -r $BSP_DIR/libsrc/xilloader/src/*.h $BSP_DIR/include/
 
 
-mkdir -p $BSP_DIR/libsrc/xilpm/src/
-cp -r $SERVICES_DIR/xilpm/src/versal_net/common/* $BSP_DIR/libsrc/xilpm/src/
-cp -r $SERVICES_DIR/xilpm/src/versal_net/server/* $BSP_DIR/libsrc/xilpm/src/
-cp -r $SERVICES_DIR/xilpm/src/versal_aiepg2/server/* $BSP_DIR/libsrc/xilpm/src/
-cp -r $SERVICES_DIR/xilpm/src/versal_net/common/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilpm/src/versal_net/server/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilpm/src/versal_aiepg2/server/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilpm/src/versal_common/server/* $BSP_DIR/libsrc/xilpm/src/
-cp -r $SERVICES_DIR/xilpm/src/versal_common/server/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilpm/src/versal_common/common/*.h $BSP_DIR/include/
-cp -r $SERVICES_DIR/xilpm/src/versal_common/common/* $BSP_DIR/libsrc/xilpm/src/
-
+mkdir -p $BSP_DIR/libsrc/xilpm_ng/src/
+cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/Makefile $BSP_DIR/libsrc/xilpm_ng/src/
+cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/*.c $BSP_DIR/libsrc/xilpm_ng/src/
+cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/*.h $BSP_DIR/include/
+cp -ir $SERVICES_DIR/xilpm_ng/src/util/*.c $BSP_DIR/libsrc/xilpm_ng/src/
+cp -ir $SERVICES_DIR/xilpm_ng/src/util/*.h $BSP_DIR/include/
+if [ -n "$XILPM_RUNTIME_LIB" ] &&[ "$XILPM_RUNTIME_LIB" != "0" ]; then
+    echo "XILPM_RUNTIME_LIB is set"
+    mkdir -p $BSP_DIR/libsrc/xilpm_runtime/src/
+    mkdir -p $BSP_DIR/include/runtime/
+    cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_runtime/src/Makefile $BSP_DIR/libsrc/xilpm_runtime/src/
+    cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_runtime/src/*.c $BSP_DIR/libsrc/xilpm_runtime/src/
+    cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_runtime/src/*.h $BSP_DIR/include/
+    cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_runtime/src/xilpm_eemi/*.c $BSP_DIR/libsrc/xilpm_runtime/src/
+    cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/*.c $BSP_DIR/libsrc/xilpm_runtime/src/
+    cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_runtime/src/xilpm_eemi/*.h $BSP_DIR/include/
+    cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/*.h $BSP_DIR/include/
+else
+    echo "XILPM_RUNTIME_LIB is not set"
+fi
 mkdir -p $BSP_DIR/libsrc/xilnvm/src
 cp -r $SERVICES_DIR/xilnvm/src/Makefile $BSP_DIR/libsrc/xilnvm/src
 cp -r $SERVICES_DIR/xilnvm/src/versal_gen/versal_net/common/* $BSP_DIR/libsrc/xilnvm/src/
