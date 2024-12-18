@@ -58,7 +58,6 @@
 #include "xplm_proc.h"
 #include "xplm_startup.h"
 #include "xpm_api.h"
-#include "xpm_subsystem.h"
 #include "xplm_loader.h"
 #include "xplmi_err_common.h"
 #include "xplmi.h"
