@@ -216,7 +216,9 @@ int XLoader_SdInit(u32 DeviceFlagsVal)
 	u8 PdiSrc = (u8)(DeviceFlags & XLOADER_PDISRC_FLAGS_MASK);
 	u8 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
 	static FATFS FatFileSystem;
+#ifndef VERSAL_AIEPG2
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+#endif
 	u32 ErrorCode;
 
 	Status = XPlmi_MemSetBytes(BootFile, sizeof(BootFile), 0U, sizeof(BootFile));
@@ -237,9 +239,12 @@ int XLoader_SdInit(u32 DeviceFlagsVal)
 		SdCdnReg = PMC_IOU_SLCR_SD1_CDN_CTRL;
 		ErrorCode =  (u32)XLOADER_ERR_PM_DEV_SDIO_1;
 	}
-
+#ifdef VERSAL_AIEPG2
+	Status = XPm_PmcRequestDevice(SdDeviceNode);
+#else
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, SdDeviceNode,
 		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+#endif
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, Status);
 		goto END;
@@ -436,8 +441,12 @@ END:
 
 END:
 	/** - Release the device and restore the value of IOU_SLCR_CDN register. */
+#ifdef VERSAL_AIEPG2
+	PmStatus = XPm_PmcReleaseDevice(SdDeviceNode);
+#else
 	PmStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, SdDeviceNode,
 		XPLMI_CMD_SECURE);
+#endif
 	if (Rc == FR_OK) {
 		Status = PmStatus;
 	}
@@ -469,7 +478,9 @@ int XLoader_RawInit(u32 DeviceFlags)
 	u8 PdiSrc = (u8)(DeviceFlags & XLOADER_PDISRC_FLAGS_MASK);
 	u8 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
 	XSdPs_Config *SdConfig;
+#ifndef VERSAL_AIEPG2
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+#endif
 	u32 ErrorCode;
 	u32 SdRawBootVal = DeviceFlags & XLOADER_SD_RAWBOOT_MASK;
 	u32 MmcConfig;
@@ -497,8 +508,12 @@ int XLoader_RawInit(u32 DeviceFlags)
 	}
 
 	/** - Request the usage of SD device. */
+#ifdef VERSAL_AIEPG2
+	Status = XPm_PmcRequestDevice(SdDeviceNode);
+#else
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, SdDeviceNode,
 		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+#endif
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, Status);
 		goto END;
@@ -708,8 +723,12 @@ int XLoader_RawRelease(void)
 
 	/** - Release the device. */
 	XPlmi_Out32(SdCdnReg, SdCdnVal);
+#ifdef VERSAL_AIEPG2
+	Status = XPm_PmcReleaseDevice(SdDeviceNode);
+#else
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, SdDeviceNode,
 		XPLMI_CMD_SECURE);
+#endif
 
 	return Status;
 }
