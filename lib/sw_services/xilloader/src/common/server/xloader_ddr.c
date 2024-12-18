@@ -80,17 +80,23 @@ static u8 DdrRequested = (u8)FALSE;
 int XLoader_DdrInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
+#ifndef VERSAL_AIEPG2
 	u32 CapAccess = (u32)PM_CAP_ACCESS;
 	u32 CapContext = (u32)PM_CAP_CONTEXT;
+#endif
 
 	if (DdrRequested == (u8)FALSE) {
 		/**
 		 * - Initialize the device request for DDR_0.
 		 * - Otherwise return XLOADER_ERR_PM_DEV_DDR_0.
 		*/
+#ifdef VERSAL_AIEPG2
+		Status = XPm_PmcRequestDevice(PM_DEV_DDR_0);
+#else
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
 			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
 			XPLMI_CMD_SECURE);
+#endif
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_DDR_0, 0);
 			goto END;
@@ -186,8 +192,12 @@ int XLoader_DdrRelease(void)
 		 * - Initialize the DDR_0 device release request.
 		 * - Otherwise return XLOADER_ERR_RELEASE_PM_DEV_DDR_0.
 		*/
+#ifdef VERSAL_AIEPG2
+		Status = XPm_PmcReleaseDevice(PM_DEV_DDR_0);
+#else
 		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
 			XPLMI_CMD_SECURE);
+#endif
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_RELEASE_PM_DEV_DDR_0, 0);

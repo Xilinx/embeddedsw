@@ -240,7 +240,9 @@ int XLoader_QspiInit(u32 DeviceFlags)
 	int Status = XST_FAILURE;
 	const XQspiPsu_Config *QspiConfig =
 		XQspiPsu_LookupConfig(XLOADER_QSPI_DEVICE);
+#ifndef VERSAL_AIEPG2
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+#endif
 	static const u8 GetBaudRateDivVal[XLOADER_MAX_PRESCALAR_VAL + 1U] = {
 		XLOADER_DEFAULT_PRESCALR_VAL, XLOADER_INVALID_PRESCALAR_VAL, XQSPIPSU_CLK_PRESCALE_2,
 		XLOADER_INVALID_PRESCALAR_VAL, XQSPIPSU_CLK_PRESCALE_4, XLOADER_INVALID_PRESCALAR_VAL,
@@ -249,9 +251,12 @@ int XLoader_QspiInit(u32 DeviceFlags)
 		XLOADER_INVALID_PRESCALAR_VAL, XLOADER_INVALID_PRESCALAR_VAL,
 		XLOADER_INVALID_PRESCALAR_VAL, XLOADER_INVALID_PRESCALAR_VAL,
 		XLOADER_INVALID_PRESCALAR_VAL, XQSPIPSU_CLK_PRESCALE_16};
-
+#ifdef VERSAL_AIEPG2
+	Status = XPm_PmcRequestDevice(PM_DEV_QSPI);
+#else
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_QSPI,
 		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+#endif
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_QSPI, Status);
 		goto END;
@@ -972,7 +977,11 @@ int XLoader_QspiRelease(void)
     /**
      * - Release control of QSPI by calling XPm_ReleaseDevice.
      */
+#ifdef VERSAL_AIEPG2
+	Status = XPm_PmcReleaseDevice(PM_DEV_QSPI);
+#else
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_QSPI, XPLMI_CMD_SECURE);
+#endif
 
 	return Status;
 }

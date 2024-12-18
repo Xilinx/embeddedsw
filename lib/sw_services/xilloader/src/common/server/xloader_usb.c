@@ -88,11 +88,17 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		XPLMI_PMCRAM_CHUNK_MEMORY;
 	struct Usb_DevData *UsbInstancePtr = (struct Usb_DevData *)
 		XPLMI_PMCRAM_CHUNK_MEMORY_1;
+#ifndef VERSAL_AIEPG2
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+#endif
 
 	(void) DeviceFlags;
+#ifdef	VERSAL_AIEPG2
+	Status = XPm_PmcRequestDevice(PM_DEV_USB_0);
+#else
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
 		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+#endif
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -241,8 +247,12 @@ int XLoader_UsbRelease(void)
 	/**
 	 * - Release the USB device.
 	*/
+#ifdef VERSAL_AIEPG2
+	Status = XPm_PmcReleaseDevice(PM_DEV_USB_0);
+#else
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
 		XPLMI_CMD_SECURE);
+#endif
 
 	return Status;
 }

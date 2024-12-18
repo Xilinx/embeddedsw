@@ -204,7 +204,6 @@
 #include "xloader_secure.h"
 #include "xpm_device.h"
 #include "xpm_api.h"
-#include "xpm_subsystem.h"
 #include "xpm_nodeid.h"
 #include "xloader_auth_enc.h"
 #ifdef XPLM_SEM
@@ -219,6 +218,8 @@
 #ifdef VERSAL_NET
 #include "xocp_keymgmt.h"
 #endif
+#include "xpm_device.h"
+#include "xpm_pldevice.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -1136,8 +1137,7 @@ static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChil
 	u32 TempParentImgID = ChildImgID;
 
 	while (TempParentImgID != 0U) {
-		Status = XPm_Query((u32)XPM_QID_PLD_GET_PARENT, TempParentImgID, 0U, 0U,
-				&TempParentImgID);
+		Status = XPmPlDevice_GetParent(TempParentImgID, &TempParentImgID);
 		if (Status != XST_SUCCESS) {
 			Status = XLOADER_ERR_PARENT_QUERY_RELATION_CHECK;
 			goto END;
@@ -1404,7 +1404,11 @@ END:
 static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 {
 	int Status = XST_FAILURE;
+#ifdef VERSAL_AIEPG2
+	u32 DeviceState;
+#else
 	XPm_DeviceStatus DeviceStatus;
+#endif
 	const XLoader_ImageInfo *ParentImageInfo;
 	u32 ParentImgID = XLOADER_INVALID_IMG_ID;
 	u32 NodeId = NODESUBCLASS(ImageInfo->ImgID);
@@ -1416,8 +1420,14 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 	if ((ImageInfo->ImgID != XLOADER_INVALID_IMG_ID) &&
 		(ImageInfo->UID != XLOADER_INVALID_UID) &&
 		(XLoader_IsDFxApplicable(NodeId) == (u8)TRUE)) {
+#ifdef VERSAL_AIEPG2
+		Status = XPm_PmcGetDeviceState( ImageInfo->ImgID,
+				&DeviceState);
+#else
+
 		Status = XPmDevice_GetStatus(PM_SUBSYS_PMC, ImageInfo->ImgID,
 				&DeviceStatus);
+#endif
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_DEV_NOT_DEFINED,
 					Status);
@@ -1428,8 +1438,7 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 			/**
 			 * Query the parent Image ID for compatibility check using XilPM API
 			 */
-			Status = XPm_Query((u32)XPM_QID_PLD_GET_PARENT,
-				ImageInfo->ImgID, 0U, 0U, &ParentImgID);
+			Status = XPmPlDevice_GetParent(ImageInfo->ImgID, &ParentImgID);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_PARENT_QUERY_VERIFY, Status);
@@ -1515,11 +1524,15 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 	/* Configure preallocs for subsystem */
 	if (NODECLASS(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID)
 			== XPM_NODECLASS_SUBSYSTEM) {
+#ifdef VERSAL_AIEPG2
+		Status = XPm_PmcActivateSubsystem(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
+#else
 		Status = XPmSubsystem_Configure(
 			PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
+#endif
+
 		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_CONFIG_SUBSYSTEM, Status);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_CONFIG_SUBSYSTEM, Status);
 			goto END;
 		}
 	}

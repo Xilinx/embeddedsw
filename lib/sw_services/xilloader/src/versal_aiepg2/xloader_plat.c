@@ -68,9 +68,8 @@
 #include "xloader.h"
 #include "xpm_device.h"
 #include "xpm_api.h"
-#include "xpm_subsystem.h"
 #include "xpm_nodeid.h"
-#include "xpm_rpucore_plat.h"
+#include "xpm_rpucore.h"
 #include "xloader_plat.h"
 #include "xplmi_update.h"
 #include "xplmi.h"
@@ -90,7 +89,8 @@
 #include "xtrngpsx.h"
 #include "xloader_ddr.h"
 #include "xsecure_plat.h"
-
+#include "xpm_rpucore.h"
+#include "xpm_apucore.h"
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U) /**< Image version information */
 #define XLOADER_IMAGE_INFO_LCVERSION	(1U) /**< Image lowest compatible version information */
@@ -385,8 +385,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				break;
 		}
 		if (RequestWakeup == TRUE) {
-			Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId,
-				SetAddress, HandoffAddr, 0U, XPLMI_CMD_SECURE);
+			Status = XPm_PmcWakeUpCore(DeviceId, SetAddress, HandoffAddr);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, Status);
 				goto END;
@@ -681,8 +680,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				goto END;
 			}
 			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster * 2) + XLOADER_RPU_CORE0;
-			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_RPU_OPER_MODE,
-					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
+			Status = XPm_RpuSetOperMode(DeviceId, Mode);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -694,8 +692,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				goto END;
 			}
 			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster * 2) + XLOADER_RPU_CORE1;
-			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_RPU_OPER_MODE,
-					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
+			Status = XPm_RpuSetOperMode(DeviceId, Mode);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -703,32 +700,28 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_0:
 			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster * 4);
-			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_APU_OPER_MODE,
-					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
+			Status = XPm_ApuSetOperMode(DeviceId, Mode);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_1:
 			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster*4) + XLOADER_APU_CORE1;
-			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_APU_OPER_MODE,
-					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
+			Status = XPm_ApuSetOperMode(DeviceId, Mode);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_2:
 			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster*4) + XLOADER_APU_CORE2;
-			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_APU_OPER_MODE,
-					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
+			Status = XPm_ApuSetOperMode(DeviceId, Mode);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_3:
 			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster*4) + XLOADER_APU_CORE3;
-			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_APU_OPER_MODE,
-					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
+			Status = XPm_ApuSetOperMode(DeviceId, Mode);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -935,7 +928,7 @@ int XLoader_DumpDdrmcRegisters(void)
 	u8 Ub = 0U;
 	u8 LoopCount;
 	u32 BaseAddr;
-	XPm_DeviceStatus DevStatus;
+	u32 DevState;
 
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,"====DDRMC Register Dump Start======\n\r");
 
@@ -952,13 +945,13 @@ int XLoader_DumpDdrmcRegisters(void)
 			continue;
 		}
 
-		DevStatus.Status = (u32)XPM_DEVSTATE_UNUSED;
+		DevState = (u32)XPM_DEVSTATE_UNUSED;
 		/** Get DDRMC UB Base address */
-		Status = XPm_GetDeviceStatus(PM_SUBSYS_PMC, DevId, &DevStatus);
+		Status = XPm_PmcGetDeviceState(DevId, &DevState);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		if (DevStatus.Status != XPM_DEVSTATE_RUNNING) {
+		if (DevState != XPM_DEVSTATE_RUNNING) {
 			XPlmi_Printf(DEBUG_GENERAL, "DDRMC_%u is not enabled,"
 					" Skipping its dump...\n\r", Ub);
 			++Ub;

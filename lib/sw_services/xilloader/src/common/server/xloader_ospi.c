@@ -305,13 +305,19 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	XOspiPsv_Config *OspiConfig;
 	u8 OspiMode;
 	(void)DeviceFlags;
+#ifndef VERSAL_AIEPG2
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+#endif
 
 	/**
 	 * - Request driver for OSPI device.
 	*/
+#ifdef VERSAL_AIEPG2
+	Status = XPm_PmcRequestDevice(PM_DEV_OSPI);
+#else
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
 		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+#endif
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_OSPI, Status);
 		goto END;
@@ -1142,8 +1148,12 @@ int XLoader_OspiRelease(void)
 	/**
 	 * - Request the OSPI driver to release the device.
 	*/
+#ifdef VERSAL_AIEPG2
+	Status = XPm_PmcReleaseDevice(PM_DEV_OSPI);
+#else
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
 		XPLMI_CMD_SECURE);
+#endif
 
 	return Status;
 }
