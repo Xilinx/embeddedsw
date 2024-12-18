@@ -13,6 +13,6 @@ BEGIN driver dp21
         OPTION driver_state = ACTIVE;
 	OPTION depends = (video_common_v4_0);
         OPTION copyfiles = all;
-        OPTION VERSION = 2.3;
+        OPTION VERSION = 2.4;
         OPTION NAME = dp21;
 END driver
