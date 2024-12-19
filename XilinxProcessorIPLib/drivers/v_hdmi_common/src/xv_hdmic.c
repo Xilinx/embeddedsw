@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -729,6 +729,9 @@ void XV_HdmiC_ParseAVIInfoFrame(XHdmiC_Aux *AuxPtr, XHdmiC_AVI_InfoFrame *infoFr
 		/* Header, Version */
 		infoFramePtr->Version = AuxPtr->Header.Byte[1];
 
+		/* Data Length */
+		infoFramePtr->DataLength = AuxPtr->Header.Byte[2];
+
 		/* PB1 */
 		infoFramePtr->ColorSpace = (AuxPtr->Data.Byte[1] >> 5) & 0x7;
 		infoFramePtr->ActiveFormatDataPresent = (AuxPtr->Data.Byte[1] >> 4) & 0x1;
@@ -747,7 +750,7 @@ void XV_HdmiC_ParseAVIInfoFrame(XHdmiC_Aux *AuxPtr, XHdmiC_AVI_InfoFrame *infoFr
 		infoFramePtr->NonUniformPictureScaling = AuxPtr->Data.Byte[3] & 0x3;
 
 		/* PB4 */
-		infoFramePtr->VIC = AuxPtr->Data.Byte[4] & 0x7f;
+		infoFramePtr->VIC = AuxPtr->Data.Byte[4] & 0xff;
 
 		/* PB5 */
 		infoFramePtr->YccQuantizationRange = (AuxPtr->Data.Byte[5] >> 6) & 0x3;
@@ -766,6 +769,14 @@ void XV_HdmiC_ParseAVIInfoFrame(XHdmiC_Aux *AuxPtr, XHdmiC_AVI_InfoFrame *infoFr
 		/* PB12/13 */
 		infoFramePtr->RightBar = (AuxPtr->Data.Byte[14] << 8) | AuxPtr->Data.Byte[13];
 
+		/* PB14*/
+		infoFramePtr->AdditionalColorimetryExtension = (AuxPtr->Data.Byte[16] >> 4) & 0x0f;
+
+		infoFramePtr->FrameRateCode = ((AuxPtr->Data.Byte[16] & 0x0f) |
+					 ((AuxPtr->Data.Byte[17] & 0x40) >> 2));
+
+		/* PB15 */
+		infoFramePtr->ResolutionID = AuxPtr->Data.Byte[17] & 0x3f;
 	}
 }
 
@@ -1021,11 +1032,28 @@ XHdmiC_Aux XV_HdmiC_AVIIF_GeneratePacket(XHdmiC_AVI_InfoFrame *infoFramePtr)
 	/* Header, Packet type*/
 	aux.Header.Byte[0] = AUX_AVI_INFOFRAME_TYPE;
 
+	if (infoFramePtr->FrameRateCode > XHDMIC_FR_NO_DATA ||
+			infoFramePtr->ResolutionID > XHDMIC_VM_1280x720P) {
+		infoFramePtr->Version = 4;
+		infoFramePtr->DataLength = 15;
+	} else if ((infoFramePtr->Colorimetry == XHDMIC_COLORIMETRY_EXTENDED) &&
+			(infoFramePtr->ExtendedColorimetry ==
+			 XHDMIC_EXTENDED_COLORIMETRY_RESERVED_3)) {
+		infoFramePtr->Version = 4;
+		infoFramePtr->DataLength = 14;
+	} else if (infoFramePtr->VIC >= 128) {
+		infoFramePtr->Version = 3;
+		infoFramePtr->DataLength = 13;
+	} else {
+		infoFramePtr->Version = 2;
+		infoFramePtr->DataLength = 13;
+	}
+
 	/* Version */
 	aux.Header.Byte[1] = infoFramePtr->Version;
 
 	/* Length */
-	aux.Header.Byte[2] = 13;
+	aux.Header.Byte[2] = infoFramePtr->DataLength;
 
 	/* Checksum (this will be calculated by the HDMI TX IP) */
 	aux.Header.Byte[3] = 0;
@@ -1081,9 +1109,27 @@ XHdmiC_Aux XV_HdmiC_AVIIF_GeneratePacket(XHdmiC_AVI_InfoFrame *infoFramePtr)
 	/* PB14 */
 	aux.Data.Byte[14] = (infoFramePtr->RightBar & 0xff00) >> 8;
 
+	aux.Data.Byte[15] = 0;
+
+	/*PB14*/
+	if (infoFramePtr->DataLength >= 14) {
+		aux.Data.Byte[16] = ((infoFramePtr->AdditionalColorimetryExtension & 0xf) << 4) |
+				(infoFramePtr->FrameRateCode & 0xf);
+	} else {
+		aux.Data.Byte[16] = 0;
+	}
+
+	/*PB15*/
+	if (infoFramePtr->DataLength == 15) {
+		aux.Data.Byte[17] = (infoFramePtr->ResolutionID & 0x3f) |
+				((infoFramePtr->FrameRateCode & 0x10) << 2);
+	} else {
+		aux.Data.Byte[17] = 0;
+	}
+
 	/* Index references the length to calculate start of loop from
 	 * where values are reserved */
-	for (Index = aux.Header.Byte[2] + 2; Index < 32; Index++)
+	for (Index = aux.Header.Byte[2] + 3; Index < 32; Index++)
 		aux.Data.Byte[Index] = 0;
 
 	/* Calculate AVI infoframe checksum */
@@ -1094,7 +1140,7 @@ XHdmiC_Aux XV_HdmiC_AVIIF_GeneratePacket(XHdmiC_AVI_InfoFrame *infoFramePtr)
 		Crc += aux.Header.Byte[Index];
 
 	/* Data */
-	for (Index = 1; Index < (aux.Header.Byte[2] + 2); Index++)
+	for (Index = 1; Index < (aux.Header.Byte[2] + 3); Index++)
 		Crc += aux.Data.Byte[Index];
 
 	Crc = 256 - Crc;
@@ -1447,7 +1493,7 @@ XHdmiC_Colorspace XV_HdmiC_XVidC_To_IfColorformat(XVidC_ColorFormat ColorFormat)
 			break;
 
 		default:
-			Colorspace = XHDMIC_COLORSPACE_RESERVED;
+			Colorspace = XHDMIC_COLORSPACE_RESERVED6;
 			break;
 	}
 

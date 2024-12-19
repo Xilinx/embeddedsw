@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -86,6 +86,65 @@ typedef enum {
 	XHDMIC_PIC_ASPECT_RATIO_RESERVED
 } XHdmiC_PicAspectRatio;
 
+/**
+* This typedef contains FrameRate code information as per the HDMI 2.1b spec.
+*/
+typedef enum {
+	XHDMIC_FR_NO_DATA,
+	XHDMIC_FR_23_98Hz,
+	XHDMIC_FR_24Hz,
+	XHDMIC_FR_25Hz,
+	XHDMIC_FR_29_97Hz,
+	XHDMIC_FR_30Hz,
+	XHDMIC_FR_47_95Hz,
+	XHDMIC_FR_48Hz,
+	XHDMIC_FR_50Hz,
+	XHDMIC_FR_59_94Hz,
+	XHDMIC_FR_60Hz,
+	XHDMIC_FR_100Hz,
+	XHDMIC_FR_119_88Hz,
+	XHDMIC_FR_120Hz,
+	XHDMIC_FR_143_86Hz,
+	XHDMIC_FR_144Hz,
+	XHDMIC_FR_200Hz,
+	XHDMIC_FR_239_76Hz,
+	XHDMIC_FR_240Hz,
+	XHDMIC_FR_300Hz,
+	XHDMIC_FR_359_64Hz,
+	XHDMIC_FR_360Hz,
+	XHDMIC_FR_400Hz,
+	XHDMIC_FR_479_52Hz,
+	XHDMIC_FR_480Hz,
+	XHDMIC_FR_RESERVED
+} XHdmiC_FrameRateCode;
+
+/**
+* This typedef contains Resolution ID's information as per the HDMI 2.1b spec.
+*/
+typedef enum {
+	XHDMIC_VM_1280x720P,
+	XHDMIC_VM_1680x720P,
+	XHDMIC_VM_1920x1080P,
+	XHDMIC_VM_2560x1080P,
+	XHDMIC_VM_3840x1080P,
+	XHDMIC_VM_2560x1440P,
+	XHDMIC_VM_3440x1440P,
+	XHDMIC_VM_5120x1440P,
+	XHDMIC_VM_3840x2160P,
+	XHDMIC_VM_5120x2160P,
+	XHDMIC_VM_7680x2160P,
+	XHDMIC_VM_5120x2880P,
+	XHDMIC_VM_6880x2880P,
+	XHDMIC_VM_10240x2880P,
+	XHDMIC_VM_7680x4320P,
+	XHDMIC_VM_10240x4320P,
+	XHDMIC_VM_15360x4320P,
+	XHDMIC_VM_11520x6480P,
+	XHDMIC_VM_15360x6480P,
+	XHDMIC_VM_15360x8640P,
+	XHDMIC_VM_20480x8640P
+} XHdmiC_ResolutionID;
+
 typedef struct {
 	XVidC_VideoMode VmId;	/**< Video mode/Resolution ID */
 	XHdmiC_PicAspectRatio PicAspectRatio;   /**< Picture Aspect Ratio */
@@ -117,7 +176,9 @@ typedef enum {
 	XHDMIC_COLORSPACE_YUV422,
 	XHDMIC_COLORSPACE_YUV444,
 	XHDMIC_COLORSPACE_YUV420,	/**< Version 3 AVI InfoFrame */
-	XHDMIC_COLORSPACE_RESERVED,
+	XHDMIC_COLORSPACE_RESERVED4,
+	XHDMIC_COLORSPACE_RESERVED5,
+	XHDMIC_COLORSPACE_RESERVED6,
 	XHDMIC_COLORSPACE_IDO_DEFINED = 7,
 } XHdmiC_Colorspace;
 
@@ -165,6 +226,15 @@ typedef enum {
 	XHDMIC_EXTENDED_COLORIMETRY_RESERVED_2,
 	XHDMIC_EXTENDED_COLORIMETRY_RESERVED_3
 } XHdmiC_ExtendedColorimetry;
+
+typedef enum {
+	XHDMIC_ADD_EXTENDED_COLORIMETRY_P3D65,
+	XHDMIC_ADD_EXTENDED_COLORIMETRY_P3DCI,
+	XHDMIC_ADD_EXTENDED_COLORIMETRY_ICTCP,
+	XHDMIC_ADD_EXTENDED_COLORIMETRY_STANDARD_RGB,
+	XHDMIC_ADD_EXTENDED_COLORIMETRY_DEFAULT_RGB,
+	XHDMIC_ADD_EXTENDED_COLORIMETRY_RESERVED
+} XHdmiC_AdditionalColorimetryExtension;
 
 typedef enum {
 	XHDMIC_RGB_QUANTIZATION_RANGE_DEFAULT,
@@ -402,6 +472,7 @@ typedef enum {
  */
 typedef struct XHDMIC_AVI_InfoFrame {
 	unsigned char Version;
+	u8 DataLength;
 	XHdmiC_Colorspace ColorSpace;
 	u8 ActiveFormatDataPresent;
 	XHdmiC_BarInfo BarInfo;
@@ -421,6 +492,9 @@ typedef struct XHDMIC_AVI_InfoFrame {
 	u16 BottomBar;
 	u16 LeftBar;
 	u16 RightBar;
+	XHdmiC_AdditionalColorimetryExtension AdditionalColorimetryExtension;
+	XHdmiC_FrameRateCode FrameRateCode;
+	XHdmiC_ResolutionID ResolutionID;
 } XHdmiC_AVI_InfoFrame;
 
 /**
