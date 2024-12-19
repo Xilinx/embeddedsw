@@ -680,6 +680,7 @@ typedef struct {
     XV_VidC_Supp	IsDscNativeYCbCr420Supp;
     XV_VidC_Supp	IsVesaDsc12aSupp;
     u8			DscTotalChunkBytes;
+    u8			Extensions;
 } XV_VidC_EdidCntrlParam;
 
 
