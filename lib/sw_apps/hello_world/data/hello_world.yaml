@@ -23,6 +23,8 @@ depends:
         - reg
     uartpsv:
         - reg
+    iomodule:
+        - reg
 
 supported_processors:
   - psu_cortexa53

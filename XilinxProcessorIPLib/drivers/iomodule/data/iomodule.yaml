@@ -1,14 +1,21 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
-title: Bindings for IPI controller available in the zynqMP and Versal platform
+title: Bindings for iomodule controller
 
 maintainers:
-  - Shubhrajyoti Datta <shubhrajyoti.datta@xilinx.com>
-  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+  - Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+  - Appana Durga Kedareswara Rao <appana.durga.kedareswara.rao@amd.com>
 
 type: driver
+
+
+# The IOModule can function as a serial interface or an interrupt controller
+# or a timer. To use it as a serial interface, set the dev_type to "serial".
+# This change will not impact any other functionality and is required for
+# hardware error validation checks.
+device_type: serial
 
 properties:
   compatible:
