@@ -34,6 +34,7 @@ all: $(EXEC)
 
 $(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
 	$(CC) -o $@ $(sort $(OBJS)) $(CC_FLAGS) $(CFLAGS) $(LN_FLAGS) $(LIBPATH) $(LSCRIPT)
+$(OBJS): $(LIBS)
 
 $(LIBS):
 	echo "Copying BSP files"
