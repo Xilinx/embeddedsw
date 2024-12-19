@@ -27,6 +27,7 @@
 *                       for OptionalDataLen Check
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
+*       obs  12/18/2024 Fixed GCC Warnings
 *
 * </pre>
 *
@@ -161,7 +162,6 @@ int XPlm_CompatibilityCheck(u32 PdiAddr)
 	u32 Offset;
 	u32 OptionalDataLen;
 	u32 OptionalDataEndAddr;
-	u32 Checksum;
 	u32 Index;
 	u32 PdiVersion;
 	XPlmi_DsVer *DsVerList = NULL;
