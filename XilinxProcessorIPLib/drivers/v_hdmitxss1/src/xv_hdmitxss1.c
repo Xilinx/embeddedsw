@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 /***************************** Include Files *********************************/
 #include "xv_hdmitxss1.h"
 #include "xv_hdmitxss1_coreinit.h"
+#include "xvidc_edid_ext.h"
 
 /************************** Constant Definitions *****************************/
 /* Pixel definition in 8 bit resolution in YUV color space*/
@@ -1830,6 +1831,68 @@ int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u32 BufferSize)
 /*****************************************************************************/
 /**
 *
+* This function reads the HDMI Sink EDID.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+int XV_HdmiTxSs1_ReadEdid_extension(XV_HdmiTxSs1 *InstancePtr,
+				    XV_VidC_EdidCntrlParam *EdidCtrlParam)
+{
+	u32 Status;
+	u8 ExtensionFlag = 0;
+	u8 Segment = 1, segments;
+	u8 Buffer[256];
+
+	/* Default*/
+	Status = (XST_FAILURE);
+
+	/* Check if a sink is connected*/
+	if (InstancePtr->IsStreamConnected == (TRUE)) {
+		*Buffer = 0x00;   /* Offset zero*/
+		Status = XV_HdmiTx1_DdcWrite(InstancePtr->HdmiTx1Ptr, 0x50, 1,
+					     Buffer, (FALSE));
+		/* Check if write was successful*/
+		if (Status == (XST_SUCCESS)) {
+			/* Read edid*/
+			Status = XV_HdmiTx1_DdcRead(InstancePtr->HdmiTx1Ptr,
+						    0x50, 256, Buffer, (TRUE));
+		}
+
+		/* Read if more than 2 Blocks of EDID present */
+		if (Status == (XST_SUCCESS)) {
+			XV_VidC_parse_edid_extension((u8 *)&Buffer,
+						     EdidCtrlParam,
+						     XVIDC_VERBOSE_DISABLE, 0);
+
+			if (EdidCtrlParam->Extensions > 1) {
+				ExtensionFlag = EdidCtrlParam->Extensions;
+			} else {
+				ExtensionFlag = Buffer[126];
+			}
+			segments = ExtensionFlag >> 1;
+			while (Segment <= segments) {
+				Status = XV_HdmiTxSs1_ReadEdidSegment(InstancePtr,
+								      (u8 *) &Buffer,
+								      Segment);
+			if (Status == XST_SUCCESS) {
+				XV_VidC_parse_edid_extension((u8 *)&Buffer,
+							     EdidCtrlParam,
+							     XVIDC_VERBOSE_DISABLE,
+							     Segment);
+			}
+			    Segment++;
+			}
+		}
+	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function reads one block from the HDMI Sink EDID.
 *
 * @return None.
@@ -1895,6 +1958,86 @@ int XV_HdmiTxSs1_ReadEdidSegment(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u8 segme
       xil_printf("Please connect a HDMI sink.\r\n");
     }
   return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function shows the HDMI source edid.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiTxSs1_ShowEdid_extension(XV_HdmiTxSs1 *InstancePtr, XV_VidC_EdidCntrlParam *EdidCtrlParam)
+{
+    u8 Buffer[256];
+    u8 Row;
+    u8 Column;
+    u8 Valid;
+    u32 Status;
+    u8 EdidManName[4];
+    u8 segment = 0;
+    u8 ExtensionFlag = 0;
+
+    /* Check if a sink is connected*/
+    if (InstancePtr->IsStreamConnected == (TRUE)) {
+
+	/* Default*/
+	Valid = (FALSE);
+
+	/* Read Sink Edid Segment 0*/
+	Status = XV_HdmiTxSs1_ReadEdidSegment(InstancePtr, (u8 *)&Buffer, segment);
+
+	/* Check if read was successful*/
+	if (Status == (XST_SUCCESS)) {
+		XVidC_EdidGetManName(&Buffer[0], (char *) EdidManName);
+		xil_printf("\r\nMFG name : %S\r\n", EdidManName);
+		if (EdidCtrlParam->Extensions > 1) {
+			ExtensionFlag = EdidCtrlParam->Extensions;
+		} else {
+			ExtensionFlag = Buffer[126];
+		}
+
+		ExtensionFlag = ExtensionFlag >> 1;
+		xil_printf("Number of Segment : %d\r\n", ExtensionFlag + 1);
+		xil_printf("\r\nRaw data\r\n");
+		xil_printf("----------------------------------------------------\r\n");
+	} else {
+		xil_printf(ANSI_COLOR_YELLOW "EDID parsing has failed.\r\n"
+				ANSI_COLOR_RESET);
+	}
+
+	segment = 0;
+	while (segment <= ExtensionFlag) {
+		/* Check if read was successful*/
+		if (Status == (XST_SUCCESS)) {
+			xil_printf("\r\n---- Segment %d ----\r\n", segment);
+			xil_printf("----------------------------------------------------\r\n");
+			for (Row = 0; Row < 16; Row++) {
+				xil_printf("%02X : ", (Row*16));
+				for (Column = 0; Column < 16; Column++) {
+					xil_printf("%02X ", Buffer[(Row*16)+Column]);
+				}
+				xil_printf("\r\n");
+			}
+			Valid = (TRUE);
+			segment++;
+			if (segment <= ExtensionFlag) {
+				Status = XV_HdmiTxSs1_ReadEdidSegment(InstancePtr,
+								      (u8 *)&Buffer,
+								      segment);
+			}
+		}
+	}
+
+	if (!Valid) {
+		xil_printf("Error reading EDID\r\n");
+	}
+    } else {
+	    xil_printf("No sink is connected.\r\n");
+    }
 }
 
 /*****************************************************************************/

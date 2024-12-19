@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,6 +50,7 @@ extern "C" {
 #include "xv_hdmic.h"
 #include "xv_hdmic_vsif.h"
 #include "xvidc_edid.h"
+#include "xvidc_edid_ext.h"
 #include "xv_hdmitx1.h"
 #include "xvtc.h"
 #include "xv_hdmitxss1_frl.h"
@@ -546,8 +547,10 @@ int XV_HdmiTxSs1_SetLogCallback(XV_HdmiTxSs1 *InstancePtr,
 	void *CallbackRef);
 int XV_HdmiTxSs1_SendCvtemAuxPackets(XV_HdmiTxSs1 *InstancePtr, XHdmiC_Aux *DscAuxFifo);
 int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *BufferPtr, u32 BufferSize);
+int XV_HdmiTxSs1_ReadEdid_extension(XV_HdmiTxSs1 *InstancePtr, XV_VidC_EdidCntrlParam *EdidCtrlParam);
 int XV_HdmiTxSs1_ReadEdidSegment(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u8 segment);
 void XV_HdmiTxSs1_ShowEdid(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSs1_ShowEdid_extension(XV_HdmiTxSs1 *InstancePtr, XV_VidC_EdidCntrlParam *EdidCtrlParam);
 void XV_HdmiTxSs1_SetScrambler(XV_HdmiTxSs1 *InstancePtr, u8 Enable);
 void XV_HdmiTxSs1_StreamStart(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_SendAuxInfoframe(XV_HdmiTxSs1 *InstancePtr, void *AuxPtr);
