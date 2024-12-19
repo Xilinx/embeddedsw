@@ -1693,7 +1693,6 @@ static const struct xvidc_edid_extension_handler {
 	[XVIDC_EDID_EXTENSION_DDDB]           = { NULL },
 };
 
-
 /*****************************************************************************/
 /**
 *
@@ -1736,5 +1735,70 @@ XV_VidC_parse_edid(const u8 * const data,
         } else {
 		(*handler->inf_disp)(extension,EdidCtrlParam,VerboseEn);
         }
+    }
+}
+
+void XV_VidC_handle_extension(const struct xvidc_edid_extension *extension,
+		XV_VidC_EdidCntrlParam *EdidCtrlParam,
+		XV_VidC_Verbose VerboseEn) {
+	const struct xvidc_edid_extension_handler *handler =
+			&xvidc_edid_extension_handlers[extension->tag];
+
+	if (!handler->inf_disp) {
+#if XVIDC_EDID_VERBOSITY > 0
+		if (VerboseEn) {
+			xil_printf("WARNING: block %u contains unknown extension (%#04x)\r\n",
+					block_num, extension->tag);
+		}
+#endif
+	} else {
+		(*handler->inf_disp)(extension, EdidCtrlParam, VerboseEn);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function parse and print the EDID of the Sink and handles the EDID data
+* segment wise.
+*
+* @param    data is a pointer to the EDID array.
+* @param    EdidCtrlParam is a pointer the EDID Control parameter
+* @param    VerboseEn is a pointer to the XV_HdmiTxSs core instance.
+* @param    Segment is a segment number of EDID
+*
+* @return None
+*
+* @note   None.
+*
+******************************************************************************/
+void
+XV_VidC_parse_edid_extension(const u8 * const data,
+                  XV_VidC_EdidCntrlParam *EdidCtrlParam,
+                  XV_VidC_Verbose VerboseEn, u8 SegmentNum) {
+
+    if (SegmentNum == 0) {
+	const struct edid *edid = (const struct edid *)data;
+	const struct xvidc_edid_extension *extension =
+		(const struct xvidc_edid_extension *)(data + sizeof(*edid));
+
+        /* Initialize EDID Control Parameters */
+        XV_VidC_EdidCtrlParamInit(EdidCtrlParam);
+
+        xvidc_disp_edid1(edid, EdidCtrlParam, VerboseEn);
+
+        /* Handle the base segment */
+        XV_VidC_handle_extension(extension, EdidCtrlParam, VerboseEn);
+        return;
+    }
+
+     /* Handle segment 1 onwards */
+    for (u8 i = 0; i < 2; i++) {
+	const struct xvidc_edid_extension *extensions =
+		(const struct xvidc_edid_extension *)data;
+	const struct xvidc_edid_extension *extension =
+		&extensions[i * XVIDC_EDID_BLOCK_SIZE];
+
+	XV_VidC_handle_extension(extension, EdidCtrlParam, VerboseEn);
     }
 }

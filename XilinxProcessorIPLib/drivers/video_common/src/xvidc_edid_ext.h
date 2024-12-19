@@ -697,6 +697,11 @@ XV_VidC_parse_edid(const u8 * const data,
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
                   XV_VidC_Verbose VerboseEn);
 
+void
+XV_VidC_parse_edid_extension(const u8 * const data,
+                  XV_VidC_EdidCntrlParam *EdidCtrlParam,
+                  XV_VidC_Verbose VerboseEn, u8 Segment);
+
 #ifdef __cplusplus
 }
 #endif
