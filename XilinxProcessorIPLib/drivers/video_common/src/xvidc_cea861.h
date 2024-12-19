@@ -80,6 +80,7 @@ enum xvidc_cea861_extended_tag_type_data_block {
     XVIDC_CEA861_EXT_TAG_TYPE_ROOM_CONFIGURATION,
     XVIDC_CEA861_EXT_TAG_TYPE_SPEAKER_LOCATION,
     XVIDC_CEA861_EXT_TAG_TYPE_INFOFRAME = 32,
+    XVIDC_CEA861_EXT_TAG_TYPE_HDMI_FORUM_EDID_EXT_OVERRIDE_DATA = 120,
     XVIDC_CEA861_EXT_TAG_TYPE_HDMI_FORUM_SINK_CAPABILITY = 121,
 /* Can be extend to 255, refer table 46 cea data block tag codes cea-861-f */
 };
@@ -575,6 +576,18 @@ struct _Pragma ("pack()") xvidc_cea861_hdmi_hf_sink_capability_data_block {
     unsigned						: 2;
     /* PB11 - PB28 */
     u8  reserved[18];
+};
+
+#if defined(__GNUC__)
+struct __attribute__ (( packed )) xvidc_cea861_hdmi_hf_edid_ext_override_data_block {
+#elif defined(__ICCARM__)
+struct _Pragma ("pack()") xvidc_cea861_hdmi_hf_edid_ext_override_data_block {
+#endif
+	struct xvidc_cea861_data_block_header header;
+	/* Extended Tag Code = 120 (0x78) */
+	u8 Extended_tag_code;
+	u8 Edid_extention_block_count;
+	u8 reserved[29];
 };
 
 #endif
