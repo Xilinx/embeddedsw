@@ -22,6 +22,7 @@
  *       yog  08/25/24 Integrated FIH library
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       am   10/22/24 Replaced XSHA_SHA_256_HASH_LEN with XASU_SHA_256_HASH_LEN
+ * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
  *
  * </pre>
  *
@@ -337,15 +338,20 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 	XAsuDma_ByteAlignedTransfer(&InstancePtr->AsuDmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL, InDataAddr, Size,
 				    EndLast);
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsuDma_WaitForDoneTimeout(&InstancePtr->AsuDmaPtr->AsuDma, XASUDMA_SRC_CHANNEL);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_FAILURE;
-		goto END;
-	}
+	/** If the data size is greater than XASUFW_DMA_BLOCKING_SIZE, do not wait for DMA done */
+	if (Size <= XASUFW_DMA_BLOCKING_SIZE) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsuDma_WaitForDoneTimeout(&InstancePtr->AsuDmaPtr->AsuDma, XASUDMA_SRC_CHANNEL);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_FAILURE;
+			goto END;
+		}
 
-	/** Acknowledge the transfer has completed. */
-	XAsuDma_IntrClear(&InstancePtr->AsuDmaPtr->AsuDma, XASUDMA_SRC_CHANNEL, XASUDMA_IXR_DONE_MASK);
+		/** Acknowledge the transfer has completed. */
+		XAsuDma_IntrClear(&InstancePtr->AsuDmaPtr->AsuDma, XASUDMA_SRC_CHANNEL, XASUDMA_IXR_DONE_MASK);
+	} else {
+		Status = XASUFW_CMD_IN_PROGRESS;
+	}
 
 	if (EndLast == XSHA_LAST_WORD) {
 		InstancePtr->ShaState = XSHA_UPDATE_COMPLETED;
@@ -354,7 +360,7 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 	}
 
 END:
-	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
+	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_CMD_IN_PROGRESS) && (InstancePtr != NULL)) {
 		/** Set SHA2/3 under reset upon failure. */
 		InstancePtr->ShaState = XSHA_INITALIZED;
 		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
