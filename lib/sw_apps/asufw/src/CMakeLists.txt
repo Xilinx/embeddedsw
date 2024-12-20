@@ -53,7 +53,8 @@ collect (PROJECT_LIB_SOURCES xasufw_status.c)
 collect (PROJECT_LIB_HEADERS xasufw_status.h)
 collect (PROJECT_LIB_SOURCES xasufw_util.c)
 collect (PROJECT_LIB_HEADERS xasufw_util.h)
-
+collect (PROJECT_LIB_SOURCES xasufw_intr.c)
+collect (PROJECT_LIB_HEADERS xasufw_intr.h)
 
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)
