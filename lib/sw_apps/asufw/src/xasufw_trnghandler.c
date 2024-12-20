@@ -45,16 +45,9 @@
 #include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_RESP_TRNG_RANDOM_BYTES_OFFSET	2U /**< TRNG Random numbers start word offset in
-										response buffer */
-
 #define XASUFW_MAX_RANDOM_BYTES_ALLOWED		510U /**< Maximum random bytes can be requested */
 
 /************************************** Type Definitions *****************************************/
-/* Calculate the structure member address from Item and structure Type */
-#define XAsufw_GetRespBuf(Item, Type, Member)    \
-	((Type *)(((char *)(Item) - offsetof(Type, Item)) + offsetof(Type, Member)))
-
 #ifdef XASUFW_TRNG_ENABLE_DRBG_MODE
 /** @brief This structure contains configuration information for DRBG instantiation. */
 typedef struct {
@@ -217,7 +210,9 @@ static s32 XAsufw_TrngGetRandomBytes(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	u32 *RandomBuf = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
-			 XASUFW_RESP_TRNG_RANDOM_BYTES_OFFSET;
+						XASUFW_RESP_DATA_OFFSET;
+
+	(void)ReqId;
 
 #if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE)
 	Status = XTrng_ReadTrngFifo(XAsufw_Trng, RandomBuf, XTRNG_SEC_STRENGTH_IN_BYTES);

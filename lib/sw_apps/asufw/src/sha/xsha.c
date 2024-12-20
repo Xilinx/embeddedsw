@@ -386,11 +386,11 @@ END:
  * 	- XASUFW_FAILURE, if there is any other failure.
  *
  *************************************************************************************************/
-s32 XSha_Finish(XSha *InstancePtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutput)
+s32 XSha_Finish(XSha *InstancePtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOutput)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	volatile u32 Index = 0U;
-	u32 *HashPtr = (u32 *)(UINTPTR)HashAddr;
+	u32 *HashPtr = HashAddr;
 	u32 ShaDigestAddr;
 	u32 ShaDigestSizeInWords = 0U;
 
@@ -400,7 +400,7 @@ s32 XSha_Finish(XSha *InstancePtr, u64 HashAddr, u32 HashBufSize, u8 NextXofOutp
 		goto END;
 	}
 
-	if (HashAddr == 0U) {
+	if (HashAddr == NULL) {
 		Status = XASUFW_SHA_INVALID_HASH_ADDRESS;
 		goto END;
 	}

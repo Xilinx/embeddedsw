@@ -20,6 +20,7 @@
  *       ma   06/14/24 Updated XAsufw_ShaOperationCmd structure to have 64-bit hash address
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       am   10/22/24 Fixed validation of hash buffer size.
+ * 1.1   ma   12/12/24 Updated hash buffer address to the response buffer of the callback function
  *
  * </pre>
  *
@@ -127,8 +128,8 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, (u8 *)ShaClientParamPtr->HashAddr,
+				ShaClientParamPtr->HashBufSize);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;

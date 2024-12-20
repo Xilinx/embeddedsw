@@ -23,6 +23,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/12/24 Updated resource allocation logic
  *                     Added support for DMA non-blocking wait
+ *                     Updated copying the hash to response buffer
  *
  * </pre>
  *
@@ -171,6 +172,7 @@ static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 	const XAsu_ShaOperationCmd *Cmd = (const XAsu_ShaOperationCmd *)ReqBuf->Arg;
 	static u32 CmdStage = 0x0U;
+	u32 *HashAddr;
 
 	/** Jump to SHA_STAGE_UPDATE_DONE if the CmdStage is SHA_UPDATE_DONE. */
 	if (CmdStage != 0x0U) {
@@ -215,7 +217,9 @@ SHA_STAGE_UPDATE_DONE:
 
 	if ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
 		/** If operation flags include SHA FINISH, perform SHA finish operation. */
-		Status = XSha_Finish(XAsufw_Sha2, Cmd->HashAddr, Cmd->HashBufSize, XASU_FALSE);
+		HashAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+						XASUFW_RESP_DATA_OFFSET;
+		Status = XSha_Finish(XAsufw_Sha2, HashAddr, Cmd->HashBufSize, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_FINISH_FAILED);
 			goto END;
