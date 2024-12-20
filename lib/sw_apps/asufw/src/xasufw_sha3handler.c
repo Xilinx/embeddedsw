@@ -24,6 +24,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/12/24 Updated resource allocation logic
  *                     Added support for DMA non-blocking wait
+ *                     Updated copying the hash to response buffer
  *
  * </pre>
  *
@@ -173,6 +174,7 @@ static s32 XAsufw_Sha3Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XSha *XAsufw_Sha3 = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 	const XAsu_ShaOperationCmd *Cmd = (const XAsu_ShaOperationCmd *)ReqBuf->Arg;
 	static u32 CmdStage = 0x0U;
+	u32 *HashAddr;
 
 	/** Jump to SHA_STAGE_UPDATE_DONE if the CmdStage is SHA_UPDATE_DONE. */
 	if (CmdStage != 0x0U) {
@@ -217,16 +219,15 @@ SHA_STAGE_UPDATE_DONE:
 
 	if ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
 		/** If operation flags include SHA FINISH, perform SHA finish operation. */
-		Status = XSha_Finish(XAsufw_Sha3, Cmd->HashAddr, Cmd->HashBufSize, Cmd->ShakeReserved);
+		HashAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+						XASUFW_RESP_DATA_OFFSET;
+		Status = XSha_Finish(XAsufw_Sha3, HashAddr, Cmd->HashBufSize, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_FINISH_FAILED);
 			goto END;
 		}
-		if ((Cmd->ShaMode == XASU_SHA_MODE_SHAKE256) &&
-		    (Cmd->ShakeReserved != XASU_SHA_NEXT_XOF_ENABLE_MASK)) {
-			if (XAsufw_ReleaseResource(XASUFW_SHA3, ReqId) != XASUFW_SUCCESS) {
-				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
-			}
+		if (XAsufw_ReleaseResource(XASUFW_SHA3, ReqId) != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
 	} else {
 		if (XAsufw_Sha3Module.AsuDmaPtr != NULL) {
