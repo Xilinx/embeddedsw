@@ -48,7 +48,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 ReqId);
-void XAsufw_CommandResponseHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId, s32 Response);
+void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, u32 ReqId, s32 Response);
 s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf);
 s32 XAsufw_CheckAndAllocateResources(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 

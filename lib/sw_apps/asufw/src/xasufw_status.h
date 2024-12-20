@@ -34,7 +34,8 @@
  *       am   08/01/24 Added error codes for AES handler functionality
  *       am   08/24/24 Added error codes related to AES decrypt CM KAT
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
- *       ss   12/02/24 Added error codes for ECDH
+ * 1.1   ss   12/02/24 Added error codes for ECDH
+ *       ma   12/12/24 Added support for command in progress
  *
  * </pre>
  *
@@ -293,6 +294,8 @@ enum {
 	XASUFW_ECDH_SECRET_COMPARISON_FAILED, /**< Error when generated secret comparision
 							failed */
 	XASUFW_ECDH_KAT_FAILED, /**< Error when ECDH KAT failed */
+
+	XASUFW_CMD_IN_PROGRESS = 0x2FF, /**< Command is in progress */
 };
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
