@@ -24,6 +24,7 @@
  *       ma   07/23/24 Updated communication channel info address with RTCA address
  *       ss   09/26/24 Fixed doxygen comments
  *       ma   09/26/24 Removed static IPI configurations from code
+ * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
  *
  * </pre>
  *
@@ -48,18 +49,31 @@
 
 #define XASUFW_MAX_PRIORITIES_SUPPORTED	16U /**< Maximum queue priorities supported */
 
-/* Queue Unique ID related defines */
-#define XASUFW_P0_QUEUE			0x0U /**< P0 Queue */
-#define XASUFW_P1_QUEUE			0x1U /**< P1 Queue */
-#define XASUFW_CHANNELINDEX_MASK	0xFU /**< Channel index mask in Queue UniqueID */
-#define XASUFW_QUEUEINDEX_MASK		0xF0U /**< P0/P1 Queue index mask in Queue UniqueID */
-#define XASUFW_QUEUEINDEX_SHIFT		4U /**< Queue index shift in Queue UniqueID */
+/**
+ * Queue Unique ID or Queue Task private data related defines. Queue Unique ID is created with
+ * the below data:
+ *  Bits[31:16] - IPI channel bit mask.
+ *  Bits[15:12] - Channel index (0 to 7).
+ *  Bits[11:8] - Queue index (P0 or P1).
+ *
+ * ReqId uniquely identifies each request present in all the queues. ReqId is created in ASUFW
+ * with below data:
+ *  Bits[31:8] - Queue Unique ID.
+ *  Bits[7:0] - Unique ID received in the command header from client.
+ */
+#define XASUFW_P0_QUEUE				0x0U /**< P0 Queue */
+#define XASUFW_P1_QUEUE				0x1U /**< P1 Queue */
+#define XASUFW_CHANNELINDEX_MASK	0xF000U /**< Channel index mask in Queue UniqueID */
+#define XASUFW_CHANNELINDEX_SHIFT	12U /**< Channel index shift in Queue UniqueID */
+#define XASUFW_QUEUEINDEX_MASK		0xF00U /**< P0/P1 Queue index mask in Queue UniqueID */
+#define XASUFW_QUEUEINDEX_SHIFT		8U /**< Queue index shift in Queue UniqueID */
 
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+static s32 XAsufw_QueueTaskHandler(void *Arg);
 
 /************************************ Variable Definitions ***************************************/
 /* All channel's shared memory where the commands are received */
@@ -84,16 +98,17 @@ static XAsufw_ChannelTasks CommChannelTasks = { 0U };
  *	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
-s32 XAsufw_QueueTaskHandler(void *Arg)
+static s32 XAsufw_QueueTaskHandler(void *Arg)
 {
 	s32 Status = XASUFW_FAILURE;
-	u32 ChannelIndex = (u32)Arg & XASUFW_CHANNELINDEX_MASK;
+	u32 ChannelIndex = ((u32)Arg & XASUFW_CHANNELINDEX_MASK) >> XASUFW_CHANNELINDEX_SHIFT;
 	u32 PxQueue = ((u32)Arg & XASUFW_QUEUEINDEX_MASK) >> XASUFW_QUEUEINDEX_SHIFT;
 	u32 BufferIdx;
 	XAsu_ChannelQueue *ChannelQueue;
 	XAsu_ChannelQueueBuf *QueueBuf;
+	u32 ReqId = 0x0U;
 
-	/** Check which queue has task whether P0/P1 queue. */
+	/** Check which queue (P0/P1) has new command from client. */
 	if (PxQueue == XASUFW_P0_QUEUE) {
 		XAsufw_Printf(DEBUG_GENERAL, "Running P0 task of channel %d\r\n", ChannelIndex);
 		ChannelQueue = &SharedMemory->ChannelMemory[ChannelIndex].P0ChannelQueue;
@@ -104,31 +119,56 @@ s32 XAsufw_QueueTaskHandler(void *Arg)
 		BufferIdx = CommChannelTasks.Channel[ChannelIndex].P1QueueBufIdx;
 	}
 
-	/** Check all buffers for any command is present and validate and allocate resource if valid
-		and update response after command is executed. */
+	/**
+	 * Check all buffers for any command is present and validate and allocate resource if valid
+	 * and update response after command is executed.
+	 */
 	for (; BufferIdx < XASU_MAX_BUFFERS; ++BufferIdx) {
-		if (ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus == XASU_COMMAND_IS_PRESENT) {
+		if ((ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus == XASU_COMMAND_IS_PRESENT) ||
+			(ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
+				XASU_COMMAND_DMA_WAIT_COMPLETE)) {
 			XAsufw_Printf(DEBUG_GENERAL, "Command is present. Channel: %d, Priority Queue: %d, "
 				      "BufferIdx: %d\r\n", ChannelIndex, PxQueue, BufferIdx);
 			QueueBuf = &ChannelQueue->ChannelQueueBufs[BufferIdx];
-			Status = XAsufw_ValidateCommand(&QueueBuf->ReqBuf);
-			if (XASUFW_SUCCESS == Status) {
-				XAsufw_Printf(DEBUG_GENERAL, "Validate command successful\r\n");
-				Status = XAsufw_CheckResources(&QueueBuf->ReqBuf, (u32)Arg);
+			/** Create a Request ID with Queue task private data and Req Unique ID from client. */
+			ReqId = ((QueueBuf->ReqBuf.Header & XASU_UNIQUE_REQ_ID_MASK) >>
+						XASU_UNIQUE_REQ_ID_SHIFT) | (u32)Arg;
+			/**
+			 * If the queue buffer's request buffer status is XASU_COMMAND_IS_PRESENT, validate
+			 * the command, check if the required resources are available and allocate the
+			 * resources.
+			*/
+			if (ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
+				XASU_COMMAND_IS_PRESENT) {
+				Status = XAsufw_ValidateCommand(&QueueBuf->ReqBuf);
 				if (XASUFW_SUCCESS == Status) {
-					Status = XAsufw_CommandQueueHandler(QueueBuf, (u32)Arg);
+					XAsufw_Printf(DEBUG_GENERAL, "Validate command successful\r\n");
+					Status = XAsufw_CheckAndAllocateResources(&QueueBuf->ReqBuf, ReqId);
+				} else {
+					XAsufw_Printf(DEBUG_GENERAL, "Validate command failed\r\n");
+					/**
+					 * TODO: Need to enhance this code to write the response only when
+					 * invalid command is received or the access permissions fail.
+					 * Currently, XAsufw_ValidateCommand only checks for invalid command.
+					 *
+					 * Update command status in the request queue and the resopnse in
+					 * response queue.
+					 */
+					QueueBuf->ReqBufStatus = XASU_COMMAND_EXECUTION_COMPLETE;
+					XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, ReqId, Status);
 				}
-			} else {
-				XAsufw_Printf(DEBUG_GENERAL, "Validate command failed\r\n");
-				/*
-				 * TODO: Need to enhance this code to write the response only when
-				 * invalid command is received or the access permissions fail.
-				 * Currently, XAsufw_ValidateCommand only checks for invalid command
-				*/
-				/** Update command status in the request queue and the resopnse in
-					response queue. */
-				QueueBuf->ReqBufStatus = XASU_COMMAND_EXECUTION_COMPLETE;
-				XAsufw_CommandResponseHandler(QueueBuf, Status);
+			}
+
+			/**
+			 * If it is a new request, and if the command validation and resource allocation are
+			 * successful, or if the command's non-blocking DMA operation is completed, the queue
+			 * handler should be called.
+			 */
+			if (((ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
+					XASU_COMMAND_IS_PRESENT) && (Status == XASUFW_SUCCESS)) ||
+				(ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
+					XASU_COMMAND_DMA_WAIT_COMPLETE)) {
+				Status = XAsufw_CommandQueueHandler(QueueBuf, ReqId);
 			}
 		}
 	}
@@ -214,18 +254,26 @@ void XAsufw_ChannelConfigInit(void)
 				      CommChannelInfo->Channel[ChannelIndex].P1QueuePriority);
 			break;
 		}
-		/** Create P0 Queue Task of the channel corresponding to ChannelIndex. */
-		PrivData = ChannelIndex | (XASUFW_P0_QUEUE << XASUFW_QUEUEINDEX_SHIFT) |
-			   (CommChannelInfo->Channel[ChannelIndex]. IpiBitMask << XASUFW_IPI_MASK_SHIFT);
+		/**
+		 * Create P0 Queue Task of the channel corresponding to ChannelIndex. Task PrivData is
+		 * nothing but Queue Unique ID.
+		 */
+		PrivData = (ChannelIndex << XASUFW_CHANNELINDEX_SHIFT) |
+					(XASUFW_P0_QUEUE << XASUFW_QUEUEINDEX_SHIFT) |
+					(CommChannelInfo->Channel[ChannelIndex]. IpiBitMask << XASUFW_IPI_BITMASK_SHIFT);
 		CommChannelTasks.Channel[ChannelIndex].P0QueueTask = XTask_Create(
 					CommChannelInfo->Channel[ChannelIndex].P0QueuePriority, XAsufw_QueueTaskHandler,
 					(void *)PrivData, 0x0U);
 		SharedMemory->ChannelMemory[ChannelIndex].P0ChannelQueue.IsCmdPresent = XASU_FALSE;
 		CommChannelTasks.Channel[ChannelIndex].P0QueueBufIdx = 0U;
 
-		/** Create P1 Queue Task of the channel corresponding to ChannelIndex. */
-		PrivData = ChannelIndex | (XASUFW_P1_QUEUE << XASUFW_QUEUEINDEX_SHIFT) |
-			   (CommChannelInfo->Channel[ChannelIndex]. IpiBitMask << XASUFW_IPI_MASK_SHIFT);
+		/**
+		 * Create P1 Queue Task of the channel corresponding to ChannelIndex. Task PrivData is
+		 * nothing but Queue Unique ID.
+		 */
+		PrivData = (ChannelIndex << XASUFW_CHANNELINDEX_SHIFT) |
+					(XASUFW_P1_QUEUE << XASUFW_QUEUEINDEX_SHIFT) |
+					(CommChannelInfo->Channel[ChannelIndex]. IpiBitMask << XASUFW_IPI_BITMASK_SHIFT);
 		CommChannelTasks.Channel[ChannelIndex].P1QueueTask = XTask_Create(
 					CommChannelInfo->Channel[ChannelIndex].P1QueuePriority, XAsufw_QueueTaskHandler,
 					(void *)PrivData, 0x0U);

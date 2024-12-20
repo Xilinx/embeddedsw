@@ -21,6 +21,7 @@
  * 1.0   vns  06/04/24 Initial release
  *       ma   07/08/24 Add task based approach at queue level
  *       ma   07/23/24 Update XASU_RESPONSE_STATUS_INDEX with 0
+ * 1.1   ma   12/12/24 Updated command states
  *
  * </pre>
  *
@@ -46,7 +47,8 @@ extern "C" {
 #define XASU_COMMAND_IS_PRESENT				(0x1U) /**< Command is written by client */
 #define XASU_COMMAND_IN_PROGRESS			(0x2U) /**< Command is in progress by ASUFW */
 #define XASU_COMMAND_WAITING_FOR_RESOURCE	(0x3U) /**< Command is waiting for required resources */
-#define XASU_COMMAND_EXECUTION_COMPLETE		(0x4U) /**< Command execution is complete by ASUFW */
+#define XASU_COMMAND_DMA_WAIT_COMPLETE		(0x4U) /**< Command DMA wait operation is complete */
+#define XASU_COMMAND_EXECUTION_COMPLETE		(0x5U) /**< Command execution is complete by ASUFW */
 /* Response buffers status */
 #define XASU_RESPONSE_IS_PRESENT			(0x1U) /**< Response is written by ASUFW */
 

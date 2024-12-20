@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   07/26/24 Initial release
  *       ma   07/30/24 Added defines required from ASU_GLOBAL register space
+ * 1.1   ma   12/12/24 Added defines related to ASU IO MODULE
  *
  * </pre>
  *
@@ -62,6 +63,23 @@ extern "C" {
 #define ASU_GLOBAL_GLOBAL_CNTRL						(ASU_GLOBAL_BASEADDR + 0x00000000U)
 /** ASU_GLOBAL GLOBAL_CNTRL FW_Is_Present mask */
 #define ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK	(0x00000010U)
+
+/*
+ * Definitions required from asu_io_bus.h
+ */
+/** ASU_IO_BUS base address */
+#define ASU_IO_BUS_BASEADDR							(0xEBE80000U)
+
+/** ASU_IO_BUS IRQ_STATUS register address */
+#define ASU_IO_BUS_IRQ_STATUS						(ASU_IO_BUS_BASEADDR + 0x00000030U)
+#define ASU_IO_BUS_IRQ_STATUS_DMA0_DONE_INTR_MASK	(0x00080000U)
+#define ASU_IO_BUS_IRQ_STATUS_DMA0_DONE_INTR_NUM	(19U)
+#define ASU_IO_BUS_IRQ_STATUS_DMA1_DONE_INTR_MASK	(0x00100000U)
+#define ASU_IO_BUS_IRQ_STATUS_DMA1_DONE_INTR_NUM	(20U)
+
+/** ASU_IO_BUS IRQ_ACK register address */
+#define ASU_IO_BUS_IRQ_ACK							(ASU_IO_BUS_BASEADDR + 0x0000003CU)
+
 
 /************************************** Type Definitions *****************************************/
 

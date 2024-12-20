@@ -19,6 +19,7 @@
  *       ma   04/18/24 Moved command handling related functions to xasufw_cmd.c
  *       ma   07/08/24 Add task based approach at queue level
  *       ss   09/26/24 Fixed doxygen comments
+ * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
  *
  * </pre>
  *
@@ -42,9 +43,10 @@ extern "C" {
 
 /************************************ Constant Definitions ***************************************/
 /* Queue Unique ID related defines */
-#define XASUFW_IPI_MASK_SHIFT		(16U) /**< IPI mask shift in Queue UniqueID */
-
+#define XASUFW_IPI_BITMASK_SHIFT		(16U) /**< IPI bit mask shift value in Queue Unique ID */
+#define XASUFW_QUEUE_TASK_PRIVDATA_RSVD_MASK	(0xFFU) /**< Queue task PrivData reserved mask */
 #define XASUFW_MAX_CHANNELS_SUPPORTED	(8U) /**< Maximum channels supported */
+#define XASUFW_RESP_DATA_OFFSET			(2U) /**< Response data offset in response buffer */
 
 /************************************** Type Definitions *****************************************/
 /**

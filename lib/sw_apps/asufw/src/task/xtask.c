@@ -22,6 +22,7 @@
  *       ma   04/30/24 Included dependent header file
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ * 1.3   ma   12/12/24 Added support for DMA non-blocking wait
  *
  * </pre>
  *
@@ -34,6 +35,8 @@
 #include "xtask.h"
 #include "xasufw_status.h"
 #include "xil_printf.h"
+#include "riscv_interface.h"
+#include "xasufw_intr.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -116,6 +119,34 @@ XTask_TaskNode *XTask_Create(u32 Priority, XTask_Handler_t TaskHandler, void *Pr
 	}
 
 END:
+	return Task;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function searches through TaskList to find out if the task is register and
+ * returns the pointer to the task node.
+ *
+ * @param	PrivData	Private data of the task to search through TaskList.
+ *
+ * @return
+ * 	- Returns pointer to the task node structure if the task is found.
+ * 	- Returns NULL if the task is not found.
+ *
+ *************************************************************************************************/
+XTask_TaskNode *XTask_GetInstance(void *PrivData)
+{
+	XTask_TaskNode *Task = NULL;
+	u32 Idx;
+
+	/** Find the task based on task private data. */
+	for (Idx = 0U; Idx < XTASK_MAX; Idx++) {
+		if (TaskList[Idx].PrivData == PrivData) {
+			Task = &TaskList[Idx];
+			break;
+		}
+	}
+
 	return Task;
 }
 
@@ -365,14 +396,14 @@ void XTask_DispatchLoop(void)
 		if (Task != NULL) {
 			XLinkList_RemoveItem(&Task->TaskNode);
 			Status = Task->TaskHandler(Task->PrivData);
-			if (XASUFW_SUCCESS != Status) {
+			if ((XASUFW_SUCCESS != Status) && (Status != XASUFW_CMD_IN_PROGRESS)) {
 				xil_printf("Task execution failed with error: 0x%x\r\n", Status);
 			}
 			continue;
 		}
 
-		/* Nothing to do */
-		/* TODO: Wait for interrupts */
+		/* Wait for interrupts */
+		mb_sleep();
 	}
 }
 /** @} */

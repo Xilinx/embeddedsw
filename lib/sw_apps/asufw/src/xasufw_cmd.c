@@ -82,7 +82,6 @@ s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 ReqId)
 	u32 CmdId = QueueBuf->ReqBuf.Header & XASU_COMMAND_ID_MASK;
 	u32 ModuleId = (QueueBuf->ReqBuf.Header & XASU_MODULE_ID_MASK) >> XASU_MODULE_ID_SHIFT;
 	const XAsufw_Module *Module = NULL;
-	u32 IpiMask = QueueId >> XASUFW_IPI_MASK_SHIFT;
 
 	/** Get module ID. */
 	Module = XAsufw_GetModule(ModuleId);
@@ -96,12 +95,12 @@ s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 ReqId)
 	Status = Module->Cmds[CmdId].CmdHandler(&QueueBuf->ReqBuf, ReqId);
 
 	/**
-	 * Update command status in the request queue, the response in response queue and trigger an
-	 * interrupt to the requested channel.
+	 * If the command execution is complete, call the command response handler with command
+	 * execution status.
 	 */
-	QueueBuf->ReqBufStatus = XASU_COMMAND_EXECUTION_COMPLETE;
-	XAsufw_CommandResponseHandler(QueueBuf, Status);
-	XAsufw_WriteReg(IPI_ASU_TRIG, IpiMask);
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, ReqId, Status);
+	}
 
 END:
 	return Status;
@@ -111,17 +110,27 @@ END:
 /**
  * @brief	This function writes the given response to the corresponding response buffer.
  *
- * @param	QueueBuf	Pointer	to the XAsu_ChannelQueueBuf structure.
+ * @param	ReqBuf		Pointer	to the request buffer.
+ * @param	ReqId		Request Unique ID.
  * @param	Response	Status of the executed command.
  *
  *************************************************************************************************/
-void XAsufw_CommandResponseHandler(XAsu_ChannelQueueBuf *QueueBuf, s32 Response)
+void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, u32 ReqId, s32 Response)
 {
-	/** Update response to the response buffer. */
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	XAsu_ChannelQueueBuf *QueueBuf = XLinkList_ContainerOf(ReqBuf, XAsu_ChannelQueueBuf, ReqBuf);
+
+	/**
+	 * Update command status in the request queue, the response in response queue and trigger an
+	 * interrupt to the requested channel.
+	 */
+	QueueBuf->ReqBufStatus = XASU_COMMAND_EXECUTION_COMPLETE;
 	QueueBuf->RespBuf.Header = QueueBuf->ReqBuf.Header;
 	QueueBuf->RespBuf.Arg[XASU_RESPONSE_STATUS_INDEX] = (u32)Response;
 	QueueBuf->RespBufStatus = XASU_RESPONSE_IS_PRESENT;
 	XAsufw_Printf(DEBUG_GENERAL, "Command response: 0x%x\r\n", Response);
+
+	XAsufw_WriteReg(IPI_ASU_TRIG, IpiMask);
 }
 
 /*************************************************************************************************/

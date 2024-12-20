@@ -20,6 +20,7 @@
  *       ma   03/16/24 Added error codes at required places
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ * 1.2   ma   12/12/24 Added support for DMA non-blocking wait
  *
  * </pre>
  *
@@ -77,6 +78,7 @@ s32 XTask_TriggerOnEvent(const XTask_TaskNode *Task, XTask_TaskEvent *Event);
 void XTask_EventNotify(XTask_TaskEvent *Event);
 u32 XTask_DelayTime(const XTask_TaskNode *Task);
 void XTask_DispatchLoop(void);
+XTask_TaskNode *XTask_GetInstance(void *PrivData);
 
 /************************************ Variable Definitions ***************************************/
 /** Current time in us. */
