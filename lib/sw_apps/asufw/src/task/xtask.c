@@ -347,7 +347,8 @@ void XTask_DispatchLoop(void)
 		DeltaTime = TaskTimeNow - LastDispatchTime;
 		LastDispatchTime += DeltaTime;
 
-		/* TODO: Dispatch if any pending interrupts are present */
+		/* Dispatch if any pending interrupts are present */
+		XAsufw_HandlePendingInterrupts();
 
 		/* Check delayed tasks to be triggered */
 		if ((NextDispatchTime != 0U) && (DeltaTime != 0U)) {
