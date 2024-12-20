@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   am   08/01/24 Initial release
+ * 1.1   ma   12/12/24 Updated resource allocation logic
  *
  * </pre>
  *
@@ -42,9 +43,10 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_AesGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_AesGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_AesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_AesModule; /**< ASUFW AES Module ID and commands array */
@@ -82,6 +84,8 @@ s32 XAsufw_AesInit(void)
 	XAsufw_AesModule.Cmds = XAsufw_AesCmds;
 	XAsufw_AesModule.ResourcesRequired = XAsufw_AesResourcesBuf;
 	XAsufw_AesModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_AesCmds);
+	XAsufw_AesModule.ResourceHandler = XAsufw_AesResourceHandler;
+	XAsufw_AesModule.AsuDmaPtr = NULL;
 
 	/** Register AES module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_AesModule);
@@ -102,14 +106,45 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function allocates required resources for AES module related commands.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if resource allocation is successful.
+ * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_AesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+
+	/** Allocate AES and DMA resources for AES operation and AES KAT commands. */
+	if (CmdId != XASU_AES_GET_INFO_CMD_ID) {
+		XAsufw_AesModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, ReqId);
+		if (XAsufw_AesModule.AsuDmaPtr == NULL) {
+			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+			goto END;
+		}
+		XAsufw_AllocateResource(XASUFW_AES, XASUFW_AES, ReqId);
+	}
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function is a handler for AES operation command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if encryption/decryption operation is successful.
- * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  * 	- XASUFW_AES_WRITE_KEY_FAILED, if Key write to AES USER key register fails.
  * 	- XASUFW_AES_INIT_FAILED, if initialization of AES engine fails.
  * 	- XASUFW_AES_UPDATE_FAILED, if update of data to AES engine fails.
@@ -117,34 +152,23 @@ END:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	const Asu_AesParams *AesParamsPtr = (const Asu_AesParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
-	XAsufw_Resource Resource;
-
-	/** Check and allocate DMA resource to AES, based on DMA availability. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto END;
-	}
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
-		/** Allocate resource to AES, based on resource availability. */
-		XAsufw_AllocateResource(XASUFW_AES, QueueId);
-
-		Status = XAes_WriteKey(XAsufw_Aes, AsuDmaPtr, AesParamsPtr->KeyObjectAddr);
+		Status = XAes_WriteKey(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
+				AesParamsPtr->KeyObjectAddr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_WRITE_KEY_FAILED);
 			goto END;
 		}
 
-		Status = XAes_Init(XAsufw_Aes, AsuDmaPtr, AesParamsPtr->KeyObjectAddr,
-			AesParamsPtr->IvAddr, AesParamsPtr->IvLen,
-			AesParamsPtr->EngineMode, AesParamsPtr->OperationType);
+		Status = XAes_Init(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->KeyObjectAddr,
+				AesParamsPtr->IvAddr, AesParamsPtr->IvLen, AesParamsPtr->EngineMode,
+				AesParamsPtr->OperationType);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
 			goto END;
@@ -165,8 +189,8 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		    (AesParamsPtr->EngineMode != XASU_AES_OFB_MODE) &&
 		    (AesParamsPtr->EngineMode != XASU_AES_CTR_MODE) &&
 		    (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) {
-			Status = XAes_Update(XAsufw_Aes, AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
-				AesParamsPtr->AadLen, XASU_FALSE);
+			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
+					AesParamsPtr->AadLen, XASU_FALSE);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
 				goto END;
@@ -179,9 +203,9 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		 */
 		if ((AesParamsPtr->InputDataAddr != 0U) &&
 		    (AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE)) {
-			Status = XAes_Update(XAsufw_Aes, AsuDmaPtr, AesParamsPtr->InputDataAddr,
-				AesParamsPtr->OutputDataAddr, AesParamsPtr->DataLen,
-				AesParamsPtr->IsLast);
+			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
+					AesParamsPtr->InputDataAddr, AesParamsPtr->OutputDataAddr,
+					AesParamsPtr->DataLen, AesParamsPtr->IsLast);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
 				goto END;
@@ -190,31 +214,36 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	}
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_FINAL) == XASU_AES_FINAL) {
-		Status = XAes_Final(XAsufw_Aes, AsuDmaPtr, AesParamsPtr->TagAddr, AesParamsPtr->TagLen);
+		Status = XAes_Final(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->TagAddr,
+					AesParamsPtr->TagLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_FINAL_FAILED);
 			goto END;
 		}
 
 		/** Release the AES resource. */
-		if (XAsufw_ReleaseResource(XASUFW_AES, QueueId) != XASUFW_SUCCESS) {
+		if (XAsufw_ReleaseResource(XASUFW_AES, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
-	}
-
-	/* Release the respective allocated DMA resource(DMA0, DMA1) for AES. */
-	Resource = (AsuDmaPtr->AsuDma.Config.DmaType == XPAR_ASU_DMA0_DMA_TYPE) ?
-		   XASUFW_DMA0 : XASUFW_DMA1;
-	if (XAsufw_ReleaseResource(Resource, QueueId) != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		XAsufw_AesModule.AsuDmaPtr = NULL;
+	} else {
+		if (XAsufw_AesModule.AsuDmaPtr != NULL) {
+			Status = XAsufw_ReleaseDmaResource(XAsufw_AesModule.AsuDmaPtr, ReqId);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+			}
+			XAsufw_AesModule.AsuDmaPtr = NULL;
+		}
+		XAsufw_IdleResource(XASUFW_AES);
 	}
 
 END:
 	if (Status != XASUFW_SUCCESS) {
 		/** Release the resource in the event of failure. */
-		if (XAsufw_ReleaseResource(XASUFW_AES, QueueId) != XASUFW_SUCCESS) {
+		if (XAsufw_ReleaseResource(XASUFW_AES, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
+		XAsufw_AesModule.AsuDmaPtr = NULL;
 	}
 
 	return Status;
@@ -225,18 +254,30 @@ END:
  * @brief	This function performs Known Answer Tests (KATs) on AES core.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if KAT is successful.
+ *  - XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  * 	- XASUFW_FAILURE, upon failure.
  *
  *************************************************************************************************/
-static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
+	s32 Status = XASUFW_FAILURE;
 
-	return XAsufw_AesGcmKat(XAsufw_Aes, QueueId);;
+	(void)ReqBuf;
+
+	/** Perform AES GCM KAT operation. */
+	Status = XAsufw_AesGcmKat(XAsufw_AesModule.AsuDmaPtr);
+
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_AES, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_AesModule.AsuDmaPtr = NULL;
+
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -244,16 +285,19 @@ static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
  * @brief	This function is a handler for AES Get Info command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  *	- XASUFW_SUCCESS, if command execution is successful.
  *	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
-static s32 XAsufw_AesGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_AesGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
+
+	(void)ReqBuf;
+	(void)ReqId;
 
 	/* TODO: Implement XAsufw_AesGetInfo */
 	return Status;

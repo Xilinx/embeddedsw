@@ -21,6 +21,7 @@
  *       ma   05/18/24 Added API to check resources availability before executing a command
  *       ma   07/08/24 Add task based approach at queue level
  *       ss   09/26/24 Fixed doxygen comments
+ * 1.1   ma   12/12/24 Updated resource allocation logic
  *
  * </pre>
  *
@@ -67,7 +68,7 @@ static inline u32 XAsufw_GetModuleId(u32 Header)
  * @brief	This function calls the registered command handler based on the QueueInfo.
  *
  * @param	QueueBuf	Pointer to the XAsu_ChannelQueueBuf structure.
- * @param	QueueId		Queue Unique ID.
+ * @param	ReqId		Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, On successful execution of command.
@@ -75,7 +76,7 @@ static inline u32 XAsufw_GetModuleId(u32 Header)
  * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
-s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 QueueId)
+s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = QueueBuf->ReqBuf.Header & XASU_COMMAND_ID_MASK;
@@ -90,8 +91,9 @@ s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 QueueId)
 		goto END;
 	}
 
+	/** Change request buffer status to Command in progress. */
 	QueueBuf->ReqBufStatus = XASU_COMMAND_IN_PROGRESS;
-	Status = Module->Cmds[CmdId].CmdHandler(&QueueBuf->ReqBuf, QueueId);
+	Status = Module->Cmds[CmdId].CmdHandler(&QueueBuf->ReqBuf, ReqId);
 
 	/**
 	 * Update command status in the request queue, the response in response queue and trigger an
@@ -165,10 +167,12 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function checks if the required resources are available for the command or not.
+ * @brief	This function checks for the availability of required resourses for the command. If
+ * the required resources are available and the corresponding module had registered for the
+ * resource handler, this function allocates the necessary resources for the command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID
+ * @param	ReqId	Request Unique ID
  *
  * @return
  *	- XASUFW_SUCCESS, if the required resources are available.
@@ -176,7 +180,7 @@ END:
  *	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
-s32 XAsufw_CheckResources(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+s32 XAsufw_CheckAndAllocateResources(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
@@ -197,7 +201,11 @@ s32 XAsufw_CheckResources(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	 */
 	if (Module->ResourcesRequired != NULL) {
 		ReqResources = Module->ResourcesRequired[CmdId];
-		Status = XAsufw_CheckResourceAvailability(ReqResources, QueueId);
+		Status = XAsufw_CheckResourceAvailability(ReqResources, ReqId);
+		/** Allocate required resources if the module has registered for the resource handler. */
+		if ((Status == XASUFW_SUCCESS) && (Module->ResourceHandler != NULL)) {
+			Status = Module->ResourceHandler(ReqBuf, ReqId);
+		}
 	}
 
 END:

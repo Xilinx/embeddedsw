@@ -21,6 +21,7 @@
  *                     for every update
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ * 1.1   ma   12/12/24 Updated resource allocation logic
  *
  * </pre>
  *
@@ -48,9 +49,10 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsufw_Sha2Kat(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_Sha2GetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_Sha2Kat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_Sha2GetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_Sha2ResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_Sha2Module; /**< ASUFW SHA2 Module ID and commands array */
@@ -88,6 +90,8 @@ s32 XAsufw_Sha2Init(void)
 	XAsufw_Sha2Module.Cmds = XAsufw_Sha2Cmds;
 	XAsufw_Sha2Module.ResourcesRequired = XAsufw_Sha2ResourcesBuf;
 	XAsufw_Sha2Module.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_Sha2Cmds);
+	XAsufw_Sha2Module.ResourceHandler = XAsufw_Sha2ResourceHandler;
+	XAsufw_Sha2Module.AsuDmaPtr = NULL;
 
 	/** Register SHA2 module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_Sha2Module);
@@ -108,21 +112,59 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function allocates required resources for SHA2 module related commands.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if resource allocation is successful.
+ * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_Sha2ResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+	const XAsu_ShaOperationCmd *Cmd = (const XAsu_ShaOperationCmd *)ReqBuf->Arg;
+
+	/**
+	 * Allocate DMA and SHA2 resource if CmdId is SHA Operation with Update or if CmdId is SHA
+	 * KAT.
+	 */
+	if (((CmdId == XASU_SHA_OPERATION_CMD_ID) &&
+		((Cmd->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE)) ||
+		(CmdId == XASU_SHA_KAT_CMD_ID)) {
+		XAsufw_Sha2Module.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_SHA2, ReqId);
+		if (XAsufw_Sha2Module.AsuDmaPtr == NULL) {
+			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+			goto END;
+		}
+		XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_SHA2, ReqId);
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function is a handler for SHA2 operation command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS - if SHA2 hash operation is successful.
  * 	- XASUFW_SHA2_START_FAILED - if SHA2 start fails.
  * 	- XASUFW_SHA2_UPDATE_FAILED - if SHA2 update fails.
  * 	- XASUFW_SHA2_FINISH_FAILED - if SHA2 finish fails.
- * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED - if DMA resource allocation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
@@ -134,7 +176,6 @@ static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		 * If operation flags include SHA START, check SHA2 resource availability,
 		 * allocate it and perform SHA start operation.
 		 */
-		XAsufw_AllocateResource(XASUFW_SHA2, QueueId);
 		Status = XSha_Start(XAsufw_Sha2, Cmd->ShaMode);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_START_FAILED);
@@ -147,12 +188,8 @@ static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		 * If operation flags include SHA UPDATE, check DMA resource availability,
 		 * allocate it and perform SHA update operation.
 		 */
-		AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_SHA2, QueueId);
-		if (AsuDmaPtr == NULL) {
-			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-			goto END;
-		}
-		Status = XSha_Update(XAsufw_Sha2, AsuDmaPtr, Cmd->DataAddr, Cmd->DataSize, Cmd->IsLast);
+		Status = XSha_Update(XAsufw_Sha2, XAsufw_Sha2Module.AsuDmaPtr, Cmd->DataAddr,
+					Cmd->DataSize, Cmd->IsLast);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_UPDATE_FAILED);
 			goto END;
@@ -166,17 +203,31 @@ static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_FINISH_FAILED);
 			goto END;
 		}
-		if (XAsufw_ReleaseResource(XASUFW_SHA2, QueueId) != XASUFW_SUCCESS) {
+		if (XAsufw_ReleaseResource(XASUFW_SHA2, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
+	} else {
+		if (XAsufw_Sha2Module.AsuDmaPtr != NULL) {
+			/**
+			 * If SHA_FINISH is not set in operation falgs, release DMA resource and Idle SHA2
+			 * resource.
+			 */
+			Status = XAsufw_ReleaseDmaResource(XAsufw_Sha2Module.AsuDmaPtr, ReqId);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+			}
+			XAsufw_Sha2Module.AsuDmaPtr = NULL;
+		}
+		XAsufw_IdleResource(XASUFW_SHA2);
 	}
 
 END:
 	if (Status != XASUFW_SUCCESS) {
 		/** Release resources. */
-		if (XAsufw_ReleaseResource(XASUFW_SHA2, QueueId) != XASUFW_SUCCESS) {
+		if (XAsufw_ReleaseResource(XASUFW_SHA2, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
+		XAsufw_Sha2Module.AsuDmaPtr = NULL;
 	}
 
 	return Status;
@@ -187,18 +238,30 @@ END:
  * @brief	This function is a handler for SHA2 KAT command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if KAT is successful.
  * 	- Error code, returned when XAsufw_ShaKat API fails.
  *
  *************************************************************************************************/
-static s32 XAsufw_Sha2Kat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_Sha2Kat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
+	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 
-	return XAsufw_ShaKat(XAsufw_Sha2, QueueId, XASUFW_SHA2);
+	(void)ReqBuf;
+
+	/** Perform SHA2 KAT. */
+	Status = XAsufw_ShaKat(XAsufw_Sha2, XAsufw_Sha2Module.AsuDmaPtr, XASUFW_SHA2);
+
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_SHA2, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_Sha2Module.AsuDmaPtr = NULL;
+
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -206,16 +269,19 @@ static s32 XAsufw_Sha2Kat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
  * @brief   This function is a handler for SHA2 Get Info command.
  *
  * @param   ReqBuf	Pointer to the request buffer.
- * @param   QueueId	Queue Unique ID.
+ * @param   ReqId	Request Unique ID.
  *
  * @return
  * 	- Returns XASUFW_SUCCESS on successful execution of the command.
  * 	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
-static s32 XAsufw_Sha2GetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_Sha2GetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
+
+	(void)ReqBuf;
+	(void)ReqId;
 
 	/** TODO: Implement SHA2 Get Info command */
 	return Status;

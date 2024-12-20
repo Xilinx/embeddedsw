@@ -22,6 +22,7 @@
  *       ma   06/04/24 Check if random bytes are available or not for TRNG GetRandomBytes command
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ * 1.1   ma   12/12/24 Updated resource allocation logic
  *
  * </pre>
  *
@@ -78,12 +79,12 @@ typedef enum {
 
 /************************************ Function Prototypes ****************************************/
 void XAsufw_ResourceInit(void);
-s32 XAsufw_AllocateAesResources(u32 RequesterId);
-s32 XAsufw_ReleaseAesResources(u32 RequesterId);
-s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 RequesterId);
-XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 RequesterId);
-s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 RequesterId);
-void XAsufw_AllocateResource(XAsufw_Resource Resource, u32 RequesterId);
+s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 ReqId);
+XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 ReqId);
+s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 ReqId);
+void XAsufw_AllocateResource(XAsufw_Resource Resource, XAsufw_Resource MainResource, u32 ReqId);
+s32 XAsufw_ReleaseDmaResource(XAsufw_Dma *AsuDmaPtr, u32 ReqId);
+void XAsufw_IdleResource(XAsufw_Resource Resource);
 
 /************************************ Variable Definitions ***************************************/
 
