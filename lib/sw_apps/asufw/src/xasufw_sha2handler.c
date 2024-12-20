@@ -22,6 +22,7 @@
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/12/24 Updated resource allocation logic
+ *                     Added support for DMA non-blocking wait
  *
  * </pre>
  *
@@ -169,7 +170,12 @@ static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 	const XAsu_ShaOperationCmd *Cmd = (const XAsu_ShaOperationCmd *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
+	static u32 CmdStage = 0x0U;
+
+	/** Jump to SHA_STAGE_UPDATE_DONE if the CmdStage is SHA_UPDATE_DONE. */
+	if (CmdStage != 0x0U) {
+		goto SHA_STAGE_UPDATE_DONE;
+	}
 
 	if ((Cmd->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
 		/**
@@ -190,11 +196,22 @@ static s32 XAsufw_Sha2Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 */
 		Status = XSha_Update(XAsufw_Sha2, XAsufw_Sha2Module.AsuDmaPtr, Cmd->DataAddr,
 					Cmd->DataSize, Cmd->IsLast);
-		if (Status != XASUFW_SUCCESS) {
+		if (Status == XASUFW_CMD_IN_PROGRESS) {
+			CmdStage = SHA_UPDATE_DONE;
+			XAsufw_DmaNonBlockingWait(XAsufw_Sha2Module.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
+						ReqBuf, ReqId);
+			XAsufw_Sha2Module.AsuDmaPtr = NULL;
+			goto DONE;
+		} else if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_UPDATE_FAILED);
 			goto END;
+		} else {
+			/* Do nothing */
 		}
 	}
+
+SHA_STAGE_UPDATE_DONE:
+	CmdStage = 0x0U;
 
 	if ((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
 		/** If operation flags include SHA FINISH, perform SHA finish operation. */
@@ -230,6 +247,7 @@ END:
 		XAsufw_Sha2Module.AsuDmaPtr = NULL;
 	}
 
+DONE:
 	return Status;
 }
 

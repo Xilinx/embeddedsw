@@ -31,6 +31,7 @@
  *                     for every update
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       am   10/22/24 Moved hash length macros to common xasu_shainfo header file.
+ * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
  *
  * </pre>
  *
@@ -51,6 +52,7 @@ extern "C" {
 #include "xasu_shainfo.h"
 
 /************************************ Constant Definitions ***************************************/
+#define SHA_UPDATE_DONE   0x1U /**< SHA update done stage for DMA non-blocking wait */
 
 /************************************** Type Definitions *****************************************/
 typedef struct _XSha_Config XSha_Config;

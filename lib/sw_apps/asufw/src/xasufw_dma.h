@@ -40,8 +40,10 @@ extern "C" {
 #include "xasu_sharedmem.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_SRC_CH_AXI_FIXED	(0x1U) /** DMA XFER flags for source channel. */
-#define XASUFW_DST_CH_AXI_FIXED	((u32)0x1U << 16U) /** DMA XFER flags for destination channel. */
+#define XASUFW_SRC_CH_AXI_FIXED		(0x1U) /** DMA XFER flags for source channel. */
+#define XASUFW_DST_CH_AXI_FIXED		((u32)0x1U << 16U) /** DMA XFER flags for destination channel. */
+#define XASUFW_DMA_BLOCKING_SIZE	(4096U) /**< DMA blocking size. If the SHA/AES update contains
+	data size more than this size, DMA transfer will happen in non-blocking mode */
 
 /************************************** Type Definitions *****************************************/
 /** @brief The structure XAsufw_Dma is DMA instance data structure. */
