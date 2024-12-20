@@ -1148,6 +1148,11 @@ extern "C" {
 #define PM_ISO_PL_PS_DTI1			(0x20000047U)
 #define PM_ISO_CPM5_NOC_DFX			(0x20000048U)
 #define PM_ISO_CPM5_NOC				(0x20000049U)
+#define PM_ISO_MMI_PL_GEM_N                     (0x2000004AU)
+#define PM_ISO_MMI_PL_DC_N                      (0x2000004BU)
+#define PM_ISO_MMI_N                            (0x2000004CU)
+#define PM_ISO_MMI_PL_TEST_N                    (0x2000004DU)
+#define PM_ISO_MMI_PL_MISC_N                    (0x2000004EU)
 /** @} */
 /** @endcond */
 
