@@ -20,6 +20,7 @@
  *       ma   05/14/24 Add macros for SHA2 and SHA3 module IDs
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ * 1.1   ma   12/12/24 Updated resource allocation logic
  *
  * </pre>
  *
@@ -39,6 +40,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xasufw_queuescheduler.h"
 #include "xasu_def.h"
+#include "xasufw_dma.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_MAX_MODULES			    (10U) /**< Maximum supported modules in ASUFW */
@@ -47,8 +49,10 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 /** @brief This structure contains function pointer to command handler. */
 typedef struct {
-	s32 (*CmdHandler)(const XAsu_ReqBuf *ReqBuf, u32 QueueId); /**< Command handler */
+	s32 (*CmdHandler)(const XAsu_ReqBuf *ReqBuf, u32 ReqId); /**< Command handler */
 } XAsufw_ModuleCmd;
+
+typedef s32 (*XAsufw_ResourceHandler_t)(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 typedef u16 XAsufw_ResourcesRequired;
 
@@ -58,6 +62,8 @@ typedef struct {
 	const XAsufw_ModuleCmd *Cmds; /**< Pointer to module command handlers */
 	XAsufw_ResourcesRequired *ResourcesRequired; /**< Pointer to the required resources array */
 	u32 CmdCnt; /**< Command count in module */
+	XAsufw_ResourceHandler_t ResourceHandler;
+	XAsufw_Dma *AsuDmaPtr;
 } XAsufw_Module;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

@@ -20,6 +20,7 @@
  *       ma   05/18/24 Added API to check resources availability before executing a command
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ * 1.1   ma   12/12/24 Updated resource allocation logic
  *
  * </pre>
  *
@@ -37,7 +38,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
-#include "xasufw_queuescheduler.h"
+#include "xasu_sharedmem.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -46,10 +47,10 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 QueueId);
-void XAsufw_CommandResponseHandler(XAsu_ChannelQueueBuf *QueueBuf, s32 Response);
+s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 ReqId);
+void XAsufw_CommandResponseHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId, s32 Response);
 s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf);
-s32 XAsufw_CheckResources(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+s32 XAsufw_CheckAndAllocateResources(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 

@@ -23,7 +23,8 @@
  *       am   08/22/24 Added AES KAT
  *       am   08/24/24 Added AES DPA CM KAT support
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
- *       ss   12/02/24 Added kat support for ECDH
+ * 1.1   ss   12/02/24 Added kat support for ECDH
+ *       ma   12/12/24 Updated resource allocation logic
  *
  * </pre>
  *
@@ -55,13 +56,13 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, u32 QueueId, XAsufw_Resource ShaResource);
-s32 XAsufw_RsaEncDecKat(u32 QueueId);
-s32 XAsufw_EccCoreKat(XEcc *XAsufw_EccInstance, u32 QueueId);
-s32 XAsufw_RsaEccKat(u32 QueueId);
-s32 XAsufw_AesGcmKat(XAes *AesInstance, u32 QueueId);
-s32 XAsufw_AesDecryptDpaCmKat(XAes *AesInstance, u32 QueueId);
-s32 XAsufw_P192EcdhKat(u32 QueueId);
+s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, XAsufw_Dma *AsuDmaPtr, XAsufw_Resource ShaResource);
+s32 XAsufw_RsaEncDecKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_AesDecryptDpaCmKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_P192EcdhKat(XAsufw_Dma *AsuDmaPtr);
 
 /************************************ Variable Definitions ***************************************/
 

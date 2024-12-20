@@ -18,7 +18,8 @@
  * 1.0   yog  08/19/24 Initial release
  *       am   09/13/24 Fixed array initialization error for cpp compiler
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
- *       ss   12/02/24 Added support for ECDH
+ * 1.1   ss   12/02/24 Added support for ECDH
+ *       ma   12/12/24 Updated resource allocation logic
  *
  * </pre>
  *
@@ -52,12 +53,13 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_EccGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_EccGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_EccModule; /**< ASUFW ECC Module ID and commands array */
@@ -103,6 +105,8 @@ s32 XAsufw_EccInit(void)
 	XAsufw_EccModule.Cmds = XAsufw_EccCmds;
 	XAsufw_EccModule.ResourcesRequired = XAsufw_EccResourcesBuf;
 	XAsufw_EccModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_EccCmds);
+	XAsufw_EccModule.ResourceHandler = XAsufw_EccResourceHandler;
+	XAsufw_EccModule.AsuDmaPtr = NULL;
 
 	/** Register ECC module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_EccModule);
@@ -124,10 +128,42 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function allocates required resources for ECC module related commands.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if resource allocation is successful.
+ * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+
+	/** Allocate DMA resource for ECC module commands except for Get_Info command. */
+	if (CmdId != XASU_ECC_GET_INFO_CMD_ID) {
+		XAsufw_EccModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_ECC, ReqId);
+		if (XAsufw_EccModule.AsuDmaPtr == NULL) {
+			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+			goto END;
+		}
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function is a handler for ECC sign generation operation command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if sign generation operation is successful.
@@ -137,33 +173,24 @@ END:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XEcc *XAsufw_Ecc = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u32 CurveType = 0U;
 	u8 EphemeralKey[XRSA_ECC_P521_SIZE_IN_BYTES];
 	u64 PrivKeyAddr = EccParamsPtr->KeyAddr;
 
-	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256)
-	    || (EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
+	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
+		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
 		ResourceId = XASUFW_ECC;
 		CurveType = EccParamsPtr->CurveType - XASUFW_ECC_CURVE_TYPE_DIFF_VALUE;
 	} else {
 		ResourceId = XASUFW_RSA;
 		CurveType = EccParamsPtr->CurveType;
 	}
-
-	/** Check resource availability (DMA and ECC/RSA based on curve type) and allocate them. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(ResourceId, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto END;
-	}
-	XAsufw_AllocateResource(ResourceId, QueueId);
 
 	/** Generate ephemeral key using TRNG. */
 	Status = XAsufw_TrngGetRandomNumbers(EphemeralKey, EccParamsPtr->KeyLen);
@@ -177,13 +204,13 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	 * based on curve type.
 	 */
 	if (ResourceId == XASUFW_ECC) {
-		Status = XEcc_GenerateSignature(XAsufw_Ecc, AsuDmaPtr, CurveType,
-						EccParamsPtr->KeyLen, PrivKeyAddr, EphemeralKey, EccParamsPtr->DigestAddr,
-						EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
+		Status = XEcc_GenerateSignature(XAsufw_Ecc, XAsufw_EccModule.AsuDmaPtr, CurveType,
+					EccParamsPtr->KeyLen, PrivKeyAddr, EphemeralKey, EccParamsPtr->DigestAddr,
+					EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
 	} else {
-		Status = XRsa_EccGenerateSignature(AsuDmaPtr, CurveType, EccParamsPtr->KeyLen,
-						   PrivKeyAddr, EphemeralKey, EccParamsPtr->DigestAddr,
-						   EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
+		Status = XRsa_EccGenerateSignature(XAsufw_EccModule.AsuDmaPtr, CurveType,
+					EccParamsPtr->KeyLen, PrivKeyAddr, EphemeralKey, EccParamsPtr->DigestAddr,
+					EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
 	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_GEN_SIGN_OPERATION_FAIL);
@@ -191,9 +218,10 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 END:
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(ResourceId, QueueId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseDmaResource(XAsufw_EccModule.AsuDmaPtr, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
+	XAsufw_EccModule.AsuDmaPtr = NULL;
 
 	return Status;
 }
@@ -203,7 +231,7 @@ END:
  * @brief	This function is a handler for ECC sign verification operation command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if sign verification operation is successful.
@@ -212,18 +240,17 @@ END:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource not allocated and trying to release.
  *
  *************************************************************************************************/
-static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XEcc *XAsufw_Ecc = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u32 CurveType = 0U;
 	u64 PubKeyAddr = EccParamsPtr->KeyAddr;
 
-	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256)
-	    || (EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
+	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
+		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
 		ResourceId = XASUFW_ECC;
 		CurveType = EccParamsPtr->CurveType - XASUFW_ECC_CURVE_TYPE_DIFF_VALUE;
 	} else {
@@ -231,37 +258,29 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		CurveType = EccParamsPtr->CurveType;
 	}
 
-	/** Check resource availability (DMA and ECC/RSA based on curve type) and allocate them. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(ResourceId, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto END;
-	}
-	XAsufw_AllocateResource(ResourceId, QueueId);
-
 	/**
 	 * Verify signature using core API XEcc_VerifySignature or XRsa_EccVerifySignature
 	 * based on curve type.
 	 */
 	if (ResourceId == XASUFW_ECC) {
-		Status = XEcc_VerifySignature(XAsufw_Ecc, AsuDmaPtr, CurveType,
-					      EccParamsPtr->KeyLen, PubKeyAddr, EccParamsPtr->DigestAddr,
-					      EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
+		Status = XEcc_VerifySignature(XAsufw_Ecc, XAsufw_EccModule.AsuDmaPtr, CurveType,
+					EccParamsPtr->KeyLen, PubKeyAddr, EccParamsPtr->DigestAddr,
+					EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
 	} else {
-		Status = XRsa_EccVerifySignature(AsuDmaPtr, CurveType,
-						 EccParamsPtr->KeyLen, PubKeyAddr, EccParamsPtr->DigestAddr,
-						 EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
+		Status = XRsa_EccVerifySignature(XAsufw_EccModule.AsuDmaPtr, CurveType,
+					EccParamsPtr->KeyLen, PubKeyAddr, EccParamsPtr->DigestAddr,
+					EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
 	}
 
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL);
 	}
 
-END:
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(ResourceId, QueueId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseDmaResource(XAsufw_EccModule.AsuDmaPtr, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
+	XAsufw_EccModule.AsuDmaPtr = NULL;
 
 	return Status;
 }
@@ -271,30 +290,20 @@ END:
  * @brief	This function is a handler for ECDH secret generation operation command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  *	- Returns XASUFW_SUCCESS on successful execution of the command.
  *	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
-static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_EcdhParams *EcdhParamsPtr = (const XAsu_EcdhParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
-
-	/** Allocate required resources (DMA, RSA and TRNG). */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto END;
-	}
-	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
-	XAsufw_AllocateResource(XASUFW_TRNG, QueueId);
 
 	/** Generate shared secret using public key and private key based on curve type. */
-	Status = XRsa_EcdhGenSharedSecret(AsuDmaPtr, EcdhParamsPtr->CurveType,
+	Status = XRsa_EcdhGenSharedSecret(XAsufw_EccModule.AsuDmaPtr, EcdhParamsPtr->CurveType,
 					EcdhParamsPtr->KeyLen, EcdhParamsPtr->PvtKeyAddr,
 					EcdhParamsPtr->PubKeyAddr, EcdhParamsPtr->SharedSecretAddr,
 					EcdhParamsPtr->SharedSecretObjIdAddr);
@@ -304,11 +313,10 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	}
 
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseDmaResource(XAsufw_EccModule.AsuDmaPtr, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
-
-END:
+	XAsufw_EccModule.AsuDmaPtr = NULL;
 
 	return Status;
 }
@@ -318,27 +326,35 @@ END:
  * @brief	This function performs Known Answer Tests (KATs) utilizing both ECC and RSA cores.
  *
  * @param	ReqBuf	Pointer to XAsu_ReqBuf structure.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- Returns XASUFW_SUCCESS, if KAT is successful.
  * 	- Error code, returned when XAsufw_EccCoreKat or XAsufw_RsaEccKat API fails.
  *
  *************************************************************************************************/
-static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XEcc *XAsufw_Ecc = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
+
+	(void)ReqBuf;
 
 	/** Perform KAT on P-256 curve using ECC core. */
-	Status = XAsufw_EccCoreKat(XAsufw_Ecc, QueueId);
+	Status = XAsufw_EccCoreKat(XAsufw_EccModule.AsuDmaPtr);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
+
 	/** Perform KAT on P-192 curve using RSA core. */
-	Status = XAsufw_RsaEccKat(QueueId);
+	Status = XAsufw_RsaEccKat(XAsufw_EccModule.AsuDmaPtr);
 
 END:
+	/** Release resources. */
+	if (XAsufw_ReleaseDmaResource(XAsufw_EccModule.AsuDmaPtr, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_EccModule.AsuDmaPtr = NULL;
+
 	return Status;
 }
 
@@ -347,17 +363,29 @@ END:
  * @brief	This function performs Known Answer Tests (KATs) utilizing RSA cores.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 		- Returns XASUFW_SUCCESS on successful execution of the command.
  *		- Otherwise, returns an error code.
  *
  *************************************************************************************************/
-static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
+	s32 Status = XASUFW_FAILURE;
+
+	(void)ReqBuf;
+
 	/** Perform KAT on P-192 curve using RSA core. */
-	return XAsufw_P192EcdhKat(QueueId);
+	Status = XAsufw_P192EcdhKat(XAsufw_EccModule.AsuDmaPtr);
+
+	/** Release resources. */
+	if (XAsufw_ReleaseDmaResource(XAsufw_EccModule.AsuDmaPtr, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_EccModule.AsuDmaPtr = NULL;
+
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -365,16 +393,19 @@ static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
  * @brief	This function is a handler for ECC Get Info command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  *	- Returns XASUFW_SUCCESS on successful execution of the command.
  *	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
-static s32 XAsufw_EccGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_EccGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
+
+	(void)ReqBuf;
+	(void)ReqId;
 
 	/* TODO: Implement XAsufw_EccGetInfo */
 	return Status;

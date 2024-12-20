@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   08/20/24 Initial release
  *       ss   09/26/24 Fixed doxygen comments
+ * 1.1   ma   12/12/24 Updated resource allocation logic
  *
  * </pre>
  *
@@ -77,18 +78,18 @@ typedef struct {
 #define XASUFW_RSA_PSS_OUTPUT_END_BYTE_VALUE			(0XBCU)
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaOaepEncDecSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaOaepEncDecSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaPkcsEncDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaPssSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaPssSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaPkcsSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
-static s32 XAsufw_RsaPkcsSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId);
+static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaOaepEncDecSha2(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaOaepEncDecSha3(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaPkcsEncDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaPssSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaPssSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaPkcsSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaPkcsSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u32 Len,
 			u32 KeySize, u64 InputDataAddr, u64 OptionalLabelAddr,
 			u32 OptionalLabelSize, u8 *PaddedOutputData, u8 ShaType);
@@ -107,6 +108,8 @@ static s32 XAsufw_PssDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u32 Len,
 			u8 ShaType);
 static s32 XAsufw_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaType,
 				XAsufw_MgfInput *MgfInput);
+
+static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_RsaModule; /**< ASUFW RSA Module ID and commands array */
@@ -175,6 +178,8 @@ s32 XAsufw_RsaInit(void)
 	XAsufw_RsaModule.Cmds = XAsufw_RsaCmds;
 	XAsufw_RsaModule.ResourcesRequired = XAsufw_RsaResourcesBuf;
 	XAsufw_RsaModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_RsaCmds);
+	XAsufw_RsaModule.ResourceHandler = XAsufw_RsaResourceHandler;
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
 
 	/** Register RSA module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_RsaModule);
@@ -187,45 +192,86 @@ s32 XAsufw_RsaInit(void)
 
 /*************************************************************************************************/
 /**
+ * @brief	This function allocates required resources for RSA module related commands.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if resource allocation is successful.
+ * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+
+	/** Allocate resources for the RSA module commands except for Get_Info command. */
+	if (CmdId != XASU_RSA_GET_INFO_CMD_ID) {
+		/** Allocate DMA resource. */
+		XAsufw_RsaModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, ReqId);
+		if (XAsufw_RsaModule.AsuDmaPtr == NULL) {
+			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+			goto END;
+		}
+		/** Allocate RSA resource. */
+		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_RSA, ReqId);
+
+		/** Allocate SHA2/SHA3 resource for commands which are dependent on SHA2/SHA3 HW. */
+		if ((CmdId == XASU_RSA_OAEP_SHA2_CMD_ID) || (CmdId == XASU_RSA_PSS_SHA2_CMD_ID) ||
+			(CmdId == XASU_RSA_PKCS_SHA2_CMD_ID)) {
+			XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_RSA, ReqId);
+		} else if ((CmdId == XASU_RSA_OAEP_SHA3_CMD_ID) || (CmdId == XASU_RSA_PSS_SHA3_CMD_ID) ||
+			(CmdId == XASU_RSA_PKCS_SHA3_CMD_ID)) {
+			XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_RSA, ReqId);
+		} else {
+			/* Do nothing */
+		}
+
+		/** Allocate TRNG resoource for commands which are dependent on TRNG HW. */
+		if ((CmdId != XASU_RSA_PUB_ENC_CMD_ID) && (CmdId != XASU_RSA_KAT_CMD_ID)) {
+			XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_RSA, ReqId);
+		}
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function is a handler for RSA encryption operation command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
- * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  * 	- XASUFW_RSA_PUB_OP_ERROR, if public encryption operaiton fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_RsaClientParams *Cmd = (const XAsu_RsaClientParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
-
-	/** Check resource availability (DMA and RSA) and allocate them. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto RET;
-	}
-
-	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
 
 	/** Perform public exponentiation encryption operation. */
-	Status = XRsa_PubExp(AsuDmaPtr, Cmd->Len, Cmd->InputDataAddr, Cmd->OutputDataAddr,
-			     Cmd->KeyCompAddr, Cmd->ExpoCompAddr);
+	Status = XRsa_PubExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->Len, Cmd->InputDataAddr,
+				Cmd->OutputDataAddr, Cmd->KeyCompAddr, Cmd->ExpoCompAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PUB_OP_ERROR);
 	}
 
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
-RET:
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
+
 	return Status;
 }
 
@@ -234,45 +280,32 @@ RET:
  * @brief	This function is a handler for RSA decryption operation command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if private decryption operation is successful.
- * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  * 	- XASUFW_RSA_PVT_OP_ERROR, if private exponentiation decryption operaiton fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_RsaClientParams *Cmd = (const XAsu_RsaClientParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
-
-	/** Check resource availability (DMA,RSA and TRNG) and allocate them. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto RET;
-	}
-
-	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
-	XAsufw_AllocateResource(XASUFW_TRNG, QueueId);
 
 	/** Perform private exponentiation decryption operation. */
-	Status = XRsa_PvtExp(AsuDmaPtr, Cmd->Len, Cmd->InputDataAddr, Cmd->OutputDataAddr,
-			     Cmd->KeyCompAddr, Cmd->ExpoCompAddr);
+	Status = XRsa_PvtExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->Len, Cmd->InputDataAddr,
+				Cmd->OutputDataAddr, Cmd->KeyCompAddr, Cmd->ExpoCompAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PVT_OP_ERROR);
 	}
 
 	/** Release resources. */
-	if ((XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) ||
-	    (XAsufw_ReleaseResource(XASUFW_TRNG, QueueId) != XASUFW_SUCCESS)) {
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
 
-RET:
 	return Status;
 }
 
@@ -282,45 +315,32 @@ RET:
  * 		algorithm.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if private decryption operation using CRT is successful.
- * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  * 	- XASUFW_RSA_CRT_OP_ERROR, if private CRT decryption operaiton fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_RsaClientParams *Cmd = (const XAsu_RsaClientParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
-
-	/** Check resource availability (DMA,RSA and TRNG) and allocate them. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto RET;
-	}
-
-	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
-	XAsufw_AllocateResource(XASUFW_TRNG, QueueId);
 
 	/** Perform private CRT decryption operation. */
-	Status = XRsa_CrtOp(AsuDmaPtr, Cmd->Len, Cmd->InputDataAddr, Cmd->OutputDataAddr,
-			    Cmd->KeyCompAddr);
+	Status = XRsa_CrtOp(XAsufw_RsaModule.AsuDmaPtr, Cmd->Len, Cmd->InputDataAddr,
+				Cmd->OutputDataAddr, Cmd->KeyCompAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_CRT_OP_ERROR);
 	}
 
 	/** Release resources. */
-	if ((XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) ||
-	    (XAsufw_ReleaseResource(XASUFW_TRNG, QueueId) != XASUFW_SUCCESS)) {
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
 
-RET:
 	return Status;
 }
 
@@ -393,14 +413,13 @@ static s32 XAsufw_RsaOaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u32 Le
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Update(ShaInstancePtr, DmaPtr, OptionalLabelAddr, OptionalLabelSize, TRUE);
+	Status = XSha_Update(ShaInstancePtr, DmaPtr, OptionalLabelAddr, OptionalLabelSize, (u32)TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Finish(ShaInstancePtr, (u64)(UINTPTR)DataBlock, HashLen,
-				XASU_FALSE);
+	Status = XSha_Finish(ShaInstancePtr, (u32 *)DataBlock, HashLen, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -557,14 +576,13 @@ static s32 XAsufw_RsaOaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u32 Le
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Update(ShaInstancePtr, DmaPtr, OptionalLabelAddr, OptionalLabelSize, TRUE);
+	Status = XSha_Update(ShaInstancePtr, DmaPtr, OptionalLabelAddr, OptionalLabelSize, (u32)TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Finish(ShaInstancePtr, (u64)(UINTPTR)HashBuffer, HashLen,
-				XASU_FALSE);
+	Status = XSha_Finish(ShaInstancePtr, (u32 *)HashBuffer, HashLen, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -856,14 +874,13 @@ static s32 XAsufw_RsaPssEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u32 Len
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSha_Update(ShaInstancePtr, DmaPtr, (u64)(UINTPTR)HashInputData,
-				Len, TRUE);
+				Len, (u32)TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Finish(ShaInstancePtr, (u64)(UINTPTR)InputDataHash, HashLen,
-				XASU_FALSE);
+	Status = XSha_Finish(ShaInstancePtr, (u32 *)InputDataHash, HashLen, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -900,14 +917,13 @@ static s32 XAsufw_RsaPssEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u32 Len
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSha_Update(ShaInstancePtr, DmaPtr, (u64)(UINTPTR)HashBlock,
-				HashLen + SaltLen + XASUFW_RSA_PSS_HASH_BLOCK_ZEROIZE_LEN, TRUE);
+				HashLen + SaltLen + XASUFW_RSA_PSS_HASH_BLOCK_ZEROIZE_LEN, (u32)TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Finish(ShaInstancePtr, (u64)(UINTPTR)HashBuffer, HashLen,
-				XASU_FALSE);
+	Status = XSha_Finish(ShaInstancePtr, (u32 *)HashBuffer, HashLen, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -1120,14 +1136,13 @@ static s32 XAsufw_RsaPssDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u32 Len
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Update(ShaInstancePtr, DmaPtr, InputDataAddr, Len, TRUE);
+	Status = XSha_Update(ShaInstancePtr, DmaPtr, InputDataAddr, Len, (u32)TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Finish(ShaInstancePtr, (u64)(UINTPTR)MsgHashBuffer, HashLen,
-				XASU_FALSE);
+	Status = XSha_Finish(ShaInstancePtr, (u32 *)MsgHashBuffer, HashLen, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -1163,14 +1178,13 @@ static s32 XAsufw_RsaPssDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u32 Len
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSha_Update(ShaInstancePtr, DmaPtr, (u64)(UINTPTR)MsgBlock,
-				HashLen + SaltLen + XASUFW_RSA_PSS_HASH_BLOCK_ZEROIZE_LEN, TRUE);
+				HashLen + SaltLen + XASUFW_RSA_PSS_HASH_BLOCK_ZEROIZE_LEN, (u32)TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Finish(ShaInstancePtr, (u64)(UINTPTR)EncodedMsgHashBuffer,
-				HashLen, XASU_FALSE);
+	Status = XSha_Finish(ShaInstancePtr, (u32 *)EncodedMsgHashBuffer, HashLen, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -1254,21 +1268,20 @@ static s32 XAsufw_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaTy
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XSha_Update(ShaInstancePtr, DmaPtr, (u64)(UINTPTR)MgfInput->Seed,
-					MgfInput->SeedLen, FALSE);
+					MgfInput->SeedLen, (u32)FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XSha_Update(ShaInstancePtr, DmaPtr, (u64)(UINTPTR)Bytes,
-					XASUFW_WORD_LEN_IN_BYTES, TRUE);
+					XASUFW_WORD_LEN_IN_BYTES, (u32)TRUE);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Finish(ShaInstancePtr, (u64)(UINTPTR)Hash, HashLen,
-					XASU_FALSE);
+		Status = XSha_Finish(ShaInstancePtr, (u32 *)Hash, HashLen, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
@@ -1296,48 +1309,35 @@ END:
  * 		using SHA2 for hash calculation.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
- * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  * 	- XASUFW_RSA_OAEP_ENCRYPT_ERROR, if encryption operaiton fails.
  * 	- XASUFW_RSA_OAEP_DECRYPT_ERROR, if private exponentiation decryption operaiton fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaOaepEncDecSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaOaepEncDecSha2(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	s32 SStatus = XASUFW_FAILURE;
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 	const XAsu_RsaClientOaepPaddingParams *Cmd = (const XAsu_RsaClientOaepPaddingParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
 	u8 IntermediateOutput[XRSA_4096_KEY_SIZE];
-
-	/** Check resource availability (DMA, RSA, SHA2 and TRNG) and allocate them. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto RET;
-	}
-
-	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
-	XAsufw_AllocateResource(XASUFW_TRNG, QueueId);
-	XAsufw_AllocateResource(XASUFW_SHA2, QueueId);
 
 	/** Perform public exponentiation encryption operation. */
 	if (Cmd->OperationFlag == XASU_RSA_ENCRYPTION) {
-		Status = XAsufw_RsaOaepEncode(AsuDmaPtr, XAsufw_Sha2, Cmd->XAsu_ClientComp.Len,
-			Cmd->XAsu_ClientComp.KeySize, Cmd->XAsu_ClientComp.InputDataAddr,
-			Cmd->OptionalLabelAddr, Cmd->OptionalLabelSize, IntermediateOutput,
-			Cmd->DigestType);
+		Status = XAsufw_RsaOaepEncode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_Sha2,
+			Cmd->XAsu_ClientComp.Len, Cmd->XAsu_ClientComp.KeySize,
+			Cmd->XAsu_ClientComp.InputDataAddr, Cmd->OptionalLabelAddr, Cmd->OptionalLabelSize,
+			IntermediateOutput, Cmd->DigestType);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_ENCODE_ERROR);
 			goto END;
 		}
 
-		Status = XRsa_PubExp(AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
+		Status = XRsa_PubExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
 					(u64)(UINTPTR)IntermediateOutput,
 					Cmd->XAsu_ClientComp.OutputDataAddr,
 					Cmd->XAsu_ClientComp.KeyCompAddr,
@@ -1346,7 +1346,7 @@ static s32 XAsufw_RsaOaepEncDecSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_ENCRYPT_ERROR);
 		}
 	} else if (Cmd->OperationFlag == XASU_RSA_EXPONENTIATION_DECRYPTION) {
-		Status = XRsa_PvtExp(AsuDmaPtr, Cmd->XAsu_ClientComp.Len,
+		Status = XRsa_PvtExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.Len,
 				Cmd->XAsu_ClientComp.InputDataAddr,
 				(u64)(UINTPTR)IntermediateOutput,
 				Cmd->XAsu_ClientComp.KeyCompAddr,
@@ -1356,8 +1356,8 @@ static s32 XAsufw_RsaOaepEncDecSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 			goto END;
 		}
 
-		Status = XAsufw_RsaOaepDecode(AsuDmaPtr, XAsufw_Sha2, Cmd->XAsu_ClientComp.Len,
-				Cmd->XAsu_ClientComp.KeySize, IntermediateOutput,
+		Status = XAsufw_RsaOaepDecode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_Sha2,
+				Cmd->XAsu_ClientComp.Len, Cmd->XAsu_ClientComp.KeySize, IntermediateOutput,
 				Cmd->OptionalLabelAddr, Cmd->OptionalLabelSize,
 				Cmd->XAsu_ClientComp.OutputDataAddr, Cmd->DigestType);
 		if (Status != XASUFW_SUCCESS) {
@@ -1367,6 +1367,7 @@ static s32 XAsufw_RsaOaepEncDecSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	} else {
 			Status = XASUFW_RSA_INVALID_OP_FLAG_ERROR;
 	}
+
 END:
 	/** Zeroize local copy of output value. */
 	SStatus = Xil_SMemSet(&IntermediateOutput[0U], XRSA_4096_KEY_SIZE, 0U,
@@ -1376,10 +1377,11 @@ END:
 	}
 
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
-RET:
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
+
 	return Status;
 }
 /*************************************************************************************************/
@@ -1388,7 +1390,7 @@ RET:
  * 		using SHA3 for hash calculation.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
@@ -1398,57 +1400,41 @@ RET:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaOaepEncDecSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaOaepEncDecSha3(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	s32 SStatus = XASUFW_FAILURE;
 	XSha *XAsufw_Sha3 = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 	const XAsu_RsaClientOaepPaddingParams *Cmd = (const XAsu_RsaClientOaepPaddingParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
 	u8 PaddedOutput[XRSA_4096_KEY_SIZE];
-
-	/** Check resource availability (DMA, RSA, SHA3 and TRNG) and allocate them. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto RET;
-	}
-
-	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
-	XAsufw_AllocateResource(XASUFW_TRNG, QueueId);
-	XAsufw_AllocateResource(XASUFW_SHA3, QueueId);
 
 	/** Perform public exponentiation encryption operation. */
 	if (Cmd->OperationFlag == XASU_RSA_ENCRYPTION) {
-		Status = XAsufw_RsaOaepEncode(AsuDmaPtr, XAsufw_Sha3, Cmd->XAsu_ClientComp.Len,
-			Cmd->XAsu_ClientComp.KeySize, Cmd->XAsu_ClientComp.InputDataAddr,
-			Cmd->OptionalLabelAddr, Cmd->OptionalLabelSize, PaddedOutput,
-			Cmd->DigestType);
+		Status = XAsufw_RsaOaepEncode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_Sha3,
+			Cmd->XAsu_ClientComp.Len, Cmd->XAsu_ClientComp.KeySize,
+			Cmd->XAsu_ClientComp.InputDataAddr, Cmd->OptionalLabelAddr, Cmd->OptionalLabelSize,
+			PaddedOutput, Cmd->DigestType);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_ENCODE_ERROR);
 			goto END;
 		}
 
-		Status = XRsa_PubExp(AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
-				(u64)(UINTPTR)PaddedOutput,
-				Cmd->XAsu_ClientComp.OutputDataAddr,
-				Cmd->XAsu_ClientComp.KeyCompAddr,
-				Cmd->XAsu_ClientComp.ExpoCompAddr);
+		Status = XRsa_PubExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
+				(u64)(UINTPTR)PaddedOutput, Cmd->XAsu_ClientComp.OutputDataAddr,
+				Cmd->XAsu_ClientComp.KeyCompAddr, Cmd->XAsu_ClientComp.ExpoCompAddr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_ENCRYPT_ERROR);
 		}
 	} else if (Cmd->OperationFlag == XASU_RSA_EXPONENTIATION_DECRYPTION) {
-		Status = XRsa_PvtExp(AsuDmaPtr, Cmd->XAsu_ClientComp.Len,
-				Cmd->XAsu_ClientComp.InputDataAddr,
-				(u64)(UINTPTR)PaddedOutput,
-				Cmd->XAsu_ClientComp.KeyCompAddr,
-				Cmd->XAsu_ClientComp.ExpoCompAddr);
+		Status = XRsa_PvtExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.Len,
+				Cmd->XAsu_ClientComp.InputDataAddr, (u64)(UINTPTR)PaddedOutput,
+				Cmd->XAsu_ClientComp.KeyCompAddr, Cmd->XAsu_ClientComp.ExpoCompAddr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_DECRYPT_ERROR);
 			goto END;
 		}
-		Status = XAsufw_RsaOaepDecode(AsuDmaPtr, XAsufw_Sha3, Cmd->XAsu_ClientComp.Len,
-				Cmd->XAsu_ClientComp.KeySize, PaddedOutput,
+		Status = XAsufw_RsaOaepDecode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_Sha3,
+				Cmd->XAsu_ClientComp.Len, Cmd->XAsu_ClientComp.KeySize, PaddedOutput,
 				Cmd->OptionalLabelAddr, Cmd->OptionalLabelSize,
 				Cmd->XAsu_ClientComp.OutputDataAddr, Cmd->DigestType);
 		if (Status != XASUFW_SUCCESS) {
@@ -1457,6 +1443,7 @@ static s32 XAsufw_RsaOaepEncDecSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	} else {
 			Status = XASUFW_RSA_INVALID_OP_FLAG_ERROR;
 	}
+
 END:
 	/** Zeroize local copy of output value. */
 	SStatus = Xil_SMemSet(&PaddedOutput[0U], XRSA_4096_KEY_SIZE, 0U,
@@ -1466,10 +1453,11 @@ END:
 	}
 
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
-RET:
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
+
 	return Status;
 }
 /*************************************************************************************************/
@@ -1477,37 +1465,25 @@ RET:
  * @brief	This function is a handler for RSA PKCS encryption/decryption operation command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
- * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  * 	- XASUFW_RSA_PKCS_ENCODE_ERROR, if encryption operaiton fails.
  * 	- XASUFW_RSA_PKCS_DECODE_ERROR, if private exponentiation decryption operaiton fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaPkcsEncDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaPkcsEncDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	s32 SStatus = XASUFW_FAILURE;
 	const XAsu_RsaClientPaddingParams *Cmd = (const XAsu_RsaClientPaddingParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
 	u8 PaddedOutput[XRSA_4096_KEY_SIZE];
-
-	/** Check resource availability (DMA, RSA and TRNG) and allocate them. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto RET;
-	}
-
-	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
-	XAsufw_AllocateResource(XASUFW_TRNG, QueueId);
 
 	/** Perform public exponentiation encryption operation. */
 	if (Cmd->OperationFlag == XASU_RSA_ENCRYPTION) {
-		Status = XAsufw_RsaPkcsEncode(AsuDmaPtr, Cmd->XAsu_ClientComp.Len,
+		Status = XAsufw_RsaPkcsEncode(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.Len,
 						Cmd->XAsu_ClientComp.KeySize,
 						Cmd->XAsu_ClientComp.InputDataAddr, PaddedOutput);
 		if (Status != XASUFW_SUCCESS) {
@@ -1515,16 +1491,14 @@ static s32 XAsufw_RsaPkcsEncDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 			goto END;
 		}
 
-		Status = XRsa_PubExp(AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
-					(u64)(UINTPTR)PaddedOutput,
-					Cmd->XAsu_ClientComp.OutputDataAddr,
-					Cmd->XAsu_ClientComp.KeyCompAddr,
-					Cmd->XAsu_ClientComp.ExpoCompAddr);
+		Status = XRsa_PubExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
+					(u64)(UINTPTR)PaddedOutput, Cmd->XAsu_ClientComp.OutputDataAddr,
+					Cmd->XAsu_ClientComp.KeyCompAddr, Cmd->XAsu_ClientComp.ExpoCompAddr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PKCS_ENCRYPT_ERROR);
 		}
 	} else if (Cmd->OperationFlag == XASU_RSA_EXPONENTIATION_DECRYPTION) {
-		Status = XRsa_PvtExp(AsuDmaPtr, Cmd->XAsu_ClientComp.Len,
+		Status = XRsa_PvtExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.Len,
 				Cmd->XAsu_ClientComp.InputDataAddr, (u64)(UINTPTR)PaddedOutput,
 				Cmd->XAsu_ClientComp.KeyCompAddr, Cmd->XAsu_ClientComp.ExpoCompAddr);
 		if (Status != XASUFW_SUCCESS) {
@@ -1532,7 +1506,7 @@ static s32 XAsufw_RsaPkcsEncDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 			goto END;
 		}
 
-		Status = XAsufw_RsaPkcsDecode(AsuDmaPtr, Cmd->XAsu_ClientComp.Len,
+		Status = XAsufw_RsaPkcsDecode(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.Len,
 				Cmd->XAsu_ClientComp.KeySize, PaddedOutput,
 				Cmd->XAsu_ClientComp.OutputDataAddr);
 		if (Status != XASUFW_SUCCESS) {
@@ -1541,6 +1515,7 @@ static s32 XAsufw_RsaPkcsEncDec(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	} else {
 			Status = XASUFW_RSA_INVALID_OP_FLAG_ERROR;
 	}
+
 END:
 	/** Zeroize local copy of output value. */
 	SStatus = Xil_SMemSet(&PaddedOutput[0U], XRSA_4096_KEY_SIZE, 0U,
@@ -1550,10 +1525,11 @@ END:
 	}
 
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
-RET:
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
+
 	return Status;
 }
 
@@ -1563,7 +1539,7 @@ RET:
  * 		command using SHA2 for hash calculation.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
@@ -1573,27 +1549,15 @@ RET:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaPssSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaPssSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 	const XAsu_RsaClientPaddingParams *Cmd = (const XAsu_RsaClientPaddingParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
 	u32 HashLen = 0U;
 	u8 InputDataHash[XASU_SHAKE_256_MAX_HASH_LEN];
 	u8 PaddedOutput[XRSA_4096_KEY_SIZE];
-
-	/** Check resource availability (DMA, RSA, SHA2 and TRNG) and allocate them. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto RET;
-	}
-
-	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
-	XAsufw_AllocateResource(XASUFW_TRNG, QueueId);
-	XAsufw_AllocateResource(XASUFW_SHA2, QueueId);
 
 	if (Cmd->InputDataType != XASU_RSA_HASHED_INPUT_DATA) {
 		Status = XSha_GetHashLen(Cmd->DigestType, &HashLen);
@@ -1607,22 +1571,21 @@ static s32 XAsufw_RsaPssSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Update(XAsufw_Sha2, AsuDmaPtr, Cmd->XAsu_ClientComp.InputDataAddr,
-					Cmd->XAsu_ClientComp.Len, TRUE);
+		Status = XSha_Update(XAsufw_Sha2, XAsufw_RsaModule.AsuDmaPtr,
+					Cmd->XAsu_ClientComp.InputDataAddr, Cmd->XAsu_ClientComp.Len, (u32)TRUE);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Finish(XAsufw_Sha2, (u64)(UINTPTR)InputDataHash,
-					HashLen, XASU_FALSE);
+		Status = XSha_Finish(XAsufw_Sha2, (u32 *)InputDataHash, HashLen, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 	} else {
 		HashLen = Cmd->XAsu_ClientComp.Len;
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_DmaXfr(AsuDmaPtr, Cmd->XAsu_ClientComp.InputDataAddr,
+		Status = XAsufw_DmaXfr(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.InputDataAddr,
 					(u64)(UINTPTR)InputDataHash, Cmd->XAsu_ClientComp.Len, 0U);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
@@ -1631,21 +1594,21 @@ static s32 XAsufw_RsaPssSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 
 	/** Perform public exponentiation encryption operation. */
 	if (Cmd->OperationFlag == XASU_RSA_SIGN_GENERATION) {
-		Status = XAsufw_RsaPssEncode(AsuDmaPtr, XAsufw_Sha2, HashLen,
+		Status = XAsufw_RsaPssEncode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_Sha2, HashLen,
 				Cmd->XAsu_ClientComp.KeySize, Cmd->SaltLen, InputDataHash,
 				PaddedOutput, Cmd->DigestType);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_ENCODE_ERROR);
 			goto END;
 		}
-		Status = XRsa_PvtExp(AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
+		Status = XRsa_PvtExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
 				(u64)(UINTPTR)PaddedOutput, Cmd->XAsu_ClientComp.OutputDataAddr,
 				Cmd->XAsu_ClientComp.KeyCompAddr, Cmd->XAsu_ClientComp.ExpoCompAddr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_SIGN_GEN_ERROR);
 		}
 	} else if (Cmd->OperationFlag == XASU_RSA_SIGN_VERIFICATION) {
-		Status = XRsa_PubExp(AsuDmaPtr, Cmd->SignatureLen,
+		Status = XRsa_PubExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->SignatureLen,
 				Cmd->SignatureDataAddr, (u64)(UINTPTR)PaddedOutput,
 				Cmd->XAsu_ClientComp.KeyCompAddr, Cmd->XAsu_ClientComp.ExpoCompAddr);
 		if (Status != XASUFW_SUCCESS) {
@@ -1653,8 +1616,8 @@ static s32 XAsufw_RsaPssSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 			goto END;
 		}
 
-		Status = XAsufw_RsaPssDecode(AsuDmaPtr, XAsufw_Sha2, HashLen, Cmd->SignatureLen,
-				Cmd->XAsu_ClientComp.KeySize, Cmd->SaltLen, PaddedOutput,
+		Status = XAsufw_RsaPssDecode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_Sha2, HashLen,
+				Cmd->SignatureLen, Cmd->XAsu_ClientComp.KeySize, Cmd->SaltLen, PaddedOutput,
 				(u64)(UINTPTR)InputDataHash, Cmd->DigestType);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_DECODE_ERROR);
@@ -1663,6 +1626,7 @@ static s32 XAsufw_RsaPssSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	} else {
 			Status = XASUFW_RSA_INVALID_OP_FLAG_ERROR;
 	}
+
 END:
 	/** Zeroize local copy of output value. */
 	SStatus = Xil_SMemSet(&PaddedOutput[0U], XRSA_4096_KEY_SIZE, 0U,
@@ -1679,10 +1643,11 @@ END:
 	}
 
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
-RET:
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
+
 	return Status;
 }
 
@@ -1692,7 +1657,7 @@ RET:
  * 		command using SHA3 for hash calculation.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
@@ -1701,27 +1666,15 @@ RET:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaPssSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaPssSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XSha *XAsufw_Sha3 = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 	const XAsu_RsaClientPaddingParams *Cmd = (const XAsu_RsaClientPaddingParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
 	u32 HashLen = 0U;
 	u8 InputDataHash[XASU_SHAKE_256_MAX_HASH_LEN];
 	u8 PaddedOutput[XRSA_4096_KEY_SIZE];
-
-	/** Check resource availability (DMA, RSA, SHA3 and TRNG) and allocate them. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto RET;
-	}
-
-	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
-	XAsufw_AllocateResource(XASUFW_TRNG, QueueId);
-	XAsufw_AllocateResource(XASUFW_SHA3, QueueId);
 
 	if (Cmd->InputDataType != XASU_RSA_HASHED_INPUT_DATA) {
 		Status = XSha_GetHashLen(Cmd->DigestType, &HashLen);
@@ -1735,22 +1688,21 @@ static s32 XAsufw_RsaPssSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Update(XAsufw_Sha3, AsuDmaPtr, Cmd->XAsu_ClientComp.InputDataAddr,
-					Cmd->XAsu_ClientComp.Len, TRUE);
+		Status = XSha_Update(XAsufw_Sha3, XAsufw_RsaModule.AsuDmaPtr,
+					Cmd->XAsu_ClientComp.InputDataAddr, Cmd->XAsu_ClientComp.Len, (u32)TRUE);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Finish(XAsufw_Sha3, (u64)(UINTPTR)InputDataHash,
-					HashLen, XASU_FALSE);
+		Status = XSha_Finish(XAsufw_Sha3, (u32 *)InputDataHash, HashLen, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 	} else {
 		HashLen = Cmd->XAsu_ClientComp.Len;
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_DmaXfr(AsuDmaPtr, Cmd->XAsu_ClientComp.InputDataAddr,
+		Status = XAsufw_DmaXfr(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.InputDataAddr,
 					(u64)(UINTPTR)InputDataHash, Cmd->XAsu_ClientComp.Len, 0U);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
@@ -1758,21 +1710,21 @@ static s32 XAsufw_RsaPssSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	}
 	/** Perform public exponentiation encryption operation. */
 	if (Cmd->OperationFlag == XASU_RSA_SIGN_GENERATION) {
-		Status = XAsufw_RsaPssEncode(AsuDmaPtr, XAsufw_Sha3, HashLen,
+		Status = XAsufw_RsaPssEncode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_Sha3, HashLen,
 				Cmd->XAsu_ClientComp.KeySize, Cmd->SaltLen, InputDataHash,
 				PaddedOutput, Cmd->DigestType);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_ENCODE_ERROR);
 			goto END;
 		}
-		Status = XRsa_PvtExp(AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
+		Status = XRsa_PvtExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
 				(u64)(UINTPTR)PaddedOutput, Cmd->XAsu_ClientComp.OutputDataAddr,
 				Cmd->XAsu_ClientComp.KeyCompAddr, Cmd->XAsu_ClientComp.ExpoCompAddr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_SIGN_GEN_ERROR);
 		}
 	} else if (Cmd->OperationFlag == XASU_RSA_SIGN_VERIFICATION) {
-		Status = XRsa_PubExp(AsuDmaPtr, Cmd->SignatureLen,
+		Status = XRsa_PubExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->SignatureLen,
 				Cmd->SignatureDataAddr, (u64)(UINTPTR)PaddedOutput,
 				Cmd->XAsu_ClientComp.KeyCompAddr, Cmd->XAsu_ClientComp.ExpoCompAddr);
 		if (Status != XASUFW_SUCCESS) {
@@ -1780,8 +1732,8 @@ static s32 XAsufw_RsaPssSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 			goto END;
 		}
 
-		Status = XAsufw_RsaPssDecode(AsuDmaPtr, XAsufw_Sha3, HashLen, Cmd->SignatureLen,
-				Cmd->XAsu_ClientComp.KeySize, Cmd->SaltLen, PaddedOutput,
+		Status = XAsufw_RsaPssDecode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_Sha3, HashLen,
+				Cmd->SignatureLen, Cmd->XAsu_ClientComp.KeySize, Cmd->SaltLen, PaddedOutput,
 				(u64)(UINTPTR)InputDataHash, Cmd->DigestType);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_DECODE_ERROR);
@@ -1790,6 +1742,7 @@ static s32 XAsufw_RsaPssSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	} else {
 			Status = XASUFW_RSA_INVALID_OP_FLAG_ERROR;
 	}
+
 END:
 	/** Zeroize local copy of output value. */
 	SStatus = Xil_SMemSet(&PaddedOutput[0U], XRSA_4096_KEY_SIZE, 0U,
@@ -1806,10 +1759,11 @@ END:
 	}
 
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
-RET:
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
+
 	return Status;
 }
 
@@ -1819,7 +1773,7 @@ RET:
  * 		using SHA2 for hash calculation.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
@@ -1829,28 +1783,16 @@ RET:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaPkcsSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaPkcsSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 	const XAsu_RsaClientPaddingParams *Cmd = (const XAsu_RsaClientPaddingParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
 	u32 HashLen = 0U;
 	u8 InputDataHash[XASU_SHAKE_256_MAX_HASH_LEN];
 	u8 PaddedOutput[XRSA_4096_KEY_SIZE];
 	u8 DecodedOutput[XASU_SHAKE_256_MAX_HASH_LEN];
-
-	/** Check resource availability (DMA, RSA, SHA2 and TRNG) and allocate them. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto RET;
-	}
-
-	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
-	XAsufw_AllocateResource(XASUFW_TRNG, QueueId);
-	XAsufw_AllocateResource(XASUFW_SHA2, QueueId);
 
 	if (Cmd->InputDataType != XASU_RSA_HASHED_INPUT_DATA) {
 		Status = XSha_GetHashLen(Cmd->DigestType, &HashLen);
@@ -1864,22 +1806,21 @@ static s32 XAsufw_RsaPkcsSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Update(XAsufw_Sha2, AsuDmaPtr, Cmd->XAsu_ClientComp.InputDataAddr,
-					Cmd->XAsu_ClientComp.Len, TRUE);
+		Status = XSha_Update(XAsufw_Sha2, XAsufw_RsaModule.AsuDmaPtr,
+					Cmd->XAsu_ClientComp.InputDataAddr, Cmd->XAsu_ClientComp.Len, (u32)TRUE);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Finish(XAsufw_Sha2, (u64)(UINTPTR)InputDataHash,
-					HashLen, XASU_FALSE);
+		Status = XSha_Finish(XAsufw_Sha2, (u32 *)InputDataHash, HashLen, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 	} else {
 		HashLen = Cmd->XAsu_ClientComp.Len;
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_DmaXfr(AsuDmaPtr, Cmd->XAsu_ClientComp.InputDataAddr,
+		Status = XAsufw_DmaXfr(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.InputDataAddr,
 					(u64)(UINTPTR)InputDataHash, Cmd->XAsu_ClientComp.Len, 0U);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
@@ -1887,27 +1828,27 @@ static s32 XAsufw_RsaPkcsSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	}
 	/** Perform public exponentiation encryption operation. */
 	if (Cmd->OperationFlag == XASU_RSA_SIGN_GENERATION) {
-		Status = XAsufw_RsaPkcsEncode(AsuDmaPtr, HashLen, Cmd->XAsu_ClientComp.KeySize,
-						(u64)(UINTPTR)InputDataHash, PaddedOutput);
+		Status = XAsufw_RsaPkcsEncode(XAsufw_RsaModule.AsuDmaPtr, HashLen,
+					Cmd->XAsu_ClientComp.KeySize, (u64)(UINTPTR)InputDataHash, PaddedOutput);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PKCS_ENCODE_ERROR);
 			goto END;
 		}
-		Status = XRsa_PvtExp(AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
+		Status = XRsa_PvtExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
 				(u64)(UINTPTR)PaddedOutput, Cmd->XAsu_ClientComp.OutputDataAddr,
 				Cmd->XAsu_ClientComp.KeyCompAddr, Cmd->XAsu_ClientComp.ExpoCompAddr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PKCS_SIGN_GEN_ERROR);
 		}
 	} else if (Cmd->OperationFlag == XASU_RSA_SIGN_VERIFICATION) {
-		Status = XRsa_PubExp(AsuDmaPtr, Cmd->SignatureLen,
+		Status = XRsa_PubExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->SignatureLen,
 				Cmd->SignatureDataAddr, (u64)(UINTPTR)PaddedOutput,
 				Cmd->XAsu_ClientComp.KeyCompAddr, Cmd->XAsu_ClientComp.ExpoCompAddr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PKCS_SIGN_VER_ERROR);
 		}
 
-		Status = XAsufw_RsaPkcsDecode(AsuDmaPtr, Cmd->SignatureLen,
+		Status = XAsufw_RsaPkcsDecode(XAsufw_RsaModule.AsuDmaPtr, Cmd->SignatureLen,
 				Cmd->XAsu_ClientComp.KeySize, PaddedOutput,
 				(u64)(UINTPTR)DecodedOutput);
 		if (Status != XASUFW_SUCCESS) {
@@ -1925,6 +1866,7 @@ static s32 XAsufw_RsaPkcsSignGenVerSha2(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	} else {
 			Status = XASUFW_RSA_INVALID_OP_FLAG_ERROR;
 	}
+
 END:
 	/** Zeroize local copy of output value. */
 	SStatus = Xil_SMemSet(&PaddedOutput[0U], XRSA_4096_KEY_SIZE, 0U,
@@ -1948,10 +1890,11 @@ END:
 	}
 
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
-RET:
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
+
 	return Status;
 }
 
@@ -1961,7 +1904,7 @@ RET:
  * 		using SHA3 for hash calculation.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
@@ -1970,28 +1913,16 @@ RET:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaPkcsSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaPkcsSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XSha *XAsufw_Sha3 = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 	const XAsu_RsaClientPaddingParams *Cmd = (const XAsu_RsaClientPaddingParams *)ReqBuf->Arg;
-	XAsufw_Dma *AsuDmaPtr = NULL;
 	u32 HashLen = 0U;
 	u8 InputDataHash[XASU_SHAKE_256_MAX_HASH_LEN];
 	u8 PaddedOutput[XRSA_4096_KEY_SIZE];
 	u8 DecodedOutput[XASU_SHAKE_256_MAX_HASH_LEN];
-
-	/** Check resource availability (DMA, RSA, SHA3 and TRNG) and allocate them. */
-	AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, QueueId);
-	if (AsuDmaPtr == NULL) {
-		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-		goto RET;
-	}
-
-	XAsufw_AllocateResource(XASUFW_RSA, QueueId);
-	XAsufw_AllocateResource(XASUFW_TRNG, QueueId);
-	XAsufw_AllocateResource(XASUFW_SHA3, QueueId);
 
 	if (Cmd->InputDataType != XASU_RSA_HASHED_INPUT_DATA) {
 		Status = XSha_GetHashLen(Cmd->DigestType, &HashLen);
@@ -2005,22 +1936,21 @@ static s32 XAsufw_RsaPkcsSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Update(XAsufw_Sha3, AsuDmaPtr, Cmd->XAsu_ClientComp.InputDataAddr,
-					Cmd->XAsu_ClientComp.Len, TRUE);
+		Status = XSha_Update(XAsufw_Sha3, XAsufw_RsaModule.AsuDmaPtr,
+					Cmd->XAsu_ClientComp.InputDataAddr, Cmd->XAsu_ClientComp.Len, (u32)TRUE);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Finish(XAsufw_Sha3, (u64)(UINTPTR)InputDataHash,
-					HashLen, XASU_FALSE);
+		Status = XSha_Finish(XAsufw_Sha3, (u32 *)InputDataHash, HashLen, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 	} else {
 		HashLen = Cmd->XAsu_ClientComp.Len;
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_DmaXfr(AsuDmaPtr, Cmd->XAsu_ClientComp.InputDataAddr,
+		Status = XAsufw_DmaXfr(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.InputDataAddr,
 					(u64)(UINTPTR)InputDataHash, Cmd->XAsu_ClientComp.Len, 0U);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
@@ -2028,29 +1958,28 @@ static s32 XAsufw_RsaPkcsSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	}
 	/** Perform public exponentiation encryption operation. */
 	if (Cmd->OperationFlag == XASU_RSA_SIGN_GENERATION) {
-		Status = XAsufw_RsaPkcsEncode(AsuDmaPtr, HashLen, Cmd->XAsu_ClientComp.KeySize,
-						(u64)(UINTPTR)InputDataHash, PaddedOutput);
+		Status = XAsufw_RsaPkcsEncode(XAsufw_RsaModule.AsuDmaPtr, HashLen,
+					Cmd->XAsu_ClientComp.KeySize, (u64)(UINTPTR)InputDataHash, PaddedOutput);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PKCS_SIGN_GEN_ERROR);
 			goto END;
 		}
-		Status = XRsa_PvtExp(AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
+		Status = XRsa_PvtExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->XAsu_ClientComp.KeySize,
 				(u64)(UINTPTR)PaddedOutput, Cmd->XAsu_ClientComp.OutputDataAddr,
 				Cmd->XAsu_ClientComp.KeyCompAddr, Cmd->XAsu_ClientComp.ExpoCompAddr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PKCS_SIGN_GEN_ERROR);
 		}
 	} else if (Cmd->OperationFlag == XASU_RSA_SIGN_VERIFICATION) {
-		Status = XRsa_PubExp(AsuDmaPtr, Cmd->SignatureLen,
+		Status = XRsa_PubExp(XAsufw_RsaModule.AsuDmaPtr, Cmd->SignatureLen,
 				Cmd->SignatureDataAddr, (u64)(UINTPTR)PaddedOutput,
 				Cmd->XAsu_ClientComp.KeyCompAddr, Cmd->XAsu_ClientComp.ExpoCompAddr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PKCS_SIGN_VER_ERROR);
 		}
 
-		Status = XAsufw_RsaPkcsDecode(AsuDmaPtr, Cmd->SignatureLen,
-				Cmd->XAsu_ClientComp.KeySize, PaddedOutput,
-				(u64)(UINTPTR)DecodedOutput);
+		Status = XAsufw_RsaPkcsDecode(XAsufw_RsaModule.AsuDmaPtr, Cmd->SignatureLen,
+				Cmd->XAsu_ClientComp.KeySize, PaddedOutput, (u64)(UINTPTR)DecodedOutput);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PKCS_SIGN_VER_ERROR);
 			goto END;
@@ -2066,6 +1995,7 @@ static s32 XAsufw_RsaPkcsSignGenVerSha3(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
 	} else {
 			Status = XASUFW_RSA_INVALID_OP_FLAG_ERROR;
 	}
+
 END:
 	/** Zeroize local copy of output value. */
 	SStatus = Xil_SMemSet(&PaddedOutput[0U], XRSA_4096_KEY_SIZE, 0U,
@@ -2089,10 +2019,11 @@ END:
 	}
 
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_RSA, QueueId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
-RET:
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
+
 	return Status;
 }
 
@@ -2101,18 +2032,29 @@ RET:
  * @brief	This function performs Known Answer Tests (KATs).
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- Returns XASUFW_SUCCESS, if KAT is successful.
  * 	- Error code, returned when XAsufw_RsaEncDecKat API fails.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	/** Perform KAT on 2048 bit key size. */
+	s32 Status = XASUFW_FAILURE;
 
-	return XAsufw_RsaEncDecKat(QueueId);
+	(void)ReqBuf;
+
+	/** Perform KAT on 2048 bit key size. */
+	Status = XAsufw_RsaEncDecKat(XAsufw_RsaModule.AsuDmaPtr);
+
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
+
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -2120,17 +2062,20 @@ static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
  * @brief	This function is a handler for RSA Get Info command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
- * @param	QueueId	Queue Unique ID.
+ * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- Returns XASUFW_SUCCESS on successful execution of the command.
  * 	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaGetInfo(const XAsu_ReqBuf *ReqBuf, u32 QueueId)
+static s32 XAsufw_RsaGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	/* TODO: Implement XAsufw_RsaGetInfo */
 	s32 Status = XASUFW_FAILURE;
+
+	(void)ReqBuf;
+	(void)ReqId;
 
 	return Status;
 }
