@@ -24,6 +24,7 @@
  * 1.1   ma   12/12/24 Updated resource allocation logic
  *                     Added support for DMA non-blocking wait
  *                     Updated copying the hash to response buffer
+ *       ma   12/23/24 Allocate SHA resource for SHA start and SHA finish as well
  *
  * </pre>
  *
@@ -134,13 +135,15 @@ static s32 XAsufw_Sha2ResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 * Allocate DMA and SHA2 resource if CmdId is SHA Operation with Update or if CmdId is SHA
 	 * KAT.
 	 */
-	if (((CmdId == XASU_SHA_OPERATION_CMD_ID) &&
-		((Cmd->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE)) ||
-		(CmdId == XASU_SHA_KAT_CMD_ID)) {
-		XAsufw_Sha2Module.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_SHA2, ReqId);
-		if (XAsufw_Sha2Module.AsuDmaPtr == NULL) {
-			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-			goto END;
+	if (CmdId != XASU_SHA_GET_INFO_CMD_ID) {
+		if (((CmdId == XASU_SHA_OPERATION_CMD_ID) &&
+			((Cmd->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE)) ||
+			(CmdId == XASU_SHA_KAT_CMD_ID)) {
+			XAsufw_Sha2Module.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_SHA2, ReqId);
+			if (XAsufw_Sha2Module.AsuDmaPtr == NULL) {
+				Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+				goto END;
+			}
 		}
 		XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_SHA2, ReqId);
 	}
