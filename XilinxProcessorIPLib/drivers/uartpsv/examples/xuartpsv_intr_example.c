@@ -223,7 +223,7 @@ int UartPsvIntrExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress)
 #ifndef SDT
 	Status = SetupInterruptSystem(IntcInstPtr, UartInstPtr, UartIntrId);
 #else
-	Status = XSetupInterruptSystem(UartInstPtr, &XUartPsv_InterruptHandler,
+	Status = XSetupInterruptSystem(UartInstPtr, (void *)&XUartPsv_InterruptHandler,
 				       Config->IntrId, Config->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
@@ -338,6 +338,8 @@ int UartPsvIntrExample(XUartPsv *UartInstPtr, UINTPTR BaseAddress)
 ***************************************************************************/
 void Handler(void *CallBackRef, u32 Event, unsigned int EventData)
 {
+	(void)CallBackRef;
+
 	/* All of the data has been sent */
 	if (Event == XUARTPSV_EVENT_SENT_DATA) {
 		TotalSentCount = EventData;
