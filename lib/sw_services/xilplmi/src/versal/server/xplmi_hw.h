@@ -101,7 +101,8 @@
 *                       Also, corrected XPLMI_PLATFORM_MASK value
 *       pre  12/09/2024 Added METAHEADER_INSTANCE_ADDRESS and RTCA_LEN_IN_BYTES macros
 *       bm   12/16/2024 Move I2C Handshake feature to common code
-*
+*       svnr 12/23/2024 Increased STL Test buffer size in PMC RAM from 320 bytes to
+*                       576 bytes of memory
 * </pre>
 *
 
@@ -698,7 +699,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 /* XilStl DDRMC Parity Buffer */
 #ifdef PLM_ENABLE_STL
-#define XSTL_DDRMC_PARITY_BUFFER								(XPLMI_PMCRAM_BASEADDR + 0x10240U) /* 320B */
+#define XSTL_DDRMC_PARITY_BUFFER								(XPLMI_PMCRAM_BASEADDR + 0x10240U) /* 576B */
 #endif
 
 /* Log Buffer default address and length */
