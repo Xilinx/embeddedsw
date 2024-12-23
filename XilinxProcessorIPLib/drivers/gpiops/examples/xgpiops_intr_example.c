@@ -252,7 +252,7 @@ int GpioIntrExample(XGpioPs *Gpio, UINTPTR BaseAddress)
 	/* Enable the GPIO interrupts of GPIO Bank. */
 	XGpioPs_IntrEnable(Gpio, GPIO_BANK, (1 << Input_Bank_Pin));
 
-	Status = XSetupInterruptSystem(Gpio, &XGpioPs_IntrHandler,
+	Status = XSetupInterruptSystem(Gpio, (void *)&XGpioPs_IntrHandler,
 				       ConfigPtr->IntrId,
 				       ConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
@@ -295,6 +295,9 @@ static void IntrHandler(void *CallBackRef, u32 Bank, u32 Status)
 {
 	XGpioPs *Gpio = (XGpioPs *)CallBackRef;
 	u32 DataRead;
+
+	(void)Bank;
+	(void)Status;
 
 	/* Push the switch button */
 	DataRead = XGpioPs_ReadPin(Gpio, Input_Pin);
