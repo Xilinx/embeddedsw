@@ -166,7 +166,7 @@ static int IicPsConfig(UINTPTR BaseAddress)
 #ifndef SDT
 	Status = SetupInterruptSystem(&IicInstance, Int_Id);
 #else
-	Status = XSetupInterruptSystem(&IicInstance, XIicPs_MasterInterruptHandler,
+	Status = XSetupInterruptSystem(&IicInstance, (void *)XIicPs_MasterInterruptHandler,
 				       ConfigPtr->IntrId,
 				       ConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
@@ -430,6 +430,8 @@ static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id)
 *******************************************************************************/
 void Handler(void *CallBackRef, u32 Event)
 {
+	(void)CallBackRef;
+
 	/*
 	 * All of the data transfer has been finished.
 	 */

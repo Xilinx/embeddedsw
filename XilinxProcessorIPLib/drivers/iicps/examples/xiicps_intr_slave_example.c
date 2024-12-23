@@ -206,7 +206,7 @@ int IicPsSlaveIntrExample(UINTPTR BaseAddress)
 #ifndef SDT
 	Status = SetupInterruptSystem(&Iic);
 #else
-	Status = XSetupInterruptSystem(&Iic, XIicPs_SlaveInterruptHandler,
+	Status = XSetupInterruptSystem(&Iic, (void *)XIicPs_SlaveInterruptHandler,
 				       Config->IntrId,
 				       Config->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
@@ -311,6 +311,8 @@ int IicPsSlaveIntrExample(UINTPTR BaseAddress)
 *******************************************************************************/
 void Handler(void *CallBackRef, u32 Event)
 {
+	(void)CallBackRef;
+
 	/*
 	 * Data transfer finishes.
 	 */
