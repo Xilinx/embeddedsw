@@ -52,6 +52,8 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #if ! defined(SDT)
 #define __FILENAME__	__FILE__
+#else
+#define __FILENAME__	(strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__))
 #endif
 
 #define XIL_ASSERT_NONE     0U
