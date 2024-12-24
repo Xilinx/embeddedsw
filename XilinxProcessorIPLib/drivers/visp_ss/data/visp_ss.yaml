@@ -86,3 +86,5 @@ required:
   - xlnx,oba1_sp_bpp
   - xlnx,oba1_sp_ppc
   - xlnx,oba1_sp_data_format
+  - interrupts : 4
+  - interrupt-parent
