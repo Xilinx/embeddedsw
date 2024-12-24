@@ -34,34 +34,6 @@ static inline void AieRMW64(u64 addr, u32 Mask, u32 Value)
 	AieWrite64(addr, l_val);
 }
 
-static XStatus XPm_PcsrWrite(u32 BaseAddress, u32 Mask, u32 Value)
-{
-        XStatus Status = XST_FAILURE;
-        u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-
-        XPm_Out32((BaseAddress + NPI_PCSR_MASK_OFFSET), Mask);
-        /* Blind write check */
-        PmChkRegOut32((BaseAddress + NPI_PCSR_MASK_OFFSET), Mask, Status);
-        if (XPM_REG_WRITE_FAILED == Status) {
-                DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_MASK;
-                goto done;
-        }
-
-        XPm_Out32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Value);
-        /* Blind write check */
-        PmChkRegMask32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Mask, Value, Status);
-        if (XPM_REG_WRITE_FAILED == Status) {
-                DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_CONTROL;
-                goto done;
-        }
-
-        Status = XST_SUCCESS;
-
-done:
-        XPm_PrintDbgErr(Status, DbgErr);
-        return Status;
-}
-
 static XStatus Aie2ps_ColRst(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_ShimRst(const XPm_Device *AieDev, const u32 StartCol, const u32 EndCol, const void* Buffer);
 static XStatus Aie2ps_EnbColClkBuff(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
