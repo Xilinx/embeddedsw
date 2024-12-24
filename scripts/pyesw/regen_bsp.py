@@ -27,6 +27,10 @@ class RegenBSP(BSP, Library):
             self.proc_mode = domain_data["mode"]
         else:
             self.proc_mode = "64-bit"
+        if "compiler" in domain_data:
+            self.compiler = domain_data["compiler"]
+        else:
+            self.compiler = "gcc"
         if args.get('sdt'):
             self.sdt = utils.get_abs_path(args["sdt"])
         if utils.is_file(os.path.join(self.domain_path, ".repo.yaml")):
@@ -53,7 +57,8 @@ class RegenBSP(BSP, Library):
             'template':self.template,
             'sdt':self.sdt,
             'repo_info':self.repo_info,
-            'mode': self.proc_mode
+            'mode': self.proc_mode,
+            'compiler': self.compiler
         })
 
         # Remove existing folder structure
