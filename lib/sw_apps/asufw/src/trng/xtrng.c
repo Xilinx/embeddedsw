@@ -21,6 +21,7 @@
  *       ma   07/26/24 Removed XTrng_DisableAutoProcMode API and updated TRNG to support PTRNG mode
  *       yog  08/25/24 Integrated FIH library
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ * 1.1   ma   12/24/24 AAdded API to disable autoproc mode
  *
  * </pre>
  *
@@ -1220,6 +1221,54 @@ s32 XTrng_EnableAutoProcMode(XTrng *InstancePtr)
 
 	InstancePtr->State = XTRNG_AUTOPROC_STATE;
 	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function disables autoproc mode for TRNG.
+ *
+ * @param	InstancePtr	Pointer to the TRNG Instance.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS On successfully disabling autoproc mode.
+ * 	- XASUFW_TRNG_INVALID_PARAM If invalid parameter(s) passed to this function.
+ * 	- XASUFW_OSCILLATOR_DISABLE_FAILED If oscillator reseed source disable is failed.
+ *
+ *************************************************************************************************/
+s32 XTrng_DisableAutoProcMode(XTrng *InstancePtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/** Validate input parameters. */
+	if (InstancePtr == NULL) {
+		Status = XASUFW_TRNG_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Disable autoproc mode. */
+	XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_TRNG_AUTOPROC_OFFSET,
+			XASU_TRNG_AUTOPROC_DISABLE_MASK);
+
+	/** Check if autoproc mode is disabled. */
+	while (XAsufw_ReadReg(InstancePtr->BaseAddress + XASU_TRNG_AUTOPROC_OFFSET) !=
+			XASU_TRNG_AUTOPROC_DISABLE_MASK) {
+		/* Do nothing */
+	}
+
+	/** Clear reseed/generation operation completion status. */
+	XAsufw_WriteReg((InstancePtr->BaseAddress + XASU_TRNG_INT_OFFSET),
+			XASU_TRNG_INT_DONE_RST_MASK);
+
+	/** Clear all TRNG interrupts. */
+	XAsufw_WriteReg((InstancePtr->BaseAddress + XASU_TRNG_INTR_STS_OFFSET),
+			XASU_TRNG_INTR_STS_TRNG_INT_MASK | XASU_TRNG_INTR_STS_TRNG_AC_MASK |
+			XASU_TRNG_INTR_STS_TRNG_FULL_MASK);
+
+	/** Reset/uninstantiate the TRNG core. */
+	Status = XTrng_Uninstantiate(InstancePtr);
 
 END:
 	return Status;
