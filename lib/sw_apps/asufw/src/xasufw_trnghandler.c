@@ -22,6 +22,7 @@
  *       ma   07/26/24 Added support for PTRNG GetRandomBytes
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/12/24 Updated resource allocation logic
+ *       ma   12/24/24 Disable autoproc mode before running DRBG KAT or DRBG Instantiate commands
  *
  * </pre>
  *
@@ -250,12 +251,13 @@ static s32 XAsufw_TrngKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-	/** Uninstantiate TRNG before running KAT */
-	Status = XTrng_Uninstantiate(XAsufw_Trng);
+	/** Disable auto proc mode and uninstantiate TRNG before running KAT */
+	Status = XTrng_DisableAutoProcMode(XAsufw_Trng);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
+	/** Run TRNG DRBG KAT */
 	Status = XTrng_DrbgKat(XAsufw_Trng);
 
 	/** Instantiate to complete initialization of TRNG in HRNG mode */
@@ -318,13 +320,13 @@ static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XTrng_UserConfig UsrCfg;
 	XAsufw_DrbgInstantiateCmd *Cmd = (XAsufw_DrbgInstantiateCmd *)ReqBuf;
 
-	/* Disable auto proc mode before running KAT */
-	Status = XTrng_Uninstantiate(XAsufw_Trng);
+	/** Disable auto proc mode and uninstantiate TRNG core before enabling TRNG in DRBG mode. */
+	Status = XTrng_DisableAutoProcMode(XAsufw_Trng);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
-	/* Initiate TRNG */
+	/* Instantiate TRNG in DRBG mode. */
 	UsrCfg.Mode = XTRNG_DRBG_MODE;
 	UsrCfg.DFLength = (u8)Cmd->DFLen;
 	UsrCfg.SeedLife = Cmd->SeedLife;

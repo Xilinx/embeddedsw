@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   05/20/24 Initial release
+ * 1.1   ma   12/24/24 Added few TRNG registers
  *
  * </pre>
  *
@@ -41,8 +42,12 @@ extern "C" {
 
 /**< TRNG Interrupt status register offset */
 #define XASU_TRNG_INTR_STS_OFFSET			        (0x00000000U)
-/**< Interrupt status register trng_ac mask */
+/**< TRNG Interrupt status register trng_int mask */
+#define XASU_TRNG_INTR_STS_TRNG_INT_MASK            (0x00000001U)
+/**< TRNG Interrupt status register trng_ac mask */
 #define XASU_TRNG_INTR_STS_TRNG_AC_MASK		        (0x00000100U)
+/**< TRNG Interrupt status register trng_full mask */
+#define XASU_TRNG_INTR_STS_TRNG_FULL_MASK           (0x00010000U)
 
 /**< TRNG NRN AVAIL register offset */
 #define XASU_TRNG_NRN_AVAIL_OFFSET		            (0x00000018U)
@@ -70,6 +75,11 @@ extern "C" {
 
 /**< TRNG NRNPS register offset */
 #define XASU_TRNG_NRNPS_OFFSET			            (0x0000002CU)
+
+/**< TRNG INT register offset */
+#define XASU_TRNG_INT_OFFSET                        (0x00001000U)
+/**< TRNG INT register DONE_RST mask */
+#define XASU_TRNG_INT_DONE_RST_MASK                 (0x00000008U)
 
 /**< TRNG status register offset */
 #define XASU_TRNG_STATUS_OFFSET				        (0x00001004U)
