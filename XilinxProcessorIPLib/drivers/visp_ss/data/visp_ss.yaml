@@ -42,6 +42,7 @@ required:
   - reg
   - xlnx,num_streams
   - xlnx,rpu
+  - isp_id
   - xlnx,io_mode
   - xlnx,iba0_frame_rate
   - xlnx,iba0_data_format
