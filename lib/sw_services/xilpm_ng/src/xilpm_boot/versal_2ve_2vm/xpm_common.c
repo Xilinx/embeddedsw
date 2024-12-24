@@ -256,3 +256,44 @@ inline void XPm_LockPcsr(u32 BaseAddr)
 	 */
 	XPm_Out32(BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
 }
+
+
+/**
+ * XPm_PcsrWrite - write a pair control and mask register of a pcsr register.
+ *
+ * @param BaseAddress: The base address of the register.
+ * @param Mask: The mask to apply to the register.
+ * @param Value: The value to write to the register.
+ *
+ * @return XStatus: Returns the status of the operation.
+ *
+ * This function writes a value to a PCSR register at the given base address,
+ * applying the provided mask to ensure only the desired bits are modified.
+ */
+XStatus XPm_PcsrWrite(u32 BaseAddress, u32 Mask, u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	XPm_Out32((BaseAddress + NPI_PCSR_MASK_OFFSET), Mask);
+	/* Blind write check */
+	PmChkRegOut32((BaseAddress + NPI_PCSR_MASK_OFFSET), Mask, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_MASK;
+		goto done;
+	}
+
+	XPm_Out32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Value);
+	/* Blind write check */
+	PmChkRegMask32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Mask, Value, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_CONTROL;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}

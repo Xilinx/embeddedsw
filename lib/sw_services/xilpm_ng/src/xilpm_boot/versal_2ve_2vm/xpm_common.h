@@ -597,6 +597,7 @@ static inline u8 XPm_PlatGetSlrIndex(void)
 /* NPI PCSR related general functions */
 void XPm_UnlockPcsr(u32 BaseAddr);
 void XPm_LockPcsr(u32 BaseAddr);
+XStatus XPm_PcsrWrite(u32 BaseAddress, u32 Mask, u32 Value);
 u32 XPm_GetByteBufferOffset(void);
 u32 XPm_GetSavedByteBufferAddress(void);
 u32 XPm_GetPrevByteBufferAddress(void);
