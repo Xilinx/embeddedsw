@@ -64,7 +64,7 @@ done:
 
 static XStatus Aie2ps_ColRst(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_ShimRst(const XPm_Device *AieDev, const u32 StartCol, const u32 EndCol, const void* Buffer);
-static XStatus Aie2_EnbColClkBuff(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_EnbColClkBuff(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_UcZeroization(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_HandShake(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_IntcHwSts(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
@@ -80,7 +80,7 @@ static XStatus Aie2ps_DisColClkBuff(const XPm_Device *AieDev, u32 StartCol, u32 
 static XStatus Aie2ps_HwErrInt(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_HwErrMask(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_EnbMemPriv(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2_EnbAxiMmErrEvent(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_EnbAxiMmErrEvent(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_SetL2CtrlNpiIntr(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_StartNumCol(u32 *StartCol, u32 *EndCol, const void *Buffer);
 
@@ -88,7 +88,7 @@ static struct XPmAieOpsHandlers AieOpsHandlers[] = {
 	{AIE_OPS_COL_RST,		Aie2ps_ColRst},
 	{AIE_OPS_SHIM_RST,		Aie2ps_ShimRst},
 	{AIE_OPS_UC_ZEROIZATION,	Aie2ps_UcZeroization},
-	{AIE_OPS_ENB_COL_CLK_BUFF,	Aie2_EnbColClkBuff},
+	{AIE_OPS_ENB_COL_CLK_BUFF,	Aie2ps_EnbColClkBuff},
 	{AIE_OPS_HANDSHAKE,		Aie2ps_HandShake},
 	{AIE_OPS_CLR_HW_ERR_STS,	Aie2ps_IntcHwSts},
 	{AIE_OPS_ALL_MEM_ZEROIZATION,	Aie2ps_Zeroization},
@@ -103,7 +103,7 @@ static struct XPmAieOpsHandlers AieOpsHandlers[] = {
 	{AIE_OPS_HW_ERR_INT,		Aie2ps_HwErrInt},
 	{AIE_OPS_HW_ERR_MASK,		Aie2ps_HwErrMask},
 	{AIE_OPS_ENB_MEM_PRIV,		Aie2ps_EnbMemPriv},
-	{AIE_OPS_ENB_AXI_MM_ERR_EVENT,	Aie2_EnbAxiMmErrEvent},
+	{AIE_OPS_ENB_AXI_MM_ERR_EVENT,	Aie2ps_EnbAxiMmErrEvent},
 	{AIE_OPS_SET_L2_CTRL_NPI_INTR,	Aie2ps_SetL2CtrlNpiIntr},
 	{AIE_OPS_PROG_MEM_ZEROIZATION,	Aie2ps_Zeroization},
 	{AIE_OPS_DATA_MEM_ZEROIZATION,	Aie2ps_Zeroization},
@@ -373,7 +373,7 @@ done:
 	return Status;
 }
 
-static XStatus Aie2_EnbColClkBuff(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_EnbColClkBuff(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer)
 {
 	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
@@ -417,7 +417,7 @@ static XStatus Aie2ps_DisColClkBuff(const XPm_Device *AieDev, u32 StartCol, u32 
 	return XST_SUCCESS;
 }
 
-static XStatus Aie2_EnbAxiMmErrEvent(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_EnbAxiMmErrEvent(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer)
 {
 	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
