@@ -122,6 +122,7 @@
 *       pre  10/26/2024 Removed XPlmi_GetReadBackPropsValue, XPlmi_SetReadBackProps and
 *                       XPlmi_GetReadBackPropsInstance APIs
 *       bm   10/29/2024 Fix chunk boundary handling in KeyholeXfr logic
+*       pre  12/24/2024 Skip LPD initialized check for other than PSM_BUFFER_LIST type
 *
 * </pre>
 *
@@ -1759,6 +1760,7 @@ int XPlmi_ExecuteProc(u32 ProcId)
 
 	BufferList = XPlmi_GetBufferList(BufferListType);
 
+#ifndef VERSAL_AIEPG2
 	if (BufferListType == XPLMI_PSM_BUFFER_LIST) {
 		/**
 		 * - If LPD is not initialized or Proc memory is not available,
@@ -1769,6 +1771,7 @@ int XPlmi_ExecuteProc(u32 ProcId)
 			goto END;
 		}
 	}
+#endif
 
 	Status = XPlmi_MemSetBytes((void *const)&ProcCdo,
 		sizeof(ProcCdo), 0U, sizeof(ProcCdo));
@@ -1827,7 +1830,7 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 
 		/* Get the buffer list */
 		BufferList = XPlmi_GetBufferList(BufferListType);
-
+#ifndef VERSAL_AIEPG2
 		if (BufferListType == XPLMI_PSM_BUFFER_LIST) {
 			/*
 			 * Check if LPD is initialized and BufferList is initialized
@@ -1839,12 +1842,14 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 				goto END;
 			}
 		}
+#endif
 	}
 
 	/** Store Proc in the respective Buffer List */
 	Status = XPlmi_StoreBuffer(Cmd, ProcId, BufferList);
-
+#ifndef VERSAL_AIEPG2
 END:
+#endif
 	return Status;
 }
 
