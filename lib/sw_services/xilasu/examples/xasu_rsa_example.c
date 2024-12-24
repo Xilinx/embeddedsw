@@ -23,6 +23,7 @@
 * 1.0   ss    08/20/24 Initial Release
 *       ss    09/19/24 Added print for client init failure
 *       am    09/24/24 Added SDT support
+*       ss    12/24/24 Added Keysize parameter
 *
 * </pre>
 **************************************************************************************************/
@@ -211,6 +212,8 @@ static const u32 XAsu_RsaPublicExp
 __attribute__ ((section (".data.XAsu_RsaPublicExp"))) = 0x1000100U;
 
 static u8 Notify = 0; /**< To notify the call back from client library */
+volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned from
+						server. */
 
 /************************************ Function Definitions ***************************************/
 
@@ -230,8 +233,8 @@ int main(void)
 	XAsu_ClientParams ClientParam;
 	XAsu_RsaPubKeyComp PubKeyParam;
 	XAsu_RsaPvtKeyComp PvtKeyParam;
-	u8 EncResult[XASU_RSA_4096_KEY_SIZE_IN_BYTES] ;
-	u8 DecResult[XASU_RSA_4096_KEY_SIZE_IN_BYTES] ;
+	u8 EncResult[XASU_RSA_4096_KEY_SIZE_IN_BYTES];
+	u8 DecResult[XASU_RSA_4096_KEY_SIZE_IN_BYTES];
 
 	Xil_DCacheDisable();
 
@@ -257,7 +260,9 @@ int main(void)
 		goto END;
 	}
 
+	ErrorStatus = XST_FAILURE;
 	RsaClientParam.Len = XASU_RSA_4096_KEY_SIZE_IN_BYTES;
+	RsaClientParam.KeySize = XASU_RSA_4096_KEY_SIZE_IN_BYTES;
 	RsaClientParam.InputDataAddr = (u64)(UINTPTR)XAsu_RsaPt;
 	RsaClientParam.OutputDataAddr = (u64)(UINTPTR)EncResult;
 	RsaClientParam.KeyCompAddr = (u64)(UINTPTR)&PubKeyParam;
@@ -267,8 +272,12 @@ int main(void)
 		xil_printf("\r\n Encrypt operation Status = %08x", Status);
 		goto END;
 	}
-	while(!Notify);
+	while (!Notify);
 	Notify = 0;
+	if (ErrorStatus != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = Xil_SMemCmp_CT(XAsu_RsaCt, XASU_RSA_4096_KEY_SIZE_IN_BYTES, EncResult,
 				XASU_RSA_4096_KEY_SIZE_IN_BYTES, XASU_RSA_4096_KEY_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
@@ -280,7 +289,9 @@ int main(void)
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_RsaCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
+	ErrorStatus = XST_FAILURE;
 	RsaClientParam.Len = XASU_RSA_4096_KEY_SIZE_IN_BYTES;
+	RsaClientParam.KeySize = XASU_RSA_4096_KEY_SIZE_IN_BYTES;
 	RsaClientParam.InputDataAddr = (u64)(UINTPTR)EncResult ;
 	RsaClientParam.OutputDataAddr = (u64)(UINTPTR)DecResult;
 	RsaClientParam.KeyCompAddr =  (u64)(UINTPTR)&PvtKeyParam;
@@ -290,17 +301,27 @@ int main(void)
 		xil_printf("\r\n Decrypt operation Status = %08x", Status);
 		goto END;
 	}
-	while(!Notify);
+	while (!Notify);
 	Notify = 0;
+	if (ErrorStatus != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = Xil_SMemCmp_CT(XAsu_RsaPt, XASU_RSA_4096_KEY_SIZE_IN_BYTES, DecResult,
 				XASU_RSA_4096_KEY_SIZE_IN_BYTES, XASU_RSA_4096_KEY_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ASU RSA Example Failed at Decrypted data Comparison \r\n");
-		goto END;
 	}
 
-	xil_printf("\r\n Successfully ran RSA client example ");
 END:
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n RSA client example failed with Status = %08x", Status);
+	} else if (ErrorStatus != XST_SUCCESS) {
+		xil_printf("\r\n RSA client example failed with error from server = %08x", ErrorStatus);
+	} else {
+		xil_printf("\r\n Successfully ran RSA client example ");
+	}
+
 	return Status;
 }
 
@@ -319,7 +340,7 @@ END:
  {
 	(void)CallBackRef;
 
-	xil_printf("Recieved response from library with Status = %x\n\r", Status);
+	ErrorStatus = Status;
 	/* Update the variable to notify the callback */
 	Notify = 1U;
 
