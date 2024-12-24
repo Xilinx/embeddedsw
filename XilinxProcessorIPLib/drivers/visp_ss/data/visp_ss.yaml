@@ -15,7 +15,7 @@ properties:
             - xlnx,visp-ss-1.0
             - xlnx,visp-ss-lilo-1.0
             - xlnx,visp-ss-limo-1.0
-            - xlxx,visp-ss-mimo-1.0
+            - xlnx,visp-ss-mimo-1.0
   reg:
     description: Physical base address and size of the controller register map
   xlnx,num_streams:
