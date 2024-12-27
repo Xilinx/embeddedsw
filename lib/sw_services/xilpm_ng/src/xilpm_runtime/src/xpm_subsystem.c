@@ -10,10 +10,6 @@
 #include "xpm_runtime_device.h"
 #include "xpm_notifier.h"
 
-/* this needs to be global to run the unit tests independently*/
-//static u32 MaxSubsysIdx = 1;
-//static XPm_SubsystemList* PmSubsystems;
-
 extern XPm_SubsystemMgr SubsysMgr;
 
 u32 XPmSubsystem_GetMaxSubsysIdx(void)

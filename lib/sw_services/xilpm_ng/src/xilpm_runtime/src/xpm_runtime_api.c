@@ -1184,9 +1184,9 @@ static XStatus XPm_RequestHBMonDevice(const u32 SubsystemId, const u32 CmdType)
 		if ((NULL == Reqm) || (1U == PREALLOC((u32)Reqm->Flags))) {
 			continue;
 		}
-		Status = XPm_RequestDevice(SubsystemId, Device->Node.Id,
+		Status = XPmDevice_Request(SubsystemId, Device->Node.Id,
 					   (u32)PM_CAP_ACCESS, Reqm->PreallocQoS,
-					   0U, CmdType);
+					   CmdType);
 		break;
 	}
 
@@ -2908,32 +2908,16 @@ static XStatus XPm_DoGetClockParent(XPlmi_Cmd *Cmd)
  *
  ****************************************************************************/
 XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
-				const u32 Capabilities, const u32 QoS, const u32 Ack,const u32 CmdType)
+			const u32 Capabilities, const u32 QoS, const u32 Ack,const u32 CmdType)
 {
 	//XPM_EXPORT_CMD(PM_REQUEST_NODE, XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
 	XStatus Status = XST_FAILURE;
-
 	/* Warning Fix */
 	(void) (Ack);
-
-	u32 NumArgs = 3U;
-	u32 ArgBuf[3U];
-	ArgBuf[0] = DeviceId;
-	ArgBuf[1] = Capabilities;
-	ArgBuf[2] = QoS;
-
-	/* Forward message event to secondary SLR if required */
-	Status = XPm_SsitForwardApi(PM_REQUEST_NODE, ArgBuf, NumArgs,
-				    CmdType, NULL);
-	if (XST_DEVICE_NOT_FOUND != Status){
-		/* API is forwarded, nothing else to be done */
-		goto done;
-	}
 
 	Status = XPmDevice_Request(SubsystemId, DeviceId, Capabilities,
 				   QoS, CmdType);
 
-done:
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
