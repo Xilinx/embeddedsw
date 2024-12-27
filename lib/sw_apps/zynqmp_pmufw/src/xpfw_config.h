@@ -113,6 +113,7 @@ extern "C" {
  * 	                       of a sub-system
  * 	- DEBUG_MODE : This macro enables PM debug prints if XPFW_DEBUG_DETAILED
  * 	               macro is also defined
+ * 	- DISABLE_UART_IDLING : This macro skips UART idling for WDT restart usecases
  *	- ENABLE_POS : Enables Power Off Suspend feature
  *	- ENABLE_DDR_SR_WR : Enables DDR self refresh over warm restart feature
  *	- ENABLE_UNUSED_RPU_PWR_DWN : Enables unused RPU power down feature
@@ -232,6 +233,10 @@ extern "C" {
 
 #ifndef DEBUG_MODE_VAL
 #define	DEBUG_MODE_VAL						(0U)
+#endif
+
+#ifndef DISABLE_UART_IDLING_VAL
+#define	DISABLE_UART_IDLING_VAL					(0U)
 #endif
 
 #ifndef ENABLE_POS_VAL
@@ -462,6 +467,10 @@ extern "C" {
 
 #if (DEBUG_MODE_VAL) && (!defined(DEBUG_MODE))
 #define DEBUG_MODE
+#endif
+
+#if (DISABLE_UART_IDLING_VAL) && (!defined(DISABLE_UART_IDLING))
+#define DISABLE_UART_IDLING
 #endif
 
 #ifdef XPAR_DDRCPSU_0_DEVICE_ID
