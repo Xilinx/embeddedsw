@@ -114,7 +114,7 @@ class Domain(Repo):
                 self.app, self.repo_yaml_path
             )
             validate_obj.validate_hw()
-        if os.environ.get("VALIDATE_ARGS"):
+        if os.environ.get("VALIDATE_ARGS") == "True":
             app_list_file = os.path.join(self.domain_dir, "app_list.yaml")
             lib_list_file = os.path.join(self.domain_dir, "lib_list.yaml")
 
