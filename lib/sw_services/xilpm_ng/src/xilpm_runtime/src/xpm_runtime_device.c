@@ -108,7 +108,7 @@ XPmRuntime_DeviceOps * XPmDevice_SetDevOps_ById(u32 DeviceId)
 		/** Nothing to do here */
 		goto done;
 	}
-	DevOps = (XPmRuntime_DeviceOps *)XPm_AllocBytes(sizeof(XPmRuntime_DeviceOps));
+	DevOps = (XPmRuntime_DeviceOps *)XPm_AllocBytesDevOps(sizeof(XPmRuntime_DeviceOps));
 	if (NULL == DevOps) {
 		PmErr("Failed to allocate memory for DevOps\r\n");
 		Status = XST_BUFFER_TOO_SMALL;

@@ -472,7 +472,7 @@ XStatus XPmAccess_UpdateTable(XPm_NodeAccess *NodeEntry,
 
 	/* SET_NODE_ACCESS <NodeId: Arg0> <Arg 1,2> <Arg 3,4> ... */
 	for (u32 i = 1U; i < NumArgs; i += 2U) {
-		XPm_NodeAper *Aper = (XPm_NodeAper *)XPm_AllocBytes(sizeof(XPm_NodeAper));
+		XPm_NodeAper *Aper = (XPm_NodeAper *)XPm_AllocBytesOthers(sizeof(XPm_NodeAper));
 		if (NULL == Aper) {
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;

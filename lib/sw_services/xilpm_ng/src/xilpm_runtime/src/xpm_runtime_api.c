@@ -2951,7 +2951,7 @@ static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd)
 
 	/* TODO: Check if NodeId is present in database */
 
-	NodeEntry = (XPm_NodeAccess *)XPm_AllocBytes(sizeof(XPm_NodeAccess));
+	NodeEntry = (XPm_NodeAccess *)XPm_AllocBytesOthers(sizeof(XPm_NodeAccess));
 	if (NULL == NodeEntry) {
 		Status = XST_BUFFER_TOO_SMALL;
 		goto done;

@@ -6,8 +6,8 @@
 #include "xpm_common.h"
 #define MAX_SUBSYS_POOL_SIZE	(1 * 1024U)
 #define MAX_REQM_POOL_SIZE	(14 * 1024U)
-#define MAX_OTHER_POOL_SIZE	(10 * 1024U)
-#define MAX_DEVOPS_POOL_SIZE 	(1 * 1024U)
+#define MAX_OTHER_POOL_SIZE	(8 * 1024U)
+#define MAX_DEVOPS_POOL_SIZE 	(5 * 1024U)
 static u8 SubSystemPoolMemBuffer[MAX_SUBSYS_POOL_SIZE]; /** For Subsystem and requirement data */
 static u8 ReqmPoolMemBuffer[MAX_REQM_POOL_SIZE]; /** For Subsystem and requirement data */
 static u8 DevOpsPoolMemBuffer[MAX_DEVOPS_POOL_SIZE]; /** Other Pool Memory Buffer */
@@ -25,7 +25,7 @@ static XPm_AllocablePool_t ReqmPoolMem = {
 	.FreeMem = ReqmPoolMemBuffer
 };
 static XPm_AllocablePool_t DevOpsPoolMem = {
-	.Size = MAX_OTHER_POOL_SIZE,
+	.Size = MAX_DEVOPS_POOL_SIZE,
 	.Pool = DevOpsPoolMemBuffer,
 	.FreeMem = DevOpsPoolMemBuffer
 };
