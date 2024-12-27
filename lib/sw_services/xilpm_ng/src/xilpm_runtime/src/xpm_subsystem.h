@@ -64,20 +64,24 @@ typedef enum {
 	MAX_STATE
 } XPm_SubsysState;
 
+/**
+ * Subsystem Ops Types
+ */
+typedef enum {
+	SUBSYS_OPS_GENERIC = 0U,
+	SUBSYS_OPS_MAX	/* Always keep this as the last element */
+} XPm_SubsysOpsType;
+
 typedef struct XPm_FrcPwrDwnReq {
 	u32 AckType;
 	u32 InitiatorIpiMask;
 } XPm_FrcPwrDwnReq;
 
-// /** This type is defined within the
-//  * platform specific headers which are included above
-//  * */
-// typedef struct XPm_PendSuspCb XPm_PendSuspCb;
 // /* Forward declaration */
 typedef struct XPm_Subsystem XPm_Subsystem;
 typedef struct XPm_SubsystemMgr XPm_SubsystemMgr;
 typedef struct XPm_RequirementList XPm_RequirementList;
-//
+
 CREATE_LIST(XPm_Subsystem);
 
 typedef struct XPm_Permissions {
@@ -141,7 +145,7 @@ struct XPm_Subsystem {
  */
 struct XPm_SubsystemMgr {
 	XPm_SubsystemList Subsystems; /**< List of subsystem objects */
-	XPm_SubsystemOps SubsysOps[1]; /**< Subsystem operations supported */
+	XPm_SubsystemOps SubsysOps[SUBSYS_OPS_MAX]; /**< Subsystem operations supported */
 	u32 NumSubsystems; /**< Total number of subsystems */
 };
 

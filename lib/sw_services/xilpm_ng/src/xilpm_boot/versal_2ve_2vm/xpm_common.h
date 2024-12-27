@@ -594,18 +594,6 @@ static inline u8 XPm_PlatGetSlrIndex(void)
 	return 0U;
 }
 
-static inline XStatus XPm_SsitForwardApi(XPm_ApiId ApiId, const u32 *ArgBuf,
-						      u32 NumArgs, u32 CmdType,
-						      u32 *const Response)
-{
-	(void)ApiId;
-	(void)ArgBuf;
-	(void)NumArgs;
-	(void)CmdType;
-	(void)Response;
-
-	return XST_DEVICE_NOT_FOUND;
-}
 /* NPI PCSR related general functions */
 void XPm_UnlockPcsr(u32 BaseAddr);
 void XPm_LockPcsr(u32 BaseAddr);
