@@ -10,6 +10,7 @@
 #include "xpm_requirement.h"
 #include "xpm_runtime_device.h"
 
+#define SUBSYS_OPS_GENERIC	0U
 static XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_SetState(XPm_Subsystem *Subsystem, u32 State);
 static XStatus XPmSubsystem_GetStatus(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus);
@@ -300,7 +301,8 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
-	(void)CmdType;
+	const XPm_Device *Device = XPmDevice_GetById(NodeId);
+	u32 CoreSubsystemId;
 
 	if (NULL == XPmSubsystem_GetById(SubsystemId)) {
 		Status = XPM_INVALID_SUBSYSID;
@@ -308,23 +310,66 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 	}
 
 	if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
-		/* No other subsystem is present, so don't allow self or others */
-		Status = XPM_PM_NO_ACCESS;
-		goto done;
+		if (NULL == XPmSubsystem_GetById(NodeId)) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		/* Check that force powerdown is not for self or PMC subsystem */
+		if ((SubsystemId == NodeId) || (PM_SUBSYS_PMC == NodeId)) {
+			goto done;
+		}
+		Status = XPmSubsystem_IsOperationAllowed(SubsystemId, NodeId,
+							 SUB_PERM_PWRDWN_MASK,
+							 CmdType);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
+		}
 	} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
 		   ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(NodeId))) {
-		/* Allow any device cores to be powered down */
-		Status = XST_SUCCESS;
-		goto done;
+		if (NULL == Device) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore(Device);
+		if (INVALID_SUBSYSID == CoreSubsystemId) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		} else if ((PM_SUBSYS_PMC != CoreSubsystemId) &&
+			   (CoreSubsystemId == SubsystemId)) {
+			   Status = XST_SUCCESS;
+			   goto done;
+		} else {
+			/* Required by MISRA */
+		}
+
+		Status = XPmSubsystem_IsOperationAllowed(SubsystemId, CoreSubsystemId,
+							 SUB_PERM_PWRDWN_MASK,
+							 CmdType);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
+		}
 	} else if (((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) &&
 		   ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId))) {
-		/* Allow any device cores to be powered down */
-		Status = XST_SUCCESS;
-		goto done;
+		if ((PM_SUBSYS_PMC == SubsystemId) ||
+		    (PM_SUBSYS_DEFAULT == SubsystemId)) {
+			Status = XST_SUCCESS;
+		} else {
+			/*
+			 * Only PMC and default subsystem can enact force power down
+			 * upon power domains.
+			 */
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
+		}
 	} else {
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;

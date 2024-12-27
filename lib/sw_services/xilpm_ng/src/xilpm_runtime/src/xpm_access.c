@@ -376,6 +376,20 @@ XStatus XPmAccess_ReadReg(u32 SubsystemId, u32 DeviceId,
 	u32 DataIn = 0U;
 	(void)Count;
 
+	u32 NumArgs = 4U;
+	u32 ArgBuf[4];
+	ArgBuf[0] = DeviceId;
+	ArgBuf[1] = (u32)IoctlId;
+	ArgBuf[2] = Offset;
+	ArgBuf[3] = 1U;
+
+	/* Forward message event to secondary SLR if required */
+	Status = XPm_SsitForwardApi(PM_IOCTL, ArgBuf, NumArgs, CmdType, Response);
+	if (XST_DEVICE_NOT_FOUND != Status) {
+		/* API is forwarded, nothing else to be done */
+		goto done;
+	}
+
 	Status = XPmAccess_IsAllowed(SubsystemId, DeviceId, IoctlId,
 				     Offset, CmdType);
 	if (XST_SUCCESS != Status) {
@@ -421,6 +435,21 @@ XStatus XPmAccess_MaskWriteReg(u32 SubsystemId, u32 DeviceId,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 
+	u32 NumArgs = 5U;
+	u32 ArgBuf[5U];
+	ArgBuf[0] = DeviceId;
+	ArgBuf[1] = (u32)IoctlId;
+	ArgBuf[2] = Offset;
+	ArgBuf[3] = Mask;
+	ArgBuf[4] = Value;
+
+	/* Forward message event to secondary SLR if required */
+	Status = XPm_SsitForwardApi(PM_IOCTL, ArgBuf, NumArgs, CmdType, NULL);
+	if (XST_DEVICE_NOT_FOUND != Status) {
+		/* API is forwarded, nothing else to be done */
+		goto done;
+	}
+
 	Status = XPmAccess_IsAllowed(SubsystemId, DeviceId, IoctlId,
 				     Offset, CmdType);
 	if (XST_SUCCESS != Status) {
@@ -435,17 +464,7 @@ XStatus XPmAccess_MaskWriteReg(u32 SubsystemId, u32 DeviceId,
 	PmDbg("RMW M:0x%x V:0x%x @ (0x%x + 0x%x)\r\n",
 			Mask, Value, BaseAddress, Offset);
 
-	/**
-	 * If for all the 32bit writes (i.e mask = 0xffffffff),
-	 * simply write to entire address without RMW
-	 * For any other mask, use PmRmw32()
-	 */
-	if (0xFFFFFFFFU == Mask) {
-		PmOut32((BaseAddress + Offset), Value);
-	}
-	else {
-		PmRmw32((BaseAddress + Offset), Mask, Value);
-	}
+	PmRmw32((BaseAddress + Offset), Mask, Value);
 
 done:
 	return Status;
