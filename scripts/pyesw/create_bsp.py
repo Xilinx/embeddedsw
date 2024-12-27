@@ -211,7 +211,8 @@ class Domain(Repo):
                 toolchain_file_path = utils.get_high_precedence_path(
                     self.repo_paths_list, "toolchain File", "cmake", "toolchainfiles", toolchain_file_name
                 )
-                lops_file = f"{proc_lops_specs_map[val][1]}.dts"
+                if proc_lops_specs_map[val][1]:
+                    lops_file = f"{proc_lops_specs_map[val][1]}.dts"
                 toolchain_file_copy = os.path.join(self.domain_dir, toolchain_file_name)
                 utils.copy_file(toolchain_file_path, toolchain_file_copy)
                 specs_file = utils.get_high_precedence_path(
@@ -290,7 +291,7 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                     domain_name = utils.get_domain_name(self.proc, domain_yaml)
                     if domain_name:
                         domain_dts = True
-                        if utils.is_file(lops_file):
+                        if lops_file:
                             utils.runcmd(
                                 f"lopper -f -O {self.sdt_folder} --enhanced -i {lops_file} -t {domain_name} -a domain_access --auto  -x '*.yaml' -i {domain_yaml} {self.sdt} {out_dts_path}"
                             )
@@ -299,7 +300,7 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                                 f"lopper -f -O {self.sdt_folder} --enhanced -t {domain_name} -a domain_access --auto  -x '*.yaml' -i {domain_yaml} {self.sdt} {out_dts_path}"
                             )
             if not domain_dts:
-                if utils.is_file(lops_file):
+                if lops_file:
                     utils.runcmd(
                         f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc} {self.app}",
                         log_message="Domain-specific DTS generation "
