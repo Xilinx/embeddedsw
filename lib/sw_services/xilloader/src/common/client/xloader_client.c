@@ -261,7 +261,7 @@ int XLoader_ExtractMetaheader(XLoader_ClientInstance *InstancePtr, u64 PdiSrcAdd
 		u64 DestBuffAddr, u32 DestBuffSize)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U];
 
     /**
 	 * - Performs input parameters validation. Return error code if input parameters are invalid
@@ -270,13 +270,14 @@ int XLoader_ExtractMetaheader(XLoader_ClientInstance *InstancePtr, u64 PdiSrcAdd
 		goto END;
 	}
 
-	Payload[0U] = PACK_XLOADER_HEADER(XLOADER_HEADER_LEN_5,
+	Payload[0U] = PACK_XLOADER_HEADER(XLOADER_HEADER_LEN_6,
 					(u32)XLOADER_CMD_ID_EXTRACT_METAHEADER);
 	Payload[1U] = (u32)(PdiSrcAddr >> XLOADER_ADDR_HIGH_SHIFT);
 	Payload[2U] = (u32)(PdiSrcAddr);
 	Payload[3U] = (u32)(DestBuffAddr >> XLOADER_ADDR_HIGH_SHIFT);
 	Payload[4U] = (u32)(DestBuffAddr);
 	Payload[5U] = DestBuffSize;
+	Payload[6U] = 0U;
 
 	/**
 	 * - Send an IPI request to the PLM by using the XLoader_ExtractMetaheader CDO command
