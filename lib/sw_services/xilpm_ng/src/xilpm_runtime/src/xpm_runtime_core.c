@@ -24,7 +24,7 @@ XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value) {
 	if (NULL == RuntimeCoreList) {
 		RuntimeCoreList = (XPmRuntime_CoreList*)XPm_AllocBytesDevOps(sizeof(XPmRuntime_CoreList));
 		if (NULL == RuntimeCoreList) {
-			Status = XST_DEVICE_NOT_FOUND;
+			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
 	}
