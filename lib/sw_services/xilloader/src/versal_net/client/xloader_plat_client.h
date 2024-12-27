@@ -58,8 +58,6 @@ int XLoader_ConfigureJtagState(XLoader_ClientInstance *InstancePtr, u32 Flag);
 int XLoader_ReadDdrCryptoPerfCounters(XLoader_ClientInstance *InstancePtr, u32 NodeId,
 		XLoader_DDRCounters *CryptoCounters);
 int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr, const u32 PdiType);
-int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr,
-	const XLoader_OptionalDataInfo* OptionalDataInfo, u64 DestAddr, u32 *DestSize);
 
 /************************************ Variable Definitions ***************************************/
 
