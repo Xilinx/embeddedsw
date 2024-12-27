@@ -51,7 +51,6 @@
 *       yog  09/09/2024 Updated XPlmi_VerifyAddrRange API to handle ASU memory regions
 *       nb   09/16/2024 Register interrupt for PMC power interrupts
 *       sk   12/13/2024 Updated PSM buffer defines to PPU RAM
-*       pre  12/24/2024 Assigned PmcBuffers to data of PmcBufferList
 *
 * </pre>
 *
@@ -1199,7 +1198,7 @@ XPlmi_BufferList* XPlmi_GetBufferList(u32 BufferListType)
 			XPLMI_PMC_BUFFER_LIST_DS_LCVER, sizeof(XPlmi_BufferList), (u32)(UINTPTR)&PmcBufferList);
 	PpuBufferList.Data = PpuBuffers;
 	PpuBufferList.MaxBufferCount = XPLMI_MAX_PPU_BUFFERS;
-	PmcBufferList.Data = PmcBuffers;
+	PmcBufferList.Data = PpuBuffers;
 	PmcBufferList.MaxBufferCount = XPLMI_MAX_PMC_BUFFERS;
 
 	if (BufferListType == XPLMI_PMC_BUFFER_LIST) {
