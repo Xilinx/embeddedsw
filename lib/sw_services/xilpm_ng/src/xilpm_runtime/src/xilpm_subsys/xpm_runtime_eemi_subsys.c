@@ -15,7 +15,6 @@
 #include "xplmi_scheduler.h"
 #include "xpm_runtime_api.h"
 
-#define SUBSYS_OPS_GENERIC	0U
 static XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_SetState(XPm_Subsystem *Subsystem, u32 State);
 static XStatus XPmSubsystem_GetStatus(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus);
