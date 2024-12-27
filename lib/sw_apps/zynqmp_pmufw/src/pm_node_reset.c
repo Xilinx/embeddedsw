@@ -1,5 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -328,7 +329,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHookArgs = 0U
 #endif
 	},
-#if !((STDOUT_BASEADDRESS == XPMU_UART_0_BASEADDR) && defined(DEBUG_MODE))
+#if !((STDOUT_BASEADDRESS == XPMU_UART_0_BASEADDR) && defined(DISABLE_UART_IDLING))
 	{
 		.NodeId = NODE_UART_0,
 		.RstActionList= {
@@ -353,7 +354,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 #endif
 	},
 #endif
-#if !((STDOUT_BASEADDRESS == XPMU_UART_1_BASEADDR) && defined(DEBUG_MODE))
+#if !((STDOUT_BASEADDRESS == XPMU_UART_1_BASEADDR) && defined(DISABLE_UART_IDLING))
 	{
 		.NodeId = NODE_UART_1,
 		.RstActionList= {
