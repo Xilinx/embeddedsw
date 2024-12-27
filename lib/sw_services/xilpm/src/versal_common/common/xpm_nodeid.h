@@ -76,6 +76,7 @@ extern "C" {
 #define PM_POWER_VCCAUX				(0x432802FU)
 #define PM_POWER_VCCINT_PL			(0x4328030U)
 #define PM_POWER_VCCINT_CPM5N			(0x4328051U)
+#define PM_POWER_VCCINT_ME			(0x4328061U)
 /** @cond INTERNAL */
 #define PM_POWER_FPD_DOMAIN_CTRL		(0x453404FU)
 #define PM_POWER_PLD_DOMAIN_CTRL		(0x4534050U)
@@ -124,7 +125,6 @@ extern "C" {
 #define PM_POWER_TCM_1_C			(0x410405DU)
 #define PM_POWER_TCM_1_D			(0x410405EU)
 #define PM_POWER_TCM_1_E			(0x410405FU)
-#define PM_POWER_VCCINT_ME			(0x4328061U)
 /** @} */
 
 /**
@@ -1064,6 +1064,7 @@ extern "C" {
  */
 #define PM_SUBSYS_DEFAULT			(0x1C000000U)
 #define PM_SUBSYS_PMC				(0x1C000001U)
+#define PM_SUBSYS_ASU				(0x1C000002U)
 /** @} */
 
 /**

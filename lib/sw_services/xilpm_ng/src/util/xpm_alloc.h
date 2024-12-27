@@ -11,7 +11,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#define MAX_TOPO_POOL_SIZE	(38U * 1024U)
+#define MAX_TOPO_POOL_SIZE	(42U * 1024U)
 
 typedef struct XPm_AllocablePool_s {
 	u32 Size; /** Maximum size of the pool */
