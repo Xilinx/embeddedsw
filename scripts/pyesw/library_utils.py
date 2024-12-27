@@ -55,7 +55,7 @@ class Library(Repo):
             lib (str): Library name that needs to be validated
         """
         lib_list_yaml_path = os.path.join(self.domain_path, "lib_list.yaml")
-        if os.environ.get("VALIDATE_ARGS"):
+        if os.environ.get("VALIDATE_ARGS") == "True":
             if not utils.is_file(lib_list_yaml_path):
                 utils.runcmd(
                     f"lopper --werror -f -O {self.domain_path} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}"
@@ -78,7 +78,7 @@ class Library(Repo):
         Args:
             lib (str): Library name that needs to be validated
         """
-        if os.environ.get("VALIDATE_ARGS") and lib not in self.bsp_lib_config.keys():
+        if os.environ.get("VALIDATE_ARGS") == "True" and lib not in self.bsp_lib_config.keys():
             print(f"{lib} is not added to the bsp. Add it first using -addlib")
             sys.exit(1)
 
@@ -93,7 +93,7 @@ class Library(Repo):
             | lib_param (str): Library parameter that needs to be changed
         """
         if (
-            os.environ.get("VALIDATE_ARGS")
+            os.environ.get("VALIDATE_ARGS") == "True"
             and lib_param not in self.bsp_lib_config[lib].keys()
         ):
             print(
