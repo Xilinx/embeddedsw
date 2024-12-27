@@ -15,6 +15,7 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsyst
 				u32 PreallocCaps, u32 PreallocQoS)
 {
 	XStatus Status = XST_FAILURE;
+	static XPm_Requirement* PrevReqm = NULL;
 	Reqm->Subsystem = Subsystem;
 	Reqm->Device = Device;
 	Reqm->Allocated = 0;
@@ -40,8 +41,15 @@ static XStatus XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsyst
 		Status = XST_FAILURE;
 		goto done;
 	}
-	/* Prepend Reqm to Device->Requirements */
 	LIST_PREPEND(DevOps->Requirements, Reqm);
+	if (NULL != PrevReqm) {
+		if ((u32)PrevReqm >= (u32)Reqm) {
+			PmErr("Reqm is not added to the list in the correct order %p %p\r\n", PrevReqm, Reqm);
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+	PrevReqm = Reqm;
 	Status = XST_SUCCESS;
 done:
 	return Status;
