@@ -55,6 +55,7 @@
 *                       to enable over-temperature default value override.
 *       se     08/08/24 Missing null pointer assert check added on
 *                       XSysMonPsu_UpdateAdcClkDivisor.
+* 3.1   sa     12/10/24 Modified code for MISRA-C:2012 Compliance
 * </pre>
 *
 ******************************************************************************/
@@ -62,7 +63,7 @@
 /***************************** Include Files *********************************/
 
 #include "xsysmonpsu.h"
-
+#include "xbasic_types.h"
 /************************** Constant Definitions ****************************/
 
 #define XSYSMONPSU_CLOCK_DIV_CODE_ZERO 0x0U
@@ -101,7 +102,7 @@ static void XSysMonPsu_StubHandler(void *CallBackRef);
 *		after this function is invoked.
 *
 * @return
-*		- XSYSMON_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
 *
 * @note		The user needs to first call the XSysMonPsu_LookupConfig() API
 *		which returns the Configuration structure pointer which is
@@ -131,12 +132,12 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 	InstancePtr->Handler = (XSysMonPsu_Handler)XSysMonPsu_StubHandler;
 
 	Status = XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PS, &DivCode);
-	if(Status != XST_SUCCESS) {
+	if(Status != (u32)XST_SUCCESS) {
 		return (s32)Status;
 	}
 
 	Status = XSysMonPsu_UpdateAdcClkDivisor(InstancePtr, XSYSMON_PL, &DivCode);
-	if(Status != XST_SUCCESS) {
+	if(Status != (u32)XST_SUCCESS) {
 		return (s32)Status;
 	}
 
@@ -348,7 +349,7 @@ u16 XSysMonPsu_GetAdcData(XSysMonPsu *InstancePtr, u8 Channel, u32 Block)
 	 */
 	if (Channel <= XSM_CH_AUX_MAX) {
 		AdcData = (u16) (XSysmonPsu_ReadReg(EffectiveBaseAddress + ((UINTPTR)Channel << 2U)));
-	} else if ((Channel >= XSM_CH_SUPPLY7) && (Channel <= XSM_CH_TEMP_REMTE)){
+	} else if (Channel <= XSM_CH_TEMP_REMTE){
 		AdcData = (u16) (XSysmonPsu_ReadReg(EffectiveBaseAddress + XSM_ADC_CH_OFFSET +
 				(((u32)Channel - XSM_CH_SUPPLY7) << 2U)));
 	} else {
@@ -1212,10 +1213,9 @@ u32 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk, u8 *D
 	u16 Divisor = 0U;
 	UINTPTR EffectiveBaseAddress;
 	u32 RegValue;
-	double InputFreq;
+	Xfloat64 InputFreq;
 	u32 Count = 0U;
-	double FreqMax;
-
+	Xfloat64 FreqMax;
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((SysmonBlk == XSYSMON_PS)||(SysmonBlk == XSYSMON_PL));
@@ -1226,7 +1226,7 @@ u32 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk, u8 *D
 			XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
 					SysmonBlk);
 
-	InputFreq = (double)InstancePtr->Config.InputClockMHz;
+	InputFreq = (Xfloat64)InstancePtr->Config.InputClockMHz;
 	FreqMax = (SysmonBlk == XSYSMON_PS) ? XSYSMONPSU_ADCCLK_PS_MAX : XSYSMONPSU_ADCCLK_PL_MAX;
 
 	/* Read the divisor value from the Configuration Register 2. */
@@ -1234,8 +1234,8 @@ u32 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk, u8 *D
 							XSYSMONPSU_CFG_REG2_OFFSET);
 	DivisorCode = DivisorCode >> XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT;
 
-	if ((InputFreq / XSYSMONPSU_CLOCK_DIV_CODE_MAX > FreqMax) ||
-	    (InputFreq / XSYSMONPSU_CLOCK_DIV_MIN < XSYSMONPSU_ADCCLK_MIN)) {
+	if (((InputFreq / (Xfloat64)XSYSMONPSU_CLOCK_DIV_CODE_MAX) > FreqMax) ||
+		((InputFreq / (Xfloat64)XSYSMONPSU_CLOCK_DIV_MIN) < (Xfloat64)XSYSMONPSU_ADCCLK_MIN)) {
 		*DivCode = (u8)DivisorCode;
 		return XST_FAILURE;
 	}
@@ -1251,7 +1251,10 @@ u32 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk, u8 *D
 		} else {
 			Divisor = DivisorCode;
 		}
-		if (((InputFreq/Divisor) >= XSYSMONPSU_ADCCLK_MIN) && ((InputFreq/Divisor) <= FreqMax)) {
+		if (Divisor == 0U) {
+			return (s32)XST_FAILURE;
+		}
+		if (((InputFreq/(Xfloat64)Divisor) >= XSYSMONPSU_ADCCLK_MIN) && ((InputFreq/(Xfloat64)Divisor) <= FreqMax)) {
 			break;
 		} else {
 			DivisorCode++;
@@ -1303,22 +1306,19 @@ u32 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk, u8 *D
 s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
 		u32 SysmonBlk)
 {
-	s32 Status;
 	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((SysmonBlk == XSYSMON_PS)||(SysmonBlk == XSYSMON_PL));
-
 	/*
 	 * The sequencer must be in the Default Safe Mode before writing
 	 * to these registers. Return XST_FAILURE if the channel sequencer
 	 * is enabled.
 	 */
 	if ((XSysMonPsu_GetSequencerMode(InstancePtr,SysmonBlk) != XSM_SEQ_MODE_SAFE)) {
-		Status = (s32)XST_FAILURE;
-		goto End;
+		return (s32)XST_FAILURE;
 	}
 
 	/* Calculate the effective baseaddress based on the Sysmon instance. */
@@ -1341,10 +1341,7 @@ s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
 				 (u32)(ChEnableMask >> XSM_SEQ_CH2_SHIFT) &
 			 XSYSMONPSU_SEQ_CH2_VALID_MASK);
 
-	Status = (s32)XST_SUCCESS;
-
-End:
-	return Status;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -1549,14 +1546,12 @@ u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u64 InputModeChMask,
 		u32 SysmonBlk)
 {
-	s32 Status;
 	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((SysmonBlk == XSYSMON_PS)||(SysmonBlk == XSYSMON_PL));
-
 	/*
 	 * The sequencer must be in the Safe Mode before writing to
 	 * these registers. Return XST_FAILURE if the channel sequencer
@@ -1564,8 +1559,7 @@ s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u64 InputModeChMask,
 	 */
 	if ((XSysMonPsu_GetSequencerMode(InstancePtr,SysmonBlk)
 	                                      != XSM_SEQ_MODE_SAFE)) {
-		Status = (s32)XST_FAILURE;
-		goto End;
+		return (s32)XST_FAILURE;
 	}
 
 	/* Calculate the effective baseaddress based on the Sysmon instance. */
@@ -1591,10 +1585,7 @@ s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u64 InputModeChMask,
 		(u32)(InputModeChMask >> XSM_SEQ_CH2_SHIFT) &
 		 XSYSMONPSU_SEQ_INPUT_MDE2_MASK);
 
-	Status = (s32)XST_SUCCESS;
-
-End:
-	return Status;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -1677,14 +1668,12 @@ u64 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u64 AcqCyclesChMask,
 		u32 SysmonBlk)
 {
-	s32 Status;
 	UINTPTR EffectiveBaseAddress;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((SysmonBlk == XSYSMON_PS)||(SysmonBlk == XSYSMON_PL));
-
 	/*
 	 * The sequencer must be in the Safe Mode before writing
 	 * to these registers. Return XST_FAILURE if the channel
@@ -1692,8 +1681,7 @@ s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u64 AcqCyclesChMask,
 	 */
 	if ((XSysMonPsu_GetSequencerMode(InstancePtr,SysmonBlk)
 	                                     != XSM_SEQ_MODE_SAFE)) {
-		Status = (s32)XST_FAILURE;
-		goto End;
+		return (s32)XST_FAILURE;
 	}
 
 	/* Calculate the effective baseaddress based on the Sysmon instance. */
@@ -1716,10 +1704,7 @@ s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u64 AcqCyclesChMask,
 			(u32)(AcqCyclesChMask >> XSM_SEQ_CH2_SHIFT) &
 					XSYSMONPSU_SEQ_ACQ2_MASK);
 
-	Status = (s32)XST_SUCCESS;
-
-End:
-	return Status;
+	return (s32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -1795,7 +1780,7 @@ void XSysMonPsu_SetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 {
 	UINTPTR EffectiveBaseAddress;
 	u32 Offset;
-
+	u16 usValue = Value;
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1821,7 +1806,7 @@ void XSysMonPsu_SetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 	if((Offset == XSYSMONPSU_ALRM_TEMP_LWR_OFFSET) ||
 			(Offset == XSYSMONPSU_ALRM_OT_LWR_OFFSET) ||
 			(Offset == XSYSMONPSU_ALRM_TREMOTE_LWR_OFFSET)) {
-        Value |= ((u16)XSysmonPsu_ReadReg(EffectiveBaseAddress + Offset) &
+        usValue |= (u16)(XSysmonPsu_ReadReg(EffectiveBaseAddress + Offset) &
 					(~XSYSMONPSU_ALRM_TEMP_LWR_MASK));
 	}
 
@@ -1831,12 +1816,12 @@ void XSysMonPsu_SetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 	* default value override.
 	*/
 	if(Offset == XSYSMONPSU_ALRM_OT_UPR_OFFSET) {
-		Value = (u16)((Value << XSYSMONPSU_ALRM_OT_UPR_TEMP_SHIFT) |
+		usValue = (u16)((usValue << XSYSMONPSU_ALRM_OT_UPR_TEMP_SHIFT) |
 			XSYSMONPSU_ALRM_OT_UPR_TEMP_OVERRIDE);
 	}
 
 	/* Write the value into the specified Alarm Threshold Register. */
-	XSysmonPsu_WriteReg(EffectiveBaseAddress + Offset, Value);
+	XSysmonPsu_WriteReg(EffectiveBaseAddress + Offset, usValue);
 }
 
 /****************************************************************************/
