@@ -40,6 +40,7 @@
 /***************************** Include Files *********************************/
 
 #include "xzdma.h"
+#include <string.h>
 
 /************************** Function Prototypes ******************************/
 
@@ -106,7 +107,10 @@ s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 	InstancePtr->Mode = XZDMA_NORMAL_MODE;
 	InstancePtr->IntrMask = 0x00U;
 	InstancePtr->ChannelState = XZDMA_IDLE;
-
+#ifdef SDT
+	InstancePtr->irq_offset = (strcmp(CfgPtr->Name, "amd,versal2-dma-1.0") == 0)?
+				XZDMA_IRQ_REG_OFFSET: 0;
+#endif
 	/*
 	 * Set all handlers to stub values, let user configure this
 	 * data later
@@ -1177,7 +1181,7 @@ void XZDma_Enable(XZDma *InstancePtr)
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XZDma_WriteReg(InstancePtr->Config.BaseAddress, XZDMA_CH_IEN_OFFSET,
+	XZDma_WriteReg(InstancePtr->Config.BaseAddress, XZDMA_CH_IEN_OFFSET(InstancePtr),
 		       (InstancePtr->IntrMask & XZDMA_IXR_ALL_INTR_MASK));
 	InstancePtr->ChannelState = XZDMA_BUSY;
 	XZDma_EnableCh(InstancePtr);

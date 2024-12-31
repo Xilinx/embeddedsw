@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -347,6 +347,8 @@ typedef struct {
 	XZDma_DscrConfig DscrConfig;	/**< Current configurations */
 	XZDmaState ChannelState;	 /**< ZDMA channel is busy */
 
+	u32 irq_offset;			/**< IRQ offset for Versal Gen 2 */
+
 } XZDma;
 
 /******************************************************************************/
@@ -384,7 +386,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XZDma_IntrGetStatus(InstancePtr) \
-	XZDma_ReadReg((InstancePtr)->Config.BaseAddress, XZDMA_CH_ISR_OFFSET)
+	XZDma_ReadReg((InstancePtr)->Config.BaseAddress, XZDMA_CH_ISR_OFFSET(InstancePtr))
 
 /*****************************************************************************/
 /**
@@ -408,7 +410,7 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_IntrClear(InstancePtr, Mask) \
 	XZDma_WriteReg( (InstancePtr)->Config.BaseAddress, \
-			XZDMA_CH_ISR_OFFSET, ((u32)(Mask) & (u32)XZDMA_IXR_ALL_INTR_MASK))
+			XZDMA_CH_ISR_OFFSET(InstancePtr), ((u32)(Mask) & (u32)XZDMA_IXR_ALL_INTR_MASK))
 
 /*****************************************************************************/
 /**
@@ -430,7 +432,7 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_GetIntrMask(InstancePtr) \
 	XZDma_ReadReg((InstancePtr)->Config.BaseAddress,  \
-		      (u32)(XZDMA_CH_IMR_OFFSET))
+		      (u32)(XZDMA_CH_IMR_OFFSET(InstancePtr)))
 
 /*****************************************************************************/
 /**
@@ -473,9 +475,9 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_DisableIntr(InstancePtr, Mask) \
 	XZDma_WriteReg( (InstancePtr)->Config.BaseAddress, \
-			XZDMA_CH_IDS_OFFSET, \
+			XZDMA_CH_IDS_OFFSET(InstancePtr), \
 			((u32)XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-					    XZDMA_CH_IDS_OFFSET) | ((u32)(Mask) & (u32)XZDMA_IXR_ALL_INTR_MASK)))
+					    XZDMA_CH_IDS_OFFSET(InstancePtr)) | ((u32)(Mask) & (u32)XZDMA_IXR_ALL_INTR_MASK)))
 
 /*****************************************************************************/
 /**
