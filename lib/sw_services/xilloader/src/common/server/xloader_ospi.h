@@ -35,6 +35,7 @@
 *       sk   02/26/2024 Added defines for Spansion flash part
 *       ng   03/05/2024 Added support for Macronix OSPI 2G flash part
 *       sk   03/15/2024 Added structure for flash info
+*       prt  12/30/2024 Added macro to support ISSI 256MB flash part
 *
 * </pre>
 *
@@ -93,7 +94,7 @@ extern "C" {
  * Byte 0 is Manufacturer ID;
  * Byte 1 is first byte of Device ID - 0x5A or 0x5B
  * Byte 2 is second byte of Device ID describes flash size:
- * 512Mbit : 0x1A
+ * 256Mbit : 0x19; 512Mbit : 0x1A
  * Macronix:
  * Byte 0 is Manufacturer ID;
  * Byte 1 is first byte of Device ID - 0x80
@@ -104,8 +105,8 @@ extern "C" {
 #define GIGADEVICE_OCTAL_ID_BYTE0       (0xC8U) /* Gigadevice manufacture id */
 #define ISSI_OCTAL_ID_BYTE0             (0x9DU) /* ISSI manufacture id */
 #define MACRONIX_OCTAL_ID_BYTE0         (0xC2U) /* Macronix manufacture id */
-#define SPANSION_OCTAL_ID_BYTE0		(0x34U)  /* Spansion manufacture id */
-#define SPANSION_OCTAL_ID_BYTE2_2G	(0x1CU)  /* Spansion 2Gbit flash size */
+#define SPANSION_OCTAL_ID_BYTE0			(0x34U)  /* Spansion manufacture id */
+#define SPANSION_OCTAL_ID_BYTE2_2G		(0x1CU)  /* Spansion 2Gbit flash size */
 #define MICRON_OCTAL_ID_BYTE2_512       (0x1AU) /* Micron 512Mbit flash size */
 #define MICRON_OCTAL_ID_BYTE2_1G        (0x1BU) /* Micron 1Gbit flash size */
 #define MICRON_OCTAL_ID_BYTE2_2G        (0x1CU) /* Micron 2Gbit flash size */
@@ -115,6 +116,7 @@ extern "C" {
 #define GIGADEVICE_OCTAL_ID_BYTE2_512	(0x1AU) /* Gigadevice 512Mbit flash size */
 #define GIGADEVICE_OCTAL_ID_BYTE2_1G	(0x1BU) /* Gigadevice 1Gbit flash size */
 #define GIGADEVICE_OCTAL_ID_BYTE2_2G	(0x1CU) /* Gigadevice 2Gbit flash size */
+#define ISSI_OCTAL_ID_BYTE2_256         (0x19U) /* ISSI 256Mbit flash size */
 #define ISSI_OCTAL_ID_BYTE2_512         (0x1AU) /* ISSI 512Mbit flash size */
 
 /**************************** Type Definitions *******************************/

@@ -43,6 +43,7 @@
 *       ng   03/05/2024 Added support for Macronix OSPI 2G flash part
 *       sk   03/16/2024 Added support for Spansion Die config
 *       pre  12/03/2024 Added support to reset OSPI device through OSPI controller in telluride
+*       prt  12/30/2024 Added support for ISSI 256MB flash part.
 *
 * </pre>
 *
@@ -224,7 +225,10 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 		}
 	}
 	else if (OspiFlashMake == ISSI_OCTAL_ID_BYTE0) {
-		if (ReadBuffer[2U] == ISSI_OCTAL_ID_BYTE2_512) {
+		if (ReadBuffer[2U] == ISSI_OCTAL_ID_BYTE2_256) {
+			OspiFlashSize = XLOADER_FLASH_SIZE_256M;
+		}
+		else if (ReadBuffer[2U] == ISSI_OCTAL_ID_BYTE2_512) {
 			OspiFlashSize = XLOADER_FLASH_SIZE_512M;
 		}
 		else {
