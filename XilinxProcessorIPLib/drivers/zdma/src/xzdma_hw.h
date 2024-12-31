@@ -43,10 +43,10 @@ extern "C" {
  */
 #define XZDMA_ERR_CTRL				(0x000U)
 #define XZDMA_CH_ECO				(0x004U)
-#define XZDMA_CH_ISR_OFFSET			(0x100U)
-#define XZDMA_CH_IMR_OFFSET			(0x104U)
-#define XZDMA_CH_IEN_OFFSET			(0x108U)
-#define XZDMA_CH_IDS_OFFSET			(0x10CU)
+#define XZDMA_CH_ISR_OFFSET(InstancePtr)	((InstancePtr)->irq_offset + (0x100U))
+#define XZDMA_CH_IMR_OFFSET(InstancePtr)	((InstancePtr)->irq_offset + (0x104U))
+#define XZDMA_CH_IEN_OFFSET(InstancePtr)	((InstancePtr)->irq_offset + (0x108U))
+#define XZDMA_CH_IDS_OFFSET(InstancePtr)	((InstancePtr)->irq_offset + (0x10CU))
 #define XZDMA_CH_CTRL0_OFFSET			(0x110U)
 #define XZDMA_CH_CTRL1_OFFSET			(0x114U)
 #define XZDMA_CH_PERIF_OFFSET			(0x118U)
@@ -82,6 +82,13 @@ extern "C" {
 #define XZDMA_CH_IRQ_SRC_ACCT_OFFSET		(0x190U)
 #define XZDMA_CH_IRQ_DST_ACCT_OFFSET		(0x194U)
 #define XZDMA_CH_CTRL2_OFFSET			(0x200U)
+
+/*@}*/
+
+/** @name IRQ Register offset for Versal Gen 2
+ * @{
+ */
+#define XZDMA_IRQ_REG_OFFSET			(0x308U)
 /*@}*/
 
 /** @name Interrupt Enable/Disable/Mask/Status registers bit masks and shifts
