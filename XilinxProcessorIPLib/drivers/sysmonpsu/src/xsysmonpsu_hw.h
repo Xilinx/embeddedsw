@@ -26,6 +26,7 @@
 * 2.9   cog    07/20/23 Added support for SDT flow.
 * 3.0   se     07/30/24 OT Upper Alarm threshold requires 12-bit value update
 *                       to enable over-temperature default value override.
+* 3.1   sa     12/10/24 Modified code for MISRA-C:2012 Compliance
 * </pre>
 *
 ******************************************************************************/
@@ -2274,7 +2275,7 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* This macro reads the given register.
+* This function reads the given register.
 *
 * @param	RegisterAddr is the register address in the address
 * 			space of the SYSMONPSU device.
@@ -2284,12 +2285,14 @@ extern "C" {
 * @note		None.
 *
 *****************************************************************************/
-#define XSysmonPsu_ReadReg(RegisterAddr) Xil_In32(RegisterAddr)
+static inline u32 XSysmonPsu_ReadReg(UINTPTR RegisterAddr) {
+    return Xil_In32(RegisterAddr);
+}
 
 /****************************************************************************/
 /**
 *
-* This macro writes the given register.
+* This function writes the given register.
 *
 * @param	RegisterAddr is the register address in the address
 * 			space of the SYSMONPSU device.
@@ -2300,7 +2303,9 @@ extern "C" {
 * @note		None.
 *
 *****************************************************************************/
-#define XSysmonPsu_WriteReg(RegisterAddr, Data) Xil_Out32(RegisterAddr, (u32)(Data))
+static inline void XSysmonPsu_WriteReg(UINTPTR RegisterAddr, u32 Data) {
+    Xil_Out32(RegisterAddr, Data);
+}
 
 #ifdef __cplusplus
 }
