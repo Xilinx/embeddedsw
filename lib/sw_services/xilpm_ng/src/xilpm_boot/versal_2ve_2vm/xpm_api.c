@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@
 #include "xpm_aie.h"
 #include "xpm_alloc.h"
 #include "xpm_regnode.h"
+#include "xpm_aiedevice.h"
 #ifdef XILPM_RUNTIME
 #include "xpm_subsystem.h"
 #endif
@@ -964,6 +965,43 @@ done:
 	return Status;
 }
 
+static XStatus AddAieDevice(const u32 *Args)
+{
+	XStatus Status = XST_FAILURE;
+	u32 DeviceId = Args[0];
+	u32 Index = NODEINDEX(DeviceId);
+	u32 BaseAddr = Args[2];
+	XPm_AieDevice *AieDevice;
+
+	if ((u32)XPM_NODEIDX_DEV_AIE_MAX <= Index) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * Note: This function is executed as part of pm_add_node cmd triggered
+	 * through CDO. Since there's a possibility of the same RM (hence CDO)
+	 * being executed multiple times, we should not error out on addition
+	 * of same node multiple times. Memory is allocated only if node is not
+	 * present in database.
+	 */
+	AieDevice = (XPm_AieDevice *)XPmDevice_GetById(DeviceId);
+	if (NULL == AieDevice) {
+		AieDevice = (XPm_AieDevice *)XPm_AllocBytes(sizeof(XPm_AieDevice));
+		if (NULL == AieDevice) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+	} else {
+		PmInfo("0x%x Device is already added\r\n", DeviceId);
+	}
+
+	Status = XPmAieDevice_Init(AieDevice, DeviceId, BaseAddr, NULL, NULL, NULL);
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function adds device node to device topology database
@@ -1032,6 +1070,10 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 	case (u32)XPM_NODESUBCL_DEV_MEM_REGN:
 		/* TODO: Memory region node support is yet to be added */
 		Status = XST_SUCCESS;
+		break;
+	case (u32)XPM_NODESUBCL_DEV_AIE:
+	/* PowerId is not passed by topology */
+		Status = AddAieDevice(Args);
 		break;
 	default:
 		Status = XST_NO_FEATURE;
