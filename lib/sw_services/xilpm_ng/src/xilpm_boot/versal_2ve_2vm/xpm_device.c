@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 #include "xpm_pldevice.h"
 #include "xpm_reset.h"
 #include "xpm_alloc.h"
+#include "xpm_aiedevice.h"
 
 #define SD_DLL_DIV_MAP_RESET_VAL	(0x50505050U)
 
@@ -32,6 +33,7 @@ static u32 PmNumVirtualDevices;
 static u32 PmNumHbMonDevices;
 static u32 PmSysmonAddresses[(u32)XPM_NODEIDX_MONITOR_MAX];
 static u32 PmNumDevices;
+static u32 PmNumAieDevices;
 //static XStatus SetClocks(const XPm_Device *Device, u32 Enable);
 
 static XStatus SetPlDeviceNode(u32 Id, XPm_Device *Device)
@@ -92,6 +94,24 @@ static XStatus SetDeviceNode(u32 Id, XPm_Device *Device)
 	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_MAX > NodeIndex)) {
 		PmDevices[NodeIndex] = Device;
 		PmNumDevices++;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+static XStatus SetAieDeviceNode(u32 Id, XPm_Device *Device)
+{
+	XStatus Status = XST_INVALID_PARAM;
+	u32 NodeIndex = NODEINDEX(Id);
+
+	/*
+	 * We assume that the Node ID class, subclass and type has _already_
+	 * been validated before, so only check bounds here against index
+	 */
+	if ((NULL != Device) && ((u32)XPM_NODEIDX_DEV_AIE_MAX > NodeIndex)) {
+		PmAieDevices[NodeIndex] = Device;
+		PmNumAieDevices++;
 		Status = XST_SUCCESS;
 	}
 
@@ -231,6 +251,11 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		Status = SetHbMonDeviceNode(Id, Device);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SET_HB_MON_DEV;
+		}
+	} else if ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(Id)){
+		Status = SetAieDeviceNode(Id, Device);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SET_AIE_DEV;
 		}
 	} else {
 		Status = SetDeviceNode(Id, Device);
@@ -700,13 +725,32 @@ XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents)
 				PlDevice->NextPeer = Parent->Child;
 				Parent->Child = PlDevice;
 				Status = XST_SUCCESS;
+			} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Id)) &&
+				   ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(Id))) {
+					XPm_AieDevice *AieDevice = (XPm_AieDevice *)DevPtr;
+					XPm_PlDevice *Parent = (XPm_PlDevice *)XPmDevice_GetById(Parents[i]);
+				/*
+				 * Along with checking validity of parent, check if parent has
+				 * a parent with exception being PLD_0. This is to prevent
+				 * broken trees
+				 */
+				Status = XPmPlDevice_IsValidPld(Parent);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+
+				AieDevice->Parent = Parent;
+				Parent->AieDevice = AieDevice;
+				Status = XST_SUCCESS;
 			} else {
-				Status = XST_INVALID_PARAM;
+				PmErr("Expecting AIE or PL device ID\r\n");
+				Status = XPM_INVALID_DEVICEID;
 				if (XST_SUCCESS != Status) {
 					goto done;
 				}
 			}
 		} else {
+			PmErr("Expecting PL device or Power Node parent Id\r\n");
 			Status = XPM_INVALID_DEVICEID;
 			goto done;
 		}
