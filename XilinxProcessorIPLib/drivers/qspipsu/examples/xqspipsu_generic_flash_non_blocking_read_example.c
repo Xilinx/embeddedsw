@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -49,6 +49,7 @@
 * 1.18   sb   08/02/23 Add status check for XQspiPsu_SetClkPrescaler API.
 * 1.19   sb   01/12/24 Added support to set QSPI clock based on baud rate divisior
 * 1.20   sb  09/13/24 Updated examples to configure correct baud rate value
+* 1.21   sb  01/02/25 Fixed gcc and g++ warnings.
 *
 *</pre>
 *
@@ -231,10 +232,10 @@ int QspiPsuFlashNonBlockingReadExample(XQspiPsu *QspiPsuInstancePtr, UINTPTR Bas
 {
 	int Status;
 	u8 UniqueValue;
-	int Count;
+	u32 Count;
 	int Page;
 	XQspiPsu_Config *QspiPsuConfig;
-	int ReadBfrSize;
+	u32 ReadBfrSize;
 	u32 PageSize = 0;
 	u8 PreScaler;
 
@@ -660,7 +661,7 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	u8 WriteEnableCmd;
 	u8 ReadStatusCmd;
 	u8 FlashStatus[2];
-	int Sector;
+	u32 Sector;
 	u32 RealAddr;
 	u32 NumSect;
 	int Status;
@@ -1335,6 +1336,7 @@ ERROR_PATH:
 int FlashRegisterRead(XQspiPsu *QspiPsuPtr, u32 ByteCount,
 		      u8 Command, u8 *ReadBfrPtr)
 {
+	(void)ByteCount;
 	u8 WriteCmd;
 	int Status;
 
