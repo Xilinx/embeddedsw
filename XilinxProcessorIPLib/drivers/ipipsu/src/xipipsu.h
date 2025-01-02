@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,7 @@
  * 2.16 ma 09/10/24  Updated to support VERSAL_AIEPG2 platform
  * 2.17 ht 11/25/24  Update Max Message length to accommodate for CRC bytes
  *                   when IPI CRC is enabled
+ *	jb 12/26/24 Fixed misrac warnings
  * </pre>
  *
  *****************************************************************************/
@@ -84,7 +85,7 @@ extern "C" {
  * Subtracting 1 from the message length to accommodate for the CRC bytes when
  * IPI CRC is enabled.
  * */
-#define XIPIPSU_MAX_MSG_LEN             (XIPIPSU_MSG_BUF_SIZE-1)
+#define XIPIPSU_MAX_MSG_LEN             (XIPIPSU_MSG_BUF_SIZE - 1U)
 #else
 #define XIPIPSU_MAX_MSG_LEN		XIPIPSU_MSG_BUF_SIZE	/**< Maximum message length */
 #endif
