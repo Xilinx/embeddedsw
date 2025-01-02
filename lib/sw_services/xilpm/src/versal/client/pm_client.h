@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,9 +25,9 @@ extern "C" {
 /* #define DEBUG_MODE */
 
 /* 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
-#define PAYLOAD_ARG_CNT			(8U)
+#define PAYLOAD_ARG_CNT		XIPIPSU_MAX_MSG_LEN
 /* 1 for status + 3 for values + 3 for reserved + 1 for CRC */
-#define RESPONSE_ARG_CNT		(8U)
+#define RESPONSE_ARG_CNT	XIPIPSU_MAX_MSG_LEN
 #define PM_IPI_TIMEOUT			(~0U)
 #define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
 
