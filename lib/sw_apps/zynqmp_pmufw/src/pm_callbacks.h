@@ -1,7 +1,8 @@
-/*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+/******************************************************************************
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
- */
+******************************************************************************/
 
 
 /*********************************************************************
@@ -22,7 +23,7 @@ extern "C" {
 
 #define IPI_REQUEST1(mask, arg0)				\
 {	\
-	u32 _ipi_req_data[] = {(arg0), 0U, 0U, 0U, 0U, 0U, 0U, 0U};	\
+	u32 _ipi_req_data[] = {(arg0), 0U, 0U, 0U, 0U, 0U, 0U};	\
 	if (XST_SUCCESS != XPfw_IpiWriteMessage(PmModPtr, (mask),		\
 						&_ipi_req_data[0],		\
 						ARRAY_SIZE(_ipi_req_data))) {	\
@@ -32,7 +33,7 @@ extern "C" {
 
 #define IPI_REQUEST2(mask, arg0, arg1)				\
 {	\
-	u32 _ipi_req_data[] = {(arg0), (arg1), 0U, 0U, 0U, 0U, 0U, 0U};	\
+	u32 _ipi_req_data[] = {(arg0), (arg1), 0U, 0U, 0U, 0U, 0U};	\
 	if (XST_SUCCESS != XPfw_IpiWriteMessage(PmModPtr, (mask),		\
 						&_ipi_req_data[0],		\
 						ARRAY_SIZE(_ipi_req_data))) {	\
@@ -42,7 +43,7 @@ extern "C" {
 
 #define IPI_REQUEST3(mask, arg0, arg1, arg2)			\
 {	\
-	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), 0U, 0U, 0U, 0U, 0U};	\
+	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), 0U, 0U, 0U, 0U};	\
 	if (XST_SUCCESS != XPfw_IpiWriteMessage(PmModPtr, (mask),		\
 						&_ipi_req_data[0],		\
 						ARRAY_SIZE(_ipi_req_data))) {	\
@@ -52,7 +53,7 @@ extern "C" {
 
 #define IPI_REQUEST4(mask, arg0, arg1, arg2, arg3)		\
 {	\
-	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), (arg3), 0U, 0U, 0U, 0U};	\
+	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), (arg3), 0U, 0U, 0U};	\
 	if (XST_SUCCESS != XPfw_IpiWriteMessage(PmModPtr, (mask),		\
 						&_ipi_req_data[0],		\
 						ARRAY_SIZE(_ipi_req_data))) {	\
@@ -62,7 +63,7 @@ extern "C" {
 
 #define IPI_REQUEST5(mask, arg0, arg1, arg2, arg3, arg4)	\
 {	\
-	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), (arg3), (arg4), 0U, 0U, 0U};	\
+	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), (arg3), (arg4), 0U, 0U};	\
 	if (XST_SUCCESS != XPfw_IpiWriteMessage(PmModPtr, (mask),		\
 						&_ipi_req_data[0],		\
 						ARRAY_SIZE(_ipi_req_data))) {	\
