@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -29,6 +29,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.13   akm  02/11/21 First release
 * 1.18   sb   06/07/23 Added support for system device-tree flow.
+* 1.21   sb   01/02/25 Fixed gcc and g++ warnings.
 *
 *</pre>
 *
@@ -258,10 +259,10 @@ int QspiPsuPolledFlashExample(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddress)
 {
 	int Status;
 	u8 UniqueValue;
-	int Count;
+	u32 Count;
 	int Page;
 	XQspiPsu_Config *QspiPsuConfig;
-	int ReadBfrSize;
+	u32 ReadBfrSize;
 	u8 Status_Reg;
 	u32 Crc = 0;
 
@@ -332,7 +333,7 @@ int QspiPsuPolledFlashExample(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddress)
 	Crc = ((ParameterPageData[CRC_1_OFFSET] << 8) |
 	       ParameterPageData[CRC_0_OFFSET]);
 
-	if (Crc != XQspiPsu_ParamPageCrc(ParameterPageData, 0x00, ONFI_CRC_LEN)) {
+	if (Crc != (u32)XQspiPsu_ParamPageCrc(ParameterPageData, 0x00, ONFI_CRC_LEN)) {
 		xil_printf("Parameter page crc check failed\n\r");
 		return XST_FAILURE;
 	}
@@ -486,6 +487,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	       u8 *WriteBfrPtr)
 {
+	(void)Command;
 	u8 WriteEnableCmd;
 	u8 ProgExeCmd;
 	u8 WriteBuf[5];

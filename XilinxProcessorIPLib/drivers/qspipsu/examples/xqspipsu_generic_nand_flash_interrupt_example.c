@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -29,6 +29,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.13   akm  02/11/21 First release
 * 1.18   sb   06/07/23 Added support for system device-tree flow.
+* 1.21   sb   01/02/25 Fixed gcc and g++ warnings.
 *
 *</pre>
 *
@@ -162,8 +163,10 @@ int FlashStatusRead(XQspiPsu *QspiPsuPtr, u8 RegAddr, u8 *ReadBfrPtr);
 int FlashStatusWrite(XQspiPsu *QspiPsuPtr, u8 RegAddr, u8 RegVal);
 int FlashCheckIsBadBlock(XQspiPsu *QspiPsuPtr, u32 Address);
 int FlashIsNotBusy(XQspiPsu *QspiPsuPtr);
+#ifndef SDT
 static int QspiPsuSetupIntrSystem(XScuGic *IntcInstancePtr,
 				  XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuIntrId);
+#endif
 void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
 s32 XQspiPsu_ReadParamPage(XQspiPsu *QspiPsuPtr);
 s32 XQspiPsu_ParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length);
@@ -181,7 +184,9 @@ u32 PageCount = 0;
  * are initialized to zero each time the program runs. They could be local
  * but should at least be static so they are zeroed.
  */
+#ifndef SDT
 static XScuGic IntcInstance;
+#endif
 static XQspiPsu QspiPsuInstance;
 static XQspiPsu_Msg FlashMsg[5];
 
@@ -287,10 +292,10 @@ int QspiPsuInterruptFlashExample(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddre
 {
 	int Status;
 	u8 UniqueValue;
-	int Count;
+	u32 Count;
 	int Page;
 	XQspiPsu_Config *QspiPsuConfig;
-	int ReadBfrSize;
+	u32 ReadBfrSize;
 	u8 Status_Reg;
 	u32 Crc = 0;
 
@@ -320,7 +325,7 @@ int QspiPsuInterruptFlashExample(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddre
 	Status = QspiPsuSetupIntrSystem(IntcInstancePtr, QspiPsuInstancePtr,
 					QspiPsuIntrId);
 #else
-	Status = XSetupInterruptSystem(QspiPsuInstancePtr, &XQspiPsu_InterruptHandler,
+	Status = XSetupInterruptSystem(QspiPsuInstancePtr, (void *)&XQspiPsu_InterruptHandler,
 				       QspiPsuConfig->IntrId,
 				       QspiPsuConfig->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
@@ -387,7 +392,7 @@ int QspiPsuInterruptFlashExample(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddre
 	Crc = ((ParameterPageData[CRC_1_OFFSET] << 8) |
 	       ParameterPageData[CRC_0_OFFSET]);
 
-	if (Crc != XQspiPsu_ParamPageCrc(ParameterPageData, 0x00, ONFI_CRC_LEN)) {
+	if (Crc != (u32)XQspiPsu_ParamPageCrc(ParameterPageData, 0x00, ONFI_CRC_LEN)) {
 		xil_printf("Parameter page crc check failed\n\r");
 		return XST_FAILURE;
 	}
@@ -473,6 +478,7 @@ int QspiPsuInterruptFlashExample(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddre
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
  *
@@ -544,7 +550,7 @@ static int QspiPsuSetupIntrSystem(XScuGic *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
-
+#endif
 
 /*****************************************************************************/
 /**
@@ -560,6 +566,9 @@ static int QspiPsuSetupIntrSystem(XScuGic *IntcInstancePtr,
  *****************************************************************************/
 void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 {
+	Xil_AssertVoid(CallBackRef != NULL);
+	(void)ByteCount;
+
 	/*
 	 * Indicate the transfer on the QSPIPSU bus is no longer in progress
 	 * regardless of the status event
@@ -645,6 +654,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	       u8 *WriteBfrPtr)
 {
+	(void)Command;
 	u8 WriteEnableCmd;
 	u8 ProgExeCmd;
 	u8 WriteBuf[5];
