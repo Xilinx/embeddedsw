@@ -64,6 +64,8 @@ set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/build-openamp" CACHE STRING "" FO
 include (syscheck)
 project (open_amp C)
 
+set (WITH_DOC OFF)
+
 include (CheckIncludeFiles)
 include (CheckCSourceCompiles)
 include (collect)

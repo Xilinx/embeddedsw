@@ -10,6 +10,7 @@ collect (PROJECT_LIB_SOURCES version.c)
 add_subdirectory (virtio)
 add_subdirectory (rpmsg)
 add_subdirectory (remoteproc)
+add_subdirectory (utils)
 
 if (WITH_PROXY)
   add_subdirectory (proxy)
@@ -20,6 +21,7 @@ set (OPENAMP_LIB open_amp)
 
 configure_file(version.h.in ${PROJECT_BINARY_DIR}/include/generated/openamp/version_def.h)
 collect (PROJECT_INC_DIRS " ${PROJECT_BINARY_DIR}/include/generated/openamp")
+collect (PROJECT_INC_DIRS " ${PROJECT_BINARY_DIR}/include/internal")
 
 if (NOT CMAKE_INSTALL_LIBDIR)
 	set (CMAKE_INSTALL_LIBDIR "lib")
@@ -41,6 +43,7 @@ set_target_properties (${OPENAMP_LIB} PROPERTIES OUTPUT_NAME  "${OPENAMP_LIB}")
 
 install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/openamp" DESTINATION ${CMAKE_INCLUDE_PATH})
 install (DIRECTORY "${PROJECT_BINARY_DIR}/include/generated/openamp" DESTINATION ${CMAKE_INCLUDE_PATH})
+install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/internal" DESTINATION ${CMAKE_INCLUDE_PATH})
 
 set_target_properties(${OPENAMP_LIB} PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/${OPENAMP_LIB}.a;${CMAKE_INCLUDE_PATH}/openamp;${clean_headers};${CMAKE_LIBRARY_PATH}/libopen_amp.a")
 install(TARGETS ${OPENAMP_LIB} LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})
