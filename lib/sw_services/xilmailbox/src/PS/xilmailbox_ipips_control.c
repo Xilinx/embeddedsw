@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
  * 1.8   ht   07/24/23    Restructure the code for more modularity.
  * 1.9   sd   11/23/23    Clear the interrupts after calling the user handler.
  * 1.11  ht   11/12/24    Update description of MsgLen
+ * 1.11  ht   01/02/25    Fix GCC warnings.
  *
  *  *</pre>
  *
@@ -79,8 +80,14 @@ u32 XIpiPs_Init(XMailbox *InstancePtr, UINTPTR BaseAddress)
 
 	/* Register IRQ */
 #if !defined (__MICROBLAZE__) && !defined (__riscv)
+
+#ifndef SDT
 	Status = XIpiPs_RegisterIrq(&DataPtr->GicInst, InstancePtr,
 				    CfgPtr->IntId);
+#else
+	Status = XIpiPs_RegisterIrq(InstancePtr, CfgPtr->IntId);
+#endif
+
 #endif
 
 	return (u32)Status;
