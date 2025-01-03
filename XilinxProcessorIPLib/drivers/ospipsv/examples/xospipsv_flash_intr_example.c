@@ -131,6 +131,7 @@ u8 ReadBfrPtr[8]__attribute__ ((aligned(4)));
 #endif
 
 u32 FlashMake;
+u32 FlashType;
 u32 FCTIndex;	/* Flash configuration table index */
 
 /*
@@ -329,7 +330,7 @@ int OspiPsvInterruptFlashExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR BaseAddre
 	}
 
 	/* Configure Flash Dummy cycles in flash device */
-	if(FlashMake == MACRONIX_OCTAL_ID_BYTE0){
+	if ((FlashMake == MACRONIX_OCTAL_ID_BYTE0) && (FlashType == MACRONIX_OCTAL_ID_BYTE1)){
 		Status = MxConfigDummy(OspiPsvInstancePtr);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -546,6 +547,7 @@ int FlashReadID(XOspiPsv *OspiPsvPtr)
 	ReadId = ((ReadBfrPtr[0] << 16) | (ReadBfrPtr[1] << 8) | ReadBfrPtr[2]);
 
 	FlashMake = ReadBfrPtr[0];
+	FlashType = ReadBfrPtr[1];
 
 	if (FlashMake == MACRONIX_OCTAL_ID_BYTE0 || FlashMake == SPANSION_OCTAL_ID_BYTE0) {
 		FSRFlag = 0;
