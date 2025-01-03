@@ -59,6 +59,9 @@ add_definitions(-DXPAR_SCUGIC_0_DIST_BASEADDR=XPAR_SCUGIC_DIST_BASEADDR)
 include (syscheck)
 project (metal C)
 
+set (WITH_DOC OFF)
+set (PROJECT_VENDOR xlnx)
+
 include (CheckIncludeFiles)
 include (CheckCSourceCompiles)
 include (collect)
