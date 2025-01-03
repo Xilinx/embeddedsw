@@ -2212,7 +2212,7 @@ int MxConfigDummy(XOspiPsv *OspiPsvPtr){
 	FlashMsg.RxBfrPtr = ConfigReg;
 	FlashMsg.ByteCount = 1;
 	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
-	FlashMsg.Dummy = 4;
+	FlashMsg.Dummy = 0;
 	FlashMsg.IsDDROpCode = 0;
 	FlashMsg.Proto = 0;
 	FlashMsg.Addr = RegAddr;
