@@ -36,6 +36,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ss   12/02/24 Added error codes for ECDH
  *       ma   12/12/24 Added support for command in progress
+ *       ma   01/03/25 Added error codes for TRNG core register configuration failures
  *
  * </pre>
  *
@@ -191,6 +192,10 @@ enum {
 	XASUFW_START_RESEED_FAILED, /**< TRNG reseed failed */
 	XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE, /**< TRNG invalid random bytes requested */
 	XASUFW_TRNG_KAT_NOT_SUPPORTED_ON_QEMU, /**< TRNG DRBG KAT is not supported on QEMU */
+	XASUFW_TRNG_DFLEN_CONFIG_ERROR, /**< DF length configuration failure */
+	XASUFW_TRNG_ADAPTCUTOFF_CONFIG_ERROR, /**< Adaptive test cutoff configuration failure */
+	XASUFW_TRNG_REPCUTOFF_CONFIG_ERROR, /**< Repetitive test cutoff configuration failure */
+	XASUFW_TRNG_DIT_CONFIG_ERROR, /**< DIT value configuration failure */
 	XASUFW_AES_GLITCH_ERROR, /**< AES glitch error */
 	XASUFW_AES_INVALID_PARAM, /**< Invalid parameters to AES APIs */
 	XASUFW_AES_STATE_MISMATCH_ERROR, /**< AES state mismatch error. Occurs when previous AES

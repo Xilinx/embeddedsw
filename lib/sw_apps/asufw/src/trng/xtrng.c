@@ -22,6 +22,7 @@
  *       yog  08/25/24 Integrated FIH library
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/24/24 AAdded API to disable autoproc mode
+ *       ma   01/03/25 Configure TRNG core registers properly
  *
  * </pre>
  *
@@ -115,8 +116,10 @@ static s32 XTrng_Set(const XTrng *InstancePtr);
 static s32 XTrng_Reset(const XTrng *InstancePtr);
 static s32 XTrng_PrngReset(const XTrng *InstancePtr);
 static s32 XTrng_PrngSet(const XTrng *InstancePtr);
-static void XTrng_UpdateConf0(const XTrng *InstancePtr, u32 DitVal, u32 RepCountTestCutoff);
-static void XTrng_UpdateConf1(const XTrng *InstancePtr, u32 DFLen, u32 AdaptPropTestCutoff);
+static inline s32 XTrng_CfgDfLen(const XTrng *InstancePtr, u8 DfLen);
+static inline s32 XTrng_CfgAdaptPropTestCutoff(const XTrng *InstancePtr, u16 AdaptPropTestCutoff);
+static inline s32 XTrng_CfgRepCountTestCutoff(const XTrng *InstancePtr, u16 RepCountTestCutoff);
+static inline s32 XTrng_CfgDIT(const XTrng *InstancePtr, u8 DITValue);
 
 /************************************ Variable Definitions ***************************************/
 /** The configuration table for TRNG devices */
@@ -332,42 +335,76 @@ static s32 XTrng_PrngReset(const XTrng *InstancePtr)
 
 /*************************************************************************************************/
 /**
- * @brief	This function writes the DIT value and repetitive count test cutoff value to the
- * 		TRNG CONF0 register.
+ * @brief	This function configures the DF input length.
  *
- * @param	InstancePtr		Pointer to the TRNG Instance.
- * @param	DitVal			DIT value.
- * @param	RepCountTestCutoff	Cutoff value for repetitive count test.
+ * @param	InstancePtr	Pointer to the TRNG Instance.
+ * @param	DfLen		Input DF length.
  *
- *************************************************************************************************/
-static void XTrng_UpdateConf0(const XTrng *InstancePtr, u32 DitVal, u32 RepCountTestCutoff)
+ * @return
+ * 		-XST_SUCCESS On successful write
+ * 		-XST_FAILURE On failure
+ *
+ **************************************************************************************************/
+static inline s32 XTrng_CfgDfLen(const XTrng *InstancePtr, u8 DfLen)
 {
-	u32 Conf0Val = DitVal & XASU_TRNG_CONF0_DIT_MASK;
-
-	Conf0Val |= ((RepCountTestCutoff << XASU_TRNG_CONF0_REPCOUNTTESTCUTOFF_SHIFT)
-				& XASU_TRNG_CONF0_REPCOUNTTESTCUTOFF_MASK);
-
-	XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_TRNG_CONF0_OFFSET, Conf0Val);
+	return Xil_SecureRMW32((InstancePtr->BaseAddress + XASU_TRNG_CONF1_OFFSET),
+		XASU_TRNG_CONF1_DLEN_MASK, ((u32)DfLen << XASU_TRNG_CONF1_DLEN_SHIFT));
 }
 
 /*************************************************************************************************/
 /**
- * @brief	This function writes DF length and adaptive count test cutoff value to the TRNG
- * 		CONF1 register.
+ * @brief	This function writes the adaptive count test cutoff value in to the register.
  *
- * @param	InstancePtr		Pointer to the TRNG Instance.
- * @param	DFLen			Input DF length.
+ * @param	InstancePtr			Pointer to the TRNG Instance.
  * @param	AdaptPropTestCutoff	Cutoff value for adaptive count test.
  *
- *************************************************************************************************/
-static void XTrng_UpdateConf1(const XTrng *InstancePtr, u32 DFLen, u32 AdaptPropTestCutoff)
+ * @return
+ * 		-XST_SUCCESS On successful write
+ * 		-XST_FAILURE On failure
+ *
+ **************************************************************************************************/
+static inline s32 XTrng_CfgAdaptPropTestCutoff(const XTrng *InstancePtr, u16 AdaptPropTestCutoff)
 {
-	u32 Conf1Val = DFLen & XASU_TRNG_CONF1_DLEN_MASK;
+	return Xil_SecureRMW32((InstancePtr->BaseAddress + XASU_TRNG_CONF1_OFFSET),
+		XASU_TRNG_CONF1_ADAPTPROPTESTCUTOFF_MASK,
+		((u32)AdaptPropTestCutoff << XASU_TRNG_CONF1_ADAPTPROPTESTCUTOFF_SHIFT));
+}
 
-	Conf1Val |= ((AdaptPropTestCutoff << XASU_TRNG_CONF1_ADAPTPROPTESTCUTOFF_SHIFT)
-				& XASU_TRNG_CONF1_ADAPTPROPTESTCUTOFF_MASK);
+/*************************************************************************************************/
+/**
+ * @brief	This function writes the repetitive count test cutoff value in to the register.
+ *
+ * @param	InstancePtr			Pointer to the TRNG Instance.
+ * @param	RepCountTestCutoff	Cutoff value for repetitive count test.
+ *
+ * @return
+ * 		-XST_SUCCESS On successful write
+ * 		-XST_FAILURE On failure
+ *
+ **************************************************************************************************/
+static inline s32 XTrng_CfgRepCountTestCutoff(const XTrng *InstancePtr, u16 RepCountTestCutoff)
+{
+	return Xil_SecureRMW32((InstancePtr->BaseAddress + XASU_TRNG_CONF0_OFFSET),
+		XASU_TRNG_CONF0_REPCOUNTTESTCUTOFF_MASK,
+		((u32)RepCountTestCutoff << XASU_TRNG_CONF0_REPCOUNTTESTCUTOFF_SHIFT));
+}
 
-	XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_TRNG_CONF1_OFFSET, Conf1Val);
+/*************************************************************************************************/
+/**
+ * @brief	This function writes the DIT value in to the register.
+ *
+ * @param	InstancePtr	Pointer to the TRNG Instance.
+ * @param   DITValue	Digitization interval time.
+ *
+ * @return
+ * 		-XST_SUCCESS On successful write
+ * 		-XST_FAILURE On failure
+ *
+ **************************************************************************************************/
+static inline s32 XTrng_CfgDIT(const XTrng *InstancePtr, u8 DITValue)
+{
+	return Xil_SecureRMW32((InstancePtr->BaseAddress + XASU_TRNG_CONF0_OFFSET),
+		XASU_TRNG_CONF0_DIT_MASK, ((u32)DITValue << XASU_TRNG_CONF0_DIT_SHIFT));
 }
 
 /*************************************************************************************************/
@@ -490,16 +527,23 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const 
 	}
 
 	if ((UserCfg->Mode == XTRNG_PTRNG_MODE) || (UserCfg->Mode == XTRNG_HRNG_MODE)) {
-		/**
-		 * Configure DIT value and repetitive count test cutoff value if mode is
-		 * PTRNG OR HRNG.
-		 */
-		XTrng_UpdateConf0(InstancePtr, XASU_TRNG_CONF0_DIT_DEFVAL, UserCfg->RepCountTestCutoff);
-		/**
-		 * Configure DF length and adaptive count test cutoff value if mode is
-		 * PTRNG OR HRNG.
-		 */
-		XTrng_UpdateConf1(InstancePtr, UserCfg->DFLength, UserCfg->AdaptPropTestCutoff);
+		/* Configure cutoff values */
+		Status = XTrng_CfgAdaptPropTestCutoff(InstancePtr, UserCfg->AdaptPropTestCutoff);
+		if (Status != XST_SUCCESS) {
+			Status = XASUFW_TRNG_ADAPTCUTOFF_CONFIG_ERROR;
+			goto END;
+		}
+		Status = XTrng_CfgRepCountTestCutoff(InstancePtr, UserCfg->RepCountTestCutoff);
+		if (Status != XST_SUCCESS) {
+			Status = XASUFW_TRNG_REPCUTOFF_CONFIG_ERROR;
+			goto END;
+		}
+		/* Configure default DIT value */
+		Status = XTrng_CfgDIT(InstancePtr, XASU_TRNG_CONF0_DIT_DEFVAL);
+		if (Status != XST_SUCCESS) {
+			Status = XASUFW_TRNG_DIT_CONFIG_ERROR;
+			goto END;
+		}
 	}
 
 	InstancePtr->State = XTRNG_INSTANTIATE_STATE;
@@ -835,7 +879,11 @@ static s32 XTrng_ReseedInternal(XTrng *InstancePtr, const u8 *Seed, u8 DLen, con
 	u32 PersMask = XASU_TRNG_CTRL_PERSODISABLE_MASK;
 
 	/** Configure given DF Len. */
-	XTrng_UpdateConf1(InstancePtr, DLen, InstancePtr->UserCfg.AdaptPropTestCutoff);
+	Status = XTrng_CfgDfLen(InstancePtr, DLen);
+	if (Status != XST_SUCCESS) {
+		Status = XASUFW_TRNG_DFLEN_CONFIG_ERROR;
+		goto END;
+	}
 
 	if (PerStr != NULL) {
 		Status = XTrng_WritePersString(InstancePtr, PerStr);
