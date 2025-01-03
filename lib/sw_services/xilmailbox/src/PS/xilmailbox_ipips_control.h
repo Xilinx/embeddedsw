@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.8   ht   07/24/23    Restructure the code for more modularity.
+ * 1.11  ht   01/02/25    Fix GCC warnings
  *
  *  *</pre>
  *
@@ -62,9 +63,13 @@ u32 XIpiPs_PollforDone(XMailbox *InstancePtr);
 #if !defined (__MICROBLAZE__) && !defined (__riscv)
 void XIpiPs_ErrorIntrHandler(void *XMailboxPtr);
 void XIpiPs_IntrHandler(void *XMailboxPtr);
+#ifndef SDT
 XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 			   XMailbox *InstancePtr,
 			   u32 IpiIntrId);
+#else
+XStatus XIpiPs_RegisterIrq(XMailbox *InstancePtr, u32 IpiIntrId);
+#endif
 #endif
 
 

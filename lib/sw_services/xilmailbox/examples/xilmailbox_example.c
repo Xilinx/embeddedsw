@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * 1.11	ht	11/12/24  Update description of TEST_MSG_LEN
 * 	ht	11/25/24  Update Message length to accommodate for CRC bytes when
 * 			  IPI CRC is enabled
+*	ht	01/02/25  Fix GCC warnings.
 * </pre>
 *
 *
@@ -74,8 +75,8 @@
 
 /*****************************************************************************/
 XMailbox XMboxInstance;
-volatile static int RecvDone = 0;	/**< Done flag */
-volatile static int ErrorStatus = 0;	/**< Error Status flag*/
+static volatile int RecvDone = 0;	/**< Done flag */
+static volatile int ErrorStatus = 0;	/**< Error Status flag*/
 static u32 ReqBuffer[TEST_MSG_LEN];
 static u32 RespBuffer[TEST_MSG_LEN];
 
@@ -215,10 +216,12 @@ Done:
 
 static void DoneHandler(void *CallBackRef)
 {
+	Xil_AssertVoid(CallBackRef != NULL);
 	RecvDone = 1;
 }
 
 static void ErrorHandler(void *CallBackRef, u32 Mask)
 {
+	Xil_AssertVoid(CallBackRef != NULL);
 	ErrorStatus = Mask;
 }

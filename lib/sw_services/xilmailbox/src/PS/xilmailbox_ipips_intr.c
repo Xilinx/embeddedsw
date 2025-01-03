@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.8   ht   07/24/23    Restructure the code for more modularity
  * 1.10  ht   06/05/24    Register GIC handler using device id
+ * 1.11  ht   01/02/25    Fix GCC warnings.
  *
  *  *</pre>
  *
@@ -84,9 +85,13 @@ u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
  *      - XST_FAILURE if unsuccessful
  *
  ****************************************************************************/
+#ifndef SDT
 XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 			   XMailbox *InstancePtr,
 			   u32 IpiIntrId)
+#else
+XStatus XIpiPs_RegisterIrq(XMailbox *InstancePtr, u32 IpiIntrId)
+#endif
 {
 #ifndef SDT
 	s32 Status = (s32)XST_FAILURE;
@@ -132,7 +137,7 @@ XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 				     (Xil_ExceptionHandler)XScuGic_DeviceInterruptHandler,
-				     (void *)IntcInstancePtr->Config->DeviceId);
+				     (void *)(UINTPTR)IntcInstancePtr->Config->DeviceId);
 
 	Status = XScuGic_Connect(IntcInstancePtr, IpiIntrId,
 				 (Xil_InterruptHandler) XIpiPs_IntrHandler,
