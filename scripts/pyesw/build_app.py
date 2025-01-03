@@ -11,7 +11,7 @@ import os
 import utils
 from build_bsp import BSP, generate_bsp
 from create_app import App
-from open_amp import openamp_app_configure_common, openamp_lopper_run
+from open_amp import openamp_app_names, openamp_app_configure_common
 from utils import is_file
 from validate_bsp import Validation
 
@@ -61,6 +61,9 @@ def build_app(args):
     obj.app_build_dir = obj.app_build_dir.replace('\\', '/')
 
     app_name = utils.fetch_yaml_data(obj.app_config_file, "template")["template"]
+
+    if app_name in openamp_app_names.keys():
+        openamp_app_configure_common(obj, obj.app_src_dir)
 
     domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")
     # in case of library update link libraries

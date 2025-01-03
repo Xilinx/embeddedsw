@@ -13,9 +13,8 @@ import textwrap
 
 import utils
 from build_bsp import BSP
-from open_amp import (copy_openamp_app_overlay, create_libmetal_app,
-                      create_openamp_app, open_amp_app_name,
-                      openamp_lopper_run)
+from open_amp import (create_libmetal_app, create_openamp_app,
+                      openamp_lopper_run, openamp_app_names)
 from repo import Repo
 from utils import log_time
 from validate_bsp import Validation
@@ -77,9 +76,9 @@ def create_app(args):
     # Copy the application src directory from embeddedsw to app src folder.
     esw_app_dir = obj.get_comp_dir(obj.template)
     srcdir = os.path.join(esw_app_dir, "src")
-    if obj.template in ['openamp_echo_test', 'openamp_matrix_multiply', 'openamp_rpc_demo']:
+    if obj.template in openamp_app_names.keys():
         srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
-        srcdir = os.path.join(srcdir, 'open-amp')
+        srcdir = os.path.join(srcdir, 'openamp-system-reference')
     elif obj.template == 'libmetal_echo_demo':
         srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
         srcdir = os.path.join(srcdir, 'libmetal')
@@ -134,16 +133,13 @@ def create_app(args):
     bsp_obj = BSP(args)
     overlay_path = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'domain.yaml')
 
-    if obj.template in ['openamp_echo_test', 'openamp_matrix_multiply', 'openamp_rpc_demo']:
-        copy_openamp_app_overlay(obj, esw_app_dir)
-
+    if obj.template in openamp_app_names.keys():
         bsp_obj = BSP(args)
         original_sdt = os.path.join(bsp_obj.domain_path, 'hw_artifacts', 'sdt.dts')
 
         # Note that lopper command to generate linker script will be updated
         # here to use OpenAMP SDT. To generate OpenAMP SDT, need original SDT
-        linker_cmd = openamp_lopper_run(overlay_path, original_sdt, obj.sdt, obj.app_src_dir, obj.proc, linker_cmd)
-        obj.cmake_paths_append += " -D_AMD_GENERATED_=ON "
+        linker_cmd = openamp_lopper_run(original_sdt, linker_cmd, obj, esw_app_dir)
 
     if obj.template == "memory_tests":
         utils.runcmd(f"{linker_cmd} memtest", log_message="Linker Generation")
@@ -187,26 +183,10 @@ def create_app(args):
         utils.copy_file(init_c, obj.app_src_dir, silent_discard=True)
         utils.copy_file(init_h, obj.app_src_dir, silent_discard=True)
 
-    if obj.template in ['openamp_echo_test', 'openamp_matrix_multiply', 'openamp_rpc_demo']:
+    if obj.template in openamp_app_names.keys():
         create_openamp_app(obj, esw_app_dir)
-        new_app_name = obj.app_name if obj.app_name else open_amp_app_name(obj.template)
-
-        # pass which of the 3 OpenAMP demos to the cmake project
-        obj.cmake_paths_append += " -DOPENAMP_APP_NAME=\"" + open_amp_app_name(obj.template) + "\""
-
-        src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
-
-        # add Demo name to nested Cmake build for OpenAMP Apps
-        new_cmake_vars = f'project ({new_app_name} C)\n'
-        new_cmake_vars += f'set (OPENAMP_APP_NAME \"' + open_amp_app_name(obj.template) + '\" CACHE STRING "")\n'
-
-        utils.replace_line(src_cmake, f'project (open_amp_apps C)', new_cmake_vars)
     elif obj.template == 'libmetal_echo_demo':
         create_libmetal_app(obj, esw_app_dir)
-        if obj.app_name:
-            # add Demo name to nested Cmake build
-            src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
-            utils.replace_line(src_cmake, f'project (libmetal_amp_demod C)', f'project ({obj.app_name} C)')
 
     # Add domain path entry in the app configuration file.
     data = {"domain_path": obj.domain_path,
