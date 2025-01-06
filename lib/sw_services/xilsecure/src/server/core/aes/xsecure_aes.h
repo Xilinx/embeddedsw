@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,8 @@
 * 5.3   kpt  11/28/2023 Added XSECURE_AES_PUF_RED_EXPANDED_KEYS
 * 5.4   yog  04/29/2024 Fixed doxygen grouping and doxygen warnings.
 *	vss  10/23/2024 Removed AES duplicate code
+*       vss  11/20/2024 Fix for data corruption of GCM tag when any other
+*                       operation uses DMA0 after encrypt update.
 *
 * </pre>
 *
@@ -136,6 +138,8 @@ typedef struct {
 #ifdef VERSAL_NET
 	u32 IsEcbEn;           /**< ECB mode enable or disable */
 #endif
+	u8 GcmTag[XSECURE_SECURE_GCM_TAG_SIZE]; /**< GCM tag */
+	XSecure_AesOp OperationId;           /* Operation Id to select encrypt/decrypt operation */
 } XSecure_Aes;
 
 extern const XSecure_AesKeyLookup AesKeyLookupTbl[XSECURE_MAX_KEY_SOURCES];

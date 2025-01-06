@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -97,6 +97,8 @@
 * 5.4   yog  04/29/2024 Fixed doxygen warnings.
 *	vss  10/23/2024 Removed AES duplicate code
 *       vss  10/28/2024 Removed END label in XSecure_AesDecryptUpdate
+*       vss  11/20/2024 Fix for data corruption of GCM tag when any other
+*                       operation uses DMA0 after encrypt update.
 *
 * </pre>
 *
@@ -146,6 +148,8 @@ static int XSecure_AesKeyLoadandIvXfer(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr);
 static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u8 IsLastChunk);
+static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
+	XSecure_AesDmaCfg* AesDmaCfg);
 
 /************************** Variable Definitions *****************************/
 
@@ -460,7 +464,6 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 		XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
             XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 #endif
-		InstancePtr->IsGmacEn = FALSE;
 	}
 
 	/** Configure DMA and transfer AAD to AES engine */
@@ -469,6 +472,11 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 		goto END_AAD;
 	}
 
+	if ((InstancePtr->IsGmacEn == TRUE) && (InstancePtr->OperationId) == XSECURE_ENCRYPT){
+		Status = XSecure_AesCopyGcmTag(InstancePtr, &AesDmaCfg);
+	}
+
+	InstancePtr->IsGmacEn = FALSE;
 END_AAD:
 #ifndef VERSAL_AIEPG2
 	/* Clear endianness */
@@ -655,6 +663,7 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XSecure_AesKeySize KeySize, u64 IvAddr)
 {
 	volatile int Status = XST_FAILURE;
+	InstancePtr->OperationId = XSECURE_DECRYPT;
 
 	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr, XSECURE_AES_MODE_DEC);
 	if (Status != XST_SUCCESS) {
@@ -918,6 +927,7 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XSecure_AesKeySize KeySize, u64 IvAddr)
 {
 	volatile int Status = XST_FAILURE;
+	InstancePtr->OperationId = XSECURE_ENCRYPT;
 
 	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr, XSECURE_AES_MODE_ENC);
 	if(Status != XST_SUCCESS) {
@@ -987,7 +997,6 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
-	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -1010,24 +1019,10 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END_RST;
 	}
 
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
+	/* Copying from local buffer which is already stored during encrypt update. */
+	XSecure_MemCpy64(GcmTagAddr, (u64)(UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
 
-	AesDmaCfg.DestDataAddr = GcmTagAddr;
-	AesDmaCfg.DestChannelCfg = TRUE;
-	AesDmaCfg.IsLastChunkDest = FALSE;
-
-	/** Configure DMA and update output address to AES engine to store GCM Tag */
-	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg,
-		XSECURE_SECURE_GCM_TAG_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END_RST;
-	}
-
-	Status = XST_FAILURE;
-
-	/* Wait for AES Decryption completion. */
-	Status = XSecure_AesWaitForDone(InstancePtr);
+	Status = XST_SUCCESS;
 
 END_RST:
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
@@ -1051,6 +1046,10 @@ END_RST:
 	XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 
+	SStatus = Xil_SecureZeroize(InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
 END:
 	return Status;
 }
@@ -1796,9 +1795,13 @@ static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 	AesDmaCfg.SrcChannelCfg = TRUE;
 	AesDmaCfg.DestChannelCfg = TRUE;
 	AesDmaCfg.IsLastChunkSrc = IsLastChunk;
-	AesDmaCfg.IsLastChunkDest = FALSE;
 
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg, Size);
+
+	if((InstancePtr->OperationId == XSECURE_ENCRYPT) && (IsLastChunk == TRUE)){
+		Status = XSecure_AesCopyGcmTag(InstancePtr, &AesDmaCfg);
+	}
+
 #ifndef VERSAL_AIEPG2
 	/* Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
@@ -2089,6 +2092,52 @@ END_RST:
 	}
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used upon Last encrypt update. AES engine also sends GCM tag
+ *          along with encrypted data,copy the GCM tag to local buffer to properly flush
+ *          the DMA to avoid data corruption,if the same DMA is used for different operation
+ *          before AES encrypt final.This is also used to store the generated GCM Tag during
+ *          AES update AAD in GMAC mode.
+ *
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
+ * @param	AesDmaCfg	DMA SRC and DEST channel configuration
+ * @param	IsLastChunk	If this is the last update of data to be encrypted,
+ *				  this parameter should be set to TRUE otherwise FALSE
+ *
+ * @return
+ *	-	XST_SUCCESS - On successful copy of the GCM tag
+ *	-	XST_FAILURE - On failure
+ *
+ ******************************************************************************/
+static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
+	XSecure_AesDmaCfg* AesDmaCfg)
+{
+	int Status = XST_FAILURE;
+
+	if (XSecure_AesIsEcbModeEn(InstancePtr) != TRUE) {
+		AesDmaCfg->DestDataAddr = (u64)(UINTPTR)InstancePtr->GcmTag;
+		AesDmaCfg->DestChannelCfg = TRUE;
+		AesDmaCfg->SrcChannelCfg = FALSE;
+
+#if(!defined(VERSAL_PLM) && !(defined(__MICROBLAZE__)))
+		/* Invalidate Cache before and after dma transfer to ensure cache coherency for a72 and r5 processors */
+		Xil_DCacheInvalidateRange((UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
+#endif
+		Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg,
+			XSECURE_SECURE_GCM_TAG_SIZE);
+
+#if(!defined(VERSAL_PLM) && !(defined(__MICROBLAZE__)))
+		Xil_DCacheInvalidateRange((UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
+#endif
+		/* Wait for AES Operation completion. */
+		Status = XSecure_AesWaitForDone(InstancePtr);
+
+	}
+
 	return Status;
 }
 
