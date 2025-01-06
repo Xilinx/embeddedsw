@@ -23,7 +23,7 @@ from regen_linker import main as regen_liner_main
 from repo import main as repo_main
 from retarget_app import main as retarget_app_main
 from validate_bsp import main as validate_bsp_main
-
+from utils import is_file
 
 def info():
     info=f"""\bUsage: empyro [COMMAND] [OPTIONS]...
@@ -54,6 +54,8 @@ List of COMMANDS
 
 COMMAND without OPTIONS
   -h, --help          Show this help message and exit
+  --version           Show the binary version along with commit details if
+                      available
 
 Examples:
 
@@ -104,6 +106,14 @@ def main():
     # Route to appropriate module's main function based on command
     if command in ("-h","--help"):
         info()
+    elif command in ("--version"):
+        version_file_path=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'VERSION')
+        if (is_file(version_file_path)):
+            with open(version_file_path, 'r') as f:
+                version = f.read().strip()
+        else:
+            version="1.0"
+        print(version)
     elif command in func_map.keys():
         func_map[command](sys.argv[2:])
     else:
