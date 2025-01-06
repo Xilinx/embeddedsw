@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 import argparse
 import os
@@ -37,7 +37,21 @@ def reconfig_bsp(args):
     of performance enhancment in case of old release workspace delete the build folder.
     """
     is_ninja_build = os.path.join(obj.libsrc_folder, "build_configs", "gen_bsp", "build.ninja")
-    if not utils.is_file(is_ninja_build):
+    if utils.is_file(is_ninja_build):
+        cmake_cache = os.path.join(build_metadata, "CMakeCache.txt")
+        if utils.is_file(cmake_cache):
+            current_compiler_ar_path = utils.find_line_in_file(cmake_cache, "CMAKE_ASM_COMPILER_AR:FILEPATH")
+            if current_compiler_ar_path:
+                # Extract the path and name
+                current_compiler_ar_path = current_compiler_ar_path.split("=")[-1].strip()
+                current_compiler_ar_path = os.path.normpath(current_compiler_ar_path)
+                compiler_ar_name = os.path.basename(current_compiler_ar_path)
+                # Find the updated path
+                updated_compiler_ar_path = utils.find_compiler_path(compiler_ar_name)
+                if current_compiler_ar_path != updated_compiler_ar_path:
+                    print(f"Compiler path changed from {current_compiler_ar_path} to {updated_compiler_ar_path}. Clearing build directory.")
+                    utils.remove(build_metadata)
+    else:
         utils.remove(build_metadata)
 
     """

@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module updates the application meta-data app.yaml and CMakeLists.txt
@@ -51,7 +51,20 @@ def retarget_app(args):
         app_build_dir = utils.get_abs_path(args["build_dir"])
         if utils.is_dir(app_build_dir):
             compile_commands_file = os.path.join(app_build_dir, "compile_commands.json")
-            if utils.is_file(compile_commands_file):
+            cmake_cache = os.path.join(app_build_dir, "CMakeCache.txt")
+            if utils.is_file(cmake_cache):
+                current_compiler_ar_path = utils.find_line_in_file(cmake_cache, "CMAKE_ASM_COMPILER_AR:FILEPATH")
+                if current_compiler_ar_path:
+                    # Extract the path and name
+                    current_compiler_ar_path = current_compiler_ar_path.split("=")[-1].strip()
+                    current_compiler_ar_path = os.path.normpath(current_compiler_ar_path)
+                    compiler_ar_name = os.path.basename(current_compiler_ar_path)
+                    # Find the updated path
+                    updated_compiler_ar_path = utils.find_compiler_path(compiler_ar_name)
+                    if current_compiler_ar_path != updated_compiler_ar_path:
+                        print(f"Compiler path changed from {current_compiler_ar_path} to {updated_compiler_ar_path}. Clearing build directory.")
+                        utils.remove(app_build_dir)
+            elif utils.is_file(compile_commands_file):
                 build_data = utils.load_json(compile_commands_file)
                 if isinstance(build_data, list):
                     if build_data[0].get('directory', {}):

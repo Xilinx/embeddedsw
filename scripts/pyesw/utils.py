@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module acts as a supporting module for all the other modules. It
@@ -568,3 +568,20 @@ def load_json(filepath: str, silent_discard: bool = True) -> Optional[dict]:
     except:
         assert silent_discard, f"{filepath} reading failed"
         return None
+
+def find_line_in_file(
+    file_name: str, line_to_search: str) -> bool:
+    """Check if line exist in file or not"""
+    with open(file_name, "r") as read_obj:
+        file_data = read_obj.readlines()
+        for data in file_data:
+            if line_to_search in data:
+                return data
+    return None
+
+def find_compiler_path(compiler_name):
+    if os.name == "nt":
+        command = "where"
+    else:
+        command = "which"
+    return subprocess.check_output([command, compiler_name], stderr=subprocess.STDOUT, text=True).strip()
