@@ -29,6 +29,7 @@
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xplm_util.h"
+#include "xplm_hw.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -41,8 +42,6 @@
 #define XPLM_BOOT_HDR_SIZE_WITHOUT_SMAP_WIDTH	(XPLM_BOOT_HDR_TOTAL_SIZE - XPLM_SMAP_WD_PATTERN_SIZE)
 #define XPLM_BOOT_HDR_CHECKSUM_SIZE		(4U)
 #define XPLM_BOOT_HDR_CHECKSUM_END_OFFSET	(XPLM_BOOT_HDR_SIZE_WITHOUT_SMAP_WIDTH - XPLM_BOOT_HDR_CHECKSUM_SIZE)
-
-#define XPLM_HASH_BLOCK_ADDR_IN_RAM	(0x0402FBA0U)
 
 #define XPLM_SECURE_GCM_TAG_SIZE	(16U) /** GCM Tag Size in Bytes */
 

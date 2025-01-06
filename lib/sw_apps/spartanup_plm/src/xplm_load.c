@@ -18,6 +18,7 @@
  * 1.00  bm   05/31/24 Initial release
  *       ng   09/17/24 Updated minor error mask for secure rom load api
  * 1.01  ng   11/05/24 Add boot time measurements
+ * 1.01  ng   11/26/24 Add support for new devices
  * </pre>
  *
  ******************************************************************************/
@@ -39,15 +40,13 @@
 #include "xplm_dma.h"
 #include "xplm_ospi.h"
 #include "xplm_qspi.h"
-#include "xplm_hw.h"
 #include "xplm_error.h"
 #include "xplm_init.h"
 
 /************************** Constant Definitions *****************************/
 /** @cond spartanup_plm_internal */
 #define XPLM_METAHEADER_LEN		(0x140)
-#define XPLM_SECURE_CHUNK_BUFFER_ADDR		(0x0402C000U)
-#define XPLM_CHUNK_SIZE			(0x2000U)
+
 #define XPLM_AES_RED_KEY_SEL_MASK (0x0000FF00U) /** AES Red key selection mask */
 #define XPLM_AES_RED_KEY_SEL_VAL (0x00008200U)	/** AES Red key selection value */
 #define XPLM_AES_KEY_CLEAR_PUF_RED_EXPANDED_KEYS_MASK	(0x00288003U)
@@ -592,7 +591,7 @@ END:
 static u32 XPlm_ValidatePufDigest(void)
 {
 	volatile u32 Status = (u32)XST_FAILURE;
-	static u8 PufHash[XSECURE_SHA3_256_HASH_LEN] __attribute__((aligned(16)));
+	static u8 PufHash[XSECURE_SHA3_HASH_LEN] __attribute__((aligned(16)));
 	volatile u32 EfuseCtrl	= XPLM_PUFHD_HASH_SET;
 	volatile u32 EfuseCtrlTmp = XPLM_PUFHD_HASH_SET;
 
@@ -626,9 +625,9 @@ static u32 XPlm_ValidatePufDigest(void)
 
 	/** - Compare the calculated SHA Digest with the Efuse Digest. */
 	Status = (u32)XST_FAILURE;
-	Status = Xil_SMemCmp_CT((const u8 *)PufHash, XSECURE_SHA3_256_HASH_LEN,
-				(u32 *)(UINTPTR)EFUSE_PPK2_0, XSECURE_SHA3_256_HASH_LEN,
-				XSECURE_SHA3_256_HASH_LEN);
+	Status = Xil_SMemCmp_CT((const u8 *)PufHash, XSECURE_SHA3_HASH_LEN,
+				(u32 *)(UINTPTR)EFUSE_PPK2_0, XSECURE_SHA3_HASH_LEN,
+				XSECURE_SHA3_HASH_LEN);
 	if (Status != (u32)XST_SUCCESS) {
 		Status = (u32)XPLM_ERR_PUF_HD_DIGEST_VALIDATION;
 	}
@@ -885,7 +884,7 @@ END:
  * @param	InstancePtr is the pointer to the ROM instance
  *
  * @return
- *		- XPLM_ERR_CALC_BH_CHECKSUM - Error if failed to verify calcualted Boot Header checksum
+ *		- XPLM_ERR_CALC_BH_CHECKSUM - Error if failed to verify calculated Boot Header checksum
  *		- XST_SUCCESS - If BootHeader Checksum verified Successfully
  *
  ******************************************************************************/
@@ -937,11 +936,19 @@ static u32 XPlm_ValidateHashBlock(XRomBootRom *const InstancePtr)
 	XRomTmpVar *TmpInstancePtr = HooksTbl->XRom_GetTemporalInstance();
 	static u8 HashBlockGcmTag[XPLM_SECURE_GCM_TAG_SIZE] __attribute__((aligned(16)));
 
+#if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
 	/** - Update hash algorithm for authentication. */
 	Status = HooksTbl->XRom_HashAlgoSelectValidation(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
+#else
+	/** - Extract hash algorithm and public key algorithm from authentication header. */
+	Status = HooksTbl->XRom_ExtractAHFields(InstancePtr);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+#endif
 
 	/** - Zeroize hash block in RAM memory. */
 	Status = Xil_SecureZeroize((u8 *)XPLM_HASH_BLOCK_ADDR_IN_RAM,
@@ -994,7 +1001,7 @@ static u32 XPlm_ValidateHashBlock(XRomBootRom *const InstancePtr)
 	}
 
 	/** - Validate boot header integrity. */
-	Status = HooksTbl->XRom_ValidateBootheaderIntegrity();
+	Status = HooksTbl->XRom_ValidateBootheaderIntegrity(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}

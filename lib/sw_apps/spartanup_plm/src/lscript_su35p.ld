@@ -10,7 +10,7 @@ _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x800;
 
 MEMORY
 {
-   fw_ram : ORIGIN = 0x04028000, LENGTH = 0x11E00
+   fw_ram : ORIGIN = 0x04020000, LENGTH = 0x9E00
 }
 
 /* Specify the default entry point to the program */

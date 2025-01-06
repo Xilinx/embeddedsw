@@ -249,7 +249,7 @@
 
 /******************************************************************/
 /* Definitions for PMC RAM */
-#define XPAR_PMC_RAM_0_BASEADDRESS 0x4028000
+#define XPAR_PMC_RAM_0_BASEADDRESS 0x4020000
 #define XPAR_PMC_RAM_0_HIGHADDRESS 0x402ffff
 
 /******************************************************************/
@@ -429,6 +429,6 @@
 /******************************************************************/
 
 /*  BOARD definition */
-#define XPS_BOARD_SU200P
+#define XPS_BOARD_SU35P
 
 #endif  /* end of protection macro */
