@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -232,11 +232,11 @@ proc generate {drv_handle} {
         if {[string compare -nocase "psv_noc_pcie_0" $periph] == 0 ||
 	    [string compare -nocase "psv_noc_pcie_1" $periph] == 0 ||
 	    [string compare -nocase "psv_noc_pcie_2" $periph] == 0 } {
-		::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XdmaPcie" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
+		::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XdmaPcie" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR"
 
-		::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XdmaPcie" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
+		::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XdmaPcie" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR"
 
-		xdefine_config_file $drv_handle "xdmapcie_g.c" "XDmaPcie" "C_S_AXI_BASEADDR"
+		xdefine_config_file $drv_handle "xdmapcie_g.c" "XDmaPcie" "C_BASEADDR"
 		set xparam_gen 1
 	}
     }
@@ -431,21 +431,30 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
 	set cpm_rev "0"
 	if {($cpm_ip_name == $cpm_ip_str)} {
 	    set cpm_rev [::hsi::utils::get_param_value $cpm_ip_name "CPM_REVISION_NUMBER"]
+	    set cpm_cntrl [::hsi::utils::get_param_value $cpm_ip_name "C_CPM_PCIE0_CONTROLLER_ENABLE"]
 	}
 	#Revision is CPM5
 	if {($cpm_rev == "1")} {
-	    #Bridge base address for CPM5 QDMA defined seperately
-	    set cpm5_qdma_bridge_off 0xe20000
-	    set arg_val [::hsi::utils::get_param_value [hsi::get_cells -hier versal_cips_0_cpm_0_psv_cpm] "C_S_AXI_BASEADDR"]
-	    set arg_val [expr {$arg_val + $cpm5_qdma_bridge_off}]
-	    puts -nonewline $config_file [format "%s\t\t0x%x" $comma $arg_val]
+	     if {($cpm_cntrl == "0")} {
+			#Controller 1 Bridge base address for CPM5 QDMA defined seperately
+			set cpm5n_qdma_bridge_off 0xea0000
+			set arg_val [::hsi::utils::get_param_value [hsi::get_cells -hier versal_cips_0_cpm_0_psv_cpm] "C_S_AXI_BASEADDR"]
+			set arg_val [expr {$arg_val + $cpm5n_qdma_bridge_off}]
+			puts -nonewline $config_file [format "%s\t\t0x%x" $comma $arg_val]
+		} else {
+			#Controller 0 Bridge base address for CPM5 QDMA defined seperately
+			set cpm5_qdma_bridge_off 0xe20000
+			set arg_val [::hsi::utils::get_param_value [hsi::get_cells -hier versal_cips_0_cpm_0_psv_cpm] "C_S_AXI_BASEADDR"]
+			set arg_val [expr {$arg_val + $cpm5_qdma_bridge_off}]
+			puts -nonewline $config_file [format "%s\t\t0x%x" $comma $arg_val]
+	}
 	#Revision is CPM4
 	} else {
 	    if {($processor_type == "psv_cortexr5")} {
-	        set arg_name [get_parameter $periphs "*psv_noc_pcie_0" "C_S_AXI_BASEADDR"]
+	        set arg_name [get_parameter $periphs "*psv_noc_pcie_0" "C_BASEADDR"]
 		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 	    } else {
-	        set arg_name [get_parameter $periphs "*psv_noc_pcie_1" "C_S_AXI_BASEADDR"]
+	        set arg_name [get_parameter $periphs "*psv_noc_pcie_1" "C_BASEADDR"]
 		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 	    }
 	}
@@ -458,30 +467,30 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
 
 	#ECAM
 	if {($processor_type == "psv_cortexr5")} {
-		set arg_name [get_parameter $periphs "*psv_noc_pcie_0" "C_S_AXI_BASEADDR"]
+		set arg_name [get_parameter $periphs "*psv_noc_pcie_0" "C_BASEADDR"]
 		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 	} else {
-		set arg_name [get_parameter $periphs "*psv_noc_pcie_1" "C_S_AXI_BASEADDR"]
+		set arg_name [get_parameter $periphs "*psv_noc_pcie_1" "C_BASEADDR"]
 		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 	}
 
 	#NP Mem Base
-	set arg_name [get_parameter $periphs "*psv_noc_pcie_0" "C_S_AXI_BASEADDR"]
+	set arg_name [get_parameter $periphs "*psv_noc_pcie_0" "C_BASEADDR"]
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 
 	if {($processor_type == "psv_cortexa72")} {
 		#P Mem Base
-		set arg_name [get_parameter $periphs "*psv_noc_pcie_2" "C_S_AXI_BASEADDR"]
+		set arg_name [get_parameter $periphs "*psv_noc_pcie_2" "C_BASEADDR"]
 		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 	}
 
 	#NP Mem high
-        set arg_name [get_parameter $periphs "*psv_noc_pcie_0" "C_S_AXI_HIGHADDR"]
+        set arg_name [get_parameter $periphs "*psv_noc_pcie_0" "C_HIGHADDR"]
         puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 
 	if {($processor_type == "psv_cortexa72")} {
 		#P Mem high
-		set arg_name [get_parameter $periphs "*psv_noc_pcie_2" "C_S_AXI_HIGHADDR"]
+		set arg_name [get_parameter $periphs "*psv_noc_pcie_2" "C_HIGHADDR"]
 		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
 	}
 
