@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,8 +46,6 @@ DvsecPcsrPrimary[DVSEC_PCSR_PRIM_LEN] = {
 /**
  * @brief	Initializes necessary DVSEC PCSR registers
  *
- * @param	None
- *
  * @return	None
  *
  * @note	None
@@ -75,8 +74,6 @@ static void XPsmFw_DvsecInit(void)
 /**
  * @brief	Handler function for DVSEC Config Reads. This function also
  * invokes DvsecInit on its first call.
- *
- * @param	None
  *
  * @return	None
  *
@@ -125,8 +122,6 @@ void XPsmFw_DvsecRead(void)
 /**
  * @brief	Handler function for DVSEC Config Writes
  *
- * @param	None
- *
  * @return	None
  *
  * @note	None
@@ -143,18 +138,16 @@ void XPsmFw_DvsecWrite(void)
 	}
 }
 
-void XPsmFw_DvsecPLHandler(void)
 /****************************************************************************/
 /**
- * @brief	Execute PSM->PL handoff on recieving a PL Ready interrupt
+ * @brief       Execute PSM->PL handoff on recieving a PL Ready interrupt
  *
- * @param	None
+ * @return      None
  *
- * @return	None
- *
- * @note	None
+ * @note        None
  *
  ****************************************************************************/
+void XPsmFw_DvsecPLHandler(void)
 {
 	PlIntrRcvd = TRUE_VALUE;
 
@@ -177,8 +170,6 @@ void XPsmFw_DvsecPLHandler(void)
 /****************************************************************************/
 /**
  * @brief	Initializes necessary CPM5 DVSEC PCSR registers
- *
- * @param	None
  *
  * @return	None
  *
@@ -209,8 +200,6 @@ static void XPsmFw_Cpm5DvsecInit(void)
 /**
  * @brief	CPM5 DVSEC Config Read handling. This function also invokes
  * DvsecInit on its first call.
- *
- * @param	None
  *
  * @return	None
  *
@@ -261,8 +250,6 @@ static void XPsmFw_Cpm5DvsecRead(void)
 /**
  * @brief	CPM5 DVSEC Config Write handling
  *
- * @param	None
- *
  * @return	None
  *
  * @note	None
@@ -283,8 +270,6 @@ static void XPsmFw_Cpm5DvsecWrite(void)
 /****************************************************************************/
 /**
  * @brief	Top handler function for CPM5 DVSEC Config accesses
- *
- * @param	None
  *
  * @return	None
  *
@@ -309,8 +294,6 @@ void XPsmFw_Cpm5DvsecHandler(void)
 /****************************************************************************/
 /**
  * @brief	Execute PSM->PL handoff on recieving a PL Ready interrupt
- *
- * @param	None
  *
  * @return	None
  *
