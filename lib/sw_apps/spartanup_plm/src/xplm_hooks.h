@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   bm   12/28/23 Initial Commit
+ * 1.01  ng   11/26/24 Add support for new devices
  * </pre>
  *
  ******************************************************************************/
@@ -31,11 +32,8 @@
 /* application level headers */
 #include "xil_types.h"
 #include "xplm_config.h"
+#include "xplm_hw.h"
 
-/* library includes */
-
-/** Hooks table address in PMC RAM. */
-#define XROM_HOOKS_TBL_BASE_ADDR	(0x0402F9C0U)
 
 /** @cond spartanup_plm_internal */
 #define XROM_PMCFW_RESERVED_WORDS	(24U)
@@ -43,7 +41,11 @@
 #define XSECURE_SECURE_HDR_SIZE		(48U) /** Secure Header Size in Bytes*/
 #define XSECURE_SECURE_GCM_TAG_SIZE	(16U) /** GCM Tag Size in Bytes */
 #define XSECURE_SECURE_HDR_TOTAL_SIZE (XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE)
-#define XSECURE_SHA3_256_HASH_LEN	(32U)
+#if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
+	#define XSECURE_SHA3_HASH_LEN	(32U)	/** SHA3 256 hash length */
+#else
+	#define XSECURE_SHA3_HASH_LEN	(48U)	/** SHA3 384 hash length */
+#endif
 #define XROM_AES_IV_SIZE		(12U) /** AES IV Size */
 /** @endcond */
 
@@ -121,7 +123,23 @@ typedef struct XRomTmpVar_ {
 	 * PPK Choice
 	 */
 	u32 PPKChTmp;
-} XRomTmpVar;
+	/**
+	 * PufhdDigestStatusTmp - This is used to skip Helper data digest validation or not
+	 */
+	volatile u32 PufhdValidateDigestTmp;
+
+#if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
+	/**
+	 * Ppk2OrPufHdTmp - This is used to indicate PPK2 Hash or PUF HD Hash
+	 */
+	volatile u32 Ppk2OrPufHdTmp;
+#else
+	/**
+	 * Ppk1OrPufHdTmp - This is used to indicate PPK1 Hash or PUF HD Hash
+	 */
+	volatile u32 Ppk1OrPufHdTmp;
+#endif
+}XRomTmpVar;
 
 typedef struct XRomSpkHeader_ {
 	u32 TotalSPKSize;
@@ -186,7 +204,7 @@ typedef struct XRomBootHeader_ {
 	 */
 	u32 DataPartititonLen;
 	/**
-	 * Total Data Partition lenght
+	 * Total Data Partition length
 	 * including Auth & encryption overhead
 	 * Offset:0x28
 	 */
@@ -219,7 +237,7 @@ typedef struct XRomBootHeader_ {
 	 * [7:6]:	0x3 PUF Helper data in BH
 	 * 			All others, HD is in eFUSE
 	 * [5:4]:	0x3 DPI is RSA signed and
-	 * 			dont decrypt the image
+	 * 			don't decrypt the image
 	 * [3:2]:	0x3 Secure header contains
 	 * 			operation key for Block 0
 	 * 			All others use the Red key
@@ -511,16 +529,29 @@ typedef struct XRomBootRom_ {
 	*  PufhdDigestStatus - This is used to skip Helper data digest validation or not
 	*/
 	volatile u32 PufhdValidateDigest;
+
+#if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
 	/**
-	*  Ppk2OrPufHd - This is used to indicate PPK2 Hash or PUF HD Hash
-	*/
+	 * Ppk2OrPufHd - This is used to indicate PPK2 Hash or PUF HD Hash
+	 */
 	volatile u32 Ppk2OrPufHd;
-} XRomBootRom;
+#else
+	/**
+	 * Ppk1OrPufHd - This is used to indicate PPK1 Hash or PUF HD Hash
+	 */
+	volatile u32 Ppk1OrPufHd;
+
+	/**
+	 * BIHash - This is used to store the Hash of data
+	 */
+	u8 BIHash[XSECURE_SHA3_HASH_LEN];
+#endif
+}XRomBootRom;
 
 /** Instance to process authentication/decryption/integrity of image in chunks */
 typedef struct XRomSecureChunk_ {
 	u8 SecureHeader[XSECURE_SECURE_HDR_TOTAL_SIZE]; /**< Secure Header Buffer */
-	u8 ExpHash[XSECURE_SHA3_256_HASH_LEN]; /**< ExpHash Buffer */
+	u8 ExpHash[XSECURE_SHA3_HASH_LEN]; /**< ExpHash Buffer */
 	u32 IsLastChunk;		/**< Is last chunk or not */
 	XRom_PartitionType PartitionType;		/**< Is Data partition or PMC FW ? */
 	u32 ChunkNum;			/**< The current chunk being processed */
@@ -562,7 +593,7 @@ typedef struct XRom_HooksTbl_ {
 	u32 (*XRom_VerifyAllPPKHash)(XRomBootRom *InstancePtr, const u8 *const KeyPtr);
 	u32 (*XRom_InitChunkInstance)(const XRomBootRom *InstancePtr,
 				      XRomSecureChunk *ChunkInstPtr, XRom_PartitionType PartitionType);
-	u32 (*XRom_ValidateBootheaderIntegrity)(void);
+	u32 (*XRom_ValidateBootheaderIntegrity)(XRomBootRom* InstancePtr);
 	u32 (*XRom_LoadSecureChunk)(XRomBootRom *InstancePtr, XRomSecureChunk *ChunkInstPtr);
 	XUnused_Func_t UnusedD[3U];
 	u32 (*XRom_SecureLoad)(XRomBootRom *InstancePtr, XRomSecureChunk *ChunkInstPtr);
@@ -579,6 +610,10 @@ typedef struct XRom_HooksTbl_ {
 	void (*XRom_MBistNScanClear)(void);
 	void (*XRom_ClearCrypto)(void);
 	XUnused_Func_t UnusedG[2U];
+#if !defined(XPS_BOARD_SU10P) && !defined(XPS_BOARD_SU25P) && !defined(XPS_BOARD_SU35P)
+	u32 (*XRom_ExtractAHFields)(XRomBootRom* const InstancePtr);
+	XUnused_Func_t UnusedH[2U];
+#endif
 } XRom_HooksTbl;
 
 extern XRom_HooksTbl *HooksTbl;

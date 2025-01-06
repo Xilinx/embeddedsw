@@ -8,11 +8,12 @@ CC := riscv64-unknown-elf-gcc
 CC_FLAGS := -MMD -MP -mabi=ilp32 -march=rv32imac_zicsr_zifencei
 CFLAGS :=
 BSP_FLAGS := -Os -flto -ffat-lto-objects -ggdb3 -gdwarf-5 -c
+BOARD := su200p
 
 SYSROOT = $(shell $(CC) -print-sysroot)
 MULTILIB = $(SYSROOT)/usr/lib/rv32imc/ilp32
 
-LN_FLAGS = -nostartfiles -L$(MULTILIB) $(MULTILIB)/crt0.o $(MULTILIB)/crtbegin.o $(MULTILIB)/crtend.o $(MULTILIB)/crti.o $(MULTILIB)/crtn.o -Wl,--start-group,-lxil,-lgcc,-lc,--end-group       -Wl,--no-warn-rwx-segment,--gc-sections
+LN_FLAGS = -nostartfiles -L$(MULTILIB) $(MULTILIB)/crt0.o $(MULTILIB)/crtbegin.o $(MULTILIB)/crtend.o $(MULTILIB)/crti.o $(MULTILIB)/crtn.o -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--no-warn-rwx-segment,--gc-sections
 
 
 c_SOURCES := $(wildcard *.c)
@@ -22,7 +23,11 @@ INCLUDES := $(wildcard *.h)
 OBJS := $(patsubst %.c, %.o, $(c_SOURCES))
 OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 OBJS += $(patsubst %.s, %.o, $(s_SOURCES))
-LSCRIPT := -Tlscript.ld
+ifeq ($(filter su10p su25p su35p SU10P SU25P SU35P, $(BOARD)), $(BOARD))
+	LSCRIPT := -Tlscript_su35p.ld
+else
+	LSCRIPT := -Tlscript.ld
+endif
 
 CURRENT_DIR = $(shell pwd)
 DEPFILES := $(patsubst %.o, %.d, $(OBJS))
@@ -40,7 +45,7 @@ $(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
 
 $(LIBS):
 	echo "Copying BSP files"
-	../misc/copy_bsp.sh
+	../misc/copy_bsp.sh $(BOARD)
 	echo "Compiling bsp"
 	$(MAKE) -C ../misc/spartanup_plm_bsp
 

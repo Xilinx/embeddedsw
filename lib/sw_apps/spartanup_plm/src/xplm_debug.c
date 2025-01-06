@@ -35,15 +35,6 @@
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLM_DEBUG_LOG_BUFFER_HIGH_ADDR	(XPLM_DEBUG_LOG_BUFFER_ADDR + XPLM_DEBUG_LOG_BUFFER_LEN - 1U)
-/**< Log buffer high address */
-
-#define XPLM_DEBUG_LOG_BUFFER_ADDR	(XPLM_RAM_BASEADDR + 0xAE00U)
-/**< Start address of the log buffer in PMC RAM */
-
-#define XPLM_DEBUG_LOG_BUFFER_LEN	(0x400U)
-/**< Log buffer length in PMC RAM */
-
 /** @cond spartanup_plm_internal */
 #define XPLM_QEMU_STDOUT_BASEADDDRESS 	(0x04042004U)
 /** @endcond */

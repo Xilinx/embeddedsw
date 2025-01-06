@@ -15,7 +15,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   07/31/24 Initial release
  * 1.01  ng   11/05/24 Add boot time measurements
- * 1.01  ng   12/04/24 Fix secondary boot control
+ *       ng   12/04/24 Fix secondary boot control
+ *       ng   11/26/24 Add support for new devices
  * </pre>
  *
  ******************************************************************************/
@@ -40,10 +41,14 @@ extern "C" {
 #define XPLM_SBI_IF_AXI_SLAVE   (0x2U)
 #define XPLM_SBI_IF_MCAP        (0x4U)
 
-#define XPLM_RAM_BASEADDR		(0x04020000U)
-
 /* Addresses for PLM RunTime Configuration Registers */
-#define XPLM_RTCFG_BASEADDR		(XPLM_RAM_BASEADDR + 0xB200U)
+#if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
+	#define XPLM_RTCFG_OFFSET	(0xB200U)
+#else
+	#define XPLM_RTCFG_OFFSET	(0x13200U)
+#endif
+#define XPLM_RTCFG_BASEADDR	(XPAR_PMC_RAM_0_BASEADDRESS + XPLM_RTCFG_OFFSET)
+
 #define XPLM_RTCFG_LENGTH_BYTES		(0x200U)
 #define XPLM_RTCFG_LENGTH_WORDS		(XPLM_BYTES_TO_WORDS(XPLM_RTCFG_LENGTH_BYTES))
 
@@ -57,9 +62,6 @@ extern "C" {
 #define XPLM_RTCFG_EAM_ERR1_STATUS	(XPLM_RTCFG_BASEADDR + 0x30U)
 #define XPLM_RTCFG_SEC_BOOT_CTRL	(XPLM_RTCFG_BASEADDR + 0x34U)
 #define XPLM_RTCFG_USER_DEF_REV		(XPLM_RTCFG_BASEADDR + 0x38U)
-
-/* Boot Header Base Address */
-#define XPLM_BOOT_HEADER_START_ADDR	(XPLM_RAM_BASEADDR + 0xFC40U)
 
 /* Default Values of PLM RunTime Configuration Registers */
 #define XPLM_RTCFG_VER			(0x1U)
@@ -192,7 +194,7 @@ extern "C" {
 /* Shifts for SLAVE BOOT */
 #define SLAVE_BOOT_SBI_CTRL_INTERFACE_SHIFT	(2U)
 
-/* Deafult values for SLAVE BOOT */
+/* Default values for SLAVE BOOT */
 #define SLAVE_BOOT_SBI_MODE_SELECT_DEFVAL		(XPLM_ZERO)
 #define SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_DEFVAL  (0x8U)
 #define SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_SHIFT	(10U)
@@ -235,6 +237,67 @@ extern "C" {
 
 /* Masks for SHA registers */
 #define SHA_RESET_VALUE_MASK		(0x00000001U)
+
+/**
+ * Log buffer Base address
+ */
+#if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
+	/** Start address of the log buffer in PMC RAM */
+	#define XPLM_DEBUG_LOG_BUFFER_OFFSET	(0xAE00U)
+#else
+	/** Start address of the log buffer in PMC RAM */
+	#define XPLM_DEBUG_LOG_BUFFER_OFFSET	(0x12E00U)
+#endif
+#define XPLM_DEBUG_LOG_BUFFER_ADDR	(XPAR_PMC_RAM_0_BASEADDRESS + XPLM_DEBUG_LOG_BUFFER_OFFSET)
+
+/** Log buffer length in PMC RAM */
+#define XPLM_DEBUG_LOG_BUFFER_LEN	(0x400U)
+
+/** Log buffer high address */
+#define XPLM_DEBUG_LOG_BUFFER_HIGH_ADDR	(XPLM_DEBUG_LOG_BUFFER_ADDR + XPLM_DEBUG_LOG_BUFFER_LEN - 1U)
+
+/**
+ * Secure chunk buffer base address
+ */
+#if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
+	#define XPLM_SECURE_CHUNK_BUFFER_OFFSET		(0xC000U)
+#else
+	#define XPLM_SECURE_CHUNK_BUFFER_OFFSET		(0x14000U)
+#endif
+#define XPLM_SECURE_CHUNK_BUFFER_ADDR	(XPAR_PMC_RAM_0_BASEADDRESS + XPLM_SECURE_CHUNK_BUFFER_OFFSET)
+
+#define XPLM_CHUNK_SIZE			(0x2000U)
+
+/**
+ * Hooks table Base address
+ */
+#if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
+	/** Hooks table address in PMC RAM. */
+	#define XROM_HOOKS_TBL_OFFSET	(0xF9C0U)
+#else
+	/** Hooks table address in PMC RAM. */
+	#define XROM_HOOKS_TBL_OFFSET	(0x179C0U)
+#endif
+#define XROM_HOOKS_TBL_BASE_ADDR	(XPAR_PMC_RAM_0_BASEADDRESS + XROM_HOOKS_TBL_OFFSET)
+
+/**
+ * Hash block Base address
+ */
+#if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
+	#define XPLM_HASH_BLOCK_OFFSET	(0xFBA0U)
+#else
+	#define XPLM_HASH_BLOCK_OFFSET	(0x17B70)
+#endif
+#define XPLM_HASH_BLOCK_ADDR_IN_RAM	(XPAR_PMC_RAM_0_BASEADDRESS + XPLM_HASH_BLOCK_OFFSET)
+
+/* Boot Header Base Address */
+#if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
+	#define XPLM_BOOT_HEADER_OFFSET		(0xFC40U)
+#else
+	#define XPLM_BOOT_HEADER_OFFSET		(0x17C40U)
+#endif
+#define XPLM_BOOT_HEADER_START_ADDR	(XPAR_PMC_RAM_0_BASEADDRESS + XPLM_BOOT_HEADER_OFFSET)
+
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Prototypes ******************************/
