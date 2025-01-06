@@ -4,13 +4,10 @@
 import os
 import sys
 
-if os.environ.get("LOCAL_PYESW_SCRIPTS"):
-    local_scripts_path = os.environ.get("LOCAL_PYESW_SCRIPTS")
-    if not os.path.isdir(local_scripts_path):
-        print(f"[WARNING]: LOCAL_PYESW_SCRIPTS variable is set but {local_scripts_path} doesnt exist")
-    else:
-        sys.path.insert(0, local_scripts_path)
-        print(f"[INFO]: LOCAL_PYESW_SCRIPTS variable is set to {local_scripts_path}")
+if os.environ.get("LOCAL_EMPYRO_SCRIPTS"):
+    local_scripts_path = os.environ.get("LOCAL_EMPYRO_SCRIPTS")
+    sys.path.insert(0, local_scripts_path)
+    print(f"[INFO]: LOCAL_EMPYRO_SCRIPTS variable is set to {local_scripts_path}")
 
 from build_app import main as build_app_main
 from build_bsp import main as build_bsp_main
@@ -29,75 +26,53 @@ from validate_bsp import main as validate_bsp_main
 
 
 def info():
-    info=f"""\b
-pyesw command line tool
+    info=f"""\bUsage: empyro [COMMAND] [OPTIONS]...
+Create, Configure, Organize and Build the BSP and the Applications
+targeted for AMD-Xilinx SOCs and FPGAs
 
-    Positional arguments:
-        create_app          Create a template App using the BSP path
-        create_bsp          Create bsp for the given sdt, os, processor and template app
-        build_app           Build the created app.
-                            It expects either -w <app ws path> or
-                            -s <app src dir path> and -b <app build dir path> passed during create_app
-        build_bsp           Build the created bsp
-        config_bsp          Modify BSP Settings
-        create_example      Create driver or library example using the BSP path
-        get_template_data   Fetches all the template app related data from esw yamls and puts it into a yaml file
-        load_example        Load the example meta-data for a given domain
-        reconfig_bsp        Reconfig the BSP
-        regen_bsp           Regenerate the BSP
-        regen_linker        Create a template App using the BSP path
-        repo                Set ESW Repo Path
-        retarget_app        Change platform for a given application
-        validate_bsp        Validate the given BSP for a given template
+List of COMMANDS
 
-    Optional arguments:
-        -h, --help          Show this help message and exit
+  create_app          Create a template application for the given BSP
+  create_bsp          Create BSP for the given sdt, os, processor and template
+                      application
+  build_app           Build the given application.
+                      It expects either -w <app ws path> or
+                      --src_dir <app src dir path> and --build_dir <app build
+                      dir path> passed during create_app
+  build_bsp           Build the BSP
+  config_bsp          Configure the BSP settings
+  create_example      Create driver or library example using the BSP path
+  get_template_data   Fetch all the template application related data from
+                      EmbeddedSW yamls and put it into a yaml file
+  load_example        Load example meta-data for given BSP
+  reconfig_bsp        Reconfigure the BSP
+  regen_bsp           Regenerate the BSP
+  regen_linker        Regenerate the linker script for given application
+  repo                Set EmbeddedSW repository path
+  retarget_app        Re-target the application to a different BSP
+  validate_bsp        Validate given BSP against a template application
 
-    Examples:
+COMMAND without OPTIONS
+  -h, --help          Show this help message and exit
 
-    create_bsp:
-        pyesw create_bsp -w <bsp path> -s <system device-tree system-top.dts path> -p <processor name> -t <template name>
+Examples:
 
-        sample command:
-        pyesw create_bsp -t hello_world -s /home/abc/dts/system-top.dts -w bsp_ws -p psu_cortexa53_0
+Create BSP and hello world application using:
 
-        Output inside test_bsp:
-            app_list.yaml  CMakeLists.txt             cpulist.yaml      include  lib_list.yaml  psu_cortexa53_0_baremetal.dts
-            bsp.yaml       cortexa53_toolchain.cmake  Findcommon.cmake  lib      libsrc         Xilinx.spec
+  # Set EmbeddedSW repository path
+  empyro repo -st ./embeddedsw
 
-    build_bsp:
-        pyesw build_bsp -d <Directory Path till bsp>
+  # Create BSP for hello world application targeting APU_0 of a ZynqMP Soc
+  empyro create_bsp -w hello_world_bsp -s /home/abc/dts/system-top.dts
+  -p psu_cortexa53_0 -t hello_world
 
-        sample command:
-        pyesw build_bsp -d bsp_ws
+  # Create the hello world application template, link it to the created BSP
+  empyro create_app -d hello_world_bsp -t hello_world -w hello_world_app
 
-    create_app:
-        pyesw create_app -d <Specify the Directory path till BSP> -t <template app name> -w <app_ws>
+  # Build BSP and hello world application
+  empyro build_app -w hello_world_app
 
-        sample command:
-        pyesw create_app -d bsp_ws -t lwip_echo_server -w app_ws
-
-        Output inside app_ws/src:
-            CMakeLists.txt  i2c_access.c          lscript.ld              Lwip_echo_serverExample.cmake
-            memory.ld       platform_config.h.in  README.txt              si5324.c
-            echo.c          iic_phyreset.c        lwip_echo_server.cmake  main.c
-
-    build_app:
-        pyesw build_app -w <Specify the app workspace>
-
-        sample command:
-        pyesw build_app -w app_ws
-
-        Output inside app_ws/build:
-        CMakeCache.txt  CMakeFiles            cmake_install.cmake  compile_commands.json
-        include         lwip_echo_server.elf  Makefile
-
-Use "pyesw [command] -h" for more information on the available sub commands.
-
-examples to get sub command help:
-    pyesw config_bsp -h
-    pyesw load_example -h
-    pyesw create_example -h
+Use "empyro [COMMAND] -h" for [OPTIONS] available with [COMMAND].
 """
     print(info)
 
@@ -133,7 +108,7 @@ def main():
         func_map[command](sys.argv[2:])
     else:
         print(f"Unknown command: {command}")
-        print('use "pyesw [command] --help" for more information')
+        info()
         sys.exit(255)
 
 if __name__ == '__main__':
