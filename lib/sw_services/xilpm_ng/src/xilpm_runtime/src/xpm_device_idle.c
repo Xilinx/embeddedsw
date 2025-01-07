@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -249,6 +249,8 @@ done:
 	defined(XILPM_ZDMA_3) || defined(XILPM_ZDMA_4) || defined(XILPM_ZDMA_5) || \
 	defined(XILPM_ZDMA_6) || defined(XILPM_ZDMA_7))
 
+#define XZDMA_CH_ISR_OFFSET	(0x408U)	/* Channel ISR offset */
+#define XZDMA_CH_IDS_OFFSET	(0x414U)	/* Channel IDS offset */
 #define XZDMA_CH_OFFSET		(0x10000U)	/* Channel offset per DMA */
 #define XZDMA_NUM_CHANNEL	(8U)		/* Number of Channels */
 /**

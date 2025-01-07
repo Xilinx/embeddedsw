@@ -1,7 +1,8 @@
-/*
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+/******************************************************************************
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
- */
+******************************************************************************/
 
 
 /*********************************************************************
@@ -93,6 +94,8 @@ void NodeZdmaIdle(u32 BaseAddress);
 
 #define XZDMA_CH_OFFSET		0X10000
 #define XZDMA_NUM_CHANNEL		8U	/* Number of channels */
+#define XZDMA_CH_ISR_OFFSET	(0x100U)	/* Channel ISR offset */
+#define XZDMA_CH_IDS_OFFSET	(0x10CU)	/* Channel IDS offset */
 #endif
 
 #if defined(XPMU_CAN_0) || \
