@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,7 @@
 * 9.2    mus 09/23/24 Add definitions related to cluster/core specific offsets
 *                     for RPU_PCIL_X_PWRDWN register. They are applicable for
 *                     cluster C, D and E in VersalGen2 SoC.
+* 9.3    mus 01/07/25 Fix address of RPU_PCIL_C0_PWRDWN register.
 *
 * </pre>
 *
@@ -132,7 +133,7 @@ extern "C" {
 #endif
 
 #if defined (VERSAL_AIEPG2)
-#define XPS_RPU_PCIL_C0_PWRDWN 0xEB4211C4U
+#define XPS_RPU_PCIL_C0_PWRDWN 0xEB4211E0U
 #define XPS_CLUSTER_C_ID	2U
 /*
  * Offset between RPU_PCIL_X_PWRDWN registers of 2
