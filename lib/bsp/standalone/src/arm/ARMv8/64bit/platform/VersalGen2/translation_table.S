@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -22,6 +22,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 9.2  mus  07/18/24 Initial version
+* 9.3  mus  01/07/25 Update translation table to mark all DDR regions as
+*                    normal memory.
 *
 ******************************************************************************/
 #include "bspconfig.h"
@@ -107,7 +109,7 @@ MMUTableL1:
 
 /* TODO: Mark DDR_CH0_MED as normal memory based on HW design */
 .rept	0x20			/* 0x8_0000_0000 - 0xF_FFFF_FFFF */
-.8byte	SECT + reserved		/* 32GB DDR_CH0_MED marked as reserved for now */
+.8byte	SECT + Memory		/* 32GB DDR_CH0_MED marked as Memory for now */
 .set SECT, SECT + 0x40000000
 .endr
 
@@ -134,12 +136,12 @@ MMUTableL1:
 
 /* TODO: Mark this region as normal memory based on HW design */
 .rept	0x100			/* 0xC0_0000_0000 - 0xFF_FFFF_FFFF */
-.8byte	SECT + reserved		/* 256GB DDR (DDR_CH0_HIGH_0: 256GB + DDR_CH0_HIGH_1: 734GB) */
+.8byte	SECT + Memory		/* 256GB DDR (DDR_CH0_HIGH_0: 256GB + DDR_CH0_HIGH_1: 734GB) */
 .set SECT, SECT + 0x40000000
 .endr
 
 .rept   0x2DE                   /* 0x100_0000_0000 - 0x1B7_7FFF_FFFF */
-.8byte  SECT + reserved         /* 790GB DDR (DDR_CH0_HIGH_1) */
+.8byte  SECT + Memory           /* 734GB DDR (DDR_CH0_HIGH_1) */
 .set SECT, SECT + 0x40000000
 .endr
 
@@ -183,7 +185,7 @@ MMUTableL1:
 
 /* TODO: Mark this region as normal memory based on the HW design */
 .rept	0xc00			/* 0x500_0000_0000 - 0x7FF_FFFF_FFFF */
-.8byte	SECT + reserved		/* 3TB DDR: DDR_CH1, DDr_CH2 and DDR_CH3 each with 1TB */
+.8byte	SECT + Memory		/* 3TB DDR: DDR_CH1, DDr_CH2 and DDR_CH3 each with 1TB */
 .set SECT, SECT + 0x40000000
 .endr
 
@@ -192,23 +194,23 @@ MMUTableL1:
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x2000			/* 0x800_0000_0000 - 0xFFF_FFFF_FFFF */
+.rept	0x2000			/* 0x1000_0000_0000 - 0x17FF_FFFF_FFFF */
 .8byte	SECT + Device		/* 8TB CPM_CDX_DPU_HIGH */
 .set SECT, SECT + 0x40000000
 .endr
 
 /* TODO: Mark this region as normal memory based on the HW design */
-.rept	0x1800			/* 0x400_0000_0000 - 0x4FF_FFFF_FFFF */
-.8byte	SECT + reserved		/* 6TB DDR: 12 DDR regions (DDR_CH4 to DDR_CH15) each of size 512GB */
+.rept	0x1800			/* 0x1800_0000_0000 - 0x1DFF_FFFF_FFFF */
+.8byte	SECT + Memory		/* 6TB DDR: 12 DDR regions (DDR_CH4 to DDR_CH15) each of size 512GB */
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x800			/* 0x800_0000_0000 - 0xFFF_FFFF_FFFF */
+.rept	0x800			/* 0x1E00_0000_0000 - 0x1FFF_FFFF_FFFF */
 .8byte	SECT + reserved		/* 2TB reserved */
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x4000			/* 0x800_0000_0000 - 0xFFF_FFFF_FFFF */
+.rept	0x4000			/* 0x2000_0000_0000 - 0x2FFF_FFFF_FFFF */
 .8byte	SECT + Device		/* 16TB C2C_HIGH */
 .set SECT, SECT + 0x40000000
 .endr
