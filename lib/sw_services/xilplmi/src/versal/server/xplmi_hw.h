@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -103,6 +103,8 @@
 *       bm   12/16/2024 Move I2C Handshake feature to common code
 *       svnr 12/23/2024 Increased STL Test buffer size in PMC RAM from 320 bytes to
 *                       576 bytes of memory
+*       pre  01/02/2025 Increased metaheader space from 4k to 8k with start address as 0xF2012000U
+*
 * </pre>
 *
 
@@ -503,10 +505,7 @@ extern "C" {
 #define CPM5_DMA_CSR_LINK_DOWN_MASK						(0x1U)
 
 /**< Address of Metaheader instance */
-#define METAHEADER_INSTANCE_ADDRESS                     (0xF2013000U)
-
-/**< Length of RTCA in bytes */
-#define RTCA_LEN_IN_BYTES                               (0x1000U)
+#define METAHEADER_INSTANCE_ADDRESS                     (0xF2012000U)
 
 /*****************************************************************************/
 /**

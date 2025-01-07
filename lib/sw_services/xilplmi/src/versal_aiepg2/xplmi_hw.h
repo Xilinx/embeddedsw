@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,6 +53,7 @@
 *       yog  09/30/2024 Corrected ASU RAM high address
 *	    nb   10/07/2024 Add PMC IOMODULE interrupt for power interrupts
 *       pre  12/09/2024 Added METAHEADER_INSTANCE_ADDRESS and RTCA_LEN_IN_BYTES macros
+*       pre  01/02/2025 Increased metaheader space from 4k to 8k with start address as 0xF2012000U
 *
 * </pre>
 *
@@ -575,10 +576,7 @@ extern "C" {
 #define DDRMC_PCSR_STATUS_OFFSET	(0x00000008U)
 
 /**< Address of PDI instance */
-#define METAHEADER_INSTANCE_ADDRESS	(0xF2013000U)
-
-/**< Length of RTCA in bytes */
-#define RTCA_LEN_IN_BYTES	(0x1000U)
+#define METAHEADER_INSTANCE_ADDRESS	(0xF2012000U)
 
 /*****************************************************************************/
 /**
