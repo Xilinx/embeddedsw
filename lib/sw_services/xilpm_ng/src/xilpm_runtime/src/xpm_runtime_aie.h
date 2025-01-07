@@ -13,6 +13,9 @@
 extern "C" {
 #endif
 
+/* Maximum UC Private data memory size is 16KB */
+#define AIE2PS_UC_PRIVATE_DM_MAX_SIZE   (16U * 1024U)
+
 /**
  * AIE Run time Operations
  */
@@ -81,7 +84,8 @@ struct XPm_AieOpUcZeroisation {
 
 struct XPm_AieOpHandShake {
 	u16 Type;	/* Operation Type */
-	u16 Len;	/* Operation struct length*/
+	u16 Len;	/* Operation struct length + handshake data length */
+	u32 Offset;     /* Offset in the handshake region */
 	u32 HighAddr;	/* physical address of the buffer that has handshake data */
 	u32 LowAddr;
 } __attribute__ ((aligned(4)));

@@ -722,13 +722,44 @@ static XStatus Aie2ps_DisMemInterleave(const XPm_Device *AieDev, u32 StartCol, u
 
 static XStatus Aie2ps_HandShake(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer)
 {
-	(void)AieDev;
-	(void)StartCol;
-	(void)EndCol;
-	(void)Buffer;
+	XStatus Status = XST_FAILURE;
+	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
+	const u64 NocAddress = AieDomain->Array.NocAddress;
+	u64 DestAddr, BaseAddress, DdrAddr;
+	u32 Len = ((struct XPm_AieOpHandShake *)Buffer)->Len;
+	u32 HighAddr = ((struct XPm_AieOpHandShake *)Buffer)->HighAddr;
+	u32 LowAddr = ((struct XPm_AieOpHandShake *)Buffer)->LowAddr;
+	u32 Offset = ((struct XPm_AieOpHandShake *)Buffer)->Offset;
+	u32 Col;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	return XST_SUCCESS;
+	(void)AieDev;
+
+	DdrAddr = LowAddr | (u64)HighAddr << 32U;
+	Len = (Len - sizeof(struct XPm_AieOpHandShake));
+
+	/* Len + Offset should not exceed 16KB */
+	if (AIE2PS_UC_PRIVATE_DM_MAX_SIZE < (Len + Offset)) {
+		DbgErr = XPM_INT_ERR_UC_PRIVATE_DM_MAX_SIZE;
+		Status = XPM_ERR_AIE_OPS_HANDSHAKE;
+		goto done;
+	}
+
+	for (Col = StartCol; Col <= EndCol; Col++) {
+		BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, 0U);
+		DestAddr = BaseAddress + AIE2PS_UC_MODULE_CORE_PRIVATE_DATA_MEM + Offset;
+
+		Status = XPlmi_DmaXfr(DdrAddr, DestAddr, Len/4U, XPLMI_PMCDMA_0);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
 }
+
 /******************************************************/
 /**
  * @brief  Perform AIE2PS operations.
