@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,7 +11,7 @@ BEGIN driver ttcps
   OPTION supported_peripherals = (ps7_ttc psu_ttc psv_ttc psxl_ttc psx_ttc);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.20;
+  OPTION VERSION = 3.21;
   OPTION NAME = ttcps;
 
 END driver
