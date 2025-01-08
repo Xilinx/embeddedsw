@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -65,6 +65,7 @@
 * 		      to reduce the size.
 * 3.19  ml   09/11/24 Typecasted the return value of XIntc_GetIntrStatus to void
 *                     to fix compilation warning  [-Wunused-value]
+* 3.20  ml   12/19/24 Fixed GCC warnings
 * </pre>
 *
 ******************************************************************************/
@@ -628,7 +629,7 @@ static void XIntc_CascadeHandler(void *DeviceId)
 	static int Id = 0;
 
 	/* Get the configuration data using the device ID */
-	CfgPtr = &XIntc_ConfigTable[(u32)DeviceId];
+	CfgPtr = &XIntc_ConfigTable[(UINTPTR)DeviceId];
 	if (CfgPtr == NULL) {
 		return;
 	}
