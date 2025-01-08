@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -14,6 +15,8 @@
 #                     CR#1087461
 # 3.15  adk  14/12/21 Updated checks to support versal R5 processor. It fixes
 # 		      CR#1117725
+# 3.21   ml  12/19/24 In Versal designs, exclude last TTC instance variable for
+#                     R5 processor to fix the GCC warning [wunused variable]
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -60,8 +63,8 @@ proc gen_src_files {swproj mhsinst} {
   # exclude ttc3 if present for cortexR5 since R5 uses ttc3 for sleep when present
 	set periph_include 1
 	set procdrv [hsi::get_sw_processor]
-	if {[string match "*psu_cortexr5_*" $procdrv]} {
-		if {[string compare -nocase "psu_ttc_3" $mhsinst] == 0} {
+	if {[string match "*psu_cortexr5_*" $procdrv] || [string match "*psv_cortexr5_*" $procdrv]} {
+		if {[string compare -nocase "psu_ttc_3" $mhsinst] == 0 || [string match -nocase "*psv_ttc_3" $mhsinst]} {
 			set periph_include 0
 		}
 	}
@@ -88,8 +91,8 @@ proc gen_init_code {swproj mhsinst} {
     # exclude ttc3 if present for cortexR5 since R5 uses ttc3 for sleep when present
 	set periph_include 1
 	set procdrv [hsi::get_sw_processor]
-	if {[string match "*psu_cortexr5_*" $procdrv]} {
-		if {[string compare -nocase "psu_ttc_3" $mhsinst] == 0} {
+	if {[string match "*psu_cortexr5_*" $procdrv] || [string match "*psv_cortexr5_*" $procdrv]} {
+		if {[string compare -nocase "psu_ttc_3" $mhsinst] == 0 || [string match -nocase "*psv_ttc_3" $mhsinst]} {
 			set periph_include 0
 		}
 	}
