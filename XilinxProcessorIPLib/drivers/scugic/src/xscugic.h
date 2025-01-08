@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -146,6 +146,8 @@
 *                     It fixes CR#1150432.
 * 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
 * 5.2   adk  04/14/23 Added support for system device-tree flow.
+* 5.5   ml   01/08/25 Update datatype of distributor and cpu base address in
+*                     scugic config structure.
 * </pre>
 *
 ******************************************************************************/
@@ -226,12 +228,12 @@ typedef struct
 {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
-	u32 CpuBaseAddress;	/**< CPU Interface Register base address */
-	u32 DistBaseAddress;	/**< Distributor Register base address */
+	UINTPTR CpuBaseAddress;	/**< CPU Interface Register base address */
+	UINTPTR DistBaseAddress;	/**< Distributor Register base address */
 #else
 	char *Name;		/**< Compatible string */
-	u32 DistBaseAddress;	/**< Distributor Register base address */
-	u32 CpuBaseAddress;	/**< CPU Interface Register base address */
+	UINTPTR DistBaseAddress;	/**< Distributor Register base address */
+	UINTPTR CpuBaseAddress;	/**< CPU Interface Register base address */
 #endif
 	XScuGic_VectorTableEntry HandlerTable[XSCUGIC_MAX_NUM_INTR_INPUTS];/**<
 				 Vector table of interrupt handlers */

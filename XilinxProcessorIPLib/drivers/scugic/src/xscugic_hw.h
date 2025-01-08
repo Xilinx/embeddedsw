@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -72,6 +72,8 @@
 * 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
 * 5.2   mus  03/26/23 Fixed calculation for XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC.
 * 5.4   ksr  07/23/24 Added support for Versal Gen2
+* 5.5   ml   01/08/25 Update datatype of function arguments from u32 to UINTPTR to
+*                     support both 32bit and 64bit platforms.
 * </pre>
 *
 ******************************************************************************/
@@ -730,20 +732,20 @@ extern "C" {
 
 void XScuGic_DeviceInterruptHandler(void *DeviceId);
 s32  XScuGic_DeviceInitialize(u32 DeviceId);
-void XScuGic_RegisterHandler(u32 BaseAddress, s32 InterruptID,
+void XScuGic_RegisterHandler(UINTPTR BaseAddress, s32 InterruptID,
 			     Xil_InterruptHandler IntrHandler, void *CallBackRef);
-void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
+void XScuGic_SetPriTrigTypeByDistAddr(UINTPTR DistBaseAddress, u32 Int_Id,
                                         u8 Priority, u8 Trigger);
-void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
+void XScuGic_GetPriTrigTypeByDistAddr(UINTPTR DistBaseAddress, u32 Int_Id,
 					u8 *Priority, u8 *Trigger);
-void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
+void XScuGic_InterruptMapFromCpuByDistAddr(UINTPTR DistBaseAddress,
 							u8 Cpu_Id, u32 Int_Id);
-void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
+void XScuGic_InterruptUnmapFromCpuByDistAddr(UINTPTR DistBaseAddress,
 											u8 Cpu_Id, u32 Int_Id);
-void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
+void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(UINTPTR DistBaseAddress,
 												u8 Cpu_Id);
-void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id);
-void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id);
+void XScuGic_EnableIntr (UINTPTR DistBaseAddress, u32 Int_Id);
+void XScuGic_DisableIntr (UINTPTR DistBaseAddress, u32 Int_Id);
 #if defined(GICv3)
 UINTPTR XScuGic_GetRedistBaseAddr(void);
 #endif
