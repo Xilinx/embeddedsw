@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -101,6 +101,7 @@
 *                     XScuGic_UnmapAllInterruptsFromCpuByDistAddr, and
 *                     XScuGic_DisableIntr APIs to skip un-mapping of interrupts
 *                     in case of GICv3.
+* 5.5   ml   12/19/24 Fixed GCC warnings
 * </pre>
 *
 ******************************************************************************/
@@ -1013,7 +1014,9 @@ void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
 ****************************************************************************/
 void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
 {
+#if ! defined(GICv3)
 	u8 Cpu_Id = (u8)XScuGic_GetCpuID();
+#endif
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 
 #if defined (GICv3)
