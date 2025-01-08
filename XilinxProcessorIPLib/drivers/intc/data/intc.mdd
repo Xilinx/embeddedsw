@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -37,7 +37,7 @@ OPTION DRC = intc_drc;
 OPTION supported_peripherals = (axi_intc);
 OPTION driver_state = ACTIVE;
 OPTION copyfiles = all;
-OPTION VERSION = 3.19;
+OPTION VERSION = 3.20;
 OPTION NAME = intc;
 OPTION INTC_TYPE = XIntc;
 
