@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
 *      		      per latest API.
 * 5.1   mus  02/15/23 Added support for VERSAL_NET.
 * 5.2   dp   06/20/23 Make interrupt as Group1 interrupt for Cortex-R52.
+* 5.5   ml   12/20/24 Fixed GCC warnings
 * </pre>
 ******************************************************************************/
 
@@ -88,8 +89,9 @@ void LowInterruptHandler(u32 CallbackRef);
 
 static void GicDistInit(u32 BaseAddress);
 
+#if !defined (GICv3)
 static void GicCPUInit(u32 BaseAddress);
-
+#endif
 /************************** Variable Definitions *****************************/
 
 /*
@@ -294,11 +296,11 @@ void SetupInterruptSystem(void)
 ******************************************************************************/
 void LowInterruptHandler(u32 CallbackRef)
 {
+#if ! defined (GICv3)
 	u32 BaseAddress;
-	u32 IntID;
-
-
 	BaseAddress = CallbackRef;
+#endif
+	u32 IntID;
 
 #if defined (GICv3)
 	IntID = XScuGic_get_IntID();
@@ -462,6 +464,7 @@ static void GicDistInit(u32 BaseAddress)
 #endif
 }
 
+#if !defined (GICv3)
 static void GicCPUInit(u32 BaseAddress)
 {
 	/*
@@ -487,3 +490,4 @@ static void GicCPUInit(u32 BaseAddress)
 	XScuGic_WriteReg(BaseAddress, XSCUGIC_CONTROL_OFFSET, 0x01);
 
 }
+#endif
