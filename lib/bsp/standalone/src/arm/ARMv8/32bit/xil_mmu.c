@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 9.1   bl   10/11/23 Add API Xil_MemMap
 * 9.2   ml   17/01/24 Modified description and code for Xil_MemMap API
 *                     to fix doxygen warnings.
+* 9.3   ml   20/12/24 Fixed GCC warnings
 * </pre>
 *
 ******************************************************************************/
@@ -140,7 +141,7 @@ void *Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
 		section_offset += ttb_size;
 	}
 
-	return PhysAddr;
+	return (void *)PhysAddr;
 }
 
 /*****************************************************************************/

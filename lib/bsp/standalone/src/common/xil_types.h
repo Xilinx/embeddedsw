@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * 9.0   ml   04/14/23 Add parenthesis on sub-expression to fix misra-c violation.
 * 9.2   ml   09/26/24 Removed checks to fix below compilation warning
 *                     XPAR_MICROBLAZE_ADDR_SIZE is not defined, evaluates to 0
+* 9.3   ml   12/20/24 Fixed GCC warnings
 * </pre>
 *
 ******************************************************************************/
@@ -132,7 +133,7 @@ typedef uint64_t u64;
 typedef int sint32;
 
 #if defined(__MICROBLAZE__) && !defined(__arch64__) && \
-    (XPAR_MICROBLAZE_ADDR_SIZE > 32)
+    defined(XPAR_MICROBLAZE_ADDR_SIZE) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)
 typedef uint64_t UINTPTR;
 typedef int64_t INTPTR;
 #else

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +57,7 @@
 *                     TCM regions. Updated Init_MPU to configure DDR region based on
 *                     DDR end address, so that it would always include whole DDR
 *                     region into MPU region.
+* 9.3   ml   12/20/24 Fixed GCC warnings
 * </pre>
 *
 * @note
@@ -177,7 +178,7 @@ void Init_MPU(void)
 #if defined(XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) || defined(XPAR_AXI_NOC_0_BASEADDRESS) || defined(XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR)
 #ifdef XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
 	/* If the DDR is present, configure region as per DDR size */
-	size = XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR + 1;
+	size = (UINTPTR)XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR + 1;
 #elif defined(XPAR_AXI_NOC_0_BASEADDRESS)
 	size = XPAR_AXI_NOC_0_HIGHADDRESS + 1;
 #elif defined(XPAR_AXI_NOC2_DDR_LOW_0_BASEADDR)
