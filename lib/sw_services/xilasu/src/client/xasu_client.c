@@ -23,6 +23,7 @@
  *       ss   09/19/24 Added XAsu_CheckAsufwPrsntBit() API
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       vns  09/30/24 Added support for asynchronous communication
+ *       ma   01/08/25 Clear only ReqBufStatus and RespBufStatus upon command completion
  *
  * </pre>
  *
@@ -375,7 +376,8 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 					/** Clear the contents upon completion */
 					AsuCallBackRef[UniqueId].CallBackFuncPtr = NULL;
 					AsuCallBackRef[UniqueId].CallBackRefPtr = NULL;
-					(void)memset(&ChannelQueue->ChannelQueueBufs[BufferIdx], 0, sizeof(XAsu_ChannelQueueBuf));
+					ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus = 0x0U;
+					ChannelQueue->ChannelQueueBufs[BufferIdx].RespBufStatus = 0x0U;
 				}
 			}
 		}
