@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +15,7 @@
 * to BIG endian, data buffers shall be created in BIG endian format.
 * Also, this configuration is valid only over Server BSP, client side has
 * no impact.
-* This example is supported for Versal and Versal Net devices.
+* This example is supported for Versal device.
 * Irrespective of endianness, outputs will result in Big Endian format.
 * Maximum supported Hash length for each curve is same as the curve size.
 *
@@ -33,6 +33,7 @@
 *       am   08/18/23 Updated Hash size to 48bytes for P521 curve
 * 5.4   mb   04/13/24 Added support for P-192 Curve
 *       mb   04/13/24 Added support for P-224 Curve
+*       vss  01/08/25 Updated comments related to deprecated server mode of versalnet
 *
 * </pre>
 *
