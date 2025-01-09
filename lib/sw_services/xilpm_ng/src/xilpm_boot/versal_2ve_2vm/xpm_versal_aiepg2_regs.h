@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -208,6 +208,7 @@
  */
 
 #define PSXC_LPX_SLCR_BASEADDR					(0xEB410000U)
+#define PSXC_LPX_SLCR_SIZE					(0x00100000U)
 
 /* WAKEUP0_IRQ registers for APU wakeup */
 #define PSXC_LPX_SLCR_WAKEUP0_IRQ_STATUS			( (PSXC_LPX_SLCR_BASEADDR) + (u32)0x00050600U )
@@ -790,12 +791,19 @@
 /* Mask used to enable all power related interrupts to PMC */
 #define PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN_MASK		(0x0000D800U)
 
+/*
+* CRP
+*/
+#define CRP_SIZE						(0x00010000U)
+#define CRP_WPROT_OFFSET					(0x0000001CU)
 
 /*
  * CRL
  */
 
 #define PSX_CRL_BASEADDR					(0xEB5E0000U)
+#define PSX_CRL_SIZE						(0x00300000U)
+#define PSX_CRL_WPROT_OFFSET					(0x0000001CU)
 
 #define PSX_CRL_RST_RPU_A					( (PSX_CRL_BASEADDR) + (u32)0x00000310U )
 #define PSX_CRL_RST_RPU_B					( (PSX_CRL_BASEADDR) + (u32)0x00000314U )
@@ -806,6 +814,7 @@
 #define PSXC_CRL_RPU_CLK_CTRL					( (PSX_CRL_BASEADDR) + (u32)0x0000010CU )
 #define PSXC_CRL_RPU_CLK_CTRL_CLKACT_MASK			(0x02000000U)
 
+#define PSXC_CRL_RST_RPU_TOP_RESET_MASK				(0x00010000U)
 #define PSXC_CRL_RST_RPU_A_CORE0_RESET_MASK			(0x00000101U)
 #define PSXC_CRL_RST_RPU_A_CORE1_RESET_MASK			(0x00000202U)
 #define PSXC_CRL_RST_RPU_B_CORE0_RESET_MASK			(0x00000101U)
@@ -833,6 +842,8 @@
  */
 
 #define PSXC_CRF_BASEADDR					(0xEC200000U)
+#define PSXC_CRF_SIZE						(0x100000)
+#define PSXC_CRF_WPROT_OFFSET					(0x0000001CU)
 
 #define PSXC_CRF_ACPU0_CLK_CTRL					( (PSXC_CRF_BASEADDR) + (u32)0x0000010CU )
 #define PSXC_CRF_ACPU1_CLK_CTRL					( (PSXC_CRF_BASEADDR) + (u32)0x00000110U )
@@ -915,3 +926,25 @@
 #define AIE2PS_PL_MODULE_NMU_SWITCHES_CONFIG_OFFSET		(0x0007FF48U)
 
 #define AIE2PS_UC_MODULE_CORE_PRIVATE_DATA_MEM			(0x00088000U)
+
+/*
+* PMC_IOU_SLCR
+*/
+
+#define PMC_IOU_SLCR_SIZE					(0x00010000)
+#define PMC_IOU_SLCR_WPROT0_OFFSET				(0x00000828U)
+
+/*
+* LPD_IOU_SLCR
+*/
+
+#define LPD_IOU_SLCR_BASEADDR					(0xF1A20000)
+#define LPD_IOU_SLCR_SIZE					(0x00020000U)
+#define LPD_IOU_SLCR_WPROT0_OFFSET				(0x0000073CU)
+
+/*
+* FPD_SLCR
+*/
+
+#define FPD_SLCR_BASEADDR					(0xEC8C0000U)
+#define FPD_SLCR_SIZE						(0x00010000U)

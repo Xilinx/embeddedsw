@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,7 +54,7 @@ extern "C" {
 /**
  * LPD IOU SLCR Module
  */
-#define LPD_IOU_SLCR_WPROT0_OFFSET              (0x00000728U)
+#define LPD_IOU_SLCR_WPROT0_OFFSET              (0x0000073CU)
 
 /**
  * FPD_SLCR Module
