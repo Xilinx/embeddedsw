@@ -813,7 +813,7 @@ typedef struct XEmacPs_Instance {
 #define CLEAR_BIT(x, n)		(x & (~BIT(n)))
 #define GENMASK(h, l)		(((~0U) << (l)) & \
 				(~0U >> (sizeof(int) * 8 - 1 - (h))))
-INLINE u32 get_num_set_bits(u32 n)	{
+static INLINE u32 get_num_set_bits(u32 n)	{
 	u8 count = 0;
 	while(n) {
 		n &= (n - 1);

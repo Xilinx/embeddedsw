@@ -85,7 +85,7 @@ bool XEmacPs_USXPCSGetState(UINTPTR BaseAddr)
 {
 	u32 Reg;
 
-	Xil_AssertVoid(BaseAddr != 0);
+	Xil_AssertNonvoid(BaseAddr != 0);
 	Reg = XEmacPs_ReadReg(BaseAddr, XEMACPS_REG(USX_STATUS));
 	return !!(Reg & XEMACPS_BIT(USX_BLOCK_LOCK));
 }
@@ -106,7 +106,7 @@ bool XEmacPs_IsHighSpeedPCS(UINTPTR BaseAddr)
 	u32 Reg_cfg1;
 	u32 Reg_cfg12;
 
-	Xil_AssertVoid(BaseAddr != 0);
+	Xil_AssertNonvoid(BaseAddr != 0);
 	Reg_cfg1 = XEmacPs_ReadReg(BaseAddr, XEMACPS_REG(DCFG1));
 	Reg_cfg12 = XEmacPs_ReadReg(BaseAddr, XEMACPS_REG(DCFG12));
 
