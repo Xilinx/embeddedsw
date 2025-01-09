@@ -320,10 +320,11 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 			 * This will avoid idling the cores again during subsystem restart.
 			 */
 			Subsystem->Flags = 0U;
-			Status = XPm_SystemShutdown(SubsystemId,
-					PM_SHUTDOWN_TYPE_RESET,
-					PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM,
-					XPLMI_CMD_SECURE);
+			Status = XPmSubsystem_ForcePwrDwn(Subsystem->Id);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			Status = XPm_SubsystemPwrUp(Subsystem->Id);
 		}
 	} else {
 		Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,

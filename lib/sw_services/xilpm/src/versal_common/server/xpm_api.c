@@ -3998,7 +3998,7 @@ done:
 }
 
 
-static XStatus XPm_SubsystemPwrUp(const u32 SubsystemId)
+XStatus XPm_SubsystemPwrUp(const u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -4372,6 +4372,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		NodeState = Subsystem->State;
 
 		if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
+			Subsystem->Flags &= (u8)(~SUBSYSTEM_DO_PERIPH_IDLE);
 			Status = XPm_RequestHBMonDevice(NodeId, CmdType);
 			if (XST_DEVICE_NOT_FOUND == Status) {
 				PmWarn("Add runtime HB_MON node for recovery\r\n");
@@ -4398,6 +4399,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			}
 			goto done;
 		} else {
+			Subsystem->Flags |= (u8)SUBSYSTEM_DO_PERIPH_IDLE;
 			Status = XPmSubsystem_ForcePwrDwn(NodeId);
 			goto done;
 		}
@@ -4464,6 +4466,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
 	if (PM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
+		Subsystem->Flags |= (u8)SUBSYSTEM_DO_PERIPH_IDLE;
 		/* Idle the subsystem first */
 		Status = XPmSubsystem_Idle(SubsystemId);
 		if (XST_SUCCESS != Status) {
@@ -4487,6 +4490,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 	switch (SubType) {
 	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
 		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
+			Subsystem->Flags &= (u8)(~SUBSYSTEM_DO_PERIPH_IDLE);
 			Status = XPm_RequestHBMonDevice(SubsystemId, CmdType);
 			if (XST_DEVICE_NOT_FOUND == Status) {
 				PmWarn("Add runtime HB_MON node for recovery\r\n");
@@ -4509,6 +4513,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 				goto done;
 			}
 		} else {
+			Subsystem->Flags |= (u8)SUBSYSTEM_DO_PERIPH_IDLE;
 			Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
 			if (XST_SUCCESS != Status) {
 				goto done;

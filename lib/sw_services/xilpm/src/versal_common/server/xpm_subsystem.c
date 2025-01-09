@@ -244,6 +244,11 @@ XStatus XPmSubsystem_Idle(u32 SubsystemId)
 		goto done;
 	}
 
+	if (0U == (Subsystem->Flags & (u8)SUBSYSTEM_DO_PERIPH_IDLE)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
 		Device = Reqm->Device;
@@ -769,6 +774,7 @@ XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
 
 	Subsystem->Flags &= (u8)(~SUBSYSTEM_IS_CONFIGURED);
 	Subsystem->Flags &= (u8)(~SUBSYSTEM_IDLE_CB_IS_SENT);
+	Subsystem->Flags &= (u8)(~SUBSYSTEM_DO_PERIPH_IDLE);
 
 	Status = XPmSubsystem_ForceDownCleanup(Subsystem->Id);
 	if(XST_SUCCESS != Status) {

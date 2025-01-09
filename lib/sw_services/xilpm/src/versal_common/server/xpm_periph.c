@@ -251,6 +251,7 @@ static int HbMon_Scheduler(void *data)
 			    (1U == Device->Requirements->Allocated) &&
 			    (0U == (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_CB_IS_SENT))) {
 				Subsystem->Flags |= (u8)SUBSYSTEM_IDLE_CB_IS_SENT;
+				Subsystem->Flags |= (u8)SUBSYSTEM_DO_PERIPH_IDLE;
 
 				/**
 				 * Extract the timeout value from the requirement
