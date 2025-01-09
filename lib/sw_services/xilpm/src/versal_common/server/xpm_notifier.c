@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -612,7 +612,7 @@ void XPmNotifier_NotifyTarget(u32 IpiMask, u32 *Payload)
  * or a reason code
  *
  ****************************************************************************/
-XStatus XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
+XStatus XPmNotifier_Unregister(XPm_Subsystem* const Subsystem,
 			    const u32 NodeId,
 			    const u32 Event)
 {
@@ -650,6 +650,16 @@ XStatus XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 			 */
 			if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
 				(void)XPlmi_EmDisable(NodeId, Event);
+			}
+
+			if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
+				XPm_Core* const Core = (XPm_Core *)XPmDevice_GetById(NodeId);
+				if (NULL == Core) {
+					goto done;
+				}
+
+				Core->IsCoreIdleSupported = 0U;
+				Subsystem->Flags &= (u8)(~SUBSYSTEM_IDLE_SUPPORTED);
 			}
 			break;
 		}
