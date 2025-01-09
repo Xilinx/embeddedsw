@@ -1,7 +1,7 @@
 
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -236,7 +236,7 @@ void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
 			RxLen = RxLen - 4;
 		} else {
 			for (Index = 0; Index < RxLen; Index++) {
-				*(InstancePtr->RecvBufferPtr + Index) = (u8)((Data << (8*Index)) & 0xFF);
+				*(InstancePtr->RecvBufferPtr + Index) = (u8)((Data >> (8*Index)) & 0xFF);
 			}
 			InstancePtr->RecvByteCount -= RxLen;
 			RxLen = 0;
