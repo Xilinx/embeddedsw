@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,14 +41,14 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, const u32 *BaseAd
 
 XStatus XPm_RpuGetOperMode(const u32 DeviceId, u32 *Mode);
 XStatus XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode);
-XStatus XPmRpuCore_Halt(const XPm_Device *Device);
+XStatus XPmRpuCore_ResetAndHalt(u32 CoreId);
 void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u32 *BaseAddress);
 XStatus XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val);
 XStatus XPm_PlatRpuBootAddrConfig(const struct XPm_RpuCore *RpuCore, const u32 BootAddr);
 u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore);
 void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId);
 void XPmRpuCore_SetTcmBoot(const u32 DeviceId, const u8 TcmBootFlag);
-XStatus XPm_PlatRpucoreHalt(XPm_Core *Core);
+XStatus XPmRpuCore_ReleaseReset(u32 CoreId);
 #ifdef __cplusplus
 }
 #endif

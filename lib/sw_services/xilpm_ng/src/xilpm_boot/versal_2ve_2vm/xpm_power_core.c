@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_versal_aiepg2_regs.h"
@@ -1084,7 +1084,7 @@ static XStatus XPmPower_RpuPwrUp(struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
-	/* Enable protected writes */
+	/* Disable protected writes */
 	XPm_Out32(Args->PwrCtrlAddr + PSXC_LPX_SLCR_RPU_CORE_PWR_CNTRL_WPROT_OFFSET, 0U);
 
 	/* Enable power island sequence to remove isolation and power up the core */
@@ -1128,9 +1128,6 @@ XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 LowAddress;
-	xil_printf("%s %d\n\r", __func__, __LINE__);
-	xil_printf("RST_ADDR: 0x%x Value=0x%x\n\r", Args->RstCtrlAddr, XPm_In32(Args->RstCtrlAddr));
-	//XPm_RMW32(0xEB5E0310, 1<<16, 0);
 	/* Set the resume address. */
 	LowAddress = (u32)(ResumeAddr & PSX_RPU_CLUSTER_CORE_VECTABLE_MASK);
 	if (0U != (ResumeAddr & 1ULL)) {
@@ -1152,6 +1149,8 @@ XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 		goto done;
 	}
 
+	/* Remove TOPRESET */
+	XPm_RMW32(Args->RstCtrlAddr, PSXC_CRL_RST_RPU_TOP_RESET_MASK, ~PSXC_CRL_RST_RPU_TOP_RESET_MASK);
 
 	/* set pstate field */
 	XPm_Out32(Args->CorePcilPsAddr, 0);
@@ -1161,7 +1160,6 @@ XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 
 	/* release reset */
 	XPm_RMW32(Args->RstCtrlAddr, Args->RstCtrlMask, ~Args->RstCtrlMask);
-	xil_printf("RST_ADDR: 0x%x Value=0x%x\n\r", Args->RstCtrlAddr, XPm_In32(Args->RstCtrlAddr));
 	/* Poll for PACCEPT. Skip for SPP */
 		Status = XPm_PollForMask(Args->CorePcilPaAddr,
 					 PSXC_LPX_SLCR_RPU_PCIL_PA_PACCEPT_MASK, RPU_PACTIVE_TIMEOUT);
@@ -1173,12 +1171,6 @@ XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 
 	/* Clear PREQ bit */
 	XPm_Out32(Args->CorePcilPrAddr, 0U);
-	/** wait for Pstable */
-	Status = XPm_PCILWaitForPstable(Args);
-	if (XST_SUCCESS != Status) {
-		PmErr("RPU%d Waiting for Pstable failed..\n", Args->Id);
-		goto done;
-	}
 	/* Disable and clear RPUx direct wake-up interrupt request */
 	XPm_Out32(PSXC_LPX_SLCR_WAKEUP1_IRQ_STATUS, Args->WakeupIrqMask);
 
@@ -1381,6 +1373,8 @@ XStatus XPmPower_RpuReqPwrUp(struct XPmFwPwrCtrl_t *Args)
 		goto done;
 	}
 
+	/* Remove TOPRESET */
+	XPm_RMW32(Args->RstCtrlAddr, PSXC_CRL_RST_RPU_TOP_RESET_MASK, ~PSXC_CRL_RST_RPU_TOP_RESET_MASK);
 	/* set pstate field */
 	XPm_Out32(Args->CorePcilPsAddr, ~PSXC_LPX_SLCR_RPU_PCIL_PS_PSTATE_MASK);
 
@@ -1745,6 +1739,11 @@ XStatus XPm_DirectPwrUp(const u32 DeviceId)
 	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 	u64 ResumeAddr = Core->ResumeAddr;
 
+	if (Core->isCoreUp == 1U) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	switch (DeviceId) {
 		case PM_DEV_ACPU_0_0:
 			Status = XPmPower_ACpuDirectPwrUp(&Acpu0_Core0PwrCtrl, ResumeAddr);
@@ -1805,9 +1804,13 @@ XStatus XPm_DirectPwrUp(const u32 DeviceId)
 			break;
 	}
 
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 	/* Call XPmCore_AfterDirectPwrUp to set the core power state */
 	XPmCore_AfterDirectPwrUp(Core);
 
+done:
 	return Status;
 }
 
