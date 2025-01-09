@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,9 @@ u32 XPm_In64(u64 RegAddress)
 {
 	return lwea(RegAddress);
 }
+#define IS_IN_RANGE(Address, BaseAddress, Size) \
+	(((Address) >= (BaseAddress)) && \
+	 ((Address) < ((BaseAddress) + (Size))))
 
 void XPm_Out32(u32 RegAddress, u32 l_Val)
 {
@@ -44,28 +47,42 @@ void XPm_Out32(u32 RegAddress, u32 l_Val)
 	const XPm_PsLpDomain *PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	const XPm_PsFpDomain *PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 	u32 SavedWPROT = 0;
-
-	if ((NULL != Pmc) && ((RegAddress & 0xFFFF0000U) == Pmc->PmcIouSlcrBaseAddr)) {
+	if ((NULL != Pmc) && (IS_IN_RANGE(RegAddress, Pmc->PmcIouSlcrBaseAddr, PMC_IOU_SLCR_SIZE))) {
 		SavedWPROT = Xil_In32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET);
 		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET, 0x0U);
 		Xil_Out32(RegAddress, l_Val);
 		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET, SavedWPROT);
-	} else if ((NULL != PsLpd) && ((RegAddress & 0xFFFF0000U) == PsLpd->LpdIouSlcrBaseAddr)) {
+	} else if ((NULL != PsLpd) && (IS_IN_RANGE(RegAddress, PsLpd->LpdIouSlcrBaseAddr, LPD_IOU_SLCR_SIZE))) {
 		SavedWPROT = Xil_In32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET);
 		Xil_Out32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET, 0x0U);
 		Xil_Out32(RegAddress, l_Val);
 		Xil_Out32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET, SavedWPROT);
-	} else if ((NULL != PsLpd) && ((RegAddress & 0xFFFF0000U) == PsLpd->LpdSlcrBaseAddr)) {
+	} else if ((NULL != PsLpd) && (IS_IN_RANGE(RegAddress, PsLpd->LpdSlcrBaseAddr, PSXC_LPX_SLCR_SIZE))) {
 		SavedWPROT = Xil_In32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET);
 		Xil_Out32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET, 0x0U);
 		Xil_Out32(RegAddress, l_Val);
 		Xil_Out32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET, SavedWPROT);
-	 } else if ((NULL != PsFpd) && ((RegAddress & 0xFFFF0000U) == PsFpd->FpdSlcrBaseAddr)) {
+	 } else if ((NULL != PsFpd) && (IS_IN_RANGE(RegAddress, PsFpd->FpdSlcrBaseAddr, FPD_SLCR_SIZE))) {
 		SavedWPROT = Xil_In32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET);
 		Xil_Out32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET, 0x0U);
 		Xil_Out32(RegAddress, l_Val);
 		Xil_Out32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET, SavedWPROT);
-        } else {
+	} else if (IS_IN_RANGE(RegAddress, PSX_CRL_BASEADDR, PSX_CRL_SIZE)) {
+		SavedWPROT = Xil_In32(PSX_CRL_BASEADDR + PSX_CRL_WPROT_OFFSET);
+		Xil_Out32(PSX_CRL_BASEADDR + PSX_CRL_WPROT_OFFSET, 0x0U);
+		Xil_Out32(RegAddress, l_Val);
+		Xil_Out32(PSX_CRL_BASEADDR + PSX_CRL_WPROT_OFFSET, SavedWPROT);
+	} else if (IS_IN_RANGE(RegAddress, PSXC_CRF_BASEADDR, PSXC_CRF_SIZE)) {
+		SavedWPROT = Xil_In32(PSXC_CRF_BASEADDR+ PSXC_CRF_WPROT_OFFSET);
+		Xil_Out32(PSXC_CRF_BASEADDR + PSXC_CRF_WPROT_OFFSET, 0x0U);
+		Xil_Out32(RegAddress, l_Val);
+		Xil_Out32(PSXC_CRF_BASEADDR + PSXC_CRF_WPROT_OFFSET, SavedWPROT);
+	} else if (IS_IN_RANGE(RegAddress, CRP_BASEADDR, CRP_SIZE)) {
+		SavedWPROT = Xil_In32(CRP_BASEADDR + CRP_WPROT_OFFSET);
+		Xil_Out32(CRP_BASEADDR + CRP_WPROT_OFFSET, 0x0U);
+		Xil_Out32(RegAddress, l_Val);
+		Xil_Out32(CRP_BASEADDR + CRP_WPROT_OFFSET, SavedWPROT);
+	} else {
 		Xil_Out32(RegAddress, l_Val);
 	}
 }
