@@ -23,8 +23,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xemacps_pcs.h"
 #include <stdlib.h>
+#include "xemacps_pcs.h"
+#include "xil_sutil.h"
 #define POLL_TIMEOUT	2000000
 
 /*****************************************************************************/
@@ -110,7 +111,7 @@ bool XEmacPs_IsHighSpeedPCS(UINTPTR BaseAddr)
 	Reg_cfg1 = XEmacPs_ReadReg(BaseAddr, XEMACPS_REG(DCFG1));
 	Reg_cfg12 = XEmacPs_ReadReg(BaseAddr, XEMACPS_REG(DCFG12));
 
-	return !!(!XEMACPS_BFEXT(NO_PCS, Reg_cfg1) &
+	return !!(!XEMACPS_BFEXT(NO_PCS, Reg_cfg1) &&
 	          XEMACPS_BFEXT(HIGH_SPEED, Reg_cfg12));
 }
 /** @} */
