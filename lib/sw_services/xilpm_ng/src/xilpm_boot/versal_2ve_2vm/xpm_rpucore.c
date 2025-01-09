@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,18 +9,12 @@
 #include "xpm_regs.h"
 #include "xpm_api.h"
 #include "xpm_pslpdomain.h"
+#include "xpm_mem.h"
 
-XStatus XPmRpuCore_Halt(const XPm_Device *Device)
-{
-	XStatus Status = XST_FAILURE;
-	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Device;
-	if (NULL == RpuCore) {
-		goto done;
-	}
-	PmAlert("Missing RPU Core Halt\n\r");
-done:
-	return Status;
-}
+static XStatus SetResetState(const XPm_RpuCore *Core, u32 Value);
+static XStatus XPm_PlatRpucoreHalt(u32 CoreId);
+
+
 
 static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
@@ -109,7 +103,7 @@ XStatus XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 		goto done;
 	}
 
-	Status = XPm_PlatRpucoreHalt((XPm_Core*)XPmDevice_GetById(DeviceId));
+	Status = XPm_PlatRpucoreHalt(DeviceId);
 
 done:
 	return Status;
@@ -237,16 +231,43 @@ void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId)
 
 void XPmRpuCore_SetTcmBoot(const u32 DeviceId, const u8 TcmBootFlag){
 	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
-
+	if (NULL == RpuCore) {
+		PmErr("Unable to get RPU Core for Id: 0x%x\n\r", DeviceId);
+		return;
+	}
+	XStatus Status = XST_FAILURE;
 	if(1U == TcmBootFlag){
+		/* This TCM boot flag indicate that we are using TCM for this specific core*/
+		/* So we go ahead Halt the core and release reset to make sure TCM is accessible*/
+		Status = XPmRpuCore_ResetAndHalt(DeviceId);
+		if (XST_SUCCESS != Status) {
+			return;
+		}
+		Status = XPmRpuCore_ReleaseReset(DeviceId);
+		if (XST_SUCCESS != Status) {
+			return;
+		}
 		PmRmw32(RpuCore->RpuBaseAddr + XPM_CORE_CFG0_OFFSET, XPM_RPU_TCMBOOT_MASK, XPM_RPU_TCMBOOT_MASK);
 	} else {
 		PmRmw32(RpuCore->RpuBaseAddr + XPM_CORE_CFG0_OFFSET, XPM_RPU_TCMBOOT_MASK, ~XPM_RPU_TCMBOOT_MASK);
 	}
 }
 
-XStatus XPm_PlatRpucoreHalt(XPm_Core *Core){
+static XStatus XPm_PlatRpucoreHalt(u32 CoreId) {
 	XStatus Status = XST_FAILURE;
+	/* Type check */
+	if (XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(CoreId)) {
+		Status = XST_INVALID_PARAM;
+		PmErr("Expecting RPUCore but get 0x%x\r\n", CoreId);
+		goto done;
+	}
+
+	XPm_Core *Core = (XPm_Core*) XPmDevice_GetById(CoreId);
+	if (NULL == Core) {
+		PmErr("RPU Core Node is NULL\r\n");
+		goto done;
+	}
+	/* Safely cast to RpuCore since Type check passed */
 	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
 	u32 Reg = 0;
 
@@ -262,8 +283,134 @@ XStatus XPm_PlatRpucoreHalt(XPm_Core *Core){
 		/*skip halt if the core is powered down*/
 		Status = XST_SUCCESS;
 	} else {
-		Status = XPmRpuCore_Halt((XPm_Device *)Core);
+		Status = XPmRpuCore_ResetAndHalt(CoreId);
+		if (XST_SUCCESS != Status) {
+			PmErr("Error while halting RPU core\r\n");
+			goto done;
+		}
+		Status = XPmRpuCore_ReleaseReset(CoreId);
+		if (XST_SUCCESS != Status) {
+			PmErr("Error while releasing reset for RPU core\r\n");
+			goto done;
+		}
+
+	}
+done:
+	return Status;
+}
+static XStatus SetResetState(const XPm_RpuCore *Core, u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+	/* Safe to cast because Core is a device */
+	XPm_Device *Device = (XPm_Device *)Core;
+	if (NULL == Core) {
+		PmErr("RPU Core Node is NULL\r\n");
+		goto done;
+	}
+	XPm_ResetHandle *CurHandle = Device->RstHandles;
+	while(NULL != CurHandle) {
+		XPm_ResetNode *Reset = CurHandle->Reset;
+		if (NULL == Reset) {
+			PmErr("RPU Core Reset node is NULL\r\n");
+			goto done;
+		}
+		u32 RpuRstAddr = Reset->Node.BaseAddress;
+		u32 Mask = BITNMASK(Reset->Shift, Reset->Width);
+		if (0U == Value) {
+			XPm_RMW32(RpuRstAddr, Mask, 0U);
+		} else {
+			XPm_RMW32(RpuRstAddr, Mask, Mask);
+		}
+		CurHandle = CurHandle->NextReset;
 	}
 
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/**
+ * XPmRpuCore_ResetAndHalt - Resets and halts the specified RPU core.
+ *
+ * @CoreId: The ID of the RPU core to reset and halt.
+ *
+ * This function performs the following steps:
+ * 1. Retrieves the RPU core object using the provided CoreId.
+ * 2. Checks if the retrieved object is valid and of the correct type.
+ * 3. Asserts the reset state for the RPU core.
+ * 4. Halts the RPU core.
+ *
+ * Return:
+ * XST_SUCCESS if the operation is successful.
+ * XST_FAILURE if the RPU core object could not be retrieved.
+ * XST_INVALID_PARAM if the provided CoreId is not of the RPU core type.
+ */
+XStatus XPmRpuCore_ResetAndHalt(u32 CoreId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(CoreId);
+	if (NULL == RpuCore) {
+		PmErr("Unable to get RPU Core for Id: 0x%x\n\r", CoreId);
+		goto done;
+	}
+	if (XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(CoreId)) {
+		Status = XST_INVALID_PARAM;
+		PmErr("Expecting RPUCore but get 0x%x\r\n", CoreId);
+		goto done;
+	}
+	Status = SetResetState(RpuCore, 1U);
+	if (XST_SUCCESS != Status) {
+		PmErr("Error while asserting reset\r\n");
+		goto done;
+	}
+	XPM_RPU_CORE_HALT(RpuCore->ResumeCfg);
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+/**
+ * XPmRpuCore_ReleaseReset - Release the reset state of an RPU core.
+ *
+ * @CoreId: The ID of the RPU core to be released from reset.
+ *
+ * This function releases the reset state of the specified RPU core.
+ * It first retrieves the RPU core object using the provided CoreId.
+ * If the core object is not found, it logs an error and returns failure.
+ * It then checks if the node type of the core is RPU. If not, it logs an error
+ * and returns an invalid parameter status.
+ * Finally, it attempts to release the reset state of the core. If successful,
+ * it returns success; otherwise, it logs an error and returns failure.
+ *
+ * Return: XST_SUCCESS if the reset state is successfully released,
+ *         XST_FAILURE if the core object is not found,
+ *         XST_INVALID_PARAM if the node type is not RPU,
+ *         or an error status if releasing the reset state fails.
+ */
+XStatus XPmRpuCore_ReleaseReset(u32 CoreId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_RpuCore *Core = (XPm_RpuCore *)XPmDevice_GetById(CoreId);
+	if (NULL == Core) {
+		PmErr("Unable to get RPU Core for Id: 0x%x\n\r", CoreId);
+		goto done;
+	}
+
+	/* Check NODETYPE to make sure it is RPU*/
+	if (XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(CoreId)) {
+		Status = XST_INVALID_PARAM;
+		PmErr("Expecting RPUCore but get 0x%x\r\n", CoreId);
+		goto done;
+	}
+
+	Status = SetResetState(Core, 0U);
+	if (XST_SUCCESS != Status) {
+		PmErr("Error while releasing reset of RpuCore 0x%x\r\n", CoreId);
+		goto done;
+	}
+	Status = XST_SUCCESS;
+done:
 	return Status;
 }
