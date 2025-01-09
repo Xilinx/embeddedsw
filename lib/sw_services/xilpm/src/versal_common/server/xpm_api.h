@@ -193,6 +193,8 @@ XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId);
 XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId);
 
 XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem);
+
+XStatus XPm_SubsystemPwrUp(const u32 SubsystemId);
 #ifdef __cplusplus
 }
 #endif

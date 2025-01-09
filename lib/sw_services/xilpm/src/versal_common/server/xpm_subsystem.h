@@ -30,6 +30,7 @@ extern "C" {
 #define SUBSYSTEM_IDLE_SUPPORTED		((u8)1U << 2U)
 #define SUBSYSTEM_SUSCB_PRIORITIZE		((u8)1U << 3U)
 #define SUBSYSTEM_IDLE_CB_IS_SENT		((u8)1U << 4U)
+#define SUBSYSTEM_DO_PERIPH_IDLE		((u8)1U << 5U)
 
 /**
  * Helper macros to check subsystem specific flags.
