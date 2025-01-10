@@ -54,8 +54,8 @@ extern "C" {
 #define CREATE_VOLATILE(x,y)		s32 x = XFih_VolatileAssign(y)
 #define ASSIGN_VOLATILE(x,y)		x = XFih_VolatileAssign(y)
 #else
-#define CREATE_VOLATILE(x,y)		volatile s32 x = y
-#define ASSIGN_VOLATILE(x,y)		x = y
+#define CREATE_VOLATILE(x,y)		volatile s32 (x) = (y)
+#define ASSIGN_VOLATILE(x,y)		(x) = (y)
 #endif
 
 #define XASUFW_WORD_LEN_IN_BYTES		4U	/**< Word length in bytes */

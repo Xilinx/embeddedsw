@@ -398,9 +398,9 @@ s32 XFih_VolatileAssign(s32 Val)
  * -	extracted u32 value
  ******************************************************************************/
 static __attribute__((always_inline)) inline
-u32 XFih_GetVal(XFih_Var FihVar)
+s32 XFih_GetVal(XFih_Var FihVar)
 {
-	u32 Val;
+	s32 Val;
 
 	XFIH_CORE_GET_VAL(FihVar, Val);
 
