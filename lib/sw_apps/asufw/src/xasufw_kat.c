@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -8,7 +8,8 @@
  *
  * @file xasufw_kat.c
  *
- * This file contains the code for SHA2/SHA3, RSA, ECC and ECDH KAT command supported by ASUFW.
+ * This file contains the code for SHA2/SHA3, RSA, ECC, ECDH and HMAC KAT command supported by
+ * ASUFW.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -28,6 +29,7 @@
  *       am   10/22/24 Replaced XSHA_SHA_256_HASH_LEN with XASU_SHA_256_HASH_LEN
  * 1.1   ss   12/02/24 Added kat support for ECDH
  *       ma   12/12/24 Updated resource allocation logic
+ *       yog  01/02/25 Added HMAC KAT
  *
  * </pre>
  *
@@ -45,6 +47,7 @@
 #include "xfih.h"
 #include "xasu_rsainfo.h"
 #include "xasufw_util.h"
+#include "xasu_hmacinfo.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -90,6 +93,13 @@ static const u8 ExpSha3256Hash[XASU_SHA_256_HASH_LEN] = {
 	0xC1U, 0x11U, 0xE6U, 0xB3U, 0x55U, 0x60U, 0xF1U, 0xC3U,
 	0x3EU, 0x6DU, 0xE8U, 0x6AU, 0x15U, 0xDFU, 0x6CU, 0xF3U,
 	0xA5U, 0xD1U, 0xB4U, 0x31U, 0xC0U, 0x67U, 0x5CU, 0xDDU
+};
+
+static const u8 ExpHmacOutput[XASU_SHA_256_HASH_LEN] = {
+	0x72U, 0xC5U, 0x39U, 0x7DU, 0x23U, 0x49U, 0x3EU, 0xFFU,
+	0xF9U, 0x16U, 0xC8U, 0x4BU, 0x08U, 0x11U, 0x3EU, 0x26U,
+	0x2FU, 0xA8U, 0x55U, 0x76U, 0xAFU, 0xFEU, 0x96U, 0x4AU,
+	0x09U, 0x79U, 0xAAU, 0x05U, 0xBEU, 0xAFU, 0x5FU, 0x2DU
 };
 
 static const u8 RsaData[XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES] = {
@@ -366,7 +376,7 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, XAsufw_Dma *AsuDmaPtr, XAsufw_Resour
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Perform SHA finish operation. */
 	Status = XSha_Finish(XAsufw_ShaInstance, (u32 *)OutVal, XASU_SHA_256_HASH_LEN,
-				XASU_FALSE);
+			     XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -899,6 +909,81 @@ s32 XAsufw_AesDecryptDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 END:
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_DPA_CM_KAT_FAILED);
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs HMAC KAT on the given HMAC instance using SHA2-256.
+ *
+ * @param	AsuDmaPtr		Pointer to the ASU DMA instance.
+ *
+ * @return
+ *	- XASUFW_SUCCESS on successful execution of the HMAC KAT.
+ *	- XASUFW_HMAC_INITIALIZATION_FAILED, if HMAC init fails.
+ *	- XASUFW_HMAC_UPDATE_FAILED, if HMAC update fails.
+ *	- XASUFW_HMAC_FINAL_FAILED, if HMAC final fails.
+ *	- XASUFW_HMAC_KAT_COMPARISON_FAILED, if expected and generated HMAC comparison fails.
+ *	- XASUFW_HMAC_KAT_FAILED, when XAsufw_ShaKat API fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ *	- XASUFW_FAILURE, if any other failure.
+ *
+ *************************************************************************************************/
+s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 SStatus = XASUFW_FAILURE;
+	XHmac *XAsufw_HmacInstance = XHmac_GetInstance();
+	XSha *Sha2Ptr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	u8 HmacOutput[XASU_SHA_256_HASH_LEN] = {0U};
+
+	/** Perform HMAC init operation. */
+	Status = XHmac_Init(XAsufw_HmacInstance, AsuDmaPtr, Sha2Ptr, (u64)(UINTPTR)EccPrivKey,
+			    XECC_P256_SIZE_IN_BYTES, XASU_SHA_MODE_SHA256, XASU_SHA2_TYPE,
+			    XASU_SHA_256_HASH_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_HMAC_INITIALIZATION_FAILED;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Perform HMAC update operation. */
+	Status = XHmac_Update(XAsufw_HmacInstance, AsuDmaPtr, (u64)(UINTPTR)KatMessage,
+			      XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASU_TRUE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_HMAC_UPDATE_FAILED;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Perform HMAC final operation. */
+	Status = XHmac_Final(XAsufw_HmacInstance, AsuDmaPtr, (u32 *)HmacOutput);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_HMAC_FINAL_FAILED;
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/** Compare generated Hmac output with expected Hmac. */
+	Status = Xil_SMemCmp(HmacOutput, XASU_SHA_256_HASH_LEN, ExpHmacOutput,
+			     XASU_SHA_256_HASH_LEN,
+			     XASU_SHA_256_HASH_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_HMAC_KAT_COMPARISON_FAILED;
+	}
+
+END_CLR:
+	/** Zeroize local copy of output value. */
+	SStatus = Xil_SMemSet(&HmacOutput[0U], XASU_SHA_256_HASH_LEN, 0U,
+			      XASU_SHA_256_HASH_LEN);
+	if (Status == XASUFW_SUCCESS) {
+		Status = SStatus;
+	}
+END:
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_KAT_FAILED);
 	}
 
 	return Status;
