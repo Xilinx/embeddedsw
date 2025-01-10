@@ -1,33 +1,32 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
 /*************************************************************************************************/
 /**
  *
- * @file xasu_def.h
+ * @file xasu_hmac.h
  *
- * This file contains the common definitions between server and client
+ * This file Contains the HMAC client function prototypes.
  *
  * <pre>
  * MODIFICATION HISTORY:
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
- * 1.0   vns  06/04/24 Initial release
- *       am   08/01/24 Added macro for AES module Id.
- *       yog  01/02/25 Added macro for HMAC module ID.
+ * 1.0   yog  01/02/25 Initial release
  *
  * </pre>
  *
  *************************************************************************************************/
 /**
- * @addtogroup xasu_common_defs Common Defs
+ * @addtogroup xasu_hmac_client_apis HMAC Client APIs
  * @{
 */
-#ifndef XASU_DEF_H
-#define XASU_DEF_H
+
+#ifndef XASU_HMAC_H
+#define XASU_HMAC_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,32 +34,24 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xasu_client.h"
+#include "xasu_hmacinfo.h"
+#include "xasu_shainfo.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASU_TRUE		(TRUE)
-#define XASU_FALSE		(FALSE)
 
-/* Module ID */
-#define XASU_MODULE_TRNG_ID			(0U) /**< TRNGs module ID */
-#define XASU_MODULE_SHA2_ID			(1U) /**< SHA2 module ID */
-#define XASU_MODULE_SHA3_ID			(2U) /**< SHA3 module ID */
-#define XASU_MODULE_ECC_ID			(3U) /**< ECC module ID */
-#define XASU_MODULE_RSA_ID			(4U) /**< RSA module ID */
-#define XASU_MODULE_AES_ID			(5U) /**< AES module ID */
-#define XASU_MODULE_HMAC_ID			(6U) /**< HMAC module ID */
-
-#define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
-						/** < ASU DMA maximum transfer rate in bytes. */
+/************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+s32 XAsu_HmacKat(XAsu_ClientParams *ClientParamsPtr);
+s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
-
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XASU_DEF_H */
+#endif  /* XASU_HMAC_H */
 /** @} */

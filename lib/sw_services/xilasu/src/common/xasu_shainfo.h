@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -20,6 +20,7 @@
  *       ma   06/14/24 Updated XAsufw_ShaOperationCmd structure to have 64-bit hash address
  *       vns  08/22/24 Updated sha command structure
  *       am   10/22/24 Added macros for hash lengths.
+ *       yog  01/02/25 Added macros for SHA type.
  *
  * </pre>
  *
@@ -55,6 +56,10 @@ extern "C" {
 #define XASU_SHA_START				(0x1U) /**< SHA start operation flag */
 #define XASU_SHA_UPDATE				(0x2U) /**< SHA update operation flag */
 #define XASU_SHA_FINISH				(0x4U) /**< SHA finish operation flag */
+
+/* SHA Type */
+#define XASU_SHA2_TYPE				(0x02U) /**< SHA2 type */
+#define XASU_SHA3_TYPE				(0x03U) /**< SHA3 type */
 
 /* SHA hash lengths */
 #define XASU_SHA_256_HASH_LEN			(32U) /**< SHA2/3 256 hash length */
