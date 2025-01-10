@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -489,13 +489,14 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 	}
 
 #ifdef CHECK_HEALTHY_BOOT
-	u32 DoSubSystemRestart = 0U;
+	u32 DoRestart = 0U;
 
 	if (XPfw_GetBootHealthStatus()) {
 		/*
-		 * Do subsystem restart only if last boot was healthy
+		 * Do subsystem restart or PS only reset or system
+		 * reset only if last boot was healthy
 		 */
-		DoSubSystemRestart=1;
+		DoRestart = 1U;
 	}
 #endif
 
@@ -514,7 +515,7 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 
 #ifdef CHECK_HEALTHY_BOOT
 	if ((XPFW_RESTART_STATE_INPROGRESS != RstTracker->RestartState) &&
-			DoSubSystemRestart) {
+			DoRestart) {
 #else
 		if (XPFW_RESTART_STATE_INPROGRESS != RstTracker->RestartState) {
 #endif
@@ -578,11 +579,15 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 #ifdef ENABLE_ESCALATION
 			XPfw_RestartSystemLevel();
 #else
-			/*
-			 * Fixme: reset as per the restartScope, don't assume subsystem only.
-			 */
-			if (XST_SUCCESS != PmMasterRestart(RstTracker->Master)) {
-				XPfw_Printf(DEBUG_DETAILED, "Master restart failed\r\n");
+			if (PMF_SHUTDOWN_SUBTYPE_SYSTEM == RstTracker->RestartScope) {
+				XPfw_ResetSystem();
+			} else if (PMF_SHUTDOWN_SUBTYPE_PS_ONLY ==
+						RstTracker->RestartScope) {
+				XPfw_ResetPsOnly();
+			} else {
+				if (XST_SUCCESS != PmMasterRestart(RstTracker->Master)) {
+					XPfw_Printf(DEBUG_DETAILED, "Master restart failed\r\n");
+				}
 			}
 #endif /* ENABLE_ESCALATION */
 		}
