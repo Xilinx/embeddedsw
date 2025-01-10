@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -153,6 +153,7 @@ extern "C" {
 #define XPM_ERR_AIE_OPS_SET_L2_CTRL_NPI_INTR    (2126L) /**< Error while Setting of L2 controller NPI INTR */
 #define XPM_ERR_AIE_OPS_UC_ZEROIZATION		(2127L) /**< Error during UC zeroization */
 #define XPM_ERR_AIE_OPS_NMU_CONFIG		(2128L) /**< Error during nmu config */
+#define XPM_ERR_AIE_OPS_HANDSHAKE		(2129L) /**< Error during handshake OP */
 /************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -425,10 +425,19 @@ static XStatus Aie2ps_EnbAxiMmIsolation(const XPm_Device *AieDev, u32 StartCol, 
 	/* Unused arguments */
 	(void)AieDev;
 
+	/*
+	 * If the value passed from the driver is not one of the following
+	 * scenarios it is considered invalid:
+	 * - Bit 3 is set to enable isolation from the east
+	 * - Bit 1 is set to enable isolation from the west
+	 * - Bits 1 and 3 are set to enable isolations from both east and west
+	 * - A value of 0 indicating isolations should be removed
+	 */
 	if ((TILE_CTRL_AXI_MM_ISOLATE_FROM_EAST_MASK != Value) &&
 	    (TILE_CTRL_AXI_MM_ISOLATE_FROM_WEST_MASK != Value) &&
 	    ((TILE_CTRL_AXI_MM_ISOLATE_FROM_EAST_MASK |
-	      TILE_CTRL_AXI_MM_ISOLATE_FROM_WEST_MASK) != Value)) {
+	      TILE_CTRL_AXI_MM_ISOLATE_FROM_WEST_MASK) != Value) &&
+	    (0U != Value)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -824,7 +833,7 @@ static XStatus Aie2ps_Operation(u32 Size, u32 HighAddr, u32 LowAddr)
 		Status = XST_FAILURE;
 
 		if (AIE_OPS_START_NUM_COL == OpTypeLen->Type) {
-			Status = Aie2ps_StartNumCol(&StartCol, &EndCol, Buffer);
+			Status = Aie2ps_StartNumCol(&StartCol, &EndCol, Buf);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
