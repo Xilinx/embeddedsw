@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  sk   08/26/2024 Initial release, Updated Error Table
+*       pre  01/09/2025 Added PCIE error handling
 *
 * </pre>
 *
@@ -44,6 +45,9 @@
 #define XPLMI_NUM_ERROUTS_VERSION	(1U) /**< ERROUTS version */
 #define XPLMI_NUM_ERROUTS_LCVERSION	(1U) /**< ERROUTS LC version */
 
+/* Proc IDs for PCIe Reset CDOs */
+#define PCIE0_LINK_DOWN_PROC_ID					(0x1U) /**< PCIE0 link down proc Id*/
+#define PCIE1_LINK_DOWN_PROC_ID					(0x2U) /**< PCIE1 link down proc Id*/
 
 /**************************** Type Definitions *******************************/
 
@@ -52,6 +56,8 @@
 /************************** Function Prototypes ******************************/
 static void XPlmi_HandleLPDSlcrError(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_ErrLPDSlcrIntrHandler(u32 ErrorNodeId, u32 RegMask);
+static void XPlmi_PcieErrHandler(u32 ErrorNodeId, u32 RegMask);
+static void XPlmi_HandleLinkDownError(u32 DeviceIrStatusReg, u32 GenralStsReg, u32 ProcId);
 /************************** Variable Definitions *****************************/
 /*
  * Structure to define error action type and handler if error to be handled
@@ -447,7 +453,7 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_MMI_CORR_EVENT] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_MMI_UNCORR_EVENT] =
-	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_PcieErrHandler, .Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_ERROR_MMI_GPU_COR_EVENT] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_MMI_PCIE0_COR_EVENT] =
@@ -622,6 +628,103 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 				" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
 				ErrorNodeId, RegMask, ErrorId);
 }
+
+/*************************************************************************************************/
+/**
+* @brief    This function handles the PCIE link down error.
+*
+* @param    DeviceIrStatusReg is the PCIE0/1 Device IR status register address
+* @param    GenralStsReg is the PCIE0/1 General status register address
+* @param    ProcId is the ProcId for PCIE0/1 link down error
+*
+**************************************************************************************************/
+static void XPlmi_HandleLinkDownError(u32 DeviceIrStatusReg, u32 GenralStsReg, u32 ProcId)
+{
+	int Status = XST_FAILURE;
+	u32 SmlhLinkSts;
+	u32 SmlhLinkToggleEn = ((~XPlmi_In32(DeviceIrStatusReg + 4U)) & MMI_PCIE_DEVICE_IR_STATUS_SMLH_LINK_TOGGLE_MASK);
+	u32 DeviceIrStsUncorrErr = XPlmi_In32(DeviceIrStatusReg);
+
+	/* Checking PCIE linkup signal toggle status and its enable status */
+	if ((SmlhLinkToggleEn != 0U) && ((DeviceIrStsUncorrErr &
+	    MMI_PCIE_DEVICE_IR_STATUS_SMLH_LINK_TOGGLE_MASK) == MMI_PCIE_DEVICE_IR_STATUS_SMLH_LINK_TOGGLE_MASK)) {
+		/* Read PCIE linkup status */
+		SmlhLinkSts = (XPlmi_In32(GenralStsReg) & MMI_PCIE_GENERAL_STATUS_SMLH_LINK__MASK);
+		if (SmlhLinkSts == 0U)
+		{
+			/* Execute PCIE0 link down proc */
+			Status = XPlmi_ExecuteProc(ProcId);
+			if (Status != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_INFO, "Error in handling PCIE "
+							"link down event: 0x%x\r\n", Status);
+				/*
+				 * Update error manager with error received
+				 * while executing proc
+				 */
+				XPlmi_ErrMgr(Status);
+			}
+		}
+		else {
+			/* Received error is other than Link down error */
+			XPlmi_Printf(DEBUG_GENERAL, "Received error is other than "
+									"link down event");
+		}
+		XPlmi_Out32(DeviceIrStatusReg, MMI_PCIE_DEVICE_IR_STATUS_SMLH_LINK_TOGGLE_MASK);
+	}
+	else {
+		/* Received error is other than PCIE local event */
+		XPlmi_Printf(DEBUG_GENERAL, "Received error is other than "
+				"PCIE local event: 0x%x\r\n", DeviceIrStsUncorrErr);
+	}
+}
+
+/****************************************************************************/
+/**
+* @brief    This function handles the PCIE errors.
+*
+* @param    ErrorNodeId is the node ID for the error event
+* @param    RegMask is the register mask of the error received
+*
+****************************************************************************/
+static void XPlmi_PcieErrHandler(u32 ErrorNodeId, u32 RegMask)
+{
+	/* Read PCIE0, PCIE1 errors */
+	u32 PsUnCorrErrs = XPlmi_In32(MMI_SLCR_PS_UNCORR_IR_STATUS);
+	u32 PcieErrEnable = ((~XPlmi_In32(MMI_SLCR_PS_UNCORR_IR_MASK)) &
+			(MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK |
+				MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK));
+
+	(void)ErrorNodeId;
+	(void)RegMask;
+
+	if (PcieErrEnable != 0U) {
+		if ((PsUnCorrErrs & MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK) ==
+		    MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK) {
+			/* Handle PCIE0 link down error */
+			XPlmi_Printf(DEBUG_GENERAL, "Received PCIE0 interrupt\r\n");
+			XPlmi_HandleLinkDownError(MMI_PCIE0_CTRL_SLCR_DEV_IR_STS_UNCOCRR,
+			                  MMI_PCIE0_CTRL_SLCR_GENERAL_STATUS, PCIE0_LINK_DOWN_PROC_ID);
+			/* Clear PCIE0 error */
+			XPlmi_Out32(MMI_SLCR_PS_UNCORR_IR_STATUS, MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK);
+		}
+
+		if ((PsUnCorrErrs & MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK) ==
+		     MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK) {
+			/* Handle PCIE1 link down error */
+			XPlmi_Printf(DEBUG_GENERAL, "Received PCIE1 interrupt\r\n");
+			XPlmi_HandleLinkDownError(MMI_PCIE1_CTRL_SLCR_DEV_IR_STS_UNCOCRR,
+			                  MMI_PCIE1_CTRL_SLCR_GENERAL_STATUS, PCIE1_LINK_DOWN_PROC_ID);
+			/* Clear PCIE1 error */
+			XPlmi_Out32(MMI_SLCR_PS_UNCORR_IR_STATUS, MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK);
+		}
+	}
+	else {
+		/* Only PCIE0/1 errors are handled */
+		XPlmi_Printf(DEBUG_GENERAL, "Unhandled MMI UNCORR error: 0x%x\r\n",
+				PsUnCorrErrs);
+	}
+}
+
 /****************************************************************************/
 /**
 * @brief    This function dumps EAM Error status registers and Gic Status
