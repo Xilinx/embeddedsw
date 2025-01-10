@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -46,13 +46,24 @@ extern "C" {
 	data size more than this size, DMA transfer will happen in non-blocking mode */
 
 /************************************** Type Definitions *****************************************/
+/** @brief
+ * The enum XAsufw_DmaState defines if the DMA needs to be released or not when non-blocking dma
+ * done interrupt is received
+ */
+typedef enum {
+	XASUFW_DEFAULT = 0U, /**< Default */
+	XASUFW_RELEASE_DMA, /**< Release DMA */
+	XASUFW_BLOCK_DMA, /**< Block DMA */
+} XAsufw_DmaState;
+
 /** @brief The structure XAsufw_Dma is DMA instance data structure. */
 typedef struct {
-	XAsuDma AsuDma; /** ASU DMA driver instance data structure. */
-	XAsufw_SssSrc SssDmaCfg; /** SSS configuration. */
-	XAsuDma_Channel Channel;
-	const XAsu_ReqBuf *ReqBuf;
-	u32 ReqId;
+	XAsuDma AsuDma; /**< ASU DMA driver instance data structure. */
+	XAsufw_SssSrc SssDmaCfg; /**< SSS configuration. */
+	XAsuDma_Channel Channel; /**< ASU DMA source or destination channel */
+	const XAsu_ReqBuf *ReqBuf; /**< Pointer to XAsu_ReqBuf */
+	u32 ReqId; /**< Requester ID */
+	XAsufw_DmaState DmaState; /**< DMA state when in non-blocking wait */
 } XAsufw_Dma;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -65,7 +76,7 @@ s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u
 s32 XAsufw_DmaMemSet(XAsufw_Dma *DmaPtr, u32 DestAddr, u32 Val, u32 Len);
 s32 XAsufw_DmaXfr(XAsufw_Dma *AsuDmaPtr, u64 SrcAddr, u64 DstAddr, const u32 Size, u32 Flags);
 void XAsufw_DmaNonBlockingWait(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel,
-	const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+			       const XAsu_ReqBuf *ReqBuf, u32 ReqId, XAsufw_DmaState DmaState);
 void XAsufw_HandleDmaDoneIntr(u32 DmaIntrNum);
 
 /************************************ Variable Definitions ***************************************/

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -219,24 +219,26 @@ END:
  * operation and enables the DMA Done interrupt for the specified channel of the received DMA
  * instance.
  *
- * @param	DmaPtr	Pointer to the DMA instance.
- * @param	Channel	DMA source/destination channel.
- * @param	ReqBuf	Pointer to the request buffer
- * @param	ReqId	Request Unique ID.
+ * @param	DmaPtr		Pointer to the DMA instance.
+ * @param	Channel		DMA source/destination channel.
+ * @param	ReqBuf		Pointer to the request buffer
+ * @param	ReqId		Request Unique ID.
+ * @param	DmaState	State of DMA whether to block or release
  *
  *************************************************************************************************/
 void XAsufw_DmaNonBlockingWait(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel,
-		const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+			       const XAsu_ReqBuf *ReqBuf, u32 ReqId, XAsufw_DmaState DmaState)
 {
 	/** Set the required parameters for DMA non-blocking wait operation. */
 	DmaPtr->Channel = Channel;
 	DmaPtr->ReqId = ReqId;
 	DmaPtr->ReqBuf = ReqBuf;
+	DmaPtr->DmaState = DmaState;
 
 	/** Enable the interrupt for the specified DMA channel. */
 	XCsuDma_WriteReg(DmaPtr->AsuDma.Config.BaseAddress,
-		(XCSUDMA_I_EN_OFFSET + ((u32)(DmaPtr->Channel) * XCSUDMA_OFFSET_DIFF)),
-		XCSUDMA_IXR_DONE_MASK);
+			 (XCSUDMA_I_EN_OFFSET + ((u32)(DmaPtr->Channel) * XCSUDMA_OFFSET_DIFF)),
+			 XCSUDMA_IXR_DONE_MASK);
 	XAsufw_Printf(DEBUG_GENERAL, "Enabled DMA interrupt and going to non-blocking wait.\r\n");
 }
 
@@ -253,10 +255,7 @@ void XAsufw_DmaNonBlockingWait(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel,
  * 			- Set the waiting queue's request buffer status to XASU_COMMAND_DMA_WAIT_COMPLETE.
  * 			- Trigger the queue task which is waiting for DMA completion.
  *
- * @param	DmaPtr	Pointer to the DMA instance.
- * @param	Channel	DMA source/destination channel.
- * @param	ReqBuf	Pointer to the request buffer
- * @param	ReqId	Request Unique ID.
+ * @param	DmaIntrNum	DMA interrupt number
  *
  *************************************************************************************************/
 void XAsufw_HandleDmaDoneIntr(u32 DmaIntrNum)
@@ -271,7 +270,7 @@ void XAsufw_HandleDmaDoneIntr(u32 DmaIntrNum)
 	/** Get the DMA instance pointer based on the IO Module's DMA interrupt number. */
 	if (DmaIntrNum == ASU_IO_BUS_IRQ_STATUS_DMA0_DONE_INTR_NUM) {
 		DmaPtr = &AsuDma0;
-	} else if(DmaIntrNum == ASU_IO_BUS_IRQ_STATUS_DMA1_DONE_INTR_NUM) {
+	} else if (DmaIntrNum == ASU_IO_BUS_IRQ_STATUS_DMA1_DONE_INTR_NUM) {
 		DmaPtr = &AsuDma1;
 	} else {
 		/* Do nothing */
@@ -283,12 +282,12 @@ void XAsufw_HandleDmaDoneIntr(u32 DmaIntrNum)
 		 * channel.
 		 */
 		if ((XCsuDma_ReadReg(DmaPtr->AsuDma.Config.BaseAddress,
-			(XCSUDMA_I_STS_OFFSET + ((u32)(DmaPtr->Channel) * XCSUDMA_OFFSET_DIFF))) &
-			((u32)XCSUDMA_IXR_DONE_MASK)) == ((u32)XCSUDMA_IXR_DONE_MASK)) {
+				     (XCSUDMA_I_STS_OFFSET + ((u32)(DmaPtr->Channel) * XCSUDMA_OFFSET_DIFF))) &
+		     ((u32)XCSUDMA_IXR_DONE_MASK)) == ((u32)XCSUDMA_IXR_DONE_MASK)) {
 			/* Disable the interrupt. */
 			XCsuDma_WriteReg(DmaPtr->AsuDma.Config.BaseAddress,
-				(XCSUDMA_I_DIS_OFFSET + ((u32)(DmaPtr->Channel) * XCSUDMA_OFFSET_DIFF)),
-				XCSUDMA_IXR_DONE_MASK);
+					 (XCSUDMA_I_DIS_OFFSET + ((u32)(DmaPtr->Channel) * XCSUDMA_OFFSET_DIFF)),
+					 XCSUDMA_IXR_DONE_MASK);
 			/**
 			 * To acknowledge the transfer has completed, clear the given channel's DMA Done
 			 * interrupt.
@@ -298,13 +297,16 @@ void XAsufw_HandleDmaDoneIntr(u32 DmaIntrNum)
 			if ((DmaPtr->ReqId != 0U) && (DmaPtr->ReqBuf != NULL)) {
 				TaskPrivData = DmaPtr->ReqId & (~XASUFW_QUEUE_TASK_PRIVDATA_RSVD_MASK);
 				QueueBuf = XLinkList_ContainerOf(DmaPtr->ReqBuf, XAsu_ChannelQueueBuf, ReqBuf);
-				/** Release the DMA resource as the operation is complete. */
-				if (XAsufw_ReleaseDmaResource(DmaPtr, DmaPtr->ReqId) != XASUFW_SUCCESS) {
-					XAsufw_Printf(DEBUG_GENERAL, "DMA resource release failed\r\n");
+				/** Release the DMA resource based on the DmaState. */
+				if (DmaPtr->DmaState == XASUFW_RELEASE_DMA) {
+					if (XAsufw_ReleaseDmaResource(DmaPtr, DmaPtr->ReqId) != XASUFW_SUCCESS) {
+						XAsufw_Printf(DEBUG_GENERAL, "DMA resource release failed\r\n");
+					}
 				}
 				/** Reset the DMA non-blocking related parameters. */
 				DmaPtr->ReqId = 0x0U;
 				DmaPtr->ReqBuf = NULL;
+				DmaPtr->DmaState = XASUFW_DEFAULT;
 				/** Change the request buffer status to XASU_COMMAND_DMA_WAIT_COMPLETE. */
 				QueueBuf->ReqBufStatus = XASU_COMMAND_DMA_WAIT_COMPLETE;
 				/** Trigger the queue task which is waiting for DMA operation completion. */

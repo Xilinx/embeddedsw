@@ -1,5 +1,5 @@
 #/*************************************************************************************************
-#* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+#* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #*************************************************************************************************/
 
@@ -27,7 +27,7 @@ DEPFILES := $(patsubst %.o, %.d, $(OBJS))
 LIBS := ../misc/asufw_bsp/asu_0/lib/libxil.a
 EXEC := asufw.elf
 
-INCLUDEPATH := -I../misc/asufw_bsp/asu_0/include -I./ -I./task -I./xfih -I./sha -I./trng -I./ecc -I./aes -I./rsa_ecc
+INCLUDEPATH := -I../misc/asufw_bsp/asu_0/include -I./ -I./task -I./xfih -I./sha -I./trng -I./ecc -I./aes -I./rsa_ecc -I./hmac
 LIBPATH := -L../misc/asufw_bsp/asu_0/lib
 
 all: $(EXEC)

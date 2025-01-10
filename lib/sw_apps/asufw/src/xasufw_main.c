@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -32,6 +32,7 @@
  *       am   08/01/24 Added AES module initialization
  *       yog  08/25/24 Initialize FIH
  *       ss   09/26/24 Fixed doxygen comments
+ *       yog  01/02/25 Initialize HMAC module
  *
  * </pre>
  *
@@ -57,6 +58,7 @@
 #include "xasufw_rsahandler.h"
 #include "xasufw_ecchandler.h"
 #include "xasufw_aeshandler.h"
+#include "xasufw_hmachandler.h"
 #include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -235,6 +237,11 @@ static s32 XAsufw_ModulesInit(void)
 
 	/** AES module initialization. */
 	Status = XAsufw_AesInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	Status = XAsufw_HmacInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}

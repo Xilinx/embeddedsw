@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -37,6 +37,7 @@
  * 1.1   ss   12/02/24 Added error codes for ECDH
  *       ma   12/12/24 Added support for command in progress
  *       ma   01/03/25 Added error codes for TRNG core register configuration failures
+ *       yog  01/03/25 Added error codes for HMAC functionality
  *
  * </pre>
  *
@@ -299,6 +300,17 @@ enum {
 	XASUFW_ECDH_SECRET_COMPARISON_FAILED, /**< Error when generated secret comparision
 							failed */
 	XASUFW_ECDH_KAT_FAILED, /**< Error when ECDH KAT failed */
+	XASUFW_HMAC_INVALID_PARAM, /**< Invalid parameters to HMAC APIs */
+	XASUFW_HMAC_INIT_FAILED, /**< HMAC init failed */
+	XASUFW_HMAC_INVALID_HASHLEN, /**< HMAC invalid hash length */
+	XASUFW_HMAC_STATE_MISMATCH_ERROR, /**< HMAC state mismatch error. Occurs when previous HMAC
+						state doesn't match before further update */
+	XASUFW_HMAC_INITIALIZATION_FAILED, /**< HMAC initialization failed */
+	XASUFW_HMAC_UPDATE_FAILED, /**< HMAC update failed */
+	XASUFW_HMAC_FINAL_FAILED, /**< HMAC final failed */
+	XASUFW_HMAC_KAT_COMPARISON_FAILED, /**< HMAC comparision failed in KAT */
+	XASUFW_HMAC_KAT_FAILED, /**< HMAC KAT failed */
+	XASUFW_HMAC_MODULE_REGISTRATION_FAILED, /**< HMAC module registration failed */
 
 	XASUFW_CMD_IN_PROGRESS = 0x2FF, /**< Command is in progress */
 };

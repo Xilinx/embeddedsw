@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -55,6 +55,8 @@ collect (PROJECT_LIB_SOURCES xasufw_util.c)
 collect (PROJECT_LIB_HEADERS xasufw_util.h)
 collect (PROJECT_LIB_SOURCES xasufw_intr.c)
 collect (PROJECT_LIB_HEADERS xasufw_intr.h)
+collect (PROJECT_LIB_SOURCES xasufw_hmachandler.c)
+collect (PROJECT_LIB_HEADERS xasufw_hmachandler.h)
 
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)
@@ -74,6 +76,7 @@ add_subdirectory(sha)
 add_subdirectory(task)
 add_subdirectory(trng)
 add_subdirectory(xfih)
+add_subdirectory(hmac)
 
 if (CMAKE_EXPORT_COMPILE_COMMANDS AND
     (NOT ${YOCTO}))
