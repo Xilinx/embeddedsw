@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -32,6 +32,8 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       am   10/22/24 Moved hash length macros to common xasu_shainfo header file.
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
+ *       yog  01/02/25 Added XSha_GetShaBlockLen() and XSha_Reset() API's and block length macros
+ *                     of all sha modes.
  *
  * </pre>
  *
@@ -56,10 +58,15 @@ extern "C" {
 
 /************************************** Type Definitions *****************************************/
 typedef struct _XSha_Config XSha_Config;
-                /**< This typedef is to create alias name for _XSha_Config. */
+/**< This typedef is to create alias name for _XSha_Config. */
 typedef struct _XSha XSha; /**< This typedef is to create alias name for _XSha. */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XASUFW_SHA2_256_BLOCK_LEN	(64U) /**< Block length of SHA2-256. */
+#define XASUFW_SHA2_384_512_BLOCK_LEN	(128U) /**< Block length of SHA2-384 and SHA2-512. */
+#define XASUFW_SHA3_256_BLOCK_LEN	(136U) /**< Block length of SHA3-256. */
+#define XASUFW_SHA3_384_BLOCK_LEN	(104U) /**< Block length of SHA3-384. */
+#define XASUFW_SHA3_512_BLOCK_LEN	(72U) /**< Block length of SHA3-512. */
 
 /************************************ Function Prototypes ****************************************/
 XSha *XSha_GetInstance(u16 DeviceId);
@@ -68,6 +75,9 @@ s32 XSha_Start(XSha *InstancePtr, u32 ShaMode);
 s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size, u32 EndLast);
 s32 XSha_Finish(XSha *InstancePtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOutput);
 s32 XSha_GetHashLen(u8 ShaType, u32 *HashLen);
+u8 XSha_GetShaBlockLen(u8 ShaType, u8 ShaMode);
+void XSha_Reset(XSha *InstancePtr);
+
 /************************************ Variable Definitions ***************************************/
 
 #ifdef __cplusplus

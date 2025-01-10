@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -23,6 +23,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       am   10/22/24 Replaced XSHA_SHA_256_HASH_LEN with XASU_SHA_256_HASH_LEN
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
+ *       yog  01/02/25 Added XSha_GetShaBlockLen() and XSha_Reset() API's
  *
  * </pre>
  *
@@ -320,7 +321,7 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 
 	/** Validate SHA state is started or not. */
 	if ((InstancePtr->ShaState != XSHA_STARTED) &&
-		(InstancePtr->ShaState != XSHA_UPDATE_IN_PROGRESS)) {
+	    (InstancePtr->ShaState != XSHA_UPDATE_IN_PROGRESS)) {
 		Status = XASUFW_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -425,7 +426,7 @@ s32 XSha_Finish(XSha *InstancePtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOut
 
 	/** Validate SHA state is updated/started. */
 	if ((InstancePtr->ShaState != XSHA_STARTED) &&
-		(InstancePtr->ShaState != XSHA_UPDATE_COMPLETED)) {
+	    (InstancePtr->ShaState != XSHA_UPDATE_COMPLETED)) {
 		Status = XASUFW_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -528,7 +529,7 @@ static inline s32 XSha_WaitForDone(const XSha *InstancePtr)
 {
 	/* Check whether SHA operation is completed within Timeout(10sec) or not. */
 	return (s32)Xil_WaitForEvent(InstancePtr->BaseAddress + XASU_SHA_DONE_OFFSET,
-			XASU_SHA_DONE_MASK, XASU_SHA_DONE_MASK, XSHA_TIMEOUT_MAX);
+				     XASU_SHA_DONE_MASK, XASU_SHA_DONE_MASK, XSHA_TIMEOUT_MAX);
 }
 
 /*************************************************************************************************/
@@ -594,5 +595,84 @@ static s32 XSha_ValidateModeAndInit(XSha *InstancePtr, u32 ShaMode)
 
 END:
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function gives SHA block length for provided sha type and sha mode.
+ *
+ * @param	ShaType	SHA type selection.
+ * @param	ShaMode	SHA mode selection
+ *
+ * @return
+ *		- SHA blocklen based on the type and mode.
+ *
+ *************************************************************************************************/
+u8 XSha_GetShaBlockLen(u8 ShaType, u8 ShaMode)
+{
+	u8 BlockLen = 0U;
+
+	switch (ShaType) {
+		case XASU_SHA2_TYPE:
+			switch (ShaMode) {
+				/* SHA2-256 Mode */
+				case XASU_SHA_MODE_SHA256:
+					BlockLen = XASUFW_SHA2_256_BLOCK_LEN;
+					break;
+				/* SHA2-384 Mode */
+				case XASU_SHA_MODE_SHA384:
+				/* SHA2-512 Mode */
+				case XASU_SHA_MODE_SHA512:
+					BlockLen = XASUFW_SHA2_384_512_BLOCK_LEN;
+					break;
+				/* Invalid Mode */
+				default:
+					BlockLen = 0U;
+					break;
+			}
+			break;
+		case XASU_SHA3_TYPE:
+			switch (ShaMode) {
+				/* SHA2-256 Mode */
+				case XASU_SHA_MODE_SHA256:
+				case XASU_SHA_MODE_SHAKE256:
+					BlockLen = XASUFW_SHA3_256_BLOCK_LEN;
+					break;
+				/* SHA2-384 Mode */
+				case XASU_SHA_MODE_SHA384:
+					BlockLen = XASUFW_SHA3_384_BLOCK_LEN;
+					break;
+				/* SHA2-512 Mode */
+				case XASU_SHA_MODE_SHA512:
+					BlockLen = XASUFW_SHA3_512_BLOCK_LEN;
+					break;
+				/* Invalid Mode */
+				default:
+					BlockLen = 0U;
+					break;
+			}
+			break;
+		/* Invalid type */
+		default :
+			BlockLen = 0U;
+			break;
+	}
+
+	return BlockLen;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is to reset SHA.
+ *
+ * @param	InstancePtr	Pointer to the SHA instance.
+ *
+ *************************************************************************************************/
+void XSha_Reset(XSha *InstancePtr)
+{
+	if (InstancePtr != NULL) {
+		InstancePtr->ShaState = XSHA_INITALIZED;
+		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
+	}
 }
 /** @} */

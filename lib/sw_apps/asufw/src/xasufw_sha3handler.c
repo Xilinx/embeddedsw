@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -206,7 +206,7 @@ static s32 XAsufw_Sha3Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		if (Status == XASUFW_CMD_IN_PROGRESS) {
 			CmdStage = SHA_UPDATE_DONE;
 			XAsufw_DmaNonBlockingWait(XAsufw_Sha3Module.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
-						ReqBuf, ReqId);
+						ReqBuf, ReqId, XASUFW_RELEASE_DMA);
 			XAsufw_Sha3Module.AsuDmaPtr = NULL;
 			goto DONE;
 		} else if (Status != XASUFW_SUCCESS) {
