@@ -43,7 +43,7 @@ extern "C" {
 /**
  * This contains the client error codes.
  */
-enum XAsu_Status {
+enum {
 	XASU_INVALID_ARGUMENT = 0x10,	/**< 0x10 - Invalid argument */
 	XASU_QUEUE_FULL,		/**< 0x11 - Channel queue is full */
 	XASU_ASUFW_NOT_PRESENT,		/**< 0x12 - ASU application FW is not present */
