@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -41,6 +41,7 @@ extern "C" {
 #include "xasufw_queuescheduler.h"
 #include "xasu_def.h"
 #include "xasufw_dma.h"
+#include "xsha.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_MAX_MODULES			    (10U) /**< Maximum supported modules in ASUFW */
@@ -62,8 +63,9 @@ typedef struct {
 	const XAsufw_ModuleCmd *Cmds; /**< Pointer to module command handlers */
 	XAsufw_ResourcesRequired *ResourcesRequired; /**< Pointer to the required resources array */
 	u32 CmdCnt; /**< Command count in module */
-	XAsufw_ResourceHandler_t ResourceHandler;
-	XAsufw_Dma *AsuDmaPtr;
+	XAsufw_ResourceHandler_t ResourceHandler; /**< Function pointer to the resource handler */
+	XAsufw_Dma *AsuDmaPtr; /**< Pointer to the DMA instance */
+	XSha *ShaPtr; /**< Pointer to the SHA instance */
 } XAsufw_Module;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
