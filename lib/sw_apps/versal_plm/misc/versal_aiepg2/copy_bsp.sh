@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 # This script will copy the required bsp directories
@@ -88,6 +88,8 @@ mkdir -p $BSP_DIR/libsrc/xilpm_ng/src/
 cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/Makefile $BSP_DIR/libsrc/xilpm_ng/src/
 cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/*.c $BSP_DIR/libsrc/xilpm_ng/src/
 cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/*.h $BSP_DIR/include/
+cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_common/*.c $BSP_DIR/libsrc/xilpm_ng/src/
+cp -ir $SERVICES_DIR/xilpm_ng/src/xilpm_common/*.h $BSP_DIR/include/
 cp -ir $SERVICES_DIR/xilpm_ng/src/util/*.c $BSP_DIR/libsrc/xilpm_ng/src/
 cp -ir $SERVICES_DIR/xilpm_ng/src/util/*.h $BSP_DIR/include/
 if [ -n "$XILPM_RUNTIME_LIB" ] &&[ "$XILPM_RUNTIME_LIB" != "0" ]; then

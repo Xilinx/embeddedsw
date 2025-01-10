@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.14.7)
@@ -11,12 +11,22 @@ collector_create(PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 collector_create(PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(${CMAKE_BINARY_DIR}/include)
 
-add_subdirectory(util)
-add_subdirectory(xilpm_boot)
+add_subdirectory(xilpm_common)
 
-# Add xilpm_runtime only if EEMI or Subsystem is enabled
-if(XILPM_NG_EEMI_ENABLE OR XILPM_NG_SUBSYS_ENABLE)
-  add_subdirectory(xilpm_runtime)
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
+  # Add server code
+  add_subdirectory(util)
+  add_subdirectory(xilpm_boot)
+  # Add xilpm_runtime only if EEMI or Subsystem is enabled
+  if(XILPM_NG_EEMI_ENABLE OR XILPM_NG_SUBSYS_ENABLE)
+    add_subdirectory(xilpm_runtime)
+  endif()
+elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78") OR
+	("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52"))
+  # Add client code
+  add_subdirectory(xilpm_client)
+else()
+  message(FATAL_ERROR "Wrong processor name ${CMAKE_SYSTEM_PROCESSOR}")
 endif()
 
 collector_list(_sources PROJECT_LIB_SOURCES)

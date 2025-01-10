@@ -1,9 +1,9 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
 ---
-title: Bindings for xilpm library.
+title: Bindings for xilpm_ng library.
 
 maintainers:
   - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
@@ -13,10 +13,12 @@ type: library
 
 version: 5.0
 
-description: Platform Management API Library for ZynqMP and Versal.
+description: Platform Management API Library for and VersalGen2.
 
 supported_processors:
   - pmc
+  - cortexa78
+  - cortexr52
 
 
 supported_os:
