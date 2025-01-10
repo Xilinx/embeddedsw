@@ -55,6 +55,7 @@
 *       pre  12/09/2024 Added METAHEADER_INSTANCE_ADDRESS and RTCA_LEN_IN_BYTES macros
 *       pre  01/02/2025 Increased metaheader space from 4k to 8k with start address as 0xF2012000U
 *       ma   01/07/2025 Added ASU specific register defines
+*       pre  01/09/2024 Added addresses needed for PCIE error handling
 *
 * </pre>
 *
@@ -568,6 +569,23 @@ extern "C" {
 #define CPM5N_CDX_PCIEB2_CSR_MISC_EVENT_STATUS				(0xE4422110U)
 #define CPM5N_CDX_PCIEB3_CSR_MISC_EVENT_STATUS				(0xE4432110U)
 #define CPM5N_LINK_UP_EVENT_MASK					(0x800U)
+
+/* MMI SLCR PS UNCORR Registers */
+#define MMI_SLCR_PS_UNCORR_IR_STATUS  (0xEDC20320U)
+#define MMI_SLCR_PS_UNCORR_IR_MASK    (0xEDC20324U)
+#define MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK		(0x100U)
+#define MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK		(0x200U)
+
+#define MMI_PCIE_DEVICE_IR_STATUS_SMLH_LINK_TOGGLE_MASK  (0x01U)
+#define MMI_PCIE_GENERAL_STATUS_SMLH_LINK__MASK        (0X1000U)
+
+/* MMI PCIE0 CTRL SLCR Registers */
+#define MMI_PCIE0_CTRL_SLCR_DEV_IR_STS_UNCOCRR (0xED9310E8U)
+#define MMI_PCIE0_CTRL_SLCR_GENERAL_STATUS     (0xED933064U)
+
+/* MMI PCIE1 CTRL SLCR Registers */
+#define MMI_PCIE1_CTRL_SLCR_DEV_IR_STS_UNCOCRR (0xED9390E8U)
+#define MMI_PCIE1_CTRL_SLCR_GENERAL_STATUS     (0xED93B064U)
 
 /*
  * Definitions required for checking DDRMC status
