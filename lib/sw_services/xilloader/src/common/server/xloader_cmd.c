@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -958,7 +958,7 @@ static int XLoader_ExtractOptionalData(XPlmi_Cmd* Cmd, u32 *TotalDataSize)
 
 	OptDataAddr = XilPdi_SearchOptionalData(OptionalDataStartAddr, OptionalDataEndAddr,
 		DataId);
-	if (OptDataAddr > OptionalDataEndAddr) {
+	if (OptDataAddr >= OptionalDataEndAddr) {
 		Status = XLOADER_ERR_OPT_DATA_NOT_FOUND;
 		goto END;
 	}
