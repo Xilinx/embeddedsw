@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 	#ifdef CPPUTEST
 		#define MAX_BYTEBUFFER_SIZE	(52U * 1024U)
 	#else
-		#define MAX_BYTEBUFFER_SIZE	(78U * 1024U)
+		#define MAX_BYTEBUFFER_SIZE	(79U * 1024U)
 	#endif
 	#pragma message("XILPM_BYTEBUFFER_SIZE_IN_KB is <= 0 or not defined, using default size " STR(MAX_BYTEBUFFER_SIZE) " bytes")
 #endif
