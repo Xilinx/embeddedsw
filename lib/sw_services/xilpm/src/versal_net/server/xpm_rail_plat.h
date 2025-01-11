@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,7 +14,7 @@
 extern "C" {
 #endif
 
-#define MAX_MODES	18U
+#define MAX_MODES	19U
 #define MAX_PARENTS	3U
 
 typedef enum {

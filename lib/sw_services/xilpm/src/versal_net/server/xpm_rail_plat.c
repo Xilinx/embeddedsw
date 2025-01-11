@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,15 +19,15 @@
  * eFuse values for VID power rails
  */
 u8 VCCINT_VIDTable[] = { \
-	1, 2, 3, 4, 5, 6, 7, 8, 9, 10 \
+	0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 \
 };
 
 u8 VCC_FPD_VIDTable[] = { \
-	48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63 \
+	48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 0 \
 };
 
 u8 VCC_CPM5N_VIDTable[] = { \
-	48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63 \
+	48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 0 \
 };
 
 static struct {
@@ -182,7 +182,7 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 	const XPm_Device *EfuseCache;
 	u32 VID;
 	u8 ValidOverride = 0;
-	u8 VIDIndex, Index;
+	u8 VIDEfuseValue, Index;
 	u8 Found = 0;
 
 	/* if this rail has already been VID adjusted, then nothing more to do */
@@ -221,17 +221,10 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 
 	switch (Rail->Power.Node.Id) {
 	case PM_POWER_VCCINT_PL:
-		VIDIndex = ((VID >> VID_VCCINT_VCC_HNICX_OFFSET) &
+		VIDEfuseValue = ((VID >> VID_VCCINT_VCC_HNICX_OFFSET) &
 			    VID_VCCINT_VCC_HNICX_MASK);
-
-		/* No adjustment from default voltage if VID value is 0 */
-		if (0U == VIDIndex) {
-			Status = XST_SUCCESS;
-			goto done;
-		}
-
 		for (Index = 0; Index < sizeof(VCCINT_VIDTable); Index++) {
-			if (VCCINT_VIDTable[Index] == VIDIndex) {
+			if (VCCINT_VIDTable[Index] == VIDEfuseValue) {
 				Found = 1;
 				break;
 			}
@@ -244,16 +237,9 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 
 		break;
 	case PM_POWER_VCCINT_PSFP:
-		VIDIndex = ((VID >> VID_VCC_FPD_OFFSET) & VID_VCC_FPD_MASK);
-
-		/* No adjustment from default voltage if VID value is 0 */
-		if (0U == VIDIndex) {
-			Status = XST_SUCCESS;
-			goto done;
-		}
-
+		VIDEfuseValue = ((VID >> VID_VCC_FPD_OFFSET) & VID_VCC_FPD_MASK);
 		for (Index = 0; Index < sizeof(VCC_FPD_VIDTable); Index++) {
-			if (VCC_FPD_VIDTable[Index] == VIDIndex) {
+			if (VCC_FPD_VIDTable[Index] == VIDEfuseValue) {
 				Found = 1;
 				break;
 			}
@@ -266,16 +252,9 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 
 		break;
 	case PM_POWER_VCCINT_CPM5N:
-		VIDIndex = ((VID >> VID_VCC_CPM5N_OFFSET) & VID_VCC_CPM5N_MASK);
-
-		/* No adjustment from default voltage if VID value is 0 */
-		if (0U == VIDIndex) {
-			Status = XST_SUCCESS;
-			goto done;
-		}
-
+		VIDEfuseValue = ((VID >> VID_VCC_CPM5N_OFFSET) & VID_VCC_CPM5N_MASK);
 		for (Index = 0; Index < sizeof(VCC_CPM5N_VIDTable); Index++) {
-			if (VCC_CPM5N_VIDTable[Index] == VIDIndex) {
+			if (VCC_CPM5N_VIDTable[Index] == VIDEfuseValue) {
 				Found = 1;
 				break;
 			}
