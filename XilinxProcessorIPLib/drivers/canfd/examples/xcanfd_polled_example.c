@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 *						is 11 bit.
 * 2.8   ht     06/19/23 Added support for system device-tree flow.
 * 2.8   gm     06/22/23 Call XCanFd_stop to release canfd node.
+* 2.10  ht     01/09/25 Fix C++ warning.
 * </pre>
 *
 ******************************************************************************/
@@ -309,7 +310,7 @@ static int SendFrame(XCanFd *InstancePtr)
 	u32 TxBufferNumber;
 	u8 *FramePtr;
 	u32 Index;
-	int NofBytes;
+	u32 NofBytes;
 
 	/* Create correct values for Identifier and Data Length Code Register */
 	TxFrame[0] = XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0);
@@ -362,7 +363,7 @@ static int SendFrame(XCanFd *InstancePtr)
 static int RecvFrame(XCanFd *InstancePtr)
 {
 	int Status;
-	int Dlc;
+	u32 Dlc;
 	u8 *FramePtr;
 	u32 Index;
 
