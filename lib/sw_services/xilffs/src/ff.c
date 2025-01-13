@@ -4010,7 +4010,10 @@ static int get_ldnumber (	/* Returns logical drive number (-1:invalid drive numb
 	do {					/* Find a colon in the path */
 		chr = *tt++;
 #ifdef XPAR_XUFSPSXC_NUM_INSTANCES
-		vol_id[index] = chr;
+		if (index < 4) {
+			vol_id[index] = chr;
+		}
+
 		index++;
 #endif
 	}

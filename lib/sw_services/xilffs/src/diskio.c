@@ -599,7 +599,7 @@ DRESULT disk_ioctl (
 		case (BYTE)GET_SECTOR_SIZE : /* Get sector size on the disk (DWORD) */
 			if (pdrv < XSDPS_NUM_INSTANCES) {
 #ifdef XPAR_XSDPS_NUM_INSTANCES
-				(*((DWORD*)((void *)buff))) = ((DWORD)512U);
+				(*((WORD*)((void *)buff))) = ((WORD)512U);
 #endif
 			} else {
 #ifdef XPAR_XUFSPSXC_NUM_INSTANCES
@@ -615,7 +615,7 @@ DRESULT disk_ioctl (
 					LunId = pdrv - XUFSPSXC_START_INDEX;
 				}
 
-				(*((DWORD*)((void *)buff))) = ((DWORD)UfsInstance.LUNInfo[LunId].BlockSize);
+				(*((WORD*)((void *)buff))) = ((WORD)UfsInstance.LUNInfo[LunId].BlockSize);
 #endif
 			}
 			res = RES_OK;
