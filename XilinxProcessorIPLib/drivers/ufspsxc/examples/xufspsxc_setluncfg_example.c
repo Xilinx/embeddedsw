@@ -21,6 +21,7 @@
 * Ver	Who	Date     Changes
 * ----- --- -------- ---------------------------------------------
 * 1.0 	sk  01/16/24 First release
+* 1.1   sk  01/13/25 Enable the LU before configuring the Boot LUN ID.
 *
 *</pre>
 *
@@ -254,16 +255,6 @@ u32 SetConfigurationDesc(XUfsPsxc *InstancePtr)
 	u32 NumAllocUnits;
 	u32 MemType;
 
-	/* Write bBootLunEn IDN in Attributes */
-	memset((void *)&CmdDescBuf, 0, sizeof(XUfsPsxc_Xfer_CmdDesc));
-	XUfsPsxc_FillAttrUpiu(InstancePtr, &CmdDescBuf, XUFSPSXC_WRITE, XUFSPSXC_BLUNEN_ATTRID, XUFSPSXC_PRIMARY_LUN);
-	Status = XUfsPsxc_ProcessUpiu(InstancePtr, &CmdDescBuf);
-	if (Status != XUFSPSXC_SUCCESS) {
-		Status = (XUFSPSXC_QRY_WRITE_ATTR_ERROR << 12U) | Status;
-		return Status;
-	}
-	InstancePtr->BootLunEn = XUFSPSXC_PRIMARY_LUN;
-
 	/* Read Configuration Descriptor */
 	for (Index = 0U; Index < InstancePtr->NumOfLuns / 8U; Index++) {
 		memset((void *)&CmdDescBuf, 0, sizeof(XUfsPsxc_Xfer_CmdDesc));
@@ -313,6 +304,17 @@ u32 SetConfigurationDesc(XUfsPsxc *InstancePtr)
 			return Status;
 		}
 	}
+
+	/* Write bBootLunEn IDN in Attributes */
+	memset((void *)&CmdDescBuf, 0, sizeof(XUfsPsxc_Xfer_CmdDesc));
+	XUfsPsxc_FillAttrUpiu(InstancePtr, &CmdDescBuf, XUFSPSXC_WRITE, XUFSPSXC_BLUNEN_ATTRID, XUFSPSXC_PRIMARY_LUN);
+	Status = XUfsPsxc_ProcessUpiu(InstancePtr, &CmdDescBuf);
+	if (Status != XUFSPSXC_SUCCESS) {
+		Status = (XUFSPSXC_QRY_WRITE_ATTR_ERROR << 12U) | Status;
+		return Status;
+	}
+
+	InstancePtr->BootLunEn = XUFSPSXC_PRIMARY_LUN;
 
 	return XST_SUCCESS;
 }

@@ -30,6 +30,8 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------.
 * 1.0   sk  01/16/24 First release
+* 1.1   sk  01/13/25 Update the example to enable the LU before
+*                    configuring the Boot LUN ID.
 *
 * </pre>
 *
