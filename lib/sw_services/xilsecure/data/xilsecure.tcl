@@ -146,6 +146,9 @@ proc secure_drc {libhandle} {
 				foreach entry [glob -nocomplain -types f [file join "$server/core/softsha2-384" *]] {
 					file copy -force $entry "./src"
 				}
+				foreach entry [glob -nocomplain -types f [file join "$server/core/softsha1" *]] {
+					file copy -force $entry "./src"
+				}
 				foreach entry [glob -nocomplain -types f [file join "$common/versal_net" *]] {
 					file copy -force $entry "./src"
 				}

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 # This script will copy the required bsp directories
@@ -125,6 +125,7 @@ cp -r $SERVICES_DIR/xilsecure/src/server/core/key_zeroize/* $BSP_DIR/libsrc/xils
 cp -r $SERVICES_DIR/xilsecure/src/server/core/rsa/rsa_qmode/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/key_unwrap/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/trng/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/softsha1/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/versal_net/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/versal_net/* $BSP_DIR/libsrc/xilsecure/src/
 cp $BSP_DIR/libsrc/xilsecure/src/*.h $BSP_DIR/include/
