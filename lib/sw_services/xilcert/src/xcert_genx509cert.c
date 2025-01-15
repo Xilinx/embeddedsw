@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -58,6 +58,7 @@
 #include "xsecure_plat_kat.h"
 #include "xsecure_init.h"
 #include "xplmi_dma.h"
+#include "xsecure_sha1.h"
 
 /************************** Constant Definitions *****************************/
 /** @name Object IDs
@@ -180,8 +181,8 @@ static int XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen);
 static int XCert_GetSignStored(u32 SubsystemId, XCert_SignStore **SignStore);
 static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCertLen);
 static void XCert_CopyCertificate(const u32 Size, const u8 *Src, const u64 DstAddr);
-static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicKey, u32 *SubjectKeyIdentifierLen);
-static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublicKey, u32 *AuthorityKeyIdentifierLen);
+static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, const u8* SubjectPublicKey, u32 *SubjectKeyIdentifierLen);
+static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, const u8* IssuerPublicKey, u32 *AuthorityKeyIdentifierLen);
 static int XCert_GenTcbInfoExtnField(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TcbInfoExtnLen);
 static int XCert_GenUeidExnField(u8* TBSCertBuf, u32 *UeidExnLen);
 static void XCert_UpdateKeyUsageVal(u8* KeyUsageVal, XCert_KeyUsageOption KeyUsageOption);
@@ -1116,7 +1117,7 @@ END:
  *		the hash is considered as the value for this field.
  *
  ******************************************************************************/
-static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicKey, u32 *SubjectKeyIdentifierLen)
+static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, const u8* SubjectPublicKey, u32 *SubjectKeyIdentifierLen)
 {
 	int Status = XST_FAILURE;
 	u8* Curr = TBSCertBuf;
@@ -1126,9 +1127,7 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicK
 	u8* OctetStrValIdx;
 	u32 OidLen;
 	u32 FieldLen;
-	XSecure_Sha3 *ShaInstancePtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
-	XSecure_Sha3Hash Sha3Hash;
+	u8 Hash[XSECURE_SHA1_HASH_SIZE];
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	SequenceLenIdx = Curr++;
@@ -1141,13 +1140,7 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicK
 	}
 	Curr = Curr + OidLen;
 
-	Status = XSecure_ShaInitialize(ShaInstancePtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XSecure_ShaDigest(ShaInstancePtr, XSECURE_SHA3_384,
-		(UINTPTR)SubjectPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, (u64)(UINTPTR)&Sha3Hash, sizeof(Sha3Hash));
+	Status = XSecure_Sha1Digest(SubjectPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, Hash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1156,7 +1149,7 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, u8* SubjectPublicK
 	OctetStrLenIdx = Curr++;
 	OctetStrValIdx = Curr;
 
-	Status = XCert_CreateOctetString(Curr, Sha3Hash.Hash, XCERT_SUB_KEY_ID_VAL_LEN, &FieldLen);
+	Status = XCert_CreateOctetString(Curr, Hash, XCERT_SUB_KEY_ID_VAL_LEN, &FieldLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1197,7 +1190,7 @@ END:
  *		the hash is considered as the value for this field.
  *
  ******************************************************************************/
-static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublicKey, u32 *AuthorityKeyIdentifierLen)
+static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, const u8* IssuerPublicKey, u32 *AuthorityKeyIdentifierLen)
 {
 	int Status = XST_FAILURE;
 	u8* Curr = TBSCertBuf;
@@ -1209,9 +1202,7 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublic
 	u8* KeyIdSequenceValIdx;
 	u32 OidLen;
 	u32 FieldLen;
-	XSecure_Sha3 *ShaInstancePtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
-	XSecure_Sha3Hash Sha3Hash;
+	u8 Hash[XSECURE_SHA1_HASH_SIZE];
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	SequenceLenIdx = Curr++;
@@ -1224,13 +1215,7 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublic
 	}
 	Curr = Curr + OidLen;
 
-	Status = XSecure_ShaInitialize(ShaInstancePtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XSecure_ShaDigest(ShaInstancePtr, XSECURE_SHA3_384,
-			(UINTPTR)IssuerPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, (u64)(UINTPTR)&Sha3Hash, sizeof(Sha3Hash));
+	Status = XSecure_Sha1Digest(IssuerPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, Hash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1244,7 +1229,7 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, u8* IssuerPublic
 	KeyIdSequenceLenIdx = Curr++;
 	KeyIdSequenceValIdx = Curr;
 
-	Status = XCert_CreateOctetString(Curr, Sha3Hash.Hash, XCERT_AUTH_KEY_ID_VAL_LEN, &FieldLen);
+	Status = XCert_CreateOctetString(Curr, Hash, XCERT_AUTH_KEY_ID_VAL_LEN, &FieldLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

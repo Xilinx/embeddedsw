@@ -136,6 +136,7 @@ cp -r $SERVICES_DIR/xilsecure/src/server/core/sha/* $BSP_DIR/libsrc/xilsecure/sr
 cp -r $SERVICES_DIR/xilsecure/src/server/core/sha/sha_pmxc/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/hmac/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/softsha2-384/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/softsha1/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/ecc_keypair/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/key_zeroize/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/server/core/rsa/rsa_qmode/* $BSP_DIR/libsrc/xilsecure/src/
