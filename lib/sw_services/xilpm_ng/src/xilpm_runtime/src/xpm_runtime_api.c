@@ -1729,7 +1729,8 @@ static XStatus XPm_DoResetAssert(XPlmi_Cmd* Cmd)
 	u32 SubsystemId = Cmd->SubsystemId;
 	u32 ResetId = Cmd->Payload[0];
 	u32 CmdType = Cmd->IpiReqType;
-	Status = XPm_SetResetState(SubsystemId, ResetId, PM_RESET_ACTION_ASSERT, CmdType);
+	u32 Action = Cmd->Payload[1];
+	Status = XPm_SetResetState(SubsystemId, ResetId, Action, CmdType);
 	Cmd->Response[0] = (u32)Status;
 	return Status;
 }
@@ -1807,7 +1808,7 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId,
 		}
 	}
 
-	Status = Reset->Ops->SetState(Reset, Action);
+	Status = XPmReset_AssertbyId(ResetId, Action);
 
 done:
 	return Status;
