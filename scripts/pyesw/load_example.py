@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module loads the driver example meta-data
@@ -69,6 +69,9 @@ class LoadExample(BSP):
         cmake_header = """
 cmake_minimum_required(VERSION 3.15)
 project(bsp)
+
+# Use CMAKE_LIBRARY_PATH in link_directories
+link_directories(${CMAKE_LIBRARY_PATH})
         """
         cmake_file_cmds = cmake_header
         cmake_file_cmds += cmake_drv_custom_target(self.proc, self.libsrc_folder, self.sdt, cmake_drv_name_list, cmake_drv_path_list)
