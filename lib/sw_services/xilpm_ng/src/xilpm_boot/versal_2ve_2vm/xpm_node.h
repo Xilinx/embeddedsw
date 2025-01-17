@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1457,7 +1457,25 @@ typedef enum {
 	XPM_NODEIDX_DEV_TTC_5 = 0x120,
 	XPM_NODEIDX_DEV_TTC_6 = 0x121,
 	XPM_NODEIDX_DEV_TTC_7 = 0x122,
-	XPM_NODEIDX_DEV_MAX = 0x123
+	XPM_NODEIDX_DEV_GTMPW_CPM6_0 = 0x123,
+	XPM_NODEIDX_DEV_GTMPW_CPM6_1 = 0x124,
+	XPM_NODEIDX_DEV_GTMPW_CPM6_2 = 0x125,
+	XPM_NODEIDX_DEV_GTMPW_CPM6_3 = 0x126,
+	XPM_NODEIDX_DEV_GTMPW_0 = 0x127,
+	XPM_NODEIDX_DEV_GTMPW_1 = 0x128,
+	XPM_NODEIDX_DEV_GTMPW_2 = 0x129,
+	XPM_NODEIDX_DEV_GTMPW_3 = 0x12A,
+	XPM_NODEIDX_DEV_GTMPW_4 = 0x12B,
+	XPM_NODEIDX_DEV_GTMPW_5 = 0x12C,
+	XPM_NODEIDX_DEV_GTMPW_6 = 0x12D,
+	XPM_NODEIDX_DEV_GTMPW_7 = 0x12E,
+	XPM_NODEIDX_DEV_GTMPW_8 = 0x12F,
+	XPM_NODEIDX_DEV_GTMPW_9 = 0x130,
+	XPM_NODEIDX_DEV_GTMPW_10 = 0x131,
+	XPM_NODEIDX_DEV_GTMPW_11 = 0x132,
+	XPM_NODEIDX_DEV_GTMPW_12 = 0x133,
+	XPM_NODEIDX_DEV_GTMPW_13 = 0x134,
+	XPM_NODEIDX_DEV_MAX = 0x135
 } XPm_DeviceNodeIdx;
 
 /* PL Device node index */
@@ -1588,7 +1606,9 @@ typedef enum {
 	XPM_NODEIDX_ISO_MMI_N = 0x4C,
 	XPM_NODEIDX_ISO_MMI_PL_TEST_N = 0x4D,
 	XPM_NODEIDX_ISO_MMI_PL_MISC_N = 0x4E,
-	XPM_NODEIDX_ISO_MAX = 0x4F
+	XPM_NODEIDX_ISO_LPD_CPM6_DFX = 0x4F,
+	XPM_NODEIDX_ISO_LPD_CPM6 = 0x50,
+	XPM_NODEIDX_ISO_MAX = 0x51
 } XPm_IsolationNodeIdx;
 
 /* Protection node indexes */
