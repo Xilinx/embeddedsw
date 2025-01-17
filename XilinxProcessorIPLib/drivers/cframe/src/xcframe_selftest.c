@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * ----- ------  -------- ---------------------------------------------------
 * 1.0   kc   10/22/2017 First release
 * 1.5   mss  09/04/2023 Fixed MISRA-C violation 8.13
+*       pre  01/16/2025 Fixed warning
 *
 * </pre>
 *
@@ -64,6 +65,8 @@
 ******************************************************************************/
 s32 XCframe_SelfTest(const XCframe *InstancePtr)
 {
+	(void)InstancePtr;
+
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 

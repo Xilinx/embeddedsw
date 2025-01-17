@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 2.00  bsv	 03/01/2019	Added error handling APIs
 * 2.01  bsv  11/06/2019 XCfupmc_ClearCfuIsr API added
 * 3.00  bsv  27/06/2020 Code clean up
+*       pre  01/16/2025 Fixed warning
 * </pre>
 *
 * @note
@@ -86,7 +87,7 @@ s32 XCfupmc_CfgInitialize(XCfupmc *InstancePtr, const XCfupmc_Config *CfgPtr,
  * This function does CFI register write using MASK register
  *
  * @param	InstancePtr is a pointer to the XCfupmc instance.
- * @param	Addr Address of the regiser to be written
+ * @param	Addr Address of the register to be written
  * @param	Mask Mask of the bit field to be written
  * @param	Val Value of bit field
  *
@@ -95,6 +96,8 @@ s32 XCfupmc_CfgInitialize(XCfupmc *InstancePtr, const XCfupmc_Config *CfgPtr,
  ******************************************************************************/
 void XCfupmc_MaskRegWrite(const XCfupmc *InstancePtr, u32 Addr, u32 Mask, u32 Val)
 {
+	(void)InstancePtr;
+
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XCfupmc_WriteReg(CFU_APB_CFU_MASK, Mask);
