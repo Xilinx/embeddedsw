@@ -20,7 +20,8 @@
 
 #define XPM_HC_CPM_OPS			0U
 #define XPM_HC_CPM5_OPS			1U
-#define XPM_CPM_OPS_MAX			2U
+#define XPM_HC_CPM6_OPS			2U
+#define XPM_CPM_OPS_MAX			3U
 
 /* Define CPM5_GTYP device */
 #define XPM_NODEIDX_DEV_GTYP_CPM5_MIN		XPM_NODEIDX_DEV_GTYP_CPM5_0
@@ -721,6 +722,20 @@ static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 			     BIT16(FUNC_BISR) |
 			     BIT16(FUNC_MBIST_CLEAR))
 	},
+	[XPM_HC_CPM6_OPS] = {
+		.InitStart = NULL,
+		.InitFinish = NULL,
+		.ScanClear = NULL,
+		.Bisr = NULL,
+		.Mbist = NULL,
+		/* Mask to indicate which Ops are present */
+		.InitMask = (BIT16(FUNC_INIT_START) |
+			     BIT16(FUNC_INIT_FINISH) |
+			     BIT16(FUNC_SCAN_CLEAR) |
+			     BIT16(FUNC_BISR) |
+			     BIT16(FUNC_MBIST_CLEAR))
+	},
+
 };
 
 XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
@@ -735,6 +750,8 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 		Ops = &CpmOps[XPM_HC_CPM_OPS];
 	} else if (Id == PM_POWER_CPM5) {
 		Ops = &CpmOps[XPM_HC_CPM5_OPS];
+	} else if (Id == PM_POWER_CPM6) {
+		Ops = &CpmOps[XPM_HC_CPM6_OPS];
 	} else {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XPM_INVALID_PWRDOMAIN;
