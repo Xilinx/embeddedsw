@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * ----- ------  -------- ---------------------------------------------------
 * 1.0   kc   22/10/17 First release
 * 2.0   bsv  27/06/2020 Code clean up
+*       pre  01/16/2025 Fixed warning
 * </pre>
 *
 ******************************************************************************/
@@ -56,13 +57,14 @@ s32 XCfupmc_SelfTest(const XCfupmc *InstancePtr)
 {
 	s32 Status = (s32)XST_FAILURE;
 	u32 Data;
+	(void)InstancePtr;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	Data = XCfupmc_ReadReg(CFU_APB_CFU_PROTECT);
 
-	/* Changing Endianess of Source channel */
+	/* Changing Endianness of Source channel */
 	XCfupmc_WriteReg(CFU_APB_CFU_PROTECT, CFU_APB_CFU_PROTECT_ACTIVE_MASK);
 
 	if ((XCfupmc_ReadReg(CFU_APB_CFU_PROTECT) & \

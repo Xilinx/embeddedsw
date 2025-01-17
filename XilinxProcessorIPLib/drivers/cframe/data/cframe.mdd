@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -9,6 +9,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.6   mss  10/19/23 Updated driver version for 2024.1
 # 1.7   oh   07/24/24 Updated driver version for 2024.2
+# 1.8   pre  01/16/25 Updated driver version for 2025.1
 #
 ###############################################################################
 OPTION psf_version = 2.1;
@@ -18,7 +19,7 @@ BEGIN driver cframe
   OPTION supported_peripherals = (psv_pmc_cfi_cframe psxl_pmc_cfi_cframe psx_pmc_cfi_cframe cfi_cframe);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.7;
+  OPTION VERSION = 1.8;
   OPTION NAME = cframe;
 
 END driver
