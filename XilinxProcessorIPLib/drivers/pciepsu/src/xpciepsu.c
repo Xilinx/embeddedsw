@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -649,15 +649,16 @@ static void XPciePsu_BarMemoryAlloc(XPciePsu *InstancePtr, u8 Bus,u8 Device,u8 F
 {
 	u32 Data = DATA_MASK_32;
 	u32 Location = 0, Location_1 = 0;
-	u32 TestWrite;
+	u32 TestWrite = 0;
 	u32 Size_1 = 0;
 	u8 BarNo = 0;
-	u64 MaxBarSize = 0;
 #if defined(__aarch64__) || defined(__arch64__)
-	u64 BarAddr;
-	u8 MemAs;
+	u64 BarAddr = 0;
+	u8 MemAs = 0;
+	u64 MaxBarSize = 0;
 #else
-	u32 BarAddr;
+	u32 BarAddr = 0;
+	u32 MaxBarSize = 0;
 #endif
 	u64 Tmp;
 	u8 BarIndex;
@@ -731,7 +732,7 @@ static void XPciePsu_BarMemoryAlloc(XPciePsu *InstancePtr, u8 Bus,u8 Device,u8 F
 						"function: %02X is out of range \n",
 						(Value[BarNo] / 1024),Bus,Device,Function);
 
-					return XST_SUCCESS;
+					return;
 				}
 				/* actual bar size is 2 << TestWrite */
 				BarAddr =
@@ -788,7 +789,7 @@ static void XPciePsu_BarMemoryAlloc(XPciePsu *InstancePtr, u8 Bus,u8 Device,u8 F
 						"Requested BAR size of %uK for bus: %02X, dev: %02X, "
 						"function: %02X is out of range \n",
 						(Value[BarNo] / 1024),Bus,Device,Function);
-					return XST_SUCCESS;
+					return;
 				}
 
 			/* actual bar size is 2 << TestWrite */
@@ -839,7 +840,7 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 {
 	u8 BarAllocControl = 0;
 	u8 MaxBars = 0;
-	u64 ReqSize;
+	u64 ReqSize = 0;
 	u32 Location;
 	u32 Position;
 #if defined(__aarch64__) || defined(__arch64__)
@@ -849,8 +850,8 @@ static int XPciePsu_AllocBarSpace(XPciePsu *InstancePtr, u32 Headertype, u8 Bus,
 	u64 ReqBar, ReqBar_1;
 	u64 MaxBarSize;
 #else
-	u32 ReqAddr;
-	u32 MaxBarSize;
+	u32 ReqAddr = 0;
+	u32 MaxBarSize = 0;
 #endif
 
 	/*Static array declarations for BAR Alignment */

@@ -237,7 +237,7 @@ static void XPciePSU_ReadBar(XPciePsu *PciePsuPtr, u32 BarNum, u32 *BarLo,
 
 void Do_Egress_Test(u32 *egress_src_lo)
 {
-	u32 buf[2];
+	u32 buf[2] = {0};
 
 	xil_printf("Inside of egress test: egress_src_lo: %llx\n", egress_src_lo);
 	buf[0] = *egress_src_lo;
