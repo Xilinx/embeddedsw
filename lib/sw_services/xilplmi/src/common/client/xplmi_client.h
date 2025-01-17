@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 -2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -18,6 +18,7 @@
  * 1.00  dd   01/09/24 Initial release
  *       pre  07/10/24 Added support for configure secure communication command
  *       pre  09/30/24 Added XPlmi_GetSecureCommStatus API
+ *       pre  01/13/25 Added client API for command to set access status of DDRMC main registers
  *
  * </pre>
  *
@@ -64,6 +65,7 @@ int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Addr,
 int XPlmi_ConfigSecureComm(XPlmi_ClientInstance *InstancePtr,
                            XPlmi_SsitSecComm *SsitSecCommDataPtr);
 int XPlmi_GetSecureCommStatus(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex, u32 *SecCommStatus);
+int XPlmi_SetDDRMCMainRegSts(XPlmi_ClientInstance *InstancePtr, u32 DDRMCNum, u32 RegSts);
 int XPlmi_InputSlrIndex(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex);
 
 /************************************ Variable Definitions ***************************************/

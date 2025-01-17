@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,6 +59,7 @@
 * 24.2  prt  09/18/2024 Updated XPLMI_PLM_PLAT_RC_VERSION to 0U
 *       pre  09/30/2024 Added XPlmi_GetSsitSecCommStatus define
 *       pre  10/07/2024 Added XPlmi_CheckSlaveErrors function
+*       pre  01/13/2025 Added macros for DDRMC register addresses
 *
 * </pre>
 *
@@ -470,7 +471,16 @@ typedef enum {
  * DDRMC Defines
  */
 #define MAX_DEV_DDRMC		(8U)	/**< Maximum device for Double Data Rate Memory Controller */
-
+#define XPLMI_DDRMC_UB0_BASE_ADDR   (0xF67C0000U) /**< DDRMC_UB0 base address */
+#define XPLMI_DDRMC_UB1_BASE_ADDR   (0xF68B0000U) /**< DDRMC_UB1 base address */
+#define XPLMI_DDRMC_UB2_BASE_ADDR   (0xF6DC0000U) /**< DDRMC_UB2 base address */
+#define XPLMI_DDRMC_UB3_BASE_ADDR   (0xF6EB0000U) /**< DDRMC_UB3 base address */
+#define XPLMI_DDRMC_UB4_BASE_ADDR   (0xF6F70000U) /**< DDRMC_UB4 base address */
+#define XPLMI_DDRMC_UB5_BASE_ADDR   (0xF7060000U) /**< DDRMC_UB2 base address */
+#define XPLMI_DDRMC_UB6_BASE_ADDR   (0xF7320000U) /**< DDRMC_UB3 base address */
+#define XPLMI_DDRMC_UB7_BASE_ADDR   (0xF7400000U) /**< DDRMC_UB4 base address */
+#define XPLMI_DDRMC_UB_PCSR_LOCK_OFFSET       (0x0CU) /**< Offset of PCSR register */
+#define XPLMI_DDRMC_UB_PMC2UB_INFO_OFFSET     (0x21CU) /**< Offset of PMC2UBInfo register */
 
 /*
  * RTCA area KAT masks

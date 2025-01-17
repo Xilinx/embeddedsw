@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -20,6 +20,7 @@
  *                     SSIT support
  *       pre  09/30/24 Added XPlmi_GetSecureCommStatus API
  *       pre  10/19/24 Fixed compilation warning
+ *       pre  01/13/25 Added command to set access status of DDRMC main registers
  *
  * </pre>
  *
@@ -289,6 +290,47 @@ int XPlmi_GetSecureCommStatus(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex, u
 	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
 
 	*SecCommStatus = InstancePtr->Response[1U];
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends IPI request to set DDRMC main registers status command
+ *
+ * @param	InstancePtr  Pointer to the client instance
+ * @param   DDRMCNum     DDRMC number
+ * @param   RegSts       To be set status
+ *
+ * @return
+ *			 - XST_SUCCESS on success.
+ *			 - XST_FAILURE on failure.
+ *
+ *************************************************************************************************/
+int XPlmi_SetDDRMCMainRegSts(XPlmi_ClientInstance *InstancePtr, u32 DDRMCNum, u32 RegSts)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+
+    /**
+	 * - Performs input parameters validation. Return error code if input parameters are invalid
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_2, (u32)XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID);
+	Payload[1U] = DDRMCNum;
+	Payload[2U] = RegSts;
+
+	/**
+	 * - Send an IPI request to the PLM by using the XPlmi_SetDDRMCMainRegSts CDO command
+	 * Wait for IPI response from PLM with a timeout.
+	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
+	 * response.
+	 */
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
 
 END:
 	return Status;

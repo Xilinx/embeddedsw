@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,6 +61,7 @@
 *			specific files
 *       pre  08/22/2024 Modified XPlmi_GetReadbackLen for external linkage
 *       pre  10/26/2024 Removed XPlmi_GetReadBackPropsValue and XPlmi_SetReadBackProps APIs
+*       pre  01/13/2025 Added XPlmi_SetDDRMCMainRegSts API
 *
 * </pre>
 *
@@ -194,6 +195,7 @@ int XPlmi_SearchBufferList(XPlmi_BufferList *BufferList, u32 BufferId,
 		u64 *BufAddr, u32 *BufLen);
 int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u64 Addr, u32 Type);
 u32 XPlmi_GetReadbackLen(u32 Len);
+int XPlmi_SetDDRMCMainRegSts(u32 DDRMCNum, u32 RegSts);
 
 /* xplmi_plat.c definitions */
 XPlmi_BoardParams *XPlmi_GetBoardParams(void);

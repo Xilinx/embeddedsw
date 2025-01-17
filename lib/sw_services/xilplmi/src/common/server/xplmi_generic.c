@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -123,6 +123,7 @@
 *                       XPlmi_GetReadBackPropsInstance APIs
 *       bm   10/29/2024 Fix chunk boundary handling in KeyholeXfr logic
 *       pre  12/24/2024 Skip LPD initialized check for other than PSM_BUFFER_LIST type
+*       pre  01/13/2025 Added command to set access status of DDRMC main registers
 *
 * </pre>
 *
@@ -207,6 +208,14 @@
 /**< Versal Subsystem node ID for PMC. */
 #define XPLMI_PMC_SUBSYS_NODE_ID	(0x1c000001U)
 
+/**< Defines for set access status of DDRMC main registers command */
+#define XPLMI_DDRMC_UB_PMC2UB_INFO_STS_BIT_NO (15U)
+#define XPLMI_DDRMC_UB_UNLOCK_WORD            (0xF9E8D7C6U)
+#define XPLMI_SET_DDRMCMAIN_REGSTS_DDRMC_INDEX (0U)
+#define XPLMI_SET_DDRMCMAIN_REGSTS_STS_INDEX   (1U)
+#define XPLMI_SET_DDRMC_MAIN_REGSTS_BUSY       (1U)
+#define XPLMI_SET_DDRMC_MAIN_REGSTS_FREE       (0U)
+
 /************************** Function Prototypes ******************************/
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
         XPlmi_Cmd* Cmd);
@@ -216,6 +225,7 @@ static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams);
 static int XPlmi_StackPush(XPlmi_CdoParamsStack *CdoParamsStack, u32 *Data);
 static int XPlmi_StackPop(XPlmi_CdoParamsStack *CdoParamsStack, u32 PopLevel, u32 *Data);
 static int XPlmi_TamperTrigger(XPlmi_Cmd *Cmd);
+static int XPlmi_SetDDRMCRegStsCmdHandler(XPlmi_Cmd *Cmd);
 
 /************************** Variable Definitions *****************************/
 
@@ -2276,6 +2286,98 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function sets the access status of DDR MC main registers
+ *
+ * @param	DDRMCNum - DDR MC number
+ * @param	RegSts - To be set status(Busy/Free)
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_SetDDRMCMainRegSts(u32 DDRMCNum, u32 RegSts)
+{
+	int Status = XST_SUCCESS;
+	u32 DdrMcUbBaseAddr;
+	u32 PmcToUbInfoRegAddr;
+	u32 PcsrLockRegAddr;
+#ifdef VERSAL_AIEPG2
+	const u32 XPlmi_DdrMcUbBaseAddr[MAX_DEV_DDRMC] = {XPLMI_DDRMC_UB0_BASE_ADDR,
+											XPLMI_DDRMC_UB1_BASE_ADDR, XPLMI_DDRMC_UB2_BASE_ADDR,
+											XPLMI_DDRMC_UB3_BASE_ADDR, XPLMI_DDRMC_UB4_BASE_ADDR};
+#else
+#ifdef VERSAL_NET
+	const u32 XPlmi_DdrMcUbBaseAddr[MAX_DEV_DDRMC] = {XPLMI_DDRMC_UB0_BASE_ADDR,
+											XPLMI_DDRMC_UB1_BASE_ADDR, XPLMI_DDRMC_UB2_BASE_ADDR,
+											XPLMI_DDRMC_UB3_BASE_ADDR, XPLMI_DDRMC_UB4_BASE_ADDR,
+											XPLMI_DDRMC_UB5_BASE_ADDR, XPLMI_DDRMC_UB6_BASE_ADDR,
+											XPLMI_DDRMC_UB7_BASE_ADDR};
+#else
+	const u32 XPlmi_DdrMcUbBaseAddr[MAX_DEV_DDRMC] = {XPLMI_DDRMC_UB0_BASE_ADDR,
+				XPLMI_DDRMC_UB1_BASE_ADDR, XPLMI_DDRMC_UB2_BASE_ADDR, XPLMI_DDRMC_UB3_BASE_ADDR};
+#endif
+#endif
+
+	/* Input parameters validation */
+	if ((DDRMCNum >= MAX_DEV_DDRMC) || ((RegSts != XPLMI_SET_DDRMC_MAIN_REGSTS_FREE) &&
+	   (RegSts != XPLMI_SET_DDRMC_MAIN_REGSTS_BUSY))) {
+		Status = XPLMI_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/* Take DDRMC ub register, Info, lock reg address based on DDRMC number */
+	DdrMcUbBaseAddr = XPlmi_DdrMcUbBaseAddr[DDRMCNum];
+
+	/* Using pmc2ub_info reg in versalnet & telluride and pmc2ub_gpi1 reg in versal */
+#ifdef VERSAL_NET
+	PmcToUbInfoRegAddr = DdrMcUbBaseAddr + XPLMI_DDRMC_UB_PMC2UB_INFO_OFFSET;
+#else
+	PmcToUbInfoRegAddr = DdrMcUbBaseAddr + XPLMI_DDRMC_UB_PMC2UB_GPI1_OFFSET;
+#endif
+	PcsrLockRegAddr = DdrMcUbBaseAddr + XPLMI_DDRMC_UB_PCSR_LOCK_OFFSET;
+
+	/* Unlock DDRMC UB registers */
+	XPlmi_Out32(PcsrLockRegAddr, XPLMI_DDRMC_UB_UNLOCK_WORD);
+
+	/* Set status to busy/free by writing 1/0 to DDRMC_UB.PMC2UBINFO[15] */
+	XPlmi_UtilRMW(PmcToUbInfoRegAddr, ((u32)1U << XPLMI_DDRMC_UB_PMC2UB_INFO_STS_BIT_NO),
+	             (RegSts << XPLMI_DDRMC_UB_PMC2UB_INFO_STS_BIT_NO));
+
+	/* Set access status busy or free based on status received in payload */
+	if (RegSts == XPLMI_SET_DDRMC_MAIN_REGSTS_FREE) {
+		/* Lock DDRMC UB registers */
+		XPlmi_Out32(PcsrLockRegAddr, 0U);
+	}
+	else {
+		/* wait for 10usec */
+		usleep(10);
+	}
+
+END:
+	return Status;
+}
+/*****************************************************************************/
+/**
+ * @brief	This function handles XPlmi_SetDDRMCRegSts command
+ *
+ * @param	Cmd is pointer to the command structure
+ *              Command payload parameters are
+ *              - DDR MC number
+ *              - To be set status(Busy/Free)
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_SetDDRMCRegStsCmdHandler(XPlmi_Cmd *Cmd)
+{
+	return XPlmi_SetDDRMCMainRegSts(Cmd->Payload[XPLMI_SET_DDRMCMAIN_REGSTS_DDRMC_INDEX],
+                                Cmd->Payload[XPLMI_SET_DDRMCMAIN_REGSTS_STS_INDEX]);
+}
 #ifndef VERSAL_NET
 /*****************************************************************************/
 /**
@@ -2357,6 +2459,7 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_SsitCfgSecComm),
 		XPLMI_MODULE_COMMAND(NULL),
 		XPLMI_MODULE_COMMAND(XPlmi_GetSsitSecCommStatus),
+		XPLMI_MODULE_COMMAND(XPlmi_SetDDRMCRegStsCmdHandler),
 	};
 
 	/* Buffer to store access permissions of xilplmi generic module */
@@ -2415,6 +2518,7 @@ void XPlmi_GenericInit(void)
 		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_SSIT_CFG_SEC_COMM_CMD_ID),
 		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_GETSECCOMM_STATUS_CMD_ID),
 #endif
+		XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID),
 	};
 
 	/* This is to store CMD_END in xplm_modules section */

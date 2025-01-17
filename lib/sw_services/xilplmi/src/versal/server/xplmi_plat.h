@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +57,7 @@
 *       rj   09/10/2024 Added PMC GPIO interrupt macro
 *       pre  09/24/2024 Removed new key from RTCA
 *       pre  10/07/2024 Added XPlmi_CheckSlaveErrors function
+*       pre  01/13/2025 Added macros for DDRMC register addresses
 *
 * </pre>
 *
@@ -219,6 +220,12 @@ extern "C" {
  * DDRMC Defines
  */
 #define MAX_DEV_DDRMC		(4U)	/**< Maximum device for Double Data Rate Memory Controller */
+#define XPLMI_DDRMC_UB0_BASE_ADDR             (0xF6110000U) /**< DDRMC_UB0 base address */
+#define XPLMI_DDRMC_UB1_BASE_ADDR             (0xF6280000U) /**< DDRMC_UB1 base address */
+#define XPLMI_DDRMC_UB2_BASE_ADDR             (0xF63F0000U) /**< DDRMC_UB2 base address */
+#define XPLMI_DDRMC_UB3_BASE_ADDR             (0xF6560000U) /**< DDRMC_UB3 base address */
+#define XPLMI_DDRMC_UB_PCSR_LOCK_OFFSET       (0x0CU) /**< Offset of PCSR register */
+#define XPLMI_DDRMC_UB_PMC2UB_GPI1_OFFSET     (0x244U) /**< Offset of PMC2UBInfo register */
 
 /*
  * RTCA area KAT masks
