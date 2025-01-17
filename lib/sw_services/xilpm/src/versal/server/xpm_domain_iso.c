@@ -338,6 +338,22 @@ static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_DEV_PLD_0, PM_POWER_LPD },
 	},
+	[XPM_NODEIDX_ISO_LPD_CPM6_DFX] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_LPD_CPM6_DFX),
+		.Node.BaseAddress = CPM6_SLCR_BASEADDR,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = 0U,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
+		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM6 },
+	},
+	[XPM_NODEIDX_ISO_LPD_CPM6] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_LPD_CPM6),
+		.Node.BaseAddress = CPM6_SLCR_BASEADDR,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = 0U,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
+		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM6 },
+	},
 };
 
 static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
@@ -498,7 +514,9 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			    ((u32)XPM_NODEIDX_ISO_CPM5_PL == IsoIdx) ||
 			    ((u32)XPM_NODEIDX_ISO_CPM5_PL_DFX == IsoIdx) ||
 			    ((u32)XPM_NODEIDX_ISO_CPM5_GT == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_GT_DFX == IsoIdx)) {
+			    ((u32)XPM_NODEIDX_ISO_CPM5_GT_DFX == IsoIdx) ||
+			    ((u32)XPM_NODEIDX_ISO_LPD_CPM6_DFX == IsoIdx) ||
+			    ((u32)XPM_NODEIDX_ISO_LPD_CPM6 == IsoIdx)) {
 				Status = XPmDomainIso_SendEventToPsm(IsoIdx,
 								     TRUE_VALUE);
 			} else {
@@ -575,7 +593,10 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			    ((u32)XPM_NODEIDX_ISO_CPM5_PL == IsoIdx) ||
 			    ((u32)XPM_NODEIDX_ISO_CPM5_PL_DFX == IsoIdx) ||
 			    ((u32)XPM_NODEIDX_ISO_CPM5_GT == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_GT_DFX == IsoIdx)) {
+			    ((u32)XPM_NODEIDX_ISO_CPM5_GT_DFX == IsoIdx) ||
+			    ((u32)XPM_NODEIDX_ISO_LPD_CPM6_DFX == IsoIdx) ||
+			    ((u32)XPM_NODEIDX_ISO_LPD_CPM6 == IsoIdx)) {
+
 				Status = XPmDomainIso_SendEventToPsm(IsoIdx,
 								     FALSE_VALUE);
 			} else {
@@ -652,7 +673,9 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			    ((u32)XPM_NODEIDX_ISO_CPM5_PL == IsoIdx) ||
 			    ((u32)XPM_NODEIDX_ISO_CPM5_PL_DFX == IsoIdx) ||
 			    ((u32)XPM_NODEIDX_ISO_CPM5_GT == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_GT_DFX == IsoIdx)) {
+			    ((u32)XPM_NODEIDX_ISO_CPM5_GT_DFX == IsoIdx) ||
+			    ((u32)XPM_NODEIDX_ISO_LPD_CPM6_DFX == IsoIdx) ||
+			    ((u32)XPM_NODEIDX_ISO_LPD_CPM6 == IsoIdx)) {
 				Status = XPmDomainIso_SendEventToPsm(IsoIdx,
 								     FALSE_VALUE);
 			} else {

@@ -4,7 +4,6 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 #include "xpm_common.h"
 #include "xpm_cpmdomain.h"
 #include "xpm_regs.h"
@@ -27,8 +26,15 @@
 #define XPM_NODEIDX_DEV_GTYP_CPM5_MIN		XPM_NODEIDX_DEV_GTYP_CPM5_0
 #define XPM_NODEIDX_DEV_GTYP_CPM5_MAX		XPM_NODEIDX_DEV_GTYP_CPM5_3
 
+/* Define CPM5_GTYP device */
+#define XPM_NODEIDX_DEV_GTMPW_CPM6_MIN		XPM_NODEIDX_DEV_GTMPW_CPM6_0
+#define XPM_NODEIDX_DEV_GTMPW_CPM6_MAX		XPM_NODEIDX_DEV_GTMPW_CPM6_3
+
 static u32 GtyAddresses[XPM_NODEIDX_DEV_GTYP_CPM5_MAX -
 			XPM_NODEIDX_DEV_GTYP_CPM5_MIN + 1] = {0};
+
+static u32 GtmpwAddresses[XPM_NODEIDX_DEV_GTMPW_CPM6_MAX -
+			  XPM_NODEIDX_DEV_GTMPW_CPM6_MIN + 1U] = {0U};
 
 static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
@@ -171,6 +177,60 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+
+static XStatus Cpm6InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumofArgs)
+{
+	XStatus Status = XPM_ERR_INIT_START;
+	u32 RegVal;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Device* Device = NULL;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumofArgs);
+
+
+	/* TODO: Ensure vccint_cpm6 supply rail is withing correct operating range */
+
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		RegVal = XPm_In32(CRL_RST_OCM2_CTRL) &
+				(CRL_RST_OCM2_CTRL_POR_MASK | CRL_RST_OCM2_CTRL_SRST_MASK);
+
+		/* If reset is active skip initstart for secure lock down */
+		if (0U != RegVal) {
+			DbgErr = XPM_INT_ERR_CPM6_INIT_RST;
+			goto done;
+		}
+	}
+
+	/* Remove isolation between CPM6 and LPD */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM6_DFX, FALSE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_CPM6_DFX_ISO;
+		goto done;
+	}
+
+	/* Remove POR for CPM6 */
+	/* lpd_cpm6_por_n reset maps to PM_RST_OCM2_POR */
+	Status = XPmReset_AssertbyId(PM_RST_OCM2_POR, (u32)PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_RST_RELEASE;
+		goto done;
+	}
+
+	/* Initialize Array with GTMPW Base Addresses */
+	for (u32 i = 0U; i < ARRAY_SIZE(GtmpwAddresses); ++i) {
+		Device = XPmDevice_GetById(GT_DEVID((u32)XPM_NODEIDX_DEV_GTMPW_CPM6_MIN + i));
+		if (NULL != Device) {
+			GtmpwAddresses[i] = Device->Node.BaseAddress;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 
 static XStatus CpmInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
@@ -333,6 +393,100 @@ done:
 	return Status;
 }
 
+static XStatus Cpm6ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
+{
+	volatile XStatus Status = XPM_ERR_SCAN_CLR;
+	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 RegVal;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
+	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
+
+	if (NULL == PwrDomain) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		goto done;
+	}
+
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		RegVal = XPm_In32(CRL_RST_OCM2_CTRL) &
+					(CRL_RST_OCM2_CTRL_POR_MASK | CRL_RST_OCM2_CTRL_SRST_MASK);
+
+		/* If reset is active skip scan clear for secure lock down */
+		if (0U != RegVal) {
+			DbgErr = XPM_INT_ERR_CPM6_SCAN_CLEAR_RST;
+			goto done;
+		}
+	}
+
+	/* Unlock PCSR */
+	XPm_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
+
+	/*
+	 * De-assert the HOLDSTATE bit and release open the clock gates in CPM
+	 */
+	Status = XPm_PcsrWrite(Cpm->CpmPcsrBaseAddr, CPM_PCSR_PCR_HOLDSTATE_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (PM_HOUSECLEAN_CHECK(CPM, SCAN)) {
+		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+
+		/* Run scan clear on CPM */
+		Status = XPm_PcsrWrite(Cpm->CpmPcsrBaseAddr, CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK,
+				       CPM_PCSR_PCR_SCAN_CLEAR_TRIGGER_MASK);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/* Wait for Scan Clear do be done */
+		Status = XPm_PollForMask(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET,
+				CPM_PCSR_PSR_SCAN_CLEAR_DONE_MASK,
+				PollTimeOut);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
+			goto done;
+		}
+
+		/* Check if Scan Clear Passed */
+		RegVal = XPm_In32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PSR_OFFSET);
+		if ((RegVal & (u32)CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK) !=
+				(u32)CPM_PCSR_PSR_SCAN_CLEAR_PASS_MASK) {
+			DbgErr = XPM_INT_ERR_SCAN_PASS;
+			goto done;
+		}
+	} else {
+		/* ScanClear is skipped */
+		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+	}
+
+	/* Assert the HOLDSTATE bit and release open the clock gates in CPM */
+	Status = XPm_PcsrWrite(Cpm->CpmPcsrBaseAddr, CPM_PCSR_MASK_SCAN_CLEAR_HOLDSTATE_WEN_MASK,
+			       CPM_PCSR_PCR_HOLDSTATE_MASK);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Disable writes to PCR */
+	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET, 0x0U);
+
+	/* Remove isolation between CPM6 and LPD */
+	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM5, FALSE_VALUE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_LPD_CPM6_ISO;
+	}
+
+	/* Switch PMC SysMon clock from IRO to NPI clock source */
+	XPm_Out32(CRP_BASEADDR + CRP_SYSMON_REF_CTRL_OFFSET, CRP_SYSMON_REF_CTRL_SRCSEL_NPI_REF_CLK_MASK);
+
+done:
+	/* Lock PCSR */
+	XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
 
 static XStatus CpmBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
@@ -436,6 +590,43 @@ static XStatus Cpm5Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus Cpm6Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+			u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Unused args */
+	(void)PwrDomain;
+	(void)Args;
+	(void)NumOfArgs;
+
+	/*
+	 * TODO: Add calls to BISR repair sequence for CPM6 and GTMPW when available.
+	 * The sequence should follow the same format as Cpm5Bisr
+	 */
+
+	/* De-assert InitCtrl for Gtmpw if available */
+	for (u32 i = 0; i < ARRAY_SIZE(GtmpwAddresses); ++i) {
+		if (0U == GtmpwAddresses[i]) {
+			continue;
+		}
+
+		/* De-assert InitCtrl */
+		XPm_UnlockPcsr(GtmpwAddresses[i]);
+		Status = XPm_PcsrWrite(GtmpwAddresses[i], GTMPW_PCSR_INITCTRL_MASK, 0U);
+		XPm_LockPcsr(GtmpwAddresses[i]);
+
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }
 
@@ -695,6 +886,147 @@ done:
 	return Status;
 }
 
+static XStatus Cpm6GtmpwMbist(u32 BaseAddress, u32 PollTimeOut)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	/* Unlock Pcsr */
+	XPm_UnlockPcsr(BaseAddress);
+
+	Status = XPm_PcsrWrite(BaseAddress, GTMPW_PCSR_MEM_CLEAR_TRIGGER_MASK,
+			       GTMPW_PCSR_MEM_CLEAR_TRIGGER_MASK);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER;
+		goto done;
+	}
+
+	Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
+				 GTMPW_PCSR_STATUS_MEM_CLEAR_DONE_MASK, PollTimeOut);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
+		goto done;
+	}
+
+	Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
+				 GTMPW_PCSR_STATUS_MEM_CLEAR_PASS_MASK, PollTimeOut);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS_TIMEOUT;
+		goto done;
+	}
+
+	/* Unwrite Trigger bits */
+	Status = XPm_PcsrWrite(BaseAddress, GTMPW_PCSR_MEM_CLEAR_TRIGGER_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER_UNSET;
+	}
+
+done:
+	/* Lock PCSR */
+	XPm_LockPcsr(BaseAddress);
+	/* Lock PCSR Redundancy */
+	XPm_LockPcsr(BaseAddress);
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus Cpm6MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
+{
+	volatile XStatus Status = XPM_ERR_MBIST_CLR;
+	volatile XStatus StatusTmp = XPM_ERR_MBIST_CLR;
+	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
+	u32 RegValue, i;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
+	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
+
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		RegValue = XPm_In32(CRL_RST_OCM2_CTRL) &
+					(CRL_RST_OCM2_CTRL_POR_MASK | CRL_RST_OCM2_CTRL_SRST_MASK);
+
+		/* If reset is active skip mbist clear for secure lock down */
+		if (0U != RegValue) {
+			DbgErr = XPM_INT_ERR_CPM5_MBIST_RST;
+			goto done;
+		}
+	}
+
+	if (!(PM_HOUSECLEAN_CHECK(CPM, MBIST))) {
+		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
+
+	/* Disable write protection */
+	XPm_Out32(Cpm->CpmSlcrSecureBaseAddr + CPM6_SLCR_SECURE_WPROTS_OFFSET, 0U);
+
+	/* Trigger MBIST for all controllers */
+	/* This step can be broken down into stages to reduce power
+	 * consumption. However, clear action is performed in parallel by
+	 * MBIST Controllers */
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM6_SLCR_SECURE_MEM_CLR_TRIGGER_OFFSET,
+		CPM6_SLCR_SECURE_MEM_CLR_TRIGGER_MASK);
+	/* Check that the register value written properly or not! */
+	PmChkRegMask32((Cpm->CpmSlcrSecureBaseAddr + CPM6_SLCR_SECURE_MEM_CLR_TRIGGER_OFFSET),
+			CPM6_SLCR_SECURE_MEM_CLR_TRIGGER_MASK,
+			CPM6_SLCR_SECURE_MEM_CLR_TRIGGER_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER;
+		goto done;
+	}
+
+	/* Poll for done */
+	/* If trigger action is performed in stages, then break down this step */
+	Status = XPm_PollForMask(Cpm->CpmSlcrSecureBaseAddr + CPM6_SLCR_SECURE_MEM_CLR_DONE_EXT_OFFSET,
+				 CPM6_SLCR_SECURE_MEM_CLR_DONE_EXT_MASK, PollTimeOut);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_MBIST_DONE_TIMEOUT;
+		goto done;
+	}
+
+	/* Check Status */
+	PmIn32(Cpm->CpmSlcrSecureBaseAddr + CPM6_SLCR_SECURE_MEM_CLR_PASSOUT_EXT_OFFSET, RegValue);
+	if ((CPM6_SLCR_SECURE_MEM_CLR_PASSOUT_EXT_MASK & RegValue) != CPM6_SLCR_SECURE_MEM_CLR_PASSOUT_EXT_MASK) {
+		DbgErr = XPM_INT_ERR_MBIST_PASS;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	/* Unwrite trigger bit and enable write protection */
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM6_SLCR_SECURE_MEM_CLR_TRIGGER_OFFSET, 0x0U);
+
+	/* Enable write protection */
+	PmOut32(Cpm->CpmSlcrSecureBaseAddr + CPM6_SLCR_SECURE_WPROTS_OFFSET, 0x1U);
+
+	for (i = 0U; i < ARRAY_SIZE(GtmpwAddresses); ++i) {
+		if (0U == GtmpwAddresses[i]) {
+			continue;
+		}
+
+		/* Mbist */
+		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Cpm6GtmpwMbist), (GtmpwAddresses[i]), (PollTimeOut));
+		XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
+		/* Required for redundancy */
+		if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
+			DbgErr = XPM_INT_ERR_MBIST;
+			XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
+		}
+	}
+
+	if (ARRAY_SIZE(GtmpwAddresses) != i) {
+		Status = XST_FAILURE;
+		DbgErr = XPM_INT_ERR_CPM6_GTMPW_MBIST_LOOP;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 	[XPM_HC_CPM_OPS] = {
 		.InitStart = CpmInitStart,
@@ -723,11 +1055,11 @@ static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 			     BIT16(FUNC_MBIST_CLEAR))
 	},
 	[XPM_HC_CPM6_OPS] = {
-		.InitStart = NULL,
-		.InitFinish = NULL,
-		.ScanClear = NULL,
-		.Bisr = NULL,
-		.Mbist = NULL,
+		.InitStart = Cpm6InitStart,
+		.InitFinish = CpmInitFinish,
+		.ScanClear = Cpm6ScanClear,
+		.Bisr = Cpm6Bisr,
+		.Mbist = Cpm6MbistClear,
 		/* Mask to indicate which Ops are present */
 		.InitMask = (BIT16(FUNC_INIT_START) |
 			     BIT16(FUNC_INIT_FINISH) |
