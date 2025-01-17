@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -81,6 +82,7 @@
 *                       clock combinations.
 *       cog    01/12/22 Fix compiler warnings.
 *       cog    01/24/22 Fix static analysis errors.
+* 13.0  cog    01/15/25 Allow changing of single tile PLL frequency.
 * </pre>
 *
 ******************************************************************************/
@@ -1805,24 +1807,23 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		NetCtrlReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1);
 	}
 
-	if (Type == XRFDC_ADC_TILE) {
-		BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
-		InitialPowerUpState = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_STATUS_OFFSET, XRFDC_PWR_UP_STAT_MASK) >>
-				      XRFDC_PWR_UP_STAT_SHIFT;
-		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) + XRFDC_HSCOM_ADDR;
-	} else {
-		BaseAddr = XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id);
-		InitialPowerUpState = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_STATUS_OFFSET, XRFDC_PWR_UP_STAT_MASK) >>
-				      XRFDC_PWR_UP_STAT_SHIFT;
-		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) + XRFDC_HSCOM_ADDR;
-	}
-
 	/*
 	 * Stop the ADC or DAC tile by putting tile in reset state if not stopped already
 	 */
 	BaseAddr = XRFDC_CTRL_STS_BASE(Type, Tile_Id);
 	InitialPowerUpState = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_STATUS_OFFSET, XRFDC_PWR_UP_STAT_MASK) >>
 			      XRFDC_PWR_UP_STAT_SHIFT;
+	/*
+	 * Go back to to clock detect state if not already powered down
+	 */
+	if (InitialPowerUpState != XRFDC_DISABLED) {
+                 Status = XRFdc_CustomStartUp(InstancePtr, Type, Tile_Id, XRFDC_STATE_CLK_DET, XRFDC_STATE_CLK_DET);
+                 if (Status != XRFDC_SUCCESS) {
+                         Status = XRFDC_FAILURE;
+                         goto RETURN_PATH;
+                 }
+        }
+
 	BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR;
 
 	if (Source == XRFDC_INTERNAL_PLL_CLK) {
@@ -2013,10 +2014,10 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	}
 
 	/*
-	 * Re-start the ADC or DAC tile if tile was shut down in this function
+	 * Finish IPFSM the ADC or DAC tile if tile state was modified in this function
 	 */
 	if (InitialPowerUpState != XRFDC_DISABLED) {
-		Status = XRFdc_StartUp(InstancePtr, Type, Tile_Id);
+		Status = XRFdc_CustomStartUp(InstancePtr, Type, Tile_Id, XRFDC_STATE_CLK_DET, XRFDC_STATE_FULL);
 		if (Status != XRFDC_SUCCESS) {
 			Status = XRFDC_FAILURE;
 			goto RETURN_PATH;
