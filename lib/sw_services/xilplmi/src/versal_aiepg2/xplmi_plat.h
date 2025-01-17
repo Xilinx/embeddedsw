@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,6 +61,7 @@
 *       pre  09/30/2024 Added XPlmi_GetSsitSecCommStatus define
 *       pre  10/07/2024 Added XPlmi_CheckSlaveErrors function
 * 2.03  sk   12/13/2024 Added defines for PPU Proc Buffers
+*       pre  01/13/2025 Added macros for DDRMC register addresses
 *
 * </pre>
 *
@@ -483,8 +484,14 @@ typedef enum {
 /*
  * DDRMC Defines
  */
-#define MAX_DEV_DDRMC		(8U)	/**< Maximum device for Double Data Rate Memory Controller */
-
+#define MAX_DEV_DDRMC		(5U)	/**< Maximum device for Double Data Rate Memory Controller */
+#define XPLMI_DDRMC_UB0_BASE_ADDR   		  (0xF6570000U) /**< DDRMC_UB0 base address */
+#define XPLMI_DDRMC_UB1_BASE_ADDR   		  (0xF6660000U) /**< DDRMC_UB1 base address */
+#define XPLMI_DDRMC_UB2_BASE_ADDR   		  (0xF6BA0000U) /**< DDRMC_UB2 base address */
+#define XPLMI_DDRMC_UB3_BASE_ADDR    		  (0xF6EF0000U) /**< DDRMC_UB3 base address */
+#define XPLMI_DDRMC_UB4_BASE_ADDR   		  (0xF6FD0000U) /**< DDRMC_UB4 base address */
+#define XPLMI_DDRMC_UB_PCSR_LOCK_OFFSET       (0x0CU) /**< Offset of PCSR register */
+#define XPLMI_DDRMC_UB_PMC2UB_INFO_OFFSET     (0x21CU) /**< Offset of PMC2UBInfo register */
 
 /*
  * RTCA area KAT masks

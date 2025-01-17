@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,7 +43,8 @@
 *       bm   07/24/2023 Type cast IPI Access macros properly
 * 2.0   ng   11/11/2023 Implemented user modules
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
-*       pre  09/30/24 Added support for get secure communication status command
+*       pre  09/30/2024 Added support for get secure communication status command
+*       pre  01/13/2025 Added command to set access status of DDRMC main registers
 *
 * </pre>
 *
@@ -211,6 +212,7 @@ typedef struct {
 #define XPLMI_LIST_MASK_POLL_CMD_ID	(42U)
 #define XPLMI_SSIT_CFG_SEC_COMM_CMD_ID (43U)
 #define XPLMI_GETSECCOMM_STATUS_CMD_ID (45U)
+#define XPLMI_DDRMC_MAINREG_STS_SET_CMD_ID (46U)
 #define XPLMI_CDO_END_CMD_ID		(0xFFU)
 
 /************************** Function Prototypes ******************************/
