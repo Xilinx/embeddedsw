@@ -442,6 +442,16 @@ extern "C" {
 #define XPM_INT_ERR_CPM_MBIST_RST			0x4010U
 /* Error during CPM5 MBIST in reset */
 #define XPM_INT_ERR_CPM5_MBIST_RST			0x4011U
+/* Error during CPM6 init in reset */
+#define XPM_INT_ERR_CPM6_INIT_RST		0x4012U
+/* Error during LPD-CPM6 DFX isolation enable/disable */
+#define XPM_INT_ERR_LPD_CPM6_DFX_ISO		0x4013U
+/* Error during CPM6 scan clear in reset */
+#define XPM_INT_ERR_CPM6_SCAN_CLEAR_RST		0x4014U
+/* Error during LPD-CPM6 isolation enable/disable */
+#define XPM_INT_ERR_LPD_CPM6_ISO		0x4015U
+/* Error during CPM6 GTMPW MIBST Loop */
+#define XPM_INT_ERR_CPM6_GTMPW_MBIST_LOOP	0x4016U
 
 /************************** AIE specific Errors ******************************/
 /************************** (0x4100) - (0x41FF) ******************************/
