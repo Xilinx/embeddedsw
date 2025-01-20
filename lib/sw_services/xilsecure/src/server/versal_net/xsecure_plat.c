@@ -240,23 +240,38 @@ static void XSecure_UpdateEcdsaCryptoStatus(u32 Op)
 
 /*****************************************************************************/
 /**
- *
- * @brief	This function is not applicable for VersalNet.
+ * @brief	This function validates whether all the intermediate updates to
+ * 		AES engine are Q-WORD aligned or not.
  *
  * @param	Size		Size of data in bytes.
  * @param	IsLastChunk	Last chunk indication
  *
  * @return
- *		 - Always returns XST_SUCCESS
+ *		XST_SUCCESS If the data is q-word aligned for intermediate updates
+ *		XST_FAILURE If the data is not q-word aligned for intermediate updates
  *
  ******************************************************************************/
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 {
-	(void)Size;
-	(void)IsLastChunk;
+	int Status = XST_FAILURE;
 
-	return XST_SUCCESS;
+	/**
+	  * AES engine expect all intermediate updates shall be
+	  * 16-byte aligned when it is not last chunk of data.
+	  * Throw an error if it is not 16 byte aligned.
+	  */
+	if ((IsLastChunk != TRUE) &&
+		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
+		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
+
 /*****************************************************************************/
 /**
  *
