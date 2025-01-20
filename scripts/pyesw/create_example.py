@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module creates the driver or library example using the domain information
@@ -100,7 +100,7 @@ def create_example(args):
         utils.replace_line(
             src_cmake,
             f'PROJECT_LIB_DEPS xilstandalone',
-            f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})\n',
+            f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})',
         )
 
     # Generates the metadata for linker script

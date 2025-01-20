@@ -41,7 +41,7 @@ def retarget_app(args):
         utils.replace_line(
             src_cmake,
             f'PROJECT_LIB_DEPS xilstandalone',
-            f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})\n',
+            f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})',
         )
 
     """
