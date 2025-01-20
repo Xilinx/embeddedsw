@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module builds an already created app. It doesn't contain any members
@@ -86,7 +86,7 @@ def build_app(args):
         utils.replace_line(
             src_cmake,
             f'PROJECT_LIB_DEPS xilstandalone',
-            f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})\n',
+            f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})',
         )
     utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append}', cwd=obj.app_build_dir)
     utils.copy_file(f"{obj.app_build_dir}/compile_commands.json", obj.app_src_dir, silent_discard=True)

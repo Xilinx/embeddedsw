@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module creates the template application using the domain information
@@ -113,7 +113,7 @@ def create_app(args):
         utils.replace_line(
             src_cmake,
             f'PROJECT_LIB_DEPS xilstandalone',
-            f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})\n',
+            f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})',
         )
 
     # Checks if the app depends on any driver, if yest, generates the corresponding metadata
