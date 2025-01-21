@@ -198,7 +198,13 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr)
 		goto END;
 	}
 
-	if ((HmacParamsPtr->IsLast != TRUE) && (HmacParamsPtr->IsLast != FALSE)) {
+	if ((HmacParamsPtr->IsLast != XASU_TRUE) && (HmacParamsPtr->IsLast != XASU_FALSE)) {
+		goto END;
+	}
+
+	if ((HmacParamsPtr->KeyLen < HmacParamsPtr->HmacLen) ||
+	    (HmacParamsPtr->KeyLen > XASU_HMAC_MAX_KEY_LENGTH) ||
+	    (HmacParamsPtr->MsgLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 		goto END;
 	}
 

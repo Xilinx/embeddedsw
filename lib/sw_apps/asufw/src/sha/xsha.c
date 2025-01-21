@@ -601,33 +601,40 @@ END:
 /**
  * @brief	This function gives SHA block length for provided sha type and sha mode.
  *
- * @param	ShaType	SHA type selection.
- * @param	ShaMode	SHA mode selection
+ * @param	InstancePtr	Pointer to the XSha instance.
+ * @param	ShaMode		SHA mode selection.
+ * @param	BlockLen	The length which is to be returned.
  *
  * @return
- *		- SHA blocklen based on the type and mode.
+ *		- XASUFW_SUCCESS, if block length returned is valid.
+ *		- XASUFW_SHA_INVALID_SHA_MODE, if SHA mode input is invalid.
+ *		- XASUFW_SHA_INVALID_SHA_TYPE, if SHA instance input doesn't match with supported
+ *		  SHA type
  *
  *************************************************************************************************/
-u8 XSha_GetShaBlockLen(u8 ShaType, u8 ShaMode)
+s32 XSha_GetShaBlockLen(const XSha *InstancePtr, u8 ShaMode, u8* BlockLen)
 {
-	u8 BlockLen = 0U;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	*BlockLen = 0U;
 
-	switch (ShaType) {
+	switch (InstancePtr->ShaType) {
 		case XASU_SHA2_TYPE:
 			switch (ShaMode) {
 				/* SHA2-256 Mode */
 				case XASU_SHA_MODE_SHA256:
-					BlockLen = XASUFW_SHA2_256_BLOCK_LEN;
+					*BlockLen = XASUFW_SHA2_256_BLOCK_LEN;
+					Status = XASUFW_SUCCESS;
 					break;
 				/* SHA2-384 Mode */
 				case XASU_SHA_MODE_SHA384:
 				/* SHA2-512 Mode */
 				case XASU_SHA_MODE_SHA512:
-					BlockLen = XASUFW_SHA2_384_512_BLOCK_LEN;
+					*BlockLen = XASUFW_SHA2_384_512_BLOCK_LEN;
+					Status = XASUFW_SUCCESS;
 					break;
 				/* Invalid Mode */
 				default:
-					BlockLen = 0U;
+					Status = XASUFW_SHA_INVALID_SHA_MODE;
 					break;
 			}
 			break;
@@ -636,29 +643,32 @@ u8 XSha_GetShaBlockLen(u8 ShaType, u8 ShaMode)
 				/* SHA2-256 Mode */
 				case XASU_SHA_MODE_SHA256:
 				case XASU_SHA_MODE_SHAKE256:
-					BlockLen = XASUFW_SHA3_256_BLOCK_LEN;
+					*BlockLen = XASUFW_SHAKE_SHA3_256_BLOCK_LEN;
+					Status = XASUFW_SUCCESS;
 					break;
 				/* SHA2-384 Mode */
 				case XASU_SHA_MODE_SHA384:
-					BlockLen = XASUFW_SHA3_384_BLOCK_LEN;
+					*BlockLen = XASUFW_SHA3_384_BLOCK_LEN;
+					Status = XASUFW_SUCCESS;
 					break;
 				/* SHA2-512 Mode */
 				case XASU_SHA_MODE_SHA512:
-					BlockLen = XASUFW_SHA3_512_BLOCK_LEN;
+					*BlockLen = XASUFW_SHA3_512_BLOCK_LEN;
+					Status = XASUFW_SUCCESS;
 					break;
 				/* Invalid Mode */
 				default:
-					BlockLen = 0U;
+					Status = XASUFW_SHA_INVALID_SHA_MODE;
 					break;
 			}
 			break;
 		/* Invalid type */
 		default :
-			BlockLen = 0U;
+			Status = XASUFW_SHA_INVALID_SHA_TYPE;
 			break;
 	}
 
-	return BlockLen;
+	return Status;
 }
 
 /*************************************************************************************************/

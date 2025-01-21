@@ -47,6 +47,8 @@ extern "C" {
 #define XASU_HMAC_UPDATE			(0x2U) /**< HMAC update operation flag */
 #define XASU_HMAC_FINAL				(0x4U) /**< HMAC final operation flag */
 
+#define XASU_HMAC_MAX_KEY_LENGTH	(0x1024U) /**< Max key length for HMAC. */
+
 /************************************** Type Definitions *****************************************/
 /**
  * @brief This structure contains HMAC params info
@@ -56,12 +58,12 @@ typedef struct {
 	u8 ShaMode; /**< Digest type - 256/384/512 bytes */
 	u8 IsLast; /**< Is last update */
 	u8 OperationFlags; /**< HMAC operation flags */
+	u32 KeyLen; /**< Length of the key */
+	u32 MsgLen; /**< Length of the message */
+	u32 HmacLen; /**< Length of the HMAC */
 	u64 KeyAddr; /**< Key address */
 	u64 MsgBufferAddr; /**< Buffer holding the message */
 	u64 HmacAddr; /**< Buffer address to hold the computed HMAC */
-	u32 HmacLen; /**< Length of the HMAC */
-	u32 KeyLen; /**< Length of the key */
-	u32 MsgLen; /**< Length of the message */
 } XAsu_HmacParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

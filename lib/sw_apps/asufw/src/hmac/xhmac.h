@@ -37,10 +37,8 @@ extern "C" {
 #include "xasufw_dma.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_HMAC_SHA_HASH_MAX_LEN	(64U) /**< Length of the maximum hash length. */
-#define HMAC_UPDATE_IN_PROGRESS		(0x1U) /**< HMAC update done stage for DMA non-blocking
-							wait */
-#define SHA_UPDATE_IN_HMAC_UPDATE_DONE	(0x2U) /**< SHA in HMAC update done stage for DMA
+#define XASUFW_HMAC_SHA_HASH_MAX_LEN		(64U) /**< Length of the maximum hash length. */
+#define HMAC_UPDATE_IN_PROGRESS			(0x1U) /**< HMAC update done stage for DMA
 							non-blocking wait */
 
 /************************************ Variable Definitions ***************************************/
@@ -54,10 +52,10 @@ typedef struct _XHmac XHmac; /**< This typedef is to create alias name for _XHma
 XHmac *XHmac_GetInstance(void);
 s32 XHmac_CfgInitialize(XHmac *InstancePtr);
 s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, u64 KeyAddr,
-	       u32 KeyLen, u8 ShaMode, u8 ShaType, u32 HashLen);
+	       u32 KeyLen, u8 ShaMode, u32 HashLen);
 s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 DataLen,
 		 u32 IsLastUpdate);
-s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacPtr);
+s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr);
 
 #ifdef __cplusplus
 extern "C"

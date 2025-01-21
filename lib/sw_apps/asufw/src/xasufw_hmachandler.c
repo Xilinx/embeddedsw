@@ -176,18 +176,17 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XHmac *HmacPtr = XHmac_GetInstance();
 	u32 *ResponseBufferPtr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 				 XASUFW_RESP_DATA_OFFSET;
-	static u32 CmdStage = 0x0U;
+	static u32 HmacCmdStage = 0x0U;
 
-	/** Jump to HMAC_STAGE_UPDATE_DONE if the CmdStage is HMAC_UPDATE_DONE. */
-	if (CmdStage != 0x0U) {
+	/** Jump to HMAC_STAGE_UPDATE_DONE if the HmacCmdStage is HMAC_UPDATE_DONE. */
+	if (HmacCmdStage != 0x0U) {
 		goto HMAC_STAGE_UPDATE_IN_PROGRESS;
 	}
 
 	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT) {
 		Status = XHmac_Init(HmacPtr, XAsufw_HmacModule.AsuDmaPtr, XAsufw_HmacModule.ShaPtr,
 				    HmacParamsPtr->KeyAddr, HmacParamsPtr->KeyLen,
-				    HmacParamsPtr->ShaMode, HmacParamsPtr->ShaType,
-				    HmacParamsPtr->HmacLen);
+				    HmacParamsPtr->ShaMode, HmacParamsPtr->HmacLen);
 		if (Status != XST_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
 							  XASUFW_HMAC_INITIALIZATION_FAILED);
@@ -196,7 +195,7 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 HMAC_STAGE_UPDATE_IN_PROGRESS:
-	CmdStage = 0x0U;
+	HmacCmdStage = 0x0U;
 
 	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_UPDATE) == XASU_HMAC_UPDATE) {
 		/**
@@ -206,7 +205,7 @@ HMAC_STAGE_UPDATE_IN_PROGRESS:
 				      HmacParamsPtr->MsgBufferAddr, HmacParamsPtr->MsgLen,
 				      (u32)HmacParamsPtr->IsLast);
 		if (Status == XASUFW_CMD_IN_PROGRESS) {
-			CmdStage = HMAC_UPDATE_IN_PROGRESS;
+			HmacCmdStage = HMAC_UPDATE_IN_PROGRESS;
 			XAsufw_DmaNonBlockingWait(XAsufw_HmacModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
 						  ReqBuf, ReqId, XASUFW_BLOCK_DMA);
 			goto DONE;

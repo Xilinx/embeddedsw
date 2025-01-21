@@ -64,7 +64,7 @@ typedef struct _XSha XSha; /**< This typedef is to create alias name for _XSha. 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASUFW_SHA2_256_BLOCK_LEN	(64U) /**< Block length of SHA2-256. */
 #define XASUFW_SHA2_384_512_BLOCK_LEN	(128U) /**< Block length of SHA2-384 and SHA2-512. */
-#define XASUFW_SHA3_256_BLOCK_LEN	(136U) /**< Block length of SHA3-256. */
+#define XASUFW_SHAKE_SHA3_256_BLOCK_LEN	(136U) /**< Block length of SHA3-256. */
 #define XASUFW_SHA3_384_BLOCK_LEN	(104U) /**< Block length of SHA3-384. */
 #define XASUFW_SHA3_512_BLOCK_LEN	(72U) /**< Block length of SHA3-512. */
 
@@ -75,7 +75,7 @@ s32 XSha_Start(XSha *InstancePtr, u32 ShaMode);
 s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size, u32 EndLast);
 s32 XSha_Finish(XSha *InstancePtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOutput);
 s32 XSha_GetHashLen(u8 ShaType, u32 *HashLen);
-u8 XSha_GetShaBlockLen(u8 ShaType, u8 ShaMode);
+s32 XSha_GetShaBlockLen(const XSha *InstancePtr, u8 ShaMode, u8* BlockLen);
 void XSha_Reset(XSha *InstancePtr);
 
 /************************************ Variable Definitions ***************************************/

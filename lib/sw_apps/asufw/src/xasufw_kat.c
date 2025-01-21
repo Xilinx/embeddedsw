@@ -941,8 +941,7 @@ s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** Perform HMAC init operation. */
 	Status = XHmac_Init(XAsufw_HmacInstance, AsuDmaPtr, Sha2Ptr, (u64)(UINTPTR)EccPrivKey,
-			    XECC_P256_SIZE_IN_BYTES, XASU_SHA_MODE_SHA256, XASU_SHA2_TYPE,
-			    XASU_SHA_256_HASH_LEN);
+			    XECC_P256_SIZE_IN_BYTES, XASU_SHA_MODE_SHA256, XASU_SHA_256_HASH_LEN);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_HMAC_INITIALIZATION_FAILED;
 		goto END;
@@ -1039,8 +1038,8 @@ s32 XAsufw_P192EcdhKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** Generates the shared secret using the known private key and public key. */
 	Status = XRsa_EcdhGenSharedSecret(AsuDmaPtr, XRSA_ECC_CURVE_TYPE_NIST_P192,
-				XRSA_ECC_P192_SIZE_IN_BYTES, (u64)(UINTPTR)EcdhPrivKey,
-				(u64)(UINTPTR)EccExpPubKeyP192, (u64)(UINTPTR)SharedSecret, 0U);
+					  XRSA_ECC_P192_SIZE_IN_BYTES, (u64)(UINTPTR)EcdhPrivKey,
+					  (u64)(UINTPTR)EccExpPubKeyP192, (u64)(UINTPTR)SharedSecret, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END_CLR);
 	}
