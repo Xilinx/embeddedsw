@@ -301,6 +301,7 @@ enum {
 							failed */
 	XASUFW_ECDH_KAT_FAILED, /**< Error when ECDH KAT failed */
 	XASUFW_HMAC_INVALID_PARAM, /**< Invalid parameters to HMAC APIs */
+	XASUFW_HMAC_INVALID_KEY_LENGTH, /**< Invalid key length */
 	XASUFW_HMAC_INIT_FAILED, /**< HMAC init failed */
 	XASUFW_HMAC_INVALID_HASHLEN, /**< HMAC invalid hash length */
 	XASUFW_HMAC_STATE_MISMATCH_ERROR, /**< HMAC state mismatch error. Occurs when previous HMAC
