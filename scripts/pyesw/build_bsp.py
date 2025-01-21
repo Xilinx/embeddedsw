@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module builds archive files (.a) for the created bsp. These archive files
@@ -63,6 +63,7 @@ class BSP:
         self.lib_config = domain_data["lib_config"]
         self.template = domain_data["template"]
         self.cmake_generator = utils.get_cmake_generator()
+        self.cleanbsp = args.get("clean")
         if not "config" in domain_data:
             # Below replace command is meant only for maintaining the backward compatibility
             # with 2023.2
@@ -105,6 +106,17 @@ endfunction(_my_hook_end_of_configure)
         utils.runcmd("cmake --build . --parallel 22 --verbose", cwd = build_libxil)
         utils.runcmd("cmake --install .", cwd=build_libxil)
 
+    def clean_bsp(self):
+        self.libsrc_folder = self.libsrc_folder.replace("\\", "/")
+        cmake_cache = os.path.join(self.libsrc_folder, "build_configs", "gen_bsp", "CMakeCache.txt")
+        if not utils.is_file(cmake_cache):
+            print("Nothing to clean build the BSP first")
+        else:
+            build_libxil = os.path.join(self.libsrc_folder, "build_configs", "gen_bsp")
+            utils.update_yaml(self.domain_config_file, "domain", "config", "default")
+            utils.runcmd("cmake --build . --target clean", cwd=build_libxil)
+            utils.remove(cmake_cache)
+
     def getdrv_list(self):
         domain_data = utils.fetch_yaml_data(self.domain_config_file, "domain")
         drvlist = []
@@ -122,7 +134,10 @@ def generate_bsp(args):
     Function to compile the created bsp for the user input domain path.
     """
     obj = BSP(args)
-    obj.build_bsp()
+    if obj.cleanbsp:
+        obj.clean_bsp()
+    else:
+        obj.build_bsp()
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
@@ -138,6 +153,7 @@ def main(arguments=None):
         help="Domain directory Path",
         required=True,
     )
+    parser.add_argument("--clean", action="store_true", help="Clean the BSP")
     args = vars(parser.parse_args(arguments))
     generate_bsp(args)
 
