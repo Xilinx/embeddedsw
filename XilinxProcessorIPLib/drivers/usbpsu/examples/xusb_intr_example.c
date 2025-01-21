@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -27,6 +27,7 @@
  * 1.5	 vak 13/02/19 Added support for versal
  * 1.8   pm  15/09/20 Fixed C++ Compilation error.
  * 1.14  pm   21/06/23 Added support for system device-tree flow.
+ * 1.17  ka  20/01/25 Fixed C++ warning and error.
  *
  * </pre>
  *
@@ -189,7 +190,7 @@ int main(void)
 	xil_printf("Mass Storage Gadget Start...\r\n");
 
 #ifdef SDT
-	struct XUsbPsu *InstancePtr = UsbInstance.PrivateData;
+	struct XUsbPsu *InstancePtr = (struct XUsbPsu*)UsbInstance.PrivateData;
 #endif
 
 	/* Initialize the USB driver so that it's ready to use,
@@ -257,7 +258,7 @@ int main(void)
 	Usb_Start(UsbInstance.PrivateData);
 #else
 	Status = XSetupInterruptSystem(UsbInstance.PrivateData,
-				       &XUsbPsu_IntrHandler,
+				       (void *)&XUsbPsu_IntrHandler,
 				       UsbConfigPtr->IntrId[INTRNAME_DWC3USB3],
 				       UsbConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
@@ -279,7 +280,7 @@ int main(void)
 	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
 	 * Wakeup and Overflow events.
 	 */
-	XUsbPsu_EnableIntr(UsbInstance.PrivateData,
+	XUsbPsu_EnableIntr((struct XUsbPsu*)UsbInstance.PrivateData,
 			   XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
 			   XUSBPSU_DEVTEN_WKUPEVTEN |
 			   XUSBPSU_DEVTEN_ULSTCNGEN |
@@ -291,6 +292,9 @@ int main(void)
 	if (InstancePtr->HasHibernation)
 		XUsbPsu_EnableIntr(UsbInstance.PrivateData,
 				   XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
+
+#else
+	(void)InstancePtr;
 #endif
 	/* Start the controller so that Host can see our device */
 	Usb_Start(UsbInstance.PrivateData);
@@ -321,6 +325,8 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 		    u32 BytesTxed)
 {
 	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
+
+	(void)RequestedBytes;
 
 	if (Phase == USB_EP_STATE_COMMAND) {
 		ParseCBW(InstancePtr);
@@ -356,6 +362,9 @@ void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
 		   u32 BytesTxed)
 {
 	struct Usb_DevData *InstancePtr = (struct Usb_DevData *)CallBackRef;
+
+	(void)RequestedBytes;
+	(void)BytesTxed;
 
 	if (Phase == USB_EP_STATE_DATA_IN) {
 		/* Send the status */
