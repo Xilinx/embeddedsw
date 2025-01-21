@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -124,8 +124,8 @@ extern "C" {
 #define XPSMFW_PWRDWN_ACPU_TO                        MICROSECOND_TO_TICKS(5U)
 
 #define ACPU_CLUSTER_COLD_WARM_RST_MASK                        ((u32)0x00000300U)
-#define ACPU_PACCEPT_TIMEOUT				(1000U)
-#define RPU_PACTIVE_TIMEOUT				(1000U)
+#define ACPU_PACCEPT_TIMEOUT			MICROSECOND_TO_TICKS(1000U)
+#define RPU_PACTIVE_TIMEOUT			MICROSECOND_TO_TICKS(1000U)
 #define A78_CLUSTER_CONFIGURED	(0x1U)
 /** @} */
 /** @} */
