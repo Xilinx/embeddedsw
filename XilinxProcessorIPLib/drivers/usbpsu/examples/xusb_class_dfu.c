@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -21,6 +21,7 @@
  * 1.4	 BK   12/01/18 Renamed the file to be in sync with usb common code
  *		       changes for all USB IPs
  * 1.5	 vak  13/02/19 Added support for versal
+ * 1.17  ka   20/01/25 Fixed C++ warnings and errors
  *
  *</pre>
  ******************************************************************************/
@@ -103,6 +104,7 @@ s32 Usb_DfuSetState(struct dfu_if *DFU, u8 dfu_state)
 				DFU->runtime_to_dfu = 1;
 
 				/* fall through */
+				break;
 			} else if (DFU->curr_state == STATE_DFU_IDLE) {
 #ifdef DFU_DEBUG
 				xil_printf("Waiting for USB reset to"
@@ -160,7 +162,7 @@ stall:
 ******************************************************************************/
 void USB_DfuSetDwloadState(struct dfu_if *DFU, u8 *status)
 {
-
+	(void)status;
 	if (DFU->got_dnload_rqst != 1) {
 		return;
 	}
@@ -438,6 +440,7 @@ void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
 				StopTransfer(InstancePtr->PrivateData, 0, USB_EP_DIR_OUT);
 				Usb_DfuSetState(dfu, STATE_DFU_IDLE);
 			}
+			break;
 		default:
 
 			/* Unsupported command. Stall the end point. */

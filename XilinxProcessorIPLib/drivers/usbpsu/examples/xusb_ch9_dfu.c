@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 iAdvanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -21,7 +21,7 @@
  * 1.4	 BK   12/01/18 Renamed the file to be in sync with usb common code
  *		       changes for all USB IPs
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
- *
+ * 1.17  ka   20/01/25 Fixed C++ warnings and errors
  *</pre>
  ******************************************************************************/
 
@@ -761,6 +761,7 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
 			    SetupPacket *SetupData)
 {
 	/* Do nothing */
-
+	(void)InstancePtr;
+	(void)SetupData;
 	return XST_SUCCESS;
 }

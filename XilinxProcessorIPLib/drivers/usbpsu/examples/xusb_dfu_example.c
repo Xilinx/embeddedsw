@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -25,7 +25,7 @@
  * 1.5	 vak  13/02/19 Added support for versal
  * 1.8   pm   15/09/20 Fixed C++ Compilation error.
  * 1.14  pm   21/06/23 Added support for system device-tree flow.
- *
+ * 1.17  ka   20/01/25 Fixed C++ warnings and errors
  * </pre>
  *
  *****************************************************************************/
@@ -114,6 +114,7 @@ static USBCH9_DATA dfu_data = {
 		/* hook up storage class handler */
 		.Usb_ClassReq = Usb_DfuClassReq,
 		/* Set the DFU address for call back */
+		.Usb_GetDescReply = 0,
 	},
 	.data_ptr = (void *) &DFU,
 };
@@ -139,7 +140,7 @@ int main(void)
 	xil_printf("DFU Start...\r\n");
 
 #ifdef SDT
-	struct XUsbPsu *InstancePtr = UsbInstance.PrivateData;
+	struct XUsbPsu *InstancePtr = (struct XUsbPsu *)UsbInstance.PrivateData;
 #endif
 	/* Initialize the USB driver so that it's ready to use,
 	 * specify the controller ID that is generated in xparameters.h
@@ -199,7 +200,7 @@ int main(void)
 	Usb_Start(UsbInstance.PrivateData);
 #else
 	Status = XSetupInterruptSystem(UsbInstance.PrivateData,
-				       &XUsbPsu_IntrHandler,
+				      (void *) &XUsbPsu_IntrHandler,
 				       UsbConfigPtr->IntrId[INTRNAME_DWC3USB3],
 				       UsbConfigPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
@@ -221,7 +222,7 @@ int main(void)
 	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
 	 * Wakeup and Overflow events.
 	 */
-	XUsbPsu_EnableIntr(UsbInstance.PrivateData,
+	XUsbPsu_EnableIntr((struct  XUsbPsu*)UsbInstance.PrivateData,
 			   XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
 			   XUSBPSU_DEVTEN_WKUPEVTEN |
 			   XUSBPSU_DEVTEN_ULSTCNGEN |
@@ -233,6 +234,8 @@ int main(void)
 	if (InstancePtr->HasHibernation)
 		XUsbPsu_EnableIntr(UsbInstance.PrivateData,
 				   XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
+#else
+	(void)InstancePtr;
 #endif
 	/* Start the controller so that Host can see our device */
 	Usb_Start(UsbInstance.PrivateData);
