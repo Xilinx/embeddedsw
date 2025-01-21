@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -664,10 +664,10 @@ extern "C" {
 				0x0		/**< Stream's component format
 							is RGB. */
 #define XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422 \
-				0x5		/**< Stream's component format
+				0x1		/**< Stream's component format
 							is YcbCr 4:2:2. */
 #define XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444 \
-				0x6		/**< Stream's component format
+				0x2	/**< Stream's component format
 							is YcbCr 4:4:4. */
 #define XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_MASK \
 				0x00000008	/**< Dynamic range. */
