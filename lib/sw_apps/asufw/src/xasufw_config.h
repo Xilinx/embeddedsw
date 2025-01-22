@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -23,6 +23,7 @@
  *       ma   07/26/24 Added XASUFW_TRNG_IN_PTRNG_MODE to run TRNG in PTRNG mode when enabled
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       ss   12/02/24 Added support for NIST curves P-256,P-384
+ * 1.1   am   201/2/25 Added macros for efuse user keys
  *
  * </pre>
  *
@@ -44,6 +45,15 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_CONFIG_ENABLE		(0x1U) /**< To enable any configration */
 #define XASUFW_CONFIG_DISABLE		(0x0U) /**< To disable any configration */
+
+#define XASUFW_EFUSE_BLACK_KEY		(0X00000001U) /**< Efuse black key */
+#define XASUFW_EFUSE_RED_KEY		(0X00000002U) /**< Efuse red key */
+
+/** Configure key transfer for either red key or black key */
+#define XASUFW_PMXC_EFUSE_USER_KEY_0 	(XASUFW_EFUSE_RED_KEY) /**< PMX eFuse user key 0
+									configuration */
+#define XASUFW_PMXC_EFUSE_USER_KEY_1 	(XASUFW_EFUSE_RED_KEY) /**< PMX eFuse user key 1
+									configuration */
 
 /* Counter measures configurations options */
 #define XASUFW_ECC_CM_CONFIG		(XASUFW_CONFIG_ENABLE) /**< Counter Measure configuration
