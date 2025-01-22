@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -65,6 +65,7 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
+	void *Sha2Ctx = NULL;
 
 	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
@@ -119,16 +120,40 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	if ((ShaClientParamPtr->IsLast != TRUE) && (ShaClientParamPtr->IsLast != FALSE)) {
+	if ((ShaClientParamPtr->IsLast != XASU_TRUE) && (ShaClientParamPtr->IsLast != XASU_FALSE)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
+	/** When Operation flag is set to START */
+	if ((ShaClientParamPtr->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
+		UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_FALSE);
+		if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+			Status = XASU_INVALID_UNIQUE_ID;
+			goto END;
+		}
+		/* Save the Context */
+		Sha2Ctx = XAsu_UpdateNGetCtx(UniqueId);
+		if (Sha2Ctx == NULL) {
+			Status = XASU_FAIL_SAVE_CTX;
+			goto END;
+		}
+		ClientParamPtr->ClientCtx = Sha2Ctx;
+	}
+	/** If operation flag is either UPDATE or FINISH */
+	else {
+		/* Verify the context */
+		Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr->ClientCtx, &UniqueId);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
 
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, (u8 *)ShaClientParamPtr->HashAddr,
-				ShaClientParamPtr->HashBufSize);
-	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-		Status = XASU_INVALID_UNIQUE_ID;
-		goto END;
+	/** If FINISH operation flag is set, update response buffer details */
+	if ((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
+		XAsu_UpdateCallBackDetails(UniqueId, (u8 *)ShaClientParamPtr->HashAddr,
+			ShaClientParamPtr->HashBufSize, XASU_TRUE);
+		/* Free Sha2 Ctx */
+		XAsu_FreeCtx(ClientParamPtr->ClientCtx);
 	}
 
 	Header = XAsu_CreateHeader(XASU_SHA_OPERATION_CMD_ID, UniqueId,
@@ -161,19 +186,22 @@ s32 XAsu_Sha2Kat(XAsu_ClientParams *ClientParamPtr)
 	u32 Header;
 	u8 UniqueId;
 
+	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Update the request buffer. */
 	Header = XAsu_CreateHeader(XASU_SHA_KAT_CMD_ID, UniqueId, XASU_MODULE_SHA2_ID, 0U);
 
+	/** Send IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
 
 END:

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -51,7 +51,16 @@
                                                                               value */
 #define XASU_ASUFW_BIT_CHECK_TIMEOUT_VALUE	0xFFFFFU	/**< ASUFW check timoeout value */
 
+#define XASU_NO_OF_CONTEXTS				(10U)	/**< No of contexts can be saved by client */
+
 /************************************** Type Definitions *****************************************/
+/**
+ * Represents a client context, storing a unique identifier.
+ */
+typedef struct {
+	u8 UniqueId;		/**< Unique identifier for the client context. */
+} XAsu_ClientCtx;
+
 /**
  * This typedef contains all the parameters required to manage the client library
  * Also it holds the shared memory queue index details
@@ -72,6 +81,7 @@ typedef struct {
 	void *CallBackRefPtr;   /**< Call Back reference pointer */
 	u8 *RespBufferPtr;		/**< Buffer to store the response data */
 	u32 Size;				/**< Size of the response buffer */
+	u8 Clear;				/**< Clear the contents after the call back */
 } XAsu_RefToCallBack;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -90,6 +100,8 @@ static XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
 						configuration */
 static XMailbox MailboxInstance;        /**< Variable to Mailbox instance */
 static XAsu_RefToCallBack AsuCallBackRef[XASU_UNIQUE_ID_MAX]; /**< Entry of callback info */
+
+static XAsu_ClientCtx AsuContext[XASU_NO_OF_CONTEXTS];
 
 /*************************************************************************************************/
 /**
@@ -263,8 +275,8 @@ s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuff
 	QueueBufPtr->RespBufStatus = 0x0U;
 	QueueBufPtr->ReqBufStatus = XASU_COMMAND_IS_PRESENT;
 
-	/** Set IsCmdPresent to TRUE to indicate the command is present in the queue. */
-	ChannelQPtr->IsCmdPresent = TRUE;
+	/** Set IsCmdPresent to XASU_TRUE to indicate the command is present in the queue. */
+	ChannelQPtr->IsCmdPresent = XASU_TRUE;
 
 	/** Place an IPI request to ASU. */
 	Status = XAsu_SendIpi();
@@ -291,7 +303,8 @@ END:
  *          - XASU_UNIQUE_ID_MAX - upon unique ID unavailability
  *
  *************************************************************************************************/
-u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr, u32 Size)
+u8 XAsu_RegCallBackNGetUniqueId(const XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr, u32 Size,
+					u8 IsFinalCall)
 {
 	u8 UniqueId = XAsu_GenerateUniqueId();
 
@@ -304,8 +317,27 @@ u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBuffe
 	AsuCallBackRef[UniqueId].CallBackRefPtr = ClientParamPtr->CallBackRefPtr;
 	AsuCallBackRef[UniqueId].RespBufferPtr = RespBufferPtr;
 	AsuCallBackRef[UniqueId].Size = Size;
+	AsuCallBackRef[UniqueId].Clear = IsFinalCall;
 END:
 	return UniqueId;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Updates callback details based on the provided unique ID, response buffer, size, and
+ *		final call flag.
+ *
+ * @param	UniqueId	Unique identifier for the callback update.
+ * @param	RespBufferPtr	Pointer to the response buffer containing the data.
+ * @param	Size		Size of the response buffer.
+ * @param	IsFinalCall	Flag indicating whether this is the final callback (1 if final, 0 otherwise).
+ *
+ *************************************************************************************************/
+void XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsFinalCall)
+{
+	AsuCallBackRef[UniqueId].RespBufferPtr = RespBufferPtr;
+	AsuCallBackRef[UniqueId].Size = Size;
+	AsuCallBackRef[UniqueId].Clear = IsFinalCall;
 }
 
 /*************************************************************************************************/
@@ -373,9 +405,11 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 				if (AsuCallBackRef[UniqueId].CallBackFuncPtr != NULL) {
 					AsuCallBackRef[UniqueId].CallBackFuncPtr(AsuCallBackRef[UniqueId].CallBackRefPtr,
 						ChannelQueue->ChannelQueueBufs[BufferIdx].RespBuf.Arg[0]);
-					/** Clear the contents upon completion */
-					AsuCallBackRef[UniqueId].CallBackFuncPtr = NULL;
-					AsuCallBackRef[UniqueId].CallBackRefPtr = NULL;
+					/** Clear the call back info upon completion */
+					if (AsuCallBackRef[UniqueId].Clear == XASU_TRUE) {
+						AsuCallBackRef[UniqueId].CallBackFuncPtr = NULL;
+						AsuCallBackRef[UniqueId].CallBackRefPtr = NULL;
+					}
 					ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus = 0x0U;
 					ChannelQueue->ChannelQueueBufs[BufferIdx].RespBufStatus = 0x0U;
 				}
@@ -432,7 +466,7 @@ static u8 XAsu_GenerateUniqueId(void)
 			UniqueId++;
 		}
 		else {
-			UniqueId = 0U;
+			UniqueId = 1U;
 		}
 		/** Validate if the assigned unique ID is free */
 		if ((AsuCallBackRef[UniqueId].CallBackFuncPtr == NULL) &&
@@ -491,4 +525,74 @@ static u8 XAsu_GetFreeIndex(u8 Priority)
 
 	return *FreeIndexPtr;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	Frees the memory associated with the provided context.
+ *
+ * @param	Context		Pointer to the XAsu_ClientCtx to be freed.
+ *
+ *************************************************************************************************/
+void XAsu_FreeCtx(void *Context)
+{
+	(void *)memset(Context, 0, sizeof(XAsu_ClientCtx));
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Saves the provided unique ID and returns the address of the saved context.
+ *
+ * @param	UniqueId	Unique ID associated with the request
+ *
+ * @return	Pointer of the XAsu_ClientCtx, which references the saved context.
+ *
+ *************************************************************************************************/
+void *XAsu_UpdateNGetCtx(u8 UniqueId)
+{
+	u8 Index = 0U;
+	XAsu_ClientCtx *Context = NULL;
+
+	do {
+		if (AsuContext[Index].UniqueId == 0U) {
+			AsuContext[Index].UniqueId = UniqueId;
+			Context = &AsuContext[Index];
+			break;
+		}
+		Index++;
+	} while (Index < XASU_NO_OF_CONTEXTS);
+
+	return (void *)Context;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Validates the provided context by comparing it with stored contexts to determine
+ *          the appropriate multi-update calls.
+ *
+ * @param	Context		Pointer to the XAsu_ClientCtx reference context.
+ * @param	UniqueId	Pointer to the buffer where the corresponding Unique ID will be stored.
+ *
+ * @return
+ * 		- XST_SUCCESS if validation is successful.
+ * 		- XASU_INVALID_CLIENT_CTX if the provided context is not found.
+ *
+ *************************************************************************************************/
+s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId)
+{
+	s32 Status = XASU_INVALID_CLIENT_CTX;
+	u8 Index = 0U;
+	const XAsu_ClientCtx *ClientCtx = (const XAsu_ClientCtx *)Context;
+
+	do {
+		if (AsuContext[Index].UniqueId == ClientCtx->UniqueId) {
+			*UniqueId = AsuContext[Index].UniqueId;
+			Status = XST_SUCCESS;
+			break;
+		}
+		Index++;
+	} while (Index < XASU_NO_OF_CONTEXTS);
+
+	return Status;
+}
+
 /** @} */

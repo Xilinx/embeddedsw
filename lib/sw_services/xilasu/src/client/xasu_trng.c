@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -74,7 +74,7 @@ s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Len
 		goto END;
 	}
 
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, BufPtr, Length);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, BufPtr, Length, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -114,7 +114,7 @@ s32 XAsu_TrngKat(XAsu_ClientParams *ClientParamPtr)
 		goto END;
 	}
 
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
