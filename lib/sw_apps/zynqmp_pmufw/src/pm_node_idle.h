@@ -94,8 +94,8 @@ void NodeZdmaIdle(u32 BaseAddress);
 
 #define XZDMA_CH_OFFSET		0X10000
 #define XZDMA_NUM_CHANNEL		8U	/* Number of channels */
-#define XZDMA_CH_ISR_OFFSET	(0x100U)	/* Channel ISR offset */
-#define XZDMA_CH_IDS_OFFSET	(0x10CU)	/* Channel IDS offset */
+#define XPMU_ZDMA_CH_ISR_OFFSET	(0x100U)	/* Channel ISR offset */
+#define XPMU_ZDMA_CH_IDS_OFFSET	(0x10CU)	/* Channel IDS offset */
 #endif
 
 #if defined(XPMU_CAN_0) || \
