@@ -187,7 +187,7 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir):
         utils.remove('amd_platform_info.h')
 
         # Change out SDT to use OpenAMP SDT here
-        linker_cmd = linker_cmd.replace(bsp_sdt, output_sdt)
+        linker_cmd = linker_cmd.replace(obj.sdt, output_sdt)
 
         # Add flag at the end to denote this is for OpenAMP case
         linker_cmd += " openamp "
