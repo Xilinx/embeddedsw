@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -164,7 +164,7 @@ static s32 Asu_Sha2Example(void)
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_Sha2CallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
-	/* Inputs of SHA3 request */
+	/* Inputs of SHA2 request */
 	ShaClientParam.DataAddr = (u64)(UINTPTR)Data;
 	ShaClientParam.HashAddr = (u64)(UINTPTR)Sha2Hash;
 	ShaClientParam.DataSize = Size;
@@ -220,7 +220,7 @@ static void Asu_Sha2PrintHash(const u8 *Hash)
 		xil_printf("SHA example is failed with the response %x\n\r", Status);
 		goto END;
 	}
-	xil_printf("Calculated SHA3 Hash \r\n ");
+	xil_printf("Calculated SHA2 Hash \r\n ");
 	Asu_Sha2PrintHash((u8 *)(UINTPTR)&Sha2Hash);
 
 	Status = Xil_SMemCmp_CT(ExpHash, ASU_SHA2_HASH_LEN_IN_BYTES, Sha2Hash, ASU_SHA2_HASH_LEN_IN_BYTES,
