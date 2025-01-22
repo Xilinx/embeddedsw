@@ -1,5 +1,6 @@
 /*
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -564,10 +565,10 @@ void NodeZdmaIdle(u32 BaseAddress)
 		}while (regVal && LocalTimeout --);
 
 		/* Disables and clear all interrupts */
-		XZDma_WriteReg(BaseAddress, XZDMA_CH_IDS_OFFSET, XZDMA_IXR_ALL_INTR_MASK);
+		XZDma_WriteReg(BaseAddress, XPMU_ZDMA_CH_IDS_OFFSET, XZDMA_IXR_ALL_INTR_MASK);
 
-		XZDma_WriteReg( BaseAddress, XZDMA_CH_ISR_OFFSET,
-				(XZDma_ReadReg(BaseAddress, XZDMA_CH_ISR_OFFSET) & XZDMA_IXR_ALL_INTR_MASK));
+		XZDma_WriteReg( BaseAddress, XPMU_ZDMA_CH_ISR_OFFSET,
+				(XZDma_ReadReg(BaseAddress, XPMU_ZDMA_CH_ISR_OFFSET) & XZDMA_IXR_ALL_INTR_MASK));
 
 		/* Reset all the configurations */
 		XZDma_WriteReg(BaseAddress, XZDMA_CH_CTRL0_OFFSET, XZDMA_CTRL0_RESET_VALUE);

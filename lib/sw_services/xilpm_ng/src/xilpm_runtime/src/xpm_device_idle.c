@@ -249,8 +249,8 @@ done:
 	defined(XILPM_ZDMA_3) || defined(XILPM_ZDMA_4) || defined(XILPM_ZDMA_5) || \
 	defined(XILPM_ZDMA_6) || defined(XILPM_ZDMA_7))
 
-#define XZDMA_CH_ISR_OFFSET	(0x408U)	/* Channel ISR offset */
-#define XZDMA_CH_IDS_OFFSET	(0x414U)	/* Channel IDS offset */
+#define XILPM_ZDMA_CH_ISR_OFFSET	(0x408U)	/* Channel ISR offset */
+#define XILPM_ZDMA_CH_IDS_OFFSET	(0x414U)	/* Channel IDS offset */
 #define XZDMA_CH_OFFSET		(0x10000U)	/* Channel offset per DMA */
 #define XZDMA_NUM_CHANNEL	(8U)		/* Number of Channels */
 /**
@@ -288,10 +288,10 @@ XStatus NodeZdmaIdle(u16 DeviceId, u32 BaseAddr)
 		}
 
 		/* Disable and clear all interrupts */
-		XZDma_WriteReg(BaseAddress, XZDMA_CH_IDS_OFFSET, XZDMA_IXR_ALL_INTR_MASK);
+		XZDma_WriteReg(BaseAddress, XILPM_ZDMA_CH_IDS_OFFSET, XZDMA_IXR_ALL_INTR_MASK);
 
-		RegVal = XZDma_ReadReg(BaseAddress, XZDMA_CH_ISR_OFFSET);
-		XZDma_WriteReg(BaseAddress, XZDMA_CH_ISR_OFFSET,
+		RegVal = XZDma_ReadReg(BaseAddress, XILPM_ZDMA_CH_ISR_OFFSET);
+		XZDma_WriteReg(BaseAddress, XILPM_ZDMA_CH_ISR_OFFSET,
 			       (RegVal & XZDMA_IXR_ALL_INTR_MASK));
 
 		/* Reset all the configurations */
