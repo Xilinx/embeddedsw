@@ -65,6 +65,7 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 	u32 Header;
 	u8 CommandId;
 	u8 UniqueId;
+	void *HmacCtx = NULL;
 
 	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
@@ -77,11 +78,36 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 		goto END;
 	}
 
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, (u8 *)HmacParamsPtr->HmacAddr,
-						HmacParamsPtr->HmacLen);
-	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-		Status = XASU_INVALID_UNIQUE_ID;
-		goto END;
+	/** When Operation flag is set to START */
+	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT) {
+		UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_FALSE);
+		if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+			Status = XASU_INVALID_UNIQUE_ID;
+			goto END;
+		}
+		/* Save the Context */
+		HmacCtx = XAsu_UpdateNGetCtx(UniqueId);
+		if (HmacCtx == NULL) {
+			Status = XASU_FAIL_SAVE_CTX;
+			goto END;
+		}
+		ClientParamsPtr->ClientCtx = HmacCtx;
+	}
+	/** If operation flag is either UPDATE or FINISH */
+	else {
+		/* Verify the context */
+		Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamsPtr->ClientCtx, &UniqueId);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+		/** If FINISH operation flag is set, update response buffer details */
+	if ((HmacParamsPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
+		XAsu_UpdateCallBackDetails(UniqueId, (u8 *)HmacParamsPtr->HmacAddr,
+			HmacParamsPtr->HmacLen, XASU_TRUE);
+		/* Free Sha2 Ctx */
+		XAsu_FreeCtx(ClientParamsPtr->ClientCtx);
 	}
 
 	/** Get the command ID based on SHA type. */
@@ -126,7 +152,7 @@ s32 XAsu_HmacKat(XAsu_ClientParams *ClientParamsPtr)
 		goto END;
 	}
 
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;

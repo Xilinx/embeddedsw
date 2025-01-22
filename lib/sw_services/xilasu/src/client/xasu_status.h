@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -53,6 +53,8 @@ enum {
 	XASU_INVALID_PRIORITY,		/**< 0x16 - Invalid Priority */
 	XASU_INVALID_CALL_BACK_REF,	/**< 0x17 - Invalid call back reference */
 	XASU_INVALID_CLIENT_PARAM,	/**< 0x18 - Invalid client parameter pointer */
+	XASU_INVALID_CLIENT_CTX,	/**< 0x19 - Client context is not valid */
+	XASU_FAIL_SAVE_CTX,		/**< 0x1A - Failed in saving the context */
 };
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -56,6 +56,7 @@ typedef struct {
 	u16 Reserved2;  /**< Reserved */
 	XAsuClient_ResponseHandler CallBackFuncPtr;  /**< Call Back function pointer */
 	void *CallBackRefPtr;   /**< Call Back reference pointer */
+	void *ClientCtx; /**< Reserved for user operation */
 } XAsu_ClientParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -106,7 +107,12 @@ s32 XAsu_ClientInit(u32 BaseAddress);
 s32 XAsu_ValidateClientParameters(XAsu_ClientParams *ClientParamPtr);
 s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuffer,
 				   u32 Size, u32 Header);
-u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr, u32 Size);
+u8 XAsu_RegCallBackNGetUniqueId(const XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr,
+					u32 Size, u8 IsFinalCall);
+void XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsFinalCall);
+void *XAsu_UpdateNGetCtx(u8 UniqueId);
+s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId);
+void XAsu_FreeCtx(void *Context);
 /************************************ Variable Definitions ***************************************/
 
 #ifdef __cplusplus

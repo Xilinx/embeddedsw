@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -63,6 +63,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
+	void *AesCtx = NULL;
 
 	/** Validatations of inputs. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
@@ -155,7 +156,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 			goto END;
 		}
 
-		if ((AesClientParamPtr->IsLast != TRUE) && (AesClientParamPtr->IsLast != FALSE)) {
+		if ((AesClientParamPtr->IsLast != XASU_TRUE) && (AesClientParamPtr->IsLast != XASU_FALSE)) {
 			Status = XASU_INVALID_ARGUMENT;
 			goto END;
 		}
@@ -171,10 +172,35 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 		}
 	}
 
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U);
-	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-		Status = XASU_INVALID_UNIQUE_ID;
-		goto END;
+	/** When Operation flag is set to INIT */
+	if ((AesClientParamPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
+		UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_FALSE);
+		if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+			Status = XASU_INVALID_UNIQUE_ID;
+			goto END;
+		}
+		/* Save the Context */
+		AesCtx = XAsu_UpdateNGetCtx(UniqueId);
+		if (AesCtx == NULL) {
+			Status = XASU_FAIL_SAVE_CTX;
+			goto END;
+		}
+		ClientParamPtr->ClientCtx = AesCtx;
+	}
+	/** If operation flag is either UPDATE or FINAL */
+	else {
+		/* Verify the context */
+		Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr->ClientCtx, &UniqueId);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	/** If FINISH operation flag is set, update response buffer details */
+	if ((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) == XASU_AES_FINAL) {
+		XAsu_UpdateCallBackDetails(UniqueId, NULL, 0U, XASU_TRUE);
+		/* Free AES Ctx */
+		XAsu_FreeCtx(ClientParamPtr->ClientCtx);
 	}
 
 	Header = XAsu_CreateHeader(XASU_AES_OPERATION_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U);
@@ -212,7 +238,7 @@ s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr)
 		goto END;
 	}
 
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
