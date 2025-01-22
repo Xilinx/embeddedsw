@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -22,6 +22,7 @@
  *       ma   03/16/24 Added error codes at required places
  *       ma   07/23/24 Added RTCA initialization related code
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       am   01/22/25 Added key transfer support
  *
  * </pre>
  *
@@ -41,6 +42,7 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xasufw_memory.h"
+#include "xaes.h"
 
 /************************************ Constant Definitions ***************************************/
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U) /**< IO Module PIT1 prescaler source mask */
@@ -367,5 +369,63 @@ void XAsufw_RtcaInit(void)
 	XAsufw_WriteReg(XASUFW_RTCA_IDENTIFICATION_ADDR, XASUFW_RTCA_IDENTIFICATION_STRING);
 	XAsufw_WriteReg(XASUFW_RTCA_VERSION_ADDR, XASUFW_RTCA_VERSION);
 	XAsufw_WriteReg(XASUFW_RTCA_SIZE_ADDR, XASUFW_RTCA_SIZE);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function gets three 256-bit keys(two red/black and one KEK key) form PMXC to
+ * 		Key receiver engine in ASU using 128-bit dedicated interface between PMXC and ASU.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if all three keys are received successfully.
+ *		- XASUFW_FAILURE, if all three keys are not received.
+ *
+ *************************************************************************************************/
+s32 XAsufw_GetKeys(void)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 Payload;
+	u32 Response;
+
+	/** Trasferred efuse key_0 is black or red based on user configuration. */
+	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_0_BLACK_OR_RED_OFFSET),
+		XASUFW_PMXC_EFUSE_USER_KEY_0);
+
+	/** Trasferred efuse key_1 is black or red based on user configuration. */
+	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_1_BLACK_OR_RED_OFFSET),
+		XASUFW_PMXC_EFUSE_USER_KEY_1);
+
+	/** Indicates to PMXC and ASU that ASU is ready to accept key transfer. */
+	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_ASU_PMXC_KEY_TRANSFER_READY_OFFSET),
+		XAES_ASU_PMXC_KEY_TRANSFER_READY_MASK);
+
+	Payload = XASUFW_PLM_IPI_HEADER(0U, XASUFW_KEY_TX_PLM_API_ID, XASUFW_PLM_KEY_TX_MODULE_ID);
+
+	Status = XAsufw_SendIpiToPlm(&Payload, sizeof(Payload)/sizeof(u32));
+	if (Status != XASUFW_SUCCESS) {
+		XAsufw_Printf(DEBUG_GENERAL, "Send IPI to PLM failed\r\n");
+		goto END;
+	}
+
+	/** Wait till HW to set the KV interrupt status bit when key transfer(KT) is done. */
+	while (!(XAsufw_ReadReg(XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET) &
+		XAES_KV_INTERRUPT_STATUS_MASK));
+
+	Status = XAsufw_ReadIpiRespFromPlm(&Response, sizeof(Response)/sizeof(u32));
+	if ((Status != XASUFW_SUCCESS) || (Response != XASUFW_SUCCESS)) {
+		XAsufw_Printf(DEBUG_GENERAL, "Read IPI response from PLM failed\r\n");
+		goto END;
+	}
+
+END:
+	/** Clear KV interrupt status. */
+	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET),
+		XAES_KV_INTERRUPT_STATUS_CLEAR_MASK);
+
+	/** Disable ASU Key transfer. */
+	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_ASU_PMXC_KEY_TRANSFER_READY_OFFSET),
+		XAES_ASU_PMXC_KEY_TRANSFER_READY_DISABLE);
+
+	return Status;
 }
 /** @} */
