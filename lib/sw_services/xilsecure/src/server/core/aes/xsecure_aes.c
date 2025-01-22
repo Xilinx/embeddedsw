@@ -99,6 +99,7 @@
 *       vss  10/28/2024 Removed END label in XSecure_AesDecryptUpdate
 *       vss  11/20/2024 Fix for data corruption of GCM tag when any other
 *                       operation uses DMA0 after encrypt update.
+*       vss  01/22/2025   Added status check in AesUpdate and CopyGcmTag functions.
 *
 * </pre>
 *
@@ -1797,6 +1798,9 @@ static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 	AesDmaCfg.IsLastChunkSrc = IsLastChunk;
 
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg, Size);
+	if(Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	if((InstancePtr->OperationId == XSECURE_ENCRYPT) && (IsLastChunk == TRUE)){
 		Status = XSecure_AesCopyGcmTag(InstancePtr, &AesDmaCfg);
@@ -1809,6 +1813,7 @@ static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
 				XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 #endif
+END:
 	return Status;
 }
 
@@ -2129,6 +2134,9 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 #endif
 		Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg,
 			XSECURE_SECURE_GCM_TAG_SIZE);
+		if(Status != XST_SUCCESS) {
+			goto END;
+		}
 
 #if(!defined(VERSAL_PLM) && !(defined(__MICROBLAZE__)))
 		Xil_DCacheInvalidateRange((UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
@@ -2137,7 +2145,7 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 		Status = XSecure_AesWaitForDone(InstancePtr);
 
 	}
-
+END:
 	return Status;
 }
 
