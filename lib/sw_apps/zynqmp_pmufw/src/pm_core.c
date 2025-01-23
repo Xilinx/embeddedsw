@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -2483,13 +2483,13 @@ void PmShutdownInterruptHandler(void)
 	 * register is always 1, which is used to identify shutdown event.
 	 *
 	 * GPI event occurs only when any bit of GPI register changes from
-	 * 0 to 1. When any GPI1 event occurs Gpi1InterruptHandler() checks
+	 * 0 to 1. When any GPI1 event occurs XPfw_InterruptGpi1Handler() checks
 	 * GPI1 register and process interrupts for the bits which are 1.
 	 * Because of MIO wake bit is 1 in GPI1 register, shutdown handler
 	 * will be called every time when any of GPI1 event occurs.
 	 *
 	 * There is no way to identify which bit cause GPI1 interrupt.
-	 * So every time Gpi1InterruptHandler() is checking bit which are 1
+	 * So every time XPfw_InterruptGpi1Handler() is checking bit which are 1
 	 * And calls respective handlers.
 	 *
 	 * To handle such case avoid power off when any other (other than MIO
@@ -2498,7 +2498,14 @@ void PmShutdownInterruptHandler(void)
 	 * changed from (1 to 0 and 0 to 1). In this case it is confirmed that
 	 * it is event for shutdown only and not because of other events.
 	 * There are chances that some shutdown events are missed (1 out of 50)
-	 * but it should not harm.
+	 * due to the synchronous events but it should not harm.
+	 *
+	 * If only shutdown events are included in the use case, no events will
+	 * be missed.
+	 *
+	 * The supported events range from XPFW_EV_APB_AIB_ERROR (2) to
+	 * XPFW_EV_ACPU_0_WAKE (26). Among these, the supported shutdown events
+	 * are from XPFW_EV_MIO_WAKE_5 (11) to XPFW_EV_MIO_WAKE_0 (16).
 	 */
 	if (XPfw_Read32(PMU_IOMODULE_GPI1) !=
 	    (PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK << PMU_MIO_INPUT_PIN)) {
