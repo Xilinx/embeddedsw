@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -4855,8 +4855,8 @@ static void XDp_Tx_2x_LttprModeSet(XDp *InstancePtr, XDp_Tx_LttprMode mode)
 {
 	u8 LttprMode = mode;
 
-	if (!InstancePtr->TxInstance.LinkConfig.IsDsRepeater)
-		return;
+	if (!XDp_Tx_GetRepeaterStatus(&InstancePtr->TxInstance.LttprConfig))
+			return;
 
 	if (InstancePtr->TxInstance.LinkConfig.OverrideRepeaterMode)
 		LttprMode = InstancePtr->TxInstance.LinkConfig.OverrideLttprMode;

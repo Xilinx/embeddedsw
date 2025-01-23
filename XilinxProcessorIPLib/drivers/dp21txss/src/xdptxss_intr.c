@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -251,7 +251,9 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr,
 				XDP_DPCD_STATUS_LANE_2_3, 1,
 				&UsrHpdEventData->Lane2Sts);
-
+		/* Added to met LTTPR CTS flow with UCD500 */
+		Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_LTTPR_CAPABILITY,
+				16, &XDpTxSsPtr->DpPtr->TxInstance.LttprConfig);
 		if(Status != XST_SUCCESS){
 			xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
 		}
