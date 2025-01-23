@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -29,6 +29,7 @@
  * 1.0   am   06/26/24 Initial release
  *       am   08/01/24 Replaced variables of type enums with u32 type.
  *       am   08/24/24 Added AES DPA CM KAT support
+ *       am   01/20/25 Added AES CCM support
  *
  * </pre>
  *
@@ -70,6 +71,8 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDataAddr,
 		u32 DataLength, u8 IsLastChunk);
 s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen);
+s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr, u32 AadLen,
+	u64 NonceAddr, u8 NonceLen, u32 PlainTextLen, u8 TagLen);
 s32 XAes_DpaCmDecryptData(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyObjPtr,
 			  u32 InputDataAddr, u32 OutputDataAddr, u32 DataLength);
 s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeySel, u8 DecKeySize,

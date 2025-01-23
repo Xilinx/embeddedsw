@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   am   07/16/24 Initial release
  *       am   08/01/24 Replaced enums with macros
+ * 1.1   am   01/20/25 Added AES CCM nonce macros
  *
  * </pre>
  *
@@ -53,6 +54,9 @@ extern "C" {
 #define XASU_AES_MIN_TAG_LENGTH_IN_BYTES		(4U) /**< AES minimum tag length in bytes */
 #define XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES	(8U) /**< AES NIST recommended minimum tag length in bytes */
 #define XASU_AES_MAX_TAG_LENGTH_IN_BYTES		(16U) /**< AES maximum tag length in bytes */
+
+#define XASU_AES_CCM_MIN_NONCE_LEN			(4U) /**< AES-CCM minimum nonce length in bytes */
+#define XASU_AES_CCM_MAX_NONCE_LEN			(13U)  /**< AES-CCM maximum nonce length in bytes */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 /* AES module command IDs */
@@ -120,11 +124,11 @@ typedef struct {
 	u64 OutputDataAddr; /**< AES output data address */
 	u64 AadAddr; /**< AES Aad address */
 	u64 KeyObjectAddr; /**< AES Key object address */
-	u64 IvAddr; /**< AES Iv address */
+	u64 IvAddr; /**< AES Iv/Nonce address */
 	u64 TagAddr; /**< AES Tag address */
 	u32 DataLen; /**< AES common input/output data length */
 	u32 AadLen; /**< AES AAD length */
-	u32 IvLen; /**< AES Iv length */
+	u32 IvLen; /**< AES Iv/Nonce length */
 	u32 TagLen; /**< AES tag length */
 	u8 EngineMode; /**< AES engine mode */
 	u8 OperationFlags; /**< AES operation(INIT, UPDATE, FINAL) flag */
