@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -18,6 +18,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   am   10/03/24 Initial release
+ * 1.1   am   01/20/25 Added AES CCM Iv validation
  *
  * </pre>
  *
@@ -75,6 +76,12 @@ s32 XAsu_AesValidateIv(u8 EngineMode, u64 IvAddr, u32 IvLen)
 			break;
 		case XASU_AES_GCM_MODE:
 			if ((IvAddr != 0U) && (IvLen != 0U)) {
+				Status = XST_SUCCESS;
+			}
+			break;
+		case XASU_AES_CCM_MODE:
+			if ((IvAddr != 0U) && ((IvLen >= XASU_AES_CCM_MIN_NONCE_LEN) &&
+					(IvLen <= XASU_AES_CCM_MAX_NONCE_LEN))) {
 				Status = XST_SUCCESS;
 			}
 			break;

@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   am   08/01/24 Initial release
+ * 1.1   am   01/20/25 Added AES CCM support
  *
  * </pre>
  *
@@ -82,6 +83,14 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 		goto END;
 	}
 
+	/** For AES CCM mode, all operational flags should be set. */
+	if ((AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE) && ((AesClientParamPtr->OperationFlags &
+			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) !=
+			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL))) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	/** Validate required parameters for AES initialization operation. */
 	if ((AesClientParamPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
 		/** Validate AES operation type. */
@@ -130,7 +139,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 				goto END;
 			}
 		}
-		else if ((AesClientParamPtr->InputDataAddr != 0U) &&
+		if ((AesClientParamPtr->InputDataAddr != 0U) &&
 					(AesClientParamPtr->OutputDataAddr  != 0U)) {
 				if ((AesClientParamPtr->DataLen == 0U) ||
 						(AesClientParamPtr->DataLen >

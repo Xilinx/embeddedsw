@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   am   08/01/24 Initial release
  * 1.1   ma   12/12/24 Updated resource allocation logic
+ *       am   01/20/25 Added AES CCM support
  *
  * </pre>
  *
@@ -188,11 +189,30 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		    (AesParamsPtr->EngineMode != XASU_AES_CFB_MODE) &&
 		    (AesParamsPtr->EngineMode != XASU_AES_OFB_MODE) &&
 		    (AesParamsPtr->EngineMode != XASU_AES_CTR_MODE) &&
-		    (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE)) {
+		    (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE) &&
+		    (AesParamsPtr->EngineMode != XASU_AES_CCM_MODE)) {
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
 					AesParamsPtr->AadLen, XASU_FALSE);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
+				goto END;
+			}
+		}
+		/** For AES CCM mode format and push the AAD to AES engine. */
+		if (AesParamsPtr->EngineMode == XASU_AES_CCM_MODE) {
+			if ((AesParamsPtr->OperationFlags &
+					(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) !=
+					(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_AES_CCM_INVALID_OPERATION_FLAGS);
+				goto END;
+			}
+
+			Status = XAes_CcmFormatAadAndXfer(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
+				AesParamsPtr->AadAddr, AesParamsPtr->AadLen, AesParamsPtr->IvAddr,
+				(u8)AesParamsPtr->IvLen, AesParamsPtr->DataLen, AesParamsPtr->TagLen);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CCM_AAD_FORMATTING_FAILED);
 				goto END;
 			}
 		}

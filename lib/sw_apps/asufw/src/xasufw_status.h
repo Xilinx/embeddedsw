@@ -38,6 +38,7 @@
  *       ma   12/12/24 Added support for command in progress
  *       ma   01/03/25 Added error codes for TRNG core register configuration failures
  *       yog  01/03/25 Added error codes for HMAC functionality
+ *       am   01/20/25 Added error codes for AES CCM functionality
  *
  * </pre>
  *
@@ -224,6 +225,8 @@ enum {
 	XASUFW_AES_INIT_FAILED, /**< AES initialization failed */
 	XASUFW_AES_UPDATE_FAILED, /**< AES update failed */
 	XASUFW_AES_FINAL_FAILED, /**< AES final failed */
+	XASUFW_AES_CCM_INVALID_OPERATION_FLAGS, /**< AES CCM invalid operation flags */
+	XASUFW_AES_CCM_AAD_FORMATTING_FAILED, /**< AES CCM AAD formatting failed */
 	XASUFW_AES_KAT_FAILED, /**< AES KAT failed */
 	XASUFW_AES_DPA_CM_KAT_CHECK1_FAILED, /**< AES DPA CM check1 failed */
 	XASUFW_AES_DPA_CM_KAT_CHECK2_FAILED, /**< AES DPA CM check2 failed */

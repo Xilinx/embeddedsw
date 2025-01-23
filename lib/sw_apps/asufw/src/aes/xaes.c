@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -20,6 +20,7 @@
  *       am   08/24/24 Added AES DPA CM KAT support
  *       yog  08/25/24 Integrated FIH library
  *       am   08/25/24 Initialized ASU DMA pointer before XAsufw_DmaXfr() function call.
+ *       am   01/20/25 Added AES CCM support
  *
  * </pre>
  *
@@ -44,6 +45,16 @@
 #define XAES_INVALID_CFG		(0xFFFFFFFFU) /**<  AES invalid configuration */
 #define XASUFW_AES_KEY_NOT_ZEROIZED	(0x0) /**< Key in AES subsystem is not zeroized. */
 #define XASUFW_AES_KEY_ZEROIZED		(0xF) /**< Key in AES subsystem is zeroized. */
+#define	XAES_MAX_NONCE_HEADER_LEN	(0x12U) /**< AES CCM maximum header length
+						(0x1U (Flag) + XASU_AES_CCM_MAX_NONCE_LEN +
+						0x2U(AAD encoding length) +
+						0x2U(PT encoding length)) */
+#define XAES_B0FLAG(TagLen, NonceLen) (0x40U | (((TagLen - 2U) / 2U) << 3U) | (15U - (NonceLen)))
+						/**< Calculates the B0 flag dynamically. */
+#define XAES_NONCE_HEADER_FLAG_SIZE	(0x1U) /**< Nonce header flag size. */
+#define XAES_NONCE_LENGTH_FIELD_SIZE	(0x2U) /**< Nonce length field size. */
+#define XAES_NONCE_HEADER_LEN_OVERHEAD	(2 * XAES_NONCE_LENGTH_FIELD_SIZE)
+						/**< Nonce header length overhead */
 
 typedef enum {
 	XAES_INITIALIZED = 0x1, /**< AES in initialized state */
@@ -845,6 +856,138 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function formats the Additional Authenticated Data (AAD), Nonce, and associated
+ * 		parameters into a structure compliant with AES-CCM input formatting requirements.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	DmaPtr		Pointer to the AsuDma instance.
+ * @param	AadAddr		Address of the AAD data.
+ * @param	AadLen		Length of the AAD in bytes.
+ * @param	NonceAddr	Address of the nonce.
+ * @param	NonceLen	Length of the nonce in bytes.
+ * @param	PlainTextLen	Length of the plaintext (payload) in bytes.
+ * @param	TagLen		Length of the authentication tag in bytes.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if formatting of AAD data is successful.
+ *		- XASUFW_AES_INVALID_PARAM, if InstancePtr or DmaPtr is NULL or AAD and Nonce Address
+ * 			and lengths are zero.
+ *		- XASUFW_FAILURE, if transfer of data is failed.
+ *
+ *************************************************************************************************/
+s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr, u32 AadLen,
+	u64 NonceAddr, u8 NonceLen, u32 PlainTextLen, u8 TagLen)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u8 NonceHeader[XAES_MAX_NONCE_HEADER_LEN];
+	u8 MaxAadZeroPadding[XASU_AES_BLOCK_SIZE_IN_BYTES] = {0U};
+	u8 TotalNonceHeaderLen = 0U;
+	u32 FormattedAadLen = 0U;
+	u8 IsLastChunk;
+
+	/** Validate the input arguments. */
+	if ((InstancePtr == NULL) || (DmaPtr == NULL) || (AadAddr == 0U) || (NonceAddr == 0U)) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((AadLen == 0U) || (PlainTextLen == 0U)) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate the IV with respect to the AES-CCM engine mode. */
+	Status = XAsu_AesValidateIv(XASU_AES_CCM_MODE, NonceAddr, NonceLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate the tag with respect to the AES-CCM engine mode. */
+	if (((TagLen % XASU_AES_EVEN_MODULUS) != 0U) ||
+			((TagLen < XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES) ||
+			(TagLen > XASU_AES_MAX_TAG_LENGTH_IN_BYTES))) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Initialize the AES instance with ASU DMA pointer. */
+	InstancePtr->AsuDmaPtr = DmaPtr;
+
+	/**
+	 * AAD formatting:
+	 * B0 Flag || Nonce || Encoded PT Length || Encoded AAD Length || AAD || Zero padding
+	 */
+
+	/** Calculate the B0 flag dynamically based on tag length and nonce length. */
+	NonceHeader[0U] = XAES_B0FLAG(TagLen, NonceLen);
+
+	/** Copy the nonce into NonceHeader local array. */
+	Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, NonceAddr, (u64)(UINTPTR)&NonceHeader[1U],
+		NonceLen, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Add plaintext length (encoded as 2 bytes). */
+	NonceHeader[XAES_NONCE_HEADER_FLAG_SIZE + NonceLen] = ((PlainTextLen >>
+		XASUFW_BYTE_LEN_IN_BITS) & 0xFFU);
+	NonceHeader[XAES_NONCE_HEADER_FLAG_SIZE + NonceLen + 1U] = (PlainTextLen & 0xFFU);
+
+	/** Add AAD length (encoded as 2 bytes). */
+	NonceHeader[XAES_NONCE_HEADER_FLAG_SIZE + NonceLen + XAES_NONCE_LENGTH_FIELD_SIZE] =
+		((AadLen >> XASUFW_BYTE_LEN_IN_BITS) & 0xFFU);
+	NonceHeader[XAES_NONCE_HEADER_FLAG_SIZE + NonceLen + XAES_NONCE_LENGTH_FIELD_SIZE + 1U] =
+		(AadLen & 0xFFU);
+
+	TotalNonceHeaderLen = (XAES_NONCE_HEADER_FLAG_SIZE + NonceLen +
+		XAES_NONCE_HEADER_LEN_OVERHEAD);
+
+	/** Configure DMA with AES and transfer the Nonce Header to AES engine. */
+	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, (u64)(UINTPTR)NonceHeader, 0U,
+		TotalNonceHeaderLen, XASU_FALSE);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	FormattedAadLen = (TotalNonceHeaderLen + AadLen);
+
+	if ((FormattedAadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) == 0U) {
+		IsLastChunk = XASU_TRUE;
+	}
+	else {
+		IsLastChunk = XASU_FALSE;
+	}
+
+	/** Configure DMA with AES and transfer the AAD data to AES engine. */
+	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, AadAddr, 0U, AadLen,
+		IsLastChunk);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Push zero padding data to AES engine. */
+	if ((FormattedAadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U) {
+		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, (u64)(UINTPTR)MaxAadZeroPadding, 0U,
+			((XASU_AES_BLOCK_SIZE_IN_BYTES - (FormattedAadLen %
+			XASU_AES_BLOCK_SIZE_IN_BYTES)) % XASU_AES_BLOCK_SIZE_IN_BYTES),
+			XASU_TRUE);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+	}
+
+END:
+	if (InstancePtr != NULL) {
+		/** Set AES under reset on failure. */
+		XAes_SetReset(InstancePtr);
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function decrypts the black key (encrypted key) from the eFuse and decrypted
  * 		key will be stored in the corresponding efuse red key registers of AES key vault.
  *
@@ -1217,9 +1360,28 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 			goto END;
 		}
 		IvLength = XASU_AES_IV_SIZE_128BIT_IN_BYTES;
-	} else {
+	}
+	else if (InstancePtr->EngineMode == XASU_AES_CCM_MODE) {
+		/** Flag byte for AES-CCM nonce */
+		Iv[0] = 0x01U;
+		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, IvAddr, (u64)(UINTPTR)&Iv[1U],
+			IvLength, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+		/** Add zero padding if nonce length is less than 16 bytes. */
+		if ((IvLength + 1U) < XASU_AES_IV_SIZE_128BIT_IN_WORDS) {
+			Status = Xil_SMemSet(&Iv[IvLength + 1U],
+				(XASU_AES_IV_SIZE_128BIT_IN_WORDS - (IvLength + 1U)), 0U,
+				(XASU_AES_IV_SIZE_128BIT_IN_WORDS - (IvLength + 1U)));
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+	}
+	else {
 		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, IvAddr, (u64)(UINTPTR)Iv,
-				       IvLength, 0U);
+			IvLength, 0U);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
