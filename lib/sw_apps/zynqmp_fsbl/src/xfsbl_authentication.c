@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -39,6 +40,7 @@
 *       bsv  05/03/21 Add provision to load bitstream from OCM with DDR
 *                     present in design
 * 8.0   bsv  07/13/21 Remove unwanted CsuDma initializations
+* 9.0   sd   01/24/25 Minor typo fix in dereferencing pointer
 *
 * </pre>
 *
@@ -186,7 +188,7 @@ u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 			if (EfuseSpkId != *SpkId) {
 				Status = XFSBL_ERROR_SPKID_VERIFICATION;
 				XFsbl_Printf(DEBUG_INFO,
-						"Image's SPK ID : %x\n\r", SpkId);
+						"Image's SPK ID : %x\n\r", *SpkId);
 				XFsbl_Printf(DEBUG_INFO,
 						"eFUSE SPK ID: %x\n\r", EfuseSpkId);
 				XFsbl_Printf(DEBUG_GENERAL,
