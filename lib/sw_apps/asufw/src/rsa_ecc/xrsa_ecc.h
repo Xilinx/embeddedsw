@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -8,6 +8,9 @@
  *
  * @file xrsa_ecc.h
  * This file contains implementation of the interface functions for RSA hardware engine.
+ * In ASU, since there are two cores ECC(supports NIST curves P-256 & P-384) and
+ * RSA(supports all other curves) which supports ECDSA, the functions and macros related to the
+ * RSA core are named rsa_ecc.
  *
  * <pre>
  * MODIFICATION HISTORY:
