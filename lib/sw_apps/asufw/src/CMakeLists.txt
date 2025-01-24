@@ -77,6 +77,7 @@ add_subdirectory(task)
 add_subdirectory(trng)
 add_subdirectory(xfih)
 add_subdirectory(hmac)
+add_subdirectory(kdf)
 
 if (CMAKE_EXPORT_COMPILE_COMMANDS AND
     (NOT ${YOCTO}))

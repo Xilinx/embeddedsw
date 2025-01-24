@@ -39,6 +39,7 @@
  *       ma   01/03/25 Added error codes for TRNG core register configuration failures
  *       yog  01/03/25 Added error codes for HMAC functionality
  *       am   01/20/25 Added error codes for AES CCM functionality
+ *       ma   01/21/25 Added error codes for KDF functionality
  *
  * </pre>
  *
@@ -291,16 +292,16 @@ enum {
 	XASUFW_RSA_PSS_DECODE_ERROR, /**< Error when PSS decode operation fails */
 	XASUFW_RSA_INVALID_OP_FLAG_ERROR, /**< Error when invalid operation flag is given */
 	XASUFW_RSA_MODULE_REGISTRATION_FAILED, /**< RSA module registration failed */
-	XASUFW_RSA_ENCRYPT_DATA_COMPARISON_FAILED, /**< Error when RSA encrypt output comparision
+	XASUFW_RSA_ENCRYPT_DATA_COMPARISON_FAILED, /**< Error when RSA encrypt output comparison
 							failed */
-	XASUFW_RSA_DECRYPT_DATA_COMPARISON_FAILED, /**< Error when RSA decrypt output comparision
+	XASUFW_RSA_DECRYPT_DATA_COMPARISON_FAILED, /**< Error when RSA decrypt output comparison
 							failed */
 	XASUFW_RSA_KAT_FAILED, /**< Error when RSA KAT failed */
 	XASUFW_ECDH_INVALID_POINT_ON_CRV, /**< Error when generated point is invalid */
 	XASUFW_ECDH_RAND_GEN_ERROR, /**< Random number generation failed to ECDH APIs */
 	XASUFW_ECDH_OTHER_ERROR, /**< Any generic error from ECDH APIs */
 	XASUFW_ECDH_GEN_SECRET_OPERATION_FAIL, /**< Error when generate secret failed */
-	XASUFW_ECDH_SECRET_COMPARISON_FAILED, /**< Error when generated secret comparision
+	XASUFW_ECDH_SECRET_COMPARISON_FAILED, /**< Error when generated secret comparison
 							failed */
 	XASUFW_ECDH_KAT_FAILED, /**< Error when ECDH KAT failed */
 	XASUFW_HMAC_INVALID_PARAM, /**< Invalid parameters to HMAC APIs */
@@ -312,11 +313,18 @@ enum {
 	XASUFW_HMAC_INITIALIZATION_FAILED, /**< HMAC initialization failed */
 	XASUFW_HMAC_UPDATE_FAILED, /**< HMAC update failed */
 	XASUFW_HMAC_FINAL_FAILED, /**< HMAC final failed */
-	XASUFW_HMAC_KAT_COMPARISON_FAILED, /**< HMAC comparision failed in KAT */
+	XASUFW_HMAC_KAT_COMPARISON_FAILED, /**< HMAC comparison failed in KAT */
 	XASUFW_HMAC_KAT_FAILED, /**< HMAC KAT failed */
 	XASUFW_HMAC_MODULE_REGISTRATION_FAILED, /**< HMAC module registration failed */
+	XASUFW_KDF_INVALID_PARAM, /**< Invalid parameters to the KDF APIs */
+	XASUFW_KDF_ITERATION_COUNT_MISMATCH, /** Failure in running desired number of iterations for
+						KDF output */
+	XASUFW_KDF_MODULE_REGISTRATION_FAILED, /**< KDF module registration failed */
+	XASUFW_KDF_COMPUTE_FAILED, /**< KDF compute failed */
+	XASUFW_KDF_KAT_COMPARISON_FAILED, /**< KDF KAT comparison failed */
+	XASUFW_KDF_KAT_FAILED, /**< KDF KAT failed */
 
-	XASUFW_CMD_IN_PROGRESS = 0x2FF, /**< Command is in progress */
+	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< Command is in progress */
 };
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
