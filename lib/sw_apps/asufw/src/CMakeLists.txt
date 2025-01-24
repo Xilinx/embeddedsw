@@ -57,6 +57,8 @@ collect (PROJECT_LIB_SOURCES xasufw_intr.c)
 collect (PROJECT_LIB_HEADERS xasufw_intr.h)
 collect (PROJECT_LIB_SOURCES xasufw_hmachandler.c)
 collect (PROJECT_LIB_HEADERS xasufw_hmachandler.h)
+collect (PROJECT_LIB_SOURCES xasufw_kdfhandler.c)
+collect (PROJECT_LIB_HEADERS xasufw_kdfhandler.h)
 
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)

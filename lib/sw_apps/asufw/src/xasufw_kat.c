@@ -30,6 +30,7 @@
  * 1.1   ss   12/02/24 Added kat support for ECDH
  *       ma   12/12/24 Updated resource allocation logic
  *       yog  01/02/25 Added HMAC KAT
+ *       ma   01/15/25 Added KDF KAT
  *
  * </pre>
  *
@@ -48,6 +49,7 @@
 #include "xasu_rsainfo.h"
 #include "xasufw_util.h"
 #include "xasu_hmacinfo.h"
+#include "xkdf.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -100,6 +102,13 @@ static const u8 ExpHmacOutput[XASU_SHA_256_HASH_LEN] = {
 	0xF9U, 0x16U, 0xC8U, 0x4BU, 0x08U, 0x11U, 0x3EU, 0x26U,
 	0x2FU, 0xA8U, 0x55U, 0x76U, 0xAFU, 0xFEU, 0x96U, 0x4AU,
 	0x09U, 0x79U, 0xAAU, 0x05U, 0xBEU, 0xAFU, 0x5FU, 0x2DU
+};
+
+static const u8 ExpKdfOutput[XASU_SHA_256_HASH_LEN] = {
+	0x91U, 0x53U, 0x33U, 0xF0U, 0x62U, 0x3DU, 0xBCU, 0x73U,
+	0x7EU, 0x92U, 0x3CU, 0x1BU, 0xB3U, 0xA9U, 0x92U, 0x31U,
+	0x4EU, 0x66U, 0xC4U, 0x6EU, 0x2CU, 0x8DU, 0x81U, 0x45U,
+	0xD2U, 0xE4U, 0x70U, 0x4EU, 0x75U, 0xD0U, 0x3AU, 0x77U
 };
 
 static const u8 RsaData[XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES] = {
@@ -922,13 +931,8 @@ END:
  *
  * @return
  *	- XASUFW_SUCCESS on successful execution of the HMAC KAT.
- *	- XASUFW_HMAC_INITIALIZATION_FAILED, if HMAC init fails.
- *	- XASUFW_HMAC_UPDATE_FAILED, if HMAC update fails.
- *	- XASUFW_HMAC_FINAL_FAILED, if HMAC final fails.
  *	- XASUFW_HMAC_KAT_COMPARISON_FAILED, if expected and generated HMAC comparison fails.
- *	- XASUFW_HMAC_KAT_FAILED, when XAsufw_ShaKat API fails.
- *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
- *	- XASUFW_FAILURE, if any other failure.
+ *	- XASUFW_HMAC_KAT_FAILED, when XAsufw_HmacOperationKat API fails.
  *
  *************************************************************************************************/
 s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr)
@@ -943,7 +947,6 @@ s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Status = XHmac_Init(XAsufw_HmacInstance, AsuDmaPtr, Sha2Ptr, (u64)(UINTPTR)EccPrivKey,
 			    XECC_P256_SIZE_IN_BYTES, XASU_SHA_MODE_SHA256, XASU_SHA_256_HASH_LEN);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_HMAC_INITIALIZATION_FAILED;
 		goto END;
 	}
 
@@ -952,7 +955,6 @@ s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Status = XHmac_Update(XAsufw_HmacInstance, AsuDmaPtr, (u64)(UINTPTR)KatMessage,
 			      XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_HMAC_UPDATE_FAILED;
 		goto END;
 	}
 
@@ -960,7 +962,6 @@ s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr)
 	/** Perform HMAC final operation. */
 	Status = XHmac_Final(XAsufw_HmacInstance, AsuDmaPtr, (u32 *)HmacOutput);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_HMAC_FINAL_FAILED;
 		goto END_CLR;
 	}
 
@@ -983,6 +984,61 @@ END_CLR:
 END:
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_KAT_FAILED);
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs KDF KAT using SHA2-256.
+ *
+ * @param	AsuDmaPtr		Pointer to the ASU DMA instance.
+ *
+ * @return
+ *	- XASUFW_SUCCESS on successful execution of the KDF KAT.
+ *	- XASUFW_KDF_KAT_COMPARISON_FAILED, if expected and generated KDF comparison fails.
+ *	- XASUFW_KDF_KAT_FAILED, when XAsufw_KdfOperationKat API fails.
+ *
+ *************************************************************************************************/
+s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 SStatus = XASUFW_FAILURE;
+	XSha *Sha2Ptr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	u8 KdfOutput[XASU_SHA_256_HASH_LEN] = {0U};
+	XAsu_KdfParams Params;
+
+	Params.KeyInAddr = (u64)(UINTPTR)EccPrivKey;
+	Params.KeyInLen = XECC_P256_SIZE_IN_BYTES;
+	Params.ContextAddr = (u64)(UINTPTR)KatMessage;
+	Params.ContextLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
+	Params.KeyOutAddr = (u64)(UINTPTR)KdfOutput;
+	Params.KeyOutLen = XASU_SHA_256_HASH_LEN;
+	Params.ShaMode = XASU_SHA_MODE_SHA256;
+
+	/** Perform KDF compute with known inputs. */
+	Status = XKdf_Compute(AsuDmaPtr, Sha2Ptr, &Params);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Compare generated KDF key output with expected KDF key output. */
+	Status = Xil_SMemCmp(KdfOutput, XASU_SHA_256_HASH_LEN, ExpKdfOutput,
+			     XASU_SHA_256_HASH_LEN,
+			     XASU_SHA_256_HASH_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KDF_KAT_COMPARISON_FAILED;
+	}
+
+END:
+	/** Zeroize local copy of output value. */
+	SStatus = Xil_SMemSet(&KdfOutput[0U], XASU_SHA_256_HASH_LEN, 0U,
+			      XASU_SHA_256_HASH_LEN);
+	Status = XAsufw_UpdateBufStatus(Status, SStatus);
+
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_KAT_FAILED);
 	}
 
 	return Status;

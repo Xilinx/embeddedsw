@@ -26,6 +26,7 @@
  * 1.1   ss   12/02/24 Added kat support for ECDH
  *       ma   12/12/24 Updated resource allocation logic
  *       yog  01/02/25 Added HMAC KAT
+ *       ma   01/15/25 Added KDF KAT
  *
  * </pre>
  *
@@ -66,6 +67,7 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_AesDecryptDpaCmKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_P192EcdhKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr);
 
 /************************************ Variable Definitions ***************************************/
 
