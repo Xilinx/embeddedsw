@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 title: Bindings for xilasu library.
 maintainers:
@@ -19,3 +19,5 @@ examples:
   xasu_sha2_example.c: []
   xasu_sha3_example.c: []
   xasu_ecdh_example.c: []
+  xasu_hmac_example.c: []
+  xasu_kdf_example.c: []
