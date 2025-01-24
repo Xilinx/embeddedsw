@@ -346,7 +346,7 @@ s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u
 		goto END;
 	}
 
-	XAsufw_Printf(DEBUG_INFO, "DMA Xfer Src 0x%0x%08x, Dest 0x%0x%08x, Len 0x%0x, Flags 0x%0x: ",
+	XAsufw_Printf(DEBUG_INFO, "DMA Xfer Src 0x%0x%08x, Dest 0x%0x%08x, Len 0x%0x, Flags 0x%0x\r\n",
 		      (u32)(SrcAddr >> 32U), (u32)SrcAddr, (u32)(DestAddr >> 32U), (u32)DestAddr, Len, Flags);
 	if ( Len == 0U) {
 		Status = XASUFW_SUCCESS;

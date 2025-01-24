@@ -277,6 +277,7 @@ static s32 XAsufw_HmacKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 	XAsufw_HmacModule.AsuDmaPtr = NULL;
+	XAsufw_HmacModule.ShaPtr = NULL;
 
 	return Status;
 }
