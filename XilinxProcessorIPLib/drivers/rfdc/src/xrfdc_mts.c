@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +56,8 @@
 *       cog    01/18/22 Added safety checks.
 *       cog    01/18/22 Add cast in XRFdc_MTS_Dtc_Calc.
 *       cog    01/18/22 Initialize DatapathMode in XRFdc_MTS_Latency.
+* 13.0  cog    01/22/25 Only check datapath mode for Gen3/DFE devices in
+*                       XRFdc_MTS_Latency.
 *
 * </pre>
 *
@@ -984,10 +987,12 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 	} else {
 		(void)XRFdc_GetInterpolationFactor(InstancePtr, ConfigPtr->RefTile, XRFDC_BLK_ID0, &Factor);
 		(void)XRFdc_GetFabWrVldWords(InstancePtr, Type, ConfigPtr->RefTile, XRFDC_BLK_ID0, &Write_Words);
-		(void)XRFdc_GetDataPathMode(InstancePtr, ConfigPtr->RefTile, XRFDC_BLK_ID0, &DatapathMode);
-		if ((DatapathMode == XRFDC_DATAPATH_MODE_FSDIVFOUR_FSDIVTWO) ||
-		    (DatapathMode == XRFDC_DATAPATH_MODE_DUC_0_FSDIVFOUR)) {
-			DatapathModeFactor = 2U;
+		if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+			(void)XRFdc_GetDataPathMode(InstancePtr, ConfigPtr->RefTile, XRFDC_BLK_ID0, &DatapathMode);
+			if ((DatapathMode == XRFDC_DATAPATH_MODE_FSDIVFOUR_FSDIVTWO) ||
+			(DatapathMode == XRFDC_DATAPATH_MODE_DUC_0_FSDIVFOUR)) {
+				DatapathModeFactor = 2U;
+			}
 		}
 		(void)XRFdc_GetMixerSettings(InstancePtr, Type, ConfigPtr->RefTile, XRFDC_BLK_ID0, &Mixer_Settings);
 		if (Mixer_Settings.MixerMode == (XRFDC_MIXER_MODE_C2R)) {
