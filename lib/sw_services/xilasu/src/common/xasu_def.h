@@ -18,6 +18,7 @@
  * 1.0   vns  06/04/24 Initial release
  *       am   08/01/24 Added macro for AES module Id.
  *       yog  01/02/25 Added macro for HMAC module ID.
+ *       ma   01/15/25 Added macro for KDF module ID.
  *
  * </pre>
  *
@@ -48,6 +49,7 @@ extern "C" {
 #define XASU_MODULE_RSA_ID			(4U) /**< RSA module ID */
 #define XASU_MODULE_AES_ID			(5U) /**< AES module ID */
 #define XASU_MODULE_HMAC_ID			(6U) /**< HMAC module ID */
+#define XASU_MODULE_KDF_ID			(7U) /**< KDF module ID */
 
 #define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
 						/** < ASU DMA maximum transfer rate in bytes. */

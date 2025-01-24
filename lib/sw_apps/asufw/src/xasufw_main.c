@@ -33,6 +33,7 @@
  *       yog  08/25/24 Initialize FIH
  *       ss   09/26/24 Fixed doxygen comments
  *       yog  01/02/25 Initialize HMAC module
+ *       ma   01/15/25 Initialize KDF module
  *
  * </pre>
  *
@@ -59,6 +60,7 @@
 #include "xasufw_ecchandler.h"
 #include "xasufw_aeshandler.h"
 #include "xasufw_hmachandler.h"
+#include "xasufw_kdfhandler.h"
 #include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -241,7 +243,14 @@ static s32 XAsufw_ModulesInit(void)
 		goto END;
 	}
 
+	/** HMAC module initialization. */
 	Status = XAsufw_HmacInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** KDF module initialization. */
+	Status = XAsufw_KdfInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
