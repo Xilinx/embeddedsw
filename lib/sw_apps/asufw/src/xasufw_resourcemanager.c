@@ -22,6 +22,7 @@
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/12/24 Updated resource allocation logic
+ *       ma   01/15/25 Added KDF to the resources list
  *
  * </pre>
  *
@@ -268,6 +269,9 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 				break;
 			case XASUFW_HMAC_RESOURCE_MASK:
 				Resource = XASUFW_HMAC;
+				break;
+			case XASUFW_KDF_RESOURCE_MASK:
+				Resource = XASUFW_KDF;
 				break;
 			default:
 				Status = XASUFW_RESOURCE_INVALID;
