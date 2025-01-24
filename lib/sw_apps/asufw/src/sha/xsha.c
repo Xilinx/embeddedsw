@@ -24,6 +24,7 @@
  *       am   10/22/24 Replaced XSHA_SHA_256_HASH_LEN with XASU_SHA_256_HASH_LEN
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
  *       yog  01/02/25 Added XSha_GetShaBlockLen() and XSha_Reset() API's
+ *       ma   01/15/25 Minor updates to XSha_GetHashLen API
  *
  * </pre>
  *
@@ -470,21 +471,20 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function gives hash length for provided sha type.
+ * @brief	This function gives hash length for provided sha mode.
  *
- * @param	ShaType	SHA mode selection.
+ * @param	ShaMode	SHA mode selection.
  * @param	HashLen	The length which is to be returned.
  *
  * @return
- *		- XASUFW_SUCCESS on modulus data is greater than input data.
- *		- XASUFW_RSA_MOD_DATA_INVALID on modulus data less than input data.
- *		- XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL on modulus data equal to input data.
+ *		- XASUFW_SUCCESS, if SHA mode is valid.
+ *		- XASUFW_SHA_INVALID_SHA_MODE, if SHA mode is invalid.
  *
  *************************************************************************************************/
-s32 XSha_GetHashLen(u8 ShaType, u32 *HashLen)
+s32 XSha_GetHashLen(u8 ShaMode, u32 *HashLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	switch (ShaType) {
+	switch (ShaMode) {
 		/* SHA2-256 Mode */
 		case XASU_SHA_MODE_SHA256:
 			*HashLen = XASU_SHA_256_HASH_LEN;

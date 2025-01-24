@@ -34,6 +34,7 @@
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
  *       yog  01/02/25 Added XSha_GetShaBlockLen() and XSha_Reset() API's and block length macros
  *                     of all sha modes.
+ *       ma   01/15/25 Minor updates to XSha_GetHashLen API
  *
  * </pre>
  *
@@ -74,7 +75,7 @@ s32 XSha_CfgInitialize(XSha *InstancePtr);
 s32 XSha_Start(XSha *InstancePtr, u32 ShaMode);
 s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size, u32 EndLast);
 s32 XSha_Finish(XSha *InstancePtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOutput);
-s32 XSha_GetHashLen(u8 ShaType, u32 *HashLen);
+s32 XSha_GetHashLen(u8 ShaMode, u32 *HashLen);
 s32 XSha_GetShaBlockLen(const XSha *InstancePtr, u8 ShaMode, u8* BlockLen);
 void XSha_Reset(XSha *InstancePtr);
 
