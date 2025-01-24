@@ -54,6 +54,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.0   yog    12/19/24 Initial Release
+*       ma     01/21/25 Fix minor bugs in example
 *
 * </pre>
  *************************************************************************************************/
@@ -71,7 +72,7 @@
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define ASU_HMAC_LEN_IN_BYTES		(64U)	/**< ASU HMAC length in bytes */
-#define ASU_HMAC_KEY_LEN_IN_BYTES	(10U)	/**< ASU Key length in bytes */
+#define ASU_HMAC_KEY_LEN_IN_BYTES	(64U)	/**< ASU Key length in bytes */
 #define ASU_HMAC_MSG_LEN_IN_BYTES	(128U)	/**< ASU Message length in bytes */
 
 /************************************ Function Prototypes ****************************************/
@@ -100,13 +101,6 @@ static const u8 Message[] __attribute__ ((section (".data.Message"))) = {
 };
 
 static const u8 Key[] __attribute__ ((section (".data.Key"))) = {
-	0x82U, 0xF3U, 0xB6U, 0x9AU, 0x1BU, 0xFFU, 0x4DU, 0xE1U,
-	0x5CU, 0x33U
-};
-
-static u8 HmacOutput[ASU_HMAC_LEN_IN_BYTES] __attribute__ ((section (".data.HmacOutput")));
-
-static const u8 ExpHmac[ASU_HMAC_LEN_IN_BYTES] = {
 	0xA0U, 0x44U, 0x73U, 0xEFU, 0x55U, 0x08U, 0xA4U, 0xEDU,
 	0xCBU, 0xECU, 0x57U, 0x74U, 0x9DU, 0x29U, 0x73U, 0xABU,
 	0x3EU, 0xB2U, 0xC2U, 0xAFU, 0x4CU, 0x54U, 0x74U, 0x8CU,
@@ -115,6 +109,19 @@ static const u8 ExpHmac[ASU_HMAC_LEN_IN_BYTES] = {
 	0x7FU, 0xD3U, 0xFFU, 0xAFU, 0x09U, 0x27U, 0x73U, 0x60U,
 	0xA4U, 0xC3U, 0x72U, 0x65U, 0x33U, 0x44U, 0x49U, 0x4BU,
 	0xA2U, 0xA2U, 0x40U, 0x5AU, 0x39U, 0x1AU, 0x1DU, 0xEAU
+};
+
+static u8 HmacOutput[ASU_HMAC_LEN_IN_BYTES] __attribute__ ((section (".data.HmacOutput")));
+
+static const u8 ExpHmac[ASU_HMAC_LEN_IN_BYTES] = {
+	0x6EU, 0xD8U, 0xB5U, 0xCAU, 0x72U, 0x5BU, 0xD7U, 0xABU,
+	0x36U, 0xCCU, 0x23U, 0x4CU, 0xBAU, 0x31U, 0x5AU, 0x55U,
+	0xCAU, 0x00U, 0xF0U, 0xD4U, 0x27U, 0xC8U, 0x00U, 0x8BU,
+	0x9BU, 0x1EU, 0x21U, 0x0AU, 0xA8U, 0x76U, 0x18U, 0xB5U,
+	0x55U, 0x23U, 0x9EU, 0x3FU, 0xF9U, 0x6DU, 0x4FU, 0x97U,
+	0xB2U, 0xE7U, 0xEEU, 0x45U, 0x4CU, 0xF9U, 0x8CU, 0x3DU,
+	0x52U, 0x30U, 0x92U, 0x7BU, 0x99U, 0x17U, 0x48U, 0x2EU,
+	0x34U, 0x55U, 0x95U, 0x53U, 0x1DU, 0xD9U, 0xC1U, 0xAEU
 };
 
 volatile u8 Notify = 0; /**< To notify the call back from client library */
@@ -184,8 +191,8 @@ static s32 Asu_HmacExample(void)
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
 	ErrorStatus = XST_FAILURE;
-	HmacClientParam.ShaType = (u8)XASU_SHA_MODE_SHA512;
-	HmacClientParam.ShaMode = (u8)XASU_SHA2_TYPE;
+	HmacClientParam.ShaType = (u8)XASU_SHA2_TYPE;
+	HmacClientParam.ShaMode = (u8)XASU_SHA_MODE_SHA512;
 	HmacClientParam.IsLast = (u8)TRUE;
 	HmacClientParam.OperationFlags = (u8)(XASU_HMAC_INIT | XASU_HMAC_UPDATE | XASU_HMAC_FINAL);
 	HmacClientParam.KeyAddr = (u64)(UINTPTR)Key;
