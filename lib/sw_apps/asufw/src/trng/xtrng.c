@@ -21,7 +21,7 @@
  *       ma   07/26/24 Removed XTrng_DisableAutoProcMode API and updated TRNG to support PTRNG mode
  *       yog  08/25/24 Integrated FIH library
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
- * 1.1   ma   12/24/24 AAdded API to disable autoproc mode
+ * 1.1   ma   12/24/24 Added API to disable autoproc mode
  *       ma   01/03/25 Configure TRNG core registers properly
  *
  * </pre>
