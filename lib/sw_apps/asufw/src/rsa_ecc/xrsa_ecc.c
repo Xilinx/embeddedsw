@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -125,8 +125,8 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u32 CurveSize = 0U;
-	u8 PrivKey[XRSA_ECC_P521_SIZE_IN_BYTES];
-	u8 PubKey[XRSA_ECC_P521_SIZE_IN_BYTES + XRSA_ECC_P521_SIZE_IN_BYTES];
+	u8 PrivKey[XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 PubKey[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
 
@@ -197,11 +197,11 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 END_CLR:
 	/** Zeroize local key copy. */
 	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PrivKey,
-					XRSA_ECC_P521_SIZE_IN_BYTES);
+					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PubKey,
-					XAsu_DoubleCurveLength(XRSA_ECC_P521_SIZE_IN_BYTES));
+					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 END:
 	/** Set RSA under reset. */
@@ -238,7 +238,7 @@ s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u32 CurveSize = 0U;
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 PubKey[XRSA_ECC_P521_SIZE_IN_BYTES + XRSA_ECC_P521_SIZE_IN_BYTES];
+	u8 PubKey[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
 
@@ -302,7 +302,7 @@ s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 END_CLR:
 	/** Zeroize local key copy. */
 	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PubKey,
-					XAsu_DoubleCurveLength(XRSA_ECC_P521_SIZE_IN_BYTES));
+					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
@@ -348,15 +348,16 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u32 CurveSize = 0U;
-	u8 PrivKey[XRSA_ECC_P521_SIZE_IN_BYTES];
-	u8 Signature[XRSA_ECC_P521_SIZE_IN_BYTES + XRSA_ECC_P521_SIZE_IN_BYTES];
-	u8 Hash[XRSA_ECC_P521_SIZE_IN_BYTES];
-	u8 EphemeralKey[XRSA_ECC_P521_SIZE_IN_BYTES];
+	u8 PrivKey[XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 Signature[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 Hash[XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 EphemeralKey[XASU_ECC_P521_SIZE_IN_BYTES];
 	EcdsaSign Sign;
 	EcdsaCrvInfo *Crv = NULL;
 
 	/** Validate the input arguments. */
-	if ((DmaPtr == NULL) || (HashAddr == 0U) || (PrivKeyAddr == 0U) || (SignAddr == 0U)) {
+	if ((DmaPtr == NULL) || (HashAddr == 0U) || (PrivKeyAddr == 0U) || (SignAddr == 0U) ||
+			(EphemeralKeyPtr == NULL)) {
 		Status = XASUFW_RSA_ECC_INVALID_PARAM;
 		goto END;
 	}
@@ -455,11 +456,11 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 END_CLR:
 	/** Zeroize local key copy. */
 	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PrivKey,
-					XRSA_ECC_P521_SIZE_IN_BYTES);
+					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)EphemeralKey,
-					XRSA_ECC_P521_SIZE_IN_BYTES);
+					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
@@ -505,9 +506,9 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u32 CurveSize = 0U;
-	u8 PubKey[XRSA_ECC_P521_SIZE_IN_BYTES + XRSA_ECC_P521_SIZE_IN_BYTES];
-	u8 Signature[XRSA_ECC_P521_SIZE_IN_BYTES + XRSA_ECC_P521_SIZE_IN_BYTES];
-	u8 Hash[XRSA_ECC_P521_SIZE_IN_BYTES];
+	u8 PubKey[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 Signature[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 Hash[XASU_ECC_P521_SIZE_IN_BYTES];
 	EcdsaSign Sign;
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
@@ -612,7 +613,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 END_CLR:
 	/** Zeroize local key copy. */
 	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PubKey,
-					XAsu_DoubleCurveLength(XRSA_ECC_P521_SIZE_IN_BYTES));
+					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
@@ -716,9 +717,9 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEcdh;
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	u8 SharedSecret[XRSA_ECC_P521_SIZE_IN_BYTES];
-	u8 PrivKey[XRSA_ECC_P521_SIZE_IN_BYTES];
-	u8 PubKey[XRSA_ECC_P521_SIZE_IN_BYTES + XRSA_ECC_P521_SIZE_IN_BYTES];
+	u8 SharedSecret[XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 PrivKey[XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 PubKey[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
 	u8 SharedSecretObjId[XECDH_SHARED_SEC_OBJ_ID_SIZE];
 	EcdsaCrvInfo *Crv = NULL;
 	EcdsaKey Key;
@@ -822,12 +823,12 @@ END_CLR:
 
 	/** Zeroize local private key copy. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcdh, ClearStatus, (u8 *)(UINTPTR)PrivKey,
-					XRSA_ECC_P521_SIZE_IN_BYTES);
+					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	/** Zeroize local copy of shared secret. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcdh, ClearStatus, (u8 *)(UINTPTR)SharedSecret,
-					XRSA_ECC_P521_SIZE_IN_BYTES);
+					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:

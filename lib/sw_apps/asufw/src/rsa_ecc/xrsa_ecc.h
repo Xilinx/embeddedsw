@@ -43,11 +43,6 @@ extern "C" {
 #include "xrsa_eccinfo.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XRSA_ECC_P521_SIZE_IN_BYTES		(66U) /**< Size of NIST P-521 curve in bytes */
-#define XRSA_ECC_P192_SIZE_IN_BYTES		(24U) /**< Size of NIST P-192 curve in bytes */
-#define XRSA_ECC_P384_SIZE_IN_BYTES		(48U) /**< Size of NIST P-384 curve in bytes */
-#define XRSA_ECC_P256_SIZE_IN_BYTES		(32U) /**< Size of NIST P-256 curve in bytes */
-
 #define XRSA_ECC_CURVE_TYPE_NIST_P521		(0x5U) /**< Curve type value for P-521 curve*/
 #define XRSA_ECC_CURVE_TYPE_NIST_P192		(0x1U) /**< Curve type value for P-192 curve*/
 #define XRSA_ECC_CURVE_TYPE_NIST_P224		(0x2U) /**< Curve type value for P-224 curve*/
