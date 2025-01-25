@@ -59,6 +59,15 @@ extern "C" {
 #define XASU_ECC_BRAINPOOL_P320			22U /**< Brainpool P-320 curve */
 #define XASU_ECC_BRAINPOOL_P384			23U /**< Brainpool P-384 curve */
 #define XASU_ECC_BRAINPOOL_P512			24U /**< Brainpool P-512 curve */
+
+#define XASU_ECC_P192_SIZE_IN_BYTES		(24U) /**< Size of NIST P-192 curve in bytes */
+#define XASU_ECC_P224_SIZE_IN_BYTES		(28U) /**< Size of NIST P-192 curve in bytes */
+#define XASU_ECC_P256_SIZE_IN_BYTES		(32U) /**< P256 Curve size in bytes */
+#define XASU_ECC_P320_SIZE_IN_BYTES		(40U) /**< Size of NIST P-521 curve in bytes */
+#define XASU_ECC_P384_SIZE_IN_BYTES		(48U) /**< P384 Curve size in bytes */
+#define XASU_ECC_P512_SIZE_IN_BYTES		(64U) /**< Size of NIST P-521 curve in bytes */
+#define XASU_ECC_P521_SIZE_IN_BYTES		(66U) /**< Size of NIST P-521 curve in bytes */
+
 /************************************** Type Definitions *****************************************/
 /**
  * @brief This structure contains ECC params info

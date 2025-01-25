@@ -41,7 +41,7 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsu_EccValidateCurveType(u32 CurveType);
+static s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen);
 static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
@@ -75,8 +75,8 @@ s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParam
 		goto END;
 	}
 
-	if (XAsu_ValidateEccParameters(EccParamsPtr) != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
+	Status = XAsu_ValidateEccParameters(EccParamsPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -125,8 +125,8 @@ s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccPa
 		goto END;
 	}
 
-	if (XAsu_ValidateEccParameters(EccParamsPtr) != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
+	Status = XAsu_ValidateEccParameters(EccParamsPtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -222,7 +222,7 @@ s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams
 		goto END;
 	}
 
-	if (XAsu_EccValidateCurveType(EcdhParamsPtr->CurveType) != XST_SUCCESS) {
+	if (XAsu_EccValidateCurveInfo(EcdhParamsPtr->CurveType, EcdhParamsPtr->KeyLen) != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -284,24 +284,51 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates the given curve type.
+ * @brief	This function validates the given curve type and curve length.
  *
  * @param	CurveType	Curve type provided.
+ * @param	CurveLen	Curve length provided.
  *
  * @return
  * 		- XST_SUCCESS, if curve type is valid.
  * 		- XST_FAILURE, if curve type is invalid.
  *
  *************************************************************************************************/
-static s32 XAsu_EccValidateCurveType(u32 CurveType)
+static s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen)
 {
 	s32 Status = XST_FAILURE;
+	u32 Len = 0U;
 
-	if ((CurveType == XASU_ECC_NIST_P192) || (CurveType == XASU_ECC_NIST_P224) ||
-	    (CurveType == XASU_ECC_NIST_P256) || (CurveType == XASU_ECC_NIST_P384) ||
-	    (CurveType == XASU_ECC_NIST_P521) || (CurveType == XASU_ECC_BRAINPOOL_P256) ||
-	    (CurveType == XASU_ECC_BRAINPOOL_P320) || (CurveType == XASU_ECC_BRAINPOOL_P384) ||
-	    (CurveType == XASU_ECC_BRAINPOOL_P512)) {
+	switch (CurveType) {
+		case XASU_ECC_NIST_P192:
+			Len = XASU_ECC_P192_SIZE_IN_BYTES;
+			break;
+		case XASU_ECC_NIST_P224:
+			Len = XASU_ECC_P224_SIZE_IN_BYTES;
+			break;
+		case XASU_ECC_NIST_P256:
+		case XASU_ECC_BRAINPOOL_P256:
+			Len = XASU_ECC_P256_SIZE_IN_BYTES;
+			break;
+		case XASU_ECC_BRAINPOOL_P320:
+			Len = XASU_ECC_P320_SIZE_IN_BYTES;
+			break;
+		case XASU_ECC_NIST_P384:
+		case XASU_ECC_BRAINPOOL_P384:
+			Len = XASU_ECC_P384_SIZE_IN_BYTES;
+			break;
+		case XASU_ECC_BRAINPOOL_P512:
+			Len = XASU_ECC_P512_SIZE_IN_BYTES;
+			break;
+		case XASU_ECC_NIST_P521:
+			Len = XASU_ECC_P521_SIZE_IN_BYTES;
+			break;
+		default:
+			Status = XASU_INVALID_ARGUMENT;
+			break;
+	}
+
+	if ((Status != XASU_INVALID_ARGUMENT) && (CurveLen == Len)) {
 		Status = XST_SUCCESS;
 	}
 
@@ -322,7 +349,7 @@ static s32 XAsu_EccValidateCurveType(u32 CurveType)
  *************************************************************************************************/
 static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr)
 {
-	s32 Status = XST_FAILURE;
+	s32 Status = XASU_INVALID_ARGUMENT;
 
 	if (EccParamsPtr == NULL) {
 		goto END;
@@ -333,7 +360,7 @@ static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr)
 		goto END;
 	}
 
-	if (XAsu_EccValidateCurveType(EccParamsPtr->CurveType) != XST_SUCCESS) {
+	if (XAsu_EccValidateCurveInfo(EccParamsPtr->CurveType, EccParamsPtr->KeyLen)!= XST_SUCCESS) {
 		goto END;
 	}
 

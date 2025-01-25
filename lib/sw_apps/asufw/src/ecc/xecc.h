@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -40,8 +40,6 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 #define XECC_CURVE_TYPE_NIST_P256	(0x0U) /**< Curve type value for P-256 curve */
 #define XECC_CURVE_TYPE_NIST_P384	(0x1U) /**<  Curve type value for P-384 curve*/
-#define XECC_P384_SIZE_IN_BYTES         (48U) /**< P384 Curve size in bytes */
-#define XECC_P256_SIZE_IN_BYTES         (32U) /**< P256 Curve size in bytes */
 
 /************************************** Type Definitions *****************************************/
 typedef struct _XEcc_Config

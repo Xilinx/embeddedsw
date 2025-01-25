@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -106,11 +106,11 @@ static XEcc XEcc_Instance[XASU_XECC_NUM_INSTANCES]; /**< ASUFW ECC HW instances 
 static XEcc_CurveInfo XEcc_CurveInfoTable[XECC_CURVES_SUPPORTED] = {
 	{
 		XECC_CURVE_TYPE_NIST_P256,
-		XECC_P256_SIZE_IN_BYTES
+		XASU_ECC_P256_SIZE_IN_BYTES
 	},
 	{
 		XECC_CURVE_TYPE_NIST_P384,
-		XECC_P384_SIZE_IN_BYTES
+		XASU_ECC_P384_SIZE_IN_BYTES
 	}
 };
 

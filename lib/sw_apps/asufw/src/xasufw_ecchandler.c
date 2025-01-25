@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -180,7 +180,7 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u32 CurveType = 0U;
-	u8 EphemeralKey[XRSA_ECC_P521_SIZE_IN_BYTES];
+	u8 EphemeralKey[XASU_ECC_P521_SIZE_IN_BYTES];
 	u64 PrivKeyAddr = EccParamsPtr->KeyAddr;
 
 	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
