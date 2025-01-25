@@ -41,6 +41,8 @@
 *       cog    01/07/23 Added VOP support for DC coupled DACs and removed VOP
 *                       support for ES1 Parts.
 * 13.0  cog    01/15/25 Fixed VOP VCM Drop issue.
+*       cog    01/25/25 QMC needs to take the XBar settings into account
+*                       for HSADCs.
 *
 * </pre>
 *
@@ -101,6 +103,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 	u32 NoOfBlocks;
 	u32 Offset;
 	u32 MBReg;
+	u32 QMCXbarRemote = 0;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(QMCSettingsPtr != NULL);
@@ -129,9 +132,10 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 		if (Block_Id == XRFDC_BLK_ID1) {
 			Index = XRFDC_BLK_ID2;
 			NoOfBlocks = XRFDC_NUM_OF_BLKS4;
+			QMCXbarRemote = XRFdc_RDReg(InstancePtr, XRFDC_BLOCK_BASE(Type, Tile_Id, Index), XRFDC_ADC_SWITCH_MATRX_OFFSET, XRFDC_SEL_CB_TO_QMC_MASK);
 		}
-		if (InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
-		    XRFDC_DATA_TYPE_IQ) {
+		if ((InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Index].MixerInputDataType ==
+		    XRFDC_DATA_TYPE_IQ) || (QMCXbarRemote != XRFDC_DISABLED)){
 			Index = Block_Id;
 			NoOfBlocks = XRFDC_NUM_OF_BLKS3;
 			if (Block_Id == XRFDC_BLK_ID1) {
