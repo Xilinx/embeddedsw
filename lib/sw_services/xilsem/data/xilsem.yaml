@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -11,7 +11,7 @@ maintainers:
 
 type: library
 
-version: 1.9
+version: 2.0
 
 description: Xilinx Versal Soft Error Mitigation Library.
 
@@ -28,16 +28,11 @@ supported_processors:
   - psx_pmc
   - pmc
   - psxl_pmc
+  - asu
 
 supported_os:
   - standalone
   - freertos10_xilinx
-
-depends:
-    ipipsu:
-        - reg
-        - interrupts
-        - xlnx,ipi-bitmask
 
 examples:
   xsem_cram_example.c:
