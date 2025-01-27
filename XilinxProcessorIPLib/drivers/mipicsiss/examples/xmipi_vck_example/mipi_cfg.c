@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1291,7 +1291,7 @@ int config_csi_cap_path(){
 		xil_printf(TXT_RED "\n\rIIC Init Failed \n\r" TXT_RST);
 		return XST_FAILURE;
 	}
-	xil_printf("\n *Init IIC is Done \n");
+	xil_printf("\n \r *Init IIC is Done \n");
 
 
 	/* Initialize CSIRXSS  */
@@ -1490,17 +1490,22 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 
 	XV_frmbufwr_EnableAutoRestart(&frmbufwr.FrmbufWr);
 	XVFrmbufWr_Start(&frmbufwr);
-
+    usleep(2000);
 	XV_frmbufrd_EnableAutoRestart(&frmbufrd.FrmbufRd);
 	XVFrmbufRd_Start(&frmbufrd);
-
+    usleep(2000);
 
 	ConfigCSC(widthIn, heightIn);
+    usleep(2000);
 	ConfigGammaLut(widthIn, heightIn);
+    usleep(2000);
 	ConfigDemosaic(widthIn, heightIn);
+    usleep(2000);
 	if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI) {
+    usleep(2000);
 	InitVprocSs_Scaler(1,widthOut, heightOut);
 	}
+    usleep(2000);
 	EnableCSI();
 
 	xil_printf("CSI is Enabled\r\n");
