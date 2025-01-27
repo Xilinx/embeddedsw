@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -11,7 +11,7 @@ maintainers:
 
 type: library
 
-version: 2.0
+version: 2.1
 
 description: Xilinx Versal Platform Loader and Manager Interface Library.
 
@@ -34,9 +34,6 @@ supported_processors:
 supported_os:
   - standalone
   - freertos10_xilinx
-
-depends_libs:
-  xilmailbox: {}
 
 examples:
   xplmi_event_logging_client_example.c: []

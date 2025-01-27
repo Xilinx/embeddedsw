@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,8 @@
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *       am   04/10/2024 Fixed doxygen warnings
 *       sk   05/07/2024 Added support for In Place Update Error Notify
+* 2.01  gam  01/07/2025 Added IPI macro protection for IPI related APIs to fix
+*                       PLM build failure in no IPI cases.
 *
 * </pre>
 *
@@ -64,7 +66,9 @@
 #include "xplmi_task.h"
 #include "xplmi_scheduler.h"
 #include "xplmi_plat.h"
+#ifdef XPLMI_IPI_DEVICE_ID
 #include "xipipsu_buf.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_RESET_VECTOR		(0xF0200000U) /**< Reset vector */
@@ -619,7 +623,9 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	u32 PdiId;
 	u32 Flag;
 	u64 PdiAddr;
+#ifdef XPLMI_IPI_DEVICE_ID
 	XIpiPsu *IpiInst;
+#endif
 
 	Op.Mode = XPLMI_MODULE_NO_OPERATION;
 
@@ -710,10 +716,12 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
+#ifdef XPLMI_IPI_DEVICE_ID
 	IpiInst = XPlmi_GetIpiInstance();
 	XPlmi_Out32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_MASK, Cmd->IpiMask);
 	XPlmi_Out32(XPLMI_RTCFG_INPLACE_UPDATE_IPI_RESP_BUFF, (u32)XIpiPsu_GetBufferAddress(IpiInst,
 		IpiInst->Config.BitMask, Cmd->IpiMask, XIPIPSU_BUF_TYPE_RESP));
+#endif
 	Cmd->AckInPLM = (u8)FALSE;
 
 	Task = XPlmi_GetTaskInstance(NULL, NULL, XPLMI_UPDATE_TASK_ID);

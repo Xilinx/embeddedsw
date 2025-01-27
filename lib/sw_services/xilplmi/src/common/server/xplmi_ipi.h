@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,8 @@
 * 1.09  bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 * 1.10  sk   05/07/2024 Added declaration for get ipi instance function
 *       ma   09/23/2024 Added support for PSM to PLM IPI event handler
+* 1.11  gam  01/07/2025 Created dummy IPI APIs in case of no IPI instance to
+*                       fix plm build issue with XilSEM.
 *
 * </pre>
 *
@@ -63,6 +65,11 @@ extern "C" {
 #include "xplmi_cmd.h"
 #include "xil_assert.h"
 #include "xil_hw.h"
+
+/* Command header secure bit defines */
+#define IPI_CMD_HDR_SECURE_BIT_MASK		(0x1000000U)
+#define IPI_CMD_HDR_SECURE_BIT_SHIFT		(24U)
+
 #ifdef XPLMI_IPI_DEVICE_ID
 #include "xipipsu.h"
 
@@ -83,9 +90,6 @@ extern "C" {
 /* PSM IPI defines */
 #define IPI_PSM_BUFFER_INDEX        (0U)
 
-/* Command header secure bit defines */
-#define IPI_CMD_HDR_SECURE_BIT_MASK		(0x1000000U)
-#define IPI_CMD_HDR_SECURE_BIT_SHIFT		(24U)
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -100,12 +104,7 @@ typedef XStatus (*XPlmi_PsmIpiHandler_t)(void);
 /************************** Function Prototypes ******************************/
 int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler,
 		XPlmi_PsmIpiHandler_t PsmIpiHandler);
-int XPlmi_IpiWrite(u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLen, u8 Type);
-int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);
-int XPlmi_IpiTrigger(u32 DestCpuMask);
-int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount);
 int XPlmi_IpiDrvInit(void);
-int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
 void XPlmi_IpiEnable(u32 IpiMask);
 XIpiPsu *XPlmi_GetIpiInstance(void);
 void XPlmi_SetPsmToPlmEventInfo(volatile PsmToPlmEventInfo_t *EventInfo);
@@ -114,6 +113,12 @@ void XPlmi_SetPsmToPlmEventInfo(volatile PsmToPlmEventInfo_t *EventInfo);
 
 /*****************************************************************************/
 #endif /* XPLMI_IPI_DEVICE_ID */
+
+int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
+int XPlmi_IpiWrite(u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLen, u8 Type);
+int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);
+int XPlmi_IpiTrigger(u32 DestCpuMask);
+int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount);
 
 #ifdef __cplusplus
 }

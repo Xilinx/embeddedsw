@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,6 +90,8 @@
  *       ma   09/23/2024 Added support for PSM to PLM IPI event handler
  *       jb   11/13/2024 Updated logic to ack IPI interrupts earlier instead of
  *			 ack after handling events
+ * 2.02  gam  01/07/2025 Created dummy IPI APIs in case of no IPI instance to
+ *                       fix plm build issue with XilSEM.
  *
  * </pre>
  *
@@ -870,6 +872,111 @@ END:
 XIpiPsu* XPlmi_GetIpiInstance(void)
 {
 	return &IpiInst;
+}
+
+#else
+/*****************************************************************************/
+/**
+ * @brief	This function checks whether the Cmd passed is supported
+ * 			via IPI mechanism or not.
+ *
+ * @param	Cmd is the pointer to Cmd structure
+ * @param	SrcIndex is the source index of IPI command
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ *
+ *****************************************************************************/
+int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
+{
+	(void) Cmd;
+	(void) SrcIndex;
+
+	return XST_SUCCESS;
+}
+
+
+/*****************************************************************************/
+/**
+ * @brief	This function polls for IPI acknowledgment from destination CPU.
+ *
+ * @param	DestCpuMask Destination CPU IPI mask
+ * @param	TimeOutCount Timeout value
+ *
+ * @return
+ * 			- XST_SUCCESS on success
+ *
+ *****************************************************************************/
+int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
+{
+	(void) DestCpuMask;
+	(void) TimeOutCount;
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function writes an IPI message or a response to destination
+ * 			CPU.
+ *
+ * @param	DestCpuMask Destination CPU IPI mask
+ * @param	MsgPtr Pointer to message to be written
+ * @param	MsgLen IPI message length
+ * @param	Type IPI buffer type
+ *
+ * @return
+ * 			- XST_SUCCESS on success
+ *
+ *****************************************************************************/
+int XPlmi_IpiWrite(u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLen, u8 Type)
+{
+	(void) DestCpuMask;
+	(void) *MsgPtr;
+	(void) MsgLen;
+	(void) Type;
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function triggers the IPI interrupt to destination CPU.
+ *
+ * @param	DestCpuMask Destination CPU IPI mask
+ *
+ * @return
+ * 			- XST_SUCCESS on success
+ *
+ *****************************************************************************/
+int XPlmi_IpiTrigger(u32 DestCpuMask)
+{
+	(void) DestCpuMask;
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function reads an IPI message or response from source CPU.
+ *
+ * @param	SrcCpuMask	Source CPU IPI mask
+ * @param	MsgPtr 		IPI read message buffer
+ * @param	MsgLen		IPI message length
+ * @param	Type		IPI buffer type
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ *
+ *****************************************************************************/
+int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
+{
+	(void) SrcCpuMask;
+	(void) MsgLen;
+	(void) MsgPtr;
+	(void) Type;
+
+	return XST_SUCCESS;
 }
 
 #endif /* XPLMI_IPI_DEVICE_ID */
