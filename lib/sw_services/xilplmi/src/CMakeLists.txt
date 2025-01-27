@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -7,6 +7,11 @@ project(xilplmi)
 find_package(common)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/xilplmi.cmake NO_POLICY_SCOPE)
+
+if(("${XILPLMI_mode}" STREQUAL "client") AND
+	(NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS)))
+     message(FATAL_ERROR "Xilplmi library requires xilmailbox library in client mode.")
+endif()
 
 collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
