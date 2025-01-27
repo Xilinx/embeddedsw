@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -1022,12 +1022,14 @@ int XPmUpdate_ShutdownHandler(XPlmi_ModuleOp Op)
 	if (XPLMI_MODULE_SHUTDOWN_INITIATE == Op.Mode) {
 		if (XPLMI_MODULE_NORMAL_STATE == GenericHandlerState ) {
 #ifndef VERSAL_AIEPG2
+#ifdef XPLMI_IPI_DEVICE_ID
 			/** Remove check PSM alive task */
 			Status = XPlm_RemoveKeepAliveTask();
 			if (XST_SUCCESS != Status) {
 				goto done;
 
 			}
+#endif
 			Status = XPmUpdate_ShutdownPsm();
 			if (XST_SUCCESS != Status) {
 				XPlmi_Printf(DEBUG_GENERAL, "PSM shutdown failed\n\r");
