@@ -96,11 +96,12 @@ END:
  *
  * @param	Hash	is Hash of the exponentiation.
  * @param	Exp	is exponent, a positive integer.
- * @param	Mod	is public modulus (p*q), if NULL, calculated internally.
+ * @param	Mod	is public modulus (p*q), NULL is invalid param.
  * @param	P	is first factor, a positive integer.
  * @param	Q	is second factor, a positive integer.
  * @param	Pub	is public exponent to protect against the fault insertions.
  * @param	Tot	is totient, a secret value equal to (p-1)*(q-1).
+ * 			if NULL, calculated internally with p and q.
  * @param	Len	is length of the full-length integer in bits.
  * @param	Res	is result of exponentiation r = (h^e) mod n.
  *
@@ -138,13 +139,14 @@ END:
  *
  * @param	Hash	is Hash of the exponentiation.
  * @param	Exp	is exponent, a positive integer.
- * @param	Mod	is public modulus (p*q), if NULL, calculated internally.
+ * @param	Mod	is public modulus (p*q), NULL is invalid param.
  * @param	RN 	is pre-calculated modulus RmodN
  * @param	RRN	is pre-calculated modulus RRmodN
  * @param	P	is first factor, a positive integer.
  * @param	Q	is second factor, a positive integer.
  * @param	Pub	is public exponent to protect against the fault insertions.
  * @param	Tot	is totient, a secret value equal to (p-1)*(q-1).
+ * 			if NULL, calculated internally with p and q.
  * @param	Len	is length of the full-length integer in bits.
  * @param	Res	is result of exponentiation r = (h^e) mod n.
  *
