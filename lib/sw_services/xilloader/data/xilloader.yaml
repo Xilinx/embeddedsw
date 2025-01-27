@@ -1,4 +1,4 @@
-# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -11,7 +11,7 @@ maintainers:
 
 type: library
 
-version: 2.0
+version: 2.1
 
 description: Xilinx Versal Platform Loader Library.
 
@@ -40,7 +40,6 @@ depends_libs:
   xilpm: {}
   xilpdi: {}
   xilffs: {}
-  xilmailbox: {}
   xilsecure: {}
 
 examples:
