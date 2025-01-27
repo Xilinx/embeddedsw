@@ -14,9 +14,13 @@
 extern "C" {
 #endif
 
+#ifdef XPLMI_IPI_DEVICE_ID
 #define PAYLOAD_ARG_CNT		XIPIPSU_MAX_MSG_LEN
 #define RESPONSE_ARG_CNT	XIPIPSU_MAX_MSG_LEN
-
+#else
+#define PAYLOAD_ARG_CNT		(8U)
+#define RESPONSE_ARG_CNT	(8U)
+#endif
 #define PM_IPI_TIMEOUT			(~0U)
 
 XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload);
