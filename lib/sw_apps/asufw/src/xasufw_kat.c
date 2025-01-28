@@ -31,6 +31,7 @@
  *       ma   12/12/24 Updated resource allocation logic
  *       yog  01/02/25 Added HMAC KAT
  *       ma   01/15/25 Added KDF KAT
+ *       am   01/28/25 Fixed compilation error
  *
  * </pre>
  *
@@ -1010,7 +1011,7 @@ s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr)
 	XAsu_KdfParams Params;
 
 	Params.KeyInAddr = (u64)(UINTPTR)EccPrivKey;
-	Params.KeyInLen = XECC_P256_SIZE_IN_BYTES;
+	Params.KeyInLen = XASU_ECC_P256_SIZE_IN_BYTES;
 	Params.ContextAddr = (u64)(UINTPTR)KatMessage;
 	Params.ContextLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
 	Params.KeyOutAddr = (u64)(UINTPTR)KdfOutput;
