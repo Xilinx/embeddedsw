@@ -1777,10 +1777,8 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId,
 	 * Only peripheral, debug and particular specified resets
 	 * are allowed to control externally, on other masters.
 	 */
-	if ((((u32)XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) &&
-	     ((u32)XPM_NODETYPE_RESET_PERIPHERAL == SubType)) ||
-	    (((u32)XPM_NODESUBCL_RESET_DBG == SubClass) &&
-	     ((u32)XPM_NODETYPE_RESET_DBG == SubType))) {
+	if ((((u32)XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) && ((u32)XPM_NODETYPE_RESET_PERIPHERAL == SubType)) ||
+	    (((u32)XPM_NODESUBCL_RESET_DBG == SubClass) && ((u32)XPM_NODETYPE_RESET_DBG == SubType))) {
 		/* Check if subsystem is allowed to access requested reset */
 		Status = XPm_IsAccessAllowed(SubsystemId, ResetId);
 		if (XST_SUCCESS != Status) {
@@ -1789,11 +1787,7 @@ XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId,
 		}
 	} else {
 		/*
-		 * Only a certain list of resets is allowed to
-		 * use permissions policy.
-		 *
-		 * If with in this list, then check reset to
-		 * permission policy for access.
+		 * Only a few global resets are allowed to use permissions policy.
 		 */
 		Status = XPmReset_IsPermissionReset(ResetId);
 		if ((XST_SUCCESS != Status) && (PM_SUBSYS_PMC != SubsystemId)) {

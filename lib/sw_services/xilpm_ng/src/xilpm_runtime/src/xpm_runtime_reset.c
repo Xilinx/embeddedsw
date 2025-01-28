@@ -109,7 +109,8 @@ XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
 			       const u32 Operations)
 {
 	XStatus Status = XST_FAILURE;
-	(void)Operations;
+	u32 AllowedSubsystems = 0U;
+
 	/* PMC and default subsystem can always enact operations */
 	if ((NULL == Subsystem) || (PM_SUBSYS_PMC == Subsystem->Id)) {
 		Status = XST_INVALID_PARAM;
@@ -121,13 +122,12 @@ XStatus XPmReset_AddPermission(XPm_ResetNode *Rst,
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	/** TODO: Add Runtime Reset property then enable this */
-	// Rst->AllowedSubsystems |=  PERM_BITMASK(Operations, RESET_PERM_SHIFT_NS,
-	// 					SUBSYS_TO_NS_BITPOS(Subsystem->Id));
-	// Rst->AllowedSubsystems |=  PERM_BITMASK(Operations, RESET_PERM_SHIFT_S,
-	// 					SUBSYS_TO_S_BITPOS(Subsystem->Id));
+	AllowedSubsystems |=  PERM_BITMASK(Operations, RESET_PERM_SHIFT_NS,
+					SUBSYS_TO_NS_BITPOS(Subsystem->Id));
+	AllowedSubsystems |=  PERM_BITMASK(Operations, RESET_PERM_SHIFT_S,
+					SUBSYS_TO_S_BITPOS(Subsystem->Id));
 
-	Status = XST_SUCCESS;
+	Status = XPmReset_SetAllowedSubsystems(Rst, AllowedSubsystems);
 
 done:
 	return Status;
