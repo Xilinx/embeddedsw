@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -150,6 +150,7 @@
 * 3.16  adk  04/19/22 Fix infinite loop in the examples by adding polled
 * 		      timeout loop.
 * 3.18  adk  04/14/23 Added support for system device-tree flow.
+* 3.21  ml   01/27/25 Added support for multiple counters in SDT flow.
 * </pre>
 *
 ******************************************************************************/
@@ -182,7 +183,7 @@ typedef void (*XTtcPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent);
  #define XTTCPS_MAX_INTERVAL_COUNT 0xFFFFFFFFU
  #endif
 
-#define XTTCPS_NUM_COUNTERS	3U
+#define XTTCPS_NUM_COUNTERS	1U
 /** @name Configuration options
  *
  * Options for the device. Each of the options is bit field, so more than one

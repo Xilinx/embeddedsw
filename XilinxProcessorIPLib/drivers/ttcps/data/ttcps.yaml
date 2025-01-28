@@ -1,10 +1,10 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ---
 title: Bindings for TTCPS controller
 
 maintainers:
-  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+  - Appana Durga Kedareswara Rao <appana.durga.kedareswara.rao@amd.com>
 
 type: driver
 device_type: timer
@@ -27,7 +27,7 @@ required:
     - compatible
     - reg
     - xlnx,clock-freq
-    - interrupts: 3
+    - interrupts: 1
     - interrupt-parent
 
 examples:

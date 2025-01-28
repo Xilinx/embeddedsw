@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module creates a domain and a bsp for the passed processor, os and system
@@ -293,7 +293,7 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                         domain_dts = True
                         if lops_file:
                             utils.runcmd(
-                                f"lopper -f -O {self.sdt_folder} --enhanced -i {lops_file} -t {domain_name} -a domain_access --auto  -x '*.yaml' -i {domain_yaml} {self.sdt} {out_dts_path}"
+                                f"lopper -f -O {self.sdt_folder} --enhanced -i {lops_file} -i lop-ttc-split.dts -t {domain_name} -a domain_access --auto  -x '*.yaml' -i {domain_yaml} {self.sdt} {out_dts_path}"
                             )
                         else:
                             utils.runcmd(
@@ -302,12 +302,12 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
             if not domain_dts:
                 if lops_file:
                     utils.runcmd(
-                        f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc} {self.app}",
+                        f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} -i lop-ttc-split.dts {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc} {self.app}",
                         log_message="Domain-specific DTS generation "
                     )
                 else:
                     utils.runcmd(
-                        f"lopper -f --enhanced -O {self.domain_dir} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
+                        f"lopper -f --enhanced -O {self.domain_dir} -i lop-ttc-split.dts {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
                         log_message="Domain-specific DTS generation "
                     )
         else:
