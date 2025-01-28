@@ -89,7 +89,7 @@ class Domain(Repo):
         dump = utils.discard_dump()
         if not utils.is_file(cpu_list_file):
             utils.runcmd(
-                f"lopper --werror -f -O {self.domain_dir} -i lop-cpulist.dts {self.sdt} > {dump}",
+                f"lopper --werror -f -O {self.domain_dir} -i lop-cpulist.dts {self.sdt}",
                 cwd = self.domain_dir,
                 log_message="Generating CPU list"
             )
