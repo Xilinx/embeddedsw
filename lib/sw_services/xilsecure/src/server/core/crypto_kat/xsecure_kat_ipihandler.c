@@ -143,6 +143,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function handler calls XSecure_AesDecryptKat server API
+ * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
  *		 - XST_SUCCESS  If the KAT is successful
@@ -188,6 +189,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function handler calls XSecure_AesDecryptCmKat server API
+ * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
  *		 - XST_SUCCESS  If the KAT is successful
@@ -233,6 +235,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function handler calls XSecure_AesEncryptKat server API
+ * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
  *		 - XST_SUCCESS  If the KAT is successful
@@ -278,7 +281,8 @@ END:
 #ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_EllipticVerifySignKat server API
+ * @brief	This function handler calls XSecure_EllipticSignVerifyKat server
+ * 		API and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @param	CurveClass	Is a class of elliptic curve
  *
@@ -303,7 +307,9 @@ static int XSecure_EllipticSignVerifyKat(XSecure_EccCrvClass CurveClass)
 
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_EllipticSignGenerateKat server API
+ * @brief	This function handler calls XSecure_EllipticSignGenerateKat
+ * 		server API and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR
+ * 		address.
  *
  * @param	CurveClass	Is a class of elliptic curve
  *
@@ -333,7 +339,8 @@ static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
 #ifndef PLM_RSA_EXCLUDE
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_RsaPublicEncryptKat server API
+ * @brief	This function handler calls XSecure_RsaPublicEncryptKat server
+ * 		API and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
  *		 - XST_SUCCESS  If the Rsa Kat is successful
@@ -356,7 +363,8 @@ static int XSecure_RsaPubEncKat(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_RsaPrivateDecryptKat server API
+ * @brief	This function handler calls XSecure_RsaPrivateDecryptKat server
+ * 		API and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
  *		 - XST_SUCCESS  If the Rsa Kat is successful
@@ -382,7 +390,8 @@ static int XSecure_RsaPrivateDecKat(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_ShaKat server API
+ * @brief	This function handler calls XSecure_ShaKat server API and
+ * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
  *
  * @return
  *		 - XST_SUCCESS  If the sha update/fnish is successful

@@ -83,7 +83,9 @@ END:
 #ifndef PLM_SECURE_EXCLUDE
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_TrngPreOperationalSelfTests Server API
+ * @brief	This function handler calls XSecure_TrngPreOperationalSelfTests
+ * 		server API and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR
+ * 		address.
  *
  * @return
  *		 - XST_SUCCESS  If the KAT is successful

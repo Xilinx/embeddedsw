@@ -87,8 +87,9 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_TrngGenerate server API to
- *		generate random number
+ * @brief	This function handler extracts the payload params with respect
+ * 		to XSECURE_API_TRNG_GENERATE IPI command and calls
+ * 		XSecure_GetRandomNum server API to generate random number.
  *
  * @param	SrcAddrLow	Lower 32 bit address of the random
  * 				data buffer address.

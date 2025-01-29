@@ -85,8 +85,10 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_EcdhGetSecret server API to
- * 		generate the shared secret using ECDH.
+ * @brief	This function handler extracts the payload params with respect
+ * 		to XSECURE_API_GEN_SHARED_SECRET IPI command and calls
+ * 		XSecure_EcdhGetSecret server API to generate the shared secret
+ * 		using ECDH.
  *
  * @param	CrvType			Type of elliptic curve
  * @param	PrvtKeyAddrLow		Lower 32 bit address of the private key buffer

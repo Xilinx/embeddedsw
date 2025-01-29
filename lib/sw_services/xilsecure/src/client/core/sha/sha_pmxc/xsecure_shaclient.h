@@ -7,7 +7,7 @@
 /**
 *
 * @file xsecure_shaclient.h
-* @addtogroup xsecure_sha3_client_apis XilSecure SHA3 Versal Client APIs
+* @addtogroup xsecure_sha3_client_apis XilSecure SHA Versal_AiePg2 Client APIs
 * @{
 * @cond xsecure_internal
 * This file Contains the client function prototypes, defines and macros for
