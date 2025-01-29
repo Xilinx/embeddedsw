@@ -154,8 +154,9 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_RsaSignVerification server
- * 		API
+ * @brief	This function handler extracts the payload params with respect
+ * 		to XSECURE_API_RSA_SIGN_VERIFY IPI command and calls
+ * 		XSecure_RsaSignVerification_64Bit server API.
  *
  * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_RsaSignParams structure

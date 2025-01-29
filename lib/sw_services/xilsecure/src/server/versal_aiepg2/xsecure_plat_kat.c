@@ -1219,10 +1219,13 @@ END:
 
 /*****************************************************************************/
 /**
- *
  * @brief	This function performs known answer test(KAT) on SHA-2 crypto engine
  *
  * @param	SecureSha2 Pointer to the XSecure_Sha instance
+ *
+ * @return
+ *		 - XST_SUCCESS	On success.
+ *		 - XST_FAILURE	On KAT failure.
  *
  ******************************************************************************/
 int XSecure_Sha2256Kat(XSecure_Sha *SecureSha2)
@@ -1270,11 +1273,13 @@ END:
 
 /*****************************************************************************/
 /**
- *
  * @brief	This function performs known answer test(KAT) on SHAKE crypto engine
  *
  * @param	SecureShake Pointer to the XSecure_Sha instance
  *
+ * @return
+ *		 - XST_SUCCESS     On success.
+ *		 - XST_FAILURE     On KAT failure.
  *
  ******************************************************************************/
 int XSecure_ShakeKat(XSecure_Sha *SecureShake)
@@ -1349,8 +1354,13 @@ END:
 /**
  * @brief	This function performs KAT on LMS - SHA2 256.
  *
+ * @param       ShaInstPtr      Pointer to the XSecure_Sha instance
+ * @param       DmaPtr          Pointer to the XPmcDma instance
+ *
  * @return
  *		 - XST_SUCCESS - If LMS SHA2 256 KAT is passed.
+ *		 - XSECURE_S3_LMS_SHA2_256_KAT_ERROR - LMS SHA2-256 KAT error
+ *
  *
  ******************************************************************************/
 int XSecure_HssSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr)
@@ -1386,8 +1396,12 @@ END:
 /**
  * @brief	This function performs KAT on LMS SHAKE 256.
  *
+ * @param	ShaInstPtr	Pointer to the XSecure_Sha instance
+ * @param	DmaPtr		Pointer to the XPmcDma instance
+ *
  * @return
  *		 - XST_SUCCESS - If LMS SHAKE256 KAT is passed.
+ *		 - XSECURE_S3_LMS_SHAKE_256_KAT_ERROR - LMS SHAKE KAT error
  *
  ******************************************************************************/
 int XSecure_HssShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr)
@@ -1423,10 +1437,13 @@ END:
 /**
  * @brief	This function performs KAT on LMS - SHA2 256.
  *
- * @param	None
+ * @param	ShaInstPtr	Pointer to the XSecure_Sha instance
+ * @param	DmaPtr		Pointer to the XPmcDma instance
  *
  * @return
- *		 - XST_SUCCESS - If LMS SHA2 256 KAT is passed.
+ *		- XST_SUCCESS - If LMS SHA2 256 KAT is passed.
+ *		- ErrorCode - Upon failure.
+ *
  ******************************************************************************/
 int XSecure_LmsSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {
 	return XSecure_LmsSignatureVerification(ShaInstPtr, DmaPtr,
@@ -1443,8 +1460,12 @@ int XSecure_LmsSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {
 /**
  * @brief	This function performs KAT on LMS SHAKE 256.
  *
+ * @param	ShaInstPtr      Pointer to the XSecure_Sha instance
+ * @param	DmaPtr          Pointer to the XPmcDma instance
+ *
  * @return
  *		 - XST_SUCCESS - If LMS SHAKE256 KAT is passed.
+ *		 - ErrorCode - Upon failure.
  *
  ******************************************************************************/
 int XSecure_LmsShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {

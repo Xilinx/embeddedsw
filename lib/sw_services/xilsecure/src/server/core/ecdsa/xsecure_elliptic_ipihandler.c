@@ -124,8 +124,8 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_EllipticGenerateKey
- * 		server API
+ * @brief	This function handler extracts the payload params from the IPI
+ * 		command and calls XSecure_EllipticGenerateKey server API.
  *
  * @param	CurveType	Is a type of elliptic curve
  * @param	SrcAddrLow	Lower 32 bit address of the static private key
@@ -181,8 +181,9 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_EllipticGenerateSignature
- * 		server API
+ * @brief	This function handler extracts the payload params of the
+ * 		XSECURE_API_ELLIPTIC_GENERATE_SIGN IPI command and calls
+ * 		XSecure_EllipticGenerateSignature server API.
  *
  * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_EllipticSignGenParams structure
@@ -239,8 +240,9 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_EllipticValidateKey
- * 		server API
+ * @brief	This function handler extracts the payload params of
+ * 		XSECURE_API_ELLIPTIC_VALIDATE_KEY IPI command and calls
+ * 		XSecure_EllipticValidateKey server API.
  *
  * @param	CurveType	Is a type of elliptic curve
  * @param	SrcAddrLow	Lower 32 bit address of the public key
@@ -278,8 +280,10 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function handler calls XSecure_EllipticVerifySign
- * 		server API
+ * @brief	This function handler extracts the payload params with respect
+ * 		to XSECURE_API_ELLIPTIC_VERIFY_SIGN IPI command and calls
+ * 		XSecure_EllipticGenerateKey server API.
+ *
  *
  * @param	SrcAddrLow	Lower 32 bit address of the
  * 				XSecure_EllipticSignVerifyParams structure

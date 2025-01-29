@@ -6,7 +6,7 @@
 /**
 *
 * @file xsecure_sha.h
-* @addtogroup xsecure_sha_versal_aiepg2_apis XilSecure SHA Versal_Aiepg2 APIs
+* @addtogroup xsecure_sha_versal_aiepg2_apis XilSecure SHA Versal_Aiepg2 Server APIs
 * @{
 * @cond xsecure_internal
 *

@@ -40,6 +40,9 @@
 /**
  * @brief       This function sends IPI request to initialize the SHA engine
  *
+ * @param	InstancePtr     Pointer to the client instance
+ * @param	ShaMode		Indicates SHA3/SHA2 shall be operated in one
+ * 				of SHA-384/256/512 and SHAKE modes
  * @return
  *	-	XST_SUCCESS - If the Sha engine initialization is successful
  * 	-	XST_FAILURE - If the Sha engine initialization is failed
