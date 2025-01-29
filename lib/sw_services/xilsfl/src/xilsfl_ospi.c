@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -21,6 +21,7 @@
  * 1.0   sb  8/20/24 First release
  * 1.0   sb  9/25/24 Update XSfl_OspiTransfer api to support unaligned bytes read
  *                   and add support for non-blocking read
+ * 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
  *
  * </pre>
  *
@@ -374,6 +375,7 @@ u32 XSfl_OspiInit(XSfl_Interface *Ptr, const XSfl_UserConfig *UserConfig) {
 	Ptr->CntrlInfo.OpMode = UserConfig->Ospi_Config.ReadMode;
 	Ptr->CntrlInfo.ChipSelectNum = UserConfig->Ospi_Config.ChipSelect;
 	Ptr->CntrlInfo.CntrlType = XSFL_OSPI_CNTRL;
+	Ptr->Quirks = UserConfig->Ospi_Config.Quirks;
 	Index++;
 
 	return Status;
