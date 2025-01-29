@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -21,6 +21,7 @@
  * 1.0   sb  8/20/24  Initial release
  * 1.0   sb  9/25/24  Update XSfl_FlashReadProcess() to support unaligned bytes read and
  *                    add support for non-blocking read
+ * 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
  *
  * </pre>
  *
@@ -435,6 +436,17 @@ u32 XSfl_FlashReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteC
 		SflMsg.Addrvalid = 1;
 		SflMsg.TxBfrPtr = NULL;
 		SflMsg.RxBfrPtr = ReadBfrPtr;
+		SflMsg.Proto =  (u8)Flash_Config_Table[FCTIndex].Proto;
+		SflMsg.Dummy = (u8)Flash_Config_Table[FCTIndex].DummyCycles;
+		if ((SflInstancePtr->CntrlInfo.OpMode == XOSPIPSV_IDAC_EN_OPTION)
+				&& ((SflInstancePtr->Quirks & XSFL_BROKEN_DMA) == 1)) {
+			BytesToRead = XSFL_MAX_STIG_BYTE_CNT;
+			SflMsg.Opcode = (u8)XSFL_READ_CMD_4B;
+			SflMsg.Dummy = 0;
+		} else if( Flash_Config_Table[FCTIndex].Proto >> 16){
+			SflMsg.Proto = Flash_Config_Table[FCTIndex].Proto >> 16;
+		}
+
 		SflMsg.ByteCount = BytesToRead;
 		SflMsg.Xfer64bit = 0;
 		if(RxAddr64bit >= XSFL_RXADDR_OVER_32BIT) {
@@ -443,13 +455,7 @@ u32 XSfl_FlashReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteC
 		}
 
 		SflMsg.Addr = RealAddr;
-		SflMsg.Proto =  (u8)Flash_Config_Table[FCTIndex].Proto;
-		SflMsg.Dummy = (u8)Flash_Config_Table[FCTIndex].DummyCycles;
 		SflMsg.DualByteOpCode = 0;
-
-		if( Flash_Config_Table[FCTIndex].Proto >> 16){
-			SflMsg.Proto = Flash_Config_Table[FCTIndex].Proto >> 16;
-		}
 
 		if (SflInstancePtr->CntrlInfo.SdrDdrMode == XSFL_EDGE_MODE_DDR_PHY) {
 			SflMsg.Proto = Flash_Config_Table[FCTIndex].Proto >> 8;
@@ -533,6 +539,17 @@ u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address
 		SflMsg.Addrvalid = 1;
 		SflMsg.TxBfrPtr = NULL;
 		SflMsg.RxBfrPtr = ReadBfrPtr;
+		SflMsg.Dummy = (u8)Flash_Config_Table[FCTIndex].DummyCycles;
+		SflMsg.Proto =  (u8)Flash_Config_Table[FCTIndex].Proto;
+		if ((SflInstancePtr->CntrlInfo.OpMode == XOSPIPSV_IDAC_EN_OPTION)
+				&& ((SflInstancePtr->Quirks & XSFL_BROKEN_DMA) == 1)) {
+			BytesToRead = XSFL_MAX_STIG_BYTE_CNT;
+			SflMsg.Opcode = (u8)XSFL_READ_CMD_4B;
+			SflMsg.Dummy = 0;
+		} else if( Flash_Config_Table[FCTIndex].Proto >> 16){
+			SflMsg.Proto = Flash_Config_Table[FCTIndex].Proto >> 16;
+		}
+
 		SflMsg.ByteCount = BytesToRead;
 		SflMsg.Xfer64bit = 0;
 		if(RxAddr64bit >= XSFL_RXADDR_OVER_32BIT) {
@@ -541,13 +558,7 @@ u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address
 		}
 
 		SflMsg.Addr = RealAddr;
-		SflMsg.Proto =  (u8)Flash_Config_Table[FCTIndex].Proto;
-		SflMsg.Dummy = (u8)Flash_Config_Table[FCTIndex].DummyCycles;
 		SflMsg.DualByteOpCode = 0;
-
-		if( Flash_Config_Table[FCTIndex].Proto >> 16){
-			SflMsg.Proto = Flash_Config_Table[FCTIndex].Proto >> 16;
-		}
 
 		if (SflInstancePtr->CntrlInfo.SdrDdrMode == XSFL_EDGE_MODE_DDR_PHY) {
 			SflMsg.Proto = Flash_Config_Table[FCTIndex].Proto >> 8;

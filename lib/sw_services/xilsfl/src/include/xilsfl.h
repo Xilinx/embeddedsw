@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -22,6 +22,7 @@
  * 1.0   sb  8/20/24  Initial release
  * 1.0   sb  9/25/24  Add XSfl_FlashRead API and callback for non blocking transfer
  *                    in XSfl_CntrlInfo.
+ * 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
  *
  * </pre>
  *
@@ -87,6 +88,7 @@
 #define XSFL_DUAL_READ_CMD_4B        0x3C
 #define XSFL_QUAD_READ_CMD_4B        0x6C
 #define XSFL_QUAD_WRITE_CMD_4B       0x34
+#define XSFL_QUAD_SEC_ERASE_CMD_4B   0xD8
 
 /*
  * Sixteen MB
@@ -110,6 +112,12 @@
 
 /**< Controller Type */
 #define XSFL_OSPI_CNTRL 0x01
+
+/**< Flag to use DMA or not */
+#define	XSFL_BROKEN_DMA 0x01
+
+/**< Max Byte count in Stig Mode */
+#define	XSFL_MAX_STIG_BYTE_CNT  0x08;
 
 /* Flash Device Type */
 #define XSFL_QSPI_FLASH  0x01
@@ -270,6 +278,7 @@ typedef struct {
 typedef struct {
 	XSfl_CntrlInfo CntrlInfo;		/**< Controller specific information */
 	XSfl_FlashInfo SflFlashInfo;	/**< Flash Specific information */
+	u32 Quirks;		/**< Quirks to handle specific use cases*/
 
 } XSfl_Interface;
 
@@ -291,6 +300,7 @@ typedef union XSfl_UserConfig{
 		u32 BaseAddress;	/**< Base address of the device */
 		u8 ReadMode;		/**< Operating Mode DAC or INDAC */
 		u8 ChipSelect;		/**< Chip select information */
+		u32 Quirks;		/**< Quirks to handle specific use cases*/
 	} Ospi_Config;
 } XSfl_UserConfig;
 

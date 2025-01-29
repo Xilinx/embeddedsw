@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -18,6 +18,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.0   sb  8/20/24  Initial release
+ * 1.1   sb  01/28/25  Add support for micron 1Gb QSPI flash.
  *
  * </pre>
  *
@@ -42,11 +43,19 @@ const XFlashInfo Flash_Config_Table[] = {
 	/*n25q00a*/
 	{
 		0x20bb20, XSFL_FLASH_SECTOR_SIZE_64KB, 0x400, XSFL_FLASH_PAGE_SIZE_256,
-		0x80000, XSFL_FLASH_DEVICE_SIZE_512M, 0xFFFF0000,  XSFL_QUAD_READ_CMD_4B,
+		0x40000, XSFL_FLASH_DEVICE_SIZE_512M, 0xFFFF0000,  XSFL_QUAD_READ_CMD_4B,
 		XSFL_WRITE_CMD_4B, XSFL_SEC_ERASE_CMD_4B, XSFL_FLASH_PROTO_1_1_4 << 16 | XSFL_FLASH_PROTO_1_1_1,
 		XSFL_FLASH_FREQUENCY_150_MHZ, XSFL_FLASH_DUMMY_CYCLES_8,
 		XSFL_READ_FLAG_STATUS_CMD, 1, 1, XSFL_DUAL_BYTE_OP_DISABLE, XSFL_QSPI_FLASH
 	},
+	/*n25q00aa 1Gb*/
+        {
+                0x20bb21, XSFL_FLASH_SECTOR_SIZE_64KB, 0x800, XSFL_FLASH_PAGE_SIZE_256,
+                0x80000, XSFL_FLASH_DEVICE_SIZE_1G, 0xFFFF0000,  XSFL_QUAD_READ_CMD_4B,
+                XSFL_WRITE_CMD_4B, XSFL_QUAD_SEC_ERASE_CMD_4B, XSFL_FLASH_PROTO_1_1_4 << 16 | XSFL_FLASH_PROTO_1_1_1,
+                XSFL_FLASH_FREQUENCY_150_MHZ, XSFL_FLASH_DUMMY_CYCLES_8,
+                XSFL_READ_FLAG_STATUS_CMD, 1, 1, XSFL_DUAL_BYTE_OP_DISABLE, XSFL_QSPI_FLASH
+        },
 
 };
 
