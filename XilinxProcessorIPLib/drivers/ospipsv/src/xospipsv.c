@@ -47,6 +47,7 @@
 * 1.10	akm  02/06/24 Increase the delay after device reset.
 * 1.10	sb   02/09/24 Add support for Infineon flash part S28HS02G.
 * 1.11  ng  08/20/24 Add spartanup device support
+* 1.12  sb  01/28/25 Use stig read for byte count less than 8bytes.
 *
 * </pre>
 *
@@ -424,7 +425,7 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
 		if ((InstancePtr->OpMode == XOSPIPSV_IDAC_MODE) ||
 					(Msg->Addrvalid == 0U)) {
-			if (Msg->Addrvalid == 0U) {
+			if ((Msg->Addrvalid) == 0U || (Msg->ByteCount <= 8)) {
 				Status = XOspiPsv_Stig_Read(InstancePtr, Msg);
 			} else {
 				Status = XOspiPsv_Dma_Read(InstancePtr,Msg);
