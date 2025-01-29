@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *******************************************************************************/
 
@@ -28,6 +28,7 @@
  * ----- ---- -------- ---------------------------------------------------------
  * 1.0   sb  8/20/24   Initial release
  * 1.0   sb  9/25/24   Use XSfl_FlashRead to read unaligned bytes.
+ * 1.1   sb  01/28/25  Add support for Lassen platform.
  *
  *</pre>
  ******************************************************************************/
@@ -148,6 +149,9 @@ int SflReadWriteExample(void) {
 	SflUserOptions.Ospi_Config.ChipSelect = XSFL_SELECT_FLASH_CS0;
 	SflUserOptions.Ospi_Config.BaseAddress = OSPI_BASEADDR;
 	SflUserOptions.Ospi_Config.ReadMode = XOSPIPSV_IDAC_EN_OPTION;
+#if defined(SPARTANUP)
+	SflUserOptions.Ospi_Config.Quirks = XSFL_BROKEN_DMA;
+#endif
 
 	Status = XSfl_FlashInit(&SflHandler, SflUserOptions, XSFL_OSPI_CNTRL);
 	if (Status != XST_SUCCESS ) {

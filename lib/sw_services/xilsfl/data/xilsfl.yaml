@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -22,6 +22,7 @@ supported_processors:
   - psx_cortexa78
   - psx_pmc
   - psx_psm
+  - microblaze_riscv
 
 supported_os:
   - standalone
@@ -32,3 +33,4 @@ examples:
                 - supported_platforms:
                         - Versal
                         - VersalNet
+                        - SpartanUP
