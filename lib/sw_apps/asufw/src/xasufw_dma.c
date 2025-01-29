@@ -21,6 +21,7 @@
  *                      Add condition check XAsufw_DmaMemSet if length is 16 bytes, skip DMAXfer
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
+ *       ma   01/28/25 Fix length validations in XAsufw_DmaMemSet API.
  *
  * </pre>
  *
@@ -43,6 +44,7 @@
 #define XASUFW_DMA_NOT_LAST_INPUT			(0x0U) /**< DMA not last input. */
 #define XASUFW_DMA_INCR_BURST_TYPE			(0U) /**< DMA incremental burst type. */
 #define XASUFW_DMA_FIXED_BURST_TYPE			(1U) /**< DMA fixed burst type. */
+#define XASUFW_DMA_FIXED_TRANSFER_SIZE		(16U) /**< DMA fixed transfer source size in bytes */
 
 /************************************** Type Definitions *****************************************/
 
@@ -402,31 +404,39 @@ s32 XAsufw_DmaMemSet(XAsufw_Dma *DmaPtr, u32 DestAddr, u32 Val, u32 Len)
 	u32 Index;
 	u64 SrcAddr = DestAddr;
 	u32 DstAddr = DestAddr;
+	u32 Count;
+	u32 RemBytes;
 
+	/** If length is 0, return success immediately. */
 	if (Len == 0U) {
 		Status = XASUFW_SUCCESS;
 		goto END;
 	}
 
-	for (Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; ++Index) {
+	/** Set Count to maximum of 4 words based on length. */
+	if (Len <= XASUFW_DMA_FIXED_TRANSFER_SIZE) {
+		Count = Len/XASUFW_WORD_LEN_IN_BYTES;
+	} else {
+		Count = XASUFW_WORD_LEN_IN_BYTES;
+	}
+
+	/** Set Count size memory to given value with direct writes to destination. */
+	for (Index = 0U; Index < Count; ++Index) {
 		XAsufw_WriteReg(DstAddr, Val);
 		DstAddr += XASUFW_WORD_LEN_IN_BYTES;
 	}
 
-	if (Len == (XASUFW_WORD_LEN_IN_BYTES * XASUFW_WORD_LEN_IN_BYTES)) {
+	/** Calculate remaining bytes to be set. */
+	RemBytes = Len - (Count * XASUFW_WORD_LEN_IN_BYTES);
+
+	/** If remaining bytes are 0, return success. */
+	if (RemBytes == 0U) {
 		Status = XASUFW_SUCCESS;
 		goto END;
 	}
 
-	Status = XAsufw_StartDmaXfr(DmaPtr, SrcAddr, DstAddr,
-				    (Len - (XASUFW_WORD_LEN_IN_BYTES * sizeof(u32))), XASUFW_SRC_CH_AXI_FIXED);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
-	}
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_WaitForDmaDone(DmaPtr, XASUDMA_SRC_CHANNEL);
-	Status |= XAsufw_WaitForDmaDone(DmaPtr, XASUDMA_DST_CHANNEL);
+	/** Do DMA transfer for remaining bytes by setting source channel to fixed mode. */
+	Status = XAsufw_DmaXfr(DmaPtr, SrcAddr, (u64)DstAddr, RemBytes, XASUFW_SRC_CH_AXI_FIXED);
 
 END:
 	return Status;
