@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,19 +16,19 @@ ENTRY(_start)
 
 SECTIONS
 {
-.vectors.reset 0x0 : {
+.vectors.reset @V_RESET@ : {
    KEEP (*(.vectors.reset))
 }
 
-.vectors.sw_exception 0x8 : {
+.vectors.sw_exception @V_EXCEPTION@ : {
    KEEP (*(.vectors.sw_exception))
 }
 
-.vectors.interrupt 0x10 : {
+.vectors.interrupt @V_INTERRUPT@ : {
    KEEP (*(.vectors.interrupt))
 }
 
-.vectors.hw_exception 0x20 : {
+.vectors.hw_exception @V_HWEXCEPTION@ : {
    KEEP (*(.vectors.hw_exception))
 }
 

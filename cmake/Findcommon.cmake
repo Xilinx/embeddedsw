@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 option(YOCTO "Yocto based embeddedsw FLOW" OFF)
@@ -106,6 +106,19 @@ endmacro()
 
 function (linker_gen path)
     if (NOT EXISTS "${USER_LINKER_SCRIPT}")
+	if ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze")
+		if (DEFINED BASE_VECTOR)
+			MATH(EXPR V_RESET "${BASE_VECTOR}" OUTPUT_FORMAT HEXADECIMAL)
+			MATH(EXPR V_EXCEPTION "${BASE_VECTOR} + 0x8" OUTPUT_FORMAT HEXADECIMAL)
+			MATH(EXPR V_INTERRUPT "${BASE_VECTOR} + 0x10" OUTPUT_FORMAT HEXADECIMAL)
+			MATH(EXPR V_HWEXCEPTION "${BASE_VECTOR} + 0x20" OUTPUT_FORMAT HEXADECIMAL)
+		else()
+			set(V_RESET 0x0)
+			set(V_EXCEPTION 0x8)
+			set(V_INTERRUPT 0x10)
+			set(V_HWEXCEPTION 0x20)
+		endif()
+	endif()
 	if (NOT DEFINED STACK_SIZE)
 		if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR
 			("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
