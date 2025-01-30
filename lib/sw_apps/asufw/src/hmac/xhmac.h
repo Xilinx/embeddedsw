@@ -58,7 +58,6 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr);
 
 #ifdef __cplusplus
-extern "C"
 }
 #endif
 

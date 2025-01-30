@@ -1,12 +1,12 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
 /*************************************************************************************************/
 /**
  *
- * @file xasufw_init.c
+ * @file xasufw_intr.c
  *
  * This file contains the interrupts handling code.
  *
@@ -30,7 +30,7 @@
 #include "xasufw_util.h"
 #include "xasufw_hw.h"
 #include "xasufw_dma.h"
-
+#include "xasufw_intr.h"
 /************************************ Constant Definitions ***************************************/
 
 /************************************** Type Definitions *****************************************/

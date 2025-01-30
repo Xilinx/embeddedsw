@@ -45,7 +45,6 @@ extern "C" {
 s32 XAsufw_HmacInit(void);
 
 #ifdef __cplusplus
-extern "C"
 }
 #endif
 
