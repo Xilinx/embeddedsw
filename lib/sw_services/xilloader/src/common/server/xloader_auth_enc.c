@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -138,6 +138,8 @@
 *       kal  09/18/24 Updated XLoader_PpkVerify to verify 384 bit ppk hash
 *                     for Versal_AiePg2
 *       pre  12/09/24 use PMC RAM for Metaheader instead of PPU1 RAM
+*       kal  01/30/25 Send LMS and HSS data to signature verification
+*                     without pre-hasing
 *
 * </pre>
 *
@@ -220,7 +222,7 @@ typedef struct {
 #define XLOADER_MIN_TOTAL_SPK_SIZE                      (64U)           /**< Minimum SPK size including padding */
 
 #define XLOADER_MAX_SPK_SIZE                            (1028U)         /** Maximum SPK size excluding padding, actual size */
-#define XLOADER_MIN_SPK_SIZE                            (60U)           /** Maximum SPK size excluding padding, actual size */
+#define XLOADER_MIN_SPK_SIZE                            (56U)           /** Maximum SPK size excluding padding, actual size */
 
 #define XLOADER_MAX_TOTAL_SIGN_SIZE                     (9952U)         /** Maximum Signature size including padding */
 #define XLOADER_MIN_TOTAL_SIGN_SIZE                     (96U)           /** Minimum Signature size including padding */
@@ -290,7 +292,7 @@ static int XLoader_AuthHdrsWithHashBlock(XLoader_SecureParams *SecurePtr,
         XLoader_HBSignParams *HBSignParams);
 static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 	u8 *SignBuff, u32 SignatureLen, u8 *KeyAddr, u32 KeyLen,
-	u8 *Hash);
+	u8 *Data, u32 DataLen);
 static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
                                 XLoader_HBAesParams *HBParams);
 static int XLoader_ValidateSpkHeader(XLoader_SpkHeader *SpkHeader);
@@ -3876,13 +3878,16 @@ static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBS
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 ReadAuthReg = 0x0U;
-	u32 AuthType;
+	u32 AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
 
-	Status = XLoader_AuthKat(SecurePtr);
-	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_INFO, "Auth KAT failed\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
-		goto END;
+	if ((AuthType != XLOADER_PUB_STRENGTH_LMS) &&
+		(AuthType != XLOADER_PUB_STRENGTH_LMS_HSS)) {
+		Status = XLoader_AuthKat(SecurePtr);
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_INFO, "Auth KAT failed\n\r");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
+			goto END;
+		}
 	}
 
 	/* Check Secure state of device
@@ -3945,7 +3950,8 @@ static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBS
 			SecurePtr->AcPtr->SpkHeader.SignatureSize,
 			(u8 *)&SecurePtr->AcPtr->Ppk,
 			HBSignParams->ActualPpkSize,
-			(u8 *)&SpkHash);
+			(u8 *)&SecurePtr->AcPtr->SpkHeader,
+			XLOADER_SPK_HEADER_SIZE + SecurePtr->AcPtr->SpkHeader.SPKSize);
         }
 	else {
 		/* Not supported */
@@ -4214,7 +4220,8 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 			HBSignParams->ActualHBSignSize,
 			(u8 *)&SecurePtr->AcPtr->Spk,
 			SecurePtr->AcPtr->SpkHeader.SPKSize,
-			(u8 *)&HashBlockHash);
+			(u8 *)&MetaHdrPtr->HashBlock.HashData,
+			HBSignParams->HBSize);
 	}
 	else {
 		/** Not supported */
@@ -4253,7 +4260,7 @@ END:
 ******************************************************************************/
 static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 	u8 *SignBuff, u32 SignatureLen, u8 *KeyAddr, u32 KeyLen,
-	u8 *Hash)
+	u8 *Data, u32 DataLen)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha *ShaInstPtr = NULL;
@@ -4298,7 +4305,7 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 		/** Calculate Digest of data to be authenticated as per LMS-HSS */
 		Status = XST_FAILURE;
 		Status = XSecure_LmsHashMessage(ShaInstPtr,
-				Hash, SecurePtr->HashDigestLen, SecurePtr->SignHashAlgo);
+				Data, DataLen, SecurePtr->SignHashAlgo);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -4312,7 +4319,7 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 		/** Perform LMS signature verification */
 		Status = XSecure_LmsSignatureVerification(ShaInstPtr,
 				SecurePtr->PmcDmaInstPtr,
-				Hash, SecurePtr->HashDigestLen,
+				Data, DataLen,
 				FALSE, SignBuff, SignatureLen,
 				KeyAddr, KeyLen);
 	}

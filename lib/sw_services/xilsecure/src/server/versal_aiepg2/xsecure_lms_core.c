@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /******************************************************************************/
@@ -15,6 +15,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.4   kal  07/24/24  Initial release
+*       kal  01/30/25  Update LMS/HSS APIs to accept the original data instead
+*                      of pre calculated hash.
 *
 * </pre>
 * @note
@@ -384,7 +386,6 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr,
 	 *  2c  - Once Type is extracted, set m
 	 *  2d - Public key should be == 24 + m otherwise stop process and raise error
 	 */
-
 	if (NULL == ExpectedPubKey) {
 		Status = XSECURE_LMS_INVALID_PARAM;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -791,6 +792,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr,
 	CurrentLmsQ = XSECURE_ALLFS;
 	SignatureLengthConsumed = 0U;
 
+
 	/* ****************************************************************************************** */
 	/* Public key processing - sequence */
 	/* ****************************************************************************************** */
@@ -1063,16 +1065,6 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr,
 	}
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Init - SHA mode init for data authentication 0x%x\n\r", PubKeyLmsParam->H);
-
-	/* Before we proceed to LMS OTS, we also need to check if SHA algo selected in BH matches the
-	   type selected in signature, currently we do not support combinations of HASH algorithm */
-	if ((PubKeyLmsParam->H != PubKeyLmsOtsParam->H) ||
-		(ShaInstPtr->HashAlgo != PubKeyLmsOtsParam->H)) {
-		Status = XSECURE_LMS_SIGN_VERIFY_BH_AND_TYPE_SHA_ALGO_MISMATCH_L1_ERROR;
-		XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Init - BH & Type field SHA algo mismatch - BH 0x%x, LMS 0x%x, OTS 0x%x\n\r",
-			ShaInstPtr->HashAlgo, PubKeyLmsParam->H, PubKeyLmsOtsParam->H);
-		goto END;
-	}
 
 	/* Initialize HASH to calculate digest */
 	Status = XSecure_ShaInitialize(ShaInstPtr, DmaPtr);
