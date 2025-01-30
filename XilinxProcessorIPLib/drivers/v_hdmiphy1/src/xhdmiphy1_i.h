@@ -119,6 +119,8 @@ u8 XHdmiphy1_CheckLineRateCfg(XHdmiphy1 *InstancePtr, u8 QuadId,
 /* xhdmiphy1.c: GT/MMCM DRP access. */
 u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir);
+u32 XHdmiphy1_DpllWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
+        XHdmiphy1_DirectionType Dir);
 void XHdmiphy1_MmcmReset(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir, u8 Hold);
 void XHdmiphy1_MmcmLockedMaskEnable(XHdmiphy1 *InstancePtr, u8 QuadId,

@@ -989,6 +989,8 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir)
 {
 	XHdmiphy1_Mmcm *MmcmPtr;
+	u64 clokoutdiv1_dpll_lo;
+	u64 clokoutdiv1_dpll_high;
 
 	if (Dir == XHDMIPHY1_DIR_RX) {
 		MmcmPtr= &InstancePtr->Quads[QuadId].RxMmcm;
@@ -997,21 +999,43 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 		MmcmPtr= &InstancePtr->Quads[QuadId].TxMmcm;
 	}
 
+	if (Dir == XHDMIPHY1_DIR_RX) {
+					if (InstancePtr->Config.RxClkPrimitive == 1 ){
+						clokoutdiv1_dpll_lo = 1;
+						clokoutdiv1_dpll_high = 400;
+
+					}
+					else{
+						clokoutdiv1_dpll_lo = 0;
+						clokoutdiv1_dpll_high = 512;
+					}
+				}
+				else{
+					if (InstancePtr->Config.TxClkPrimitive == 1 ){
+						clokoutdiv1_dpll_lo = 1;
+						clokoutdiv1_dpll_high = 400;
+					}
+					else{
+						clokoutdiv1_dpll_lo = 0;
+						clokoutdiv1_dpll_high = 512;
+					}
+				}
+
 	/* Check values if valid */
 #if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-	if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 128) &&
-		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
-		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128))) {
+	if (!((MmcmPtr->ClkOut0Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut0Div <= clokoutdiv1_dpll_high) &&
+		  (MmcmPtr->ClkOut1Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut1Div <= clokoutdiv1_dpll_high) &&
+		  (MmcmPtr->ClkOut2Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut2Div <= clokoutdiv1_dpll_high))) {
 #else
 #if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 1 || \
 		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 1)
-			if (!((MmcmPtr->ClkOut0Div > 1) && (MmcmPtr->ClkOut0Div <= 400) &&
-		  (MmcmPtr->ClkOut1Div > 1) && (MmcmPtr->ClkOut1Div <= 400) &&
-		  (MmcmPtr->ClkOut2Div > 1) && (MmcmPtr->ClkOut2Div <= 400))) {
+			if (!((MmcmPtr->ClkOut0Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut0Div <= clokoutdiv1_dpll_high) &&
+		  (MmcmPtr->ClkOut1Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut1Div <= clokoutdiv1_dpll_high) &&
+		  (MmcmPtr->ClkOut2Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut2Div <= clokoutdiv1_dpll_high))) {
 #else
-	if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 512) &&
-		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 512) &&
-		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 512))) {
+	if (!((MmcmPtr->ClkOut0Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut0Div <= clokoutdiv1_dpll_high) &&
+		  (MmcmPtr->ClkOut1Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut1Div <= clokoutdiv1_dpll_high) &&
+		  (MmcmPtr->ClkOut2Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut2Div <= clokoutdiv1_dpll_high))) {
 #endif
 #endif
 		return;
@@ -1020,8 +1044,44 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 	/* Assert MMCM reset. */
 	XHdmiphy1_MmcmReset(InstancePtr, QuadId, Dir, TRUE);
 
-	/* Configure MMCM. */
+#if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 0 && \
+		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 0)
+
 	XHdmiphy1_MmcmWriteParameters(InstancePtr, QuadId, Dir);
+
+#elif (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 1 && \
+		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 1)
+	XHdmiphy1_DpllWriteParameters(InstancePtr, QuadId, Dir);
+
+#else
+	if (Dir == XHDMIPHY1_DIR_TX){
+		if (InstancePtr->Config.TxClkPrimitive == 0){
+			XHdmiphy1_MmcmWriteParameters(InstancePtr, QuadId, Dir);
+		}
+		else{
+			XHdmiphy1_DpllWriteParameters(InstancePtr, QuadId, Dir);
+		}
+
+	}
+
+
+	if (Dir == XHDMIPHY1_DIR_RX){
+		if (InstancePtr->Config.RxClkPrimitive == 0){
+			XHdmiphy1_MmcmWriteParameters(InstancePtr, QuadId, Dir);
+		}
+		else{
+			XHdmiphy1_DpllWriteParameters(InstancePtr, QuadId, Dir);
+		}
+
+	}
+#endif
+
+
+
+
+
+	/* Configure MMCM. */
+	//XHdmiphy1_MmcmWriteParameters(InstancePtr, QuadId, Dir);
 
 	/* Release MMCM reset. */
 	XHdmiphy1_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
