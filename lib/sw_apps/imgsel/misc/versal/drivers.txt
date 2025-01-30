@@ -1,15 +1,10 @@
-canfd
 cfupmc
 cframe
 csudma
-emacps
 gpiops
 iicps
 iomodule
 qspipsu
-rtcpsu
-sdps
+ospipsv
 sysmonpsv
 uartpsv
-usbpsu
-zdma

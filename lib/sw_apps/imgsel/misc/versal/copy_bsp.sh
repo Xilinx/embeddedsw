@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022-2024, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022-2025, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 # this script will copy the required bsp directories
@@ -67,12 +67,6 @@ cp -r $SERVICES_DIR/xilplmi/src/common/server/* $BSP_DIR/libsrc/xilplmi/src/
 cp -r $SERVICES_DIR/xilplmi/src/common/common/* $BSP_DIR/libsrc/xilplmi/src/
 cp -r $BSP_DIR/libsrc/xilplmi/src/*.h $BSP_DIR/include/
 
-mkdir -p $BSP_DIR/libsrc/xilpuf/src
-cp -r $SERVICES_DIR/xilpuf/src/Makefile $BSP_DIR/libsrc/xilpuf/src
-cp -r $SERVICES_DIR/xilpuf/src/common/* $BSP_DIR/libsrc/xilpuf/src
-cp -r $SERVICES_DIR/xilpuf/src/server/* $BSP_DIR/libsrc/xilpuf/src
-cp -r $BSP_DIR/libsrc/xilpuf/src/*.h $BSP_DIR/include/
-
 mkdir -p $BSP_DIR/libsrc/xilloader/src
 cp -r $SERVICES_DIR/xilloader/src/Makefile $BSP_DIR/libsrc/xilloader/src
 cp -r $SERVICES_DIR/xilloader/src/versal/server/* $BSP_DIR/libsrc/xilloader/src/
@@ -93,14 +87,18 @@ cp -r $SERVICES_DIR/xilpm/src/versal_common/common/* $BSP_DIR/libsrc/xilpm/src/
 
 mkdir -p $BSP_DIR/libsrc/xilsecure/src
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src
-cp -r $SERVICES_DIR/xilsecure/src/common/all/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/common/versal_common/server/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/common/versal_common/common/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/versal/server/* $BSP_DIR/libsrc/xilsecure/src/
-cp -r $SERVICES_DIR/xilsecure/src/versal/common/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/common/core/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/aes/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/rsa/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/ecdsa/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/crypto_kat/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/generic/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/util/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/sha/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/core/sha/sha_pmx/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/server/versal/* $BSP_DIR/libsrc/xilsecure/src/
+cp -r $SERVICES_DIR/xilsecure/src/common/versal/* $BSP_DIR/libsrc/xilsecure/src/
 cp $BSP_DIR/libsrc/xilsecure/src/*.h $BSP_DIR/include/
-mv $BSP_DIR/libsrc/xilsecure/src/libxilsecure_pmc.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
-rm -f $BSP_DIR/libsrc/xilsecure/src/libxilsecure_*.a
 
 # copy bsp standalone code
 cp -r $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
@@ -146,8 +144,6 @@ cp $WORKING_DIR/xparameters*.h $BSP_DIR/include/
 cp $WORKING_DIR/config.make $BSP_DIR/libsrc/standalone/src/
 cp $WORKING_DIR/xgpiops_g.c $BSP_DIR/libsrc/gpiops/src/
 cp $WORKING_DIR/xqspipsu_g.c $BSP_DIR/libsrc/qspipsu/src/
-cp $WORKING_DIR/xrtcpsu_g.c $BSP_DIR/libsrc/rtcpsu/src/
-cp $WORKING_DIR/xsdps_g.c $BSP_DIR/libsrc/sdps/src/
 cp $STANDALONE_DIR/common/*.h  $BSP_DIR/include/
 cp $STANDALONE_DIR/common/clocking/*.h  $BSP_DIR/include/
 cp $STANDALONE_DIR/microblaze/*.h  $BSP_DIR/include/
