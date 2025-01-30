@@ -1,12 +1,12 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
 /*************************************************************************************************/
 /**
  *
- * @file xasufw_hw.h
+ * @file xasufw_intr.h
  *
  * This file contains declarations for xasufw_intr.c file in ASUFW.
  *
@@ -20,6 +20,10 @@
  * </pre>
  *
  *************************************************************************************************/
+/**
+* @addtogroup xasufw_application ASUFW Functionality
+* @{
+*/
 #ifndef XASUFW_INTR_H
 #define XASUFW_INTR_H
 
@@ -45,3 +49,4 @@ void XAsufw_HandlePendingInterrupts(void);
 #endif
 
 #endif  /* XASUFW_INTR_H */
+/** @} */

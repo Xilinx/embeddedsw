@@ -49,7 +49,6 @@ extern "C" {
 s32 XKdf_Compute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams *KdfParams);
 
 #ifdef __cplusplus
-extern "C"
 }
 #endif
 
