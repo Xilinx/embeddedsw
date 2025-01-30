@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -217,11 +217,11 @@ u32 XVphy_Gtye4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 			}
 		} else if (InstancePtr->Config.DpRxProtocol == 1) {
 			if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_20GBPS) {
-				ChPtr->PllParams.Cdr[2] = 0x1E9;
+				ChPtr->PllParams.Cdr[2] = 0x1D5; //0x1E9;
 			} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_135GBPS) {
 				ChPtr->PllParams.Cdr[2] = 0x1D5; //0x1D5
 			} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_10GBPS) {
-			  ChPtr->PllParams.Cdr[2] = 0x269;
+			  ChPtr->PllParams.Cdr[2] = 0x1D5; //0x269;
 			} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_810GBPS) {
 			  ChPtr->PllParams.Cdr[2] = 0x263;
 			} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_540GBPS) {
