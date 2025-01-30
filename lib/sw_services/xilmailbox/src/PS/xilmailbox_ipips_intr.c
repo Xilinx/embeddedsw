@@ -21,6 +21,8 @@
  * 1.8   ht   07/24/23    Restructure the code for more modularity
  * 1.10  ht   06/05/24    Register GIC handler using device id
  * 1.11  ht   01/02/25    Fix GCC warnings.
+ * 1.11  ht   01/30/25    Update handler registration for XMAILBOX_INTR_ID
+ *                        in SDT flow.
  *
  *  *</pre>
  *
@@ -173,7 +175,7 @@ XStatus XIpiPs_RegisterIrq(XMailbox *InstancePtr, u32 IpiIntrId)
 			      XINTERRUPT_DEFAULT_PRIORITY);
 
 	XSetupInterruptSystem(InstancePtr, (Xil_InterruptHandler)
-			      XIpiPs_IntrHandler, XMAILBOX_INTR_ID, IpiInstancePtr->Config.IntrParent,
+			      XIpiPs_ErrorIntrHandler, XMAILBOX_INTR_ID, IpiInstancePtr->Config.IntrParent,
 			      XINTERRUPT_DEFAULT_PRIORITY);
 	return XST_SUCCESS;
 #endif
