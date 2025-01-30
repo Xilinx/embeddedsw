@@ -75,7 +75,7 @@
 * @note		None.
 *
 ******************************************************************************/
-u32 XHdmiphy1_MmcmWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
+u32 XHdmiphy1_DpllWriteParameters(XHdmiphy1 *InstancePtr, u8 QuadId,
 							XHdmiphy1_DirectionType Dir)
 {
 	u8 ChId;
