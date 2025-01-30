@@ -1,5 +1,6 @@
 #/******************************************************************************
-#* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -25,6 +26,8 @@ all: $(EXEC)
 $(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
 	$(LINKER) $(LSCRIPT) -L$(LIBPATH) -o $@ $(OBJS) $(LDFLAGS)
 	rm -rf $(OBJS)
+
+$(OBJS): $(LIBS)
 
 $(LIBS):
 	echo "Copying BSP files"
