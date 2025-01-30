@@ -79,17 +79,13 @@ domains:
         domain-to-domain:
             compatible: openamp,domain-to-domain-v1
             remoteproc-relation:
-                compatible: openamp,remoteproc-v1
+                compatible: openamp,remoteproc-v2
                 remote:
                      - openamp_r5_0_cluster
                      - openamp_r5_1_cluster
                 elfload:
-                    - psv_r5_0_atcm_global
-                    - psv_r5_0_btcm_global
-                    - rproc0
-                    - psv_r5_1_atcm_global
-                    - psv_r5_1_btcm_global
-                    - rproc1
+                    - [ psv_r5_0_atcm_global, psv_r5_0_btcm_global, rproc0 ]
+                    - [ psv_r5_1_atcm_global, psv_r5_1_btcm_global, rproc1 ]
 
             rpmsg-relation:
                 compatible: openamp,rpmsg-v1
