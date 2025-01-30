@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -23,7 +23,7 @@ properties:
     description: Flag for I2C channel.
   xlnx,csi2-tx-data-type:
     description: Flag for number of lanes.
-  xlnx,csi2x-tx-pixel-mode:
+  xlnx,csi2-tx-pixel-mode:
     description: Pixel mode.
   xlnx,csi2-tx-line-bufr-depth:
     description: Line buffer depth.
@@ -52,7 +52,7 @@ required:
   - xlnx,highaddr
   - xlnx,csi2-tx-lanes
   - xlnx,csi2-tx-data-type
-  - xlnx,csi2x-tx-pixel-mode
+  - xlnx,csi2-tx-pixel-mode
   - xlnx,csi2-tx-line-bufr-depth
   - xlnx,dphy-linerate
   - xlnx,dphy-en-reg-if
