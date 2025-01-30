@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module facilitates the validation of a created BSP with respect to a
@@ -134,6 +134,32 @@ class Validation(BSP, Library):
                 f"[ERROR]: {self.template} is not a valid template name for the given BSP. BSP is missing {diff_libs}."
             )
             self.get_valid_template_list()
+            sys.exit(1)
+
+        domain_data = utils.fetch_yaml_data(self.domain_config_file, "domain")
+        esw_app_dir = self.get_comp_dir(self.template)
+        app_yaml_file = os.path.join(esw_app_dir, "data", f"{self.template}.yaml")
+        app_lib_info = utils.fetch_yaml_data(app_yaml_file, "depends_libs")
+        diff_lib_data = {}
+        if app_lib_info["depends_libs"]:
+            for lib,lib_data in app_lib_info["depends_libs"].items():
+                if lib_data:
+                    for param,value in lib_data.items():
+                        if str(value).casefold() != domain_data["lib_config"][lib][param]['value'].casefold():
+                            if not lib in diff_lib_data:
+                                diff_lib_data[lib] = {param:value}
+                            else:
+                                diff_lib_data[lib].update({param:value})
+
+        if diff_lib_data:
+            message = f"[ERROR]: For {self.template} the following library config param values are expected:\n"
+            for library, params in diff_lib_data.items():
+                message += f"[ERROR]: - {library}:\n"
+                for param, value in params.items():
+                    message += f"[ERROR]:  * {param}: {value}\n"
+            print(
+                f"{message}[ERROR]: update platform/bsp library config params as per {self.template} requirement"
+            )
             sys.exit(1)
 
     def get_valid_template_list(self):
