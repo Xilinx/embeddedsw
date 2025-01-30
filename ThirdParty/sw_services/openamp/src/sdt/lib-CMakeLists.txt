@@ -36,7 +36,7 @@ get_property (_ecflags GLOBAL PROPERTY "PROJECT_LIB_EXTRA_CFLAGS")
 
 collector_list (_sources PROJECT_LIB_SOURCES)
 set_property (SOURCE ${_sources}
-  APPEND_STRING PROPERTY COMPILE_FLAGS " ${_ecflags}")
+  APPEND_STRING PROPERTY COMPILE_FLAGS " ${_ecflags} -DVIRTIO_USE_DCACHE")
 
 add_library (${OPENAMP_LIB} STATIC ${_sources})
 set_target_properties (${OPENAMP_LIB} PROPERTIES OUTPUT_NAME  "${OPENAMP_LIB}")
