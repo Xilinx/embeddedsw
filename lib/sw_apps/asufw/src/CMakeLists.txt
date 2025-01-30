@@ -67,6 +67,22 @@ collect(PROJECT_LIB_DEPS xilasu)
 collect(PROJECT_LIB_DEPS xilasu_mbv)
 collect(PROJECT_LIB_DEPS gcc)
 collect(PROJECT_LIB_DEPS c)
+
+aux_source_directory(${CMAKE_SOURCE_DIR} _sources)
+foreach (source ${_sources})
+    get_filename_component(ext ${source} EXT)
+    list(APPEND src_ext ${ext})
+endforeach()
+
+if (NOT DEFINED PROJECT_TYPE)
+find_project_type ("${src_ext}" PROJECT_TYPE)
+endif()
+
+if("${PROJECT_TYPE}" STREQUAL "c++")
+collect(PROJECT_LIB_DEPS stdc++)
+set(CMAKE_C_COMPILER ${CMAKE_CXX_COMPILER})
+endif()
+
 collector_list (_deps PROJECT_LIB_DEPS)
 list (APPEND _deps ${USER_LINK_LIBRARIES})
 message(STATUS "deps is:" ${_deps})
