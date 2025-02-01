@@ -104,6 +104,20 @@ static XStatus XPmRail_IdentifyVendor(XPm_Rail *Rail)
 	u8 Buffer[DEVICE_ID_LEN_MAX];
 	u8 Bytes;
 	u64 IcDeviceId;
+	u8 MV_Match = 0;
+
+	/* If a VID power rail is not part of the multi-vendor list, just return */
+	for (u8 i = 0; i < (sizeof(MV_Regulators)/sizeof(MV_Regulators[0])); i++) {
+		if (MV_Regulators[i].RailId == RailId) {
+			MV_Match = 1;
+			break;
+		}
+	}
+
+	if (0U == MV_Match) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	for (u8 i = 0; i < (sizeof(MV_Regulators)/sizeof(MV_Regulators[0])); i++) {
 		if (MV_Regulators[i].RailId == RailId) {
@@ -154,14 +168,16 @@ static XStatus XPmRail_IdentifyVendor(XPm_Rail *Rail)
 						PmDbg("Rail: 0x%x, Regulator: 0x%x, IC_DEVICE_ID: 0x%x%08x, "
 						      "Regulator Index: %d\r\n", RailId, MV_Regulators[i].RegulatorId,
 						      (u32)(IcDeviceId >> 32), (u32)IcDeviceId, Rail->ParentIndex);
-						break;
+						Status = XST_SUCCESS;
+						goto done;
 					}
 				}
 			}
 		}
 	}
 
-	Status = XST_SUCCESS;
+	PmWarn("No Vendor Id match was found to control rail 0x%x\r\n", RailId);
+	Status = XST_FAILURE;
 
 done:
 	return Status;
@@ -273,6 +289,7 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 
 	Status = XPmRail_IdentifyVendor(Rail);
 	if (XST_SUCCESS != Status) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
