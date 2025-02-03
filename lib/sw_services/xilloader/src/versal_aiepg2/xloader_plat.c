@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -145,7 +145,6 @@
 static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu,
 	const u32 DstnCluster);
 static int XLoader_InitTrngInstance(void);
-static void XLoader_WakeUpAsu(void);
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams,
 	XSecure_Sha3Hash* Sha3Hash);
@@ -370,16 +369,9 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				break;
 
 			case XIH_PH_ATTRB_DSTN_CPU_PSM:
-#if 0
 				RequestWakeup = TRUE;
-				DeviceId = PM_DEV_PSM_PROC;
-				ErrorCode = XLOADER_ERR_WAKEUP_PSM;
-				SetAddress = 0U;
-				XLoader_Printf(DEBUG_INFO, "Request PSM wakeup\r\n");
-#endif
-				XLoader_WakeUpAsu();
+				DeviceId = PM_DEV_ASU;
 				XLoader_Printf(DEBUG_INFO, "Request ASU wakeup\r\n");
-				Status = XST_SUCCESS;
 				break;
 
 			default:
@@ -407,22 +399,6 @@ END:
 	 */
 	PdiPtr->NoOfHandoffCpus = 0x0U;
 	return Status;
-}
-
-/****************************************************************************/
-/**
-* @brief	This function wakes up the ASU processor and brings it out of reset
-*
-*****************************************************************************/
-static void XLoader_WakeUpAsu(void)
-{
-	/* Enable writes to CRL */
-	XPlmi_Out32(PSX_CRL_WPROT_ADDR, PSX_CRL_WPROT_ENABLE_MASK);
-	/* Wake up ASU MB processor */
-	XPlmi_Out32(CRL_ASU_MB_RST_MODE_ADDR, CRL_ASU_MB_RST_WAKEUP_MASK);
-	/* Bring ASU MB out of reset */
-	XPlmi_Out32(ASU_MB_SOFT_RST_ADDR, ASU_MB_SOFT_RST_ASSER_MASK);
-	XPlmi_Out32(ASU_MB_SOFT_RST_ADDR, ASU_MB_SOFT_RST_DEASSERT_MASK);
 }
 
 /****************************************************************************/
