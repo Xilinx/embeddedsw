@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,6 +7,42 @@
 #include "xil_io.h"
 #include "xpm_asucore.h"
 #include "xpm_api.h"
+#include "xpm_regs.h"
+
+static XStatus XPmAsucore_Wakeup(XPm_Core *Core, u32 SetAddress, u64 Address)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_AsuCore *AsuCore = (XPm_AsuCore *)Core;
+	/* Handoff address is not able to adjust; hence ignore them */
+	(void)SetAddress;
+	(void)Address;
+
+	/* ASU is special, we don't need to do direct power on. Because it is never power off until POR */
+	if (1U == Core->isCoreUp) {
+		/* This should never happen but just incase */
+		PmWarn("ASU core is already up.\r\n");
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Set Wake up on reset for ASU processor */
+	XPm_Out32(PSX_CRL_BASEADDR + CRL_ASU_MB_RST_MODE_OFFSET,CRL_ASU_MB_RST_WAKEUP_MASK);
+	/* Bring ASU out of reset by toggling the soft rst */
+	XPm_Out32(ASU_GLOBAL_ASU_MB_SOFT_RST, ASU_GLOBAL_ASU_MB_SOFT_RST_VAL_MASK);
+	/*.. deassert the reset bit*/
+	XPm_Out32(ASU_GLOBAL_ASU_MB_SOFT_RST, 0U);
+
+	Core->isCoreUp = 1;
+	Status = XST_SUCCESS;
+done:
+	PmInfo("ASU Core Wakeup Status: 0x%x\r\n", Status);
+	return Status;
+}
+
+static struct XPm_CoreOps AsuOps = {
+	.RequestWakeup = XPmAsucore_Wakeup,
+	.PowerDown = NULL,
+};
 
 XStatus XPmAsuCore_Init(struct XPm_AsuCore *AsuCore, u32 Id, u32 Ipi, const u32 *BaseAddress,
 			XPm_Power *Power, XPm_ClockNode *Clock,
@@ -14,15 +50,13 @@ XStatus XPmAsuCore_Init(struct XPm_AsuCore *AsuCore, u32 Id, u32 Ipi, const u32 
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init(&AsuCore->Core, Id, Power, Clock, Reset, (u8)Ipi, NULL);
+	Status = XPmCore_Init(&AsuCore->Core, Id, Power, Clock, Reset, (u8)Ipi, &AsuOps);
 	if (XST_SUCCESS != Status) {
 		PmErr("Status: 0x%x\r\n", Status);
 		goto done;
 	}
 
 	AsuCore->AsuBaseAddr = BaseAddress[0];
-	// @TODO Add code to assign register addres to AsuCore
-	//XPmRpuCore_AssignRegAddr(AsuCore, Id, BaseAddress);
 
 done:
 	return Status;
