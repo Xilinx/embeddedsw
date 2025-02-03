@@ -159,6 +159,16 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir):
         None
     """
     openamp_lopper_host_remote_tuples = {
+        'cortexr52_0' : ('a78_0', 'r52_0', 'VersalGen2'),
+        'cortexr52_1' : ('a78_0', 'r52_1', 'VersalGen2'),
+        'cortexr52_2' : ('a78_0', 'r52_2', 'VersalGen2'),
+        'cortexr52_3' : ('a78_0', 'r52_3', 'VersalGen2'),
+        'cortexr52_4' : ('a78_0', 'r52_4', 'VersalGen2'),
+        'cortexr52_5' : ('a78_0', 'r52_5', 'VersalGen2'),
+        'cortexr52_6' : ('a78_0', 'r52_6', 'VersalGen2'),
+        'cortexr52_7' : ('a78_0', 'r52_7', 'VersalGen2'),
+        'cortexr52_8' : ('a78_0', 'r52_8', 'VersalGen2'),
+        'cortexr52_9' : ('a78_0', 'r52_9', 'VersalGen2'),
         'psx_cortexr52_0' : ('a78_0', 'r52_0', 'versal-net'),
         'psx_cortexr52_1' : ('a78_0', 'r52_1', 'versal-net'),
         'psx_cortexr52_2' : ('a78_0', 'r52_2', 'versal-net'),
