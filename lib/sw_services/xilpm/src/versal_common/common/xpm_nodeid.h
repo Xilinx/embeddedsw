@@ -75,13 +75,12 @@ extern "C" {
 #define PM_POWER_VCCINT_RAM			(0x432802EU)
 #define PM_POWER_VCCAUX				(0x432802FU)
 #define PM_POWER_VCCINT_PL			(0x4328030U)
-#define PM_POWER_VCCINT_CPM5N			(0x4328051U)
-#define PM_POWER_VCCINT_ME			(0x4328061U)
 /** @cond INTERNAL */
 #define PM_POWER_FPD_DOMAIN_CTRL		(0x453404FU)
 #define PM_POWER_PLD_DOMAIN_CTRL		(0x4534050U)
 #define PM_POWER_CPM6				(0x4218060U)
 /** @endcond */
+#define PM_POWER_VCCINT_CPM5N			(0x4328051U)
 #define PM_POWER_HNICX				(0x4230031U)
 #define PM_POWER_CPM5N				(0x4218032U)
 #define PM_POWER_ACPU_0_0			(0x4104033U)
@@ -126,6 +125,7 @@ extern "C" {
 #define PM_POWER_TCM_1_C			(0x410405DU)
 #define PM_POWER_TCM_1_D			(0x410405EU)
 #define PM_POWER_TCM_1_E			(0x410405FU)
+#define PM_POWER_VCCINT_ME			(0x4328061U)
 /** @} */
 
 /**
@@ -1168,11 +1168,11 @@ extern "C" {
 #define PM_ISO_PL_PS_DTI1			(0x20000047U)
 #define PM_ISO_CPM5_NOC_DFX			(0x20000048U)
 #define PM_ISO_CPM5_NOC				(0x20000049U)
-#define PM_ISO_MMI_PL_GEM_N                     (0x2000004AU)
-#define PM_ISO_MMI_PL_DC_N                      (0x2000004BU)
-#define PM_ISO_MMI_N                            (0x2000004CU)
-#define PM_ISO_MMI_PL_TEST_N                    (0x2000004DU)
-#define PM_ISO_MMI_PL_MISC_N                    (0x2000004EU)
+#define PM_ISO_MMI_PL_GEM_N			(0x2000004AU)
+#define PM_ISO_MMI_PL_DC_N			(0x2000004BU)
+#define PM_ISO_MMI_N				(0x2000004CU)
+#define PM_ISO_MMI_PL_TEST_N			(0x2000004DU)
+#define PM_ISO_MMI_PL_MISC_N			(0x2000004EU)
 /** @} */
 /** @endcond */
 
@@ -1201,6 +1201,7 @@ extern "C" {
 #define PM_REG_CRP				(0x30000001U)
 #define PM_REG_PMC_IOU_SLCR			(0x30000002U)
 #define PM_REG_EFUSE_CACHE			(0x30000003U)
+#define PM_REG_PMC_GLOBAL			(0x30000004U)
 /** @} */
 
 #ifdef __cplusplus
