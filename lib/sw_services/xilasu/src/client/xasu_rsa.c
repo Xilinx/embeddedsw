@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   08/20/24 Initial release
  *       ss   09/26/24 Fixed doxygen comments
+ *       ss   02/04/25 Added client API's for RSA padding scheme
  *
  * </pre>
  *
@@ -30,6 +31,8 @@
 #include "xasu_rsa.h"
 #include "xasu_def.h"
 #include "xasu_status.h"
+#include "xasu_shainfo.h"
+#include "xasu_rsa_common.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -48,7 +51,7 @@
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
- * @param	RsaClientParamPtr	Pointer to XAsu_RsaClientParams structure which holds the
+ * @param	RsaClientParamPtr	Pointer to XAsu_RsaParams structure which holds the
  *					parameters of RSA input arguments.
  *
  * @return
@@ -58,7 +61,7 @@
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClientParamPtr)
+s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
@@ -103,7 +106,7 @@ s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClie
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
-					sizeof(XAsu_RsaClientParams), Header);
+					(u32)(sizeof(XAsu_RsaParams)), Header);
 
 END:
 	return Status;
@@ -115,7 +118,7 @@ END:
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
- * @param	RsaClientParamPtr	Pointer to XAsu_RsaClientParams structure which holds the
+ * @param	RsaClientParamPtr	Pointer to XAsu_RsaParams structure which holds the
  *					parameters of RSA input arguments.
  *
  * @return
@@ -125,7 +128,7 @@ END:
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClientParamPtr)
+s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
@@ -169,7 +172,7 @@ s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClie
 	Header = XAsu_CreateHeader(XASU_RSA_PVT_DEC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
-					sizeof(XAsu_RsaClientParams), Header);
+					(u32)(sizeof(XAsu_RsaParams)), Header);
 
 END:
 	return Status;
@@ -182,7 +185,7 @@ END:
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
- * @param	RsaClientParamPtr	Pointer to XAsu_RsaClientParams structure which holds the
+ * @param	RsaClientParamPtr	Pointer to XAsu_RsaParams structure which holds the
  *					parameters of RSA input arguments.
  *
  * @return
@@ -192,7 +195,7 @@ END:
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClientParamPtr)
+s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
@@ -238,7 +241,7 @@ s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaC
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
-					sizeof(XAsu_RsaClientParams), Header);
+					(u32)(sizeof(XAsu_RsaParams)), Header);
 
 END:
 	return Status;
@@ -252,8 +255,8 @@ END:
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
- * @param	RsaClientParamPtr	Pointer to XAsu_RsaClientParams structure which holds the
- *					parameters of RSA input arguments.
+ * @param	RsaClientParamPtr	Pointer to XAsu_RsaOaepPaddingParams structure which holds
+ * 					the parameters of RSA input arguments.
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
@@ -262,12 +265,13 @@ END:
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_RsaOaepEncDecSha2(XAsu_ClientParams *ClientParamPtr,
-			XAsu_RsaClientOaepPaddingParams *RsaClientParamPtr)
+s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
+			XAsu_RsaOaepPaddingParams *RsaClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
+	u8 CmdId;
 
 	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
@@ -281,20 +285,43 @@ s32 XAsu_RsaOaepEncDecSha2(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	/** Validatations of inputs. */
-	if (((RsaClientParamPtr->XAsu_ClientComp.InputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.KeyCompAddr == 0U))) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	Status = XAsu_RsaValidateKeySize(RsaClientParamPtr->XAsu_ClientComp.KeySize);
+	Status = XAsu_RsaValidateInputParams(&(RsaClientParamPtr->XAsu_RsaOpComp));
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if (RsaClientParamPtr->XAsu_ClientComp.Len > RsaClientParamPtr->XAsu_ClientComp.KeySize) {
+	if ((RsaClientParamPtr->XAsu_RsaOpComp.OutputDataAddr == 0U) ||
+	    (RsaClientParamPtr->OptionalLabelAddr == 0U)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_RsaValidateKeySize(RsaClientParamPtr->XAsu_RsaOpComp.KeySize);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (RsaClientParamPtr->XAsu_RsaOpComp.Len > RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
+		CmdId = XASU_RSA_OAEP_ENC_SHA2_CMD_ID;
+	} else if (RsaClientParamPtr->ShaType == XASU_SHA3_TYPE) {
+		CmdId = XASU_RSA_OAEP_ENC_SHA3_CMD_ID;
+	} else {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+	    ((RsaClientParamPtr->ShaType != XASU_SHA3_TYPE) ||
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -305,11 +332,11 @@ s32 XAsu_RsaOaepEncDecSha2(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	Header = XAsu_CreateHeader(XASU_RSA_OAEP_SHA2_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
-					sizeof(XAsu_RsaClientOaepPaddingParams), Header);
+					(u32)(sizeof(XAsu_RsaOaepPaddingParams)), Header);
 
 END:
 	return Status;
@@ -323,8 +350,8 @@ END:
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
- * @param	RsaClientParamPtr	Pointer to XAsu_RsaClientParams structure which holds the
- *					parameters of RSA input arguments.
+ * @param	RsaClientParamPtr	Pointer to XAsu_RsaOaepPaddingParams structure which holds
+ * 					the parameters of RSA input arguments.
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
@@ -333,12 +360,13 @@ END:
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_RsaOaepEncDecSha3(XAsu_ClientParams *ClientParamPtr,
-			XAsu_RsaClientOaepPaddingParams *RsaClientParamPtr)
+s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
+			XAsu_RsaOaepPaddingParams *RsaClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
+	u8 CmdId;
 
 	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
@@ -352,20 +380,48 @@ s32 XAsu_RsaOaepEncDecSha3(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	/** Validatations of inputs. */
-	if (((RsaClientParamPtr->XAsu_ClientComp.InputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.KeyCompAddr == 0U))) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	Status = XAsu_RsaValidateKeySize(RsaClientParamPtr->XAsu_ClientComp.KeySize);
+	Status = XAsu_RsaValidateInputParams(&(RsaClientParamPtr->XAsu_RsaOpComp));
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if (RsaClientParamPtr->XAsu_ClientComp.Len > RsaClientParamPtr->XAsu_ClientComp.KeySize) {
+	if ((RsaClientParamPtr->XAsu_RsaOpComp.OutputDataAddr == 0U) ||
+	    (RsaClientParamPtr->OptionalLabelAddr == 0U)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (RsaClientParamPtr->OptionalLabelAddr == 0U) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_RsaValidateKeySize(RsaClientParamPtr->XAsu_RsaOpComp.KeySize);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (RsaClientParamPtr->XAsu_RsaOpComp.Len > RsaClientParamPtr->XAsu_RsaOpComp.KeySize) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
+		CmdId = XASU_RSA_OAEP_DEC_SHA2_CMD_ID;
+	} else if (RsaClientParamPtr->ShaType == XASU_SHA3_TYPE) {
+		CmdId = XASU_RSA_OAEP_DEC_SHA3_CMD_ID;
+	} else {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+	    ((RsaClientParamPtr->ShaType != XASU_SHA3_TYPE) ||
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -376,81 +432,11 @@ s32 XAsu_RsaOaepEncDecSha3(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	Header = XAsu_CreateHeader(XASU_RSA_OAEP_SHA3_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
-					sizeof(XAsu_RsaClientOaepPaddingParams), Header);
-
-END:
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function performs encryption or decryption by encoding or decoding using
- * 		RSA PKCS padding algorithm for the provided message by using specified key.
- *
- * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
- * 					client input parameters.
- * @param	RsaClientParamPtr	Pointer to XAsu_RsaClientParams structure which holds the
- *					parameters of RSA input arguments.
- *
- * @return
- * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
- * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
- *
- *************************************************************************************************/
-s32 XAsu_RsaPkcsEncDec(XAsu_ClientParams *ClientParamPtr,
-			XAsu_RsaClientPaddingParams *RsaClientParamPtr)
-{
-	s32 Status = XST_FAILURE;
-	u32 Header;
-	u8 UniqueId;
-
-	/** Validate input parameters. */
-	Status = XAsu_ValidateClientParameters(ClientParamPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	if (RsaClientParamPtr == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	/** Validatations of inputs. */
-	if (((RsaClientParamPtr->XAsu_ClientComp.InputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.KeyCompAddr == 0U))) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	Status = XAsu_RsaValidateKeySize(RsaClientParamPtr->XAsu_ClientComp.KeySize);
-	if (Status != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if (RsaClientParamPtr->XAsu_ClientComp.Len > RsaClientParamPtr->XAsu_ClientComp.KeySize) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
-	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-		Status = XASU_INVALID_UNIQUE_ID;
-		goto END;
-	}
-
-	Header = XAsu_CreateHeader(XASU_RSA_PKCS_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
-
-	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
-					sizeof(XAsu_RsaClientPaddingParams), Header);
+					(u32)(sizeof(XAsu_RsaOaepPaddingParams)), Header);
 
 END:
 	return Status;
@@ -464,7 +450,7 @@ END:
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
- * @param	RsaClientParamPtr	Pointer to XAsu_RsaClientParams structure which holds the
+ * @param	RsaClientParamPtr	Pointer to XAsu_RsaPaddingParams structure which holds the
  *					parameters of RSA input arguments.
  *
  * @return
@@ -474,12 +460,12 @@ END:
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_RsaPssSignGenVerSha2(XAsu_ClientParams *ClientParamPtr,
-			XAsu_RsaClientPaddingParams *RsaClientParamPtr)
+s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams *RsaClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
+	u8 CmdId;
 
 	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
@@ -493,26 +479,47 @@ s32 XAsu_RsaPssSignGenVerSha2(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	/** Validatations of inputs. */
-	if (((RsaClientParamPtr->XAsu_ClientComp.InputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.KeyCompAddr == 0U))) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if (((RsaClientParamPtr->OperationFlag == XASU_RSA_SIGN_VERIFICATION) &&
-	     (RsaClientParamPtr->SignatureDataAddr == 0U))) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	Status = XAsu_RsaValidateKeySize(RsaClientParamPtr->XAsu_ClientComp.KeySize);
+	Status = XAsu_RsaValidateInputParams(&(RsaClientParamPtr->XAsu_RsaOpComp));
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if (RsaClientParamPtr->XAsu_ClientComp.Len > RsaClientParamPtr->XAsu_ClientComp.KeySize) {
+	if ((RsaClientParamPtr->XAsu_RsaOpComp.OutputDataAddr == 0U)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_RsaValidateKeySize(RsaClientParamPtr->XAsu_RsaOpComp.KeySize);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_256_HASH_LEN) &&
+	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_384_HASH_LEN) &&
+	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_512_HASH_LEN) &&
+	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHAKE_256_HASH_LEN) &&
+	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHAKE_256_MAX_HASH_LEN) &&
+	    (RsaClientParamPtr->InputDataType == XASU_RSA_HASHED_INPUT_DATA)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
+		CmdId = XASU_RSA_PSS_SIGN_GEN_SHA2_CMD_ID;
+	} else if (RsaClientParamPtr->ShaType == XASU_SHA3_TYPE) {
+		CmdId = XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID;
+	} else {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+	    ((RsaClientParamPtr->ShaType != XASU_SHA3_TYPE) ||
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -523,11 +530,11 @@ s32 XAsu_RsaPssSignGenVerSha2(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	Header = XAsu_CreateHeader(XASU_RSA_PSS_SHA2_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
-					sizeof(XAsu_RsaClientPaddingParams), Header);
+					(u32)(sizeof(XAsu_RsaPaddingParams)), Header);
 
 END:
 	return Status;
@@ -541,7 +548,7 @@ END:
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
- * @param	RsaClientParamPtr	Pointer to XAsu_RsaClientParams structure which holds the
+ * @param	RsaClientParamPtr	Pointer to XAsu_RsaPaddingParams structure which holds the
  *					parameters of RSA input arguments.
  *
  * @return
@@ -551,12 +558,12 @@ END:
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_RsaPssSignGenVerSha3(XAsu_ClientParams *ClientParamPtr,
-			XAsu_RsaClientPaddingParams *RsaClientParamPtr)
+s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams *RsaClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
+	u8 CmdId;
 
 	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
@@ -570,26 +577,52 @@ s32 XAsu_RsaPssSignGenVerSha3(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	/** Validatations of inputs. */
-	if (((RsaClientParamPtr->XAsu_ClientComp.InputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.KeyCompAddr == 0U))) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if (((RsaClientParamPtr->OperationFlag == XASU_RSA_SIGN_VERIFICATION) &&
-	     (RsaClientParamPtr->SignatureDataAddr == 0U))) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	Status = XAsu_RsaValidateKeySize(RsaClientParamPtr->XAsu_ClientComp.KeySize);
+	Status = XAsu_RsaValidateInputParams(&(RsaClientParamPtr->XAsu_RsaOpComp));
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	if (RsaClientParamPtr->XAsu_ClientComp.Len > RsaClientParamPtr->XAsu_ClientComp.KeySize) {
+	if (RsaClientParamPtr->SignatureDataAddr == 0U) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_RsaValidateKeySize(RsaClientParamPtr->XAsu_RsaOpComp.KeySize);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_256_HASH_LEN) &&
+	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_384_HASH_LEN) &&
+	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHA_512_HASH_LEN) &&
+	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHAKE_256_HASH_LEN) &&
+	    (RsaClientParamPtr->XAsu_RsaOpComp.Len != XASU_SHAKE_256_MAX_HASH_LEN) &&
+	    (RsaClientParamPtr->InputDataType == XASU_RSA_HASHED_INPUT_DATA)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((RsaClientParamPtr->SignatureLen != RsaClientParamPtr->XAsu_RsaOpComp.KeySize)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
+		CmdId = XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID;
+	} else if (RsaClientParamPtr->ShaType == XASU_SHA3_TYPE) {
+		CmdId = XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID;
+	} else {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+	    ((RsaClientParamPtr->ShaType != XASU_SHA3_TYPE) ||
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -600,165 +633,11 @@ s32 XAsu_RsaPssSignGenVerSha3(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	Header = XAsu_CreateHeader(XASU_RSA_PSS_SHA3_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
-					sizeof(XAsu_RsaClientPaddingParams), Header);
-
-END:
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function performs sign generation or verification by encoding or decoding
- * 		using RSA PKCS padding algorithm and using SHA2 for hash calculation for the
- * 		provided message by using specified key.
- *
- * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
- * 					client input parameters.
- * @param	RsaClientParamPtr	Pointer to XAsu_RsaClientParams structure which holds the
- *					parameters of RSA input arguments.
- *
- * @return
- * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
- * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
- *
- *************************************************************************************************/
-s32 XAsu_RsaPkcsSignGenVerSha2(XAsu_ClientParams *ClientParamPtr,
-				XAsu_RsaClientPaddingParams *RsaClientParamPtr)
-{
-	s32 Status = XST_FAILURE;
-	u32 Header;
-	u8 UniqueId;
-
-	/** Validate input parameters. */
-	Status = XAsu_ValidateClientParameters(ClientParamPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	if (RsaClientParamPtr == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	/** Validatations of inputs. */
-	if (((RsaClientParamPtr->XAsu_ClientComp.InputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.KeyCompAddr == 0U))) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if (((RsaClientParamPtr->OperationFlag == XASU_RSA_SIGN_VERIFICATION) &&
-	     (RsaClientParamPtr->SignatureDataAddr == 0U))) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	Status = XAsu_RsaValidateKeySize(RsaClientParamPtr->XAsu_ClientComp.KeySize);
-	if (Status != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if (RsaClientParamPtr->XAsu_ClientComp.Len > RsaClientParamPtr->XAsu_ClientComp.KeySize) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
-	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-		Status = XASU_INVALID_UNIQUE_ID;
-		goto END;
-	}
-
-	Header = XAsu_CreateHeader(XASU_RSA_PKCS_SHA2_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
-
-	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
-					sizeof(XAsu_RsaClientPaddingParams), Header);
-
-END:
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function performs sign generation or verification by encoding or decoding
- * 		using RSA PKCS padding algorithm and using SHA3 for hash calculation for the
- * 		provided message by using specified key.
- *
- * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
- * 					client input parameters.
- * @param	RsaClientParamPtr	Pointer to XAsu_RsaClientParams structure which holds the
- *					parameters of RSA input arguments.
- *
- * @return
- * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
- * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
- *
- *************************************************************************************************/
-s32 XAsu_RsaPkcsSignGenVerSha3(XAsu_ClientParams *ClientParamPtr,
-				XAsu_RsaClientPaddingParams *RsaClientParamPtr)
-{
-	s32 Status = XST_FAILURE;
-	u32 Header;
-	u8 UniqueId;
-
-	/** Validate input parameters. */
-	Status = XAsu_ValidateClientParameters(ClientParamPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	if (RsaClientParamPtr == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	/** Validatations of inputs. */
-	if (((RsaClientParamPtr->XAsu_ClientComp.InputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->XAsu_ClientComp.KeyCompAddr == 0U))) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if (((RsaClientParamPtr->OperationFlag == XASU_RSA_SIGN_VERIFICATION) &&
-	     (RsaClientParamPtr->SignatureDataAddr == 0U))) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	Status = XAsu_RsaValidateKeySize(RsaClientParamPtr->XAsu_ClientComp.KeySize);
-	if (Status != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if (RsaClientParamPtr->XAsu_ClientComp.Len > RsaClientParamPtr->XAsu_ClientComp.KeySize) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
-	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-		Status = XASU_INVALID_UNIQUE_ID;
-		goto END;
-	}
-
-	Header = XAsu_CreateHeader(XASU_RSA_PKCS_SHA3_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
-
-	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
-					sizeof(XAsu_RsaClientPaddingParams), Header);
+					(u32)(sizeof(XAsu_RsaPaddingParams)), Header);
 
 END:
 	return Status;

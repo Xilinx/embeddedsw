@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -36,7 +36,7 @@
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_RSA_4096_KEY_SIZE_IN_BYTES	(512U)	/**< 512 bytes for 4096 bit data */
-
+#define ASU_CACHE_DISABLE
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -229,14 +229,16 @@ volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error 
 int main(void)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_RsaClientParams RsaClientParam;
+	XAsu_RsaParams RsaClientParam;
 	XAsu_ClientParams ClientParam;
 	XAsu_RsaPubKeyComp PubKeyParam;
 	XAsu_RsaPvtKeyComp PvtKeyParam;
 	u8 EncResult[XASU_RSA_4096_KEY_SIZE_IN_BYTES];
 	u8 DecResult[XASU_RSA_4096_KEY_SIZE_IN_BYTES];
 
+#ifdef XASU_CACHE_DISABLE
 	Xil_DCacheDisable();
+#endif
 
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_RsaCallBackRef);
