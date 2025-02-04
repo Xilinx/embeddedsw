@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   08/20/24 Initial release
  *       ss   09/26/24 Fixed doxygen comments
+ *       ss   02/04/25 Added client API's for RSA padding scheme
  *
  * </pre>
  *
@@ -45,25 +46,18 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClientParamPtr);
-s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClientParamPtr);
-s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaClientParams *RsaClientParamPtr);
+s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr);
+s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr);
+s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr);
 s32 XAsu_RsaKat(XAsu_ClientParams *ClientParamPtr);
-s32 XAsu_RsaOaepEncDecSha2(XAsu_ClientParams *ClientParamPtr,
-                                XAsu_RsaClientOaepPaddingParams *RsaClientParamPtr);
-s32 XAsu_RsaOaepEncDecSha3(XAsu_ClientParams *ClientParamPtr,
-                                XAsu_RsaClientOaepPaddingParams *RsaClientParamPtr);
-s32 XAsu_RsaPkcsEncDec(XAsu_ClientParams *ClientParamPtr,
-                                XAsu_RsaClientPaddingParams *RsaClientParamPtr);
-s32 XAsu_RsaPssSignGenVerSha2(XAsu_ClientParams *ClientParamPtr,
-                                XAsu_RsaClientPaddingParams *RsaClientParamPtr);
-s32 XAsu_RsaPssSignGenVerSha3(XAsu_ClientParams *ClientParamPtr,
-                                XAsu_RsaClientPaddingParams *RsaClientParamPtr);
-s32 XAsu_RsaPkcsSignGenVerSha2(XAsu_ClientParams *ClientParamPtr,
-                                XAsu_RsaClientPaddingParams *RsaClientParamPtr);
-s32 XAsu_RsaPkcsSignGenVerSha3(XAsu_ClientParams *ClientParamPtr,
-                                XAsu_RsaClientPaddingParams *RsaClientParamPtr);
-
+s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
+                                XAsu_RsaOaepPaddingParams *RsaClientParamPtr);
+s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
+                                XAsu_RsaOaepPaddingParams *RsaClientParamPtr);
+s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr,
+                                XAsu_RsaPaddingParams *RsaClientParamPtr);
+s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr,
+                                XAsu_RsaPaddingParams *RsaClientParamPtr);
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus
 }
