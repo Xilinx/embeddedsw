@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -36,8 +36,6 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "xasufw_dma.h"
-#include "xsha.h"
-#include "xtrng.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XRSA_TOTAL_PARAMS		(9U)		/**< RSA total no of parameters */

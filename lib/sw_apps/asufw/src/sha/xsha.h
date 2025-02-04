@@ -35,6 +35,7 @@
  *       yog  01/02/25 Added XSha_GetShaBlockLen() and XSha_Reset() API's and block length macros
  *                     of all sha modes.
  *       ma   01/15/25 Minor updates to XSha_GetHashLen API
+ *       ss   02/04/25 Added XSha_Digest() API
  *
  * </pre>
  *
@@ -77,6 +78,8 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 s32 XSha_Finish(XSha *InstancePtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOutput);
 s32 XSha_GetHashLen(u8 ShaMode, u32 *HashLen);
 s32 XSha_GetShaBlockLen(const XSha *InstancePtr, u8 ShaMode, u8* BlockLen);
+s32 XSha_Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr,
+			   XAsu_ShaOperationCmd *ShaParamsPtr);
 void XSha_Reset(XSha *InstancePtr);
 
 /************************************ Variable Definitions ***************************************/
