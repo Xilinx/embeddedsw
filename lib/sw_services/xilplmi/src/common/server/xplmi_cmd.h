@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,7 @@
 * 1.8   skg  10/04/2022 Added masks for SLR ID and Zeriozing the SLR ID
 * 1.9   bm   07/11/2023 Added XPlmi_ClearEndStack member to XPlmi_Cmd structure
 *       pre  09/18/2024 Added XPLMI_SLR_INDEX_SHIFT, SLR index macros
+*       obs  02/04/2025 Updated XPLMI_CMD_RESP_SIZE macro value
 *
 * </pre>
 *
@@ -71,7 +72,7 @@ extern "C" {
 #define XPLMI_CMD_API_ID_MASK			(0xFFU)
 #define XPLMI_CMD_MODULE_ID_MASK		(0xFF00U)
 #define XPLMI_CMD_LEN_MASK			(0xFF0000U)
-#define XPLMI_CMD_RESP_SIZE			(8U)
+#define XPLMI_CMD_RESP_SIZE			(7U)
 #define XPLMI_CMD_RESUME_DATALEN		(8U)
 #define XPLMI_CMD_MODULE_ID_SHIFT		(8U)
 #define XPLMI_CMD_SLR_ID_MASK           (0X000000C0U)              /* Mask for extracting SlrIndex */
