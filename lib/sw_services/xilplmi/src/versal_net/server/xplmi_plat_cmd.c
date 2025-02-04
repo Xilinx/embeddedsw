@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
 *       ng   02/14/2024 removed int typecast for errors
 *       jb   03/19/2024 Updated XPLMI_MAX_ADDR_BUFFERS count from 1 to 3
 *       am   04/04/2024 Fixed doxygen warnings
+*       obs  02/04/2025 Updated XPLMI_BUFFER_PAYLOAD_ARG_CNT macro value
 *
 * </pre>
 *
@@ -62,7 +63,7 @@
 #define XPLMI_BUFFER_PSM_SEND_API_ID_IDX		(0U) /**< API Id index */
 #define XPLMI_BUFFER_PSM_SEND_START_ADDR_IDX	(1U) /**< Start address index */
 #define XPLMI_BUFFER_PSM_SEND_END_ADDR_IDX	(2U) /**< End address index */
-#define XPLMI_BUFFER_PAYLOAD_ARG_CNT		(8U) /**< Payload argument count */
+#define XPLMI_BUFFER_PAYLOAD_ARG_CNT		(7U) /**< Payload argument count */
 
 /* IPI Max Timeout calculated based on 460MHz core freq*/
 #define IPI_MAX_TIMEOUT			(0x2DB267AAU) /**< IPI Max timeout ~5sec*/
