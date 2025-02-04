@@ -1,4 +1,4 @@
-# Copyright (C) 2023-2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 set( CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY" )
 set( CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -17,11 +17,11 @@ set( CMAKE_HW_FLAGS "" )
 set( CMAKE_BSP_HW_LINK_FLAGS "" )
 set( CMAKE_COMPILER_LIB_PATH "" )
 set( CMAKE_SPECS_FILE "$ENV{ESW_REPO}/scripts/specs/microblaze/Xilinx.spec" CACHE STRING "Specs file path for using CMAKE toolchain files" )
-set( TOOLCHAIN_C_FLAGS " -O2 ${CMAKE_HW_FLAGS} -DSDT" CACHE STRING "CFLAGS" )
-set( TOOLCHAIN_CXX_FLAGS " -O2 ${CMAKE_HW_FLAGS} -DSDT" CACHE STRING "CXXFLAGS" )
-set( TOOLCHAIN_ASM_FLAGS " -O2 ${CMAKE_HW_FLAGS} -DSDT" CACHE STRING "ASM FLAGS" )
+set( TOOLCHAIN_C_FLAGS "  ${CMAKE_HW_FLAGS} -DSDT" CACHE STRING "CFLAGS" )
+set( TOOLCHAIN_CXX_FLAGS "  ${CMAKE_HW_FLAGS} -DSDT" CACHE STRING "CXXFLAGS" )
+set( TOOLCHAIN_ASM_FLAGS "  ${CMAKE_HW_FLAGS} -DSDT" CACHE STRING "ASM FLAGS" )
 set( TOOLCHAIN_DEP_FLAGS " -MMD -MP" CACHE STRING "Flags used by compiler to generate dependency files")
-set( TOOLCHAIN_EXTRA_C_FLAGS " -g -ffunction-sections -fdata-sections -Wall -Wextra -fno-tree-loop-distribute-patterns" CACHE STRING "Extra CFLAGS")
+set( TOOLCHAIN_EXTRA_C_FLAGS " -O2 -g -ffunction-sections -fdata-sections -Wall -Wextra -fno-tree-loop-distribute-patterns" CACHE STRING "Extra CFLAGS")
 set( APPLICATION_SPECIFIC_FLAGS ""  CACHE STRING "Extra Application specific Flags")
 set( CMAKE_C_LINK_FLAGS " -Wl,--no-relax -Wl,--gc-sections ${CMAKE_BSP_HW_LINK_FLAGS}" CACHE STRING "LDFLAGS")
 set( CMAKE_CXX_LINK_FLAGS " -Wl,--no-relax -Wl,--gc-sections ${CMAKE_BSP_HW_LINK_FLAGS}" CACHE STRING "LDFLAGS")
