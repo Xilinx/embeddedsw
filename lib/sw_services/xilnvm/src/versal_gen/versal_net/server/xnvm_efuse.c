@@ -80,7 +80,9 @@ static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col,
 		u32 SkipVerify);
 static int XNvm_EfuseCloseController(void);
 static int XNvm_EfusePrgmFipsInfo(u32 FipsMode, u32 FipsVersion);
+#ifndef VERSAL_AIEPG2
 static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *EfuseKey);
+#endif
 static int XNvm_EfuseWritePufSynData(const u32 *SynData);
 static int XNvm_EfuseWritePufChash(u32 Chash);
 static int XNvm_EfuseWritePufAux(u32 Aux);
@@ -1413,6 +1415,7 @@ END:
 int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeKey *EfuseKey)
 {
 	volatile int Status = XST_FAILURE;
+#ifndef VERSAL_AIEPG2
 	int CloseStatus = XST_FAILURE;
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
@@ -1478,7 +1481,12 @@ END:
 	if (XST_SUCCESS == Status) {
 		Status |= CloseStatus;
 	}
-
+#else
+	(void)EnvDisFlag;
+	(void)KeyType;
+	(void)EfuseKey;
+	Status = XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED;
+#endif
 	return Status;
 }
 
@@ -1503,6 +1511,7 @@ END:
 int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 {
 	volatile int Status = XST_FAILURE;
+#ifndef VERSAL_AIEPG2
 	int CloseStatus = XST_FAILURE;
 	u32 Row = 0U;
 	u32 Col_0_Num = 0U;
@@ -1607,7 +1616,11 @@ END:
 	if (XST_SUCCESS == Status) {
 		Status |= CloseStatus;
 	}
-
+#else
+	(void)EnvDisFlag;
+	(void)RevokeNum;
+	Status = XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED;
+#endif
 	return Status;
 }
 
@@ -1772,6 +1785,7 @@ END:
 int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode)
 {
 	volatile int Status = XST_FAILURE;
+#ifndef VERSAL_AIEPG2
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
@@ -1821,7 +1835,11 @@ END:
 	if (XST_SUCCESS == Status) {
 		Status |= CloseStatus;
 	}
-
+#else
+	(void)EnvDisFlag;
+	(void)DmeMode;
+	Status = XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED;
+#endif
 	return Status;
 }
 
@@ -2419,6 +2437,7 @@ static int XNvm_EfuseWriteRoSwapEn(u32 RoSwap)
 	return Status;
 }
 
+#ifndef VERSAL_AIEPG2
 /******************************************************************************/
 /**
  * @brief	This function programs DME userkey eFuses.
@@ -2506,7 +2525,7 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 END:
 	return Status;
 }
-
+#endif
 /******************************************************************************/
 /**
  * @brief	This function reloads the cache of eFUSE so that can be directly
