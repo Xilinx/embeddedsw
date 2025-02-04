@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
@@ -12,7 +12,16 @@ list(APPEND defs "#ifndef XINTC_DRV_CONFIG_H_\n")
 list(APPEND defs "#define XINTC_DRV_CONFIG_H_\n\n")
 if ((EXISTS "${INTC_DIR}/INTCConfig.cmake") AND
     DRIVER_INSTANCES)
-    list(GET DRIVER_PROP_0_LIST  5 max_intr)
+	set(max_intr 0)
+
+	foreach(ELEMENT ${TOTAL_DRIVER_PROP_LIST})
+		foreach(ENTRY ${ELEMENT})
+			list(GET ${ENTRY} 5 max_intr_temp)
+		if(max_intr_temp GREATER max_intr)
+				set(max_intr ${max_intr_temp})
+			endif()
+		endforeach()
+	endforeach()
     list(LENGTH DRIVER_INSTANCES drv_instances)
     list(APPEND defs "#define XPAR_INTC_MAX_NUM_INTR_INPUTS ${max_intr}\n")
     list(APPEND defs "#define XPAR_INTC_NUM_DRV_INSTANCES ${drv_instances}\n")
