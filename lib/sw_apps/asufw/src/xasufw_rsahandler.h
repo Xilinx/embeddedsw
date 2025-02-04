@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -25,8 +25,8 @@
 * @{
 */
 
-#ifndef XASU_RSAHANDLER_H_
-#define XASU_RSAHANDLER_H_
+#ifndef XASUFW_RSAHANDLER_H_
+#define XASUFW_RSAHANDLER_H_
 
 #ifdef __cplusplus
 extern "C" {
