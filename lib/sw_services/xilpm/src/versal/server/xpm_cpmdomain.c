@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -187,6 +187,10 @@ static XStatus Cpm6InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_Device* Device = NULL;
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumofArgs);
 
+	/* Function does not use any arguments */
+	(void)PwrDomain;
+	(void)Args;
+	(void)NumofArgs;
 
 	/* TODO: Ensure vccint_cpm6 supply rail is withing correct operating range */
 
