@@ -174,6 +174,9 @@ typedef enum {
 	XNVM_EFUSE_ERROR_DME_MODE_SET = 0xFA00,/**<0xFA00 - Error
 						* occured when DME Mode is set and
 						* trying to read User fuses */
+	XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED = 0xFB00,	/**<0xFB00 - Error
+							 * occured when DME is not supported
+							 * for that specific platform */
 } XNvm_EfuseVersalNetErrorCodes;
 
 #ifdef __cplusplus
