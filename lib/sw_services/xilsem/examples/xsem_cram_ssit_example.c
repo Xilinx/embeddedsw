@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* (c) Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* (c) Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -26,6 +26,9 @@
  * 0.6  anv      07/24/2024  Fixed incorrect prints for last seven CE location
  *                           details & Added Macro protection to invoke
  *                           CORR/CRC/UNCORR Err injection functions.
+ * 0.7  anv      01/27/2025  Updated XSem_Ssit_ApiCfrGetStatusSlr according to
+ *                           modified XSemStatus structure element
+ *                           ErrAddrLowHigh
  * </pre>
  *
  *****************************************************************************/
@@ -277,8 +280,10 @@ static XStatus XSem_Ssit_ApiCfrGetStatusSlr(u32 TargetSlr, \
 		xil_printf("CRAM Scan Status:%x\n",CfrStatusInfo->Status);
 		xil_printf("\n");
 		for(Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
-			CfrStatusInfo->ErrAddrH[Index] = StatusInfo.ErrAddrH[Index];
-			CfrStatusInfo->ErrAddrL[Index] = StatusInfo.ErrAddrL[Index];
+			CfrStatusInfo->ErrAddrH[Index] = \
+				StatusInfo.ErrAddrLowHigh[(Index*2)+1];
+			CfrStatusInfo->ErrAddrL[Index] =  \
+				StatusInfo.ErrAddrLowHigh[Index*2];
 			xil_printf("Last Corrected Location_%x Low Addr : 0x%08x\n", \
 						Index,CfrStatusInfo->ErrAddrL[Index]);
 			xil_printf("Last Corrected Location_%x High Addr: 0x%08x\n", \

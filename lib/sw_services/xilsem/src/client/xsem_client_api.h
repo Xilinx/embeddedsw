@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -50,6 +50,8 @@
 * 2.5   rama 08/03/2023   Added support for system device-tree flow
 * 2.6   anv  02/18/2024   Added client interface to read total frames for a
 *                         given row in SSIT devices
+* 2.7   anv  01/27/2025   Modified ErrAddrL & ErrAddrH in XSemSatatus structure
+*                         to be in sync with Xilsem server update.
 * </pre>
 *
 * @note
@@ -99,6 +101,8 @@ extern "C" {
 
 /** Maximum CRAM error register count */
 #define MAX_CRAMERR_REGISTER_CNT	(7U)
+/** Maximum CRAM error High and Low register count */
+#define MAX_ADDRLOC (MAX_CRAMERR_REGISTER_CNT * 2U)
 /** Maximum NPI slave skip count */
 #define MAX_NPI_SLV_SKIP_CNT		(8U)
 /** Maximum NPI Error info count */
@@ -524,8 +528,8 @@ typedef struct {
 	descriptor where SHA failure is observed (This value is zero if arbitration
 	is not applicable for the descriptor) */
 	u32 CramStatus; /**< CRAM Status */
-	u32 ErrAddrL[MAX_CRAMERR_REGISTER_CNT]; /**< Error Low register L0...L6 */
-	u32 ErrAddrH[MAX_CRAMERR_REGISTER_CNT]; /**< Error High register H0...H6 */
+	u32 ErrAddrLowHigh[MAX_ADDRLOC]; /**< Error Low & High register L0,H0,
+	L1,H1...L6,H6 */
 	u32 ErrCorCnt; /**< Count of correctable errors */
 } XSemStatus;
 
