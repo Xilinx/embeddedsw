@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,26 +22,26 @@ SECTIONS
    __text.init_start = .;
    *(.text.init)
    __text.init_end = .;
-} > @DDR@
+} > @DATA@
 
 .text : {
    . = ALIGN(2048);
    *(.text)
    *(.text.*)
    *(.gnu.linkonce.t.*)
-} > @DDR@
+} > @CODE@
 
 .note.gnu.build-id : {
    KEEP (*(.note.gnu.build-id))
-} > @DDR@
+} > @CODE@
 
 .init : {
    KEEP (*(.init))
-} > @DDR@
+} > @DATA@
 
 .fini : {
    KEEP (*(.fini))
-} > @DDR@
+} > @DATA@
 
 .ctors : {
    __CTOR_LIST__ = .;
@@ -52,7 +52,7 @@ SECTIONS
    KEEP (*(.ctors))
    __CTOR_END__ = .;
    ___CTORS_END___ = .;
-} > @DDR@
+} > @DATA@
 
 .dtors : {
    __DTOR_LIST__ = .;
@@ -63,7 +63,7 @@ SECTIONS
    KEEP (*(.dtors))
    __DTOR_END__ = .;
    ___DTORS_END___ = .;
-} > @DDR@
+} > @DATA@
 
 .rodata : {
    __rodata_start = .;
@@ -71,13 +71,13 @@ SECTIONS
    *(.rodata.*)
    *(.gnu.linkonce.r.*)
    __rodata_end = .;
-} > @DDR@
+} > @DATA@
 
 .srodata : {
    __srodata_start = .;
    *(.srodata)
    __srodata_end = .;
-} > @DDR@
+} > @DATA@
 
 .sdata2 : {
    __sdata2_start = .;
@@ -85,7 +85,7 @@ SECTIONS
    *(.sdata2.*)
    *(.gnu.linkonce.s2.*)
    __sdata2_end = .;
-} > @DDR@
+} > @DATA@
 
 .data : {
    __data_start = .;
@@ -93,41 +93,45 @@ SECTIONS
    *(.data.*)
    *(.gnu.linkonce.d.*)
    _edata = .;
-} > @DDR@
+} > @DATA@
 
 .got : {
    *(.got)
-} > @DDR@
+} > @DATA@
 
 .got1 : {
    *(.got1)
-} > @DDR@
+} > @DATA@
 
 .got2 : {
    *(.got2)
-} > @DDR@
+} > @DATA@
+
+.eh_frame : {
+   *(.eh_frame)
+} > @DATA@
 
 .jcr : {
    *(.jcr)
-} > @DDR@
+} > @DATA@
 
 .gcc_except_table : {
    *(.gcc_except_table)
-} > @DDR@
+} > @DATA@
 
 .init_array : {
    __init_array_start = .;
    KEEP (*(SORT(.init_array.*)))
    KEEP (*(.init_array))
    __init_array_end = .;
-} > @DDR@
+} > @DATA@
 
 .fini_array : {
    __fini_array_start = .;
    KEEP (*(SORT(.fini_array.*)))
    KEEP (*(.fini_array))
    __fini_array_end = .;
-} > @DDR@
+} > @DATA@
 
 .sdata : {
    __sdata_start = .;
@@ -135,7 +139,7 @@ SECTIONS
    *(.sdata.*)
    *(.gnu.linkonce.s.*)
    __sdata_end = .;
-} > @DDR@
+} > @DATA@
 
 .tdata : {
    __tdata_start = .;
@@ -143,7 +147,7 @@ SECTIONS
    *(.tdata.*)
    *(.gnu.linkonce.td.*)
    __tdata_end = .;
-} > @DDR@
+} > @DATA@
 
 .tbss : {
    __tbss_start = .;
@@ -151,7 +155,7 @@ SECTIONS
    *(.tbss.*)
    *(.gnu.linkonce.tb.*)
    __tbss_end = .;
-} > @DDR@
+} > @DATA@
 
 .bss (NOLOAD) : {
    __bss_start = .;
@@ -160,7 +164,7 @@ SECTIONS
    *(.gnu.linkonce.b.*)
    *(COMMON)
    __bss_end = .;
-} > @DDR@
+} > @DATA@
 
 .sbss (NOLOAD) : {
    __sbss_start = .;
@@ -168,7 +172,7 @@ SECTIONS
    *(.sbss.*)
    *(.gnu.linkonce.sb.*)
    __sbss_end = .;
-} > @DDR@
+} > @DATA@
 
 .sbss2 : {
    __sbss2_start = .;
@@ -176,7 +180,7 @@ SECTIONS
    *(.sbss2.*)
    *(.gnu.linkonce.sb2.*)
    __sbss2_end = .;
-} > @DDR@
+} > @DATA@
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
@@ -190,7 +194,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    _heap_start = .;
    . += _HEAP_SIZE;
    _heap_end = .;
-} > @DDR@
+} > @DATA@
 
 .stack (NOLOAD) : {
    _stack_end = .;
@@ -198,7 +202,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . = ALIGN(8);
    _stack = .;
    __stack = _stack;
-} > @DDR@
+} > @DATA@
 
 __global_pointer$ = MIN(__sdata_start + 0x800, MAX(__data_start + 0x800, __bss_end - 0x800));
 _end = .;

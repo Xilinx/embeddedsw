@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,23 +43,28 @@ SECTIONS
    *(.vfp11_veneer)
    *(.ARM.extab)
    *(.gnu.linkonce.armextab.*)
-} > @DDR@
+} > @CODE@
+
+.note.gnu.build-id : {
+   KEEP (*(.note.gnu.build-id))
+} > @CODE@
+
 
 .init : {
    KEEP (*(.init))
-} > @DDR@
+} > @CODE@
 
 .fini : {
    KEEP (*(.fini))
-} > @DDR@
+} > @CODE@
 
 .interp : {
    KEEP (*(.interp))
-} > @DDR@
+} > @CODE@
 
 .note-ABI-tag : {
    KEEP (*(.note-ABI-tag))
-} > @DDR@
+} > @CODE@
 
 .rodata : {
    __rodata_start = .;
@@ -67,14 +72,14 @@ SECTIONS
    *(.rodata.*)
    *(.gnu.linkonce.r.*)
    __rodata_end = .;
-} > @DDR@
+} > @DATA@
 
 .rodata1 : {
    __rodata1_start = .;
    *(.rodata1)
    *(.rodata1.*)
    __rodata1_end = .;
-} > @DDR@
+} > @DATA@
 
 .sdata2 : {
    __sdata2_start = .;
@@ -82,7 +87,7 @@ SECTIONS
    *(.sdata2.*)
    *(.gnu.linkonce.s2.*)
    __sdata2_end = .;
-} > @DDR@
+} > @DATA@
 
 .sbss2 : {
    __sbss2_start = .;
@@ -90,7 +95,7 @@ SECTIONS
    *(.sbss2.*)
    *(.gnu.linkonce.sb2.*)
    __sbss2_end = .;
-} > @DDR@
+} > @DATA@
 
 .data : {
    __data_start = .;
@@ -101,18 +106,18 @@ SECTIONS
    *(.got)
    *(.got.plt)
    __data_end = .;
-} > @DDR@
+} > @DATA@
 
 .data1 : {
    __data1_start = .;
    *(.data1)
    *(.data1.*)
    __data1_end = .;
-} > @DDR@
+} > @DATA@
 
 .got : {
    *(.got)
-} > @DDR@
+} > @DATA@
 
 .ctors : {
    __CTOR_LIST__ = .;
@@ -123,7 +128,7 @@ SECTIONS
    KEEP (*(.ctors))
    __CTOR_END__ = .;
    ___CTORS_END___ = .;
-} > @DDR@
+} > @DATA@
 
 .dtors : {
    __DTOR_LIST__ = .;
@@ -134,61 +139,61 @@ SECTIONS
    KEEP (*(.dtors))
    __DTOR_END__ = .;
    ___DTORS_END___ = .;
-} > @DDR@
+} > @DATA@
 
 .fixup : {
    __fixup_start = .;
    *(.fixup)
    __fixup_end = .;
-} > @DDR@
+} > @DATA@
 
 .eh_frame : {
    *(.eh_frame)
-} > @DDR@
+} > @DATA@
 
 .eh_framehdr : {
    __eh_framehdr_start = .;
    *(.eh_framehdr)
    __eh_framehdr_end = .;
-} > @DDR@
+} > @DATA@
 
 .gcc_except_table : {
    *(.gcc_except_table)
-} > @DDR@
+} > @DATA@
 
 .mmu_tbl (ALIGN(16384)) : {
    __mmu_tbl_start = .;
    *(.mmu_tbl)
    __mmu_tbl_end = .;
-} > @DDR@
+} > @DATA@
 
 .ARM.exidx : {
    __exidx_start = .;
    *(.ARM.exidx*)
    *(.gnu.linkonce.armexidix.*.*)
    __exidx_end = .;
-} > @DDR@
+} > @DATA@
 
 .preinit_array : {
    __preinit_array_start = .;
    KEEP (*(SORT(.preinit_array.*)))
    KEEP (*(.preinit_array))
    __preinit_array_end = .;
-} > @DDR@
+} > @DATA@
 
 .init_array : {
    __init_array_start = .;
    KEEP (*(SORT(.init_array.*)))
    KEEP (*(.init_array))
    __init_array_end = .;
-} > @DDR@
+} > @DATA@
 
 .fini_array : {
    __fini_array_start = .;
    KEEP (*(SORT(.fini_array.*)))
    KEEP (*(.fini_array))
    __fini_array_end = .;
-} > @DDR@
+} > @DATA@
 
 .drvcfg_sec : {
     . = ALIGN(8);
@@ -196,13 +201,13 @@ SECTIONS
     KEEP (*(.drvcfg_sec))
     __drvcfgsecdata_end = .;
     __drvcfgsecdata_size = __drvcfgsecdata_end - __drvcfgsecdata_start;
-} > @DDR@
+} > @DATA@
 
 .ARM.attributes : {
    __ARM.attributes_start = .;
    *(.ARM.attributes)
    __ARM.attributes_end = .;
-} > @DDR@
+} > @DATA@
 
 .sdata : {
    __sdata_start = .;
@@ -210,7 +215,7 @@ SECTIONS
    *(.sdata.*)
    *(.gnu.linkonce.s.*)
    __sdata_end = .;
-} > @DDR@
+} > @DATA@
 
 .sbss (NOLOAD) : {
    __sbss_start = .;
@@ -218,7 +223,7 @@ SECTIONS
    *(.sbss.*)
    *(.gnu.linkonce.sb.*)
    __sbss_end = .;
-} > @DDR@
+} > @DATA@
 
 .tdata : {
    __tdata_start = .;
@@ -226,7 +231,7 @@ SECTIONS
    *(.tdata.*)
    *(.gnu.linkonce.td.*)
    __tdata_end = .;
-} > @DDR@
+} > @DATA@
 
 .tbss : {
    __tbss_start = .;
@@ -234,7 +239,7 @@ SECTIONS
    *(.tbss.*)
    *(.gnu.linkonce.tb.*)
    __tbss_end = .;
-} > @DDR@
+} > @DATA@
 
 .bss (NOLOAD) : {
    . = ALIGN(4);
@@ -245,7 +250,7 @@ SECTIONS
    *(COMMON)
    . = ALIGN(4);
    __bss_end__ = .;
-} > @DDR@
+} > @DATA@
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
@@ -261,7 +266,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _HEAP_SIZE;
    _heap_end = .;
    HeapLimit = .;
-} > @DDR@
+} > @DATA@
 
 .stack (NOLOAD) : {
    . = ALIGN(16);
@@ -289,7 +294,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _UNDEF_STACK_SIZE;
    . = ALIGN(16);
    __undef_stack = .;
-} > @DDR@
+} > @DATA@
 
 end = .;
 }
