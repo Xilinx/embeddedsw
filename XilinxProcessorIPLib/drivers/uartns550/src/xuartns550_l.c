@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,8 @@
 *                     Changed the prototypes of XUartNs550_SendByte,
 *                     XUartNs550_RecvByte, XUartNs550_SetBaud APIs.
 * 3.6   sd   03/02/20 Updated the register macros for DRL and DRM registers.
+* 3.12  adk  06/02/25 Since PLM has custom implementation of outbyte() API
+*                     don't pull it for PLM template app case.
 * </pre>
 *
 ******************************************************************************/
@@ -173,15 +175,15 @@ void XUartNs550_SetBaud(UINTPTR BaseAddress, u32 InputClockHz, u32 BaudRate)
 	 */
 	XUartNs550_SetLineControlReg(BaseAddress, LcrRegister);
 }
-#ifdef SDT
-#ifdef XPAR_STDIN_IS_UARTNS550
+#if defined(SDT) && defined(XPAR_STDIN_IS_UARTNS550)
+#if !defined(VERSAL_PLM)
 void outbyte(char c) {
          XUartNs550_SendByte(STDOUT_BASEADDRESS, c);
 }
+#endif
 
 char inbyte(void) {
          return XUartNs550_RecvByte(STDIN_BASEADDRESS);
 }
-#endif
 #endif
 /** @} */
