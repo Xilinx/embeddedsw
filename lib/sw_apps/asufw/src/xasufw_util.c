@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -23,6 +23,8 @@
  *       am   09/13/24 Fixed pointer conversion error for cpp compiler.
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       ss   10/05/24 Added XAsufw_IsBufferNonZero function.
+ * 1.1   ma   02/03/25 Updated TempVar in XAsufw_ChangeEndianness with volatile and zeroize at
+ *                     the end.
  *
  * </pre>
  *
@@ -199,7 +201,7 @@ s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length)
 {
 	s32 Status = XASUFW_FAILURE;
 	volatile u32 Index;
-	u8 TempVar;
+	volatile u8 TempVar;
 
 	if ((Buffer == NULL) || (Length == 0U) || ((Length % 2U) != 0U)) {
 		Status = XASUFW_INVALID_PARAM;
@@ -213,6 +215,8 @@ s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length)
 			Status = XASUFW_SUCCESS;
 		}
 	}
+
+	TempVar = 0U;
 
 	return Status;
 }
