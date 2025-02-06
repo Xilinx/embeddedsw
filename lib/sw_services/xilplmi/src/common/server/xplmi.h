@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,7 +66,7 @@
 * 1.12  sk   06/05/2024 Added defines for PLM Version in RTCA register
 * 24.2  prt  09/18/2024 Updated the SDK_RELEASE_QUARTER as 2 and XPLMI_PLM_MINOR_VERSION as 2
 *       obs  09/30/2024 Fixed Doxygen Warnings
-*
+* 25.1  prt  02/06/2025 Updated the SDK RELEASE YEAR and QUARTER
 * </pre>
 *
 * @note
@@ -85,11 +85,11 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* SDK release version */
-#define SDK_RELEASE_YEAR	"2024" /**< Specifies the SDK release year */
-#define SDK_RELEASE_QUARTER	"2"    /**< Specifies the SDK release quarter */
+#define SDK_RELEASE_YEAR	"2025" /**< Specifies the SDK release year */
+#define SDK_RELEASE_QUARTER	"1"    /**< Specifies the SDK release quarter */
 
-#define XPLMI_PLM_MAJOR_VERSION		24U /**< PLM Major Version */
-#define XPLMI_PLM_MINOR_VERSION		2U  /**< PLM Minor Version */
+#define XPLMI_PLM_MAJOR_VERSION		25U /**< PLM Major Version */
+#define XPLMI_PLM_MINOR_VERSION		1U  /**< PLM Minor Version */
 #define XPLMI_PLM_RC_VERSION		XPLMI_PLM_PLAT_RC_VERSION  /**< PLM RC Version */
 
 #define XPLMI_PLM_MAJOR_VERSION_SHIFT	24U  /**< PLM Major Version Shift */
