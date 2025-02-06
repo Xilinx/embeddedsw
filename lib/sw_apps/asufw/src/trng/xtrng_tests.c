@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -18,6 +18,7 @@
  * 1.0   ma   05/20/24 Initial release
  *       ma   07/26/24 Added platform check to skip DRBG KAT on QEMU
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ * 1.1   ma   02/04/25 Fixed typo in macros
  *
  * </pre>
  *
@@ -33,7 +34,7 @@
 #include "xasufw_hw.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XTRNG_KAT_DEFAULT_DF_lENGTH 7U /**<Default Derivative function length of TRNG KAT*/
+#define XTRNG_KAT_DEFAULT_DF_LENGTH 7U /**<Default Derivative function length of TRNG KAT*/
 #define XTRNG_KAT_DEFAULT_SEED_LIFE 2U /**<Default seed life of TRNG KAT*/
 #define XTRNG_KAT_SEED_LEN_IN_BYTES 128U /**<Seed length in bytes of TRNG KAT*/
 
@@ -124,7 +125,7 @@ s32 XTrng_DrbgKat(XTrng *InstancePtr)
 		goto END;
 	}
 
-	UsrCfg.DFLength = XTRNG_KAT_DEFAULT_DF_lENGTH;
+	UsrCfg.DFLength = XTRNG_KAT_DEFAULT_DF_LENGTH;
 	UsrCfg.Mode = XTRNG_DRBG_MODE;
 	UsrCfg.SeedLife = XTRNG_KAT_DEFAULT_SEED_LIFE;
 	UsrCfg.IsBlocking = XASU_TRUE;
