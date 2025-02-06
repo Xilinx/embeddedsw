@@ -18,7 +18,6 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vns  08/27/24 Initial release
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
- * 1.1   ma   02/03/25 Pass UniqueId as part of header in XAsu_TrngGetRandomNum API.
  *
  * </pre>
  *
@@ -80,7 +79,7 @@ s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Len
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
-	Header = XAsu_CreateHeader(XASU_TRNG_GET_RANDOM_BYTES_CMD_ID, UniqueId,
+	Header = XAsu_CreateHeader(XASU_TRNG_GET_RANDOM_BYTES_CMD_ID, 0U,
 				   XASU_MODULE_TRNG_ID, 0U);
 
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
