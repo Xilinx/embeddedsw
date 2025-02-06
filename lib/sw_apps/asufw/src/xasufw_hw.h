@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -18,6 +18,7 @@
  * 1.0   ma   07/26/24 Initial release
  *       ma   07/30/24 Added defines required from ASU_GLOBAL register space
  * 1.1   ma   12/12/24 Added defines related to ASU IO MODULE
+ *       ma   02/06/25 Removed unused defines
  *
  * </pre>
  *
@@ -47,11 +48,8 @@ extern "C" {
 #define PMC_TAP_VERSION_PLATFORM_SHIFT				(24U)
 
 /** PMC_TAP Version register platform values */
-#define PMC_TAP_VERSION_PLATFORM_SILICON			(0x0U) /**< Silicon platform */
 #define PMC_TAP_VERSION_PLATFORM_PROTIUM			(0x1U) /**< Protium platform */
-#define PMC_TAP_VERSION_PLATFORM_PALLADIUM			(0x2U) /**< Palladium platform */
 #define PMC_TAP_VERSION_PLATFORM_QEMU				(0x3U) /**< QEMU platform */
-#define PMC_TAP_VERSION_PLATFORM_FCV				(0x4U) /**< FCV platform */
 
 /*
  * Definitions required from asu_global.h
