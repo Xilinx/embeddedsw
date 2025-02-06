@@ -23,7 +23,6 @@
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.3   ma   12/12/24 Added support for DMA non-blocking wait
- *       ma   02/03/25 Update comment for TaskTimeNow to reflect proper units for time.
  *
  * </pre>
  *
@@ -51,7 +50,7 @@
 static XTask_TaskNode TaskList[XTASK_MAX];
 static XLinkList TaskQueue[XTASK_PRIORITIES];
 static u32 NextDispatchTime;
-/** Current time in ms */
+/** Current time in us */
 u32 TaskTimeNow = 0U;
 
 /*************************************************************************************************/
