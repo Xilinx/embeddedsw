@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -150,6 +150,8 @@
 * 3.5   ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                     definitions of uartns550 in xparameters.h
 * 3.9   gm   07/09/23 Added SDT support
+* 3.12  adk  06/02/25 Since PLM has custom implementation of outbyte() API
+*                     don't pull it for PLM template app case.
 * </pre>
 *
 *****************************************************************************/
