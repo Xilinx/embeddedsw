@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,7 @@
 *       ng   01/28/2024 optimized u8 variables
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *       bm   07/15/2024 Fixed Memset logic by using source buffer in PPU RAM
+*       obs  01/27/2025 Changed DMA WaitForDone calls to use APIs which support timeout
 *
 * </pre>
 *
@@ -465,7 +466,7 @@ int XPlmi_WaitForNonBlkDma(u32 DmaFlags)
 	/**
 	 * - Wait until the DMA destination channel transfer completes.
 	 */
-	Status = XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+	Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_NON_BLOCK_DMA_WAIT_DEST,
 				Status);
@@ -474,7 +475,7 @@ int XPlmi_WaitForNonBlkDma(u32 DmaFlags)
 	/**
 	 * - Wait until the DMA source channel transfer completes.
 	 */
-	Status = XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_NON_BLOCK_DMA_WAIT_SRC,
 				Status);
@@ -533,7 +534,7 @@ int XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags)
 	/**
 	 * - Wait until the DMA source channel transfer completes.
 	 */
-	Status = XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
+	Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_NON_BLOCK_SRC_DMA_WAIT,
 				Status);
@@ -584,7 +585,7 @@ int XPlmi_WaitForNonBlkDestDma(u32 DmaFlags)
 	/**
 	 * - Wait until the DMA destination channel transfer completes.
 	 */
-	Status = XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_DST_CHANNEL);
+	Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_NON_BLOCK_DEST_DMA_WAIT,
 				Status);
