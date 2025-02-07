@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -41,7 +41,7 @@ extern "C" {
 #include "xil_types.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASU_MAX_BUFFERS					(8U) /**< Maximum request and response buffers */
+#define XASU_MAX_BUFFERS				(8U) /**< Maximum request and response buffers */
 #define XASU_CHANNEL_RESERVED_MEM			(1460U) /**< Reserved memory in channel */
 
 #define XASU_COMMAND_IS_PRESENT				(0x1U) /**< Command is written by client */
@@ -53,6 +53,8 @@ extern "C" {
 #define XASU_RESPONSE_IS_PRESENT			(0x1U) /**< Response is written by ASUFW */
 
 #define XASU_RESPONSE_STATUS_INDEX			(0U) /**< Response status index in response buffer */
+#define XASU_RESPONSE_BUFF_ADDR_INDEX			(1U) /**< Response buffer address index
+								* in response buffer */
 
 #define XASU_COMMAND_ID_MASK				(0x0000003FU) /**< Mask for command ID in header */
 #define XASU_UNIQUE_REQ_ID_MASK				(0x00000FC0U) /**< Mask for command unique reqest ID */

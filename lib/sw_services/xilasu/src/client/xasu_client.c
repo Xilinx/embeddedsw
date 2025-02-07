@@ -24,6 +24,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       vns  09/30/24 Added support for asynchronous communication
  *       ma   01/08/25 Clear only ReqBufStatus and RespBufStatus upon command completion
+ *       vns  02/06/25 Fixed magic numbers
  *
  * </pre>
  *
@@ -388,32 +389,34 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 	XAsu_ChannelQueue *ChannelQueue = NULL;
 	u8 UniqueId;
 	u8 Priority = XASU_PRIORITY_HIGH;
+	XAsu_ChannelQueueBuf *ChannelQueueBufPtr = NULL;
 
 	(void)CallBackRef;
 
 	ChannelQueue = &ClientInstancePtr->ChannelMemoryPtr->P0ChannelQueue;
 	do {
 		for (BufferIdx = 0U; BufferIdx < XASU_MAX_BUFFERS; ++BufferIdx) {
-			if (ChannelQueue->ChannelQueueBufs[BufferIdx].RespBufStatus == XASU_RESPONSE_IS_PRESENT) {
+			ChannelQueueBufPtr = &ChannelQueue->ChannelQueueBufs[BufferIdx];
+			if (ChannelQueueBufPtr->RespBufStatus == XASU_RESPONSE_IS_PRESENT) {
 				/** Get UniqueID */
-				UniqueId = XAsu_GetUniqueId(ChannelQueue->ChannelQueueBufs[BufferIdx].RespBuf.Header);
+				UniqueId = XAsu_GetUniqueId(ChannelQueueBufPtr->RespBuf.Header);
 				/** Copy the response buffer data if any */
 				if (AsuCallBackRef[UniqueId].RespBufferPtr != NULL) {
 					memcpy(AsuCallBackRef[UniqueId].RespBufferPtr,
-					       &ChannelQueue->ChannelQueueBufs[BufferIdx].RespBuf.Arg[1],
+					       &(ChannelQueueBufPtr->RespBuf.Arg[XASU_RESPONSE_BUFF_ADDR_INDEX]),
 					       AsuCallBackRef[UniqueId].Size);
 				}
 				/** Call back to notify the completion */
 				if (AsuCallBackRef[UniqueId].CallBackFuncPtr != NULL) {
 					AsuCallBackRef[UniqueId].CallBackFuncPtr(AsuCallBackRef[UniqueId].CallBackRefPtr,
-						ChannelQueue->ChannelQueueBufs[BufferIdx].RespBuf.Arg[0]);
+						ChannelQueueBufPtr->RespBuf.Arg[XASU_RESPONSE_STATUS_INDEX]);
 					/** Clear the call back info upon completion */
 					if (AsuCallBackRef[UniqueId].Clear == XASU_TRUE) {
 						AsuCallBackRef[UniqueId].CallBackFuncPtr = NULL;
 						AsuCallBackRef[UniqueId].CallBackRefPtr = NULL;
 					}
-					ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus = 0x0U;
-					ChannelQueue->ChannelQueueBufs[BufferIdx].RespBufStatus = 0x0U;
+					ChannelQueueBufPtr->ReqBufStatus = 0x0U;
+					ChannelQueueBufPtr->RespBufStatus = 0x0U;
 				}
 			}
 		}
