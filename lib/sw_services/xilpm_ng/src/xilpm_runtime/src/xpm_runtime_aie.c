@@ -314,6 +314,9 @@ static XStatus Aie2ps_ShimRst(const XPm_Device *AieDev, const u32 StartCol, cons
 	(void)EndCol;
 	(void)Buf;
 
+	/* Unlock PCSR */
+	XPm_UnlockPcsr(NodeAddress);
+
 	/* Enable privileged write access */
 	XPm_RMW32(NodeAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 1U);
@@ -341,6 +344,9 @@ static XStatus Aie2ps_ShimRst(const XPm_Device *AieDev, const u32 StartCol, cons
 	}
 
 done:
+	/* Lock Pcsr */
+	XPm_LockPcsr(NodeAddress);
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
