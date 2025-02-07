@@ -646,21 +646,23 @@ static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 TargetSubsystemId)
 {
 	// //XPM_EXPORT_CMD(PM_ACTIVATE_SUBSYSTEM, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
-	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(TargetSubsystemId);
-	/* Return error if request is not from PMC subsystem */
-	if (PM_SUBSYS_PMC != SubsystemId || NULL == Subsystem) {
-		Status = XPM_PM_NO_ACCESS;
+	XPm_Subsystem *Subsystem = NULL;
+
+	/* Return success if the target subsystem is PMC or ASU */
+	if (PM_SUBSYS_PMC == TargetSubsystemId || PM_SUBSYS_ASU == TargetSubsystemId) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	/* Activate the subsystem by requesting its pre-alloc devices */
-	Status = Subsystem->Ops->Activate(Subsystem);
-	if (XST_SUCCESS != Status) {
-		goto done;
+	Subsystem = XPmSubsystem_GetById(TargetSubsystemId);
+	if (NULL != Subsystem) {
+		Status = Subsystem->Ops->Activate(Subsystem);
+	} else {
+		Status = XPM_INVALID_SUBSYSID;
 	}
 
 done:
-	PmInfo("Subsys %x Activation Done with Status = 0x%x\n\r",
+	PmInfo("Subsystem 0x%x activation status = 0x%x\n\r",
 		TargetSubsystemId, Status);
 	return Status;
 }
