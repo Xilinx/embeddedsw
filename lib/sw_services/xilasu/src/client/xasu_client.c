@@ -241,9 +241,11 @@ s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuff
 	/** Validate input parameters. */
 	if ((ClientParam == NULL) || (Header == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
+		goto END;
 	}
 	if (ClientInstancePtr->IsReady != XASU_CLIENT_READY) {
 		Status = XASU_CLIENT_NOT_INITIALIZED;
+		goto END;
 	}
 
 	/** Get free queue buffer index of selected priority */
