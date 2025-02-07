@@ -92,7 +92,7 @@ link_directories(${CMAKE_LIBRARY_PATH})
                 drv_ex_list_yaml = os.path.join(self.libsrc_folder, driver, f"{driver}_exlist.yaml")
                 if utils.is_file(drv_ex_list_yaml):
                     driver_ex = utils.load_yaml(drv_ex_list_yaml)
-                    if len(driver_ex) != 0:
+                    if len(driver_ex) != 0 and ip in driver_ex.keys():
                         domain_data["drv_info"][ip].update({"examples":driver_ex[ip]})
 
         utils.update_yaml(self.domain_config_file, "domain", "drv_info", domain_data["drv_info"])
