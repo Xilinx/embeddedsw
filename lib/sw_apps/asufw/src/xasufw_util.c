@@ -25,6 +25,7 @@
  *       ss   10/05/24 Added XAsufw_IsBufferNonZero function.
  * 1.1   ma   02/03/25 Updated TempVar in XAsufw_ChangeEndianness with volatile and zeroize at
  *                     the end.
+ *       vns  02/06/25 Removed XAsufw_ChangeEndiannessAndCpy() function which is not in use
  *
  * </pre>
  *
@@ -127,59 +128,6 @@ void XAsufw_CryptoCoreReleaseReset(u32 BaseAddress, u32 Offset)
 void XAsufw_CryptoCoreSetReset(u32 BaseAddress, u32 Offset)
 {
 	XAsufw_WriteReg((BaseAddress + Offset), XASUFW_RESET_SET);
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function changes the endianness of source data and copies it into
- * 		destination buffer.
- *
- * @param	Dest		Pointer to the destination address.
- * @param	DestSize	Size of the destination buffer in bytes.
- * @param	Src		Pointer to the source address.
- * @param	SrcSize		Size of the source buffer in bytes.
- * @param	CopyLen		Number of bytes to be copied.
- *
- * @return
- * 		- XASUFW_SUCCESS on success
- * 		- XASUFW_FAILURE on failure
- * 		- XASUFW_INVALID_PARAM Invalid inputs
- *
- *************************************************************************************************/
-/*TODO: Will remove this API when sending client patch */
-s32 XAsufw_ChangeEndiannessAndCpy(void *Dest, const u32 DestSize, const void *Src,
-				  const u32 SrcSize,
-				  const u32 CopyLen)
-{
-	s32 Status = XASUFW_FAILURE;
-	volatile u32 Index;
-	const u8 *Src8 = (const u8 *)Src;
-	const u8 *Dst8 = (const u8 *)Dest;
-	u8 *DestTemp = (u8 *)Dest;
-	const u8 *SrcTemp = (const u8 *)Src;
-
-	if ((Dest == NULL) || (Src == NULL)) {
-		Status =  XASUFW_INVALID_PARAM;
-	} else if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen) ||
-		   ((CopyLen % 2U) != 0U) ) {
-		Status =  XASUFW_INVALID_PARAM;
-	}
-	/* Return error for overlap string */
-	else if ((Src8 < Dst8) && (&Src8[CopyLen - 1U] >= Dst8)) {
-		Status =  XASUFW_INVALID_PARAM;
-	} else if ((Dst8 < Src8) && (&Dst8[CopyLen - 1U] >= Src8)) {
-		Status =  XASUFW_INVALID_PARAM;
-	} else {
-		for (Index = 0U; Index < (CopyLen / 2U); Index++) {
-			DestTemp[CopyLen - Index - 1U] = SrcTemp[Index];
-			DestTemp[Index] = SrcTemp[CopyLen - Index - 1U];
-		}
-		if (Index == (CopyLen / 2U)) {
-			Status = XASUFW_SUCCESS;
-		}
-	}
-
-	return Status;
 }
 
 /*************************************************************************************************/
