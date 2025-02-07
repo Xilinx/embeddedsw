@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 * 6.1   ng   07/13/23 Added SDT support
 * 6.2   dd   10/18/23 Updated SDK release year and SDK release quarter
 * 7.0   sd   07/23/24 Updated SDK release to 2024.2
+* 8.0   prt  02/06/25 Updated SDK release year and SDK release quarter
 *
 * </pre>
 *
@@ -106,8 +107,8 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* SDK release version */
-#define SDK_RELEASE_YEAR	2024
-#define SDK_RELEASE_QUARTER	2
+#define SDK_RELEASE_YEAR	2025
+#define SDK_RELEASE_QUARTER	1
 
 #define XFSBL_RUNNING			(0xFFFFU)
 #define XFSBL_COMPLETED			(0x0U)
