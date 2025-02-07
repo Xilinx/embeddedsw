@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -223,6 +223,7 @@
 * 21.2   ng  07/25/23   Fixed DDR address support in SDT
 * 21.3   dd  10/18/23   Updated SDK release year and SDK release quarter
 * 24.2	 prt 09/18/24	Updated SDK_RELEASE_QUARTER
+* 25.1   prt 02/06/25   Updated SDK release year and SDK release quarter
 *
 * </pre>
 *
@@ -324,8 +325,8 @@ extern "C" {
 /*
  * SDK release version
  */
-#define SDK_RELEASE_YEAR	2024
-#define SDK_RELEASE_QUARTER	2
+#define SDK_RELEASE_YEAR	2025
+#define SDK_RELEASE_QUARTER	1
 
 #define WORD_LENGTH_SHIFT	2
 
