@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,10 +36,13 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
-* 11.2 Nava 30/01/19  Replaced #error with #pragma message since the information
+* 11.2 Nava 01/30/19  Replaced #error with #pragma message since the information
 *                     related to #error is not an error info. It provides an
 *		      information about the example behaviour.
-* 11.6 Nava 22/06/23  Added support for system device-tree flow.
+* 11.6 Nava 06/22/23  Added support for system device-tree flow.
+* 11.7 Nava 02/06/25  Updated HWICAP_BASEADDR to use XPAR_HWICAP_0_BASEADDR
+*                     instead of XPAR_XHWICAP_0_BASEADDR to align with YAML
+*                     changes.
 *</pre>
 ******************************************************************************/
 
@@ -67,7 +70,7 @@
 #define INTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
 #define HWICAP_IRPT_INTR		XPAR_INTC_0_HWICAP_0_VEC_ID
 #else
-#define HWICAP_BASEADDR			XPAR_XHWICAP_0_BASEADDR
+#define HWICAP_BASEADDR			XPAR_HWICAP_0_BASEADDR
 #endif
 
 /*

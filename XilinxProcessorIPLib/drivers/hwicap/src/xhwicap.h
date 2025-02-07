@@ -165,6 +165,8 @@
 * 11.5 Nava   09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
 * 11.6 Nava   06/28/23 Added support for system device-tree flow.
 * 11.7 Nava   12/02/24 Fixed mismatch between IDCODE array size and initialization value.
+* 11.7 Nava   02/06/25 Added missing xlnx,icap-dwidth and xlnx,mode to YAML to
+*                      align with the driver config struct.
 *
 * </pre>
 *
@@ -229,12 +231,14 @@ typedef struct {
 	u16 DeviceId;		/**< Device ID  of device */
 #else
 	char *Name;
+#endif
+	UINTPTR BaseAddress;	/**< Register base address */
+#ifdef SDT
 	u32 IntrId;		/** Bits[11:0] Interrupt-id Bits[15:12]
 				  * trigger type and level flags */
 	UINTPTR IntrParent;	/** Bit[0] Interrupt parent type Bit[64/32:1]
 				  * Parent base address */
 #endif
-	UINTPTR BaseAddress;	/**< Register base address */
 	int IcapWidth;		/**< Width of ICAP */
 	int IsLiteMode;		/**< IsLiteMode, 0 not
 					present, 1 present */

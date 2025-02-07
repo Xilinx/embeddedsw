@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2003 - 20222 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2003 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +57,9 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 11.6 Nava 06/28/23  Added support for system device-tree flow.
+* 11.7 Nava 02/06/25  Updated HWICAP_BASEADDR to use XPAR_HWICAP_0_BASEADDR
+*                     instead of XPAR_XHWICAP_0_BASEADDR to align with YAML
+*                     changes.
 * </pre>
 *
 ******************************************************************************/
@@ -79,11 +82,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#ifndef SDT
-#define HWICAP_BASEADDR         XPAR_HWICAP_0_BASEADDR
-#else
-#define HWICAP_BASEADDR		XPAR_XHWICAP_0_BASEADDR
-#endif
+#define HWICAP_BASEADDR		XPAR_HWICAP_0_BASEADDR
 
 /*
  * Number of words to Read for getting Id code.
