@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -22,6 +22,7 @@
  *       ss   07/11/24 Added XAsufw_ChangeEndiannessAndCpy function
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       ss   10/05/24 Added XAsufw_IsBufferNonZero function.
+ * 1.1   vns  02/06/25 Removed XAsufw_ChangeEndiannessAndCpy() function which is not in use
  *
  * </pre>
  *
@@ -123,9 +124,6 @@ void XAsufw_RMW(u32 Addr, u32 Mask, u32 Value);
 void XAsufw_RCMW(u32 Addr, u32 Mask, u32 Value);
 void XAsufw_CryptoCoreReleaseReset(u32 BaseAddress, u32 Offset);
 void XAsufw_CryptoCoreSetReset(u32 BaseAddress, u32 Offset);
-s32 XAsufw_ChangeEndiannessAndCpy(void *Dest, const u32 DestSize, const void *Src,
-				  const u32 SrcSize,
-				  const u32 CopyLen);
 s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length);
 s32 XAsufw_IsBufferNonZero(u8 *Buffer, u32 Length);
 
