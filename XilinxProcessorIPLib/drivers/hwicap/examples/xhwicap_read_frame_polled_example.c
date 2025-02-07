@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2003 - 20222 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2003 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,9 @@
 * 6.00a hvm  08/05/11 Added support for K7 family
 * 10.0  bss  6/24/14  Removed support for families older than 7 series
 * 11.6  Nava 06/28/23 Added support for system device-tree flow.
+* 11.7  Nava 02/06/25 Updated HWICAP_BASEADDR to use XPAR_HWICAP_0_BASEADDR
+*                     instead of XPAR_XHWICAP_0_BASEADDR to align with YAML
+*                     changes.
 * </pre>
 *
 ******************************************************************************/
@@ -58,7 +61,7 @@
 #ifndef SDT
 #define HWICAP_DEVICEID		XPAR_HWICAP_0_DEVICE_ID
 #else
-#define HWICAP_BASEADDR         XPAR_XHWICAP_0_BASEADDR
+#define HWICAP_BASEADDR         XPAR_HWICAP_0_BASEADDR
 #endif
 
 #define HWICAP_EXAMPLE_BLOCK		0
