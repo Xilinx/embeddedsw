@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
  *       ng   09/17/24 Updated minor error mask for secure rom load api
  * 1.01  ng   11/05/24 Add boot time measurements
  * 1.01  ng   11/26/24 Add support for new devices
+ * 1.01  prt  02/09/25 Always clear the secure memory area even for non-secure boot
  * </pre>
  *
  ******************************************************************************/
@@ -1026,17 +1027,9 @@ END:
 static void XPlm_ZeroizeCriticalMemory(const XRomBootRom *InstancePtr, u32 PdiType)
 {
 	volatile u32 Status = (u32)XST_FAILURE;
-	XRomTmpVar *TmpInstancePtr = HooksTbl->XRom_GetTemporalInstance();
 	u32 ZeroizeStatus = 0U;
 
-	/* Skip updating the status and clearing secure memory regions in non-secure boot. */
-	if (((InstancePtr->AuthEnabled == XPLM_ZERO) && (TmpInstancePtr->AuthEnabledTmp == XPLM_ZERO)) &&
-	    ((InstancePtr->Encstatus == XPLM_ZERO) && (TmpInstancePtr->EncstatusTmp == XPLM_ZERO))) {
-		goto END;
-	}
-
 	/** - Zeroize Chunk Buffer. */
-	Status = (u32)XST_FAILURE;
 	Status = Xil_SecureZeroize((u8 *)XPLM_SECURE_CHUNK_BUFFER_ADDR, XPLM_CHUNK_SIZE);
 	if (Status != (u32)XST_SUCCESS) {
 		ZeroizeStatus |= XPLM_FW_STATUS_ZEROIZE_FAIL_MASK;
@@ -1069,8 +1062,6 @@ static void XPlm_ZeroizeCriticalMemory(const XRomBootRom *InstancePtr, u32 PdiTy
 	XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_STATUS, XPLM_FW_STATUS_ZEROIZE_COMPLETED_MASK,
 		     XPLM_FW_STATUS_ZEROIZE_COMPLETED_MASK);
 	XPlm_UtilRMW(PMC_GLOBAL_PMC_FW_STATUS, XPLM_FW_STATUS_ZEROIZE_FAIL_MASK, ZeroizeStatus);
-END:
-	return;
 }
 
 /** @} end of spartanup_plm_apis group*/
