@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -4166,4 +4166,43 @@ static void XV_HdmiTxSs1_CedUpdateCallback(void *CallbackRef)
 u8 *XV_HdmiTxSs1_GetScdcEdRegisters(XV_HdmiTxSs1 *InstancePtr)
 {
 	return XV_HdmiTx1_GetScdcEdRegisters(InstancePtr->HdmiTx1Ptr);
+}
+
+/*****************************************************************************/
+/**
+* This function will Configure Timegrid based on the tolerance value for HPD and
+* Toggle event
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
+* @param    Type is the tolerance type.
+* @param    ToleranceVal is the tolerance value to be applied.
+* @return   void.
+*
+* @note     None.
+*
+*
+******************************************************************************/
+void XV_HdmiTxSS1_SetHpdTolerance(XV_HdmiTxSs1 *InstancePtr,
+				  XV_HdmiTxSs1_HpdToleranceType Type,
+				  u16 ToleranceVal)
+{
+	u32 Val;
+
+	Val = XV_HdmiTx1_GetTime1Ms(InstancePtr);
+
+	switch (Type) {
+	case XV_HDMITXSS1_LEADING_TOLERANCE:
+		Val += ToleranceVal;
+		break;
+	case XV_HDMITXSS1_LAGGING_TOLERANCE:
+		Val -= ToleranceVal;
+		break;
+	default:
+		xil_printf("Unknown Tolerance type\r\n");
+		return;
+	}
+
+	/* Configure Timegrid based on the tolerance value for HPD and Toggle event */
+	XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress,
+			    XV_HDMITX1_HPD_TIMEGRID_OFFSET, Val);
 }

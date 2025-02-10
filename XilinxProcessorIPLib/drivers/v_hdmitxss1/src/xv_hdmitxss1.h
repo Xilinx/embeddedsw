@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -150,6 +150,12 @@ typedef struct {
                                      Event/DataBuffer. */
 } XV_HdmiTxSs1_Log;
 #endif
+
+typedef enum {
+	XV_HDMITXSS1_LEADING_TOLERANCE,
+	XV_HDMITXSS1_LAGGING_TOLERANCE,
+	XV_HDMITXSS1_UNKNOWN
+} XV_HdmiTxSs1_HpdToleranceType;
 
 /**
 * These constants specify the HDCP protection schemes
@@ -722,6 +728,9 @@ void XV_HdmiTxSS1_StartFRLStream(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_SetFrlExtVidCke(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_SetFrlIntVidCke(XV_HdmiTxSs1 *InstancePtr);
 u8 *XV_HdmiTxSs1_GetScdcEdRegisters(XV_HdmiTxSs1 *InstancePtr);
+void XV_HdmiTxSS1_SetHpdTolerance(XV_HdmiTxSs1 *InstancePtr,
+				 XV_HdmiTxSs1_HpdToleranceType Type,
+				 u16 ToleranceVal);
 #ifdef __cplusplus
 }
 #endif
