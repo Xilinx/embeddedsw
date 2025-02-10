@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
  *       ng   09/17/24 Fixed mask poll flags
+ * 1.01  ng   02/05/25 Poll until URAM clear busy flag is zero before starting DMA xfr to CCU
  * </pre>
  *
  ******************************************************************************/
@@ -60,6 +61,9 @@
 #define XPLM_BEGIN_CMD_EXTRA_OFFSET			(2U)
 
 #define XPLM_RDBK_DIS	(0x1U)
+
+/* URAM clear busy timeout - 20 milliseconds */
+#define XPLM_POLL_URAM_CLEAR_BUSY_TIMEOUT	(20000U)
 
 /* DMA write keyhole payload arguments indexes */
 #define XPLM_WR_KEYHOLE_PAYLOAD_KEYHOLE_ADDR_ARG_INDEX			(0x1U)
@@ -465,8 +469,30 @@ static u32 XPlm_DmaWriteKeyHole(XPlm_Cmd *Cmd)
 	u32 BaseAddr;
 	u32 DestOffset;
 	XPlm_KeyHoleXfrParams KeyHoleXfrParams;
+	static u32 XPlm_PollUramClrDone = (u32)FALSE;
 
 	XPlm_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
+
+	/*
+	 * The ROM initiates house cleaning for the PL at boot and proceeds to load the PLM without
+	 * verifying the completion of the URAM clear process. This approach is taken to minimize
+	 * the initialization completion time. Consequently, it is necessary for the PLM to perform
+	 * a check to ensure that the URAM clear has finished before loading the PL bitstream. This
+	 * verification is not required for partial PDI bitstreams. Additionally, this check does not
+	 * apply to device variants SU10P, SU25P, and SU35P, as the polling following the house
+	 * cleaning in the ROM has only been omitted for the SU200P and its related variants.
+	 */
+#if !defined(XPS_BOARD_SU10P) && !defined(XPS_BOARD_SU25P) && !defined(XPS_BOARD_SU35P)
+	if (XPlm_PollUramClrDone == (u32)FALSE){
+		XPlm_PollUramClrDone = (u32)TRUE;
+		Status = XPlm_UtilPoll(CCU_APB_HCLEAN_STATUS, CCU_APB_HCLEAN_STATUS_URAM_CLEAR_BUSY_MASK,
+				       XPLM_ZERO, XPLM_POLL_URAM_CLEAR_BUSY_TIMEOUT, NULL);
+		if (Status != (u32)XST_SUCCESS) {
+			Status = (u32)XPLM_ERR_URAM_CLR_BUSY_TIMEOUT;
+			goto END;
+		}
+	}
+#endif
 
 	/* Store the destination address and keyholesize in resume data */
 	if (Cmd->ProcessedLen == 0U) {
@@ -503,6 +529,7 @@ static u32 XPlm_DmaWriteKeyHole(XPlm_Cmd *Cmd)
 		Status = (u32)XPLM_ERR_KEYHOLE_XFER;
 	}
 
+END:
 	return Status;
 }
 
