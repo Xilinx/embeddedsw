@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vns  08/23/24 Initial release
+ * 1.1   ma   02/07/25 Added DRBG support in client
  *
  * </pre>
  *
@@ -48,6 +49,29 @@ extern "C" {
 #define XASU_TRNG_DRBG_GENERATE_CMD_ID          5U /**< Command ID for TRNG DRBG generate cmd */
 
 /************************************** Type Definitions *****************************************/
+#ifdef XASU_TRNG_ENABLE_DRBG_MODE
+/** @brief This structure contains configuration information for DRBG instantiation. */
+typedef struct {
+	u32 SeedPtr; /**< Initial seed pointer */
+	u32 SeedLen; /**< Seed length */
+	u32 PersStrPtr; /**< Personalization string pointer */
+	u32 SeedLife; /**< Seed life */
+	u32 DFLen; /**< DF length */
+} XAsu_DrbgInstantiateCmd;
+
+/** @brief This structure contains configuration information for DRBG reseed. */
+typedef struct {
+	u32 ReseedPtr; /**< Reseed pointer */
+	u32 DFLen; /**< DF length */
+} XAsu_DrbgReseedCmd;
+
+/** @brief This structure contains configuration information for DRBG regenerate. */
+typedef struct {
+	u32 RandBuf; /**< Pointer to buffer for storing random data */
+	u32 RandBufSize; /**< Size of the random data buffer */
+	u32 PredResistance; /**< Prediction resistance flag */
+} XAsu_DrbgGenerateCmd;
+#endif /* XASU_TRNG_ENABLE_DRBG_MODE */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

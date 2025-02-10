@@ -5,4 +5,6 @@
 #ifndef XASU_BSP_CONFIG_H
 #define XASU_BSP_CONFIG_H
 
+#cmakedefine	XASU_TRNG_ENABLE_DRBG_MODE
+
 #endif /* XASU_BSP_CONFIG_H */
