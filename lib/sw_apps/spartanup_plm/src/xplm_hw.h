@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
  * 1.01  ng   11/05/24 Add boot time measurements
  *       ng   12/04/24 Fix secondary boot control
  *       ng   11/26/24 Add support for new devices
+ *       ng   02/05/25 Added CCU_APB register address for house clean
  * </pre>
  *
  ******************************************************************************/
@@ -237,6 +238,16 @@ extern "C" {
 
 /* Masks for SHA registers */
 #define SHA_RESET_VALUE_MASK		(0x00000001U)
+
+/**
+ * CCU_APB Base Address
+ */
+#define CCU_APB_BASEADDR		(0x04130000U)
+
+/* Register: CCU_APB_HCLEAN_STATUS */
+#define CCU_APB_HCLEAN_STATUS		(CCU_APB_BASEADDR + 0x28U)
+#define CCU_APB_HCLEAN_STATUS_URAM_CLEAR_BUSY_MASK	(0x8U)
+
 
 /**
  * Log buffer Base address

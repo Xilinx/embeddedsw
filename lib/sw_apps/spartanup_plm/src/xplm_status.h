@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
+ * 1.01  ng   02/05/25 Added error code for URAM clear busy
  * </pre>
  *
  ******************************************************************************/
@@ -329,6 +330,9 @@ typedef enum {
 
 	/** 0x955 - Error if Glitch detected. */
 	XPLM_ERR_GLITCH_DETECTED,
+
+	/** 0x956 - Error if URAM clear not finished. */
+	XPLM_ERR_URAM_CLR_BUSY_TIMEOUT,
 
 	/* CDO command errors are in range from 0xC00 to 0xCFF. */
 	/** 0xC00 - feature cmd - Error if the CMD ID is not supported. */
