@@ -23,6 +23,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/12/24 Updated resource allocation logic
  *       ma   12/24/24 Disable autoproc mode before running DRBG KAT or DRBG Instantiate commands
+ *       ma   02/07/25 Added DRBG support in client
  *
  * </pre>
  *
@@ -49,32 +50,6 @@
 #define XASUFW_MAX_RANDOM_BYTES_ALLOWED		510U /**< Maximum random bytes can be requested */
 
 /************************************** Type Definitions *****************************************/
-#ifdef XASUFW_TRNG_ENABLE_DRBG_MODE
-/** @brief This structure contains configuration information for DRBG instantiation. */
-typedef struct {
-	u32 Header; /**< DRBG Instantiate command header */
-	u8 *SeedPtr; /**< Initial seed pointer */
-	u32 SeedLen; /**< Seed length */
-	u8 *PersStrPtr; /**< Personalization string pointer */
-	u32 SeedLife; /**< Seed life */
-	u32 DFLen; /**< DF length */
-} XAsufw_DrbgInstantiateCmd;
-
-/** @brief This structure contains configuration information for DRBG reseed. */
-typedef struct {
-	u32 Header; /**< DRBG Reseed command header */
-	u8 *ReseedPtr; /**< Reseed pointer */
-	u32 DFLen; /**< DF length */
-} XAsufw_DrbgReseedCmd;
-
-/** @brief This structure contains configuration information for DRBG regenerate. */
-typedef struct {
-	u32 Header; /**< DRBG Generate command header */
-	u8 *RandBuf; /**< Pointer to buffer for storing random data */
-	u32 RandBufSize; /**< Size of the random data buffer */
-	u32 PredResistance; /**< Prediction resistance flag */
-} XAsufw_DrbgGenerateCmd;
-#endif /* XASUFW_TRNG_ENABLE_DRBG_MODE */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
@@ -103,6 +78,7 @@ s32 XAsufw_TrngInit(void)
 {
 	s32 Status = XASUFW_FAILURE;
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
+	XTrng_Mode TrngMode = XTRNG_HRNG_MODE;
 
 	/** Contains the array of ASUFW TRNG commands. */
 	static const XAsufw_ModuleCmd XAsufw_TrngCmds[] = {
@@ -144,24 +120,31 @@ s32 XAsufw_TrngInit(void)
 		goto END;
 	}
 
-#if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) || defined(XASUFW_TRNG_ENABLE_DRBG_MODE)
 	/** Perform health test on TRNG. */
 	Status = XTrng_PreOperationalSelfTests(XAsufw_Trng);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
-	/** Instantiate to complete initialization of TRNG in HRNG mode. */
-	Status = XTrng_InitNCfgTrngMode(XAsufw_Trng, XTRNG_HRNG_MODE);
+#if defined(XASUFW_TRNG_ENABLE_PTRNG_MODE)
+	TrngMode = XTRNG_PTRNG_MODE;
+#endif
+
+#if !defined(XASU_TRNG_ENABLE_DRBG_MODE)
+	/**
+	 * Instantiate to complete initialization of TRNG in HRNG or PTRNG mode based on configuration.
+	 *  - If XASUFW_TRNG_ENABLE_PTRNG_MODE macro is enabled, initialize TRNG in PTRNG mode.
+	 *  - Otherwise, initialize TRNG in HRNG mode
+	 */
+	Status = XTrng_InitNCfgTrngMode(XAsufw_Trng, TrngMode);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#endif
 
+#if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) && !defined(XASU_TRNG_ENABLE_DRBG_MODE)
 	/** Enable auto proc mode for TRNG. */
 	Status = XTrng_EnableAutoProcMode(XAsufw_Trng);
-#else
-	/** Instantiate to complete initialization of TRNG in PTRNG mode. */
-	Status = XTrng_InitNCfgTrngMode(XAsufw_Trng, XTRNG_PTRNG_MODE);
 #endif /* XASUFW_TRNG_ENABLE_PTRNG_MODE */
 
 END:
@@ -203,7 +186,7 @@ s32 XAsufw_TrngIsRandomNumAvailable(void)
  * 	- XASUFW_FAILURE, if there is any other failure.
  *
  * @note	This IPI command must not be called when DRBG mode is enabled using
- * 	XASUFW_TRNG_ENABLE_DRBG_MODE macro.
+ * 	XASU_TRNG_ENABLE_DRBG_MODE macro.
  *
  *************************************************************************************************/
 static s32 XAsufw_TrngGetRandomBytes(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -315,16 +298,10 @@ static s32 XAsufw_TrngGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-#if defined(XASUFW_TRNG_ENABLE_DRBG_MODE)
+#if defined(XASU_TRNG_ENABLE_DRBG_MODE)
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	XTrng_UserConfig UsrCfg;
-	XAsufw_DrbgInstantiateCmd *Cmd = (XAsufw_DrbgInstantiateCmd *)ReqBuf;
-
-	/** Disable auto proc mode and uninstantiate TRNG core before enabling TRNG in DRBG mode. */
-	Status = XTrng_DisableAutoProcMode(XAsufw_Trng);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
-	}
+	XAsu_DrbgInstantiateCmd *Cmd = (XAsu_DrbgInstantiateCmd *)ReqBuf->Arg;
 
 	/* Instantiate TRNG in DRBG mode. */
 	UsrCfg.Mode = XTRNG_DRBG_MODE;
@@ -332,13 +309,12 @@ static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	UsrCfg.SeedLife = Cmd->SeedLife;
 	UsrCfg.IsBlocking = XASU_TRUE;
 
-	Status = XTrng_Instantiate(XAsufw_Trng, Cmd->SeedPtr, Cmd->SeedLen, Cmd->PersStrPtr, &UsrCfg);
-
-END:
+	Status = XTrng_Instantiate(XAsufw_Trng, (u8 *)(UINTPTR)Cmd->SeedPtr, Cmd->SeedLen,
+				(u8 *)(UINTPTR)Cmd->PersStrPtr, &UsrCfg);
 	if (Status != XASUFW_SUCCESS) {
 		(void)XTrng_Uninstantiate(XAsufw_Trng);
 	}
-#endif /*XASUFW_TRNG_ENABLE_DRBG_MODE */
+#endif /*XASU_TRNG_ENABLE_DRBG_MODE */
 
 	(void)ReqBuf;
 	(void)ReqId;
@@ -361,12 +337,15 @@ END:
 static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-#if defined(XASUFW_TRNG_ENABLE_DRBG_MODE)
+#if defined(XASU_TRNG_ENABLE_DRBG_MODE)
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
-	XAsufw_DrbgReseedCmd *Cmd = (XAsufw_DrbgReseedCmd *)ReqBuf;
+	XAsu_DrbgReseedCmd *Cmd = (XAsu_DrbgReseedCmd *)ReqBuf->Arg;
 
-	Status = XTrng_Reseed(XAsufw_Trng, Cmd->ReseedPtr, (u8)Cmd->DFLen);
-#endif /* XASUFW_TRNG_ENABLE_DRBG_MODE */
+	Status = XTrng_Reseed(XAsufw_Trng, (u8 *)(UINTPTR)Cmd->ReseedPtr, (u8)Cmd->DFLen);
+	if (Status != XASUFW_SUCCESS) {
+		(void)XTrng_Uninstantiate(XAsufw_Trng);
+	}
+#endif /* XASU_TRNG_ENABLE_DRBG_MODE */
 
 	(void)ReqBuf;
 	(void)ReqId;
@@ -389,12 +368,16 @@ static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-#if defined(XASUFW_TRNG_ENABLE_DRBG_MODE)
+#if defined(XASU_TRNG_ENABLE_DRBG_MODE)
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
-	XAsufw_DrbgGenerateCmd *Cmd = (XAsufw_DrbgGenerateCmd *)ReqBuf;
+	XAsu_DrbgGenerateCmd *Cmd = (XAsu_DrbgGenerateCmd *)ReqBuf->Arg;
 
-	Status = XTrng_Generate(XAsufw_Trng, Cmd->RandBuf, Cmd->RandBufSize, (u8)Cmd->PredResistance);
-#endif /* XASUFW_TRNG_ENABLE_DRBG_MODE */
+	Status = XTrng_Generate(XAsufw_Trng, (u8 *)(UINTPTR)Cmd->RandBuf, Cmd->RandBufSize,
+			(u8)Cmd->PredResistance);
+	if (Status != XASUFW_SUCCESS) {
+		(void)XTrng_Uninstantiate(XAsufw_Trng);
+	}
+#endif /* XASU_TRNG_ENABLE_DRBG_MODE */
 
 	(void)ReqBuf;
 	(void)ReqId;
@@ -419,7 +402,7 @@ static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-#if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) && !defined(XASUFW_TRNG_ENABLE_DRBG_MODE)
+#if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) && !defined(XASU_TRNG_ENABLE_DRBG_MODE)
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	const XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	u32 Bytes = Size;

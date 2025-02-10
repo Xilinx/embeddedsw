@@ -25,6 +25,7 @@
  *       ss   12/02/24 Added support for NIST curves P-256,P-384
  * 1.1   am   201/2/25 Added macros for efuse user keys
  *       yog  01/24/25 Renamed RSA_ECC macros to ECC
+ *       ma   02/07/25 Moved TRNG DRBG configuration option to xilasu common code
  *
  * </pre>
  *
@@ -103,9 +104,6 @@ extern "C" {
 //#define ASUFW_DEBUG
 //#define ASUFW_DEBUG_INFO
 #define ASUFW_DEBUG_DETAILED
-
-/** Run TRNG in DRBG mode */
-//#define XASUFW_TRNG_ENABLE_DRBG_MODE
 
 /** Run TRNG in PTRNG mode */
 //#define XASUFW_TRNG_ENABLE_PTRNG_MODE
