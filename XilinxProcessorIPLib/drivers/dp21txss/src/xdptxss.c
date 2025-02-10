@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -337,9 +337,10 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 	}
 #endif
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0) && (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) || (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 	/* HDCP is ready when both HDCP cores are instantiated and both keys
 	 * are loaded */
+#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0) && (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 	if (InstancePtr->Hdcp1xPtr &&
 			InstancePtr->Hdcp22Ptr &&
 			InstancePtr->Hdcp22Lc128Ptr &&
@@ -348,19 +349,18 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 		XDpTxSs_HdcpSetCapability(InstancePtr, XDPTXSS_HDCP_BOTH);
 		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_1X);
 	}
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+#elif (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
 	/* HDCP is ready when only the HDCP 1.4 core is instantiated
 	 * and the key is loaded */
-	else if (InstancePtr->Hdcp1xPtr) {
+	if (InstancePtr->Hdcp1xPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
 		XDpTxSs_HdcpSetCapability(InstancePtr, XDPTXSS_HDCP_1X);
 		XDpTxSs_HdcpSetProtocol(InstancePtr, XDPTXSS_HDCP_1X);
 	}
-#endif
-#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
+#elif (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 	/* HDCP is ready when only the HDCP 2.2 core is instantiated
 	 * and the key is loaded */
-	else if (InstancePtr->Hdcp22Ptr &&
+	if (InstancePtr->Hdcp22Ptr &&
 			InstancePtr->Hdcp22Lc128Ptr &&
 			InstancePtr->Hdcp22SrmPtr) {
 		InstancePtr->HdcpIsReady = TRUE;
@@ -1758,6 +1758,8 @@ u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr)
 				/* This is needed to ensure that the previous
 				 * command is executed.*/
 				XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
+			} else {
+				Status1 = XST_FAILURE;
 			}
 #endif
 #if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
@@ -1765,10 +1767,7 @@ u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr)
 				XDp_TxHdcp22Disable(InstancePtr->DpPtr);
 				Status2 = XHdcp22Tx_Dp_Disable(
 						InstancePtr->Hdcp22Ptr);
-			}
-			else
-			{
-				Status1 = XST_FAILURE;
+			} else {
 				Status2 = XST_FAILURE;
 			}
 #endif
@@ -1783,22 +1782,23 @@ u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr)
 				/* This is needed to ensure that the previous
 				 * command is executed */
 				XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
+			} else {
+				Status1 = XST_FAILURE;
 			}
-#endif
-#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
+#elif (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 			if (InstancePtr->Hdcp22Ptr) {
 				XDp_TxHdcp22Disable(InstancePtr->DpPtr);
 
 				Status2 = XHdcp22Tx_Dp_Disable(
 						InstancePtr->Hdcp22Ptr);
-			}
-			else
-			{
-				Status1 = XST_FAILURE;
+			} else {
 				Status2 = XST_FAILURE;
 			}
+#else
+			Status1 = XST_FAILURE;
+			Status2 = XST_FAILURE;
 #endif
-			break;
+		break;
 
 			/* Enable HDCP 2.2 and disable HDCP 1.4 */
 		case XDPTXSS_HDCP_22 :
@@ -1809,21 +1809,22 @@ u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr)
 
 				Status2 = XHdcp22Tx_Dp_Enable(
 						InstancePtr->Hdcp22Ptr);
+			} else {
+				Status2 = XST_FAILURE;
 			}
-#endif
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
-			else if (InstancePtr->Hdcp1xPtr) {
+#elif (XPAR_XHDCP_NUM_INSTANCES > 0)
+			if (InstancePtr->Hdcp1xPtr) {
 				Status1 = XHdcp1x_Disable(
 						InstancePtr->Hdcp1xPtr);
 				/* This is needed to ensure that the previous
 				 * command is executed */
 				XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
-			}
-			else
-			{
+			} else {
 				Status1 = XST_FAILURE;
-				Status2 = XST_FAILURE;
 			}
+#else
+			Status1 = XST_FAILURE;
+			Status2 = XST_FAILURE;
 #endif
 			break;
 
