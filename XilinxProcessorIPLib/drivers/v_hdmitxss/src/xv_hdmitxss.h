@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -180,6 +180,12 @@ typedef struct {
                                      Event/DataBuffer. */
 } XV_HdmiTxSs_Log;
 #endif
+
+typedef enum {
+	XV_HDMITXSS_LEADING_TOLERANCE,
+	XV_HDMITXSS_LAGGING_TOLERANCE,
+	XV_HDMITXSS_UNKNOWN
+} XV_HdmiTxSs_HpdToleranceType;
 
 /**
 * These constants specify the HDCP protection schemes
@@ -584,6 +590,9 @@ void XV_HdmiTxSS_MaskSetBlue(XV_HdmiTxSs *InstancePtr, u16 Value);
 void XV_HdmiTxSS_SetBackgroundColor(XV_HdmiTxSs *InstancePtr,
                                     XVMaskColorId  ColorId);
 u8 XV_HdmiTxSS_IsMasked(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSS_SetHpdTolerance(XV_HdmiTxSs *InstancePtr,
+				 XV_HdmiTxSs_HpdToleranceType Type,
+				 u16 ToleranceVal);
 #ifdef __cplusplus
 }
 #endif
