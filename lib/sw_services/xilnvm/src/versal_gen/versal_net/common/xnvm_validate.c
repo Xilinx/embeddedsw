@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file net/common/xnvm_validate.c
+* @file versal_net/common/xnvm_validate.c
 *
 * This file contains the implementation of APIs used to validate write request for
 * eFUSEs.
@@ -24,6 +24,7 @@
 * 3.2   mb   10/03/2023 Add XNvm_EfuseAreAllIvsProgrammed() API
 * 3.3	vss  04/01/2024 Fixed MISRA-C 12.1 violation and EXPRESSION_WITH_MAGIC_NUMBERS coverity warning
 *			Fixed MISRA-C Rule 8.3 violation
+* 3.5   har  12/04/2024 Split check for AES disable and key write lock in XNvm_EfuseValidateAesKeyWriteReq
 *
 * </pre>
 *
@@ -55,10 +56,11 @@ static int XNvm_EfuseAreAllIvsProgrammed(void);
 
 /******************************************************************************/
 /**
- * @brief	This function validates Aes key requested for programming.
+ * @brief	This function validates AES key/User Key 0/User key 1 requested
+ *		for programming into eFUSEs.
  *
- * @param	KeyType - AesKey/UserKey0/Userkey1 type of aes key request to
- * 				be validated.
+ * @param	KeyType - Type of AES key requested to be validated. Possible options are
+ * 		AES key, User0 key and User1 key.
  *
  * @return	- XST_SUCCESS - if validation is successful.
  *		- XNVM_EFUSE_ERR_AES_ALREADY_PRGMD       - Aes key already
@@ -82,11 +84,16 @@ int XNvm_EfuseValidateAesKeyWriteReq(XNvm_AesKeyType KeyType)
 	u32 CrcPassMask = 0U;
 	u32 WrLkMask = 0U;
 
-    /**
-	 *  Read the security control bits at offset of SECURITY_CTRL
+	/**
+	 *  Read the Security control eFUSE bits and check if the bit to disable AES engine is set.
+	 *  If set, return XNVM_EFUSE_ERR_AES_DISABLED.
 	 */
 	SecCtrlBits = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
+	if ((SecCtrlBits & XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK) != 0U) {
+		Status = XNVM_EFUSE_ERR_WRITE_AES_KEY | XNVM_EFUSE_ERR_AES_DISABLED;
+		goto END;
+	}
 
 	if (KeyType == XNVM_EFUSE_AES_KEY) {
 		CrcRegOffset = XNVM_EFUSE_AES_CRC_REG_OFFSET;
@@ -111,20 +118,25 @@ int XNvm_EfuseValidateAesKeyWriteReq(XNvm_AesKeyType KeyType)
 		goto END;
 	}
 
-    /**
-	 *  Check Aes key Crc. Return XNVM_EFUSE_ERR_AES_ALREADY_PRGMD if not success
+	/**
+	 *  Check if write is locked for the requested key type. If locked then return
+	 *  XNVM_EFUSE_ERR_FUSE_PROTECTED.
+	 */
+	if ((SecCtrlBits & WrLkMask) != 0U) {
+		Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+			(XNVM_EFUSE_ERR_WRITE_AES_KEY + (KeyType << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
+		goto END;
+	}
+
+	/**
+	 *  Check if CRC of the requested key type is zero. If non-zero then
+	 *  it implies that the key is already programmed and return XNVM_EFUSE_ERR_AES_ALREADY_PRGMD.
 	 */
 	Status = XNvm_EfuseCheckAesKeyCrc(CrcRegOffset, CrcDoneMask,
 			CrcPassMask, XNVM_EFUSE_CRC_AES_ZEROS);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERR_AES_ALREADY_PRGMD +
 			(KeyType << XNVM_EFUSE_ERROR_NIBBLE_SHIFT);
-		goto END;
-	}
-	if (((SecCtrlBits & XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK) != 0U) ||
-		((SecCtrlBits & WrLkMask) != 0U)) {
-		Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
-			(XNVM_EFUSE_ERR_WRITE_AES_KEY + (KeyType << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
 		goto END;
 	}
 

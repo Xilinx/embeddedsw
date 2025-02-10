@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -9,7 +9,8 @@
 *
 * @file xnvm_efuse_error.h
 *
-* This file contains the xilnvm Versal_Net API IDs
+* This file contains the error codes related to eFUSEs which are common for all
+* platforms including Versal, Versal Net and Versal Gen 2 devices.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,7 +24,8 @@
 * 3.2   kum  04/11/23 Moved Env error codes to common to make use for both versal and versalnet
 * 3.3   ng   01/26/24 Fixed error number
 *	vss  02/23/24 Added IPI support for eFuse read and write
-*       ng   11/22/2023 Fixed doxygen grouping
+*       ng   11/22/23 Fixed doxygen grouping
+* 3.5   har  12/04/24 Added error code XNVM_EFUSE_ERR_AES_DISABLED
 *
 * </pre>
 *
@@ -113,7 +115,8 @@ typedef enum {
 
 	XNVM_EFUSE_ERR_BIT_CANT_REVERT = 0xF0,/**<0xF0 - Already programmed eFuse
 						* Bit, can't be reverted */
-
+	XNVM_EFUSE_ERR_AES_DISABLED = 0xF1, /**< 0xF1 - Error during validation of AES key write
+						* request as AES engine is disabled */
 
 	XNVM_EFUSE_ERR_WRITE_AES_KEY = 0x8000,/**<0x8000 - Error in Aes key
 						* programming */
