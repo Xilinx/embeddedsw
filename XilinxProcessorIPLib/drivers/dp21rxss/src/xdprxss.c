@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -522,7 +522,7 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 	InstancePtr->HdcpIsReady = FALSE;
 #endif
 
-#if ((XPAR_XHDCP_NUM_INSTANCES > 0) && (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0))
+#if ((XPAR_DPRXSS_0_HDCP_ENABLE > 0) && (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0))
 	/*
 	 * Set default HDCP protocol.
 	 * Setting HDCP1x as default if both HDCP1x
@@ -544,7 +544,8 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 			return XST_FAILURE;
 		}
 	}
-#elif (XPAR_XHDCP_NUM_INSTANCES > 0)
+#endif
+#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
 	/*
 	 * HDCP1X.
 	 * HDCP is ready when only the HDCP 1.4 core is
@@ -556,7 +557,8 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 		/* Set default HDCP content protection scheme */
 		XDpRxSs_HdcpSetProtocol(InstancePtr, XDPRXSS_HDCP_14);
 	}
-#elif (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
+#endif
+#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 	/*HDCP22*/
 	if (InstancePtr->Hdcp22Ptr &&
 			InstancePtr->Hdcp22Lc128Ptr &&
@@ -1361,8 +1363,6 @@ u32 XDpRxSs_HdcpEnable(XDpRxSs *InstancePtr)
 			else {
 				Status1 = XST_FAILURE;
 			}
-#else
-			Status1 = XST_FAILURE;
 #endif
 #if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 			if (InstancePtr->Hdcp22Ptr) {
@@ -1391,8 +1391,6 @@ u32 XDpRxSs_HdcpEnable(XDpRxSs *InstancePtr)
 			else {
 				Status2 = XST_FAILURE;
 			}
-#else
-			Status2 = XST_FAILURE;
 #endif
 			break;
 
