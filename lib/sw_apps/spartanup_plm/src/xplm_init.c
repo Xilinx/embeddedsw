@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -17,6 +17,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
  * 1.01  ng   11/05/24 Add boot time measurements
+ *       ng   02/05/25 Update SDK release year and quarter
  * </pre>
  *
  ******************************************************************************/
@@ -46,8 +47,8 @@
 
 /************************** Constant Definitions *****************************/
 /** @cond spartanup_plm_internal */
-#define SDK_RELEASE_YEAR	"2024"
-#define SDK_RELEASE_QUARTER	"2"
+#define SDK_RELEASE_YEAR	"2025"
+#define SDK_RELEASE_QUARTER	"1"
 
 #define XPLM_TAP_INST_0_UNLOCK_MASK	(PMC_TAP_INST_MASK_0_JRDBK_MASK | PMC_TAP_INST_MASK_0_USER1_MASK | PMC_TAP_INST_MASK_0_USER2_MASK)
 #define XPLM_TAP_INST_1_UNLOCK_MASK	(PMC_TAP_INST_MASK_1_USER3_MASK | PMC_TAP_INST_MASK_1_USER4_MASK)
@@ -121,7 +122,7 @@ static void XPlm_ExceptionHandler(void *Data)
  * @brief	This function is used as handler to print the file name and line number during
  * assertions.
  *
- * @param	File	is the pointer to the string containg the file name
+ * @param	File	is the pointer to the string containing the file name
  * @param	Line	is the line number of the file
  *
  *****************************************************************************/
