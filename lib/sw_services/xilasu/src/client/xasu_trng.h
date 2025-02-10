@@ -18,6 +18,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vns  08/23/24 Initial release
  *       yog  09/26/24 Added doxygen groupings.
+ * 1.1   ma   02/07/25 Added DRBG support in client
  *
  * </pre>
  *
@@ -36,6 +37,7 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "xasu_client.h"
+#include "xasu_trnginfo.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -46,9 +48,15 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *RandomBuf, u32 Length);
+s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, const u8 *RandomBuf, u32 Length);
 s32 XAsu_TrngKat(XAsu_ClientParams *ClientParamPtr);
 
+#ifdef XASU_TRNG_ENABLE_DRBG_MODE
+s32 XAsu_TrngDrbgInstantiate(XAsu_ClientParams *ClientParamPtr,
+        XAsu_DrbgInstantiateCmd *CmdParamsPtr);
+s32 XAsu_TrngDrbgReseed(XAsu_ClientParams *ClientParamPtr, XAsu_DrbgReseedCmd *CmdParamsPtr);
+s32 XAsu_TrngDrbgGenerate(XAsu_ClientParams *ClientParamPtr, XAsu_DrbgGenerateCmd *CmdParamsPtr);
+#endif /* XASU_TRNG_ENABLE_DRBG_MODE */
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus
 }
