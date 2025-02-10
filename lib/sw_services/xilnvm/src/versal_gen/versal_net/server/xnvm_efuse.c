@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -129,6 +129,8 @@ static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32 *RegData);
 			/**< DME 3 corresponding User eFuse offset */
 #define XNVM_EFUSE_PPK_HASH_UPPER_WORD_START_OFFSET	(8U)
 			/**< PPK HASH upper 128 bit hash start word offset */
+#define XNVM_EFUSE_LAST_ROW_IN_PAGE			(255U)
+			/**< Row number of last eFuse row in page */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -199,7 +201,7 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -211,7 +213,7 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 	Status = XNvm_EfuseValidateAesKeyWriteReq(KeyType);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -221,7 +223,7 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 	 */
 	Status = XNvm_EfusePrgmAesKey(KeyType, EfuseKey);
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 *  Lock eFuse Controller.
 	 */
@@ -229,7 +231,7 @@ END:
 	if (XST_SUCCESS == Status) {
 		Status |= CloseStatus;
 	}
-
+END:
 	return Status;
 }
 
@@ -296,7 +298,7 @@ int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *E
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	/**
@@ -307,7 +309,7 @@ int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *E
 	Status = XNvm_EfuseValidatePpkHashWriteReq(PpkType);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -317,7 +319,7 @@ int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *E
 	 */
 	Status = XNvm_EfusePrgmPpkHash(PpkType, EfuseHash);
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -326,6 +328,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -396,7 +399,7 @@ int XNvm_EfuseWriteIv(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	/**
@@ -407,7 +410,7 @@ int XNvm_EfuseWriteIv(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	Status = XNvm_EfuseValidateIvWriteReq(IvType, EfuseIv);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -416,7 +419,7 @@ int XNvm_EfuseWriteIv(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	 */
 	Status = XNvm_EfusePrgmIv(IvType, EfuseIv);
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -425,6 +428,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -474,7 +478,7 @@ int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -488,7 +492,7 @@ int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig)
 					XNVM_EFUSE_CACHE_ANLG_TRIM_3_OFFSET);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	GlitchDetVal = PrgmGlitchConfig & XNVM_EFUSE_GLITCH_CONFIG_DATA_MASK;
@@ -508,7 +512,7 @@ int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig)
 		Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &GlitchDetVal);
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_WRITE_GLITCH_CFG);
-			goto END;
+			goto END_CLS_CONTROLLER;
 		}
 	}
 
@@ -523,7 +527,7 @@ int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig)
 		}
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -532,6 +536,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -577,7 +582,7 @@ int XNvm_EfuseWriteDecOnly(u32 EnvDisFlag)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -588,7 +593,7 @@ int XNvm_EfuseWriteDecOnly(u32 EnvDisFlag)
 	Status = XNvm_EfuseValidateDecOnlyRequest();
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_SECURITY_MISC_0_START_ROW;
@@ -607,7 +612,7 @@ int XNvm_EfuseWriteDecOnly(u32 EnvDisFlag)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY);
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -616,6 +621,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -676,7 +682,7 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 	/**
 	 * Compute start column and row offset values.
@@ -707,7 +713,7 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS);
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -716,6 +722,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -772,7 +779,7 @@ int XNvm_EfuseWriteOffChipRevokeID(u32 EnvDisFlag, u32 OffchipIdNum)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	OffchipIdRow = XNVM_EFUSE_OFFCHIP_REVOKE_ID_START_ROW +
@@ -790,7 +797,7 @@ int XNvm_EfuseWriteOffChipRevokeID(u32 EnvDisFlag, u32 OffchipIdNum)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_OFFCHIP_REVOKE_IDS);
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -799,6 +806,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -845,7 +853,7 @@ int XNvm_EfuseWriteMiscCtrlBits(u32 EnvDisFlag, u32 MiscCtrlBits)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -858,7 +866,7 @@ int XNvm_EfuseWriteMiscCtrlBits(u32 EnvDisFlag, u32 MiscCtrlBits)
 				XNVM_EFUSE_CACHE_MISC_CTRL_OFFSET);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_MISC_CTRL_START_ROW;
@@ -877,7 +885,7 @@ int XNvm_EfuseWriteMiscCtrlBits(u32 EnvDisFlag, u32 MiscCtrlBits)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_MISC_CTRL_BITS);
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -885,6 +893,8 @@ END:
 	if (XST_SUCCESS == Status) {
 		Status |= CloseStatus;
 	}
+
+END:
 	return Status;
 }
 
@@ -930,7 +940,7 @@ int XNvm_EfuseWriteSecCtrlBits(u32 EnvDisFlag, u32 SecCtrlBits)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -942,7 +952,7 @@ int XNvm_EfuseWriteSecCtrlBits(u32 EnvDisFlag, u32 SecCtrlBits)
 				XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_SEC_CTRL_START_ROW;
@@ -961,7 +971,7 @@ int XNvm_EfuseWriteSecCtrlBits(u32 EnvDisFlag, u32 SecCtrlBits)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_SEC_CTRL_BITS);
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -970,6 +980,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -1015,7 +1026,7 @@ int XNvm_EfuseWriteMisc1Bits(u32 EnvDisFlag, u32 Misc1Bits)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -1027,7 +1038,7 @@ int XNvm_EfuseWriteMisc1Bits(u32 EnvDisFlag, u32 Misc1Bits)
 				XNVM_EFUSE_CACHE_SECURITY_MISC_1_OFFSET);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_SECURITY_MISC1_START_ROW;
@@ -1046,7 +1057,7 @@ int XNvm_EfuseWriteMisc1Bits(u32 EnvDisFlag, u32 Misc1Bits)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_MISC1_CTRL_BITS);
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -1055,6 +1066,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -1101,7 +1113,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(u32 EnvDisFlag, u32 BootEnvCtrlBits)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -1114,7 +1126,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(u32 EnvDisFlag, u32 BootEnvCtrlBits)
 				XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_BOOT_ENV_CTRL_START_ROW;
@@ -1133,7 +1145,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(u32 EnvDisFlag, u32 BootEnvCtrlBits)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_BOOT_ENV_CTRL);
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -1142,6 +1154,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -1201,7 +1214,7 @@ int XNvm_EfuseWriteFipsInfo(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -1212,7 +1225,7 @@ int XNvm_EfuseWriteFipsInfo(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
 	Status = XNvm_EfuseValidateFipsInfo(FipsMode, FipsVersion);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -1221,7 +1234,7 @@ int XNvm_EfuseWriteFipsInfo(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
 	 */
 	Status = XNvm_EfusePrgmFipsInfo(FipsMode, FipsVersion);
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -1230,6 +1243,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -1286,7 +1300,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	/**
@@ -1301,7 +1315,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 		Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
 				XNVM_EFUSE_ERR_WRITE_UDS |
 				XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	/**
@@ -1319,7 +1333,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, EfuseUds->Uds);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_UDS);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_DICE_UDS_64_TO_191_START_ROW;
@@ -1331,7 +1345,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &EfuseUds->Uds[2U]);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_UDS);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_DICE_UDS_192_TO_255_START_ROW;
@@ -1344,7 +1358,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &EfuseUds->Uds[6U]);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_UDS);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_DICE_UDS_256_TO_383_START_ROW;
@@ -1356,7 +1370,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &EfuseUds->Uds[8U]);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_UDS);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	/**
@@ -1365,7 +1379,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	Status = XNvm_EfuseCacheReloadAndProtectionChecks();
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_UDS);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	/**
@@ -1384,7 +1398,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_UDS);
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -1393,6 +1407,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -1464,7 +1479,7 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -1473,7 +1488,7 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 	 */
 	Status = XNvm_EfusePrgmDmeUserKey(KeyType, EfuseKey);
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -1481,12 +1496,15 @@ END:
 	if (XST_SUCCESS == Status) {
 		Status |= CloseStatus;
 	}
+
+END:
 #else
 	(void)EnvDisFlag;
 	(void)KeyType;
 	(void)EfuseKey;
 	Status = XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED;
 #endif
+
 	return Status;
 }
 
@@ -1550,7 +1568,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	if (RevokeNum == XNVM_EFUSE_DME_REVOKE_0) {
@@ -1584,7 +1602,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 
 	if (RevokeNumTmp != RevokeNum) {
 		Status = XST_GLITCH_ERROR;
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -1597,7 +1615,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 		Status = (Status |
 			(XNVM_EFUSE_ERR_WRITE_DME_REVOKE_0 +
 			(RevokeNum << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
@@ -1608,7 +1626,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 			(RevokeNum << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -1616,11 +1634,14 @@ END:
 	if (XST_SUCCESS == Status) {
 		Status |= CloseStatus;
 	}
+
+END:
 #else
 	(void)EnvDisFlag;
 	(void)RevokeNum;
 	Status = XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED;
 #endif
+
 	return Status;
 }
 
@@ -1664,7 +1685,7 @@ int XNvm_EfuseWriteDisableInplacePlmUpdate(u32 EnvDisFlag)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -1679,7 +1700,7 @@ int XNvm_EfuseWriteDisableInplacePlmUpdate(u32 EnvDisFlag)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_PLM_UPDATE);
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -1688,6 +1709,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -1735,7 +1757,7 @@ int XNvm_EfuseWriteBootModeDisable(u32 EnvDisFlag, u32 BootModeMask)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_BOOT_MODE_START_ROW;
@@ -1754,7 +1776,7 @@ int XNvm_EfuseWriteBootModeDisable(u32 EnvDisFlag, u32 BootModeMask)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_BOOT_MODE_DISABLE);
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -1763,6 +1785,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 
 }
@@ -1809,7 +1832,7 @@ int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_DME_MODE_START_ROW;
@@ -1827,7 +1850,7 @@ int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_DME_MODE);
 	}
 
-END:
+END_CLS_CONTROLLER:
     /**
 	 *  Lock eFuse controller
 	 */
@@ -1835,11 +1858,14 @@ END:
 	if (XST_SUCCESS == Status) {
 		Status |= CloseStatus;
 	}
+
+END:
 #else
 	(void)EnvDisFlag;
 	(void)DmeMode;
 	Status = XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED;
 #endif
+
 	return Status;
 }
 
@@ -1895,7 +1921,7 @@ int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc)
 	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM, XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_CRC_ROW;
@@ -1912,7 +1938,7 @@ int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc)
 	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &Crc);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_CRC);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_CRC_SALT_ROW;
@@ -1931,7 +1957,7 @@ int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_CRC_SALT);
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 *  Lock eFuse controller.
 	 */
@@ -1940,6 +1966,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -1986,7 +2013,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	/**
@@ -2001,7 +2028,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 
 		Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
 				XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	if (PufHelperData->EnvMonitorDis != TRUE) {
@@ -2011,7 +2038,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-			goto END;
+			goto END_CLS_CONTROLLER;
 		}
 	}
 	if (PufHelperData->PrgmPufHelperData == TRUE) {
@@ -2023,7 +2050,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 		Status = XNvm_EfuseIsPufHelperDataEmpty();
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-			goto END;
+			goto END_CLS_CONTROLLER;
 		}
 
 		Status = XST_FAILURE;
@@ -2034,7 +2061,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 		Status = XNvm_EfuseWritePufSynData(PufHelperData->EfuseSynData);
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_WRITE_PUF_SYN_DATA);
-			goto END;
+			goto END_CLS_CONTROLLER;
 		}
 
 		Status = XST_FAILURE;
@@ -2045,7 +2072,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 		Status = XNvm_EfuseWritePufChash(PufHelperData->Chash);
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_WRITE_PUF_CHASH);
-			goto END;
+			goto END_CLS_CONTROLLER;
 		}
 
 		Status = XST_FAILURE;
@@ -2056,7 +2083,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 		Status = XNvm_EfuseWritePufAux(PufHelperData->Aux);
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_WRITE_PUF_AUX);
-			goto END;
+			goto END_CLS_CONTROLLER;
 		}
 
 		if (PufHelperData->RoSwap != 0x0U) {
@@ -2073,7 +2100,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 	}
 
 
-END :
+END_CLS_CONTROLLER:
 	/**
 	 *  Lock eFuse controller.
 	 */
@@ -2082,6 +2109,7 @@ END :
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 }
 
@@ -2247,7 +2275,7 @@ END:
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 
@@ -2258,7 +2286,7 @@ END:
 		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-			goto END;
+			goto END_CLS_CONTROLLER;
 		}
 	}
 
@@ -2270,7 +2298,7 @@ END:
 				XNVM_EFUSE_PROGRAM_VERIFY);
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_WRITE_PUF_SEC_CTRL_BITS);
-			goto END;
+			goto END_CLS_CONTROLLER;
 		}
 	}
 
@@ -2282,7 +2310,7 @@ END:
 				XNVM_EFUSE_PROGRAM_VERIFY);
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_WRITE_PUF_SEC_CTRL_BITS);
-			goto END;
+			goto END_CLS_CONTROLLER;
 		}
 	}
 
@@ -2297,7 +2325,7 @@ END:
 		}
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 * Lock eFuse controller.
 	 */
@@ -2305,6 +2333,8 @@ END:
 	if (XST_SUCCESS == Status) {
 		Status |= CloseStatus;
 	}
+
+END:
 	return Status;
 }
 
@@ -3464,7 +3494,7 @@ int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits)
 					XNVM_EFUSE_MARGIN_RD);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	Status = XST_FAILURE;
@@ -3477,7 +3507,7 @@ int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits)
 				XNVM_EFUSE_CACHE_ROM_RSVD_OFFSET);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
-		goto END;
+		goto END_CLS_CONTROLLER;
 	}
 
 	EfusePrgmInfo.StartRow = XNVM_EFUSE_ROM_RSVD_START_ROW;
@@ -3496,7 +3526,7 @@ int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits)
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_ROM_RSVD_BITS);
 	}
 
-END:
+END_CLS_CONTROLLER:
 	/**
 	 *  Lock eFuse controller.
 	 */
@@ -3505,6 +3535,7 @@ END:
 		Status |= CloseStatus;
 	}
 
+END:
 	return Status;
 
 }
@@ -3593,6 +3624,11 @@ static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo, const u
 	u32 Idx = 0U;
 	u32 Col = 0U;
 	u32 Data;
+
+	if (EndRow > XNVM_EFUSE_LAST_ROW_IN_PAGE) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
 
 	if ((EfusePrgmInfo->EfuseType != XNVM_EFUSE_PAGE_0) &&
 		(EfusePrgmInfo->EfuseType != XNVM_EFUSE_PAGE_1) &&
