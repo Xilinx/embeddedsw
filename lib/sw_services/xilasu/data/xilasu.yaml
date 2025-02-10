@@ -21,3 +21,4 @@ examples:
   xasu_ecdh_example.c: []
   xasu_hmac_example.c: []
   xasu_kdf_example.c: []
+  xasu_trng_example.c: []
