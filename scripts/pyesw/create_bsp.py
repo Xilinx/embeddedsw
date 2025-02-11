@@ -61,7 +61,7 @@ class Domain(Repo):
         """
         with open(self.sdt, "r") as file:
             content = file.read()
-            family_str = re.findall("[ \t\n]*family = \"(.*?)\"", content)
+            family_str = re.findall(r"[ \t\n]*family = \"(.*?)\"", content)
             if "cpus_a53" in content or 'family = "ZynqMP";' in content:
                 return "ZynqMP"
             elif "cpus_a72" in content or 'family = "Versal";' in content:

@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module acts as a supporting module for all the other modules. It helps
@@ -115,7 +115,7 @@ def resolve_paths(args):
         for entries in files:
             dir_path = utils.get_dir_path(utils.get_dir_path(entries))
             comp_name = utils.get_base_name(dir_path)
-            comp_version_info = re.split("_v(\d+)_(\d+)", comp_name)
+            comp_version_info = re.split(r"_v(\d+)_(\d+)", comp_name)
             comp_name = comp_version_info[0]
             comp_major_version = 9999
             comp_minor_version = 0
