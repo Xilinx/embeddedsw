@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module acts as a supporting module to get/set library related information
@@ -447,7 +447,7 @@ class Library(Repo):
         for line_index in range(0,len(cmake_lines)):
             if cmake_lines[line_index].startswith(bsp_sudirs_substr):
                 subdir_line = cmake_lines[line_index]
-                subdir_space_sep_str = re.search(f'{re.escape(bsp_sudirs_substr)}(.+?)\)', subdir_line)
+                subdir_space_sep_str = re.search(rf'{re.escape(bsp_sudirs_substr)}(.+?)\)', subdir_line)
                 subdir_list = subdir_space_sep_str.group(1).split()
                 if action=='add':
                     subdir_list = list(dict.fromkeys(subdir_list + lib_list))
@@ -475,7 +475,7 @@ class Library(Repo):
         # Run make clean to remove the respective headers and .a from lib and include folder.
         if os.name == "nt":
             base_lib_build_dir = base_lib_build_dir.replace('\\', '/')
-            utils.runcmd('cmake -DCONFIG="" -P CMakeFiles\clean_additional.cmake', cwd=base_lib_build_dir)
+            utils.runcmd(r'cmake -DCONFIG="" -P CMakeFiles\clean_additional.cmake', cwd=base_lib_build_dir)
         else:
             utils.runcmd('cmake -DCONFIG="" -P CMakeFiles/clean_additional.cmake', cwd=base_lib_build_dir)
         # Remove library src folder from libsrc
