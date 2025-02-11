@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 1995 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /*---------------------------------------------------*/
@@ -372,7 +372,14 @@ try_next:
 
 			case 'l':
 #if defined (SUPPORT_64BIT_PRINT)
+#if defined (ARMR5)
+				if (*(ctrl + 1) == 'l') {
+					long_flag = 1;
+					ctrl += 1;
+				}
+#else
 				long_flag = 1;
+#endif
 #endif
 				Check = 0;
 				break;
