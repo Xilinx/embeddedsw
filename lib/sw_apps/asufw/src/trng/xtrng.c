@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -23,6 +23,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/24/24 Added API to disable autoproc mode
  *       ma   01/03/25 Configure TRNG core registers properly
+ *       ma   02/11/25 Added volatile to NumOfBursts variable in XTrng_CollectRandData
  *
  * </pre>
  *
@@ -1002,7 +1003,7 @@ static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSiz
 	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u8 Idx = 0U;
-	u8 NumofBursts = 0U;
+	volatile u8 NumofBursts = 0U;
 	u8 BurstIdx = 0U;
 	u32 RegVal = 0U;
 	u32 Size = RandBufSize / XASUFW_WORD_LEN_IN_BYTES;
