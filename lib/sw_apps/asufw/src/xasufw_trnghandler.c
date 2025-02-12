@@ -392,8 +392,7 @@ static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @brief	This function reads the requested number of random bytes from TRNG AUTOPROC FIFO.
  *
  * @param	RandomBuf	Pointer to the random buffer.
- * @param	Size		Size of the random buffer. The maximum allowed size is 96 Bytes
- * 				(3 256-bit random numbers).
+ * @param	Size		Size of the random buffer. The maximum allowed size is 510 Bytes
  *
  * @return
  * 	- XASUFW_SUCCESS on successful execution of the command.
@@ -446,8 +445,14 @@ s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
 							XTRNG_SEC_STRENGTH_IN_BYTES);
 			XFIH_CALL_GOTO(Xil_SMemCpy, XFihVar, Status, END, BufAddr, Bytes, LocalBuf,
 							XTRNG_SEC_STRENGTH_IN_BYTES, Bytes);
+			BufAddr += Bytes;
 			Bytes = 0U;
 		}
+	}
+
+	/** Validate if desired number of bytes are copied. */
+	if ((RandomBuf + Size) != BufAddr) {
+		Status = XASUFW_TRNG_INVALID_RANDOM_NUMBER;
 	}
 
 END:

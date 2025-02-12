@@ -41,6 +41,7 @@
  *       am   01/20/25 Added error codes for AES CCM functionality
  *       ma   01/21/25 Added error codes for KDF functionality
  *       LC   02/07/25 Listed actual error codes in description
+ *       ma   02/11/25 Added TRNG related error codes
  *
  * </pre>
  *
@@ -312,6 +313,7 @@ enum {
 	XASUFW_KDF_KAT_COMPARISON_FAILED, /**< 0xE6U - KDF KAT comparison failed */
 	XASUFW_KDF_KAT_FAILED, /**< 0xE7U - KDF KAT failed */
 	XASUFW_TRNG_GET_RANDOM_NUMBERS_TIMEDOUT, /**< 0xE8U - TRNG Get Random numbers timed out */
+	XASUFW_TRNG_INVALID_RANDOM_NUMBER, /**< 0xE9U - Invalid random number generated */
 
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };
