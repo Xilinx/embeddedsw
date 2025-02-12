@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -22,6 +22,7 @@
  *       ma   07/08/24 Add task based approach at queue level
  *       ss   09/26/24 Fixed doxygen comments
  * 1.1   ma   12/12/24 Updated resource allocation logic
+ *       ma   02/11/25 Added inline function for triggering IPI to remote processor
  *
  * </pre>
  *
@@ -43,6 +44,7 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+static inline void XAsufw_InterruptRemoteProc(u32 IpiMask);
 
 /*************************************************************************************************/
 /**
@@ -108,6 +110,18 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function triggers the IPI interrupt to the sender.
+ *
+ * @param	IpiMask		IPI Mask of the remote processor.
+ *
+ *************************************************************************************************/
+static inline void XAsufw_InterruptRemoteProc(u32 IpiMask)
+{
+	XAsufw_WriteReg(IPI_ASU_TRIG, IpiMask);
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function writes the given response to the corresponding response buffer.
  *
  * @param	ReqBuf		Pointer	to the request buffer.
@@ -130,7 +144,8 @@ void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, u32 ReqId, s32 Response)
 	QueueBuf->RespBufStatus = XASU_RESPONSE_IS_PRESENT;
 	XAsufw_Printf(DEBUG_GENERAL, "Command response: 0x%x\r\n", Response);
 
-	XAsufw_WriteReg(IPI_ASU_TRIG, IpiMask);
+	/** Trigger interrupt to the sender after writing the response. */
+	XAsufw_InterruptRemoteProc(IpiMask);
 }
 
 /*************************************************************************************************/
