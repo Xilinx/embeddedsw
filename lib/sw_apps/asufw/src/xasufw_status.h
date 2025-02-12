@@ -311,6 +311,7 @@ enum {
 	XASUFW_KDF_COMPUTE_FAILED, /**< 0xE5U - KDF compute failed */
 	XASUFW_KDF_KAT_COMPARISON_FAILED, /**< 0xE6U - KDF KAT comparison failed */
 	XASUFW_KDF_KAT_FAILED, /**< 0xE7U - KDF KAT failed */
+	XASUFW_TRNG_GET_RANDOM_NUMBERS_TIMEDOUT, /**< 0xE8U - TRNG Get Random numbers timed out */
 
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };

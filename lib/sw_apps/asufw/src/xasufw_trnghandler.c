@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -48,6 +48,8 @@
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_MAX_RANDOM_BYTES_ALLOWED		510U /**< Maximum random bytes can be requested */
+#define XASUFW_GET_RANDOM_BYTES_TIMEOUT_VAL	100000U /**< Maximum timeout in us waiting for TRNG
+								random number to be available in FIFO */
 
 /************************************** Type Definitions *****************************************/
 
@@ -408,6 +410,7 @@ s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
 	u32 Bytes = Size;
 	u8 *BufAddr = RandomBuf;
 	u8 LocalBuf[XTRNG_SEC_STRENGTH_IN_BYTES];
+	u32 Loop;
 
 	if (Size > XASUFW_MAX_RANDOM_BYTES_ALLOWED) {
 		Status = XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE;
@@ -415,7 +418,24 @@ s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
 	}
 
 	while (Bytes != 0U) {
-		while (XTrng_IsRandomNumAvailable(XAsufw_Trng) != XASUFW_SUCCESS);
+		/** Check if the random number is available in the TRNG FIFO for predefined time. */
+		for (Loop = 0x0U; Loop < XASUFW_GET_RANDOM_BYTES_TIMEOUT_VAL; ++Loop) {
+			if (XTrng_IsRandomNumAvailable(XAsufw_Trng) == XASUFW_SUCCESS) {
+				break;
+			}
+			usleep(1U);
+		}
+
+		/**
+		 * Check again if random number is available for redundancy.
+		 * Return error if random bumber is not available.
+		 */
+		if (XTrng_IsRandomNumAvailable(XAsufw_Trng) != XASUFW_SUCCESS) {
+			Status = XASUFW_TRNG_GET_RANDOM_NUMBERS_TIMEDOUT;
+			goto END;
+		}
+
+		/** Read the random number from the TRNG FIFO to the given buffer. */
 		if (Bytes >= XTRNG_SEC_STRENGTH_IN_BYTES) {
 			XFIH_CALL_GOTO(XTrng_ReadTrngFifo, XFihVar, Status, END, XAsufw_Trng, (u32 *)BufAddr,
 							XTRNG_SEC_STRENGTH_IN_BYTES);
