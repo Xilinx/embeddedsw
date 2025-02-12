@@ -33,6 +33,14 @@
 #include "xpm_runtime_periph.h"
 #include "xpm_access.h"
 #include "xpm_power_handlers.h"
+#define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
+	{ \
+		Status = XPlmi_GicRegisterHandler(GicId, SrcId, \
+				XPm_DispatchWakeHandler, (void *)(NodeId)); \
+		if (Status != XST_SUCCESS) {\
+			goto END;\
+		}\
+	}
 
 /* XilPM Runtime Banner String */
 #ifndef XILPM_RUNTIME_BANNER
@@ -166,8 +174,78 @@ XStatus XPm_RuntimeInit(void)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-	Status = XST_SUCCESS;
+
+	Status = XPm_RegisterWakeUpHandlers();
+
 done:
+	return Status;
+}
+
+XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx)
+{
+	XStatus Status = XST_FAILURE;
+
+	const XPmRuntime_Periph *Periph = (XPmRuntime_Periph *)XPmDevice_GetByIndex(PeriphIdx);
+	if ((NULL == Periph) || (0U == Periph->WakeProcId)) {
+		goto done;
+	}
+
+	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(Periph->WakeProcId);
+
+	/* Do not process anything if core is already running */
+	if ((u8)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	Status = Core->CoreOps->RequestWakeup(Core, 0, 0);
+
+done:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This is the handler for wake up interrupts
+ *
+ * @param  DeviceIdx	Index of peripheral device
+ *
+ * @return Status	XST_SUCCESS if processor wake successfully
+ *			XST_FAILURE or error code in case of failure
+ *
+ *****************************************************************************/
+static int XPm_DispatchWakeHandler(void *DeviceIdx)
+{
+	XStatus Status;
+
+	Status = XPm_GicProxyWakeUp((u32)DeviceIdx);
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief Register wakeup handlers with XilPlmi
+ * @return XST_SUCCESS on success and error code on failure
+ ****************************************************************************/
+int XPm_RegisterWakeUpHandlers(void)
+{
+	int Status = XST_FAILURE;
+
+	/**
+	 * Register the events for PM
+	 */
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP0, (u32)XPLMI_GICP0_SRC29, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP0, (u32)XPLMI_GICP0_SRC30, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP0, (u32)XPLMI_GICP0_SRC31, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC0, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC1, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC2, XPM_NODEIDX_DEV_USB_1);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC3, XPM_NODEIDX_DEV_USB_1);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC4, XPM_NODEIDX_DEV_USB_1);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC5, XPM_NODEIDX_DEV_USB_1);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC6, XPM_NODEIDX_DEV_USB_1);
+
+END:
 	return Status;
 }
 
