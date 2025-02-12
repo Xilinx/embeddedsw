@@ -22,6 +22,7 @@ properties:
           - xlnx,versal-gem
           - cdns,versal-gem
           - cdns,gem
+          - amd,versal2-10gbe
   reg:
     description: Physical base address and size of the controller register map
   dma-coherent:
