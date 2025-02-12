@@ -91,7 +91,11 @@ typedef struct XPfwRestartTracker {
 	u8 WdtTimeout; /* Timeout value for WDT */
 	u8 ErrorId; /* Error Id corresponding to the WDT */
 	u32 WdtResetId; /* WDT reset ID */
+#ifndef SDT
 	u16 TtcDeviceId; /* TTC timer device ID */
+#else
+	u32 TtcDeviceId; /* TTC timer device ID */
+#endif
 	u8 TtcTimeout; /* Timeout to notify master for event */
 	u32 TtcResetId; /* Reset line ID for TTC */
 	PmMaster *Master; /* Master whose restart cycle is being tracked */
@@ -351,7 +355,11 @@ static void XPfw_RestartSystemLevel(void)
  *
  * @return XST_SUCCESS in case of success else proper error code
  */
+#ifndef SDT
 static s32 Xpfw_TTCInit(u16 TtcDeviceId, XTtcPs *TtcInstancePtr)
+#else
+static s32 Xpfw_TTCInit(u32 TtcDeviceId, XTtcPs *TtcInstancePtr)
+#endif
 {
 	XTtcPs_Config *timerConfig;
 	s32 Status = XST_FAILURE;
