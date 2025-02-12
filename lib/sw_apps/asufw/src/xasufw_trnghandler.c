@@ -24,6 +24,8 @@
  * 1.1   ma   12/12/24 Updated resource allocation logic
  *       ma   12/24/24 Disable autoproc mode before running DRBG KAT or DRBG Instantiate commands
  *       ma   02/07/25 Added DRBG support in client
+ *       ma   02/11/25 Added redundancy, validations and clearing of local buffer in
+ *                     XAsufw_TrngGetRandomNumbers
  *
  * </pre>
  *
@@ -404,6 +406,7 @@ s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 #if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) && !defined(XASU_TRNG_ENABLE_DRBG_MODE)
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	const XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	u32 Bytes = Size;
@@ -456,6 +459,9 @@ s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
 	}
 
 END:
+	/** Zeroize local buffer. */
+	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, LocalBuf, XTRNG_SEC_STRENGTH_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 #endif /* XASUFW_TRNG_ENABLE_PTRNG_MODE */
 	return Status;
 }
