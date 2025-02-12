@@ -116,6 +116,7 @@ s32 XAsufw_TrngInit(void)
 	Status = XAsufw_ModuleRegister(&XAsufw_TrngModule);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_TRNG_MODULE_REGISTRATION_FAILED);
+		goto END;
 	}
 
 	/** Initialize the TRNG instance. */
