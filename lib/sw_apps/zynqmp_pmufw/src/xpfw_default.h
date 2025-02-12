@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -597,7 +597,14 @@ extern "C" {
 	#endif
 #endif /*XPAR_XWDTPS_0_DEVICE_ID*/
 #if (defined(XPAR_XWDTPS_1_DEVICE_ID)) || (defined(XPAR_XWDTPS_1_BASEADDR))
-	#if (XPAR_XWDTPS_1_BASEADDR == 0xFF150000U)
+	#if (XPAR_XWDTPS_1_BASEADDR == 0xFFCB0000U)
+#ifdef SDT
+#define XPAR_XWDTPS_1_DEVICE_ID XPAR_XWDTPS_1_BASEADDR
+#endif
+		#define XPMU_PMUWDT XPAR_XWDTPS_1_DEVICE_ID
+		#define XPMU_PMUWDT_BASEADDR XPAR_XWDTPS_1_BASEADDR
+		#define XPMU_PMUWDT_WDT_CLK XPAR_XWDTPS_1_WDT_CLK_FREQ_HZ
+	#elif (XPAR_XWDTPS_1_BASEADDR == 0xFF150000U)
 #ifdef SDT
 #define XPAR_XWDTPS_1_DEVICE_ID XPAR_XWDTPS_1_BASEADDR
 #endif
@@ -614,12 +621,28 @@ extern "C" {
 	#endif
 #endif /*XPAR_XWDTPS_1_DEVICE_ID*/
 #if (defined(XPAR_XWDTPS_2_DEVICE_ID)) || (defined(XPAR_XWDTPS_2_BASEADDR))
+	#if (XPAR_XWDTPS_2_BASEADDR == 0xFFCB0000U)
 #ifdef SDT
 #define XPAR_XWDTPS_2_DEVICE_ID XPAR_XWDTPS_2_BASEADDR
 #endif
-	#define XPMU_FPDWDT XPAR_XWDTPS_2_DEVICE_ID
-	#define XPMU_FPDWDT_BASEADDR XPAR_XWDTPS_2_BASEADDR
-	#define XPMU_FPDWDT_WDT_CLK XPAR_XWDTPS_2_WDT_CLK_FREQ_HZ
+		#define XPMU_PMUWDT XPAR_XWDTPS_2_DEVICE_ID
+		#define XPMU_PMUWDT_BASEADDR XPAR_XWDTPS_2_BASEADDR
+		#define XPMU_PMUWDT_WDT_CLK XPAR_XWDTPS_2_WDT_CLK_FREQ_HZ
+	#elif (XPAR_XWDTPS_2_BASEADDR == 0xFF150000U)
+#ifdef SDT
+#define XPAR_XWDTPS_2_DEVICE_ID XPAR_XWDTPS_2_BASEADDR
+#endif
+		#define XPMU_LPDWDT XPAR_XWDTPS_2_DEVICE_ID
+		#define XPMU_LPDWDT_BASEADDR XPAR_XWDTPS_2_BASEADDR
+		#define XPMU_LPDWDT_WDT_CLK XPAR_XWDTPS_2_WDT_CLK_FREQ_HZ
+	#elif (XPAR_XWDTPS_2_BASEADDR == 0xFD4D0000U)
+#ifdef SDT
+#define XPAR_XWDTPS_2_DEVICE_ID XPAR_XWDTPS_2_BASEADDR
+#endif
+		#define XPMU_FPDWDT XPAR_XWDTPS_2_DEVICE_ID
+		#define XPMU_FPDWDT_BASEADDR XPAR_XWDTPS_2_BASEADDR
+		#define XPMU_FPDWDT_WDT_CLK XPAR_XWDTPS_2_WDT_CLK_FREQ_HZ
+	#endif
 #endif /*XPAR_XWDTPS_2_DEVICE_ID*/
 
 /* XPMU_XTTCPS_0 to XPMU_XTTCPS_11 */
