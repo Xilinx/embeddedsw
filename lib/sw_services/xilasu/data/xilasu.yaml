@@ -8,7 +8,7 @@ maintainers:
   - Challa, Durga <durga.challa@amd.com>
 type: library
 description: Xilinx Application Security Unit Library
-supported_processors: [cortexa78, cortexr52, asu]
+supported_processors: [cortexa78, cortexr52, asu, microblaze]
 supported_os: [standalone]
 depends_libs:
   xilmailbox: {}
