@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -19,19 +19,19 @@ properties:
     description: Physical base address and size of the controller register map
   xlnx,highaddr:
     description: High Address of the CSI controller
-  xlnx,csi2-tx-lanes:
+  xlnx,csi-lanes:
     description: Active CSI2_TX controller lanes.
-  xlnx,csi2-tx-en-active-lanes:
+  xlnx,csi-en-activelanes:
     description: Flag for enable active lanes.
-  xlnx,csi2-tx-en-reg-based-fe-gen:
+  xlnx,en-reg-based-fe-gen:
     description: Flag for reg based FE generation.
 
 required:
   - compatible
   - reg
-  - xlnx,csi2-tx-lanes
-  - xlnx,csi2-tx-en-active-lanes
-  - xlnx,csi2-tx-en-reg-based-fe-gen
+  - xlnx,csi-lanes
+  - xlnx,csi-en-activelanes
+  - xlnx,en-reg-based-fe-gen
 
 config:
   - XCsi2Tx_Config
