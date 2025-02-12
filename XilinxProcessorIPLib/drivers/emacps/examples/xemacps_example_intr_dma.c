@@ -208,6 +208,7 @@
 
 #define GEMVERSION_ZYNQMP	0x7
 #define GEMVERSION_VERSAL	0x107
+#define GEMVERSION_VERSAL2_10GBE	0xC
 
 /*************************** Variable Definitions ***************************/
 
@@ -464,6 +465,8 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 
 	if (GemVersion == GEMVERSION_VERSAL) {
 		Platform = Xil_In32(VERSAL_VERSION);
+	} else if (GemVersion == GEMVERSION_VERSAL2_10GBE) {
+		Platform = 0;
 	} else if (GemVersion > 2) {
 		Platform = Xil_In32(CSU_VERSION);
 	}
@@ -471,6 +474,9 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 	if (GemVersion > 2) {
 		XEmacPs_SetOptions(EmacPsInstancePtr, XEMACPS_JUMBO_ENABLE_OPTION);
 	}
+
+	if (GemVersion == GEMVERSION_VERSAL2_10GBE)
+		xil_printf("Running Emacps example on 10GBE\n");
 
 	XEmacPsClkSetup(EmacPsInstancePtr, EmacPsIntrId);
 
@@ -615,7 +621,7 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 			EmacpsDelay(1);
 			EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
 			XEmacPs_SetOperatingSpeed(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
-		} else {
+		} else if (GemVersion != GEMVERSION_VERSAL2_10GBE){
 			if ((Platform & PLATFORM_MASK_VERSAL) == PLATFORM_VERSALEMU) {
 				XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_8);
 			} else {
