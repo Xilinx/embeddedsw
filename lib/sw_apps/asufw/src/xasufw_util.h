@@ -121,7 +121,6 @@ static inline void XAsufw_I2Osp(u32 Integer, u32 Size, u8 *Convert)
 
 /************************************ Function Prototypes ****************************************/
 void XAsufw_RMW(u32 Addr, u32 Mask, u32 Value);
-void XAsufw_RCMW(u32 Addr, u32 Mask, u32 Value);
 void XAsufw_CryptoCoreReleaseReset(u32 BaseAddress, u32 Offset);
 void XAsufw_CryptoCoreSetReset(u32 BaseAddress, u32 Offset);
 s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length);

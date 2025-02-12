@@ -26,6 +26,7 @@
  * 1.1   ma   02/03/25 Updated TempVar in XAsufw_ChangeEndianness with volatile and zeroize at
  *                     the end.
  *       vns  02/06/25 Removed XAsufw_ChangeEndiannessAndCpy() function which is not in use
+ *       vns  02/12/25 Removed XAsufw_RCMW() API
  *
  * </pre>
  *
@@ -72,35 +73,6 @@ void XAsufw_RMW(u32 Addr, u32 Mask, u32 Value)
 
 	/** Update the value to the register. */
 	XAsufw_WriteReg(Addr, Val);
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function will read, check and conditionally modify an address.
- *
- * @param	Addr	Address of the register.
- * @param	Mask	Bits to be modified.
- * @param	Value	Value to be written to the register.
- *
- *************************************************************************************************/
-void XAsufw_RCMW(u32 Addr, u32 Mask, u32 Value)
-{
-	u32 Val;
-
-	/** Read the value from the register */
-	Val = XAsufw_ReadReg(Addr);
-
-	/** Check if the mask bits are already set. */
-	if ((Val & Mask) != (Mask & Value)) {
-		/**
-		 * Reset designated bits in a register value to zero, and replace them with the
-		 * given value.
-		 */
-		Val = (Val & (~Mask)) | (Mask & Value);
-
-		/** Update the value to the register. */
-		XAsufw_WriteReg(Addr, Val);
-	}
 }
 
 /*****************************************************************************/
