@@ -21,6 +21,7 @@
  *       yog  08/25/24 Integrated FIH library
  *       am   08/25/24 Initialized ASU DMA pointer before XAsufw_DmaXfr() function call.
  *       am   01/20/25 Added AES CCM support
+ *       vns  02/12/25 Removed XAsufw_RCMW() API
  *
  * </pre>
  *
@@ -1610,14 +1611,14 @@ static void XAes_ConfigAad(const XAes *InstancePtr)
 		 * For modes like AES-GCM and AES-CCM, where payload is expected after AAD,
 		 * configure only AUTH_MASK bit.
 		 */
-		XAsufw_RCMW((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
+		XAsufw_RMW((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
 			    XAES_MODE_CONFIG_AUTH_MASK, XAES_MODE_CONFIG_AUTH_MASK);
 	} else {
 		/**
 		 * For MAC only modes like AES-GMAC and AES-CMAC, where no payload is expected to
 		 * follow AAD data, configure both AUTH_MASK and AUTH_WITH_NO_PAYLOAD bit.
 		 */
-		XAsufw_RCMW((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
+		XAsufw_RMW((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
 			    (XAES_MODE_CONFIG_AUTH_MASK | XAES_MODE_CONFIG_AUTH_WITH_NO_PAYLOAD_MASK),
 			    (XAES_MODE_CONFIG_AUTH_MASK | XAES_MODE_CONFIG_AUTH_WITH_NO_PAYLOAD_MASK));
 	}
