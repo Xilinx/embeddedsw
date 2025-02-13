@@ -8,7 +8,7 @@
 #define XPM_CORE_H_
 
 #include "xpm_device.h"
-#include "xpm_versal_aiepg2_regs.h"
+#include "xpm_regs.h"
 #ifdef __cplusplus
 extern "C" {
 #endif

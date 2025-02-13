@@ -3,13 +3,12 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 #include "xil_io.h"
 #include "xpm_apucore.h"
 #include "xpm_regs.h"
 #include "xpm_debug.h"
 #include "xpm_psfpdomain.h"
-#include "xpm_versal_aiepg2_regs.h"
+
 #define XPM_APU_MODE_MASK(ClusterId)		BIT(ClusterId)
 static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
