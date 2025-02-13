@@ -63,6 +63,7 @@
 * 2.03  sk   12/13/2024 Added defines for PPU Proc Buffers
 *       pre  01/13/2025 Added macros for DDRMC register addresses
 *       kal  01/30/2025 Update KAT MASKS for SHA2/SHAKE to align with ROM
+* 2.2   vss  02/11/2025 Updated SSS configuration correctly.
 *
 * </pre>
 *
@@ -738,7 +739,7 @@ void XPlmi_RtcaPlatInit(void);
 u8 XPlmi_IsPlmUpdateDone(void);
 u8 XPlmi_IsPlmUpdateDoneTmp(void);
 u8 XPlmi_IsPlmUpdateInProgress(void);
-void XPlmi_SssMask(u32 InputSrc, u32 OutputSrc);
+void XPlmi_SssMask(u32 DmaSrc);
 XPlmi_CircularBuffer *XPlmi_GetTraceLogInst(void);
 void XPlmi_GetReadbackSrcDest(u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead);
 int XPlmi_GenericHandler(XPlmi_ModuleOp Op);
