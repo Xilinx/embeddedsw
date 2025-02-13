@@ -536,6 +536,12 @@ def get_domain_name(proc_name: str, yaml_file: str):
                 domain_name = schema[subsystem]["domains"][dom]["cpus"][0]["cluster_cpu"]
                 if domain_name == proc_name:
                     return dom
+        elif schema[subsystem]:
+            if schema[subsystem].get("cpus", {}):
+                domain_name = schema[subsystem]["cpus"][0]["cluster_cpu"]
+                if domain_name == proc_name:
+                    return subsystem
+
     return None
 
 def get_high_precedence_path(repo_paths_list, file_type, *argv):
