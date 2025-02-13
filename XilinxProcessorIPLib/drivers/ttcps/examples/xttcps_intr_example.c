@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,7 @@
 * 		       timeout loop.
 * 3.18 gm     07/25/23 Invoke XTtcPs_Release to release ttc node.
 * 3.18 ml     03/06/24 Added support for system device-tree flow.
+* 3.21 ml     02/05/25 Fixed compilation warnings and errors
 *
 *</pre>
 ******************************************************************************/
@@ -373,7 +374,7 @@ int SetupTicker(void)
 #else
 	TtcPsTick = &(TtcPsInst[Index_Tick]);
 
-	Status = XSetupInterruptSystem(TtcPsTick,XTtcPs_InterruptHandler,
+	Status = XSetupInterruptSystem(TtcPsTick,(void *)XTtcPs_InterruptHandler,
                         TtcPsTick->Config.IntrId[0],
                         TtcPsTick->Config.IntrParent,
                         XINTERRUPT_DEFAULT_PRIORITY);
@@ -464,7 +465,7 @@ int SetupPWM(void)
 #else
 	TtcPsPWM = &(TtcPsInst[Index_PWM]);
 
-	Status = XSetupInterruptSystem(TtcPsPWM,XTtcPs_InterruptHandler,
+	Status = XSetupInterruptSystem(TtcPsPWM,(void *)XTtcPs_InterruptHandler,
                         TtcPsPWM->Config.IntrId[0],
                         TtcPsPWM->Config.IntrParent,
                         XINTERRUPT_DEFAULT_PRIORITY);
@@ -726,6 +727,7 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 *****************************************************************************/
 static void TickHandler(void *CallBackRef, u32 StatusEvent)
 {
+	(void)CallBackRef;
 	if (0 != (XTTCPS_IXR_INTERVAL_MASK & StatusEvent)) {
 		TickCount++;
 
@@ -763,6 +765,7 @@ static void TickHandler(void *CallBackRef, u32 StatusEvent)
 *****************************************************************************/
 static void PWMHandler(void *CallBackRef, u32 StatusEvent)
 {
+	(void)CallBackRef;
 	XTtcPs *Timer;
 
 #ifndef SDT
