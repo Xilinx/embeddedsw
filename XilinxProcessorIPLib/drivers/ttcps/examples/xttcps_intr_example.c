@@ -67,18 +67,10 @@
 
 /************************** Constant Definitions *****************************/
 #if defined (PLATFORM_ZYNQ)
-#ifndef SDT
 #define NUM_DEVICES    9U
-#else
-#define NUM_DEVICES    3U
-#endif
 
 #else
-#ifndef SDT
 #define NUM_DEVICES    12U
-#else
-#define NUM_DEVICES    4U
-#endif
 #endif
 
 /*
