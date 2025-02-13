@@ -8,7 +8,6 @@
 #include "xpm_device.h"
 #include "xpm_power.h"
 #include "xpm_debug.h"
-#include "xpm_versal_aiepg2_regs.h"
 #include "xpm_regs.h"
 #define AIE2PS_COL_SHIFT 25U
 #define AIE2PS_ROW_SHIFT 20U

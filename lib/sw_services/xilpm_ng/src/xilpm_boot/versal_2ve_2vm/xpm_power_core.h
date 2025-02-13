@@ -9,7 +9,7 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xpm_core.h"
-#include "xpm_versal_aiepg2_regs.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif

@@ -47,6 +47,7 @@ void XPm_Out32(u32 RegAddress, u32 l_Val)
 	const XPm_PsLpDomain *PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	const XPm_PsFpDomain *PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
 	u32 SavedWPROT = 0;
+	u32 SSavedWPROT = 0;
 	if ((NULL != Pmc) && (IS_IN_RANGE(RegAddress, Pmc->PmcIouSlcrBaseAddr, PMC_IOU_SLCR_SIZE))) {
 		SavedWPROT = Xil_In32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET);
 		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET, 0x0U);
@@ -82,6 +83,14 @@ void XPm_Out32(u32 RegAddress, u32 l_Val)
 		Xil_Out32(CRP_BASEADDR + CRP_WPROT_OFFSET, 0x0U);
 		Xil_Out32(RegAddress, l_Val);
 		Xil_Out32(CRP_BASEADDR + CRP_WPROT_OFFSET, SavedWPROT);
+	} else if (IS_IN_RANGE(RegAddress, MMI_SLCR_BASEADDR, MMI_SLCR_SIZE)) {
+		SavedWPROT = Xil_In32(MMI_SLCR_BASEADDR + MMI_SLCR_WPROTS_OFFSET);
+		SSavedWPROT = Xil_In32(MMI_SLCR_BASEADDR + MMI_SLCR_WPROTP_OFFSET);
+		Xil_Out32(MMI_SLCR_BASEADDR + MMI_SLCR_WPROTS_OFFSET, 0x0U);
+		Xil_Out32(MMI_SLCR_BASEADDR + MMI_SLCR_WPROTP_OFFSET, 0x0U);
+		Xil_Out32(RegAddress, l_Val);
+		Xil_Out32(MMI_SLCR_BASEADDR + MMI_SLCR_WPROTS_OFFSET, SavedWPROT);
+		Xil_Out32(MMI_SLCR_BASEADDR + MMI_SLCR_WPROTP_OFFSET, SSavedWPROT);
 	} else {
 		Xil_Out32(RegAddress, l_Val);
 	}

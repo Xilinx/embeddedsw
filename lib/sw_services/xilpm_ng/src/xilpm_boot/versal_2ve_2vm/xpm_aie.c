@@ -5,7 +5,7 @@
 
 #include "xpm_aie.h"
 #include "xpm_debug.h"
-#include "xpm_versal_aiepg2_regs.h"
+#include "xpm_regs.h"
 #include "xpm_alloc.h"
 
 

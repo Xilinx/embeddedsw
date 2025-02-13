@@ -2,7 +2,7 @@
 * Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-#include "xpm_versal_aiepg2_regs.h"
+#include "xpm_regs.h"
 #include "xpm_core.h"
 #include "xpm_power_core.h"
 #include "xpm_power_data.h"
