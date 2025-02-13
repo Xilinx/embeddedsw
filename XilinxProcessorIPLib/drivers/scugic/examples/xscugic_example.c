@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 * 5.2   mus  07/27/23 Removed dependency on XPAR_CPU_ID.
 * 5.2   ml   02/21/24 Fix compilation error reported by C++ compiler.
 * 5.2   mus  04/33/34 Use interrupt wrapper APIs in case of SDT flow.
+* 5.5   ml   02/05/25 Fixed compilation warnings and errors
 * </pre>
 ******************************************************************************/
 
@@ -82,7 +83,7 @@
 #ifndef SDT
 int ScuGicExample(u16 DeviceId);
 #else
-int ScuGicExample(u32 BaseAddr);
+int ScuGicExample(void);
 #endif
 int SetUpInterruptSystem(XScuGic *XScuGicInstancePtr);
 void DeviceDriverHandler(void *CallbackRef);
@@ -90,9 +91,10 @@ void DeviceDriverHandler(void *CallbackRef);
 /************************** Variable Definitions *****************************/
 
 XScuGic InterruptController; 	     /* Instance of the Interrupt Controller */
+#ifndef SDT
 static XScuGic_Config *GicConfig;    /* The configuration parameters of the
                                        controller */
-
+#endif
 /*
  * Create a shared variable to be used by the main thread of processing and
  * the interrupt processing
@@ -134,7 +136,7 @@ int main(void)
 #ifndef SDT
 	Status = ScuGicExample(INTC_DEVICE_ID);
 #else
-	Status = ScuGicExample(XSCUGiC_DIST_BASEADDR);
+	Status = ScuGicExample();
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("GIC Example Test Failed\r\n");
@@ -170,7 +172,7 @@ int main(void)
 #ifndef SDT
 int ScuGicExample(u16 DeviceId)
 #else
-int ScuGicExample(u32 BaseAddr)
+int ScuGicExample(void)
 #endif
 {
 	int Status;
@@ -242,7 +244,7 @@ int ScuGicExample(u32 BaseAddr)
 
 	IntcBaseAddr = XGetEncodedIntcBaseAddr(XPAR_XSCUGIC_0_BASEADDR, XINTC_TYPE_IS_SCUGIC);
 
-	Status =  XSetupInterruptSystem(&InterruptController, DeviceDriverHandler, IntrId, IntcBaseAddr, XINTERRUPT_DEFAULT_PRIORITY);
+	Status =  XSetupInterruptSystem(&InterruptController,(void *)DeviceDriverHandler, IntrId, IntcBaseAddr, XINTERRUPT_DEFAULT_PRIORITY);
 
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -351,6 +353,7 @@ int SetUpInterruptSystem(XScuGic *XScuGicInstancePtr)
 ****************************************************************************/
 void DeviceDriverHandler(void *CallbackRef)
 {
+	(void)CallbackRef;
 	/*
 	 * Indicate the interrupt has been processed using a shared variable
 	 */
