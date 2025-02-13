@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +44,7 @@
  *                      CR-965028.
  *       ms   04/05/17  Added tabspace for return statements in functions for
  *                      proper documentation while generating doxygen.
+ * 1.6   adk  06/02/24	Added support for system device-tree flow.
  * </pre>
  *
  * ***************************************************************************
@@ -60,9 +62,15 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifndef SDT
 #define SRIO_DEVICE_ID   XPAR_SRIO_0_DEVICE_ID
 #define MEM_ADDR         XPAR_AXI_BRAM_CTRL_1_S_AXI_BASEADDR
 #define DMA_DEV_ID       XPAR_AXIDMA_0_DEVICE_ID
+#else
+#define SRIO_BASEADDR   XPAR_XSRIO_0_BASEADDR
+#define MEM_ADDR        XPAR_AXI_BRAM_1_BASEADDRESS
+#define DMA_BASEADDR    XPAR_XAXIDMA_0_BASEADDR
+#endif
 #define DATA_SIZE 	 256
 
 /******************** Variable Definitions **********************************/
@@ -70,7 +78,11 @@ XSrio Srio;		 /* Instance of the XSrio */
 XAxiDma AxiDma;          /* Instance of the XAxiDma */
 
 /******************** Function Prototypes ************************************/
+#ifndef SDT
 int XSrioDmaLoopbackExample(XSrio *InstancePtr, u16 DeviceId);
+#else
+int XSrioDmaLoopbackExample(XSrio *InstancePtr, UINTPTR BaseAddress);
+#endif
 
 /*****************************************************************************/
 /**
@@ -94,7 +106,11 @@ int main()
 
 	xil_printf("Entering main\n\r");
 
+#ifndef SDT
 	Status = XSrioDmaLoopbackExample(&Srio, SRIO_DEVICE_ID);
+#else
+	Status = XSrioDmaLoopbackExample(&Srio, SRIO_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("SRIO DMA Loopback Test Failed\n\r");
 		xil_printf("--- Exiting main() ---\n\r");
@@ -131,7 +147,11 @@ int main()
 *		-XST_FAILURE to indicate failure
 *
 ******************************************************************************/
+#ifndef SDT
 int XSrioDmaLoopbackExample(XSrio *InstancePtr, u16 DeviceId)
+#else
+int XSrioDmaLoopbackExample(XSrio *InstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	XSrio_Config *SrioConfig;
 	XAxiDma_Config *DmaConfig;
@@ -139,11 +159,19 @@ int XSrioDmaLoopbackExample(XSrio *InstancePtr, u16 DeviceId)
 	int Count = 0;
 	
 	/* Initialize the SRIO Device Configuration Interface driver */
+#ifndef SDT
 	SrioConfig = XSrio_LookupConfig(DeviceId);
 	if (!SrioConfig) {
 		xil_printf("No SRIO config found for %d\r\n", DeviceId);
 		return XST_FAILURE;
 	}
+#else
+	SrioConfig = XSrio_LookupConfig(BaseAddress);
+	if (!SrioConfig) {
+		xil_printf("No SRIO config found for %x\r\n", BaseAddress);
+		return XST_FAILURE;
+	}
+#endif
 
 	/**< This is where the virtual address would be used, this example
 	 * uses physical address.
@@ -207,11 +235,19 @@ int XSrioDmaLoopbackExample(XSrio *InstancePtr, u16 DeviceId)
 	XSrio_SetPortRespTimeOutValue(InstancePtr, 0x010203);
 	
 	/* DMA Configuration */
+#ifndef SDT
 	DmaConfig = XAxiDma_LookupConfig(DMA_DEV_ID);
     	if (!DmaConfig) {
            xil_printf("No DMA config found for %d\r\n", DMA_DEV_ID);
            return XST_FAILURE;
     	}
+#else
+	DmaConfig = XAxiDma_LookupConfig(DMA_BASEADDR);
+	if (!DmaConfig) {
+	   xil_printf("No DMA config found for %x\r\n", DMA_BASEADDR);
+	   return XST_FAILURE;
+	}
+#endif
 
 	/* Initialize DMA engine */
     	Status = XAxiDma_CfgInitialize(&AxiDma, DmaConfig);

@@ -1,0 +1,26 @@
+# Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for SRIO controller
+
+maintainers:
+  - Appana Durga Kedareswara Rao <appana.durga.kedareswara.rao@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - const: xlnx,srio-gen2-4.1
+  reg:
+    description: Physical base address and size of the controller register map
+
+config:
+    - XSrio_Config
+
+required:
+    - compatible
+    - reg
+...
