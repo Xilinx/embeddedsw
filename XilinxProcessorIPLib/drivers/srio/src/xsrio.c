@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 1.0   adk  16/04/14 Initial release
 * 1.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XSrio_CfgInitialize API.
+* 1.6   adk  06/02/24 Added support for system device-tree flow.
 * </pre>
 ******************************************************************************/
 
@@ -61,7 +62,9 @@ int XSrio_CfgInitialize(XSrio *InstancePtr,
 	/* Setup the instance */
 	memset(InstancePtr, 0, sizeof(XSrio));
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
+#ifndef SDT
 	InstancePtr->Config.DeviceId = Config->DeviceId;
+#endif
 
 	/* Port width for the Device */
 	Portwidth = XSrio_ReadReg(InstancePtr->Config.BaseAddress,

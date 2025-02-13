@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   adk  16/04/14 Initial release.
+* 1.6   adk  06/02/24 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -27,7 +28,9 @@
 
 /***************************** Include Files *********************************/
 
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xsrio.h"
 
 /*****************************************************************************/
@@ -45,6 +48,7 @@
  * @note	None
  *
  ******************************************************************************/
+#ifndef SDT
 XSrio_Config *XSrio_LookupConfig(u32 DeviceId)
 {
 	extern XSrio_Config XSrio_ConfigTable[];
@@ -63,4 +67,25 @@ XSrio_Config *XSrio_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XSrio_Config *XSrio_LookupConfig(UINTPTR BaseAddress)
+{
+	extern XSrio_Config XSrio_ConfigTable[];
+	XSrio_Config *CfgPtr;
+	u32 Index;
+
+	CfgPtr = NULL;
+
+	for (Index = 0U; XSrio_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XSrio_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+
+			CfgPtr = &XSrio_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+#endif
 /** @} */

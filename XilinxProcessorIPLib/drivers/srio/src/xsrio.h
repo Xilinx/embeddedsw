@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -87,6 +87,7 @@
 * 1.4   mus  09/02/20 Updated makefile to support parallel make and
 *                     incremental builds. It would help to reduce compilation
 *                     time
+* 1.6   adk  06/02/24 Added support for system device-tree flow.
 * </pre>
 ******************************************************************************/
 
@@ -151,7 +152,11 @@ extern "C" {
  * This typedef contains the configuration information for the device.
  */
 typedef struct XSrio_Config {
+#ifndef SDT
 	u16 DeviceId;		/**< Device Id */
+#else
+	char *Name;		/**< Unique name of the device */
+#endif
 	UINTPTR BaseAddress;	/**< Base Address */
 } XSrio_Config;
 
@@ -1521,7 +1526,11 @@ typedef struct XSrio {
  */
 int XSrio_CfgInitialize(XSrio *InstancePtr,
 			XSrio_Config *Config, UINTPTR EffectiveAddress);
+#ifndef SDT
 XSrio_Config *XSrio_LookupConfig(u32 DeviceId);
+#else
+XSrio_Config *XSrio_LookupConfig(UINTPTR BaseAddress);
+#endif
 int XSrio_GetPortStatus(XSrio *InstancePtr);
 int XSrio_GetPEType(XSrio *InstancePtr);
 int XSrio_IsOperationSupported(XSrio *InstancePtr, u8 Operation, u8 Direction);

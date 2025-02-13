@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################.
@@ -17,7 +17,7 @@ BEGIN driver srio
   OPTION supported_peripherals = (srio_gen2);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;	
-  OPTION VERSION = 1.5;
+  OPTION VERSION = 1.6;
   OPTION NAME = srio; 
 
 END driver
