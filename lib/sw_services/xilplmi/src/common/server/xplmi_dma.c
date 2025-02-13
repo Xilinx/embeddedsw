@@ -53,6 +53,7 @@
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *       bm   07/15/2024 Fixed Memset logic by using source buffer in PPU RAM
 *       obs  01/27/2025 Changed DMA WaitForDone calls to use APIs which support timeout
+* 1.10  vss  02/11/2025 Updated SSS configuration correctly.
 *
 * </pre>
 *
@@ -87,9 +88,8 @@ static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId);
 static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 BaseAddress);
 #endif
 static void XPlmi_SSSCfgDmaDma(u32 Flags);
-static void XPlmi_SSSCfgDmaPzm(u32 Flags);
-static void XPlmi_SSSCfgSbiDma(u32 Flags);
-static void XPlmi_SSSCfgDmaSbi(u32 Flags);
+static void XPlmi_SSSCfgDmaPzm(void);
+static void XPlmi_SSSCfgSbiDma(void);
 static int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags);
 static int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
                 XPmcDma** DmaPtrAddr);
@@ -254,12 +254,12 @@ static void XPlmi_SSSCfgDmaDma(u32 Flags)
 
 	/* It is DMA0/1 to DMA0/1 configuration */
 	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
-		XPlmi_SssMask(XPLMI_PMCDMA_0, XPLMI_PMCDMA_0);
+		XPlmi_SssMask(XPLMI_PMCDMA_0);
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
 				XPLMI_SSSCFG_DMA0_MASK,
 				XPLMI_SSS_DMA0_DMA0);
 	} else if ((Flags & XPLMI_PMCDMA_1) == XPLMI_PMCDMA_1) {
-		XPlmi_SssMask(XPLMI_PMCDMA_1, XPLMI_PMCDMA_1);
+		XPlmi_SssMask(XPLMI_PMCDMA_1);
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
 				XPLMI_SSSCFG_DMA1_MASK,
 				XPLMI_SSS_DMA1_DMA1);
@@ -275,28 +275,18 @@ static void XPlmi_SSSCfgDmaDma(u32 Flags)
  * @param	Flags to select PMC DMA
  *
  *****************************************************************************/
-static void XPlmi_SSSCfgSbiDma(u32 Flags)
+static void XPlmi_SSSCfgSbiDma(void)
 {
-	XPlmi_Printf(DEBUG_DETAILED, "SSS config for SBI to DMA0/1\n\r");
+	XPlmi_Printf(DEBUG_DETAILED, "SSS config always for SBI to DMA1\n\r");
 
-	/* Read from SBI to DMA0/1 */
-	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
-		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XPLMI_SSSCFG_DMA0_MASK,
-				XPLMI_SSS_DMA0_SBI);
-		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XPLMI_SSSCFG_SBI_MASK,
-				XPLMI_SSS_SBI_DMA0);
-	} else if ((Flags & XPLMI_PMCDMA_1) == XPLMI_PMCDMA_1) {
-		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XPLMI_SSSCFG_DMA1_MASK,
-				XPLMI_SSS_DMA1_SBI);
-		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XPLMI_SSSCFG_SBI_MASK,
-				XPLMI_SSS_SBI_DMA1);
-	} else {
-		/* MISRA-C compliance */
-	}
+	/* Read from SBI to always DMA1 */
+	XPlmi_SssMask(XPLMI_PMCDMA_1);
+	XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+			XPLMI_SSSCFG_DMA1_MASK,
+			XPLMI_SSS_DMA1_SBI);
+	XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+			XPLMI_SSSCFG_SBI_MASK,
+			XPLMI_SSS_SBI_DMA1);
 	/*
 	 * Clear SSS Cfg Error set during ROM PCR Extension
 	 * Applicable only for Versal Net
@@ -311,52 +301,15 @@ static void XPlmi_SSSCfgSbiDma(u32 Flags)
  * @param	Flags to select PMC DMA
  *
  *****************************************************************************/
-static void XPlmi_SSSCfgDmaPzm(u32 Flags)
+static void XPlmi_SSSCfgDmaPzm(void)
 {
-	XPlmi_Printf(DEBUG_DETAILED, "SSS config for DMA0/1 to PZM\n\r");
+	XPlmi_Printf(DEBUG_DETAILED, "SSS config for DMA0 to PZM\n\r");
 
-	/* It is DMA0/1 to DMA0/1 configuration */
-	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
-		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XPLMI_SSSCFG_DMA0_MASK,
-				XPLMI_SSS_DMA0_PZM);
-	} else if ((Flags & XPLMI_PMCDMA_1) == XPLMI_PMCDMA_1) {
-		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XPLMI_SSSCFG_DMA1_MASK,
-				XPLMI_SSS_DMA1_PZM);
-	} else {
-		/* MISRA-C compliance */
-	}
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function is used set SSS configuration for DMA to SBI transfer.
- *
- * @param	Flags to select PMC DMA
- *
- *****************************************************************************/
-static void XPlmi_SSSCfgDmaSbi(u32 Flags)
-{
-	XPlmi_Printf(DEBUG_DETAILED, "SSS config for DMA0/1 to SBI\n\r");
-
-	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
-		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XPLMI_SSSCFG_SBI_MASK,
-				XPLMI_SSS_SBI_DMA0);
-		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XPLMI_SSSCFG_DMA0_MASK,
-				XPLMI_SSS_DMA0_SBI);
-	} else if ((Flags & XPLMI_PMCDMA_1) == XPLMI_PMCDMA_1) {
-		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XPLMI_SSSCFG_SBI_MASK,
-				XPLMI_SSS_SBI_DMA1);
-		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
-				XPLMI_SSSCFG_DMA1_MASK,
-				XPLMI_SSS_DMA1_SBI);
-	} else {
-		/* MISRA-C compliance */
-	}
+	/* It is DMA0 to DMA0 configuration */
+	XPlmi_SssMask(XPLMI_PMCDMA_0);
+	XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
+			XPLMI_SSSCFG_DMA0_MASK,
+			XPLMI_SSS_DMA0_PZM);
 }
 
 /*****************************************************************************/
@@ -627,7 +580,7 @@ int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags)
 		(u32)(DestAddr >> 32U), (u32)DestAddr, Len);
 
 	/** - Configure the secure stream switch */
-	XPlmi_SSSCfgSbiDma(Flags);
+	XPlmi_SSSCfgSbiDma();
 
 	/** - Transfer the data from SBI to DMA. */
 	Status = XPlmi_DmaChXfer(DestAddr, Len, XPMCDMA_DST_CHANNEL, Flags);
@@ -655,7 +608,7 @@ int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
 		(u32)(SrcAddr >> 32U), (u32)SrcAddr, Len);
 
 	/** - Configure the secure stream switch */
-	XPlmi_SSSCfgDmaSbi(Flags);
+	XPlmi_SSSCfgSbiDma();
 
 	/** - Transfer the data from DMA to SBI. */
 	Status = XPlmi_DmaChXfer(SrcAddr, Len, XPMCDMA_SRC_CHANNEL, Flags);
@@ -835,7 +788,7 @@ int XPlmi_EccInit(u64 Addr, u32 Len)
 		(u32)(Addr >> 32U), (u32)Addr, Len / XPLMI_WORD_LEN);
 
 	/** - Configure the secure stream switch */
-	XPlmi_SSSCfgDmaPzm(XPLMI_PMCDMA_0);
+	XPlmi_SSSCfgDmaPzm();
 
 	/** - Configure PZM length in 128bit */
 	XPlmi_Out32(PMC_GLOBAL_PRAM_ZEROIZE_SIZE, Len / XPLMI_PZM_WORD_LEN);

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,7 @@
 *       ng   02/14/2024 removed int typecast for errors
 *       ma   03/05/2024 Define IOModule instance as static in XPlmi_GetIOModuleInst
 *       pre  10/07/2024 Added XPlmi_CheckSlaveErrors function
+* 2.2   vss  02/11/2025 Updated SSS configuration correctly.
 *
 * </pre>
 *
@@ -282,6 +283,52 @@ void XPlmi_PrintRomVersion(void)
 int XPlmi_PreInit(void)
 {
 	return XPlmi_UpdateResetReason();
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function masks the secure stream switch value
+ *
+ * @param	DmaSrc	- DMA0 or DMA1
+ *
+ *****************************************************************************/
+void XPlmi_SssMask(u32 DmaSrc)
+{
+	u32 Mask = 0U;
+	u32 RegVal = XPlmi_In32(PMC_GLOBAL_PMC_SSS_CFG);
+
+	if (DmaSrc == XPLMI_PMCDMA_0) {
+		if ((RegVal & XPLMI_SSSCFG_SBI_MASK) == XPLMI_SSS_SBI_DMA0) {
+			Mask |= XPLMI_SSSCFG_SBI_MASK;
+		}
+		if ((RegVal & XPLMI_SSSCFG_SHA_MASK) == XPLMI_SSS_SHA_DMA0) {
+			Mask |= XPLMI_SSSCFG_SHA_MASK;
+		}
+		if ((RegVal & XPLMI_SSSCFG_AES_MASK) == XPLMI_SSS_AES_DMA0) {
+			Mask |= XPLMI_SSSCFG_AES_MASK;
+		}
+		if ((RegVal & XPLMI_SSSCFG_DMA0_MASK) != 0U) {
+			Mask |= XPLMI_SSSCFG_DMA0_MASK;
+		}
+	}
+
+	if (DmaSrc == XPLMI_PMCDMA_1) {
+		if ((RegVal & XPLMI_SSSCFG_SBI_MASK) == XPLMI_SSS_SBI_DMA1) {
+			Mask |= XPLMI_SSSCFG_SBI_MASK;
+		}
+		if ((RegVal & XPLMI_SSSCFG_SHA_MASK) == XPLMI_SSS_SHA_DMA1) {
+			Mask |= XPLMI_SSSCFG_SHA_MASK;
+		}
+		if ((RegVal & XPLMI_SSSCFG_AES_MASK) == XPLMI_SSS_AES_DMA1) {
+			Mask |= XPLMI_SSSCFG_AES_MASK;
+		}
+		if ((RegVal & XPLMI_SSSCFG_DMA1_MASK) != 0U) {
+			Mask |= XPLMI_SSSCFG_DMA1_MASK;
+		}
+	}
+
+	RegVal &= ~Mask;
+	XSECURE_REDUNDANT_IMPL(XPlmi_Out32, PMC_GLOBAL_PMC_SSS_CFG, RegVal);
 }
 
 /*****************************************************************************/

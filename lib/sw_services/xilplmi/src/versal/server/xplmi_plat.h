@@ -58,6 +58,7 @@
 *       pre  09/24/2024 Removed new key from RTCA
 *       pre  10/07/2024 Added XPlmi_CheckSlaveErrors function
 *       pre  01/13/2025 Added macros for DDRMC register addresses
+* 2.2   vss  02/11/2025 Removed static keyword from XPlmi_SssMask function
 *
 * </pre>
 *
@@ -246,6 +247,12 @@ extern "C" {
 								XPLMI_SECURE_AES_CMKAT_MASK) /**< ROM KAT mask */
 #define XPLMI_KAT_MASK			(XPLMI_ROM_KAT_MASK | XPLMI_SECURE_AES_ENC_KAT_MASK | XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK | \
 									XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK | XPLMI_SECURE_ECC_PWCT_KAT_MASK) /**< KAT mask */
+#define XPLMI_SSSCFG_SHA_MASK		(0x000F0000U) /* SSS config SHA mask */
+#define XPLMI_SSSCFG_AES_MASK		(0x0000F000U) /* SSS config AES mask */
+#define XPLMI_SSS_SHA_DMA0			(0x000C0000U) /* SSS SHA DMA0 mask */
+#define XPLMI_SSS_SHA_DMA1			(0x00070000U) /* SSS SHA DMA1 mask */
+#define XPLMI_SSS_AES_DMA0			(0x0000E000U) /* SSS AES DMA0 mask */
+#define XPLMI_SSS_AES_DMA1			(0x00005000U) /* SSS AES DMA1 mask */
 
 /**************************** Type Definitions *******************************/
 /* Minor Error Codes */
@@ -444,25 +451,6 @@ static inline u8 XPlmi_GetSlrType(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function masks the secure stream switch value
- *
- * @param	InputSrc	- Input source to be selected for the resource
- * @param	OutputSrc	- Output source to be selected for the resource
- *
- * @return 	None
- *
- *****************************************************************************/
-static inline void XPlmi_SssMask(u32 InputSrc, u32 OutputSrc)
-{
-	(void)InputSrc;
-	(void)OutputSrc;
-
-	/* Not Applicable for versal */
-	return;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function checks if the update is Done
  *
  * @return 	FALSE
@@ -621,6 +609,7 @@ void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus);
 void XPlmi_NotifySldSlaveSlrs(void);
 void XPlmi_InterSlrSldHandshake(void);
 void XPlmi_SetXRamAvailable(void);
+void XPlmi_SssMask(u32 DmaSrc);
 XIOModule *XPlmi_GetIOModuleInst(void);
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 void XPlmi_CheckSlaveErrors(void);

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,7 @@
 *       nb   09/16/2024 Register interrupt for PMC power interrupts
 *       sk   12/13/2024 Updated PSM buffer defines to PPU RAM
 *       pre  12/24/2024 Assigned PmcBuffers to data of PmcBufferList
+* 2.2   vss  02/11/2025 Updated SSS configuration correctly.
 *
 * </pre>
 *
@@ -315,16 +316,15 @@ void XPlmi_PrintRomVersion(void)
 /**
  * @brief	This function masks the secure stream switch value
  *
- * @param	InputSrc	- Input source to be selected for the resource
- * @param	OutputSrc	- Output source to be selected for the resource
+ * @param	DmaSrc	- DMA0 or DMA1
  *
  *****************************************************************************/
-void XPlmi_SssMask(u32 InputSrc, u32 OutputSrc)
+void XPlmi_SssMask(u32 DmaSrc)
 {
 	u32 Mask = 0U;
 	u32 RegVal = XPlmi_In32(PMC_GLOBAL_PMC_SSS_CFG);
 
-	if ((InputSrc == XPLMI_PMCDMA_0) || (OutputSrc == XPLMI_PMCDMA_0)) {
+	if (DmaSrc == XPLMI_PMCDMA_0) {
 		if ((RegVal & XPLMI_SSSCFG_SBI_MASK) == XPLMI_SSS_SBI_DMA0) {
 			Mask |= XPLMI_SSSCFG_SBI_MASK;
 		}
@@ -342,7 +342,7 @@ void XPlmi_SssMask(u32 InputSrc, u32 OutputSrc)
 		}
 	}
 
-	if ((InputSrc == XPLMI_PMCDMA_1) || (OutputSrc == XPLMI_PMCDMA_1)) {
+	if (DmaSrc == XPLMI_PMCDMA_1) {
 		if ((RegVal & XPLMI_SSSCFG_SBI_MASK) == XPLMI_SSS_SBI_DMA1) {
 			Mask |= XPLMI_SSSCFG_SBI_MASK;
 		}
