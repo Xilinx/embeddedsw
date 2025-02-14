@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
  *       ng   09/18/24 Fixed multiboot offset check
+ *       sk   02/04/25 Updated BootModeVal variable as
+ *                     volatile
  * </pre>
  *
  ******************************************************************************/
@@ -72,7 +74,7 @@ void XPlm_ErrMgr(u32 ErrStatus)
 {
 	XRomBootRom *InstancePtr = HooksTbl->InstancePtr;
 	u32 MultiBootVal = 0U;
-	u32 BootModeVal = 0U;
+	volatile u32 BootModeVal = 0U;
 	volatile u32 DebugMode = 0U;
 	volatile u32 DebugModeTmp = 0U;
 	volatile u32 CurrPlmStage;
