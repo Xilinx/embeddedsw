@@ -18,6 +18,8 @@
  * 1.00  ng   05/31/24 Initial release
  * 1.01  ng   11/05/24 Add boot time measurements
  *       ng   02/05/25 Update SDK release year and quarter
+ *       sk   02/04/25 Updated the XPlm_ExceptionHandler function
+ *                     brief
  * </pre>
  *
  ******************************************************************************/
@@ -96,8 +98,7 @@ static void XPlm_ExceptionInit(void)
 
 /*****************************************************************************/
 /**
- * @brief This is a function handler for all exceptions. It clears security
- * critical data by clearing AES keys and by placing SHA3 in reset.
+ * @brief This is a function handler for all exceptions.
  *
  * @param	Data Pointer to Error Status that needs to be updated in
  * Error Register. Status is initialized during exception initialization

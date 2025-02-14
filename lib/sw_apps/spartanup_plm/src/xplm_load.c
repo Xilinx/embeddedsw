@@ -18,8 +18,10 @@
  * 1.00  bm   05/31/24 Initial release
  *       ng   09/17/24 Updated minor error mask for secure rom load api
  * 1.01  ng   11/05/24 Add boot time measurements
- * 1.01  ng   11/26/24 Add support for new devices
- * 1.01  prt  02/09/25 Always clear the secure memory area even for non-secure boot
+ *       ng   11/26/24 Add support for new devices
+ *       prt  02/09/25 Always clear the secure memory area even for non-secure boot
+ *       sk   02/05/25 Updated redundancy variable as volatile in
+ *            XPlm_SecureClear
  * </pre>
  *
  ******************************************************************************/
@@ -511,8 +513,8 @@ static u32 XPlm_SecureClear(XRomBootRom *InstancePtr)
 {
 	u32 Status = (u32)XST_SUCCESS;
 	XRomTmpVar *TmpInstancePtr = HooksTbl->XRom_GetTemporalInstance();
-	u32 SecureCtrl;
-	u32 SecureCtrlTmp;
+	volatile u32 SecureCtrl;
+	volatile u32 SecureCtrlTmp;
 
 	/**
 	 * - If encryption is enabled,

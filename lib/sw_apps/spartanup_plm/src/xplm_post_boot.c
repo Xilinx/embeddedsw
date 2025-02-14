@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -15,7 +15,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
  * 1.01  ng   11/05/24 Add boot time measurements
- * 1.01  ng   12/04/24 Fix secondary boot control
+ *       ng   12/04/24 Fix secondary boot control
+ *       sk   02/04/25 Make redundancy variable as volatile
  * </pre>
  *
  ******************************************************************************/
@@ -191,8 +192,8 @@ static void XPlm_EnableIntrSbiDataRdy(void)
 u32 XPlm_PostBoot(void)
 {
 	u32 Status = (u32)XST_FAILURE;
-	u32 EfusePufhdInvalidBits;
-	u32 EfusePufhdInvalidBitsTmp;
+	volatile u32 EfusePufhdInvalidBits;
+	volatile u32 EfusePufhdInvalidBitsTmp;
 	u32 SecBootRtcaCfg;
 	u32 SecBootInterf;
 	u32 SecBootEn;
