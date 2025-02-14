@@ -140,6 +140,8 @@
 *       pre  12/09/24 use PMC RAM for Metaheader instead of PPU1 RAM
 *       kal  01/30/25 Send LMS and HSS data to signature verification
 *                     without pre-hasing
+* 2.2   sk   02/04/25 Reset Status before each function call in
+*                     XLoader_AuthHdrsWithHashBlock
 *
 * </pre>
 *
@@ -4003,18 +4005,22 @@ static int XLoader_AuthHdrsWithHashBlock(XLoader_SecureParams *SecurePtr,
 
 	XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Partition Headers\n\r",
 			MetaHdr->ImgHdrTbl.NoOfPrtns);
+
+	Status = XST_FAILURE;
 	Status = XilPdi_ReadPrtnHdrs(MetaHdr);
 	if (XST_SUCCESS != Status) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XilPdi_VerifyImgHdrs(MetaHdr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_IH_VERIFY_FAIL, Status);
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XilPdi_VerifyPrtnHdrs(MetaHdr);
 	if(Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_PH_VERIFY_FAIL, Status);
@@ -4026,6 +4032,7 @@ static int XLoader_AuthHdrsWithHashBlock(XLoader_SecureParams *SecurePtr,
 	/**
 	 * Verify Integrity of Total MetaHeader.
 	 */
+	Status = XST_FAILURE;
 	Status = XLoader_ValidateMetaHdrIntegrity(SecurePtr);
 
 END:
