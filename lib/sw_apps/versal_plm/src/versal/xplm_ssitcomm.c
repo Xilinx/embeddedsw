@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -25,6 +25,7 @@
 *       pre  08/29/2024 Changed AES key registers used for secure communication
 *       pre  09/09/2024 Changed AES key registers used for secure communication at keywrite
 *       pre  09/24/2024 Added key zeroization and saving new key in PPU RAM
+* 1.01  sk   02/05/2025 Added redundancy to check secure comm state
 *
 * </pre>
 *
@@ -592,7 +593,8 @@ static int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsC
 	u32 SsitBufAddr;
 	XPlmi_SecCommEstFlag SecSsitCommEst;
 	XPlm_SsitCommParams EncParams;
-	u32 MsgType;
+	volatile u32 MsgType;
+	volatile u32 MsgTypeTmp;
 	int Status = XST_FAILURE;
 	/* Fetch SLR type */
 	u32 SlrType = XPlm_SsitCommGetSlrType();
@@ -612,9 +614,11 @@ static int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsC
 
 	/* Decide message type */
 	MsgType = XPlm_SsitCommGetMsgType(SecSsitCommEst, IsCfgSecCommCmdTemp);
+	MsgTypeTmp = XPlm_SsitCommGetMsgType(SecSsitCommEst, IsCfgSecCommCmdTemp);
 
 	/* Prepare parameters to encrypt data based on message type */
-	if (MsgType == XPLM_SSIT_COMM_SECURE_MSG) {
+	if ((MsgType == XPLM_SSIT_COMM_SECURE_MSG) ||
+			(MsgTypeTmp == XPLM_SSIT_COMM_SECURE_MSG)) {
 		EncParams.SlrIndex = SlrIndex;
 		EncParams.IsCfgSecCommCmd = IsCfgSecCommCmdTemp;
 		XPlm_SsitCommPrepareEncParams(SecSsitCommEst, &EncParams, (u64)SsitBufAddr, Buf);
