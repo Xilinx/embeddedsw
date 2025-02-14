@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,8 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 9.2   kpt      04/21/19 First release.
+* 9.3   sk       02/05/25 Added overlap check in Xil_MemCpy64
+*
 *
 * </pre>
 *
@@ -954,16 +956,14 @@ END:
  *************************************************************************************************/
 void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 {
-#if defined(VERSAL_PLM) || (defined(__MICROBLAZE__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32) &&\
-    (XPAR_MICROBLAZE_DATA_SIZE == 32))
-
-	u64 Dst = DstAddr;
-	u64 Src = SrcAddr;
-	u32 Count = Cnt;
-
 	/* Checking for overlap */
 	if (((SrcAddr < DstAddr) && (SrcAddr + Cnt <= DstAddr)) ||
 	    ((DstAddr < SrcAddr) && (DstAddr + Cnt <= SrcAddr))) {
+#if defined(VERSAL_PLM) || (defined(__MICROBLAZE__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32) &&\
+    (XPAR_MICROBLAZE_DATA_SIZE == 32))
+			u64 Dst = DstAddr;
+			u64 Src = SrcAddr;
+			u32 Count = Cnt;
 			if (((Dst & XIL_WORD_ALIGN_MASK) == 0U) &&
 			    ((Src & XIL_WORD_ALIGN_MASK) == 0U)) {
 					while (Count >= sizeof (int)) {
@@ -981,6 +981,7 @@ void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 			}
 		}
 #else
-	memcpy((void *)(UINTPTR)DstAddr, (void *)(UINTPTR)SrcAddr, Cnt);
+		memcpy((void *)(UINTPTR)DstAddr, (void *)(UINTPTR)SrcAddr, Cnt);
+	}
 #endif
 }
