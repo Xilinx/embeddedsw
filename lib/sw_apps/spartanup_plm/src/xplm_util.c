@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
+ *       sk   02/05/25 Added overlap check in XPlm_MemCpy32
  * </pre>
  *
  ******************************************************************************/
@@ -205,10 +206,18 @@ void XPlm_MemCpy32(u32 *DestPtr, const u32 *SrcPtr, u32 Len)
 {
 	u32 Index = 0U;
 
-	/* Loop and copy.  */
-	for (Index = 0U; Index < Len; Index++) {
-		DestPtr[Index] = SrcPtr[Index];
+	if ((DestPtr == NULL) || (SrcPtr == NULL)) {
+		goto END;
 	}
+
+	if (((SrcPtr < DestPtr) && (SrcPtr + Len <= DestPtr)) ||
+		((DestPtr < SrcPtr) && (DestPtr + Len <= SrcPtr))) {
+		/* Loop and copy.  */
+		for (Index = 0U; Index < Len; Index++) {
+			DestPtr[Index] = SrcPtr[Index];
+		}
+	}
+END:
 	return;
 }
 /** @endcond */
