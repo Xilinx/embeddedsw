@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 * 2.1   ng   02/01/2024 u8 variables optimization
 *       kpt  02/08/2024 Added support to update secure state when DAP state is changed
 *       kpt  03/15/2024 Updated RSA KAT to use 2048-bit key
+* 2.2   sk   02/04/2025 Added redundancy check for XLoader_CheckSecureState
 *
 * </pre>
 *
@@ -525,9 +526,11 @@ int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
 	volatile int StatusTmp = XST_FAILURE;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
-	u32 ReadReg;
-	int SHwRotStatus;
-	int AHwRotStatus;
+	u32 ReadReg = 0U;
+	volatile int SHwRotStatus;
+	volatile int SHwRotStatusTmp;
+	volatile int AHwRotStatus;
+	volatile int AHwRotStatusTmp;
 	u32 ReadCfgLimiterReg = XPlmi_In32(XLOADER_BBRAM_8_ADDRESS);
 	u32 MaxConfigsCnt = ReadCfgLimiterReg & XLOADER_BBRAM_CL_COUNTER_MASK;
 	u32 ClFeatureEn = ReadCfgLimiterReg & XLOADER_BBRAM_CL_FEATURE_EN_MASK;
@@ -539,12 +542,22 @@ int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
 
 	if (ClFeatureEn == XLOADER_BBRAM_CL_FEATURE_ENABLE) {
 		ReadReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR);
-		SHwRotStatus = XLoader_CheckSecureState(ReadReg, SecureStateSHWRoT,
-			XPLMI_RTCFG_SECURESTATE_SHWROT);
+		XSECURE_REDUNDANT_CALL(SHwRotStatus, SHwRotStatusTmp, XLoader_CheckSecureState,
+				ReadReg, SecureStateSHWRoT, XPLMI_RTCFG_SECURESTATE_SHWROT);
+
+		if (SHwRotStatus != SHwRotStatusTmp) {
+			Status = XST_GLITCH_ERROR;
+			goto END;
+		}
 
 		ReadReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
-		AHwRotStatus = XLoader_CheckSecureState(ReadReg, SecureStateAHWRoT,
-			XPLMI_RTCFG_SECURESTATE_AHWROT);
+		XSECURE_REDUNDANT_CALL(AHwRotStatus, AHwRotStatusTmp, XLoader_CheckSecureState,
+				ReadReg, SecureStateAHWRoT, XPLMI_RTCFG_SECURESTATE_AHWROT);
+
+		if (AHwRotStatus != AHwRotStatusTmp) {
+			Status = XST_GLITCH_ERROR;
+			goto END;
+		}
 
 		if ((AHwRotStatus == XST_SUCCESS) || (SHwRotStatus == XST_SUCCESS)) {
 			if (UpdateFlag == XLOADER_BBRAM_CL_INCREMENT_COUNT){
