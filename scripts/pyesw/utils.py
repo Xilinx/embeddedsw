@@ -540,7 +540,7 @@ def get_domain_name(proc_name: str, yaml_file: str):
             if schema[subsystem].get("cpus", {}):
                 domain_name = schema[subsystem]["cpus"][0]["cluster_cpu"]
                 if domain_name == proc_name:
-                    return subsystem
+                    return f'/domains/{subsystem}'
 
     return None
 
