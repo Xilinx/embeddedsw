@@ -142,6 +142,8 @@
 *                     without pre-hasing
 * 2.2   sk   02/04/25 Reset Status before each function call in
 *                     XLoader_AuthHdrsWithHashBlock
+*       sk   02/04/25 Reset HashStatus before function call in
+*                     XLoader_IsPpkValid
 *
 * </pre>
 *
@@ -1235,6 +1237,8 @@ int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 		Status = XST_FAILURE;
 		goto END;
 	}
+
+	HashStatus = XST_FAILURE;
 	/** - Check if upper 128 PPK bits hash is valid or not by reading the User EFUSE bits */
 	HashStatus = Xil_SMemCmp_CT((void *)(PpkHash + XLOADER_EFUSE_PPK_HASH_LEN),
 				XLOADER_EFUSE_PPK_HASH_HIGH_BYTE_LEN,
