@@ -54,6 +54,7 @@
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       obs  12/10/2024 Fixed GCC Warnings
 *       ma   01/07/2025 Added support for ASU handoff
+*       sk   02/04/2024 Reset Status before call to XLoader_PrtnCopy
 *
 * </pre>
 *
@@ -732,6 +733,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	/**
 	 * - Copy the partition to the load address.
 	 */
+	Status = XST_FAILURE;
 	Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams->DeviceCopy, SecureParams);
 	if (XST_SUCCESS != Status) {
 			goto END;
