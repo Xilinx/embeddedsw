@@ -52,6 +52,9 @@
 #define XRSA_HALF_LEN(x)		((x) >> 1U)	/**< Calculate half value */
 #define XRSA_BYTE_TO_BIT(x)		((s32)((x) << 3U)) /**< Byte to bit conversion */
 
+#define XRSA_NO_PRIME_NO_TOT_PRSNT	(0U)		/**< Indicates no prime num or totient
+								is present as parameter for private
+								decryption operation*/
 #define XRSA_TOTIENT_IS_PRSNT		(1U)		/**< Indicates totient is present as
 								parameter for private decryption
 								operation*/
@@ -448,6 +451,11 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
+	} else if (KeyPtr->PrimeCompOrTotientPrsnt == XRSA_NO_PRIME_NO_TOT_PRSNT) {
+		Status = XASUFW_SUCCESS;
+	} else {
+		Status = XASUFW_RSA_INVALID_PRIME_TOT_FLAG;
+		goto END;
 	}
 
 	/** Perform private exponentiation operation by calculating exponentiation values or with
