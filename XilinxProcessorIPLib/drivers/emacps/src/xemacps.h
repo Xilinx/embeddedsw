@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -530,6 +530,7 @@ typedef struct {
 			     *  used (MII, GMII, RGMII, etc.
 			     */
         u32 PhyAddr;
+	UINTPTR MdioProducerBaseAddr;
 #endif
 	u16 S1GDiv0;	/**< 1Gbps Clock Divider 0 */
 	u8 S1GDiv1;	/**< 1Gbps Clock Divider 1 */
@@ -878,6 +879,8 @@ LONG XEmacPs_SetTypeIdCheck(XEmacPs *InstancePtr, u32 Id_Check, u8 Index);
 
 LONG XEmacPs_SendPausePacket(XEmacPs *InstancePtr);
 void XEmacPs_DMABLengthUpdate(XEmacPs *InstancePtr, s32 BLength);
+
+int XEmacPs_IsCommonMdioPresent(XEmacPs *InstancePtr);
 
 #ifdef __cplusplus
 }

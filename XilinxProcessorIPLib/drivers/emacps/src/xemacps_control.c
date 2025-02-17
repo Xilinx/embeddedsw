@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -918,18 +918,27 @@ void XEmacPs_SetOperatingSpeed(XEmacPs *InstancePtr, u16 Speed)
 void XEmacPs_SetMdioDivisor(XEmacPs *InstancePtr, XEmacPs_MdcDiv Divisor)
 {
 	u32 Reg;
+	UINTPTR GemBaseAddress;
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Divisor <= (XEmacPs_MdcDiv)0x7); /* only last three bits are valid */
 
-	Reg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+	#ifdef SDT
+		GemBaseAddress = InstancePtr->Config.MdioProducerBaseAddr;
+	#else
+		GemBaseAddress = InstancePtr->Config.BaseAddress;
+	#endif
+
+
+	Reg = XEmacPs_ReadReg(GemBaseAddress,
 				XEMACPS_NWCFG_OFFSET);
 	/* clear these three bits, could be done with mask */
 	Reg &= (u32)(~XEMACPS_NWCFG_MDCCLKDIV_MASK);
 
 	Reg |= ((u32)Divisor << XEMACPS_NWCFG_MDC_SHIFT_MASK);
 
-	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+	XEmacPs_WriteReg(GemBaseAddress,
 			   XEMACPS_NWCFG_OFFSET, Reg);
 }
 
@@ -978,11 +987,18 @@ LONG XEmacPs_PhyRead(XEmacPs *InstancePtr, u32 PhyAddress,
 	volatile u32 Ipisr;
 	u32 IpReadTemp;
 	LONG Status;
+	UINTPTR GemBaseAddress;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	#ifdef SDT
+		GemBaseAddress = InstancePtr->Config.MdioProducerBaseAddr;
+	#else
+		GemBaseAddress = InstancePtr->Config.BaseAddress;
+	#endif
+
 	/* Make sure no other PHY operation is currently in progress */
-	if ((!(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+	if ((!(XEmacPs_ReadReg(GemBaseAddress,
 				XEMACPS_NWSR_OFFSET) &
 	      XEMACPS_NWSR_MDIOIDLE_MASK))==TRUE) {
 		Status = (LONG)(XST_EMAC_MII_BUSY);
@@ -994,23 +1010,45 @@ LONG XEmacPs_PhyRead(XEmacPs *InstancePtr, u32 PhyAddress,
 			(RegisterNum << XEMACPS_PHYMNTNC_PREG_SHFT_MSK);
 
 	/* Write Mgtcr and wait for completion */
-	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+	XEmacPs_WriteReg(GemBaseAddress,
 			   XEMACPS_PHYMNTNC_OFFSET, Mgtcr);
 
 	do {
-		Ipisr = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+		Ipisr = XEmacPs_ReadReg(GemBaseAddress,
 					  XEMACPS_NWSR_OFFSET);
 			IpReadTemp = Ipisr;
 		} while ((IpReadTemp & XEMACPS_NWSR_MDIOIDLE_MASK) == 0x00000000U);
 
 	/* Read data */
-		*PhyDataPtr = (u16)XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+		*PhyDataPtr = (u16)XEmacPs_ReadReg(GemBaseAddress,
 					XEMACPS_PHYMNTNC_OFFSET);
 		Status = (LONG)(XST_SUCCESS);
 	}
 	return Status;
 }
 
+/**
+ * Check if a common MDIO (Management Data Input/Output) interface is present.
+ * This function evaluates whether the GEM instance uses a shared MDIO interface
+ * by comparing the base address of the current instance with the MDIO producer
+ * base address. The existence of a valid MDIO producer base address is also checked.
+ *
+ * @param InstancePtr is a pointer to the XEmacPs instance being checked.
+ *
+ * @return
+ * - TRUE if a common MDIO is present (when the base address of the instance
+ *   differs from the MDIO producer base address, and the producer base address
+ *   is non-zero).
+ * - FALSE otherwise.
+ *
+ ******************************************************************************/
+#ifdef SDT
+int XEmacPs_IsCommonMdioPresent(XEmacPs *InstancePtr)
+{
+	return (InstancePtr->Config.BaseAddress != InstancePtr->Config.MdioProducerBaseAddr) &&
+		(InstancePtr->Config.MdioProducerBaseAddr != 0);
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -1059,11 +1097,18 @@ LONG XEmacPs_PhyWrite(XEmacPs *InstancePtr, u32 PhyAddress,
 	volatile u32 Ipisr;
 	u32 IpWriteTemp;
 	LONG Status;
+	UINTPTR GemBaseAddress;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	#ifdef SDT
+		GemBaseAddress = InstancePtr->Config.MdioProducerBaseAddr;
+	#else
+		GemBaseAddress = InstancePtr->Config.BaseAddress;
+	#endif
+
 	/* Make sure no other PHY operation is currently in progress */
-	if ((!(XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+	if ((!(XEmacPs_ReadReg(GemBaseAddress,
 				XEMACPS_NWSR_OFFSET) &
 	      XEMACPS_NWSR_MDIOIDLE_MASK))==TRUE) {
 		Status = (LONG)(XST_EMAC_MII_BUSY);
@@ -1074,11 +1119,11 @@ LONG XEmacPs_PhyWrite(XEmacPs *InstancePtr, u32 PhyAddress,
 			(RegisterNum << XEMACPS_PHYMNTNC_PREG_SHFT_MSK) | (u32)PhyData;
 
 	/* Write Mgtcr and wait for completion */
-	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
+	XEmacPs_WriteReg(GemBaseAddress,
 			   XEMACPS_PHYMNTNC_OFFSET, Mgtcr);
 
 	do {
-		Ipisr = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
+		Ipisr = XEmacPs_ReadReg(GemBaseAddress,
 					  XEMACPS_NWSR_OFFSET);
 				IpWriteTemp = Ipisr;
 		} while ((IpWriteTemp & XEMACPS_NWSR_MDIOIDLE_MASK) == 0x00000000U);
