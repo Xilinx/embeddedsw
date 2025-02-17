@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -67,8 +67,13 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 	u32_t phyfoundforemac1 = FALSE;
 	u32_t gigeversion;
 	u32_t Reg;
+	char *PhyType;
 
 	xemacpsp = &xemacps->emacps;
+
+#ifdef SDT
+	PhyType = xemacpsp->Config.PhyType;
+#endif
 
 	gigeversion = ((Xil_In32(xemacpsp->Config.BaseAddress + 0xFC)) >> 16) & 0xFFF;
 	/* Get the number of queues */
@@ -85,6 +90,25 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 
 #ifdef LWIP_IGMP
 	XEmacPs_SetOptions(xemacpsp, XEMACPS_MULTICAST_OPTION);
+#endif
+
+#ifdef SDT
+	if(!strcmp(PhyType,"sgmii"))
+	{
+
+		/* Enable SGMII option */
+		XEmacPs_SetOptions(xemacpsp, XEMACPS_SGMII_ENABLE_OPTION);
+
+		/* Read the current PCS_CONTROL register value */
+		status = XEmacPs_ReadReg(xemacpsp->Config.BaseAddress, XEMACPS_PCS_CONTROL_OFFSET);
+
+		/* Set the Enable Auto-Negotiation bit (bit 12) */
+		status |= XEMACPS_PCS_CON_AUTO_NEG_MASK;
+
+		/* Write the updated value back to the PCS_CONTROL register */
+		XEmacPs_WriteReg(xemacpsp->Config.BaseAddress, XEMACPS_PCS_CONTROL_OFFSET, status);
+
+	}
 #endif
 
 #ifdef SGMII_FIXED_LINK
