@@ -314,6 +314,9 @@ enum {
 	XASUFW_KDF_KAT_FAILED, /**< 0xE7U - KDF KAT failed */
 	XASUFW_TRNG_GET_RANDOM_NUMBERS_TIMEDOUT, /**< 0xE8U - TRNG Get Random numbers timed out */
 	XASUFW_TRNG_INVALID_RANDOM_NUMBER, /**< 0xE9U - Invalid random number generated */
+	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, /**< 0xEAU - Error when change endianness in RSA fails */
+	XASUFW_RSA_INVALID_PRIME_TOT_FLAG, /**< 0xEBU - Error when invalid flag for prime number or
+						totient is given */
 
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };

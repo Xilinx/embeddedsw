@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -87,6 +87,10 @@ static u8  Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES] __attribute__ ((section (".rsa
  *		- XASUFW_SUCCESS on success.
  *		- XASUFW_FAILURE on failure.
  *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
+ *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL on zeroize memset failure.
+ *		- XASUFW_RSA_DMA_COPY_FAIL on DMA copy failure.
+ *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR on endianness change error.
+ *		- XASUFW_RSA_MEM_COPY_FAIL on memory copy failure.
  * 		- Also can return termination error codes from 0x9CU to 0x9FU ,
  * 		please refer to xasufw_status.h.
  *
@@ -122,6 +126,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	Status = Xil_SMemSet(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, 0U,
 			     XRSA_MAX_KEY_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 
@@ -129,6 +134,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -137,6 +143,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
 			       sizeof(XAsu_RsaCrtKeyComp), 0U);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -145,6 +152,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	Status = Xil_SMemCpy(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, &(KeyPtr->PubKeyComp.PubExp),
 			     XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_MEM_COPY_FAIL;
 		goto END;
 	}
 
@@ -163,8 +171,9 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_ValidateModulus((u8 *)KeyPtr->PubKeyComp.Modulus, InData, Len);
-	if (Status != XASUFW_SUCCESS) {
+	SStatus = XRsa_ValidateModulus((u8 *)KeyPtr->PubKeyComp.Modulus, InData, Len);
+	if (SStatus != XASUFW_SUCCESS) {
+		Status = SStatus;
 		goto END;
 	}
 
@@ -182,48 +191,56 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(InData, Len);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PubExpoArr, XRSA_PUBEXP_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness((u8 *)KeyPtr->PubKeyComp.Modulus, Len);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness((u8 *)KeyPtr->Prime1, XRSA_HALF_LEN(Len));
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness((u8 *)KeyPtr->Prime2, XRSA_HALF_LEN(Len));
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness((u8 *)KeyPtr->DP, XRSA_HALF_LEN(Len));
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness((u8 *)KeyPtr->DQ, XRSA_HALF_LEN(Len));
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness((u8 *)KeyPtr->QInv, XRSA_HALF_LEN(Len));
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
@@ -240,6 +257,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(OutData, Len);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
@@ -249,6 +267,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 
 END:
 	/** Zeroize local copy of all the parameters. */
+	ASSIGN_VOLATILE(SStatus, XASUFW_FAILURE);
 	SStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)InData, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
 					XRSA_TOTAL_PARAMS);
 
@@ -276,6 +295,11 @@ END:
  *		- XASUFW_SUCCESS on success.
  *		- XASUFW_FAILURE on failure.
  *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
+ *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL on zeroize memset failure.
+ *		- XASUFW_RSA_DMA_COPY_FAIL on DMA copy failure.
+ *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR on endianness change error.
+ *		- XASUFW_RSA_MEM_COPY_FAIL on memory copy failure.
+ *		- XASUFW_RSA_INVALID_PRIME_TOT_FLAG on invalid prime/totient flag.
  *		- Also can return termination error codes from 0x9CU to 0x9EU and 0xA0U,
  * 		please refer to xasufw_status.h.
  *
@@ -313,6 +337,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	Status = Xil_SMemSet(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, 0U,
 			     XRSA_MAX_KEY_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 
@@ -320,6 +345,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -328,6 +354,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
 			       sizeof(XAsu_RsaPvtKeyComp), 0U);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -336,6 +363,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	Status = Xil_SMemCpy(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, &(KeyPtr->PubKeyComp.PubExp),
 			     XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_MEM_COPY_FAIL;
 		goto END;
 	}
 
@@ -354,8 +382,9 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XRsa_ValidateModulus((u8 *)KeyPtr->PubKeyComp.Modulus, InData, Len);
-	if (Status != XASUFW_SUCCESS) {
+	SStatus = XRsa_ValidateModulus((u8 *)KeyPtr->PubKeyComp.Modulus, InData, Len);
+	if (SStatus != XASUFW_SUCCESS) {
+		Status = SStatus;
 		goto END;
 	}
 
@@ -372,38 +401,43 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(InData, Len);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PubExpoArr, XRSA_PUBEXP_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness((u8 *)KeyPtr->PubKeyComp.Modulus, Len);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness((u8 *)KeyPtr->PvtExp, Len);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (KeyPtr->PrimeCompOrTotientPrsnt == XRSA_TOTIENT_IS_PRSNT) {
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_ChangeEndianness((u8 *)KeyPtr->PrimeCompOrTotient, Len);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 	} else if (KeyPtr->PrimeCompOrTotientPrsnt == XRSA_PRIME_NUM_IS_PRSNT) {
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_ChangeEndianness((u8 *)KeyPtr->PrimeCompOrTotient,
 						 XRSA_HALF_LEN(Len));
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -411,6 +445,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 						 XRSA_MAX_PRIME_SIZE_IN_BYTES,
 						 XRSA_HALF_LEN(Len));
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 	}
@@ -443,16 +478,19 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		Status = XAsufw_DmaXfr(DmaPtr, ExpoAddr, (u64)(UINTPTR)RRN, sizeof(XAsu_RsaRModN),
 				       0U);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_DMA_COPY_FAIL;
 			goto END;
 		}
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_ChangeEndianness(RRN, Len);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_ChangeEndianness(RN, Len);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 		if (KeyPtr->PrimeCompOrTotientPrsnt == XRSA_TOTIENT_IS_PRSNT) {
@@ -484,6 +522,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(OutData, Len);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
@@ -493,6 +532,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 
 END:
 	/** Zeroize local copy of all the parameters. */
+	ASSIGN_VOLATILE(SStatus, XASUFW_FAILURE);
 	SStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)InData, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
 					XRSA_TOTAL_PARAMS);
 
@@ -520,6 +560,10 @@ END:
  *		- XASUFW_SUCCESS on success.
  *		- XASUFW_FAILURE on failure.
  *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
+ *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL on zeroize memset failure.
+ *		- XASUFW_RSA_DMA_COPY_FAIL on DMA copy failure.
+ *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR on endianness change error.
+ *		- XASUFW_RSA_MEM_COPY_FAIL on memory copy failure.
  *		- Also can return termination error codes from 0x9CU to 0x9EU and 0xA1U,
  * 		please refer to xasufw_status.h.
  *
@@ -555,6 +599,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	Status = Xil_SMemSet(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, 0U,
 			     XRSA_MAX_KEY_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 
@@ -562,6 +607,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -570,6 +616,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
 			       sizeof(XAsu_RsaPubKeyComp), 0U);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -578,6 +625,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	Status = Xil_SMemCpy(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, &(KeyPtr->PubExp),
 			     XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_MEM_COPY_FAIL;
 		goto END;
 	}
 
@@ -598,18 +646,21 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(InData, Len);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PubExpoArr, XRSA_PUBEXP_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness((u8 *)KeyPtr->Modulus, Len);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
@@ -624,11 +675,13 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		Status = XAsufw_DmaXfr(DmaPtr, ExpoAddr, (u64)(UINTPTR)RRN, sizeof(XAsu_RsaRRModN),
 				       0U);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_DMA_COPY_FAIL;
 			goto END;
 		}
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_ChangeEndianness(RRN, Len);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
 		rsaexpopt(InData, PubExpoArr, (u8 *)KeyPtr->Modulus, RRN, XRSA_BYTE_TO_BIT(Len),
@@ -639,6 +692,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(OutData, Len);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
