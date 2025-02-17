@@ -62,7 +62,11 @@
 #endif
 
 #if defined(__MICROBLAZE__)
+#ifndef  SDT
 #define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
+#else
+#define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
+#endif
 #else
 #define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
 #endif
@@ -340,7 +344,7 @@ static int DriverInit(void)
 #ifndef SDT
   GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_DEVICE_ID);
 #else
-  GpioCfgPtr = XGpio_LookupConfig(XPAR_XGPIO_0_BASEADDR);
+  GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_BASEADDR);
 #endif
   if(GpioCfgPtr == NULL) {
     xil_printf("ERROR:: Video Lock Monitor GPIO device not found\r\n");
