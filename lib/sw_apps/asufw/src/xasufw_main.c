@@ -34,7 +34,6 @@
  *       ss   09/26/24 Fixed doxygen comments
  *       yog  01/02/25 Initialize HMAC module
  *       ma   01/15/25 Initialize KDF module
- *       am   02/12/25 Added key transfer support
  *
  * </pre>
  *
@@ -100,18 +99,12 @@ int main(void)
 		goto END;
 	}
 
-	Status = XAsufw_PmcKeyTransfer();
-	if (XASUFW_SUCCESS != Status) {
-		XAsufw_Printf(DEBUG_GENERAL, "ASUFW key transfer failed. Error: 0x%x\r\n", Status);
-		goto END;
-	}
-
 	/**
 	 * Set FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register.
 	 * Clients need to check this bit before sending any requests to ASUFW.
 	 */
 	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
-		ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
+		   ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
 
 	/**
 	 * Call task dispatch loop to check and execute the tasks.

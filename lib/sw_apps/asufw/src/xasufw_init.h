@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -20,7 +20,6 @@
  *       ma   07/23/24 Added RTCA initialization related code
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   am   01/22/25 Added key transfer support
- *       am   02/13/25 Renamed XAsufw_GetKeys() to XAsufw_PmcKeyTransfer()
  *
  * </pre>
  *
@@ -70,7 +69,7 @@ u64 XAsufw_GetTimerValue(void);
 void XAsufw_MeasurePerfTime(u64 TCur, XAsufw_PerfTime *PerfTime);
 void XAsufw_PrintAsuTimeStamp(void);
 void XAsufw_RtcaInit(void);
-s32 XAsufw_PmcKeyTransfer(void);
+s32 XAsufw_GetKeys(void);
 
 /************************************ Variable Definitions ***************************************/
 
