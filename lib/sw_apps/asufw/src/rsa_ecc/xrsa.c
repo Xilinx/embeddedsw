@@ -99,7 +99,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	       u64 KeyParamAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	s32 SStatus = XASUFW_FAILURE;
+	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u8 *InData = XRsa_GetDataBlockAddr();
 	XAsu_RsaCrtKeyComp *KeyPtr = (XAsu_RsaCrtKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
@@ -308,7 +308,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		u64 KeyParamAddr, u64 ExpoAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	s32 SStatus = XASUFW_FAILURE;
+	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u8 *InData = XRsa_GetDataBlockAddr();
 	XAsu_RsaPvtKeyComp *KeyPtr = (XAsu_RsaPvtKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
@@ -572,7 +572,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		u64 KeyParamAddr, u64 ExpoAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	s32 SStatus = XASUFW_FAILURE;
+	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
 	u8 *InData = XRsa_GetDataBlockAddr();
 	XAsu_RsaPubKeyComp *KeyPtr = (XAsu_RsaPubKeyComp *)(InData + XRSA_MAX_KEY_SIZE_IN_BYTES);
 	u8 *RRN = (u8 *)KeyPtr + sizeof(XAsu_RsaPubKeyComp);
