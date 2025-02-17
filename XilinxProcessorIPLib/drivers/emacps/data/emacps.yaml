@@ -41,6 +41,7 @@ required:
     - ref-clk
     - phy-mode
     - phy-handle: phandle
+    - mdioproducer-baseaddr
 
 examples:
     xemacps_example_intr_dma.c:

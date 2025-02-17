@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -102,6 +102,13 @@ LONG XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
 #ifdef SDT
 	InstancePtr->Config.PhyType = CfgPtr->PhyType;
         InstancePtr->Config.PhyAddr = CfgPtr->PhyAddr;
+	if(CfgPtr->MdioProducerBaseAddr != 0)
+	{
+		InstancePtr->Config.MdioProducerBaseAddr = CfgPtr->MdioProducerBaseAddr;
+	}
+	else{
+		InstancePtr->Config.MdioProducerBaseAddr = EffectiveAddress;
+	}
 #endif
 
 	InstancePtr->Config.S1GDiv0 = CfgPtr->S1GDiv0;
@@ -356,6 +363,14 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 			XEMACPS_NWCTRL_OFFSET,nw_ctrl);
 
+#ifdef SDT
+	/* Initializing the network control register of MDIO Producer GEM */
+	if (XEmacPs_IsCommonMdioPresent(InstancePtr))
+	{
+		/* Management Port enable */
+		XEmacPs_WriteReg(InstancePtr->Config.MdioProducerBaseAddr,XEMACPS_NWCTRL_OFFSET,XEMACPS_NWCTRL_MDEN_MASK);
+	}
+#endif
 	nw_cfg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XEMACPS_NWCFG_OFFSET);
 	nw_cfg &= XEMACPS_NWCFG_MDCCLKDIV_MASK;
@@ -371,6 +386,15 @@ void XEmacPs_Reset(XEmacPs *InstancePtr)
 
 	XEmacPs_WriteReg(InstancePtr->Config.BaseAddress,
 				XEMACPS_NWCFG_OFFSET, nw_cfg);
+
+#ifdef SDT
+	/* Initializing the network config register of MDIO Producer GEM */
+	if (XEmacPs_IsCommonMdioPresent(InstancePtr))
+	{
+		/* Configure MDC Clock division */
+		XEmacPs_WriteReg(InstancePtr->Config.MdioProducerBaseAddr,XEMACPS_NWCFG_OFFSET, XEMACPS_NWCFG_MDCCLKDIV_MASK);
+	}
+#endif
 
 	if (InstancePtr->Version > 2) {
 			nw_cfg = XEmacPs_ReadReg(InstancePtr->Config.BaseAddress,
