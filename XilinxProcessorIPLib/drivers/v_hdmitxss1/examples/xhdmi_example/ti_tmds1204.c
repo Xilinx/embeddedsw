@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * ----- ------ -------- --------------------------------------------------
 * X.XX  XX     YY/MM/DD
 * 1.00  GM     19/05/14 Initial release.
+* 1.01	ssh    17/02/25 Updated compliance values.
 * </pre>
 *
 ******************************************************************************/
@@ -53,8 +54,8 @@ const Ti_RegisterField TiRegisterFields[] = {
 	{TX_TI_R1_INIT, 0x0C, 0x70},
 	{TX_TI_R1_INIT, 0x0D, 0x22}, //was e3
 	{TX_TI_R1_INIT, 0x0E, 0x97},
-	{TX_TI_R1_INIT, 0x11, 0x00},
-	{TX_TI_R1_INIT, 0x09, 0x00},
+	{TX_TI_R1_INIT, 0x11, 0x0F},
+	{TX_TI_R1_INIT, 0x09, 0x02},
 
 	{TX_TI_TMDS_14_L_R1, 0x11, 0x00},
 	{TX_TI_TMDS_14_L_R1, 0x0D, 0x22}, //was e3
