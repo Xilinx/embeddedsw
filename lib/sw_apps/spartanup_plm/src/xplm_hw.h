@@ -1,7 +1,7 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
-* SPDX-License-Identifier: MIT
-******************************************************************************/
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
+ ******************************************************************************/
 
 /*****************************************************************************/
 /**
@@ -18,6 +18,7 @@
  *       ng   12/04/24 Fix secondary boot control
  *       ng   11/26/24 Add support for new devices
  *       ng   02/05/25 Added CCU_APB register address for house clean
+ *       ng   02/11/25 Add Secure lockdown and tamper response support
  * </pre>
  *
  ******************************************************************************/
@@ -36,6 +37,9 @@ extern "C" {
 
 /* Interrupt ID for SBI */
 #define	XPLM_SBI_INTERRUPT_ID	(17U)
+
+/* Interrupt ID for EAM IRQ1 */
+#define	XPLM_EAM_INTERRUPT_ID	(24U)
 
 /* SBI interface types */
 #define XPLM_SBI_IF_JTAG        (0x1U)
@@ -63,6 +67,7 @@ extern "C" {
 #define XPLM_RTCFG_EAM_ERR1_STATUS	(XPLM_RTCFG_BASEADDR + 0x30U)
 #define XPLM_RTCFG_SEC_BOOT_CTRL	(XPLM_RTCFG_BASEADDR + 0x34U)
 #define XPLM_RTCFG_USER_DEF_REV		(XPLM_RTCFG_BASEADDR + 0x38U)
+#define XPLM_RTCFG_SECURE_LOCKDOWN_TIO	(XPLM_RTCFG_BASEADDR + 0x3CU)
 
 /* Default Values of PLM RunTime Configuration Registers */
 #define XPLM_RTCFG_VER			(0x1U)
@@ -80,6 +85,7 @@ extern "C" {
 #define XPLM_RTCFG_SEC_BOOT_CTRL_ENABLE_MASK	(0x00000001U)
 #define XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_MASK	(0x0000001CU)
 #define XPLM_RTCG_SEC_CTRL_RED_KEY_CLEAR_MASK	(0x00000003U)
+#define XPLM_RTCFG_SEC_LOCKDOWN_TIO_EN_MASK	(0x1U)
 
 /* Shifts for PLM RunTime Configuration Registers */
 #define XPLM_RTCFG_OSPI_XDR_MODE_SHIFT          (0x8U)
@@ -154,6 +160,17 @@ extern "C" {
 #define PMC_TAP_INST_MASK_0		(PMC_TAP_BASEADDR + 0x10000U)
 #define PMC_TAP_INST_MASK_1		(PMC_TAP_BASEADDR + 0x10004U)
 
+/**
+ * Register: PMC_TAP_PMC_TAP_LOCK
+ */
+#define PMC_TAP_PMC_TAP_LOCK		(PMC_TAP_BASEADDR + 0x11000U)
+#define PMC_TAP_PMC_TAP_LOCK_DEFVAL	(0x1U)
+
+/**
+ * Register: PMC_TAP_TAP_SECURITY
+ */
+#define PMC_TAP_TAP_SECURITY		(PMC_TAP_BASEADDR + 0x10008U)
+
 /* Masks for PMC TAP */
 #define PMC_TAP_INST_MASK_0_MONITOR_DRP_MASK (0x10000000U)
 #define PMC_TAP_INST_MASK_0_JRDBK_MASK	(0x00000010U)
@@ -182,8 +199,9 @@ extern "C" {
 
 /* Masks for SLAVE BOOT */
 #define SLAVE_BOOT_SBI_MODE_SELECT_MASK		(0x00000001U)
-#define SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK		(0x0000001CU)
-#define SLAVE_BOOT_SBI_CTRL_ENABLE_MASK		(0x00000001U)
+#define SLAVE_BOOT_SBI_CTRL_MCAP_DIS_MASK	(0x40U)
+#define SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK	(0x1CU)
+#define SLAVE_BOOT_SBI_CTRL_ENABLE_MASK		(0x1U)
 #define SLAVE_BOOT_SBI_IRQ_DISABLE_DATA_RDY_MASK	(0x00000004U)
 #define SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK	(0x00000004U)
 #define SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK	(0x00000004U)
@@ -239,6 +257,7 @@ extern "C" {
 /* Masks for SHA registers */
 #define SHA_RESET_VALUE_MASK		(0x00000001U)
 
+
 /**
  * CCU_APB Base Address
  */
@@ -248,6 +267,39 @@ extern "C" {
 #define CCU_APB_HCLEAN_STATUS		(CCU_APB_BASEADDR + 0x28U)
 #define CCU_APB_HCLEAN_STATUS_URAM_CLEAR_BUSY_MASK	(0x8U)
 
+/**
+ * Register: CCU_APB_CCU_PROTECT
+ */
+#define CCU_APB_CCU_PROTECT		(CCU_APB_BASEADDR + 0x14U)
+#define CCU_APB_CCU_PROTECT_WRITE_ALLOWED	(0x0U)
+#define CCU_APB_CCU_PROTECT_WRITE_DISABLE	(0x1U)
+
+/**
+ * Register: CCU_APB_CCU_FGCR
+ */
+#define CCU_APB_CCU_FGCR		(CCU_APB_BASEADDR + 0x18U)
+#define CCU_APB_CCU_FGCR_GTS_CFG_B_MASK (0x10U)
+
+/**
+ * Register: CCU_APB_CCU_MASK
+ */
+#define CCU_APB_CCU_MASK		(CCU_APB_BASEADDR + 0x1CU)
+
+/* CCU Stream addresses */
+#define XPLM_CCU_RD_STREAM_BASEADDR		(0x04060000U)
+#define XPLM_CCU_RD_STREAM_SIZE_BYTES		(0x00010000U)
+#define XPLM_CCU_RD_STREAM_SIZE_WORDS		(XPLM_BYTES_TO_WORDS(XPLM_CCU_RD_STREAM_SIZE_BYTES))
+#define XPLM_CCU_WR_STREAM_BASEADDR		(0x04070000U)
+
+
+/**
+ * PUF Base Address
+ */
+#define PUF_BASEADDR	(0x04080000U)
+
+#define PUF_COMMAND	(PUF_BASEADDR)
+#define PUF_COMMAND_CMD_MASK	(0x3U)
+#define PUF_COMMAND_CMD_STOP	(PUF_COMMAND_CMD_MASK)
 
 /**
  * Log buffer Base address

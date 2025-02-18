@@ -37,15 +37,6 @@ extern "C" {
 #include "xiomodule.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLM_PIT1_RESET_VALUE		(0xFFFFFFFDU)
-#define XPLM_PIT2_RESET_VALUE		(0xFFFFFFFEU)
-#define XPLM_PIT1_CYCLE_VALUE		(XPLM_PIT1_RESET_VALUE + 1U)
-#define XPLM_PIT2_CYCLE_VALUE		(XPLM_PIT2_RESET_VALUE + 1U)
-#define XPLM_PIT1			(0U)
-#define XPLM_PIT2			(1U)
-#define XPLM_PIT3			(2U)
-#define XPLM_MEGA			(1000000U)
-#define XPLM_KILO			(1000U)
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -57,7 +48,6 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 u32 XPlm_Init(void);
-XIOModule *XPlm_GetIOModuleInst(void);
 u64 XPlm_GetTimerValue(void);
 void XPlm_PrintRomTime(void);
 void XPlm_PrintPlmTime(void);

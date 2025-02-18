@@ -17,6 +17,7 @@
  * 1.01  ng   11/05/24 Add boot time measurements
  *       ng   12/04/24 Fix secondary boot control
  *       sk   02/04/25 Make redundancy variable as volatile
+ *       ng   02/11/25 Add Secure lockdown and tamper response support
  * </pre>
  *
  ******************************************************************************/
@@ -43,25 +44,19 @@
 #include "xplm_util.h"
 
 /************************** Constant Definitions *****************************/
-/** @cond spartanup_plm_internal */
-#ifndef SDT
-#define XPLM_IOMODULE_DEVICE	XPAR_IOMODULE_0_DEVICE_ID
-#else
-#define XPLM_IOMODULE_DEVICE	XPAR_XIOMODULE_0_BASEADDR
-#endif // !SDT
-/** @endcond */
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XPlm_SbiLoadPdi(void *Data);
+/** @cond spartanup_plm_internal */
 static void XPlm_SetRunTimeEvent(const u32 Event);
 static void XPlm_ClearRunTimeEvent(const u32 Event);
+/** @endcond */
+
 static void XPlm_EnableIntrSbiDataRdy(void);
-static u32 XPlm_IntrInit(void);
-static void XPlm_TimerInit(void);
+
 /************************** Variable Definitions *****************************/
 static volatile u32 RunTimeEvents = 0x0U; /**< To store the current Run Time event state. */
 
@@ -69,89 +64,14 @@ static volatile u32 RunTimeEvents = 0x0U; /**< To store the current Run Time eve
 
 /*****************************************************************************/
 /**
- * @brief	Initializes interrupt for loading partial PDI through slave boot
+ * @brief	This function serves as the interrupt handler for the 'SBI Data Ready' event.
  *
- * @return
- *		- XST_SUCCESS on success.
- *		- XPLM_ERR_IO_MOD_INIT if failed to initialize IO module.
- *
- *****************************************************************************/
-static u32 XPlm_IntrInit(void)
-{
-	u32 Status = (u32)XST_FAILURE;
-	XIOModule *IOModule = XPlm_GetIOModuleInst();
-
-	/** - Initialize IO Module. */
-	Status = XIOModule_Initialize(IOModule, XPLM_IOMODULE_DEVICE);
-	if (Status != (u32)XST_SUCCESS) {
-		Status = (u32)XPLM_ERR_IO_MOD_INIT;
-		goto END;
-	}
-
-	riscv_disable_interrupts();
-
-	/**
-	 * - Register the SBI RDY interrupt to enable the PDI loading from
-	 * SBI interface.
-	 */
-	(void)XIOModule_Connect(IOModule, XPLM_SBI_INTERRUPT_ID, XPlm_SbiLoadPdi, (void *)0U);
-
-	/*
-	 * Register the IO module interrupt handler with the exception table.
-	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				     (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
-				     (void *)0);
-
-	/** - Enable SBI data RDY interrupt. */
-	XPlm_EnableIntrSbiDataRdy();
-
-	/** - Enable the interrupt to receive interrupts for SBI RDY. */
-	XIOModule_Enable(IOModule, XPLM_SBI_INTERRUPT_ID);
-	riscv_enable_interrupts();
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function configures PIT2 as prescalar for PIT1, sets the reset values and
- * starts the timers.
- *
- *****************************************************************************/
-static void XPlm_TimerInit(void)
-{
-	XIOModule *IOModule = XPlm_GetIOModuleInst();
-
-	/** - Configure PIT2 as prescaler for PIT1. */
-	Xil_Out32(RV_IOMODULE_GPO1, RV_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
-
-	/**
-	 * - Set reset values of PIT1 to @ref XPLM_PIT1_RESET_VALUE and PIT2 to
-	 * @ref XPLM_PIT2_RESET_VALUE.
-	 */
-	XIOModule_SetResetValue(IOModule, XPLM_PIT1, XPLM_PIT1_RESET_VALUE);
-	XIOModule_SetResetValue(IOModule, XPLM_PIT2, XPLM_PIT2_RESET_VALUE);
-
-	/** - Configure PIT2 to auto reolad to reset value. */
-	XIOModule_Timer_SetOptions(IOModule, XPLM_PIT2, XTC_AUTO_RELOAD_OPTION);
-
-	/** - Start both PIT1 and PIT2 timers. */
-	XIOModule_Timer_Start(IOModule, XPLM_PIT1);
-	XIOModule_Timer_Start(IOModule, XPLM_PIT2);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function is the interrupt handler for SBI data ready.
- * 		In this handler, PDI is loaded through SBI interface.
- *
- * @param	Data Not used
+ * @param	Data unused.
  *
  * @note	SBI interface setting for JTAG/SMAP should be set before this handler.
  *
  *****************************************************************************/
-static void XPlm_SbiLoadPdi(void *Data)
+void XPlm_SbiLoadPdi(void *Data)
 {
 	(void)Data;
 
@@ -159,22 +79,23 @@ static void XPlm_SbiLoadPdi(void *Data)
 	XPlm_UtilRMW(SLAVE_BOOT_SBI_IRQ_DISABLE, SLAVE_BOOT_SBI_IRQ_DISABLE_DATA_RDY_MASK,
 		     SLAVE_BOOT_SBI_IRQ_DISABLE_DATA_RDY_MASK);
 
-	/** - Set run time event to trigger loading partial PDI. */
+	/** - Set run time event to trigger the partial PDI laoding. */
 	XPlm_SetRunTimeEvent(XPLM_RUN_TIME_PARTIAL_PDI_EVENT);
 }
 
 /*****************************************************************************/
 /**
- * @brief	This function enables IRQ for next interrupt.
+ * @brief	This function clears any pending SBI Data Ready interrupts and then enables the
+ * interrupt for future data ready events.
  *
  *****************************************************************************/
 static void XPlm_EnableIntrSbiDataRdy(void)
 {
-	/** - Clear SBI interrupt. */
+	/** - Clear any existing SBI Data Ready interrupt. */
 	XPlm_UtilRMW(SLAVE_BOOT_SBI_IRQ_STATUS, SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK,
 		     SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK);
 
-	/** - Enable SBI interrupt. */
+	/** - Enable the SBI Data Ready interrupt for subsequent events. */
 	XPlm_UtilRMW(SLAVE_BOOT_SBI_IRQ_ENABLE, SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK,
 		     SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
 }
@@ -238,14 +159,9 @@ u32 XPlm_PostBoot(void)
 			     ((SecBootInterf << XPLM_RTCFG_SEC_BOOT_CTRL_BOOT_IF_SHIFT) | SecBootEn));
 	}
 
-	/** - Initialize interrupts. */
-	Status = XPlm_IntrInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XPlm_EnableIntrSbiDataRdy();
 
-	/** - Initialize timers. */
-	XPlm_TimerInit();
+	Status = (u32)XST_SUCCESS;
 END:
 	return Status;
 }

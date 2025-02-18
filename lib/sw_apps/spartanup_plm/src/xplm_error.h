@@ -1,7 +1,7 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
-* SPDX-License-Identifier: MIT
-******************************************************************************/
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
+ ******************************************************************************/
 
 /*****************************************************************************/
 /**
@@ -14,6 +14,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
+ * 1.01  ng   02/11/25 Add Secure lockdown and tamper response support
  * </pre>
  *
  ******************************************************************************/
@@ -32,6 +33,12 @@
 #define XPLM_FW_STATUS_ZEROIZE_FAIL_MASK	(0x200U)
 
 #define XPLM_SKIP_MULTIBOOT_RESET		(XPLM_ONE)
+
+/** Event ID for EAM tamper. */
+#define XPLM_TAMPER_EVENT_EAM			(0xF0U)
+
+/** Event ID for Multiboot limit. */
+#define XPLM_EVENT_MULTIBOOT_LIMIT			(0x0FU)
 
 /**************************** Type Definitions *******************************/
 /**
@@ -63,6 +70,7 @@ typedef enum {
 void XPlm_LogPlmErr(u32 ErrStatus);
 void XPlm_LogPlmStage(XPlm_Stages Stage);
 void XPlm_ErrMgr(u32 ErrStatus);
+void XPlm_TriggerSecLockdown(void *Data);
 
 /************************** Variable Definitions *****************************/
 
