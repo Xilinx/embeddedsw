@@ -108,6 +108,7 @@ XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
 	const struct XPm_ClkTopologyNode *Ptr;
+	u32 Val;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_GATE);
 	if (Ptr == NULL) {
@@ -120,7 +121,8 @@ XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable)
 		goto done;
 	}
 
-	XPm_RMW32(Ptr->Reg, BITNMASK(Ptr->Param1.Shift,Ptr->Param2.Width), Enable << Ptr->Param1.Shift);
+	Val = (CLK_GATE_ACTIVE_LOW & Ptr->Typeflags) ? !Enable : Enable;
+	XPm_RMW32(Ptr->Reg, BITNMASK(Ptr->Param1.Shift,Ptr->Param2.Width), Val << Ptr->Param1.Shift);
 
 	if (1U == Enable) {
 		Clk->ClkNode.Node.State |= XPM_CLK_STATE_ON;
