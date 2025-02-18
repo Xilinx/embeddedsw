@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +49,8 @@
 * 9.1    mus 06/28/24 Fix typo in XGetCoreId, due to this XGetCoreId
 *                     always returns 0 in case of A78 processor CR#1204077.
 * 9.2    mus 09/23/24 Fix XGetBootStatus for VersalGen2.
+* 9.2    tnt 02/10/25 Replace all RPU_PCI_[XY]_PWRDWN for VersalGen2
+                      with XPS_PSX_RPU_CLUSTER_XY_CORE_X_PWRDWN registers
 * </pre>
 *
 ******************************************************************************/
@@ -266,22 +268,20 @@ u8 XGetBootStatus(void)
 	 * - Cluster C,D,E: cluster offset 0x40, core offset 0x20
 	 */
 
-	if (ClusterId > 1) {
-		Addr = (XPS_RPU_PCIL_CLUSTER_C_D_E_OFFSET * (ClusterId - XPS_CLUSTER_C_ID)) + XPS_RPU_PCIL_C0_PWRDWN;
-		Addr += (XGetCoreId() * XPS_RPU_PCIL_CORE_OFFSET_FOR_CLUSTER_C_D_E);
 
-	} else {
-		Addr = (XPS_RPU_PCIL_CLUSTER_OFFSET * ClusterId) + XPS_RPU_PCIL_A0_PWRDWN;
-		Addr += (XGetCoreId() * XPS_RPU_PCIL_CORE_OFFSET);
-	}
+	Addr = (XPS_PSX_RPU_PWRDWN_CLUSTER_OFFSET * ClusterId) + XPS_PSX_RPU_CLUSTER_A0_CORE_0_PWRDWN;
+	Addr += (XGetCoreId() * XPS_PSX_RPU_PWRDWN_CORE_OFFSET);
+	Status = Xil_In32(Addr);
+
+	return (Status & XPS_PSX_RPU_CORE_X_PWRDWN_EN_MASK);
 #else
 	Addr = (XPS_RPU_PCIL_CLUSTER_OFFSET * XGetClusterId()) + XPS_RPU_PCIL_A0_PWRDWN;
 	Addr += (XGetCoreId() * XPS_RPU_PCIL_CORE_OFFSET);
-#endif
-
 	Status = Xil_In32(Addr);
 
 	return (Status & XPS_RPU_PCIL_X_PWRDWN_EN_MASK);
+#endif
+
 #endif
 
 }

@@ -46,7 +46,8 @@
 *                     for RPU_PCIL_X_PWRDWN register. They are applicable for
 *                     cluster C, D and E in VersalGen2 SoC.
 * 9.3    mus 01/07/25 Fix address of RPU_PCIL_C0_PWRDWN register.
-*
+* 9.3    tnt 02/10/25 VersalGen2: replace all RPU_PCI_[XY]_PWRDWN
+                      with XPS_PSX_RPU_CLUSTER_XY_CORE_X_PWRDWN registers
 * </pre>
 *
 ******************************************************************************/
@@ -133,18 +134,18 @@ extern "C" {
 #endif
 
 #if defined (VERSAL_AIEPG2)
-#define XPS_RPU_PCIL_C0_PWRDWN 0xEB4211E0U
-#define XPS_CLUSTER_C_ID	2U
+#define XPS_PSX_RPU_CLUSTER_A0_CORE_0_PWRDWN 0xEB588200U
 /*
- * Offset between RPU_PCIL_X_PWRDWN registers of 2
- * consecutive clusters starting from cluster C
- * Note: For VERSAL_AIEPG2 SoC, offsets are different
- * for Cluster A,B(cluster offset 0x1000, core offset 0x100)
- * and Cluster C,D,E(cluster offset 0x40, core offset 0x20)
+ * Offset between XPS_PSX_RPU_CLUSTER_Xi_CORE_i registers of consecutive
+ * CPU cores in given cluster
  */
+#define XPS_PSX_RPU_PWRDWN_CORE_OFFSET	0x4000U
+/*
+ * Offset between XPS_PSX_RPU_CLUSTER_xI_CORE_I registers of 2 clusters
+ */
+#define XPS_PSX_RPU_PWRDWN_CLUSTER_OFFSET	0x10000U
 
-#define XPS_RPU_PCIL_CLUSTER_C_D_E_OFFSET 0x40U
-#define XPS_RPU_PCIL_CORE_OFFSET_FOR_CLUSTER_C_D_E 0x20U
+#define XPS_PSX_RPU_CORE_X_PWRDWN_EN_MASK	1U
 #endif
 
 /**************************** Type Definitions *******************************/
