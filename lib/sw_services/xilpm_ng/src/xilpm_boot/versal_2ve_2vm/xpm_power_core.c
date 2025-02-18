@@ -246,7 +246,7 @@ XPmFwPwrCtrl_t RpuA_Core0PwrCtrl = {
 	.CorePcilPsAddr = LPD_SLCR_RPU_PCIL_A0_PS,
 	.CorePcilPrAddr = LPD_SLCR_RPU_PCIL_A0_PR,
 	.CorePcilPaAddr = LPD_SLCR_RPU_PCIL_A0_PA,
-	.CorePcilPwrdwnAddr = PSXC_LPX_SLCR_RPU_PCIL_A0_PWRDWN,
+	.CorePcilPwrdwnAddr = PSXC_RPU_CLUSTER_A0_CORE_0_PWRDWN,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_PA_PACTIVE_MASK,
 	.WakeupIrqMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUA_CORE0_MASK,
 	.CacheCntrlMask = PSXC_LPX_SLCR_RPU_CACHE_CNTRL_A0_MASK,
@@ -267,7 +267,7 @@ XPmFwPwrCtrl_t RpuA_Core1PwrCtrl = {
 	.CorePcilPsAddr = LPD_SLCR_RPU_PCIL_A1_PS,
 	.CorePcilPrAddr = LPD_SLCR_RPU_PCIL_A1_PR,
 	.CorePcilPaAddr = LPD_SLCR_RPU_PCIL_A1_PA,
-	.CorePcilPwrdwnAddr = PSXC_LPX_SLCR_RPU_PCIL_A1_PWRDWN,
+	.CorePcilPwrdwnAddr = PSXC_RPU_CLUSTER_A1_CORE_1_PWRDWN,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_PA_PACTIVE_MASK,
 	.WakeupIrqMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUA_CORE1_MASK,
 	.CacheCntrlMask = PSXC_LPX_SLCR_RPU_CACHE_CNTRL_A1_MASK,
@@ -288,7 +288,7 @@ XPmFwPwrCtrl_t RpuB_Core0PwrCtrl = {
 	.CorePcilPsAddr = LPD_SLCR_RPU_PCIL_B0_PS,
 	.CorePcilPrAddr = LPD_SLCR_RPU_PCIL_B0_PR,
 	.CorePcilPaAddr = LPD_SLCR_RPU_PCIL_B0_PA,
-	.CorePcilPwrdwnAddr = PSXC_LPX_SLCR_RPU_PCIL_B0_PWRDWN,
+	.CorePcilPwrdwnAddr = PSXC_RPU_CLUSTER_B0_CORE_0_PWRDWN,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_PA_PACTIVE_MASK,
 	.WakeupIrqMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUB_CORE0_MASK,
 	.CacheCntrlMask = PSXC_LPX_SLCR_RPU_CACHE_CNTRL_B0_MASK,
@@ -309,7 +309,7 @@ XPmFwPwrCtrl_t RpuB_Core1PwrCtrl = {
 	.CorePcilPsAddr = LPD_SLCR_RPU_PCIL_B1_PS,
 	.CorePcilPrAddr = LPD_SLCR_RPU_PCIL_B1_PR,
 	.CorePcilPaAddr = LPD_SLCR_RPU_PCIL_B1_PA,
-	.CorePcilPwrdwnAddr = PSXC_LPX_SLCR_RPU_PCIL_B1_PWRDWN,
+	.CorePcilPwrdwnAddr = PSXC_RPU_CLUSTER_B1_CORE_1_PWRDWN,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_PA_PACTIVE_MASK,
 	.WakeupIrqMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUB_CORE1_MASK,
 	.CacheCntrlMask = PSXC_LPX_SLCR_RPU_CACHE_CNTRL_B1_MASK,
@@ -330,7 +330,7 @@ XPmFwPwrCtrl_t RpuC_Core0PwrCtrl = {
 	.CorePcilPsAddr = LPD_SLCR_RPU_PCIL_C0_PS,
 	.CorePcilPrAddr = LPD_SLCR_RPU_PCIL_C0_PR,
 	.CorePcilPaAddr = LPD_SLCR_RPU_PCIL_C0_PA,
-	.CorePcilPwrdwnAddr = PSXC_LPX_SLCR_RPU_PCIL_C0_PWRDWN,
+	.CorePcilPwrdwnAddr = PSXC_RPU_CLUSTER_C0_CORE_0_PWRDWN,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_PA_PACTIVE_MASK,
 	.WakeupIrqMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUC_CORE0_MASK,
 	.CacheCntrlMask = PSXC_LPX_SLCR_RPU_CACHE_CNTRL_C0_MASK,
@@ -351,7 +351,7 @@ XPmFwPwrCtrl_t RpuC_Core1PwrCtrl = {
 	.CorePcilPsAddr = LPD_SLCR_RPU_PCIL_C1_PS,
 	.CorePcilPrAddr = LPD_SLCR_RPU_PCIL_C1_PR,
 	.CorePcilPaAddr = LPD_SLCR_RPU_PCIL_C1_PA,
-	.CorePcilPwrdwnAddr = PSXC_LPX_SLCR_RPU_PCIL_C1_PWRDWN,
+	.CorePcilPwrdwnAddr = PSXC_RPU_CLUSTER_C1_CORE_1_PWRDWN,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_PA_PACTIVE_MASK,
 	.WakeupIrqMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUC_CORE1_MASK,
 	.CacheCntrlMask = PSXC_LPX_SLCR_RPU_CACHE_CNTRL_C1_MASK,
@@ -372,7 +372,7 @@ XPmFwPwrCtrl_t RpuD_Core0PwrCtrl = {
 	.CorePcilPsAddr = LPD_SLCR_RPU_PCIL_D0_PS,
 	.CorePcilPrAddr = LPD_SLCR_RPU_PCIL_D0_PR,
 	.CorePcilPaAddr = LPD_SLCR_RPU_PCIL_D0_PA,
-	.CorePcilPwrdwnAddr = PSXC_LPX_SLCR_RPU_PCIL_D0_PWRDWN,
+	.CorePcilPwrdwnAddr = PSXC_RPU_CLUSTER_D0_CORE_0_PWRDWN,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_PA_PACTIVE_MASK,
 	.WakeupIrqMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUD_CORE0_MASK,
 	.CacheCntrlMask = PSXC_LPX_SLCR_RPU_CACHE_CNTRL_D0_MASK,
@@ -393,7 +393,7 @@ XPmFwPwrCtrl_t RpuD_Core1PwrCtrl = {
 	.CorePcilPsAddr = LPD_SLCR_RPU_PCIL_D1_PS,
 	.CorePcilPrAddr = LPD_SLCR_RPU_PCIL_D1_PR,
 	.CorePcilPaAddr = LPD_SLCR_RPU_PCIL_D1_PA,
-	.CorePcilPwrdwnAddr = PSXC_LPX_SLCR_RPU_PCIL_D1_PWRDWN,
+	.CorePcilPwrdwnAddr = PSXC_RPU_CLUSTER_D1_CORE_1_PWRDWN,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_PA_PACTIVE_MASK,
 	.WakeupIrqMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUD_CORE1_MASK,
 	.CacheCntrlMask = PSXC_LPX_SLCR_RPU_CACHE_CNTRL_D1_MASK,
@@ -414,7 +414,7 @@ XPmFwPwrCtrl_t RpuE_Core0PwrCtrl = {
 	.CorePcilPsAddr = LPD_SLCR_RPU_PCIL_E0_PS,
 	.CorePcilPrAddr = LPD_SLCR_RPU_PCIL_E0_PR,
 	.CorePcilPaAddr = LPD_SLCR_RPU_PCIL_E0_PA,
-	.CorePcilPwrdwnAddr = PSXC_LPX_SLCR_RPU_PCIL_E0_PWRDWN,
+	.CorePcilPwrdwnAddr = PSXC_RPU_CLUSTER_E0_CORE_0_PWRDWN,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_PA_PACTIVE_MASK,
 	.WakeupIrqMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUE_CORE0_MASK,
 	.CacheCntrlMask = PSXC_LPX_SLCR_RPU_CACHE_CNTRL_E0_MASK,
@@ -435,7 +435,7 @@ XPmFwPwrCtrl_t RpuE_Core1PwrCtrl = {
 	.CorePcilPsAddr = LPD_SLCR_RPU_PCIL_E1_PS,
 	.CorePcilPrAddr = LPD_SLCR_RPU_PCIL_E1_PR,
 	.CorePcilPaAddr = LPD_SLCR_RPU_PCIL_E1_PA,
-	.CorePcilPwrdwnAddr = PSXC_LPX_SLCR_RPU_PCIL_E1_PWRDWN,
+	.CorePcilPwrdwnAddr = PSXC_RPU_CLUSTER_E1_CORE_1_PWRDWN,
 	.CorePactiveMask = LPD_SLCR_RPU_PCIL_PA_PACTIVE_MASK,
 	.WakeupIrqMask = PSXC_LPX_SLCR_WAKEUP1_IRQ_RPUE_CORE1_MASK,
 	.CacheCntrlMask = PSXC_LPX_SLCR_RPU_CACHE_CNTRL_E1_MASK,
@@ -1149,7 +1149,6 @@ XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 	/* Mask RPU PCIL Interrupts */
 	XPm_RMW32(Args->CorePcilIdsAddr, PSXC_LPX_SLCR_RPU_PCIL_ISR_PACTIVE1_MASK, PSXC_LPX_SLCR_RPU_PCIL_ISR_PACTIVE1_MASK);
 
-
 	Status = XPmPower_RpuPwrUp(Args);
 	if(XST_SUCCESS != Status){
 		goto done;
@@ -1165,13 +1164,13 @@ XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 	XPm_RMW32(Args->RstCtrlAddr, Args->RstCtrlMask, ~Args->RstCtrlMask);
 
 	/* Poll for PACCEPT. Skip for SPP */
-		Status = XPm_PollForMask(Args->CorePcilPaAddr,
-					 PSXC_LPX_SLCR_RPU_PCIL_PA_PACCEPT_MASK, RPU_PACTIVE_TIMEOUT);
-		if (XST_SUCCESS != Status) {
-			PmErr("R52 Core PACCEPT timeout..\n\r");
-			xil_printf("PCIL PA addr: 0x%x value= 0x%x\n", Args->CorePcilPaAddr, XPm_In32(Args->CorePcilPaAddr));
-			goto done;
-		}
+	Status = XPm_PollForMask(Args->CorePcilPaAddr,
+				 PSXC_LPX_SLCR_RPU_PCIL_PA_PACCEPT_MASK, RPU_PACTIVE_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		PmErr("R52 Core PACCEPT timeout..\n\r");
+		xil_printf("PCIL PA addr: 0x%x value= 0x%x\n", Args->CorePcilPaAddr, XPm_In32(Args->CorePcilPaAddr));
+		goto done;
+	}
 
 	/* Clear PREQ bit */
 	XPm_Out32(Args->CorePcilPrAddr, 0U);
@@ -1179,13 +1178,10 @@ XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 	XPm_Out32(PSXC_LPX_SLCR_WAKEUP1_IRQ_STATUS, Args->WakeupIrqMask);
 	/* Acknowledge pending RPU PCIL interrupt */
 	XPm_Out32(Args->CorePcilIsrAddr, PSXC_LPX_SLCR_RPU_PCIL_ISR_PACTIVE1_MASK);
-	/*
-	 * Unmask interrupt for all Power-up Requests and Reset Requests that
-	 * are triggered but have their interrupt masked.
-	 */
-	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRUP1_INT_EN, XPm_In32(PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS));
-	XPm_Out32(PSXC_LPX_SLCR_REQ_SWRST_INT_EN, XPm_In32(PSXC_LPX_SLCR_REQ_SWRST_STATUS));
 
+	/** Clear Power_Dwn_Irq_Status */
+	/** TODO: FIXME this should only target current core */
+	XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS, XPm_In32(PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS));
 done:
 	return Status;
 }
@@ -1220,32 +1216,20 @@ XStatus XPmPower_RpuPwrDwn(struct XPmFwPwrCtrl_t *Args)
 	/* Power gate the RPU core cache RAMs */
 	XPm_RMW32(PSXC_LPX_SLCR_RPU_CACHE_PWR_CNTRL, Args->CacheCntrlMask, ~Args->CacheCntrlMask);
 
-	/* Unmask wake interrupt*/
-	XPm_Out32(PSXC_LPX_SLCR_WAKEUP1_IRQ_EN, Args->WakeupIrqMask);
-
-	/* Unmask the RPU PCIL Interrupt */
-	XPm_Out32(Args->CorePcilIenAddr, PSXC_LPX_SLCR_RPU_PCIL_ISR_PACTIVE1_MASK);
-
-	/* Mark RPUx powered down in PWR_STATE register */
-	XPm_RMW32(PMXC_GLOBAL_PMC_MSTR_PWR_STATE_0, Args->PwrStateMask, ~Args->PwrStateMask);
-
 	Status = XST_SUCCESS;
 
 done:
 	return Status;
 }
-
 XStatus XPmPower_RpuDirectPwrDwn(struct XPmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
-	/* Clear PwrDwn En bit */
-	XPm_Out32(Args->CorePcilPwrdwnAddr, 0U);
-
-	/* Poll for PACTIVE to go low */
+	/* Poll for PACTIVE to go low
+	This indicate the core is going to lower power state */
 	Status = XPm_PollForZero(Args->CorePcilPaAddr, Args->CorePactiveMask, RPU_PACTIVE_TIMEOUT);
 	if(XST_SUCCESS != Status){
-		PmErr("Pactive bit is low\n");
+		PmErr("Timeout to wait for Pactive[1] become zero.\n");
 		goto done;
 	}
 
@@ -1265,11 +1249,28 @@ XStatus XPmPower_RpuDirectPwrDwn(struct XPmFwPwrCtrl_t *Args)
 	/* Clear PREQ to prepare for next state change request */
 	XPm_Out32(Args->CorePcilPrAddr, ~PSXC_LPX_SLCR_RPU_PCIL_PR_PREQ_MASK);
 
+#if 0
+	/** TODO: FIXME Wake Interrupt is not able to wake RPU core when it is in power off mode
+	. Hence disable this.
+	 */
 	Status = XPmPower_RpuPwrDwn(Args);
 	if(XST_SUCCESS != Status){
 		goto done;
 	}
+#endif
 
+	/* Unmask wake interrupt*/
+	XPm_Out32(PSXC_LPX_SLCR_WAKEUP1_IRQ_EN, Args->WakeupIrqMask);
+
+	/* Unmask the RPU PCIL Interrupt */
+	XPm_Out32(Args->CorePcilIenAddr, PSXC_LPX_SLCR_RPU_PCIL_ISR_PACTIVE1_MASK);
+#if 0
+	/** TODO: FIXME Wake Interrupt is not able to wake RPU core when it is in power off mode
+	. Hence disable this code.
+	 */
+	/* Mark RPUx powered down in PWR_STATE register */
+	XPm_RMW32(PMXC_GLOBAL_PMC_MSTR_PWR_STATE_0, Args->PwrStateMask, ~Args->PwrStateMask);
+#endif
 done:
 	return Status;
 }
