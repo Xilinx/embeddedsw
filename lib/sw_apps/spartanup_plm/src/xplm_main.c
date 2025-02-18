@@ -1,7 +1,7 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
-* SPDX-License-Identifier: MIT
-******************************************************************************/
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
+ ******************************************************************************/
 
 /*****************************************************************************/
 /**
@@ -17,6 +17,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
  * 1.01  ng   11/05/24 Add boot time measurements
+ *       ng   02/11/25 Fix PLM boot time print
  * </pre>
  *
  ******************************************************************************/
@@ -51,6 +52,8 @@
 u32 main(void)
 {
 	volatile u32 Status = (u32)XST_FAILURE;
+	u64 TStart, TCur;
+	XPlm_PerfTime PerfTime;
 
 	/** - Perform Pre-Boot initialization. */
 	Status = XPlm_Init();
@@ -58,15 +61,21 @@ u32 main(void)
 		XPlm_ErrMgr(Status);
 	}
 
+	/* Capture the CDO load start time. */
+	TStart = XPlm_GetTimerValue();
+
 	/** - Load full PDI. */
 	Status = (u32)XPLM_ERR_GLITCH_DETECTED;
 	Status = XPlm_LoadFullPdi();
 	if (Status != (u32)XST_SUCCESS) {
 		XPlm_ErrMgr(Status);
 	}
+	TCur = XPlm_GetTimerValue();
 
 	XPlm_Printf(DEBUG_PRINT_ALWAYS, "PLM Boot Done\n\r");
-	XPlm_PrintPlmTime();
+	XPlm_GetPerfTime(TCur, TStart, XPlm_PmcIroFreq(), &PerfTime);
+	XPlm_Printf(DEBUG_PRINT_ALWAYS, "%u.%03u ms: PLM Time\r\n",
+		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 	XPlm_PrintRomTime();
 
 	/** - Perform Post-Boot configuration. */

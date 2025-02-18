@@ -20,6 +20,7 @@
  *       ng   02/05/25 Update SDK release year and quarter
  *       sk   02/14/25 Updated the XPlm_ExceptionHandler function brief
  *       ng   02/14/25 Add Secure lockdown and tamper response support
+ *       ng   02/14/25 Removed unused function for printing PLM boot time
  * </pre>
  *
  ******************************************************************************/
@@ -348,11 +349,14 @@ u64 XPlm_GetTimerValue(void)
  * @param	IroFreq is the frequency at which PMC IRO is running in MHz
  * @param	PerfTime is the pointer to variable holding the performance time
  *
+ * @note	Since the timer functions as a countdown timer, the current value (TCur) will
+ * always be less than the starting value (TStart).
+ *
  *****************************************************************************/
 void XPlm_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq, XPlm_PerfTime *PerfTime)
 {
 	u64 PerfUs;
-	u64 TDiff = TCur - TStart;
+	u64 TDiff = TStart - TCur;
 	u32 PmcIroFreqMHz = IroFreq / XPLM_MEGA;
 
 	/* Convert TPerf into microseconds */
@@ -375,45 +379,9 @@ void XPlm_PrintRomTime(void)
 	PmcRomTime = (u64)Xil_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE0);
 	PmcRomTime |= (u64)Xil_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1) << 32U;
 
-	/* Print time stamp of PLM */
-	XPlm_GetPerfTime(((u64)XPLM_PIT1_CYCLE_VALUE << 32U) | XPLM_PIT2_CYCLE_VALUE, PmcRomTime,
+	XPlm_GetPerfTime(PmcRomTime, ((u64)XPLM_PIT1_CYCLE_VALUE << 32U) | XPLM_PIT2_CYCLE_VALUE,
 			 XPlm_PmcIroFreq(), &PerfTime);
 	XPlm_Printf(DEBUG_PRINT_ALWAYS, "%u.%03u ms: ROM Time\r\n",
-		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function prints the PLM time.
- *
- *****************************************************************************/
-void XPlm_PrintPlmTime(void)
-{
-	u64 PmcRomTime;
-	XPlm_PerfTime PerfTime;
-	u32 TPit1;
-	u32 TPit2;
-	u64 TCur;
-
-	TPit1 = Xil_In32(RV_IOMODULE_PIT1_COUNTER);
-	TPit2 = Xil_In32(RV_IOMODULE_PIT2_COUNTER);
-
-	/* Get PMC ROM time */
-	PmcRomTime = (u64)Xil_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE0);
-	PmcRomTime |= (u64)Xil_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1) << 32U;
-
-	Xil_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2, TPit2);
-	Xil_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE3, TPit1);
-
-	if (TPit1 == XPLM_ZERO) {
-		TPit1 = XPLM_PIT1_CYCLE_VALUE;
-	}
-
-	TCur = ((u64)TPit1 << 32U) | TPit2;
-
-	/* Print time stamp of PLM */
-	XPlm_GetPerfTime(PmcRomTime, TCur, XPlm_PmcIroFreq(), &PerfTime);
-	XPlm_Printf(DEBUG_PRINT_ALWAYS, "%u.%03u ms: PLM Time\r\n",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 }
 

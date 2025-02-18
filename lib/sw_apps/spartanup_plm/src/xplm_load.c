@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,8 +20,8 @@
  * 1.01  ng   11/05/24 Add boot time measurements
  *       ng   11/26/24 Add support for new devices
  *       prt  02/09/25 Always clear the secure memory area even for non-secure boot
- *       sk   02/05/25 Updated redundancy variable as volatile in
- *            XPlm_SecureClear
+ *       sk   02/14/25 Updated redundancy variable as volatile in XPlm_SecureClear
+ *       ng   02/12/25 Fixed params order for perf time print
  * </pre>
  *
  ******************************************************************************/
@@ -408,7 +408,7 @@ u32 XPlm_LoadPartialPdi(void)
 
 	TCur = XPlm_GetTimerValue();
 	XPlm_Printf(DEBUG_GENERAL, "Partial PDI Loaded Successfully\n\r");
-	XPlm_GetPerfTime(TStart, TCur, XPlm_PmcIroFreq(), &PerfTime);
+	XPlm_GetPerfTime(TCur, TStart, XPlm_PmcIroFreq(), &PerfTime);
 	XPlm_Printf(DEBUG_PRINT_ALWAYS, "%u.%03u ms: PLM Time\r\n",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 
