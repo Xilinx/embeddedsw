@@ -405,6 +405,7 @@ extern "C" {
 #define PM_RST_TTC_5				(0xC10410DU)
 #define PM_RST_TTC_6				(0xC10410EU)
 #define PM_RST_TTC_7				(0xC10410FU)
+#define PM_RST_UDH_DRD                          (0xC41007BU)
 /** @} */
 
 /**
@@ -623,6 +624,7 @@ extern "C" {
 #define PM_CLK_TTC5				(0x82080CDU)
 #define PM_CLK_TTC6				(0x82080CEU)
 #define PM_CLK_TTC7				(0x82080CFU)
+#define PM_CLK_MMI_DRD_REF_CLK                  (0x82080D0U)
 /** @} */
 
 /**
@@ -1034,6 +1036,7 @@ extern "C" {
 #define PM_DEV_TTC_5				(0x18224120U)
 #define PM_DEV_TTC_6				(0x18224121U)
 #define PM_DEV_TTC_7				(0x18224122U)
+#define PM_DEV_MMI_USB_DRD                      (0x18224135U)
 /** @} */
 
 /**
