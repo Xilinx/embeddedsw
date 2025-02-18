@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +26,8 @@
 *      yog  09/13/23  Fixed review comments
 * 3.4  kal  09/26/24  Updated AES, PPK and IV functions to pass EnvMonDis flag
 *                     to server through IPI commands
+* 3.5  kal  02/05/25  Make status as volatile and reset status to XST_FAILURE
+*                     before security critical calls
 *
 * </pre>
 *
@@ -404,6 +406,7 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_UDS CDO command.
 	 *     Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)UdsWriteCdo,
 			sizeof(XNvm_UdsWriteCdo) / XNVM_WORD_LEN);
 	if (Status != XST_SUCCESS) {
@@ -473,6 +476,7 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_DME_KEY CDO command.
 	 *     Wait for IPI response from PLM  with a default timeout of 300 seconds
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)DmeKeyWriteCdo,
 			sizeof(XNvm_DmeKeyWriteCdo) / XNVM_WORD_LEN);
 	if (Status != XST_SUCCESS) {
@@ -968,6 +972,8 @@ int XNvm_EfuseWriteRomRsvdBits(XNvm_ClientInstance *InstancePtr, u32 RomRsvdBits
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Successfully programmed ROM reserved bits \r\n");
 	}
 
+	Status = XST_FAILURE;
+
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
 
@@ -1025,6 +1031,8 @@ int XNvm_EfuseWriteGlitchConfigBits(XNvm_ClientInstance *InstancePtr, u32 Glitch
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Successfully programmed Glitch configuration bits \r\n");
 	}
 
+	Status = XST_FAILURE;
+
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
 
@@ -1077,6 +1085,8 @@ int XNvm_EfuseWritePlmUpdate(XNvm_ClientInstance *InstancePtr, const u32 EnvDisF
 	else {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Successfully programmed eFuse bit to disable PLM update \r\n");
 	}
+
+	Status = XST_FAILURE;
 
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
@@ -1131,6 +1141,8 @@ int XNvm_EfuseWriteDecOnly(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFla
 	else {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Successfully programmed Decrypt only eFuse bits \r\n");
 	}
+
+	Status = XST_FAILURE;
 
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
@@ -1190,6 +1202,8 @@ int XNvm_EfuseWriteFipsInfo(XNvm_ClientInstance *InstancePtr, const u16 FipsMode
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Successfully programmed eFuse bits related to FIPS \r\n");
 	}
 
+	Status = XST_FAILURE;
+
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
 
@@ -1244,6 +1258,8 @@ int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 Revo
 	else {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Successfully programmed Revocation ID %x \r\n", RevokeIdNum);
 	}
+
+	Status = XST_FAILURE;
 
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
@@ -1300,6 +1316,8 @@ int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u
 	else {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Successfully programmed Off chip revocation ID %x \r\n", OffChipRevokeIdNum);
 	}
+
+	Status = XST_FAILURE;
 
 	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
@@ -2781,7 +2799,7 @@ static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 S
 static int XNvm_EfuseValidateNdWriteAesKey(const XNvm_ClientInstance *InstancePtr,
 		XNvm_AesKeyWriteCdo *KeyWrCdo, XNvm_AesKeyType KeyType, u64 Addr, u32 EnvMonDis)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	/**
 	 * Validate Aes Keys requested for programming.
@@ -2802,6 +2820,7 @@ static int XNvm_EfuseValidateNdWriteAesKey(const XNvm_ClientInstance *InstancePt
 	 * Wait for IPI response from PLM with a timeout.
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)KeyWrCdo,
 			sizeof(XNvm_AesKeyWriteCdo) / XNVM_WORD_LEN);
 
@@ -2829,7 +2848,7 @@ END:
 static int XNvm_EfuseValidatNdWritePpkHash(const XNvm_ClientInstance *InstancePtr,
 		XNvm_PpkWriteCdo *PpkWrCdo, XNvm_PpkType PpkType, u64 Addr, u32 EnvMonDis)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	/**
 	 * Validate PPK Hash's requested for programming
@@ -2850,6 +2869,7 @@ static int XNvm_EfuseValidatNdWritePpkHash(const XNvm_ClientInstance *InstancePt
 	 * Wait for IPI response from PLM with a timeout.
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)PpkWrCdo,
 			sizeof(XNvm_PpkWriteCdo) / XNVM_WORD_LEN);
 
@@ -2877,7 +2897,7 @@ END:
 static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr,
 		XNvm_IvWriteCdo *IvWrCdo, XNvm_IvType IvType, u64 Addr, u32 EnvMonDis)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	/**
 	 * Validate IV's requested for programming
@@ -2898,6 +2918,7 @@ static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr,
 	 * Wait for IPI response from PLM with a timeout.
 	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)IvWrCdo,
 			sizeof(XNvm_IvWriteCdo) / XNVM_WORD_LEN);
 END:
