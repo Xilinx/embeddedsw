@@ -5,7 +5,6 @@
 #include "xpm_regs.h"
 #include "xpm_core.h"
 #include "xpm_power_core.h"
-#include "xpm_power_data.h"
 /* TODO: see if this data can be passed via topology */
 
 #define NUM_CLUSTER 4U

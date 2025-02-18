@@ -5,7 +5,6 @@
 
 #include "xpm_power_handlers.h"
 #include "xpm_power_core.h"
-#include "xpm_power_data.h"
 #include "xpm_core.h"
 extern XPmFwPwrCtrl_t Acpu0_Core0PwrCtrl;
 extern XPmFwPwrCtrl_t Acpu0_Core1PwrCtrl;
