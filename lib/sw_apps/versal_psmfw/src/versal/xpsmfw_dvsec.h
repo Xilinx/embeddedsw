@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,13 +32,32 @@ extern "C" {
 
 #include "xpsmfw_dvsec_common.h"
 
+/**
+ * @name PCIe Controller 0 DVSEC Registers
+ * @ingroup Control and Status Registers
+ * @{
+ */
+/**
+ * PCIe Controller 0 DVSEC
+ * Control and Status Regsiters
+ */
 #define PCIEA_DVSEC0_SLCR_OFF		0x5A0000U
 #define PCIEA_ATTRIB0_SLCR_OFF		0x40000U
 
 #define CPM5_PCIEA_DVSEC0_SLCR_OFF	0x70000U
 #define CPM5_PCIEA_ATTRIB0_SLCR_OFF	0x38000U
 #define CPM5_PCIEA_CSR0_SLCR_OFF	0x30000U
+/** @} */
 
+
+/**
+ * @name CPM Interrupt Registers
+ * @ingroup versal_regs
+ * @{
+ */
+/**
+ * CPM Interrupt Registers
+ */
 #define CPM_CORR_IR_STA_OFF		0x300U
 #define CPM_MISC_IR_STA_OFF		0x340U
 
@@ -45,23 +65,6 @@ extern "C" {
 #define CPM5_MISC_IR_STA_OFF		0x3A0U
 #define CPM5_PCIE0_IR_STA_OFF		0x2A0U
 
-#define PCIE_PF0_PCSR_SIZE_OFF		0xA6CU
-#define PCIE_PF0_PCR_SIZE_OFF		0xA74U
-#define PCIE_PF0_PDVSEC_VID_OFF		0xA58U
-#define PCIE_CFG_ADDR_OFF		0xE78U
-
-#define CPM5_PCIE_PF0_PCSR_SIZE_OFF	0x1E34U
-#define CPM5_PCIE_PF0_PCR_SIZE_OFF	0x1E3CU
-#define CPM5_PCIE_PF0_PDVSEC_VID_OFF	0x1E20U
-
-#define CPM5_CFG_MGMT_DVSEC_OFF		0x200U
-
-#define PCIE_CFG_MASK			(u32)(0x08000000U)
-#define CPM_SLCR_DVSEC_CFG_RD_MASK	(u32)(0x00020000U)
-#define CPM_SLCR_DVSEC_CFG_WR_MASK	(u32)(0x00040000U)
-#define DVSEC_LOW_16B_MASK		(u32)(0x0000FFFFU)
-#define DVSEC_LOW_11B_MASK		(u32)(0x00000FFFU)
-#define DVSEC_DEV_ID_MASK		(u32)(0x000000FFU)
 
 #define CPM_PL_MISC_IRQ_ENA_OFF	0x3A8U
 #define CPM_PL_CORR_IRQ_ENA_OFF	0x368U
@@ -74,20 +77,64 @@ extern "C" {
 
 #define CPM_PS_MISC_IRQ_DIS_OFF	0x34CU
 #define CPM_PS_CORR_IRQ_DIS_OFF	0x30CU
+/** @} */
 
+
+/**
+ * @name PF0 CCIX Protocol DVSEC Registers
+ * @ingroup versal_regs
+ * @{
+ */
+/*
+ * PF0 CCIX Protocol DVSEC Regsiters
+ */
+#define PCIE_PF0_PCSR_SIZE_OFF		0xA6CU
+#define PCIE_PF0_PCR_SIZE_OFF		0xA74U
+#define PCIE_PF0_PDVSEC_VID_OFF		0xA58U
+#define PCIE_CFG_ADDR_OFF		0xE78U
+
+#define CPM5_PCIE_PF0_PCSR_SIZE_OFF	0x1E34U
+#define CPM5_PCIE_PF0_PCR_SIZE_OFF	0x1E3CU
+#define CPM5_PCIE_PF0_PDVSEC_VID_OFF	0x1E20U
+#define CPM5_CFG_MGMT_DVSEC_OFF		0x200U
 #define CPM5_PCIE_PDVSEC_REG_MASK	0x7FEU
 #define CPM5_SLCR_DVSEC_CFG_RD_MASK	0x10U
 #define CPM5_SLCR_DVSEC_CFG_WR_MASK	0x20U
+
+#define PCIE_CFG_MASK			(u32)(0x08000000U)
+#define CPM_SLCR_DVSEC_CFG_RD_MASK	(u32)(0x00020000U)
+#define CPM_SLCR_DVSEC_CFG_WR_MASK	(u32)(0x00040000U)
+#define DVSEC_LOW_16B_MASK		(u32)(0x0000FFFFU)
+#define DVSEC_LOW_11B_MASK		(u32)(0x00000FFFU)
+#define DVSEC_DEV_ID_MASK		(u32)(0x000000FFU)
 
 #define PCIE_PDVSEC_REG_NO_SHIFT	0x9U
 #define PCIE_PDVSEC_REG_FIX_SHIFT	0x2U
 #define CPM5_PCIE_PDVSEC_REG_NO_SHIFT	0x1U
 #define CPM5_PCIE_PDVSEC_REG_FIX_SHIFT	0x2U
+/** @} */
 
+
+/**
+ * Transport DVSEC register
+ */
 #define DVSEC_DEV_ID_SHIFT		0x18U
 
+
+/**
+ * PF0 CCIX Protocol DVSEC Register length
+ */
 #define DVSEC_REG_SIZE			0x4U
 
+
+/**
+ * @name PF0 CCIX Protocol DVSEC PSCSR Registers
+ * @ingroup versal_regs
+ * @{
+ */
+/**
+ *  * PF0 CCIX Protocol DVSEC PSCSR Registers length
+ */
 #define DVSEC_PCSR_PROT_LEN		0x5U
 #define DVSEC_PCSR_PRIM_LEN		0x3U
 
@@ -95,6 +142,8 @@ extern "C" {
 #define DVSEC_PCSR_PROT_DVSEC_HDR_IDX	0x1U
 #define DVSEC_PCSR_PROT_PL_CAPSTAT_IDX	0x3U
 #define DVSEC_PCSR_PROT_PL_CNTRL_IDX	0x4U
+/** @} */
+
 
 /**
 Register write after masking original value of the register with specified mask.
@@ -132,6 +181,10 @@ Calculate index of register from the specified DVSEC struct
 */
 #define DVSEC_CALC_IDX(Reg, DvsecStruct) \
 	((Reg) - (DvsecStruct[0].DvsecOff)) / (DVSEC_REG_SIZE)
+
+/**
+ *  * @brief Structure for DVSEC PSCSR Regsiter.
+ */
 
 typedef struct{
 	u32 DvsecOff;
