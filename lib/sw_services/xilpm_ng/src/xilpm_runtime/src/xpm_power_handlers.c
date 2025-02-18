@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -137,7 +137,6 @@ static void XPm_InterruptPwrCtrlHandler(void)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PwrCtrlStatus, PwrCtrlMask;
-
 	PwrCtrlStatus = XPm_In32(PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS);
 	PwrCtrlMask = XPm_In32(PSXC_LPX_SLCR_POWER_DWN_IRQ_MASK);
 	Status = XPm_DispatchPwrCtrlHandler(PwrCtrlStatus, PwrCtrlMask);
@@ -223,8 +222,6 @@ XStatus XPm_DispatchApuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRUP0_STATUS, ApuPwrUpDwnHandlerTable[Index].PwrUpMask);
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRUP0_INT_DIS, ApuPwrUpDwnHandlerTable[Index].PwrUpMask);
 			Status = XST_SUCCESS;
-		} else {
-			Status = XST_SUCCESS;
 		}
 	}
 
@@ -262,8 +259,6 @@ XStatus XPm_DispatchRpuPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
 			/* Ack the service if status is 1 but interrupt is not enabled */
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRUP1_STATUS, RpuPwrUpDwnHandlerTable[Index].PwrUpMask);
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRUP1_INT_DIS, RpuPwrUpDwnHandlerTable[Index].PwrUpMask);
-			Status = XST_SUCCESS;
-		} else {
 			Status = XST_SUCCESS;
 		}
 	}
@@ -311,8 +306,6 @@ XStatus XPm_DispatchApuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
 			/* Ack the service  if power up and power down interrupt arrives simultaneously */
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN0_STATUS, ApuPwrUpDwnHandlerTable[Index].PwrDwnMask);
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN0_INT_DIS, ApuPwrUpDwnHandlerTable[Index].PwrDwnMask);
-			Status = XST_SUCCESS;
-		} else {
 			Status = XST_SUCCESS;
 		}
 	}
@@ -362,8 +355,6 @@ XStatus XPm_DispatchRpuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS, RpuPwrUpDwnHandlerTable[Index].PwrDwnMask);
 			XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN1_INT_DIS, RpuPwrUpDwnHandlerTable[Index].PwrDwnMask);
 			Status = XST_SUCCESS;
-		} else {
-			Status = XST_SUCCESS;
 		}
 	}
 
@@ -411,9 +402,6 @@ XStatus XPm_DispatchApuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 			/* Call XPmCore_AfterDirectPwrUp to set the core power state */
 			XPmCore_AfterDirectPwrUp(Core);
 
-		} else {
-			Status = XST_SUCCESS;
-			goto done;
 		}
 	}
 
@@ -460,9 +448,6 @@ XStatus XPm_DispatchRpuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 
 			/* Call XPmCore_AfterDirectPwrUp to set the core power state */
 			XPmCore_AfterDirectPwrUp(Core);
-		} else {
-			Status = XST_SUCCESS;
-			goto done;
 		}
 	}
 
@@ -523,12 +508,10 @@ XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 
 			/* Get core data for setting the power state */
 			Core = (XPm_Core *)XPmDevice_GetById(RpuSleepHandlerTable[Index].DeviceId);
+			DISABLE_WFI(Core->SleepMask);
 
 			/* Call XPmCore_AfterDirectPwrDwn to set the core power state */
 			Status = XPmCore_AfterDirectPwrDwn(Core);
-		} else {
-			Status = XST_SUCCESS;
-			goto done;
 		}
 	}
 
