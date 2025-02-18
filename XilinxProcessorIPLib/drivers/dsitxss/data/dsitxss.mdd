@@ -1,6 +1,6 @@
 ##############################################################################
 # Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##
 #############################################################################
@@ -20,6 +20,6 @@ BEGIN driver dsitxss
 	OPTION supported_peripherals = (mipi_dsi_tx_subsystem);
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 2.4;
+	OPTION VERSION = 2.5;
 	OPTION NAME = dsitxss;
 END driver
