@@ -18,8 +18,8 @@
  * 1.00  ng   05/31/24 Initial release
  * 1.01  ng   11/05/24 Add boot time measurements
  *       ng   02/05/25 Update SDK release year and quarter
- *       sk   02/04/25 Updated the XPlm_ExceptionHandler function
- *                     brief
+ *       sk   02/14/25 Updated the XPlm_ExceptionHandler function brief
+ *       ng   02/14/25 Add Secure lockdown and tamper response support
  * </pre>
  *
  ******************************************************************************/
@@ -46,8 +46,21 @@
 #include "xstatus.h"
 #include "xplm_hw.h"
 #include "xiomodule.h"
+#include "xplm_post_boot.h"
 
 /************************** Constant Definitions *****************************/
+/** PIT1 timer reset value. */
+#define XPLM_PIT1_RESET_VALUE		(0xFFFFFFFDU)
+
+/** PIT2 timer reset value. */
+#define XPLM_PIT2_RESET_VALUE		(0xFFFFFFFEU)
+
+/** Megahertz reference value in hertz. */
+#define XPLM_MEGA			(1000000U)
+
+/** Kilohertz reference value in hertz. */
+#define XPLM_KILO			(1000U)
+
 /** @cond spartanup_plm_internal */
 #define SDK_RELEASE_YEAR	"2025"
 #define SDK_RELEASE_QUARTER	"1"
@@ -56,9 +69,19 @@
 #define XPLM_TAP_INST_1_UNLOCK_MASK	(PMC_TAP_INST_MASK_1_USER3_MASK | PMC_TAP_INST_MASK_1_USER4_MASK)
 
 #define XPLM_PMC_GLOBAL_FW_ERR_CR_NCR_MASK	(PMC_GLOBAL_PMCL_EAM_ERR_OUT1_EN_PMC_FW_NCR_ERR_MASK | PMC_GLOBAL_PMCL_EAM_ERR_OUT1_EN_PMC_FW_CR_ERR_MASK)
+
+#define XPLM_IOMODULE_DEVICE	XPAR_IOMODULE_0_DEVICE_ID
+#define XPLM_PIT1_CYCLE_VALUE		(XPLM_PIT1_RESET_VALUE + 1U)
+#define XPLM_PIT2_CYCLE_VALUE		(XPLM_PIT2_RESET_VALUE + 1U)
+#define XPLM_PIT1			(0U)
+#define XPLM_PIT2			(1U)
+#define XPLM_PIT3			(2U)
 /** @endcond */
 
+/** PMC IRO frequency in hertz. */
 #define XPLM_PMC_IRO_FREQ_HZ		((u32)510000000U)
+
+/** PMC IRO frequency in megahertz. */
 #define XPLM_PMC_IRO_FREQ_MHZ		(XPLM_PMC_IRO_FREQ_HZ / XPLM_MEGA)
 
 /**************************** Type Definitions *******************************/
@@ -67,6 +90,9 @@
 
 /************************** Function Prototypes ******************************/
 static void XPlm_ExceptionHandler(void *Data);
+static u32 XPlm_IntrInit(void);
+static void XPlm_TimerInit(void);
+static XIOModule *XPlm_GetIOModuleInst(void);
 
 /************************** Variable Definitions *****************************/
 /** Pointer to the Hooks table in PMC RAM. */
@@ -182,10 +208,82 @@ static void XPlm_PrintBanner(void)
  * @return	Pointer to IO Module instance.
  *
  *****************************************************************************/
-XIOModule *XPlm_GetIOModuleInst(void)
+static XIOModule *XPlm_GetIOModuleInst(void)
 {
 	static XIOModule IOModule;
 	return &IOModule;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	Initializes interrupts for loading partial PDI through slave boot and handler to
+ * 		process tamper events.
+ *
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- XPLM_ERR_IO_MOD_INIT if failed to initialize IO module.
+ *
+ *****************************************************************************/
+static u32 XPlm_IntrInit(void)
+{
+	u32 Status = (u32)XST_FAILURE;
+	XIOModule *IOModule = XPlm_GetIOModuleInst();
+
+	/** - Initialize the IO Module. */
+	Status = XIOModule_Initialize(IOModule, XPLM_IOMODULE_DEVICE);
+	if (Status != (u32)XST_SUCCESS) {
+		Status = (u32)XPLM_ERR_IO_MOD_INIT;
+		goto END;
+	}
+
+	riscv_disable_interrupts();
+
+	/** - Register the handlers for SBI data ready and EAM IRQ1 interrupts. */
+	(void)XIOModule_Connect(IOModule, XPLM_SBI_INTERRUPT_ID, XPlm_SbiLoadPdi, (void *)0U);
+	(void)XIOModule_Connect(IOModule, XPLM_EAM_INTERRUPT_ID, XPlm_TriggerSecLockdown, (void *)(UINTPTR)XPLM_TAMPER_EVENT_EAM);
+
+	/* Register the IO module interrupt handler with the exception table. */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+				     (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
+				     (void *)0);
+
+
+	/* Enable the SBI data ready and EAM IRQ1 interrupts. */
+	XIOModule_Enable(IOModule, XPLM_SBI_INTERRUPT_ID);
+	XIOModule_Enable(IOModule, XPLM_EAM_INTERRUPT_ID);
+
+
+	riscv_enable_interrupts();
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function configures PIT2 as prescalar for PIT1, sets the reset values and
+ * starts the timers.
+ *
+ *****************************************************************************/
+static void XPlm_TimerInit(void)
+{
+	XIOModule *IOModule = XPlm_GetIOModuleInst();
+
+	/** - Configure PIT2 as prescaler for PIT1. */
+	Xil_Out32(RV_IOMODULE_GPO1, RV_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
+
+	/**
+	 * - Set reset values of PIT1 to @ref XPLM_PIT1_RESET_VALUE and PIT2 to
+	 * @ref XPLM_PIT2_RESET_VALUE.
+	 */
+	XIOModule_SetResetValue(IOModule, XPLM_PIT1, XPLM_PIT1_RESET_VALUE);
+	XIOModule_SetResetValue(IOModule, XPLM_PIT2, XPLM_PIT2_RESET_VALUE);
+
+	/** - Configure PIT2 to auto reload to reset value. */
+	XIOModule_Timer_SetOptions(IOModule, XPLM_PIT2, XTC_AUTO_RELOAD_OPTION);
+
+	/** - Start both PIT1 and PIT2 timers. */
+	XIOModule_Timer_Start(IOModule, XPLM_PIT1);
+	XIOModule_Timer_Start(IOModule, XPLM_PIT2);
 }
 
 /*****************************************************************************/
@@ -378,6 +476,16 @@ u32 XPlm_Init(void)
 	/** - Unmask JRDBK, and USER 1/2/3/4 TAP instructions. */
 	XPlm_UtilRMW(PMC_TAP_INST_MASK_0, XPLM_TAP_INST_0_UNLOCK_MASK, XPLM_ZERO);
 	XPlm_UtilRMW(PMC_TAP_INST_MASK_1, XPLM_TAP_INST_1_UNLOCK_MASK, XPLM_ZERO);
+
+	/** - Initialize interrupts. */
+	Status = (u32)XST_FAILURE;
+	Status = XPlm_IntrInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** - Initialize timers. */
+	XPlm_TimerInit();
 
 END:
 	return Status;

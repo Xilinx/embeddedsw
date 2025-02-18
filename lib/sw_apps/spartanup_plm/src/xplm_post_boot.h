@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -14,6 +14,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
+ * 1.01  ng   02/11/25 Add Secure lockdown and tamper response support
  * </pre>
  *
  ******************************************************************************/
@@ -38,6 +39,7 @@ extern "C"
 /************************** Function Prototypes ******************************/
 u32 XPlm_PostBoot(void);
 void XPlm_EventLoop(void);
+void XPlm_SbiLoadPdi(void *Data);
 
 /************************** Variable Definitions *****************************/
 

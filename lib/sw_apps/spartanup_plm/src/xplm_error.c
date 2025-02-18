@@ -1,7 +1,7 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
-* SPDX-License-Identifier: MIT
-******************************************************************************/
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
+ ******************************************************************************/
 
 /*****************************************************************************/
 /**
@@ -17,8 +17,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
  *       ng   09/18/24 Fixed multiboot offset check
- *       sk   02/04/25 Updated BootModeVal variable as
- *                     volatile
+ *       sk   02/04/25 Updated BootModeVal variable as volatile
+ *       ng   02/11/25 Add Secure lockdown and tamper response support
  * </pre>
  *
  ******************************************************************************/
@@ -34,6 +34,7 @@
 #include "xplm_load.h"
 #include "xplm_hw.h"
 #include "xplm_hooks.h"
+#include "xplm_dma.h"
 
 /************************** Constant Definitions *****************************/
 /** @cond spartanup_plm_internal */
@@ -50,6 +51,15 @@
 
 /* Multiboot max offset */
 #define XPLM_MULTIBOOT_OFFSET	(0x8000U)
+
+/* CCU payload to set the gts_usr_b bit to tristate PL IO. */
+#define XPLM_TIO_CCU_SYNC_WORD	(0xAA995566U)
+#define XPLM_TIO_CCU_NO_OP	(0x20000000U)
+#define XPLM_TIO_CCU_MASK	(0x3000C001U)
+#define XPLM_TIO_CCU_CTL	(0x3000A001U)
+#define XPLM_TIO_CCU_CMD	(0x30008001U)
+#define XPLM_TIO_CCU_DESYNCH	(0xDU)
+
 /** @endcond */
 
 /**************************** Type Definitions *******************************/
@@ -57,7 +67,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XPlm_TriggerSecLockdown(void);
 static void XPlm_CheckNTriggerSecLockdown(void);
 
 /************************** Variable Definitions *****************************/
@@ -179,15 +188,60 @@ void XPlm_LogPlmStage(XPlm_Stages Stage)
 
 /*****************************************************************************/
 /**
- * @brief This function triggers secure lockdown
+ * @brief	This function initiates a secure lockdown sequence. The function performs various
+ * security measures including tristating all chip IO, clearing crypto engines, disabling external
+ * interfaces, resetting the capture control unit, triggering PL house clean, and triggering MBist
+ * and Scan clear.
+ *
+ * @param Data	A pointer to a u32 value cast to void*. The value should be either
+ * 		XPLM_TAMPER_EVENT_EAM (0xF0) to indicate a tamper event or XPLM_EVENT_MULTIBOOT_LIMIT (0x0F)
+ * 		to indicate a multiboot failure.
  *
  *****************************************************************************/
-static void XPlm_TriggerSecLockdown(void)
+void XPlm_TriggerSecLockdown(void *Data)
 {
+	u32 SldEvent = (u32)(UINTPTR)Data;
+	u32 EnableIOTristate = Xil_In32(XPLM_RTCFG_SECURE_LOCKDOWN_TIO) & XPLM_RTCFG_SEC_LOCKDOWN_TIO_EN_MASK;
+	const u32 GtsUsrBCcuPayload[] = {XPLM_TIO_CCU_SYNC_WORD, XPLM_TIO_CCU_NO_OP, XPLM_TIO_CCU_MASK, XPLM_ONE, XPLM_TIO_CCU_CTL, XPLM_ZERO, XPLM_TIO_CCU_CMD, XPLM_TIO_CCU_DESYNCH, XPLM_TIO_CCU_NO_OP};
+
 	XPlm_Printf(DEBUG_PRINT_ALWAYS, "Triggering secure lockdown\n\r");
+
+	/** - Tristate all chip IO based on the user configuration. */
+	if ((SldEvent != XPLM_EVENT_MULTIBOOT_LIMIT) && (EnableIOTristate == XPLM_RTCFG_SEC_LOCKDOWN_TIO_EN_MASK)) {
+		/* Allow the writes to CCU_FGCR register. */
+		Xil_Out32(CCU_APB_CCU_PROTECT, CCU_APB_CCU_PROTECT_WRITE_ALLOWED);
+
+		/* Update the CCU_MASK register with the mask to set GTS_CFG_B bit in CCU_FGCR register. */
+		Xil_Out32(CCU_APB_CCU_MASK, CCU_APB_CCU_FGCR_GTS_CFG_B_MASK);
+
+		/* Set the GTS_CFG_B bit in CCU_FGCR register. */
+		XSECURE_REDUNDANT_IMPL(XPlm_UtilRMW, CCU_APB_CCU_FGCR, CCU_APB_CCU_FGCR_GTS_CFG_B_MASK, CCU_APB_CCU_FGCR_GTS_CFG_B_MASK);
+
+		/* Disable the writes to CCU_FGCR register. */
+		Xil_Out32(CCU_APB_CCU_PROTECT, CCU_APB_CCU_PROTECT_WRITE_DISABLE);
+
+		/* Send the CCU payload to set the GTS_USR_B bit. */
+		(void)XPlm_DmaXfr((u32)GtsUsrBCcuPayload, XPLM_CCU_WR_STREAM_BASEADDR, XPLM_ARRAY_SIZE(GtsUsrBCcuPayload), XPLM_DMA_INCR_MODE);
+	}
 
 	/** - Clear crypto engines. */
 	HooksTbl->XRom_ClearCrypto();
+	/* Stop the PUF engine. */
+	XSECURE_REDUNDANT_IMPL(Xil_Out32, PUF_COMMAND, PUF_COMMAND_CMD_STOP);
+
+	/** - Disable all external interfaces. */
+	/* Unlock the PMC_TAP registers */
+	Xil_Out32(PMC_TAP_PMC_TAP_LOCK, XPLM_ZERO);
+
+	/* Enable security gate */
+	XSECURE_REDUNDANT_IMPL(Xil_Out32, PMC_TAP_TAP_SECURITY, XPLM_ZERO);
+
+	/* Lock the PMC_TAP registers */
+	XSECURE_REDUNDANT_IMPL(Xil_Out32, PMC_TAP_PMC_TAP_LOCK, PMC_TAP_PMC_TAP_LOCK_DEFVAL);
+
+	/* Disable SBI interface and readback. */
+	XSECURE_REDUNDANT_IMPL(XPlm_UtilRMW, SLAVE_BOOT_SBI_CTRL, (SLAVE_BOOT_SBI_CTRL_MCAP_DIS_MASK | SLAVE_BOOT_SBI_CTRL_ENABLE_MASK), SLAVE_BOOT_SBI_CTRL_MCAP_DIS_MASK);
+	XSECURE_REDUNDANT_IMPL(Xil_Out32, SLAVE_BOOT_SBI_RDBK, SLAVE_BOOT_SBI_RDBK_DIS_MASK);
 
 	/** - Reset capture control unit. */
 	Xil_Out32(PMC_GLOBAL_RST_CCU, 1U);
@@ -215,7 +269,7 @@ static void XPlm_CheckNTriggerSecLockdown(void)
 	LckDwnEn = Xil_In32(XPLM_EFUSE_CACHE_CRC_EN_ADDR) & XPLM_EFUSE_LCKDWN_EN_MASK;
 	LckDwnEnTmp = Xil_In32(XPLM_EFUSE_CACHE_CRC_EN_ADDR) & XPLM_EFUSE_LCKDWN_EN_MASK;
 	if ((LckDwnEn != 0U) || (LckDwnEnTmp != 0U)) {
-		XPlm_TriggerSecLockdown();
+		XPlm_TriggerSecLockdown((void *)(UINTPTR)XPLM_EVENT_MULTIBOOT_LIMIT);
 	}
 }
 
