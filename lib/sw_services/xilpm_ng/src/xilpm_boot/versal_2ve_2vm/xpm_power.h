@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,7 +45,7 @@ extern "C" {
 #define A78_CLUSTER_CONFIGURED		(0x1U)
 
 #define ACPU_PACCEPT_TIMEOUT		(1000U)
-#define RPU_PACTIVE_TIMEOUT		(1000U)
+#define RPU_PACTIVE_TIMEOUT		(10000000U)
 typedef enum {
 	/* Default FSM states */
 	XPM_POWER_STATE_OFF = 0,

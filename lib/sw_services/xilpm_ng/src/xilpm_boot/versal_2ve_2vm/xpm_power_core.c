@@ -1129,6 +1129,14 @@ XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 	u32 LowAddress;
 	/* Set the resume address. */
 	LowAddress = (u32)(ResumeAddr & PSX_RPU_CLUSTER_CORE_VECTABLE_MASK);
+	/* Remove TOPRESET */
+	XPm_RMW32(Args->RstCtrlAddr, PSXC_CRL_RST_RPU_TOP_RESET_MASK, ~PSXC_CRL_RST_RPU_TOP_RESET_MASK);
+	/** We need this reset because all CPU settings are set at different state of the core asynchronously
+	 * This reset to make sure all the settings are "capture" by the core before power on and run
+	 * NOTE: this reset assertion and the deassertion later is not belong to power up sequence of the core
+	 * It is here because the implemetation issue of software. It should be removed in the future.
+	 */
+	XPm_RMW32(Args->RstCtrlAddr, Args->RstCtrlMask, Args->RstCtrlMask);
 	if (0U != (ResumeAddr & 1ULL)) {
 		u32 TcmBootFlag = (Xil_In32(Args->ResetCfgAddr) & RPU_TCMBOOT_MASK) >> 0x4;
 		if(0U == TcmBootFlag){
@@ -1140,16 +1148,12 @@ XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 	XPm_Out32(PSXC_LPX_SLCR_WAKEUP1_IRQ_DIS, Args->WakeupIrqMask);
 	/* Mask RPU PCIL Interrupts */
 	XPm_RMW32(Args->CorePcilIdsAddr, PSXC_LPX_SLCR_RPU_PCIL_ISR_PACTIVE1_MASK, PSXC_LPX_SLCR_RPU_PCIL_ISR_PACTIVE1_MASK);
-	/* Acknowledge pending RPU PCIL interrupt */
-	XPm_Out32(Args->CorePcilIsrAddr, PSXC_LPX_SLCR_RPU_PCIL_ISR_PACTIVE1_MASK);
+
 
 	Status = XPmPower_RpuPwrUp(Args);
 	if(XST_SUCCESS != Status){
 		goto done;
 	}
-
-	/* Remove TOPRESET */
-	XPm_RMW32(Args->RstCtrlAddr, PSXC_CRL_RST_RPU_TOP_RESET_MASK, ~PSXC_CRL_RST_RPU_TOP_RESET_MASK);
 
 	/* set pstate field */
 	XPm_Out32(Args->CorePcilPsAddr, 0);
@@ -1159,6 +1163,7 @@ XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 
 	/* release reset */
 	XPm_RMW32(Args->RstCtrlAddr, Args->RstCtrlMask, ~Args->RstCtrlMask);
+
 	/* Poll for PACCEPT. Skip for SPP */
 		Status = XPm_PollForMask(Args->CorePcilPaAddr,
 					 PSXC_LPX_SLCR_RPU_PCIL_PA_PACCEPT_MASK, RPU_PACTIVE_TIMEOUT);
@@ -1172,7 +1177,8 @@ XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 	XPm_Out32(Args->CorePcilPrAddr, 0U);
 	/* Disable and clear RPUx direct wake-up interrupt request */
 	XPm_Out32(PSXC_LPX_SLCR_WAKEUP1_IRQ_STATUS, Args->WakeupIrqMask);
-
+	/* Acknowledge pending RPU PCIL interrupt */
+	XPm_Out32(Args->CorePcilIsrAddr, PSXC_LPX_SLCR_RPU_PCIL_ISR_PACTIVE1_MASK);
 	/*
 	 * Unmask interrupt for all Power-up Requests and Reset Requests that
 	 * are triggered but have their interrupt masked.
