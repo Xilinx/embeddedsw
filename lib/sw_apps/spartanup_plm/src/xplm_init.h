@@ -1,7 +1,7 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
-* SPDX-License-Identifier: MIT
-******************************************************************************/
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
+ ******************************************************************************/
 
 /*****************************************************************************/
 /**
@@ -17,6 +17,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
  * 1.01  ng   11/05/24 Add boot time measurements
+ *       ng   02/11/25 Removed unused function for printing PLM boot time
  * </pre>
  *
  ******************************************************************************/
@@ -50,7 +51,6 @@ typedef struct {
 u32 XPlm_Init(void);
 u64 XPlm_GetTimerValue(void);
 void XPlm_PrintRomTime(void);
-void XPlm_PrintPlmTime(void);
 u32 XPlm_PmcIroFreq(void);
 void XPlm_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq, XPlm_PerfTime *PerfTime);
 
