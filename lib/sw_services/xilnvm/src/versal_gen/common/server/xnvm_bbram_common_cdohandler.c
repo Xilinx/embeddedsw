@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 * 3.2   kpt   07/31/2023 Assign key clear status only when status is XST_SUCCESS
 *       kpt   08/17/2023 Remove oring the Status with error code in XNvm_BbramKeyWrite
 * 3.3   ng   11/22/23 Fixed doxygen grouping
+* 3.5   kal  05/02/2025  Add a validation check for Size in XNvm_BbramKeyWrite function
 *
 * </pre>
 *
@@ -152,6 +153,11 @@ static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh)
 	volatile int ClearStatusTmp = XST_FAILURE;
 	u64 Addr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
 	u8 Key[XNVM_BBRAM_AES_KEY_SIZE];
+
+	if (Size != XNVM_256_BITS_AES_KEY_LEN_IN_BYTES) {
+		Status = XNVM_BBRAM_ERROR_AES_INVALID_KEY_SIZE;
+		goto END;
+	}
 
 	Status = XPlmi_DmaXfr(Addr, (UINTPTR)Key, Size / XNVM_WORD_LEN,
 			XPLMI_PMCDMA_0);

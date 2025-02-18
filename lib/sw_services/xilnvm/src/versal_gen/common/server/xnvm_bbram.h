@@ -52,16 +52,25 @@ extern "C" {
  * @{ BBRAM error codes
  */
 /**< BBRAM API error codes */
-#define XNVM_EFUSE_BBRAM_TAG                       (u32)(0x8100U)
+#define XNVM_EFUSE_BBRAM_TAG                       (u32)(0x8100U) /**< BBRAM ERRORs Offset */
 #define XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT  (XNVM_EFUSE_BBRAM_TAG | 0x00U)
+						/**< Error in enabling BBRAM Program mode */
 #define XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT     (XNVM_EFUSE_BBRAM_TAG | 0x02U)
+						/**< Error in AES CRC Done */
 #define XNVM_BBRAM_ERROR_AES_CRC_MISMATCH         (XNVM_EFUSE_BBRAM_TAG | 0x03U)
+						/**< Error in AES CRC verification */
 #define XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE      (XNVM_EFUSE_BBRAM_TAG | 0x04U)
+						/**< Error in BBRAM user data locking */
 #define XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED    (XNVM_EFUSE_BBRAM_TAG | 0x05U)
+						/**< Error in BBRAM user data write, as BBRAM_8 reg is locked */
 #define XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT          (XNVM_EFUSE_BBRAM_TAG | 0x10U)
+						/**< Error in BBRAM_ZEROIZE */
 #define XNVM_BBRAM_ERROR_IN_DMA_XFER              (XNVM_EFUSE_BBRAM_TAG | 0x20U)
+						/**< Error in copying user key to PMC memory using DMA */
 #define XNVM_BBRAM_INVALID_PARAM                  (XNVM_EFUSE_BBRAM_TAG | 0x30U)
-
+						/**< Error, invalid parameter */
+#define XNVM_BBRAM_ERROR_AES_INVALID_KEY_SIZE     (XNVM_EFUSE_BBRAM_TAG | 0x40U)
+						/**< Error, invalid AES key size */
 /***************************** Type Definitions *******************************/
 
 /*************************** Function Prototypes ******************************/
