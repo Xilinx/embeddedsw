@@ -200,8 +200,8 @@ END_CLR:
 					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PubKey,
-					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
+			XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 END:
 	/** Set RSA under reset. */
@@ -301,8 +301,8 @@ s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 
 END_CLR:
 	/** Zeroize local key copy. */
-	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PubKey,
-					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
+			XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
@@ -459,8 +459,14 @@ END_CLR:
 					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)EphemeralKey,
-					XASU_ECC_P521_SIZE_IN_BYTES);
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
+					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Hash, XASU_ECC_P521_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)EphemeralKey, XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
@@ -612,8 +618,15 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	}
 END_CLR:
 	/** Zeroize local key copy. */
-	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PubKey,
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
 					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
+					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Hash, XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
@@ -826,9 +839,15 @@ END_CLR:
 					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
+					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)SharedSecretObjId, XECDH_SHARED_SEC_OBJ_ID_SIZE);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
 	/** Zeroize local copy of shared secret. */
-	XFIH_CALL(Xil_SecureZeroize, XFihEcdh, ClearStatus, (u8 *)(UINTPTR)SharedSecret,
-					XASU_ECC_P521_SIZE_IN_BYTES);
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)SharedSecret, XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
