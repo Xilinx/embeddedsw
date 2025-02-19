@@ -126,6 +126,10 @@ XStatus XPm_RuntimeInit(void)
 	XStatus Status = XST_FAILURE;
 	const char *Banner = XILPM_RUNTIME_BANNER;
 	PmInfo("Initializing XilPm Runtime Library [%s]\r\n", Banner);
+
+	/* Store multiboot register value*/
+	XPlmi_StoreMultiboot();
+
 	/* Initializing XPLmi_PmCmds array*/
 	XPlmi_ModuleCmd* XPlmi_PmCmds =  XPm_GetPmCmds();
 	XPlmi_PmCmds[PM_GET_API_VERSION].Handler = (XPlmi_CmdHandler)XPm_DoGetApiVersion;
@@ -1148,6 +1152,9 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		Subsystem->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
 		NodeState = Subsystem->State;
 
+		/* Restore multiboot register value*/
+		XPlmi_RestoreMultiboot();
+
 		if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
 			Status = XPm_RequestHBMonDevice(NodeId, CmdType);
 			if (XST_DEVICE_NOT_FOUND == Status) {
@@ -1655,6 +1662,9 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
+
+	/* Restore multiboot register value*/
+	XPlmi_RestoreMultiboot();
 
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
 	if (PM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
