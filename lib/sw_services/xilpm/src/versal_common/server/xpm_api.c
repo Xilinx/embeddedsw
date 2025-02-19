@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -797,6 +797,9 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 
 	/* Check last reset reason */
 	XPm_CheckLastResetReason();
+
+	/* Store multiboot register value*/
+	XPlmi_StoreMultiboot();
 
 	u32 PmcIPORMask = (CRP_RESET_REASON_ERR_POR_MASK |
 			   CRP_RESET_REASON_SLR_POR_MASK |
@@ -4371,6 +4374,9 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		Subsystem->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
 		NodeState = Subsystem->State;
 
+		/* Restore multiboot register value*/
+		XPlmi_RestoreMultiboot();
+
 		if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
 			Subsystem->Flags &= (u8)(~SUBSYSTEM_DO_PERIPH_IDLE);
 			Status = XPm_RequestHBMonDevice(NodeId, CmdType);
@@ -4463,6 +4469,9 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
+
+	/* Restore multiboot register value*/
+	XPlmi_RestoreMultiboot();
 
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
 	if (PM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
