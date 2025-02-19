@@ -269,6 +269,11 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		goto END;
 	}
 
+	/** Validate the public key generated from the private key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	XFIH_CALL(XEcc_ValidatePublicKey, XFihVar, Status, InstancePtr, DmaPtr, CurveType,
+		CurveLen, PubKeyAddr);
+
 END:
 	if (InstancePtr != NULL) {
 		/** Set ECC under reset. */

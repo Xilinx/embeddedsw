@@ -194,6 +194,10 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 		Status = XASUFW_RSA_ECC_READ_DATA_FAIL;
 	}
 
+	/** Validate the public key generated from the private key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	XFIH_CALL(XRsa_EccValidatePubKey, XFihVar, Status, DmaPtr, CurveType, CurveLen, PubKeyAddr);
+
 END_CLR:
 	/** Zeroize local key copy. */
 	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PrivKey,
