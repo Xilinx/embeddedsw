@@ -1,5 +1,5 @@
 /******************************************************************************
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XPLMI_BSP_CONFIG_H
@@ -34,6 +34,7 @@
 #cmakedefine    PLM_EN_ADD_PPKS
 #cmakedefine    PLM_ENABLE_CFI_SELECTIVE_READ
 #cmakedefine    PLM_BANNER_TIMESTAMP_EXCLUDE
+#cmakedefine    PLM_ENABLE_RESTORE_MULTIBOOT
 
 #define XPAR_MAX_USER_MODULES (@XILPLMI_USER_MODULES_COUNT@U)
 #define XPAR_PLM_VERSION_USER_DEFINED (@XILPLMI_PLM_VERSION_USER_DEFINED@U)

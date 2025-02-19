@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,8 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       ng   03/12/2023 Fixed Coverity warnings
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.08  sd   02/19/2025 Added multiboot store and restore APIs for platforms
+*                       with A/B firmware
 *
 * </pre>
 *
@@ -399,3 +401,49 @@ int XPlmi_UtilPollNs(u32 RegAddr, u32 Mask, u32 ExpectedValue, u64 TimeOutInNs,
 
 	return Status;
 }
+
+#ifdef PLM_ENABLE_RESTORE_MULTIBOOT
+
+static volatile u32 MultibootRegVal;
+
+/*****************************************************************************/
+/**
+ * @brief	This function Store PMC multiboot register value
+ *
+ *****************************************************************************/
+void XPlmi_StoreMultiboot(void)
+{
+	/* Store Multiboot register value */
+	MultibootRegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function Restore PMC multiboot register value
+ *
+ *****************************************************************************/
+void XPlmi_RestoreMultiboot(void)
+{
+	/* Re-store Multiboot register value */
+	XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, MultibootRegVal);
+}
+
+#else
+
+/*****************************************************************************/
+/**
+ * @brief	This is a placeholder function used in case the feature
+ * is disabled.
+ *
+ *****************************************************************************/
+void XPlmi_StoreMultiboot(void) {}
+
+/*****************************************************************************/
+/**
+ * @brief	This is a placeholder function used in case the feature
+ * is disabled.
+ *
+ *****************************************************************************/
+void XPlmi_RestoreMultiboot(void) {}
+
+#endif
