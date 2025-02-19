@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +51,8 @@
  * 1.9   ht   09/12/23	  Added code for versioning of library.
  *	 sd   11/23/23	  Clear the interrupts after calling the user handler.
  * 1.11  ht   11/12/24    Update description of XMAILBOX_MAX_MSG_LEN
+ *       ht   02/18/25    Update Max Message length to XIPIPSU_MAX_MSG_LEN to
+ *                        accommodate for CRC bytes when IPI CRC is enabled.
  *
  *</pre>
  *
@@ -75,7 +77,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XILMBOX_MSG_TYPE_REQ	(0x00000001U) /**< Message type buffer */
 #define XILMBOX_MSG_TYPE_RESP	(0x00000002U) /**< Response type buffer */
-#define XMAILBOX_MAX_MSG_LEN	8U     /**< Maximum number of Messages (each 4-bytes long) */
+#define XMAILBOX_MAX_MSG_LEN	XIPIPSU_MAX_MSG_LEN /**< Maximum number of Messages (each 4-bytes long) */
 
 /**
  * Payload lengths
