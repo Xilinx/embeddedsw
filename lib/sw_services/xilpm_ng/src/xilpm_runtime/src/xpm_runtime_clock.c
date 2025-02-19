@@ -567,6 +567,7 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 	const struct XPm_ClkTopologyNode *Ptr;
 	XPm_ClockNode *ParentClk = NULL;
 	XPm_ClockNode *OldParentClk = NULL;
+	u32 OldParentIdx = CLOCK_PARENT_INVALID;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_MUX);
 	if (Ptr == NULL) {
@@ -601,8 +602,13 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 
 	XPm_RMW32(Ptr->Reg, BITNMASK(Ptr->Param1.Shift,Ptr->Param2.Width), ParentIdx << Ptr->Param1.Shift);
 
+	Status = XPmClock_GetClockData(Clk, (u32)TYPE_MUX, &OldParentIdx);
+	if (XST_SUCCESS != Status) {
+		PmWarn("Error %d in GetClockData of 0x%x\r\n", Status, Clk->ClkNode.Node.Id);
+	}
+
 	/* Release old parent */
-	OldParentClk = XPmClock_GetByIdx(Clk->ClkNode.ParentIdx);
+	OldParentClk = XPmClock_GetByIdx(OldParentIdx);
 	if (NULL == OldParentClk) {
 		Status = XPM_INVALID_PARENT_CLKID;
 		goto done;
