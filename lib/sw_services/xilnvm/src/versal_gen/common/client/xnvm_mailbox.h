@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -27,6 +27,7 @@
 *       vss  09/19/23 Fixed MISRA-C 12.2 violation
 * 3.3   tri  10/10/23 Fixed MISRA-C 5.5 violation
 *       ng   11/22/23 Fixed doxygen grouping
+* 3.4   obs  02/18/25 Fixed IPI message length
 *
 * </pre>
 *
@@ -51,9 +52,9 @@ extern "C" {
 #define XILNVM_MODULE_ID			(11U)
 
 /* 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
-#define PAYLOAD_ARG_CNT			(8U)
+#define PAYLOAD_ARG_CNT			XIPIPSU_MAX_MSG_LEN
 /* 1 for status + 3 for values + 3 for reserved + 1 for CRC */
-#define RESPONSE_ARG_CNT		(8U)
+#define RESPONSE_ARG_CNT		XIPIPSU_MAX_MSG_LEN
 /**< IPI timeout */
 #define XNVM_IPI_TIMEOUT		(0xFFFFFFFFU)
 /**< Target PMC IPI interrupt mask */
