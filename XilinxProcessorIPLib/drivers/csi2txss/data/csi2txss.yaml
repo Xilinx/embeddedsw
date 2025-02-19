@@ -33,9 +33,9 @@ properties:
     description: Dphy enable reg.
   xlnx,en-reg-based-fe-gen:
     description: Register based fe generation.
-  csi2-tx-present:
+  csi2tx-present:
     description: Sub-core instance presence.
-  csi2-tx-connected:
+  csi2tx-connected:
     description: Sub-core instance configuration.
   mipi-dphy-present:
     description: Sub-core instance presence.
@@ -57,8 +57,8 @@ required:
   - xlnx,dphy-linerate
   - xlnx,dphy-en-reg-if
   - xlnx,en-reg-based-fe-gen
-  - csi2-tx-present
-  - csi2-tx-connected: phandle
+  - csi2tx-present
+  - csi2tx-connected: phandle
   - mipi-dphy-present
   - mipi-dphy-connected: phandle
   - interrupts
