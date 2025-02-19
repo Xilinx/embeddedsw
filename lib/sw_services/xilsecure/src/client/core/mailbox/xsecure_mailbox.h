@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -31,9 +31,10 @@
 *       kal  09/14/23 Added XSecure_SetSlrIndex function
 *	ss   04/05/24 Fixed doxygen warnings
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
-*       pre  08/16/24 Added XSECURE_SLR_INDEX_SHIFT macro
+* 5.5   pre  08/16/24 Added XSECURE_SLR_INDEX_SHIFT macro
 *       hj   10/03/24 Removed XSecure_InputSlrIndex function as it is duplicate of
 *                     XSecure_SetSlrIndex
+* 5.6   obs  02/18/25 Fixed IPI message length
 *
 * </pre>
 *
@@ -64,10 +65,10 @@ extern "C" {
 #define HEADER(len, ApiId) (((u32)len << 16U) | ((u32)XILSECURE_MODULE_ID << 8U) | ((u32)ApiId))
 				/**< Header for XilSecure Commands */
 
-#define PAYLOAD_ARG_CNT			(8U)
+#define PAYLOAD_ARG_CNT			XIPIPSU_MAX_MSG_LEN
 	/**< 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
 
-#define RESPONSE_ARG_CNT		(8U)
+#define RESPONSE_ARG_CNT		XIPIPSU_MAX_MSG_LEN
 	/**< 1 for status + 3 for values + 3 for reserved + 1 for CRC */
 
 #define XSECURE_TARGET_IPI_INT_MASK	(0x00000002U)

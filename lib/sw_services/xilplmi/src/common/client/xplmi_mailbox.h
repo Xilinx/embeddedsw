@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -17,7 +17,8 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
  *       am   04/10/24 Fixed doxygen warning
- *       pre  07/10/24 Added SLR index in client data structure
+ * 1.01  pre  07/10/24 Added SLR index in client data structure
+ * 1.02  obs  02/18/25 Fixed IPI message length
  *
  * </pre>
  *
@@ -43,9 +44,9 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 
 #define XILPLMI_MODULE_ID			(1U) /**< Module ID for xilplmi */
-#define PAYLOAD_ARG_CNT			   	(8U)
+#define PAYLOAD_ARG_CNT			   	XIPIPSU_MAX_MSG_LEN
 						/**< 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
-#define RESPONSE_ARG_CNT		   	(8U)
+#define RESPONSE_ARG_CNT		   	XIPIPSU_MAX_MSG_LEN
 						/**< 1 for status + 3 for values + 3 for reserved + 1 for CRC */
 #define XPLMI_TARGET_IPI_INT_MASK	(0x00000002U) /**< Target PMC IPI interrupt mask */
 #define XPLMI_MODULE_ID_SHIFT		(8U) /**< Module Id shift */

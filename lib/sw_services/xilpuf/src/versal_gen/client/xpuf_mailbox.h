@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,6 +22,7 @@
 *       kal  09/14/23 Added XPuf_SetSlrIndex function
 * 2.3   ng   11/22/23 Fixed doxygen grouping
 * 2.4   ng   04/30/24 Fixed doxygen comments
+* 2.5   obs  02/18/25 Fixed IPI message length
 *
 * </pre>
 *
@@ -44,9 +45,9 @@ extern "C" {
 #define XILPUF_MODULE_ID			(12U)
 
 /* 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
-#define PAYLOAD_ARG_CNT			(8U)
+#define PAYLOAD_ARG_CNT			XIPIPSU_MAX_MSG_LEN
 /* 1 for status + 3 for values + 3 for reserved + 1 for CRC */
-#define RESPONSE_ARG_CNT			(8U)
+#define RESPONSE_ARG_CNT			XIPIPSU_MAX_MSG_LEN
 #define XPUF_TARGET_IPI_INT_MASK	(0x00000002U)
 #define XPUF_MODULE_ID_SHIFT		(8U)
 #define XPUF_PAYLOAD_LEN_SHIFT		(16U)
