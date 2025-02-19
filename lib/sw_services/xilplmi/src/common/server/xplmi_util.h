@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,8 @@
 * 1.07  bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/13/2023 Added BIT mask creation macro
 *       dd	 09/11/2023 MISRA-C violation Rule 12.2 fixed
+* 1.08  sd   02/19/2025 Added multiboot store and restore APIs for platforms
+*                       with A/B firmware
 *
 * </pre>
 *
@@ -80,6 +82,8 @@ int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
 void XPlmi_PrintArray (u16 DebugType, const u64 BufAddr, u32 Len, const char *Str);
 int XPlmi_UtilPollNs(u32 RegAddr, u32 Mask, u32 ExpectedValue, u64 TimeOutInNs,
 		void (*ClearHandler)(void));
+void XPlmi_StoreMultiboot(void);
+void XPlmi_RestoreMultiboot(void);
 
 /**
  * @}

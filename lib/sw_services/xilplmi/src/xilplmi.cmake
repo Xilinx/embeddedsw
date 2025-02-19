@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
@@ -151,6 +151,11 @@ endif()
 option(XILPLMI_cfi_selective_read_en "Enables or disables CFI selective read" OFF)
 if (XILPLMI_cfi_selective_read_en)
   set(PLM_ENABLE_CFI_SELECTIVE_READ " ")
+endif()
+
+option(XILPLMI_pm_restore_multiboot "Enables or disables the restoration of the multi-boot register for A/B firmware platforms." OFF)
+if (XILPLMI_pm_restore_multiboot)
+  set(PLM_ENABLE_RESTORE_MULTIBOOT " ")
 endif()
 
 set(XILPLMI_user_modules_count "0" CACHE STRING "Number of User Modules.")
