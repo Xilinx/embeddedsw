@@ -12,11 +12,6 @@
 #include "xpm_runtime_clock.h"
 #include "xpm_requirement.h"
 
-static XStatus ActionBringUpAll(XPm_Device* const Device) {
-	// Perform actions to bring up the device
-	PmDbg("Bringing up the device\n");
-	return XPmDevice_BringUp(Device);
-}
 static XStatus SetClocks(const XPm_Device *Device, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
@@ -45,6 +40,29 @@ static XStatus SetClocks(const XPm_Device *Device, u32 Enable)
 done:
 	return Status;
 }
+
+static XStatus ActionBringUpAll(XPm_Device* Device)
+{
+	XStatus Status = XST_FAILURE;
+
+	// Perform actions to bring up the device
+	PmDbg("Bringing up the device\n");
+	Status = XPmDevice_BringUp(Device);
+	if (XST_SUCCESS != Status) {
+		PmErr("Bring up device failed!\n");
+		goto done;
+	}
+
+	Status = SetClocks(Device, 1U);
+	if (XST_SUCCESS != Status) {
+		PmErr("clock set failed!\n");
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
 static u32 IsRunning(const XPm_Device *Device)
 {
 	u32 Running = 0;
