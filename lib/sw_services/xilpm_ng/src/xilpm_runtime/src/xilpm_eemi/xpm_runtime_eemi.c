@@ -240,7 +240,7 @@ static XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem)
 	if (Subsystem->State == (u16)POWERED_OFF) {
 		Subsystem->State = (u16)ONLINE;
 	}
-	PmInfo("!!!! Configuring Subsystem: 0x%x reqlist = %x %x\r\n", Subsystem->Id, (u32)Subsystem->Requirements, Subsystem->Requirements->Root);
+	PmDbg("Configuring Subsystem: 0x%x, reqlist\r\n", Subsystem->Id, Subsystem->Requirements);
 	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
 		if (NULL == ReqmNode || NULL == ReqmNode->Data) {
 			PmErr("ReqmNode is NULL\r\n");
@@ -271,7 +271,6 @@ static XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem)
 	Subsystem->Flags |= SUBSYSTEM_IS_CONFIGURED;
 
 done:
-	PmInfo("End Subsystem Configure Status: 0x%x\r\n", Status);
 	return Status;
 
 }

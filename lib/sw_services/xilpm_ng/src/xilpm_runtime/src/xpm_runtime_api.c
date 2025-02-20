@@ -762,6 +762,7 @@ static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 TargetSubsystemId)
 	// //XPM_EXPORT_CMD(PM_ACTIVATE_SUBSYSTEM, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem = NULL;
+	(void)SubsystemId;
 
 	/* Return success if the target subsystem is PMC or ASU */
 	if (PM_SUBSYS_PMC == TargetSubsystemId || PM_SUBSYS_ASU == TargetSubsystemId) {
@@ -1661,13 +1662,13 @@ done:
 }
 /****************************************************************************/
 /**
- * @brief  This function can be used by a subsystem to shutdown self or restart
- * 			self, Ps or system
+ * @brief  This function is used to perform self subsystem shutdown, self subsystem
+ * 	   restart or system restart
  *
- * @param SubsystemId		Subsystem ID
- * @param  Type				Shutdown type
- * @param SubType			Shutdown subtype
- * @param CmdType			IPI command request type
+ * @param SubsystemId	Subsystem ID
+ * @param  Type		Shutdown type
+ * @param SubType	Shutdown subtype
+ * @param CmdType	IPI command request type
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1676,8 +1677,7 @@ done:
  * the request has been received.
  *
  ****************************************************************************/
-XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
-			   const u32 CmdType)
+XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 {
 	//XPM_EXPORT_CMD(PM_SYSTEM_SHUTDOWN, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
@@ -1723,6 +1723,8 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 
 	switch (SubType) {
 	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
+#if 0
+		/* FIXME: Disable idle callback support for now */
 		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
 			Status = XPm_RequestHBMonDevice(SubsystemId, CmdType);
 			if (XST_DEVICE_NOT_FOUND == Status) {
@@ -1745,18 +1747,16 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
-		} else {
-			Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-			Status = XPm_SubsystemPwrUp(SubsystemId);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
+#endif
 
+		Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
+		if (XST_SUCCESS != Status) {
+			goto done;
 		}
-
+		Status = XPm_SubsystemPwrUp(SubsystemId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 		break;
 	case PM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
 		/*
@@ -1787,6 +1787,7 @@ done:
 	}
 	return Status;
 }
+
 static XStatus XPm_DoSystemShutdown(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
@@ -1796,6 +1797,10 @@ static XStatus XPm_DoSystemShutdown(XPlmi_Cmd* Cmd)
 	u32 CmdType = Cmd->IpiReqType;
 	Status = XPm_SystemShutdown(SubsystemId, Type, SubType, CmdType);
 	Cmd->Response[0] = (u32)Status;
+	if (XST_SUCCESS != Status) {
+		PmErr("Subsystem: 0x%x, Type: 0x%x, SubType: 0x%x, Status: 0x%x\n\r",
+			SubsystemId, Type, SubType, Status);
+	}
 	return Status;
 }
 static XStatus XPm_DoSetMaxLatency(XPlmi_Cmd* Cmd)

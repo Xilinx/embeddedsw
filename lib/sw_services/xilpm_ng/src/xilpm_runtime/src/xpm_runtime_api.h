@@ -1,15 +1,19 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 #ifndef XPM_RUNTIME_API_H
 #define XPM_RUNTIME_API_H
+
 #include "xpm_device.h"
 #include "xstatus.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+int XPm_RegisterWakeUpHandlers(void);
 int XPm_ForcePwrDwnCb(void *Data);
 XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
 XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
@@ -74,7 +78,9 @@ XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 
 XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider);
 XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentIdx);
 XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx);
+
 #ifdef __cplusplus
 }
 #endif
+
 #endif /* XPM_RUNTIME_API_H_ */

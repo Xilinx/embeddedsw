@@ -14,8 +14,6 @@
 static XStatus SetResetState(const XPm_RpuCore *Core, u32 Value);
 static XStatus XPm_PlatRpucoreHalt(u32 CoreId);
 
-
-
 static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
@@ -34,9 +32,24 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	return Status;
  }
 
+static XStatus XPmRpuCore_PwrDwn(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+
+	Status = XPm_PlatRpucoreHalt(Core->Device.Node.Id);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPmCore_PwrDwn(Core);
+
+done:
+	return Status;
+}
+
 static struct XPm_CoreOps RpuOps = {
 	.RequestWakeup = XPmRpuCore_WakeUp,
-	.PowerDown = NULL,
+	.PowerDown = XPmRpuCore_PwrDwn
 };
 
 
