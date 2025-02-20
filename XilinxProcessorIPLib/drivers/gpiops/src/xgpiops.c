@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,8 @@
 * 3.5   sne  03/13/19 Added Versal support.
 * 3.12  gm   07/11/23 Added SDT support.
 * 3.13  gm   03/15/24 Added multi-core interrupt support.
+* 3.14  bkv  02/20/25 Changed data type of effective address from u32 to
+*                     UINTPTR to support both 32-bit and 64-bit platforms.
 *
 * </pre>
 *
@@ -79,7 +81,7 @@ void StubHandler(void *CallBackRef, u32 Bank, u32 Status); /**< Stub handler */
 *
 ******************************************************************************/
 s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 	s32 Status = (s32)0;
 	u8 i;
