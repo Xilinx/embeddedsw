@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +25,8 @@
 *		     Updated to use the HAL APIs/macros.
 *		     XIic_ClearStats function is updated as the
 *		     macro XIIC_CLEAR_STATS has been removed.
+* 3.13  bkv 02/20/25 Fixed run time error from invalid memory access.
+*
 * </pre>
 *
 ****************************************************************************/
@@ -63,8 +66,8 @@ void XIic_GetStats(XIic *InstancePtr, XIicStats * StatsPtr)
 	u8 *SrcPtr;
 	u8 *DestPtr;
 
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(StatsPtr != NULL);
 
 	/*
@@ -98,8 +101,8 @@ void XIic_ClearStats(XIic *InstancePtr)
 	u8 NumBytes;
 	u8 *DestPtr;
 
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	DestPtr = (u8 *)&InstancePtr->Stats;
 	for (NumBytes = 0; NumBytes < sizeof(XIicStats); NumBytes++) {
