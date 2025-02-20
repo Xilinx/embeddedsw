@@ -859,29 +859,10 @@ XStatus XPmIoctl_AddRegPermission(const XPm_Subsystem *Subsystem, u32 DeviceId,
 	u32 SubsystemId = Subsystem->Id;
 	u32 Type = NODETYPE(DeviceId);
 	u32 *ReadPerm, *WritePerm;
-	const u32 AddNodeArgs[5U] = { DeviceId, PM_POWER_PMC, 0, 0, 0};
-	const XPm_Device *Device;
-	XPlmi_Cmd CmdAddNode = {
-		.SubsystemId = SubsystemId,
-		.Payload = (u32*)AddNodeArgs,
-		.Len = ARRAY_SIZE(AddNodeArgs),
-	};
-	/* Ensure device is added before trying to use it. */
-	Device = XPmDevice_GetById(DeviceId);
-	if (NULL == Device) {
-		Status = XPm_AddNode(&CmdAddNode);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		Device = XPmDevice_GetById(DeviceId);
-		if (NULL == Device) {
-			Status = XST_DEVICE_NOT_FOUND;
-			goto done;
-		}
-	}
 
-	if (PM_SUBSYS_PMC == SubsystemId) {
-		Status = XPM_INVALID_SUBSYSID;
+	const XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
 

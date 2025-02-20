@@ -33,6 +33,7 @@
 #include "xpm_runtime_periph.h"
 #include "xpm_access.h"
 #include "xpm_power_handlers.h"
+
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
 		Status = XPlmi_GicRegisterHandler(GicId, SrcId, \
@@ -47,7 +48,8 @@
 	#define XILPM_RUNTIME_BANNER ""
 #endif
 
-static XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd);
+static XStatus XPm_DoAddSubsystem(XPlmi_Cmd* Cmd);
+static XStatus XPm_DoAddRequirement(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetRequirement(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoRequestDevice(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoReleaseDevice(XPlmi_Cmd* Cmd);
@@ -110,8 +112,11 @@ static XStatus XPm_DoGetClockDivider(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoGetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd);
+
+/* Defined in xilpm-boot */
 extern XPm_Device *PmDevices[(u32)XPM_NODEIDX_DEV_MAX];
-static int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
+extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
+
 /**
  * @brief Initializes the Xilinx Power Management (XPM) runtime.
  *
@@ -169,8 +174,8 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_PmCmds[PM_CLOCK_SETPARENT].Handler = (XPlmi_CmdHandler)XPm_DoSetClockParent;
 	XPlmi_PmCmds[PM_CLOCK_GETPARENT].Handler = (XPlmi_CmdHandler)XPm_DoGetClockParent;
 	XPlmi_PmCmds[PM_CLOCK_GETSTATE].Handler = (XPlmi_CmdHandler)XPm_DoGetClockState;
-
-	XPlmi_PmCmds[PM_ADD_SUBSYSTEM].Handler = (XPlmi_CmdHandler)XPm_AddSubsystem;
+	XPlmi_PmCmds[PM_ADD_SUBSYSTEM].Handler = (XPlmi_CmdHandler)XPm_DoAddSubsystem;
+	XPlmi_PmCmds[PM_ADD_REQUIREMENT].Handler = (XPlmi_CmdHandler)XPm_DoAddRequirement;
 	XPlmi_PmCmds[PM_ACTIVATE_SUBSYSTEM].Handler = (XPlmi_CmdHandler)XPm_DoActivateSubsystem;
 	XPlmi_PmCmds[PM_FEATURE_CHECK].Handler = (XPlmi_CmdHandler)XPm_DoFeatureCheck;
 	XPlmi_PmCmds[PM_SET_NODE_ACCESS].Handler = (XPlmi_CmdHandler)XPm_DoSetNodeAccess;
@@ -578,27 +583,55 @@ done:
  * @return XStatus Returns XST_SUCCESS if the subsystem is added successfully,
  *         or an error code if the operation fails.
  *
- * @note   The provided address must be in an address space which is
- * accessible by the callee.  There will be no change if the subsystem CDO
- * is incompatible or if the required resources are not available, so no
- * clean-up will be necessary
  */
+static XStatus XPm_DoAddSubsystem(XPlmi_Cmd* Cmd)
+{
+	return XPm_AddSubsystem(Cmd);
+}
 
-static XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd)
+XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->Payload[0];
 	Status = XPmSubsystem_Add(SubsystemId);
-
+	Cmd->Response[0] = (u32)Status;
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
-	Cmd->Response[0] = (u32)Status;
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function links a node (dev/rst/subsys/regnode) to a subsystem.
+ *	   Requirement assignment could be made by XPm_RequestDevice() or
+ *	   XPm_SetRequirement() call.
+ *
+ * @param  Args		Node specific arguments
+ * @param  NumArgs	Number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_DoAddRequirement(XPlmi_Cmd* Cmd)
+{
+	return XPm_AddRequirement(Cmd);
+}
 
-
+XStatus XPm_AddRequirement(XPlmi_Cmd* Cmd)
+{
+	XStatus Status = XST_FAILURE;
+	u32 *Payload = Cmd->Payload;
+	u32 PayloadLen = Cmd->PayloadLen;
+	Status = XPmSubsystem_AddReqm(Payload[0], Payload, PayloadLen);
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
+}
 
 /*****************************************************************************/
 /**

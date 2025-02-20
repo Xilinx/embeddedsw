@@ -52,7 +52,6 @@
 #define XPM_EXPORT_CMD(CmdIdVal, MinArgCntVal, MaxArgCntVal) \
 	XPLMI_EXPORT_CMD(CmdIdVal, XPLMI_MODULE_XILPM_ID, MinArgCntVal, MaxArgCntVal)
 
-typedef int (*XPlmi_CmdHandler)(XPlmi_Cmd *Cmd);
 /**
  * The XPlmi_PmCmds array is a static array of type XPlmi_ModuleCmd, which is used to store
  * the module commands for the Versal platform. It has a size of PM_API_MAX, which represents
@@ -67,16 +66,14 @@ static XStatus XPm_DoHnicxDataXfer(XPlmi_Cmd* Cmd);
 static XStatus XPm_AddNodeParent(XPlmi_Cmd *Cmd);
 static XStatus XPm_AddNodeName(XPlmi_Cmd *Cmd);
 static XStatus XPm_IsoControl(XPlmi_Cmd *Cmd);
-static XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd);
-static XStatus XPm_AddRequirement(XPlmi_Cmd* Cmd);
+static XStatus XPm_DoInitNode(XPlmi_Cmd *Cmd);
 static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs);
 static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs);
 /*********************************************************************/
 
 u32 ResetReason;
-void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
-
-
+void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload) = NULL;
+int (*PmRestartCb)(u32 ImageId, u32 *FuncId) = NULL;
 
 /**
  * @brief Get the pointer to the array of PM commands
@@ -174,14 +171,20 @@ XStatus __attribute__((weak)) XPm_RuntimeInit(void) {
 	return XST_SUCCESS;
 };
 
+XStatus __attribute__((weak)) XPm_HookAfterPlmCdo(void)
+{
+	XStatus Status = XST_SUCCESS;
+	return Status;
+}
+
 u32 __attribute__((weak)) XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask) {
 	u32 SubsystemId = PM_SUBSYS_DEFAULT;
 	s32 FirstSet = 0;
 	if (IpiMask == 0) {
-		SubsystemId = 0xFFFFFFFF;
+		SubsystemId = 0xFFFFFFFFU;
 		goto done;
 	}
-	FirstSet = __builtin_ffs((s32)IpiMask) -1;
+	FirstSet = __builtin_ffs((s32)IpiMask) - 1;
 	switch (BIT((u32)FirstSet)) {
 		case ASU_IPI_MASK:
 			SubsystemId = PM_SUBSYS_ASU;
@@ -196,19 +199,37 @@ u32 __attribute__((weak)) XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask) {
 done:
 	return SubsystemId;
 }
-/**
- * @brief Dummy function to be overridden by the runtime library
- *
- */
-static XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd) {
+
+XStatus __attribute__((weak)) XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
+{
+	(void)SubsystemId;
+	(void)Type;
+	(void)SubType;
+	(void)CmdType;
+	PmWarn("Ignodeing CMD: PM_SYSTEM_SHUTDOWN, not implemented in this libary.\n\r");
+	return XST_SUCCESS;
+}
+
+XStatus __attribute__((weak)) XPm_PmcActivateSubsystem(u32 SubsystemId)
+{
+	(void)SubsystemId;
+	/*
+	 * This function is used to activate the subsystem.
+	 * The default boot implementation does nothing and returns success.
+	 */
+	return XST_SUCCESS;
+}
+
+XStatus __attribute__((weak)) XPm_AddSubsystem(XPlmi_Cmd* Cmd) {
 	PmWarn("Ignoring CMD: PM_ADD_SUBSYSTEM. SubsystemId=0x%x\n\r", Cmd->Payload[0]);
 	return XST_SUCCESS;
 }
-static XStatus XPm_AddRequirement(XPlmi_Cmd* Cmd) {
-	PmWarn("Ignoring CMD: PM_ADD_REQUIREMENT. SubsystemId=0x%x DeviceId=0x%x\n\r", Cmd->Payload[0], Cmd->Payload[1]);
+
+XStatus __attribute__((weak)) XPm_AddRequirement(XPlmi_Cmd* Cmd) {
+	PmWarn("Ignoring CMD: PM_ADD_REQUIREMENT. SubsystemId=0x%x DeviceId=0x%x\n\r",
+	Cmd->Payload[0], Cmd->Payload[1]);
 	return XST_SUCCESS;
 }
-static int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 
 
 /****************************************************************************/
@@ -319,7 +340,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 	XPlmi_PmCmds[PM_ADD_NODE_PARENT].Handler = (XPlmi_CmdHandler)XPm_AddNodeParent;
 	XPlmi_PmCmds[PM_ADD_NODE_NAME].Handler = (XPlmi_CmdHandler)XPm_AddNodeName;
 	XPlmi_PmCmds[PM_CLOCK_SETRATE].Handler = (XPlmi_CmdHandler)XPm_SetClockRate;
-	XPlmi_PmCmds[PM_INIT_NODE].Handler = (XPlmi_CmdHandler)XPm_InitNodeCmdHandler;
+	XPlmi_PmCmds[PM_INIT_NODE].Handler = (XPlmi_CmdHandler)XPm_DoInitNode;
 	XPlmi_PmCmds[PM_ISO_CONTROL].Handler = (XPlmi_CmdHandler)XPm_IsoControl;
 	XPlmi_PmCmds[PM_BISR].Handler = (XPlmi_CmdHandler)XPm_DoBisr;
 	XPlmi_PmCmds[PM_APPLY_TRIM].Handler = (XPlmi_CmdHandler)XPm_DoApplyTrim;
@@ -1675,19 +1696,6 @@ u32 XPm_GetSubsystemId(u32 ImageId)
 	return SubsystemId;
 }
 
-
-
-XStatus __attribute__((weak)) XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
-			   const u32 CmdType)
-{
-	(void)SubsystemId;
-	(void)Type;
-	(void)SubType;
-	(void)CmdType;
-	XStatus Status = XST_SUCCESS;
-	PmWarn("System Shutdown is not implemented in this libary\n\r");
-	return Status;
-}
 /****************************************************************************/
 /**
  * @brief  This function is used to obtain information about the current state
@@ -1742,6 +1750,7 @@ XStatus XPm_PmcGetDeviceState(const u32 DeviceId, u32 *const DeviceState)
 
 	return Status;
 }
+
 /**
  * @brief Request Device from PMC Subsystem.
 */
@@ -1756,14 +1765,7 @@ XStatus XPm_PmcRequestDevice(const u32 DeviceId) {
 done:
 	return Status;
 }
-/**
- * @brief PMC activate subsystem by subsystem ID
-*/
-XStatus __attribute__((weak)) XPm_PmcActivateSubsystem(const u32 SubsystemId)
-{
-	(void)SubsystemId;
-	return XST_SUCCESS;
-}
+
 /**
  * @brief PMC request wakeup of CPU core
 */
@@ -1796,6 +1798,7 @@ XStatus XPm_PmcWakeAllCores(void) {
 done:
 	return Status;
 }
+
 /**
  * @brief PMC request wakeup of CPU core
 */
@@ -1865,13 +1868,6 @@ XStatus XPm_HnicxNpiDataXfer(u32 Address, u32 Value)
 				HNICX_NPI_0_NPI_CSR_WR_STATUS_VALID_RESP,
 				XPM_NPI_CSR_POLL_TIMEOUT, NULL);
 
-	return Status;
-}
-
-
-XStatus __attribute__((weak)) XPm_HookAfterPlmCdo(void)
-{
-	XStatus Status = XST_SUCCESS;
 	return Status;
 }
 
@@ -2056,80 +2052,15 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 	return Status;
 }
 
-int XPm_InitNodeCmdHandler(XPlmi_Cmd *Cmd)
+static XStatus XPm_DoInitNode(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 Pload[16U] = {0U};
-	u32 Len = 0U;
-	const u32 *PloadPtr = Pload;
-	u32 PloadLen = Len;
-
-	/* First chunk of the command, copy it to resume data */
-	if (0U == Cmd->ProcessedLen) {
-		if (Cmd->PayloadLen == Cmd->Len) {
-			/* Entire command is available, process it */
-			Cmd->ResumeHandler = NULL;
-			PloadPtr = Cmd->Payload;
-			PloadLen = Cmd->Len;
-			goto process_cmd;
-		}
-
-		/* Copy the first payload chunk to resume data */
-		if (Cmd->PayloadLen <= ARRAY_SIZE(Cmd->ResumeData)) {
-			for (u32 i = 0U; i < Cmd->PayloadLen; i++) {
-				Cmd->ResumeData[i] = Cmd->Payload[i];
-			}
-		} else {
-			PmErr("Payload too big for resume data\r\n");
-			Cmd->ResumeHandler = NULL;
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-
-		/* Partially processed, to be resumed after */
-		Status = XST_SUCCESS;
-		goto done;
-	} else {
-		/* Copy the resume data to final payload */
-		if (Cmd->ProcessedLen <= ARRAY_SIZE(Cmd->ResumeData)) {
-			for (Len = 0U; Len < Cmd->ProcessedLen; Len++) {
-				Pload[Len] = Cmd->ResumeData[Len];
-			}
-		} else {
-			PmErr("Resume data too big for payload\r\n");
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-
-		/* Copy next payload chunk to final payload after resume data */
-		if (Cmd->ProcessedLen + Cmd->PayloadLen <= ARRAY_SIZE(Pload)) {
-			for (Len = Cmd->ProcessedLen; Len < Cmd->ProcessedLen + Cmd->PayloadLen; Len++) {
-				Pload[Len] = Cmd->Payload[Len - Cmd->ProcessedLen];
-			}
-		} else {
-			PmErr("Payload too big for final payload\r\n");
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-
-		/* Make sure we have full payload */
-		if (Len != Cmd->Len) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-
-		/* Ready to process, have full payload */
-		PloadPtr = Pload;
-		PloadLen = Len;
-	}
-
-process_cmd:
-	Status = XPm_InitNode(PloadPtr[0U], PloadPtr[1U], &PloadPtr[2U], PloadLen - 2U);
+	const u32 *Args = Cmd->Payload;
+	u32 NumArgs = Cmd->Len;
+	Status = XPm_InitNode(Args[0U], Args[1U], &Args[2U], NumArgs - 2U);
 	Cmd->Response[0U] = (u32)Status;
-
-done:
 	if (XST_SUCCESS != Status) {
-		PmErr("PM_INIT_NODE Failure, Err: 0x%x\r\n", Status);
+		PmErr("PM_INIT_NODE 0x%x 0x%x Failure, Err: 0x%x\r\n", Args[0U], Args[1U], Status);
 	}
 	return Status;
 }
