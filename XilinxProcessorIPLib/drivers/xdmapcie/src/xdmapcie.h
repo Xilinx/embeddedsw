@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -109,12 +109,14 @@ typedef  struct {
 	u8  LocalBarsNum;		/* The number of local bus (AXI) BARs
 					 * in hardware
 					 */
-#if !defined(versal) || defined(QDMA_PCIE_BRIDGE) || defined(XDMA_PCIE_BRIDGE) || defined(SDT)
+#if defined(QDMA_PCIE_BRIDGE) || defined(XDMA_PCIE_BRIDGE) || defined(SDT)
 	u8  IncludeBarOffsetReg;	/**<Are BAR Offset registers built in
 					 * hardware
 					 */
 #endif
 	u8  IncludeRootComplex;		/**< Is IP built as root complex */
+	u32 IATUAddress;		/** IATU Region Address for versal2*/
+
 #if defined(__aarch64__) || defined(__arch64__)
 #if defined(SDT)
 	u64 Ecam;

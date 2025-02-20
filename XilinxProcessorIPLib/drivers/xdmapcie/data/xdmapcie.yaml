@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -19,6 +19,7 @@ properties:
           - xlnx,xdma-host-3.00
           - xlnx,qdma-host-3.00
           - xlnx,versal-cpm5-host
+          - amd,versal2-mdb-host
   reg:
     description: Physical base address and size of the controller register map
 
@@ -31,6 +32,7 @@ required:
     - xlnx,num-of-bars
     - xlnx,include-baroffset-reg
     - xlnx,port-type
+    - xlnx,iatu-address
     - xlnx,csr-slcr : 2
     - ranges: 2
 
