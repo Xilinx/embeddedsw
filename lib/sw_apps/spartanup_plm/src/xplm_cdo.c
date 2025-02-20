@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
+ * 1.01	 prt  02/20/25 Added support for SW-BP-MAGIC-NUM
  * </pre>
  *
  ******************************************************************************/
@@ -45,6 +46,12 @@
 #define XPLM_CMD_MODULE_ID_MASK		(0xFF00U)
 #define XPLM_CMD_LEN_MASK		(0xFF0000U)
 #define XPLM_CMD_MODULE_ID_SHIFT	(8U)
+#define XPLM_CDO_CMD_BUF_INDEX		(0U)	/**< This points to the index of command 1st word **/
+#define XPLM_CDO_CMD_PAYLOAD_INDEX		(1U) /**< This points to the index of payload length in long format command **/
+#define XPLM_CDO_CMD_LEN_INDEX		(1U) /**< This points to the index of command length **/
+#define XPLM_CDO_HEADER_IDENTIFICATION_INDEX		(1U) /**< This points to the index of Header Identification Word for Validation **/
+#define XPLM_CDO_OBJECT_VERSION_INDEX		(2U) /**< This points to the index of object version **/
+#define XPLM_CDO_LEN_IN_WORD_INDEX		(3U) /**< This points to the index of CDO Length in Word **/
 /** @endcond */
 
 /**************************** Type Definitions *******************************/
@@ -201,12 +208,12 @@ static u32 XPlm_CmdSize(const u32 *Buf, u32 Len)
 {
 	u32 Size = 1U;
 	if (Len >= Size) {
-		u32 CmdId = Buf[0U];
-		u32 PayloadLen = (CmdId & XPLM_CMD_LEN_MASK) >> 16U;
+		u32 CmdId = Buf[XPLM_CDO_CMD_BUF_INDEX];
+		u32 PayloadLen = (CmdId & XPLM_CMD_LEN_MASK) >> XPLM_SHORT_CMD_LEN_SHIFT;
 		if (PayloadLen == XPLM_MAX_SHORT_CMD_LEN) {
 			Size = XPLM_LONG_CMD_HDR_LEN;
 			if (Len >= Size) {
-				PayloadLen = Buf[1U];
+				PayloadLen = Buf[XPLM_CDO_CMD_PAYLOAD_INDEX];
 			}
 			if (PayloadLen > XPLM_MAX_LONG_CMD_LEN) {
 				PayloadLen = XPLM_MAX_LONG_CMD_LEN;
@@ -231,13 +238,13 @@ static void XPlm_SetupCmd(XPlm_Cmd *Cmd, u32 *Buf, u32 BufLen)
 {
 	u32 HdrLen = 1U;
 
-	Cmd->CmdId = Buf[0U];
+	Cmd->CmdId = Buf[XPLM_CDO_CMD_BUF_INDEX];
 	Cmd->Len = (Cmd->CmdId >> XPLM_SHORT_CMD_LEN_SHIFT) & XPLM_MAX_SHORT_CMD_LEN;
-	Cmd->Payload = &Buf[1U];
+	Cmd->Payload = &Buf[XPLM_CDO_CMD_PAYLOAD_INDEX];
 	Cmd->ProcessedLen = 0U;
 	if (Cmd->Len == XPLM_MAX_SHORT_CMD_LEN) {
 		HdrLen = XPLM_LONG_CMD_HDR_LEN;
-		Cmd->Len = Buf[1U];
+		Cmd->Len = Buf[XPLM_CDO_CMD_LEN_INDEX];
 		Cmd->Payload = &Buf[XPLM_LONG_CMD_HDR_LEN];
 	}
 
@@ -269,7 +276,7 @@ static u32 XPlm_CdoVerifyHeader(const XPlmCdo *CdoPtr)
 	u32 Index;
 
 	/** - Validate the header identification word with @ref XPLM_CDO_HDR_IDN_WRD. */
-	if (CdoHdr[1U] != XPLM_CDO_HDR_IDN_WRD) {
+	if (CdoHdr[XPLM_CDO_HEADER_IDENTIFICATION_INDEX] != XPLM_CDO_HDR_IDN_WRD) {
 		XPlm_Printf(DEBUG_INFO, "CDO Header Identification Failed\n\r");
 		Status = (u32)XPLM_ERR_CDO_HDR_ID;
 		goto END;
@@ -290,8 +297,8 @@ static u32 XPlm_CdoVerifyHeader(const XPlmCdo *CdoPtr)
 		Status = XST_SUCCESS;
 	}
 
-	XPlm_Printf(DEBUG_INFO, "Config Object Version 0x%08x\n\r", CdoHdr[2U]);
-	XPlm_Printf(DEBUG_INFO, "Length 0x%08x\n\r", CdoHdr[3U]);
+	XPlm_Printf(DEBUG_INFO, "Config Object Version 0x%08x\n\r", CdoHdr[XPLM_CDO_OBJECT_VERSION_INDEX]);
+	XPlm_Printf(DEBUG_INFO, "Length 0x%08x\n\r", CdoHdr[XPLM_CDO_LEN_IN_WORD_INDEX]);
 
 END:
 	return Status;
@@ -406,7 +413,7 @@ static u32 XPlm_CdoCmdExecute(XPlmCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Siz
 	/**
 	 * - Skip executing the remaining commands in CDO upon detecting the 'END' CDO command.
 	 */
-	if (BufPtr[0U] == XPLM_CMD_END) {
+	if (BufPtr[XPLM_CDO_CMD_BUF_INDEX] == XPLM_CMD_END) {
 		XPlm_Printf(DEBUG_INFO, "CMD END detected \n\r");
 		CdoPtr->CmdEndDetected = (u8)TRUE;
 		Status = XST_SUCCESS;
@@ -509,7 +516,7 @@ u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr)
 			goto END;
 		}
 		CdoPtr->Cdo1stChunk = (u8)FALSE;
-		CdoPtr->CdoLen = BufPtr[3U];
+		CdoPtr->CdoLen = BufPtr[XPLM_CDO_LEN_IN_WORD_INDEX];
 
 		BufPtr = &BufPtr[XPLM_CDO_HDR_LEN];
 		BufLen -= XPLM_CDO_HDR_LEN;
