@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -106,6 +106,7 @@ void XPmRequirement_Clear(XPm_Requirement* Reqm)
 	if(NULL != Reqm) {
 		/* Clear flag - master is not using slave anymore */
 		Reqm->Allocated = 0;
+		Reqm->IsPending = 0;
 		/* Release current and next requirements */
 		Reqm->Curr.Capabilities = XPM_MIN_CAPABILITY;
 		Reqm->Curr.Latency = XPM_MAX_LATENCY;

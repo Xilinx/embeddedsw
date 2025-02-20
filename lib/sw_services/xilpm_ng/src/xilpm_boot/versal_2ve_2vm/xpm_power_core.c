@@ -1300,7 +1300,7 @@ static XStatus XPmPower_MemPwrDwn(struct XPmFwMemPwrCtrl_t *Args)
 		XPm_RMW32(PSXC_LPX_SLCR_OCM_RET_CNTRL, Args->RetCtrlMask, ~Args->RetCtrlMask);
 
 		/* Poll for disable retention */
-		Status = XPm_PollForZero(PSXC_LPX_SLCR_OCM_RET_CNTRL, ~Args->RetCtrlMask, OCM_PWR_STATE_ACK_TIMEOUT);
+		Status = XPm_PollForZero(PSXC_LPX_SLCR_OCM_RET_CNTRL, Args->RetCtrlMask, OCM_PWR_STATE_ACK_TIMEOUT);
 		if (Status != XST_SUCCESS) {
 			PmErr("Retention is not disabled\n");
 			goto done;
@@ -1317,7 +1317,7 @@ static XStatus XPmPower_MemPwrDwn(struct XPmFwMemPwrCtrl_t *Args)
 	XPm_RMW32(PMXC_GLOBAL_PMC_MSTR_PWR_STATE_1, Args->PwrStateMask, ~Args->PwrStateMask);
 
 	/* Read the OCM Power Status register */
-	Status = XPm_PollForZero(PSXC_LPX_SLCR_OCM_PWR_STATUS, ~Args->PwrStatusMask, OCM_PWR_STATE_ACK_TIMEOUT);
+	Status = XPm_PollForZero(PSXC_LPX_SLCR_OCM_PWR_STATUS, Args->PwrStatusMask, OCM_PWR_STATE_ACK_TIMEOUT);
 	if (Status != XST_SUCCESS) {
 		PmErr("OCM power down status not set\n");
 		goto done;
@@ -1658,7 +1658,7 @@ static XStatus XPmPower_TcmPwrDown(struct XPmTcmPwrCtrl_t *Args)
 	//XPm_RMW32(PMXC_GLOBAL_PMC_AUX_PWR_STATE_1, Tcm->PwrStateMask, ~Tcm->PwrStateMask);
 
 	/* Check that TCM power down status has taken affect */
-	Status = XPm_PollForZero(PSXC_LPX_SLCR_RPU_TCM_PWR_STATUS, ~Tcm->PwrStatusMask, TCM_PWR_STATE_ACK_TIMEOUT);
+	Status = XPm_PollForZero(PSXC_LPX_SLCR_RPU_TCM_PWR_STATUS, Tcm->PwrStatusMask, TCM_PWR_STATE_ACK_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		PmErr("TCM power down status not set\n");
 		goto done;
