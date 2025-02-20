@@ -23,8 +23,9 @@
  *       ss   09/19/24 Added XAsu_CheckAsufwPrsntBit() API
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       vns  09/30/24 Added support for asynchronous communication
- *       ma   01/08/25 Clear only ReqBufStatus and RespBufStatus upon command completion
+ * 1.1   ma   01/08/25 Clear only ReqBufStatus and RespBufStatus upon command completion
  *       vns  02/06/25 Fixed magic numbers
+ *       ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
  *
  * </pre>
  *
@@ -280,6 +281,7 @@ s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuff
 
 	/** Set IsCmdPresent to XASU_TRUE to indicate the command is present in the queue. */
 	ChannelQPtr->IsCmdPresent = XASU_TRUE;
+	ChannelQPtr->ReqSent++;
 
 	/** Place an IPI request to ASU. */
 	Status = XAsu_SendIpi();
