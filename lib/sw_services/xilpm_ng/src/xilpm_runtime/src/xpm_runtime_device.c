@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,12 +26,12 @@ static const u32 IpiMasks[][2] = {
 	{ PM_DEV_IPI_6, IPI_6_MASK },
 };
 static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
-		       u32 Capabilities, u32 QoS, u32 CmdType);
-
+			  u32 Capabilities, u32 QoS, u32 CmdType);
+static XStatus DevRelease(XPm_Device *Device,  XPm_Subsystem *Subsystem, u32 CmdType);
 static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsystem,
 			      u32 Capabilities, const u32 QoS);
-static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32 ReqCaps,
-				   u32 CmdType)
+
+maybe_unused static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32 ReqCaps, u32 CmdType)
 {
 	XStatus Status = XPM_PM_NO_ACCESS;
 	struct XPm_SecPolicy { u16 CmdType; u16 Allowed; };
@@ -340,8 +340,7 @@ done:
 	return Status;
 }
 
-static XStatus HandleDeviceAttr(struct XPm_Reqm *Reqm, u32 ReqCaps,
-				u32 PrevState, u32 Enable)
+maybe_unused static XStatus HandleDeviceAttr(struct XPm_Reqm *Reqm, u32 ReqCaps, u32 PrevState, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -441,6 +440,41 @@ done:
 	}
 	return Status;
 }
+
+XStatus XPmDevice_Release(u32 SubsystemId, u32 DeviceId, u32 CmdType)
+{
+	XStatus Status = XPM_ERR_DEVICE_RELEASE;
+	XPm_Device *Device;
+	XPm_Subsystem *Subsystem;
+
+	/* TODO: Check if subsystem has permission */
+
+	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	Device = XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if ((Subsystem == NULL) || (Subsystem->State == (u8)OFFLINE)) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+	Status = DevRelease(Device, Subsystem, CmdType);
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
+}
+
+
 static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		       u32 Capabilities, u32 QoS, u32 CmdType)
 {
@@ -456,18 +490,21 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 			goto done;
 	}
 	PrevState = Device->Node.State;
+	(void)PrevState;
+	(void)CmdType;
 
 	/* Check whether this device assigned to the subsystem */
 	Reqm = FindReqm(Device, Subsystem);
 	if (NULL == Reqm) {
 		/* TODO: AIE device requirement is added implicitly when requested */
-	goto done;
-	}
-
-	Status = CheckSecurityAccess(Reqm, Capabilities, CmdType);
-	if (XST_SUCCESS != Status) {
 		goto done;
 	}
+
+	/* TODO:: Enable this handling separately for eemi and subsys */
+	// Status = CheckSecurityAccess(Reqm, Capabilities, CmdType);
+	// if (XST_SUCCESS != Status) {
+	// 	goto done;
+	// }
 
 	if (1U == Reqm->Allocated) {
 		Status = XST_SUCCESS;
@@ -495,20 +532,72 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	/* Allocated device for the subsystem */
 	Reqm->Allocated = 1U;
 
-	Status = SetDevRequirement(Device, Subsystem,
-						   Capabilities, QoS);
+	Status = SetDevRequirement(Device, Subsystem, Capabilities, QoS);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	Status = HandleDeviceAttr(Reqm, Capabilities, PrevState, 1U);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	/* TODO:: Enable this handling separately for eemi and subsys */
+	// Status = HandleDeviceAttr(Reqm, Capabilities, PrevState, 1U);
+	// if (XST_SUCCESS != Status) {
+	// 	goto done;
+	// }
 
 done:
 	if (XST_SUCCESS != Status) {
 		XPmRequirement_Clear(Reqm);
+		PmErr("0x%x, Id: 0x%x\r\n", Status, Device->Node.Id);
+	}
+	return Status;
+}
+
+static XStatus DevRelease(XPm_Device *Device,  XPm_Subsystem *Subsystem, u32 CmdType)
+{
+	XStatus Status = XPM_ERR_DEVICE_RELEASE;
+	XPm_Requirement *Reqm = NULL;
+	u32 PrevState;
+
+	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
+	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
+	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State) &&
+	    ((u8)XPM_DEVSTATE_INITIALIZING != Device->Node.State)) {
+		Status = XST_DEVICE_BUSY;
+		goto done;
+	}
+	PrevState = Device->Node.State;
+	(void)PrevState;
+	(void)CmdType;
+
+	Reqm = FindReqm(Device, Subsystem);
+	if (NULL == Reqm) {
+		goto done;
+	}
+
+	/* TODO:: Enable this handling separately for eemi and subsys */
+	// Status = CheckSecurityAccess(Reqm, 0U, CmdType);
+	// if (XST_SUCCESS != Status) {
+	// 	goto done;
+	// }
+
+	if (0U == Reqm->Allocated) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+	Status = SetDevRequirement(Device, Subsystem, 0, XPM_DEF_QOS);
+	if (XST_SUCCESS != Status) {
+		Status = XPM_ERR_DEVICE_RELEASE;
+		goto done;
+	}
+	XPmRequirement_Clear(Reqm);
+
+	/* TODO:: Enable this handling separately for eemi and subsys */
+	// Status = HandleDeviceAttr(Reqm, 0U, PrevState, 0U);
+	// if (XST_SUCCESS != Status) {
+	// 	goto done;
+	// }
+
+done:
+	if (XST_SUCCESS != Status) {
 		PmErr("0x%x, Id: 0x%x\r\n", Status, Device->Node.Id);
 	}
 	return Status;
@@ -579,6 +668,7 @@ done:
 	}
 	return Status;
 }
+
 XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 				 const u32 Capabilities, const u32 QoS)
 {
@@ -586,28 +676,24 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 	XPm_Device *Device;
 	const XPm_Subsystem *Subsystem;
 
-	/* Todo: Check if subsystem has permission */
+	/* TODO: Check if subsystem has permission */
 
 	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
-
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
-
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if ((Subsystem == NULL) || (Subsystem->State == (u8)OFFLINE)) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
-
-	Status = SetDevRequirement(Device, Subsystem,
-						   Capabilities, QoS);
+	Status = SetDevRequirement(Device, Subsystem, Capabilities, QoS);
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -615,6 +701,7 @@ done:
 	}
 	return Status;
 }
+
 /****************************************************************************/
 /**
  * @brief	Get state with provided capabilities
@@ -1003,11 +1090,13 @@ u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *D
 	}
 	LIST_FOREACH(DevOps->Requirements, ReqmNode) {
 		XPm_Requirement *Reqm = ReqmNode->Data;
-		/* This subsystem is currently using this device */
-		if (Subsystem == Reqm->Subsystem) {
+		if (1U == Reqm->Allocated){
+			/* This subsystem is currently using this device */
+			if (Subsystem == Reqm->Subsystem) {
 				UsageStatus |= (u32)PM_USAGE_CURRENT_SUBSYSTEM;
-		} else {
+			} else {
 				UsageStatus |= (u32)PM_USAGE_OTHER_SUBSYSTEM;
+			}
 		}
 	}
 

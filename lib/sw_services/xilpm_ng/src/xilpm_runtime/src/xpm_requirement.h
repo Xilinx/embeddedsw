@@ -62,8 +62,8 @@ struct XPm_Reqm {
 	u8 SetLatReq; /**< Latency has been set from the subsystem */
 	XPm_Subsystem *Subsystem; /**< Subsystem imposing this requirement on the device */
 	XPm_Device *Device; /**< Device used by the subsystem */
-
 };
+
 #define REG_FLAGS_USAGE_MASK		(0x3U)
 #define REG_FLAGS_SECURITY_MASK		(0x4U)
 #define REG_FLAGS_SECURITY_OFFSET	(2U)
