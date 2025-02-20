@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -129,6 +129,8 @@
 *                     type of XGpioPs_IntrEnable, XGpioPs_IntrDisable,
 *                     XGpioPs_IntrEnablePin and XGpioPs_IntrDisablePin
 *                     to add multi-core interrupt support.
+* 3.14  bkv  02/20/25 Changed data type of effective address from u32 to UINTPTR
+*                     to support both 32-bit and 64-bit platforms.
 *
 * </pre>
 *
@@ -255,7 +257,7 @@ extern XGpioPs_Config XGpioPs_ConfigTable[];
 
 /* Functions in xgpiops.c */
 s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
-			   u32 EffectiveAddr);
+			   UINTPTR EffectiveAddr);
 
 /* Bank APIs in xgpiops.c */
 u32 XGpioPs_Read(const XGpioPs *InstancePtr, u8 Bank);
