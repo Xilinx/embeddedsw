@@ -22,6 +22,7 @@
  *       ma   07/08/24 Add task based approach at queue level
  *       ma   07/23/24 Update XASU_RESPONSE_STATUS_INDEX with 0
  * 1.1   ma   12/12/24 Updated command states
+ *       ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
  *
  * </pre>
  *
@@ -42,7 +43,7 @@ extern "C" {
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_MAX_BUFFERS				(8U) /**< Maximum request and response buffers */
-#define XASU_CHANNEL_RESERVED_MEM			(1460U) /**< Reserved memory in channel */
+#define XASU_CHANNEL_RESERVED_MEM			(1452U) /**< Reserved memory in channel */
 
 #define XASU_COMMAND_IS_PRESENT				(0x1U) /**< Command is written by client */
 #define XASU_COMMAND_IN_PROGRESS			(0x2U) /**< Command is in progress by ASUFW */
@@ -103,6 +104,8 @@ typedef struct {
 /** This structure is the channel's queue which is of 8 buffers */
 typedef struct {
 	u32 IsCmdPresent; /**< Cmd present status of the queue */
+	u32 ReqSent; /**< Number of requests sent from client to ASUFW */
+	u32 ReqServed; /**< Number of requests served by ASUFW */
 	XAsu_ChannelQueueBuf ChannelQueueBufs[XASU_MAX_BUFFERS]; /**< Channel's queue of 8 buffers */
 } XAsu_ChannelQueue;
 

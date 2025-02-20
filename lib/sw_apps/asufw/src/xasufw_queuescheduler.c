@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -25,6 +25,7 @@
  *       ss   09/26/24 Fixed doxygen comments
  *       ma   09/26/24 Removed static IPI configurations from code
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
+ *       ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
  *
  * </pre>
  *
@@ -68,6 +69,12 @@
 #define XASUFW_QUEUEINDEX_MASK		0xF00U /**< P0/P1 Queue index mask in Queue UniqueID */
 #define XASUFW_QUEUEINDEX_SHIFT		8U /**< Queue index shift in Queue UniqueID */
 
+/**
+ * When there are pending requests present in the queue, ASUFW triggers the task with the delay
+ * of 100ms.
+ */
+#define XASUFW_QUEUE_TASK_DELAY_TIME	100U /**< Queue task delay time. */
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -107,6 +114,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 	XAsu_ChannelQueue *ChannelQueue;
 	XAsu_ChannelQueueBuf *QueueBuf;
 	u32 ReqId = 0x0U;
+	XTask_TaskNode *Task = NULL;
 
 	/** Check which queue (P0/P1) has new command from client. */
 	if (PxQueue == XASUFW_P0_QUEUE) {
@@ -117,6 +125,12 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 		XAsufw_Printf(DEBUG_GENERAL, "Running P1 task of channel %d\r\n", ChannelIndex);
 		ChannelQueue = &SharedMemory->ChannelMemory[ChannelIndex].P1ChannelQueue;
 		BufferIdx = CommChannelTasks.Channel[ChannelIndex].P1QueueBufIdx;
+	}
+
+	/** If no pending requests, exit the queue task. */
+	if (ChannelQueue->ReqSent == ChannelQueue->ReqServed) {
+		Status = XASUFW_SUCCESS;
+		goto END;
 	}
 
 	/**
@@ -151,7 +165,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 					 * invalid command is received or the access permissions fail.
 					 * Currently, XAsufw_ValidateCommand only checks for invalid command.
 					 *
-					 * Update command status in the request queue and the resopnse in
+					 * Update command status in the request queue and the response in
 					 * response queue.
 					 */
 					QueueBuf->ReqBufStatus = XASU_COMMAND_EXECUTION_COMPLETE;
@@ -170,6 +184,13 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 					XASU_COMMAND_DMA_WAIT_COMPLETE)) {
 				Status = XAsufw_CommandQueueHandler(QueueBuf, ReqId);
 			}
+
+			/** Increment the requests served by ASUFW. */
+			if (ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
+					XASU_COMMAND_EXECUTION_COMPLETE) {
+				ChannelQueue->ReqServed++;
+			}
+			break;
 		}
 	}
 
@@ -185,6 +206,17 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 		CommChannelTasks.Channel[ChannelIndex].P1QueueBufIdx = BufferIdx;
 	}
 
+	/** If the requests served is not same as requests sent, trigger the queue task with delay. */
+	if (ChannelQueue->ReqSent != ChannelQueue->ReqServed) {
+		Task = XTask_GetInstance(Arg);
+		if (Task != NULL) {
+			XAsufw_Printf(DEBUG_DETAILED, "Pending requests are present in the queue.\r\n"
+					"Triggering the queue task with delay.\r\n");
+			Status = XTask_TriggerAfterDelay(Task, XASUFW_QUEUE_TASK_DELAY_TIME);
+		}
+	}
+
+END:
 	return Status;
 }
 
@@ -247,7 +279,7 @@ void XAsufw_ChannelConfigInit(void)
 		    (CommChannelInfo->Channel[ChannelIndex].P1QueuePriority >=
 		     XASUFW_MAX_PRIORITIES_SUPPORTED)) {
 			XAsufw_Printf(DEBUG_INFO, "Invalid communication channel information received "
-				      "from user configurtion.\r\nIPI Bit Mask: 0x%x, "
+				      "from user configuration.\r\nIPI Bit Mask: 0x%x, "
 				      "P0 Queue Priority: %d, P1 Queue Priority: %d\r\n",
 				      CommChannelInfo->Channel[ChannelIndex].IpiBitMask,
 				      CommChannelInfo->Channel[ChannelIndex].P0QueuePriority,
