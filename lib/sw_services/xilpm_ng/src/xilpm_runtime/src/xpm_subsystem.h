@@ -112,7 +112,7 @@ typedef struct XPm_SubsystemOps {
     XStatus (*SetState)(XPm_Subsystem *Subsystem, u32 State);
     XStatus (*InitFinalize)(XPm_Subsystem *Subsystem);
     XStatus (*GetStatus)(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus);
-    XStatus (*AddPermissions)(XPm_Subsystem *Subsystem, u32 TargetId, u32 Operations);
+    XStatus (*AddRequirement)(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen);
     XStatus (*ShutDown)(XPm_Subsystem *Subsystem);
     XStatus (*WakeUp)(XPm_Subsystem *Subsystem);
     XStatus (*Suspend)(XPm_Subsystem *Subsystem);
@@ -157,6 +157,7 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType);
 XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId);
 XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId);
 XStatus XPmSubsystem_Add(u32 SubsystemId);
+XStatus XPmSubsystem_AddReqm(u32 SubsystemId, u32 *Payload, u32 PayloadLen);
 XPm_Subsystem *XPmSubsystem_GetById(u32 SubsystemId);
 XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx);
 u32 XPmSubsystem_GetMaxSubsysIdx(void);

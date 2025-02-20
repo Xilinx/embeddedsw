@@ -28,6 +28,7 @@ extern "C" {
  * @return Integer value representing the status of the command handling
  */
 typedef int (*XPlmi_CmdHandler)(XPlmi_Cmd *Cmd);
+
 #ifdef XPLMI_IPI_DEVICE_ID
 /* Macros for IPI responses (return values and callbacks) */
 #define IPI_RESPONSE1(Mask, Arg0)						\
@@ -49,40 +50,33 @@ typedef int (*XPlmi_CmdHandler)(XPlmi_Cmd *Cmd);
 }
 #endif /* XPLMI_IPI_DEVICE_ID */
 
-
 /* Force power down timeout in us */
 #define XPM_PWR_DWN_TIMEOUT	(60000U)
+/* Max number of processor base addresses */
+#define MAX_BASEADDR_LEN	(3U)
 
-#define MAX_BASEADDR_LEN	3
-typedef XStatus (*XPm_CmdHandler_t)(XPlmi_Cmd *Cmd);
-
-
-XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload),
+XStatus XPm_Init(void (*const RequestCb)(u32 SubsystemId, XPmApiCbId_t EventId, u32 *Payload),
 		 int (*const RestartCb)(u32 ImageId, u32 *FuncId));
-
 XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr);
-XStatus XPm_PmcRequestDevice(const u32 DeviceId);
-XStatus XPm_PmcActivateSubsystem(const u32 SubsystemId);
+XStatus XPm_PmcRequestDevice(u32 DeviceId);
+XStatus XPm_PmcActivateSubsystem(u32 SubsystemId);
 XStatus XPm_PmcWakeAllCores(void);
-XStatus XPm_PmcWakeUpCore(const u32 CoreId , const u32 SetAddress, const u64 Address);
-XStatus XPm_PmcGetDeviceState(const u32 DeviceId, u32 *const DeviceState);
-
-XStatus XPm_PmcReleaseDevice(const u32 DeviceId);
-XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
-			   const u32 CmdType);
+XStatus XPm_PmcWakeUpCore(u32 CoreId , u32 SetAddress, u64 Address);
+XStatus XPm_PmcGetDeviceState(u32 DeviceId, u32 *const DeviceState);
+XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType);
+XStatus XPm_PmcReleaseDevice(u32 DeviceId);
+XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd);
+XStatus XPm_AddRequirement(XPlmi_Cmd* Cmd);
 XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs);
 XStatus XPm_HookAfterPlmCdo(void);
-
-XStatus XPm_PlatAddNode(const u32 *Args, u32 NumArgs);
-int XPm_InitNodeCmdHandler(XPlmi_Cmd *Cmd);
 XStatus XPm_HnicxNpiDataXfer(u32 Address, u32 Value);
-XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs);
 u32 XPm_GetSubsystemId(u32 ImageId);
 XPlmi_ModuleCmd* XPm_GetPmCmds(void);
 XStatus XPm_AddNode(XPlmi_Cmd *Cmd);
 XStatus XPm_HookAfterBootPdi(void);
 XStatus XPm_RuntimeInit(void);
 u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask);
+
 #ifdef __cplusplus
 }
 #endif

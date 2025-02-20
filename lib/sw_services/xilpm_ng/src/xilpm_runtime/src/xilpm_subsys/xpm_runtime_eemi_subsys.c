@@ -13,6 +13,8 @@
 #include "xpm_runtime_reset.h"
 #include "xpm_runtime_pin.h"
 #include "xplmi_scheduler.h"
+#include "xpm_access.h"
+#include "xpm_ioctl.h"
 #include "xpm_runtime_api.h"
 
 static XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem);
@@ -24,6 +26,7 @@ static XStatus XPmSubsystem_Suspend(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_Idle(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_InitFinalize(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_AddPermissions(XPm_Subsystem *Subsystem, u32 TargetId, u32 Operations);
+static XStatus XPmSubsystem_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen);
 static XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
 static XStatus XPmSubsystem_StartBootTimer(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_StopBootTimer(XPm_Subsystem *Subsystem);
@@ -38,7 +41,7 @@ XPm_SubsystemMgr SubsysMgr = {
 		.SetState = XPmSubsystem_SetState,
 		.InitFinalize = XPmSubsystem_InitFinalize,
 		.GetStatus = XPmSubsystem_GetStatus,
-		.AddPermissions = XPmSubsystem_AddPermissions,
+		.AddRequirement = XPmSubsystem_AddRequirement,
 		.ShutDown = XPmSubsystem_ShutDown,
 		.WakeUp = XPmSubsystem_WakeUp,
 		.Suspend = XPmSubsystem_Suspend,
@@ -138,7 +141,8 @@ static XStatus XPmSubsystem_AddPermissions(XPm_Subsystem *Host, u32 TargetId, u3
 	}
 
 	if ((NULL == Target) || (NULL == Host) ||
-	    (PM_SUBSYS_PMC == Host->Id) || (PM_SUBSYS_PMC == Target->Id)) {
+	    (PM_SUBSYS_PMC == Host->Id) || (PM_SUBSYS_PMC == Target->Id) ||
+	    (PM_SUBSYS_ASU == Host->Id) || (PM_SUBSYS_ASU == Target->Id)) {
 		goto done;
 	}
 	/*
@@ -600,5 +604,183 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 	Status = XST_SUCCESS;
 
 done:
+	return Status;
+}
+
+static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
+{
+	XStatus Status = XST_FAILURE;
+	u32 SubsysId = 0U, DeviceId = 0U, Flags = 0U;
+	u32 PreallocCaps = 0U, PreallocQoS = 0U;
+	XPm_Device *Device = NULL;
+
+	/* Check the minimum basic arguments required for this command */
+	if (6U > PayloadLen) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/* Parse the basic arguments */
+	SubsysId = Subsystem->Id;
+	DeviceId = Payload[1];
+	Flags = Payload[2];
+	(void)Payload[3]; /* Reserved */
+	PreallocCaps = Payload[4];
+	PreallocQoS = Payload[5];
+
+	/* Device must be present in the topology at this point */
+	Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	Status = XPmRequirement_Add(Subsystem, Device, Flags, PreallocCaps, PreallocQoS);
+
+	PmDbg("SubsysId: 0x%x, DeviceId: 0x%x, Flags: 0x%x, PreallocCaps: 0x%x, PreallocQoS: 0x%x\n\r",
+		SubsysId, DeviceId, Flags, PreallocCaps, PreallocQoS);
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("SubsysId: 0x%x, DeviceId: 0x%x, Status: 0x%x\n\r", SubsysId, DeviceId, Status);
+	}
+	return Status;
+}
+
+static XStatus XPm_AddGgsPggsRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
+{
+	XStatus Status = XST_FAILURE;
+	u32 SubsysId = 0U, DeviceId = 0U, Permissions = 0U;
+	XPm_Device *Device = NULL;
+	/* Preallocate the GGS and PGGS */
+	u32 Flags = REQUIREMENT_FLAGS(1U, (u32)REQ_ACCESS_SECURE_NONSECURE, (u32)REQ_NO_RESTRICTION);
+	u32 PreallocCaps = (u32)PM_CAP_ACCESS;
+	u32 PreallocQoS = XPM_DEF_QOS;
+
+	/* Check the minimum basic arguments required for this command */
+	if (3U > PayloadLen) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/* Parse the basic arguments */
+	SubsysId = Subsystem->Id;
+	DeviceId = Payload[1];
+	Permissions = Payload[2];
+
+	/* Device must be present in the topology at this point */
+	Device = (XPm_Device *)XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/* Add the GGS and PGGS permission to the subsystem */
+	Status = XPmIoctl_AddRegPermission(Subsystem, DeviceId, Permissions);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	/* Preallocate the GGS and PGGS */
+	Status = XPmRequirement_Add(Subsystem, Device, Flags, PreallocCaps, PreallocQoS);
+
+	PmDbg("SubsysId: 0x%x, DeviceId: 0x%x, Flags: 0x%x, PreallocCaps: 0x%x, PreallocQoS: 0x%x\n\r",
+		SubsysId, DeviceId, Flags, PreallocCaps, PreallocQoS);
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("SubsysId: 0x%x, DeviceId: 0x%x, Status: 0x%x\n\r", SubsysId, DeviceId, Status);
+	}
+	return Status;
+}
+
+static XStatus XPm_AddRstRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
+{
+	XStatus Status = XST_FAILURE;
+	u32 SubsysId = 0U, ResetId = 0U, Flags = 0U;
+	XPm_ResetNode *Reset = NULL;
+
+	/* Check the minimum basic arguments required for this command */
+	if (3U > PayloadLen) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/* Parse the basic arguments */
+	SubsysId = Subsystem->Id;
+	ResetId = Payload[1];
+	Flags = Payload[2];
+
+	/* Device must be present in the topology at this point */
+	Reset = (XPm_ResetNode *)XPmReset_GetById(ResetId);
+	if (NULL == Reset) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	Status = XPmReset_AddPermission(Reset, Subsystem, Flags);
+
+	PmDbg("SubsysId: 0x%x, ResetId: 0x%x, Flags: 0x%x\n\r",
+		SubsysId, ResetId, Flags);
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("SubsysId: 0x%x, ResetId: 0x%x, Status: 0x%x\n\r", SubsysId, ResetId, Status);
+	}
+	return Status;
+}
+
+static XStatus XPm_AddSubsysRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
+{
+	XStatus Status = XST_FAILURE;
+	u32 SubsysId = 0U, TargetSubsysId = 0U, Operations = 0U;
+
+	/* Check the minimum basic arguments required for this command */
+	if (3U > PayloadLen) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/* Parse the basic arguments */
+	SubsysId = Subsystem->Id;
+	TargetSubsysId = Payload[1];
+	Operations = Payload[2];
+
+	Status = XPmSubsystem_AddPermissions(Subsystem, TargetSubsysId, Operations);
+
+	PmDbg("SubsysId: 0x%x, NodeId: 0x%x, Flags: 0x%x\n\r",
+		SubsysId, TargetSubsysId, Operations);
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("SubsysId: 0x%x, TargetSubsysId: 0x%x, Status: 0x%x\n\r", SubsysId, TargetSubsysId, Status);
+	}
+	return Status;
+}
+
+static XStatus XPmSubsystem_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
+{
+	XStatus Status = XST_FAILURE;
+	u32 NodeId = Payload[1];
+	u32 NodeType = NODETYPE(NodeId);
+
+	switch (NODECLASS(NodeId)) {
+	case (u32)XPM_NODECLASS_DEVICE:
+		if (NodeType == (u32)XPM_NODETYPE_DEV_GGS ||
+		    NodeType == (u32)XPM_NODETYPE_DEV_PGGS) {
+			Status = XPm_AddGgsPggsRequirement(Subsystem, Payload, PayloadLen);
+			break;
+		}
+		Status = XPm_AddDevRequirement(Subsystem, Payload, PayloadLen);
+		break;
+	case (u32)XPM_NODECLASS_RESET:
+		Status = XPm_AddRstRequirement(Subsystem, Payload, PayloadLen);
+		break;
+	case (u32)XPM_NODECLASS_SUBSYSTEM:
+		Status = XPm_AddSubsysRequirement(Subsystem, Payload, PayloadLen);
+		break;
+	case (u32)XPM_NODECLASS_REGNODE:
+		Status = XPmAccess_AddRegnodeRequirement(Subsystem->Id, NodeId);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+	if (XST_SUCCESS != Status) {
+		PmErr("SubsysId: 0x%x, NodeId: 0x%x, Status: 0x%x\n\r", Subsystem->Id, NodeId, Status);
+	}
 	return Status;
 }

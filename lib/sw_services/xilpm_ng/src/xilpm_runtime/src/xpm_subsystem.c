@@ -110,6 +110,9 @@ XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
 	}
 	Status = Subsystem->Ops->ShutDown(Subsystem);
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -133,6 +136,9 @@ XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
 	Status = XPmNotifier_UnregisterAll(Subsystem);
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
 	return Status;
 }
 maybe_unused static XStatus IsDevExcluded(const u32 DevId)
@@ -181,6 +187,21 @@ XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId)
 	}
 	Status = XST_SUCCESS;
 done:
+	return Status;
+}
+
+/*
+ * Add a requirement to the subsystem
+ */
+XStatus XPmSubsystem_AddReqm(u32 SubsystemId, u32 *Payload, u32 PayloadLen)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL != Subsystem) {
+		Status = Subsystem->Ops->AddRequirement(Subsystem, Payload, PayloadLen);
+	} else {
+		Status = XPM_INVALID_SUBSYSID;
+	}
 	return Status;
 }
 

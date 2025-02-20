@@ -19,6 +19,7 @@ static XStatus XPmSubsystem_Suspend(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_Idle(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_InitFinalize(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_AddPermissions(XPm_Subsystem *Subsystem, u32 TargetId, u32 Operations);
+static XStatus XPmSubsystem_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen);
 static XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
 static XStatus XPmSubsystem_StartBootTimer(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_StopBootTimer(XPm_Subsystem *Subsystem);
@@ -33,7 +34,7 @@ XPm_SubsystemMgr SubsysMgr = {
 		.SetState = XPmSubsystem_SetState,
 		.InitFinalize = XPmSubsystem_InitFinalize,
 		.GetStatus = XPmSubsystem_GetStatus,
-		.AddPermissions = XPmSubsystem_AddPermissions,
+		.AddRequirement = XPmSubsystem_AddRequirement,
 		.ShutDown = XPmSubsystem_ShutDown,
 		.WakeUp = XPmSubsystem_WakeUp,
 		.Suspend = XPmSubsystem_Suspend,
@@ -82,7 +83,7 @@ static XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId
 	return XST_SUCCESS;
 }
 
-static XStatus XPmSubsystem_AddPermissions(XPm_Subsystem *Subsystem, u32 TargetNodeId, u32 Operations)
+maybe_unused static XStatus XPmSubsystem_AddPermissions(XPm_Subsystem *Subsystem, u32 TargetNodeId, u32 Operations)
 {
 	(void)Subsystem;
 	(void)TargetNodeId;
@@ -328,4 +329,14 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 
 done:
 	return Status;
+}
+
+
+static XStatus XPmSubsystem_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
+{
+	(void)Subsystem;
+	(void)Payload;
+	(void)PayloadLen;
+
+	return XST_SUCCESS;
 }
