@@ -625,6 +625,9 @@ extern "C" {
 #define PM_CLK_TTC6				(0x82080CEU)
 #define PM_CLK_TTC7				(0x82080CFU)
 #define PM_CLK_MMI_DRD_REF_CLK                  (0x82080D0U)
+#define PM_CLK_UDH_PRESRC			(0x82080D1U)
+#define PM_CLK_UDHPLL				(0x82080D2U)
+#define PM_CLK_UDH_PLL				(0x81040D3U)
 /** @} */
 
 /**
