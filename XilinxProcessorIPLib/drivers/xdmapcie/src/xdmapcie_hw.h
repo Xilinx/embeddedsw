@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -49,6 +49,10 @@ extern "C" {
 #define versal
 #endif
 
+#if defined XPAR_MDB_PCIE0_COMPATIBLE
+#define versal2
+#endif
+
 #if defined(XPAR_XDMA_0_DEVICE_ID) || defined(XPAR_XDMA_0_COMPATIBLE)
 #define XDMA_PCIE_BRIDGE
 #endif
@@ -66,7 +70,7 @@ extern "C" {
 						       * register offset
 						       */
 
-#if (defined(versal) || defined(QDMA_PCIE_BRIDGE)) && !defined(XDMA_PCIE_BRIDGE)
+#if (defined(versal) || defined(QDMA_PCIE_BRIDGE) || defined(versal2)) && !defined(XDMA_PCIE_BRIDGE)
 #define XDMAPCIE_VSECC_OFFSET			0xE00 /**<
 						       * VSEC Capability
 						       * Register
@@ -92,10 +96,16 @@ extern "C" {
 #define XDMAPCIE_BL_OFFSET			0xE18 /**<
 						       * Bus Location Register
 						       */
-#define XDMAPCIE_PHYSC_OFFSET			0xE1C /**<
+#if defined(versal2)
+#define XDMAPCIE_PHYSC_OFFSET			0x0E8 /**<
 						       * Physical status and
 						       * Control Register
 						       */
+#else
+#define XDMAPCIE_PHYSC_OFFSET                   0xE1C /**<
+                                                       * Physical status and
+                                                       * Control Register                       	                               							      */
+#endif
 #define XDMAPCIE_RPSC_OFFSET			0xE20 /**<
 						       * Root Port Status &
 						       * Control Register
@@ -310,6 +320,40 @@ extern "C" {
 
 /*@}*/
 
+
+/** @name IATU Programming Registers Offset
+ * @{
+ */
+
+/* versal2 */
+
+#define XDMAPCIE_IATU_REGION_CNTRL_OFFSET	0x004 /**<EN/DE IATU transalation*/
+#define XDMAPCIE_IATU_LWR_BASE_ADDR_OFFSET	0x008 /**<ATU Lower Base Address*/
+#define XDMAPCIE_IATU_UPPER_BASE_ADDR_OFFSET	0x00C /**<ATU Upper Base Address*/
+#define XDMAPCIE_IATU_LIMIT_ADDR_OFFSET 	0x010 /**<ATU Lmit Address*/
+#define XDMAPCIE_IATU_PCIE_LWR_ADDR_OFFSET	0x014 /**<PCIe Lower Address*/
+#define XDMAPCIE_IATU_PCIE_UPPER_ADDR_OFFSET	0x018 /**<PCIe Upper Address*/
+#define XDMAPCIE_IATU_MAX_ATU_SIZE_OFFSET	0x020 /**<ATU Max Size*/
+
+/*@}*/
+
+/** @name IATU Programming Register masks
+ * @{
+ */
+#define XDMAPCIE_CFG_TLP_TYPE0	0x4 /**<TYPE 0 to Config TLP*/
+#define XDMAPCIE_CFG_TLP_TYPE1	0x5 /**<TYPE 1 to Config TLP*/
+#define XDMAPCIE_REGION_EN 	0x90000000 /**<EN for IATU Address Transalation*/
+/*@}*/
+
+
+/** @name IATU Registers
+ * @{
+ */
+#define XDMAPCIE_ATU_LIMIT_ADDR 	0xFFFFFF /**<IATU Limit Address Range*/
+#define XDMAPCIE_ATU_REGION_SIZE 	0x1000 /**<IATU MAX Region Size*/
+/*@}*/
+
+
 /** @name VSECC Register bitmaps and masks
  * @{
  */
@@ -466,7 +510,13 @@ extern "C" {
 #define XDMAPCIE_PHYSC_LINK_WIDTH_MASK	0x00000006 /**< Link Width Mask */
 #define XDMAPCIE_PHYSC_LTSSM_STATE_MASK	0x000001F8 /**< LTSSM State Mask */
 #define XDMAPCIE_PHYSC_LANE_REV_MASK	0x00000600 /**< Lane Reversal Mask */
+
+#if defined(versal2)
+#define XDMAPCIE_PHYSC_LINK_UP_MASK	0x00000001 /**< Link Up Status Mask */
+#else
 #define XDMAPCIE_PHYSC_LINK_UP_MASK	0x00000800 /**< Link Up Status Mask */
+#endif
+
 #define XDMAPCIE_PHYSC_DLW_MASK		0x00030000 /**< Directed Link
 						     *  Width to change Mask
 						     */
