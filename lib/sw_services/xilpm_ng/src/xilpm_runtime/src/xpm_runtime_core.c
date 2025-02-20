@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -202,7 +202,7 @@ XStatus XPmCore_ForcePwrDwn(u32 DeviceId)
 		 */
 		DisableWake(Core);
 	} else {
-		Status = XST_FAILURE;
+		Status = XST_NO_FEATURE;
 		goto done;
 	}
 	/*

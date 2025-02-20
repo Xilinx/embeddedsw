@@ -208,42 +208,18 @@ static XStatus XPmSubsystem_ShutDown(XPm_Subsystem *Subsystem)
 	XStatus Status = XST_FAILURE;
 	const XPm_Requirement *Reqm = NULL;
 	u32 DeviceId = 0U;
-	u32 Ack = 0U;
-	u32 IpiMask = 0U;
-	u32 NodeState = 0U;
-
-	if (NULL == Subsystem) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-
-	Ack = Subsystem->FrcPwrDwnReq.AckType;
-	IpiMask = Subsystem->FrcPwrDwnReq.InitiatorIpiMask;
-	NodeState = Subsystem->State;
 
 	if ((u32)POWERED_OFF == Subsystem->State) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	LIST_FOREACH(Subsystem->Requirements, ReqmNode){
+	/* Power down the cores */
+	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
 		Reqm = ReqmNode->Data;
 		DeviceId = Reqm->Device->Node.Id;
-/**
-		 * PSM is required to be up when any application processor is
-		 * running. In case of default subsystem, PSM is part of
-		 * pre-alloc. So PSM might be powered down during force power
-		 * down of subsystem. Currently there is no user option to
-		 * force power down default subsystem because every processor
-		 * is part of default subsystem and we don't allow force power
-		 * down of own subsystem. However, if we want to use
-		 * XPmSubsystem_ForcePwrDwn() from other cases (e.g. subsystem
-		 * restart) then PSM power down will happen. So skip PSM power
-		 * down from XPmSubsystem_ForcePwrDwn().
-		 */
-		if ((1U == Reqm->Allocated) &&
-		    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) &&
-		    (DeviceId != PM_DEV_PSM_PROC)) {
+		PmDbg("Reqm: DeviceId: 0x%x Allocated: %d\r\n", DeviceId, Reqm->Allocated);
+		if ((1U == Reqm->Allocated) && ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId))) {
 			Status = XPmCore_ForcePwrDwn(DeviceId);
 			if (XST_SUCCESS != Status) {
 				goto done;
@@ -254,18 +230,15 @@ static XStatus XPmSubsystem_ShutDown(XPm_Subsystem *Subsystem)
 	/* Idle the subsystem */
 	Status = Subsystem->Ops->Idle(Subsystem);
 	if(XST_SUCCESS != Status) {
-		Status = XPM_ERR_SUBSYS_IDLE;
 		goto done;
 	}
-
 	Subsystem->Flags &= (u8)(~SUBSYSTEM_IS_CONFIGURED);
 
+	/* Release the resources */
 	Status = XPmSubsystem_ForceDownCleanup(Subsystem->Id);
 	if(XST_SUCCESS != Status) {
-		Status = XPM_ERR_CLEANUP;
 		goto done;
 	}
-
 	/* Clear the pending suspend cb reason */
 	Subsystem->PendCb.Reason = 0U;
 
@@ -274,17 +247,12 @@ static XStatus XPmSubsystem_ShutDown(XPm_Subsystem *Subsystem)
 		goto done;
 	}
 
-	NodeState = Subsystem->State;
-	Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
-					   XPm_ForcePwrDwnCb, 0U,
-					   (void *)Subsystem->Id);
-	if (XST_SUCCESS != Status) {
-		PmDbg("Task not present\r\n");
-		Status = XST_SUCCESS;
-	}
-
 done:
-	XPm_ProcessAckReq(Ack, IpiMask, Status, Subsystem->Id, NodeState);
+	if (XST_SUCCESS != Status) {
+		PmErr("Subsystem 0x%x shutdown failed\r\n", Subsystem->Id);
+	} else {
+		PmInfo("Subsystem 0x%x shutdown successful\r\n", Subsystem->Id);
+	}
 
 	return Status;
 }
@@ -402,7 +370,7 @@ static XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem)
 	if (Subsystem->State == (u16)POWERED_OFF) {
 		Subsystem->State = (u16)ONLINE;
 	}
-	PmInfo("!!!! Configuring Subsystem: 0x%x reqlist = %x %x\r\n", Subsystem->Id, (u32)Subsystem->Requirements, Subsystem->Requirements->Root);
+	PmDbg("Configuring Subsystem: 0x%x, reqlist\r\n", Subsystem->Id, Subsystem->Requirements);
 	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
 		if (NULL == ReqmNode || NULL == ReqmNode->Data) {
 			PmErr("ReqmNode is NULL\r\n");
@@ -433,7 +401,6 @@ static XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem)
 	Subsystem->Flags |= SUBSYSTEM_IS_CONFIGURED;
 
 done:
-	PmInfo("End Subsystem Configure Status: 0x%x\r\n", Status);
 	return Status;
 
 }

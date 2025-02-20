@@ -144,6 +144,9 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 	Status = XPmCore_AfterDirectPwrDwn(Core);
 
 done:
+	if (Status != XST_SUCCESS) {
+		PmErr("0x%x\n\r", Status);
+	}
 	return Status;
 }
 
