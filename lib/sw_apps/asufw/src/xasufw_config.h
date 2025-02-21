@@ -26,6 +26,7 @@
  * 1.1   am   201/2/25 Added macros for efuse user keys
  *       yog  01/24/25 Renamed RSA_ECC macros to ECC
  *       ma   02/07/25 Moved TRNG DRBG configuration option to xilasu common code
+ *       am   02/21/25 Added XASUFW_ENABLE_PERF_MEASUREMENT macro
  *
  * </pre>
  *
@@ -86,6 +87,9 @@ extern "C" {
 #define XASUFW_ECC_SUPPORT_BRAINPOOL_P512	(XASUFW_CONFIG_ENABLE) /**< To enable/disable
 							Brainpool P512 curve support configuration */
 /** @} */
+
+#define XASUFW_ENABLE_PERF_MEASUREMENT		(XASUFW_CONFIG_DISABLE) /** To enable/disable
+									performance measurement. */
 
 /************************************** Type Definitions *****************************************/
 

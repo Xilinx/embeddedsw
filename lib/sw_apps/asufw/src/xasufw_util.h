@@ -23,6 +23,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       ss   10/05/24 Added XAsufw_IsBufferNonZero function.
  * 1.1   vns  02/06/25 Removed XAsufw_ChangeEndiannessAndCpy() function which is not in use
+ *       am   02/21/25 Added performance measurement macros
  *
  * </pre>
  *
@@ -41,6 +42,9 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "xil_io.h"
+#include "xasufw_config.h"
+#include "xasufw_init.h"
+#include "xasufw_debug.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -71,6 +75,21 @@ extern "C" {
 #define XASUFW_EVEN_MODULUS			(2U)	/**< Modulus to determine evenness */
 
 #define XASUFW_I2OSP_LIMIT		(256U) /**< Integer to octet stream primitive limit */
+
+#if XASUFW_ENABLE_PERF_MEASUREMENT
+#define XASUFW_MEASURE_PERF_START(TimeVar, PerfTimeVar) XAsufw_PerfTime PerfTime; \
+					u64 TimeVar = XAsufw_GetTimerValue()
+				/** Capture the start time for performance measurement */
+#define XASUFW_MEASURE_PERF_STOP(StartTime, PerfTimeVar, func_name) \
+		XAsufw_MeasurePerfTime(StartTime, &PerfTimeVar); \
+		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "%s execution time: %u.%03u ms\n\r", func_name, \
+		(u32)PerfTimeVar.TPerfMs, (u32)PerfTimeVar.TPerfMsFrac)
+				/** Measure and print execution time with the function name */
+#else
+#define XASUFW_MEASURE_PERF_START(TimeVar, PerfTimeVar) /** No operation */
+#define XASUFW_MEASURE_PERF_STOP(StartTime, PerfTimeVar, func_name) /** No operation */
+#endif
+
 /*************************************************************************************************/
 /**
  * @brief	This function writes 32-bit value to 32-bit register.
