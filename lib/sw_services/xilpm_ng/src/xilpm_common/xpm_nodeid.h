@@ -408,6 +408,7 @@ extern "C" {
 #define PM_RST_DC				(0xC410119U)
 #define PM_RST_GPU				(0xC41011AU)
 #define PM_RST_GPU_RECOV			(0xC41011BU)
+#define PM_RST_ASU_MB_SOFT			(0xC41011CU)
 /** @} */
 
 /**
