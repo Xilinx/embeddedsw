@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,6 +63,7 @@
 * 1.10  sk   06/05/2024 Added code to populate PLM version in RTCA Reg
 *       mss  06/13/2024 Added timestamp banner conditionally
 *       bm   07/15/2024 Fixed timestamp print in banner
+* 1.11  sk   02/20/2025 Added EAM error config in LPDSLCR for Versal Aiepg2
 *
 * </pre>
 *
@@ -84,6 +85,7 @@
 #include "xplmi_plat.h"
 #include "xplmi_wdt.h"
 #include "xil_util.h"
+#include "xplmi_err.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -228,10 +230,12 @@ void XPlmi_LpdInit(void)
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
 	#ifndef VERSAL_AIEPG2
 		Status = XPlmi_PsEmInit();
+	#else
+		Status = XPlmi_LpdSlcrEmInit();
+	#endif
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-	#endif
 		XPlmi_SetLpdInitialized(LPD_INITIALIZED);
 	#ifndef VERSAL_AIEPG2
 		/**
@@ -244,9 +248,7 @@ void XPlmi_LpdInit(void)
 		XPlmi_PrintEarlyLog();
 	}
 
-#ifndef VERSAL_AIEPG2
 END:
-#endif
 	return;
 }
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS xplmi_generic.h)
@@ -38,3 +38,6 @@ collect (PROJECT_LIB_SOURCES xplmi_scheduler.c)
 collect (PROJECT_LIB_SOURCES xplmi.c)
 collect (PROJECT_LIB_SOURCES xplmi_dma.c)
 collect (PROJECT_LIB_SOURCES xplmi_generic.c)
+if(NOT "${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2")
+collect (PROJECT_LIB_SOURCES xplmi_err_psm.c)
+endif()

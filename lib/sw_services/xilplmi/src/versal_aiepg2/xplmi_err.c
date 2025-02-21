@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  sk   08/26/2024 Initial release, Updated Error Table
 *       pre  01/09/2025 Added PCIE error handling
+*       sk   02/20/2025 Added XMPU/XPPU error handlers
 *
 * </pre>
 *
@@ -37,6 +38,7 @@
 #include "xplmi_plat.h"
 #include "xplmi_util.h"
 #include "xplmi_generic.h"
+#include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_ERROR_TABLE_DS_VER	(1U) /**< Error table data structure version */
@@ -58,6 +60,8 @@ static void XPlmi_HandleLPDSlcrError(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_ErrLPDSlcrIntrHandler(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_PcieErrHandler(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_HandleLinkDownError(u32 DeviceIrStatusReg, u32 GenralStsReg, u32 ProcId);
+static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr);
+static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr);
 /************************** Variable Definitions *****************************/
 /*
  * Structure to define error action type and handler if error to be handled
@@ -606,6 +610,66 @@ u8 XPlmi_GetEventIndex(XPlmi_EventType ErrorNodeType)
 	return Index;
 }
 
+/****************************************************************************/
+/**
+* @brief    This function handles the XPPU errors
+*
+* @param    BaseAddr is the base address of the XPPU
+* @param    ProtUnitStr is string prefix to be used while printing event info
+*
+* @return   None
+*
+****************************************************************************/
+static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
+{
+	u32 XppuErrStatus1 = XPlmi_In32(BaseAddr + XPPU_ERR_STATUS1);
+	u32 XppuErrStatus2 = XPlmi_In32(BaseAddr + XPPU_ERR_STATUS2);
+	u32 XppuErrors = XPlmi_In32(BaseAddr + XPPU_ISR);
+
+	if (NULL == ProtUnitStr) {
+		ProtUnitStr = "";
+	}
+
+	/*
+	 * ERR_ST1 is the upper 20 bits of violated transaction address
+	 * ERR_ST2 is the Master ID (i.e. SMID) of the violated transaction
+	 * ISR is the interrupt status and clear for access violations
+	 */
+	XPlmi_Printf(DEBUG_GENERAL, "%s: ERR_ST1: 0x%08x, ERR_ST2: 0x%08x, ISR: 0x%08x\r\n",
+			ProtUnitStr, XppuErrStatus1, XppuErrStatus2, XppuErrors);
+}
+
+/****************************************************************************/
+/**
+* @brief    This function handles the XMPU errors
+*
+* @param    BaseAddr is the base address of the XMPU
+* @param    ProtUnitStr is string prefix to be used while printing event info
+*
+* @return   None
+*
+****************************************************************************/
+static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
+{
+	u32 XmpuErr1lo = XPlmi_In32(BaseAddr + XMPU_ERR_STATUS1_LO);
+	u32 XmpuErr1hi = XPlmi_In32(BaseAddr + XMPU_ERR_STATUS1_HI);
+	u32 XmpuErrStatus2 = XPlmi_In32(BaseAddr + XMPU_ERR_STATUS2);
+	u32 XmpuErrors = XPlmi_In32(BaseAddr + XMPU_ISR);
+
+	if (NULL == ProtUnitStr) {
+		ProtUnitStr = "";
+	}
+
+	/*
+	 * ERR_ST1_LO is the lower bits of failed transaction address
+	 * ERR_ST1_HI is the higher bits of failed transaction address
+	 * ERR_ST2 is Master ID (i.e. SMID) of the failed transaction
+	 * ISR is the interrupt status and clear for access violations
+	 */
+	XPlmi_Printf(DEBUG_GENERAL,
+			"%s: ERR_ST1_LO: 0x%08x, ERR_ST1_HI: 0x%08x, ERR_ST2: 0x%08x, ISR: 0x%08x\r\n",
+			ProtUnitStr, XmpuErr1lo, XmpuErr1hi, XmpuErrStatus2, XmpuErrors);
+}
 
 /****************************************************************************/
 /**
@@ -623,10 +687,117 @@ u8 XPlmi_GetEventIndex(XPlmi_EventType ErrorNodeType)
 void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 {
 	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
+	u32 RegVal;
 
+	/*
+	 * The nature of XPPU/XMPU errors is such that they often occur consecutively
+	 * due to the stream of transactions. This may result in flooding the UART with
+	 * prints and/or starvation of user tasks due to PLM's constant handling of these
+	 * error events. Therefore, such events are handled only the first time error
+	 * occurs and these errors are not enabled again. The source is also not cleared
+	 * because doing so may interfere with user's handling of these errors.
+	 */
+	switch (ErrorId) {
+	case XPLMI_ERROR_INT_PMX_UNCORR_ERR:
+		RegVal = XPlmi_In32(PMC_TOP_LVL_UNCORR_ERR_SRC_REGS_ADDR);
+		if ((RegVal & PMC_UNCORR_ERR_SRC_REGS_1_MASK) == PMC_UNCORR_ERR_SRC_REGS_1_MASK) {
+			RegVal = XPlmi_In32(PMC_UNCORR_ERR_SRC_REGS_1_ADDR);
+			if ((RegVal & XPPU_NPI_FIREWALL_MASK) == XPPU_NPI_FIREWALL_MASK) {
+				XPlmi_XppuErrHandler(PMC_XPPU_NPI_BASEADDR, "PMC_XPPU_NPI");
+			}
+
+			if ((RegVal & XPPU_FIREWALL_MASK) == XPPU_FIREWALL_MASK) {
+				XPlmi_XppuErrHandler(PMC_XPPU_BASEADDR, "PMC_XPPU");
+			}
+
+			if ((RegVal & XMPU_SBI_FIREWALL_MASK)== XMPU_SBI_FIREWALL_MASK) {
+				XPlmi_XmpuErrHandler(PMC_XMPU_SBI_BASEADDR, "PMC_SBI_XMPU");
+			}
+
+			if ((RegVal & XMPU_PRAM_FIREWALL_MASK)== XMPU_PRAM_FIREWALL_MASK) {
+				XPlmi_XmpuErrHandler(PMC_XMPU_BASEADDR, "PMC_PRAM_XMPU");
+			}
+
+			if ((RegVal & XMPU_CFU_FIREWALL_MASK)== XMPU_CFU_FIREWALL_MASK) {
+				XPlmi_XmpuErrHandler(PMC_XMPU_CFU_BASEADDR, "PMC_CFU_XMPU");
+			}
+		}
+		break;
+
+	case XPLMI_ERROR_INT_LPXASILD_NCR:
+		RegVal = XPlmi_In32(LPD_SLCR_INT_LPXASILD_UNCORR_ERR_ISR);
+
+		if((RegVal & INTLPD_ASILD_UNCORR_ERR_MASK) == INTLPD_ASILD_UNCORR_ERR_MASK) {
+			RegVal = XPlmi_In32(INTLPD_ASILD_CONFIG_TOP_LVL_UNCORR_ERR_SRC);
+			if ((RegVal & LPD_INT_UNCORR_ERR_SRC_REGS_0_MASK) == LPD_INT_UNCORR_ERR_SRC_REGS_0_MASK) {
+				RegVal = XPlmi_In32(INTLPD_ASILD_CONFIG_UNCORR_ERR_SRC_0);
+				if ((RegVal & INTLPX_XPPU_FIREWALL_MASK) == INTLPX_XPPU_FIREWALL_MASK) {
+					XPlmi_XppuErrHandler(LPD_XPPU_BASEADDR, "LPD_XPPU");
+				}
+			}
+		} else if((RegVal & INTOCM_ASILD_UNCORR_ERR_MASK) == INTOCM_ASILD_UNCORR_ERR_MASK) {
+			RegVal = XPlmi_In32(INTOCM_ASILD_CONFIG_TOP_LVL_UNCORR_ERR_SRC);
+			if ((RegVal & OCM_INT_UNCORR_ERR_SRC_REGS_0_MASK) == OCM_INT_UNCORR_ERR_SRC_REGS_0_MASK) {
+				RegVal = XPlmi_In32(INTOCM_ASILD_CONFIG_UNCORR_ERR_SRC_0);
+
+				if ((RegVal & INTOCM_XMPU_SLAVES_FIREWALL_MASK) == INTOCM_XMPU_SLAVES_FIREWALL_MASK) {
+					XPlmi_XmpuErrHandler(OCM_SLVS_XMPU_BASEADDR, "OCM_SLAVE_XMPU");
+				}
+				if ((RegVal & INTOCM_XMPU3_FIREWALL_MASK) == INTOCM_XMPU3_FIREWALL_MASK) {
+					XPlmi_XmpuErrHandler(OCM3_XMPU_BASEADDR, "OCM3_XMPU");
+				}
+				if ((RegVal & INTOCM_XMPU2_FIREWALL_MASK) == INTOCM_XMPU2_FIREWALL_MASK) {
+					XPlmi_XmpuErrHandler(OCM2_XMPU_BASEADDR, "OCM2_XMPU");
+				}
+				if ((RegVal & INTOCM_XMPU1_FIREWALL_MASK) == INTOCM_XMPU1_FIREWALL_MASK) {
+					XPlmi_XmpuErrHandler(OCM1_XMPU_BASEADDR, "OCM1_XMPU");
+				}
+				if ((RegVal & INTOCM_XMPU0_FIREWALL_MASK) == INTOCM_XMPU0_FIREWALL_MASK) {
+					XPlmi_XmpuErrHandler(OCM0_XMPU_BASEADDR, "OCM0_XMPU");
+				}
+				if ((RegVal & INTOCM_XMPU_TCM_FIREWALL_MASK) == INTOCM_XMPU_TCM_FIREWALL_MASK) {
+					XPlmi_XmpuErrHandler(OCM_TCM_XMPU_BASEADDR, "OCM_TCM_XMPU");
+				}
+			}
+		} else {
+			/* Misra-C */
+		}
+		break;
+
+	case XPLMI_ERROR_INT_FPXASILD_NCR:
+		RegVal = XPlmi_In32(FPD_INT_TOP_LVL_UNCORR_ERR_SRC_REGS_ADDR);
+		if ((RegVal & FPD_INT_UNCORR_ERR_SRC_REGS_0_MASK) == FPD_INT_UNCORR_ERR_SRC_REGS_0_MASK) {
+			RegVal = XPlmi_In32(FPD_INT_UNCORR_ERR_SRC_REGS_0_ADDR);
+
+			if ((RegVal & FPX_XMPU_MMU_FIREWALL_MASK) == FPX_XMPU_MMU_FIREWALL_MASK) {
+				XPlmi_XmpuErrHandler(FPD_MMU_XMPU_BASEADDR, "FPX_MMU_XMPU");
+			}
+
+			if ((RegVal & FPX_XMPU_FIREWALL_MASK) == FPX_XMPU_FIREWALL_MASK) {
+				XPlmi_XmpuErrHandler(FPD_SLAVE_XMPU_BAESADDR, "FPX_XMPU");
+			}
+
+			if ((RegVal & FPX_XMPU_CMN_FIREWALL_MASK) == FPX_XMPU_CMN_FIREWALL_MASK) {
+				XPlmi_XmpuErrHandler(FPD_CMN_XMPU_BASEADDR, "FPX_CMN_XMPU");
+			}
+		}
+		break;
+
+	case XPLMI_ERROR_LPX_AFIFS_UNCORR_ERR:
+		XPlmi_XmpuErrHandler(LPD_AFIFS_XMPU_BASEADDR, "LPD_AFIFS_XMPU");
+		break;
+
+	case XPLMI_ERROR_FPX_AFIFS_UNCORR_ERR:
+		XPlmi_XmpuErrHandler(FPD_AFIFS_XMPU_BASEADDR, "FPD_AFIFS_XMPU");
+		break;
+
+	default:
+		/** Other than XMPU/XPPU errors, print NodeId, Mask and Error ID information */
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received EAM error. ErrorNodeId: 0x%x,"
 				" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
 				ErrorNodeId, RegMask, ErrorId);
+		break;
+	}
 }
 
 /*************************************************************************************************/
@@ -828,7 +999,7 @@ int EmEnableLpdSlcrErrAction(u32 ErrMaskRegAddr, u32 RegMask)
 	int Status = XPLMI_ERROR_ACTION_NOT_ENABLED;
 
 	/* Enable the error action */
-	XPlmi_Out32((ErrMaskRegAddr + LPDSLCR_EAM_PMC3_MASK_EN_OFFSET), RegMask);
+	XPlmi_Out32((ErrMaskRegAddr + LPDSLCR_EAM_PMC_MASK_EN_OFFSET), RegMask);
 	/* Check if the error action is enabled */
 	if ((XPlmi_In32(ErrMaskRegAddr) & RegMask) == 0x0U) {
 		Status = XST_SUCCESS;
@@ -852,9 +1023,8 @@ int XPlmi_EmDisableLpdSlcrErrors(u32 RegMaskAddr, u32 RegMask)
 {
 	u32 Status = (u32)XPLMI_ERROR_ACTION_NOT_DISABLED;
 
-	/** - Disable all LPD SLCR error actions. */
-		/* TBU */
-	XPlmi_Out32((RegMaskAddr + LPDSLCR_EAM_PMC3_MASK_DIS_OFFSET), RegMask);
+	/** - Disable LPD SLCR error actions. */
+	XPlmi_Out32((RegMaskAddr + LPDSLCR_EAM_PMC_MASK_DIS_OFFSET), RegMask);
 	/**
 	 * - Check if the error action is disabled.
 	 */
@@ -884,7 +1054,7 @@ int XPlmi_VersalAiepG2EAMHandler(void *Data)
 	u32 RegMask;
 	XPlmi_Error_t *ErrTable = XPlmi_GetErrorTable();
 
-	XPlmi_Printf(DEBUG_GENERAL, "%s\n",__func__);
+	XPlmi_Printf(DEBUG_INFO, "%s\n",__func__);
 
 	(void)Data;
 
@@ -988,7 +1158,7 @@ static void XPlmi_ErrLPDSlcrIntrHandler(u32 ErrorNodeId, u32 RegMask)
 		/* PMC3_EAMx .. is routed to IRQ */
 		ErrMask[Index] = XPlmi_In32(LPD_SLCR_EAM_PMC3_ERR0_MASK +
 					(Index * LPD_SLCR_GLOBAL_REG_ERR_OFFSET));
-		XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "ERR%d: 0x%0x ", (Index + 1U),
+		XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "ERR%d: 0x%0x ", (Index),
 					ErrStatus[Index]);
 	}
 	XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "\n\r");
@@ -1006,8 +1176,7 @@ static void XPlmi_ErrLPDSlcrIntrHandler(u32 ErrorNodeId, u32 RegMask)
 			if (((ErrStatus[ErrIndex] & ErrRegMask) != (u32)FALSE) &&
 				((ErrMask[ErrIndex] & ErrRegMask) == 0x0U) &&
 				(ErrTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
-				/* TBU for now Using PSM node until new one defined for LPDSLCR Error*/
-				XPlmi_HandleLPDSlcrError(XIL_NODETYPE_EVENT_ERROR_PSM_ERR1 +
+				XPlmi_HandleLPDSlcrError(XIL_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR1 +
 					(ErrIndex * XPLMI_EVENT_ERROR_OFFSET),
 					ErrRegMask);
 			}
@@ -1079,4 +1248,213 @@ static void XPlmi_HandleLPDSlcrError(u32 ErrorNodeId, u32 RegMask)
 		(ErrTable[ErrorId].Action != XPLMI_EM_ACTION_CUSTOM)) {
 		ErrTable[ErrorId].Action = XPLMI_EM_ACTION_NONE;
 	}
+}
+
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the error actions in LPD Slcr Disables
+ * 		all the LPD SLCR error actions and registers default action.
+ *
+ * @return
+ * 			- XST_SUCCESS always.
+ *
+*****************************************************************************/
+int XPlmi_LpdSlcrEmInit(void)
+{
+	int Status = XST_FAILURE;
+	u32 Index;
+	u32 ErrIndex;
+	u32 LpdSlcrErrStatus[XPLMI_LPDSLCR_MAX_ERR_CNT];
+	u32 RegMask;
+	XPlmi_Error_t *ErrTable = XPlmi_GetErrorTable();
+
+	for (ErrIndex = 0U; ErrIndex < XPLMI_LPDSLCR_MAX_ERR_CNT; ErrIndex++) {
+		/**
+		 * - Disable all the Error Actions
+		 */
+		(void)XPlmi_EmDisableLpdSlcrErrors(GET_LPDSLCR_PMC0_ERR_MASK(ErrIndex),
+					MASK32_ALL_HIGH);
+		(void)XPlmi_EmDisableLpdSlcrErrors(GET_LPDSLCR_PMC1_ERR_MASK(ErrIndex),
+					MASK32_ALL_HIGH);
+		(void)XPlmi_EmDisableLpdSlcrErrors(GET_LPDSLCR_PMC2_ERR_MASK(ErrIndex),
+					MASK32_ALL_HIGH);
+		(void)XPlmi_EmDisableLpdSlcrErrors(GET_LPDSLCR_PMC3_ERR_MASK(ErrIndex),
+					MASK32_ALL_HIGH);
+
+		LpdSlcrErrStatus[ErrIndex] = XPlmi_In32(LPD_SLCR_REG_EAM_ERR0_STATUS +
+					(ErrIndex * LPD_SLCR_GLOBAL_REG_ERR_OFFSET));
+		/* Saving to RTCA Area */
+		XPlmi_Out32(GET_RTCFG_LPDSLCR_ERR_ADDR(ErrIndex), LpdSlcrErrStatus[ErrIndex]);
+		if (LpdSlcrErrStatus[ErrIndex] != 0U) {
+			XPlmi_Printf(DEBUG_GENERAL, "LPD_SLCR_EAM_ERR%d_STATUS: "
+				"0x%08x\n\r", ErrIndex, LpdSlcrErrStatus[ErrIndex]);
+		}
+		/**
+		 * - Clear the error status registers.
+		 */
+		XPlmi_Out32(LPD_SLCR_REG_EAM_ERR0_STATUS +
+			(ErrIndex * LPD_SLCR_GLOBAL_REG_ERR_OFFSET), MASK32_ALL_HIGH);
+
+		/**
+		 * - Set the default actions as defined in the Error table.
+		 */
+		for (Index = GET_LPDSLCR_ERR_START(ErrIndex); Index <
+				GET_LPDSLCR_ERR_END(ErrIndex); Index++) {
+			if (Index >= XPLMI_ERROR_LPDSLCR_ERR_MAX) {
+				break;
+			}
+			if (ErrTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
+				RegMask = XPlmi_ErrRegMask(Index);
+				if (XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR1 +
+					(ErrIndex * XPLMI_EVENT_ERROR_OFFSET),
+					RegMask, ErrTable[Index].Action,
+					ErrTable[Index].Handler, ErrTable[Index].SubsystemId) != XST_SUCCESS) {
+					XPlmi_Printf(DEBUG_GENERAL,
+						"Warning: XPlmi_LpdSlcrEmInit: Failed to "
+						"set action for LPD SLCR ERR%d: %u\r\n",
+						Index , Index);
+				}
+			}
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets the error action as prescribed by the command.
+ *			Command payload parameters are
+ *				* Error Node ID
+ *				* Error Action
+ *					0 - Invalid
+ *					1 - POR
+ *					2 - SRST
+ *					3 - Custom(Not supported)
+ *					4 - ErrOut
+ *					5 - Subsystem Shutdown
+ *					6 - Subsystem Restart
+ *					7 - Print to log
+ *					8 - SLD
+ *					9 - SLD with TRI
+ *					10 - None
+ *			* Error ID Mask
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_INVALID_NODE_ID on invalid node ID.
+ * 			- XPLMI_INVALID_ERROR_ACTION on invalid error action.
+ * 			- XPLMI_CANNOT_CHANGE_ACTION if failed to change error action.
+ * 			- XPLMI_LPD_UNINITIALIZED if LPD failed to initialize.
+ *
+ *****************************************************************************/
+int XPlmi_VersalAiepg2SetAction(XPlmi_Cmd * Cmd)
+{
+	int Status = XST_FAILURE;
+
+	XPlmi_EventType NodeType =
+			(XPlmi_EventType)XPlmi_EventNodeType(Cmd->Payload[0U]);
+	u32 ErrorAction = Cmd->Payload[1U];
+	u32 ErrorMasks = Cmd->Payload[2U];
+	u32 SubsystemId;
+
+	/* Check if it is an IPI or CDO request*/
+	if (Cmd->IpiMask != 0U) {
+		SubsystemId = Cmd->SubsystemId;
+	} else {
+		SubsystemId = XPlmi_GetEmSubsystemId();
+	}
+
+	XPlmi_Printf(DEBUG_DETAILED,
+		"%s: NodeId: 0x%0x,  ErrorAction: 0x%0x, ErrorMasks: 0x%0x, SubsystemId: 0x%0x\n\r",
+		 __func__, Cmd->Payload[0U], ErrorAction, ErrorMasks, SubsystemId);
+
+	/* Do not allow CUSTOM error action as it is not supported */
+	if ((XPLMI_EM_ACTION_CUSTOM == ErrorAction) ||
+		(ErrorAction >= XPLMI_EM_ACTION_MAX) ||
+		(XPLMI_EM_ACTION_INVALID == ErrorAction)) {
+		XPlmi_Printf(DEBUG_INFO,
+			"Error: XPlmi_CmdEmSetAction: Invalid/unsupported error "
+			"action 0x%x received for error mask 0x%x", ErrorAction, ErrorMasks);
+		Status = XPLMI_INVALID_ERROR_ACTION;
+		goto END;
+	}
+
+	/* Do not allow invalid node id */
+	if (NodeType > XPLMI_NODETYPE_EVENT_SW_ERR) {
+		Status = XPLMI_INVALID_NODE_ID;
+		goto END;
+	}
+
+	if (NodeType == XPLMI_NODETYPE_EVENT_PMC_ERR3) {
+		/* PSX_EAM_E0 - SRST
+		 * PSX_EAM_E1 - POR
+		 * PSX_EAM_E2 - Error Out
+		 * PSX_EAM_E3 - IRQ
+		 */
+		if (ErrorMasks & XPLMI_BIT(PSX_EAM_E0_BIT_SHIFT)) {
+			if (ErrorAction != XPLMI_EM_ACTION_SRST) {
+				XPlmi_Printf(DEBUG_INFO, "Error: "
+					"XPlmi_CmdEmSetAction: PSX_EAM_E0 error"
+					" only action allowed is "
+					"SRST\r\n");
+				Status = XPLMI_CANNOT_CHANGE_ACTION;
+				goto END;
+			}
+		} else if (ErrorMasks & XPLMI_BIT(PSX_EAM_E1_BIT_SHIFT)) {
+			if (ErrorAction != XPLMI_EM_ACTION_POR) {
+				XPlmi_Printf(DEBUG_INFO, "Error: "
+					"XPlmi_CmdEmSetAction: PSX_EAM_E1 error"
+					" only action allowed is "
+					"POR\r\n");
+				Status = XPLMI_CANNOT_CHANGE_ACTION;
+				goto END;
+			}
+
+		} else if (ErrorMasks & XPLMI_BIT(PSX_EAM_E2_BIT_SHIFT)) {
+			if (ErrorAction != XPLMI_EM_ACTION_ERROUT) {
+				XPlmi_Printf(DEBUG_INFO, "Error: "
+					"XPlmi_CmdEmSetAction: PSX_EAM_E2 error"
+					" only action allowed is "
+					"ERROUT\r\n");
+				Status = XPLMI_CANNOT_CHANGE_ACTION;
+				goto END;
+			}
+		} else if (ErrorMasks & XPLMI_BIT(PSX_EAM_E3_BIT_SHIFT)) {
+			XPlmi_Printf(DEBUG_INFO, "Error: XPlmi_CmdEmSetAction: "
+				"Error Action cannot be changed for  PSX_EAM_E3\r\n");
+				Status = XPLMI_CANNOT_CHANGE_ACTION;
+				goto END;
+			}
+	}
+
+	/*
+	 * Allow error action setting for LPD SLCR errors only if LPD is initialized
+	 */
+	if ((XPlmi_GetEventIndex(NodeType) ==  XPLMI_NODETYPE_EVENT_LPDSLCR_INDEX) &&
+		(XPlmi_IsLpdInitialized() != (u8)TRUE)) {
+		XPlmi_Printf(DEBUG_INFO, "LPD is not initialized to configure "
+				"errors and actions in LPD SLCR\n\r");
+		Status = XPLMI_LPD_UNINITIALIZED;
+		goto END;
+	}
+
+	Status = XPlmi_RestrictErrActions(NodeType, ErrorMasks, ErrorAction);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XPlmi_EmSetAction(Cmd->Payload[0U], ErrorMasks, (u8)ErrorAction, NULL, SubsystemId);
+	if(Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	return Status;
 }

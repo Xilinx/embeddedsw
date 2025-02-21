@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -71,6 +71,7 @@
 *       ma   02/29/2024 Removed XPlmi_ErrPrintToLog function from common folder
 *                       and moved it to xplmi_err.c
 * 1.12  sk   08/26/2024 Updated EAM support for Versal Aiepg2
+*       sk   02/20/2025 Added declaration for PSM handlers
 * </pre>
 *
 * @note
@@ -260,6 +261,9 @@ void XPlmi_SoftResetHandler(void);
 void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId);
 u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType);
 
+#ifndef VERSAL_AIEPG2
+void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask);
+#endif
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);
 

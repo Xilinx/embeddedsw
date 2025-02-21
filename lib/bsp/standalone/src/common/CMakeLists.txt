@@ -1,4 +1,4 @@
-# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_SOURCES print.c)
@@ -87,5 +87,9 @@ add_subdirectory(versal)
 endif()
 
 if("${CMAKE_MACHINE}" STREQUAL "VersalNet")
-add_subdirectory(versal_net)
+	if("${CMAKE_SUBMACHINE}" STREQUAL "VersalNet")
+		add_subdirectory(versal_net)
+	elseif("${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2")
+		add_subdirectory(versal_aiepg2)
+	endif()
 endif()

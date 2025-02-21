@@ -57,13 +57,14 @@
 * 2.1   har  06/24/2024 Incremented XPLMI_PLM_PLAT_RC_VERSION
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 * 2.02  sk   08/26/2024 Updated EAM support for Versal Aiepg2
-* 24.2  prt	 09/18/2024 Updated XPLMI_PLM_PLAT_RC_VERSION to 0U
+*       prt  09/18/2024 Updated XPLMI_PLM_PLAT_RC_VERSION to 0U
 *       pre  09/30/2024 Added XPlmi_GetSsitSecCommStatus define
 *       pre  10/07/2024 Added XPlmi_CheckSlaveErrors function
 * 2.03  sk   12/13/2024 Added defines for PPU Proc Buffers
 *       pre  01/13/2025 Added macros for DDRMC register addresses
 *       kal  01/30/2025 Update KAT MASKS for SHA2/SHAKE to align with ROM
 * 2.2   vss  02/11/2025 Updated SSS configuration correctly.
+*       sk   02/20/2025 Updated defines for RTCA EAM error address for versal aiepg2
 *
 * </pre>
 *
@@ -573,9 +574,9 @@ typedef enum {
 #define GET_RTCFG_PMC_ERR_ADDR(Index)	(Index > 1U) ? \
 			(XPLMI_RTCFG_PMC_ERR3_STATUS_ADDR) : \
 			(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PMC error address */
-#define GET_RTCFG_PSM_ERR_ADDR(Index)		(Index > 1U) ? \
+#define GET_RTCFG_LPDSLCR_ERR_ADDR(Index)		(Index > 1U) ? \
 			(XPLMI_RTCFG_PSM_ERR3_STATUS_ADDR + ((Index - 2U) * 4U)) : \
-			(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PSM error address */
+			(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration LPDSCLR error address */
 /*****************************************************************************/
 /**
  * @brief	This function provides the Slr Type
