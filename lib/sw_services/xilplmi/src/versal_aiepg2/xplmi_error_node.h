@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  sk   08/26/2024 Initial release EAM Table
+*       sk   09/20/2024 Added defines for errors in LPDSLCR
 *
 * </pre>
 *
@@ -44,7 +45,7 @@ extern "C" {
 
 typedef enum {
 	/* Event error types */
-	XPLMI_NODETYPE_EVENT_PMC_ERR1 = 0x0,
+	XPLMI_NODETYPE_EVENT_PMC_ERR1 = 0x0,/**< 0x0 */
 	XPLMI_NODETYPE_EVENT_PMC_ERR2, /**< 0x1 */
 	XPLMI_NODETYPE_EVENT_PMC_ERR3, /**< 0x2 */
 	XPLMI_NODETYPE_EVENT_LPDSLCR_ERR0, /**< 0x3 */
@@ -307,6 +308,11 @@ typedef enum {
 #define XPLMI_ERROR_NPI_UE		(0xE9U)
 #define XPLMI_ERROR_SW_ERR_MAX		(0xEAU)
 
+#define PSX_EAM_E0_BIT_SHIFT		14U
+#define PSX_EAM_E1_BIT_SHIFT		15U
+#define PSX_EAM_E2_BIT_SHIFT		16U
+#define PSX_EAM_E3_BIT_SHIFT		17U
+
 #define XPLMI_ERROR_LPDSLCR_ERR_MAX		XPLMI_ERROR_LPDSLCR_ERR3_MAX
 #define XPLMI_ERROR_PMCERR_MAX			XPLMI_ERROR_PMCERR3_MAX
 #define GET_LPDSLCR_ERR_START(ErrIndex)		(XPLMI_ERROR_PS_SW_CR + \
@@ -315,6 +321,12 @@ typedef enum {
 						(ErrIndex * XPLMI_REG_MAX_ERRORS))
 
 #define GET_LPDSLCR_PMC3_ERR_MASK(ErrIndex)	(LPD_SLCR_EAM_PMC3_ERR0_MASK + \
+						(ErrIndex * LPD_SLCR_GLOBAL_REG_ERR_OFFSET))
+#define GET_LPDSLCR_PMC2_ERR_MASK(ErrIndex)	(LPD_SLCR_EAM_PMC2_ERR0_MASK + \
+						(ErrIndex * LPD_SLCR_GLOBAL_REG_ERR_OFFSET))
+#define GET_LPDSLCR_PMC1_ERR_MASK(ErrIndex)	(LPD_SLCR_EAM_PMC1_ERR0_MASK + \
+						(ErrIndex * LPD_SLCR_GLOBAL_REG_ERR_OFFSET))
+#define GET_LPDSLCR_PMC0_ERR_MASK(ErrIndex)	(LPD_SLCR_EAM_PMC0_ERR0_MASK + \
 						(ErrIndex * LPD_SLCR_GLOBAL_REG_ERR_OFFSET))
 /**************************** Type Definitions *******************************/
 

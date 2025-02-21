@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 * 1.02  ma   02/29/2024 Change protection unit error actions to PRINT_TO_LOG
 *                       to handle restoring of the error actions after IPU
 * 1.02  sk   08/26/2024 Updated EAM support for Versal Aiepg2
+*       sk   02/20/2025 Added defines for Versal Aiepg2 EAM handler
 * </pre>
 *
 * @note
@@ -117,6 +118,8 @@ void XPlmi_HandleLinkUpEvent(u32 Cpm5NPcieCdxIrStatusReg, u32 Cpm5NCdxPcieBReg, 
 void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask);
 int XPlmi_EmDisableLpdSlcrErrors(u32 RegMaskAddr, u32 RegMask);
 int EmEnableLpdSlcrErrAction(u32 ErrMaskRegAddr, u32 RegMask);
+int XPlmi_LpdSlcrEmInit(void);
+int XPlmi_VersalAiepg2SetAction(XPlmi_Cmd * Cmd);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
