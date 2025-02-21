@@ -18,6 +18,7 @@
 *       yog  08/19/2024 Received Dma instance from handler
 *       yog  08/25/2024 Integrated FIH library
 *       yog  09/26/2024 Added doxygen groupings and fixed doxygen comments.
+*       am   02/21/2025 Integrated performance measurement macros
 *
 * </pre>
 *
@@ -402,6 +403,9 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			   u64 PrivKeyAddr, const u8 *EphemeralKeyPtr, u64 HashAddr, u32 HashBufLen,
 			   u64 SignAddr)
 {
+	/** Capture start time. */
+	XASUFW_MEASURE_PERF_START(StartTime, PerfTime);
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
@@ -481,8 +485,10 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			       (SignAddr + CurveLen), CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_READ_DATA_FAIL;
-		goto END;
 	}
+
+	/** Measure performance time. */
+	XASUFW_MEASURE_PERF_STOP(StartTime, PerfTime, __func__);
 
 END:
 	if (InstancePtr != NULL) {
