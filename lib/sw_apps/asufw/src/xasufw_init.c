@@ -23,6 +23,7 @@
  *       ma   07/23/24 Added RTCA initialization related code
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       am   01/22/25 Added key transfer support
+ *       ma   02/21/25 Added functionality to trigger NON FATAL error when an exception is received
  *
  * </pre>
  *
@@ -43,6 +44,7 @@
 #include "xasufw_util.h"
 #include "xasufw_memory.h"
 #include "xaes.h"
+#include "xasufw_error_manager.h"
 
 /************************************ Constant Definitions ***************************************/
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U) /**< IO Module PIT1 prescaler source mask */
@@ -93,6 +95,7 @@ static void XAsufw_ExceptionEnable(void)
 
 	/** Register exception handlers. */
 	for (Index = XIL_EXCEPTION_ID_FIRST; Index <= XIL_EXCEPTION_ID_LAST; Index++) {
+		Status = XAsufw_UpdateErrorStatus(XASUFW_ERR_EXCEPTION, (s32)Index);
 		Xil_ExceptionRegisterHandler(Index, XAsufw_ExceptionHandler, (void *)Status);
 	}
 
@@ -123,6 +126,9 @@ static void XAsufw_ExceptionHandler(void *Data)
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Received Exception \n\r");
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "CSR(mstatus): 0x%x, CSR(mcause): 0x%x, "
 			"CSR(mtval): 0x%x\r\n", csrr(mstatus), csrr(mcause), csrr(mtval));
+
+	/** Trigger Non-Fatal error to PLM. */
+	XAsufw_SendErrorToPlm(XASUFW_NON_FATAL_ERROR, (s32)Data);
 
 	/*
 	 * TODO: Need to add an illegal instruction trap here so that its respective handler will be

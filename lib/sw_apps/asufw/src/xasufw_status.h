@@ -42,6 +42,7 @@
  *       ma   01/21/25 Added error codes for KDF functionality
  *       LC   02/07/25 Listed actual error codes in description
  *       ma   02/11/25 Added TRNG related error codes
+ *       ma   02/21/25 Added error code for ASU exceptions
  *
  * </pre>
  *
@@ -102,6 +103,8 @@ enum {
 						channel WaitForDone */
 	XASUFW_INVALID_DMA_SSS_CONFIG, /**< 0x1CU - SSS configuration assignment failed as the DMA address is
 						invalid */
+	XASUFW_ERR_EXCEPTION, /**< 0x1DU - Processor exception received */
+
 	/**< Termination code errors 0x21U to 0x2CU are reserved for errors returning from core */
 	XASUFW_ECC_INVALID_PARAM = 0x2DU, /**< 0x2DU - Invalid parameters to ECC APIs*/
 	XASUFW_ECC_INIT_NOT_DONE, /**< 0x2EU - ECC is not initialized */

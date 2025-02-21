@@ -34,6 +34,7 @@
  *       ss   09/26/24 Fixed doxygen comments
  *       yog  01/02/25 Initialize HMAC module
  *       ma   01/15/25 Initialize KDF module
+ *       ma   02/21/25 Initialize error management functionality
  *
  * </pre>
  *
@@ -62,6 +63,7 @@
 #include "xasufw_hmachandler.h"
 #include "xasufw_kdfhandler.h"
 #include "xfih.h"
+#include "xasufw_error_manager.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -98,6 +100,9 @@ int main(void)
 		XAsufw_Printf(DEBUG_GENERAL, "ASUFW init failed. Error: 0x%x\r\n", Status);
 		goto END;
 	}
+
+	/** Initialize error manager functionality. */
+	XAsufw_ErrorManagerInit();
 
 	/**
 	 * Set FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register.
