@@ -66,6 +66,13 @@ extern "C" {
 #define MMI_CRX_WPROTP_OFFSET				(0x00000034U)
 
 /*
+ * MMI_DC Module
+ */
+#define MMI_DC_BASEADDR					(0xEDD08000U)
+#define MMI_DC_SIZE					(0x00008000U)
+#define MMI_DC_WPROTS_OFFSET				(0x00004C70U)
+
+/*
  * AIE2PS Module
  */
 #ifndef VIVADO_ME_BASEADDR
