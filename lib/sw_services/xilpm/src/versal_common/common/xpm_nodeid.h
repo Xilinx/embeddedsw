@@ -406,6 +406,9 @@ extern "C" {
 #define PM_RST_TTC_6				(0xC10410EU)
 #define PM_RST_TTC_7				(0xC10410FU)
 #define PM_RST_UDH_DRD                          (0xC41007BU)
+#define PM_RST_DC				(0xC410119U)
+#define PM_RST_GPU				(0xC41011AU)
+#define PM_RST_GPU_RECOV			(0xC41011BU)
 /** @} */
 
 /**
@@ -628,6 +631,17 @@ extern "C" {
 #define PM_CLK_UDH_PRESRC			(0x82080D1U)
 #define PM_CLK_UDHPLL				(0x82080D2U)
 #define PM_CLK_UDH_PLL				(0x81040D3U)
+#define PM_CLK_MMI_PRESRC			(0x82080D4U)
+#define PM_CLK_MMI_POSTCLK			(0x82080D5U)
+#define PM_CLK_MMI_PLL_OUT			(0x82080D6U)
+#define PM_CLK_MMIPLL				(0x82080D7U)
+#define PM_CLK_PL_PIXEL				(0x830C0D8U)
+#define PM_CLK_GPU_PLL				(0x82080D9U)
+#define PM_CLK_DC_PIXEL				(0x82080DAU)
+#define PM_CLK_MMI_GPU_REF			(0x82080DBU)
+#define PM_CLK_MMI_AUX0_REF			(0x82080DCU)
+#define PM_CLK_PS_AXI_DMA			(0x82080DDU)
+#define PM_CLK_MMI_PLL				(0x81040DEU)
 /** @} */
 
 /**
@@ -1040,6 +1054,8 @@ extern "C" {
 #define PM_DEV_TTC_6				(0x18224121U)
 #define PM_DEV_TTC_7				(0x18224122U)
 #define PM_DEV_MMI_USB_DRD                      (0x18224135U)
+#define PM_DEV_MMI_GPU				(0x18224136U)
+#define PM_DEV_MMI_DC				(0x18224137U)
 /** @} */
 
 /**
