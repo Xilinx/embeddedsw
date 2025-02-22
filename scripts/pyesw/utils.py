@@ -152,7 +152,7 @@ def mkdir(folderpath: str, silent_discard: bool = True) -> None:
             print("%s Unable to create directory " % folderpath)
             sys.exit(1)
 
-def copy_file(src: str, dest: str, follow_symlinks: bool = False, silent_discard: bool = False) -> None:
+def copy_file(src: str, dest: str, follow_symlinks: bool = True, silent_discard: bool = False) -> None:
     """
     copies the file from source to destination.
 
@@ -189,7 +189,7 @@ def change_permission(directory_path, permissions):
             os.chmod(file_path, permissions)
 
 
-def copy_directory(src: str, dst: str, symlinks: bool = False, ignore=None) -> None:
+def copy_directory(src: str, dst: str, symlinks: bool = True, ignore=None) -> None:
     """
     copies the directory from source to destination.
 
@@ -209,10 +209,10 @@ def copy_directory(src: str, dst: str, symlinks: bool = False, ignore=None) -> N
                 copy_tree(s, d, symlinks)
                 change_permission(d, 0o644)
             else:
-                shutil.copytree(s, d, symlinks, ignore)
+                shutil.copytree(s, d)
                 change_permission(d, 0o644)
         else:
-            copy_file(s, d)
+            copy_file(s, d, symlinks)
             change_permission(d, 0o644)
 
 
