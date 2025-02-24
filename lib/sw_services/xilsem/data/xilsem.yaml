@@ -84,4 +84,12 @@ examples:
       - xsem_ebd_search.c
       - xsem_ebd_search.h
       - xsem_ebdgoldendata.c
+  xsem_ebd_ssit_example.c:
+    - supported_platforms:
+      - Versal
+    - dependency_files:
+      - xsem_ebd_search.c
+      - xsem_ebd_search.h
+      - xsem_ebdgoldendata0.c
+      - xsem_ebdgoldendata1.c
 ...

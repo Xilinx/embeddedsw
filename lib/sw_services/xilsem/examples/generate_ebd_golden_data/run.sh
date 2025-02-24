@@ -5,5 +5,5 @@ sleep 5 #
 ls #
 ./a.out #
 sleep 5 #
-make #
+make CFLAGS="-g" #
 ./xsem_reformat_ebdcfi #

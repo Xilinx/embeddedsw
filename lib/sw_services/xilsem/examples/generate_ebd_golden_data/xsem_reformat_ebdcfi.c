@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* (c) Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -16,7 +16,10 @@
  * Ver   Who   Date        Changes
  * ----  ----  ----------  ---------------------------------------------------
  * 0.1   hv    06/27/2022  Initial Creation
- * 0.2	 anv   05/10/2023  Modified to add copyright information in xsem_ebdgoldendata.c
+ * 0.2	 anv   05/10/2023  Modified to add copyright information in
+ *                         xsem_ebdgoldendata.c
+ * 0.3   anv   02/25/2025  Added support for SSIT devices.
+ *
  * </pre>
  *
  *****************************************************************************/
@@ -97,6 +100,9 @@ u32 mask_capacity = 0;
 u32 * map_list = (void *)0;
 u32 map_index = 0;
 u32 map_capacity = 0;
+#ifdef XILSEM_ENABLE_SSIT
+u32 Slr_Id = 0;
+#endif
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -148,7 +154,23 @@ void print_ebdb(FILE * OutFptr, u32 BlockTypes, u32 Rows) {
 
     fprintf(OutFptr,"/* Total frames: %u */\n", map_index);
     fprintf(OutFptr,"/* Unique frames: %u */\n", mask_index);
-    fprintf(OutFptr,"volatile int XSem_EbdBuffer[] ");
+#ifdef XILSEM_ENABLE_SSIT
+	printf("Generating goldendata for SSIT device\n");
+	if (Slr_Id == 0U) {
+		fprintf(OutFptr,"volatile int XSem_EbdBuffer0[] ");
+	} else if (Slr_Id == 1U) {
+		fprintf(OutFptr,"volatile int XSem_EbdBuffer1[] ");
+	} else if (Slr_Id == 2U) {
+		fprintf(OutFptr,"volatile int XSem_EbdBuffer2[] ");
+	} else if (Slr_Id == 3U) {
+		fprintf(OutFptr,"volatile int XSem_EbdBuffer3[] ");
+	} else {
+		printf("print_ebd :Invalid SLR ID \n");
+	}
+#else
+	printf("Generating goldendata for Mono device\n");
+	fprintf(OutFptr,"volatile int XSem_EbdBuffer[] ");
+#endif
 	fprintf(OutFptr, "%s" "%c" "%s" "%c" "%s", " __attribute__((section (", '"', ".sem_ebddata", '"', "))) __attribute__((no_reorder)) = {\n");
     fprintf(OutFptr,"  /* %u: Header */\n", hdr_offset);
     fprintf(OutFptr,"  %u, /* Number of block types */\n", BlockTypes);
@@ -197,13 +219,31 @@ void print_ebdb(FILE * OutFptr, u32 BlockTypes, u32 Rows) {
  * @brief	Main function, reformats essential bit info from xsem_ebdintern.c
  *
  *****************************************************************************/
-int main(int argc, char **argv) {
+int main(int argc, char *argv[]) {
     u32 block_types = 0;
     u32 rows = 0;
     u32 i;
 	FILE *fptr;
+
+#ifdef XILSEM_ENABLE_SSIT
+	Slr_Id = atoi(argv[1]);
+	printf("Updating reformated Essential bit data for SSIT device\n");
+	if (Slr_Id == 0U) {
+		fptr = fopen("xsem_ebdgoldendata0.c", "w");
+	} else if (Slr_Id == 1U) {
+		fptr = fopen("xsem_ebdgoldendata1.c", "w");
+	} else if (Slr_Id == 2U) {
+		fptr = fopen("xsem_ebdgoldendata2.c", "w");
+	} else if (Slr_Id == 2U) {
+		fptr = fopen("xsem_ebdgoldendata3.c", "w");
+	} else {
+		printf("Invalid SLR ID \n");
+	}
+#else
+	printf("Updating reformated Essential bit data for Mono device\n");
 	fptr = fopen("xsem_ebdgoldendata.c", "w");
-	fprintf(fptr, "%s", "/******************************************************************************\n* (c) Copyright 2022 Xilinx, Inc.  All rights reserved.\n* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.\n* SPDX-License-Identifier: MIT\n******************************************************************************/\n\n");
+#endif
+	fprintf(fptr, "%s", "/******************************************************************************\n* (c) Copyright 2022 Xilinx, Inc.  All rights reserved.\n* (c) Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.\n* SPDX-License-Identifier: MIT\n******************************************************************************/\n\n");
 	fprintf(fptr, "%s", "#if defined (__ICCARM__) \n#pragma language=save \n#pragma language=extended \n#endif\n\n");
     for (i = 0; i < sizeof input_tables/sizeof *input_tables; i++) {
         u32 bt = input_tables[i].bt;

@@ -1,5 +1,6 @@
 /******************************************************************************
 * (c) Copyright 2022 Xilinx, Inc.  All rights reserved.
+* (c) Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -15,6 +16,8 @@
 * Ver	Who  Date         Changes
 * ----  ---  ----------   --------------------------------------------------
 * 0.1   hv   05/17/2022   Initial creation
+* 0.2   anv  02/24/2025   Updated XSem_EbdLookUp function arguments
+*                         to make it useful for both mono and ssit.
 * </pre>
 *
 */
@@ -29,7 +32,7 @@ u8 FrameOffset[6][4] = {{3, 5, 7, 9},
 					  {27, 29, 31, 33},
 					  {35, 37, 39, 41},
 					  {43, 45, 47, 49}};
-extern volatile int XSem_EbdBuffer[];
+
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
@@ -41,6 +44,7 @@ extern volatile int XSem_EbdBuffer[];
  * 		FAddr[In]		:	Frame Address (Valid Inputs: Refer note)
  * 		QwordIndex[In]	:	Qword (Valid Inputs: 0 to 24)
  * 		BitIndex[In]	:	Bit (Valid Inputs: 0 to 127)
+ *		XSem_EbdBuffer  :   Pointer to golden EBD data buffer
  *
  * @return	0U : Input Bit is essential
  * 		1U : Input Bit is not essential
@@ -57,7 +61,7 @@ extern volatile int XSem_EbdBuffer[];
  * (FrameCntPtr[n] - 1) where n is block type with range 0 to 6.
  *****************************************************************************/
 u32 XSem_EbdLookUp(u8 BtIndex, u8 RowIndex,\
-		u32 FAddr, u32 QwordIndex, u32 BitIndex)
+		u32 FAddr, u32 QwordIndex, u32 BitIndex, volatile int *XSem_EbdBuffer)
 {
 	u32 RetValue = 0u;
 	u32 WordIndex = 0U;
