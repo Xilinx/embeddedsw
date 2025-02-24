@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -36,6 +36,7 @@
 * 9.1   asa  03/06/23 Clear the PMCR_EL0 C and D bits only if the E bit in
 *                     PMCR_EL0 is 0 indicating that the event counters in PMU
 *                     are disabled.
+* 9.3   mus  02/13/25 Add support for domU guest in SDT flow.
 * </pre>
 *
 * @note
@@ -44,9 +45,7 @@
 *
 ******************************************************************************/
 #include "bspconfig.h"
-#ifndef SDT
 #include "xparameters.h"
-#endif
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
 	.align	2
@@ -131,7 +130,11 @@ _startup:
 	 * Xil_SetTlbAttributes(XPAR_SCUGIC_0_DIST_BASEADDR,
 	 * 			STRONG_ORDERED | EXECUTE_NEVER)
 	 */
+#if defined(SDT)
+         ldr    x0, =XPAR_GIC_BASEADDR
+#else
 	 ldr    x0, =XPAR_SCUGIC_0_DIST_BASEADDR
+#endif
          mov    x1, #0x409
          orr    x1, x1, #(0x1 << 53)
          orr    x1, x1, #(0x1 << 54)
