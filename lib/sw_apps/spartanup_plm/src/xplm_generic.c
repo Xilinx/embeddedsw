@@ -17,6 +17,7 @@
  * 1.00  ng   05/31/24 Initial release
  *       ng   09/17/24 Fixed mask poll flags
  * 1.01  ng   02/05/25 Poll until URAM clear busy flag is zero before starting DMA xfr to CCU
+ *       ng   02/14/25 Add new register_read CDO command
  * </pre>
  *
  ******************************************************************************/
@@ -72,6 +73,31 @@
 #define XPLM_WR_KEYHOLE_RESUME_DATA_KEYHOLE_ADDR_ARG_INDEX		(0x0U)
 #define XPLM_WR_KEYHOLE_RESUME_DATA_KEYHOLE_SIZE_ARG_INDEX		(0x1U)
 #define XPLM_WR_KEYHOLE_CMD_RESUME_PAYLOAD_KEYHOLE_DATA_ARG_INDEX	(0x0U)
+
+/** SBI readback mode. */
+#define XPLM_SBI_MODE_RDBK			(0x1U)
+
+/** Limit of registers to read is 128 due to memory constraints. */
+#define XPLM_REG_READ_LIMIT			(0x80U)
+
+/* Register read interface type length in CDO command payload. */
+#define XPLM_REG_READ_INTF_TYPE_LENGTH_IN_PAYLOAD	(0x1U)
+
+/** Payload index for the readback interface type. */
+#define XPLM_REG_READ_INTERFACE_TYPE_INDEX	(0x0U)
+
+/** Starting index of the list of registers to read in CDO command payload. */
+#define XPLM_REG_READ_PAYLOAD_START_INDEX	(0x1U)
+
+/** Length of the Register read entry. */
+#define XPLM_REG_VALUE_PAIR			(0x2U)
+
+/** Lower limit of the register address space */
+#define XPLM_REG_READ_LWR_LMT			((u32)XPAR_PMC_RAM_0_BASEADDRESS)
+
+/** Upper limit of the register address space */
+#define XPLM_REG_READ_UPR_LMT			(0x04161150U)
+
 /** @endcond */
 /************************** Function Prototypes ******************************/
 /** @cond spartanup_plm_internal */
@@ -362,8 +388,8 @@ static u32 XPlm_CfiRead(XPlm_Cmd *Cmd)
 		goto END;
 	}
 
-	/** - Change the SBI mode to configuration mode. */
-	XPlm_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK, XPLM_READBK_SBI_CFG_MODE);
+	/** - Set the SBI mode to Read Back. */
+	XPlm_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK, XPLM_SBI_MODE_RDBK);
 
 	/** - Transfer the readback payload to CCU. */
 	Status = XPlm_DmaXfr(CfiPayloadSrcAddr, XPLM_CCU_WR_STREAM_BASEADDR,
@@ -753,6 +779,129 @@ static u32 XPlm_Break(XPlm_Cmd *Cmd)
 	return Status;
 }
 
+/** @cond spartanup_plm_internal */
+/*****************************************************************************/
+/**
+ * @brief	This function reads the contents of the register addresses received in the command
+ * payload and sends them to SBI buffer.
+ *
+ * @param	Cmd is pointer to the command structure with the following parameters as payload:
+ * 			- Params - SMAP/JTAG
+ * 			- List of Register addresses
+ *
+ * @return
+ * 		- XST_SUCCESS if successfully read the registers and transferred them to SBI buffer.
+ * 		- XPLM_ERR_REG_READ_LEN_LIMIT if the number of registers to read exceeds the limit
+ * 		of 128 registers.
+ * 		- XPLM_ERR_RDBK_INVALID_INFR_SEL if the selected interface is not supported.
+ * 		- XPLM_ERR_REG_READ_ADDR_INVALID if the provided register address is invalid.
+ * 		- XPLM_ERR_REG_READ_DMA_XFER if the dma transfer to SBI is not successful.
+ * 		- XPLM_ERR_REG_READ_TIMEOUT if the data placed in SBI buffer is not read back.
+ *
+ *****************************************************************************/
+static u32 XPlm_RegisterRead(XPlm_Cmd *Cmd)
+{
+	u32 Status = (u32)XST_FAILURE;
+	u32 CmdLen = Cmd->Len;
+	u32 SrcType = Cmd->Payload[XPLM_REG_READ_INTERFACE_TYPE_INDEX] & XPLM_READBACK_SRC_MASK;
+	u32 PayloadIndex = XPLM_REG_READ_PAYLOAD_START_INDEX;
+	u32 BufIndex = XPLM_ZERO;
+	u32 RegisterToRead;
+	u32 RegisterValue;
+	u32 SbiCtrlCfg;
+
+	/** - Save current SBI control configuration. */
+	SbiCtrlCfg = Xil_In32(SLAVE_BOOT_SBI_CTRL);
+
+	if (CmdLen > (XPLM_REG_READ_LIMIT + XPLM_REG_READ_INTF_TYPE_LENGTH_IN_PAYLOAD)) {
+		Status = (u32)XPLM_ERR_REG_READ_LEN_LIMIT;
+		goto END;
+	}
+
+	/** - Set the readback interface in SBI control config based on the payload. */
+	if (SrcType == XPLM_READBK_INTF_TYPE_JTAG) {
+		XPlm_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
+			     XPLM_READBK_INTF_TYPE_JTAG << SLAVE_BOOT_SBI_CTRL_INTERFACE_SHIFT);
+	} else if (SrcType == XPLM_READBK_INTF_TYPE_SMAP) {
+		XPlm_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
+			     XPLM_READBK_INTF_TYPE_SMAP << SLAVE_BOOT_SBI_CTRL_INTERFACE_SHIFT);
+	} else {
+		/*
+		 * Return XPLM_ERR_RDBK_INVALID_INFR_SEL if the selected interface type
+		 * is neither JTAG nor SMAP.
+		 */
+		Status = (u32)XPLM_ERR_RDBK_INVALID_INFR_SEL;
+		goto END;
+	}
+
+	/** - Set the SBI mode to Read Back. */
+	XPlm_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK, XPLM_SBI_MODE_RDBK);
+
+	/** - Read the register from payload, fetch it's value and store it in buffer. */
+	while (PayloadIndex < CmdLen)
+	{
+		/* Get the register address from payload. */
+		RegisterToRead = Cmd->Payload[PayloadIndex];
+
+		if ((RegisterToRead < XPLM_REG_READ_LWR_LMT) || (RegisterToRead > XPLM_REG_READ_UPR_LMT))
+		{
+			Status = (u32)XPLM_ERR_REG_READ_ADDR_INVALID;
+			goto END;
+		}
+
+		/* Store the register address to buffer. */
+		Xil_Out32((XPLM_RAM_TMP_BUF_ADDR + BufIndex), RegisterToRead);
+
+		/* Read the register contents. */
+		RegisterValue = Xil_In32(RegisterToRead);
+
+		/* Increment the buffer address to save the contents of the register. */
+		BufIndex = BufIndex + XPLM_WORD_LEN;
+
+		/* Store the register contents to buffer. */
+		Xil_Out32((XPLM_RAM_TMP_BUF_ADDR + BufIndex), RegisterValue);
+
+		/* Increment the payload index and buffer address to read the next register. */
+		PayloadIndex++;
+		BufIndex = BufIndex + XPLM_WORD_LEN;
+	}
+
+	/** - Transfer the data from buffer to SBI interface. */
+	Status = XPlm_DmaSbiXfer(XPLM_RAM_TMP_BUF_ADDR, (CmdLen * XPLM_REG_VALUE_PAIR), XPLM_DMA_INCR_MODE);
+	if (Status != (u32)XST_SUCCESS) {
+		Status = (u32)XPLM_ERR_REG_READ_DMA_XFER;
+		goto END;
+	}
+
+	/* Wait until the data in SBI buffer is empty. */
+	if (SrcType == XPLM_READBK_INTF_TYPE_SMAP) {
+		Status = XPlm_UtilPoll(SLAVE_BOOT_SBI_STATUS,
+				       SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_MASK,
+				       (SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_DEFVAL <<
+					SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_SHIFT),
+				       XPLM_TIME_OUT_DEFAULT, NULL);
+	} else {
+		Status = XPlm_UtilPoll(SLAVE_BOOT_SBI_STATUS,
+				       SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_MASK,
+				       (SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_DEFVAL <<
+					SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_SHIFT),
+				       XPLM_TIME_OUT_DEFAULT, NULL);
+	}
+
+	if (Status != (u32)XST_SUCCESS) {
+		Status = (u32)XPLM_ERR_REG_READ_TIMEOUT;
+	}
+
+END:
+	/** - Restore saved SBI control configuration. */
+	Xil_Out32(SLAVE_BOOT_SBI_CTRL, SbiCtrlCfg);
+	XPlm_UtilRMW(SLAVE_BOOT_SBI_MODE, SLAVE_BOOT_SBI_MODE_SELECT_MASK,
+		     SLAVE_BOOT_SBI_MODE_SELECT_DEFVAL);
+	return Status;
+}
+/** @endcond */
+
+
 /*****************************************************************************/
 /**
  * @brief	Register the generic CDO command handlers.
@@ -792,6 +941,24 @@ void XPlm_GenericInit(void)
 		XPLM_MODULE_COMMAND(XPlm_Begin),
 		XPLM_MODULE_COMMAND(XPlm_End),
 		XPLM_MODULE_COMMAND(XPlm_Break),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(NULL),
+		XPLM_MODULE_COMMAND(XPlm_RegisterRead),
 	};
 
 	XPlm_Generic.Id = XPLM_MODULE_GENERIC_ID;

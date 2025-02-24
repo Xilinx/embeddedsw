@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,6 +14,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
+ *       ng   02/14/25 Moved the macro to source file to restrict it's scope
  * </pre>
  *
  ******************************************************************************/
@@ -55,8 +56,6 @@ typedef struct {
 #define XPLM_READBK_INTF_TYPE_SMAP		(0x0U)
 #define XPLM_READBK_INTF_TYPE_JTAG		(0x1U)
 #define XPLM_READBACK_SRC_MASK			(0xFFU)
-
-#define XPLM_READBK_SBI_CFG_MODE		(0x1U)
 
 #define XPLM_CFI_DATA_OFFSET			(4U)
 

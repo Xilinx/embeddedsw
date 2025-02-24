@@ -17,6 +17,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
  * 1.01  ng   02/05/25 Added error code for URAM clear busy
+ *       ng   02/14/25 Add new register_read CDO command
  * </pre>
  *
  ******************************************************************************/
@@ -378,6 +379,18 @@ typedef enum {
 
 	/** 0xC5A - end/break cmd - Error if end address is not valid. */
 	XPLM_ERR_INVLD_END_ADDR,
+
+	/** 0xC5B - Error if the register read length exceeds the supported limit of 128 registers. */
+	XPLM_ERR_REG_READ_LEN_LIMIT,
+
+	/** 0xC5C - Error if the DMA transfer to SBI failed. */
+	XPLM_ERR_REG_READ_DMA_XFER,
+
+	/** 0xC5D - Error if the data placed in SBI buffer is not read back. */
+	XPLM_ERR_REG_READ_TIMEOUT,
+
+	/** 0xC5E - Error if the register address is not within the limits. */
+	XPLM_ERR_REG_READ_ADDR_INVALID,
 
 
 	/** 0xA00 to 0xA10 are dedicated for PUF SHA Digest errors */

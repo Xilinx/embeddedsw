@@ -30,6 +30,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
 #include "xplm_util.h"
 
 /************************** Constant Definitions *****************************/
@@ -52,7 +53,7 @@ extern "C" {
 #else
 	#define XPLM_RTCFG_OFFSET	(0x13200U)
 #endif
-#define XPLM_RTCFG_BASEADDR	(XPAR_PMC_RAM_0_BASEADDRESS + XPLM_RTCFG_OFFSET)
+#define XPLM_RTCFG_BASEADDR	((u32)XPAR_PMC_RAM_0_BASEADDRESS + XPLM_RTCFG_OFFSET)
 
 #define XPLM_RTCFG_LENGTH_BYTES		(0x200U)
 #define XPLM_RTCFG_LENGTH_WORDS		(XPLM_BYTES_TO_WORDS(XPLM_RTCFG_LENGTH_BYTES))
@@ -311,7 +312,7 @@ extern "C" {
 	/** Start address of the log buffer in PMC RAM */
 	#define XPLM_DEBUG_LOG_BUFFER_OFFSET	(0x12E00U)
 #endif
-#define XPLM_DEBUG_LOG_BUFFER_ADDR	(XPAR_PMC_RAM_0_BASEADDRESS + XPLM_DEBUG_LOG_BUFFER_OFFSET)
+#define XPLM_DEBUG_LOG_BUFFER_ADDR	((u32)XPAR_PMC_RAM_0_BASEADDRESS + XPLM_DEBUG_LOG_BUFFER_OFFSET)
 
 /** Log buffer length in PMC RAM */
 #define XPLM_DEBUG_LOG_BUFFER_LEN	(0x400U)
@@ -327,7 +328,7 @@ extern "C" {
 #else
 	#define XPLM_SECURE_CHUNK_BUFFER_OFFSET		(0x14000U)
 #endif
-#define XPLM_SECURE_CHUNK_BUFFER_ADDR	(XPAR_PMC_RAM_0_BASEADDRESS + XPLM_SECURE_CHUNK_BUFFER_OFFSET)
+#define XPLM_SECURE_CHUNK_BUFFER_ADDR	((u32)XPAR_PMC_RAM_0_BASEADDRESS + XPLM_SECURE_CHUNK_BUFFER_OFFSET)
 
 #define XPLM_CHUNK_SIZE			(0x2000U)
 
@@ -341,7 +342,7 @@ extern "C" {
 	/** Hooks table address in PMC RAM. */
 	#define XROM_HOOKS_TBL_OFFSET	(0x179C0U)
 #endif
-#define XROM_HOOKS_TBL_BASE_ADDR	(XPAR_PMC_RAM_0_BASEADDRESS + XROM_HOOKS_TBL_OFFSET)
+#define XROM_HOOKS_TBL_BASE_ADDR	((u32)XPAR_PMC_RAM_0_BASEADDRESS + XROM_HOOKS_TBL_OFFSET)
 
 /**
  * Hash block Base address
@@ -349,9 +350,9 @@ extern "C" {
 #if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
 	#define XPLM_HASH_BLOCK_OFFSET	(0xFBA0U)
 #else
-	#define XPLM_HASH_BLOCK_OFFSET	(0x17B70)
+	#define XPLM_HASH_BLOCK_OFFSET	(0x17B70U)
 #endif
-#define XPLM_HASH_BLOCK_ADDR_IN_RAM	(XPAR_PMC_RAM_0_BASEADDRESS + XPLM_HASH_BLOCK_OFFSET)
+#define XPLM_HASH_BLOCK_ADDR_IN_RAM	((u32)XPAR_PMC_RAM_0_BASEADDRESS + XPLM_HASH_BLOCK_OFFSET)
 
 /* Boot Header Base Address */
 #if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
@@ -359,7 +360,16 @@ extern "C" {
 #else
 	#define XPLM_BOOT_HEADER_OFFSET		(0x17C40U)
 #endif
-#define XPLM_BOOT_HEADER_START_ADDR	(XPAR_PMC_RAM_0_BASEADDRESS + XPLM_BOOT_HEADER_OFFSET)
+#define XPLM_BOOT_HEADER_START_ADDR	((u32)XPAR_PMC_RAM_0_BASEADDRESS + XPLM_BOOT_HEADER_OFFSET)
+
+/**
+ * Temporary buffer memory in PMC RAM
+ */
+#if defined(XPS_BOARD_SU10P) || defined(XPS_BOARD_SU25P) || defined(XPS_BOARD_SU35P)
+	#define XPLM_RAM_TMP_BUF_ADDR		(0x0402E000U)
+#else
+	#define XPLM_RAM_TMP_BUF_ADDR		(0x0403E000U)
+#endif
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
