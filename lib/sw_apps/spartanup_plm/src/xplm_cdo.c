@@ -16,7 +16,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
- * 1.01	 prt  02/20/25 Added support for SW-BP-MAGIC-NUM
+ * 1.01  prt  02/20/25 Added support for SW-BP-MAGIC-NUM
+ *       ng   02/22/25 Implement finish cdo read command processing
  * </pre>
  *
  ******************************************************************************/
@@ -33,6 +34,7 @@
 #include "xplm_debug.h"
 #include "xplm_error.h"
 #include "xplm_hw.h"
+#include "xplm_dma.h"
 
 /************************** Constant Definitions *****************************/
 /* This buffer is used to store commands which extend across 32K boundaries */
@@ -52,7 +54,14 @@
 #define XPLM_CDO_HEADER_IDENTIFICATION_INDEX		(1U) /**< This points to the index of Header Identification Word for Validation **/
 #define XPLM_CDO_OBJECT_VERSION_INDEX		(2U) /**< This points to the index of object version **/
 #define XPLM_CDO_LEN_IN_WORD_INDEX		(3U) /**< This points to the index of CDO Length in Word **/
+#define XPLM_LAST_CHUNK			(XPLM_ALLFS)
 /** @endcond */
+
+/**
+ * Maximum allowed length (in CDO object words) for the remaining CDO commands after detecting
+ * 'finish_cdo_read' CDO command.
+ */
+#define XPLM_FINISH_CDO_READ_REMAINING_CMD_MAX_LENGTH		(0x100U)
 
 /**************************** Type Definitions *******************************/
 
@@ -64,6 +73,33 @@
 static XPlm_Module *Modules[XPLM_MAX_MODULES];
 
 /*****************************************************************************/
+
+/*****************************************************************************/
+/**
+ * @brief	Retrieves a singleton instance of the @ref XPlm_FinishCdoRead_t structure.
+ *
+ * @return	A pointer to the globally available @ref XPlm_FinishCdoRead_t instance.
+ *
+ *****************************************************************************/
+XPlm_FinishCdoRead_t* XPlm_GetFinishCdoReadInstance(void)
+{
+	static XPlm_FinishCdoRead_t FinishCdoRead;
+	return &FinishCdoRead;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	Update the detection state of finish_cdo_read command in @ref XPlm_FinishCdoRead_t
+ * structure.
+ *
+ * @param	Flag is the indicator to update the finish_cdo_read detection state.
+ *
+ *****************************************************************************/
+void XPlm_UpdateFinishCdoDetectFlag(XPlm_FinishCdoReadDetected_t Flag)
+{
+	XPlm_FinishCdoRead_t* FinishCdoReadPtr = XPlm_GetFinishCdoReadInstance();
+	FinishCdoReadPtr->FinishCdoReadDetected = Flag;
+}
 
 /*****************************************************************************/
 /**
@@ -498,6 +534,10 @@ END:
  * @return
  * 		- XST_SUCCESS on success.
  * 		- XPLM_ERR_INVALID_BREAK_LENGTH on invalid break length provided in CDO.
+ * 		- XPLM_ERR_CDO_LENGTH_OVERFLOW if remaining CDO commands exceeds the limit after
+ * 		finish_cdo_read command.
+ * 		- XPLM_ERR_CDO_MOVE_FAILURE if failed to move the remaining CDO commands in the
+ * 		current chunk buffer to the start of the buffer.
  * 		- and errors from @ref XPlm_Status_t.
  *
  *****************************************************************************/
@@ -508,6 +548,7 @@ u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr)
 	u32 *BufPtr = CdoPtr->BufPtr;
 	u32 BufLen = CdoPtr->BufLen;
 	u32 RemainingLen;
+	XPlm_FinishCdoRead_t* FinishCdoReadPtr = XPlm_GetFinishCdoReadInstance();
 
 	/** - Verify the header for the first chunk of CDO */
 	if (CdoPtr->Cdo1stChunk == (u8)TRUE) {
@@ -610,6 +651,51 @@ u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr)
 		/* Update the parameters for next iteration */
 		BufPtr = &BufPtr[Size];
 		BufLen -= Size;
+
+		/**
+		 * - If 'finish_cdo_read' is detected in the current chunk buffer and another chunk
+		 * exists, copy the remaining CDO commands to the top of the current chunk buffer
+		 * and read the next chunk to retrieve the remaining commands. Ensure the total
+		 * length of the remaining commands does not exceed approximately 1KB. Otherwise,
+		 * throw an error if the remaining commands length exceeds the 1KB limit.
+		 */
+		if (FinishCdoReadPtr->FinishCdoReadDetected == XPLM_FINISH_CDO_READ_DETECTED)
+		{
+
+
+			/*
+			 * Calculate the remaining CDO commands length and throw
+			 * @ref XPLM_ERR_CDO_LENGTH_OVERFLOW if the length exceeds the
+			 * limit @ref XPLM_FINISH_CDO_READ_REMAINING_CMD_MAX_LENGTH
+			 */
+			if ((CdoPtr->CdoLen - CdoPtr->ProcessedCdoLen) > XPLM_FINISH_CDO_READ_REMAINING_CMD_MAX_LENGTH)
+			{
+				Status = (u32)XPLM_ERR_CDO_LENGTH_OVERFLOW;
+				goto END;
+			}
+
+			/* Skip copying the data if it's last chunk. */
+			if (FinishCdoReadPtr->IsLastChunk == XPLM_LAST_CHUNK)
+			{
+				continue;
+			}
+
+			/*
+			 * if the remaining CDO length is less than the limit, move the remaining
+			 * data to the top and update the next chunk address for reading the
+			 * remaining the data from the boot interface.
+			 */
+			Status = XPlm_DmaXfr((u32)BufPtr, CdoPtr->NextChunkAddr, BufLen, XPLM_ZERO);
+			if (Status != (u32)XST_SUCCESS)
+			{
+				Status = (u32)XPLM_ERR_CDO_MOVE_FAILURE;
+				goto END;
+			}
+			FinishCdoReadPtr->CdoChunkStartAddr = CdoPtr->NextChunkAddr;
+			FinishCdoReadPtr->MovedCdoLen = BufLen;
+			FinishCdoReadPtr->RemainingCdoLoadChunkAddr = CdoPtr->NextChunkAddr + (BufLen * XPLM_WORD_LEN);
+			break;
+		}
 	}
 
 	Status = XST_SUCCESS;

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
+ * 1.01  ng   02/22/25 Implement finish cdo read command processing
  * </pre>
  *
  ******************************************************************************/
@@ -139,12 +140,48 @@ typedef struct {
 	u32 PdiType;		/**< To indicate if the PDI is FULL or PARTIAL */
 } XPlmCdo;
 
+/**
+ * @brief Enum for indicating whether Finish CDO read is detected.
+ */
+typedef enum
+{
+	/** Flag to indicate that Finish CDO read is not detected. */
+	XPLM_FINISH_CDO_READ_NOT_DETECTED = 0x0U,
+
+	/** Flag to indicate that Finish CDO read is detected. */
+	XPLM_FINISH_CDO_READ_DETECTED = 0x1U
+} XPlm_FinishCdoReadDetected_t;
+
+/**
+ * @brief Structure for tracking Finish CDO read status and related data.
+ */
+typedef struct
+{
+	/** Starting address of the CDO chunk. */
+	u32 CdoChunkStartAddr;
+
+	/** Length of CDO command data moved from the current chunk to the top of the chunk buffer. */
+	u32 MovedCdoLen;
+
+	/** Address of the chunk buffer to read and store the remaining CDO data. */
+	u32 RemainingCdoLoadChunkAddr;
+
+	/** Flag indicating whether the current chunk is the last chunk. */
+	u32 IsLastChunk;
+
+	/** Flag indicating whether Finish CDO read is detected. */
+	XPlm_FinishCdoReadDetected_t FinishCdoReadDetected;
+} XPlm_FinishCdoRead_t;
+
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 u32 XPlm_InitCdo(XPlmCdo *CdoPtr);
 u32 XPlm_ProcessCdo(XPlmCdo *CdoPtr);
 void XPlm_ModuleRegister(XPlm_Module *Module);
+XPlm_FinishCdoRead_t* XPlm_GetFinishCdoReadInstance(void);
+void XPlm_UpdateFinishCdoDetectFlag(XPlm_FinishCdoReadDetected_t Flag);
 
 /************************** Variable Definitions *****************************/
 

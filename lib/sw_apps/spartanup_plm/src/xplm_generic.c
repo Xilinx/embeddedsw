@@ -18,6 +18,7 @@
  *       ng   09/17/24 Fixed mask poll flags
  * 1.01  ng   02/05/25 Poll until URAM clear busy flag is zero before starting DMA xfr to CCU
  *       ng   02/14/25 Add new register_read CDO command
+ *       ng   02/22/25 Add finish cdo read command
  * </pre>
  *
  ******************************************************************************/
@@ -901,6 +902,22 @@ END:
 }
 /** @endcond */
 
+/*****************************************************************************/
+/**
+ * @brief	This function provides detection of "finish_cdo_read" command.
+ *
+ * @param	Cmd is not used
+ *
+ * @return
+ * 		- XST_SUCCESS always.
+ *
+ *****************************************************************************/
+static u32 XPlm_FinishCdoRead(XPlm_Cmd *Cmd)
+{
+	(void)Cmd;
+	XPlm_UpdateFinishCdoDetectFlag(XPLM_FINISH_CDO_READ_DETECTED);
+	return XST_SUCCESS;
+}
 
 /*****************************************************************************/
 /**
@@ -959,6 +976,7 @@ void XPlm_GenericInit(void)
 		XPLM_MODULE_COMMAND(NULL),
 		XPLM_MODULE_COMMAND(NULL),
 		XPLM_MODULE_COMMAND(XPlm_RegisterRead),
+		XPLM_MODULE_COMMAND(XPlm_FinishCdoRead),
 	};
 
 	XPlm_Generic.Id = XPLM_MODULE_GENERIC_ID;

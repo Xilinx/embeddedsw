@@ -22,6 +22,7 @@
  *       prt  02/09/25 Always clear the secure memory area even for non-secure boot
  *       sk   02/14/25 Updated redundancy variable as volatile in XPlm_SecureClear
  *       ng   02/12/25 Fixed params order for perf time print
+ *       ng   02/22/25 Implement finish cdo read command processing
  * </pre>
  *
  ******************************************************************************/
@@ -63,8 +64,10 @@
 #define XPLM_PUFHD_AUX_CHASH_SIZE_WORDS		(XPLM_PUFHD_AUX_CHASH_SIZE / XPLM_WORD_LEN)
 #define XPLM_PUFHD_HASH_SET			(EFUSE_CONTROLS_HASH_PUF_OR_KEY_MASK)
 
+#define XPLM_CHUNK_BUF_CDO_OFFSET	(0x20U)
+
 /* Using chunk buffer as temporary buffer to store PUF HD for digest */
-#define XPLM_TEMP_PUF_HD_BUFF		(XPLM_SECURE_CHUNK_BUFFER_ADDR)
+#define XPLM_TEMP_PUF_HD_BUFF		((u32)XPLM_SECURE_CHUNK_BUFFER_ADDR)
 /** @endcond */
 
 /**************************** Type Definitions *******************************/
@@ -139,6 +142,7 @@ static u32 XPlm_ProcessBitstream(const XRomBootRom *InstancePtr, XRomSecureChunk
 {
 	u32 Status = (u32)XST_FAILURE;
 	XPlmCdo *CdoPtr = (XPlmCdo *)InstancePtr->FwData;
+	XPlm_FinishCdoRead_t* FinishCdoReadPtr = XPlm_GetFinishCdoReadInstance();
 
 	/* Save the stage information. */
 	XPlm_Stages prev_stage = (XPlm_Stages)(Xil_In32(PMC_GLOBAL_PMC_FW_STATUS) &
@@ -153,10 +157,31 @@ static u32 XPlm_ProcessBitstream(const XRomBootRom *InstancePtr, XRomSecureChunk
 	}
 
 	XPlm_DumpChunkDebugInfo(ChunkInstPtr);
+	FinishCdoReadPtr->IsLastChunk = ChunkInstPtr->IsLastChunk;
 
-	CdoPtr->BufPtr = (u32 *)ChunkInstPtr->DstAddr;
-	CdoPtr->BufLen = ChunkInstPtr->SecureDataLen / 4U;
-	CdoPtr->NextChunkAddr = XPLM_SECURE_CHUNK_BUFFER_ADDR + 0x20U;
+	/*
+	 * Update the buffer pointer and length based on whether 'finish_cdo_read' is detected
+	 * in the current chunk.
+	 *
+	 * If 'finish_cdo_read' is not detected, reset the buffer pointer to the top of the current
+	 * chunk buffer and set the buffer length to the current chunk size.
+	 *
+	 * If 'finish_cdo_read' is detected, update the buffer pointer to the starting address of
+	 * the CDO chunk and set the buffer length to the sum of the moved CDO commands and the
+	 * current chunk size. Then, clear the finish CDO detected flag.
+	 */
+	if (FinishCdoReadPtr->FinishCdoReadDetected == XPLM_FINISH_CDO_READ_NOT_DETECTED)
+	{
+		CdoPtr->BufPtr = (u32 *)ChunkInstPtr->DstAddr;
+		CdoPtr->BufLen = (ChunkInstPtr->SecureDataLen / XPLM_WORD_LEN) ;
+	}
+	else
+	{
+		CdoPtr->BufPtr = (u32 *)FinishCdoReadPtr->CdoChunkStartAddr;
+		CdoPtr->BufLen = FinishCdoReadPtr->MovedCdoLen + (ChunkInstPtr->SecureDataLen / XPLM_WORD_LEN);
+		XPlm_UpdateFinishCdoDetectFlag(XPLM_FINISH_CDO_READ_NOT_DETECTED);
+	}
+	CdoPtr->NextChunkAddr = XPLM_SECURE_CHUNK_BUFFER_ADDR + XPLM_CHUNK_BUF_CDO_OFFSET;
 
 	/** - Process CDO. */
 	Status = XPlm_ProcessCdo(CdoPtr);
@@ -172,7 +197,15 @@ static u32 XPlm_ProcessBitstream(const XRomBootRom *InstancePtr, XRomSecureChunk
 		}
 	}
 
-	ChunkInstPtr->DstAddr = CdoPtr->NextChunkAddr;
+	/* Update the buffer address to read the remaining CDO data. */
+	if (FinishCdoReadPtr->FinishCdoReadDetected == XPLM_FINISH_CDO_READ_NOT_DETECTED)
+	{
+		ChunkInstPtr->DstAddr = CdoPtr->NextChunkAddr;
+	}
+	else
+	{
+		ChunkInstPtr->DstAddr = FinishCdoReadPtr->RemainingCdoLoadChunkAddr;
+	}
 	ChunkInstPtr->ScratchPadBuf = (u8 *)ChunkInstPtr->DstAddr;
 	ChunkInstPtr->SecureDataLen = 0U;
 
