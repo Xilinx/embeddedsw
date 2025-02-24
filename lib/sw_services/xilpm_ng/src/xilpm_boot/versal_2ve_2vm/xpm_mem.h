@@ -34,6 +34,8 @@ extern "C" {
 	((XPM_NODEIDX_DEV_DDRMC_MAX_INT_1 - XPM_NODEIDX_DEV_DDRMC_MIN_INT_1 + 1) +\
 	 (XPM_NODEIDX_DEV_DDRMC_MAX_INT_2 - XPM_NODEIDX_DEV_DDRMC_MIN_INT_2 + 1))
 typedef struct XPm_MemCtrlrDevice XPm_MemCtrlrDevice;
+typedef struct XPm_MemRegnDevice XPm_MemRegnDevice;
+typedef struct XPm_AddrRegion XPm_AddrRegion;
 typedef struct XPm_MemDevice XPm_MemDevice;
 /* Generic memory device with associated memory address */
 struct XPm_MemDevice {
@@ -44,6 +46,11 @@ struct XPm_MemDevice {
 struct XPm_AddrRegion {
 	u64 Address;
 	u64 Size;
+};
+/* DDR Memory regions device */
+struct XPm_MemRegnDevice {
+    XPm_Device Device;	/**< Device: Base class */
+	XPm_AddrRegion AddrRegion;	/**< Memory regions */
 };
 
 /* DDR Memory controller device */
@@ -62,6 +69,7 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		u32 BaseAddress,
 		XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset,
 		u32 MemStartAddress, u32 MemEndAddress);
+XStatus XPm_AddMemRegnDevice(u32 DeviceId, u64 Address, u64 Size);
 #ifdef __cplusplus
 }
 #endif
