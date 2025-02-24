@@ -928,6 +928,56 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Add mem-range device to internal data-structure map
+ *
+ * @param  Args		CDO command arguments
+ * @param  NumArgs	Total number of arguments
+ *
+ * @return Status of the operation.
+ *
+ ****************************************************************************/
+static XStatus AddMemRegnDevice(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 DeviceId;
+	u32 Type;
+	u32 Index;
+	u64 Address;
+	u64 size;
+
+	if (5U != NumArgs) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	DeviceId = Args[0];
+	Type = NODETYPE(DeviceId);
+	Index = NODEINDEX(DeviceId);
+
+	Address = ((u64)Args[1]) | (((u64)Args[2]) << 32);
+	size = ((u64)Args[3]) | (((u64)Args[4]) << 32);
+
+	if ((u32)XPM_NODEIDX_DEV_MEM_REGN_MAX < Index) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	if (NULL != XPmDevice_GetById(DeviceId)) {
+		Status = XST_DEVICE_BUSY;
+		goto done;
+	}
+
+	if ((u32)XPM_NODETYPE_DEV_MEM_REGN == Type) {
+		Status = XPm_AddMemRegnDevice(DeviceId, Address, size);
+	} else {
+		Status = XST_INVALID_PARAM;
+	}
+
+done:
+	return Status;
+}
 
 /****************************************************************************/
 /**
@@ -1089,8 +1139,7 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 		Status = AddMemCtrlrDevice(Args, PowerId);
 		break;
 	case (u32)XPM_NODESUBCL_DEV_MEM_REGN:
-		/* TODO: Memory region node support is yet to be added */
-		Status = XST_SUCCESS;
+		Status = AddMemRegnDevice(Args, NumArgs);
 		break;
 	case (u32)XPM_NODESUBCL_DEV_AIE:
 	/* PowerId is not passed by topology */
