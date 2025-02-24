@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -62,6 +62,14 @@ extern "C" {
 #else
 #define XASUFW_IPI_DEVICE_ID    XPAR_XIPIPSU_0_BASEADDR /**< ASUFW IPI device Id for SDT flow */
 #endif
+
+#define XASUFW_PLM_IPI_HDR_LEN_SHIFT		(16U)	/**< Shift value of IPI message length */
+#define XASUFW_PLM_IPI_HDR_MODULE_ID_SHIFT	(8U)	/**< Shift value of IPI Module ID */
+
+#define XASUFW_PLM_IPI_HEADER(Length, ApiId, ModuleId)	\
+		(((u32)(Length) << XASUFW_PLM_IPI_HDR_LEN_SHIFT) | \
+		((u32)(ModuleId) << XASUFW_PLM_IPI_HDR_MODULE_ID_SHIFT) | ((u32)(ApiId)))
+		/**< Header for PLM IPI commands */
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_IpiInit(void);

@@ -27,6 +27,7 @@
  *                     the end.
  *       vns  02/06/25 Removed XAsufw_ChangeEndiannessAndCpy() function which is not in use
  *       vns  02/12/25 Removed XAsufw_RCMW() API
+ *       vns  02/21/25 Added XAsufw_NvmEfuseWriteOffChipRevokeId() API
  *
  * </pre>
  *
@@ -38,8 +39,19 @@
 /*************************************** Include Files *******************************************/
 #include "xasufw_util.h"
 #include "xasufw_status.h"
+#include "xasufw_ipi.h"
 
 /************************************ Constant Definitions ***************************************/
+#define XASUFW_PLM_XILNVM_MODULE_ID			(11U) /**< XilNVM Module ID*/
+#define XASUFW_PLM_XILNVM_WRITE_OFFCHIP_REVOKE_API_ID	(16U) /**< XilNVM Write off chip
+								*  revoke API ID */
+#define XASUFW_PLM_XILNVM_MAX_PAYLOAD_LEN		(3U) /**< Maximum payload len */
+#define XASUFW_PLM_XILNVM_RESP_LEN			(1U) /**< Response buffer length */
+#define XASUFW_PLM_XILNVM_CMD_HDR_INDEX			(0U) /**< Payload index of header */
+#define XASUFW_PLM_XILNVM_ENVCTRL_INDEX			(1U) /**< Payload index of environment
+								* control */
+#define XASUFW_PLM_XILNVM_OFFCHID_INDEX			(2U) /**< Payload index of off chip ID */
+#define XASUFW_PLM_XILNVM_ENV_MON_CHECK			(0U) /**< Perform environment checks */
 
 /************************************** Type Definitions *****************************************/
 
@@ -170,6 +182,48 @@ s32 XAsufw_IsBufferNonZero(u8 *Buffer, u32 Length)
 		}
 	}
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends IPI request to PLM for programming the requested off chip
+ * Revocation Id eFuses.
+ *
+ * @param	OffChipRevokeIdNum	Off Chip Revocation ID number which needs to be programmed
+ *
+ * @return
+ *	-	XASUFW_SUCCESS, if efuse off chip revoke ID is programmed.
+ *	-	XASUFW_ERR_IPI_SEND_PLM_EFUSE_PRGM, if the IPI request sending to PLM fails.
+ *	-	XASUFW_ERR_IPI_RSP_PLM_EFUSE_PRGM, if the IPI response fails.
+ *
+ *************************************************************************************************/
+s32 XAsufw_NvmEfuseWriteOffChipRevokeId(const u32 OffChipRevokeIdNum)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 Payload[XASUFW_PLM_XILNVM_MAX_PAYLOAD_LEN];
+	u32 Response = (u32)XASUFW_FAILURE;
+
+	/** Fill the payload with command header and Off chip revocation ID to be programmed */
+	Payload[XASUFW_PLM_XILNVM_CMD_HDR_INDEX] = XASUFW_PLM_IPI_HEADER(0U,
+					XASUFW_PLM_XILNVM_WRITE_OFFCHIP_REVOKE_API_ID,
+					XASUFW_PLM_XILNVM_MODULE_ID);
+	Payload[XASUFW_PLM_XILNVM_ENVCTRL_INDEX] = XASUFW_PLM_XILNVM_ENV_MON_CHECK;
+	Payload[XASUFW_PLM_XILNVM_OFFCHID_INDEX] = OffChipRevokeIdNum;
+
+	/** Send an IPI request to PLM to write efuse off chip revoke ID */
+	Status = XAsufw_SendIpiToPlm(Payload, XASUFW_PLM_XILNVM_MAX_PAYLOAD_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(XASUFW_ERR_IPI_SEND_PLM_EFUSE_PRGM, Status);
+		goto END;
+	}
+
+	/** Read IPI response */
+	Status = XAsufw_ReadIpiRespFromPlm(&Response, XASUFW_PLM_XILNVM_RESP_LEN);
+	if ((Status != XASUFW_SUCCESS) || (Response != (u32)XASUFW_SUCCESS)) {
+		Status = XAsufw_UpdateErrorStatus(XASUFW_ERR_IPI_RSP_PLM_EFUSE_PRGM, Status);
+	}
+END:
 	return Status;
 }
 /** @} */

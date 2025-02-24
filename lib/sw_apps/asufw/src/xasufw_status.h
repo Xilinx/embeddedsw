@@ -105,6 +105,8 @@ enum {
 						invalid */
 	XASUFW_ERR_EXCEPTION, /**< 0x1DU - Processor exception received */
 
+	XASUFW_ERR_IPI_SEND_PLM_EFUSE_PRGM, /**< 0x1E - Failed while sending IPI for efuse write */
+        XASUFW_ERR_IPI_RSP_PLM_EFUSE_PRGM, /**< 0x1F - IPI response failure to program efuse */
 	/**< Termination code errors 0x21U to 0x2CU are reserved for errors returning from core */
 	XASUFW_ECC_INVALID_PARAM = 0x2DU, /**< 0x2DU - Invalid parameters to ECC APIs*/
 	XASUFW_ECC_INIT_NOT_DONE, /**< 0x2EU - ECC is not initialized */
