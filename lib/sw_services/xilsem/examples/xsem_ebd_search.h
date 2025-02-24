@@ -1,5 +1,6 @@
 /******************************************************************************
 * (c) Copyright 2022 Xilinx, Inc.  All rights reserved.
+* (c) Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -13,6 +14,8 @@
 * Ver	Who  Date         Changes
 * ----  ---  ----------   --------------------------------------------------
 * 0.1   hv   05/17/2022   Initial creation
+* 0.2   anv  02/24/2025   Updated XSem_EbdLookUp function arguments
+*                         to make it useful for both mono and ssit.
 * </pre>
 *
 */
@@ -42,5 +45,5 @@
 
 /***************************** Function prototypes ***************************/
 u32 XSem_EbdLookUp(u8 BtIndex, u8 RowIndex,\
-		u32 FAddr, u32 QwordIndex, u32 BitIndex);
+		u32 FAddr, u32 QwordIndex, u32 BitIndex, volatile int *XSem_EbdBuffer);
 #endif
