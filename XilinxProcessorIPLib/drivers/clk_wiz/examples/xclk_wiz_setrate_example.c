@@ -19,6 +19,7 @@
 * 1.4 sd  5/21/20 Initial version for Clock Wizard Example
 * 1.6 sd 7/7/23   Add SDT support.
 * 1.8 sd 9/5/24   Add GetRate and multi clock support.
+* 1.10 sd 12/2/24 Remove an un-needed register write.
 * </pre>
 *
 ******************************************************************************/
@@ -59,9 +60,9 @@
 /************************** Function Prototypes ******************************/
 
 #ifndef SDT
-u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, u32 DeviceId);
+u32 ClkWiz_Example(u32 DeviceId);
 #else
-u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, UINTPTR BaseAddress);
+u32 ClkWiz_Example(UINTPTR BaseAddress);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -93,9 +94,9 @@ int main()
 	xil_printf("-------------------------------------------\n\r\n\r");
 
 #ifndef SDT
-	Status = ClkWiz_Example(&ClkWiz_Dynamic, XCLK_WIZARD_DEVICE_ID);
+	Status = ClkWiz_Example(XCLK_WIZARD_DEVICE_ID);
 #else
-	Status = ClkWiz_Example(&ClkWiz_Dynamic, XPAR_CLK_WIZ_0_BASEADDR);
+	Status = ClkWiz_Example(XPAR_CLK_WIZ_0_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("CLK_WIZARD example Failed");
@@ -123,9 +124,9 @@ int main()
 *
 ******************************************************************************/
 #ifndef SDT
-u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, u32 DeviceId)
+u32 ClkWiz_Example(u32 DeviceId)
 #else
-u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, UINTPTR BaseAddress)
+u32 ClkWiz_Example(UINTPTR BaseAddress)
 #endif
 {
 	XClk_Wiz_Config *CfgPtr_Dynamic;
@@ -159,7 +160,6 @@ u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, UINTPTR BaseAddress)
 	xil_printf("\nCurrent Rate %ld MHz\t \n",  Rate);
 	/* Calling Clock wizard dynamic reconfig */
 
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
 	if (CfgPtr_Dynamic->NumClocks == 1) {
 		XClk_Wiz_SetRateHz(&ClkWiz_Dynamic, 200000000);
 	} else {
