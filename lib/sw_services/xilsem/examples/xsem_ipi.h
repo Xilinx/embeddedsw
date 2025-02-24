@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -16,6 +16,7 @@
 * 0.2   ga   05/19/2023   Fixed IPI instance for versal net
 * 0.3  rama  08/03/2023   Added support for system device-tree flow
 * 0.4  gam   08/07/2023   Corrected XSEM_SSIT_MAX_SLR_CNT macro definition
+* 0.5  anv   02/18/2025   Fixed IPI instance for versal_aiepg2
 *
 * </pre>
 *
@@ -34,14 +35,16 @@ extern "C" {
 #include <xipipsu.h>
 #include "xsem_gic_setup.h"
 
-#ifdef VERSAL_NET
-#define SRC_IPI_MASK	(XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK)
+#if defined(VERSAL_NET) && !defined(VERSAL_AIEPG2)
+	#define SRC_IPI_MASK	(XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK)
+#elif defined(VERSAL_AIEPG2) && defined(VERSAL_NET)
+	#define SRC_IPI_MASK	(XPAR_XIPIPS_TARGET_PMC_0_CH0_MASK)
 #else
-#define SRC_IPI_MASK	(XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK)
+	#define SRC_IPI_MASK	(XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK)
 #endif
 
 #ifdef SDT
-	#define XSEM_SSIT_MAX_SLR_CNT	NUMBER_OF_SLRS
+    #define XSEM_SSIT_MAX_SLR_CNT	NUMBER_OF_SLRS
 #endif
 
 typedef void (*IpiCallback)(XIpiPsu *const InstancePtr);

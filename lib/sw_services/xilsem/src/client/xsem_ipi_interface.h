@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* (c) Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -29,6 +29,8 @@
 * 1.0	hv   07/24/2022   Removed unused macro XSem_DataMaskShift
 * 1.1   ga   05/16/2023   Updated copyright information and
 *                         fixed IPI instance for versal net
+* 1.2   anv  02/18/2025   fixed IPI instance for versal_aiepg2
+*
 * </pre>
 * @note
 * @endcond
@@ -59,10 +61,12 @@ extern "C" {
 #define XSem_Dbg(MSG, ...)	{}
 #endif
 
-#ifdef VERSAL_NET
-#define TARGET_IPI_INT_MASK	(XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK)
+#if defined(VERSAL_NET) && !defined(VERSAL_AIEPG2)
+	#define TARGET_IPI_INT_MASK	(XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK)
+#elif defined(VERSAL_AIEPG2) && defined(VERSAL_NET)
+	#define TARGET_IPI_INT_MASK	(XPAR_XIPIPS_TARGET_PMC_0_CH0_MASK)
 #else
-#define TARGET_IPI_INT_MASK	(XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK)
+	#define TARGET_IPI_INT_MASK	(XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK)
 #endif
 
 /* 1 for API ID + 4 for API arguments + 3 for Reserved */
