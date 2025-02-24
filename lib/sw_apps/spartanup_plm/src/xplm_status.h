@@ -17,7 +17,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
  * 1.01  ng   02/05/25 Added error code for URAM clear busy
- *       ng   02/14/25 Add new register_read CDO command
+ *       ng   02/14/25 Add error codes for new register_read CDO command
+ *       ng   02/22/25 Add error codes for finish cdo read command
  * </pre>
  *
  ******************************************************************************/
@@ -334,6 +335,19 @@ typedef enum {
 
 	/** 0x956 - Error if URAM clear not finished. */
 	XPLM_ERR_URAM_CLR_BUSY_TIMEOUT,
+
+	/**
+	 * 0x957 - Error if the length of the remaining CDO commands exceeds the expected limit
+	 * ( @ref XPLM_FINISH_CDO_READ_REMAINING_CMD_MAX_LENGTH ) after detecting the
+	 * 'finish_cdo_read' CDO command.
+	 */
+	XPLM_ERR_CDO_LENGTH_OVERFLOW,
+
+	/**
+	 * 0x958 - Error if moving the remaining CDO commands to the top of the chunk buffer fails
+	 * after detecting the 'finish_cdo_read' CDO command.
+	 */
+	XPLM_ERR_CDO_MOVE_FAILURE,
 
 	/* CDO command errors are in range from 0xC00 to 0xCFF. */
 	/** 0xC00 - feature cmd - Error if the CMD ID is not supported. */
