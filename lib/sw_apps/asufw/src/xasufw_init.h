@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -53,10 +53,6 @@ typedef struct {
 #else
 #define XASUFW_IOMODULE_DEVICE_ID    XPAR_XIOMODULE_0_BASEADDR
 #endif
-
-#define XASUFW_PLM_IPI_HEADER(Length, ApiId, ModuleId)	(((u32)Length << 16U) | \
-							((u32)ModuleId << 8U) | ((u32)ApiId))
-							/**< Header for PLM IPI commands */
 
 #define XASUFW_KEY_TX_PLM_API_ID	(36U) /**< PLM key transfer API Id */
 
