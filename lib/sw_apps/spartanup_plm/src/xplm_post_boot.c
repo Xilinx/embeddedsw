@@ -79,7 +79,7 @@ void XPlm_SbiLoadPdi(void *Data)
 	XPlm_UtilRMW(SLAVE_BOOT_SBI_IRQ_DISABLE, SLAVE_BOOT_SBI_IRQ_DISABLE_DATA_RDY_MASK,
 		     SLAVE_BOOT_SBI_IRQ_DISABLE_DATA_RDY_MASK);
 
-	/** - Set run time event to trigger the partial PDI laoding. */
+	/** - Set run time event to trigger the partial PDI loading. */
 	XPlm_SetRunTimeEvent(XPLM_RUN_TIME_PARTIAL_PDI_EVENT);
 }
 

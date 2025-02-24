@@ -19,6 +19,7 @@
  *       ng   09/18/24 Fixed multiboot offset check
  *       sk   02/04/25 Updated BootModeVal variable as volatile
  *       ng   02/11/25 Add Secure lockdown and tamper response support
+ *       ng   02/22/25 Removed the print during error logging
  * </pre>
  *
  ******************************************************************************/
@@ -169,8 +170,6 @@ void XPlm_LogPlmErr(u32 ErrStatus)
 	} else {
 		XPlm_UtilRMW(PMC_GLOBAL_PMC_BOOT_ERR, XPLM_PMC_FW_ERR_LAST_ERR_MASK, ErrStatus);
 	}
-	/** - Print PLM Error. */
-	XPlm_Printf(DEBUG_PRINT_ALWAYS, "PLM Error Status: 0x%03x\n\r", ErrStatus);
 }
 
 /*****************************************************************************/
