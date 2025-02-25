@@ -57,4 +57,10 @@ examples:
 
     xi3c_daa_example.c:
         - reg
+
+    xi3c_slave_intr_example.c:
+        - interrupts
+
+    xi3c_slave_polled_example.c:
+        - reg
 ...
