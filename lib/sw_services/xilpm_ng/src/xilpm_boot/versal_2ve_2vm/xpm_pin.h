@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,7 +51,8 @@ struct XPm_PinNode {
 
 /************************** Function Prototypes ******************************/
 XStatus XPmPin_Init(XPm_PinNode *Pin, u32 PinId, u32 BaseAddress);
-
+XPm_PinNode *XPmPin_GetById(u32 PinId);
+XPm_PinNode *XPmPin_GetByIndex(const u32 PinIndex);
 #ifdef __cplusplus
 }
 #endif

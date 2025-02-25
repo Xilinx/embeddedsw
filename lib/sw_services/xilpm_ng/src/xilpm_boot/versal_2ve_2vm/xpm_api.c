@@ -206,7 +206,8 @@ XStatus __attribute__((weak)) XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 
 	(void)Type;
 	(void)SubType;
 	(void)CmdType;
-	PmWarn("Ignodeing CMD: PM_SYSTEM_SHUTDOWN, not implemented in this libary.\n\r");
+	PmWarn("Ignoring CMD: PM_SYSTEM_SHUTDOWN. SubsystemId=0x%x, Type=0x%x, SubType=0x%x\n\r",
+		SubsystemId, Type, SubType);
 	return XST_SUCCESS;
 }
 
@@ -395,7 +396,7 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 
 		/* Assert NOC POR, NPI Reset, Sys Resets */
 		PmRmw32(CRP_RST_NONPS, NoCResetsMask, NoCResetsMask);
-		/* Reenable all domain isolation in PMC_GLOBAL*/
+		/* Re-enable all domain isolation in PMC_GLOBAL*/
 		PmOut32(PMC_GLOBAL_DOMAIN_ISO_CNTRL, DefaultDomainIsoMask);
 	}
 	/*
@@ -2300,7 +2301,7 @@ static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs)
 done:
 	return Status;
 }
-XStatus XPm_HookAfterBootPdi(void)
+XStatus __attribute__((weak)) XPm_HookAfterBootPdi(void)
 {
 	/* TODO: Review where interrupts need to be enabled */
 	/* Enable power related interrupts to PMC */

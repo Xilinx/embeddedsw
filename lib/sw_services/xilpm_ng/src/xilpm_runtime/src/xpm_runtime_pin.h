@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,8 +41,8 @@ struct XPmRuntime_PinOps {
 	u16 *Groups; /**< Array of group identifier supported by this pin */
 };
 /************************** Function Prototypes ******************************/
-XPm_PinNode *XPmPin_GetById(u32 PinId);
 
+XStatus XPmPin_RuntimeOps_Init(XPm_PinNode* Pin);
 XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId);
 XStatus XPmPin_GetPinFunction(u32 PinId, u32 *FuncId);
 XStatus XPmPin_SetPinConfig(u32 PinId, u32 Param, u32 ParamValue);
@@ -53,7 +53,6 @@ XStatus XPmPin_CheckPerms(const u32 SubsystemId, const u32 PinId);
 XStatus XPmPin_Release(const u32 SubsystemId, const u32 PinId);
 XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId);
 XStatus XPmPin_QueryAttributes(const u32 PinIndex, u32 *Resp);
-XPm_PinNode *XPmPin_GetByIndex(const u32 PinIndex);
 XPm_PinGroup *XPmPin_GetGroupByIdx(const u32 PinIndex);
 
 #ifdef __cplusplus
