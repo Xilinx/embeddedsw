@@ -125,7 +125,7 @@ static XStatus Aie2ps_Zeroization(const XPm_Device *AieDev, u32 StartCol, u32 En
 	XStatus CoreZeroStatus = XST_FAILURE;
 	XStatus MemZeroStatus = XST_FAILURE;
 	XStatus MemTileZeroStatus = XST_FAILURE;
-	const XPm_AieDomain *AieDomain = (XPm_AieDomain *)XPmPower_GetById(AieDev->Node.Id);
+	const XPm_AieDomain *AieDomain = (XPm_AieDomain *)XPmPower_GetById(PM_POWER_ME2);
 	const u64 NocAddress = AieDomain->Array.NocAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RowStart = AieDomain->Array.StartRow;
