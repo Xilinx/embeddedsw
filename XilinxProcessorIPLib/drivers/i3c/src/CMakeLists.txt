@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 project(i3c)
@@ -11,6 +11,7 @@ collect (PROJECT_LIB_SOURCES xi3c_g.c)
 collect (PROJECT_LIB_SOURCES xi3c.c)
 collect (PROJECT_LIB_HEADERS xi3c.h)
 collect (PROJECT_LIB_SOURCES xi3c_master.c)
+collect (PROJECT_LIB_SOURCES xi3c_slave.c)
 collect (PROJECT_LIB_HEADERS xi3c_hw.h)
 collect (PROJECT_LIB_SOURCES xi3c_sinit.c)
 collect (PROJECT_LIB_SOURCES xi3c_options.c)

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,6 +64,7 @@
 * 1.00  gm  02/09/24 First release
 * 1.1   gm  10/07/24 Added XI3c_GetRevisionNumber() for reading revision
 * 		      number.
+* 1.2   gm  02/18/24 Added slave mode support
 * </pre>
 *
 ******************************************************************************/
@@ -93,6 +94,7 @@ extern "C" {
 #define XI3C_BROADCAST_ADDRESS		0x7E
 #define WORD_TO_BYTE			4
 #define XI3C_CEIL_DIV(x, y)		(((x) + (y) - 1) / (y))
+#define XI3C_CCC_BRDCAST_MAX_VAL	0x7F
 
 /* Broadcast commands */
 #define XI3C_CCC_BRDCAST_ENEC		0x0
@@ -106,14 +108,9 @@ extern "C" {
 #define XI3C_CCC_BRDCAST_DEFTGTS	0x8
 #define XI3C_CCC_BRDCAST_SETMWL		0x9
 #define XI3C_CCC_BRDCAST_SETMRL		0xa
-#define XI3C_CCC_BRDCAST_ENTTM		0xb
-#define XI3C_CCC_BRDCAST_SETBUSCON	0xc
-
-#define XI3C_CCC_BRDCAST_ENDXFER	0x12
-
+#define XI3C_CCC_BRDCAST_RSTACT		0x2a
+#define XI3C_CCC_BRDCAST_RSTGRPA	0x2c
 #define XI3C_CCC_BRDCAST_SETAASA	0x29
-
-#define XI3C_CCC_BRDCAST_DEVCTRL	0x62
 
 /* Unicast commands */
 #define XI3C_CCC_ENEC			0x80
@@ -132,6 +129,11 @@ extern "C" {
 #define XI3C_CCC_GETBCR			0x8e
 #define XI3C_CCC_GETDCR			0x8f
 #define XI3C_CCC_GETSTATUS		0x90
+#define XI3C_CCC_GETMXDS		0x94
+#define XI3C_CCC_GETCAPS		0x95
+#define XI3C_CCC_RSTACT			0x9a
+#define XI3C_CCC_SETGRPA		0x9b
+#define XI3C_CCC_RSTGRPA		0x9c
 
 /*****************************************************************************/
 /**
@@ -148,6 +150,22 @@ extern "C" {
 #define XI3c_BusIsBusy(BaseAddress)					     \
 	(XI3c_ReadReg((BaseAddress), XI3C_SR_OFFSET) & XI3C_SR_BUS_BUSY_MASK)
 
+/*****************************************************************************/
+/**
+* Gets the dynamic address of the I3C.
+*
+* @param        InstancePtr is a pointer to the XI3c instance.
+*
+* @return       None.
+*
+* @note         The address returned includes parity.
+* 		C-style signature:
+*               u8 XI3c_GetDynaAddr(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_GetDynaAddr(InstancePtr)				     \
+	(XI3c_ReadReg((InstancePtr->Config.BaseAddress), XI3C_ADDRESS_OFFSET)\
+	 & XI3C_8BITS_MASK)
 /*
  * Clock configurations
  */
@@ -518,6 +536,178 @@ extern "C" {
 		       XI3C_VERSION_OFFSET)) & XI3C_CORE_REVISION_NUM_MASK)	\
 		       >> XI3C_CORE_REVISION_NUM_SHIFT)
 
+/*****************************************************************************/
+/**
+*
+* @brief
+* Gets Response data of I3C.
+*
+* @param        InstancePtr is a pointer to the XI3c instance.
+*
+* @return       Response value.
+*
+* @note         C-style signature:
+* 		u32 XI3c_GetResponseData(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_GetResponseData(InstancePtr)					\
+	XI3c_ReadReg(InstancePtr->Config.BaseAddress,				\
+		     XI3C_RESP_STATUS_FIFO_OFFSET)
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Gets error status from response of I3C.
+*
+* @param        InstancePtr is a pointer to the XI3c instance.
+*
+* @return       0 		if no error.
+* 		error code	if any error.
+*
+* @note         C-style signature:
+*		u32 XI3c_GetErrorStatus(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_GetErrorStatus(InstancePtr)					\
+	(((XI3c_GetResponseData(InstancePtr)) & XI3C_RESP_CODE_MASK)		\
+				>> XI3C_RESP_CODE_SHIFT)
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Check the dynamic address assignment status of I3C in slave mode.
+*
+* @param        InstancePtr is a pointer to the XI3c instance.
+*
+* @return       1	if address assigned.
+* 		0	if address not assigned.
+*
+* @note         C-style signature:
+*		u32 XI3c_IsDyncAddrAssigned(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_IsDyncAddrAssigned(InstancePtr)					\
+	((XI3c_ReadReg(InstancePtr->Config.BaseAddress,				\
+		       XI3C_SR_OFFSET)) & XI3C_SR_SLV_DYNC_ADDR_DONE_MASK)
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Check the response status of I3C.
+*
+* @param        InstancePtr is a pointer to the XI3c instance.
+*
+* @return       1	if response available.
+* 		0	if response not available.
+*
+* @note         C-style signature:
+*		u32 XI3c_IsRespAvailable(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_IsRespAvailable(InstancePtr)					\
+	((XI3c_ReadReg(InstancePtr->Config.BaseAddress,				\
+		       XI3C_SR_OFFSET)) & XI3C_SR_RESP_NOT_EMPTY_MASK)
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Sets device status of I3C.
+*
+* @param        InstancePtr is a pointer to the XI3c instance.
+* @param        Format1 value of Device status.
+* @param        Format2 value of Device status.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*		void XI3c_SetDeviceStatus(XI3c *InstancePtr, u16 Format1,
+*					  u16 Format2)
+*
+******************************************************************************/
+#define XI3c_SetDeviceStatus(InstancePtr, Format1, Format2)		\
+	XI3c_WriteReg(InstancePtr->Config.BaseAddress,			\
+		      XI3C_GETSTATUS,					\
+		      ((Format1 & XI3C_16BITS_MASK) |			\
+			((Format2 & XI3C_16BITS_MASK) <<		\
+			 XI3C_GETSTATUS_FORMAT2_SHIFT)))
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Sets device Max data speed.
+*
+* @param        InstancePtr is a pointer to the XI3c instance.
+* @param        Format1 value of Device status.
+* @param        Format3 value of Device status.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*		void XI3c_SetMaxDataSpeed(XI3c *InstancePtr, u16 Format1,
+*					  u8 Format3)
+*
+******************************************************************************/
+#define XI3c_SetMaxDataSpeed(InstancePtr, Format1, Format3)		\
+	XI3c_WriteReg(InstancePtr->Config.BaseAddress,			\
+		      XI3C_GETMXDS,					\
+		      ((Format1 & XI3C_16BITS_MASK) |			\
+			((Format3 & XI3C_8BITS_MASK) <<			\
+			 XI3C_GETMXDS_FORMAT3_DATA_SHIFT)))
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Sets device capabilities format1.
+*
+* @param        InstancePtr is a pointer to the XI3c instance.
+* @param        Caps1 of target device.
+* @param        Caps2 of target device.
+* @param        Caps3 of target device.
+* @param        Caps4 of target device.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*		void XI3c_SetCapsFormat1(XI3c *InstancePtr, u8 Cap1,
+*					  u8 Cap2, u8 Cap3, u8 Cap4)
+*
+******************************************************************************/
+#define XI3c_SetCapsFormat1(InstancePtr, Cap1, Cap2, Cap3, Cap4)	\
+	XI3c_WriteReg(InstancePtr->Config.BaseAddress,			\
+		      XI3C_GETCAPS_REG0,				\
+		      (((Caps4 & XI3C_8BITS_MASK) << XI3C_CAPS4_SHIFT) |\
+		      ((Caps3 & XI3C_8BITS_MASK) << XI3C_CAPS3_SHIFT) |	\
+		      ((Caps2 & XI3C_8BITS_MASK) << XI3C_CAPS2_SHIFT) |	\
+		       (Caps1 & XI3C_8BITS_MASK)))
+
+/*****************************************************************************/
+/**
+*
+* @brief
+* Sets device capabilities format2.
+*
+* @param        InstancePtr is a pointer to the XI3c instance.
+* @param        Caps1 of target device.
+* @param        Caps2 of target device.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*		void XI3c_SetCapsFormat2(XI3c *InstancePtr, u8 Cap1, u8 Cap2)
+*
+******************************************************************************/
+#define XI3c_SetCapsFormat2(InstancePtr, Cap1, Cap2)			\
+	XI3c_WriteReg(InstancePtr->Config.BaseAddress,			\
+		      XI3C_GETCAPS_REG1,				\
+		      (((Caps2 & XI3C_8BITS_MASK) << XI3C_CAPS2_SHIFT) |\
+		       (Caps1 & XI3C_8BITS_MASK)))
+
 /**************************** Type Definitions *******************************/
 
 /**
@@ -555,6 +745,7 @@ typedef struct {
 	u8 DeviceCount;		/**< Number of devices connected */
 	u8 IbiCapable;		/**< IBI Capability */
 	u8 HjCapable;		/**< Hot Join Capability */
+	u8 DeviceRole;		/**< Device role */
 } XI3c_Config;
 
 typedef struct {
@@ -594,6 +785,7 @@ typedef struct {
 	u8 CurDeviceCount;		/**< Current number of devices on the bus */
 	XI3c_IntrHandler StatusHandler;	/**< Event handler function */
 	XI3c_SlaveInfo XI3c_SlaveInfoTable[XI3C_MAXDAACOUNT]; /**< Slave info table */
+	u8 DirectCCC;		/**< Direct CCC */
 } XI3c;
 
 /************************** Variable Definitions *****************************/
@@ -641,6 +833,11 @@ s32 XI3c_MasterRecvPolled(XI3c *InstancePtr, XI3c_Cmd *Cmd, u8 *MsgPtr, u16 Byte
 void XI3c_MasterInterruptHandler(XI3c *InstancePtr);
 s32 XI3c_IbiRecv(XI3c *InstancePtr, u8 *MsgPtr);
 s32 XI3c_IbiRecvPolled(XI3c *InstancePtr, u8 *MsgPtr);
+s32 XI3c_SlaveSend(XI3c *InstancePtr, u8 *MsgPtr, u16 ByteCount);
+s32 XI3c_SlaveRecv(XI3c *InstancePtr, u8 *MsgPtr);
+s32 XI3c_SlaveSendPolled(XI3c *InstancePtr, u8 *MsgPtr, u16 ByteCount);
+s32 XI3c_SlaveRecvPolled(XI3c *InstancePtr, u8 *MsgPtr);
+void XI3c_SlaveInterruptHandler(XI3c *InstancePtr);
 
 /************************** Inline Function Definitions **********************/
 /*****************************************************************************/
