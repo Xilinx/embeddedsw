@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,41 +8,7 @@
 #include "xpm_subsystem.h"
 #include "xpm_runtime_pin.h"
 
-static XPm_PinNode *PmMioPins[XPM_NODEIDX_STMIC_MAX];
 static u16 PmNumPins;
-
-/****************************************************************************/
-/**
- * @brief  This function returns instance to XPm_PinNode based on PinId.
- *
- * @param PinId		PinNode ID.
- *
- * @return Instance of XPm_PinNode if successful else NULL.
- *
- ****************************************************************************/
-XPm_PinNode *XPmPin_GetById(u32 PinId)
-{
-	XPm_PinNode *PinNode = NULL;
-	u32 PinIndex = NODEINDEX(PinId);
-
-	if ((u32)XPM_NODECLASS_STMIC != NODECLASS(PinId)) {
-		goto done;
-	} else if ((u32)XPM_NODESUBCL_PIN != NODESUBCLASS(PinId)) {
-		goto done;
-	} else if (((u32)XPM_NODETYPE_LPD_MIO != NODETYPE(PinId)) &&
-		   ((u32)XPM_NODETYPE_PMC_MIO != NODETYPE(PinId))) {
-		goto done;
-	} else if (PinIndex >= (u32)XPM_NODEIDX_STMIC_MAX) {
-		goto done;
-	} else {
-		/* Required by MISRA */
-	}
-
-	PinNode =  PmMioPins[PinIndex];
-
-done:
-	return PinNode;
-}
 
 /****************************************************************************/
 /**
@@ -59,25 +25,7 @@ XStatus XPmPin_GetNumPins(u32 *NumPins)
 	return XST_SUCCESS;
 }
 
-/****************************************************************************/
-/**
- * @brief  Get requested pin node by node index
- *
- * @param PinIndex     Pin Index.
- *
- * @return Pointer to requested XPm_PinNode, NULL otherwise
- *
- * @note Requires only node index
- *
- ****************************************************************************/
-XPm_PinNode *XPmPin_GetByIndex(const u32 PinIndex)
-{
-	XPm_PinNode *Pin = NULL;
 
-	Pin = PmMioPins[PinIndex];
-
-	return Pin;
-}
 
 /****************************************************************************/
 /**
@@ -603,6 +551,11 @@ XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+	if (NULL == Pin->RuntimeOps) {
+		PmErr("Pin RuntimeOps is NULL\n\r");
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	if (Pin->RuntimeOps->SubsysIdx != (u16)NODEINDEX(INVALID_SUBSYSID)) {
 		if (Pin->RuntimeOps->SubsysIdx == NODEINDEX(SubsystemId)) {
@@ -642,7 +595,11 @@ XStatus XPmPin_Release(const u32 SubsystemId, const u32 PinId)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-
+	if (NULL == Pin->RuntimeOps) {
+		PmErr("Pin RuntimeOps is NULL\n\r");
+		Status = XST_FAILURE;
+		goto done;
+	}
 	if (Pin->RuntimeOps->SubsysIdx != NODEINDEX(SubsystemId)) {
 		Status = XST_FAILURE;
 		goto done;
@@ -685,6 +642,37 @@ XStatus XPmPin_CheckPerms(const u32 SubsystemId, const u32 PinId)
 
 	Status = XST_SUCCESS;
 
+done:
+	return Status;
+}
+
+XStatus XPmPin_RuntimeOps_Init(XPm_PinNode* Pin)
+{
+	XStatus Status = XST_FAILURE;
+	u32 PinIdx = NODEINDEX(Pin->Node.Id);
+	const XPm_PinGroup *Grp = XPmPin_GetGroupByIdx(PinIdx);
+	Pin->RuntimeOps = (XPmRuntime_PinOps*)XPm_AllocBytesDevOps(sizeof(XPmRuntime_PinOps));
+	if (NULL == Pin->RuntimeOps) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+	Pin->RuntimeOps->Groups = Grp->GroupList;
+	Pin->RuntimeOps->NumGroups = (u8)(Grp->GroupCount);
+	Pin->RuntimeOps->FuncId = (u8)MAX_FUNCTION;
+	Pin->RuntimeOps->SubsysIdx = (u16)NODEINDEX(INVALID_SUBSYSID);
+
+	if (PinIdx <= PINS_PER_BANK) {
+		Pin->RuntimeOps->Bank = 0;
+	} else {
+		Pin->RuntimeOps->Bank =
+			(u8)(((PinIdx - PINS_PER_BANK - 1U) / PINS_PER_BANK) &
+			BITMASK(PIN_NODE_BANK_BIT_FIELD_SIZE));
+	}
+
+	Pin->RuntimeOps->BiasStatus = (u8)PINCTRL_BIAS_ENABLE;
+	Pin->RuntimeOps->PullCtrl = (u8)PINCTRL_BIAS_PULL_UP;
+	Pin->RuntimeOps->TriState = (u8)PINCTRL_TRI_STATE_ENABLE;
+	Status = XST_SUCCESS;
 done:
 	return Status;
 }

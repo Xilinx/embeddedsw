@@ -3088,3 +3088,19 @@ static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd)
 done:
 	return Status;
 }
+XStatus XPm_HookAfterBootPdi(void)
+{
+	/* TODO: Review where interrupts need to be enabled */
+	/* Enable power related interrupts to PMC */
+	XPm_RMW32(PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN, PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN_MASK,
+		  PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN_MASK);
+	/* Init Pin RuntimeOps */
+	for (int i = 0; i < XPM_NODEIDX_STMIC_MAX; i++) {
+		XPm_PinNode* Pin = XPmPin_GetByIndex(i);
+		if (NULL == Pin) {
+			continue;
+		}
+		XPmPin_RuntimeOps_Init(Pin);
+	}
+	return XST_SUCCESS;
+}
