@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2004 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -31,10 +32,10 @@
 
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XUartNs550" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CLOCK_FREQ_HZ"
-    xdefine_config_file $drv_handle "xuartns550_g.c" "XUartNs550"  "DEVICE_ID" "C_BASEADDR" "CLOCK_FREQ_HZ"
+    xdefine_include_file $drv_handle "xparameters.h" "XUartNs550" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CLOCK_FREQ_HZ" "BAUDRATE"
+    xdefine_config_file $drv_handle "xuartns550_g.c" "XUartNs550"  "DEVICE_ID" "C_BASEADDR" "CLOCK_FREQ_HZ" "BAUDRATE"
 
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "UartNs550" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CLOCK_FREQ_HZ"
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "UartNs550" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CLOCK_FREQ_HZ" "BAUDRATE"
 }
 
 
