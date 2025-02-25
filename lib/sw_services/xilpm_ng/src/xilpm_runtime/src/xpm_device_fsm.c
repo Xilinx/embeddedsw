@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -45,20 +45,29 @@ static XStatus ActionBringUpAll(XPm_Device* Device)
 {
 	XStatus Status = XST_FAILURE;
 
-	// Perform actions to bring up the device
-	PmDbg("Bringing up the device\n");
+	/**  Perform actions to bring up the device */
+	PmInfo("Bringing up the device %x\n", Device->Node.Id);
 	Status = XPmDevice_BringUp(Device);
 	if (XST_SUCCESS != Status) {
 		PmErr("Bring up device failed!\n");
 		goto done;
 	}
-
+	/** Perform Clock Settings */
 	Status = SetClocks(Device, 1U);
 	if (XST_SUCCESS != Status) {
 		PmErr("clock set failed!\n");
 		goto done;
 	}
 
+	/** Perform Reset removed */
+	/** For Periph node we do generic reset release */
+	if ((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(Device->Node.Id)) {
+		Status = XPmDevice_Reset(Device, PM_RESET_ACTION_RELEASE);
+		if (XST_SUCCESS != Status) {
+			PmErr("Reset release failed!\n");
+			goto done;
+		}
+	}
 done:
 	return Status;
 }
@@ -76,10 +85,20 @@ static u32 IsRunning(const XPm_Device *Device)
 	return Running;
 }
 static XStatus ActionShutdown(XPm_Device* const Device) {
-	// Perform actions to shut down the device
+
 	XStatus Status = XST_FAILURE;
 	u32 DbgErr = XPM_INT_ERR_UNDEFINED;
-	PmInfo("Shutting down the device\n");
+
+	/** HACK!! FIXME: Linux driver can never request UART0 or UART1
+	 * after releasing them; therefore, we have do this hack:
+	 * check if UART 0 and UART 1 then skip shutting down */
+	if ((PM_DEV_UART_0 == Device->Node.Id) ||
+	    (PM_DEV_UART_1 == Device->Node.Id)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	PmWarn("Shutting down the device %x\n", Device->Node.Id);
 	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Device->Node.Id)) &&
 	((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id))) {
 		/** Shutdown Core */
@@ -89,6 +108,7 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 			goto done;
 		}
 	}
+
 	/* Assert reset for peripheral devices */
 	if ((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(Device->Node.Id)) {
 		Status = XPmDevice_Reset(Device, PM_RESET_ACTION_ASSERT);
@@ -108,6 +128,7 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PWRDN;
 	}
+
 	Device->Node.Flags &= (u8)(~NODE_IDLE_DONE);
 	if (Device->WfPwrUseCnt == Device->Power->UseCount) {
 		/** TODO: waitfor dealloc need to be implement in runtime */
@@ -130,7 +151,7 @@ done:
 
 static XStatus ActionRuntimeSuspend(XPm_Device* const Device) {
 	// Perform actions to suspend the device
-	PmWarn("Suspending the device\n");
+	PmWarn("Suspending the device %x\n", Device->Node.Id);
 	/* TODO: IMPLEMENT ME */
 	(void)Device;
 	return XST_SUCCESS;
@@ -138,7 +159,7 @@ static XStatus ActionRuntimeSuspend(XPm_Device* const Device) {
 
 static XStatus ActionResume(XPm_Device* const Device) {
 	// Perform actions to resume the device
-	PmWarn("Resuming the device\n");
+	PmWarn("Resuming the device \n", Device->Node.Id);
 	/* TODO: IMPLEMENT ME */
 	(void)Device;
 	return XST_SUCCESS;
