@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * ----- --- -------- -----------------------------------------------.
 * 1.00  gm  01/25/24 First release
 * 1.1   gm  10/07/24 Added macros for Version Register bit fields.
+* 1.2   gm  02/18/24 Added slave mode support
 *
 * </pre>
 *
@@ -77,6 +78,13 @@ extern "C" {
 #define XI3C_OD_SCL_HIGH_TIME_OFFSET		0x54	/**< I3C OD SCL HIGH Register */
 #define XI3C_OD_SCL_LOW_TIME_OFFSET		0x58	/**< I3C OD SCL LOW  Register */
 #define XI3C_TARGET_ADDR_BCR			0x60	/**< I3C Target dynamic Address and BCR Register */
+#define XI3C_MWL_MRL				0x74	/**< Maximum Write and Max Read length */
+#define XI3C_EVENT				0x78	/**< Target events */
+#define XI3C_GETMXDS				0x80	/**< Target Device Max Data Speed */
+#define XI3C_GETSTATUS				0x84	/**< Target Device current Status */
+#define XI3C_GETCAPS_REG0			0x88	/**< Target Device Format 1 Capabilities */
+#define XI3C_GETCAPS_REG1			0x8c	/**< Target Device Format 2 Capabilities */
+#define XI3C_CON_RD_BYTE_COUNT			0x90	/**< Read byte count register */
 /* @} */
 
 
@@ -140,21 +148,23 @@ extern "C" {
 #define  XI3C_SR_CMD_FIFO_NOT_EMPTY_MASK	0x00002000	/**< BIT 13 - CMD FIFO empty */
 #define  XI3C_SR_WR_FIFO_NOT_EMPTY_MASK		0x00004000	/**< BIT 14 - Write FIFO empty */
 #define  XI3C_SR_RD_FIFO_NOT_EMPTY_MASK		0x00008000	/**< BIT 15 - Read FIFO empty */
+#define  XI3C_SR_SLV_DYNC_ADDR_DONE_MASK	0x00080000	/**< BIT 19 - Dynamic address assigned to slave */
 
 /**
  * @name Status Register  (SR) Shifts(s)
  * @{
  */
-#define  XI3C_SR_BUS_BUSY_SHIFT		0x0		/**< BIT 0 - Bus Busy */
-#define  XI3C_SR_CLK_STALL_SHIFT	0x1		/**< BIT 1 - Clock Stall */
-#define  XI3C_SR_CMD_FULL_SHIFT		0x2		/**< BIT 2 - Cmd Fifo Full  */
-#define  XI3C_SR_RESP_FULL_SHIFT	0x3		/**< BIT 3 - Resp Fifo Full */
-#define  XI3C_SR_RESP_NOT_EMPTY_SHIFT	0x4		/**< BIT 4 - Resp Fifo not empty */
-#define  XI3C_SR_WR_FULL_SHIFT		0x5		/**< BIT 5 - Write Fifo Full */
-#define  XI3C_SR_RD_FULL_SHIFT		0x6		/**< BIT 6 - Read Fifo Full */
+#define  XI3C_SR_BUS_BUSY_SHIFT			0		/**< BIT 0 - Bus Busy */
+#define  XI3C_SR_CLK_STALL_SHIFT		1		/**< BIT 1 - Clock Stall */
+#define  XI3C_SR_CMD_FULL_SHIFT			2		/**< BIT 2 - Cmd Fifo Full  */
+#define  XI3C_SR_RESP_FULL_SHIFT		3		/**< BIT 3 - Resp Fifo Full */
+#define  XI3C_SR_RESP_NOT_EMPTY_SHIFT		4		/**< BIT 4 - Resp Fifo not empty */
+#define  XI3C_SR_WR_FULL_SHIFT			5		/**< BIT 5 - Write Fifo Full */
+#define  XI3C_SR_RD_FULL_SHIFT			6		/**< BIT 6 - Read Fifo Full */
+#define  XI3C_SR_SLV_DYNC_ADDR_DONE_SHIFT	19		/**< BIT 19 - Dynamic address assigned to slave */
 
 /**
- * @name CMD TYPE Fifo Register  (RESP_FIFO) mask(s)
+ * @name response and other mask(s)
  * @{
  */
 #define  XI3C_RESP_ID_MASK		0x0000000F
@@ -162,8 +172,13 @@ extern "C" {
 #define  XI3C_RESP_CODE_MASK		0x000001E0
 #define  XI3C_RESP_BYTES_MASK		0x001FFE00
 
+#define  XI3C_SLV_RESP_CCC_MASK		0x1FE00000
+#define  XI3C_SLV_RESP_7E_FRAME_MASK	0x20000000
+#define  XI3C_MRL_MASK			0x0FFF0000
+#define  XI3C_GRP_ADDR_MASK		0x0000FF00
+
 /**
- * @name CMD TYPE Fifo Register  (RESP_FIFO) SHIFT(s)
+ * @name response and other shift(s)
  * @{
  */
 #define  XI3C_RESP_TID_SHIFT		0
@@ -172,7 +187,18 @@ extern "C" {
 #define  XI3C_RESP_BYTES_SHIFT		9
 #define  XI3C_RESP_LVL_SHIFT		16
 
-#define  XI3C_CMD_LVL_SHIFT		16
+#define  XI3C_SLV_RESP_CCC_SHIFT	21
+#define  XI3C_SLV_RESP_7E_FRAME_SHIFT	29
+
+#define  XI3C_CMD_LVL_SHIFT			16
+#define  XI3C_MRL_SHIFT				16
+#define  XI3C_MWL_MRL_MSB_SHIFT			8
+#define  XI3C_GRP_ADDR_SHIFT			8
+#define  XI3C_GETSTATUS_FORMAT2_SHIFT		16
+#define  XI3C_GETMXDS_FORMAT3_DATA_SHIFT	16
+#define  XI3C_CAPS4_SHIFT			24
+#define  XI3C_CAPS3_SHIFT			16
+#define  XI3C_CAPS2_SHIFT			8
 
 /**
  * @name bit masks
@@ -200,6 +226,7 @@ extern "C" {
 #define	XI3C_19BITS_MASK	0x0007FFFF
 #define	XI3C_20BITS_MASK	0x000FFFFF
 
+#define	XI3C_MSB_8BITS_MASK	0x0000FF00
 #define	XI3C_MSB_16BITS_MASK	0xFFFF0000
 /**
  * @name interrupt Register  (INTR) mask(s)
@@ -483,6 +510,83 @@ extern "C" {
 		      ((XI3c_ReadReg(BaseAddress,XI3C_INTR_FE_OFFSET))	\
 		      & ~(XI3C_ALL_INTR_MASK)))				\
 
+/*****************************************************************************/
+/**
+*
+* Fill Slave send byte count value.
+*
+* @param        InstancePtr is a pointer to the XI3c core instance.
+* @param        Byte count value.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               void XI3c_FillSlaveSendCount(XI3c *InstancePtr, u16 ByteCount)
+*
+******************************************************************************/
+#define XI3c_FillSlaveSendCount(InstancePtr, ByteCount) 		      \
+	XI3c_WriteReg((InstancePtr->Config.BaseAddress),		      \
+		      XI3C_CON_RD_BYTE_COUNT,				      \
+		      (((XI3c_ReadReg(InstancePtr->Config.BaseAddress,	      \
+				      XI3C_CON_RD_BYTE_COUNT))    	      \
+                      & (~XI3C_16BITS_MASK)) | (ByteCount & XI3C_16BITS_MASK)))
+
+/*****************************************************************************/
+/**
+*
+* Clear the group address of target.
+*
+* @param        InstancePtr is a pointer to the XI3c core instance.
+* @param        Byte count value.
+*
+* @return       None.
+*
+* @note         C-style signature:
+*               void XI3c_FillSlaveSendCount(XI3c *InstancePtr, u16 ByteCount)
+*
+******************************************************************************/
+#define XI3c_ClearGrpAddr(InstancePtr) 		      \
+	XI3c_WriteReg((InstancePtr->Config.BaseAddress),		      \
+		      XI3C_ADDRESS_OFFSET,				      \
+		      ((XI3c_ReadReg(InstancePtr->Config.BaseAddress,	      \
+				     XI3C_ADDRESS_OFFSET))        	      \
+                      & (~XI3C_GRP_ADDR_MASK)))
+
+/*****************************************************************************/
+/**
+*
+* Read Maximum write length
+*
+* @param        InstancePtr is a pointer to the XI3c core instance.
+*
+* @return       Maximum write length.
+*
+* @note         C-style signature:
+*               u16 XI3c_GetMWL(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_GetMWL(InstancePtr)					\
+        (u16)(XI3c_ReadReg(InstancePtr->Config.BaseAddress,		\
+			   XI3C_MWL_MRL) &				\
+			   XI3C_12BITS_MASK)
+
+/*****************************************************************************/
+/**
+*
+* Read Maximum read length
+*
+* @param        InstancePtr is a pointer to the XI3c core instance.
+*
+* @return       Maximum read length.
+*
+* @note         C-style signature:
+*               u16 XI3c_GetMRL(XI3c *InstancePtr)
+*
+******************************************************************************/
+#define XI3c_GetMRL(InstancePtr)					\
+        (u16)((XI3c_ReadReg(InstancePtr->Config.BaseAddress,		\
+			   XI3C_MWL_MRL) >> XI3C_MRL_SHIFT) &		\
+			   XI3C_12BITS_MASK)
 #ifdef __cplusplus
 }
 #endif

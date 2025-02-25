@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +57,7 @@ XI3c_Config XI3c_ConfigTable[XPAR_XI3C_NUM_INSTANCES] = {
 		(u32)XPAR_XI3C_0_DEVICE_COUNT, /* Slave devices count */
 		(u32)XPAR_XI3C_0_IBI_CAPABLE, /* IBI Capability */
 		(u32)XPAR_XI3C_0_HJ_CAPABLE /* Hot join Capability */
+		(u32)XPAR_XI3C_0_DEVICE_ROLE /* Device role */
 	},
 	{
 		(u16)XPAR_XI3C_1_DEVICE_ID, /* Device ID for instance */
@@ -67,6 +68,7 @@ XI3c_Config XI3c_ConfigTable[XPAR_XI3C_NUM_INSTANCES] = {
 		(u32)XPAR_XI3C_1_DEVICE_COUNT, /* Slave devices count */
 		(u32)XPAR_XI3C_1_IBI_CAPABLE, /* IBI Capability */
 		(u32)XPAR_XI3C_1_HJ_CAPABLE /* Hot join Capability */
+		(u32)XPAR_XI3C_1_DEVICE_ROLE /* Device role */
 	}
 };
 /** @} */

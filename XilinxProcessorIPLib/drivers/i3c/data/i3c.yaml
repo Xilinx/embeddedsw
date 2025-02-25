@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -29,6 +29,8 @@ properties:
       IBI capability
   xlnx,hj-capable:
       Hot join capability
+  xlnx,device-role:
+      Device role
 
 config:
     - XI3c_Config
@@ -44,6 +46,7 @@ required:
     - xlnx,num-targets
     - xlnx,ibi-capable
     - xlnx,hj-capable
+    - xlnx,device-role
 
 examples:
     xi3c_intr_example.c:

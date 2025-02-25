@@ -1,6 +1,6 @@
 
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -162,6 +162,7 @@ s32 XI3c_CfgInitialize(XI3c *InstancePtr, XI3c_Config *ConfigPtr,
 	InstancePtr->Config.DeviceCount = ConfigPtr->DeviceCount;
 	InstancePtr->Config.IbiCapable = ConfigPtr->IbiCapable;
 	InstancePtr->Config.HjCapable = ConfigPtr->HjCapable;
+	InstancePtr->Config.DeviceRole = ConfigPtr->DeviceRole;
 
 	InstancePtr->CurDeviceCount = 0;
 	/*
@@ -189,19 +190,29 @@ s32 XI3c_CfgInitialize(XI3c *InstancePtr, XI3c_Config *ConfigPtr,
 	 */
 	XI3c_Enable(InstancePtr, 1);
 
-	XI3C_BusInit(InstancePtr);
+	if (!InstancePtr->Config.DeviceRole) {	/**< Master mode */
+		XI3C_BusInit(InstancePtr);
 
-	if (InstancePtr->Config.IbiCapable && InstancePtr->Config.DeviceCount) {
-		XI3c_DynaAddrAssign(InstancePtr, XI3C_DynaAddrList, InstancePtr->Config.DeviceCount);
-		XI3c_ConfigIbi(InstancePtr, InstancePtr->Config.DeviceCount);
-	}
+		if (InstancePtr->Config.DeviceCount) {
+			XI3c_DynaAddrAssign(InstancePtr, XI3C_DynaAddrList, InstancePtr->Config.DeviceCount);
 
-	/*
-	 * Enable Hot join raising edge interrupt.
-	 */
-	if (InstancePtr->Config.HjCapable)
+			if (InstancePtr->Config.IbiCapable)
+				XI3c_ConfigIbi(InstancePtr, InstancePtr->Config.DeviceCount);
+		}
+
+		/*
+		 * Enable Hot join raising edge interrupt.
+		 */
+		if (InstancePtr->Config.HjCapable)
+			XI3c_EnableREInterrupts(InstancePtr->Config.BaseAddress,
+						XI3C_INTR_HJ_MASK);
+	} else {	/**< Slave mode */
+		/*
+		 * Eanble response fifo not empty interrupt
+		 */
 		XI3c_EnableREInterrupts(InstancePtr->Config.BaseAddress,
-					XI3C_INTR_HJ_MASK);
+					XI3C_INTR_RESP_NOT_EMPTY_MASK);
+	}
 
 	return XST_SUCCESS;
 }
