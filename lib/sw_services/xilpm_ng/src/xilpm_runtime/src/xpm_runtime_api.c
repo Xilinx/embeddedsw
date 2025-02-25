@@ -1936,44 +1936,13 @@ done:
 	return Status;
 }
 
-/****************************************************************************/
-/**
- * @brief  This function reads the device reset state.
- *
- * @param  ResetId		Reset ID
- * @param State		Pointer to the reset state
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-XStatus XPm_GetResetState(const u32 ResetId, u32 *const State)
-{
-	XStatus Status = XST_FAILURE;
-	const XPm_ResetNode* Reset;
-
-	Reset = XPmReset_GetById(ResetId);
-	if (NULL == Reset) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	*State = Reset->Ops->GetState(Reset);
-
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
-}
 
 static XStatus XPm_DoGetResetState(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	u32 ResetId = Cmd->Payload[0];
 	u32 State = 0;
-	Status = XPm_GetResetState(ResetId, &State);
+	Status = XPmReset_GetStateById(ResetId, &State);
 	Cmd->Response[1] = State;
 	Cmd->Response[0] = (u32)Status;
 	return Status;
