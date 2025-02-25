@@ -93,16 +93,17 @@ class Domain(Repo):
                 cwd = self.domain_dir,
                 log_message="Generating CPU list"
             )
+        cpulist_metafiles = ["cpulist.yaml","lop-cpulist.dts.dtb","lop-cpulist.dts.pp"]
         avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
         if self.proc not in avail_cpu_data.keys():
-            utils.remove(self.domain_dir)
+            utils.remove_directory(self.domain_dir, cpulist_metafiles, force_remove=False)
             print(
                 f"[ERROR]: Please pass a valid processor name. Valid Processor Names for the given SDT are: {list(avail_cpu_data.keys())}"
             )
             sys.exit(1)
 
         if "a53" not in self.proc and self.proc_mode == "32-bit":
-            utils.remove(self.domain_dir)
+            utils.remove_directory(self.domain_dir, cpulist_metafiles, force_remove=False)
             print(
                 f"[ERROR]: Invalid mode configuration, 32-bit mode configuration is applicable only for ZynqMP A53 processors"
             )
