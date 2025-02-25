@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@ static const u32 PermissionResets[] = {
 	PM_RST_PL2,
 	PM_RST_PL3,
 };
+
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action)
 {
 	XStatus Status = XST_FAILURE;
@@ -65,9 +66,13 @@ static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action)
 		Status = XST_INVALID_PARAM;
 		break;
 	};
-
+	if (XST_SUCCESS != Status) {
+		PmErr("RstId: 0x%x, Action: 0x%x Status: 0x%x\n\r",
+			Rst->Node.Id, Action, Status);
+	}
 	return Status;
 }
+
 XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action)
 {
 	XStatus Status = XST_FAILURE;
@@ -78,7 +83,28 @@ XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action)
 	} else {
 		Status = XST_FAILURE;
 	}
+	if (XST_SUCCESS != Status) {
+		PmErr("ResetId = %x 0x%x\n\r", ResetId, Status);
+	}
+	return Status;
+}
 
+XStatus XPmReset_GetStateById(u32 ResetId, u32* OutState)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_ResetNode* Reset = XPmReset_GetById(ResetId);
+	if (NULL == Reset) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	u32 Mask = BITNMASK(Reset->Shift, Reset->Width);
+	if ((XPm_Read32(Reset->Node.BaseAddress) & Mask) == Mask) {
+		*OutState = 1U;
+	} else {
+		*OutState = 0U;
+	}
+	Status = XST_SUCCESS;
+done:
 	return Status;
 }
 

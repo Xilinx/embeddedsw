@@ -387,76 +387,11 @@ done:
 	return Status;
 }
 
-XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
+XStatus __attribute__((weak)) XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 {
-	XStatus Status = XST_FAILURE;
-	const XPm_ResetHandle *RstHandle;
-	const XPm_ResetHandle *DeviceHandle;
-	XPm_ResetNode *Reset;
-
-	if (NULL == Device) {
-		Status = XPM_ERR_DEVICE;
-		goto done;
-	}
-
-	/* TODO: Skip handling for PL resets until PL topology is available */
-	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Device->Node.Id)) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-#ifdef DEBUG_UART_PS
-	/* Reset LPD init flag to stop debug prints which is using UART */
-	if ((NODE_UART == Device->Node.Id) &&
-	    (PM_RESET_ACTION_ASSERT == Action)) {
-		PmDbg("Disabling UART prints\r\n");
-		/* Wait for UART buffer to flush */
-		usleep(10000);
-		XPlmi_ResetLpdInitialized();
-	}
-#endif
-
-	RstHandle = Device->RstHandles;
-	if (PM_RESET_ACTION_RELEASE != Action) {
-		while (NULL != RstHandle) {
-			Reset = RstHandle->Reset;
-			DeviceHandle = Reset->RstHandles;
-			while (NULL != DeviceHandle) {
-				if ((Device->Node.Id !=
-				    DeviceHandle->Device->Node.Id) &&
-				    (((u32)XPM_DEVSTATE_RUNNING ==
-				    DeviceHandle->Device->Node.State) ||
-				    ((u32)XPM_DEVSTATE_PENDING_PWR_DWN ==
-				    DeviceHandle->Device->Node.State))) {
-					break;
-				}
-				DeviceHandle = DeviceHandle->NextDevice;
-			}
-			if (NULL == DeviceHandle) {
-				Status = Reset->Ops->SetState(Reset, Action);
-				if (XST_SUCCESS != Status) {
-					goto done;
-				}
-			}
-			RstHandle = RstHandle->NextReset;
-		}
-	} else {
-		while (NULL != RstHandle) {
-			Status = RstHandle->Reset->Ops->SetState(RstHandle->Reset, Action);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-			RstHandle = RstHandle->NextReset;
-		}
-	}
-
-	Status = XST_SUCCESS;
-
-done:
-	if (XST_SUCCESS != Status) {
-		PmErr("0x%x\n\r", Status);
-	}
-	return Status;
+	(void)Device;
+	(void)Action;
+	PmWarn("XPmDevice_Reset is not implemented in XilPmBoot\r\n");
 }
 
 

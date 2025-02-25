@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@ struct XPmRuntime_Reset {
 XStatus XPmReset_SetAllowedSubsystems(XPm_ResetNode *Reset, const u32 AllowSubsystems);
 XStatus XPmReset_GetAllowedSubsystems(const XPm_ResetNode *Reset, u32 *AllowSubsystems);
 XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action);
+XStatus XPmReset_GetStateById(u32 ResetId, u32 *OutState);
 XStatus XPmReset_CheckPermissions(const XPm_Subsystem *Subsystem, u32 ResetId);
 XStatus XPmReset_SystemReset(void);
 XStatus XPmReset_IsPermissionReset(const u32 ResetId);
