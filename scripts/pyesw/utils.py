@@ -131,6 +131,28 @@ def remove(path: str, silent_discard: bool = True, pattern: bool=False) -> None:
     except Exception as e:
         assert silent_discard, e
 
+def remove_directory(dir: str, file_list: list = [], silent_discard: bool = True, force_remove: bool = True) -> None:
+    """Removes any file or folder from the given list, if it exists else reports error message based on user demand.
+
+    Args:
+        dir: Directory path.
+        file_list: List of file's.
+        silent_discard: True if exceptions are to be ignored.
+        force_remove: True deletes the directory.
+    Raises:
+        Exception: Raises exception if any remove action fails.
+
+    """
+    try:
+        if force_remove:
+            remove(dir, silent_discard)
+        else:
+            for file in file_list:
+                remove(os.path.join(dir, file), silent_discard)
+            if os.getcwd() != dir and not os.listdir(dir):
+                remove(dir, silent_discard)
+    except Exception as e:
+        assert silent_discard, e
 
 def mkdir(folderpath: str, silent_discard: bool = True) -> None:
     """Create the folder structure, raises Error Message on demand.
