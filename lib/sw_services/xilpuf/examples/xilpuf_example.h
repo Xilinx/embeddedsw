@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -24,6 +24,7 @@
  * 1.2   am      08/14/20 Changed unsigned to signed enum object.
  * 1.3   har     05/20/21 Added option to program Black IV
  * 2.1   skg     12/14/22 Added enum for slr indexs
+ * 2.5   hj      02/17/25 Added IV and red key macros for SSITs.
  *
  * </pre>
  *
@@ -43,11 +44,59 @@
  * Only 128 bit and 256 bit key are supported. By default the length of red key is
  * configured as 256 bit.
  *
+ * #define XPUF_RED_KEY0   \
+ * 	"0000000000000000000000000000000000000000000000000000000000000000"
+ * SLR 0 Red Key to be encrypted by PUF KEY should be provided in string format.It
+ * should be either 32 or 64 characters long as only 128 bit and 256 bit key
+ * are supported.
+ *
+ * #define XPUF_RED_KEY1   \
+ *	"0000000000000000000000000000000000000000000000000000000000000000"
+ * SLR 1 Red Key to be encrypted by PUF KEY should be provided in string format.It
+ * should be either 32 or 64 characters long as only 128 bit and 256 bit key
+ * are supported.
+ *
+ * #define XPUF_RED_KEY2   \
+ *	"0000000000000000000000000000000000000000000000000000000000000000"
+ * SLR 2 Red Key to be encrypted by PUF KEY should be provided in string format.It
+ * should be either 32 or 64 characters long as only 128 bit and 256 bit key
+ * are supported.
+ *
+ * #define XPUF_RED_KEY3   \
+ *      "0000000000000000000000000000000000000000000000000000000000000000"
+ * SLR 3 Red Key to be encrypted by PUF KEY should be provided in string format.It
+ * should be either 32 or 64 characters long as only 128 bit and 256 bit key
+ * are supported.
+ *
  * #define XPUF_IV				"000000000000000000000000"
  * IV should be provided in string format.It should be 24 characters long, valid
  * characters are 0-9,a-f,A-F. Any other character is considered as invalid
  * string.The value mentioned here will be converted to hex buffer.It is used
  * with the AES-GCM cryptographic hardware in order to encrypt red key.
+ *
+ * #define XPUF_IV0                                "000000000000000000000000"
+ * IV should be provided in string format.It should be 24 characters long, valid
+ * characters are 0-9,a-f,A-F. Any other character is considered as invalid
+ * string.The value mentioned here will be converted to hex buffer.It is used
+ * with the AES-GCM cryptographic hardware in order to encrypt red key of SLR 0.
+ *
+ * #define XPUF_IV1                                "000000000000000000000000"
+ * IV should be provided in string format.It should be 24 characters long, valid
+ * characters are 0-9,a-f,A-F. Any other character is considered as invalid
+ * string.The value mentioned here will be converted to hex buffer.It is used
+ * with the AES-GCM cryptographic hardware in order to encrypt red key of SLR 1.
+ *
+ * #define XPUF_IV2                                "000000000000000000000000"
+ * IV should be provided in string format.It should be 24 characters long, valid
+ * characters are 0-9,a-f,A-F. Any other character is considered as invalid
+ * string.The value mentioned here will be converted to hex buffer.It is used
+ * with the AES-GCM cryptographic hardware in order to encrypt red key of SLR 2.
+ *
+ * #define XPUF_IV3                                "000000000000000000000000"
+ * IV should be provided in string format.It should be 24 characters long, valid
+ * characters are 0-9,a-f,A-F. Any other character is considered as invalid
+ * string.The value mentioned here will be converted to hex buffer.It is used
+ * with the AES-GCM cryptographic hardware in order to encrypt red key of SLR 3.
  *
  * #define XPUF_GENERATE_KEK_N_ID			(TRUE)
  * This macro must be configured as TRUE to generate both PUF KEK and PUF ID. In order
@@ -193,6 +242,20 @@ extern "C" {
 
 /**< Input SlrIndex*/
 #define SLR_INDEX     XPUF_SLR_INDEX_0
+
+/* Iv and Keys for all ssit devices */
+#define XPUF_IV0                                "000000000000000000000000"
+#define XPUF_IV1                                "000000000000000000000000"
+#define XPUF_IV2                                "000000000000000000000000"
+#define XPUF_IV3                                "000000000000000000000000"
+#define XPUF_RED_KEY0   \
+	"0000000000000000000000000000000000000000000000000000000000000000"
+#define XPUF_RED_KEY1   \
+	"0000000000000000000000000000000000000000000000000000000000000000"
+#define XPUF_RED_KEY2   \
+	"0000000000000000000000000000000000000000000000000000000000000000"
+#define XPUF_RED_KEY3   \
+        "0000000000000000000000000000000000000000000000000000000000000000"
 
 /* For programming Secure control eFUSE bits of PUF */
 #define XPUF_WRITE_SEC_CTRL_BITS			(FALSE)

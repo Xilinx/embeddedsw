@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -55,3 +55,8 @@ examples:
       - SpartanUP
     - dependency_files:
       - xilpuf_spartan_ultrascale_plus_example.h
+  xilpuf_ssit_client_example.c:
+    - supported_platforms:
+      - Versal
+    - dependency_files:
+      - xilpuf_example.h
