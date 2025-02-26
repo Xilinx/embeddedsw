@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 
@@ -10,3 +11,4 @@ xilpuf_regeneration_client_example.c = NULL
 xilpuf_enc_dec_data_client_example.c = NULL
 xilpuf_client_example.c = xilpuf_example.h
 xilpuf_versal_net_example.c = xilpuf_versal_net_example.h
+xilpuf_ssit_client_example.c = xilpuf_example.h
