@@ -410,6 +410,9 @@ extern "C" {
 #define PM_RST_GPU				(0xC41011AU)
 #define PM_RST_GPU_RECOV			(0xC41011BU)
 #define PM_RST_ASU_MB_SOFT			(0xC41011CU)
+#define PM_RST_UDH_AUX				(0xC41011DU)
+#define PM_RST_UDH_DP				(0xC41011EU)
+#define PM_RST_UDH_HDCPRAM			(0xC41011FU)
 /** @} */
 
 /**
@@ -643,6 +646,7 @@ extern "C" {
 #define PM_CLK_MMI_AUX0_REF			(0x82080DCU)
 #define PM_CLK_PS_AXI_DMA			(0x82080DDU)
 #define PM_CLK_MMI_PLL				(0x81040DEU)
+#define PM_CLK_MMI_AUX1_REF			(0x82080DFU)
 /** @} */
 
 /**
@@ -1057,6 +1061,8 @@ extern "C" {
 #define PM_DEV_MMI_USB_DRD                      (0x18224135U)
 #define PM_DEV_MMI_GPU				(0x18224136U)
 #define PM_DEV_MMI_DC				(0x18224137U)
+#define PM_DEV_MMI_HDCP				(0x18224138U)
+#define PM_DEV_MMI_DP				(0x18224139U)
 /** @} */
 
 /**
