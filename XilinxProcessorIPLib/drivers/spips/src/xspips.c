@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +57,7 @@
 * 3.9   sb     07/05/23 Added support for system device-tree flow.
 * 3.9   sb     07/27/23 Fix the issue of driver giving junk values when its
 *                       running at low clock speed in slave mode.
+* 3.12  sb     02/24/25 Use delay in interrupt handler for slave mode only.
 * </pre>
 *
 ******************************************************************************/
@@ -939,11 +940,14 @@ void XSpiPs_InterruptHandler(XSpiPs *InstancePtr)
 		TransCount = SpiPtr->RequestedBytes - SpiPtr->RemainingBytes;
 
 		while (TransCount != 0U) {
-			/* Fixed delay due to controller limitation with
-			 * RX_NEMPTY incorrect status
-			 * Xilinx AR:65885 contains more details
-			 */
-			usleep(10);
+			if (!(XSpiPs_IsMaster(InstancePtr))) {
+				/* Fixed delay due to controller limitation with
+				 * RX_NEMPTY incorrect status
+				 * Xilinx AR:65885 contains more details
+				 */
+				usleep(10);
+			}
+
 			TempData = (u8)XSpiPs_RecvByte(SpiPtr->Config.BaseAddress);
 			if (SpiPtr->RecvBufferPtr != NULL) {
 				*SpiPtr->RecvBufferPtr = TempData;
