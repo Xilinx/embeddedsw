@@ -38,27 +38,115 @@ static const u32 PermissionResets[] = {
 	PM_RST_PL3,
 };
 
+static XStatus AdmaResetAssert(const XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device;
+
+	Device = XPmDevice_GetById(PM_DEV_ADMA_0);
+	if (NULL == Device) {
+		goto done;
+	}
+
+#if (defined(XILPM_ZDMA_0) || defined(XILPM_ZDMA_1) || defined(XILPM_ZDMA_2) || \
+	defined(XILPM_ZDMA_3) || defined(XILPM_ZDMA_4) || defined(XILPM_ZDMA_5) || \
+	defined(XILPM_ZDMA_6) || defined(XILPM_ZDMA_7))
+	(void)Rst;
+	Status = NodeZdmaIdle(0U, Device->Node.BaseAddress);
+#else
+	const u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
+	const u32 ControlReg = Rst->Node.BaseAddress;
+
+	XPm_RMW32(ControlReg, Mask, Mask);
+
+	Status = XST_SUCCESS;
+#endif
+
+done:
+	return Status;
+}
+
+static XStatus AdmaResetPulse(const XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+	const u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
+	const u32 ControlReg = Rst->Node.BaseAddress;
+
+	Status = AdmaResetAssert(Rst);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	XPm_RMW32(ControlReg, Mask, 0U);
+
+done:
+	return Status;
+}
+
+static const void *GetResetCustomOps(u32 ResetId)
+{
+	u16 Idx;
+	const struct ResetCustomOps *RstCustomStatus = NULL;
+	static const struct ResetCustomOps Reset_Custom[] = {
+		{
+			.ResetIdx = (u32)XPM_NODEIDX_RST_ADMA,
+			.ActionAssert = &AdmaResetAssert,
+			.ActionPulse = &AdmaResetPulse,
+		},
+	};
+
+	for (Idx = 0U; Idx < ARRAY_SIZE(Reset_Custom); Idx++) {
+		if (Reset_Custom[Idx].ResetIdx == NODEINDEX(ResetId)) {
+			RstCustomStatus = &Reset_Custom[Idx];
+			break;
+		}
+	}
+	return RstCustomStatus;
+}
+
 static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
-	u32 ControlReg = Rst->Node.BaseAddress;
+	const u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
+	const u32 ControlReg = Rst->Node.BaseAddress;
+	const struct ResetCustomOps *Ops = GetResetCustomOps(Rst->Node.Id);
 
 	switch (Action) {
 	case (u32)PM_RESET_ACTION_RELEASE:
-		XPm_RMW32(ControlReg, Mask, 0);
+		if ((NULL != Ops) && (NULL != Ops->ActionRelease)) {
+			Status = Ops->ActionRelease(Rst);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		} else {
+			XPm_RMW32(ControlReg, Mask, 0U);
+		}
 		Rst->Node.State = XPM_RST_STATE_DEASSERTED;
 		Status = XST_SUCCESS;
 		break;
 	case (u32)PM_RESET_ACTION_ASSERT:
-		XPm_RMW32(ControlReg, Mask, Mask);
+		if ((NULL != Ops) && (NULL != Ops->ActionAssert)) {
+			Status = Ops->ActionAssert(Rst);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		} else {
+			XPm_RMW32(ControlReg, Mask, Mask);
+		}
 		Rst->Node.State = XPM_RST_STATE_ASSERTED;
 		Status = XST_SUCCESS;
 		break;
 	case (u32)PM_RESET_ACTION_PULSE:
-		XPm_RMW32(ControlReg, Mask, Mask);
-		//Wait for xms ??
-		XPm_RMW32(ControlReg, Mask, 0);
+		if ((NULL != Ops) && (NULL != Ops->ActionPulse)) {
+			Status = Ops->ActionPulse(Rst);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		} else {
+			XPm_RMW32(ControlReg, Mask, Mask);
+			//Wait for xms ??
+			XPm_RMW32(ControlReg, Mask, 0U);
+		}
 		Rst->Node.State = XPM_RST_STATE_DEASSERTED;
 		Status = XST_SUCCESS;
 		break;
@@ -66,10 +154,13 @@ static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action)
 		Status = XST_INVALID_PARAM;
 		break;
 	};
+
+done:
 	if (XST_SUCCESS != Status) {
 		PmErr("RstId: 0x%x, Action: 0x%x Status: 0x%x\n\r",
 			Rst->Node.Id, Action, Status);
 	}
+
 	return Status;
 }
 
