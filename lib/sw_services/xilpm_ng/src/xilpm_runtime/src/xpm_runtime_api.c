@@ -560,6 +560,9 @@ static XStatus XPm_DoReleaseDevice(XPlmi_Cmd* Cmd)
 		goto done;
 	}
 	Status = XPmDevice_Release(SubsystemId, DeviceId, CmdType);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 	Usage = XPmDevice_GetUsageStatus(Subsystem, Device);
 	if (0U == Usage) {
 		XPmNotifier_Event(Device->Node.Id, (u32)EVENT_ZERO_USERS);
@@ -1649,6 +1652,7 @@ static XStatus SetSubsystemState_ByCore(XPm_Core* Core, const u32 State){
 	}
 	u32 CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore((XPm_Device *)Core);
 	if (INVALID_SUBSYSID == CoreSubsystemId) {
+		PmErr("Invalid Subsystem Id for core %d\n\r", Core->Device.Node.Id);
 		Status = XPM_ERR_SUBSYS_NOTFOUND;
 		goto done;
 	}

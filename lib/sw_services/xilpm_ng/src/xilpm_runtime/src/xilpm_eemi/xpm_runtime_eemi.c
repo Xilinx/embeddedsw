@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -256,6 +256,11 @@ static XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem)
 				goto done;
 			}
 			DeviceId = Reqm->Device->Node.Id;
+			/** Let skip Request CORE type node for now */
+			if ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) {
+				PmDbg("Skip Request CORE type node 0x%x\r\n", DeviceId);
+				continue;
+			}
 			Status = XPmDevice_Request(Subsystem->Id, DeviceId,
 						   Reqm->PreallocCaps,
 						   Reqm->PreallocQoS,
