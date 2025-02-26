@@ -36,6 +36,7 @@ static const u32 PermissionResets[] = {
 	PM_RST_PL1,
 	PM_RST_PL2,
 	PM_RST_PL3,
+	PM_RST_ADMA,
 };
 
 static XStatus AdmaResetAssert(const XPm_ResetNode *Rst)
