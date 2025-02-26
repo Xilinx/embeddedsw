@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_powerdomain.h"
@@ -299,7 +299,7 @@ static XStatus XPmPower_PowerOnState(XPm_Node *Node, u32 Event, u16 *DbgErr)
 			/* Hack */
 			Status = Power->HandleEvent(Node, XPM_POWER_EVENT_TIMER);
 		} else if (1U < Power->UseCount) {
-			Power->UseCount--;
+			PmDecrement(Power->UseCount);
 		} else {
 			/* Required by MISRA */
 		}

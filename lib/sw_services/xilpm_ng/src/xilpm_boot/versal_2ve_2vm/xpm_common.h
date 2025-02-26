@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -587,6 +587,15 @@ u32 XPm_ComputeParity(u32 CalParity);
                         (STATUS) = XPM_REG_WRITE_FAILED;                        \
                 }                                                               \
         } while (XPM_FALSE_COND)
+
+#define PmDecrement(UseCount) \
+	do { \
+		if (UseCount > 0) { \
+			UseCount--; \
+		} else { \
+			PmErr("Usecount is already 0\r\n"); \
+		} \
+	} while (0)
 
 static inline u8 XPm_PlatGetSlrIndex(void)
 {

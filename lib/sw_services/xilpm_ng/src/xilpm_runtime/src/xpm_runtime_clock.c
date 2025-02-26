@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -142,7 +142,7 @@ static void XPmClock_ReleaseInt(XPm_ClockNode *Clk)
 
 	if (Clk != NULL) {
 		/* Decrease the use count of clock */
-		Clk->UseCount--;
+		PmDecrement(Clk->UseCount);
 
 		if (0U == Clk->UseCount) {
 			/* Clear the requested bit of clock */

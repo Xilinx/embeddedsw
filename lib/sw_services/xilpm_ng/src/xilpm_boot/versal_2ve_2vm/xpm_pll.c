@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -190,8 +190,7 @@ XStatus XPmClockPll_Release(u32 PllId)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	Pll->ClkNode.UseCount--;
-
+	PmDecrement(Pll->ClkNode.UseCount);
 	/**
 	 * Do not suspend the PLL if its use count goes to 0 because it may
 	 * possible that IOU_SWITCH of other domain is using this PLL.
