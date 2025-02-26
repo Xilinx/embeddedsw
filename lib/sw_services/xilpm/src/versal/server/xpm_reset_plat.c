@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,6 +9,7 @@
 #include "xpm_reset.h"
 #include "xpm_debug.h"
 #include "xpm_device.h"
+#include "xpm_device_idle.h"
 #include "xpm_domain_iso.h"
 #include "xpm_powerdomain.h"
 #include "xpm_regs.h"
@@ -306,6 +307,51 @@ done:
 	return Status;
 }
 
+static XStatus AdmaResetAssert(const XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device;
+
+	Device = XPmDevice_GetById(PM_DEV_ADMA_0);
+	if (NULL == Device) {
+		goto done;
+	}
+
+#if (defined(XILPM_ZDMA_0) || defined(XILPM_ZDMA_1) || defined(XILPM_ZDMA_2) || \
+	defined(XILPM_ZDMA_3) || defined(XILPM_ZDMA_4) || defined(XILPM_ZDMA_5) || \
+	defined(XILPM_ZDMA_6) || defined(XILPM_ZDMA_7))
+	(void)Rst;
+	Status = NodeZdmaIdle(0U, Device->Node.BaseAddress);
+#else
+	const u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
+	const u32 ControlReg = Rst->Node.BaseAddress;
+
+	XPm_RMW32(ControlReg, Mask, Mask);
+
+	Status = XST_SUCCESS;
+#endif
+
+done:
+	return Status;
+}
+
+static XStatus AdmaResetPulse(const XPm_ResetNode *Rst)
+{
+	XStatus Status = XST_FAILURE;
+	const u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
+	const u32 ControlReg = Rst->Node.BaseAddress;
+
+	Status = AdmaResetAssert(Rst);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	XPm_RMW32(ControlReg, Mask, 0U);
+
+done:
+	return Status;
+}
+
 static XStatus CpmResetAssert(const XPm_ResetNode *Rst)
 {
 	(void)Rst;
@@ -414,6 +460,11 @@ static const struct ResetCustomOps Reset_Custom[] = {
 		.ActionRelease = &CpmResetRelease,
 		.ActionPulse = &CpmResetPulse,
 		.GetStatus = &GetCpmPorResetStatus,
+	},
+	{
+		.ResetIdx = (u32)XPM_NODEIDX_RST_ADMA,
+		.ActionAssert = &AdmaResetAssert,
+		.ActionPulse = &AdmaResetPulse,
 	},
 };
 
