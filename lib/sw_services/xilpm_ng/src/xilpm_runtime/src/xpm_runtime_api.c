@@ -1142,13 +1142,11 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
 		Status = XPmCore_GetCoreIdleSupport(Core, &IsCoreIdleSupported);
 		if (XST_SUCCESS != Status) {
-			goto process_ack;
+			IsCoreIdleSupported = 0;
 		}
-		Status = XPmCore_GetFrcPwrDwnReq(Core, &FrcPwrDwnReq);
-		if (XST_SUCCESS != Status) {
-			goto process_ack;
-		}
+
 		if ((1U == Core->isCoreUp) && (1U == IsCoreIdleSupported)) {
+			struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
 			FrcPwrDwnReq.AckType = Ack;
 			FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
 			Status = XPmCore_SetFrcPwrDwnReq(Core, FrcPwrDwnReq);
