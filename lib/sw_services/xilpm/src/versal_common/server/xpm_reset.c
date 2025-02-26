@@ -36,6 +36,7 @@ static const u32 PermissionResets[] = {
 	PM_RST_PL1,
 	PM_RST_PL2,
 	PM_RST_PL3,
+	PM_RST_ADMA,
 };
 
 static XPm_ResetNode *RstNodeList[(u32)XPM_NODEIDX_RST_MAX];
