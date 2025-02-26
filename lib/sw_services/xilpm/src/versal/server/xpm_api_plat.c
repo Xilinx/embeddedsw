@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -344,6 +344,10 @@ static void PostTopologyHook(void)
 	/* TODO: Remove this when custom CPM POR reset is added from topology */
 	/* Make CPM POR reset to custom reset */
 	XPmReset_MakeCpmPorResetCustom();
+
+	/* TODO: Remove this when custom ADMA reset is added from topology */
+	/* Make ADMA reset to custom reset */
+	XPmReset_MakeAdmaResetCustom();
 }
 
 XStatus XPm_EnableDdrSr(const u32 SubsystemId)
