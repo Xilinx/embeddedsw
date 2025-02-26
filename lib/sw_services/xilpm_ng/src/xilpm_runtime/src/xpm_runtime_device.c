@@ -12,6 +12,8 @@
 #include "xplmi.h"
 #include "xpm_runtime_api.h"
 #include "xpm_runtime_device.h"
+#include "xpm_runtime_reset.h"
+#include "xpm_mem_tcm.h"
 /* Device security bit in register */
 #define DEV_NONSECURE			(1U)
 #define DEV_SECURE			(0U)
@@ -531,7 +533,20 @@ XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 			RstHandle = RstHandle->NextReset;
 		}
 	} else {
+		/** If Device is TCM we handle TCM reset differently */
+		if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Device->Node.Id)) &&
+		    ((u32)XPM_NODESUBCL_DEV_MEM == NODESUBCLASS(Device->Node.Id)) &&
+		    ((u32)XPM_NODETYPE_DEV_TCM == NODETYPE(Device->Node.Id))) {
+			Status = XPmMem_TcmResetReleaseById(Device->Node.Id);
+			if (XST_SUCCESS != Status) {
+				PmErr("Failed to release TCM reset\r\n");
+				goto done;
+			}
+			goto done;
+		}
+		/* Release reset for all devices in the reset handle */
 		while (NULL != RstHandle) {
+			/* Release reset for all devices in the reset handle */
 			Status = XPmReset_AssertbyId(RstHandle->Reset->Node.Id, Action);
 			if (XST_SUCCESS != Status) {
 				goto done;

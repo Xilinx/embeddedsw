@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,6 @@ struct XPmRuntime_DeviceOps
 	XPm_Device *Device;
 	XPm_RequirementList* Requirements;
 	XPm_Fsm *Fsm; /**< Pointer to the FSM of the device */
-	void* DeviceOps; /**< Pointer to the device specific operations */
 };
 
 CREATE_LIST(XPmRuntime_DeviceOps);
