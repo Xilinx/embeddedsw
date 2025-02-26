@@ -1,7 +1,8 @@
-/*
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+/******************************************************************************
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
- */
+******************************************************************************/
 
 #include "xpfw_config.h"
 #ifdef ENABLE_PM
@@ -22,6 +23,7 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 #include "pm_master.h"
+#include "pm_node_idle.h"
 #include "crl_apb.h"
 #include "crf_apb.h"
 #include "pmu_iomodule.h"
@@ -193,6 +195,47 @@ static u32 PmResetPulseGen(const PmReset *const rstPtr)
 	const PmResetGeneric *rstGenPtr = (PmResetGeneric*)rstPtr->derived;
 
 	return PmResetPulseCommon(rstGenPtr->ctrlAddr, rstGenPtr->mask);
+}
+
+/**
+ * PmResetAssertAdma() - Assert handler for PmResetAdma reset class
+ * @rstPtr	Pointer to the reset line that needs to be asserted or released
+ * @action	States whether to assert or release reset line
+ */
+static void PmResetAssertAdma(const PmReset *const rstPtr, const u32 action)
+{
+	const PmResetGeneric *const rstGenPtr = (PmResetGeneric*)rstPtr->derived;
+
+	if (PM_RESET_ACTION_RELEASE == action) {
+		XPfw_RMW32(rstGenPtr->ctrlAddr, rstGenPtr->mask, 0U);
+	} else if (PM_RESET_ACTION_ASSERT == action) {
+#if (defined(XPMU_ZDMA_0) || defined(XPMU_ZDMA_8)) && defined(ENABLE_NODE_IDLING)
+		const PmReset *const admaRst = PmGetResetById(PM_RESET_ADMA);
+		if (rstPtr == admaRst) {
+			NodeZdmaIdle(XPMU_ZDMA_0_BASEADDR);
+		} else {
+			NodeZdmaIdle(XPMU_ZDMA_8_BASEADDR);
+		}
+#else
+		XPfw_RMW32(rstGenPtr->ctrlAddr, rstGenPtr->mask, rstGenPtr->mask);
+#endif
+	} else {
+		/* For MISRA compliance */
+	}
+}
+
+/**
+ * PmResetPulseAdma() - Pulse handler for PmResetAdma class
+ * @rstPtr	Pointer to the reset that needs to be toggled
+ *
+ * @return	Operation success
+ */
+static u32 PmResetPulseAdma(const PmReset *const rstPtr)
+{
+	PmResetAssertAdma(rstPtr, PM_RESET_ACTION_ASSERT);
+	PmResetAssertAdma(rstPtr, PM_RESET_ACTION_PULSE);
+
+	return XST_SUCCESS;
 }
 
 /**
@@ -404,6 +447,12 @@ static const PmResetOps pmResetOpsGeneric = {
 	.pulse = PmResetPulseGen,
 };
 
+static const PmResetOps pmResetOpsAdma = {
+	.resetAssert = PmResetAssertAdma,
+	.getStatus = PmResetGetStatusGen,
+	.pulse = PmResetPulseAdma,
+};
+
 static const PmResetOps pmResetOpsGpo = {
 	.resetAssert = PmResetAssertGpo,
 	.getStatus = PmResetGetStatusGpo,
@@ -548,7 +597,7 @@ static PmResetGeneric pmResetAfiFm0 = {
 
 static PmResetGeneric pmResetGdma = {
 	.rst = {
-		.ops = &pmResetOpsGeneric,
+		.ops = &pmResetOpsAdma,
 		.access = 0U,
 		.derived = &pmResetGdma,
 	},
@@ -950,7 +999,7 @@ static PmResetGeneric pmResetNand = {
 
 static PmResetGeneric pmResetAdma = {
 	.rst = {
-		.ops = &pmResetOpsGeneric,
+		.ops = &pmResetOpsAdma,
 		.access = 0U,
 		.derived = &pmResetAdma,
 	},
