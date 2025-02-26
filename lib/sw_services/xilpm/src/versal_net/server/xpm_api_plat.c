@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -471,6 +471,10 @@ XStatus XPm_HookAfterPlmCdo(void)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
+
+	/* TODO: Remove this when custom ADMA reset is added from topology */
+	/* Make ADMA reset to custom reset */
+	XPmReset_MakeAdmaResetCustom();
 
 	/* If default subsystem is present, attempt to add requirements if needed. */
 	Subsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
