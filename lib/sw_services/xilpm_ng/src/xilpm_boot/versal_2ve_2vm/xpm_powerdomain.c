@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -548,7 +548,7 @@ XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State)
 					if ((u8)XPM_POWER_STATE_ON == State) {
 						ParentRail->Power.UseCount++;
 					} else {
-						ParentRail->Power.UseCount--;
+						PmDecrement(ParentRail->Power.UseCount);
 					}
 				}
 			}
@@ -568,7 +568,7 @@ XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State)
 				}
 				ParentRail->Power.UseCount++;
 			} else {
-				ParentRail->Power.UseCount--;
+				PmDecrement(ParentRail->Power.UseCount);
 				if (ParentRail->Power.UseCount <= 0U) {
 					PmDbg("Turning %x rail off now\r\n", ParentRail->Power.Node.Id);
 					Status = XST_FAILURE;

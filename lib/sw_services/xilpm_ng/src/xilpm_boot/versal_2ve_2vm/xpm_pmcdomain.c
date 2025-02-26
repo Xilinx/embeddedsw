@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,7 +26,7 @@ static XStatus HandlePmcDomainEvent(XPm_Node *Node, u32 Event)
 				Power->UseCount++;
 			} else if ((u32)XPM_POWER_EVENT_PWR_DOWN == Event) {
 				Status = XST_SUCCESS;
-				Power->UseCount--;
+				PmDecrement(Power->UseCount);
 			} else {
 				/* Required by MISRA */
 			}
