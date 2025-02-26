@@ -1,4 +1,4 @@
-# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_SOURCES xpm_bisr_plat.c)
@@ -41,6 +41,7 @@ collect (PROJECT_LIB_HEADERS xpm_repair.h)
 collect (PROJECT_LIB_HEADERS xpm_repair_regs.h)
 collect (PROJECT_LIB_HEADERS xpm_requirement_plat.h)
 collect (PROJECT_LIB_HEADERS xpm_reset_plat.h)
+collect (PROJECT_LIB_SOURCES xpm_reset_plat.c)
 collect (PROJECT_LIB_HEADERS xpm_subsystem_plat.h)
 
 if(NOT "${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2")
