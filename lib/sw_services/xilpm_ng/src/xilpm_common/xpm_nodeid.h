@@ -74,13 +74,12 @@ extern "C" {
 #define PM_POWER_VCCINT_RAM			(0x432802EU)
 #define PM_POWER_VCCAUX				(0x432802FU)
 #define PM_POWER_VCCINT_PL			(0x4328030U)
-#define PM_POWER_VCCINT_CPM5N			(0x4328051U)
-#define PM_POWER_VCCINT_ME			(0x4328061U)
 /** @cond INTERNAL */
 #define PM_POWER_FPD_DOMAIN_CTRL		(0x453404FU)
 #define PM_POWER_PLD_DOMAIN_CTRL		(0x4534050U)
 #define PM_POWER_CPM6				(0x4218060U)
 /** @endcond */
+#define PM_POWER_VCCINT_CPM5N			(0x4328051U)
 #define PM_POWER_HNICX				(0x4230031U)
 #define PM_POWER_CPM5N				(0x4218032U)
 #define PM_POWER_ACPU_0_0			(0x4104033U)
@@ -125,6 +124,7 @@ extern "C" {
 #define PM_POWER_TCM_1_C			(0x410405DU)
 #define PM_POWER_TCM_1_D			(0x410405EU)
 #define PM_POWER_TCM_1_E			(0x410405FU)
+#define PM_POWER_VCCINT_ME			(0x4328061U)
 /** @} */
 
 /**
@@ -235,6 +235,15 @@ extern "C" {
 #define PM_RST_AIE_SHIM				(0xC10405FU)
 /** @cond INTERNAL */
 #define PM_RST_PCIE_DMA1			(0xC410060U)
+#define PM_RST_GT_CPM6				(0xC410110U)
+#define PM_RST_LSBUS_CTRL			(0xC410111U)
+#define PM_RST_SYSMON_CFG_CPM6			(0xC410112U)
+#define PM_RST_SYSMON_SEQ_CPM6			(0xC410113U)
+#define PM_RST_CPM_CORE_MISC			(0xC410114U)
+#define PM_RST_XAPE0				(0xC410115U)
+#define PM_RST_XAPE1				(0xC410116U)
+#define PM_RST_INTC_LPBK			(0xC410117U)
+#define PM_RST_CHIPPIPE_SRST			(0xC410118U)
 /** @endcond */
 #define PM_RST_GTY_1				(0xC410061U)
 #define PM_RST_GTY_3				(0xC410062U)
@@ -404,7 +413,7 @@ extern "C" {
 #define PM_RST_TTC_5				(0xC10410DU)
 #define PM_RST_TTC_6				(0xC10410EU)
 #define PM_RST_TTC_7				(0xC10410FU)
-#define PM_RST_UDH_DRD                          (0xC41007BU)
+#define PM_RST_UDH_DRD				(0xC41007BU)
 #define PM_RST_DC				(0xC410119U)
 #define PM_RST_GPU				(0xC41011AU)
 #define PM_RST_GPU_RECOV			(0xC41011BU)
@@ -630,7 +639,7 @@ extern "C" {
 #define PM_CLK_TTC5				(0x82080CDU)
 #define PM_CLK_TTC6				(0x82080CEU)
 #define PM_CLK_TTC7				(0x82080CFU)
-#define PM_CLK_MMI_DRD_REF_CLK                  (0x82080D0U)
+#define PM_CLK_MMI_DRD_REF_CLK			(0x82080D0U)
 #define PM_CLK_UDH_PRESRC			(0x82080D1U)
 #define PM_CLK_UDHPLL				(0x82080D2U)
 #define PM_CLK_UDH_PLL				(0x81040D3U)
@@ -1057,7 +1066,7 @@ extern "C" {
 #define PM_DEV_TTC_5				(0x18224120U)
 #define PM_DEV_TTC_6				(0x18224121U)
 #define PM_DEV_TTC_7				(0x18224122U)
-#define PM_DEV_MMI_USB_DRD                      (0x18224135U)
+#define PM_DEV_MMI_USB_DRD			(0x18224135U)
 #define PM_DEV_MMI_GPU				(0x18224136U)
 #define PM_DEV_MMI_DC				(0x18224137U)
 #define PM_DEV_MMI_HDCP				(0x18224138U)
@@ -1196,11 +1205,11 @@ extern "C" {
 #define PM_ISO_PL_PS_DTI1			(0x20000047U)
 #define PM_ISO_CPM5_NOC_DFX			(0x20000048U)
 #define PM_ISO_CPM5_NOC				(0x20000049U)
-#define PM_ISO_MMI_PL_GEM_N                     (0x2000004AU)
-#define PM_ISO_MMI_PL_DC_N                      (0x2000004BU)
-#define PM_ISO_MMI_N                            (0x2000004CU)
-#define PM_ISO_MMI_PL_TEST_N                    (0x2000004DU)
-#define PM_ISO_MMI_PL_MISC_N                    (0x2000004EU)
+#define PM_ISO_MMI_PL_GEM_N			(0x2000004AU)
+#define PM_ISO_MMI_PL_DC_N			(0x2000004BU)
+#define PM_ISO_MMI_N				(0x2000004CU)
+#define PM_ISO_MMI_PL_TEST_N			(0x2000004DU)
+#define PM_ISO_MMI_PL_MISC_N			(0x2000004EU)
 /** @} */
 /** @endcond */
 
