@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +20,8 @@
 * 1.1   dc     11/21/19 Remove xil dependencies from linux build
 *       dc     12/05/19 adjust LMX and LMK configs to a rftool needs
 * 1.5   dc     18/01/21 pass GPIO Mux base address as parameter
-* 1.6   dc     01/19/24 Correct linux gpio ID
+* 1.6   dc     19/01/24 Correct linux gpio ID
+* 2.0   dc     24/03/25 Update BM for SDT
 *
 * </pre>
 *
@@ -138,7 +139,11 @@ int main()
 	XRFClk_Init();
 #elif defined __BAREMETAL__
 	/* The base address is defined in xparameters.h */
+#ifndef SDT
 	XRFClk_Init(XPAR_PS_SUBSYSTEM_AXI_GPIO_SPI_MUX_DEVICE_ID);
+#else
+	XRFClk_Init(XPAR_PS_SUBSYSTEM_AXI_GPIO_SPI_MUX_BASEADDR);
+#endif
 #else
 	/* The argument in XRFClk_Init is a gpioID.
 	   Note: gpioID must be detected manualy, first find a gpio base

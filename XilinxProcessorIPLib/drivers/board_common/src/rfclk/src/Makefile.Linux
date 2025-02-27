@@ -3,7 +3,7 @@ APP = rfclk
 LIBSOURCES=*.c
 OUTS = *.o
 NAME := rfclk
-MAJOR = 1
+MAJOR = 2
 MINOR = 0
 VERSION = $(MAJOR).$(MINOR)
 
