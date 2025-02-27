@@ -15,6 +15,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   yog  01/02/25 Initial release
+*       yog  02/20/25 Updated the HMAC key length validation.
 *
 * </pre>
 *
@@ -64,6 +65,7 @@ static inline void XHmac_Xor(const u32 *Data, const u32 Value, u32 *Result, u32 
 							this IPAD value 0x36U. */
 #define XASUFW_HMAC_OPAD_VALUE		(0x5C5C5C5CU) /**< Each byte of Key provided is XOR'ed with
 							this OPAD value 0x5CU. */
+#define XHMAC_HASH_HALF_LENGTH_SHIFT	(0x1U) /**< To calculte half of the hash length */
 
 /************************************** Function Definitions *************************************/
 
@@ -172,7 +174,7 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 		goto END;
 	}
 
-	if ((KeyLen < HashLen) || (KeyLen > XASU_HMAC_MAX_KEY_LENGTH)) {
+	if (KeyLen < (HashLen >> XHMAC_HASH_HALF_LENGTH_SHIFT)) {
 		Status = XASUFW_HMAC_INVALID_KEY_LENGTH;
 		goto END;
 	}
