@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2021 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xrfclk.c
-* @addtogroup xrfclk_v1_2
+* @addtogroup Overview
 * @{
 *
 * Contains the API of the XRFclk middleware.
@@ -26,6 +27,7 @@
 *       dc     03/05/20 add protection for shared i2c1 MUX
 * 1.3   dc     03/10/20 update LMK/LMX config for MTS
 * 1.5   dc     18/01/21 pass GPIO Mux base address as parameter
+* 2.0   dc     24/03/25 Update BM for SDT
 * </pre>
 *
 ******************************************************************************/
@@ -188,7 +190,11 @@ static int XRFClk_InitI2C(void)
 
 #ifdef XPS_BOARD_ZCU111
 	/* i2c0 */
+#ifndef SDT
 	Config_iic = XIicPs_LookupConfig(0);
+#else
+	Config_iic = XIicPs_LookupConfig(XPAR_I2C0_BASEADDR);
+#endif
 	if (NULL == Config_iic) {
 		return XST_FAILURE;
 	}
@@ -204,9 +210,12 @@ static int XRFClk_InitI2C(void)
 		return XST_FAILURE;
 	}
 #endif
-
 	/* i2c1 */
+#ifndef SDT
 	Config_iic = XIicPs_LookupConfig(1);
+#else
+	Config_iic = XIicPs_LookupConfig(XPAR_I2C1_BASEADDR);
+#endif
 	if (NULL == Config_iic) {
 		return XST_FAILURE;
 	}
