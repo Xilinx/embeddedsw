@@ -20,6 +20,7 @@
 *       yog  08/25/24 Integrated FIH library
 *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
 *       ss   12/02/24 Added support for ECDH
+*       yog  02/21/25 Changed the API XRsa_EccValidateAndGetCrvInfo() to be non-static
 *
 * </pre>
 *
@@ -92,7 +93,6 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -691,7 +691,7 @@ END:
  *		CurveSize - Size of curve in bytes
  *
  *************************************************************************************************/
-static u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
+u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
 {
 	u32 CurveSize = 0U;
 	EcdsaCrvInfo *CrvInfo = XRsa_EccGetCrvData(CurveType);

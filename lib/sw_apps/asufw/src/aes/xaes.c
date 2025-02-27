@@ -22,6 +22,7 @@
  *       am   08/25/24 Initialized ASU DMA pointer before XAsufw_DmaXfr() function call.
  *       am   01/20/25 Added AES CCM support
  *       vns  02/12/25 Removed XAsufw_RCMW() API
+ *       yog  02/26/25 Added XAes_Compute() API
  *
  * </pre>
  *
@@ -1202,6 +1203,100 @@ s32 XAes_DpaCmDecryptData(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObje
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, InputDataAddr, OutputDataAddr, DataLength, XASU_TRUE);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ *
+ * @brief	This function performs AES encryption or decryption for a single data blob,
+ * 		which supports additional authentication data (AAD) for all modes except CCM.
+ * 		The data blob is processed according to the selected AES operation mode.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	AsuDmaPtr	Pointer to the XAsufw_Dma instance.
+ * @param	AesParams	Pointer to the Asu_AesParams structure containing user input
+ * 				parameters.
+ *
+ * @return
+ * 		- XASUFW_SUCCESS, if initialization was successful.
+ * 		- XASUFW_AES_INVALID_PARAM, if InstancePtr or AsuDmaPtr is NULL or AesParams
+ * 			is NULL.
+ * 		- XASUFW_AES_INIT_FAILED, if AES initialization fails.
+ * 		- XASUFW_AES_UPDATE_FAILED, if AES AAD or data update fails.
+ * 		- XASUFW_AES_FINAL_FAILED, if AES final fails.
+ *
+ *************************************************************************************************/
+s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, Asu_AesParams *AesParams)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	if ((InstancePtr == NULL) || (AsuDmaPtr == NULL) || (AesParams == NULL)) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** CCM mode is not supported. */
+	if (AesParams->EngineMode == XASU_AES_CCM_MODE) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Initialize AES engine and load provided key and IV to AES engine. */
+	Status = XAes_Init(InstancePtr, AsuDmaPtr, AesParams->KeyObjectAddr,
+		AesParams->IvAddr, AesParams->IvLen, AesParams->EngineMode,
+		AesParams->OperationType);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_INIT_FAILED;
+		goto END;
+	}
+
+	/**
+	 * Update AAD data to AES engine as per the input from the user.
+	 * User should pass AAD address as zero for AES standard modes(CBC, ECB, CFB, OFB, CTR).
+	 * If AAD address is zero, skip AAD updation.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if ((AesParams->AadAddr != 0U) && (AesParams->EngineMode != XASU_AES_CBC_MODE) &&
+	    (AesParams->EngineMode != XASU_AES_CFB_MODE) &&
+	    (AesParams->EngineMode != XASU_AES_OFB_MODE) &&
+	    (AesParams->EngineMode != XASU_AES_CTR_MODE) &&
+	    (AesParams->EngineMode != XASU_AES_ECB_MODE)) {
+		Status = XAes_Update(InstancePtr, AsuDmaPtr, AesParams->AadAddr, 0U,
+				     AesParams->AadLen, XASU_FALSE);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_AES_UPDATE_FAILED;
+			goto END;
+		}
+	}
+
+	/**
+	 * Update input data to be encrypted to AES engine and store the resultant data at
+	 * specified output address. User should provide input data address as zero in case of
+	 * CMAC mode.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if ((AesParams->InputDataAddr != 0U) &&
+	    (AesParams->EngineMode != XASU_AES_CMAC_MODE)) {
+		Status = XAes_Update(InstancePtr, AsuDmaPtr, AesParams->InputDataAddr,
+				     AesParams->OutputDataAddr, AesParams->DataLen, XASU_TRUE);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_AES_UPDATE_FAILED;
+			goto END;
+		}
+	}
+
+	/**
+	 * Wait for AES operation to complete and generate/verifie the tag based on the AES
+	 * operation type and mode.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAes_Final(InstancePtr, AsuDmaPtr, AesParams->TagAddr, AesParams->TagLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_FINAL_FAILED;
+	}
 
 END:
 	return Status;

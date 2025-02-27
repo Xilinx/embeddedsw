@@ -35,6 +35,7 @@
  *       yog  01/02/25 Initialize HMAC module
  *       ma   01/15/25 Initialize KDF module
  *       ma   02/21/25 Initialize error management functionality
+ *       yog  02/24/25 Initialize ECIES module
  *
  * </pre>
  *
@@ -62,6 +63,7 @@
 #include "xasufw_aeshandler.h"
 #include "xasufw_hmachandler.h"
 #include "xasufw_kdfhandler.h"
+#include "xasufw_ecieshandler.h"
 #include "xfih.h"
 #include "xasufw_error_manager.h"
 
@@ -256,6 +258,12 @@ static s32 XAsufw_ModulesInit(void)
 
 	/** KDF module initialization. */
 	Status = XAsufw_KdfInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** ECIES module initialization. */
+	Status = XAsufw_EciesInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}

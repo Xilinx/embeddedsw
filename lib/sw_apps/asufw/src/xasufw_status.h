@@ -43,6 +43,7 @@
  *       LC   02/07/25 Listed actual error codes in description
  *       ma   02/11/25 Added TRNG related error codes
  *       ma   02/21/25 Added error code for ASU exceptions
+ *       yog  02/24/25 Added error codes for ECIES functionality
  *
  * </pre>
  *
@@ -322,6 +323,18 @@ enum {
 	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, /**< 0xEAU - Error when change endianness in RSA fails */
 	XASUFW_RSA_INVALID_PRIME_TOT_FLAG, /**< 0xEBU - Error when invalid flag for prime number or
 						totient is given */
+	XASUFW_ECIES_INVALID_PARAM, /**< 0xECU - Invalid parameters to ECIES APIs */
+	XASUFW_ECIES_TRNG_FAILED, /**< 0xEDU - Error when random number generation failed */
+	XASUFW_ECIES_KEY_GEN_FAILURE, /**< 0xEEU - Error when public key generation failed */
+	XASUFW_ECIES_ECDH_FAILURE, /**< 0xEFU - Error when ECDH operation failed */
+	XASUFW_ECIES_KDF_FAILURE, /**< 0xF0U - Error when KDF operation failed */
+	XASUFW_ECIES_AES_WRITE_KEY_FAILURE, /**< 0xF1U - Error when AES write key operation failed */
+	XASUFW_ECIES_AES_FAILURE, /**< 0xF2U - Error when AES operation failed */
+	XASUFW_ECIES_MODULE_REGISTRATION_FAILED, /**< 0xF3U - ECIES module registration failed */
+	XASUFW_ECIES_ENCRYPT_FAILED, /**< 0xF4U - ECIES encryption failed */
+	XASUFW_ECIES_DECRYPT_FAILED, /**< 0xF5U - ECIES decryption failed */
+	XASUFW_ECIES_KAT_FAILED, /**< 0xF6U - ECIES KAT failed */
+	XASUFW_ECIES_KAT_COMPARISON_FAILED, /**< 0xF7U - ECIES KAT comparision failed */
 
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };
