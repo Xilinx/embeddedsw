@@ -21,6 +21,7 @@
  *       yog  08/19/24 Received Dma instance from handler
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       ss   12/02/24 Added support for ECDH
+ *       yog  02/21/25 Added XRsa_EccValidateAndGetCrvInfo() prototype
  *
  * </pre>
  *
@@ -68,6 +69,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
 			    u64 PubKeyAddr, u64 SharedSecretAddr, u64 SharedSecretObjIdAddr);
 EcdsaCrvInfo *XRsa_EccGetCrvData(u32 CurveType);
+u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv);
 
 /************************************ Variable Definitions ***************************************/
 

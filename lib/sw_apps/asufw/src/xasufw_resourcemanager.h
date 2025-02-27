@@ -24,6 +24,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/12/24 Updated resource allocation logic
  *       ma   01/15/25 Added KDF to the resources list
+ *       yog  02/20/25 Added ECIES to the resources list
  *
  * </pre>
  *
@@ -58,6 +59,7 @@ extern "C" {
 #define XASUFW_RSA_RESOURCE_MASK        0x100U /**< RSA resource mask */
 #define XASUFW_HMAC_RESOURCE_MASK       0x200U /**< HMAC resource mask */
 #define XASUFW_KDF_RESOURCE_MASK		0x400U /**< KDF resource mask */
+#define XASUFW_ECIES_RESOURCE_MASK	0x800U /**< KDF resource mask */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -75,7 +77,8 @@ typedef enum {
 	XASUFW_RSA,		/**< 8: RSA */
 	XASUFW_HMAC,	/**< 9: HMAC */
 	XASUFW_KDF,		/**< 10: KDF */
-	XASUFW_INVALID	/**< 11: Invalid */
+	XASUFW_ECIES,	/**< 11: ECIES */
+	XASUFW_INVALID	/**< 12: Invalid */
 } XAsufw_Resource;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

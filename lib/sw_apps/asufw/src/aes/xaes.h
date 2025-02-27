@@ -30,6 +30,7 @@
  *       am   08/01/24 Replaced variables of type enums with u32 type.
  *       am   08/24/24 Added AES DPA CM KAT support
  *       am   01/20/25 Added AES CCM support
+ *       yog  02/26/25 Added XAes_Compute() API
  *
  * </pre>
  *
@@ -77,6 +78,7 @@ s32 XAes_DpaCmDecryptData(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObje
 			  u32 InputDataAddr, u32 OutputDataAddr, u32 DataLength);
 s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeySel, u8 DecKeySize,
 	u64 IvAddr, u32 IvLen);
+s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, Asu_AesParams *AesParams);
 
 #ifdef __cplusplus
 }
