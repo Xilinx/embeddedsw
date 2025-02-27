@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -325,6 +325,9 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 				goto done;
 			}
 			Status = XPm_SubsystemPwrUp(Subsystem->Id);
+			XPm_Power *Fpd = XPmPower_GetById(PM_POWER_FPD);
+			/* Restore FPD use count */
+			Fpd->UseCount--;
 		}
 	} else {
 		Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,

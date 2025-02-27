@@ -4457,6 +4457,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	const XPm_ResetNode *Rst;
+	XPm_Power *Fpd = XPmPower_GetById(PM_POWER_FPD);
 
 	if ((PM_SHUTDOWN_TYPE_SHUTDOWN != Type) &&
 	    (PM_SHUTDOWN_TYPE_RESET != Type)) {
@@ -4498,6 +4499,11 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 
 	switch (SubType) {
 	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
+		/**
+		 * Temporary increase FPD use count to avoid FPD power
+		 * down during subsystem restart
+		 */
+		Fpd->UseCount++;
 		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
 			Subsystem->Flags &= (u8)(~SUBSYSTEM_DO_PERIPH_IDLE);
 			Status = XPm_RequestHBMonDevice(SubsystemId, CmdType);
@@ -4531,7 +4537,8 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
-
+			/* Restore FPD use count */
+			Fpd->UseCount--;
 		}
 
 		break;
