@@ -9,7 +9,7 @@
  * @file xasufw_kat.h
  *
  * This file contains function declarations, macro and structure defines related to SHA, RSA,
- * ECC and HMAC KAT functionality in ASUFW.
+ * ECC, HMAC and ECIES KAT functionality in ASUFW.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -27,6 +27,7 @@
  *       ma   12/12/24 Updated resource allocation logic
  *       yog  01/02/25 Added HMAC KAT
  *       ma   01/15/25 Added KDF KAT
+ *       yog  02/21/25 Added ECIES KAT
  *
  * </pre>
  *
@@ -68,6 +69,7 @@ s32 XAsufw_AesDecryptDpaCmKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_P192EcdhKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr);
 
 /************************************ Variable Definitions ***************************************/
 

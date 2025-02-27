@@ -32,6 +32,7 @@
  *       yog  01/02/25 Added HMAC KAT
  *       ma   01/15/25 Added KDF KAT
  *       am   01/28/25 Fixed compilation error
+ *       yog  02/21/25 Added ECIES KAT
  *
  * </pre>
  *
@@ -51,6 +52,7 @@
 #include "xasufw_util.h"
 #include "xasu_hmacinfo.h"
 #include "xkdf.h"
+#include "xecies.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -70,6 +72,7 @@ static s32 XAsufw_AesDpaCmChecks(const u32 *P, const u32 *Q, const u32 *R, const
 #define XASUFW_AES_TAG_LEN_IN_BYTES		(16U)	/**< AES KAT Tag length in bytes */
 #define XASUFW_DOUBLE_P256_SIZE_IN_BYTES	(64U)	/**< Double the size of P256 curve length */
 #define XASUFW_DOUBLE_P192_SIZE_IN_BYTES	(48U)	/**< Double the size of P192 curve length */
+#define XASUFW_DOUBLE_P384_SIZE_IN_BYTES	(96U)	/**< Double the size of P192 curve length */
 #define XASUFW_AES_DATA_SPLIT_SIZE_IN_BYTES	(16U)	/**< AES data split size in words */
 #define XASUFW_AES_CM_KAT_KEY_SIZE_IN_BYTES	(32U)	/**< AES Key size in words */
 #define XASUFW_AES_CM_KAT_DATA_SIZE_IN_BYTES	(64U)	/**< AES operation data in words */
@@ -345,6 +348,42 @@ static const u8 EcdhPrivKey[XASU_ECC_P192_SIZE_IN_BYTES] = {
 static const u8 EcdhExpSharedSecret[XASU_ECC_P192_SIZE_IN_BYTES] = {
 	0x12U, 0xF5U, 0xE2U, 0x72U, 0x5DU, 0x81U, 0x47U, 0x18U, 0x31U, 0x55U, 0x54U, 0xACU, 0x4DU,
 	0x95U, 0x8BU, 0xDFU, 0xECU, 0x86U, 0x8CU, 0xA8U, 0x23U, 0xDCU, 0xE5U, 0x65U
+};
+
+static const u8 EciesRxPrivKey[XASU_ECC_P384_SIZE_IN_BYTES] = {
+	0x02U, 0x87U, 0xF6U, 0x2AU, 0x5AU, 0xA8U, 0x43U, 0x2FU,
+	0xF5U, 0xE9U, 0x56U, 0x18U, 0xECU, 0x8FU, 0x9CU, 0xCAU,
+	0xA8U, 0x70U, 0xDDU, 0xE9U, 0x9CU, 0x30U, 0xB5U, 0x1BU,
+	0x76U, 0x73U, 0x37U, 0x8EU, 0xFEU, 0x4CU, 0xCAU, 0xC5U,
+	0x98U, 0xF4U, 0xBBU, 0xEBU, 0xBFU, 0xD8U, 0x99U, 0x3FU,
+	0x9AU, 0xBBU, 0x74U, 0x7BU, 0x6AU, 0xD6U, 0x38U, 0xB9U
+};
+
+static const u8 EciesRxPubKey[XASUFW_DOUBLE_P384_SIZE_IN_BYTES] = {
+	0xB3U, 0x64U, 0x18U, 0xA3U, 0x01U, 0x40U, 0x74U, 0xECU,
+	0x9BU, 0xBCU, 0xC6U, 0xA4U, 0xB2U, 0x36U, 0x7AU, 0x4FU,
+	0xB4U, 0x64U, 0xCCU, 0xA7U, 0xECU, 0x0AU, 0x32U, 0x4CU,
+	0xB6U, 0x86U, 0x70U, 0xD5U, 0xC5U, 0xE0U, 0x3EU, 0x7AU,
+	0x7EU, 0xB0U, 0x7DU, 0xA1U, 0x17U, 0xC5U, 0xEAU, 0x50U,
+	0xB6U, 0x65U, 0xABU, 0x62U, 0xBDU, 0x02U, 0xA4U, 0x91U,
+	0x4EU, 0xA2U, 0x99U, 0xC3U, 0x0EU, 0x7DU, 0x76U, 0xE2U,
+	0xC5U, 0x90U, 0x5BU, 0xABU, 0xADU, 0xA2U, 0xD3U, 0xBBU,
+	0x4EU, 0xE5U, 0xEBU, 0x35U, 0xA5U, 0xA2U, 0x36U, 0x05U,
+	0xCDU, 0xB0U, 0xD5U, 0x13U, 0x34U, 0x71U, 0xA5U, 0x3EU,
+	0xB9U, 0xE6U, 0x75U, 0x8EU, 0x49U, 0x10U, 0x5AU, 0x4EU,
+	0xAFU, 0x29U, 0xD2U, 0x26U, 0x7BU, 0xA8U, 0x4EU, 0xF2U
+};
+
+static const u8 ExpEciesOutput[XASUFW_KAT_MSG_LENGTH_IN_BYTES] = {
+	0x8FU, 0x8FU, 0xD1U, 0x40U, 0x79U, 0x36U, 0x26U, 0x93U,
+	0x91U, 0x7EU, 0x78U, 0x3AU, 0x53U, 0x92U, 0xB9U, 0x0BU,
+	0x53U, 0x46U, 0xAAU, 0xD6U, 0x6CU, 0xF7U, 0xB5U, 0x05U,
+	0xA0U, 0x2EU, 0x4CU, 0x46U, 0xDAU, 0x6BU, 0xA5U, 0x5BU
+};
+
+static const u8 EciesIv[XASU_AES_IV_SIZE_96BIT_IN_BYTES] = {
+	0x99U, 0xD1U, 0x58U, 0x32U, 0xCCU, 0x65U, 0xF6U, 0xB4U,
+	0xC5U, 0xC5U, 0xC3U, 0x4FU
 };
 
 /*************************************************************************************************/
@@ -1040,6 +1079,102 @@ END:
 
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_KAT_FAILED);
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs ECIES KAT using ECC curve P-384, SHA2-256 and AES-GCM mode.
+ *
+ * @param	AsuDmaPtr	Pointer to the ASU DMA instance.
+ *
+ * @return
+ *	- XASUFW_SUCCESS on successful execution of the KDF KAT.
+ *	- XASUFW_ECIES_KAT_COMPARISON_FAILED, if expected and generated ECIES comparison fails.
+ *	- XASUFW_ECIES_KAT_FAILED, when XAsufw_EciesOperationKat API fails.
+ *
+ *************************************************************************************************/
+s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	s32 SStatus = XASUFW_FAILURE;
+	XSha *Sha2Ptr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
+	XAsu_EciesParams Params;
+	u8 EciesTxPubKey[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 EciesMac[XASUFW_AES_TAG_LEN_IN_BYTES];
+	u8 EciesOut[XASUFW_KAT_MSG_LENGTH_IN_BYTES];
+
+	Params.AesKeySize = XASU_AES_KEY_SIZE_128_BITS;
+	Params.DataLength = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
+	Params.EccCurveType = XASU_ECC_NIST_P384;
+	Params.EccKeyLength = XASU_ECC_P384_SIZE_IN_BYTES;
+	Params.InDataAddr = (u64)(UINTPTR)KatMessage;
+	Params.IvAddr = (u64)(UINTPTR)EciesIv;
+	Params.IvLength = XASU_AES_IV_SIZE_96BIT_IN_BYTES;
+	Params.MacAddr = (u64)(UINTPTR)EciesMac;
+	Params.MacLength = XASU_AES_MAX_TAG_LENGTH_IN_BYTES;
+	Params.OutDataAddr = (u64)(UINTPTR)EciesOut;
+	Params.TxKeyAddr = (u64)(UINTPTR)EciesTxPubKey;
+	Params.RxKeyAddr = (u64)(UINTPTR)EciesRxPubKey;
+	Params.ContextAddr = (u64)(UINTPTR)RsaData;
+	Params.ContextLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
+	Params.ShaMode = XASU_SHA_MODE_SHA256;
+	Params.ShaType = XASU_SHA2_TYPE;
+
+	/** Perform ECIES encryption with known inputs. */
+	Status = XEcies_Encrypt(AsuDmaPtr, Sha2Ptr, AesInstancePtr, &Params, AesKey);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Compare generated encrypted output with expected encrypted output. */
+	Status = Xil_SMemCmp(EciesOut, XASUFW_KAT_MSG_LENGTH_IN_BYTES, ExpEciesOutput,
+			     XASUFW_KAT_MSG_LENGTH_IN_BYTES,
+			     XASUFW_KAT_MSG_LENGTH_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECIES_KAT_COMPARISON_FAILED;
+		goto END;
+	}
+
+	Params.InDataAddr = (u64)(UINTPTR)ExpEciesOutput;
+	Params.OutDataAddr = (u64)(UINTPTR)EciesOut;
+	Params.RxKeyAddr = (u64)(UINTPTR)EciesRxPrivKey;
+
+	/** Perform ECIES decryption with known inputs. */
+	Status = XEcies_Decrypt(AsuDmaPtr, Sha2Ptr, AesInstancePtr, &Params);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Compare generated decrypted output with input message. */
+	Status = Xil_SMemCmp(EciesOut, XASUFW_KAT_MSG_LENGTH_IN_BYTES, KatMessage,
+			     XASUFW_KAT_MSG_LENGTH_IN_BYTES,
+			     XASUFW_KAT_MSG_LENGTH_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ECIES_KAT_COMPARISON_FAILED;
+		goto END;
+	}
+
+END:
+	/** Zeroize local copy of output value. */
+	SStatus = Xil_SMemSet(&EciesOut[0U], XASUFW_KAT_MSG_LENGTH_IN_BYTES, 0U,
+			      XASUFW_KAT_MSG_LENGTH_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, SStatus);
+
+	SStatus = Xil_SMemSet(&EciesTxPubKey[0U], (XASU_ECC_P521_SIZE_IN_BYTES +
+			      XASU_ECC_P521_SIZE_IN_BYTES), 0U, (XASU_ECC_P521_SIZE_IN_BYTES +
+			      XASU_ECC_P521_SIZE_IN_BYTES));
+	Status = XAsufw_UpdateBufStatus(Status, SStatus);
+
+	SStatus = Xil_SMemSet(&EciesMac[0U], XASUFW_AES_TAG_LEN_IN_BYTES, 0U,
+			      XASUFW_AES_TAG_LEN_IN_BYTES);
+
+	Status = XAsufw_UpdateBufStatus(Status, SStatus);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_KAT_FAILED);
 	}
 
 	return Status;
