@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,11 @@ extern "C" {
 #ifndef maybe_unused
 #define maybe_unused __attribute__((unused))
 #endif
+
+/**
+ * Common invalid address macro
+ */
+#define INVALID_ADDRESS	0xDEADBEEFU
 
 #define XPM_ALERT_VAL	0x10U
 #define XPM_ERR_VAL	0x20U
