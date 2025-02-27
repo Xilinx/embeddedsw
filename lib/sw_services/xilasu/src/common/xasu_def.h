@@ -50,6 +50,7 @@ extern "C" {
 #define XASU_MODULE_AES_ID			(5U) /**< AES module ID */
 #define XASU_MODULE_HMAC_ID			(6U) /**< HMAC module ID */
 #define XASU_MODULE_KDF_ID			(7U) /**< KDF module ID */
+#define XASU_MODULE_ECIES_ID			(8U) /**< ECIES module ID */
 
 #define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
 						/** < ASU DMA maximum transfer rate in bytes. */
