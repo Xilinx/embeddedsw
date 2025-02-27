@@ -20,6 +20,7 @@
  *       yog  09/26/24 Added doxygen grouping and fixed doxygen comments.
  *       yog  11/27/24 Included input parameters validation.
  *       ss   12/02/24 Added support for ECDH
+ *       yog  02/21/25 Changed XAsu_EccValidateCurveInfo() API to be non-static
  *
  * </pre>
  *
@@ -41,7 +42,6 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen);
 static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
@@ -294,7 +294,7 @@ END:
  * 		- XST_FAILURE, if curve type is invalid.
  *
  *************************************************************************************************/
-static s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen)
+s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen)
 {
 	s32 Status = XST_FAILURE;
 	u32 Len = 0U;

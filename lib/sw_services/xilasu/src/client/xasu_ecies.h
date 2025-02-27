@@ -1,36 +1,32 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
 /*************************************************************************************************/
 /**
  *
- * @file xasu_ecc.h
+ * @file xasu_ecies.h
  *
- * This file Contains the ECC client function prototypes, defines and macros for
- * the ECC hardware module.
+ * This file Contains the ECIES client function prototypes.
  *
  * <pre>
  * MODIFICATION HISTORY:
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
- * 1.0   yog  08/19/24 Initial release
- *       yog  09/26/24 Added doxygen grouping and fixed doxygen comments
- *       ss   12/02/24 Added support for ECDH
- *       yog  02/21/25 Added XAsu_EccValidateCurveInfo() API prototype
+ * 1.0   yog  02/21/25 Initial release
  *
  * </pre>
  *
  *************************************************************************************************/
 /**
- * @addtogroup xasu_ecc_client_apis ECC Client APIs
+ * @addtogroup xasu_ecies_client_apis ECIES Client APIs
  * @{
 */
 
-#ifndef XASU_ECC_H
-#define XASU_ECC_H
+#ifndef XASU_ECIES_H
+#define XASU_ECIES_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -39,7 +35,7 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "xasu_client.h"
-#include "xasu_eccinfo.h"
+#include "xasu_eciesinfo.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -48,17 +44,14 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr);
-s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr);
-s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr);
-s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams *EcdhParamsPtr);
-s32 XAsu_EcdhKat(XAsu_ClientParams *ClientParamsPtr);
-s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen);
+s32 XAsu_EciesKat(XAsu_ClientParams *ClientParamsPtr);
+s32 XAsu_EciesEncrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *EciesParamsPtr);
+s32 XAsu_EciesDecrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *EciesParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XASU_ECC_H */
+#endif  /* XASU_ECIES_H */
 /** @} */
