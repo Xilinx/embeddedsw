@@ -21,6 +21,7 @@
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/12/24 Updated resource allocation logic
+ *       yog  02/24/25 Updated Aes pointer in XAsufw_Module structure.
  *
  * </pre>
  *
@@ -42,6 +43,7 @@ extern "C" {
 #include "xasu_def.h"
 #include "xasufw_dma.h"
 #include "xsha.h"
+#include "xaes.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_MAX_MODULES			    (10U) /**< Maximum supported modules in ASUFW */
@@ -66,6 +68,7 @@ typedef struct {
 	XAsufw_ResourceHandler_t ResourceHandler; /**< Function pointer to the resource handler */
 	XAsufw_Dma *AsuDmaPtr; /**< Pointer to the DMA instance */
 	XSha *ShaPtr; /**< Pointer to the SHA instance */
+	XAes *AesPtr; /**< Pointer to the AES instance */
 } XAsufw_Module;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
