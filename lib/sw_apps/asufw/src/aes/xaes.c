@@ -1233,11 +1233,11 @@ s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, Asu_AesParams *AesPar
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
+	/** Validate the input arguments. */
 	if ((InstancePtr == NULL) || (AsuDmaPtr == NULL) || (AesParams == NULL)) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
 	}
-
 	/** CCM mode is not supported. */
 	if (AesParams->EngineMode == XASU_AES_CCM_MODE) {
 		Status = XASUFW_AES_INVALID_PARAM;
