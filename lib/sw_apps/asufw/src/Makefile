@@ -27,7 +27,7 @@ DEPFILES := $(patsubst %.o, %.d, $(OBJS))
 LIBS := ../misc/asufw_bsp/asu_0/lib/libxil.a
 EXEC := asufw.elf
 
-INCLUDEPATH := -I../misc/asufw_bsp/asu_0/include -I./ -I./task -I./xfih -I./sha -I./trng -I./ecc -I./aes -I./rsa_ecc -I./hmac -I./kdf -I./ecies
+INCLUDEPATH := -I../misc/asufw_bsp/asu_0/include -I./ -I./task -I./xfih -I./sha -I./trng -I./ecc -I./aes -I./rsa_ecc -I./hmac -I./kdf -I./ecies -I./keywrap
 LIBPATH := -L../misc/asufw_bsp/asu_0/lib
 
 all: $(EXEC)

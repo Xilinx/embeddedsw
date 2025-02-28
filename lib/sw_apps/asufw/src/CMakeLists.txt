@@ -63,6 +63,8 @@ collect (PROJECT_LIB_SOURCES xasufw_error_manager.c)
 collect (PROJECT_LIB_HEADERS xasufw_error_manager.h)
 collect (PROJECT_LIB_SOURCES xasufw_ecieshandler.c)
 collect (PROJECT_LIB_HEADERS xasufw_ecieshandler.h)
+collect (PROJECT_LIB_SOURCES xasufw_keywraphandler.c)
+collect (PROJECT_LIB_HEADERS xasufw_keywraphandler.h)
 
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)
@@ -101,6 +103,7 @@ add_subdirectory(xfih)
 add_subdirectory(hmac)
 add_subdirectory(kdf)
 add_subdirectory(ecies)
+add_subdirectory(keywrap)
 
 if (CMAKE_EXPORT_COMPILE_COMMANDS AND
     (NOT ${YOCTO}))
