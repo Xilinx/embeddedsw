@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.4   kal  07/24/24 Initial release
 *       sk   08/22/24 Added support for key transfer to ASU
+*       am   02/24/25 Moved key transfer command to generic xilplmi IPI command
 *
 * </pre>
 *
@@ -87,7 +88,6 @@ static XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_PERFORM_OPERATION),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_GEN_SHARED_SECRET),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY),
-	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_ASU_KEY_TRANSFER),
 };
 
 static XPlmi_Module XPlmi_Secure =
@@ -243,11 +243,6 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 #endif
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY):
 		Status = XSecure_PlatAesIpiHandler(Cmd);
-		break;
-
-	case XSECURE_API(XSECURE_API_ASU_KEY_TRANSFER):
-		Status = XSecure_InitiateASUKeyTransfer();
-		XSecure_Printf(DEBUG_PRINT_ALWAYS, "CMD: XSECURE_API_ASU_KEY_TRANSFER\r\n");
 		break;
 
 	default:

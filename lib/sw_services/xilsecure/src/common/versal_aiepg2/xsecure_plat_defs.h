@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.4   kal  07/24/24 Initial release
 *       sk   08/22/24 Added support for key transfer to ASU
+*       am   02/24/25 Moved XSECURE_API_ASU_KEY_TRANSFER to xilplmi
 *
 * </pre>
 *
@@ -105,7 +106,7 @@ typedef enum {
 	XSECURE_API_TRNG_GENERATE,		/**< 22U */
 	XSECURE_API_AES_PERFORM_OPERATION, 	/**< 23U */
 	XSECURE_API_GEN_SHARED_SECRET = 33U,	/**< 33U */
-	XSECURE_API_ASU_KEY_TRANSFER = 36U,     /**< 36U */
+	XSECURE_API_RESERVED = 36U,		/**< 36U */
 	XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,/**< 37U */
 	XSECURE_API_SHA_INIT,
 	XSECURE_API_SHA_FINISH,

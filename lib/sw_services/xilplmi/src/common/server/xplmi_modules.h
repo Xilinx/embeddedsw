@@ -45,6 +45,7 @@
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  09/30/2024 Added support for get secure communication status command
 *       pre  01/13/2025 Added command to set access status of DDRMC main registers
+*       am   02/22/2025 Added ASU module Id
 *
 * </pre>
 *
@@ -68,7 +69,7 @@ extern "C" {
  */
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_MAX_MODULES			(14U)
+#define XPLMI_MAX_MODULES			(15U)
 #define XPLMI_MODULE_GENERIC_ID		(1U)
 #define XPLMI_MODULE_XILPM_ID		(2U)
 #define XPLMI_MODULE_SEM_ID			(3U)
@@ -80,6 +81,7 @@ extern "C" {
 #define XPLMI_MODULE_XILNVM_ID		(11U)
 #define XPLMI_MODULE_XILPUF_ID		(12U)
 #define XPLMI_MODULE_XILOCP_ID		(13U)
+#define XPLMI_MODULE_ASU_ID			(14U)
 #define XPLMI_MODULE_COMMAND(FUNC)	{ (FUNC) }
 
 /* User modules */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022, Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,7 @@
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  09/24/2024 Changed function name to XPlm_SsitCommGetParamsPtr
+*       am   02/22/2025 Added module support for ASU
 *
 * </pre>
 *
@@ -77,6 +78,7 @@
 #endif
 #ifdef PLM_PUF
 #include "xpuf_init.h"
+#include "xpuf.h"
 #endif
 #include "xplmi_err_common.h"
 #include "xplm_loader.h"
@@ -101,6 +103,9 @@
 #endif
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 #include "xplm_ssitcomm.h"
+#endif
+#ifdef VERSAL_AIEPG2
+#include "xplmi_asu_cmd.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -194,6 +199,11 @@ int XPlm_ModuleInit(void *Arg)
 		goto END;
 	}
 #endif
+
+#ifdef VERSAL_AIEPG2
+	XPlmi_AsuModuleInit(XPlmi_PufOnDemandRegeneration, XSecure_InitiateASUKeyTransfer);
+#endif
+
 	/* OCP module is applicable only for Versalnet */
 #ifdef PLM_OCP
 #ifdef PLM_OCP_KEY_MNGMT

@@ -44,6 +44,7 @@
  *       ma   02/11/25 Added TRNG related error codes
  *       ma   02/21/25 Added error code for ASU exceptions
  *       yog  02/24/25 Added error codes for ECIES functionality
+ *       am   02/24/25 Added XASUFW_ERR_KV_INTERRUPT_DONE_TIMEOUT error code
  *
  * </pre>
  *
@@ -335,6 +336,7 @@ enum {
 	XASUFW_ECIES_DECRYPT_FAILED, /**< 0xF5U - ECIES decryption failed */
 	XASUFW_ECIES_KAT_FAILED, /**< 0xF6U - ECIES KAT failed */
 	XASUFW_ECIES_KAT_COMPARISON_FAILED, /**< 0xF7U - ECIES KAT comparision failed */
+	XASUFW_ERR_KV_INTERRUPT_DONE_TIMEOUT, /**< 0xF8U - KV interrupt done timeout error */
 
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 *       obs  12/18/2024 Fixed GCC Warnings
+*       am   02/22/2025 Added Puf on dmand regeneration support
 *
 * </pre>
 *
@@ -56,12 +57,24 @@
 #ifdef XPLMI_IPI_DEVICE_ID
 #include "xplmi_ipi.h"
 #endif
+#include "xpuf.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_PSM_COUNTER_VER 		(1U) /**< PSM counter version */
 #define XPLMI_PSM_COUNTER_LCVER		(1U) /**< PSM counter lowest compatible version */
 #define XPLMI_PSM_KEEP_ALIVE_STS_VER 	(1U) /**< PSM keep alive status version */
 #define XPLMI_PSM_KEEP_ALIVE_STS_LCVER	(1U) /**< PSM keep alive status lowest compatible version */
+
+#define XPLMI_BH_PUF_HD_OFFSET		(0xB24U) /**< BootHeader PUF HD offset. */
+#define XPLMI_BH_PUF_AUX_OFFSET		(0x1128U) /**< BootHeader PUF auxiliary offset. */
+#define XPLMI_BH_PUF_CHASH_OFFSET	(0x1124U) /**< BootHeader PUF CHASH offset. */
+#define XPLMI_BH_PUF_SHUTTER_VALUE_OFFSET (0x60U) /**< BootHeader PUF shutter value offset. */
+#define XPLMI_BH_IMAGE_ATTRIBUTE_OFFSET	(0x24U) /**< BootHeader PUF Image attribute offset. */
+#define XPLMI_BH_PUF_HD_MASK_BITS	(0x3U) /**< BootHeader PUF HD mask bits. */
+#define XPLMI_BH_PUF_HD_MASK_SHIFT	(0x6U) /**< BootHeader PUF HD mask shift. */
+#define XPLMI_BH_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT	(31U) /**< BootHeader PUF global variation filter enable shift. */
+#define XPLMI_EFUSE_CACHE_ADDRESS	(0xF1250000U) /** eFuse cache address. */
+#define XPLMI_EFUSE_CACHE_PUF_CHASH_OFFSET	(0xA8U) /** eFuse cache puf CHASH offset. */
 
 /**************************** Type Definitions *******************************/
 
@@ -300,6 +313,64 @@ int XPlm_PostPlmUpdate(void)
 		XPlmi_SetPlmUpdateIpiMask(0U);
 		microblaze_enable_interrupts();
 #endif
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function reads PUF attributes from BootHeader and performs
+ *              PUF on demand regeneration.
+ *
+ * @return
+ * 		XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_PufOnDemandRegeneration(void)
+{
+	s32 Status = XST_FAILURE;
+	XPuf_Data *PufData = (XPuf_Data *)(UINTPTR)XPLMI_PMCRAM_CHUNK_MEMORY_1;
+
+	Status = XPlmi_MemSetBytes(PufData, sizeof(XPuf_Data), 0U, sizeof(XPuf_Data));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	PufData->ReadOption = (((XPlmi_In32(XIH_BH_PRAM_ADDR + XPLMI_BH_IMAGE_ATTRIBUTE_OFFSET) >>
+		XPLMI_BH_PUF_HD_MASK_SHIFT) & XPLMI_BH_PUF_HD_MASK_BITS));
+	PufData->PufOperation = XPUF_REGEN_ON_DEMAND;
+	PufData->ShutterValue = XPlmi_In32(XIH_BH_PRAM_ADDR + XPLMI_BH_PUF_SHUTTER_VALUE_OFFSET);
+	PufData->GlobalVarFilter = (u8)(PufData->ShutterValue >>
+		XPLMI_BH_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT);
+
+	if (PufData->ReadOption == XLOADER_PUF_HD_BHDR) {
+		PufData->ReadOption = XPUF_READ_FROM_RAM;
+		PufData->SyndromeAddr = XIH_BH_PRAM_ADDR + XPLMI_BH_PUF_HD_OFFSET;
+		PufData->Chash = *(u32 *)(XIH_BH_PRAM_ADDR + XPLMI_BH_PUF_CHASH_OFFSET);
+		PufData->Aux = *(u32 *)(XIH_BH_PRAM_ADDR + XPLMI_BH_PUF_AUX_OFFSET);
+		XPlmi_Printf(DEBUG_INFO, "BHDR PUF HELPER DATA with CHASH:"
+			"%0x and AUX:%0x\n\r", PufData->Chash, PufData->Aux);
+	}
+	else {
+		/**
+		 * Skip PUF regeneration, if CHASH in eFuse cache is zero.
+		 */
+		if (XPlmi_In32(XPLMI_EFUSE_CACHE_ADDRESS +
+				XPLMI_EFUSE_CACHE_PUF_CHASH_OFFSET) == 0U) {
+			Status = XST_SUCCESS;
+			goto END;
+		}
+		XPlmi_Printf(DEBUG_INFO, "EFUSE PUF HELPER DATA\n\r");
+		PufData->ReadOption = XPUF_READ_FROM_EFUSE_CACHE;
+	}
+
+	Status = XPuf_Regeneration(PufData);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO, "Failed at PUF regeneration with status "
+			"%0x\n\r", Status);
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PUF_REGN_ERRR, Status);
 	}
 
 END:
