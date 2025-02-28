@@ -33,6 +33,7 @@
  *       ma   01/15/25 Added KDF KAT
  *       am   01/28/25 Fixed compilation error
  *       yog  02/21/25 Added ECIES KAT
+ *       ss   02/24/25 Added Key wrap unwrap KAT
  *
  * </pre>
  *
@@ -53,6 +54,8 @@
 #include "xasu_hmacinfo.h"
 #include "xkdf.h"
 #include "xecies.h"
+#include "xaes_hw.h"
+#include "xkeywrap.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -76,6 +79,17 @@ static s32 XAsufw_AesDpaCmChecks(const u32 *P, const u32 *Q, const u32 *R, const
 #define XASUFW_AES_DATA_SPLIT_SIZE_IN_BYTES	(16U)	/**< AES data split size in words */
 #define XASUFW_AES_CM_KAT_KEY_SIZE_IN_BYTES	(32U)	/**< AES Key size in words */
 #define XASUFW_AES_CM_KAT_DATA_SIZE_IN_BYTES	(64U)	/**< AES operation data in words */
+#define XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES	(31U)	/**< Key wrap unwrap KAT message length in
+								bytes*/
+#define XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES		(5U)	/**< RSA OAEP optional data length
+									in bytes */
+#define XASUFW_KEYWRAP_INPUT_PADDING_SIZE_IN_BYTES	(9U)	/**< Key wrap padding length for
+									KAT message in bytes */
+#define XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES	(XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES + \
+							XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES + \
+							XASUFW_KEYWRAP_INPUT_PADDING_SIZE_IN_BYTES)
+						/**< Key wrap unwrap KAT message output length in
+							bytes */
 
 /* KAT message */
 static const u8 KatMessage[XASUFW_KAT_MSG_LENGTH_IN_BYTES] = {
@@ -385,6 +399,13 @@ static const u8 EciesIv[XASU_AES_IV_SIZE_96BIT_IN_BYTES] = {
 	0x99U, 0xD1U, 0x58U, 0x32U, 0xCCU, 0x65U, 0xF6U, 0xB4U,
 	0xC5U, 0xC5U, 0xC3U, 0x4FU
 };
+static const u8 KeyWrapInput[XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES] = {
+	0xffU, 0xe9U, 0x52U, 0x60U, 0x48U, 0x34U, 0xbfU, 0xf8U, 0x99U, 0xe6U, 0x36U, 0x58U, 0xf3U,
+	0x42U, 0x46U, 0x81U, 0x5cU, 0x91U, 0x59U, 0x7eU, 0xb4U, 0x0aU, 0x21U, 0x72U, 0x9eU, 0x0aU,
+	0x8aU, 0x95U, 0x9bU, 0x61U, 0xf2U
+};
+
+static const char RsaOpt[XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES + 1U] = "ASUFW";
 
 /*************************************************************************************************/
 /**
@@ -1175,6 +1196,123 @@ END:
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_KAT_FAILED);
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs key wrap unwrap KAT using SHA2-256.
+ *
+ * @param	AsuDmaPtr	ASU DMA instance pointer.
+ *
+ * @return
+ *	- XASUFW_SUCCESS on successful execution of the RSA KAT.
+ *	- XASUFW_KEYWRAP_UNWRAPPED_DATA_COMPARISON_FAILED, if expected and generated unwrapped message
+ *	comparison fails.
+ *	- XASUFW_KEYWRAP_KAT_FAILED, when XAsufw_KeyWrapOperationKat API fails.
+ *	- XASUFW_FAILURE, if any other failure.
+ *
+ *************************************************************************************************/
+s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
+{
+	s32 Status  = XFih_VolatileAssign(XASUFW_FAILURE);
+	s32 SStatus = XASUFW_FAILURE;
+	XSha *Sha2Ptr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	XAes *AesPtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);;
+	XAsu_KeyWrapParams KwpunwpParam;
+	XAsu_RsaPubKeyComp PubKeyParam;
+	XAsu_RsaPvtKeyComp PvtKeyParam;
+	u8 WrappedResult[XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES];
+	u8 UnwrappedResult[XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES];
+
+	PubKeyParam.Keysize = XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES;
+	PubKeyParam.PubExp = RsaPublicExp;
+
+	/** Copy required parameters for RSA operation. */
+	Status = Xil_SMemCpy(PubKeyParam.Modulus, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaModulus,
+			     XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYWRAP_MEM_COPY_FAIL;
+		goto END;
+	}
+
+	PvtKeyParam.PubKeyComp = PubKeyParam;
+	PvtKeyParam.PrimeCompOrTotientPrsnt = 0U;
+
+	Status = Xil_SMemCpy(PvtKeyParam.PvtExp, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaPvtExp,
+		    XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYWRAP_MEM_COPY_FAIL;
+		goto END;
+	}
+
+	KwpunwpParam.InputDataAddr = (u64)(UINTPTR)KeyWrapInput;
+	KwpunwpParam.OutputDataAddr = (u64)(UINTPTR)WrappedResult;
+	KwpunwpParam.ExpoCompAddr = 0U;
+	KwpunwpParam.KeyCompAddr = (u64)(UINTPTR)&PubKeyParam;
+	KwpunwpParam.OptionalLabelAddr = (u64)(UINTPTR)RsaOpt;
+	KwpunwpParam.InputDataLen = XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES;
+	KwpunwpParam.RsaKeySize = XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES;
+	KwpunwpParam.OptionalLabelSize = XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES;
+	KwpunwpParam.OutuputDataLen = XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES;
+	KwpunwpParam.AesKeySize = XASU_AES_KEY_SIZE_128_BITS;
+	KwpunwpParam.ShaType = XASU_SHA2_TYPE;
+	KwpunwpParam.ShaMode = XASU_SHA_MODE_SHA256;
+
+	/** Perform key wrap operation with known inputs. */
+	Status = XKeyWrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL;
+		goto END;
+	}
+
+	KwpunwpParam.InputDataAddr = (u64)(UINTPTR)WrappedResult;
+	KwpunwpParam.OutputDataAddr = (u64)(UINTPTR)UnwrappedResult;
+	KwpunwpParam.ExpoCompAddr = 0U;
+	KwpunwpParam.KeyCompAddr = (u64)(UINTPTR)&PvtKeyParam;
+	KwpunwpParam.OptionalLabelAddr = (u64)(UINTPTR)RsaOpt;
+	KwpunwpParam.InputDataLen = XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES;
+	KwpunwpParam.RsaKeySize = XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES;
+	KwpunwpParam.OptionalLabelSize = XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES;
+	KwpunwpParam.OutuputDataLen = XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES;
+	KwpunwpParam.AesKeySize = XASU_AES_KEY_SIZE_128_BITS;
+	KwpunwpParam.ShaType = XASU_SHA2_TYPE;
+	KwpunwpParam.ShaMode = XASU_SHA_MODE_SHA256;
+
+	/** Perform key unwrap operation with known inputs. */
+	Status = XKeyUnwrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYWRAP_GEN_UNWRAPPED_KEY_OPERATION_FAIL;
+		goto END;
+	}
+
+	/** Compare generated unwrapped message with expected input. */
+	Status = Xil_SMemCmp(UnwrappedResult, XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES, KeyWrapInput,
+				XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES, XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYWRAP_UNWRAPPED_DATA_COMPARISON_FAILED;
+		goto END;
+	}
+
+END:
+	/** Zeroize local copy of wrapped output value. */
+	SStatus = Xil_SMemSet(&WrappedResult[0U], XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES, 0U,
+				XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES);
+	if (Status == XASUFW_SUCCESS) {
+		Status = SStatus;
+	}
+
+	/** Zeroize local copy of unwrapped output value. */
+	SStatus = Xil_SMemSet(&UnwrappedResult[0U], XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES, 0U,
+				XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES);
+	if (Status == XASUFW_SUCCESS) {
+	  Status = SStatus;
+	}
+
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYWRAP_KAT_FAILED);
 	}
 
 	return Status;

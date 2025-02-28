@@ -45,6 +45,7 @@
  *       ma   02/21/25 Added error code for ASU exceptions
  *       yog  02/24/25 Added error codes for ECIES functionality
  *       am   02/24/25 Added XASUFW_ERR_KV_INTERRUPT_DONE_TIMEOUT error code
+ *       ss   02/24/25 Added error codes for Key wrap functionality
  *
  * </pre>
  *
@@ -337,6 +338,21 @@ enum {
 	XASUFW_ECIES_KAT_FAILED, /**< 0xF6U - ECIES KAT failed */
 	XASUFW_ECIES_KAT_COMPARISON_FAILED, /**< 0xF7U - ECIES KAT comparision failed */
 	XASUFW_ERR_KV_INTERRUPT_DONE_TIMEOUT, /**< 0xF8U - KV interrupt done timeout error */
+	XASUFW_KEYWRAP_INVALID_PARAM, /**< 0xF9U - Invalid parameters to Key wrap unwrap APIs */
+	XASUFW_KEYWRAP_MODULE_REGISTRATION_FAILED, /**< 0xFAU - Key wrap unwrap module registration failed */
+	XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL, /**< 0xFBU - Key wrap output generation failed */
+	XASUFW_KEYWRAP_GEN_UNWRAPPED_KEY_OPERATION_FAIL,  /**< 0xFCU - Key unwrap output generation failed */
+	XASUFW_KEYWRAP_AES_WRAPPED_KEY_ERROR,  /**< 0xFDU - AES Key wrap output generation failed */
+	XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR, /**< 0xFEU - AES Key unwrap output generation failed */
+	XASUFW_KEYWRAP_ICV_CMP_FAIL, /**< 0xFFU - Error when integrity check value fails for key unwrap */
+	XASUFW_KEYWRAP_ZEROIZE_MEMSET_FAIL, /**< 0x100U - Error when memory zeroization fails */
+	XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, /**< 0x101U - Error when AES key clear fails */
+	XASUFW_KEYWRAP_DMA_COPY_FAIL, /**< 0x102U - When data transfer to/from memory using DMA fails */
+	XASUFW_KEYWRAP_MEM_COPY_FAIL, /**< 0x103U - When copy data to memory fails */
+	XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, /**< 0x104U - When AES operation fails in key wrap unwrap */
+	XASUFW_KEYWRAP_UNWRAPPED_DATA_COMPARISON_FAILED, /**< 0x105U -Error when unwrapped output comparison
+								failed in KAT */
+	XASUFW_KEYWRAP_KAT_FAILED, /**< 0x106U - Error when key wrap unwrap KAT failed */
 
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };

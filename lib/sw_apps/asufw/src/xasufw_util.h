@@ -74,7 +74,16 @@ extern "C" {
 
 #define XASUFW_EVEN_MODULUS			(2U)	/**< Modulus to determine evenness */
 
-#define XASUFW_I2OSP_LIMIT		(256U) /**< Integer to octet stream primitive limit */
+#define XASUFW_BUFFER_INDEX_ONE			(1U) /**< First index of buffer */
+#define XASUFW_BUFFER_INDEX_TWO			(2U) /**< Second index of buffer */
+#define XASUFW_BUFFER_INDEX_THREE		(3U) /**< Third index of buffer */
+#define XASUFW_BUFFER_INDEX_FOUR		(4U) /**< Fourth index of buffer */
+
+#define XASUFW_ONE_BYTE_SHIFT_VALUE		(8U) /**< One byte shift value for an integer */
+#define XASUFW_TWO_BYTE_SHIFT_VALUE		(16U) /**< Two byte shift value for an integer */
+#define XASUFW_THREE_BYTE_SHIFT_VALUE		(24U) /**< Three byte shift value for an integer */
+
+#define XASUFW_LSB_MASK_VALUE			(255U) /**< Integer to octet stream primitive limit */
 
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 #define XASUFW_MEASURE_PERF_START(TimeVar, PerfTimeVar) XAsufw_PerfTime PerfTime; \
@@ -121,18 +130,22 @@ static inline u32 XAsufw_ReadReg(u32 Addr)
 /*************************************************************************************************/
 /**
  * @brief	This function converts a non-negative integer to an octet string of a
- * 		specified length
+ * 		four byte length
  *
  * @param	Integer	Variable in which input should be provided.
- * @param	Size	Holds the required size.
+ * @param	Size	Holds the required size in bytes.
  * @param	Convert	Pointer in which output will be updated.
  *
  *************************************************************************************************/
 static inline void XAsufw_I2Osp(u32 Integer, u32 Size, u8 *Convert)
 {
-	if (Integer < XASUFW_I2OSP_LIMIT) {
-		Convert[Size - 1U] = (u8)Integer;
-	}
+	Convert[Size - XASUFW_BUFFER_INDEX_FOUR] = (u8)(Integer >> XASUFW_THREE_BYTE_SHIFT_VALUE)
+							& XASUFW_LSB_MASK_VALUE;
+	Convert[Size - XASUFW_BUFFER_INDEX_THREE] = (u8)(Integer >> XASUFW_TWO_BYTE_SHIFT_VALUE)
+							& XASUFW_LSB_MASK_VALUE;
+	Convert[Size - XASUFW_BUFFER_INDEX_TWO] = (u8)(Integer >> XASUFW_ONE_BYTE_SHIFT_VALUE)
+							& XASUFW_LSB_MASK_VALUE;
+	Convert[Size - XASUFW_BUFFER_INDEX_ONE] = (u8)(Integer & XASUFW_LSB_MASK_VALUE);
 }
 
 #define XAsufw_SecureOut32			(Xil_SecureOut32) /**< Writes data to 32-bit address and checks
