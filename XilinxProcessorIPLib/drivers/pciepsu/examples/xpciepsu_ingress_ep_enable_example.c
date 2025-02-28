@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -239,7 +239,6 @@ int XPciePsu_InitEndPoint(XPciePsu *PciePsuPtr, UINTPTR BrigReg)
 #endif
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
-	ConfigPtr->PcieMode=0;
 	if (ConfigPtr->PcieMode != XPCIEPSU_MODE_ENDPOINT) {
 		xil_printf("Psu pcie mode is not configured as endpoint\r\n");
 		return XST_FAILURE;
