@@ -15,6 +15,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.5   kpt   08/16/22 Initial release
+* 5.6   mb    02/28/25 Added XSecure_AesOp enum
 *
 * </pre>
 *
@@ -193,6 +194,12 @@ typedef struct {
 	u32 KeyDecSrcSelVal;	/**< Selection value for key decryption source*/
 	u32 KeyClearVal;	/**< Key source clear value*/
 } XSecure_AesKeyLookup;
+
+/** Used to select the AES Encrypt/ Decrypt operation. */
+typedef enum {
+	XSECURE_ENCRYPT,        /**< Encrypt operation */
+	XSECURE_DECRYPT,        /**< Decrypt operation */
+} XSecure_AesOp;
 
 /***************************** Function Prototypes ***************************/
 /**
