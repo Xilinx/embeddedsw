@@ -20,6 +20,7 @@
  *       ma   07/23/24 Added RTCA initialization related code
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   am   01/22/25 Added key transfer support
+ *       am   02/24/25 Renamed XAsufw_GetKeys() to XAsufw_PmcKeyTransfer()
  *
  * </pre>
  *
@@ -54,10 +55,6 @@ typedef struct {
 #define XASUFW_IOMODULE_DEVICE_ID    XPAR_XIOMODULE_0_BASEADDR
 #endif
 
-#define XASUFW_KEY_TX_PLM_API_ID	(36U) /**< PLM key transfer API Id */
-
-#define XASUFW_PLM_KEY_TX_MODULE_ID	(5U) /**< PLM key transfer module Id */
-
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_StartTimer(void);
 s32 XAsufw_SetUpInterruptSystem(void);
@@ -65,7 +62,7 @@ u64 XAsufw_GetTimerValue(void);
 void XAsufw_MeasurePerfTime(u64 TCur, XAsufw_PerfTime *PerfTime);
 void XAsufw_PrintAsuTimeStamp(void);
 void XAsufw_RtcaInit(void);
-s32 XAsufw_GetKeys(void);
+s32 XAsufw_PmcKeyTransfer(void);
 
 /************************************ Variable Definitions ***************************************/
 

@@ -24,6 +24,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       am   01/22/25 Added key transfer support
  *       ma   02/21/25 Added functionality to trigger NON FATAL error when an exception is received
+ *       am   02/22/25 Resolved key transfer done bit not being set
  *
  * </pre>
  *
@@ -48,21 +49,23 @@
 
 /************************************ Constant Definitions ***************************************/
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U) /**< IO Module PIT1 prescaler source mask */
-#define XASUFW_ASU_IRO_FREQ_IN_HZ				(500000000U) /**< ASU IRO frequency 500Mhz */
-#define XASUFW_IOMODULE_IPI_INTRNUM				(28U) /**< IPI interrupt number in IO Module */
-#define XASUFW_PIT3_TIMER_TICK					(10U) /**< PIT3 timer tick in milli-seconds */
+#define XASUFW_ASU_IRO_FREQ_IN_HZ	(500000000U) /**< ASU IRO frequency 500Mhz */
+#define XASUFW_IOMODULE_IPI_INTRNUM	(28U) /**< IPI interrupt number in IO Module */
+#define XASUFW_PIT3_TIMER_TICK		(10U) /**< PIT3 timer tick in milli-seconds */
 
 #define XASUFW_PIT1_RESET_VALUE		(0xFFFFFFFDU) /**< PIT1 reset value */
 #define XASUFW_PIT2_RESET_VALUE		(0xFFFFFFFEU) /**< PIT2 reset value */
 #define XASUFW_PIT1_CYCLE_VALUE		((u64)XASUFW_PIT1_RESET_VALUE + 1U) /**< PIT1 cycle value */
 #define XASUFW_PIT2_CYCLE_VALUE		(XASUFW_PIT2_RESET_VALUE + 1U) /**< PIT2 cycle value */
-#define XASUFW_PIT1					(0U) /**< ASUFW PIT1 */
-#define XASUFW_PIT2					(1U) /**< ASUFW PIT2 */
-#define XASUFW_PIT3					(2U) /**< ASUFW PIT3 */
+#define XASUFW_PIT1			(0U) /**< ASUFW PIT1 */
+#define XASUFW_PIT2			(1U) /**< ASUFW PIT2 */
+#define XASUFW_PIT3			(2U) /**< ASUFW PIT3 */
 #define XASUFW_PIT_FREQ_DIVISOR		(100U) /**< ASUFW PIT frequency divisor */
-#define XASUFW_MEGA			        (1000000U) /**< Value for mega */
-#define XASUFW_KILO			        (1000UL) /**< Value for kilo */
+#define XASUFW_MEGA			(1000000U) /**< Value for mega */
+#define XASUFW_KILO			(1000UL) /**< Value for kilo */
 #define XASUFW_WORD_SIZE_IN_BITS	(32U) /**< Define for word size in bits */
+#define XASUFW_KV_INTERRUPT_STATUS_POLL_TIMEOUT	(0xFF000U) /**< KV interrupt status done poll timeout */
+#define XASUFW_KEY_TX_PAYLOAD_RESP_SIZE (1U) /**< Key transfer payload response size */
 
 /************************************** Type Definitions *****************************************/
 
@@ -387,17 +390,17 @@ void XAsufw_RtcaInit(void)
  *		- XASUFW_FAILURE, if all three keys are not received.
  *
  *************************************************************************************************/
-s32 XAsufw_GetKeys(void)
+s32 XAsufw_PmcKeyTransfer(void)
 {
 	s32 Status = XASUFW_FAILURE;
+	s32 Response = XASUFW_FAILURE;
 	u32 Payload;
-	u32 Response;
 
-	/** Trasferred efuse key_0 is black or red based on user configuration. */
+	/** Transferred efuse key_0 is black or red based on user configuration. */
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_0_BLACK_OR_RED_OFFSET),
 		XASUFW_PMXC_EFUSE_USER_KEY_0);
 
-	/** Trasferred efuse key_1 is black or red based on user configuration. */
+	/** Transferred efuse key_1 is black or red based on user configuration. */
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_1_BLACK_OR_RED_OFFSET),
 		XASUFW_PMXC_EFUSE_USER_KEY_1);
 
@@ -405,25 +408,24 @@ s32 XAsufw_GetKeys(void)
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_ASU_PMXC_KEY_TRANSFER_READY_OFFSET),
 		XAES_ASU_PMXC_KEY_TRANSFER_READY_MASK);
 
-	Payload = XASUFW_PLM_IPI_HEADER(0U, XASUFW_KEY_TX_PLM_API_ID, XASUFW_PLM_KEY_TX_MODULE_ID);
+	Payload = XASUFW_PLM_IPI_HEADER(0U, XASUFW_PLM_ASU_KEY_TX_API_ID, XASUFW_PLM_ASU_MODULE_ID);
 
-	Status = XAsufw_SendIpiToPlm(&Payload, sizeof(Payload)/sizeof(u32));
+	Status = XAsufw_SendIpiToPlm(&Payload, XASUFW_KEY_TX_PAYLOAD_RESP_SIZE);
 	if (Status != XASUFW_SUCCESS) {
 		XAsufw_Printf(DEBUG_GENERAL, "Send IPI to PLM failed\r\n");
 		goto END;
 	}
 
 	/** Wait till HW to set the KV interrupt status bit when key transfer(KT) is done. */
-	while (!(XAsufw_ReadReg(XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET) &
-		XAES_KV_INTERRUPT_STATUS_MASK));
-
-	Status = XAsufw_ReadIpiRespFromPlm(&Response, sizeof(Response)/sizeof(u32));
-	if ((Status != XASUFW_SUCCESS) || (Response != XASUFW_SUCCESS)) {
-		XAsufw_Printf(DEBUG_GENERAL, "Read IPI response from PLM failed\r\n");
+	Status = (s32)Xil_WaitForEvent((XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET),
+		XAES_KV_INTERRUPT_STATUS_MASK, XAES_KV_INTERRUPT_STATUS_MASK,
+		XASUFW_KV_INTERRUPT_STATUS_POLL_TIMEOUT);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ERR_KV_INTERRUPT_DONE_TIMEOUT;
+		XAsufw_Printf(DEBUG_GENERAL, "KV interrupt done status not set\r\n");
 		goto END;
 	}
 
-END:
 	/** Clear KV interrupt status. */
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET),
 		XAES_KV_INTERRUPT_STATUS_CLEAR_MASK);
@@ -432,6 +434,12 @@ END:
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_ASU_PMXC_KEY_TRANSFER_READY_OFFSET),
 		XAES_ASU_PMXC_KEY_TRANSFER_READY_DISABLE);
 
+	Status = XAsufw_ReadIpiRespFromPlm((u32 *)(UINTPTR)&Response, XASUFW_KEY_TX_PAYLOAD_RESP_SIZE);
+	if ((Status != XASUFW_SUCCESS) || (Response != XASUFW_SUCCESS)) {
+		XAsufw_Printf(DEBUG_GENERAL, "Read IPI response from PLM failed\r\n");
+	}
+
+END:
 	return Status;
 }
 /** @} */
