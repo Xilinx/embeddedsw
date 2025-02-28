@@ -78,6 +78,7 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+static inline void XAsufw_InterruptRemoteProc(u32 IpiMask);
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_QueueTaskHandler(void *Arg);
@@ -93,6 +94,18 @@ static XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
 
 /* All channel's task related information */
 static XAsufw_ChannelTasks CommChannelTasks = { 0U };
+
+/*************************************************************************************************/
+/**
+ * @brief	This function triggers the IPI interrupt to the sender.
+ *
+ * @param	IpiMask		IPI Mask of the remote processor.
+ *
+ *************************************************************************************************/
+static inline void XAsufw_InterruptRemoteProc(u32 IpiMask)
+{
+	XAsufw_WriteReg(IPI_ASU_TRIG, IpiMask);
+}
 
 /*************************************************************************************************/
 /**
@@ -115,6 +128,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 	XAsu_ChannelQueueBuf *QueueBuf;
 	u32 ReqId = 0x0U;
 	XTask_TaskNode *Task = NULL;
+	u32 IpiMask = 0U;
 
 	/** Check which queue (P0/P1) has new command from client. */
 	if (PxQueue == XASUFW_P0_QUEUE) {
@@ -169,7 +183,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 					 * response queue.
 					 */
 					QueueBuf->ReqBufStatus = XASU_COMMAND_EXECUTION_COMPLETE;
-					XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, ReqId, Status);
+					XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, Status);
 				}
 			}
 
@@ -185,10 +199,13 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 				Status = XAsufw_CommandQueueHandler(QueueBuf, ReqId);
 			}
 
-			/** Increment the requests served by ASUFW. */
+			/** Increment the requests served by ASUFW if the command execution is complete. */
 			if (ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
 					XASU_COMMAND_EXECUTION_COMPLETE) {
+				IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 				ChannelQueue->ReqServed++;
+				/** Trigger interrupt to the sender as the response is ready. */
+				XAsufw_InterruptRemoteProc(IpiMask);
 			}
 			break;
 		}
