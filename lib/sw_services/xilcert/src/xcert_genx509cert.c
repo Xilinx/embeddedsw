@@ -35,6 +35,7 @@
 *       har  08/23/2024 Removed HwType field in Extended Key usage extension for Versal Gen2 devices
 *       har  09/17/2024 Fixed doxygen warnings
 *       kpt  11/19/2024 Add UTF8 encoding support for version field
+* 1.4   har  02/27/2025 Use SHA1 to calculate hash of uncompressed public key for SKI/AKI
 *
 * </pre>
 * @note
@@ -121,6 +122,8 @@ static const u8 Oid_DmeStructExtn[] = {0x06U, 0x0BU, 0x2BU, 0x06U, 0x01U, 0x04U,
 
 #define XOCP_APP_VERSION_MIN_LENGTH			(1U)
 							/**< Minimum length of app version in bytes */
+#define XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN	(XCERT_ECC_P384_PUBLIC_KEY_LEN + 1U)
+							/**< Length of uncompressed ECC public key */
 
 /** @name Optional parameter tags
  * @{
@@ -1128,6 +1131,18 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, const u8* SubjectP
 	u32 OidLen;
 	u32 FieldLen;
 	u8 Hash[XSECURE_SHA1_HASH_SIZE];
+	u8 UncompressedPublicKey[XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN];
+
+	/**
+	 * First byte of the Public key should be 0x04 to indicate that it is
+	 * an uncompressed public key.
+	 */
+	UncompressedPublicKey[0U] = XCERT_UNCOMPRESSED_PUB_KEY;
+	Status = Xil_SMemCpy(&UncompressedPublicKey[1U], XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN,
+		SubjectPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, XCERT_ECC_P384_PUBLIC_KEY_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	SequenceLenIdx = Curr++;
@@ -1140,7 +1155,7 @@ static int XCert_GenSubjectKeyIdentifierField(u8* TBSCertBuf, const u8* SubjectP
 	}
 	Curr = Curr + OidLen;
 
-	Status = XSecure_Sha1Digest(SubjectPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, Hash);
+	Status = XSecure_Sha1Digest(UncompressedPublicKey, XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN, Hash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1203,6 +1218,18 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, const u8* Issuer
 	u32 OidLen;
 	u32 FieldLen;
 	u8 Hash[XSECURE_SHA1_HASH_SIZE];
+	u8 UncompressedPublicKey[XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN];
+
+	/**
+	 * First byte of the Public key should be 0x04 to indicate that it is
+	 * an uncompressed public key.
+	 */
+	UncompressedPublicKey[0U] = XCERT_UNCOMPRESSED_PUB_KEY;
+	Status = Xil_SMemCpy(&UncompressedPublicKey[1U], XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN,
+		IssuerPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, XCERT_ECC_P384_PUBLIC_KEY_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	SequenceLenIdx = Curr++;
@@ -1215,7 +1242,7 @@ static int XCert_GenAuthorityKeyIdentifierField(u8* TBSCertBuf, const u8* Issuer
 	}
 	Curr = Curr + OidLen;
 
-	Status = XSecure_Sha1Digest(IssuerPublicKey, XCERT_ECC_P384_PUBLIC_KEY_LEN, Hash);
+	Status = XSecure_Sha1Digest(UncompressedPublicKey, XCERT_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN, Hash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
