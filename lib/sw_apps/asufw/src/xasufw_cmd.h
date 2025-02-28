@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -21,6 +21,7 @@
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/12/24 Updated resource allocation logic
+ *       ma   02/28/25 Changed function prototype for XAsufw_CommandResponseHandler
  *
  * </pre>
  *
@@ -48,7 +49,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 ReqId);
-void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, u32 ReqId, s32 Response);
+void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, s32 Response);
 s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf);
 s32 XAsufw_CheckAndAllocateResources(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 

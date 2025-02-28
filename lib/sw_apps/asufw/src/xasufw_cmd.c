@@ -22,7 +22,7 @@
  *       ma   07/08/24 Add task based approach at queue level
  *       ss   09/26/24 Fixed doxygen comments
  * 1.1   ma   12/12/24 Updated resource allocation logic
- *       ma   02/11/25 Added inline function for triggering IPI to remote processor
+ *       ma   02/28/25 Move IPI triggering to remote processor to xasufw_queuescheduler.c
  *
  * </pre>
  *
@@ -44,7 +44,6 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-static inline void XAsufw_InterruptRemoteProc(u32 IpiMask);
 
 /*************************************************************************************************/
 /**
@@ -101,7 +100,7 @@ s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 ReqId)
 	 * execution status.
 	 */
 	if (Status != XASUFW_CMD_IN_PROGRESS) {
-		XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, ReqId, Status);
+		XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, Status);
 	}
 
 END:
@@ -110,28 +109,14 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function triggers the IPI interrupt to the sender.
- *
- * @param	IpiMask		IPI Mask of the remote processor.
- *
- *************************************************************************************************/
-static inline void XAsufw_InterruptRemoteProc(u32 IpiMask)
-{
-	XAsufw_WriteReg(IPI_ASU_TRIG, IpiMask);
-}
-
-/*************************************************************************************************/
-/**
  * @brief	This function writes the given response to the corresponding response buffer.
  *
  * @param	ReqBuf		Pointer	to the request buffer.
- * @param	ReqId		Request Unique ID.
  * @param	Response	Status of the executed command.
  *
  *************************************************************************************************/
-void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, u32 ReqId, s32 Response)
+void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, s32 Response)
 {
-	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	XAsu_ChannelQueueBuf *QueueBuf = XLinkList_ContainerOf(ReqBuf, XAsu_ChannelQueueBuf, ReqBuf);
 
 	/**
@@ -143,9 +128,6 @@ void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, u32 ReqId, s32 Response)
 	QueueBuf->RespBuf.Arg[XASU_RESPONSE_STATUS_INDEX] = (u32)Response;
 	QueueBuf->RespBufStatus = XASU_RESPONSE_IS_PRESENT;
 	XAsufw_Printf(DEBUG_GENERAL, "Command response: 0x%x\r\n", Response);
-
-	/** Trigger interrupt to the sender after writing the response. */
-	XAsufw_InterruptRemoteProc(IpiMask);
 }
 
 /*************************************************************************************************/
