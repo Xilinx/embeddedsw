@@ -64,6 +64,7 @@
 #include "xasufw_hmachandler.h"
 #include "xasufw_kdfhandler.h"
 #include "xasufw_ecieshandler.h"
+#include "xasufw_keywraphandler.h"
 #include "xfih.h"
 #include "xasufw_error_manager.h"
 
@@ -267,6 +268,8 @@ static s32 XAsufw_ModulesInit(void)
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
+	/** Key wrap unwrap module initialization. */
+	Status = XAsufw_KeyWrapInit();
 
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Modules init done\r\n");
 

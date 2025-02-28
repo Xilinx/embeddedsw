@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -60,6 +60,7 @@ extern "C" {
 #define XASUFW_HMAC_RESOURCE_MASK       0x200U /**< HMAC resource mask */
 #define XASUFW_KDF_RESOURCE_MASK		0x400U /**< KDF resource mask */
 #define XASUFW_ECIES_RESOURCE_MASK	0x800U /**< KDF resource mask */
+#define XASUFW_KEYWRAP_RESOURCE_MASK	0x1000U /**< KDF resource mask */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -78,7 +79,8 @@ typedef enum {
 	XASUFW_HMAC,	/**< 9: HMAC */
 	XASUFW_KDF,		/**< 10: KDF */
 	XASUFW_ECIES,	/**< 11: ECIES */
-	XASUFW_INVALID	/**< 12: Invalid */
+	XASUFW_KEYWRAP,	/**< 12: Key wrap unwrap */
+	XASUFW_INVALID	/**< 13: Invalid */
 } XAsufw_Resource;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

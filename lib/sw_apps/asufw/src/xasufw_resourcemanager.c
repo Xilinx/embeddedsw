@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -276,6 +276,9 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 				break;
 			case XASUFW_ECIES_RESOURCE_MASK:
 				Resource = XASUFW_ECIES;
+				break;
+			case XASUFW_KEYWRAP_RESOURCE_MASK:
+				Resource = XASUFW_KEYWRAP;
 				break;
 			default:
 				Status = XASUFW_RESOURCE_INVALID;
