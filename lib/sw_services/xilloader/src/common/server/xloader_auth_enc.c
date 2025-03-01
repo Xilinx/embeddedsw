@@ -4276,6 +4276,8 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha *ShaInstPtr = NULL;
 	u32 AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
+	XSecure_HssInitParams HssInitParams;
+	XSecure_LmsSignVerifyParams LmsSignVerifyParams;
 
 	XPlmi_Printf(DEBUG_INFO, "LMS Authentication\n\r");
 
@@ -4305,10 +4307,19 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 
 	Status = XST_FAILURE;
 	if (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS) {
+		/** Validate public key length */
+		if (KeyLen != XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE) {
+			Status = XLoader_UpdateMinorErr(XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR,
+				Status);
+		}
+
+		HssInitParams.SignBuff = SignBuff;
+		HssInitParams.SignatureLen = SignatureLen;
+		HssInitParams.PublicKey = KeyAddr;
+		HssInitParams.PublicKeyLen = KeyLen;
+
 		/** Initiate data authentication using LMS-HSS */
-		Status = XSecure_HssInit(ShaInstPtr, SecurePtr->PmcDmaInstPtr,
-				SignBuff, SignatureLen,
-				KeyAddr, KeyLen);
+		Status = XSecure_HssInit(ShaInstPtr, SecurePtr->PmcDmaInstPtr, &HssInitParams);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -4327,12 +4338,24 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 				SignBuff, SignatureLen);
 	}
 	else if (AuthType == XLOADER_PUB_STRENGTH_LMS) {
+		/** Validate public key length */
+		if (KeyLen != XSECURE_LMS_PUB_KEY_TOTAL_SIZE) {
+			Status = XLoader_UpdateMinorErr(XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR,
+				Status);
+		}
+
+		LmsSignVerifyParams.Data = Data;
+		LmsSignVerifyParams.DataLen = DataLen;
+		LmsSignVerifyParams.PreHashedMsg = FALSE;
+		LmsSignVerifyParams.LmsSign = SignBuff;
+		LmsSignVerifyParams.LmsSignLen = SignatureLen;
+		LmsSignVerifyParams.ExpectedPubKey = KeyAddr;
+		LmsSignVerifyParams.PubKeyLen = KeyLen;
+
 		/** Perform LMS signature verification */
 		Status = XSecure_LmsSignatureVerification(ShaInstPtr,
 				SecurePtr->PmcDmaInstPtr,
-				Data, DataLen,
-				FALSE, SignBuff, SignatureLen,
-				KeyAddr, KeyLen);
+				&LmsSignVerifyParams);
 	}
 
 END:
@@ -4928,12 +4951,12 @@ static int XLoader_HssShake256Kat(XLoader_SecureParams *SecurePtr) {
 	}
 
 	/** Update KAT status */
-	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_LMS_SHAKE_256_KAT_MASK);
+	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_HSS_SHAKE_256_KAT_MASK);
 
 	/** Set the data context of previous SHA operation */
 	XSecure_ShaSetDataContext(ShaInstPtr);
 
-	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_LMS_SHAKE_256_KAT_MASK) == 0U) {
+	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_HSS_SHAKE_256_KAT_MASK) == 0U) {
 		/**
 		 * Skip running the KAT for LMS_SHAKE_256 if it is already run
 		 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
@@ -4942,11 +4965,11 @@ static int XLoader_HssShake256Kat(XLoader_SecureParams *SecurePtr) {
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
 			XSecure_HssShake256Kat, ShaInstPtr, PmcDmaInstPtr);
 		if(Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_INFO, "LMS SHAKE256 KAT failed\n\r");
+			XPlmi_Printf(DEBUG_INFO, "HSS SHAKE256 KAT failed\n\r");
 			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KAT_FAILED_ERROR, Status);
 			goto END;
 		}
-		SecurePtr->PdiPtr->PlmKatStatus |= XPLMI_LMS_SHAKE_256_KAT_MASK;
+		SecurePtr->PdiPtr->PlmKatStatus |= XPLMI_HSS_SHAKE_256_KAT_MASK;
 
 		/** Update KAT status */
 		XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
@@ -5045,12 +5068,12 @@ static int XLoader_LmsShake256Kat(XLoader_SecureParams *SecurePtr) {
 		goto END;
 	}
 	/** Update KAT status */
-	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_HSS_SHAKE_256_KAT_MASK);
+	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_LMS_SHAKE_256_KAT_MASK);
 
 	/** Set the data context of previous SHA operation */
 	XSecure_ShaSetDataContext(ShaInstPtr);
 
-	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_HSS_SHAKE_256_KAT_MASK) == 0U) {
+	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_LMS_SHAKE_256_KAT_MASK) == 0U) {
 		/**
 		 * Skip running the KAT for LMS_HSS_SHAKE_256 if it is already run
 		 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
@@ -5063,7 +5086,7 @@ static int XLoader_LmsShake256Kat(XLoader_SecureParams *SecurePtr) {
 			Status = XLoader_UpdateMinorErr(XLOADER_SEC_KAT_FAILED_ERROR, Status);
 			goto END;
 		}
-		SecurePtr->PdiPtr->PlmKatStatus |= XPLMI_HSS_SHAKE_256_KAT_MASK;
+		SecurePtr->PdiPtr->PlmKatStatus |= XPLMI_LMS_SHAKE_256_KAT_MASK;
 
 		/** Update KAT status */
 		XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
