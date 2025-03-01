@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.4   kal  07/24/24 Initial release
 *       sk   08/29/24 Added support for SDT flow
+*		tri  03/01/25 Added SSS configuration for SHA3 hashing
 *
 * </pre>
 *
@@ -224,6 +225,13 @@ int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Si
 	Status = XSecure_ValidateShaDataSize(Size);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+
+	/**  Configure the SSS for SHA3 hashing. */
+	Status = XSecure_SssSha(&InstancePtr->SssInstance,
+				(u16)(InstancePtr->DmaPtr->Config.DmaType - XSECURE_TYPE_PMC_DMA0), InstancePtr->SssShaCfg);
+	if(Status != XST_SUCCESS) {
 		goto END;
 	}
 

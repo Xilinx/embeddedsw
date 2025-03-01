@@ -55,6 +55,8 @@
 *       obs  12/10/2024 Fixed GCC Warnings
 *       ma   01/07/2025 Added support for ASU handoff
 *       sk   02/04/2024 Reset Status before call to XLoader_PrtnCopy
+*		tri  03/01/2025 Added XLOADER_MEASURE_LAST case in XLoader_DataMeasurement
+*						for versal_aiepg2
 *
 * </pre>
 *
@@ -1270,6 +1272,14 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		Status = XSecure_ShaStart(Sha3InstPtr, XSECURE_SHA3_384);
 		break;
 	case XLOADER_MEASURE_UPDATE:
+		Status = XSecure_ShaUpdate(Sha3InstPtr,
+				ImageInfo->DataAddr, ImageInfo->DataSize);
+		break;
+	case XLOADER_MEASURE_LAST:
+		Status = XSecure_ShaLastUpdate(Sha3InstPtr);
+		if (Status != XST_SUCCESS) {
+			break;
+		}
 		Status = XSecure_ShaUpdate(Sha3InstPtr,
 				ImageInfo->DataAddr, ImageInfo->DataSize);
 		break;

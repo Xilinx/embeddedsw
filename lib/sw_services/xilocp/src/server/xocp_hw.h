@@ -19,6 +19,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- --------   -------------------------------------------------------
 * 1.0   vns  06/27/2022 Initial release
+* 1.5	tri  03/01/2025 Added XOCP_PMC_GLOBAL_PCR_OP address for versal_aiepg2
 *
 * </pre>
 *
@@ -94,12 +95,14 @@ extern "C" {
 #define XOCP_PMC_GLOBAL_DME_CHALLENGE_SIGNATURE_S_0	(PMC_GLOBAL_BASEADDR + 0x00005498U)
 /** @} */
 
+#define XOCP_PMC_GLOBAL_PCR_OP_IDX_SHIFT	(3U)	/**< Index shift option for PCR */
+
+#ifndef VERSAL_AIEPG2
 /**
  * Register:  XOCP_PMC_GLOBAL_PCR_OP
  * @{
  */
 #define XOCP_PMC_GLOBAL_PCR_OP    		(PMC_GLOBAL_BASEADDR + 0x00011000U)
-#define XOCP_PMC_GLOBAL_PCR_OP_IDX_SHIFT	(3U)
 /** @} */
 
 /**
@@ -108,6 +111,23 @@ extern "C" {
  */
 #define XOCP_PMC_GLOBAL_PCR_EXTEND_INPUT_0	(PMC_GLOBAL_BASEADDR + 0x00011004U)
 /** @} */
+#endif
+
+#ifdef VERSAL_AIEPG2
+/**
+ * Register:  XOCP_PMC_GLOBAL_PCR_OP
+ * @{
+ */
+#define XOCP_PMC_GLOBAL_PCR_OP    		(PMC_GLOBAL_BASEADDR + 0x00011030U)
+/** @} */
+
+/**
+ * Register:  XOCP_PMC_GLOBAL_PCR_EXTEND_INPUT_0
+ * @{
+ */
+#define XOCP_PMC_GLOBAL_PCR_EXTEND_INPUT_0	(PMC_GLOBAL_BASEADDR + 0x00011000U)
+/** @} */
+#endif
 
 /**
  * Register:  XOCP_PMC_GLOBAL_PCR_OP_STATUS
