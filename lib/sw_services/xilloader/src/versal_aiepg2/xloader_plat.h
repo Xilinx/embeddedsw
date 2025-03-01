@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,7 @@
 *       obs  09/30/2024 Fixed Doxygen Warnings
 *       pre  10/22/2024 Added XLOADER_ERR_CMD_NOT_SUPPORTED error code
 *       bm   11/11/2024 Move I2C Handshake feature to common code
+*		tri  03/01/2025 Added XLOADER_MEASURE_LAST macro
 *
 * </pre>
 *
@@ -112,6 +113,9 @@ extern "C" {
 #define XLOADER_MEASURE_START		(0U) /**< Data measure start */
 #define XLOADER_MEASURE_UPDATE		(1U) /**< Data measure update */
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
+#ifdef VERSAL_AIEPG2
+#define XLOADER_MEASURE_LAST		(3U) /**< Data measure last */
+#endif
 
 #define XLOADER_VERSAL_AIEPG2_PDI_VERSION_1	(0x00010000U) /**< PDI Version */
 

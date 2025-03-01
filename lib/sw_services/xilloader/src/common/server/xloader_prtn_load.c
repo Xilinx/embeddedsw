@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -111,6 +111,7 @@
 *       mss  04/05/2024 Added logic to disable device copy optimization
 *       bm   09/25/2024 Fix Boot Device Copy Optimization logic
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
+*		tri  03/01/2025 Updated XLoader_ImageMeasureInfo for partion measurement
 * </pre>
 *
 * @note
@@ -374,12 +375,13 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	volatile int StatusTmp = XST_FAILURE;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 	XLoader_SecureParams *SecureParams = (XLoader_SecureParams *)SecureParamsPtr;
-	u32 PrtnNum = PdiPtr->PrtnNum;
+
 #ifndef VERSAL_AIEPG2
+	u32 PrtnNum = PdiPtr->PrtnNum;
 	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
-#endif
 	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
+#endif
 
 	/** Verify the destination address range before writing */
 	Status = XPlmi_VerifyAddrRange(DeviceCopy->DestAddr, DeviceCopy->DestAddr + (u64)DeviceCopy->Len - 1U);
@@ -413,15 +415,12 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 #ifndef VERSAL_AIEPG2
 		ImageMeasureInfo.DataAddr = DeviceCopy->DestAddr;
 		ImageMeasureInfo.DataSize = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
-#else
-		ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&SecureParams->PdiPtr->MetaHdr->HashBlock.HashData[PrtnNum].PrtnHash;
-                ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN << XPLMI_WORD_LEN_SHIFT;
-#endif
 		ImageMeasureInfo.PcrInfo = PcrInfo;
 		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 		ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
 		/* Update the data for measurement, only VersalNet */
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+#endif
 	}
 
 END:
@@ -464,8 +463,11 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	u64 CdoProcessTime = 0U;
 	XPlmi_PerfTime PerfTime;
 #endif
+
+#ifndef VERSAL_AIEPG2
 	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
+#endif
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
 	/**
@@ -626,10 +628,6 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 #ifndef VERSAL_AIEPG2
 			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)Cdo.BufPtr;
 			ImageMeasureInfo.DataSize = ChunkLenTemp;
-#else
-			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&SecureParams->PdiPtr->MetaHdr->HashBlock.HashData[SecureParams->PdiPtr->PrtnNum].PrtnHash;
-			ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN << XPLMI_WORD_LEN_SHIFT;
-#endif
 			ImageMeasureInfo.PcrInfo = PcrInfo;
 			ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
@@ -638,6 +636,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
+#endif
 		}
 	}
 
