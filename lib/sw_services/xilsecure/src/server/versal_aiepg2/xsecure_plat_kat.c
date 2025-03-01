@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -1708,40 +1708,44 @@ END:
 
 /******************************************************************************/
 /**
- * @brief	This function performs KAT on LMS - SHA2 256.
+ * @brief	This function performs KAT on HSS SHA2 256.
  *
  * @param       ShaInstPtr      Pointer to the XSecure_Sha instance
  * @param       DmaPtr          Pointer to the XPmcDma instance
  *
  * @return
- *		 - XST_SUCCESS - If LMS SHA2 256 KAT is passed.
- *		 - XSECURE_S3_LMS_SHA2_256_KAT_ERROR - LMS SHA2-256 KAT error
+ *		 - XST_SUCCESS - If HSS SHA2 256 KAT is passed.
+ *		 - XSECURE_HSS_SHA2_256_KAT_ERROR - HSS SHA2-256 KAT error
  *
  *
  ******************************************************************************/
 int XSecure_HssSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_HssInitParams HssInitParams;
 
-	Status = XSecure_HssInit(ShaInstPtr, DmaPtr,
-		Signature_HssSha2256_l0h5w2, XSECURE_HSS_SIGNATURE_SIZE_BYTES,
-		HssSha2256PubKey, XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE);
+	HssInitParams.SignBuff = Signature_HssSha2256_l0h5w2;
+	HssInitParams.SignatureLen = XSECURE_HSS_SIGNATURE_SIZE_BYTES;
+	HssInitParams.PublicKey = HssSha2256PubKey;
+	HssInitParams.PublicKeyLen = XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE;
+
+	Status = XSecure_HssInit(ShaInstPtr, DmaPtr, &HssInitParams);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_S3_LMS_SHA2_256_KAT_ERROR;
+		Status = (int)XSECURE_HSS_SHA2_256_KAT_ERROR;
 		goto END;
 	}
 
 	Status = XSecure_LmsHashMessage(ShaInstPtr,
 		HssSha2_256LmsData, XSECURE_LMS_DATA_SIZE_BYTES, XSECURE_SHA2_256);
 	if (Status != XST_SUCCESS) {
-		Status = XSECURE_S3_LMS_SHA2_256_KAT_ERROR;
+		Status = (int)XSECURE_HSS_SHA2_256_KAT_ERROR;
 		goto END;
 	}
 
 	Status = XSecure_HssFinish(ShaInstPtr, DmaPtr,
 		Signature_HssSha2256_l0h5w2, XSECURE_HSS_SIGNATURE_SIZE_BYTES);
 	if (Status != XST_SUCCESS) {
-		Status = XSECURE_S3_LMS_SHA2_256_KAT_ERROR;
+		Status = (int)XSECURE_HSS_SHA2_256_KAT_ERROR;
 		goto END;
 	}
 
@@ -1750,39 +1754,44 @@ END:
 }
 /******************************************************************************/
 /**
- * @brief	This function performs KAT on LMS SHAKE 256.
+ * @brief	This function performs KAT on HSS SHAKE 256.
  *
  * @param	ShaInstPtr	Pointer to the XSecure_Sha instance
  * @param	DmaPtr		Pointer to the XPmcDma instance
  *
  * @return
- *		 - XST_SUCCESS - If LMS SHAKE256 KAT is passed.
- *		 - XSECURE_S3_LMS_SHAKE_256_KAT_ERROR - LMS SHAKE KAT error
+ *		 - XST_SUCCESS - If HSS SHAKE256 KAT is passed.
+ *		 - XSECURE_HSS_SHAKE_256_KAT_ERROR - HSS SHAKE 256 KAT error
  *
  ******************************************************************************/
 int XSecure_HssShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_HssInitParams HssInitParams;
 
-	Status = XSecure_HssInit(ShaInstPtr, DmaPtr,
-		Signature_Shake256_l0h5w2, XSECURE_LMS_SIGNATURE_SIZE_BYTES,
-		HssShake256PubKey, XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE);
+	HssInitParams.SignBuff = Signature_Shake256_l0h5w2;
+	HssInitParams.SignatureLen = XSECURE_HSS_SIGNATURE_SIZE_BYTES;
+	HssInitParams.PublicKey = HssShake256PubKey;
+	HssInitParams.PublicKeyLen = XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE;
+
+
+	Status = XSecure_HssInit(ShaInstPtr, DmaPtr, &HssInitParams);
 	if (Status != XST_SUCCESS) {
-		Status = XSECURE_S3_LMS_SHAKE_256_KAT_ERROR;
+		Status = (int)XSECURE_HSS_SHAKE_256_KAT_ERROR;
 		goto END;
 	}
 
 	Status = XSecure_LmsHashMessage(ShaInstPtr,
 		Shake_256HssData, XSECURE_LMS_DATA_SIZE_BYTES, XSECURE_SHAKE_256);
 	if(Status != XST_SUCCESS) {
-		Status = XSECURE_S3_LMS_SHAKE_256_KAT_ERROR;
+		Status = (int)XSECURE_HSS_SHAKE_256_KAT_ERROR;
 		goto END;
 	}
 
 	Status = XSecure_HssFinish(ShaInstPtr, DmaPtr,
-		Signature_Shake256_l0h5w2, XSECURE_LMS_SIGNATURE_SIZE_BYTES);
+		Signature_Shake256_l0h5w2, XSECURE_HSS_SIGNATURE_SIZE_BYTES);
 	if (Status != XST_SUCCESS) {
-		Status = XSECURE_S3_LMS_SHAKE_256_KAT_ERROR;
+		Status = (int)XSECURE_HSS_SHAKE_256_KAT_ERROR;
 		goto END;
 	}
 
@@ -1802,14 +1811,18 @@ END:
  *
  ******************************************************************************/
 int XSecure_LmsSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {
-	return XSecure_LmsSignatureVerification(ShaInstPtr, DmaPtr,
-		LmsSha2256Data,
-		XSECURE_LMS_DATA_SIZE_BYTES,
-		FALSE,
-		Signature_LmsSha256_h5w2,
-		XSECURE_LMS_SIGNATURE_SIZE_BYTES,
-		LmsSha2256PubKey,
-		XSECURE_LMS_PUB_KEY_TOTAL_SIZE);
+
+	XSecure_LmsSignVerifyParams LmsSignVerifyParams;
+
+	LmsSignVerifyParams.Data = LmsSha2256Data;
+	LmsSignVerifyParams.DataLen = XSECURE_LMS_DATA_SIZE_BYTES;
+	LmsSignVerifyParams.PreHashedMsg = FALSE;
+	LmsSignVerifyParams.LmsSign =  Signature_LmsSha256_h5w2;
+	LmsSignVerifyParams.LmsSignLen = XSECURE_LMS_SIGNATURE_SIZE_BYTES;
+	LmsSignVerifyParams.ExpectedPubKey = LmsSha2256PubKey;
+	LmsSignVerifyParams.PubKeyLen = XSECURE_LMS_PUB_KEY_TOTAL_SIZE;
+
+	return XSecure_LmsSignatureVerification(ShaInstPtr, DmaPtr, &LmsSignVerifyParams);
 }
 
 /******************************************************************************/
@@ -1825,12 +1838,16 @@ int XSecure_LmsSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {
  *
  ******************************************************************************/
 int XSecure_LmsShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr) {
-	return XSecure_LmsSignatureVerification(ShaInstPtr, DmaPtr,
-		Shake_256LmsData,
-		XSECURE_LMS_DATA_SIZE_BYTES,
-		FALSE,
-		Signature_Shake256_h5w2,
-		XSECURE_LMS_SIGNATURE_SIZE_BYTES,
-		LmsShake256PubKey,
-		XSECURE_LMS_PUB_KEY_TOTAL_SIZE);
+
+	XSecure_LmsSignVerifyParams LmsSignVerifyParams;
+
+	LmsSignVerifyParams.Data = Shake_256LmsData;
+	LmsSignVerifyParams.DataLen = XSECURE_LMS_DATA_SIZE_BYTES;
+	LmsSignVerifyParams.PreHashedMsg = FALSE;
+	LmsSignVerifyParams.LmsSign = Signature_Shake256_h5w2;
+	LmsSignVerifyParams.LmsSignLen = XSECURE_LMS_SIGNATURE_SIZE_BYTES;
+	LmsSignVerifyParams.ExpectedPubKey = LmsShake256PubKey;
+	LmsSignVerifyParams.PubKeyLen = XSECURE_LMS_PUB_KEY_TOTAL_SIZE;
+
+	return XSecure_LmsSignatureVerification(ShaInstPtr, DmaPtr, &LmsSignVerifyParams);
 }

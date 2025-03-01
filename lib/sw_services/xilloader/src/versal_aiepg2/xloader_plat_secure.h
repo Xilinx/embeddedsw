@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xloader_plat_secure.h
+* @file versal_aiepg2/xloader_plat_secure.h
 * @addtogroup xloader_apis XilLoader versal_net specific APIs
 *
 * <pre>
@@ -171,8 +171,10 @@ typedef enum {
 		/**<0x35 Error when partition hash comparison is failed */
 	XLOADER_SEC_AES_AAD_OPERATION_FAILED,
 		/**<0x36 - Error in AES AAD Operation */
-        XLOADER_SEC_LMS_SIGN_VERIFY_FAIL,
-		/**<0x37 - Error in LMS sign verification */
+	XLOADER_SEC_LMS_SIGN_VERIFY_FAIL,
+		/**<0x37 - Error in LMS sign verification due to error in SHA operation */
+	XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR,
+		/**<0x38 - Error in LMS sign verification due to invalid public key size */
 } XLoader_SecErrCodes;
 
 /**< KEK info */

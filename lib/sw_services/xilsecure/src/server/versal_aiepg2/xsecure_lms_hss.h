@@ -1,12 +1,13 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /******************************************************************************/
 /**
 *
 * @file xsecure_lms_hss.h
-* @addtogroup ROM_COMP_SECURE
+
+* @addtogroup LMS
 * @{
 * @details
 * This file contains structures, constants and defines used in HSS

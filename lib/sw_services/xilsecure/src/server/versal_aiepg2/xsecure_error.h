@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -229,9 +229,8 @@ typedef enum {
 	XSECURE_ELLIPTIC_KAT_GENERATE_SIGN_64BIT_ERROR, /**< 0xD4 - Generate Signature error for KAT */
 	XSECURE_ELLIPTIC_KAT_64BIT_SIGN_VERIFY_ERROR,	/**< 0xD5 - Signature verify error for KAT */
 	XSECURE_ECC_PRVT_KEY_GEN_ERR = 0xD6, 		/**< 0xD6 - ECC private key generation error */
-	XSECURE_S3_LMS_SHA2_256_KAT_ERROR,		/**< 0xD7 - LMS SHA2-256 KAT error */
-	XSECURE_S3_LMS_SHAKE_256_KAT_ERROR,		/**< 0xD8 - LMS SHAKE KAT error */
-
+	XSECURE_HSS_SHA2_256_KAT_ERROR,			/**< 0xD7 - LMS SHA2-256 KAT error */
+	XSECURE_HSS_SHAKE_256_KAT_ERROR,		/**< 0xD8 - LMS SHAKE KAT error */
 
 	/* Error codes related to key unwrap */
 	XSECURE_ERR_KEY_STORE_SIZE = 0xE0,         /**< 0xE0 - Key store size error */
