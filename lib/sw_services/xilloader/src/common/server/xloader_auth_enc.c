@@ -233,6 +233,9 @@ typedef struct {
 
 #define XLOADER_MAX_SIGN_SIZE                           (9940U)         /** Maximum Signature size excluding padding, actual size */
 #define XLOADER_MIN_SIGN_SIZE                           (96U)           /** Minimum Signature size excluding padding, actual size */
+#define XLOADER_ENTRY_SIZE_IN_HASHBLOCK			(52U)		/** Each entry size in HashBlock */
+#define XLOADER_MAX_ENTRIES_IN_HASHBLOCK		(XIH_MAX_PRTNS + 1U) /** Maximum entries of a given HashBlock */
+#define XLOADER_DEFAULT_NEG_PRTN_INDEX			(0xFF)		/** Default negative value of prtition index in HashBlock */
 #else
 
 #define XLOADER_GET_PRTN_HASH_INDEX(PdiPtr) (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) \
@@ -266,11 +269,11 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr);
 static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
+static int XLoader_AuthHdrs(const XLoader_SecureParams *SecurePtr, XilPdi_MetaHdr *MetaHdr);
+static int XLoader_CheckAndCompareHashFromIHTOptionalData(XilPdi *PdiPtr, u8 *HashPtr, u32 PrtnHashIndex);
+#endif
 static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last);
-static int XLoader_CheckAndCompareHashFromIHTOptionalData(XilPdi *PdiPtr, u8 *HashPtr, u32 PrtnHashIndex);
-static int XLoader_AuthHdrs(const XLoader_SecureParams *SecurePtr, XilPdi_MetaHdr *MetaHdr);
-#endif
 static int XLoader_SetAesDpaCm(const XSecure_Aes *AesInstPtr, u8 DpaCmCfg);
 static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 	const XLoader_AesKekInfo *KeyDetails);
@@ -300,7 +303,6 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
                                 XLoader_HBAesParams *HBParams);
 static int XLoader_ValidateSpkHeader(XLoader_SpkHeader *SpkHeader);
-XLoader_HBAuthCertificate* XLoader_GetHashBlockAc(void);
 static int XLoader_Sha2256Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_Shake256Kat(XLoader_SecureParams *SecurePtr);
 static void XLoader_IvIncrement(u8 *Iv, u8 IncrValue);
@@ -309,15 +311,86 @@ static int XLoader_LmsSha2256Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_LmsShake256Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_HssShake256Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_HssSha256Kat(XLoader_SecureParams *SecurePtr);
+static int XLoader_CopyHashBlock(XLoader_HashBlock *HBPtr, u32 TotalHBSize, u8 *Src);
+
+/************************** Function Definitions *****************************/
+
+/*****************************************************************************/
+/**
+* @brief	This function returns the XLoader_HashBlock instance.
+* 		HashBlock stores first chunk partition hash corresponding to
+* 		each partition of the PDI.
+*
+* 		typedef struct {
+*			XilPdi_PrtnHashInfo HashData[XIH_MAX_PRTNS + 1U]
+*			u32 IdxToBeCopied;
+*		} XLoader_HashBlock;
+*
+*		typedef struct {
+*			u32 PrtnNum;
+*			u8 PrtnHash[XIPLDI_SHA3_HASH_SIZE_IN_BYTES];
+*		} XilPdi_PrtnHashInfo;
+*
+*		HashBlock format :
+*		-----------------------------------------
+*		| Partition Index | Partition Hash	 |
+*		-----------------------------------------
+
+* @return
+*		Returns pointer to XLoader_HashBlock instance
+*
+******************************************************************************/
+static XLoader_HashBlock* XLoader_GetHashBlockInstance(void)
+{
+	static XLoader_HashBlock HashBlockInstance;
+
+	return &HashBlockInstance;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function searches the partition hash index in the HashBlock
+* 		instance and returns the index on successful find.
+*
+* @param	PrtnNum		Partition number for which partition hash index
+* 				to be searched.
+* @param	PrtnIndex 	Out param to fill the index number of the partition
+* 				hash.
+*
+* @return
+* 		- XST_SUCCESS if the partition entry exists in the HashBlock.
+* 		- XST_FAILURE if the partition entry doesnt exist in the HashBlock.
+*
+******************************************************************************/
+static int XLoader_GetPrtnHashEntry(u32 PrtnNum, u8 *PrtnIndex)
+{
+	int Status = XST_FAILURE;
+	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
+	u8 Index;
+
+	/** Iterate over the HashBlock content to find given partition entry */
+	for (Index = 0U; Index < XLOADER_MAX_ENTRIES_IN_HASHBLOCK; Index++) {
+		if (PrtnNum == HBPtr->HashData[Index].PrtnNum) {
+			/** If the entry is found, return the XST_SUCCESS */
+			*PrtnIndex = Index;
+			Status = XST_SUCCESS;
+			break;
+		}
+		else {
+			/** Else iterate till all the entries of HashBlock,
+			 * If the entry is not found, return XST_FAILURE */
+			continue;
+		}
+	}
+
+	return Status;
+}
 #endif
 
 /************************** Variable Definitions *****************************/
 #ifndef PLM_AUTH_JTAG_EXCLUDE
 static XLoader_AuthJtagStatus AuthJtagStatus = {0U};
 #endif
-
-/************************** Function Definitions *****************************/
-
 /*****************************************************************************/
 /**
 * @brief	This function initializes authentication parameters of
@@ -339,9 +412,13 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 	int Status = XST_FAILURE;
 	volatile u32 AuthCertificateOfstTmp = PrtnHdr->AuthCertificateOfst;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
+#ifndef VERSAL_AIEPG2
 	u64 AcOffset;
 	XLoader_AuthCertificate *AuthCert = (XLoader_AuthCertificate *)
 		XPLMI_PMCRAM_CHUNK_MEMORY_1;
+#else
+        XLoader_HBSignParams HBSignParams;
+#endif
 
 	/**
 	 * - Check if authentication is enabled and copy authentication
@@ -357,6 +434,7 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 		SecurePtr->SecureEn = (u8)TRUE;
 		SecureTempParams->SecureEn = (u8)TRUE;
 
+#ifndef VERSAL_AIEPG2
 		AcOffset = SecurePtr->PdiPtr->MetaHdr->FlashOfstAddr +
 			((u64)SecurePtr->PrtnHdr->AuthCertificateOfst *
 				XIH_PRTN_WORD_LEN);
@@ -371,9 +449,22 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 					XLOADER_ERR_INIT_AC_COPY_FAIL, Status);
 			goto END;
 		}
-		SecurePtr->ProcessPrtn = XLoader_ProcessAuthEncPrtn;
+
 		SecurePtr->SecureHdrLen += XLOADER_AUTH_CERT_MIN_SIZE;
 		SecurePtr->ProcessedLen = XLOADER_AUTH_CERT_MIN_SIZE;
+
+#else
+		HBSignParams.ReadOffset = PrtnHdr->AuthCertificateOfst * XIH_PRTN_WORD_LEN;
+		HBSignParams.TotalPpkSize = PrtnHdr->TotalPpkSize;
+		HBSignParams.ActualPpkSize = PrtnHdr->ActualPpkSize;
+		HBSignParams.TotalHBSignSize = PrtnHdr->TotalHBSignSize;
+		HBSignParams.ActualHBSignSize = PrtnHdr->ActualHBSignSize;
+		HBSignParams.HBSize = PrtnHdr->HashBlockSize * XIH_PRTN_WORD_LEN;
+		HBSignParams.AuthHdr = PrtnHdr->AuthenticationHdr;
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_AuthenticateHashBlock,
+				SecurePtr, &HBSignParams);
+#endif
+		SecurePtr->ProcessPrtn = XLoader_ProcessAuthEncPrtn;
 	}
 
 	Status = XST_SUCCESS;
@@ -410,7 +501,9 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
-
+#ifdef VERSAL_AIEPG2
+	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
+#endif
 	/** - Check if encryption is enabled */
 	if (PrtnHdr->EncStatus != 0x00U) {
 		 XPlmi_Printf(DEBUG_INFO, "Encryption is enabled\n\r");
@@ -519,7 +612,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 		}
 #ifdef VERSAL_AIEPG2
 		Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
-				SecurePtr->PdiPtr->MetaHdr->HashBlock.HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
+				HBPtr->HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
 				XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -2377,7 +2470,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		 * Validate the HashBlock 1 integrity with HashBlock 1 hash
 		 * present in HashBlock 0
 		 */
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_ValidateHashBlock1Integrity,
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_ValidateMHHashBlockIntegrity,
 			SecurePtr);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -3508,12 +3601,10 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 
-#ifndef VERSAL_AIEPG2
 		/** - Verify hash */
 		XSECURE_TEMPORAL_CHECK(END, Status,
 					XLoader_VerifyAuthHashNUpdateNext,
 					SecurePtr, TotalSize, Last);
-#endif
 		if (((SecurePtr->IsEncrypted != (u8)TRUE) &&
 			(SecureTempParams->IsEncrypted != (u8)TRUE)) &&
 			(SecurePtr->IsCdo != (u8)TRUE)) {
@@ -4093,6 +4184,7 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 	volatile int Status = XST_FAILURE;
 	u8 HashBlockHash[XLOADER_SHA3_LEN];
 	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
+	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
 	XLoader_AuthCertificate *AuthCert = (XLoader_AuthCertificate *)
                 XPLMI_PMCRAM_CHUNK_MEMORY_1;
 	u32 ReadOffset;
@@ -4236,18 +4328,59 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 	}
 	else {
 		/** Not supported */
-        XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
-        Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
-        goto END;
-    }
+		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+		goto END;
+	}
 
 	XPlmi_Printf(DEBUG_INFO, "HashBlock Authentication is successful\n\r");
 
-	/** Copy HashBlock to PMC RAM */
-	Status = Xil_SecureMemCpy(&SecurePtr->HashBlock,
-				HBSignParams->HBSize,
-				(const void*)&MetaHdrPtr->HashBlock,
-				HBSignParams->HBSize);
+	if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
+		/** For Partial PDI, reset the IdxCopied to 0
+		  * to ovveride the MH hash and remaining partition hashes
+		  * of Partial PDIs to same indices of FULL PDI
+		  */
+		HBPtr->IdxCopied = 0U;
+	}
+	/** Copy Autheticated HashBlock to PPU1 RAM */
+	Status = XLoader_CopyHashBlock(HBPtr, HBSignParams->HBSize,
+				(u8 *)(UINTPTR)&MetaHdrPtr->HashBlock);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function copies the authenticated HashBlock content to
+* 		PPU1 RAM to use further during partition loading.
+*
+* @param	TotalHBSize	TotalHashBlock size authenticated.
+* @param	Src		Pointer to the HashBlock from where the content
+* 				to be copied.
+*
+* @return
+* 		- XST_SUCCESS if the HashBlock copy is successful.
+* 		- XST_FAILURE if the HashBlock copy is not successful.
+*
+******************************************************************************/
+static int XLoader_CopyHashBlock(XLoader_HashBlock *HBPtr, u32 TotalHBSize, u8 *Src)
+{
+	int Status = XST_FAILURE;
+	u32 PaddingLen = TotalHBSize % XLOADER_ENTRY_SIZE_IN_HASHBLOCK;
+	u32 CurrentIdx = TotalHBSize / XLOADER_ENTRY_SIZE_IN_HASHBLOCK;
+	u32 ActualHBSize = TotalHBSize - PaddingLen;
+
+	/** Copy authenticated HashBlock content to PPU1 RAM */
+	Status = Xil_SecureMemCpy(&HBPtr->HashData[HBPtr->IdxCopied],
+			ActualHBSize, Src, ActualHBSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	/** Increment the index to indicate the valid HashBlock Data */
+	HBPtr->IdxCopied = HBPtr->IdxCopied + CurrentIdx;
+
+	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
@@ -4462,13 +4595,17 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to validate the HashBlock1 integrity.
- * 		HashBlock1 contains hash of MH hash(IHT + Optional Data + IH's + PH's
- * 		hash) and remaining partitions hash.
- * 		HashBlock1 hash is present in BootHeader HashBlock
- * 		which is HashBlock0. HashBlock1 integrity is verified by calculating
- * 		the hash of the HashBlock1 and comparing it with the HashBlock1 hash
- * 		present in HashBlock0.
+ * @brief	This function is used to validate the MetaHeader HashBlock integrity.
+ * 		There is a HashBlock corresponding to MetaHeader which is called
+ * 		either HashBlock1 or MetaHeader HashBlock.
+ *
+ * 		MetaHeader HashBlock contains hash of MH hash(IHT + Optional Data +
+ * 		IH's + PH's hash) and remaining partitions hash.
+ *
+ * 		MetaHeader HashBlock's hash is present in BootHeader HashBlock
+ * 		which is HashBlock0. HashBlock1/MetaHeader HashBlock integrity is
+ * 		verified by calculating the hash of the MetaHeader HashBlock and
+ * 		comparing it with the HashBlock1 hash present in HashBlock0.
  *
  * @param	SecurePtr is SecureParams instance pointer
  *
@@ -4477,12 +4614,13 @@ END:
  *		- ErrorCode on failure.
  *
  *****************************************************************************/
-int XLoader_ValidateHashBlock1Integrity(XLoader_SecureParams *SecurePtr)
+int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr)
 {
 	int Status = XST_FAILURE;
 	int StatusTmp = XST_FAILURE;
 	u8 HashBlock1Hash[XLOADER_SHA3_LEN];
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
 	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
 	u32 ReadOffset = MetaHdrPtr->ImgHdrTbl.HashBlockOffset * XIH_PRTN_WORD_LEN;
 	u32 HashBlockSize = MetaHdrPtr->ImgHdrTbl.HashBlockSize * XIH_PRTN_WORD_LEN;
@@ -4521,7 +4659,7 @@ int XLoader_ValidateHashBlock1Integrity(XLoader_SecureParams *SecurePtr)
 			goto END;
 		}
 
-		/** Read the HashBlock 1 hash */
+		/** Read the MetaHeader HashBlock hash */
 		Status = XST_FAILURE;
 		Status = XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384,
 				(u64)(UINTPTR)MetaHdrPtr->HashBlock.HashData,
@@ -4533,7 +4671,7 @@ int XLoader_ValidateHashBlock1Integrity(XLoader_SecureParams *SecurePtr)
 		}
 
 		/**
-		 * Compare the calculated HashBlock1 hash with hash
+		 * Compare the calculated MetaHeader HashBlock hash with hash
 		 * copied by ROM in XIH_HASH_BLOCK_1_HASH_OFFSET
 		 */
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT, &HashBlock1Hash,
@@ -4552,18 +4690,18 @@ int XLoader_ValidateHashBlock1Integrity(XLoader_SecureParams *SecurePtr)
 	}
 
 	/**
-	 * If HashBlock1 integrity is verified successfully,
-	 * Copy HashBlock1 data to MetaHdr instance.
+	 * If MetaHeader HashBlock integrity is verified successfully,
+	 * Copy MetaHeader HashBlock data to PPU1 RAM.
 	 */
-	Status = Xil_SecureMemCpy(&SecurePtr->HashBlock,
-				sizeof(SecurePtr->HashBlock),
+	Status = Xil_SecureMemCpy(&HBPtr->HashData,
+				sizeof(HBPtr->HashData),
 				(const void*)&MetaHdrPtr->HashBlock,
-				sizeof(SecurePtr->HashBlock));
+				sizeof(HBPtr->HashData));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	XPlmi_Printf(DEBUG_INFO, "HashBlock1 integrity validation is "
+	XPlmi_Printf(DEBUG_INFO, "MetaHeader HashBlock integrity validation is "
 				"successful\n\r");
 END:
 	return Status;
@@ -4589,6 +4727,7 @@ int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr)
 	int StatusTmp = XST_FAILURE;
 	u8 MetaHdrHash[XLOADER_SHA3_LEN];
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
 	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
 	volatile u32 TotalSize = MetaHdrPtr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
 
@@ -4671,13 +4810,13 @@ int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr)
 	}
 
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT, MetaHdrHash,
-		XLOADER_SHA3_LEN, MetaHdrPtr->HashBlock.HashData[0].PrtnHash,
+		XLOADER_SHA3_LEN, HBPtr->HashData[0].PrtnHash,
 		XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "Hash mismatch error\n\r");
 		XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)MetaHdrHash,
 			XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN, "Calculated Hash");
-		XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)MetaHdrPtr->HashBlock.HashData[0].PrtnHash,
+		XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)HBPtr->HashData[0].PrtnHash,
 			XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN, "Expected Hash");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_META_HDR_HASH_COMPARE_FAIL,
 			Status);
@@ -5574,6 +5713,7 @@ END:
 	return Status;
 }
 
+#endif
 /*****************************************************************************/
 /**
  * @brief	This function calculates hash and compares with expected hash.
@@ -5602,12 +5742,17 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 	volatile int Status = XST_FAILURE;
 	int ClearStatus = XST_FAILURE;
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+#ifdef VERSAL_AIEPG2
+	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
+	u8 PrtnIndex = XLOADER_DEFAULT_NEG_PRTN_INDEX;
+#else
+	XLoader_AuthCertificate *AcPtr=
+		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
+#endif
 	u8 *Data = (u8 *)SecurePtr->ChunkAddr;
 	XSecure_Sha3Hash BlkHash;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
 	volatile int StatusTmp = XST_FAILURE;
-	XLoader_AuthCertificate *AcPtr=
-		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
 
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		goto END;
@@ -5636,12 +5781,20 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 
 	/** Hash should be calculated on AC + first chunk */
 	if (SecurePtr->BlockNum == 0x00U) {
+#ifndef VERSAL_AIEPG2
 		Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)AcPtr,
 			(XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE));
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
 			goto END;
 		}
+#else
+		Status = XSecure_ShaLastUpdate(ShaInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
+			goto END;
+		}
+#endif
 	}
 
 	Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)Data, Size);
@@ -5658,6 +5811,27 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 
 	/** Verify the hash */
 	if (SecurePtr->BlockNum == 0x00U) {
+#ifdef VERSAL_AIEPG2
+		Status = XLoader_GetPrtnHashEntry(SecurePtr->PdiPtr->PrtnNum, &PrtnIndex);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT,
+				HBPtr->HashData[PrtnIndex].PrtnHash,
+				XLOADER_SHA3_LEN, BlkHash.Hash, XLOADER_SHA3_LEN,
+				XLOADER_SHA3_LEN);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			XPlmi_Printf(DEBUG_INFO, "Hash mismatch error\n\r");
+			XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)BlkHash.Hash,
+					XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN, "Calculated Hash");
+			XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)HBPtr->HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
+					XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN, "Expected Hash");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_COMPARE_FAIL,
+					Status);
+			goto END;
+		}
+
+#else
 		if (SecurePtr->PdiPtr->MetaHdr->IsAuthOptimized == (u32)TRUE) {
 			/**
 			 * Skip sign verification, compare the hash of respective partition
@@ -5675,6 +5849,7 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_AUTH_FAIL, Status);
 			goto END;
 		}
+#endif
 	}
 	else {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT, ExpHash,
@@ -5719,6 +5894,8 @@ END:
 	}
 	return Status;
 }
+
+#ifndef VERSAL_AIEPG2
 /*****************************************************************************/
 /**
 * @brief	This function authenticates the data with SPK.

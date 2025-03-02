@@ -467,10 +467,10 @@ typedef struct {
 } XLoader_AuthCertificate;
 
 #else
-/**< Type definition for Authentication Header struct */
 typedef struct {
-        u32 AuthAttributes;
-} XLoader_AuthHeader;
+	XilPdi_PrtnHashInfo HashData[XIH_MAX_PRTNS + 1U] __attribute__ ((aligned(32U))); /**< HashBlock containing partition hashes */
+        u32 IdxCopied; /**< Size of the HashBlock copied to PPU1 RAM */
+} XLoader_HashBlock;
 
 typedef struct {
         u32 TotalSPKSize;
@@ -479,7 +479,7 @@ typedef struct {
         u32 SignatureSize;
         u32 SPKId;
         u32 SPKPriv;
-        u32 Reserved[2];
+        u32 Reserved[2U];
 } XLoader_SpkHeader;
 
 typedef struct {
@@ -609,9 +609,6 @@ typedef struct XLoader_SecureParams {
 #ifndef PLM_SECURE_EXCLUDE
 	XLoader_AuthType SigType;	/**< Signature type */
 	XLoader_AuthCertificate *AcPtr;/**< Authentication certificate pointer */
-#ifdef VERSAL_AIEPG2
-	XilPdi_HashBlock HashBlock; /**< HashBlock containing partition hashes */
-#endif
 	XSecure_Aes *AesInstPtr;	/**< AES instance pointer */
 	XLoader_AuthJtagMessage* AuthJtagMessagePtr;
 					/**< Auth JTAG message pointer */
@@ -713,7 +710,7 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
 #else
-int XLoader_ValidateHashBlock1Integrity(XLoader_SecureParams *SecurePtr);
+int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr);
 int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr);
 #endif
 
