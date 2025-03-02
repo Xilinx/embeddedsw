@@ -40,6 +40,7 @@
 #include "xsecure_trng_ipihandler.h"
 #include "xsecure_plat_elliptic_ipihandler.h"
 #include "xsecure_plat_kat_ipihandler.h"
+#include "xsecure_plat_ipihandler.h"
 #include "xsecure_cmd.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
