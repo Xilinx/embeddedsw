@@ -60,7 +60,6 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
 	const u32 *Pload = NULL;
-	u32 CryptoMask = 0U;
 
 	if (Cmd == NULL || Cmd->Payload == NULL) {
 		Status = XST_INVALID_PARAM;
