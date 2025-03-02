@@ -1392,3 +1392,65 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 #endif
 	return;
 }
+/*****************************************************************************/
+/**
+* Check if the connected PHY is an external PCS-PMA.
+*
+* This function reads the PHY identifier registers to determine whether the
+* PHY connected to the given address is an external Xilinx PCS-PMA device.
+*
+* @param xemacpsp is a pointer to the Ethernet MAC instance.
+* @param phy_addr is the address of the PHY device.
+*
+* @return
+*   - 1 if the PHY is an external PCS-PMA.
+*   - 0 if the PHY is assumed to be an internal PCS-PMA.
+*
+******************************************************************************/
+int isphy_pcspma_external(XEmacPs *xemacpsp, u32_t phy_addr) {
+	u16 phy_id;
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG, &phy_id);
+	if (phy_id == PHY_XILINX_PCS_PMA_ID1) {
+		XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_2_REG, &phy_id);
+		if (phy_id == PHY_XILINX_PCS_PMA_ID2) {
+			return 1;// External PCS-PMA detected
+		}
+	}
+
+	return 0;// Internal PCS-PMA assumed
+}
+
+/*****************************************************************************/
+/**
+* Configure the MAC for SGMII PCS mode.
+*
+* This function configures the Ethernet MAC for operation with an SGMII
+* (Serial Gigabit Media Independent Interface) PHY. It first checks whether
+* the PHY is external using the `isphy_pcspma_external` function. If the PHY
+* is not an external PCS-PMA device, the function enables the SGMII option
+* and sets the Auto-Negotiation bit in the PCS control register.
+*
+* @param xemacpsp is a pointer to the Ethernet MAC instance.
+* @param phy_addr is the address of the PHY device.
+*
+******************************************************************************/
+void MacConfig_SgmiiPcs(XEmacPs *xemacpsp, u32_t phy_addr) {
+#ifdef SDT
+	const char *PhyType = xemacpsp->Config.PhyType;
+	if (!strcmp(PhyType, "sgmii") && !isphy_pcspma_external(xemacpsp, phy_addr)){
+
+		/* Enable SGMII option */
+		XEmacPs_SetOptions(xemacpsp, XEMACPS_SGMII_ENABLE_OPTION);
+
+		/* Read the current PCS_CONTROL register value */
+		u32 status = XEmacPs_ReadReg(xemacpsp->Config.BaseAddress, XEMACPS_PCS_CONTROL_OFFSET);
+
+		/* Set the Enable Auto-Negotiation bit (bit 12) */
+		status |= XEMACPS_PCS_CON_AUTO_NEG_MASK;
+
+		/* Write the updated value back to the PCS_CONTROL register */
+		XEmacPs_WriteReg(xemacpsp->Config.BaseAddress, XEMACPS_PCS_CONTROL_OFFSET, status);
+	}
+#endif
+}

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -173,6 +173,9 @@ void init_emacps_on_error (xemacpsif_s *xemacps, struct netif *netif);
 void clean_dma_txdescs(struct xemac_s *xemac);
 void resetrx_on_no_rxdata(xemacpsif_s *xemacpsif);
 void reset_dma(struct xemac_s *xemac);
+int isphy_pcspma_external(XEmacPs *xemacpsp, u32_t phy_addr);
+void MacConfig_SgmiiPcs(XEmacPs *xemacpsp, u32_t phy_addr);
+
 
 #ifdef __cplusplus
 }
