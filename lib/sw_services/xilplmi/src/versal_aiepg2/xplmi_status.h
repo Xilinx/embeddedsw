@@ -762,22 +762,22 @@ typedef enum {
 	XLOADER_ERR_SPK_HASH_CALC_FAIL, /**< 0x647 - Error in SPK hash calculation */
 	XLOADER_ERR_PPK_COPY_FAIL, /**< 0x648 - Error in PPK copy */
 	XLOADER_ERR_SPK_HEADER_COPY_FAIL, /**< 0x649 - Error in SPK Header copy */
-	XLOADER_ERR_SPK_HEADER_VALIDATE_FAIL, /**< 0x650 - Error in SPK Header validation
+	XLOADER_ERR_SPK_HEADER_VALIDATE_FAIL, /**< 0x64A - Error in SPK Header validation
 */
-	XLOADER_ERR_SPK_COPY_FAIL, /**< 0x651 - Error in SPK copy */
-	XLOADER_ERR_SPK_SIGN_COPY_FAIL, /**< 0x652 - Error in SIGN SIGN copy */
-	XLOADER_ERR_HASH_BLOCK_COPY_FAIL, /**< 0x653 - Error in HashBlock copy */
-	XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL, /**< 0x654 - Error in HashBlock sign copy */
-	XLOADER_ERR_HASH_BLOCK_TAG_COPY_FAIL, /**< 0x655 - Error in HashBlock tag copy */
-	XLOADER_ERR_GET_LMS_ALGO_FAILED, /**< 0x656 - Error in getting LMS hash algorithm */
-	XLOADER_ERR_MH_GET_DMA, /**< 0x657 Failed to get DMA instance for MetaHeader authentication */
-	XLOADER_ERR_SHAKE_GET_DMA, /**< 0x658 Failed to get DMA instance for SHAKE KAT */
-	XLOADER_ERR_SHA2_GET_DMA, /**< 0x659 Failed to get DMA instance for SHA2 KAT */
-	XLOADER_ERR_LMS_HSS_GET_DMA, /**< 0x660 Failed to get DMA instance for LMS_HSS KAT */
-	XLOADER_ERR_LMS_GET_DMA, /**< 0x661 Failed to get DMA instance for LMS KAT */
-	XLOADER_ERR_CONFIG_LIMIT_EXCEEDED, /**< 0x662 Error when the configuration limit is exceeded */
-	XLOADER_ERR_UPDATE_CONFIG_LIMITER_CNT_FAILED, /**< 0x663 Error when the configuration limiter update failed */
-	XLOADER_ERR_KEY_AUTH_FAIL, /**< 0x664 Error when authetication of keys is failed */
+	XLOADER_ERR_SPK_COPY_FAIL, /**< 0x64B - Error in SPK copy */
+	XLOADER_ERR_SPK_SIGN_COPY_FAIL, /**< 0x64C - Error in SIGN SIGN copy */
+	XLOADER_ERR_HASH_BLOCK_COPY_FAIL, /**< 0x64D - Error in HashBlock copy */
+	XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL, /**< 0x64E - Error in HashBlock sign copy */
+	XLOADER_ERR_HASH_BLOCK_TAG_COPY_FAIL, /**< 0x64F - Error in HashBlock tag copy */
+	XLOADER_ERR_GET_LMS_ALGO_FAILED, /**< 0x650 - Error in getting LMS hash algorithm */
+	XLOADER_ERR_MH_GET_DMA, /**< 0x651 Failed to get DMA instance for MetaHeader authentication */
+	XLOADER_ERR_SHAKE_GET_DMA, /**< 0x652 Failed to get DMA instance for SHAKE KAT */
+	XLOADER_ERR_SHA2_GET_DMA, /**< 0x653 Failed to get DMA instance for SHA2 KAT */
+	XLOADER_ERR_LMS_HSS_GET_DMA, /**< 0x654 Failed to get DMA instance for LMS_HSS KAT */
+	XLOADER_ERR_LMS_GET_DMA, /**< 0x655 Failed to get DMA instance for LMS KAT */
+	XLOADER_ERR_CONFIG_LIMIT_EXCEEDED, /**< 0x656 Error when the configuration limit is exceeded */
+	XLOADER_ERR_UPDATE_CONFIG_LIMITER_CNT_FAILED, /**< 0x657 Error when the configuration limiter update failed */
+	XLOADER_ERR_KEY_AUTH_FAIL, /**< 0x658 Error when authetication of keys is failed */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XOCP_PCR_ERR_SWPCR_DUP_CONFIG = 0x6A0, /**< 0x6A0 Duplicate Pcr configuration provided */
