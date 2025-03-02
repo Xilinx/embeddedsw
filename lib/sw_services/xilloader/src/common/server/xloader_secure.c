@@ -257,10 +257,9 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 		}
 		goto END;
 	}
-#ifndef VERSAL_AIEPG2
 	/** - Initialize the authentication. */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SecureAuthInit, SecurePtr, PrtnHdr);
-#endif
+
 	/** - Initialize the encryption. */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SecureEncInit, SecurePtr, PrtnHdr);
 #else

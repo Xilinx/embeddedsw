@@ -850,7 +850,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		 * HashBlock1 hash and compare it with hash present in HashBlock 0.
 		 */
 		Status = XST_FAILURE;
-		Status = XLoader_ValidateHashBlock1Integrity(&SecureParams);
+		Status = XLoader_ValidateMHHashBlockIntegrity(&SecureParams);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}

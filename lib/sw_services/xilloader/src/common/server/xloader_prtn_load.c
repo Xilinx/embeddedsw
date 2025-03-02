@@ -351,6 +351,22 @@ END:
 				PrtnHdr->DataWordOfst);
 	XPlmi_Printf(DEBUG_INFO, "Partition attributes: 0x%x\n\r",
 				PrtnHdr->PrtnAttrb);
+#ifdef VERSAL_AIEPG2
+	XPlmi_Printf(DEBUG_INFO, "AC offset: 0x%x\n\r",
+                                PrtnHdr->AuthCertificateOfst);
+	XPlmi_Printf(DEBUG_INFO, "TotalPpkSize: 0x%x\n\r",
+                                PrtnHdr->TotalPpkSize);
+	XPlmi_Printf(DEBUG_INFO, "ActualPpkSize: 0x%x\n\r",
+                                PrtnHdr->ActualPpkSize);
+	XPlmi_Printf(DEBUG_INFO, "TotalHBSignSize: 0x%x\n\r",
+                                PrtnHdr->TotalHBSignSize);
+	XPlmi_Printf(DEBUG_INFO, "ActualHBSignSize: 0x%x\n\r",
+                                PrtnHdr->ActualHBSignSize);
+	XPlmi_Printf(DEBUG_INFO, "HashBlockSize: 0x%x\n\r",
+                                PrtnHdr->HashBlockSize);
+	XPlmi_Printf(DEBUG_INFO, "HashBlockOffset: 0x%x\n\r",
+                                PrtnHdr->HashBlockOffset);
+#endif
 	return Status;
 }
 
