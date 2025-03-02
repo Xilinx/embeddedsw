@@ -162,13 +162,6 @@ int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 	/** Release Reset SHA2/3 engine. */
 	XSecure_ReleaseReset((UINTPTR)InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
 
-	/** Configures the SSS for SHA hardware engine. */
-	Status = XSecure_SssSha(&InstancePtr->SssInstance,
-				(u16)(InstancePtr->DmaPtr->Config.DmaType - XSECURE_TYPE_PMC_DMA0), InstancePtr->SssShaCfg);
-	if(Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	/** Select SHA Mode based on SHA type. */
 	Xil_Out32((InstancePtr->BaseAddress + XSECURE_SHA_MODE_OFFSET), InstancePtr->ShaMode);
 
@@ -222,15 +215,17 @@ int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Si
 		goto END;
 	}
 
+	/** Validate the SHA data size */
 	Status = XSecure_ValidateShaDataSize(Size);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
 
-	/**  Configure the SSS for SHA3 hashing. */
+	/**  Configure the SSS for SHA2/3 hashing. */
 	Status = XSecure_SssSha(&InstancePtr->SssInstance,
-				(u16)(InstancePtr->DmaPtr->Config.DmaType - XSECURE_TYPE_PMC_DMA0), InstancePtr->SssShaCfg);
+		(u16)(InstancePtr->DmaPtr->Config.DmaType - XSECURE_TYPE_PMC_DMA0),
+		InstancePtr->SssShaCfg);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
