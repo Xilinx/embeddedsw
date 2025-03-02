@@ -235,7 +235,7 @@ typedef struct {
 	u32 ActualPpkSize; /**< Actual PPK size */
 	u32 TotalHBSignSize; /**< Total HashBlock signature size */
 	u32 ActualHBSignSize; /**< Actual HashBlock signature size */
-	u32 Rsvd[8U]; /**< Reserved */
+	u32 Rsvd; /**< Reserved */
 	u32 Checksum; /**< Checksum of the image header table */
 } XilPdi_ImgHdrTbl __attribute__ ((aligned(16U)));
 
@@ -262,6 +262,7 @@ typedef struct {
 	u32 EncStatus; /**< Encryption Status/Key Selection */
 	u32 KekIv[3U]; /**< KEK IV for partition decryption */
 	u32 EncRevokeID; /**< Revocation ID of partition for encrypted partition */
+	u32 MeasuredBootAddr; /**< Single Byte Measured Boot Address */
 	u32 AuthenticationHdr; /**< Authentication Header */
 	u32 HashBlockSize; /**< HashBlock Size in words */
 	u32 HashBlockOffset; /**< HashBlock word offset */
@@ -269,7 +270,7 @@ typedef struct {
 	u32 ActualPpkSize; /**< Actual PPK size */
 	u32 TotalHBSignSize; /**< Total HashBlock signature size */
 	u32 ActualHBSignSize; /**< Actual HashBlock signature size */
-	u32 Reserved[2U]; /**< Reserved */
+	u32 Reserved; /**< Reserved */
 	u32 Checksum; /**< checksum of the partition header */
 } XilPdi_PrtnHdr __attribute__ ((aligned(16U)));
 
