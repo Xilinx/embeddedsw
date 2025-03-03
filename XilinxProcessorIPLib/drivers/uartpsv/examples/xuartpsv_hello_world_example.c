@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,8 @@
 * ---  ---  --------- -----------------------------------------------
 * 1.0  sg   09/18/17  First Release
 * 1.2  rna  01/20/20  Add self test
+* 1.12 bkv  03/03/25  Fixed GCC Warning
+*
 * </pre>
 ******************************************************************************/
 
@@ -158,7 +160,7 @@ int UartPsvHelloWorldExample(UINTPTR BaseAddress)
 		return XST_FAILURE;
 	}
 
-	while (SentCount < (sizeof(HelloWorld) - 1)) {
+	while (SentCount < (((int)sizeof(HelloWorld)) - 1)) {
 		/* Transmit the data */
 		SentCount += XUartPsv_Send(&Uart_Psv,
 					   &HelloWorld[SentCount], 1);
