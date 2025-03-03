@@ -72,6 +72,8 @@
 #define XDP_LINK_ADJUST_TIMEOUT_IN_20MSEC 20000
 #define XDP_LINK_EQUALIZATION_TIMEOUT_IN_MSEC 450000
 #define XDP_LINK_EQUALIZATION_LOOP_COUNTER	20
+#define XDP_LINK_ALIGN_DONE_WAIT	3000
+#define XDP_LINK_ALIGN_DONE__TIMEOUT	170
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
 /* EQ_DONE Read Interval delay during Main-Link training sequences */
@@ -691,10 +693,6 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 
 		if (SinkLaneCount < RxMaxLaneCount)
 			RxMaxLaneCount = SinkLaneCount;
-
-		/* Lttpr complaince expects datarate to be set before training */
-		XDp_TxSetLinkRate(InstancePtr, RxMaxLinkRate);
-		XDp_TxSetLaneCount(InstancePtr, RxMaxLaneCount);
 	}
 	LinkConfig->MaxLinkRate =
 			(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ? ConfigPtr->MaxLinkRate :
@@ -1598,7 +1596,6 @@ u32 XDp_TxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 	RegVal &= ~XDP_DPCD_LANE_COUNT_SET_MASK;
 	RegVal |= InstancePtr->TxInstance.LinkConfig.LaneCount;
 
-	RegVal = InstancePtr->TxInstance.LinkConfig.LaneCount;
 	/* Write the new lane count to the RX device. */
 	Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_LANE_COUNT_SET, 0x1,
 								&RegVal);
@@ -5286,7 +5283,7 @@ static XDp_TxTrainingState XDp_Tx_2x_ClockData_Switch(XDp *InstancePtr, u8 NumOf
 	while (loop < (NumOfRepeaters + 1)) {
 		/*wait 3msec of time*/
 		XDp_WaitUs(InstancePtr, 3000);
-		loop++;
+
 
 		Status = XDp_TxGetCdsInterlaneAlignStatus(InstancePtr);
 		if (Status != XST_SUCCESS)
@@ -5298,12 +5295,9 @@ static XDp_TxTrainingState XDp_Tx_2x_ClockData_Switch(XDp *InstancePtr, u8 NumOf
 				InstancePtr->TxInstance.LinkConfig.LaneCount)))
 			return XDP_TX_TS_SUCCESS;
 
-		XDp_WaitUs(InstancePtr, loop * 20000);
-		/*recheck align status after waiting 3msec of time*/
-		Status = XDp_TxCheckCdsInterlaneAlignDone(InstancePtr);
-		if ((Status == XST_SUCCESS) && (!XDp_Tx_2x_SymbolLockdone(InstancePtr,
-				InstancePtr->TxInstance.LinkConfig.LaneCount)))
-			return XDP_TX_TS_SUCCESS;
+		XDp_WaitUs(InstancePtr, (NumOfRepeaters + 1) * 20000);
+
+		loop++;
 	}
 
 	Status = XDP_TX_TS_FAILURE;
@@ -5314,6 +5308,74 @@ static XDp_TxTrainingState XDp_Tx_2x_ClockData_Switch(XDp *InstancePtr, u8 NumOf
 	return XDP_TX_TS_FAILURE;
 }
 
+static XDp_TxTrainingState XDp_Tx_2x_Eq_Done(XDp *InstancePtr, u8 NumOfRepeaters,
+		u32 AuxDelay)
+{
+	int i = 0;
+	int Status = 0;
+	u32 DelayUs = AuxDelay;
+
+	for (i = 0; i < XDP_LINK_EQUALIZATION_LOOP_COUNTER; i++) {
+		/* Wait delay specified in TRAINING_AUXDp_Tx_2x_Ce_doneX_RD_INTERVAL. */
+		XDp_WaitUs(InstancePtr, DelayUs);
+		/* Get lane and adjustment requests. */
+		Status = XDp_TxGetLaneStatusAdjReqs(InstancePtr, NumOfRepeaters);
+		if (Status != XST_SUCCESS)			/* The AUX read failed. */
+			return XDP_TX_TS_FAILURE;
+		/* Check if all lanes have realized and maintained the frequency
+		 * lock and get adjustment requests.
+		 */
+		Status = XDp_Tx_2x_LaneEqualizationdone(InstancePtr,
+					InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status != XST_SUCCESS) {
+			if (XDp_Tx_2x_GetLTFailedStatus(InstancePtr))
+				break;
+			DelayUs = XDp_Tx_2x_GetLinkTrainingDelay(InstancePtr);
+			if (!(DelayUs > 1))
+				return XDP_TX_TS_FAILURE;
+
+			Status =
+				XDp_Tx_2x_AdjustFfePresetValues(InstancePtr,
+								InstancePtr->TxInstance.LinkConfig.LaneCount);
+			/* The AUX read failed. */
+			if (Status != XST_SUCCESS)
+				return XDP_TX_TS_FAILURE;
+			} else {
+				return XST_SUCCESS;
+			}
+	}
+
+	return XDP_TX_TS_FAILURE;
+}
+
+/******************************************************************************/
+/**
+ * This function is reached if the channel equalization process success
+ * during training. This function checks the link alignment till
+ * 450msec and wait for alignment done. If alignment is not achecived then
+ * it tries to downshift the linkrates and lanecount.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @note	None.
+ *
+ *******************************************************************************/
+static XDp_TxTrainingState XDp_Tx_2x_Eq_Align_Done(XDp *InstancePtr)
+{
+	int j, Status = 0;
+
+	for (j = 0; j < XDP_LINK_ALIGN_DONE__TIMEOUT; j++) {
+		/* Check if all lanes are inter aligned */
+		Status =
+		XDp_Tx_2x_GetChannelInterlaneAlignDoneStatus(InstancePtr);
+		if (Status == XST_SUCCESS)
+			return XST_SUCCESS;
+		/*wait 3 msec*/
+		XDp_WaitUs(InstancePtr, XDP_LINK_ALIGN_DONE_WAIT);
+	}
+
+		return XDP_TX_TS_FAILURE;
+}
 /******************************************************************************/
 /**
  * This function runs the equalization done sequence as part of link training. The
@@ -5344,8 +5406,7 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr, u8 Nu
 {
 	u32 Status;
 	u32 DelayUs;
-	u32 loopCounter = 0, EqualizationTime = 0;
-	u8 ce_failure = 0, LtTermination;
+	u8 LtTermination = 0;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -5395,86 +5456,30 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr, u8 Nu
 	if (Status != XST_SUCCESS)
 		return XDP_TX_TS_FAILURE;
 
-	EqualizationTime = XDP_LINK_EQUALIZATION_TIMEOUT_IN_MSEC;
-	do {
-		/* Obtain the required delay for clock recovery as specified by the
-		 * RX device.
-		 */
-		do {
-			XDp_WaitUs(InstancePtr, DelayUs);
 
-			EqualizationTime = EqualizationTime - DelayUs;
-			loopCounter++;
-			/* Wait delay specified in TRAINING_AUX_RD_INTERVAL. */
-			/* Get lane and adjustment requests. */
-			Status = XDp_TxGetLaneStatusAdjReqs(InstancePtr, NumOfRepeaters);
-			/* The AUX read failed. */
-			if (Status != XST_SUCCESS)
-				return XDP_TX_TS_FAILURE;
-			/* Check if all lanes have realized and maintained the frequency
-			 * lock and get adjustment requests.
-			 */
-			Status =
-			XDp_Tx_2x_LaneEqualizationdone(InstancePtr,
-					InstancePtr->TxInstance.LinkConfig.LaneCount);
+	Status =  XDp_Tx_2x_Eq_Done(InstancePtr, NumOfRepeaters, DelayUs);
+	if (Status != XST_SUCCESS) {
+		/*clear training pattern to zero*/
+		Status = XDp_TxSetTrainingPattern(InstancePtr,
+						  XDP_TX_TRAINING_PATTERN_SET_OFF, NumOfRepeaters);
 
-			if (Status != XST_SUCCESS) {
-				ce_failure = 1;
+		if (Status != XST_SUCCESS)
+			return XDP_TX_TS_FAILURE;
 
-				if (XDp_Tx_2x_GetLTFailedStatus(InstancePtr)) {
-					loopCounter = 0;
-					break;
-				}
+		return XDp_Tx_2x_AdjustLinkTrainparams(InstancePtr, 1);
+	}
 
-			DelayUs = XDp_Tx_2x_GetLinkTrainingDelay(InstancePtr);
+	Status =  XDp_Tx_2x_Eq_Align_Done(InstancePtr);
+	if (Status == XST_SUCCESS)
+		return XDP_TX_TS_CHANNEL_CLOCK_DATA_SWITCH;
 
-			if (!(DelayUs > 1))
-				return XDP_TX_TS_FAILURE;
-
-				Status =
-						XDp_Tx_2x_AdjustFfePresetValues(InstancePtr,
-								InstancePtr->TxInstance.
-								LinkConfig.LaneCount);
-				/* The AUX read failed. */
-				if (Status != XST_SUCCESS)
-					return XDP_TX_TS_FAILURE;
-
-		} else {
-			ce_failure = 0;
-				/* Check if all lanes are inter aligned */
-				Status =
-				XDp_Tx_2x_GetChannelInterlaneAlignDoneStatus(InstancePtr);
-				if (Status == XST_SUCCESS)
-					return XDP_TX_TS_CHANNEL_CLOCK_DATA_SWITCH;
-				/*wait 3 msec*/
-				XDp_WaitUs(InstancePtr, 3000);
-				/*recheck align status after waiting 3msec of time*/
-				Status =
-				XDp_Tx_2x_GetChannelInterlaneAlignDoneStatus(InstancePtr);
-
-				if (Status != XST_SUCCESS) {
-					ce_failure = 1;
-					loopCounter = 0;
-					break; } else {
-					ce_failure = 0;
-					return XDP_TX_TS_CHANNEL_CLOCK_DATA_SWITCH;
-				}
-			}
-		} while (loopCounter < XDP_LINK_EQUALIZATION_LOOP_COUNTER);
-		if ((loopCounter >= XDP_LINK_EQUALIZATION_LOOP_COUNTER) || (loopCounter == 0)) {
-			XDp_WaitUs(InstancePtr, EqualizationTime);
-			EqualizationTime = 0;
-			break;
-		}
-	} while (EqualizationTime > 0);
-	/*clear training pattern to zero*/
 	Status = XDp_TxSetTrainingPattern(InstancePtr,
-					  XDP_TX_TRAINING_PATTERN_SET_OFF, NumOfRepeaters);
+					XDP_TX_TRAINING_PATTERN_SET_OFF, NumOfRepeaters);
 
 	if (Status != XST_SUCCESS)
 		return XDP_TX_TS_FAILURE;
 
-	return XDp_Tx_2x_AdjustLinkTrainparams(InstancePtr, ce_failure);
+	return XDp_Tx_2x_AdjustLinkTrainparams(InstancePtr, 1);
 
 	return XDP_TX_TS_FAILURE;
 }
@@ -5719,8 +5724,7 @@ static u32 XDp_Tx_Run_2x_LinkTraining(XDp *InstancePtr)
 					XDp_TxCheckLinkStatus(InstancePtr,
 						InstancePtr->TxInstance.LinkConfig.LaneCount);
 				if (Status != XST_SUCCESS)
-					return XST_FAILURE;
-
+					return XDP_TX_TS_FAILURE;
 				Status = XDp_TxSetTrainingPattern(InstancePtr,
 								  XDP_TX_TRAINING_PATTERN_SET_OFF,
 								  XDP_TX_LTTPR_NONE);
