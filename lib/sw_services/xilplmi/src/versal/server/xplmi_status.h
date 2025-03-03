@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -131,6 +131,7 @@
 *                       error codes for STL diagnostic task scheduling
 *       pre  10/07/2024 Removed XPLMI_SSIT_NO_PENDING_EVENTS error code
 *       ma   09/23/2024 Added error codes related to PSM to PLM IPI events
+*       pre  03/02/2025 Added XPLMI_CMD_IN_PROGRESS error code
 *
 * </pre>
 *
@@ -323,6 +324,7 @@ typedef enum {
 	XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS, /**< 0x143 - Error when max recursive CDO processing
 						has been occurred */
 	XPLMI_ERR_EMINIT_INVALID_PARAM, /**< 0x144 Error if Params are Invalid */
+	XPLMI_CMD_IN_PROGRESS, /**< 0x145 - Indicates command is in progress */
 
 	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
 	XPLMI_SSIT_EVENT_VECTOR_TABLE_IS_FULL = 0x1A0, /**< 0x1A0 - Error when the SSIT event

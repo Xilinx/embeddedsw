@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.4   kal  07/24/24 Initial release
 *       tri  10/07/24 Added easier approach to enable SHA2 Crypto engine in PMC
+*       pre  03/02/2025 Implemented task based event notification functionality for SHA IPI events
 *
 * </pre>
 *
@@ -36,17 +37,15 @@
 #include "xsecure_error.h"
 #include "xplmi_hw.h"
 #include "xplmi.h"
+#include "xsecure_resourcehandling.h"
 
 /************************** Constant Definitions *****************************/
 
-static XSecure_Sha *XSecureShaInstPtr = NULL;
-
 /************************** Function Prototypes *****************************/
-
-static int XSecure_ShaModeInit(u32 ShaMode);
-static int XSecure_ShaModeUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
+static int XSecure_ShaModeInit(XSecure_Sha *XSecureShaInstPtr, u32 ShaMode);
+static int XSecure_ShaModeUpdate(XSecure_Sha *XSecureShaInstPtr, u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	u32 EndLast);
-static int XSecure_ShaModeFinish(u32 OutAddrLow, u32 OutAddrHigh, u32 HashSize);
+static int XSecure_ShaModeFinish(XSecure_Sha *XSecureShaInstPtr, u32 OutAddrLow, u32 OutAddrHigh, u32 HashSize);
 
 /*************************** Function Definitions *****************************/
 
@@ -64,24 +63,52 @@ static int XSecure_ShaModeFinish(u32 OutAddrLow, u32 OutAddrHigh, u32 HashSize);
 int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	const u32 *Pload;
+	static XSecure_Sha *XSecureShaInstPtr = NULL;
+	u32 ApiId;
+	XPlmi_CoreType Core = XPLMI_SHA3_CORE;
 
 	if (NULL == Cmd) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
+	ApiId = Cmd->CmdId & XSECURE_API_ID_MASK;
+
+	if ((ApiId == XSECURE_API_SHA_INIT) || (ApiId == XSECURE_API_SHA_UPDATE) ||
+	    (ApiId == XSECURE_API_SHA_FINISH)) {
+		XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	}
+	else {
+		XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
+		Core = XPLMI_SHA2_CORE;
+	}
+
+	if (XSecureShaInstPtr == NULL) {
+		goto END;
+	}
+
+	/** SHA IPI event handling */
+	Status = XSecure_ShaIpiEventHandling(Cmd, Core);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Pload = Cmd->Payload;
 
-	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
+	switch (ApiId) {
         case XSECURE_API(XSECURE_API_SHA_INIT):
-		Status = XSecure_ShaModeInit(Pload[0U]);
+		case XSECURE_API(XSECURE_API_SHA2_INIT):
+		Status = XSecure_ShaModeInit(XSecureShaInstPtr, Pload[0U]);
 		break;
 	case XSECURE_API(XSECURE_API_SHA_UPDATE):
-		Status = XSecure_ShaModeUpdate(Pload[0U], Pload[1U], Pload[2U], Pload[3U]);
+	case XSECURE_API(XSECURE_API_SHA2_UPDATE):
+		Status = XSecure_ShaModeUpdate(XSecureShaInstPtr, Pload[0U], Pload[1U], Pload[2U], Pload[3U]);
 		break;
 	case XSECURE_API(XSECURE_API_SHA_FINISH):
-		Status = XSecure_ShaModeFinish(Pload[0U], Pload[1U], Pload[2U]);
+	case XSECURE_API(XSECURE_API_SHA2_FINISH):
+		Status = XSecure_ShaModeFinish(XSecureShaInstPtr, Pload[0U], Pload[1U], Pload[2U]);
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -89,6 +116,12 @@ int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd)
                 break;
 	}
 END:
+	if(XSecureShaInstPtr->ShaState == XSECURE_SHA_INITIALIZED) {
+		SStatus = XSecure_MakeShaFree(Core);
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+	}
 	return Status;
 }
 
@@ -101,24 +134,17 @@ END:
  *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_ShaModeInit(u32 ShaMode)
+static int XSecure_ShaModeInit(XSecure_Sha *XSecureShaInstPtr, u32 ShaMode)
 {
 	int Status = XST_FAILURE;
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 
-	if ((ShaMode  == XSECURE_SHA3_384) || (ShaMode  == XSECURE_SHAKE_256) ||
-	    (ShaMode == XSECURE_SHA3_256) || (ShaMode  == XSECURE_SHA3_512)) {
-		XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	}
-	else if ((ShaMode == XSECURE_SHA2_384) || (ShaMode == XSECURE_SHA2_256) ||
-		 (ShaMode == XSECURE_SHA2_512)) {
-		XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
-	}
-	else {
-		XSecure_Printf(DEBUG_PRINT_ALWAYS, "Invalid SHA mode\r\n");
+	if (NULL == PmcDmaInstPtr) {
+		goto END;
 	}
 
-	if (NULL == PmcDmaInstPtr) {
+	if (XSecureShaInstPtr == NULL) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -126,6 +152,7 @@ static int XSecure_ShaModeInit(u32 ShaMode)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
 	Status = XSecure_ShaStart(XSecureShaInstPtr, (XSecure_ShaMode)ShaMode);
 
 END:
@@ -153,11 +180,15 @@ END:
  *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_ShaModeUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
+static int XSecure_ShaModeUpdate(XSecure_Sha *XSecureShaInstPtr, u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 				u32 EndLast)
 {
 	int Status = XST_FAILURE;
 	u64 DataAddr = ((u64)SrcAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)SrcAddrLow;
+
+	if (XSecureShaInstPtr == NULL) {
+		goto END;
+	}
 
 	if (EndLast == TRUE) {
 		Status = XSecure_ShaLastUpdate(XSecureShaInstPtr);
@@ -186,11 +217,15 @@ END:
  *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_ShaModeFinish(u32 OutAddrLow, u32 OutAddrHigh, u32 HashSize)
+static int XSecure_ShaModeFinish(XSecure_Sha *XSecureShaInstPtr, u32 OutAddrLow, u32 OutAddrHigh, u32 HashSize)
 {
 	int Status = XST_FAILURE;
 	u64 DstAddr = ((u64)OutAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)OutAddrLow;
 	XSecure_Sha3Hash Hash = {0U};
+
+	if (XSecureShaInstPtr == NULL) {
+		goto END;
+	}
 
 	Status = XSecure_ShaFinish(XSecureShaInstPtr, (u64)(UINTPTR)&Hash, HashSize);
 	if (Status == XST_SUCCESS) {
@@ -198,5 +233,6 @@ static int XSecure_ShaModeFinish(u32 OutAddrLow, u32 OutAddrHigh, u32 HashSize)
 				XSECURE_SHA3_HASH_LENGTH_IN_WORDS, XPLMI_PMCDMA_0);
 	}
 
+END:
 	return Status;
 }

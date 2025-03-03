@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,7 @@
  *       kpt  06/13/2024 Added XSECURE_ERR_RSA_KEY_PAIR_NOT_AVAIL
  *       kpt  06/13/2024 Added XSECURE_ERR_AES_KEY_UNWRAP_FAILED_ERROR
  *       mb   09/20/2024 Added XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR
+ *       pre  03/02/2025 Added error codes for IPI events handling
  *
  * </pre>
  *
@@ -86,6 +87,7 @@ typedef enum {
 	XSECURE_SHA384_INVALID_PARAM,		/**< 0x0B - Invalid Param for SHA384 digest calculation*/
 
 	XSECURE_SHA384_KAT_ERROR,		/**< 0x0C - Error when SHA384 KAT fails */
+	XSECURE_SHA_INCORRECT_SEQUENCE, /**< 0x0D - Error when incorrect SHA sequence is received */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */
@@ -145,6 +147,8 @@ typedef enum {
 	XSECURE_AES_ZERO_PUF_KEY_NOT_ALLOWED,	/**< 0x5B - Error when PUF Key is selected as key source and PUF key is zeroized */
 	XSECURE_AES_UNALIGNED_SIZE_ERROR,      /**< 0x5C - Error when data is unaligned*/
 	XSECURE_AES_INVALID_MODE,             /**< 0x5D - Error when invalid mode is used for AES operation */
+	XSECURE_AES_INCORRECT_SEQUENCE,		/**< 0x5E - Error when incorrect AES sequence is received */
+    XSECURE_INVALID_RESOURCE,		/**< 0X5F - Error when resource is other than SHA/AES */
 
 	XSECURE_RSA_OAEP_INVALID_PARAM = 0x70,        /**< 0x70 - RSA OAEP Invalid param */
 	XSECURE_RSA_OAEP_INVALID_MSG_LEN,             /**< 0x71 - RSA OAEP Invalid Msg length */
