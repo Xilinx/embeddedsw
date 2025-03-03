@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 4.0   se     10/04/22 Update return value definitions
 *		se	   11/10/22 Secure and Non-Secure mode integration
 * 4.1   cog    07/18/23 Add support for SDT flow
+* 5.1   se     03/03/25 Compiler warnings fixed
 * </pre>
 *
 ******************************************************************************/
@@ -72,6 +73,9 @@ typedef void (*XSysMonPsv_Handler)(void *CallbackRef);
  * @{
  */
 typedef struct {
+#ifdef SDT
+	char *Name;
+#endif
 	UINTPTR BaseAddress; /**< Register base address */
 	u8 Supply_List[XSYSMONPSV_MAX_SUPPLIES]; /**< Maps voltage supplies in
                                                   use to the Supply registers */

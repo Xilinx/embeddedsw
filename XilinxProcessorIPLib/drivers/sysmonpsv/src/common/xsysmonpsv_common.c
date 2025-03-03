@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 3.0   cog    03/25/21 Driver Restructure
 * 4.0   se     10/04/22 Update return value definitions
 *		se	   10/27/22 Secure and Non-Secure mode integration
+* 5.1   se     03/03/25 Compiler warnings fixed
 *
 * </pre>
 *
@@ -31,7 +32,7 @@
 #include "xsysmonpsv_hw.h"
 #include "xsysmonpsv_lowlevel.h"
 #include "xsysmonpsv_common.h"
-#include "xstatus.h"
+#include "xil_util.h"
 
 /****************************************************************************/
 /**
