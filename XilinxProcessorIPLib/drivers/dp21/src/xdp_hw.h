@@ -2885,7 +2885,7 @@ extern "C" {
 /* *** DP 1.4 :: DPCD definitions end. */
 
 /* 0x00101: LANE_COUNT_SET */
-#define XDP_DPCD_LANE_COUNT_SET_MASK				0x1F
+#define XDP_DPCD_LANE_COUNT_SET_MASK				0x0F
 #define XDP_DPCD_LANE_COUNT_SET_1				0x01
 #define XDP_DPCD_LANE_COUNT_SET_2				0x02
 #define XDP_DPCD_LANE_COUNT_SET_4				0x04
