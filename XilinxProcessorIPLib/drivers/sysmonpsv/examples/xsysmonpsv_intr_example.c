@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -30,6 +30,7 @@
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
 * 5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
 *                       voltage supplies and temperature satellites.
+* 5.1   se     03/03/25 Compiler warnings fixed
 *
 * </pre>
 *
@@ -91,6 +92,8 @@ int main(void)
  *****************************************************************************/
 void Temp_CallbackFunc(void *data)
 {
+	(void)data;
+
 	TempInterruptOccured = 1;
 }
 
@@ -104,6 +107,8 @@ void Temp_CallbackFunc(void *data)
  *****************************************************************************/
 void Supply_CallbackFunc(void *data)
 {
+	(void)data;
+
 	SupplyInterruptOccured = 1;
 }
 
