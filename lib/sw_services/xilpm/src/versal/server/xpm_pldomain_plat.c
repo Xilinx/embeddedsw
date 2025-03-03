@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1857,7 +1857,8 @@ done:
 static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	XStatus SStatus = XST_FAILURE;
 	XStatus RamRailPwrSts = XST_FAILURE;
 	XStatus AuxRailPwrSts = XST_FAILURE;
@@ -1868,22 +1869,27 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
+	const u32 secLockdownState = IS_SECLOCKDOWN(SecLockDownInfo);
 
 	const XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
 	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 
-	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+	/* Added redundant check to avoid the glitch attack */
+	if ((secLockdownState != 0U) && (IS_SECLOCKDOWN(SecLockDownInfo) != 0U)) {
 		HcleanDone = 0;
 	}
+
 	/*
 	 * PL housecleaning requires CFU clock to run at a lower frequency for
 	 * proper operation. Divide the CFU clock frequency by 2 to reduce the
 	 * current frequency.
 	 */
-	Status = ReduceCfuClkFreq();
-	if (XST_SUCCESS != Status) {
+	XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (ReduceCfuClkFreq));
+	/* Required for redundancy */
+	XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 		goto done;
 	}
 
