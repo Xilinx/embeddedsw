@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -755,6 +755,7 @@ u32 XDpTxSs_DpTxStartLink(XDp *InstancePtr, u8 TrainMaxCap)
 	LinkRate = InstancePtr->TxInstance.LinkConfig.LinkRate;
 	LaneCount = InstancePtr->TxInstance.LinkConfig.LaneCount;
 
+	XDp_TxSetLaneCount(InstancePtr, LaneCount);
 	XDp_TxSetLinkRate(InstancePtr, LinkRate);
 
 	/* Establish link after training process */
