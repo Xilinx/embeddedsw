@@ -18,6 +18,7 @@
  * 5.4   kal  07/24/2024 Initial release
  *       sk   08/22/24 Added error code for key transfer to ASU
  *       mb   09/20/24 Added XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR
+ *       pre  03/02/2025 Added error codes for IPI events handling
  *
  * </pre>
  *
@@ -59,6 +60,8 @@ typedef enum {
 	XSECURE_SHA384_INVALID_PARAM,		/**< 0x0B - Invalid Param for SHA384 digest calculation*/
 
 	XSECURE_SHA384_KAT_ERROR,		/**< 0x0C - Error when SHA384 KAT fails */
+
+	XSECURE_SHA_INCORRECT_SEQUENCE, /**< 0x0D - Error when incorrect SHA sequence is received */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */
@@ -118,6 +121,8 @@ typedef enum {
 	XSECURE_AES_ZERO_PUF_KEY_NOT_ALLOWED,	/**< 0x5B - Error when PUF Key is selected as key source and PUF key is zeroized */
 	XSECURE_AES_UNALIGNED_SIZE_ERROR,      /**< 0x5C - Error when data is unaligned*/
 	XSECURE_AES_INVALID_MODE,             /**< 0x5D - Error when invalid mode is used for AES operation */
+	XSECURE_AES_INCORRECT_SEQUENCE,		/**< 0x5E - Error when incorrect AES sequence is received */
+    XSECURE_INVALID_RESOURCE,		/**< 0X5F - Error when resource is other than SHA/AES */
 
 	XSECURE_RSA_OAEP_INVALID_PARAM = 0x70,        /**< 0x70 - RSA OAEP Invalid param */
 	XSECURE_RSA_OAEP_INVALID_MSG_LEN,             /**< 0x71 - RSA OAEP Invalid Msg length */
@@ -174,7 +179,7 @@ typedef enum {
 	XSECURE_LMS_SIGN_INVALID_NODE_NUMBER_ERROR,			/** 0xA3, LMS Signature Verification - invalid node number 'q' in a Merkle tree */
 	XSECURE_LMS_SIGN_OTS_OP_ERROR,						/** 0xA4, LMS Signature Verification - LMS OTS signature verification failed */
 	XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR,	/** 0xA5, LMS Signature Verification - calculated LMS public key did not match with expected - authentication failed */
-	XSECURE_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR,	/** 0xA6, LMS Signature Verification - LMS public key comparision glitch detected - authentication failed */
+	XSECURE_LMS_PUB_KEY_AUTHENTICATION_GLITCH_ERROR,	/** 0xA6, LMS Signature Verification - LMS public key comparison glitch detected - authentication failed */
 	XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_LEAF_FAILED_ERROR,	/** 0xA7, LMS Signature Verification - LMS signature to public key - leaf node sha digest failed */
 	XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_INTR_ODD_FAILED_ERROR,/** 0xA8, LMS Signature Verification - LMS signature to public key - odd internal node sha digest failed */
 	XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_INTR_EVEN_FAILED_ERROR,/** 0xA9, LMS Signature Verification - LMS sign to public key - even internal node sha digest failed */
@@ -183,14 +188,14 @@ typedef enum {
 	XSECURE_LMS_HSS_PUB_KEY_INVALID_LEN_1_ERROR,					/** 0xAC, LMS HSS Signature verification - HSS public key at an invalid address */
 	XSECURE_LMS_HSS_PUB_KEY_INVALID_LEN_2_ERROR,					/** 0xAD, LMS HSS Signature verification - HSS pub key len less than required */
 	XSECURE_LMS_HSS_SIGN_LEVEL_UNSUPPORTED_ERROR,					/** 0xAE, LMS HSS Signature verification - only two levels of Merkle trees are supported */
-	XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR,			/** 0xAF, LMS HSS Signature verification - HSS pub key's LMS type paramter look up failed for level 0 tree */
-	XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_1_UNSUPPORTED_ERROR,		/** 0xB0, LMS HSS Signature verification - HSS pub key's LMS type paramter look up failed for level 1 tree - in HSS init */
-	XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_2_UNSUPPORTED_ERROR,		/** 0xB1, LMS HSS Signature verification - HSS pub key's LMS type paramter look up failed for level 1 tree - in HSS Finish */
-	XSECURE_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR,		/** 0xB2, LMS HSS Signature verification - HSS pub key's LMS OTS type paramter look up failed for level 0 tree */
-	XSECURE_LMS_HSS_L1_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR,		/** 0xB3, LMS HSS Signature verification - HSS pub key's LMS OTS type paramter look up failed for level 1 tree */
-	XSECURE_LMS_HSS_SIGN_INVALID_LEN_1_ERROR,			/** 0xB4, LMS HSS Signature verification - HSS pub key's LMS OTS type paramter look up for level 1 tree - temporal glitch detected */
-	XSECURE_LMS_HSS_L0_SIGN_INVALID_LEN_2_ERROR,		/** 0xB5, LMS HSS Signature verification - HSS signature len doesnt fit OTS signature for level 0 */
-	XSECURE_LMS_HSS_L1_SIGN_INVALID_LEN_2_ERROR,		/** 0xB6, LMS HSS Signature verification - HSS signature len doesnt fit OTS signature for level 1 */
+	XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR,			/** 0xAF, LMS HSS Signature verification - HSS pub key's LMS type parameter look up failed for level 0 tree */
+	XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_1_UNSUPPORTED_ERROR,		/** 0xB0, LMS HSS Signature verification - HSS pub key's LMS type parameter look up failed for level 1 tree - in HSS init */
+	XSECURE_LMS_HSS_L1_PUB_KEY_LMS_TYPE_2_UNSUPPORTED_ERROR,		/** 0xB1, LMS HSS Signature verification - HSS pub key's LMS type parameter look up failed for level 1 tree - in HSS Finish */
+	XSECURE_LMS_HSS_L0_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR,		/** 0xB2, LMS HSS Signature verification - HSS pub key's LMS OTS type parameter look up failed for level 0 tree */
+	XSECURE_LMS_HSS_L1_PUB_KEY_LMS_OTS_TYPE_UNSUPPORTED_ERROR,		/** 0xB3, LMS HSS Signature verification - HSS pub key's LMS OTS type parameter look up failed for level 1 tree */
+	XSECURE_LMS_HSS_SIGN_INVALID_LEN_1_ERROR,			/** 0xB4, LMS HSS Signature verification - HSS pub key's LMS OTS type parameter look up for level 1 tree - temporal glitch detected */
+	XSECURE_LMS_HSS_L0_SIGN_INVALID_LEN_2_ERROR,		/** 0xB5, LMS HSS Signature verification - HSS signature len does not fit OTS signature for level 0 */
+	XSECURE_LMS_HSS_L1_SIGN_INVALID_LEN_2_ERROR,		/** 0xB6, LMS HSS Signature verification - HSS signature len does not fit OTS signature for level 1 */
 	XSECURE_LMS_HSS_SIGN_PUB_KEY_LEVEL_MISMATCH_ERROR,	/** 0xB7, LMS HSS Signature verification - HSS pub key & Signature levels mismatch */
 	XSECURE_LMS_HSS_L0_PUB_KEY_AUTH_FAILED_ERROR,		/** 0xB8, LMS HSS Signature verification - Level 0 LMS auth op failed */
 	XSECURE_LMS_HSS_L1_PUB_KEY_AUTH_FAILED_ERROR,		/** 0xB9, LMS HSS Signature verification - Level 1 LMS auth op failed */

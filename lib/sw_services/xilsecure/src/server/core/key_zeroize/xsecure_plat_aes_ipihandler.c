@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * 5.3   har  02/05/2024 Initial release
 * 5.4   yog  04/29/2024 Fixed doxygen grouping
 *       mb   07/31/2024 Added the check to validate Payload for NULL pointer
+*       pre  03/02/2025 Implemented task based event notification functionality for AES IPI events
 *
 * </pre>
 *
@@ -31,10 +32,13 @@
 #include "xsecure_aes_ipihandler.h"
 #include "xsecure_defs.h"
 #include "xplmi_dma.h"
+#include "xsecure_init.h"
+#include "xsecure_aes.h"
 
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes *****************************/
+#ifndef PLM_SECURE_EXCLUDE
 static int XSecure_AesPerformOperationAndZeroizeKey(u32 AesParamsAddrLow, u32 AesParamsAddrHigh, u32 KeyAddrLow, u32 KeyAddrHigh);
 
 /*****************************************************************************/
@@ -52,10 +56,21 @@ static int XSecure_AesPerformOperationAndZeroizeKey(u32 AesParamsAddrLow, u32 Ae
 int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	u32 *Pload = NULL;
+	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
 
 	if (Cmd == NULL || Cmd->Payload == NULL) {
 		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if (AesInstPtr == NULL) {
+		goto END;
+	}
+
+	Status = XSecure_AesIpiEventHandling(Cmd);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -73,6 +88,12 @@ int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd)
 	}
 
 END:
+	if (AesInstPtr->AesState == XSECURE_AES_INITIALIZED) {
+		SStatus = XSecure_MakeAesFree();
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+	}
 	return Status;
 }
 
@@ -124,4 +145,5 @@ END_KEY_CLR:
 END:
 	return Status;
 }
+#endif
 /** @} */

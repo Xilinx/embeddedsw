@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -35,6 +35,7 @@
 #       kpt  06/13/24 Added xsecure_key_slot_addr
 #       kal  07/24/24 Code refactoring for versal_aiepg2 plaform
 #       kal  09/25/24 Remove deleting folders which are set in secure_drc
+#       pre  03/02/25 Deleting xsecure_resourcehandling files for client processor in server mode
 #
 ##############################################################################
 
@@ -220,6 +221,8 @@ proc secure_drc {libhandle} {
 				file delete -force ./src/xsecure_cmd.h
 				file delete -force ./src/xsecure_init.c
 				file delete -force ./src/xsecure_init.h
+				file delete -force ./src/xsecure_resourcehandling.c
+				file delete -force ./src/xsecure_resourcehandling.h
 			}
 		} elseif {$mode == "client"} {
 			set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];

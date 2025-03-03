@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -124,6 +124,8 @@
 *       obs  09/30/2024 Fixed Doxygen Warnings
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       bm   12/16/2024 Move I2C Handshake feature to common code
+*       pre  03/02/2025 Added XLoader_PpdiEventParamsPtr function and
+*                       XLoader_ResourceSts type definition
 * </pre>
 *
 ******************************************************************************/
@@ -143,6 +145,7 @@ extern "C" {
 #include "xcfupmc.h"
 #include "xloader_defs.h"
 #include "xplmi_hw.h"
+#include "xsecure_resourcehandling.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_SUCCESS		(u32)XST_SUCCESS	/**< Alias for XST_SUCCESS */
@@ -411,6 +414,12 @@ typedef struct {
 	u32 OverWrite;	/**< Flag to indicate if digest can be overwritten at the measurement index */
 } XLoader_ImageMeasureInfo;
 
+
+typedef enum {
+	XLOADER_RES_FREE = 0, /**< Resource free */
+	XLOADER_RES_BUSY, /**< Resource busy */
+} XLoader_ResourceSts;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
 /**
@@ -478,8 +487,10 @@ void Xloader_SaveBootPdiInfo(XilPdi *BootPdiPtr);
 int XLoader_EnableJtag(u32 CfgState);
 int XLoader_DisableJtag(void);
 int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr, u64 SrcAddr, u64 DestAddr, u32 DestSize);
+XSecure_PartialPdiEventParams *XLoader_PpdiEventParamsPtr(void);
 
 /************************** Variable Definitions *****************************/
+
 #ifdef __cplusplus
 }
 #endif

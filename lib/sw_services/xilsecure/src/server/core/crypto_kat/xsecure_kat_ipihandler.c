@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,8 @@
 * 5.4   yog  04/29/2024 Fixed doxygen grouping and doxygen warnings.
 * 	kal  07/24/2024 Code refactoring for versal_aiepg2
 *	vss  10/23/2024 Removed AES duplicate code
+*       pre  03/02/2025 Implemented task based event notification functionality for AES &
+*                       SHA IPI events
 *
 * </pre>
 *
@@ -43,6 +45,7 @@
 #include "xsecure_error.h"
 #include "xil_sutil.h"
 #include "xsecure_init.h"
+#include "xsecure_resourcehandling.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_PMCDMA_DEVICEID		PMCDMA_0_DEVICE
@@ -79,7 +82,13 @@ static int XSecure_ShaKat(void);
 int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	u32 *Pload = NULL;
+	u32 ApiId;
+	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+#ifndef PLM_SECURE_EXCLUDE
+	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
+#endif
 
 	if (NULL == Cmd) {
 		Status = XST_INVALID_PARAM;
@@ -87,9 +96,20 @@ int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
 	}
 
 	Pload = Cmd->Payload;
+	ApiId = Pload[0U] & XSECURE_API_ID_MASK;
+
+#ifndef PLM_SECURE_EXCLUDE
+	if ((ApiId == (u32)XSECURE_API_AES_DECRYPT_KAT) || (ApiId == (u32)XSECURE_API_AES_ENCRYPT_KAT) ||
+	    (ApiId == (u32)XSECURE_API_AES_DECRYPT_CM_KAT)) {
+		Status = XSecure_AesIpiEventHandling(Cmd);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+#endif
 
 	/** Call the respective API handler according to API ID */
-	switch (Pload[0U] & XSECURE_API_ID_MASK) {
+	switch (ApiId) {
 #ifndef PLM_SECURE_EXCLUDE
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_KAT):
 		/**   - @ref XSecure_AesDecKat */
@@ -126,6 +146,11 @@ int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
 #endif
 	case XSECURE_API(XSECURE_API_SHA3_KAT):
 		/**   - @ref XSecure_ShaKat */
+		/** SHA IPI event handling */
+		Status = XSecure_ShaIpiEventHandling(Cmd, XPLMI_SHA3_CORE);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		Status = XSecure_ShaKat();
 		break;
 	default:
@@ -135,6 +160,20 @@ int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
 	}
 
 END:
+#ifndef PLM_SECURE_EXCLUDE
+	if (AesInstPtr->AesState == XSECURE_AES_INITIALIZED) {
+		SStatus = XSecure_MakeAesFree();
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+	}
+#endif
+	if (XSecureSha3InstPtr->ShaState == XSECURE_SHA_INITIALIZED) {
+		SStatus = XSecure_MakeShaFree(XPLMI_SHA3_CORE);
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+	}
 	return Status;
 }
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -127,7 +127,8 @@
 *                     and trying to do secure boot
 * 2.1   kpt  12/13/23 Reset PMC TRNG when exception occurs
 *       ng   01/28/24 u8 variables optimization
-*       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
+*       pre  12/09/24 use PMC RAM for Metaheader instead of PPU1 RAM
+*       pre  03/02/25 Added Xloader_GetShaAndAesSts function for partial PDI event processing
 *
 * </pre>
 *
@@ -178,6 +179,73 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
+
+/*********************************************************************************/
+/**
+* @brief	This function is used to get the AES and SHA state
+*
+* @param	ResourceSts is pointer to variable to which status has to be written
+*
+* @return
+* 			- XST_SUCCESS on success
+* 			- Error code on failure
+*
+**********************************************************************************/
+int XLoader_GetShaAndAesSts(XLoader_ResourceSts *ResourceSts)
+{
+	int Status = XST_FAILURE;
+	XSecure_AesState AesState;
+	XSecure_ShaState Sha3State;
+#ifdef VERSAL_AIEPG2
+	XSecure_ShaState Sha2State;
+#endif
+
+	/** Input parameter validation */
+	if (ResourceSts == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+#ifndef PLM_SECURE_EXCLUDE
+	/** Get AES State */
+	Status = XSecure_GetAesState(&AesState);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#else
+	AesState = XSECURE_AES_INITIALIZED;
+#endif
+
+	/** Get SHA3 State */
+	Status = XSecure_GetShaState(&Sha3State, XPLMI_SHA3_CORE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+#ifdef VERSAL_AIEPG2
+	/** Get SHA2 State */
+	Status = XSecure_GetShaState(&Sha2State, XPLMI_SHA2_CORE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Considered as busy if either of AES or SHA is busy */
+	if ((AesState != XSECURE_AES_INITIALIZED) || (Sha3State != XSECURE_SHA_INITIALIZED) ||
+	    (Sha2State != XSECURE_SHA_INITIALIZED)) {
+#else
+	if ((AesState != XSECURE_AES_INITIALIZED) || (Sha3State != XSECURE_SHA_INITIALIZED)) {
+#endif
+		*ResourceSts = XLOADER_RES_BUSY;
+	}
+	else {
+		*ResourceSts = XLOADER_RES_FREE;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
 
 /*****************************************************************************/
 /**

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * 5.4   kal  07/24/24 Initial release
 *       sk   08/22/24 Added support for key transfer to ASU
 *       am   02/24/25 Moved key transfer command to generic xilplmi IPI command
+*       pre  03/02/25 Disabled XSecure_PlatAesIpiHandler for SECURE_EXCLUDE case
 *
 * </pre>
 *
@@ -46,6 +47,7 @@
 #include "xplmi_tamper.h"
 #include "xsecure_cryptochk.h"
 #include "xsecure_plat_aes_ipihandler.h"
+#include "xsecure_resourcehandling.h"
 
 #ifdef SDT
 #include "xsecure_config.h"
@@ -65,9 +67,6 @@ static XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_RSA_SIGN_VERIFY),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_RSA_PUBLIC_ENCRYPT),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_RSA_PRIVATE_DECRYPT),
-	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA_UPDATE),
-	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA_INIT),
-	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA_FINISH),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_ELLIPTIC_GENERATE_KEY),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_ELLIPTIC_GENERATE_SIGN),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_ELLIPTIC_VALIDATE_KEY),
@@ -89,6 +88,12 @@ static XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_PERFORM_OPERATION),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_GEN_SHARED_SECRET),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA_UPDATE),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA_INIT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA_FINISH),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA2_UPDATE),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA2_INIT),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA2_FINISH),
 };
 
 static XPlmi_Module XPlmi_Secure =
@@ -187,7 +192,15 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	const u32 *Pload = Cmd->Payload;
+	const u32 *Pload;
+
+
+	if (Cmd == NULL || Cmd->Payload == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Pload = Cmd->Payload;
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_FEATURES):
@@ -196,6 +209,9 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_SHA_UPDATE):
 	case XSECURE_API(XSECURE_API_SHA_INIT):
 	case XSECURE_API(XSECURE_API_SHA_FINISH):
+	case XSECURE_API(XSECURE_API_SHA2_UPDATE):
+	case XSECURE_API(XSECURE_API_SHA2_INIT):
+	case XSECURE_API(XSECURE_API_SHA2_FINISH):
 		Status = XSecure_ShaIpiHandler(Cmd);
 		break;
 #ifndef PLM_SECURE_EXCLUDE
@@ -235,8 +251,10 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		break;
 #endif
 	case XSECURE_API(XSECURE_API_KAT):
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp, XSecure_KatPlatIpiHandler, Cmd)
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK_FOR_INPRGRESS_STS(XSECURE_KAT_MAJOR_ERROR,
+			                   Status, StatusTmp, XSecure_KatPlatIpiHandler, Cmd)
 		break;
+#ifndef PLM_SECURE_EXCLUDE
 #ifndef PLM_ECDSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
 		Status = XSecure_PlatEllipticIpiHandler(Cmd);
@@ -245,13 +263,14 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY):
 		Status = XSecure_PlatAesIpiHandler(Cmd);
 		break;
-
+#endif
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
 		break;
 	}
 
+END:
 	return Status;
 }
 
