@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +20,8 @@
 * shared register space (GIC) or shared memory space. Mutual exclusion is
 * really needed for such use cases.
 * Similar use case applies for Zynq CortexA9-0 and CortesA9-1.
+* Even for ARMv8, when CPUs operate in AMP mode, there could be
+* requirements to protect a shared resource.
 *
 * The spinlock mechanism provided with this file is very simple to cater to
 * baremetal world requirements.
@@ -26,28 +29,27 @@
 * A) Unlike OS type of use cases, at any point of time, only a single lock
 *    can be used. There is no way in BM world we can support multiple locks
 *    at the same time.
-* B) The spinlocking is available for ARM v7 (Cortex-R5 and Cortex-A9).
-* C) Users need to provide a lock (essentially a shared address), and a flag
+* B) Users need to provide a lock (essentially a shared address), and a flag
 *    (also a shared address) for spinlocking to work. These shared addresses
 *    must be agreed upon by apps running on both CPUs. Needless to say,
 *    the linker scripts must change accordingly so that apps running on both
 *    CPUs can have a shared DDR region from which address can be used for
 *    spinlocking.
-* D) The address that is used for spinlocking and the address that is used
+* C) The address that is used for spinlocking and the address that is used
 *    as flag address must be in a memory region that is strongly-ordered
 *    or device memory.
-* E) Like any similar standard use cases, one application running in any
+* D) Like any similar standard use cases, one application running in any
 *    of the CPUs must create the spinlock address. It is advisable that the
 *    the same application must destroy or release the spinlock address,
 *    though nothing stops the other CPU in destroying and releasing the
 *    spinlock addresses. There has to be understanding between applications
 *    running on both the CPUs to ensure that correct ordering is followed.
 *    Once a spinlock is released, it spinlock APIs cannot be used anymore.
-* F) Once a spinlock address is created it can be used any number of times
+* E) Once a spinlock address is created it can be used any number of times
 *    to protect critical sections as long as a certain set of rules are
 *    followed and a certain set of sequences are followed. More about the
 *    sequences later in this description.
-* G) To re-iterate, the spinlocking mechanism provided through this file is
+* F) To re-iterate, the spinlocking mechanism provided through this file is
 *    pretty rudimentary. Users can always improvise. The use case that
 *    the whole mechanism is trying to solve is: common register space
 *    being accesses in an AMP scenario by independent applications running
@@ -56,12 +58,13 @@
 * The usage of APIs provided in this file are summarized below.
 * A) Applications running at both the CPUs ensure that they allocate shared
 *    memory space to be used for locking and flag maintenance.
-* B) The memory allocated as shared should be of minimum size 1 MB. This
-*    limitation is because the way translation tables/memory map is setup
-*    for R5 or A9. In future, this limitation can be brought down 4 KB.
+* B) The memory allocated as shared should be of minimum size 1 MB or
+*    2 MB for Cortex A53/72/78. This limitation is because the way
+*    translation tables/memory map is setup for CPUs. In future, this
+*    limitation can be brought down 4 KB.
 * C) The spinlock and the flag address must be uncached. Users need to c
 *    all Xilinx provided API Xil_SetTlbAttributes to mark the shared
-*    1 MB memory space as strongly ordered or device memory.
+*    1 MB (or 2 MB) memory space as strongly ordered or device memory.
 * D) Both the applications must call the API Xil_InitializeSpinLock with
 *    the spinlock address, flag address and flag value to be used. Currently
 *    only one flag value is supported (i.e. XIL_SPINLOCK_ENABLE with
@@ -133,9 +136,9 @@
 *
 * Guidelines on when to use the spinlocking mechanism in Xilinx baremetal
 * environment:
-* A) Spinlocking mechanism can only be used for Cortex-R5s (split mode)
-*    and Cortex-A9s (Zynq).
-* B) In Cortex-R5 split mode or Cortex-A9 cluster, applications running on
+* A) Spinlocking mechanism can only be used in split mode for
+*    Cortex-R5*.
+* B) In Cortex-R5 split mode or Cortex-A9/A53 cluster, applications running on
 *    both the CPUs, by design should never be sharing the same peripheral.
 *    It is impossible to support such use cases reliably.
 *    Hence none of the peripheral drivers (except GIC driver) have
@@ -158,20 +161,21 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who      Date     Changes
-* ----- -------- -------- -----------------------------------------------
-* 7.5 	asa      02/23/21 First release
-* 7.5   asa      04/28/21 Fixed bug Xil_IsSpinLockEnabled to avoid
+* Ver   Who   Date     Changes
+* ----- ----- -------- -----------------------------------------------
+* 7.5 	asa   02/23/21 First release
+* 7.5   asa   04/28/21 Fixed bug Xil_IsSpinLockEnabled to avoid
 *                         dereferencing to address zero.
-* 7.7	sk	 01/10/22 Update values from signed to unsigned to fix
-* 			  misra_c_2012_rule_10_4 violation.
+* 7.7	sk	  01/10/22 Update values from signed to unsigned to fix
+* 			           misra_c_2012_rule_10_4 violation.
+* 9.3   asa   03/04/25 Add support for ARMv8 and clang.
 * </pre>
 *
 ******************************************************************************/
 
 
 /***************************** Include Files ********************************/
-#if !defined (__aarch64__) && defined(__GNUC__) && !defined(__clang__)
+#if defined(__GNUC__)
 #include "xil_spinlock.h"
 
 
@@ -216,17 +220,30 @@ u32 Xil_SpinLock(void)
 		return XST_FAILURE;
 	}
 
+#if defined (__aarch64__)
     __asm__ __volatile__(
-	    "1:    ldrex    %0, [%1]     \n"
-        "      teq		%0, %3       \n"
-        "      strexeq  %0, %2, [%1] \n"
-        "      teqeq	%0, #0       \n"
-        "      bne      1b           \n"
-        "      dmb                   \n"
+	    "1:    ldaxr %w0, [%1]     		 \n"
+        "      cmp		%w0, %w3    	 \n"
+        "      bne      1b          	 \n"
+        "      stlxr    %w0, %w2, [%1] 	 \n"
+        "      cbnz	    %w0, 1b       	 \n"
+        "      dmb      sy               \n"
 		: "=&r" (LockTempVar)
 		: "r" (lockaddr), "r"(XIL_SPINLOCK_LOCKVAL), "r"(XIL_SPINLOCK_RESETVAL)
 		: "cc");
-
+#else
+	 __asm__ __volatile__(
+			"1:    ldrex    %0, [%1]     \n"
+			"      cmp		%0, %3       \n"
+			"      bne      1b			 \n"
+			"      strexeq  %0, %2, [%1] \n"
+			"      cmp		%0, #0		 \n"
+			"      bne		1b			 \n"
+			"      dmb 		sy			 \n"
+			: "=&r" (LockTempVar)
+			: "r" (lockaddr), "r"(XIL_SPINLOCK_LOCKVAL), "r"(XIL_SPINLOCK_RESETVAL)
+		: "cc");
+#endif
     return XST_SUCCESS;
 }
 
@@ -250,12 +267,21 @@ u32 Xil_SpinUnlock(void)
     if (Xil_Spinlock_Addr == 0U) {
         return XST_FAILURE;
 	}
+#if defined(__aarch64__)
     __asm__ __volatile__(
-        "dmb			         \n"
-        "str 	%1, [%0]         \n"
+		"      dmb 	sy				 \n"
+        "      str 	%w1, [%0]         \n"
         :
         : "r" (lockaddr), "r" (XIL_SPINLOCK_RESETVAL)
         : "cc");
+#else
+    __asm__ __volatile__(
+		"      dmb 	sy				 \n"
+        "      str 	%1, [%0]         \n"
+        :
+        : "r" (lockaddr), "r" (XIL_SPINLOCK_RESETVAL)
+        : "cc");
+#endif
 
     return XST_SUCCESS;
 }
