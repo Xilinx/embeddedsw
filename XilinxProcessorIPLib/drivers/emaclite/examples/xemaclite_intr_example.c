@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2003 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -589,13 +589,7 @@ static void EmacLiteRecvHandler(void *CallBackRef)
 ******************************************************************************/
 static void EmacLiteSendHandler(void *CallBackRef)
 {
-	XEmacLite *XEmacInstancePtr;
-
-	/*
-	 * Convert the argument to something useful.
-	 */
-	XEmacInstancePtr = (XEmacLite *)CallBackRef;
-
+	(void)CallBackRef;
 	/*
 	 * Handle the Transmit callback.
 	 */
