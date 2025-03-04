@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,10 +20,6 @@ XStatus XPmBisr_Repair(u32 TagId);
 XStatus XPmBisr_NidbLeftMostLaneRepair(void);
 XStatus XPmBisr_NidbLaneRepair(void);
 XStatus XPmBisr_TriggerLpd(void);
-#ifdef XCVP1902
-XStatus XPm_NidbStartup_vp1902(const u32 NidbAddress);
-XStatus XPm_RepairNidb_vp1902(u32 SlrType);
-#endif
 
 #ifdef __cplusplus
 }

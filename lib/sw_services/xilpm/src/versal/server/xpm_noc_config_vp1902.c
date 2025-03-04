@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include <xpm_common.h>
@@ -27,6 +27,7 @@
 #define NSU_ID_SLR3				(0x00000C01U)
 
 static XStatus XPm_SlaveNocConfigure_vp1902(const u32 SlrType);
+static XStatus XPm_NidbStartup_vp1902(const u32 NidbAddress);
 
 /*****************************************************************************
 * NPS Turn configuration
@@ -267,9 +268,6 @@ XStatus XPm_NocConfig_vp1902(void)
 	volatile u32 SlrType = 0U;
 	volatile XStatus Status = XST_FAILURE;
 
-	volatile u32 HaltBootErr = 0U;
-	volatile u32 HaltBootErrTmp = 0U;
-
 	SlrType = (Xil_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK);
 
 	if (SLR_TYPE_INVALID == SlrType) {
@@ -288,24 +286,7 @@ XStatus XPm_NocConfig_vp1902(void)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-	/**
-	 * NIDB Repair
-	 * Enable NIDB
-	 */
-	Status = XPm_RepairNidb_vp1902(SlrType);
-	if(Status != XST_SUCCESS) {
-		/* Even if a NIDB lane is damaged, user may want to
-		 * continue booting.
-		 * Read user selection from efuse. */
-		HaltBootErr = Xil_In32(EFUSE_CACHE_MISC_CTRL) &
-			EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK;
-		HaltBootErrTmp = Xil_In32(EFUSE_CACHE_MISC_CTRL) &
-			EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK;
-		if((0U != HaltBootErr) ||
-				(0U != HaltBootErrTmp)) {
-			goto done;
-		}
-	}
+
 	/**
 	 * Temporal check on return value added
 	 */
@@ -313,6 +294,51 @@ XStatus XPm_NocConfig_vp1902(void)
 			XPm_SlaveNocConfigure_vp1902, SlrType);
 
 done:
+	return Status;
+}
+
+/*****************************************************************************
+ * @brief	This function moves NIDB to functional state.
+ *
+ * @param	NidbAddress NPS base address
+ *
+ * @return
+ *		- XST_SUCCESS if successful,
+ *		- XST_FAILURE if unsuccessful.
+ *
+ ****************************************************************************/
+static XStatus XPm_NidbStartup_vp1902(const u32 NidbAddress)
+{
+	volatile XStatus Status = XST_FAILURE;
+
+	/**
+	 * Unlock Change
+	 */
+	XPm_UnlockPcsr(NidbAddress);
+
+	/**
+	 * This is to de-asert odisable field
+	 */
+	XSECURE_TEMPORAL_CHECK(done, Status, Xil_SecureOut32,
+			(NidbAddress + NIDB_REG_PCSR_MASK_OFFSET),
+		(NIDB_REG_PCSR_MASK_ODISABLE_MASK & NIDB_REG_PCSR_MASK_ODISABLE_MASK));
+
+	Xil_Out32((NidbAddress + NIDB_REG_PCSR_CONTROL_OFFSET),0);
+
+	/**
+	 * Set the PCOMPLETE
+	 */
+	XPm_PcsrWrite(NidbAddress, NIDB_REG_PCSR_MASK_PCOMPLETE_MASK, NIDB_REG_PCSR_CONTROL_PCOMPLETE_MASK);
+
+	Xil_Out32((NidbAddress + NIDB_REG_PCSR_CONTROL_OFFSET),
+			(NIDB_REG_PCSR_MASK_PCOMPLETE_MASK & NIDB_REG_PCSR_CONTROL_PCOMPLETE_MASK));
+
+done:
+	/**
+	 * Lock PCSR. instead of blind writes, writing twice
+	 */
+	XPm_LockPcsr(NidbAddress);
+	XPm_LockPcsr(NidbAddress);
 	return Status;
 }
 #endif
