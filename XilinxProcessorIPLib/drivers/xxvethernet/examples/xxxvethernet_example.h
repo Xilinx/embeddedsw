@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -76,7 +76,7 @@ int XxvEthernetUtilFrameVerify(EthernetFrame * CheckFrame,
 			 EthernetFrame * ActualFrame);
 void XxvEthernetUtilFrameMemClear(EthernetFrame * FramePtr);
 int XxvEthernetUtilEnterLocalLoopback(XXxvEthernet * XxvEthernetInstancePtr);
-void XxvEthernetUtilErrorTrap(char *Message);
+void XxvEthernetUtilErrorTrap(const char *Message);
 int XxvEthernetUtilUsxgmiiSetup(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex);
 int XxvEthernetUtilUsxgmiiSetupBypassAN(XXxvEthernet *XxvEthernetInstancePtr, u32 Rate, u32 Duplex);
 
