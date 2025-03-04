@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -33,7 +33,7 @@
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
-
+#include <sleep.h>
 #include "string.h"
 #include "xdp.h"
 #include "xdebug.h"
@@ -1323,10 +1323,7 @@ u32 XDp_TxSendEnumPathResourceRequest(XDp *InstancePtr)
 {
 	u32 Status;
 	u8 StreamIndex;
-	u8 StartTs = 1;
 	XDp_TxMstStream *MstStream;
-	XDp_TxMainStreamAttributes *MsaConfig;
-	XDp_TxTopology *Msatopology;
 	u16 FullPbn;			/**< The payload bandwidth number (PBN)
 						associated with the sink
 						connected to this port. */
@@ -1338,15 +1335,12 @@ u32 XDp_TxSendEnumPathResourceRequest(XDp *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
 
-	Msatopology = &InstancePtr->TxInstance.Topology;
-
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device. */
 	for (StreamIndex = 0; StreamIndex < InstancePtr->TxInstance.NumOfMSTStreams; StreamIndex++) {
 		if (XDp_TxMstStreamIsEnabled(InstancePtr,
 					StreamIndex + XDP_TX_STREAM_ID1)) {
 
-			MsaConfig = &InstancePtr->TxInstance.MsaConfig[StreamIndex];
 			MstStream =
 					&InstancePtr->TxInstance.MstStreamConfig[StreamIndex];
 			Status =
@@ -1387,16 +1381,14 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 	u32 Status;
 	u8 StreamIndex;
 	u8 StartTs = 1;
-	u8 NumOfStreams;
 	XDp_TxMstStream *MstStream;
 	XDp_TxMainStreamAttributes *MsaConfig;
-	XDp_TxTopology *Msatopology;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Msatopology = &InstancePtr->TxInstance.Topology;
+
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device. */
 	for (StreamIndex = 0; StreamIndex < InstancePtr->TxInstance.NumOfMSTStreams; StreamIndex++) {
@@ -3710,7 +3702,6 @@ static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply)
 	u32 Status;
 	u8 Index = 0;
 	u8 AuxData[80];
-	u8 bytesLeft = 0;
 	int bytesToread = 0;
 	u8 downReqOffset = XDP_DOWN_REQ_OFFSET;
 	XDp_SidebandMsg Msg;

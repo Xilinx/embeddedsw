@@ -1,6 +1,6 @@
 ##******************************************************************************
 # Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -13,6 +13,6 @@ BEGIN driver dp12
         OPTION driver_state = ACTIVE;
 	OPTION depends = (video_common_v4_0);
         OPTION copyfiles = all;
-        OPTION VERSION = 7.5;
+        OPTION VERSION = 7.6;
         OPTION NAME = dp12;
 END driver
