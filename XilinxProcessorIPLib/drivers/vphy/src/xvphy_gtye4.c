@@ -426,8 +426,6 @@ u32 XVphy_Gtye4ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 	u16 QPLLx_LPF;
 	u64 LineRateHz;
 
-	XVphy_PllType PllType;
-
 	/* Obtain current DRP register value for QPLLx_FBDIV. */
 	Status |= XVphy_DrpRd(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
 			(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x14 : 0x94, &DrpVal);
