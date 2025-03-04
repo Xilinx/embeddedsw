@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -455,7 +456,7 @@ int XxvEthernetUtilUsxgmiiSetupBypassAN(XXxvEthernet *XxvEthernetInstancePtr, u3
 * @note		None
 *
 ******************************************************************************/
-void XxvEthernetUtilErrorTrap(char *Message)
+void XxvEthernetUtilErrorTrap(const char *Message)
 {
 	static int Count = 0;
 
