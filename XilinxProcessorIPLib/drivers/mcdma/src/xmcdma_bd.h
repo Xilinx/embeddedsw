@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,7 +64,7 @@ typedef u32 XMcdma_Bd[16];
 *
 ******************************************************************************/
 #define XMcdma_BdRead(BaseAddress, Offset)				\
-	(*(u32 *)(((void *)(UINTPTR)(BaseAddress)) + (u32)(Offset)))
+	(*(u32 *)(((UINTPTR)(void *)(BaseAddress)) + (u32)(Offset)))
 
 /*****************************************************************************/
 /**
@@ -82,7 +82,7 @@ typedef u32 XMcdma_Bd[16];
 *
 ******************************************************************************/
 #define XMcdma_BdRead64(BaseAddress, Offset)			\
-	(*(u64 *)(((void *)(UINTPTR)(BaseAddress)) + (u32)(Offset)))
+	(*(u64 *)(((UINTPTR)(void *)(BaseAddress)) + (u32)(Offset)))
 
 /*****************************************************************************/
 /**
