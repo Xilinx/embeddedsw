@@ -52,6 +52,18 @@ static XStatus FpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
+	/*
+	 * Todo: This is a SW work around.
+	 * We have added some MMI RST and clock nodes in topology CDO.
+	 * In default subsystem, we will enable all nodes declared in topology CDO, which results in boot failure
+	 * if we do not de-assert those POR bits.
+	 */
+	XPm_RMW32(MMI_CRX_BASEADDR + MMI_CRX_RST_DC_OFFSET, \
+	MMI_CRX_RST_DC_SS_CFG_POR_MASK, 0U);
+
+	XPm_RMW32(MMI_CRX_BASEADDR + MMI_CRX_RST_UDH_OFFSET, \
+	MMI_CRX_RST_UDH_SS_CFG_POR_MASK, 0U);
+
 	Status = XST_SUCCESS;
 	return Status;
 }
