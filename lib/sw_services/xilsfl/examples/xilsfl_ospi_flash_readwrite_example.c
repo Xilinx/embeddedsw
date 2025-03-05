@@ -29,6 +29,7 @@
  * 1.0   sb  8/20/24   Initial release
  * 1.0   sb  9/25/24   Use XSfl_FlashRead to read unaligned bytes.
  * 1.1   sb  01/28/25  Add support for Lassen platform.
+ * 1.1   sb  02/11/25  Add condition to avoid dma read on Spartanup.
  *
  *</pre>
  ******************************************************************************/
@@ -213,6 +214,7 @@ int SflReadWriteExample(void) {
 		ReadBuffer[Count] = 0;
 	}
 
+#if !defined(SPARTANUP)
 	/*
 	 * Non-Blocking read start and data size should be word aligned.
 	 */
@@ -236,6 +238,7 @@ int SflReadWriteExample(void) {
 			return XST_FAILURE;
 		}
 	}
+#endif
 
 	return Status;
 }
