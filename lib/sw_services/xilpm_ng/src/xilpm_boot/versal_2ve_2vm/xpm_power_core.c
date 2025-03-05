@@ -10,7 +10,7 @@
 #define NUM_CLUSTER 4U
 static u8 ApuClusterState[NUM_CLUSTER] = {0U};
 XPmFwPwrCtrl_t Acpu0_Core0PwrCtrl = {
-	.Id = ACPU_0,
+	.Id = PM_DEV_ACPU_0_0,
 	.ResetCfgAddr = APU_CLUSTER0_RVBARADDR0L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU0_CORE0_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_APU0_CORE0_PWR_CNTRL_REG0,
@@ -38,7 +38,7 @@ XPmFwPwrCtrl_t Acpu0_Core0PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t Acpu0_Core1PwrCtrl = {
-	.Id = ACPU_1,
+	.Id = PM_DEV_ACPU_0_1,
 	.ResetCfgAddr = APU_CLUSTER0_RVBARADDR1L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU0_CORE1_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_APU0_CORE1_PWR_CNTRL_REG0,
@@ -66,7 +66,7 @@ XPmFwPwrCtrl_t Acpu0_Core1PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t Acpu1_Core0PwrCtrl = {
-	.Id = ACPU_2,
+	.Id = PM_DEV_ACPU_1_0,
 	.ResetCfgAddr = APU_CLUSTER1_RVBARADDR0L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU1_CORE0_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_APU1_CORE0_PWR_CNTRL_REG0,
@@ -94,7 +94,7 @@ XPmFwPwrCtrl_t Acpu1_Core0PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t Acpu1_Core1PwrCtrl = {
-	.Id = ACPU_3,
+	.Id = PM_DEV_ACPU_1_1,
 	.ResetCfgAddr = APU_CLUSTER1_RVBARADDR1L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU1_CORE1_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_APU1_CORE1_PWR_CNTRL_REG0,
@@ -122,7 +122,7 @@ XPmFwPwrCtrl_t Acpu1_Core1PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t Acpu2_Core0PwrCtrl = {
-	.Id = ACPU_4,
+	.Id = PM_DEV_ACPU_2_0,
 	.ResetCfgAddr = APU_CLUSTER2_RVBARADDR0L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU2_CORE0_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_APU2_CORE0_PWR_CNTRL_REG0,
@@ -150,7 +150,7 @@ XPmFwPwrCtrl_t Acpu2_Core0PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t Acpu2_Core1PwrCtrl = {
-	.Id = ACPU_5,
+	.Id = PM_DEV_ACPU_2_1,
 	.ResetCfgAddr = APU_CLUSTER2_RVBARADDR1L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU2_CORE1_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_APU2_CORE1_PWR_CNTRL_REG0,
@@ -178,7 +178,7 @@ XPmFwPwrCtrl_t Acpu2_Core1PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t Acpu3_Core0PwrCtrl = {
-	.Id = ACPU_6,
+	.Id = PM_DEV_ACPU_3_0,
 	.ResetCfgAddr = APU_CLUSTER3_RVBARADDR0L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU3_CORE0_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_APU3_CORE0_PWR_CNTRL_REG0,
@@ -206,7 +206,7 @@ XPmFwPwrCtrl_t Acpu3_Core0PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t Acpu3_Core1PwrCtrl = {
-	.Id = ACPU_7,
+	.Id = PM_DEV_ACPU_3_1,
 	.ResetCfgAddr = APU_CLUSTER3_RVBARADDR1L,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_APU3_CORE1_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_APU3_CORE1_PWR_CNTRL_REG0,
@@ -234,7 +234,7 @@ XPmFwPwrCtrl_t Acpu3_Core1PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t RpuA_Core0PwrCtrl = {
-	.Id = RPUA_0,
+	.Id = PM_DEV_RPU_A_0,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_A0_CORE0_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUA_CORE0_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_RPU0_CORE0_PWR_CNTRL_REG0,
@@ -255,7 +255,7 @@ XPmFwPwrCtrl_t RpuA_Core0PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t RpuA_Core1PwrCtrl = {
-	.Id = RPUA_1,
+	.Id = PM_DEV_RPU_A_1,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_A1_CORE1_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUA_CORE1_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_RPU0_CORE1_PWR_CNTRL_REG0,
@@ -276,7 +276,7 @@ XPmFwPwrCtrl_t RpuA_Core1PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t RpuB_Core0PwrCtrl = {
-	.Id = RPUB_0,
+	.Id = PM_DEV_RPU_B_0,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_B0_CORE0_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUB_CORE0_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_RPU1_CORE0_PWR_CNTRL_REG0,
@@ -297,7 +297,7 @@ XPmFwPwrCtrl_t RpuB_Core0PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t RpuB_Core1PwrCtrl = {
-	.Id = RPUB_1,
+	.Id = PM_DEV_RPU_B_1,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_B1_CORE1_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUB_CORE1_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_RPU1_CORE1_PWR_CNTRL_REG0,
@@ -318,7 +318,7 @@ XPmFwPwrCtrl_t RpuB_Core1PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t RpuC_Core0PwrCtrl = {
-	.Id = RPUC_0,
+	.Id = PM_DEV_RPU_C_0,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_C0_CORE0_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUC_CORE0_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_RPU2_CORE0_PWR_CNTRL_REG0,
@@ -339,7 +339,7 @@ XPmFwPwrCtrl_t RpuC_Core0PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t RpuC_Core1PwrCtrl = {
-	.Id = RPUC_1,
+	.Id = PM_DEV_RPU_C_1,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_C1_CORE1_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUC_CORE1_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_RPU2_CORE1_PWR_CNTRL_REG0,
@@ -360,7 +360,7 @@ XPmFwPwrCtrl_t RpuC_Core1PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t RpuD_Core0PwrCtrl = {
-	.Id = RPUD_0,
+	.Id = PM_DEV_RPU_D_0,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_D0_CORE0_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUD_CORE0_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_RPU3_CORE0_PWR_CNTRL_REG0,
@@ -381,7 +381,7 @@ XPmFwPwrCtrl_t RpuD_Core0PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t RpuD_Core1PwrCtrl = {
-	.Id = RPUD_1,
+	.Id = PM_DEV_RPU_D_1,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_D1_CORE1_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUD_CORE1_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_RPU3_CORE1_PWR_CNTRL_REG0,
@@ -402,7 +402,7 @@ XPmFwPwrCtrl_t RpuD_Core1PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t RpuE_Core0PwrCtrl = {
-	.Id = RPUE_0,
+	.Id = PM_DEV_RPU_E_0,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_E0_CORE0_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUE_CORE0_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_RPU4_CORE0_PWR_CNTRL_REG0,
@@ -423,7 +423,7 @@ XPmFwPwrCtrl_t RpuE_Core0PwrCtrl = {
 };
 
 XPmFwPwrCtrl_t RpuE_Core1PwrCtrl = {
-	.Id = RPUE_1,
+	.Id = PM_DEV_RPU_E_1,
 	.ResetCfgAddr = PSX_RPU_CLUSTER_E1_CORE1_CFG0,
 	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE0_RPUE_CORE1_MASK,
 	.PwrCtrlAddr = PSXC_LPX_SLCR_RPU4_CORE1_PWR_CNTRL_REG0,
