@@ -204,6 +204,7 @@
                                  in case of Parrellel config */
 #define XSFL_PAGE_SIZE     3U /* Individual sector size or combined sector size
                                  in case of Parrellel config */
+#define XSFL_FLASH_TYPE    4U /* Flash Type (QSPI/OSPI) */
 
 /* Macro for bus width */
 #define XSFL_X1_BUS_WIDTH  0x01

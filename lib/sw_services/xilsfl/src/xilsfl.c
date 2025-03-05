@@ -484,6 +484,9 @@ u32 XSfl_FlashGetInfo(u8 SflHandler, u8 Option, u32 *DataPtr){
 		case XSFL_PAGE_SIZE:
 			*DataPtr = SflInstancePtr->SflFlashInfo.PageSize;
 			break;
+		case XSFL_FLASH_TYPE:
+			*DataPtr = Flash_Config_Table[FCTIndex].FlashType;
+			break;
 		default:
 #ifdef XSFL_DEBUG
 			xil_printf("Invalid Option\n");
