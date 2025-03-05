@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * Ver   Who Date     Changes
  * ----- --- -------- -----------------------------------------------
  * 1.0   sb  8/20/24  Initial release
+ * 1.1   sb  02/11/25 Add support for x2/x4 operation.
  *
  * </pre>
  *
@@ -37,6 +38,7 @@
  */
 #define XSFL_FLASH_DUMMY_CYCLES_0   0x0
 #define XSFL_FLASH_DUMMY_CYCLES_8   0x8
+#define XSFL_FLASH_DUMMY_CYCLES_10  0xA
 #define XSFL_FLASH_DUMMY_CYCLES_16  0x10
 #define XSFL_FLASH_DUMMY_CYCLES_20  0x14
 #define XSFL_FLASH_DUMMY_CYCLES_21  0x15
@@ -70,8 +72,7 @@ typedef struct {
 	u32 EraseCmd;		/* Erase Command */
 	u32 Proto;              /**< Indicate number of Cmd-Addr-Data lines */
 	u32 SdrMaxFreq;         /**< Max support frequency of flash in SDR mode*/
-	u16 DummyCycles;	/* Number of Dummy cycles for Read operation
-				 *  Upper 8-bits for ddr and Lower 8-bits for sdr
+	u32 DummyCycles;	/* Number of Dummy cycles for Read operation
 				 */
 	u8 StatusCmd;		/* Status Command */
 	u8 NumDie;              /* No. of die forming a single flash */

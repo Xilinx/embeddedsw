@@ -22,6 +22,7 @@
  * 1.0   sb  9/25/24  Update XSfl_FlashReadProcess() to support unaligned bytes read and
  *                    add support for non-blocking read
  * 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
+ * 1.1   sb  02/11/25  Add support for x2/x4 operation.
  *
  * </pre>
  *
@@ -353,11 +354,9 @@ u32 XSfl_FlashPageWrite(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteCou
 		SflMsg.Addr = RealAddr;
 		SflMsg.DualByteOpCode = 0;
 
-		if(Flash_Config_Table[FCTIndex].FlashType == XSFL_QSPI_FLASH) {
-			SflMsg.Proto = (u8)(Flash_Config_Table[FCTIndex].Proto >> 16);
-		}
 		if (SflInstancePtr->CntrlInfo.SdrDdrMode == XSFL_EDGE_MODE_DDR_PHY) {
 			SflMsg.Proto = (u8)(Flash_Config_Table[FCTIndex].Proto >> 8);
+			SflMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].WriteCmd >> 8);
 		}
 
 		if (Flash_Config_Table[FCTIndex].ExtOpCodeType == XSFL_DUAL_BYTE_OP_INVERT){
@@ -437,14 +436,30 @@ u32 XSfl_FlashReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteC
 		SflMsg.TxBfrPtr = NULL;
 		SflMsg.RxBfrPtr = ReadBfrPtr;
 		SflMsg.Proto =  (u8)Flash_Config_Table[FCTIndex].Proto;
-		SflMsg.Dummy = (u8)Flash_Config_Table[FCTIndex].DummyCycles;
+		SflMsg.Dummy = 0;
 		if ((SflInstancePtr->CntrlInfo.OpMode == XOSPIPSV_IDAC_EN_OPTION)
-				&& ((SflInstancePtr->Quirks & XSFL_BROKEN_DMA) == 1)) {
+				&& (SflInstancePtr->Quirks & XSFL_BROKEN_DMA)) {
 			BytesToRead = XSFL_MAX_STIG_BYTE_CNT;
-			SflMsg.Opcode = (u8)XSFL_READ_CMD_4B;
-			SflMsg.Dummy = 0;
-		} else if( Flash_Config_Table[FCTIndex].Proto >> 16){
-			SflMsg.Proto = Flash_Config_Table[FCTIndex].Proto >> 16;
+		} else {
+			if (Flash_Config_Table[FCTIndex].FlashType == XSFL_QSPI_FLASH) {
+				if ((SflInstancePtr->CntrlInfo.BusWidth == XSFL_X4_BUS_WIDTH) ||
+						!(SflInstancePtr->CntrlInfo.BusWidth)) {
+					SflMsg.Proto = (u8)(Flash_Config_Table[FCTIndex].Proto >> 16);
+					SflMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].ReadCmd >> 16);
+					SflMsg.Dummy = (u8)(Flash_Config_Table[FCTIndex].DummyCycles >> 16);
+				} else if (SflInstancePtr->CntrlInfo.BusWidth == XSFL_X2_BUS_WIDTH) {
+					SflMsg.Proto = (u8)(Flash_Config_Table[FCTIndex].Proto >> 24);
+					SflMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].ReadCmd >> 24);
+					SflMsg.Dummy = (u8)Flash_Config_Table[FCTIndex].DummyCycles;
+				}
+			} else if ((Flash_Config_Table[FCTIndex].FlashType == XSFL_OSPI_FLASH)) {
+				if (SflInstancePtr->CntrlInfo.BusWidth == XSFL_X8_BUS_WIDTH ||
+						 !(SflInstancePtr->CntrlInfo.BusWidth)) {
+					SflMsg.Proto = (u8)(Flash_Config_Table[FCTIndex].Proto >> 16);
+					SflMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].ReadCmd >> 16);
+					SflMsg.Dummy = (u8)Flash_Config_Table[FCTIndex].DummyCycles;
+				}
+			}
 		}
 
 		SflMsg.ByteCount = BytesToRead;
@@ -460,6 +475,7 @@ u32 XSfl_FlashReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteC
 		if (SflInstancePtr->CntrlInfo.SdrDdrMode == XSFL_EDGE_MODE_DDR_PHY) {
 			SflMsg.Proto = Flash_Config_Table[FCTIndex].Proto >> 8;
 			SflMsg.Dummy = Flash_Config_Table[FCTIndex].DummyCycles >> 8;
+			SflMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].ReadCmd >> 8);
 		}
 
 #ifdef XSFL_DEBUG
@@ -539,15 +555,31 @@ u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address
 		SflMsg.Addrvalid = 1;
 		SflMsg.TxBfrPtr = NULL;
 		SflMsg.RxBfrPtr = ReadBfrPtr;
-		SflMsg.Dummy = (u8)Flash_Config_Table[FCTIndex].DummyCycles;
+		SflMsg.Dummy = 0;
 		SflMsg.Proto =  (u8)Flash_Config_Table[FCTIndex].Proto;
 		if ((SflInstancePtr->CntrlInfo.OpMode == XOSPIPSV_IDAC_EN_OPTION)
-				&& ((SflInstancePtr->Quirks & XSFL_BROKEN_DMA) == 1)) {
+				&& (SflInstancePtr->Quirks & XSFL_BROKEN_DMA)) {
 			BytesToRead = XSFL_MAX_STIG_BYTE_CNT;
-			SflMsg.Opcode = (u8)XSFL_READ_CMD_4B;
-			SflMsg.Dummy = 0;
-		} else if( Flash_Config_Table[FCTIndex].Proto >> 16){
-			SflMsg.Proto = Flash_Config_Table[FCTIndex].Proto >> 16;
+		} else {
+			if (Flash_Config_Table[FCTIndex].FlashType == XSFL_QSPI_FLASH) {
+				if ((SflInstancePtr->CntrlInfo.BusWidth == XSFL_X4_BUS_WIDTH) ||
+						 !(SflInstancePtr->CntrlInfo.BusWidth)) {
+					SflMsg.Proto = (u8)(Flash_Config_Table[FCTIndex].Proto >> 16);
+					SflMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].ReadCmd >> 16);
+					SflMsg.Dummy = (u8)(Flash_Config_Table[FCTIndex].DummyCycles >> 16);
+				} else if (SflInstancePtr->CntrlInfo.BusWidth == XSFL_X2_BUS_WIDTH) {
+					SflMsg.Proto = (u8)(Flash_Config_Table[FCTIndex].Proto >> 24);
+					SflMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].ReadCmd >> 24);
+					SflMsg.Dummy = (u8)Flash_Config_Table[FCTIndex].DummyCycles;
+				}
+			} else if (Flash_Config_Table[FCTIndex].FlashType == XSFL_OSPI_FLASH) {
+				if ((SflInstancePtr->CntrlInfo.BusWidth == XSFL_X8_BUS_WIDTH) ||
+						 !(SflInstancePtr->CntrlInfo.BusWidth)) {
+					SflMsg.Proto = (u8)(Flash_Config_Table[FCTIndex].Proto >> 16);
+					SflMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].ReadCmd >> 16);
+					SflMsg.Dummy = (u8)Flash_Config_Table[FCTIndex].DummyCycles;
+				}
+			}
 		}
 
 		SflMsg.ByteCount = BytesToRead;
@@ -563,6 +595,7 @@ u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address
 		if (SflInstancePtr->CntrlInfo.SdrDdrMode == XSFL_EDGE_MODE_DDR_PHY) {
 			SflMsg.Proto = Flash_Config_Table[FCTIndex].Proto >> 8;
 			SflMsg.Dummy = Flash_Config_Table[FCTIndex].DummyCycles >> 8;
+			SflMsg.Opcode = (u8)(Flash_Config_Table[FCTIndex].ReadCmd >> 8);
 		}
 
 #ifdef XSFL_DEBUG
