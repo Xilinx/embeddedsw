@@ -1,13 +1,13 @@
 ###############################################################################
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ###############################################################################
 
 COMPILER=
 ARCHIVER=
 CP=cp
-MY_COMPILER_FLAGS= $(XILPM_BOOT_FLAGS) $(XILPM_RUNTIME_FLAGS) -Os -fno-strict-aliasing -c -mcpu=v11.0 -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare
-MY_EXTRA_COMPILER_FLAGS=-g  -ffunction-sections -fdata-sections -Wall -Wextra -flto -ffat-lto-objects
+XILPM_RUNTIME_COMPILER_FLAGS= $(_CC_XILPM_FLAGS) -Os -fno-strict-aliasing -c -mcpu=v11.0 -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare
+XILPM_RUNTIME_EXTRA_COMPILER_FLAGS=-g  -ffunction-sections -fdata-sections -Wall -Wextra -flto -ffat-lto-objects
 CUSTOM_COMPILER_FLAGS=
 ifeq ($(findstring gcc, $(COMPILER)), gcc)
 CUSTOM_COMPILER_FLAGS+=-Wall -Wextra -Warray-bounds=2 -Wformat=2 -Wno-main -Wimplicit-function-declaration -Wmissing-prototypes -Wmissing-braces -Wmultistatement-macros -Wparentheses -Wreturn-type -Wsequence-point -Wbool-compare -Wbool-operation -Wchar-subscripts -Wenum-compare -Winit-self -fno-strict-aliasing -Wtautological-compare -Wuninitialized -Wunused-function -Wunused-label -Wunused-variable -Wcast-function-type -Wenum-conversion -Wmissing-parameter-type -Wtype-limits -Wshift-negative-value -Wshadow -Wdouble-promotion -fno-common -Wnull-dereference -Wmissing-include-dirs -Wswitch-default -Wswitch-enum -Wswitch-bool -Wshift-overflow=2 -Wswitch-outside-range -Wswitch-unreachable -Wunused-parameter -Wduplicated-branches -Wduplicated-cond -Wdiv-by-zero -Wshadow=local -Wpointer-arith -Wunused-macros -Wdangling-else -Waggressive-loop-optimizations -Wstrict-prototypes -Woverflow -Wredundant-decls -Wvla -Wlogical-op -Wconversion -Wundef
@@ -47,11 +47,6 @@ print_msg_xilpm_runtime:
 	@echo "**********************************"
 	@echo "**********************************"
 	@echo "Compiling [$(XILPM_RUNTIME_BANNER)] Library"
-	@echo "XILPM_RUNTIME_FLAGS: $(XILPM_RUNTIME_FLAGS)"
-	@echo "INCLUDES: $(INCLUDES)"
-	@echo "PWD: $(shell realpath ./)"
-	@echo "XILPM_SRCS: $(XILPM_SRCS)"
-	@echo "XILPM_FILTERED_SRCS: $(XILPM_FILTERED_SRCS)"
 	@echo "**********************************"
 	@echo "**********************************"
 
@@ -64,4 +59,4 @@ clean:
 	rm -rf ${RELEASEDIR}/${LIB}
 
 $(XILPM_DIR)/%.o: $(XILPM_DIR)/%.c $(INCLUDEFILES)
-	$(COMPILER) $(MY_COMPILER_FLAGS) $(MY_EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) -DXILPM_RUNTIME_BANNER=\"$(XILPM_RUNTIME_BANNER)\" $(INCLUDES) -c $< -o $@
+	$(COMPILER) $(XILPM_RUNTIME_COMPILER_FLAGS) $(XILPM_RUNTIME_EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) -DXILPM_RUNTIME_BANNER=\"$(XILPM_RUNTIME_BANNER)\" $(INCLUDES) -c $< -o $@
