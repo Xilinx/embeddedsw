@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -73,6 +73,14 @@ HandlerTable(E, 1)
 #define X_RPU_SLEEP_HANDLER(cluster, core) \
 {PM_DEV_RPU_##cluster##_##core, PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS_RPU##cluster##_CORE##core##_MASK, &Rpu##cluster##_Core##core##PwrCtrl},
 
+/* Define the macro to generate APU power control declarations */
+#define X_APU_PWRCTRL_DECL(cluster, core) \
+extern XPmFwPwrCtrl_t Acpu##cluster##_Core##core##PwrCtrl;
+
+/* Define the macro to generate RPU power control declarations */
+#define X_RPU_PWRCTRL_DECL(cluster, core) \
+extern XPmFwPwrCtrl_t Rpu##cluster##_Core##core##PwrCtrl;
+
 /* Define the macro to create the APU power up/down handler table */
 #define CREATE_TABLE_APU_PWRUPDOWNHANDLER(NumClusters, NumCores) \
 static struct PwrHandlerTable_t ApuPwrUpDwnHandlerTable[] = { \
@@ -108,6 +116,14 @@ X_APU_MACRO_ENTRIES(X_APU_SLEEP_HANDLER) \
 static struct PwrCtlWakeupHandlerTable_t RpuSleepHandlerTable[] = { \
 X_RPU_MACRO_ENTRIES(X_RPU_SLEEP_HANDLER) \
 };
+/* Generate all APU power control declarations */
+#define DECLARE_APU_PWRCTRL() \
+X_APU_MACRO_ENTRIES(X_APU_PWRCTRL_DECL)
+
+/* Generate all RPU power control declarations */
+#define DECLARE_RPU_PWRCTRL() \
+X_RPU_MACRO_ENTRIES(X_RPU_PWRCTRL_DECL)
+
 typedef void (*VoidFunction_t)(void);
 struct HandlerTable {
 	u32 Shift;
