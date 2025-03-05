@@ -1,8 +1,7 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 #include "xplmi.h"
 #include "xplmi_scheduler.h"
@@ -12,9 +11,7 @@
 #include "xpm_regs.h"
 #include "xpm_apucore.h"
 #include "xpm_power_core.h"
-#ifdef XILPM_RUNTIME
-#include "xpm_runtime_clock.h"
-#endif
+
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh,
 		     struct XPm_CoreOps *Ops)
@@ -86,14 +83,11 @@ XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
-#ifdef XILPM_RUNTIME
-	if (NULL != Core->Device.ClkHandles) {
-		Status = XPmClock_Release(Core->Device.ClkHandles);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+	/** Release Core clocks */
+	Status = XPmCore_SetClock(Core->Device.Node.Id, 0U);
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
-#endif
 	if (NULL != Core->Device.Power) {
 		PwrNode = Core->Device.Power;
 		Status = PwrNode->HandleEvent(&PwrNode->Node, XPM_POWER_EVENT_PWR_DOWN);
@@ -115,6 +109,9 @@ XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 	Status = XST_SUCCESS;
 
 done:
+	if (Status != XST_SUCCESS) {
+		PmErr("Core Id=0x%x 0x%x\n\r", Status);
+	}
 	return Status;
 }
 
@@ -235,5 +232,12 @@ XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, u32 *CpuIdleFlag)
 {
 	(void)Core;
 	(void)CpuIdleFlag;
+	return XST_SUCCESS;
+}
+
+XStatus __attribute__((weak,noinline)) XPmCore_SetClock(u32 CoreId, u32 Enable)
+{
+	(void)CoreId;
+	(void)Enable;
 	return XST_SUCCESS;
 }
