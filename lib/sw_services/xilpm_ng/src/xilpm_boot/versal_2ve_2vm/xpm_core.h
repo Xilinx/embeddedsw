@@ -1,8 +1,7 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 #ifndef XPM_CORE_H_
 #define XPM_CORE_H_
@@ -57,7 +56,7 @@ XStatus XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address);
 XStatus XPmCore_HasResumeAddr(const XPm_Core *Core);
 XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag);
 XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, u32 *CpuIdleFlag);
-
+XStatus XPmCore_SetClock(u32 CoreId, u32 Enable);
 
 // static inline XStatus XPmCore_PlatClkReq(const XPm_ClockHandle *ClkHandles)
 // {

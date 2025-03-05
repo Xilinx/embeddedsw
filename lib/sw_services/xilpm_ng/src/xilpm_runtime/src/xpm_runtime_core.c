@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2024-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,6 +11,9 @@
 #include "xpm_runtime_api.h"
 #include "xpm_runtime_reset.h"
 #include "xpm_runtime_device.h"
+#include "xpm_runtime_clock.h"
+#include "xpm_core.h"
+
 static XPmRuntime_CoreList *RuntimeCoreList = NULL;
 
 XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value) {
@@ -337,5 +340,24 @@ XStatus ResetAPUGic(const u32 DeviceId)
 	Status = XST_SUCCESS;
 
 done:
+	return Status;
+}
+
+XStatus XPmCore_SetClock(u32 CoreId, u32 Enable) {
+	XStatus Status = XST_FAILURE;
+	XPm_Device *DevCore= XPmDevice_GetById(CoreId);
+	if (NULL == DevCore) {
+		PmErr("CoreId 0x%x not found\n", CoreId);
+		goto done;
+	}
+	if (Enable) {
+		Status = XPmClock_Request(DevCore->ClkHandles);
+	} else {
+		Status = XPmClock_Release(DevCore->ClkHandles);
+	}
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("CoreId 0x%x Enable = %d Status 0x%x\n", CoreId, Enable, Status);
+	}
 	return Status;
 }

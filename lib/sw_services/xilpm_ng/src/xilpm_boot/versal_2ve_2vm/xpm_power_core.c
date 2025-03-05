@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2024 -2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_regs.h"
@@ -933,7 +933,11 @@ XStatus XPmPower_ACpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 LowAddress, HighAddress;
-
+	/** Request Core's clocks */
+	Status = XPmCore_SetClock(Args->Id, 1);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 	/* Set start address */
 	LowAddress = (u32)(ResumeAddr & PSX_APU_CLUSTER_RVBARADDR0L_MASK);
 	/* TODO: HighAddress only uses bits 15:0, check if this needs to be masked as well */
@@ -1127,6 +1131,11 @@ XStatus XPmPower_RpuDirectPwrUp(struct XPmFwPwrCtrl_t *Args, u64 ResumeAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 LowAddress;
+	/** Request Core's clocks */
+	Status = XPmCore_SetClock(Args->Id, 1);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 	/* Set the resume address. */
 	LowAddress = (u32)(ResumeAddr & PSX_RPU_CLUSTER_CORE_VECTABLE_MASK);
 	/* Remove TOPRESET */
