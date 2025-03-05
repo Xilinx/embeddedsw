@@ -1,58 +1,14 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 #include "xpm_power_handlers.h"
 #include "xpm_power_core.h"
 #include "xpm_core.h"
-extern XPmFwPwrCtrl_t Acpu0_Core0PwrCtrl;
-extern XPmFwPwrCtrl_t Acpu0_Core1PwrCtrl;
-extern XPmFwPwrCtrl_t Acpu1_Core0PwrCtrl;
-extern XPmFwPwrCtrl_t Acpu1_Core1PwrCtrl;
-extern XPmFwPwrCtrl_t Acpu2_Core0PwrCtrl;
-extern XPmFwPwrCtrl_t Acpu2_Core1PwrCtrl;
-extern XPmFwPwrCtrl_t Acpu3_Core0PwrCtrl;
-extern XPmFwPwrCtrl_t Acpu3_Core1PwrCtrl;
-extern XPmFwPwrCtrl_t RpuA_Core0PwrCtrl;
-extern XPmFwPwrCtrl_t RpuA_Core1PwrCtrl;
-extern XPmFwPwrCtrl_t RpuB_Core0PwrCtrl;
-extern XPmFwPwrCtrl_t RpuB_Core1PwrCtrl;
-extern XPmFwPwrCtrl_t RpuC_Core0PwrCtrl;
-extern XPmFwPwrCtrl_t RpuC_Core1PwrCtrl;
-extern XPmFwPwrCtrl_t RpuD_Core0PwrCtrl;
-extern XPmFwPwrCtrl_t RpuD_Core1PwrCtrl;
-extern XPmFwPwrCtrl_t RpuE_Core0PwrCtrl;
-extern XPmFwPwrCtrl_t RpuE_Core1PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B0_I0_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B0_I1_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B0_I2_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B0_I3_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B1_I0_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B1_I1_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B1_I2_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B1_I3_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B2_I0_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B2_I1_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B2_I2_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B2_I3_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B3_I0_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B3_I1_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B3_I2_PwrCtrl;
-extern XPmFwMemPwrCtrl_t Ocm_B3_I3_PwrCtrl;
-extern XPmTcmPwrCtrl_t TcmA0PwrCtrl;
-extern XPmTcmPwrCtrl_t TcmA1PwrCtrl;
-extern XPmTcmPwrCtrl_t TcmB0PwrCtrl;
-extern XPmTcmPwrCtrl_t TcmB1PwrCtrl;
-extern XPmTcmPwrCtrl_t TcmC0PwrCtrl;
-extern XPmTcmPwrCtrl_t TcmC1PwrCtrl;
-extern XPmTcmPwrCtrl_t TcmD0PwrCtrl;
-extern XPmTcmPwrCtrl_t TcmD1PwrCtrl;
-extern XPmTcmPwrCtrl_t TcmE0PwrCtrl;
-extern XPmTcmPwrCtrl_t TcmE1PwrCtrl;
-extern XPmFwGemPwrCtrl_t Gem0PwrCtrl;
-extern XPmFwGemPwrCtrl_t Gem1PwrCtrl;
 
+DECLARE_APU_PWRCTRL()
+DECLARE_RPU_PWRCTRL()
 CREATE_TABLE_APU_PWRUPDOWNHANDLER(4, 2)
 CREATE_TABLE_RPU_PWRUPDOWNHANDLER(5, 2)
 CREATE_TABLE_RPU_WAKEUP_HANDLER(5, 2)
@@ -375,7 +331,7 @@ XStatus XPm_DispatchApuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 	XStatus Status = XST_FAILURE;
 	u32 Index;
 	XPm_Core *Core;
-        u64 ResumeAddr;
+	u64 ResumeAddr;
 
 	for (Index = 0U; Index < ARRAY_SIZE(ApuWakeupHandlerTable); Index++) {
 		/* Check for WakeupStatus 1 and WakeupIntMask is 0.
@@ -514,7 +470,5 @@ XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 			Status = XPmCore_AfterDirectPwrDwn(Core);
 		}
 	}
-
-done:
 	return Status;
 }
