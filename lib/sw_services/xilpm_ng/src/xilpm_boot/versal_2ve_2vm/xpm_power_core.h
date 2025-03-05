@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,36 +21,6 @@ typedef struct XPmFwPwrCtrl_t XPmFwPwrCtrl_t;
 typedef struct XPmFwMemPwrCtrl_t XPmFwMemPwrCtrl_t;
 typedef struct XPmTcmPwrCtrl_t XPmTcmPwrCtrl_t;
 typedef struct XPmFwGemPwrCtrl_t XPmFwGemPwrCtrl_t;
-
-enum ProcDeviceId {
-	ACPU_0,
-	ACPU_1,
-	ACPU_2,
-	ACPU_3,
-	ACPU_4,
-	ACPU_5,
-	ACPU_6,
-	ACPU_7,
-	ACPU_8,
-	ACPU_9,
-	ACPU_10,
-	ACPU_11,
-	ACPU_12,
-	ACPU_13,
-	ACPU_14,
-	ACPU_15,
-	RPUA_0,
-	RPUA_1,
-	RPUB_0,
-	RPUB_1,
-	RPUC_0,
-	RPUC_1,
-	RPUD_0,
-	RPUD_1,
-	RPUE_0,
-	RPUE_1,
-	PROC_DEV_MAX,
-};
 
 enum TcmBankId {
 	TCM_A_0,
@@ -80,7 +50,7 @@ enum TcmPowerState {
 };
 /* TODO: Separate for RPU and APU cores */
 struct XPmFwPwrCtrl_t {
-	enum ProcDeviceId Id;
+	u32 Id;
 	u32 ResetCfgAddr; /**< Reset vector address register */
 	u32 PwrStateMask; /**< Bit number in the Power State (LOCAL and GLOBAL) Register */
 	u32 PwrCtrlAddr; /**< Address of the Power control register */
