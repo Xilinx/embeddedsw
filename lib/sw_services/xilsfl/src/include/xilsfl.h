@@ -256,6 +256,7 @@ typedef struct {
 			   */
 	u8 ConnectionMode; /**< Type of connection (single/stacked/parallel) */
 	u8 FlashMake;      /**< vendor info */
+	u8 AddrSize;       /**< Size of address in bytes */
 } XSfl_FlashInfo;
 
 /**
