@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -199,7 +199,7 @@ XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx)
 		goto done;
 	}
 
-	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(Periph->WakeProcId);
+	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(Periph->WakeProcId);
 
 	/* Do not process anything if core is already running */
 	if ((u8)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {

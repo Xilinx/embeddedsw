@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -11,6 +11,7 @@
 #include "xpm_core.h"
 #include "xpm_runtime_clock.h"
 #include "xpm_requirement.h"
+#include "xpm_mem_tcm.h"
 
 static XStatus SetClocks(const XPm_Device *Device, u32 Enable)
 {
@@ -39,7 +40,7 @@ static XStatus SetClocks(const XPm_Device *Device, u32 Enable)
 		}
 		Device = (XPm_Device*)XPmDevice_GetById(RpuId);
 		if (NULL == Device) {
-			PmErr("Failed to get RPU ID for TCM ID 0x%x\n", Device->Node.Id);
+			PmErr("Not found RPU ID = 0x%x\n", RpuId);
 			Status = XST_FAILURE;
 			goto done;
 		}
