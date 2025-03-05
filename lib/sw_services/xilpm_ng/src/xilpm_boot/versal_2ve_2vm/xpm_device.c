@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -392,6 +392,7 @@ XStatus __attribute__((weak, noinline)) XPmDevice_Reset(const XPm_Device *Device
 	(void)Device;
 	(void)Action;
 	PmWarn("XPmDevice_Reset is not implemented in XilPmBoot\r\n");
+	return XST_SUCCESS;
 }
 
 
