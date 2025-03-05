@@ -26,6 +26,7 @@
  * 1.1   ma   01/08/25 Clear only ReqBufStatus and RespBufStatus upon command completion
  *       vns  02/06/25 Fixed magic numbers
  *       ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
+ *       am   03/05/25 Added performance measurement init call
  *
  * </pre>
  *
@@ -139,6 +140,9 @@ s32 XAsu_ClientInit(u32 BaseAddress)
 		Status = XASU_ASUFW_NOT_PRESENT;
 		goto END;
 	}
+
+	/** Initialize performance measurement. */
+	XAsu_PerfInit();
 
 	/** Initialize mailbox instance. */
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, BaseAddress);

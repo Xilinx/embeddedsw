@@ -12,4 +12,9 @@ if(XILASU_trng_enable_drbg_mode)
     set(XASU_TRNG_ENABLE_DRBG_MODE " ")
 endif()
 
+option(XILASU_enable_perf_measurement "Enables/Disables performance measurement APIs." OFF)
+if(XILASU_enable_perf_measurement)
+    set(XASU_PERF_MEASUREMENT_ENABLE " ")
+endif()
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xasu_bsp_config.h.in ${CMAKE_BINARY_DIR}/include/xasu_bsp_config.h)

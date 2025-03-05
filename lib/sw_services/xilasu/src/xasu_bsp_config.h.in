@@ -1,10 +1,11 @@
 /******************************************************************************
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XASU_BSP_CONFIG_H
 #define XASU_BSP_CONFIG_H
 
 #cmakedefine	XASU_TRNG_ENABLE_DRBG_MODE
+#cmakedefine	XASU_PERF_MEASUREMENT_ENABLE
 
 #endif /* XASU_BSP_CONFIG_H */
