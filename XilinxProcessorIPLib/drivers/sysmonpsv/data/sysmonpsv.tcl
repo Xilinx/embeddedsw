@@ -1,6 +1,6 @@
 ##############################################################################
 # Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -48,8 +48,7 @@ proc generate_include_file {drv_handle file_name drv_string args} {
             set value [::hsi::utils::format_addr_string $value $arg]
             puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
         }
-    }
-    for {set index 0} {$index < 160} {incr index} {
+	for {set index 0} {$index < 160} {incr index} {
 	    set meas "C_MEAS_${index}"
 	    set id   "${meas}_ROOT_ID"
             set value [::hsi::utils::get_param_value $drv_handle $meas]
@@ -61,6 +60,7 @@ proc generate_include_file {drv_handle file_name drv_string args} {
 			puts $file_handle $final_value
 		}
 	    }
+	}
     }
     puts $file_handle ""
     puts $file_handle "\n/******************************************************************/\n"
@@ -125,8 +125,7 @@ proc generate_canonical_xpars {drv_handle file_name drv_string args} {
            puts $file_handle ""
            incr i
        }
-   }
-    for {set index 0} {$index < 160} {incr index} {
+	for {set index 0} {$index < 160} {incr index} {
 	    set meas "C_MEAS_${index}"
 	    set id   "${meas}_ROOT_ID"
             set value [::hsi::utils::get_param_value $drv_handle $meas]
@@ -144,6 +143,7 @@ proc generate_canonical_xpars {drv_handle file_name drv_string args} {
 		}
 
 	    }
+	}
     }
 
 
