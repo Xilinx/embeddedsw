@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -115,7 +115,7 @@ void XPm_DumpTopologyMemUsage(void){
  *
  * @note This function can be overridden by a stronger implementation.
  */
-void __attribute__((weak)) XPm_DumpMemUsage(void)
+void __attribute__((weak, noinline)) XPm_DumpMemUsage(void)
 {
 	(void)XPm_DumpTopologyMemUsage();
 }
