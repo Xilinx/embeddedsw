@@ -387,7 +387,7 @@ done:
 	return Status;
 }
 
-XStatus __attribute__((weak)) XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
+XStatus __attribute__((weak, noinline)) XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 {
 	(void)Device;
 	(void)Action;
@@ -590,7 +590,7 @@ done:
 
 
 
-XStatus __attribute__((weak)) XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
+XStatus __attribute__((weak, noinline)) XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 CmdType)
 {
 	(void)SubsystemId;

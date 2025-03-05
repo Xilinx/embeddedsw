@@ -166,18 +166,18 @@ static XPlmi_Module XPlmi_Pm =
  * Dummy Runtime function which can be overridden by the Runtime Library
  * We need to define this function here to avoid linking error in case
  */
-XStatus __attribute__((weak)) XPm_RuntimeInit(void) {
+XStatus __attribute__((weak, noinline)) XPm_RuntimeInit(void) {
 	PmInfo("No XilPm Runtime Library.\n\r");
 	return XST_SUCCESS;
 };
 
-XStatus __attribute__((weak)) XPm_HookAfterPlmCdo(void)
+XStatus __attribute__((weak, noinline)) XPm_HookAfterPlmCdo(void)
 {
 	XStatus Status = XST_SUCCESS;
 	return Status;
 }
 
-u32 __attribute__((weak)) XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask) {
+u32 __attribute__((weak, noinline)) XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask) {
 	u32 SubsystemId = PM_SUBSYS_DEFAULT;
 	s32 FirstSet = 0;
 	if (IpiMask == 0) {
@@ -200,7 +200,7 @@ done:
 	return SubsystemId;
 }
 
-XStatus __attribute__((weak)) XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
+XStatus __attribute__((weak, noinline)) XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 {
 	(void)SubsystemId;
 	(void)Type;
@@ -211,7 +211,7 @@ XStatus __attribute__((weak)) XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 
 	return XST_SUCCESS;
 }
 
-XStatus __attribute__((weak)) XPm_PmcActivateSubsystem(u32 SubsystemId)
+XStatus __attribute__((weak, noinline)) XPm_PmcActivateSubsystem(u32 SubsystemId)
 {
 	(void)SubsystemId;
 	/*
@@ -221,12 +221,12 @@ XStatus __attribute__((weak)) XPm_PmcActivateSubsystem(u32 SubsystemId)
 	return XST_SUCCESS;
 }
 
-XStatus __attribute__((weak)) XPm_AddSubsystem(XPlmi_Cmd* Cmd) {
+XStatus __attribute__((weak, noinline)) XPm_AddSubsystem(XPlmi_Cmd* Cmd) {
 	PmWarn("Ignoring CMD: PM_ADD_SUBSYSTEM. SubsystemId=0x%x\n\r", Cmd->Payload[0]);
 	return XST_SUCCESS;
 }
 
-XStatus __attribute__((weak)) XPm_AddRequirement(XPlmi_Cmd* Cmd) {
+XStatus __attribute__((weak, noinline)) XPm_AddRequirement(XPlmi_Cmd* Cmd) {
 	PmWarn("Ignoring CMD: PM_ADD_REQUIREMENT. SubsystemId=0x%x DeviceId=0x%x\n\r",
 	Cmd->Payload[0], Cmd->Payload[1]);
 	return XST_SUCCESS;
@@ -2301,7 +2301,7 @@ static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs)
 done:
 	return Status;
 }
-XStatus __attribute__((weak)) XPm_HookAfterBootPdi(void)
+XStatus __attribute__((weak, noinline)) XPm_HookAfterBootPdi(void)
 {
 	/* TODO: Review where interrupts need to be enabled */
 	/* Enable power related interrupts to PMC */
