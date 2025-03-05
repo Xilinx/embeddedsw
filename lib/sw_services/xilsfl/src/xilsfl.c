@@ -111,6 +111,7 @@ u32 XSfl_FlashInit(u8 *SflHandler, XSfl_UserConfig SflUserOptions, u8 Controller
 	FCTIndex = SflInstance.Instance[Idx].SflFlashInfo.FlashIndex;
 	FlashType = Flash_Config_Table[FCTIndex].FlashType;
 	FlashSize = Flash_Config_Table[FCTIndex].FlashDeviceSize;
+	SflInstance.Instance[Idx].SflFlashInfo.AddrSize = 3;
 
 	if (SflInstance.Instance[Idx].CntrlInfo.CntrlType == XSFL_OSPI_CNTRL) {
 		if ((FlashType == XSFL_OSPI_FLASH) &&
@@ -190,6 +191,7 @@ set_mode_done:
 #endif
 			return XST_FAILURE;
 		}
+		SflInstance.Instance[Idx].SflFlashInfo.AddrSize = 4;
 	}
 
 	if (SflInstance.Instance[Idx].SflFlashInfo.ConnectionMode ==

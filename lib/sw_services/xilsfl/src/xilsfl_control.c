@@ -257,7 +257,7 @@ u32 XSfl_SectorErase(XSfl_Interface *SflInstancePtr, u32 Address)
 	}
 
 	SflMsg.Opcode = (u8)Flash_Config_Table[FCTIndex].EraseCmd;
-	SflMsg.Addrsize = 4;
+	SflMsg.Addrsize = SflInstancePtr->SflFlashInfo.AddrSize;
 	SflMsg.Addrvalid = 1;
 	SflMsg.TxBfrPtr = NULL;
 	SflMsg.RxBfrPtr = NULL;
@@ -350,7 +350,7 @@ u32 XSfl_FlashPageWrite(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteCou
 		SflMsg.ByteCount = Bytestowrite;
 		SflMsg.Proto =  (u8)Flash_Config_Table[FCTIndex].Proto;
 		SflMsg.Dummy = 0;
-		SflMsg.Addrsize = 4;
+		SflMsg.Addrsize = SflInstancePtr->SflFlashInfo.AddrSize;
 		SflMsg.Addr = RealAddr;
 		SflMsg.DualByteOpCode = 0;
 
@@ -431,7 +431,7 @@ u32 XSfl_FlashReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteC
 		RealAddr = XSfl_GetRealAddr(SflInstancePtr, Address);
 
 		SflMsg.Opcode = (u8)Flash_Config_Table[FCTIndex].ReadCmd;
-		SflMsg.Addrsize = 4;
+		SflMsg.Addrsize = SflInstancePtr->SflFlashInfo.AddrSize;
 		SflMsg.Addrvalid = 1;
 		SflMsg.TxBfrPtr = NULL;
 		SflMsg.RxBfrPtr = ReadBfrPtr;
@@ -551,7 +551,7 @@ u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address
 		RealAddr = XSfl_GetRealAddr(SflInstancePtr, Address);
 
 		SflMsg.Opcode = (u8)Flash_Config_Table[FCTIndex].ReadCmd;
-		SflMsg.Addrsize = 4;
+		SflMsg.Addrsize = SflInstancePtr->SflFlashInfo.AddrSize;
 		SflMsg.Addrvalid = 1;
 		SflMsg.TxBfrPtr = NULL;
 		SflMsg.RxBfrPtr = ReadBfrPtr;
