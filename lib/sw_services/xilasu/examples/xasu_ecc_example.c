@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -24,6 +24,7 @@
 *       ss     09/19/24 Added print for client init failure
 *       am     09/24/24 Added SDT support
 *       yog    11/27/24 Handling the error returned from server
+*       am     03/05/25 Integrated performance measurement macro
 *
 * </pre>
  *************************************************************************************************/
@@ -123,6 +124,9 @@ int main(void)
 	EccParams.DigestLen = CurveLength;
 	EccParams.KeyLen = CurveLength;
 
+	/* Measure start time. */
+	XAsu_StartTiming();
+
 	Status = XAsu_EccGenSign(&ClientParams, &EccParams);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -132,6 +136,9 @@ int main(void)
 	if (ErrorStatus != XST_SUCCESS) {
 		goto END;
 	}
+
+	/* Compute execution time in milliseconds. */
+	XAsu_EndTiming("XAsu_EccGenSign");
 
 	xil_printf("\r\n Generated Sign: ");
 	for (Index = 0; Index < XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES; Index++) {

@@ -20,6 +20,7 @@
  *                     structure
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       vns  09/30/24 Added support for asynchronous communication
+ *       am   03/05/25 Added include for performance measurement header
  *
  * </pre>
  *
@@ -38,6 +39,7 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xasu_sharedmem.h"
 #include "xilmailbox.h"
+#include "xasu_perf.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_PRIORITY_LOW                   1U  /**< LOW priority */
