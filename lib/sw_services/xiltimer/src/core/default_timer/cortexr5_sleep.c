@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -23,6 +23,8 @@
 *  	adk	 12/01/22 Fix compilation errors.
 *  1.1	adk      08/08/22 Added support for versal net.
 *  	adk      08/08/22 Added doxygen tags.
+*  2.2  adk	 05/03/25 Update LPD_RST_TIMESTAMP and XIOU_SCNTRS_BASEADDR
+*  			  defines for VERSAL_AIEPG2 platform.
  *</pre>
  *
  *@note
@@ -37,8 +39,13 @@
 #endif
 
 #if defined (ARMR52)
+#if defined (VERSAL_AIEPG2)
+#define LPD_RST_TIMESTAMP  0xEB5E03A4U
+#define XIOU_SCNTRS_BASEADDR 0xEA470000U
+#else
 #define LPD_RST_TIMESTAMP  0xEB5E035CU
 #define XIOU_SCNTRS_BASEADDR 0xEB5B0000U
+#endif
 #define XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET 0x0U
 #define XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK 0x1U
 #define XIOU_SCNTRS_CNT_CNTRL_REG_EN 0x1U
