@@ -22,6 +22,7 @@
  * 1.0   sb  9/25/24 Update XSfl_OspiTransfer api to support unaligned bytes read
  *                   and add support for non-blocking read
  * 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
+ * 1.1   sb  02/11/25  Add support for x2/x4 operation.
  *
  * </pre>
  *
@@ -375,6 +376,7 @@ u32 XSfl_OspiInit(XSfl_Interface *Ptr, const XSfl_UserConfig *UserConfig) {
 	Ptr->CntrlInfo.OpMode = UserConfig->Ospi_Config.ReadMode;
 	Ptr->CntrlInfo.ChipSelectNum = UserConfig->Ospi_Config.ChipSelect;
 	Ptr->CntrlInfo.CntrlType = XSFL_OSPI_CNTRL;
+	Ptr->CntrlInfo.BusWidth = OspiInstance.Config.BusWidth;
 	Ptr->Quirks = UserConfig->Ospi_Config.Quirks;
 	Index++;
 

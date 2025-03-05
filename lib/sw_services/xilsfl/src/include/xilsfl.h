@@ -23,6 +23,7 @@
  * 1.0   sb  9/25/24  Add XSfl_FlashRead API and callback for non blocking transfer
  *                    in XSfl_CntrlInfo.
  * 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
+ * 1.1   sb  02/11/25  Add support for x2/x4 operation.
  *
  * </pre>
  *
@@ -87,8 +88,11 @@
 #define XSFL_QUAD_READ_CMD           0x6B
 #define XSFL_DUAL_READ_CMD_4B        0x3C
 #define XSFL_QUAD_READ_CMD_4B        0x6C
-#define XSFL_QUAD_WRITE_CMD_4B       0x34
-#define XSFL_QUAD_SEC_ERASE_CMD_4B   0xD8
+#define XSFL_QUAD_WRITE_CMD          0x32
+#define XSFL_DUAL_WRITE_CMD          0xA2
+#define XSFL_QUAD_SEC_ERASE_CMD      0xD8
+#define XSFL_WRITE_CMD               0x02
+#define XSFL_READ_CMD                0x03
 
 /*
  * Sixteen MB
@@ -100,6 +104,7 @@
 #define XSFL_FLASH_SECTOR_SIZE_256KB       0x40000
 #define XSFL_FLASH_SECTOR_SIZE_64KB        0x10000
 #define XSFL_FLASH_SECTOR_SIZE_128KB       0x20000
+#define XSFL_FLASH_DEVICE_SIZE_128M        0x1000000
 #define XSFL_FLASH_DEVICE_SIZE_256M        0x2000000
 #define XSFL_FLASH_DEVICE_SIZE_512M        0x4000000
 #define XSFL_FLASH_DEVICE_SIZE_1G          0x8000000
@@ -200,6 +205,12 @@
 #define XSFL_PAGE_SIZE     3U /* Individual sector size or combined sector size
                                  in case of Parrellel config */
 
+/* Macro for bus width */
+#define XSFL_X1_BUS_WIDTH  0x01
+#define XSFL_X2_BUS_WIDTH  0x02
+#define XSFL_X4_BUS_WIDTH  0x04
+#define XSFL_X8_BUS_WIDTH  0x08
+
 /**************************** Type Definitions *******************************/
 
 /**
@@ -259,6 +270,7 @@ typedef struct {
 	u8 ChipSelectNum;	/**< Chip select information */
 	u8 SdrDdrMode;		/**< Edge mode can be SDR or DDR */
 	u8 CntrlType;		/**< Type of the interface controller */
+	u8  BusWidth;		/**< Bus width available on board */
 	u32 (*RxTunning)();	/**< Callback reference for Rx tuning */
 
 	u32 (*SelectFlash)(u8 ChipSelNum);  /**< Callback reference for chip select */

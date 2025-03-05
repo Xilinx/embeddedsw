@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -21,6 +21,7 @@
  * 1.0   sb  8/20/24  Initial release
  * 1.0   sb  9/25/24  Add check for bytecount in non-blocking read and
  *                    add support for unaligned byte read
+ * 1.1   sb  02/11/25  Add support for x2/x4 operation.
  *
  * </pre>
  *
@@ -112,7 +113,9 @@ u32 XSfl_FlashInit(u8 *SflHandler, XSfl_UserConfig SflUserOptions, u8 Controller
 	FlashSize = Flash_Config_Table[FCTIndex].FlashDeviceSize;
 
 	if (SflInstance.Instance[Idx].CntrlInfo.CntrlType == XSFL_OSPI_CNTRL) {
-		if (FlashType == XSFL_OSPI_FLASH){
+		if ((FlashType == XSFL_OSPI_FLASH) &&
+				((SflInstance.Instance[Idx].CntrlInfo.BusWidth == XSFL_X8_BUS_WIDTH) ||
+				 !(SflInstance.Instance[Idx].CntrlInfo.BusWidth))) {
 			/* Set Flash device and Controller mode to DDR Phy */
 			Status = XSfl_FlashSetSDRDDRMode(&SflInstance.Instance[Idx], XSFL_EDGE_MODE_DDR_PHY,
 					SflReadBuffer);
