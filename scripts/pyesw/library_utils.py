@@ -328,6 +328,8 @@ class Library(Repo):
         # for freertos os we need to enable interval timer always
         if "freertos" in self.os:
             cmake_cmd_append += " -DXILTIMER_en_interval_timer=ON"
+            toolchain_file = os.path.join(self.domain_path, self.domain_data['toolchain_file'])
+            utils.add_newline(toolchain_file, 'ADD_DEFINITIONS(-DFREERTOS_BSP)')
 
         if schema and schema.get("os_config", {}):
             if schema.get("os_config", {})[self.os]:
