@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,6 +7,7 @@
 #include "xpm_common.h"
 #include "xpm_notifier_plat.h"
 #include "xplmi_err_common.h"
+#include "xplmi_err.h"
 #include "xpm_subsystem.h"
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
