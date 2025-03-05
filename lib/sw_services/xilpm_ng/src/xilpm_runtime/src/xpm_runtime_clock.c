@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -87,7 +87,6 @@ static void XPmClock_RequestInt(XPm_ClockNode *Clk)
 			} else {
 				/* Required due to MISRA */
 				PmDbg("Invalid clock type of clock 0x%x\r\n", ParentClk->Node.Id);
-				goto done;
 			}
 
 			/* Mark it as requested. If clock has a gate, state will be changed to On when enabled */
