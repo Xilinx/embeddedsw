@@ -137,6 +137,7 @@ typedef struct {
 	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
 	                        * Parent base address */
 #endif
+	u8  BusWidth;		/**< Bus width available on board */
 } XOspiPsv_Config;
 
 /**
@@ -241,13 +242,16 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to select Read and Write prototype.
  */
 #define XOSPIPSV_READ_1_1_1	0U
-#define XOSPIPSV_READ_1_1_2	1U
-#define XOSPIPSV_READ_1_1_4	2U
+#define XOSPIPSV_READ_1_0_1	1U
+#define XOSPIPSV_READ_1_1_2	2U
 #define XOSPIPSV_READ_1_1_8	3U
 #define XOSPIPSV_READ_1_8_8	4U
 #define XOSPIPSV_READ_8_8_8	5U
-#define XOSPIPSV_READ_8_0_8	6U
-#define XOSPIPSV_READ_4_4_4	7U
+#define XOSPIPSV_READ_8_0_0	6U
+#define XOSPIPSV_READ_8_8_0	7U
+#define XOSPIPSV_READ_8_0_8	8U
+#define XOSPIPSV_READ_1_1_4	9U
+#define XOSPIPSV_READ_4_4_4	10U
 
 #define XOSPIPSV_WRITE_1_1_1	0U
 #define XOSPIPSV_WRITE_1_0_1	1U

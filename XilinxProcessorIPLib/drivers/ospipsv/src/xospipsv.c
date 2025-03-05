@@ -119,6 +119,7 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 		InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
 		InstancePtr->Config.ConnectionMode = ConfigPtr->ConnectionMode;
+		InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
@@ -425,7 +426,8 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
 		if ((InstancePtr->OpMode == XOSPIPSV_IDAC_MODE) ||
 					(Msg->Addrvalid == 0U)) {
-			if ((Msg->Addrvalid) == 0U || (Msg->ByteCount <= 8)) {
+			if ((Msg->Addrvalid == 0U) || ((Msg->ByteCount <= 8) &&
+						((Msg->Proto == XOSPIPSV_READ_1_1_1) || (Msg->Proto == XOSPIPSV_READ_8_8_8)))) {
 				Status = XOspiPsv_Stig_Read(InstancePtr, Msg);
 			} else {
 				Status = XOspiPsv_Dma_Read(InstancePtr,Msg);

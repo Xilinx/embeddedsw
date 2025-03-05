@@ -37,6 +37,7 @@ required:
     - xlnx,ospi-mode
     - interrupts
     - interrupt-parent
+    - xlnx,ospi-bus-width
 
 examples:
    xospipsv_flash_intr_example.c:
