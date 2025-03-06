@@ -145,11 +145,12 @@ class Validation(BSP, Library):
             for lib,lib_data in app_lib_info["depends_libs"].items():
                 if lib_data:
                     for param,value in lib_data.items():
-                        if str(value).casefold() != domain_data["lib_config"][lib][param]['value'].casefold():
-                            if not lib in diff_lib_data:
-                                diff_lib_data[lib] = {param:value}
-                            else:
-                                diff_lib_data[lib].update({param:value})
+                        if not isinstance(value,dict):
+                            if str(value).casefold() != domain_data["lib_config"][lib][param]['value'].casefold():
+                                if not lib in diff_lib_data:
+                                    diff_lib_data[lib] = {param:value}
+                                else:
+                                    diff_lib_data[lib].update({param:value})
 
         if diff_lib_data:
             message = f"[ERROR]: For {self.template} the following library config param values are expected:\n"
