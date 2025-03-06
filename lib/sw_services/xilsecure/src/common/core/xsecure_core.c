@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +15,6 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   kpt   08/17/24 Initial release
-*       pre   03/02/25 Removed data context setting for AES and SHA
 *
 * </pre>
 *
@@ -261,6 +260,43 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to set the Data context bit
+ * 		of the corresponding IPI channel if the previous data context is lost.
+ *
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
+ *
+ *
+ ******************************************************************************/
+void XSecure_AesSetDataContext(XSecure_Aes *InstancePtr) {
+
+	if (InstancePtr->IsResourceBusy == (u32)XSECURE_RESOURCE_BUSY) {
+		InstancePtr->DataContextLost = (u32)XSECURE_SET_DATA_CONTEXT << InstancePtr->IpiMask;
+		InstancePtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
+		InstancePtr->PreviousAesIpiMask = InstancePtr->IpiMask;
+		InstancePtr->IpiMask = XSECURE_CLEAR_IPI_MASK;
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to set the Data context bit of the
+ * 		corresponding IPI channel if the previous data context is lost.
+ *
+ * @param	InstancePtr	Pointer to the XSecure_Sha instance
+ *
+ ******************************************************************************/
+void XSecure_ShaSetDataContext(XSecure_Sha *InstancePtr)
+{
+	if (InstancePtr->IsResourceBusy == (u32)XSECURE_RESOURCE_BUSY) {
+		InstancePtr->DataContextLost = (u32)XSECURE_SET_DATA_CONTEXT << InstancePtr->IpiMask;
+		InstancePtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
+		InstancePtr->PreviousShaIpiMask = InstancePtr->IpiMask;
+		InstancePtr->IpiMask = XSECURE_CLEAR_IPI_MASK;
+	}
+}
 
 /*****************************************************************************/
 /**

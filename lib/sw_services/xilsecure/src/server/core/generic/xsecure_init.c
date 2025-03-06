@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,8 +31,6 @@
 * 5.4   kpt 06/23/2024 Added XSecure_AddRsaKeyPairGenerationToScheduler
 *       kpt 07/17/2024 Remove RSA keypair generation support on QEMU
 * 	kal 07/24/2024 Code refactoring for versal_aiepg2
-*       pre 03/02/2025 Added initialization of queues of SHA and AES IPI events and
-*                      free resource task
 *
 * </pre>
 *
@@ -49,10 +47,6 @@
 #include "xsecure_plat_rsa.h"
 #include "xplmi.h"
 #endif
-#ifdef VERSAL_PLM
-#include "xsecure_resourcehandling.h"
-#include "xplmi_dma.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -62,6 +56,8 @@ static XSecure_Sha XSecure_ShaInstance[XSECURE_SHA_NUM_OF_INSTANCES];
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+
+static XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId);
 
 /************************** Variable Definitions *****************************/
 
@@ -76,43 +72,11 @@ static XSecure_Sha XSecure_ShaInstance[XSECURE_SHA_NUM_OF_INSTANCES];
  *		 - XST_FAILURE  On failure
  *
  *****************************************************************************/
-int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
+int XSecure_Init(void)
 {
 	int Status = XST_FAILURE;
-#ifdef VERSAL_PLM
-	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-	XSecure_Sha *XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
 
-	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Initializes a XSecure_Sha3 structure for operating the SHA3 engine */
-	Status = XSecure_ShaInitialize(XSecureShaInstPtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-#ifdef VERSAL_AIEPG2
-	XSecureShaInstPtr->IpiMask = XSECURE_IPI_MASK_DEF_VAL;
-	XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
-	Status = XSecure_ShaInitialize(XSecureShaInstPtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	XSecureShaInstPtr->IpiMask = XSECURE_IPI_MASK_DEF_VAL;
-#endif
-#endif
 	XSecure_CmdsInit();
-
-#ifdef VERSAL_PLM
-	Status = XSecure_QueuesAndTaskInit(PpdiEventParamsPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-#endif
 
 #if defined (VERSAL_NET) && !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_AIEPG2)
 	if (XPLMI_PLATFORM != PMC_TAP_VERSION_QEMU) {
@@ -126,7 +90,6 @@ int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 	Status = XST_SUCCESS;
 #endif
 
-END:
 	return Status;
 }
 
@@ -199,7 +162,7 @@ XSecure_Rsa *XSecure_GetRsaInstance(void)
  *		 - Pointer to the XSecure_Sha instance
  *
  *****************************************************************************/
-XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId)
+static XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId)
 {
 	XSecure_Sha *XSecure_ShaInstPtr = NULL;
 
@@ -213,5 +176,4 @@ XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId)
 END:
 	return XSecure_ShaInstPtr;
 }
-
 /** @} */

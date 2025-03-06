@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,8 +29,7 @@
 * 1.05  bm   06/13/2023 Add API to just log PLM error
 * 2.0   ng   11/11/2023 Implemented user modules
 *       mss  03/13/2024 Fix MISRA-C violation 10.3
-*       bs   07/15/2024 Updated Cmd Resume to return error in 0x2XXX format
-*       pre  03/02/2025 Modified error throwing condition after exiting from command handler
+*       bs   07/15/2024 Updated Cmd Resume to return errror in 0x2XXX format
 * </pre>
 *
 * @note
@@ -131,7 +130,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 
 	/** - Execute the API. */
 	Status = ModuleCmd->Handler(CmdPtr);
-	if ((Status != XST_SUCCESS) && (Status != (int)XPLMI_CMD_IN_PROGRESS)) {
+	if (Status != XST_SUCCESS) {
 
 		Status = XPlmi_UpdateStatus((XPlmiStatus_t)XPlmi_GetCdoErr(CmdPtr->CmdId), Status);
 

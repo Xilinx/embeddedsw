@@ -100,7 +100,6 @@
 *       vss  11/20/2024 Fix for data corruption of GCM tag when any other
 *                       operation uses DMA0 after encrypt update.
 *       vss  01/22/2025   Added status check in AesUpdate and CopyGcmTag functions.
-*       pre  03/02/2025 Initializing IPI mask to default during AES initialization
 *
 * </pre>
 *
@@ -209,8 +208,6 @@ int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 	}
 
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
-	InstancePtr->IpiMask = XSECURE_IPI_MASK_DEF_VAL;
-
 
 	Status = XST_SUCCESS;
 

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,7 +18,6 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 5.4   kal  07/24/2024 Initial release
 *       tri  10/07/2024 Added maximum supported hash size
-*       pre  03/02/2025 Removed data context setting and resource busy functionality for SHA
 *
 * </pre>
 *
@@ -110,7 +109,11 @@ typedef struct {
 	XSecure_Sss SssInstance; /**< SSS Instance */
 	XSecure_ShaState ShaState; /**< SHA engine state */
 	const XSecure_ShaConfig *ShaConfig;
+	u32 IsResourceBusy;   /**< Flag to check whether resource is busy or not */
 	u32 IpiMask;		/**< Used to store Ipimask value */
+	u32 DataContextLost;	/**< If data context is lost for an IPI channel
+					it's corresponding bit position is set */
+	u32 PreviousShaIpiMask; /**< Used to store the Ipi mask of previous sha operation */
 	u32 IsLastUpdate; /**< Last DMA block indication */
 	u32 DeviceId;
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,7 +47,6 @@
 *       sk   08/18/2023 Fixed security review comments
 *       dd	 09/11/2023 MISRA-C violation Rule 17.7 fixed
 *       sk   03/13/24 Fixed doxygen comments format
-*       pre  03/02/2025 Added task based event notification functionality for partial PDI
 *
 * </pre>
 *
@@ -67,7 +66,6 @@
 #include "xloader_plat.h"
 #include "xplmi_plat.h"
 #include "xplmi_wdt.h"
-#include "xloader_secure.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -86,12 +84,8 @@
  * @cond xloader_internal
  */
 static int XLoader_SbiLoadPdi(void *Data);
-static int XLoader_TriggerPartialPdiEvent(void);
 
 /************************** Variable Definitions *****************************/
-static XSecure_PartialPdiEventParams PpdiEventVars = {.PartialPdiEventSts = XSECURE_EVENT_CLEAR,
-	                                           .TriggerPartialPdiEvent = XLoader_TriggerPartialPdiEvent,
-};
 
 /*****************************************************************************/
 
@@ -149,7 +143,6 @@ static int XLoader_SbiLoadPdi(void *Data)
 	PdiSrc_t PdiSrc;
 	u64 PdiAddr;
 	u32 RegVal;
-	XLoader_ResourceSts ResourceSts = XLOADER_RES_BUSY;
 	XilPdi* PdiPtr = XLoader_GetPdiInstance();
 	(void)Data;
 
@@ -161,23 +154,9 @@ static int XLoader_SbiLoadPdi(void *Data)
 	 */
 	XPlmi_GicIntrDisable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 
-	/** Get status of SHA and AES */
-	Status = XLoader_GetShaAndAesSts(&ResourceSts);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/** Notify partial PDI event when SHA or AES is busy */
-	if (ResourceSts == XLOADER_RES_BUSY) {
-		PpdiEventVars.PartialPdiEventSts = XSECURE_EVENT_PENDING;
-		Status = XST_SUCCESS;
-		goto END1;
-	}
-
-	/** In-Place Update is applicable only for versal_net */
+	/* In-Place Update is applicable only for versal_net */
 	if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
 		XPlmi_Printf(DEBUG_GENERAL, "ERROR: Update in Progress\n\r");
-		Status = XST_SUCCESS;
 		goto END1;
 	}
 
@@ -222,61 +201,7 @@ END:
 	XLoader_ClearIntrSbiDataRdy();
 	(void)Xloader_SsitEoPdiSync(PdiPtr);
 END1:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function triggers the partial PDI event
- *
- * @return
- * 			- XST_SUCCESS on success and error code on failure.
- *****************************************************************************/
-static int XLoader_TriggerPartialPdiEvent(void)
-{
-	int Status = XST_FAILURE;
-	XPlmi_TaskNode *PpdiEvent = NULL;
-
-	/** Return success if partial PDI event is not pending */
-	if (PpdiEventVars.PartialPdiEventSts != XSECURE_EVENT_PENDING) {
-		Status = XST_SUCCESS;
-		goto END;
-	}
-
-	/** Get task for partial PDI */
-	PpdiEvent = XPlmi_GetTaskInstance(XLoader_SbiLoadPdi, (void *)0U, XPLMI_INVALID_INTR_ID);
-	if (PpdiEvent == NULL) {
-		XPlmi_Printf(DEBUG_INFO, "Task get instance failed \n\r");
-		goto END;
-	}
-
-	/** Clear partial PDI event */
-	PpdiEventVars.PartialPdiEventSts = XSECURE_EVENT_CLEAR;
-
-	/**
-	 * Disable interrupts and enable after triggering task to avoid concurrent access
-	 * since task queue is being accessed in interrupts
-	 */
-	microblaze_disable_interrupts();
-	XPlmi_TaskTriggerNow(PpdiEvent);
-	microblaze_enable_interrupts();
-
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
-}
-
-/************************************************************************************/
-/**
- * @brief	This function is used to get the functions related to partial PDI event
- *
- * @return
- * 			- Functions related to partial PDI event
- ************************************************************************************/
-XSecure_PartialPdiEventParams *XLoader_PpdiEventParamsPtr(void)
-{
-	return (&PpdiEventVars);
+	return XST_SUCCESS;
 }
 
 /**
