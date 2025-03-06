@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,6 @@
  *       ma   07/25/2022 Enhancements to secure lockdown code
  * 1.1   bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
  *       dd   03/28/2023 Updated doxygen comments
- *       pre  03/02/2025 Added XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK_FOR_INPRGRESS_STS macro
  *
  * </pre>
  *
@@ -79,20 +78,6 @@ extern "C" {
 				XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK, \
 					(u32)Status); \
 				XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_TASK); \
-			} \
-		}
-
-#define XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK_FOR_INPRGRESS_STS(MajorError, Status, StatusTmp, function, ...) \
-		{ \
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, function, __VA_ARGS__); \
-			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) { \
-				if ((Status != (int)XPLMI_CMD_IN_PROGRESS) || (StatusTmp != (int)XPLMI_CMD_IN_PROGRESS)) { \
-					Status |= StatusTmp; \
-					Status = XPlmi_UpdateStatus((XPlmiStatus_t)MajorError, Status); \
-					XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK, \
-						(u32)Status); \
-					XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_TASK); \
-				} \
 			} \
 		}
 

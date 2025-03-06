@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,7 +36,6 @@
 * 5.3   har  02/06/2024 Added support for AES operation and zeroize key
 * 5.4   kpt  06/13/2024 Added XSECURE_API_RSA_RELEASE_KEY
 *       mb   07/31/2024 Added the check to validate Payload for NULL pointer
-*       pre  03/02/2025 Disabled XSecure_PlatAesIpiHandler for SECURE_EXCLUDE case
 *
 * </pre>
 *
@@ -65,7 +64,6 @@
 #include "xplmi_tamper.h"
 #include "xsecure_cryptochk.h"
 #include "xsecure_plat_aes_ipihandler.h"
-#include "xsecure_resourcehandling.h"
 
 #ifdef SDT
 #include "xsecure_config.h"
@@ -272,10 +270,8 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		break;
 #endif
 	case XSECURE_API(XSECURE_API_KAT):
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK_FOR_INPRGRESS_STS(XSECURE_KAT_MAJOR_ERROR,
-			               Status, StatusTmp, XSecure_KatPlatIpiHandler, Cmd)
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp, XSecure_KatPlatIpiHandler, Cmd)
 		break;
-#ifndef PLM_SECURE_EXCLUDE
 #ifndef PLM_ECDSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
 		Status = XSecure_PlatEllipticIpiHandler(Cmd);
@@ -286,27 +282,22 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_UPDATE_CPM5N_KAT_STATUS):
 	case XSECURE_API(XSECURE_API_UPDATE_PCIDE_KAT_STATUS):
 	case XSECURE_API(XSECURE_API_UPDATE_PKI_KAT_STATUS):
-#endif
 		Status = XSecure_UpdateKatStatusIpiHandler(Cmd);
 		break;
 	case XSECURE_API(XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS):
 	case XSECURE_API(XSECURE_API_UPDATE_CPM5N_CRYPTO_STATUS):
 	case XSECURE_API(XSECURE_API_UPDATE_PCIDE_CRYPTO_STATUS):
 	case XSECURE_API(XSECURE_API_UPDATE_PKI_CRYPTO_STATUS):
-#ifndef PLM_SECURE_EXCLUDE
 #ifndef PLM_RSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_KEY_UNWRAP):
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
 	case XSECURE_API(XSECURE_API_RSA_RELEASE_KEY):
 #endif
-#endif
 		Status = XSecure_PlatIpiHandler(Cmd);
 		break;
-#ifndef PLM_SECURE_EXCLUDE
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY):
 		Status = XSecure_PlatAesIpiHandler(Cmd);
 		break;
-#endif
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;

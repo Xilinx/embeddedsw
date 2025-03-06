@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,7 +17,6 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.3   har  02/05/24 Initial release
 * 5.4   yog  04/29/24 Fixed doxygen grouping.
-*       pre  03/02/25 Added under secure exclusion
 *
 * </pre>
 *
@@ -35,14 +34,14 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_cmd.h"
-#ifndef PLM_SECURE_EXCLUDE
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
 int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd);
-#endif
+
 #ifdef __cplusplus
 }
 #endif

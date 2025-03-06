@@ -48,7 +48,6 @@
 * 1.9   bm   07/11/2023 Added XPlmi_ClearEndStack member to XPlmi_Cmd structure
 *       pre  09/18/2024 Added XPLMI_SLR_INDEX_SHIFT, SLR index macros
 *       obs  02/04/2025 Updated XPLMI_CMD_RESP_SIZE macro value
-*       pre  03/02/2025 Added BufIndex as member in cmd structure
 *
 * </pre>
 *
@@ -108,7 +107,6 @@ struct XPlmi_KeyHoleParams {
 
 struct XPlmi_Cmd {
 	u32 SubsystemId;
-	u32 BufIndex;
 	u32 IpiMask;
 	u32 CmdId;
 	u32 Len;

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,7 +50,6 @@
 *       dd   09/12/2023 MISRA-C violation Rule 13.4 fixed
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       ng   01/28/2024 optimized u8 variables
-*       pre  03/02/2025 Added timeout handling for AES and SHA resources
 *
 * </pre>
 *
@@ -71,7 +70,6 @@
  */
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_TIMEOUT_CLEAR  (0U) /*< Zero Timeout value */
 
 /**************************** Type Definitions *******************************/
 
@@ -88,7 +86,6 @@ static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,
 
 /************************** Variable Definitions *****************************/
 static XPlmi_Scheduler_t Sched;
-static u32 XPlmi_ResourceTimeOut[XPLMI_MAX_CORE];
 
 /*****************************************************************************/
 
@@ -150,37 +147,6 @@ static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,
 	}
 
 	return ReturnVal;
-}
-
-/*************************************************************************************************/
-/**
-* @brief	The function decrements AES and SHA timeout and
-*           releases resource if timeout has reached
-*
-**************************************************************************************************/
-static void XPlmi_ResTimeoutHandling(void)
-{
-	XPlmi_TaskNode *Task = NULL;
-	u32 CoreType;
-
-	for (CoreType = (u32)XPLMI_SHA3_CORE; CoreType < (u32)XPLMI_MAX_CORE; CoreType++) {
-		/** Decrement AES timeout by 1 and check if it reaches 0 */
-		if (XPlmi_ResourceTimeOut[CoreType] != XPLMI_TIMEOUT_CLEAR) {
-			XPlmi_ResourceTimeOut[CoreType]--;
-			/** Trigger free resource task when timeout is reached */
-			if (XPlmi_ResourceTimeOut[CoreType] == XPLMI_TIMEOUT_CLEAR) {
-				/** Trigger Free resource task with the help of ID */
-				Task = XPlmi_GetTaskInstance(NULL, NULL, XPLMI_FREE_RESOURCE_TASK_ID);
-				if (Task == NULL) {
-					XPlmi_Printf(DEBUG_GENERAL, "Task not found\n\r");
-				}
-				else {
-					Task->PrivData = (void *)CoreType;
-					XPlmi_TaskTriggerNow(Task);
-				}
-			}
-		}
-	}
 }
 
 /******************************************************************************/
@@ -263,10 +229,6 @@ void XPlmi_SchedulerHandler(void *Data)
 			}
 		}
 	}
-
-	/** Decrement AES and SHA timeout and release resource if timeout has reached */
-	XPlmi_ResTimeoutHandling();
-
 	XPlmi_WdtHandler();
 
 	return;
@@ -429,33 +391,5 @@ int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 		Status = XST_SUCCESS;
 	}
 
-	return Status;
-}
-
-/******************************************************************************/
-/**
-* @brief	The function loads the timeout values of AES and SHA
-*
-* @param	Core Core(AES/SHA) whose timeout has to be loaded
-* @param	TimeoutVal Value of timeout to be loaded
-*
-* @return
-* 			- XST_SUCCESS on success and XST_INVALID_PARAM on failure
-*
-****************************************************************************/
-int XPlmi_LoadResourceTimeout(XPlmi_CoreType Core, u32 TimeoutVal)
-{
-	int Status = XST_FAILURE;
-
-	/** Input parameters validation */
-	if (Core >= XPLMI_MAX_CORE) {
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Load Timeout */
-	XPlmi_ResourceTimeOut[Core] = TimeoutVal;
-	Status = XST_SUCCESS;
-END:
 	return Status;
 }

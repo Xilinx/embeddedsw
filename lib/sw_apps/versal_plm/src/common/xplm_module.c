@@ -56,7 +56,6 @@
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  09/24/2024 Changed function name to XPlm_SsitCommGetParamsPtr
 *       am   02/22/2025 Added module support for ASU
-*       pre  03/02/2025 Passing partial PDI functions to secure module
 *
 * </pre>
 *
@@ -180,7 +179,7 @@ int XPlm_ModuleInit(void *Arg)
 		goto END;
 	}
 
-	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_Init, XLoader_PpdiEventParamsPtr());
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_Init);
 
 #ifdef PLM_NVM
 	XNvm_Init(XPlm_OcpHandler);

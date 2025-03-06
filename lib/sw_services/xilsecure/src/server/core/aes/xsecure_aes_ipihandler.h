@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +19,6 @@
 * 1.0  kal   03/23/21 Initial release
 * 5.2  vss	 07/15/23 Added prototype for XSecure_MakeAesFree()
 * 5.4  yog   04/29/24 Fixed doxygen grouping.
-*      pre   03/02/25 Included resource handling header file
 *
 * </pre>
 *
@@ -37,7 +36,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_cmd.h"
-#include "xsecure_resourcehandling.h"
 
 /************************** Constant Definitions *****************************/
 

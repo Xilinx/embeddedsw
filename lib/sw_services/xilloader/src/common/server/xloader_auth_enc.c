@@ -144,7 +144,6 @@
 *                     XLoader_AuthHdrsWithHashBlock
 *       sk   02/04/25 Reset HashStatus before function call in
 *                     XLoader_IsPpkValid
-*       pre  03/02/25 Remove data context setting
 *
 * </pre>
 *
@@ -360,7 +359,7 @@ static XLoader_HashBlock* XLoader_GetHashBlockInstance(void)
 *
 * @return
 * 		- XST_SUCCESS if the partition entry exists in the HashBlock.
-* 		- XST_FAILURE if the partition entry does not exist in the HashBlock.
+* 		- XST_FAILURE if the partition entry doesnt exist in the HashBlock.
 *
 ******************************************************************************/
 static int XLoader_GetPrtnHashEntry(u32 PrtnNum, u8 *PrtnIndex)
@@ -2685,6 +2684,9 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 	/* Update KAT status based on the user configuration */
 	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_SECURE_AES_CMKAT_MASK);
 
+	/* Set the data context of previous AES operation */
+	XSecure_AesSetDataContext(SecurePtr->AesInstPtr);
+
 	/*
 	 * Skip running the KAT for AES DPACM or AES if it is already run
 	 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
@@ -3885,6 +3887,9 @@ static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
 	/** Update KAT status */
 	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_SECURE_SHA3_KAT_MASK);
 
+	/** Set the data context of previous SHA operation */
+	XSecure_ShaSetDataContext(ShaInstPtr);
+
 	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_SECURE_SHA3_KAT_MASK) == 0U) {
 		/**
 		 * Skip running the KAT for SHA3 if it is already run
@@ -4332,7 +4337,7 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 
 	if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
 		/** For Partial PDI, reset the IdxCopied to 0
-		  * to override the MH hash and remaining partition hashes
+		  * to ovveride the MH hash and remaining partition hashes
 		  * of Partial PDIs to same indices of FULL PDI
 		  */
 		HBPtr->IdxCopied = 0U;
@@ -4911,6 +4916,9 @@ static int XLoader_Shake256Kat(XLoader_SecureParams *SecurePtr)
 	/** Update KAT status */
 	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_SHAKE_256_KAT_MASK);
 
+	/** Set the data context of previous SHA operation */
+	XSecure_ShaSetDataContext(ShaInstPtr);
+
 	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_SHAKE_256_KAT_MASK) == 0U) {
 		/**
 		 * Skip running the KAT for SHAKE256 if it is already run
@@ -4965,6 +4973,9 @@ static int XLoader_Sha2256Kat(XLoader_SecureParams *SecurePtr)
 	}
 	/** Update KAT status */
 	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_SHA2_256_KAT_MASK);
+
+	/** Set the data context of previous SHA operation */
+	XSecure_ShaSetDataContext(ShaInstPtr);
 
 	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_SHA2_256_KAT_MASK) == 0U) {
 		/**
@@ -5023,6 +5034,9 @@ static int XLoader_HssSha256Kat(XLoader_SecureParams *SecurePtr)
 	/** Update KAT status */
 	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_HSS_SHA2_256_KAT_MASK);
 
+	/** Set the data context of previous SHA operation */
+	XSecure_ShaSetDataContext(ShaInstPtr);
+
 	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_HSS_SHA2_256_KAT_MASK) == 0U) {
 		/**
 		 * Skip running the KAT for LMS_HSS_SHA2_256 if it is already run
@@ -5077,6 +5091,9 @@ static int XLoader_HssShake256Kat(XLoader_SecureParams *SecurePtr) {
 
 	/** Update KAT status */
 	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_HSS_SHAKE_256_KAT_MASK);
+
+	/** Set the data context of previous SHA operation */
+	XSecure_ShaSetDataContext(ShaInstPtr);
 
 	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_HSS_SHAKE_256_KAT_MASK) == 0U) {
 		/**
@@ -5134,6 +5151,9 @@ static int XLoader_LmsSha2256Kat(XLoader_SecureParams *SecurePtr) {
 	/** Update KAT status */
 	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_LMS_SHA2_256_KAT_MASK);
 
+	/** Set the data context of previous SHA operation */
+	XSecure_ShaSetDataContext(ShaInstPtr);
+
 	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_LMS_SHA2_256_KAT_MASK) == 0U) {
 		/**
 		 * Skip running the KAT for LMS_SHA2_256 if it is already run
@@ -5188,6 +5208,9 @@ static int XLoader_LmsShake256Kat(XLoader_SecureParams *SecurePtr) {
 	}
 	/** Update KAT status */
 	XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, XPLMI_LMS_SHAKE_256_KAT_MASK);
+
+	/** Set the data context of previous SHA operation */
+	XSecure_ShaSetDataContext(ShaInstPtr);
 
 	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_LMS_SHAKE_256_KAT_MASK) == 0U) {
 		/**

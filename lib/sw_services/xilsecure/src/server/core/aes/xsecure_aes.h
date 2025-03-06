@@ -46,7 +46,6 @@
 *	vss  10/23/2024 Removed AES duplicate code
 *       vss  11/20/2024 Fix for data corruption of GCM tag when any other
 *                       operation uses DMA0 after encrypt update.
-*       pre  03/02/2025 Removed data context setting and resource busy functionality for AES
 *
 * </pre>
 *
@@ -130,7 +129,11 @@ typedef struct {
 	XSecure_AesKeySrc KeySrc;  /**< Key Source */
 	u32 NextBlkLen;		   /**< Next Block Length */
 	u32 IsGmacEn;          /**< GMAC enable or disable */
+	u32 IsResourceBusy;   /**< Flag to check whether resource is busy or not */
 	u32 IpiMask;               /**< Used to store Ipimask value */
+	u32 DataContextLost;  /**< If data context is lost for an IPI channel
+					it's corresponding bit position is set */
+	u32 PreviousAesIpiMask; /**< Used to store the Ipi mask of previous aes operation */
 	u32 DmaSwapEn;          /**< DMA byte swap enable/disable */
 #ifdef VERSAL_NET
 	u32 IsEcbEn;           /**< ECB mode enable or disable */
@@ -215,6 +218,8 @@ int XSecure_AesGmacCfg(XSecure_Aes *InstancePtr, u32 IsGmacEn);
 
 int XSecure_AesDpaCmDecryptData(const XSecure_Aes *AesInstance,
 	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr);
+
+void XSecure_AesSetDataContext(XSecure_Aes *InstancePtr);
 
 int XSecure_CfgSssAes(XPmcDma *DmaPtr, const XSecure_Sss *SssInstance);
 
