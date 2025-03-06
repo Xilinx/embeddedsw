@@ -299,6 +299,27 @@ class Library(Repo):
                 copies their source to the libsrc and it fetches the req
                 library configurations for those libs
         """
+        def _add_lib_config(props,cmake_cmd_append,bool_match,family):
+            """"Adds the config depends libs from the yaml,
+                helps to add device level config based on device family
+            Args:
+                props(dict)            : Property values
+                cmake_cmd_append(str)  : cmake command string
+                bool_match(dict)       : True and False values
+                family(str)            : Device family name
+            """
+            for key, value in props.items():
+                if isinstance(value,dict):
+                    if key == family:
+                        cmake_cmd_append = _add_lib_config(value,cmake_cmd_append,bool_match,family)
+                    else:
+                        continue
+                else:
+                    if value in bool_match:
+                        value = bool_match[value]
+                    cmake_cmd_append += f" -D{key}={value}"
+            return cmake_cmd_append
+
         cmake_cmd_append = ""
         lib_list = []
 
@@ -307,7 +328,7 @@ class Library(Repo):
         yaml_file = os.path.join(app_dir, "data", f"{app_name}.yaml")
         schema = utils.load_yaml(yaml_file)
         lib_config = {}
-
+        family = self.domain_data['family']
         if schema and schema.get("depends_libs", {}):
             # cmake syntax is using 'ON/OFF' option, 'True/False' is lagacy entry.
             bool_match = {True: "ON", False: "OFF"}
@@ -319,10 +340,7 @@ class Library(Repo):
                 _, _, _ = self.copy_lib_src(name)
                 if props:
                     # If the template needs specific config param of the lib.
-                    for key, value in props.items():
-                        if value in bool_match:
-                            value = bool_match[value]
-                        cmake_cmd_append += f" -D{key}={value}"
+                    cmake_cmd_append = _add_lib_config(props,cmake_cmd_append,bool_match,family)
         if app_name == "zynqmp_fsbl":
             cmake_cmd_append += " -Dstandalone_zynqmp_fsbl_bsp=ON"
         # for freertos os we need to enable interval timer always
@@ -339,7 +357,6 @@ class Library(Repo):
                     # If the template needs specific config param of the os.
                     for key, value in props:
                         cmake_cmd_append += f" -D{key}={value}"
-
         return lib_list, cmake_cmd_append
 
     @log_time
@@ -395,7 +412,8 @@ class Library(Repo):
                             continue
                         if props:
                             for key, value in props.items():
-                                lib_config[name][key]["value"] = str(value)
+                                if not isinstance(value,dict):
+                                    lib_config[name][key]["value"] = str(value)
 
             for lib in lib_list:
                 # Update examples if any for the library
