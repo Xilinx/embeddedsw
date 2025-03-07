@@ -1,8 +1,8 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 # Define XILPM library options with default values
-option(XILPM_NG_EEMI_ENABLE "Enable EEMI support" OFF)
+option(XILPM_NG_EEMI_ENABLE "Enable EEMI support" ON)
 option(XILPM_NG_SUBSYS_ENABLE "Enable Subsystem support" OFF)
 
 if(XILPM_NG_SUBSYS_ENABLE)
