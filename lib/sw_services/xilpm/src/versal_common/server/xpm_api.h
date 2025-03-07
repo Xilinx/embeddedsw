@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +49,63 @@ struct XPm_FrcPwrDwnReq {
 #define XPM_PWR_DWN_TIMEOUT	(60000U)
 
 #define MAX_BASEADDR_LEN	3
+
+/* Macros to avoid the magic number */
+#define ARG_IDX_NODE_RST_ID		0U
+#define ARG_IDX_NODE_RST_CONTROL_REG	1U
+#define ARG_IDX_NODE_RST_SHIFT		2U
+#define ARG_IDX_NODE_RST_WIDTH		2U
+#define ARG_IDX_NODE_RST_TYPE		2U
+#define ARG_IDX_NODE_RST_NUM_PARENTS	2U
+#define ARG_IDX_NODE_RST_PARENTS	3U
+#define NODE_RST_ARG_MAX_LEN		4U
+
+#define SHIFT_MASK			0xFFU
+#define WIDTH_MASK			0xFFU
+#define RESET_TYPE_MASK			0xFFU
+#define NUM_PARENTS_MASK		0xFFU
+
+#define SHIFT_OFFSET			0U
+#define WIDTH_OFFSET			8U
+#define RESET_TYPE_OFFSET		16U
+#define NUM_PARENTS_OFFSET		24U
+
+#define ARG_IDX_DEVATTR_DEVICE_ID	0U
+#define ARG_IDX_DEVATTR_SEC_BASEADDR	6U
+#define ARG_IDX_DEVATTR_SEC_0_OFFSET	7U
+#define ARG_IDX_DEVATTR_SEC_0_MASK	7U
+#define ARG_IDX_DEVATTR_SEC_1_OFFSET	8U
+#define ARG_IDX_DEVATTR_SEC_1_MASK	8U
+#define DEVATTR_ARG_MIN_LEN		9U
+#define DEVATTR_ARG_MAX_LEN		12U
+#define DEVATTR_SEC_OFFSET		16U
+#define DEVATTR_SEC_MASK		0xFFFFU
+
+#define ARG_IDX_DEVATTR_COHVIR_BASEADDR	9U
+
+#define ARG_IDX_DEVATTR_COH_OFFSET	10U
+#define ARG_IDX_DEVATTR_COH_MASK	10U
+#define DEVATTR_COH_OFFSET		16U
+#define DEVATTR_COH_MASK		0xFFFFU
+
+#define ARG_IDX_DEVATTR_VIR_OFFSET	11U
+#define ARG_IDX_DEVATTR_VIR_MASK	11U
+#define DEVATTR_VIR_OFFSET		16U
+#define DEVATTR_VIR_MASK		0xFFFFU
+
+#define ARG_IDX_PROC_DEV_ID		0U
+#define ARG_IDX_PROC_DEV_BASEADDR_0	2U
+#define ARG_IDX_PROC_DEV_IPI		3U
+#define ARG_IDX_PROC_DEV_BASEADDR_1	4U
+#define ARG_IDX_PROC_DEV_BASEADDR_2	5U
+
+#define ARG_IDX_MEM_REG_DEVICE_ID	0U
+#define ARG_IDX_MEM_REG_ADDR_LOW	1U
+#define ARG_IDX_MEM_REG_ADDR_HIGH	2U
+#define ARG_IDX_MEM_REG_SIZE_LOW	3U
+#define ARG_IDX_MEM_REG_SIZE_HIGH	4U
+#define MEM_REG_ARG_MAX_LEN		5U
+#define SHIFT_TO_HIGH_U32		32U
 
 /* Extern Variable and Function */
 extern u32 ResetReason;
