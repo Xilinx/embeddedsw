@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,17 @@ static u32 PggsWritePermissions[PMC_PGGS_REGS];
 static u32 GgsReadPermissions[GGS_REGS];
 static u32 GgsWritePermissions[GGS_REGS];
 
+/* Macro to check if a device is an RPU core */
+#define IS_DEV_RPU(DeviceId) \
+	((NODECLASS(DeviceId) == XPM_NODECLASS_DEVICE) && \
+	(NODESUBCLASS(DeviceId) == XPM_NODESUBCL_DEV_CORE) && \
+	(NODETYPE(DeviceId) == XPM_NODETYPE_DEV_CORE_RPU))
+
+/* Macro to check if a device is an APU core */
+#define IS_DEV_APU(DeviceId) \
+	((NODECLASS(DeviceId) == XPM_NODECLASS_DEVICE) && \
+	(NODESUBCLASS(DeviceId) == XPM_NODESUBCL_DEV_CORE) && \
+	(NODETYPE(DeviceId) == XPM_NODETYPE_DEV_CORE_APU))
 
 maybe_unused static XStatus XPm_ValidateDeviceId(const pm_ioctl_id IoctlId, const u32 DeviceId)
 {
@@ -38,16 +49,14 @@ maybe_unused static XStatus XPm_ValidateDeviceId(const pm_ioctl_id IoctlId, cons
 	if (((IOCTL_GET_RPU_OPER_MODE == IoctlId) ||
 	    (IOCTL_SET_RPU_OPER_MODE == IoctlId) ||
 	    (IOCTL_RPU_BOOT_ADDR_CONFIG == IoctlId)) &&
-	    ((PM_DEV_RPU_A_0 > DeviceId) ||
-	    (PM_DEV_RPU_B_1 < DeviceId))) {
+	    (!IS_DEV_RPU(DeviceId))) {
 		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
 
 	if (((IOCTL_GET_APU_OPER_MODE == IoctlId) ||
 	    (IOCTL_SET_APU_OPER_MODE == IoctlId)) &&
-	    ((PM_DEV_ACPU_0_0 > DeviceId) ||
-	    (PM_DEV_ACPU_3_3 < DeviceId))) {
+	    (!IS_DEV_APU(DeviceId))) {
 		Status = XPM_INVALID_DEVICEID;
 		goto done;
 	}
@@ -62,6 +71,9 @@ maybe_unused static XStatus XPm_ValidateDeviceId(const pm_ioctl_id IoctlId, cons
 	Status = XST_SUCCESS;
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("IoctlId = 0x%x DeviceId=0x%x Status 0x%x\n\r",IoctlId, DeviceId, Status);
+	}
 	return Status;
 }
 
