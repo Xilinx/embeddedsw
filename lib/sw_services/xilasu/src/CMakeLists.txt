@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -30,6 +30,7 @@ file(COPY ${CMAKE_BINARY_DIR}/include/xasu_bsp_config.h DESTINATION ${CMAKE_INCL
 endif()
 
 add_library(xilasu STATIC ${_sources})
+target_compile_options(xilasu PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
 
 get_headers(${_headers})
 

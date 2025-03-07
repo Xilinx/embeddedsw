@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -25,6 +25,7 @@ collector_list (_headers PROJECT_LIB_HEADERS)
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 
 add_library(xilcert STATIC ${_sources})
+target_compile_options(xilcert PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
 
 get_headers(${_headers})
 

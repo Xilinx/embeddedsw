@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -51,6 +51,7 @@ file(COPY ${CMAKE_BINARY_DIR}/include/xilskey_bsp_config.h DESTINATION ${CMAKE_I
 endif()
 
 add_library(xilskey STATIC ${_sources})
+target_compile_options(xilskey PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
 
 get_headers(${_headers})
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2025 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.3)
@@ -23,6 +23,7 @@ if (NOT ${YOCTO})
 file(COPY ${CMAKE_BINARY_DIR}/include/xilflash_config.h DESTINATION ${CMAKE_INCLUDE_PATH}/)
 endif()
 add_library(xilflash STATIC ${_sources})
+target_compile_options(xilflash PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
 set_target_properties(xilflash PROPERTIES LINKER_LANGUAGE C)
 get_headers(${_headers})
 set_target_properties(xilflash PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilflash.a;${CMAKE_INCLUDE_PATH}/xilflash_config.h;${clean_headers}")
