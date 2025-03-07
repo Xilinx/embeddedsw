@@ -2464,8 +2464,9 @@ XStatus XPm_AddNodeName(const u32 *Args, u32 NumArgs)
 	char Name[MAX_NAME_BYTES] = {0};
 	u32 i = 0U, j = 0U;
 	const u32 CopySize = 4U;
+	const u32 MaxArgs = 5U;		/* 1 for NodeId + max 4 for Name (16 bytes / 4) */
 
-	if (0U == NumArgs) {
+	if ((0U == NumArgs) || (NumArgs > MaxArgs)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
