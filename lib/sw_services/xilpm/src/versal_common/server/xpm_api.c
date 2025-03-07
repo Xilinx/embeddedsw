@@ -1846,18 +1846,18 @@ static XStatus XPm_AddNodeReset(const u32 *Args, u32 NumArgs)
 	u8 Shift, Width, ResetType, NumParents;
 	const u32 *Parents;
 
-	if (NumArgs < 4U) {
+	if (NumArgs < NODE_RST_ARG_MAX_LEN) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	ResetId = Args[0];
-	ControlReg = Args[1];
-	Shift = (u8)(Args[2] & 0xFFU);
-	Width = (u8)((Args[2] >> 8U) & 0xFFU);
-	ResetType = (u8)((Args[2] >> 16U) & 0xFFU);
-	NumParents = (u8)((Args[2] >> 24U) & 0xFFU);
-	Parents = &Args[3];
+	ResetId = Args[ARG_IDX_NODE_RST_ID];
+	ControlReg = Args[ARG_IDX_NODE_RST_CONTROL_REG];
+	Shift = (u8)((Args[ARG_IDX_NODE_RST_SHIFT] >> SHIFT_OFFSET) & SHIFT_MASK);
+	Width = (u8)((Args[ARG_IDX_NODE_RST_WIDTH] >> WIDTH_OFFSET) & WIDTH_MASK);
+	ResetType = (u8)((Args[ARG_IDX_NODE_RST_TYPE] >> RESET_TYPE_OFFSET) & RESET_TYPE_MASK);
+	NumParents = (u8)((Args[ARG_IDX_NODE_RST_NUM_PARENTS] >> NUM_PARENTS_OFFSET) & NUM_PARENTS_MASK);
+	Parents = &Args[ARG_IDX_NODE_RST_PARENTS];
 
 	Status = XPmReset_AddNode(ResetId, ControlReg, Shift, Width, ResetType, NumParents, Parents);
 
@@ -1880,11 +1880,11 @@ static XStatus AddProcDevice(const u32 *Args, u32 PowerId)
 	u32 BaseAddr[MAX_BASEADDR_LEN];
 	u32 Ipi;
 
-	DeviceId = Args[0];
-	BaseAddr[0] = Args[2];
-	Ipi = Args[3];
-	BaseAddr[1] = Args[4];
-	BaseAddr[2] = Args[5];
+	DeviceId = Args[ARG_IDX_PROC_DEV_ID];
+	BaseAddr[0] = Args[ARG_IDX_PROC_DEV_BASEADDR_0];
+	Ipi = Args[ARG_IDX_PROC_DEV_IPI];
+	BaseAddr[1] = Args[ARG_IDX_PROC_DEV_BASEADDR_1];
+	BaseAddr[2] = Args[ARG_IDX_PROC_DEV_BASEADDR_2];
 
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
@@ -2176,17 +2176,17 @@ static XStatus AddMemRegnDevice(const u32 *Args, u32 NumArgs)
 	u64 Address;
 	u64 size;
 
-	if (5U != NumArgs) {
+	if (MEM_REG_ARG_MAX_LEN != NumArgs) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	DeviceId = Args[0];
+	DeviceId = Args[ARG_IDX_MEM_REG_DEVICE_ID];
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
 
-	Address = ((u64)Args[1]) | (((u64)Args[2]) << 32);
-	size = ((u64)Args[3]) | (((u64)Args[4]) << 32);
+	Address = ((u64)Args[ARG_IDX_MEM_REG_ADDR_LOW]) | (((u64)Args[ARG_IDX_MEM_REG_ADDR_HIGH]) << SHIFT_TO_HIGH_U32);
+	size = ((u64)Args[ARG_IDX_MEM_REG_SIZE_LOW]) | (((u64)Args[ARG_IDX_MEM_REG_SIZE_HIGH]) << SHIFT_TO_HIGH_U32);
 
 	if ((u32)XPM_NODEIDX_DEV_MEM_REGN_MAX < Index) {
 		Status = XST_DEVICE_NOT_FOUND;
@@ -2222,10 +2222,10 @@ static XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_DeviceAttr *DevAttr = NULL;
-	XPm_Device *Dev = XPmDevice_GetById(Args[0]);
+	XPm_Device *Dev = XPmDevice_GetById(Args[ARG_IDX_DEVATTR_DEVICE_ID]);
 
 	/* Check for device presence and sufficient arguments */
-	if ((NULL == Dev) || (NumArgs < 9U)) {
+	if ((NULL == Dev) || (NumArgs < DEVATTR_ARG_MIN_LEN)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -2237,25 +2237,25 @@ static XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs)
 	}
 
 	/* Store the security attributes */
-	DevAttr->SecurityBaseAddr = Args[6];
-	DevAttr->Security[0].Offset = (u16)((Args[7] >> 16U) & 0xFFFFU);
-	DevAttr->Security[0].Mask = (u16)(Args[7] & 0xFFFFU);
-	DevAttr->Security[1].Offset = (u16)((Args[8] >> 16U) & 0xFFFFU);
-	DevAttr->Security[1].Mask = (u16)(Args[8] & 0xFFFFU);
+	DevAttr->SecurityBaseAddr = Args[ARG_IDX_DEVATTR_SEC_BASEADDR];
+	DevAttr->Security[0].Offset = (u16)((Args[ARG_IDX_DEVATTR_SEC_0_OFFSET] >> DEVATTR_SEC_OFFSET) & DEVATTR_SEC_MASK);
+	DevAttr->Security[0].Mask = (u16)(Args[ARG_IDX_DEVATTR_SEC_0_MASK] & DEVATTR_SEC_MASK);
+	DevAttr->Security[1].Offset = (u16)((Args[ARG_IDX_DEVATTR_SEC_1_OFFSET] >> DEVATTR_SEC_OFFSET) & DEVATTR_SEC_MASK);
+	DevAttr->Security[1].Mask = (u16)(Args[ARG_IDX_DEVATTR_SEC_1_MASK] & DEVATTR_SEC_MASK);
 
 	/* Check for the coherency and virtualization attributes */
-	if (NumArgs > 9U) {
-		if (NumArgs > 12U) {
+	if (NumArgs > DEVATTR_ARG_MIN_LEN) {
+		if (NumArgs > DEVATTR_ARG_MAX_LEN) {
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
 
 		/* Store the coherency and virtualization attributes */
-		DevAttr->CohVirtBaseAddr = Args[9];
-		DevAttr->Coherency.Offset = (u16)((Args[10] >> 16U) & 0xFFFFU);
-		DevAttr->Coherency.Mask = (u16)(Args[10] & 0xFFFFU);
-		DevAttr->Virtualization.Offset = (u16)((Args[11] >> 16U) & 0xFFFFU);
-		DevAttr->Virtualization.Mask = (u16)(Args[11] & 0xFFFFU);
+		DevAttr->CohVirtBaseAddr = Args[ARG_IDX_DEVATTR_COHVIR_BASEADDR];
+		DevAttr->Coherency.Offset = (u16)((Args[ARG_IDX_DEVATTR_COH_OFFSET] >> DEVATTR_COH_OFFSET) & DEVATTR_COH_MASK);
+		DevAttr->Coherency.Mask = (u16)(Args[ARG_IDX_DEVATTR_COH_MASK] & DEVATTR_COH_MASK);
+		DevAttr->Virtualization.Offset = (u16)((Args[ARG_IDX_DEVATTR_VIR_OFFSET] >> DEVATTR_VIR_OFFSET) & DEVATTR_VIR_MASK);
+		DevAttr->Virtualization.Mask = (u16)(Args[ARG_IDX_DEVATTR_VIR_MASK] & DEVATTR_VIR_MASK);
 	}
 	Dev->DevAttr = DevAttr;
 
