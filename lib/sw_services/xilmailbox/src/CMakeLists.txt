@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 #include(${CMAKE_CURRENT_SOURCE_DIR}/../../../../cmake/common.cmake NO_POLICY_SCOPE)
@@ -20,6 +20,7 @@ if (NOT ${YOCTO})
 file(COPY ${CMAKE_BINARY_DIR}/include/xilmailbox_hwconfig.h DESTINATION ${CMAKE_INCLUDE_PATH}/)
 endif()
 add_library(xilmailbox STATIC ${_sources})
+target_compile_options(xilmailbox PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
 set_target_properties(xilmailbox PROPERTIES LINKER_LANGUAGE C)
 get_headers(${_headers})
 set_target_properties(xilmailbox PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilmailbox.a;${CMAKE_INCLUDE_PATH}/xilmailbox_hwconfig.h;${clean_headers}")

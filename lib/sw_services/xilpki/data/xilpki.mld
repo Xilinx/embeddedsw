@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2023-2024, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -24,6 +24,6 @@ BEGIN LIBRARY xilpki
   OPTION SUPPORTED_PERIPHERALS = (psx_cortexa78);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpki,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "XilPKI library provides an interface to the PKI engine to perform the secure operations";
-  OPTION VERSION = 2.2;
+  OPTION VERSION = 2.3;
   OPTION NAME = xilpki;
 END LIBRARY

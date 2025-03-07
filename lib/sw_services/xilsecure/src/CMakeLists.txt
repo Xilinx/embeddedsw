@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -53,6 +53,7 @@ if(NOT ${YOCTO})
 endif()
 
 add_library(xilsecure STATIC ${_sources})
+target_compile_options(xilsecure PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
 
 get_headers(${_headers})
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -30,6 +30,7 @@ set(CUSTOM_COMPILE_OPTIONS " -Wall -Wextra -Warray-bounds=2 -Wformat=2 -Wno-main
 string(APPEND CMAKE_C_FLAGS ${CUSTOM_COMPILE_OPTIONS})
 
 add_library(xilpdi STATIC ${_sources})
+target_compile_options(xilpdi PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
 
 get_headers(${_headers})
 

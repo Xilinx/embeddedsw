@@ -1,5 +1,5 @@
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.14.7)
@@ -34,6 +34,7 @@ if (NOT ${YOCTO})
 endif()
 
 add_library(xilpm STATIC ${_sources})
+target_compile_options(xilpm PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
 set_target_properties(xilpm PROPERTIES LINKER_LANGUAGE C)
 get_headers(${_headers})
 set_target_properties(xilpm PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilpm.a;${CMAKE_INCLUDE_PATH}/xpm_config.h;${clean_headers}" COMPILE_OPTIONS "")
