@@ -2245,7 +2245,7 @@ static XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs)
 
 	/* Check for the coherency and virtualization attributes */
 	if (NumArgs > 9U) {
-		if (NumArgs < 12U) {
+		if (NumArgs > 12U) {
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
