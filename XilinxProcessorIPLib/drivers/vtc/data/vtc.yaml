@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -18,6 +18,9 @@ properties:
   reg:
     description: Physical base address and size of the controller register map
 
+config:
+    - XVtc_Config
+
 required:
     - compatible
     - reg
@@ -27,4 +30,7 @@ required:
 depends:
     video_common: []
 
+examples:
+  vtc_selftest_example.c:
+    - reg
 ...

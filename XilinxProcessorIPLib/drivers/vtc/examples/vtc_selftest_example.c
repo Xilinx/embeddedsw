@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,8 +36,9 @@
 * xparameters.h file. They are defined here such that a user can easily
 * change all the needed parameters in one place.
 */
+#ifndef SDT
 #define XVTC_DEVICE_ID			XPAR_VTC_0_DEVICE_ID
-
+#endif
 /**************************** Type Definitions *******************************/
 
 
@@ -46,7 +47,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int XVtcSelfTestExample(u16 DeviceId);
+#else
+int XVtcSelfTestExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -71,7 +76,11 @@ int main(void)
 	int Status;
 
 	/* Run selftest example */
+#ifndef SDT
 	Status = XVtcSelfTestExample((XVTC_DEVICE_ID));
+#else
+	Status = XVtcSelfTestExample((XPAR_XVTC_0_BASEADDR));
+#endif
 
 	/* Checking status */
 	if (Status != (XST_SUCCESS)) {
@@ -98,7 +107,11 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int XVtcSelfTestExample(u16 DeviceId)
+#else
+int XVtcSelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XVtc_Config *Config;
@@ -106,7 +119,11 @@ int XVtcSelfTestExample(u16 DeviceId)
 	/* Initialize the VTC driver so that it's ready to use look up
 	 * configuration in the config table, then initialize it.
 	 */
+#ifndef SDT
 	Config = XVtc_LookupConfig(DeviceId);
+#else
+	Config = XVtc_LookupConfig(BaseAddress);
+#endif
 
 	/* Checking Config variable */
 	if (NULL == Config) {
