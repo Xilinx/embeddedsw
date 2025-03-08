@@ -43,6 +43,10 @@ properties:
     description: DSI TX controller present flag.
   dsi-tx-connected:
     description: DSI TX controller present flag.
+  txphy-present:
+    description: Sub-core instance presence.
+  txphy-connected:
+    description: Sub-core instance configuration.
   interrupts:
     description: Interrupt number
   interrupt-parent:
@@ -63,14 +67,18 @@ required:
   - dphy-connected: phandle
   - dsi-tx-present
   - dsi-tx-connected: phandle
+  - txphy-present
+  - txphy-connected: phandle
   - interrupts
   - interrupt-parent
 
 config:
   - XDsiTxSs_Config
 
+depends:
+  video_common: []
+
 examples:
   xdsitxss_selftest_example.c:
-    - interrupts
     - reg
 ...
