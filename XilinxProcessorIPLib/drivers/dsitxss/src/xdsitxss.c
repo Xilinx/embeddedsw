@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,9 @@
 #include "xstatus.h"
 #include "xdebug.h"
 #include "xdsi.h"
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+#include "xmipi_tx_phy.h"
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
 #endif
@@ -47,15 +50,18 @@
  */
 typedef struct {
 	XDsi DsiInst;
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	XMipi_Tx_Phy MipiTxPhyInst;
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy DphyInst;
 #endif
 } XDsiTxSs_SubCores;
 
 /**************************** Variable Definitions ***********************************/
+/**< Define Driver instance of all sub-core included in the design */
 #ifndef SDT
-XDsiTxSs_SubCores DsiTxSsSubCores[XPAR_XDSITXSS_NUM_INSTANCES]; /**< Define Driver instance of all sub-core
-					included in the design */
+XDsiTxSs_SubCores DsiTxSsSubCores[XPAR_XDSITXSS_NUM_INSTANCES];
 #else
 XDsiTxSs_SubCores DsiTxSsSubCores[];
 #endif
@@ -68,6 +74,9 @@ static void XDsiTxSs_GetIncludedSubCores(XDsiTxSs *DsiTxSsPtr);
 static s32 XDsiTxSs_SubCoreInitDsi(XDsiTxSs *DsiTxSsPtr);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr);
+#endif
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+static u32 DsiTxSs_SubCoreInitMipiTxPhy(XDsiTxSs *DsiTxSsPtr);
 #endif
 static s32 ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
 					u32 Offset, UINTPTR *BaseAddr);
@@ -129,6 +138,14 @@ s32 XDsiTxSs_CfgInitialize(XDsiTxSs *InstancePtr, XDsiTxSs_Config *CfgPtr,
 			return XST_FAILURE;
 		}
 	}
+#elif (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	if (InstancePtr->Config.IsMipiTxPhyRegIntfcPresent && InstancePtr->MipiTxPhyPtr) {
+		Status = DsiTxSs_SubCoreInitMipiTxPhy(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+
 #endif
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
@@ -192,6 +209,11 @@ int XDsiTxSs_Activate(XDsiTxSs *InstancePtr, XDsiSS_Subcore core, u8 Flag)
 #endif
 	if (core == XDSITXSS_DSI)
 		XDsi_Activate(InstancePtr->DsiPtr, Flag);
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	if (InstancePtr->Config.IsMipiTxPhyRegIntfcPresent && InstancePtr->MipiTxPhyPtr) {
+		XMipi_Tx_Phy_Activate(InstancePtr->MipiTxPhyPtr, Flag);
+	}
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	else if (core == XDSITXSS_PHY)
 		XDphy_Activate(InstancePtr->DphyPtr, Flag);
@@ -251,6 +273,19 @@ void XDsiTxSs_ReportCoreInfo(XDsiTxSs *InstancePtr)
 		xdbg_printf(XDBG_DEBUG_GENERAL, "  : DSI Tx Controller \n\r");
 	}
 
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	if (InstancePtr->MipiTxPhyPtr) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"    : XMipi Tx Phy ");
+		if (InstancePtr->Config.IsMipiTxPhyRegIntfcPresent) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"with ");
+		}
+		else {
+			xdbg_printf(XDBG_DEBUG_GENERAL,"without ");
+		}
+
+		xdbg_printf(XDBG_DEBUG_GENERAL,"register interface \n\r");
+	}
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->Config.DphyInfo.IsPresent && InstancePtr->DphyPtr) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"  : DPhy ");
@@ -513,6 +548,10 @@ static void XDsiTxSs_GetIncludedSubCores(XDsiTxSs *DsiTxSsPtr)
 	Index = XDsiTxSs_GetDrvIndex(DsiTxSsPtr, DsiTxSsPtr->Config.BaseAddr);
 	DsiTxSsPtr->DsiPtr = ((DsiTxSsPtr->Config.DsiInfo.IsPresent) ?
 				(&DsiTxSsSubCores[Index].DsiInst) : NULL);
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	DsiTxSsPtr->MipiTxPhyPtr = ((DsiTxSsPtr->Config.MipiTxPhyInfo.IsPresent) ?
+		(&DsiTxSsSubCores[Index].MipiTxPhyInst) : NULL);
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	DsiTxSsPtr->DphyPtr = ((DsiTxSsPtr->Config.DphyInfo.IsPresent) ?
 				(&DsiTxSsSubCores[Index].DphyInst) : NULL);
@@ -640,6 +679,59 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 }
 #endif
 
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+/*****************************************************************************/
+/**
+* This function initializes the included sub-core to it's static configuration
+*
+* @param	DsiTxSsPtr is a pointer to the Subsystem instance to be worked.
+*
+* @return
+*		- XST_SUCCESS If DPHY sub core is initialised sucessfully
+*		- XST_FAILURE If DPHY sub core initialization failed
+*
+* @note		None
+*
+******************************************************************************/
+static u32 DsiTxSs_SubCoreInitMipiTxPhy(XDsiTxSs *DsiTxSsPtr)
+{
+	u32 Status;
+	UINTPTR AbsAddr;
+	XMipi_Tx_Phy_Config *ConfigPtr;
+
+	/* Get core configuration */
+	xdbg_printf(XDBG_DEBUG_GENERAL, "->Initializing MIPI TX PHY ...\n\r");
+
+	ConfigPtr = XMipi_Tx_Phy_LookupConfig(DsiTxSsPtr->Config.MipiTxPhyInfo.AddrOffset);
+
+	if (!ConfigPtr) {
+		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: MIPI RX PHY not found\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Compute absolute base address */
+	AbsAddr = 0;
+	Status = ComputeSubCoreAbsAddr(DsiTxSsPtr->Config.BaseAddr,
+					DsiTxSsPtr->Config.HighAddr,
+					DsiTxSsPtr->Config.MipiTxPhyInfo.AddrOffset,
+					&AbsAddr);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: MIPI RX PHY core base "
+			"address (0x%x) invalid %d\n\r", AbsAddr);
+		return XST_FAILURE;
+	}
+
+	/* Initialize core */
+	Status = XMipi_Tx_Phy_CfgInitialize(DsiTxSsPtr->MipiTxPhyPtr, ConfigPtr, AbsAddr);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: Mipi  Tx Phy core "
+			"Initialization failed\n\r");
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+#endif
 /*****************************************************************************/
 /**
 * This function computes the subcore absolute address on axi-lite interface

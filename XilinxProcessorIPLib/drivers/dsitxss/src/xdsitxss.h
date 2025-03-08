@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,7 +64,7 @@
 *
 * <b>Interrupt Service</b>
 *
-* The DSI TX subsytem supports 2 interrupts
+* The DSI TX subsystem supports 2 interrupts
 * 1. Unsupported Data Type
 * 2. Pixel Under flow error
 * For Handling these interrupts, The users of this
@@ -126,6 +126,9 @@ extern "C" {
 #include "xparameters.h"
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
+#endif
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+#include "xmipi_tx_phy.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -197,6 +200,13 @@ typedef struct {
 #ifdef SDT
 	u16 IntrId;		/* Interrupt ID */
 	UINTPTR IntrParent; 	/* Bit[0] Interrupt Parent */
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	u32 IsMipiTxPhyRegIntfcPresent;	/**< Flag for DPHY register interface
+					  *  presence */
+	u32 MipiTxPhyLineRate;	/**< DPHY Line Rate ranging from
+				  *  80-1500 Mbps */
+	DsiTxSsSubCore MipiTxPhyInfo; /* MIPI TX PHY sub-core configuration */
+#endif
 #endif
 } XDsiTxSs_Config;
 
@@ -228,6 +238,9 @@ typedef struct {
 	u32 IsReady;		/**< Device and the driver instance are
 				  *  initialized */
 	XDsi  *DsiPtr;		/**< handle to sub-core driver instance */
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	XMipi_Tx_Phy *MipiTxPhyPtr;		/**< handle to sub-core driver instance */
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy *DphyPtr;		/**< handle to sub-core driver instance */
 #endif
