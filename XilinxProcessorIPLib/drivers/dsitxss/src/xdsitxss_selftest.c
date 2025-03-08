@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,6 +75,15 @@ u32 XDsiTxSs_SelfTest(XDsiTxSs *InstancePtr)
 				"ERR::DSI Self test failed\n\r");
 		}
 	}
+#if (XPAR_XMIPI_TX_PHY_NUM_INSTANCES > 0)
+	if (InstancePtr->MipiTxPhyPtr) {
+		Status = XMipi_Tx_Phy_SelfTest(InstancePtr->MipiTxPhyPtr);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_ERROR,"ERR::XMIPI TX PHY Self test "
+			"failed\n\r");
+		}
+	}
+#endif
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->Config.DphyInfo.IsPresent && InstancePtr->DphyPtr) {
 		Status = XDphy_SelfTest(InstancePtr->DphyPtr);
