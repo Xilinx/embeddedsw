@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -3348,10 +3348,8 @@ void XDp_RxAllocatePayloadStream(XDp *InstancePtr)
 
 	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1) {
 		StreamId = (RegVal & 0xFF);
-		StartTs = (RegVal & 0x7F00) >> 8;
+		StartTs = (RegVal & 0x3F00) >> 8;
 		NumTs = (RegVal & 0xFF0000) >> 16;
-		for (Index = 0; Index < 64; Index++)
-			PayloadTable[Index] = 0;
 	} else {
 		StreamId = (RegVal & XDP_RX_MST_ALLOC_VCP_ID_MASK);
 		StartTs = (RegVal & XDP_RX_MST_ALLOC_START_TS_MASK) >>
