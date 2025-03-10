@@ -1210,6 +1210,8 @@ extern "C" {
 #define PM_ISO_MMI_N				(0x2000004CU)
 #define PM_ISO_MMI_PL_TEST_N			(0x2000004DU)
 #define PM_ISO_MMI_PL_MISC_N			(0x2000004EU)
+#define PM_ISO_ASU_PL_DATA			(0x20000051U)
+#define PM_ISO_ASU_PL_KEY			(0x20000052U)
 /** @} */
 /** @endcond */
 
