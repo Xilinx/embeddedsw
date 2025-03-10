@@ -17,6 +17,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  ng   05/31/24 Initial release
  * 1.01  ng   02/22/25 Implement finish cdo read command processing
+ *       prt  03/10/25 Fixed doxygen comments
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -135,8 +137,7 @@ typedef struct {
 	u8 CmdState;		/**< Cmd processing state */
 	u8 CmdEndDetected;	/**< Flag to detect end of commands */
 	u8 Cdo1stChunk;		/**< Indicates if it's first chunk or not to validate CDO header */
-	u8 DeferredError;	/**< Defer the error for any command till the
-				  end of CDO processing */
+	u8 DeferredError;	/**< Defer the error for any command till the end of CDO processing */
 	u32 PdiType;		/**< To indicate if the PDI is FULL or PARTIAL */
 } XPlmCdo;
 

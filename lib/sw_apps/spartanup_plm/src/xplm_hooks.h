@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   bm   12/28/23 Initial Commit
  * 1.01  ng   11/26/24 Add support for new devices
+ *       prt  03/10/25 Fixed doxygen comments
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -53,16 +55,16 @@
  * Constants to check for the Encryption status.
  */
 typedef enum XEncryptionStatus_ {
-	XPLM_ENC_STATUS_UN_ENCRYPTED = 0x00000000U,	/**< un-encrypted image */
-	XPLM_ENC_STATUS_eFUSE_KEY = 0xA5C3C5A3U,	/**< stored in eFUSE, RED key */
-	XPLM_ENC_STATUS_eFUSE_PUF_KEK = 0xA5C3C5A5U,	/**< stored in eFUSE, encrypted with PUF, BLACK key */
-	XPLM_ENC_STATUS_eFUSE_FAMILY_KEK = 0xA5C3C5A7U,	/**< stored in eFUSE, encrypted with Family key, GREY key */
-	XPLM_ENC_STATUS_BH_PUF_KEK = 0xA35C7C53U,	/**< stored in BH, BLACK Key */
-	XPLM_ENC_STATUS_BH_FAMILY_KEK = 0xA35C7CA5U,	/**< stored in BH, GREY Key */
+	XPLM_ENC_STATUS_UN_ENCRYPTED = 0x00000000U,	/**< 0x00000000U - un-encrypted image */
+	XPLM_ENC_STATUS_eFUSE_KEY = 0xA5C3C5A3U,	/**< 0xA5C3C5A3U - Red key stored in eFUSE */
+	XPLM_ENC_STATUS_eFUSE_PUF_KEK = 0xA5C3C5A5U,	/**< 0xA5C3C5A5U - Black key stored in eFUSE, encrypted with PUF */
+	XPLM_ENC_STATUS_eFUSE_FAMILY_KEK = 0xA5C3C5A7U,	/**< 0xA5C3C5A7U - Grey key stored in eFUSE, encrypted with Family key */
+	XPLM_ENC_STATUS_BH_PUF_KEK = 0xA35C7C53U,	/**< 0xA35C7C53U - Black key stored in BH */
+	XPLM_ENC_STATUS_BH_FAMILY_KEK = 0xA35C7CA5U,	/**< 0xA35C7CA5U - Grey Key stored in BH */
 } XEncryptionStatus;
 
 typedef struct XRomAuthHeader_ {
-	u32 AuthAttributes;
+	u32 AuthAttributes; /**< Authentication Attributes */
 } XRomAuthHeader;
 
 /** Type definition for Partition Type */
@@ -142,105 +144,117 @@ typedef struct XRomTmpVar_ {
 }XRomTmpVar;
 
 typedef struct XRomSpkHeader_ {
-	u32 TotalSPKSize;
-	u32 SPKSize;
-	u32 TotalSignatureSize;
-	u32 SignatureSize;
-	u32 SPKId;
-	u32 SPKPriv;
-	u32 Reserved[2];
+	u32 TotalSPKSize; /**< Total size of the SPK (considering the 16 byte alignment) */
+	u32 SPKSize; /**< Actual size of the SPK */
+	u32 TotalSignatureSize; /**< Total size of the Signature (considering the 16 byte alignment) */
+	u32 SignatureSize; /**< Actual size of the Signature */
+	u32 SPKId; /**< SPK ID which is used during authentication */
+	u32 SPKPriv; /**< SPK Privilege mode regarding the partitions it can use */
+	u32 Reserved[2]; /**< Padding the last two nibbles with 0 for 16 byte alignment for header */
 } XRomSpkHeader;
 
 typedef enum {
-	XSECURE_HASH_INVALID_MODE 	= 0x0U,
-	XSECURE_SHA3_256			= 0x1U,
-	XSECURE_SHAKE_256			= 0x2U
+	XSECURE_HASH_INVALID_MODE 	= 0x0U, /**< 0 - Reserved */
+	XSECURE_SHA3_256			= 0x1U, /**< 1 - Flag for SHA3_256 Mode */
+	XSECURE_SHAKE_256			= 0x2U  /**< 2 - Flag for SHAKE_256 Mode */
 } XSecure_ShaMode;
 
 typedef struct XRomBootHeader_ {
 	/**
 	 * SMAP bus width words
+	 *
 	 * Offset:0
 	 */
 
 	/**
 	 * Width Detection (0xAA995566)
+	 *
 	 * Offset:0x10
 	 */
 	u32 WidthDetection;
 	/**
 	 * Image identification ("XLNX")
+	 *
 	 * Offset:0x14
 	 */
 	u32 ImageId;
 	/**
-	 * AES Key Source & Type
-			0x00000000 Un-Encrypted
-			0xA5C3C5A3 eFUSE Key
-			0xA5C3C5A5 eFUSE PUF KEK
-			0xA5C3C5A7 eFUSE Family KEK
-			0x3A5C3C5A BBRAM Key
-			0x3A5C3C59 BBRAM PUF KEK
-			0x3A5C3C57 BBRAM Family KEK
-			0xA35C7C53 BH PUF KEK
-			0xA35C7CA5 BH Family KEK
-	 * @ref XEncryptionStatus
+	 * This field indicates the source and type of the AES key used for encryption. Refer to the @ref XEncryptionStatus enum for possible values.
+	 *
 	 * Offset:0x18
 	 */
 	volatile XEncryptionStatus EncryptionStatus;
 	/**
 	 * Source offset of PLM in DPI
+	 *
 	 * Offset:0x1C
 	 */
 	u32 SourceOffset;
 	/**
 	 * Data partition load address
+	 *
 	 * Offset:0x20
 	 */
 	u32 DataPartititonLoadAddr;
 	/**
 	 * Data partititon length
+	 *
 	 * Offset:0x24
 	 */
 	u32 DataPartititonLen;
 	/**
 	 * Total Data Partition length
 	 * including Auth & encryption overhead
+	 *
 	 * Offset:0x28
 	 */
 	u32 TotalDataPartititonLen;
 	/**
 	 * PLM Length
+	 *
 	 * Offset:0x2C
 	 */
 	u32 PMCFWLen;
 	/**
 	 * Total PLM length including
 	 * Auth & Encryption overhead
+	 *
 	 * Offset:0x30
 	 */
 	u32 TotalPMCFWLen;
 	/**
 	 * Image Attributes
+	 *
 	 * [31:22]: Reserved
+	 *
 	 * [21:20]: 0x3 = DICE- CDI generation
+	 *
 	 * [19:18]: 0x3 Signed image
-	 * [17:16]: 0x3 PUF 4K Mode
+	 *
+	 * [17:16]: 0x3 PUF 4K Mode,
 	 * 			All other reserved
-	 * [15:14]: 0x3 BH Authentication
+	 *
+	 * [15:14]: 0x3 BH Authentication,
 	 * 			All others, authentication
 	 * 			will be decided by eFUSE Hash
+	 *
 	 * [13:12]: Reserved
+	 *
 	 * [11:10]: DPA CM
-	 * [9:8]:	0x3 BI Integrity selection
+	 *
+	 * [9:8]:	0x3 BI Integrity selection,
 	 * 			All others invalid
-	 * [7:6]:	0x3 PUF Helper data in BH
+	 *
+	 * [7:6]:	0x3 PUF Helper data in BH,
 	 * 			All others, HD is in eFUSE
+	 *
 	 * [5:4]:	0x3 DPI is RSA signed and
 	 * 			don't decrypt the image
+	 *
 	 * [3:2]:	0x3 Secure header contains
-	 * 			operation key for Block 0
+	 * 			operation key for Block 0,
 	 * 			All others use the Red key
+	 *
 	 * [1:0]:	Reserved
 	 *
 	 * Offset:0x34
@@ -248,97 +262,117 @@ typedef struct XRomBootHeader_ {
 	u32 ImageAttributes;
 	/**
 	 * Grey/Black key
+	 *
 	 * Offset:0x38
 	 */
 	u32 GreyorBlackKey[8U];
 	/**
 	 * Grey/Black key IV
+	 *
 	 * Offset:0x58
 	 */
 	u32 GreyorBlackKeyIV[3U];
 	/**
 	 * Secure header IV
+	 *
 	 * Offset:0x64
 	 */
 	u32 SecureheaderIV[3U];
 	/**
 	 * Encryption revocation ID
+	 *
 	 * Offset:0x70
 	 */
 	u32 PartRevokeId;
 	/**
 	 * Authentication Header @ref XRomAuthHeader
+	 *
 	 * Offset:0x74
 	 */
 	XRomAuthHeader AuthHeader;
 	/**
 	 * HASH block Size
+	 *
 	 * Offset:0x78
 	 */
 	u32 HashBlockSize;
 	/**
 	 * PPK Size
+	 *
 	 * Offset:0x7C
 	 */
 	u32 TotalPPKSize;
 	/**
 	 * Total PPK Size
+	 *
 	 * Offset:0x80
 	 */
 	u32 PPKSize;
 	/**
 	 * PDI Signature Size
+	 *
 	 * Offset:0x84
 	 */
 	u32 TotalPDISignSize;
 	/**
 	 * PDI Signature Size
+	 *
 	 * Offset:0x88
 	 */
 	u32 PDISignSize;
 	/**
 	 * PUF Image identification
+	 *
 	 * Offset:0x8C
 	 */
 	u32 PUFImageId;
 	/**
 	 * Shutter Value
+	 *
 	 * Offset:0x90
 	 */
 	u32 PUFShutVal;
 	/**
 	 * RO Val
+	 *
 	 * Offset:0x94
 	 */
 	u32 PUFROVal;
 	/**
 	 * HD Len
+	 *
 	 * Offset:0x98
 	 */
 	u32 PUFHDLen;
 	/**
 	 * ROM Reserved Area
+	 *
 	 * Future Use
+	 *
 	 * Offset:0x9C
 	 */
 	u32 ROMReserved[15U];
 	/**
 	 * User Defined Revision
+	 *
 	 * Offset:0xD8
 	 */
 	u32 UserDefRev;
 	/**
 	 * PLM Reserved Area
+	 *
 	 * Offset:0xD8
 	 */
 	u32 PMCFWReserved[XROM_PMCFW_RESERVED_WORDS];
 	/**
 	 * Reg Init
+	 *
 	 * Offset:0x13C
 	 */
 	u32 RegInitData[128U];
 	/**
 	 * Checksum from 0x10 to 0x11FB
+	 *
 	 * Offset:0x33C
 	 */
 	u32 HeaderChecksum;
@@ -357,6 +391,9 @@ typedef struct XRomBootRom_ {
 	 */
 	XRomBootHeader *ImageHeader;
 
+	/**
+	 * This field holds the current boot stage.
+	 */
 	volatile u32 BootStage;
 	/**
 	 * This is the boot device related device
