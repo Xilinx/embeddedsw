@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a hbm  08/25/09 First release
 * 9.00  ml   04/26/23 Updated code to fix sizeof_mismatch coverity warnings.
+* 9.3   ml   02/19/25 Fix Incorrect Pointer Arithmetic
 * </pre>
 *
 *****************************************************************************/
@@ -136,7 +138,6 @@ s32 Xil_TestIO16(u16 *Addr, s32 Length, u16 Value, s32 Kind, s32 Swap)
 	u16 *TempAddr16;
 	u16 ValueIn = 0U;
 	s32 Index;
-	u32 Size_16;
 	TempAddr16 = Addr;
 	Xil_AssertNonvoid(TempAddr16 != NULL);
 
@@ -186,8 +187,7 @@ s32 Xil_TestIO16(u16 *Addr, s32 Length, u16 Value, s32 Kind, s32 Swap)
 		if (Value != ValueIn) {
 			return -1;
 		}
-		Size_16 = sizeof(u16);
-		TempAddr16 += Size_16;
+		TempAddr16 ++;
 	}
 	return 0;
 }
@@ -222,7 +222,6 @@ s32 Xil_TestIO32(u32 *Addr, s32 Length, u32 Value, s32 Kind, s32 Swap)
 	u32 *TempAddr;
 	u32 ValueIn = 0U;
 	s32 Index;
-	u32 Size_32;
 	TempAddr = Addr;
 	Xil_AssertNonvoid(TempAddr != NULL);
 
@@ -272,8 +271,7 @@ s32 Xil_TestIO32(u32 *Addr, s32 Length, u32 Value, s32 Kind, s32 Swap)
 		if (Value != ValueIn) {
 			return -1;
 		}
-		Size_32 = sizeof(u32);
-		TempAddr += Size_32;
+		TempAddr ++;
 	}
 	return 0;
 }
