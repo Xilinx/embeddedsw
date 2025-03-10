@@ -316,14 +316,8 @@ void xil_vprintf(const char8 *ctrl1, va_list argp)
 		par.len = 0;
 
 try_next:
-		if (ctrl != NULL) {
-			ctrl += 1;
-		}
-		if (ctrl != NULL) {
-			ch = (u8) * ctrl;
-		} else {
-			break;
-		}
+		ctrl += 1;
+		ch = (u8) * ctrl;
 
 		if (isdigit(ch) != 0) {
 			if (dot_flag != 0) {
@@ -332,14 +326,10 @@ try_next:
 				if (ch == (u8)'0') {
 					par.pad_character = '0';
 				}
-				if (ctrl != NULL) {
-					par.num1 = getnum(&ctrl);
-				}
+				par.num1 = getnum(&ctrl);
 				par.do_padding = 1;
 			}
-			if (ctrl != NULL) {
-				ctrl -= 1;
-			}
+			ctrl -= 1;
 			goto try_next;
 		}
 
@@ -435,6 +425,7 @@ try_next:
 				break;
 
 			case '\\':
+				ctrl += 1;
 				switch (*ctrl) {
 					case 'a':
 #if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM) || defined(SDT) || defined(SPARTANUP_PLM)
@@ -463,7 +454,6 @@ try_next:
 #endif
 						break;
 				}
-				ctrl += 1;
 				Check = 0;
 				break;
 
@@ -472,9 +462,7 @@ try_next:
 				break;
 		}
 		if (Check == 1) {
-			if (ctrl != NULL) {
-				ctrl += 1;
-			}
+			ctrl += 1;
 			continue;
 		}
 		goto try_next;
