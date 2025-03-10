@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 9.2   kpt      04/21/19 First release.
+* 9.3   ml       02/19/25 Fix Type Mismatch in Xil_UtilRMW32
 *
 * </pre>
 *
@@ -203,7 +204,7 @@ u32 Xil_WaitForEvents(UINTPTR EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 		      u32 Timeout, u32 *Events);
 
 /**< Read, Modify and Write to an address*/
-void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value);
+void Xil_UtilRMW32(UINTPTR Addr, u32 Mask, u32 Value);
 
 /**< Copies Len bytes from source memory to destination memory */
 s32 Xil_SecureMemCpy(void *DestPtr, u32 DestPtrLen, const void *SrcPtr, u32 Len);

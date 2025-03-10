@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (C) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,7 +25,7 @@
 * ----- -------- -------- -----------------------------------------------
 * 9.2   kpt      04/21/19 First release.
 * 9.3   sk       02/05/25 Added overlap check in Xil_MemCpy64
-*
+* 9.3   ml       02/19/25 Fix Type Mismatch in Xil_UtilRMW32
 *
 * </pre>
 *
@@ -337,7 +337,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value)
+void Xil_UtilRMW32(UINTPTR Addr, u32 Mask, u32 Value)
 {
 	u32 Val;
 
