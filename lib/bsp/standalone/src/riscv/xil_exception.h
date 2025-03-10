@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sa   08/27/22 Initial release
+* 9.3   ml   02/19/25 Add support for RISC-V Interrupt Handling
 *
 * </pre>
 *
@@ -104,8 +105,8 @@ typedef struct {
 } RISCV_ExceptionVectorTableEntry;
 
 /************************** Variable Definitions *****************************/
-extern RISCV_ExceptionVectorTableEntry RISCV_ExceptionVectorTable[XIL_EXCEPTION_ID_LAST + 1U];
-extern RISCV_ExceptionVectorTableEntry RISCV_InterruptVectorTable[XIL_INTERRUPT_ID_LAST + 1U];
+extern RISCV_ExceptionVectorTableEntry RISCV_ExceptionVectorTable[(XIL_EXCEPTION_ID_LAST - XIL_EXCEPTION_ID_FIRST) + 1U];
+extern RISCV_ExceptionVectorTableEntry RISCV_InterruptVectorTable[(XIL_INTERRUPT_ID_LAST - XIL_INTERRUPT_ID_FIRST) + 1U];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
