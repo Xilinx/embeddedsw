@@ -19,6 +19,8 @@
  * 1.01  ng   02/05/25 Added error code for URAM clear busy
  *       ng   02/14/25 Add error codes for new register_read CDO command
  *       ng   02/22/25 Add error codes for finish cdo read command
+ *       prt  03/10/25 Fixed doxygen comments
+ *
  * </pre>
  *
  ******************************************************************************/
@@ -57,30 +59,30 @@ typedef enum {
 	/** 0x904 - Error if DMA transfer failed waiting for done. */
 	XPLM_ERR_DMA_XFER_WAIT,
 
-	/** 0x905 - Error if tried to process unregistered API ID */
+	/** 0x905 - Error if tried to process unregistered API ID. */
 	XPLM_ERR_CMD_APIID,
 
-	/** 0x906 - Error if handler is not registered for the given CDO cmd */
+	/** 0x906 - Error if handler is not registered for the given CDO cmd. */
 	XPLM_ERR_CMD_HANDLER_NULL,
 
-	/** 0x907 - Error if the given CDO cmd is not registered */
+	/** 0x907 - Error if the given CDO cmd is not registered. */
 	XPLM_ERR_MODULE_NOT_REGISTERED,
 
-	/** 0x908 - Error if the handler is not assigned */
+	/** 0x908 - Error if the handler is not assigned. */
 	XPLM_ERR_INVLD_RESUME_HANDLER,
 
-	/** 0x909 - Error if failed to initialize the CDO instance */
+	/** 0x909 - Error if failed to initialize the CDO instance. */
 	XPLM_ERR_INIT_CDO_INSTANCE,
 
 	/**
 	 * 0x90A - Error when valid CDO header ID is not present in CDO header.
-	 * Can happen when different partition type is processed as CDO
+	 * Can happen when different partition type is processed as CDO.
 	 */
 	XPLM_ERR_CDO_HDR_ID,
 
 	/**
 	 * 0x90B - Error when CDO header checksum is wrong.
-	 * Can happen when CDO header is corrupted
+	 * Can happen when CDO header is corrupted.
 	 */
 	XPLM_ERR_CDO_CHECKSUM,
 
@@ -89,7 +91,7 @@ typedef enum {
 
 	/**
 	 * 0x90D - Error when the break length required to jump is less
-	 * than the processed CDO length
+	 * than the processed CDO length.
 	 */
 	XPLM_ERR_INVALID_BREAK_LENGTH,
 
@@ -101,16 +103,16 @@ typedef enum {
 
 	/**
 	 * 0x910 - Error when OSPI driver lookup fails.
-	 * Obversed when OSPI is not selected in CIPS
+	 * Obversed when OSPI is not selected in CIPS.
 	 */
 	XPLM_ERR_OSPI_CFG,
 
-	/** 0x911 - Error when OSPI driver CFG fails */
+	/** 0x911 - Error when OSPI driver CFG fails. */
 	XPLM_ERR_OSPI_INIT,
 
 	/**
 	 * 0x912 - Error when OSPI driver is unable to select flash CS0.
-	 * Check minor code for OSPI driver error code
+	 * Check minor code for OSPI driver error code.
 	 */
 	XPLM_ERR_OSPI_SEL_FLASH_CS0,
 
@@ -129,7 +131,7 @@ typedef enum {
 	/** 0x917 - Error if failed to enable dual byte op code. */
 	XPLM_ERR_OSPI_SET_DDR_DUAL_BYTE_OP_ENABLE,
 
-	/** 0x918 - Error if failed to set the controller to DDR PHY mode */
+	/** 0x918 - Error if failed to set the controller to DDR PHY mode. */
 	XPLM_ERR_OSPI_SET_DDR_PHY,
 
 	/** 0x919 - Error if failed to readback configuraion from flash. */
@@ -147,13 +149,13 @@ typedef enum {
 	/** 0x91C - Error if 0SPI connection mode is other than single. */
 	XPLM_ERR_OSPI_SINGLE_CONN_MODE,
 
-	/** 0x91D - Error if failed to set the controller to SDR NON PHY mode */
+	/** 0x91D - Error if failed to set the controller to SDR NON PHY mode. */
 	XPLM_ERR_OSPI_SET_SDR_NON_PHY,
 
-	/** 0x91E - Error if failed to set the controller to SDR PHY mode */
+	/** 0x91E - Error if failed to set the controller to SDR PHY mode. */
 	XPLM_ERR_OSPI_SET_SDR_PHY,
 
-	/** 0x91F - Error when source address in OSPI copy exceeds flash size */
+	/** 0x91F - Error when source address in OSPI copy exceeds flash size. */
 	XPLM_ERR_OSPI_COPY_LENGTH_OVERFLOW,
 
 	/** 0x920 - Error if failed to enable write mode in flash. */
@@ -201,13 +203,13 @@ typedef enum {
 	/** 0x92D - Error if QSPI connection mode is other than single. */
 	XPLM_ERR_QSPI_SINGLE_CONN_MODE,
 
-	/** 0x92E - Error when source address in OSPI copy exceeds flash size */
+	/** 0x92E - Error when source address in OSPI copy exceeds flash size. */
 	XPLM_ERR_QSPI_COPY_LENGTH_OVERFLOW,
 
 	/** 0x92F - Error if failed to read the data from flash. */
 	XPLM_ERR_QSPI_READ,
 
-	/** 0x930 - Error when QSPI read length is greater than flash size */
+	/** 0x930 - Error when QSPI read length is greater than flash size. */
 	XPLM_ERR_QSPI_LENGTH,
 
 	/** 0x931 - Error if QSPI bus width is not supported. */
@@ -216,7 +218,7 @@ typedef enum {
 	/** 0x932 - Error if failed to select the flash bank for read. */
 	XPLM_ERR_QSPI_READ_BANK_SEL,
 
-	/** 0x933 - Error if failed to select the flash bank*/
+	/** 0x933 - Error if failed to select the flash bank. */
 	XPLM_ERR_QSPI_BANK_SEL,
 
 	/** 0x934 - Error if failed to enable write mode during flash bank select. */
@@ -231,7 +233,7 @@ typedef enum {
 	/** 0x936 - Error if failed to verify the extended address write cmd. */
 	XPLM_ERR_QSPI_BANK_SEL_VERIFY_EXT_ADDR,
 
-	/** 0x937 - Error if the QSPI configuration in RTCA is set to DDR mode */
+	/** 0x937 - Error if the QSPI configuration in RTCA is set to DDR mode. */
 	XPLM_ERR_RTCA_QSPI_INVLD_DDR_CFG,
 
 	/* IO module */
@@ -239,7 +241,7 @@ typedef enum {
 	XPLM_ERR_IO_MOD_INIT,
 
 	/* Assert */
-	/** 0x939 - Assertion error */
+	/** 0x939 - Assertion error. */
 	XPLM_ERR_ASSERT,
 
 	/* PPDI */
@@ -255,7 +257,7 @@ typedef enum {
 	/** 0x93D - Error if failed to read boot header from SBI buffer. */
 	XPLM_ERR_PPDI_SBI_BUF_READ_BH,
 
-	/** 0x93E - Error if failed to validate Boot Header checksum */
+	/** 0x93E - Error if failed to validate Boot Header checksum. */
 	XPLM_ERR_CALC_BH_CHECKSUM,
 
 	/** 0x93F - Error if failed to initialize hash block to zero. */
@@ -264,10 +266,10 @@ typedef enum {
 	/** 0x940 - Error if failed to read hash block from SBI buffer. */
 	XPLM_ERR_HASH_BLOCK_READ_SBI_BUF,
 
-	/** 0x941 - Error if failed to read GCM TAG from SBI buffer */
+	/** 0x941 - Error if failed to read GCM TAG from SBI buffer. */
 	XPLM_ERR_GCM_TAG_READ_SBI_BUF,
 
-	/** 0x942 - Error if failed to authenticate Hash block */
+	/** 0x942 - Error if failed to authenticate Hash block. */
 	XPLM_ERR_HASH_BLOCK_AUTHENTICATION,
 
 	/** 0x943 - Error if failed to validate "XLNX" image identification word. */
@@ -276,7 +278,7 @@ typedef enum {
 	/** 0x944 - Error if the secondary boot interface configured it not supported. */
 	XPLM_ERR_INVALID_SECONDARY_BOOT_INTF,
 
-	/** 0x945 - Error if BH encryption status is other than @ref XPLM_ENC_STATUS_eFUSE_PUF_KEK */
+	/** 0x945 - Error if BH encryption status is other than @ref XPLM_ENC_STATUS_eFUSE_PUF_KEK. */
 	XPLM_ERR_PPDI_DEC_EFUSE_ONLY,
 
 	/** 0x946 - Error if encryption source or type is not supported. */
@@ -309,7 +311,7 @@ typedef enum {
 	/** 0x94D - Error if partial PDI contains PLM firmware. */
 	XPLM_ERR_PPDI_PMCFWLEN_NON_ZERO,
 
-	/** 0x94E - Error if CDO length is not byte aligned */
+	/** 0x94E - Error if CDO length is not byte aligned. */
 	XPLM_ERR_PPDI_CDO_LEN_ALIGN,
 
 	/** 0x94F - Error if PUF image ID is set for partial PDI. */
@@ -407,7 +409,7 @@ typedef enum {
 	XPLM_ERR_REG_READ_ADDR_INVALID,
 
 
-	/** 0xA00 to 0xA10 are dedicated for PUF SHA Digest errors */
+	/** 0xA00 to 0xA10 are dedicated for PUF SHA Digest errors. */
 	XPLM_ERR_PUF_SHA_DIGEST = 0xA00,
 
 	/** Errors starting from 0xD00 are related to secure load rom hook. */
