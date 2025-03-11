@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.10  kal  24/07/2024 Initial release
+* 1,11  sk   03/05/2025 Added ASU destination CPU attribute
 *
 * </pre>
 *
@@ -112,7 +113,7 @@ extern "C" {
 #define XIH_PH_ATTRB_DSTN_CPU_A78_3				(0x400U)
 #define XIH_PH_ATTRB_DSTN_CPU_R52_0				(0x500U)
 #define XIH_PH_ATTRB_DSTN_CPU_R52_1				(0x600U)
-#define XIH_PH_ATTRB_DSTN_CPU_PSM				(0x800U)
+#define XIH_PH_ATTRB_DSTN_CPU_ASU				(0x800U)
 #define XIH_PH_ATTRB_TCM_BOOT_ENABLED				(0x180000U)
 
 /**

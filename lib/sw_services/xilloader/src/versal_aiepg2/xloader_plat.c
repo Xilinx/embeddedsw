@@ -55,8 +55,10 @@
 *       obs  12/10/2024 Fixed GCC Warnings
 *       ma   01/07/2025 Added support for ASU handoff
 *       sk   02/04/2024 Reset Status before call to XLoader_PrtnCopy
-*		tri  03/01/2025 Added XLOADER_MEASURE_LAST case in XLoader_DataMeasurement
+*       tri  03/01/2025 Added XLOADER_MEASURE_LAST case in XLoader_DataMeasurement
 *						for versal_aiepg2
+*       sk   03/05/2025 Reset Status before use in XLoader_ProcessElf
+*       sk   03/05/2025 Added ASU destination CPU attribute
 *
 * </pre>
 *
@@ -266,7 +268,7 @@ XilBootPdiInfo* XLoader_GetBootPdiInfo(void)
  * 			handoff.
  * 			- XLOADER_ERR_WAKEUP_A78_3 if waking up the A78_3 failed during
  * 			handoff.
- * 			- XLOADER_ERR_WAKEUP_PSM if waking up the PSM failed during handoff.
+ * 			- XLOADER_ERR_WAKEUP_ASU if waking up the ASU failed during handoff.
  *
  *****************************************************************************/
 int XLoader_StartImage(XilPdi *PdiPtr)
@@ -371,8 +373,9 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 						" A78_3 wakeup\r\n", ClusterId);
 				break;
 
-			case XIH_PH_ATTRB_DSTN_CPU_PSM:
+			case XIH_PH_ATTRB_DSTN_CPU_ASU:
 				RequestWakeup = TRUE;
+				ErrorCode = XLOADER_ERR_WAKEUP_ASU;
 				DeviceId = PM_DEV_ASU;
 				XLoader_Printf(DEBUG_INFO, "Request ASU wakeup\r\n");
 				break;
@@ -592,7 +595,6 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
  * 			- XST_SUCCESS on success.
  * 			- XLOADER_ERR_INVALID_ELF_LOAD_ADDR if load address of the elf is
  * 			invalid.
- * 			- XLOADER_ERR_PM_DEV_PSM_PROC if device request for PSM is failed.
  * 			- XLOADER_ERR_INVALID_R52_CLUSTER if invalid R52 cluster is
  * 			selected.
  *
@@ -600,9 +602,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams)
 {
-	int Status = XST_FAILURE;
-//	u32 CapAccess = (u32)PM_CAP_ACCESS;
-//	u32 CapContext = (u32)PM_CAP_CONTEXT;
+	volatile int Status = XST_FAILURE;
 	u32 Len = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
 	u64 EndAddr = PrtnParams->DeviceCopy.DestAddr + Len - 1U;
 	u32 DstnCluster = 0U;
@@ -621,7 +621,6 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	/**
 	 * - Verify the load address.
 	 */
-	if (PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_PSM) {
 	Status = XPlmi_VerifyAddrRange(PrtnParams->DeviceCopy.DestAddr, EndAddr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_ELF_LOAD_ADDR,
@@ -629,31 +628,16 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		goto END;
 	}
 
-	}
 	DstnCluster = XilPdi_GetDstnCluster(PrtnHdr) >>
 			XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT;
 	ClusterLockstep = XilPdi_GetClusterLockstep(PrtnHdr);
 
 	/**
-	 *
-	 * - For PSM, PSM should be taken out of reset before loading.
-	 * PSM RAM should be ECC initialized
-	 *
 	 * - For OCM, RAM should be ECC initialized
 	 *
 	 * - R5 should be taken out of reset before loading.
 	 * R5 TCM should be ECC initialized
 	 */
-	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
-	#if 0
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
-			(CapAccess | CapContext), XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_PSM_PROC, 0);
-			goto END;
-		}
-	#endif
-	}
 
 	if ((XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED == ClusterLockstep) &&
 		((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R52_0) ||
@@ -747,6 +731,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A78_3)
 		) {
 
+		Status = XST_FAILURE;
 		Status = XLoader_ClearATFHandoffParams(PdiPtr);
 		if(Status != XST_SUCCESS){
 			goto END;
@@ -761,6 +746,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 
 	if (PdiPtr->DelayHandoff == (u8)FALSE) {
 		/* Update the handoff values */
+		Status = XST_FAILURE;
 		Status = XLoader_UpdateHandoffParam(PdiPtr);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -882,7 +868,7 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 	DstnCluster = XilPdi_GetDstnCluster(PrtnHdr);
 
 	if ((DstnCpu > XIH_PH_ATTRB_DSTN_CPU_NONE) &&
-	    (DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_PSM) &&
+	    (DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_ASU) &&
 	    (DstnCluster <= XIH_PH_ATTRB_DSTN_CLUSTER_3)) {
 		CpuNo = PdiPtr->NoOfHandoffCpus;
 		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu, DstnCluster) ==
@@ -1670,60 +1656,6 @@ static int XLoader_InitTrngInstance(void)
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function will load the LPD and PSM ELF file from DDR.
- *
- * @return
- * 		- XST_SUCCESS on success.
- * 		- Error code on failure
- *
-*****************************************************************************/
-int XLoader_LoadLpdAndPsmElf()
-{
-	int Status = XST_FAILURE;
-	u64 PdiAddr = (u64)(XPlmi_GetUpdatePdiAddr());
-	XilPdi *PdiPtr = XLoader_GetPdiInstance();
-
-	/** Memset the PDI instance. */
-	Status = XPlmi_MemSetBytes(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, XLOADER_ERR_MEMSET_PDIPTR);
-		goto END;
-	}
-
-	/** Initialize the PDI to load the LPD subsystem from DDR. */
-	PdiPtr->PdiType = XLOADER_PDI_TYPE_IPU;
-	Status = XLoader_PdiInit(PdiPtr, XLOADER_PDI_SRC_DDR, PdiAddr);
-
-	if (XST_SUCCESS != Status){
-		PmErr("XLoader_LoadPdi failed with Status=%x\n\r", Status);
-		goto END;
-	}
-
-	/**
-	 * Check if LPD is present in InPlacePLM PDI and get the
-	 * Image number and Partition number.
-	 * If LPD is not found, return error.
-	 */
-	Status = XLoader_GetImageAndPrtnInfo(PdiPtr, PM_POWER_LPD);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, 0);
-		goto END;
-	}
-
-	/** Load the LPD image. */
-	Status = XLoader_LoadImage(PdiPtr);
-	if (XST_SUCCESS != Status){
-		goto END;
-	}
-	/** We need to reset NoOfHandOffCpus here because we don't call StartImage routine */
-	PdiPtr->NoOfHandoffCpus = 0U;
 
 END:
 	return Status;
