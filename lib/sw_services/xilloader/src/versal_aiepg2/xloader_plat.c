@@ -58,6 +58,7 @@
 *       tri  03/01/2025 Added XLOADER_MEASURE_LAST case in XLoader_DataMeasurement
 *						for versal_aiepg2
 *       sk   03/05/2025 Reset Status before use in XLoader_ProcessElf
+*       sk   03/05/2025 Added temporal check in XLoader_EncRevokeIdMeasurement
 *       sk   03/05/2025 Added ASU destination CPU attribute
 *
 * </pre>
@@ -122,7 +123,7 @@
 #ifdef PLM_OCP_KEY_MNGMT
 #define XLOADER_INVALID_DEVAK_INDEX			(0xFFFFFFFFU) /**< INVALID DEVAK INDEX */
 #endif
-
+#define XLOADER_TRNG_DEVICE_ID				(0U)
 /**
  * @{
  * @cond DDR calibration errors
@@ -1344,7 +1345,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 	u32 IsAuthenticated = SecurePtr->IsAuthenticated;
 	u32 IsEncrypted = SecurePtr->IsEncrypted;
-	u32 MeasureIdx = (PcrInfo & XOCP_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
+	u32 MeasureIdx = (PcrInfo & XOCP_PCR_MEASUREMENT_INDEX_MASK) >> XOCP_PCR_MEASUREMENT_INDEX_SHIFT;
 	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
 	XSecure_Sha3Hash Sha3Hash = {0U};
 
@@ -1545,7 +1546,7 @@ END:
  *****************************************************************************/
 static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
 	Status = XSecure_ShaInitialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
@@ -1553,8 +1554,9 @@ static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecu
 		goto END;
 	}
 
-	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->PrtnHdr->EncRevokeID,
-			sizeof(SecurePtr->PrtnHdr->EncRevokeID), (UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ShaDigest, Sha3InstPtr, XSECURE_SHA3_384,
+			(UINTPTR)&SecurePtr->PrtnHdr->EncRevokeID, sizeof(SecurePtr->PrtnHdr->EncRevokeID),
+			(UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
 END:
 	return Status;
 }
@@ -1646,7 +1648,7 @@ static int XLoader_InitTrngInstance(void)
 	XTrngpsx_Instance  *TrngInstance = XSecure_GetTrngInstance();
 	XTrngpsx_Config *CfgPtr = NULL;
 
-	CfgPtr = XTrngpsx_LookupConfig(0);
+	CfgPtr = XTrngpsx_LookupConfig(XLOADER_TRNG_DEVICE_ID);
 	if (CfgPtr == NULL) {
 		Status = XLOADER_TRNG_INIT_FAIL;
 		goto END;

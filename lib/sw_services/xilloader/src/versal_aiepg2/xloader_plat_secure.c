@@ -35,6 +35,7 @@
 *       kpt  02/08/2024 Added support to update secure state when DAP state is changed
 *       kpt  03/15/2024 Updated RSA KAT to use 2048-bit key
 * 2.2   sk   02/04/2025 Added redundancy check for XLoader_CheckSecureState
+*       sk   03/05/2025 Added redundancy check for AHwRotStatus & SHwRotStatus
 *
 * </pre>
 *
@@ -558,7 +559,8 @@ int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
 			goto END;
 		}
 
-		if ((AHwRotStatus == XST_SUCCESS) || (SHwRotStatus == XST_SUCCESS)) {
+		if (((AHwRotStatus == XST_SUCCESS) || (AHwRotStatusTmp == XST_SUCCESS)) ||
+				((SHwRotStatus == XST_SUCCESS) || (SHwRotStatusTmp == XST_SUCCESS))) {
 			if (UpdateFlag == XLOADER_BBRAM_CL_INCREMENT_COUNT){
 				MaxConfigsCnt++;
 			}
