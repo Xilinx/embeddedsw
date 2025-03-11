@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module acts as a supporting module to validate required hardware
@@ -13,6 +13,7 @@ import os
 import utils
 from repo import Repo
 
+logger = utils.get_logger(__name__)
 
 def lop_create_target(lop_cmds):
     lop_file = f'''
@@ -90,7 +91,6 @@ class ValidateHW(Repo):
                 comp_list += list(schema.get("depends_libs",{}).keys())
                 if 'xiltimer' in comp_list:
                     comp_list.remove('xiltimer')
-
             lop_cmds = []
             config_lops_file = os.path.join(self.domain_dir, "lop-config.dts")
             for comp in comp_list:
@@ -103,6 +103,7 @@ class ValidateHW(Repo):
                 utils.runcmd(
                     f"lopper -O {self.domain_dir} -i {config_lops_file} -f {self.sdt}",
                     cwd = self.domain_dir,
-                    log_message="HW validation assist"
+                    log_message = "HW validation assist",
+                    error_message = "HW validation assist failed"
                 )
                 utils.remove(config_lops_file)

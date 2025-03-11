@@ -7,10 +7,10 @@ for the new platform using the domain information provided.
 
 import argparse
 import os
-
 import utils
 from build_bsp import BSP
 
+logger = utils.get_logger(__name__)
 
 class RetargetApp(BSP):
     def __init__(self, args):
@@ -33,6 +33,7 @@ def retarget_app(args):
     # Update link libraries as per new domain
     domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")
     if domain_data['lib_info']:
+        logger.info("Updating link libraries based on new domain")
         src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
         lib_list = list(domain_data['lib_info'].keys())
         # Special handling for libmetal
@@ -62,7 +63,9 @@ def retarget_app(args):
                     # Find the updated path
                     updated_compiler_ar_path = utils.find_compiler_path(compiler_ar_name)
                     if current_compiler_ar_path != updated_compiler_ar_path:
-                        print(f"Compiler path changed from {current_compiler_ar_path} to {updated_compiler_ar_path}. Clearing build directory.")
+                        logger.info(
+                            f"Compiler path changed from {current_compiler_ar_path} to {updated_compiler_ar_path}. Clearing build directory."
+                        )
                         utils.remove(app_build_dir)
             elif utils.is_file(compile_commands_file):
                 build_data = utils.load_json(compile_commands_file)
@@ -80,6 +83,7 @@ def retarget_app(args):
                 In case build folder doesn't have compile_commands.json delete the
                 build folder for safer side.
                 """
+                logger.debug("No compile_commands.json found. Removing build directory for safety.")
                 utils.remove(app_build_dir)
 
             """
@@ -89,6 +93,7 @@ def retarget_app(args):
             """
             is_ninja_build = os.path.join(app_build_dir, "build.ninja")
             if not utils.is_file(is_ninja_build):
+                logger.debug("Ninja build file not found. Clearing build directory and updating CMakeLists.txt.")
                 utils.remove(app_build_dir)
                 src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
                 replace_header = f'''
@@ -102,10 +107,11 @@ endif()
                     f'set_source_files_properties(${{_sources}} OBJECT_DEPENDS "${{CMAKE_LIBRARY_PATH}}/*.a")',
                     replace_header
                 )
+
 def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to change platform for a given application",
-        usage='use "python %(prog)s --help" for more information',
+        usage='use "empyro retarget_app --help" for more information',
         formatter_class=argparse.RawTextHelpFormatter,
     )
     required_argument = parser.add_argument_group("Required arguments")
@@ -129,7 +135,16 @@ def main(arguments=None):
         action="store",
         help="Specify the App Build Directory",
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help='Increase output verbosity'
+    )
     args = vars(parser.parse_args(arguments))
+    utils.setup_log(args["verbose"])
+    logger.info("Retargeting app")
     retarget_app(args)
 
 if __name__ == "__main__":

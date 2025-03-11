@@ -12,9 +12,9 @@ import glob
 import os
 import re
 import sys
-
 import utils
 
+logger = utils.get_logger(__name__)
 
 class Repo:
     """
@@ -42,14 +42,15 @@ class Repo:
         """
         if not utils.is_file(repo_yaml_path):
             if shell_esw_repo:
+                logger.info("Found ESW_REPO in environment")
                 resolve_paths([shell_esw_repo])
             else:
-                print(f"""\b
-                    [ERROR]: Please set the Embeddedsw directory path.
+                logger.error(f"""\b
+                    Please set the Embeddedsw directory path.
                     Usage:
-                        python3 repo.py -st <the ESW_REPO_PATH>
+                        empyro repo -st <the ESW_REPO_PATH>
                     For multiple esw repo paths, use below with left one having higher precedence:
-                        python3 repo.py -st <path_1> <path_2> ... <path_n>
+                        empyro repo -st <path_1> <path_2> ... <path_n>
                     """
                 )
                 sys.exit(1)
@@ -64,13 +65,14 @@ class Repo:
         if not path_found:
             if sdt_path:
                 has_drivers = os.path.join(sdt_path, "drivers")
+                logger.debug("Checking for drivers inside SDT folder ")
                 if utils.is_dir(has_drivers, silent_discard=False):
                     yaml_list = glob.glob(has_drivers + '/**/data/*.yaml', recursive=True)
                     yaml_file_abs = [yaml for yaml in yaml_list if f"{comp_name}.yaml" in yaml]
                     if yaml_file_abs:
                         comp_dir = utils.get_dir_path(utils.get_dir_path(yaml_file_abs[0]))
                         return self.validate_comp_path(comp_dir, comp_name)
-            print(f"[ERROR]: Couldnt find the src directory for {comp_name}")
+            logger.error(f"Couldnt find the src directory for {comp_name}")
             sys.exit(1)
 
     def validate_comp_path(self, comp_dir, comp_name):
@@ -103,12 +105,14 @@ def resolve_paths(args):
     comp_list = []
     for path in repo_paths:
         abs_path = utils.get_abs_path(path)
+        logger.debug("Processing repository path")
         if not utils.is_dir(path):
-            print(f"[ERROR]: Directory path {abs_path} doesn't exist")
+            logger.error(f"Directory path {abs_path} doesn't exist")
             sys.exit(1)
         elif abs_path not in path_dict['paths'].keys():
             path_dict['paths'].update({abs_path : {}})
         else:
+            logger.debug(f"Path already exists in path_dict, skipping.")
             continue
 
         files = sorted(glob.glob(abs_path + '/**/data/*.yaml', recursive=True))
@@ -126,6 +130,7 @@ def resolve_paths(args):
 
             yaml_data = utils.load_yaml(entries)
             if yaml_data is None or not yaml_data.get('type'):
+                logger.debug("Invalid or missing 'type' field in YAML")
                 continue
 
             if not path_dict[yaml_data['type']].get(comp_name):
@@ -142,11 +147,12 @@ def resolve_paths(args):
             path_dict[comp_type][comp_name] = {'path': comp_path_list}
 
     utils.write_yaml('.repo.yaml', path_dict)
+    logger.info("Successfully set the EmbeddedSW path, refer .repo.yaml for more details.")
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to set ESW Repo Path",
-        usage='use "python %(prog)s --help" for more information',
+        usage='use "empyro repo --help" for more information',
         formatter_class=argparse.RawTextHelpFormatter,
     )
     required_argument = parser.add_argument_group("Required arguments")
@@ -157,7 +163,17 @@ def main(arguments=None):
         help="Embeddedsw directory Path",
         required=True,
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help='Increase output verbosity'
+    )
     args = vars(parser.parse_args(arguments))
+    utils.setup_log(args["verbose"])
+    logger.info( "Initializing repositories" )
+
     resolve_paths(args)
 
 if __name__ == "__main__":
