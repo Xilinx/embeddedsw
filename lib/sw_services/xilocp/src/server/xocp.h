@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -25,6 +25,7 @@
 *       kpt  02/21/2024 Add support for DME CSR extension
 * 1.4   har  06/10/2024 Add data structure IDs for OCP module
 *       vss  10/24/2024 Added xppu disabled value macro for dynamic reconfiguration
+* 1.5   sk   03/05/2025 Added define for OCP PCR Measurement index position
 *
 * </pre>
 *
@@ -69,6 +70,7 @@ extern "C" {
 #define XOCP_WORD_LEN					(0x4U) /**< Word length */
 #define XOCP_PCR_NUMBER_MASK 				(0x0000FFFFU) /**< Number mask value */
 #define XOCP_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)
+#define XOCP_PCR_MEASUREMENT_INDEX_SHIFT 		(16U)
 							 /**< Measurement index mask value */
 #define XOCP_PCR_INVALID_VALUE 				(0xFFFFFFFFU) /**< PCR invalid value */
 #define XOCP_PCR_HASH_SIZE_IN_BYTES			(48U) /**< Hash size in bytes */
