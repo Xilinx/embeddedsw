@@ -39,7 +39,7 @@ extern "C" {
  */
 /**
  * PCIe Controller 0 DVSEC
- * Control and Status Regsiters
+ * Control and Status Registers
  */
 #define PCIEA_DVSEC0_SLCR_OFF		0x5A0000U
 #define PCIEA_ATTRIB0_SLCR_OFF		0x40000U
@@ -85,8 +85,8 @@ extern "C" {
  * @ingroup versal_regs
  * @{
  */
-/*
- * PF0 CCIX Protocol DVSEC Regsiters
+/**
+ * PF0 CCIX Protocol DVSEC Registers
  */
 #define PCIE_PF0_PCSR_SIZE_OFF		0xA6CU
 #define PCIE_PF0_PCR_SIZE_OFF		0xA74U
@@ -183,12 +183,12 @@ Calculate index of register from the specified DVSEC struct
 	((Reg) - (DvsecStruct[0].DvsecOff)) / (DVSEC_REG_SIZE)
 
 /**
- *  * @brief Structure for DVSEC PSCSR Regsiter.
+ *  * @brief Structure for DVSEC PSCSR Register.
  */
 
 typedef struct{
-	u32 DvsecOff;
-	u32 Val;
+	u32 DvsecOff; /**< Dvsec register offset */
+	u32 Val; /**< Dvsec register value */
 } DvsecPcsr;
 
 #ifdef __cplusplus
