@@ -1362,6 +1362,12 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 					InstancePtr->StreamDownCallback(
 							InstancePtr->StreamDownRef);
 				}
+
+				/* Call Video Ready Error callback */
+				if (InstancePtr->VidRdyErrorCallback) {
+					InstancePtr->VidRdyErrorCallback(
+							InstancePtr->VidRdyErrorRef);
+				}
 			}
 		}
 	}
