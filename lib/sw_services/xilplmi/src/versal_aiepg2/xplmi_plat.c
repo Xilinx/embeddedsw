@@ -53,6 +53,7 @@
 *       sk   12/13/2024 Updated PSM buffer defines to PPU RAM
 *       pre  12/24/2024 Assigned PmcBuffers to data of PmcBufferList
 * 2.2   vss  02/11/2025 Updated SSS configuration correctly.
+*       sk   02/26/2025 Updated status variable as volatile in XPlmi_GenericHandler
 *
 * </pre>
 *
@@ -165,7 +166,7 @@ static XInterruptHandler g_TopLevelInterruptTable[] = {
 };
 
 
- /* Default IRO frequency during ROM phase is 233MHz */
+ /* Default IRO frequency during ROM phase is 320MHz */
 static u32 RomIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ;
 
 /*****************************************************************************/
@@ -398,7 +399,7 @@ XPlmi_CircularBuffer *XPlmi_GetTraceLogInst(void)
  *****************************************************************************/
 int XPlmi_GenericHandler(XPlmi_ModuleOp Op)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u8 Index;
 	static u8 GenericHandlerState = XPLMI_MODULE_NORMAL_STATE;
 
