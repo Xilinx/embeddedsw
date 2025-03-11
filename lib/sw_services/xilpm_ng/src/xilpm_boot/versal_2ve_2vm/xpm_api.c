@@ -177,6 +177,11 @@ XStatus __attribute__((weak, noinline)) XPm_HookAfterPlmCdo(void)
 	return Status;
 }
 
+XStatus __attribute__((weak, noinline)) XPm_AddDDRMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev) {
+	(void)(MCDev);
+	return XST_SUCCESS;
+};
+
 u32 __attribute__((weak, noinline)) XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask) {
 	u32 SubsystemId = PM_SUBSYS_DEFAULT;
 	s32 FirstSet = 0;

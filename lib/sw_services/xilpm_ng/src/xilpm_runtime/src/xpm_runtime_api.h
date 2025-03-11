@@ -7,11 +7,16 @@
 #define XPM_RUNTIME_API_H
 
 #include "xpm_device.h"
+#include "xpm_mem.h"
 #include "xstatus.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define MEMREGN_DEVID(IDX)		NODEID((u32)XPM_NODECLASS_DEVICE, \
+					(u32)XPM_NODESUBCL_DEV_MEM_REGN, \
+					(u32)XPM_NODETYPE_DEV_MEM_REGN, (IDX))
 
 int XPm_RegisterWakeUpHandlers(void);
 int XPm_ForcePwrDwnCb(void *Data);
@@ -78,6 +83,7 @@ XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 
 XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider);
 XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentIdx);
 XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx);
+XStatus XPm_AddPSMemRegnForDefaultSubsystem(void);
 
 #ifdef __cplusplus
 }
