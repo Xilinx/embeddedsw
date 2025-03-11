@@ -88,6 +88,8 @@ struct XPm_DeviceAttr {
 };
 
 /************************** Function Prototypes ******************************/
+u32 XPmDevice_GetMemRegnCount(void);
+
 XStatus XPmDevice_Init(XPm_Device *Device,
 		u32 Id,
 		u32 BaseAddress,

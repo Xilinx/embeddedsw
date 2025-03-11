@@ -651,6 +651,8 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 		goto done;
 	}
 
+	Status = XPm_AddDDRMemRegnForDefaultSubsystem(MCDev);
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;

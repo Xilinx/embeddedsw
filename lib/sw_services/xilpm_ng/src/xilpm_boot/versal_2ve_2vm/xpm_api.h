@@ -11,7 +11,7 @@
 #include "xstatus.h"
 #include "xpm_defs.h"
 #include "xplmi_ipi.h"
-
+#include "xpm_mem.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -76,6 +76,7 @@ XStatus XPm_AddNode(XPlmi_Cmd *Cmd);
 XStatus XPm_HookAfterBootPdi(void);
 XStatus XPm_RuntimeInit(void);
 u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask);
+XStatus XPm_AddDDRMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev);
 
 #ifdef __cplusplus
 }

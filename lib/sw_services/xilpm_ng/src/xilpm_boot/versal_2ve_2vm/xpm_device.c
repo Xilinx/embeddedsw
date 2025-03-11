@@ -38,6 +38,10 @@ static u32 PmNumDevices;
 static u32 PmNumAieDevices;
 //static XStatus SetClocks(const XPm_Device *Device, u32 Enable);
 
+u32 XPmDevice_GetMemRegnCount(void) {
+	return PmNumMemRegnDevices;
+}
+
 static XStatus SetPlDeviceNode(u32 Id, XPm_Device *Device)
 {
 	XStatus Status = XST_INVALID_PARAM;
