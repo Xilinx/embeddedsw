@@ -7,9 +7,9 @@ include os, driver and library related archives.
 
 import argparse
 import os
-
 import utils
 
+logger = utils.get_logger(__name__)
 
 class BSP:
     """
@@ -50,10 +50,11 @@ class BSP:
             self.domain_path, domain_data["specs_file"]
         )
         self.cmake_paths_append = f" -DCMAKE_LIBRARY_PATH={self.lib_folder} \
-            -DCMAKE_INCLUDE_PATH={self.include_folder} \
-            -DCMAKE_MODULE_PATH={self.domain_path} \
-            -DCMAKE_TOOLCHAIN_FILE={self.toolchain_file} \
-            -DCMAKE_VERBOSE_MAKEFILE=ON"
+-DCMAKE_INCLUDE_PATH={self.include_folder} \
+-DCMAKE_MODULE_PATH={self.domain_path} \
+-DCMAKE_TOOLCHAIN_FILE={self.toolchain_file} \
+-DCMAKE_VERBOSE_MAKEFILE=ON"
+
         if domain_data.get("compiler", "gcc") == "gcc":
             self.cmake_paths_append += f" -DCMAKE_SPECS_FILE={self.specs_file} "
         else:
@@ -98,23 +99,49 @@ endfunction(_my_hook_end_of_configure)
         self.cmake_paths_append = self.cmake_paths_append.replace('\\','/')
         build_libxil = build_libxil.replace('\\','/')
         if self.config == "default":
-            utils.runcmd(f'cmake -G "{self.cmake_generator}" {self.domain_path} -DSUBDIR_LIST="ALL" {self.cmake_paths_append}', cwd=build_libxil)
+            utils.runcmd(
+                f'cmake -G "{self.cmake_generator}" {self.domain_path} -DSUBDIR_LIST="ALL" {self.cmake_paths_append}',
+                cwd = build_libxil,
+                log_message = "Configuring cmake build area with all library subdir list",
+                error_message = "Failed to configure cmake build area with all library subdir list"
+            )
             utils.update_yaml(self.domain_config_file, "domain", "config", "None")
         elif self.config == "reconfig":
+            logger.debug("Reconfiguring BSP")
             utils.touch(cmake_file)
             utils.update_yaml(self.domain_config_file, "domain", "config", "None")
-        utils.runcmd("cmake --build . --parallel 22 --verbose", cwd = build_libxil)
-        utils.runcmd("cmake --install .", cwd=build_libxil)
+
+        utils.runcmd(
+            "cmake --build . --parallel 22 --verbose",
+            cwd = build_libxil,
+            log_message = "Building BSP",
+            error_message = "Failed to build the BSP",
+            verbose_level = 0
+        )
+
+        utils.runcmd(
+            "cmake --install .",
+            cwd = build_libxil,
+            log_message = "Copying headers and built archives",
+            error_message = "Failed to copy headers and built archives, cmake install failed",
+            verbose_level = 0
+        )
 
     def clean_bsp(self):
         self.libsrc_folder = self.libsrc_folder.replace("\\", "/")
         cmake_cache = os.path.join(self.libsrc_folder, "build_configs", "gen_bsp", "CMakeCache.txt")
         if not utils.is_file(cmake_cache):
-            print("Nothing to clean build the BSP first")
+            logger.info("Nothing to clean build the BSP first")
         else:
             build_libxil = os.path.join(self.libsrc_folder, "build_configs", "gen_bsp")
             utils.update_yaml(self.domain_config_file, "domain", "config", "default")
-            utils.runcmd("cmake --build . --target clean", cwd=build_libxil)
+            utils.runcmd(
+                "cmake --build . --target clean",
+                cwd = build_libxil,
+                log_message = "Cleaning the BSP",
+                error_message = "Failed to clean the BSP",
+                verbose_level = 0
+            )
             utils.remove(cmake_cache)
 
     def getdrv_list(self):
@@ -142,8 +169,15 @@ def generate_bsp(args):
 def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Build the created bsp",
-        usage='use "python %(prog)s --help" for more information',
+        usage='use "empyro build_bsp --help" for more information',
         formatter_class=argparse.RawTextHelpFormatter,
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help='Increase output verbosity'
     )
     required_argument = parser.add_argument_group("Required arguments")
     required_argument.add_argument(
@@ -153,8 +187,15 @@ def main(arguments=None):
         help="Domain directory Path",
         required=True,
     )
-    parser.add_argument("--clean", action="store_true", help="Clean the BSP")
+    parser.add_argument(
+        "--clean",
+        action="store_true",
+        help="Clean the BSP"
+    )
+
+
     args = vars(parser.parse_args(arguments))
+    utils.setup_log(args["verbose"])
     generate_bsp(args)
 
 if __name__ == "__main__":

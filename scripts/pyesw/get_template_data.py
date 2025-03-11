@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module fetches all the template app related data from esw yamls and puts
@@ -33,7 +33,7 @@ def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Fetches all the template app related data from esw yamls\
         and puts it into a yaml file",
-        usage='use "python %(prog)s --help" for more information',
+        usage='use "empyro get_template_data --help" for more information',
     )
     parser.add_argument(
         "-d",

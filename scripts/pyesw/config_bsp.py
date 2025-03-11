@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module configures the bsp as per the passed library and os related
@@ -8,13 +8,13 @@ parameters.
 import argparse
 import os
 import sys
-
 import utils
 from build_bsp import BSP
 from library_utils import Library
 from regen_bsp import regenerate_bsp
 from validate_hw import ValidateHW
 
+logger = utils.get_logger(__name__)
 
 class Bsp_config(BSP, Library):
     """
@@ -52,9 +52,10 @@ def configure_bsp(args):
     # If user wants to add a library to the bsp
     if obj.addlib:
         lib_name = obj.addlib[0]
+        logger.info(f"Adding {lib_name}")
         if lib_name in obj.bsp_lib_config.keys():
-            print(f"""\b
-                 [ERROR]: {lib_name} is already added in the bsp. Nothing to do.
+            logger.warning(f"""\b
+                 {lib_name} is already added in the bsp. Nothing to do.
                  Use config_bsp.py if you want to configure the library.
             """)
             sys.exit(1)
@@ -73,10 +74,13 @@ def configure_bsp(args):
             obj.gen_lib_metadata(lib)
 
         obj.config_lib(lib_name, lib_list, "", is_app=False)
+        logger.info(f"Successfully added {lib_name}")
 
     # If user wants to remove a library from the bsp
     if obj.rmlib:
+        logger.info(f"Removing {obj.rmlib}")
         obj.remove_lib(obj.rmlib)
+        logger.info(f"Successfully removed {obj.rmlib}")
 
     # If user wants to set library parameters
     if args.get("set_property"):
@@ -84,12 +88,12 @@ def configure_bsp(args):
 
         # Validate the command line inputs provided
         usage_print = """
-            [ERROR]: Please pass library name followed by param:value.
+            Please pass library name followed by param:value.
             e.g. -st xilffs XILFFS_read_only:ON XILFFS_use_lfn:1
             Wrong inputs passed with set_property.
         """
         if len(prop_params) < 2:
-            print(usage_print)
+            logger.error(usage_print)
             sys.exit(1)
         lib_name = prop_params[0]
         # assert error if library is not added in bsp
@@ -98,7 +102,7 @@ def configure_bsp(args):
         prop_dict = {lib_name: {}}
         for entries in prop_params[1:]:
             if ":" not in entries:
-                print(usage_print)
+                logger.error(usage_print)
                 sys.exit(1)
             else:
                 prop_data = entries.split(":")
@@ -115,18 +119,37 @@ def configure_bsp(args):
                 value = values['value']
                 lopper_cmd_append += f' {key}:{value}'
             lopper_cmd = f"lopper -O {dstdir} -f {ori_sdt_path} --  generate_config_object pm_cfg_obj.c {obj.proc} {lopper_cmd_append}"
-            utils.runcmd(lopper_cmd, cwd = dstdir)
+            utils.runcmd(
+                lopper_cmd, cwd = dstdir,
+                log_message = "Generating PM Config Object",
+                error_message = "PM Config object generation Failed",
+                verbose_level = 0
+            )
+
         # set the cmake options to append lib param values.
         cmake_cmd_append = ""
         for key, value in prop_dict[lib_name].items():
+            logger.debug(f"Setting {key} to {value}")
             cmake_cmd_append += f' -D{key}="{value}"'
 
         # configure the lib build area with new params
         build_metadata = os.path.join(obj.libsrc_folder, "build_configs/gen_bsp")
         if obj.os == "freertos" and lib_name == "freertos":
-            utils.runcmd(f'cmake {obj.domain_path} {obj.cmake_paths_append} -DSUBDIR_LIST="freertos10_xilinx" {cmake_cmd_append}', cwd=build_metadata)
+            utils.runcmd(
+                f'cmake {obj.domain_path} {obj.cmake_paths_append} -DSUBDIR_LIST="freertos10_xilinx" {cmake_cmd_append}',
+                cwd = build_metadata,
+                log_message = f"Configuring FreeRTOS with {cmake_cmd_append}",
+                error_message="Failed to configure FreeRTOS  ",
+                verbose_level = 0
+            )
         else:
-            utils.runcmd(f'cmake {obj.domain_path} {obj.cmake_paths_append} -DSUBDIR_LIST="{lib_name}" {cmake_cmd_append}', cwd=build_metadata)
+            utils.runcmd(
+                f'cmake {obj.domain_path} {obj.cmake_paths_append} -DSUBDIR_LIST="{lib_name}" {cmake_cmd_append}',
+                cwd = build_metadata,
+                log_message = f"Configuring {lib_name} with {cmake_cmd_append}",
+                error_message = f"Failed to configure {lib_name}",
+                verbose_level = 0
+            )
 
         # Update the lib config file
         if obj.proc in obj.bsp_lib_config.keys():
@@ -139,19 +162,20 @@ def configure_bsp(args):
             utils.update_yaml(obj.domain_config_file, "domain", "os_config", os_config, action="add")
         utils.update_yaml(obj.domain_config_file, "domain", "lib_config", obj.bsp_lib_config)
         utils.update_yaml(obj.domain_config_file, "domain", "config", "reconfig")
+        logger.info(f"Successfully configured BSP")
 
     if args.get("set_repo_path"):
         prop_params = args["set_repo_path"]
 
         # Validate the command line inputs provided
         usage_print = """
-            [ERROR]: Please pass component and component name followed by path
+            Please pass component and component name followed by path
             component name:path.
             e.g. -sr driver csudma:<path to driver source>
             Wrong inputs passed with set_repo_path.
         """
         if len(prop_params) < 2:
-            print(usage_print)
+            logger.error(usage_print)
             sys.exit(1)
 
         # Copy the repo.yaml to the bsp path
@@ -162,7 +186,7 @@ def configure_bsp(args):
         component = prop_params[0]
         for entries in prop_params[1:]:
             if ":" not in entries:
-                print(usage_print)
+                logger.error(usage_print)
                 sys.exit(1)
             else:
                 prop_data = entries.split(":")
@@ -180,7 +204,7 @@ def configure_bsp(args):
                 try:
                     index = path.index(component_path)
                 except ValueError:
-                    print(f"[ERROR]: provide {component_path} is not a valid path")
+                    logger.error(f"Provided {component_path} is not a valid path")
                     sys.exit(1)
 
                 old_path = path[0]
@@ -196,10 +220,11 @@ def configure_bsp(args):
         if os.environ.get("OSF"):
             args.update({'sdt':obj.sdt})
             regenerate_bsp(args)
+
 def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to modify BSP Settings",
-        usage='use "python %(prog)s --help" for more information',
+        usage='use "empyro config_bsp --help" for more information',
         formatter_class=argparse.RawTextHelpFormatter,
     )
     required_argument = parser.add_argument_group("Required arguments")
@@ -248,7 +273,15 @@ def main(arguments=None):
         help="Specify the .repo.yaml absolute path to use the set repo info",
         default='.repo.yaml',
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help='Increase output verbosity'
+    )
     args = vars(parser.parse_args(arguments))
+    utils.setup_log(args["verbose"])
     configure_bsp(args)
 
 if __name__ == "__main__":

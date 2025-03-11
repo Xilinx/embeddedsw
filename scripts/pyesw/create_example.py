@@ -11,12 +11,12 @@ import fileinput
 import os
 import sys
 import textwrap
-
 import utils
 from build_bsp import BSP
 from repo import Repo
 from validate_bsp import Validation
 
+logger = utils.get_logger(__name__)
 
 class App(BSP, Repo):
     """
@@ -49,7 +49,6 @@ class App(BSP, Repo):
         # (for compiler flags, linker flags etc.)
         self.app_config_file = os.path.join(self.app_src_dir, "app.yaml")
 
-
 def create_example(args):
     """
     Function that uses the above App class to create the template application.
@@ -58,6 +57,7 @@ def create_example(args):
         args (dict): Takes all the user inputs in a dictionary.
     """
     obj = App(args)
+    logger.info(f"Creating example {obj.app_name}")
 
     # Copy the application src directory from embeddedsw to app src folder.
     domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")
@@ -88,6 +88,7 @@ def create_example(args):
 
     src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")
     app_name = os.path.splitext(utils.get_base_name(obj.app_name))[0]
+    logger.debug("Updating CMakeLists.txt with application name.")
     utils.replace_line(
         src_cmake,
         f'APP_NAME empty_application',
@@ -97,6 +98,7 @@ def create_example(args):
     if domain_data['lib_info']:
         lib_list = list(domain_data['lib_info'].keys())
         cmake_lib_list = ';'.join(lib_list)
+        logger.debug(f"Updating library dependencies in CMakeLists.txt with {cmake_lib_list}")
         utils.replace_line(
             src_cmake,
             f'PROJECT_LIB_DEPS xilstandalone',
@@ -107,8 +109,12 @@ def create_example(args):
     linker_cmd = (
         f"lopper -O {obj.app_src_dir} {obj.sdt} -- baremetallinker_xlnx {obj.proc} {srcdir}"
     )
-    utils.runcmd(linker_cmd)
 
+    utils.runcmd(linker_cmd,
+        log_message = f"Generating Linker script for {obj.app_name}" ,
+        error_message = f"Failed to generate Linker script for {obj.app_name}" ,
+        verbose_level = 0
+    )
     # Copy the static linker files from embeddedsw to the app src dir
     linker_dir = os.path.join(obj.app_src_dir, "linker_files")
     linker_src = utils.get_high_precedence_path(
@@ -134,8 +140,13 @@ def create_example(args):
     obj.app_src_dir = obj.app_src_dir.replace('\\', '/')
     obj.cmake_paths_append = obj.cmake_paths_append.replace('\\', '/')
     dump = utils.discard_dump()
-    utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append} -DUSER_LINK_LIBRARIES={obj.name} > {dump}', cwd=compile_commands_dir)
-
+    utils.runcmd(
+        f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append} -DUSER_LINK_LIBRARIES={obj.name} > {dump}',
+        cwd = compile_commands_dir,
+        log_message = "Running CMake Configuration",
+        error_message = "Failed to run CMake Configuration",
+        verbose_level = 0
+    )
     '''
     compile_commands.json file needs to be kept inside src directory.
     Silent_discard needs to be true as for Empty Application, this file
@@ -167,12 +178,12 @@ CompileFlags:
 
     # Success prints if everything went well till this point.
     if utils.is_file(obj.app_config_file):
-        print(f"Successfully Created Application sources at {obj.app_src_dir}")
+        logger.info(f"Successfully created example sources at {obj.app_src_dir}")
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to create driver or library example using the BSP path",
-        usage='use "python %(prog)s --help" for more information',
+        usage='use "empyro create_example --help" for more information',
         formatter_class=argparse.RawTextHelpFormatter,
     )
     required_argument = parser.add_argument_group("Required arguments")
@@ -204,6 +215,13 @@ def main(arguments=None):
         required=True,
     )
     parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help='Increase output verbosity'
+    )
+    parser.add_argument(
         "-r",
         "--repo_info",
         action="store",
@@ -211,6 +229,7 @@ def main(arguments=None):
         default='.repo.yaml',
     )
     args = vars(parser.parse_args(arguments))
+    utils.setup_log(args["verbose"])
     create_example(args)
 
 if __name__ == "__main__":

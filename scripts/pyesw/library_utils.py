@@ -8,7 +8,6 @@ criteria are met. It doesnt have any main() function and running this
 module independently is not intended.
 """
 
-
 import os
 import re
 import sys
@@ -18,6 +17,7 @@ from open_amp import open_amp_copy_lib_src
 from repo import Repo
 from utils import log_time
 
+logger = utils.get_logger(__name__)
 
 class Library(Repo):
     """
@@ -58,15 +58,18 @@ class Library(Repo):
         if os.environ.get("VALIDATE_ARGS") == "True":
             if not utils.is_file(lib_list_yaml_path):
                 utils.runcmd(
-                    f"lopper --werror -f -O {self.domain_path} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}"
+                    f"lopper --werror -f -O {self.domain_path} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}",
+                    log_message = "Extracting and validating supported bare-metal components for processor",
+                    error_message = "Could not fetch the required supported component info",
+                    verbose_level = 0
                 )
             proc_os_data = utils.fetch_yaml_data(
                 os.path.join(self.domain_path, "lib_list.yaml"), "lib_list"
             )
             lib_list_avail = list(proc_os_data[self.proc][self.os].keys())
             if lib not in lib_list_avail:
-                print(
-                    f"[ERROR]: {lib} is not a valid library for the given proc and os combination. Valid library names are {lib_list_avail}"
+                logger.error(
+                    f"{lib} is not a valid library for the given proc and os combination. Valid library names are {lib_list_avail}"
                 )
                 sys.exit(1)
 
@@ -79,7 +82,7 @@ class Library(Repo):
             lib (str): Library name that needs to be validated
         """
         if os.environ.get("VALIDATE_ARGS") == "True" and lib not in self.bsp_lib_config.keys():
-            print(f"{lib} is not added to the bsp. Add it first using -addlib")
+            logger.error(f"{lib} is not added to the bsp. Add it first using -al/--addlib")
             sys.exit(1)
 
     def validate_lib_param(self, lib, lib_param):
@@ -96,7 +99,7 @@ class Library(Repo):
             os.environ.get("VALIDATE_ARGS") == "True"
             and lib_param not in self.bsp_lib_config[lib].keys()
         ):
-            print(
+            logger.error(
                 f"{lib_param} is not a valid param for {lib}. Valid list of params are {self.bsp_lib_config[lib].keys()}"
             )
             sys.exit(1)
@@ -265,8 +268,8 @@ class Library(Repo):
                 return True
             else:
                 if not silent_discard:
-                    print(
-                        f"[WARNING]: {comp_name} Library is not valid for the given processor: {self.proc}"
+                    logger.warning(
+                        f"{comp_name} Library is not valid for the given processor: {self.proc}"
                     )
                 return False
         return True
@@ -380,12 +383,18 @@ class Library(Repo):
                 self.modify_cmake_subdirs(lib_list, action='add')
                 if is_app:
                     cmake_cmd_append = cmake_cmd_append.replace('\\', '/')
-                    utils.runcmd(f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_lib_list}" {cmake_cmd_append} -LH > cmake_lib_configs.txt', cwd = build_metadata, log_message=None)
+                    utils.runcmd(
+                        f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_lib_list}" {cmake_cmd_append} -LH > cmake_lib_configs.txt',
+                        cwd = build_metadata,
+                        log_message = f"Running CMake Configuration with {cmake_lib_list}",
+                        error_message = f"Failed to run CMake Configuration with {cmake_lib_list}"
+                    )
                 else:
                     utils.runcmd(
                         f'cmake -G "{self.cmake_generator}" {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_lib_list}" -LH > cmake_lib_configs.txt',
                         cwd = build_metadata,
-                        log_message=None
+                        log_message = f"Running CMake Configuration with {cmake_lib_list}",
+                        error_message = f"Failed to run CMake Configuration with {cmake_lib_list}"
                     )
                     utils.update_yaml(self.domain_config_file, "domain", "config", "reconfig")
             except:
@@ -448,15 +457,25 @@ class Library(Repo):
 
     def gen_lib_metadata(self, lib):
         _, src_dir, dst_dir = self.copy_lib_src(lib)
-        lopper_cmd = f"lopper -O {dst_dir} -f {self.sdt} --  bmcmake_metadata_xlnx {self.proc} {src_dir} hwcmake_metadata {self.repo_yaml_path}"
-        utils.runcmd(lopper_cmd, cwd = dst_dir)
+        lopper_cmd = f"lopper -O {dst_dir} -f {self.sdt} -- bmcmake_metadata_xlnx {self.proc} {src_dir} hwcmake_metadata {self.repo_yaml_path}"
+        utils.runcmd(
+            lopper_cmd,
+            cwd = dst_dir,
+            log_message = f"Generating CMake Metadata for {lib} ",
+            error_message = f"Failed to generate CMake Metadata for {lib}"
+        )
         if ("xilpm" in lib) and ("ZynqMP" in self.domain_data['family']):
             dstdir = os.path.join(self.libsrc_folder, lib, "src", "zynqmp", "client", "common")
             ori_sdt_path = os.path.join(self.domain_path, "hw_artifacts", "sdt.dts")
             #TODO: Update bsp.yaml before running the below command so that,
             #      the default properties of lib get updated successfully.
-            lopper_cmd = f"lopper -O {dstdir} -f {ori_sdt_path} --  generate_config_object pm_cfg_obj.c {self.proc}"
-            utils.runcmd(lopper_cmd, cwd = dst_dir)
+            lopper_cmd = f"lopper -O {dstdir} -f {ori_sdt_path} -- generate_config_object pm_cfg_obj.c {self.proc}"
+            utils.runcmd(
+                lopper_cmd,
+                cwd = dst_dir,  # Ensure dst_dir is defined correctly
+                log_message = "Generating PM config object",
+                error_message = "Failed to generate PM config object"
+            )
 
     def modify_cmake_subdirs(self, lib_list, action="add"):
         cmake_file = os.path.join(self.domain_path, "CMakeLists.txt")
@@ -490,14 +509,27 @@ class Library(Repo):
         if not has_lib_cmake_cache:
             self.domain_path = self.domain_path.replace('\\','/')
             self.cmake_paths_append = self.cmake_paths_append.replace('\\','/')
-            utils.runcmd(f'cmake -G "{self.cmake_generator}" {self.domain_path} -DSUBDIR_LIST="ALL" {self.cmake_paths_append}', cwd=base_lib_build_dir)
+            utils.runcmd(
+                f'cmake -G "{self.cmake_generator}" {self.domain_path} -DSUBDIR_LIST="ALL" {self.cmake_paths_append}',
+                cwd = base_lib_build_dir
+            )
 
         # Run make clean to remove the respective headers and .a from lib and include folder.
         if os.name == "nt":
             base_lib_build_dir = base_lib_build_dir.replace('\\', '/')
-            utils.runcmd(r'cmake -DCONFIG="" -P CMakeFiles\clean_additional.cmake', cwd=base_lib_build_dir)
+            utils.runcmd(
+                r'cmake -DCONFIG="" -P CMakeFiles\clean_additional.cmake',
+                cwd = base_lib_build_dir,
+                log_message = "Running CMake clean ",
+                error_message = "Failed to run CMake clean "
+            )
         else:
-            utils.runcmd('cmake -DCONFIG="" -P CMakeFiles/clean_additional.cmake', cwd=base_lib_build_dir)
+            utils.runcmd(
+                'cmake -DCONFIG="" -P CMakeFiles/clean_additional.cmake',
+                cwd = base_lib_build_dir,
+                log_message = "Running CMake clean ",
+                error_message = "Failed to run CMake clean "
+            )
         # Remove library src folder from libsrc
         utils.remove(lib_path)
         # Remove cmake build folder from cmake build area.
@@ -505,5 +537,10 @@ class Library(Repo):
         # Update library config file
         utils.update_yaml(self.domain_config_file, "domain", lib, None, action="remove")
         dump = utils.discard_dump()
-        utils.runcmd(f"ninja CMakeFiles/rebuild_cache.util > {dump}", cwd=base_lib_build_dir)
+        utils.runcmd(
+            f"ninja CMakeFiles/rebuild_cache.util > {dump}",
+            cwd = base_lib_build_dir,
+            log_message = " Rebuilding CMake cache.util ",
+            error_message = " Failed to rebuild CMake cache.util "
+        )
         self.modify_cmake_subdirs([lib], action="remove")

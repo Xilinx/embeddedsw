@@ -7,7 +7,6 @@ other than main().
 
 import argparse
 import os
-
 import utils
 from build_bsp import BSP, generate_bsp
 from create_app import App
@@ -15,6 +14,7 @@ from open_amp import openamp_app_names, openamp_app_configure_common
 from utils import is_file
 from validate_bsp import Validation
 
+logger = utils.get_logger(__name__)
 
 class Build_App(BSP):
     """
@@ -27,7 +27,7 @@ class Build_App(BSP):
 
     def _build_dir_struct(self, args):
         if args["ws_dir"] == '.' and not args.get('build_dir'):
-            print("[WARNING]: The app Workspace is taken as current working directory. To avoid this, please use -w option")
+            logger.warning("The app Workspace is taken as current working directory. To avoid this, please use -w option")
         self.app_dir = utils.get_abs_path(args.get("ws_dir"))
         if args.get('src_dir'):
             self.app_src_dir = utils.get_abs_path(args["src_dir"])
@@ -88,9 +88,20 @@ def build_app(args):
             f'PROJECT_LIB_DEPS xilstandalone',
             f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})',
         )
-    utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append}', cwd=obj.app_build_dir)
+    utils.runcmd(
+        f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append}',
+        cwd = obj.app_build_dir,
+        log_message = f"Configuring CMake for the Application",
+        error_message = f"CMake Configuration for the Application Failed",
+    )
     utils.copy_file(f"{obj.app_build_dir}/compile_commands.json", obj.app_src_dir, silent_discard=True)
-    utils.runcmd("cmake --build . --parallel 22 --verbose", cwd=obj.app_build_dir)
+    utils.runcmd(
+        "cmake --build . --parallel 22 --verbose",
+        cwd = obj.app_build_dir,
+        log_message = f"Building Application",
+        error_message = f"Application Building Failed",
+        verbose_level = 0
+    )
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
@@ -99,7 +110,7 @@ def main(arguments=None):
             It expects either -w <app ws path> or
             -s <app src dir path> and -b <app build dir path>
             passed during create_app""",
-        usage='use "python %(prog)s --help" for more information',
+        usage='use "empyro build_app --help" for more information',
         formatter_class=argparse.RawTextHelpFormatter,
     )
     # Get the app_path created by the user
@@ -125,6 +136,13 @@ def main(arguments=None):
         help="Specify the App source directory "
     )
     parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help='Increase output verbosity'
+     )
+    parser.add_argument(
         "-r",
         "--repo_info",
         action="store",
@@ -132,6 +150,8 @@ def main(arguments=None):
         default='.repo.yaml',
     )
     args = vars(parser.parse_args(arguments))
+    utils.setup_log(args["verbose"])
+    logger.info( "Starting Application build process" )
     build_app(args)
 
 if __name__ == "__main__":

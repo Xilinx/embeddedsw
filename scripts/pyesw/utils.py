@@ -40,9 +40,9 @@ def log_time(func):
         if 'log_message' in kwargs:
             log_message = kwargs['log_message']
             if log_message != None:
-                logger.info(f"{log_message} took {duration:.2f} seconds")
+                logger.debug(f"{log_message} took {duration:.2f} seconds")
         else:
-            logger.info(f"Function {func.__name__} took {duration:.2f} seconds")
+            logger.debug(f"Function {func.__name__} took {duration:.2f} seconds")
         return result
     return wrapper
 
@@ -228,7 +228,7 @@ def copy_directory(src: str, dst: str, symlinks: bool = True, ignore=None) -> No
         d = os.path.join(dst, item)
         if is_dir(s):
             if is_dir(d):
-                copy_tree(s, d, symlinks)
+                copy_tree(s, d, symlinks, verbose=0)
                 change_permission(d, 0o644)
             else:
                 shutil.copytree(s, d)
@@ -411,7 +411,7 @@ def replace_string(File, search_string: str, replace_string: str) -> None:
         raise FileNotFoundError(err_msg)
 
 @log_time
-def runcmd(cmd, cwd=None, logfile=None, log_message=None) -> bool:
+def runcmd(cmd, cwd=None, logfile=None, log_message=None, error_message=None, verbose_level = None) -> bool:
     """
     Run the shell commands.
 
@@ -420,16 +420,25 @@ def runcmd(cmd, cwd=None, logfile=None, log_message=None) -> bool:
         | logfile: file to save the command output if required
     """
     ret = True
+    logger = get_logger(__name__)
     if logfile is None:
         try:
+            if log_message and verbose_level == 0:
+                logger.info(log_message)
             subprocess.check_call(cmd, cwd=cwd, shell=True)
         except subprocess.CalledProcessError as exc:
+            logger.error(exc)
+            logger.error(error_message)
             ret = False
             sys.exit(1)
     else:
         try:
+            if log_message and verbose_level == 0:
+                logger.info(log_message)
             subprocess.check_call(cmd, cwd=cwd, shell=True, stdout=logfile, stderr=logfile)
-        except subprocess.CalledProcessError:
+        except subprocess.CalledProcessError as exc:
+            logger.error(exc)
+            logger.error(error_message)
             ret = False
     return ret
 
@@ -613,3 +622,13 @@ def find_compiler_path(compiler_name):
     else:
         command = "which"
     return subprocess.check_output([command, compiler_name], stderr=subprocess.STDOUT, text=True).strip()
+
+def setup_log(verbose_level):
+    """
+    Configures the logging system based on verbosity settings.
+    """
+
+    if verbose_level >= 1:
+        logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - [%(levelname)s]: %(message)s')
+    else:
+        logging.basicConfig(level=logging.INFO,format='[%(levelname)s]: %(message)s')

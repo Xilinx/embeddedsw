@@ -5,8 +5,8 @@ This module creates the template application using the domain information
 provided to it. It generates the directory structure and the metadata
 required to build a particular template application.
 """
+
 import argparse
-import logging
 import os
 import sys
 import textwrap
@@ -20,6 +20,7 @@ from utils import log_time
 from validate_bsp import Validation
 from validate_hw import ValidateHW
 
+logger = utils.get_logger(__name__)
 
 class App(BSP, Repo):
     """
@@ -66,6 +67,7 @@ def create_app(args):
     obj = App(args)
 
     if os.environ.get("VALIDATE_ARGS") == "True":
+        logger.info("Validating inputs")
         validate_obj = ValidateHW(
             obj.domain_path, obj.proc, obj.os, obj.sdt,
             obj.template, obj.repo_yaml_path
@@ -73,7 +75,6 @@ def create_app(args):
         validate_obj.validate_hw()
 
     domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")
-    # Copy the application src directory from embeddedsw to app src folder.
     esw_app_dir = obj.get_comp_dir(obj.template)
     srcdir = os.path.join(esw_app_dir, "src")
     if obj.template in openamp_app_names.keys():
@@ -83,6 +84,7 @@ def create_app(args):
         srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
         srcdir = os.path.join(srcdir, 'libmetal')
 
+    logger.debug(f"Copying the sources from {srcdir} to {obj.app_src_dir}")
     utils.copy_directory(srcdir, obj.app_src_dir)
 
     if obj.app_name:
@@ -123,7 +125,9 @@ def create_app(args):
         if app_schema.get("depends"):
             utils.runcmd(
                 f"lopper -O {obj.app_src_dir} {obj.sdt} -- bmcmake_metadata_xlnx {obj.proc} {srcdir} hwcmake_metadata {obj.repo_yaml_path}",
-                log_message="App Hardware Meta-data Generation"
+                log_message = f"Generating Hardware Metadata for {obj.template}",
+                error_message = f"Failed to generate Hardware Meta-data for {obj.template}",
+                verbose_level = 0
             )
 
     # Generates the metadata for linker script
@@ -142,9 +146,20 @@ def create_app(args):
         linker_cmd = openamp_lopper_run(original_sdt, linker_cmd, obj, esw_app_dir)
 
     if obj.template == "memory_tests":
-        utils.runcmd(f"{linker_cmd} memtest", log_message="Linker Generation")
+        utils.runcmd(
+            f"{linker_cmd} memtest",
+            log_message = "Generating Linker Script for memory_tests",
+            error_message = "Failed to generate Linker Script for memory_tests",
+            verbose_level = 0
+        )
+
     elif obj.template != "versal_plm":
-        utils.runcmd(linker_cmd, log_message="Linker Generation")
+        utils.runcmd(
+            linker_cmd,
+            log_message = f"Generating Linker script for {obj.template}",
+            error_message = f"Failed to generate Linker script for {obj.template}",
+            verbose_level = 0
+        )
 
     # Copy the static linker files from embeddedsw to the app src dir
     linker_dir = os.path.join(obj.app_src_dir, "linker_files")
@@ -164,7 +179,9 @@ def create_app(args):
             stdin = domain_data['os_config'][obj.os][f'{obj.os}_stdin']['value']
         utils.runcmd(
             f"lopper -O {obj.app_src_dir} {obj.sdt} -- baremetal_gentestapp_xlnx {obj.proc} {obj.repo_yaml_path} {stdin}",
-            log_message="Peripheral tests meta-data generation"
+            log_message = "Generating meta-data for peripheral tests",
+            error_message = "Peripheral test meta-data generation failed.",
+            verbose_level = 0
         )
 
     # Copy psu_init* files for zynq and zynqmp fsbl app
@@ -174,8 +191,8 @@ def create_app(args):
         elif obj.template == "zynq_fsbl":
             init_file = "ps7_init"
         else:
-            print(
-                "[ERROR]: Not a valid FSBL app entry. Expecting either zynqmp_fsbl or zynq_fsbl as template"
+            logger.error(
+                "Not a valid FSBL app entry. Expecting either zynqmp_fsbl or zynq_fsbl as template"
             )
             sys.exit(1)
         init_c = os.path.join(obj.domain_path, "hw_artifacts", f"{init_file}.c")
@@ -203,7 +220,12 @@ def create_app(args):
         obj.app_src_dir = obj.app_src_dir.replace('\\', '/')
         obj.cmake_paths_append = obj.cmake_paths_append.replace('\\', '/')
         dump = utils.discard_dump()
-        utils.runcmd(f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append} > {dump}', cwd=compile_commands_dir, log_message="Compile commands json Generation")
+        utils.runcmd(
+            f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append} > {dump}',
+            cwd = compile_commands_dir,
+            log_message = "Dummy cmake call for compile_commands.json",
+            error_message = "Failed to generate compile_commands.json"
+        )
 
         '''
         compile_commands.json file needs to be kept inside src directory.
@@ -235,12 +257,12 @@ CompileFlags:
 
     # Success prints if everything went well till this point.
     if utils.is_file(obj.app_config_file):
-        print(f"Successfully Created Application sources at {obj.app_src_dir}")
+        logger.info(f"Successfully Created Application sources at {obj.app_src_dir}")
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to create a template App using the BSP path",
-        usage='use "python %(prog)s --help" for more information',
+        usage='use "empyro create_app --help" for more information',
         formatter_class=argparse.RawTextHelpFormatter,
     )
     required_argument = parser.add_argument_group("Required arguments")
@@ -324,12 +346,7 @@ def main(arguments=None):
         choices=["c", "c++"],
     )
     args = vars(parser.parse_args(arguments))
-    if args["verbose"] >= 1:
-        logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-    else:
-        logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
-    logger = logging.getLogger(__name__)
-    logger.info( "Starting Creating APP" )
+    utils.setup_log(args["verbose"])
     create_app(args)
 
 if __name__ == "__main__":

@@ -3,12 +3,13 @@
 """
 This module loads the driver example meta-data
 """
+
 import argparse
 import os
-
 import utils
 from build_bsp import BSP
 
+logger = utils.get_logger(__name__)
 
 def cmake_drv_custom_target(proc, libsrc_folder, sdt, cmake_drv_name_list, cmake_drv_path_list):
     cmake_cmd = f'''
@@ -47,6 +48,7 @@ class LoadExample(BSP):
 
         # If example metadata is already created return
         if utils.is_dir(build_metadata):
+            logger.debug("Example metadata already exists, Returning")
             return
 
         iplist = list(domain_data["drv_info"].keys())
@@ -81,11 +83,19 @@ link_directories(${CMAKE_LIBRARY_PATH})
         utils.write_into_file(cmake_file, cmake_file_cmds)
         utils.runcmd(
             f'cmake -G "{self.cmake_generator}" {build_metadata} {self.cmake_paths_append}',
-            cwd = build_metadata
+            cwd = build_metadata,
+            log_message = "Configuring CMake to gather examples metadata",
+            error_message = "Failed to configure CMake to gather examples metadata"
         )
 
         dump = utils.discard_dump()
-        utils.runcmd("cmake --build . --parallel 22 --verbose > {dump}", cwd = build_metadata)
+        utils.runcmd(
+            f"cmake --build . --parallel 22 --verbose > {dump}",
+            cwd = build_metadata,
+            log_message = "Gathering examples metadata",
+            error_message = "Failed to gather examples metadata ",
+            verbose_level = 0
+        )
         for ip,data in domain_data['drv_info'].items():
             if data != "None":
                 driver = data['driver']
@@ -106,11 +116,12 @@ def load_bsp(args):
     """
     obj = LoadExample(args)
     obj.update_example()
+    logger.info( "Successfully loaded all the valid examples for the BSP" )
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Load the example meta-data for a given domain",
-        usage='use "python %(prog)s --help" for more information',
+        usage='use "empyro load_example --help" for more information',
         formatter_class=argparse.RawTextHelpFormatter,
     )
     required_argument = parser.add_argument_group("Required arguments")
@@ -121,7 +132,16 @@ def main(arguments=None):
         help="Domain directory Path",
         required=True,
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help='Increase output verbosity'
+    )
     args = vars(parser.parse_args(arguments))
+    utils.setup_log(args["verbose"])
+    logger.info( "Loading Valid Example names for BSP" )
     load_bsp(args)
 
 if __name__ == "__main__":

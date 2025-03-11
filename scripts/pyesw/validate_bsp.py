@@ -15,6 +15,7 @@ from build_bsp import BSP
 from library_utils import Library
 from validate_hw import ValidateHW
 
+logger = utils.get_logger(__name__)
 
 class Validation(BSP, Library):
     """
@@ -58,13 +59,15 @@ class Validation(BSP, Library):
         if app_list_file:
             app_list_file = utils.get_abs_path(app_list_file)
             if not utils.is_file(app_list_file):
-                print(f"[ERROR]: File {app_list_file} doesn't exist.")
+                logger.error(f"File {app_list_file} doesn't exist.")
                 sys.exit(1)
         else:
             app_list_file = os.path.join(self.domain_path, "app_list.yaml")
             if not utils.is_file(app_list_file):
                 utils.runcmd(
-                    f"lopper --werror -f -O {self.domain_path} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}"
+                    f"lopper --werror -f -O {self.domain_path} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}",
+                    log_message = "Fetching list of supported apps and libs",
+                    error_message = "Failed to fetch list of supported apps and libs"
                 )
         proc_data = utils.fetch_yaml_data(app_list_file, "app_list")[self.proc]
         return proc_data
@@ -96,14 +99,14 @@ class Validation(BSP, Library):
                     break
 
             if os_found and app not in supported_app_list:
-                print(
-                    f"[ERROR]: {app} is not a valid template name. It needs bsp with {os_found} os. Valid templates for the BSP are: {supported_app_list}"
+                logger.error(
+                    f"{app} is not a valid template name. It needs bsp with {os_found} os. Valid templates for the BSP are: {supported_app_list}"
                 )
                 sys.exit(1)
 
             if app not in supported_app_list:
-                print(
-                    f"[ERROR]: {app} is not a valid template name. Valid templates are: {supported_app_list}"
+                logger.error(
+                    f"{app} is not a valid template name. Valid templates are: {supported_app_list}"
                 )
                 sys.exit(1)
 
@@ -130,8 +133,8 @@ class Validation(BSP, Library):
                 diff_libs.append(ele)
 
         if diff_libs:
-            print(
-                f"[ERROR]: {self.template} is not a valid template name for the given BSP. BSP is missing {diff_libs}."
+            logger.error(
+                f"{self.template} is not a valid template name for the given BSP. BSP is missing {diff_libs}."
             )
             self.get_valid_template_list()
             sys.exit(1)
@@ -158,8 +161,8 @@ class Validation(BSP, Library):
                 message += f"[ERROR]: - {library}:\n"
                 for param, value in params.items():
                     message += f"[ERROR]:  * {param}: {value}\n"
-            print(
-                f"{message}[ERROR]: update platform/bsp library config params as per {self.template} requirement"
+            logger.error(
+                f"{message} update platform/bsp library config params as per {self.template} requirement"
             )
             sys.exit(1)
 
@@ -168,6 +171,7 @@ class Validation(BSP, Library):
         This function provides the list of templates that can built using the
         passed bsp.
         """
+        logger.debug("Validating list of templates")
         lib_app_dict = {}
 
         for app in self.supported_app_list:
@@ -199,12 +203,12 @@ class Validation(BSP, Library):
                 if confirmed and entry not in template_possible:
                     template_possible += [entry]
 
-        print(f"Available Templates for the given BSP are {template_possible}.")
+        logger.info(f"Available Templates for the given BSP are {template_possible}.")
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to validate the given BSP for a given template",
-        usage='use "python %(prog)s --help" for more information',
+        usage='use "empyro validate_bsp --help" for more information',
         formatter_class=argparse.RawTextHelpFormatter,
     )
     required_argument = parser.add_argument_group("Required arguments")
@@ -268,7 +272,15 @@ def main(arguments=None):
         help="Specify the .repo.yaml absolute path to use the set repo info",
         default='.repo.yaml',
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help='Increase output verbosity'
+    )
     args = vars(parser.parse_args(arguments))
+    utils.setup_log(args["verbose"])
     obj = Validation(args)
     if args.get("get_apps"):
         obj.get_valid_template_list()

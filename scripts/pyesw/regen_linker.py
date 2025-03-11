@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module regenerates the linker script for a given template application
@@ -7,11 +7,11 @@ using the domain information provided to it.
 
 import argparse
 import os
-
 import utils
 from build_bsp import BSP
 from repo import Repo
 
+logger = utils.get_logger(__name__)
 
 class RegenLinker(BSP, Repo):
     """
@@ -49,15 +49,24 @@ def regen_linker(args):
             obj.repo_paths_list, "Linker file directory", "scripts", "linker_files"
         )
     utils.copy_directory(linker_src, linker_dir)
-
     # Generates the metadata for linker script
     linker_cmd = (
         f"lopper -O {app_linker_build} {obj.sdt} -- baremetallinker_xlnx {obj.proc} {srcdir}"
     )
     if template == "memory_tests":
-        utils.runcmd(f"{linker_cmd} memtest")
+        utils.runcmd(
+            f"{linker_cmd} memtest",
+            log_message = "Generating Linker Script for memory_tests",
+            error_message = "Failed to generate Linker Script for memory_tests",
+            verbose_level = 0
+        )
     else:
-        utils.runcmd(linker_cmd)
+        utils.runcmd(
+            linker_cmd,
+            log_message = f"Generating Linker script for {obj.template}",
+            error_message = f"Generating Linker script for {obj.template}",
+            verbose_level = 0
+        )
 
     cmake_file = os.path.join(app_linker_build, "CMakeLists.txt")
     cmake_file_cmds = f"""
@@ -70,16 +79,21 @@ linker_gen({linker_dir})
     cmake_file_cmds = cmake_file_cmds.replace('\\', '/')
     obj.cmake_paths_append = obj.cmake_paths_append.replace('\\', '/')
     utils.write_into_file(cmake_file, cmake_file_cmds)
-    utils.runcmd(f'cmake -G "{obj.cmake_generator}" {app_linker_build} {obj.cmake_paths_append}', cwd=app_linker_build)
+
+    utils.runcmd(
+        f'cmake -G "{obj.cmake_generator}" {app_linker_build} {obj.cmake_paths_append}',
+        cwd=app_linker_build,
+        log_message = "Configuring cmake to generate linker script",
+        error_message = "Failed to configure cmake to generate linker script"
+    )
     utils.copy_file(os.path.join(app_linker_build, "lscript.ld"), obj.app_src_dir)
     utils.remove(app_linker_build)
+    logger.info(f"Successfully regenerated linker script at {obj.app_src_dir}")
 
-    # Success prints if everything went well till this point.
-    print(f"Successfully Regenerated linker script at {obj.app_src_dir}")
 def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Use this script to create a template App using the BSP path",
-        usage='use "python %(prog)s --help" for more information',
+        usage='use "empyro regen_linker --help" for more information',
         formatter_class=argparse.RawTextHelpFormatter,
     )
     required_argument = parser.add_argument_group("Required arguments")
@@ -100,7 +114,16 @@ def main(arguments=None):
         help="Specify the .repo.yaml absolute path to use the set repo info",
         default='.repo.yaml',
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help='Increase output verbosity'
+    )
     args = vars(parser.parse_args(arguments))
+    utils.setup_log(args["verbose"])
+    logger.info("Regenerating linker")
     regen_linker(args)
 
 if __name__ == "__main__":

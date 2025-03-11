@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 """
 This module re creates the bsp for a given domain and system device-tree.
@@ -7,12 +7,12 @@ This module re creates the bsp for a given domain and system device-tree.
 import argparse
 import inspect
 import os
-
 import utils
 from build_bsp import BSP
 from create_bsp import Domain, create_domain
 from library_utils import Library
 
+logger = utils.get_logger(__name__)
 
 class RegenBSP(BSP, Library):
     """
@@ -90,6 +90,7 @@ class RegenBSP(BSP, Library):
             self.gen_lib_metadata(lib)
             libs_to_add += [lib]
         if libs_to_add:
+            logger.info(f"Adding {libs_to_add} to the new BSP")
             self.config_lib(None, libs_to_add, "", is_app=False)
             domain_data = utils.fetch_yaml_data(self.domain_config_file, "domain")
 
@@ -99,6 +100,7 @@ class RegenBSP(BSP, Library):
         proc_config = domain_data["proc_config"]
 
         # Apply the Old software configuraiton
+        logger.debug("Applying previous BSP software configuration.")
         cmake_cmd_append = ""
         # cmake syntax is using 'ON/OFF' option, 'True/False' is lagacy entry.
         bool_match = {"true": "ON", "false": "OFF"}
@@ -114,14 +116,19 @@ class RegenBSP(BSP, Library):
                 if val in bool_match:
                     val = bool_match[val]
                 cmake_cmd_append += f' -D{key}="{val}"'
+        logger.debug(" Updating library configurations from old BSP ")
 
         self.lib_list.remove(self.proc)
         if self.os == 'freertos':
             self.lib_list.remove("freertos")
             self.lib_list.append("freertos10_xilinx")
         cmake_subdir_list = ";".join(self.lib_list)
-        utils.runcmd(f'cmake {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_subdir_list}" {cmake_cmd_append}', cwd=build_metadata)
-
+        utils.runcmd(
+            f'cmake {self.domain_path} {self.cmake_paths_append} -DSUBDIR_LIST="{cmake_subdir_list}" {cmake_cmd_append}',
+            cwd=build_metadata,
+            log_message = "Reconfiguring CMake configurations",
+            error_message = "Error while executing CMake command"
+        )
         utils.update_yaml(self.domain_config_file, "domain", "lib_config", lib_config)
         utils.update_yaml(self.domain_config_file, "domain", "proc_config", proc_config)
         utils.update_yaml(self.domain_config_file, "domain", "os_config", os_config)
@@ -130,13 +137,12 @@ class RegenBSP(BSP, Library):
         add_drv_list = [drv for drv in drvlist if drv not in self.drvlist]
         del_drv_list = [drv for drv in self.drvlist if drv not in drvlist]
         if add_drv_list or del_drv_list or ignored_lib_list:
-            print(f"During Regeneration of BSP")
             if add_drv_list:
-                print(f"Drivers {*add_drv_list,} got added")
+                logger.info(f"Drivers {*add_drv_list,} got added")
             if del_drv_list:
-                print(f"Drivers {*del_drv_list,} got deleted")
+                logger.info(f"Drivers {*del_drv_list,} got deleted")
             if ignored_lib_list:
-                print(f"Libraries {*ignored_lib_list,} ignored due to incompatible with new system device-tree")
+                logger.info(f"Libraries {*ignored_lib_list,} ignored due to incompatible with new system device-tree")
 
 
 def regenerate_bsp(args):
@@ -145,11 +151,12 @@ def regenerate_bsp(args):
     """
     obj = RegenBSP(args)
     obj.modify_bsp(args)
+    logger.info("Regenerated BSP successfully.")
 
 def main(arguments=None):
     parser = argparse.ArgumentParser(
         description="Regenerate the BSP",
-        usage='use "python %(prog)s --help" for more information',
+        usage='use "empyro regen_bsp --help" for more information',
         formatter_class=argparse.RawTextHelpFormatter,
     )
     required_argument = parser.add_argument_group("Required arguments")
@@ -173,7 +180,17 @@ def main(arguments=None):
         help="Specify the .repo.yaml absolute path to use the set repo info",
         default='.repo.yaml',
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help='Increase output verbosity'
+    )
     args = vars(parser.parse_args(arguments))
+    utils.setup_log(args["verbose"])
+    logger.info("Regenerating bsp")
     regenerate_bsp(args)
+
 if __name__ == "__main__":
     main()
