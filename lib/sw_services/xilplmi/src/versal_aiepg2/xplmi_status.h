@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 * 2.1   mb   06/21/2024 Added error code for AES initialization fail
 *       pre  07/14/2024 Added error code for exceeding IPI buffer size
+* 2.2   sk   03/05/2025 Updated error code for ASU core wakeup
 *
 * </pre>
 *
@@ -371,7 +372,7 @@ typedef enum {
 	XLOADER_ERR_WAKEUP_R5_L,	/**< 0x309 - Error waking up the R5-L
 					  during handoff. Check the PLM minor
 					  code for PM error code. */
-	XLOADER_ERR_WAKEUP_PSM,		/**< 0x30A - Error waking up the PSM
+	XLOADER_ERR_WAKEUP_ASU,		/**< 0x30A - Error waking up the ASU
 					  during handoff. Check the PLM minor
 					  code for PM error code. */
 	XLOADER_ERR_PL_NOT_PWRUP,	/**< 0x30B - Error powering up the PL */

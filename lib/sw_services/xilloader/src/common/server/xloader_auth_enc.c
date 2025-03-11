@@ -144,6 +144,7 @@
 *                     XLoader_AuthHdrsWithHashBlock
 *       sk   02/04/25 Reset HashStatus before function call in
 *                     XLoader_IsPpkValid
+*       sk   02/26/25 Reset Status variable before use in XLoader_SecureEncInit
 *
 * </pre>
 *
@@ -544,6 +545,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 			goto END;
 		}
 
+		Status = XST_FAILURE;
 		Status = XLoader_AesKatTest(SecurePtr);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO, "AES KAT test failed\n\r");
@@ -611,6 +613,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 			}
 		}
 #ifdef VERSAL_AIEPG2
+		Status = XST_FAILURE;
 		Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
 				HBPtr->HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
 				XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
