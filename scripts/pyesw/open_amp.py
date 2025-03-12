@@ -11,7 +11,8 @@ import re
 import sys
 
 import utils
-from utils import is_file
+
+logger = utils.get_logger(__name__)
 
 openamp_app_names = {
     'openamp_echo_test': 'echo',
@@ -21,7 +22,7 @@ openamp_app_names = {
 
 def open_amp_app_name(app_name):
     if app_name not in openamp_app_names.keys():
-        print("ERROR: ", app_name, " not found in list of openamp apps")
+        logger.error(f"{app_name} not found in list of openamp apps")
         sys.exit(1)
 
     return openamp_app_names[app_name]
@@ -191,7 +192,7 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir):
     cmd += f"-- openamp --openamp_role=remote --openamp_host={host} --openamp_remote={remote}"
     utils.runcmd(cmd, log_message="OpenAMP Lopper Run")
 
-    if is_file('amd_platform_info.h'):
+    if utils.is_file('amd_platform_info.h'):
         utils.copy_file('amd_platform_info.h', os.path.join(obj.app_src_dir,
                         'examples', 'legacy_apps', 'machine', 'zynqmp_r5', 'amd_platform_info.h'))
         utils.remove('amd_platform_info.h')
@@ -204,7 +205,7 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir):
 
         return linker_cmd
     else:
-        print('OpenAMP Lopper run failed.')
+        logger.error('OpenAMP Lopper run failed.')
         sys.exit(1)
     return 0
 

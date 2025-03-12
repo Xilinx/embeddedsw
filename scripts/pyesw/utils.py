@@ -25,9 +25,10 @@ from typing import Any, Dict, List, Optional, Union
 
 import yaml
 
-
 def get_logger(name):
     return logging.getLogger(name)
+
+logger = get_logger(__name__)
 
 def log_time(func):
     @wraps(func)
@@ -35,7 +36,6 @@ def log_time(func):
         start_time = time.time()
         result = func(*args, **kwargs)
         end_time = time.time()
-        logger = get_logger(__name__)
         duration = end_time - start_time
         if 'log_message' in kwargs:
             log_message = kwargs['log_message']
@@ -169,9 +169,9 @@ def mkdir(folderpath: str, silent_discard: bool = True) -> None:
 
     if not silent_discard:
         if is_successful:
-            print("%s Directory created " % folderpath)
+            logger.info(f"{folderpath} Directory created")
         else:
-            print("%s Unable to create directory " % folderpath)
+            logger.error(f"{folderpath} Unable to create directory")
             sys.exit(1)
 
 def copy_file(src: str, dest: str, follow_symlinks: bool = True, silent_discard: bool = False) -> None:
@@ -283,7 +283,7 @@ def fetch_yaml_data(config_file: str, dir_type: str) -> Optional[dict]:
     data = load_yaml(config_file)
     return data
 
-def load_yaml(filepath: str) -> Optional[dict]:
+def load_yaml(filepath: str, silent_discard: bool = False) -> Optional[dict]:
     """Read yaml file data and returns data in a dict format.
 
     Args:
@@ -298,7 +298,8 @@ def load_yaml(filepath: str) -> Optional[dict]:
                 data = yaml.safe_load(f)
             return data
         except:
-            print("%s file reading failed" % filepath)
+            if not silent_discard:
+                logger.info(f"{filepath} file reading failed")
             return None
     else:
         return None
@@ -411,7 +412,7 @@ def replace_string(File, search_string: str, replace_string: str) -> None:
         raise FileNotFoundError(err_msg)
 
 @log_time
-def runcmd(cmd, cwd=None, logfile=None, log_message=None, error_message=None, verbose_level = None) -> bool:
+def runcmd(cmd, cwd=None, log_message=None, error_message=None, verbose_level = None):
     """
     Run the shell commands.
 
@@ -419,28 +420,16 @@ def runcmd(cmd, cwd=None, logfile=None, log_message=None, error_message=None, ve
         | cmd: shell command that needs to be called
         | logfile: file to save the command output if required
     """
-    ret = True
-    logger = get_logger(__name__)
-    if logfile is None:
-        try:
-            if log_message and verbose_level == 0:
-                logger.info(log_message)
-            subprocess.check_call(cmd, cwd=cwd, shell=True)
-        except subprocess.CalledProcessError as exc:
-            logger.error(exc)
+
+    try:
+        if log_message and verbose_level == 0:
+            logger.info(log_message)
+        subprocess.check_call(cmd, cwd=cwd, shell=True)
+    except subprocess.CalledProcessError as exc:
+        logger.error(exc)
+        if error_message is not None:
             logger.error(error_message)
-            ret = False
-            sys.exit(1)
-    else:
-        try:
-            if log_message and verbose_level == 0:
-                logger.info(log_message)
-            subprocess.check_call(cmd, cwd=cwd, shell=True, stdout=logfile, stderr=logfile)
-        except subprocess.CalledProcessError as exc:
-            logger.error(exc)
-            logger.error(error_message)
-            ret = False
-    return ret
+        sys.exit(1)
 
 def get_base_name(fpath):
     """
@@ -584,7 +573,7 @@ def get_high_precedence_path(repo_paths_list, file_type, *argv):
         if is_file(path) or is_dir(path):
             break
     if not path:
-        print(f"[ERROR]: Couldnt find the {file_type} in any of esw paths passed")
+        logger.error(f"Couldnt find the {file_type} in any of esw paths passed")
         sys.exit(1)
     return path
 
