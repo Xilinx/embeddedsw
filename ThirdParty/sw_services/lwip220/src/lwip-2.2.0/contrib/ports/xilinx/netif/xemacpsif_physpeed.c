@@ -411,6 +411,14 @@ u32_t phy_setup_emacps (XEmacPs *xemacpsp, u32_t phy_addr)
 		XEMACPS_GMII2RGMII_REG_NUM, convspeeddupsetting);
 	}
 
+#ifdef SDT
+	if(xemacpsp->Config.GmiitoRgmiiConvPhyAddr != 0)
+	{
+		XEmacPs_PhyWrite(xemacpsp, xemacpsp->Config.GmiitoRgmiiConvPhyAddr,
+		XEMACPS_GMII2RGMII_REG_NUM, convspeeddupsetting);
+	}
+#endif
+
 	xil_printf("link speed for phy address %d: %d\r\n", phy_addr, link_speed);
 	return link_speed;
 }
