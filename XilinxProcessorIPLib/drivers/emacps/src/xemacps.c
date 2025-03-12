@@ -109,6 +109,8 @@ LONG XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
 	else{
 		InstancePtr->Config.MdioProducerBaseAddr = EffectiveAddress;
 	}
+
+	InstancePtr->Config.GmiitoRgmiiConvPhyAddr = CfgPtr->GmiitoRgmiiConvPhyAddr;
 #endif
 
 	InstancePtr->Config.S1GDiv0 = CfgPtr->S1GDiv0;

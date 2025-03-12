@@ -531,6 +531,7 @@ typedef struct {
 			     */
         u32 PhyAddr;
 	UINTPTR MdioProducerBaseAddr;
+	u32 GmiitoRgmiiConvPhyAddr;
 #endif
 	u16 S1GDiv0;	/**< 1Gbps Clock Divider 0 */
 	u8 S1GDiv1;	/**< 1Gbps Clock Divider 1 */

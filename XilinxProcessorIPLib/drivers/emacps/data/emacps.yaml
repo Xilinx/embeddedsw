@@ -42,6 +42,7 @@ required:
     - phy-mode
     - phy-handle: phandle
     - mdioproducer-baseaddr
+    - gmiitorgmii-addr
 
 examples:
     xemacps_example_intr_dma.c:
