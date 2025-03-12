@@ -128,9 +128,13 @@ def resolve_paths(args):
                 comp_minor_version = comp_version_info[2]
             comp_version = float(f"{comp_major_version}.{int(comp_minor_version):04d}")
 
-            yaml_data = utils.load_yaml(entries)
-            if yaml_data is None or not yaml_data.get('type'):
-                logger.debug("Invalid or missing 'type' field in YAML")
+            yaml_data = utils.load_yaml(entries, silent_discard=True)
+            if yaml_data is None:
+                logger.warning(f"Failed to read {entries}, {comp_name} from this location will not be available")
+                continue
+
+            if not yaml_data.get('type'):
+                logger.warning(f"Invalid or missing 'type' field in {entries}, {comp_name} from this location will not be available")
                 continue
 
             if not path_dict[yaml_data['type']].get(comp_name):

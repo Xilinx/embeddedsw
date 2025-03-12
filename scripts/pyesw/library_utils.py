@@ -511,7 +511,9 @@ class Library(Repo):
             self.cmake_paths_append = self.cmake_paths_append.replace('\\','/')
             utils.runcmd(
                 f'cmake -G "{self.cmake_generator}" {self.domain_path} -DSUBDIR_LIST="ALL" {self.cmake_paths_append}',
-                cwd = base_lib_build_dir
+                cwd = base_lib_build_dir,
+                log_message = "Configuring CMake with all Subdir list",
+                error_message = "CMake Configuration with all Subdir list failed"
             )
 
         # Run make clean to remove the respective headers and .a from lib and include folder.

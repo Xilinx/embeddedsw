@@ -84,7 +84,6 @@ def create_app(args):
         srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
         srcdir = os.path.join(srcdir, 'libmetal')
 
-    logger.debug(f"Copying the sources from {srcdir} to {obj.app_src_dir}")
     utils.copy_directory(srcdir, obj.app_src_dir)
 
     if obj.app_name:
