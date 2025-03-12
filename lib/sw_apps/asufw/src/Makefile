@@ -11,7 +11,7 @@ CFLAGS := -O2 -flto -ffat-lto-objects
 SYSROOT = $(shell $(CC) -print-sysroot)
 MULTILIB = $(SYSROOT)/usr/lib/rv32imc/ilp32
 
-LN_FLAGS = -nostartfiles -L$(MULTILIB) $(MULTILIB)/crt0.o $(MULTILIB)/crtbegin.o $(MULTILIB)/crtend.o $(MULTILIB)/crti.o $(MULTILIB)/crtn.o -Wl,--start-group,-lxil,-lxilasu,-lgcc,-lc,--end-group       -Wl,--no-warn-rwx-segment,--gc-sections
+LN_FLAGS = -nostartfiles -L$(MULTILIB) $(MULTILIB)/crt0.o  -Wl,--start-group,-lxil,-lxilasu,-lgcc,-lc,--end-group -Wl,--no-warn-rwx-segment,--gc-sections
 
 c_SOURCES := $(wildcard *.c) $(wildcard */*.c)
 S_SOURCES := $(wildcard *.S) $(wildcard */*.S)
