@@ -3625,7 +3625,13 @@ static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo, const u
 	u32 Col = 0U;
 	u32 Data;
 
-	if (EndRow > XNVM_EFUSE_LAST_ROW_IN_PAGE) {
+	/**
+	 * This condition ensures that the calculated EndRow does not exceed the last
+	 * permissible eFuse row. The maximum valid row index is
+	 * defined by XNVM_EFUSE_LAST_ROW_IN_PAGE. Since row indices start from 0,
+	 * the check is against (XNVM_EFUSE_LAST_ROW_IN_PAGE + 1U).
+	 */
+	if (EndRow > (XNVM_EFUSE_LAST_ROW_IN_PAGE + 1U)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
