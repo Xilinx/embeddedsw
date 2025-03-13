@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -9,7 +9,6 @@ maintainers:
   - Akula, Kalyani <kalyani.akula@amd.com>
   - Challa, Durga <durga.challa@amd.com>
   - Harsha, Harsha <harsha.harsha@amd.com>
-  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
 
 type: library
 
@@ -55,33 +54,34 @@ examples:
     - supported_platforms:
       - Versal
       - VersalNet
+      - VersalGen2
   xilsecure_versal_aes_server_example.c:
     - supported_platforms:
       - Versal
-      - VersalNet
       - SpartanUP
   xilsecure_versal_ecdsa_client_example.c:
     - supported_platforms:
       - Versal
       - VersalNet
+      - VersalGen2
   xilsecure_versal_ecdsa_server_example.c:
     - supported_platforms:
       - Versal
-      - VersalNet
   xilsecure_versal_net_trng_client_example.c:
     - supported_platforms:
       - VersalNet
   xilsecure_versal_net_ecdh_client_example.c:
     - supported_platforms:
       - VersalNet
+      - VersalGen2
   xilsecure_versal_rsa_client_example.c:
     - supported_platforms:
       - Versal
       - VersalNet
+      - VersalGen2
   xilsecure_versal_rsa_server_example.c:
     - supported_platforms:
       - Versal
-      - VersalNet
   xilsecure_versal_sha_client_example.c:
     - supported_platforms:
       - Versal
@@ -89,7 +89,12 @@ examples:
   xilsecure_versal_sha_server_example.c:
     - supported_platforms:
       - Versal
-      - VersalNet
   xilsecure_spartanup_sha_server_example.c:
     - supported_platforms:
       - SpartanUP
+  xilsecure_versal_aiepg2_sha_client_example.c:
+    - supported_platforms:
+      - VersalGen2
+  xilsecure_versal_net_keyunwrap_client_example.c:
+    - supported_platforms:
+      - VersalNet
