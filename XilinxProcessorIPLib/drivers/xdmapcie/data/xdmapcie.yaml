@@ -19,6 +19,7 @@ properties:
           - xlnx,xdma-host-3.00
           - xlnx,qdma-host-3.00
           - xlnx,versal-cpm5-host
+          - xlnx,versal-cpm5-host1
           - amd,versal2-mdb-host
   reg:
     description: Physical base address and size of the controller register map
