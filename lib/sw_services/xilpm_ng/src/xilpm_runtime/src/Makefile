@@ -21,11 +21,13 @@ XILPM_RUNTIME_SUBSYS_SRCS := xpm_runtime_eemi_subsys.c
 ifneq ($(filter -DXILPM_RUNTIME_EEMI, $(_CC_XILPM_FLAGS)),)
 	# Remove XilPM_Runtime (Subsys) specific source files
 	XILPM_FILTERED_SRCS := $(XILPM_RUNTIME_SUBSYS_SRCS)
-	XILPM_RUNTIME_BANNER := "XilPM_Runtime: EEMI"
+	XILPM_RUNTIME_BANNER := 1
+	XILPM_RUNTIME_BANNER_STRING := "XilPm_Runtime: EEMI"
 else ifneq ($(filter -DXILPM_RUNTIME_SUBSYS, $(_CC_XILPM_FLAGS)),)
 	# Remove XilPM_Runtime (EEMI) specific source files
 	XILPM_FILTERED_SRCS := $(XILPM_RUNTIME_EEMI_SRCS)
-	XILPM_RUNTIME_BANNER := "XilPM_Runtime: SUBSYS"
+	XILPM_RUNTIME_BANNER := 2
+	XILPM_RUNTIME_BANNER_STRING := "XilPm_Runtime: SUBSYS"
 endif
 
 EXTRA_ARCHIVE_FLAGS=rc
@@ -46,7 +48,7 @@ libxilpm_runtime.a: print_msg_xilpm_runtime $(XILPM_OBJS)
 print_msg_xilpm_runtime:
 	@echo "**********************************"
 	@echo "**********************************"
-	@echo "Compiling [$(XILPM_RUNTIME_BANNER)] Library"
+	@echo "Compiling [$(XILPM_RUNTIME_BANNER_STRING)] Library"
 	@echo "**********************************"
 	@echo "**********************************"
 
@@ -59,4 +61,4 @@ clean:
 	rm -rf ${RELEASEDIR}/${LIB}
 
 $(XILPM_DIR)/%.o: $(XILPM_DIR)/%.c $(INCLUDEFILES)
-	$(COMPILER) $(XILPM_RUNTIME_COMPILER_FLAGS) $(XILPM_RUNTIME_EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) -DXILPM_RUNTIME_BANNER=\"$(XILPM_RUNTIME_BANNER)\" $(INCLUDES) -c $< -o $@
+	$(COMPILER) $(XILPM_RUNTIME_COMPILER_FLAGS) $(XILPM_RUNTIME_EXTRA_COMPILER_FLAGS) $(CUSTOM_COMPILER_FLAGS) -DXILPM_RUNTIME_BANNER=$(XILPM_RUNTIME_BANNER) $(INCLUDES) -c $< -o $@
