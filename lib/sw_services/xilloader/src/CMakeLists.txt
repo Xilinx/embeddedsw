@@ -8,9 +8,8 @@ find_package(common)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/xilloader.cmake NO_POLICY_SCOPE)
 
-if((XILLOADER_mode STREQUAL "client") AND
-	(NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS)))
-     message(FATAL_ERROR "XilLoader library requires xilmailbox library in client mode.")
+if((XILLOADER_mode STREQUAL "client") AND (NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS)))
+  message(FATAL_ERROR "XilLoader library requires xilmailbox library in client mode.")
 endif()
 
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
@@ -22,10 +21,10 @@ add_subdirectory(common)
 if("${CMAKE_MACHINE}" STREQUAL "Versal")
   add_subdirectory(versal)
 elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
-	add_subdirectory(versal_net)
-  if("${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2")
-	add_subdirectory(versal_aiepg2)
-   endif()
+  add_subdirectory(versal_net)
+  if(("${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2") AND ("${XILLOADER_mode}" STREQUAL "server"))
+    add_subdirectory(versal_aiepg2)
+  endif()
 endif()
 
 collector_list (_sources PROJECT_LIB_SOURCES)
