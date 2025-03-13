@@ -19,6 +19,7 @@
 *       yog  08/25/2024 Integrated FIH library
 *       yog  09/26/2024 Added doxygen groupings and fixed doxygen comments.
 *       am   02/21/2025 Integrated performance measurement macros
+*       yog  03/13/2025 Removed CmConfig variable in InstancePtr and used the macro directly.
 *
 * </pre>
 *
@@ -80,7 +81,6 @@ struct _XEcc {
 	u32 BaseAddress; /**< Ecc Base address */
 	u32 IsReady; /**< ECC component ready state */
 	XEcc_CurveInfo *CurveInfo; /**< To get ECC curve information */
-	u32 CmConfig; /**< Counter measure configuration */
 };
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -88,7 +88,6 @@ struct _XEcc {
 /************************************ Function Prototypes ****************************************/
 static XEcc_Config *XEcc_LookupConfig(u32 DeviceId);
 static inline s32 XEcc_WaitForDone(const XEcc *InstancePtr);
-static inline u32 XEcc_ConfigureEngine(const XEcc *InstancePtr, u32 OpCode);
 static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode);
 static s32 XEcc_InputValidate(const XEcc *InstancePtr, u32 CurveType);
 
@@ -172,7 +171,6 @@ s32 XEcc_Initialize(XEcc *InstancePtr)
 	/** Initialize ECC instance. */
 	InstancePtr->BaseAddress = CfgPtr->BaseAddress;
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-	InstancePtr->CmConfig = XASUFW_ECC_CM_CONFIG;
 
 	Status = XASUFW_SUCCESS;
 END:
@@ -649,39 +647,6 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function returns the control register configuration for the selected
- * 		operation.
- *
- * @param	InstancePtr	Pointer to the Ecc instance.
- * @param	OpCode		ECC operation code to select the operation.
- * 				0 - Signature verification
- * 				1 - public key validation
- * 				2 - public key generation
- * 				3 - signature generation
- *
- * @return
- * 		- Returns the value to be updated to the control register.
- *
- *************************************************************************************************/
-static inline u32 XEcc_ConfigureEngine(const XEcc *InstancePtr, u32 OpCode)
-{
-	u32 CtrlRegValue = 0U;
-	u32 CurveType = InstancePtr->CurveInfo->CurveType;
-
-	/** Configure ECC curve type, operation and countermeasures. */
-	CtrlRegValue = XECC_CTRL_CURVE_MASK & (CurveType << XECC_CTRL_CURVE_SHIFT);
-
-	CtrlRegValue |= XECC_CTRL_OPCODE_MASK & (OpCode << XECC_CTRL_OPCODE_SHIFT);
-
-	if (InstancePtr->CmConfig == XASUFW_CONFIG_ENABLE) {
-		CtrlRegValue |= (XECC_SUPPRESS_SCP_SCP2_MASK);
-	}
-
-	return CtrlRegValue;
-}
-
-/*************************************************************************************************/
-/**
 *
 * @brief	This function returns a pointer reference of XEcc_Config structure based on the
 *		device ID.
@@ -737,8 +702,14 @@ static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode)
 	/** Enable interrupt, update configuration in control register and start the operation. */
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_IER_OFFSET, XECC_IER_DONE_MASK);
 
-	CtrlRegValue = (XEcc_ConfigureEngine(InstancePtr, OpCode) |
-			XECC_CTRL_START_MASK);
+	/** Configure ECC curve type, operation and countermeasures. */
+	CtrlRegValue = XECC_CTRL_CURVE_MASK & (InstancePtr->CurveInfo->CurveType <<
+			XECC_CTRL_CURVE_SHIFT);
+	CtrlRegValue |= (XECC_CTRL_OPCODE_MASK & (OpCode << XECC_CTRL_OPCODE_SHIFT)) |
+			XECC_CTRL_START_MASK;
+#ifdef XASUFW_ECC_CM_CONFIG
+	CtrlRegValue |= XECC_SUPPRESS_SCP_SCP2_MASK;
+#endif
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_CTRL_OFFSET, CtrlRegValue);
 
 	/** Wait for done. */
