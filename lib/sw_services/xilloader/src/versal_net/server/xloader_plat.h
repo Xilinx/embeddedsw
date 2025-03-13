@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +46,7 @@
 *       obs  09/30/2024 Fixed Doxygen Warnings
 *       pre  10/22/2024 Added XLOADER_ERR_CMD_NOT_SUPPORTED error code
 *       bm   11/11/2024 Move I2C Handshake feature to common code
+*       tri  03/13/2025 Added XLoader_MeasureNLoad prototype
 *
 * </pre>
 *
@@ -438,6 +439,7 @@ int XLoader_ConfigureJtagState(XPlmi_Cmd *Cmd);
 int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
 int XLoader_LoadLpdAndPsmElf(void);
 int XLoader_CheckAndUpdateSecureState(void);
+int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 #ifdef PLM_OCP_KEY_MNGMT
 int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataId);
 #endif

@@ -20,3 +20,4 @@ uartlite
 uartpsv
 usbpsu
 zdma
+spips

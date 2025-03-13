@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -32,6 +32,7 @@
 #       kal  09/25/2024 Remove deleting folders which are set in secure_drc
 #       pre  10/22/2024 Added configurable option for CFI selective read feature
 #       bm   11/11/2024 Added config option for I2C Handshake feature
+#       tri  03/13/2025 Added configurable option for xiltpm library
 #
 ##############################################################################
 
@@ -350,6 +351,13 @@ proc xgen_opts_file {libhandle} {
 	if {$value == false} {
 		puts $file_handle "\n/* Secure features disable */"
 		puts $file_handle "#define PLM_SECURE_EXCLUDE"
+	}
+
+	# Get plm_tpm_en value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.plm_tpm_en $libhandle]
+	if {$value == false} {
+		puts $file_handle "\n/* Tpm features disable */"
+		puts $file_handle "#define PLM_TPM_EXCLUDE"
 	}
 
 	# Get plm_usb_en value set by user, by default it is FALSE

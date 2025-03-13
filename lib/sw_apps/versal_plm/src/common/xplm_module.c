@@ -56,6 +56,7 @@
 *       pre  07/11/2024 Implemented secure PLM to PLM communication
 *       pre  09/24/2024 Changed function name to XPlm_SsitCommGetParamsPtr
 *       am   02/22/2025 Added module support for ASU
+*       tri  03/13/2025 Added module support for XilTpm
 *
 * </pre>
 *
@@ -107,6 +108,9 @@
 #ifdef VERSAL_AIEPG2
 #include "xplmi_asu_cmd.h"
 #endif
+#ifdef PLM_TPM
+#include "xtpm.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -150,6 +154,7 @@ int XPlm_ModuleInit(void *Arg)
 	 *  - STL
 	 *  - SEM
 	 *  - OCP (only for Versal_net)
+	 *  - TPM (only for Versal)
 	 */
 
 	Status = XPlmi_Init();
@@ -213,6 +218,13 @@ int XPlm_ModuleInit(void *Arg)
 	 * Init function for OCP module for handler registration to server
 	 */
 	XOcp_Init();
+#endif
+	/* TPM module is applicable only for Versal */
+#ifdef PLM_TPM
+	Status = XTpm_Init();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 #endif
 
 END:

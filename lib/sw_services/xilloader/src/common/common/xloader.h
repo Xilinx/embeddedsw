@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -124,6 +124,7 @@
 *       obs  09/30/2024 Fixed Doxygen Warnings
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       bm   12/16/2024 Move I2C Handshake feature to common code
+*       tri  03/13/2025 Added XLOADER_PCR_NUMBER_MASK macro
 * </pre>
 *
 ******************************************************************************/
@@ -155,6 +156,7 @@ extern "C" {
 #define XLOADER_DMA_LEN_ALIGN_MASK	(0xFU)		/**< Mask for 16 bytes alignment */
 #define XLOADER_IMAGE_SEARCH_OFFSET	(0x8000U)	/**< 32K */
 #define XLOADER_DEVICE_COPY_OPTIMIZATION_MASK	(0x30U) /**< Mask to extract copy optimization bits of RTCA SecureCtrl registers */
+#define XLOADER_PCR_NUMBER_MASK 				(0x0000FFFFU) /**< Number mask value */
 
 /**
  * @name  Subsystem related macros
@@ -409,6 +411,10 @@ typedef struct {
 	u32 Flags;	/**< Flags to indicate state of hash calculation - start, update, finish */
 	u32 SubsystemID;	/**< Subsystem ID */
 	u32 OverWrite;	/**< Flag to indicate if digest can be overwritten at the measurement index */
+#ifdef PLM_TPM
+	u32 IsAuthOptimized;	/**< Digest table size in bytes */
+	u32 DigestTableSize;	/**< Authentication optimization enabled or disabled by the user */
+#endif
 } XLoader_ImageMeasureInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/

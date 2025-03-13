@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023-2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023-2025, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
@@ -920,6 +920,36 @@ extern "C" {
 #define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_I2C_1_BASEADDR 0xFF030000
 #define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_I2C_1_HIGHADDR 0xFF03FFFF
 #define XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_I2C_1_I2C_CLK_FREQ_HZ 99999901
+
+
+/******************************************************************/
+
+/* Definitions for driver SPIPS */
+#define XPAR_XSPIPS_NUM_INSTANCES 2
+
+/* Definitions for peripheral PSU_SPI_0 */
+#define XPAR_PSU_SPI_0_DEVICE_ID 0
+#define XPAR_PSU_SPI_0_BASEADDR 0xFF040000
+#define XPAR_PSU_SPI_0_HIGHADDR 0xFF04FFFF
+#define XPAR_PSU_SPI_0_SPI_CLK_FREQ_HZ 187498123
+
+/* Definitions for peripheral PSU_SPI_1 */
+#define XPAR_PSU_SPI_1_DEVICE_ID 1
+#define XPAR_PSU_SPI_1_BASEADDR 0xFF050000
+#define XPAR_PSU_SPI_1_HIGHADDR 0xFF05FFFF
+#define XPAR_PSU_SPI_1_SPI_CLK_FREQ_HZ 187498123
+
+/* Canonical definitions for peripheral PSU_SPI_0 */
+#define XPAR_XSPIPS_0_DEVICE_ID XPAR_PSU_SPI_0_DEVICE_ID
+#define XPAR_XSPIPS_0_BASEADDR 0xFF040000
+#define XPAR_XSPIPS_0_HIGHADDR 0xFF04FFFF
+#define XPAR_XSPIPS_0_SPI_CLK_FREQ_HZ 187498123
+
+/* Canonical definitions for peripheral PSU_SPI_1 */
+#define XPAR_XSPIPS_1_DEVICE_ID XPAR_PSU_SPI_1_DEVICE_ID
+#define XPAR_XSPIPS_1_BASEADDR 0xFF050000
+#define XPAR_XSPIPS_1_HIGHADDR 0xFF05FFFF
+#define XPAR_XSPIPS_1_SPI_CLK_FREQ_HZ 187498123
 
 
 /******************************************************************/
@@ -1845,6 +1875,9 @@ extern "C" {
 
 /* PUF handlers disable */
 #define PLM_PUF_EXCLUDE
+
+/* TPM handlers disable */
+#define PLM_TPM_EXCLUDE
 
 /* Xilinx Secure library ecdsa endianness Settings */
 #define XSECURE_ELLIPTIC_ENDIANNESS	0U	/* 0: Little Endian and 1: Big endian */

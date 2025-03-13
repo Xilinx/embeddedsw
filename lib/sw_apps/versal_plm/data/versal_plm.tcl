@@ -1,6 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-#* Copyright (c) 2023 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+#* Copyright (c) 2023 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -34,7 +34,7 @@ proc swapp_is_supported_sw {} {
     set has_missing_libs 0
 
     # make sure all required libraries are available
-    set lib_needed "xilffs xilpdi xilplmi xilloader xilpm xilocp xilcert xilsecure xilpuf"
+    set lib_needed "xilffs xilpdi xilplmi xilloader xilpm xilocp xilcert xilsecure xilpuf xiltpm"
     set lib_list [hsi::get_libs];
 
     foreach libs ${lib_needed} {

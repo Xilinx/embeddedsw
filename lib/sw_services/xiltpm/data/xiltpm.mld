@@ -1,0 +1,24 @@
+###############################################################################
+# Copyright (c) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+# Modification History
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- -----------------------------------------------
+# 1.0   tri  03/13/25 Initial Release
+#
+##############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN LIBRARY xiltpm
+  OPTION drc = tpm_drc;
+  OPTION copyfiles = all;
+  OPTION SUPPORTED_PERIPHERALS = (psv_pmc microblaze)
+  OPTION REQUIRES_OS = (standalone);
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxiltpm,-lxilplmi,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
+  OPTION desc = "tpm. Supported for Versal only";
+  OPTION VERSION = 1.0;
+  OPTION NAME = xiltpm;
+END LIBRARY

@@ -104,6 +104,7 @@
 *       svnr 12/23/2024 Increased STL Test buffer size in PMC RAM from 320 bytes to
 *                       576 bytes of memory
 *       pre  01/02/2025 Increased metaheader space from 4k to 8k with start address as 0xF2012000U
+*       tri  03/13/2025 Added PMC_GLOBAL ROM_VALIDATION and FW_AUTH_HASH macros
 *
 * </pre>
 *
@@ -1134,6 +1135,21 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  * Register: PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
  */
 #define PMC_GLOBAL_ROM_VALIDATION_DIGEST_0    (PMC_GLOBAL_BASEADDR + 0X00000704U)
+
+/*
+ * Register: PMC_GLOBAL_ROM_VALIDATION_DIGEST_11
+ */
+#define PMC_GLOBAL_ROM_VALIDATION_DIGEST_11    (PMC_GLOBAL_BASEADDR + 0X00000730U)
+
+/*
+ * Register: PMC_GLOBAL_FW_AUTH_HASH_0
+ */
+#define PMC_GLOBAL_FW_AUTH_HASH_0    (PMC_GLOBAL_BASEADDR + 0X00000750U)
+
+/*
+ * Register: PMC_GLOBAL_FW_AUTH_HASH_11
+ */
+#define PMC_GLOBAL_FW_AUTH_HASH_11    (PMC_GLOBAL_BASEADDR + 0X0000077CU)
 
 /*
  * Definitions required for PMC, PS GPIO

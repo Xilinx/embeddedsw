@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -131,6 +131,7 @@
 *                       error codes for STL diagnostic task scheduling
 *       pre  10/07/2024 Removed XPLMI_SSIT_NO_PENDING_EVENTS error code
 *       ma   09/23/2024 Added error codes related to PSM to PLM IPI events
+*       tri  03/13/2025 Added XLOADER_ERR_DATA_MEASUREMENT, XLOADER_PRTN_HASH_NOT_PRESENT error code
 *
 * </pre>
 *
@@ -781,6 +782,11 @@ typedef enum {
 		/**< 0x638 Error while zeroizing digest table */
 	XLOADER_ERR_SEC_AES_INIT_FAIL,
 		/**< 0x639 Error when AES initialization is failed */
+	XLOADER_ERR_DATA_MEASUREMENT,   /**< Error in data measurement */
+	XLOADER_PRTN_HASH_NOT_PRESENT,
+		/**< Partition hash not present, data measurement not possible */
+	XLOADER_MEASURE_ROM_FAILURE,	/**< Error while ROM digest transfer to TPM */
+	XLOADER_MEASURE_PLM_FAILURE,	/**< Error while PLM digest transfer to TPM */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED = 0x6A0,

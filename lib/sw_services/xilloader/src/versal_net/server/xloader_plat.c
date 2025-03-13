@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 *       har  07/02/2024 Added support to generate additional DevAk
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       obs  12/10/2024 Fixed GCC Warnings
+*       tri  03/13/2025 Added XLoader_MeasureNLoad support
 *
 * </pre>
 *
@@ -128,6 +129,7 @@
 	/**< AUTH_KEYS_TO_HASH eFuse bit mask */
 #define XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT	(9U)
 	/**< AUTH_KEYS_TO_HASH eFuse bit shift */
+#define XLOADER_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)  /**< Mask for PCR Measurement index */
 /**
  * @{
  * @cond DDR calibration errors
@@ -413,6 +415,54 @@ END:
 	 * - Make Number of handoff CPUs to zero.
 	 */
 	PdiPtr->NoOfHandoffCpus = 0x0U;
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function measures the partion hashes
+ *
+ * @param	PdiPtr is pointer to XilPdi instance
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_DATA_MEASUREMENT if error in data measurement.
+ *
+ *****************************************************************************/
+int XLoader_MeasureNLoad(XilPdi* PdiPtr)
+{
+	volatile int Status = XST_FAILURE;
+	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
+	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
+
+	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
+
+	ImageMeasureInfo.PcrInfo = PcrInfo;
+	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
+	ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
+	ImageMeasureInfo.DigestIndex = &PdiPtr->DigestIndex;
+	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) ||
+		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU)) {
+		ImageMeasureInfo.OverWrite = TRUE;
+	}
+	else {
+		ImageMeasureInfo.OverWrite = FALSE;
+	}
+	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XLoader_LoadImagePrtns(PdiPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	ImageMeasureInfo.Flags = XLOADER_MEASURE_FINISH;
+	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
 	return Status;
 }
 
