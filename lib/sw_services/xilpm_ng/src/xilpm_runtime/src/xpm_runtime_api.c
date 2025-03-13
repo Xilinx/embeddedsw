@@ -45,7 +45,15 @@
 
 /* XilPM Runtime Banner String */
 #ifndef XILPM_RUNTIME_BANNER
-	#define XILPM_RUNTIME_BANNER ""
+	#define XILPM_RUNTIME_BANNER_STRING ""
+#endif
+
+#if (XILPM_RUNTIME_BANNER == 1)
+	#define XILPM_RUNTIME_BANNER_STRING "XilPm_Runtime: EEMI"
+#elif (XILPM_RUNTIME_BANNER == 2)
+	#define XILPM_RUNTIME_BANNER_STRING "XilPm_Runtime: SUBSYS"
+#else
+	#define XILPM_RUNTIME_BANNER_STRING "XilPm_Runtime: UNKNOWN"
 #endif
 
 static XStatus XPm_DoAddSubsystem(XPlmi_Cmd* Cmd);
@@ -129,7 +137,7 @@ extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 XStatus XPm_RuntimeInit(void)
 {
 	XStatus Status = XST_FAILURE;
-	const char *Banner = XILPM_RUNTIME_BANNER;
+	const char *Banner = XILPM_RUNTIME_BANNER_STRING;
 	PmInfo("Initializing XilPm Runtime Library [%s]\r\n", Banner);
 
 	/* Store multiboot register value*/
