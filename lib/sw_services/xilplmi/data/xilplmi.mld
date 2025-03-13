@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -27,6 +27,7 @@
 #                       communication feature
 #       pre  10/22/2024 Added configurable option for CFI selective read feature
 # 2.2   jb   11/18/2024 Updated library version for 2025.1
+#       tri  03/13/2025 Added configurable option for xiltpm library
 #
 ##############################################################################
 
@@ -56,6 +57,7 @@ BEGIN LIBRARY xilplmi
   PARAM name = plm_stl_en, desc = "Enables or Disables STL", type = bool, default = false;
   PARAM name = plm_ocp_en, desc = "Enables or Disables OCP", type = bool, default = true;
   PARAM name = plm_add_ppks_en, desc = "Enables or Disables additional PPKs", type = bool, default = false;
+  PARAM name = plm_tpm_en, desc = "Enables or Disbales TPM features (valid only for Versal)", type = bool, default = false;
   PARAM name = ssit_plm_to_plm_comm_en, desc = "Enables or Disables SSIT PLM to PLM communication (valid only for Versal)", type = bool, default = true;
   PARAM name = ssit_secure_plm_to_plm_comm_en, desc = "Enables or Disables SSIT secure PLM to PLM communication (valid only for Versal)", type = bool, default = false;
   PARAM name = plm_get_opt_data_en, esc = "Enables or Disables the feature to get optional data (valid only for Versal)", type = bool, default = false;

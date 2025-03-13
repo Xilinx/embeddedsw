@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,7 @@
 *       pre  10/22/2024 Added configurable option for CFI selective read feature
 *       bm   11/11/2024 Added config option for I2C Handshake feature
 *       obs  12/13/2024 Added PLM_BANNER_TIMESTAMP_EXCLUDE macro
+*       tri  03/13/2025 Added configurable option for xiltpm library
 * </pre>
 *
 * @note
@@ -143,6 +144,7 @@ extern "C" {
  *	- PLM_PUF_EXCLUDE PUF handlers will be excluded (excluded by default)
  *	- PLM_ECDSA_EXCLUDE handlers will be excluded (included by default)
  *	- PLM_RSA_EXCLUDE handlers will be excluded (included by default)
+ *	- PLM_TPM_EXCLUDE handlers will be excluded (excluded by default)
  *
  * Please note that below are defined in xparameters.h based on the
  * xilplmi library configuration, hence all the below are commented out here.
@@ -157,6 +159,7 @@ extern "C" {
 //#define PLM_PUF_EXCLUDE
 //#define PLM_ECDSA_EXCLUDE
 //#define PLM_RSA_EXCLUDE
+//#define PLM_TPM_EXCLUDE
 
 #if (!defined(PLM_NVM_EXCLUDE)) && (!defined(PLM_NVM))
 #define PLM_NVM
@@ -164,6 +167,10 @@ extern "C" {
 
 #if (!defined(PLM_PUF_EXCLUDE)) && (!defined(PLM_PUF))
 #define PLM_PUF
+#endif
+
+#if (!defined(PLM_TPM_EXCLUDE)) && (!defined(PLM_TPM))
+#define PLM_TPM
 #endif
 
 /**

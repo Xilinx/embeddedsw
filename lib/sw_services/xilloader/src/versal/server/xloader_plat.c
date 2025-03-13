@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,8 @@
 *       sk   03/13/24 Fixed doxygen comments format
 *       mss  04/12/24 Added code to dump DDRMC error logs
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
+*       tri  03/13/2025 Added XLoader_MeasureNLoad support and
+*                       Added XLoader_DataMeasurement support for versal
 *
 * </pre>
 *
@@ -64,8 +66,14 @@
 #include "xplmi_err.h"
 #include "xloader_ddr.h"
 #include "xilpdi.h"
+#ifdef PLM_TPM
+#include "xsecure_sha.h"
+#include "xsecure_init.h"
+#include "xsecure_plat.h"
+#include "xtpm.h"
+#endif
 
-/************************** Constant Definitions *****************************/
+/********************************* Constant Definitions **************************************/
 #define XLOADER_TCM_0		(0U) /**< TCM 0 */
 #define XLOADER_TCM_1		(1U) /**< TCM 1 */
 #define XLOADER_RPU_GLBL_CNTL	(0xFF9A0000U) /**< RPU global control */
@@ -74,6 +82,16 @@
 
 #define PLM_VP1802_POR_SETTLE_TIME	(25000U) /**< Flag indicates POR
                                                   * settle time for VP1802 */
+#ifdef PLM_TPM
+#define XLOADER_PCR_MEASUREMENT_INDEX_MASK 	(0xFFFF0000U)  /**< Mask for
+                                                   * PCR Measurement index */
+#define XLOADER_PRTN_PCR_START_IDX	(2U) /**< Partition hash extend to PCR:2 */
+#define XLOADER_PRTN_PCR_END_IDX	(23U) /**< Final PCR index of TPM */
+#define XLOADER_GET_PRTN_HASH_INDEX(PdiPtr)	((PdiPtr->PrtnNum) == XLOADER_PDI_TYPE_FULL) \
+						? (PdiPtr->PrtnNum) : ((PdiPtr->PrtnNum) + 1U)
+                        /**< Get partition hash index depending on full/partial PDI
+                         * Digest table idx start with 0U, use case requires next prtn number*/
+#endif
 /**
  * @{
  * @cond DDR calibration errors
@@ -275,6 +293,161 @@ END:
 	/* Make Number of handoff CPUs to zero */
 	PdiPtr->NoOfHandoffCpus = 0x0U;
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function measures the partion hashes
+ *
+ * @param	PdiPtr is pointer to XilPdi instance
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_DATA_MEASUREMENT if error in data measurement.
+ *
+ *****************************************************************************/
+int XLoader_MeasureNLoad(XilPdi* PdiPtr)
+{
+	volatile int Status = XST_FAILURE;
+#ifdef PLM_TPM
+	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
+	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
+	u32 Index;
+	u32 PrtNum;
+	u32 NoOfPrtns;
+
+	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
+	PrtNum = PdiPtr->PrtnNum;
+	Status = XLoader_LoadImagePrtns(PdiPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	ImageMeasureInfo.PcrInfo = PcrInfo;
+	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
+	ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
+	ImageMeasureInfo.DigestIndex = &PdiPtr->DigestIndex;
+	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) ||
+		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU)) {
+		ImageMeasureInfo.OverWrite = TRUE;
+	}
+	else {
+		ImageMeasureInfo.OverWrite = FALSE;
+	}
+
+	ImageMeasureInfo.IsAuthOptimized = PdiPtr->MetaHdr->IsAuthOptimized;
+	ImageMeasureInfo.DigestTableSize = PdiPtr->MetaHdr->DigestTableSize;
+	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	NoOfPrtns = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
+	for(Index = 0U; Index < NoOfPrtns; Index++)
+	{
+		ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
+		ImageMeasureInfo.PcrInfo = PcrInfo;
+		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
+		ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
+		/* Update the data for measurement, only for Versal */
+		XPlmi_Printf(DEBUG_INFO, "Partition Measurement started\r\n");
+		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		PrtNum++;
+	}
+	ImageMeasureInfo.Flags = XLOADER_MEASURE_FINISH;
+	/* This is applicable only for Versal */
+	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#else
+	Status = XLoader_LoadImagePrtns(PdiPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function measures the data by calculating SHA3 hash.
+ *
+ * @param	ImageInfo Pointer to the XLoader_ImageMeasureInfo structure
+ *
+ * @return
+ * 			- XST_SUCCESS on successfully measuring the data
+ * 			- XLOADER_ERR_DATA_MEASUREMENT if error in data measurement.
+ *
+ ***************************************************************************************/
+int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
+{
+#ifdef PLM_TPM
+	volatile int Status = (int)XLOADER_ERR_DATA_MEASUREMENT;
+	XilPdi *PdiPtr;
+	u32 PcrNo;
+	XSecure_Sha3Hash Sha3Hash;
+	XilPdi_PrtnHashInfo* PrtnHashData = NULL;
+	XilPdi_PrtnHashInfo* PrtnHashDataTmp = NULL;
+	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+
+	if (ImageInfo->IsAuthOptimized == (u32)TRUE) {
+		XSECURE_REDUNDANT_CALL(PrtnHashData, PrtnHashDataTmp, XilPdi_IsPrtnHashPresent,
+			XLOADER_GET_PRTN_HASH_INDEX(PdiPtr), ImageInfo->DigestTableSize);
+		if ((PrtnHashData == NULL) || (PrtnHashDataTmp == NULL)) {
+			Status = (int)XLOADER_PRTN_HASH_NOT_PRESENT;
+			goto END;
+		}
+		ImageInfo->DataAddr = (u64)(UINTPTR)PrtnHashData;
+	}
+	else {
+		XPlmi_Printf(DEBUG_INFO, "Data measurement not possible, please enable AuthOptimization\r\n");
+		goto END;
+	}
+
+	switch(ImageInfo->Flags) {
+	case XLOADER_MEASURE_START:
+		Status = XSecure_ShaStart(Sha3InstPtr, XSECURE_SHA3_384);
+		break;
+	case XLOADER_MEASURE_UPDATE:
+		Status = XSecure_ShaUpdate(Sha3InstPtr,
+				ImageInfo->DataAddr, ImageInfo->DataSize);
+		break;
+	case XLOADER_MEASURE_FINISH:
+		Status = XSecure_ShaFinish(Sha3InstPtr, (UINTPTR)&Sha3Hash, XLOADER_SHA3_LEN);
+		break;
+	default:
+		XPlmi_Printf(DEBUG_INFO, "Please check provided case\r\n");
+		break;
+	}
+	if (Status != XST_SUCCESS) {
+		XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
+		goto END;
+	}
+
+	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
+		PcrNo = ImageInfo->PcrInfo & XLOADER_PCR_NUMBER_MASK;
+		/* Extend TPM PCR Image Digest, Pcr0: ROM, Pcr1: PLM */
+		if (PcrNo >= XLOADER_PRTN_PCR_START_IDX && PcrNo <= XLOADER_PRTN_PCR_END_IDX) {
+			Status = XTpm_MeasurePartition(PcrNo,(u8*)(UINTPTR)&Sha3Hash.Hash);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT,
+						Status);
+			}
+		}
+	}
+
+END:
+	return Status;
+#else
+	(void)ImageInfo;
+	XPlmi_Printf(DEBUG_INFO, "TPM Module is not initialized\r\n");
+	return XST_SUCCESS;
+#endif
 }
 
 /****************************************************************************/

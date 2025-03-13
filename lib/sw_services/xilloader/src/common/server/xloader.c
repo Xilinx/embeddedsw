@@ -181,7 +181,9 @@
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       pre  01/02/2025 clearing metaheader space based on size of metaheader structure
 *       mb   01/22/2025 Fix SMAP seconadry boot fail
-*		tri  03/01/2025 Added data measurement support for versal_aiepg2
+*       tri  03/01/2025 Added data measurement support for versal_aiepg2
+*       tri  03/13/2025 Moved partition measurement to platform specific and
+*                       Added XLoader_DataMeasurement support for versal
 *
 * </pre>
 *
@@ -223,6 +225,9 @@
 #endif
 #include "xpm_device.h"
 #include "xpm_pldevice.h"
+#ifdef PLM_TPM
+#include "xtpm.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -232,7 +237,6 @@
 #define XLOADER_IMAGE_INFO_TBL_MAX_NUM	(XPLMI_IMAGE_INFO_TBL_BUFFER_LEN / \
 		sizeof(XLoader_ImageInfo)) /**< Maximum number of image info
 					     tables in the available buffer */
-#define XLOADER_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)  /**< Mask for PCR Measurement index */
 
 #ifdef PLM_OCP_KEY_MNGMT
 #define XLOADER_PMC_SUBSYSTEM_ID			(0x1C000001U)
@@ -511,6 +515,27 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+#ifdef PLM_TPM
+	/**
+	 * - Sends ROM digest stored in PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
+	 * - register to TPM
+	 */
+	Status = XTpm_MeasureRom();
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_MEASURE_ROM_FAILURE, Status);
+		goto END;
+	}
+
+	/**
+	 * - Sends PLM digest stored in PMC_GLOBAL_FW_AUTH_HASH_0 register to TPM
+	 */
+	Status = XTpm_MeasurePlm();
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_MEASURE_PLM_FAILURE, Status);
+		goto END;
+	}
+#endif
 
 	goto END;
 
@@ -1505,13 +1530,6 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 NodeId = NODESUBCLASS(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
-	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
-	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
-#ifdef VERSAL_AIEPG2
-	u32 Index;
-	u32 PrtNum;
-	u32 NoOfPrtns;
-#endif
 
 #ifdef XPLM_SEM
 	/* Stop the SEM scan before PL load */
@@ -1550,77 +1568,10 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 	/* Update current subsystem ID for EM */
 	XPlmi_SetEmSubsystemId(&PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
 
-	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
-#ifdef VERSAL_AIEPG2
-	PrtNum = PdiPtr->PrtnNum;
-	Status = XLoader_LoadImagePrtns(PdiPtr);
+	Status = XLoader_MeasureNLoad(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-#endif
-	ImageMeasureInfo.PcrInfo = PcrInfo;
-	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
-	ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
-	ImageMeasureInfo.DigestIndex = &PdiPtr->DigestIndex;
-	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) ||
-		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU)) {
-		ImageMeasureInfo.OverWrite = TRUE;
-	}
-	else {
-		ImageMeasureInfo.OverWrite = FALSE;
-	}
-#ifndef VERSAL_AIEPG2
-	/* This is applicable only for Versal Net */
-	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XLoader_LoadImagePrtns(PdiPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	ImageMeasureInfo.Flags = XLOADER_MEASURE_FINISH;
-	/* This is applicable only for Versal Net */
-	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-#endif
-
-#ifdef VERSAL_AIEPG2
-	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	NoOfPrtns = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
-	for(Index = 0; Index < NoOfPrtns; Index++) {
-		ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&PdiPtr->MetaHdr->HashBlock.HashData[PrtNum].PrtnHash;
-		ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
-		ImageMeasureInfo.PcrInfo = PcrInfo;
-		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
-		if((NoOfPrtns - Index) > 1U) {
-			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
-		}
-		else {
-			/* Set Last word of DMA, by setting IsLastUpdate true */
-			ImageMeasureInfo.Flags = XLOADER_MEASURE_LAST;
-		}
-		/* Update the data for measurement */
-		XPlmi_Printf(DEBUG_INFO, "partition Measurement started\r\n");
-		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		PrtNum++;
-	}
-	ImageMeasureInfo.Flags = XLOADER_MEASURE_FINISH;
-	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-#endif
 
 	/* This is applicable only for VersalNet */
 	Status = XPlmi_CheckAndUpdateFipsState();

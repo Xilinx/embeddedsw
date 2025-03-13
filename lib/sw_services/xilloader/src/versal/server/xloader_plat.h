@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,8 @@
 *       obs  09/30/2024 Fixed Doxygen Warnings
 *       pre  10/22/2024 Added XLOADER_ERR_CMD_NOT_SUPPORTED error code
 *       bm   11/11/2024 Move I2C Handshake feature to common code
+*       tri  03/13/2025 Added XLoader_MeasureNLoad prototype and
+*                       XLoader_DataMeasurement prototype
 *
 * </pre>
 *
@@ -370,22 +372,6 @@ static inline int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 
 /*****************************************************************************/
 /**
- * @brief	This function measures the data by calculating SHA3 hash.
- *
- * @param	ImageInfo Pointer to the XLoader_ImageMeasureInfo structure
- *
- * @return
- * 		- XST_SUCCESS always.
- *
- *****************************************************************************/
-static inline int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
-{
-	(void)ImageInfo;
-	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function measures the Secure Config by calculating SHA3 hash.
  *
  * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
@@ -476,6 +462,8 @@ void XLoader_PerformInternalPOR(void);
 XLoader_ImageStore* XLoader_GetPdiList(void);
 int Xloader_SsitEoPdiSync(XilPdi *PdiPtr);
 XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
+int XLoader_MeasureNLoad(XilPdi* PdiPtr);
+int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 
 
 /************************** Variable Definitions *****************************/

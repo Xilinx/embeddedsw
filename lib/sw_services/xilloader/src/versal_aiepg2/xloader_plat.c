@@ -56,10 +56,11 @@
 *       ma   01/07/2025 Added support for ASU handoff
 *       sk   02/04/2024 Reset Status before call to XLoader_PrtnCopy
 *       tri  03/01/2025 Added XLOADER_MEASURE_LAST case in XLoader_DataMeasurement
-*						for versal_aiepg2
+*                       for versal_aiepg2
 *       sk   03/05/2025 Reset Status before use in XLoader_ProcessElf
 *       sk   03/05/2025 Added temporal check in XLoader_EncRevokeIdMeasurement
 *       sk   03/05/2025 Added ASU destination CPU attribute
+*       tri  03/13/2025 Added XLoader_MeasureNLoad support
 *
 * </pre>
 *
@@ -124,6 +125,7 @@
 #define XLOADER_INVALID_DEVAK_INDEX			(0xFFFFFFFFU) /**< INVALID DEVAK INDEX */
 #endif
 #define XLOADER_TRNG_DEVICE_ID				(0U)
+#define XLOADER_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)  /**< Mask for PCR Measurement index */
 /**
  * @{
  * @cond DDR calibration errors
@@ -405,6 +407,80 @@ END:
 	 * - Make Number of handoff CPUs to zero.
 	 */
 	PdiPtr->NoOfHandoffCpus = 0x0U;
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function measures the partion hashes from the hash block
+ *
+ * @param	PdiPtr is pointer to XilPdi instance
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_DATA_MEASUREMENT if error in data measurement.
+ *
+ *****************************************************************************/
+int XLoader_MeasureNLoad(XilPdi* PdiPtr)
+{
+	volatile int Status = XST_FAILURE;
+	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
+	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
+	u32 Index;
+	u32 PrtNum;
+	u32 NoOfPrtns;
+
+	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
+	PrtNum = PdiPtr->PrtnNum;
+	Status = XLoader_LoadImagePrtns(PdiPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	ImageMeasureInfo.PcrInfo = PcrInfo;
+	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
+	ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
+	ImageMeasureInfo.DigestIndex = &PdiPtr->DigestIndex;
+	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) ||
+		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU)) {
+		ImageMeasureInfo.OverWrite = TRUE;
+	}
+	else {
+		ImageMeasureInfo.OverWrite = FALSE;
+	}
+
+	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	NoOfPrtns = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
+	for(Index = 0; Index < NoOfPrtns; Index++) {
+		ImageMeasureInfo.DataAddr = (u64)(UINTPTR)&PdiPtr->MetaHdr->HashBlock.HashData[PrtNum].PrtnHash;
+		ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
+		ImageMeasureInfo.PcrInfo = PcrInfo;
+		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
+		if((NoOfPrtns - Index) > 1U) {
+			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
+		}
+		else {
+			/* Set Last word of DMA, by setting IsLastUpdate true */
+			ImageMeasureInfo.Flags = XLOADER_MEASURE_LAST;
+		}
+		/* Update the data for measurement */
+		XPlmi_Printf(DEBUG_INFO, "partition Measurement started\r\n");
+		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		PrtNum++;
+	}
+	ImageMeasureInfo.Flags = XLOADER_MEASURE_FINISH;
+	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
 	return Status;
 }
 
