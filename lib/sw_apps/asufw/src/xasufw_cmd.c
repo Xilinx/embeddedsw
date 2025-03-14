@@ -207,7 +207,7 @@ s32 XAsufw_CheckAndAllocateResources(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 */
 	if (Module->ResourcesRequired != NULL) {
 		ReqResources = Module->ResourcesRequired[CmdId];
-		Status = XAsufw_CheckResourceAvailability(ReqResources, ReqId);
+		Status = XAsufw_CheckResourceAvailability(ReqResources, ReqId, ReqBuf);
 		/** Allocate required resources if the module has registered for the resource handler. */
 		if ((Status == XASUFW_SUCCESS) && (Module->ResourceHandler != NULL)) {
 			Status = Module->ResourceHandler(ReqBuf, ReqId);

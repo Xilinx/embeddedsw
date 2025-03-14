@@ -33,7 +33,6 @@
 #include "xasufw_ecchandler.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
-#include "xasufw_resourcemanager.h"
 #include "xasufw_cmd.h"
 #include "xasufw_debug.h"
 #include "xasufw_kat.h"
@@ -90,10 +89,21 @@ s32 XAsufw_EccInit(void)
 	};
 
 	/** Contains the required resources for each supported command. */
+	/**
+	 * For XASU_ECC_GEN_SIGNATURE_CMD_ID and XASU_ECC_VERIFY_SIGNATURE_CMD_ID,
+	 * XASUFW_ECC_RESOURCE_MASK checks for the availability of ECC or RSA core based on the
+	 * curve type received.
+	 * For XASU_ECC_KAT_CMD_ID, both RSA and ECC cores are required. So, XASUFW_ECC_RESOURCE_MASK
+	 * checks for the availability of ECC core and XASUFW_RSA_RESOURCE_MASK checks for the
+	 * availability of RSA core.
+	 */
 	static XAsufw_ResourcesRequired XAsufw_EccResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_EccCmds)] = {
-		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK,
-		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK,
-		[XASU_ECC_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK,
+		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		[XASU_ECC_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
+		XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_ECC_GET_INFO_CMD_ID] = 0U,
 		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
@@ -107,6 +117,8 @@ s32 XAsufw_EccInit(void)
 	XAsufw_EccModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_EccCmds);
 	XAsufw_EccModule.ResourceHandler = XAsufw_EccResourceHandler;
 	XAsufw_EccModule.AsuDmaPtr = NULL;
+	XAsufw_EccModule.ShaPtr = NULL;
+	XAsufw_EccModule.AesPtr = NULL;
 
 	/** Register ECC module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_EccModule);
@@ -142,13 +154,20 @@ static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+	XAsufw_Resource ResourceId = XASUFW_INVALID;
 
 	/** Allocate DMA resource for ECC module commands except for Get_Info command. */
-	if (CmdId != XASU_ECC_GET_INFO_CMD_ID) {
-		XAsufw_EccModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_ECC, ReqId);
+	if ((CmdId != XASU_ECC_GET_INFO_CMD_ID)) {
+		ResourceId = XAsufw_GetEccMaskResourceId(ReqBuf);
+		XAsufw_EccModule.AsuDmaPtr = XAsufw_AllocateDmaResource(ResourceId, ReqId);
 		if (XAsufw_EccModule.AsuDmaPtr == NULL) {
 			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
 			goto END;
+		}
+		XAsufw_AllocateResource(ResourceId, ResourceId, ReqId);
+		XAsufw_AllocateResource(XASUFW_TRNG, ResourceId, ReqId);
+		if (CmdId == XASU_ECC_KAT_CMD_ID) {
+			XAsufw_AllocateResource(XASUFW_RSA, ResourceId, ReqId);
 		}
 	}
 
@@ -218,7 +237,7 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 END:
 	/** Release resources. */
-	if (XAsufw_ReleaseDmaResource(XAsufw_EccModule.AsuDmaPtr, ReqId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 	XAsufw_EccModule.AsuDmaPtr = NULL;
@@ -277,7 +296,7 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Release resources. */
-	if (XAsufw_ReleaseDmaResource(XAsufw_EccModule.AsuDmaPtr, ReqId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 	XAsufw_EccModule.AsuDmaPtr = NULL;
@@ -313,7 +332,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Release resources. */
-	if (XAsufw_ReleaseDmaResource(XAsufw_EccModule.AsuDmaPtr, ReqId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 	XAsufw_EccModule.AsuDmaPtr = NULL;
@@ -350,7 +369,7 @@ static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 END:
 	/** Release resources. */
-	if (XAsufw_ReleaseDmaResource(XAsufw_EccModule.AsuDmaPtr, ReqId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(XASUFW_ECC, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 	XAsufw_EccModule.AsuDmaPtr = NULL;
@@ -380,7 +399,7 @@ static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	Status = XAsufw_P192EcdhKat(XAsufw_EccModule.AsuDmaPtr);
 
 	/** Release resources. */
-	if (XAsufw_ReleaseDmaResource(XAsufw_EccModule.AsuDmaPtr, ReqId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 	XAsufw_EccModule.AsuDmaPtr = NULL;
@@ -409,5 +428,35 @@ static s32 XAsufw_EccGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/* TODO: Implement XAsufw_EccGetInfo */
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is used to get the resource ID when ECC_RESOURCE_MASK is included.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ *
+ * @return
+ *	- Returns the resource ID
+ *
+ *************************************************************************************************/
+XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
+{
+	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
+	XAsufw_Resource Resource = XASUFW_INVALID;
+
+	if (((CmdId == XASU_ECC_GEN_SIGNATURE_CMD_ID) ||
+	    (CmdId == XASU_ECC_VERIFY_SIGNATURE_CMD_ID)) &&
+	    ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
+	    (EccParamsPtr->CurveType == XASU_ECC_NIST_P384))) {
+		Resource = XASUFW_ECC;
+	} else if (CmdId == XASU_ECC_KAT_CMD_ID) {
+		Resource = XASUFW_ECC;
+	} else {
+		Resource = XASUFW_RSA;
+	}
+
+	return Resource;
 }
 /** @} */

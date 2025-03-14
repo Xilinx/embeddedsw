@@ -34,6 +34,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xasufw_resourcemanager.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -43,6 +44,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_EccInit(void);
+XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf);
 
 /************************************ Variable Definitions ***************************************/
 
