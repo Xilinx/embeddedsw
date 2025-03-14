@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -316,7 +316,7 @@ extern XFih_Var XFIH_FAILURE;
  *        getting optimized by the compiler. It takes s32 value as input, and
  *        assigns it to @ref XFih_Var
  *
- * @param Val input u32 value to be assigned to @ref XFih_Var
+ * @param Val input s32 value to be assigned to @ref XFih_Var
  *
  * @return @ref XFih_Var assigned with input value
  *
@@ -327,6 +327,32 @@ extern XFih_Var XFIH_FAILURE;
  ******************************************************************************/
 static __attribute__((always_inline)) inline
 XFih_Var XFih_VolatileAssignS32(s32 Val)
+{
+	XFih_Var ReturnVal;
+
+	XFIH_CORE_VOLATILE_ASSIGN_U32(ReturnVal, Val);
+
+	return ReturnVal;
+}
+
+/******************************************************************************/
+/**
+ *
+ * @brief This function is used for non-volatile XFih variable assignment without
+ *        getting optimized by the compiler. It takes u32 value as input, and
+ *        assigns it to @ref XFih_Var
+ *
+ * @param Val input u32 value to be assigned to @ref XFih_Var
+ *
+ * @return @ref XFih_Var assigned with input value
+ *
+ * @note  Usage: x is Xfih_Var type, y is u32 type
+ *           x = XFih_VolatileAssignU32(y);
+ *           Status = XFih_VolatileAssignU32(XST_FAILURE);
+ *
+ ******************************************************************************/
+static __attribute__((always_inline)) inline
+XFih_Var XFih_VolatileAssignU32(u32 Val)
 {
 	XFih_Var ReturnVal;
 

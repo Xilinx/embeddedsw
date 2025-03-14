@@ -443,6 +443,7 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const 
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var Mode = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 
 	/** Validate input parameters. */
 	if ((UserCfg == NULL) || (InstancePtr == NULL)) {
@@ -506,7 +507,7 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const 
 		Status = XASUFW_TRNG_INVALID_REPCOUNTTEST_CUTOFF_VALUE;
 		goto END;
 	}
-
+	Mode = XFih_VolatileAssignU32((u32)UserCfg->Mode);
 	if ((UserCfg->Mode != XTRNG_PTRNG_MODE) && (UserCfg->IsBlocking != XASU_TRUE) &&
 	    (UserCfg->IsBlocking != XASU_FALSE)) {
 		Status = XASUFW_INVALID_BLOCKING_MODE;
@@ -527,7 +528,7 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const 
 		goto END;
 	}
 
-	if ((UserCfg->Mode == XTRNG_PTRNG_MODE) || (UserCfg->Mode == XTRNG_HRNG_MODE)) {
+	XFIH_IF_FAILIN_WITH_VALUE(Mode, !=, (u32)XTRNG_DRBG_MODE) {
 		/* Configure cutoff values */
 		Status = XTrng_CfgAdaptPropTestCutoff(InstancePtr, UserCfg->AdaptPropTestCutoff);
 		if (Status != XST_SUCCESS) {
@@ -549,8 +550,7 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const 
 
 	InstancePtr->State = XTRNG_INSTANTIATE_STATE;
 	/** Do reseed operation when mode is DRBG/HRNG. */
-	if ((UserCfg->Mode == XTRNG_DRBG_MODE) ||
-	    (UserCfg->Mode == XTRNG_HRNG_MODE)) {
+	XFIH_IF_FAILIN_WITH_VALUE(Mode, !=, (u32)XTRNG_PTRNG_MODE) {
 		XFIH_CALL_GOTO(XTrng_ReseedInternal, XFihVar, Status, END, InstancePtr, Seed,
 					InstancePtr->UserCfg.DFLength, PersStr);
 	}
