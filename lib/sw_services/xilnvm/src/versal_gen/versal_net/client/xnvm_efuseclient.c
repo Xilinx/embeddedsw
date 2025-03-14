@@ -1614,7 +1614,7 @@ int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 Revok
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
-	u16 StartOffset = XNVM_EFUSE_CACHE_REVOCATION_ID_0_OFFSET + ((u16)RevokeIdNum * XNVM_WORD_LEN);
+	u32 StartOffset = 0U;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -1627,6 +1627,12 @@ int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 Revok
 		goto END;
 	}
 
+	if (RevokeIdNum > XNVM_EFUSE_REVOCATION_ID_7) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	StartOffset = XNVM_EFUSE_CACHE_REVOCATION_ID_0_OFFSET + (RevokeIdNum * XNVM_WORD_LEN);
 	HighAddr = (u32)(RevokeIdAddr >> XNVM_ADDR_HIGH_SHIFT);
 	LowAddr = (u32)RevokeIdAddr;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, 1U, LowAddr,
@@ -2390,7 +2396,7 @@ int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 Of
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
-	u16 StartOffset = XNVM_EFUSE_CACHE_OFFCHIP_REVOKE_0_OFFSET + ((u16)OffChipIdNum * XNVM_WORD_LEN);
+	u32 StartOffset = 0U;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -2402,6 +2408,13 @@ int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 Of
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	if (OffChipIdNum > XNVM_EFUSE_OFFCHIP_REVOKE_ID_7) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	StartOffset = XNVM_EFUSE_CACHE_OFFCHIP_REVOKE_0_OFFSET + (OffChipIdNum * XNVM_WORD_LEN);
 
 	HighAddr = (u32)(OffChipIdAddr >> XNVM_ADDR_HIGH_SHIFT);
 	LowAddr = (u32)OffChipIdAddr;
