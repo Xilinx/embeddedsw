@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *       ma   02/29/2024 Change protection unit error actions to PRINT_TO_LOG
 *                       to handle restoring of the error actions after IPU
 *                       Also, set CPM NCR error action to CUSTOM after IPU
+* 1.03  ma   03/14/2025 Moved a print statement in XPlmi_ErrPrintToLog
 *
 * </pre>
 *
@@ -797,6 +798,11 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
 	u32 RegVal;
 
+	/** Print NodeId, Mask and Error ID information */
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received EAM error. ErrorNodeId: 0x%x,"
+				" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
+				ErrorNodeId, RegMask, ErrorId);
+
 	/*
 	 * The nature of XPPU/XMPU errors is such that they often occur consecutively
 	 * due to the stream of transactions. This may result in flooding the UART with
@@ -891,10 +897,6 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 		break;
 
 	default:
-		/** Other than XMPU/XPPU errors, print NodeId, Mask and Error ID information */
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received EAM error. ErrorNodeId: 0x%x,"
-				" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
-				ErrorNodeId, RegMask, ErrorId);
 		break;
 	}
 }
