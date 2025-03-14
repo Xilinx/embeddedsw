@@ -312,7 +312,6 @@ static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	UsrCfg.Mode = XTRNG_DRBG_MODE;
 	UsrCfg.DFLength = (u8)Cmd->DFLen;
 	UsrCfg.SeedLife = Cmd->SeedLife;
-	UsrCfg.IsBlocking = XASU_TRUE;
 
 	Status = XTrng_Instantiate(XAsufw_Trng, (u8 *)(UINTPTR)Cmd->SeedPtr, Cmd->SeedLen,
 				(u8 *)(UINTPTR)Cmd->PersStrPtr, &UsrCfg);

@@ -434,7 +434,6 @@ static inline s32 XTrng_CfgDIT(const XTrng *InstancePtr, u8 DITValue)
  * 		value is provided
  * 	- XASUFW_TRNG_USER_CFG_COPY_ERROR If error occurred during copy of XTrng_UserConfig
  * 		structure
- * 	- XASUFW_INVALID_BLOCKING_MODE If invalid blocking mode
  * 	- XASUFW_FAILURE On unexpected failure
  *
  *************************************************************************************************/
@@ -508,11 +507,6 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const 
 		goto END;
 	}
 	Mode = XFih_VolatileAssignU32((u32)UserCfg->Mode);
-	if ((UserCfg->Mode != XTRNG_PTRNG_MODE) && (UserCfg->IsBlocking != XASU_TRUE) &&
-	    (UserCfg->IsBlocking != XASU_FALSE)) {
-		Status = XASUFW_INVALID_BLOCKING_MODE;
-		goto END;
-	}
 
 	Status = Xil_SMemCpy(&InstancePtr->UserCfg, sizeof(XTrng_UserConfig), UserCfg,
 			     sizeof(XTrng_UserConfig), sizeof(XTrng_UserConfig));
@@ -634,11 +628,6 @@ s32 XTrng_Reseed(XTrng *InstancePtr, const u8 *Seed, u8 DLen)
 		goto END;
 	}
 
-	/** Wait for reseed operation and check CTF flag. */
-	if ((InstancePtr->State == XTRNG_RESEED_STATE) && (InstancePtr->UserCfg.IsBlocking != XASU_TRUE)) {
-		XFIH_CALL_GOTO(XTrng_WaitForReseed, XFihVar, Status, END, InstancePtr);
-	}
-
 	/** Do reseed operation. */
 	XFIH_CALL_GOTO(XTrng_ReseedInternal, XFihVar, Status, END, InstancePtr, Seed, DLen, NULL);
 
@@ -720,18 +709,21 @@ s32 XTrng_Generate(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResi
 
 	if ((InstancePtr->UserCfg.Mode == XTRNG_DRBG_MODE) ||
 	    (InstancePtr->UserCfg.Mode == XTRNG_HRNG_MODE)) {
-		if (InstancePtr->UserCfg.Mode == XTRNG_DRBG_MODE) {
+		if (InstancePtr->UserCfg.Mode == XTRNG_HRNG_MODE) {
+			/* Auto reseed in HRNG mode */
+			if ((InstancePtr->TrngStats.ElapsedSeedLife >= InstancePtr->UserCfg.SeedLife) ||
+				(PredResistance == TRUE)) {
+				XFIH_CALL_GOTO(XTrng_Reseed, XFihVar, Status, END, InstancePtr, NULL,
+						InstancePtr->UserCfg.DFLength);
+			}
+		}
+		else {
 			if ((PredResistance == XASU_TRUE) &&
 			    (InstancePtr->TrngStats.ElapsedSeedLife > 0U)) {
 				Status = XASUFW_TRNG_RESEED_REQUIRED_ERROR;
 				goto END;
 			}
 		}
-		/** Wait for reseed operation and check CTF flag in DRBG and HRNG modes. */
-		if ((InstancePtr->State == XTRNG_RESEED_STATE) && (InstancePtr->UserCfg.IsBlocking != XASU_TRUE)) {
-			XFIH_CALL_GOTO(XTrng_WaitForReseed, XFihVar, Status, END, InstancePtr);
-		}
-
 		InstancePtr->UserCfg.PredResistance = PredResistance;
 	} else if (InstancePtr->UserCfg.Mode == XTRNG_PTRNG_MODE) {
 		/** Enable ring oscillators for random seed source in PTRNG mode. */
@@ -754,14 +746,6 @@ s32 XTrng_Generate(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResi
 
 	InstancePtr->TrngStats.ElapsedSeedLife++;
 	InstancePtr->State = XTRNG_GENERATE_STATE;
-	if (InstancePtr->UserCfg.Mode == XTRNG_HRNG_MODE) {
-		/** Auto reseed in HRNG mode */
-		if ((InstancePtr->TrngStats.ElapsedSeedLife >= InstancePtr->UserCfg.SeedLife) ||
-		    (PredResistance == XASU_TRUE)) {
-			XFIH_CALL_GOTO(XTrng_Reseed, XFihVar, Status, END, InstancePtr, NULL,
-							InstancePtr->UserCfg.DFLength);
-		}
-	}
 
 END:
 	if (InstancePtr != NULL) {
@@ -853,7 +837,6 @@ s32 XTrng_InitNCfgTrngMode(XTrng *InstancePtr, XTrng_Mode Mode)
 	UsrCfg.RepCountTestCutoff = XTRNG_USER_CFG_REP_TEST_CUTOFF;
 	UsrCfg.DFLength = XTRNG_USER_CFG_DF_LENGTH;
 	UsrCfg.SeedLife = XTRNG_USER_CFG_SEED_LIFE;
-	UsrCfg.IsBlocking = XASU_TRUE;
 
 	Status = XTrng_Instantiate(InstancePtr, NULL, 0U, NULL, &UsrCfg);
 	if (Status != XASUFW_SUCCESS) {

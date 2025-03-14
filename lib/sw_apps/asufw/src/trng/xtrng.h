@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -75,7 +75,6 @@ typedef struct {
 	u16 RepCountTestCutoff; /**< Cut off value for repetitive count test */
 	u8 DFLength; /**< DF input length */
 	u8 PredResistance; /**< prediction resistance */
-	u8 IsBlocking; /**< Blocking or Non-Blocking reseed */
 } XTrng_UserConfig;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
