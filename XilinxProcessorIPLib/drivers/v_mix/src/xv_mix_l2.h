@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 1986 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -519,6 +519,12 @@ int XVMix_SetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
                                    XVMix_LayerId LayerId,
                                    UINTPTR Addr);
 UINTPTR XVMix_GetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
+                                       XVMix_LayerId LayerId);
+
+int XVMix_SetLayerChromaBuffer2Addr(XV_Mix_l2 *InstancePtr,
+                                   XVMix_LayerId LayerId,
+                                   UINTPTR Addr);
+UINTPTR XVMix_GetLayerChromaBuffer2Addr(XV_Mix_l2 *InstancePtr,
                                        XVMix_LayerId LayerId);
 
 int XVMix_SetLogoColorKey(XV_Mix_l2 *InstancePtr,

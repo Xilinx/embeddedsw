@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 1986 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1119,7 +1119,7 @@ int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
 *
 * @return XST_SUCCESS or XST_FAILURE
 *
-* @note   Applicable only for Layer1-8
+* @note   Applicable only for Layer1-16
 *
 ******************************************************************************/
 int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
@@ -1170,7 +1170,7 @@ int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
 *
 * @return Address of buffer in memory
 *
-* @note   Applicable only for Layer1-8
+* @note   Applicable only for Layer1-16
 *
 ******************************************************************************/
 UINTPTR XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
@@ -1198,6 +1198,7 @@ UINTPTR XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
 /**
 * This function sets the buffer address of the specified layer
 * for the UV plane for semi-planar formats
+* for the U plane for 3-planar formats
 *
 * @param  InstancePtr is a pointer to core instance to be worked upon
 * @param  LayerId is the layer to be updated
@@ -1205,7 +1206,7 @@ UINTPTR XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
 *
 * @return XST_SUCCESS or XST_FAILURE
 *
-* @note   Applicable only for Layer1-8
+* @note   Applicable only for Layer1-16
 *
 ******************************************************************************/
 int XVMix_SetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
@@ -1250,7 +1251,8 @@ int XVMix_SetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
 /*****************************************************************************/
 /**
 * This function reads the buffer address of the specified layer
-* for the UV plane for semi-planar formats
+* for the UV plane for semi-planar formats and
+* for the U plane for 3-planar formats
 *
 * @param  InstancePtr is a pointer to core instance to be worked upon
 * @param  LayerId is the layer to be updated
@@ -1275,6 +1277,94 @@ UINTPTR XVMix_GetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
 
   if(LayerId < XVMix_GetNumLayers(InstancePtr)) {
         BaseReg = XV_MIX_CTRL_ADDR_HWREG_LAYER1_BUF2_V_DATA;
+
+        ReadVal = XV_mix_ReadReg(MixPtr->Config.BaseAddress,
+                                 (BaseReg+((LayerId-1)*XVMIX_REG_OFFSET)));
+  }
+  return(ReadVal);
+}
+
+/*****************************************************************************/
+/**
+* This function sets the buffer address of the specified layer
+* for the V plane for 3-planar formats
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  LayerId is the layer to be updated
+* @param  Addr is the absolute address of second buffer in memory
+*
+* @return XST_SUCCESS or XST_FAILURE
+*
+* @note   Applicable only for Layer1-16
+*
+******************************************************************************/
+int XVMix_SetLayerChromaBuffer2Addr(XV_Mix_l2 *InstancePtr,
+                                   XVMix_LayerId LayerId,
+                                   UINTPTR Addr)
+{
+  XV_mix *MixPtr;
+  UINTPTR BaseReg, Align;
+  u32 WinValid = FALSE;
+  int Status = XST_FAILURE;
+
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid((LayerId > XVMIX_LAYER_MASTER) &&
+                    (LayerId < XVMIX_LAYER_LOGO));
+  Xil_AssertNonvoid(Addr != 0);
+
+  MixPtr = &InstancePtr->Mix;
+
+  if(LayerId < XVMix_GetNumLayers(InstancePtr)) {
+      /* Check if addr is aligned to aximm width (2*PPC*32-bits (4Bytes)) */
+      Align = 2 * InstancePtr->Mix.Config.PixPerClk * 4;
+      if((Addr % Align) != 0) {
+         WinValid = FALSE;
+         Status   = XVMIX_ERR_MEM_ADDR_MISALIGNED;
+      } else {
+         WinValid = TRUE;
+      }
+
+      if(WinValid) {
+        BaseReg = XV_MIX_CTRL_ADDR_HWREG_LAYER1_BUF3_V_DATA;
+
+        XV_mix_WriteReg(MixPtr->Config.BaseAddress,
+                        (BaseReg+((LayerId-1)*XVMIX_REG_OFFSET)), Addr);
+
+        InstancePtr->Layer[LayerId].ChromaBufAddr = Addr;
+        Status = XST_SUCCESS;
+      }
+  }
+  return(Status);
+}
+
+/*****************************************************************************/
+/**
+* This function reads the buffer address of the specified layer
+* for the V plane for 3-planar formats
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  LayerId is the layer to be updated
+*
+* @return Address of second buffer in memory
+*
+* @note   Applicable only for Layer1-16
+*
+******************************************************************************/
+UINTPTR XVMix_GetLayerChromaBuffer2Addr(XV_Mix_l2 *InstancePtr,
+                                       XVMix_LayerId LayerId)
+{
+  XV_mix *MixPtr;
+  u32 BaseReg;
+  UINTPTR ReadVal = 0;
+
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid((LayerId > XVMIX_LAYER_MASTER) &&
+                    (LayerId < XVMIX_LAYER_LOGO));
+
+  MixPtr = &InstancePtr->Mix;
+
+  if(LayerId < XVMix_GetNumLayers(InstancePtr)) {
+        BaseReg = XV_MIX_CTRL_ADDR_HWREG_LAYER1_BUF3_V_DATA;
 
         ReadVal = XV_mix_ReadReg(MixPtr->Config.BaseAddress,
                                  (BaseReg+((LayerId-1)*XVMIX_REG_OFFSET)));

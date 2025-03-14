@@ -1,6 +1,6 @@
 // ==============================================================
 // Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
@@ -535,6 +535,25 @@ u64 XV_mix_Get_HwReg_layer1_buf2_V(XV_mix *InstancePtr) {
     return Data;
 }
 
+void XV_mix_Set_HwReg_layer1_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER1_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER1_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer1_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER1_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER3_BUF1_V_DATA + 4) << 32;
+    return Data;
+}
+
 void XV_mix_Set_HwReg_layerAlpha_2(XV_mix *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -706,6 +725,25 @@ u64 XV_mix_Get_HwReg_layer2_buf2_V(XV_mix *InstancePtr) {
 
     Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER2_BUF2_V_DATA);
     Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER2_BUF2_V_DATA + 4) << 32;
+    return Data;
+}
+
+void XV_mix_Set_HwReg_layer2_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER2_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER2_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer2_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER2_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER2_BUF3_V_DATA + 4) << 32;
     return Data;
 }
 
@@ -883,6 +921,25 @@ u64 XV_mix_Get_HwReg_layer3_buf2_V(XV_mix *InstancePtr) {
     return Data;
 }
 
+void XV_mix_Set_HwReg_layer3_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER3_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER3_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer3_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER3_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER3_BUF3_V_DATA + 4) << 32;
+    return Data;
+}
+
 void XV_mix_Set_HwReg_layerAlpha_4(XV_mix *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1054,6 +1111,25 @@ u64 XV_mix_Get_HwReg_layer4_buf2_V(XV_mix *InstancePtr) {
 
     Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER4_BUF2_V_DATA);
     Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER4_BUF2_V_DATA + 4) << 32;
+    return Data;
+}
+
+void XV_mix_Set_HwReg_layer4_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER4_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER4_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer4_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER4_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER4_BUF3_V_DATA + 4) << 32;
     return Data;
 }
 
@@ -1231,6 +1307,25 @@ u64 XV_mix_Get_HwReg_layer5_buf2_V(XV_mix *InstancePtr) {
     return Data;
 }
 
+void XV_mix_Set_HwReg_layer5_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER5_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER5_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer5_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER5_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER5_BUF3_V_DATA + 4) << 32;
+    return Data;
+}
+
 void XV_mix_Set_HwReg_layerAlpha_6(XV_mix *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1402,6 +1497,25 @@ u64 XV_mix_Get_HwReg_layer6_buf2_V(XV_mix *InstancePtr) {
 
     Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER6_BUF2_V_DATA);
     Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER6_BUF2_V_DATA + 4) << 32;
+    return Data;
+}
+
+void XV_mix_Set_HwReg_layer6_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER6_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER6_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer6_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER6_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER6_BUF3_V_DATA + 4) << 32;
     return Data;
 }
 
@@ -1579,6 +1693,25 @@ u64 XV_mix_Get_HwReg_layer7_buf2_V(XV_mix *InstancePtr) {
     return Data;
 }
 
+void XV_mix_Set_HwReg_layer7_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER7_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER7_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer7_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER7_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER7_BUF3_V_DATA + 4) << 32;
+    return Data;
+}
+
 void XV_mix_Set_HwReg_layerAlpha_8(XV_mix *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1752,6 +1885,26 @@ u64 XV_mix_Get_HwReg_layer8_buf2_V(XV_mix *InstancePtr) {
     Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER8_BUF2_V_DATA + 4) << 32;
     return Data;
 }
+
+void XV_mix_Set_HwReg_layer8_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER8_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER8_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer8_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER8_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER8_BUF3_V_DATA + 4) << 32;
+    return Data;
+}
+
 ////////
 u32 XV_mix_Get_HwReg_layerAlpha_9(XV_mix *InstancePtr) {
     u32 Data;
@@ -1919,6 +2072,26 @@ u64 XV_mix_Get_HwReg_layer9_buf2_V(XV_mix *InstancePtr) {
     Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER9_BUF2_V_DATA + 4) << 32;
     return Data;
 }
+
+void XV_mix_Set_HwReg_layer9_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER9_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER9_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer9_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER9_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER9_BUF3_V_DATA + 4) << 32;
+    return Data;
+}
+
 ////
 u32 XV_mix_Get_HwReg_layerAlpha_10(XV_mix *InstancePtr) {
     u32 Data;
@@ -2086,6 +2259,26 @@ u64 XV_mix_Get_HwReg_layer10_buf2_V(XV_mix *InstancePtr) {
     Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER10_BUF2_V_DATA + 4) << 32;
     return Data;
 }
+
+void XV_mix_Set_HwReg_layer10_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER10_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER10_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer10_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER10_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER10_BUF3_V_DATA + 4) << 32;
+    return Data;
+}
+
 ///
 u32 XV_mix_Get_HwReg_layerAlpha_11(XV_mix *InstancePtr) {
     u32 Data;
@@ -2253,6 +2446,26 @@ u64 XV_mix_Get_HwReg_layer11_buf2_V(XV_mix *InstancePtr) {
     Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER11_BUF2_V_DATA + 4) << 32;
     return Data;
 }
+
+void XV_mix_Set_HwReg_layer11_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER11_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER11_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer11_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER11_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER11_BUF3_V_DATA + 4) << 32;
+    return Data;
+}
+
 ///
 u32 XV_mix_Get_HwReg_layerAlpha_12(XV_mix *InstancePtr) {
     u32 Data;
@@ -2420,6 +2633,26 @@ u64 XV_mix_Get_HwReg_layer12_buf2_V(XV_mix *InstancePtr) {
     Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER12_BUF2_V_DATA + 4) << 32;
     return Data;
 }
+
+void XV_mix_Set_HwReg_layer12_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER12_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER12_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer12_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER12_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER12_BUF3_V_DATA + 4) << 32;
+    return Data;
+}
+
 ///
 u32 XV_mix_Get_HwReg_layerAlpha_13(XV_mix *InstancePtr) {
     u32 Data;
@@ -2587,6 +2820,26 @@ u64 XV_mix_Get_HwReg_layer13_buf2_V(XV_mix *InstancePtr) {
     Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER13_BUF2_V_DATA + 4) << 32;
     return Data;
 }
+
+void XV_mix_Set_HwReg_layer13_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER13_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER13_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer13_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER13_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER13_BUF3_V_DATA + 4) << 32;
+    return Data;
+}
+
 ///
 u32 XV_mix_Get_HwReg_layerAlpha_14(XV_mix *InstancePtr) {
     u32 Data;
@@ -2754,6 +3007,26 @@ u64 XV_mix_Get_HwReg_layer14_buf2_V(XV_mix *InstancePtr) {
     Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER14_BUF2_V_DATA + 4) << 32;
     return Data;
 }
+
+void XV_mix_Set_HwReg_layer14_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER14_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER14_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer14_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER14_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER14_BUF3_V_DATA + 4) << 32;
+    return Data;
+}
+
 ///
 u32 XV_mix_Get_HwReg_layerAlpha_15(XV_mix *InstancePtr) {
     u32 Data;
@@ -2921,6 +3194,26 @@ u64 XV_mix_Get_HwReg_layer15_buf2_V(XV_mix *InstancePtr) {
     Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER15_BUF2_V_DATA + 4) << 32;
     return Data;
 }
+
+void XV_mix_Set_HwReg_layer15_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER15_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER15_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer15_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER15_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER15_BUF3_V_DATA + 4) << 32;
+    return Data;
+}
+
 ///
 u32 XV_mix_Get_HwReg_layerAlpha_16(XV_mix *InstancePtr) {
     u32 Data;
@@ -3088,6 +3381,26 @@ u64 XV_mix_Get_HwReg_layer16_buf2_V(XV_mix *InstancePtr) {
     Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER16_BUF2_V_DATA + 4) << 32;
     return Data;
 }
+
+void XV_mix_Set_HwReg_layer16_buf3_V(XV_mix *InstancePtr, u64 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER16_BUF3_V_DATA, (u32)(Data));
+    XV_mix_WriteReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER16_BUF3_V_DATA + 4, (u32)(Data >> 32));
+}
+
+u64 XV_mix_Get_HwReg_layer16_buf3_V(XV_mix *InstancePtr) {
+    u64 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER16_BUF3_V_DATA);
+    Data += (u64)XV_mix_ReadReg(InstancePtr->Config.BaseAddress, XV_MIX_CTRL_ADDR_HWREG_LAYER16_BUF3_V_DATA + 4) << 32;
+    return Data;
+}
+
 ///
 void XV_mix_Set_HwReg_reserve(XV_mix *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
