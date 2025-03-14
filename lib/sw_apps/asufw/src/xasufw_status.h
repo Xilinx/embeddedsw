@@ -102,7 +102,7 @@ enum {
 	XASUFW_ERR_DMA_LOOKUP, /**< 0x18U - DMA driver lookup config failed */
 	XASUFW_ERR_DMA_CFG, /**< 0x19U - DMA driver config initialization failed */
 	XASUFW_ERR_DMA_SELFTEST, /**< 0x1AU - DMA self test failed */
-	XASUFW_ERR_NON_BLOCK_DMA_WAIT, /**< 0x1BU - Non blocking DMA transfer wait failed in given
+	XASUFW_DMA_WAIT_FOR_DONE_TIMED_OUT, /**< 0x1BU - Non blocking DMA transfer wait failed in given
 						channel WaitForDone */
 	XASUFW_INVALID_DMA_SSS_CONFIG, /**< 0x1CU - SSS configuration assignment failed as the DMA address is
 						invalid */
