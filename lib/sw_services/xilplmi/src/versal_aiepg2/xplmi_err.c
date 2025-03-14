@@ -20,6 +20,7 @@
 * 1.00  sk   08/26/2024 Initial release, Updated Error Table
 *       pre  01/09/2025 Added PCIE error handling
 *       sk   02/20/2025 Added XMPU/XPPU error handlers
+*       ma   03/14/2025 Moved a print statement in XPlmi_ErrPrintToLog
 *
 * </pre>
 *
@@ -689,6 +690,11 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
 	u32 RegVal;
 
+	/** Print NodeId, Mask and Error ID information */
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received EAM error. ErrorNodeId: 0x%x,"
+				" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
+				ErrorNodeId, RegMask, ErrorId);
+
 	/*
 	 * The nature of XPPU/XMPU errors is such that they often occur consecutively
 	 * due to the stream of transactions. This may result in flooding the UART with
@@ -792,10 +798,6 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 		break;
 
 	default:
-		/** Other than XMPU/XPPU errors, print NodeId, Mask and Error ID information */
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received EAM error. ErrorNodeId: 0x%x,"
-				" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
-				ErrorNodeId, RegMask, ErrorId);
 		break;
 	}
 }

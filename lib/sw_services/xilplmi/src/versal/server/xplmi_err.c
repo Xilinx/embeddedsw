@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 *       kj   09/18/2024 Added support for SW Error Handling in secondary SLR
 *                       and changed HBM CATTRIP SW Error Action in ErrorTable.
 *                       Also restricted HBM Cattrip error action to HW Errors.
+* 2.01  ma   03/14/2025 Moved a print statement in XPlmi_ErrPrintToLog
 * </pre>
 *
 ******************************************************************************/
@@ -649,6 +650,11 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 {
 	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
 
+	/** Print NodeId, Mask and Error ID information */
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received EAM error. ErrorNodeId: 0x%x,"
+				" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
+				ErrorNodeId, RegMask, ErrorId);
+
 	/*
 	 * The nature of XPPU/XMPU errors is such that they often occur consecutively
 	 * due to the stream of transactions. This may result in flooding the UART with
@@ -675,10 +681,6 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 		XPlmi_XmpuErrHandler(FPD_XMPU_BASEADDR, "FPD_XMPU");
 		break;
 	default:
-		/** Other than XMPU/XPPU errors, print NodeId, Mask and Error ID information */
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Received EAM error. ErrorNodeId: 0x%x,"
-				" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
-				ErrorNodeId, RegMask, ErrorId);
 		break;
 	}
 }
