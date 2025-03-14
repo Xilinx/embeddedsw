@@ -27,6 +27,7 @@
  *       vns  02/06/25 Fixed magic numbers
  *       ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
  *       am   03/05/25 Added performance measurement init call
+ *       ma   03/14/25 Replace memcpy with Xil_SecureMemCpy to avoid arch dependencies during copy
  *
  * </pre>
  *
@@ -408,9 +409,12 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 				UniqueId = XAsu_GetUniqueId(ChannelQueueBufPtr->RespBuf.Header);
 				/** Copy the response buffer data if any */
 				if (AsuCallBackRef[UniqueId].RespBufferPtr != NULL) {
-					memcpy(AsuCallBackRef[UniqueId].RespBufferPtr,
-					       &(ChannelQueueBufPtr->RespBuf.Arg[XASU_RESPONSE_BUFF_ADDR_INDEX]),
-					       AsuCallBackRef[UniqueId].Size);
+					if (Xil_SecureMemCpy((void *)AsuCallBackRef[UniqueId].RespBufferPtr,
+							AsuCallBackRef[UniqueId].Size,
+							(void *)(&(ChannelQueueBufPtr->RespBuf.Arg[XASU_RESPONSE_BUFF_ADDR_INDEX])),
+							AsuCallBackRef[UniqueId].Size) != XST_SUCCESS) {
+						xil_printf("Response copy to application failed\r\n");
+					}
 				}
 				/** Call back to notify the completion */
 				if (AsuCallBackRef[UniqueId].CallBackFuncPtr != NULL) {
