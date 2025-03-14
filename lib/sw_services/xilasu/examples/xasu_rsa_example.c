@@ -36,7 +36,7 @@
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_RSA_4096_KEY_SIZE_IN_BYTES	(512U)	/**< 512 bytes for 4096 bit data */
-#define ASU_CACHE_DISABLE
+#define XASU_CACHE_DISABLE
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -211,6 +211,9 @@ static const u8 XAsu_RsaPrivateExp[XASU_RSA_4096_KEY_SIZE_IN_BYTES] __attribute_
 static const u32 XAsu_RsaPublicExp
 __attribute__ ((section (".data.XAsu_RsaPublicExp"))) = 0x1000100U;
 
+static u8 EncResult[XASU_RSA_4096_KEY_SIZE_IN_BYTES] __attribute__ ((section (".data.EncResult")));
+static u8 DecResult[XASU_RSA_4096_KEY_SIZE_IN_BYTES] __attribute__ ((section (".data.DecResult")));
+
 static u8 Notify = 0; /**< To notify the call back from client library */
 volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned from
 						server. */
@@ -233,10 +236,8 @@ int main(void)
 	XAsu_ClientParams ClientParam;
 	XAsu_RsaPubKeyComp PubKeyParam;
 	XAsu_RsaPvtKeyComp PvtKeyParam;
-	u8 EncResult[XASU_RSA_4096_KEY_SIZE_IN_BYTES];
-	u8 DecResult[XASU_RSA_4096_KEY_SIZE_IN_BYTES];
 
-#ifdef XASU_CACHE_DISABLE
+#ifdef	XASU_CACHE_DISABLE
 	Xil_DCacheDisable();
 #endif
 
@@ -244,21 +245,27 @@ int main(void)
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_RsaCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
+	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Client initialize failed:%08x \r\n", Status);
+		goto END;
+	}
+
 	PubKeyParam.Keysize = XASU_RSA_4096_KEY_SIZE_IN_BYTES;
 	PubKeyParam.PubExp = XAsu_RsaPublicExp;
 
-	Xil_SMemCpy(PubKeyParam.Modulus, XASU_RSA_4096_KEY_SIZE_IN_BYTES, XAsu_RsaModulus,
+	Status = Xil_SMemCpy(PubKeyParam.Modulus, XASU_RSA_4096_KEY_SIZE_IN_BYTES, XAsu_RsaModulus,
 		    XASU_RSA_4096_KEY_SIZE_IN_BYTES, XASU_RSA_4096_KEY_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	PvtKeyParam.PubKeyComp = PubKeyParam;
 	PvtKeyParam.PrimeCompOrTotientPrsnt = 0U;
 
-	Xil_SMemCpy(PvtKeyParam.PvtExp, XASU_RSA_4096_KEY_SIZE_IN_BYTES, XAsu_RsaPrivateExp,
+	Status = Xil_SMemCpy(PvtKeyParam.PvtExp, XASU_RSA_4096_KEY_SIZE_IN_BYTES, XAsu_RsaPrivateExp,
 		    XASU_RSA_4096_KEY_SIZE_IN_BYTES, XASU_RSA_4096_KEY_SIZE_IN_BYTES);
-
-	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Client initialize failed:%08x \r\n", Status);
 		goto END;
 	}
 
