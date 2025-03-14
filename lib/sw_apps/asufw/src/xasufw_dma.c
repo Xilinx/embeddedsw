@@ -189,7 +189,7 @@ XAsufw_Dma *XAsufw_GetDmaInstance(u32 BaseAddress)
  *
  * @return
  * 	- XASUFW_SUCCESS on success.
- * 	- XASUFW_ERR_NON_BLOCK_DMA_WAIT if Non Block Dma transfer wait failed in source or
+ * 	- XASUFW_DMA_WAIT_FOR_DONE_TIMED_OUT if Dma transfer wait failed in source or
  * 		destination channel WaitForDone.
  *
  *************************************************************************************************/
@@ -200,7 +200,7 @@ s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel)
 	/** Wait until the given DMA channel transfer completes. */
 	Status = XAsuDma_WaitForDoneTimeout(&DmaPtr->AsuDma, Channel);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_ERR_NON_BLOCK_DMA_WAIT;
+		Status = XASUFW_DMA_WAIT_FOR_DONE_TIMED_OUT;
 		goto END;
 	}
 
