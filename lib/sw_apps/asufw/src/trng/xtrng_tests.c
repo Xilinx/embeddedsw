@@ -128,7 +128,6 @@ s32 XTrng_DrbgKat(XTrng *InstancePtr)
 	UsrCfg.DFLength = XTRNG_KAT_DEFAULT_DF_LENGTH;
 	UsrCfg.Mode = XTRNG_DRBG_MODE;
 	UsrCfg.SeedLife = XTRNG_KAT_DEFAULT_SEED_LIFE;
-	UsrCfg.IsBlocking = XASU_TRUE;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XTrng_Instantiate(InstancePtr, ExtSeed, XTRNG_KAT_SEED_LEN_IN_BYTES, PersString,
@@ -221,7 +220,6 @@ static s32 XTrng_HealthTest(XTrng *InstancePtr)
 	UsrCfg.RepCountTestCutoff = XTRNG_USER_CFG_REP_TEST_CUTOFF;
 	UsrCfg.DFLength = XTRNG_USER_CFG_DF_LENGTH;
 	UsrCfg.SeedLife = XTRNG_USER_CFG_SEED_LIFE;
-	UsrCfg.IsBlocking = XASU_TRUE;
 
 	Status = XTrng_Instantiate(InstancePtr, NULL, 0U, NULL, &UsrCfg);
 	if (Status != XASUFW_SUCCESS) {
