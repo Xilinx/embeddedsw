@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -77,6 +77,26 @@ typedef u32 XFih_Var;
  *       is disabled (@ref XFIH_ENABLE_SECURE_CHECK).
  */
 #define XFIH_IF_FAILOUT(a, condition, b) \
+	if (a condition b)
+
+/**
+ * @brief Macro for Non FIH variable comparison. Enters block next to macro if
+ *        comparison passes.
+ *
+ * @note Used to disable FIH variable comparison for fall-in when secure check
+ *       is disabled (@ref XFIH_ENABLE_SECURE_CHECK).
+ */
+#define XFIH_IF_FAILIN_WITH_VALUE(a, condition, b) \
+	if (a condition b)
+
+/**
+ * @brief Macro for Non FIH variable comparison. Enters block next to macro if
+ *        comparison passes.
+ *
+ * @note Used to disable FIH variable comparison for fall-out when secure check
+ *       is disabled (@ref XFIH_ENABLE_SECURE_CHECK).
+ */
+#define XFIH_IF_FAILOUT_WITH_VALUE(a, condition, b) \
 	if (a condition b)
 
 /**
@@ -162,6 +182,32 @@ typedef struct _XFih_Var {
 	XFIH_VALIDATE_VARIABLE(a); \
 	XFIH_VALIDATE_VARIABLE(b); \
 	if ((a.Val condition b.Val) && ((a.TransformedVal ^ XFIH_MASK) condition (b.TransformedVal ^ XFIH_MASK)))
+
+/**
+ * @brief Macro to execute the next block if one of the below conditional check
+ *        results to TRUE
+ *        1. Comparison of FIH non-transformed variable with given value
+ *        2. Comparison of FIH transformed variable with given value
+ *
+ * @note Validation of FIH variables depends on @ref XFIH_ENABLE_VAR_GLITCH_DETECTION
+ */
+#define XFIH_IF_FAILIN_WITH_VALUE(a, condition, b) \
+	XFIH_VALIDATE_VARIABLE(a); \
+	if ((a.Val condition b) || ((a.TransformedVal ^ XFIH_MASK) condition b))
+
+/**
+ * @brief Macro to execute the next block if both below conditional check
+ *        results to TRUE
+ *        1. Comparison of FIH non-transformed variable with given value
+ *        2. Comparison of FIH transformed variable with given value
+ *
+ * @note
+ * 		- Validation of input FIH variables depends on
+ *        @ref XFIH_ENABLE_VAR_GLITCH_DETECTION
+ */
+#define XFIH_IF_FAILOUT_WITH_VALUE(a, condition, b) \
+	XFIH_VALIDATE_VARIABLE(a); \
+	if ((a.Val condition b) && ((a.TransformedVal ^ XFIH_MASK) condition b))
 
 /**
  * @brief Helper macro to trigger secure lockdown using illegal instruction
