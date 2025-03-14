@@ -1208,7 +1208,7 @@ s32 XTrng_ReadTrngFifo(const XTrng *InstancePtr, u32 *OutputBuf, u32 OutputBufSi
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 *Buffer = OutputBuf;
-	u32 Idx;
+	volatile u32 Idx;
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
@@ -1231,7 +1231,11 @@ s32 XTrng_ReadTrngFifo(const XTrng *InstancePtr, u32 *OutputBuf, u32 OutputBufSi
 		*Buffer = XAsufw_ReadReg(InstancePtr->TrngFifoAddr);
 		Buffer++;
 	}
-	Status = XASUFW_SUCCESS;
+
+	if ((Buffer == &OutputBuf[XTRNG_SEC_STRENGTH_IN_WORDS]) &&
+		(Idx == XTRNG_SEC_STRENGTH_IN_WORDS)) {
+		Status = XASUFW_SUCCESS;
+	}
 
 END:
 	return Status;
