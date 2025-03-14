@@ -37,9 +37,9 @@ properties:
     description: Sub-core instance presence.
   csi2tx-connected:
     description: Sub-core instance configuration.
-  mipi-dphy-present:
+  dphy-present:
     description: Sub-core instance presence.
-  mipi-dphy-connected:
+  dphy-connected:
     description: Sub-core instance configuration.
   interrupts:
     description: Interrupt number
@@ -59,8 +59,8 @@ required:
   - xlnx,en-reg-based-fe-gen
   - csi2tx-present
   - csi2tx-connected: phandle
-  - mipi-dphy-present
-  - mipi-dphy-connected: phandle
+  - dphy-present
+  - dphy-connected: phandle
   - interrupts
   - interrupt-parent
 
@@ -69,9 +69,8 @@ config:
 
 examples:
   xcsi2txss_selftest_example.c:
-    - interrupts
     - reg
+
   xcsi2txss_intr_example.c:
-    - interrupts
     - reg
 ...
