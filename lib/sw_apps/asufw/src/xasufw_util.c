@@ -40,6 +40,7 @@
 #include "xasufw_util.h"
 #include "xasufw_status.h"
 #include "xasufw_ipi.h"
+#include "xil_sutil.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_PLM_XILNVM_MODULE_ID			(11U) /**< XilNVM Module ID*/
@@ -148,7 +149,7 @@ s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length)
 		}
 	}
 
-	TempVar = 0U;
+	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)TempVar, sizeof(u8)));
 
 	return Status;
 }
