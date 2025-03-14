@@ -49,6 +49,7 @@ XStatus XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask);
 XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
+XPm_Requirement *XPmDevice_GetAieReqmDefault(XPm_Device *Device, XPm_Subsystem *Subsystem);
 #ifdef __cplusplus
 }
 #endif

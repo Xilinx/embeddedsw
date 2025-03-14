@@ -14,6 +14,8 @@
 #include "xpm_runtime_device.h"
 #include "xpm_runtime_reset.h"
 #include "xpm_mem_tcm.h"
+#include "xpm_aiedevice.h"
+
 /* Device security bit in register */
 #define DEV_NONSECURE			(1U)
 #define DEV_SECURE			(0U)
@@ -108,6 +110,7 @@ XPmRuntime_DeviceOps * XPmDevice_SetDevOps_ById(u32 DeviceId)
 	}
 	if (NULL != DevOps) {
 		/** Nothing to do here */
+		Status = XST_SUCCESS;
 		goto done;
 	}
 	DevOps = (XPmRuntime_DeviceOps *)XPm_AllocBytesDevOps(sizeof(XPmRuntime_DeviceOps));
@@ -585,8 +588,11 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	/* Check whether this device assigned to the subsystem */
 	Reqm = FindReqm(Device, Subsystem);
 	if (NULL == Reqm) {
-		/* TODO: AIE device requirement is added implicitly when requested */
-		goto done;
+		/* HACK: AIE device requirement is added implicitly when requested */
+		Reqm = XPmDevice_GetAieReqmDefault(Device, Subsystem);
+		if (NULL == Reqm) {
+			goto done;
+		}
 	}
 
 	/* TODO:: Enable this handling separately for eemi and subsys */
@@ -1309,6 +1315,41 @@ struct XPm_Reqm *XPmDevice_FindRequirement(const u32 DeviceId, const u32 Subsyst
 done:
 	return Reqm;
 }
+
+/****************************************************************************/
+/**
+ * @brief	Add AIE device requirement if one has not already been added
+ *
+ * @param	Device		AIE device to add requirement for
+ * @param	Subsystem	Subsystem which requirement will belong to
+ *
+ * @return	Requirement node
+ *
+ ****************************************************************************/
+XPm_Requirement *XPmDevice_GetAieReqmDefault(XPm_Device *Device, XPm_Subsystem *Subsystem)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Requirement *Reqm = NULL;
+
+	if (IS_DEV_AIE(Device->Node.Id)) {
+		Status = XPmRequirement_Add(Subsystem, Device,
+					    (u32)REQUIREMENT_FLAGS(0U,
+						(u32)REQ_ACCESS_SECURE_NONSECURE,
+						(u32)REQ_NO_RESTRICTION),
+					    0U, XPM_DEF_QOS);
+		if (XST_SUCCESS != Status) {
+			PmErr("Error adding AIE device requirement\r\n");
+			goto done;
+		}
+
+		/* Get requirement */
+		Reqm = XPmDevice_FindRequirement(Device->Node.Id, Subsystem->Id);
+	}
+
+done:
+	return Reqm;
+}
+
 /****************************************************************************/
 /**
  * @brief	Get subsystem ID of processor
