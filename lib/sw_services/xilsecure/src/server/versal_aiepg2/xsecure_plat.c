@@ -388,7 +388,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	u32 TotalSize = Size;
 	u32 RandBufSize = XTRNGPSX_SEC_STRENGTH_IN_BYTES;
 	u32 Index = 0U;
-	u32 NoOfGenerates = (Size + XTRNGPSX_SEC_STRENGTH_IN_BYTES - 1U) >> 5U;
+	u32 NoOfGenerates = (u32)Xil_Ceil(((float)Size / (float)XTRNGPSX_SEC_STRENGTH_IN_BYTES));
 	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 
 	if ((Size == 0U) || (Output == NULL)) {
