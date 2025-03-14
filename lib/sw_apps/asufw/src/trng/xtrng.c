@@ -1255,6 +1255,7 @@ END:
 s32 XTrng_EnableAutoProcMode(XTrng *InstancePtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
@@ -1262,14 +1263,15 @@ s32 XTrng_EnableAutoProcMode(XTrng *InstancePtr)
 		goto END;
 	}
 
-	XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_TRNG_NRNPS_OFFSET, XTRNG_AUTOPROC_NRNPS_VALUE);
+	XFIH_CALL_GOTO(Xil_SecureRMW32, XFihVar, Status, END,
+				InstancePtr->BaseAddress + XASU_TRNG_NRNPS_OFFSET,
+				XTRNG_AUTOPROC_NRNPS_VALUE, XTRNG_AUTOPROC_NRNPS_VALUE);
 
 	/** Enable autoproc mode. */
-	XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_TRNG_AUTOPROC_OFFSET,
-			XASU_TRNG_AUTOPROC_ENABLE_MASK);
-
+	XFIH_CALL_GOTO(Xil_SecureRMW32, XFihVar, Status, END,
+				InstancePtr->BaseAddress + XASU_TRNG_AUTOPROC_OFFSET,
+				XASU_TRNG_AUTOPROC_ENABLE_MASK, XASU_TRNG_AUTOPROC_ENABLE_MASK);
 	InstancePtr->State = XTRNG_AUTOPROC_STATE;
-	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;
