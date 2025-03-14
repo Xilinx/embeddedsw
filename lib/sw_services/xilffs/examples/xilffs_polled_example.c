@@ -141,7 +141,7 @@ int FfsSdPolledExample(void)
 	 * To test logical drive 0, Path should be "0:/"
 	 * For logical drive 1, Path should be "1:/"
 	 */
-	TCHAR *Path = "0:/";
+	const TCHAR *Path = "0:/";
 
 	for(BuffCnt = 0; BuffCnt < FileSize; BuffCnt++){
 		SourceAddress[BuffCnt] = TEST + BuffCnt;
