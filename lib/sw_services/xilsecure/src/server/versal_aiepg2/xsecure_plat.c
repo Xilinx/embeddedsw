@@ -77,6 +77,7 @@ const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =
 /************************** Function Prototypes ******************************/
 
 static void XSecure_UpdateEcdsaCryptoStatus(u32 Op);
+static int XSecure_TrngInitNCfgHrngMode(void);
 
 /************************** Function Definitions *****************************/
 
@@ -468,7 +469,7 @@ END:
  *		- XST_FAILURE  On failure.
  *
  *****************************************************************************/
-int XSecure_TrngInitNCfgHrngMode(void)
+static int XSecure_TrngInitNCfgHrngMode(void)
 {
 	volatile int Status = XST_FAILURE;
 	XTrngpsx_UserConfig UsrCfg;
