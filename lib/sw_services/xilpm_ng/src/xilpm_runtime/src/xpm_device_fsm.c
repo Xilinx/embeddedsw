@@ -63,6 +63,17 @@ static XStatus ActionBringUpAll(XPm_Device* Device)
 
 	/** Perform actions to bring up the device */
 	PmDbg("Bringing up the device %x \n\r", Device->Node.Id);
+	if (NULL == Device) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	u32 NodeId = Device->Node.Id;
+	if (((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) ||
+	    ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(NodeId))) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	/** Power on Device */
 	Status = XPmDevice_BringUp(Device);
