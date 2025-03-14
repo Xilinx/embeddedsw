@@ -685,6 +685,7 @@ int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Lengt
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = Xil_SReverseData(Buf, Length);
 
 END:
