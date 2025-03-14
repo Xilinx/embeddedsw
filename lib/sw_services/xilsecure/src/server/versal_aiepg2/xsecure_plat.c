@@ -384,26 +384,21 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 int XSecure_GetRandomNum(u8 *Output, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
-	u8 *RandBufPtr = Output;
+	u8 *RandBufPtr = NULL;
 	u32 TotalSize = Size;
 	u32 RandBufSize = XTRNGPSX_SEC_STRENGTH_IN_BYTES;
 	u32 Index = 0U;
 	u32 NoOfGenerates = (Size + XTRNGPSX_SEC_STRENGTH_IN_BYTES - 1U) >> 5U;
 	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 
-	if ((TrngInstance->UserCfg.Mode != XTRNGPSX_HRNG_MODE) ||
-		(TrngInstance->State == XTRNGPSX_UNINITIALIZED_STATE )) {
-			if (TrngInstance->ErrorState != XTRNGPSX_HEALTHY) {
-				Status = XTrngpsx_PreOperationalSelfTests(TrngInstance);
-				if (Status != XST_SUCCESS) {
-					goto END;
-				}
-			}
-		Status = XSecure_TrngInitNCfgHrngMode();
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	if ((Size == 0U) || (Output == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
 	}
+
+	RandBufPtr = Output;
+
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ECCRandInit);
 
 	for (Index = 0U; Index < NoOfGenerates; Index++) {
 		if (Index == (NoOfGenerates - 1U)) {
@@ -417,6 +412,10 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	}
 
 END:
+	if (Status != XST_SUCCESS) {
+		Status |= XTrngpsx_Uninstantiate(TrngInstance);
+	}
+
 	return Status;
 }
 
