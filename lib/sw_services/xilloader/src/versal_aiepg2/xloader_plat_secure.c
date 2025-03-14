@@ -66,6 +66,7 @@
 #define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U) /**< eFuse obfuscated key */
 #define XLOADER_BBRAM_OBFUS_KEY		(0x3A5C3C57U) /**< BBRAM obfuscated key */
 #define XLOADER_BH_OBFUS_KEY		(0xA35C7CA5U) /**< Boot header obfuscated key */
+#define XLOADER_INVALID_OBFUS_KEY	(0xFFFFFFFFU) /**< Invalid obfuscated key */
 
 /**************************** Type Definitions *******************************/
 
@@ -131,7 +132,7 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_AesKeySrc *KeySrc = (XSecure_AesKeySrc *)KeySrcPtr;
-	volatile u32 PdiKeySrcTmp;
+	volatile u32 PdiKeySrcTmp = XLOADER_INVALID_OBFUS_KEY;
 
 	*KeySrc = XSECURE_AES_INVALID_KEY;
 
