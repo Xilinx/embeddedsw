@@ -37,6 +37,7 @@
 #include "xasufw_status.h"
 #include "xasufw_resourcemanager.h"
 #include "xasufw_trnghandler.h"
+#include "xasufw_ecchandler.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -209,6 +210,7 @@ static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 ReqId)
  *
  * @param	Resources	OR of all the hardware resources required for the command.
  * @param	ReqId		The unique ID of the request.
+ * @param	ReqBuf		Pointer to the request buffer.
  *
  * @return
  * 	- XASUFW_SUCCESS if all the required resources are available.
@@ -216,7 +218,8 @@ static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 ReqId)
  * 	- XASUFW_RESOURCE_INVALID, if any resource is invalid.
  *
  *************************************************************************************************/
-s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 ReqId)
+s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 ReqId,
+		const XAsu_ReqBuf *ReqBuf)
 {
 	s32 Status = XASUFW_FAILURE;
 	XAsufw_ResourcesRequired ReqResources = Resources;
@@ -263,7 +266,7 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 				}
 				break;
 			case XASUFW_ECC_RESOURCE_MASK:
-				Resource = XASUFW_ECC;
+				Resource = XAsufw_GetEccMaskResourceId(ReqBuf);
 				break;
 			case XASUFW_RSA_RESOURCE_MASK:
 				Resource = XASUFW_RSA;

@@ -87,7 +87,8 @@ typedef enum {
 
 /************************************ Function Prototypes ****************************************/
 void XAsufw_ResourceInit(void);
-s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 ReqId);
+s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 ReqId,
+	const XAsu_ReqBuf *ReqBuf);
 XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 ReqId);
 s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 ReqId);
 void XAsufw_AllocateResource(XAsufw_Resource Resource, XAsufw_Resource MainResource, u32 ReqId);
