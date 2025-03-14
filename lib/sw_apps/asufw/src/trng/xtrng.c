@@ -1000,7 +1000,7 @@ END:
 static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u8 Idx = 0U;
 	volatile u8 NumofBursts = 0U;
@@ -1045,16 +1045,12 @@ static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSiz
 			}
 		}
 	}
-	if (NumofBursts == XTRNG_SEC_STRENGTH_IN_BURSTS) {
-		Status = XASUFW_SUCCESS;
-	}
 
 END:
-	if (Status != XASUFW_SUCCESS) {
-		SStatus = Xil_SMemSet(RandBuf, RandBufSize, 0U, RandBufSize);
-		if (SStatus != XASUFW_SUCCESS) {
-			Status |= SStatus;
-		}
+	if (NumofBursts != XTRNG_SEC_STRENGTH_IN_BURSTS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RANDOM_DATA_FAILED_TO_GENERATE);
+		ClearStatus = Xil_SecureZeroize(RandBuf, RandBufSize);
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
 
 	return Status;
