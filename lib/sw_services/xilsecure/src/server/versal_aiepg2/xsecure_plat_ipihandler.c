@@ -119,16 +119,21 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 
 	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, RsaParamAddr, sizeof(XSecure_RsaInParam));
 	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR;
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = Xil_SMemSet(RsaOperationParamPtr, sizeof(XSecure_RsaOperationParam), 0U, sizeof(XSecure_RsaOperationParam));
 	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_OP_MEM_SET_ERROR;
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XPlmi_MemCpy64((UINTPTR)&RsaKeyParam, RsaParams.KeyAddr, sizeof(XSecure_RsaKeyParam));
 	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR;
 		goto END;
 	}
 
@@ -146,38 +151,50 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->InData, RsaParams.DataAddr,
 		RsaParams.Size);
 	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR;
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->Mod, RsaKeyParam.ModAddr, RsaParams.Size);
 	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR;
 		goto END;
 	}
 
 	if (RsaKeyParam.OpMode != XSECURE_RSA_CRT_MODE) {
+		Status = XST_FAILURE;
 		Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->Exp, RsaKeyParam.ExpAddr, RsaParams.Size);
 		if (Status != XST_SUCCESS) {
+			Status = (int)XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR;
 			goto END;
 		}
 
 		if (RsaKeyParam.OpMode == XSECURE_RSA_EXPOPT_MODE) {
+			Status = XST_FAILURE;
 			Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->RN, RsaKeyParam.RNAddr, RsaParams.Size);
 			if (Status != XST_SUCCESS) {
+				Status = (int)XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR;
 				goto END;
 			}
 
+			Status = XST_FAILURE;
 			Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->RRN, RsaKeyParam.RRNAddr, RsaParams.Size);
 			if (Status != XST_SUCCESS) {
+				Status = (int)XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR;
 				goto END;
 			}
 		}
 
 		if (RsaKeyParam.IsTotAvail == TRUE) {
+			Status = XST_FAILURE;
 			Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->Tot, RsaKeyParam.TotAddr, RsaParams.Size);
 			if (Status != XST_SUCCESS) {
+				Status = (int)XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR;
 				goto END;
 			}
 			Tot = RsaOperationParamPtr->Tot;
@@ -192,29 +209,39 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 		}
 
 		if (RsaKeyParam.OpMode == XSECURE_RSA_CRT_MODE) {
+			Status = XST_FAILURE;
 			Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->DP, RsaKeyParam.DPAddr, RsaKeyParam.PSize);
 			if (Status != XST_SUCCESS) {
+				Status = (int)XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR;
 				goto END;
 			}
 
+			Status = XST_FAILURE;
 			Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->DQ, RsaKeyParam.DQAddr, RsaKeyParam.QSize);
 			if (Status != XST_SUCCESS) {
+				Status = (int)XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR;
 				goto END;
 			}
 
+			Status = XST_FAILURE;
 			Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->QInv, RsaKeyParam.QInvAddr, RsaKeyParam.QSize);
 			if (Status != XST_SUCCESS) {
+				Status = (int)XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR;
 				goto END;
 			}
 		}
 
+		Status = XST_FAILURE;
 		Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->P, RsaKeyParam.PAddr, RsaKeyParam.PSize);
 		if (Status != XST_SUCCESS) {
+			Status = (int)XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR;
 			goto END;
 		}
 
+		Status = XST_FAILURE;
 		Status = XSecure_MemCpyAndChangeEndianness((UINTPTR)RsaOperationParamPtr->Q, RsaKeyParam.QAddr, RsaKeyParam.QSize);
 		if (Status != XST_SUCCESS) {
+			Status = (int)XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR;
 			goto END;
 		}
 
@@ -223,12 +250,16 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 	}
 
 	if (RsaKeyParam.IsPubExpAvail == TRUE) {
+		Status = XST_FAILURE;
 		Status = Xil_SMemSet(&PubModulus, XSECURE_RSA_4096_KEY_SIZE, 0U, XSECURE_RSA_4096_KEY_SIZE);
 		if (Status != XST_SUCCESS) {
+			Status = (int)XSECURE_RSA_OP_MEM_SET_ERROR;
 			goto END;
 		}
+		Status = XST_FAILURE;
 		Status = Xil_SReverseData(&RsaKeyParam.PubExp, XSECURE_RSA_PUB_EXP_SIZE);
 		if (Status != XST_SUCCESS) {
+			Status = (int)XSECURE_RSA_OP_REVERSE_ENDIANESS_ERROR;
 			goto END;
 		}
 		PubModulus[0U] = RsaKeyParam.PubExp;
@@ -236,17 +267,20 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 	}
 
 	if (RsaKeyParam.OpMode == XSECURE_RSA_EXPQ_MODE) {
+		Status = XST_FAILURE;
 		Status = XSecure_RsaExp((unsigned char *)(UINTPTR)RsaOperationParamPtr->InData,
 			RsaOperationParamPtr->Exp, RsaOperationParamPtr->Mod, P, Q, PubExponentPtr,
 			Tot, (int)(RsaParams.Size * 8U), OutDataPtr);
 	}
 	else if (RsaKeyParam.OpMode == XSECURE_RSA_CRT_MODE) {
+		Status = XST_FAILURE;
 		Status = XSecure_RsaExpCRT((unsigned char *)(UINTPTR)RsaOperationParamPtr->InData,
 			RsaOperationParamPtr->P, RsaOperationParamPtr->Q, RsaOperationParamPtr->DP,
 			RsaOperationParamPtr->DQ, RsaOperationParamPtr->QInv, PubExponentPtr,
 			RsaOperationParamPtr->Mod, (int)(RsaParams.Size * 8U), OutDataPtr);
 	}
 	else {
+		Status = XST_FAILURE;
 		Status = XSecure_RsaExpopt((unsigned char *)(UINTPTR)RsaOperationParamPtr->InData,
 			RsaOperationParamPtr->Exp, RsaOperationParamPtr->Mod, RsaOperationParamPtr->RN, RsaOperationParamPtr->RRN, P, Q, PubExponentPtr,
 			Tot, (int)(RsaParams.Size * 8U), OutDataPtr);
@@ -256,8 +290,10 @@ static int XSecure_RsaPrivateOperationIpi(u32 RsaParamAddrLow, u32 RsaParamAddrH
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = Xil_SReverseData(OutDataPtr, RsaParams.Size);
 	if (Status != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_OP_REVERSE_ENDIANESS_ERROR;
 		goto END;
 	}
 

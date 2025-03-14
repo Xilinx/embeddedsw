@@ -252,6 +252,10 @@ typedef enum {
 	XSECURE_RSA_GEN_SIGN_FAILED_ERROR,    /**< 0xF6 - Error when RSA sign generation is failed */
 	XSECURE_ERR_ASU_KTE_DONE_NOT_SET,	/**< 0xF7 - Error in Key Transfer to ASU */
 	XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR,	/**< 0xF8 - Error when MemCpy is failed after RSA operation */
+	XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR, /**< 0xF9 - Error during MemCpy and reversing the endianness */
+	XSECURE_RSA_OP_MEM_SET_ERROR,		/**< 0xF9 - Error when MemSet is failed during RSA private operation */
+	XSECURE_RSA_OP_REVERSE_ENDIANESS_ERROR	/**< 0xFA - Error when reversing the endianness during RSA private operation */
+
 } XSecure_ErrorCodes;
 
 #define XSECURE_SHA3_KAT_FAILED_ERROR		XSECURE_SHA_KAT_FAILED_ERROR
