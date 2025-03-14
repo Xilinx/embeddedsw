@@ -529,17 +529,22 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const 
 	}
 
 	XFIH_IF_FAILIN_WITH_VALUE(Mode, !=, (u32)XTRNG_DRBG_MODE) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/* Configure cutoff values */
 		Status = XTrng_CfgAdaptPropTestCutoff(InstancePtr, UserCfg->AdaptPropTestCutoff);
 		if (Status != XST_SUCCESS) {
 			Status = XASUFW_TRNG_ADAPTCUTOFF_CONFIG_ERROR;
 			goto END;
 		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XTrng_CfgRepCountTestCutoff(InstancePtr, UserCfg->RepCountTestCutoff);
 		if (Status != XST_SUCCESS) {
 			Status = XASUFW_TRNG_REPCUTOFF_CONFIG_ERROR;
 			goto END;
 		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/* Configure default DIT value */
 		Status = XTrng_CfgDIT(InstancePtr, XASU_TRNG_CONF0_DIT_DEFVAL);
 		if (Status != XST_SUCCESS) {
@@ -730,13 +735,15 @@ s32 XTrng_Generate(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResi
 		InstancePtr->UserCfg.PredResistance = PredResistance;
 	} else if (InstancePtr->UserCfg.Mode == XTRNG_PTRNG_MODE) {
 		/** Enable ring oscillators for random seed source in PTRNG mode. */
-		XAsufw_RMW(InstancePtr->BaseAddress + XASU_TRNG_OSC_EN_OFFSET, XASU_TRNG_OSC_EN_VAL_MASK,
-					XASU_TRNG_OSC_EN_VAL_MASK);
+		XFIH_CALL_GOTO(Xil_SecureRMW32, XFihVar, Status, END,
+				InstancePtr->BaseAddress + XASU_TRNG_OSC_EN_OFFSET,
+				XASU_TRNG_OSC_EN_VAL_MASK, XASU_TRNG_OSC_EN_VAL_MASK);
 
-		XAsufw_RMW(InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
-					XASU_TRNG_CTRL_TRSSEN_MASK | XASU_TRNG_CTRL_EUMODE_MASK |
-					XASU_TRNG_CTRL_PRNGXS_MASK,
-					XASU_TRNG_CTRL_TRSSEN_MASK | XASU_TRNG_CTRL_EUMODE_MASK);
+		XFIH_CALL_GOTO(Xil_SecureRMW32, XFihVar, Status, END,
+				InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
+				XASU_TRNG_CTRL_TRSSEN_MASK | XASU_TRNG_CTRL_EUMODE_MASK |
+				XASU_TRNG_CTRL_PRNGXS_MASK,
+				XASU_TRNG_CTRL_TRSSEN_MASK | XASU_TRNG_CTRL_EUMODE_MASK);
 	} else {
 		Status = XASUFW_TRNG_INVALID_MODE;
 		goto END;
@@ -976,8 +983,9 @@ static s32 XTrng_WaitForReseed(XTrng *InstancePtr)
 		}
 	}
 
-	XAsufw_RMW(InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
-		   XASU_TRNG_CTRL_PRNGSTART_MASK | XASU_TRNG_CTRL_TRSSEN_MASK, 0U);
+	XFIH_CALL(Xil_SecureRMW32, XFihVar, Status, InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
+					XASU_TRNG_CTRL_PRNGSTART_MASK | XASU_TRNG_CTRL_TRSSEN_MASK, 0U);
+
 END:
 	return Status;
 }
