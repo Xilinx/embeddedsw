@@ -43,6 +43,7 @@
 * 1.10  sb  02/09/24 Add support for Infineon flash part S28HS02G.
 * 1.11  sb  05/02/24 Add support for Macronix flash part mx66uw2g345gxrix0.
 * 1.12  akm 01/01/25 Pass valid write command in DAC mode.
+* 1.12  sb  03/12/25 Fixed gcc and g++ warnings.
 *
 *</pre>
 *
@@ -227,10 +228,10 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR BaseAddress)
 {
 	int Status;
 	u8 UniqueValue;
-	int Count;
+	u32 Count;
 	int Page = 0;
 	XOspiPsv_Config *OspiPsvConfig;
-	int ReadBfrSize;
+	u32 ReadBfrSize;
 	ReadBfrSize = (PAGE_COUNT * MAX_PAGE_SIZE);
 
 	/*
@@ -784,7 +785,8 @@ int FlashIoWrite(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 	       u8 *WriteBfrPtr)
 {
-	int Sector;
+	(void)WriteBfrPtr;
+	u32 Sector;
 	u32 NumSect;
 #ifdef __ICCARM__
 #pragma data_alignment = 4
@@ -1012,6 +1014,7 @@ int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 	      u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 {
+	(void)WriteBfrPtr;
 	u8 Status;
 	u32 RealAddr;
 	u32 BytesToRead;
@@ -1095,6 +1098,7 @@ int FlashRead(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount,
 ******************************************************************************/
 int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 {
+	(void)WriteBfrPtr;
 #ifdef __ICCARM__
 #pragma data_alignment = 4
 	u8 FlashStatus[2];
@@ -1227,6 +1231,7 @@ int BulkErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 ******************************************************************************/
 int DieErase(XOspiPsv *OspiPsvPtr, u8 *WriteBfrPtr)
 {
+	(void)WriteBfrPtr;
 	u8 DieCnt;
 #ifdef __ICCARM__
 #pragma data_alignment = 4
@@ -1755,9 +1760,9 @@ int MicronBlockProtectTest(XOspiPsv *OspiPsvInstancePtr)
 {
 	int Status;
 	int Page;
-	int Count;
+	u32 Count;
 	u8 UniqueValue;
-	int ReadBfrSize = (PAGE_COUNT * MAX_PAGE_SIZE);
+	u32 ReadBfrSize = (PAGE_COUNT * MAX_PAGE_SIZE);
 
 	Status = FlashErase(OspiPsvInstancePtr, TEST_ADDRESS, MaxData, CmdBfr);
 	if (Status != XST_SUCCESS) {

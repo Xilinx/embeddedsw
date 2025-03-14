@@ -426,7 +426,7 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 		InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
 		if ((InstancePtr->OpMode == XOSPIPSV_IDAC_MODE) ||
 					(Msg->Addrvalid == 0U)) {
-			if ((Msg->Addrvalid == 0U) || ((Msg->ByteCount <= 8) &&
+			if ((Msg->Addrvalid == 0U) || ((Msg->ByteCount <= 8U) &&
 						((Msg->Proto == XOSPIPSV_READ_1_1_1) || (Msg->Proto == XOSPIPSV_READ_8_8_8)))) {
 				Status = XOspiPsv_Stig_Read(InstancePtr, Msg);
 			} else {
