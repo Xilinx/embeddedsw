@@ -10,6 +10,8 @@
 #include "xpm_api.h"
 #include "xpm_runtime_device.h"
 #include "xpm_runtime_api.h"
+#include "xpm_aiedevice.h"
+
 static XStatus XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
 				XPm_Device *Device, u32 Flags,
 				u32 PreallocCaps, u32 PreallocQoS)
@@ -270,7 +272,9 @@ XPm_Requirement* FindReqm(const XPm_Device *Device,const XPm_Subsystem *Subsyste
 	}
 	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
-		PmErr("DeviceOps is NULL\r\n");
+		if (!(IS_DEV_AIE(Device->Node.Id))) {
+			PmErr("DeviceOps is NULL\r\n");
+		}
 		return NULL;
 	}
 	LIST_FOREACH(DevOps->Requirements, ReqmNode){
