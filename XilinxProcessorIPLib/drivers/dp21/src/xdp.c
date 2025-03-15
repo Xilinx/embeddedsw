@@ -2709,6 +2709,8 @@ static void XDp_RxSetAuxClkFilterValue(XDp *InstancePtr)
 static u32 XDp_RxInitialize(XDp *InstancePtr)
 {
 	u32 Regval;
+	double axi_clk_period;
+	double cds_wait_delay, cds_wait_timeout;
 	/* Disable the main link. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_LINK_ENABLE, 0x0);
 
@@ -2808,9 +2810,17 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUX_RD_INTERVAL,
 				 XDP_RX_AUX_READ_INTERVAL_DELAY);
 
+	/* Reads the total Repeater count between the Source and the Sink */
+	Regval = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+			     0x1664) & 0xFF;
+
+	axi_clk_period = (((double)1.0/InstancePtr->Config.SAxiClkHz)) * 1000000;
+
+	cds_wait_delay = (Regval + 1) * XDP_LINK_ADJUST_TIMEOUT_IN_20MSEC ; /* LTTPR_COUNT + 1 * 20ms */
+	cds_wait_timeout = cds_wait_delay / axi_clk_period;
 	/* Set the time till which the DUT waits to achieve CDS_DONE in 128/132b */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_CDS_SEQ_COUNT_VAL,
-				 XDP_RX_CDS_DONE_DELAY);
+			cds_wait_timeout);
 
 	/* Set the time till which the DUT waits to achieve TPS1 in 128/132b */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_TPS1_SCORE,
