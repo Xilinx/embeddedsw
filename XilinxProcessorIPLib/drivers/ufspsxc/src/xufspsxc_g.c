@@ -21,6 +21,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------.
 * 1.0   sk  01/16/24 First release
+* 1.1   sk  03/12/25 Updated UFS config defines
 *
 * </pre>
 *
@@ -36,11 +37,12 @@
 XUfsPsxc_Config XUfsPsxc_ConfigTable[XPAR_XUFSPSXC_NUM_INSTANCES] =
 {
 	{
-		XPAR_XUFSPSXC_0_NAME,
+		XPAR_XUFSPSXC_0_COMPATIBLE,
 		XPAR_XUFSPSXC_0_BASEADDR,
-		XPAR_XUFSPSXC_0_UFS_CLK_FREQ_HZ,
+		XPAR_XUFSPSXC_0_CLK_FREQ_HZ,
 		XPAR_XUFSPSXC_0_CFG_CLK_FREQ_HZ,
 		XPAR_XUFSPSXC_0_REF_PAD_CLK_FREQ_HZ,
 		XPAR_XUFSPSXC_0_IS_CACHE_COHERENT,
+		XPAR_XUFSPSXC_0_INTERRUPTS
 	}
 };

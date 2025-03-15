@@ -57,6 +57,7 @@
 *       ma   01/07/2025 Added ASU specific register defines
 *       pre  01/09/2024 Added addresses needed for PCIE error handling
 *       sk   02/20/2025 Added register address for LPD,OCM,FPD regions
+*       sk   03/12/2025 Added define for UFS config
 *
 * </pre>
 *
@@ -844,6 +845,13 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  */
 #if (!defined(PLM_QSPI_EXCLUDE) && defined(XPAR_XQSPIPSU_0_BASEADDR))
 #define XLOADER_QSPI
+#endif
+
+/*
+ * Definition for UFS to be included
+ */
+#if (!defined(PLM_UFS_EXCLUDE) && defined(XPAR_XUFSPSXC_0_BASEADDR))
+#define XLOADER_UFS
 #endif
 
 /*
