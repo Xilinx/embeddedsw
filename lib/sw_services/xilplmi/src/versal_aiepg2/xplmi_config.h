@@ -31,6 +31,7 @@
 *       ng   03/20/2024 Added CDO debug prints
 *       pre  10/22/2024 Added configurable option for CFI selective read feature
 *       bm   11/11/2024 Added config option for I2C Handshake feature
+*       sk   03/07/2025 Added config option for UFS
 *
 * </pre>
 *
@@ -117,6 +118,7 @@ extern "C" {
  *	- PLM_SD_EXCLUDE SD code will be excluded (included by default)
  *	- PLM_OSPI_EXCLUDE OSPI code will be excluded (included by default)
  *	- PLM_USB_EXCLUDE USB code will be excluded (excluded by default)
+ *	- PLM_UFS_EXCLUDE UFS code will be excluded (included by default)
  *	- PLM_SEM_EXCLUDE SEM code will be excluded (included by default)
  *	- PLM_SECURE_EXCLUDE secure code will be excluded (included by default)
  *	- PLM_NVM_EXCLUDE NVM handlers will be excluded (excluded by default)
@@ -132,6 +134,7 @@ extern "C" {
 //#define PLM_SD_EXCLUDE
 //#define PLM_OSPI_EXCLUDE
 //#define PLM_USB_EXCLUDE
+//#define PLM_UFS_EXCLUDE
 //#define PLM_SEM_EXCLUDE
 //#define PLM_SECURE_EXCLUDE
 //#define PLM_NVM_EXCLUDE
