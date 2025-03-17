@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,12 @@ extern "C" {
 #define MEMREGN_DEVID(IDX)		NODEID((u32)XPM_NODECLASS_DEVICE, \
 					(u32)XPM_NODESUBCL_DEV_MEM_REGN, \
 					(u32)XPM_NODETYPE_DEV_MEM_REGN, (IDX))
+
+#define PL_MEM_REGN			(0x1U)
+#define PL_MEM_REGN_FLAGS_SHIFT_64	(60U)
+#define PL_MEM_REGN_FLAGS_MASK_64	((u64)0xF0000000U << 32)
+#define PL_MEM_REGN_FLAGS(SZ_64BIT)	((u32)(((SZ_64BIT) & PL_MEM_REGN_FLAGS_MASK_64) >> PL_MEM_REGN_FLAGS_SHIFT_64))
+#define IS_PL_MEM_REGN(SZ_64BIT)	((u32)PL_MEM_REGN == PL_MEM_REGN_FLAGS((u64)(SZ_64BIT)))
 
 typedef struct XPm_MemCtrlrDevice XPm_MemCtrlrDevice;
 typedef struct XPm_MemRegnDevice XPm_MemRegnDevice;
@@ -74,11 +80,9 @@ XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
 XStatus XPm_GetRpuDevice(const XPm_Device **Rpu0Device,const XPm_Device **Rpu1Device,
 				const u32 Id);
 u32 XPm_CombTcm(const u32 Id, const u32 Mode);
-XStatus XPm_GetAddrRegnForSubsystem(const u32 SubsystemId,
-				    XPm_AddrRegion *AddrRegnArray,
-				    u32 AddrRegnArrayLen, u32 *NumOfRegions);
-XStatus XPm_IsAddressInSubsystem(const u32 SubsystemId, u64 AddressofSubsystem,
-				 u8 *IsValidAddress);
+XStatus XPm_GetAddrRegnForSubsystem(u32 SubsystemId, XPm_AddrRegion *AddrRegnArray,
+					u32 AddrRegnArrayLen, u32 *NumOfRegions);
+XStatus XPm_IsAddressInSubsystem(u32 SubsystemId, u64 AddrToCheck, u8 *IsValid);
 
 #ifdef __cplusplus
 }

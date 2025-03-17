@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xplmi.h"
@@ -678,13 +678,11 @@ done:
 	return Status;
 }
 
-static XStatus XPm_AddMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev)
+static XStatus XPm_AddDDRMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev)
 {
 	XStatus Status = XST_FAILURE;
-	u32 AddReqMemRegnPayload[6U];
 	u32 SubsystemId = PM_SUBSYS_DEFAULT;
 	XPm_Subsystem *Subsystem;
-	static u32 MemRegnIndex = 0U;
 	u32 DeviceId;
 	u64 Address;
 	u64 Size;
@@ -698,27 +696,93 @@ static XStatus XPm_AddMemRegnForDefaultSubsystem(const XPm_MemCtrlrDevice *MCDev
 	}
 
 	for (u32 Cnt = 0U; Cnt < MCDev->RegionCount; Cnt++) {
-		DeviceId = MEMREGN_DEVID(MemRegnIndex);
+		u32 MemRegnIndx = XPmDevice_GetMemRegnCount();
+		DeviceId = MEMREGN_DEVID(MemRegnIndx);
 		Address = MCDev->Region[Cnt].Address;
 		Size = MCDev->Region[Cnt].Size;
 
+		PmDbg("DeviceId: (0x%x) MemRegnDeviceId: (0x%x)\r\n", MCDev->Device.Node.Id, DeviceId);
 		Status = XPm_AddMemRegnDevice(DeviceId, Address, Size);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
-		AddReqMemRegnPayload[4] = (u32)PM_CAP_ACCESS;
-		AddReqMemRegnPayload[5] = XPM_DEF_QOS;
 
-		Status = XPm_AddDevRequirement(Subsystem, DeviceId,
-						(u32)REQUIREMENT_FLAGS(1U,
-						(u32)REQ_ACCESS_SECURE_NONSECURE,
-						(u32)REQ_NO_RESTRICTION),
-						AddReqMemRegnPayload, 6U);
+		Status = XPmRequirement_Add(Subsystem, XPmDevice_GetById(DeviceId),
+			(u32)REQUIREMENT_FLAGS(1U,
+			(u32)REQ_ACCESS_SECURE_NONSECURE,
+			(u32)REQ_NO_RESTRICTION),
+			(u32)PM_CAP_ACCESS, XPM_DEF_QOS);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
-		MemRegnIndex++;
 	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+
+}
+
+XStatus XPm_AddPSMemRegnForDefaultSubsystem(void) {
+	XStatus Status = XST_FAILURE;
+	u32 SubsystemId = PM_SUBSYS_DEFAULT;
+	XPm_Subsystem *Subsystem;
+	const XPm_MemDevice *MemDevice;
+	u32 DeviceId;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		/* do not error if default subsystem is not found */
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	for (u32 index = 0U; index < (u32)XPM_NODEIDX_DEV_MAX; index++) {
+		/*
+		 * Note: XPmDevice_GetByIndex() assumes that the caller
+		 * is responsible for validating the Node ID attributes
+		 * other than node index.
+		 */
+		XPm_Device *Device = XPmDevice_GetByIndex(index);
+		if ((NULL == Device) || (1U != XPmDevice_IsRequestable(Device->Node.Id))) {
+			continue;
+		}
+		DeviceId = Device->Node.Id;
+
+		u32 SubClass = NODESUBCLASS(DeviceId);
+		u32 Type = NODETYPE(DeviceId);
+		if (((u32)XPM_NODESUBCL_DEV_MEM == SubClass) &&
+		(((u32)XPM_NODETYPE_DEV_OCM == Type) || ((u32)XPM_NODETYPE_DEV_TCM == Type))) {
+			MemDevice  = (XPm_MemDevice *)Device;
+			u64 StartAddress = (u64)MemDevice->StartAddress;
+			u64 EndAddress = (u64)MemDevice->EndAddress;
+			/* TODO: Remove cond when TCM end-addr is fixed in topology */
+			if ((u32)XPM_NODETYPE_DEV_TCM == Type) {
+				EndAddress -= 1U;
+			}
+			u64 Size = EndAddress - StartAddress + 1U;
+
+			u32 MemRegnIndx = XPmDevice_GetMemRegnCount();
+			u32 MemRegnDeviceId = MEMREGN_DEVID(MemRegnIndx);
+
+			PmDbg("DeviceId: (0x%x) MemRegnDeviceId: (0x%x)\r\n", DeviceId, MemRegnDeviceId);
+			Status = XPm_AddMemRegnDevice(MemRegnDeviceId, StartAddress, Size);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
+			Status = XPmRequirement_Add(Subsystem, XPmDevice_GetById(MemRegnDeviceId),
+				(u32)REQUIREMENT_FLAGS(1U,
+				(u32)REQ_ACCESS_SECURE_NONSECURE,
+				(u32)REQ_NO_RESTRICTION),
+				(u32)PM_CAP_ACCESS, XPM_DEF_QOS);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+
+	}
+
 	Status = XST_SUCCESS;
 
 done:
@@ -851,7 +915,7 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 		goto done;
 	}
 	if (1U == XPm_GetOverlayCdoFlag()) {
-		Status = XPm_AddMemRegnForDefaultSubsystem(MCDev);
+		Status = XPm_AddDDRMemRegnForDefaultSubsystem(MCDev);
 	}
 
 done:

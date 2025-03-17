@@ -1527,7 +1527,7 @@ typedef enum {
 /* Memory region device node index */
 typedef enum {
 	XPM_NODEIDX_DEV_MEM_REGN_MIN = 0x0,
-	XPM_NODEIDX_DEV_MEM_REGN_MAX = 0x20
+	XPM_NODEIDX_DEV_MEM_REGN_MAX = 0x40
 } XPm_MemRegnDeviceNodeIdx;
 
 /* Virtual device node index */
