@@ -27,8 +27,8 @@
  * @addtogroup xasu_common_defs Common Defs
  * @{
 */
-#ifndef XASU_DEF_H
-#define XASU_DEF_H
+#ifndef XASU_DEF_H_
+#define XASU_DEF_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -66,5 +66,5 @@ extern "C" {
 }
 #endif
 
-#endif  /* XASU_DEF_H */
+#endif  /* XASU_DEF_H_ */
 /** @} */

@@ -26,8 +26,8 @@
  * @addtogroup xasu_client_info Client APIs AND Error Codes
  * @{
 */
-#ifndef XASU_STATUS_H
-#define XASU_STATUS_H
+#ifndef XASU_STATUS_H_
+#define XASU_STATUS_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -66,5 +66,5 @@ enum {
 }
 #endif
 
-#endif  /* XASU_STATUS_H */
+#endif  /* XASU_STATUS_H_ */
 /** @} */

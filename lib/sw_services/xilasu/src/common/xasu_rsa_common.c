@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_rsa_common.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the RSA function definitions which are common across client and server.
  *
@@ -22,6 +20,10 @@
  * </pre>
  *
  *************************************************************************************************/
+/**
+ * @addtogroup xasu_rsa_common_apis RSA Common APIs
+ * @{
+*/
 
 /***************************** Include Files *****************************************************/
 #include "xasu_rsa_common.h"

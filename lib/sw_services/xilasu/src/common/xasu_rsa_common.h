@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_rsa_common.h
- * @addtogroup Overview
- * @{
  *
  * This file contains the RSA function prototypes which are common across the client and server.
  *
@@ -22,9 +20,13 @@
  * </pre>
  *
  *************************************************************************************************/
+/**
+ * @addtogroup xasu_rsa_common_apis RSA Common APIs
+ * @{
+*/
 
-#ifndef XASU_RSA_COMMON_H
-#define XASU_RSA_COMMON_H
+#ifndef XASU_RSA_COMMON_H_
+#define XASU_RSA_COMMON_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -49,5 +51,5 @@ s32 XAsu_RsaValidateInputParams(const XAsu_RsaParams *RsaParamsPtr);
 }
 #endif
 
-#endif  /* XASU_RSA_COMMON_H */
+#endif  /* XASU_RSA_COMMON_H_ */
 /** @} */

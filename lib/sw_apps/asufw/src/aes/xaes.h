@@ -84,5 +84,5 @@ s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, Asu_AesParams *AesPar
 }
 #endif
 
-#endif  /* XAES_H */
+#endif  /* XAES_H_ */
 /** @} */

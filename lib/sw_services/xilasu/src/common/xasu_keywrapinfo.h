@@ -26,8 +26,8 @@
  * @{
 */
 
-#ifndef XASU_KEYWRAPINFO_H
-#define XASU_KEYWRAPINFO_H
+#ifndef XASU_KEYWRAPINFO_H_
+#define XASU_KEYWRAPINFO_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -85,5 +85,5 @@ typedef struct {
 }
 #endif
 
-#endif  /* XASU_KEYWRAPINFO_H */
+#endif  /* XASU_KEYWRAPINFO_H_ */
 /** @} */

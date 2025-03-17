@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_aes_common.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the AES function definition which are common across the client and server.
  *
@@ -23,6 +21,10 @@
  * </pre>
  *
  *************************************************************************************************/
+/**
+ * @addtogroup xasu_aes_common_apis AES Common APIs
+ * @{
+*/
 
 /***************************** Include Files *****************************************************/
 #include "xasu_aes_common.h"

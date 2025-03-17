@@ -28,8 +28,8 @@
  * @{
 */
 
-#ifndef XASU_ECCINFO_H
-#define XASU_ECCINFO_H
+#ifndef XASU_ECCINFO_H_
+#define XASU_ECCINFO_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -115,5 +115,5 @@ static inline u32 XAsu_DoubleCurveLength(u32 CurveLength)
 }
 #endif
 
-#endif  /* XASU_ECCINFO_H */
+#endif  /* XASU_ECCINFO_H_ */
 /** @} */

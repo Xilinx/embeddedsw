@@ -25,8 +25,8 @@
  * @{
 */
 
-#ifndef XASU_ECIESINFO_H
-#define XASU_ECIESINFO_H
+#ifndef XASU_ECIESINFO_H_
+#define XASU_ECIESINFO_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -79,5 +79,5 @@ typedef struct {
 }
 #endif
 
-#endif  /* XASU_ECIESINFO_H */
+#endif  /* XASU_ECIESINFO_H_ */
 /** @} */

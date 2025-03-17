@@ -21,12 +21,12 @@
  *
  *************************************************************************************************/
 /**
- * @addtogroup xasu_keywrap_client_apis key wrap unwrap Client APIs
- * @{
+* @addtogroup xasu_keywrap_client_apis Keywrap Client APIs
+* @{
 */
 
-#ifndef XASU_KEYWRAP_H
-#define XASU_KEYWRAP_H
+#ifndef XASU_KEYWRAP_H_
+#define XASU_KEYWRAP_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -53,5 +53,5 @@ s32 XAsu_KeyWrapKat(XAsu_ClientParams *ClientParamsPtr);
 }
 #endif
 
-#endif  /* XASU_KEYWRAP_H */
+#endif  /* XASU_KEYWRAP_H_ */
 /** @} */

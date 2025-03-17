@@ -24,8 +24,8 @@
 *
 *******************************************************************************/
 
-#ifndef XFIH_CORE_H
-#define XFIH_CORE_H
+#ifndef XFIH_CORE_H_
+#define XFIH_CORE_H_
 
 /***************************** Include Files **********************************/
 #include "xil_types.h"
@@ -396,5 +396,5 @@ void XFih_CfiResetCounter(u32 *XFihCfiCounter)
 
 #endif /* (XFIH_ENABLE_CFI == FALSE) */
 
-#endif /* XFIH_CORE_H */
+#endif /* XFIH_CORE_H_ */
 /** @} */

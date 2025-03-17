@@ -25,8 +25,8 @@
  * @{
 */
 
-#ifndef XASU_HMAC_H
-#define XASU_HMAC_H
+#ifndef XASU_HMAC_H_
+#define XASU_HMAC_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -53,5 +53,5 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 }
 #endif
 
-#endif  /* XASU_HMAC_H */
+#endif  /* XASU_HMAC_H_ */
 /** @} */

@@ -26,8 +26,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_DEBUG_H
-#define XASUFW_DEBUG_H
+#ifndef XASUFW_DEBUG_H_
+#define XASUFW_DEBUG_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -79,5 +79,5 @@ extern "C" {
 }
 #endif
 
-#endif /* XASUFW_DEBUG_H */
+#endif /* XASUFW_DEBUG_H_ */
 /** @} */

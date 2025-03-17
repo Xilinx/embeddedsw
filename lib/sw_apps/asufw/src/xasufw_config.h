@@ -35,8 +35,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_CONFIG_H
-#define XASUFW_CONFIG_H
+#ifndef XASUFW_CONFIG_H_
+#define XASUFW_CONFIG_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -120,5 +120,5 @@ extern "C" {
 }
 #endif
 
-#endif /* XASUFW_CONFIG_H */
+#endif /* XASUFW_CONFIG_H_ */
 /** @} */

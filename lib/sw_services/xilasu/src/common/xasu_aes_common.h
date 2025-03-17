@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_aes_common.h
- * @addtogroup Overview
- * @{
  *
  * This file contains the AES function prototypes which are common across the client and server.
  *
@@ -22,9 +20,13 @@
  * </pre>
  *
  *************************************************************************************************/
+/**
+ * @addtogroup xasu_aes_common_apis AES Common APIs
+ * @{
+*/
 
-#ifndef XASU_AES_COMMON_H
-#define XASU_AES_COMMON_H
+#ifndef XASU_AES_COMMON_H_
+#define XASU_AES_COMMON_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,5 +52,5 @@ s32 XAsu_AesValidateTag(u8 EngineMode, u64 TagAddr, u32 TagLen);
 }
 #endif
 
-#endif  /* XAES_H */
+#endif  /* XASU_AES_COMMON_H_ */
 /** @} */

@@ -55,8 +55,8 @@
 * @addtogroup xasufw_server_error_codes Server Error Codes
 * @{
 */
-#ifndef XASUFW_STATUS_H
-#define XASUFW_STATUS_H
+#ifndef XASUFW_STATUS_H_
+#define XASUFW_STATUS_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -370,5 +370,5 @@ s32 XAsufw_UpdateBufStatus(s32 ErrorStatus, s32 BufStatus);
 }
 #endif
 
-#endif  /* XASUFW_STATUS_H */
+#endif  /* XASUFW_STATUS_H_ */
 /** @} */

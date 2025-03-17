@@ -24,8 +24,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_INTR_H
-#define XASUFW_INTR_H
+#ifndef XASUFW_INTR_H_
+#define XASUFW_INTR_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,5 +48,5 @@ void XAsufw_HandlePendingInterrupts(void);
 }
 #endif
 
-#endif  /* XASUFW_INTR_H */
+#endif  /* XASUFW_INTR_H_ */
 /** @} */

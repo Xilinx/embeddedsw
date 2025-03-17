@@ -23,8 +23,8 @@
  *
  *************************************************************************************************/
 
-#ifndef XAES_HW_H
-#define XAES_HW_H
+#ifndef XAES_HW_H_
+#define XAES_HW_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -460,4 +460,4 @@ extern "C" {
 }
 #endif
 
-#endif /* XAES_HW_H */
+#endif /* XAES_HW_H_ */

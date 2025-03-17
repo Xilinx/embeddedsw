@@ -29,8 +29,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_SHA3HANDLER_H
-#define XASUFW_SHA3HANDLER_H
+#ifndef XASUFW_SHA3HANDLER_H_
+#define XASUFW_SHA3HANDLER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -55,5 +55,5 @@ s32 XAsufw_Sha3Init(void);
 }
 #endif
 
-#endif  /* XASUFW_SHA3HANDLER_H */
+#endif  /* XASUFW_SHA3HANDLER_H_ */
 /** @} */

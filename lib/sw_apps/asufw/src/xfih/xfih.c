@@ -7,9 +7,8 @@
 /**
 *
 * @file xfih.c
-* @addtogroup ROM_COMP_BOOT
-* @{
-* @details This file gives interface to fault injection hardening macros and
+*
+* This file gives interface to fault injection hardening macros and
 * functions
 *
 * <pre>
@@ -23,9 +22,11 @@
 *
 * </pre>
 *
-* @note
-*
 *******************************************************************************/
+/**
+* @addtogroup xfih_library_apis FIH Library API's
+* @{
+*/
 
 #include "xil_printf.h"
 #include "xfih.h"
@@ -57,3 +58,4 @@ void XFih_Validate(XFih_Var FihVar)
 }
 
 #endif	/* (XFIH_ENABLE_VAR_GLITCH_DETECTION == TRUE) */
+/** @} */

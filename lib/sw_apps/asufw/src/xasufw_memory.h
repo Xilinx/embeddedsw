@@ -25,8 +25,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_MEMORY_H
-#define XASUFW_MEMORY_H
+#ifndef XASUFW_MEMORY_H_
+#define XASUFW_MEMORY_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -66,5 +66,5 @@ extern "C" {
 }
 #endif
 
-#endif  /* XASUFW_MEMORY_H */
+#endif  /* XASUFW_MEMORY_H_ */
 /** @} */

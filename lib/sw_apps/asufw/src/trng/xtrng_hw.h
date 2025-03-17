@@ -22,8 +22,8 @@
  *
  *************************************************************************************************/
 
-#ifndef XTRNG_HW_H
-#define XTRNG_HW_H
+#ifndef XTRNG_HW_H_
+#define XTRNG_HW_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -162,4 +162,4 @@ extern "C" {
 }
 #endif
 
-#endif  /* XTRNG_HW_H */
+#endif  /* XTRNG_HW_H_ */

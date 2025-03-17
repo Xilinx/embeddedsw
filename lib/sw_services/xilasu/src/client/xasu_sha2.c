@@ -207,3 +207,4 @@ s32 XAsu_Sha2Kat(XAsu_ClientParams *ClientParamPtr)
 END:
 	return Status;
 }
+/** @} */

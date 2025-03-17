@@ -44,8 +44,8 @@
 * @addtogroup xsha_server_apis SHA Server APIs
 * @{
 */
-#ifndef XSHA_H
-#define XSHA_H
+#ifndef XSHA_H_
+#define XSHA_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -88,5 +88,5 @@ void XSha_Reset(XSha *InstancePtr);
 }
 #endif
 
-#endif  /* XSHA_H */
+#endif  /* XSHA_H_ */
 /** @} */

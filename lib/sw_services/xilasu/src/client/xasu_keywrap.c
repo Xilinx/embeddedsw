@@ -22,8 +22,8 @@
  *
  *************************************************************************************************/
 /**
- * @addtogroup xasu_keywrap_client_apis key wrap unwrap Client APIs
- * @{
+* @addtogroup xasu_keywrap_client_apis Keywrap Client APIs
+* @{
 */
 
 /*************************************** Include Files *******************************************/

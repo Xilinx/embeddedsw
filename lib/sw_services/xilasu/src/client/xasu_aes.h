@@ -24,8 +24,8 @@
  * @addtogroup xasu_aes_client_apis AES Client APIs
  * @{
 */
-#ifndef XASU_AES_H
-#define XASU_AES_H
+#ifndef XASU_AES_H_
+#define XASU_AES_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,5 +51,5 @@ s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr);
 }
 #endif
 
-#endif  /* XASU_AES_H */
+#endif  /* XASU_AES_H_ */
 /** @} */

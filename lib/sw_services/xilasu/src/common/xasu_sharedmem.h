@@ -32,8 +32,8 @@
  * @addtogroup xasu_common_defs Common Defs
  * @{
 */
-#ifndef XASU_SHAREDMEM_H
-#define XASU_SHAREDMEM_H
+#ifndef XASU_SHAREDMEM_H_
+#define XASU_SHAREDMEM_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -147,5 +147,5 @@ typedef struct {
 }
 #endif
 
-#endif  /* XASU_SHAREDMEM_H */
+#endif  /* XASU_SHAREDMEM_H_ */
 /** @} */

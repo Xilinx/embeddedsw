@@ -26,8 +26,8 @@
 * @addtogroup xrsa_server_apis RSA Server APIs
 * @{
 */
-#ifndef XRSA_H
-#define XRSA_H
+#ifndef XRSA_H_
+#define XRSA_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,5 +68,5 @@ u8 *XRsa_GetDataBlockAddr(void);
 }
 #endif
 
-#endif  /* XRSA_H */
+#endif  /* XRSA_H_ */
 /** @} */

@@ -25,8 +25,8 @@
 *
 *******************************************************************************/
 
-#ifndef XFIH_CONFIG_H
-#define XFIH_CONFIG_H
+#ifndef XFIH_CONFIG_H_
+#define XFIH_CONFIG_H_
 
 #include "xil_types.h"
 
@@ -65,5 +65,5 @@
  */
 #define XFIH_CALLBACK_BEFORE_LOCKDOWN(Error)	MyErrorHandler(Error)
 
-#endif	/* XFIH_CONFIG_H */
+#endif	/* XFIH_CONFIG_H_ */
 /** @} */

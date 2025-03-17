@@ -26,8 +26,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_IPI_H
-#define XASUFW_IPI_H
+#ifndef XASUFW_IPI_H_
+#define XASUFW_IPI_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -91,5 +91,5 @@ void XAsufw_EnableIpiInterrupt(u16 IpiBitMask);
 }
 #endif
 
-#endif  /* XASUFW_IPI_H */
+#endif  /* XASUFW_IPI_H_ */
 /** @} */

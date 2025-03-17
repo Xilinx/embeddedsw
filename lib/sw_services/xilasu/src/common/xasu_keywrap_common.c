@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_keywrap_common.c
- * @addtogroup Overview
- * @{
  *
  * This file contains the Key wrap unwrap function definitions which are common across
  * client and server.
@@ -23,6 +21,10 @@
  * </pre>
  *
  *************************************************************************************************/
+/**
+ * @addtogroup xasu_keywrap_common_apis KeyWrap Common APIs
+ * @{
+*/
 
 /***************************** Include Files *****************************************************/
 #include "xasu_keywrap_common.h"

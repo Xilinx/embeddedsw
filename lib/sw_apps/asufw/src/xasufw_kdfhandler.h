@@ -25,8 +25,8 @@
 * @{
 */
 
-#ifndef XASUFW_KDFHANDLER_H
-#define XASUFW_KDFHANDLER_H
+#ifndef XASUFW_KDFHANDLER_H_
+#define XASUFW_KDFHANDLER_H_
 
 #ifdef __cplusplus
 extern "C" {

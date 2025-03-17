@@ -29,8 +29,8 @@
  * @addtogroup xasu_common_defs Common Defs
  * @{
 */
-#ifndef XASU_SHAINFO_H
-#define XASU_SHAINFO_H
+#ifndef XASU_SHAINFO_H_
+#define XASU_SHAINFO_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -91,5 +91,5 @@ typedef struct {
 }
 #endif
 
-#endif  /* XASU_SHAINFO_H */
+#endif  /* XASU_SHAINFO_H_ */
 /** @} */

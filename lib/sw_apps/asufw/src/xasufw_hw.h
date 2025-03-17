@@ -24,8 +24,8 @@
  * </pre>
  *
  *************************************************************************************************/
-#ifndef XASUFW_HW_H
-#define XASUFW_HW_H
+#ifndef XASUFW_HW_H_
+#define XASUFW_HW_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -119,4 +119,4 @@ extern "C" {
 }
 #endif
 
-#endif  /* XASUFW_HW_H */
+#endif  /* XASUFW_HW_H_ */

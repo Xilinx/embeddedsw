@@ -25,8 +25,8 @@
 * @{
 */
 
-#ifndef XHMAC_H
-#define XHMAC_H
+#ifndef XHMAC_H_
+#define XHMAC_H_
 
 #ifdef __cplusplus
 extern "C" {

@@ -26,8 +26,8 @@
  * @addtogroup xasu_common_defs Common Defs
  * @{
 */
-#ifndef XASU_TRNGINFO_H
-#define XASU_TRNGINFO_H
+#ifndef XASU_TRNGINFO_H_
+#define XASU_TRNGINFO_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -85,5 +85,5 @@ typedef struct {
 }
 #endif
 
-#endif  /* XASU_TRNGINFO_H */
+#endif  /* XASU_TRNGINFO_H_ */
 /** @} */

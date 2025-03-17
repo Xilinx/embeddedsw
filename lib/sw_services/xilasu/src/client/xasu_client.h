@@ -29,8 +29,8 @@
  * @addtogroup xasu_client_info Client APIs AND Error Codes
  * @{
 */
-#ifndef XASU_CLIENT_H
-#define XASU_CLIENT_H
+#ifndef XASU_CLIENT_H_
+#define XASU_CLIENT_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -121,5 +121,5 @@ void XAsu_FreeCtx(void *Context);
 }
 #endif
 
-#endif  /* XASU_CLIENT_H */
+#endif  /* XASU_CLIENT_H_ */
 /** @} */

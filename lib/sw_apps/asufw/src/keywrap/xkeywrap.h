@@ -21,12 +21,12 @@
 *
 **************************************************************************************************/
 /**
-* @addtogroup xkeywrap_server_apis key wrap unwrap Server APIs
+* @addtogroup xkeywrap_server_apis Keywrap Server APIs
 * @{
 */
 
-#ifndef XKEYWRAP_H
-#define XKEYWRAP_H
+#ifndef XKEYWRAP_H_
+#define XKEYWRAP_H_
 
 #ifdef __cplusplus
 extern "C" {

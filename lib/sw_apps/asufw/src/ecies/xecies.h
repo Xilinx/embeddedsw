@@ -25,8 +25,8 @@
 * @{
 */
 
-#ifndef XECIES_H
-#define XECIES_H
+#ifndef XECIES_H_
+#define XECIES_H_
 
 #ifdef __cplusplus
 extern "C" {

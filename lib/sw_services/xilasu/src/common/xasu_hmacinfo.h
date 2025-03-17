@@ -25,8 +25,8 @@
  * @{
 */
 
-#ifndef XASU_HMACINFO_H
-#define XASU_HMACINFO_H
+#ifndef XASU_HMACINFO_H_
+#define XASU_HMACINFO_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -75,5 +75,5 @@ typedef struct {
 }
 #endif
 
-#endif  /* XASU_HMACINFO_H */
+#endif  /* XASU_HMACINFO_H_ */
 /** @} */

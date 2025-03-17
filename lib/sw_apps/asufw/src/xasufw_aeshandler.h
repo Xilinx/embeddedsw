@@ -25,8 +25,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_AESHANDLER_H
-#define XASUFW_AESHANDLER_H
+#ifndef XASUFW_AESHANDLER_H_
+#define XASUFW_AESHANDLER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,5 +51,5 @@ s32 XAsufw_AesInit(void);
 }
 #endif
 
-#endif  /* XASUFW_AESHANDLER_H */
+#endif  /* XASUFW_AESHANDLER_H_ */
 /** @} */

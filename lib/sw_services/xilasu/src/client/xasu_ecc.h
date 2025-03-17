@@ -29,8 +29,8 @@
  * @{
 */
 
-#ifndef XASU_ECC_H
-#define XASU_ECC_H
+#ifndef XASU_ECC_H_
+#define XASU_ECC_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -60,5 +60,5 @@ s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen);
 }
 #endif
 
-#endif  /* XASU_ECC_H */
+#endif  /* XASU_ECC_H_ */
 /** @} */

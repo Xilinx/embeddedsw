@@ -25,8 +25,8 @@
 * @{
 */
 
-#ifndef XASUFW_HMACHANDLER_H
-#define XASUFW_HMACHANDLER_H
+#ifndef XASUFW_HMACHANDLER_H_
+#define XASUFW_HMACHANDLER_H_
 
 #ifdef __cplusplus
 extern "C" {

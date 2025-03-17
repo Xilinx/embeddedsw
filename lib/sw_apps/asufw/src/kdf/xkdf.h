@@ -25,8 +25,8 @@
 * @{
 */
 
-#ifndef XKDF_H
-#define XKDF_H
+#ifndef XKDF_H_
+#define XKDF_H_
 
 #ifdef __cplusplus
 extern "C" {

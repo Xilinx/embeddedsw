@@ -27,8 +27,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_TRNGHANDLER_H
-#define XASUFW_TRNGHANDLER_H
+#ifndef XASUFW_TRNGHANDLER_H_
+#define XASUFW_TRNGHANDLER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -54,5 +54,5 @@ s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size);
 }
 #endif
 
-#endif  /* XASUFW_TRNGHANDLER_H */
+#endif  /* XASUFW_TRNGHANDLER_H_ */
 /** @} */

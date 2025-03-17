@@ -29,8 +29,8 @@
 * @addtogroup xtask_apis Task Related APIs
 * @{
 */
-#ifndef XTASK_H
-#define XTASK_H
+#ifndef XTASK_H_
+#define XTASK_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -88,5 +88,5 @@ extern u32 TaskTimeNow;
 }
 #endif
 
-#endif  /* XTASK_H */
+#endif  /* XTASK_H_ */
 /** @} */

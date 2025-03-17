@@ -60,8 +60,8 @@
 *
 *******************************************************************************/
 
-#ifndef XFIH_PLATFORM_H
-#define XFIH_PLATFORM_H
+#ifndef XFIH_PLATFORM_H_
+#define XFIH_PLATFORM_H_
 
 /* RISC V specific macros */
 #ifdef __riscv
@@ -93,6 +93,6 @@
 #error "FIH library do not support the processor"
 #endif
 
-#endif /* XFIH_PLATFORM_H */
+#endif /* XFIH_PLATFORM_H_ */
 
 /** @} */

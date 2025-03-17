@@ -67,5 +67,5 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 }
 #endif
 
-#endif /* XECC_H */
+#endif /* XECC_H_ */
 /** @} */

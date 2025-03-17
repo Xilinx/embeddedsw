@@ -25,8 +25,8 @@
  * @{
 */
 
-#ifndef XASU_KDFINFO_H
-#define XASU_KDFINFO_H
+#ifndef XASU_KDFINFO_H_
+#define XASU_KDFINFO_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,5 +68,5 @@ typedef struct {
 }
 #endif
 
-#endif  /* XASU_KDFINFO_H */
+#endif  /* XASU_KDFINFO_H_*/
 /** @} */
