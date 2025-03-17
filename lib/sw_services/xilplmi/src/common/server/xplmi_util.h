@@ -40,6 +40,7 @@
 *       dd	 09/11/2023 MISRA-C violation Rule 12.2 fixed
 * 1.08  sd   02/19/2025 Added multiboot store and restore APIs for platforms
 *                       with A/B firmware
+*       sd   03/17/2025 Added multiboot clear API for platforms with A/B firmware
 *
 * </pre>
 *
@@ -84,6 +85,7 @@ int XPlmi_UtilPollNs(u32 RegAddr, u32 Mask, u32 ExpectedValue, u64 TimeOutInNs,
 		void (*ClearHandler)(void));
 void XPlmi_StoreMultiboot(void);
 void XPlmi_RestoreMultiboot(void);
+void XPlmi_ClearMultiboot(void);
 
 /**
  * @}

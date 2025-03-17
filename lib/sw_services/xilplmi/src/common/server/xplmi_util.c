@@ -47,6 +47,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.08  sd   02/19/2025 Added multiboot store and restore APIs for platforms
 *                       with A/B firmware
+*       sd   03/17/2025 Added multiboot clear API for platforms with A/B firmware
 *
 * </pre>
 *
@@ -428,6 +429,17 @@ void XPlmi_RestoreMultiboot(void)
 	XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, MultibootRegVal);
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function Clears PMC multiboot register value
+ *
+ *****************************************************************************/
+void XPlmi_ClearMultiboot(void)
+{
+	/* Clear Multiboot register value */
+	XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, 0x0);
+}
+
 #else
 
 /*****************************************************************************/
@@ -445,5 +457,14 @@ void XPlmi_StoreMultiboot(void) {}
  *
  *****************************************************************************/
 void XPlmi_RestoreMultiboot(void) {}
+
+/*****************************************************************************/
+/**
+ * @brief	This is a placeholder function used in case the feature
+ * is disabled.
+ *
+ *****************************************************************************/
+void XPlmi_ClearMultiboot(void) {}
+
 
 #endif
