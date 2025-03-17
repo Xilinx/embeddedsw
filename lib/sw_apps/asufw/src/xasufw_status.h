@@ -46,6 +46,7 @@
  *       yog  02/24/25 Added error codes for ECIES functionality
  *       am   02/24/25 Added XASUFW_ERR_KV_INTERRUPT_DONE_TIMEOUT error code
  *       ss   02/24/25 Added error codes for Key wrap functionality
+ *       ma   03/17/25 Added XASUFW_VALIDATE_COMMAND_FAILED error code
  *
  * </pre>
  *
@@ -107,9 +108,9 @@ enum {
 	XASUFW_INVALID_DMA_SSS_CONFIG, /**< 0x1CU - SSS configuration assignment failed as the DMA address is
 						invalid */
 	XASUFW_ERR_EXCEPTION, /**< 0x1DU - Processor exception received */
-
 	XASUFW_ERR_IPI_SEND_PLM_EFUSE_PRGM, /**< 0x1E - Failed while sending IPI for efuse write */
-        XASUFW_ERR_IPI_RSP_PLM_EFUSE_PRGM, /**< 0x1F - IPI response failure to program efuse */
+	XASUFW_ERR_IPI_RSP_PLM_EFUSE_PRGM, /**< 0x1F - IPI response failure to program efuse */
+	XASUFW_VALIDATE_COMMAND_FAILED, /**< 0x20 - Command validation failed */
 	/**< Termination code errors 0x21U to 0x2CU are reserved for errors returning from core */
 	XASUFW_ECC_INVALID_PARAM = 0x2DU, /**< 0x2DU - Invalid parameters to ECC APIs*/
 	XASUFW_ECC_INIT_NOT_DONE, /**< 0x2EU - ECC is not initialized */

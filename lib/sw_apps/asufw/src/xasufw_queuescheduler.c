@@ -26,6 +26,7 @@
  *       ma   09/26/24 Removed static IPI configurations from code
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
  *       ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
+ *       ma   03/17/25 Update Status before writing response in case of command validation failure
  *
  * </pre>
  *
@@ -120,7 +121,7 @@ static inline void XAsufw_InterruptRemoteProc(u32 IpiMask)
  *************************************************************************************************/
 static s32 XAsufw_QueueTaskHandler(void *Arg)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 ChannelIndex = ((u32)Arg & XASUFW_CHANNELINDEX_MASK) >> XASUFW_CHANNELINDEX_SHIFT;
 	u32 PxQueue = ((u32)Arg & XASUFW_QUEUEINDEX_MASK) >> XASUFW_QUEUEINDEX_SHIFT;
 	u32 BufferIdx;
@@ -170,19 +171,13 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 				XASU_COMMAND_IS_PRESENT) {
 				Status = XAsufw_ValidateCommand(&QueueBuf->ReqBuf);
 				if (XASUFW_SUCCESS == Status) {
+					ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 					XAsufw_Printf(DEBUG_GENERAL, "Validate command successful\r\n");
 					Status = XAsufw_CheckAndAllocateResources(&QueueBuf->ReqBuf, ReqId);
 				} else {
 					XAsufw_Printf(DEBUG_GENERAL, "Validate command failed\r\n");
-					/**
-					 * TODO: Need to enhance this code to write the response only when
-					 * invalid command is received or the access permissions fail.
-					 * Currently, XAsufw_ValidateCommand only checks for invalid command.
-					 *
-					 * Update command status in the request queue and the response in
-					 * response queue.
-					 */
-					QueueBuf->ReqBufStatus = XASU_COMMAND_EXECUTION_COMPLETE;
+					/** Update Status and write the response. */
+					Status = XAsufw_UpdateErrorStatus(Status, XASUFW_VALIDATE_COMMAND_FAILED);
 					XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, Status);
 				}
 			}
@@ -196,6 +191,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 					XASU_COMMAND_IS_PRESENT) && (Status == XASUFW_SUCCESS)) ||
 				(ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
 					XASU_COMMAND_DMA_WAIT_COMPLETE)) {
+				ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 				Status = XAsufw_CommandQueueHandler(QueueBuf, ReqId);
 			}
 
@@ -229,6 +225,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 		if (Task != NULL) {
 			XAsufw_Printf(DEBUG_DETAILED, "Pending requests are present in the queue.\r\n"
 					"Triggering the queue task with delay.\r\n");
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = XTask_TriggerAfterDelay(Task, XASUFW_QUEUE_TASK_DELAY_TIME);
 		}
 	}
