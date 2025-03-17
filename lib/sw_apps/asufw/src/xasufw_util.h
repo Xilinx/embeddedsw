@@ -45,6 +45,7 @@ extern "C" {
 #include "xasufw_config.h"
 #include "xasufw_init.h"
 #include "xasufw_debug.h"
+#include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
 
