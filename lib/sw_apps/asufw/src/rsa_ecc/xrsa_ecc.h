@@ -31,8 +31,8 @@
 * @{
 */
 
-#ifndef XRSA_ECC_H
-#define XRSA_ECC_H
+#ifndef XRSA_ECC_H_
+#define XRSA_ECC_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -77,5 +77,5 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv);
 }
 #endif
 
-#endif  /* XRSA_ECC_H */
+#endif  /* XRSA_ECC_H_ */
 /** @} */

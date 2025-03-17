@@ -21,8 +21,8 @@
  *
  *************************************************************************************************/
 
-#ifndef XSHA_HW_H
-#define XSHA_HW_H
+#ifndef XSHA_HW_H_
+#define XSHA_HW_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -76,4 +76,4 @@ extern "C" {
 }
 #endif
 
-#endif  /* XSHA_HW_H */
+#endif  /* XSHA_HW_H_ */

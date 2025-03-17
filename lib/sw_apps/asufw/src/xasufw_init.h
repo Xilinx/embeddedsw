@@ -29,8 +29,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_INIT_H
-#define XASUFW_INIT_H
+#ifndef XASUFW_INIT_H_
+#define XASUFW_INIT_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -70,5 +70,5 @@ s32 XAsufw_PmcKeyTransfer(void);
 }
 #endif
 
-#endif  /* XASUFW_INIT_H */
+#endif  /* XASUFW_INIT_H_ */
 /** @} */

@@ -24,8 +24,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_ERROR_MANAGER_H
-#define XASUFW_ERROR_MANAGER_H
+#ifndef XASUFW_ERROR_MANAGER_H_
+#define XASUFW_ERROR_MANAGER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -55,5 +55,5 @@ void XAsufw_SendErrorToPlm(XAsufw_ErrorType ErrorType, s32 ErrorCode);
 }
 #endif
 
-#endif  /* XASUFW_ERROR_MANAGER_H */
+#endif  /* XASUFW_ERROR_MANAGER_H_ */
 /** @} */

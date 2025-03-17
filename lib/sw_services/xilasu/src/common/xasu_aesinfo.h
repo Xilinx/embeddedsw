@@ -26,8 +26,8 @@
  * @addtogroup xasu_common_defs Common Defs
  * @{
 */
-#ifndef XASU_AESINFO_H
-#define XASU_AESINFO_H
+#ifndef XASU_AESINFO_H_
+#define XASU_AESINFO_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -144,5 +144,5 @@ typedef struct {
 }
 #endif
 
-#endif  /* XASU_AESINFO_H */
+#endif  /* XASU_AESINFO_H_ */
 /** @} */

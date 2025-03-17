@@ -25,8 +25,8 @@
 * @{
 */
 
-#ifndef XASUFW_ECIESHANDLER_H
-#define XASUFW_ECIESHANDLER_H
+#ifndef XASUFW_ECIESHANDLER_H_
+#define XASUFW_ECIESHANDLER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,5 +48,5 @@ s32 XAsufw_EciesInit(void);
 }
 #endif
 
-#endif /* XASUFW_ECIESHANDLER_H */
+#endif /* XASUFW_ECIESHANDLER_H_ */
 /** @} */

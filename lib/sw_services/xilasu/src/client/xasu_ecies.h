@@ -25,8 +25,8 @@
  * @{
 */
 
-#ifndef XASU_ECIES_H
-#define XASU_ECIES_H
+#ifndef XASU_ECIES_H_
+#define XASU_ECIES_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -53,5 +53,5 @@ s32 XAsu_EciesDecrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 }
 #endif
 
-#endif  /* XASU_ECIES_H */
+#endif  /* XASU_ECIES_H_ */
 /** @} */

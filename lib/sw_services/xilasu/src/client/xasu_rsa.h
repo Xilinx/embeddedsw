@@ -27,8 +27,8 @@
  * @addtogroup xasu_rsa_client_apis RSA Client APIs
  * @{
 */
-#ifndef XASU_RSA_H
-#define XASU_RSA_H
+#ifndef XASU_RSA_H_
+#define XASU_RSA_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -63,5 +63,5 @@ s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr,
 }
 #endif
 
-#endif  /* XASU_RSA_H */
+#endif  /* XASU_RSA_H_ */
 /** @} */

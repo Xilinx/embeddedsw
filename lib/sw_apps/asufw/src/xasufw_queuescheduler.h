@@ -28,8 +28,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_QUEUESCHEDULER_H
-#define XASUFW_QUEUESCHEDULER_H
+#ifndef XASUFW_QUEUESCHEDULER_H_
+#define XASUFW_QUEUESCHEDULER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -88,5 +88,5 @@ void XAsufw_TriggerQueueTask(u32 IpiMask);
 }
 #endif
 
-#endif  /* XASUFW_QUEUESCHEDULER_H */
+#endif  /* XASUFW_QUEUESCHEDULER_H_ */
 /** @} */

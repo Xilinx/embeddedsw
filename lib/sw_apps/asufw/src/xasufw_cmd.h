@@ -30,8 +30,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_CMD_H
-#define XASUFW_CMD_H
+#ifndef XASUFW_CMD_H_
+#define XASUFW_CMD_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -59,5 +59,5 @@ s32 XAsufw_CheckAndAllocateResources(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 }
 #endif
 
-#endif  /* XASUFW_CMD_H */
+#endif  /* XASUFW_CMD_H_ */
 /** @} */

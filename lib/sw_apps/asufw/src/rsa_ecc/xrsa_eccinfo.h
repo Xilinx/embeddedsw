@@ -80,5 +80,5 @@ u32 XRsa_EccCrvsGetCount(void);
 }
 #endif
 
-#endif /* XRSA_ECCINFO_H */
+#endif /* XRSA_ECCINFO_H_ */
 /** @} */

@@ -26,8 +26,8 @@
  * @addtogroup xasu_sha2_client_apis SHA2 Client APIs
  * @{
 */
-#ifndef XASU_SHA2_H
-#define XASU_SHA2_H
+#ifndef XASU_SHA2_H_
+#define XASU_SHA2_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -53,5 +53,5 @@ s32 XAsu_Sha2Kat(XAsu_ClientParams *ClientParamPtr);
 }
 #endif
 
-#endif  /* XASU_SHA2_H */
+#endif  /* XASU_SHA2_H_ */
 /** @} */

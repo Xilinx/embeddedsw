@@ -25,8 +25,8 @@
 * @{
 */
 
-#ifndef XASUFW_KEYWRAPHANDLER_H
-#define XASUFW_KEYWRAPHANDLER_H
+#ifndef XASUFW_KEYWRAPHANDLER_H_
+#define XASUFW_KEYWRAPHANDLER_H_
 
 #ifdef __cplusplus
 extern "C" {

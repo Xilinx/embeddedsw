@@ -21,8 +21,8 @@
  *
  *************************************************************************************************/
 
-#ifndef XLINKLIST_H
-#define XLINKLIST_H
+#ifndef XLINKLIST_H_
+#define XLINKLIST_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -177,4 +177,4 @@ static inline void XLinkList_Concat(XLinkList *List1, const XLinkList *List2)
 }
 #endif
 
-#endif  /* XLINKLIST_H */
+#endif  /* XLINKLIST_H_ */

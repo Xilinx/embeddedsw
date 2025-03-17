@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_keywrap_common.h
- * @addtogroup Overview
- * @{
  *
  * This file contains the key wrap unwrap function prototypes which are common across the
  * client and server.
@@ -23,9 +21,12 @@
  * </pre>
  *
  *************************************************************************************************/
-
-#ifndef XASU_KEYWRAP_COMMON_H
-#define XASU_KEYWRAP_COMMON_H
+/**
+ * @addtogroup xasu_keywrap_common_apis KeyWrap Common APIs
+ * @{
+*/
+#ifndef XASU_KEYWRAP_COMMON_H_
+#define XASU_KEYWRAP_COMMON_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,5 +52,5 @@ s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParam
 }
 #endif
 
-#endif  /* XASU_KEYWRAP_COMMON_H */
+#endif  /* XASU_KEYWRAP_COMMON_H_ */
 /** @} */

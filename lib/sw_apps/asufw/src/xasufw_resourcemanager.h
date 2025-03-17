@@ -33,8 +33,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_RESOURCEMANAGER_H
-#define XASUFW_RESOURCEMANAGER_H
+#ifndef XASUFW_RESOURCEMANAGER_H_
+#define XASUFW_RESOURCEMANAGER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -101,5 +101,5 @@ void XAsufw_IdleResource(XAsufw_Resource Resource);
 }
 #endif
 
-#endif  /* XASUFW_RESOURCEMANAGER_H */
+#endif  /* XASUFW_RESOURCEMANAGER_H_ */
 /** @} */

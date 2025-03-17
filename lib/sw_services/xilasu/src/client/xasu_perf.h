@@ -24,8 +24,8 @@
  * @addtogroup xasu_perf_client_apis PERF Client APIs
  * @{
 */
-#ifndef XASU_PERF_H
-#define XASU_PERF_H
+#ifndef XASU_PERF_H_
+#define XASU_PERF_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -70,5 +70,5 @@ void XAsu_EndTiming(const char* Function_name);
 }
 #endif
 
-#endif  /* XASU_PERF_H */
+#endif  /* XASU_PERF_H_ */
 /** @} */

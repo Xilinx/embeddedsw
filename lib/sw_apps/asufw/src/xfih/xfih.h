@@ -7,8 +7,8 @@
 /**
 *
 * @file xfih.h
-* @{
-* @details This file gives interface to fault injection hardening (FIH) macros
+*
+* This file gives interface to fault injection hardening (FIH) macros
 *          and functions
 *
 * <pre>
@@ -23,11 +23,13 @@
 *
 * </pre>
 *
-* @note
-*
 *******************************************************************************/
-#ifndef XFIH_H
-#define XFIH_H
+/**
+* @addtogroup xfih_library_apis FIH Library API's
+* @{
+*/
+#ifndef XFIH_H_
+#define XFIH_H_
 
 /***************************** Include Files **********************************/
 #include "xil_types.h"
@@ -448,5 +450,5 @@ void XFih_Init (void)
 	XFIH_FAILURE = XFih_VolatileAssignS32(XFIH_FAILURE_VAL);
 }
 
-#endif /* XFIH_H */
+#endif /* XFIH_H_ */
 /** @} */

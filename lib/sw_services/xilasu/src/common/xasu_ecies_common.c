@@ -21,7 +21,7 @@
  *
  *************************************************************************************************/
 /**
- * @addtogroup xasu_ecies_common_apis ECIES Common API's
+ * @addtogroup xasu_ecies_common_apis ECIES Common APIs
  * @{
 */
 

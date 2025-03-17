@@ -30,8 +30,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_MODULES_H
-#define XASUFW_MODULES_H
+#ifndef XASUFW_MODULES_H_
+#define XASUFW_MODULES_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -83,5 +83,5 @@ XAsufw_Module *XAsufw_GetModule(u32 ModuleId);
 }
 #endif
 
-#endif  /* XASUFW_MODULES_H */
+#endif  /* XASUFW_MODULES_H_ */
 /** @} */

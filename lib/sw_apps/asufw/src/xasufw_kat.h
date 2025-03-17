@@ -36,8 +36,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_KAT_H
-#define XASUFW_KAT_H
+#ifndef XASUFW_KAT_H_
+#define XASUFW_KAT_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -78,5 +78,5 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr);
 }
 #endif
 
-#endif  /* XASUFW_KAT_H */
+#endif  /* XASUFW_KAT_H_ */
 /** @} */

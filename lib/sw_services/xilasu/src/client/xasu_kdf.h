@@ -25,8 +25,8 @@
  * @{
 */
 
-#ifndef XASU_KDF_H
-#define XASU_KDF_H
+#ifndef XASU_KDF_H_
+#define XASU_KDF_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,5 +51,5 @@ s32 XAsu_KdfCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_KdfParams *KdfParam
 }
 #endif
 
-#endif  /* XASU_KDF_H */
+#endif  /* XASU_KDF_H_ */
 /** @} */

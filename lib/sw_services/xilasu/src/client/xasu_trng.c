@@ -258,3 +258,4 @@ END:
 	return Status;
 }
 #endif /* XASU_TRNG_ENABLE_DRBG_MODE */
+/** @} */

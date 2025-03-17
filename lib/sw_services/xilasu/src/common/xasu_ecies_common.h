@@ -7,8 +7,6 @@
 /**
  *
  * @file xasu_ecies_common.h
- * @addtogroup Overview
- * @{
  *
  * This file contains the ECIES function prototypes which are common across the client and server.
  *
@@ -23,11 +21,12 @@
  *
  *************************************************************************************************/
 /**
- * @addtogroup xasu_ecies_common_apis ECIES Common API's
+ * @addtogroup xasu_ecies_common_apis ECIES Common APIs
  * @{
 */
-#ifndef XASU_ECIES_COMMON_H
-#define XASU_ECIES_COMMON_H
+
+#ifndef XASU_ECIES_COMMON_H_
+#define XASU_ECIES_COMMON_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -53,5 +52,5 @@ s32 XAsu_ValidateEciesParameters(const XAsu_EciesParams *EciesParams);
 }
 #endif
 
-#endif  /* XAES_H */
+#endif  /* XASU_ECIES_COMMON_H_ */
 /** @} */

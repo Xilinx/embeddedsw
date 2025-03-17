@@ -27,8 +27,8 @@
  * @addtogroup xasu_common_defs Common Defs
  * @{
 */
-#ifndef XASU_RSAINFO_H
-#define XASU_RSAINFO_H
+#ifndef XASU_RSAINFO_H_
+#define XASU_RSAINFO_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -191,5 +191,5 @@ static inline s32 XAsu_RsaValidateKeySize(u32 Len)
 }
 #endif
 
-#endif  /* XASU_RSAINFO_H */
+#endif  /* XASU_RSAINFO_H_ */
 /** @} */

@@ -25,8 +25,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_SSS_H
-#define XASUFW_SSS_H
+#ifndef XASUFW_SSS_H_
+#define XASUFW_SSS_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,5 +68,5 @@ s32 XAsufw_SssAesForPli(void);
 }
 #endif
 
-#endif  /* XASUFW_SSS_H */
+#endif  /* XASUFW_SSS_H_ */
 /** @} */

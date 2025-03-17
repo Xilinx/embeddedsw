@@ -27,8 +27,8 @@
 * @addtogroup xasufw_application ASUFW Functionality
 * @{
 */
-#ifndef XASUFW_DMA_H
-#define XASUFW_DMA_H
+#ifndef XASUFW_DMA_H_
+#define XASUFW_DMA_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -85,5 +85,5 @@ void XAsufw_HandleDmaDoneIntr(u32 DmaIntrNum);
 }
 #endif
 
-#endif  /* XASUFW_DMA_H */
+#endif  /* XASUFW_DMA_H_ */
 /** @} */

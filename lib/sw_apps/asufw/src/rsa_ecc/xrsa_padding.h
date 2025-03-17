@@ -20,7 +20,7 @@
 *
 **************************************************************************************************/
 /**
-* @addtogroup xasufw_application ASUFW Functionality
+* @addtogroup xrsa_padding_apis RSA Padding APIs
 * @{
 */
 

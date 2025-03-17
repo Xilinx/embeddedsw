@@ -27,8 +27,8 @@
 * @addtogroup xtrng_server_apis TRNG Server APIs
 * @{
 */
-#ifndef XTRNG_H
-#define XTRNG_H
+#ifndef XTRNG_H_
+#define XTRNG_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -101,5 +101,5 @@ s32 XTrng_DisableAutoProcMode(XTrng *InstancePtr);
 }
 #endif
 
-#endif  /* XTRNG_H */
+#endif  /* XTRNG_H_ */
 /** @} */

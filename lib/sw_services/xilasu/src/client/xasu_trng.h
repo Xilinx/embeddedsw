@@ -27,8 +27,8 @@
  * @addtogroup xasu_trng_client_apis TRNG Client APIs
  * @{
 */
-#ifndef XASU_TRNG_H
-#define XASU_TRNG_H
+#ifndef XASU_TRNG_H_
+#define XASU_TRNG_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -62,5 +62,5 @@ s32 XAsu_TrngDrbgGenerate(XAsu_ClientParams *ClientParamPtr, XAsu_DrbgGenerateCm
 }
 #endif
 
-#endif  /* XASU_TRNG_H */
+#endif  /* XASU_TRNG_H_ */
 /** @} */
