@@ -71,6 +71,7 @@
 *       pre  10/03/2024 Clearing SSIT errors after handling
 *       pre  10/09/2024 Added support for get secure communication status command
 *       pre  10/11/2024 Added slave error notification at slave and processing at master
+*       obs  03/17/2025 Fixed GCC Warnings
 *
 * </pre>
 *
@@ -94,6 +95,7 @@
 #include "xplmi_plat.h"
 #include "xplmi_defs.h"
 #include "xil_util.h"
+#include "xplmi_err_common.h"
 
 /************************** Function Prototypes ******************************/
 static u32 XPlmi_SsitGetSlaveErrorMask(void);

@@ -21,6 +21,7 @@
  *       pre  09/30/24 Added XPlmi_GetSecureCommStatus API
  *       pre  10/19/24 Fixed compilation warning
  *       pre  01/13/25 Added command to set access status of DDRMC main registers
+ *       obs  03/17/25 Fixed GCC warnings
  *
  * </pre>
  *
@@ -239,8 +240,8 @@ int XPlmi_ConfigSecureComm(XPlmi_ClientInstance *InstancePtr, XPlmi_SsitSecComm 
 
 	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_3, (u32)XPLMI_CONFIG_SECCOMM_CMD_ID);
     Payload[1U] = SsitSecCommDataPtr->SlrIndex;
-    Payload[2U] = (u32)((u64)&SsitSecCommDataPtr->IVsandKey >> XPLMI_ADDR_HIGH_SHIFT);
-	Payload[3U] = (u32)((u64)&SsitSecCommDataPtr->IVsandKey);
+    Payload[2U] = (u32)((u64)(UINTPTR)&SsitSecCommDataPtr->IVsandKey >> XPLMI_ADDR_HIGH_SHIFT);
+	Payload[3U] = (u32)((UINTPTR)&SsitSecCommDataPtr->IVsandKey);
 
 	/**
 	 * - Send an IPI request to the PLM by using the XPlmi_SsitCfgSecComm CDO command
