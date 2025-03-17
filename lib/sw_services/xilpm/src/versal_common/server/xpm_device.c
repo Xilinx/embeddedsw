@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -122,6 +122,10 @@ static const XPm_StateTran XPmVirtDev_VirtDevTransitions[] = {
 		.Latency = XPM_DEF_LATENCY,
 	},
 };
+
+u32 XPmDevice_GetMemRegnCount(void) {
+	return PmNumMemRegnDevices;
+}
 
 static XStatus SetPlDeviceNode(u32 Id, XPm_Device *Device)
 {

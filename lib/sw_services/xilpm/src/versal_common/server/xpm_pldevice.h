@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,7 @@ XStatus XPmPlDevice_IsValidPld(const XPm_PlDevice *PlDevice);
 XStatus XPmPlDevice_NocClkEnable(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
 XStatus XPmPlDevice_IfNocClkEnable(XPlmi_Cmd *Cmd, u32 BitArrayIdx, u16 State,
 			u16 Mask, u32 Level);
+XStatus XPm_AddPSMemRegnForDefaultSubsystem(void);
 void XPmPlDevice_ReleaseAieDevice(XPm_PlDevice *PlDevice);
 void XPmPlDevice_GetAieParent(const XPm_Device* Device, const XPm_PlDevice **OutParent);
 void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId));

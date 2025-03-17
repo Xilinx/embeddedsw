@@ -83,14 +83,12 @@
 	(1ULL << (u64)IOCTL_READ_REG) | \
 	(1ULL << (u64)IOCTL_MASK_WRITE_REG))
 
-#define MAX_PLAT_OCM_COUNT 8U
-
 XStatus XPm_PlatCmnFlush(const u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Idx;
 	const u32 MemAddr[4] = {0xF8100000U, 0xF8900000U, 0xF9100000U, 0xF9900000U};
-	XPm_AddrRegion AddrRegionarray[XPM_NODEIDX_DEV_MEM_REGN_MAX + MAX_PLAT_OCM_COUNT];
+	XPm_AddrRegion AddrRegionarray[XPM_NODEIDX_DEV_MEM_REGN_MAX];
 	u32 NumberOfRegions = 0U;
 	/**
 	 * Flush DDR and OCM addresses using ABF (Address based flush) for NID8, NID72,
@@ -459,6 +457,11 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
+	}
+
+	Status = XPm_AddPSMemRegnForDefaultSubsystem();
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	Status = XST_SUCCESS;
