@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,6 +59,7 @@
 *                       XilSEM use case.
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
+* 1.12  sd   03/17/2025 Clear multiboot register for A/B firmware systems
 *
 * </pre>
 *
@@ -79,6 +80,7 @@
 #include "xplmi_plat.h"
 #include "xplm_plat.h"
 #include "xloader_secure.h"
+#include "xplmi_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -168,6 +170,7 @@ END:
 	/* This is used to identify PLM has completed boot PDI */
 	XPlmi_SetBootPdiDone();
 	XLoader_ClearIntrSbiDataRdy();
+	XPlmi_ClearMultiboot();
 
 ERR_END:
 	return Status;
