@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -127,8 +127,7 @@ int XI2s_Rx_SetHandler(XI2s_Rx *InstancePtr, XI2s_Rx_HandlerType HandlerType,
 	int Status = XST_SUCCESS;
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((HandlerType >= XI2S_RX_HANDLER_AES_BLKCMPLT) &&
-			(HandlerType <  XI2S_RX_NUM_HANDLERS));
+	Xil_AssertNonvoid(HandlerType < XI2S_RX_NUM_HANDLERS);
 	Xil_AssertNonvoid(FuncPtr != NULL);
 	Xil_AssertNonvoid(CallbackRef != NULL);
 
