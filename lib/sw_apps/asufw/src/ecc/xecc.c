@@ -212,9 +212,10 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INVALID_PARAM);
 		goto END;
 	}
-
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((DmaPtr == NULL) || (PrivKeyAddr == 0U) || (PubKeyAddr == 0U)) {
 		Status = XASUFW_ECC_INVALID_PARAM;
 		goto END;
@@ -313,9 +314,10 @@ s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INVALID_PARAM);
 		goto END;
 	}
-
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((DmaPtr == NULL) || (PubKeyAddr == 0U)) {
 		Status = XASUFW_ECC_INVALID_PARAM;
 		goto END;
@@ -411,9 +413,10 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INVALID_PARAM);
 		goto END;
 	}
-
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((DmaPtr == NULL) || (PrivKeyAddr == 0U) || (EphemeralKeyPtr == NULL) ||
 			(HashAddr == 0U) || (SignAddr == 0U)) {
 		Status = XASUFW_ECC_INVALID_PARAM;
@@ -532,9 +535,10 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	/** Validate input parameters. */
 	Status = XEcc_InputValidate(InstancePtr, CurveType);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INVALID_PARAM);
 		goto END;
 	}
-
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((DmaPtr == NULL) || (PubKeyAddr == 0U) || (HashAddr == 0U) || (SignAddr == 0U)) {
 		Status = XASUFW_ECC_INVALID_PARAM;
 		goto END;
