@@ -305,7 +305,7 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                         domain_dts = True
                         if lops_file:
                             utils.runcmd(
-                                f"lopper -f -O {self.sdt_folder} --enhanced -i {lops_file} -t {domain_name} -a domain_access --auto  -x '*.yaml' -i {domain_yaml} {self.sdt} {out_dts_path}",
+                                f"lopper -f -O {self.sdt_folder} --enhanced -i {lops_file} -i lop-ttc-split.dts -t {domain_name} -a domain_access --auto  -x '*.yaml' -i {domain_yaml} {self.sdt} {out_dts_path}",
                                 log_message = "Processing domain_yaml",
                                 error_message = "Could not process the domain_yaml"
                             )
@@ -318,14 +318,14 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
             if not domain_dts:
                 if lops_file:
                     utils.runcmd(
-                        f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc} {self.app}",
+                        f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} -i lop-ttc-split.dts {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc} {self.app}",
                         log_message = f"Generating Domain-specific DTS for {self.proc}",
                         error_message = f"Domain specific DT generation for {self.proc} failed",
                         verbose_level = 0
                     )
                 else:
                     utils.runcmd(
-                        f"lopper -f --enhanced -O {self.domain_dir} {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
+                        f"lopper -f --enhanced -O {self.domain_dir} -i lop-ttc-split.dts {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc}",
                         log_message = f"Generating Domain-specific DTS for {self.proc}",
                         error_message = f"Domain specific DT generation for {self.proc} failed",
                         verbose_level = 0
