@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -791,13 +791,6 @@ XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
 	}
 
 	NodeState = Subsystem->State;
-	Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
-					   XPm_ForcePwrDwnCb, 0U,
-					   (void *)SubsystemId);
-	if (XST_SUCCESS != Status) {
-		PmDbg("Task not present\r\n");
-		Status = XST_SUCCESS;
-	}
 
 done:
 	XPm_ProcessAckReq(Ack, IpiMask, Status, SubsystemId, NodeState);
@@ -876,8 +869,6 @@ done:
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_Device *Device = XPmDevice_GetById(NodeId);
-	u32 CoreSubsystemId;
 
 	if (NULL == XPmSubsystem_GetById(SubsystemId)) {
 		Status = XPM_INVALID_SUBSYSID;
@@ -901,46 +892,10 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 			Status = XPM_PM_NO_ACCESS;
 			goto done;
 		}
-	} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
-		   ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(NodeId))) {
-		if (NULL == Device) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-		CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore(Device);
-		if (INVALID_SUBSYSID == CoreSubsystemId) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		} else if ((PM_SUBSYS_PMC != CoreSubsystemId) &&
-			   (CoreSubsystemId == SubsystemId)) {
-			   Status = XST_SUCCESS;
-			   goto done;
-		} else {
-			/* Required by MISRA */
-		}
-
-		Status = XPmSubsystem_IsOperationAllowed(SubsystemId, CoreSubsystemId,
-							 SUB_PERM_PWRDWN_MASK,
-							 CmdType);
-		if (XST_SUCCESS != Status) {
-			Status = XPM_PM_NO_ACCESS;
-			goto done;
-		}
-	} else if (((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) &&
-		   ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId))) {
-		if ((PM_SUBSYS_PMC == SubsystemId) ||
-		    (PM_SUBSYS_DEFAULT == SubsystemId)) {
-			Status = XST_SUCCESS;
-		} else {
-			/*
-			 * Only PMC and default subsystem can enact force power down
-			 * upon power domains.
-			 */
-			Status = XPM_PM_NO_ACCESS;
-			goto done;
-		}
 	} else {
-		Status = XPM_PM_NO_ACCESS;
+		/* Force powerdown of only Subsystem is allowed */
+		PmErr("ForcePowerdown support for processor and power domain is deprecated.\r\n");
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 

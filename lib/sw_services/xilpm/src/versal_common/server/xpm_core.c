@@ -330,13 +330,7 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 			Fpd->UseCount--;
 		}
 	} else {
-		Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
-						   XPm_ForcePwrDwnCb, 0U,
-						   (void *)DeviceId);
-		if (XST_SUCCESS != Status) {
-			PmDbg("Task not present\r\n");
-			Status = XST_SUCCESS;
-		}
+		/* Required by MISRA */
 	}
 
 done:
