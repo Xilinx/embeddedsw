@@ -4186,39 +4186,6 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Handler for force power down timer
- *
- * @param Data	Node ID of subsystem/core for which power down event came
- *
- * @return XST_SUCCESS in case of success and error code in case of failure
- *
- * @note   none
- *
- ****************************************************************************/
-int XPm_ForcePwrDwnCb(void *Data)
-{
-	int Status = XST_FAILURE;
-	u32 NodeId = (u32)Data;
-	const XPm_Core *Core;
-
-	Core = (XPm_Core *)XPmDevice_GetById(NodeId);
-	if (NULL == Core) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	if ((u8)XPM_DEVSTATE_PENDING_PWR_DWN != Core->Device.Node.State) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-	Status = XPmCore_ProcessPendingForcePwrDwn(NodeId);
-
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
  * @brief  Function for processing ack request
  *
  * @param Ack		Acknowledgement type
@@ -4299,10 +4266,10 @@ static XStatus XPm_RequestHBMonDevice(const u32 SubsystemId, const u32 CmdType)
 /****************************************************************************/
 /**
  * @brief  This function can be used by a subsystem to Powerdown other
- *	   processor or domain node or subsystem forcefully.
+ *	   subsystem forcefully.
  *
  * @param SubsystemId	Subsystem ID
- * @param Node		Processor or domain node or subsystem to be powered down
+ * @param Node		Subsystem to be powered down
  * @param Ack		Ack request
  * @param CmdType	IPI command request type
  * @param IpiMask	IPI mask of initiator
@@ -4321,7 +4288,6 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	u32 NodeState = 0U;
-	const XPm_Power *Power;
 
 	if ((u32)REQUEST_ACK_BLOCKING == Ack) {
 		/* Disable IPI interrupt */
@@ -4334,84 +4300,50 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		goto process_ack;
 	}
 
-	if ((NODECLASS(NodeId) == (u32)XPM_NODECLASS_DEVICE) &&
-	    (NODESUBCLASS(NodeId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
-		XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(NodeId);
-		if (NULL == Core) {
-			Status = XST_INVALID_PARAM;
-			goto process_ack;
-		}
-		if ((1U == Core->isCoreUp) && (1U == Core->IsCoreIdleSupported)) {
-			Core->FrcPwrDwnReq.AckType = Ack;
-			Core->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
-			XPm_CoreIdle(Core);
-			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
-							XPm_ForcePwrDwnCb,
-							NULL,
-							XPM_PWR_DWN_TIMEOUT,
-							XPLM_TASK_PRIORITY_1,
-							(void *)NodeId,
-							XPLMI_NON_PERIODIC_TASK);
+	/* Retrieve target subsystem */
+	Subsystem = XPmSubsystem_GetById(NodeId);
+	if (NULL == Subsystem) {
+		Status = XST_INVALID_PARAM;
+		goto process_ack;
+	}
+	Subsystem->FrcPwrDwnReq.AckType = Ack;
+	Subsystem->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
+	NodeState = Subsystem->State;
+
+	/* Restore multiboot register value*/
+	XPlmi_RestoreMultiboot();
+
+	if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
+		Subsystem->Flags &= (u8)(~SUBSYSTEM_DO_PERIPH_IDLE);
+		Status = XPm_RequestHBMonDevice(NodeId, CmdType);
+		if (XST_DEVICE_NOT_FOUND == Status) {
+			PmWarn("Add runtime HB_MON node for recovery\r\n");
+		} else if (XST_SUCCESS != Status) {
+			/*
+			 * Error while requesting run time Healthy Boot
+			 * Monitor node
+			 */
 			goto done;
 		} else {
-			Status = XPmCore_ForcePwrDwn(NodeId);
-			NodeState = Core->Device.Node.State;
+			/* Required by MISRA */
 		}
-	} else if ((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) {
-		Power = XPmPower_GetById(NodeId);
-		if (NULL == Power) {
+
+		Status = XPmSubsystem_SetState(Subsystem->Id,
+					       (u8)PENDING_POWER_OFF);
+		if (XST_SUCCESS != Status) {
 			goto process_ack;
 		}
-		Status = XPmPower_ForcePwrDwn(NodeId);
-		NodeState = Power->Node.State;
-	} else if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
-		/* Retrieve target subsystem */
-		Subsystem = XPmSubsystem_GetById(NodeId);
-		if (NULL == Subsystem) {
-			Status = XST_INVALID_PARAM;
-			goto process_ack;
-		}
-		Subsystem->FrcPwrDwnReq.AckType = Ack;
-		Subsystem->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
 		NodeState = Subsystem->State;
 
-		/* Restore multiboot register value*/
-		XPlmi_RestoreMultiboot();
-
-		if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
-			Subsystem->Flags &= (u8)(~SUBSYSTEM_DO_PERIPH_IDLE);
-			Status = XPm_RequestHBMonDevice(NodeId, CmdType);
-			if (XST_DEVICE_NOT_FOUND == Status) {
-				PmWarn("Add runtime HB_MON node for recovery\r\n");
-			} else if (XST_SUCCESS != Status) {
-				/*
-				 * Error while requesting run time Healthy Boot
-				 * Monitor node
-				 */
-				goto done;
-			} else {
-				/* Required by MISRA */
-			}
-
-			Status = XPmSubsystem_SetState(Subsystem->Id,
-						       (u8)PENDING_POWER_OFF);
-			if (XST_SUCCESS != Status) {
-				goto process_ack;
-			}
-			NodeState = Subsystem->State;
-
-			Status = XPm_SubsystemIdleCores(Subsystem);
-			if (XST_SUCCESS != Status) {
-				goto process_ack;
-			}
-			goto done;
-		} else {
-			Subsystem->Flags |= (u8)SUBSYSTEM_DO_PERIPH_IDLE;
-			Status = XPmSubsystem_ForcePwrDwn(NodeId);
-			goto done;
+		Status = XPm_SubsystemIdleCores(Subsystem);
+		if (XST_SUCCESS != Status) {
+			goto process_ack;
 		}
+		goto done;
 	} else {
-		Status = XPM_PM_INVALID_NODE;
+		Subsystem->Flags |= (u8)SUBSYSTEM_DO_PERIPH_IDLE;
+		Status = XPmSubsystem_ForcePwrDwn(NodeId);
+		goto done;
 	}
 
 process_ack:

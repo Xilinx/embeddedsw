@@ -300,35 +300,11 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 {
-	XStatus Status = XST_FAILURE;
+	(void)SubsystemId;
+	(void)NodeId;
 	(void)CmdType;
 
-	if (NULL == XPmSubsystem_GetById(SubsystemId)) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-
-	if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
-		/* No other subsystem is present, so don't allow self or others */
-		Status = XPM_PM_NO_ACCESS;
-		goto done;
-	} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
-		   ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(NodeId))) {
-		/* Allow any device cores to be powered down */
-		Status = XST_SUCCESS;
-		goto done;
-	} else if (((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) &&
-		   ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId))) {
-		/* Allow any device cores to be powered down */
-		Status = XST_SUCCESS;
-		goto done;
-	} else {
-		Status = XPM_PM_NO_ACCESS;
-		goto done;
-	}
-
-done:
-	return Status;
+	return XST_INVALID_PARAM;
 }
 
 

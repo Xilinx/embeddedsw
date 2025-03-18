@@ -19,7 +19,6 @@ extern "C" {
 					(u32)XPM_NODETYPE_DEV_MEM_REGN, (IDX))
 
 int XPm_RegisterWakeUpHandlers(void);
-int XPm_ForcePwrDwnCb(void *Data);
 XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
 XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 Capabilities, const u32 QoS, const u32 Ack,
