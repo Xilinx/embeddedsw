@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -933,21 +933,12 @@ int get_xadc_regs(int *list, int cnt)
  * Function: init_xadc
  * Description:
  ****************************************************************************/
-int init_xadc()
+void init_xadc()
 {
-	int j, cnt, data;
 	//# enable xadc IF: setreg(['pele_ps','devcfg','XADCIF_CFG','ENABLE'], 1);
 	REG_WRITE(0xf8007100, 0x80001114);
 	//# take xadc out of reset: setreg(['pele_ps','devcfg','XADCIF_MCTL'], 0);
 	REG_WRITE(0xf8007118, 0);
-	//# flush read fifo.  cnt = getreg(['pele_ps','devcfg','XADCIF_MSTS', 'DFIFO_LVL']);
-	cnt = REG_READ(0xf800710c);
-	cnt = (cnt >> 12) & 0x0f;
-	for (j = 0; j < cnt; j++) {
-		data = REG_READ(0xf8007114);  //data = getreg(['pele_ps','devcfg','XADCIF_RDFIFO']);
-	}
-	//# read xadc config regs
-	return data;
 }
 
 
@@ -2100,7 +2091,7 @@ int memtest_all(int test_start, int test_size, int sel, int lp)
  * Function: measure_write_eye
  * Description: Measure DDR write eye.
         Works for both auto and manual training.
-              (x0,x1) is the search range, step is step size.
+              step is step size.
         Assumes that:
          - ddrc is initialized, wr_data_offset values are set to
                default.
@@ -2111,10 +2102,8 @@ int memtest_all(int test_start, int test_size, int sel, int lp)
         R05F_reg_phy_wr_data_slave_ratio = R055_reg_phy_wr_dqs_slave_ratio
                                             + cfg.wr_data_offset[0]; // R05F[9:0]
 
-        ** UPDATED to start in the middle till ends fail,
-           no longer uses x0,x1,
  ****************************************************************************/
-int measure_write_eye(int x0, int x1, int step, int *result, double scl, int sz_scl, int fast, int fix_ctr, int save)
+int measure_write_eye(int step, int *result, double scl, int sz_scl, int fast, int fix_ctr, int save)
 {
 	int i, j, k, dqs, sel, rc, lp, cc, ww, m;
 	int mmax, mstep;
@@ -2697,7 +2686,7 @@ void weye_test1(int do_all)
 		noop(1000000);
 		cnt++;
 		printf("%2d    [%2d,%3d]         ", cnt, dn, dp);
-		measure_write_eye(16, 112, 4, &gresult[rslti], scl, 1, 0, 0, 0);
+		measure_write_eye(4, &gresult[rslti], scl, 1, 0, 0, 0);
 		scl += incr;
 		rslti += 8;
 	}
@@ -2850,8 +2839,8 @@ int main(void)
 	int mbyte = 1024 * 1024;
 	int i, j, k, lp, a, go, rc, imaski, sel, last;
 	int test_start, test_size, loop_cnt;
-	int imin, imax, istep, testsize_scl, fast, fix_center, printerr;
-	int pll_div, remote_mode, mem_test, cmd;
+	int istep, testsize_scl, fast, fix_center, printerr;
+	int pll_div = 0, remote_mode, mem_test, cmd;
 	char c;
 	int cache_enable = 1;
 
@@ -2888,8 +2877,6 @@ int main(void)
 
 	if (test_mode == 1) { // standalone diag
 		istep = 4;
-		imin = 8;
-		imax = 120;
 		testsize_scl = 1;
 		fast = 1;
 		fix_center = 0;
@@ -3092,7 +3079,7 @@ int main(void)
 				ddrc_get();
 				ddriob_get();
 				printMemTestHeader();
-				rc = measure_write_eye(imin, imax, istep, &gresult[0], 1.0, testsize_scl, fast, fix_center, 1);
+				rc = measure_write_eye(istep, &gresult[0], 1.0, testsize_scl, fast, fix_center, 1);
 				ddrc_init();
 			}
 
@@ -3130,20 +3117,6 @@ int main(void)
 				printf("\nRunning Read Eye Measurement now ... \r\n");
 				printMemTestHeader();
 				rc = measure_read_eye(&gresult[0], mbyte, mbyte * testsize_scl, fast, istep);
-			}
-
-			// Wider Mode for Write Eye measurement
-			else if ((c == 'w') || (c == 'W')) {
-				imin = max(imin - 4, 0);
-				imax = min(imax + 4, 128);
-				printf("\nWider Mode ON - Widens the Write Eye Measurement range by 4 units\r\n");
-			}
-
-			// Narrow Mode for Write Eye measurement
-			else if ((c == 'n') || (c == 'N')) {
-				imin = min(imin + 4, 60);
-				imax = max(imax - 4, 68);
-				printf("Narrow Mode ON - Narrows the Write Eye Measurement range by 4 units\r\n");
 			}
 
 			// Fast Mode for Write Eye measurement - toggle
