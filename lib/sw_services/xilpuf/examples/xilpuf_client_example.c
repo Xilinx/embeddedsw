@@ -838,7 +838,7 @@ static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 
 #if defined (VERSAL_NET)
 	u32 SecCtrlBits = (PUF_DIS << XPUF_PUF_DIS_SHIFT) | (PUF_SYN_LK << XPUF_PUF_SYN_LK_SHIFT);
-	Status = XNvm_EfuseWriteSecCtrlBits(InstancePtr, SecCtrlBits);
+	Status = XNvm_EfuseWriteSecCtrlBits(InstancePtr, SecCtrlBits, XPUF_ENV_MONITOR_DISABLE);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);
 		goto END;
