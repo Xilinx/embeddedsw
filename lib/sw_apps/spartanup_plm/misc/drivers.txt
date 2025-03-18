@@ -1,3 +1,0 @@
-csudma
-iomodule
-ospipsv
