@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1629,12 +1629,11 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function is used by PU to request a forced poweroff of another
- * PU or its power island or power domain. This can be used for killing an
- * unresponsive PU, in which case all resources of that PU will be
- * automatically released.
+ * @brief This function is used to force power down the subsystem if the
+ * subsystem is unresponsive and by calling this API all the resources of
+ * that subsystem will be automatically released.
  *
- * @param  TargetDevId	Device ID of the PU node to be forced powered down.
+ * @param  TargetDevId	Subsystem ID to be forced powered down.
  * @param  Ack		Requested acknowledge type
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
