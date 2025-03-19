@@ -2244,19 +2244,20 @@ static XStatus AddDevAttributes(const u32 *Args, const u32 NumArgs)
 	DevAttr->Security[1].Mask = (u16)(Args[ARG_IDX_DEVATTR_SEC_1_MASK] & DEVATTR_SEC_MASK);
 
 	/* Check for the coherency and virtualization attributes */
-	if (NumArgs > DEVATTR_ARG_MIN_LEN) {
-		if (NumArgs > DEVATTR_ARG_MAX_LEN) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-
+	if (NumArgs ==  DEVATTR_ARG_MAX_LEN) {
 		/* Store the coherency and virtualization attributes */
 		DevAttr->CohVirtBaseAddr = Args[ARG_IDX_DEVATTR_COHVIR_BASEADDR];
 		DevAttr->Coherency.Offset = (u16)((Args[ARG_IDX_DEVATTR_COH_OFFSET] >> DEVATTR_COH_OFFSET) & DEVATTR_COH_MASK);
 		DevAttr->Coherency.Mask = (u16)(Args[ARG_IDX_DEVATTR_COH_MASK] & DEVATTR_COH_MASK);
 		DevAttr->Virtualization.Offset = (u16)((Args[ARG_IDX_DEVATTR_VIR_OFFSET] >> DEVATTR_VIR_OFFSET) & DEVATTR_VIR_MASK);
 		DevAttr->Virtualization.Mask = (u16)(Args[ARG_IDX_DEVATTR_VIR_MASK] & DEVATTR_VIR_MASK);
+	} else if (NumArgs > DEVATTR_ARG_MIN_LEN) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	} else {
+		/* Required by MISRA-C */
 	}
+
 	Dev->DevAttr = DevAttr;
 
 	Status = XST_SUCCESS;
