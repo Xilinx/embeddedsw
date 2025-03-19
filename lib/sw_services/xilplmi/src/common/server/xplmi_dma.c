@@ -54,6 +54,7 @@
 *       bm   07/15/2024 Fixed Memset logic by using source buffer in PPU RAM
 *       obs  01/27/2025 Changed DMA WaitForDone calls to use APIs which support timeout
 * 1.10  vss  02/11/2025 Updated SSS configuration correctly.
+*       ma   03/19/2025 Remove clearing the SSS configuration for SBI->DMA1
 *
 * </pre>
 *
@@ -280,7 +281,6 @@ static void XPlmi_SSSCfgSbiDma(void)
 	XPlmi_Printf(DEBUG_DETAILED, "SSS config always for SBI to DMA1\n\r");
 
 	/* Read from SBI to always DMA1 */
-	XPlmi_SssMask(XPLMI_PMCDMA_1);
 	XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
 			XPLMI_SSSCFG_DMA1_MASK,
 			XPLMI_SSS_DMA1_SBI);
