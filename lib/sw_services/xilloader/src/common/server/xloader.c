@@ -184,6 +184,8 @@
 *       tri  03/01/2025 Added data measurement support for versal_aiepg2
 *       tri  03/13/2025 Moved partition measurement to platform specific and
 *                       Added XLoader_DataMeasurement support for versal
+*       ma   03/19/2025 Update function ID of the PLD0 image to USR_ACCESS
+*                       register in RTCA before loading the PLD0 image
 *
 * </pre>
 *
@@ -1302,9 +1304,6 @@ static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo)
 	u32 NodeId = NODESUBCLASS(ImageInfo->ImgID);
 	XLoader_ImageInfoTbl *ImageInfoTbl = XLoader_GetImageInfoTbl();
 
-	if (ImageInfo->ImgID == PM_DEV_PLD_0) {
-		XPlmi_Out32(XPLMI_RTCFG_USR_ACCESS_ADDR, ImageInfo->FuncID);
-	}
 	/* Read ChangeCount */
 	ChangeCount = ((XPlmi_In32(XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR) &
 			XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK)
@@ -1567,6 +1566,11 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 	PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgName[XILPDI_IMG_NAME_ARRAY_SIZE - 1U] = 0;
 	/* Update current subsystem ID for EM */
 	XPlmi_SetEmSubsystemId(&PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
+
+	/* Update function ID of the PLD0 image to USR_ACCESS register in RTCA */
+	if (PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID == PM_DEV_PLD_0) {
+		XPlmi_Out32(XPLMI_RTCFG_USR_ACCESS_ADDR, PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].FuncID);
+	}
 
 	Status = XLoader_MeasureNLoad(PdiPtr);
 	if (Status != XST_SUCCESS) {
