@@ -3265,6 +3265,16 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 	/* Warning Fix */
 	(void) (Ack);
 
+	/**
+	 * PM_DEV_AIE is deprecated but still must be supported for backwards
+	 * compatibility. If device is PM_DEV_AIE do nothing and return without
+	 * any errors.
+	 */
+	if (PM_DEV_AIE == DeviceId) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	u32 NumArgs = 3U;
 	u32 ArgBuf[3U];
 	ArgBuf[0] = DeviceId;
@@ -3314,6 +3324,16 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
 	const XPm_Subsystem* Subsystem = NULL;
 	const XPm_Device* Device = NULL;
 	u32 Usage = 0U;
+
+	/**
+	 * PM_DEV_AIE is deprecated but still must be supported for backwards
+	 * compatibility. If device is PM_DEV_AIE do nothing and return without
+	 * any errors.
+	 */
+	if (PM_DEV_AIE == DeviceId) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	u32 NumArgs = 1U;
 	u32 ArgBuf[1U];
@@ -3389,6 +3409,16 @@ XStatus XPm_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 
 	/* Warning Fix */
 	(void) (Ack);
+
+	/**
+	 * PM_DEV_AIE is deprecated but still must be supported for backwards
+	 * compatibility. If device is PM_DEV_AIE do nothing and return without
+	 * any errors.
+	 */
+	if (PM_DEV_AIE == DeviceId) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	u32 NumArgs = 3U;
 	u32 ArgBuf[3U];

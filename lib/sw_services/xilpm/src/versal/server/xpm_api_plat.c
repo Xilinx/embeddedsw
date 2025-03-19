@@ -473,6 +473,15 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 	}
 
 	for (i = 0; i < (u32)XPM_NODEIDX_DEV_MAX; i++) {
+		/**
+		 * PM_DEV_AIE is deprecated but must still be available for
+		 * backwards compatibility. Do not add requirement for this
+		 * node.
+		 */
+		if (i == (u32)XPM_NODEIDX_DEV_AIE) {
+			continue;
+		}
+
 		/*
 		 * Note: XPmDevice_GetByIndex() assumes that the caller
 		 * is responsible for validating the Node ID attributes

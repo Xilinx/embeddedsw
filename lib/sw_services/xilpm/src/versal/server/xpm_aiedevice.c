@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -136,20 +137,33 @@ static XStatus AieDeviceInitStart(XPm_AieDevice *AieDevice, const u32 *Args, u32
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_PlDevice *Parent;
 	XPm_AieNode *AieNode;
+	const XPm_AieDomain *AieDomain;
 
-	if ((1U != NumArgs) || (PM_POWER_ME != Args[0])) {
+	if ((1U != NumArgs) || (PM_POWER_ME != Args[0]) || (PM_POWER_ME2 != Args[0])) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		goto done;
 	}
 
+	/* TODO: Remove AIE device dependency on PM_DEV_AIE once it has been
+	 * fully deprecated */
 	/*
 	 * Check the implicit device, PM_DEV_AIE is running. Device represents the
 	 * AIE Device Array as whole (includes resets, clocks, power)
 	 */
 	AieNode = (XPm_AieNode *)XPmDevice_GetById(PM_DEV_AIE);
-	if ((NULL == AieNode) ||
-	    ((u32)XPM_DEVSTATE_RUNNING != AieNode->Device.Node.State)) {
+	if (NULL == AieNode) {
 		DbgErr = XPM_INT_ERR_DEV_AIE;
+		goto done;
+	}
+
+	AieDomain = (XPm_AieDomain*)XPmPower_GetById(Args[0]);
+	if (NULL == AieDomain) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	if ((u8)XPM_POWER_STATE_ON != AieDomain->Domain.Power.Node.State) {
+		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 

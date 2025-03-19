@@ -18,8 +18,12 @@
 						  PWR_DOMAIN_PL_BITMASK |\
 						  PWR_DOMAIN_HNIC_BITMASK)
 #else
+#define PWR_DOMAIN_ME_BITMASK			BIT(2)
+#define PWR_DOMAIN_ME2_BITMASK			BIT(3)
 #define MAX_PWR_DOMAIN_BITMASK			(PWR_DOMAIN_NOC_BITMASK |\
-						  PWR_DOMAIN_PL_BITMASK)
+						  PWR_DOMAIN_PL_BITMASK |\
+						  PWR_DOMAIN_ME_BITMASK |\
+						  PWR_DOMAIN_ME2_BITMASK)
 #endif
 #define NOT_INITIALIZED			0xFFU
 
@@ -47,6 +51,15 @@ static const XPm_NodeIdBitMap PmPwrBitMap[] = {
 	{
 		.BitMask = PWR_DOMAIN_HNIC_BITMASK,
 		.NodeId = PM_POWER_HNICX,
+	},
+#else
+	{
+		.BitMask = PWR_DOMAIN_ME_BITMASK,
+		.NodeId = PM_POWER_ME,
+	},
+	{
+		.BitMask = PWR_DOMAIN_ME2_BITMASK,
+		.NodeId = PM_POWER_ME2,
 	},
 #endif
 };
