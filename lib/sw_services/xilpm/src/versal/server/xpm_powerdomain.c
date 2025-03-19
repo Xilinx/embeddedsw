@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1726,16 +1726,6 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 					DbgErr = XPM_INT_ERR_PLDEVICE_INITNODE;
 					break;
 				}
-			}
-		} else if ((PM_POWER_ME == PwrDomain->Power.Node.Id) ||  (PM_POWER_ME2 == PwrDomain->Power.Node.Id)){
-			/* Request AIE device once AIE initialization is done. */
-			Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_AIE,
-						   XPM_MAX_CAPABILITY,
-						   XPM_MAX_QOS,
-						   XPLMI_CMD_SECURE);
-			if (XST_SUCCESS != Status) {
-				DbgErr = XPM_INT_ERR_REQ_ME_DEVICE;
-				break;
 			}
 #ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
 		} else if (PM_POWER_LPD == PwrDomain->Power.Node.Id) {
