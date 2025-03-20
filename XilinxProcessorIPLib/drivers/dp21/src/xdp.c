@@ -598,6 +598,7 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 		Status = XDp_TxAuxRead(InstancePtr,
 				       XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE,
 				       1, &RxMaxLinkRate);
+		InstancePtr->TxInstance.LinkConfig.Downstream2xSupported = 1;
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 
@@ -644,6 +645,7 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 		}
 	} else	{
 		LinkConfig->LinkTraining2x = 0;
+		InstancePtr->TxInstance.LinkConfig.Downstream2xSupported = 0;
 		/* This is the check if the monitor is not
 		 * setting 0x001 to 0x1E, but only setting it
 		 * in 0x2201 as maxLinkRate.
@@ -3138,6 +3140,14 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr, u8
 
 	if (InstancePtr->TxInstance.LinkConfig.LinkRate == XDP_TX_LINK_BW_SET_162GBPS) {
 		if (InstancePtr->TxInstance.LinkConfig.cr_done_cnt !=
+					XDP_LANE_ALL_CR_DONE &&
+					InstancePtr->TxInstance.LinkConfig.cr_done_cnt !=
+					XDP_LANE_0_CR_DONE && (InstancePtr->TxInstance.LinkConfig.LaneCount != 1)) {
+			InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
+				InstancePtr->TxInstance.LinkConfig.cr_done_cnt;
+			return XDP_TX_TS_ADJUST_LANE_COUNT;
+		}
+		if (InstancePtr->TxInstance.LinkConfig.cr_done_cnt !=
 			XDP_LANE_ALL_CR_DONE &&
 			InstancePtr->TxInstance.LinkConfig.cr_done_cnt !=
 			XDP_LANE_0_CR_DONE) {
@@ -3273,37 +3283,38 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(XDp *InstanceP
 
 	/* Tried 5 times with no success. Try a reduced bitrate first, then
 	 * reduce the number of lanes. */
-	if (InstancePtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4 ||
-	    InstancePtr->Config.DpProtocol != XDP_PROTOCOL_DP_2_1) {
-		return XDP_TX_TS_ADJUST_LINK_RATE;
-	} else {
-		if (cr_failure || ce_failure) {
-			Status = XDp_TxSetTrainingPattern(InstancePtr,
-							  XDP_TX_TRAINING_PATTERN_SET_OFF,
-							  NumOfRepeaters);
-			if (Status != XST_SUCCESS)
+	if (cr_failure || ce_failure) {
+		Status = XDp_TxSetTrainingPattern(InstancePtr,
+						  XDP_TX_TRAINING_PATTERN_SET_OFF,
+						  NumOfRepeaters);
+		if (Status != XST_SUCCESS)
+			return XDP_TX_TS_FAILURE;
+		}
+		if ((InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1)
+			&& (InstancePtr->TxInstance.LinkConfig.Downstream2xSupported)) {
+				XDp_Tx_2x_AdjustLinkTrainparams(InstancePtr, 1 );
 				return XDP_TX_TS_FAILURE;
-		}
-		if (cr_failure) {
-			/* DP1.4 asks to downlink on CR failure in EQ stage */
-			InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
-				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
-			return XDP_TX_TS_ADJUST_LINK_RATE;
-		} else if (InstancePtr->TxInstance.LinkConfig.LaneCount == 1 && (ce_failure)) {
-			/* needed to set lanecount for next iter */
-			InstancePtr->TxInstance.LinkConfig.LaneCount =
-				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
-			InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
-				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
-			return XDP_TX_TS_ADJUST_LINK_RATE;
-		} else if (ce_failure && InstancePtr->TxInstance.LinkConfig.LaneCount > 1) {
-			/* For EQ failure downlink the lane count */
-			return XDP_TX_TS_ADJUST_LANE_COUNT;
 		} else {
-			InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
-				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
-			return XDP_TX_TS_ADJUST_LINK_RATE;
-		}
+			if (cr_failure) {
+				/* DP1.4 asks to downlink on CR failure in EQ stage */
+				InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
+					InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+				return XDP_TX_TS_ADJUST_LINK_RATE;
+			} else if (InstancePtr->TxInstance.LinkConfig.LaneCount == 1 && (ce_failure)) {
+				/* needed to set lanecount for next iter */
+				InstancePtr->TxInstance.LinkConfig.LaneCount =
+					InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+				InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
+					InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+				return XDP_TX_TS_ADJUST_LINK_RATE;
+			} else if (ce_failure && InstancePtr->TxInstance.LinkConfig.LaneCount > 1) {
+				/* For EQ failure downlink the lane count */
+				return XDP_TX_TS_ADJUST_LANE_COUNT;
+			} else {
+				InstancePtr->TxInstance.LinkConfig.cr_done_oldstate =
+					InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+				return XDP_TX_TS_ADJUST_LINK_RATE;
+			}
 	}
 }
 
