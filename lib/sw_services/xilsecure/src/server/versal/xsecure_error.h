@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
  * 5.2   am   06/22/2023 Added KAT error code
  *       kpt  07/13/2023 Added XSECURE_AES_INVALID_MODE error code
  * 5.4   yog  04/29/2024 Fixed doxygen warnings.
+ *       pre  03/02/2025 Added error codes for IPI events handling
  *
  * </pre>
  *
@@ -135,6 +136,7 @@ typedef enum {
 	XSECURE_AES_ZERO_PUF_KEY_NOT_ALLOWED,	/**< 0x5B - Error when PUF Key is selected as key source and PUF key is zeroized */
 	XSECURE_AES_UNALIGNED_SIZE_ERROR,	/**< 0x5C - Error when data is unaligned*/
 	XSECURE_AES_INVALID_MODE,             /**< 0x5D - Error when invalid mode is used for AES operation */
+	XSECURE_INVALID_RESOURCE, /**< 0X5F - Error when resource is other than SHA/AES */
 
 	XSECURE_RSA_KAT_INIT_ERROR = 0x80,	/**< 0x80 - RSA KAT initialization failure */
 

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 -2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -259,7 +259,7 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This function calcualtes and reads the final hash of input data.
+* @brief	This function calculates and reads the final hash of input data.
 *
 * @param	InstancePtr - Pointer to the SHA instance.
 * @param   	Hash - Pointer which holds final hash.
@@ -307,6 +307,7 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 		Status = XST_FAILURE;
 		goto END;
 	}
+
 	/** Read out the Hash in reverse order and store in Hash Buffer. */
 	ShaDigestSizeInWords = InstancePtr->ShaDigestSize / XSECURE_WORD_SIZE;
 	HashPtr = (WordToByte *)&Hash[0U];
@@ -394,7 +395,7 @@ u64 DataAddr, u32 DataSize, u64 HashAddr, u32 HashBufSize)
 		goto END;
 	}
 
-	/** Calcualte and read the final hash of input data. */
+	/** Calculte and read the final hash of input data. */
 	Status = XST_FAILURE;
 	Status = XSecure_ShaFinish(InstancePtr, HashAddr, HashBufSize);
 

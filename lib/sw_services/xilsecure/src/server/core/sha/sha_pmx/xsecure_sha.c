@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -53,6 +53,7 @@
 *	vss  09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
 * 5.4   yog  04/29/24 Fixed doxygen warnings
 *       kal  07/24/24 Code refactoring for versal_aiepg2
+*       pre  03/02/25 Removed data context lost setting
 *
 * </pre>
 *
@@ -152,11 +153,6 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 			Status = (int)XSECURE_SHA3_INVALID_PARAM;
 			goto END;
 		}
-	}
-
-	/* Clear previous sha data context flag */
-	if (InstancePtr->PreviousShaIpiMask == InstancePtr->IpiMask) {
-		InstancePtr->DataContextLost = XSECURE_DATA_CONTEXT_AVAILABLE;
 	}
 
 	InstancePtr->Sha3Len = 0U;

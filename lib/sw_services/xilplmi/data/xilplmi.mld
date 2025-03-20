@@ -28,6 +28,7 @@
 #       pre  10/22/2024 Added configurable option for CFI selective read feature
 # 2.2   jb   11/18/2024 Updated library version for 2025.1
 #       tri  03/13/2025 Added configurable option for xiltpm library
+#       pre  03/17/2024 Added configurable option for AES and SHA events queuing
 #
 ##############################################################################
 
@@ -71,5 +72,6 @@ BEGIN LIBRARY xilplmi
   PARAM name = plm_version_user_defined, desc = "User defined PLM version", type = int, default = 0;
   PARAM name = timestamp_en, desc = "Enables or Disables Time Stamp prints", type = bool, default = true;
   PARAM name = cfi_selective_read_en, desc = "Enables or Disables CFI selective read", type = bool, default = false;
+  PARAM name = aes_and_sha_events_queuing_en, desc = "Enables or Disables queuing mechanism of AES and SHA events for Versal (This feature is enabled by default for other devices)", type = bool, default = false;
   PARAM name = plm_i2c_mb_handshake, desc = "Enable I2C to MB Handshake", type = bool, default = false;
 END LIBRARY

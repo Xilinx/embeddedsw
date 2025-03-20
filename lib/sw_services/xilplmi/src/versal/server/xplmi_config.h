@@ -53,6 +53,7 @@
 *       bm   11/11/2024 Added config option for I2C Handshake feature
 *       obs  12/13/2024 Added PLM_BANNER_TIMESTAMP_EXCLUDE macro
 *       tri  03/13/2025 Added configurable option for xiltpm library
+*       pre  03/19/2025 Added configurable option for AES and SHA events queuing
 * </pre>
 *
 * @note
@@ -239,6 +240,11 @@ extern "C" {
  * for SSIT devices.
  */
 //#define PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+
+/**
+ * Enable the below define to enable events queuing mechanism for SHA & AES
+ */
+//#define PLM_ENABLE_SHA_AES_EVENTS_QUEUING
 
 /**
  * Enable the below define to enable the feature to get optional data for Versal

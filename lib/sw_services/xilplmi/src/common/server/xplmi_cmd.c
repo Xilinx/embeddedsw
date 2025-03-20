@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +29,8 @@
 * 1.05  bm   06/13/2023 Add API to just log PLM error
 * 2.0   ng   11/11/2023 Implemented user modules
 *       mss  03/13/2024 Fix MISRA-C violation 10.3
-*       bs   07/15/2024 Updated Cmd Resume to return errror in 0x2XXX format
+*       bs   07/15/2024 Updated Cmd Resume to return error in 0x2XXX format
+*       pre  03/02/2025 Modified error throwing condition after exiting from command handler
 * </pre>
 *
 * @note
@@ -52,28 +53,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/**
- * @brief	Inline function to determine the Cdo error type based on the
- * 			command Id
- *
- * @param	CmdId is the Command ID
- *
- * @return 	CDO Error Type in
- * 			 - 0x2xyz format for CDO Error
- * 			 - 0x3xyz format for User Module CDO Error
- *
- *****************************************************************************/
-static inline u32 XPlmi_GetCdoErr(u32 CmdId) {
-	u32 CdoErrType = (u32)XPLMI_ERR_CDO_CMD;
 
-#if ( XPAR_MAX_USER_MODULES > 0U )
-	u32 ModuleId = (CmdId & XPLMI_CMD_MODULE_ID_MASK) >> XPLMI_CMD_MODULE_ID_SHIFT;
-		if ( ModuleId >= XPLMI_USER_MODULE_START_INDEX ) {
-			CdoErrType = XPLMI_ERR_USER_MODULE_CDO_CMD;
-		}
-#endif
-		return (CdoErrType + (CmdId & XPLMI_ERR_CDO_CMD_MASK));
-}
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -130,7 +110,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 
 	/** - Execute the API. */
 	Status = ModuleCmd->Handler(CmdPtr);
-	if (Status != XST_SUCCESS) {
+	if ((Status != XST_SUCCESS) && (Status != (int)XPLMI_CMD_IN_PROGRESS)) {
 
 		Status = XPlmi_UpdateStatus((XPlmiStatus_t)XPlmi_GetCdoErr(CmdPtr->CmdId), Status);
 

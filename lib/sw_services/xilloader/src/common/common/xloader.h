@@ -125,6 +125,8 @@
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       bm   12/16/2024 Move I2C Handshake feature to common code
 *       tri  03/13/2025 Added XLOADER_PCR_NUMBER_MASK macro
+*       pre  03/02/2025 Added XLoader_PpdiEventParamsPtr function and
+*                       XLoader_ResourceSts type definition
 * </pre>
 *
 ******************************************************************************/
@@ -144,6 +146,7 @@ extern "C" {
 #include "xcfupmc.h"
 #include "xloader_defs.h"
 #include "xplmi_hw.h"
+#include "xsecure_init.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_SUCCESS		(u32)XST_SUCCESS	/**< Alias for XST_SUCCESS */
@@ -157,6 +160,8 @@ extern "C" {
 #define XLOADER_IMAGE_SEARCH_OFFSET	(0x8000U)	/**< 32K */
 #define XLOADER_DEVICE_COPY_OPTIMIZATION_MASK	(0x30U) /**< Mask to extract copy optimization bits of RTCA SecureCtrl registers */
 #define XLOADER_PCR_NUMBER_MASK 				(0x0000FFFFU) /**< Number mask value */
+#define XLOADER_RESP_CMD_EXEC_STATUS_INDEX	(0U) /**< Index of executed coammnd status */
+#define XLOADER_RESP_CMD_LOAD_PDI_STATUS_INDEX	(1U) /**< Index of PDI load status */
 
 /**
  * @name  Subsystem related macros
@@ -484,8 +489,11 @@ void Xloader_SaveBootPdiInfo(XilPdi *BootPdiPtr);
 int XLoader_EnableJtag(u32 CfgState);
 int XLoader_DisableJtag(void);
 int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr, u64 SrcAddr, u64 DestAddr, u32 DestSize);
+XSecure_PartialPdiEventParams *XLoader_PpdiEventParamsPtr(void);
+int XLoader_PpdiEventHandling(PdiSrc_t PdiSrc, u64 PdiAddr, u32 IpiMask);
 
 /************************** Variable Definitions *****************************/
+
 #ifdef __cplusplus
 }
 #endif

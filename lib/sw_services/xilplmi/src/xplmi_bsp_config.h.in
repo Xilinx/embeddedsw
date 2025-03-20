@@ -33,6 +33,7 @@
 #cmakedefine    PLM_RSA_EXCLUDE
 #cmakedefine    PLM_EN_ADD_PPKS
 #cmakedefine    PLM_ENABLE_CFI_SELECTIVE_READ
+#cmakedefine    PLM_ENABLE_SHA_AES_EVENTS_QUEUING
 #cmakedefine    PLM_BANNER_TIMESTAMP_EXCLUDE
 #cmakedefine    PLM_ENABLE_RESTORE_MULTIBOOT
 #cmakedefine    PLM_TPM_EXCLUDE

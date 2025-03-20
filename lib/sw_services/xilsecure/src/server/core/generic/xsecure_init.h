@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
  * 4.5   bm   05/13/2021 Add common crypto instances
  * 4.6   ma   07/08/2022 Added support for secure lockdown
  * 5.4   kal  07/24/2024 Code refactoring for versal_aiepg2
+ *       pre  03/02/2025 Modified prototype of XSecure_Init function
  *
  * </pre>
  *
@@ -44,16 +45,28 @@ extern "C" {
 #include "xsecure_rsa_core.h"
 #endif
 #include "xsecure_sha.h"
+#ifdef VERSAL_PLM
+#include "xplmi_config.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+typedef struct
+{
+	u32 PartialPdiEventSts;
+	int (*TriggerPartialPdiEvent)(void);
+	u32 IpiMask;
+	u32 PdiSrc;
+	u64 PdiAddr;
+} XSecure_PartialPdiEventParams;
 
 /************************** Function Prototypes ******************************/
-int XSecure_Init(void);
+int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr);
 XSecure_Sha *XSecure_GetSha3Instance(u32 DeviceId);
 XSecure_Sha *XSecure_GetSha2Instance(u32 DeviceId);
 XSecure_Aes *XSecure_GetAesInstance(void);
+XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId);
 #ifndef PLM_RSA_EXCLUDE
 XSecure_Rsa *XSecure_GetRsaInstance(void);
 #endif

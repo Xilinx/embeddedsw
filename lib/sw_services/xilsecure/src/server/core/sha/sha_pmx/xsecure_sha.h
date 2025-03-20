@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -50,6 +50,7 @@
 *		vss	 07/14/23 Added IsResourceBusy and IpiMask variables in Xsecure_Sha instance
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *       tri  10/16/24 Fixed redefined warning
+*       pre  03/02/25 Removed data context lost setting
 *
 * </pre>
 *
@@ -144,8 +145,6 @@ int XSecure_ShaDigest(XSecure_Sha *InstancePtr, XSecure_ShaMode Mode,
 int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr);
 
 int XSecure_ShaLookupConfig(XSecure_Sha *InstancePtr, u32 DeviceId);
-
-void XSecure_ShaSetDataContext(XSecure_Sha *InstancePtr);
 
 /***************************** Variable Prototypes ***************************/
 

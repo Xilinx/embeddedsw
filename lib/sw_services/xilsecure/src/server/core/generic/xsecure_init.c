@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 5.4   kpt 06/23/2024 Added XSecure_AddRsaKeyPairGenerationToScheduler
 *       kpt 07/17/2024 Remove RSA keypair generation support on QEMU
 * 	kal 07/24/2024 Code refactoring for versal_aiepg2
+*       pre 03/02/2025 Modified XSecure_Init for initialization of AES and SHA in server mode
 *
 * </pre>
 *
@@ -47,6 +48,10 @@
 #include "xsecure_plat_rsa.h"
 #include "xplmi.h"
 #endif
+#ifdef VERSAL_PLM
+#include "xsecure_resourcehandling.h"
+#include "xplmi_dma.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -57,30 +62,89 @@ static XSecure_Sha XSecure_ShaInstance[XSECURE_SHA_NUM_OF_INSTANCES];
 
 /************************** Function Prototypes ******************************/
 
-static XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId);
-
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-
+#ifdef VERSAL_PLM
 /*****************************************************************************/
 /**
  * @brief	This function registers the handlers for XilSecure IPI commands
  *
+ * @param   PpdiEventParamsPtr is the pointer to partial PDI event parameters
+ *
  * @return
  *		 - XST_SUCCESS  On success
- *		 - XST_FAILURE  On failure
+ *		 - error code  On failure
  *
  *****************************************************************************/
-int XSecure_Init(void)
+int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 {
 	int Status = XST_FAILURE;
+	XSecure_Sha *XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);
+#ifndef PLM_SECURE_EXCLUDE
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+
+	/** Initializes AES structure */
+	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
+
+	/* Initializes SHA structure for operating the SHA3 engine */
+	Status = XSecure_ShaInitialize(XSecureShaInstPtr, PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+#ifdef VERSAL_AIEPG2
+	XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
+	Status = XSecure_ShaInitialize(XSecureShaInstPtr, PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
+
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))
+	/** AES & SHA IPI event queues and free resource task initialization */
+	Status = XSecure_QueuesAndTaskInit(PpdiEventParamsPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#else
+	(void)PpdiEventParamsPtr;
+#endif
+
+	XSecure_CmdsInit();
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+#else
+/*****************************************************************************/
+/**
+ * @brief	This function registers the handlers for XilSecure IPI commands
+ *
+ * @param   PpdiEventParamsPtr is the pointer to partial PDI event parameters
+ *
+ * @return
+ *		 - XST_SUCCESS  On success
+ *		 - error code  On failure
+ *
+ *****************************************************************************/
+int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
+{
+	int Status = XST_FAILURE;
+	(void)PpdiEventParamsPtr;
 
 	XSecure_CmdsInit();
 
 #if defined (VERSAL_NET) && !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_AIEPG2)
 	if (XPLMI_PLATFORM != PMC_TAP_VERSION_QEMU) {
-		/* Add keypair generation to scheduler for versalnet */
+        /* Add keypair generation to scheduler for versalnet */
 		Status = XSecure_AddRsaKeyPairGenerationToScheduler();
 	}
 	else {
@@ -92,6 +156,7 @@ int XSecure_Init(void)
 
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -162,7 +227,7 @@ XSecure_Rsa *XSecure_GetRsaInstance(void)
  *		 - Pointer to the XSecure_Sha instance
  *
  *****************************************************************************/
-static XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId)
+XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId)
 {
 	XSecure_Sha *XSecure_ShaInstPtr = NULL;
 
@@ -176,4 +241,5 @@ static XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId)
 END:
 	return XSecure_ShaInstPtr;
 }
+
 /** @} */
