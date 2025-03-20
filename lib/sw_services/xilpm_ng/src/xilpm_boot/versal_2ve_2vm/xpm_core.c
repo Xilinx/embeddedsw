@@ -54,7 +54,7 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	if (((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State)
 	    && (NULL != Core->Device.ClkHandles)) {
 		/** TODO: Implement Request clock */
-		PmAlert("Request clock is not yet implemented!\n");
+		PmWarn("Request clock is not yet implemented!\n");
 
 	}
 

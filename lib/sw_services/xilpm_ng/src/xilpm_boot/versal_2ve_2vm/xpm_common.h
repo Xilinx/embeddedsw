@@ -31,19 +31,15 @@ extern "C" {
 #define maybe_unused __attribute__((unused))
 #endif
 
-#define XPM_ALERT_VAL	0x10U
-#define XPM_ERR_VAL	0x20U
-#define XPM_WARN_VAL	0x30U
+#define XPM_ERR_VAL	0x10U
+#define XPM_WARN_VAL	0x20U
 #define XPM_INFO_VAL	0x40U
-#define XPM_DBG_VAL	0x50U
-#define XPM_TRACE_VAL	0x60U
+#define XPM_DBG_VAL	0x80U
 
-#define XPM_ALERT   (DEBUG_PRINT_ALWAYS  | XPM_ALERT_VAL)
-#define XPM_ERR     (DEBUG_PRINT_ALWAYS  | XPM_ERR_VAL)
-#define XPM_WARN    (DEBUG_PRINT_ALWAYS  | XPM_WARN_VAL)
-#define XPM_INFO    (DEBUG_GENERAL     | XPM_INFO_VAL)
-#define XPM_DBG     (DEBUG_INFO | XPM_DBG_VAL)
-#define XPM_TRACE   (DEBUG_DETAILED | XPM_TRACE_VAL)
+#define XPM_ERR     (DEBUG_PRINT_ALWAYS | XPM_ERR_VAL)
+#define XPM_WARN    (DEBUG_PRINT_ALWAYS | XPM_WARN_VAL)
+#define XPM_INFO    (DEBUG_PRINT_ALWAYS | XPM_INFO_VAL)
+#define XPM_DBG     (DEBUG_PRINT_ALWAYS | XPM_DBG_VAL)
 
 #define XPM_DEBUG_MASK	0x70U
 #define XPM_DEBUG_SHIFT	4U
@@ -51,24 +47,23 @@ extern "C" {
 /**
  * Common baseline macro to print debug logs
  */
+#define XPmLogLevel XPM_ERR_VAL | XPM_WARN_VAL
 
 void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 
 #define PmPrintCommon(DbgLevel, ...)					\
 	do {								\
-		if (((DbgLevel) & (XPlmiDbgCurrentTypes)) != (u8)FALSE) {\
+		if ((((DbgLevel) & (XPmLogLevel)) & 0xF0) != (u8)FALSE) {\
 			XPm_Printf((DbgLevel | XPLMI_DEBUG_PRINT_TIMESTAMP_MASK), __func__,  __VA_ARGS__);\
 		}\
 	} while (XPM_FALSE_COND)
 
 
 /* Debug logs */
-#define PmAlert(...)	PmPrintCommon(XPM_ALERT, __VA_ARGS__)
 #define PmErr(...)	PmPrintCommon(XPM_ERR, __VA_ARGS__)
 #define PmWarn(...)	PmPrintCommon(XPM_WARN, __VA_ARGS__)
 #define PmInfo(...)	PmPrintCommon(XPM_INFO, __VA_ARGS__)
 #define PmDbg(...)	PmPrintCommon(XPM_DBG, __VA_ARGS__)
-#define PmTrace(...)	PmPrintCommon(XPM_TRACE, __VA_ARGS__)
 
 #ifndef MIO_FLUSH_DEBUG
 #define MIO_FLUSH_DEBUG DEBUG_INFO

@@ -785,7 +785,6 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		Prealloc = 1U;
 		/* Always use maximum capability and secure if applies */
 		Capability = XPM_MAX_CAPABILITY | PM_CAP_SECURE;
-		//PmAlert("Subsystem %x: Adding device %x\n\r", Subsystem->Id, Device->Node.Id);
 
 		/**
 		 * Since default subsystem is hard-coded for now, add security policy
