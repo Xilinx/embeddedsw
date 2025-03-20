@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -127,7 +127,8 @@
 *                     and trying to do secure boot
 * 2.1   kpt  12/13/23 Reset PMC TRNG when exception occurs
 *       ng   01/28/24 u8 variables optimization
-*       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
+*       pre  12/09/24 use PMC RAM for Metaheader instead of PPU1 RAM
+*       pre  03/02/25 setting data context lost for SHA when the resource is busy
 *
 * </pre>
 *
@@ -152,6 +153,7 @@
 #include "xsecure_init.h"
 #include "xloader_plat.h"
 #include "xloader_plat_secure.h"
+#include "xsecure_resourcehandling.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -461,11 +463,11 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		DataLen += XLOADER_SHA3_LEN;
 	}
 
-	/** Calculate Sha3 digest */
-	Status = XSecure_ShaInitialize(ShaInstPtr, SecurePtr->PmcDmaInstPtr);
+	/** Set the data context of previous SHA operation */
+	Status = XSecure_SetDataContextLost(XPLMI_SHA3_CORE);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
-				Status);
+			Status);
 		goto END;
 	}
 

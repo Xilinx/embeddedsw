@@ -55,6 +55,7 @@
 * 2.1   mb   06/21/2024 Added error code for AES initialization fail
 *       pre  07/14/2024 Added error code for exceeding IPI buffer size
 * 2.2   sk   03/05/2025 Updated error code for ASU core wakeup
+*       pre  03/15/2025 Added XPLMI_CMD_IN_PROGRESS error state
 *
 * </pre>
 *
@@ -257,6 +258,7 @@ typedef enum {
 	XPLMI_ERR_MAX_RECURSIVE_CDO_PROCESS, /**< 0x143 - Error when max recursive CDO processing
 						has been occurred */
 	XPLMI_ERR_EMINIT_INVALID_PARAM, /**< 0x144 Error if Params are Invalid */
+	XPLMI_CMD_IN_PROGRESS, /**< 0x145 - Indicates command is in progress */
 
 	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
 	XPLMI_ERR_PLM_UPDATE_COMPATIBILITY = 0x1A0, /**< 0x1A0 - Error in compatibility check
@@ -754,10 +756,10 @@ typedef enum {
 	XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL, /**< 0x641 - Error in calculating HashBlock
 						hash */
 	XLOADER_ERR_HASH_BLOCK_HASH_COMPARE_FAIL,
-					/**< 0x642 - Error in HashBlock hash comparision */
+					/**< 0x642 - Error in HashBlock hash comparison */
 	XLOADER_ERR_MH_HASH_CALC_FAIL, /**< 0x643 - Error in calculating MetaHeader hash */
 	XLOADER_ERR_META_HDR_HASH_COMPARE_FAIL,
-					/**< 0x644 - Error in MetaHeader hash comparision */
+					/**< 0x644 - Error in MetaHeader hash comparison */
 	XLOADER_ERR_HASH_BLOCK_AAD_VALIDATE, /**< 0x645 - Error in HashBlock AAD validation */
 	XLOADER_ERR_PPK_HASH_CALC_FAIL, /**< 0x646 - Error in PPK hash calculation */
 	XLOADER_ERR_SPK_HASH_CALC_FAIL, /**< 0x647 - Error in SPK hash calculation */
@@ -778,7 +780,7 @@ typedef enum {
 	XLOADER_ERR_LMS_GET_DMA, /**< 0x655 Failed to get DMA instance for LMS KAT */
 	XLOADER_ERR_CONFIG_LIMIT_EXCEEDED, /**< 0x656 Error when the configuration limit is exceeded */
 	XLOADER_ERR_UPDATE_CONFIG_LIMITER_CNT_FAILED, /**< 0x657 Error when the configuration limiter update failed */
-	XLOADER_ERR_KEY_AUTH_FAIL, /**< 0x658 Error when authetication of keys is failed */
+	XLOADER_ERR_KEY_AUTH_FAIL, /**< 0x658 Error when authentication of keys is failed */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XOCP_PCR_ERR_SWPCR_DUP_CONFIG = 0x6A0, /**< 0x6A0 Duplicate Pcr configuration provided */

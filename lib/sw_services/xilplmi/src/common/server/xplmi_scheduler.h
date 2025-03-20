@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 *       bsv  08/15/2021 Removed redundant element in structure
 * 1.04  bm   07/06/2022 Refactor versal and versal_net code
 * 1.05  nb   06/28/2023 Move XPLMI_SCHED_TICK here from .c file
+*       pre  03/02/2025 Added timeout handling for AES and SHA resources
 *
 * </pre>
 *
@@ -46,6 +47,7 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xplmi_task.h"
+#include "xplmi_config.h"
 
 /**@cond xplmi_internal
  * @{
@@ -56,9 +58,22 @@ extern "C" {
 #define XPLMI_PERIODIC_TASK		(0U)
 #define XPLMI_NON_PERIODIC_TASK		(1U)
 #define XPLMI_SCHED_TICK		(10U)
-
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET))
+#define XPLMI_FREE_RESOURCE_TASK_ID  (0x121U)/**< Task ID for free resource task */
+#endif
 typedef int (*XPlmi_Callback_t)(void *Data);
 typedef void (*XPlmi_ErrorFunc_t)(int Status);
+
+typedef enum {
+	XPLMI_SHA3_CORE = 0, /* SHA3 core */
+#ifdef VERSAL_AIEPG2
+	XPLMI_SHA2_CORE, /* SHA2 core */
+#endif
+#ifndef PLM_SECURE_EXCLUDE
+	XPLMI_AES_CORE, /* AES core */
+#endif
+	XPLMI_MAX_CORE, /* Maximum value */
+} XPlmi_CoreType;
 
 struct XPlmi_Task_t{
 	u32 Interval;
@@ -85,6 +100,9 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	void *Data,	u8 TaskType);
 int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	u32 MilliSeconds, const void *Data);
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET))
+int XPlmi_LoadResourceTimeout(XPlmi_CoreType Core, u32 TimeoutVal);
+#endif
 
 /**
  * @}

@@ -89,6 +89,7 @@
 *       pre  08/22/2024 Additions for XLoader_CfiSelectiveRead
 *       pre  10/26/2024 Removed XLoader_LoadReadBackPdi
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
+*       pre  03/17/2025 Added task based event notification functionality for subsystem PDI load
 *
 * </pre>
 *
@@ -156,8 +157,6 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_CMD_GET_HANDOFF_PARAM_DESTADDR_HIGH_INDEX	(0U)
 #define XLOADER_CMD_GET_HANDOFF_PARAM_DESTADDR_LOW_INDEX	(1U)
 #define XLOADER_CMD_GET_HANDOFF_PARAM_DEST_SIZE_INDEX	(2U)
-#define XLOADER_RESP_CMD_EXEC_STATUS_INDEX	(0U)
-#define XLOADER_RESP_CMD_LOAD_PDI_STATUS_INDEX	(1U)
 #define XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED	(1U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_UID_INDEX		(1U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_PID_INDEX		(2U)
@@ -324,6 +323,14 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 			goto END;
 		}
 		PdiSrc = XLOADER_PDI_SRC_DDR;
+	}
+
+	/**
+	 * - Queue partial PDI if any of SHA and AES resources is busy
+	*/
+	Status = XLoader_PpdiEventHandling(PdiSrc, PdiAddr, PdiPtr->IpiMask);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	/** Load Partial PDI */

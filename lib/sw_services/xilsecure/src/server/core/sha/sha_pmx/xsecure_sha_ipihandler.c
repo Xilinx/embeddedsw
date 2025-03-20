@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *       kpt   03/22/2024 Fix MISRA C violation of Rule 10.3
 *	ss    04/05/2024 Fixed doxygen warnings
 * 5.4   yog   04/29/2024 Fixed doxygen grouping and doxygen warnings.
+*       pre   03/02/2025 Implemented task based event notification functionality for SHA IPI events
 *
 * </pre>
 *
@@ -50,12 +51,12 @@
 #include "xsecure_error.h"
 #include "xplmi_hw.h"
 #include "xplmi.h"
+#include "xsecure_resourcehandling.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_IPI_CONTINUE_MASK		(0x80000000U)
 					/**< IPI Continue Mask */
-#define XSECURE_IPI_FIRST_PACKET_MASK		(0x40000000U)
-					/**< IPI First packet Mask */
+
 
 /************************** Function Prototypes *****************************/
 
@@ -63,8 +64,6 @@ static int XSecure_Sha3Init(void);
 static int XSecure_Sha3UpdateIpi(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	u32 DstAddrLow, u32 DstAddrHigh);
 static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd);
-static int XSecure_ShaIsDataContextLost(void);
-static void XSecure_MakeSha3Free(void);
 
 /*************************** Function Definitions *****************************/
 
@@ -84,22 +83,18 @@ static void XSecure_MakeSha3Free(void);
 int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);;
+	int SStatus = XST_FAILURE;
+	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
 	if (NULL == Cmd) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Check for resource availability to store Ipimask value */
-	if (XSecureSha3InstPtr->IsResourceBusy == (u32)XSECURE_RESOURCE_FREE) {
-		XSecureSha3InstPtr->IpiMask = Cmd->IpiMask;
-	}
-	else {
-		if (XSecureSha3InstPtr->IpiMask != Cmd->IpiMask) {
-			Status = XST_DEVICE_BUSY;
-			goto END;
-		}
+	/** SHA IPI event handling */
+	Status = XSecure_IpiEventHandling(Cmd, XPLMI_SHA3_CORE);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	/** Call the API handler according to API ID */
@@ -112,6 +107,12 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 	}
 
 END:
+	if (XSecureSha3InstPtr->ShaState == XSECURE_SHA_INITIALIZED) {
+		SStatus = XSecure_MakeResFree(XPLMI_SHA3_CORE);
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+	}
 	return Status;
 }
 
@@ -127,15 +128,10 @@ END:
 static int XSecure_Sha3Init(void)
 {
 	int Status = XST_FAILURE;
-	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);;
+	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 
 	if (NULL == PmcDmaInstPtr) {
-		goto END;
-	}
-
-	Status = XSecure_Sha3Initialize(XSecureSha3InstPtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -176,13 +172,6 @@ static int XSecure_Sha3UpdateIpi(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	u64 DstAddr = ((u64)DstAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)DstAddrLow;
 	XSecure_Sha3Hash Hash = {0U};
 
-	/* Check whether requested operation context is lost */
-	Status = XSecure_ShaIsDataContextLost();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-
 	if ((InputSize & XSECURE_IPI_FIRST_PACKET_MASK) != 0x0U) {
 		/* Initializes and starts the sha3 engine */
 		Status = XSecure_Sha3Init();
@@ -201,8 +190,6 @@ static int XSecure_Sha3UpdateIpi(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 		Status = XSecure_Sha3Finish(XSecureSha3InstPtr,
 				&Hash);
 		if (XST_SUCCESS == Status) {
-			/* Free Sha3 resource */
-			XSecure_MakeSha3Free();
 			/* copy hash to provided destination address using DMA */
 			Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
 				XSECURE_SHA3_HASH_LENGTH_IN_WORDS, XPLMI_PMCDMA_0);
@@ -236,18 +223,10 @@ static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)
 	u64 DataAddr = ((u64)Pload[1U] << XSECURE_ADDR_HIGH_SHIFT) | (u64)Pload[0U];
 	u64 DstAddr = ((u64)Pload[4U] << XSECURE_ADDR_HIGH_SHIFT) | (u64)Pload[3U];
 	XSecure_Sha3Hash Hash = {0U};
-	XSecureSha3InstPtr->IsResourceBusy = (u32)XSECURE_RESOURCE_BUSY;
 
 	if (((InputSize & XSECURE_IPI_FIRST_PACKET_MASK) != 0U) &&
 		((InputSize & XSECURE_IPI_CONTINUE_MASK) == 0U)){
 		if (NULL == PmcDmaInstPtr) {
-			goto END;
-		}
-
-		/* Initializes a XSecure_Sha3 structure for operating the SHA3 engine */
-		Status = XSecure_Sha3Initialize(XSecureSha3InstPtr,
-				PmcDmaInstPtr);
-		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
@@ -257,7 +236,6 @@ static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)
 		Status = XSecure_Sha3Digest(XSecureSha3InstPtr, (UINTPTR)DataAddr, InputSize,
 				(XSecure_Sha3Hash *)&Hash);
 		if (XST_SUCCESS == Status) {
-			XSecure_MakeSha3Free();
 			/* Initiate and complete the DMA to DMA transfer */
 			Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
 				XSECURE_SHA3_HASH_LENGTH_IN_WORDS, XPLMI_PMCDMA_0);
@@ -269,43 +247,6 @@ static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)
 	}
 
 END:
-	if (Status != XST_SUCCESS) {
-		XSecure_MakeSha3Free();
-	}
-	return Status;
-}
-/*****************************************************************************/
-/**
- * @brief	This function is used to mark the resource as free
- *
- ******************************************************************************/
-static void XSecure_MakeSha3Free(void)
-{
-	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);;
-
-	XSecureSha3InstPtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
-	XSecureSha3InstPtr->IpiMask = XSECURE_IPI_MASK_DEF_VAL;
-}
-/*****************************************************************************/
-/**
- * @brief	This function is used to check whether any previous data
- * 		context is lost for the corresponding ipi channel or not
- * @return
- *		 - XST_SUCCESS  If the context is available
- *		 - XST_DATA_LOST  If the context is lost
- *
-******************************************************************************/
- static int XSecure_ShaIsDataContextLost(void)
-{
-	const XSecure_Sha3 *InstancePtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);;
-	int Status = XST_SUCCESS;
-
-	if (InstancePtr->PreviousShaIpiMask == InstancePtr->IpiMask) {
-		if (InstancePtr->DataContextLost != (u32)XSECURE_DATA_CONTEXT_AVAILABLE) {
-			Status = XST_DATA_LOST;
-		}
-	}
-
 	return Status;
 }
 /** @} */

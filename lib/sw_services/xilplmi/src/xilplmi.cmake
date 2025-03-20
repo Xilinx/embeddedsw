@@ -162,6 +162,11 @@ if (XILPLMI_cfi_selective_read_en)
   set(PLM_ENABLE_CFI_SELECTIVE_READ " ")
 endif()
 
+option(XILPLMI_aes_and_sha_events_queuing_en "Enables or Disables queuing mechanism of AES and SHA events for Versal" OFF)
+if (XILPLMI_aes_and_sha_events_queuing_en)
+  set(PLM_ENABLE_SHA_AES_EVENTS_QUEUING " ")
+endif()
+
 option(XILPLMI_pm_restore_multiboot "Enables or disables the restoration of the multi-boot register for A/B firmware platforms." OFF)
 if (XILPLMI_pm_restore_multiboot)
   set(PLM_ENABLE_RESTORE_MULTIBOOT " ")

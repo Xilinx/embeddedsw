@@ -33,6 +33,7 @@
 #       pre  10/22/2024 Added configurable option for CFI selective read feature
 #       bm   11/11/2024 Added config option for I2C Handshake feature
 #       tri  03/13/2025 Added configurable option for xiltpm library
+#       pre  03/17/2024 Added configurable option for AES and SHA events queuing
 #
 ##############################################################################
 
@@ -490,6 +491,13 @@ proc xgen_opts_file {libhandle} {
 	if {$value == true} {
 		puts $file_handle "\n/* CFI selective read enable */"
 		puts $file_handle "#define PLM_ENABLE_CFI_SELECTIVE_READ"
+	}
+
+	# Get aes_and_sha_events_queuing_en value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.aes_and_sha_events_queuing_en $libhandle]
+	if {$value == true} {
+		puts $file_handle "\n/* AES and SHA events queuing mechanism enable for Versal */"
+		puts $file_handle "#define PLM_ENABLE_SHA_AES_EVENTS_QUEUING"
 	}
 
 	# Get user_modules count set by user, by default it is 0

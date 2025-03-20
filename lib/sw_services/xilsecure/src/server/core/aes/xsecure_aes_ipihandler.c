@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,7 @@
 *       ma    09/17/24   Replaced XPlmi_MemCpy64 with XSecure_MemCpy64 in
 *                        XSecure_AesEncUpdate and XSecure_AesDecUpdate
 *       tri   10/08/24   Configure DmaSwap before transferring IV to AES engine
+*       pre   03/02/25   Implemented task based event notification functionality for AES IPI events
 *
 * </pre>
 *
@@ -60,7 +61,9 @@
 #include "xsecure_error.h"
 #include "xplmi.h"
 #include "xsecure_error.h"
+#include "xsecure_resourcehandling.h"
 
+#ifndef PLM_SECURE_EXCLUDE
 /************************** Constant Definitions *****************************/
 #define XSECURE_AES_DEC_KEY_SRC_MASK	(0x000000FFU)
 			/**< AES decrypt key source mask for KEK decryption */
@@ -83,8 +86,6 @@ static int XSecure_AesDecFinal(u32 SrcAddrLow, u32 SrcAddrHigh);
 static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh);
 static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg);
 static int XSecure_IsKeySrcValid(u32 KeySrc);
-static int XSecure_AesIsDataContextLost(void);
-static void XSecure_MakeAesFree(void);
 static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAddr);
 /*****************************************************************************/
 /**
@@ -101,30 +102,22 @@ static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAdd
 int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	u32 *Pload = NULL;
-	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
 
 	if (NULL == Cmd) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	Pload = Cmd->Payload;
+	/** Handle the present command based on AES core status */
+	Status = XSecure_IpiEventHandling(Cmd, XPLMI_AES_CORE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
-	/*
-	 * Storing the Ipimask value when a request for the resource comes and
-	 * if the resource is free
-	 */
-	if (XSecureAesInstPtr->IsResourceBusy == (u32)XSECURE_RESOURCE_FREE) {
-		XSecureAesInstPtr->IpiMask = Cmd->IpiMask;
-	}
-	else {
-		/* Check if request comes from same IPI channel or not */
-		if (XSecureAesInstPtr->IpiMask != Cmd->IpiMask) {
-			Status = XST_DEVICE_BUSY;
-			goto END;
-		}
-	}
+	Pload = Cmd->Payload;
 
 	/** Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
@@ -186,6 +179,12 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 	}
 
 END:
+	if (AesInstPtr->AesState == XSECURE_AES_INITIALIZED) {
+		SStatus = XSecure_MakeResFree(XPLMI_AES_CORE);
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+	}
 	return Status;
 }
 
@@ -212,9 +211,6 @@ int XSecure_AesInit(void)
 	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
 
 END:
-	if (Status != XST_SUCCESS) {
-		XSecure_MakeAesFree();
-	}
 	return Status;
 }
 
@@ -239,18 +235,12 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_AesInitOps AesParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-	XSecureAesInstPtr->IsResourceBusy = (u32)XSECURE_RESOURCE_BUSY;
 
 	if (XSecureAesInstPtr->AesState == XSECURE_AES_UNINITIALIZED) {
 		Status = XSecure_AesInit();
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-	}
-
-	/* Clear previous aes data context flag */
-	if(XSecureAesInstPtr->PreviousAesIpiMask == XSecureAesInstPtr->IpiMask) {
-		 XSecureAesInstPtr->DataContextLost = (u32)XSECURE_DATA_CONTEXT_AVAILABLE;
 	}
 
 	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
@@ -261,9 +251,6 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	Status = XSecure_AesConfig(AesParams.OperationId, AesParams.KeySrc, AesParams.KeySize, AesParams.IvAddr);
 
 END:
-	if (Status != XST_SUCCESS) {
-		XSecure_MakeAesFree();
-	}
 	return Status;
 }
 
@@ -301,9 +288,6 @@ static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size, u32 I
 	Status = XSecure_AesUpdateAad(XSecureAesInstPtr, Addr, Size);
 
 END:
-	if (Status != XST_SUCCESS) {
-		XSecure_MakeAesFree();
-	}
 	return Status;
 }
 
@@ -336,19 +320,9 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 
 	XSecure_MemCpy64((u64)(UINTPTR)&InParams, Addr, sizeof(InParams));
 
-	/** Checks if any previous data context is lost for the corresponding IPI channel. */
-	Status = XSecure_AesIsDataContextLost();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	Status = XSecure_AesEncryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
 
-END:
-	if (Status != XST_SUCCESS) {
-		XSecure_MakeAesFree();
-	}
 	return Status;
 }
 
@@ -372,17 +346,9 @@ static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh)
 	u64 Addr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	/** Checks if any previous data context is lost for the corresponding IPI channel. */
-	Status = XSecure_AesIsDataContextLost();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	/* Generates GCM tag */
 	Status = XSecure_AesEncryptFinal(XSecureAesInstPtr, Addr);
 
-	XSecure_MakeAesFree();
-END:
 	return Status;
 }
 
@@ -415,20 +381,10 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 
 	XSecure_MemCpy64((u64)(UINTPTR)&InParams, Addr, sizeof(InParams));
 
-	/** Checks if any previous data context is lost for the corresponding IPI channel. */
-	Status = XSecure_AesIsDataContextLost();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	/** Update data in AES engine which needs to be decrypted. */
 	Status = XSecure_AesDecryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
 
-END:
-	if (Status != XST_SUCCESS) {
-		XSecure_MakeAesFree();
-	}
 	return Status;
 }
 
@@ -450,17 +406,9 @@ static int XSecure_AesDecFinal(u32 SrcAddrLow, u32 SrcAddrHigh)
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	/** Checks if any previous data context is lost for the corresponding IPI channel */
-	Status = XSecure_AesIsDataContextLost();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	/** Verify the GCM tag provided for the data decrypted */
 	Status = XSecure_AesDecryptFinal(XSecureAesInstPtr, Addr);
 
-	XSecure_MakeAesFree();
-END:
 	return Status;
 }
 
@@ -494,9 +442,6 @@ int XSecure_AesKeyZeroize(u32 KeySrc)
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 	}
 
-	if (Status != XST_SUCCESS) {
-		XSecure_MakeAesFree();
-	}
 	return Status;
 }
 
@@ -542,9 +487,6 @@ int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 				(XSecure_AesKeySize)KeySize, KeyAddr);
 
 END:
-	if (Status != XST_SUCCESS) {
-		XSecure_MakeAesFree();
-	}
 	return Status;
 }
 
@@ -590,9 +532,6 @@ static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
 				IvAddr, KeySize);
 
 END:
-	if (Status != XST_SUCCESS) {
-		XSecure_MakeAesFree();
-	}
 	return Status;
 }
 
@@ -613,9 +552,6 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
 	Status = XSecure_AesSetDpaCm(XSecureAesInstPtr, DpaCmCfg);
-	if (Status != XST_SUCCESS) {
-		XSecure_MakeAesFree();
-	}
 
 	return Status;
 }
@@ -684,9 +620,6 @@ int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 
 
 END:
-	if (Status != XST_SUCCESS) {
-		XSecure_MakeAesFree();
-	}
 	return Status;
 }
 
@@ -720,38 +653,7 @@ END:
 
 	return Status;
  }
-/*****************************************************************************/
-/**
- * @brief	This function is used to mark the resource as free
- *
- ******************************************************************************/
-static void XSecure_MakeAesFree(void)
-{
-	XSecure_Aes *InstancePtr = XSecure_GetAesInstance();
 
-	InstancePtr->IsResourceBusy = (u32)XSECURE_RESOURCE_FREE;
-	InstancePtr->IpiMask = XSECURE_IPI_MASK_DEF_VAL;
-}
-/*****************************************************************************/
-/**
- * @brief	This function is used to check whether any previous data
- * 		context is lost for the corresponding ipi channel or not.
- * @return
- *		 - XST_SUCCESS  If the context is available
- *		 - XST_DATA_LOST  If the context is lost
- *
- ******************************************************************************/
-static int XSecure_AesIsDataContextLost(void)
-{
-	const XSecure_Aes *InstancePtr = XSecure_GetAesInstance();
-	int Status = XST_SUCCESS;
-	if (InstancePtr->PreviousAesIpiMask == InstancePtr->IpiMask) {
-		if (InstancePtr->DataContextLost != (u32)XSECURE_DATA_CONTEXT_AVAILABLE) {
-			Status = XST_DATA_LOST;
-		}
-	}
-	return Status;
-}
 /*****************************************************************************/
 /**
  * @brief	This function is used to validate key source and initialise the encryption/decryption
@@ -796,4 +698,5 @@ static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAdd
 END:
 	return Status;
 }
+#endif
 /** @} */

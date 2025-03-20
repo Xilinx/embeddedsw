@@ -92,6 +92,7 @@
  *			 ack after handling events
  * 2.02  gam  01/07/2025 Created dummy IPI APIs in case of no IPI instance to
  *                       fix plm build issue with XilSEM.
+ *       pre  03/02/2025 Added handling for XPLMI_CMD_IN_PROGRESS status
  *
  * </pre>
  *
@@ -135,7 +136,6 @@
 static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex);
 static XPlmi_SubsystemHandler XPlmi_GetPmSubsystemHandler(
 	XPlmi_SubsystemHandler SubsystemHandler);
-static int XPlmi_IpiDispatchHandler(void *Data);
 static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload);
 static XStatus (*XPlmi_PsmIpiHandler)(void);
 #ifndef VERSAL_AIEPG2
@@ -408,6 +408,28 @@ END:
 }
 #endif
 
+/*************************************************************************************************/
+/**
+ * @brief	This function sends the response to caller and acknowledges the IPI
+ *
+ * @param	IpiMask is mask of IPI channel to which response has to be sent
+ * @param   Response is the buffer address which contains response to be sent
+ *
+ *************************************************************************************************/
+void XPlmi_SendResponseandAck(u32 IpiMask, u32 *Response)
+{
+	/** Send response */
+	(void)XPlmi_IpiWrite(IpiMask, Response,
+		XPLMI_CMD_RESP_SIZE,
+		XIPIPSU_BUF_TYPE_RESP);
+
+	/** Ack all IPIs */
+	if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
+		XPlmi_Out32(IPI_PMC_ISR, IpiMask);
+		XPlmi_Out32(IPI_PMC_IER, IpiMask);
+	}
+}
+
 /*****************************************************************************/
 /**
  * @brief	This is the handler for IPI interrupts.
@@ -421,7 +443,7 @@ END:
  * 			- Other error codes returned through the called functions.
  *
  *****************************************************************************/
-static int XPlmi_IpiDispatchHandler(void *Data)
+int XPlmi_IpiDispatchHandler(void *Data)
 {
 	XPlmi_SubsystemHandler SubsystemHandler;
 	volatile int Status = XST_FAILURE;
@@ -443,6 +465,7 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 		}
 		Cmd.AckInPLM = (u8)TRUE;
 		Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
+		Cmd.BufIndex = IpiInst.Config.TargetList[MaskIndex].BufferIndex;
 		Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
 
 		/**
@@ -502,24 +525,23 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 		Status = XPlmi_IpiCmdExecute(&Cmd, Payload);
 
 END:
+		/** Returning success without acknowledging IPI event since IPI event is still in progress.
+		 * Client cannot send next request without previous one being acked
+		 */
+		if (Status == (int)XPLMI_CMD_IN_PROGRESS) {
+			Status = XST_SUCCESS;
+			goto END1;
+		}
+
 		/**
 		 *  Skip providing ack if it is handled in the command handler.
 		 */
 		if ((u8)TRUE == Cmd.AckInPLM) {
 			Cmd.Response[0U] = (u32)Status & (~(u32)XPLMI_WARNING_STATUS_MASK);
 			/**
-			 * Send response to caller
+			 * Send response to caller and ack IPI
 			 */
-			(void)XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
-					XPLMI_CMD_RESP_SIZE,
-					XIPIPSU_BUF_TYPE_RESP);
-			/**
-			 * Ack all IPIs
-			 */
-			if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
-				XPlmi_Out32(IPI_PMC_ISR, Cmd.IpiMask);
-				XPlmi_Out32(IPI_PMC_IER, Cmd.IpiMask);
-			}
+			XPlmi_SendResponseandAck(Cmd.IpiMask, Cmd.Response);
 		}
 	}
 
@@ -536,6 +558,7 @@ END:
 		XPlmi_Printf(DEBUG_DETAILED, "%s: IPI processed.\n\r", __func__);
 	}
 
+END1:
 	/**
 	 * Clear and enable the IPI interrupt
 	 */

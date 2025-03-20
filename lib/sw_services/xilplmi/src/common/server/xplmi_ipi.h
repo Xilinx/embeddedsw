@@ -45,6 +45,7 @@
 *       ma   09/23/2024 Added support for PSM to PLM IPI event handler
 * 1.11  gam  01/07/2025 Created dummy IPI APIs in case of no IPI instance to
 *                       fix plm build issue with XilSEM.
+*       pre  03/02/2025 Modified IPIdispatchhandler for external linkage
 *
 * </pre>
 *
@@ -108,6 +109,8 @@ int XPlmi_IpiDrvInit(void);
 void XPlmi_IpiEnable(u32 IpiMask);
 XIpiPsu *XPlmi_GetIpiInstance(void);
 void XPlmi_SetPsmToPlmEventInfo(volatile PsmToPlmEventInfo_t *EventInfo);
+int XPlmi_IpiDispatchHandler(void *Data);
+void XPlmi_SendResponseandAck(u32 IpiMask, u32 *Response);
 
 /************************** Variable Definitions *****************************/
 
