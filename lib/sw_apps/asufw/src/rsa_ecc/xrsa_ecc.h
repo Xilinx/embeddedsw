@@ -22,6 +22,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       ss   12/02/24 Added support for ECDH
  *       yog  02/21/25 Added XRsa_EccValidateAndGetCrvInfo() prototype
+ *       yog  03/21/25 Added PWCT support
  *
  * </pre>
  *
@@ -70,6 +71,8 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 			    u64 PubKeyAddr, u64 SharedSecretAddr, u64 SharedSecretObjIdAddr);
 EcdsaCrvInfo *XRsa_EccGetCrvData(u32 CurveType);
 u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv);
+s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
+	u64 PubKeyAddr);
 
 /************************************ Variable Definitions ***************************************/
 

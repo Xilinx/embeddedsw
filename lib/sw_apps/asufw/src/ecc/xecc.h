@@ -17,6 +17,7 @@
 * 1.0   yog  06/19/2024 First Release
 *       yog  08/19/2024 Received Dma instance from handler
 *       yog  09/26/2024 Added doxygen groupings and fixed doxygen comments.
+*       yog  03/21/2025 Added PWCT support
 *
 * </pre>
 *
@@ -60,6 +61,8 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			   u64 SignAddr);
 s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
 			 u64 PubKeyAddr, u64 HashAddr, u32 HashBufLen, u64 SignAddr);
+s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
+	u64 PrivKeyAddr, u64 PubKeyAddr);
 
 /************************************ Variable Definitions ***************************************/
 

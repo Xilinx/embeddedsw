@@ -21,6 +21,7 @@
 *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
 *       ss   12/02/24 Added support for ECDH
 *       yog  02/21/25 Changed the API XRsa_EccValidateAndGetCrvInfo() to be non-static
+*       yog  03/21/25 Added PWCT support
 *
 * </pre>
 *
@@ -95,6 +96,31 @@
 /************************************ Function Prototypes ****************************************/
 
 /************************************ Variable Definitions ***************************************/
+/** Message to be used for pair wise consistency test. */
+static const u8 MsgPwctRsaEcc[XASU_ECC_P521_SIZE_IN_BYTES] = {
+	0x8FU, 0xDFU, 0x4CU, 0x12U, 0x9AU, 0x90U, 0xBCU, 0x76U,
+	0x38U, 0xA5U, 0x5BU, 0x22U, 0x9BU, 0xD4U, 0xAEU, 0x1BU,
+	0x09U, 0x5DU, 0x6DU, 0x61U, 0x68U, 0xA0U, 0x43U, 0xC2U,
+	0xC3U, 0x9FU, 0x53U, 0xE4U, 0xD8U, 0xC4U, 0xBEU, 0x5FU,
+	0x7FU, 0x6BU, 0x93U, 0xD1U, 0x68U, 0xA8U, 0x3FU, 0x8DU,
+	0x43U, 0xB2U, 0x9FU, 0x25U, 0x5BU, 0x56U, 0xC8U, 0xD5U,
+	0x40U, 0x5BU, 0x1EU, 0xE2U, 0x0FU, 0x9FU, 0x05U, 0x29U,
+	0x06U, 0xFBU, 0xE5U, 0x0BU, 0xE6U, 0x7BU, 0xAFU, 0x7AU,
+	0x56U, 0xC8U
+};
+
+/** Ephemeral Key to be used for pair wise consistency test. */
+static const u8 EKeyPwctRsaEcc[XASU_ECC_P521_SIZE_IN_BYTES] = {
+	0x36U, 0x77U, 0xFBU, 0xF9U, 0xBBU, 0x2DU, 0x96U, 0xA3U,
+	0x1BU, 0x01U, 0x11U, 0x08U, 0x57U, 0x93U, 0x8CU, 0xC4U,
+	0x9DU, 0x9AU, 0x30U, 0xA4U, 0xE0U, 0x0EU, 0x9CU, 0xD4U,
+	0xB5U, 0x5DU, 0x97U, 0x77U, 0x58U, 0x0CU, 0x84U, 0xC7U,
+	0x0CU, 0x67U, 0x48U, 0x94U, 0xE8U, 0x53U, 0xD3U, 0x6BU,
+	0xBEU, 0xC6U, 0xC2U, 0x1FU, 0xDCU, 0xFCU, 0x7BU, 0xD1U,
+	0xF8U, 0x2BU, 0x72U, 0xD3U, 0xA4U, 0xC2U, 0x8EU, 0x10U,
+	0xD8U, 0x25U, 0x5DU, 0x21U, 0x33U, 0xD5U, 0xCAU, 0x38U,
+	0xCAU, 0x38U
+};
 
 /*************************************************************************************************/
 /**
@@ -116,6 +142,8 @@
  *	- XASUFW_RSA_ECC_WRITE_DATA_FAIL, if write data through DMA fails.
  *	- XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, if public key generation operation fails.
  *	- XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails
+ *	- XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, if sign generation fails in PWCT.
+ *	- XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, if sign verification fails in PWCT.
  *
  *************************************************************************************************/
 s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
@@ -195,8 +223,11 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	}
 
 	/** Validate the public key generated from the private key. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	XFIH_CALL(XRsa_EccValidatePubKey, XFihVar, Status, DmaPtr, CurveType, CurveLen, PubKeyAddr);
+	XFIH_CALL_GOTO(XRsa_EccValidatePubKey, XFihVar, Status, END_CLR, DmaPtr, CurveType, CurveLen, PubKeyAddr);
+
+	/** Perform pair wise consistency test using the key pair. */
+	XFIH_CALL(XRsa_EccPwct, XFihVar, Status, DmaPtr, CurveType, CurveLen, PrivKeyAddr,
+		PubKeyAddr);
 
 END_CLR:
 	/** Zeroize local key copy. */
@@ -207,6 +238,7 @@ END_CLR:
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
 			XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
 END:
 	/** Set RSA under reset. */
 	XAsufw_CryptoCoreSetReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
@@ -620,6 +652,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	} else {
 		Status = XASUFW_SUCCESS;
 	}
+
 END_CLR:
 	/** Zeroize local key copy. */
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
@@ -796,7 +829,6 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	/** Release Reset. */
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	XFIH_CALL(Ecdsa_CDH_Q, XFihEcdh, Status, Crv, PrivKey, (EcdsaKey *)&Key, SharedSecret);
 
 	/** Set RSA under reset. */
@@ -856,6 +888,62 @@ END_CLR:
 
 END:
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function performs ECC pair wise consistency test for RSA core
+ *
+ * @param	DmaPtr		Pointer to the AsuDma instance.
+ * @param	CurveType	ECC Curve type.
+ * @param	CurveLen	Length of the curve in bytes.
+ * @param	PrivKeyAddr	Address of the private key buffer, whose length shall be equal to
+ * 				CurveLen.
+ * @param	PubKeyAddr	Address of the public key buffer, whose length shall be equal to
+ * 				double of CurveLen as it contains both Qx, Qy components.
+ *
+ * @return
+ *	-	XASUFW_SUCCESS, if signature provided is valid.
+ *	-	XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameter is invalid.
+ *	-	XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, if sign generation fails.
+ *	-	XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, if sign verification fails.
+ *
+ *************************************************************************************************/
+s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
+	u64 PubKeyAddr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	u8 Signature[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
+
+	if ((DmaPtr == NULL) || (PrivKeyAddr == 0U) || (PubKeyAddr == 0U)) {
+		Status = XASUFW_RSA_ECC_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XRsa_EccGenerateSignature(DmaPtr, CurveType, CurveLen, PrivKeyAddr,
+			EKeyPwctRsaEcc, (u64)(UINTPTR)MsgPwctRsaEcc, CurveLen,
+			(u64)(UINTPTR)Signature);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL);
+		goto END_CLR;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_EccVerifySignature(DmaPtr, CurveType, CurveLen, PubKeyAddr,
+			(u64)(UINTPTR)MsgPwctRsaEcc, CurveLen,
+			(u64)(UINTPTR)Signature);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL);
+	}
+
+END_CLR:
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
+					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+END:
 	return Status;
 }
 /** @} */
