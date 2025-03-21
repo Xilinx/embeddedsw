@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -19,7 +19,7 @@ properties:
 
   reg:
     description: Physical base address and size of the controller register map
-  xlnx,frequency-range:
+  xlnx,frequency-range-int:
     decription: Frequency range
   xlnx,num-antenna:
     decription: Number of antenna
@@ -34,7 +34,7 @@ config:
 required:
     - compatible
     - reg
-    - xlnx,frequency-range
+    - xlnx,frequency-range-int
     - xlnx,num-antenna
     - xlnx,antenna-interleave
     - xlnx,phase-compensation
