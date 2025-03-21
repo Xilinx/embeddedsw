@@ -1817,6 +1817,22 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	Retrieves the current AES engine mode.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ *
+ * @return
+ *		- EngineMode if the instance pointer is valid.
+ *		- XASUFW_AES_INVALID_ENGINE_MODE, upon NULL instance pointer.
+ *
+ *************************************************************************************************/
+u8 XAes_GetEngineMode(const XAes *InstancePtr)
+{
+	return (InstancePtr != NULL) ? InstancePtr->EngineMode : XASUFW_AES_INVALID_ENGINE_MODE;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function waits for AES operation to complete.
  *
  * @param	InstancePtr	Pointer to the XAes instance.

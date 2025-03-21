@@ -159,6 +159,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	const Asu_AesParams *AesParamsPtr = (const Asu_AesParams *)ReqBuf->Arg;
+	u8 EngineMode = XASUFW_AES_INVALID_ENGINE_MODE;
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
 		Status = XAes_WriteKey(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
@@ -178,6 +179,12 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) {
+		/* Fetch the actual engine mode from the initialized AES instance */
+		EngineMode = XAes_GetEngineMode(XAsufw_Aes);
+		if (EngineMode == XASUFW_AES_INVALID_ENGINE_MODE) {
+			Status = XASUFW_AES_INVALID_ENGINE_MODE;
+			goto END;
+		}
 		/**
 		 * Update AAD data to AES engine.
 		 * User can push data in one go(entire AAD and Plaintext data at once) to the
@@ -186,7 +193,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * During single/multiple update of AAD data, address of AAD data will be non-zero.
 		 * User should pass AAD address as zero for AES standard modes(CBC, ECB, CFB, OFB, CTR)
 		 */
-		if ((AesParamsPtr->AadAddr != 0U) && XASU_AES_IS_AAD_SUPPORTED_MODE(AesParamsPtr->EngineMode)) {
+		if ((AesParamsPtr->AadAddr != 0U) && XASU_AES_IS_AAD_SUPPORTED_MODE(EngineMode)) {
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
 					AesParamsPtr->AadLen, XASU_FALSE);
 			if (Status != XASUFW_SUCCESS) {
@@ -195,7 +202,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			}
 		}
 		/** For AES CCM mode format and push the AAD to AES engine. */
-		if (AesParamsPtr->EngineMode == XASU_AES_CCM_MODE) {
+		if (EngineMode == XASU_AES_CCM_MODE) {
 			if ((AesParamsPtr->OperationFlags &
 					(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) !=
 					(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) {
@@ -218,7 +225,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * For authentication only modes like CMAC, plaintext is not required.
 		 */
 		if ((AesParamsPtr->InputDataAddr != 0U) &&
-		    (AesParamsPtr->EngineMode != XASU_AES_CMAC_MODE)) {
+		    (EngineMode != XASU_AES_CMAC_MODE)) {
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
 					AesParamsPtr->InputDataAddr, AesParamsPtr->OutputDataAddr,
 					AesParamsPtr->DataLen, AesParamsPtr->IsLast);
