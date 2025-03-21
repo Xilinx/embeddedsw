@@ -621,7 +621,7 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/* Validate the IV with respect to the user provided engine mode */
-	Status = XAsu_AesValidateIv(InstancePtr->EngineMode, IvAddr, IvLen);
+	Status = XAsu_AesValidateIvParams(InstancePtr->EngineMode, IvAddr, IvLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_INVALID_IV;
 		goto END;
@@ -829,7 +829,7 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 	}
 
 	/** Validate the tag with respect to the user provided engine mode. */
-	XFIH_CALL_GOTO(XAsu_AesValidateTag, XFihTagStatus, Status, END, InstancePtr->EngineMode,
+	XFIH_CALL_GOTO(XAsu_AesValidateTagParams, XFihTagStatus, Status, END, InstancePtr->EngineMode,
 		TagAddr, TagLen);
 
 	/** Initialize the AES instance with ASU DMA pointer. */
@@ -906,7 +906,7 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 	}
 
 	/** Validate the IV with respect to the AES-CCM engine mode. */
-	Status = XAsu_AesValidateIv(XASU_AES_CCM_MODE, NonceAddr, NonceLen);
+	Status = XAsu_AesValidateIvParams(XASU_AES_CCM_MODE, NonceAddr, NonceLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
@@ -1054,7 +1054,7 @@ s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeyS
 	InstancePtr->OperationType = XASU_AES_DECRYPT_OPERATION;
 
 	/** Validate the IV with respect to the user provided engine mode. */
-	Status = XAsu_AesValidateIv(InstancePtr->EngineMode, IvAddr, IvLen);
+	Status = XAsu_AesValidateIvParams(InstancePtr->EngineMode, IvAddr, IvLen);
 	if(Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_INVALID_IV;
 		goto END;

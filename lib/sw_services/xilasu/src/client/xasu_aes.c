@@ -17,6 +17,8 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   am   08/01/24 Initial release
  * 1.1   am   01/20/25 Added AES CCM support
+ *       am   03/14/25 Replaced XAsu_AesValidateIv() with XAsu_AesValidateIvParams() and
+ *                     XAsu_AesValidateTag() with XAsu_AesValidateTagParams() function calls
  *
  * </pre>
  *
@@ -116,7 +118,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 		}
 
 		/** Validate Iv. */
-		Status = XAsu_AesValidateIv(AesClientParamPtr->EngineMode,
+		Status = XAsu_AesValidateIvParams(AesClientParamPtr->EngineMode,
 			AesClientParamPtr->IvAddr, AesClientParamPtr->IvLen);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -174,7 +176,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 	/** Validate required parameters for AES final operation. */
 	if ((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) == XASU_AES_FINAL) {
 		/** Validate Tag. */
-		Status = XAsu_AesValidateTag(AesClientParamPtr->EngineMode, AesClientParamPtr->TagAddr,
+		Status = XAsu_AesValidateTagParams(AesClientParamPtr->EngineMode, AesClientParamPtr->TagAddr,
 			AesClientParamPtr->TagLen);
 		if (Status != XST_SUCCESS) {
 			goto END;

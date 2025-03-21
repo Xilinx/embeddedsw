@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -17,6 +17,8 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   am   10/03/24 Initial release
  * 1.1   am   01/20/25 Added AES CCM Iv validation
+ *       am   03/14/25 Renamed XAsu_AesValidateIv() to XAsu_AesValidateIvParams() and
+ *                     XAsu_AesValidateTag() to XAsu_AesValidateTagParams()
  *
  * </pre>
  *
@@ -45,7 +47,7 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates IV for given AES engine mode.
+ * @brief	This function validates IV parameters for given AES engine mode.
  *
  * @param	EngineMode	AES engine mode.
  * @param	IvAddr		Address of buffer holding IV.
@@ -56,11 +58,11 @@
  *		- Error code on failure.
  *
  *************************************************************************************************/
-s32 XAsu_AesValidateIv(u8 EngineMode, u64 IvAddr, u32 IvLen)
+s32 XAsu_AesValidateIvParams(u8 EngineMode, u64 IvAddr, u32 IvLen)
 {
 	s32 Status = XST_FAILURE;
 
-	/*
+	/**
 	 * IV Validation for respective AES engine modes
 	 * AES Standard mode (ECB, CBC, CTR, CFB, OFB).
 	 * AES MAC mode (GCM, CCM, GMAC, CMAC).
@@ -69,6 +71,7 @@ s32 XAsu_AesValidateIv(u8 EngineMode, u64 IvAddr, u32 IvLen)
 	 * |-------------------|----------------|----------------------|
 	 * | AES-ECB, AES-CMAC |     N/A        |      N/A             |
 	 * | AES-GCM           |   Non-zero     |  Any non-zero Length |
+	 * | AES-CCM           |   Non-zero     |  7 to 13 bytes       |
 	 * | Remaining modes   |   Non-zero     |  12 or 16 Bytes      |
 	 */
 	switch (EngineMode) {
@@ -105,7 +108,7 @@ s32 XAsu_AesValidateIv(u8 EngineMode, u64 IvAddr, u32 IvLen)
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates Tag for given AES engine mode.
+ * @brief	This function validates Tag parameters for given AES engine mode.
  *
  * @param	EngineMode	AES engine mode.
  * @param	TagAddr		Address of the Input/Output Tag.
@@ -117,11 +120,11 @@ s32 XAsu_AesValidateIv(u8 EngineMode, u64 IvAddr, u32 IvLen)
  *		- Error code on failure.
  *
  *************************************************************************************************/
-s32 XAsu_AesValidateTag(u8 EngineMode, u64 TagAddr, u32 TagLen)
+s32 XAsu_AesValidateTagParams(u8 EngineMode, u64 TagAddr, u32 TagLen)
 {
 	s32 Status = XST_FAILURE;
 
-	/*
+	/**
 	 * Tag Validation for respective AES engine modes
 	 * AES Standard mode (ECB, CBC, CTR, CFB, OFB).
 	 * AES MAC mode (GCM, CCM, GMAC, CMAC).
