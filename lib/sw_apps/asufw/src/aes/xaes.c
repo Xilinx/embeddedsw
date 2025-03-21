@@ -23,6 +23,7 @@
  *       am   01/20/25 Added AES CCM support
  *       vns  02/12/25 Removed XAsufw_RCMW() API
  *       yog  02/26/25 Added XAes_Compute() API
+ *       am   03/14/25 Updated doxygen comments
  *
  * </pre>
  *
@@ -90,149 +91,155 @@ struct _XAes_Config {
 };
 
 /************************** Variable Definitions *************************************************/
-/** This array of structure defines look up table for AES key. */
-static const XAes_KeyLookup AesKeyLookupTbl [XASU_AES_MAX_KEY_SOURCES] = {
-	/** USER_KEY_0 */
+/**
+ * @brief AES Key Lookup Table
+ *
+ * This table contains details about different AES key sources, including their configuration,
+ * selection values, write permissions, and zeroed status masks.
+ *
+ */
+ static const XAes_KeyLookup AesKeyLookupTbl [XASU_AES_MAX_KEY_SOURCES] = {
+	/** XASU_AES_USER_KEY_0 */
 	{
-		XAES_USER_KEY_0_0_OFFSET,
-		XAES_KEY_SEL_USER_KEY_0_VALUE,
-		XASU_TRUE,
-		XASU_FALSE,
-		XAES_INVALID_CFG,
-		XAES_KEY_CLEAR_USER_KEY_0_MASK,
-		XAES_KEY_ZEROED_STATUS_USER_KEY_0_MASK
+		XAES_USER_KEY_0_0_OFFSET,       /**< Register offset of USER KEY0 */
+		XAES_KEY_SEL_USER_KEY_0_VALUE,  /**< USER KEY0 selection value */
+		XASU_TRUE,                      /**< Write allowed to AES user key registers */
+		XASU_FALSE,                     /**< Key decryption source not allowed */
+		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
+		XAES_KEY_CLEAR_USER_KEY_0_MASK, /**< Mask to clear the USER KEY0 */
+		XAES_KEY_ZEROED_STATUS_USER_KEY_0_MASK /**< Mask to check if USER KEY0 is zeroed */
 	},
 
-	/** USER_KEY_1 */
+	/** XASU_AES_USER_KEY_1 */
 	{
-		XAES_USER_KEY_1_0_OFFSET,
-		XAES_KEY_SEL_USER_KEY_1_VALUE,
-		XASU_TRUE,
-		XASU_FALSE,
-		XAES_INVALID_CFG,
-		XAES_KEY_CLEAR_USER_KEY_1_MASK,
-		XAES_KEY_ZEROED_STATUS_USER_KEY_1_MASK
+		XAES_USER_KEY_1_0_OFFSET,       /**< Register offset of USER KEY1 */
+		XAES_KEY_SEL_USER_KEY_1_VALUE,  /**< USER KEY1 selection value */
+		XASU_TRUE,                      /**< Write allowed to AES user key registers */
+		XASU_FALSE,                     /**< Key decryption source not allowed */
+		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
+		XAES_KEY_CLEAR_USER_KEY_1_MASK, /**< Mask to clear the USER KEY1 */
+		XAES_KEY_ZEROED_STATUS_USER_KEY_1_MASK /**< Mask to check if USER KEY1 is zeroed */
 	},
 
-	/** USER_KEY_2 */
+	/** XASU_AES_USER_KEY_2 */
 	{
-		XAES_USER_KEY_2_0_OFFSET,
-		XAES_KEY_SEL_USER_KEY_2_VALUE,
-		XASU_TRUE,
-		XASU_FALSE,
-		XAES_INVALID_CFG,
-		XAES_KEY_CLEAR_USER_KEY_2_MASK,
-		XAES_KEY_ZEROED_STATUS_USER_KEY_2_MASK
+		XAES_USER_KEY_2_0_OFFSET,       /**< Register offset of USER KEY2 */
+		XAES_KEY_SEL_USER_KEY_2_VALUE,  /**< USER KEY2 selection value */
+		XASU_TRUE,                      /**< Write allowed to AES user key registers */
+		XASU_FALSE,                     /**< Key decryption source not allowed */
+		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
+		XAES_KEY_CLEAR_USER_KEY_2_MASK, /**< Mask to clear the USER KEY2 */
+		XAES_KEY_ZEROED_STATUS_USER_KEY_2_MASK /**< Mask to check if USER KEY2 is zeroed */
 	},
 
-	/** USER_KEY_3 */
+	/** XASU_AES_USER_KEY_3 */
 	{
-		XAES_USER_KEY_3_0_OFFSET,
-		XAES_KEY_SEL_USER_KEY_3_VALUE,
-		XASU_TRUE,
-		XASU_FALSE,
-		XAES_INVALID_CFG,
-		XAES_KEY_CLEAR_USER_KEY_3_MASK,
-		XAES_KEY_ZEROED_STATUS_USER_KEY_3_MASK
+		XAES_USER_KEY_3_0_OFFSET,       /**< Register offset of USER KEY3 */
+		XAES_KEY_SEL_USER_KEY_3_VALUE,  /**< USER KEY3 selection value */
+		XASU_TRUE,                      /**< Write allowed to AES user key registers */
+		XASU_FALSE,                     /**< Key decryption source not allowed */
+		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
+		XAES_KEY_CLEAR_USER_KEY_3_MASK, /**< Mask to clear the USER KEY3 */
+		XAES_KEY_ZEROED_STATUS_USER_KEY_3_MASK /**< Mask to check if USER KEY3 is zeroed */
 	},
 
-	/** USER_KEY_4 */
+	/** XASU_AES_USER_KEY_4 */
 	{
-		XAES_USER_KEY_4_0_OFFSET,
-		XAES_KEY_SEL_USER_KEY_4_VALUE,
-		XASU_TRUE,
-		XASU_FALSE,
-		XAES_INVALID_CFG,
-		XAES_KEY_CLEAR_USER_KEY_4_MASK,
-		XAES_KEY_ZEROED_STATUS_USER_KEY_4_MASK
+		XAES_USER_KEY_4_0_OFFSET,       /**< Register offset of USER KEY4 */
+		XAES_KEY_SEL_USER_KEY_4_VALUE,  /**< USER KEY4 selection value */
+		XASU_TRUE,                      /**< Write allowed to AES user key registers */
+		XASU_FALSE,                     /**< Key decryption source not allowed */
+		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
+		XAES_KEY_CLEAR_USER_KEY_4_MASK, /**< Mask to clear the USER KEY4 */
+		XAES_KEY_ZEROED_STATUS_USER_KEY_4_MASK /**< Mask to check if USER KEY4 is zeroed */
 	},
 
-	/** USER_KEY_5 */
+	/** XASU_AES_USER_KEY_5 */
 	{
-		XAES_USER_KEY_5_0_OFFSET,
-		XAES_KEY_SEL_USER_KEY_5_VALUE,
-		XASU_TRUE,
-		XASU_FALSE,
-		XAES_INVALID_CFG,
-		XAES_KEY_CLEAR_USER_KEY_5_MASK,
-		XAES_KEY_ZEROED_STATUS_USER_KEY_5_MASK
+		XAES_USER_KEY_5_0_OFFSET,       /**< Register offset of USER KEY5 */
+		XAES_KEY_SEL_USER_KEY_5_VALUE,  /**< USER KEY5 selection value */
+		XASU_TRUE,                      /**< Write allowed to AES user key registers */
+		XASU_FALSE,                     /**< Key decryption source not allowed */
+		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
+		XAES_KEY_CLEAR_USER_KEY_5_MASK, /**< Mask to clear the USER KEY5 */
+		XAES_KEY_ZEROED_STATUS_USER_KEY_5_MASK /**< Mask to check if USER KEY5 is zeroed */
 	},
 
-	/** USER_KEY_6 */
+	/** XASU_AES_USER_KEY_6 */
 	{
-		XAES_USER_KEY_6_0_OFFSET,
-		XAES_KEY_SEL_USER_KEY_6_VALUE,
-		XASU_TRUE,
-		XASU_FALSE,
-		XAES_INVALID_CFG,
-		XAES_KEY_CLEAR_USER_KEY_6_MASK,
-		XAES_KEY_ZEROED_STATUS_USER_KEY_6_MASK
+		XAES_USER_KEY_6_0_OFFSET,       /**< Register offset of USER KEY6 */
+		XAES_KEY_SEL_USER_KEY_6_VALUE,  /**< USER KEY6 selection value */
+		XASU_TRUE,                      /**< Write allowed to AES user key registers */
+		XASU_FALSE,                     /**< Key decryption source not allowed */
+		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
+		XAES_KEY_CLEAR_USER_KEY_6_MASK, /**< Mask to clear the USER KEY6 */
+		XAES_KEY_ZEROED_STATUS_USER_KEY_6_MASK /**< Mask to check if USER KEY6 is zeroed */
 	},
 
-	/** USER_KEY_7 */
+	/** XASU_AES_USER_KEY_7 */
 	{
-		XAES_USER_KEY_7_0_OFFSET,
-		XAES_KEY_SEL_USER_KEY_7_VALUE,
-		XASU_TRUE,
-		XASU_FALSE,
-		XAES_INVALID_CFG,
-		XAES_KEY_CLEAR_USER_KEY_7_MASK,
-		XAES_KEY_ZEROED_STATUS_USER_KEY_7_MASK
+		XAES_USER_KEY_7_0_OFFSET,       /**< Register offset of USER KEY7 */
+		XAES_KEY_SEL_USER_KEY_7_VALUE,  /**< USER KEY7 selection value */
+		XASU_TRUE,                      /**< Write allowed to AES user key registers */
+		XASU_FALSE,                     /**< Key decryption source not allowed */
+		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
+		XAES_KEY_CLEAR_USER_KEY_7_MASK, /**< Mask to clear the USER KEY7 */
+		XAES_KEY_ZEROED_STATUS_USER_KEY_7_MASK /**< Mask to check if USER KEY7 is zeroed */
 	},
 
-	/** EFUSE_KEY_0 */
+	/** XASU_AES_EFUSE_KEY_0 */
 	{
-		XAES_INVALID_CFG,
-		XASU_FALSE,
-		XASU_FALSE,
-		XASU_TRUE,
-		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_0_VALUE,
-		XAES_KEY_CLEAR_EFUSE_KEY_0_MASK,
-		XAES_KEY_ZEROED_STATUS_EFUSE_KEY_0_MASK
+		XAES_INVALID_CFG,               /**< Invalid register offset of EFUSE KEY0 */
+		XASU_FALSE,                     /**< Invalid EFUSE KEY0 selection value */
+		XASU_FALSE,                     /**< Write not allowed to AES user key registers */
+		XASU_TRUE,                      /**< Key decryption source allowed */
+		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_0_VALUE, /**< EFUSE KEY0 decryption source select value */
+		XAES_KEY_CLEAR_EFUSE_KEY_0_MASK, /**< Mask to clear the EFUSE KEY0 */
+		XAES_KEY_ZEROED_STATUS_EFUSE_KEY_0_MASK /**< Mask to check if EFUSE KEY0 is zeroed */
 	},
 
-	/** EFUSE_KEY_1 */
+	/** XASU_AES_EFUSE_KEY_1 */
 	{
-		XAES_INVALID_CFG,
-		XASU_FALSE,
-		XASU_FALSE,
-		XASU_TRUE,
-		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_1_VALUE,
-		XAES_KEY_CLEAR_EFUSE_KEY_1_MASK,
-		XAES_KEY_ZEROED_STATUS_EFUSE_KEY_1_MASK
+		XAES_INVALID_CFG,               /**< Invalid register offset of EFUSE KEY1 */
+		XASU_FALSE,                     /**< Invalid EFUSE KEY1 selection value */
+		XASU_FALSE,                     /**< Write not allowed to AES user key registers */
+		XASU_TRUE,                      /**< Key decryption source allowed */
+		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_1_VALUE, /**< EFUSE KEY1 decryption source select value */
+		XAES_KEY_CLEAR_EFUSE_KEY_1_MASK, /**< Mask to clear the EFUSE KEY1 */
+		XAES_KEY_ZEROED_STATUS_EFUSE_KEY_1_MASK /**< Mask to check if EFUSE KEY1 is zeroed */
 	},
 
-	/** PUF_KEY */
+	/** XASU_AES_PUF_KEY */
 	{
-		XAES_INVALID_CFG,
-		XAES_KEY_SEL_PUF_KEY_VALUE,
-		XASU_FALSE,
-		XASU_FALSE,
-		XAES_INVALID_CFG,
-		XAES_KEY_CLEAR_PUF_KEY_MASK,
-		XAES_KEY_ZEROED_STATUS_PUF_KEY_MASK
+		XAES_INVALID_CFG,               /**< Invalid register offset of PUF KEY */
+		XAES_KEY_SEL_PUF_KEY_VALUE,     /**< PUF KEY selection value */
+		XASU_FALSE,                     /**< Write not allowed to AES user key registers */
+		XASU_FALSE,                     /**< Key decryption source not allowed */
+		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
+		XAES_KEY_CLEAR_PUF_KEY_MASK,    /**< Mask to clear the PUF KEY */
+		XAES_KEY_ZEROED_STATUS_PUF_KEY_MASK /**< Mask to check if PUF KEY is zeroed */
 	},
 
-	/** EFUSE_KEY_RED_0 */
+	/** XASU_AES_EFUSE_KEY_RED_0 */
 	{
-		XAES_INVALID_CFG,
-		XAES_KEY_SEL_EFUSE_KEY_RED_0_VALUE,
-		XASU_FALSE,
-		XASU_TRUE,
-		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_0_VALUE,
-		XAES_KEY_CLEAR_EFUSE_KEY_RED_0_MASK,
-		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_0_MASK
+		XAES_INVALID_CFG,               /**< Invalid register offset of EFUSE KEY RED0 */
+		XAES_KEY_SEL_EFUSE_KEY_RED_0_VALUE, /**< EFUSE KEY RED0 selection value */
+		XASU_FALSE,                     /**< Write not allowed to AES user key registers */
+		XASU_TRUE,                      /**< Key decryption source allowed */
+		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_0_VALUE, /**< EFUSE RED KEY0 decryption source select value */
+		XAES_KEY_CLEAR_EFUSE_KEY_RED_0_MASK, /**< Mask to clear the EFUSE KEY RED0 */
+		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_0_MASK /**< Mask to check if EFUSE KEY RED0 is zeroed */
 	},
 
-	/** EFUSE_KEY_RED_1 */
+	/** XASU_AES_EFUSE_KEY_RED_1 */
 	{
-		XAES_INVALID_CFG,
-		XAES_KEY_SEL_EFUSE_KEY_RED_1_VALUE,
-		XASU_FALSE,
-		XASU_TRUE,
-		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_1_VALUE,
-		XAES_KEY_CLEAR_EFUSE_KEY_RED_1_MASK,
-		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_1_MASK
+		XAES_INVALID_CFG,               /**< Invalid register offset of EFUSE KEY RED1 */
+		XAES_KEY_SEL_EFUSE_KEY_RED_1_VALUE, /**< EFUSE KEY RED1 selection value */
+		XASU_FALSE,                     /**< Write not allowed to AES user key registers */
+		XASU_TRUE,                      /**< Key decryption source allowed */
+		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_1_VALUE, /**< EFUSE RED KEY0 decryption source select value */
+		XAES_KEY_CLEAR_EFUSE_KEY_RED_1_MASK, /**< Mask to clear the EFUSE KEY RED1 */
+		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_1_MASK /**< Mask to check if EFUSE KEY RED1 is zeroed */
 	},
 };
 
