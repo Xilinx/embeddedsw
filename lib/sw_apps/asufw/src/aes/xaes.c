@@ -58,6 +58,7 @@
 #define XAES_NONCE_LENGTH_FIELD_SIZE	(0x2U) /**< Nonce length field size. */
 #define XAES_NONCE_HEADER_LEN_OVERHEAD	(2 * XAES_NONCE_LENGTH_FIELD_SIZE)
 						/**< Nonce header length overhead */
+#define XAES_AAD_UPDATE_NO_OUTPUT_ADDR	(0U) /**< Output address should be zero during AAD update. */
 
 typedef enum {
 	XAES_INITIALIZED = 0x1, /**< AES in initialized state */
@@ -755,7 +756,7 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 	 * Configure AES AAD configurations before pushing AAD data to AES engine and clear AAD
 	 * configuration post DMA transfer.
 	 */
-	if (OutDataAddr == 0U) {
+	if (OutDataAddr == XAES_AAD_UPDATE_NO_OUTPUT_ADDR) {
 		XAes_ConfigAad(InstancePtr);
 	}
 
@@ -766,7 +767,7 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 		goto END;
 	}
 
-	if (OutDataAddr == 0U) {
+	if (OutDataAddr == XAES_AAD_UPDATE_NO_OUTPUT_ADDR) {
 		XAes_ClearConfigAad(InstancePtr);
 	}
 
@@ -1768,8 +1769,11 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 		goto END;
 	}
 
-	/* If OutDataAddr is non-zero address then, configure destination channel and transfer. */
-	if (OutDataAddr != 0U) {
+	/**
+	 * If OutDataAddr is non-zero address (if input data is not AAD) then,
+	 * configure destination channel and transfer.
+	 */
+	if (OutDataAddr != XAES_AAD_UPDATE_NO_OUTPUT_ADDR) {
 		XAsuDma_ByteAlignedTransfer(&InstancePtr->AsuDmaPtr->AsuDma, XCSUDMA_DST_CHANNEL,
 					    OutDataAddr, Size, IsLastChunk);
 	}
@@ -1789,7 +1793,7 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 	XAsuDma_IntrClear(&InstancePtr->AsuDmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL,
 			  XCSUDMA_IXR_DONE_MASK);
 
-	if (OutDataAddr != 0U) {
+	if (OutDataAddr != XAES_AAD_UPDATE_NO_OUTPUT_ADDR) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Wait till the ASU destination DMA done bit to set. */
 		Status = XAsuDma_WaitForDoneTimeout(&InstancePtr->AsuDmaPtr->AsuDma,
