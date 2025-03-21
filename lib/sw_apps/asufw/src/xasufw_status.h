@@ -47,6 +47,7 @@
  *       am   02/24/25 Added XASUFW_ERR_KV_INTERRUPT_DONE_TIMEOUT error code
  *       ss   02/24/25 Added error codes for Key wrap functionality
  *       ma   03/17/25 Added XASUFW_VALIDATE_COMMAND_FAILED error code
+ *       yog  03/21/25 Added PWCT error codes
  *
  * </pre>
  *
@@ -354,6 +355,8 @@ enum {
 	XASUFW_KEYWRAP_UNWRAPPED_DATA_COMPARISON_FAILED, /**< 0x105U -Error when unwrapped output comparison
 								failed in KAT */
 	XASUFW_KEYWRAP_KAT_FAILED, /**< 0x106U - Error when key wrap unwrap KAT failed */
+	XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, /**< 0x107U - Sign generation failure in PWCT */
+	XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, /**< 0x108U - Sign verification failure in PWCT */
 
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };
