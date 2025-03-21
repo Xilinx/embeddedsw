@@ -289,6 +289,7 @@ static void XAes_ConfigAad(const XAes *InstancePtr);
 static void XAes_ClearConfigAad(const XAes *InstancePtr);
 static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u64 OutDataAddr,
 	u32 Size, u8 IsLastChunk);
+static s32 XAes_DummyEncryption(XAes *InstancePtr);
 static s32 XAes_WaitForDone(const XAes *InstancePtr);
 static void XAes_SetReset(XAes *InstancePtr);
 
@@ -639,6 +640,23 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 
 	/** Load key to AES engine. */
 	XAes_LoadKey(InstancePtr, KeyObject.KeySrc, KeyObject.KeySize);
+
+	/** Perform dummy encryption only for CBC and ECB mode during decryption operation. */
+	if (((InstancePtr->EngineMode == XASU_AES_CBC_MODE) ||
+			(InstancePtr->EngineMode == XASU_AES_ECB_MODE)) &&
+			(InstancePtr->OperationType == XASU_AES_DECRYPT_OPERATION)) {
+		/** Set the AES state to valid state before dummy encryption. */
+		InstancePtr->AesState = XAES_STARTED;
+
+		Status = XAes_DummyEncryption(InstancePtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED;
+			goto END;
+		}
+
+		/** Restore correct AES state. */
+		InstancePtr->AesState = XAES_INITIALIZED;
+	}
 
 	/** Process and load IV to AES engine. */
 	if ((InstancePtr->EngineMode != XASU_AES_ECB_MODE) &&
@@ -1810,6 +1828,53 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 		XAsuDma_IntrClear(&InstancePtr->AsuDmaPtr->AsuDma, XCSUDMA_DST_CHANNEL,
 				  XCSUDMA_IXR_DONE_MASK);
 	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function executes a dummy AES encryption operation to initialize the
+ * 		decryption key schedule. It is primarily used in AES key expansion when
+ * 		transitioning from encryption to decryption mode.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the operation completes successfully.
+ *		- XASUFW_FAILURE, upon any failure.
+ *
+ *************************************************************************************************/
+static s32 XAes_DummyEncryption(XAes *InstancePtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	/* Same array is used for both input and output to perform dummy encryption. */
+	u8 DummyData[XASU_AES_BLOCK_SIZE_IN_BYTES];
+
+	/** Validate OperationType. */
+	if (InstancePtr->OperationType != XASU_AES_DECRYPT_OPERATION) {
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED);
+		goto END;
+	}
+
+	/** Set AES to encryption mode for dummy encryption. */
+	InstancePtr->OperationType = XASU_AES_ENCRYPT_OPERATION;
+	XAes_ConfigAesOperation(InstancePtr);
+
+	/** Perform a dummy encryption to generate the decryption key. */
+	Status = XAes_Update(InstancePtr, InstancePtr->AsuDmaPtr, (u64)(UINTPTR)DummyData,
+		(u64)(UINTPTR)DummyData, XASU_AES_BLOCK_SIZE_IN_BYTES, XASU_TRUE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED);
+		goto END;
+	}
+
+	/** Restore the original operation type. */
+	InstancePtr->OperationType = XASU_AES_DECRYPT_OPERATION;
+	XAes_ConfigAesOperation(InstancePtr);
 
 END:
 	return Status;
