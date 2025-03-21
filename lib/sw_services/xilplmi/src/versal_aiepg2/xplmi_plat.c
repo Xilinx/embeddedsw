@@ -54,6 +54,8 @@
 *       pre  12/24/2024 Assigned PmcBuffers to data of PmcBufferList
 * 2.2   vss  02/11/2025 Updated SSS configuration correctly.
 *       sk   02/26/2025 Updated status variable as volatile in XPlmi_GenericHandler
+*       sk   03/17/2025 Updated XPlmi_VerifyAddrRange function to handle RPU cluster
+*                       TCM memory ranges
 *
 * </pre>
 *
@@ -821,14 +823,29 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 				/* ASU RAM is valid */
 				Status = XST_SUCCESS;
 			}
-			else if ((StartAddr >= (u64)XPLMI_TCM0_BASE_ADDR) &&
-				(EndAddr <= (u64)XPLMI_TCM0_HIGH_ADDR)) {
-				/* TCM0 is valid */
+			else if ((StartAddr >= (u64)XPLMI_TCMA_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_TCMA_HIGH_ADDR)) {
+				/* TCMA is valid */
 				Status = XST_SUCCESS;
 			}
-			else if ((StartAddr >= (u64)XPLMI_TCM1_BASE_ADDR) &&
-				(EndAddr <= (u64)XPLMI_TCM1_HIGH_ADDR)) {
-				/* TCM1 is valid */
+			else if ((StartAddr >= (u64)XPLMI_TCMB_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_TCMB_HIGH_ADDR)) {
+				/* TCMB is valid */
+				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_TCMC_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_TCMC_HIGH_ADDR)) {
+				/* TCMC is valid */
+				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_TCMD_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_TCMD_HIGH_ADDR)) {
+				/* TCMD is valid */
+				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_TCME_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_TCME_HIGH_ADDR)) {
+				/* TCME is valid */
 				Status = XST_SUCCESS;
 			}
 			else if ((StartAddr >= (u64)XPLMI_OCM_BASE_ADDR) &&

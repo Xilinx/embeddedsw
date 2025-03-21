@@ -16,7 +16,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.10  kal  24/07/2024 Initial release
-* 1,11  sk   03/05/2025 Added ASU destination CPU attribute
+* 1.11  sk   03/05/2025 Added ASU destination CPU attribute
+*       sk   03/17/2025 Updated Header attributes for RPU clusters
 *
 * </pre>
 *
@@ -79,10 +80,10 @@ extern "C" {
  */
 #define XIH_PH_ATTRB_HIVEC_MASK			(0x800000U)
 #define XIH_PH_ATTRB_ENDIAN_MASK		(0x40000U)
-#define XIH_PH_ATTRB_DSTN_CLUSTER_MASK		(0x00C0U)
+#define XIH_PH_ATTRB_DSTN_CLUSTER_MASK		(0xE0000000U)
 #define XIH_PH_ATTRB_CLUSTER_LOCKSTEP_MASK	(0x0030U)
 #define XIH_PH_ATTRB_A78_EXEC_ST_MASK		(0x0008U)
-#define XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT		(6U)
+#define XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT		(29U)
 #define XIH_PH_ATTRB_TCM_BOOT_MASK		(0x180000U)
 
 /**
@@ -98,13 +99,15 @@ extern "C" {
 
 #define XIH_PH_ATTRB_DSTN_CPU_NONE				(0x0000U)
 #define XIH_PH_ATTRB_DSTN_CLUSTER_0				(0x000U)
-#define XIH_PH_ATTRB_DSTN_CLUSTER_1				(0x040U)
-#define XIH_PH_ATTRB_DSTN_CLUSTER_2				(0x080U)
-#define XIH_PH_ATTRB_DSTN_CLUSTER_3				(0x0C0U)
+#define XIH_PH_ATTRB_DSTN_CLUSTER_1				(0x20000000U)
+#define XIH_PH_ATTRB_DSTN_CLUSTER_2				(0x40000000U)
+#define XIH_PH_ATTRB_DSTN_CLUSTER_3				(0x60000000U)
+#define XIH_PH_ATTRB_DSTN_CLUSTER_4				(0x80000000U)
 #define XIH_ATTRB_DSTN_CLUSTER_0				(0x000U)
 #define XIH_ATTRB_DSTN_CLUSTER_1				(0x001U)
 #define XIH_ATTRB_DSTN_CLUSTER_2				(0x002U)
 #define XIH_ATTRB_DSTN_CLUSTER_3				(0x003U)
+#define XIH_ATTRB_DSTN_CLUSTER_4				(0x004U)
 #define XIH_PH_ATTRB_CLUSTER_LOCKSTEP_ENABLED			(0x030U)
 #define XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED			(0x000U)
 #define XIH_PH_ATTRB_DSTN_CPU_A78_0				(0x100U)
@@ -129,13 +132,14 @@ extern "C" {
  *  SECURE                2                  0                  2 left
  *  EL                    3:4                1:2                2 left
  *  CPU_A78               5:6                8:11
- *  Cluster#              11:12              6:7                5 left
+ *  Cluster#              11:12              29:31              18 right
+ *  Reserved              13:16
  */
 #define XIH_ATTRB_A78_EXEC_ST_SHIFT_DIFF    (3U)
 #define XIH_ATTRB_ENDIAN_SHIFT_DIFF         (17U)
 #define XIH_ATTRB_TR_SECURE_SHIFT_DIFF      (2U)
 #define XIH_ATTRB_TARGET_EL_SHIFT_DIFF      (2U)
-#define XIH_PRTN_FLAGS_DSTN_CLUSTER_SHIFT_DIFF   (0x5U)
+#define XIH_PRTN_FLAGS_DSTN_CLUSTER_SHIFT_DIFF   (18U)
 
 #define XIH_ATTRB_EL_MASK			(0x18U)
 #define XIH_PRTN_FLAGS_EL_2			(0x10U)
