@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ##############################################################################
@@ -19,7 +19,7 @@ BEGIN driver dfeofdm
   OPTION supported_peripherals = (xdfe_ofdm);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.3;
+  OPTION VERSION = 1.4;
   OPTION NAME = dfeofdm;
   OPTION depends = libmetal;
   OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";
