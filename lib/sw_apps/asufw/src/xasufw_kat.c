@@ -34,6 +34,7 @@
  *       am   01/28/25 Fixed compilation error
  *       yog  02/21/25 Added ECIES KAT
  *       ss   02/24/25 Added Key wrap unwrap KAT
+ *       am   03/14/25 Fix code spell warning
  *
  * </pre>
  *
@@ -777,8 +778,10 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 		XFIH_GOTO(END);
 	}
 
-	/**  Initializes the AES engine and load the provided key and IV to the AES engine
-		for encryption. */
+	/**
+	 * Initialize the AES engine and load the provided key and IV to the AES engine for
+	 * encryption operation.
+	 */
 	Status = XAes_Init(AesInstance, AsuDmaPtr, (u64)(UINTPTR)&KeyObject, (u64)(UINTPTR)AesIv,
 			   XASUFW_AES_IV_LEN_IN_BYTES, XASU_AES_GCM_MODE, XASU_AES_ENCRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
@@ -825,8 +828,10 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 		XFIH_GOTO(END);
 	}
 
-	/**  Initializes the AES engine and load the provided key and IV to the AES engine
-		for decryption. */
+	/**
+	 * Initialize the AES engine and load the provided key and IV to the AES engine for
+	 * decryption operation.
+	 */
 	Status = XAes_Init(AesInstance, AsuDmaPtr, (u64)(UINTPTR)&KeyObject, (u64)(UINTPTR)AesIv,
 			   XASUFW_AES_IV_LEN_IN_BYTES, XASU_AES_GCM_MODE, XASU_AES_DECRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
@@ -1320,7 +1325,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function performs checks for AES DPA CM KAT ouptut.
+ * @brief	This function performs checks for AES DPA CM KAT output.
  *
  * @param 	P is the pointer to the data array of size 4 words.
  * @param 	Q is the pointer to the data array of size 4 words.
