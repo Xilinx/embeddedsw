@@ -80,9 +80,15 @@
 
 #define XSECURE_LITTLE_ENDIAN 		0U
 #define XSECURE_BIG_ENDIAN		1U
-#define XSECURE_ECC_ENDIANNESS		XSECURE_BIG_ENDIAN
+#define XSECURE_ECC_ENDIANNESS		XSECURE_LITTLE_ENDIAN
+#define XSECURE_SHARED_TOTAL_MEM_SIZE	(XSECURE_SHARED_MEM_SIZE + \
+	XSECURE_ECC_P384_SIZE_IN_BYTES)
 
 /************************** Variable Definitions *****************************/
+/* shared memory allocation */
+static u8 SharedMem[XSECURE_SHARED_TOTAL_MEM_SIZE] __attribute__((aligned(64U)))
+			__attribute__ ((section (".data.SharedMem")));
+
 #define XSECURE_PUBLIC_KEY_P384_X	"532070B5A6785CC61F5BD308DA6AA5ABDFF81988B65E912F" \
 					"7AC68077208BD3569C7BD85C87EC02EC2A23338AD75B7339"
 
@@ -94,11 +100,10 @@
 
 static u8 PubKey_P384[XSECURE_ECC_P384_SIZE_IN_BYTES + XSECURE_ECC_P384_SIZE_IN_BYTES]__attribute__ ((section (".data.PubKey_P384")));
 static u8 D_P384[XSECURE_ECC_P384_SIZE_IN_BYTES]__attribute__ ((section (".data.D_P384")));
-static u8 SharedSecret[XSECURE_ECC_P384_SIZE_IN_BYTES]__attribute__ ((section (".data.SharedSecret")));
 
 /************************** Function Prototypes ******************************/
 static void XSecure_ShowData(const u8* Data, u32 Len);
-static int GenerateSharedSecretExample(XSecure_ClientInstance *InstancePtr, u8 *SharedSecret);
+static int GenerateSharedSecretExample(XSecure_ClientInstance *InstancePtr);
 
 /*****************************************************************************/
 /**
@@ -131,9 +136,17 @@ int main()
 		goto END;
 	}
 
+	/* Set shared memory */
+	Status = XMailbox_SetSharedMem(&MailboxInstance, (u64)(UINTPTR)(SharedMem + XSECURE_ECC_P384_SIZE_IN_BYTES),
+		XSECURE_SHARED_MEM_SIZE);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n shared memory initialization failed");
+		goto END;
+	}
+
 	xil_printf("Request sent to generate shared secret\r\n");
 
-	Status = GenerateSharedSecretExample(&SecureClientInstance, SharedSecret);
+	Status = GenerateSharedSecretExample(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -154,16 +167,17 @@ END:
 *		key provided by the user.
 *
 * @param	InstancePtr	Pointer to client instance
-* @param	SharedSecret	Pointer to shared secret
 *
 * @return
 *		- XST_SUCCESS On success
 *		- XST_FAILURE if the generation of shared secret fails
 *
 ******************************************************************************/
-static int GenerateSharedSecretExample(XSecure_ClientInstance *InstancePtr, u8 *SharedSecret)
+static int GenerateSharedSecretExample(XSecure_ClientInstance *InstancePtr)
 {
 	int Status = XST_FAILURE;
+	u8* Secret = NULL;
+	u32 Index= 0;
 
 	if (Xil_Strnlen(XSECURE_D_P384, (XSECURE_ECC_P384_SIZE_IN_BYTES * 2U)) ==
 		(XSECURE_ECC_P384_SIZE_IN_BYTES * 2U)) {
@@ -230,19 +244,20 @@ static int GenerateSharedSecretExample(XSecure_ClientInstance *InstancePtr, u8 *
 	Xil_DCacheFlushRange((UINTPTR)D_P384, sizeof(D_P384));
 	Xil_DCacheFlushRange((UINTPTR)PubKey_P384, sizeof(PubKey_P384));
 
-	Xil_DCacheInvalidateRange((UINTPTR)SharedSecret, XSECURE_ECC_P384_SIZE_IN_BYTES);
+	Secret = &SharedMem[0U];
 
-	Status = XSecure_GenSharedSecret(InstancePtr, XSECURE_ECC_NIST_P384, D_P384, PubKey_P384,
-		SharedSecret);
+	Xil_DCacheInvalidateRange((UINTPTR)Secret, XSECURE_ECC_P384_SIZE_IN_BYTES);
+
+	Status = XSecure_GenSharedSecret(InstancePtr, XSECURE_ECC_NIST_P384, D_P384, PubKey_P384, Secret);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Generation of shared secret failed, Error Code = %x \r\n", Status);
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)SharedSecret, XSECURE_ECC_P384_SIZE_IN_BYTES);
+	Xil_DCacheInvalidateRange((UINTPTR)Secret, XSECURE_ECC_P384_SIZE_IN_BYTES);
 
 	xil_printf("Generated Shared Secret\r\n");
-	XSecure_ShowData(SharedSecret, XSECURE_ECC_P384_SIZE_IN_BYTES);
+	XSecure_ShowData(Secret, XSECURE_ECC_P384_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 
 END:

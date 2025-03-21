@@ -36,6 +36,7 @@
 *       mb   05/23/24 Added support for P-192 Curve
 *       mb   05/23/24 Added support for P-224 Curve
 *       Pre  03/02/25 Removed macros and structures related to data context setting
+*       yog  03/18/25 Added XSecure_EcdhParams
 *
 * </pre>
 *
@@ -163,6 +164,17 @@ typedef struct {
 	u32 Size;	/**< Length of input data*/
 	u32 IsLast;	/**< Flag to indicate last update of data*/
 } XSecure_AesInParams;
+
+/** Structure for input parameters for ECDH */
+typedef struct {
+	u32 CurveType;		/**< ECC curve type */
+	u32 PubKeyAddrHigh;	/**< Higher 32-bit address of public key */
+	u32 PubKeyAddrLow;	/**< Lower 32-bit address of public key */
+	u32 PrivKeyAddrHigh;	/**< Higher 32-bit address of private key */
+	u32 PrivKeyAddrLow;	/**< Lower 32-bit address of private key */
+	u32 SharedSecretAddrHigh;/**< Higher 32-bit address of Shared secret to be copied */
+	u32 SharedSecretAddrLow;/**< Lower 32-bit address of Shared secret to be copied */
+} XSecure_EcdhParams;
 
 /**
  * Structure for input parameters for AES
