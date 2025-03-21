@@ -1538,11 +1538,9 @@ static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen)
 	/* Store the mode configuration of previous mode i.e., GCM mode. */
 	ReadModeConfigReg = XAsufw_ReadReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET);
 
-	InstancePtr->EngineMode = XASU_AES_GHASH_MODE;
-
 	/** Configure engine mode to GHASH mode. */
 	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
-			(XAES_MODE_CONFIG_AUTH_MASK | InstancePtr->EngineMode));
+		(XAES_MODE_CONFIG_AUTH_MASK | XASU_AES_GHASH_MODE));
 
 	/** Configure DMA with AES and transfer the data to AES engine. */
 	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, IvAddr, 0U, IvLen, XASU_TRUE);
@@ -1552,7 +1550,7 @@ static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen)
 
 	/* Disable auth mask and restore mode configuration. */
 	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
-			(ReadModeConfigReg & (~(XAES_MODE_CONFIG_AUTH_MASK))));
+		(ReadModeConfigReg & (~(XAES_MODE_CONFIG_AUTH_MASK))));
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Get newly generated IV from the MAC registers. */
