@@ -61,6 +61,7 @@
 *       sk   03/05/2025 Added temporal check in XLoader_EncRevokeIdMeasurement
 *       sk   03/05/2025 Added ASU destination CPU attribute
 *       tri  03/13/2025 Added XLoader_MeasureNLoad support
+*       sk   03/17/2025 Added support for all 5 RPU clusters
 *
 * </pre>
 *
@@ -261,7 +262,7 @@ XilBootPdiInfo* XLoader_GetBootPdiInfo(void)
  * 			- XST_SUCCESS on success.
  * 			- XLOADER_ERR_WAKEUP_R52_0 if waking up the R52_0 failed during
  * 			handoff.
- * 			- XLOADER_ERR_WAKEUP_R52_0 if waking up the R52_1 failed during
+ * 			- XLOADER_ERR_WAKEUP_R52_1 if waking up the R52_1 failed during
  * 			handoff.
  * 			- XLOADER_ERR_WAKEUP_A78_0 if waking up the A78_0 failed during
  * 			handoff.
@@ -296,31 +297,30 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 		HandoffAddr = PdiPtr->HandoffParam[Index].HandoffAddr;
 		Status = XST_FAILURE;
 		RequestWakeup = FALSE;
+
 		/** - Wake up each processor */
 		switch (CpuId)
 		{
 			case XIH_PH_ATTRB_DSTN_CPU_R52_0:
-				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_1) {
+				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_4) {
 					Status = XLOADER_ERR_WAKEUP_R52_0;
 				} else {
 					RequestWakeup = TRUE;
 				}
 				ErrorCode = XLOADER_ERR_WAKEUP_R52_0;
-				DeviceId = PM_DEV_RPU_A_0 + (ClusterId*2) +
-						XLOADER_RPU_CORE0;
+				DeviceId = XLOADER_GET_RPU0_DEVICE_ID(ClusterId);
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d"
 						" R52_0 wakeup\r\n", ClusterId);
 				break;
 
 			case XIH_PH_ATTRB_DSTN_CPU_R52_1:
-				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_1) {
-					Status = XLOADER_ERR_WAKEUP_R52_0;
+				if (ClusterId > XIH_ATTRB_DSTN_CLUSTER_4) {
+					Status = XLOADER_ERR_WAKEUP_R52_1;
 				} else {
 					RequestWakeup = TRUE;
 				}
-				ErrorCode = XLOADER_ERR_WAKEUP_R52_0;
-				DeviceId = PM_DEV_RPU_A_0 + (ClusterId*2) +
-						XLOADER_RPU_CORE1;
+				ErrorCode = XLOADER_ERR_WAKEUP_R52_1;
+				DeviceId = XLOADER_GET_RPU1_DEVICE_ID(ClusterId);
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d"
 						" R52_1 wakeup\r\n", ClusterId);
 				break;
@@ -520,7 +520,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 
 	/** - Update cluster number based on destination cluster number. */
 	PrtnFlags |= (PrtnAttrbs & XIH_PH_ATTRB_DSTN_CLUSTER_MASK)
-							<< XIH_PRTN_FLAGS_DSTN_CLUSTER_SHIFT_DIFF;
+							>> XIH_PRTN_FLAGS_DSTN_CLUSTER_SHIFT_DIFF;
 
 	PrtnAttrbs &= XIH_PH_ATTRB_DSTN_CPU_MASK;
 	/** - Update CPU number based on destination CPU */
@@ -733,11 +733,11 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	switch (PrtnParams->DstnCpu)
 	{
 		case XIH_PH_ATTRB_DSTN_CPU_R52_0:
-			if (DstnCluster > XIH_ATTRB_DSTN_CLUSTER_1) {
+			if (DstnCluster > XIH_ATTRB_DSTN_CLUSTER_4) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, 0U);
 				goto END;
 			}
-			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster * 2) + XLOADER_RPU_CORE0;
+			DeviceId = XLOADER_GET_RPU0_DEVICE_ID(DstnCluster);
 			Status = XPm_RpuSetOperMode(DeviceId, Mode);
 			if (Status != XST_SUCCESS) {
 				goto END;
@@ -745,11 +745,11 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			XPmRpuCore_SetTcmBoot(DeviceId, (u8)TcmBootFlag);
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_R52_1:
-			if (DstnCluster > XIH_ATTRB_DSTN_CLUSTER_1) {
+			if (DstnCluster > XIH_ATTRB_DSTN_CLUSTER_4) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, 0U);
 				goto END;
 			}
-			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster * 2) + XLOADER_RPU_CORE1;
+			DeviceId = XLOADER_GET_RPU1_DEVICE_ID(DstnCluster);
 			Status = XPm_RpuSetOperMode(DeviceId, Mode);
 			if (Status != XST_SUCCESS) {
 				goto END;
@@ -946,7 +946,7 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 
 	if ((DstnCpu > XIH_PH_ATTRB_DSTN_CPU_NONE) &&
 	    (DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_ASU) &&
-	    (DstnCluster <= XIH_PH_ATTRB_DSTN_CLUSTER_3)) {
+	    (DstnCluster <= XIH_PH_ATTRB_DSTN_CLUSTER_4)) {
 		CpuNo = PdiPtr->NoOfHandoffCpus;
 		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu, DstnCluster) ==
 			XST_SUCCESS) {

@@ -47,6 +47,7 @@
 *       bm   11/11/2024 Move I2C Handshake feature to common code
 *       tri  03/01/2025 Added XLOADER_MEASURE_LAST macro
 *       tri  03/13/2025 Added XLoader_MeasureNLoad prototype
+*       sk   03/17/2025 Added define for RPU cluster C
 *
 * </pre>
 *
@@ -96,11 +97,24 @@ extern "C" {
 #define XLOADER_APU_CORE2	(2U) /**< APU core 2 */
 #define XLOADER_APU_CORE3	(3U) /**< APU core 3 */
 
-#define XLOADER_RPU_CLUSTERA	(0U) /**< RPU cluster A */
-#define XLOADER_RPU_CLUSTERB	(1U) /**< RPU cluster B */
+#define XLOADER_RPU_CLUSTERA_IDX	(0U) /**< RPU cluster A */
+#define XLOADER_RPU_CLUSTERB_IDX	(1U) /**< RPU cluster B */
+#define XLOADER_RPU_CLUSTERC_IDX	(2U) /**< RPU cluster C */
 
 #define XLOADER_RPU_CORE0	(0U) /**< RPU core 0 */
 #define XLOADER_RPU_CORE1	(1U) /**< RPU core 1 */
+
+/* Macro to calculate the Device Id for RPU core0 based on cluster */
+#define XLOADER_GET_RPU0_DEVICE_ID(ClusterId) (ClusterId <= XIH_ATTRB_DSTN_CLUSTER_1) ? \
+				(PM_DEV_RPU_A_0 + (ClusterId * 2) + XLOADER_RPU_CORE0) \
+			: (PM_DEV_RPU_C_0 + ((ClusterId - XLOADER_RPU_CLUSTERC_IDX) * 2) + \
+					XLOADER_RPU_CORE0);
+
+/* Macro to calculate the Device Id for RPU core1 based on cluster */
+#define XLOADER_GET_RPU1_DEVICE_ID(ClusterId) (ClusterId <= XIH_ATTRB_DSTN_CLUSTER_1) ? \
+				(PM_DEV_RPU_A_0 + (ClusterId * 2) + XLOADER_RPU_CORE1) \
+			: (PM_DEV_RPU_C_0 + ((ClusterId - XLOADER_RPU_CLUSTERC_IDX) * 2) + \
+					XLOADER_RPU_CORE1);
 
 /* Xilloader Module Data Structure Ids*/
 #define XLOADER_IMAGE_INFO_DS_ID		(0x01U) /**< Image information data structure Id */

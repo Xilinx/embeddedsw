@@ -58,6 +58,7 @@
 *       pre  01/09/2024 Added addresses needed for PCIE error handling
 *       sk   02/20/2025 Added register address for LPD,OCM,FPD regions
 *       sk   03/12/2025 Added define for UFS config
+*       sk   03/17/2025 Added TCM address range defines for all RPU clusters
 *
 * </pre>
 *
@@ -1519,10 +1520,16 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_PSM_RAM_HIGH_ADDR		(0xEBC2FFFFU)
 #define XPLMI_ASU_RAM_BASE_ADDR		(0xEBE00000U)
 #define XPLMI_ASU_RAM_HIGH_ADDR		(0xEBE5FFFFU)
-#define XPLMI_TCM0_BASE_ADDR		(0xEBA00000U)
-#define XPLMI_TCM0_HIGH_ADDR		(0xEBA6FFFFU)
-#define XPLMI_TCM1_BASE_ADDR		(0xEBA80000U)
-#define XPLMI_TCM1_HIGH_ADDR		(0xEBAEFFFFU)
+#define XPLMI_TCMA_BASE_ADDR		(0xEBA00000U)
+#define XPLMI_TCMA_HIGH_ADDR		(0xEBA67FFFU)
+#define XPLMI_TCMB_BASE_ADDR		(0xEBA80000U)
+#define XPLMI_TCMB_HIGH_ADDR		(0xEBAE7FFFU)
+#define XPLMI_TCMC_BASE_ADDR		(0xEBB00000U)
+#define XPLMI_TCMC_HIGH_ADDR		(0xEBB67FFFU)
+#define XPLMI_TCMD_BASE_ADDR		(0xEBB80000U)
+#define XPLMI_TCMD_HIGH_ADDR		(0xEBBE7FFFU)
+#define XPLMI_TCME_BASE_ADDR		(0xEBC00000U)
+#define XPLMI_TCME_HIGH_ADDR		(0xEBC67FFFU)
 #define XPLMI_RSVD_BASE_ADDR		(0xA0000000U)
 #define XPLMI_RSVD_HIGH_ADDR		(0xAFFFFFFFU)
 #define XPLMI_M_AXI_FPD_MEM_HIGH_ADDR	(0xBFFFFFFFU)
