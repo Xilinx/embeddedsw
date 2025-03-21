@@ -46,8 +46,8 @@
 /************************** Macros Definitions ***************************************************/
 #define XAES_TIMEOUT_MAX		(0x1FFFFU) /**<  AES maximum timeout value in micro seconds */
 #define XAES_INVALID_CFG		(0xFFFFFFFFU) /**<  AES invalid configuration */
-#define XASUFW_AES_KEY_NOT_ZEROIZED	(0x0) /**< Key in AES subsystem is not zeroized. */
-#define XASUFW_AES_KEY_ZEROIZED		(0xF) /**< Key in AES subsystem is zeroized. */
+#define XAES_KEY_NOT_ZEROIZED		(0x0) /**< Key in AES subsystem is not zeroized. */
+#define XAES_KEY_ZEROIZED		(0xF) /**< Key in AES subsystem is zeroized. */
 #define	XAES_MAX_NONCE_HEADER_LEN	(0x12U) /**< AES CCM maximum header length
 						(0x1U (Flag) + XASU_AES_CCM_MAX_NONCE_LEN +
 						0x2U(AAD encoding length) +
@@ -544,7 +544,7 @@ END:
  *
  *************************************************************************************************/
 s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAddr, u32 IvLen,
-	      u8 EngineMode, u8 OperationType)
+	u8 EngineMode, u8 OperationType)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
@@ -611,7 +611,7 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 
 	/** Check whether key is zeroed or not. */
 	Status = XAes_IsKeyZeroized(InstancePtr, KeyObject.KeySrc);
-	if (Status == XASUFW_AES_KEY_ZEROIZED) {
+	if (Status != XAES_KEY_NOT_ZEROIZED) {
 		Status = XASUFW_AES_KEY_ZEROED;
 		goto END;
 	}
@@ -695,7 +695,7 @@ END:
  *
  *************************************************************************************************/
 s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDataAddr,
-		u32 DataLength, u8 IsLastChunk)
+	u32 DataLength, u8 IsLastChunk)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
@@ -1013,7 +1013,7 @@ END:
  * @param	IvLen		Length of the IV in bytes.
  *
  * @return
- *		- XASUFW_SUCCESS, if decryption of balck key is successful.
+ *		- XASUFW_SUCCESS, if decryption of black key is successful.
  *		- XASUFW_AES_INVALID_PARAM, if InstancePtr or DmaPtr is NULL or ASU DMA is not
  * 			ready.
  *		- XASUFW_AES_INVALID_KEY_SRC, if key source is invalid.
@@ -1151,7 +1151,7 @@ END:
  *
  *************************************************************************************************/
 s32 XAes_DpaCmDecryptData(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyObjPtr,
-			  u32 InputDataAddr, u32 OutputDataAddr, u32 DataLength)
+	u32 InputDataAddr, u32 OutputDataAddr, u32 DataLength)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 Index = 0U;
@@ -1347,13 +1347,13 @@ static XAes_Config *XAes_LookupConfig(u16 DeviceId)
  * @param	KeySrc		Key source.
  *
  * @return
- *		- XASUFW_AES_KEY_ZEROIZED, if key is zeroized.
- * 		- XASUFW_AES_KEY_NOT_ZEROIZED, if key is not zeroized
+ *		- XAES_KEY_ZEROIZED, if key is zeroized.
+ * 		- XAES_KEY_NOT_ZEROIZED, if key is not zeroized
  *
  *************************************************************************************************/
 static s32 XAes_IsKeyZeroized(const XAes *InstancePtr, u32 KeySrc)
 {
-	CREATE_VOLATILE(Status, XASUFW_AES_KEY_ZEROIZED);
+	CREATE_VOLATILE(Status, XAES_KEY_ZEROIZED);
 	volatile u32 ReadKeyZeroedStatus = XAES_KEY_ZEROED_STATUS_RESET_VAL;
 
 	/** Read the key zeroized status register. */
@@ -1362,7 +1362,7 @@ static s32 XAes_IsKeyZeroized(const XAes *InstancePtr, u32 KeySrc)
 
 	/** Check the key zeroized status with its zeroized mask. */
 	if ((ReadKeyZeroedStatus & AesKeyLookupTbl[KeySrc].KeyZeroedStatusMask) == 0U) {
-		Status = XASUFW_AES_KEY_NOT_ZEROIZED;
+		Status = XAES_KEY_NOT_ZEROIZED;
 	}
 
 	return Status;
@@ -1527,6 +1527,7 @@ END:
  *
  * @return
  *		- XASUFW_SUCCESS, if GHASH calculation on given Iv is successful.
+ * 		- XASUFW_AES_INVALID_ENGINE_MODE, if engine mode not AES GCM.
  *		- XASUFW_FAILURE, if GHASH calculation on given Iv fails.
  *
  *************************************************************************************************/
@@ -1535,7 +1536,12 @@ static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 ReadModeConfigReg;
 
-	/* Store the mode configuration of previous mode i.e., GCM mode. */
+	if (InstancePtr->EngineMode != XASU_AES_GCM_MODE) {
+		Status = XASUFW_AES_INVALID_ENGINE_MODE;
+		goto END;
+	}
+
+	/** Store the mode configuration of previous mode i.e., GCM mode. */
 	ReadModeConfigReg = XAsufw_ReadReg(InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET);
 
 	/** Configure engine mode to GHASH mode. */
@@ -1548,7 +1554,7 @@ static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen)
 		goto END;
 	}
 
-	/* Disable auth mask and restore mode configuration. */
+	/** Disable auth mask and restore mode configuration. */
 	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
 		(ReadModeConfigReg & (~(XAES_MODE_CONFIG_AUTH_MASK))));
 
@@ -1608,8 +1614,8 @@ static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen)
  * @param	TagLen		Length of the tag in bytes.
  *
  * @return
- *		- XASUFW_SUCCESS, if tag comparision is successful.
- *		- XASUFW_AES_TAG_COMPARE_FAILED, if tag comparision fails.
+ *		- XASUFW_SUCCESS, if tag comparison is successful.
+ *		- XASUFW_AES_TAG_COMPARE_FAILED, if tag comparison fails.
  *
  *************************************************************************************************/
 static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLen)
@@ -1757,7 +1763,7 @@ static void XAes_ClearConfigAad(const XAes *InstancePtr)
  *
  *************************************************************************************************/
 static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u64 OutDataAddr, u32 Size,
-				     u8 IsLastChunk)
+	u8 IsLastChunk)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 

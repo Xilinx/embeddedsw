@@ -145,8 +145,8 @@ s32 XAsu_AesValidateTagParams(u8 EngineMode, u64 TagAddr, u32 TagLen)
 			Status = XST_SUCCESS;
 			break;
 		case XASU_AES_CCM_MODE:
-			if ((TagAddr != 0U) && ((TagLen % XASU_AES_EVEN_MODULUS == 0U) &&
-						(TagLen >= XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES) &&
+			if ((TagAddr != 0U) && (((TagLen % XASU_AES_EVEN_MODULUS) == 0U) &&
+						(TagLen >= XASU_AES_MIN_TAG_LENGTH_IN_BYTES) &&
 						(TagLen <= XASU_AES_MAX_TAG_LENGTH_IN_BYTES))) {
 				Status = XST_SUCCESS;
 			}

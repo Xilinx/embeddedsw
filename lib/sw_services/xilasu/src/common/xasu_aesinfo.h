@@ -18,6 +18,7 @@
  * 1.0   am   07/16/24 Initial release
  *       am   08/01/24 Replaced enums with macros
  * 1.1   am   01/20/25 Added AES CCM nonce macros
+ *       am   03/14/25 Updated correct macro value of XASU_AES_CCM_MIN_NONCE_LEN
  *
  * </pre>
  *
@@ -55,8 +56,8 @@ extern "C" {
 #define XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES	(8U) /**< AES NIST recommended minimum tag length in bytes */
 #define XASU_AES_MAX_TAG_LENGTH_IN_BYTES		(16U) /**< AES maximum tag length in bytes */
 
-#define XASU_AES_CCM_MIN_NONCE_LEN			(4U) /**< AES-CCM minimum nonce length in bytes */
-#define XASU_AES_CCM_MAX_NONCE_LEN			(13U)  /**< AES-CCM maximum nonce length in bytes */
+#define XASU_AES_CCM_MIN_NONCE_LEN			(7U) /**< AES-CCM minimum nonce length in bytes */
+#define XASU_AES_CCM_MAX_NONCE_LEN			(13U) /**< AES-CCM maximum nonce length in bytes */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 /* AES module command IDs */
