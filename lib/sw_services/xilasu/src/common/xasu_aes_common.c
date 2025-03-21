@@ -30,8 +30,6 @@
 
 /***************************** Include Files *****************************************************/
 #include "xasu_aes_common.h"
-#include "xasu_aesinfo.h"
-#include "xasu_def.h"
 
 /************************** Constant Definitions *************************************************/
 

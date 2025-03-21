@@ -37,12 +37,25 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "xstatus.h"
+#include "xasu_def.h"
+#include "xasu_aesinfo.h"
 
 /************************** Constant Definitions *************************************************/
 
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+/** This macro checks if AAD processing is allowed for the given AES engine mode. */
+#define XASU_AES_IS_AAD_SUPPORTED_MODE(EngineMode) \
+	(((EngineMode) != XASU_AES_CBC_MODE) && \
+	((EngineMode) != XASU_AES_CFB_MODE) && \
+	((EngineMode) != XASU_AES_OFB_MODE) && \
+	((EngineMode) != XASU_AES_CTR_MODE) && \
+	((EngineMode) != XASU_AES_ECB_MODE))
+
+/** This macro checks if given data length is invalid. */
+#define XASU_AES_IS_INVALID_DATALEN(DataLen) \
+	(((DataLen) == 0U) || ((DataLen) > XASU_ASU_DMA_MAX_TRANSFER_LENGTH))
 
 /************************************ Variable Definitions ***************************************/
 

@@ -721,9 +721,9 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 	}
 
 	/**
-	 * The minimum length of plaintext/AAD data must be at least 8 bits, while the
-	 * maximum length should be less than 0x1FFFFFFC bytes, which is the
-	 * ASU DMA's maximum supported data transfer length.
+	 * The minimum length of plaintext/AAD data must be at least 1 byte, while the
+	 * maximum length can be 0x1FFFFFFC bytes, which is the ASU DMA's maximum supported
+	 * data transfer length.
 	 */
 	if ((DataLength == 0U) || (DataLength > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 		Status = XASUFW_AES_INVALID_INPUT_DATA_LENGTH;

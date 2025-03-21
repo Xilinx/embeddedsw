@@ -36,6 +36,7 @@
 #include "xasufw_debug.h"
 #include "xasufw_kat.h"
 #include "xfih.h"
+#include "xasu_aes_common.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -185,12 +186,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * During single/multiple update of AAD data, address of AAD data will be non-zero.
 		 * User should pass AAD address as zero for AES standard modes(CBC, ECB, CFB, OFB, CTR)
 		 */
-		if ((AesParamsPtr->AadAddr != 0U) && (AesParamsPtr->EngineMode != XASU_AES_CBC_MODE) &&
-		    (AesParamsPtr->EngineMode != XASU_AES_CFB_MODE) &&
-		    (AesParamsPtr->EngineMode != XASU_AES_OFB_MODE) &&
-		    (AesParamsPtr->EngineMode != XASU_AES_CTR_MODE) &&
-		    (AesParamsPtr->EngineMode != XASU_AES_ECB_MODE) &&
-		    (AesParamsPtr->EngineMode != XASU_AES_CCM_MODE)) {
+		if ((AesParamsPtr->AadAddr != 0U) && XASU_AES_IS_AAD_SUPPORTED_MODE(AesParamsPtr->EngineMode)) {
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
 					AesParamsPtr->AadLen, XASU_FALSE);
 			if (Status != XASUFW_SUCCESS) {

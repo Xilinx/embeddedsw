@@ -129,26 +129,24 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 	if ((AesClientParamPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) {
 		/**
 		 * Both Aad and InputData/OutputData address and lengths cannot be zero at once.
-		 * The minimum length of plaintext/AAD length must be at least 8 bits, while the
-		 * maximum length should be less than 0x1FFFFFFC bytes, which is the ASU DMA's
-		 * maximum supported data transfer length.
+		 * The minimum length of plaintext/AAD length must be at least 1 byte, while the
+		 * maximum length can be 0x1FFFFFFC bytes, which is the ASU DMA's maximum supported
+		 * data transfer length.
 		 */
-		if (AesClientParamPtr->AadAddr != 0U) {
-			if ((AesClientParamPtr->AadLen == 0U) ||
-					(AesClientParamPtr->AadLen >
-					XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
+		if ((AesClientParamPtr->AadAddr != 0U) &&
+				XASU_AES_IS_AAD_SUPPORTED_MODE(AesClientParamPtr->EngineMode)) {
+			if (XASU_AES_IS_INVALID_DATALEN(AesClientParamPtr->AadLen)) {
 				Status = XASU_INVALID_ARGUMENT;
 				goto END;
 			}
 		}
 		if ((AesClientParamPtr->InputDataAddr != 0U) &&
-					(AesClientParamPtr->OutputDataAddr  != 0U)) {
-				if ((AesClientParamPtr->DataLen == 0U) ||
-						(AesClientParamPtr->DataLen >
-						XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
+				(AesClientParamPtr->OutputDataAddr != 0U) &&
+				(AesClientParamPtr->EngineMode != XASU_AES_CMAC_MODE)) {
+			if (XASU_AES_IS_INVALID_DATALEN(AesClientParamPtr->DataLen)) {
 					Status = XASU_INVALID_ARGUMENT;
 					goto END;
-				}
+			}
 		}
 		else {
 			Status = XASU_INVALID_ARGUMENT;
