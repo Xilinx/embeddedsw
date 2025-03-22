@@ -59,6 +59,7 @@
 *       pre  10/07/2024 Added XPlmi_CheckSlaveErrors function
 *       pre  01/13/2025 Added macros for DDRMC register addresses
 * 2.2   vss  02/11/2025 Removed static keyword from XPlmi_SssMask function
+* 2.3   obs  03/20/2025 Added XPLMI_STATUS_GLITCH_DETECT macro
 *
 * </pre>
 *
@@ -435,6 +436,7 @@ enum {
 
 #define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U) /**< PMC IRO frequency 320Mhz */
 
+#define XPLMI_STATUS_GLITCH_DETECT(Status)     /**< Glitch check on Status (excluded for Versal).  */
 /*****************************************************************************/
 /**
  * @brief	This function provides the Slr Type
