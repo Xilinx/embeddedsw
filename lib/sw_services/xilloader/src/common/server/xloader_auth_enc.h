@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,6 +62,7 @@
 *       har  03/05/24 Fixed doxygen warnings
 *       kpt  03/15/24 Updated RSA KAT to use 2048-bit key
 *       obs  09/30/2024 Fixed Doxygen Warnings
+*       obs  02/27/2025 Added XLOADER_AUTH_JTAG_IDWORD macro
 *
 * </pre>
 *
@@ -275,6 +276,8 @@ extern "C" {
 				/**< Security Control register address */
 #define XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET		(0xF11B0030U)
 			/**< Authenticated JTAG Data start register address */
+#define XLOADER_AUTH_JTAG_IDWORD				(0x58414A47U)
+			/**< Authenticated JTAG ID word */
 #define XLOADER_PMC_TAP_DAP_CFG_OFFSET			(0xF11B0008U)
 				/**< DAP CFG register address */
 #define XLOADER_PMC_TAP_INST_MASK_1_OFFSET		(0xF11B0004U)

@@ -65,6 +65,7 @@
 *       kal  01/30/2025 Update KAT MASKS for SHA2/SHAKE to align with ROM
 * 2.2   vss  02/11/2025 Updated SSS configuration correctly.
 *       sk   02/20/2025 Updated defines for RTCA EAM error address for versal aiepg2
+* 2.3   obs  03/20/2025 Added XPLMI_STATUS_GLITCH_DETECT macro
 *
 * </pre>
 *
@@ -577,6 +578,8 @@ typedef enum {
 #define GET_RTCFG_LPDSLCR_ERR_ADDR(Index)		(Index > 1U) ? \
 			(XPLMI_RTCFG_PSM_ERR3_STATUS_ADDR + ((Index - 2U) * 4U)) : \
 			(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration LPDSCLR error address */
+
+#define XPLMI_STATUS_GLITCH_DETECT(Status)		XSECURE_STATUS_CHK_GLITCH_DETECT(Status) /**< Glitch check on Status.  */
 /*****************************************************************************/
 /**
  * @brief	This function provides the Slr Type

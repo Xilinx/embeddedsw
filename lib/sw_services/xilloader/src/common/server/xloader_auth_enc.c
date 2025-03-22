@@ -146,6 +146,7 @@
 *                     XLoader_IsPpkValid
 *       sk   02/26/25 Reset Status variable before use in XLoader_SecureEncInit
 *       pre  03/02/25 Remove data context setting
+*       obs  03/22/25 Added redundant security checks to mitigate glitch attacks
 *
 * </pre>
 *
@@ -675,6 +676,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 			Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
 				XPLMI_RTCFG_SECURESTATE_NONSECURE);
 			if (Status != XST_SUCCESS) {
+				XPLMI_STATUS_GLITCH_DETECT(Status);
 				if (ReadAuthReg != SecureStateAHWRoT) {
 					Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_GLITCH_DETECTED, 0);
@@ -739,6 +741,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 			Status = XLoader_CheckSecureState(ReadEncReg, SecureStateSHWRoT,
 				XPLMI_RTCFG_SECURESTATE_NONSECURE);
 				if (Status != XST_SUCCESS) {
+					XPLMI_STATUS_GLITCH_DETECT(Status);
 					if (ReadEncReg != SecureStateSHWRoT) {
 						Status = XPlmi_UpdateStatus(
 							XLOADER_ERR_GLITCH_DETECTED, 0);
@@ -760,6 +763,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 		/* Enc only validations */
 		Status = XLoader_SecureEncOnlyValidations(SecurePtr);
 		if (Status != XST_SUCCESS) {
+			XPLMI_STATUS_GLITCH_DETECT(Status);
 			goto END;
 		}
 	}
@@ -1294,6 +1298,7 @@ int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 			break;
 	}
 	if (Status != XST_SUCCESS) {
+		XPLMI_STATUS_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -2090,6 +2095,7 @@ static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 		KeyDetails.KekIvAddr = (UINTPTR)SecurePtr->PrtnHdr->KekIv;
 		Status = XLoader_AesKeySelect(SecurePtr,&KeyDetails, &KeySrc);
 		if (Status != XST_SUCCESS) {
+			XPLMI_STATUS_GLITCH_DETECT(Status);
 			goto END;
 		}
 		/** Configure DPA counter measure */
@@ -2116,6 +2122,7 @@ static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DecryptSecureBlk, SecurePtr,
 				SrcAddr);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status |= StatusTmp;
 			goto END;
 		}
 		SrcOffset += XLOADER_SECURE_HDR_TOTAL_SIZE;
@@ -2215,7 +2222,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 				XSECURE_AES_BH_KEY, XSECURE_AES_KEY_SIZE_256,
 					(UINTPTR)BootHdr->Kek);
 			if (Status != XST_SUCCESS) {
-				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+				XPLMI_STATUS_GLITCH_DETECT(Status);
 				goto END;
 			}
 			DecryptBlkKey = (u32)TRUE;
@@ -2307,7 +2314,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		Status = XLoader_AesObfusKeySelect(KeyDetails->PdiKeySrc,
 				*DecKeyMask, KeySrc);
 		if (Status != XST_SUCCESS) {
-			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+			XPLMI_STATUS_GLITCH_DETECT(Status);
 			goto END;
 		}
 	}
@@ -2406,6 +2413,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		Status = XLoader_CheckSecureState(ReadEncReg, SecureStateSHWRoT,
 			XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT);
 		if (Status != XST_SUCCESS) {
+			XPLMI_STATUS_GLITCH_DETECT(Status);
 			if (ReadEncReg != SecureStateSHWRoT) {
 				Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_GLITCH_DETECTED, 0);
@@ -2421,6 +2429,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 				(XLOADER_SECURE_IV_NUM_ROWS * sizeof(u32)),
 				(XLOADER_SECURE_IV_NUM_ROWS * sizeof(u32)));
 			if (Status != XST_SUCCESS) {
+				XPLMI_STATUS_GLITCH_DETECT(Status);
 				goto END;
 			}
 		}
@@ -2476,7 +2485,8 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		 */
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_ValidateMHHashBlockIntegrity,
 			SecurePtr);
-		if (Status != XST_SUCCESS) {
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status |= StatusTmp;
 			goto END;
 		}
 
@@ -2489,7 +2499,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		HBAesParams.IvPtr = (u8 *)&MetaHdr->ImgHdrTbl.IvMetaHdr;
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_ValidateHashBlockAAD,
 			SecurePtr, &HBAesParams);
-		if (Status != XST_SUCCESS) {
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_AAD_VALIDATE, Status);
 			goto END;
 		}
@@ -2499,7 +2509,8 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	 * Verify Integrity of Total MetaHeader
 	 */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_ValidateMetaHdrIntegrity, SecurePtr);
-	if (Status != XST_SUCCESS) {
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		Status |= StatusTmp;
 		goto END;
 	}
 #endif
@@ -2620,6 +2631,7 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 	Status = XPlmi_MemSetBytes(PufData, sizeof(XPuf_Data), 0U,
 		sizeof(XPuf_Data));
 	if (Status != XST_SUCCESS) {
+		XPLMI_STATUS_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -3034,12 +3046,13 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	Status = XPlmi_MemSetBytes(SecureParams.AuthJtagMessagePtr,
 		sizeof(XLoader_AuthJtagMessage), 0U, sizeof(XLoader_AuthJtagMessage));
 	if (Status != XST_SUCCESS) {
+		XPLMI_STATUS_GLITCH_DETECT(Status);
 		goto END;
 	}
 
 #ifdef VERSAL_AIEPG2
 	IdWord = XPlmi_In32(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET);
-	if (IdWord == 0x58414A47U) {
+	if (IdWord == XLOADER_AUTH_JTAG_IDWORD) {
 		MsgLen = XPlmi_In32(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET + XSECURE_WORD_SIZE);
 		MsgLen = MsgLen / XSECURE_WORD_SIZE;
 	}
@@ -3078,6 +3091,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
 		XPLMI_RTCFG_SECURESTATE_AHWROT);
 	if (Status != XST_SUCCESS) {
+		XPLMI_STATUS_GLITCH_DETECT(Status);
 		if (ReadAuthReg != SecureStateAHWRoT) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
 		}
@@ -3579,6 +3593,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 					SecurePtr->PrtnHdr->EncRevokeID);
 			if ((Status != XST_SUCCESS) ||
 				(SStatus != XST_SUCCESS)) {
+				Status |= SStatus;
 				XPlmi_Printf(DEBUG_GENERAL, "Partition is revoked\n\r");
 				goto END;
 			}
@@ -3598,6 +3613,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	Status = XLoader_SecureChunkCopy(SecurePtr, SrcAddr, Last,
 				BlockSize, TotalSize);
 	if (Status != XST_SUCCESS) {
+		XPLMI_STATUS_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -4007,6 +4023,7 @@ static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBS
 		Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
 			XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT);
 		if (Status != XST_SUCCESS) {
+			XPLMI_STATUS_GLITCH_DETECT(Status);
 			if (ReadAuthReg != SecureStateAHWRoT) {
 				Status = XLoader_UpdateMinorErr(
 					XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0);
@@ -4192,6 +4209,7 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 	XLoader_HBSignParams *HBSignParams)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	u8 HashBlockHash[XLOADER_SHA3_LEN];
 	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
 	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
@@ -4282,8 +4300,8 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 	 * Skip PPK hash comparison for BH auth
 	 * Authenticate SPK using PPK
 	 */
-	Status = XLoader_AuthenticateKeys(SecurePtr, HBSignParams);
-	if (Status != XST_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_AuthenticateKeys, SecurePtr, HBSignParams);
+	if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "Spk Authentication Failed\r\n");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_KEY_AUTH_FAIL, Status);
 		goto END;
@@ -5444,7 +5462,6 @@ static int XLoader_CheckAndCompareHashFromIHTOptionalData(XilPdi *PdiPtr, u8 *Ha
 				goto END;
 			}
 		}
-		Status = XST_SUCCESS;
 	}
 
 END:
@@ -5570,6 +5587,7 @@ static int XLoader_AuthHdrs(const XLoader_SecureParams *SecurePtr,
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO, "Checksum validation of image headers "
 			"failed\n\r");
+			XPLMI_STATUS_GLITCH_DETECT(Status);
 		goto END;
 	}
 	XPlmi_Printf(DEBUG_INFO, "Authentication of image headers is "
@@ -5682,7 +5700,9 @@ static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr, XilPdi_MetaHdr 
 	/** Decrypt the headers and copy to structures */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DecHdrs, SecurePtr,
 			MetaHdr, BufferAddr);
-	Status |= StatusTmp;
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)){
+		Status |= StatusTmp;
+	}
 
 END:
 	if (Status != XST_SUCCESS) {
@@ -5931,6 +5951,7 @@ int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 				Status = XLoader_UpdateMinorErr(
 					XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0);
 			}
+			XPLMI_STATUS_GLITCH_DETECT(Status);
 			goto END;
 		}
 		else if ((Status != XST_SUCCESS) && (SecurePtr->NoLoad == XLOADER_NOLOAD_VAL)) {
