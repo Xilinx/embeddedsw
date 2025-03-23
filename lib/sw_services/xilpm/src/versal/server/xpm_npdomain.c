@@ -337,8 +337,11 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			after so increasing delay for scan clear to finish */
 		usleep(400);
 
-		/* NoC ScanClear workaround for xcvm2152 continued. */
-		if (PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+		/* NoC ScanClear workaround for xcvm2152, xcvr1602, xcvr1652 continued. refer EDT-1070997*/
+		if ((PMC_TAP_IDCODE_DEV_SBFMLY_VM2152 == DevIdCode) ||
+			(PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == DevIdCode) ||
+			(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == DevIdCode) ||
+			(PMC_TAP_IDCODE_DEV_SBFMLY_VR16XX_PARENT == DevIdCode)) {
 
 			/* Release PMC-NPI AXI bus reset */
 			XPm_RMW32(PMC_INT_REGS_NPI_AXI, PMC_INT_REGS_NPI_AXI_RAW_RST_N_MASK, PMC_INT_REGS_NPI_AXI_RAW_RST_N_MASK);
