@@ -18,6 +18,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------------
 * 1.00 ND  18/10/22  Common DP 2.1 rx only application for zcu102 and vcu118
+* 1.01  ND 24/03/25  Added support for PARRETO fmc
 * </pre>
 *
 ******************************************************************************/
@@ -166,6 +167,8 @@
 /* Timer Specific Defines
  */
 #define TIMER_RESET_VALUE        1000
+
+#define PARRETO_FMC //enable for parreto fmc and disable for diode fmc
 
 #if !defined (XPS_BOARD_ZCU102)
 #define CRC_CFG 0x5
@@ -491,6 +494,7 @@ int VideoFMC_Init(void){
 	    return XST_FAILURE;
 	}
 
+#ifndef PARRETO_FMC
 //	I2C_Scan(XPAR_IIC_0_BASEADDR);
 
 	/* Configure VFMC IO Expander 0:
@@ -543,6 +547,7 @@ int VideoFMC_Init(void){
 	xil_printf("Failed to Si5344\n\r");
         return XST_FAILURE;
     }
+#endif
 	return XST_SUCCESS;
 }
 
@@ -967,9 +972,10 @@ u32 DpRxSs_PlatformInit(void)
 	XIicPs_SetSClk(&Ps_Iic0, PS_IIC_CLK);
 #endif
 	VideoFMC_Init();
+#ifndef PARRETO_FMC
 	IDT_8T49N24x_SetClock(XPAR_IIC_0_BASEADDR, I2C_IDT8N49_ADDR,
 			      0, 270000000, TRUE);
-
+#endif
 	return Status;
 }
 
@@ -1014,9 +1020,11 @@ u32 DpRxSs_VideoPhyInit(u32 Baseaddress)
 			   PHY_User_Config_Table[5].RxPLL,
 			   PHY_User_Config_Table[5].LineRate);
 
+#ifndef PARRETO_FMC
 	//Setting polarity (RX) for new DP2.1 FMC
 	XVphy_SetPolarity(&VPhyInst, 0, XVPHY_CHANNEL_ID_CHA,
 			XVPHY_DIR_RX, 1);
+#endif
 
 	return XST_SUCCESS;
 }
