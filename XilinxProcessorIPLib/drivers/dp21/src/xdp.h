@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -526,6 +526,39 @@ typedef enum {
 	XDP_TX_LTTPR_7 = 0x02,
 	XDP_TX_LTTPR_8 = 0x01,
 } XDp_Tx_LttprCount;
+
+/**
+ * This typedef enumerates the Lane count.
+ */
+typedef enum {
+	XDP_TX_LANE_COUNT4 = 0x04,
+	XDP_TX_LANE_COUNT2 = 0x02,
+	XDP_TX_LANE_COUNT1 = 0x01,
+	XDP_TX_LANE_COUNT_UNKNOWN = 0,
+} XDp_lt_lane_count;
+
+/**
+ * This typedef enumerates the Link Rates.
+ */
+typedef enum {
+	XDP_TX_LINK_RATE_UNKNOWN = 0,
+	XDP_TX_LINK_RATE_162GBS = 0x06,
+	XDP_TX_LINK_RATE_270GBS = 0x0A,
+	XDP_TX_LINK_RATE_540GBS = 0x14,
+	XDP_TX_LINK_RATE_810GBS= 0x1E,
+	XDP_TX_LINK_RATE_UHBR10 = 0x20,
+	XDP_TX_LINK_RATE_UHBR135 = 0x22,
+	XDP_TX_LINK_RATE_UHBR20 = 0x24,
+} XDp_lt_link_rate;
+
+/**
+ * This typedef contains the Displayport link training configuration details.
+ */
+
+typedef struct {
+	 XDp_lt_lane_count lane_count;
+	 XDp_lt_link_rate link_rate;
+} XDp_lt_fallback_table;
 
 /**
  * This typedef contains configuration information for the DisplayPort core.
