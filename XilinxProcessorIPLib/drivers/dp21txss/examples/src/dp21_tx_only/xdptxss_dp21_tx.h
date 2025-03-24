@@ -17,6 +17,7 @@
 * 1.00  ND      18/10/22  Common DP 2.1 tx only application for zcu102 and
 * 						  vcu118
 * 1.01	ND		26/02/24  Added support for 13.5 and 20G
+* 1.02  ND      24/03/25  Added support for PARRETO fmc
  *</pre>
  *
 *****************************************************************************/
@@ -94,6 +95,8 @@
 #define DPTXSS_MST			1
 #define DPTXSS_LINK_RATE		XDPTXSS_LINK_BW_SET_540GBPS
 #define DPTXSS_LANE_COUNT		XDPTXSS_LANE_COUNT_SET_4
+
+#define PARRETO_FMC //enable this if parreto fmc is used else disable for diode fmc
 
 /* DEFAULT VALUE=0. Enabled programming of
  *  *Rx Training Algo Register for Debugging Purpose
@@ -244,7 +247,13 @@ void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
 u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config);
 u32 config_phy(int LineRate_init_tx);
-
+#ifdef PARRETO_FMC
+int i2c_write_freq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress,
+                u32 Value);
+u8 i2c_read_freq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress);
+u8 i2c_read_tdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress);
+int i2c_write_tdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress, u8 Value);
+#endif
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern);
 void sink_power_down(void);
 void sink_power_up(void);
