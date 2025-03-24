@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,11 +32,13 @@
 * 2.12	sk   06/08/21 Update XIOModule_DiscreteRead and XIOModule_DiscreteWrite
 *		      API's argument(Channel) datatype to fix the coverity warning.
 * 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
-* 2.15  ml   27/02/23 Update typecast,add U to Numerical and functions return
+* 2.15  ml   02/27/23 Update typecast,add U to Numerical and functions return
 *                     type to fix misra-c violations.
-* 2.16  ml   27/09/23 fixed compilation warnings for cpputest.
+* 2.16  ml   09/27/23 fixed compilation warnings for cpputest.
 *       ma   05/03/24 Added XIOModule_HandlerTable_Initialize function to
 *                       be called after In-place PLM update
+* 2.19  ml   03/24/25 Fixed multiple returns in XIOModule_Initialize to comply
+*                     with MISRA-C R15.5
 * </pre>
 *
 ******************************************************************************/
@@ -121,7 +123,8 @@ s32 XIOModule_Initialize(XIOModule *InstancePtr, u32 BaseAddress)
 	 * and reinitialize, but prevents a user from inadvertently initializing
 	 */
 	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_READY) {
-		return XST_DEVICE_IS_STARTED;
+		Status = XST_DEVICE_IS_STARTED;
+		goto END;
 	}
 
 	/*
@@ -134,7 +137,8 @@ s32 XIOModule_Initialize(XIOModule *InstancePtr, u32 BaseAddress)
 	CfgPtr = XIOModule_LookupConfig(BaseAddress);
 #endif
 	if (CfgPtr == NULL) {
-		return XST_DEVICE_NOT_FOUND;
+		Status = XST_DEVICE_NOT_FOUND;
+		goto END;
 	}
 
 	/*
@@ -223,7 +227,7 @@ s32 XIOModule_Initialize(XIOModule *InstancePtr, u32 BaseAddress)
 	 * Indicate the instance is now ready to use, successfully initialized
 	 */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-
+END:
 	return Status;
 }
 
