@@ -314,11 +314,18 @@ static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	UsrCfg.DFLength = (u8)Cmd->DFLen;
 	UsrCfg.SeedLife = Cmd->SeedLife;
 
+	Status = XTrng_Uninstantiate(XAsufw_Trng);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
 	Status = XTrng_Instantiate(XAsufw_Trng, (u8 *)(UINTPTR)Cmd->SeedPtr, Cmd->SeedLen,
 				(u8 *)(UINTPTR)Cmd->PersStrPtr, &UsrCfg);
 	if (Status != XASUFW_SUCCESS) {
 		(void)XTrng_Uninstantiate(XAsufw_Trng);
 	}
+
+END:
 #endif /*XASU_TRNG_ENABLE_DRBG_MODE */
 
 	(void)ReqBuf;
