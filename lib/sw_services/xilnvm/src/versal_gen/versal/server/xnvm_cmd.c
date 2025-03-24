@@ -28,6 +28,7 @@
 *	vss  02/23/2024	Added IPI support for eFuse read and write
 *	vss  05/20/24 Added IPI support for AES key write
 *       ng   11/22/2024 Fixed doxygen grouping
+*       hj   03/20/2025 Move EFUSE_WRITE_AES_KEYS inside SECURITY_CRITICAL_EFUSE macro
 *
 * </pre>
 *
@@ -162,8 +163,8 @@ static int XNvm_FeaturesCmd(u32 ApiId)
 		case XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY:
 		case XNVM_API_ID_EFUSE_READ_DNA:
 		case XNVM_API_ID_EFUSE_READ_CACHE:
-		case XNVM_API_ID_EFUSE_WRITE_AES_KEYS:
 #ifdef XNVM_WRITE_SECURITY_CRITICAL_EFUSE
+		case XNVM_API_ID_EFUSE_WRITE_AES_KEYS:
 		case XNVM_API_ID_EFUSE_WRITE_IV:
 		case XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC1:
 		case XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL:
