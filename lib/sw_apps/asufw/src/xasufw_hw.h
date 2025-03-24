@@ -51,6 +51,7 @@ extern "C" {
 /** PMC_TAP Version register platform values */
 #define PMC_TAP_VERSION_PLATFORM_PROTIUM			(0x1U) /**< Protium platform */
 #define PMC_TAP_VERSION_PLATFORM_QEMU				(0x3U) /**< QEMU platform */
+ #define PMC_TAP_VERSION_PLATFORM_COSIM				(0x7U) /**< QEMU+COSIM platform */
 
 /*
  * Definitions required from asu_global.h
