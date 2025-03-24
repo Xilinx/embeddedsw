@@ -86,6 +86,9 @@
 /****************************** Type Definitions ******************************/
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
+
+#define ARRAY_SIZE(arr)                         (sizeof(arr) / sizeof(arr[0]))
+
 /**
  * This typedef enumerates the list of training states used in the state machine
  * during the link training process.
@@ -123,6 +126,30 @@ typedef struct {
 					transactions. */
 } XDp_AuxTransaction;
 
+XDp_lt_fallback_table dptx_lt_fallbacks[] = {
+    {XDP_TX_LANE_COUNT4, XDP_TX_LINK_RATE_UHBR20},
+    {XDP_TX_LANE_COUNT4, XDP_TX_LINK_RATE_UHBR135},
+    {XDP_TX_LANE_COUNT2, XDP_TX_LINK_RATE_UHBR20},
+    {XDP_TX_LANE_COUNT4, XDP_TX_LINK_RATE_UHBR10},
+    {XDP_TX_LANE_COUNT2, XDP_TX_LINK_RATE_UHBR135},
+    {XDP_TX_LANE_COUNT4, XDP_TX_LINK_RATE_810GBS},
+    {XDP_TX_LANE_COUNT1, XDP_TX_LINK_RATE_UHBR20},
+    {XDP_TX_LANE_COUNT2, XDP_TX_LINK_RATE_UHBR10},
+    {XDP_TX_LANE_COUNT4, XDP_TX_LINK_RATE_540GBS},
+    {XDP_TX_LANE_COUNT1, XDP_TX_LINK_RATE_UHBR135},
+    {XDP_TX_LANE_COUNT2, XDP_TX_LINK_RATE_810GBS},
+    {XDP_TX_LANE_COUNT1, XDP_TX_LINK_RATE_UHBR10},
+    {XDP_TX_LANE_COUNT2, XDP_TX_LINK_RATE_540GBS},
+    {XDP_TX_LANE_COUNT4, XDP_TX_LINK_RATE_270GBS},
+    {XDP_TX_LANE_COUNT1, XDP_TX_LINK_RATE_810GBS},
+    {XDP_TX_LANE_COUNT4, XDP_TX_LINK_RATE_162GBS},
+    {XDP_TX_LANE_COUNT2, XDP_TX_LINK_RATE_270GBS},
+    {XDP_TX_LANE_COUNT2, XDP_TX_LINK_RATE_162GBS},
+    {XDP_TX_LANE_COUNT1, XDP_TX_LINK_RATE_270GBS},
+    {XDP_TX_LANE_COUNT1, XDP_TX_LINK_RATE_162GBS},
+    {XDP_TX_LANE_COUNT1, XDP_TX_LINK_RATE_162GBS},
+	{XDP_TX_LANE_COUNT_UNKNOWN, XDP_TX_LINK_RATE_UNKNOWN},
+};
 /**************************** Function Prototypes *****************************/
 
 /* Initialization functions. */
@@ -836,6 +863,65 @@ u32 XDp_TxCfgMainLinkMax(XDp *InstancePtr)
 
 /******************************************************************************/
 /**
+ * This function verifys the downstream protocol capability
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *		- true if sink supports 128/132B mode.
+ *		- false Otherwise
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDp_TxIsDp21Capable(XDp *InstancePtr) {
+	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
+
+	if (LinkConfig->LinkTraining2x
+			&& (InstancePtr->TxInstance.LinkConfig.LinkRate >= XDP_TX_LINK_BW_SET_SW_UHBR10))
+			return 1;
+
+	return 0;
+}
+
+/******************************************************************************/
+/**
+ * This function verifys the Linkrate is valid and can start Linktraining
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *		- true if LinkRate is valid.
+ *		- false Otherwise
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDp_TxIsLTLinkRateValid(XDp *InstancePtr) {
+
+	return (InstancePtr->TxInstance.LinkConfig.LinkRate >= XDP_LINK_BW_SET_162GBPS);
+}
+
+/******************************************************************************/
+/**
+ * This function verifys the LaneCount is valid and can start LinkTraining
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *		- true if LaneCount is supported.
+ *		- false Otherwise
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u32 XDp_TxIsLTLaneCountValid(XDp *InstancePtr) {
+
+	return (InstancePtr->TxInstance.LinkConfig.LaneCount >= 1);
+}
+
+/******************************************************************************/
+/**
  * This function checks if the link needs training and runs the training
  * sequence if training is required.
  *
@@ -853,6 +939,7 @@ u32 XDp_TxCfgMainLinkMax(XDp *InstancePtr)
 u32 XDp_TxEstablishLink(XDp *InstancePtr)
 {
 	u32 Status;
+	u32 i;
 	u32 Status2;
 	u32 ReenableMainLink;
 	u8 LinkRate;
@@ -884,30 +971,35 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	if (LinkConfig->LinkTraining2x) {
-		/* Train DP2.1 main link. */
-		Status = XDp_Tx_Run_2x_LinkTraining(InstancePtr);
+	for (i = 0; XDp_TxIsLTLaneCountValid(InstancePtr)
+			&& XDp_TxIsLTLinkRateValid(InstancePtr); i++) {
+		if (XDp_TxIsDp21Capable(InstancePtr)) {
+			/* Train DP2.1 main link. */
+			Status = XDp_Tx_Run_2x_LinkTraining(InstancePtr);
 
-		LinkRate = XDp_Tx_DecodeLinkBandwidth(InstancePtr);
-		if (Status == XDP_TX_TS_FAILURE &&
-			LinkRate == XDP_TX_LINK_BW_SET_810GBPS) {
-			LinkConfig->ProtocolSwitch = 1;
-			/* Train DP1.4/DP1.2 main link. */
-			XDp_Tx_2x_LttprModeSet(InstancePtr, XDP_TX_LTTPR_TRANSPARENT);
-			XDp_Tx_2x_ChannelCodingSet(InstancePtr,
-						   XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_8B_10B_MASK);
-			Status = XDp_TxRunTraining(InstancePtr);
-			if (Status != XST_SUCCESS)
-				return XST_FAILURE;
+			LinkRate = XDp_Tx_DecodeLinkBandwidth(InstancePtr);
+			if (Status == XDP_TX_TS_FAILURE &&
+				LinkRate < XDP_TX_LINK_BW_SET_SW_UHBR10) {
+				/* if LT failed and Linkrate is lessthan UHBR switch to HBR rates */
+				LinkConfig->ProtocolSwitch = 1;
+				XDp_Tx_2x_LttprModeSet(InstancePtr, XDP_TX_LTTPR_TRANSPARENT);
+				XDp_Tx_2x_ChannelCodingSet(InstancePtr,
+							   XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_8B_10B_MASK);
+				Status = XDp_TxRunTraining(InstancePtr);
+				if (Status == XST_SUCCESS)
+					break;
+			} else {
+				break;
+			}
 		} else {
-			Status = XST_SUCCESS;
+			/* Train DP1.4/DP1.2 main link. */
+			Status = XDp_TxRunTraining(InstancePtr);
+			if (Status == XST_SUCCESS)
+				 break;
 		}
-	} else {
-		/* Train DP1.4/DP1.2 main link. */
-		Status = XDp_TxRunTraining(InstancePtr);
-		if (Status != XST_SUCCESS)
-			return XST_FAILURE;
 	}
+	if (Status != XST_SUCCESS)
+		return Status;
 
 	Status = XDp_TxCheckLinkStatus(InstancePtr,
 				       InstancePtr->TxInstance.LinkConfig.LaneCount);
@@ -3169,6 +3261,13 @@ static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr, u8
 		}
 	}
 
+	if ((InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1)
+		&& (InstancePtr->TxInstance.LinkConfig.Downstream2xSupported))
+		{
+			XDp_Tx_2x_AdjustLinkTrainparams(InstancePtr, 1);
+			return XDP_TX_TS_FAILURE;
+		}
+
 	return XDP_TX_TS_ADJUST_LINK_RATE;
 }
 
@@ -5216,43 +5315,98 @@ static u32 XDp_TxCheckCdsInterlaneAlignDone(XDp *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function checks if the RX device's DisplayPort Configuration Data (DPCD)
- * indicates that the second part of training, cds sequence during link training was
- * successful - the RX device has achieved channel equalization, symbol lock,
- * and interlane alignment for all lanes currently in use.
+ * This function terminates the Link Training and initializes the source device to
+ * its default state.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
- * @param	LaneCount is the number of lanes to check.
+ * @param	NumOfRepeaters is the number of repeaters between Source and Sink.
  *
  * @return
- *		- XST_SUCCESS if the RX device has achieved channel
- *		  equalization symbol lock, and interlane alignment for all
- *		  lanes in use.
+ *		- XST_SUCCESS if the Tx terminates LT
  *		- XST_FAILURE otherwise.
  *
  * @note	None.
  *
  *******************************************************************************/
+
+static u32 XDp_Tx_2x_TerminateLT(XDp *InstancePtr, u8 NumOfRepeaters)
+{
+	u32 Status = 0;
+	u32 LtTermination = 0;
+
+	/*clear training pattern to zero*/
+	Status = XDp_TxSetTrainingPattern(InstancePtr,
+					  XDP_TX_TRAINING_PATTERN_SET_OFF, NumOfRepeaters);
+
+	if (Status != XST_SUCCESS)
+		return XDP_TX_TS_FAILURE;
+
+	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_SINK_STATUS,
+			1, &LtTermination);
+
+	if (LtTermination & XDP_DPCD_INTRA_HOP_INDICATION)
+		Status = XDp_TxSetTrainingPattern(InstancePtr,
+						  XDP_TX_TRAINING_PATTERN_SET_OFF, NumOfRepeaters);
+	if (Status != XST_SUCCESS)
+		return XDP_TX_TS_FAILURE;
+
+	return Status;
+}
+
 static u32 XDp_Tx_2x_AdjustLinkTrainparams(XDp *InstancePtr, u8 TrainingFailure)
 {
-	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	u32 curr_id = 0;
+	u32 next_id = 0;
+	int status = XST_FAILURE;
 
-	if (InstancePtr->TxInstance.LinkConfig.LaneCount == 1 && TrainingFailure) {
-		/* needed to set lanecount for next iteration */
-		InstancePtr->TxInstance.LinkConfig.LaneCount =
-			InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
-		InstancePtr->TxInstance.LinkConfig.CeDoneOldState =
-				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
-		return XDP_TX_TS_ADJUST_LINK_RATE;
-	} else if (TrainingFailure && InstancePtr->TxInstance.LinkConfig.LaneCount > 1) {
-		/* For EQ failure downlink the lane count */
-		return XDP_TX_TS_ADJUST_LANE_COUNT;
+
+
+	while (curr_id < ARRAY_SIZE(dptx_lt_fallbacks))
+		/* find current index */
+		if ((dptx_lt_fallbacks[curr_id].lane_count == InstancePtr->TxInstance.LinkConfig.LaneCount) &&
+				(dptx_lt_fallbacks[curr_id].link_rate == InstancePtr->TxInstance.LinkConfig.LinkRate))
+			break;
+		else
+		curr_id++;
+
+	next_id = curr_id + 1;
+
+	while (next_id < ARRAY_SIZE(dptx_lt_fallbacks))
+		/* find next valid index */
+		if (dptx_lt_fallbacks[next_id].lane_count > InstancePtr->TxInstance.LinkConfig.MaxLaneCount ||
+				dptx_lt_fallbacks[next_id].link_rate > InstancePtr->TxInstance.LinkConfig.MaxLinkRate)
+			next_id++;
+		else
+			break;
+
+	if (next_id < ARRAY_SIZE(dptx_lt_fallbacks)) {
+		InstancePtr->TxInstance.LinkConfig.LaneCount = dptx_lt_fallbacks[next_id].lane_count;
+		InstancePtr->TxInstance.LinkConfig.LinkRate = dptx_lt_fallbacks[next_id].link_rate;
+		if (InstancePtr->TxInstance.LinkConfig.LinkRate >= XDP_TX_LINK_BW_SET_SW_UHBR10)
+			status = XDP_TX_TS_CHANNEL_EQ_DONE;
+		else {
+			/* UCD500 complaince expects the LaneCount to be set here,
+			 * it has to match the max cap of Sink device that supports.
+			 */
+			status = XDp_TxSetLaneCount(InstancePtr,
+						    InstancePtr->TxInstance.LinkConfig.LaneCount);
+			if (status != XST_SUCCESS)
+				return XDP_TX_TS_FAILURE;
+
+			/* UCD500 complaince expects the LinkRate to be set here,
+			 * it has to match the max cap of Sink device that supports.
+			 */
+			status = XDp_TxSetLinkRate(InstancePtr,
+						    InstancePtr->TxInstance.LinkConfig.LinkRate);
+			if (status != XST_SUCCESS)
+				return XDP_TX_TS_FAILURE;
+
+			status = XDP_TX_TS_CLOCK_RECOVERY;
+		}
 	}
-	InstancePtr->TxInstance.LinkConfig.CeDoneOldState =
-		InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
-	return XDP_TX_TS_ADJUST_LINK_RATE;
+
+
+	return status;
 }
 
 /******************************************************************************/
@@ -5320,10 +5474,8 @@ static XDp_TxTrainingState XDp_Tx_2x_ClockData_Switch(XDp *InstancePtr, u8 NumOf
 
 		loop++;
 	}
+	 XDp_Tx_2x_TerminateLT(InstancePtr, NumOfRepeaters);
 
-	Status = XDP_TX_TS_FAILURE;
-	//printf("\n\r cds done fail %x", Status);
-	/* The AUX read failed. or status fail*/
 	return XDp_Tx_2x_AdjustLinkTrainparams(InstancePtr, Status);
 
 	return XDP_TX_TS_FAILURE;
@@ -5427,24 +5579,14 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr, u8 Nu
 {
 	u32 Status;
 	u32 DelayUs;
-	u8 LtTermination = 0;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/*clear training pattern to zero*/
-	Status = XDp_TxSetTrainingPattern(InstancePtr,
-					  XDP_TX_TRAINING_PATTERN_SET_OFF, NumOfRepeaters);
-
+	Status = XDp_Tx_2x_TerminateLT(InstancePtr, NumOfRepeaters);
 	if (Status != XST_SUCCESS)
 		return XDP_TX_TS_FAILURE;
-
-	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_SINK_STATUS,
-			1, &LtTermination);
-	if (Status != XST_SUCCESS)
-		return XDP_TX_TS_FAILURE;
-
 	/* UCD500 complaince expects the Lane to be set here it has to match the max cap of Sink */
 	Status = XDp_TxSetLaneCount(InstancePtr,
 				    InstancePtr->TxInstance.LinkConfig.LaneCount);
@@ -5480,10 +5622,7 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr, u8 Nu
 
 	Status =  XDp_Tx_2x_Eq_Done(InstancePtr, NumOfRepeaters, DelayUs);
 	if (Status != XST_SUCCESS) {
-		/*clear training pattern to zero*/
-		Status = XDp_TxSetTrainingPattern(InstancePtr,
-						  XDP_TX_TRAINING_PATTERN_SET_OFF, NumOfRepeaters);
-
+		Status = XDp_Tx_2x_TerminateLT(InstancePtr, NumOfRepeaters);
 		if (Status != XST_SUCCESS)
 			return XDP_TX_TS_FAILURE;
 
@@ -5494,9 +5633,7 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr, u8 Nu
 	if (Status == XST_SUCCESS)
 		return XDP_TX_TS_CHANNEL_CLOCK_DATA_SWITCH;
 
-	Status = XDp_TxSetTrainingPattern(InstancePtr,
-					XDP_TX_TRAINING_PATTERN_SET_OFF, NumOfRepeaters);
-
+	Status = XDp_Tx_2x_TerminateLT(InstancePtr, NumOfRepeaters);
 	if (Status != XST_SUCCESS)
 		return XDP_TX_TS_FAILURE;
 
@@ -5726,7 +5863,7 @@ static u32 XDp_Tx_Run_2x_LinkTraining(XDp *InstancePtr)
 				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
 			InstancePtr->TxInstance.LinkConfig.CeDoneLaneCnt =
 				InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
-			return XST_FAILURE;
+			return XDP_TX_TS_FAILURE;
 		}
 
 		if (TrainingState == XDP_TX_TS_ADJUST_LINK_RATE ||
@@ -5758,6 +5895,10 @@ static u32 XDp_Tx_Run_2x_LinkTraining(XDp *InstancePtr)
 						InstancePtr->TxInstance.LinkConfig.CeDoneLaneCnt;
 				return XDP_TX_TS_FAILURE;
 			}
+		}
+		if (InstancePtr->TxInstance.LinkConfig.LinkRate < XDP_TX_LINK_BW_SET_SW_UHBR10) {
+			/* Final status check. */
+			return XDP_TX_TS_FAILURE;
 		}
 	}
 	return XST_SUCCESS;
