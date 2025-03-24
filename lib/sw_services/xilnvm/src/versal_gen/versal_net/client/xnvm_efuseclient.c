@@ -1455,6 +1455,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET, 1U, LowAddr,
 		HighAddr);
 
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
 			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
 	if (Status != XST_SUCCESS) {
@@ -1471,6 +1472,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_ECC_CTRL_OFFSET, 1U, LowAddr,
 		HighAddr);
 
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
 			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
 	if (Status != XST_SUCCESS) {
@@ -1492,6 +1494,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
 			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
 	if (Status != XST_SUCCESS) {
@@ -1697,6 +1700,7 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds return error else return the status of the IPI response.
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
 			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
 
@@ -2249,6 +2253,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	 *    Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 *    If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
 			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
 	if (Status != XST_SUCCESS) {
@@ -2337,6 +2342,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 * If the timeout exceeds then return error else return the status of the IPI response.
 	 */
+	Status = XST_FAILURE;
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
 			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
 	if (Status != XST_SUCCESS) {
