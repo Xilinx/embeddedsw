@@ -70,6 +70,7 @@ examples:
   xilsecure_versal_net_trng_client_example.c:
     - supported_platforms:
       - VersalNet
+      - VersalGen2
   xilsecure_versal_net_ecdh_client_example.c:
     - supported_platforms:
       - VersalNet
