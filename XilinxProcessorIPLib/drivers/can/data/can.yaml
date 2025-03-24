@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -34,6 +34,10 @@ required:
     - interrupts
     - interrupt-parent
     - xlnx,has-ecc
+
+additionalProperties:
+    - xlnx,tx-fifo-depth
+    - xlnx,rx-fifo-depth
 
 examples:
         xcan_intr_example.c:
