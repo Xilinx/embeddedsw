@@ -185,7 +185,8 @@ s32 XTrng_PreOperationalSelfTests(XTrng *InstancePtr)
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if (XASUFW_PLATFORM != PMC_TAP_VERSION_PLATFORM_QEMU) {
+	if ((XASUFW_PLATFORM != PMC_TAP_VERSION_PLATFORM_QEMU) &&
+		(XASUFW_PLATFORM != PMC_TAP_VERSION_PLATFORM_COSIM)) {
 		Status = XTrng_DrbgKat(InstancePtr);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;

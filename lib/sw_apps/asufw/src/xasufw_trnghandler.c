@@ -233,7 +233,8 @@ static s32 XAsufw_TrngKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	(void)ReqBuf;
 	(void)ReqId;
 
-	if (XASUFW_PLATFORM == PMC_TAP_VERSION_PLATFORM_QEMU) {
+	if ((XASUFW_PLATFORM == PMC_TAP_VERSION_PLATFORM_QEMU) ||
+		(XASUFW_PLATFORM == PMC_TAP_VERSION_PLATFORM_COSIM)) {
 		XAsufw_Printf(DEBUG_GENERAL, "INFO: DRBG KAT is not supported on QEMU\r\n");
 		Status = XASUFW_TRNG_KAT_NOT_SUPPORTED_ON_QEMU;
 		goto END;
