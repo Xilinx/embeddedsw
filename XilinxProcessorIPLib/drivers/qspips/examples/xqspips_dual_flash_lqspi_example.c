@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 *		     performing the next operation.
 * 3.10  akm 08/17/22 Fix logical error in NumSect calculation.
 * 3.11  akm 07/10/23 Add support for system device-tree flow for example.
+* 3.14  sb  03/25/25 Fixed gcc and g++ warnings.
 *</pre>
 *
 ******************************************************************************/
@@ -519,7 +520,7 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 	u8 ReadStatusCmd[] = { READ_STATUS_CMD, 0 };  /* must send 2 bytes */
 	u8 FlashStatus[2];
 	u32 RealAddr;
-	int Sector;
+	u32 Sector;
 	u32 NumSect;
 
 	/*
