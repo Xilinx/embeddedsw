@@ -23,6 +23,7 @@
  *       ss   12/02/24 Added support for ECDH
  *       yog  02/21/25 Added XRsa_EccValidateAndGetCrvInfo() prototype
  *       yog  03/21/25 Added PWCT support
+ *       yog  03/24/25 Added XRsa_EccGeneratePrivKey() prototype
  *
  * </pre>
  *
@@ -73,6 +74,7 @@ EcdsaCrvInfo *XRsa_EccGetCrvData(u32 CurveType);
 u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv);
 s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
 	u64 PubKeyAddr);
+s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8* PvtKey);
 
 /************************************ Variable Definitions ***************************************/
 

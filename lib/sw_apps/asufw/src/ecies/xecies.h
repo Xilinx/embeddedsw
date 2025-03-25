@@ -48,7 +48,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
-		   const XAsu_EciesParams *EciesParams,	const u8* RandBuf);
+		   const XAsu_EciesParams *EciesParams);
 s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
 		   const XAsu_EciesParams *EciesParams);
 

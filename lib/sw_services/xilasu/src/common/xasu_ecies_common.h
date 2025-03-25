@@ -47,6 +47,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_ValidateEciesParameters(const XAsu_EciesParams *EciesParams);
+s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen);
 
 #ifdef __cplusplus
 }

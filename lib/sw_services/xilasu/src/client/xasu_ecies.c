@@ -82,12 +82,6 @@ s32 XAsu_EciesEncrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 		goto END;
 	}
 
-	Status = XAsu_EccValidateCurveInfo(EciesParamsPtr->EccCurveType, EciesParamsPtr->EccKeyLength);
-	if (Status != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
@@ -187,7 +181,6 @@ END:
  *
  * @return
  * 	- XST_SUCCESS, if IPI request to ASU is sent successfully.
- * 	- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 	- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  * 	- XST_FAILURE, if sending IPI request to ASU fails.
  *

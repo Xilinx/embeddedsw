@@ -53,7 +53,6 @@ s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParam
 s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr);
 s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams *EcdhParamsPtr);
 s32 XAsu_EcdhKat(XAsu_ClientParams *ClientParamsPtr);
-s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

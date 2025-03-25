@@ -329,8 +329,8 @@ enum {
 	XASUFW_RSA_INVALID_PRIME_TOT_FLAG, /**< 0xEBU - Error when invalid flag for prime number or
 						totient is given */
 	XASUFW_ECIES_INVALID_PARAM, /**< 0xECU - Invalid parameters to ECIES APIs */
-	XASUFW_ECIES_TRNG_FAILED, /**< 0xEDU - Error when random number generation failed */
-	XASUFW_ECIES_KEY_GEN_FAILURE, /**< 0xEEU - Error when public key generation failed */
+	XASUFW_ECIES_PVT_KEY_GEN_FAILURE, /**< 0xEDU - Error when private key generation failed */
+	XASUFW_ECIES_PUB_KEY_GEN_FAILURE, /**< 0xEEU - Error when public key generation failed */
 	XASUFW_ECIES_ECDH_FAILURE, /**< 0xEFU - Error when ECDH operation failed */
 	XASUFW_ECIES_KDF_FAILURE, /**< 0xF0U - Error when KDF operation failed */
 	XASUFW_ECIES_AES_WRITE_KEY_FAILURE, /**< 0xF1U - Error when AES write key operation failed */
@@ -360,6 +360,11 @@ enum {
 	XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, /**< 0x108U - Sign verification failure in PWCT */
 	XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED, /**< 0x109U - Error when AES CBC/ECB dummy
 								encryption fails */
+	XASUFW_RSA_ECC_INCORRECT_CURVE, /**< 0x10AU - Error when the received curvelen or curve size
+						is incorrect. */
+	XASUFW_RSA_ECC_TRNG_FAILED, /**< 0x10BU -  Error in TRNG while generating ECC private key */
+	XASUFW_RSA_ECC_MOD_ORDER_FAILED, /**< 0x10CU - Error when ModEccOrder failed in generate
+							private key */
 
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };
