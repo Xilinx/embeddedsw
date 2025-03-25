@@ -56,6 +56,7 @@
 *       pre  07/14/2024 Added error code for exceeding IPI buffer size
 * 2.2   sk   03/05/2025 Updated error code for ASU core wakeup
 *       pre  03/15/2025 Added XPLMI_CMD_IN_PROGRESS error state
+*       sk   03/24/2025 Updated error codes for versal_2ve_2vm platform
 *
 * </pre>
 *
@@ -323,13 +324,11 @@ typedef enum {
 					  for master SLR devices */
 	XPLM_ERR_STL_MOD,		/**< 0x205 - Error initializing
 					  the STL Module */
-	XPLM_ERR_KEEP_ALIVE_TASK_CREATE,	/**< 0x206 - Error while
-						  creating PSM keep alive
-						  task */
-	XPLM_ERR_KEEP_ALIVE_TASK_REMOVE,	/**< 0x207 - Error while
-						  removing PSM keep alive
-						  task */
-	XPLM_ERR_PSM_NOT_ALIVE,			/**< 0x208 - PSM is not alive */
+	XPLM_RESERVED_ERR_206,	/**< 0x206 - Reserved Error
+						  */
+	XPLM_RESERVED_ERR_207,	/**< 0x207 - Reserved Error
+						  */
+	XPLM_RESERVED_ERR_208,			/**< 0x208 - Reserved Error */
 	XPLM_ERR_IPI_SEND,			/**< 0x209 - Error while sending
 						     IPI */
 	XPLM_ERR_PMC_RAM_MEMSET,	/**< 0x20A - Error while clearing the
@@ -492,24 +491,24 @@ typedef enum {
 							for bootable file crosses max limit */
 	XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_SIZE, /**< 0x341 - Error when QSPI flash Size is
 							not supported */
-	XLOADER_ERR_PM_DEV_PSM_PROC,		/**< 0x342 - Failed in XPM Request Device for
-							PM_DEV_PSM_PROC */
-	XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT,	/**<0x343 - Failed in XPM Device Ioctl for
-							RPU0_0 in SPLIT mode */
-	XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT,	/**< 0x344 - Failed in XPM Device Ioctl for
-							RPU0_1 in SPLIT mode */
-	XLOADER_ERR_PM_DEV_IOCTL_RPU0_LOCKSTEP, /**< 0x345 - Failed to XPM Device Ioctl for
-							RPU0_0 in LOCKSTEP mode */
-	XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP, /**< 0x346 - Failed to XPM Device Ioctl for
-							RPU0_1 in LOCKSTEP mode */
-	XLOADER_ERR_PM_DEV_TCM_0_A,		/**< 0x347 - Failed to XPM Request Device for
-							PM_DEV_TCM_0_A */
-	XLOADER_ERR_PM_DEV_TCM_0_B,		/**< 0x348 - Failed to XPM Request Device for
-							PM_DEV_TCM_0_B */
-	XLOADER_ERR_PM_DEV_TCM_1_A,		/**< 0x349 - Failed in XPM Request Device for
-							PM_DEV_TCM_1_A */
-	XLOADER_ERR_PM_DEV_TCM_1_B,		/**< 0x34A - Failed in XPM Request Device for
-							PM_DEV_TCM_1_B */
+	XLOADER_ERR_PM_DEV_ASU_PROC,		/**< 0x342 - Failed in XPM Request Device for
+							PM_DEV_ASU_PROC */
+	XLOADER_ERR_RESERVED_343,		/**<0x343 - Reserved Error
+							 */
+	XLOADER_ERR_RESERVED_344,		/**< 0x344 - Reserved Error
+							*/
+	XLOADER_ERR_RESERVED_345,		 /**< 0x345 - Reserved Error
+							*/
+	XLOADER_ERR_RESERVED_346,		 /**< 0x346 - Reserved Error
+							 */
+	XLOADER_ERR_RESERVED_347,		/**< 0x347 - Reserved Error
+							 */
+	XLOADER_ERR_RESERVED_348,		/**< 0x348 - Reserved Error
+							 */
+	XLOADER_ERR_RESERVED_349,		/**< 0x349 - Reserved Error
+							 */
+	XLOADER_ERR_RESERVED_34A,		/**< 0x34A - Reserved Error
+							 */
 	XLOADER_ERR_PM_DEV_DDR_0,		/**< 0x34B - Failed to XPM Request Device for
 							PM_DEV_DDR_0 */
 	XLOADER_ERR_PM_DEV_QSPI,		/**< 0x34C - Failed to XPM Request Device for
