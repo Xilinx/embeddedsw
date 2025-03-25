@@ -38,7 +38,6 @@ class Bsp_config(BSP, Library):
         self.addlib = args["addlib"]
         self.rmlib = args["rmlib"]
 
-
 def configure_bsp(args):
     """
     This function uses Bsp_config class and configures the bsp based on the
@@ -52,7 +51,7 @@ def configure_bsp(args):
     # If user wants to add a library to the bsp
     if obj.addlib:
         lib_name = obj.addlib[0]
-        logger.info(f"Adding {lib_name}")
+        logger.info(f"Adding {lib_name} ...")
         if lib_name in obj.bsp_lib_config.keys():
             logger.warning(f"""\b
                  {lib_name} is already added in the bsp. Nothing to do.
@@ -78,9 +77,14 @@ def configure_bsp(args):
 
     # If user wants to remove a library from the bsp
     if obj.rmlib:
-        logger.info(f"Removing {obj.rmlib}")
+        if obj.rmlib == obj.os:
+            logger.warning(f"Removal of {obj.os} library is not allowed.")
+            sys.exit(1)
+
+        logger.info(f"Removing {obj.rmlib} ...")
         obj.remove_lib(obj.rmlib)
         logger.info(f"Successfully removed {obj.rmlib}")
+
 
     # If user wants to set library parameters
     if args.get("set_property"):
