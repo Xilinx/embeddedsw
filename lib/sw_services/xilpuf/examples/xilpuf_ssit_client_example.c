@@ -9,8 +9,8 @@
   * @file xilpuf_ssit_client_example.c
   *
   * This file illustrates encryption of red key using PUF KEY and
-  * programming the black key and helper data in a user specified location for master,
-  * slave SLR1, slave SLR2 and slave SLR3.
+  * programming the black key and helper data in a user specified location for Primary SLR0,
+  * Secondary SLR1, Secondary SLR2 and Secondary SLR3.
   * To build this application, xilmailbox library must be included in BSP and
   * xilsecure, xilnvm and xilpuf must be in client mode.
   *
@@ -55,6 +55,7 @@
   * Ver   Who   Date     Changes
   * ----- ---  -------- -------------------------------------------------------
   * 2.5   hj   02/11/25 Initial release
+  * 2.5   hj   03/25/25 Remove master and slave keywords
   *
   *@note
   *
