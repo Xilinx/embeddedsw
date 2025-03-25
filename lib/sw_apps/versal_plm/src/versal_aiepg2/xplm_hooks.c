@@ -1,15 +1,15 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplm_hooks.c
+* @file versal_aiepg2/xplm_hooks.c
 *
-* This file contains the hook functions for the user in versal_net platform
+* This file contains the hook functions for the user in versal_2ve_2vm platform
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,6 +24,7 @@
 *       ma   09/23/2024 Added support for PSM-PLM IPI events
 * 1.12  nb   10/09/2024 Add XilPM hook to XPlm_HookAfterBootPdi
 * 1.13  sk   12/13/2024 Added proc buffer init in XPlm_HookBeforePmcCdo
+* 1.14  sk   03/25/2025 Updated platform name
 *
 * </pre>
 *

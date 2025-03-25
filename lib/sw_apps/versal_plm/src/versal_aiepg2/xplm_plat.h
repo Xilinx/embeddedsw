@@ -8,9 +8,9 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplm_plat.h
+* @file versal_aiepg2/xplm_plat.h
 *
-* This file contains versal_net specific declarations PLM module.
+* This file contains versal_2ve_2vm specific declarations PLM module.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,6 +25,7 @@
 * 1.02  kpt  02/21/2024 Added XPlm_OcpHandler
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 *       am   02/22/2025 Added Puf on dmand regeneration support
+*       sk   03/25/2025 Updated platform name
 *
 * </pre>
 *
@@ -68,7 +69,7 @@ extern "C" {
 *****************************************************************************/
 static inline int XPlm_ConfigureDefaultNPll(void)
 {
-	/* Not Applicable for Versal Net */
+	/* Not Applicable for Versal 2VE and 2VM Devices */
 	return XST_SUCCESS;
 }
 
