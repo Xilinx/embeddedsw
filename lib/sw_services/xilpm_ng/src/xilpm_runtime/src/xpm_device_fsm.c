@@ -69,11 +69,6 @@ static XStatus ActionBringUpAll(XPm_Device* Device)
 	}
 
 	u32 NodeId = Device->Node.Id;
-	if (((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) ||
-	    ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(NodeId))) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
 
 	/** Power on Device */
 	Status = XPmDevice_BringUp(Device);
@@ -156,27 +151,33 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 		DbgErr = XPM_INT_ERR_CLK_DISABLE;
 		goto done;
 	}
-	/* Power down the device */
-	Status = Device->Power->HandleEvent(&Device->Power->Node, (u32)XPM_POWER_EVENT_PWR_DOWN);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_PWRDN;
-	}
+	if (NULL != Device->Power) {
+		/* Power down the device */
+		Status = Device->Power->HandleEvent(&Device->Power->Node, (u32)XPM_POWER_EVENT_PWR_DOWN);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PWRDN;
+			goto done;
+		}
+		Device->Node.Flags &= (u8)(~NODE_IDLE_DONE);
+		if (Device->WfPwrUseCnt == Device->Power->UseCount) {
+			/** TODO: waitfor dealloc need to be implement in runtime */
+			// if (1U == Device->WfDealloc) {
+			// 	Device->PendingReqm->Allocated = 0;
+			// 	Device->WfDealloc = 0;
+			// }
 
-	Device->Node.Flags &= (u8)(~NODE_IDLE_DONE);
-	if (Device->WfPwrUseCnt == Device->Power->UseCount) {
-		/** TODO: waitfor dealloc need to be implement in runtime */
-		// if (1U == Device->WfDealloc) {
-		// 	Device->PendingReqm->Allocated = 0;
-		// 	Device->WfDealloc = 0;
-		// }
+			XPmRequirement_ReleaseFromAllSubsystem(Device);
 
-		XPmRequirement_ReleaseFromAllSubsystem(Device);
-
-		if (0U == IsRunning(Device)) {
-			Status = XST_FAILURE;
-			PmErr("Error during power down device ID=0x%x. Device still running ... ", Device->Node.Id);
+			if (0U == IsRunning(Device)) {
+				Status = XST_FAILURE;
+				PmErr("Error during power down device ID=0x%x. Device still running ... ", Device->Node.Id);
+				goto done;
+			}
 		}
 	}
+
+	Status = XST_SUCCESS;
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;

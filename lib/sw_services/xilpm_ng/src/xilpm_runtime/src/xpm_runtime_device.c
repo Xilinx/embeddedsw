@@ -511,6 +511,10 @@ XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 #endif
 
 	RstHandle = Device->RstHandles;
+	if (NULL == RstHandle) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 	if (PM_RESET_ACTION_RELEASE != Action) {
 		while (NULL != RstHandle) {
 			Reset = RstHandle->Reset;
