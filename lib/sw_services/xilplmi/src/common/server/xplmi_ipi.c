@@ -93,6 +93,8 @@
  * 2.02  gam  01/07/2025 Created dummy IPI APIs in case of no IPI instance to
  *                       fix plm build issue with XilSEM.
  *       pre  03/02/2025 Added handling for XPLMI_CMD_IN_PROGRESS status
+ *       pre  03/24/2024 Executing invalid command handler registered for STL module
+ *                       irrespective of SLR index field
  *
  * </pre>
  *
@@ -752,7 +754,7 @@ int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 		if (ApiId >= Module->CmdCnt) {
 			/* If a Invalid Cmd Handler is registered and SlrIndex is valid, skip throwing error */
 			if ((Module->InvalidCmdHandler == NULL) || ((SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX)
-			    && (ModuleId != XPLMI_MODULE_SEM_ID))) {
+			    && (ModuleId != XPLMI_MODULE_SEM_ID) && (ModuleId != XPLMI_MODULE_STL_ID))) {
 				Status = XPLMI_ERR_VALIDATE_IPI_INVALID_API_ID;
 			}
 			else {
@@ -867,7 +869,7 @@ static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload)
 	/* Check if it is within the commands registered */
 	if (ApiId >= Module->CmdCnt) {
 		if ((Module->InvalidCmdHandler != NULL) && ((SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX) ||
-		    (ModuleId == XPLMI_MODULE_SEM_ID))) {
+		    (ModuleId == XPLMI_MODULE_SEM_ID) || (ModuleId == XPLMI_MODULE_STL_ID))) {
 			Status = Module->InvalidCmdHandler(Payload, (u32 *)CmdPtr->Response);
 		}
 		else{
