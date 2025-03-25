@@ -122,7 +122,7 @@ void XDmaPcie_QdmaAddPgm(XDmaPcie *InstancePtr)
 int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 							 UINTPTR EffectiveAddress)
 {
-#if defined(XDMA_PCIE_BRIDGE)
+#if !defined(versal) && !defined(QDMA_PCIE_BRIDGE)
 	u32 Data;
 #endif
 
