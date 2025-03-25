@@ -62,6 +62,7 @@
 *       sk   03/05/2025 Added ASU destination CPU attribute
 *       tri  03/13/2025 Added XLoader_MeasureNLoad support
 *       sk   03/17/2025 Added support for all 5 RPU clusters
+*       sk   03/22/2025 Updated status variable as volatile in XLoader_StartImage
 *
 * </pre>
 *
@@ -277,7 +278,7 @@ XilBootPdiInfo* XLoader_GetBootPdiInfo(void)
  *****************************************************************************/
 int XLoader_StartImage(XilPdi *PdiPtr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Index;
 	u32 CpuId;
 	u32 DeviceId;

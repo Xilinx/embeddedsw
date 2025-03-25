@@ -7,9 +7,9 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplm_plat.c
+* @file versal_aiepg2/xplm_plat.c
 *
-* This file contains the PLMI versal_net platform specific code.
+* This file contains the PLMI versal_2ve_2vm platform specific code.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -29,6 +29,7 @@
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 *       obs  12/18/2024 Fixed GCC Warnings
 *       am   02/22/2025 Added Puf on dmand regeneration support
+*       sk   03/25/2025 Updated platform name
 *
 * </pre>
 *
@@ -97,7 +98,7 @@ extern XPlmi_DsEntry __data_struct_end[];
 *****************************************************************************/
 void XPlm_EnablePlatformSlaveErrors(void)
 {
-	/* TODO Add versalnet specific slave errors */
+	/* Add versal_2ve_2vm specific slave errors */
 	return;
 }
 
