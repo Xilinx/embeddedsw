@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +40,7 @@
 * 		tjs	06/16/17 Added support for IS25LP256D flash part (PR-4650)
 * 3.10 akm 08/17/22  Fix logical error in NumSect calculation.
 * 3.11 akm 07/10/23 Add support for system device-tree flow for example.
+* 3.14 sb  03/25/25 Fixed gcc and g++ warnings.
 *</pre>
 *
 ******************************************************************************/
@@ -482,8 +483,8 @@ int QspiG128FlashExample(XQspiPs *QspiInstancePtr, UINTPTR BaseAddress)
 {
 	int Status;
 	u8 UniqueValue;
-	int Count;
-	int Page;
+	u32 Count;
+	u32 Page;
 	XQspiPs_Config *QspiConfig;
 
 	/*
@@ -804,7 +805,7 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)
 	u8 WriteEnableCmd = { WRITE_ENABLE_CMD };
 	u8 ReadStatusCmd[] = { READ_STATUS_CMD, 0 };  /* Must send 2 bytes */
 	u8 FlashStatus[2];
-	int Sector;
+	u32 Sector;
 	u32 RealAddr;
 	u32 LqspiCr;
 	u32 NumSect;
