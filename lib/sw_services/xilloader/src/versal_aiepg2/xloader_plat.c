@@ -716,6 +716,13 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	 * - R5 should be taken out of reset before loading.
 	 * R5 TCM should be ECC initialized
 	 */
+	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_ASU) {
+		Status = XPm_PmcRequestDevice(PM_DEV_ASU);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_ASU_PROC, 0);
+			goto END;
+		}
+	}
 
 	if ((XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED == ClusterLockstep) &&
 		((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R52_0) ||
