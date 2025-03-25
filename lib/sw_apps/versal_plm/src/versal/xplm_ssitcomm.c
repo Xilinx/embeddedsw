@@ -26,6 +26,7 @@
 *       pre  09/09/2024 Changed AES key registers used for secure communication at keywrite
 *       pre  09/24/2024 Added key zeroization and saving new key in PPU RAM
 * 1.01  sk   02/05/2025 Added redundancy to check secure comm state
+*       pre  03/25/2025 Added redundancy to check message type in XPlm_SsitCommReceiveMessage
 *
 * </pre>
 *
@@ -667,7 +668,8 @@ static int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 
 	u64 SsitBufAddr;
 	XPlmi_SecCommEstFlag SecSsitCommEst;
 	XPlm_SsitCommParams DecParams;
-	u32 MsgType;
+	volatile u32 MsgType;
+	volatile u32 MsgTypeTmp;
 	int Status = XST_FAILURE;
 	/* Fetch SLR type */
 	u32 SlrType = XPlm_SsitCommGetSlrType();
@@ -688,9 +690,11 @@ static int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 
 
 	/* Decide message type */
 	MsgType = XPlm_SsitCommGetMsgType(SecSsitCommEst, IsCfgSecCommCmdTemp);
+	MsgTypeTmp = XPlm_SsitCommGetMsgType(SecSsitCommEst, IsCfgSecCommCmdTemp);
 
 	/* Prepare parameters to encrypt data based on message type*/
-	if (MsgType == XPLM_SSIT_COMM_SECURE_MSG) {
+	if ((MsgType == XPLM_SSIT_COMM_SECURE_MSG) ||
+			(MsgTypeTmp == XPLM_SSIT_COMM_SECURE_MSG)) {
 		DecParams.SlrIndex = SlrIndex;
 		DecParams.IsCfgSecCommCmd = IsCfgSecCommCmdTemp;
 		XPlm_SsitCommPrepareDecParams(SecSsitCommEst, &DecParams, SsitBufAddr, Buf);
