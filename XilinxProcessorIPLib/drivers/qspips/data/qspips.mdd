@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,7 +11,7 @@ BEGIN driver qspips
   OPTION supported_peripherals = (ps7_qspi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.13;
+  OPTION VERSION = 3.14;
   OPTION NAME = qspips;
 
 END driver
