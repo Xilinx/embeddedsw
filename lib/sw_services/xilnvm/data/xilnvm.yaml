@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -64,4 +64,9 @@ examples:
   xilnvm_bbram_versal_ssit_client_example.c:
     - supported_platforms:
       - Versal
+  xilnvm_efuse_versal_ssit_client_example.c:
+    - supported_platforms:
+      - Versal
+    - dependency_files:
+      - xilnvm_efuse_versal_input.h
 ...

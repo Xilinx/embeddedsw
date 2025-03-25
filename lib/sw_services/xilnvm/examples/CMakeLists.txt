@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 include(${CMAKE_CURRENT_SOURCE_DIR}/XilnvmExample.cmake)
@@ -26,7 +26,7 @@ else()
 	if ("${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2")
 		SET(COMMON_EXAMPLES xilnvm_bbram_versal_client_example.c;xilnvm_efuse_versal_net_client_example.c;xilnvm_bbram_config_limiter_client_example.c)
 	else()
-		SET(COMMON_EXAMPLES xilnvm_bbram_versal_client_example.c;xilnvm_efuse_versal_client_example.c;xilnvm_bbram_versal_ssit_client_example.c)
+		SET(COMMON_EXAMPLES xilnvm_bbram_versal_client_example.c;xilnvm_efuse_versal_client_example.c;xilnvm_bbram_versal_ssit_client_example.c;xilnvm_efuse_versal_ssit_client_example.c)
 	endif()
     endif()
 endif()
