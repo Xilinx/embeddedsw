@@ -126,7 +126,7 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 		goto done;
 	}
 
-	PmWarn("Shutting down the device %x\n", Device->Node.Id);
+	PmInfo("Shutting down the device %x\n", Device->Node.Id);
 	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Device->Node.Id)) &&
 	((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id))) {
 		/** Shutdown Core */
@@ -185,7 +185,7 @@ done:
 
 static XStatus ActionRuntimeSuspend(XPm_Device* const Device) {
 	// Perform actions to suspend the device
-	PmWarn("Suspending the device %x\n", Device->Node.Id);
+	PmInfo("Suspending the device %x\n", Device->Node.Id);
 	/* TODO: IMPLEMENT ME */
 	(void)Device;
 	return XST_SUCCESS;
@@ -193,7 +193,7 @@ static XStatus ActionRuntimeSuspend(XPm_Device* const Device) {
 
 static XStatus ActionResume(XPm_Device* const Device) {
 	// Perform actions to resume the device
-	PmWarn("Resuming the device %x\n", Device->Node.Id);
+	PmInfo("Resuming the device %x\n", Device->Node.Id);
 	/* TODO: IMPLEMENT ME */
 	(void)Device;
 	return XST_SUCCESS;
