@@ -29,6 +29,7 @@
  * 0.7  anv      01/27/2025  Updated XSem_Ssit_ApiCfrGetStatusSlr according to
  *                           modified XSemStatus structure element
  *                           ErrAddrLowHigh
+ * 0.8  anv      03/24/2025  Correct status check masks for event notifications
  * </pre>
  *
  *****************************************************************************/
@@ -277,6 +278,19 @@ static XStatus XSem_Ssit_ApiCfrGetStatusSlr(u32 TargetSlr, \
 			__func__, TargetSlr);
 		/* update data in to [out] param cram structure */
 		CfrStatusInfo->Status = StatusInfo.CramStatus;
+		#if defined(XILSEM_CORR_ERRINJ_ENABLE)
+			CfrStatusInfo->Status = CfrStatusInfo->Status & \
+								CFR_STATUS_COR_ECC;
+		#elif defined(XILSEM_UNCORR_ERRINJ_ENABLE)
+			CfrStatusInfo->Status = CfrStatusInfo->Status & \
+								CFR_STATUS_UNCOR_ECC;
+		#elif defined(XILSEM_CRC_ERRINJ_ENABLE)
+			CfrStatusInfo->Status = CfrStatusInfo->Status & \
+								CFR_STATUS_CRC;
+		#else
+			xil_printf("Not defined type of Error Injection to be done\n\r");
+		#endif
+
 		xil_printf("CRAM Scan Status:%x\n",CfrStatusInfo->Status);
 		xil_printf("\n");
 		for(Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
