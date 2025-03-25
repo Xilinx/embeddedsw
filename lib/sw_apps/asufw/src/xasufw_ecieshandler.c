@@ -15,6 +15,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   yog  02/20/25 Initial release
+*       yog  03/24/25 Removed random number generation in encryption opetation.
 *
 * </pre>
 *
@@ -58,14 +59,13 @@ static XAsufw_Module XAsufw_EciesModule; /**< ASUFW ECIES Module ID and commands
  * @return
  * 	- On successful initialization of ECIES module, it returns XASUFW_SUCCESS.
  * 	- XASUFW_ECIES_MODULE_REGISTRATION_FAILED, if ECIES module registration fails.
- * 	- XASUFW_ECIES_INIT_FAILED, if ECIES init fails.
  *
  *************************************************************************************************/
 s32 XAsufw_EciesInit(void)
 {
 	volatile s32 Status = XASUFW_FAILURE;
 
-	/** Contains the array of ASUFW HMAC commands. */
+	/** Contains the array of ASUFW ECIES commands. */
 	static const XAsufw_ModuleCmd XAsufw_EciesCmds[] = {
 		[XASU_ECIES_ENCRYPT_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EciesEncrypt),
 		[XASU_ECIES_ENCRYPT_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EciesEncrypt),
@@ -112,7 +112,6 @@ s32 XAsufw_EciesInit(void)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_MODULE_REGISTRATION_FAILED);
 	}
 
-END:
 	return Status;
 }
 
@@ -176,8 +175,7 @@ END:
  * @param	ReqId		Requester ID.
  *
  * @return
- * 	- XASUFW_SUCCESS - if SHA2 hash operation is successful.
- * 	- XASUFW_ECIES_TRNG_FAILED - if random number generation fails.
+ * 	- XASUFW_SUCCESS - if ECIES encrypt operation is successful.
  * 	- XASUFW_ECIES_ENCRYPT_FAILED, if ECIES encryption operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
  *
@@ -187,30 +185,18 @@ static s32 XAsufw_EciesEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	volatile s32 Status = XASUFW_FAILURE;
 	volatile s32 ClearStatus = XASUFW_FAILURE;
 	const XAsu_EciesParams *EciesParamsPtr = (const XAsu_EciesParams *)ReqBuf->Arg;
-	u8 RandBuf[XASU_ECC_P521_SIZE_IN_BYTES] = {0U};
-
-	/** Generate random number for calculating private key. */
-	Status = XAsufw_TrngGetRandomNumbers(RandBuf, XASU_ECC_P521_SIZE_IN_BYTES);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_TRNG_FAILED);
-		goto END;
-	}
 
 	/** Perform ECIES encryption. */
 	Status = XEcies_Encrypt(XAsufw_EciesModule.AsuDmaPtr, XAsufw_EciesModule.ShaPtr,
-				XAsufw_EciesModule.AesPtr, EciesParamsPtr, RandBuf);
+				XAsufw_EciesModule.AesPtr, EciesParamsPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_ENCRYPT_FAILED);
 	}
 
-END:
 	/** Clear DMA, SHA and AES pointers. */
 	XAsufw_EciesModule.AsuDmaPtr = NULL;
 	XAsufw_EciesModule.ShaPtr = NULL;
 	XAsufw_EciesModule.AesPtr = NULL;
-
-	ClearStatus = Xil_SecureZeroize(RandBuf, XASU_ECC_P521_SIZE_IN_BYTES);
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	if (XAsufw_ReleaseResource(XASUFW_ECIES, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
@@ -228,8 +214,8 @@ END:
  * @param	ReqId		Requester ID.
  *
  * @return
- * 	- XASUFW_SUCCESS - if SHA2 hash operation is successful.
- * 	- XASUFW_ECIES_ENCRYPT_FAILED, if ECIES encryption operation fails.
+ * 	- XASUFW_SUCCESS - if ECIES decryption operation is successful.
+ * 	- XASUFW_ECIES_DECRYPT_FAILED, if ECIES encryption operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
  *
  *************************************************************************************************/
@@ -265,8 +251,9 @@ static s32 XAsufw_EciesDecrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId	Requester ID.
  *
  * @return
- * 	- XASUFW_SUCCESS, if KAT is successful.
+ * 	- XASUFW_SUCCESS, if ECIES KAT is successful.
  * 	- Error code, returned when XAsufw_EciesOperationKat API fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
  *
  *************************************************************************************************/
 static s32 XAsufw_EciesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)

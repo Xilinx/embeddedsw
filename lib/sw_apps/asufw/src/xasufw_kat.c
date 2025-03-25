@@ -389,13 +389,6 @@ static const u8 EciesRxPubKey[XASUFW_DOUBLE_P384_SIZE_IN_BYTES] = {
 	0xAFU, 0x29U, 0xD2U, 0x26U, 0x7BU, 0xA8U, 0x4EU, 0xF2U
 };
 
-static const u8 ExpEciesOutput[XASUFW_KAT_MSG_LENGTH_IN_BYTES] = {
-	0x8FU, 0x8FU, 0xD1U, 0x40U, 0x79U, 0x36U, 0x26U, 0x93U,
-	0x91U, 0x7EU, 0x78U, 0x3AU, 0x53U, 0x92U, 0xB9U, 0x0BU,
-	0x53U, 0x46U, 0xAAU, 0xD6U, 0x6CU, 0xF7U, 0xB5U, 0x05U,
-	0xA0U, 0x2EU, 0x4CU, 0x46U, 0xDAU, 0x6BU, 0xA5U, 0x5BU
-};
-
 static const u8 EciesIv[XASU_AES_IV_SIZE_96BIT_IN_BYTES] = {
 	0x99U, 0xD1U, 0x58U, 0x32U, 0xCCU, 0x65U, 0xF6U, 0xB4U,
 	0xC5U, 0xC5U, 0xC3U, 0x4FU
@@ -768,7 +761,7 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 	u8 AesTag[XASUFW_AES_TAG_LEN_IN_BYTES];
 
 	KeyObject.KeyAddress = (u64)(UINTPTR)AesKey;
-	KeyObject.KeySrc = XASU_AES_USER_KEY_0;
+	KeyObject.KeySrc = XASU_AES_USER_KEY_7;
 	KeyObject.KeySize = XASU_AES_KEY_SIZE_256_BITS;
 
 	/** Write the key into specified AES USER key registers. */
@@ -1131,7 +1124,8 @@ s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
 	XAsu_EciesParams Params;
 	u8 EciesTxPubKey[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
 	u8 EciesMac[XASUFW_AES_TAG_LEN_IN_BYTES];
-	u8 EciesOut[XASUFW_KAT_MSG_LENGTH_IN_BYTES];
+	u8 EciesEncOut[XASUFW_KAT_MSG_LENGTH_IN_BYTES];
+	u8 EciesDecOut[XASUFW_KAT_MSG_LENGTH_IN_BYTES];
 
 	Params.AesKeySize = XASU_AES_KEY_SIZE_128_BITS;
 	Params.DataLength = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
@@ -1142,7 +1136,7 @@ s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Params.IvLength = XASU_AES_IV_SIZE_96BIT_IN_BYTES;
 	Params.MacAddr = (u64)(UINTPTR)EciesMac;
 	Params.MacLength = XASU_AES_MAX_TAG_LENGTH_IN_BYTES;
-	Params.OutDataAddr = (u64)(UINTPTR)EciesOut;
+	Params.OutDataAddr = (u64)(UINTPTR)EciesEncOut;
 	Params.TxKeyAddr = (u64)(UINTPTR)EciesTxPubKey;
 	Params.RxKeyAddr = (u64)(UINTPTR)EciesRxPubKey;
 	Params.ContextAddr = (u64)(UINTPTR)RsaData;
@@ -1151,22 +1145,13 @@ s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Params.ShaType = XASU_SHA2_TYPE;
 
 	/** Perform ECIES encryption with known inputs. */
-	Status = XEcies_Encrypt(AsuDmaPtr, Sha2Ptr, AesInstancePtr, &Params, AesKey);
+	Status = XEcies_Encrypt(AsuDmaPtr, Sha2Ptr, AesInstancePtr, &Params);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
-	/** Compare generated encrypted output with expected encrypted output. */
-	Status = Xil_SMemCmp(EciesOut, XASUFW_KAT_MSG_LENGTH_IN_BYTES, ExpEciesOutput,
-			     XASUFW_KAT_MSG_LENGTH_IN_BYTES,
-			     XASUFW_KAT_MSG_LENGTH_IN_BYTES);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_ECIES_KAT_COMPARISON_FAILED;
-		goto END;
-	}
-
-	Params.InDataAddr = (u64)(UINTPTR)ExpEciesOutput;
-	Params.OutDataAddr = (u64)(UINTPTR)EciesOut;
+	Params.InDataAddr = (u64)(UINTPTR)EciesEncOut;
+	Params.OutDataAddr = (u64)(UINTPTR)EciesDecOut;
 	Params.RxKeyAddr = (u64)(UINTPTR)EciesRxPrivKey;
 
 	/** Perform ECIES decryption with known inputs. */
@@ -1176,7 +1161,7 @@ s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
 	}
 
 	/** Compare generated decrypted output with input message. */
-	Status = Xil_SMemCmp(EciesOut, XASUFW_KAT_MSG_LENGTH_IN_BYTES, KatMessage,
+	Status = Xil_SMemCmp(EciesDecOut, XASUFW_KAT_MSG_LENGTH_IN_BYTES, KatMessage,
 			     XASUFW_KAT_MSG_LENGTH_IN_BYTES,
 			     XASUFW_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
@@ -1186,7 +1171,11 @@ s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
 
 END:
 	/** Zeroize local copy of output value. */
-	SStatus = Xil_SMemSet(&EciesOut[0U], XASUFW_KAT_MSG_LENGTH_IN_BYTES, 0U,
+	SStatus = Xil_SMemSet(&EciesEncOut[0U], XASUFW_KAT_MSG_LENGTH_IN_BYTES, 0U,
+			      XASUFW_KAT_MSG_LENGTH_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, SStatus);
+
+	SStatus = Xil_SMemSet(&EciesDecOut[0U], XASUFW_KAT_MSG_LENGTH_IN_BYTES, 0U,
 			      XASUFW_KAT_MSG_LENGTH_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 

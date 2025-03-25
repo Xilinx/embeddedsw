@@ -34,6 +34,7 @@
 #include "xasu_ecc.h"
 #include "xasu_def.h"
 #include "xasu_status.h"
+#include "xasu_ecies_common.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -279,59 +280,6 @@ s32 XAsu_EcdhKat(XAsu_ClientParams *ClientParamsPtr)
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
 
 END:
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function validates the given curve type and curve length.
- *
- * @param	CurveType	Curve type provided.
- * @param	CurveLen	Curve length provided.
- *
- * @return
- * 		- XST_SUCCESS, if curve type is valid.
- * 		- XST_FAILURE, if curve type is invalid.
- *
- *************************************************************************************************/
-s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen)
-{
-	s32 Status = XST_FAILURE;
-	u32 Len = 0U;
-
-	switch (CurveType) {
-		case XASU_ECC_NIST_P192:
-			Len = XASU_ECC_P192_SIZE_IN_BYTES;
-			break;
-		case XASU_ECC_NIST_P224:
-			Len = XASU_ECC_P224_SIZE_IN_BYTES;
-			break;
-		case XASU_ECC_NIST_P256:
-		case XASU_ECC_BRAINPOOL_P256:
-			Len = XASU_ECC_P256_SIZE_IN_BYTES;
-			break;
-		case XASU_ECC_BRAINPOOL_P320:
-			Len = XASU_ECC_P320_SIZE_IN_BYTES;
-			break;
-		case XASU_ECC_NIST_P384:
-		case XASU_ECC_BRAINPOOL_P384:
-			Len = XASU_ECC_P384_SIZE_IN_BYTES;
-			break;
-		case XASU_ECC_BRAINPOOL_P512:
-			Len = XASU_ECC_P512_SIZE_IN_BYTES;
-			break;
-		case XASU_ECC_NIST_P521:
-			Len = XASU_ECC_P521_SIZE_IN_BYTES;
-			break;
-		default:
-			Status = XASU_INVALID_ARGUMENT;
-			break;
-	}
-
-	if ((Status != XASU_INVALID_ARGUMENT) && (CurveLen == Len)) {
-		Status = XST_SUCCESS;
-	}
-
 	return Status;
 }
 
