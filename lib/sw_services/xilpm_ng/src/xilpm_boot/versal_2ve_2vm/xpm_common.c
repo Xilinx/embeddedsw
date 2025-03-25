@@ -261,7 +261,7 @@ u32 XPm_GetPmcVersion(void)
 void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...)
 {
 	va_list Args;
-	static const char* const PrefixStr[] = {"ALERT", "ERR", "WARN", "INFO", "DBG"};
+	static const char* const PrefixStr[] = {"ERR", "WARN", "INFO", "DBG"};
 	u32 Idx = DBG_STR_IDX(DebugType);
 
 	va_start(Args, Ctrl1);
