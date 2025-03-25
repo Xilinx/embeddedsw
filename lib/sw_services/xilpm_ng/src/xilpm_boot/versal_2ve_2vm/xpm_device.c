@@ -194,17 +194,22 @@ XStatus XPmDevice_BringUp(XPm_Device *Device)
 	XStatus Status = XPM_ERR_DEVICE_BRINGUP;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	if (NULL == Device->Power) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		goto done;
-	}
-
 	/* Check if device is already up and running */
 	if (Device->Node.State == (u8)XPM_DEVSTATE_RUNNING) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
-
+	u32 NodeId = Device->Node.Id;
+	if (NULL == Device->Power) {
+		if (((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) ||
+		    ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(NodeId))) {
+			Device->Node.State = (u8)XPM_DEVSTATE_RUNNING;
+			Status = XST_SUCCESS;
+			goto done;
+		}
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		goto done;
+	}
 	Device->WfPwrUseCnt = Device->Power->UseCount + 1U;
 	Status = Device->Power->HandleEvent(&Device->Power->Node,
 					    XPM_POWER_EVENT_PWR_UP);
@@ -216,7 +221,6 @@ XStatus XPmDevice_BringUp(XPm_Device *Device)
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
-
 	return Status;
 }
 
