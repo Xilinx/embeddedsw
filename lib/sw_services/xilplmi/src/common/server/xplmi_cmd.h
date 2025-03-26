@@ -49,6 +49,7 @@
 *       pre  09/18/2024 Added XPLMI_SLR_INDEX_SHIFT, SLR index macros
 *       obs  02/04/2025 Updated XPLMI_CMD_RESP_SIZE macro value
 *       pre  03/02/2025 Added BufIndex as member in cmd structure
+*       ng   03/26/2025 Include xplm config header file for max user modules macro definition
 *
 * </pre>
 *
@@ -64,6 +65,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_status.h"
+#include "xplmi_config.h"
 
 /**@cond xplmi_internal
  * @{
