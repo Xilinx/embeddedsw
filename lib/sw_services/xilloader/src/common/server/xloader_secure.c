@@ -566,6 +566,8 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 	u32 ChecksumType;
 #ifndef VERSAL_AIEPG2
 	u64 ChecksumOffset;
+#else
+	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
 #endif
 
 	ChecksumType = XilPdi_GetChecksumType(PrtnHdr);
@@ -594,10 +596,9 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 #else
 		if (SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) {
 			Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
-				SecurePtr->PdiPtr->MetaHdr->HashBlock.HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
-				XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
-		}
-		else {
+					HBPtr->HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
+					XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
+		} else {
 			/* For a partial PDI in the absence of PLM, the partition number
 			 * starts with 0, but in HashBlock at index 0 MetaHeader
 			 * hash is present, partition hashes start from index 1
@@ -605,8 +606,8 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 			 * partition hash in HashBlock
 			 */
 			Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
-				SecurePtr->PdiPtr->MetaHdr->HashBlock.HashData[SecurePtr->PdiPtr->PrtnNum + 1U].PrtnHash,
-                                XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
+					HBPtr->HashData[SecurePtr->PdiPtr->PrtnNum + XLOADER_HB_PPDI_PRTN_HASH_IDX_OFFSET].PrtnHash,
+					XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
 		}
 #endif
 		if (Status != XST_SUCCESS){
