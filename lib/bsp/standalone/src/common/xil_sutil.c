@@ -26,6 +26,8 @@
 * 9.2   kpt      04/21/19 First release.
 * 9.3   sk       02/05/25 Added overlap check in Xil_MemCpy64
 * 9.3   ml       02/19/25 Fix Type Mismatch in Xil_UtilRMW32
+*       ng       03/25/25 Prevent compiler optimization by using volatile for status variable,
+*                         add checks for RISC-V MB proc and zeroize memory before return
 *
 * </pre>
 *
@@ -42,6 +44,7 @@
 #define MAX_NIBBLES	8U /**< maximum nibbles */
 #define XIL_WORD_SIZE		    (4U) /**< WORD size in BYTES */
 #define XIL_WORD_ALIGN_MASK		(XIL_WORD_SIZE - 1U)/**< WORD alignment */
+#define XIL_ONE_BYTE	(1U) /**< One byte length */
 
 /************************** Function Prototypes *****************************/
 
@@ -919,7 +922,7 @@ s32 Xil_SChangeEndiannessAndCpy(void *Dest, const u32 DestSize,
  ******************************************************************************/
 s32 Xil_SReverseData(void *Buf, u32 Size)
 {
-	s32 Status = XST_FAILURE;
+	volatile s32 Status = XST_FAILURE;
 	volatile u32 Index = 0U;
 	u8 *Buffer = (u8 *)Buf;
 	u8 Data= 0U;
@@ -940,6 +943,8 @@ s32 Xil_SReverseData(void *Buf, u32 Size)
 		Status = XST_SUCCESS;
 	}
 
+	Status = Xil_SecureZeroize(&Data, XIL_ONE_BYTE);
+
 END:
 	return Status;
 }
@@ -957,10 +962,11 @@ END:
 void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 {
 	/* Checking for overlap */
-	if (((SrcAddr < DstAddr) && (SrcAddr + Cnt <= DstAddr)) ||
-	    ((DstAddr < SrcAddr) && (DstAddr + Cnt <= SrcAddr))) {
-#if defined(VERSAL_PLM) || (defined(__MICROBLAZE__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32) &&\
-    (XPAR_MICROBLAZE_DATA_SIZE == 32))
+	if (((SrcAddr < DstAddr) && ((SrcAddr + Cnt) <= DstAddr)) ||
+	    ((DstAddr < SrcAddr) && ((DstAddr + Cnt) <= SrcAddr))) {
+#if defined(VERSAL_PLM) || ((defined(__MICROBLAZE__) || defined(__riscv)) &&\
+			    (XPAR_MICROBLAZE_ADDR_SIZE > 32) &&\
+			    (XPAR_MICROBLAZE_DATA_SIZE == 32))
 			u64 Dst = DstAddr;
 			u64 Src = SrcAddr;
 			u32 Count = Cnt;
