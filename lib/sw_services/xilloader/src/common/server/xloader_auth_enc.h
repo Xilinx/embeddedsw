@@ -402,8 +402,6 @@ extern "C" {
 #define XLOADER_PPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
                                                 XLOADER_RSA_4096_KEY_SIZE \
                                                 + 4U)
-/**< Size of Primary Public Key(in bytes) in Authentication Certificate */
-#define XLOADER_AUTH_CERT_MIN_SIZE		(0xA40)
 /**< Minimum Size of Authentication Certificate(in bytes) */
 #define XLOADER_AC_AH_PUB_STRENGTH_MASK		(0x0FU)
 	/**< Mask for Public Strength in Authentication Certificate */
@@ -440,7 +438,8 @@ extern "C" {
 	/**< User Fuse offset for PPK1 to store upper 128 bits of Digest */
 #define XLOADER_EFUSE_PPK2_USER_START_OFFSET	(0xF12502F0U)
 	/**< User Fuse offset for PPK2 to store upper 128 bits of Digest */
-
+#define XLOADER_HB_PPDI_PRTN_HASH_IDX_OFFSET	(1U)
+	/**< Partition Hash index offset in HashBlock for partial PDI */
 #endif
 /**************************** Type Definitions *******************************/
 /**< RSA Key */
@@ -472,7 +471,6 @@ typedef struct {
 #else
 typedef struct {
 	XilPdi_PrtnHashInfo HashData[XIH_MAX_PRTNS + 1U] __attribute__ ((aligned(32U))); /**< HashBlock containing partition hashes */
-        u32 IdxCopied; /**< Size of the HashBlock copied to PPU1 RAM */
 } XLoader_HashBlock;
 
 typedef struct {
@@ -715,6 +713,7 @@ int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 #else
 int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr);
 int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr);
+XLoader_HashBlock* XLoader_GetHashBlockInstance(void);
 #endif
 
 #ifdef __cplusplus
