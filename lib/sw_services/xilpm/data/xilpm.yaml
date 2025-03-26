@@ -1,5 +1,5 @@
 # Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 %YAML 1.2
@@ -21,7 +21,6 @@ supported_processors:
   - psu_cortexr5
   - psv_cortexa72
   - psv_cortexr5
-  - psu_pmu
   - psv_pmc
   - psv_psm
   - psx_cortexa78
