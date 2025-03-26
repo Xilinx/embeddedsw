@@ -603,8 +603,13 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
 
-	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
-		Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN + i));
+	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
+		#ifdef PM_NODEIDX_DEV_DDRMC_MAX_INT_1
+			if (((u32)XPM_NODEIDX_DEV_DDRMC_MAX_INT_1 + 1U) == i) {
+				i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN_INT_2;
+			}
+		#endif
+		Device = XPmDevice_GetById(DDRMC_DEVID(i));
 		if (NULL != Device) {
 			DdrMcAddresses[i] = Device->Node.BaseAddress;
 		}
@@ -697,8 +702,14 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	for (i = 0; i < ARRAY_SIZE(DdrMcAddresses); i++) {
-		Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN + i));
+	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
+		#ifdef PM_NODEIDX_DEV_DDRMC_MAX_INT_1
+			if (((u32)XPM_NODEIDX_DEV_DDRMC_MAX_INT_1 + 1U) == i) {
+				i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN_INT_2;
+			}
+		#endif
+
+		Device = XPmDevice_GetById(DDRMC_DEVID(i));
 		if (NULL != Device) {
 			DdrMcAddresses[i] = Device->Node.BaseAddress;
 		}
