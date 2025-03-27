@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +15,7 @@ extern "C" {
 typedef struct XPm_AsuCore XPm_AsuCore;
 struct XPm_AsuCore {
 	XPm_Core Core; /**< Processor core devices */
-	u32 AsuBaseAddr; /**< Base address of RPU module */
+	u32 AsuBaseAddr; /**< Base address of ASU module */
 };
 
 /************************** Function Prototypes ******************************/
