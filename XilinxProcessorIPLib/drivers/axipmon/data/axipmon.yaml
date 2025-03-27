@@ -1,8 +1,8 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
-title: Bindings for PMONPSV controller
+title: Bindings for Axipmon controller
 
 maintainers:
   - Harini T <harini.t@amd.com>
@@ -33,6 +33,8 @@ properties:
     description: FIFO axis depth
   xlnx,fifo-axis-tdata-width:
     description: Tdata width
+  xlnx,metric-count-scale:
+    description: Metric count scale
   xlnx,fifo-axis-tid-width:
     description: Tid width
   xlnx,enable-advanced:
@@ -41,7 +43,7 @@ properties:
     description: Enable Profile mode
   xlnx,enable-trace:
     description: Enable trace mode
-  xlnx,enable-32-bit-filter-id:
+  xlnx,enable-32bit-filter-id:
     description: Enable 32-bit filter
   interrupts:
 config:
@@ -64,7 +66,7 @@ required:
     - xlnx,enable-advanced
     - xlnx,enable-profile
     - xlnx,enable-trace
-    - xlnx,enable-32-bit-filter-id
+    - xlnx,enable-32bit-filter-id
     - interrupts
     - interrupt-parent
 
