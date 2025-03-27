@@ -19,6 +19,7 @@
  * 1.0   yog  07/11/24 Initial release
  *       yog  08/19/24 Added XAsu_EccParams structure, module command ID's and curve type values
  *       ss   12/02/24 Added support for ECDH
+ *       yog  03/25/25 Added XAsu_EccKeyParams structure and XASU_ECC_GEN_PUBKEY_CMD_ID.
  *
  * </pre>
  *
@@ -48,6 +49,7 @@ extern "C" {
 #define XASU_ECC_GET_INFO_CMD_ID		3U /**< Command ID for ECC Get Info command */
 #define XASU_ECDH_SHARED_SECRET_CMD_ID		4U /**< Command ID for ECC Get Info command */
 #define XASU_ECDH_KAT_CMD_ID			5U /**< Command ID for ECC KAT command */
+#define XASU_ECC_GEN_PUBKEY_CMD_ID		6U /**< Command ID for ECC public key generation */
 
 /* ECC curve Type values */
 #define XASU_ECC_NIST_P192			1U /**< NIST P-192 curve */
@@ -81,6 +83,16 @@ typedef struct {
 	u64 DigestAddr; /**< Digest address */
 	u64 SignAddr; /**< Signature address */
 } XAsu_EccParams;
+
+/**
+ * @brief This structure contains ECC params info for public key generation
+ */
+typedef struct {
+	u32 CurveType; /**< Type of curve */
+	u32 KeyLen; /**< Length of the key */
+	u64 PvtKeyAddr; /**< Address of the private key to be used to generate public key. */
+	u64 PubKeyAddr; /**< Address to store the generated public key. */
+} XAsu_EccKeyParams;
 
 typedef struct {
 	u32 CurveType; /**< Type of curve */

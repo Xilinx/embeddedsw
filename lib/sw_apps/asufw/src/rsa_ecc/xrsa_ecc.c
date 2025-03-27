@@ -982,7 +982,6 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 	u64 PubKeyAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u8 Signature[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
 
 	if ((DmaPtr == NULL) || (PrivKeyAddr == 0U) || (PubKeyAddr == 0U)) {
@@ -1007,9 +1006,8 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 	}
 
 END_CLR:
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
-					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
+					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES)));
 
 END:
 	return Status;
