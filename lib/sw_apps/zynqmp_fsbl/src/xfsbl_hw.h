@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,8 @@
 * 6.1   ng   07/13/23 Added SDT support
 * 6.2   ng   06/05/24 Fixed the WDT mask macro
 * 10.2  ng   10/15/24 Added new mask to identify sub family from IDCODE
+* 11.0  sd   03/21/25 Enable the watchdog timer only for the LPD or FPD
+*                     designs
 *
 * </pre>
 *
@@ -837,18 +839,15 @@ extern "C" {
 	 * in the design, the WDT index will be "0" in its canonical form.
 	 */
 	#if defined(XPAR_XWDTPS_0_BASEADDR)
-		#define XFSBL_WDT_PRESENT
-
 		#ifdef SDT
 			#define XFSBL_WDT_DEVICE_ID	XPAR_XWDTPS_0_BASEADDR
 		#else
 			#define XFSBL_WDT_DEVICE_ID	XPAR_XWDTPS_0_DEVICE_ID
 		#endif
 
-		#if (XPAR_XWDTPS_0_BASEADDR == 0xFF150000)
-			#define XFSBL_WDT_MASK	PMU_GLOBAL_ERROR_SRST_EN_1_LPD_SWDT_MASK
-		#else
-			#define XFSBL_WDT_MASK	PMU_GLOBAL_ERROR_SRST_EN_1_FPD_SWDT_MASK
+		#if ((XPAR_XWDTPS_0_BASEADDR == 0xFF150000) ||\
+			(XPAR_XWDTPS_0_BASEADDR == 0xFD4D0000))
+			#define XFSBL_WDT_PRESENT
 		#endif
 	#endif
 #endif

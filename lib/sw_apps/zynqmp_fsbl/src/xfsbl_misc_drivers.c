@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,8 @@
 *                     to the PMU
 * 3.0  bv    08/04/18 Call XWdts_Stop only when WDT timer is in ready state
 * 6.1   ng   07/13/23 Added SDT support
+* 7.0   sd   03/21/25 Enable watchdog timer error and system reset for both
+*                     LPD and FPD SWDTs
 *
 * </pre>
 *
@@ -158,12 +160,14 @@ u32 XFsbl_InitWdt(void)
 
 	/* Enable generation of system reset by PMU due to SWDT0/1 */
 	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_SRST_EN_1);
-	RegValue |= XFSBL_WDT_MASK;
+	RegValue |= (PMU_GLOBAL_ERROR_SRST_EN_1_LPD_SWDT_MASK | \
+		PMU_GLOBAL_ERROR_SRST_EN_1_FPD_SWDT_MASK);
 	XFsbl_Out32(PMU_GLOBAL_ERROR_SRST_EN_1, RegValue);
 
 	/* Enable SWDT0/1 System Watchdog Timer Error */
 	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_EN_1);
-	RegValue |= XFSBL_WDT_MASK;
+	RegValue |= (PMU_GLOBAL_ERROR_SRST_EN_1_LPD_SWDT_MASK | \
+		PMU_GLOBAL_ERROR_SRST_EN_1_FPD_SWDT_MASK);
 	XFsbl_Out32(PMU_GLOBAL_ERROR_EN_1, RegValue);
 
 	/**
@@ -260,7 +264,8 @@ void XFsbl_StopWdt(void)
 
 	/* Disable generation of system reset by PMU due to SWDT0/1 */
 	RegValue = XFsbl_In32(PMU_GLOBAL_ERROR_SRST_DIS_1);
-	RegValue |= XFSBL_WDT_MASK;
+	RegValue |= (PMU_GLOBAL_ERROR_SRST_EN_1_LPD_SWDT_MASK | \
+		PMU_GLOBAL_ERROR_SRST_EN_1_FPD_SWDT_MASK);
 	XFsbl_Out32(PMU_GLOBAL_ERROR_SRST_DIS_1, RegValue);
 }
 
