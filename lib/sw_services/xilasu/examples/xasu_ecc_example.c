@@ -43,6 +43,8 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XASU_CURVE_TYPE		XASU_ECC_NIST_P256
+#define XASU_CURVE_LENGTH	XASU_ECC_P256_SIZE_IN_BYTES
 
 /************************************ Function Prototypes ****************************************/
 static void XAsu_EccCallBackRef(void *CallBackRef, u32 Status);
@@ -75,11 +77,15 @@ static const u8 PubKey[] __attribute__ ((section (".data.PubKey"))) = {
 };
 
 static u8 Sign[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES] __attribute__ ((section (".data.Sign")));
+static u8 PubKeyOut[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES] __attribute__ ((section (".data.PubKeyOut")));
 
 volatile u8 Notify = 0U; /**< To notify the call back from client library. */
 volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned from server. */
 
 /************************************ Function Definitions ***************************************/
+static void XAsu_GenSign(void);
+static void XAsu_VerifySign(void);
+static void XAsu_GenPubKey(void);
 
 /*************************************************************************************************/
 /**
@@ -93,18 +99,10 @@ volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error 
 int main(void)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ClientParams ClientParams;
-	XAsu_EccParams EccParams;
-	u32 Index = 0U;
-	u32 CurveType = 0U;
-	u32 CurveLength = 0U;
 
 #ifdef XASU_CACHE_DISABLE
 	Xil_DCacheDisable();
 #endif
-
-	CurveType = XASU_ECC_NIST_P256;
-	CurveLength = XASU_ECC_P256_SIZE_IN_BYTES;
 
 	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
@@ -112,31 +110,54 @@ int main(void)
 		goto END;
 	}
 
+	/** Generate signature operation. */
+	XAsu_GenSign();
+
+	/** Verify signature operation. */
+	XAsu_VerifySign();
+
+	/** Generate public key operation. */
+	XAsu_GenPubKey();
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is to perform the generate signature operation.
+ *
+ *************************************************************************************************/
+static void XAsu_GenSign(void)
+{
+	s32 Status = XST_FAILURE;
+	XAsu_ClientParams ClientParams;
+	XAsu_EccParams EccParams;
+	u32 Index = 0U;
+
 	ClientParams.Priority = XASU_PRIORITY_HIGH;
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EccCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
 	ErrorStatus = XST_FAILURE;
-	EccParams.CurveType = CurveType;
+	EccParams.CurveType = XASU_CURVE_TYPE;
 	EccParams.DigestAddr = (u64)(UINTPTR)Hash;
 	EccParams.KeyAddr = (u64)(UINTPTR)PrivKey;
 	EccParams.SignAddr = (u64)(UINTPTR)Sign;
-	EccParams.DigestLen = CurveLength;
-	EccParams.KeyLen = CurveLength;
+	EccParams.DigestLen = XASU_CURVE_LENGTH;
+	EccParams.KeyLen = XASU_CURVE_LENGTH;
 
 	/* Measure start time. */
 	XAsu_StartTiming();
-
 	Status = XAsu_EccGenSign(&ClientParams, &EccParams);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	while(!Notify);
-	Notify = 0;
-	if (ErrorStatus != XST_SUCCESS) {
+	Notify = 0U;
+	if ((ErrorStatus != XST_SUCCESS)) {
 		goto END;
 	}
-
 	/* Compute execution time in milliseconds. */
 	XAsu_EndTiming("XAsu_EccGenSign");
 
@@ -145,35 +166,105 @@ int main(void)
 		xil_printf("%02x", Sign[Index]);
 	}
 
+END:
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n ECC sign generation operation failed with Status = %08x", Status);
+	} else if (ErrorStatus != XST_SUCCESS) {
+		xil_printf("\r\n ECC sign generation operation failed with error from server = %08x",
+				ErrorStatus);
+	} else {
+		xil_printf("\r\n Successfully ran ECC sign generation operation ");
+	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is to perform the verify signature operation.
+ *
+ *************************************************************************************************/
+static void XAsu_VerifySign(void)
+{
+	s32 Status = XST_FAILURE;
+	XAsu_ClientParams ClientParams;
+	XAsu_EccParams EccParams;
+
 	ClientParams.Priority = XASU_PRIORITY_HIGH;
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EccCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
 	ErrorStatus = XST_FAILURE;
-	EccParams.CurveType = CurveType;
+	EccParams.CurveType = XASU_CURVE_TYPE;
 	EccParams.DigestAddr = (u64)(UINTPTR)Hash;
 	EccParams.KeyAddr = (u64)(UINTPTR)PubKey;
 	EccParams.SignAddr = (u64)(UINTPTR)Sign;
-	EccParams.DigestLen = CurveLength;
-	EccParams.KeyLen = CurveLength;
+	EccParams.DigestLen = XASU_CURVE_LENGTH;
+	EccParams.KeyLen = XASU_CURVE_LENGTH;
 
 	Status = XAsu_EccVerifySign(&ClientParams, &EccParams);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	while(!Notify);
-	Notify = 0;
+	Notify = 0U;
 
 END:
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n ECC client example failed with Status = %08x", Status);
+		xil_printf("\r\n ECC sign verification operation failed with Status = %08x", Status);
 	} else if (ErrorStatus != XST_SUCCESS) {
-		xil_printf("\r\n ECC client example failed with error from server = %08x", ErrorStatus);
+		xil_printf("\r\n ECC sign verification operation failed with error from server = %08x",
+				ErrorStatus);
 	} else {
-		xil_printf("\r\n Successfully ran ECC client example ");
+		xil_printf("\r\n Successfully ran ECC sign verification operation ");
+	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is to perform the generate public key operation.
+ *
+ *************************************************************************************************/
+static void XAsu_GenPubKey(void)
+{
+	s32 Status = XST_FAILURE;
+	XAsu_ClientParams ClientParams;
+	XAsu_EccKeyParams EccKeyParams;
+
+	ClientParams.Priority = XASU_PRIORITY_HIGH;
+	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EccCallBackRef);
+	ClientParams.CallBackRefPtr = (void *)&ClientParams;
+
+	ErrorStatus = XST_FAILURE;
+	EccKeyParams.CurveType = XASU_CURVE_TYPE;
+	EccKeyParams.KeyLen = XASU_CURVE_LENGTH;
+	EccKeyParams.PvtKeyAddr = (u64)(UINTPTR)PrivKey;
+	EccKeyParams.PubKeyAddr = (u64)(UINTPTR)PubKeyOut;
+
+	Status = XAsu_EccGenPubKey(&ClientParams, &EccKeyParams);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	while(!Notify);
+	Notify = 0U;
+	if ((ErrorStatus != XST_SUCCESS)) {
+		goto END;
 	}
 
-	return Status;
+	/** Compare the generated public key with the expected. */
+	Status = Xil_SMemCmp_CT(PubKeyOut, XAsu_DoubleCurveLength(XASU_CURVE_LENGTH), PubKey,
+			XAsu_DoubleCurveLength(XASU_CURVE_LENGTH), XAsu_DoubleCurveLength(XASU_CURVE_LENGTH));
+	if (Status != XST_SUCCESS) {
+		xil_printf("ASU ECC Example Failed at generated public key data Comparison \r\n");
+	}
+
+END:
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n ECC public key generation operation failed with Status = %08x", Status);
+	} else if (ErrorStatus != XST_SUCCESS) {
+		xil_printf("\r\n ECC public key generation operation failed with error from server = %08x",
+				ErrorStatus);
+	} else {
+		xil_printf("\r\n Successfully ran ECC public key generation operation ");
+	}
 }
 
 /*************************************************************************************************/

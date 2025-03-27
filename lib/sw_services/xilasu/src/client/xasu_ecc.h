@@ -20,6 +20,7 @@
  *       yog  09/26/24 Added doxygen grouping and fixed doxygen comments
  *       ss   12/02/24 Added support for ECDH
  *       yog  02/21/25 Added XAsu_EccValidateCurveInfo() API prototype
+ *       yog  03/25/25 Added support for public key generation.
  *
  * </pre>
  *
@@ -51,6 +52,7 @@ extern "C" {
 s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr);
 s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr);
 s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr);
+s32 XAsu_EccGenPubKey(XAsu_ClientParams *ClientParamsPtr, XAsu_EccKeyParams *EccKeyParamsPtr);
 s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams *EcdhParamsPtr);
 s32 XAsu_EcdhKat(XAsu_ClientParams *ClientParamsPtr);
 

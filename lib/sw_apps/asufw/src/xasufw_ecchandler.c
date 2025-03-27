@@ -20,6 +20,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ss   12/02/24 Added support for ECDH
  *       ma   12/12/24 Updated resource allocation logic
+ *       yog  03/25/25 Added support for public key generation.
  *
  * </pre>
  *
@@ -59,6 +60,7 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_EccModule; /**< ASUFW ECC Module ID and commands array */
@@ -86,13 +88,14 @@ s32 XAsufw_EccInit(void)
 		[XASU_ECC_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccGetInfo),
 		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EcdhGenSharedSecret),
 		[XASU_ECDH_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EcdhKat),
+		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccGenPubKey),
 	};
 
 	/** Contains the required resources for each supported command. */
 	/**
-	 * For XASU_ECC_GEN_SIGNATURE_CMD_ID and XASU_ECC_VERIFY_SIGNATURE_CMD_ID,
-	 * XASUFW_ECC_RESOURCE_MASK checks for the availability of ECC or RSA core based on the
-	 * curve type received.
+	 * For XASU_ECC_GEN_SIGNATURE_CMD_ID, XASU_ECC_VERIFY_SIGNATURE_CMD_ID and
+	 * XASU_ECC_GEN_PUBKEY_CMD_ID, XASUFW_ECC_RESOURCE_MASK checks for the availability of ECC
+	 * or RSA core based on the curve type received.
 	 * For XASU_ECC_KAT_CMD_ID, both RSA and ECC cores are required. So, XASUFW_ECC_RESOURCE_MASK
 	 * checks for the availability of ECC core and XASUFW_RSA_RESOURCE_MASK checks for the
 	 * availability of RSA core.
@@ -109,6 +112,7 @@ s32 XAsufw_EccInit(void)
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_ECDH_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK,
 	};
 
 	XAsufw_EccModule.Id = XASU_MODULE_ECC_ID;
@@ -186,7 +190,6 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if sign generation operation is successful.
- * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  * 	- XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL, if TRNG fails to generate random number.
  * 	- XASUFW_ECC_GEN_SIGN_OPERATION_FAIL, if generate signature operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
@@ -195,12 +198,12 @@ END:
 static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XEcc *XAsufw_Ecc = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
+	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u32 CurveType = 0U;
 	u8 EphemeralKey[XASU_ECC_P521_SIZE_IN_BYTES];
-	u64 PrivKeyAddr = EccParamsPtr->KeyAddr;
+	u64 PvtKeyAddr = EccParamsPtr->KeyAddr;
 
 	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
 		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
@@ -223,12 +226,12 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 * based on curve type.
 	 */
 	if (ResourceId == XASUFW_ECC) {
-		Status = XEcc_GenerateSignature(XAsufw_Ecc, XAsufw_EccModule.AsuDmaPtr, CurveType,
-					EccParamsPtr->KeyLen, PrivKeyAddr, EphemeralKey, EccParamsPtr->DigestAddr,
+		Status = XEcc_GenerateSignature(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr, CurveType,
+					EccParamsPtr->KeyLen, PvtKeyAddr, EphemeralKey, EccParamsPtr->DigestAddr,
 					EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
 	} else {
 		Status = XRsa_EccGenerateSignature(XAsufw_EccModule.AsuDmaPtr, CurveType,
-					EccParamsPtr->KeyLen, PrivKeyAddr, EphemeralKey, EccParamsPtr->DigestAddr,
+					EccParamsPtr->KeyLen, PvtKeyAddr, EphemeralKey, EccParamsPtr->DigestAddr,
 					EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
 	}
 	if (Status != XASUFW_SUCCESS) {
@@ -254,15 +257,14 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if sign verification operation is successful.
- * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
  * 	- XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL, if verify signature operation fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource not allocated and trying to release.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
 static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XEcc *XAsufw_Ecc = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
+	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u32 CurveType = 0U;
@@ -282,7 +284,7 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 * based on curve type.
 	 */
 	if (ResourceId == XASUFW_ECC) {
-		Status = XEcc_VerifySignature(XAsufw_Ecc, XAsufw_EccModule.AsuDmaPtr, CurveType,
+		Status = XEcc_VerifySignature(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr, CurveType,
 					EccParamsPtr->KeyLen, PubKeyAddr, EccParamsPtr->DigestAddr,
 					EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
 	} else {
@@ -293,6 +295,61 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL);
+	}
+
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_EccModule.AsuDmaPtr = NULL;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for ECC public key generation operation command.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if public key generation operation is successful.
+ * 	- XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL, if generate public key operation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
+	const XAsu_EccKeyParams *EccParamsPtr = (const XAsu_EccKeyParams *)ReqBuf->Arg;
+	XAsufw_Resource ResourceId = XASUFW_INVALID;
+	u32 CurveType = 0U;
+
+	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
+		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
+		ResourceId = XASUFW_ECC;
+		CurveType = EccParamsPtr->CurveType - XASUFW_ECC_CURVE_TYPE_DIFF_VALUE;
+	} else {
+		ResourceId = XASUFW_RSA;
+		CurveType = EccParamsPtr->CurveType;
+	}
+
+	/**
+	 * Generate the public key using core API XEcc_GeneratePublicKey or XRsa_EccGeneratePubKey
+	 * based on curve type.
+	 */
+	if (ResourceId == XASUFW_ECC) {
+		Status = XEcc_GeneratePublicKey(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr, CurveType,
+					EccParamsPtr->KeyLen, EccParamsPtr->PvtKeyAddr, EccParamsPtr->PubKeyAddr);
+	} else {
+		Status = XRsa_EccGeneratePubKey(XAsufw_EccModule.AsuDmaPtr, CurveType,
+			EccParamsPtr->KeyLen, EccParamsPtr->PvtKeyAddr, EccParamsPtr->PubKeyAddr);
+	}
+
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL);
 	}
 
 	/** Release resources. */
@@ -350,6 +407,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @return
  * 	- Returns XASUFW_SUCCESS, if KAT is successful.
  * 	- Error code, returned when XAsufw_EccCoreKat or XAsufw_RsaEccKat API fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
  *************************************************************************************************/
 static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -447,7 +505,8 @@ XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 	XAsufw_Resource Resource = XASUFW_INVALID;
 
 	if (((CmdId == XASU_ECC_GEN_SIGNATURE_CMD_ID) ||
-	    (CmdId == XASU_ECC_VERIFY_SIGNATURE_CMD_ID)) &&
+	    (CmdId == XASU_ECC_VERIFY_SIGNATURE_CMD_ID) ||
+	    (CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID)) &&
 	    ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
 	    (EccParamsPtr->CurveType == XASU_ECC_NIST_P384))) {
 		Resource = XASUFW_ECC;

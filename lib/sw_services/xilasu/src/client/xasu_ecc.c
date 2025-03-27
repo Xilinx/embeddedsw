@@ -21,6 +21,7 @@
  *       yog  11/27/24 Included input parameters validation.
  *       ss   12/02/24 Added support for ECDH
  *       yog  02/21/25 Changed XAsu_EccValidateCurveInfo() API to be non-static
+ *       yog  03/25/25 Added support for public key generation.
  *
  * </pre>
  *
@@ -143,6 +144,67 @@ s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccPa
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EccParamsPtr,
 					sizeof(XAsu_EccParams), Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function computes the public key for the specified elliptic curve using the
+ * 		provided private key.
+ *
+ * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * 				input parameters.
+ * @param	EccKeyParamsPtr	Pointer to XAsu_EccKeyParams structure which holds the parameters
+ * 				of ECC input arguments.
+ *
+ * @return
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_QUEUE_FULL, if Queue buffer is full.
+ * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_EccGenPubKey(XAsu_ClientParams *ClientParamsPtr, XAsu_EccKeyParams *EccKeyParamsPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validate input parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (EccKeyParamsPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((EccKeyParamsPtr->PvtKeyAddr == 0U) || (EccKeyParamsPtr->PubKeyAddr == 0U)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_EccValidateCurveInfo(EccKeyParamsPtr->CurveType, EccKeyParamsPtr->KeyLen);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_CURVEINFO;
+		goto END;
+	}
+
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	Header = XAsu_CreateHeader(XASU_ECC_GEN_PUBKEY_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EccKeyParamsPtr,
+					sizeof(XAsu_EccKeyParams), Header);
 
 END:
 	return Status;
