@@ -47,9 +47,9 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr);
 s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		    const XAsu_RsaOaepPaddingParams *PaddingParamsPtr);
-s32 XRsa_PssEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
+s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		   const XAsu_RsaPaddingParams *PaddingParamsPtr);
-s32 XRsa_PssDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
+s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		   const XAsu_RsaPaddingParams *PaddingParamsPtr);
 
 /************************************ Variable Definitions ***************************************/

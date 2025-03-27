@@ -69,6 +69,7 @@ extern "C" {
 #define XASUFW_ARRAY_SIZE(x)	(u32)(sizeof(x) / sizeof(x[0U]))	/**< Size of array */
 #define XASUFW_CONVERT_BYTES_TO_WORDS(x)	((x) / (sizeof(int)))	/**< Converts bytes to
 									     integer words */
+#define XASUFW_DOUBLE_VALUE(x)			((x) << 1U)	/**< multiply the value by twice */
 
 #define XASUFW_RESET_SET			(1U)	/**< To set the core into reset */
 #define XASUFW_RESET_UNSET			(0U)	/**< To take the core out of reset */
