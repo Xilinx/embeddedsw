@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -60,6 +60,7 @@
 * 10.1  sd   10/03/24 Initialize WDT before Board Init function
 * 10.2  ng   10/15/24 Change print format for unknown device and handle KRIA K24 SOM
 * 10.3  sd   11/19/24 Skip WDT for jtag bootmode
+* 11.0  sd   03/21/25 Check for both LPD/FPD SWDT error status in case of System reset
 *
 * </pre>
 *
@@ -738,17 +739,18 @@ static u32 XFsbl_ResetValidation(void)
 	if ((ResetReasonValue & CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK)
 			== CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK) {
 		ErrStatusRegValue = XFsbl_In32(PMU_GLOBAL_ERROR_STATUS_1);
-		if(((ErrStatusRegValue & XFSBL_WDT_MASK) == XFSBL_WDT_MASK) &&
-			(FsblErrorStatus == XFSBL_RUNNING)) {
-			/* Clear the SWDT0/1 reset error */
-			XFsbl_Out32(PMU_GLOBAL_ERROR_STATUS_1, XFSBL_WDT_MASK);
-		/**
-		 * reset is due to System WDT.
-		 * Do a fallback
-		 */
-		Status = XFSBL_ERROR_SYSTEM_WDT_RESET;
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SYSTEM_WDT_RESET\n\r");
-		goto END;
+		ErrStatusRegValue &= (PMU_GLOBAL_ERROR_SRST_EN_1_LPD_SWDT_MASK | \
+			PMU_GLOBAL_ERROR_SRST_EN_1_FPD_SWDT_MASK);
+		if ((ErrStatusRegValue != 0) && (FsblErrorStatus == XFSBL_RUNNING)) {
+			/* Clear the LPD/FPD SWDT reset error */
+			XFsbl_Out32(PMU_GLOBAL_ERROR_STATUS_1, ErrStatusRegValue);
+			/**
+			 * reset is due to LPD/FPD System WDT.
+			 * Do a fallback
+			 */
+			Status = XFSBL_ERROR_SYSTEM_WDT_RESET;
+			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SYSTEM_WDT_RESET\n\r");
+			goto END;
 		}
 	}
 #endif
