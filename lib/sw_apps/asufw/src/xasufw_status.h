@@ -269,22 +269,18 @@ enum {
 	XASUFW_RSA_OAEP_DECODE_ERROR, /**< 0xBCU - Error when OAEP decode operation fails */
 	XASUFW_RSA_OAEP_HASH_CMP_FAIL,	/**< 0xBDU - Error when OAEP decode operation fails for hash
 							comparison failure */
-	XASUFW_RSA_OAEP_ONE_SEP_CMP_FAIL, /**< 0xBEU - Error when OAEP decode operation fails for message
-							separation comparison failure */
+	XASUFW_RSA_LOOP_INDEX_CMP_ERROR, /**< 0xBEU - Error when index of loop comparison failure */
 	XASUFW_RSA_PSS_INVALID_LEN,	/**< 0xBFU - Error when PSS signature len is invalid */
 	XASUFW_RSA_PSS_INVALID_SALT_LEN, /**< 0xC0U - Error when PSS salt len is invalid */
 	XASUFW_RSA_PSS_SIGN_GEN_ERROR, /**< 0xC1U - Error when PSS sign generation operation fails */
 	XASUFW_RSA_PSS_ENCRYPT_ERROR, /**< 0xC2U - Error when PSS encryption operation fails */
-	XASUFW_RSA_PSS_NO_SALT_NO_RANDOM_STRING, /**< 0xC3U - Error when PSS encode operation fails for
-							invalid salt input */
+	XASUFW_RSA_SHA_DIGEST_CALC_FAIL, /**< 0xC3U - Error when SHA digest calculation fail to RSA API */
 	XASUFW_RSA_PSS_RIGHT_MOST_CMP_FAIL, /**< 0xC4U - Error when PSS decode operation fails for last
 							octet comparison failure */
 	XASUFW_RSA_PSS_LEFT_MOST_BIT_CMP_FAIL, /**< 0xC5U - Error when PSS decode operation fails for first
 							bit in first octet comparison failure */
-	XASUFW_RSA_PSS_DB_LEFT_MOST_BYTE_CMP_FAIL, /**< 0xC6U - Error when PSS decode operation fails for first
-							octet comparison failure */
-	XASUFW_RSA_PSS_DB_BYTE_ONE_CMP_FAIL, /**< 0xC7U - Error when PSS decode operation fails for first
-							second octet comparison failure */
+	XASUFW_RSA_MASK_GEN_ERROR, /**< 0xC6U - Error when MGF fails in RSA*/
+	XASUFW_RSA_PSS_DECODE_ERROR, /**< 0xC7U - Error when PSS decode operation fails */
 	XASUFW_RSA_PSS_HASH_CMP_FAIL, /**< 0xC8U - Error when PSS decode operation fails for hash
 							comparison failure */
 	XASUFW_RSA_PSS_SIGN_VER_ERROR, /**< 0xC9U - Error when PSS sign verification operation fails */

@@ -407,7 +407,7 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	const XAsu_RsaPaddingParams *Cmd = (const XAsu_RsaPaddingParams *)ReqBuf->Arg;
 
 	/** Perform public exponentiation encryption operation. */
-	Status = XRsa_PssEncode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
+	Status = XRsa_PssSignGenerate(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
 		XAsufw_DmaNonBlockingWait(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
 					  ReqBuf, ReqId, XASUFW_BLOCK_DMA);
@@ -451,7 +451,7 @@ static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XAsu_RsaPaddingParams *Cmd = (const XAsu_RsaPaddingParams *)ReqBuf->Arg;
 
-	Status = XRsa_PssDecode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
+	Status = XRsa_PssSignVerify(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
 		XAsufw_DmaNonBlockingWait(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
 					  ReqBuf, ReqId, XASUFW_BLOCK_DMA);
@@ -464,7 +464,6 @@ static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 END:
-
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
