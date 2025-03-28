@@ -605,11 +605,18 @@ XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx)
 
 	Status = XPmClock_GetClockData(Clk, (u32)TYPE_MUX, &OldParentIdx);
 	if (XST_SUCCESS != Status) {
-		PmWarn("Error %d in GetClockData of 0x%x\r\n", Status, Clk->ClkNode.Node.Id);
+		PmErr("Error %d in GetClockData of 0x%x\r\n", Status, Clk->ClkNode.Node.Id);
+		goto done;
+	}
+
+	/** Bound checking OldParentIdx */
+	if (OldParentIdx >= MAX_MUX_PARENTS) {
+		Status = XST_INVALID_PARAM;
+		goto done;
 	}
 
 	/* Release old parent */
-	OldParentClk = XPmClock_GetByIdx(OldParentIdx);
+	OldParentClk = XPmClock_GetByIdx(Clk->Topology.MuxSources[OldParentIdx]);
 	if (NULL == OldParentClk) {
 		Status = XPM_INVALID_PARENT_CLKID;
 		goto done;
