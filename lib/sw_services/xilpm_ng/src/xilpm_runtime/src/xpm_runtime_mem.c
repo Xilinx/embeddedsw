@@ -174,10 +174,6 @@ XStatus XPm_IsAddressInSubsystem(u32 SubsystemId, u64 AddrToCheck, u8 *IsValid)
 			MemDevice  = (XPm_MemDevice *)Reqm->Device;
 			StartAddress = (u64)MemDevice->StartAddress;
 			EndAddress = (u64)MemDevice->EndAddress;
-			/* TODO: Remove cond when TCM end-addr is fixed in topology */
-			if ((u32)XPM_NODETYPE_DEV_TCM == Type) {
-				EndAddress -= 1U;
-			}
 			if ((AddrToCheck >= StartAddress) && (AddrToCheck <= EndAddress)) {
 				/*
 				* The memory controller should be in running state.

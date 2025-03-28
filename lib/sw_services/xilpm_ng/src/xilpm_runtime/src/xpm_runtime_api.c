@@ -723,10 +723,6 @@ XStatus XPm_AddPSMemRegnForDefaultSubsystem(void) {
 			MemDevice  = (XPm_MemDevice *)Device;
 			u64 StartAddress = (u64)MemDevice->StartAddress;
 			u64 EndAddress = (u64)MemDevice->EndAddress;
-			/* TODO: Remove cond when TCM end-addr is fixed in topology */
-			if ((u32)XPM_NODETYPE_DEV_TCM == Type) {
-				EndAddress -= 1U;
-			}
 			u64 Size = EndAddress - StartAddress + 1U;
 
 			u32 MemRegnIndx = XPmDevice_GetMemRegnCount();
