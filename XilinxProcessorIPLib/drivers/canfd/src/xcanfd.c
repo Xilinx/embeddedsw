@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,6 +63,7 @@
 * 2.3	se   03/09/20 Initialize IsPl of config structure.
 * 2.8	ht   06/19/23 Added support for system device-tree flow.
 * 2.8	gm   06/22/23 Add support for request/release node.
+* 2.10	ht   03/28/25 Remove Versal ES1 support as it is fixed in prod.
 *
 * </pre>
 ******************************************************************************/
@@ -1571,9 +1572,6 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 {
 
 	u32 TrrVal;
-#ifdef versal
-	u32 BufferNumber;
-#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1584,26 +1582,10 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 	 * XCanFd_Addto_Queue()
 	 */
 	TrrVal = InstancePtr->MultiBuffTrr;
-#ifdef versal
-#ifndef SDT
-	if ((XGetPSVersion_Info() == (u32)0x10) &&
-	    (InstancePtr->CanFdConfig.IsPl == (u32)0U)) {
-#else
-	if ((XGetPSVersion_Info() == (u32)0x10) &&
-	    (!(strcmp(InstancePtr->CanFdConfig.Name, "xlnx,versal-canfd-2.0")))) {
-#endif
-		for (BufferNumber = 0; BufferNumber < MAX_BUFFER_VAL;
-		     BufferNumber++) {
-			XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
-					XCANFD_TRR_OFFSET, (TrrVal &
-							    ((u32)1 << BufferNumber)));
-		}
-	} else
-#endif
-	{
-		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
+
+	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_TRR_OFFSET, TrrVal);
-	}
+
 	InstancePtr->GlobalTrrValue = TRR_INIT_VAL;
 	InstancePtr->GlobalTrrMask  = TRR_MASK_INIT_VAL;
 
