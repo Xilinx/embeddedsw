@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -15,17 +15,19 @@ properties:
       - items:
         - enum:
           - xlnx,canfd-1.0
-          - xlnx,axi-canfd-2.0
-          - xlnx,versal-canfd-2.0
           - xlnx,canfd-2.0
   reg:
     description: Physical base address and size of the controller register map
-  rx-mode:
+  xlnx,rx-mode:
     description: CANFD IP rx mode configuration (sequential or mailbox)
-  rx-fifo-depth:
+  xlnx,num-of-rx-mb-buf:
+    description: CANFD IP number of Rx Buffers
+  xlnx,num-of-tx-buf:
+    description: CANFD IP number of Tx Buffers
+  xlnx,rx-fifo-0-depth:
     description: CANFD IP rx fifo depth
-  tx-mailbox-count:
-    description: CANFD IP tx mailbox buffer count
+  xlnx,can-clk-freq-hz:
+    description: CANFD IP input clock frequency
 
 config:
     - XCanFd_Config
@@ -33,11 +35,15 @@ config:
 required:
     - compatible
     - reg
-    - rx-mode
-    - rx-fifo-depth
-    - tx-mailbox-count
+    - xlnx,rx-mode
+    - xlnx,num-of-rx-mb-buf
+    - xlnx,num-of-tx-buf
     - interrupts
     - interrupt-parent
+
+additionalProperties:
+    - xlnx,rx-fifo-0-depth
+    - xlnx,can-clk-freq-hz
 
 examples:
    xcanfd_intr_example.c:
