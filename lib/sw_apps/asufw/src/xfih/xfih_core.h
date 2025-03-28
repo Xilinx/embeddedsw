@@ -253,7 +253,7 @@ typedef struct _XFih_Var {
  */
 #define XFIH_CORE_GET_VAL(FihVar, Val) \
 	do { \
-		Val = FihVar.Val; \
+		Val = FihVar.Val | (FihVar.TransformedVal ^ XFIH_MASK); \
 	} while(0)
 
 #endif /* (XFIH_ENABLE_SECURE_CHECK == FALSE) */
