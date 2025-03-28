@@ -17,6 +17,7 @@ properties:
       - items:
         - enum:
           - xlnx,axi-tft-2.0
+          - xlnx,axi-tft
   reg:
     description: Standard reg property
   xlnx,default-tft-base-addr:
