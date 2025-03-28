@@ -143,7 +143,7 @@ class Domain(Repo):
         utils.mkdir(self.lib_folder)
         utils.mkdir(self.libsrc_folder)
         utils.mkdir(self.sdt_folder)
-        if utils.is_dir(os.path.join(utils.get_dir_path(self.sdt), "drivers"), silent_discard=True):
+        if utils.is_dir(os.path.join(utils.get_dir_path(self.sdt), "drivers"), silent_discard=True) and self.app != "versal_plm":
             utils.copy_directory(os.path.join(utils.get_dir_path(self.sdt), "drivers"),
                                  os.path.join((self.sdt_folder), "drivers"))
             logger.info("Found HLS driver within SDT, copying the sources")
