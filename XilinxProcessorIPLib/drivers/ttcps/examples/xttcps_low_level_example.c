@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 * 3.18 dp     05/23/23 Update checks for Intervalvalue and Matchvalue based on
 *                      platform.
 * 3.18 ml     03/06/24 Added support for system device-tree flow.
+* 3.21 vmt    03/28/25 Fixed signedness warning by explicitly casting to u8.
 *</pre>
 ******************************************************************************/
 
@@ -192,7 +193,7 @@ int TmrCtrLowLevelExample(u8 SettingsTableOffset)
 	 * Assert on the value of constants calculated above
 	 * Because the counters are 16 bits, no value can be greater than 65535
 	 */
-	if ((SettingsTableOffset + 2) > SETTINGS_TABLE_SIZE) {
+	if (((u8)SettingsTableOffset + 2) > SETTINGS_TABLE_SIZE) {
 		return XST_FAILURE;
 	}
 
