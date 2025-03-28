@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +8,8 @@
 /**
  * @file xiicps_slave_monitor_example.c
  *
- * This example runs on zynqmp / versal evaluation boards using the IIC device
- * as master to check slave's availability.
+ * This example runs on zynqmp / versal / vek385 evaluation boards using the
+ * IIC device as master to check slave's availability.
  *
  * @note
  * Please set the slave address to 0x3FB, which tests the device's ability
@@ -21,6 +21,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.00a jz  01/30/10 First release
  * 3.18  gm  07/14/23 Added SDT support.
+ * 3.21  an  03/28/25 Added VEK385 board i2c slave address
  *
  * </pre>
  *
@@ -85,7 +86,7 @@ volatile u32 SlaveResponse;		/**< Slave Response Flag */
 
 /**Searching for the required Slave Address and user can also add
  * their own slave Address in the below array list**/
-u16 SlvAddr[] = {0x54, 0x55, 0x74, 0};
+u16 SlvAddr[] = {0x54, 0x55, 0x74, 0x72, 0};
 XIicPs IicInstance;		/* The instance of the IIC device. */
 #ifdef SDT
 extern XIicPs_Config XIicPs_ConfigTable[XPAR_XIICPS_NUM_INSTANCES];
