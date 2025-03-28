@@ -18,6 +18,8 @@ properties:
         - enum:
           - xlnx,axi-bram-ctrl-4.1
           - xlnx,lmb-bram-if-cntlr-4.0
+          - xlnx,axi-bram-ctrl
+          - xlnx,lmb-bram-if-cntlr
   reg:
     description: Physical base address and size of the controller register map
   xlnx,data-width:
