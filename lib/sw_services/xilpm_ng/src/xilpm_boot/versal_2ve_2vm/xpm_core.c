@@ -147,8 +147,6 @@ done:
 	return Status;
 }
 
-
-
 void DisableWake(const struct XPm_Core *Core)
 {
 	if ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Core->Device.Node.Id)) {
@@ -176,12 +174,16 @@ void DisableWake(const struct XPm_Core *Core)
 		/* Required for MISRA */
 	}
 }
-
+static XStatus SetResumeAddr(XPm_Core *Core, u64 Address)
+{
+	Core->ResumeAddr = Address;
+	return XST_SUCCESS;
+}
 XStatus XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-
 	/* Check for valid resume address */
 	/* TODO: Check if this is correct way to validate address */
 	if (0U == (Address & 1ULL)) {
@@ -194,10 +196,10 @@ XStatus XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
 		goto done;
 	}
 
-	/* Store the resume address */
-	Core->ResumeAddr = Address;
-	Status = XST_SUCCESS;
-
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, SetResumeAddr, Core, Address);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+		goto done;
+	}
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
