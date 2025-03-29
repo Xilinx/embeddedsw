@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  sk  09/23/2023 Initial release
+* 1.01  sk  03/28/2025 Updated UFS init and release calls using PM dev nodes
 *
 * </pre>
 *
@@ -72,11 +73,11 @@ static char BootFile[XLOADER_BASE_FILE_NAME_LEN_UFS + 1U] = {'\0'};
  *
  * @return
  * 			- XST_SUCCESS on success.
- * 			- XLOADER_ERR_MEMSET_UFS_BOOT_FILE if SD bootfile instance creation
+ * 			- XLOADER_ERR_MEMSET_UFS_BOOT_FILE if UFS bootfile instance creation
  * 			fails.
- * 			- XLOADER_ERR_PM_DEV_SDIO_0 if device request for SDIO_0 fails.
- * 			- XLOADER_ERR_PM_DEV_SDIO_1 if device request for SDIO_1 fails.
- * 			- XLOADER_ERR_SD_F_OPEN if file is not present or read fails.
+ * 			- XLOADER_ERR_PM_DEV_UFS if device request for UFS Dev fails.
+ * 			- XLOADER_ERR_UFS_INIT if UFS init fails
+ * 			- XLOADER_ERR_UFS_F_OPEN if file is not present or read fails.
  *
  *****************************************************************************/
 int XLoader_UfsInit(u32 DeviceFlags)
@@ -87,7 +88,6 @@ int XLoader_UfsInit(u32 DeviceFlags)
 	u8 PdiSrc = (u8)(DeviceFlags & XLOADER_PDISRC_FLAGS_MASK);
 	u8 DrvNum = XLoader_GetDrvNumUFS(PdiSrc);
 	static FATFS FatFileSystem;
-//	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 
 	Status = XPlmi_MemSetBytes(BootFile, sizeof(BootFile), 0U, sizeof(BootFile));
 	if (Status != XST_SUCCESS) {
@@ -97,30 +97,12 @@ int XLoader_UfsInit(u32 DeviceFlags)
 	}
 
 	/* Clock, Power, Reset & MIO are configuried via PMC CDO */
-#if 0 /* Node details to be updated for UFS */
-	if ((XLoader_IsPdiSrcSD0(PdiSrc) == (u8)TRUE) ||
-		(PdiSrc == XLOADER_PDI_SRC_EMMC0)) {
-		SdDeviceNode = PM_DEV_SDIO_0;
-		SdCdnReg = PMC_IOU_SLCR_SD0_CDN_CTRL;
-		ErrorCode = (u32)XLOADER_ERR_PM_DEV_SDIO_0;
-	}
-	else {
-		SdDeviceNode = PM_DEV_SDIO_1;
-		SdCdnReg = PMC_IOU_SLCR_SD1_CDN_CTRL;
-		ErrorCode = XLOADER_ERR_PM_DEV_SDIO_1;
-	}
-#endif
-
-#if 0 /* Update for UFS */
-	Status = XPm_RequestDevice(PM_SUBSYS_PMC, SdDeviceNode,
-		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+	Status = XPm_PmcRequestDevice(PM_DEV_UFS);
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_UFS, Status);
 		goto END;
 	}
-	SdCdnVal = XPlmi_In32(SdCdnReg);
-	XPlmi_Out32(SdCdnReg, PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK);
-#endif
+
 	/**
 	 * - Filesystem boot modes require the filename extension as well as
 	 * the logical drive in which the secondary pdi file is present.
@@ -141,7 +123,7 @@ int XLoader_UfsInit(u32 DeviceFlags)
 
 	/** - Set logical drive number. */
 	/** - Register volume work area, initialize device. */
-	BootFile[0U] = (char)DrvNum + 48;
+	BootFile[0U] = (char)DrvNum + XLOADER_ASCII_ZERO_ENCODING;
 	BootFile[1U] = ':';
 	BootFile[2U] = '/';
 	Rc = f_mount(&FatFileSystem, BootFile, 0U);
@@ -286,6 +268,7 @@ END:
  int XLoader_UfsRelease(void)
  {
 	int Status = XST_FAILURE;
+	int PmStatus = XST_FAILURE;
 	FRESULT Rc;
 
 	/** - Close PDI file. */
@@ -305,15 +288,12 @@ END:
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_UFS_UMOUNT\n\r");
 		goto END;
 	}
-	Status = XST_SUCCESS;
 END:
-#if 0 /* TODO to be updated for UFS */
-	/** - Release the device and restore the value of IOU_SLCR_CDN register. */
-	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, SdDeviceNode,
-		XPLMI_CMD_SECURE);
-	XPlmi_Out32(SdCdnReg, SdCdnVal);
-	return Status;
-#endif
+	/** - Release the device */
+	PmStatus = XPm_PmcReleaseDevice(PM_DEV_UFS);
+	if (Rc == FR_OK) {
+		Status = PmStatus;
+	}
 	return Status;
  }
 
@@ -364,7 +344,7 @@ END:
 static int XLoader_MakeUFSFileName(u32 MultiBootOffsetVal)
 {
 	int Status = XST_FAILURE;
-	u8 Index = 10U;
+	u8 Index = XLOADER_MULTIBOOT_INDEX;
 	u8 Value;
 	u32 MultiBootOffset = MultiBootOffsetVal;
     /**
