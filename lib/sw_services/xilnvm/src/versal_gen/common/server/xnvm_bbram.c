@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -34,6 +34,7 @@
 * 3.4   pre  09/11/2024 Removed zeroization before writing key
 *       ng   09/20/2024 Fixed doxygen grouping
 * 3.5   pre  11/21/2024 Removed zeroization before writing key
+* 3.5   hj   26/03/2025 Return explicit error code on General Purpose BBRAM8 write request in SB
 *
 * </pre>
 *
@@ -306,6 +307,12 @@ int XNvm_BbramWriteUsrData(u32 GeneralPurposeData)
 	if ((AHwRotState != XNVM_RTCFG_SECURESTATE_AHWROT) &&
 		(SHwRotState != XNVM_RTCFG_SECURESTATE_SHWROT)) {
 		Status = XNvm_BbramWriteBbram8(GeneralPurposeData);
+	} else {
+		/**
+		 * BBRAM is used for Config Limiter Params when SB is enabled
+		 */
+
+		Status = XNVM_BBRAM_ERROR_USER_DATA_WRITE_IN_SB;
 	}
 #else
 	Status = XNvm_BbramWriteBbram8(GeneralPurposeData);
