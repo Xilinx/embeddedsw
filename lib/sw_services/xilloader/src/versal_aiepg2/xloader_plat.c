@@ -63,6 +63,7 @@
 *       tri  03/13/2025 Added XLoader_MeasureNLoad support
 *       sk   03/17/2025 Added support for all 5 RPU clusters
 *       sk   03/22/2025 Updated status variable as volatile in XLoader_StartImage
+*       sk   03/29/2025 Added redundancy for handoff address
 *
 * </pre>
 *
@@ -283,7 +284,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	u32 CpuId;
 	u32 DeviceId;
 	u32 ClusterId;
-	u64 HandoffAddr;
+	volatile u64 HandoffAddr;
 	u8 SetAddress = 1U;
 	u32 ErrorCode;
 	u32 RequestWakeup = FALSE;
@@ -295,6 +296,8 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 		ClusterId = PdiPtr->HandoffParam[Index].CpuSettings &
 			XIH_PH_ATTRB_DSTN_CLUSTER_MASK;
 		ClusterId >>= XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT;
+		HandoffAddr = PdiPtr->HandoffParam[Index].HandoffAddr;
+		/* Redundant assignment to handle glitch attacks */
 		HandoffAddr = PdiPtr->HandoffParam[Index].HandoffAddr;
 		Status = XST_FAILURE;
 		RequestWakeup = FALSE;
