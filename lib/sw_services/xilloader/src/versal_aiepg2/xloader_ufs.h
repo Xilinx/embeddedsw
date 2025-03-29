@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  sk  07/23/2024 Initial release for UFS Support
+* 1.01  sk  03/28/2025 Added define for Multiboot index
 *
 * </pre>
 *
@@ -51,6 +52,8 @@ extern "C" {
 #define XLOADER_SD_RAW_BLK_SIZE			(512U)
 #define XLOADER_SD_CHUNK_SIZE		(0x200000U)
 #define XLOADER_NUM_SECTORS		(0x1000U)
+#define XLOADER_MULTIBOOT_INDEX		(10U)
+#define XLOADER_ASCII_ZERO_ENCODING	(48U)
 
 /************************** Function Prototypes ******************************/
 int XLoader_UfsInit(u32 DeviceFlags);

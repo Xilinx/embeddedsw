@@ -57,6 +57,7 @@
 * 2.2   sk   03/05/2025 Updated error code for ASU core wakeup
 *       pre  03/15/2025 Added XPLMI_CMD_IN_PROGRESS error state
 *       sk   03/24/2025 Updated error codes for versal_2ve_2vm platform
+*       sk   03/28/2025 Added error code for UFS dev PM request
 *
 * </pre>
 *
@@ -568,7 +569,7 @@ typedef enum {
 	XLOADER_ERR_RELEASE_BOOT_DEVICE,	/**< 0x369 - Failed to Release Boot Device */
 	XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE,	/**< 0x36A - Failed to disable DUAL BYTE OP */
 	XLOADER_ERR_INVALID_TCM_ADDR,	/**< 0x36B - Invalid TCM address for A72 elfs */
-	XLOADER_ERR_RESERVED_36C, /**< 0x36C - XLOADER_ERR_RESERVED_36C */
+	XLOADER_ERR_PM_DEV_UFS,   /**< 0x36C - Failed to XPM Request Device for PM_DEV_UFS */
 	XLOADER_ERR_RESERVED_36D, /**< 0x36D - XLOADER_ERR_RESERVED_36D */
 	XLOADER_ERR_RESERVED_36E, /**< 0x36E - XLOADER_ERR_RESERVED_36E */
 	XLOADER_ERR_RESERVED_36F, /**< 0x36F - XLOADER_ERR_RESERVED_36F */
