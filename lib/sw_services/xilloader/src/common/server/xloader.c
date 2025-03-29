@@ -186,7 +186,7 @@
 *                       Added XLoader_DataMeasurement support for versal
 *       ma   03/19/2025 Update function ID of the PLD0 image to USR_ACCESS
 *                       register in RTCA before loading the PLD0 image
-*
+*       sk  03/29/2025 Added redundant check for XLoader_ValidateMetaHdrIntegrity
 * </pre>
 *
 ******************************************************************************/
@@ -887,12 +887,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		 * calculating IHT + IH's + PH's hash and compare it with MetaHeader hash
 		 * present in HashBlock 1.
 		 */
-		Status = XST_FAILURE;
-		Status = XLoader_ValidateMetaHdrIntegrity(&SecureParams);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ValidateMetaHdrIntegrity, &SecureParams);
 #endif
 	}
 #ifndef PLM_SECURE_EXCLUDE

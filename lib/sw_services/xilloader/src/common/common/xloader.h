@@ -127,6 +127,7 @@
 *       tri  03/13/2025 Added XLOADER_PCR_NUMBER_MASK macro
 *       pre  03/02/2025 Added XLoader_PpdiEventParamsPtr function and
 *                       XLoader_ResourceSts type definition
+*       sk   03/28/2025 Updated the max handoff count for versal_2ve_2vm
 * </pre>
 *
 ******************************************************************************/
@@ -168,7 +169,7 @@ extern "C" {
  * @{
  */
 /**< Subsystem related macros */
-#ifdef VERSAL_NET
+#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
 /* Limit to the maximum number of partitions possible */
 #define XLOADER_MAX_HANDOFF_CPUS	(XIH_MAX_PRTNS)
 #else
