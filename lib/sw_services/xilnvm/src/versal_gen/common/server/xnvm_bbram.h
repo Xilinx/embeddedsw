@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 3.1   skg  10/23/2022 Added In body comments for APIs
 *       kal  03/08/2023 Added new error code XNVM_BBRAM_ERROR_IN_DMA_XFER
 * 3.3   ng   11/22/2023 Fixed doxygen grouping
+* 3.5   hj   03/26/2025 Added new error code XNVM_BBRAM_ERROR_GP_WRITE_IN_SB
 *
 * </pre>
 *
@@ -63,6 +64,11 @@ extern "C" {
 						/**< Error in BBRAM user data locking */
 #define XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED    (XNVM_EFUSE_BBRAM_TAG | 0x05U)
 						/**< Error in BBRAM user data write, as BBRAM_8 reg is locked */
+#ifdef VERSAL_AIEPG2
+#define XNVM_BBRAM_ERROR_USER_DATA_WRITE_IN_SB    (XNVM_EFUSE_BBRAM_TAG | 0x06U)
+						/**< Error, in BBRAM8 write in Secure Boot */
+#endif
+
 #define XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT          (XNVM_EFUSE_BBRAM_TAG | 0x10U)
 						/**< Error in BBRAM_ZEROIZE */
 #define XNVM_BBRAM_ERROR_IN_DMA_XFER              (XNVM_EFUSE_BBRAM_TAG | 0x20U)
