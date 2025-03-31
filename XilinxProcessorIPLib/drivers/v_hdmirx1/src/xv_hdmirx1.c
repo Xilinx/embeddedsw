@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -385,6 +385,8 @@ void XV_HdmiRx1_Clear(XV_HdmiRx1 *InstancePtr)
 	InstancePtr->Stream.GetVideoPropertiesTries = 0;
 	/* Set FRL State*/
 	InstancePtr->Stream.Frl.TrainingState = XV_HDMIRX1_FRLSTATE_LTS_L;
+	/* Disable Timer 3 which triggers Phy Reset */
+	XV_HdmiRx1_Tmr3Disable(InstancePtr);
 
 	/* AUX */
 	InstancePtr->Aux.Header.Data = 0;
