@@ -200,18 +200,7 @@ XStatus XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode
 	return Status;
 }
 
-XStatus XPm_PlatRpuBootAddrConfig(const struct XPm_RpuCore *RpuCore, const u32 BootAddr)
-{
-	if (0U == BootAddr) {
-		PmRmw32(RpuCore->RpuBaseAddr + XPM_CORE_CFG0_OFFSET, XPM_RPU_TCMBOOT_MASK,
-			XPM_RPU_TCMBOOT_MASK);
-	} else {
-		PmOut32(RpuCore->RpuBaseAddr + XPM_CORE_VECTABLE_OFFSET, BootAddr);
-		PmRmw32(RpuCore->RpuBaseAddr + XPM_CORE_CFG0_OFFSET, XPM_RPU_TCMBOOT_MASK, 0U);
-	}
 
-	return XST_SUCCESS;
-}
 
 u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore)
 {
