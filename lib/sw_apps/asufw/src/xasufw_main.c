@@ -83,8 +83,8 @@ static s32 XAsufw_ModulesInit(void);
 /*************************************************************************************************/
 /**
  * @brief	This is the main ASUFW function which will initialize the processor, starts timer,
- * 		initializes interrupts and calls XTask_DispatchLoop to execute the tasks based on
- *		priority.
+ * 		initializes interrupts, initializes modules and calls XTask_DispatchLoop to execute the
+ * 		tasks based on priority.
  *
  * @return
  *		- This function never returns. In case if it reaches end due to any error during
@@ -97,7 +97,7 @@ int main(void)
 
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "\r\nVersal Gen2 Application Security Unit Firmware\r\n");
 
-	/** Initalize ASUFW. */
+	/** Initialize ASUFW. */
 	Status = XAsufw_Init();
 	if (XASUFW_SUCCESS != Status) {
 		XAsufw_Printf(DEBUG_GENERAL, "ASUFW init failed. Error: 0x%x\r\n", Status);
@@ -116,7 +116,7 @@ int main(void)
 
 	/**
 	 * Call task dispatch loop to check and execute the tasks.
-	 * When no tasks are in the task queue to be executed, enter into sleep mode.
+	 * When no tasks are in the task queue to be executed, enter sleep mode.
 	 */
 	XTask_DispatchLoop();
 
@@ -144,7 +144,7 @@ END:
  *        - Initialize all the modules of ASUFW
  *
  * @return
- *		- XASUFW_SUCCESS, On successful initialization.
+ *		- XASUFW_SUCCESS, if ASUFW initialization is successful.
  *		- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
@@ -152,16 +152,16 @@ static s32 XAsufw_Init(void)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/** Initalize task queues. */
+	/** Initialize task queues. */
 	XTask_Init();
 
-	/** Initalize HW resource manager. */
+	/** Initialize HW resource manager. */
 	XAsufw_ResourceInit();
 
-	/** Initalize ASUFW RTC area. */
+	/** Initialize ASUFW RTC area. */
 	XAsufw_RtcaInit();
 
-	/** Initalize PIT timer. */
+	/** Initialize PIT timer. */
 	Status = XAsufw_StartTimer();
 	if (XASUFW_SUCCESS != Status) {
 		XAsufw_Printf(DEBUG_GENERAL, "Timer init failed with error: 0x%x\r\n", Status);
@@ -175,21 +175,21 @@ static s32 XAsufw_Init(void)
 		goto END;
 	}
 
-	/** Initalize DMA. */
+	/** Initialize both ASU DMA0 and ASU DMA1. */
 	Status = XAsufw_DmaInit();
 	if (XASUFW_SUCCESS != Status) {
 		XAsufw_Printf(DEBUG_GENERAL, "DMA init failed with error: 0x%x\r\n", Status);
 		goto END;
 	}
 
-	/** ASU IPI initialization. */
+	/** Initialize ASU IPI. */
 	Status = XAsufw_IpiInit();
 	if (XASUFW_SUCCESS != Status) {
 		XAsufw_Printf(DEBUG_GENERAL, "IPI init failed with error: 0x%x\r\n", Status);
 		goto END;
 	}
 
-	/** Communication channel and their shared memory initialization. */
+	/** Initialize communication channel and their shared memory. */
 	XAsufw_ChannelConfigInit();
 
 	/** Initialize all ASUFW modules. */
@@ -204,7 +204,7 @@ END:
  * @brief	This function initializes all modules supported by ASUFW.
  *
  * @return
- *		- XASUFW_SUCCESS, On successful initialization.
+ *		- XASUFW_SUCCESS, if ASUFW modules initialization is successful.
  *		- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/

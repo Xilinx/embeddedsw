@@ -403,16 +403,16 @@ static const char RsaOpt[XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES + 1U] = "ASUFW";
 
 /*************************************************************************************************/
 /**
- * @brief	This function runs SHA KAT on the given SHA instance for 256 bit digest size.
+ * @brief	This function runs SHA KAT on the given SHA instance for 256-bit digest size.
  *
  * @param	XAsufw_ShaInstance	Pointer to the SHA instance.
  * @param	AsuDmaPtr			ASU DMA instance pointer.
  * @param	ShaResource			SHA2/SHA3 resource.
  *
  * @return
- *	- XASUFW_SUCCESS on successful execution of the SHA KAT.
+ *	- XASUFW_SUCCESS, if SHA KAT is successful.
  *	- XASUFW_SHA_HASH_COMPARISON_FAILED, if expected and generated hash comparison fails.
- *	- XASUFW_SHA_KAT_FAILED, when XAsufw_ShaKat API fails.
+ *	- XASUFW_SHA_KAT_FAILED, if XAsufw_ShaKat API fails.
  *	- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
@@ -480,10 +480,10 @@ END:
  * @param	AsuDmaPtr	ASU DMA instance pointer.
  *
  * @return
- *	- XASUFW_SUCCESS on successful execution of the RSA KAT.
+ *	- XASUFW_SUCCESS, if RSA KAT is successful.
  *	- XASUFW_RSA_ENCRYPT_DATA_COMPARISON_FAILED, if expected and generated encrypted message
- *	comparison fails.
- *	- XASUFW_RSA_KAT_FAILED, when XAsufw_RsaEncDecKat API fails.
+ *	  comparison fails.
+ *	- XASUFW_RSA_KAT_FAILED, if XAsufw_RsaEncDecKat API fails.
  *	- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
@@ -511,27 +511,28 @@ s32 XAsufw_RsaEncDecKat(XAsufw_Dma *AsuDmaPtr)
 	Xil_SMemCpy(PvtKeyParam.PvtExp, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaPvtExp,
 		    XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 
+	/** Perform RSA private exponentiation operation. */
 	Status = XRsa_PvtExp(AsuDmaPtr, PvtKeyParam.PubKeyComp.Keysize, (u64)(UINTPTR)RsaExpectedCt,
 			     (u64)(UINTPTR)Result, (u64)(UINTPTR)&PvtKeyParam, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/** Compare generated encrypted message with expected. */
+	/** Compare generated encrypted message with expected encrypted message. */
 	Status = Xil_SMemCmp(Result, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaData,
 			     XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_DECRYPT_DATA_COMPARISON_FAILED;
 	}
 
-	/** Perform public exponentiation encryption operation. */
+	/** Perform RSA public exponentiation encryption operation. */
 	Status = XRsa_PubExp(AsuDmaPtr, PubKeyParam.Keysize, (u64)(UINTPTR)RsaData,
 			     (u64)(UINTPTR)Result, (u64)(UINTPTR)&PubKeyParam, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		XFIH_GOTO(END);
 	}
 
-	/** Compare generated encrypted message with expected. */
+	/** Compare generated encrypted message with expected encrypted message. */
 	Status = Xil_SMemCmp(Result, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaExpectedCt,
 			     XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
@@ -561,11 +562,11 @@ END:
  * @param	AsuDmaPtr	ASU DMA instance pointer.
  *
  * @return
- *	- XASUFW_SUCCESS on successful execution of the ECC KAT.
+ *	- XASUFW_SUCCESS, if ECC KAT is successful.
  *	- XASUFW_ECC_PUBKEY_COMPARISON_FAILED, if public key generation fails.
  *	- XASUFW_ECC_SIGNATURE_COMPARISON_FAILED, if generated and expected signature
 	comparison fails.
- *	- XASUFW_ECC_KAT_FAILED, when XAsufw_EccCoreKat API fails.
+ *	- XASUFW_ECC_KAT_FAILED, if XAsufw_EccCoreKat API fails.
  *	- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
@@ -577,7 +578,7 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 	u8 GenSign[XASUFW_DOUBLE_P256_SIZE_IN_BYTES];
 	XEcc *EccInstance = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 
-	/** Generates the public key using the provided private key. */
+	/** Generate the public key using the provided private key. */
 	Status = XEcc_GeneratePublicKey(EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
 					XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)EccPrivKey, (u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
@@ -592,7 +593,7 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 		XFIH_GOTO(END);
 	}
 
-	/** Validates the generated ECC public key. */
+	/** Validate the generated ECC public key. */
 	Status = XEcc_ValidatePublicKey(EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
 					XASU_ECC_P256_SIZE_IN_BYTES, (u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
@@ -607,7 +608,7 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 		XFIH_GOTO(END);
 	}
 
-	/** Compare the generated signature with the expected. */
+	/** Compare the generated signature with the expected signature. */
 	Status = Xil_SMemCmp(GenSign, XASUFW_DOUBLE_P256_SIZE_IN_BYTES, EccExpSignP256,
 			     XASUFW_DOUBLE_P256_SIZE_IN_BYTES, XASUFW_DOUBLE_P256_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
@@ -652,11 +653,11 @@ END:
  * @param	AsuDmaPtr	ASU DMA instance pointer.
  *
  * @return
- *	- XASUFW_SUCCESS on successful execution of the ECC KAT.
+ *	- XASUFW_SUCCESS, if ECC KAT is successful.
  *	- XASUFW_RSA_ECC_PUBKEY_COMPARISON_FAILED, if public key generation fails.
  *	- XASUFW_RSA_ECC_SIGNATURE_COMPARISON_FAILED, if generated and expected signature
-	comparison fails.
- *	- XASUFW_RSA_ECC_KAT_FAILED, when XAsufw_RsaEccKat API fails.
+ *	  comparison fails.
+ *	- XASUFW_RSA_ECC_KAT_FAILED, if XAsufw_RsaEccKat API fails.
  *	- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
@@ -667,7 +668,7 @@ s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr)
 	u8 GenPubKey[XASUFW_DOUBLE_P192_SIZE_IN_BYTES];
 	u8 GenSign[XASUFW_DOUBLE_P192_SIZE_IN_BYTES];
 
-	/** Generates the public key using the provided private key. */
+	/** Generate the public key using the provided private key. */
 	Status = XRsa_EccGeneratePubKey(AsuDmaPtr, XASU_ECC_NIST_P192, XASU_ECC_P192_SIZE_IN_BYTES,
 					(u64)(UINTPTR)EccPrivKey, (u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
@@ -682,7 +683,7 @@ s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr)
 		XFIH_GOTO(END);
 	}
 
-	/** Validates the generated ECC public key. */
+	/** Validate the generated ECC public key. */
 	Status = XRsa_EccValidatePubKey(AsuDmaPtr, XASU_ECC_NIST_P192, XASU_ECC_P192_SIZE_IN_BYTES,
 					(u64)(UINTPTR)GenPubKey);
 	if (Status != XASUFW_SUCCESS) {
@@ -737,18 +738,18 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function runs AES KAT on the given AES instance for 256 bit message length
+ * @brief	This function runs AES KAT on the given AES instance for 256-bit message length
  * 		in GCM mode.
  *
  * @param	AsuDmaPtr	ASU DMA instance pointer.
  *
  * @return
- *	- XASUFW_SUCCESS, on successful execution of the AES KAT.
+ *	- XASUFW_SUCCESS, if AES GCM KAT execution is successful.
  *	- XASUFW_AES_WRITE_KEY_FAILED, if Key write to AES USER key register fails.
  *	- XASUFW_AES_INIT_FAILED, if initialization of AES engine fails.
  *	- XASUFW_AES_UPDATE_FAILED, if update of data to AES engine fails.
  *	- XASUFW_AES_FINAL_FAILED, if completion of final AES operation fails.
- *	- XASUFW_AES_KAT_FAILED, when XAsufw_AesGcmKat API fails.
+ *	- XASUFW_AES_KAT_FAILED, if XAsufw_AesGcmKat API fails.
  *
  *************************************************************************************************/
 s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
@@ -782,7 +783,7 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 		XFIH_GOTO(END);
 	}
 
-	/** Perform AES update operation for AAD, message. */
+	/** Perform AES update operation for AAD and message. */
 	Status = XAes_Update(AesInstance, AsuDmaPtr, (u64)(UINTPTR)AesAad, 0U,
 			     XASUFW_AES_AAD_LEN_IN_BYTES, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
@@ -805,7 +806,7 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 		XFIH_GOTO(END);
 	}
 
-	/** Comparison of encrypted data with expected ciphertext data. */
+	/** Compare encrypted data with expected ciphertext data. */
 	Status = Xil_SMemCmp_CT(ExpAesGcmCt, XASUFW_KAT_MSG_LENGTH_IN_BYTES, AesOutData,
 				XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASUFW_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XST_SUCCESS) {
@@ -813,7 +814,7 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 		XFIH_GOTO(END);
 	}
 
-	/** Comparison of generated GCM tag with the expected GCM tag. */
+	/** Compare generated GCM tag with the expected GCM tag. */
 	Status = Xil_SMemCmp_CT(ExpAesGcmTag, XASUFW_AES_TAG_LEN_IN_BYTES, AesTag,
 				XASUFW_AES_TAG_LEN_IN_BYTES, XASUFW_AES_TAG_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
@@ -832,7 +833,7 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 		XFIH_GOTO(END);
 	}
 
-	/** Perform AES update operation for AAD, ciphertext. */
+	/** Perform AES update operation for AAD and ciphertext. */
 	Status = XAes_Update(AesInstance, AsuDmaPtr, (u64)(UINTPTR)AesAad, 0U,
 			     XASUFW_AES_AAD_LEN_IN_BYTES, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
@@ -855,7 +856,7 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 		XFIH_GOTO(END);
 	}
 
-	/** Comparison of decrypted data with expected input data. */
+	/** Compare decrypted data with expected input data. */
 	Status = Xil_SMemCmp_CT(KatMessage, XASUFW_KAT_MSG_LENGTH_IN_BYTES, AesOutData,
 				XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASUFW_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XST_SUCCESS) {
@@ -885,7 +886,7 @@ END:
  * @param	AsuDmaPtr	ASU DMA instance pointer.
  *
  * @return
- *	- XASUFW_SUCCESS on successful execution of the AES DPA CM KAT.
+ *	- XASUFW_SUCCESS, if AES DPA CM KAT is successful.
  *	- XASUFW_AES_DPA_CM_KAT_CHECK1_FAILED, if check1 has failed.
  *	- XASUFW_AES_DPA_CM_KAT_CHECK2_FAILED, if check2 has failed.
  *	- XASUFW_AES_DPA_CM_KAT_CHECK3_FAILED, if check3 has failed.
@@ -989,9 +990,9 @@ END:
  * @param	AsuDmaPtr		Pointer to the ASU DMA instance.
  *
  * @return
- *	- XASUFW_SUCCESS on successful execution of the HMAC KAT.
+ *	- XASUFW_SUCCESS, if HMAC KAT is successful.
  *	- XASUFW_HMAC_KAT_COMPARISON_FAILED, if expected and generated HMAC comparison fails.
- *	- XASUFW_HMAC_KAT_FAILED, when XAsufw_HmacOperationKat API fails.
+ *	- XASUFW_HMAC_KAT_FAILED, if XAsufw_HmacOperationKat API fails.
  *
  *************************************************************************************************/
 s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr)
@@ -1025,7 +1026,7 @@ s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr)
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Compare generated Hmac output with expected Hmac. */
+	/** Compare generated HMAC output with expected HMAC output. */
 	Status = Xil_SMemCmp(HmacOutput, XASU_SHA_256_HASH_LEN, ExpHmacOutput,
 			     XASU_SHA_256_HASH_LEN,
 			     XASU_SHA_256_HASH_LEN);
@@ -1055,9 +1056,9 @@ END:
  * @param	AsuDmaPtr		Pointer to the ASU DMA instance.
  *
  * @return
- *	- XASUFW_SUCCESS on successful execution of the KDF KAT.
+ *	- XASUFW_SUCCESS, if KDF KAT is successful.
  *	- XASUFW_KDF_KAT_COMPARISON_FAILED, if expected and generated KDF comparison fails.
- *	- XASUFW_KDF_KAT_FAILED, when XAsufw_KdfOperationKat API fails.
+ *	- XASUFW_KDF_KAT_FAILED, if XAsufw_KdfOperationKat API fails.
  *
  *************************************************************************************************/
 s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr)
@@ -1110,9 +1111,9 @@ END:
  * @param	AsuDmaPtr	Pointer to the ASU DMA instance.
  *
  * @return
- *	- XASUFW_SUCCESS on successful execution of the KDF KAT.
+ *	- XASUFW_SUCCESS, if ECIES KAT is successful.
  *	- XASUFW_ECIES_KAT_COMPARISON_FAILED, if expected and generated ECIES comparison fails.
- *	- XASUFW_ECIES_KAT_FAILED, when XAsufw_EciesOperationKat API fails.
+ *	- XASUFW_ECIES_KAT_FAILED, if XAsufw_EciesOperationKat API fails.
  *
  *************************************************************************************************/
 s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
@@ -1202,10 +1203,10 @@ END:
  * @param	AsuDmaPtr	ASU DMA instance pointer.
  *
  * @return
- *	- XASUFW_SUCCESS on successful execution of the RSA KAT.
+ *	- XASUFW_SUCCESS, if Key wrap unwrap KAT is successful.
  *	- XASUFW_KEYWRAP_UNWRAPPED_DATA_COMPARISON_FAILED, if expected and generated unwrapped message
  *	comparison fails.
- *	- XASUFW_KEYWRAP_KAT_FAILED, when XAsufw_KeyWrapOperationKat API fails.
+ *	- XASUFW_KEYWRAP_KAT_FAILED, if XAsufw_KeyWrapOperationKat API fails.
  *	- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
@@ -1224,7 +1225,7 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	PubKeyParam.Keysize = XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES;
 	PubKeyParam.PubExp = RsaPublicExp;
 
-	/** Copy required parameters for RSA operation. */
+	/** Copy required parameters for Key wrap unwrap operation. */
 	Status = Xil_SMemCpy(PubKeyParam.Modulus, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaModulus,
 			     XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
@@ -1322,8 +1323,8 @@ END:
  * @param 	S is the pointer to the data array of size 4 words.
  *
  * @return
- *	- XASUFW_SUCCESS - When check is passed
- *	- XASUFW_FAILURE - when check is failed
+ *	- XASUFW_SUCCESS, if DPA CM checks are passed.
+ *	- XASUFW_FAILURE, if DPA CM checks fail.
  *
  *************************************************************************************************/
 static s32 XAsufw_AesDpaCmChecks(const u32 *P, const u32 *Q, const u32 *R, const u32 *S)
@@ -1347,11 +1348,13 @@ static s32 XAsufw_AesDpaCmChecks(const u32 *P, const u32 *Q, const u32 *R, const
 /**
  * @brief	This function runs ECDH KAT on RSA core for P-192 curve.
  *
- * @param	QueueId		Queue Unique ID.
+ * @param	AsuDmaPtr		ASU DMA instance pointer.
  *
  * @return
- * 		- Returns XASUFW_SUCCESS on successful execution of the ECC KAT.
- * 		- Otherwise, returns an error code.
+ * 		- XASUFW_SUCCESS, if ECC KAT is successful.
+ * 		- XASUFW_ECDH_SECRET_COMPARISON_FAILED, if generated and expected shared secret
+ * 		  comparison fails.
+ * 		- XASUFW_FAILURE, if any other failure happens.
  *
  *************************************************************************************************/
 s32 XAsufw_P192EcdhKat(XAsufw_Dma *AsuDmaPtr)
@@ -1360,7 +1363,7 @@ s32 XAsufw_P192EcdhKat(XAsufw_Dma *AsuDmaPtr)
 	s32 SStatus = XASUFW_FAILURE;
 	u8 SharedSecret[XASU_ECC_P192_SIZE_IN_BYTES];
 
-	/** Generates the shared secret using the known private key and public key. */
+	/** Generate the shared secret using the known private key and public key. */
 	Status = XRsa_EcdhGenSharedSecret(AsuDmaPtr, XRSA_ECC_CURVE_TYPE_NIST_P192,
 					  XASU_ECC_P192_SIZE_IN_BYTES, (u64)(UINTPTR)EcdhPrivKey,
 					  (u64)(UINTPTR)EccExpPubKeyP192,

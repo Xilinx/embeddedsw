@@ -8,7 +8,7 @@
  *
  * @file xasufw_resourcemanager.c
  *
- * This file contains the hardware resource manager of ASUFW.
+ * This file contains the resource manager code for ASUFW.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -41,11 +41,11 @@
 
 /************************************ Constant Definitions ***************************************/
 
-#define XASUFW_MAX_RESOURCES		(u32)XASUFW_INVALID          /**< Maximum hardware resources */
+#define XASUFW_MAX_RESOURCES		(u32)XASUFW_INVALID          /**< Maximum resources */
 
 /************************************** Type Definitions *****************************************/
 /**
- * @brief Enumeration of hardware resources state
+ * @brief Enumeration of resources state
  */
 typedef enum {
 	XASUFW_RESOURCE_IS_FREE,	/**< Resource is not blocked */
@@ -54,7 +54,8 @@ typedef enum {
 } XAsufw_ResourceState;
 
 /**
- * @brief Enumeration of hardware resources manager
+ * @brief Resource manager structure which contains each resource state, allocated resources and
+ * the owner ID which acquired the resource
  */
 typedef struct {
 	XAsufw_ResourceState State;	/**< State of the resource */
@@ -72,7 +73,7 @@ static XAsufw_ResourceManager ResourceManager[XASUFW_MAX_RESOURCES];
 
 /*************************************************************************************************/
 /**
- * @brief	Initializes the hardware resource manager and prepares it for resource allocation.
+ * @brief	This function initializes the resource manager and prepares it for resource allocation.
  *
  *************************************************************************************************/
 void XAsufw_ResourceInit(void)
@@ -88,14 +89,14 @@ void XAsufw_ResourceInit(void)
 
 /*************************************************************************************************/
 /**
- * @brief	This function releases requested hardware resource(s).
+ * @brief	This function releases requested resource(s).
  *
- * @param	Resource	The hardware resource to be released.
+ * @param	Resource	The resource to be released.
  * @param	ReqId		The unique ID of the request.
  *
  * @return
- * 	-	XASUFW_SUCCESS on successful resource(s) release.
- * 	-	Error code on invalid resource.
+ *	- XASUFW_SUCCESS, if resource(s) release is successful.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if ReqId is not matching with the resource owner ID.
  *
  *************************************************************************************************/
 s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 ReqId)
@@ -104,6 +105,7 @@ s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 ReqId)
 	u32 Index = 0x0U;
 	u32 AllocatedResources = ResourceManager[Resource].AllocatedResources;
 
+	/** If ReqId is not matching with resource owner ID, return error code. */
 	if (ResourceManager[Resource].OwnerId != ReqId) {
 		Status = XASUFW_RESOURCE_RELEASE_NOT_ALLOWED;
 		goto END;
@@ -139,13 +141,17 @@ END:
 /**
  * @brief	This function allocates the requested resource.
  *
- * @param	Resource		The hardware resource to allocate.
+ * @param	Resource		The resource to be allocated.
  * @param	MainResource	The main resource for which the above resource is allocated.
  * @param	ReqId			The unique ID of the request.
  *
  *************************************************************************************************/
 void XAsufw_AllocateResource(XAsufw_Resource Resource, XAsufw_Resource MainResource, u32 ReqId)
 {
+	/**
+	 * Make the requested resource state busy and fill owner ID in the resource manager structure.
+	 * Allocate requested resource to the main resource.
+	 */
 	ResourceManager[Resource].OwnerId = ReqId;
 	ResourceManager[Resource].State = XASUFW_RESOURCE_IS_BUSY;
 	ResourceManager[MainResource].AllocatedResources |= ((u32)1U << (u32)Resource);
@@ -153,9 +159,10 @@ void XAsufw_AllocateResource(XAsufw_Resource Resource, XAsufw_Resource MainResou
 
 /*************************************************************************************************/
 /**
- * @brief	This function idles the given resource.
+ * @brief	This function idles the given resource. Resource idling is done when the resource is
+ * not busy and the operation using the resource is not completed.
  *
- * @param	Resource	The hardware resource to allocate.
+ * @param	Resource	The resource to allocate.
  *
  *************************************************************************************************/
 void XAsufw_IdleResource(XAsufw_Resource Resource)
@@ -178,19 +185,19 @@ void XAsufw_IdleResource(XAsufw_Resource Resource)
 /**
  * @brief	This function checks the availability of resource.
  *
- * @param	Resource	The hardware resource to allocate.
+ * @param	Resource	The resource to allocate.
  * @param	ReqId		The unique ID of the request.
  *
  * @return
- * 	-	XASUFW_SUCCESS, upon resource availability.
- * 	- 	XASUFW_RESOURCE_UNAVAILABLE, upon resource unavailability
+ * 	-	XASUFW_SUCCESS, if resource is available.
+ * 	- 	XASUFW_RESOURCE_UNAVAILABLE, if resource is unavailable.
  *
  *************************************************************************************************/
 static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/* Check resource availability */
+	/** Check resource availability. */
 	if ((ResourceManager[Resource].State == XASUFW_RESOURCE_IS_BUSY) ||
 		((ResourceManager[Resource].State == XASUFW_RESOURCE_IS_IDLE) &&
 			(ResourceManager[Resource].OwnerId != ReqId))) {
@@ -208,12 +215,12 @@ static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 ReqId)
  * @brief	This function checks if all the required resources to execute the command are
  * 		available or not.
  *
- * @param	Resources	OR of all the hardware resources required for the command.
+ * @param	Resources	OR of all the resources required for the command.
  * @param	ReqId		The unique ID of the request.
  * @param	ReqBuf		Pointer to the request buffer.
  *
  * @return
- * 	- XASUFW_SUCCESS if all the required resources are available.
+ * 	- XASUFW_SUCCESS, if all the required resources are available.
  * 	- XASUFW_RESOURCE_UNAVAILABLE, if any resource is not available.
  * 	- XASUFW_RESOURCE_INVALID, if any resource is invalid.
  *
@@ -307,14 +314,14 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function allocates the available DMA for the requested hardware resource.
+ * @brief	This function allocates the available DMA for the requested resource.
  *
- * @param	Resource	The hardware resource to allocate.
+ * @param	Resource	The main resource requesting for DMA resource.
  * @param	ReqId		The unique ID of the request.
  *
  * @return
- *	-	Pointer to the DMA instance.
- *	-	NULL, upon unavailability.
+ *	-	Pointer to the DMA instance, if the DMA resource is allocated for the main resource.
+ *	-	NULL, if the DMA resource is unavailable.
  *
  *************************************************************************************************/
 XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 ReqId)
@@ -323,7 +330,10 @@ XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 ReqId)
 	u32 DmaDeviceId;
 	XAsufw_Dma *AsuDmaPtr = NULL;
 
-	/** Check for availability of DMA. */
+	/**
+	 * Check for availability of DMA.
+	 * If DMA is not available, return NULL.
+	 */
 	if (XAsufw_IsResourceAvailable(XASUFW_DMA0, ReqId) == XASUFW_SUCCESS) {
 		DmaAllocate = XASUFW_DMA0;
 		DmaDeviceId = ASUDMA_0_DEVICE_ID;
@@ -334,7 +344,7 @@ XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 ReqId)
 		goto END;
 	}
 
-	/** Allocate DMA to the resource if DMA is available. */
+	/** Allocate DMA to the requested resource if DMA is available. */
 	if (DmaAllocate != XASUFW_INVALID) {
 		AsuDmaPtr = XAsufw_GetDmaInstance(DmaDeviceId);
 		XAsufw_AllocateResource(DmaAllocate, Resource, ReqId);
@@ -354,13 +364,14 @@ END:
  * @param	ReqId		The unique ID of the request.
  *
  * @return
- *	-	XASUFW_SUCCESS on successful DMA resource release.
- * 	-	Error code on invalid resource.
+ *	- XASUFW_SUCCESS, if DMA resource release is successful.
+ *	- XASUFW_FAILURE, if invalid DMA pointer is received.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if ReqId is not matching with the resource owner ID.
  *
  *************************************************************************************************/
 s32 XAsufw_ReleaseDmaResource(XAsufw_Dma *AsuDmaPtr, u32 ReqId)
 {
-	s32 Status = XST_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	XAsufw_Resource DmaResource = XASUFW_INVALID;
 
 	if (AsuDmaPtr == NULL) {

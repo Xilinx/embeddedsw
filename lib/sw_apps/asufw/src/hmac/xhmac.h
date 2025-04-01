@@ -37,7 +37,7 @@ extern "C" {
 #include "xasufw_dma.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_HMAC_SHA_HASH_MAX_LEN		(64U) /**< Length of the maximum hash length. */
+#define XASUFW_HMAC_SHA_HASH_MAX_LEN		(64U) /**< Length of the maximum hash length */
 #define HMAC_UPDATE_IN_PROGRESS			(0x1U) /**< HMAC update done stage for DMA
 							non-blocking wait */
 

@@ -57,7 +57,7 @@ static XAsufw_Module XAsufw_EciesModule; /**< ASUFW ECIES Module ID and commands
  * @brief	This function initializes the ECIES module.
  *
  * @return
- * 	- On successful initialization of ECIES module, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_SUCCESS, if ECIES module initialization is successful.
  * 	- XASUFW_ECIES_MODULE_REGISTRATION_FAILED, if ECIES module registration fails.
  *
  *************************************************************************************************/
@@ -65,7 +65,7 @@ s32 XAsufw_EciesInit(void)
 {
 	volatile s32 Status = XASUFW_FAILURE;
 
-	/** Contains the array of ASUFW ECIES commands. */
+	/** The XAsufw_EciesCmds array contains the list of commands supported by ECIES module. */
 	static const XAsufw_ModuleCmd XAsufw_EciesCmds[] = {
 		[XASU_ECIES_ENCRYPT_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EciesEncrypt),
 		[XASU_ECIES_ENCRYPT_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EciesEncrypt),
@@ -75,7 +75,7 @@ s32 XAsufw_EciesInit(void)
 		[XASU_ECIES_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EciesGetInfo),
 	};
 
-	/** Contains the required resources for each supported command. */
+	/** The XAsufw_EciesResourcesBuf contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_EciesResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_EciesCmds)] = {
 		[XASU_ECIES_ENCRYPT_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 		XASUFW_ECIES_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
@@ -175,9 +175,9 @@ END:
  * @param	ReqId		Requester ID.
  *
  * @return
- * 	- XASUFW_SUCCESS - if ECIES encrypt operation is successful.
+ * 	- XASUFW_SUCCESS, if ECIES encrypt operation is successful.
  * 	- XASUFW_ECIES_ENCRYPT_FAILED, if ECIES encryption operation fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_EciesEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -198,6 +198,7 @@ static s32 XAsufw_EciesEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAsufw_EciesModule.ShaPtr = NULL;
 	XAsufw_EciesModule.AesPtr = NULL;
 
+	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_ECIES, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
@@ -214,9 +215,9 @@ static s32 XAsufw_EciesEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId		Requester ID.
  *
  * @return
- * 	- XASUFW_SUCCESS - if ECIES decryption operation is successful.
- * 	- XASUFW_ECIES_DECRYPT_FAILED, if ECIES encryption operation fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
+ * 	- XASUFW_SUCCESS, if ECIES decryption operation is successful.
+ * 	- XASUFW_ECIES_DECRYPT_FAILED, if ECIES decryption operation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_EciesDecrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -236,6 +237,7 @@ static s32 XAsufw_EciesDecrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAsufw_EciesModule.ShaPtr = NULL;
 	XAsufw_EciesModule.AesPtr = NULL;
 
+	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_ECIES, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
@@ -252,8 +254,8 @@ static s32 XAsufw_EciesDecrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if ECIES KAT is successful.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- Error code, returned when XAsufw_EciesOperationKat API fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
  *
  *************************************************************************************************/
 static s32 XAsufw_EciesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -285,7 +287,7 @@ static s32 XAsufw_EciesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId	Requester ID.
  *
  * @return
- *	- Returns XASUFW_SUCCESS on successful execution of the command.
+ *	- XASUFW_SUCCESS, if command execution is successful.
  *	- Otherwise, returns an error code.
  *
  *************************************************************************************************/

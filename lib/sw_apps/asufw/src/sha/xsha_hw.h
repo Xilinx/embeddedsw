@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -31,8 +31,11 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 
 /************************************ Constant Definitions ***************************************/
-/* Definitions for SHA2 and SHA3 driver */
-#define XASU_XSHA_NUM_INSTANCES				2U /**< SHA number of instances */
+/**
+ * @name Definitions for ECC driver
+ * @{
+ */
+#define XASU_XSHA_NUM_INSTANCES				2U /**< Number of SHA hardware instances */
 
 /* Definitions for peripheral ASU_SHA2 */
 #define XASU_XSHA_0_DEVICE_ID				0U /**< SHA2 Device ID */
@@ -43,6 +46,7 @@ extern "C" {
 #define XASU_XSHA_1_DEVICE_ID				1U /**< SHA3 Device ID */
 #define XASU_XSHA_1_S_AXI_BASEADDR			0xEBF40000U /**< SHA3 base address */
 #define XASU_XSHA_1_TYPE					3U /**< SHA3 type */
+/** @} */
 
 /* Definitions for SHA registers */
 #define	XASU_SHA_START_MASK					(0x1U)			/**< SHA start value */

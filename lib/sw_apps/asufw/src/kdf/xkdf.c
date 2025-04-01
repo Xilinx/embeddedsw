@@ -8,7 +8,7 @@
 * @file xkdf.c
 *
 * This file contains the implementation of the HMAC based Key Derivation Function (HKDF) APIs
-* using counter mode.
+* using counter mode as specified in NIST SP 800-108r1.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -47,14 +47,14 @@
 /**
  * @brief	This function performs KDF compute operation using HMAC as pseudorandom function with
  * the user provided inputs and generates the keying material object of specified number of bytes
- * in counter mode.
+ * in counter mode as specified in NIST SP 800-108r1.
  *
  * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
  * @param	ShaInstancePtr	Pointer to the XSha instance.
  * @param	KdfParams		Pointer to the KDF structure containing user input parameters.
  *
  * @return
- * 	- XASUFW_SUCCESS, if KDF compute operation was successful.
+ * 	- XASUFW_SUCCESS, if KDF compute operation is successful.
  * 	- XASUFW_KDF_INVALID_PARAM, if input parameters are invalid.
  * 	- Errors codes from HMAC, if HMAC operation fails.
  *
@@ -94,7 +94,7 @@ s32 XKdf_Compute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams 
 	/**
 	 * Calculate number of iterations based on KDF output key length and SHA algorithm hash length.
 	 * According to algorithm, maximum iterations should not exceed (2^(counter size in bits) - 1).
-	 * As in ASU, we are considering the counter size as 32 bits and taking only 32 bit Iterations
+	 * As in ASU, we are considering the counter size as 32-bits and taking only 32-bit Iterations
 	 * variable, checking for maximum iterations is not required as this variable always holds
 	 * only in range numbers.
 	 */
@@ -103,11 +103,14 @@ s32 XKdf_Compute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams 
 		++Iterations;
 	}
 
-	/** Use HMAC as pseudorandom function, calculate and form the output. */
+	/**
+	 * Use HMAC as pseudorandom function, run the below steps in iterations until requested bytes
+	 * of key output is generated and form the final output.
+	 */
 	KeyOutAddr = KdfParams->KeyOutAddr;
 	for (KdfIndex = 0U; KdfIndex < Iterations; ++KdfIndex) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		/** Initialize HMAC with KeyIn provided. */
+		/** - Initialize HMAC with KeyIn provided. */
 		Status = XHmac_Init(HmacPtr, DmaPtr, ShaInstancePtr, KdfParams->KeyInAddr,
 				KdfParams->KeyInLen, KdfParams->ShaMode, HashLen);
 		if (Status != XASUFW_SUCCESS) {
@@ -115,8 +118,8 @@ s32 XKdf_Compute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams 
 		}
 
 		/**
-		 * As we implement counter mode, give Iteration count as data to HMAC.
-		 * Iteration count should be send in big endian format.
+		 * - As we implement counter mode, give Iteration count as data to HMAC.
+		 *   Iteration count should be sent in big endian format.
 		 */
 		KdfValue = Xil_Htonl(KdfIndex + 1U);
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -126,7 +129,7 @@ s32 XKdf_Compute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams 
 			goto END_CLR;
 		}
 
-		/** Update context provided by user to HMAC. */
+		/** - Update context provided by user to HMAC. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XHmac_Update(HmacPtr, DmaPtr, KdfParams->ContextAddr, KdfParams->ContextLen,
 				XASU_TRUE);
@@ -134,7 +137,7 @@ s32 XKdf_Compute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams 
 			goto END_CLR;
 		}
 
-		/** Get final HMAC for the running iteration. */
+		/** - Get final HMAC for the running iteration. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XHmac_Final(HmacPtr, DmaPtr, (u32 *)KOut);
 		if (Status != XASUFW_SUCCESS) {
@@ -142,7 +145,7 @@ s32 XKdf_Compute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams 
 		}
 
 		/**
-		 * HMAC output size is the SHA algorithm hash length. KDF key output can be any legnth.
+		 * - HMAC output size is the SHA algorithm hash length. KDF key output can be any legnth.
 		 * Copy the final HMAC of each iteration to the destination key output buffer.
 		 * In last iteration, data to be copied to the destination can be less than or equal to
 		 * SHA algorithm hash length which varies based on the requested key output length.
@@ -159,7 +162,7 @@ s32 XKdf_Compute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams 
 		KeyOutAddr = KeyOutAddr + HashLen;
 	}
 
-	/** Check if the desired number iterations are executed. */
+	/** Check if the desired number of iterations are executed. */
 	if (KdfIndex != Iterations) {
 		Status = XASUFW_KDF_ITERATION_COUNT_MISMATCH;
 	}

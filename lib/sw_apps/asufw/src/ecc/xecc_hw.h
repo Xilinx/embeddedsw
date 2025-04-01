@@ -31,12 +31,15 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 
 /************************************ Constant Definitions ***************************************/
-/* Definitions for driver ECC */
-#define XASU_XECC_NUM_INSTANCES			(1U)
+/**
+ * @name Definitions for ECC driver
+ * @{
+ */
+#define XASU_XECC_NUM_INSTANCES			(1U) /**< Number of ECC hardware instances */
 
-/* Definitions for peripheral ECC0 */
-#define XASU_XECC_0_DEVICE_ID			(0U)
-#define XASU_XECC_0_BASEADDR			(0xEBF00000U)
+#define XASU_XECC_0_DEVICE_ID			(0U) /**< ECC0 device ID */
+#define XASU_XECC_0_BASEADDR			(0xEBF00000U) /**< ECC0 base address */
+/** @} */
 
 /**
  * @name  CTRL register

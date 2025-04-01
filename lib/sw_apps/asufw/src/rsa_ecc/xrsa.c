@@ -43,8 +43,7 @@
 
 /* Errors from IPcores library */
 #define XRSA_KEY_PAIR_COMP_ERROR	(1)		/**< RSA IPcores keypair compare error */
-#define XRSA_RAND_GEN_ERROR		(2)		/**< RSA IPcores random number generation
-								error */
+#define XRSA_RAND_GEN_ERROR		(2)		/**< RSA IPcores random number generation error */
 
 #define XRSA_MAX_PRIME_SIZE_IN_BYTES	(256U)		/**< RSA max prime size in bytes */
 #define XRSA_PUBEXP_SIZE_IN_BYTES	(4U)		/**< RSA public exponent size in bytes */
@@ -53,14 +52,11 @@
 #define XRSA_BYTE_TO_BIT(x)		((s32)((x) << 3U)) /**< Byte to bit conversion */
 
 #define XRSA_NO_PRIME_NO_TOT_PRSNT	(0U)		/**< Indicates no prime num or totient
-								is present as parameter for private
-								decryption operation*/
+								is present as parameter for private decryption operation */
 #define XRSA_TOTIENT_IS_PRSNT		(1U)		/**< Indicates totient is present as
-								parameter for private decryption
-								operation*/
+								parameter for private decryption operation */
 #define XRSA_PRIME_NUM_IS_PRSNT		(2U)		/**< Indicates prime num is present as
-								parameter for private decryption
-								operation*/
+								parameter for private decryption operation */
 
 /************************************** Type Definitions *****************************************/
 
@@ -72,6 +68,7 @@ static s32 XRsa_ValidatePubExp(u8 *BuffAddr);
 static s32 XRsa_ValidateModulus(u8 *BuffAddr, u8 *InputData, u32 Len);
 
 /************************************ Variable Definitions ***************************************/
+/** RSA data block memory allocated in ASU RAM. */
 static u8  Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES] __attribute__ ((section (".rsa_data_block")));
 
 /*************************************************************************************************/
@@ -87,14 +84,14 @@ static u8  Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES] __attribute__ ((section (".rsa
  * 				operation using CRT algorithm.
  *
  * @return
- *		- XASUFW_SUCCESS on success.
- *		- XASUFW_FAILURE on failure.
- *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL on zeroize memset failure.
- *		- XASUFW_RSA_DMA_COPY_FAIL on DMA copy failure.
- *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR on endianness change error.
- *		- XASUFW_RSA_MEM_COPY_FAIL on memory copy failure.
- * 		- Also can return termination error codes from 0x9CU to 0x9FU ,
+ *		- XASUFW_SUCCESS, if RSA decryption using CRT algorithm is successful.
+ *		- XASUFW_FAILURE, if RSA decryption using CRT algorithm fails.
+ *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
+ *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
+ *		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change error occurs.
+ *		- XASUFW_RSA_MEM_COPY_FAIL, if memory copy fails.
+ * 		- Also, this function can return termination error codes from 0x9CU to 0x9FU
  * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
@@ -150,7 +147,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 		goto END;
 	}
 
-	/* Copy public exponent to pointer. */
+	/** Copy public exponent to pointer. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, &(KeyPtr->PubKeyComp.PubExp),
 			     XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
@@ -180,16 +177,17 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 		goto END;
 	}
 
-	/** Endianness change from BE to LE for following components
+	/**
+	 * Endianness change from BE to LE for following components
 	 * - Input Data.
 	 * - Public exponent.
 	 * - Modulus.
 	 * - first prime number.
-	 * - second prime numbe.
+	 * - second prime number.
 	 * - derived value of first prime number.
 	 * - derived value of second prime number.
 	 * - Inverse of derived value of second prime number.
-	*/
+	 */
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(InData, Len);
@@ -264,7 +262,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 		goto END;
 	}
 
-	/** Copy output data to server memory using DMA. */
+	/** Copy output data to user memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)OutData, OutputDataAddr, Len, 0U);
 
@@ -276,7 +274,7 @@ END:
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 
-	/** Reset the RSA engine. */
+	/** Set the RSA engine under reset. */
 	XAsufw_CryptoCoreSetReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
 
 	return Status;
@@ -284,8 +282,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs RSA decryption for the provided message by using
- * 		private key.
+ * @brief	This function performs RSA decryption for the provided message by using private key.
  *
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	Len		Length of Input and Output Data in bytes.
@@ -295,15 +292,15 @@ END:
  * @param	ExpoAddr	Address to exponential parameters required for RSA operation.
  *
  * @return
- *		- XASUFW_SUCCESS on success.
- *		- XASUFW_FAILURE on failure.
- *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL on zeroize memset failure.
- *		- XASUFW_RSA_DMA_COPY_FAIL on DMA copy failure.
- *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR on endianness change error.
- *		- XASUFW_RSA_MEM_COPY_FAIL on memory copy failure.
- *		- XASUFW_RSA_INVALID_PRIME_TOT_FLAG on invalid prime/totient flag.
- *		- Also can return termination error codes from 0x9CU to 0x9EU and 0xA0U,
+ *		- XASUFW_SUCCESS, if RSA decryption is successful.
+ *		- XASUFW_FAILURE, if RSA decryption fails.
+ *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
+ *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
+ *		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change error occurs.
+ *		- XASUFW_RSA_MEM_COPY_FAIL, if memory copy fails.
+ *		- XASUFW_RSA_INVALID_PRIME_TOT_FLAG, if invalid prime/totient flag.
+ *		- Also, this function can return termination error codes from 0x9CU to 0x9EU and 0xA0U,
  * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
@@ -333,7 +330,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Release the RSA engine from reset */
+	/** Release the RSA engine from reset. */
 	XAsufw_CryptoCoreReleaseReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -361,7 +358,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/* Copy public exponent to pointer*/
+	/** Copy public exponent to pointer. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, &(KeyPtr->PubKeyComp.PubExp),
 			     XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
@@ -392,14 +389,15 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	}
 
 
-	/** Endianness change from BE to LE for following components
+	/**
+	 * Endianness change from BE to LE for following components
 	 * - Input Data.
 	 * - Public exponent.
 	 * - Modulus.
 	 * - Private exponent.
 	 * - Prime number or totient.
-	 * - Pre calculated exponent values if available(R mod N,R square mod N).
-	*/
+	 * - Pre calculated exponent values if available (R mod N,R square mod N).
+	 */
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(InData, Len);
@@ -458,9 +456,11 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Perform private exponentiation operation by calculating exponentiation values or with
-		pre calculated exponentiation values and with totient or prime numbers or without
-		totient and prime numbers based on available parameters. */
+	/**
+	 * Perform private exponentiation operation by calculating exponentiation values or with
+	 * pre calculated exponentiation values and with totient or prime numbers or without
+	 * totient and prime numbers based on available parameters.
+	 */
 	if (ExpoAddr == 0U) {
 		if (KeyPtr->PrimeCompOrTotientPrsnt == XRSA_TOTIENT_IS_PRSNT) {
 			XFIH_CALL(RSA_ExpQ, XFihVar, Status, InData, (u8 *)KeyPtr->PvtExp,
@@ -534,7 +534,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Copy output data to server memory using DMA. */
+	/** Copy output data to user memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)OutData, OutputDataAddr, Len, 0U);
 
@@ -546,7 +546,7 @@ END:
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 
-	/** Reset the RSA engine. */
+	/** Set the RSA engine under reset. */
 	XAsufw_CryptoCoreSetReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
 
 	return Status;
@@ -554,8 +554,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs RSA encryption for the provided message by using
- * 		public key.
+ * @brief	This function performs RSA encryption for the provided message by using public key.
  *
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	Len		Length of Input and Output Data in bytes.
@@ -565,14 +564,14 @@ END:
  * @param	ExpoAddr	Address to exponential parameters required for RSA operation.
  *
  * @return
- *		- XASUFW_SUCCESS on success.
- *		- XASUFW_FAILURE on failure.
- *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL on zeroize memset failure.
- *		- XASUFW_RSA_DMA_COPY_FAIL on DMA copy failure.
- *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR on endianness change error.
- *		- XASUFW_RSA_MEM_COPY_FAIL on memory copy failure.
- *		- Also can return termination error codes from 0x9CU to 0x9EU and 0xA1U,
+ *		- XASUFW_SUCCESS, if RSA encryption is successful.
+ *		- XASUFW_FAILURE, if RSA encryption fails.
+ *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
+ *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
+ *		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change error occurs.
+ *		- XASUFW_RSA_MEM_COPY_FAIL, if memory copy fails.
+ *		- Also, this function can return termination error codes from 0x9CU to 0x9EU and 0xA1U
  * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
@@ -628,7 +627,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/* Copy public exponent to pointer*/
+	/** Copy public exponent to pointer. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, &(KeyPtr->PubExp),
 			     XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
@@ -644,12 +643,13 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Endianness change from BE to LE for following components
+	/**
+	 * Endianness change from BE to LE for following components
 	 * - Input Data.
 	 * - Public exponent.
 	 * - Modulus.
-	 * - Pre calculated exponent value if available(R square mod N).
-	*/
+	 * - Pre calculated exponent value if available (R square mod N).
+	 */
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(InData, Len);
@@ -672,8 +672,10 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Perform public exponentiation operation by calculating exponentiation values or with
-		pre calculated exponentiation values based on available parameters. */
+	/**
+	 * Perform public exponentiation operation by calculating exponentiation values or with
+	 * pre calculated exponentiation values based on available parameters.
+	 */
 	if (ExpoAddr == 0U) {
 		rsaexp(InData, PubExpoArr, (u8 *)KeyPtr->Modulus, XRSA_BYTE_TO_BIT(Len), OutData);
 	} else {
@@ -704,7 +706,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Copy output data to server memory using DMA. */
+	/** Copy output data to user memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)OutData, OutputDataAddr, Len, 0U);
 
@@ -715,7 +717,7 @@ END:
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 
-	/** Reset the RSA engine. */
+	/** Set the RSA engine under reset. */
 	XAsufw_CryptoCoreSetReset(XASU_RSA_BASEADDR, XRSA_RESET_REG_OFFSET);
 
 	return Status;
@@ -742,9 +744,9 @@ u8 *XRsa_GetDataBlockAddr(void)
  * @param	Status	Status returned from IPcores library.
  *
  * @return
- *		- XASUFW_RSA_RAND_GEN_ERROR on random number generation failure.
- *		- XASUFW_RSA_KEY_PAIR_COMP_ERROR on key pair comparison failure.
- *		- XASUFW_RSA_ERROR on other errors.
+ *		- XASUFW_RSA_RAND_GEN_ERROR, if random number generation fails.
+ *		- XASUFW_RSA_KEY_PAIR_COMP_ERROR, if key pair comparison fails.
+ *		- XASUFW_RSA_ERROR, if other errors occur.
  *
  *************************************************************************************************/
 static s32 XRsa_UpdateStatus(s32 Status)
@@ -770,8 +772,8 @@ static s32 XRsa_UpdateStatus(s32 Status)
  * @param	BuffAddr	Buffer address of public exponent.
  *
  * @return
- *		- XASUFW_SUCCESS on valid public exponent value.
- *		- XASUFW_FAILURE on invalid public exponent value.
+ *		- XASUFW_SUCCESS, if valid public exponent value is given.
+ *		- XASUFW_FAILURE, if invalid public exponent value is given.
  *
  *************************************************************************************************/
 static s32 XRsa_ValidatePubExp(u8 *BuffAddr)
@@ -799,9 +801,9 @@ static s32 XRsa_ValidatePubExp(u8 *BuffAddr)
  * @param       Len		Length of the buffers
  *
  * @return
- *		- XASUFW_SUCCESS on modulus data is greater than input data.
- *		- XASUFW_RSA_MOD_DATA_INVALID on modulus data less than input data.
- *		- XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL on modulus data equal to input data.
+ *		- XASUFW_SUCCESS, if modulus data is greater than input data.
+ *		- XASUFW_RSA_MOD_DATA_INVALID, if modulus data less than input data.
+ *		- XASUFW_RSA_MOD_DATA_INPUT_DATA_EQUAL, if modulus data equal to input data.
  *
  *************************************************************************************************/
 static s32 XRsa_ValidateModulus(u8 *BuffAddr, u8 *InputData, u32 Len)

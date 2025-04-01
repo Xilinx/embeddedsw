@@ -33,13 +33,16 @@ extern "C" {
 /***************************** Include Files *****************************************************/
 
 /************************** Constant Definitions *************************************************/
-/* Definitions for AES driver */
-#define XASU_XAES_NUM_INSTANCES				1U
+/**
+ * @name Definitions for AES driver
+ * @{
+ */
+#define XASU_XAES_NUM_INSTANCES				1U /**< Number of AES hardware instances */
 
-/* Definitions for peripheral AES */
-#define XASU_XAES_0_DEVICE_ID				0U
-#define XASU_XAES_0_BASEADDR				0xEBE88000U
-#define XASU_XKEY_0_BASEADDR				0xEBE8A000U
+#define XASU_XAES_0_DEVICE_ID				0U /**< AES0 device ID */
+#define XASU_XAES_0_BASEADDR				0xEBE88000U /**< AES0 base address */
+#define XASU_XKEY_0_BASEADDR				0xEBE8A000U /**< KEY0 vault base address */
+/** @} */
 
 /**
  * @name  AES_STATUS register

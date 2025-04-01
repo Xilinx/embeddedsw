@@ -40,14 +40,14 @@ extern "C" {
 #include "xasu_sharedmem.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_SRC_CH_AXI_FIXED		(0x1U) /** DMA XFER flags for source channel. */
-#define XASUFW_DST_CH_AXI_FIXED		((u32)0x1U << 16U) /** DMA XFER flags for destination channel. */
+#define XASUFW_SRC_CH_AXI_FIXED		(0x1U) /**< DMA XFER flags for source channel */
+#define XASUFW_DST_CH_AXI_FIXED		((u32)0x1U << 16U) /**< DMA XFER flags for destination channel */
 #define XASUFW_DMA_BLOCKING_SIZE	(4096U) /**< DMA blocking size. If the SHA/AES update contains
 	data size more than this size, DMA transfer will happen in non-blocking mode */
 
 /************************************** Type Definitions *****************************************/
 /** @brief
- * The enum XAsufw_DmaState defines if the DMA needs to be released or not when non-blocking dma
+ * The enum XAsufw_DmaState defines if the DMA needs to be released or not when non-blocking DMA
  * done interrupt is received
  */
 typedef enum {
@@ -58,12 +58,12 @@ typedef enum {
 
 /** @brief The structure XAsufw_Dma is DMA instance data structure. */
 typedef struct {
-	XAsuDma AsuDma; /**< ASU DMA driver instance data structure. */
-	XAsufw_SssSrc SssDmaCfg; /**< SSS configuration. */
-	XAsuDma_Channel Channel; /**< ASU DMA source or destination channel */
-	const XAsu_ReqBuf *ReqBuf; /**< Pointer to XAsu_ReqBuf */
-	u32 ReqId; /**< Requester ID */
-	XAsufw_DmaState DmaState; /**< DMA state when in non-blocking wait */
+	XAsuDma AsuDma; /**< ASU DMA driver instance data structure */
+	XAsufw_SssSrc SssDmaCfg; /**< SSS configuration */
+	XAsuDma_Channel Channel; /**< ASU DMA non blocking wait on source or destination channel */
+	const XAsu_ReqBuf *ReqBuf; /**< Pointer to XAsu_ReqBuf waiting on the DMA */
+	u32 ReqId; /**< Requester ID which is waiting on the DMA */
+	XAsufw_DmaState DmaState; /**< DMA state to block or release after non-blocking wait */
 } XAsufw_Dma;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

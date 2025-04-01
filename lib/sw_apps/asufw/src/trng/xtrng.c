@@ -43,26 +43,26 @@
 
 /************************************ Constant Definitions ***************************************/
 /** TBD: Need to update to proper timeout value after measurement */
-#define XTRNG_RESEED_TIMEOUT			1500000U	/**< Reseed timeout in micro-seconds. */
-#define XTRNG_GENERATE_TIMEOUT			1500000U	/**< Generate timeout in micro-seconds. */
-#define XTRNG_BLOCK_LEN_IN_BYTES		16U	/**< TRNG block length length in bytes. */
-#define XTRNG_MIN_SEEDLIFE				1U	/**< Minimum seed life. */
-#define XTRNG_MAX_SEEDLIFE				0x80000U /**< Maximum seed life 2^19. */
-#define XTRNG_SEC_STRENGTH_IN_BURSTS	2U	/**< Security strength in 128-bit bursts. */
-#define XTRNG_BURST_SIZE_IN_WORDS		4U	/**< Burst size in words. */
-#define XTRNG_DF_MIN_LENGTH				2U	/**< Minimum DF input length. */
-#define XTRNG_DF_MAX_LENGTH				0x1FU	/**< Maximum DF input length. */
-#define XTRNG_AUTOPROC_NRNPS_VALUE		0x3FU /**< Autoproc NRNPS value. */
+#define XTRNG_RESEED_TIMEOUT			1500000U	/**< Reseed timeout in micro-seconds */
+#define XTRNG_GENERATE_TIMEOUT			1500000U	/**< Generate timeout in micro-seconds */
+#define XTRNG_BLOCK_LEN_IN_BYTES		16U	/**< TRNG block length in bytes */
+#define XTRNG_MIN_SEEDLIFE				1U	/**< Minimum seed life */
+#define XTRNG_MAX_SEEDLIFE				0x80000U /**< Maximum seed life 2^19 */
+#define XTRNG_SEC_STRENGTH_IN_BURSTS	2U	/**< Security strength in 128-bit bursts */
+#define XTRNG_BURST_SIZE_IN_WORDS		4U	/**< Burst size in words */
+#define XTRNG_DF_MIN_LENGTH				2U	/**< Minimum DF input length */
+#define XTRNG_DF_MAX_LENGTH				0x1FU	/**< Maximum DF input length */
+#define XTRNG_AUTOPROC_NRNPS_VALUE		0x3FU /**< Autoproc NRNPS value */
 
 #define XTRNG_DF_NUM_OF_BYTES_BEFORE_MIN_700CLKS_WAIT	8U
-/**< Number of bytes to be written before wait. */
+/**< Number of bytes to be written before wait */
 
-#define XTRNG_ADAPTPROPTESTCUTOFF_MAX_VAL	0x3FFU /**< Maximum adaptproptest cutoff value. */
-#define XTRNG_REPCOUNTTESTCUTOFF_MAX_VAL	0x1FFU /**< Maximum repcounttest cutoff value. */
-#define XTRNG_RESET_DELAY_US				10U /**< Reset delay. */
-#define XTRNG_DF_700CLKS_WAIT				10U /**< Delay after 4bytes. */
-#define XTRNG_DF_2CLKS_WAIT					4U /**< Delay after 1byte. */
-#define XTRNG_STATUS_QCNT_VAL				4U /**< QCNT value for single burst. */
+#define XTRNG_ADAPTPROPTESTCUTOFF_MAX_VAL	0x3FFU /**< Maximum adaptproptest cutoff value */
+#define XTRNG_REPCOUNTTESTCUTOFF_MAX_VAL	0x1FFU /**< Maximum repcounttest cutoff value */
+#define XTRNG_RESET_DELAY_US				10U /**< Reset delay */
+#define XTRNG_DF_700CLKS_WAIT				10U /**< Delay after 4bytes */
+#define XTRNG_DF_2CLKS_WAIT					4U /**< Delay after 1byte */
+#define XTRNG_STATUS_QCNT_VAL				4U /**< QCNT value for single burst */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -142,8 +142,8 @@ static XTrng XTrng_Instance[XASU_XTRNG_NUM_INSTANCES];
  * @param	DeviceId	The device ID of TRNG core.
  *
  * @return
- * 		- It returns pointer to the XTrng corresponding to the Device ID.
- * 		- It returns NULL if the device ID is invalid.
+ * 		- Pointer to the XTrng corresponding to the Device ID.
+ * 		- NULL, if the device ID is invalid.
  *
  *************************************************************************************************/
 XTrng *XTrng_GetInstance(u16 DeviceId)
@@ -242,8 +242,8 @@ END:
  * @param	InstancePtr	Pointer to the TRNG instance.
  *
  * @return
- * 	- XST_SUCCESS, On success
- * 	- XASUFW_FAILURE, On failure
+ * 	- XST_SUCCESS, if TRNG core reset is successful.
+ * 	- XASUFW_FAILURE, if TRNG core reset fails.
  *
  *************************************************************************************************/
 static s32 XTrng_Set(const XTrng *InstancePtr)
@@ -278,8 +278,8 @@ END:
  * @param	InstancePtr	Pointer to the TRNG instance.
  *
  * @return
- * 	- XST_SUCCESS, On success
- * 	- XASUFW_FAILURE, On failure
+ * 	- XST_SUCCESS, if TRNG core is set in reset state successfully.
+ * 	- XASUFW_FAILURE, if TRNG core is not set in reset state.
  *
  *************************************************************************************************/
 static s32 XTrng_Reset(const XTrng *InstancePtr)
@@ -295,8 +295,8 @@ static s32 XTrng_Reset(const XTrng *InstancePtr)
  * @param	InstancePtr	Pointer to the TRNG instance.
  *
  * @return
- * 	- XST_SUCCESS, On success
- * 	- XASUFW_FAILURE, On failure
+ * 	- XST_SUCCESS, if PRNG unit is reset successfully.
+ * 	- XASUFW_FAILURE, if PRNG unit reset fails.
  *
  *************************************************************************************************/
 static s32 XTrng_PrngSet(const XTrng *InstancePtr)
@@ -324,8 +324,8 @@ END:
  * @param   InstancePtr		Pointer to the TRNG Instance.
  *
  * @return
- * 	- XST_SUCCESS, On success
- * 	- XASUFW_FAILURE, On failure
+ * 	- XST_SUCCESS, if PRNG unit is set in reset state successfully.
+ * 	- XASUFW_FAILURE, if PRNG unit is not set in reset state.
  *
  *************************************************************************************************/
 static s32 XTrng_PrngReset(const XTrng *InstancePtr)
@@ -342,8 +342,8 @@ static s32 XTrng_PrngReset(const XTrng *InstancePtr)
  * @param	DfLen		Input DF length.
  *
  * @return
- * 		-XST_SUCCESS On successful write
- * 		-XST_FAILURE On failure
+ * 		- XST_SUCCESS, if DF length is written successfully.
+ * 		- XST_FAILURE, if DF length write fails.
  *
  **************************************************************************************************/
 static inline s32 XTrng_CfgDfLen(const XTrng *InstancePtr, u8 DfLen)
@@ -360,8 +360,8 @@ static inline s32 XTrng_CfgDfLen(const XTrng *InstancePtr, u8 DfLen)
  * @param	AdaptPropTestCutoff	Cutoff value for adaptive count test.
  *
  * @return
- * 		-XST_SUCCESS On successful write
- * 		-XST_FAILURE On failure
+ * 		- XST_SUCCESS, if adaptive count test cutoff value is written successfully.
+ * 		- XST_FAILURE, if adaptive count test cutoff value write fails.
  *
  **************************************************************************************************/
 static inline s32 XTrng_CfgAdaptPropTestCutoff(const XTrng *InstancePtr, u16 AdaptPropTestCutoff)
@@ -379,8 +379,8 @@ static inline s32 XTrng_CfgAdaptPropTestCutoff(const XTrng *InstancePtr, u16 Ada
  * @param	RepCountTestCutoff	Cutoff value for repetitive count test.
  *
  * @return
- * 		-XST_SUCCESS On successful write
- * 		-XST_FAILURE On failure
+ * 		- XST_SUCCESS, if repetitive count test cutoff value is written successfully.
+ * 		- XST_FAILURE, if repetitive count test cutoff value write fails.
  *
  **************************************************************************************************/
 static inline s32 XTrng_CfgRepCountTestCutoff(const XTrng *InstancePtr, u16 RepCountTestCutoff)
@@ -398,8 +398,8 @@ static inline s32 XTrng_CfgRepCountTestCutoff(const XTrng *InstancePtr, u16 RepC
  * @param   DITValue	Digitization interval time.
  *
  * @return
- * 		-XST_SUCCESS On successful write
- * 		-XST_FAILURE On failure
+ * 		- XST_SUCCESS, if DIT value is written successfully.
+ * 		- XST_FAILURE, if DIT value write fails.
  *
  **************************************************************************************************/
 static inline s32 XTrng_CfgDIT(const XTrng *InstancePtr, u8 DITValue)
@@ -419,22 +419,22 @@ static inline s32 XTrng_CfgDIT(const XTrng *InstancePtr, u8 DITValue)
  * @param	UserCfg		Pointer to the XTrng_UserConfig structure.
  *
  * @return
- * 	- XASUFW_SUCCESS On successful instantation
- * 	- XASUFW_TRNG_INVALID_PARAM If invalid parameter(s) passed to this function.
- * 	- XASUFW_TRNG_INVALID_SEED_VALUE If provide seed is NULL in DRBG mode
- * 	- XASUFW_TRNG_INVALID_STATE If state is not in uninstantiate state
- * 	- XASUFW_TRNG_UNHEALTHY_STATE If TRNG KAT fails
- * 	- XASUFW_TRNG_INVALID_MODE  If invalid mode is passed to this function
- * 	- XASUFW_TRNG_INVALID_DF_LENGTH If invalid DF input length is passed as a function
- * 	- XASUFW_TRNG_INVALID_SEED_LENGTH If provide seed length doesn't match with given
- * 		DF length
- * 	- XASUFW_TRNG_INVALID_SEED_LIFE If invalid seed life is provided
- * 	- XASUFW_TRNG_INVALID_ADAPTPROPTEST_CUTOFF_VALUE If invalid cutoff value is provided
- * 	- XASUFW_TRNG_INVALID_REPCOUNTTEST_CUTOFF_VALUE If invalid repetitive test cutoff
- * 		value is provided
- * 	- XASUFW_TRNG_USER_CFG_COPY_ERROR If error occurred during copy of XTrng_UserConfig
- * 		structure
- * 	- XASUFW_FAILURE On unexpected failure
+ * 	- XASUFW_SUCCESS, if TRNG is instantiated successfully.
+ * 	- XASUFW_TRNG_INVALID_PARAM, if invalid parameter(s) passed to this function.
+ * 	- XASUFW_TRNG_INVALID_SEED_VALUE, if provide seed is NULL in DRBG mode.
+ * 	- XASUFW_TRNG_INVALID_STATE, if state is not in uninstantiate state.
+ * 	- XASUFW_TRNG_UNHEALTHY_STATE, if TRNG KAT fails.
+ * 	- XASUFW_TRNG_INVALID_MODE, if invalid mode is passed to this function.
+ * 	- XASUFW_TRNG_INVALID_DF_LENGTH, if invalid DF input length is passed as a function.
+ * 	- XASUFW_TRNG_INVALID_SEED_LENGTH, if provide seed length doesn't match with given
+ * 		DF length.
+ * 	- XASUFW_TRNG_INVALID_SEED_LIFE, if invalid seed life is provided.
+ * 	- XASUFW_TRNG_INVALID_ADAPTPROPTEST_CUTOFF_VALUE, if invalid cutoff value is provided.
+ * 	- XASUFW_TRNG_INVALID_REPCOUNTTEST_CUTOFF_VALUE, if invalid repetitive test cutoff
+ * 		value is provided.
+ * 	- XASUFW_TRNG_USER_CFG_COPY_ERROR, if error occurred during copy of XTrng_UserConfig
+ * 		structure.
+ * 	- XASUFW_FAILURE, if unexpected failure occurs.
  *
  *************************************************************************************************/
 s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const u8 *PersStr,
@@ -524,7 +524,7 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const 
 
 	XFIH_IF_FAILIN_WITH_VALUE(Mode, !=, (u32)XTRNG_DRBG_MODE) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		/* Configure cutoff values */
+		/** Configure cutoff values and DIT if mode is HRNG or PTRNG. */
 		Status = XTrng_CfgAdaptPropTestCutoff(InstancePtr, UserCfg->AdaptPropTestCutoff);
 		if (Status != XST_SUCCESS) {
 			Status = XASUFW_TRNG_ADAPTCUTOFF_CONFIG_ERROR;
@@ -539,7 +539,6 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const 
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		/* Configure default DIT value */
 		Status = XTrng_CfgDIT(InstancePtr, XASU_TRNG_CONF0_DIT_DEFVAL);
 		if (Status != XST_SUCCESS) {
 			Status = XASUFW_TRNG_DIT_CONFIG_ERROR;
@@ -575,15 +574,15 @@ END:
  * @param	DLen		Seed length in TRNG block size.
  *
  * @return
- * 	- XASUFW_SUCCESS On successful reseed.
- * 	- XASUFW_TRNG_INVALID_PARAM If invalid parameter(s) passed to this function.
- * 	- XASUFW_TRNG_INVALID_SEED_VALUE If provide seed is NULL in DRBG/HRNG mode.
- * 	- XASUFW_TRNG_INVALID_MODE  If invalid mode is passed to this function.
- * 	- XASUFW_TRNG_INVALID_DF_LENGTH If invalid DF input length is passed as a function.
- * 	- XASUFW_TRNG_INVALID_STATE If state is not sequenced correctly.
- * 	- XASUFW_TRNG_UNHEALTHY_STATE If TRNG is in failure state, needs an
+ * 	- XASUFW_SUCCESS, if reseed operation is successful.
+ * 	- XASUFW_TRNG_INVALID_PARAM, if invalid parameter(s) passed to this function.
+ * 	- XASUFW_TRNG_INVALID_SEED_VALUE, if provided seed is NULL in DRBG/HRNG mode.
+ * 	- XASUFW_TRNG_INVALID_MODE, if invalid mode is passed to this function.
+ * 	- XASUFW_TRNG_INVALID_DF_LENGTH, if invalid DF input length is passed as a function.
+ * 	- XASUFW_TRNG_INVALID_STATE, if state is not sequenced correctly.
+ * 	- XASUFW_TRNG_UNHEALTHY_STATE, if TRNG is in failure state, needs an
  * 		uninstantiation or KAT should be run if the error is catastrophic.
- * 	- XASUFW_FAILURE On unexpected failure.
+ * 	- XASUFW_FAILURE, if unexpected failure occurs.
  *
  *************************************************************************************************/
 s32 XTrng_Reseed(XTrng *InstancePtr, const u8 *Seed, u8 DLen)
@@ -646,18 +645,18 @@ END:
  *				When enabled, it mandates fresh seed for every Generate operation.
  *
  * @return
- * 	- XST_SUCCESS On successful generate of random number.
- * 	- XASUFW_TRNG_INVALID_PARAM If invalid parameter(s) passed to this function.
- * 	- XASUFW_TRNG_INVALID_STATE If state is not sequenced correctly.
- * 	- XASUFW_TRNG_INVALID_MODE  If invalid mode is passed to this function.
- * 	- XASUFW_INVALID_PREDRES_VALUE If pred resistance value is invalid.
- * 	- XASUFW_TRNG_INVALID_BUF_SIZE If buffer is less that 256 bytes or NULL.
- * 	- XASUFW_TRNG_UNHEALTHY_STATE If TRNG is in failure state, needs an uninstantiation
+ * 	- XASUFW_SUCCESS, if generation of random number is successful.
+ * 	- XASUFW_TRNG_INVALID_PARAM, if invalid parameter(s) passed to this function.
+ * 	- XASUFW_TRNG_INVALID_STATE, if state is not sequenced correctly.
+ * 	- XASUFW_TRNG_INVALID_MODE, if invalid mode is passed to this function.
+ * 	- XASUFW_INVALID_PREDRES_VALUE, if pred resistance value is invalid.
+ * 	- XASUFW_TRNG_INVALID_BUF_SIZE, if buffer is less than 256 bytes or NULL.
+ * 	- XASUFW_TRNG_UNHEALTHY_STATE, if TRNG is in failure state, needs an uninstantiation
  * 		or KAT should be run if error is catastrophic.
- * 	- XASUFW_TRNG_RESEED_REQUIRED_ERROR If elapsed seed life exceeds the requested
+ * 	- XASUFW_TRNG_RESEED_REQUIRED_ERROR, if elapsed seed life exceeds the requested
  * 		seed life in DRBG mode.
- * 	- XASUFW_OSCILLATOR_ENABLE_FAILED If enabling oscilator fails.
- * 	- XASUFW_FAILURE On unexpected failure.
+ * 	- XASUFW_OSCILLATOR_ENABLE_FAILED, if enabling oscillator fails.
+ * 	- XASUFW_FAILURE, if unexpected failure occurs.
  *
  *************************************************************************************************/
 s32 XTrng_Generate(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResistance)
@@ -710,7 +709,7 @@ s32 XTrng_Generate(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResi
 	if ((InstancePtr->UserCfg.Mode == XTRNG_DRBG_MODE) ||
 	    (InstancePtr->UserCfg.Mode == XTRNG_HRNG_MODE)) {
 		if (InstancePtr->UserCfg.Mode == XTRNG_HRNG_MODE) {
-			/* Auto reseed in HRNG mode */
+			/** Perform auto reseed in HRNG mode. */
 			if ((InstancePtr->TrngStats.ElapsedSeedLife >= InstancePtr->UserCfg.SeedLife) ||
 				(PredResistance == TRUE)) {
 				XFIH_CALL_GOTO(XTrng_Reseed, XFihVar, Status, END, InstancePtr, NULL,
@@ -764,9 +763,9 @@ END:
  * @param	InstancePtr		Pointer to the TRNG instance.
  *
  * @return
- * 	- XASUFW_SUCCESS if uninstantiation was successful.
- * 	- XASUFW_TRNG_INVALID_PARAM if invalid instance is passed to function.
- * 	- XASUFW_OSCILLATOR_DISABLE_FAILED If oscillator reseed source disable is failed.
+ * 	- XASUFW_SUCCESS, if uninstantiation is successful.
+ * 	- XASUFW_TRNG_INVALID_PARAM, if invalid instance is passed to function.
+ * 	- XASUFW_OSCILLATOR_DISABLE_FAILED, If oscillator reseed source disable is failed.
  *
  *************************************************************************************************/
 s32 XTrng_Uninstantiate(XTrng *InstancePtr)
@@ -810,8 +809,8 @@ END:
  * @param	Mode		Mode input as either HRNG or PTRNG.
  *
  * @return
- * 	- XASUFW_SUCCESS upon success.
- * 	- XASUFW_FAILURE On unexpected failure.
+ * 	- XASUFW_SUCCESS, if TRNG instantiate is successful.
+ * 	- XASUFW_FAILURE, if TRNG instantiate fails.
  *
  *************************************************************************************************/
 s32 XTrng_InitNCfgTrngMode(XTrng *InstancePtr, XTrng_Mode Mode)
@@ -857,10 +856,10 @@ END:
  * @param	PerStr		Pointer to the personalization string.
  *
  * @return
- * 	- XASUFW_SUCCESS On successful reseed.
- * 	- XASUFW_OSCILLATOR_ENABLE_FAILED If oscillator reseed source enable is failed.
- * 	- XASUFW_ENABLE_PRNG_FOR_RESEED_FAILED If enabling PRNG for reseed failed.
- * 	- XASUFW_START_RESEED_FAILED If reseed operation failed.
+ * 	- XASUFW_SUCCESS, if reseed operation is successful.
+ * 	- XASUFW_OSCILLATOR_ENABLE_FAILED, if oscillator reseed source enable is failed.
+ * 	- XASUFW_ENABLE_PRNG_FOR_RESEED_FAILED, if enabling PRNG for reseed failed.
+ * 	- XASUFW_START_RESEED_FAILED, if reseed operation failed.
  *
  *************************************************************************************************/
 static s32 XTrng_ReseedInternal(XTrng *InstancePtr, const u8 *Seed, u8 DLen, const u8 *PerStr)
@@ -876,6 +875,7 @@ static s32 XTrng_ReseedInternal(XTrng *InstancePtr, const u8 *Seed, u8 DLen, con
 		goto END;
 	}
 
+	/** Write personalization string if it is not NULL. */
 	if (PerStr != NULL) {
 		Status = XTrng_WritePersString(InstancePtr, PerStr);
 		if (Status != XASUFW_SUCCESS) {
@@ -888,35 +888,35 @@ static s32 XTrng_ReseedInternal(XTrng *InstancePtr, const u8 *Seed, u8 DLen, con
 				InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
 				XASU_TRNG_CTRL_PERSODISABLE_MASK | XASU_TRNG_CTRL_PRNGSTART_MASK, PersMask);
 
-	/** DRBG Mode */
+	/** In DRBG Mode: */
 	if (Seed != NULL) {
-		/** Enable TST mode and set PRNG mode for reseed operation. */
+		/** - Enable TST mode and set PRNG mode for reseed operation. */
 		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Xil_SecureRMW32, XASUFW_ENABLE_PRNG_FOR_RESEED_FAILED,
 						XFihVar, Status, END, InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
 						XASU_TRNG_CTRL_PRNGMODE_MASK | XASU_TRNG_CTRL_TSTMODE_MASK |
 						XASU_TRNG_CTRL_TRSSEN_MASK,
 						XASU_TRNG_CTRL_TSTMODE_MASK | XASU_TRNG_CTRL_TRSSEN_MASK);
 
-		/** Start reseed operation. */
+		/** - Start reseed operation. */
 		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Xil_SecureRMW32, XASUFW_START_RESEED_FAILED,
 						XFihVar, Status, END, InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
 						XASU_TRNG_CTRL_PRNGSTART_MASK, XASU_TRNG_CTRL_PRNGSTART_MASK);
 
-		/** For writing seed as an input to DF, PRNG start needs to be set. */
+		/** - For writing seed as an input to DF, PRNG start needs to be set. */
 		XFIH_CALL_GOTO(XTrng_WriteSeed, XFihVar, Status, END, InstancePtr, Seed, DLen);
-	} else { /** HTRNG Mode. */
-		/** Enable ring oscillators for random seed source. */
+	} else { /** In HTRNG Mode: */
+		/** - Enable ring oscillators for random seed source. */
 		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Xil_SecureRMW32, XASUFW_OSCILLATOR_ENABLE_FAILED,
 						XFihVar, Status, END, InstancePtr->BaseAddress + XASU_TRNG_OSC_EN_OFFSET,
 						XASU_TRNG_OSC_EN_VAL_MASK, XASU_TRNG_OSC_EN_VAL_MASK);
 
-		/** Enable TRSSEN and set PRNG mode for reseed operation. */
+		/** - Enable TRSSEN and set PRNG mode for reseed operation. */
 		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Xil_SecureRMW32, XASUFW_ENABLE_PRNG_FOR_RESEED_FAILED,
 						XFihVar, Status, END, InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
 						XASU_TRNG_CTRL_PRNGMODE_MASK | XASU_TRNG_CTRL_TRSSEN_MASK |
 						XASU_TRNG_CTRL_PRNGXS_MASK, XASU_TRNG_CTRL_TRSSEN_MASK);
 
-		/** Start reseed operation. */
+		/** - Start reseed operation. */
 		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Xil_SecureRMW32, XASUFW_START_RESEED_FAILED,
 						XFihVar, Status, END, InstancePtr->BaseAddress + XASU_TRNG_CTRL_OFFSET,
 						XASU_TRNG_CTRL_PRNGSTART_MASK, XASU_TRNG_CTRL_PRNGSTART_MASK);
@@ -942,9 +942,9 @@ END:
  * @param	InstancePtr	Pointer to the TRNG instance.
  *
  * @return
- * 	- XASUFW_SUCCESS if Random number collection was successful.
- * 	- XASUFW_TRNG_TIMEOUT_ERROR if timeout occurred waiting for done bit.
- * 	- XASUFW_TRNG_CATASTROPHIC_CTF_ERROR if CTF bit asserted in STATUS register.
+ * 	- XASUFW_SUCCESS, if Random number collection is successful.
+ * 	- XASUFW_TRNG_TIMEOUT_ERROR, if timeout occurred waiting for done bit.
+ * 	- XASUFW_TRNG_CATASTROPHIC_CTF_ERROR, if CTF bit asserted in STATUS register.
  *
  *************************************************************************************************/
 static s32 XTrng_WaitForReseed(XTrng *InstancePtr)
@@ -982,10 +982,10 @@ END:
  * @param	RandBufSize	Size of the buffer in bytes.
  *
  * @return
- *          - XASUFW_SUCCESS if Random number collection was successful.
- *          - XASUFW_TRNG_TIMEOUT_ERROR if timeout occurred waiting for QCNT to become 4.
- *          - XASUFW_TRNG_CATASTROPHIC_DTF_ERROR if DTF bit asserted in STATUS register.
- *          - XASUFW_RANDOM_DATA_FAILED_TO_GENERATE If generate random data failed.
+ *          - XASUFW_SUCCESS, if Random number collection is successful.
+ *          - XASUFW_TRNG_TIMEOUT_ERROR, if timeout occurred waiting for QCNT to become 4.
+ *          - XASUFW_TRNG_CATASTROPHIC_DTF_ERROR, if DTF bit asserted in STATUS register.
+ *          - XASUFW_RANDOM_DATA_FAILED_TO_GENERATE, if generate random data failed.
  *
  *************************************************************************************************/
 static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize)
@@ -1028,6 +1028,7 @@ static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSiz
 			Status = XASUFW_TRNG_CATASTROPHIC_DTF_ERROR;
 			goto END;
 		}
+		/** Read random number from the TRNG FIFO. */
 		BurstIdx = NumofBursts * XTRNG_BURST_SIZE_IN_WORDS;
 		for (Idx = 0U; Idx < XTRNG_BURST_SIZE_IN_WORDS; Idx++) {
 			RegVal = XAsufw_ReadReg(InstancePtr->BaseAddress + XASU_TRNG_CORE_OUTPUT_OFFSET);
@@ -1056,8 +1057,8 @@ END:
  * @param	DLen		Seed length in multiples of TRNG block size.
  *
  * @return
- * 	- XASUFW_SUCCESS On successful write.
- * 	- XASUFW_FAILURE On failure.
+ * 	- XASUFW_SUCCESS, if writing seed is successful.
+ * 	- XASUFW_FAILURE, if writing seed fails.
  *
  *************************************************************************************************/
 static s32 XTrng_WriteSeed(const XTrng *InstancePtr, const u8 *Seed, u8 DLen)
@@ -1101,8 +1102,8 @@ END:
  * @param	PersString	Pointer to the personalization string.
  *
  * @return
- *          - XASUFW_SUCCESS On successful write.
- *          - XASUFW_FAILURE On failure.
+ *          - XASUFW_SUCCESS, if personalization string is written to TRNG successfully.
+ *          - XASUFW_FAILURE, if personalization string write to TRNG fails.
  *
  *************************************************************************************************/
 static s32 XTrng_WritePersString(const XTrng *InstancePtr, const u8 *PersString)
@@ -1138,8 +1139,8 @@ static s32 XTrng_WritePersString(const XTrng *InstancePtr, const u8 *PersString)
  * @param	Timeout		Max number of microseconds to wait for an event(s).
  *
  * @return
- * 	- XST_SUCCESS - On occurrence of the event(s).
- * 	- XST_FAILURE - upon timeout.
+ * 	- XST_SUCCESS, if occurrence of the event(s) is successful.
+ * 	- XST_FAILURE, if timeout occurs.
  *
  *************************************************************************************************/
 static inline s32 XTrng_WaitForEvent(UINTPTR Addr, u32 EventMask, u32 Event, u32 Timeout)
@@ -1154,9 +1155,9 @@ static inline s32 XTrng_WaitForEvent(UINTPTR Addr, u32 EventMask, u32 Event, u32
  * @param	InstancePtr	Pointer to the TRNG Instance.
  *
  * @return
- * 	- XASUFW_SUCCESS If random numbers are available in TRNG FIFO.
- * 	- XASUFW_TRNG_INVALID_PARAM If invalid parameter(s) passed to this function.
- * 	- XASUFW_FAILURE If random numbers are not available in TRNG FIFO.
+ * 	- XASUFW_SUCCESS, if random numbers are available in TRNG FIFO.
+ * 	- XASUFW_TRNG_INVALID_PARAM, if invalid parameter(s) passed to this function.
+ * 	- XASUFW_FAILURE, if random numbers are not available in TRNG FIFO.
  *
  *************************************************************************************************/
 s32 XTrng_IsRandomNumAvailable(const XTrng *InstancePtr)
@@ -1189,10 +1190,10 @@ END:
  * @param	OutputBufSize	Size of the output buffer in bytes.
  *
  * @return
- * 	- XASUFW_SUCCESS On successfully reading the 256-bit random number from TRNG FIFO.
- * 	- XASUFW_TRNG_INVALID_PARAM If invalid parameter(s) passed to this function.
- * 	- XASUFW_TRNG_INVALID_STATE If TRNG is not in expected state.
- * 	- XASUFW_TRNG_INVALID_BUF_SIZE If buffer is less that 256 bits or NULL.
+ * 	- XASUFW_SUCCESS, if reading the 256-bit random number from TRNG FIFO is successful.
+ * 	- XASUFW_TRNG_INVALID_PARAM, if invalid parameter(s) passed to this function.
+ * 	- XASUFW_TRNG_INVALID_STATE, if TRNG is not in expected state.
+ * 	- XASUFW_TRNG_INVALID_BUF_SIZE, if buffer is less than 256 bits or NULL.
  *
  *************************************************************************************************/
 s32 XTrng_ReadTrngFifo(const XTrng *InstancePtr, u32 *OutputBuf, u32 OutputBufSize)
@@ -1217,7 +1218,7 @@ s32 XTrng_ReadTrngFifo(const XTrng *InstancePtr, u32 *OutputBuf, u32 OutputBufSi
 		goto END;
 	}
 
-	/** Read FIFO and update in buffer. */
+	/** Read random number from FIFO to the given output buffer. */
 	for (Idx = 0U; Idx < XTRNG_SEC_STRENGTH_IN_WORDS; Idx++) {
 		*Buffer = XAsufw_ReadReg(InstancePtr->TrngFifoAddr);
 		Buffer++;
@@ -1239,8 +1240,8 @@ END:
  * @param	InstancePtr	Pointer to the TRNG Instance.
  *
  * @return
- * 	- XASUFW_SUCCESS On successfully enabling autoproc mode.
- * 	- XASUFW_TRNG_INVALID_PARAM If invalid parameter(s) passed to this function.
+ * 	- XASUFW_SUCCESS, if enabling autoproc mode is successful.
+ * 	- XASUFW_TRNG_INVALID_PARAM, if invalid parameter(s) passed to this function.
  *
  *************************************************************************************************/
 s32 XTrng_EnableAutoProcMode(XTrng *InstancePtr)
@@ -1275,9 +1276,9 @@ END:
  * @param	InstancePtr	Pointer to the TRNG Instance.
  *
  * @return
- * 	- XASUFW_SUCCESS On successfully disabling autoproc mode.
- * 	- XASUFW_TRNG_INVALID_PARAM If invalid parameter(s) passed to this function.
- * 	- XASUFW_OSCILLATOR_DISABLE_FAILED If oscillator reseed source disable is failed.
+ * 	- XASUFW_SUCCESS, if disabling autoproc mode is successful.
+ * 	- XASUFW_TRNG_INVALID_PARAM, if invalid parameter(s) passed to this function.
+ * 	- XASUFW_OSCILLATOR_DISABLE_FAILED, if oscillator reseed source disable is failed.
  *
  *************************************************************************************************/
 s32 XTrng_DisableAutoProcMode(XTrng *InstancePtr)

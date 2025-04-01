@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -94,9 +94,8 @@ void XAsufw_EnableIpiInterrupt(u16 IpiBitMask)
 
 /*************************************************************************************************/
 /**
- * @brief	This function a handler for IPI interrupts. This function simply disables the
- * 		interrupts when an IPI interrupt is received. Commands execution will be done as
- * 		part of task dispatch loop.
+ * @brief	This function is a handler for IPI interrupts. It triggers the corresponding IPI task
+ * when the interrupt is received and clears the IPI interrupt at ASU.
  *
  * @param	Data    Private data (Interrupt number in this case).
  *

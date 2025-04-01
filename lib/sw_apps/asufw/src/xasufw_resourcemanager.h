@@ -59,12 +59,12 @@ extern "C" {
 #define XASUFW_RSA_RESOURCE_MASK        0x100U /**< RSA resource mask */
 #define XASUFW_HMAC_RESOURCE_MASK       0x200U /**< HMAC resource mask */
 #define XASUFW_KDF_RESOURCE_MASK		0x400U /**< KDF resource mask */
-#define XASUFW_ECIES_RESOURCE_MASK	0x800U /**< KDF resource mask */
-#define XASUFW_KEYWRAP_RESOURCE_MASK	0x1000U /**< KDF resource mask */
+#define XASUFW_ECIES_RESOURCE_MASK		0x800U /**< ECIES resource mask */
+#define XASUFW_KEYWRAP_RESOURCE_MASK	0x1000U /**< Keywrap unwrap resource mask */
 
 /************************************** Type Definitions *****************************************/
 /**
- * @brief Enumeration of hardware resources managed by the resource manager.
+ * @brief Enumeration of ASUFW resources managed by the resource manager.
  */
 typedef enum {
 	XASUFW_DMA0,	/**< 0: DMA 0 */

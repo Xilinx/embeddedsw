@@ -79,8 +79,8 @@ void XTask_Init(void)
  * 				For non-periodic tasks interval need to be 0.
  *
  * @return
- * 	- Returns pointer to the task node structure if the task is created successfully.
- * 	- Returns NULL if the task creation fails.
+ * 	- Pointer to the task node structure, if the task is created successfully.
+ * 	- NULL, if the task creation fails.
  *
  *************************************************************************************************/
 XTask_TaskNode *XTask_Create(u32 Priority, XTask_Handler_t TaskHandler, void *PrivData,
@@ -106,6 +106,7 @@ XTask_TaskNode *XTask_Create(u32 Priority, XTask_Handler_t TaskHandler, void *Pr
 		goto END;
 	}
 
+	/** Update task related parameters if the empty task slot is found. */
 	Task = &TaskList[Idx];
 	Task->Priority = Priority;
 	Task->Delay = 0U;
@@ -131,8 +132,8 @@ END:
  * @param	PrivData	Private data of the task to search through TaskList.
  *
  * @return
- * 	- Returns pointer to the task node structure if the task is found.
- * 	- Returns NULL if the task is not found.
+ * 	- Pointer to the task node structure, if the task is found.
+ * 	- NULL, if the task is not found.
  *
  *************************************************************************************************/
 XTask_TaskNode *XTask_GetInstance(void *PrivData)
@@ -182,9 +183,9 @@ void XTask_Delete(XTask_TaskNode *Task)
  *************************************************************************************************/
 void XTask_TriggerNow(XTask_TaskNode *Task)
 {
-	/* Trigger the task only if the given task handler is valid */
+	/** Trigger the task only if the given task handler is valid. */
 	if (Task->TaskHandler != NULL) {
-		/* Add the task to the TaskQueue only if it is not already added */
+		/** Add the task to the TaskQueue only if it is not already added. */
 		if (XLinkList_IsEmpty(&Task->TaskNode) == (u8)TRUE) {
 			XLinkList_AddItemLast(&Task->TaskNode, &TaskQueue[Task->Priority]);
 		}
@@ -193,7 +194,7 @@ void XTask_TriggerNow(XTask_TaskNode *Task)
 
 /*************************************************************************************************/
 /**
- * @brief	This function is called when the task need to be executed after the given delay. It
+ * @brief	This function is called when the task needs to be executed after the given delay. It
  * 		will update the Delay field of the given task structure with the given delay
  * 		value. When this function is called, it will update the NextDispatchTime variable
  * 		with given input Delay value if it is greater than task delay value.
@@ -202,7 +203,7 @@ void XTask_TriggerNow(XTask_TaskNode *Task)
  * @param	Delay	Delay after which the task needs to be triggered.
  *
  * @return
- * 	- Returns XASUFW_SCCESS on successful execution of the function.
+ * 	- XASUFW_SUCCESS, if task Delay is updated successfully.
  * 	- XASUFW_TASK_INVALID_HANDLER, if task handler is NULL.
  *
  *************************************************************************************************/
@@ -220,7 +221,7 @@ s32 XTask_TriggerAfterDelay(XTask_TaskNode *Task, u32 Delay)
 
 	/**
 	 * Make given task as next delayed task to be executed, if the tasks delay period is less than
-	 * the delay period of next delayed task execution
+	 * the delay period of next delayed task execution.
 	 */
 	if ((NextDispatchTime == 0U) || (NextDispatchTime > Task->Delay)) {
 		NextDispatchTime = Delay;
@@ -235,13 +236,13 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function updates the given task's event structure with the input event to
- * 		trigger the task when the particular event occurs.
+ * 		trigger the task when the event occurs.
  *
  * @param	Task	Pointer to the task node structure.
  * @param	Event	Pointer to the event node structure.
  *
  * @return
- * 	- Returns XASUFW_SCCESS on successful execution of the function.
+ * 	- XASUFW_SUCCESS, if Event structure is updated successfully with the task node.
  * 	- XASUFW_TASK_INVALID_HANDLER, if task handler is NULL.
  *
  *************************************************************************************************/
@@ -268,7 +269,7 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function is the notify function for the given event. This function needs to be
- * 		called on the occurrence of the event after which the dependent tasks needs to be
+ * 		called on the occurrence of the event after which the dependent tasks need to be
  * 		triggered.
  *
  *
@@ -281,8 +282,8 @@ void XTask_EventNotify(XTask_TaskEvent *Event)
 	u32 TaskEventBitVal;
 
 	/**
-	 * Parse through the task event structure to check if the given event has occured or not.
-	 * If the event has occurred, update the event structure and trigger the task to be exected.
+	 * Parse through the task event structure to check if the given event has occurred or not.
+	 * If the event has occurred, update the event structure and trigger the task to be executed.
 	 */
 	for (Idx = 0U; Idx < XTASK_MAX; Idx++) {
 		TaskEventBitVal = 1U << (Idx & (XTASK_NUM_BITS_IN_U32 - 1U));
@@ -300,7 +301,7 @@ void XTask_EventNotify(XTask_TaskEvent *Event)
  * @param	Task	Pointer to the task node structure.
  *
  * @return
- * 	- Returns delay of the given task.
+ * 	- Delay of the given task.
  *
  *************************************************************************************************/
 u32 XTask_DelayTime(const XTask_TaskNode *Task)
@@ -312,17 +313,17 @@ u32 XTask_DelayTime(const XTask_TaskNode *Task)
 /**
  * @brief   This function is the task dispatch loop which is called after the initialization is
  * done and it does the following functionality
- *          1. It will check for both delayed tasks and the tasks in the task queue in infinite
- *              loop.
- *          2. For delayed tasks, it will update task delay and the next dispatch time as current
- *              time is updated whenever scheduler handler is called.
- *          3. If the task delay is completed, it will trigger that task so that it is added to the
- *              task queue to be executed next.
- *          4. And, this function will check the task queues according to the priority from highest
- *              to lowest and executes them in a loop.
- *          5. It will remove the task from the task queue before calling its handler.
- *          6. If no tasks are present in the queue, the processor will enter into sleep mode and
- *              wakes up when any interrupt occurs and repeats the above steps.
+ * It will check for interrupts, delayed tasks and the tasks in the task queue in infinite loop.
+ * 	- It handles all the pending interrupts.
+ * 	- For delayed tasks, it will update task delay, and the next dispatch time as current
+ * 	  time is updated whenever scheduler handler is called.
+ * 	- If the task delay is completed, it will trigger that task so that it is added to the
+ * 	  task queue to be executed next.
+ * 	- And, this function will check the task queues according to the priority from highest
+ * 	  to lowest and executes them in a loop.
+ * 	- It will remove the task from the task queue before calling its handler.
+ * 	- If no tasks are present in the queue, the processor will enter sleep mode and
+ * 	  wakes up when any interrupt occurs and repeats the above steps.
  *
  *************************************************************************************************/
 void XTask_DispatchLoop(void)
@@ -341,17 +342,17 @@ void XTask_DispatchLoop(void)
 	/**
 	 * This function should never return
 	 * This loop checks for delayed tasks to be triggered and triggers them once the delay time is
-	 * completed. And also executes tasks in the task queue based on priority.
+	 * completed. And it executes tasks in the task queue based on priority.
 	 */
 	for (;;) {
-		/* Update DeltaTime and LastDispatchTime every time while entering this loop */
+		/** Update DeltaTime and LastDispatchTime every time while entering this loop. */
 		DeltaTime = TaskTimeNow - LastDispatchTime;
 		LastDispatchTime += DeltaTime;
 
-		/* Dispatch if any pending interrupts are present */
+		/** Dispatch if any pending interrupts are present. */
 		XAsufw_HandlePendingInterrupts();
 
-		/* Check delayed tasks to be triggered */
+		/** Check delayed tasks to be triggered. */
 		if ((NextDispatchTime != 0U) && (DeltaTime != 0U)) {
 			NextDispatchTime = 0U;
 
@@ -359,7 +360,7 @@ void XTask_DispatchLoop(void)
 				Task = &TaskList[Idx];
 
 				if (Task->Delay > 0U) {
-					/* Update the task delay based on DeltaTime */
+					/** - Update the task delay based on DeltaTime. */
 					if (Task->Delay > DeltaTime) {
 						Task->Delay -= DeltaTime;
 					} else {
@@ -367,14 +368,14 @@ void XTask_DispatchLoop(void)
 					}
 
 					if (Task->Delay > 0U) {
-						/* Update NextDispatchTime if the task delay is greater than 0 */
+						/** - Update NextDispatchTime if the task delay is greater than 0. */
 						if ((NextDispatchTime == 0U) || (NextDispatchTime > Task->Delay)) {
 							NextDispatchTime = Task->Delay;
 						}
 					} else {
-						/* Trigger the task if the task delay is complete */
+						/** - Trigger the task if the task delay is complete. */
 						XTask_TriggerNow(Task);
-						/* Update delay for periodic tasks */
+						/** - Update delay for periodic tasks. */
 						if (Task->Interval > 0U) {
 							(void)XTask_TriggerAfterDelay(Task, Task->Interval);
 						}
@@ -383,7 +384,7 @@ void XTask_DispatchLoop(void)
 			}
 		}
 
-		/* Parse through the task queue priority list and get the next task to be executed */
+		/** Parse through the task queue priority list and get the next task to be executed. */
 		Task = NULL;
 		for (Priority = 0U; Priority < XTASK_PRIORITIES; Priority++) {
 			HTask = &TaskQueue[Priority];
@@ -394,7 +395,7 @@ void XTask_DispatchLoop(void)
 			}
 		}
 
-		/* Remove the task from the task queue and call the handler */
+		/** Remove the task from the task queue and call the handler. */
 		if (Task != NULL) {
 			XLinkList_RemoveItem(&Task->TaskNode);
 			Status = Task->TaskHandler(Task->PrivData);

@@ -73,9 +73,9 @@ static XAsufw_Module XAsufw_TrngModule; /**< ASUFW TRNG Module ID and commands a
  * @brief	This function initializes the TRNG module.
  *
  * @return
- * 	- On successful initialization of TRNG module, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_SUCCESS, if TRNG module initialization is successful.
  * 	- XASUFW_TRNG_MODULE_REGISTRATION_FAILED, if TRNG module registration fails.
- * 	- XASUFW_FAILURE, if thee is any failure.
+ * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
 s32 XAsufw_TrngInit(void)
@@ -84,7 +84,7 @@ s32 XAsufw_TrngInit(void)
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
 	XTrng_Mode TrngMode = XTRNG_HRNG_MODE;
 
-	/** Contains the array of ASUFW TRNG commands. */
+	/** The XAsufw_TrngCmds array contains the list of commands supported by TRNG module. */
 	static const XAsufw_ModuleCmd XAsufw_TrngCmds[] = {
 		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngGetRandomBytes),
 		[XASU_TRNG_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngKat),
@@ -94,7 +94,7 @@ s32 XAsufw_TrngInit(void)
 		[XASU_TRNG_DRBG_GENERATE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngDrbgGenerate),
 	};
 
-	/** Contains the required resources for each supported command. */
+	/** The XAsufw_TrngResourcesBuf contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_TrngResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_TrngCmds)] = {
 		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK |
 		XASUFW_TRNG_RANDOM_BYTES_MASK,
@@ -119,7 +119,7 @@ s32 XAsufw_TrngInit(void)
 		goto END;
 	}
 
-	/** Initialize the TRNG instance. */
+	/** Initialize the TRNG crypto engine. */
 	Status = XTrng_CfgInitialize(XAsufw_Trng);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
@@ -148,7 +148,7 @@ s32 XAsufw_TrngInit(void)
 #endif
 
 #if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) && !defined(XASU_TRNG_ENABLE_DRBG_MODE)
-	/** Enable auto proc mode for TRNG. */
+	/** Enable auto proc mode for TRNG only when the TRNG is configured in HRNG mode. */
 	Status = XTrng_EnableAutoProcMode(XAsufw_Trng);
 #endif /* XASUFW_TRNG_ENABLE_PTRNG_MODE */
 
@@ -161,8 +161,8 @@ END:
  * @brief	This function checks if random numbers are available in TRNG FIFO or not.
  *
  * @return
- * 	- XASUFW_SUCCESS If random numbers are available in TRNG FIFO.
- * 	- XASUFW_FAILURE If random numbers are not available in TRNG FIFO.
+ * 	- XASUFW_SUCCESS, if random numbers are available in TRNG FIFO.
+ * 	- XASUFW_FAILURE, if random numbers are not available in TRNG FIFO.
  *
  *************************************************************************************************/
 s32 XAsufw_TrngIsRandomNumAvailable(void)
@@ -187,7 +187,7 @@ s32 XAsufw_TrngIsRandomNumAvailable(void)
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- XASUFW_SUCCESS - if read TRNG FIFO operation is successful.
+ * 	- XASUFW_SUCCESS, if read TRNG FIFO operation is successful.
  * 	- XASUFW_FAILURE, if there is any other failure.
  *
  * @note	This IPI command must not be called when DRBG mode is enabled using
@@ -221,7 +221,7 @@ static s32 XAsufw_TrngGetRandomBytes(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if KAT is successful.
- * 	- Error code, returned when XAsufw_ShaKat API fails.
+ * 	- Error code from XAsufw_TrngKat API, if any operation fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_TrngKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -274,7 +274,7 @@ END:
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- Returns XASUFW_SUCCESS on successful execution of the command.
+ * 	- XASUFW_SUCCESS, if command execution is successful.
  * 	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
@@ -297,7 +297,7 @@ static s32 XAsufw_TrngGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- XASUFW_SUCCESS on successful execution of the command.
+ * 	- XASUFW_SUCCESS, if command execution is successful.
  * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
@@ -342,7 +342,7 @@ END:
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- XASUFW_SUCCESS on successful execution of the command.
+ * 	- XASUFW_SUCCESS, if command execution is successful.
  * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
@@ -373,7 +373,7 @@ static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- XASUFW_SUCCESS on successful execution of the command.
+ * 	- XASUFW_SUCCESS, if command execution is successful.
  * 	- XASUFW_FAILURE, if tehre is any failure.
  *
  *************************************************************************************************/
@@ -405,7 +405,7 @@ static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	Size		Size of the random buffer. The maximum allowed size is 510 Bytes
  *
  * @return
- * 	- XASUFW_SUCCESS on successful execution of the command.
+ * 	- XASUFW_SUCCESS, if requested bytes of random number is generated successfully.
  * 	- XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE, if size of random buffer is invalid.
  * 	- XASUFW_FAILURE, if there is any failure.
  *
@@ -422,6 +422,7 @@ s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
 	u8 LocalBuf[XTRNG_SEC_STRENGTH_IN_BYTES];
 	u32 Loop;
 
+	/** Validate the size. */
 	if (Size > XASUFW_MAX_RANDOM_BYTES_ALLOWED) {
 		Status = XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE;
 		goto END;
@@ -438,7 +439,7 @@ s32 XAsufw_TrngGetRandomNumbers(u8 *RandomBuf, u32 Size)
 
 		/**
 		 * Check again if random number is available for redundancy.
-		 * Return error if random bumber is not available.
+		 * Return error if random number is not available.
 		 */
 		if (XTrng_IsRandomNumAvailable(XAsufw_Trng) != XASUFW_SUCCESS) {
 			Status = XASUFW_TRNG_GET_RANDOM_NUMBERS_TIMEDOUT;

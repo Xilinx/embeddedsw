@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -65,7 +65,7 @@
 #define XASUFW_SSS_PLI_AES_VAL      (0x90000U) /**< SSS AES Value for PL Interface */
 #define XASUFW_SSS_DMA1_AES_VAL     (0x900000U) /**< SSS AES Value for DMA1 */
 
-#define XASUFW_SSS_CFG_LEN_IN_BITS  (4U) /**< Length is bits */
+#define XASUFW_SSS_CFG_LEN_IN_BITS  (4U) /**< SSS config length in bits */
 #define XASUFW_SSS_SRC_SEL_MASK     (0xFU) /**< SSS Source selection Mask */
 
 /************************************** Type Definitions *****************************************/

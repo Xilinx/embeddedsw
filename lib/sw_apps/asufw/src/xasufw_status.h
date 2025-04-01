@@ -83,54 +83,61 @@ enum {
 	XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, /**< 0x05U - Releasing the resource is not allowed */
 	XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, /**< 0x06U - DMA resource allocation failure */
 	XASUFW_TASK_INVALID_HANDLER, /**< 0x07U - Received invalid task with NULL task handler */
-	XASUFW_INVALID_USER_CONFIG_RECEIVED, /**< 0x08U - Invalid comm channel user config data received */
-	XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, /**< 0x09U - Command received for unregistered module */
-	XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED, /**< 0x0AU - Invalid command is received from client */
-	XASUFW_MODULE_REGISTRATION_FAILED, /**< 0x0BU - Module registration failed as to max supported modules
-						are created */
+	XASUFW_INVALID_USER_CONFIG_RECEIVED, /**< 0x08U - Invalid comm channel user config data
+						received */
+	XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, /**< 0x09U - Command received for unregistered
+						module */
+	XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED, /**< 0x0AU - Invalid command is received from
+						client */
+	XASUFW_MODULE_REGISTRATION_FAILED, /**< 0x0BU - Module registration failed as to max supported
+						modules are created */
 	XASUFW_SSS_INVALID_INPUT_PARAMETERS, /**< 0x0CU - Received invalid input parameters to SSS
 						configuration APIs */
 	XASUFW_IOMODULE_INIT_FAILED, /**< 0x0DU - IOModule initialization failed */
-	XASUFW_IOMODULE_SELF_TEST_FAILED, /**< 0x0EU - IOModule self test failed */
+	XASUFW_IOMODULE_SELF_TEST_FAILED, /**< 0x0EU - IOModule self-test failed */
 	XASUFW_IOMODULE_START_FAILED, /**< 0x0FU - IOModule start failed */
 	XASUFW_IOMODULE_CONNECT_FAILED, /**< 0x10U - IOModule connect failed */
 	XASUFW_IPI_LOOKUP_CONFIG_FAILED, /**< 0x11U - IPI lookup config failed */
 	XASUFW_IPI_INVALID_INPUT_PARAMETERS, /**< 0x12U - Received invalid input arguments for IPI
 						send/receive */
-	XASUFW_IPI_POLL_FOR_ACK_FAILED, /**< 0x13U - IPI Poll for ack failed*/
+	XASUFW_IPI_POLL_FOR_ACK_FAILED, /**< 0x13U - IPI Poll for ack failed */
 	XASUFW_IPI_WRITE_MESSAGE_FAILED, /**< 0x14U - IPI write message failed */
 	XASUFW_IPI_TRIGGER_FAILED, /**< 0x15U - IPI trigger failed */
 	XASUFW_IPI_READ_MESSAGE_FAILED, /**< 0x16U - IPI read message failed */
 	XASUFW_ERR_DMA_INSTANCE_NULL, /**< 0x17U - If DMA instance is NULL */
 	XASUFW_ERR_DMA_LOOKUP, /**< 0x18U - DMA driver lookup config failed */
 	XASUFW_ERR_DMA_CFG, /**< 0x19U - DMA driver config initialization failed */
-	XASUFW_ERR_DMA_SELFTEST, /**< 0x1AU - DMA self test failed */
+	XASUFW_ERR_DMA_SELFTEST, /**< 0x1AU - DMA self-test failed */
 	XASUFW_DMA_WAIT_FOR_DONE_TIMED_OUT, /**< 0x1BU - Non blocking DMA transfer wait failed in given
 						channel WaitForDone */
-	XASUFW_INVALID_DMA_SSS_CONFIG, /**< 0x1CU - SSS configuration assignment failed as the DMA address is
-						invalid */
+	XASUFW_INVALID_DMA_SSS_CONFIG, /**< 0x1CU - SSS configuration assignment failed as the DMA
+						address is invalid */
 	XASUFW_ERR_EXCEPTION, /**< 0x1DU - Processor exception received */
 	XASUFW_ERR_IPI_SEND_PLM_EFUSE_PRGM, /**< 0x1E - Failed while sending IPI for efuse write */
 	XASUFW_ERR_IPI_RSP_PLM_EFUSE_PRGM, /**< 0x1F - IPI response failure to program efuse */
 	XASUFW_VALIDATE_COMMAND_FAILED, /**< 0x20 - Command validation failed */
-	/**< Termination code errors 0x21U to 0x2CU are reserved for errors returning from core */
+	/* Termination code errors 0x21U to 0x2CU are reserved for errors returning from core */
 	XASUFW_ECC_INVALID_PARAM = 0x2DU, /**< 0x2DU - Invalid parameters to ECC APIs*/
 	XASUFW_ECC_INIT_NOT_DONE, /**< 0x2EU - ECC is not initialized */
 	XASUFW_ECC_INIT_FAILED, /**< 0x2FU - ECC initialization failed */
-	XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL, /**< 0x30U - When ECC Generate public key operation fails */
+	XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL, /**< 0x30U - When ECC Generate public key operation
+						fails */
 	XASUFW_ECC_VALIDATE_PUB_KEY_OPERATION_FAIL, /**< 0x31U - When ECC validate public key
-							operation fails */
-	XASUFW_ECC_GEN_SIGN_OPERATION_FAIL, /**<  0x32U - When ECC Generate signature operation fails */
-	XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL, /**<  0x33U - When ECC verify signature operation fails */
+						operation fails */
+	XASUFW_ECC_GEN_SIGN_OPERATION_FAIL, /**<  0x32U - When ECC Generate signature operation
+						fails */
+	XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL, /**<  0x33U - When ECC verify signature operation
+						fails */
 	XASUFW_ECC_WRITE_DATA_FAIL, /**< 0x34U - When writing data to memory fails */
 	XASUFW_ECC_READ_DATA_FAIL, /**< 0x35U - When reading data from memory fails */
 	XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL, /**< 0x36U - When generate ephemeral key fails */
 	XASUFW_ECC_WAIT_FOR_DONE_TIMEOUT, /**< 0x37U - When wait for done timed out */
-	XASUFW_ECC_MODULE_REGISTRATION_FAILED, /**< 0x38U - Module registration failed for ECC module */
+	XASUFW_ECC_MODULE_REGISTRATION_FAILED, /**< 0x38U - Module registration failed for ECC
+						module */
 	XASUFW_ECC_PUBKEY_COMPARISON_FAILED, /**< 0x39U - ECC public key comparison failed */
 	XASUFW_ECC_SIGNATURE_COMPARISON_FAILED, /**< 0x3AU - ECC signature comparison failed */
 	XASUFW_ECC_KAT_FAILED, /**< 0x3BU - ECC Kat failed */
-	XASUFW_RSA_ECC_INVALID_PARAM, /**< 0x3CU - Invalid parameters to RSA_ECC APIs*/
+	XASUFW_RSA_ECC_INVALID_PARAM, /**< 0x3CU - Invalid parameters to RSA_ECC APIs */
 	XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, /**< 0x3DU - When public key generation fails */
 	XASUFW_RSA_ECC_WRITE_DATA_FAIL, /**< 0x3EU - When writing data to memory fails */
 	XASUFW_RSA_ECC_READ_DATA_FAIL, /**< 0x3FU - When reading data from memory fails */
@@ -138,7 +145,8 @@ enum {
 	XASUFW_RSA_ECC_PUBLIC_KEY_WRONG_ORDER, /**< 0x41U - Wrong order of Public key */
 	XASUFW_RSA_ECC_PUBLIC_KEY_NOT_ON_CRV, /**< 0x42U - Key not found on curve */
 	XASUFW_RSA_ECC_EPHEMERAL_KEY_GEN_FAIL, /**< 0x43U - When generate ephemeral key fails */
-	XASUFW_RSA_ECC_GEN_SIGN_BAD_RAND_NUM, /**< 0x44U - Bad random number used for sign generation */
+	XASUFW_RSA_ECC_GEN_SIGN_BAD_RAND_NUM, /**< 0x44U - Bad random number used for sign
+						generation */
 	XASUFW_RSA_ECC_GEN_SIGN_INCORRECT_HASH_LEN, /**< 0x45U - Incorrect hash length for sign
 						generation */
 	XASUFW_RSA_ECC_BAD_SIGN, /**< 0x46U - Signature provided for verification is bad */
@@ -152,8 +160,8 @@ enum {
 	XASUFW_RSA_ECC_SIGNATURE_COMPARISON_FAILED, /**< 0x4DU - RSA ECC signature comparison failed */
 	XASUFW_RSA_ECC_KAT_FAILED, /**< 0x4EU - RSA ECC Kat failed */
 	XASUFW_SHA_INVALID_PARAM, /**< 0x4FU - Invalid parameters to SHA APIs */
-	XASUFW_SHA_STATE_MISMATCH_ERROR, /**< 0x50U - SHA state mismatch error. Occurs when previous SHA
-						state doesn't match before further update */
+	XASUFW_SHA_STATE_MISMATCH_ERROR, /**< 0x50U - SHA state mismatch error. Occurs when previous
+						SHA state doesn't match before further update */
 	XASUFW_SHA_INVALID_INPUT_DATA_ADDRESS, /**< 0x51U - SHA invalid input data address */
 	XASUFW_SHA_INVALID_INPUT_DATA_SIZE, /**< 0x52U - SHA invalid input data size */
 	XASUFW_SHA_INVALID_END_LAST, /**< 0x53U - SHA invalid end last */
@@ -162,16 +170,19 @@ enum {
 	XASUFW_SHA_NEXT_XOF_INVALID_MASK, /**< 0x56U - SHA invalid next xof mask */
 	XASUFW_SHA_INVALID_SHA_TYPE, /**< 0x57U - SHA invalid type */
 	XASUFW_SHA_INVALID_SHA_MODE, /**< 0x58U - SHA invalid mode */
-	XASUFW_SHA_MODE_GLITCH_DETECTED, /**< 0x59U - Configured SHA mode is not matching with the input */
+	XASUFW_SHA_MODE_GLITCH_DETECTED, /**< 0x59U - Configured SHA mode is not matching with the
+						input */
 	XASUFW_SHA_HASH_COMPARISON_FAILED, /**< 0x5AU - SHA Hash comparison failed */
 	XASUFW_SHA_KAT_FAILED, /**< 0x5BU - SHA KAT failed */
-	XASUFW_SHA2_MODULE_REGISTRATION_FAILED, /**< 0x5CU - Module registration failed for SHA2 module */
+	XASUFW_SHA2_MODULE_REGISTRATION_FAILED, /**< 0x5CU - Module registration failed for SHA2
+						module */
 	XASUFW_SHA2_INIT_FAILED, /**< 0x5DU - SHA2 initialization failed */
 	XASUFW_SHA2_START_FAILED, /**< 0x5EU - SHA2 start failed */
 	XASUFW_SHA2_UPDATE_FAILED, /**< 0x5FU - SHA2 update failed */
 	XASUFW_SHA2_FINISH_FAILED, /**< 0x60U - SHA2 finish failed */
 	XASUFW_SHA2_HASH_COMPARISON_FAILED, /**< 0x61U - SHA2 hash comparison failed */
-	XASUFW_SHA3_MODULE_REGISTRATION_FAILED, /**< 0x62U - Module registration failed for SHA3 module */
+	XASUFW_SHA3_MODULE_REGISTRATION_FAILED, /**< 0x62U - Module registration failed for SHA3
+						module */
 	XASUFW_SHA3_INIT_FAILED, /**< 0x63U - SHA3 initialization failed */
 	XASUFW_SHA3_START_FAILED, /**< 0x64U - SHA3 start failed */
 	XASUFW_SHA3_UPDATE_FAILED, /**< 0x65U - SHA3 update failed */
@@ -187,9 +198,9 @@ enum {
 	XASUFW_TRNG_INVALID_SEED_LENGTH, /**< 0x6FU - TRNG invalid seed length received */
 	XASUFW_TRNG_INVALID_SEED_LIFE, /**< 0x70U - TRNG invalid seed life received */
 	XASUFW_TRNG_INVALID_ADAPTPROPTEST_CUTOFF_VALUE, /**< 0x71U - TRNG invalid adaptproptestcutoff
-								value */
+						value */
 	XASUFW_TRNG_INVALID_REPCOUNTTEST_CUTOFF_VALUE, /**< 0x72U - TRNG invalid precounttestcutoff
-								value */
+						value */
 	XASUFW_TRNG_USER_CFG_COPY_ERROR, /**< 0x73U - TRNG user config structure copy to TRNG instance
 						failed */
 	XASUFW_TRNG_INVALID_BUF_SIZE, /**< 0x74U - TRNG invalid buffer size */
@@ -204,33 +215,38 @@ enum {
 	XASUFW_RANDOM_DATA_FAILED_TO_GENERATE, /**< 0x7DU - TRNG random data generate failed */
 	XASUFW_OSCILLATOR_ENABLE_FAILED, /**< 0x7EU - TRNG enabling oscillator as seed source failed */
 	XASUFW_OSCILLATOR_DISABLE_FAILED, /**< 0x7FU - TRNG disabling oscillator source failed */
-	XASUFW_ENABLE_PRNG_FOR_RESEED_FAILED, /**< 0x80U - TRNG enabling PRNG for reseed operation failed */
+	XASUFW_ENABLE_PRNG_FOR_RESEED_FAILED, /**< 0x80U - TRNG enabling PRNG for reseed operation
+						failed */
 	XASUFW_START_RESEED_FAILED, /**< 0x81U - TRNG reseed failed */
 	XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE, /**< 0x82U - TRNG invalid random bytes requested */
 	XASUFW_TRNG_KAT_NOT_SUPPORTED_ON_QEMU, /**< 0x83U - TRNG DRBG KAT is not supported on QEMU */
 	XASUFW_TRNG_DFLEN_CONFIG_ERROR, /**< 0x84U - DF length configuration failure */
-	XASUFW_TRNG_ADAPTCUTOFF_CONFIG_ERROR, /**< 0x85U - Adaptive test cutoff configuration failure */
-	XASUFW_TRNG_REPCUTOFF_CONFIG_ERROR, /**< 0x86U - Repetitive test cutoff configuration failure */
+	XASUFW_TRNG_ADAPTCUTOFF_CONFIG_ERROR, /**< 0x85U - Adaptive test cutoff configuration
+						failure */
+	XASUFW_TRNG_REPCUTOFF_CONFIG_ERROR, /**< 0x86U - Repetitive test cutoff configuration
+						failure */
 	XASUFW_TRNG_DIT_CONFIG_ERROR, /**< 0x87U - DIT value configuration failure */
 	XASUFW_AES_GLITCH_ERROR, /**< 0x88U - AES glitch error */
 	XASUFW_AES_INVALID_PARAM, /**< 0x89U - Invalid parameters to AES APIs */
-	XASUFW_AES_STATE_MISMATCH_ERROR, /**< 0x8AU - AES state mismatch error. Occurs when previous AES
-						state doesn't match before further update */
+	XASUFW_AES_STATE_MISMATCH_ERROR, /**< 0x8AU - AES state mismatch error. Occurs when previous
+						AES state doesn't match before further update */
 	XASUFW_AES_KEY_CLEAR_ERROR, /**< 0x8BU - AES key clear error */
 	XASUFW_AES_INVALID_KEY_OBJECT_ADDRESS, /**< 0x8CU - AES invalid key object address */
 	XASUFW_AES_INVALID_KEY_ADDRESS, /**< 0x8DU - AES invalid key address */
 	XASUFW_AES_INVALID_KEY_SRC, /**< 0x8EU - AES invalid key source */
 	XASUFW_AES_INVALID_KEY_SIZE, /**< 0x8FU - AES invalid key size */
-	XASUFW_AES_INVALID_IV, /**< 0x90U - AES invalid IV length/address for respective engine modes */
+	XASUFW_AES_INVALID_IV, /**< 0x90U - AES invalid IV length/address for respective engine
+						modes */
 	XASUFW_AES_INVALID_ENGINE_MODE, /**< 0x91U - AES invalid engine mode */
 	XASUFW_AES_KEY_ZEROED,  /**< 0x92U - AES zeroed key not allowed */
 	XASUFW_AES_INVALID_OPERATION_TYPE, /**< 0x93U - AES invalid encrypt/decrypt operation type */
 	XASUFW_AES_INVALID_INPUT_DATA, /**< 0x94U - AES invalid input data */
 	XASUFW_AES_INVALID_INPUT_DATA_LENGTH, /**< 0x95U - AES invalid input data length */
 	XASUFW_AES_INVALID_ISLAST_CHUNK, /**< 0x96U - AES invalid is last chunk */
-	XASUFW_AES_UNALIGNED_BLOCK_SIZE_INPUT_LENGTH, /**< 0x97U - AES ECB and CBC modes input data should be
-								16Bytes aligned */
-	XASUFW_AES_INVALID_TAG, /**< 0x98U - AES invalid tag length/address for respective engine modes */
+	XASUFW_AES_UNALIGNED_BLOCK_SIZE_INPUT_LENGTH, /**< 0x97U - AES ECB and CBC modes input data
+						should be 16Bytes aligned */
+	XASUFW_AES_INVALID_TAG, /**< 0x98U - AES invalid tag length/address for respective engine
+						modes */
 	XASUFW_AES_TAG_GENERATE_FAILED, /**< 0x99U - AES tag generation failed */
 	XASUFW_AES_TAG_COMPARE_FAILED, /**< 0x9AU - AES tag comparison failed */
 	XASUFW_AES_MODULE_REGISTRATION_FAILED, /**< 0x9BU - AES module registration failed */
@@ -259,8 +275,9 @@ enum {
 	XASUFW_RSA_CRT_OP_ERROR, /**< 0xB2U - Error in CRT operation */
 	XASUFW_RSA_PVT_OP_ERROR, /**< 0xB3U - Error in Private exponentiation operation */
 	XASUFW_RSA_PUB_OP_ERROR, /**< 0xB4U - Error in Public exponentiation operation */
-	XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR, /**< 0xB5U - Error when MGF returns error for data block */
-	XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR, /**< 0xB6U - Error when MGF returns error seed buffer*/
+	XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR, /**< 0xB5U - Error when MGF returns error for data
+						block */
+	XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR, /**< 0xB6U - Error when MGF returns error seed buffer */
 	XASUFW_RSA_ZEROIZE_MEMSET_FAIL, /**< 0xB7U - Error when memory zeroization fails */
 	XASUFW_RSA_OAEP_ENCRYPT_ERROR, /**< 0xB8U - Error when OAEP encryption operation fails */
 	XASUFW_RSA_OAEP_ENCODE_ERROR, /**< 0xB9U - Error when OAEP encode operation fails */
@@ -268,44 +285,46 @@ enum {
 	XASUFW_RSA_OAEP_DECRYPT_ERROR, /**< 0xBBU - Error when OAEP decryption operation fails */
 	XASUFW_RSA_OAEP_DECODE_ERROR, /**< 0xBCU - Error when OAEP decode operation fails */
 	XASUFW_RSA_OAEP_HASH_CMP_FAIL,	/**< 0xBDU - Error when OAEP decode operation fails for hash
-							comparison failure */
+						comparison failure */
 	XASUFW_RSA_LOOP_INDEX_CMP_ERROR, /**< 0xBEU - Error when index of loop comparison failure */
 	XASUFW_RSA_PSS_INVALID_LEN,	/**< 0xBFU - Error when PSS signature len is invalid */
 	XASUFW_RSA_PSS_INVALID_SALT_LEN, /**< 0xC0U - Error when PSS salt len is invalid */
 	XASUFW_RSA_PSS_SIGN_GEN_ERROR, /**< 0xC1U - Error when PSS sign generation operation fails */
 	XASUFW_RSA_PSS_ENCRYPT_ERROR, /**< 0xC2U - Error when PSS encryption operation fails */
-	XASUFW_RSA_SHA_DIGEST_CALC_FAIL, /**< 0xC3U - Error when SHA digest calculation fail to RSA API */
-	XASUFW_RSA_PSS_RIGHT_MOST_CMP_FAIL, /**< 0xC4U - Error when PSS decode operation fails for last
-							octet comparison failure */
-	XASUFW_RSA_PSS_LEFT_MOST_BIT_CMP_FAIL, /**< 0xC5U - Error when PSS decode operation fails for first
-							bit in first octet comparison failure */
-	XASUFW_RSA_MASK_GEN_ERROR, /**< 0xC6U - Error when MGF fails in RSA*/
+	XASUFW_RSA_SHA_DIGEST_CALC_FAIL, /**< 0xC3U - Error when SHA digest calculation fail to RSA
+						API */
+	XASUFW_RSA_PSS_RIGHT_MOST_CMP_FAIL, /**< 0xC4U - Error when PSS decode operation fails for
+						last octet comparison failure */
+	XASUFW_RSA_PSS_LEFT_MOST_BIT_CMP_FAIL, /**< 0xC5U - Error when PSS decode operation fails for
+						first bit in first octet comparison failure */
+	XASUFW_RSA_MASK_GEN_ERROR, /**< 0xC6U - Error when MGF fails in RSA */
 	XASUFW_RSA_PSS_DECODE_ERROR, /**< 0xC7U - Error when PSS decode operation fails */
 	XASUFW_RSA_PSS_HASH_CMP_FAIL, /**< 0xC8U - Error when PSS decode operation fails for hash
-							comparison failure */
+						comparison failure */
 	XASUFW_RSA_PSS_SIGN_VER_ERROR, /**< 0xC9U - Error when PSS sign verification operation fails */
 	XASUFW_RSA_PSS_DECRYPT_ERROR, /**< 0xCAU - Error when PSS decryption operation fails */
 	XASUFW_RSA_MODULE_REGISTRATION_FAILED, /**< 0xCBU - RSA module registration failed */
-	XASUFW_RSA_ENCRYPT_DATA_COMPARISON_FAILED, /**< 0xCCU - Error when RSA encrypt output comparison
-							failed */
-	XASUFW_RSA_DECRYPT_DATA_COMPARISON_FAILED, /**< 0xCDU - Error when RSA decrypt output comparison
-							failed */
+	XASUFW_RSA_ENCRYPT_DATA_COMPARISON_FAILED, /**< 0xCCU - Error when RSA encrypt output
+						comparison failed */
+	XASUFW_RSA_DECRYPT_DATA_COMPARISON_FAILED, /**< 0xCDU - Error when RSA decrypt output
+						comparison failed */
 	XASUFW_RSA_KAT_FAILED, /**< 0xCEU - Error when RSA KAT failed */
-	XASUFW_RSA_DMA_COPY_FAIL, /**< 0xCFU - When data transfer to/from memory using DMA fails in RSA */
+	XASUFW_RSA_DMA_COPY_FAIL, /**< 0xCFU - When data transfer to/from memory using DMA fails in
+						RSA */
 	XASUFW_RSA_MEM_COPY_FAIL,  /**< 0xD0U - When copy data to memory fails in RSA */
 	XASUFW_ECDH_INVALID_POINT_ON_CRV, /**< 0x0D1U - Error when generated point is invalid */
 	XASUFW_ECDH_RAND_GEN_ERROR, /**< 0xD2U - Random number generation failed to ECDH APIs */
 	XASUFW_ECDH_OTHER_ERROR, /**< 0xD3U - Any generic error from ECDH APIs */
 	XASUFW_ECDH_GEN_SECRET_OPERATION_FAIL, /**< 0xD4U - Error when generate secret failed */
 	XASUFW_ECDH_SECRET_COMPARISON_FAILED, /**< 0xD5U - Error when generated secret comparison
-							failed */
+						failed */
 	XASUFW_ECDH_KAT_FAILED, /**< 0xD6U - Error when ECDH KAT failed */
 	XASUFW_HMAC_INVALID_PARAM, /**< 0xD7U - Invalid parameters to HMAC APIs */
 	XASUFW_HMAC_INVALID_KEY_LENGTH, /**< 0xD8U - Invalid key length */
 	XASUFW_HMAC_INIT_FAILED, /**< 0xD9U - HMAC init failed */
 	XASUFW_HMAC_INVALID_HASHLEN, /**< 0xDAU - HMAC invalid hash length */
-	XASUFW_HMAC_STATE_MISMATCH_ERROR, /**< 0xDBU - HMAC state mismatch error. Occurs when previous HMAC
-						state doesn't match before further update */
+	XASUFW_HMAC_STATE_MISMATCH_ERROR, /**< 0xDBU - HMAC state mismatch error. Occurs when previous
+						HMAC state doesn't match before further update */
 	XASUFW_HMAC_INITIALIZATION_FAILED, /**< 0xDCU - HMAC initialization failed */
 	XASUFW_HMAC_UPDATE_FAILED, /**< 0xDDU - HMAC update failed */
 	XASUFW_HMAC_FINAL_FAILED, /**< 0xDEU - HMAC final failed */
@@ -313,8 +332,8 @@ enum {
 	XASUFW_HMAC_KAT_FAILED, /**< 0xE0U - HMAC KAT failed */
 	XASUFW_HMAC_MODULE_REGISTRATION_FAILED, /**< 0xE1U - HMAC module registration failed */
 	XASUFW_KDF_INVALID_PARAM, /**< 0xE2U - Invalid parameters to the KDF APIs */
-	XASUFW_KDF_ITERATION_COUNT_MISMATCH, /** 0xE3U - Failure in running desired number of iterations for
-						KDF output */
+	XASUFW_KDF_ITERATION_COUNT_MISMATCH, /**< 0xE3U - Failure in running desired number of
+						iterations for KDF output */
 	XASUFW_KDF_MODULE_REGISTRATION_FAILED, /**< 0xE4U - KDF module registration failed */
 	XASUFW_KDF_COMPUTE_FAILED, /**< 0xE5U - KDF compute failed */
 	XASUFW_KDF_KAT_COMPARISON_FAILED, /**< 0xE6U - KDF KAT comparison failed */
@@ -335,32 +354,37 @@ enum {
 	XASUFW_ECIES_ENCRYPT_FAILED, /**< 0xF4U - ECIES encryption failed */
 	XASUFW_ECIES_DECRYPT_FAILED, /**< 0xF5U - ECIES decryption failed */
 	XASUFW_ECIES_KAT_FAILED, /**< 0xF6U - ECIES KAT failed */
-	XASUFW_ECIES_KAT_COMPARISON_FAILED, /**< 0xF7U - ECIES KAT comparision failed */
+	XASUFW_ECIES_KAT_COMPARISON_FAILED, /**< 0xF7U - ECIES KAT comparison failed */
 	XASUFW_ERR_KV_INTERRUPT_DONE_TIMEOUT, /**< 0xF8U - KV interrupt done timeout error */
 	XASUFW_KEYWRAP_INVALID_PARAM, /**< 0xF9U - Invalid parameters to Key wrap unwrap APIs */
-	XASUFW_KEYWRAP_MODULE_REGISTRATION_FAILED, /**< 0xFAU - Key wrap unwrap module registration failed */
-	XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL, /**< 0xFBU - Key wrap output generation failed */
-	XASUFW_KEYWRAP_GEN_UNWRAPPED_KEY_OPERATION_FAIL,  /**< 0xFCU - Key unwrap output generation failed */
+	XASUFW_KEYWRAP_MODULE_REGISTRATION_FAILED, /**< 0xFAU - Key wrap unwrap module registration
+						failed */
+	XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL, /**< 0xFBU - Key wrap output generation
+						failed */
+	XASUFW_KEYWRAP_GEN_UNWRAPPED_KEY_OPERATION_FAIL,  /**< 0xFCU - Key unwrap output generation
+						failed */
 	XASUFW_KEYWRAP_AES_WRAPPED_KEY_ERROR,  /**< 0xFDU - AES Key wrap output generation failed */
 	XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR, /**< 0xFEU - AES Key unwrap output generation failed */
-	XASUFW_KEYWRAP_ICV_CMP_FAIL, /**< 0xFFU - Error when integrity check value fails for key unwrap */
+	XASUFW_KEYWRAP_ICV_CMP_FAIL, /**< 0xFFU - Error when integrity check value fails for key
+						unwrap */
 	XASUFW_KEYWRAP_ZEROIZE_MEMSET_FAIL, /**< 0x100U - Error when memory zeroization fails */
 	XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, /**< 0x101U - Error when AES key clear fails */
-	XASUFW_KEYWRAP_DMA_COPY_FAIL, /**< 0x102U - When data transfer to/from memory using DMA fails */
+	XASUFW_KEYWRAP_DMA_COPY_FAIL, /**< 0x102U - When data transfer to/from memory using DMA
+						fails */
 	XASUFW_KEYWRAP_MEM_COPY_FAIL, /**< 0x103U - When copy data to memory fails */
 	XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, /**< 0x104U - When AES operation fails in key wrap unwrap */
-	XASUFW_KEYWRAP_UNWRAPPED_DATA_COMPARISON_FAILED, /**< 0x105U -Error when unwrapped output comparison
-								failed in KAT */
+	XASUFW_KEYWRAP_UNWRAPPED_DATA_COMPARISON_FAILED, /**< 0x105U -Error when unwrapped output
+						comparison failed in KAT */
 	XASUFW_KEYWRAP_KAT_FAILED, /**< 0x106U - Error when key wrap unwrap KAT failed */
 	XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, /**< 0x107U - Sign generation failure in PWCT */
 	XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, /**< 0x108U - Sign verification failure in PWCT */
 	XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED, /**< 0x109U - Error when AES CBC/ECB dummy
-								encryption fails */
+						encryption fails */
 	XASUFW_RSA_ECC_INCORRECT_CURVE, /**< 0x10AU - Error when the received curvelen or curve size
 						is incorrect. */
 	XASUFW_RSA_ECC_TRNG_FAILED, /**< 0x10BU -  Error in TRNG while generating ECC private key */
 	XASUFW_RSA_ECC_MOD_ORDER_FAILED, /**< 0x10CU - Error when ModEccOrder failed in generate
-							private key */
+						private key */
 
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };

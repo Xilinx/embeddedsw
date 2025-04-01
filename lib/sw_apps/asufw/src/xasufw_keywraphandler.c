@@ -56,7 +56,7 @@ static XAsufw_Module XAsufw_KeyWrapModule; /**< ASUFW Key wrap unwp Module ID an
  * @brief	This function initializes the Key wrap unwrap module.
  *
  * @return
- * 	- On successful initialization of module, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_SUCCESS, if Key wrap unwrap module initialization is successful.
  * 	- XASUFW_KEYWRAP_MODULE_REGISTRATION_FAILED, if module registration fails.
  *
  *************************************************************************************************/
@@ -64,7 +64,10 @@ s32 XAsufw_KeyWrapInit(void)
 {
 	volatile s32 Status = XASUFW_FAILURE;
 
-	/** Contains the array of ASUFW Key wrap unwrap commands. */
+	/**
+	 * The XAsufw_KeyWrapCmds array contains the list of commands supported by Key wrap unwrap
+	 * module.
+	 */
 	static const XAsufw_ModuleCmd XAsufw_KeyWrapCmds[] = {
 		[XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyWrap),
 		[XASU_KEYWRAP_KEY_WRAP_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyWrap),
@@ -74,7 +77,7 @@ s32 XAsufw_KeyWrapInit(void)
 		[XASU_KEYWRAP_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyWrapGetInfo),
 	};
 
-	/** Contains the required resources for each supported command. */
+	/** The XAsufw_KeyWrapResourcesBuf contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_KeyWrapResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_KeyWrapCmds)] = {
 		[XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_KEYWRAP_RESOURCE_MASK
 		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK
@@ -177,9 +180,9 @@ END:
  * @param	ReqId		Requester ID.
  *
  * @return
- * 	- XASUFW_SUCCESS - if operation is successful.
- * 	- XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL - if operation fails
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
+ * 	- XASUFW_SUCCESS, if operation is successful.
+ * 	- XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL, if operation fails
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -187,6 +190,7 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	volatile s32 Status = XASUFW_FAILURE;
 	const XAsu_KeyWrapParams *Cmd = (const XAsu_KeyWrapParams *)ReqBuf->Arg;
 
+	/** Perform Key wrap operation using given SHA crypto engine. */
 	Status = XKeyWrap(Cmd, XAsufw_KeyWrapModule.AsuDmaPtr, XAsufw_KeyWrapModule.ShaPtr,
 				XAsufw_KeyWrapModule.AesPtr);
 	if (Status != XASUFW_SUCCESS) {
@@ -214,9 +218,9 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId		Requester ID.
  *
  * @return
- * 	- XASUFW_SUCCESS - if operation is successful.
- * 	- XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL - if operation fails
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
+ * 	- XASUFW_SUCCESS, if operation is successful.
+ * 	- XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL, if operation fails
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -224,6 +228,7 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	volatile s32 Status = XASUFW_FAILURE;
 	const XAsu_KeyWrapParams *Cmd = (const XAsu_KeyWrapParams *)ReqBuf->Arg;
 
+	/** Perform Key unwrap operation using given SHA crypto engine. */
 	Status = XKeyUnwrap(Cmd, XAsufw_KeyWrapModule.AsuDmaPtr, XAsufw_KeyWrapModule.ShaPtr,
 				XAsufw_KeyWrapModule.AesPtr);
 	if (Status != XASUFW_SUCCESS) {
@@ -251,7 +256,7 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if KAT is successful.
- * 	- Error code, returned when XAsufw_KeyWrapOperationKat API fails.
+ * 	- Error codes from XAsufw_KeyWrapOperationKat API, if any operation fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyWrapKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -259,6 +264,7 @@ static s32 XAsufw_KeyWrapKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	volatile s32 Status = XASUFW_FAILURE;
 	(void)ReqBuf;
 
+	/** Perform Key wrap unwrap KAT. */
 	Status = XAsufw_KeyWrapOperationKat(XAsufw_KeyWrapModule.AsuDmaPtr);
 
 	XAsufw_KeyWrapModule.AsuDmaPtr = NULL;
@@ -281,7 +287,7 @@ static s32 XAsufw_KeyWrapKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId	Requester ID.
  *
  * @return
- *	- Returns XASUFW_SUCCESS on successful execution of the command.
+ *	- XASUFW_SUCCESS, if command execution is successful.
  *	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
