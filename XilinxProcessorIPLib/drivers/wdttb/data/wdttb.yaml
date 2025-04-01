@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -19,8 +19,14 @@ properties:
           - xlnx,versal-wwdt-1.0
   reg:
     description: Physical base address and size of the controller register map
-  xlnx,clock-freq:
-    description: Input clock frequency
+  xlnx,enable-window-wdt:
+    description: Flag for Window WDT enable (PL only)
+  xlnx,max-count-width:
+    description: Maximum width of first timer (PL only)
+  xlnx,sst-count-width:
+    description: Maximum width of Second Sequence Timer (PL only)
+  xlnx,wdt-clk-freq-hz:
+    description: Input clock frequency (PS only)
 
 config:
     - XWdtTb_Config
@@ -29,6 +35,8 @@ required:
     - compatible
     - reg
     - xlnx,enable-window-wdt
+    - xlnx,max-count-width
+    - xlnx,sst-count-width
     - xlnx,wdt-clk-freq-hz
     - interrupts: 4
     - interrupt-parent
