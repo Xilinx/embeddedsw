@@ -27,6 +27,7 @@
 #define __XDCSUB_H__
 
 #include "xdc.h"
+#include "xdcdma.h"
 
 /****************************** Variables ******************************/
 
@@ -34,6 +35,7 @@
 typedef struct {
 
 	XDc_Config DcConfig;
+	XDcDma_Config DmaConfig;
 
 } XDcSub_Config;
 
@@ -41,6 +43,7 @@ typedef struct {
 
 	XDcSub_Config XDcSubCfg;
 	XDc *DcPtr;
+	XDcDma *DmaPtr;
 
 } XDcSub;
 
