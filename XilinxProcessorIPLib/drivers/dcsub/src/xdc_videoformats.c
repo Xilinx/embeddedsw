@@ -1,0 +1,517 @@
+/*******************************************************************************
+* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+*******************************************************************************/
+
+/******************************************************************************/
+/**
+ *
+ * @file xdc_videoformats.c
+ * @addtogroup mmi_dc
+ * @{
+ *
+ * Contains attributes of the video formats mapped to the hardware
+ *
+ * @note        None.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- -------- -----------------------------------------------
+ * 1.0   ck  03/14/25 Initial release.
+ * </pre>
+ *
+*******************************************************************************/
+
+/******************************* Include Files ********************************/
+
+#include "xdc.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+/**************************** Variable Definitions ****************************/
+
+const XDc_VideoAttribute XDc_SupportedFormats[XDC_NUM_SUPPORTED] = {
+	/* Non-Live Video Formats */
+	{
+		CbY0CrY1, 0, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		CrY0CbY1, 1, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		Y0CrY1Cb, 2, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		Y0CbY1Cr, 3, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16, 4, Planar,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV24, 5, Planar,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, FALSE, FALSE, FALSE, 24
+	},
+	{
+		YV16Ci, 6, SemiPlanar,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		MONOCHROME, 7, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  8
+	},
+	{
+		YV16Ci2, 8, SemiPlanar,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YUV444, 9, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, FALSE, FALSE, FALSE, 24
+	},
+	{
+		RGB888, 10, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, TRUE, FALSE, FALSE,  24
+	},
+	{
+		RGBA8880, 11, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, TRUE, FALSE, FALSE,  32
+	},
+	{
+		RGB888_10BPC, 12, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, TRUE, FALSE, FALSE,  30
+	},
+	{
+		YUV444_10BPC, 13, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, FALSE, FALSE, FALSE, 30
+	},
+	{
+		YV16Ci2_10BPC, 14, SemiPlanar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, TRUE,  20
+	},
+	{
+		YV16Ci_10BPC, 15, SemiPlanar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  20
+	},
+	{
+		YV16_10BPC, 16, Planar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  20
+	},
+	{
+		YV24_10BPC, 17, Planar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE, 130
+	},
+	{
+		MONOCHROME_10BPC, 18, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  10
+	},
+	{
+		YV16_420, 19, Planar,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16Ci_420, 20, SemiPlanar,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16Ci2_420, 21, SemiPlanar,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, TRUE,  16
+	},
+	{
+		YV16_420_10BPC, 22, Planar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  20
+	},
+	{
+		YV16Ci_420_10BPC, 23, SemiPlanar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  20
+	},
+	{
+		YV16Ci2_420_10BPC, 24, SemiPlanar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, TRUE,  20
+	},
+	{
+		RGBA8888, 32, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, TRUE, TRUE, FALSE,  32
+	},
+	{
+		ABGR8888, 33, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, TRUE, TRUE, FALSE,  32
+	},
+	{
+		RGB888_GFX, 34, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, TRUE, TRUE, FALSE,  24
+	},
+	{
+		BGR888, 35, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, TRUE, TRUE, FALSE,  24
+	},
+	{
+		RGBA5551, 36, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, TRUE, TRUE, FALSE,  16
+	},
+	{
+		RGBA4444, 37, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, TRUE, TRUE, FALSE,  16
+	},
+	{
+		RGB565, 38, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, TRUE, TRUE, FALSE,  16
+	},
+	{
+		RGB888dc, 64, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, TRUE, FALSE, FALSE,  24
+	},
+	{
+		RGB888dcm_10BPC, 65, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, TRUE, FALSE, FALSE,  64
+	},
+	{
+		RGB888dcl_10BPC, 66, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, TRUE, FALSE, FALSE,  64
+	},
+	{
+		RGB888dcm_12BPC, 67, Interleaved,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		FALSE, TRUE, FALSE, FALSE,  64
+	},
+	{
+		RGB888dcl_12BPC, 68, Interleaved,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		FALSE, TRUE, FALSE, FALSE,  64
+	},
+	{
+		RGB10A2g, 71, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, TRUE, TRUE, FALSE,  32
+	},
+	{
+		RGBA8888dcm_10BPC, 72, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, TRUE, FALSE, FALSE,  64
+	},
+	{
+		RGBA8888dcl_10BPC, 73, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, TRUE, FALSE, FALSE,  64
+	},
+	{
+		RGBA8888dcm_12BPC, 74, Interleaved,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		FALSE, TRUE, FALSE, FALSE,  64
+	},
+	{
+		RGBA8888dcl_12BPC, 75, Interleaved,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		FALSE, TRUE, FALSE, FALSE,  64
+	},
+	{
+		YUV444g, 78, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, FALSE, TRUE, FALSE, 24
+	},
+	{
+		YUV444dc, 79, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, FALSE, FALSE, FALSE, 32
+	},
+	{
+		YUV444g_10BPC, 80, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, FALSE, TRUE, FALSE, 48
+	},
+	{
+		YUV444dcm_10BPC, 81, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, FALSE, FALSE, FALSE,  64
+	},
+	{
+		YUV444dcl_10BPC, 82, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, FALSE, FALSE, FALSE,  64
+	},
+	{
+		YUV444dcm_12BPC, 83, Interleaved,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		FALSE, FALSE, FALSE, FALSE,  64
+	},
+	{
+		YUV444dcl_12BPC, 84, Interleaved,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		FALSE, FALSE, FALSE, FALSE,  64
+	},
+	{
+		YUVA444g, 87, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, FALSE, TRUE, FALSE, 24
+	},
+	{
+		YV24dc, 88, Planar,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, FALSE, FALSE, FALSE,  24
+	},
+	{
+		YV24dcm_10BPC, 89, Planar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV24dcl_10BPC, 90, Planar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV24dcm_12BPC, 91, Planar,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		FALSE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV24dcl_12BPC, 92, Planar,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		FALSE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CIdc, 93, SemiPlanar,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CI2dc, 94, SemiPlanar,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, TRUE,  16
+	},
+	{
+		YV16CIdcm_10BPC, 95, SemiPlanar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CIdcl_10BPC, 96, SemiPlanar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CI2dcm_10BPC, 97, SemiPlanar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, TRUE,  16
+	},
+	{
+		YV16CI2dcl_10BPC, 98, SemiPlanar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CIdcm_12BPC, 99, SemiPlanar,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CIdcl_12BPC, 100, SemiPlanar,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CI2dcm_12BPC, 101, SemiPlanar,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		TRUE, FALSE, FALSE, TRUE,  16
+	},
+	{
+		YV16CI2dcl_12BPC, 102, SemiPlanar,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		TRUE, FALSE, FALSE, TRUE,  16
+	},
+	{
+		YV16CIdc_420, 105, SemiPlanar,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CI2dc_420, 106, SemiPlanar,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CIdcm_420_10BPC, 107, SemiPlanar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CIdcl_420_10BPC, 108, SemiPlanar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CI2dcm_420_10BPC, 109, SemiPlanar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CI2dcl_420_10BPC, 110, SemiPlanar,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CIdcm_420_12BPC, 111, SemiPlanar,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CIdcl_420_12BPC, 112, SemiPlanar,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		YV16CI2dcm_420_12BPC, 113, SemiPlanar,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		TRUE, FALSE, FALSE, TRUE,  16
+	},
+	{
+		YV16CI2dcl_420_12BPC, 114, SemiPlanar,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		TRUE, FALSE, FALSE, TRUE,  16
+	},
+	{
+		Ydc_ONLY, 117, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  8
+	},
+	{
+		Ydcm_ONLY_10BPC, 118, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		Ydcl_ONLY_10BPC, 119, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		Ydcm_ONLY_12BPC, 120, Interleaved,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+	{
+		Ydcl_ONLY_12BPC, 121, Interleaved,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		TRUE, FALSE, FALSE, FALSE,  16
+	},
+
+	/* NL Output video formats */
+	{
+		Y_ONLY_8BPC, 3, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE, 24
+	},
+	{
+		Y_ONLY_10BPC, 3, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE, 30
+	},
+	{
+		Y_ONLY_12BPC, 3, Interleaved,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		TRUE, FALSE, FALSE, FALSE, 36
+	},
+	{
+		RGB_6BPC, 0, Interleaved,
+		{XDC_BUF_6BIT_SF, XDC_BUF_6BIT_SF, XDC_BUF_6BIT_SF},
+		FALSE, TRUE, FALSE, FALSE, 18
+	},
+	{
+		RGB_8BPC, 0, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, TRUE, FALSE, FALSE, 24
+	},
+	{
+		RGB_10BPC, 0, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, TRUE, FALSE, FALSE, 30
+	},
+	{
+		RGB_12BPC, 0, Interleaved,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		FALSE, TRUE, FALSE, FALSE, 36
+	},
+	{
+		YCbCr444_6BPC, 1, Interleaved,
+		{XDC_BUF_6BIT_SF, XDC_BUF_6BIT_SF, XDC_BUF_6BIT_SF},
+		FALSE, FALSE, FALSE, FALSE, 18
+	},
+	{
+		YCbCr444_8BPC, 1, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		FALSE, FALSE, FALSE, FALSE, 24
+	},
+	{
+		YCbCr444_10BPC, 1, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		FALSE, FALSE, FALSE, FALSE, 30
+	},
+	{
+		YCbCr444_12BPC, 1, Interleaved,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		FALSE, FALSE, FALSE, FALSE, 36
+	},
+	{
+		YCbCr422_8BPC, 2, Interleaved,
+		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
+		TRUE, FALSE, FALSE, FALSE, 24
+	},
+	{
+		YCbCr422_10BPC, 2, Interleaved,
+		{XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF, XDC_BUF_10BIT_SF},
+		TRUE, FALSE, FALSE, FALSE, 30
+	},
+	{
+		YCbCr422_12BPC, 2, Interleaved,
+		{XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF, XDC_BUF_12BIT_SF},
+		TRUE, FALSE, FALSE, FALSE, 36
+	},
+
+};
+
+#ifdef __cplusplus
+}
+#endif
+
+/** @} */
