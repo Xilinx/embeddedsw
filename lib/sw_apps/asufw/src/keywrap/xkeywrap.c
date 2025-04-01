@@ -41,10 +41,8 @@
 							bytes */
 #define XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES	(8U)	/**< Key wrap unwrap half block size in
 							bytes */
-#define XASUFW_KEYWRAP_MAX_AES_ROUNDS		(5U)	/**< Key wrap unwrap maximum no of
-							rounds */
-#define XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES		(520U)	/**< Key wrap maximum output
-							size */
+#define XASUFW_KEYWRAP_MAX_AES_ROUNDS		(5U)	/**< Key wrap unwrap maximum no of rounds */
+#define XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES		(520U)	/**< Key wrap maximum output size */
 
 /************************************** Type Definitions *****************************************/
 
@@ -62,14 +60,22 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 /*************************************************************************************************/
 /**
  *
- * @brief	This function performs key wrap operation using AES.
+ * @brief	This function performs key wrap operation using AES engine.
  *
  * @param	KeyWrapParamsPtr	Pointer to the XAsu_KeyWrapParams structure.
  * @param	AsuDmaPtr		Pointer to the XAsufw_Dma instance.
- * @param	ShaInstancePtr		Pointer to the Sha instance.
+ * @param	ShaInstancePtr		Pointer to the SHA instance.
+ * @param	AesInstancePtr		Pointer to the AES instance.
  *
  * @return
- * 	- XASUFW_SUCCESS, if initialization was successful.
+ * 	- XASUFW_SUCCESS, if initialization is successful.
+ * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
+ * 	- XASUFW_RSA_RAND_GEN_ERROR, if ephemeral AES key using TRNG generation fails.
+ * 	- XASUFW_RSA_OAEP_ENCODE_ERROR, if OAEP encode operation fails.
+ * 	- XASUFW_AES_WRITE_KEY_FAILED, if AES write key fails.
+ * 	- XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, if AES key clear fails.
+ * 	- XASUFW_KEYWRAP_AES_WRAPPED_KEY_ERROR, if AES key wrap fails.
+ * 	- XASUFW_KEYWRAP_DMA_COPY_FAIL, if coping wrapped key to user provided address using DMA fails.
  *
  *************************************************************************************************/
 s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
@@ -120,8 +126,10 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		goto END;
 	}
 
-	/** Update RSA OAEP related parameters for encryption of generated AES Key and perform
-		RSA OAEP encode operation. */
+	/**
+	 * Update RSA OAEP related parameters for encryption of generated AES Key and perform RSA OAEP
+	 * encode operation.
+	 */
 	PaddingParams.XAsu_RsaOpComp.InputDataAddr = (u64)(UINTPTR)EphemeralAesKey;
 	PaddingParams.XAsu_RsaOpComp.OutputDataAddr = KeyWrapParamsPtr->OutputDataAddr;
 	PaddingParams.XAsu_RsaOpComp.ExpoCompAddr = KeyWrapParamsPtr->ExpoCompAddr;
@@ -151,7 +159,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		goto END;
 	}
 
-	/** Zeroize AES key. */
+	/** Zeroize AES key immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, EphemeralAesKey,
 		XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -168,7 +176,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		goto END_CLR;
 	}
 
-	/** Copy wrapped output data using DMA. */
+	/** Copy wrapped output data to user provided output memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(AsuDmaPtr, (u64)(UINTPTR)OutData,
 				(KeyWrapParamsPtr->OutputDataAddr + KeyWrapParamsPtr->RsaKeySize),
@@ -189,14 +197,20 @@ END:
 /*************************************************************************************************/
 /**
  *
- * @brief	This function performs key wrap operation using AES.
+ * @brief	This function performs key unwrap operation using AES.
  *
  * @param	KeyUnwrapParamsPtr	Pointer to the XAsu_KeyWrapParams structure.
  * @param	AsuDmaPtr		Pointer to the XAsufw_Dma instance.
- * @param	ShaInstancePtr		Pointer to the Sha instance.
+ * @param	ShaInstancePtr		Pointer to the SHA instance.
+ * @param	AesInstancePtr		Pointer to the AES instance.
  *
  * @return
- * 	- XASUFW_SUCCESS, if initialization was successful.
+ * 	- XASUFW_SUCCESS, if initialization is successful.
+ * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
+ * 	- XASUFW_RSA_OAEP_DECODE_ERROR, if OAEP decode operation fails.
+ * 	- XASUFW_AES_WRITE_KEY_FAILED, if AES write key fails.
+ * 	- XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, if AES key clear fails.
+ * 	- XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR, if AES key unwrap fails.
  *
  *************************************************************************************************/
 s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
@@ -222,8 +236,10 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 		goto END;
 	}
 
-	/** Update RSA OAEP related parameters for decryption of provided input to extract AES key
-		and perform RSA OAEP decode operation. */
+	/**
+	 * Update RSA OAEP related parameters for decryption of provided input to extract AES key
+	 * and perform RSA OAEP decode operation.
+	 */
 	PaddingParams.XAsu_RsaOpComp.InputDataAddr = KeyUnwrapParamsPtr->InputDataAddr;
 	PaddingParams.XAsu_RsaOpComp.OutputDataAddr = (u64)(UINTPTR)AesKeyOut;
 	PaddingParams.XAsu_RsaOpComp.ExpoCompAddr = KeyUnwrapParamsPtr->ExpoCompAddr;
@@ -253,7 +269,7 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 		goto END;
 	}
 
-	/** Zeroize AES key. */
+	/** Zeroize AES key immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, AesKeyOut,
 		XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -279,12 +295,17 @@ END:
  * @brief	This function performs key wrap operation using AES.
  *
  * @param	KeyWrapParamsPtr	Pointer to the XAsu_KeyWrapParams structure.
- * @param	InstancePtr		Pointer to the XAes instance.
- * @param	AsuDmaPtr		Pointer to the XAsufw_Dma instance.
- * @param	OutData			Pointer to store wrapped output.
+ * @param	AesInstancePtr		Pointer to the XAes instance.
+ * @param	AsuDmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	OutData				Pointer to store wrapped output.
  *
  * @return
- * 	- XASUFW_SUCCESS, if initialization was successful.
+ * 	- XASUFW_SUCCESS, if initialization is successful.
+ * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
+ * 	- XASUFW_KEYWRAP_MEM_COPY_FAIL, if copying of ICV fails.
+ * 	- XASUFW_KEYWRAP_DMA_COPY_FAIL, if input data copy using DMA fails.
+ * 	- XASUFW_KEYWRAP_ZEROIZE_MEMSET_FAIL, if zeroization fails for padding length.
+ * 	- XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, if AES operation fails.
  *
  *************************************************************************************************/
 static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *AesInstancePtr,
@@ -340,7 +361,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 	XAsufw_I2Osp(KeyWrapParamsPtr->InputDataLen, XASUFW_WORD_LEN_IN_BYTES,
 			&InData[XASUFW_WORD_LEN_IN_BYTES]);
 
-	/** Copy input data using DMA. */
+	/** Copy input data from user memory to ASU memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(AsuDmaPtr, KeyWrapParamsPtr->InputDataAddr,
 				(u64)(UINTPTR)&InData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES],
@@ -395,8 +416,10 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 		for(RoundNum = 0U; RoundNum <= XASUFW_KEYWRAP_MAX_AES_ROUNDS; RoundNum++) {
 			for(BlkRoundNum = XASUFW_KEYWRAP_BLOCK_ROUND_INDEX; BlkRoundNum <= MaxRounds;
 				BlkRoundNum++) {
-				/** Copy input/output data based on round number of length eight
-					bytes in terms of two words to AES input data. */
+				/**
+				 * - Copy input/output data based on round number of length eight bytes in terms
+				 * of two words to AES input data.
+				 */
 				if (RoundNum == 0U) {
 					Xil_MemCpy(AesInDataSemiBlockPtr, InData +
 						(XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
@@ -406,7 +429,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 						(XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
 						* BlkRoundNum), XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
 				}
-				/** Perform AES operation. */
+				/** - Perform AES operation. */
 				ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 				Status = XAes_Compute(AesInstancePtr, AsuDmaPtr, &AesParams);
 				if (Status != XASUFW_SUCCESS) {
@@ -422,11 +445,15 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 				= (u8)(AesOutValue >> XASUFW_ONE_BYTE_SHIFT_VALUE);
 				AesOutData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
 						- XASUFW_BUFFER_INDEX_ONE] = (u8)AesOutValue;
-				/** Copy AES output data of length eight bytes in terms of two words
-					to AES input data for next iteration. */
+				/**
+				 * - Copy AES output data of length eight bytes in terms of two words to AES input
+				 * data for next iteration.
+				 */
 				Xil_MemCpy(AesInData, AesOutData, XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
-				/** Copy AES output data of length eight bytes in terms of two words
-					to output data. */
+				/**
+				 * - Copy AES output data of length eight bytes in terms of two words to output
+				 * data.
+				 */
 				Xil_MemCpy(OutData + (XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES * BlkRoundNum),
 						AesOutData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES,
 						XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
@@ -447,6 +474,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 	}
 
 END_CLR:
+	/** Zeroize local buffer of input data. */
 	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, InData,
 			XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES + (XASU_AES_BLOCK_SIZE_IN_BYTES * 2U));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -461,11 +489,16 @@ END:
  * @brief	This function performs key unwrap operation using AES.
  *
  * @param	KeyUnwrapParamsPtr	Pointer to the XAsu_KeyWrapParams structure.
- * @param	InstancePtr		Pointer to the XAes instance.
- * @param	AsuDmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	AesInstancePtr		Pointer to the XAes instance.
+ * @param	AsuDmaPtr			Pointer to the XAsufw_Dma instance.
  *
  * @return
- * 	- XASUFW_SUCCESS, if initialization was successful.
+ * 	- XASUFW_SUCCESS, if initialization is successful.
+ * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
+ * 	- XASUFW_KEYWRAP_MEM_COPY_FAIL, if Xil_SMemCpy fails.
+ * 	- XASUFW_KEYWRAP_DMA_COPY_FAIL, if input data copy using DMA fails.
+ * 	- XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, if AES operation fails.
+ * 	- XASUFW_KEYWRAP_ICV_CMP_FAIL, if ICV comparison with first 4 bytes of output fails.
  *
  *************************************************************************************************/
 static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesInstancePtr,
@@ -499,7 +532,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 		goto END;
 	}
 
-	/** Copy wrapped input data using DMA. */
+	/** Copy wrapped input data from user memory to ASU memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(AsuDmaPtr, (KeyUnwrapParamsPtr->InputDataAddr +
 				KeyUnwrapParamsPtr->RsaKeySize), (u64)(UINTPTR)InData,
@@ -546,8 +579,10 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 		for(RoundNum = (s32)XASUFW_KEYWRAP_MAX_AES_ROUNDS; RoundNum >= 0; RoundNum--) {
 			for(BlkRoundNum = MaxRounds; BlkRoundNum >= XASUFW_KEYWRAP_BLOCK_ROUND_INDEX;
 				BlkRoundNum--) {
-				/** Copy input/output data based on round number of length eight bytes
-					in terms of two words to AES input data. */
+				/**
+				 * - Copy input/output data based on round number of length eight bytes
+				 * in terms of two words to AES input data.
+				 */
 				if (RoundNum == (s32)XASUFW_KEYWRAP_MAX_AES_ROUNDS) {
 					Xil_MemCpy(AesInDataSemiBlockPtr, InData +
 						(XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
@@ -566,18 +601,22 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 				= (u8)(AesInValue >> XASUFW_ONE_BYTE_SHIFT_VALUE);
 				AesInData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
 						- XASUFW_BUFFER_INDEX_ONE] = (u8)AesInValue;
-				/** Perform AES operation. */
+				/** - Perform AES operation. */
 				ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 				Status = XAes_Compute(AesInstancePtr, AsuDmaPtr, &AesParams);
 				if (Status != XASUFW_SUCCESS) {
 					Status =  XASUFW_KEYWRAP_AES_DATA_CALC_FAIL;
 					goto END_CLR;
 				}
-				/** Copy AES output data of length eight bytes in terms of two words
-					to AES input data for next iteration. */
+				/**
+				 * - Copy AES output data of length eight bytes in terms of two words
+				 * to AES input data for next iteration.
+				 */
 				Xil_MemCpy(AesInData, AesOutData, XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
-				/** Copy AES output data of length eight bytes in terms of two words
-					to output data. */
+				/**
+				 * - Copy AES output data of length eight bytes in terms of two words
+				 * to output data.
+				 */
 				Xil_MemCpy(OutData + (XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES * BlkRoundNum),
 						AesOutData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES,
 						XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
@@ -609,7 +648,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 		goto END_CLR;
 	}
 
-	/** Copy output data using DMA. */
+	/** Copy output data from ASU memory to user provided memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(AsuDmaPtr,
 				(u64)(UINTPTR)&OutData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES],
@@ -620,6 +659,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 	}
 
 END_CLR:
+	/** Zeroize input data local buffer. */
 	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, InData,
 			XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);

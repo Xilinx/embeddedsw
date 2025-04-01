@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -36,7 +36,7 @@ extern "C" {
 
 /************************************ Constant Definitions ***************************************/
 /*  ASUFW Run Time Configuration Area related register defines */
-#define	XASUFW_RTCA_BASEADDR			(0xEBE40000U) /**< ASUFW RTCA BaseAddress */
+#define	XASUFW_RTCA_BASEADDR			(0xEBE40000U) /**< ASUFW RTCA Base Address */
 #define XASUFW_RTCA_IDENTIFICATION_ADDR		(XASUFW_RTCA_BASEADDR + 0x0U)
 							/**< RTCA identification address */
 #define XASUFW_RTCA_VERSION_ADDR		(XASUFW_RTCA_BASEADDR + 0x4U)

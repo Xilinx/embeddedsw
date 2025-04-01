@@ -44,7 +44,7 @@
 /************************************ Constant Definitions ***************************************/
 #define XECC_CURVES_SUPPORTED		(2U) /**< Curves P-256 and P-384 are supported for ECC engine */
 #define XECC_RESET_ASSERT		(1U) /**< ECC reset assert value */
-#define XECC_RESET_DEASSERT		(0U) /**< ECC reset deassert value */
+#define XECC_RESET_DEASSERT		(0U) /**< ECC reset de-assert value */
 #define XECC_TIMEOUT_MAX		(0x1FFFFU) /**< ECC done timeout */
 						/* TBD: need to calculate as part of VNC */
 #define XECC_DOUBLE_CURVE_LENGTH_SHIFT	(0x1U) /**< Shift value to double the curve length */
@@ -56,7 +56,7 @@
 /************************************** Type Definitions *****************************************/
 
 /**
-* @brief Structure to get curve info
+* @brief This structure contains curve related information.
 */
 typedef struct {
 	u32 CurveType; /**< Type of the curve */
@@ -78,10 +78,10 @@ struct _XEcc_Config {
 * instance.
 */
 struct _XEcc {
-	u32 DeviceId; /**< Ecc Device Id */
-	u32 BaseAddress; /**< Ecc Base address */
+	u32 DeviceId; /**< ECC Device Id */
+	u32 BaseAddress; /**< ECC Base address */
 	u32 IsReady; /**< ECC component ready state */
-	XEcc_CurveInfo *CurveInfo; /**< To get ECC curve information */
+	XEcc_CurveInfo *CurveInfo; /**< ECC curve information */
 };
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -94,7 +94,7 @@ static s32 XEcc_InputValidate(const XEcc *InstancePtr, u32 CurveType);
 
 /************************************ Variable Definitions ***************************************/
 
-/** ECC configuration table for devices */
+/** ECC configuration table for ECC crypto devices */
 static XEcc_Config XEcc_ConfigTable[XASU_XECC_NUM_INSTANCES] = {
 	{
 		XASU_XECC_0_DEVICE_ID,
@@ -142,8 +142,8 @@ static const u8 EKeyPwctEcc[XASU_ECC_P384_SIZE_IN_BYTES] = {
  * @param	DeviceId	The device ID of ECC core.
  *
  * @return
- * 		- It returns pointer to the XEcc_Instance corresponding to the Device ID.
- * 		- It returns NULL if the device ID is invalid.
+ * 		- Pointer to the XEcc_Instance corresponding to the Device ID.
+ * 		- NULL, if the device ID is invalid.
  *
  *************************************************************************************************/
 XEcc *XEcc_GetInstance(u32 DeviceId)
@@ -166,7 +166,7 @@ END:
 *
 * @brief	This function initializes the ECC instance.
 *
-* @param	InstancePtr	Pointer to the Ecc instance.
+* @param	InstancePtr	Pointer to the ECC instance.
 *
 * @return
 *		- XASUFW_SUCCESS, if initialization is successful.
@@ -203,12 +203,11 @@ END:
  * @brief	This function generates the public key using the provided private key for the
  * 		specified elliptic curve using ECC core.
  *
- * @param	InstancePtr	Pointer to the Ecc instance.
+ * @param	InstancePtr	Pointer to the ECC instance.
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	CurveType	ECC curve type.
  * @param	CurveLen	Length of the curve in bytes.
- * @param	PrivKeyAddr	Address of the private key buffer, whose length shall be equal to
- * 				CurveLen.
+ * @param	PrivKeyAddr	Address of the private key buffer, whose length shall be equal to CurveLen.
  * @param	PubKeyAddr	Address of the buffer to store the generated public key, whose
  * 				length shall be	equal to double of CurveLen as it contains both
  * 				Qx, Qy components.
@@ -221,7 +220,7 @@ END:
  * 		- XASUFW_ECC_READ_DATA_FAIL, if read data from registers through DMA fails.
  * 		- XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, if sign generation fails in PWCT.
  *		- XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, if sign verification fails in PWCT.
- * 		- Also can return termination error codes from 0x21U to 0x2CU from core,
+ * 		- Also, this function can return termination error codes from 0x21U to 0x2CU from core,
  * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
@@ -252,7 +251,7 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		goto END;
 	}
 
-	/** Release Reset. */
+	/** Release ECC core reset. */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->BaseAddress, XECC_RESET_OFFSET);
 
 	/** Enable endianness for write and read operations. */
@@ -314,7 +313,7 @@ END:
  * @brief	This function validates the provided ECDSA public key for the specified elliptic
  * 		curve using ECC core.
  *
- * @param	InstancePtr	Pointer to the Ecc instance.
+ * @param	InstancePtr	Pointer to the ECC instance.
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	CurveType	ECC curve type.
  * @param	CurveLen	Length of the curve in bytes.
@@ -325,8 +324,8 @@ END:
  * 		- XASUFW_SUCCESS, if public key provided is valid.
  * 		- XASUFW_ECC_INVALID_PARAM, if InstancePtr is NULL or if curve type or curve length
  * 				is invalid.
- * 		- XASUFW_ECC_WRITE_DATA_FAIL - if write data to registers through DMA fails.
- * 		- Also can return termination error codes from 0x21U to 0x2CU from core,
+ * 		- XASUFW_ECC_WRITE_DATA_FAIL, if write data to registers through DMA fails.
+ * 		- Also, this function can return termination error codes from 0x21U to 0x2CU from core,
  * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
@@ -357,7 +356,7 @@ s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		goto END;
 	}
 
-	/** Release Reset. */
+	/** Release ECC core reset. */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->BaseAddress, XECC_RESET_OFFSET);
 
 	/** Enable endianness for write and read operations. */
@@ -401,12 +400,11 @@ END:
  * @brief	This function generates an ECDSA signature for the provided hash by using the
  * 		given private key associated with the elliptic curve using ECC core.
  *
- * @param	InstancePtr	Pointer to the Ecc instance.
+ * @param	InstancePtr	Pointer to the ECC instance.
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	CurveType	ECC curve type.
  * @param	CurveLen	Length of the curve in bytes.
- * @param	PrivKeyAddr	Address of the private key buffer, whose length shall be equal to
- * 				CurveLen.
+ * @param	PrivKeyAddr	Address of the private key buffer, whose length shall be equal to CurveLen.
  * @param	EphemeralKeyPtr	Pointer to the ephemeral key buffer, whose length shall be equal to
  * 				CurveLen.
  * @param	HashAddr	Address of the hash on which signature has to be generated.
@@ -421,7 +419,7 @@ END:
  * 			CurveLen and HashBufLen are invalid.
  * 		- XASUFW_ECC_WRITE_DATA_FAIL, if write data to registers through DMA fails.
  * 		- XASUFW_ECC_READ_DATA_FAIL,  if read data from registers through DMA fails.
- * 		- Also can return termination error codes from 0x21U to 0x2CU from core,
+ * 		- Also, this function can return termination error codes from 0x21U to 0x2CU from core,
  * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
@@ -429,7 +427,10 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			   u64 PrivKeyAddr, const u8 *EphemeralKeyPtr, u64 HashAddr, u32 HashBufLen,
 			   u64 SignAddr)
 {
-	/** Capture start time. */
+	/**
+	 * Capture start time of ECC signature generation operation if performance measurement is
+	 * enabled.
+	 */
 	XASUFW_MEASURE_PERF_START(StartTime, PerfTime);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
@@ -457,14 +458,14 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		goto END;
 	}
 
-	/** Release Reset. */
+	/** Release ECC core reset. */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->BaseAddress, XECC_RESET_OFFSET);
 
 	/** Enable endianness for write and read operations. */
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_CFG_OFFSET,
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
-	/** Copy private key and hash to respective registers using DMA.*/
+	/** Copy private key and hash to respective registers using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr,
 			(u64)(UINTPTR)(InstancePtr->BaseAddress + XECC_MEM_GEN_SIGN_PVT_KEY_OFFSET),
@@ -514,7 +515,10 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		Status = XASUFW_ECC_READ_DATA_FAIL;
 	}
 
-	/** Measure performance time. */
+	/**
+	 * Measure ECC signature generation operation performance time if performance measurement is
+	 * enabled.
+	 */
 	XASUFW_MEASURE_PERF_STOP(StartTime, PerfTime, __func__);
 
 END:
@@ -529,9 +533,9 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function verifies the validity of an ECDSA signature for the provided hash
- * 		using the provided ecc public key on ECC core.
+ * 		using the provided ECC public key on ECC core.
  *
- * @param	InstancePtr	Pointer to the Ecc instance.
+ * @param	InstancePtr	Pointer to the ECC instance.
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	CurveType	ECC Curve type.
  * @param	CurveLen	Length of the curve in bytes.
@@ -547,7 +551,7 @@ END:
  * 		- XASUFW_ECC_INVALID_PARAM, if InstancePtr is NULL or if curve type is invalid or
  * 			CurveLen and HashBufLen are invalid.
  * 		- XASUFW_ECC_WRITE_DATA_FAIL, if write data to registers through DMA fails.
- * 		- Also can return termination error codes from 0x21U to 0x2CU from core,
+ * 		- Also, this function can return termination error codes from 0x21U to 0x2CU from core,
  * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
@@ -578,7 +582,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 		goto END;
 	}
 
-	/** Release Reset. */
+	/** Release ECC core reset. */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->BaseAddress, XECC_RESET_OFFSET);
 
 	/** Enable endianness for write and read operations. */
@@ -703,11 +707,11 @@ END:
 /**
  * @brief	This function will wait for ECC core completion.
  *
- * @param	InstancePtr	Pointer to the Ecc instance.
+ * @param	InstancePtr	Pointer to the ECC instance.
  *
  * @return
  * 		- XASUFW_SUCCESS, if wait for done is successful.
- * 		- XASUFW_FAILURE, upon timeout.
+ * 		- XASUFW_FAILURE, if ECC DONE interrupt is not generated within given timeout.
  *
  *************************************************************************************************/
 static inline s32 XEcc_WaitForDone(const XEcc *InstancePtr)
@@ -721,7 +725,7 @@ static inline s32 XEcc_WaitForDone(const XEcc *InstancePtr)
 		goto END;
 	}
 
-	/** Clear interrupt */
+	/** Clear and disable DONE interrupt. */
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_ISR_OFFSET, XECC_ISR_DONE_MASK);
 
 	/* Disable interrupt */
@@ -765,7 +769,7 @@ static XEcc_Config *XEcc_LookupConfig(u32 DeviceId)
 /**
  * @brief	This function does the required configuration and starts the operation.
  *
- * @param	InstancePtr	Pointer to the Ecc instance.
+ * @param	InstancePtr	Pointer to the ECC instance.
  * @param	OpCode		ECC operation code to select the operation.
  * 				0 - Signature verification
  * 				1 - public key validation
@@ -774,8 +778,9 @@ static XEcc_Config *XEcc_LookupConfig(u32 DeviceId)
  *
  * @return
  * 		- XASUFW_SUCCESS, if operation is successful.
- * 		- XASUFW_ECC_WAIT_FOR_DONE_TIMEOUT, upon time out.
- * 		- Also can return termination error codes from 0x21U to 0x2CU from core,
+ * 		- XASUFW_ECC_WAIT_FOR_DONE_TIMEOUT, if ECC operation DONE interrupt is not generated
+ *        within given timeout.
+ * 		- Also, this function can return termination error codes from 0x21U to 0x2CU from core,
  * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
@@ -798,7 +803,7 @@ static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode)
 #endif
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_CTRL_OFFSET, CtrlRegValue);
 
-	/** Wait for done. */
+	/** Wait for ECC operation to complete. */
 	Status = XEcc_WaitForDone(InstancePtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECC_WAIT_FOR_DONE_TIMEOUT;
@@ -823,7 +828,7 @@ END:
 /**
  * @brief	This function validates input parameters.
  *
- * @param	InstancePtr	Pointer to the Ecc instance.
+ * @param	InstancePtr	Pointer to the ECC instance.
  * @param	CurveType	Type of the curve.
  *
  * @return

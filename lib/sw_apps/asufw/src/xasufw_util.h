@@ -52,16 +52,17 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define XASU_TRUE		(TRUE)
-#define XASU_FALSE		(FALSE)
+#define XASU_TRUE		(TRUE) /**< Define for true */
+#define XASU_FALSE		(FALSE) /**< Define for false */
 
+/** This define is for enabling/disabling FIH variable creation */
 #define FIH_VOLATILE 0
 #if FIH_VOLATILE
-#define CREATE_VOLATILE(x,y)		s32 x = XFih_VolatileAssign(y)
-#define ASSIGN_VOLATILE(x,y)		x = XFih_VolatileAssign(y)
+#define CREATE_VOLATILE(x,y)		s32 x = XFih_VolatileAssign(y) /**< Create FIH variable */
+#define ASSIGN_VOLATILE(x,y)		x = XFih_VolatileAssign(y) /**< Assign FIH variable */
 #else
-#define CREATE_VOLATILE(x,y)		volatile s32 (x) = (y)
-#define ASSIGN_VOLATILE(x,y)		(x) = (y)
+#define CREATE_VOLATILE(x,y)		volatile s32 (x) = (y) /**< Create volatile s32 variable */
+#define ASSIGN_VOLATILE(x,y)		(x) = (y) /**< Assign volatile variable */
 #endif
 
 #define XASUFW_WORD_LEN_IN_BYTES		4U	/**< Word length in bytes */
@@ -90,15 +91,17 @@ extern "C" {
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 #define XASUFW_MEASURE_PERF_START(TimeVar, PerfTimeVar) XAsufw_PerfTime PerfTime; \
 					u64 TimeVar = XAsufw_GetTimerValue()
-				/** Capture the start time for performance measurement */
+				/**< Capture the start time for performance measurement */
 #define XASUFW_MEASURE_PERF_STOP(StartTime, PerfTimeVar, func_name) \
 		XAsufw_MeasurePerfTime(StartTime, &PerfTimeVar); \
 		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "%s execution time: %u.%03u ms\n\r", func_name, \
 		(u32)PerfTimeVar.TPerfMs, (u32)PerfTimeVar.TPerfMsFrac)
-				/** Measure and print execution time with the function name */
+				/**< Measure and print execution time with the function name */
 #else
-#define XASUFW_MEASURE_PERF_START(TimeVar, PerfTimeVar) /** No operation */
-#define XASUFW_MEASURE_PERF_STOP(StartTime, PerfTimeVar, func_name) /** No operation */
+#define XASUFW_MEASURE_PERF_START(TimeVar, PerfTimeVar)
+		/**< No operation when XASUFW_ENABLE_PERF_MEASUREMENT is not enabled */
+#define XASUFW_MEASURE_PERF_STOP(StartTime, PerfTimeVar, func_name)
+		/**< No operation when XASUFW_ENABLE_PERF_MEASUREMENT is not enabled */
 #endif
 
 /*************************************************************************************************/

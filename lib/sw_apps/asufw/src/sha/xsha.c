@@ -48,10 +48,10 @@
 /************************************** Type Definitions *****************************************/
 /** This typedef is used to update the state of SHA. */
 typedef enum {
-	XSHA_INITALIZED = 0x1, /**< SHA in initialized state */
-	XSHA_STARTED, /**< SHA in start state */
-	XSHA_UPDATE_IN_PROGRESS, /**< SHA is in progress state during multiple data chunk updates */
-	XSHA_UPDATE_COMPLETED, /**< SHA is in completed state after the final data chunk update */
+	XSHA_INITIALIZED = 0x1, /**< SHA is in initialized state */
+	XSHA_STARTED, /**< SHA is in start state */
+	XSHA_UPDATE_IN_PROGRESS, /**< SHA update is in progress state during data chunk updates */
+	XSHA_UPDATE_COMPLETED, /**< SHA update is in completed state after the final data chunk */
 } XSha_State;
 
 /**
@@ -115,8 +115,8 @@ static XSha XSha_Instance[XASU_XSHA_NUM_INSTANCES]; /**< ASUFW SHA HW instances 
  * @param	DeviceId	The device ID of SHA core.
  *
  * @return
- * 		- It returns pointer to the XSha_Instance corresponding to the Device ID.
- * 		- It returns NULL if the device ID is invalid.
+ * 		- Pointer to the XSha_Instance corresponding to the Device ID.
+ * 		- NULL, if the device ID is invalid.
  *
  *************************************************************************************************/
 XSha *XSha_GetInstance(u16 DeviceId)
@@ -199,7 +199,7 @@ s32 XSha_CfgInitialize(XSha *InstancePtr)
 	} else {
 		InstancePtr->SssShaCfg = XASUFW_SSS_SHA3;
 	}
-	InstancePtr->ShaState = XSHA_INITALIZED;
+	InstancePtr->ShaState = XSHA_INITIALIZED;
 	Status = XASUFW_SUCCESS;
 
 END:
@@ -215,7 +215,7 @@ END:
  * @param	ShaMode		SHA mode selection.
  *
  * @return
- * 	- XASUFW_SUCCESS, upon successful start of SHA engine.
+ * 	- XASUFW_SUCCESS, if SHA engine start operation is successful.
  * 	- XASUFW_SHA_STATE_MISMATCH_ERROR, if SHA state is not initialized.
  * 	- XASUFW_SHA_INVALID_PARAM, if InstancePtr is NULL.
  * 	- XASUFW_SHA_INIT_NOT_DONE, if SHA component is not ready.
@@ -225,14 +225,14 @@ s32 XSha_Start(XSha *InstancePtr, u32 ShaMode)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
-	/* Validate the input arguments */
+	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_SHA_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Validate SHA state is initialized or not */
-	if (InstancePtr->ShaState != XSHA_INITALIZED) {
+	/** Validate if SHA state is XSHA_INITIALIZED or not. */
+	if (InstancePtr->ShaState != XSHA_INITIALIZED) {
 		Status = XASUFW_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -262,7 +262,7 @@ s32 XSha_Start(XSha *InstancePtr, u32 ShaMode)
 END:
 	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
 		/** Set SHA2/3 under reset upon failure. */
-		InstancePtr->ShaState = XSHA_INITALIZED;
+		InstancePtr->ShaState = XSHA_INITIALIZED;
 		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
 	}
 
@@ -280,7 +280,7 @@ END:
  * @param	EndLast		Indicates the last update.
  *
  * @return
- * 	- XASUFW_SUCCESS, upon successful update of input data to SHA engine.
+ * 	- XASUFW_SUCCESS, if update of input data to SHA engine is successful.
  * 	- XASUFW_SHA_INVALID_PARAM, if any input parameters are invalid.
  * 	- XASUFW_SHA_INIT_NOT_DONE, if SHA component is not ready.
  * 	- XASUFW_SHA_STATE_MISMATCH_ERROR, if SHA is not in started or updated state.
@@ -321,7 +321,7 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 		goto END;
 	}
 
-	/** Validate SHA state is started or not. */
+	/** Validate if SHA state is in XSHA_STARTED or XSHA_UPDATE_IN_PROGRESS. */
 	if ((InstancePtr->ShaState != XSHA_STARTED) &&
 	    (InstancePtr->ShaState != XSHA_UPDATE_IN_PROGRESS)) {
 		Status = XASUFW_SHA_STATE_MISMATCH_ERROR;
@@ -331,7 +331,7 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 	InstancePtr->ShaLen += Size;
 	InstancePtr->AsuDmaPtr = DmaPtr;
 
-	/** Configures the SSS for SHA hardware engine. */
+	/** Configure the SSS for SHA hardware engine. */
 	Status = XAsufw_SssShaWithDma(InstancePtr->SssShaCfg, InstancePtr->AsuDmaPtr->SssDmaCfg);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
@@ -341,7 +341,10 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 	XAsuDma_ByteAlignedTransfer(&InstancePtr->AsuDmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL, InDataAddr, Size,
 				    EndLast);
 
-	/** If the data size is greater than XASUFW_DMA_BLOCKING_SIZE, do not wait for DMA done */
+	/**
+	 * If the data size is greater than XASUFW_DMA_BLOCKING_SIZE, return XASUFW_CMD_IN_PROGRESS
+	 * to initiate DMA non-blocking operation.
+	 * */
 	if (Size <= XASUFW_DMA_BLOCKING_SIZE) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsuDma_WaitForDoneTimeout(&InstancePtr->AsuDmaPtr->AsuDma, XASUDMA_SRC_CHANNEL);
@@ -350,7 +353,7 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 			goto END;
 		}
 
-		/** Acknowledge the transfer has completed. */
+		/** Acknowledge the transfer has completed in DMA blocking operation. */
 		XAsuDma_IntrClear(&InstancePtr->AsuDmaPtr->AsuDma, XASUDMA_SRC_CHANNEL, XASUDMA_IXR_DONE_MASK);
 	} else {
 		Status = XASUFW_CMD_IN_PROGRESS;
@@ -365,7 +368,7 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 END:
 	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_CMD_IN_PROGRESS) && (InstancePtr != NULL)) {
 		/** Set SHA2/3 under reset upon failure. */
-		InstancePtr->ShaState = XSHA_INITALIZED;
+		InstancePtr->ShaState = XSHA_INITIALIZED;
 		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
 	}
 
@@ -382,7 +385,7 @@ END:
  * @param	NextXofOutput	Next XOF output enable/disable flag. Valid only for SHAKE256.
  *
  * @return
- * 	- XASUFW_SUCCESS, upon successful calculation and copying of hash.
+ * 	- XASUFW_SUCCESS, if calculation and copying of hash is successful.
  * 	- XASUFW_SHA_INVALID_PARAM, if any input parameters are invalid.
  * 	- XASUFW_SHA_INIT_NOT_DONE, if SHA component is not ready.
  * 	- XASUFW_SHA_STATE_MISMATCH_ERROR, if SHA is not in started or isLast state.
@@ -426,7 +429,7 @@ s32 XSha_Finish(XSha *InstancePtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOut
 		goto END;
 	}
 
-	/** Validate SHA state is updated/started. */
+	/** Validate SHA state. */
 	if ((InstancePtr->ShaState != XSHA_STARTED) &&
 	    (InstancePtr->ShaState != XSHA_UPDATE_COMPLETED)) {
 		Status = XASUFW_SHA_STATE_MISMATCH_ERROR;
@@ -461,8 +464,8 @@ END:
 			XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_SHA_NEXT_XOF_OFFSET,
 					XASU_SHA_NEXT_XOF_ENABLE_MASK);
 		} else {
-			/** Set SHA2/3 under reset upon failure. */
-			InstancePtr->ShaState = XSHA_INITALIZED;
+			/** Set SHA2/3 under reset after SHA operation is complete. */
+			InstancePtr->ShaState = XSHA_INITIALIZED;
 			XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
 		}
 	}
@@ -523,7 +526,7 @@ s32 XSha_GetHashLen(u8 ShaMode, u32 *HashLen)
  *
  * @return
  * 		- XASUFW_SUCCESS, if wait for done is successful.
- * 		- XASUFW_FAILURE, upon timeout.
+ * 		- XASUFW_FAILURE, if timeout occurs.
  *
  *************************************************************************************************/
 static inline s32 XSha_WaitForDone(const XSha *InstancePtr)
@@ -542,9 +545,9 @@ static inline s32 XSha_WaitForDone(const XSha *InstancePtr)
  * @param	ShaMode		SHA Mode.
  *
  * @return
- * 	- XASUFW_SUCCESS, upon successful initialization of SHA instance.
+ * 	- XASUFW_SUCCESS, if initialization of SHA instance is successful.
  * 	- XASUFW_SHA_INVALID_PARAM, if any input parameter is invalid.
- * 	- XASUFW_SHA_MODE_GLITCH_DETECTED, if sha mode updated is glitched.
+ * 	- XASUFW_SHA_MODE_GLITCH_DETECTED, if SHA mode updated is glitched.
  *
  *************************************************************************************************/
 static s32 XSha_ValidateModeAndInit(XSha *InstancePtr, u32 ShaMode)
@@ -587,7 +590,7 @@ static s32 XSha_ValidateModeAndInit(XSha *InstancePtr, u32 ShaMode)
 		goto END;
 	}
 
-	/* Validate SHA Mode entered case is correct or not */
+	/** Validate SHA Mode entered case is correct or not. */
 	if (ShaMode != InstancePtr->ShaMode) {
 		Status = XASUFW_SHA_MODE_GLITCH_DETECTED;
 	} else {
@@ -600,7 +603,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function gives SHA block length for provided sha type and sha mode.
+ * @brief	This function gives SHA block length for provided SHA type and SHA mode.
  *
  * @param	InstancePtr	Pointer to the XSha instance.
  * @param	ShaMode		SHA mode selection.
@@ -676,16 +679,16 @@ s32 XSha_GetShaBlockLen(const XSha *InstancePtr, u8 ShaMode, u8* BlockLen)
 /**
  * @brief	This function performs SHA digest calculation for the provided input.
  *
- * @param	ShaInstancePtr		Pointer to the Sha instance.
+ * @param	ShaInstancePtr		Pointer to the SHA instance.
  * @param	DmaPtr			Pointer to the AsuDma instance.
  * @param	ShaParamsPtr		Pointer to the XAsu_ShaOperationCmd structure.
  *
  * @return
- *		- XASUFW_SUCCESS on success.
- *		- XASUFW_FAILURE on failure.
- *		- XASUFW_SHA_INVALID_PARAM on invalid parameters.
- * 		- XASUFW_CMD_IN_PROGRESS,when serving operation is not completed due to
- *		  SHA update operation using DMA.
+ *		- XASUFW_SUCCESS, if SHA digest is successful.
+ *		- XASUFW_FAILURE, if SHA digest fails.
+ *		- XASUFW_SHA_INVALID_PARAM, if input parameter validation fails.
+ * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *		  non-blocking mode.
  *
  *************************************************************************************************/
 s32 XSha_Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr,
@@ -700,11 +703,12 @@ s32 XSha_Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr,
 		goto END;
 	}
 
-	/** Jump to SHA_STAGE_UPDATE_DONE if the CmdStage is SHA_UPDATE_DONE. */
+	/** Jump to SHA_STAGE_UPDATE_DONE if SHA update is already in progress. */
 	if (CmdStage != 0x0U) {
 		goto SHA_STAGE_UPDATE_DONE;
 	}
 
+	/** Perform SHA digest operation on the given input. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSha_Start(ShaInstancePtr, ShaParamsPtr->ShaMode);
 	if (Status != XASUFW_SUCCESS) {
@@ -743,7 +747,7 @@ END:
 void XSha_Reset(XSha *InstancePtr)
 {
 	if (InstancePtr != NULL) {
-		InstancePtr->ShaState = XSHA_INITALIZED;
+		InstancePtr->ShaState = XSHA_INITIALIZED;
 		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
 	}
 }

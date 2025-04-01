@@ -36,21 +36,21 @@
 /************************************** Type Definitions *****************************************/
 /** This typedef is used to update the state of HMAC. */
 typedef enum {
-	XHMAC_INITIALIZED = 0x1, /**< HMAC in initialized state */
-	XHMAC_STARTED, /**< HMAC in start state */
-	XHMAC_UPDATE_IN_PROGRESS, /**< HMAC is in progress state during multiple data chunk updates */
-	XHMAC_UPDATE_COMPLETED, /**< HMAC is in completed state after the final data chunk update */
+	XHMAC_INITIALIZED = 0x1, /**< HMAC is in initialized state */
+	XHMAC_STARTED, /**< HMAC is in start state */
+	XHMAC_UPDATE_IN_PROGRESS, /**< HMAC update is in progress state during data chunk updates */
+	XHMAC_UPDATE_COMPLETED, /**< HMAC update is in completed state after the final data chunk */
 } XHmac_State;
 
 struct _XHmac {
-	XSha *ShaInstancePtr; /**< SHA Instance Pointer. */
-	u8 BlockLen; /**< SHA block length. */
-	u8 ShaMode; /**< SHA mode. */
-	u8 HashBufLen; /**< SHA hash buffer length. */
-	u8 Reserved; /**< Reserved */
-	u8 IntHash[XASUFW_HMAC_SHA_HASH_MAX_LEN]; /**< Buffer to store intermediate hash. */
-	u8 OPadRes[XASUFW_SHAKE_SHA3_256_BLOCK_LEN]; /**< Buffer to store OPAD result. */
-	XHmac_State HmacState; /**< HMAC current state. */
+	XSha *ShaInstancePtr; /**< SHA instance pointer */
+	u8 BlockLen; /**< SHA block length */
+	u8 ShaMode; /**< SHA mode */
+	u8 HashBufLen; /**< SHA hash buffer length */
+	u8 Reserved; /**< Reserved for future */
+	u8 IntHash[XASUFW_HMAC_SHA_HASH_MAX_LEN]; /**< Buffer to store intermediate hash */
+	u8 OPadRes[XASUFW_SHAKE_SHA3_256_BLOCK_LEN]; /**< Buffer to store OPAD result */
+	XHmac_State HmacState; /**< HMAC current state */
 };
 
 /************************************ Variable Definitions ***************************************/
@@ -62,10 +62,10 @@ static inline void XHmac_Xor(const u32 *Data, const u32 Value, u32 *Result, u32 
 
 /************************************** Macros Definitions ***************************************/
 #define XASUFW_HMAC_IPAD_VALUE		(0x36363636U) /**< Each byte of Key provided is XOR'ed with
-							this IPAD value 0x36U. */
+							this IPAD value 0x36U */
 #define XASUFW_HMAC_OPAD_VALUE		(0x5C5C5C5CU) /**< Each byte of Key provided is XOR'ed with
-							this OPAD value 0x5CU. */
-#define XHMAC_HASH_HALF_LENGTH_SHIFT	(0x1U) /**< To calculte half of the hash length */
+							this OPAD value 0x5CU */
+#define XHMAC_HASH_HALF_LENGTH_SHIFT	(0x1U) /**< Calculate half of the hash length */
 
 /************************************** Function Definitions *************************************/
 
@@ -74,7 +74,7 @@ static inline void XHmac_Xor(const u32 *Data, const u32 Value, u32 *Result, u32 
  * @brief	This function returns HMAC instance pointer.
  *
  * @return
- * 		- It returns pointer to the XHmac_Instance.
+ * 		- Pointer to the XHmac_Instance.
  *
  *************************************************************************************************/
 XHmac *XHmac_GetInstance(void)
@@ -106,7 +106,7 @@ s32 XHmac_CfgInitialize(XHmac *InstancePtr)
 		goto END;
 	}
 
-	/** Update HMAC state to INITIALIZED. */
+	/** Update HMAC state to XHMAC_INITIALIZED. */
 	InstancePtr->HmacState = XHMAC_INITIALIZED;
 	Status = XASUFW_SUCCESS;
 
@@ -128,11 +128,11 @@ END:
  * @param	HashLen		Length of the HASH for the provided SHA type and mode.
  *
  * @return
- * 	- XASUFW_SUCCESS, if initialization was successful.
+ * 	- XASUFW_SUCCESS, if initialization is successful.
  * 	- XASUFW_HMAC_INVALID_PARAM, if input parameters are invalid.
  * 	- XASUFW_HMAC_INVALID_KEY_LENGTH, if key length input is invalid.
  * 	- XASUFW_HMAC_STATE_MISMATCH_ERROR, if HMAC state is mismatched.
- * 	- XASUFW_HMAC_INVALID_HASHLEN, if input hashlength is invalid.
+ * 	- XASUFW_HMAC_INVALID_HASHLEN, if input hash length is invalid.
  *
  *************************************************************************************************/
 s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, u64 KeyAddr,
@@ -191,7 +191,7 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Initialize Sha engine to calculate the hash on IPad || Data. */
+	/** Initialize SHA engine to calculate the hash on IPad || Data. */
 	Status = XSha_Start(InstancePtr->ShaInstancePtr, (u32)InstancePtr->ShaMode);
 	if (Status != XASUFW_SUCCESS) {
 		goto END_CLR;
@@ -205,16 +205,18 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 		goto END_CLR;
 	}
 
-	/** Update HMAC state to started. */
+	/** Update HMAC state to XHMAC_STARTED. */
 	InstancePtr->HmacState = XHMAC_STARTED;
 
 END_CLR:
+	/** Zeroize the hash buffer after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, K0,
 		  XASUFW_SHAKE_SHA3_256_BLOCK_LEN);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
 	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
+		/** Set HMAC state to XHMAC_INITIALIZED and set SHA under reset upon any failure. */
 		InstancePtr->HmacState = XHMAC_INITIALIZED;
 		XSha_Reset(InstancePtr->ShaInstancePtr);
 	}
@@ -235,7 +237,7 @@ END:
  * @param	IsLastUpdate	Variable which indicates the last update.
  *
  * @return
- * 	- XASUFW_SUCCESS, if update was successful.
+ * 	- XASUFW_SUCCESS, if HMAC update is successful.
  * 	- XASUFW_HMAC_INVALID_PARAM, if input parameters are invalid.
  * 	- XASUFW_HMAC_STATE_MISMATCH_ERROR, if HMAC state is mismatched.
  *
@@ -269,7 +271,7 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 		goto SHA_IN_HMAC_STAGE_UPDATE_DONE;
 	}
 
-	/** Update SHA with input data for which HMAC has to be calculated. */
+	/** Update SHA with input data for which HMAC needs to be calculated. */
 	Status = XSha_Update(InstancePtr->ShaInstancePtr, AsuDmaPtr, DataAddr, DataLen,
 			     IsLastUpdate);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
@@ -285,7 +287,7 @@ SHA_IN_HMAC_STAGE_UPDATE_DONE:
 	if (IsLastUpdate == XASU_TRUE) {
 		/**
 		 * If this is the last update, get the HASH calculated for input (iPad || Data)
-		 * and update HMAC state to update completed state.
+		 * and update HMAC state to XHMAC_UPDATE_COMPLETED.
 		 */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XSha_Finish(InstancePtr->ShaInstancePtr, (u32 *)(InstancePtr->IntHash),
@@ -296,13 +298,15 @@ SHA_IN_HMAC_STAGE_UPDATE_DONE:
 
 		InstancePtr->HmacState = XHMAC_UPDATE_COMPLETED;
 	} else {
-		/** If this is not the last update, update HMAC state to update still in progress. */
+		/** If this is not the last update, update HMAC state to XHMAC_UPDATE_IN_PROGRESS. */
 		InstancePtr->HmacState = XHMAC_UPDATE_IN_PROGRESS;
 	}
 END:
 	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
+		/** Set HMAC state to XHMAC_INITIALIZED and set SHA under reset upon any failure. */
 		InstancePtr->HmacState = XHMAC_INITIALIZED;
 		XSha_Reset(InstancePtr->ShaInstancePtr);
+		/** Zeroize intermediate hash buffer upon any failure. */
 		XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus,
 			  (InstancePtr->IntHash), XASUFW_HMAC_SHA_HASH_MAX_LEN);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -321,7 +325,7 @@ DONE:
  * @param	HmacOutPtr	Pointer to store the HMAC output.
  *
  * @return
- * 	- XASUFW_SUCCESS, on successful calculation of HMAC.
+ * 	- XASUFW_SUCCESS, if calculation of HMAC is successful.
  * 	- XASUFW_HMAC_INVALID_PARAM, if input parameters are invalid.
  * 	- XASUFW_HMAC_STATE_MISMATCH_ERROR, if HMAC state is mismatched.
  *
@@ -343,7 +347,7 @@ s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
 		goto END;
 	}
 
-	/** Initialize Sha engine to calculate the hash on Opad || IntHash. */
+	/** Initialize SHA engine to calculate the hash on Opad || IntHash. */
 	Status = XSha_Start(InstancePtr->ShaInstancePtr, (u32)InstancePtr->ShaMode);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
@@ -377,17 +381,17 @@ s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
 
 END:
 	if (InstancePtr != NULL) {
-		/** Zeroize local IntHash copy. */
+		/** Zeroize intermediate hash buffer. */
 		XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus,
 			  (InstancePtr->IntHash), XASUFW_HMAC_SHA_HASH_MAX_LEN);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-		/** Zeroize local OpadRes copy. */
+		/** Zeroize local OpadRes buffer. */
 		XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus,
 			  (InstancePtr->OPadRes), XASUFW_SHAKE_SHA3_256_BLOCK_LEN);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-		/** Update the HMAC state to initialized. */
+		/** Update the HMAC state to XHMAC_INITIALIZED and set SHA under reset. */
 		InstancePtr->HmacState = XHMAC_INITIALIZED;
 		XSha_Reset(InstancePtr->ShaInstancePtr);
 	}
@@ -403,13 +407,12 @@ END:
  *
  * @param	InstancePtr	Pointer to the XHmac instance.
  * @param	AsuDmaPtr	Pointer to the XAsufw_Dma instance.
- * @param	ShaInstancePtr	Pointer to the XSha instance.
  * @param	KeyAddr		is the address which holds the key for HMAC.
  * @param	KeyLen		variable holds the length of the key.
  * @param	ProcessedKey	Pointer to hold the processed key.
  *
  * @return
- * 	- XASUFW_SUCCESS, if preprocessing key was successful.
+ * 	- XASUFW_SUCCESS, if preprocessing key is successful.
  *
  *************************************************************************************************/
 static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 KeyAddr,
@@ -417,7 +420,7 @@ static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
-	/** Get block length based on the sha mode and type. */
+	/** Get block length based on the SHA mode and type. */
 	Status = XSha_GetShaBlockLen(InstancePtr->ShaInstancePtr, InstancePtr->ShaMode,
 				     &InstancePtr->BlockLen);
 	if (Status != XASUFW_SUCCESS) {
@@ -432,13 +435,13 @@ static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (KeyLen > InstancePtr->BlockLen) {
 		/**
 		 * If provided key length is greater than the calculated block length,
 		 * it is hashed to reduce it to the hash output size and append it with zeros to
 		 * match the block length.
 		 */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XSha_Start(InstancePtr->ShaInstancePtr, (u32)InstancePtr->ShaMode);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
@@ -465,7 +468,6 @@ static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr
 		 * If Key provided is equal to block length,
 		 *  - The key provided is the processed key.
 		 */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = Xil_SMemCpy(ProcessedKey, KeyLen, (u8 *)(UINTPTR)KeyAddr, KeyLen, KeyLen);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
@@ -498,14 +500,12 @@ END:
  * 			updated with the result.
  * @param	BlockLen Block length of the SHA mode.
  *
- * @return	None.
- *
  *************************************************************************************************/
 static inline void XHmac_Xor(const u32 *Data, const u32 Value, u32 *Result, u32 BlockLen)
 {
 	u32 Index;
 
-	/** Perform XOR operation of each word of Data with Value. */
+	/** Perform XOR operation of each word of Data with OPAD/IPAD value. */
 	for (Index = 0x0U; Index < (BlockLen / XASUFW_WORD_LEN_IN_BYTES); Index++) {
 		Result[Index] = Data[Index] ^ Value;
 	}

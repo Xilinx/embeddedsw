@@ -72,9 +72,11 @@ static inline u32 XAsufw_GetModuleId(u32 Header)
  * @param	ReqId		Request Unique ID.
  *
  * @return
- * 	- XASUFW_SUCCESS, On successful execution of command.
- * 	- XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, when module is not registered.
+ * 	- XASUFW_SUCCESS, if command execution is successful.
+ * 	- XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, if module is not registered.
  * 	- XASUFW_FAILURE, if there is any failure.
+ * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress (This status is returned if the DMA
+ * 	  non-blocking operation is initiated).
  *
  *************************************************************************************************/
 s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 ReqId)
@@ -84,14 +86,14 @@ s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 ReqId)
 	u32 ModuleId = (QueueBuf->ReqBuf.Header & XASU_MODULE_ID_MASK) >> XASU_MODULE_ID_SHIFT;
 	const XAsufw_Module *Module = NULL;
 
-	/** Get module ID. */
+	/** Get module from the module ID received in the command header. */
 	Module = XAsufw_GetModule(ModuleId);
 	if (Module == NULL) {
 		Status = XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED;
 		goto END;
 	}
 
-	/** Change request buffer status to Command in progress. */
+	/** Change request buffer status to command in progress and call the command handler. */
 	QueueBuf->ReqBufStatus = XASU_COMMAND_IN_PROGRESS;
 	Status = Module->Cmds[CmdId].CmdHandler(&QueueBuf->ReqBuf, ReqId);
 
@@ -120,8 +122,8 @@ void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, s32 Response)
 	XAsu_ChannelQueueBuf *QueueBuf = XLinkList_ContainerOf(ReqBuf, XAsu_ChannelQueueBuf, ReqBuf);
 
 	/**
-	 * Update command status in the request queue, the response in response queue and trigger an
-	 * interrupt to the requested channel.
+	 * Update command status with execution complete in the request queue.
+	 * Update response in the response queue.
 	 */
 	QueueBuf->ReqBufStatus = XASU_COMMAND_EXECUTION_COMPLETE;
 	QueueBuf->RespBuf.Header = QueueBuf->ReqBuf.Header;
@@ -151,14 +153,17 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf)
 	u32 ModuleId = XAsufw_GetModuleId(ReqBuf->Header);
 	const XAsufw_Module *Module = NULL;
 
-	/** Get module ID. */
+	/** Get module from the module ID received in the command header and validate. */
 	Module = XAsufw_GetModule(ModuleId);
 	if (Module == NULL) {
 		Status = XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED;
 		goto END;
 	}
 
-	/** Check if Cmd ID is greater than the max supported commands */
+	/**
+	 * Check if command ID received in the command header is greater than the max supported
+	 * commands by the module.
+	 */
 	if (CmdId >= Module->CmdCnt) {
 		Status = XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED;
 		goto END;
@@ -173,7 +178,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function checks for the availability of required resourses for the command. If
+ * @brief	This function checks for the availability of required resources for the command. If
  * the required resources are available and the corresponding module had registered for the
  * resource handler, this function allocates the necessary resources for the command.
  *
@@ -182,7 +187,7 @@ END:
  *
  * @return
  *	- XASUFW_SUCCESS, if the required resources are available.
- *	- XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, when module is not registered.
+ *	- XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, if module is not registered.
  *	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
@@ -194,21 +199,21 @@ s32 XAsufw_CheckAndAllocateResources(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	const XAsufw_Module *Module = NULL;
 	u16 ReqResources;
 
-	/** Get module ID. */
+	/** Get module from the module ID received in the command header. */
 	Module = XAsufw_GetModule(ModuleId);
 	if (Module == NULL) {
 		Status = XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED;
 		goto END;
 	}
 
-	/**
-	 * If resources required array is registered with module, check if required resources are
-	 * available.
-	 */
+	/** Check for the resource availability if ResourcesRequired is registered by the module. */
 	if (Module->ResourcesRequired != NULL) {
 		ReqResources = Module->ResourcesRequired[CmdId];
 		Status = XAsufw_CheckResourceAvailability(ReqResources, ReqId, ReqBuf);
-		/** Allocate required resources if the module has registered for the resource handler. */
+		/**
+		 * If required resources are available, allocate the resource.
+		 * Otherwise, return error code.
+		 */
 		if ((Status == XASUFW_SUCCESS) && (Module->ResourceHandler != NULL)) {
 			Status = Module->ResourceHandler(ReqBuf, ReqId);
 		}

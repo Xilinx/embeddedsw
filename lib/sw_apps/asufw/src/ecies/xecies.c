@@ -65,13 +65,13 @@ static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
  * @param	EciesParams	Pointer to the XAsu_EciesParams structure.
  *
  * @return
- * 	- XASUFW_SUCCESS, if operation was successful.
+ * 	- XASUFW_SUCCESS, if ECIES encryption is successful.
  * 	- XASUFW_ECIES_INVALID_PARAM, if input parameters are invalid.
- * 	- XASUFW_ECIES_PVT_KEY_GEN_FAILURE, if private key generation is failure.
- * 	- XASUFW_ECIES_PUB_KEY_GEN_FAILURE, if public key generation is failure.
- * 	- XASUFW_ECIES_ECDH_FAILURE, if ECDH operation is failure.
- * 	- XASUFW_ECIES_KDF_FAILURE, if KDF operation is a failure.
- * 	- XASUFW_ECIES_AES_FAILURE, if AES operation is a failure.
+ * 	- XASUFW_ECIES_PVT_KEY_GEN_FAILURE, if private key generation fails.
+ * 	- XASUFW_ECIES_PUB_KEY_GEN_FAILURE, if public key generation fails.
+ * 	- XASUFW_ECIES_ECDH_FAILURE, if ECDH operation fails.
+ * 	- XASUFW_ECIES_KDF_FAILURE, if KDF operation fails.
+ * 	- XASUFW_ECIES_AES_FAILURE, if AES operation fails.
  *
  *************************************************************************************************/
 s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
@@ -84,7 +84,7 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	u8 KOut[XASU_AES_KEY_SIZE_256BIT_IN_BYTES] = {0U};
 	u8 PrivKey[XASU_ECC_P521_SIZE_IN_BYTES] = {0U};
 
-	/** Validate Input parameters. */
+	/** Validate the input parameters. */
 	if ((DmaPtr == NULL) || (ShaInstancePtr == NULL) || (AesInstancePtr == NULL)) {
 		Status = XASUFW_ECIES_INVALID_PARAM;
 		goto END;
@@ -122,7 +122,7 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 		EciesParams->EccKeyLength, (u64)(UINTPTR)PrivKey, EciesParams->RxKeyAddr,
 		(u64)(UINTPTR)SharedSecret, 0U);
 
-	/** Zeroize the private key. */
+	/** Zeroize the private key immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, PrivKey,
 			XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -135,7 +135,7 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcies_KdfCompute(DmaPtr, ShaInstancePtr, EciesParams, SharedSecret, KOut);
 
-	/** Zeroize the shared secret */
+	/** Zeroize the shared secret immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, SharedSecret,
 			XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -152,7 +152,7 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	Status = XEcies_AesCompute(AesInstancePtr, DmaPtr, EciesParams, KOut,
 				   XASU_AES_ENCRYPT_OPERATION);
 
-	/** Zeroize KOut - key derived from KDF. */
+	/** Zeroize the key derived from KDF immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, KOut,
 			XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -175,11 +175,11 @@ END:
  * @param	EciesParams	Pointer to the XAsu_EciesParams structure.
  *
  * @return
- * 	- XASUFW_SUCCESS, if initialization was successful.
+ * 	- XASUFW_SUCCESS, if ECIES decryption is successful.
  * 	- XASUFW_ECIES_INVALID_PARAM, if input parameters are invalid.
- * 	- XASUFW_ECIES_ECDH_FAILURE, if ECDH operation is failure.
- * 	- XASUFW_ECIES_KDF_FAILURE, if KDF operation is a failure.
- * 	- XASUFW_ECIES_AES_FAILURE, if AES operation is a failure.
+ * 	- XASUFW_ECIES_ECDH_FAILURE, if ECDH operation fails.
+ * 	- XASUFW_ECIES_KDF_FAILURE, if KDF operation fails.
+ * 	- XASUFW_ECIES_AES_FAILURE, if AES operation fails.
  *
  *************************************************************************************************/
 s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
@@ -191,7 +191,7 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	u8 SharedSecret[XASU_ECC_P521_SIZE_IN_BYTES] = {0U};
 	u8 KOut[XASU_AES_KEY_SIZE_256BIT_IN_BYTES] = {0U};
 
-	/** Validate Input parameters. */
+	/** Validate the input parameters. */
 	if ((DmaPtr == NULL) || (ShaInstancePtr == NULL) || (AesInstancePtr == NULL)) {
 		Status = XASUFW_ECIES_INVALID_PARAM;
 		goto END;
@@ -218,7 +218,7 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcies_KdfCompute(DmaPtr, ShaInstancePtr, EciesParams,	SharedSecret, KOut);
 
-	/** Zeroize the shared secret. */
+	/** Zeroize the shared secret immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, SharedSecret,
 		XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -235,7 +235,7 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	Status = XEcies_AesCompute(AesInstancePtr, DmaPtr, EciesParams, KOut,
 				   XASU_AES_DECRYPT_OPERATION);
 
-	/** Zeroize KOut - key derived from KDF. */
+	/** Zeroize the key derived from KDF immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, KOut,
 			XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -259,7 +259,7 @@ END:
  * @param	KOutPtr		Pointer to store the key out.
  *
  * @return
- * 	- XASUFW_SUCCESS, if initialization was successful.
+ * 	- XASUFW_SUCCESS, if KDF compute operation is successful.
  * 	- Errors codes from KDF, if KDF operation fails.
  *
  *************************************************************************************************/
@@ -269,7 +269,7 @@ static s32 XEcies_KdfCompute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XAsu_KdfParams KdfParams;
 
-	/** Provide inputs to XAsu_KdfParams struture. */
+	/** Provide inputs to XAsu_KdfParams structure. */
 	if (EciesParams->AesKeySize == XASU_AES_KEY_SIZE_128_BITS) {
 		KdfParams.KeyOutLen = XASU_AES_KEY_SIZE_128BIT_IN_BYTES;
 	} else {
@@ -283,7 +283,7 @@ static s32 XEcies_KdfCompute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	KdfParams.ContextAddr = EciesParams->ContextAddr;
 	KdfParams.ContextLen = EciesParams->ContextLen;
 
-	/** Perform KDF operation. */
+	/** Perform KDF compute operation. */
 	Status = XKdf_Compute(DmaPtr, ShaInstancePtr, &KdfParams);
 
 	return Status;
@@ -303,8 +303,8 @@ static s32 XEcies_KdfCompute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
  * 				XASU_AES_DECRYPT_OPERATION - Decryption operation.
  *
  * @return
- * 	- XASUFW_SUCCESS, if initialization was successful.
- * 	- XASUFW_ECIES_AES_WRITE_KEY_FAILURE, if write key fails.
+ * 	- XASUFW_SUCCESS, if AES operation is successful.
+ * 	- XASUFW_ECIES_AES_WRITE_KEY_FAILURE, if AES write key fails.
  * 	- Errors codes from AES, if AES operation fails.
  *
  *************************************************************************************************/
@@ -320,14 +320,14 @@ static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
 	KeyObject.KeySrc = XASU_AES_USER_KEY_7;
 	KeyObject.KeyAddress = (u64)(UINTPTR)(Key);
 
-	/** AES write key. */
+	/** Write AES key. */
 	Status = XAes_WriteKey(AesInstancePtr, DmaPtr, (u64)(UINTPTR)&KeyObject);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECIES_AES_WRITE_KEY_FAILURE;
 		goto END;
 	}
 
-	/* AES parameters structure initialization for encryption */
+	/* Initialize AES parameters structure for encryption/decryption operation. */
 	AesParams.EngineMode = (u8)XASU_AES_GCM_MODE;
 	AesParams.OperationType = OperationType;
 	AesParams.KeyObjectAddr = (u64)(UINTPTR)&KeyObject;
@@ -346,6 +346,7 @@ static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
 	Status = XAes_Compute(AesInstancePtr, DmaPtr, &AesParams);
 
 END:
+	/** Zeroize the key object. */
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 

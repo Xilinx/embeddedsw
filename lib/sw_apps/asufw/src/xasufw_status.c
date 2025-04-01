@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -41,12 +41,12 @@
  * Bit 19-10    : Second error code which is responsible for failure
  * Bit 9-0      : First error code which is responsible for failure
  */
-#define XASUFW_FIRST_ERROR_CODE_MASK	        (0x000003FFU) /**< Mask of first error */
-#define XASUFW_SECOND_ERROR_CODE_MASK           (0x000FFC00U) /**< Mask of second error */
+#define XASUFW_FIRST_ERROR_CODE_MASK	        (0x000003FFU) /**< Mask for first error */
+#define XASUFW_SECOND_ERROR_CODE_MASK           (0x000FFC00U) /**< Mask for second error */
 #define XASUFW_SECOND_ERROR_CODE_SHIFT          (10U)		  /**< Second error shift value */
-#define XASUFW_FINAL_ERROR_CODE_MASK            (0x3FF00000U) /**< Mask of final error */
-#define XASUFW_FINAL_ERROR_CODE_SHIFT           (20U)		  /**< Shift value of final error */
-#define XASUFW_BUF_CLEAR_STATUS_MASK            (0xC0000000U) /**< Buffer clear status mask */
+#define XASUFW_FINAL_ERROR_CODE_MASK            (0x3FF00000U) /**< Mask for final error */
+#define XASUFW_FINAL_ERROR_CODE_SHIFT           (20U)		  /**< Final error shift value */
+#define XASUFW_BUF_CLEAR_STATUS_MASK            (0xC0000000U) /**< Buffer clear status bits mask */
 #define XASUFW_BUF_CLEAR_STATUS_FAILURE_MASK    (0x80000000U) /**< Buffer clear status failure
 									mask*/
 #define XASUFW_BUF_CLEAR_STATUS_SUCCESS_MASK    (0x40000000U) /**< Buffer clear status success
@@ -62,10 +62,10 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function builds an error status on the order of the error occurance.
+ * @brief	This function builds an error status on the order of the error occurrence.
  *
- * @param	ErrorStatus	The current error which needs an update with provided new error codes.
- * @param	Error		Latest error code to be updated to AsuFwErrorCode.
+ * @param	ErrorStatus	The current error which needs an update with provided new error code.
+ * @param	Error		Latest error code to be updated to the ErrorStatus.
  *
  * @return	Updated error code will be returned by this function.
  *
@@ -89,6 +89,10 @@ s32 XAsufw_UpdateErrorStatus(s32 ErrorStatus, s32 Error)
 		Status |= ((LatestCode << XASUFW_SECOND_ERROR_CODE_SHIFT) &
 			   XASUFW_SECOND_ERROR_CODE_MASK);
 	} else {
+		/**
+		 * If both first and second error codes are existing, update the final error code with
+		 * the provided new error code.
+		 */
 		Status &= ~(XASUFW_FINAL_ERROR_CODE_MASK);
 		Status |= ((LatestCode << XASUFW_FINAL_ERROR_CODE_SHIFT) & XASUFW_FINAL_ERROR_CODE_MASK);
 	}
@@ -110,10 +114,18 @@ s32 XAsufw_UpdateBufStatus(s32 ErrorStatus, s32 BufStatus)
 {
 	u32 Status = (u32)ErrorStatus;
 
+	/**
+	 * If current error is zero and buffer clear status is non-zero, update buffer clear failure
+	 * mask.
+	 */
 	if ((Status == 0x0U) && (BufStatus != XASUFW_SUCCESS)) {
 		Status = Status | XASUFW_BUF_CLEAR_STATUS_FAILURE_MASK;
 	}
 
+	/**
+	 * If the current error is non-zero, update buffer clear status to the buffer clear status
+	 * bits.
+	 */
 	if ((Status != 0x0U) &&  ((Status & XASUFW_BUF_CLEAR_STATUS_FAILURE_MASK) == 0x0U)) {
 		Status &= (~XASUFW_BUF_CLEAR_STATUS_MASK);
 		Status |= (BufStatus != XASUFW_SUCCESS) ? XASUFW_BUF_CLEAR_STATUS_FAILURE_MASK

@@ -44,9 +44,8 @@
 #include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_ECC_CURVE_TYPE_DIFF_VALUE	3U /**< Substract this value to get curve type
-							value for ECC core from actual curve type
-							from IP CORES */
+#define XASUFW_ECC_CURVE_TYPE_DIFF_VALUE	3U /**< Subtract this value to get curve type
+							value for ECC core from actual curve type from IP CORES */
 
 /************************************** Type Definitions *****************************************/
 
@@ -70,7 +69,7 @@ static XAsufw_Module XAsufw_EccModule; /**< ASUFW ECC Module ID and commands arr
  * @brief	This function initializes the ECC module.
  *
  * @return
- * 	- On successful initialization of ECC module, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_SUCCESS, if ECC module initialization is successful.
  * 	- XASUFW_ECC_MODULE_REGISTRATION_FAILED, if ECC module registration fails.
  * 	- XASUFW_ECC_INIT_FAILED, if ECC init fails.
  *
@@ -80,7 +79,7 @@ s32 XAsufw_EccInit(void)
 	s32 Status = XASUFW_FAILURE;
 	XEcc *XAsufw_Ecc = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 
-	/** Contains the array of ASUFW ECC commands. */
+	/** The XAsufw_EccCmds array contains the list of commands supported by ECC module. */
 	static const XAsufw_ModuleCmd XAsufw_EccCmds[] = {
 		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccGenSign),
 		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccVerifySign),
@@ -91,7 +90,7 @@ s32 XAsufw_EccInit(void)
 		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccGenPubKey),
 	};
 
-	/** Contains the required resources for each supported command. */
+	/** The XAsufw_EccResourcesBuf contains the required resources for each supported command. */
 	/**
 	 * For XASU_ECC_GEN_SIGNATURE_CMD_ID, XASU_ECC_VERIFY_SIGNATURE_CMD_ID and
 	 * XASU_ECC_GEN_PUBKEY_CMD_ID, XASUFW_ECC_RESOURCE_MASK checks for the availability of ECC
@@ -131,7 +130,7 @@ s32 XAsufw_EccInit(void)
 		goto END;
 	}
 
-	/** Initialize ECC instance. */
+	/** Initialize the ECC crypto engine. */
 	Status = XEcc_Initialize(XAsufw_Ecc);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INIT_FAILED);
@@ -369,8 +368,9 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId	Request Unique ID.
  *
  * @return
- *	- Returns XASUFW_SUCCESS on successful execution of the command.
- *	- Otherwise, returns an error code.
+ *	- XASUFW_SUCCESS, if command execution is successful.
+ *	- XASUFW_ECDH_GEN_SECRET_OPERATION_FAIL, if shared secret generation fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -405,9 +405,10 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- Returns XASUFW_SUCCESS, if KAT is successful.
- * 	- Error code, returned when XAsufw_EccCoreKat or XAsufw_RsaEccKat API fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_SUCCESS, if KAT is successful.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal release resource is requested.
+ * 	- Error code from XAsufw_EccCoreKat or XAsufw_RsaEccKat, if any failure occurs.
+
  *
  *************************************************************************************************/
 static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -443,8 +444,9 @@ END:
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 		- Returns XASUFW_SUCCESS on successful execution of the command.
- *		- Otherwise, returns an error code.
+ * 		- XASUFW_SUCCESS, if command execution is successful.
+ *		- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ *		- Error codes from XAsufw_P192EcdhKat, if any operation fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -473,7 +475,7 @@ static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId	Request Unique ID.
  *
  * @return
- *	- Returns XASUFW_SUCCESS on successful execution of the command.
+ *	- XASUFW_SUCCESS, if command execution is successful.
  *	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
@@ -490,12 +492,18 @@ static s32 XAsufw_EccGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 /*************************************************************************************************/
 /**
- * @brief	This function is used to get the resource ID when ECC_RESOURCE_MASK is included.
+ * @brief	This function is used to get the resource ID when XASUFW_ECC_RESOURCE_MASK is included.
+ * For XASU_ECC_GEN_SIGNATURE_CMD_ID and XASU_ECC_VERIFY_SIGNATURE_CMD_ID,
+ * 	- XASUFW_ECC_RESOURCE_MASK checks for the availability of ECC or RSA core based on the
+ *	  curve type received.
+ * For XASU_ECC_KAT_CMD_ID, both RSA and ECC cores are required. So, XASUFW_ECC_RESOURCE_MASK
+ * checks for the availability of ECC core and XASUFW_RSA_RESOURCE_MASK checks for the
+ * availability of RSA core.
  *
  * @param	ReqBuf	Pointer to the request buffer.
  *
  * @return
- *	- Returns the resource ID
+ *	- ECC or RSA resource ID.
  *
  *************************************************************************************************/
 XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)

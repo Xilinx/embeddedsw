@@ -95,9 +95,13 @@ extern "C" {
 
 /** ASU_IO_BUS IRQ_STATUS register address */
 #define ASU_IO_BUS_IRQ_STATUS						(ASU_IO_BUS_BASEADDR + 0x00000030U)
+/** ASU_IO_BUS IRQ_STATUS DMA0 done interrupt mask */
 #define ASU_IO_BUS_IRQ_STATUS_DMA0_DONE_INTR_MASK	(0x00080000U)
+/** ASU_IO_BUS IRQ_STATUS DMA0 done interrupt number */
 #define ASU_IO_BUS_IRQ_STATUS_DMA0_DONE_INTR_NUM	(19U)
+/** ASU_IO_BUS IRQ_STATUS DMA1 done interrupt mask */
 #define ASU_IO_BUS_IRQ_STATUS_DMA1_DONE_INTR_MASK	(0x00100000U)
+/** ASU_IO_BUS IRQ_STATUS DMA0 done interrupt number */
 #define ASU_IO_BUS_IRQ_STATUS_DMA1_DONE_INTR_NUM	(20U)
 
 /** ASU_IO_BUS IRQ_ACK register address */

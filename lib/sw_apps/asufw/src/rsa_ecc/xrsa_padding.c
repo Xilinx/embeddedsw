@@ -53,7 +53,7 @@
 #define XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET		(0X01U)	/**< RSA OAEP
 								zero padding index offset value*/
 #define XRSA_PSS_HASH_BLOCK_ZEROIZE_LEN				(0X08U)	/**< RSA PSS
-								no of zeroes len in hash block */
+								no of zeroes length in hash block */
 #define XRSA_PSS_MSB_PADDING_MASK				(0X7FU)	/**< RSA PSS
 									mask value */
 #define XRSA_PSS_MSB_PADDING_CHECK_MASK				(0X80U)	/**< RSA PSS
@@ -81,6 +81,7 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode,
 			    const XAsufw_MgfInput *MgfInput);
+
 /************************************ Variable Definitions ***************************************/
 
 /*************************************************************************************************/
@@ -89,22 +90,22 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
  * 		of length equal to keysize.
  *
  * @param	DmaPtr			Pointer to the AsuDma instance.
- * @param	ShaInstancePtr		Pointer to the Sha instance.
+ * @param	ShaInstancePtr		Pointer to the SHA instance.
  * @param	PaddingParamsPtr	Pointer to the XAsu_RsaOaepPaddingParams structure which
  * 					holds OAEP padding related parameters.
  *
  * @return
- *		- XASUFW_SUCCESS on success.
- *		- XASUFW_FAILURE on failure.
- *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
- *		- XASUFW_RSA_OAEP_INVALID_LEN, when input length is greater than OAEP defined length.
- * 		- XASUFW_CMD_IN_PROGRESS,when serving operation is not completed due to
- *		  SHA update operation using DMA.
- *		- XASUFW_RSA_OAEP_ENCRYPT_ERROR,when Public encryption error occurs after
+ *		- XASUFW_SUCCESS, if RSA OAEP encoding is successful.
+ *		- XASUFW_FAILURE, if RSA OAEP encoding fails.
+ *		- XASUFW_RSA_INVALID_PARAM, if input parameters validation fails.
+ *		- XASUFW_RSA_OAEP_INVALID_LEN, if input length is greater than OAEP defined length.
+ * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *		  non-blocking mode.
+ *		- XASUFW_RSA_OAEP_ENCRYPT_ERROR, if Public encryption error occurs after
  *		  OAEP padding.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL,when memset with zero fails.
- * 		- XASUFW_RSA_DMA_COPY_FAIL,when DMA copy fails.
- *		- XASUFW_RSA_MEM_COPY_FAIL,when memcpy fails
+ *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
+ * 		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ *		- XASUFW_RSA_MEM_COPY_FAIL, if memcpy fails
  *
  *************************************************************************************************/
 s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
@@ -126,7 +127,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	XAsufw_MgfInput MgfInput;
 	XAsu_ShaOperationCmd ShaParamsInput;
 
-	/** Validatations of inputs. */
+	/** Validate the input parameters. */
 	if (PaddingParamsPtr == NULL) {
 		Status = XASUFW_RSA_INVALID_PARAM;
 		goto END;
@@ -312,15 +313,15 @@ RET:
  * 					holds OAEP padding related parameters.
  *
  * @return
- *		- XASUFW_SUCCESS on success.
- *		- XASUFW_FAILURE on failure.
- *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
- *		- XASUFW_RSA_OAEP_INVALID_LEN, when input length is greater than OAEP defined length.
- * 		- XASUFW_CMD_IN_PROGRESS,when serving operation is not completed due to
- *		  SHA update operation using DMA.
- * 		- XASUFW_RSA_DMA_COPY_FAIL,when DMA copy fails.
- *		- XASUFW_RSA_MEM_COPY_FAIL,when memcpy fails
- *		- Also can return termination error codes from 0xBBU,0xBCU and 0xBDU,
+ *		- XASUFW_SUCCESS, if OAEP decode operation is successful.
+ *		- XASUFW_FAILURE, if OAEP decode operation fails.
+ *		- XASUFW_RSA_INVALID_PARAM, if input parameters are invalid.
+ *		- XASUFW_RSA_OAEP_INVALID_LEN, if input length is greater than OAEP defined length.
+ * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *		  non-blocking mode.
+ * 		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ *		- XASUFW_RSA_MEM_COPY_FAIL, if memcpy fails
+ *		- Also, this function can return termination error codes 0xBBU, 0xBCU and 0xBDU,
  * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
@@ -346,7 +347,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	XAsufw_MgfInput MgfInput;
 	XAsu_ShaOperationCmd ShaParamsInput;
 
-	/** Validatations of inputs. */
+	/** Validate the input parameters. */
 	if (PaddingParamsPtr == NULL) {
 		Status = XASUFW_RSA_INVALID_PARAM;
 		goto END;
@@ -370,6 +371,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	KeySize = PaddingParamsPtr->XAsu_RsaOpComp.KeySize;
 	Len = PaddingParamsPtr->XAsu_RsaOpComp.Len;
 
+	/** Validate input key size. */
 	Status = XAsu_RsaValidateKeySize(KeySize);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_INVALID_PARAM;
@@ -536,7 +538,7 @@ RET:
 /*************************************************************************************************/
 /**
  * @brief	This function performs RSA PSS padding for the provided message to output a data
- * 		of length equal to keysize.
+ * 		of length equal to key size.
  *
  * @param	DmaPtr			Pointer to the AsuDma instance.
  * @param	ShaInstancePtr		Pointer to the Sha instance.
@@ -544,14 +546,14 @@ RET:
  * 					holds PSS padding related parameters.
  *
  * @return
- *		- XASUFW_SUCCESS on success.
- *		- XASUFW_FAILURE on failure.
+ *		- XASUFW_SUCCESS, if PSS sign generation is successful.
+ *		- XASUFW_FAILURE, if PSS sign generation fails.
  *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
- * 		- XASUFW_CMD_IN_PROGRESS,when serving operation is not completed due to
- *		  SHA update operation using DMA.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL,when memset with zero fails.
- * 		- XASUFW_RSA_DMA_COPY_FAIL,when DMA copy fails.
- *		- Also can return termination error codes from 0xBFU to 0xC3U and 0xD0U,
+ * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *		  non-blocking mode.
+ *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
+ * 		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ *		- Also, this function can return termination error codes from 0xBFU to 0xC3U and 0xD0U,
  * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
@@ -573,7 +575,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	XAsufw_MgfInput MgfInput;
 	XAsu_ShaOperationCmd ShaParamsInput;
 
-	/** Validatations of inputs. */
+	/** Validate the input parameters. */
 	if (PaddingParamsPtr == NULL) {
 		Status = XASUFW_RSA_INVALID_PARAM;
 		goto END;
@@ -756,6 +758,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	/** Make MSBit of output data as zero. */
 	OutputData[XRSA_DATA_BLOCK_FIRST_INDEX] = OutputData[XRSA_DATA_BLOCK_FIRST_INDEX]
 							& XRSA_PSS_MSB_PADDING_MASK;
+
 	/** Append hash buffer, and end byte 0xBC for final padded output. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy(&OutputData[DataBlockLen],
@@ -808,14 +811,15 @@ RET:
  * 					holds PSS padding related parameters.
  *
  * @return
- *		- XASUFW_SUCCESS, if provided signature is valid.
- *		- XASUFW_FAILURE on failure.
- *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
- * 		- XASUFW_CMD_IN_PROGRESS,when serving operation is not completed due to
- *		  SHA update operation using DMA.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL,when memset with zero fails.
- * 		- XASUFW_RSA_DMA_COPY_FAIL,when DMA copy fails.
- *		- Also can return termination error codes from 0xC4U to 0xCAU and 0xD0U,
+ *		- XASUFW_SUCCESS, if PSS sign verification is successful.
+ *		- XASUFW_FAILURE, if PSS sign verification fails.
+ *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
+ * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *		  non-blocking mode.
+ *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
+ * 		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ *		- Also, this function can return termination error codes from 0xC4U to 0xCAU and 0xD0U,
+
  * 		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
@@ -842,7 +846,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	XAsufw_MgfInput MgfInput;
 	XAsu_ShaOperationCmd ShaParamsInput;
 
-	/** Validatations of inputs. */
+	/** Validate the input parameters. */
 	if (PaddingParamsPtr == NULL) {
 		Status = XASUFW_RSA_INVALID_PARAM;
 		goto END;
@@ -1090,20 +1094,19 @@ RET:
 
 /*************************************************************************************************/
 /**
- * @brief	This function takes an input of variable length and
- *		a desired output length as input, and provides fixed output
- *		mask using cryptographic hash function.
+ * @brief	This function takes an input of variable length and a desired output length as input,
+ * and provides fixed output mask using cryptographic hash function.
  *
  * @param	DmaPtr		Pointer to the AsuDma instance.
- * @param	ShaInstancePtr	Pointer to the Sha instance.
+ * @param	ShaInstancePtr	Pointer to the SHA instance.
  * @param	ShaMode		SHA mode selection.
  * @param       MgfInput	Pointer to all required parameters of MGF.
  *
  * @return
- *		- XASUFW_SUCCESS on success.
- *		- XASUFW_FAILURE on failure.
- *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL,when memset with zero fails.
+ *		- XASUFW_SUCCESS, if mask generation is successful.
+ *		- XASUFW_FAILURE, if mask generation fails.
+ *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
+ *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
  *
  *************************************************************************************************/
 static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode,

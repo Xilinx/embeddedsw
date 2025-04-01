@@ -53,7 +53,7 @@ static XAsufw_Module XAsufw_HmacModule; /**< ASUFW HMAC Module ID and commands a
  * @brief	This function initializes the HMAC module.
  *
  * @return
- * 	- On successful initialization of HMAC module, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_SUCCESS, if HMAC module initialization is successful.
  * 	- XASUFW_HMAC_MODULE_REGISTRATION_FAILED, if HMAC module registration fails.
  * 	- XASUFW_HMAC_INIT_FAILED, if HMAC init fails.
  *
@@ -63,7 +63,7 @@ s32 XAsufw_HmacInit(void)
 	volatile s32 Status = XASUFW_FAILURE;
 	XHmac *HmacPtr = XHmac_GetInstance();
 
-	/** Contains the array of ASUFW HMAC commands. */
+	/** The XAsufw_HmacCmds array contains the list of commands supported by HMAC module. */
 	static const XAsufw_ModuleCmd XAsufw_HmacCmds[] = {
 		[XASU_HMAC_COMPUTE_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HmacComputeSha),
 		[XASU_HMAC_COMPUTE_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HmacComputeSha),
@@ -71,7 +71,7 @@ s32 XAsufw_HmacInit(void)
 		[XASU_HMAC_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HmacGetInfo),
 	};
 
-	/** Contains the required resources for each supported command. */
+	/** The XAsufw_HmacResourcesBuf contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_HmacResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_HmacCmds)] = {
 		[XASU_HMAC_COMPUTE_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 		XASUFW_HMAC_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK,
@@ -160,13 +160,13 @@ END:
  * @param	ReqId		Requester ID.
  *
  * @return
- * 	- XASUFW_SUCCESS - if SHA2 hash operation is successful.
- * 	- XASUFW_SHA_INVALID_SHA_MODE - if input sha mode is invalid
- * 	- XASUFW_HMAC_INITIALIZATION_FAILED - if HMAC initialisation fails.
- * 	- XASUFW_HMAC_UPDATE_FAILED - if HMAC update fails.
- * 	- XASUFW_HMAC_FINAL_FAILED - if HMAC final fails.
- * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED - if DMA resource allocation fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
+ * 	- XASUFW_SUCCESS, if SHA2 hash operation is successful.
+ * 	- XASUFW_SHA_INVALID_SHA_MODE, if input sha mode is invalid
+ * 	- XASUFW_HMAC_INITIALIZATION_FAILED, if HMAC initialisation fails.
+ * 	- XASUFW_HMAC_UPDATE_FAILED, if HMAC update fails.
+ * 	- XASUFW_HMAC_FINAL_FAILED, if HMAC final fails.
+ * 	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA resource allocation fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -178,12 +178,13 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 				 XASUFW_RESP_DATA_OFFSET;
 	static u32 HmacCmdStage = 0x0U;
 
-	/** Jump to HMAC_STAGE_UPDATE_DONE if the HmacCmdStage is HMAC_UPDATE_DONE. */
+	/** Jump to HMAC_STAGE_UPDATE_DONE if HMAC update is in progress. */
 	if (HmacCmdStage != 0x0U) {
 		goto HMAC_STAGE_UPDATE_IN_PROGRESS;
 	}
 
 	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT) {
+		/** If operation flags include HMAC UPDATE, perform HMAC init operation. */
 		Status = XHmac_Init(HmacPtr, XAsufw_HmacModule.AsuDmaPtr, XAsufw_HmacModule.ShaPtr,
 				    HmacParamsPtr->KeyAddr, HmacParamsPtr->KeyLen,
 				    HmacParamsPtr->ShaMode, HmacParamsPtr->HmacLen);
@@ -198,9 +199,7 @@ HMAC_STAGE_UPDATE_IN_PROGRESS:
 	HmacCmdStage = 0x0U;
 
 	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_UPDATE) == XASU_HMAC_UPDATE) {
-		/**
-		 * If operation flags include HMAC UPDATE, perform HMAC update operation.
-		 */
+		/** If operation flags include HMAC UPDATE, perform HMAC update operation. */
 		Status = XHmac_Update(HmacPtr, XAsufw_HmacModule.AsuDmaPtr,
 				      HmacParamsPtr->MsgBufferAddr, HmacParamsPtr->MsgLen,
 				      (u32)HmacParamsPtr->IsLast);
@@ -244,7 +243,7 @@ END:
 	XAsufw_HmacModule.AsuDmaPtr = NULL;
 
 	if (Status != XASUFW_SUCCESS) {
-		/** Release resources. */
+		/** Release resources upon any failure or after HMAC operation is complete. */
 		if (XAsufw_ReleaseResource(XASUFW_HMAC, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
@@ -263,6 +262,7 @@ DONE:
  * @return
  * 	- XASUFW_SUCCESS, if KAT is successful.
  * 	- Error code, returned when XAsufw_HmacOperationKat API fails.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_HmacKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -270,6 +270,7 @@ static s32 XAsufw_HmacKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	volatile s32 Status = XASUFW_FAILURE;
 	(void)ReqBuf;
 
+	/** Perform HMAC KAT with known inputs. */
 	Status = XAsufw_HmacOperationKat(XAsufw_HmacModule.AsuDmaPtr);
 
 	/** Release resources. */
@@ -290,7 +291,7 @@ static s32 XAsufw_HmacKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId	Requester ID.
  *
  * @return
- *	- Returns XASUFW_SUCCESS on successful execution of the command.
+ *	- XASUFW_SUCCESS, if command execution is successful.
  *	- Otherwise, returns an error code.
  *
  *************************************************************************************************/

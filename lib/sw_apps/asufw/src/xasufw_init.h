@@ -42,13 +42,14 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 
 /************************************** Type Definitions *****************************************/
-/** @brief Performance measurement structure. */
+/** @brief This structure contains the parameters required for Performance measurement. */
 typedef struct {
 	u64 TPerfMs; /**< Whole part of time in milliseconds */
 	u64 TPerfMsFrac; /**< Fractional part of time in milliseconds */
 } XAsufw_PerfTime;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+/** Device ID for ASU MB IO module */
 #ifndef SDT
 #define XASUFW_IOMODULE_DEVICE_ID    XPAR_IOMODULE_0_DEVICE_ID
 #else

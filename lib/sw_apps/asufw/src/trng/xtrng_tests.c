@@ -34,9 +34,9 @@
 #include "xasufw_hw.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XTRNG_KAT_DEFAULT_DF_LENGTH 7U /**<Default Derivative function length of TRNG KAT*/
-#define XTRNG_KAT_DEFAULT_SEED_LIFE 2U /**<Default seed life of TRNG KAT*/
-#define XTRNG_KAT_SEED_LEN_IN_BYTES 128U /**<Seed length in bytes of TRNG KAT*/
+#define XTRNG_KAT_DEFAULT_DF_LENGTH 7U /**< Default Derivative function length of TRNG KAT */
+#define XTRNG_KAT_DEFAULT_SEED_LIFE 2U /**< Default seed life of TRNG KAT */
+#define XTRNG_KAT_SEED_LEN_IN_BYTES 128U /**< Seed length in bytes of TRNG KAT */
 
 /************************************** Type Definitions *****************************************/
 
@@ -49,14 +49,14 @@ static s32 XTrng_HealthTest(XTrng *InstancePtr);
 
 /*************************************************************************************************/
 /**
- * @brief	This function runs DRBG self test i.e DRBG full cycle Instantiate+Reseed,
+ * @brief	This function runs DRBG self-test i.e DRBG full cycle Instantiate+Reseed,
  * 		Reseed and Generate.
  *
  * @param	InstancePtr	Pointer to the TRNG instance.
  *
  * @return
- * 	- Upon successfully running DRBG KAT, it returns XASUFW_SUCCESS.
- * 	- XASUFW_TRNG_KAT_FAILED_ERROR, if generated random number is mismatched with expected.
+ * 	- XASUFW_SUCCESS, if DRBG KAT is successful.
+ * 	- XASUFW_TRNG_KAT_FAILED_ERROR, if generated and expected random number does not match.
  * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
@@ -165,12 +165,12 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function runs preoperational self tests and updates TRNG error state
+ * @brief	This function runs preoperational self-tests and updates TRNG error state.
  *
  * @param	InstancePtr	Pointer to the TRNG instance.
  *
  * @return
- * 	- Upon success, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_SUCCESS, if preoperational self-test is successful.
  * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
@@ -207,7 +207,7 @@ END:
  * @param	InstancePtr	Pointer to the TRNG instance.
  *
  * @return
- * 	- Upon successful completion of health test on TRNG core, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_SUCCESS, if health test on TRNG core is successful.
  * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/

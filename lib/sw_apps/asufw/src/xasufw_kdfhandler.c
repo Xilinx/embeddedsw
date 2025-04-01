@@ -53,7 +53,7 @@ static XAsufw_Module XAsufw_KdfModule; /**< ASUFW KDF Module ID and commands arr
  * @brief	This function initializes the KDF module.
  *
  * @return
- * 	- On successful initialization of KDF module, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_SUCCESS, if KDF module initialization is successful.
  * 	- XASUFW_KDF_MODULE_REGISTRATION_FAILED, if KDF module registration fails.
  *
  *************************************************************************************************/
@@ -61,7 +61,7 @@ s32 XAsufw_KdfInit(void)
 {
 	volatile s32 Status = XASUFW_FAILURE;
 
-	/** Contains the array of ASUFW KDF commands. */
+	/** The XAsufw_KdfCmds array contains the list of commands supported by KDF module. */
 	static const XAsufw_ModuleCmd XAsufw_KdfCmds[] = {
 		[XASU_KDF_COMPUTE_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KdfCompute),
 		[XASU_KDF_COMPUTE_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KdfCompute),
@@ -69,7 +69,7 @@ s32 XAsufw_KdfInit(void)
 		[XASU_KDF_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KdfGetInfo),
 	};
 
-	/** Contains the required resources for each supported command. */
+	/** The XAsufw_KdfResourcesBuf contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_KdfResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_KdfCmds)] = {
 		[XASU_KDF_COMPUTE_SHA2_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 		XASUFW_HMAC_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK | XASUFW_KDF_RESOURCE_MASK,
@@ -154,9 +154,9 @@ END:
  * @param	ReqId		Requester ID.
  *
  * @return
- * 	- XASUFW_SUCCESS - if KDF operation is successful.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED - upon illegal resource release.
- *  - Error codes from XKdf_Compute API upon any failures.
+ * 	- XASUFW_SUCCESS, if KDF operation is successful.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- Error codes from XKdf_Compute API, if any failure occurs.
  *
  *************************************************************************************************/
 static s32 XAsufw_KdfCompute(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -191,7 +191,8 @@ static s32 XAsufw_KdfCompute(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if KAT is successful.
- * 	- Error codes from XAsufw_KdfOperationKat API upon any failures.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- Error codes from XAsufw_KdfOperationKat API, if any failure occurs.
  *
  *************************************************************************************************/
 static s32 XAsufw_KdfKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -222,7 +223,7 @@ static s32 XAsufw_KdfKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId	Requester ID.
  *
  * @return
- *	- Returns XASUFW_SUCCESS on successful execution of the command.
+ *	- XASUFW_SUCCESS, if command execution is successful.
  *	- Otherwise, returns an error code.
  *
  *************************************************************************************************/
