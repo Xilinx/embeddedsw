@@ -44,7 +44,7 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function wraps a given key using a specified AES wrapping key.
+ * @brief	This function sends a command to wrap a given key using a specified AES wrapping key.
  *
  * @param	ClientParamsPtr		Pointer to the XAsu_ClientParams structure which holds
  * 					the client input parameters.
@@ -77,6 +77,7 @@ s32 XAsu_KeyWrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyWrap
 		goto END;
 	}
 
+	/** Set the command ID based on SHA type. */
 	if (KeyWrapParamsPtr->ShaType == XASU_SHA2_TYPE) {
 		CmdId = XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID;
 	} else if (KeyWrapParamsPtr->ShaType == XASU_SHA3_TYPE) {
@@ -86,12 +87,14 @@ s32 XAsu_KeyWrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyWrap
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_KEYWRAP_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -104,7 +107,8 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function unwraps a given key using a specified AES wrapping key.
+ * @brief	This function sends a command to ASUFW to unwrap a given key using a specified
+ * 		AES wrapping key.
  *
  * @param	ClientParamsPtr		Pointer to the XAsu_ClientParams structure which holds
  * 					the client input parameters.
@@ -137,6 +141,7 @@ s32 XAsu_KeyUnwrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyUn
 		goto END;
 	}
 
+	/** Set the command ID based on SHA type. */
 	if (KeyUnwrapParamsPtr->ShaType == XASU_SHA2_TYPE) {
 		CmdId = XASU_KEYWRAP_KEY_UNWRAP_SHA2_CMD_ID;
 	} else if (KeyUnwrapParamsPtr->ShaType == XASU_SHA3_TYPE) {
@@ -146,12 +151,14 @@ s32 XAsu_KeyUnwrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyUn
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_KEYWRAP_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -164,7 +171,8 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs Key Wrap Unwrap Known Answer Tests (KAT's).
+ * @brief	This function sends command to ASUFW to perform Key Wrap Unwrap Known Answer
+ * 		Tests (KAT's).
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
@@ -188,12 +196,14 @@ s32 XAsu_KeyWrapKat(XAsu_ClientParams *ClientParamsPtr)
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_KEYWRAP_KAT_CMD_ID, UniqueId, XASU_MODULE_KEYWRAP_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */

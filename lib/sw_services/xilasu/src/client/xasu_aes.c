@@ -46,8 +46,8 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs AES encryption/decryption operation on a given payload data
- * 		with specified AES mode.
+ * @brief	This function sends command to ASUFW to perform AES encryption/decryption operation
+ * 		on a given payload data	with specified AES mode.
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
@@ -68,7 +68,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 	u8 UniqueId;
 	void *AesCtx = NULL;
 
-	/** Validatations of inputs. */
+	/** Validate the input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -85,7 +85,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 		goto END;
 	}
 
-	/** For AES CCM mode, all operational flags should be set. */
+	/** Validate the operation flags for AES CCM mode to ensure all the flags are set. */
 	if ((AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE) && ((AesClientParamPtr->OperationFlags &
 			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) !=
 			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL))) {
@@ -117,7 +117,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 			goto END;
 		}
 
-		/** Validate Iv. */
+		/** Validate IV. */
 		Status = XAsu_AesValidateIvParams(AesClientParamPtr->EngineMode,
 			AesClientParamPtr->IvAddr, AesClientParamPtr->IvLen);
 		if (Status != XST_SUCCESS) {
@@ -128,7 +128,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 	/** Validate required parameters for AES update operation. */
 	if ((AesClientParamPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) {
 		/**
-		 * Both Aad and InputData/OutputData address and lengths cannot be zero at once.
+		 * Both AAD and InputData/OutputData address and lengths cannot be zero at once.
 		 * The minimum length of plaintext/AAD length must be at least 1 byte, while the
 		 * maximum length can be 0x1FFFFFFC bytes, which is the ASU DMA's maximum supported
 		 * data transfer length.
@@ -164,16 +164,15 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 			Status = XASU_INVALID_ARGUMENT;
 			goto END;
 		}
-
+		/** Validate IsLast flag. */
 		if ((AesClientParamPtr->IsLast != XASU_TRUE) && (AesClientParamPtr->IsLast != XASU_FALSE)) {
 			Status = XASU_INVALID_ARGUMENT;
 			goto END;
 		}
 	}
 
-	/** Validate required parameters for AES final operation. */
+	/** Validate tag for AES final operation. */
 	if ((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) == XASU_AES_FINAL) {
-		/** Validate Tag. */
 		Status = XAsu_AesValidateTagParams(AesClientParamPtr->EngineMode, AesClientParamPtr->TagAddr,
 			AesClientParamPtr->TagLen);
 		if (Status != XST_SUCCESS) {
@@ -181,14 +180,15 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 		}
 	}
 
-	/** When Operation flag is set to INIT */
+	/** If operation flag is set to INIT, */
 	if ((AesClientParamPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
+		/** - Generate Unique ID. */
 		UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_FALSE);
 		if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 			Status = XASU_INVALID_UNIQUE_ID;
 			goto END;
 		}
-		/* Save the Context */
+		/** - Save the context. */
 		AesCtx = XAsu_UpdateNGetCtx(UniqueId);
 		if (AesCtx == NULL) {
 			Status = XASU_FAIL_SAVE_CTX;
@@ -196,24 +196,26 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 		}
 		ClientParamPtr->ClientCtx = AesCtx;
 	}
-	/** If operation flag is either UPDATE or FINAL */
+	/** If operation flag is either UPDATE or FINAL, */
 	else {
-		/* Verify the context */
+		/** - Verify the context. */
 		Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr->ClientCtx, &UniqueId);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 
-	/** If FINISH operation flag is set, update response buffer details */
+	/** If FINISH operation flag is set, update response buffer details. */
 	if ((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) == XASU_AES_FINAL) {
 		XAsu_UpdateCallBackDetails(UniqueId, NULL, 0U, XASU_TRUE);
 		/* Free AES Ctx */
 		XAsu_FreeCtx(ClientParamPtr->ClientCtx);
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_AES_OPERATION_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U);
 
+	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, AesClientParamPtr,
 		sizeof(Asu_AesParams), Header);
 
@@ -223,7 +225,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs AES Known Answer Tests (KAT's).
+ * @brief	This function sends command to perform AES Known Answer Tests (KAT's).
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
@@ -247,14 +249,17 @@ s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr)
 		goto END;
 	}
 
+	/** Generate unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_AES_KAT_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U);
 
+	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
 
 END:

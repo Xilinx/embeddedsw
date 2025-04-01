@@ -48,12 +48,12 @@
 /**
  * @brief	This function validates input parameters for key wrap and unwrap.
  *
- * @param	KwpunwpParamsPtr	Pointer which holds the parameters of Key wrap unwrap
- * 					input arguments.
+ * @param	KwpunwpParamsPtr	Pointer to XAsu_KeyWrapParams structure that holds the input
+ * 		parameters for Key wrap and unwrap
  *
  * @return
- *		- Upon successful validation of input parameters, it returns XST_SUCCESS.
- *		- XST_FAILURE on failure.
+ *	- XST_SUCCESS, if input validation is successful.
+ * 	- XST_FAILURE, if input validation fails.
  *
  *************************************************************************************************/
 s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParamsPtr)
@@ -64,22 +64,26 @@ s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParam
 		goto END;
 	}
 
+	/** Validate that the addresses of all input and output buffers are non-zero. */
 	if ((KwpunwpParamsPtr->InputDataAddr == 0U) || (KwpunwpParamsPtr->OutputDataAddr == 0U)
 	    || (KwpunwpParamsPtr->KeyCompAddr == 0U)
 	    || (KwpunwpParamsPtr->OptionalLabelAddr == 0U)) {
 		goto END;
 	}
 
+	/** Validate that the length of all input and output sizes are non-zero. */
 	if ((KwpunwpParamsPtr->InputDataLen == 0U) || (KwpunwpParamsPtr->OutuputDataLen == 0U)
 	    || (KwpunwpParamsPtr->OptionalLabelSize == 0U)) {
 		goto END;
 	}
 
+	/** Validate AES key size. */
 	if ((KwpunwpParamsPtr->AesKeySize != XASU_AES_KEY_SIZE_128_BITS) &&
 		(KwpunwpParamsPtr->AesKeySize != XASU_AES_KEY_SIZE_256_BITS)) {
 		goto END;
 	}
 
+	/** Validate SHA type and Mode. */
 	if ((KwpunwpParamsPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
 	    (KwpunwpParamsPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
 	    (KwpunwpParamsPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
@@ -88,6 +92,7 @@ s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParam
 		goto END;
 	}
 
+	/** Validate RSA key size. */
 	Status = XAsu_RsaValidateKeySize(KwpunwpParamsPtr->RsaKeySize);
 	if (Status != XST_SUCCESS) {
 		goto END;

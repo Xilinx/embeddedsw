@@ -55,8 +55,10 @@ typedef struct {
 	u32 KeyInLen; /**< Length of the input key */
 	u32 ContextLen; /**< Length of the Context */
 	u32 KeyOutLen; /**< Length of the keying material output to be generated from KDF */
-	u8 ShaType; /**< Hash family type (SHA2/SHA3) */
-	u8 ShaMode; /**< Sha mode (SHA256/SHA384/SHA512/SHAKE256) */
+	u8 ShaType; /**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
+	u8 ShaMode; /**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
+		* (XASU_SHA_MODE_SHA256 / XASU_SHA_MODE_SHA384 / XASU_SHA_MODE_SHA512 /
+		* XASU_SHA_MODE_SHAKE256) */
 } XAsu_KdfParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

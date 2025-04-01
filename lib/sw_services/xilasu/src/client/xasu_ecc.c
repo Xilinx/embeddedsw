@@ -50,8 +50,8 @@ static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr);
 
 /*************************************************************************************************/
 /**
- * @brief	This function generates an ECDSA signature for the provided hash by using the
- * 		given private key associated with the elliptic curve.
+ * @brief	This function sends command to ASUFW to generate an ECDSA signature for the
+ * 		provided hash by using the given private key associated with the elliptic curve.
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
@@ -82,12 +82,14 @@ s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParam
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_ECC_GEN_SIGNATURE_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -100,7 +102,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function verifies the validity of an ECDSA signature for the provided hash
+ * @brief	This function sends a command to validate the ECDSA signature for the provided hash
  * 		using the provided ecc public key.
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
@@ -132,12 +134,14 @@ s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccPa
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_ECC_VERIFY_SIGNATURE_CMD_ID, UniqueId, XASU_MODULE_ECC_ID,
 					0U);
 
@@ -151,8 +155,8 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function computes the public key for the specified elliptic curve using the
- * 		provided private key.
+ * @brief	This function sends a command to generate public key for the specified elliptic curve
+ * 		using the provided private key.
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
@@ -194,12 +198,14 @@ s32 XAsu_EccGenPubKey(XAsu_ClientParams *ClientParamsPtr, XAsu_EccKeyParams *Ecc
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_ECC_GEN_PUBKEY_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -212,7 +218,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs ECC Known Answer Tests (KAT's).
+ * @brief	This function sends a command to perform ECC Known Answer Tests (KAT's).
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
@@ -236,12 +242,14 @@ s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr)
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_ECC_KAT_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -253,8 +261,8 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function generates an ECDH shared secret by using the given public key and
- * 		given private key associated with the elliptic curve.
+ * @brief	This function sends a command to ASUFW, to generate an ECDH shared secret,
+ * 		by using the provided ECC public key and private key.
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters
@@ -290,12 +298,14 @@ s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_ECDH_SHARED_SECRET_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -308,7 +318,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs ECDH Known Answer Tests (KAT's).
+ * @brief	This function sends a command to ASUFW to perform ECDH Known Answer Tests (KAT's).
  *
  * @param	ClientParamsPtr	Pointer to client params structure.
  *
@@ -330,12 +340,14 @@ s32 XAsu_EcdhKat(XAsu_ClientParams *ClientParamsPtr)
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_ECDH_KAT_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -353,8 +365,8 @@ END:
  * 				ECC input arguments.
  *
  * @return
- * 	- XST_SUCCESS upon successful validation.
- * 	- XASU_INVALID_ARGUMENT, upon invalid arguments.
+ * 	- XST_SUCCESS, if ECC parameters are validated successfully.
+ * 	- XASU_INVALID_ARGUMENT, if parameter validation fails.
  *
  *************************************************************************************************/
 static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr)

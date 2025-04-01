@@ -44,8 +44,8 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr);
 
 /*************************************************************************************************/
 /**
- * @brief	This function computes the message authentication code of the MsgLen bytes of
- * 		message using the provided hash function and the key of KeyLen bytes.
+ * @brief	This function sends command to ASUFW to computes the Message Authentication Code (MAC)
+ * 		for the given message using the specified hash function and the provided key.
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
@@ -78,14 +78,15 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 		goto END;
 	}
 
-	/** When Operation flag is set to START */
+	/** If operation flag is set to START, */
 	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT) {
+		/** - Generate a unique ID. */
 		UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_FALSE);
 		if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 			Status = XASU_INVALID_UNIQUE_ID;
 			goto END;
 		}
-		/* Save the Context */
+		/** - Save the Context. */
 		HmacCtx = XAsu_UpdateNGetCtx(UniqueId);
 		if (HmacCtx == NULL) {
 			Status = XASU_FAIL_SAVE_CTX;
@@ -93,16 +94,16 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 		}
 		ClientParamsPtr->ClientCtx = HmacCtx;
 	}
-	/** If operation flag is either UPDATE or FINISH */
+	/** If operation flag is either UPDATE or FINISH, */
 	else {
-		/* Verify the context */
+		/** - Verify the context. */
 		Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamsPtr->ClientCtx, &UniqueId);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 
-		/** If FINISH operation flag is set, update response buffer details */
+	/** If FINISH operation flag is set, update response buffer details. */
 	if ((HmacParamsPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
 		XAsu_UpdateCallBackDetails(UniqueId, (u8 *)HmacParamsPtr->HmacAddr,
 			HmacParamsPtr->HmacLen, XASU_TRUE);
@@ -116,6 +117,7 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 	} else {
 		CommandId = XASU_HMAC_COMPUTE_SHA3_CMD_ID;
 	}
+	/** Create command header. */
 	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_HMAC_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -128,7 +130,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs HMAC Known Answer Tests (KAT's).
+ * @brief	This function sends command to ASUFW to perform HMAC Known Answer Tests (KAT's).
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
@@ -152,12 +154,14 @@ s32 XAsu_HmacKat(XAsu_ClientParams *ClientParamsPtr)
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_HMAC_KAT_CMD_ID, UniqueId, XASU_MODULE_HMAC_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -175,8 +179,8 @@ END:
  * 				ECC input arguments.
  *
  * @return
- * 	- XST_SUCCESS, upon successful validation.
- * 	- XST_FAILURE, upon invalid arguments.
+ * 	- XST_SUCCESS, if HMAC input parameters validation is successful.
+ * 	- XST_FAILURE, if HMAC input parameters validation fails.
  *
  *************************************************************************************************/
 static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr)

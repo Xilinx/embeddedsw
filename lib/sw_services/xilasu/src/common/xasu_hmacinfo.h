@@ -54,16 +54,21 @@ extern "C" {
  * @brief This structure contains HMAC params info
  */
 typedef struct {
-	u8 ShaType; /**< Hash family type (SHA2/SHA3) */
-	u8 ShaMode; /**< Digest type - 256/384/512 bytes */
-	u8 IsLast; /**< Is last update */
-	u8 OperationFlags; /**< HMAC operation flags */
+	u8 ShaType; /**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
+	u8 ShaMode; /**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
+		* (XASU_SHA_MODE_SHA256 / XASU_SHA_MODE_SHA384 / XASU_SHA_MODE_SHA512 /
+		* XASU_SHA_MODE_SHAKE256) */
+	u8 IsLast; /**< Indicates whether it is the last update of data to HMAC.
+				 * - FALSE: Not Last update.
+				 * - TRUE: Last update.   */
+	u8 OperationFlags; /**< Flags that determine the operation type. These can be a combination of
+			XASU_HMAC_INIT, XASU_HMAC_UPDATE and XASU_HMAC_FINAL */
 	u32 KeyLen; /**< Length of the key */
-	u32 MsgLen; /**< Length of the message */
-	u32 HmacLen; /**< Length of the HMAC */
+	u32 MsgLen; /**< Length of the message to be processed */
+	u32 HmacLen; /**< Length of the HMAC to be generated */
 	u64 KeyAddr; /**< Key address */
-	u64 MsgBufferAddr; /**< Buffer holding the message */
-	u64 HmacAddr; /**< Buffer address to hold the computed HMAC */
+	u64 MsgBufferAddr; /**< Address of the message buffer */
+	u64 HmacAddr; /**< Address of the output buffer to store the generated HMAC */
 } XAsu_HmacParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

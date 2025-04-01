@@ -45,15 +45,15 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates IV parameters for given AES engine mode.
+ * @brief	This function validates the IV parameters for the specified AES engine mode.
  *
  * @param	EngineMode	AES engine mode.
  * @param	IvAddr		Address of buffer holding IV.
- * @param	IvLen		Lenght of the IV in bytes.
+ * @param	IvLen		Length of the IV in bytes.
  *
  * @return
- *		- Upon successful validation of IV, it returns XST_SUCCESS.
- *		- Error code on failure.
+ *		- XST_SUCCESS, if IV parameters are validated successfully.
+ *		- XST_FAILURE, if IV parameters validation fails.
  *
  *************************************************************************************************/
 s32 XAsu_AesValidateIvParams(u8 EngineMode, u64 IvAddr, u32 IvLen)
@@ -106,16 +106,16 @@ s32 XAsu_AesValidateIvParams(u8 EngineMode, u64 IvAddr, u32 IvLen)
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates Tag parameters for given AES engine mode.
+ * @brief	This API Validates the tag parameters for the specified AES engine mode.
  *
  * @param	EngineMode	AES engine mode.
- * @param	TagAddr		Address of the Input/Output Tag.
- * @param	TagLen		Length of Tag in bytes and it will be zero for all AES
+ * @param	TagAddr		Address of the Input/Output Tag buffer.
+ * @param	TagLen		Length of the tag in bytes. It will be zero for all AES
  *				standard modes like, ECB, CBC, OFB, CFB, CTR
  *
  * @return
- *		- Upon successful validation of Tag, it returns XST_SUCCESS.
- *		- Error code on failure.
+ *		- XST_SUCCESS, if the tag parameters are successfully validated.
+ *		- XST_FAILURE, if the tag parameters validation fails.
  *
  *************************************************************************************************/
 s32 XAsu_AesValidateTagParams(u8 EngineMode, u64 TagAddr, u32 TagLen)

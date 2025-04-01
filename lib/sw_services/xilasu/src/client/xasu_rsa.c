@@ -46,8 +46,8 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs RSA encryption for the provided message by using specified
- * 		public key.
+ * @brief	This function sends a command to ASUFW to perform RSA encryption on the provided
+ * 		data by using specified	public key.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
@@ -96,12 +96,14 @@ s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_RSA_PUB_ENC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -113,8 +115,8 @@ END:
 }
 /*************************************************************************************************/
 /**
- * @brief	This function performs RSA decryption for the provided message by using specified
- * 		private key.
+ * @brief	This function sends command to ASUFW to perform RSA decryption on the provided
+ * 	data by using specified	private key.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
@@ -163,14 +165,17 @@ s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_RSA_PVT_DEC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
+	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, RsaClientParamPtr,
 					(u32)(sizeof(XAsu_RsaParams)), Header);
 
@@ -180,8 +185,8 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs RSA decryption using CRT algorithm for the provided
- * 		message by using specified private key.
+ * @brief	This function sends command to ASUFW to perform RSA decryption using CRT algorithm
+ * 	for the provided message by using specified private key.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
@@ -231,12 +236,14 @@ s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientP
 		goto END;
 	}
 
+	/** Generate unique ID and register the callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_RSA_PVT_CRT_DEC_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -249,9 +256,8 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs encryption or decryption by encoding or decoding using
- * 		RSA OAEP padding algorithm and using SHA2 for hash calculation for the provided
- * 		message by using specified key.
+ * @brief	This function sends command to ASUFW to perform encoding using
+ * 		RSA OAEP padding algorithm by using the specified RSA key.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
@@ -308,6 +314,7 @@ s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
+	/** Set the command ID based on the selected SHA type. */
 	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
 		CmdId = XASU_RSA_OAEP_ENC_SHA2_CMD_ID;
 	} else if (RsaClientParamPtr->ShaType == XASU_SHA3_TYPE) {
@@ -326,12 +333,14 @@ s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
+	/** Generate Unique ID and register the callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -344,9 +353,8 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs encryption or decryption by encoding or decoding using
- * 		RSA OAEP padding algorithm and using SHA3 for hash calculation for the provided
- * 		message by using specified key.
+ * @brief	This function sends a command to ASUFW to perform decoding using
+ * 		RSA OAEP padding algorithm of the provided message by using the specified key.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
@@ -408,6 +416,7 @@ s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
+	/** Set the command ID based on selected SHA type. */
 	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
 		CmdId = XASU_RSA_OAEP_DEC_SHA2_CMD_ID;
 	} else if (RsaClientParamPtr->ShaType == XASU_SHA3_TYPE) {
@@ -426,12 +435,14 @@ s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
+	/** Generate unique ID and register the callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -444,9 +455,8 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs sign generation or verification by encoding or decoding
- * 		using RSA PSS padding algorithm and using SHA2 for hash calculation for the
- * 		provided message by using specified key.
+ * @brief	This function sends a command to ASUFW to generate signature using
+ * 		RSA PSS padding on provided message by using the specified key.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
@@ -524,12 +534,14 @@ s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
+	/** Generate unique ID and register the callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -542,9 +554,8 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs sign generation or verification by encoding or decoding
- * 		using RSA PSS padding algorithm and using SHA3 for hash calculation for the
- * 		provided message by using specified key.
+ * @brief	This function sends request to ASUFW to verify the specified signature by
+ * 		using RSA PSS padding by using the provided key.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
@@ -609,6 +620,7 @@ s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
+	/** Select the command ID based on SHA type. */
 	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
 		CmdId = XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID;
 	} else if (RsaClientParamPtr->ShaType == XASU_SHA3_TYPE) {
@@ -627,12 +639,13 @@ s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
+	/** Generate unique ID and register the callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
-
+	/** Create command header. */
 	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -645,7 +658,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs RSA Known Answer Tests (KAT's).
+ * @brief	This function sends a command to ASUFW to perform RSA Known Answer Tests (KAT's).
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
  * 					client input parameters.
@@ -669,14 +682,16 @@ s32 XAsu_RsaKat(XAsu_ClientParams *ClientParamPtr)
 		goto END;
 	}
 
+	/** Generate unique ID and register callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
-
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_RSA_KAT_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
 
+	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
 
 END:

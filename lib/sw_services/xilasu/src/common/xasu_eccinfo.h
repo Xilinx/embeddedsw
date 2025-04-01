@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -43,31 +43,31 @@ extern "C" {
 #define XASU_DOUBLE_CURVE_LENGTH_SHIFT		(0x1U) /**< Shift value to double the curve length */
 
 /* ECC module command IDs */
-#define XASU_ECC_GEN_SIGNATURE_CMD_ID		0U /**< Command ID for ECC sign generation */
-#define XASU_ECC_VERIFY_SIGNATURE_CMD_ID	1U /**< Command ID for ECC sign verification */
-#define XASU_ECC_KAT_CMD_ID			2U /**< Command ID for ECC KAT command */
-#define XASU_ECC_GET_INFO_CMD_ID		3U /**< Command ID for ECC Get Info command */
-#define XASU_ECDH_SHARED_SECRET_CMD_ID		4U /**< Command ID for ECC Get Info command */
-#define XASU_ECDH_KAT_CMD_ID			5U /**< Command ID for ECC KAT command */
-#define XASU_ECC_GEN_PUBKEY_CMD_ID		6U /**< Command ID for ECC public key generation */
+#define XASU_ECC_GEN_SIGNATURE_CMD_ID		(0U) /**< Command ID for ECC sign generation */
+#define XASU_ECC_VERIFY_SIGNATURE_CMD_ID	(1U) /**< Command ID for ECC sign verification */
+#define XASU_ECC_KAT_CMD_ID					(2U) /**< Command ID for ECC KAT */
+#define XASU_ECC_GET_INFO_CMD_ID			(3U) /**< Command ID for ECC Get Info */
+#define XASU_ECDH_SHARED_SECRET_CMD_ID		(4U) /**< Command ID for ECDH generate shared secret */
+#define XASU_ECDH_KAT_CMD_ID				(5U) /**< Command ID for ECDH KAT */
+#define XASU_ECC_GEN_PUBKEY_CMD_ID			(6U) /**< Command ID for ECC public key generation */
 
 /* ECC curve Type values */
-#define XASU_ECC_NIST_P192			1U /**< NIST P-192 curve */
-#define XASU_ECC_NIST_P224			2U /**< NIST P-224 curve */
-#define XASU_ECC_NIST_P256			3U /**< NIST P-256 curve */
-#define XASU_ECC_NIST_P384			4U /**< NIST P-384 curve */
-#define XASU_ECC_NIST_P521			5U /**< NIST P-521 curve */
-#define XASU_ECC_BRAINPOOL_P256			21U /**< Brainpool P-256 curve */
-#define XASU_ECC_BRAINPOOL_P320			22U /**< Brainpool P-320 curve */
-#define XASU_ECC_BRAINPOOL_P384			23U /**< Brainpool P-384 curve */
-#define XASU_ECC_BRAINPOOL_P512			24U /**< Brainpool P-512 curve */
+#define XASU_ECC_NIST_P192				(1U) /**< NIST P-192 curve */
+#define XASU_ECC_NIST_P224				(2U) /**< NIST P-224 curve */
+#define XASU_ECC_NIST_P256				(3U) /**< NIST P-256 curve */
+#define XASU_ECC_NIST_P384				(4U) /**< NIST P-384 curve */
+#define XASU_ECC_NIST_P521				(5U) /**< NIST P-521 curve */
+#define XASU_ECC_BRAINPOOL_P256			(21U) /**< Brainpool P-256 curve */
+#define XASU_ECC_BRAINPOOL_P320			(22U) /**< Brainpool P-320 curve */
+#define XASU_ECC_BRAINPOOL_P384			(23U) /**< Brainpool P-384 curve */
+#define XASU_ECC_BRAINPOOL_P512			(24U) /**< Brainpool P-512 curve */
 
 #define XASU_ECC_P192_SIZE_IN_BYTES		(24U) /**< Size of NIST P-192 curve in bytes */
-#define XASU_ECC_P224_SIZE_IN_BYTES		(28U) /**< Size of NIST P-192 curve in bytes */
-#define XASU_ECC_P256_SIZE_IN_BYTES		(32U) /**< P256 Curve size in bytes */
-#define XASU_ECC_P320_SIZE_IN_BYTES		(40U) /**< Size of NIST P-521 curve in bytes */
-#define XASU_ECC_P384_SIZE_IN_BYTES		(48U) /**< P384 Curve size in bytes */
-#define XASU_ECC_P512_SIZE_IN_BYTES		(64U) /**< Size of NIST P-521 curve in bytes */
+#define XASU_ECC_P224_SIZE_IN_BYTES		(28U) /**< Size of NIST P-224 curve in bytes */
+#define XASU_ECC_P256_SIZE_IN_BYTES		(32U) /**< Size of NIST P-256 curve in bytes */
+#define XASU_ECC_P320_SIZE_IN_BYTES		(40U) /**< Size of NIST P-320 curve in bytes */
+#define XASU_ECC_P384_SIZE_IN_BYTES		(48U) /**< Size of NIST P-384 curve in bytes */
+#define XASU_ECC_P512_SIZE_IN_BYTES		(64U) /**< Size of Brainpool P-512 curve in bytes */
 #define XASU_ECC_P521_SIZE_IN_BYTES		(66U) /**< Size of NIST P-521 curve in bytes */
 
 /************************************** Type Definitions *****************************************/
@@ -90,8 +90,8 @@ typedef struct {
 typedef struct {
 	u32 CurveType; /**< Type of curve */
 	u32 KeyLen; /**< Length of the key */
-	u64 PvtKeyAddr; /**< Address of the private key to be used to generate public key. */
-	u64 PubKeyAddr; /**< Address to store the generated public key. */
+	u64 PvtKeyAddr; /**< ECC Private Key buffer address of X party, of KeyLen size */
+	u64 PubKeyAddr; /**< ECC Public Key buffer address of Y party, of double the KeyLen size */
 } XAsu_EccKeyParams;
 
 typedef struct {
