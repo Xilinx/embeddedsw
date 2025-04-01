@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -67,13 +67,13 @@ typedef struct {
 } XAsufw_QueueTasks;
 
 /**
- * @brief This structure contains information about all channels tasks.
+ * @brief This structure contains information about all channel's tasks.
  */
 typedef struct {
 	XAsufw_QueueTasks Channel[XASU_MAX_IPI_CHANNELS]; /**< Queue task info of all channels */
 } XAsufw_ChannelTasks;
 
-/* Calculate the structure member address from Item and structure Type */
+/** This define calculates the structure member address from Item and structure Type */
 #define XAsufw_GetRespBuf(Item, Type, Member)    \
 	((Type *)(((char *)(Item) - offsetof(Type, Item)) + offsetof(Type, Member)))
 /*************************** Macros (Inline Functions) Definitions *******************************/

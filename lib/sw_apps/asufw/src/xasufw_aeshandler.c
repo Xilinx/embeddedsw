@@ -68,14 +68,14 @@ s32 XAsufw_AesInit(void)
 	s32 Status = XASUFW_FAILURE;
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 
-	/** Contains the array of ASUFW AES commands. */
+	/** The XAsufw_AesCmds array contains the list of commands supported by AES module. */
 	static const XAsufw_ModuleCmd XAsufw_AesCmds[] = {
 		[XASU_AES_OPERATION_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AesOperation),
 		[XASU_AES_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AesKat),
 		[XASU_AES_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AesGetInfo),
 	};
 
-	/** Contains the required resources for each supported command. */
+	/** The XAsufw_AesResourcesBuf contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_AesResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_AesCmds)] = {
 		[XASU_AES_OPERATION_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
 		[XASU_AES_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
@@ -96,7 +96,7 @@ s32 XAsufw_AesInit(void)
 		goto END;
 	}
 
-	/** Configure and initialize AES instance. */
+	/** Initialize the AES crypto engine. */
 	Status = XAes_CfgInitialize(XAsufw_Aes);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
@@ -162,6 +162,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u8 EngineMode = XASUFW_AES_INVALID_ENGINE_MODE;
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
+		/** Write the given user key to the specified AES USER KEY register. */
 		Status = XAes_WriteKey(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
 				AesParamsPtr->KeyObjectAddr);
 		if (Status != XASUFW_SUCCESS) {
@@ -169,6 +170,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 
+		/** Initialize the AES engine for the given AES operation. */
 		Status = XAes_Init(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->KeyObjectAddr,
 				AesParamsPtr->IvAddr, AesParamsPtr->IvLen, AesParamsPtr->EngineMode,
 				AesParamsPtr->OperationType);
@@ -188,7 +190,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/**
 		 * Update AAD data to AES engine.
 		 * User can push data in one go(entire AAD and Plaintext data at once) to the
-		 * aes engine or in multiple chunks like, UPDATE(AAD data1), UPDATE(AAD data 2),
+		 * AES engine or in multiple chunks like, UPDATE(AAD data1), UPDATE(AAD data 2),
 		 * UPDATE(Plaintext data 1) and so on...
 		 * During single/multiple update of AAD data, address of AAD data will be non-zero.
 		 * User should pass AAD address as zero for AES standard modes(CBC, ECB, CFB, OFB, CTR)
@@ -201,7 +203,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 				goto END;
 			}
 		}
-		/** For AES CCM mode format and push the AAD to AES engine. */
+		/** For AES CCM mode, format and push the AAD to AES engine. */
 		if (EngineMode == XASU_AES_CCM_MODE) {
 			if ((AesParamsPtr->OperationFlags &
 					(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) !=
@@ -237,6 +239,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_FINAL) == XASU_AES_FINAL) {
+		/** Complete the AES operation. */
 		Status = XAes_Final(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->TagAddr,
 					AesParamsPtr->TagLen);
 		if (Status != XASUFW_SUCCESS) {
@@ -244,7 +247,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 
-		/** Release the AES resource. */
+		/** Release the resources. */
 		if (XAsufw_ReleaseResource(XASUFW_AES, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
@@ -262,7 +265,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 END:
 	if (Status != XASUFW_SUCCESS) {
-		/** Release the resource in the event of failure. */
+		/** Release the resources in the event of failure. */
 		if (XAsufw_ReleaseResource(XASUFW_AES, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
@@ -280,7 +283,7 @@ END:
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- XASUFW_SUCCESS, if KAT is successful.
+ * 	- XASUFW_SUCCESS, if AES KAT is successful.
  *  - XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  * 	- XASUFW_FAILURE, upon failure.
  *

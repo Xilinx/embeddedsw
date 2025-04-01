@@ -275,8 +275,9 @@ void XAsufw_TriggerQueueTask(u32 IpiMask)
 /*************************************************************************************************/
 /**
  * @brief	This function initializes the IPI shared memory, validates the communication channel
- * configuration received as part of ASU CDO, creates queue level tasks based on the priority set
- * by the user and enables corresponding IPI channel interrupts.
+ * configuration received as part of ASU CDO which is copied by PLM to ASU RTCA during boot,
+ * creates queue level tasks based on the priority set by the user and enables corresponding IPI
+ * channel interrupts.
  *
  *************************************************************************************************/
 void XAsufw_ChannelConfigInit(void)
@@ -284,8 +285,9 @@ void XAsufw_ChannelConfigInit(void)
 	u32 ChannelIndex;
 	u32 PrivData;
 
-	/* Validate IPI channel information */
+	/** Validate IPI channel information present at ASU RTCA. */
 	for (ChannelIndex = 0U; ChannelIndex < CommChannelInfo->NumOfIpiChannels; ++ChannelIndex) {
+		/** Skip IPI channel configuration if the received IPI channel information is incorrect. */
 		if ((CommChannelInfo->Channel[ChannelIndex].IpiBitMask <= XASUFW_IPI_PMC_MASK) ||
 		    (CommChannelInfo->Channel[ChannelIndex].IpiBitMask > XASUFW_IPI_NOBUF_6_MASK) ||
 		    (CommChannelInfo->Channel[ChannelIndex].P0QueuePriority >=
@@ -326,7 +328,7 @@ void XAsufw_ChannelConfigInit(void)
 		SharedMemory->ChannelMemory[ChannelIndex].P1ChannelQueue.IsCmdPresent = XASU_FALSE;
 		CommChannelTasks.Channel[ChannelIndex].P1QueueBufIdx = 0U;
 
-		/* Enable IPI interrupt from the channel */
+		/** Enable IPI interrupt from the channel. */
 		XAsufw_EnableIpiInterrupt(CommChannelInfo->Channel[ChannelIndex].IpiBitMask);
 	}
 }

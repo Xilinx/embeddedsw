@@ -41,55 +41,45 @@
 #include "xasufw_trnghandler.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XRSA_ECC_ALGN_CRV_SIZE_IN_BYTES		(2U)	/**< Align ECDSA curve size in bytes. */
+#define XRSA_ECC_ALGN_CRV_SIZE_IN_BYTES		(2U)	/**< Align ECDSA curve size in bytes */
 
 #define XRSA_BASEADDRESS			(0xEBF50000U) /**< RSA base address */
 #define XRSA_RESET_OFFSET			(0x00000040U) /**< RSA reset offset */
 
 #define XECDH_SHARED_SEC_OBJ_ID_SIZE		(0X4U)
-						/**< Size of shared secret object
-						 * ID in bytes. */
+						/**< Size of shared secret object ID in bytes */
 
 /* Return value in case of success from IP Cores */
-#define XRSA_ECC_SUCCESS			ELLIPTIC_SUCCESS /**< Success from IP Cores. */
+#define XRSA_ECC_SUCCESS			ELLIPTIC_SUCCESS /**< Success from IP Cores */
 /* Validate Public Key error codes from IP Cores */
 #define XRSA_ECC_KEY_ZERO			ELLIPTIC_KEY_ZERO
-							/**< Error from IP Cores
-							 * if key is zero. */
+							/**< Error from IP Cores if key is zero */
 #define XRSA_ECC_KEY_WRONG_ORDER		ELLIPTIC_KEY_WRONG_ORDER
-							/**< Error from IP Cores
-							 * if key is in wrong order. */
+							/**< Error from IP Cores if key is in wrong order */
 #define XRSA_ECC_KEY_NOT_ON_CRV			ELLIPTIC_KEY_NOT_ON_CRV
-							/**< Error from IP Cores
-							 * if key point is not on curve. */
+							/**< Error from IP Cores if key point is not on curve */
 /* Verify Sign error codes from IP Cores */
-#define XRSA_ECC_BAD_SIGN			ELLIPTIC_BAD_SIGN /**< Error from IP Cores
-								   * if bad sign. */
+#define XRSA_ECC_BAD_SIGN			ELLIPTIC_BAD_SIGN /**< Error from IP Cores if bad sign */
 #define XRSA_ECC_VER_SIGN_INCORRECT_HASH_LEN	ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN
-							/**< Error from IP Cores if hash length
-							 * is incorrect. */
+							/**< Error from IP Cores if hash length is incorrect */
 #define XRSA_ECC_VER_SIGN_R_ZERO		ELLIPTIC_VER_SIGN_R_ZERO /**< Error from IP Cores
-									  * if sign R is zero. */
+									  * if sign R is zero */
 #define XRSA_ECC_VER_SIGN_S_ZERO		ELLIPTIC_VER_SIGN_S_ZERO /**< Error from IP Cores
-									  * if sign S is zero. */
+									  * if sign S is zero */
 #define XRSA_ECC_VER_SIGN_R_ORDER_ERROR		ELLIPTIC_VER_SIGN_R_ORDER_ERROR
-							/**< Error from IP Cores if sign R
-							 * is in wrong order. */
+							/**< Error from IP Cores if sign R is in wrong order */
 #define XRSA_ECC_VER_SIGN_S_ORDER_ERROR		ELLIPTIC_VER_SIGN_S_ORDER_ERROR
-							/**< Error from IP Cores if sign S
-							 * is in wrong order. */
+							/**< Error from IP Cores if sign S is in wrong order */
 /* Generate sign error codes from IP Cores */
 #define XRSA_ECC_GEN_SIGN_BAD_R			ELLIPTIC_GEN_SIGN_BAD_R
 							/**< Error from IP Cores
 							 * if generated sign has bad R. */
 #define XRSA_ECC_GEN_SIGN_BAD_S			ELLIPTIC_GEN_SIGN_BAD_S
-							/**< Error from IP Cores
-							 * if generated sign has bad S. */
+							/**< Error from IP Cores if generated sign has bad S */
 #define XRSA_ECC_GEN_SIGN_INCORRECT_HASH_LEN	ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN
-							/**< Error from IP Cores if hash length
-							 * is incorrect. */
+							/**< Error from IP Cores if hash length is incorrect */
 #define XRSA_ECC_GEN_POINT_INVALID		(0x01)	/**< Error from IP Cores
-							 * if generated point is invalid. */
+							 * if generated point is invalid */
 
 /************************************** Type Definitions *****************************************/
 
@@ -132,8 +122,7 @@ static const u8 EKeyPwctRsaEcc[XASU_ECC_P521_SIZE_IN_BYTES] = {
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	CurveType	ECC curve type.
  * @param	CurveLen	Length of the curve in bytes.
- * @param	PrivKeyAddr	Address of the private key buffer, whose length shall be equal to
- * 				CurveLen.
+ * @param	PrivKeyAddr	Address of the private key buffer, whose length shall be equal to CurveLen.
  * @param	PubKeyAddr	Address of the buffer to store the generated public key, whose
  * 				length shall be	equal to double of CurveLen as it contains both
  * 				Qx, Qy components.
@@ -177,7 +166,7 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 		goto END;
 	}
 
-	/** Release Reset. */
+	/** Release RSA core reset. */
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
 	/** Copy private key to local address using DMA and change endianness of the data. */
@@ -264,7 +253,7 @@ END:
  *	- XASUFW_RSA_ECC_INVALID_PARAM, if any input parameter is invalid.
  *	- XASUFW_RSA_ECC_WRITE_DATA_FAIL, if write data through DMA fails.
  *	- XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails.
- *	- XASUFW_RSA_ECC_PUBLIC_KEY_ZERO, if pubic key is zero.
+ *	- XASUFW_RSA_ECC_PUBLIC_KEY_ZERO, if public key is zero.
  *	- XASUFW_RSA_ECC_PUBLIC_KEY_WRONG_ORDER, if public key is in wrong order.
  *	- XASUFW_RSA_ECC_PUBLIC_KEY_NOT_ON_CRV, if public key is not on curve.
  *	- XASUFW_FAILURE, if validation fails due to other reasons.
@@ -320,7 +309,7 @@ s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	Key.Qx = (u8 *)(UINTPTR)PubKey;
 	Key.Qy = (u8 *)(UINTPTR)(PubKey + CurveLen);
 
-	/** Release Reset. */
+	/** Release RSA core reset. */
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
 	/** Validate public key with provided public key and curve type. */
@@ -454,7 +443,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	Sign.r = (u8 *)(UINTPTR)Signature;
 	Sign.s = (u8 *)(UINTPTR)(Signature + CurveLen);
 
-	/** Release Reset. */
+	/** Release RSA core reset. */
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
 	/** Generate signature with provided inputs and curve type. */
@@ -631,7 +620,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	Sign.r = (u8 *)(UINTPTR)Signature;
 	Sign.s = (u8 *)(UINTPTR)(Signature + CurveLen);
 
-	/** Release Reset. */
+	/** Release RSA core reset. */
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
 	/** Verify the signature with provided inputs and curve type. */
@@ -685,7 +674,7 @@ END:
  * @param	PvtKey		Pointer to store the generated private key.
  *
  * @return
- *	-	XASUFW_SUCCESS, if signature provided is valid.
+ *	-	XASUFW_SUCCESS, if private key generation is successful.
  *	-	XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameter is invalid.
  *	-	XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
  *	-	XASUFW_RSA_ECC_TRNG_FAILED, if random number generation fails.
@@ -748,7 +737,7 @@ END:
  * @param	CurveType	ECC Curve type.
  *
  * @return
- *		- Crv, Curve information.
+ *		- Pointer to curve information, if CurveType is valid.
  *		- NULL, if CurveType is invalid.
  *
  *************************************************************************************************/
@@ -785,11 +774,12 @@ END:
 /**
  * @brief	This function validates and gets curve info and curve size in bytes.
  *
- * @param	CurveType	Is a type of elliptic curve
+ * @param	CurveType	Type of elliptic curve
  * @param	Crv		Pointer to EcdsaCrvInfo
  *
  * @return
- *		CurveSize - Size of curve in bytes
+ *		- Size of curve in bytes, if CurveType is valid.
+ *		- Zero, if CurveType is invalid.
  *
  *************************************************************************************************/
 u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
@@ -820,13 +810,13 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
  * @param	SharedSecretObjIdAddr - 64-bit address of buffer for storing shared secret ID
  *
  * @return
- *	-	XASUFW_SUCCESS, on successful operation
- *	-	XASUFW_ECDH_INVALID_POINT_ON_CRV,on allocation of point failure
- *	-	XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameters are invalid
- *	-	XASUFW_RSA_ECC_WRITE_DATA_FAIL, if write data through DMA fails
- *	-	XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails
- *	-	XASUFW_ECDH_OTHER_ERROR, if operation fails due to any other error from IP cores
- *	-	XASUFW_FAILURE, if operation fails due to any other reasons
+ *	-	XASUFW_SUCCESS, if ECDH shared secret is generated successfully.
+ *	-	XASUFW_ECDH_INVALID_POINT_ON_CRV, if allocation of point failure.
+ *	-	XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameters are invalid.
+ *	-	XASUFW_RSA_ECC_WRITE_DATA_FAIL, if write data through DMA fails.
+ *	-	XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails.
+ *	-	XASUFW_ECDH_OTHER_ERROR, if operation fails due to any other error from IP cores.
+ *	-	XASUFW_FAILURE, if operation fails due to any other reasons.
  *
  *************************************************************************************************/
 s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
@@ -894,9 +884,10 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 		goto END_CLR;
 	}
 
-	/** Release Reset. */
+	/** Release RSA core reset. */
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
+	/** Generate ECDH shared secret using IPCores. */
 	XFIH_CALL(Ecdsa_CDH_Q, XFihEcdh, Status, Crv, PrivKey, (EcdsaKey *)&Key, SharedSecret);
 
 	/** Set RSA under reset. */
@@ -915,8 +906,10 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	} else{
 		Status = XASUFW_ECDH_OTHER_ERROR;
 	}
-	/** Copy shared secret to destination address if not null using DMA and
-		change endianness of the data. */
+	/**
+	 * Copy shared secret to destination address if not null using DMA and
+	 * change endianness of the data.
+	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(SharedSecret, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
@@ -938,7 +931,7 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 
 END_CLR:
 
-	/** Zeroize local private key copy. */
+	/** Zeroize local copy of private key, public key, shared secret objectID and shared secret. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcdh, ClearStatus, (u8 *)(UINTPTR)PrivKey,
 					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -950,7 +943,6 @@ END_CLR:
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)SharedSecretObjId, XECDH_SHARED_SEC_OBJ_ID_SIZE);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	/** Zeroize local copy of shared secret. */
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)SharedSecret, XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 

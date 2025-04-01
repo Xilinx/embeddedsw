@@ -43,15 +43,15 @@
 #include "xil_sutil.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_PLM_XILNVM_MODULE_ID			(11U) /**< XilNVM Module ID*/
+#define XASUFW_PLM_XILNVM_MODULE_ID			(11U) /**< XilNVM Module ID in PLM */
 #define XASUFW_PLM_XILNVM_WRITE_OFFCHIP_REVOKE_API_ID	(16U) /**< XilNVM Write off chip
 								*  revoke API ID */
-#define XASUFW_PLM_XILNVM_MAX_PAYLOAD_LEN		(3U) /**< Maximum payload len */
+#define XASUFW_PLM_XILNVM_MAX_PAYLOAD_LEN		(3U) /**< Maximum payload length */
 #define XASUFW_PLM_XILNVM_RESP_LEN			(1U) /**< Response buffer length */
-#define XASUFW_PLM_XILNVM_CMD_HDR_INDEX			(0U) /**< Payload index of header */
-#define XASUFW_PLM_XILNVM_ENVCTRL_INDEX			(1U) /**< Payload index of environment
+#define XASUFW_PLM_XILNVM_CMD_HDR_INDEX			(0U) /**< PLM command payload index of header */
+#define XASUFW_PLM_XILNVM_ENVCTRL_INDEX			(1U) /**< PLM command payload index of environment
 								* control */
-#define XASUFW_PLM_XILNVM_OFFCHID_INDEX			(2U) /**< Payload index of off chip ID */
+#define XASUFW_PLM_XILNVM_OFFCHID_INDEX			(2U) /**< PLM command payload index of off chip ID */
 #define XASUFW_PLM_XILNVM_ENV_MON_CHECK			(0U) /**< Perform environment checks */
 
 /************************************** Type Definitions *****************************************/
@@ -78,10 +78,7 @@ void XAsufw_RMW(u32 Addr, u32 Mask, u32 Value)
 	/** Read the value from the register. */
 	Val = XAsufw_ReadReg(Addr);
 
-	/**
-	 * Reset designated bits in a register value to zero, and replace them with the
-	 * given value.
-	 */
+	/** Reset designated bits in a register value to zero and replace them with the given value. */
 	Val = (Val & (~Mask)) | (Mask & Value);
 
 	/** Update the value to the register. */
@@ -123,11 +120,12 @@ void XAsufw_CryptoCoreSetReset(u32 BaseAddress, u32 Offset)
  * @param	Length	Length of the buffer in bytes.
  *
  * @return
- *	-	XASUFW_SUCCESS, when endianness change and copy is success.
+ *	-	XASUFW_SUCCESS, if endianness is changed successfully.
  *	-	XASUFW_INVALID_PARAM, if input parameters are invalid.
+ *	-	XASUFW_FAILURE, if critical data secure zeroization is failed.
  *
  * @note
- * 	- Supports only for even lengths.
+ * 	- This API supports endianness change only for even lengths.
  *
  *************************************************************************************************/
 s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length)
@@ -156,15 +154,15 @@ s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length)
 
 /*************************************************************************************************/
 /**
- * @brief	This function checks whether the buffer has a non zero value or not.
+ * @brief	This function checks whether the buffer has a non-zero value or not.
  *
  * @param	Buffer	Pointer to the buffer whose value needs to be checked.
  * @param	Length	Length of the buffer in bytes.
  *
  * @return
- *	-	XASUFW_SUCCESS, when buffer has non zero value.
+ *	-	XASUFW_SUCCESS, if buffer has non-zero value.
  *	-	XASUFW_INVALID_PARAM, if input parameters are invalid.
- *	-	XASUFW_FAILURE, when buffer has all zeroes as values.
+ *	-	XASUFW_FAILURE, if buffer has all zeroes as values.
  *
  *************************************************************************************************/
 s32 XAsufw_IsBufferNonZero(u8 *Buffer, u32 Length)

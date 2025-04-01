@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -43,12 +43,12 @@ XAsufw_Module *Modules[XASUFW_MAX_MODULES]; /**< Array for Modules structures */
 
 /*************************************************************************************************/
 /**
- * @brief	This function registers the module passed to Modules variable.
+ * @brief	This function registers the given module for ASUFW.
  *
  * @param	Module	Pointer to the XAsufw_Module structure.
  *
  * @return
- * 	- XASUFW_SUCCESS, on successful module registration.
+ * 	- XASUFW_SUCCESS, if module registration is successful.
  * 	- XASUFW_MODULE_REGISTRATION_FAILED, if module registration fails.
  *
  *************************************************************************************************/
@@ -57,6 +57,10 @@ s32 XAsufw_ModuleRegister(XAsufw_Module *Module)
 	s32 Status = XASUFW_FAILURE;
 	u32 ModuleId = Module->Id;
 
+	/**
+	 * If the Module ID is greater than maximum supported modules or the module is already registered,
+	 * return failure. Otherwise, register the module.
+	 */
 	if ((ModuleId >= XASUFW_MAX_MODULES) || (Modules[ModuleId] != NULL)) {
 		Status = XASUFW_MODULE_REGISTRATION_FAILED;
 		goto END;

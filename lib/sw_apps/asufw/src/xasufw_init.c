@@ -63,8 +63,9 @@
 #define XASUFW_PIT_FREQ_DIVISOR		(100U) /**< ASUFW PIT frequency divisor */
 #define XASUFW_MEGA			(1000000U) /**< Value for mega */
 #define XASUFW_KILO			(1000UL) /**< Value for kilo */
-#define XASUFW_WORD_SIZE_IN_BITS	(32U) /**< Define for word size in bits */
-#define XASUFW_KV_INTERRUPT_STATUS_POLL_TIMEOUT	(0xFF000U) /**< KV interrupt status done poll timeout */
+#define XASUFW_WORD_SIZE_IN_BITS	(32U) /**< Word size in bits */
+#define XASUFW_KV_INTERRUPT_STATUS_POLL_TIMEOUT	(0xFF000U)
+			/**< Key Vault interrupt status done poll timeout */
 #define XASUFW_KEY_TX_PAYLOAD_RESP_SIZE (1U) /**< Key transfer payload response size */
 
 /************************************** Type Definitions *****************************************/
@@ -180,22 +181,22 @@ static void XAsufw_InitPitTimer(u8 Timer, u32 ResetValue)
  * 		whenever PIT3 is expired. ASUFW loads the PIT1, 2 and 3 timers so that PIT3
  * 		expires for every 10ms.
  *
- * @param	Data	Interrupt number that is received.
+ * @param	Data	Interrupt number of the PIT3 timer interrupt.
  *
  *************************************************************************************************/
 static void XAsufw_Pit3TimerHandler(const void *Data)
 {
-	/* Update TaskTimeNow every time the scheduler handler is called for every 10ms */
+	/** Update TaskTimeNow every time the scheduler handler is called for every 10ms */
 	TaskTimeNow += XASUFW_PIT3_TIMER_TICK;
 }
 
 /*************************************************************************************************/
 /**
  * @brief	This function is called during boot up of ASUFW to initialize IO module and
- * 		PIT timer, and also to start IO module.
+ * 		PIT timer, and to start IO module.
  *
  * @return
- * 	- Returns XASUFW_SUCCESS on successful initialization of IOModule.
+ * 	- XASUFW_SUCCESS, if initialization of IOModule is successful.
  * 	- XASUFW_IOMODULE_INIT_FAILED, if IO module initialization fails.
  * 	- XASUFW_IOMODULE_SELF_TEST_FAILED, if IO module self test fails.
  * 	- XASUFW_IOMODULE_START_FAILED, if IO module start fails.
@@ -251,11 +252,11 @@ END:
 /**
  * @brief	This function is called during boot up of ASUFW which will connect the IO module
  * 		interrupt handlers to the processor interrupts. This function also calls
- * 		XAsufw_ExceptionEnable function to initialize and enable processor interrpts
+ * 		XAsufw_ExceptionEnable function to initialize and enable processor interrupts
  * 		and exceptions.
  *
  * @return
- * 	- Returns XASUFW_SUCCESS on successful interrupt setup of IOModule interrupts.
+ * 	- XASUFW_SUCCESS, if setup of IOModule interrupts is successful.
  * 	- XASUFW_IOMODULE_CONNECT_FAILED, if IO module connection fails.
  *
  *************************************************************************************************/
@@ -287,6 +288,7 @@ s32 XAsufw_SetUpInterruptSystem(void)
 		goto END;
 	}
 
+	/** Enable the IO Module IPI interrupt. */
 	XIOModule_Enable(&IOModule, IntrNum);
 
 	/** Enable interrupts and exceptions. */
@@ -298,11 +300,11 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function is used to read the 64 bit timer value. It reads from PIT1 and PIT2
- * 		and makes it 64 bit.
+ * @brief	This function is used to read the 64-bit timer value. It reads from PIT1 and PIT2
+ * 		and makes it 64-bit.
  *
  * @return
- * 	- Returns 64 bit timer value.
+ * 	- Returns 64-bit timer value.
  *
  *************************************************************************************************/
 u64 XAsufw_GetTimerValue(void)
@@ -382,11 +384,12 @@ void XAsufw_RtcaInit(void)
 
 /*************************************************************************************************/
 /**
- * @brief	This function gets three 256-bit keys(two red/black and one KEK key) form PMXC to
- * 		Key receiver engine in ASU using 128-bit dedicated interface between PMXC and ASU.
+ * @brief	This function gets three 256-bit keys (two red/black and one KEK key) from PMXC to Key
+ * receiver engine in ASU using 128-bit dedicated interface between PMXC and ASU.
  *
  * @return
  *		- XASUFW_SUCCESS, if all three keys are received successfully.
+ *		- XASUFW_ERR_KV_INTERRUPT_DONE_TIMEOUT, if key transfer done timeout occurs.
  *		- XASUFW_FAILURE, if all three keys are not received.
  *
  *************************************************************************************************/
@@ -396,20 +399,21 @@ s32 XAsufw_PmcKeyTransfer(void)
 	s32 Response = XASUFW_FAILURE;
 	u32 Payload;
 
-	/** Transferred efuse key_0 is black or red based on user configuration. */
+	/** Transfer efuse key_0 is black or red based on user configuration. */
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_0_BLACK_OR_RED_OFFSET),
 		XASUFW_PMXC_EFUSE_USER_KEY_0);
 
-	/** Transferred efuse key_1 is black or red based on user configuration. */
+	/** Transfer efuse key_1 is black or red based on user configuration. */
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_1_BLACK_OR_RED_OFFSET),
 		XASUFW_PMXC_EFUSE_USER_KEY_1);
 
-	/** Indicates to PMXC and ASU that ASU is ready to accept key transfer. */
+	/** Indicate to PMXC and ASU that ASU is ready to accept key transfer. */
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_ASU_PMXC_KEY_TRANSFER_READY_OFFSET),
 		XAES_ASU_PMXC_KEY_TRANSFER_READY_MASK);
 
 	Payload = XASUFW_PLM_IPI_HEADER(0U, XASUFW_PLM_ASU_KEY_TX_API_ID, XASUFW_PLM_ASU_MODULE_ID);
 
+	/** Send Key transfer IPI request to PLM. */
 	Status = XAsufw_SendIpiToPlm(&Payload, XASUFW_KEY_TX_PAYLOAD_RESP_SIZE);
 	if (Status != XASUFW_SUCCESS) {
 		XAsufw_Printf(DEBUG_GENERAL, "Send IPI to PLM failed\r\n");
@@ -434,6 +438,7 @@ s32 XAsufw_PmcKeyTransfer(void)
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_ASU_PMXC_KEY_TRANSFER_READY_OFFSET),
 		XAES_ASU_PMXC_KEY_TRANSFER_READY_DISABLE);
 
+	/** Read Key transfer response received from PLM. */
 	Status = XAsufw_ReadIpiRespFromPlm((u32 *)(UINTPTR)&Response, XASUFW_KEY_TX_PAYLOAD_RESP_SIZE);
 	if ((Status != XASUFW_SUCCESS) || (Response != XASUFW_SUCCESS)) {
 		XAsufw_Printf(DEBUG_GENERAL, "Read IPI response from PLM failed\r\n");

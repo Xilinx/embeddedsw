@@ -62,16 +62,16 @@ static XAsuDma_Configure DmaCtrl = {0x40U, 0U, 0U, 0U, 0xFFEU, 0x80U, 0U, 0U, 0U
 
 /*************************************************************************************************/
 /**
- * @brief	This function is used to initialize a single Driver instance.
+ * @brief	This function is used to initialize the given DMA driver instance.
  *
  * @param	DmaPtr		Pointer to the DMA instance.
  * @param	DeviceId	The device ID of DMA.
  *
  * @return
- * 			- XASUFW_SUCCESS on success.
- * 			- XASUFW_ERR_DMA_LOOKUP if DMA driver lookup fails.
- * 			- XASUFW_ERR_DMA_CFG if DMA driver configuration fails.
- * 			- XASUFW_ERR_DMA_SELFTEST if DMA driver self test fails.
+ * 			- XASUFW_SUCCESS, if initialization of the given DMA instance is successful.
+ * 			- XASUFW_ERR_DMA_LOOKUP, if DMA driver lookup fails.
+ * 			- XASUFW_ERR_DMA_CFG, if DMA driver configuration fails.
+ * 			- XASUFW_ERR_DMA_SELFTEST, if DMA driver self test fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_DmaDrvInit(XAsufw_Dma *DmaPtr, u32 DeviceId)
@@ -95,20 +95,20 @@ static s32 XAsufw_DmaDrvInit(XAsufw_Dma *DmaPtr, u32 DeviceId)
 		goto END;
 	}
 
-	/* Enable SLVERR */
+	/** Enable SLVERR for DMA. */
 	XAsufw_RMW((Config->BaseAddress + XCSUDMA_CTRL_OFFSET), XCSUDMA_CTRL_APB_ERR_MASK,
 		   XCSUDMA_CTRL_APB_ERR_MASK);
 	XAsufw_RMW((Config->BaseAddress + XASUFW_XASUDMA_DEST_CTRL_OFFSET), XCSUDMA_CTRL_APB_ERR_MASK,
 		   XCSUDMA_CTRL_APB_ERR_MASK);
 
-	/** Performs the self-test to check hardware build. */
+	/** Perform the self-test to check hardware build. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsuDma_SelfTest(&DmaPtr->AsuDma);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ERR_DMA_SELFTEST;
 	}
 
-	/* Select DMA pointer */
+	/** Set the SSS source for the DMA. */
 	if (DmaPtr->AsuDma.Config.BaseAddress == XPAR_XCSUDMA_0_BASEADDR) {
 		DmaPtr->SssDmaCfg = XASUFW_SSS_DMA0;
 	} else if (DmaPtr->AsuDma.Config.BaseAddress == XPAR_XCSUDMA_1_BASEADDR) {
@@ -127,15 +127,15 @@ END:
  * @brief	This function will initialize the DMA driver instances.
  *
  * @return
- * 	- XASUFW_SUCCESS, on success
- * 	- XASUFW_FAILURE, on failure.
+ * 	- XASUFW_SUCCESS, if ASU DMA0 and ASU DMA1 initialization is successful.
+ * 	- XASUFW_FAILURE, if ASU DMA0 or ASU DMA1 initialization fails.
  *
  *************************************************************************************************/
 s32 XAsufw_DmaInit(void)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
-	/** Initialise ASU_DMA0 & ASU_DMA1 */
+	/** Initialize ASU_DMA0 & ASU_DMA1. */
 	Status = XAsufw_DmaDrvInit(&AsuDma0, ASUDMA_0_DEVICE_ID);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
@@ -152,15 +152,17 @@ END:
 /**
  * @brief	This function returns DMA instance pointer.
  *
- * @param	BaseAddress	Baseaddress of ASU DMA.
+ * @param	BaseAddress	Base address of ASU DMA.
  *
  * @return
- * 	- Returns ASU DMA instance pointer based on device base address.
- *	- Otherwise, return NULL.
+ * 	- ASU DMA instance pointer, if given base address matches the device base address of DMA0/DMA1
+ *    and the device initialized.
+ *	- Otherwise, NULL.
  *************************************************************************************************/
 XAsufw_Dma *XAsufw_GetDmaInstance(u32 BaseAddress)
 {
 	XAsufw_Dma *AsuDmaPtr = NULL;
+
 	/**
 	 * Return the ASU_DMA0 or ASU_DMA1 instance pointer based on the device base address
 	 * only if they are ready.
@@ -182,15 +184,15 @@ XAsufw_Dma *XAsufw_GetDmaInstance(u32 BaseAddress)
 
 /*************************************************************************************************/
 /**
- * @brief	This function is used to wait on non blocking DMA.
+ * @brief	This function is used to wait for the DMA done operation on the given channel.
  *
  * @param	DmaPtr	Pointer to the DMA instance.
  * @param	Channel	DMA source/destination channel.
  *
  * @return
- * 	- XASUFW_SUCCESS on success.
- * 	- XASUFW_DMA_WAIT_FOR_DONE_TIMED_OUT if Dma transfer wait failed in source or
- * 		destination channel WaitForDone.
+ * 	- XASUFW_SUCCESS, if wait for DMA done is successful.
+ * 	- XASUFW_DMA_WAIT_FOR_DONE_TIMED_OUT, if Dma transfer wait failed in source or
+ * 	  destination channel WaitForDone.
  *
  *************************************************************************************************/
 s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel)
@@ -252,8 +254,8 @@ void XAsufw_DmaNonBlockingWait(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel,
  * 		- If the received interrupt is expected based on the parameters configured during DMA
  * 		  non-blocking wait operation, it continues with the below operations:
  * 			- Disable and clear the interrupt.
- * 			- Release DMA resource.
- * 			- Reset the DMA non-blocking paramters.
+ * 			- Release DMA resource if DmaState during DMA non-blocking wait is set to release.
+ * 			- Reset the DMA non-blocking parameters.
  * 			- Set the waiting queue's request buffer status to XASU_COMMAND_DMA_WAIT_COMPLETE.
  * 			- Trigger the queue task which is waiting for DMA completion.
  *
@@ -324,7 +326,7 @@ void XAsufw_HandleDmaDoneIntr(u32 DmaIntrNum)
 
 /*************************************************************************************************/
 /**
- * @brief	This function is used to initiate the DMA to DMA transfer.
+ * @brief	This function is used to initiate the DMA-to-DMA transfer.
  *
  * @param	DmaPtr		Pointer to the DMA instance.
  * @param	SrcAddr		Address of the source buffer.
@@ -333,7 +335,7 @@ void XAsufw_HandleDmaDoneIntr(u32 DmaIntrNum)
  * @param	Flags		Flags to select ASU DMA and DMA Burst type.
  *
  * @return
- * 	- XST_SUCCESS on success.
+ * 	- XST_SUCCESS, if DMA-to-DMA transfer is initiated successfully.
  * 	- XASUFW_ERR_DMA_INSTANCE_NULL, if DmaPtr is NULL.
  * 	- XASUFW_FAILURE, if there is any other failure.
  *
@@ -355,16 +357,13 @@ s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u
 		goto END;
 	}
 
-	/** Configure the secure stream switch. */
+	/** Configure the secure stream switch to DMA loopback. */
 	Status = XAsufw_SssDmaLoopback(DmaPtr->SssDmaCfg);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
-	/**
-	 * Setting ASU_DMA in AXI Burst mode for source and destination channels based on the
-	 * flags.
-	 */
+	/** Set ASU_DMA in AXI Burst mode for source and destination channels based on the flags. */
 	if ((Flags & XASUFW_SRC_CH_AXI_FIXED) == XASUFW_SRC_CH_AXI_FIXED) {
 		DmaCtrl.AxiBurstType = XASUFW_DMA_FIXED_BURST_TYPE;
 		XAsuDma_SetConfig(&DmaPtr->AsuDma, XASUDMA_SRC_CHANNEL, &DmaCtrl);
@@ -374,7 +373,7 @@ s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u
 		XAsuDma_SetConfig(&DmaPtr->AsuDma, XASUDMA_DST_CHANNEL, &DmaCtrl);
 	}
 
-	/** Data transfer in loop back mode. */
+	/** Transfer the data in loop back mode. */
 	XAsuDma_ByteAlignedTransfer(&DmaPtr->AsuDma, XASUDMA_DST_CHANNEL, DestAddr, Len,
 				    XASUFW_DMA_NOT_LAST_INPUT);
 	XAsuDma_ByteAlignedTransfer(&DmaPtr->AsuDma, XASUDMA_SRC_CHANNEL, SrcAddr, Len,
@@ -386,7 +385,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function is used to set the memory with a value using DMA.
+ * @brief	This function is used to set the given memory with a given value using DMA.
  *
  * @param	DmaPtr		Pointer to the DMA instance.
  * @param	DestAddr	Starting address of the buffer to be filled.
@@ -394,7 +393,7 @@ END:
  * @param	Len		Size of memory to be set in bytes.
  *
  * @return
- * 	- XST_SUCCESS on success.
+ * 	- XASUFW_SUCCESS, if memset operation using DMA is successful.
  * 	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
@@ -444,7 +443,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function copies data from 32/64 bit address to local buffer.
+ * @brief	This function copies data from source memory to destination memory using DMA.
  *
  * @param	AsuDmaPtr	Pointer to the DMA instance.
  * @param	SrcAddr		Address of the source buffer.
@@ -453,8 +452,8 @@ END:
  * @param	Flags		Flags to select ASU DMA and DMA Burst type.
  *
  * @return
- *	-	XASUFW_SUCCESS, On successful DMA transfer
- *	-	XASUFW_FAILURE, On failure.
+ *	-	XASUFW_SUCCESS, if DMA transfer is successful.
+ *	-	XASUFW_FAILURE, if DMA transfer fails.
  *
  *************************************************************************************************/
 s32 XAsufw_DmaXfr(XAsufw_Dma *AsuDmaPtr, u64 SrcAddr, u64 DstAddr, const u32 Size, u32 Flags)

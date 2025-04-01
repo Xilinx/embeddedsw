@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -40,10 +40,10 @@ extern "C" {
 #include "xlinklist.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XTASK_MAX               (32U) /**< Maximum tasks allowed to be created. */
-#define XTASK_PRIORITIES        (16U) /**< Number of task priorities allowed. */
+#define XTASK_MAX               (32U) /**< Maximum tasks allowed to be created */
+#define XTASK_PRIORITIES        (16U) /**< Number of task priorities allowed */
 
-#define XTASK_NUM_BITS_IN_U32   (32U) /**< Maximum bits in unsigned int. */
+#define XTASK_NUM_BITS_IN_U32   (32U) /**< Maximum bits in unsigned int */
 
 /************************************** Type Definitions *****************************************/
 
@@ -81,7 +81,7 @@ void XTask_DispatchLoop(void);
 XTask_TaskNode *XTask_GetInstance(void *PrivData);
 
 /************************************ Variable Definitions ***************************************/
-/** Current time in us. */
+/** Current time in ms */
 extern u32 TaskTimeNow;
 
 #ifdef __cplusplus

@@ -66,7 +66,7 @@ static XAsufw_Module XAsufw_RsaModule; /**< ASUFW RSA Module ID and commands arr
  * @brief	This function initializes the RSA module.
  *
  * @return
- * 	- On successful initialization of RSA module, it returns XASUFW_SUCCESS.
+ * 	- XASUFW_SUCCESS, if RSA module initialization is successful.
  * 	- XASUFW_RSA_MODULE_REGISTRATION_FAILED, if RSA module registration fails.
  *
  *************************************************************************************************/
@@ -74,7 +74,7 @@ s32 XAsufw_RsaInit(void)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/** Contains the array of ASUFW RSA commands. */
+	/** The XAsufw_RsaCmds array contains the list of commands supported by RSA module. */
 	static const XAsufw_ModuleCmd XAsufw_RsaCmds[] = {
 		[XASU_RSA_PUB_ENC_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPubEnc),
 		[XASU_RSA_PVT_DEC_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPvtDec),
@@ -91,7 +91,7 @@ s32 XAsufw_RsaInit(void)
 		[XASU_RSA_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaGetInfo),
 	};
 
-	/** Contains the required resources for each supported command. */
+	/** The XAsufw_RsaResourcesBuf contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_RsaResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_RsaCmds)] = {
 		[XASU_RSA_PUB_ENC_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK,
 		[XASU_RSA_PVT_DEC_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
@@ -202,7 +202,7 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
  * 	- XASUFW_RSA_PUB_OP_ERROR, if public encryption operaiton fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -236,7 +236,7 @@ static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @return
  * 	- XASUFW_SUCCESS, if private decryption operation is successful.
  * 	- XASUFW_RSA_PVT_OP_ERROR, if private exponentiation decryption operaiton fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -271,7 +271,7 @@ static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @return
  * 	- XASUFW_SUCCESS, if private decryption operation using CRT is successful.
  * 	- XASUFW_RSA_CRT_OP_ERROR, if private CRT decryption operaiton fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -305,10 +305,10 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
- * 	- XASUFW_CMD_IN_PROGRESS,when serving command is not completed due to
- * 	  SHA update operation using DMA.
+ * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *    non-blocking mode.
  * 	- XASUFW_RSA_OAEP_ENCODE_ERROR, if OAEP encode operaiton fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -316,6 +316,7 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_RsaOaepPaddingParams *Cmd = (const XAsu_RsaOaepPaddingParams *)ReqBuf->Arg;
 
+	/** Perform OAEP encryption operation. */
 	Status = XRsa_OaepEncode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
 		XAsufw_DmaNonBlockingWait(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
@@ -350,10 +351,10 @@ RET:
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
- * 	- XASUFW_CMD_IN_PROGRESS,when serving command is not completed due to
- * 	  SHA update operation using DMA.
+ * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *    non-blocking mode.
  * 	- XASUFW_RSA_OAEP_DECODE_ERROR, if OAEP decode operaiton fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -361,6 +362,7 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_RsaOaepPaddingParams *Cmd = (const XAsu_RsaOaepPaddingParams *)ReqBuf->Arg;
 
+	/** Perform OAEP decryption operation. */
 	Status = XRsa_OaepDecode(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
 		XAsufw_DmaNonBlockingWait(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
@@ -395,10 +397,10 @@ RET:
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
- * 	- XASUFW_CMD_IN_PROGRESS,when serving command is not completed due to
- * 	  SHA update operation using DMA.
+ * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *    non-blocking mode.
  * 	- XASUFW_RSA_PSS_SIGN_GEN_ERROR, if sign generation operaiton fails.
- * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -406,7 +408,7 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XAsu_RsaPaddingParams *Cmd = (const XAsu_RsaPaddingParams *)ReqBuf->Arg;
 
-	/** Perform public exponentiation encryption operation. */
+	/** Perform RSA PSS signature generation. */
 	Status = XRsa_PssSignGenerate(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
 		XAsufw_DmaNonBlockingWait(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
@@ -440,8 +442,8 @@ RET:
  *
  * @return
  * 	- XASUFW_SUCCESS, if public encryption operation is successful.
- * 	- XASUFW_CMD_IN_PROGRESS,when serving command is not completed due to
- * 	  SHA update operation using DMA.
+ * 	- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *    non-blocking mode.
  * 	- XASUFW_RSA_PSS_SIGN_VER_ERROR, if sign verification operaiton fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *
@@ -451,6 +453,7 @@ static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XAsu_RsaPaddingParams *Cmd = (const XAsu_RsaPaddingParams *)ReqBuf->Arg;
 
+	/** Perform RSA PSS signature verification. */
 	Status = XRsa_PssSignVerify(XAsufw_RsaModule.AsuDmaPtr, XAsufw_RsaModule.ShaPtr, Cmd);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
 		XAsufw_DmaNonBlockingWait(XAsufw_RsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
@@ -482,8 +485,9 @@ RET:
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- Returns XASUFW_SUCCESS, if KAT is successful.
- * 	- Error code, returned when XAsufw_RsaEncDecKat API fails.
+ * 	- XASUFW_SUCCESS, if KAT is successful.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- Error code from XAsufw_RsaEncDecKat API, if any operation fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -512,7 +516,7 @@ static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @param	ReqId	Request Unique ID.
  *
  * @return
- * 	- Returns XASUFW_SUCCESS on successful execution of the command.
+ * 	- XASUFW_SUCCESS, if command execution is successful.
  * 	- Otherwise, returns an error code.
  *
  *************************************************************************************************/

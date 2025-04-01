@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -41,25 +41,25 @@ extern "C" {
 /*
  * Debug levels for ASUFW
  */
-#define DEBUG_PRINT_ALWAYS  (1U)    /**< Unconditional messages only. */
-#define DEBUG_GENERAL       (2U)    /**< General debug information. */
-#define DEBUG_INFO          (4U)    /**< More debug information. */
-#define DEBUG_DETAILED      (8U)    /**< Detailed debug information. */
+#define DEBUG_PRINT_ALWAYS  (1U)    /**< Unconditional messages only */
+#define DEBUG_GENERAL       (2U)    /**< General debug information */
+#define DEBUG_INFO          (4U)    /**< More debug information */
+#define DEBUG_DETAILED      (8U)    /**< Detailed debug information */
 
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #if defined (ASUFW_DEBUG_DETAILED)
-/** Prints detailed debug information. */
+/* Prints detailed debug information. */
 #define XAsufwDbgCurrentTypes ((DEBUG_DETAILED) | (DEBUG_INFO) | \
 			(DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
 #elif defined (ASUFW_DEBUG_INFO)
-/** Prints more debug information. */
+/* Prints more debug information. */
 #define XAsufwDbgCurrentTypes ((DEBUG_INFO) | (DEBUG_GENERAL) | \
 			       (DEBUG_PRINT_ALWAYS))
-#elif defined (ASUFW_DEBUG) /** Prints general debug information. */
+#elif defined (ASUFW_DEBUG) /* Prints general debug information. */
 #define XAsufwDbgCurrentTypes ((DEBUG_GENERAL) | (DEBUG_PRINT_ALWAYS))
-#elif defined (ASUFW_PRINT) /** Prints only minimal information. */
+#elif defined (ASUFW_PRINT) /* Prints only minimal information. */
 #define XAsufwDbgCurrentTypes (DEBUG_PRINT_ALWAYS)
 #else
 #define XAsufwDbgCurrentTypes (0U)
