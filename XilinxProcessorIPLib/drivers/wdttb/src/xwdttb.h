@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2001 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -104,6 +104,8 @@
 *		      generic watchdog window.
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
 * 5.9   ht   05/15/24 Port XWdtTb_Initialize() to SDT flow
+* 5.10  ht   04/01/25 Add MaxCountWidth, SstCountWidth in XWdtTb_Config to both
+* 		      the flows as it is required for Axi Timebase WDT.
 *
 * </pre>
 *
@@ -150,9 +152,9 @@ typedef struct {
 #endif
 	UINTPTR BaseAddr;	/**< Base address of the device */
 	u32 EnableWinWdt;	/**< Flag for Window WDT enable */
-#ifndef SDT
 	u32 MaxCountWidth;	/**< Maximum width of first timer */
 	u32 SstCountWidth;	/**< Maximum width of Second Sequence Timer */
+#ifndef SDT
 	u32 IsPl;		/**< IsPl, 1= AXI Timebase ,0= WWDT  */
 #endif
 	u32 Clock;		/**< Watchdog Clock Frequency */
