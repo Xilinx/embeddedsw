@@ -104,7 +104,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs KDF Known Answer Tests (KAT's).
+ * @brief	This function sends command to ASUFW to perform KDF Known Answer Tests (KAT's).
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
@@ -151,8 +151,8 @@ END:
  * 				KDF input arguments.
  *
  * @return
- * 	- XST_SUCCESS, upon successful validation.
- * 	- XASU_INVALID_ARGUMENT, upon invalid arguments.
+ * 	- XST_SUCCESS, if KDF input parameters validation is successful.
+ * 	- XASU_INVALID_ARGUMENT, if KDF input parameters validation fails.
  *
  *************************************************************************************************/
 static s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr)

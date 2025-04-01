@@ -49,22 +49,25 @@ extern "C" {
  * @brief This structure contains ECIES params info
  */
 typedef struct {
-	u64 RxKeyAddr; /**< Rx's public key(length shall be 2 * EccKeyLength) for encryption and
-			Rx private key(length shall be EccKeyLength) for decryption */
-	u64 TxKeyAddr; /**< Tx's public key(length shall be 2 * EccKeyLength):
-			Output for encryption, input for decryption */
-	u64 InDataAddr; /**< Input address: Plaintext for encryption, Ciphertext for decryption */
+	u64 RxKeyAddr; /**< Address of Rx's public key(length: 2 * EccKeyLength) for encryption or
+			Rx private key(length: EccKeyLength) for decryption */
+	u64 TxKeyAddr; /**< Address of Tx's public key(length: 2 * EccKeyLength):
+			which will be an Output for encryption or input for decryption */
+	u64 InDataAddr; /**< Input address which holds : The plaintext for encryption or ciphertext for decryption */
 	u64 IvAddr; /**< IV address */
 	u64 OutDataAddr; /**< Output address: Ciphertext for encryption, Plaintext for decryption*/
 	u64 MacAddr; /**< MAC Address: Output for encryption, input for decryption */
-	u64 ContextAddr; /**< Context address used in KDF */
-	u32 ContextLen; /**< Context length used in KDF in bytes */
+	u64 ContextAddr; /**< Context address which is used for generating the KDF */
+	u32 ContextLen; /**< Length of the Context */
 	u32 DataLength; /**< Length of the Plaintext/Ciphertext in bytes */
 	u8 EccCurveType; /**< ECC curve type */
-	u8 ShaType; /**< Hash family type (SHA2/SHA3) */
-	u8 ShaMode; /**< Sha mode (SHA256/SHA384/SHA512/SHAKE256) */
+	u8 ShaType; /**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
+	u8 ShaMode; /**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
+		* (XASU_SHA_MODE_SHA256 / XASU_SHA_MODE_SHA384 / XASU_SHA_MODE_SHA512 /
+		* XASU_SHA_MODE_SHAKE256) */
 	u8 Reserved; /**< Reserved */
-	u8 AesKeySize; /**< AES key size 0: 128 bit key, 2: 256 bit key*/
+	u8 AesKeySize; /**< AES key size XASU_AES_KEY_SIZE_128_BITS: 128 bit key,
+					* XASU_AES_KEY_SIZE_256_BITS: 256 bit key*/
 	u8 EccKeyLength; /**< Length of the provided ECC curve in bytes */
 	u8 IvLength; /**< Length of the IV in bytes */
 	u8 MacLength; /**< Length of the MAC in bytes */

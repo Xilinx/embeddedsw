@@ -77,9 +77,14 @@ typedef struct {
 	u64 HashAddr; /**< SHA2/3 hash address */
 	u32 DataSize; /**< SHA2/3 data size */
 	u32 HashBufSize; /**< SHA2/3 hash buffer size */
-	u8 ShaMode; /**< SHA2/3 mode */
-	u8 IsLast; /**< Is last update */
-	u8 OperationFlags; /**< SHA2/3 operation flags */
+	u8 ShaMode; /**< SHA2/3 Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
+		* (XASU_SHA_MODE_SHA256 / XASU_SHA_MODE_SHA384 / XASU_SHA_MODE_SHA512 /
+		* XASU_SHA_MODE_SHAKE256) */
+	u8 IsLast; /**< Indicates whether it is the last update of data to AES engine.
+				 * - FALSE: Not Last update.
+				 * - TRUE: Last update. */
+	u8 OperationFlags; /**< SHA2/3 operation flags is a combination of (XASU_SHA_START,
+					* XASU_SHA_UPDATE, XASU_AES_FINISH) */
 	u8 ShakeReserved; /**< SHA3 SHAKE256 next xof enable flag. NA for client. ASUFW internal use */
 } XAsu_ShaOperationCmd;
 

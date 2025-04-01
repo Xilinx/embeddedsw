@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -53,7 +53,10 @@ extern "C" {
 
 /************************************** Type Definitions *****************************************/
 #ifdef XASU_TRNG_ENABLE_DRBG_MODE
-/** @brief This structure contains configuration information for DRBG instantiation. */
+/**
+ * @brief This structure contains configuration information for DRBG instantiation.
+ * where all buffers addresses supports only for 32 bit address range.
+ */
 typedef struct {
 	u32 SeedPtr; /**< Initial seed pointer */
 	u32 SeedLen; /**< Seed length */
@@ -62,13 +65,19 @@ typedef struct {
 	u32 DFLen; /**< DF length */
 } XAsu_DrbgInstantiateCmd;
 
-/** @brief This structure contains configuration information for DRBG reseed. */
+/**
+ * @brief This structure contains configuration information for DRBG reseed.
+ * where all buffers addresses supports only for 32 bit address range.
+ */
 typedef struct {
 	u32 ReseedPtr; /**< Reseed pointer */
 	u32 DFLen; /**< DF length */
 } XAsu_DrbgReseedCmd;
 
-/** @brief This structure contains configuration information for DRBG regenerate. */
+/**
+ * @brief This structure contains configuration information for DRBG regenerate.
+ * where all buffers addresses supports only for 32 bit address range.
+ */
 typedef struct {
 	u32 RandBuf; /**< Pointer to buffer for storing random data */
 	u32 RandBufSize; /**< Size of the random data buffer */

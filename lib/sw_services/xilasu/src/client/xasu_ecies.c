@@ -45,11 +45,8 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs the encryption of the given plaintext message using the
- * 		ECIES protocol. ECIES combines ECC for key exchange with symmetric encryption for
- * 		encrypting the plaintext. It generates a random ephemeral key pair, derives a
- * 		shared secret using ECDH, derives a key using KDF and uses this key to encrypt the
- * 		plaintext using AES.
+ * @brief	This function sends a command to perform the encryption of the given plaintext
+ * 		message using the ECIES protocol.
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
@@ -82,6 +79,7 @@ s32 XAsu_EciesEncrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
@@ -94,6 +92,7 @@ s32 XAsu_EciesEncrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 		CommandId = XASU_ECIES_ENCRYPT_SHA3_CMD_ID;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_ECIES_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -106,11 +105,8 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs the decryption of the given ciphertext using the
- * 		ECIES protocol. ECIES combines ECC for key exchange with symmetric decryption for
- * 		decrypting the ciphertext. With the received keys, derives a shared secret using
- * 		ECDH, derives a key using KDF and uses the key from KDF to decrypt the ciphertext
- * 		using AES.
+ * @brief	This function sends command to ASUFW to perform the decryption of the given ciphertext
+ * 		using the ECIES protocol.
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
@@ -150,6 +146,7 @@ s32 XAsu_EciesDecrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
@@ -162,6 +159,7 @@ s32 XAsu_EciesDecrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 		CommandId = XASU_ECIES_DECRYPT_SHA3_CMD_ID;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_ECIES_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
@@ -174,13 +172,14 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs ECIES Known Answer Tests (KAT's).
+ * @brief	This function sends command to ASUFW to perform ECIES Known Answer Tests (KAT's).
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
  *
  * @return
  * 	- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 	- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 	- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  * 	- XST_FAILURE, if sending IPI request to ASU fails.
  *
@@ -197,12 +196,14 @@ s32 XAsu_EciesKat(XAsu_ClientParams *ClientParamsPtr)
 		goto END;
 	}
 
+	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_ECIES_KAT_CMD_ID, UniqueId, XASU_MODULE_ECIES_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */

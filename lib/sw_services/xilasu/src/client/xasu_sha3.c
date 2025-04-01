@@ -47,8 +47,8 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function generates the digest for the provided input message using
- * 		the specified SHA algorithm.
+ * @brief	This function sends a command to ASUFW to generate the digest for the provided
+ * 		input message using the specified SHA algorithm.
  *
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds
  * 					client input arguments.
@@ -129,14 +129,15 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	/** When Operation flag is set to START */
+	/** If operation flag is set to START, */
 	if ((ShaClientParamPtr->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
+		/** - Generate Unique ID. */
 		UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_FALSE);
 		if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 			Status = XASU_INVALID_UNIQUE_ID;
 			goto END;
 		}
-		/* Save the Context */
+		/** - Save the Context. */
 		Sha3Ctx = XAsu_UpdateNGetCtx(UniqueId);
 		if (Sha3Ctx == NULL) {
 			Status = XASU_FAIL_SAVE_CTX;
@@ -144,24 +145,25 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		}
 		ClientParamPtr->ClientCtx = Sha3Ctx;
 	}
-	/** If operation flag is either UPDATE or FINISH */
+	/** If operation flag is either UPDATE or FINISH, */
 	else {
-		/* Verify the context */
+		/** - Verify the context. */
 		Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr->ClientCtx, &UniqueId);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 
-	/** If FINISH operation flag is set, update response buffer details */
+	/** If FINISH operation flag is set, update response buffer details. */
 	if ((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
 		XAsu_UpdateCallBackDetails(UniqueId, (u8 *)ShaClientParamPtr->HashAddr,
 			ShaClientParamPtr->HashBufSize, XASU_TRUE);
 		/* Free Sha3 Ctx */
 		XAsu_FreeCtx(ClientParamPtr->ClientCtx);
 	}
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_SHA_OPERATION_CMD_ID, UniqueId, XASU_MODULE_SHA3_ID, 0U);
-
+	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, ShaClientParamPtr,
 						sizeof(XAsu_ShaOperationCmd), Header);
 
@@ -171,7 +173,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs SHA3 Known Answer Tests (KAT's).
+ * @brief	This function sends a command to ASUFW to run the SHA3 Known Answer Tests (KAT's).
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
@@ -192,17 +194,18 @@ s32 XAsu_Sha3Kat(XAsu_ClientParams *ClientParamPtr)
 		goto END;
 	}
 
+	/** Generate unique ID and register the callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
-	/** Update the request buffer. */
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_SHA_KAT_CMD_ID, UniqueId,
 				   XASU_MODULE_SHA3_ID, 0U);
 
-	/** Send IPI request to ASU. */
+	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
 
 END:

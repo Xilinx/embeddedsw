@@ -6,7 +6,7 @@
 /*************************************************************************************************/
 /**
  *
- * @file xasufw_status.h
+ * @file xasu_status.h
  *
  * This file contains ASU client error codes
  *
@@ -52,7 +52,7 @@ enum {
 	XASU_INVALID_UNIQUE_ID,		/**< 0x14 - Invalid unique ID */
 	XASU_CLIENT_NOT_INITIALIZED,/**< 0x15 - Client is not initialized */
 	XASU_INVALID_PRIORITY,		/**< 0x16 - Invalid Priority */
-	XASU_INVALID_CALL_BACK_REF,	/**< 0x17 - Invalid call back reference */
+	XASU_INVALID_CALL_BACK_REF,	/**< 0x17 - Invalid callback reference */
 	XASU_INVALID_CLIENT_PARAM,	/**< 0x18 - Invalid client parameter pointer */
 	XASU_INVALID_CLIENT_CTX,	/**< 0x19 - Client context is not valid */
 	XASU_FAIL_SAVE_CTX,		/**< 0x1A - Failed in saving the context */

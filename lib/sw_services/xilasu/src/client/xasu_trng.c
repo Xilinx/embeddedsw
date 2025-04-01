@@ -47,7 +47,7 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function generates random number using TRNG.
+ * @brief	This function sends a command to ASUFW to generate the random number using TRNG.
  *
  * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds
  * 				client input arguments.
@@ -76,14 +76,17 @@ s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, const u8 *BufPtr, u
 		goto END;
 	}
 
+	/** Generate unique ID and register the callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, BufPtr, Length, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_TRNG_GET_RANDOM_BYTES_CMD_ID, UniqueId,
 				   XASU_MODULE_TRNG_ID, 0U);
 
+	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
 
 END:
@@ -92,7 +95,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs TRNG Known Answer Tests (KAT's).
+ * @brief	This function sends a command to ASUFW to run the TRNG Known Answer Tests (KAT's).
  *
  * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds
  * 				client input arguments.
@@ -116,15 +119,17 @@ s32 XAsu_TrngKat(XAsu_ClientParams *ClientParamPtr)
 		goto END;
 	}
 
+	/** Generate unique ID and register callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_TRNG_KAT_CMD_ID, UniqueId, XASU_MODULE_TRNG_ID, 0U);
 
-	/** Send IPI request to ASU. */
+	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
 
 END:
@@ -159,12 +164,14 @@ END:
 		goto END;
 	}
 
+	/** Generate unique ID and register callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
 
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_TRNG_DRBG_INSTANTIATE_CMD_ID, UniqueId, XASU_MODULE_TRNG_ID, 0U);
 
 	/** Send IPI request to ASU. */
@@ -201,15 +208,16 @@ END:
 		goto END;
 	}
 
+	/** Generate unique ID and register the callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
-
+	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_TRNG_DRBG_RESEED_CMD_ID, UniqueId, XASU_MODULE_TRNG_ID, 0U);
 
-	/** Send IPI request to ASU. */
+	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, CmdParamsPtr,
 			sizeof(XAsu_DrbgReseedCmd), Header);
 
@@ -243,14 +251,16 @@ s32 XAsu_TrngDrbgGenerate(XAsu_ClientParams *ClientParamPtr, XAsu_DrbgGenerateCm
 		goto END;
 	}
 
+	/** Generate unique ID and register the callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
+	/** create command header. */
 	Header = XAsu_CreateHeader(XASU_TRNG_DRBG_GENERATE_CMD_ID, UniqueId,
 				   XASU_MODULE_TRNG_ID, 0U);
-
+	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, CmdParamsPtr,
 			sizeof(XAsu_DrbgGenerateCmd), Header);
 
