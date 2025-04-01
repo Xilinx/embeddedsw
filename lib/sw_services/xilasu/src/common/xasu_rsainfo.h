@@ -79,8 +79,8 @@ extern "C" {
  */
 typedef struct {
 	u32 Keysize;					/**< Key size in bytes*/
-	u32 Modulus[XRSA_MAX_KEY_SIZE_IN_WORDS];	/**< Modulus Address */
-	u32 PubExp;					/**< Public exponent Address*/
+	u32 Modulus[XRSA_MAX_KEY_SIZE_IN_WORDS];	/**< Rsa key Modulus */
+	u32 PubExp;					/**< Public exponent */
 } XAsu_RsaPubKeyComp;
 
 /**
@@ -88,9 +88,9 @@ typedef struct {
  */
 typedef struct {
 	XAsu_RsaPubKeyComp PubKeyComp;			/**< Contains public key components */
-	u32 PvtExp[XRSA_MAX_KEY_SIZE_IN_WORDS];		/**< Private Exponent Address*/
+	u32 PvtExp[XRSA_MAX_KEY_SIZE_IN_WORDS];		/**< Private Exponent */
 	u32 PrimeCompOrTotient[XRSA_MAX_KEY_SIZE_IN_WORDS];	/**< Prime component or
-									Totient Address*/
+									Totient */
 	u32 PrimeCompOrTotientPrsnt;		/**< 0 : Ignore PrimeComporTotient array
 						     1 : Array Consists totient
 						     2 : Array Consists Prime component*/
@@ -127,27 +127,34 @@ typedef struct {
  * @brief This structure contains RSA params info.
  */
 typedef struct {
-	u64 InputDataAddr; 	/**< RSA input data address */
-	u64 OutputDataAddr; 	/**< RSA output data address */
-	u64 ExpoCompAddr;	/**< RSA exponent data address */
-	u64 KeyCompAddr; 	/**< RSA key component address */
-	u32 Len;		/**< Data Len */
+	u64 InputDataAddr; 	/**< Address of RSA input data */
+	u64 OutputDataAddr; 	/**< Address of RSA output data */
+	u64 ExpoCompAddr;	/**< Address of RSA exponent data */
+	u64 KeyCompAddr; 	/**< Address of RSA key component structure :
+						  *	XAsu_RsaPubKeyComp - for public key operations and
+						  *	XAsu_RsaPvtKeyComp - for private key operations  */
+	u32 Len;			/**< Data Len */
 	u32 KeySize;		/**< Key Size */
 } XAsu_RsaParams;
 
 /**
- * @brief This structure contains RSA padding params info.
+ * @brief This structure contains RSA PSS padding params info.
  */
 typedef struct {
-	XAsu_RsaParams  XAsu_RsaOpComp;	/**< Contains client components */
-	u64 SignatureDataAddr;	/**< RSA signature data address */
+	XAsu_RsaParams  XAsu_RsaOpComp;	/**< RSA parameters */
+	u64 SignatureDataAddr;	/**< Address of RSA signature which acts as :
+							* - input - For signature verification and
+							* - output - For signature generation */
 	u32 SignatureLen;	/**< RSA signature data length */
 	u32 SaltLen;		/**< RSA salt len for PSS padding */
-	u8 ShaType;		/**< SHA2/SHA3 mode */
-	u8 ShaMode;		/**< SHA digest type */
-	u8 InputDataType;	/**<	0 : Hash is to be calculated
-					1 : Hashed input is sent */
-	u8 Reserved;
+	u8 ShaType; /**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
+	u8 ShaMode; /**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
+		* (XASU_SHA_MODE_SHA256 / XASU_SHA_MODE_SHA384 / XASU_SHA_MODE_SHA512 /
+		* XASU_SHA_MODE_SHAKE256) */
+	u8 InputDataType;	/**< Input data type
+					* - 0: Plain data where Hash has to be calculated
+					* - 1: Hashed data */
+	u8 Reserved;	/**< Reserved */
 } XAsu_RsaPaddingParams;
 
 /**
@@ -157,26 +164,28 @@ typedef struct {
 	XAsu_RsaParams  XAsu_RsaOpComp;	/**< Contains client components */
 	u64 OptionalLabelAddr;	/**< RSA optional label address for OAEP padding */
 	u32 OptionalLabelSize;	/**< RSA optional label size for OAEP padding */
-	u8 ShaType;		/**< SHA2/SHA3 mode */
-	u8 ShaMode;		/**< SHA digest type */
-	u8 Reserved;
-	u8 Reserved1;
+	u8 ShaType; /**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
+	u8 ShaMode; /**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
+		* (XASU_SHA_MODE_SHA256 / XASU_SHA_MODE_SHA384 / XASU_SHA_MODE_SHA512 /
+		* XASU_SHA_MODE_SHAKE256) */
+	u8 Reserved; /**< Reserved */
+	u8 Reserved1; /**< Reserved */
 } XAsu_RsaOaepPaddingParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates key len for RSA
+ * @brief	This function validates the specified RSA key length.
  *
- * @param	Len	Length of key
+ * @param	Len	Length of the RSA key
  *
  *************************************************************************************************/
 static inline s32 XAsu_RsaValidateKeySize(u32 Len)
 {
 	s32 Status = XST_FAILURE;
 
-        if ((Len == XRSA_2048_KEY_SIZE) || (Len == XRSA_3072_KEY_SIZE) ||
+    if ((Len == XRSA_2048_KEY_SIZE) || (Len == XRSA_3072_KEY_SIZE) ||
 		(Len == XRSA_4096_KEY_SIZE)) {
 			Status = XST_SUCCESS;
 	}

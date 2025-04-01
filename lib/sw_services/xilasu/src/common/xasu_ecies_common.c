@@ -49,12 +49,12 @@
 /**
  * @brief	This function validates the input parameters for ECIES.
  *
- * @param	EciesParams	Pointer to XAsu_EciesParams structure which holds the parameters of
- * 				ECIES input arguments.
+ * @param	EciesParams	Pointer to XAsu_EciesParams structure that holds the input parameters
+ * 			for ECIES.
  *
  * @return
- * 	- XST_SUCCESS, upon successful validation.
- * 	- XST_FAILURE, upon invalid arguments.
+ * 	- XST_SUCCESS, if ECIES input parameters validation is successful.
+ * 	- XST_FAILURE, if ECIES input parameters validation fails.
  *
  *************************************************************************************************/
 s32 XAsu_ValidateEciesParameters(const XAsu_EciesParams *EciesParams)
@@ -64,7 +64,7 @@ s32 XAsu_ValidateEciesParameters(const XAsu_EciesParams *EciesParams)
 	if (EciesParams == NULL) {
 		goto END;
 	}
-
+	/** Validate SHA Type and SHA Mode. */
 	if ((EciesParams->ShaType != XASU_SHA2_TYPE) && (EciesParams->ShaType != XASU_SHA3_TYPE)) {
 		goto END;
 	}
@@ -76,29 +76,29 @@ s32 XAsu_ValidateEciesParameters(const XAsu_EciesParams *EciesParams)
 	    (EciesParams->ShaMode != XASU_SHA_MODE_SHAKE256))) {
 		goto END;
 	}
-
+	/** Validate AES key size. */
 	if (((EciesParams->AesKeySize != XASU_AES_KEY_SIZE_128_BITS) &&
 	    (EciesParams->AesKeySize != XASU_AES_KEY_SIZE_256_BITS))) {
 		goto END;
 	}
-
+	/** Validate IV and MAC length paramters. */
 	if ((EciesParams->IvLength != XASU_AES_IV_SIZE_96BIT_IN_BYTES) ||
 	    (EciesParams->MacLength != XASU_AES_MAX_TAG_LENGTH_IN_BYTES)) {
 		goto END;
 	}
-
+	/** Validate context and data lengths. */
 	if ((EciesParams->ContextLen == 0U) ||
 	    (EciesParams->ContextLen > XASU_KDF_MAX_CONTEXT_LEN) ||
 	    (EciesParams->DataLength == 0U) ||
 	    (EciesParams->DataLength > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 		goto END;
 	}
-
+	/** Validate ECC curve type. */
 	if (XAsu_EccValidateCurveInfo(EciesParams->EccCurveType, EciesParams->EccKeyLength) !=
 			XST_SUCCESS) {
 		goto END;
 	}
-
+	/** Validate that the addresses of all input and output buffers are non-zero. */
 	if ((EciesParams->InDataAddr == 0U) || (EciesParams->IvAddr == 0U) ||
 	    (EciesParams->MacAddr == 0U) || (EciesParams->OutDataAddr == 0U) ||
 	    (EciesParams->TxKeyAddr == 0U) || (EciesParams->RxKeyAddr == 0U) ||

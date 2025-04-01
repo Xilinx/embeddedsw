@@ -127,14 +127,19 @@ typedef struct {
 	u64 KeyObjectAddr; /**< AES Key object address */
 	u64 IvAddr; /**< AES Iv/Nonce address */
 	u64 TagAddr; /**< AES Tag address */
-	u32 DataLen; /**< AES common input/output data length */
+	u32 DataLen; /**< AES input and output data length */
 	u32 AadLen; /**< AES AAD length */
 	u32 IvLen; /**< AES Iv/Nonce length */
 	u32 TagLen; /**< AES tag length */
 	u8 EngineMode; /**< AES engine mode */
-	u8 OperationFlags; /**< AES operation(INIT, UPDATE, FINAL) flag */
-	u8 IsLast; /**< Indicates whether it is the last update of data to AES engine */
-	u8 OperationType; /**< AES encrypt/decrypt operation type */
+	u8 OperationFlags; /**< AES operation flag is a combination of (XASU_AES_INIT,
+					* XASU_AES_UPDATE, XASU_AES_FINAL) */
+	u8 IsLast; /**< Indicates whether it is the last update of data to AES engine.
+				 * - FALSE: Not Last update.
+				 * - TRUE: Last update.   */
+	u8 OperationType; /**< AES encrypt/decrypt operation type
+					* - XASU_AES_ENCRYPT_OPERATION: For encrypt operation
+					* - XASU_AES_DECRYPT_OPERATION: For decrypt operation */
 } Asu_AesParams __attribute__ ((aligned (32)));
 
 /************************************ Function Prototypes ****************************************/

@@ -56,8 +56,8 @@ typedef struct {
 	u8 Priority;    /**< Task Priority */
 	u8 Reserved;    /**< Reserved */
 	u16 Reserved2;  /**< Reserved */
-	XAsuClient_ResponseHandler CallBackFuncPtr;  /**< Call Back function pointer */
-	void *CallBackRefPtr;   /**< Call Back reference pointer */
+	XAsuClient_ResponseHandler CallBackFuncPtr;  /**< Callback function pointer */
+	void *CallBackRefPtr;   /**< Callback reference pointer */
 	void *ClientCtx; /**< Reserved for user operation */
 } XAsu_ClientParams;
 
