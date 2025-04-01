@@ -5645,7 +5645,6 @@ static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr, XilPdi_MetaHdr 
 			XPlmi_Printf(DEBUG_INFO, "Authentication of the headers is successful\n\r");
 	}
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-		Status |= StatusTmp;
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_AUTH_FAIL, Status);
 		XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)CalHash.Hash,
 			XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN, "Headers Hash");
@@ -5655,12 +5654,9 @@ static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr, XilPdi_MetaHdr 
 	/** Decrypt the headers and copy to structures */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DecHdrs, SecurePtr,
 			MetaHdr, BufferAddr);
-	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)){
-		Status |= StatusTmp;
-	}
 
 END:
-	if (Status != XST_SUCCESS) {
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		/* Clear the buffer */
 		ClrStatus = XPlmi_InitNVerifyMem(BufferAddr, TotalSize);
 		if (ClrStatus != XST_SUCCESS) {
