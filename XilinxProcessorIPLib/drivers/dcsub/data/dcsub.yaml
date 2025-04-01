@@ -1,0 +1,16 @@
+%YAML 1.2
+---
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+title: MMI Display Controller
+maintainers: [Sai Hari Chandana Kalluri <chandana.kalluri@amd.com>]
+type: driver
+properties:
+  compatible:
+    OneOf:
+      - items:
+          - enum: ['xlnx,mmi-dc-11.0']
+  reg:
+    description: Physical base address and size of the controller register map
+config: [XDcSub_Config]
+required: [compatible, reg]
