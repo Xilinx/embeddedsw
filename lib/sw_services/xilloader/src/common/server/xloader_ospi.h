@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 *       ng   03/05/2024 Added support for Macronix OSPI 2G flash part
 *       sk   03/15/2024 Added structure for flash info
 *       prt  12/30/2024 Added macro to support ISSI 256MB flash part
+*		prt	 04/02/2025 Added support for Infineon OSPI flash parts
 *
 * </pre>
 *
@@ -72,9 +73,12 @@ extern "C" {
 #define READ_CMD_OPI_SPN		(0xEEU)
 #define WRITE_CONFIG_REG_SPN		(0x71U)
 #define READ_CONFIG_REG_SPN		(0x65U)
-#define CONFIG_REG_4_ADDR_SPN		(0x800005U)
-#define CONFIG_REG_5_DIE_1_ADDR_SPN	(0x800006U)
-#define CONFIG_REG_5_DIE_2_ADDR_SPN	(0x8800006U)
+#define CONFIG_REG_4_DIE_1_ADDR_SPN	(0x00800005U)
+#define CONFIG_REG_4_DIE_2_ADDR_SPN	(0x08800005U)
+#define CONFIG_REG_4_DIE_3_ADDR_SPN	(0x10800005U)
+#define CONFIG_REG_4_DIE_4_ADDR_SPN	(0x18800005U)
+#define CONFIG_REG_5_DIE_1_ADDR_SPN	(0x00800006U)
+#define CONFIG_REG_5_DIE_2_ADDR_SPN	(0x08800006U)
 #define CONFIG_REG_5_DIE_3_ADDR_SPN	(0x10800006U)
 #define CONFIG_REG_5_DIE_4_ADDR_SPN	(0x18800006U)
 
@@ -106,6 +110,9 @@ extern "C" {
 #define ISSI_OCTAL_ID_BYTE0             (0x9DU) /* ISSI manufacture id */
 #define MACRONIX_OCTAL_ID_BYTE0         (0xC2U) /* Macronix manufacture id */
 #define SPANSION_OCTAL_ID_BYTE0			(0x34U)  /* Spansion manufacture id */
+#define SPANSION_OCTAL_ID_BYTE2_256		(0x19U)  /* Spansion 256Mbit flash size */
+#define SPANSION_OCTAL_ID_BYTE2_512		(0x1AU)  /* Spansion 512Mbit flash size */
+#define SPANSION_OCTAL_ID_BYTE2_1G		(0x1BU)  /* Spansion 1Gbit flash size */
 #define SPANSION_OCTAL_ID_BYTE2_2G		(0x1CU)  /* Spansion 2Gbit flash size */
 #define MICRON_OCTAL_ID_BYTE2_512       (0x1AU) /* Micron 512Mbit flash size */
 #define MICRON_OCTAL_ID_BYTE2_1G        (0x1BU) /* Micron 1Gbit flash size */
@@ -148,17 +155,17 @@ extern "C" {
 #define XLOADER_OSPI_WRITE_DONE_MASK	(0x80U)
 #define XLOADER_WRITE_CFG_ECC_REG_VAL		(0xA0U)
 
-#define SPANSION_JEDEC_ID		(0x345b1CU)
 #define SPANSION_TOTAL_SECTORS		(0x400U)
 #define SPANSION_TOTAL_PAGES		(0x100000U)
 #define SPANSION_SECTOR_MASK		(0xFFFC0000U)
 #define SPANSION_DIE_COUNT_PER_FLASH	(0x02U)
 #define FLASH_SECTOR_SIZE_256KB 	(0x40000U)
 #define FLASH_PAGE_SIZE_256		(256U)
-#define FLASH_DEVICE_SIZE_2G		(0x10000000U)
 #define DDR_READ_CMD_4B_SPN		(0xEEU)
 #define WRITE_CMD_4B			(0x12U)
 #define READ_STATUS_CMD			(0x05U)
+
+#define SPANSION_ENABLE_2BIT_ECC
 
 /************************** Function Prototypes ******************************/
 int XLoader_OspiInit(u32 DeviceFlags);
@@ -167,7 +174,6 @@ int XLoader_OspiRelease(void);
 
 /************************** Variable Definitions *****************************/
 
-#ifdef VERSAL_NET
 typedef struct {
 	u32 jedec_id;	/* JEDEC ID */
 	u32 SectSize;		/* Individual sector size or
@@ -186,7 +192,6 @@ typedef struct {
 	u8 StatusCmd;	/* Status Command */
 	u8 DummyCycles;	/* Number of Dummy cycles for Read operation */
 } FlashInfo;
-#endif
 
 #endif /* end of XLOADER_OSPI */
 
