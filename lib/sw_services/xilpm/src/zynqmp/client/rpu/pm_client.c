@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,9 @@
 
 #define PM_CLIENT_RPU_ERR_INJ            0xFF9A0020U
 #define PM_CLIENT_RPU_FAULT_LOG_EN_MASK  0x00000101U
+
+/* Max number of RPU masters */
+#define MAX_RPU_MASTER	2U
 
 /* Mask to get affinity level 0 */
 #define PM_CLIENT_AFL0_MASK              0xFFU
@@ -243,8 +247,10 @@ void XPm_ClientSetPrimaryMaster(void)
 		primary_master = &pm_rpu_0_master;
 		pm_print("Running in Lock-Step mode\n");
 	} else {
-		primary_master = pm_masters_all[master_id];
-		pm_print("Running in Split mode\n");
+		if (master_id < MAX_RPU_MASTER) {
+			primary_master = pm_masters_all[master_id];
+			pm_print("Running in Split mode\n");
+		}
 	}
 }
 /** @endcond */

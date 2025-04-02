@@ -23,6 +23,8 @@
 #endif
 
 #if defined (__aarch64__)
+/* Max number of APU masters */
+#define MAX_SUPPORTED_PROC		(8U)
 #define ISB				__asm__ ("isb")
 #define PM_APU_CORE_COUNT_PER_CLUSTER	(2U)
 #define CORE_PWRDN_EN_BIT_MASK		(0x1U)
@@ -84,6 +86,8 @@ static struct XPm_Proc *const ProcList[] = {
 struct XPm_Proc *PrimaryProc = &Proc_APU0_0;
 
 #elif defined (__arm__)
+/* Max number of RPU masters */
+#define MAX_SUPPORTED_PROC		(10U)
 #define PM_RPU_CORE_COUNT_PER_CLUSTER	(2U)
 #define PSX_RPU_CLUSTER_A_BASEADDR	(0xEB580000U)
 #define PSX_RPU_CLUSTER_B_BASEADDR	(0xEB590000U)
@@ -219,7 +223,9 @@ XStatus XPm_SetPrimaryProc(void)
 
 	Status = XST_SUCCESS;
 
-	PrimaryProc = ProcList[ProcId];
+	if (ProcId < MAX_SUPPORTED_PROC) {
+		PrimaryProc = ProcList[ProcId];
+	}
 
 #if defined (__arm__)
 done:
