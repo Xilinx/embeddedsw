@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,9 @@
 #include <xpseudo_asm.h>
 
 /** @cond xilpm_internal */
+
+/* Max number of APU masters */
+#define MAX_APU_MASTER	4U
 
 /* Mask to get affinity level 0 */
 #define PM_AFL0_MASK   0xFFU
@@ -199,6 +203,9 @@ void XPm_ClientSetPrimaryMaster(void)
 #endif
 
 	master_id &= PM_AFL0_MASK;
-	primary_master = pm_masters_all[master_id];
+
+	if (master_id < MAX_APU_MASTER) {
+		primary_master = pm_masters_all[master_id];
+	}
 }
 /** @endcond */
