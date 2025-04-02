@@ -47,11 +47,24 @@ def configure_bsp(args):
         args (dict): User inputs in a dictionary format
     """
     obj = Bsp_config(args)
-
     # If user wants to add a library to the bsp
     if obj.addlib:
-        lib_name = obj.addlib[0]
+        lib_name, lib_path = obj.addlib[0], None
         logger.info(f"Adding {lib_name} ...")
+        #check for the custom repo config
+        if ":" in  obj.addlib[0]:
+            lib_name, lib_path = obj.addlib[0].split(":")
+            #Validate the library path
+            if not utils.is_dir(os.path.join(lib_path,"src")):
+                logger.error(f"""
+                Wrong inputs passed while adding the library.
+                {os.path.join(lib_path,"src")} doesnt exist..
+                Please pass the library name and path in
+                the below format
+                    -al <lib_name>:<path to library>
+                e.g. empyro config_bsp -d bsp -al libmetal:/home/abc/libmetal
+                """)
+                sys.exit(1)
         if lib_name in obj.bsp_lib_config.keys():
             logger.warning(f"""\b
                  {lib_name} is already added in the bsp. Nothing to do.
@@ -70,7 +83,7 @@ def configure_bsp(args):
             if lib in obj.lib_list:
                 continue
             obj.validate_lib_name(lib)
-            obj.gen_lib_metadata(lib)
+            obj.gen_lib_metadata(lib,lib_path)
 
         obj.config_lib(lib_name, lib_list, "", is_app=False)
         logger.info(f"Successfully added {lib_name}")

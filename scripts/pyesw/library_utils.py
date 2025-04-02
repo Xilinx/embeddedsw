@@ -104,7 +104,7 @@ class Library(Repo):
             )
             sys.exit(1)
 
-    def copy_lib_src(self, lib):
+    def copy_lib_src(self, lib, lib_path=None):
         """
         Copies the src directory of the passed library from the respective path
         of embeddedsw to the libsrc folder of bsp.
@@ -117,10 +117,11 @@ class Library(Repo):
             | srcdir (str): Path of src folder of library inside embeddedsw
             | dstdir (str): Path of src folder inside libsrc folder of bsp
         """
-        libdir = self.get_comp_dir(lib)
+        libdir = self.get_comp_dir(lib) if lib_path is None else lib_path
         srcdir = os.path.join(libdir, "src")
         if lib in ['libmetal', 'openamp']:
-            srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
+            if lib_path is None:
+                srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
             if lib == 'openamp':
                 # cached library name differs from directory name in repo.
                 srcdir = os.path.join(srcdir, 'open-amp')
@@ -455,8 +456,8 @@ class Library(Repo):
             utils.update_yaml(self.domain_config_file, "domain", "lib_config", lib_config)
             utils.update_yaml(self.domain_config_file, "domain", "lib_info", self.lib_info)
 
-    def gen_lib_metadata(self, lib):
-        _, src_dir, dst_dir = self.copy_lib_src(lib)
+    def gen_lib_metadata(self, lib, lib_path=None):
+        _, src_dir, dst_dir = self.copy_lib_src(lib,lib_path)
         lopper_cmd = f"lopper -O {dst_dir} -f {self.sdt} -- bmcmake_metadata_xlnx {self.proc} {src_dir} hwcmake_metadata {self.repo_yaml_path}"
         utils.runcmd(
             lopper_cmd,
