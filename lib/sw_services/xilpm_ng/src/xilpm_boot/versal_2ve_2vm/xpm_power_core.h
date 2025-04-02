@@ -105,7 +105,12 @@ struct XPmTcmPwrCtrl_t {
 };
 
 struct XPmFwGemPwrCtrl_t {
-        struct XPmFwMemPwrCtrl_t GemMemPwrCtrl;
+	u32 PwrStateMask; /**< Bit number in the Power State Register */
+	u32 ChipEnMask; /**< Bit number in the chip enable register */
+	u32 PwrCtrlMask; /**< Bit number in the Power control register */
+	u32 PwrStatusMask; /**< Bit number in the Power status register */
+	u32 ReqPwrUpStatusMask; /**< Bit number in the Power status register */
+	u32 ReqPwrDwnStatusMask; /**< Bit number in the Power status register */
 	u32 ClkCtrlAddr; /**< Address of the clock control register */
 	u32 ClkCtrlMask; /**< Bit number in the clock control register */
 	u32 RstCtrlAddr; /**< Address of the reset control register */

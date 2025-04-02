@@ -756,13 +756,12 @@ XPmTcmPwrCtrl_t TcmE1PwrCtrl = {
 
 
 XPmFwGemPwrCtrl_t Gem0PwrCtrl = {
-	.GemMemPwrCtrl = {
-		.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE2_GEM0_MASK,
-		.ChipEnMask = PSXC_LPX_SLCR_GEM_CE_CNTRL_GEM0_MASK,
-		.PwrCtrlMask = PSXC_LPX_SLCR_GEM_PWR_CNTRL_GEM0_MASK,
-		.PwrStatusMask = PSXC_LPX_SLCR_GEM_PWR_STATUS_GEM0_MASK,
-		.GlobPwrStatusMask = PSXC_LPX_SLCR_REQ_PWRUP1_STATUS_GEM0_MASK,
-	},
+	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE2_GEM0_MASK,
+	.ChipEnMask = PSXC_LPX_SLCR_GEM_CE_CNTRL_GEM0_MASK,
+	.PwrCtrlMask = PSXC_LPX_SLCR_GEM_PWR_CNTRL_GEM0_MASK,
+	.PwrStatusMask = PSXC_LPX_SLCR_GEM_PWR_STATUS_GEM0_MASK,
+	.ReqPwrUpStatusMask = PSXC_LPX_SLCR_REQ_PWRUP1_STATUS_GEM0_MASK,
+	.ReqPwrDwnStatusMask = PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS_GEM0_MASK,
 	.ClkCtrlAddr = PSXC_CRL_GEM0_REF_CTRL,
 	.RstCtrlAddr = PSXC_CRL_RST_GEM0,
 	.RstCtrlMask = PSXC_CRL_RST_GEM0_RESET_MASK,
@@ -771,13 +770,12 @@ XPmFwGemPwrCtrl_t Gem0PwrCtrl = {
 };
 
 XPmFwGemPwrCtrl_t Gem1PwrCtrl = {
-	.GemMemPwrCtrl = {
-		.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE2_GEM1_MASK,
-		.ChipEnMask = PSXC_LPX_SLCR_GEM_CE_CNTRL_GEM1_MASK,
-		.PwrCtrlMask = PSXC_LPX_SLCR_GEM_PWR_CNTRL_GEM1_MASK,
-		.PwrStatusMask = PSXC_LPX_SLCR_GEM_PWR_STATUS_GEM1_MASK,
-		.GlobPwrStatusMask = PSXC_LPX_SLCR_REQ_PWRUP1_STATUS_GEM1_MASK,
-	},
+	.PwrStateMask = PMXC_GLOBAL_PMC_MSTR_PWR_STATE2_GEM1_MASK,
+	.ChipEnMask = PSXC_LPX_SLCR_GEM_CE_CNTRL_GEM1_MASK,
+	.PwrCtrlMask = PSXC_LPX_SLCR_GEM_PWR_CNTRL_GEM1_MASK,
+	.PwrStatusMask = PSXC_LPX_SLCR_GEM_PWR_STATUS_GEM1_MASK,
+	.ReqPwrUpStatusMask = PSXC_LPX_SLCR_REQ_PWRUP1_STATUS_GEM1_MASK,
+	.ReqPwrDwnStatusMask = PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS_GEM1_MASK,
 	.ClkCtrlAddr = PSXC_CRL_GEM1_REF_CTRL,
 	.RstCtrlAddr = PSXC_CRL_RST_GEM1,
 	.RstCtrlMask = PSXC_CRL_RST_GEM1_RESET_MASK,
@@ -1676,10 +1674,9 @@ done:
 	return Status;
 }
 
-static XStatus XPmPower_MemPwrUpGem(struct XPmFwGemPwrCtrl_t *Args)
+static XStatus XPmPower_MemPwrUpGem(struct XPmFwGemPwrCtrl_t *Gem)
 {
 	XStatus Status = XST_FAILURE;
-	struct XPmFwMemPwrCtrl_t *Gem = &Args->GemMemPwrCtrl;
 
 	/* Set chip enable */
 	XPm_RMW32(PSXC_LPX_SLCR_GEM_CE_CNTRL, Gem->ChipEnMask, Gem->ChipEnMask);
@@ -1690,26 +1687,25 @@ static XStatus XPmPower_MemPwrUpGem(struct XPmFwGemPwrCtrl_t *Args)
 	/* Set bit in local reg */
 	XPm_RMW32(PMXC_GLOBAL_PMC_AUX_PWR_STATE_2, Gem->PwrStateMask, Gem->PwrStateMask);
 
-	Status = XPm_PollForMask(PSXC_LPX_SLCR_GEM_PWR_STATUS, Gem->PwrStatusMask, Args->PwrStateAckTimeout);
+	Status = XPm_PollForMask(PSXC_LPX_SLCR_GEM_PWR_STATUS, Gem->PwrStatusMask, Gem->PwrStateAckTimeout);
 	if (XST_SUCCESS != Status) {
 		PmErr("bit is not set\n");
 		goto done;
 	}
 
 	/* Unmask the Power Down Interrupt */
-	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN1_INT_EN, Gem->GlobPwrStatusMask);
+	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN1_INT_EN, Gem->ReqPwrDwnStatusMask);
 
 	/* Clear the interrupt */
-	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRUP1_STATUS, Gem->GlobPwrStatusMask);
+	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRUP1_STATUS, Gem->ReqPwrUpStatusMask);
 
 done:
 	return Status;
 }
 
-static XStatus XPmPower_MemPwrDwnGem(struct XPmFwGemPwrCtrl_t *Args)
+static XStatus XPmPower_MemPwrDwnGem(struct XPmFwGemPwrCtrl_t *Gem)
 {
 	XStatus Status = XST_FAILURE;
-	struct XPmFwMemPwrCtrl_t *Gem = &Args->GemMemPwrCtrl;
 
 	/* Disable power to gem banks */
 	XPm_RMW32(PSXC_LPX_SLCR_GEM_PWR_CNTRL, Gem->PwrCtrlMask, ~Gem->PwrCtrlMask);
@@ -1721,17 +1717,17 @@ static XStatus XPmPower_MemPwrDwnGem(struct XPmFwGemPwrCtrl_t *Args)
 	XPm_RMW32(PMXC_GLOBAL_PMC_AUX_PWR_STATE_2, Gem->PwrStateMask, ~Gem->PwrStateMask);
 
 	/* Read the gem Power Status register */
-	Status = XPm_PollForZero(PSXC_LPX_SLCR_GEM_PWR_STATUS, Gem->PwrStatusMask, Args->PwrStateAckTimeout);
+	Status = XPm_PollForZero(PSXC_LPX_SLCR_GEM_PWR_STATUS, Gem->PwrStatusMask, Gem->PwrStateAckTimeout);
 	if (XST_SUCCESS != Status) {
 		PmErr("bit is not set\n");
 		goto done;
 	}
 
 	/* Unmask the gem Power Up Interrupt */
-	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRUP1_INT_EN, Gem->GlobPwrStatusMask);
+	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRUP1_INT_EN, Gem->ReqPwrUpStatusMask);
 
 	/* Clear the interrupt */
-	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS, Gem->GlobPwrStatusMask);
+	XPm_Out32(PSXC_LPX_SLCR_REQ_PWRDWN1_STATUS, Gem->ReqPwrDwnStatusMask);
 
 done:
 	return Status;
