@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,9 @@
 
 #ifndef PLL_CONF_H_
 #define PLL_CONF_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include "LMK04906.h"
 
 
@@ -34,4 +38,7 @@ void CLK162MHz_Out (XSpi *SPI_LMK04906 , u32 CLKout_Num);
 void CLK270MHz_Out (XSpi *SPI_LMK04906 , u32 CLKout_Num);
 void PLL_RegWrite (XSpi *SPI_LMK04906 , u32 RegData , u32 RegNum);
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* PLL_CONF_H_ */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,9 @@
 * </pre>
 *
 ******************************************************************************/
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <xdprxss.h>
 #include <xdprxss_mcdp6000.h>
 #include <xparameters.h>
@@ -237,3 +240,7 @@ void Print_ExtPkt();
 #define RXACR_NAUD   0x54
 #define RXACR_DIV    0x70
 #define RXACR_ENABLE 0x8
+
+#ifdef __cplusplus
+}
+#endif

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,10 @@
 
 #ifndef XDEBUG  /* prevent circular inclusions */
 #define XDEBUG  /* by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 //#define DEBUG 1
 
@@ -54,4 +59,7 @@ int printf(const char *format, ...);
 
 #endif /* defined(DEBUG) && !defined(NDEBUG) */
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* XDEBUG */

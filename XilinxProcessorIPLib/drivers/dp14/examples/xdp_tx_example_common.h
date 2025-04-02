@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -34,6 +35,9 @@
 #ifndef XDP_TX_EXAMPLE_COMMON_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XDP_TX_EXAMPLE_COMMON_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /******************************* Include Files ********************************/
 
@@ -106,4 +110,7 @@ u32 Dptx_Run(XDp *InstancePtr);
 
 XDp DpInstance;
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* XDP_TX_EXAMPLE_COMMON_H_ */

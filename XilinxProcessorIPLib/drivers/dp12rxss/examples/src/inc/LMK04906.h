@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,10 @@
 ******************************************************************************/
 #ifndef LMK04906_H_
 #define LMK04906_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdlib.h>
 #include "xspi.h"
 #include "xparameters.h"
@@ -53,4 +57,8 @@ u32  Get_Option();
 u32  Get_Status();
 u32  Rx_Data_Read();
 void Tx_Data_Write(u32 WriteData);
+
+#ifdef __cplusplus
+}
+#endif
 #endif /* LMK04906_H_ */

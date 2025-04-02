@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +9,9 @@
 #ifndef KEYMGMT_KEYFILE_H
 #define KEYMGMT_KEYFILE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Include Files */
 #include "keymgmt.h"
@@ -51,5 +55,7 @@ KEYFILE_Close(KEYFILE_tHandle* theHandlePtr);
 int
 KEYFILE_Read(KEYFILE_tHandle theHandle, KEYFILE_tDevKeyTable* theTable);
 
-
+#ifdef __cplusplus
+}
+#endif
 #endif  /* KEYMGMT_KEYFILE_H */

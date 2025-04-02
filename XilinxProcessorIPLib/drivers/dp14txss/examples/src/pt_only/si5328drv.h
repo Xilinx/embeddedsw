@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -30,6 +31,9 @@
 
 #ifndef SI5328DRV_H_
 #define SI5328DRV_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xil_types.h"
 #include "xparameters.h"
@@ -228,5 +232,7 @@ s32 Si5328_SetClock_Ps(XIicPs *InstancePtr, u16 IICAddress, u8 ClkSrc,
  * @note     Private function.
  *****************************************************************************/
 int Si5328_Reset(u32 IICBaseAddress, u8 IICAddress);
-
+#ifdef __cplusplus
+}
+#endif
 #endif /* SI5328DRV_H_ */

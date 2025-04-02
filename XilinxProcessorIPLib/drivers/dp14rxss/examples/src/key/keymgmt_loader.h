@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +16,9 @@
 
 #ifndef KEYMGMT_LOADER_H
 #define KEYMGMT_LOADER_H
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Include Files */
 #include "keymgmt.h"
@@ -40,5 +43,7 @@ KEYMGMTLDR_Poll(uint32_t theUpTime);
 int
 KEYMGMTLDR_Debug(int argc, const char* argv[]);
 
-
+#ifdef __cplusplus
+}
+#endif
 #endif /* KEYMGMT_LOADER_H */

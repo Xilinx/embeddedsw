@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -14,7 +14,9 @@
 
 #ifndef SRC_XDPTXSS_ZCU102_TX_H_
 #define SRC_XDPTXSS_ZCU102_TX_H_
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
 
@@ -188,4 +190,7 @@ u8 get_LineRate(void);
 u8 get_Lanecounts(void);
 void sink_power_cycle(void);
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* SRC_XDPTXSS_ZCU102_TX_H_ */

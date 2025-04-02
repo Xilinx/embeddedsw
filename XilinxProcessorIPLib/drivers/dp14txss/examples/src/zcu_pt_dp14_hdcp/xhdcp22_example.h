@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -13,6 +14,9 @@
 
 #ifndef XHDCP22_EXAMPLE_H_
 #define XHDCP22_EXAMPLE_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xdprxss.h"
 #include "xdptxss.h"
@@ -109,5 +113,7 @@ int XHdcp22_LoadKeys_tx(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size);
 void XV_DpTxSs_Hdcp22SetKey(XDpTxSs *InstancePtr,
 		XV_DpTxSs_Hdcp22KeyType KeyType, u8 *KeyPtr);
 
-
+#ifdef __cplusplus
+}
+#endif
 #endif /* XHDCP22_EXAMPLE_H_ */

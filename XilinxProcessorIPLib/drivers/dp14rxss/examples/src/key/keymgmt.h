@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +16,9 @@
 
 #ifndef KEYMGMT_H
 #define KEYMGMT_H
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Include Files */
 #include <stdint.h>
@@ -80,5 +83,7 @@ KEYMGMT_tError KEYMGMT_WriteKeysToEeprom(uint8_t *keyBuf, unsigned int keySize);
 uint32_t iicEepromWriteKeys(uint8_t *userKeyBuf, unsigned int userKeySize,
 								int userKeysIsTrue);
 //uint32_t iicEepromWriteKeys();
-
+#ifdef __cplusplus
+}
+#endif
 #endif /* KEYMGMT_H */
