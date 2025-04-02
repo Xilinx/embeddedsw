@@ -289,7 +289,7 @@ static int XPuf_GenerateKey(void)
 	PUF_HelperData[XPUF_HD_LEN_IN_WORDS - 1U] = (PufData.Aux << XIL_SIZE_OF_NIBBLE_IN_BITS);
 	XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * XPUF_WORD_LENGTH);
 	xil_printf("Chash: %02x \r\n", PufData.Chash);
-	xil_printf("Aux: %02x \r\n", PufData.Aux);
+	xil_printf("Aux: %02x \r\n", (PufData.Aux << XIL_SIZE_OF_NIBBLE_IN_BITS));
 	xil_printf("PUF Helper data End\r\n");
 	xil_printf("PUF ID : ");
 	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);

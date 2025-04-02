@@ -316,7 +316,7 @@ static int XPuf_GeneratePufKekAndId(XPuf_ClientInstance PufClientInstance)
 		PUF_HelperData[XPUF_HD_LEN_IN_WORDS - 1U] = (Aux << XIL_SIZE_OF_NIBBLE_IN_BITS);
 		XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * XPUF_WORD_LENGTH);
 		xil_printf("Chash: %02x \r\n", Chash);
-		xil_printf("Aux: %02x \r\n", Aux);
+		xil_printf("Aux: %02x \r\n", (Aux << XIL_SIZE_OF_NIBBLE_IN_BITS));
 		xil_printf("PUF Helper data End\r\n");
 		xil_printf("PUF ID : ");
 		XPuf_ShowData((u8*)PufId, XPUF_ID_LEN_IN_BYTES);

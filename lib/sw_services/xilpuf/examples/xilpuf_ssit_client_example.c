@@ -465,7 +465,7 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 	PUF_HelperData[XPUF_HD_LEN_IN_WORDS - 1U] = (PufArr.Aux << XIL_SIZE_OF_NIBBLE_IN_BITS);
 	XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * XPUF_WORD_LENGTH);
 	xil_printf("Chash: %02x \r\n", PufArr.Chash);
-	xil_printf("Aux: %02x \r\n", PufArr.Aux);
+	xil_printf("Aux: %02x \r\n", (PufArr.Aux << XIL_SIZE_OF_NIBBLE_IN_BITS));
 	xil_printf("PUF Helper data End\r\n");
 	xil_printf("PUF ID : ");
 	XPuf_ShowData((u8*)PufArr.PufID, XPUF_ID_LEN_IN_BYTES);
