@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,9 @@
 
 #define WFI				__asm__ ("wfi")
 #endif
+
+/* Max number of APU/RPU masters */
+#define MAX_SUPPORTED_PROC		(2U)
 
 #if defined (__aarch64__)
 #define APU_PWRCTRL_OFFSET		(0x90U)
@@ -143,7 +146,10 @@ XStatus XPm_SetPrimaryProc(void)
 #endif
 
 	ProcId &= PM_AFL0_MASK;
-	PrimaryProc = ProcList[ProcId];
+
+	if (ProcId < MAX_SUPPORTED_PROC) {
+		PrimaryProc = ProcList[ProcId];
+	}
 
 #if defined (__arm__)
 done:
