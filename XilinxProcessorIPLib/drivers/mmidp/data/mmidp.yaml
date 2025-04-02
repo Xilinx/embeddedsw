@@ -1,0 +1,17 @@
+%YAML 1.2
+---
+# Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+title: Bindings for MMI DP controller
+maintainers: [Sai Hari Chandana Kalluri <chandana.kalluri@amd.com>]
+type: driver
+properties:
+  compatible:
+    items:
+      - const: xlnx,mmi-udh-dp-11.0
+  reg:
+    description: Physical base address and size of the controller register map
+config: [XMmiDp_Config]
+required: [compatible, reg]
+depends:
+  video_common: []
