@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,9 @@
 
 #ifndef DPAPP_H_
 #define DPAPP_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdio.h>
 //#include "xbasic_types.h"
@@ -168,4 +171,7 @@ typedef unsigned int    UINT32;
 
 #define BUFFER_BYPASS            XPAR_VID_PHY_CONTROLLER_0_TX_BUFFER_BYPASS
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* DPAPP_H_ */

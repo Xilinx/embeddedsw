@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <stddef.h>
 #include <xdp.h>
 #include <xdp_hw.h>
@@ -391,4 +393,6 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 u32 xil_gethex(u8 num_chars);
 
 /*********************************************************************/
-
+#ifdef __cplusplus
+}
+#endif

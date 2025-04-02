@@ -1,6 +1,6 @@
 ##############################################################################
 # Copyright (C) 2015 - 2023 Xilinx, Inc. All rights reserved.
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##
 #############################################################################
@@ -12,6 +12,6 @@ BEGIN driver dp14rxss
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (video_common_v4_0);
 	OPTION copyfiles = all;
-	OPTION VERSION = 8.3;
+	OPTION VERSION = 8.4;
 	OPTION NAME = dp14rxss;
 END driver

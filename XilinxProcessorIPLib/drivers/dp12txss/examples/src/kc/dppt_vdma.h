@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021  Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,9 @@
 * </pre>
 *
 ******************************************************************************/
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdio.h>
 #include "xbasic_types.h"
@@ -77,3 +80,6 @@ int ReadSetup(struct dma_chan_parms define_function[1], u32 dp_hres,
 			u32 dp_vres, u8 pixel);
 void Dprx_StartVDMA(XAxiVdma *InstancePtr, u16 Direction, u32 hres, u32 vres,
 			u8 pxl, struct dma_chan_parms *dma_struct);
+#ifdef __cplusplus
+}
+#endif

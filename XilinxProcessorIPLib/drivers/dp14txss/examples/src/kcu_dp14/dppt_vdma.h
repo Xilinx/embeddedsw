@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +21,9 @@
 *
 ******************************************************************************/
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <stdio.h>
 #include "xbasic_types.h"
 #include "xil_types.h"
@@ -82,3 +85,6 @@ void Dprx_StartVDMA(XAxiVdma *InstancePtr, u16 Direction, u32 hres, u32 vres,
 			u8 pxl, struct dma_chan_parms *dma_struct);
 void Dprx_StartVDMA_trunc(XAxiVdma *InstancePtr, u16 Direction, u32 hres, 
 	u32 vres, u8 pxl, struct dma_chan_parms *dma_struct, u32 offset);
+#ifdef __cplusplus
+}
+#endif

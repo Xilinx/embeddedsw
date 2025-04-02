@@ -1,10 +1,12 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 //#define SIMULATION
 #define DEBUG_LEVEL 1
 #define DEVICE_ID 1 //0->k7;1->v7;2->a7
@@ -65,3 +67,6 @@ u32 xil_gethex(u8 num_chars);
 u32 xil_getdec(u8 num_chars);
 
 void xil_getline (char s[]);
+#ifdef __cplusplus
+}
+#endif

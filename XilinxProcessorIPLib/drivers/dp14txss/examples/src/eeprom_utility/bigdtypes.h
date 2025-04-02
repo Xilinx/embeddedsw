@@ -19,6 +19,9 @@
 
 #ifndef BIGDTYPES_H_
 #define BIGDTYPES_H_ 1
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stddef.h>
 #include "xil_types.h"
@@ -68,4 +71,7 @@ You can override by defining HAVE_C99INCLUDES or HAVE_SYS_TYPES.
 #define PRIxBIGD PRIx32
 #define PRIXBIGD PRIX32
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* BIGDTYPES_H_ */

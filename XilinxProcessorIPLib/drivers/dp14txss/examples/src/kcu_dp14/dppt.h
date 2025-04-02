@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,6 +23,9 @@
 
 #ifndef DPAPP_H_
 #define DPAPP_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdio.h>
 #include <math.h>
@@ -314,4 +317,7 @@ void update_edid();
 void Print_InfoPkt();
 void Print_ExtPkt();
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* DPAPP_H_ */
