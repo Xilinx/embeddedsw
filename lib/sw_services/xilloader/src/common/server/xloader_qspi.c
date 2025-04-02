@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,7 @@
 *       ng   12/27/2023 Reduced log level for less frequent prints
 *       ng   02/14/2024 removed int typecast for errors
 *       pre  09/06/2024 Setting the pre-scaler for QSPI clock from CIPS
+*		prt	 04/02/2025 Added support for Infineon QSPI flash parts
 *
 * </pre>
 *
@@ -185,18 +186,21 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		XLoader_Printf(DEBUG_INFO, "256M Bits\r\n");
 	}
 	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_512M)
+		|| (ReadBuffer[2U] == XLOADER_INFINEON_FLASH_SIZE_ID_512M)
 		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_SIZE_ID_512M)
 		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_512M)){
 		QspiFlashSize = XLOADER_FLASH_SIZE_512M;
 		XLoader_Printf(DEBUG_INFO, "512M Bits\r\n");
 	}
 	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_1G)
+		|| (ReadBuffer[2U] == XLOADER_INFINEON_FLASH_SIZE_ID_1G)
 		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_SIZE_ID_1G)
 		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_1G)){
 		QspiFlashSize = XLOADER_FLASH_SIZE_1G;
 		XLoader_Printf(DEBUG_INFO, "1G Bits\r\n");
 	}
 	else if ((ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_2G)
+		|| (ReadBuffer[2U] == XLOADER_INFINEON_FLASH_SIZE_ID_2G)
 		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_SIZE_ID_2G)
 		|| (ReadBuffer[2U] == XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_2G)) {
 		QspiFlashSize = XLOADER_FLASH_SIZE_2G;
