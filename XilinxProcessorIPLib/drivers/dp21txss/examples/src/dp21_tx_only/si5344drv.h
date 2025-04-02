@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,9 @@
 /***************************** Include Files *********************************/
 
 #ifndef SI5344_H
+#ifdef __cplusplus
+extern "C" {
+#endif
 /**  prevent circular inclusions by using protection macros */
 #define SI5344_H
 #include "xparameters.h"
@@ -544,5 +547,7 @@ si5344_revd static const si5344_revd_registers[SI5344_REVD_CONFIG_NUM_REGS] =
 int SI5344_Init(void *IicPtr, u8 I2CSlaveAddress);
 
 /************************** Variable Declarations ****************************/
-
+#ifdef __cplusplus
+}
+#endif
 #endif /* SI5344_H */

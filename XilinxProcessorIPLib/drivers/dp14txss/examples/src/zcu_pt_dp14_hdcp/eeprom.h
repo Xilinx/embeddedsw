@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,6 +15,10 @@
 
 #ifndef EEPROM_H_
 #define EEPROM_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xil_types.h"
 /***************************** Include Files *********************************/
@@ -122,5 +127,7 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount);
 int EepromReadDataOffset(u8 *BufferPtr, u16 ByteCount, u32 offset);
 //static int SetupInterruptSystem(XIic *IicInstPtr);
 
-
+#ifdef __cplusplus
+}
+#endif
 #endif /* EEPROM_H_ */

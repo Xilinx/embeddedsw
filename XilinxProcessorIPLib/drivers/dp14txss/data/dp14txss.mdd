@@ -1,6 +1,6 @@
 ##############################################################################
 # Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##
 #############################################################################
@@ -12,6 +12,6 @@ BEGIN driver dp14txss
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (dual_splitter_v1_0 vtc_v7_2);
 	OPTION copyfiles = all;
-	OPTION VERSION = 6.12;
+	OPTION VERSION = 6.13;
 	OPTION NAME = dp14txss;
 END driver

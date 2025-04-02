@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021  Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,9 @@
 * </pre>
 *
 ******************************************************************************/
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdio.h>
 #include "xbasic_types.h"
@@ -57,3 +60,6 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 void Dppt_Tx_SetRefClocks(u8 DPLinkRate_Value, u8 is_TX_CPLL);
 void Two_byte_set (XVphy *InstancePtr, u8 Tx_to_two_byte, u8 Rx_to_two_byte);
 void lmk();
+#ifdef __cplusplus
+}
+#endif

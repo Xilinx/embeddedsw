@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021  Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,7 +27,9 @@
 
 #ifndef KEYMGMT_DEBUG_H
 #define KEYMGMT_DEBUG_H
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Include Files */
 #include "xparameters.h"
@@ -66,6 +69,7 @@
  ******************************************************************************/
 #define KEYMGMT_DEBUG_LOG
 
-
-
+#ifdef __cplusplus
+}
+#endif
 #endif /* KEYMGMT_DEBUG_H */

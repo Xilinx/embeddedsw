@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,6 +23,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stddef.h>
 #include <xdp.h>
@@ -300,3 +303,6 @@ u32 xil_gethex(u8 num_chars);
 #define ANSI_COLOR_CYAN     "\x1b[36m"
 #define ANSI_COLOR_WHITE    "\x1b[37m"
 #define ANSI_COLOR_RESET    "\x1b[0m"
+#ifdef __cplusplus
+}
+#endif

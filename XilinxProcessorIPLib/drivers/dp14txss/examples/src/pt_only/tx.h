@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -19,6 +20,10 @@
 
 #ifndef SRC_TX_H_
 #define SRC_TX_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 /***************************** Include Files *********************************/
 
@@ -182,4 +187,7 @@ int TI_LMK03318_PowerDown(u32 I2CBaseAddress, u8 I2CSlaveAddress);
 void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 			u8 Edid_org[128], u8 Edid1_org[128]);
 u32 DpTxSs_SetupIntrSystem(void);
+#ifdef __cplusplus
+}
+#endif
 #endif /* SRC_TX_H_ */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,9 @@
 
 #ifndef XEDID_PRINT_EXAMPLE_H_
 #define XEDID_PRINT_EXAMPLE_H_
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "xdp.h"
 #include "xvidc_edid.h"
@@ -31,4 +34,7 @@ u32 Edid_PrintDecodeBase(u8 *EdidRaw);
 void Edid_Print_Supported_VideoModeTable(u8 *EdidRaw);
 void XDptx_DbgPrintEdid(XDp *InstancePtr);
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* XEDID_PRINT_EXAMPLE_H_ */

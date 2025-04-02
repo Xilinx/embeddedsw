@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +25,10 @@
 #include "xil_types.h"
 #include "../src/xvid_pat_gen.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /********************** Constant Definition **********************/
 #define CLK_WIZ_BASE      				\
 	XPAR_VID_CLK_RST_HIER_CLK_WIZ_0_BASEADDR
@@ -44,3 +49,6 @@ int wait_for_lock();
 void ComputeMandD(XDp *InstancePtr, u32 VidFreq);
 void ComputeMandD_txlnk(u32 VidFreq, u16 Link_rate);
 void ComputeMandD_rxlnk(u32 VidFreq, u16 Link_rate);
+#ifdef __cplusplus
+}
+#endif

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +24,9 @@
 
 #ifndef SRC_XDPTXSS_ZCU102_TX_H_
 #define SRC_XDPTXSS_ZCU102_TX_H_
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 /***************************** Include Files *********************************/
 
 #include "xdptxss.h"
@@ -291,5 +293,7 @@ typedef struct {
         u64 CPLLRefClkFreqHz;
 } XVphy_User_Config;
 u32 PHY_Configuration_Tx(XVphy *InstancePtr,
-							XVphy_User_Config PHY_User_Config_Table);
+#ifdef __cplusplus
+}
+#endif							XVphy_User_Config PHY_User_Config_Table);
 #endif /* SRC_XDPTXSS_ZCU102_TX_H_ */
