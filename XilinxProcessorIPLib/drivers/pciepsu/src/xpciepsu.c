@@ -773,15 +773,10 @@ static void XPciePsu_BarMemoryAlloc(XPciePsu *InstancePtr, u8 Bus,u8 Device,u8 F
 #endif
 		} else {
 
+			/* 32 bit AS is required */
 			MaxBarSize = InstancePtr->Config.NpMemMaxAddr - InstancePtr->Config.NpMemBaseAddr;
 			TestWrite = XPciePsu_PositionRightmostSetbit(Size[BarNo]);
 			Value[BarNo] = 2 << (TestWrite-1);
-
-#if defined(__aarch64__) || defined(__arch64__)
-
-			/* 32 bit AS is required */
-			MemAs = Size[BarNo];
-
 			if (BarAllocControl != 0) {
 				if(Value[BarNo] > MaxBarSize) {
 
@@ -791,7 +786,14 @@ static void XPciePsu_BarMemoryAlloc(XPciePsu *InstancePtr, u8 Bus,u8 Device,u8 F
 						(Value[BarNo] / 1024),Bus,Device,Function);
 					return;
 				}
+			}
 
+#if defined(__aarch64__) || defined(__arch64__)
+
+			/* 32 bit AS is required */
+			MemAs = Size[BarNo];
+
+			if (BarAllocControl != 0) {
 			/* actual bar size is 2 << TestWrite */
 			BarAddr =
 				XPciePsu_ReserveBarMem(

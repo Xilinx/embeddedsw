@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@ XPciePsu_Config XPciePsu_ConfigTable[] =
 		XPAR_PSU_PCIE_HIGH1_BASEADDR,
 		XPAR_PSU_PCIE_LOW_HIGHADDR,
 		XPAR_PSU_PCIE_HIGH1_HIGHADDR,
+		XPAR_PSU_PCIE_DMA_BASEADDR,
 		XPAR_PSU_PCIE_PCIE_MODE
 	}
 };
