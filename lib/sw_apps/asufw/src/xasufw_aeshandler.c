@@ -18,6 +18,7 @@
  * 1.0   am   08/01/24 Initial release
  * 1.1   ma   12/12/24 Updated resource allocation logic
  *       am   01/20/25 Added AES CCM support
+ *       am   04/03/25 Removed redundant release of AES resource
  *
  * </pre>
  *
@@ -247,11 +248,6 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 
-		/** Release the resources. */
-		if (XAsufw_ReleaseResource(XASUFW_AES, ReqId) != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
-		}
-		XAsufw_AesModule.AsuDmaPtr = NULL;
 	} else {
 		if (XAsufw_AesModule.AsuDmaPtr != NULL) {
 			Status = XAsufw_ReleaseDmaResource(XAsufw_AesModule.AsuDmaPtr, ReqId);
@@ -264,8 +260,8 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 END:
-	if (Status != XASUFW_SUCCESS) {
-		/** Release the resources in the event of failure. */
+	/** Release the resource in the event of failure or after a successful final operation. */
+	if ((Status != XASUFW_SUCCESS) || (AesParamsPtr->OperationFlags & XASU_AES_FINAL)) {
 		if (XAsufw_ReleaseResource(XASUFW_AES, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
