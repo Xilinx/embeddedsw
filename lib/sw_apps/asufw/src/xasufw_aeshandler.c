@@ -196,7 +196,8 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * During single/multiple update of AAD data, address of AAD data will be non-zero.
 		 * User should pass AAD address as zero for AES standard modes(CBC, ECB, CFB, OFB, CTR)
 		 */
-		if ((AesParamsPtr->AadAddr != 0U) && XASU_AES_IS_AAD_SUPPORTED_MODE(EngineMode)) {
+		if ((AesParamsPtr->AadAddr != 0U) &&
+				((EngineMode == XASU_AES_GCM_MODE) || (EngineMode == XASU_AES_CMAC_MODE))) {
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
 					AesParamsPtr->AadLen, XASU_FALSE);
 			if (Status != XASUFW_SUCCESS) {
