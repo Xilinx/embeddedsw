@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -437,27 +437,29 @@ END:
 int XSecure_ECCRandInit(void)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 
 	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != TRUE) ||
 		(TrngInstance->ErrorState != XTRNGPSX_HEALTHY)) {
-		Status = XTrngpsx_PreOperationalSelfTests(TrngInstance);
-		if (Status != XST_SUCCESS) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XTrngpsx_PreOperationalSelfTests, TrngInstance);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+			Status = (int)XSECURE_ERR_IN_TRNG_SELF_TESTS;
 			goto END;
 		}
-		else {
-			XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
-		}
+
+		XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
 	}
 	if ((TrngInstance->UserCfg.Mode != XTRNGPSX_HRNG_MODE) ||
 		(TrngInstance->State == XTRNGPSX_UNINITIALIZED_STATE )) {
-		Status = XSecure_TrngInitNCfgHrngMode();
-		if(Status != XST_SUCCESS)
-		{
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_TrngInitNCfgHrngMode);
+		if((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = (int)XSECURE_ERR_TRNG_INIT_N_CONFIG;
 			goto END;
 		}
 	}
+
 	Status = XST_SUCCESS;
 END:
 

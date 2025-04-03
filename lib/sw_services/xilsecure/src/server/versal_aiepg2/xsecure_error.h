@@ -257,7 +257,9 @@ typedef enum {
 	XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR, /**< 0xF9 - Error during MemCpy and reversing the endianness */
 	XSECURE_RSA_OP_MEM_SET_ERROR,		/**< 0xF9 - Error when MemSet is failed during RSA private operation */
 	XSECURE_RSA_OP_REVERSE_ENDIANESS_ERROR,	/**< 0xFA - Error when reversing the endianness during RSA private operation */
-	XSECURE_ERR_GLITCH_DETECTED		/**< 0xFB - Error glitch detected */
+	XSECURE_ERR_GLITCH_DETECTED,		/**< 0xFB - Error glitch detected */
+	XSECURE_ERR_IN_TRNG_SELF_TESTS,		/**< 0xFC - Error in TRNG operation self tests */
+	XSECURE_ERR_TRNG_INIT_N_CONFIG		/**< 0xFD - Error in TRNG Instantiate and configuration */
 
 } XSecure_ErrorCodes;
 
