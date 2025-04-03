@@ -256,7 +256,8 @@ typedef enum {
 	XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR,	/**< 0xF8 - Error when MemCpy is failed after RSA operation */
 	XSECURE_RSA_OP_MEM_CPY_AND_CHANGE_ENDIANNESS_FAILED_ERROR, /**< 0xF9 - Error during MemCpy and reversing the endianness */
 	XSECURE_RSA_OP_MEM_SET_ERROR,		/**< 0xF9 - Error when MemSet is failed during RSA private operation */
-	XSECURE_RSA_OP_REVERSE_ENDIANESS_ERROR	/**< 0xFA - Error when reversing the endianness during RSA private operation */
+	XSECURE_RSA_OP_REVERSE_ENDIANESS_ERROR,	/**< 0xFA - Error when reversing the endianness during RSA private operation */
+	XSECURE_ERR_GLITCH_DETECTED		/**< 0xFB - Error glitch detected */
 
 } XSecure_ErrorCodes;
 
