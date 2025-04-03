@@ -379,6 +379,7 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
  * @return
  *		 - XST_SUCCESS  On Success
  *  		 - XST_FAILURE  On Failure
+ *		 - XSECURE_ERR_GLITCH_DETECTED Error when glitch is detected
  *
  *****************************************************************************/
 int XSecure_GetRandomNum(u8 *Output, u32 Size)
@@ -409,6 +410,10 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 					RandBufPtr, RandBufSize, FALSE);
 		RandBufPtr += RandBufSize;
 		TotalSize -= RandBufSize;
+	}
+
+	if (Index != NoOfGenerates) {
+		Status = (int)XSECURE_ERR_GLITCH_DETECTED;
 	}
 
 END:
