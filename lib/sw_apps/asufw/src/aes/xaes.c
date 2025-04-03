@@ -24,6 +24,7 @@
  *       vns  02/12/25 Removed XAsufw_RCMW() API
  *       yog  02/26/25 Added XAes_Compute() API
  *       am   03/14/25 Updated doxygen comments
+ *       am   04/01/25 Add key read-back verification for key integrity.
  *
  * </pre>
  *
@@ -280,6 +281,7 @@ static s32 XAes_IsKeyZeroized(const XAes *InstancePtr, u32 KeySrc);
 static void XAes_ConfigCounterMeasures(const XAes *InstancePtr);
 static void XAes_ConfigAesOperation(const XAes *InstancePtr);
 static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
+static s32 XAes_ReadBackKeyConfig(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
 static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen);
 static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen);
 static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen);
@@ -625,14 +627,21 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 	/** Release reset of AES engine. */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
 
+	/** Load key to AES engine. */
+	XAes_LoadKey(InstancePtr, KeyObject.KeySrc, KeyObject.KeySize);
+
 	/** Configure AES DPA counter measures. */
 	XAes_ConfigCounterMeasures(InstancePtr);
 
 	/** Configure AES engine to encrypt/decrypt operation. */
 	XAes_ConfigAesOperation(InstancePtr);
 
-	/** Load key to AES engine. */
-	XAes_LoadKey(InstancePtr, KeyObject.KeySrc, KeyObject.KeySize);
+	/** Verify the key source and size by reading them back from the AES key vault registers. */
+	Status = XAes_ReadBackKeyConfig(InstancePtr, KeyObject.KeySrc, KeyObject.KeySize);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_KEY_CONFIG_READBACK_ERROR;
+		goto END;
+	}
 
 	/** Perform dummy encryption only for CBC and ECB mode during decryption operation. */
 	if (((InstancePtr->EngineMode == XASU_AES_CBC_MODE) ||
@@ -1436,6 +1445,37 @@ static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize)
 		AesKeyLookupTbl[KeySrc].KeySrcSelVal);
 
 	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET), XAES_KEY_LOAD_MASK);
+}
+
+/*************************************************************************************************/
+/**
+* @brief	This function verifies the key source and size by reading them back from the
+* 		registers.
+*
+* @param	InstancePtr	Pointer to the XAes instance.
+* @param	KeySrc		Expected key source.
+* @param	KeySize		Expected key size.
+*
+* @return
+* 		- XASUFW_SUCCESS, if the read values match the expected values.
+* 		- XASUFW_AES_KEY_CONFIG_READBACK_ERROR, if there is a mismatch.
+*
+*************************************************************************************************/
+static s32 XAes_ReadBackKeyConfig(const XAes *InstancePtr, u32 KeySrc, u32 KeySize)
+{
+	CREATE_VOLATILE(Status, XASUFW_AES_KEY_CONFIG_READBACK_ERROR);
+
+	/** Compare read-back values. */
+	if ((XAsufw_ReadReg(InstancePtr->KeyBaseAddress + XAES_KEY_SIZE_OFFSET) != KeySize) ||
+		(XAsufw_ReadReg(InstancePtr->KeyBaseAddress + XAES_KEY_SEL_OFFSET) !=
+			AesKeyLookupTbl[KeySrc].KeySrcSelVal)) {
+		XFIH_GOTO(END);
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*************************************************************************************************/
