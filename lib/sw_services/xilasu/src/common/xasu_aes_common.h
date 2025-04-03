@@ -18,6 +18,7 @@
  * 1.0   am   10/03/24 Initial release
  * 1.1   am   03/14/25 Renamed XAsu_AesValidateIv() to XAsu_AesValidateIvParams() and
  *                     XAsu_AesValidateTag() to XAsu_AesValidateTagParams()
+ *       am   04/03/25 Optimized XASU_AES_IS_AAD_SUPPORTED_MODE macro for AAD update
  *
  * </pre>
  *
@@ -47,11 +48,9 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 /** This macro checks if AAD processing is allowed for the given AES engine mode. */
 #define XASU_AES_IS_AAD_SUPPORTED_MODE(EngineMode) \
-	(((EngineMode) != XASU_AES_CBC_MODE) && \
-	((EngineMode) != XASU_AES_CFB_MODE) && \
-	((EngineMode) != XASU_AES_OFB_MODE) && \
-	((EngineMode) != XASU_AES_CTR_MODE) && \
-	((EngineMode) != XASU_AES_ECB_MODE))
+	(((EngineMode) == XASU_AES_GCM_MODE) && \
+	((EngineMode) == XASU_AES_CMAC_MODE) && \
+	((EngineMode) == XASU_AES_CCM_MODE))
 
 /** This macro checks if given data length is invalid. */
 #define XASU_AES_IS_INVALID_DATALEN(DataLen) \

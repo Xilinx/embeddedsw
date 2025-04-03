@@ -19,6 +19,7 @@
  * 1.1   am   01/20/25 Added AES CCM support
  *       am   03/14/25 Replaced XAsu_AesValidateIv() with XAsu_AesValidateIvParams() and
  *                     XAsu_AesValidateTag() with XAsu_AesValidateTagParams() function calls
+ *       am   04/03/25 Optimized engine mode check for AAD update
  *
  * </pre>
  *
@@ -133,9 +134,9 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 		 * maximum length can be 0x1FFFFFFC bytes, which is the ASU DMA's maximum supported
 		 * data transfer length.
 		 */
-		if ((AesClientParamPtr->AadAddr != 0U) &&
-				XASU_AES_IS_AAD_SUPPORTED_MODE(AesClientParamPtr->EngineMode)) {
-			if (XASU_AES_IS_INVALID_DATALEN(AesClientParamPtr->AadLen)) {
+		if (AesClientParamPtr->AadAddr != 0U) {
+			if (!(XASU_AES_IS_AAD_SUPPORTED_MODE(AesClientParamPtr->EngineMode)) &&
+					(XASU_AES_IS_INVALID_DATALEN(AesClientParamPtr->AadLen))) {
 				Status = XASU_INVALID_ARGUMENT;
 				goto END;
 			}
