@@ -293,6 +293,13 @@ s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams
 		goto END;
 	}
 
+	if ((EcdhParamsPtr->PvtKeyAddr == 0U) || (EcdhParamsPtr->PubKeyAddr == 0U) ||
+		((EcdhParamsPtr->SharedSecretAddr == 0U) &&
+		(EcdhParamsPtr->SharedSecretObjIdAddr == 0U))) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	if (XAsu_EccValidateCurveInfo(EcdhParamsPtr->CurveType, EcdhParamsPtr->KeyLen) != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
