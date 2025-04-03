@@ -49,6 +49,7 @@
  *       ma   03/17/25 Added XASUFW_VALIDATE_COMMAND_FAILED error code
  *       yog  03/21/25 Added PWCT error codes
  *       am   03/21/25 Added XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED error code
+ *       am   04/01/25 Added XASUFW_AES_KEY_CONFIG_READBACK_ERROR error code
  *
  * </pre>
  *
@@ -385,6 +386,8 @@ enum {
 	XASUFW_RSA_ECC_TRNG_FAILED, /**< 0x10BU -  Error in TRNG while generating ECC private key */
 	XASUFW_RSA_ECC_MOD_ORDER_FAILED, /**< 0x10CU - Error when ModEccOrder failed in generate
 						private key */
+	XASUFW_AES_KEY_CONFIG_READBACK_ERROR, /**< 0x10DU -  Error when AES KEY configuration is
+						incorrect. */
 
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };
