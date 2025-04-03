@@ -196,44 +196,50 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr)
 		goto END;
 	}
 
-	if ((((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT) &&
-	     ((HmacParamsPtr->KeyAddr == 0U) || (HmacParamsPtr->KeyLen == 0U))) ||
-	    (((HmacParamsPtr->OperationFlags & XASU_HMAC_UPDATE) == XASU_HMAC_UPDATE) &&
-	     (HmacParamsPtr->MsgBufferAddr == 0U)) ||
-	    (((HmacParamsPtr->OperationFlags & XASU_HMAC_FINAL) == XASU_HMAC_FINAL) &&
+	if (((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT)) {
+		if ((HmacParamsPtr->ShaType != XASU_SHA2_TYPE) &&
+		    (HmacParamsPtr->ShaType != XASU_SHA3_TYPE)) {
+			goto END;
+		}
+
+		if ((HmacParamsPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
+		    (HmacParamsPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
+		    (HmacParamsPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+		    (((HmacParamsPtr->ShaType != XASU_SHA3_TYPE) ||
+		    (HmacParamsPtr->ShaMode != XASU_SHA_MODE_SHAKE256)))) {
+			goto END;
+		}
+
+		if (((HmacParamsPtr->ShaMode == XASU_SHA_MODE_SHA256) &&
+		     (HmacParamsPtr->HmacLen != XASU_SHA_256_HASH_LEN)) ||
+		    ((HmacParamsPtr->ShaMode == XASU_SHA_MODE_SHA384) &&
+		     (HmacParamsPtr->HmacLen != XASU_SHA_384_HASH_LEN)) ||
+		    ((HmacParamsPtr->ShaMode == XASU_SHA_MODE_SHA512) &&
+		     (HmacParamsPtr->HmacLen != XASU_SHA_512_HASH_LEN)) ||
+		    ((HmacParamsPtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
+		     (HmacParamsPtr->HmacLen != XASU_SHA_256_HASH_LEN))) {
+			goto END;
+		}
+
+		if ((HmacParamsPtr->KeyAddr == 0U) ||
+		    (HmacParamsPtr->KeyLen < (HmacParamsPtr->HmacLen >> XASU_HMAC_HASH_HALF_LENGTH_SHIFT))) {
+			goto END;
+		}
+	}
+
+	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_UPDATE) == XASU_HMAC_UPDATE) {
+		if ((HmacParamsPtr->IsLast != XASU_TRUE) && (HmacParamsPtr->IsLast != XASU_FALSE)) {
+			goto END;
+		}
+
+		if ((HmacParamsPtr->MsgBufferAddr == 0U) ||
+		    (HmacParamsPtr->MsgLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
+			goto END;
+		}
+	}
+
+	if ((((HmacParamsPtr->OperationFlags & XASU_HMAC_FINAL) == XASU_HMAC_FINAL) &&
 	     (HmacParamsPtr->HmacAddr == 0U))) {
-		goto END;
-	}
-
-	if ((HmacParamsPtr->ShaType != XASU_SHA2_TYPE) &&
-	    (HmacParamsPtr->ShaType != XASU_SHA3_TYPE)) {
-		goto END;
-	}
-
-	if ((HmacParamsPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
-	    (HmacParamsPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
-	    (HmacParamsPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
-	    (HmacParamsPtr->ShaMode != XASU_SHA_MODE_SHAKE256)) {
-		goto END;
-	}
-
-	if (((HmacParamsPtr->ShaMode == XASU_SHA_MODE_SHA256) &&
-	     (HmacParamsPtr->HmacLen != XASU_SHA_256_HASH_LEN)) ||
-	    ((HmacParamsPtr->ShaMode == XASU_SHA_MODE_SHA384) &&
-	     (HmacParamsPtr->HmacLen != XASU_SHA_384_HASH_LEN)) ||
-	    ((HmacParamsPtr->ShaMode == XASU_SHA_MODE_SHA512) &&
-	     (HmacParamsPtr->HmacLen != XASU_SHA_512_HASH_LEN)) ||
-	    ((HmacParamsPtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
-	     (HmacParamsPtr->HmacLen != XASU_SHA_256_HASH_LEN))) {
-		goto END;
-	}
-
-	if ((HmacParamsPtr->IsLast != XASU_TRUE) && (HmacParamsPtr->IsLast != XASU_FALSE)) {
-		goto END;
-	}
-
-	if ((HmacParamsPtr->KeyLen < HmacParamsPtr->HmacLen) ||
-		(HmacParamsPtr->KeyLen > XASU_HMAC_MAX_KEY_LENGTH)) {
 		goto END;
 	}
 

@@ -47,7 +47,8 @@ extern "C" {
 #define XASU_HMAC_UPDATE			(0x2U) /**< HMAC update operation flag */
 #define XASU_HMAC_FINAL				(0x4U) /**< HMAC final operation flag */
 
-#define XASU_HMAC_MAX_KEY_LENGTH	(0x1024U) /**< Max key length for HMAC. */
+#define XASU_HMAC_MAX_KEY_LENGTH		(0x1024U) /**< Max key length for HMAC. */
+#define XASU_HMAC_HASH_HALF_LENGTH_SHIFT	(0x1U) /**< To calculte half of the hash length */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -64,7 +65,8 @@ typedef struct {
 	u8 OperationFlags; /**< Flags that determine the operation type. These can be a combination of
 			XASU_HMAC_INIT, XASU_HMAC_UPDATE and XASU_HMAC_FINAL */
 	u32 KeyLen; /**< Length of the key */
-	u32 MsgLen; /**< Length of the message to be processed */
+	u32 MsgLen; /**< Length of the message to be processed. MsgLen can be 0 <= MsgLen < ((2^B)-8B).
+			 Where B is the block length of the selected SHA type and SHA mode. */
 	u32 HmacLen; /**< Length of the HMAC to be generated */
 	u64 KeyAddr; /**< Key address */
 	u64 MsgBufferAddr; /**< Address of the message buffer */

@@ -64,8 +64,7 @@ static inline void XHmac_Xor(const u32 *Data, const u32 Value, u32 *Result, u32 
 #define XASUFW_HMAC_IPAD_VALUE		(0x36363636U) /**< Each byte of Key provided is XOR'ed with
 							this IPAD value 0x36U */
 #define XASUFW_HMAC_OPAD_VALUE		(0x5C5C5C5CU) /**< Each byte of Key provided is XOR'ed with
-							this OPAD value 0x5CU */
-#define XHMAC_HASH_HALF_LENGTH_SHIFT	(0x1U) /**< Calculate half of the hash length */
+							this OPAD value 0x5CU. */
 
 /************************************** Function Definitions *************************************/
 
@@ -174,7 +173,7 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 		goto END;
 	}
 
-	if (KeyLen < (HashLen >> XHMAC_HASH_HALF_LENGTH_SHIFT)) {
+	if (KeyLen < (HashLen >> XASU_HMAC_HASH_HALF_LENGTH_SHIFT)) {
 		Status = XASUFW_HMAC_INVALID_KEY_LENGTH;
 		goto END;
 	}
@@ -234,6 +233,8 @@ END:
  * @param	AsuDmaPtr	Pointer to the XAsufw_Dma instance.
  * @param	DataAddr	Address which holds the input message.
  * @param	DataLen		Variable which holds the length of the message.
+ * 				DataLen can be 0 <= DataLen < ((2^B)-8B). Where B is the block
+ * 				length of the provided SHA type and SHA mode.
  * @param	IsLastUpdate	Variable which indicates the last update.
  *
  * @return
