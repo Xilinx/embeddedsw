@@ -32,6 +32,7 @@
  *       am   01/20/25 Added AES CCM support
  *       yog  02/26/25 Added XAes_Compute() API
  *       am   03/14/25 Fixed alignment of function prototype
+ *       yog  04/04/25 Added XAes_KeyClear() API
  *
  * </pre>
  *
@@ -81,6 +82,7 @@ s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeyS
 	u64 IvAddr, u32 IvLen);
 s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, Asu_AesParams *AesParams);
 u8 XAes_GetEngineMode(const XAes *InstancePtr);
+s32 XAes_KeyClear(const XAes *InstancePtr, u32 KeySrc);
 
 #ifdef __cplusplus
 }

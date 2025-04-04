@@ -16,6 +16,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   yog  02/20/25 Initial release
 *       yog  03/24/25 Used XRsa_EccGeneratePrivKey() API in ECIES encryption operation.
+*       yog  04/04/25 Performing AesKeyClear operation in XEcies_AesCompute() API
 *
 * </pre>
 *
@@ -346,6 +347,9 @@ static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
 	Status = XAes_Compute(AesInstancePtr, DmaPtr, &AesParams);
 
 END:
+	/** Clear the key written to the XASU_AES_USER_KEY_7 key source. */
+	Status = XAsufw_UpdateErrorStatus(Status, XAes_KeyClear(AesInstancePtr, KeyObject.KeySrc));
+
 	/** Zeroize the key object. */
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)&KeyObject, sizeof(XAsu_AesKeyObject));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);

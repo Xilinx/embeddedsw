@@ -749,7 +749,6 @@ END:
  *	- XASUFW_AES_INIT_FAILED, if initialization of AES engine fails.
  *	- XASUFW_AES_UPDATE_FAILED, if update of data to AES engine fails.
  *	- XASUFW_AES_FINAL_FAILED, if completion of final AES operation fails.
- *	- XASUFW_AES_KAT_FAILED, if XAsufw_AesGcmKat API fails.
  *
  *************************************************************************************************/
 s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
@@ -872,9 +871,8 @@ END:
 		Status = ClearStatus;
 	}
 
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_KAT_FAILED);
-	}
+	/** Clear the key written to the XASU_AES_USER_KEY_7 key source. */
+	Status = XAsufw_UpdateErrorStatus(Status, XAes_KeyClear(AesInstance, KeyObject.KeySrc));
 
 	return Status;
 }
@@ -916,7 +914,7 @@ s32 XAsufw_AesDecryptDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 	const u32 *M1 = &Output1[12U];
 
 	KeyObject.KeyAddress = (u64)(UINTPTR)AesCmKey;
-	KeyObject.KeySrc = XASU_AES_USER_KEY_0;
+	KeyObject.KeySrc = XASU_AES_USER_KEY_7;
 	KeyObject.KeySize = XASU_AES_KEY_SIZE_256_BITS;
 
 	/** Run DPA CM KAT on AES engine to know performance integrity. */

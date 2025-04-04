@@ -39,7 +39,7 @@
 #define XASU_KEYWRAP_INPUT_SIZE_IN_BYTES	(31U)	/**< Key wrap unwrap input size */
 #define XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES	(2U)	/**< 512 bytes for 4096 bit data */
 #define XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES	(552U)	/**< Key wrap unwrap output size */
-#define ASU_CACHE_DISABLE
+#define XASU_CACHE_DISABLE
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -149,10 +149,14 @@ static const char XAsu_RsaOpt[XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES + 1U] __attri
 static const u32 XAsu_RsaPublicExp
 __attribute__ ((section (".data.XAsu_RsaPublicExp"))) = 0x1000100U;
 
+static u8 XAsu_KeyWrapWrappedOutput[XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES] __attribute__ ((
+        section (".data.XAsu_KeyWrapWrappedOutput")));
+static u8 XAsu_KeyWrapUnwrappedOutput[XASU_KEYWRAP_INPUT_SIZE_IN_BYTES] __attribute__ ((
+        section (".data.XAsu_KeyWrapUnwrappedOutput")));
+
 static u8 Notify = 0; /**< To notify the call back from client library */
 volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned from
 						server. */
-
 /************************************ Function Definitions ***************************************/
 
 /*************************************************************************************************/
@@ -171,8 +175,6 @@ int main(void)
 	XAsu_ClientParams ClientParam;
 	XAsu_RsaPubKeyComp PubKeyParam;
 	XAsu_RsaPvtKeyComp PvtKeyParam;
-	u8 XAsu_KeyWrapWrappedOutput[XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES];
-	u8 XAsu_KeyWrapUnwrappedOutput[XASU_KEYWRAP_INPUT_SIZE_IN_BYTES];
 
 #ifdef XASU_CACHE_DISABLE
 	Xil_DCacheDisable();
