@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,7 +32,6 @@
 * 1.04  bsv  07/22/2021 Added support for Winbond flash part
 *       bsv  08/31/2021 Code clean up
 *       ng   08/09/2023 Removed redundant windbond flash size macro
-*		prt	 04/02/2025 Added support for Infineon QSPI flash parts
 *
 * </pre>
 *
@@ -125,11 +124,6 @@ extern "C" {
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_512M       (0x3AU)
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_1G         (0x3BU)
 #define XLOADER_MACRONIX_FLASH_1_8_V_SIZE_ID_2G		(0x3CU)
-
-/* Infineon size constants. */
-#define XLOADER_INFINEON_FLASH_SIZE_ID_512M		(0x1AU)
-#define XLOADER_INFINEON_FLASH_SIZE_ID_1G		(0x1BU)
-#define XLOADER_INFINEON_FLASH_SIZE_ID_2G		(0x1CU)
 
 /*Qspi width detection macros*/
 #define XLOADER_QSPI_BUSWIDTH_DETECT_VALUE	(0xAA995566U)
