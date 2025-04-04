@@ -407,6 +407,16 @@ static XStatus XPm_AddRequirement(const u32 *Args, const u32 NumArgs)
 	DevId = Args[1];
 	Flags = Args[2];
 
+	/**
+	 * PM_DEV_AIE is deprecated but still must be supported for backwards
+	 * compatibility. If device is PM_DEV_AIE do nothing and return without
+	 * any errors.
+	 */
+	if (PM_DEV_AIE == DevId) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	Subsys = XPmSubsystem_GetById(SubsysId);
 	if ((NULL == Subsys) || ((u8)ONLINE != Subsys->State)) {
 		Status = XPM_INVALID_SUBSYSID;
