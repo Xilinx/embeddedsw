@@ -56,6 +56,7 @@
 * Ver	Who	Date        Changes
 * ----- ------  ----------  ------------------------------------------------------
 * 1.0   har     07/01/2024  Initial release
+* 3.5   kal     03/28/2025  Added support to show 384 ppk hash for versal_2ve_2vm
  *
  * </pre>
  *
@@ -74,8 +75,15 @@
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
 #ifndef VERSAL_AIEPG2
 #define XNVM_EFUSE_PPK_HASH_STRING_LEN			(64U)
+#define XNVM_EFUSE_PPK_HASH_LENGTH_IN_BYTES		(32U)
 #else
+#define XNVM_EFUSE_PPK_HASH_LENGTH_IN_BYTES		(48U)
 #define XNVM_EFUSE_PPK_HASH_STRING_LEN                  (96U)
+#define XNVM_EFUSE_NO_OF_PPK_HASH_USER_FUSES		(4U)
+#define XNVM_EFUSE_START_USER_FUSE_NUM_PPK0		(36U)
+#define XNVM_EFUSE_START_USER_FUSE_NUM_PPK1             (40U)
+#define XNVM_EFUSE_START_USER_FUSE_NUM_PPK2             (44U)
+#define XNVM_EFUSE_UPPER_PPK_HASH_BYTES_IN_USER_FUSES	(16U)
 #endif
 #define XNVM_EFUSE_ROW_STRING_LEN			(8U)
 #define XNVM_EFUSE_GLITCH_WR_LK_MASK			(0x80000000U)
@@ -370,7 +378,11 @@ static int XilNvm_EfuseShowPpkHash(XNvm_PpkType PpkType)
 	XNvm_PpkHash *EfusePpk = (XNvm_PpkHash *)(UINTPTR)&SharedMem[0U];
 	u32 ReadPpk[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS] = {0U};
 	s8 Row;
-
+#ifdef VERSAL_AIEPG2
+	XNvm_EfuseUserDataAddr *ReadUserFuses = (XNvm_EfuseUserDataAddr*)(UINTPTR)((u8*)EfusePpk + Align(sizeof(XNvm_PpkHash)));
+	u32 *UserFuseData = (u32*)(UINTPTR)((u8*)ReadUserFuses + Align(sizeof(XNvm_EfuseUserDataAddr)));
+	u32 ReadUserFuseHash[XNVM_EFUSE_NO_OF_PPK_HASH_USER_FUSES] = {0U};
+#endif
 	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
 			XNVM_CACHE_ALIGNED_LEN);
 
@@ -382,8 +394,42 @@ static int XilNvm_EfuseShowPpkHash(XNvm_PpkType PpkType)
 		Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
 				XNVM_CACHE_ALIGNED_LEN);
 		xil_printf("\n\rPPK%d:", PpkType);
-		XilNvm_FormatData((u8 *)EfusePpk->Hash, (u8 *)ReadPpk,
-				XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES);
+		XilNvm_FormatData((u8 *)EfusePpk->Hash, (u8 *)ReadPpk, XNVM_EFUSE_PPK_HASH_LENGTH_IN_BYTES);
+
+#ifdef VERSAL_AIEPG2
+		ReadUserFuses->NumOfUserFuses = XNVM_EFUSE_NO_OF_PPK_HASH_USER_FUSES;
+		ReadUserFuses->UserFuseDataAddr = (UINTPTR)UserFuseData;
+
+		if (PpkType == XNVM_EFUSE_PPK0) {
+			ReadUserFuses->StartUserFuseNum = XNVM_EFUSE_START_USER_FUSE_NUM_PPK0;
+		} else if (PpkType == XNVM_EFUSE_PPK1) {
+			ReadUserFuses->StartUserFuseNum = XNVM_EFUSE_START_USER_FUSE_NUM_PPK1;
+		} else if (PpkType == XNVM_EFUSE_PPK2) {
+			ReadUserFuses->StartUserFuseNum = XNVM_EFUSE_START_USER_FUSE_NUM_PPK2;
+		} else {
+			xil_printf("\n\r Invalid PpkType!!\r\n");
+			goto END;
+		}
+
+		Status = XNvm_EfuseReadUserFuses(&NvmClientInstance, (UINTPTR)ReadUserFuses);
+	        if (Status != XST_SUCCESS) {
+		        goto END;
+		}
+
+		Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+                                XNVM_CACHE_ALIGNED_LEN);
+
+		XilNvm_FormatData((u8 *)UserFuseData, (u8 *)ReadUserFuseHash,
+				XNVM_EFUSE_UPPER_PPK_HASH_BYTES_IN_USER_FUSES);
+
+		Status = Xil_SecureMemCpy((void *)ReadPpk,
+					  sizeof(ReadPpk), ReadUserFuseHash, sizeof(ReadUserFuseHash));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+#endif
+		xil_printf("\r\n");
 		for (Row = (XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS - 1U);
 				Row >= 0; Row--) {
 			xil_printf("%08x", ReadPpk[Row]);
