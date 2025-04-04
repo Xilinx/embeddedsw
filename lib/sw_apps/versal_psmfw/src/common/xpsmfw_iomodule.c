@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -205,7 +205,7 @@ static void XPsmfw_ExceptionInit(void)
 
 	/* Register exception handlers */
 	for (Index = XIL_EXCEPTION_ID_FIRST; Index <= XIL_EXCEPTION_ID_LAST; Index++) {
-		Xil_ExceptionRegisterHandler(Index, XPsmfw_ExceptionHandler, (void *)NULL);
+		Xil_ExceptionRegisterHandler(Index, &XPsmfw_ExceptionHandler, (void *)NULL);
 	}
 }
 
@@ -214,27 +214,27 @@ static const struct HandlerTable g_TopLevelInterruptTable[] = {
 	{
 		PSM_IOMODULE_IRQ_PENDING_IPI_SHIFT,
 		PSM_IOMODULE_IRQ_PENDING_IPI_MASK,
-		XPsmFw_InterruptIpiHandler
+		&XPsmFw_InterruptIpiHandler
 	},
 	{
 		PSM_IOMODULE_IRQ_PENDING_PWR_UP_REQ_SHIFT,
 		PSM_IOMODULE_IRQ_PENDING_PWR_UP_REQ_MASK,
-		XPsmfw_InterruptPwrUpHandler
+		&XPsmfw_InterruptPwrUpHandler
 	},
 	{
 		PSM_IOMODULE_IRQ_PENDING_PWR_DWN_REQ_SHIFT,
 		PSM_IOMODULE_IRQ_PENDING_PWR_DWN_REQ_MASK,
-		XPsmfw_InterruptPwrDwnHandler
+		&XPsmfw_InterruptPwrDwnHandler
 	},
 	{
 		PSM_IOMODULE_IRQ_PENDING_WAKE_UP_REQ_SHIFT,
 		PSM_IOMODULE_IRQ_PENDING_WAKE_UP_REQ_MASK,
-		XPsmfw_InterruptWakeupHandler
+		&XPsmfw_InterruptWakeupHandler
 	},
 	{
 		PSM_IOMODULE_IRQ_PENDING_PWR_CNT_REQ_SHIFT,
 		PSM_IOMODULE_IRQ_PENDING_PWR_CNT_REQ_MASK,
-		XPsmfw_InterruptPwrCtlHandler
+		&XPsmfw_InterruptPwrCtlHandler
 	},
 	{
 		PSM_IOMODULE_IRQ_PENDING_SW_RST_REQ_SHIFT,
@@ -244,7 +244,7 @@ static const struct HandlerTable g_TopLevelInterruptTable[] = {
 	{
 		PSM_IOMODULE_IRQ_PENDING_GICP_INT_SHIFT,
 		PSM_IOMODULE_IRQ_PENDING_GICP_INT_MASK,
-		XPsmfw_InterruptGicP2Handler
+		&XPsmfw_InterruptGicP2Handler
 	},
 };
 
@@ -337,7 +337,7 @@ XStatus SetUpInterruptSystem(void)
 	* Register the IO module interrupt handler with the exception table.
 	*/
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				     (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
+				     (Xil_ExceptionHandler)&XIOModule_DeviceInterruptHandler,
 				     (void*) NULL);
 
 	/*

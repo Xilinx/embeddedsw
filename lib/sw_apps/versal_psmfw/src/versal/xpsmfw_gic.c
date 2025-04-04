@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,9 +29,9 @@
 #define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask)) /**< Check specific bit of register */
 
 static const struct GicP2HandlerTable_t GicHandlerTable[] = {
-	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK, XPsmFw_DvsecWrite, XPsmFw_Cpm5DvsecHandler},
-	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK, XPsmFw_DvsecRead, XPsmFw_Cpm5DvsecHandler},
-	{PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK, XPsmFw_DvsecPLHandler, XPsmFw_Cpm5DvsecPLHandler},
+	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_CORR_ERR_MASK, &XPsmFw_DvsecWrite, &XPsmFw_Cpm5DvsecHandler},
+	{PSM_GLOBAL_GICP2_IRQ_STATUS_CPM_MISC_MASK, &XPsmFw_DvsecRead, &XPsmFw_Cpm5DvsecHandler},
+	{PSM_GLOBAL_GICP2_IRQ_STATUS_PL_MASK, &XPsmFw_DvsecPLHandler, &XPsmFw_Cpm5DvsecPLHandler},
 };
 
 /******************************************************************************/
