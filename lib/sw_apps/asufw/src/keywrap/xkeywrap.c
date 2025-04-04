@@ -149,14 +149,14 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 
 	AesKeyObj.KeyAddress = (u64)(UINTPTR)EphemeralAesKey;
 	AesKeyObj.KeySize = KeyWrapParamsPtr->AesKeySize;
-	AesKeyObj.KeySrc = XASU_AES_USER_KEY_0;
+	AesKeyObj.KeySrc = XASU_AES_USER_KEY_7;
 
 	/** Write AES key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAes_WriteKey(AesInstancePtr, AsuDmaPtr, (u64)(UINTPTR)&AesKeyObj);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_WRITE_KEY_FAILED;
-		goto END;
+		goto END_KEY_CLR;
 	}
 
 	/** Zeroize AES key immediately after use. */
@@ -165,7 +165,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL;
-		goto END;
+		goto END_KEY_CLR;
 	}
 
 	/** Perform AES Key Wrap. */
@@ -189,6 +189,10 @@ END_CLR:
 	/** Zeroize output data. */
 	ClearStatus = Xil_SecureZeroize(OutData, XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+END_KEY_CLR:
+	/** Clear the key written to the XASU_AES_USER_KEY_7 key source. */
+	Status = XAsufw_UpdateErrorStatus(Status, XAes_KeyClear(AesInstancePtr, AesKeyObj.KeySrc));
 
 END:
 	return Status;
@@ -259,14 +263,14 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 
 	AesKeyObj.KeyAddress = (u64)(UINTPTR)AesKeyOut;
 	AesKeyObj.KeySize = KeyUnwrapParamsPtr->AesKeySize;
-	AesKeyObj.KeySrc = XASU_AES_USER_KEY_0;
+	AesKeyObj.KeySrc = XASU_AES_USER_KEY_7;
 
 	/** Write AES key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAes_WriteKey(AesInstancePtr, AsuDmaPtr, (u64)(UINTPTR)&AesKeyObj);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_WRITE_KEY_FAILED;
-		goto END;
+		goto END_KEY_CLR;
 	}
 
 	/** Zeroize AES key immediately after use. */
@@ -275,7 +279,7 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL;
-		goto END;
+		goto END_KEY_CLR;
 	}
 
 	/** Perform AES Key Unwrap. */
@@ -283,6 +287,13 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 	Status = XKeyWrap_UnwrapOp(KeyUnwrapParamsPtr, AesInstancePtr, AsuDmaPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR;
+	}
+
+END_KEY_CLR:
+	ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);
+	ClearStatus = XAes_KeyClear(AesInstancePtr, AesKeyObj.KeySrc);
+	if (ClearStatus != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
 	}
 
 END:
@@ -389,7 +400,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 
 	AesKeyObj.KeyAddress = 0U;
 	AesKeyObj.KeySize = KeyWrapParamsPtr->AesKeySize;
-	AesKeyObj.KeySrc = XASU_AES_USER_KEY_0;
+	AesKeyObj.KeySrc = XASU_AES_USER_KEY_7;
 
 	AesParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
 	AesParams.IvAddr = 0U;
@@ -552,7 +563,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 
 	AesKeyObj.KeyAddress = 0U;
 	AesKeyObj.KeySize = KeyUnwrapParamsPtr->AesKeySize;
-	AesKeyObj.KeySrc = XASU_AES_USER_KEY_0;
+	AesKeyObj.KeySrc = XASU_AES_USER_KEY_7;
 
 	AesParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
 	AesParams.IvAddr = 0U;

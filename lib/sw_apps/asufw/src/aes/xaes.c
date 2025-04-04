@@ -25,6 +25,7 @@
  *       yog  02/26/25 Added XAes_Compute() API
  *       am   03/14/25 Updated doxygen comments
  *       am   04/01/25 Add key read-back verification for key integrity.
+ *       yog  04/04/25 Added XAes_KeyClear() API
  *
  * </pre>
  *
@@ -680,6 +681,9 @@ END:
 	if ((InstancePtr != NULL) && (Status != XASUFW_SUCCESS)) {
 		/** Set AES under reset upon any failure. */
 		XAes_SetReset(InstancePtr);
+		/** Clear the XASU_AES_EXPANDED_KEYS. */
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -804,6 +808,9 @@ END:
 	if ((InstancePtr != NULL) && (Status != XASUFW_SUCCESS)) {
 		/** Set AES under reset upon any failure. */
 		XAes_SetReset(InstancePtr);
+		/** Clear the XASU_AES_EXPANDED_KEYS. */
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
 	return Status;
@@ -877,6 +884,9 @@ END:
 	if (InstancePtr != NULL) {
 		/** Set AES under reset after AES operation is complete. */
 		XAes_SetReset(InstancePtr);
+		/** Clear the XASU_AES_EXPANDED_KEYS. */
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
 	return Status;
@@ -1323,6 +1333,70 @@ s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, Asu_AesParams *AesPar
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_FINAL_FAILED;
 	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function zeroizes the selected AES key storage register.
+ *
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance.
+ * @param	KeySrc		Select the key source which needs to be zeroized.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if key zeroization is successful.
+ *		- XASUFW_AES_INVALID_PARAM, if any input parameter is invalid.
+ *		- XASUFW_AES_KEY_CLEAR_ERROR, if AES key clear fails.
+ *
+ *************************************************************************************************/
+s32 XAes_KeyClear(const XAes *InstancePtr, u32 KeySrc)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 KeyClearMask;
+	u32 ZeroedStatusMask;
+
+	/** Validate the input arguments. */
+	if (InstancePtr == NULL) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (KeySrc > XASU_AES_MAX_KEY_SOURCES) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get the keyclear and zeroedstatus masks based on KeySrc. */
+	if (KeySrc == XASU_AES_EXPANDED_KEYS) {
+		KeyClearMask = XAES_KEY_CLR_AES_KEY_ZEROIZE_MASK;
+		ZeroedStatusMask = XAES_KEY_ZEROED_STATUS_AES_KEY_MASK;
+	} else if (AesKeyLookupTbl[KeySrc].KeyClearVal != XAES_INVALID_CFG) {
+		KeyClearMask = AesKeyLookupTbl[KeySrc].KeyClearVal;
+		ZeroedStatusMask = AesKeyLookupTbl[KeySrc].KeyZeroedStatusMask;
+	} else {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Release reset of AES engine. */
+	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
+
+	/** Zeroize the specified key source. */
+	XAsufw_WriteReg(InstancePtr->KeyBaseAddress + XAES_KEY_CLEAR_OFFSET, KeyClearMask);
+	/** Check for key zeroed status within Timeout(10sec). */
+	Status = (s32)Xil_WaitForEvent((InstancePtr->KeyBaseAddress +
+				XAES_KEY_ZEROED_STATUS_OFFSET),	ZeroedStatusMask, ZeroedStatusMask,
+				XAES_TIMEOUT_MAX);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_AES_KEY_CLEAR_ERROR;
+	}
+
+	XAsufw_WriteReg(InstancePtr->KeyBaseAddress + XAES_KEY_CLEAR_OFFSET,
+			XAES_KEY_CLEAR_REG_CLR_MASK);
+	/** Set AES under reset. */
+	XAsufw_CryptoCoreSetReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
 
 END:
 	return Status;
