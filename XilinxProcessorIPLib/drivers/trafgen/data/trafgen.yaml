@@ -26,7 +26,7 @@ properties:
     description: ATG mode l2
   xlnx,axis-mode:
     description: Axis mode
-  xlnx,master-axi-width:
+  xlnx,extended-address-width:
     description: Address width
 
 config:
@@ -38,7 +38,7 @@ required:
     - xlnx,atg-mode
     - xlnx,atg-mode-l2
     - xlnx,axis-mode
-    - xlnx,master-axi-width
+    - xlnx,extended-address-width
     - interrupts: 2
     - interrupt-parent
 
