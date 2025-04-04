@@ -1,6 +1,7 @@
 # Copyright (C) 2023-2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.16)
+enable_language(C ASM CXX)
 
 ###    USER SETTINGS  START    ###
 # Below settings can be customized
@@ -155,3 +156,31 @@ set(USER_LINK_OPTIONS
     " ${USER_LINKER_OMIT_ALL_SYMBOL_INFO}"
     " ${USER_LINK_OTHER_FLAGS}"
 )
+if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
+	set(enable_no_relaxation TRUE CACHE BOOL "Enable No relaxation(-Wl,-no-relax)" FORCE)
+	set(enable_garbage_collector TRUE CACHE BOOL "Enable Garbage collector (-ffunction-sections -fdata-sections)" FORCE)
+	if(enable_no_relaxation)
+		string(FIND "${CMAKE_C_LINK_FLAGS}" "-Wl,--no-relax" POSITION)
+		if(POSITION EQUAL -1)
+		    set(CMAKE_C_LINK_FLAGS "  -Wl,--no-relax ${CMAKE_C_LINK_FLAGS}" CACHE STRING "CMAKE C LINK FLAGS" FORCE)
+		    set(CMAKE_ASM_LINK_FLAGS "  -Wl,--no-relax ${CMAKE_ASM_LINK_FLAGS}" CACHE STRING "CMAKE ASM LINK FLAGS" FORCE)
+		    set(CMAKE_CXX_LINK_FLAGS "  -Wl,--no-relax ${CMAKE_CXX_LINK_FLAGS}" CACHE STRING "CMAKE CXX LINK FLAGS" FORCE)
+		endif()
+	else()
+		string(REPLACE "-Wl,--no-relax" "" CMAKE_C_LINK_FLAGS "${CMAKE_C_LINK_FLAGS}")
+		string(REPLACE "-Wl,--no-relax" "" CMAKE_ASM_LINK_FLAGS "${CMAKE_ASM_LINK_FLAGS}")
+		string(REPLACE "-Wl,--no-relax" "" CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS}")
+	endif()
+	if(enable_garbage_collector)
+		string(FIND "${CMAKE_C_FLAGS}" "-Wl,--no-relax" POSITION)
+		if(POSITION EQUAL -1)
+		    set(APPEND CMAKE_C_FLAGS " -ffunction-sections -fdata-sections" CACHE STRING "CMAKE C FLAGS" FORCE)
+		    set(APPEND CMAKE_CXX_FLAGS " -ffunction-sections -fdata-sections" CACHE STRING "CMAKE CXX FLAGS" FORCE)
+		    set(APPEND CMAKE_ASM_FLAGS " -ffunction-sections -fdata-sections" CACHE STRING "CMAKE ASM FLAGS" FORCE)
+		endif()
+	else()
+		string(REPLACE "-ffunction-sections -fdata-sections" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+		string(REPLACE "-ffunction-sections -fdata-sections" "" CMAKE_CXX_FLAGS "${CMAKE_ASM_FLAGS}")
+		string(REPLACE "-ffunction-sections -fdata-sections" "" CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS}")
+	endif()
+endif()
