@@ -25,6 +25,7 @@
  *       am   01/22/25 Added key transfer support
  *       ma   02/21/25 Added functionality to trigger NON FATAL error when an exception is received
  *       am   02/22/25 Resolved key transfer done bit not being set
+ *       am   04/04/25 Increased timeout for KV interrupt status poll
  *
  * </pre>
  *
@@ -64,8 +65,8 @@
 #define XASUFW_MEGA			(1000000U) /**< Value for mega */
 #define XASUFW_KILO			(1000UL) /**< Value for kilo */
 #define XASUFW_WORD_SIZE_IN_BITS	(32U) /**< Word size in bits */
-#define XASUFW_KV_INTERRUPT_STATUS_POLL_TIMEOUT	(0xFF000U)
-			/**< Key Vault interrupt status done poll timeout */
+#define XASUFW_KV_INTERRUPT_STATUS_POLL_TIMEOUT	(2000000U)
+			/**< Key Vault interrupt status done poll timeout of 2 seconds. */
 #define XASUFW_KEY_TX_PAYLOAD_RESP_SIZE (1U) /**< Key transfer payload response size */
 
 /************************************** Type Definitions *****************************************/
