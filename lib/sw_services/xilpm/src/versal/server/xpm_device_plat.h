@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +40,16 @@ maybe_unused static u8 XPmDevice_IsRequestable(u32 NodeId)
 {
 	u8 Requestable = 0U;
 
+	/**
+	 * PM_DEV_AIE is deprecated but must still be available for backwards
+	 * compatibility. This node is not requestable and should not have
+	 * any requirements.
+	 */
+	if (PM_DEV_AIE == NodeId) {
+		Requestable = 0U;
+		goto done;
+	}
+
 	switch (NODESUBCLASS(NodeId)) {
 	case (u32)XPM_NODESUBCL_DEV_CORE:
 	case (u32)XPM_NODESUBCL_DEV_PERIPH:
@@ -54,6 +64,7 @@ maybe_unused static u8 XPmDevice_IsRequestable(u32 NodeId)
 		break;
 	}
 
+done:
 	return Requestable;
 }
 
