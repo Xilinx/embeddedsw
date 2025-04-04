@@ -187,7 +187,8 @@
 *       ma   03/19/2025 Update function ID of the PLD0 image to USR_ACCESS
 *                       register in RTCA before loading the PLD0 image
 *       sk  03/29/2025 Added redundant check for XLoader_ValidateMetaHdrIntegrity
-*       pre  04/01/2025 Clearing metaheader in XLoader_InitPdiInstanceForExtractMHAndOptData
+*       pre 04/01/2025 Clearing metaheader in XLoader_InitPdiInstanceForExtractMHAndOptData
+*       pre 04/04/2025 Fixed bug in load image feature
 *
 * </pre>
 *
@@ -1651,7 +1652,7 @@ int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 		PdiAddr = PdiList->ImgList[Index].PdiAddr;
 		IdString = XPlmi_In64(PdiAddr + XIH_BH_IMAGE_IDENT_OFFSET);
 		if (IdString == XIH_BH_IMAGE_IDENT) {
-			PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
+			PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL_METAHEADER;
 		}
 		else {
 			IdString = XPlmi_In64(PdiAddr + SMAP_BUS_WIDTH_LENGTH +
