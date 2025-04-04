@@ -180,7 +180,7 @@ static int XilNvm_EfuseInitSecMisc1Ctrl(XNvm_EfuseDataAddr *WriteEfuse,
 	XNvm_EfuseSecMisc1Bits *SecMisc1Bits);
 static int XilNvm_ValidateUserFuseStr(const char *UserFuseStr);
 static int XilNvm_PrepareAesKeyForWrite(const char *KeyStr, u8 *Dst, u32 Len);
-static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len);
+static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len, XNvm_IvType IvType);
 static int XilNvm_ValidateIvString(const char *IvStr);
 static int XilNvm_ValidateHash(const char *Hash, u32 Len);
 static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
@@ -1610,7 +1610,8 @@ static int XilNvm_EfuseInitIVs(XNvm_EfuseDataAddr *WriteEfuse,
 	if (Ivs->PrgmMetaHeaderIv == TRUE) {
 		Status = XilNvm_PrepareIvForWrite(XNVM_EFUSE_META_HEADER_IV,
 						(u8 *)Ivs->MetaHeaderIv,
-						XNVM_EFUSE_IV_LEN_IN_BITS);
+						XNVM_EFUSE_IV_LEN_IN_BITS,
+                                                XNVM_EFUSE_META_HEADER_IV_RANGE);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -1618,7 +1619,8 @@ static int XilNvm_EfuseInitIVs(XNvm_EfuseDataAddr *WriteEfuse,
 	if (Ivs->PrgmBlkObfusIv == TRUE) {
 		Status = XilNvm_PrepareIvForWrite(XNVM_EFUSE_BLACK_OBFUS_IV,
 						(u8 *)Ivs->BlkObfusIv,
-						XNVM_EFUSE_IV_LEN_IN_BITS);
+						XNVM_EFUSE_IV_LEN_IN_BITS,
+                                                XNVM_EFUSE_BLACK_IV);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -1626,7 +1628,8 @@ static int XilNvm_EfuseInitIVs(XNvm_EfuseDataAddr *WriteEfuse,
 	if (Ivs->PrgmPlmIv == TRUE) {
 		Status = XilNvm_PrepareIvForWrite(XNVM_EFUSE_PLM_IV,
 						(u8 *)Ivs->PlmIv,
-						XNVM_EFUSE_IV_LEN_IN_BITS);
+						XNVM_EFUSE_IV_LEN_IN_BITS,
+                                                XNVM_EFUSE_PLM_IV_RANGE);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -1634,7 +1637,8 @@ static int XilNvm_EfuseInitIVs(XNvm_EfuseDataAddr *WriteEfuse,
 	if (Ivs->PrgmDataPartitionIv == TRUE) {
 		Status = XilNvm_PrepareIvForWrite(XNVM_EFUSE_DATA_PARTITION_IV,
 						(u8 *)Ivs->DataPartitionIv,
-						XNVM_EFUSE_IV_LEN_IN_BITS);
+						XNVM_EFUSE_IV_LEN_IN_BITS,
+                                                XNVM_EFUSE_DATA_PARTITION_IV_RANGE);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -2220,18 +2224,25 @@ END:
  *
  * @param	Len	Length of the IV in bits
  *
+ * @param	IvType  XNVM_EFUSE_META_HEADER_IV_RANGE or
+ * 			XNVM_EFUSE_BLACK_IV or
+ * 			XNVM_EFUSE_PLM_IV_RANGE or
+ * 			XNVM_EFUSE_DATA_PARTITION_IV_RANGE
+ *
  * @return
  *		- XST_SUCCESS - If validation and conversion of IV success
  *		- Error Code - On Failure.
  *
  ******************************************************************************/
-static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len)
+static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len, XNvm_IvType IvType)
 {
 	int Status = XST_FAILURE;
 
 	if ((IvStr == NULL) ||
 		(Dst == NULL) ||
-		(Len != XNVM_EFUSE_IV_LEN_IN_BITS)) {
+		(Len != XNVM_EFUSE_IV_LEN_IN_BITS) ||
+                (IvType > XNVM_EFUSE_DATA_PARTITION_IV_RANGE) ||
+                (IvType < XNVM_EFUSE_META_HEADER_IV_RANGE)) {
 		goto END;
 	}
 
@@ -2240,7 +2251,13 @@ static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len)
 		xil_printf("IV string validation failed\r\n");
 		goto END;
 	}
-	Status = Xil_ConvertStringToHexBE(IvStr, Dst, Len);
+	if ((IvType == XNVM_EFUSE_META_HEADER_IV_RANGE) ||
+		(IvType == XNVM_EFUSE_BLACK_IV)) {
+		Status = Xil_ConvertStringToHexBE(IvStr, Dst, Len);
+	}
+	else {
+		Status = Xil_ConvertStringToHexLE(IvStr, Dst, Len);
+	}
 
 END:
 	return Status;
