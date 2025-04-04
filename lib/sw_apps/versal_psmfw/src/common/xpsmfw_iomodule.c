@@ -180,7 +180,7 @@ static void XPsmfw_InterruptGicP2Handler(void)
  * @return	None
  *
  *****************************************************************************/
-static void XPsmfw_ExceptionHandler(void *Data)
+static void __attribute__((noreturn)) XPsmfw_ExceptionHandler(void *Data)
 {
 	(void)Data;	/* To avoid compiler warning */
 	/* Writing PSM Non-Correctable bit to ERR1_TRIG reg */
