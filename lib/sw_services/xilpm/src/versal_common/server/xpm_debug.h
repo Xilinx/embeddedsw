@@ -784,14 +784,12 @@ extern "C" {
 #define XPM_INT_ERR_DAC_INIT			0x5405U
 /* Error during DAC Ub Enable */
 #define XPM_INT_ERR_SLEEP_UBLAZE		0x5406U
-/* Error during set ADC Test Safe */
-#define XPM_INT_ERR_ADC_TEST_SAFE_SET		0x5407U
 /* Error during unset ADC Test Safe */
-#define XPM_INT_ERR_ADC_TEST_SAFE_UNSET		0x5408U
-/* Error during set DAC Test Safe */
-#define XPM_INT_ERR_DAC_TEST_SAFE_SET		0x5409U
+#define XPM_INT_ERR_ADC_TEST_SAFE_UNSET		0x5407U
 /* Error during unset DAC Test Safe */
-#define XPM_INT_ERR_DAC_TEST_SAFE_UNSET		0x540AU
+#define XPM_INT_ERR_DAC_TEST_SAFE_UNSET		0x5408U
+/* Error during DAC Ub Enable */
+#define XPM_INT_ERR_DAC_UB_ENABLE		0x5409U
 
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU

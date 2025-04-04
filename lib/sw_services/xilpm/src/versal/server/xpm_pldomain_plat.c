@@ -1148,21 +1148,16 @@ static XStatus DacScanClear(const u32 *DacAddresses, u32 ArrLen, u32 PollTimeOut
 		/* Unlock PCSR */
 		XPm_UnlockPcsr(DacAddresses[i]);
 
-		/* set TEST_SAFE bit*/
-		Status = XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PCSR_MASK_TEST_SAFE_MASK,
-				DAC_NPI_PCSR_MASK_TEST_SAFE_MASK);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_DAC_TEST_SAFE_SET;
-			goto done;
-		}
-
-		/* Trigger Scan Clear */
-		Status = XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
+		/* set TEST_SAFE bit and trigger scan clear*/
+		Status = XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PCSR_MASK_TEST_SAFE_MASK |
+				DAC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
+				DAC_NPI_PCSR_MASK_TEST_SAFE_MASK |
 				DAC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER;
 			goto done;
 		}
+
 	}
 
 	/* Wait 20us */
@@ -1231,21 +1226,16 @@ static XStatus AdcScanClear(const u32 *AdcAddresses, u32 ArrLen, u32 PollTimeOut
 		/* Unlock PCSR */
 		XPm_UnlockPcsr(AdcAddresses[i]);
 
-		/* set TEST_SAFE bit */
-		Status = XPm_PcsrWrite(AdcAddresses[i], ADC_NPI_PCSR_MASK_TEST_SAFE_MASK,
-				ADC_NPI_PCSR_MASK_TEST_SAFE_MASK);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_ADC_TEST_SAFE_SET;
-			goto done;
-		}
-
-		/* Trigger Scan Clear */
-		Status = XPm_PcsrWrite(AdcAddresses[i], ADC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
+		/* set TEST_SAFE bit and trigger scan clear*/
+		Status = XPm_PcsrWrite(AdcAddresses[i], ADC_NPI_PCSR_MASK_TEST_SAFE_MASK |
+				ADC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
+				ADC_NPI_PCSR_MASK_TEST_SAFE_MASK |
 				ADC_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER;
 			goto done;
 		}
+
 	}
 
 	/* Wait 20us */
@@ -1437,7 +1427,7 @@ static XStatus AdcDacHouseClean(u32 SecLockDownInfo, u32 PollTimeOut)
 	/* reset release Ub before loading the UB firmware into DAC UBLAZE data and inst memories*/
 	Status = DacUbEnable(DacAddresses, ARRAY_SIZE(DacAddresses));
 	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_DAC_SCAN_CLEAR;
+		DbgErr = XPM_INT_ERR_DAC_UB_ENABLE;
 		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
