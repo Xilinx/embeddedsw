@@ -258,7 +258,8 @@ enum {
 	XASUFW_AES_FINAL_FAILED, /**< 0xA0U - AES final failed */
 	XASUFW_AES_CCM_INVALID_OPERATION_FLAGS, /**< 0xA1U - AES CCM invalid operation flags */
 	XASUFW_AES_CCM_AAD_FORMATTING_FAILED, /**< 0xA2U - AES CCM AAD formatting failed */
-	XASUFW_AES_KAT_FAILED, /**< 0xA3U - AES KAT failed */
+	XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED, /**< 0xA3U - Error when AES CBC/ECB dummy
+						encryption fails */
 	XASUFW_AES_DPA_CM_KAT_CHECK1_FAILED, /**< 0xA4U - AES DPA CM check1 failed */
 	XASUFW_AES_DPA_CM_KAT_CHECK2_FAILED, /**< 0xA5U - AES DPA CM check2 failed */
 	XASUFW_AES_DPA_CM_KAT_CHECK3_FAILED, /**< 0xA6U - AES DPA CM check3 failed */
@@ -379,12 +380,10 @@ enum {
 	XASUFW_KEYWRAP_KAT_FAILED, /**< 0x106U - Error when key wrap unwrap KAT failed */
 	XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, /**< 0x107U - Sign generation failure in PWCT */
 	XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, /**< 0x108U - Sign verification failure in PWCT */
-	XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED, /**< 0x109U - Error when AES CBC/ECB dummy
-						encryption fails */
-	XASUFW_RSA_ECC_INCORRECT_CURVE, /**< 0x10AU - Error when the received curvelen or curve size
+	XASUFW_RSA_ECC_INCORRECT_CURVE, /**< 0x109U - Error when the received curvelen or curve size
 						is incorrect. */
-	XASUFW_RSA_ECC_TRNG_FAILED, /**< 0x10BU -  Error in TRNG while generating ECC private key */
-	XASUFW_RSA_ECC_MOD_ORDER_FAILED, /**< 0x10CU - Error when ModEccOrder failed in generate
+	XASUFW_RSA_ECC_TRNG_FAILED, /**< 0x10AU -  Error in TRNG while generating ECC private key */
+	XASUFW_RSA_ECC_MOD_ORDER_FAILED, /**< 0x10BU - Error when ModEccOrder failed in generate
 						private key */
 	XASUFW_AES_KEY_CONFIG_READBACK_ERROR, /**< 0x10DU -  Error when AES KEY configuration is
 						incorrect. */

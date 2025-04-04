@@ -292,6 +292,8 @@ extern "C" {
 	/**< User key 1 clear mask */
 #define XAES_KEY_CLEAR_USER_KEY_0_MASK			(0x00000001U)
 	/**< User key 0 clear mask */
+#define XAES_KEY_CLEAR_REG_CLR_MASK			(0x00000000U)
+	/**< Clear mask for all keys */
 /** @} */
 
 /**
