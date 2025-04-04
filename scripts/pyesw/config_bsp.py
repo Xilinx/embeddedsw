@@ -126,7 +126,18 @@ def configure_bsp(args):
                 prop_dict[lib_name].update({prop_data[0]: prop_data[1]})
                 obj.validate_lib_param(lib_name, prop_data[0])
                 # Set the passed value in lib config dictionary
-                obj.bsp_lib_config[lib_name][prop_data[0]]["value"] = prop_data[1]
+            param = prop_data[0]
+            value = prop_data[1]
+
+            # Fetch options from bsp.yaml structure
+            valid_list = obj.bsp_lib_config[lib_name][param].get("options", [])
+
+            if valid_list and value not in valid_list:
+                logger.error(f"Invalid value '{value}' for parameter '{param}',\nPossible values: {', '.join(valid_list)}")
+                sys.exit(1)  # Exit the program with status code 1
+
+            # Update the value regardless
+            obj.bsp_lib_config[lib_name][param]["value"] = value
 
         if ('xilpm' == lib_name) and ("ZynqMP" in obj.domain_data['family']):
             dstdir = os.path.join(obj.libsrc_folder, lib_name, "src", "zynqmp", "client", "common")
