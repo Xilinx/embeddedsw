@@ -36,6 +36,7 @@
  *       ma   01/15/25 Initialize KDF module
  *       ma   02/21/25 Initialize error management functionality
  *       yog  02/24/25 Initialize ECIES module
+ *       am   04/04/25 Added PMC key transfer support
  *
  * </pre>
  *
@@ -106,6 +107,13 @@ int main(void)
 
 	/** Initialize error manager functionality. */
 	XAsufw_ErrorManagerInit();
+
+	/** Get keys from PMC. */
+	Status = XAsufw_PmcKeyTransfer();
+	if (XASUFW_SUCCESS != Status) {
+		XAsufw_Printf(DEBUG_GENERAL, "ASUFW key transfer failed. Error: 0x%x\r\n", Status);
+		goto END;
+	}
 
 	/**
 	 * Set FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register.
