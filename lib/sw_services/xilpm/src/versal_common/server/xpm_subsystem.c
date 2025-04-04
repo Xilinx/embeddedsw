@@ -185,6 +185,10 @@ XStatus XPmSubsystem_InitFinalize(const u32 SubsystemId)
 
 		/* Iterate over all subsystems for particular device */
 		Reqm = Device->Requirements;
+		if (NULL == Reqm) {
+			continue;
+		}
+
 		while (NULL != Reqm) {
 			if ((u8)OFFLINE == Reqm->Subsystem->State) {
 				Reqm = Reqm->NextSubsystem;
