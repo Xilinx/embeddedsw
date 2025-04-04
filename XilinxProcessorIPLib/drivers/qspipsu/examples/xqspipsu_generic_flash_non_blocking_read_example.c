@@ -50,6 +50,7 @@
 * 1.19   sb   01/12/24 Added support to set QSPI clock based on baud rate divisior
 * 1.20   sb  09/13/24 Updated examples to configure correct baud rate value
 * 1.21   sb  01/02/25 Fixed gcc and g++ warnings.
+* 1.21   bkv 04/04/25 Fixed g++ warnings.
 *
 *</pre>
 *
@@ -1049,7 +1050,7 @@ int MultiDieRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	int Status;
 	u32 cur_bank = 0;
 	u32 nxt_bank = 0;
-	u32 bank_size;
+	u32 bank_size = 0;
 	u32 remain_len = ByteCount;
 	u32 data_len;
 	u32 transfer_len;
@@ -1650,7 +1651,7 @@ ERROR_PATH:
  ******************************************************************************/
 u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address)
 {
-	u32 RealAddr;
+	u32 RealAddr = 0;
 
 	switch (QspiPsuPtr->Config.ConnectionMode) {
 		case XQSPIPSU_CONNECTION_MODE_SINGLE:
@@ -1694,7 +1695,7 @@ u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address)
 			RealAddr = Address / 2;
 			break;
 		default:
-			/* RealAddr wont be assigned in this case; */
+			/* RealAddr won't be assigned in this case; */
 			break;
 
 	}
@@ -1766,7 +1767,7 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 
 		case SPANSION_ID_BYTE0:
 
-			/* Read Extended Addres Register */
+			/* Read Extended Address Register */
 			WriteBuffer[0] = BANK_REG_RD;
 			FlashMsg[0].TxBfrPtr = &WriteBuffer[0];
 			FlashMsg[0].RxBfrPtr = NULL;
