@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,6 +75,7 @@
 * 1.6   adk  20/10/23 The function XTMR_Manager_InjectionTest was erroneously
 * 		      declared. It does not exist. Remove the
 * 		      XTMR_Manager_InjectionTest API declaration.
+* 1.7   adk  04/04/25 Added Interrupt fields in the config struct in SDT flow.
 * </pre>
 *
 *****************************************************************************/
@@ -142,6 +143,10 @@ typedef struct {
 	u8  StrictMiscompare;	/**< Value of parameter C_STRICT_MISCOMPARE */
 	u8  UseDebugDisable;	/**< Value of parameter C_USE_DEBUG_DISABLE */
 	u8  UseTmrDisable;	/**< Value of parameter C_USE_TMR_DISABLE */
+#if defined(XIL_INTERRUPT) || defined(SDT)
+	u32 IntrId;
+	UINTPTR IntrParent;		/** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#endif
 } XTMR_Manager_Config;
 
 /**
