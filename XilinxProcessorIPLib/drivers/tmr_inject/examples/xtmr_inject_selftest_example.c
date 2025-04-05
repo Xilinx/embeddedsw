@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.7   adk  04/04/25 Ported example to the SDT flow.
 * </pre>
 ******************************************************************************/
 
@@ -27,6 +29,7 @@
 
 #include "xparameters.h"
 #include "xtmr_inject.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -35,7 +38,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define TMR_INJECT_DEVICE_ID		XPAR_TMR_INJECT_0_DEVICE_ID
+#else
+#define TMR_INJECT_DEVICE_ID		XPAR_TMR_INJECT_0_BASEADDR
+#endif
 
 
 /**************************** Type Definitions *******************************/
@@ -45,8 +52,11 @@
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int TMR_InjectSelfTestExample(u16 DeviceId);
+#else
+int TMR_InjectSelfTestExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -76,9 +86,11 @@ int main(void)
 	 */
 	Status = TMR_InjectSelfTestExample(TMR_INJECT_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		 xil_printf("TMR_InjectSelfTestExample Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran TMR_InjectSelfTestExample\r\n");
 	return XST_SUCCESS;
 
 }
@@ -100,14 +112,22 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int TMR_InjectSelfTestExample(u16 DeviceId)
+#else
+int TMR_InjectSelfTestExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 
 	/*
 	 * Initialize the TMR_Inject driver so that it is ready to use.
 	 */
+#ifndef SDT
 	Status = XTMR_Inject_Initialize(&TMR_Inject, DeviceId);
+#else
+	Status = XTMR_Inject_Initialize(&TMR_Inject, BaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

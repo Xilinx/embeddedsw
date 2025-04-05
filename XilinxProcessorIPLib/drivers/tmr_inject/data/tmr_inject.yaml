@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -21,10 +21,21 @@ properties:
 config:
     - XTMR_Inject_Config
 
+xparam_prefix: TMR_Inject
+
 required:
     - compatible
     - reg
     - xlnx,magic
     - xlnx,cpu-id
-    - xlnx,lmb-awidth
+    - xlnx,inject-lmb-awidth
+
+additionalProperties:
+    - xlnx,mask
+
+examples:
+    xtmr_inject_selftest_example.c:
+        - reg
+    xtmr_inject_low_level_example.c:
+        - reg
 ...
