@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.0   sa   04/05/17 First release
 * 1.3   adk  02/23/22 Added new API XTMR_Manager_Configure_BrkDelay()
 *       	      for configuring break delay.
+* 1.7   adk  04/04/25 Added Interrupt fields in the config struct in SDT flow.
 * </pre>
 *
 *****************************************************************************/
@@ -125,6 +126,10 @@ int XTMR_Manager_CfgInitialize(XTMR_Manager *InstancePtr, XTMR_Manager_Config *C
 	InstancePtr->RegBaseAddress = EffectiveAddr;
 
 	InstancePtr->Handler = StubHandler;
+#ifdef SDT
+	InstancePtr->Config.IntrId = Config->IntrId;
+	InstancePtr->Config.IntrParent = Config->IntrParent;
+#endif
 
 	/*
 	 * Write to the SEM interrupt mask register to disable the interrupts

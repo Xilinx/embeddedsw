@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +22,7 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.7   adk  04/04/25 Ported example to the SDT flow.
 * </pre>
 ******************************************************************************/
 
@@ -29,6 +31,7 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xtmr_manager_l.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -76,9 +79,11 @@ int main(void)
 	 */
 	Status = TMR_ManagerLowLevelExample(TMR_MANAGER_BASEADDR);
 	if (Status != XST_SUCCESS) {
+		xil_printf("TMR_Manager LowLevel Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran TMR_Manager LowLevel Example\r\n");
 	return XST_SUCCESS;
 }
 

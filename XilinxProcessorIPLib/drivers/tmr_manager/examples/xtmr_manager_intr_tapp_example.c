@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 1.0   sa   04/05/17 First release
 * 1.3	adk  31/01/22 Updated the example independent of SEM IP hardware
 * 		      configuration.
+* 1.7   adk  04/04/25 Ported example to the SDT flow.
 * </pre>
 ******************************************************************************/
 
@@ -32,7 +33,11 @@
 #include "xparameters.h"
 #include "xtmr_manager.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#else
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #include <stdio.h>
@@ -41,7 +46,7 @@
 #include <stdio.h>
 #else
 #include "xscugic.h"
-#include "xil_printf.h"
+#endif
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -52,7 +57,11 @@
  * change all the needed parameters in one place.
  */
 #ifndef TESTAPP_GEN
+#ifndef SDT
 #define TMR_MANAGER_DEVICE_ID	  XPAR_TMR_MANAGER_0_DEVICE_ID
+#else
+#define TMR_MANAGER_DEVICE_ID	  XPAR_TMR_MANAGER_0_BASEADDR
+#endif /* SDT */
 
 
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -70,6 +79,7 @@
 
 /**************************** Type Definitions *******************************/
 
+#ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define INTC_HANDLER	XIntc_InterruptHandler
@@ -80,25 +90,33 @@
 #define INTC		XScuGic
 #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif /* XPAR_INTC_0_DEVICE_ID */
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int TMR_ManagerIntrExample(INTC *IntcInstancePtr,
 			XTMR_Manager *TMR_ManagerInstancePtr,
 			u16 TMR_ManagerDeviceId,
 			u16 TMR_ManagerIntrId);
+#else
+int TMR_ManagerIntrExample(XTMR_Manager *TMR_ManagerInstancePtr,
+			UINTPTR BaseAddress);
+#endif
 
 static void TMR_ManagerHandler(void *CallBackRef);
 
+#ifndef SDT
 static int TMR_ManagerSetupIntrSystem(INTC *IntcInstancePtr,
 				XTMR_Manager *TMR_ManagerInstancePtr,
 				u16 TMR_ManagerIntrId);
 
 static void TMR_ManagerDisableIntrSystem(INTC *IntrInstancePtr,
 				u16 TMR_ManagerIntrId);
+#endif
 
 
 /************************** Variable Definitions *****************************/
@@ -108,7 +126,9 @@ static void TMR_ManagerDisableIntrSystem(INTC *IntrInstancePtr,
  * are initialized to zero each time the program runs.
  */
 #ifndef TESTAPP_GEN
+#ifndef SDT
 static INTC IntcInstance;	/* The instance of the Interrupt Controller */
+#endif
 static XTMR_Manager TMR_ManagerInst;  /* The instance of the TMR_Manager Device */
 #endif
 
@@ -145,14 +165,21 @@ int main(void)
 	 * Run the TMR_Manager Interrupt example , specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
+#ifndef SDT
 	Status = TMR_ManagerIntrExample(&IntcInstance,
 				 &TMR_ManagerInst,
 				 TMR_MANAGER_DEVICE_ID,
 				 TMR_MANAGER_IRPT_INTR);
+#else
+	Status = TMR_ManagerIntrExample(&TMR_ManagerInst,
+				 TMR_MANAGER_DEVICE_ID);
+#endif
 	if (Status != XST_SUCCESS) {
+		xil_printf("TMR_Manager Interrupt Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran TMR_Manager Interrupt Example\r\n");
 	return XST_SUCCESS;
 }
 #endif
@@ -188,18 +215,26 @@ int main(void)
 * working it may never return.
 *
 ****************************************************************************/
+#ifndef SDT
 int TMR_ManagerIntrExample(INTC *IntcInstancePtr,
 			XTMR_Manager *TMR_ManagerInstPtr,
 			u16 TMR_ManagerDeviceId,
 			u16 TMR_ManagerIntrId)
-
+#else
+int TMR_ManagerIntrExample(XTMR_Manager *TMR_ManagerInstPtr,
+			UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 
 	/*
 	 * Initialize the TMR_Manager driver so that it's ready to use.
 	 */
+#ifndef SDT
 	Status = XTMR_Manager_Initialize(TMR_ManagerInstPtr, TMR_ManagerDeviceId);
+#else
+	Status = XTMR_Manager_Initialize(TMR_ManagerInstPtr, BaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -216,9 +251,16 @@ int TMR_ManagerIntrExample(INTC *IntcInstancePtr,
 	 * Connect the TMR_Manager to the interrupt subsystem such that interrupts
 	 * can occur. This function is application specific.
 	 */
+#ifndef SDT
 	Status = TMR_ManagerSetupIntrSystem(IntcInstancePtr,
 					 TMR_ManagerInstPtr,
 					 TMR_ManagerIntrId);
+#else
+	Status = XSetupInterruptSystem(TMR_ManagerInstPtr, (XInterruptHandler)TMR_ManagerHandler,
+				       TMR_ManagerInstPtr->Config.IntrId,
+				       TMR_ManagerInstPtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -237,7 +279,12 @@ int TMR_ManagerIntrExample(INTC *IntcInstancePtr,
 	while ((TotalEventCount == 0)) {
 	}
 
+#ifndef SDT
 	TMR_ManagerDisableIntrSystem(IntcInstancePtr, TMR_ManagerIntrId);
+#else
+	XDisconnectInterruptCntrl(TMR_ManagerInstPtr->Config.IntrId,
+				  TMR_ManagerInstPtr->Config.IntrParent);
+#endif
 
 	return XST_SUCCESS;
 }
@@ -289,6 +336,7 @@ static void TMR_ManagerHandler(void *CallBackRef)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int TMR_ManagerSetupIntrSystem(INTC *IntcInstancePtr,
 				XTMR_Manager *TMR_ManagerInstPtr,
 				u16 TMR_ManagerIntrId)
@@ -475,3 +523,4 @@ static void TMR_ManagerDisableIntrSystem(INTC *IntcInstancePtr,
 	XScuGic_Disconnect(IntcInstancePtr, TMR_ManagerIntrId);
 #endif
 }
+#endif

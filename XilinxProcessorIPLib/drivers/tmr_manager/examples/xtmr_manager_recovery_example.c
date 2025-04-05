@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +33,7 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.3	adk  02/23/22 First release
+* 1.7   adk  04/04/25 Ported example to the SDT flow.
 * </pre>
 ******************************************************************************/
 
@@ -47,8 +49,14 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define TMR_MANAGER_DEVICE_ID		XPAR_TMR_MANAGER_0_DEVICE_ID
 #define TMR_INJECT_DEVICE_ID		XPAR_TMR_INJECT_0_DEVICE_ID
+#else
+#define TMR_MANAGER_DEVICE_ID		XPAR_TMR_MANAGER_0_BASEADDR
+#define TMR_INJECT_DEVICE_ID		XPAR_TMR_INJECT_0_BASEADDR
+#endif
+
 
 
 /**************************** Type Definitions *******************************/
@@ -58,7 +66,11 @@
 #define ERROR_INJECT_CPU_ID	1
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 int TMR_ManagerRecoveryExample(u16 TMRManagerDeviceId, u16 TMRInjectDeviceId);
+#else
+int TMR_ManagerRecoveryExample(UINTPTR TMRManagerBaseAddress, UINTPTR TMRInjectBaseAddress);
+#endif
 static void TMR_Manager_BreakHandler(void *CallBackRef);
 
 /************************** Variable Definitions *****************************/
@@ -136,7 +148,11 @@ static void TMR_Manager_BreakHandler(void *CallBackRef)
 * @note		None.
 *
 ****************************************************************************/
+#ifndef SDT
 int TMR_ManagerRecoveryExample(u16 TMRManagerDeviceId, u16 TMRInjectDeviceId)
+#else
+int TMR_ManagerRecoveryExample(UINTPTR TMRManagerBaseAddress, UINTPTR TMRInjectBaseAddress)
+#endif
 {
 	int Status;
 	u32 Error_Inject;
@@ -144,7 +160,11 @@ int TMR_ManagerRecoveryExample(u16 TMRManagerDeviceId, u16 TMRInjectDeviceId)
 	/*
 	 * Initialize the TMR_Inject driver so that it is ready to use.
 	 */
+#ifndef SDT
 	Status = XTMR_Inject_Initialize(&TMR_Inject, TMRInjectDeviceId);
+#else
+	Status = XTMR_Inject_Initialize(&TMR_Inject, TMRInjectBaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -152,7 +172,11 @@ int TMR_ManagerRecoveryExample(u16 TMRManagerDeviceId, u16 TMRInjectDeviceId)
 	/*
 	 * Initialize the TMR_Manager driver so that it is ready to use.
 	 */
+#ifndef SDT
 	Status = XTMR_Manager_Initialize(&TMR_Manager, TMRManagerDeviceId);
+#else
+	Status = XTMR_Manager_Initialize(&TMR_Manager, TMRManagerBaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
