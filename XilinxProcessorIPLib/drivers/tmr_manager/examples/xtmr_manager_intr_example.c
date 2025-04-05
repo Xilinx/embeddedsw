@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 * 1.0   sa   04/05/17 First release
 * 1.3	adk  31/01/22 Updated the example independent of SEM IP hardware
 * 		      configuration.
+* 1.7   adk  04/04/25 Ported example to the SDT flow.
 * </pre>
 ******************************************************************************/
 
@@ -29,7 +31,11 @@
 
 #include "xparameters.h"
 #include "xtmr_manager.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#else
 #include "xintc.h"
+#endif
 #include "xil_exception.h"
 
 /************************** Constant Definitions *****************************/
@@ -39,9 +45,13 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define TMR_MANAGER_DEVICE_ID   XPAR_TMR_MANAGER_0_DEVICE_ID
 #define INTC_DEVICE_ID          XPAR_INTC_0_DEVICE_ID
 #define TMR_MANAGER_INT_IRQ_ID  XPAR_INTC_0_TMR_MANAGER_0_VEC_ID
+#else
+#define TMR_MANAGER_DEVICE_ID	XPAR_TMR_MANAGER_0_BASEADDR
+#endif
 
 
 /**************************** Type Definitions *******************************/
@@ -51,8 +61,11 @@
 
 
 /************************** Function Prototypes ******************************/
-
+#ifndef SDT
 int TMR_ManagerIntrExample(u16 DeviceId);
+#else
+int TMR_ManagerIntrExample(UINTPTR BaseAddress);
+#endif
 
 int SetupInterruptSystem(XTMR_Manager *TMR_ManagerPtr);
 
@@ -134,14 +147,22 @@ int main(void)
 * working it may never return.
 *
 ****************************************************************************/
+#ifndef SDT
 int TMR_ManagerIntrExample(u16 DeviceId)
+#else
+int TMR_ManagerIntrExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 
 	/*
 	 * Initialize the TMR_Manager driver so that it's ready to use.
 	 */
+#ifndef SDT
 	Status = XTMR_Manager_Initialize(&TMR_Manager, DeviceId);
+#else
+	Status = XTMR_Manager_Initialize(&TMR_Manager, BaseAddress);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -158,7 +179,14 @@ int TMR_ManagerIntrExample(u16 DeviceId)
 	 * Connect the TMR_Manager to the interrupt subsystem such that interrupts can
 	 * occur. This function is application specific.
 	 */
+#ifndef SDT
 	Status = SetupInterruptSystem(&TMR_Manager);
+#else
+	Status = XSetupInterruptSystem(&TMR_Manager, (XInterruptHandler)Handler,
+				       TMR_Manager.Config.IntrId,
+				       TMR_Manager.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -223,6 +251,7 @@ void Handler(void *CallBackRef)
 * @note     None.
 *
 ****************************************************************************/
+#ifndef SDT
 int SetupInterruptSystem(XTMR_Manager *TMR_ManagerPtr)
 {
 
@@ -285,3 +314,4 @@ int SetupInterruptSystem(XTMR_Manager *TMR_ManagerPtr)
 
 	return XST_SUCCESS;
 }
+#endif
