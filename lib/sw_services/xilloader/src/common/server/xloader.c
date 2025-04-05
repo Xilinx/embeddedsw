@@ -180,13 +180,15 @@
 * 1.09  kpt  11/05/2024 Fixed issue in reading optional data
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       pre  01/02/2025 clearing metaheader space based on size of metaheader structure
-*       mb   01/22/2025 Fix SMAP seconadry boot fail
+*       mb   01/22/2025 Fix SMAP secondary boot fail
 *       tri  03/01/2025 Added data measurement support for versal_aiepg2
 *       tri  03/13/2025 Moved partition measurement to platform specific and
 *                       Added XLoader_DataMeasurement support for versal
 *       ma   03/19/2025 Update function ID of the PLD0 image to USR_ACCESS
 *                       register in RTCA before loading the PLD0 image
 *       sk  03/29/2025 Added redundant check for XLoader_ValidateMetaHdrIntegrity
+*       pre  04/01/2025 Clearing metaheader in XLoader_InitPdiInstanceForExtractMHAndOptData
+*
 * </pre>
 *
 ******************************************************************************/
@@ -2235,6 +2237,17 @@ int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr
 	u64 MetaHdrOfst;
 
 	Status = Xil_SMemSet(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	PdiPtr->MetaHdr = (XilPdi_MetaHdr *)(UINTPTR)METAHEADER_INSTANCE_ADDRESS;
+
+	/**
+	 * Clear the Metaheader instance area
+	*/
+	Status = XPlmi_MemSet((u64)METAHEADER_INSTANCE_ADDRESS, 0U,
+	         (sizeof(XilPdi_MetaHdr) >> XPLMI_WORD_LEN_SHIFT));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
