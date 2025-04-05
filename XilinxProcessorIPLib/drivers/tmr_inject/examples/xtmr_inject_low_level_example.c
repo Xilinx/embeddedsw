@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 * 1.6   asa  07/31/23 Update the macro TMRINJECT_BASEADDR to correct define
 *                     from xparameters.h. Previously it was defined as
 *                     XPAR_TMRINJECT_0_BASEADDR.
+* 1.7   adk  04/04/25 Ported example to the SDT flow.
 * </pre>
 ******************************************************************************/
 
@@ -33,6 +34,7 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xtmr_inject_l.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -80,9 +82,11 @@ int main(void)
 	 */
 	Status = TMRInjectLowLevelExample(TMRINJECT_BASEADDR);
 	if (Status != XST_SUCCESS) {
+		xil_printf("TMRInjectLowLevelExample Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran TMRInjectLowLevelExample\r\n");
 	return XST_SUCCESS;
 }
 
