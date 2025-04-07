@@ -315,7 +315,8 @@ int XPciePsu_EP_SetupIngress(XPciePsu *PciePsuPtr, u32 IngressNum, u32 BarNum,
 
 	XPciePsu_Dbg("Done writing the Ingress Dst registers\r\n");
 
-	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg, INGRESS0_CONTROL);
+	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg, INGRESS0_CONTROL +
+			       (IngressNum * INGRESS_SIZE));
 
 	XPciePsu_Dbg("Read Ingress Control register\r\n");
 
@@ -382,7 +383,8 @@ int XPciePsu_EP_SetupEgress(XPciePsu *PciePsuPtr, u32 EgressNum ){
 
 	XPciePsu_Dbg("Done writing the Ingress Dst registers\r\n");
 
-	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg, EGRESS0_CONTROL);
+	Val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg, EGRESS0_CONTROL +
+			       (EgressNum * EGRESS_SIZE));
 
 	Val &= (u32)(~EGRESS_SIZE_MASK);
 	Val |= (((u32)EGRESS_SIZE_ENCODING << EGRESS_SIZE_SHIFT) |
