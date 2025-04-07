@@ -32,6 +32,7 @@
 #include "xasufw_util.h"
 #include "xfih.h"
 #include "xasu_hmacinfo.h"
+#include "xasu_def.h"
 
 /************************************** Type Definitions *****************************************/
 /** This typedef is used to update the state of HMAC. */
@@ -173,7 +174,7 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 		goto END;
 	}
 
-	if (KeyLen < (HashLen >> XASU_HMAC_HASH_HALF_LENGTH_SHIFT)) {
+	if ((KeyLen == 0U) || (KeyLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 		Status = XASUFW_HMAC_INVALID_KEY_LENGTH;
 		goto END;
 	}
