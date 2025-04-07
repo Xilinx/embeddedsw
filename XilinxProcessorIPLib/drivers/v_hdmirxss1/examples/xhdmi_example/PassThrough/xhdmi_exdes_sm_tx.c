@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -2446,7 +2446,8 @@ void XV_Tx_HdmiTx_EnterStateStreamOn(XV_Tx *InstancePtr)
 	TxPllType = XHdmiphy1_GetPllType(XV_Tx_Hdmiphy1Ptr, 0,
 				XHDMIPHY1_DIR_TX, XHDMIPHY1_CHANNEL_ID_CH1);
 #if defined (XPS_BOARD_VCK190) || \
-    defined (XPS_BOARD_VEK280)
+    defined (XPS_BOARD_VEK280) || \
+	defined (XPS_BOARD_VEK385)
 
 	if ((TxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
 		TxLineRate = XHdmiphy1_GetLineRateHz(XV_Tx_Hdmiphy1Ptr, 0,

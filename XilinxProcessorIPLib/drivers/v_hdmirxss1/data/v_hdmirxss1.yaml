@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -311,4 +311,50 @@ examples:
             - platforms/platform.h
             - platforms/platform_config.h
             - platforms/vek_a72/lscript.ld
+
+    xhdmi_example/dummy/Passthrough_A78.txt:
+        - dependency_files:
+            - xhdmi_example/PassThrough/xhdmi_example.c
+            - xhdmi_example/aes256.c
+            - xhdmi_example/aes256.h
+            - xhdmi_example/audiogen_drv.c
+            - xhdmi_example/audiogen_drv.h
+            - xhdmi_example/idt_8t49n24x.c
+            - xhdmi_example/idt_8t49n24x.h
+            - xhdmi_example/onsemi_nb7nq621m.c
+            - xhdmi_example/onsemi_nb7nq621m.h
+            - xhdmi_example/PassThrough/xhdmi_edid.c
+            - xhdmi_example/PassThrough/xhdmi_edid.h
+            - xhdmi_example/PassThrough/xhdmi_example.h
+            - xhdmi_example/PassThrough/xhdmi_exdes_sm_rx.c
+            - xhdmi_example/PassThrough/xhdmi_exdes_sm_rx.h
+            - xhdmi_example/PassThrough/xhdmi_exdes_sm_tx.c
+            - xhdmi_example/PassThrough/xhdmi_exdes_sm_tx.h
+            - xhdmi_example/PassThrough/xhdmi_menu.c
+            - xhdmi_example/PassThrough/xhdmi_menu.h
+            - xhdmi_example/rc21008adrv.c
+            - xhdmi_example/rc21008adrv.h
+            - xhdmi_example/sha256.c
+            - xhdmi_example/sha256.h
+            - xhdmi_example/si5324drv.c
+            - xhdmi_example/si5324drv.h
+            - xhdmi_example/si5344drv.c
+            - xhdmi_example/si5344drv.h
+            - xhdmi_example/si570drv.c
+            - xhdmi_example/si570drv.h
+            - xhdmi_example/ti_lmk03318.c
+            - xhdmi_example/ti_lmk03318.h
+            - xhdmi_example/ti_tmds1204.c
+            - xhdmi_example/ti_tmds1204.h
+            - xhdmi_example/video_fmc.c
+            - xhdmi_example/video_fmc.h
+            - xhdmi_example/xhdmi_hdcp_keys.c
+            - xhdmi_example/xhdmi_hdcp_keys.h
+            - xhdmi_example/xhdmi_hdcp_keys_table.h
+            - xhdmi_example/xhdmi_intr.c
+            - xhdmi_example/xhdmi_intr.h
+            - platforms/platform.c
+            - platforms/platform_config.h
+            - platforms/platform.h
+            - platforms/vek_a78/lscript.ld
 ...
