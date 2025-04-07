@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -446,8 +446,11 @@ int XOcp_GetSubSysDevAkIndex(u32 SubSystemId, u32* DevAkIndex)
 	u32 Index = 0U;
 	u32 KeyIndex = 0;
 
-	XOcp_MemSet((u64)(UINTPTR)DevAkIndex, XOCP_INVALID_DEVAK_INDEX,
+	Status = XOcp_MemSet((u64)(UINTPTR)DevAkIndex, XOCP_INVALID_DEVAK_INDEX,
 		(sizeof(DevAkIndex) * XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM) / XOCP_WORD_LEN);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Returns invalid DEVAK index if no device key is supported */
 	if (KeyMgmtInstance->KeyMgmtReady != TRUE) {
