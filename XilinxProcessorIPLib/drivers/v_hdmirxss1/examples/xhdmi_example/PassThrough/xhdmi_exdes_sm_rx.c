@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -216,7 +216,8 @@ void Hdmiphy1HdmiRxReadyCallback(void *CallbackRef)
 	xdbg_xv_rx_print("%s,%d : XHdmiphy1_ClkDetGetRefClkFreqHz: %d\r\n",
 			__func__, __LINE__, Hdmiphy1Ptr->HdmiRxRefClkHz);
 #if defined (XPS_BOARD_VCK190) || \
-    defined (XPS_BOARD_VEK280)
+    defined (XPS_BOARD_VEK280) || \
+	defined (XPS_BOARD_VEK385)
 	if ((RxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
 		XV_HdmiRxSs1_SetStream(HdmiRxSs1Ptr,
 				       Hdmiphy1Ptr->HdmiRxRefClkHz,
@@ -433,7 +434,8 @@ u64 XV_Rx_GetLineRate(XV_Rx *InstancePtr)
 				     XHDMIPHY1_DIR_RX,
 				     XHDMIPHY1_CHANNEL_ID_CH1);
 #if defined (XPS_BOARD_VCK190) || \
-    defined (XPS_BOARD_VEK280)
+    defined (XPS_BOARD_VEK280) || \
+	defined (XPS_BOARD_VEK385)
 
 	if ((RxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
 		LineRate = InstancePtr->VidPhy->Quads[0].Plls[
@@ -2366,7 +2368,8 @@ static void XV_Rx_HdmiRx_EnterStatePhyReset(XV_Rx *InstancePtr)
 
 	xdbg_xv_rx_print("%s: Hdmi Rx : PhyReset ...\r\n", __func__);
 
-#if (defined (XPS_BOARD_VCK190) || defined (XPS_BOARD_VEK280))
+#if (defined (XPS_BOARD_VCK190) || defined (XPS_BOARD_VEK280) || \
+	defined (XPS_BOARD_VEK385))
 	XHdmiphy1_PllType RxPllType;
 	XHdmiphy1_ChannelId ChId;
 

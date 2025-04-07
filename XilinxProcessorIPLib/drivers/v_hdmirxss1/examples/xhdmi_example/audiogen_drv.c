@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,7 +26,8 @@
 #include "audiogen_drv.h"
 
 #if defined (XPS_BOARD_VCK190) || \
-    defined (XPS_BOARD_VEK280)
+    defined (XPS_BOARD_VEK280) || \
+	  defined (XPS_BOARD_VEK385)
 static u32 XhdmiAudGen_Mmcme5DividerEncoding(XhdmiAudioGen_MmcmDivType DivType,
 		u16 Div);
 static u32 XhdmiAudGen_Mmcme5CpResEncoding(u16 Mult);
@@ -40,7 +41,8 @@ typedef struct {
 
 /* MMCM PLL settings for sampling frequencies */
 #if !(defined (XPS_BOARD_VCK190) || \
-    defined (XPS_BOARD_VEK280))
+    defined (XPS_BOARD_VEK280) || \
+	  defined (XPS_BOARD_VEK385))
 const XHDMI_SamplingFreq_PLLSettings SampleRatePllSettingsTbl[] = {
     { XAUD_SRATE_32K,           { 2, 19,  0, 58,  0 }},
     { XAUD_SRATE_44K1,          { 2, 14,  0, 31,  0 }},
@@ -328,7 +330,8 @@ int XhdmiAudGen_AudClkConfig(XhdmiAudioGen_t *AudioGen)
   u32 dat = 0;
   u32 waitcount;
 #if defined (XPS_BOARD_VCK190) || \
-    defined (XPS_BOARD_VEK280)
+    defined (XPS_BOARD_VEK280) || \
+	  defined (XPS_BOARD_VEK385)
   u32 regval;
   u32 regval2;
 #else
@@ -336,7 +339,8 @@ int XhdmiAudGen_AudClkConfig(XhdmiAudioGen_t *AudioGen)
 #endif
 
 #if !(defined (XPS_BOARD_VCK190) || \
-    defined (XPS_BOARD_VEK280))
+    defined (XPS_BOARD_VEK280) || \
+	  defined (XPS_BOARD_VEK385))
   /* Set the DIVCLK_DIVIDE and CLKFBOUT_MULT parameters */
   fraction = AudioGen->AudClkPLL.Mult_Eights * 125;
   dat = ((AudioGen->AudClkPLL.Div) & 0xFF);
@@ -677,7 +681,8 @@ int XhdmiACRCtrl_TxMode (XhdmiAudioGen_t *AudioGen, u8 setclr)
 }
 
 #if defined (XPS_BOARD_VCK190) || \
-    defined (XPS_BOARD_VEK280)
+    defined (XPS_BOARD_VEK280) || \
+	  defined (XPS_BOARD_VEK385)
 /*****************************************************************************/
 /**
 * This function returns the DRP encoding of ClkFbOutMult optimized for:

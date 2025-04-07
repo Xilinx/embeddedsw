@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,8 @@
 #if defined (XPS_BOARD_VEK280)
 #include "ti_tmds1204.h"
 #include "rc21008adrv.h"
+#elif defined (XPS_BOARD_VEK385)
+#include "ti_tmds1204.h"
 #endif
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == 6) /*GTYE4*/
 #define XPS_BOARD_VCU118

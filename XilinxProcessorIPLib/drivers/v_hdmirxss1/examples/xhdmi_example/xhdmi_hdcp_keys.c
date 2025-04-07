@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,7 +38,8 @@
 #define XHDCP_UART_BASEADDR XPAR_XUARTPS_0_BASEADDR
 #endif
 
-#if defined (XPS_BOARD_VEK280)
+#if defined (XPS_BOARD_VEK280) || \
+	(defined XPS_BOARD_VEK385)
 #define XHDCP_EEPROM_ADDRESS	  0x50	 /* 0xA0 as an 8 bit number */
 #else
 #define XHDCP_EEPROM_ADDRESS	  0x53	 /* 0xA0 as an 8 bit number */
@@ -95,7 +96,8 @@ static u8 EnterPassword (u8 *Password);
 static unsigned XHdcp_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 							unsigned ByteCount, u8 Option)
 {
-#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_VEK280)
+#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_VEK280) && \
+	(!defined XPS_BOARD_VEK385)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -156,7 +158,8 @@ static unsigned XHdcp_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 static unsigned XHdcp_I2cRecv(void *IicPtr, u16 SlaveAddr, u8 *BufPtr,
 							unsigned ByteCount, u8 Option)
 {
-#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_VEK280)
+#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_VEK280) && \
+	(!defined XPS_BOARD_VEK385)
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 
@@ -638,7 +641,8 @@ u8 EepromReadByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount)
 
 	volatile unsigned ReceivedByteCount;
 #if (!(defined(__arm__) || (__aarch64__))) || \
-	defined (XPS_BOARD_VEK280)
+	defined (XPS_BOARD_VEK280) || \
+	defined (XPS_BOARD_VEK385)
 	u16 StatusReg;
 #endif
 	u8 WriteBuffer[sizeof(Address)];
@@ -654,7 +658,8 @@ u8 EepromReadByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount)
 	 */
 	do {
 
-#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_VEK280)
+#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_VEK280) && \
+	(!defined XPS_BOARD_VEK385)
 		if(!(XIicPs_BusIsBusy(Iic_Ptr))) {
 #else
 		StatusReg = XIic_ReadReg(Iic_Ptr->BaseAddress, XIIC_SR_REG_OFFSET);
@@ -666,7 +671,8 @@ u8 EepromReadByte(void *IicPtr, u16 Address, u8 *BufferPtr, u16 ByteCount)
 
 			if (ReceivedByteCount != sizeof(Address)) {
 
-#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_VEK280)
+#if (defined (ARMR5) || (__aarch64__)) && (!defined XPS_BOARD_VEK280) && \
+	(!defined XPS_BOARD_VEK385)
 				XIicPs_Abort(Iic_Ptr);
 #else
 				/* Send is aborted so reset Tx FIFO */
