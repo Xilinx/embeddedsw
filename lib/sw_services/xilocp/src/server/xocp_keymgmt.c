@@ -1205,6 +1205,11 @@ int XOcp_SetAppVersion(u32 SubsystemID, u64 AppVersion, u32 AppVersionLen)
 	XOcp_SubSysHash *SubSysHashDs = XOcp_GetSubSysHash();
 	u32 KeyIndex = 0U;
 
+	if (AppVersionLen > XOCP_APP_VERSION_MAX_LENGTH) {
+		Status = (int)XST_INVALID_PARAM;
+		goto END;
+	}
+
 	Status = XOcp_GetSubSysDevAkIndex(SubsystemID, DevAkIndex);
 	if (Status != XST_SUCCESS) {
 		goto END;
