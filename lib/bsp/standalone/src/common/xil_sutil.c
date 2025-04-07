@@ -28,6 +28,7 @@
 * 9.3   ml       02/19/25 Fix Type Mismatch in Xil_UtilRMW32
 *       ng       03/25/25 Prevent compiler optimization by using volatile for status variable,
 *                         add checks for RISC-V MB proc and zeroize memory before return
+*       ng       04/07/25 Prevent overwriting of the status variable in Xil_SReverseData
 *
 * </pre>
 *
@@ -909,25 +910,27 @@ s32 Xil_SChangeEndiannessAndCpy(void *Dest, const u32 DestSize,
 
 /*****************************************************************************/
 /**
- * @brief	This function changes the endianness of given buffer.
+ * @brief	This function changes the endianness of given buffer by reversing the byte order.
  *
- * @param	Buf - is pointer to the variable containing data.
- * @param   Size  -  Size of the data.
+ * @param	Buf - Pointer to the buffer whose data needs to be reversed.
+ * @param	Size - is the size of the buffer in bytes to be reversed.
  *
  * @return
- *		XST_SUCCESS - Copy is successful
- * 		XST_INVALID_PARAM - Invalid inputs
- *      XST_FAILURE       - On failure
+ *		XST_SUCCESS - Data successfully reversed
+ *		XST_INVALID_PARAM - Invalid parameters (NULL buffer or zero size)
+ *		XST_FAILURE - Failed to reverse data or zeroize temporary variables
  *
  ******************************************************************************/
 s32 Xil_SReverseData(void *Buf, u32 Size)
 {
 	volatile s32 Status = XST_FAILURE;
+	volatile s32 SStatus = XST_FAILURE;
 	volatile u32 Index = 0U;
 	u8 *Buffer = (u8 *)Buf;
 	u8 Data= 0U;
 	u32 LoopCnt = 0U;
 
+	/* Input validation */
 	if ((Buf == NULL) || (Size == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
@@ -939,11 +942,15 @@ s32 Xil_SReverseData(void *Buf, u32 Size)
 		Buffer[Size - Index - 1U] = Buffer[Index];
 		Buffer[Index] = Data;
 	}
+
 	if (Index == LoopCnt) {
 		Status = XST_SUCCESS;
 	}
 
-	Status = Xil_SecureZeroize(&Data, XIL_ONE_BYTE);
+	SStatus = Xil_SecureZeroize(&Data, XIL_ONE_BYTE);
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
 
 END:
 	return Status;
