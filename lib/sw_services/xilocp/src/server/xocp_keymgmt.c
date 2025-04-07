@@ -1228,6 +1228,7 @@ int XOcp_SetAppVersion(u32 SubsystemID, u64 AppVersion, u32 AppVersionLen)
 
 		DevAkData->AppVersionLen = AppVersionLen;
 
+		Status = XST_FAILURE;
 		Status = XPlmi_MemCpy64((u64)(UINTPTR)SubSysHashDs->AppVersion,
 					AppVersion, AppVersionLen);
 		if (Status != XST_SUCCESS) {
