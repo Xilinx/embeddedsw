@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,7 +33,8 @@
 
 #include "xil_types.h"
 #include "xparameters.h"
-#if defined (ARMR5) || (__aarch64__)
+#if defined (ARMR5) || (__aarch64__) && \
+	(!defined XPS_BOARD_VEK385)
 #include "xiicps.h"
 #endif
 
