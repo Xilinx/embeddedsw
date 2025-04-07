@@ -222,7 +222,8 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr)
 		}
 
 		if ((HmacParamsPtr->KeyAddr == 0U) ||
-		    (HmacParamsPtr->KeyLen < (HmacParamsPtr->HmacLen >> XASU_HMAC_HASH_HALF_LENGTH_SHIFT))) {
+		    (HmacParamsPtr->KeyLen == 0U) ||
+		    (HmacParamsPtr->KeyLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 			goto END;
 		}
 	}

@@ -48,7 +48,6 @@ extern "C" {
 #define XASU_HMAC_FINAL				(0x4U) /**< HMAC final operation flag */
 
 #define XASU_HMAC_MAX_KEY_LENGTH		(0x1024U) /**< Max key length for HMAC. */
-#define XASU_HMAC_HASH_HALF_LENGTH_SHIFT	(0x1U) /**< To calculte half of the hash length */
 
 /************************************** Type Definitions *****************************************/
 /**
