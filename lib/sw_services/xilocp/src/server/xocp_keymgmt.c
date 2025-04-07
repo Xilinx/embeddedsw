@@ -443,7 +443,7 @@ int XOcp_GetSubSysDevAkIndex(u32 SubSystemId, u32* DevAkIndex)
 	int Status = XST_FAILURE;
 	XOcp_KeyMgmt *KeyMgmtInstance = XOcp_GetKeyMgmtInstance();
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
-	u32 Index = 0U;
+	volatile u32 Index = 0U;
 	u32 KeyIndex = 0;
 
 	Status = XOcp_MemSet((u64)(UINTPTR)DevAkIndex, XOCP_INVALID_DEVAK_INDEX,
