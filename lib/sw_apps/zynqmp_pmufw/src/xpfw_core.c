@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -489,7 +490,7 @@ XStatus XPfw_CoreSetIpiHandler(const XPfw_Module_t *ModPtr, XPfwModIpiHandler_t 
 	return Status;
 }
 
-void XPfw_Exception_Handler(void)
+void __attribute__((noreturn)) XPfw_Exception_Handler(void)
 {
 	XPfw_Printf(DEBUG_PRINT_ALWAYS, "Received exception\r\n"
 				"MSR: 0x%x, EAR: 0x%x, EDR: 0x%x, ESR: 0x%x\r\n",
