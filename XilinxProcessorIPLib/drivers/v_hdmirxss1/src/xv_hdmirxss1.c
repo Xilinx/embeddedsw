@@ -1,6 +1,6 @@
 /******************************************************************************
 # Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1155,6 +1155,10 @@ static void XV_HdmiRxSs1_VidRdyErrorCallback(void *CallbackRef)
   XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_VIDRDYERROR,
 		  HdmiRxSs1Ptr->HdmiRx1Ptr->DBMessage);
 #endif
+  /* Check if user callback has been registered*/
+  if (HdmiRxSs1Ptr->VidRdyErrorRef) {
+    HdmiRxSs1Ptr->VidRdyErrorCallback(HdmiRxSs1Ptr->VidRdyErrorRef);
+  }
 }
 
 /*****************************************************************************/
@@ -1605,6 +1609,13 @@ int XV_HdmiRxSs1_SetCallback(XV_HdmiRxSs1 *InstancePtr,
             InstancePtr->VicErrorRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
+	/* VID_RDY_ERROR */
+	case (XV_HDMIRXSS1_HANDLER_VID_RDY_ERR):
+	    InstancePtr->VidRdyErrorCallback =
+			(XV_HdmiRxSs1_Callback)CallbackFunc;
+	    InstancePtr->VidRdyErrorRef = CallbackRef;
+	    Status = (XST_SUCCESS);
+	    break;
 
 	/* FRL Config */
 	case (XV_HDMIRXSS1_HANDLER_FRL_CONFIG):
