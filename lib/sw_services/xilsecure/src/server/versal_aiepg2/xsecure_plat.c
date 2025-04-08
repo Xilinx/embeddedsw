@@ -17,6 +17,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.4   kal      07/24/24 Initial release
 *       sk       08/22/24 Added support for key transfer to ASU
+*       vss      04/08/25 Updated AesValidateSize function
 *
 * </pre>
 *
@@ -249,10 +250,23 @@ void XSecure_ConfigureDmaByteSwap(u32 Op)
  ******************************************************************************/
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 {
-	(void)Size;
-	(void)IsLastChunk;
+	int Status = XST_FAILURE;
 
-	return XST_SUCCESS;
+	/**
+	  * AES engine expect all intermediate updates shall be
+	  * 16-byte aligned when it is not last chunk of data.
+	  * Throw an error if it is not 16 byte aligned.
+	  */
+	if ((IsLastChunk != TRUE) &&
+		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
+		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
