@@ -5,7 +5,8 @@
 * @addtogroup IDT_8T49N24x
 * @{
 * <pre>
-* Copyright (c) 2016 Xilinx, Inc.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2016-2021 Xilinx, Inc.
 * Copyright (c) 2016 Adeas B.V. All rights reserved.
 *
 * MODIFICATION HISTORY:
@@ -32,6 +33,7 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 #include <stdlib.h>
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 #define IDT_8T49N24X_ADV_FUNC_EN 0 /* Enable unused APIs */
@@ -113,6 +115,9 @@ static u8 IDT_8T49N24x_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 	Exit = FALSE;
 	Data = 0;
 
+	XIic_WriteReg(I2CBaseAddress, XIIC_RESETR_OFFSET, XIIC_RESET_MASK);
+	usleep (5000);
+
 	do {
 		/* Set Address */
 		Buffer[0] = (RegisterAddress >> 8);
@@ -179,6 +184,9 @@ static int IDT_8T49N24x_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 	Buffer[0] = (RegisterAddress >> 8);
 	Buffer[1] = RegisterAddress & 0xff;
 	Buffer[2] = Value;
+
+	XIic_WriteReg(I2CBaseAddress, XIIC_RESETR_OFFSET, XIIC_RESET_MASK);
+	usleep (5000);
 
 	while (1) {
 		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer,
