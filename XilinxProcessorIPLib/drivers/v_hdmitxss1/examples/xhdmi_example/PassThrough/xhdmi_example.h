@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,7 +60,12 @@ extern "C" {
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
 #include "xuartlite_l.h"
 #else
+#if defined XPS_BOARD_VEK385
+#include "xuartpsv.h"
+#else
 #include "xuartps.h"
+#endif
+
 #endif
 
 #include "xil_types.h"
