@@ -799,7 +799,7 @@ XPmFwGemPwrCtrl_t Gem1PwrCtrl = {
 static XStatus XPm_PCILWaitForPstable(struct XPmFwPwrCtrl_t *Args)
 {
        XStatus Status = XST_FAILURE;
-       if (XPm_GetPlatform() == PLATFORM_VERSION_QEMU) {
+       if ((XPm_GetPlatform() == PLATFORM_VERSION_QEMU) || (XPm_GetPlatform() == PLATFORM_VERSION_COSIM)) {
 	       /* TODO: REMOVE this when QEMU implement PCIL handshake correctly */
 	       Status = XST_SUCCESS;
 	       goto done;
