@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -166,6 +166,7 @@ typedef enum {
 	XV_RX_TRIG_HANDLER_VTEMEVENT,
 	XV_RX_TRIG_HANDLER_DYNHDREVENT,
 	XV_RX_TRIG_HANDLER_DSCDDCSTSUPDTEVNT,
+	XV_RX_TRIG_HANDLER_VIDRDYEVENT,
 } XV_Rx_Trigger_CallbackHandler;
 
 typedef struct {
@@ -257,6 +258,8 @@ typedef struct {
 	void *RxDynHdrCbRef;
 	XV_Rx_SM_Callback RxDscDdcCb;
 	void *RxDscDdcCbRef;
+	XV_Rx_SM_Callback RxVidRdyEvent;
+	void *RxVidRdyEventRef;
 #ifdef USE_HDCP_HDMI_RX
 	XV_Rx_SM_Callback HdcpSetContentStreamTypeCb;
 	void *HdcpSetContentStreamTypeCbRef;
