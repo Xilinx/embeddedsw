@@ -45,6 +45,7 @@
 *       pre  12/03/2024 Added support to reset OSPI device through OSPI controller in telluride
 *       prt  12/30/2024 Added support for ISSI 256MB flash part
 *		prt	 04/02/2025 Added support for Infineon OSPI flash parts
+*		prt  04/08/2025 Added support for skipping OSPI copy on zero byte length
 *
 * </pre>
 *
@@ -582,6 +583,11 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	XLoader_Printf(DEBUG_INFO, "OSPI Reading Src 0x%0x, Dest 0x%0x%08x, "
 		"Length 0x%0x, Flags 0x%0x\r\n", SrcAddrLow, (u32)(DestAddr >> 32U),
 		(u32)(DestAddr), Length, Flags);
+
+	if (Length == 0U) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
 
 	Flags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
 	/**
