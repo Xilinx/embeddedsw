@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -133,6 +133,7 @@ void XV_Rx_HdmiTrigCb_VfmcRxClkSel(void *InstancePtr);
 void XV_Rx_HdmiTrigCb_VrrVfpEvent(void *InstancePtr);
 void XV_Rx_HdmiTrigCb_VtemEvent(void *InstancePtr);
 void XV_Rx_HdmiTrigCb_DynHdrEvent(void *InstancePtr);
+void XV_Rx_HdmiTrigCb_VidRdyEvent(void *InstancePtr);
 
 #if (XPAR_V_HDMI_RXSS1_DSC_EN == 1)
 void XV_Rx_HdmiTrigCb_DscDdcEvent(void *InstancePtr);
@@ -831,6 +832,10 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsBaseAddr,
 	Status |= XV_Rx_SetTriggerCallbacks(InstancePtr,
 			    XV_RX_TRIG_HANDLER_VTEMEVENT,
 				(void *)XV_Rx_HdmiTrigCb_VtemEvent,
+				(void *)InstancePtr);
+	Status |= XV_Rx_SetTriggerCallbacks(InstancePtr,
+				XV_RX_TRIG_HANDLER_VIDRDYEVENT,
+				(void *)XV_Rx_HdmiTrigCb_VidRdyEvent,
 				(void *)InstancePtr);
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
@@ -5613,6 +5618,29 @@ void XV_Rx_HdmiTrigCb_VtemEvent(void *InstancePtr)
 #else
 	Exdes_ReadVTEMPacket();
 #endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called from the RX State machine layer.
+*
+* @param  InstancePtr is the callback reference.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_Rx_HdmiTrigCb_VidRdyEvent(void *InstancePtr)
+{
+	u32 Data;
+	Data = XV_HdmiRx1_ReadReg(HdmiRxSs.Config.BaseAddress,
+				  (XV_HDMIRX1_PIO_IN_OFFSET));
+
+	if ((Data) & (XV_HDMIRX1_PIO_IN_LNK_RDY_MASK)) {
+		XHdmiphy1_ClkDetFreqReset(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX);
+	}
 }
 
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
