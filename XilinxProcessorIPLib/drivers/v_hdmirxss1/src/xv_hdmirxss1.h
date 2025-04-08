@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -275,6 +275,8 @@ typedef enum {
 						       change */
   XV_HDMIRXSS1_HANDLER_VRR_RDY,                      /**< Handler type for VRR
 						       ready */
+  XV_HDMIRXSS1_HANDLER_VID_RDY_ERR,		     /**< Handler type for VID
+						       ready error */
   XV_HDMIRXSS1_HANDLER_DYN_HDR,                      /**< Handler type for
 						       Dynamic HDR*/
   XV_HDMIRXSS1_HANDLER_DSC_STRM_CH,  /**< Handler type for DSC stream change event */
@@ -430,6 +432,9 @@ typedef struct
   XV_HdmiRxSs1_Callback VicErrorCallback;  /**< Callback for VIC error
                                                detection */
   void *VicErrorRef;   /**< To be passed to the VIC error callback */
+
+  XV_HdmiRxSs1_Callback VidRdyErrorCallback;	/**< Callback for Video Ready Error detection */
+  void *VidRdyErrorRef;				/**< To be passed to the video ready error callback */
 
   XV_HdmiRxSs1_LogCallback LogWriteCallback; /**< Callback for log write */
   u8 *LogWriteRef;  /**< To be passed to the log write callback */
