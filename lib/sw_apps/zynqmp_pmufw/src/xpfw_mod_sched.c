@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +22,7 @@ void ModSchInit(void)
 {
 	const XPfw_Module_t *SchModPtr = XPfw_CoreCreateMod();
 
-	if (XPfw_CoreSetCfgHandler(SchModPtr, SchCfgInit) != XST_SUCCESS) {
+	if (XPfw_CoreSetCfgHandler(SchModPtr, &SchCfgInit) != XST_SUCCESS) {
 		XPfw_Printf(DEBUG_DETAILED,
 				"Warning: ModSchInit: Failed to set CfgHandler \r\n")
 	}

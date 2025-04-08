@@ -1,5 +1,6 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -413,14 +414,14 @@ static PmNode* pmNodePllBucket[] = {
 PmNodeClass pmNodeClassPll_g = {
 	DEFINE_NODE_BUCKET(pmNodePllBucket),
 	.id = NODE_CLASS_PLL,
-	.clearConfig = PmPllClearConfig,
+	.clearConfig = &PmPllClearConfig,
 	.construct = NULL,
-	.getWakeUpLatency = PmPllGetWakeUpLatency,
-	.getPowerData = PmNodeGetPowerInfo,
-	.forceDown = PmPllForceDown,
-	.init = PmPllInit,
-	.isUsable = PmPllIsUsable,
-	.getPerms = PmPllGetPerms,
+	.getWakeUpLatency = &PmPllGetWakeUpLatency,
+	.getPowerData = &PmNodeGetPowerInfo,
+	.forceDown = &PmPllForceDown,
+	.init = &PmPllInit,
+	.isUsable = &PmPllIsUsable,
+	.getPerms = &PmPllGetPerms,
 };
 
 static u8 PmStdPllPowers[] = {

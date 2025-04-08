@@ -1,5 +1,6 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -81,7 +82,7 @@ static s32 PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
 static const PmSlaveFsm pmSlaveGppFsm = {
 	DEFINE_SLAVE_STATES(pmGppStates),
 	DEFINE_SLAVE_TRANS(pmGppTransitions),
-	.enterState = PmGppFsmHandler,
+	.enterState = &PmGppFsmHandler,
 };
 
 static u8 pmGppSlavePowers[] = {
@@ -109,9 +110,9 @@ PmSlaveGpp pmSlaveGpuPP0_g = {
 		.slvFsm = &pmSlaveGppFsm,
 		.flags = 0U,
 	},
-	.PwrDn = XpbrPwrDnPp0Handler,
-	.PwrUp = XpbrPwrUpPp0Handler,
-	.reset = XpbrRstPp0Handler,
+	.PwrDn = &XpbrPwrDnPp0Handler,
+	.PwrUp = &XpbrPwrUpPp0Handler,
+	.reset = &XpbrRstPp0Handler,
 };
 
 PmSlaveGpp pmSlaveGpuPP1_g = {
@@ -134,9 +135,9 @@ PmSlaveGpp pmSlaveGpuPP1_g = {
 		.slvFsm = &pmSlaveGppFsm,
 		.flags = 0U,
 	},
-	.PwrDn = XpbrPwrDnPp1Handler,
-	.PwrUp = XpbrPwrUpPp1Handler,
-	.reset = XpbrRstPp1Handler,
+	.PwrDn = &XpbrPwrDnPp1Handler,
+	.PwrUp = &XpbrPwrUpPp1Handler,
+	.reset = &XpbrRstPp1Handler,
 };
 
 /**
@@ -200,7 +201,7 @@ done:
 static const PmSlaveFsm pmSlaveGpuFsm = {
 	DEFINE_SLAVE_STATES(pmGppStates),
 	DEFINE_SLAVE_TRANS(pmGppTransitions),
-	.enterState = PmGpuFsmHandler,
+	.enterState = &PmGpuFsmHandler,
 };
 
 PmSlave pmSlaveGpu_g = {
@@ -264,8 +265,8 @@ PmSlaveGpp pmSlaveVcu_g = {
 		.slvFsm = &pmSlaveGppFsm,
 		.flags = 0U,
 	},
-	.PwrDn = pmSlvVcuPwrDn,
-	.PwrUp = pmSlvVcuPwrUp,
+	.PwrDn = &pmSlvVcuPwrDn,
+	.PwrUp = &pmSlvVcuPwrUp,
 	.reset = NULL,
 };
 

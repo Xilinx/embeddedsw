@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -218,27 +219,27 @@ static void XPfw_Ipi3Handler(void)
 }
 
 static struct HandlerTable g_TopLevelInterruptTable[] = {
-	{PMU_IOMODULE_IRQ_PENDING_GPI1_MASK, XPfw_InterruptGpi1Handler},
-	{PMU_IOMODULE_IRQ_PENDING_IPI0_MASK, XPfw_Ipi0Handler},
-	{PMU_IOMODULE_IRQ_PENDING_RTC_ALARM_MASK, XPfw_InterruptRtcAlaramHandler},
-	{PMU_IOMODULE_IRQ_PENDING_RTC_EVERY_SECOND_MASK, XPfw_InterruptRtcSecondsmHandler},
-	{PMU_IOMODULE_IRQ_PENDING_CORRECTABLE_ECC_MASK, XPfw_PmuRamCEHandler},
-	{PMU_IOMODULE_IRQ_PENDING_INV_ADDR_MASK, XPfw_NullHandler},
-	{PMU_IOMODULE_IRQ_PENDING_IPI3_MASK, XPfw_Ipi3Handler},
-	{PMU_IOMODULE_IRQ_PENDING_IPI2_MASK, XPfw_Ipi2Handler},
-	{PMU_IOMODULE_IRQ_PENDING_IPI1_MASK, XPfw_Ipi1Handler},
-	{PMU_IOMODULE_IRQ_PENDING_PWR_UP_REQ_MASK, XPfw_InterruptPwrUpHandler},
-	{PMU_IOMODULE_IRQ_PENDING_PWR_DN_REQ_MASK, XPfw_InterruptPwrDnHandler},
-	{PMU_IOMODULE_IRQ_PENDING_ISO_REQ_MASK, XPfw_InterruptIsolationHandler},
-	{PMU_IOMODULE_IRQ_PENDING_SW_RST_REQ_MASK, XPfw_NullHandler},
-	{PMU_IOMODULE_IRQ_PENDING_HW_RST_REQ_MASK, XPfw_NullHandler},
-	{PMU_IOMODULE_IRQ_PENDING_GPI3_MASK, XPfw_InterruptGpi3Handler},
-	{PMU_IOMODULE_IRQ_PENDING_GPI2_MASK, XPfw_InterruptGpi2Handler},
-	{PMU_IOMODULE_IRQ_PENDING_GPI0_MASK, XPfw_InterruptGpi0Handler},
-	{PMU_IOMODULE_IRQ_PENDING_PIT3_MASK, XPfw_NullHandler},
-	{PMU_IOMODULE_IRQ_PENDING_PIT2_MASK, XPfw_NullHandler},
-	{PMU_IOMODULE_IRQ_PENDING_PIT1_MASK, XPfw_Pit1Handler},
-	{PMU_IOMODULE_IRQ_PENDING_PIT0_MASK, XPfw_NullHandler},
+	{PMU_IOMODULE_IRQ_PENDING_GPI1_MASK, &XPfw_InterruptGpi1Handler},
+	{PMU_IOMODULE_IRQ_PENDING_IPI0_MASK, &XPfw_Ipi0Handler},
+	{PMU_IOMODULE_IRQ_PENDING_RTC_ALARM_MASK, &XPfw_InterruptRtcAlaramHandler},
+	{PMU_IOMODULE_IRQ_PENDING_RTC_EVERY_SECOND_MASK, &XPfw_InterruptRtcSecondsmHandler},
+	{PMU_IOMODULE_IRQ_PENDING_CORRECTABLE_ECC_MASK, &XPfw_PmuRamCEHandler},
+	{PMU_IOMODULE_IRQ_PENDING_INV_ADDR_MASK, &XPfw_NullHandler},
+	{PMU_IOMODULE_IRQ_PENDING_IPI3_MASK, &XPfw_Ipi3Handler},
+	{PMU_IOMODULE_IRQ_PENDING_IPI2_MASK, &XPfw_Ipi2Handler},
+	{PMU_IOMODULE_IRQ_PENDING_IPI1_MASK, &XPfw_Ipi1Handler},
+	{PMU_IOMODULE_IRQ_PENDING_PWR_UP_REQ_MASK, &XPfw_InterruptPwrUpHandler},
+	{PMU_IOMODULE_IRQ_PENDING_PWR_DN_REQ_MASK, &XPfw_InterruptPwrDnHandler},
+	{PMU_IOMODULE_IRQ_PENDING_ISO_REQ_MASK, &XPfw_InterruptIsolationHandler},
+	{PMU_IOMODULE_IRQ_PENDING_SW_RST_REQ_MASK, &XPfw_NullHandler},
+	{PMU_IOMODULE_IRQ_PENDING_HW_RST_REQ_MASK, &XPfw_NullHandler},
+	{PMU_IOMODULE_IRQ_PENDING_GPI3_MASK, &XPfw_InterruptGpi3Handler},
+	{PMU_IOMODULE_IRQ_PENDING_GPI2_MASK, &XPfw_InterruptGpi2Handler},
+	{PMU_IOMODULE_IRQ_PENDING_GPI0_MASK, &XPfw_InterruptGpi0Handler},
+	{PMU_IOMODULE_IRQ_PENDING_PIT3_MASK, &XPfw_NullHandler},
+	{PMU_IOMODULE_IRQ_PENDING_PIT2_MASK, &XPfw_NullHandler},
+	{PMU_IOMODULE_IRQ_PENDING_PIT1_MASK, &XPfw_Pit1Handler},
+	{PMU_IOMODULE_IRQ_PENDING_PIT0_MASK, &XPfw_NullHandler},
 	{PMU_IOMODULE_IRQ_PENDING_CSU_PMU_SEC_LOCK_MASK, XPfw_NullHandler}
 };
 

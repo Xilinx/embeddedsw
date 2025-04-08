@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022-2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -1978,7 +1978,7 @@ static const PmSlaveFsm pmSlaveDdrFsm = {
 	.trans = pmDdrTransitions,
 	.transCnt = ARRAY_SIZE(pmDdrTransitions),
 #ifdef XPAR_DDRCPSU_0_DEVICE_ID
-	.enterState = PmDdrFsmHandler,
+	.enterState = &PmDdrFsmHandler,
 #else
 	.enterState = NULL,
 #endif
