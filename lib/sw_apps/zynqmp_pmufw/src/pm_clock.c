@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -282,9 +282,9 @@ static u32 PmClockGetPllPerms(const PmClock* const clockPtr)
 }
 
 static PmClockClass pmClockClassPll = {
-	.request = PmClockRequestPll,
-	.release = PmClockReleasePll,
-	.getPerms = PmClockGetPllPerms,
+	.request = &PmClockRequestPll,
+	.release = &PmClockReleasePll,
+	.getPerms = &PmClockGetPllPerms,
 	.ctrl = NULL,
 };
 
@@ -698,19 +698,19 @@ done:
 }
 
 static PmClockCtrlMethods pmClockGenCtrlMethods = {
-	.initParent = PmClockGenInitParent,
-	.getParent = PmClockGenGetParent,
-	.setParent = PmClockGenSetParent,
-	.getGate = PmClockGenGetGateState,
-	.setGate = PmClockGenSetGateState,
-	.getDivider = PmClockGenGetDivider,
-	.setDivider = PmClockGenSetDivider,
+	.initParent = &PmClockGenInitParent,
+	.getParent = &PmClockGenGetParent,
+	.setParent = &PmClockGenSetParent,
+	.getGate = &PmClockGenGetGateState,
+	.setGate = &PmClockGenSetGateState,
+	.getDivider = &PmClockGenGetDivider,
+	.setDivider = &PmClockGenSetDivider,
 };
 
 static PmClockClass pmClockClassGen = {
-	.request = PmClockRequestGen,
-	.release = PmClockReleaseGen,
-	.getPerms = PmClockGenGetPerms,
+	.request = &PmClockRequestGen,
+	.release = &PmClockReleaseGen,
+	.getPerms = &PmClockGenGetPerms,
 	.ctrl = &pmClockGenCtrlMethods,
 };
 
@@ -843,14 +843,14 @@ static PmClockCtrlMethods pmClockCrossDomCtrlMethods = {
 	.setParent = NULL,
 	.getGate = NULL,
 	.setGate = NULL,
-	.getDivider = PmClockCrossDomGetDivider,
-	.setDivider = PmClockCrossDomSetDivider,
+	.getDivider = &PmClockCrossDomGetDivider,
+	.setDivider = &PmClockCrossDomSetDivider,
 };
 
 static PmClockClass pmClockClassCrossDom = {
-	.request = PmClockRequestCrossDom,
-	.release = PmClockReleaseCrossDom,
-	.getPerms = PmClockCrossDomGetPerms,
+	.request = &PmClockRequestCrossDom,
+	.release = &PmClockReleaseCrossDom,
+	.getPerms = &PmClockCrossDomGetPerms,
 	.ctrl = &pmClockCrossDomCtrlMethods,
 };
 

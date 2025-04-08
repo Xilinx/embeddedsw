@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -236,8 +236,8 @@ static s32 PmSlaveTcmForceDown(PmSlave* const slave)
 }
 
 static PmSlaveClass pmSlaveClassTcm = {
-	.init = PmSlaveTcmInit,
-	.forceDown = PmSlaveTcmForceDown,
+	.init = &PmSlaveTcmInit,
+	.forceDown = &PmSlaveTcmForceDown,
 };
 
 /* Sram FSM */
@@ -246,14 +246,14 @@ static const PmSlaveFsm slaveSramFsm = {
 	.statesCnt = PM_SRAM_STATE_MAX,
 	.trans = pmSramTransitions,
 	.transCnt = ARRAY_SIZE(pmSramTransitions),
-	.enterState = PmSramFsmHandler,
+	.enterState = &PmSramFsmHandler,
 };
 
 /* TCM FSM */
 static const PmSlaveFsm pmSlaveTcmFsm = {
 	DEFINE_SLAVE_STATES(pmSramStates),
 	DEFINE_SLAVE_TRANS(pmSramTransitions),
-	.enterState = PmTcmFsmHandler,
+	.enterState = &PmTcmFsmHandler,
 };
 
 static u8 PmSramPowers[] = {
@@ -305,8 +305,8 @@ PmSlaveSram pmSlaveL2_g = {
 		.slvFsm = &slaveSramFsm,
 		.flags = 0U,
 	},
-	.PwrDn = PmL2PwrDn,
-	.PwrUp = XpbrPwrUpL2Bank0Handler,
+	.PwrDn = &PmL2PwrDn,
+	.PwrUp = &XpbrPwrUpL2Bank0Handler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_L2_BANK0_MASK,
 };
@@ -331,8 +331,8 @@ PmSlaveSram pmSlaveOcm0_g = {
 		.slvFsm = &slaveSramFsm,
 		.flags = 0U,
 	},
-	.PwrDn = XpbrPwrDnOcmBank0Handler,
-	.PwrUp = XpbrPwrUpOcmBank0Handler,
+	.PwrDn = &XpbrPwrDnOcmBank0Handler,
+	.PwrUp = &XpbrPwrUpOcmBank0Handler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK0_MASK,
 };
@@ -357,8 +357,8 @@ PmSlaveSram pmSlaveOcm1_g = {
 		.slvFsm = &slaveSramFsm,
 		.flags = 0U,
 	},
-	.PwrDn = XpbrPwrDnOcmBank1Handler,
-	.PwrUp = XpbrPwrUpOcmBank1Handler,
+	.PwrDn = &XpbrPwrDnOcmBank1Handler,
+	.PwrUp = &XpbrPwrUpOcmBank1Handler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK1_MASK,
 };
@@ -383,8 +383,8 @@ PmSlaveSram pmSlaveOcm2_g = {
 		.slvFsm = &slaveSramFsm,
 		.flags = 0U,
 	},
-	.PwrDn = XpbrPwrDnOcmBank2Handler,
-	.PwrUp = XpbrPwrUpOcmBank2Handler,
+	.PwrDn = &XpbrPwrDnOcmBank2Handler,
+	.PwrUp = &XpbrPwrUpOcmBank2Handler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK2_MASK,
 };
@@ -409,8 +409,8 @@ PmSlaveSram pmSlaveOcm3_g = {
 		.slvFsm = &slaveSramFsm,
 		.flags = 0U,
 	},
-	.PwrDn = XpbrPwrDnOcmBank3Handler,
-	.PwrUp = XpbrPwrUpOcmBank3Handler,
+	.PwrDn = &XpbrPwrDnOcmBank3Handler,
+	.PwrUp = &XpbrPwrUpOcmBank3Handler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK3_MASK,
 };
@@ -436,14 +436,14 @@ PmSlaveTcm pmSlaveTcm0A_g = {
 			.slvFsm = &pmSlaveTcmFsm,
 			.flags = 0U,
 		},
-		.PwrDn = XpbrPwrDnTcm0AHandler,
-		.PwrUp = XpbrPwrUpTcm0AHandler,
+		.PwrDn = &XpbrPwrDnTcm0AHandler,
+		.PwrUp = &XpbrPwrUpTcm0AHandler,
 		.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 		.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM0A_MASK,
 	},
 	.size = 0x10000U,
 	.base = 0xffe00000U,
-	.eccInit = PmTcm0EccInit,
+	.eccInit = &PmTcm0EccInit,
 	.id = PM_TCM_0A_BANK_ID,
 };
 
@@ -468,14 +468,14 @@ PmSlaveTcm pmSlaveTcm0B_g = {
 			.slvFsm = &pmSlaveTcmFsm,
 			.flags = 0U,
 		},
-		.PwrDn = XpbrPwrDnTcm0BHandler,
-		.PwrUp = XpbrPwrUpTcm0BHandler,
+		.PwrDn = &XpbrPwrDnTcm0BHandler,
+		.PwrUp = &XpbrPwrUpTcm0BHandler,
 		.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 		.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM0B_MASK,
 	},
 	.size = 0x10000U,
 	.base = 0xffe20000U,
-	.eccInit = PmTcm0EccInit,
+	.eccInit = &PmTcm0EccInit,
 	.id = PM_TCM_0B_BANK_ID,
 };
 
@@ -500,14 +500,14 @@ PmSlaveTcm pmSlaveTcm1A_g = {
 			.slvFsm = &pmSlaveTcmFsm,
 			.flags = 0U,
 		},
-		.PwrDn = XpbrPwrDnTcm1AHandler,
-		.PwrUp = XpbrPwrUpTcm1AHandler,
+		.PwrDn = &XpbrPwrDnTcm1AHandler,
+		.PwrUp = &XpbrPwrUpTcm1AHandler,
 		.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 		.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1A_MASK,
 	},
 	.size = 0x10000U,
 	.base = 0xffe90000U,
-	.eccInit = PmTcm1EccInit,
+	.eccInit = &PmTcm1EccInit,
 	.id = PM_TCM_1A_BANK_ID,
 };
 
@@ -532,12 +532,12 @@ PmSlaveTcm pmSlaveTcm1B_g = {
 			.slvFsm = &pmSlaveTcmFsm,
 			.flags = 0U,
 		},
-		.PwrDn = XpbrPwrDnTcm1BHandler,
-		.PwrUp = XpbrPwrUpTcm1BHandler,
+		.PwrDn = &XpbrPwrDnTcm1BHandler,
+		.PwrUp = &XpbrPwrUpTcm1BHandler,
 		.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 		.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1B_MASK,
 	},
-	.eccInit = PmTcm1EccInit,
+	.eccInit = &PmTcm1EccInit,
 	.size = 0x10000U,
 	.base = 0xffeb0000U,
 	.id = PM_TCM_1B_BANK_ID,

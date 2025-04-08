@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -110,7 +111,7 @@ static void CheckFsblCompletion(void)
 #endif
 
 		Status = XPfw_CoreRemoveTask(CommonModPtr, (u32)CHECK_FSBL_COMPLETION,
-				CheckFsblCompletion);
+				&CheckFsblCompletion);
 		if (XST_FAILURE == Status) {
 			XPfw_Printf(DEBUG_ERROR,"Common (MOD-%d):Removing Common config task "
 					"failed.", CommonModPtr->ModId);
@@ -147,7 +148,7 @@ static void CommonCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 L
 	 * 	- If ENABLE_SECURE is defined, store the FSBL image to reserved
 	 * 	  DDR memory location
 	 */
-	Status = XPfw_CoreScheduleTask(ModPtr, CHECK_FSBL_COMPLETION, CheckFsblCompletion);
+	Status = XPfw_CoreScheduleTask(ModPtr, CHECK_FSBL_COMPLETION, &CheckFsblCompletion);
 	if (XST_FAILURE == Status) {
 		XPfw_Printf(DEBUG_ERROR,"Common (MOD-%d):Scheduling Common Cfg task failed.",
 				ModPtr->ModId);
@@ -173,7 +174,7 @@ void ModCommonInit(void)
 {
 	CommonModPtr = XPfw_CoreCreateMod();
 
-	if (XST_SUCCESS != XPfw_CoreSetCfgHandler(CommonModPtr, CommonCfgInit)) {
+	if (XST_SUCCESS != XPfw_CoreSetCfgHandler(CommonModPtr, &CommonCfgInit)) {
 		XPfw_Printf(DEBUG_DETAILED,"Common: Set Cfg handler failed\r\n");
 	}
 }

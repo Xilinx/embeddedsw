@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -211,13 +212,13 @@ void ModPmInit(void)
 {
 	PmModPtr = XPfw_CoreCreateMod();
 
-	if (XST_SUCCESS != XPfw_CoreSetCfgHandler(PmModPtr, PmCfgInit)) {
+	if (XST_SUCCESS != XPfw_CoreSetCfgHandler(PmModPtr, &PmCfgInit)) {
 		XPfw_Printf(DEBUG_DETAILED,"PM: Set Cfg handler failed\r\n");
 	} else if (XST_SUCCESS !=
-			XPfw_CoreSetEventHandler(PmModPtr, PmEventHandler)) {
+			XPfw_CoreSetEventHandler(PmModPtr, &PmEventHandler)) {
 		XPfw_Printf(DEBUG_DETAILED,"PM: Set Event handler failed\r\n");
 	} else if (XST_SUCCESS !=
-			XPfw_CoreSetIpiHandler(PmModPtr, PmIpiHandler, 0U)) {
+			XPfw_CoreSetIpiHandler(PmModPtr, &PmIpiHandler, 0U)) {
 		XPfw_Printf(DEBUG_DETAILED,"PM: Set IPI handler failed\r\n");
 	} else {
 		/* For MISRA-C compliance */

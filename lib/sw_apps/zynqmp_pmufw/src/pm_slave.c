@@ -1,5 +1,6 @@
 /*
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -803,14 +804,14 @@ static PmNode* pmNodeSlaveBucket[] = {
 PmNodeClass pmNodeClassSlave_g = {
 	DEFINE_NODE_BUCKET(pmNodeSlaveBucket),
 	.id = NODE_CLASS_SLAVE,
-	.clearConfig = PmSlaveClearConfig,
+	.clearConfig = &PmSlaveClearConfig,
 	.construct = NULL,
-	.getWakeUpLatency = PmSlaveGetWakeUpLatency,
-	.getPowerData = PmNodeGetPowerInfo,
-	.forceDown = PmSlaveForceDown,
-	.init = PmSlaveInit,
-	.isUsable = PmSlaveIsUsable,
-	.getPerms = PmSlaveGetPerms,
+	.getWakeUpLatency = &PmSlaveGetWakeUpLatency,
+	.getPowerData = &PmNodeGetPowerInfo,
+	.forceDown = &PmSlaveForceDown,
+	.init = &PmSlaveInit,
+	.isUsable = &PmSlaveIsUsable,
+	.getPerms = &PmSlaveGetPerms,
 };
 
 void PmResetSlaveStates(void)

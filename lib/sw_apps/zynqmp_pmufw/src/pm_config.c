@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -81,28 +81,28 @@ typedef struct {
 static PmConfigSection pmConfigSections[] = {
 	{
 		.id = PM_CONFIG_MASTER_SECTION_ID,
-		.handler = PmConfigMasterSectionHandler,
+		.handler = &PmConfigMasterSectionHandler,
 	}, {
 		.id = PM_CONFIG_SLAVE_SECTION_ID,
-		.handler = PmConfigSlaveSectionHandler,
+		.handler = &PmConfigSlaveSectionHandler,
 	}, {
 		.id = PM_CONFIG_PREALLOC_SECTION_ID,
-		.handler = PmConfigPreallocSectionHandler,
+		.handler = &PmConfigPreallocSectionHandler,
 	}, {
 		.id = PM_CONFIG_POWER_SECTION_ID,
-		.handler = PmConfigPowerSectionHandler,
+		.handler = &PmConfigPowerSectionHandler,
 	}, {
 		.id = PM_CONFIG_RESET_SECTION_ID,
-		.handler = PmConfigResetSectionHandler,
+		.handler = &PmConfigResetSectionHandler,
 	}, {
 		.id = PM_CONFIG_SHUTDOWN_SECTION_ID,
-		.handler = PmConfigShutdownSectionHandler,
+		.handler = &PmConfigShutdownSectionHandler,
 	}, {
 		.id = PM_CONFIG_SET_CONFIG_SECTION_ID,
-		.handler = PmConfigSetConfigSectionHandler,
+		.handler = &PmConfigSetConfigSectionHandler,
 	}, {
 		.id = PM_CONFIG_GPO_SECTION_ID,
-		.handler = PmConfigGpoSectionHandler,
+		.handler = &PmConfigGpoSectionHandler,
 	},
 };
 

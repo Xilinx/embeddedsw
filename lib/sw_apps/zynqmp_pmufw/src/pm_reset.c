@@ -442,45 +442,45 @@ static u32 PmResetPulsePl(const PmReset* const rst)
 }
 
 static const PmResetOps pmResetOpsGeneric = {
-	.resetAssert = PmResetAssertGen,
-	.getStatus = PmResetGetStatusGen,
-	.pulse = PmResetPulseGen,
+	.resetAssert = &PmResetAssertGen,
+	.getStatus = &PmResetGetStatusGen,
+	.pulse = &PmResetPulseGen,
 };
 
 static const PmResetOps pmResetOpsAdma = {
-	.resetAssert = PmResetAssertAdma,
-	.getStatus = PmResetGetStatusGen,
-	.pulse = PmResetPulseAdma,
+	.resetAssert = &PmResetAssertAdma,
+	.getStatus = &PmResetGetStatusGen,
+	.pulse = &PmResetPulseAdma,
 };
 
 static const PmResetOps pmResetOpsGpo = {
-	.resetAssert = PmResetAssertGpo,
-	.getStatus = PmResetGetStatusGpo,
-	.pulse = PmResetPulseGpo,
+	.resetAssert = &PmResetAssertGpo,
+	.getStatus = &PmResetGetStatusGpo,
+	.pulse = &PmResetPulseGpo,
 };
 
 static const PmResetOps pmResetOpsRom = {
-	.resetAssert = PmResetAssertRom,
-	.getStatus = PmResetGetStatusRom,
-	.pulse = PmResetPulseRom,
+	.resetAssert = &PmResetAssertRom,
+	.getStatus = &PmResetGetStatusRom,
+	.pulse = &PmResetPulseRom,
 };
 
 static const PmResetOps pmResetOpsNoAssert = {
 	.resetAssert = NULL,
-	.getStatus = PmResetGetStatusRom,
-	.pulse = PmResetPulseRom,
+	.getStatus = &PmResetGetStatusRom,
+	.pulse = &PmResetPulseRom,
 };
 
 static const PmResetOps pmResetOpsPl = {
-	.resetAssert = PmResetAssertPl,
-	.getStatus = PmResetGetStatusPl,
-	.pulse = PmResetPulsePl,
+	.resetAssert = &PmResetAssertPl,
+	.getStatus = &PmResetGetStatusPl,
+	.pulse = &PmResetPulsePl,
 };
 
 static const PmResetOps pmResetOpsGpioBankIO = {
 	.resetAssert = NULL,
-	.getStatus = PmResetGetStatusGpioBankIOs,
-	.pulse = PmResetPulseGpioBankIOs,
+	.getStatus = &PmResetGetStatusGpioBankIOs,
+	.pulse = &PmResetPulseGpioBankIOs,
 };
 
 static PmResetGeneric pmResetPcieCfg = {
@@ -511,7 +511,7 @@ static PmResetRom pmResetPcieCtrl = {
 	},
 	.ctrlAddr = CRF_APB_RST_FPD_TOP,
 	.mask = CRF_APB_RST_FPD_TOP_PCIE_CTRL_RESET_MASK,
-	.pulseRom = XpbrRstPCIeHandler,
+	.pulseRom = &XpbrRstPCIeHandler,
 };
 
 static PmResetRom pmResetDp = {
@@ -522,7 +522,7 @@ static PmResetRom pmResetDp = {
 	},
 	.ctrlAddr = CRF_APB_RST_FPD_TOP,
 	.mask = CRF_APB_RST_FPD_TOP_DP_RESET_MASK,
-	.pulseRom = XpbrRstDisplayPortHandler,
+	.pulseRom = &XpbrRstDisplayPortHandler,
 };
 
 static PmResetGeneric pmResetSwdtCrf = {
@@ -613,7 +613,7 @@ static PmResetRom pmResetGpuPp1 = {
 	},
 	.ctrlAddr = CRF_APB_RST_FPD_TOP,
 	.mask = CRF_APB_RST_FPD_TOP_GPU_PP1_RESET_MASK,
-	.pulseRom = XpbrRstPp1Handler,
+	.pulseRom = &XpbrRstPp1Handler,
 };
 
 static PmResetRom pmResetGpuPp0 = {
@@ -624,7 +624,7 @@ static PmResetRom pmResetGpuPp0 = {
 	},
 	.ctrlAddr = CRF_APB_RST_FPD_TOP,
 	.mask = CRF_APB_RST_FPD_TOP_GPU_PP0_RESET_MASK,
-	.pulseRom = XpbrRstPp0Handler,
+	.pulseRom = &XpbrRstPp0Handler,
 };
 
 static PmResetRom pmResetGpu = {
@@ -635,7 +635,7 @@ static PmResetRom pmResetGpu = {
 	},
 	.ctrlAddr = CRF_APB_RST_FPD_TOP,
 	.mask = CRF_APB_RST_FPD_TOP_GPU_RESET_MASK,
-	.pulseRom = XpbrRstGpuHandler,
+	.pulseRom = &XpbrRstGpuHandler,
 };
 
 static PmResetGeneric pmResetGt = {
@@ -656,7 +656,7 @@ static PmResetRom pmResetSata = {
 	},
 	.ctrlAddr = CRF_APB_RST_FPD_TOP,
 	.mask = CRF_APB_RST_FPD_TOP_SATA_RESET_MASK,
-	.pulseRom = XpbrRstSataHandler,
+	.pulseRom = &XpbrRstSataHandler,
 };
 
 static PmResetGeneric pmResetAcpu3Pwron = {
@@ -717,7 +717,7 @@ static PmResetRom pmResetAcpu3 = {
 	},
 	.ctrlAddr = CRF_APB_RST_FPD_APU,
 	.mask = CRF_APB_RST_FPD_APU_ACPU3_RESET_MASK,
-	.pulseRom = XpbrRstACPU3CPHandler,
+	.pulseRom = &XpbrRstACPU3CPHandler,
 };
 
 static PmResetRom pmResetAcpu2 = {
@@ -728,7 +728,7 @@ static PmResetRom pmResetAcpu2 = {
 	},
 	.ctrlAddr = CRF_APB_RST_FPD_APU,
 	.mask = CRF_APB_RST_FPD_APU_ACPU2_RESET_MASK,
-	.pulseRom = XpbrRstACPU2CPHandler,
+	.pulseRom = &XpbrRstACPU2CPHandler,
 };
 
 static PmResetRom pmResetAcpu1 = {
@@ -739,7 +739,7 @@ static PmResetRom pmResetAcpu1 = {
 	},
 	.ctrlAddr = CRF_APB_RST_FPD_APU,
 	.mask = CRF_APB_RST_FPD_APU_ACPU1_RESET_MASK,
-	.pulseRom = XpbrRstACPU1CPHandler,
+	.pulseRom = &XpbrRstACPU1CPHandler,
 };
 
 static PmResetRom pmResetAcpu0 = {
@@ -750,7 +750,7 @@ static PmResetRom pmResetAcpu0 = {
 	},
 	.ctrlAddr = CRF_APB_RST_FPD_APU,
 	.mask = CRF_APB_RST_FPD_APU_ACPU0_RESET_MASK,
-	.pulseRom = XpbrRstACPU0CPHandler,
+	.pulseRom = &XpbrRstACPU0CPHandler,
 };
 
 static PmResetGeneric pmResetDDR = {
@@ -791,7 +791,7 @@ static PmResetRom pmResetGem0 = {
 	},
 	.ctrlAddr = CRL_APB_RST_LPD_IOU0,
 	.mask = CRL_APB_RST_LPD_IOU0_GEM0_RESET_MASK,
-	.pulseRom = XpbrRstGem0Handler,
+	.pulseRom = &XpbrRstGem0Handler,
 };
 
 static PmResetRom pmResetGem1 = {
@@ -802,7 +802,7 @@ static PmResetRom pmResetGem1 = {
 	},
 	.ctrlAddr = CRL_APB_RST_LPD_IOU0,
 	.mask = CRL_APB_RST_LPD_IOU0_GEM1_RESET_MASK,
-	.pulseRom = XpbrRstGem1Handler,
+	.pulseRom = &XpbrRstGem1Handler,
 };
 
 static PmResetRom pmResetGem2 = {
@@ -813,7 +813,7 @@ static PmResetRom pmResetGem2 = {
 	},
 	.ctrlAddr = CRL_APB_RST_LPD_IOU0,
 	.mask = CRL_APB_RST_LPD_IOU0_GEM2_RESET_MASK,
-	.pulseRom = XpbrRstGem2Handler,
+	.pulseRom = &XpbrRstGem2Handler,
 };
 
 static PmResetRom pmResetGem3 = {
@@ -824,7 +824,7 @@ static PmResetRom pmResetGem3 = {
 	},
 	.ctrlAddr = CRL_APB_RST_LPD_IOU0,
 	.mask = CRL_APB_RST_LPD_IOU0_GEM3_RESET_MASK,
-	.pulseRom = XpbrRstGem3Handler,
+	.pulseRom = &XpbrRstGem3Handler,
 };
 
 static PmResetGeneric pmResetQspi = {
@@ -1045,7 +1045,7 @@ static PmResetRom pmResetRpuR50 = {
 	},
 	.ctrlAddr = CRL_APB_RST_LPD_TOP,
 	.mask = CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
-	.pulseRom = XpbrRstR50Handler,
+	.pulseRom = &XpbrRstR50Handler,
 };
 
 static PmResetRom pmResetRpuR51 = {
@@ -1056,7 +1056,7 @@ static PmResetRom pmResetRpuR51 = {
 	},
 	.ctrlAddr = CRL_APB_RST_LPD_TOP,
 	.mask = CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
-	.pulseRom = XpbrRstR51Handler,
+	.pulseRom = &XpbrRstR51Handler,
 };
 
 static PmResetGeneric pmResetRpuAmba = {
@@ -1097,7 +1097,7 @@ static PmResetRom pmResetUsb0Core = {
 	},
 	.ctrlAddr = CRL_APB_RST_LPD_TOP,
 	.mask = CRL_APB_RST_LPD_TOP_USB0_CORERESET_MASK,
-	.pulseRom = XpbrRstUsb0Handler,
+	.pulseRom = &XpbrRstUsb0Handler,
 };
 
 static PmResetRom pmResetUsb1Core = {
@@ -1108,7 +1108,7 @@ static PmResetRom pmResetUsb1Core = {
 	},
 	.ctrlAddr = CRL_APB_RST_LPD_TOP,
 	.mask = CRL_APB_RST_LPD_TOP_USB1_CORERESET_MASK,
-	.pulseRom = XpbrRstUsb1Handler,
+	.pulseRom = &XpbrRstUsb1Handler,
 };
 
 static PmResetGeneric pmResetUsb0Hiber = {
@@ -1229,7 +1229,7 @@ static PmResetRom pmResetFpd = {
 	},
 	.ctrlAddr = CRL_APB_RST_LPD_TOP,
 	.mask = CRL_APB_RST_LPD_TOP_FPD_RESET_MASK,
-	.pulseRom = PmResetPulseFpd,
+	.pulseRom = &PmResetPulseFpd,
 };
 
 static PmResetGeneric pmResetRpuDbg1 = {
@@ -1769,7 +1769,7 @@ static PmResetRom pmResetRpuLs = {
 	},
 	.ctrlAddr = PMU_GLOBAL_GLOBAL_RESET,
 	.mask = PMU_GLOBAL_GLOBAL_RESET_RPU_LS_RST_MASK,
-	.pulseRom = PmResetPulseRpuLs,
+	.pulseRom = &PmResetPulseRpuLs,
 };
 
 static PmReset pmResetPl = {

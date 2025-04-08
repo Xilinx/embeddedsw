@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -115,8 +115,8 @@ done:
 }
 
 static PmWakeEventClass pmWakeEventClassExtern = {
-	.set = PmWakeEventExternSet,
-	.config = PmWakeEventExternConfig,
+	.set = &PmWakeEventExternSet,
+	.config = &PmWakeEventExternConfig,
 };
 
 static PmWakeEventExtern pmExternWake = {

@@ -1,5 +1,6 @@
 /*
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -700,8 +701,8 @@ done:
 }
 
 static PmWakeEventClass pmWakeEventClassEth_g = {
-	.set = PmWakeEventEthSet,
-	.config = PmWakeEventEthConfig,
+	.set = &PmWakeEventEthSet,
+	.config = &PmWakeEventEthConfig,
 };
 
 static PmWakeEventGicProxy pmEth0GicWake = {
