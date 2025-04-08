@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -96,6 +96,7 @@ static void XV_Rx_HdmiRX_VrrVfp_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRX_VtemPkt_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRX_DynHdrPkt_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRX_DscDdcStsUpdt_Cb(void *CallbackRef);
+static void XV_Rx_HdmiRX_VidRdyEvent_Cb(void *CallbackRef);
 
 static void XV_Rx_HdmiRx_StateDisconnected(XV_Rx *InstancePtr,
 					XV_Rx_Hdmi_Events Event,
@@ -653,6 +654,11 @@ u32 XV_Rx_SetTriggerCallbacks(XV_Rx *InstancePtr,
 		InstancePtr->RxDscDdcCb = Callback;
 		InstancePtr->RxDscDdcCbRef = CallbackRef;
 		break;
+
+	case XV_RX_TRIG_HANDLER_VIDRDYEVENT:
+		InstancePtr->RxVidRdyEvent = Callback;
+		InstancePtr->RxVidRdyEventRef = CallbackRef;
+		break;
 #ifdef USE_HDCP_HDMI_RX
 	case XV_RX_TRIG_HANDLER_HDCP_SET_CONTENTSTREAMTYPE:
 		InstancePtr->HdcpSetContentStreamTypeCb = Callback;
@@ -776,6 +782,11 @@ u32 XV_Rx_HdmiRxSs_Setup_Callbacks(XV_Rx *InstancePtr)
 	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
 					XV_HDMIRXSS1_HANDLER_DSC_STS_UPDT,
 					(void *)XV_Rx_HdmiRX_DscDdcStsUpdt_Cb,
+					(void *)InstancePtr);
+
+	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
+					XV_HDMIRXSS1_HANDLER_VID_RDY_ERR,
+					(void *)XV_Rx_HdmiRX_VidRdyEvent_Cb,
 					(void *)InstancePtr);
 	return Status;
 }
@@ -1695,6 +1706,15 @@ static void XV_Rx_HdmiRX_DscDdcStsUpdt_Cb (void *CallbackRef)
 	XV_Rx *recvInst = (XV_Rx *)CallbackRef;
 	if (recvInst->RxDscDdcCb != NULL) {
 		recvInst->RxDscDdcCb(recvInst->RxDscDdcCbRef);
+	}
+}
+
+static void XV_Rx_HdmiRX_VidRdyEvent_Cb (void *CallbackRef)
+{
+	Xil_AssertVoid(CallbackRef);
+	XV_Rx *recvInst = (XV_Rx *)CallbackRef;
+	if (recvInst->RxVidRdyEvent != NULL) {
+		recvInst->RxVidRdyEvent(recvInst->RxVidRdyEventRef);
 	}
 }
 
