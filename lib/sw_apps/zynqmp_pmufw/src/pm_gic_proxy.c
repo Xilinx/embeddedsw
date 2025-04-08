@@ -1,5 +1,6 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -243,8 +244,8 @@ static PmGicProxyGroup pmGicProxyGroups[5];
 PmGicProxy pmGicProxy = {
 	.groups = pmGicProxyGroups,
 	.groupsCnt = ARRAY_SIZE(pmGicProxyGroups),
-	.clear = PmGicProxyClear,
-	.enable = PmGicProxyEnable,
+	.clear = &PmGicProxyClear,
+	.enable = &PmGicProxyEnable,
 	.flags = 0U,
 };
 
@@ -254,7 +255,7 @@ PmGicProxy pmGicProxy = {
  * gets powered down and disabled when APU wakes, using the PmGicProxy methods.
  */
 PmWakeEventClass pmWakeEventClassGicProxy_g = {
-	.set = PmWakeEventGicProxySet,
+	.set = &PmWakeEventGicProxySet,
 	.config = NULL,
 };
 

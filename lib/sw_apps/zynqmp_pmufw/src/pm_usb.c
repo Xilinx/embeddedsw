@@ -1,5 +1,6 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -121,7 +122,7 @@ static s32 PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 /* USB FSM */
 static const PmSlaveFsm slaveUsbFsm = {
 	.states = pmUsbStates,
-	.enterState = PmUsbFsmHandler,
+	.enterState = &PmUsbFsmHandler,
 	.trans = pmUsbTransitions,
 	.statesCnt = ARRAY_SIZE(pmUsbStates),
 	.transCnt = ARRAY_SIZE(pmUsbTransitions),
@@ -168,8 +169,8 @@ PmSlaveUsb pmSlaveUsb0_g = {
 		.slvFsm = &slaveUsbFsm,
 		.flags = 0U,
 	},
-	.PwrDn = XpbrPwrDnUsb0Handler,
-	.PwrUp = XpbrPwrUpUsb0Handler,
+	.PwrDn = &XpbrPwrDnUsb0Handler,
+	.PwrUp = &XpbrPwrUpUsb0Handler,
 	.rstId = PM_RESET_USB0_CORERESET,
 	.aibId = XPFW_AIB_LPD_TO_USB0,
 };
@@ -208,8 +209,8 @@ PmSlaveUsb pmSlaveUsb1_g = {
 		.slvFsm = &slaveUsbFsm,
 		.flags = 0U,
 	},
-	.PwrDn = XpbrPwrDnUsb1Handler,
-	.PwrUp = XpbrPwrUpUsb1Handler,
+	.PwrDn = &XpbrPwrDnUsb1Handler,
+	.PwrUp = &XpbrPwrUpUsb1Handler,
 	.rstId = PM_RESET_USB1_CORERESET,
 	.aibId = XPFW_AIB_LPD_TO_USB1,
 };

@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -233,7 +233,7 @@ PmMaster pmMasterApu_g = {
 	.state = PM_MASTER_STATE_UNINITIALIZED,
 	.gic = &pmGicProxy,
 	.memories = pmApuMemories,
-	.evalState = PmApuEvaluateState,
+	.evalState = &PmApuEvaluateState,
 	.remapAddr = NULL,
 	DEFINE_MASTER_NAME("APU")
 };
@@ -261,7 +261,7 @@ PmMaster pmMasterRpu_g = {
 	.gic = NULL,
 	.memories = NULL,
 	.evalState = NULL,
-	.remapAddr = PmMasterRpuRemapAddr,
+	.remapAddr = &PmMasterRpuRemapAddr,
 	DEFINE_MASTER_NAME("RPU")
 };
 
@@ -288,7 +288,7 @@ PmMaster pmMasterRpu0_g = {
 	.gic = NULL,
 	.memories = NULL,
 	.evalState = NULL,
-	.remapAddr = PmMasterRpu0RemapAddr,
+	.remapAddr = &PmMasterRpu0RemapAddr,
 	DEFINE_MASTER_NAME("RPU0"),
 };
 
@@ -314,7 +314,7 @@ PmMaster pmMasterRpu1_g = {
 	.gic = NULL,
 	.memories = NULL,
 	.evalState = NULL,
-	.remapAddr = PmMasterRpu1RemapAddr,
+	.remapAddr = &PmMasterRpu1RemapAddr,
 	DEFINE_MASTER_NAME("RPU1"),
 };
 

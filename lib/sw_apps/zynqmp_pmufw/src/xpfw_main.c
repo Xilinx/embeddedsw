@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,7 +63,7 @@ XStatus XPfw_Main(void)
 	 * for assert conditions
 	 */
 	Xil_Out32(PMU_LOCAL_PMU_SERV_ERR, MASK32_ALL_LOW);
-	Xil_AssertSetCallback(Assert_CallBack);
+	Xil_AssertSetCallback(&Assert_CallBack);
 
 	/* Initialize the FW Core Object */
 	Status = XPfw_CoreInit(0U);

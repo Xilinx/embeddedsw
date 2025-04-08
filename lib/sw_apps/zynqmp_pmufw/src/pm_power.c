@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -268,7 +268,7 @@ static void PmPowerDomainConstruct(PmPower* const power)
 }
 
 static PmPowerClass pmPowerClassDomain_g = {
-	.construct = PmPowerDomainConstruct,
+	.construct = &PmPowerDomainConstruct,
 	.forceDown = NULL,
 };
 
@@ -738,7 +738,7 @@ static u8 PmApuDomainPowers[] = {
 
 static PmPowerClass pmPowerClassRpuIsland_g = {
 	.construct = NULL,
-	.forceDown = PmPowerForceDownRpu,
+	.forceDown = &PmPowerForceDownRpu,
 };
 
 /*
@@ -765,8 +765,8 @@ PmPowerIslandRpu pmPowerIslandRpu_g = {
 		},
 		DEFINE_PM_POWER_CHILDREN(pmRpuChildren),
 		.class = &pmPowerClassRpuIsland_g,
-		.powerUp = PmPowerUpRpu,
-		.powerDown = PmPowerDownRpu,
+		.powerUp = &PmPowerUpRpu,
+		.powerDown = &PmPowerDownRpu,
 		.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 		.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
 		.forcePerms = 0U,
@@ -818,14 +818,14 @@ PmPowerDomain pmPowerDomainFpd_g = {
 		},
 		DEFINE_PM_POWER_CHILDREN(pmFpdChildren),
 		.class = &pmPowerClassDomain_g,
-		.powerUp = PmPowerUpFpd,
-		.powerDown = PmPowerDownFpd,
+		.powerUp = &PmPowerUpFpd,
+		.powerDown = &PmPowerDownFpd,
 		.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 		.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
 		.forcePerms = 0U,
 		.useCount = 0U,
 	},
-	.supplyCheckHook = PmFpdPowerSupplyCheck,
+	.supplyCheckHook = &PmFpdPowerSupplyCheck,
 	.supplyCheckHookId = XPBR_SERV_EXT_FPD_SUPPLYCHECK,
 };
 
@@ -846,7 +846,7 @@ PmPowerDomain pmPowerDomainLpd_g = {
 		DEFINE_PM_POWER_CHILDREN(pmLpdChildren),
 		.class = &pmPowerClassDomain_g,
 		.powerUp = NULL,
-		.powerDown = PmPowerDownLpd,
+		.powerDown = &PmPowerDownLpd,
 		.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 		.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
 		.forcePerms = 0U,
@@ -872,14 +872,14 @@ PmPowerDomain pmPowerDomainPld_g = {
 		},
 		DEFINE_PM_POWER_CHILDREN(pmPldChildren),
 		.class = &pmPowerClassDomain_g,
-		.powerUp = PmPowerUpPld,
-		.powerDown = PmPowerDownPld,
+		.powerUp = &PmPowerUpPld,
+		.powerDown = &PmPowerDownPld,
 		.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 		.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
 		.forcePerms = 0U,
 		.useCount = 0U,
 	},
-	.supplyCheckHook = PmPldPowerSupplyCheck,
+	.supplyCheckHook = &PmPldPowerSupplyCheck,
 	.supplyCheckHookId = XPBR_SERV_EXT_PLD_SUPPLYCHECK,
 };
 
@@ -1388,14 +1388,14 @@ static PmNode* pmNodePowerBucket[] = {
 PmNodeClass pmNodeClassPower_g = {
 	DEFINE_NODE_BUCKET(pmNodePowerBucket),
 	.id = NODE_CLASS_POWER,
-	.clearConfig = PmPowerClearConfig,
-	.construct = PmPowerConstruct,
-	.getWakeUpLatency = PmPowerGetWakeUpLatency,
-	.getPowerData = PmPowerGetPowerData,
-	.forceDown = PmPowerForceDown,
-	.init = PmPowerInit,
-	.isUsable = PmPowerIsUsable,
-	.getPerms = PmPowerGetPerms,
+	.clearConfig = &PmPowerClearConfig,
+	.construct = &PmPowerConstruct,
+	.getWakeUpLatency = &PmPowerGetWakeUpLatency,
+	.getPowerData = &PmPowerGetPowerData,
+	.forceDown = &PmPowerForceDown,
+	.init = &PmPowerInit,
+	.isUsable = &PmPowerIsUsable,
+	.getPerms = &PmPowerGetPerms,
 };
 
 #endif

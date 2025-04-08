@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,7 +26,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	},
 	[EM_ERR_ID_CSU_ROM] = {
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_CSU_ROM_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_2,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -36,7 +36,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_PMU_PB] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_PB_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_2,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -46,7 +46,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_PMU_SERVICE] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_SERVICE_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_2,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -56,7 +56,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_PMU_FW] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_FW_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_2,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -66,7 +66,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_PMU_UC] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_UC_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_2,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -76,7 +76,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_CSU] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_CSU_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_2,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -86,7 +86,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_PLL_LOCK] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_PLL_LOCK_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_2,
 			.Action = EM_ACTION_NONE,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -96,7 +96,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_PL] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_PL_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_2,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -106,7 +106,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_TO] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_2_TO_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_2,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -116,7 +116,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_AUX3] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX3_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -126,7 +126,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_AUX2] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX2_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -136,7 +136,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_AUX1] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX1_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -146,7 +146,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_AUX0] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_AUX0_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -156,7 +156,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_CSU_SWDT] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_CSU_SWDT_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_SRST,
 			.ChngPerm = (u16)EM_ACTION_CHANGE_PERM_NONE
@@ -164,7 +164,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_CLK_MON] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_CLK_MON_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -174,7 +174,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_XMPU] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_XMPU_MASK,
-			.Handler = XPfw_XpuIntrHandler,
+			.Handler = &XPfw_XpuIntrHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_CUSTOM,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_RPU_0_MASK) |
@@ -183,7 +183,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_PWR_SUPPLY] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_PWR_SUPPLY_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -193,7 +193,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_FPD_SWDT] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_FPD_SWDT_MASK,
-			.Handler = SwdtHandler,
+			.Handler = &SwdtHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_SRST,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -203,7 +203,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_LPD_SWDT] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK,
-			.Handler = SwdtHandler,
+			.Handler = &SwdtHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_SRST,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_RPU_0_MASK) |
@@ -212,7 +212,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_RPU_CCF] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_RPU_CCF_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_RPU_0_MASK) |
@@ -221,7 +221,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_RPU_LS] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_RPU_LS_MASK,
-			.Handler = RpuLsHandler,
+			.Handler = &RpuLsHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_CUSTOM,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_RPU_0_MASK) |
@@ -230,7 +230,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_FPD_TEMP] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_FPD_TEMP_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -240,7 +240,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_LPD_TEMP] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_LPD_TEMP_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_RPU_0_MASK) |
@@ -249,7 +249,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_RPU1] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_RPU1_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_RPU_0_MASK) |
@@ -258,7 +258,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_RPU0] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_RPU0_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_RPU_0_MASK) |
@@ -267,7 +267,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_OCM_ECC] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_OCM_ECC_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
@@ -277,7 +277,7 @@ struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_DDR_ECC] =
 	{
 			.RegMask = PMU_GLOBAL_ERROR_STATUS_1_DDR_ECC_MASK,
-			.Handler = NullHandler,
+			.Handler = &NullHandler,
 			.Type = EM_ERR_TYPE_1,
 			.Action = EM_ACTION_PSERR,
 			.ChngPerm = (u16)(IPI_PMU_0_IER_APU_MASK) |
