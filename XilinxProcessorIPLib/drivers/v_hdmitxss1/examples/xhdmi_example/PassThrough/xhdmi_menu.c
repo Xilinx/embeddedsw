@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -3820,23 +3820,27 @@ static XHdmi_MenuType XHdmi_OnSemiDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
     case 5 :
 	xil_printf("-----TX Reg dump -------\r\n");
-#if defined (XPS_BOARD_VEK280)
+#if defined (XPS_BOARD_VEK280) || \
+	defined (XPS_BOARD_VEK385)
 	if (Vfmc[0].isTxTi == 1) {
 		TI_TMDS1204_RegisterDump(&Iic,0x5E);
 	} else {
 #endif
 		ONSEMI_NB7NQ621M_RegisterDump(&Iic,0x5B);
-#if defined (XPS_BOARD_VEK280)
+#if defined (XPS_BOARD_VEK280) || \
+	defined (XPS_BOARD_VEK385)
 	}
 #endif
 	xil_printf("-----RX Reg dump -------\r\n");
-#if defined (XPS_BOARD_VEK280)
+#if defined (XPS_BOARD_VEK280) || \
+	defined (XPS_BOARD_VEK385)
 	if (Vfmc[0].isRxTi == 1) {
 		TI_TMDS1204_RegisterDump(&Iic,0x5B);
 	} else {
 #endif
 		ONSEMI_NB7NQ621M_RegisterDump(&Iic,0x5C);
-#if defined (XPS_BOARD_VEK280)
+#if defined (XPS_BOARD_VEK280) || \
+	defined (XPS_BOARD_VEK385)
 	}
 #endif
 	break;

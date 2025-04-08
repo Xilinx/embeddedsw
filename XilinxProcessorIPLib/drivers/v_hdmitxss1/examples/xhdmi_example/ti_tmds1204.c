@@ -26,7 +26,8 @@
 
 #include "ti_tmds1204.h"
 
-#if defined (XPS_BOARD_VEK280)
+#if defined (XPS_BOARD_VEK280) || \
+	defined (XPS_BOARD_VEK385)
 #if (defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
