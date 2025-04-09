@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -665,8 +665,11 @@ void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr)
 ******************************************************************************/
 void XV_HdmiRxSs_Stop(XV_HdmiRxSs *InstancePtr)
 {
+
   Xil_AssertVoid(InstancePtr != NULL);
 
+  /* Set SCDC variables */
+  XV_HdmiRx_DdcScdcSet(InstancePtr->HdmiRxPtr);
   /* Clear SCDC variables */
   XV_HdmiRx_DdcScdcClear(InstancePtr->HdmiRxPtr);
 
@@ -1668,6 +1671,8 @@ void XV_HdmiRxSs_LoadEdid(XV_HdmiRxSs *InstancePtr, u8 *EdidDataPtr,
 ******************************************************************************/
 void XV_HdmiRxSs_SetHpd(XV_HdmiRxSs *InstancePtr, u8 Value)
 {
+  /* Set SCDC variables */
+  XV_HdmiRx_DdcScdcSet(InstancePtr->HdmiRxPtr);
   /* Drive HDMI RX HPD based on the input value */
   XV_HdmiRx_SetHpd(InstancePtr->HdmiRxPtr, Value);
 }
