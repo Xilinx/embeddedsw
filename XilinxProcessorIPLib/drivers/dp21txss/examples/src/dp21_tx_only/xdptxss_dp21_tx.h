@@ -293,7 +293,8 @@ typedef struct {
         u64 CPLLRefClkFreqHz;
 } XVphy_User_Config;
 u32 PHY_Configuration_Tx(XVphy *InstancePtr,
+							XVphy_User_Config PHY_User_Config_Table);
 #ifdef __cplusplus
 }
-#endif							XVphy_User_Config PHY_User_Config_Table);
+#endif
 #endif /* SRC_XDPTXSS_ZCU102_TX_H_ */
