@@ -177,6 +177,11 @@ typedef enum {
 	XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED = 0xFB00,	/**<0xFB00 - Error
 							 * occured when DME is not supported
 							 * for that specific platform */
+	XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR = 0xFC00, /**<0xFC00 - Error, CRC value of the
+							  * xilinx manufactured bits and
+							  * value written into CRC SALT efuse
+							  * doesnt match.
+							  */
 } XNvm_EfuseVersalNetErrorCodes;
 
 #ifdef __cplusplus
