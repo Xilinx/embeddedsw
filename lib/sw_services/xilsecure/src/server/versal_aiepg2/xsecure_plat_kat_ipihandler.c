@@ -34,6 +34,7 @@
 #include "xil_sutil.h"
 #include "xsecure_init.h"
 #include "xplmi.h"
+#include "xsecure_resourcehandling.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -41,6 +42,8 @@
 #ifndef PLM_SECURE_EXCLUDE
 static int XSecure_TrngKat(void);
 #endif
+static int XSecure_Sha2Kat(void);
+
 /*****************************************************************************/
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
@@ -56,7 +59,9 @@ static int XSecure_TrngKat(void);
 int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	u32 *Pload = NULL;
+	XSecure_Sha *XSecureSha2InstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
 
 	if (NULL == Cmd) {
 		Status = XST_INVALID_PARAM;
@@ -71,12 +76,27 @@ int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 		Status = XSecure_TrngKat();
 		break;
 #endif
+	case XSECURE_API(XSECURE_API_SHA2_KAT):
+		/**   - @ref XSecure_ShaKat */
+		/** SHA IPI event handling */
+		Status = XSecure_IpiEventHandling(Cmd, XPLMI_SHA2_CORE);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XSecure_Sha2Kat();
+		break;
 	default:
 		/* Common IPI handler for versal devices */
 		Status = XSecure_KatIpiHandler(Cmd);
 		break;
 	}
 END:
+	if (XSecureSha2InstPtr->ShaState == XSECURE_SHA_INITIALIZED) {
+		SStatus = XSecure_MakeResFree(XPLMI_SHA2_CORE);
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
+	}
 	return Status;
 }
 
@@ -109,3 +129,29 @@ static int XSecure_TrngKat(void)
 	return Status;
 }
 #endif
+
+/*****************************************************************************/
+/**
+ * @brief	This function handler calls XSecure_Sha2256Kat server API and
+ * 		and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR address.
+ *
+ * @return
+ *		 - XST_SUCCESS  If the SHA2 KAT is successful
+ *		 - XST_FAILURE  If there is a failure
+ *
+ ******************************************************************************/
+static int XSecure_Sha2Kat(void)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_Sha *ShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
+
+	/* Run and update KAT status in to RTCA area */
+	Status = XSecure_Sha2256Kat(ShaInstPtr);
+	if (Status != XST_SUCCESS) {
+		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SHA2_256_KAT_MASK);
+	} else {
+		XPlmi_SetKatMask(XPLMI_SHA2_256_KAT_MASK);
+	}
+
+	return Status;
+}
