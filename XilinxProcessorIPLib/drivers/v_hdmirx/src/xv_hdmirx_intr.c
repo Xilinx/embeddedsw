@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -609,6 +610,8 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
             // Clear connected flag
             InstancePtr->Stream.IsConnected = (FALSE);
 
+	    /* Set SCDC variables */
+	    XV_HdmiRx_DdcScdcSet(InstancePtr);
             // Clear SCDC variables
             XV_HdmiRx_DdcScdcClear(InstancePtr);
         }

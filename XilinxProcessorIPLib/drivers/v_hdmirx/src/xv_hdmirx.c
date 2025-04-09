@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -645,14 +645,14 @@ int XV_HdmiRx_SetHpd(XV_HdmiRx *InstancePtr, u8 SetClr)
     if (SetClr) {
         /* Set HPD */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_PIO_OUT_SET_OFFSET), (XV_HDMIRX_PIO_OUT_HPD_MASK));
-        /* Clear SCDC */
-        XV_HdmiRx_DdcScdcClear(InstancePtr);
     }
     else {
         /* Clear HPD */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_PIO_OUT_CLR_OFFSET), (XV_HDMIRX_PIO_OUT_HPD_MASK));
         /* Set SCDC */
         XV_HdmiRx_DdcScdcSet(InstancePtr);
+        /* Clear SCDC */
+        XV_HdmiRx_DdcScdcClear(InstancePtr);
     }
 
     return (XST_SUCCESS);

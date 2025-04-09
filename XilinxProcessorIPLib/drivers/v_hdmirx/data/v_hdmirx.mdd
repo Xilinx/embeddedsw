@@ -1,6 +1,6 @@
 ################################################################################
 # Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ################################################################################
@@ -12,6 +12,6 @@ BEGIN driver v_hdmirx
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (video_common v_hdmi_common);
   OPTION copyfiles = all;
-  OPTION VERSION = 2.8;
+  OPTION VERSION = 2.9;
   OPTION NAME = v_hdmirx;
 END driver
