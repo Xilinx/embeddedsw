@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -40,6 +40,9 @@ extern "C" {
 #include "xsecure_sha3alginfo.h"
 
 /************************** Constant Definitions *****************************/
+#define XSECURE_SHA_START       (0x1U)	/**< Operation flags for SHA start  */
+#define XSECURE_SHA_UPDATE      (0x2U)	/**< Operation flags for SHA update */
+#define XSECURE_SHA_FINISH      (0x4U)	/**< Operation flags for SHA finish */
 
 /**************************** Type Definitions *******************************/
 /* Sha modes */
@@ -57,11 +60,9 @@ typedef enum {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XSecure_ShaInitialize(XSecure_ClientInstance *InstancePtr, XSecure_ShaMode ShaMode);
-int XSecure_ShaUpdate(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, u32 Size, u32 EndLast);
-int XSecure_ShaFinish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAddr, u32 Size);
-int XSecure_ShaDigest(XSecure_ClientInstance *InstancePtr, XSecure_ShaMode ShaMode,
-        const u64 InDataAddr, const u64 OutDataAddr, u32 DataSize, u32 HashSize);
+int XSecure_Sha3Operation(XSecure_ClientInstance *InstancePtr, XSecure_ShaOpParams *Sha3Params);
+int XSecure_Sha2Operation(XSecure_ClientInstance *InstancePtr, XSecure_ShaOpParams *Sha2Params);
+int XSecure_Sha2Kat(XSecure_ClientInstance *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 

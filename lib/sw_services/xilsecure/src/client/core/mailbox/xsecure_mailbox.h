@@ -82,6 +82,11 @@ extern "C" {
 					/**< Shared memory size */
 #define XSECURE_SLR_INDEX_SHIFT     (6U) /**< Slr index shift constant*/
 
+#define XSECURE_IPI_PAYLOAD_IDX_0	(0U) /**< IPI payload index 0 */
+#define XSECURE_IPI_PAYLOAD_IDX_1       (1U) /**< IPI payload index 1 */
+#define XSECURE_IPI_PAYLOAD_IDX_2	(2U) /**< IPI payload index 2 */
+
+
 /**************************** Type Definitions *******************************/
 /**
  * Data structure contains XMailbox pointer and SlrIndex
