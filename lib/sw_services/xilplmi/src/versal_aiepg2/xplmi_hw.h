@@ -59,6 +59,7 @@
 *       sk   02/20/2025 Added register address for LPD,OCM,FPD regions
 *       sk   03/12/2025 Added define for UFS config
 *       sk   03/17/2025 Added TCM address range defines for all RPU clusters
+*       pre  04/07/2025 Hash verification skip for non-secure boot in export control enabled devices
 *
 * </pre>
 *
@@ -1108,6 +1109,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define EFUSE_CACHE_IP_DISABLE_0_EID1_SHIFT		(14U)
 #define EFUSE_CACHE_IP_DISABLE_0_EID2_MASK		(0x03F00000U)
 #define EFUSE_CACHE_IP_DISABLE_0_EID2_SHIFT		(20U)
+#define EFUSE_CACHE_IP_DISABLE_0_EXPORT_MASK    (0X20000000U)
 
 /*
  * Register: PMC_TAP_SLR_TYPE

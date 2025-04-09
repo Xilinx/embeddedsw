@@ -129,6 +129,7 @@
 *       ng   01/28/24 u8 variables optimization
 *       pre  12/09/24 use PMC RAM for Metaheader instead of PPU1 RAM
 *       pre  03/02/25 setting data context lost for SHA when the resource is busy
+*       pre  04/07/25 Hash verification skip for non-secure boot in export control enabled devices
 *
 * </pre>
 *
@@ -702,8 +703,17 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 		DataAddr = DestAddr;
 	}
 	/** Verify hash on the data */
-	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyHashNUpdateNext,
-		SecurePtr, DataAddr, SecurePtr->SecureDataLen, Last);
+#ifdef VERSAL_AIEPG2
+	/** Verify hash only when export control bit is not set */
+	if (((XPlmi_In32(EFUSE_CACHE_IP_DISABLE_0) & EFUSE_CACHE_IP_DISABLE_0_EXPORT_MASK) !=
+		EFUSE_CACHE_IP_DISABLE_0_EXPORT_MASK) ||
+		((XPlmi_In32(EFUSE_CACHE_IP_DISABLE_0) & EFUSE_CACHE_IP_DISABLE_0_EXPORT_MASK) !=
+		EFUSE_CACHE_IP_DISABLE_0_EXPORT_MASK))
+#endif
+	{
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyHashNUpdateNext,
+			SecurePtr, DataAddr, SecurePtr->SecureDataLen, Last);
+	}
 
 	SecurePtr->NextBlkAddr = SrcAddr + TotalSize;
 	SecurePtr->ProcessedLen = TotalSize;
