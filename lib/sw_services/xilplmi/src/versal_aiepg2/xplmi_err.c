@@ -21,6 +21,9 @@
 *       pre  01/09/2025 Added PCIE error handling
 *       sk   02/20/2025 Added XMPU/XPPU error handlers
 *       ma   03/14/2025 Moved a print statement in XPlmi_ErrPrintToLog
+*       sk   04/07/2025 Updated error actions for apll1 and rpu fatal error
+*       sk   04/07/2025 Added redundant call to enable EAM interrupt
+*       sk   04/09/2025 Updated LPD SLCR EAM Disable error logic
 *
 * </pre>
 *
@@ -258,7 +261,7 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_UFSHC_FE_IRQ] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_APLL1_LOCK] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_APLL2_LOCK] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_RPLL_LOCK] =
@@ -400,7 +403,7 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_RPUD_CORE1_NON_FATAL] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_RPUE_CORE_CLUSTER_FATAL] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_RPUE_CORE0_NON_FATAL] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_RPUE_CORE1_NON_FATAL] =
@@ -1025,6 +1028,10 @@ int XPlmi_EmDisableLpdSlcrErrors(u32 RegMaskAddr, u32 RegMask)
 {
 	u32 Status = (u32)XPLMI_ERROR_ACTION_NOT_DISABLED;
 
+	/* Clear error in enable register */
+	XPlmi_Out32((RegMaskAddr + LPDSLCR_EAM_PMC_MASK_EN_OFFSET),
+			((~RegMask) & (~XPlmi_In32(RegMaskAddr))));
+
 	/** - Disable LPD SLCR error actions. */
 	XPlmi_Out32((RegMaskAddr + LPDSLCR_EAM_PMC_MASK_DIS_OFFSET), RegMask);
 	/**
@@ -1124,7 +1131,7 @@ int XPlmi_VersalAiepG2EAMHandler(void *Data)
 	 * - Clear and enable EAM errors at IOMODULE level
 	 */
 	(void)XPlmi_PlmIntrClear(XPLMI_IOMODULE_ERR_IRQ);
-	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_ERR_IRQ);
+	XSECURE_REDUNDANT_IMPL(XPlmi_PlmIntrEnable, XPLMI_IOMODULE_ERR_IRQ);
 
 	return XST_SUCCESS;
 }
