@@ -15,6 +15,7 @@ properties:
       - items:
         - enum:
           - xlnx,axi-i3c-1.0
+          - xlnx,axi-i3c
   reg:
     description: Physical base address and size of the controller register map
   xlnx,axi-clk-freq:
