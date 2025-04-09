@@ -151,6 +151,7 @@
 * 		      timeout loop.
 * 3.18  adk  04/14/23 Added support for system device-tree flow.
 * 3.21  ml   01/27/25 Added support for multiple counters in SDT flow.
+* 3.21  ml   04/03/25 Added a global structure to store all handlers in a table.
 * </pre>
 *
 ******************************************************************************/
@@ -199,6 +200,8 @@ typedef void (*XTtcPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent);
 #define XTTCPS_OPTION_MATCH_MODE	0x00000010U	/**< Match mode */
 #define XTTCPS_OPTION_WAVE_DISABLE	0x00000020U 	/**< No waveform output */
 #define XTTCPS_OPTION_WAVE_POLARITY	0x00000040U	/**< Waveform polarity */
+#define COUNTER_BASE_ADDRESS_MASK       0xFFFFFFF0U	/**< Mask to detect main
+							     TTC node */
 /*@}*/
 /**************************** Type Definitions *******************************/
 
@@ -234,6 +237,11 @@ typedef struct {
 	XTtcPs_StatusHandler StatusHandler;
 	void *StatusRef;	/**< Callback reference for status handler */
 } XTtcPs;
+
+typedef struct {
+       XTtcPs_StatusHandler StatusHandler; /**< Interrupt Handler */
+       void* StatusRef;
+} XTtcPs_StatusHandlerTableEntry;
 
 /**
  * This typedef contains interval count and Match register value
