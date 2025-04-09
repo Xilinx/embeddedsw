@@ -1,7 +1,7 @@
 /*
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -163,9 +163,6 @@ __attribute__( ( always_inline ) ) static inline uint8_t ucPortCountLeadingZeros
 #define portMEMORY_BARRIER() 				asm volatile( "" ::: "memory" )
 /*-----------------------------------------------------------*/
 
-#if( XPAR_MICROBLAZE_USE_STACK_PROTECTION )
-#define portHAS_STACK_OVERFLOW_CHECKING 1
-#endif
 /*-----------------------------------------------------------*/
 
 /* Task function macros as described on the FreeRTOS.org WEB site. */
