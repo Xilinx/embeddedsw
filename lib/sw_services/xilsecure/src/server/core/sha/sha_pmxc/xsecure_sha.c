@@ -275,15 +275,8 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 {
 	volatile int Status = XST_FAILURE;
 	volatile u32 Index = 0U;
-	u8 *Hash = (u8 *)(UINTPTR)HashAddr;
-	u32 ShaDigestAddr;
 	u32 ShaDigestSizeInWords;
-	typedef union WordToByte_ {
-                u32 Word;
-                u8 Bytes[4U];
-        }WordToByte;
-        WordToByte TempHash;
-        WordToByte *HashPtr = NULL;
+	u32 RegVal;
 
 	/** Validate the input arguments. */
 	if(InstancePtr == NULL) {
@@ -308,27 +301,15 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 		goto END;
 	}
 
-	/** Read out the Hash in reverse order and store in Hash Buffer. */
 	ShaDigestSizeInWords = InstancePtr->ShaDigestSize / XSECURE_WORD_SIZE;
-	HashPtr = (WordToByte *)&Hash[0U];
-        ShaDigestAddr = InstancePtr->BaseAddress + XSECURE_SHA_DIGEST_OFFSET;
 
-        if(((u32)Hash & 0x3U) == 0U) {
-                /** If address is word aligned, then copy directly to Hash Buffer. */
-                for (Index = 0U; Index < ShaDigestSizeInWords; Index++, ShaDigestAddr += XSECURE_WORD_SIZE) {
-                        HashPtr[Index].Word = Xil_In32(ShaDigestAddr);
-                }
-        }
-        else {
-                /** If address not a word aligned address, copy byte by byte. */
-                for (Index = 0U; Index < ShaDigestSizeInWords; Index++, ShaDigestAddr += XSECURE_WORD_SIZE) {
-                        TempHash.Word = Xil_In32(ShaDigestAddr);
-                        HashPtr[Index].Bytes[3U] = TempHash.Bytes[3U];
-                        HashPtr[Index].Bytes[2U] = TempHash.Bytes[2U];
-                        HashPtr[Index].Bytes[1U] = TempHash.Bytes[1U];
-                        HashPtr[Index].Bytes[0U] = TempHash.Bytes[0U];
-                }
-        }
+	/** Read out the Hash and store in Hash Buffer. */
+	for (Index = 0U; Index < ShaDigestSizeInWords; Index++)
+	{
+		RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
+			XSECURE_SHA_DIGEST_OFFSET + (Index * XSECURE_WORD_SIZE));
+		XSecure_Out64(HashAddr + (Index * XSECURE_WORD_SIZE), RegVal);
+	}
 
 	if(Index != ShaDigestSizeInWords) {
 		Status = XST_FAILURE;
