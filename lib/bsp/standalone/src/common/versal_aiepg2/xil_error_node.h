@@ -18,6 +18,7 @@
 * 1.0   sk       02/20/2025 Initial release
 *       sk       02/21/2025 Added nodes for versal_aiepg2 EAM register
 *                           in LPD SLCR
+*       sk       04/07/2025 Updated error id encoding for UFSFE
 *
 * </pre>
 *
@@ -345,31 +346,31 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_PSX_EAM_E1		(0x00008000U)
 
 /** Error event mask for PSX_EAM_E2. */
-#define XIL_EVENT_ERROR_MASK_PSX_EAM_E2		(0x000010000U)
+#define XIL_EVENT_ERROR_MASK_PSX_EAM_E2		(0x00010000U)
 
 /** Error event mask for PSX_EAM_E3. */
-#define XIL_EVENT_ERROR_MASK_PSX_EAM_E3		(0x000020000U)
+#define XIL_EVENT_ERROR_MASK_PSX_EAM_E3		(0x00020000U)
 
 /** Error event mask for ASU_EAM_GD. */
-#define XIL_EVENT_ERROR_MASK_ASU_EAM_GD		(0x000040000U)
+#define XIL_EVENT_ERROR_MASK_ASU_EAM_GD		(0x00040000U)
 
 /** Error event mask for PMC_EAM_GD. */
-#define XIL_EVENT_ERROR_MASK_PMC_EAM_GD		(0x000080000U)
+#define XIL_EVENT_ERROR_MASK_PMC_EAM_GD		(0x00080000U)
 
 /** Error event mask for PMC_EAM_SMIRQ0 */
-#define XIL_EVENT_ERROR_MASK_PMC_EAM_SMIRQ0	(0x0000100000U)
+#define XIL_EVENT_ERROR_MASK_PMC_EAM_SMIRQ0	(0x00100000U)
 
 /** Error event mask for PMC_EAM_SMIRQ1 */
-#define XIL_EVENT_ERROR_MASK_PMC_EAM_SMIRQ1	(0x0000200000U)
+#define XIL_EVENT_ERROR_MASK_PMC_EAM_SMIRQ1	(0x00200000U)
 
 /** Error event mask for PMC_EAM_PRAM */
-#define XIL_EVENT_ERROR_MASK_PMC_EAM_PRAM	(0x0000400000U)
+#define XIL_EVENT_ERROR_MASK_PMC_EAM_PRAM	(0x00400000U)
 
 /** Error event mask for PMC_EAM_AGERR */
-#define XIL_EVENT_ERROR_MASK_PMC_EAM_AGERR	(0x0000800000U)
+#define XIL_EVENT_ERROR_MASK_PMC_EAM_AGERR	(0x00800000U)
 
 /** Error event mask for PMC_EAM_UFSFE */
-#define XIL_EVENT_ERROR_MASK_PMC_EAM_UFSFE	(0x0000100000U)
+#define XIL_EVENT_ERROR_MASK_PMC_EAM_UFSFE	(0x01000000U)
 
 /**
  * @}
