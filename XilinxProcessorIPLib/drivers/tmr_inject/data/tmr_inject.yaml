@@ -38,4 +38,7 @@ examples:
         - reg
     xtmr_inject_low_level_example.c:
         - reg
+tapp:
+    xtmr_inject_selftest_example.c:
+        declaration: TMR_InjectSelfTestExample
 ...
