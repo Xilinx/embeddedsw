@@ -15,7 +15,9 @@ properties:
   compatible:
     OneOf:
       - items:
-        - const: xlnx,axi-uart16550-2.0
+        - enum:
+          - xlnx,axi-uart16550-2.0
+          - xlnx,axi-uart16550
   reg:
     description: Physical base address and size of the controller register map
   xlnx,clock-freq:
