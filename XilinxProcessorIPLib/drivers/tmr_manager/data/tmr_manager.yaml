@@ -64,4 +64,12 @@ examples:
         - reg
     xtmr_manager_recovery_example.c:
         - reg
+
+tapp:
+   xtmr_manager_selftest_example.c:
+        declaration: TMR_ManagerSelfTestExample
+   xtmr_manager_intr_tapp_example.c:
+        declaration: TMR_ManagerIntrExample
+        hwproperties:
+            - interrupts
 ...
