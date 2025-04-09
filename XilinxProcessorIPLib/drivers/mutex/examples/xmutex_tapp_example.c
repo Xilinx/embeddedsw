@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,7 @@
 *                       are available in all examples. This is a fix for
 *                       CR-965028.
 * 4.7   ht   06/21/23 Added support for system device-tree flow.
+* 4.10  ht   04/09/25 Fix parameter unused compilation warning.
 *
 *</pre>
 *******************************************************************************/
@@ -148,7 +149,7 @@ int main(void)
 #ifndef SDT
 int MutexExample(u16 MutexDeviceID)
 #else
-int MutexExample (XMutex *MutexInstPtr, UINTPTR BaseAddress)
+int MutexExample (XMutex *Mutex, UINTPTR BaseAddress)
 #endif
 {
 	XMutex_Config *ConfigPtr;
@@ -172,7 +173,7 @@ int MutexExample (XMutex *MutexInstPtr, UINTPTR BaseAddress)
 	/*
 	 * Perform the rest of the initialization.
 	 */
-	Status = XMutex_CfgInitialize(&Mutex, ConfigPtr,
+	Status = XMutex_CfgInitialize(Mutex, ConfigPtr,
 					ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -184,21 +185,21 @@ int MutexExample (XMutex *MutexInstPtr, UINTPTR BaseAddress)
 	 */
 	if (XPAR_CPU_ID == 0) {
 
-		XMutex_Lock(&Mutex, MUTEX_NUM);	/* Acquire lock */
-		XMutex_Unlock(&Mutex, MUTEX_NUM);	/* Release lock */
+		XMutex_Lock(Mutex, MUTEX_NUM);	/* Acquire lock */
+		XMutex_Unlock(Mutex, MUTEX_NUM);	/* Release lock */
 	} else {
 
 		/*
 		 * Try to acquire lock, other CPU should have it so it
 		 * should fail.
 		 */
-		while ((XMutex_Trylock(&Mutex, MUTEX_NUM)) != XST_SUCCESS) {
+		while ((XMutex_Trylock(Mutex, MUTEX_NUM)) != XST_SUCCESS) {
 			if (TimeoutCount++ > LOCK_TIMEOUT) {
 				return XST_FAILURE;
 			}
 		}
 
-		XMutex_Unlock(&Mutex, MUTEX_NUM);	/* Release lock */
+		XMutex_Unlock(Mutex, MUTEX_NUM);	/* Release lock */
 	}
 
 	return XST_SUCCESS;
