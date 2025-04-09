@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -89,6 +89,9 @@
 *       kpt   05/21/21 Added support to allow PPK Hash programming multiple
 *                      times
 * 7.2   am    07/13/21 Fixed doxygen warnings
+* 7.7   kal   04/09/25 Update XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits to return
+*                      Success in case the request is to program already programmed
+*                      eFuses.
 *
 * </pre>
 *
@@ -1741,7 +1744,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits(
 			}
 		}
 	}
-
+	Status = (u32)XST_SUCCESS;
 END:
 	return Status;
 }
