@@ -674,7 +674,6 @@ xil_printf("\r\n Wrong Input Selection, Default(1920x1080p60) is Selected\r\n");
 				} else if((Response == 'd') || (Response == 'D')){
 					xil_printf("\r\n DSI Display is Selected.\r\n");
 					New_Cfg.VideoDestn = XVIDDES_DSI ;
-                    New_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P;
 					break;
 				}else{
 					New_Cfg.VideoDestn = XVIDDES_HDMI ;
@@ -897,8 +896,7 @@ int main() {
 
 						SelectDSIOutput();
 						InitDSI();
-                        xil_printf("InitDSI Done \n\r");
-                        Pipeline_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P;
+						xil_printf("InitDSI Done \n\r");
 						start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
 						EnableDSI();
 					}
