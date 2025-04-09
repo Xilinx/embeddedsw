@@ -268,8 +268,9 @@ END:
 * @return
 *		XST_SUCCESS - Upon Success.
 *		XST_FAILURE - Upon Failure.
-*		XSECURE_SHA_INVALID_PARAM_ERROR
-*		XSECURE_SHA_NOT_UPDATED_ERROR
+*		XSECURE_SHA_INVALID_PARAM_ERROR  - Upon invalid input parameter
+*		XSECURE_SHA_STATE_MISMATCH_ERROR - Upon sha state mismatch
+*
  ******************************************************************************/
 int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufSize)
 {
@@ -304,8 +305,7 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 	ShaDigestSizeInWords = InstancePtr->ShaDigestSize / XSECURE_WORD_SIZE;
 
 	/** Read out the Hash and store in Hash Buffer. */
-	for (Index = 0U; Index < ShaDigestSizeInWords; Index++)
-	{
+	for (Index = 0U; Index < ShaDigestSizeInWords; Index++) {
 		RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
 			XSECURE_SHA_DIGEST_OFFSET + (Index * XSECURE_WORD_SIZE));
 		XSecure_Out64(HashAddr + (Index * XSECURE_WORD_SIZE), RegVal);

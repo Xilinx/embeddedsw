@@ -80,13 +80,23 @@ typedef struct {
 	XSecure_RsaOperationMode OpMode; /**< RSA operation mode */
 } XSecure_RsaKeyParam;
 
+typedef struct {
+	u64 DataAddr; /**< SHA2/3 data address */
+	u64 HashAddr; /**< SHA2/3 hash address */
+	u32 DataSize; /**< SHA2/3 data size */
+	u32 HashBufSize; /**< SHA2/3 hash buffer size */
+	u8 ShaMode; /**< SHA2/3 mode */
+	u8 IsLast; /**< Is last update */
+	u8 OperationFlags; /**< SHA2/3 operation flags */
+} XSecure_ShaOpParams;
+
 /**< XilSecure API ids */
 typedef enum {
 	XSECURE_API_FEATURES = 0U,		/**< 0U */
 	XSECURE_API_RSA_SIGN_VERIFY,		/**< 1U */
 	XSECURE_API_RSA_PUBLIC_ENCRYPT,		/**< 2U */
 	XSECURE_API_RSA_PRIVATE_DECRYPT,	/**< 3U */
-	XSECURE_API_SHA_UPDATE,			/**< 4U */
+	XSECURE_API_SHA3_OPERATION,		/**< 4U */
 	XSECURE_API_ELLIPTIC_GENERATE_KEY,	/**< 5U */
 	XSECURE_API_ELLIPTIC_GENERATE_SIGN,	/**< 6U */
 	XSECURE_API_ELLIPTIC_VALIDATE_KEY,	/**< 7U */
@@ -109,12 +119,8 @@ typedef enum {
 	XSECURE_API_GEN_SHARED_SECRET = 33U,	/**< 33U */
 	XSECURE_API_RESERVED = 36U,		/**< 36U */
 	XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,/**< 37U */
-	XSECURE_API_SHA_INIT, /**< 38U */
-	XSECURE_API_SHA_FINISH, /**< 39U */
-	XSECURE_API_SHA2_INIT, /**< 40U */
-	XSECURE_API_SHA2_UPDATE, /**< 41U */
-	XSECURE_API_SHA2_FINISH, /**< 42U */
-	XSECURE_API_MAX,				/**< 43U */
+	XSECURE_API_SHA2_OPERATION, 		/**< 38U */
+	XSECURE_API_MAX,			/**< 39U */
 } XSecure_ApiId;
 
 /**< XilSecure KAT ids */
@@ -122,13 +128,14 @@ typedef enum {
 	XSECURE_API_AES_DECRYPT_KAT = 0U,		/**< 0U */
 	XSECURE_API_AES_DECRYPT_CM_KAT,			/**< 1U */
 	XSECURE_API_RSA_PUB_ENC_KAT,			/**< 2U */
-	XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT,	/**< 3U */
-	XSECURE_API_SHA3_KAT,					/**< 4U */
+	XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT,		/**< 3U */
+	XSECURE_API_SHA3_KAT,				/**< 4U */
 	XSECURE_API_AES_ENCRYPT_KAT,			/**< 5U */
 	XSECURE_API_RSA_PRIVATE_DEC_KAT,		/**< 6U */
 	XSECURE_API_ELLIPTIC_SIGN_GEN_KAT,		/**< 7U */
-	XSECURE_API_TRNG_KAT,					/**< 8U */
+	XSECURE_API_TRNG_KAT,				/**< 8U */
 	XSECURE_API_UPDATE_KAT_STATUS,			/**< 9U */
+	XSECURE_API_SHA2_KAT,				/**< 10U */
 } XSecure_KatId;
 
 #ifdef __cplusplus

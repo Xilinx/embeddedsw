@@ -41,12 +41,12 @@
 
 /************************** Constant Definitions *****************************/
 
-/************************** Function Prototypes *****************************/
-static int XSecure_ShaModeInit(XSecure_Sha *XSecureShaInstPtr, u32 ShaMode);
-static int XSecure_ShaModeUpdate(XSecure_Sha *XSecureShaInstPtr, u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
-	u32 EndLast);
-static int XSecure_ShaModeFinish(XSecure_Sha *XSecureShaInstPtr, u32 OutAddrLow, u32 OutAddrHigh, u32 HashSize);
+#define XSECURE_SHA_START	(0x1U)	/**< Operation flags for SHA start */
+#define XSECURE_SHA_UPDATE      (0x2U)	/**< Operation flags for SHA update */
+#define XSECURE_SHA_FINISH      (0x4U)	/**< Operation flags for SHA finish */
 
+/************************** Function Prototypes *****************************/
+static int XSecure_ShaOperation(XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32 AddrHigh);
 /*************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -66,8 +66,8 @@ int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd)
 	int SStatus = XST_FAILURE;
 	const u32 *Pload;
 	u32 ApiId;
-	XSecure_Sha *XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	XPlmi_CoreType Core = XPLMI_SHA3_CORE;
+	XSecure_Sha *XSecureShaInstPtr = NULL;
+	XPlmi_CoreType Core = XPLMI_MAX_CORE;
 
 	if (NULL == Cmd) {
 		Status = XST_INVALID_PARAM;
@@ -76,10 +76,13 @@ int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd)
 
 	ApiId = Cmd->CmdId & XSECURE_API_ID_MASK;
 
-	if ((ApiId == XSECURE_API_SHA2_INIT) || (ApiId == XSECURE_API_SHA2_UPDATE) ||
-	    (ApiId == XSECURE_API_SHA2_FINISH)) {
+	if (ApiId == XSECURE_API_SHA2_OPERATION) {
 		XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
 		Core = XPLMI_SHA2_CORE;
+	}
+	else if (ApiId == XSECURE_API_SHA3_OPERATION) {
+		XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+		Core = XPLMI_SHA3_CORE;
 	}
 
 	/** SHA IPI event handling */
@@ -91,17 +94,9 @@ int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd)
 	Pload = Cmd->Payload;
 
 	switch (ApiId) {
-        case XSECURE_API(XSECURE_API_SHA_INIT):
-		case XSECURE_API(XSECURE_API_SHA2_INIT):
-		Status = XSecure_ShaModeInit(XSecureShaInstPtr, Pload[0U]);
-		break;
-	case XSECURE_API(XSECURE_API_SHA_UPDATE):
-	case XSECURE_API(XSECURE_API_SHA2_UPDATE):
-		Status = XSecure_ShaModeUpdate(XSecureShaInstPtr, Pload[0U], Pload[1U], Pload[2U], Pload[3U]);
-		break;
-	case XSECURE_API(XSECURE_API_SHA_FINISH):
-	case XSECURE_API(XSECURE_API_SHA2_FINISH):
-		Status = XSecure_ShaModeFinish(XSecureShaInstPtr, Pload[0U], Pload[1U], Pload[2U]);
+        case XSECURE_API(XSECURE_API_SHA3_OPERATION):
+	case XSECURE_API(XSECURE_API_SHA2_OPERATION):
+		Status = XSecure_ShaOperation(XSecureShaInstPtr, Pload[0U], Pload[1U]);
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -120,107 +115,56 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function initializes SHA3 instance.
+ * @brief       This function performs SHA operation based on operation flags
+ * 		provided in IPI payload and returns the result.
  *
+ * @param	XSecureShaInstPtr	Pointer to the SHA instance
+ * @param	AddrLow			Lower 32 bit address of XSecure_ShaOpParams
+ * 					structure
+ * @param	AddrHigh		upper 32 bit address of XSecure_ShaOpParams
+ * 					structure
  * @return
- *	-	XST_SUCCESS - If the initialization is successful
- *	-	ErrorCode - If there is a failure
+ *	-	XST_SUCCESS - If the SHA opearation is successful
+ *	-	ErrorCode - If the SHA operation is a failure
  *
  ******************************************************************************/
-static int XSecure_ShaModeInit(XSecure_Sha *XSecureShaInstPtr, u32 ShaMode)
+static int XSecure_ShaOperation(XSecure_Sha *XSecureShaInstPtr, u32 AddrLow, u32 AddrHigh)
 {
 	int Status = XST_FAILURE;
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
-
-	if (NULL == PmcDmaInstPtr) {
-		goto END;
-	}
+	u64 ShaParamsAddr = ((u64)AddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)AddrLow;
+	XSecure_ShaOpParams ShaParams __attribute__ ((aligned (32U)));;
 
 	if (XSecureShaInstPtr == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	Status = XSecure_ShaStart(XSecureShaInstPtr, (XSecure_ShaMode)ShaMode);
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief       This function handler calls XSecure_ShaUpdate64Bit or
- * 		XSecure_ShaFinish based on the Continue bit in the command
- *
- * @param	SrcAddrLow	- Lower 32 bit address of the input data
- * 				on which hash has to be calculated
- * @param	SrcAddrHigh	- Higher 32 bit address of the input data
- * 				on which hash has to be calculated
- * @param	Size		- Size of the input data in bytes to be
- * 				updated
- * @param	DstAddrLow	- Lower 32 bit address of the output data
- * 				where hash to be stored
- * @param	DstAddrHigh	- Higher 32 bit address of the output data
- * 				where hash to be stored
- *
- * @return
- *	-	XST_SUCCESS - If the sha update/fnish is successful
- *	-	ErrorCode - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_ShaModeUpdate(XSecure_Sha *XSecureShaInstPtr, u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
-				u32 EndLast)
-{
-	int Status = XST_FAILURE;
-	u64 DataAddr = ((u64)SrcAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)SrcAddrLow;
-
-	if (XSecureShaInstPtr == NULL) {
-		Status = XST_INVALID_PARAM;
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&ShaParams, ShaParamsAddr, sizeof(ShaParams));
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if (EndLast == TRUE) {
-		Status = XSecure_ShaLastUpdate(XSecureShaInstPtr);
+	if ((ShaParams.OperationFlags & XSECURE_SHA_START) == XSECURE_SHA_START) {
+		Status = XSecure_ShaStart(XSecureShaInstPtr, (XSecure_ShaMode)ShaParams.ShaMode);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
-	Status = XSecure_ShaUpdate(XSecureShaInstPtr, DataAddr, Size);
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief       This function handler calls XSecure_ShaFinish function.
- *
- * @param	HashSize	- Size of the input data in bytes to be
- * 				updated
- * @param	DstAddrLow	- Lower 32 bit address of the output data
- * 				where hash to be stored
- * @param	DstAddrHigh	- Higher 32 bit address of the output data
- * 				where hash to be stored
- *
- * @return
- *	-	XST_SUCCESS - If the sha update/fnish is successful
- *	-	ErrorCode - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_ShaModeFinish(XSecure_Sha *XSecureShaInstPtr, u32 OutAddrLow, u32 OutAddrHigh, u32 HashSize)
-{
-	int Status = XST_FAILURE;
-	u64 DstAddr = ((u64)OutAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)OutAddrLow;
-	XSecure_Sha3Hash Hash = {0U};
-
-	if (XSecureShaInstPtr == NULL) {
-		Status = XST_INVALID_PARAM;
-		goto END;
+	if ((ShaParams.OperationFlags & XSECURE_SHA_UPDATE) == XSECURE_SHA_UPDATE) {
+		if (ShaParams.IsLast == TRUE) {
+			Status = XSecure_ShaLastUpdate(XSecureShaInstPtr);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+		Status = XSecure_ShaUpdate(XSecureShaInstPtr, ShaParams.DataAddr, ShaParams.DataSize);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
-	Status = XSecure_ShaFinish(XSecureShaInstPtr, (u64)(UINTPTR)&Hash, HashSize);
-	if (Status == XST_SUCCESS) {
-		Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
-				XSECURE_SHA3_HASH_LENGTH_IN_WORDS, XPLMI_PMCDMA_0);
+	if ((ShaParams.OperationFlags & XSECURE_SHA_FINISH) == XSECURE_SHA_FINISH) {
+		Status = XSecure_ShaFinish(XSecureShaInstPtr, ShaParams.HashAddr, ShaParams.HashBufSize);
 	}
 
 END:
