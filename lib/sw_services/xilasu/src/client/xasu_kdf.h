@@ -44,7 +44,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_KdfKat(XAsu_ClientParams *ClientParamsPtr);
-s32 XAsu_KdfCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_KdfParams *KdfParamsPtr);
+s32 XAsu_KdfGenerate(XAsu_ClientParams *ClientParamsPtr, XAsu_KdfParams *KdfParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

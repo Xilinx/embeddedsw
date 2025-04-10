@@ -46,9 +46,8 @@ static s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr);
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends command to ASUFW to perform KDF compute operation using HMAC as
- * pseudorandom function with the user provided inputs to generate the keying material object of
- * given number of bytes in counter mode.
+ * @brief	This function sends command to ASUFW to generate the derived key of specified key
+ * length by using the Key Derivative Function (KDF) in counter mode.
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
@@ -62,7 +61,7 @@ static s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr);
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_KdfCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_KdfParams *KdfParamsPtr)
+s32 XAsu_KdfGenerate(XAsu_ClientParams *ClientParamsPtr, XAsu_KdfParams *KdfParamsPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
@@ -88,9 +87,9 @@ s32 XAsu_KdfCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_KdfParams *KdfParam
 
 	/** Get the command ID based on SHA type. */
 	if (KdfParamsPtr->ShaType == XASU_SHA2_TYPE) {
-		CommandId = XASU_KDF_COMPUTE_SHA2_CMD_ID;
+		CommandId = XASU_KDF_GENERATE_SHA2_CMD_ID;
 	} else {
-		CommandId = XASU_KDF_COMPUTE_SHA3_CMD_ID;
+		CommandId = XASU_KDF_GENERATE_SHA3_CMD_ID;
 	}
 	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_KDF_ID, 0U);
 

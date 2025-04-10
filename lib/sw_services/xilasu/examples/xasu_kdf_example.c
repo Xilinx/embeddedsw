@@ -190,7 +190,7 @@ static s32 Asu_KdfExample(void)
 	KdfClientParam.KeyOutAddr = (u64)(UINTPTR)KdfOutput;
 	KdfClientParam.KeyOutLen = ASU_KDF_OUTPUT_LEN_IN_BYTES;
 
-	Status = XAsu_KdfCompute(&ClientParam, &KdfClientParam);
+	Status = XAsu_KdfGenerate(&ClientParam, &KdfClientParam);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Calculation of KDF failed, Status = %x \n\r", Status);
 		goto END;
