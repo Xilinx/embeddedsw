@@ -35,6 +35,7 @@
  *       yog  02/21/25 Added ECIES KAT
  *       ss   02/24/25 Added Key wrap unwrap KAT
  *       am   03/14/25 Fix code spell warning
+ *       LP   04/07/25 Added HKDF KAT
  *
  * </pre>
  *
@@ -54,6 +55,7 @@
 #include "xasufw_util.h"
 #include "xasu_hmacinfo.h"
 #include "xkdf.h"
+#include "xhkdf.h"
 #include "xecies.h"
 #include "xaes_hw.h"
 #include "xkeywrap.h"
@@ -68,19 +70,19 @@
 static s32 XAsufw_AesDpaCmChecks(const u32 *P, const u32 *Q, const u32 *R, const u32 *S);
 
 /************************************ Variable Definitions ***************************************/
-#define XASUFW_KAT_MSG_LENGTH_IN_BYTES		(32U)	/**< SHA KAT message length in bytes */
-#define XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES	(256U)	/**< RSA KAT message length in bytes */
-#define XASUFW_AES_KEY_LEN_IN_BYTES		(32U)	/**< AES KAT Key length in bytes */
-#define XASUFW_AES_IV_LEN_IN_BYTES		(12U)	/**< AES KAT Iv length in bytes */
-#define XASUFW_AES_AAD_LEN_IN_BYTES		(16U)	/**< AES KAT AAD length in bytes */
-#define XASUFW_AES_TAG_LEN_IN_BYTES		(16U)	/**< AES KAT Tag length in bytes */
-#define XASUFW_DOUBLE_P256_SIZE_IN_BYTES	(64U)	/**< Double the size of P256 curve length */
-#define XASUFW_DOUBLE_P192_SIZE_IN_BYTES	(48U)	/**< Double the size of P192 curve length */
-#define XASUFW_DOUBLE_P384_SIZE_IN_BYTES	(96U)	/**< Double the size of P192 curve length */
-#define XASUFW_AES_DATA_SPLIT_SIZE_IN_BYTES	(16U)	/**< AES data split size in words */
-#define XASUFW_AES_CM_KAT_KEY_SIZE_IN_BYTES	(32U)	/**< AES Key size in words */
-#define XASUFW_AES_CM_KAT_DATA_SIZE_IN_BYTES	(64U)	/**< AES operation data in words */
-#define XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES	(31U)	/**< Key wrap unwrap KAT message length in
+#define XASUFW_KAT_MSG_LENGTH_IN_BYTES		        (32U)	/**< SHA KAT message length in bytes */
+#define XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES	        (256U)	/**< RSA KAT message length in bytes */
+#define XASUFW_AES_KEY_LEN_IN_BYTES		            (32U)	/**< AES KAT Key length in bytes */
+#define XASUFW_AES_IV_LEN_IN_BYTES		            (12U)	/**< AES KAT Iv length in bytes */
+#define XASUFW_AES_AAD_LEN_IN_BYTES		            (16U)	/**< AES KAT AAD length in bytes */
+#define XASUFW_AES_TAG_LEN_IN_BYTES		            (16U)	/**< AES KAT Tag length in bytes */
+#define XASUFW_DOUBLE_P256_SIZE_IN_BYTES	        (64U)	/**< Double the size of P256 curve length */
+#define XASUFW_DOUBLE_P192_SIZE_IN_BYTES	        (48U)	/**< Double the size of P192 curve length */
+#define XASUFW_DOUBLE_P384_SIZE_IN_BYTES	        (96U)	/**< Double the size of P192 curve length */
+#define XASUFW_AES_DATA_SPLIT_SIZE_IN_BYTES	        (16U)	/**< AES data split size in words */
+#define XASUFW_AES_CM_KAT_KEY_SIZE_IN_BYTES	        (32U)	/**< AES Key size in words */
+#define XASUFW_AES_CM_KAT_DATA_SIZE_IN_BYTES        (64U)	/**< AES operation data in words */
+#define XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES	        (31U)	/**< Key wrap unwrap KAT message length in
 								bytes*/
 #define XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES		(5U)	/**< RSA OAEP optional data length
 									in bytes */
@@ -128,6 +130,13 @@ static const u8 ExpKdfOutput[XASU_SHA_256_HASH_LEN] = {
 	0x7EU, 0x92U, 0x3CU, 0x1BU, 0xB3U, 0xA9U, 0x92U, 0x31U,
 	0x4EU, 0x66U, 0xC4U, 0x6EU, 0x2CU, 0x8DU, 0x81U, 0x45U,
 	0xD2U, 0xE4U, 0x70U, 0x4EU, 0x75U, 0xD0U, 0x3AU, 0x77U
+};
+
+static const u8 ExpHkdfOutput[XASU_SHA_256_HASH_LEN] = {
+	0x10U, 0x27U, 0x1dU, 0x64U, 0xbaU, 0xafU, 0xd3U, 0x75U,
+	0x75U, 0xedU, 0x28U, 0x73U, 0xe7U, 0x30U, 0x27U, 0x03U,
+	0x43U, 0xacU, 0xa1U, 0xc7U, 0x64U, 0x40U, 0x79U, 0x03U,
+	0xddU, 0x17U, 0x88U, 0xd0U, 0xb1U, 0xb4U, 0x48U, 0xd2U
 };
 
 static const u8 RsaData[XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES] = {
@@ -1075,8 +1084,8 @@ s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Params.KeyOutLen = XASU_SHA_256_HASH_LEN;
 	Params.ShaMode = XASU_SHA_MODE_SHA256;
 
-	/** Perform KDF compute with known inputs. */
-	Status = XKdf_Compute(AsuDmaPtr, Sha2Ptr, &Params);
+	/** Perform KDF generate with known inputs. */
+	Status = XKdf_Generate(AsuDmaPtr, Sha2Ptr, &Params);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -1098,6 +1107,57 @@ END:
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_KAT_FAILED);
 	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function runs HKDF KAT using SHA2-256.
+ *
+ * @param	AsuDmaPtr	Pointer to the ASU DMA instance.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if HKDF KAT is executed successfully.
+ *	- XASUFW_HKDF_KAT_COMPARISON_FAILED, if expected and generated HKDF comparison fails.
+ *
+ *************************************************************************************************/
+s32 XAsufw_HkdfOperationKat(XAsufw_Dma *AsuDmaPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XSha *Sha2Ptr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	u8 HkdfOutput[XASU_SHA_256_HASH_LEN] = {0U};
+	XAsu_HkdfParams Params;
+
+	Params.KdfParams.KeyInAddr = (u64)(UINTPTR)EccPrivKey;
+	Params.KdfParams.KeyInLen = XASU_ECC_P256_SIZE_IN_BYTES;
+	Params.KdfParams.ContextAddr = (u64)(UINTPTR)KatMessage;
+	Params.KdfParams.ContextLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
+	Params.KdfParams.KeyOutAddr = (u64)(UINTPTR)HkdfOutput;
+	Params.KdfParams.KeyOutLen = XASU_SHA_256_HASH_LEN;
+	Params.KdfParams.ShaMode = XASU_SHA_MODE_SHA256;
+	Params.SaltAddr = (u64)(UINTPTR)EccHash;
+	Params.SaltLen = XASU_ECC_P256_SIZE_IN_BYTES;
+
+	/** Perform HKDF generate with known inputs. */
+	Status = XHkdf_Generate(AsuDmaPtr, Sha2Ptr, &Params);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HKDF_GENERATE_FAILED);
+		goto END;
+	}
+
+	/** Compare generated HKDF key output with expected HKDF key output. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCmp(HkdfOutput, XASU_SHA_256_HASH_LEN, ExpHkdfOutput,
+                                XASU_SHA_256_HASH_LEN, XASU_SHA_256_HASH_LEN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_HKDF_KAT_COMPARISON_FAILED;
+	}
+
+END:
+	/** Zeroize local copy of output value. */
+	Status = XAsufw_UpdateBufStatus(Status, Xil_SMemSet(&HkdfOutput[0U], XASU_SHA_256_HASH_LEN,
+					0U, XASU_SHA_256_HASH_LEN));
 
 	return Status;
 }
@@ -1227,7 +1287,7 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Status = Xil_SMemCpy(PubKeyParam.Modulus, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaModulus,
 			     XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYWRAP_MEM_COPY_FAIL;
+		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
 
@@ -1237,7 +1297,7 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Status = Xil_SMemCpy(PvtKeyParam.PvtExp, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaPvtExp,
 		    XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYWRAP_MEM_COPY_FAIL;
+		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
 
