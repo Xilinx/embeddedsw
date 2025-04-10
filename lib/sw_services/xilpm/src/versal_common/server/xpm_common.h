@@ -154,6 +154,7 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 #define PLATFORM_VERSION_EMU			(0x2U)
 #define PLATFORM_VERSION_QEMU			(0x3U)
 #define PLATFORM_VERSION_FCV			(0x4U)
+#define PLATFORM_VERSION_COSIM			(0x7U)
 
 /*
  * SSIT forwarding API supports CmdType. In case of certain APIs which do not
