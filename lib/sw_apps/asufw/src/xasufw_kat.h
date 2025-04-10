@@ -69,6 +69,7 @@ s32 XAsufw_AesDecryptDpaCmKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_P192EcdhKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_HkdfOperationKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr);
 
