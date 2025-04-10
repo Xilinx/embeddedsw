@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -41,6 +41,16 @@ extern "C" {
 #endif
 
 /************************** Constant Definitions ******************************/
+
+#define XHDMIPHY1_HDMI_GTYP_DRU_REFCLK           200000000LL
+#define XHDMIPHY1_HDMI_GTYP_DRU_REFCLK_MIN       199990000LL
+#define XHDMIPHY1_HDMI_GTYP_DRU_REFCLK_MAX       200010000LL
+#define XHDMIPHY1_HDMI_GTYP_DRU_REFCLK1          125000000LL
+#define XHDMIPHY1_HDMI_GTYP_DRU_REFCLK1_MIN      124990000LL
+#define XHDMIPHY1_HDMI_GTYP_DRU_REFCLK1_MAX      125010000LL
+#define XHDMIPHY1_HDMI_GTYP_DRU_REFCLK2          400000000LL
+#define XHDMIPHY1_HDMI_GTYP_DRU_REFCLK2_MIN      399970000LL
+#define XHDMIPHY1_HDMI_GTYP_DRU_REFCLK2_MAX      400050000LL
 
 #define XHDMIPHY1_HDMI_GTYE5_DRU_LRATE           2500000000U
 #define XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK          200000000LL

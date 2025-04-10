@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -732,6 +732,7 @@ typedef struct {
     u8 HdmiTxSampleRate;            /**< HDMI TX sample rate. */
     u8 HdmiRxDruIsEnabled;          /**< The DRU is enabled. */
     u8 HdmiIsQpllPresent;           /**< QPLL is present in HW */
+    u8 IsTelluride;                  /**< only for for VEK385 */
     XHdmiphy1_Hdmi21Cfg TxHdmi21Cfg; /**< TX HDMI Config */
     XHdmiphy1_Hdmi21Cfg RxHdmi21Cfg; /**< TX HDMI Config */
 #if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))

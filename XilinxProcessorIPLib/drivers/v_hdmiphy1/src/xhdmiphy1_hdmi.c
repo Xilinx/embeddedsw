@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -827,17 +827,33 @@ u32 XHdmiphy1_DruGetRefClkFreqHz(XHdmiphy1 *InstancePtr)
 		}
 	}
 	else {
-		if (DruFreqHz > XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK_MIN &&
-				DruFreqHz < XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK_MAX){
-			return XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK;
-		}
-		if (DruFreqHz > XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK1_MIN &&
-				DruFreqHz < XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK1_MAX){
-			return XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK1;
-		}
-		if (DruFreqHz > XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK2_MIN &&
-				DruFreqHz < XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK2_MAX){
-			return XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK2;
+		if (InstancePtr->IsTelluride == 1) {
+			if (DruFreqHz > XHDMIPHY1_HDMI_GTYP_DRU_REFCLK_MIN &&
+					DruFreqHz < XHDMIPHY1_HDMI_GTYP_DRU_REFCLK_MAX){
+				return XHDMIPHY1_HDMI_GTYP_DRU_REFCLK;
+			}
+			if (DruFreqHz > XHDMIPHY1_HDMI_GTYP_DRU_REFCLK1_MIN &&
+					DruFreqHz < XHDMIPHY1_HDMI_GTYP_DRU_REFCLK1_MAX){
+				return XHDMIPHY1_HDMI_GTYP_DRU_REFCLK1;
+			}
+			if (DruFreqHz > XHDMIPHY1_HDMI_GTYP_DRU_REFCLK2_MIN &&
+					DruFreqHz < XHDMIPHY1_HDMI_GTYP_DRU_REFCLK2_MAX){
+				return XHDMIPHY1_HDMI_GTYP_DRU_REFCLK2;
+			}
+
+		} else {
+			if (DruFreqHz > XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK_MIN &&
+					DruFreqHz < XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK_MAX){
+				return XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK;
+			}
+			if (DruFreqHz > XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK1_MIN &&
+					DruFreqHz < XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK1_MAX){
+				return XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK1;
+			}
+			if (DruFreqHz > XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK2_MIN &&
+					DruFreqHz < XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK2_MAX){
+				return XHDMIPHY1_HDMI_GTYE5_DRU_REFCLK2;
+			}
 		}
 	}
 
