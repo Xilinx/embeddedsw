@@ -589,7 +589,7 @@ static XStatus AieInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	/* Store initial clock devider value */
+	/* Store initial clock divider value */
 	/* TODO: Get clock address from clock topology */
 	ClkDivider =  XPm_In32(BaseAddress + ME_CORE_REF_CTRL_OFFSET) & AIE_DIVISOR0_MASK;
 	ClkDivider = ClkDivider >> AIE_DIVISOR0_SHIFT;
@@ -653,7 +653,7 @@ static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	/* Store initial clock devider value */
+	/* Store initial clock divider value */
 	/* TODO: Get clock address from clock topology */
 	ClkDivider =  XPm_In32(BaseAddress + ME_CORE_REF_CTRL_OFFSET) & AIE_DIVISOR0_MASK;
 	ClkDivider = ClkDivider >> AIE_DIVISOR0_SHIFT;
@@ -1483,7 +1483,7 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 	Array->NumRowsAdjusted = Array->NumRows - Array->TRowOffset;
 
 	/* NOP for HC on QEMU */
-	if (Platform == PLATFORM_VERSION_QEMU) {
+	if ((Platform == PLATFORM_VERSION_QEMU) || (Platform == PLATFORM_VERSION_COSIM)) {
 		Ops = NULL;
 	}
 
@@ -1661,7 +1661,7 @@ static XStatus Aie1_EnbAxiMmErrEvent(const XPm_Device *AieDev, u32 ColStart, u32
 		/* BaseAddress for AIE1 column */
 		BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
 
-		/* Eanble AXI-MM decode and slave error events */
+		/* Enable AXI-MM decode and slave error events */
 		XPm_RMW64(BaseAddress + AIE_NOC_MODULE_ME_AXIMM_CONFIG_OFFSET,
 			  ME_AXIMM_CONFIG_DECERR_BLOCK_EN_MASK | ME_AXIMM_CONFIG_SLVERR_BLOCK_EN_MASK,
 			  ME_AXIMM_CONFIG_DECERR_BLOCK_EN_MASK | ME_AXIMM_CONFIG_SLVERR_BLOCK_EN_MASK);
@@ -2095,7 +2095,7 @@ static XStatus Aie2_EnbAxiMmErrEvent(const XPm_Device *AieDev, u32 ColStart, u32
 		/* BaseAddress for AIE2 column */
 		BaseAddress = AIE2_TILE_BADDR(NocAddress, Col, 0U);
 
-		/* Eanble AXI-MM decode and slave error events */
+		/* Enable AXI-MM decode and slave error events */
 		XPm_RMW64(BaseAddress + AIE2_NOC_MODULE_ME_AXIMM_CONFIG_OFFSET,
 			  ME_AXIMM_CONFIG_DECERR_BLOCK_EN_MASK | ME_AXIMM_CONFIG_SLVERR_BLOCK_EN_MASK,
 			  ME_AXIMM_CONFIG_DECERR_BLOCK_EN_MASK | ME_AXIMM_CONFIG_SLVERR_BLOCK_EN_MASK);

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -434,7 +434,7 @@ XStatus XPmPower_CheckPower(const XPm_Rail *Rail, u32 VoltageRailMask)
 	u32 Platform = XPm_GetPlatform();
 
 	if ((NULL == Rail) || (XPM_PGOOD_SYSMON != Rail->Source) ||
-	    (PLATFORM_VERSION_QEMU == Platform)) {
+	    (PLATFORM_VERSION_QEMU == Platform) || (PLATFORM_VERSION_COSIM == Platform)) {
 		Status = XPmPower_DetectorCheckPower(VoltageRailMask);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_POWER_SUPPLY;

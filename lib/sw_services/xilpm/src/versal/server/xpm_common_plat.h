@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -106,8 +106,6 @@ extern "C" {
 	(!PM_CHECK_MASK(PM_DISABLE_HOUSECLEAN_GET(BLOCK), HOUSECLEAN_FUNC_DISABLE_ ##FUNC## _MASK)) ||	\
 	(!PM_CHECK_MASK(PM_DISABLE_HOUSECLEAN_GET(BLOCK), HOUSECLEAN_FUNC_DISABLE_ ##FUNC## _MASK))		\
 )
-
-#define PLATFORM_VERSION_COSIM			(0x7U)
 
 #define PLATFORM_VERSION_SILICON_ES1		(0x0U)
 #define PLATFORM_VERSION_SILICON_ES2		(0x1U)

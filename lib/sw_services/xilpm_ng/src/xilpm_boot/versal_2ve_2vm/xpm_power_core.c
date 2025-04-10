@@ -799,11 +799,7 @@ XPmFwGemPwrCtrl_t Gem1PwrCtrl = {
 static XStatus XPm_PCILWaitForPstable(struct XPmFwPwrCtrl_t *Args)
 {
        XStatus Status = XST_FAILURE;
-       if ((XPm_GetPlatform() == PLATFORM_VERSION_QEMU) || (XPm_GetPlatform() == PLATFORM_VERSION_COSIM)) {
-	       /* TODO: REMOVE this when QEMU implement PCIL handshake correctly */
-	       Status = XST_SUCCESS;
-	       goto done;
-       }
+
        Status = XPm_PollForZero(Args->CorePcilAddr + APU_PCIL_CORE_PREQ_OFFSET, APU_PCIL_CORE_PREQ_MASK, ACPU_PACCEPT_TIMEOUT);
        if (XST_SUCCESS != Status) {
                XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s Waiting for PREQ to become zero failed for ACPU%d..\n", __func__, Args->Id);
