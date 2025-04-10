@@ -1352,15 +1352,30 @@ static XStatus DacUbEnable(const u32 *DacAddresses, u32 ArrLen){
 		/* Unlock PCSR */
 		XPm_UnlockPcsr(DacAddresses[i]);
 
-		XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PSCR_CONTOL_RST_N_UBLAZE_RFDC_MASK,
-			~DAC_NPI_PSCR_CONTOL_RST_N_UBLAZE_RFDC_MASK);
+		Status = XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PSCR_CONTOL_RST_N_UBLAZE_RFDC_MASK,
+				       ~DAC_NPI_PSCR_CONTOL_RST_N_UBLAZE_RFDC_MASK);
+		if (Status != XST_SUCCESS) {
+			DbgErr = XPM_INT_ERR_RST_UBLAZE;
+			goto done;
+		}
+
 		/*Turn on MB clocks */
-		XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PSCR_CONTOL_EN_UBLAZE_CLK_RFDC_MASK,
-			DAC_NPI_PSCR_CONTOL_EN_UBLAZE_CLK_RFDC_MASK);
+		Status = XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PSCR_CONTOL_EN_UBLAZE_CLK_RFDC_MASK,
+				       DAC_NPI_PSCR_CONTOL_EN_UBLAZE_CLK_RFDC_MASK);
+		if (Status != XST_SUCCESS) {
+			DbgErr = XPM_INT_ERR_CLK_UBLAZE;
+			goto done;
+		}
+
 		usleep(1);
 		/*release reset*/
-		XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PSCR_CONTOL_RST_N_UBLAZE_RFDC_MASK,
-			DAC_NPI_PSCR_CONTOL_RST_N_UBLAZE_RFDC_MASK);
+		Status = XPm_PcsrWrite(DacAddresses[i], DAC_NPI_PSCR_CONTOL_RST_N_UBLAZE_RFDC_MASK,
+				       DAC_NPI_PSCR_CONTOL_RST_N_UBLAZE_RFDC_MASK);
+		if (Status != XST_SUCCESS) {
+			DbgErr = XPM_INT_ERR_REL_RST_UBLAZE;
+			goto done;
+		}
+
 		/*check SLEEP_UBLAZE*/
 		if (DAC_NPI_PSCR_STATUS_SLEEP_UBLAZE_RFDC_MASK !=
 			(XPm_In32(DacAddresses[i] + NPI_PCSR_STATUS_OFFSET) & DAC_NPI_PSCR_STATUS_SLEEP_UBLAZE_RFDC_MASK)) {
