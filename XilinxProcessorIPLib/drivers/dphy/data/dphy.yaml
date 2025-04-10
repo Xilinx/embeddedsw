@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -21,27 +21,29 @@ properties:
     description: High address for the Dphy IP.
   xlnx,dphy-mode:
     description: Flag for dphy-mode.
-  xlnx,dphy-en-reg-if:
+  xlnx,en-reg-if:
     description: Flag for PHY enable.
   xlnx,dphy-lanes:
     description: Number of dphy lanes.
-  xlnx,dphy-esc-clk-period:
+  xlnx,esc-clk-period:
     description: Phy clock period.
-  xlnx,dphy-esc-timeout:
+  xlnx,esc-timeout:
     description: Phy esc timeout.
   xlnx,hs-line-rate:
     description: Phy hs line rate.
-  xlnx,dphy-hs-timeout:
+  xlnx,hs-timeout:
+    description: Phy hs timeout.
+  xlnx,lpx-period:
     description: Phy LPX period.
-  xlnx,dphy-stable-clk-period:
+  xlnx,stable-clk-period:
     description: Phy stable clock period.
-  xlnx,dphy-txpll-clkin-period:
+  xlnx,txpll-clkin-period:
     description: Phy TXPLL clkin period.
-  xlnx,dphy-wakeup:
+  xlnx,wakeup:
     description: Phy wakeup.
-  xlnx,dphy-en-timeout-regs:
+  xlnx,en-timeout-regs:
     description: Phy enable timeout registers.
-  xlnx,dphy-hs-settle-ns:
+  xlnx,hs-settle-ns:
     description: Phy HS settle NS.
 
 required:
@@ -49,17 +51,18 @@ required:
   - reg
   - xlnx,highaddr
   - xlnx,dphy-mode
-  - xlnx,dphy-en-reg-if
+  - xlnx,en-reg-if
   - xlnx,dphy-lanes
-  - xlnx,dphy-esc-clk-period
-  - xlnx,dphy-esc-timeout
+  - xlnx,esc-clk-period
+  - xlnx,esc-timeout
   - xlnx,hs-line-rate
-  - xlnx,dphy-hs-timeout
-  - xlnx,dphy-stable-clk-period
-  - xlnx,dphy-txpll-clkin-period
-  - xlnx,dphy-wakeup
-  - xlnx,dphy-en-timeout-regs
-  - xlnx,dphy-hs-settle-ns
+  - xlnx,hs-timeout
+  - xlnx,lpx-period
+  - xlnx,stable-clk-period
+  - xlnx,txpll-clkin-period
+  - xlnx,wakeup
+  - xlnx,en-timeout-regs
+  - xlnx,hs-settle-ns
 
 config:
   - XDphy_Config
