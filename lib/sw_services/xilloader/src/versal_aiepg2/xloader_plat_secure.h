@@ -74,6 +74,7 @@ extern "C" {
 			/**< Mask to get the value of mode in Configuration Limiter register */
 #define XLOADER_BBRAM_CL_FEATURE_EN_MASK		(0xC0000000U)
 			/**< Mask to get the value of Feature enable in Configuration Limiter register */
+#define XLOADER_CL_FEATURE_EN_SHIFT			(30U)	/**<  CL Feature Enable Shift*/
 #define XLOADER_BBRAM_CL_FAILED_CONFIGS_MODE		(0x0U)  /**< Number of failed configurations selected as mode for Configuration Limiter */
 #define XLOADER_BBRAM_CL_FEATURE_ENABLE			(0x3U)  /**< Value when Configuration Limiter feature is enabled */
 
