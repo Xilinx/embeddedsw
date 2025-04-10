@@ -4,24 +4,25 @@
 **************************************************************************************************/
 /*************************************************************************************************/
 /**
-*
-* @file xecies.c
-*
-* This file contains the implementation of the ECIES APIs.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who  Date     Changes
-* ----- ---- -------- -----------------------------------------------------------------------------
-* 1.0   yog  02/20/25 Initial release
-*       yog  03/24/25 Used XRsa_EccGeneratePrivKey() API in ECIES encryption operation.
-*       yog  04/04/25 Performing AesKeyClear operation in XEcies_AesCompute() API
-*
-* </pre>
-*
-*
-**************************************************************************************************/
+ *
+ * @file xecies.c
+ *
+ * This file contains the implementation of the ECIES APIs.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- -------- -----------------------------------------------------------------------------
+ * 1.0   yog  02/20/25 Initial release
+ *       yog  03/24/25 Used XRsa_EccGeneratePrivKey() API in ECIES encryption operation.
+ *       yog  04/04/25 Performing AesKeyClear operation in XEcies_AesCompute() API
+ *       LP   04/07/25 Added HKDF support for key generation
+ *
+ * </pre>
+ *
+ *
+ **************************************************************************************************/
 /**
 * @addtogroup xecies_server_apis ECIES Server APIs
 * @{
@@ -31,7 +32,7 @@
 #include "xecies.h"
 #include "xrsa_ecc.h"
 #include "xasu_eccinfo.h"
-#include "xkdf.h"
+#include "xhkdf.h"
 #include "xhmac.h"
 #include "xecc.h"
 #include "xrsa_ecc.h"
@@ -46,7 +47,7 @@
 /************************************ Variable Definitions ***************************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XEcies_KdfCompute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
+static s32 XEcies_HkdfGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		const XAsu_EciesParams *EciesParams, const u8* SharedSecretPtr, const u8* KOutPtr);
 static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
 		const XAsu_EciesParams *EciesParams, const u8 *Key, u8 OperationType);
@@ -71,7 +72,7 @@ static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
  * 	- XASUFW_ECIES_PVT_KEY_GEN_FAILURE, if private key generation fails.
  * 	- XASUFW_ECIES_PUB_KEY_GEN_FAILURE, if public key generation fails.
  * 	- XASUFW_ECIES_ECDH_FAILURE, if ECDH operation fails.
- * 	- XASUFW_ECIES_KDF_FAILURE, if KDF operation fails.
+ * 	- XASUFW_ECIES_HKDF_FAILURE, if HKDF operation fails.
  * 	- XASUFW_ECIES_AES_FAILURE, if AES operation fails.
  *
  *************************************************************************************************/
@@ -134,14 +135,14 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 
 	/** Generate the encryption key from the shared secret using KDF.  */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XEcies_KdfCompute(DmaPtr, ShaInstancePtr, EciesParams, SharedSecret, KOut);
+	Status = XEcies_HkdfGenerate(DmaPtr, ShaInstancePtr, EciesParams, SharedSecret, KOut);
 
 	/** Zeroize the shared secret immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, SharedSecret,
 			XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_KDF_FAILURE);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_HKDF_FAILURE);
 		goto END;
 	}
 
@@ -179,7 +180,7 @@ END:
  * 	- XASUFW_SUCCESS, if ECIES decryption is successful.
  * 	- XASUFW_ECIES_INVALID_PARAM, if input parameters are invalid.
  * 	- XASUFW_ECIES_ECDH_FAILURE, if ECDH operation fails.
- * 	- XASUFW_ECIES_KDF_FAILURE, if KDF operation fails.
+ * 	- XASUFW_ECIES_HKDF_FAILURE, if HKDF operation fails.
  * 	- XASUFW_ECIES_AES_FAILURE, if AES operation fails.
  *
  *************************************************************************************************/
@@ -217,14 +218,14 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 
 	/** Generate the decryption key from the shared secret using KDF.  */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XEcies_KdfCompute(DmaPtr, ShaInstancePtr, EciesParams,	SharedSecret, KOut);
+	Status = XEcies_HkdfGenerate(DmaPtr, ShaInstancePtr, EciesParams, SharedSecret, KOut);
 
 	/** Zeroize the shared secret immediately after use. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcies, ClearStatus, SharedSecret,
 		XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	if ((Status != XASUFW_SUCCESS) || (ClearStatus != XASUFW_SUCCESS)) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_KDF_FAILURE);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_HKDF_FAILURE);
 		goto END;
 	}
 
@@ -251,7 +252,7 @@ END:
 /*************************************************************************************************/
 /**
  *
- * @brief	This function performs the KDF operation as part of ECIES.
+ * @brief	This function performs the HKDF operation as part of ECIES.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	ShaInstancePtr	Pointer to the XSha instance.
@@ -260,32 +261,34 @@ END:
  * @param	KOutPtr		Pointer to store the key out.
  *
  * @return
- * 	- XASUFW_SUCCESS, if KDF compute operation is successful.
- * 	- Errors codes from KDF, if KDF operation fails.
+ * 	- XASUFW_SUCCESS, if HKDF Generate operation is successful.
+ * 	- Errors codes from HKDF, if HKDF operation fails.
  *
  *************************************************************************************************/
-static s32 XEcies_KdfCompute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
+static s32 XEcies_HkdfGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		const XAsu_EciesParams *EciesParams, const u8* SharedSecretPtr, const u8* KOutPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XAsu_KdfParams KdfParams;
+	XAsu_HkdfParams HkdfParams;
 
-	/** Provide inputs to XAsu_KdfParams structure. */
+	/** Provide inputs to XAsu_HkdfParams structure. */
 	if (EciesParams->AesKeySize == XASU_AES_KEY_SIZE_128_BITS) {
-		KdfParams.KeyOutLen = XASU_AES_KEY_SIZE_128BIT_IN_BYTES;
+		HkdfParams.KdfParams.KeyOutLen = XASU_AES_KEY_SIZE_128BIT_IN_BYTES;
 	} else {
-		KdfParams.KeyOutLen = XASU_AES_KEY_SIZE_256BIT_IN_BYTES;
+		HkdfParams.KdfParams.KeyOutLen = XASU_AES_KEY_SIZE_256BIT_IN_BYTES;
 	}
-	KdfParams.ShaType = (u16)EciesParams->ShaType;
-	KdfParams.ShaMode = (u32)EciesParams->ShaMode;
-	KdfParams.KeyInAddr = (u64)(UINTPTR)SharedSecretPtr;
-	KdfParams.KeyInLen = (u32)EciesParams->EccKeyLength;
-	KdfParams.KeyOutAddr = (u64)(UINTPTR)KOutPtr;
-	KdfParams.ContextAddr = EciesParams->ContextAddr;
-	KdfParams.ContextLen = EciesParams->ContextLen;
+	HkdfParams.KdfParams.ShaType = (u16)EciesParams->ShaType;
+	HkdfParams.KdfParams.ShaMode = (u32)EciesParams->ShaMode;
+	HkdfParams.KdfParams.KeyInAddr = (u64)(UINTPTR)SharedSecretPtr;
+	HkdfParams.KdfParams.KeyInLen = (u32)EciesParams->EccKeyLength;
+	HkdfParams.KdfParams.KeyOutAddr = (u64)(UINTPTR)KOutPtr;
+	HkdfParams.KdfParams.ContextAddr = EciesParams->ContextAddr;
+	HkdfParams.KdfParams.ContextLen = EciesParams->ContextLen;
+	HkdfParams.SaltAddr = (u64)(UINTPTR)EciesParams->SaltAddr;
+	HkdfParams.SaltLen = EciesParams->SaltLen;
 
-	/** Perform KDF compute operation. */
-	Status = XKdf_Compute(DmaPtr, ShaInstancePtr, &KdfParams);
+	/** Perform HKDF operation. */
+	Status = XHkdf_Generate(DmaPtr, ShaInstancePtr, &HkdfParams);
 
 	return Status;
 }
