@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -135,7 +136,7 @@ static XStatus PmcMioFlush(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 }
 
 static const struct XPm_PowerDomainOps PmcOps = {
-	.MioFlush = PmcMioFlush
+	.MioFlush = &PmcMioFlush
 };
 
 XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id, XPm_Power *Parent)
@@ -154,7 +155,7 @@ XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id, XPm_Power *Parent)
 	PmcDomain->Domain.Power.UseCount = 1;
 
 	HandlePowerEvent = PmcDomain->Domain.Power.HandleEvent;
-	PmcDomain->Domain.Power.HandleEvent = HandlePmcDomainEvent;
+	PmcDomain->Domain.Power.HandleEvent = &HandlePmcDomainEvent;
 
 	/* For all domain, rail stats are updated with init node finish. For
 	pmc domain, init node commands are not received so update here */

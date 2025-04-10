@@ -52,7 +52,7 @@
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
 		Status = XPlmi_GicRegisterHandler(GicId, SrcId, \
-				XPm_DispatchWakeHandler, (void *)(NodeId)); \
+				&XPm_DispatchWakeHandler, (void *)(NodeId)); \
 		if (Status != XST_SUCCESS) {\
 			goto END;\
 		}\
@@ -785,7 +785,7 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 
 		}
 		XPlmi_LpdInit();
 #ifdef XPLMI_IPI_DEVICE_ID
-		Status = XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask, XPm_ProcessPsmCmd);
+		Status = XPlmi_IpiInit(&XPmSubsystem_GetSubSysIdByIpiMask, &XPm_ProcessPsmCmd);
 		if (XST_SUCCESS != Status) {
 			PmErr("Error %u in IPI initialization\r\n", Status);
 		}

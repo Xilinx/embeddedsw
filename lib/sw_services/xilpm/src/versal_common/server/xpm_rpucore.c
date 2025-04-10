@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,8 +67,8 @@ done:
 }
 
 static struct XPm_CoreOps RpuOps = {
-	.RequestWakeup = XPmRpuCore_WakeUp,
-	.PowerDown = XPmRpuCore_PwrDwn,
+	.RequestWakeup = &XPmRpuCore_WakeUp,
+	.PowerDown = &XPmRpuCore_PwrDwn,
 };
 
 

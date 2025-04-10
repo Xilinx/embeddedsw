@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -724,14 +724,14 @@ done:
 }
 
 static const struct XPm_PowerDomainOps LpdOps = {
-	.InitStart = LpdInitStart,
-	.InitFinish = LpdInitFinish,
-	.ScanClear = LpdScanClear,
-	.Mbist = LpdMbist,
-	.Lbist = LpdLbist,
-	.Bisr = LpdBisr,
-	.HcComplete = LpdHcComplete,
-	.MioFlush = LpdMioFlush,
+	.InitStart = &LpdInitStart,
+	.InitFinish = &LpdInitFinish,
+	.ScanClear = &LpdScanClear,
+	.Mbist = &LpdMbist,
+	.Lbist = &LpdLbist,
+	.Bisr = &LpdBisr,
+	.HcComplete = &LpdHcComplete,
+	.MioFlush = &LpdMioFlush,
 	/* Mask to indicate which Ops are present */
 	.InitMask = (BIT16(FUNC_INIT_START) |
 		     BIT16(FUNC_INIT_FINISH) |

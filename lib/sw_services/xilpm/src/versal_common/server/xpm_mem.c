@@ -63,7 +63,7 @@ static XStatus HandleMemDeviceState(XPm_Device* const Device, const u32 NextStat
 static const XPm_DeviceFsm XPmMemDeviceFsm = {
 	DEFINE_DEV_STATES(XPmMemDeviceStates),
 	DEFINE_DEV_TRANS(XPmMemDevTransitions),
-	.EnterState = HandleMemDeviceState,
+	.EnterState = &HandleMemDeviceState,
 };
 
 static void TcmEccInit(const XPm_MemDevice *Tcm, u32 Mode)
@@ -155,7 +155,7 @@ done:
 static const XPm_DeviceFsm XPmTcmDeviceFsm = {
 	DEFINE_DEV_STATES(XPmMemDeviceStates),
 	DEFINE_DEV_TRANS(XPmMemDevTransitions),
-	.EnterState = HandleTcmDeviceState,
+	.EnterState = &HandleTcmDeviceState,
 };
 
 XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
