@@ -38,6 +38,9 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#ifdef SDT
+#include "xasu_bsp_config.h"
+#endif
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_DOUBLE_CURVE_LENGTH_SHIFT		(0x1U) /**< Shift value to double the curve length */

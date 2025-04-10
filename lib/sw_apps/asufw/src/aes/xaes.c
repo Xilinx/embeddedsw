@@ -354,7 +354,11 @@ s32 XAes_CfgInitialize(XAes *InstancePtr)
 	/** Initialize AES instance. */
 	InstancePtr->AesBaseAddress = CfgPtr->AesBaseAddress;
 	InstancePtr->KeyBaseAddress = CfgPtr->KeyBaseAddress;
-	InstancePtr->AesCmConfig = XASUFW_AES_CM_CONFIG;
+#ifdef XASU_AES_CM_ENABLE
+	InstancePtr->AesCmConfig = XASUFW_CONFIG_ENABLE;
+#else
+	InstancePtr->AesCmConfig = XASUFW_CONFIG_DISABLE;
+#endif
 	InstancePtr->AesState = XAES_INITIALIZED;
 
 	Status = XASUFW_SUCCESS;
@@ -1716,7 +1720,7 @@ static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen)
 		 * If AES DPA CM is enabled then, read MAC from both MAC_OUT and MAC_MASK_OUT registers,
 		 * If disabled, no need to read the MAC_MASK_OUT register as it contains zeros.
 		 */
-#ifdef XASUFW_AES_CM_CONFIG
+#ifdef XASU_AES_CM_ENABLE
 		TagPtr[Index] ^= Xil_EndianSwap32(XAsufw_ReadReg(InstancePtr->AesBaseAddress +
 						  (XAES_MAC_MASK_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
 #endif
@@ -1756,7 +1760,7 @@ static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLe
 		 * If AES DPA CM is enabled then, read MAC from both MAC_OUT and MAC_MASK_OUT registers,
 		 * If disabled, no need to read the MAC_MASK_OUT register as it contains zeros.
 		 */
-#ifdef XASUFW_AES_CM_CONFIG
+#ifdef XASU_AES_CM_ENABLE
 		ReadReg ^= Xil_EndianSwap32(XAsufw_ReadReg(InstancePtr->AesBaseAddress +
 					    (XAES_MAC_MASK_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
 #endif

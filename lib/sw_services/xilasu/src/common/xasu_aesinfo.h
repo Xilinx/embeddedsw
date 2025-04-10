@@ -36,6 +36,9 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#ifdef SDT
+#include "xasu_bsp_config.h"
+#endif
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_AES_BLOCK_SIZE_IN_BYTES			(16U) /**< AES block size in bytes */

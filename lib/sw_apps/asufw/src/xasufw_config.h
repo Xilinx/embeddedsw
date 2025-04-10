@@ -57,12 +57,6 @@ extern "C" {
 									configuration */
 #define XASUFW_PMXC_EFUSE_USER_KEY_1 	(XASUFW_EFUSE_RED_KEY) /**< PMX eFuse user key 1
 									configuration */
-
-/* Counter measures configurations options */
-#define XASUFW_ECC_CM_CONFIG		(XASUFW_CONFIG_ENABLE) /**< Counter Measure configuration
-									for ECC */
-#define XASUFW_AES_CM_CONFIG		(XASUFW_CONFIG_ENABLE) /**< Counter Measure configuration
-									for AES */
 /**
  * @name Supported ECC curves
  * @{
