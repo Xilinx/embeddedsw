@@ -35,6 +35,7 @@
 *       ng   09/20/2024 Fixed doxygen grouping
 * 3.5   pre  11/21/2024 Removed zeroization before writing key
 * 3.5   hj   26/03/2025 Return explicit error code on General Purpose BBRAM8 write request in SB
+*       har  04/10/2025 Modified to read user data from XNVM_BBRAM_8_MEM_REG for versal_2ve_2vm
 *
 * </pre>
 *
@@ -273,7 +274,17 @@ static int XNvm_BbramWriteBbram8(u32 Data)
 		 * Else write user data to BBRAM and Return XST_SUCCESS
 		 */
 		XNvm_BbramWriteReg(XNVM_BBRAM_8_REG, Data);
+
+		/**
+		 * Read back the user data to verify if the data is correctly programmed.
+		 * For versal_2ve_2vm devices, the data should be written in BBRAM_8 register and
+		 * read from BBRAM_8_MEM register.
+		 */
+#ifndef VERSAL_AIEPG2
 		ReadReg = XNvm_BbramReadReg(XNVM_BBRAM_8_REG);
+#else
+		ReadReg = XNvm_BbramReadReg(XNVM_BBRAM_8_MEM_REG);
+#endif
 		if (ReadReg == Data) {
 			Status = XST_SUCCESS;
 		}
@@ -333,7 +344,12 @@ u32 XNvm_BbramReadUsrData(void)
 	/**
 	 * Read the 32 bit user data from the BBRAM_8 register and return it
 	 */
+#ifndef VERSAL_AIEPG2
 	return XNvm_BbramReadReg(XNVM_BBRAM_8_REG);
+#else
+	return XNvm_BbramReadReg(XNVM_BBRAM_8_MEM_REG);
+#endif
+
 }
 
 /******************************************************************************/
