@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -510,11 +510,11 @@ XStatus XPmAccess_ReadReg(u32 SubsystemId, u32 DeviceId,
 	 * - PSM_TMR_MANAGER
 	 * - PSM_TMR_INJECT
 	 */
-	if ((RegAddress >= PSM_LOCAL_REG_BASEADDR 				&& (RegAddress <= PSM_LOCAL_REG_BASEADDR + PSM_LOCAL_REG_SIZE)) ||
-		(RegAddress >= PSM_RAM_INSTR_ECC_CTRL_REG_BASEADDR	&& (RegAddress <= PSM_RAM_INSTR_ECC_CTRL_REG_BASEADDR + PSM_RAM_INSTR_ECC_CTRL_SIZE)) ||
-		(RegAddress >= PSM_RAM_DATA_ECC_CTRL_REG_BASEADDR 	&& (RegAddress <= PSM_RAM_DATA_ECC_CTRL_REG_BASEADDR + PSM_RAM_DATA_ECC_CTRL_SIZE)) ||
-		(RegAddress >= PSM_TMR_MANAGER_REG_BASEADDR 		&& (RegAddress <= PSM_TMR_MANAGER_REG_BASEADDR + PSM_TMR_MANAGER_SIZE)) ||
-		(RegAddress >= PSM_TMR_INJECT_REG_BASEADDR			&& (RegAddress <= PSM_TMR_INJECT_REG_BASEADDR + PSM_TMR_INJECT_SIZE))) {
+	if (((RegAddress >= PSM_LOCAL_REG_BASEADDR) && (RegAddress <= (PSM_LOCAL_REG_BASEADDR + PSM_LOCAL_REG_SIZE))) ||
+	    ((RegAddress >= PSM_RAM_INSTR_ECC_CTRL_REG_BASEADDR) && (RegAddress <= (PSM_RAM_INSTR_ECC_CTRL_REG_BASEADDR + PSM_RAM_INSTR_ECC_CTRL_SIZE))) ||
+	    ((RegAddress >= PSM_RAM_DATA_ECC_CTRL_REG_BASEADDR)	&& (RegAddress <= (PSM_RAM_DATA_ECC_CTRL_REG_BASEADDR + PSM_RAM_DATA_ECC_CTRL_SIZE))) ||
+	    ((RegAddress >= PSM_TMR_MANAGER_REG_BASEADDR) && (RegAddress <= (PSM_TMR_MANAGER_REG_BASEADDR + PSM_TMR_MANAGER_SIZE))) ||
+	    ((RegAddress >= PSM_TMR_INJECT_REG_BASEADDR) && (RegAddress <= (PSM_TMR_INJECT_REG_BASEADDR + PSM_TMR_INJECT_SIZE)))) {
 #ifdef XPM_ENABLE_PLM_TO_PSM_FORWARDING
 		Status = XPm_ReadAccessForwarding(BaseAddress, Offset, &DataIn);
 		*Response = DataIn;
