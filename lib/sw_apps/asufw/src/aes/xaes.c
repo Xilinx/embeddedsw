@@ -26,6 +26,7 @@
  *       am   03/14/25 Updated doxygen comments
  *       am   04/01/25 Add key read-back verification for key integrity.
  *       yog  04/04/25 Added XAes_KeyClear() API
+ *       am   04/10/25 Fixed incorrect AES base address usage in XAes_DecryptEfuseBlackKey()
  *
  * </pre>
  *
@@ -1129,7 +1130,7 @@ s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeyS
 	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_OPERATION_OFFSET), XAES_KEY_LOAD_MASK);
 
 	/** Trigger the key decryption operation. */
-	XAsufw_WriteReg((InstancePtr->KeyBaseAddress + XAES_KEY_DEC_TRIG_OFFSET),
+	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_KEY_DEC_TRIG_OFFSET),
 		XAES_KEY_DEC_TRIG_MASK);
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -1921,7 +1922,7 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 
 	if (OutDataAddr != XAES_AAD_UPDATE_NO_OUTPUT_ADDR) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		/** Incase of AES data,
+		/** In case of AES data,
 		 * - Wait till the ASU destination DMA done bit to set.
 		 */
 		Status = XAsuDma_WaitForDoneTimeout(&InstancePtr->AsuDmaPtr->AsuDma,
