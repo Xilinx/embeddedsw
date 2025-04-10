@@ -534,7 +534,7 @@ int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
 	volatile int AHwRotStatusTmp;
 	u32 ReadCfgLimiterReg = XPlmi_In32(XLOADER_BBRAM_8_MEM_ADDRESS);
 	u32 MaxConfigsCnt = ReadCfgLimiterReg & XLOADER_BBRAM_CL_COUNTER_MASK;
-	u32 ClFeatureEn = ReadCfgLimiterReg & XLOADER_BBRAM_CL_FEATURE_EN_MASK;
+	u32 ClFeatureEn = (ReadCfgLimiterReg & XLOADER_BBRAM_CL_FEATURE_EN_MASK) >> XLOADER_CL_FEATURE_EN_SHIFT;
 
 	if ((UpdateFlag != XLOADER_BBRAM_CL_INCREMENT_COUNT) && (UpdateFlag != XLOADER_BBRAM_CL_DECREMENT_COUNT)) {
 		goto END;
