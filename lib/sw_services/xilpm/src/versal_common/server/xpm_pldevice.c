@@ -908,6 +908,13 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	/* DDRMC address region count */
 	MCDev->RegionCount = (u8)(Args[1U] & 0xFFU);
 
+	/* Ensure RegionCount does not exceed array bounds */
+	if (MCDev->RegionCount > ARRAY_SIZE(MCDev->Region)) {
+		Status = XST_FAILURE;
+		DbgErr = XPM_INT_ERR_OUT_OF_RANGE;
+		goto done;
+	}
+
 	/* DDRMC interleave size and index */
 	MCDev->IntlvSize = (u8)((Args[1U] >> 8U) & 0xFFU);
 	MCDev->IntlvIndex = (u8)((Args[1U] >> 16U) & 0xFU);

@@ -882,10 +882,18 @@ XStatus XPmIoctl_AddRegPermission(const XPm_Subsystem *Subsystem, u32 DeviceId,
 		case (u32)XPM_NODETYPE_DEV_PGGS:
 			/* Normalize to permissions indices range for PGGS */
 			RegNum -= (u32)XPM_NODEIDX_DEV_PGGS_0;
+			if (RegNum >= ARRAY_SIZE(PggsReadPermissions)) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
 			ReadPerm =  &PggsReadPermissions[RegNum];
 			WritePerm = &PggsWritePermissions[RegNum];
 			break;
 		case (u32)XPM_NODETYPE_DEV_GGS:
+			if (RegNum >= ARRAY_SIZE(GgsReadPermissions)) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
 			ReadPerm =  &GgsReadPermissions[RegNum];
 			WritePerm = &GgsWritePermissions[RegNum];
 			break;

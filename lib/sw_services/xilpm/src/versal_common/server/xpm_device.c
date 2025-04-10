@@ -1545,52 +1545,42 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 {
 	XPm_Device *Device = NULL;
 	XPm_Device **DevicesHandle = NULL;
+	u32 MaxIndex = 0;
 
 	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		goto done;
 	}
 
 	if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(DeviceId)) {
-		if ((u32)XPM_NODEIDX_DEV_PLD_MAX <= NODEINDEX(DeviceId)) {
-			goto done;
-		}
+		MaxIndex = XPM_NODEIDX_DEV_PLD_MAX;
 		DevicesHandle = PmPlDevices;
-
 	} else if (((u32)XPM_NODETYPE_DEV_GGS == NODETYPE(DeviceId)) ||
 		   ((u32)XPM_NODETYPE_DEV_PGGS == NODETYPE(DeviceId))) {
-		if ((u32)XPM_NODEIDX_DEV_VIRT_MAX <= NODEINDEX(DeviceId)) {
-			goto done;
-		}
+		MaxIndex = XPM_NODEIDX_DEV_VIRT_MAX;
 		DevicesHandle = PmVirtualDevices;
 	} else if (((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(DeviceId)) &&
 		   ((u32)XPM_NODETYPE_DEV_HB_MON == NODETYPE(DeviceId))) {
-		if ((u32)XPM_NODEIDX_DEV_HB_MON_MAX <= NODEINDEX(DeviceId)) {
-			goto done;
-		}
+		MaxIndex = XPM_NODEIDX_DEV_HB_MON_MAX;
 		DevicesHandle = PmHbMonDevices;
 	} else if ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(DeviceId)) {
-		if ((u32)XPM_NODEIDX_DEV_AIE_MAX <= NODEINDEX(DeviceId)) {
-			goto done;
-		}
+		MaxIndex = XPM_NODEIDX_DEV_AIE_MAX;
 		DevicesHandle = PmAieDevices;
 	} else if (((u32)XPM_NODESUBCL_DEV_MEM_REGN == NODESUBCLASS(DeviceId)) &&
 			((u32)XPM_NODETYPE_DEV_MEM_REGN == NODETYPE(DeviceId))) {
-		if ((u32)XPM_NODEIDX_DEV_MEM_REGN_MAX < NODEINDEX(DeviceId)) {
-			goto done;
-		}
+		MaxIndex = XPM_NODEIDX_DEV_MEM_REGN_MAX;
 		DevicesHandle = PmMemRegnDevices;
 	} else {
-		if ((u32)XPM_NODEIDX_DEV_MAX <= NODEINDEX(DeviceId)) {
-			goto done;
-		}
+		MaxIndex = XPM_NODEIDX_DEV_MAX;
 		DevicesHandle = PmDevices;
 	}
 
-	/* Retrieve the device */
-	Device = DevicesHandle[NODEINDEX(DeviceId)];
-	/* Check that Device's ID is same as given ID or not. */
-	if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
-		Device = NULL;
+	if ((DevicesHandle != NULL) && (NODEINDEX(DeviceId) < MaxIndex)) {
+		/* Retrieve the device */
+		Device = DevicesHandle[NODEINDEX(DeviceId)];
+		/* Check that Device's ID is same as given ID or not. */
+		if ((NULL != Device) && (DeviceId != Device->Node.Id)) {
+			Device = NULL;
+		}
 	}
 
 done:
