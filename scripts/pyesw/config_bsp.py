@@ -13,6 +13,7 @@ from build_bsp import BSP
 from library_utils import Library
 from regen_bsp import regenerate_bsp
 from validate_hw import ValidateHW
+from create_bsp import lop_create_target
 
 logger = utils.get_logger(__name__)
 
@@ -159,6 +160,38 @@ def configure_bsp(args):
         for key, value in prop_dict[lib_name].items():
             logger.debug(f"Setting {key} to {value}")
             cmake_cmd_append += f' -D{key}="{value}"'
+            if key == "standalone_hypervisor_guest" or key == "freertos_hypervisor_guest":
+                xen_config_lops_file = os.path.join(obj.domain_path, "hw_artifacts", "lop-xen-config.dts")
+                drv_path = obj.get_comp_dir("scugic")
+                drv_srcdir = os.path.join(drv_path, "src")
+                drvsrc = os.path.join(obj.libsrc_folder, "scugic", "src")
+                if utils.is_dir(drvsrc):
+                    if not utils.is_file(xen_config_lops_file):
+                        lop_cmds = []
+                        lop_cmds.append([obj.include_folder, "module,baremetal_xparameters_xlnx", f"{obj.proc} {obj.repo_yaml_path}"])
+                        lop_cmds.append([drvsrc, "module,baremetalconfig_xlnx", f"{obj.proc} {drv_srcdir}"])
+                        if obj.os == "freertos":
+                            lib = "freertos10_xilinx"
+                            lib_dir_path = obj.get_comp_dir(lib)
+                            srcdir = os.path.join(lib_dir_path, "src")
+                            dstdir = os.path.join(obj.libsrc_folder, f"{lib}/src")
+                            outfile = f"{lib}Example.cmake"
+                            lop_cmds.append([dstdir, "module,bmcmake_metadata_xlnx", f"{obj.proc} {srcdir} hwcmake_metadata {obj.repo_yaml_path}"])
+                        utils.write_into_file(xen_config_lops_file, lop_create_target(lop_cmds))
+                    if value == "true":
+                        utils.runcmd(
+                            f"lopper -O {obj.domain_path} -i lop-gic-el1.dts -i {xen_config_lops_file} -f {obj.sdt}",
+                            log_message = "Generating required metadata EL1 NS use case",
+                            error_message = "Overall metadata generation failed",
+                            verbose_level = 0
+                        )
+                    elif value == "false":
+                        utils.runcmd(
+                            f"lopper -O {obj.domain_path} -i {xen_config_lops_file} -f {obj.sdt}",
+                            log_message = "Generating required metadata for EL1 NS use case",
+                            error_message = "Overall metadata generation failed",
+                            verbose_level = 0
+                        )
 
         # configure the lib build area with new params
         build_metadata = os.path.join(obj.libsrc_folder, "build_configs/gen_bsp")

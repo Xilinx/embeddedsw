@@ -153,10 +153,6 @@ add_library(xilstandalone STATIC ${_sources} ${ASM_O_FILES})
 else()
 add_library(xilstandalone STATIC ${_sources})
 endif()
-if (NOT ${YOCTO}
-    AND ("${CMAKE_SYSTEM_NAME}" STREQUAL "FreeRTOS"))
-    target_compile_definitions(xilstandalone PRIVATE FREERTOS_BSP)
-endif()
 set_target_properties(xilstandalone PROPERTIES LINKER_LANGUAGE C)
 
 install(TARGETS xilstandalone LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})

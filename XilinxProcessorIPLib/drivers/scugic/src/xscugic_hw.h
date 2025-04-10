@@ -527,8 +527,13 @@ extern "C" {
 #define XSCUGIC_RDIST_START_ADDR        0xE2100000U
 #define XSCUGIC_RDIST_END_ADDR          0xE2130000U
 #else
+#if EL1_NONSECURE
+#define XSCUGIC_RDIST_START_ADDR        0x03020000U
+#define XSCUGIC_RDIST_END_ADDR          0x03040000U
+#else
 #define XSCUGIC_RDIST_START_ADDR        0xF9080000U
 #define XSCUGIC_RDIST_END_ADDR          0xF90B0000U
+#endif
 #endif
 #define XSCUGIC_RDIST_OFFSET		0x20000U /* offset between consecutive redistributors */
 #define XSCUGIC_RDIST_SGI_PPI_OFFSET	0x10000U  /* offset between control redistributor and SGI/PPI redistributor */
