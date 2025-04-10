@@ -2463,8 +2463,8 @@ done:
 }
 
 static const struct XPm_PowerDomainOps PlDomainOps = {
-	.InitStart = PldInitStart,
-	.InitFinish = PldInitFinish,
+	.InitStart = &PldInitStart,
+	.InitFinish = &PldInitFinish,
 	.PlHouseclean = NULL,
 	/* Mask to indicate which Ops are present */
 	.InitMask = (BIT16(FUNC_INIT_START) |

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -125,8 +125,8 @@ done:
 }
 
 static struct XPm_CoreOps PsmOps = {
-	.RequestWakeup = XPmPsm_WakeUp,
-	.PowerDown = XPmPsm_PowerDown,
+	.RequestWakeup = &XPmPsm_WakeUp,
+	.PowerDown = &XPmPsm_PowerDown,
 };
 
 XStatus XPmPsm_Init(XPm_Psm *Psm,

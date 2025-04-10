@@ -778,13 +778,13 @@ static XStatus HandleDeviceState(XPm_Device* const Device, const u32 NextState)
 static const XPm_DeviceFsm XPmGenericDeviceFsm = {
 	DEFINE_DEV_STATES(XPmGenericDeviceStates),
 	DEFINE_DEV_TRANS(XPmGenericDevTransitions),
-	.EnterState = HandleDeviceState,
+	.EnterState = &HandleDeviceState,
 };
 
 static const XPm_DeviceFsm XPmVirtDevFsm = {
 	DEFINE_DEV_STATES(XPmGenericDeviceStates),
 	DEFINE_DEV_TRANS(XPmVirtDev_VirtDevTransitions),
-	.EnterState = HandleDeviceState,
+	.EnterState = &HandleDeviceState,
 };
 
 static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState)
@@ -1272,11 +1272,11 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		goto done;
 	}
 
-	Device->HandleEvent = HandleDeviceEvent;
+	Device->HandleEvent = &HandleDeviceEvent;
 
-	PmDeviceOps.Request = DevRequest;
-	PmDeviceOps.SetRequirement = SetDevRequirement;
-	PmDeviceOps.Release = DevRelease;
+	PmDeviceOps.Request = &DevRequest;
+	PmDeviceOps.SetRequirement = &SetDevRequirement;
+	PmDeviceOps.Release = &DevRelease;
 	Device->DeviceOps = &PmDeviceOps;
 	if (NULL == Device->DeviceFsm) {
 		Device->DeviceFsm = &XPmGenericDeviceFsm;

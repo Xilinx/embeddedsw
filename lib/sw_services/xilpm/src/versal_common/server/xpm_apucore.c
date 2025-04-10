@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,8 +37,8 @@ static XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
 }
 
 static struct XPm_CoreOps ApuOps = {
-	.RequestWakeup = XPmApuCore_WakeUp,
-	.PowerDown = XPmApuCore_PwrDwn,
+	.RequestWakeup = &XPmApuCore_WakeUp,
+	.PowerDown = &XPmApuCore_PwrDwn,
 };
 
 XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,

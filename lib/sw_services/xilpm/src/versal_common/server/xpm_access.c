@@ -228,14 +228,14 @@ static XStatus XPmAccess_EnforcePolicy(u32 SubsystemId, pm_ioctl_id IoctlId,
 				   XPm_NodeAccessTypes AccessType,
 				   const XPm_NodeAccessMatch *const Match);
 	} AccessPolicy[ACCESS_TYPE_MAX] = {
-		[ACCESS_ANY_RO] = { .Handler = XPmAccess_AnyHandler },
-		[ACCESS_ANY_RW] = { .Handler = XPmAccess_AnyHandler },
-		[ACCESS_SEC_RO] = { .Handler = XPmAccess_SecHandler },
-		[ACCESS_SEC_RW] = { .Handler = XPmAccess_SecHandler },
-		[ACCESS_SEC_NS_SUBSYS_RO] = { .Handler = XPmAccess_NSecSubsysHandler },
-		[ACCESS_SEC_NS_SUBSYS_RW] = { .Handler = XPmAccess_NSecSubsysHandler },
-		[ACCESS_SEC_SUBSYS_RO] = { .Handler = XPmAccess_SecSubsysHandler },
-		[ACCESS_SEC_SUBSYS_RW] = { .Handler = XPmAccess_SecSubsysHandler },
+		[ACCESS_ANY_RO] = { .Handler = &XPmAccess_AnyHandler },
+		[ACCESS_ANY_RW] = { .Handler = &XPmAccess_AnyHandler },
+		[ACCESS_SEC_RO] = { .Handler = &XPmAccess_SecHandler },
+		[ACCESS_SEC_RW] = { .Handler = &XPmAccess_SecHandler },
+		[ACCESS_SEC_NS_SUBSYS_RO] = { .Handler = &XPmAccess_NSecSubsysHandler },
+		[ACCESS_SEC_NS_SUBSYS_RW] = { .Handler = &XPmAccess_NSecSubsysHandler },
+		[ACCESS_SEC_SUBSYS_RO] = { .Handler = &XPmAccess_SecSubsysHandler },
+		[ACCESS_SEC_SUBSYS_RW] = { .Handler = &XPmAccess_SecSubsysHandler },
 	};
 
 	switch (AccessType) {

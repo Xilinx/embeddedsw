@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,7 +28,7 @@
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 static struct XPm_PeriphOps GenericOps = {
-	.SetWakeupSource = XPmGicProxy_WakeEventSet,
+	.SetWakeupSource = &XPmGicProxy_WakeEventSet,
 };
 
 /*
@@ -156,7 +156,7 @@ done:
 static const XPm_DeviceFsm XPmHbMonDeviceFsm = {
 	DEFINE_DEV_STATES(XPmHbMonDeviceStates),
 	DEFINE_DEV_TRANS(XPmHbMonDevTransitions),
-	.EnterState = HandleHbMonDeviceState,
+	.EnterState = &HandleHbMonDeviceState,
 };
 
 XStatus XPmHbMonDev_Init(XPm_Device *Device, u32 Id, XPm_Power *Power)
@@ -189,7 +189,7 @@ static XStatus HbMon_StartTimer(u32 HbMonIdx, u32 TimeoutVal)
 		/*
 		 * Start the scheduler if not running
 		 */
-		Status = XPlmi_SchedulerAddTask(HbMon_SchedId, HbMon_Scheduler,
+		Status = XPlmi_SchedulerAddTask(HbMon_SchedId, &HbMon_Scheduler,
 						NULL, HbMon_SchedFreq, XPLM_TASK_PRIORITY_0,
 						NULL, XPLMI_PERIODIC_TASK);
 		if (XST_SUCCESS != Status) {
@@ -305,7 +305,7 @@ static int HbMon_Scheduler(void *data)
 	 * during this pass.
 	 */
 	if (ActiveMonitors == 0U) {
-		Status = XPlmi_SchedulerRemoveTask(HbMon_SchedId, HbMon_Scheduler,
+		Status = XPlmi_SchedulerRemoveTask(HbMon_SchedId, &HbMon_Scheduler,
 							HbMon_SchedFreq, NULL);
 		if (XST_SUCCESS == Status) {
 			HbMon_IsSchedRunning = 0U;

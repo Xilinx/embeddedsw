@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -142,7 +142,7 @@ EXPORT_DS(XPm_GicProxyGroups, \
 XPm_GicProxy_t XPm_GicProxy = {
 	.Groups = XPm_GicProxyGroups,
 	.GroupsCnt = ARRAY_SIZE(XPm_GicProxyGroups),
-	.Clear = XPmGicProxy_Clear,
-	.Enable = XPmGicProxy_Enable,
+	.Clear = &XPmGicProxy_Clear,
+	.Enable = &XPmGicProxy_Enable,
 	.Flags = 0U,
 };

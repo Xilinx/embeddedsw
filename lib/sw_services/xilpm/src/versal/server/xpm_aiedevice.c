@@ -115,7 +115,7 @@ done:
 static const XPm_DeviceFsm XPmAieDeviceFsm = {
 	DEFINE_DEV_STATES(AieDeviceStates),
 	DEFINE_DEV_TRANS(AieDeviceTransitions),
-	.EnterState = HandleAieDeviceState,
+	.EnterState = &HandleAieDeviceState,
 };
 
 /****************************************************************************/
@@ -211,8 +211,8 @@ static XStatus AieDeviceInitFinish(const XPm_AieDevice *AieDevice, const u32 *Ar
 }
 
 static struct XPm_AieInitNodeOps AieDeviceOps = {
-	.InitStart = AieDeviceInitStart,
-	.InitFinish = AieDeviceInitFinish,
+	.InitStart = &AieDeviceInitStart,
+	.InitFinish = &AieDeviceInitFinish,
 };
 
 /****************************************************************************/

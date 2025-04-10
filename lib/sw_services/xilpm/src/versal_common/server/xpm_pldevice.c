@@ -517,7 +517,7 @@ done:
 static const XPm_DeviceFsm XPmPlDeviceFsm = {
 	DEFINE_DEV_STATES(PlDeviceStates),
 	DEFINE_DEV_TRANS(PlDeviceTransitions),
-	.EnterState = HandlePlDeviceState,
+	.EnterState = &HandlePlDeviceState,
 };
 
 /****************************************************************************/
@@ -944,9 +944,9 @@ done:
 }
 
 static struct XPm_PldInitNodeOps PldOps = {
-	.InitStart = PlInitStart,
-	.InitFinish = PlInitFinish,
-	.MemCtrlrMap = PldMemCtrlrMap,
+	.InitStart = &PlInitStart,
+	.InitFinish = &PlInitFinish,
+	.MemCtrlrMap = &PldMemCtrlrMap,
 };
 
 /****************************************************************************/
