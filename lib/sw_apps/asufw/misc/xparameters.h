@@ -504,6 +504,10 @@
 #define XPAR_XCSUDMA_1_HIGHADDR 0xEBE8DFFF
 #define XPAR_XCSUDMA_1_CSUDMA_CLK_FREQ_HZ 0
 
+/* Counter measure enable/disable for AES and ECC */
+#define XASU_AES_CM_ENABLE
+#define XASU_ECC_CM_ENABLE
+
 /* Platform specific definitions */
 #ifndef VERSAL_AIEPG2
 #define VERSAL_AIEPG2

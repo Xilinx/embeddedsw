@@ -798,7 +798,7 @@ static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode)
 			XECC_CTRL_CURVE_SHIFT);
 	CtrlRegValue |= (XECC_CTRL_OPCODE_MASK & (OpCode << XECC_CTRL_OPCODE_SHIFT)) |
 			XECC_CTRL_START_MASK;
-#ifdef XASUFW_ECC_CM_CONFIG
+#ifdef XASU_ECC_CM_ENABLE
 	CtrlRegValue |= XECC_SUPPRESS_SCP_SCP2_MASK;
 #endif
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_CTRL_OFFSET, CtrlRegValue);
