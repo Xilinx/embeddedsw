@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -790,6 +790,12 @@ extern "C" {
 #define XPM_INT_ERR_DAC_TEST_SAFE_UNSET		0x5408U
 /* Error during DAC Ub Enable */
 #define XPM_INT_ERR_DAC_UB_ENABLE		0x5409U
+/* Error during resetting MB */
+#define XPM_INT_ERR_RST_UBLAZE			0x540AU
+/* Error during enabling clock for MB */
+#define XPM_INT_ERR_CLK_UBLAZE			0x540BU
+/* Error during releasing reset for MB */
+#define XPM_INT_ERR_REL_RST_UBLAZE		0x540CU
 
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
