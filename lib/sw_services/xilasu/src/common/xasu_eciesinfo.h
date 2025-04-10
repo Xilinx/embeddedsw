@@ -53,11 +53,14 @@ typedef struct {
 			Rx private key(length: EccKeyLength) for decryption */
 	u64 TxKeyAddr; /**< Address of Tx's public key(length: 2 * EccKeyLength):
 			which will be an Output for encryption or input for decryption */
-	u64 InDataAddr; /**< Input address which holds : The plaintext for encryption or ciphertext for decryption */
+	u64 InDataAddr; /**< Input maddress which holds : The plaintext for encryption or ciphertext
+			for decryption */
 	u64 IvAddr; /**< IV address */
 	u64 OutDataAddr; /**< Output address: Ciphertext for encryption, Plaintext for decryption*/
 	u64 MacAddr; /**< MAC Address: Output for encryption, input for decryption */
-	u64 ContextAddr; /**< Context address which is used for generating the KDF */
+	u64 ContextAddr; /**< Context address which is used for generating the HKDF */
+	u64 SaltAddr; /**< Address of the buffer holding salt used for generating the HKDF */
+	u32 SaltLen; /**< Length of the Salt */
 	u32 ContextLen; /**< Length of the Context */
 	u32 DataLength; /**< Length of the Plaintext/Ciphertext in bytes */
 	u8 EccCurveType; /**< ECC curve type */
