@@ -3919,9 +3919,6 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 
 	XPm_PlatChangeCoreState(Core, State);
 
-	/* Enable PCIL */
-	XPmCore_EnablePcil(Core);
-
 	XPm_ClearScanClear();
 
 done:
