@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 
@@ -33,6 +33,7 @@ proc generate {libhandle} {
 	global rpu0_as_overlay_config_master
 	global rpu1_as_overlay_config_master
 	global apu_as_overlay_config_master
+	global versal_dvs
 	set rpu0_as_power_management_master [common::get_property CONFIG.rpu0_as_power_management_master $libhandle]
 	set rpu1_as_power_management_master [common::get_property CONFIG.rpu1_as_power_management_master $libhandle]
 	set apu_as_power_management_master [common::get_property CONFIG.apu_as_power_management_master $libhandle]
@@ -42,6 +43,7 @@ proc generate {libhandle} {
 	set rpu0_as_overlay_config_master [common::get_property CONFIG.rpu0_as_overlay_config_master $libhandle]
 	set rpu1_as_overlay_config_master [common::get_property CONFIG.rpu1_as_overlay_config_master $libhandle]
 	set apu_as_overlay_config_master [common::get_property CONFIG.apu_as_overlay_config_master $libhandle]
+	set versal_dvs [common::get_property CONFIG.versal_dvs $libhandle]
 
 	set zynqmp_dir "./src/zynqmp"
 	set versal_dir "./src/versal"
@@ -145,15 +147,23 @@ proc execs_generate {libhandle} {
 
 proc xgen_opts_file {libhandle} {
 
+	global versal_dvs
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	puts $file_handle "\#define XPAR_XILPM_ENABLED"
 	set part [::hsi::get_current_part]
 	set part_name [string range $part 0 [expr {[string first "-" $part] - 1}]]
+	set speed_grade [lindex [split $part "-"] 2]
 
 	# Add macro for enabling P80 related code
 	if { [string match -nocase "xcvp1902" $part_name] } {
 		puts $file_handle "\#define XCVP1902"
 	}
+
+	# Add macro for enabling Versal DVS feature
+	if { $versal_dvs == true || [string match -nocase "2LLI" $speed_grade] || [string match -nocase "2LI" $speed_grade] } {
+		puts $file_handle "\#define VERSAL_DVS"
+	}
+
 	close $file_handle
 
 	# Copy the include files to the include directory
