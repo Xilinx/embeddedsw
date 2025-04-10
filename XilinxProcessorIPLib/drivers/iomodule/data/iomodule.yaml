@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -49,4 +49,75 @@ required:
 
 additionalProperties:
     - xlnx,max-intr-size
+    - xlnx,intc-intr-size
+    - xlnx,intc-use-ext-intr
+    - xlnx,intc-positive
+    - xlnx,uart-prog-baudrate
+    - xlnx,uart-data-bits
+    - xlnx,uart-use-parity
+    - xlnx,uart-odd-parity
+    - xlnx,uart-rx-interrupt
+    - xlnx,uart-tx-interrupt
+    - xlnx,use-uart-rx
+    - xlnx,use-uart-tx
+    - xlnx,uart-error-interrupt
+    - xlnx,use-fit1
+    - xlnx,fit1-no-clocks
+    - xlnx,fit1-interrupt
+    - xlnx,use-fit2
+    - xlnx,fit2-no-clocks
+    - xlnx,fit2-interrupt
+    - xlnx,use-fit3
+    - xlnx,fit3-no-clocks
+    - xlnx,fit3-interrupt
+    - xlnx,use-fit4
+    - xlnx,fit4-no-clocks
+    - xlnx,fit4-interrupt
+    - xlnx,use-pit1
+    - xlnx,pit1-size
+    - xlnx,pit1-readable
+    - xlnx,pit1-prescaler
+    - xlnx,pit1-interrupt
+    - xlnx,use-pit2
+    - xlnx,pit2-size
+    - xlnx,pit2-readable
+    - xlnx,pit2-prescaler
+    - xlnx,pit2-interrupt
+    - xlnx,use-pit3
+    - xlnx,pit3-size
+    - xlnx,pit3-readable
+    - xlnx,pit3-prescaler
+    - xlnx,pit3-interrupt
+    - xlnx,use-pit4
+    - xlnx,pit4-size
+    - xlnx,pit4-readable
+    - xlnx,pit4-prescaler
+    - xlnx,pit4-interrupt
+    - xlnx,use-gpo1
+    - xlnx,gpo1-size
+    - xlnx,gpo1-init
+    - xlnx,use-gpo2
+    - xlnx,gpo2-size
+    - xlnx,gpo2-init
+    - xlnx,use-gpo3
+    - xlnx,gpo3-size
+    - xlnx,gpo3-init
+    - xlnx,use-gpo4
+    - xlnx,gpo4-size
+    - xlnx,gpo4-init
+    - xlnx,use-gpi1
+    - xlnx,gpi1-size
+    - xlnx,gpi1-interrupt
+    - xlnx,use-gpi2
+    - xlnx,gpi2-size
+    - xlnx,gpi2-interrupt
+    - xlnx,use-gpi3
+    - xlnx,gpi3-size
+    - xlnx,gpi3-interrupt
+    - xlnx,use-gpi4
+    - xlnx,gpi4-size
+    - xlnx,gpi4-interrupt
+    - xlnx,use-io-bus
+    - xlnx,io-mask
+    - xlnx,freq
 ...
