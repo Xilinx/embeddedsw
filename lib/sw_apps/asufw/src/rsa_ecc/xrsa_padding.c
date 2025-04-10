@@ -103,9 +103,9 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
  *		  non-blocking mode.
  *		- XASUFW_RSA_OAEP_ENCRYPT_ERROR, if Public encryption error occurs after
  *		  OAEP padding.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
  * 		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
- *		- XASUFW_RSA_MEM_COPY_FAIL, if memcpy fails
+ *		- XASUFW_MEM_COPY_FAIL, if memcpy fails
  *
  *************************************************************************************************/
 s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
@@ -201,7 +201,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 				     (KeySize - Len - (XASUFW_DOUBLE_VALUE(HashLen))
 				     - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET));
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_ZEROIZE_MEMSET_FAIL;
+			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 			goto END;
 		}
 	}
@@ -273,7 +273,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 			      XRSA_MAX_KEY_SIZE_IN_BYTES, DataBlock,
 			      XRSA_MAX_DB_LEN, DataBlockLen);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_MEM_COPY_FAIL;
+		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
 
@@ -320,7 +320,7 @@ RET:
  * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *		  non-blocking mode.
  * 		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
- *		- XASUFW_RSA_MEM_COPY_FAIL, if memcpy fails
+ *		- XASUFW_MEM_COPY_FAIL, if memcpy fails
  *		- Also, this function can return termination error codes 0xBBU, 0xBCU and 0xBDU,
  * 		please refer to xasufw_status.h.
  *
@@ -551,7 +551,7 @@ RET:
  *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
  * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *		  non-blocking mode.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
  * 		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
  *		- Also, this function can return termination error codes from 0xBFU to 0xC3U and 0xD0U,
  * 		please refer to xasufw_status.h.
@@ -672,7 +672,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemSet(MPrime, XRSA_PSS_MAX_MSG_LEN, 0U, XRSA_PSS_HASH_BLOCK_ZEROIZE_LEN);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_ZEROIZE_MEMSET_FAIL;
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 
@@ -722,7 +722,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	Status = Xil_SMemSet(DataBlock, XRSA_MAX_DB_LEN, 0U, (KeySize - SaltLen - HashLen -
 			     XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET));
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_ZEROIZE_MEMSET_FAIL;
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 	DataBlock[KeySize - SaltLen - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET]
@@ -733,7 +733,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 				     &MPrime[HashLen + XRSA_PSS_HASH_BLOCK_ZEROIZE_LEN],
 				     XRSA_PSS_MAX_MSG_LEN, SaltLen);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_MEM_COPY_FAIL;
+			Status = XASUFW_MEM_COPY_FAIL;
 			goto END;
 		}
 	}
@@ -765,7 +765,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 			     XRSA_MAX_KEY_SIZE_IN_BYTES, HashBuffer, XASU_SHA_512_HASH_LEN,
 			     HashLen);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_MEM_COPY_FAIL;
+		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
 
@@ -816,7 +816,7 @@ RET:
  *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
  * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *		  non-blocking mode.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
  * 		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
  *		- Also, this function can return termination error codes from 0xC4U to 0xCAU and 0xD0U,
 
@@ -1030,7 +1030,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 				     &DataBlock[Index + XRSA_PSS_ONE_PADDING_DATA_BLOCK_OFFSET],
 				     XRSA_MAX_DB_LEN, SaltLen);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_MEM_COPY_FAIL;
+			Status = XASUFW_MEM_COPY_FAIL;
 			goto END;
 		}
 	}
@@ -1042,7 +1042,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemSet(MsgBlock, XRSA_PSS_MAX_MSG_LEN, 0U, XRSA_PSS_HASH_BLOCK_ZEROIZE_LEN);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_ZEROIZE_MEMSET_FAIL;
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 
@@ -1050,7 +1050,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	Status = Xil_SMemCpy(&MsgBlock[XRSA_PSS_HASH_BLOCK_ZEROIZE_LEN], XRSA_PSS_MAX_MSG_LEN,
 			     HashedInputData, XASU_SHA_512_HASH_LEN, HashLen);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_MEM_COPY_FAIL;
+		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
 
@@ -1106,7 +1106,7 @@ RET:
  *		- XASUFW_SUCCESS, if mask generation is successful.
  *		- XASUFW_FAILURE, if mask generation fails.
  *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
  *
  *************************************************************************************************/
 static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode,
@@ -1186,7 +1186,7 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = Xil_SMemCpy(OutputPtr, OutputSize, Hash, OutputSize, OutputSize);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_MEM_COPY_FAIL;
+			Status = XASUFW_MEM_COPY_FAIL;
 			goto END;
 		}
 

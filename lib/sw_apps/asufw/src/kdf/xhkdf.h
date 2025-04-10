@@ -5,28 +5,28 @@
 /*************************************************************************************************/
 /**
 *
-* @file xkdf.h
+* @file xhkdf.h
 *
-* This file contains declarations for xkdf.c file.
+* This file contains declarations for xhkdf.c file.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
-* 1.0   ma   01/15/25 Initial release
+* 1.0   LP   04/07/25 Initial release
 *
 * </pre>
 *
 *
 **************************************************************************************************/
 /**
-* @addtogroup xkdf_server_apis KDF Server APIs
+* @addtogroup xhkdf_server_apis HKDF Server APIs
 * @{
 */
 
-#ifndef XKDF_H_
-#define XKDF_H_
+#ifndef XHKDF_H_
+#define XHKDF_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,13 +44,21 @@ extern "C" {
 /************************************ Macro Definitions ******************************************/
 
 /************************************ Type Definitions *******************************************/
+/**
+* @brief This structure contains HKDF params info
+*/
+typedef struct {
+	XAsu_KdfParams KdfParams; /**< Kdf Parameters for HKDF operation */
+	u64 SaltAddr; /**< Address of the buffer holding salt which is optional */
+	u32 SaltLen; /**< Length of the Salt */
+} XAsu_HkdfParams;
 
 /************************************ Function Prototypes ****************************************/
-s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams *KdfParams);
+s32 XHkdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_HkdfParams *HkdfParams);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XKDF_H_ */
+#endif /* XHKDF_H_ */
 /** @} */

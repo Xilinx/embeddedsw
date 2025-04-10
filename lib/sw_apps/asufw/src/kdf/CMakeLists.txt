@@ -3,3 +3,5 @@
 
 collect (PROJECT_LIB_SOURCES xkdf.c)
 collect (PROJECT_LIB_HEADERS xkdf.h)
+collect (PROJECT_LIB_SOURCES xhkdf.c)
+collect (PROJECT_LIB_HEADERS xhkdf.h)

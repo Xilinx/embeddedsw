@@ -87,6 +87,7 @@ extern "C" {
 #define XASUFW_THREE_BYTE_SHIFT_VALUE		(24U) /**< Three byte shift value for an integer */
 
 #define XASUFW_LSB_MASK_VALUE			(255U) /**< Integer to octet stream primitive limit */
+#define XASUFW_MAX_32BIT_ADDRESS		(0xFFFFFFFFU) /**< Max supported 32-bit address */
 
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 #define XASUFW_MEASURE_PERF_START(TimeVar, PerfTimeVar) XAsufw_PerfTime PerfTime; \
