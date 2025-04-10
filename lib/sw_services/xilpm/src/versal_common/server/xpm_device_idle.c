@@ -16,7 +16,7 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 #ifdef XILPM_USB_0
 	{
 		.DeviceId = PM_DEV_USB_0,
-		.IdleHook = NodeUsbIdle,
+		.IdleHook = &NodeUsbIdle,
 		.IdleHookArgs = XILPM_USB_0,
 	},
 #endif
@@ -24,14 +24,14 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 #ifdef XILPM_ETH_0
 	{
 		.DeviceId = PM_DEV_GEM_0,
-		.IdleHook = NodeGemIdle,
+		.IdleHook = &NodeGemIdle,
 		.IdleHookArgs = XILPM_ETH_0,
 	},
 #endif
 #ifdef XILPM_ETH_1
 	{
 		.DeviceId = PM_DEV_GEM_1,
-		.IdleHook = NodeGemIdle,
+		.IdleHook = &NodeGemIdle,
 		.IdleHookArgs = XILPM_ETH_1,
 	},
 #endif
@@ -39,28 +39,28 @@ static XPmDevice_SoftResetInfo DeviceRstData[] = {
 #ifdef XILPM_OSPI_0
 	{
 		.DeviceId = PM_DEV_OSPI,
-		.IdleHook = NodeOspiIdle,
+		.IdleHook = &NodeOspiIdle,
 		.IdleHookArgs = XILPM_OSPI_0,
 	},
 #endif
 #ifdef XILPM_QSPI_0
 	{
 		.DeviceId = PM_DEV_QSPI,
-		.IdleHook = NodeQspiIdle,
+		.IdleHook = &NodeQspiIdle,
 		.IdleHookArgs = XILPM_QSPI_0,
 	},
 #endif
 #ifdef XILPM_SD_0
 	{
 		.DeviceId = PM_DEV_SDIO_0,
-		.IdleHook = NodeSdioIdle,
+		.IdleHook = &NodeSdioIdle,
 		.IdleHookArgs = XILPM_SD_0,
 	},
 #endif
 #ifdef XILPM_SD_1
 	{
 		.DeviceId = PM_DEV_SDIO_1,
-		.IdleHook = NodeSdioIdle,
+		.IdleHook = &NodeSdioIdle,
 		.IdleHookArgs = XILPM_SD_1,
 	},
 #endif

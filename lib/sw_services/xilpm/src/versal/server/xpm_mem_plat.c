@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -198,7 +198,7 @@ XStatus XPmMem_HBMTempMonInitTask(void)
 	}
 
 	/* Schedule the HBM temp monitoring task with periodicity of HBM_TEMP_MON_PERIOD */
-	Status = XPlmi_SchedulerAddTask(XPM_HBM_TEMP_MON_SCHED_ID, XPmMem_HBMTempMonitor,
+	Status = XPlmi_SchedulerAddTask(XPM_HBM_TEMP_MON_SCHED_ID, &XPmMem_HBMTempMonitor,
 			NULL, HBM_TEMP_MON_PERIOD, XPLM_TASK_PRIORITY_0,
 			(void *)HbmPhyMsAddr, XPLMI_PERIODIC_TASK);
 
@@ -453,7 +453,7 @@ static XStatus HandleDDRDeviceState(XPm_Device* const Device, const u32 NextStat
 static const XPm_DeviceFsm XPmDDRDeviceFsm = {
 	DEFINE_DEV_STATES(XPmDDRDeviceStates),
 	DEFINE_DEV_TRANS(XPmDDRDevTransitions),
-	.EnterState = HandleDDRDeviceState,
+	.EnterState = &HandleDDRDeviceState,
 };
 
 XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,

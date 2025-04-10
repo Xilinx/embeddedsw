@@ -111,7 +111,7 @@ XStatus XPmNotifier_RestoreErrorEvents(void)
 		u32 NodeId = PmNotifiers[Index].NodeId;
 		if ((0U != SsId) && ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId))) {
 			Status = XPlmi_EmSetAction(NodeId, PmNotifiers[Index].EventMask , XPLMI_EM_ACTION_CUSTOM,
-				   XPmNotifier_Event, INVALID_SUBSYSID);
+				   &XPmNotifier_Event, INVALID_SUBSYSID);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -189,7 +189,7 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 	 */
 	if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
 		Status = XPlmi_EmSetAction(NodeId, Event, XPLMI_EM_ACTION_CUSTOM,
-					   XPmNotifier_Event, INVALID_SUBSYSID);
+					   &XPmNotifier_Event, INVALID_SUBSYSID);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -469,7 +469,7 @@ static int XPmNotifier_SchedulerTask(void *Arg)
 	 */
 	if ((u32)NOT_PRESENT == PendingEvent) {
 		Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
-						   XPmNotifier_SchedulerTask,
+						   &XPmNotifier_SchedulerTask,
 						   XILPM_NOTIFIER_INTERVAL,
 						   NULL);
 		if (Status != XST_SUCCESS) {
@@ -559,7 +559,7 @@ static XStatus XPmNotifier_AddPendingEvent(const u32 IpiMask, const u32 *Payload
 	}
 	if ((u32)NOT_PRESENT == SchedulerTask) {
 		Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
-						XPmNotifier_SchedulerTask, NULL,
+						&XPmNotifier_SchedulerTask, NULL,
 						XILPM_NOTIFIER_INTERVAL,
 						XPLM_TASK_PRIORITY_0,
 						NULL, XPLMI_PERIODIC_TASK);

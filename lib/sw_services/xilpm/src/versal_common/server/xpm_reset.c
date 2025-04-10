@@ -47,12 +47,12 @@ u32 UserAssertPsSrst = 0U;
 
 static XPm_ResetOps ResetOps[XPM_RSTOPS_MAX] = {
 	[XPM_RSTOPS_GENRERIC] = {
-			.SetState = Reset_AssertCommon,
-			.GetState = Reset_GetStatusCommon,
+			.SetState = &Reset_AssertCommon,
+			.GetState = &Reset_GetStatusCommon,
 	},
 	[XPM_RSTOPS_CUSTOM] = {
-			.SetState = Reset_AssertCustom,
-			.GetState = Reset_GetStatusCustom,
+			.SetState = &Reset_AssertCustom,
+			.GetState = &Reset_GetStatusCustom,
 	},
 };
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1368,12 +1368,12 @@ done:
 
 static struct XPm_PowerDomainOps AieOps[XPM_AIE_OPS_MAX] = {
 	[XPM_AIE_OPS] = {
-		.InitStart = AieInitStart,
-		.InitFinish = AieInitFinish,
-		.ScanClear = AieScanClear,
-		.Bisr = AieBisr,
-		.Mbist = AieMbistClear,
-		.MemInit = AieMemInit,
+		.InitStart = &AieInitStart,
+		.InitFinish = &AieInitFinish,
+		.ScanClear = &AieScanClear,
+		.Bisr = &AieBisr,
+		.Mbist = &AieMbistClear,
+		.MemInit = &AieMemInit,
 		/* Mask to indicate which Ops are present */
 		.InitMask = (BIT16(FUNC_INIT_START) |
 				BIT16(FUNC_INIT_FINISH) |
@@ -1383,12 +1383,12 @@ static struct XPm_PowerDomainOps AieOps[XPM_AIE_OPS_MAX] = {
 				BIT16(FUNC_MEM_INIT))
 	},
 	[XPM_AIE2_OPS] = {
-		.InitStart = Aie2InitStart,
-		.InitFinish = Aie2InitFinish,
-		.ScanClear = AieScanClear,
-		.Bisr = Aie2Bisr,
-		.Mbist = Aie2MbistClear,
-		.MemInit = Aie2MemInit,
+		.InitStart = &Aie2InitStart,
+		.InitFinish = &Aie2InitFinish,
+		.ScanClear = &AieScanClear,
+		.Bisr = &Aie2Bisr,
+		.Mbist = &Aie2MbistClear,
+		.MemInit = &Aie2MemInit,
 		/* Mask to indicate which Ops are present */
 		.InitMask = (BIT16(FUNC_INIT_START) |
 				BIT16(FUNC_INIT_FINISH) |
@@ -1418,8 +1418,8 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 		/* AIE1: Ops */
 		Ops = &AieOps[XPM_AIE_OPS];
 		/* AIE1 hooks for Ops */
-		Hooks->PostScanClearHook = AiePostScanClearHook;
-		Hooks->PreBisrHook = AiePreBisrHook;
+		Hooks->PostScanClearHook = &AiePostScanClearHook;
+		Hooks->PreBisrHook = &AiePreBisrHook;
 
 		/* Non-Silicon defaults for SPP/EMU for AIE1 */
 		if (Platform != PLATFORM_VERSION_SILICON) {
@@ -1441,7 +1441,7 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 		Ops = &AieOps[XPM_AIE2_OPS];
 		/* AIE2: Hooks for Ops */
 		Hooks->PostScanClearHook = NULL;
-		Hooks->PreBisrHook = Aie2PreBisrHook;
+		Hooks->PreBisrHook = &Aie2PreBisrHook;
 	} else {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XPM_INVALID_PWRDOMAIN;

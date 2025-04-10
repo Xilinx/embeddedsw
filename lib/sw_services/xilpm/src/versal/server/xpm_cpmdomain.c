@@ -1033,11 +1033,11 @@ done:
 
 static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 	[XPM_HC_CPM_OPS] = {
-		.InitStart = CpmInitStart,
-		.InitFinish = CpmInitFinish,
-		.ScanClear = CpmScanClear,
-		.Bisr = CpmBisr,
-		.Mbist = CpmMbistClear,
+		.InitStart = &CpmInitStart,
+		.InitFinish = &CpmInitFinish,
+		.ScanClear = &CpmScanClear,
+		.Bisr = &CpmBisr,
+		.Mbist = &CpmMbistClear,
 		/* Mask to indicate which Ops are present */
 		.InitMask = (BIT16(FUNC_INIT_START) |
 			     BIT16(FUNC_INIT_FINISH) |
@@ -1046,11 +1046,11 @@ static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 			     BIT16(FUNC_MBIST_CLEAR))
 	},
 	[XPM_HC_CPM5_OPS] = {
-		.InitStart = Cpm5InitStart,
-		.InitFinish = CpmInitFinish,
-		.ScanClear = Cpm5ScanClear,
-		.Bisr = Cpm5Bisr,
-		.Mbist = Cpm5MbistClear,
+		.InitStart = &Cpm5InitStart,
+		.InitFinish = &CpmInitFinish,
+		.ScanClear = &Cpm5ScanClear,
+		.Bisr = &Cpm5Bisr,
+		.Mbist = &Cpm5MbistClear,
 		/* Mask to indicate which Ops are present */
 		.InitMask = (BIT16(FUNC_INIT_START) |
 			     BIT16(FUNC_INIT_FINISH) |
@@ -1059,11 +1059,11 @@ static const struct XPm_PowerDomainOps CpmOps[XPM_CPM_OPS_MAX] = {
 			     BIT16(FUNC_MBIST_CLEAR))
 	},
 	[XPM_HC_CPM6_OPS] = {
-		.InitStart = Cpm6InitStart,
-		.InitFinish = CpmInitFinish,
-		.ScanClear = Cpm6ScanClear,
-		.Bisr = Cpm6Bisr,
-		.Mbist = Cpm6MbistClear,
+		.InitStart = &Cpm6InitStart,
+		.InitFinish = &CpmInitFinish,
+		.ScanClear = &Cpm6ScanClear,
+		.Bisr = &Cpm6Bisr,
+		.Mbist = &Cpm6MbistClear,
 		/* Mask to indicate which Ops are present */
 		.InitMask = (BIT16(FUNC_INIT_START) |
 			     BIT16(FUNC_INIT_FINISH) |
