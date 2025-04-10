@@ -45,7 +45,7 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs KDF compute operation using HMAC as pseudorandom function with
+ * @brief	This function performs KDF generate operation using HMAC as pseudorandom function with
  * the user provided inputs and generates the keying material object of specified number of bytes
  * in counter mode as specified in NIST SP 800-108r1.
  *
@@ -54,12 +54,12 @@
  * @param	KdfParams		Pointer to the KDF structure containing user input parameters.
  *
  * @return
- * 	- XASUFW_SUCCESS, if KDF compute operation is successful.
+ * 	- XASUFW_SUCCESS, if KDF generate operation is successful.
  * 	- XASUFW_KDF_INVALID_PARAM, if input parameters are invalid.
  * 	- Errors codes from HMAC, if HMAC operation fails.
  *
  *************************************************************************************************/
-s32 XKdf_Compute(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams *KdfParams)
+s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams *KdfParams)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
