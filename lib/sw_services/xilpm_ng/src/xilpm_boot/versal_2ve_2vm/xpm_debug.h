@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -280,6 +280,8 @@ extern "C" {
 #define XPM_INT_ERR_ISO_INVALID_FORMAT		0x3613U
 /* A topology iso node has exceed number of dependencies */
 #define XPM_INT_ERR_ISO_MAX_DEPENDENCIES	0X3614U
+/* Out of bound */
+#define XPM_INT_ERR_OUT_OF_RANGE		0x3615U
 
 /************************** PLD specific Errors ******************************/
 /************************** (0x3700) - (0x37FF) ******************************/
