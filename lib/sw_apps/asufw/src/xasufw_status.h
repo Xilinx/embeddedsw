@@ -50,6 +50,7 @@
  *       yog  03/21/25 Added PWCT error codes
  *       am   03/21/25 Added XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED error code
  *       am   04/01/25 Added XASUFW_AES_KEY_CONFIG_READBACK_ERROR error code
+ *       LP   04/07/25 Added HKDF error codes
  *
  * </pre>
  *
@@ -280,7 +281,7 @@ enum {
 	XASUFW_RSA_MASK_GEN_DATA_BLOCK_ERROR, /**< 0xB5U - Error when MGF returns error for data
 						block */
 	XASUFW_RSA_MASK_GEN_SEED_BUFFER_ERROR, /**< 0xB6U - Error when MGF returns error seed buffer */
-	XASUFW_RSA_ZEROIZE_MEMSET_FAIL, /**< 0xB7U - Error when memory zeroization fails */
+	XASUFW_ZEROIZE_MEMSET_FAIL, /**< 0xB7U - Error when memory zeroization fails */
 	XASUFW_RSA_OAEP_ENCRYPT_ERROR, /**< 0xB8U - Error when OAEP encryption operation fails */
 	XASUFW_RSA_OAEP_ENCODE_ERROR, /**< 0xB9U - Error when OAEP encode operation fails */
 	XASUFW_RSA_OAEP_INVALID_LEN, /**< 0xBAU - Error when OAEP input len is invalid */
@@ -313,7 +314,7 @@ enum {
 	XASUFW_RSA_KAT_FAILED, /**< 0xCEU - Error when RSA KAT failed */
 	XASUFW_RSA_DMA_COPY_FAIL, /**< 0xCFU - When data transfer to/from memory using DMA fails in
 						RSA */
-	XASUFW_RSA_MEM_COPY_FAIL,  /**< 0xD0U - When copy data to memory fails in RSA */
+	XASUFW_MEM_COPY_FAIL,  /**< 0xD0U - Error When copy data to memory fails */
 	XASUFW_ECDH_INVALID_POINT_ON_CRV, /**< 0x0D1U - Error when generated point is invalid */
 	XASUFW_ECDH_RAND_GEN_ERROR, /**< 0xD2U - Random number generation failed to ECDH APIs */
 	XASUFW_ECDH_OTHER_ERROR, /**< 0xD3U - Any generic error from ECDH APIs */
@@ -337,7 +338,7 @@ enum {
 	XASUFW_KDF_ITERATION_COUNT_MISMATCH, /**< 0xE3U - Failure in running desired number of
 						iterations for KDF output */
 	XASUFW_KDF_MODULE_REGISTRATION_FAILED, /**< 0xE4U - KDF module registration failed */
-	XASUFW_KDF_COMPUTE_FAILED, /**< 0xE5U - KDF compute failed */
+	XASUFW_KDF_GENERATE_FAILED, /**< 0xE5U - KDF generate failed */
 	XASUFW_KDF_KAT_COMPARISON_FAILED, /**< 0xE6U - KDF KAT comparison failed */
 	XASUFW_KDF_KAT_FAILED, /**< 0xE7U - KDF KAT failed */
 	XASUFW_TRNG_GET_RANDOM_NUMBERS_TIMEDOUT, /**< 0xE8U - TRNG Get Random numbers timed out */
@@ -349,7 +350,7 @@ enum {
 	XASUFW_ECIES_PVT_KEY_GEN_FAILURE, /**< 0xEDU - Error when private key generation failed */
 	XASUFW_ECIES_PUB_KEY_GEN_FAILURE, /**< 0xEEU - Error when public key generation failed */
 	XASUFW_ECIES_ECDH_FAILURE, /**< 0xEFU - Error when ECDH operation failed */
-	XASUFW_ECIES_KDF_FAILURE, /**< 0xF0U - Error when KDF operation failed */
+	XASUFW_ECIES_HKDF_FAILURE, /**< 0xF0U - Error when HKDF operation failed */
 	XASUFW_ECIES_AES_WRITE_KEY_FAILURE, /**< 0xF1U - Error when AES write key operation failed */
 	XASUFW_ECIES_AES_FAILURE, /**< 0xF2U - Error when AES operation failed */
 	XASUFW_ECIES_MODULE_REGISTRATION_FAILED, /**< 0xF3U - ECIES module registration failed */
@@ -369,11 +370,10 @@ enum {
 	XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR, /**< 0xFEU - AES Key unwrap output generation failed */
 	XASUFW_KEYWRAP_ICV_CMP_FAIL, /**< 0xFFU - Error when integrity check value fails for key
 						unwrap */
-	XASUFW_KEYWRAP_ZEROIZE_MEMSET_FAIL, /**< 0x100U - Error when memory zeroization fails */
+	XASUFW_RESERVED1, /**< 0x100U - Reserved Error*/
 	XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, /**< 0x101U - Error when AES key clear fails */
 	XASUFW_KEYWRAP_DMA_COPY_FAIL, /**< 0x102U - When data transfer to/from memory using DMA
 						fails */
-	XASUFW_KEYWRAP_MEM_COPY_FAIL, /**< 0x103U - When copy data to memory fails */
 	XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, /**< 0x104U - When AES operation fails in key wrap unwrap */
 	XASUFW_KEYWRAP_UNWRAPPED_DATA_COMPARISON_FAILED, /**< 0x105U -Error when unwrapped output
 						comparison failed in KAT */
@@ -387,6 +387,15 @@ enum {
 						private key */
 	XASUFW_AES_KEY_CONFIG_READBACK_ERROR, /**< 0x10DU -  Error when AES KEY configuration is
 						incorrect. */
+
+	XASUFW_HKDF_INVALID_PARAM, /**< 0x10EU - Error when Invalid parameters to the HKDF APIs */
+	XASUFW_HKDF_KAT_COMPARISON_FAILED, /**< 0x10FU - Error when HKDF KAT comparison failed */
+	XASUFW_HKDF_EXTRACT_FAILED, /**< 0x110U - Error when HKDF Key extract failed */
+	XASUFW_HKDF_GET_HASHLEN_FAILED, /**< 0x111U - Error when Unable to get hash length from SHA Mode */
+	XASUFW_HKDF_HMAC_INIT_FAILED, /**< 0x112U - Error when HMAC init operation failed in HKDF */
+	XASUFW_HKDF_HMAC_UPDATE_FAILED, /**< 0x113U - Error when HMAC update failed in HKDF */
+	XASUFW_HKDF_HMAC_FINAL_FAILED, /**< 0x114U - Error when HMAC hash generation failed in HKDF */
+	XASUFW_HKDF_GENERATE_FAILED, /**< 0x116U - Error when HKDF generate operation failed  */
 
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };

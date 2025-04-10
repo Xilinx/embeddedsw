@@ -87,10 +87,10 @@ static u8  Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES] __attribute__ ((section (".rsa
  *		- XASUFW_SUCCESS, if RSA decryption using CRT algorithm is successful.
  *		- XASUFW_FAILURE, if RSA decryption using CRT algorithm fails.
  *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
  *		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
  *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change error occurs.
- *		- XASUFW_RSA_MEM_COPY_FAIL, if memory copy fails.
+ *		- XASUFW_MEM_COPY_FAIL, if memory copy fails.
  * 		- Also, this function can return termination error codes from 0x9CU to 0x9FU
  * 		please refer to xasufw_status.h.
  *
@@ -126,7 +126,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	Status = Xil_SMemSet(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, 0U,
 			     XRSA_MAX_KEY_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_ZEROIZE_MEMSET_FAIL;
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 
@@ -152,7 +152,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	Status = Xil_SMemCpy(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, &(KeyPtr->PubKeyComp.PubExp),
 			     XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_MEM_COPY_FAIL;
+		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
 
@@ -295,10 +295,10 @@ END:
  *		- XASUFW_SUCCESS, if RSA decryption is successful.
  *		- XASUFW_FAILURE, if RSA decryption fails.
  *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
  *		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
  *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change error occurs.
- *		- XASUFW_RSA_MEM_COPY_FAIL, if memory copy fails.
+ *		- XASUFW_MEM_COPY_FAIL, if memory copy fails.
  *		- XASUFW_RSA_INVALID_PRIME_TOT_FLAG, if invalid prime/totient flag.
  *		- Also, this function can return termination error codes from 0x9CU to 0x9EU and 0xA0U,
  * 		please refer to xasufw_status.h.
@@ -337,7 +337,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	Status = Xil_SMemSet(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, 0U,
 			     XRSA_MAX_KEY_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_ZEROIZE_MEMSET_FAIL;
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 
@@ -363,7 +363,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	Status = Xil_SMemCpy(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, &(KeyPtr->PubKeyComp.PubExp),
 			     XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_MEM_COPY_FAIL;
+		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
 
@@ -567,10 +567,10 @@ END:
  *		- XASUFW_SUCCESS, if RSA encryption is successful.
  *		- XASUFW_FAILURE, if RSA encryption fails.
  *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
- *		- XASUFW_RSA_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
+ *		- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
  *		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
  *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change error occurs.
- *		- XASUFW_RSA_MEM_COPY_FAIL, if memory copy fails.
+ *		- XASUFW_MEM_COPY_FAIL, if memory copy fails.
  *		- Also, this function can return termination error codes from 0x9CU to 0x9EU and 0xA1U
  * 		please refer to xasufw_status.h.
  *
@@ -606,7 +606,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	Status = Xil_SMemSet(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, 0U,
 			     XRSA_MAX_KEY_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_ZEROIZE_MEMSET_FAIL;
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 
@@ -632,7 +632,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	Status = Xil_SMemCpy(PubExpoArr, XRSA_MAX_KEY_SIZE_IN_BYTES, &(KeyPtr->PubExp),
 			     XRSA_PUBEXP_SIZE_IN_BYTES, XRSA_PUBEXP_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_MEM_COPY_FAIL;
+		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
 

@@ -313,9 +313,9 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if initialization is successful.
  * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
- * 	- XASUFW_KEYWRAP_MEM_COPY_FAIL, if copying of ICV fails.
+ * 	- XASUFW_MEM_COPY_FAIL, if copying of ICV fails.
  * 	- XASUFW_KEYWRAP_DMA_COPY_FAIL, if input data copy using DMA fails.
- * 	- XASUFW_KEYWRAP_ZEROIZE_MEMSET_FAIL, if zeroization fails for padding length.
+ * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroization fails for padding length.
  * 	- XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, if AES operation fails.
  *
  *************************************************************************************************/
@@ -364,7 +364,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 	Status = Xil_SMemCpy(InData, XRSA_MAX_KEY_SIZE_IN_BYTES, InitValue,
 				XASUFW_WORD_LEN_IN_BYTES, XASUFW_WORD_LEN_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYWRAP_MEM_COPY_FAIL;
+		Status = XASUFW_MEM_COPY_FAIL;
 		goto END_CLR;
 	}
 
@@ -389,7 +389,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 					KeyWrapParamsPtr->InputDataLen],
 					XRSA_MAX_KEY_SIZE_IN_BYTES, 0U, PadLen);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_KEYWRAP_ZEROIZE_MEMSET_FAIL;
+			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 			goto END_CLR;
 		}
 	}
@@ -418,7 +418,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 				XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES,
 				XASU_AES_BLOCK_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYWRAP_MEM_COPY_FAIL;
+		Status = XASUFW_MEM_COPY_FAIL;
 		goto END_CLR;
 	}
 
@@ -474,7 +474,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 		Status = Xil_SMemCpy(OutData, XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES, AesOutData,
 			XASU_AES_BLOCK_SIZE_IN_BYTES, XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_KEYWRAP_MEM_COPY_FAIL;
+			Status = XASUFW_MEM_COPY_FAIL;
 		}
 	} else {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -506,7 +506,7 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if initialization is successful.
  * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
- * 	- XASUFW_KEYWRAP_MEM_COPY_FAIL, if Xil_SMemCpy fails.
+ * 	- XASUFW_MEM_COPY_FAIL, if Xil_SMemCpy fails.
  * 	- XASUFW_KEYWRAP_DMA_COPY_FAIL, if input data copy using DMA fails.
  * 	- XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, if AES operation fails.
  * 	- XASUFW_KEYWRAP_ICV_CMP_FAIL, if ICV comparison with first 4 bytes of output fails.
@@ -581,7 +581,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 				XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES,
 				XASU_AES_BLOCK_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYWRAP_MEM_COPY_FAIL;
+		Status = XASUFW_MEM_COPY_FAIL;
 		goto END_CLR;
 	}
 
@@ -638,7 +638,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 		Status = Xil_SMemCpy(OutData, XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES, AesOutData,
 			XASU_AES_BLOCK_SIZE_IN_BYTES, XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_KEYWRAP_MEM_COPY_FAIL;
+			Status = XASUFW_MEM_COPY_FAIL;
 			goto END_CLR;
 		}
 	} else {
