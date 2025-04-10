@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,10 +31,6 @@ maybe_unused static inline  XStatus XPm_PlatSendDirectPowerDown(const XPm_Core *
 static inline XStatus XPmCore_PlatClkReq(const XPm_ClockHandle *ClkHandles)
 {
 	return XPmClock_Request(ClkHandles);
-}
-maybe_unused static inline void XPmCore_EnablePcil(XPm_Core *Core)
-{
-	(void)Core;
 }
 
 #ifdef __cplusplus
