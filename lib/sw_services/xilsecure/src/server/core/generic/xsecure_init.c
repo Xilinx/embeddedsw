@@ -143,7 +143,8 @@ int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 	XSecure_CmdsInit();
 
 #if defined (VERSAL_NET) && !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_AIEPG2)
-	if (XPLMI_PLATFORM != PMC_TAP_VERSION_QEMU) {
+	if ((XPLMI_PLATFORM != PMC_TAP_VERSION_QEMU) &&
+		(XASUFW_PLATFORM != PMC_TAP_VERSION_COSIM)) {
         /* Add keypair generation to scheduler for versalnet */
 		Status = XSecure_AddRsaKeyPairGenerationToScheduler();
 	}
