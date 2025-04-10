@@ -401,7 +401,7 @@ static XStatus Cpm6ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	volatile XStatus Status = XPM_ERR_SCAN_CLR;
-	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
+	const XPm_CpmDomain *Cpm = (const XPm_CpmDomain *)PwrDomain;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegVal;
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
@@ -940,7 +940,7 @@ static XStatus Cpm6MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 {
 	volatile XStatus Status = XPM_ERR_MBIST_CLR;
 	volatile XStatus StatusTmp = XPM_ERR_MBIST_CLR;
-	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
+	const XPm_CpmDomain *Cpm = (const XPm_CpmDomain *)PwrDomain;
 	u32 RegValue, i;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
