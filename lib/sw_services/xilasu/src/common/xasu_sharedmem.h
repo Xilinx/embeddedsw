@@ -44,7 +44,7 @@ extern "C" {
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_MAX_BUFFERS				(8U) /**< Maximum request and response buffers */
-#define XASU_CHANNEL_RESERVED_MEM			(1444U) /**< Reserved memory in channel */
+#define XASU_CHANNEL_RESERVED_MEM			(1188U) /**< Reserved memory in channel */
 
 #define XASU_COMMAND_IS_PRESENT				(0x1U) /**< Command is written by client */
 #define XASU_COMMAND_IN_PROGRESS			(0x2U) /**< Command is in progress by ASUFW */
@@ -67,7 +67,8 @@ extern "C" {
 #define XASU_COMMAND_LENGTH_MASK			(0x00FC0000U) /**< Mask for command length in header */
 #define XASU_COMMAND_LENGTH_SHIFT			(18U) /**< Shift for command length */
 
-#define XASU_COMMAND_ARGS					(18U) /**< Command/response arguments */
+#define XASU_COMMAND_REQ_ARGS				(22U) /**< Command arguments count */
+#define XASU_COMMAND_RESP_ARGS				(18U) /**< Response arguments count */
 
 #define XASU_RTCA_BASEADDR			(0xEBE40000U) /**< ASUFW run time configuration area
 									base address */
@@ -82,14 +83,14 @@ extern "C" {
 /** @brief This structure is the request buffer */
 typedef struct {
 	u32 Header; /**< Command header */
-	u32 Arg[XASU_COMMAND_ARGS]; /**< Command arguments */
+	u32 Arg[XASU_COMMAND_REQ_ARGS]; /**< Command arguments */
 	u32 Reserved; /**< Reserved */
 } XAsu_ReqBuf;
 
 /** @brief  This structure is the response buffer */
 typedef struct {
 	u32 Header; /**< Command header */
-	u32 Arg[XASU_COMMAND_ARGS]; /**< Response arguments */
+	u32 Arg[XASU_COMMAND_RESP_ARGS]; /**< Response arguments */
 	u32 Reserved; /**< Reserved */
 } XAsu_RespBuf;
 

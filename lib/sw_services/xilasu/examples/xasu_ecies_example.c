@@ -22,6 +22,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------------------------------------
 * 1.0   yog    02/21/25 Initial Release
+*       LP     04/07/25 Added additional parameters to support HKDF
 *
 * </pre>
  *************************************************************************************************/
@@ -157,6 +158,8 @@ int main(void)
 	EciesParams.MacAddr = (u64)(UINTPTR)Mac;
 	EciesParams.ContextAddr = (u64)(UINTPTR)Context;
 	EciesParams.ContextLen = XASU_ECIES_CONTEXT_LENGTH;
+	EciesParams.SaltAddr = (u64)(UINTPTR)0U;
+	EciesParams.SaltLen = 0U;
 	EciesParams.MacLength = XASU_AES_MAX_TAG_LENGTH_IN_BYTES;
 	EciesParams.IvLength = XASU_AES_IV_SIZE_96BIT_IN_BYTES;
 
@@ -201,6 +204,8 @@ int main(void)
 	EciesParams.MacAddr = (u64)(UINTPTR)Mac;
 	EciesParams.ContextAddr = (u64)(UINTPTR)Context;
 	EciesParams.ContextLen = XASU_ECIES_CONTEXT_LENGTH;
+	EciesParams.SaltAddr = (u64)(UINTPTR)0U;
+	EciesParams.SaltLen = 0U;
 	EciesParams.MacLength = XASU_AES_MAX_TAG_LENGTH_IN_BYTES;
 	EciesParams.IvLength = XASU_AES_IV_SIZE_96BIT_IN_BYTES;
 
