@@ -77,7 +77,7 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 	InstancePtr->XTimer_ModifyInterval = XGlobalTimer_ModifyInterval;
 	InstancePtr->XSleepTimer_Stop = NULL;
 
-#if defined(SDT) && !defined(ARMA53_32)
+#if defined(SDT) && !defined(ARMA53_32) && EL1_NONSECURE!=1
 	u32 TimerStampFreq = XGet_TimeStampFreq();
 	mtcp(CNTFRQ_EL0, TimerStampFreq);
 #endif
