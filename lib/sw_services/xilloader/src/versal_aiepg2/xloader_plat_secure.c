@@ -525,7 +525,6 @@ int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 
 int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 	u32 ReadReg = 0U;
@@ -533,7 +532,7 @@ int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
 	volatile int SHwRotStatusTmp;
 	volatile int AHwRotStatus;
 	volatile int AHwRotStatusTmp;
-	u32 ReadCfgLimiterReg = XPlmi_In32(XLOADER_BBRAM_8_ADDRESS);
+	u32 ReadCfgLimiterReg = XPlmi_In32(XLOADER_BBRAM_8_MEM_ADDRESS);
 	u32 MaxConfigsCnt = ReadCfgLimiterReg & XLOADER_BBRAM_CL_COUNTER_MASK;
 	u32 ClFeatureEn = ReadCfgLimiterReg & XLOADER_BBRAM_CL_FEATURE_EN_MASK;
 
@@ -576,11 +575,17 @@ int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
 				}
 				MaxConfigsCnt--;
 			}
-			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_UPDATE_CONFIG_LIMITER_CNT_FAILED,
-				Status, StatusTmp, Xil_SecureRMW32, XLOADER_BBRAM_8_ADDRESS,
-				XLOADER_BBRAM_CL_COUNTER_MASK, MaxConfigsCnt);
-			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-				goto END;
+			ReadReg = XPlmi_In32(XLOADER_BBRAM_8_MEM_ADDRESS);
+			ReadReg = (ReadReg & (~XLOADER_BBRAM_CL_COUNTER_MASK)) | (XLOADER_BBRAM_CL_COUNTER_MASK & MaxConfigsCnt);
+			XPlmi_Out32(XLOADER_BBRAM_8_ADDRESS, ReadReg);
+
+			ReadReg = XPlmi_In32(XLOADER_BBRAM_8_MEM_ADDRESS) & XLOADER_BBRAM_CL_COUNTER_MASK;
+			if (ReadReg == (XLOADER_BBRAM_CL_COUNTER_MASK & MaxConfigsCnt)) {
+				Status = XST_SUCCESS;
+			}
+			else {
+				Status = XPlmi_UpdateStatus((XPlmiStatus_t)XLOADER_ERR_UPDATE_CONFIG_LIMITER_CNT_FAILED,
+					Status);
 			}
 		}
 	}

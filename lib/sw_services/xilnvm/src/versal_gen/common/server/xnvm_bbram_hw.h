@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,10 +18,11 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   mmd  04/01/2019 Initial release
-* 2.1	am 	 08/19/2020 Resolved MISRA C violations.
+* 2.1	am   08/19/2020 Resolved MISRA C violations.
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
 * 3.1   skg  10/23/2022 Added comments for macros
-* 3.3   ng   11/22/23 Fixed doxygen grouping
+* 3.3   ng   11/22/2023 Fixed doxygen grouping
+* 3.5   har  03/13/2025 Added XNVM_BBRAM_8_MEM_REG macro definition
 *
 * </pre>
 *
@@ -54,6 +55,11 @@ extern "C" {
 #define XNVM_BBRAM_0_REG			(0x10U)
 #define XNVM_BBRAM_8_REG			(0x30U)
 #define XNVM_BBRAM_MSW_LOCK_REG			(0x4CU)
+
+#ifdef VERSAL_AIEPG2
+#define XNVM_BBRAM_8_MEM_REG			(0x50U)
+#endif
+
 /** @} */
 
 /**
