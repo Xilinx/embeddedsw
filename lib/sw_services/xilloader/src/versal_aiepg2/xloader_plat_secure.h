@@ -64,8 +64,10 @@ extern "C" {
 
 #define XLOADER_DEVICE_STATE_POLL_INTERVAL	(1000U) /**< Device state poll interval */
 
-
-#define XLOADER_BBRAM_8_ADDRESS				(0xF11F0030U)	/**< Address of Configuration Limiter register */
+#define XLOADER_BBRAM_8_ADDRESS				(0xF11F0030U)
+			/**< Address of BBRAM_8 register used to store CL params */
+#define XLOADER_BBRAM_8_MEM_ADDRESS			(0xF11F0050U)
+			/**< Address of register to read the value in BBRAM_8 register */
 #define XLOADER_BBRAM_CL_COUNTER_MASK			(0x0FFFFFFFU)
 			/**< Mask to get the value of counter in Configuration Limiter register */
 #define XLOADER_BBRAM_CL_MODE_MASK			(0x30000000U)
