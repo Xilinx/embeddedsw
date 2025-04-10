@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -18,7 +18,7 @@ BEGIN driver emc
 
  OPTION supported_peripherals = (axi_emc);
  OPTION driver_state = ACTIVE;
- OPTION VERSION = 4.4;
+ OPTION VERSION = 4.5;
  OPTION NAME = emc;
 
 END driver
