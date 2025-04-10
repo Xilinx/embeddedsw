@@ -115,6 +115,8 @@ extern "C" {
 #endif
 
 #endif
+
+#define PARRETO_FMC //define this for parreto fmc, comment it to use diode fmc
 /************************** Constant Definitions *****************************/
 
 /*
@@ -293,6 +295,13 @@ void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4]);
 void DpPt_ffe_adjustHandler(void *InstancePtr);
 u32 xil_gethex(u8 num_chars);
 
+#ifdef PARRETO_FMC
+int i2c_write_freq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress,
+                u32 Value);
+u8 i2c_read_freq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress);
+u8 i2c_read_tdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress);
+int i2c_write_tdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress, u8 Value);
+#endif
 /************************** Function Definitions *****************************/
 /* Defining constants for colors in printing */
 #define ANSI_COLOR_RED          "\x1b[31m"

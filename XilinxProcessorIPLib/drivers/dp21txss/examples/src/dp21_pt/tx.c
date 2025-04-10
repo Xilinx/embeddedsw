@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -705,6 +705,11 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	 * Setting Color Format
 	 * User can change coefficients here - By default 601 is used for YCbCr
 	 * */
+	if (format == 1){
+		format = XVIDC_CSF_YCRCB_422;
+	}else if(format == 2){
+		format = XVIDC_CSF_YCRCB_444;
+	}
 	XDp_TxCfgSetColorEncode(DpTxSsInst.DpPtr, XDP_TX_STREAM_ID1, \
 				format, XVIDC_BT_601, XDP_DR_VESA);
 
