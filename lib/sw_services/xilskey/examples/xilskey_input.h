@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -481,6 +481,7 @@
 *                        SLR.
 * 6.8   psl     06/07/19 Added doxygen tags.
 * 7.5   ng      07/13/23 added SDT support
+* 7.6   vss     04/08/25 Corrected efuse AXI GPIO device ID macro name.
 * </pre>
 *
 *
@@ -708,9 +709,9 @@ extern "C" {
 
 /* GPIO device ID */
 #ifndef SDT
-#define XSK_BBRAM_AXI_GPIO_DEVICE_ID	XPAR_AXI_GPIO_0_DEVICE_ID
+#define XSK_EFUSEPL_AXI_GPIO_DEVICE_ID	XPAR_AXI_GPIO_0_DEVICE_ID
 #else
-#define XSK_BBRAM_AXI_GPIO_DEVICE_ID	XPAR_XGPIOPS_0_BASEADDR
+#define XSK_EFUSEPL_AXI_GPIO_DEVICE_ID	XPAR_XGPIOPS_0_BASEADDR
 #endif
 
 /* Signals connect as Input to GPIO */
