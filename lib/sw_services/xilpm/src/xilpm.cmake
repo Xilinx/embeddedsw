@@ -1,5 +1,5 @@
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.3)
 
@@ -22,5 +22,13 @@ option(XILPM_apu_as_reset_management_master "true: APU as reset management maste
 option(XILPM_rpu0_as_overlay_config_master "true: RPU0 has permission to load overlay config objects, false: RPU0 doesn't have permission to load overlay config objects" OFF)
 option(XILPM_rpu1_as_overlay_config_master "true: RPU1 has permission to load overlay config objects, false: RPU1 doesn't have permission to load overlay config objects" OFF)
 option(XILPM_apu_as_overlay_config_master "true: APU has permission to load overlay config objects, false: APU doesn't have permission to load overlay config objects" OFF)
+
+string(TOUPPER "${SPEED_GRADE}" SPEED_GRADE_U)
+string(COMPARE EQUAL "${SPEED_GRADE_U}" "2LLI" IS_SPEED_GRADE_2LLI)
+string(COMPARE EQUAL "${SPEED_GRADE_U}" "2LI" IS_SPEED_GRADE_2LI)
+option(XILPM_Versal_DVS "true: Include Versal DVS feature support, false: Exclude Versal DVS feature support" OFF)
+if (XILPM_Versal_DVS OR IS_SPEED_GRADE_2LLI OR IS_SPEED_GRADE_2LI)
+  set(VERSAL_DVS " ")
+endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xpm_config.h.in ${CMAKE_BINARY_DIR}/include/xpm_config.h)
