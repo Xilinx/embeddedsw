@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -19,6 +19,7 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 ND 09/23/24 Initial release.
+* 1.01 ND 04/10/25 Added Parreto fmc support.
 * </pre>
 *
 ******************************************************************************/
@@ -296,7 +297,7 @@ int VideoFMC_Init(void)
 		xil_printf("Failed to set the I2C Mux.\n\r");
 	    return XST_FAILURE;
 	}
-
+#ifndef PARRETO_FMC
 	/* Configure VFMC IO Expander 0:
 	 * Disable Si5344
 	 * Set primary clock source for LMK03318 to IOCLKp(0)
@@ -345,8 +346,174 @@ int VideoFMC_Init(void)
 	xil_printf("Failed to Si5344\n\r");
         return XST_FAILURE;
     }
+#else
+	u32 freq=0;
+	while(freq!=1){
+		freq = i2c_read_freq (IIC_BASE_ADDR, 0x4D, 0x0);
+	}
+	xil_printf ("Freq lock = %x\r\n", freq);
+#endif
 	return XST_SUCCESS;
 }
+#ifdef PARRETO_FMC
+int i2c_write_freq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress, u32 Value)
+{
+    u32 Status;
+        u32 ByteCount = 0;
+        u8 Buffer[4];
+        u8 Retry = 0;
+        // Write data
+        Buffer[0] = RegisterAddress;
+        Buffer[1] = (Value & 0x000000FF);
+        Buffer[2] = (Value & 0x0000FF00) >> 8;
+        Buffer[3] = (Value & 0x00FF0000) >> 16;
+        Buffer[4] = (Value & 0xFF000000) >> 24;
+
+        xil_printf ("%x, %x, %x, %x\r\n",Buffer[1], Buffer[2], Buffer[3], Buffer[4]);
+        while (1) {
+#ifndef versal
+                ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer, 5, XIIC_STOP);
+                if (ByteCount == 5) {
+                        Status=XST_SUCCESS;
+                }
+                else{
+                        Status=XST_FAILURE;
+                }
+#else
+            Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+                                                     (u8 *)&Buffer,
+                                                     2,
+                                                                                                 I2CSlaveAddress);
+#endif
+                if (Status != XST_SUCCESS) {
+                        Retry++;
+                        // Maximum retries
+                        if (Retry == 255) {
+                                return XST_FAILURE;
+                        }
+                }
+                else {
+                        return XST_SUCCESS;
+                }
+        }
+}
+
+u8 i2c_read_freq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress)
+{
+        u32 ByteCount = 0;
+        u8 Buffer[1];
+        u8 Data;
+        u8 Retry = 0;
+        u8 Exit;
+
+
+        Exit = FALSE;
+        Data = 0;
+
+        do {
+                // Set Address
+                Buffer[0] = RegisterAddress & 0xff;
+                ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer, 1, XIIC_REPEATED_START);
+
+                if (ByteCount != 1) {
+                        Retry++;
+
+                        // Maximum retries
+                        if (Retry == 255) {
+                                Exit = TRUE;
+                        }
+                }
+
+                // Read data
+                else {
+                        //Read data
+                        ByteCount = XIic_Recv(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer, 1, XIIC_STOP);
+
+                        Data = Buffer[0];
+                        Exit = TRUE;
+                }
+        } while (!Exit);
+
+        return Data;
+}
+
+int i2c_write_tdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress, u8 Value)
+{
+    u32 Status;
+        u32 ByteCount = 0;
+        u8 Buffer[1];
+        u8 Retry = 0;
+        // Write data
+        Buffer[0] = RegisterAddress;
+        Buffer[1] = Value;
+
+        while (1) {
+#ifndef versal
+                ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer, 2, XIIC_STOP);
+                if (ByteCount == 2) {
+                        Status=XST_SUCCESS;
+                }
+                else{
+                        Status=XST_FAILURE;
+                }
+#else
+            Status = XIicPs_MasterSendPolled(&Ps_Iic0,
+                                                     (u8 *)&Buffer,
+                                                     2,
+                                                                                                 I2CSlaveAddress);
+#endif
+                if (Status != XST_SUCCESS) {
+                        Retry++;
+                        // Maximum retries
+                        if (Retry == 255) {
+                                return XST_FAILURE;
+                        }
+                }
+                else {
+                        return XST_SUCCESS;
+                }
+        }
+}
+
+u8 i2c_read_tdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress)
+{
+        u32 ByteCount = 0;
+        u8 Buffer[1];
+        u8 Data;
+        u8 Retry = 0;
+        u8 Exit;
+
+
+        Exit = FALSE;
+        Data = 0;
+
+        do {
+                // Set Address
+                Buffer[0] = RegisterAddress & 0xff;
+                ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer, 1, XIIC_REPEATED_START);
+
+                if (ByteCount != 1) {
+                        Retry++;
+
+                        // Maximum retries
+                        if (Retry == 255) {
+                                Exit = TRUE;
+                        }
+                }
+
+                // Read data
+                else {
+                        //Read data
+                        ByteCount = XIic_Recv(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer, 1, XIIC_STOP);
+
+                        Data = Buffer[0];
+                        Exit = TRUE;
+                }
+        } while (!Exit);
+
+        return Data;
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -957,8 +1124,15 @@ u32 DpSs_PlatformInit(void)
     #endif
 
 	VideoFMC_Init();
+#ifdef PARRETO_FMC
+	u8 dat;
+	dat = i2c_read_tdp2004(IIC_BASE_ADDR, 0x18, 0xF0);
+	dat = i2c_read_tdp2004(IIC_BASE_ADDR, 0x18, 0xF1);
+	i2c_write_tdp2004(IIC_BASE_ADDR, 0x18, 0x84, 0x4);
+#else
 	IDT_8T49N24x_SetClock(IIC_BASE_ADDR, I2C_IDT8N49_ADDR, 0,
             270000000, TRUE);
+#endif
 	return Status;
 }
 
@@ -1210,9 +1384,11 @@ u32 DpSs_PhyInit(UINTPTR BaseAddress)
 	//set the default vswing and pe for v0po
 
 #ifdef Rx
+#ifndef PARRETO_FMC
 	xil_printf ("Setting polarity (RX) for new DP2.1 FMC\r\n");
 	XVphy_SetPolarity(&VPhyInst, 0, XVPHY_CHANNEL_ID_CHA,
 			XVPHY_DIR_RX, 1);
+#endif
 #endif
 	return XST_SUCCESS;
 }
@@ -1433,11 +1609,11 @@ void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4]) {
 	if(Msa[0].BitsPerColor <= 8){
 		VidStream.ColorDepth = XVIDC_BPC_8;
 		if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
 			Cfmt = ColorFormats[2].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[2].StreamFormat;
 		} else if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[8].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[8].StreamFormat;
 		}else {
@@ -1447,12 +1623,12 @@ void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4]) {
 	}else if(Msa[0].BitsPerColor == 10){
 		VidStream.ColorDepth = XVIDC_BPC_10;
 		if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
 			Cfmt = ColorFormats[9].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[9].StreamFormat;
 
 		} else if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[4].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
 		} else {
@@ -1462,12 +1638,12 @@ void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4]) {
 	}else if(Msa[0].BitsPerColor == 12){
 		VidStream.ColorDepth = XVIDC_BPC_12;
 		if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
 			Cfmt = ColorFormats[18].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[18].StreamFormat;
 
 		} else if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[17].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[17].StreamFormat;
 		} else {
@@ -1477,12 +1653,12 @@ void frameBuffer_start_wr(XDpTxSs_MainStreamAttributes Msa[4]) {
 	}else if(Msa[0].BitsPerColor == 16){
 		VidStream.ColorDepth = XVIDC_BPC_16;
 		if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
 			Cfmt = ColorFormats[20].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[20].StreamFormat;
 
 		} else if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[19].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[19].StreamFormat;
 		} else {
@@ -1514,11 +1690,11 @@ void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4]) {
 	if(Msa[0].BitsPerColor <= 8){
 		VidStream.ColorDepth = XVIDC_BPC_8;
 		if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
 			Cfmt = ColorFormats[2].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[2].StreamFormat;
 		} else if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[8].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[8].StreamFormat;
 		} else {
@@ -1528,12 +1704,12 @@ void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4]) {
 	}else if(Msa[0].BitsPerColor == 10){
 		VidStream.ColorDepth = XVIDC_BPC_10;
 		if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
 			Cfmt = ColorFormats[9].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[9].StreamFormat;
 
 		} else if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[4].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
 		} else {
@@ -1543,12 +1719,12 @@ void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4]) {
 	}else if(Msa[0].BitsPerColor == 12){
 		VidStream.ColorDepth = XVIDC_BPC_12;
 		if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
 			Cfmt = ColorFormats[18].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[18].StreamFormat;
 
 		} else if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[17].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[17].StreamFormat;
 		} else {
@@ -1558,12 +1734,12 @@ void frameBuffer_start_rd(XDpTxSs_MainStreamAttributes Msa[4]) {
 	}else if(Msa[0].BitsPerColor == 16){
 		VidStream.ColorDepth = XVIDC_BPC_16;
 		if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
 			Cfmt = ColorFormats[20].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[20].StreamFormat;
 
 		} else if (Msa[0].ComponentFormat ==
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[19].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[19].StreamFormat;
 		} else {
@@ -1756,15 +1932,12 @@ int Dppt_DetectResolution(void *InstancePtr){//,
 	frameBuffer_stop_wr();
 	XDp_RxSetLineReset(DpRxSsInst.DpPtr,XDP_TX_STREAM_ID1);
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
-	if(Msa_test[0].ComponentFormat == XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB){
-		Msa_test[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+	if(Msa_test[0].ComponentFormat == 0){
 		color="RGB";
-	}else if(Msa_test[0].ComponentFormat == XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422){
-		Msa_test[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+	}else if(Msa_test[0].ComponentFormat == 1){
 		color="YUV422";
-	}else if(Msa_test[0].ComponentFormat == XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
+	}else if(Msa_test[0].ComponentFormat == 2){
 		color="YUV444";
-		Msa_test[0].ComponentFormat = XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
 	}
 	if (DpRxSsInst.link_up_trigger == 1) {
 		xil_printf(
@@ -1795,15 +1968,15 @@ int Dppt_DetectColor(void *InstancePtr,
 	color_mode = XDpRxss_GetColorComponent(&DpRxSsInst, XDP_TX_STREAM_ID1);
 	if(color_mode == 0){
 		component =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
 	}
 	else if(color_mode == 1){
 		component =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
 	}
 	else if(color_mode == 2){
 		component =
-				XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
 	} else {
 		//RAW, 420, Y unsupported
 		xil_printf(ANSI_COLOR_RED"Unsupported Color Format !!"ANSI_COLOR_RESET"\r\n");

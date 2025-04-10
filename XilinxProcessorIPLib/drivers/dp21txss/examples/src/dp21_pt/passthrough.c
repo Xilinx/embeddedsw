@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -674,13 +674,13 @@ void start_tx_after_rx (void) {
 
 	/*Check component Format*/
 	if(Msa_test[0].ComponentFormat ==
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422){
-		user_config.user_format = XVIDC_CSF_YCRCB_422 + 1;
+			XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422){
+		user_config.user_format = XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422 + 1;
 	}else if(Msa_test[0].ComponentFormat ==
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
-		user_config.user_format = XVIDC_CSF_YCRCB_444 + 1;
+			XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
+		user_config.user_format = XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444 + 1;
 	}else
-		user_config.user_format = XVIDC_CSF_RGB + 1;
+		user_config.user_format = XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB + 1;
 
 	user_config.VideoMode_local = VmId;
 
@@ -707,9 +707,9 @@ void start_tx_after_rx (void) {
 	XV_tpg_Set_width(&TpgInst, Msa_test[0].Vtm.Timing.HActive);
 	XV_tpg_Set_bckgndId(&TpgInst, 0x9);
 	XV_tpg_Set_ovrlayId(&TpgInst, 0x0);
-	if(Msa_test[0].ComponentFormat == XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422){
+	if(Msa_test[0].ComponentFormat == XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422){
 	XV_tpg_Set_colorFormat(&TpgInst, 0x2);
-	}else if(Msa_test[0].ComponentFormat == XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
+	}else if(Msa_test[0].ComponentFormat == XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
 		XV_tpg_Set_colorFormat(&TpgInst, 0x1);
 	}else{
 		XV_tpg_Set_colorFormat(&TpgInst, 0x0);
