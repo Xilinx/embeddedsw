@@ -26,6 +26,7 @@ supported_processors:
   - cortexa78
   - psx_cortexr52
   - cortexr52
+  - microblaze_riscv
 
 supported_os:
   - standalone
@@ -52,7 +53,7 @@ examples:
       - VersalNet
   xilpuf_spartan_ultrascale_plus_example.c:
     - supported_platforms:
-      - SpartanUP
+      - spartanuplus
     - dependency_files:
       - xilpuf_spartan_ultrascale_plus_example.h
   xilpuf_ssit_client_example.c:
