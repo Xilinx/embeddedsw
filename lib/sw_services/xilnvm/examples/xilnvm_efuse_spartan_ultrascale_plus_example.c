@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * Ver	 Who	Date	Changes
  * ----- ---  -------- -------------------------------------------------------
  * 1.0	 kpt   08/13/2024 Initial release of xilnvm_efuse_spartan_ultrascale_plus_example
+ * 1.1   mb    04/11/2025 Passed args to XNvm_EfuseCheckAesKeyCrc in correct order
  *
  * </pre>
  *
@@ -1155,8 +1156,8 @@ static int XilNvm_EfusePerformCrcChecks(void)
 		xil_printf("AES Key's CRC provided for verification: %08x\n\r",
 			   XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
 		Status = XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_AES_CRC_OFFSET,
-						  XNVM_EFUSE_STS_AES_CRC_PASS_MASK,
 						  XNVM_EFUSE_STS_AES_CRC_DONE_MASK,
+						  XNVM_EFUSE_STS_AES_CRC_PASS_MASK,
 						  XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
 		if (Status != XST_SUCCESS) {
 			xil_printf("\r\nAES CRC check is failed\n\r");
