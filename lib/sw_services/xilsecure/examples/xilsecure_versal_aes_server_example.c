@@ -18,7 +18,7 @@
 *      back to get original data and checks GCM tag. The test fails, if decryption not
 *      produce the original data.
 * 	2. Generating the GMAC tag using key and IV on updated AAD data and checks for GMAC tag match.
-* This example is supported for Versal device.
+* This example is supported for Versal and Spartan Ultrascale Plus devices.
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -30,6 +30,7 @@
 * 4.7   kpt    12/01/21 Replaced library specific,standard utility functions
 *                       with xilinx maintained functions
 * 5.4   vss    01/08/25 Updated comments related to deprecated server mode of versalnet
+*       mb     03/25/25 Add section attribute to global variables
 *
 * </pre>
 ******************************************************************************/
@@ -80,10 +81,14 @@ static int SecureAesGmacTest(XSecure_Aes *AesInstance);
 #endif
 
 /************************** Variable Definitions *****************************/
-static u8 Iv[XSECURE_IV_SIZE];
-static u8 Key[XSECURE_KEY_SIZE];
 
 #if defined (__GNUC__)
+static XSecure_Aes Secure_Aes __attribute__ ((aligned (64)))
+				__attribute__ ((section (".data.Secure_Aes")));
+static u8 Iv[XSECURE_IV_SIZE]__attribute__ ((aligned (64)))
+				__attribute__ ((section (".data.Iv")));
+static u8 Key[XSECURE_KEY_SIZE]__attribute__ ((aligned (64)))
+				__attribute__ ((section (".data.Key")));
 static u8 Data[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.Data")));
 static u8 DecData[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)))
@@ -198,7 +203,6 @@ static int SecureAesExample(void)
 {
 	XPmcDma_Config *Config;
 	XPmcDma PmcDmaInstance;
-	XSecure_Aes Secure_Aes;
 	int Status = XST_FAILURE;
 
 	/* Initialize PMC DMA driver */
