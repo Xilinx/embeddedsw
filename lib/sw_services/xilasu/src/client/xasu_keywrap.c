@@ -29,7 +29,6 @@
 /*************************************** Include Files *******************************************/
 #include "xasu_keywrap.h"
 #include "xasu_def.h"
-#include "xasu_status.h"
 #include "xasu_keywrap_common.h"
 
 /************************************ Constant Definitions ***************************************/

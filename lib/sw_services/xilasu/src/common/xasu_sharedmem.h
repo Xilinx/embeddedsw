@@ -68,7 +68,7 @@ extern "C" {
 #define XASU_COMMAND_LENGTH_SHIFT			(18U) /**< Shift for command length */
 
 #define XASU_COMMAND_REQ_ARGS				(22U) /**< Command arguments count */
-#define XASU_COMMAND_RESP_ARGS				(18U) /**< Response arguments count */
+#define XASU_COMMAND_RESP_ARGS				(17U) /**< Response arguments count */
 
 #define XASU_RTCA_BASEADDR			(0xEBE40000U) /**< ASUFW run time configuration area
 									base address */
@@ -91,6 +91,7 @@ typedef struct {
 typedef struct {
 	u32 Header; /**< Command header */
 	u32 Arg[XASU_COMMAND_RESP_ARGS]; /**< Response arguments */
+	u32 AdditionalStatus; /**< Redundant variable to hold additional status from server */
 	u32 Reserved; /**< Reserved */
 } XAsu_RespBuf;
 

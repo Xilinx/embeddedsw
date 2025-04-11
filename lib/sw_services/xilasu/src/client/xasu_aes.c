@@ -31,7 +31,6 @@
 /*************************************** Include Files *******************************************/
 #include "xasu_aes.h"
 #include "xasu_def.h"
-#include "xasu_status.h"
 #include "xasu_aes_common.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -61,6 +60,11 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
  *
+ * @note	Verify the additional status if operation flag is set to XASU_AES_FINAL.
+ * 		- XASU_AES_TAG_READ, if encryption operation successfully done.
+ * 		- XASU_AES_TAG_MATCHED, if decryption operation successfully done.
+ * 		- Any other value shall be treated as failure.
+ *
  *************************************************************************************************/
 s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClientParamPtr)
 {
@@ -82,6 +86,13 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 
 	if ((AesClientParamPtr->OperationFlags &
 			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) == 0x0U) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Validate client additional status pointer for critical security calls. */
+	if (((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) != 0x0U) &&
+			(ClientParamPtr->AdditionalStatusPtr == NULL)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}

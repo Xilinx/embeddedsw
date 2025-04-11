@@ -34,7 +34,6 @@
 /*************************************** Include Files *******************************************/
 #include "xasu_ecc.h"
 #include "xasu_def.h"
-#include "xasu_status.h"
 #include "xasu_ecies_common.h"
 
 /************************************ Constant Definitions ***************************************/

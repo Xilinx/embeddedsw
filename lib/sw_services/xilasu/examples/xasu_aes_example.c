@@ -278,9 +278,10 @@ static void XAsu_AesGcmExample(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_AesKeyObject AesKeyObj;
-	XAsu_ClientParams AesClientParams;
+	XAsu_ClientParams AesClientParams = {0U};
 	Asu_AesParams AesParams;
 	ErrorStatus = XST_FAILURE;
+	s32 ReturnStatus;
 
 	xil_printf("\r\n AES-GCM Example: \r\n");
 
@@ -288,6 +289,8 @@ static void XAsu_AesGcmExample(void)
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
 	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
 	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
+	/* Assign redundant variable address to get additional status */
+	AesClientParams.AdditionalStatusPtr = &ReturnStatus;
 
 	/* AES parameters structure initialization for encryption */
 	AesParams.EngineMode = XASU_AES_GCM_MODE;
@@ -318,7 +321,13 @@ static void XAsu_AesGcmExample(void)
 	}
 	while(!Notify);
 
-	if (ErrorStatus != XST_SUCCESS) {
+	/**
+	 * Verify additional status as well if operation flag set to XASU_AES_FINAL to know
+	 * operation is successful.
+	 */
+	if ((ErrorStatus != XST_SUCCESS) || (ReturnStatus != XASU_AES_TAG_READ)) {
+		xil_printf("\r\n AES-GCM Example failed from server with error %08x and "
+			"additional error of %08x", ErrorStatus, ReturnStatus);
 		goto END;
 	}
 
@@ -351,6 +360,8 @@ static void XAsu_AesGcmExample(void)
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
 	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
 	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
+	/* Assign redundant variable address to get additional status */
+	AesClientParams.AdditionalStatusPtr = &ReturnStatus;
 
 	/* AES parameters structure initialization for decryption */
 	AesParams.EngineMode = XASU_AES_GCM_MODE;
@@ -382,7 +393,13 @@ static void XAsu_AesGcmExample(void)
 	while(!Notify);
 	Notify = 0;
 
-	if (ErrorStatus != XST_SUCCESS) {
+	/**
+	 * Verify additional status as well if operation flag set to XASU_AES_FINAL to know
+	 * operation is successful.
+	 */
+	if ((ErrorStatus != XST_SUCCESS) || (ReturnStatus != XASU_AES_TAG_MATCHED)) {
+		xil_printf("\r\n AES-GCM Example failed from server with error %08x and "
+			"additional error of %08x", ErrorStatus, ReturnStatus);
 		goto END;
 	}
 
@@ -392,17 +409,15 @@ static void XAsu_AesGcmExample(void)
 	/* Comparison of decrypted Data with expected input data */
 	Status = Xil_SMemCmp_CT(XAsu_AesInputData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesDecData,
 				XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n ASU AES-GCM Example Failed at Decrypted data Comparison = %08x", Status);
+		goto END;
+	}
+	xil_printf("\r\n Successfully ran AES-GCM client example ");
 
 END:
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n AES-GCM client example failed with Status = %08x", Status);
-	}
-	else if (ErrorStatus != XST_SUCCESS) {
-		xil_printf("\r\n AES-GCM client example failed with error from server = %08x", ErrorStatus);
-		Status = ErrorStatus;
-	}
-	else {
-		xil_printf("\r\n Successfully ran AES-GCM client example ");
 	}
 }
 

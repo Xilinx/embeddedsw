@@ -32,8 +32,6 @@
 /*************************************** Include Files *******************************************/
 #include "xasu_sha3.h"
 #include "xasu_def.h"
-#include "xasu_client.h"
-#include "xasu_status.h"
 
 /************************************ Constant Definitions ***************************************/
 

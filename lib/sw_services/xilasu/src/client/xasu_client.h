@@ -40,6 +40,7 @@ extern "C" {
 #include "xasu_sharedmem.h"
 #include "xilmailbox.h"
 #include "xasu_perf.h"
+#include "xasu_status.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_PRIORITY_LOW                   1U  /**< LOW priority */
@@ -59,6 +60,8 @@ typedef struct {
 	XAsuClient_ResponseHandler CallBackFuncPtr;  /**< Callback function pointer */
 	void *CallBackRefPtr;   /**< Callback reference pointer */
 	void *ClientCtx; /**< Reserved for user operation */
+	u32 *AdditionalStatusPtr; /**< Additional status to detect glitches only for security
+		critical functions */
 } XAsu_ClientParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

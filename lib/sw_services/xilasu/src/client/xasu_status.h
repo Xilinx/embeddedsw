@@ -58,6 +58,16 @@ enum {
 	XASU_FAIL_SAVE_CTX,		/**< 0x1A - Failed in saving the context */
 	XASU_INVALID_CURVEINFO,		/**< 0x1B - Invalid curve type or curve length */
 };
+
+/**
+ * This contains the non-zero success values returned from server for critical security
+ * functionalities and these codes should not be used for failures in client
+ */
+enum {
+	XASU_AES_TAG_MATCHED = 0x3FD, /**< 0x3FDU - Successfully verified AES tag */
+	XASU_AES_TAG_READ, /**< 0x3FEU - Successfully read AES tag */
+};
+
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
