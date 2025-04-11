@@ -24,10 +24,22 @@ done:
 	return Status;
 }
 
+static XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+
+	PmInfo("APU PwrDwn\r\n");
+	Status = XPmCore_PwrDwn(Core);
+	if (XST_SUCCESS != Status) {
+		PmErr("Status = %x\r\n", Status);
+	}
+
+	return Status;
+}
 
 static struct XPm_CoreOps ApuOps= {
 	.RequestWakeup = XPmApuCore_WakeUp,
-	.PowerDown = NULL
+	.PowerDown = XPmApuCore_PwrDwn
 };
 
 XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,

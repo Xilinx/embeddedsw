@@ -5,7 +5,7 @@
 
 #include "xpm_power_handlers.h"
 #include "xpm_power_core.h"
-#include "xpm_core.h"
+#include "xpm_runtime_core.h"
 
 DECLARE_APU_PWRCTRL()
 DECLARE_RPU_PWRCTRL()
@@ -426,6 +426,8 @@ XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 	u32 Index;
 	XPm_Core *Core;
 
+	PmInfo("PwrCtrlStatus = 0x%x, PwrCtrlMask = 0x%x\r\n", PwrCtrlStatus, PwrCtrlMask);
+
 	for (Index = 0U; Index < ARRAY_SIZE(ApuSleepHandlerTable); Index++) {
 		/* Check for PwrCtrlStatus 1 and PwrCtrlMask is 0.
 		 * PwrCtrlStatus indicates that there is an interrupt request to power down the core.
@@ -433,15 +435,38 @@ XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 		 */
 		if ((CHECK_BIT(PwrCtrlStatus, ApuSleepHandlerTable[Index].Mask)) &&
 		    !(CHECK_BIT(PwrCtrlMask, ApuSleepHandlerTable[Index].Mask))) {
-			/* Call power down handler */
-			Status = XPmPower_ACpuDirectPwrDwn(ApuSleepHandlerTable[Index].Args);
-
-			/* Ack the service */
-			XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS, ApuSleepHandlerTable[Index].Mask);
-			XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_DIS, ApuSleepHandlerTable[Index].Mask);
-
 			/* Get core data for setting the power state */
 			Core = (XPm_Core *)XPmDevice_GetById(ApuSleepHandlerTable[Index].DeviceId);
+			if (NULL == Core) {
+				PmErr("Missing core data for device ID 0x%x\r\n", ApuSleepHandlerTable[Index].DeviceId);
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+
+			if (XPM_DEVSTATE_PENDING_PWR_DWN == Core->Device.Node.State) {
+				Status = XPmCore_ReleaseFromSubsys(Core);
+				if (XST_SUCCESS != Status) {
+					PmErr("Failed to release core 0x%x from subsystem!\r\n", Core->Device.Node.Id);
+				}
+				/* Ack the service */
+				XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS, ApuSleepHandlerTable[Index].Mask);
+				XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_DIS, ApuSleepHandlerTable[Index].Mask);
+
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+				continue;
+			} else {
+				PmInfo("Core 0x%x is not in pending power down state (state: 0x%x)\r\n",
+					Core->Device.Node.Id, Core->Device.Node.State);
+
+				/* Call power down handler */
+				Status = XPmPower_ACpuDirectPwrDwn(ApuSleepHandlerTable[Index].Args);
+
+				/* Ack the service */
+				XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS, ApuSleepHandlerTable[Index].Mask);
+				XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_DIS, ApuSleepHandlerTable[Index].Mask);
+			}
 
 			/* Call XPmCore_AfterDirectPwrDwn to set the core power state */
 			Status = XPmCore_AfterDirectPwrDwn(Core);
@@ -470,5 +495,6 @@ XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 			Status = XPmCore_AfterDirectPwrDwn(Core);
 		}
 	}
+done:
 	return Status;
 }

@@ -160,19 +160,11 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 		}
 		Device->Node.Flags &= (u8)(~NODE_IDLE_DONE);
 		if (Device->WfPwrUseCnt == Device->Power->UseCount) {
-			/** TODO: waitfor dealloc need to be implement in runtime */
+			// TODO: Needs to be implemented correctly
 			// if (1U == Device->WfDealloc) {
 			// 	Device->PendingReqm->Allocated = 0;
 			// 	Device->WfDealloc = 0;
 			// }
-
-			XPmRequirement_ReleaseFromAllSubsystem(Device);
-
-			if (0U == IsRunning(Device)) {
-				Status = XST_FAILURE;
-				PmErr("Error during power down device ID=0x%x. Device still running ... ", Device->Node.Id);
-				goto done;
-			}
 		}
 	}
 
@@ -206,6 +198,9 @@ static const XPmFsm_StateCap XPmGenericDeviceStates[] = {
 		.State = (u8)XPM_DEVSTATE_RUNTIME_SUSPEND,
 		.Cap = (u32)PM_CAP_UNUSABLE,
 	}, {
+		.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN,
+		.Cap = (u32)PM_CAP_UNUSABLE,
+	}, {
 		.State = (u8)XPM_DEVSTATE_RUNNING,
 		.Cap = XPM_MAX_CAPABILITY | (u32)PM_CAP_UNUSABLE,
 	},
@@ -221,6 +216,12 @@ static const XPmFsm_Tran XPmGenericDevEventTransitions[] = {
 	}, {
 	.Event = (u32)XPM_DEVEVENT_SHUTDOWN,
 	.FromState = (u32)XPM_DEVSTATE_RUNNING,
+	.ToState = (u32)XPM_DEVSTATE_UNUSED,
+	.Latency = XPM_DEF_LATENCY,
+	.Action = ActionShutdown,
+	}, {
+	.Event = (u32)XPM_DEVEVENT_SHUTDOWN,
+	.FromState = (u32)XPM_DEVSTATE_PENDING_PWR_DWN,
 	.ToState = (u32)XPM_DEVSTATE_UNUSED,
 	.Latency = XPM_DEF_LATENCY,
 	.Action = ActionShutdown,

@@ -128,6 +128,9 @@ XStatus XPmRequirement_ReleaseFromAllSubsystem(XPm_Device* Device)
 	}
 	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	LIST_FOREACH(DevOps->Requirements, ReqmNode){
+		if (1U != ReqmNode->Data->Allocated) {
+			continue;
+		}
 		Status = XPmDevice_Release(ReqmNode->Data->Subsystem->Id, ReqmNode->Data->Device->Node.Id,
 					   XPLMI_CMD_SECURE);
 		if (XST_SUCCESS != Status) {

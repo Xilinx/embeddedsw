@@ -12,6 +12,7 @@
 #include "xplmi.h"
 #include "xpm_runtime_api.h"
 #include "xpm_runtime_device.h"
+#include "xpm_runtime_core.h"
 #include "xpm_runtime_reset.h"
 #include "xpm_mem_tcm.h"
 #include "xpm_aiedevice.h"
@@ -446,6 +447,7 @@ done:
 	return Status;
 }
 
+
 XStatus XPmDevice_Release(u32 SubsystemId, u32 DeviceId, u32 CmdType)
 {
 	XStatus Status = XPM_ERR_DEVICE_RELEASE;
@@ -656,9 +658,13 @@ static XStatus DevRelease(XPm_Device *Device,  XPm_Subsystem *Subsystem, u32 Cmd
 	XPm_Requirement *Reqm = NULL;
 	u32 PrevState;
 
+	PmInfo("Device: 0x%x, Subsystem: 0x%x, State: 0x%x\r\n",
+		Device->Node.Id, Subsystem->Id, Device->Node.State);
+
 	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State) &&
+	    ((u8)XPM_DEVSTATE_PENDING_PWR_DWN != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_INITIALIZING != Device->Node.State)) {
 		Status = XST_DEVICE_BUSY;
 		goto done;
@@ -671,6 +677,7 @@ static XStatus DevRelease(XPm_Device *Device,  XPm_Subsystem *Subsystem, u32 Cmd
 	if (NULL == Reqm) {
 		goto done;
 	}
+	PmInfo("Device State: 0x%x, Reqm->Allocated: 0x%x\r\n", Device->Node.State, Reqm->Allocated);
 
 	/* TODO:: Enable this handling separately for eemi and subsys */
 	// Status = CheckSecurityAccess(Reqm, 0U, CmdType);
@@ -708,10 +715,14 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 	XPm_ReqmInfo TempReqm;
 	XPm_Requirement *PendingReqm = NULL;
 
+	PmInfo("Device: 0x%x, State: 0x%x\r\n", Device->Node.Id, Device->Node.State);
+
 	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
+	    ((u8)XPM_DEVSTATE_PENDING_PWR_DWN != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State) &&
 		((u8)XPM_DEVSTATE_INITIALIZING != Device->Node.State)) {
+		PmErr("Device 0x%x is busy, Sate: 0x%x\r\n", Device->Node.Id, Device->Node.State);
 			Status = XST_DEVICE_BUSY;
 			goto done;
 	}
@@ -980,6 +991,9 @@ XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
 	}
+	PmInfo("Device: 0x%x, State: 0x%x, NextState: 0x%x\r\n", Device->Node.Id,
+		Device->Node.State, NextState);
+
 	const XPm_Fsm* Fsm = DevOps->Fsm;
 	u32 OldState = Device->Node.State;
 	u32 Trans;
@@ -1068,6 +1082,7 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 
 	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
+	    ((u8)XPM_DEVSTATE_PENDING_PWR_DWN != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNTIME_SUSPEND != Device->Node.State) &&
 		((u8)XPM_DEVSTATE_INITIALIZING != Device->Node.State)) {
 			Status = XST_DEVICE_BUSY;
@@ -1076,6 +1091,7 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 
 	Status = GetStateWithCaps(Device, Caps, &State);
 	if (XST_SUCCESS != Status) {
+		PmErr("Failed to get caps for device 0x%x\r\n", Device->Node.Id);
 		goto done;
 	}
 
@@ -1104,6 +1120,9 @@ XStatus XPmDevice_UpdateStatus(XPm_Device *Device)
 	}
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x, Id: 0x%x\r\n", Status, Device->Node.Id);
+	}
 	return Status;
 }
 

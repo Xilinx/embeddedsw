@@ -9,6 +9,8 @@
 #include "xpm_alloc.h"
 #include "xpm_requirement.h"
 #include "xpm_runtime_device.h"
+#include "xpm_runtime_clock.h"
+#include "xpm_runtime_reset.h"
 
 static XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_SetState(XPm_Subsystem *Subsystem, u32 State);
@@ -77,10 +79,52 @@ static XStatus XPmSubsystem_StopRecoveryTimer(XPm_Subsystem *Subsystem)
 
 static XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId)
 {
-	(void)Subsystem;
-	(void)NodeId;
+	XStatus Status = XST_FAILURE;
 
-	return XST_SUCCESS;
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+	if (Subsystem->Id == PM_SUBSYS_PMC) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	switch (NODECLASS(NodeId)) {
+	case (u32)XPM_NODECLASS_POWER:
+		/* TODO: Check if an implementation is needed for this case */
+		break;
+	case (u32)XPM_NODECLASS_CLOCK:
+		Status = XPmClock_CheckPermissions(NODEINDEX(Subsystem->Id), NodeId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		break;
+	case (u32)XPM_NODECLASS_RESET:
+		Status = XPmReset_CheckPermissions(Subsystem, NodeId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		break;
+	case (u32)XPM_NODECLASS_DEVICE:
+		Status = XPmDevice_CheckPermissions(Subsystem, NodeId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		break;
+	case (u32)XPM_NODECLASS_STMIC:
+		Status = XPmPin_CheckPerms(Subsystem->Id, NodeId);
+		break;
+	default:
+		/* XXX - Not implemented yet. */
+		break;
+	}
+done:
+	if (Status != XST_SUCCESS) {
+		PmErr("Permission denied 0x%x, Subsys 0x%x NodeId 0x%x\r\n",
+			Status, Subsystem->Id, NodeId);
+	}
+	return Status;
 }
 
 maybe_unused static XStatus XPmSubsystem_AddPermissions(XPm_Subsystem *Subsystem, u32 TargetNodeId, u32 Operations)
