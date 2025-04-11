@@ -840,8 +840,7 @@ END:
  *************************************************************************************************/
 s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 {
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XFih_Var XFihTagStatus;
+	s32 Status = XASUFW_FAILURE;
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
@@ -860,13 +859,14 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 	}
 
 	/** Validate the tag with respect to the user provided engine mode. */
-	XFIH_CALL_GOTO(XAsu_AesValidateTagParams, XFihTagStatus, Status, END, InstancePtr->EngineMode,
-		TagAddr, TagLen);
+	Status = XAsu_AesValidateTagParams(InstancePtr->EngineMode, TagAddr, TagLen);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
 
 	/** Initialize the AES instance with ASU DMA pointer. */
 	InstancePtr->AsuDmaPtr = DmaPtr;
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Wait for AES operation to complete. */
 	Status = XAes_WaitForDone(InstancePtr);
 	if (Status != XASUFW_SUCCESS) {
@@ -881,8 +881,7 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 	if ((InstancePtr->EngineMode == XASU_AES_CCM_MODE) ||
 			(InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
 			(InstancePtr->EngineMode == XASU_AES_CMAC_MODE)) {
-		XFIH_CALL(XAes_ProcessTag, XFihTagStatus, Status, InstancePtr, TagAddr,
-			TagLen);
+		Status = XAes_ProcessTag(InstancePtr, TagAddr, TagLen);
 	}
 
 END:
@@ -1727,6 +1726,7 @@ static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen)
 	}
 	if (Index == XASUFW_CONVERT_BYTES_TO_WORDS(TagLen)) {
 		Status = XASUFW_SUCCESS;
+		ReturnStatus = XASUFW_AES_TAG_READ;
 	}
 
 	return Status;
@@ -1770,6 +1770,7 @@ static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLe
 	}
 	if (Index == XASUFW_CONVERT_BYTES_TO_WORDS(TagLen)) {
 		Status = XASUFW_SUCCESS;
+		ReturnStatus = XASUFW_AES_TAG_MATCHED;
 	}
 
 END:

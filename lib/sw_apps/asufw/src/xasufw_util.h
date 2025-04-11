@@ -167,6 +167,8 @@ s32 XAsufw_NvmEfuseWriteOffChipRevokeId(const u32 OffChipRevokeIdNum);
 s32 XAsufw_SMemSet(void *Dest, const u32 DestSize);
 
 /************************************ Variable Definitions ***************************************/
+extern s32 ReturnStatus;  /**< Redundant variable holds non-zero success value helps to	detect any
+		glitch attacks */
 
 #ifdef __cplusplus
 }

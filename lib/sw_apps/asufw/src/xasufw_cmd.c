@@ -63,6 +63,8 @@ static inline u32 XAsufw_GetModuleId(u32 Header)
 /************************************ Function Prototypes ****************************************/
 
 /************************************ Variable Definitions ***************************************/
+s32 ReturnStatus = XASUFW_FAILURE; /**< Redundant variable holds non-zero success value helps to
+		detect any glitch attacks */
 
 /*************************************************************************************************/
 /**
@@ -128,6 +130,8 @@ void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, s32 Response)
 	QueueBuf->ReqBufStatus = XASU_COMMAND_EXECUTION_COMPLETE;
 	QueueBuf->RespBuf.Header = QueueBuf->ReqBuf.Header;
 	QueueBuf->RespBuf.Arg[XASU_RESPONSE_STATUS_INDEX] = (u32)Response;
+	QueueBuf->RespBuf.AdditionalStatus = (u32)ReturnStatus;
+	ReturnStatus = XASUFW_FAILURE;
 	QueueBuf->RespBufStatus = XASU_RESPONSE_IS_PRESENT;
 	XAsufw_Printf(DEBUG_GENERAL, "Command response: 0x%x\r\n", Response);
 }
