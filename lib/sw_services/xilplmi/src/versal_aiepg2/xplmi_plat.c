@@ -57,6 +57,7 @@
 *       sk   03/17/2025 Updated XPlmi_VerifyAddrRange function to handle RPU cluster
 *                       TCM memory ranges
 *       sk  03/25/2025 Corrected configuration of the PMC IRO Freq
+*       obs 04/11/2025 Removed HNIC and PKI related code in XPlmi_UpdateFipsState
 *
 * </pre>
 *
@@ -1042,18 +1043,10 @@ static int XPlmi_UpdateFipsState(void)
 	u32 RomKatStatus = XPlmi_GetRomKatStatus();
 	u32 PlmKatStatus = XPlmi_GetKatStatus();
 	u32 DDRKatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_DDR_KAT_ADDR);
-	u32 HnicCpm5nPcideKatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_HNIC_CPM5N_PCIDE_KAT_ADDR);
-	u32 PKI0KatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_0);
-	u32 PKI1KatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_1);
-	u32 PKI2KatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_2);
 
 	if (((FipsKatMask->RomKatMask & RomKatStatus) == FipsKatMask->RomKatMask) &&
 		((FipsKatMask->PlmKatMask & PlmKatStatus) == FipsKatMask->PlmKatMask) &&
-		((FipsKatMask->DDRKatMask & DDRKatStatus) == FipsKatMask->DDRKatMask) &&
-		((FipsKatMask->HnicCpm5NPcideKatMask & HnicCpm5nPcideKatStatus) == FipsKatMask->HnicCpm5NPcideKatMask) &&
-		((FipsKatMask->PKI0KatMask & PKI0KatStatus) == FipsKatMask->PKI0KatMask) &&
-		((FipsKatMask->PKI1KatMask & PKI1KatStatus) == FipsKatMask->PKI1KatMask) &&
-		((FipsKatMask->PKI2KatMask & PKI2KatStatus) == FipsKatMask->PKI2KatMask)) {
+		((FipsKatMask->DDRKatMask & DDRKatStatus) == FipsKatMask->DDRKatMask)) {
 		Status = Xil_SecureRMW32(XPLMI_RTCFG_PLM_KAT_ADDR, XPLMI_SECURE_FIPS_STATE_MASK, XPLMI_SECURE_FIPS_STATE_MASK);
 	}
 	else {
