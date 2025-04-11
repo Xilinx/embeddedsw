@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS xsecure_sha_common.h)
@@ -9,6 +9,6 @@ if(("${CMAKE_MACHINE}" STREQUAL "VersalNet") OR
 endif()
 
 if(("${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2") OR
-  ("${CMAKE_MACHINE}" STREQUAL "SpartanUP"))
+  ("${CMAKE_MACHINE}" STREQUAL "spartanuplus"))
   add_subdirectory(sha_pmxc)
 endif()

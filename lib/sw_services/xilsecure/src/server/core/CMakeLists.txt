@@ -1,9 +1,9 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 add_subdirectory(aes)
 add_subdirectory(sha)
-if (NOT(("${CMAKE_MACHINE}" STREQUAL "SpartanUP")))
+if (NOT(("${CMAKE_MACHINE}" STREQUAL "spartanuplus")))
   add_subdirectory(rsa)
   add_subdirectory(ecdsa)
   add_subdirectory(crypto_kat)

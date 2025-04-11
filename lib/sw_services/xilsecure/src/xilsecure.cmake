@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 option(XILSECURE_secure_environment "Enables trusted execution environment to allow device key usage(post boot) in ZynqMP for IPI response/Linux/U-boot calls valid only for PMUFW BSP" OFF)
@@ -26,14 +26,14 @@ if(XILSECURE_elliptic_p256_support)
   set(XSECURE_ECC_SUPPORT_NIST_P256 " ")
 endif()
 
-if(NOT("${CMAKE_MACHINE}" STREQUAL "SpartanUP"))
+if(NOT("${CMAKE_MACHINE}" STREQUAL "spartanuplus"))
   option(XILSECURE_elliptic_p521_support "Enables/Disables P-521 curve support" ON)
   if(XILSECURE_elliptic_p521_support)
     set(XSECURE_ECC_SUPPORT_NIST_P521 " ")
   endif()
 endif()
 
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze" OR "${CMAKE_MACHINE}" STREQUAL "SpartanUP")
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze" OR "${CMAKE_MACHINE}" STREQUAL "spartanuplus")
   set(XILSECURE_mode "server")
   set(XILSECURE_INCLUDE_XPLMI_BSP_CONFIG_H "")
 elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR ("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
