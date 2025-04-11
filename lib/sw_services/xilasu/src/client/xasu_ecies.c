@@ -28,7 +28,6 @@
 /*************************************** Include Files *******************************************/
 #include "xasu_ecies.h"
 #include "xasu_def.h"
-#include "xasu_status.h"
 #include "xasu_shainfo.h"
 #include "xasu_ecies_common.h"
 #include "xasu_ecc.h"

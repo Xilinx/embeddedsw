@@ -30,8 +30,6 @@
 */
 /*************************************** Include Files *******************************************/
 #include "xasu_def.h"
-#include "xasu_client.h"
-#include "xasu_status.h"
 #include "xasu_trnginfo.h"
 #include "xasu_trng.h"
 

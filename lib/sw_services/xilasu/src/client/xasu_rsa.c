@@ -30,7 +30,6 @@
 /*************************************** Include Files *******************************************/
 #include "xasu_rsa.h"
 #include "xasu_def.h"
-#include "xasu_status.h"
 #include "xasu_shainfo.h"
 #include "xasu_rsa_common.h"
 
