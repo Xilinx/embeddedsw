@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -78,6 +78,8 @@ extern "C" {
 #define ENTER_4B_ADDR_MODE	0xB7
 #define EXIT_4B_ADDR_MODE	0xE9
 #define EXIT_4B_ADDR_MODE_ISSI	0x29
+#define READ_ANY_REG_CMD	0x65
+#define WRITE_ANY_REG_CMD	0x71
 /* 4-byte address opcodes */
 #define READ_CMD_4B			0x13
 #define FAST_READ_CMD_4B		0x0C
@@ -112,6 +114,7 @@ extern "C" {
 #define ADDRESS_4_OFFSET	4 /* LSB byte of address to read or write
 				   * when 4 byte address
 				   */
+#define MODE_BITS_OFFSET	5 /* Mode bits (CYPRESS_ID_BYTE0 only)*/
 #define DATA_OFFSET		5 /* Start of Data for Read/Write */
 #define DUMMY_OFFSET		4 /* Dummy byte offset for fast, dual and quad
 				   * reads
@@ -153,6 +156,22 @@ extern "C" {
  */
 #define SIXTEENMB 0x1000000
 
+/*
+ * Die size 128 MB
+ */
+#define DIE_SIZE_128MB 0x8000000
+
+/*
+ * status/configuration register volatile address offset
+ */
+#define REG_SR1V_ADDR_OFFSET 0x00800000
+#define REG_CR1V_ADDR_OFFSET 0x00800002
+
+/*
+ * status/configuration register nonvolatile address offset
+ */
+#define REG_SR1N_ADDR_OFFSET 0x00000000
+#define REG_CR1N_ADDR_OFFSET 0x00000002
 
 /*
  * Mask for quad enable bit in Flash configuration register
@@ -187,6 +206,7 @@ extern "C" {
  */
 #define MICRON_ID_BYTE0		0x20
 #define SPANSION_ID_BYTE0	0x01
+#define CYPRESS_ID_BYTE0	0x34
 #define WINBOND_ID_BYTE0	0xEF
 #define MACRONIX_ID_BYTE0	0xC2
 #define ISSI_ID_BYTE0		0x9D
@@ -243,6 +263,36 @@ FlashInfo Flash_Config_Table[] = {
 		0x40000, 0x4000000, 1
 	},
 	/* Spansion 1Gbit is handled as 512Mbit stacked */
+	/*s25hs512t*/
+	{
+		0x342B1A, SECTOR_SIZE_256K, NUM_OF_SECTORS256, BYTES256_PER_PAGE,
+		0x40000, 0x4000000, 1
+	},
+	/*s25hs01gt*/
+	{
+		0x342B1B, SECTOR_SIZE_256K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
+		0x80000, 0x8000000, 1
+	},
+	/*s25hs02gt*/
+	{
+		0x342B1C, SECTOR_SIZE_256K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
+		0x100000, 0x10000000, 2
+	},
+	/*s25hl512t*/
+	{
+		0x342A1A, SECTOR_SIZE_256K, NUM_OF_SECTORS256, BYTES256_PER_PAGE,
+		0x40000, 0x4000000, 1
+	},
+	/*s25hl01gt*/
+	{
+		0x342A1B, SECTOR_SIZE_256K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
+		0x80000, 0x8000000, 1
+	},
+	/*s25hl02gt*/
+	{
+		0x342A1C, SECTOR_SIZE_256K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
+		0x100000, 0x10000000, 2
+	},
 	/* Micron */
 	/*n25q128a11*/
 	{
