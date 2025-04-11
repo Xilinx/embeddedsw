@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -139,9 +139,17 @@ static s32 Asu_Sha3Example(void)
 	u32 Size = 0U;
 	XAsu_ClientParams ClientParam;
 	XAsu_ShaOperationCmd ShaClientParam;
+	XMailbox MailboxInstance;
 
-	/* Initialize client */
-	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
+	/** Initialize mailbox instance. */
+	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		goto END;
+	}
+
+	/* Initialize the client instance */
+	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Client initialize failed:%08x \r\n", Status);
 		goto END;

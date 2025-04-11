@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -236,6 +236,7 @@ static u32 ErrorStatus = XST_FAILURE; /**< Variable holds the status of the AES 
 int main(void)
 {
 	s32 Status = XST_FAILURE;
+	XMailbox MailboxInstance;
 
 	xil_printf("ASU AES Client Example: \r\n");
 
@@ -243,8 +244,15 @@ int main(void)
 	Xil_DCacheDisable();
 #endif
 
+	/** Initialize mailbox instance. */
+	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		goto END;
+	}
+
 	/* Initialize the client instance */
-	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
+	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ASU Client initialize failed: %08x \r\n", Status);
 		goto END;
