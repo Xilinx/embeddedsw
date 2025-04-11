@@ -38,7 +38,6 @@
 */
 /*************************************** Include Files *******************************************/
 #include "xasu_client.h"
-#include "xasu_status.h"
 #include "sleep.h"
 #include "xasu_def.h"
 
@@ -79,8 +78,7 @@ typedef struct {
  * @brief This structure holds the callback reference of the requests to respond upon completion
  */
 typedef struct {
-	XAsuClient_ResponseHandler CallBackFuncPtr;  /**< Callback function pointer */
-	void *CallBackRefPtr;   /**< Callback reference pointer */
+	XAsu_ClientParams *ClientParams; /**< Pointer to the XAsu_ClientParams */
 	u8 *RespBufferPtr;		/**< Buffer to store the response data */
 	u32 Size;				/**< Size of the response buffer to be copied */
 	u8 Clear;				/**< Clear the contents after the callback */
@@ -319,8 +317,7 @@ u8 XAsu_RegCallBackNGetUniqueId(const XAsu_ClientParams *ClientParamPtr, u8 *Res
 	}
 
 	/** Store the callback details. */
-	AsuCallBackRef[UniqueId].CallBackFuncPtr = ClientParamPtr->CallBackFuncPtr;
-	AsuCallBackRef[UniqueId].CallBackRefPtr = ClientParamPtr->CallBackRefPtr;
+	AsuCallBackRef[UniqueId].ClientParams = ClientParamPtr;
 	AsuCallBackRef[UniqueId].RespBufferPtr = RespBufferPtr;
 	AsuCallBackRef[UniqueId].Size = Size;
 	AsuCallBackRef[UniqueId].Clear = IsFinalCall;
@@ -414,14 +411,20 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 						xil_printf("Response copy to application failed\r\n");
 					}
 				}
+
 				/** Perform callback to application to indicate the operation is complete. */
-				if (AsuCallBackRef[UniqueId].CallBackFuncPtr != NULL) {
-					AsuCallBackRef[UniqueId].CallBackFuncPtr(AsuCallBackRef[UniqueId].CallBackRefPtr,
+				if (AsuCallBackRef[UniqueId].ClientParams->CallBackFuncPtr != NULL) {
+					AsuCallBackRef[UniqueId].ClientParams->CallBackFuncPtr(
+						AsuCallBackRef[UniqueId].ClientParams->CallBackRefPtr,
 						ChannelQueueBufPtr->RespBuf.Arg[XASU_RESPONSE_STATUS_INDEX]);
+					/** copy additional status if user provided address. */
+					if (AsuCallBackRef[UniqueId].ClientParams->AdditionalStatusPtr != NULL) {
+						Xil_Out32((AsuCallBackRef[UniqueId].ClientParams->AdditionalStatusPtr),
+								ChannelQueueBufPtr->RespBuf.AdditionalStatus);
+					}
 					/** Clear the callback info upon completion. */
 					if (AsuCallBackRef[UniqueId].Clear == XASU_TRUE) {
-						AsuCallBackRef[UniqueId].CallBackFuncPtr = NULL;
-						AsuCallBackRef[UniqueId].CallBackRefPtr = NULL;
+						AsuCallBackRef[UniqueId].ClientParams = NULL;
 					}
 					/** Clear request and response status. */
 					ChannelQueueBufPtr->ReqBufStatus = 0x0U;
@@ -483,8 +486,7 @@ static u8 XAsu_GenerateUniqueId(void)
 			UniqueId = 1U;
 		}
 		/** Validate if the assigned unique ID is free. */
-		if ((AsuCallBackRef[UniqueId].CallBackFuncPtr == NULL) &&
-		    (AsuCallBackRef[UniqueId].CallBackRefPtr == NULL)) {
+		if (AsuCallBackRef[UniqueId].ClientParams == NULL) {
 			break;
 		}
 	} while (UniqueId != TempId);

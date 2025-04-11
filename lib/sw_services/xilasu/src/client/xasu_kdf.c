@@ -29,7 +29,6 @@
 /*************************************** Include Files *******************************************/
 #include "xasu_kdf.h"
 #include "xasu_def.h"
-#include "xasu_status.h"
 #include "xasu_shainfo.h"
 #include "xasu_hmacinfo.h"
 
