@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -16,6 +16,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.0   kpt    09/03/24 First Release
+* 1.1   mb     03/25/25 Add section attribute to global variables
 *
 * </pre>
 ******************************************************************************/
@@ -45,7 +46,8 @@ static void SecureShaPrintHash(u8 *Hash);
 
 /************************** Variable Definitions *****************************/
 
-static const char Data[SHA_INPUT_DATA_LEN + 1U] = "SHA3_256";
+static const char Data[SHA_INPUT_DATA_LEN + 1U] __attribute__ ((aligned (64)))
+			__attribute__ ((section (".data.Data"))) = "SHA3_256";
 /**< Input data should be word aligned */
 
 #if (SHA_MODE == XSECURE_SHA3_256)
