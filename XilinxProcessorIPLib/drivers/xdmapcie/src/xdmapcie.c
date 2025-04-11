@@ -381,16 +381,21 @@ static void XDmaPcie_BarMemoryAlloc(XDmaPcie *InstancePtr, u8 Bus,u8 Device,u8 F
 			Index[BarNo] = BarNo;
 		}
 
-		if (((Size[BarNo] & XDMAPCIE_CFG_BAR_MEM_AS_MASK) != 0) && (Size[BarNo] != (~((u64)0x0)))) {
+		if((BarIndex + 1) < MaxBars) {
+			if ((Size[BarNo] & XDMAPCIE_CFG_BAR_MEM_TYPE_MASK) != 1U) {
+				if (((Size[BarNo] & XDMAPCIE_CFG_BAR_MEM_AS_MASK) != 0) &&
+					(Size[BarNo] != (~((u64)0x0)))) {
 
-			Location_1 = XDmaPcie_ComposeExternalConfigAddress(
-				Bus, Device, Function,
-				XDMAPCIE_CFG_BAR_BASE_OFFSET + (BarNo + 1U));
-			XDmaPcie_WriteReg((InstancePtr->Config.Ecam), Location_1, Data);
+				Location_1 = XDmaPcie_ComposeExternalConfigAddress(
+					Bus, Device, Function,
+					XDMAPCIE_CFG_BAR_BASE_OFFSET + (BarNo + 1U));
+				XDmaPcie_WriteReg((InstancePtr->Config.Ecam), Location_1, Data);
 
-			Size_1 = XDmaPcie_ReadReg((InstancePtr->Config.Ecam), Location_1);
-			Prefetchable_Size = ((u64)Size_1 << 32) | Size[BarNo];
-			Size[BarNo] = Prefetchable_Size;
+				Size_1 = XDmaPcie_ReadReg((InstancePtr->Config.Ecam), Location_1);
+				Prefetchable_Size = ((u64)Size_1 << 32) | Size[BarNo];
+				Size[BarNo] = Prefetchable_Size;
+				}
+			}
 		}
 
 		/* return saying that BAR is not implemented */
