@@ -171,9 +171,17 @@ static s32 Asu_HmacExample(void)
 	s32 Status = XST_FAILURE;
 	XAsu_ClientParams ClientParam;
 	XAsu_HmacParams HmacClientParam;
+	XMailbox MailboxInstance;
 
-	/* Initialize client */
-	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
+	/** Initialize mailbox instance. */
+	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		goto END;
+	}
+
+	/* Initialize the client instance */
+	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Client initialize failed:%08x \r\n", Status);
 		goto END;

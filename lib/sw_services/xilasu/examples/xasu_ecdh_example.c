@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -108,6 +108,7 @@ int main(void)
 	u32 Index = 0U;
 	u32 CurveType = 0U;
 	u32 CurveLength = 0U;
+	XMailbox MailboxInstance;
 
 #ifdef XASU_CACHE_DISABLE
 	Xil_DCacheDisable();
@@ -116,7 +117,15 @@ int main(void)
 	CurveType = XASU_ECC_NIST_P256;
 	CurveLength = XASU_ECC_P256_SIZE_IN_BYTES;
 
-	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
+	/** Initialize mailbox instance. */
+	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		goto END;
+	}
+
+	/* Initialize the client instance */
+	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ASU Client initialize failed: %08x \r\n", Status);
 		goto END;

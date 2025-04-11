@@ -100,7 +100,6 @@ static u8 XAsu_GetFreeIndex(u8 Priority);
 static XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
 	XASU_RTCA_COMM_CHANNEL_INFO_ADDR; /**< All IPI channels information received from user
 						configuration */
-static XMailbox MailboxInstance;        /**< Variable to Mailbox instance */
 static XAsu_RefToCallBack AsuCallBackRef[XASU_UNIQUE_ID_MAX]; /**< Entry of callback info */
 
 static XAsu_ClientCtx AsuContext[XASU_NO_OF_CONTEXTS];	/**< ASU saved context */
@@ -109,14 +108,14 @@ static XAsu_ClientCtx AsuContext[XASU_NO_OF_CONTEXTS];	/**< ASU saved context */
 /**
  * @brief	This function initializes the client instance.
  *
- * @param	BaseAddress	Base address of the IPI channel assigned to APU/RPU/PL.
+ * @param	MailboxInstancePtr	Pointer to the Mailbox instance.
  *
  * @return
  * 		- XST_SUCCESS, On successful initialization.
  * 		- XST_FAILURE, On failure.
  *,
  *************************************************************************************************/
-s32 XAsu_ClientInit(u32 BaseAddress)
+s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_Client *ClientInstancePtr = XAsu_GetClientInstance();
@@ -143,15 +142,9 @@ s32 XAsu_ClientInit(u32 BaseAddress)
 	/** Initialize performance measurement. */
 	XAsu_PerfInit();
 
-	/** Initialize mailbox instance. */
-	Status = (s32)XMailbox_Initialize(&MailboxInstance, BaseAddress);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	/** Map the IPI shared memory of the channel. */
 	for (ChannelIdx = 0U; ChannelIdx < CommChannelInfo->NumOfIpiChannels; ++ChannelIdx) {
-		if (MailboxInstance.Agent.IpiInst.Config.BitMask ==
+		if (MailboxInstancePtr->Agent.IpiInst.Config.BitMask ==
 		    CommChannelInfo->Channel[ChannelIdx].IpiBitMask) {
 			break;
 		}
@@ -166,7 +159,7 @@ s32 XAsu_ClientInit(u32 BaseAddress)
 	ClientInstancePtr->ChannelMemoryPtr = (XAsu_ChannelMemory *)(UINTPTR)(XASU_CHANNEL_MEMORY_BASEADDR +
 					(XASU_CHANNEL_MEMORY_OFFSET * ChannelIdx));
 
-	ClientInstancePtr->MailboxPtr = &MailboxInstance;
+	ClientInstancePtr->MailboxPtr = MailboxInstancePtr;
 	ClientInstancePtr->P0NextFreeIndex = 0U;
 	ClientInstancePtr->P1NextFreeIndex = 0U;
 
