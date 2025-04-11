@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -20,6 +20,7 @@
  *       har  02/16/24 Added XLoader_GetOptionalData API
  *       har  03/05/24 Fixed doxygen warnings
  *       kpt  10/04/24 Added support to validate partial and optimized authentication enabled PDI
+ * 2.2   prt  04/12/25 Added support on Error code with more description for XLoader_ValidatePdiAuth
  *
  * </pre>
  *
@@ -390,6 +391,7 @@ static int XLoader_ValidateBhAndPlmNPmcCdoAuth(XLoader_ClientInstance *InstanceP
 	 */
 	Status = XSecure_Sha3Digest(&SecureClientInstance, BhAddr, HashAddr, XLOADER_BH_SIZE_WO_PADDING);
 	if(Status != XST_SUCCESS) {
+		xil_printf("Failure in Calculation of bootheader hash, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
@@ -398,6 +400,7 @@ static int XLoader_ValidateBhAndPlmNPmcCdoAuth(XLoader_ClientInstance *InstanceP
 	 */
 	Status = XLoader_VerifyDataAuth(InstancePtr, HashAddr, BhAcAddr, TRUE);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Signature verification for bootheader got FAILED, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 	else {
@@ -409,6 +412,7 @@ static int XLoader_ValidateBhAndPlmNPmcCdoAuth(XLoader_ClientInstance *InstanceP
 	 */
 	Status = XLoader_VerifyPlmNPmcCdoAuth(InstancePtr, PdiAddr, BhAddr);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Signature verification for PLM and PMC CDO Authentication got FAILED, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 	else {
@@ -504,6 +508,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 	Status = XSecure_Sha3Digest(&SecureClientInstance, MhAddr, HashAddr,
 		XLOADER_IHT_SIZE + (IhtPtr->OptionalDataLen * 4));
 	if(Status != XST_SUCCESS) {
+		xil_printf("Failure in Calculation of Image Header Table hash, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
@@ -512,6 +517,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 	 */
 	Status = XLoader_VerifyDataAuth(InstancePtr, HashAddr, MhAcAddr, TRUE);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Signature Verification for Image Header Table got FAILED, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 	else {
@@ -522,6 +528,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 	Status = XLoader_IsAuthOptimized((MhAddr + XLOADER_IHT_SIZE), (IhtPtr->OptionalDataLen * XLOADER_WORD_LEN),
 			&HashTblInfo);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Authentication optimization is not enabled, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
@@ -532,6 +539,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 	*/
 	Status = XSecure_Sha3Initialize();
 	if (Status != XST_SUCCESS) {
+		xil_printf("Sha3 Initialization Failed during calculation of metaheader hash, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
@@ -544,6 +552,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 
 	Status = XSecure_Sha3Update(&SecureClientInstance, MhAcAddr, AuthCertSize);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Sha3 Update Failed during calculation of metaheader hash, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
@@ -552,11 +561,13 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 
 	Status = XSecure_Sha3Update(&SecureClientInstance, ImgHdrAddr, TotalSize);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Sha3 Update Failed during calculation of metaheader hash, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
 	Status = XSecure_Sha3Finish(&SecureClientInstance, HashAddr);
 	if (Status != XST_SUCCESS) {
+		xil_printf("SHA3 finish failed during calculation of metaheader hash, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
@@ -570,6 +581,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 		Status = XLoader_CheckAndCompareHashFromIHTOptionalData(HashAddr, &HashTblInfo, 0U);
 	}
 	if (Status != XST_SUCCESS) {
+		xil_printf("Signature Verification for Metaheader excluding Image Header Table got FAILED, Status = 0x%x \n\r", Status);
 		goto END;
 	}
 	else {
@@ -580,6 +592,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 		(void*)(UINTPTR)(PdiAddr + (IhtPtr->PrtnHdrAddr * XLOADER_WORD_LEN)), TotalLengthOfPrtnHdr,
 		TotalLengthOfPrtnHdr);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Copying partition headers failed, Status = 0x%x \n\r", Status);
 		goto END;
 	}
 
@@ -592,6 +605,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 				(PrtnHdr[Idx].TotalDataWordLen << XLOADER_WORD_LEN_SHIFT) - XLOADER_AUTH_CERT_MIN_SIZE,
 				HashIdx, PrtnAcAddr, &HashTblInfo);
 			if (Status != XST_SUCCESS) {
+				xil_printf("Signature Verification for partition %d got FAILED, Status = 0x%x \n\r", Idx, Status);
 				goto END;
 			}
 			xil_printf("Verified signature for partition %d \n\r", Idx);
@@ -637,6 +651,7 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 
 	Status = XSecure_ClientInit(&SecureClientInstance, InstancePtr->MailboxPtr);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Error occured in XSecure_Client Initialization, Status = %x \r\n", Status);
 		goto END;
 	}
 
@@ -645,22 +660,26 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 	 */
 	Status =  XSecure_RsaPublicEncKat(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Error occured in XSecure_RsaPublicEncKat test, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
 	Status =  XSecure_Sha3Kat(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Error occured in XSecure_Sha3Kat test, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
 	Status = XSecure_EllipticSignVerifyKat(&SecureClientInstance, XSECURE_ECC_PRIME);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Error occured in XSecure_EllipticSignVerifyKat test, Status = 0x%x \r\n", Status);
 		goto END;
 	}
 
 	if (PdiType != XLOADER_PDI_TYPE_PARTIAL) {
 		Status = XLoader_ValidateBhAndPlmNPmcCdoAuth(InstancePtr, PdiAddr, &MhOffset);
 		if (Status != XST_SUCCESS) {
+			xil_printf("Error occured in XLoader_Validate Bootheader And PlmNPmc Cdo Authentication, Status = 0x%x \r\n", Status);
 			goto END;
 		}
 		/**
@@ -675,6 +694,10 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 	}
 
 	Status = XLoader_ValidateMhAndPrtnAuth(InstancePtr, PdiAddr, MhOffset, PrtnIdx);
+
+	if (Status != XST_SUCCESS) {
+			xil_printf("Error occured in XLoader_Validate Metaheader And partition authentication, Status = 0x%x \r\n", Status);
+	}
 
 END:
 	return Status;
