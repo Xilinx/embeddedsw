@@ -6,6 +6,12 @@ option(XILFPGA_secure_mode "Enable secure Bitstream loading support" ON)
 option(XILFPGA_secure_environment "Which is used to Enable the secure PL configuration" OFF)
 option(XILFPGA_secure_readback "Which is used to Enable the secure PL configuration Read-back support" OFF)
 option(XILFPGA_debug_mode "Which is used to Enable the Debug messages in the library" OFF)
+option(XILFPGA_reg_readback_en "Which is used to Enable the FPGA configuration Register Read-back support" ON)
+option(XILFPGA_data_readback_en "Which is used to Enable the FPGA configuration Data Read-back support" ON)
+option(XILFPGA_get_version_info_en "Which is used to Get the Xilfpga library version info" OFF)
+option(XILFPGA_get_feature_list_en "Which is used to Get the Xilfpga library supported feature list info" OFF)
+option(XILPFGA_skip_efuse_check_en "Which is used to skip the eFUSE checks for PL configuration" OFF)
+
 SET(XILFPGA_ocm_address 0xfffc0000 CACHE STRING "OCM Address which is used for Bitstream Authentication")
 SET(XILFPGA_base_address 0x80000 CACHE STRING "Bitstream Image Base Address")
 
@@ -34,6 +40,26 @@ if (${XILFPGA_debug_mode})
 endif()
 if (${XILFPGA_secure_readback})
     set(XFPGA_SECURE_READBACK_MODE " ")
+endif()
+
+if (${XILFPGA_reg_readback_en})
+    set(XFPGA_READ_CONFIG_REG " ")
+endif()
+
+if (${XILFPGA_data_readback_en})
+    set(XFPGA_READ_CONFIG_DATA " ")
+endif()
+
+if (${XILFPGA_get_version_info_en})
+    set(XFPGA_GET_VERSION_INFO " ")
+endif()
+
+if (${XILFPGA_get_feature_list_en})
+    set(XFPGA_GET_FEATURE_LIST " ")
+endif()
+
+if (${XILPFGA_skip_efuse_check_en})
+    set(XFPGA_SKIP_EFUSE_CHECK " ")
 endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xfpga_config.h.in ${CMAKE_BINARY_DIR}/include/xfpga_config.h)
