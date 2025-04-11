@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -24,9 +24,8 @@ properties:
     description: Physical base address and size of the controller register map
   xlnx,clock-freq:
     description: Input clock frequency
-  cts-override:
-    description: |
-      Override the CTS modem status signal. This signal will always be reported as active instead of being obtained from the modem status register. Define this if your serial port does not use this pin
+  xlnx,has-modem:
+    description: Specifies whether modem pins are connected to MIO or FMIO
     type: boolean
 
 config:
@@ -36,7 +35,7 @@ required:
     - compatible
     - reg
     - xlnx,clock-freq
-    - cts-override
+    - xlnx,has-modem
     - clocks
     - interrupts
     - interrupt-parent
