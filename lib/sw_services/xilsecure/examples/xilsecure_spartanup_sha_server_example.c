@@ -8,7 +8,7 @@
 * @file	xilsecure_spartanup_sha_server_example.c
 * @addtogroup xsecure_sha_example_apis XilSecure SHA SPARTANUP API Example Usage
 * @{
-* This example illustrates the SHA3_256 hash calculation.
+* This example illustrates the SHA3_256 and SHAKE_256 hash calculation.
 * This example is supported for spartanup device.
 *
 * MODIFICATION HISTORY:
@@ -17,6 +17,7 @@
 * ----- ------ -------- -------------------------------------------------
 * 1.0   kpt    09/03/24 First Release
 * 1.1   mb     03/25/25 Add section attribute to global variables
+* 1.1   mb     04/11/25 Add support for XSECURE_SHAKE_256 hash calculation
 *
 * </pre>
 ******************************************************************************/
@@ -36,6 +37,8 @@
 
 #define SHA_HASH_LEN_IN_BYTES  (XSECURE_SHA3_256_HASH_LEN) /**< SHA hash length in bytes */
 #define SHA_INPUT_DATA_LEN     8U /**< Input data length */
+#define XSECURE_SHA3_256               (5U) /**< SHA3 mode */
+#define XSECURE_SHAKE_256              (3U) /**< SHAKE256 mode */
 #define SHA_MODE               (XSECURE_SHA3_256) /**< SHA mode */
 
 /************************** Function Prototypes ******************************/
