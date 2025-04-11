@@ -259,7 +259,8 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 	}
 
 	/* Access is not allowed if resource is shared (multiple subsystems) */
-	if (__builtin_popcount(PermissionMask) > 1) {
+	if (SubsystemIdx != 0 && __builtin_popcount(PermissionMask) > 1) {
+		PmErr("Resource is shared among multiple subsystems\r\n");
 		DbgErr = XPM_INT_ERR_SHARED_RESOURCE;
 		Status = XPM_PM_NO_ACCESS;
 		goto done;

@@ -32,7 +32,7 @@ XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value) {
 		}
 	}
 	LIST_FOREACH(RuntimeCoreList, RuntimeCoreNode) {
-		if (RuntimeCoreNode->Data->Device == Core) {
+		if (RuntimeCoreNode->Data->Core == Core) {
 			RuntimeCore = RuntimeCoreNode->Data;
 			break;
 		}
@@ -43,12 +43,13 @@ XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value) {
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
-		RuntimeCore->Device = Core;
+		RuntimeCore->Core = Core;
 		RuntimeCore->IsCoreIdleSupported = (u8)Value;
 		LIST_PREPEND(RuntimeCoreList, RuntimeCore);
 	} else {
 		RuntimeCore->IsCoreIdleSupported = (u8)Value;
 	}
+	PmInfo("Core Idle supported for 0x%x\r\n", Core->Device.Node.Id);
 
 done:
 	return Status;
@@ -67,7 +68,8 @@ XStatus XPmCore_GetCoreIdleSupport(const XPm_Core* Core, u8 *IsCoreIdleSupported
 		goto done;
 	}
 	LIST_FOREACH(RuntimeCoreList, RuntimeCoreNode) {
-		if (RuntimeCoreNode->Data->Device == Core) {
+		if (RuntimeCoreNode->Data->Core == Core) {
+			PmInfo("Core Idle support found for 0x%x\r\n", RuntimeCoreNode->Data->Core->Device.Node.Id);
 			RuntimeCore = RuntimeCoreNode->Data;
 			break;
 		}
@@ -97,7 +99,7 @@ XStatus XPmCore_GetFrcPwrDwnReq(const XPm_Core* Core, struct XPm_FrcPwrDwnReq *R
 		goto done;
 	}
 	LIST_FOREACH(RuntimeCoreList, RuntimeCoreNode) {
-		if (RuntimeCoreNode->Data->Device == Core) {
+		if (RuntimeCoreNode->Data->Core == Core) {
 			RuntimeCore = RuntimeCoreNode->Data;
 			break;
 		}
@@ -130,7 +132,7 @@ XStatus XPmCore_SetFrcPwrDwnReq(XPm_Core* Core, struct XPm_FrcPwrDwnReq Req)
 		}
 	}
 	LIST_FOREACH(RuntimeCoreList, RuntimeCoreNode) {
-		if (RuntimeCoreNode->Data->Device == Core) {
+		if (RuntimeCoreNode->Data->Core == Core) {
 			RuntimeCore = RuntimeCoreNode->Data;
 			break;
 		}
@@ -141,7 +143,7 @@ XStatus XPmCore_SetFrcPwrDwnReq(XPm_Core* Core, struct XPm_FrcPwrDwnReq Req)
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
-		RuntimeCore->Device = Core;
+		RuntimeCore->Core = Core;
 		RuntimeCore->FrcPwrDwnReq = Req;
 		LIST_PREPEND(RuntimeCoreList, RuntimeCore);
 	} else {
@@ -219,76 +221,65 @@ done:
 	return Status;
 }
 
-XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
+XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
-	u32 SubsystemId;
+	u32 SubsystemId = Subsystem->Id; /* Subsystem Id of the core */
+	u32 DeviceId = Core->Device.Node.Id;
 	const XPm_Requirement *Reqm = NULL;
-	XPm_Subsystem *Subsystem;
-	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 	const XPm_ApuCore *ApuCore;
 	u32 Ack = 0U;
 	u32 IpiMask = 0U;
 	u32 NodeState = 0U;
 
-	if (NULL == Core) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
-	Status = XPmCore_GetFrcPwrDwnReq(Core, &FrcPwrDwnReq);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-	Ack = FrcPwrDwnReq.AckType;
-	IpiMask = FrcPwrDwnReq.InitiatorIpiMask;
-	NodeState = Core->Device.Node.State;
+	PmInfo("Processing pending force power down for 0x%x, State: 0x%x\r\n", DeviceId, Core->Device.Node.State);
 
-	/* Powerdown core forcefully */
-	Status = XPmCore_ForcePwrDwn(DeviceId);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
+	Ack = Subsystem->FrcPwrDwnReq.AckType;
+	IpiMask = Subsystem->FrcPwrDwnReq.InitiatorIpiMask;
+	NodeState = Subsystem->State;
 
-	NodeState = Core->Device.Node.State;
-	/*clear pwr dwn status. this will make boot status as initial boot*/
+	PmInfo("Ack type: 0x%x, IpiMask: 0x%x, NodeState: 0x%x\r\n", Ack, IpiMask, NodeState);
+
+	/* Clear pwr dwn status. this will make boot status as initial boot*/
 	if(XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)){
 		ApuCore = (XPm_ApuCore *)Core;
 		XPm_RMW32(ApuCore->PcilPwrDwnReg,ApuCore->Core.PwrDwnMask,
 			~ApuCore->Core.PwrDwnMask);
 	}
-
-	SubsystemId = XPmDevice_GetSubsystemIdOfCore(&Core->Device);
-	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (NULL == Subsystem) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
+	PmInfo("Check if any other cores in the subsystem are pending power down..\r\n");
 
 	/* Check any of core is pending power down in subsystem */
 	LIST_FOREACH(Subsystem->Requirements, ReqmNode){
 		Reqm = ReqmNode->Data;
 		if ((1U == Reqm->Allocated) &&
-		    ((u32)XPM_NODESUBCL_DEV_CORE ==
-		     NODESUBCLASS(Reqm->Device->Node.Id)) &&
+		    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Reqm->Device->Node.Id)) &&
 		    ((u8)XPM_DEVSTATE_PENDING_PWR_DWN == Reqm->Device->Node.State)) {
+			PmWarn("Core 0x%x is still pending power down, cannot proceed with subsystem shutdown\r\n",
+				Reqm->Device->Node.Id);
 			break;
+		} else {
+			Reqm = NULL;
 		}
 	}
 
+	if (NULL != Reqm) {
+		PmInfo("Core 0x%x is pending power down !! (BUG)\r\n", Reqm->Device->Node.Id);
+	} else {
+		PmInfo("All cores are powered off\r\n");
+	}
+
 	if ((u8)PENDING_POWER_OFF == Subsystem->State) {
-		/* Process pending subsystem force power down if all cores are
-		 * powered off.
-		 */
+		/* Process pending subsystem force power down if all cores are powered off */
+		PmInfo("Subsystem 0x%x is pending power off, begin ShutDown\r\n", Subsystem->Id);
 		if (NULL == Reqm) {
 			Subsystem->Flags = 0U;
 			Status = XPmSubsystem_ForcePwrDwn(Subsystem->Id);
 		}
 	} else if ((u8)PENDING_RESTART == Subsystem->State) {
-		/* Process pending subsystem restart if all cores are powered
-		 * off.
-		 */
+		/* Process pending subsystem restart if all cores are powered off */
+		PmInfo("Subsystem 0x%x is pending restart\r\n", Subsystem->Id);
 		if (NULL == Reqm) {
+			PmInfo("All cores are powered off, triggering subsys restart 0x%x\r\n", SubsystemId);
 			/*
 			 * Control reached here means the idle notification is already sent
 			 * to the core.So, clear the subsystem flags which was set to
@@ -304,35 +295,81 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 	} else {
 		/* Required by MISRA */
 	}
+	NodeState = Subsystem->State; /* Update node state in case of subsystem restart or shutdown */
 
-done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
 	XPm_ProcessAckReq(Ack, IpiMask, Status, DeviceId, NodeState);
 
 	return Status;
 }
 
+
+XStatus XPmCore_ReleaseFromSubsys(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+	u32 SubsystemId = XPmDevice_GetSubsystemIdOfCore(&Core->Device);
+	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	PmInfo("Releasing core 0x%x (state: 0x%x) from subsystem 0x%x (state: 0x%x)\r\n",
+		Core->Device.Node.Id, Core->Device.Node.Id, SubsystemId, Subsystem->State);
+
+	Status = XPmDevice_Release(SubsystemId, Core->Device.Node.Id,
+					XPLMI_CMD_NON_SECURE);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to release core 0x%x from subsystem 0x%x\r\n", Core->Device.Node.Id, SubsystemId);
+		goto done;
+	}
+	PmInfo("Core 0x%x released from subsystem 0x%x, State: 0x%x\r\n", Core->Device.Node.Id, SubsystemId, Core->Device.Node.State);
+
+	PmInfo("Core->isCoreUp = %d, Core->Device.Node.State = %d\r\n",
+		Core->isCoreUp, Core->Device.Node.State);
+
+	Status = XPmCore_ProcessPendingForcePwrDwn(Subsystem, Core);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to trigger subsys restart, from pwr done core 0x%x: 0x%x\n", Core->Device.Node.Id, Status);
+		goto done;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed during release, Subsys: 0x%x, Core: 0x%x, Status 0x%x\n\r",
+			SubsystemId, Core->Device.Node.Id, Status);
+	}
+	return Status;
+}
+
+
 XStatus ResetAPUGic(const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_Power *Acpu0PwrNode = XPmPower_GetById(PM_POWER_ACPU_0);
-	const XPm_Power *Acpu1PwrNode = XPmPower_GetById(PM_POWER_ACPU_1);
+	const XPm_Power *AcpuPwrNode;
 	const XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
+	u32 NodeId;
 
-	if (((PM_DEV_ACPU_0 == DeviceId) || (PM_DEV_ACPU_1 == DeviceId)) &&
-	    (NULL != Acpu0PwrNode) && (NULL != Acpu1PwrNode) &&
-	    (NULL != FpdPwrNode) &&
-	    ((u8)XPM_POWER_STATE_OFF != FpdPwrNode->Node.State) &&
-	    ((u8)XPM_POWER_STATE_OFF == Acpu0PwrNode->Node.State) &&
-	    ((u8)XPM_POWER_STATE_OFF == Acpu1PwrNode->Node.State)) {
-		Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC,
-					     (u32)PM_RESET_ACTION_PULSE);
-		if (XST_SUCCESS != Status) {
-			goto done;
+	if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) &&
+	    (NULL != FpdPwrNode) && ((u8)XPM_POWER_STATE_OFF != FpdPwrNode->Node.State)) {
+		for (NodeId = PM_POWER_ACPU_0_0; NodeId <= PM_POWER_ACPU_3_3; NodeId++) {
+			AcpuPwrNode = XPmPower_GetById(NodeId);
+			if ((NULL != AcpuPwrNode) && ((u8)XPM_POWER_STATE_OFF !=
+			    AcpuPwrNode->Node.State)) {
+				break;
+			}
+		}
+		if (PM_POWER_ACPU_3_3 < NodeId) {
+			PmInfo("Resetting APU Gic (No APU cores are off) 0x%x!\r\n", DeviceId);
+			Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_PULSE);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
 	}
-
 	Status = XST_SUCCESS;
-
 done:
 	return Status;
 }

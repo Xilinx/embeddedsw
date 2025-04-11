@@ -83,6 +83,13 @@ XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
+
+	if (Core->isCoreUp == 0U) {
+		PmInfo("Core is already down 0x%x, State: 0x%x, skipping\n", Core->Device.Node.Id, Core->Device.Node.State);
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	/** Release Core clocks */
 	Status = XPmCore_SetClock(Core->Device.Node.Id, 0U);
 	if (XST_SUCCESS != Status) {
@@ -95,6 +102,8 @@ XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 			goto done;
 		}
 	}
+
+	PmInfo("After direct power down for 0x%x, State: 0x%x\n", Core->Device.Node.Id, Core->Device.Node.State);
 
 	/**
 	 * Enabling of wake interrupt is removed from PSM direct power down
@@ -131,6 +140,7 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 	/* If parent is on, then only send sleep request */
 	if ((Core->Device.Power->Parent->Node.State == (u8)XPM_POWER_STATE_ON) &&
 	    ((u32)XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(Core->Device.Node.Id))) {
+		PmInfo("Going in --> Power down core 0x%x\r\n", Core->Device.Node.Id);
 		/* Power down the core */
 		Status = XPm_DirectPwrDwn(Core->Device.Node.Id);
 		if (XST_SUCCESS != Status) {
@@ -139,6 +149,10 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 	}
 
 	Status = XPmCore_AfterDirectPwrDwn(Core);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to process pending force power down for 0x%x: 0x%x\n", Core->Device.Node.Id, Status);
+		goto done;
+	}
 
 done:
 	if (Status != XST_SUCCESS) {

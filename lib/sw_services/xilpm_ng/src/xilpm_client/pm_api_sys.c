@@ -1493,44 +1493,6 @@ void XPm_SuspendFinalize(void)
 	XPm_ClientSuspendFinalize();
 }
 
-/****************************************************************************/
-/**
- * @brief  This function is used by a CPU to request suspend to another CPU.
- *
- * @param  TargetSubsystemId	Subsystem ID of the target
- * @param  Ack			Requested acknowledge type
- * @param  Latency		Maximum wake-up latency requirement in us(microsecs)
- * @param  State		Power State
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- *
- *
- ****************************************************************************/
-XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
-			   const u32 Latency, const u32 State)
-{
-	XStatus Status = (s32)XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
-
-	PACK_PAYLOAD4(Payload, PM_REQUEST_SUSPEND, TargetSubsystemId, Ack, Latency, State);
-
-	/* Send request to the target module */
-	Status = XPm_IpiSend(PrimaryProc, Payload);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Return result from IPI return buffer */
-	Status = Xpm_IpiReadBuff32(PrimaryProc, NULL, NULL, NULL);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-done:
-	return Status;
-}
 #else
 XStatus XPm_SelfSuspend(const u32 DeviceId, const u32 Latency,
 			const u8 State, const u64 Address)
@@ -1565,18 +1527,6 @@ void XPm_SuspendFinalize(void)
 	return;
 }
 
-XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
-			   const u32 Latency, const u32 State)
-{
-	(void)TargetSubsystemId;
-	(void)Ack;
-	(void)Latency;
-	(void)State;
-
-	XPm_Err("%s is not supported for Microblaze\n", __func__);
-
-	return (s32)XST_NO_FEATURE;
-}
 #endif
 
 /****************************************************************************/
