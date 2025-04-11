@@ -58,6 +58,13 @@
 #define XRSA_PRIME_NUM_IS_PRSNT		(2U)		/**< Indicates prime num is present as
 								parameter for private decryption operation */
 
+#define XRSA_PUB_EXP_INVALID_ZERO_VALUE		(0U)	/**< Indicates invalid public exponent
+								value of zero */
+#define XRSA_PUB_EXP_INVALID_ONE_VALUE		(1U)	/**< Indicates invalid public exponent
+								value of one */
+#define XRSA_PUB_EXP_INVALID_THREE_VALUE	(3U)	/**< Indicates invalid public exponent
+								value of three */
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
@@ -776,14 +783,19 @@ static s32 XRsa_UpdateStatus(s32 Status)
 static s32 XRsa_ValidatePubExp(u8 *BuffAddr)
 {
 	s32 Status = XASUFW_FAILURE;
-	s32 PubExpVal = 0U;
+	volatile u32 PubExpVal = 0U;
 
 	PubExpVal = BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 4U] << 24U |
 			BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 3U] << 16U |
 				BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 2U] << 8U |
 					BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 1U];
 
-	if ((PubExpVal != 0U) && (PubExpVal != 1U) && (PubExpVal != 3U)) {
+	if ((PubExpVal != XRSA_PUB_EXP_INVALID_ZERO_VALUE) &&
+	    (PubExpVal != XRSA_PUB_EXP_INVALID_ZERO_VALUE) &&
+	    (PubExpVal !=  XRSA_PUB_EXP_INVALID_ONE_VALUE) &&
+	    (PubExpVal != XRSA_PUB_EXP_INVALID_ONE_VALUE) &&
+	    (PubExpVal != XRSA_PUB_EXP_INVALID_THREE_VALUE) &&
+	    (PubExpVal != XRSA_PUB_EXP_INVALID_THREE_VALUE)) {
 		Status = XASUFW_SUCCESS;
 	}
 	return Status;
