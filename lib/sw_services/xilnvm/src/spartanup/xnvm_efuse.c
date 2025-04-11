@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who   Date     Changes
 * ----- ----  -------- ------------------------------------------------------
 * 1.0   kpt   07/30/24 First release
+* 1.1   mb    04/11/25 Passed args to XNvm_EfuseCheckAesKeyCrc in correct order
 *
 * </pre>
 *
@@ -241,8 +242,8 @@ static int XNvm_EfuseValidateAesWriteReq(XNvm_EfuseAesKeys *AesKey)
 		}
 
 		Status = XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_AES_CRC_OFFSET,
-						  XNVM_EFUSE_STS_AES_CRC_PASS_MASK,
 						  XNVM_EFUSE_STS_AES_CRC_DONE_MASK,
+						  XNVM_EFUSE_STS_AES_CRC_PASS_MASK,
 						  XNVM_EFUSE_CRC_AES_ZEROS);
 		if (Status != XST_SUCCESS) {
 			Status = (int)XNVM_EFUSE_ERR_AES_ALREADY_PRGMD;
