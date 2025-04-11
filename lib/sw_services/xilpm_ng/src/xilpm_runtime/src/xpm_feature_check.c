@@ -50,7 +50,6 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	switch (ApiId) {
 	case PM_API(PM_GET_API_VERSION):
 	case PM_API(PM_GET_NODE_STATUS):
-	case PM_API(PM_REQUEST_SUSPEND):
 	case PM_API(PM_ABORT_SUSPEND):
 	case PM_API(PM_REQUEST_WAKEUP):
 	case PM_API(PM_SET_WAKEUP_SOURCE):

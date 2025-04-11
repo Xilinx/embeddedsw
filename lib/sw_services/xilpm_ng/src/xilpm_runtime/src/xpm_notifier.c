@@ -166,7 +166,10 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
+		PmInfo("Core Idle supported for 0x%x\r\n", Core->Device.Node.Id);
 		Subsystem->Flags |= (u8)SUBSYSTEM_IDLE_SUPPORTED;
+		PmInfo("Subsystem Idle support enabled for 0x%x, Flags: 0x%x\r\n\r\n",
+		       Subsystem->Id, Subsystem->Flags);
 	}
 
 	Status = XST_SUCCESS;
@@ -559,7 +562,7 @@ void XPmNotifier_NotifyTarget(u32 IpiMask, u32 *Payload)
  * or a reason code
  *
  ****************************************************************************/
-XStatus XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
+XStatus XPmNotifier_Unregister(XPm_Subsystem* const Subsystem,
 			    const u32 NodeId,
 			    const u32 Event)
 {
@@ -597,6 +600,26 @@ XStatus XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 			 */
 			if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
 				(void)XPlmi_EmDisable(NodeId, Event);
+			}
+
+
+			if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
+
+				/* TODO: This property should be handle by runtime */
+				//Core->IsCoreIdleSupported = 1U;
+				XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(NodeId);
+				if (NULL == Core) {
+					Status = XST_INVALID_PARAM;
+					goto done;
+				}
+				Status = XPmCore_SetCoreIdleSupport(Core, 0U);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+				PmInfo("Core Idle support removed for 0x%x\r\n", Core->Device.Node.Id);
+				Subsystem->Flags &= ~(u8)SUBSYSTEM_IDLE_SUPPORTED;
+				PmInfo("Subsystem Idle support disabled for 0x%x, Flags: 0x%x\r\n\r\n",
+				       Subsystem->Id, Subsystem->Flags);
 			}
 			break;
 		}

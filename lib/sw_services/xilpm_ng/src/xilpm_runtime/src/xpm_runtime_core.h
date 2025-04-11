@@ -16,7 +16,7 @@ extern "C" {
 typedef struct XPmRuntime_Core XPmRuntime_Core;
 CREATE_LIST(XPmRuntime_Core)
 struct XPmRuntime_Core {
-	XPm_Core * Device;
+	XPm_Core * Core;
 	u8 IsCoreIdleSupported; /**< Flag for core idle is supported */
 	struct XPm_FrcPwrDwnReq FrcPwrDwnReq;
 	/** TODO: enable these  members when they're actually usedd */
@@ -31,7 +31,8 @@ XStatus XPmCore_GetCoreIdleSupport(const XPm_Core* Core, u8 *IsCoreIdleSupported
 XStatus XPmCore_SetCoreIdleSupport(XPm_Core* Core, const u32 Value);
 XStatus XPmCore_GetFrcPwrDwnReq(const XPm_Core* Core, struct XPm_FrcPwrDwnReq *FrcPwrDwnReq);
 XStatus XPmCore_SetFrcPwrDwnReq(XPm_Core* Core, struct XPm_FrcPwrDwnReq FrcPwrDwnReq);
-XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId);
+XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, XPm_Core *Core);
+XStatus XPmCore_ReleaseFromSubsys(XPm_Core *Core);
 XStatus ResetAPUGic(const u32 DeviceId);
 #ifdef __cplusplus
 }

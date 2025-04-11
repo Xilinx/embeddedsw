@@ -1083,6 +1083,23 @@ XStatus XPm_DoSelfSuspend(XPlmi_Cmd* Cmd)
 	Cmd->Response[0] = (u32)Status;
 	return Status;
 }
+
+u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
+{
+	const XPm_Subsystem *Subsystem;
+	u32 IpiMaskVal = 0;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		goto done;
+	}
+
+	IpiMaskVal = Subsystem->IpiMask;
+
+done:
+	return IpiMaskVal;
+}
+
 maybe_unused static inline XStatus XPm_EnableDdrSr(const u32 SubsystemId)
 {
 	/*
@@ -1136,6 +1153,9 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	u64 Address = (u64)AddrLow + ((u64)AddrHigh << 32ULL);
 	u32 CpuIdleFlag;
 	XPm_Subsystem *Subsystem = NULL;
+
+	PmInfo("SubsystemId = 0x%x, DeviceId = 0x%x, Latency = %d, State = %d, AddressLow = 0x%x, AddressHigh = 0x%x\n\r",
+		SubsystemId, DeviceId, Latency, State, AddrLow, AddrHigh);
 
 	/* TODO: Remove this warning fix hack when functionality is implemented */
 	(void)Latency;
@@ -1213,6 +1233,11 @@ static XStatus XPm_DoForcePowerdown(XPlmi_Cmd* Cmd)
 	u32 Ack = Cmd->Payload[1];
 	u32 CmdType = Cmd->IpiReqType;
 	u32 IpiMask = Cmd->IpiMask;
+	/**
+	 *  Skip providing ack for the force power down command as it is
+	 *  handled from the xilpm module itself.
+	 */
+	Cmd->AckInPLM = FALSE;
 	Status = XPm_ForcePowerdown(SubsystemId, NodeId, Ack, CmdType, IpiMask);
 	Cmd->Response[0] = (u32)Status;
 	return Status;
@@ -1242,7 +1267,6 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	u32 NodeState = 0U;
-	const XPm_Power *Power;
 
 	if ((u32)REQUEST_ACK_BLOCKING == Ack) {
 		/* Disable IPI interrupt */
@@ -1269,6 +1293,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 	XPlmi_RestoreMultiboot();
 
 	if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
+		#if 0
 		Status = XPm_RequestHBMonDevice(NodeId, CmdType);
 		if (XST_DEVICE_NOT_FOUND == Status) {
 			PmWarn("Add runtime HB_MON node for recovery\r\n");
@@ -1281,6 +1306,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		} else {
 			/* Required by MISRA */
 		}
+		#endif
 
 		Status = Subsystem->Ops->SetState(Subsystem,
 					       (u8)PENDING_POWER_OFF);
@@ -1293,6 +1319,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		if (XST_SUCCESS != Status) {
 			goto process_ack;
 		}
+		NodeState = Subsystem->State; /* Update node state after idle cores */
 		goto done;
 	} else {
 		Status = XPmSubsystem_ForcePwrDwn(NodeId);
@@ -1383,17 +1410,20 @@ XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem)
 				goto done;
 			}
 			u8 IsCoreIdleSupported = 0;
+			PmInfo("Check if core 0x%x supports idle callback\r\n",
+			       Core->Device.Node.Id);
 			Status = XPmCore_GetCoreIdleSupport(Core, &IsCoreIdleSupported);
 			if (XST_SUCCESS != Status) {
+				if (XST_DEVICE_NOT_FOUND == Status) {
+					PmWarn("No idle callback registration for 0x%x, skipping\r\n", Core->Device.Node.Id);
+					continue;
+				}
+				PmErr("Failed to get core idle support for 0x%x: 0x%x\r\n", Core->Device.Node.Id, Status);
 				goto done;
 			}
 			if (1U == IsCoreIdleSupported) {
+				PmInfo("Sending idle callback notification to 0x%x\r\n", Core->Device.Node.Id);
 				XPm_CoreIdle(Core);
-			} else if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) &&
-				   (1U == Core->isCoreUp)) {
-				XPm_CoreIdle(Core);
-			} else {
-				/* Required by MISRA */
 			}
 			Status = XST_SUCCESS;
 
@@ -1769,9 +1799,10 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 
 	switch (SubType) {
 	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
-#if 0
+
 		/* FIXME: Disable idle callback support for now */
 		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
+		#if 0
 			Status = XPm_RequestHBMonDevice(SubsystemId, CmdType);
 			if (XST_DEVICE_NOT_FOUND == Status) {
 				PmWarn("Add runtime HB_MON node for recovery\r\n");
@@ -1784,6 +1815,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 			} else {
 				/* Required by MISRA */
 			}
+		#endif
 
 			Status = Subsystem->Ops->SetState(Subsystem, (u8)PENDING_RESTART);
 			if (XST_SUCCESS != Status) {
@@ -1793,15 +1825,15 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
-#endif
-
-		Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		Status = XPm_SubsystemPwrUp(SubsystemId);
-		if (XST_SUCCESS != Status) {
-			goto done;
+		} else {
+			Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			Status = XPm_SubsystemPwrUp(SubsystemId);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
 		break;
 	case PM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
