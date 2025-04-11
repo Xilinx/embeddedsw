@@ -175,6 +175,7 @@ int main(void)
 	XAsu_ClientParams ClientParam;
 	XAsu_RsaPubKeyComp PubKeyParam;
 	XAsu_RsaPvtKeyComp PvtKeyParam;
+	XMailbox MailboxInstance;
 
 #ifdef XASU_CACHE_DISABLE
 	Xil_DCacheDisable();
@@ -185,8 +186,15 @@ int main(void)
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_KeywrapunwrapCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
+	/** Initialize mailbox instance. */
+	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		goto END;
+	}
+
 	/* Initialize the client instance */
-	Status = XAsu_ClientInit(XPAR_XIPIPSU_0_BASEADDR);
+	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Client initialize failed:%08x \r\n", Status);
 		goto END;
