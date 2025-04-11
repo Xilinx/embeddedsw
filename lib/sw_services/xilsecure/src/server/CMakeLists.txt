@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 if(NOT("${CMAKE_MACHINE}" STREQUAL "ZynqMP"))
@@ -17,6 +17,6 @@ endif()
 if("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
    add_subdirectory(zynqmp)
 endif()
-if("${CMAKE_MACHINE}" STREQUAL "SpartanUP")
+if("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
    add_subdirectory(spartanup)
 endif()

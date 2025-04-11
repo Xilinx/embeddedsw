@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 include(${CMAKE_CURRENT_SOURCE_DIR}/XilsecureExample.cmake)
@@ -30,7 +30,7 @@ elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
     xilsecure_versal_net_ecdh_client_example.c;xilsecure_versal_net_keyunwrap_client_example.c;xilsecure_versal_net_trng_client_example.c;xilsecure_versal_net_rsa_client_example.c;)
 elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
     SET(COMMON_EXAMPLES xilsecure_aes_example.c;xilsecure_rsa_example.c;xilsecure_rsa_generic_example.c;xilsecure_sha_example.c;xilsecure_simple_aes_example.c;)
-elseif("${CMAKE_MACHINE}" STREQUAL "SpartanUP")
+elseif("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
     SET(COMMON_EXAMPLES xilsecure_versal_aes_server_example.c;xilsecure_spartanup_sha_server_example.c;)
 endif()
 

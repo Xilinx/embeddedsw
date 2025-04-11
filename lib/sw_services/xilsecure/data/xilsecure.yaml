@@ -28,6 +28,7 @@ supported_processors:
   - cortexa78
   - psx_cortexr52
   - cortexr52
+  - microblaze_riscv
 
 supported_os:
   - standalone
@@ -58,7 +59,7 @@ examples:
   xilsecure_versal_aes_server_example.c:
     - supported_platforms:
       - Versal
-      - SpartanUP
+      - spartanuplus
   xilsecure_versal_ecdsa_client_example.c:
     - supported_platforms:
       - Versal
@@ -92,7 +93,7 @@ examples:
       - Versal
   xilsecure_spartanup_sha_server_example.c:
     - supported_platforms:
-      - SpartanUP
+      - spartanuplus
   xilsecure_versal_aiepg2_sha_client_example.c:
     - supported_platforms:
       - VersalGen2
