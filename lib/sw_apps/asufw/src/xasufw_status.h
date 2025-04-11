@@ -374,29 +374,30 @@ enum {
 	XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, /**< 0x101U - Error when AES key clear fails */
 	XASUFW_KEYWRAP_DMA_COPY_FAIL, /**< 0x102U - When data transfer to/from memory using DMA
 						fails */
-	XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, /**< 0x104U - When AES operation fails in key wrap unwrap */
-	XASUFW_KEYWRAP_UNWRAPPED_DATA_COMPARISON_FAILED, /**< 0x105U -Error when unwrapped output
+	XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, /**< 0x103U - When AES operation fails in key wrap unwrap */
+	XASUFW_KEYWRAP_UNWRAPPED_DATA_COMPARISON_FAILED, /**< 0x104U -Error when unwrapped output
 						comparison failed in KAT */
-	XASUFW_KEYWRAP_KAT_FAILED, /**< 0x106U - Error when key wrap unwrap KAT failed */
-	XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, /**< 0x107U - Sign generation failure in PWCT */
-	XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, /**< 0x108U - Sign verification failure in PWCT */
-	XASUFW_RSA_ECC_INCORRECT_CURVE, /**< 0x109U - Error when the received curvelen or curve size
+	XASUFW_KEYWRAP_KAT_FAILED, /**< 0x105U - Error when key wrap unwrap KAT failed */
+	XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, /**< 0x106U - Sign generation failure in PWCT */
+	XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, /**< 0x107U - Sign verification failure in PWCT */
+	XASUFW_RSA_ECC_INCORRECT_CURVE, /**< 0x108U - Error when the received curvelen or curve size
 						is incorrect. */
-	XASUFW_RSA_ECC_TRNG_FAILED, /**< 0x10AU -  Error in TRNG while generating ECC private key */
-	XASUFW_RSA_ECC_MOD_ORDER_FAILED, /**< 0x10BU - Error when ModEccOrder failed in generate
+	XASUFW_RSA_ECC_TRNG_FAILED, /**< 0x109U -  Error in TRNG while generating ECC private key */
+	XASUFW_RSA_ECC_MOD_ORDER_FAILED, /**< 0x10AU - Error when ModEccOrder failed in generate
 						private key */
-	XASUFW_AES_KEY_CONFIG_READBACK_ERROR, /**< 0x10DU -  Error when AES KEY configuration is
+	XASUFW_AES_KEY_CONFIG_READBACK_ERROR, /**< 0x10BU -  Error when AES KEY configuration is
 						incorrect. */
+	XASUFW_HKDF_INVALID_PARAM, /**< 0x10CU - Error when Invalid parameters to the HKDF APIs */
+	XASUFW_HKDF_KAT_COMPARISON_FAILED, /**< 0x10DU - Error when HKDF KAT comparison failed */
+	XASUFW_HKDF_EXTRACT_FAILED, /**< 0x10EU - Error when HKDF Key extract failed */
+	XASUFW_HKDF_GET_HASHLEN_FAILED, /**< 0x10FU - Error when Unable to get hash length from SHA Mode */
+	XASUFW_HKDF_HMAC_INIT_FAILED, /**< 0x110U - Error when HMAC init operation failed in HKDF */
+	XASUFW_HKDF_HMAC_UPDATE_FAILED, /**< 0x111U - Error when HMAC update failed in HKDF */
+	XASUFW_HKDF_HMAC_FINAL_FAILED, /**< 0x112U - Error when HMAC hash generation failed in HKDF */
+	XASUFW_HKDF_GENERATE_FAILED, /**< 0x113U - Error when HKDF generate operation failed  */
 
-	XASUFW_HKDF_INVALID_PARAM, /**< 0x10EU - Error when Invalid parameters to the HKDF APIs */
-	XASUFW_HKDF_KAT_COMPARISON_FAILED, /**< 0x10FU - Error when HKDF KAT comparison failed */
-	XASUFW_HKDF_EXTRACT_FAILED, /**< 0x110U - Error when HKDF Key extract failed */
-	XASUFW_HKDF_GET_HASHLEN_FAILED, /**< 0x111U - Error when Unable to get hash length from SHA Mode */
-	XASUFW_HKDF_HMAC_INIT_FAILED, /**< 0x112U - Error when HMAC init operation failed in HKDF */
-	XASUFW_HKDF_HMAC_UPDATE_FAILED, /**< 0x113U - Error when HMAC update failed in HKDF */
-	XASUFW_HKDF_HMAC_FINAL_FAILED, /**< 0x114U - Error when HMAC hash generation failed in HKDF */
-	XASUFW_HKDF_GENERATE_FAILED, /**< 0x116U - Error when HKDF generate operation failed  */
-
+	XASUFW_AES_TAG_MATCHED = 0x3FD, /**< 0x3FDU - Successfully verified AES tag */
+	XASUFW_AES_TAG_READ = 0x3FE, /**< 0x3FEU - Successfully read AES tag */
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };
 
