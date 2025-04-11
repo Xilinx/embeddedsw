@@ -9,7 +9,6 @@ maintainers:
   - Harsha, Harsha <harsha.harsha@amd.com>
   - Akula, Kalyani <kalyani.akula@amd.com>
   - Challa, Durga <durga.challa@amd.com>
-  - Kundanala, Praveen Teja <praveen.teja.kundanala@amd.com>
 
 type: library
 
@@ -31,6 +30,7 @@ supported_processors:
   - cortexa78
   - psx_cortexr52
   - cortexr52
+  - microblaze_riscv
 
 supported_os:
   - standalone
@@ -55,7 +55,7 @@ examples:
       - xilnvm_efuse_versal_input.h
   xilnvm_efuse_spartan_ultrascale_plus_example.c:
     - supported_platforms:
-      - SpartanUP
+      - spartanuplus
     - dependency_files:
       - xilnvm_efuse_spartan_ultrascale_plus_input.h
   xilnvm_bbram_config_limiter_client_example.c:

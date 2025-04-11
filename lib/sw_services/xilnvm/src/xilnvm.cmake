@@ -1,8 +1,8 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze" OR
-   "${CMAKE_MACHINE}" STREQUAL "SpartanUP")
+   "${CMAKE_MACHINE}" STREQUAL "spartanuplus")
   set(XILNVM_mode "server")
 elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR ("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
   # For soft microblaze and Versal_net APU/RPU cores, mode is client.
