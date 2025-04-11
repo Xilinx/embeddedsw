@@ -290,8 +290,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	ClearStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)DataBlock, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
-				   XRSA_TOTAL_PARAMS);
+	ClearStatus = XAsufw_SMemSet(DataBlock, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PaddedOutputData,
@@ -520,8 +519,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	ClearStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)DataBlock, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
-				   XRSA_TOTAL_PARAMS);
+	ClearStatus = XAsufw_SMemSet(DataBlock, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, HashBuffer,
@@ -788,8 +786,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	ClearStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)DataBlock, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
-				   XRSA_TOTAL_PARAMS);
+	ClearStatus = XAsufw_SMemSet(DataBlock, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)OutputData,
@@ -1076,8 +1073,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	ClearStatus = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)DataBlock, 0U, XRSA_MAX_KEY_SIZE_IN_BYTES *
-				   XRSA_TOTAL_PARAMS);
+	ClearStatus = XAsufw_SMemSet(DataBlock, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, HashedInputData,

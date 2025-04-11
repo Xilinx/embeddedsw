@@ -225,4 +225,34 @@ s32 XAsufw_NvmEfuseWriteOffChipRevokeId(const u32 OffChipRevokeIdNum)
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sets the memory of given size with zeroes by calling Xil_SMemset
+ *		twice for redundancy.
+ *
+ * @param	Dest		Pointer to the buffer whose memory needs to be cleared.
+ * @param	DestSize	Size of the buffer in bytes.
+ *
+ * @return
+ *	-	XASUFW_SUCCESS, if Xil_SMemSet is successful.
+ *	-	XASUFW_FAILURE, if Xil_SMemSet fails.
+ *
+ *************************************************************************************************/
+s32 XAsufw_SMemSet(void *Dest, const u32 DestSize)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	Status = Xil_SMemSet(Dest, DestSize, 0x00U, DestSize);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_FAILURE;
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status =  Xil_SMemSet(Dest, DestSize, 0x00U, DestSize);
+
+END:
+	return Status;
+}
 /** @} */
