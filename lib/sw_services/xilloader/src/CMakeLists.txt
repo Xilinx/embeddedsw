@@ -8,7 +8,7 @@ find_package(common)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/xilloader.cmake NO_POLICY_SCOPE)
 
-if((XILLOADER_mode STREQUAL "client") AND (NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS)))
+if((XILLOADER_mode STREQUAL "client") AND (NOT ("xilmailbox" IN_LIST BSP_LIBSRC_SUBDIRS)) AND (NOT YOCTO))
   message(FATAL_ERROR "XilLoader library requires xilmailbox library in client mode.")
 endif()
 
