@@ -39,7 +39,8 @@
 #define XSECURE_AES_ADDRESS			  (0xF11E0000U) /**< AES BaseAddress */
 #define XSECURE_SHA_ADDRESS			  (0xF1210000U) /**< SHA BaseAddress */
 #define XSECURE_RSA_ECDSA_RSA_ADDRESS (0xF1200000U) /**< RSA ECDSA BaseAddress */
-
+#define XSECURE_TRNG_COMPUTE_NO_OF_GENERATES_SHIFT	(5U) /**< Shift to calculate
+							       no of TRNG generates */
 /************************** Variable Definitions *****************************/
 
 /* XSecure_SssLookupTable[Input source][Resource] */
@@ -403,7 +404,8 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	u32 TotalSize = Size;
 	u32 RandBufSize = XTRNGPSX_SEC_STRENGTH_IN_BYTES;
 	u32 Index = 0U;
-	u32 NoOfGenerates = (u32)Xil_Ceil(((float)Size / (float)XTRNGPSX_SEC_STRENGTH_IN_BYTES));
+	u32 NoOfGenerates = (Size + XTRNGPSX_SEC_STRENGTH_IN_BYTES - 1U) >>
+				XSECURE_TRNG_COMPUTE_NO_OF_GENERATES_SHIFT;
 	XTrngpsx_Instance *TrngInstance = XSecure_GetTrngInstance();
 
 	if ((Size == 0U) || (Output == NULL)) {
