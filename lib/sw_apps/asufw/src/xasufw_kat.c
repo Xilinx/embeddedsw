@@ -410,6 +410,7 @@ static const u8 KeyWrapInput[XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES] = {
 
 static const char RsaOpt[XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES + 1U] = "ASUFW";
 
+static u8 WrappedResult[XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES];
 /*************************************************************************************************/
 /**
  * @brief	This function runs SHA KAT on the given SHA instance for 256-bit digest size.
@@ -1277,7 +1278,6 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	XAsu_KeyWrapParams KwpunwpParam;
 	XAsu_RsaPubKeyComp PubKeyParam;
 	XAsu_RsaPvtKeyComp PvtKeyParam;
-	u8 WrappedResult[XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES];
 	u8 UnwrappedResult[XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES];
 
 	PubKeyParam.Keysize = XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES;
