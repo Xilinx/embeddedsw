@@ -38,6 +38,8 @@ def retarget_app(args):
         lib_list = list(domain_data['lib_info'].keys())
         # Special handling for libmetal
         lib_list = [lib.replace('libmetal', 'metal') for lib in lib_list]
+        # Special handling for openamp
+        lib_list = [lib.replace('openamp', 'open_amp') for lib in lib_list]
         cmake_lib_list = ';'.join(lib_list)
         utils.replace_line(
             src_cmake,

@@ -72,6 +72,8 @@ def build_app(args):
         lib_list = list(domain_data['lib_info'].keys())
         # Special handling for libmetal
         lib_list = [lib.replace('libmetal', 'metal') for lib in lib_list]
+        # Special handling for openamp
+        lib_list = [lib.replace('openamp', 'open_amp') for lib in lib_list]
         if obj.os == "freertos":
             lib_list.append(obj.os)
         # FixME: Link the math library by default for libmetal dependent drivers
