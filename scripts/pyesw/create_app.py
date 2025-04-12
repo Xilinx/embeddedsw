@@ -100,6 +100,8 @@ def create_app(args):
         lib_list = list(domain_data['lib_info'].keys())
         # Special handling for libmetal
         lib_list = [lib.replace('libmetal', 'metal') for lib in lib_list]
+        # Special handling for openamp
+        lib_list = [lib.replace('openamp', 'open_amp') for lib in lib_list]
         # FixME: Link the math library by default for libmetal dependent drivers
         if 'metal' in lib_list:
             lib_list.append('m')
