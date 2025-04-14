@@ -16,14 +16,37 @@ properties:
       - items:
         - enum:
           - xlnx,clocking-wizard
+          - xlnx,versal-clk-wizard
           - xlnx,clocking-wizard-6.0
           - xlnx,clk-wizard-1.0
           - xlnx,clkx5-wiz-1.0
 
   reg:
     description: Physical base address and size of the controller register map
+  xlnx,enable-clock-monitor:
+    description: Clock monitor is enabled
+  xlnx,enable-user-clock0:
+    description: Clock0 is enabled
+  xlnx,enable-user-clock1:
+    description: Clock1 is enabled
+  xlnx,enable-user-clock2:
+    description: Clock2 is enabled
+  xlnx,enable-user-clock3:
+    description: Clock3 is enabled
+  xlnx,user-clk-freq0:
+    description: default frequency of the clock0
+  xlnx,ref-clk-freq:
+    description: Reference clock frequency
+  xlnx,user-clk-freq1:
+    description: default frequency of the clock1
+  xlnx,user-clk-freq2:
+    description: default frequency of the clock2
+  xlnx,user-clk-freq3:
+    description: default frequency of the clock3
   xlnx,prim-in-freq:
     description: Input clock frequency
+  xlnx,num-out-clks:
+    description: Number of output clocks
 
 config:
     - XClk_Wiz_Config
