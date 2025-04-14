@@ -5741,24 +5741,25 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 		goto END;
 	}
 
+#ifndef VERSAL_AIEPG2
 	/** Hash should be calculated on AC + first chunk */
 	if (SecurePtr->BlockNum == 0x00U) {
-#ifndef VERSAL_AIEPG2
+
 		Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)AcPtr,
 			(XLOADER_AUTH_CERT_MIN_SIZE - XLOADER_PARTITION_SIG_SIZE));
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
 			goto END;
 		}
-#else
-		Status = XSecure_ShaLastUpdate(ShaInstPtr);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
-			goto END;
-		}
-#endif
 	}
 
+#else
+	Status = XSecure_ShaLastUpdate(ShaInstPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
+		goto END;
+	}
+#endif
 	Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)Data, Size);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
