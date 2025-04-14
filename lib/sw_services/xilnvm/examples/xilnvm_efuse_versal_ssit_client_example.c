@@ -57,6 +57,7 @@
  * Ver	 Who	Date	Changes
  * ----- ---  -------- -------------------------------------------------------
  * 3.5    hj   02/05/2025 First release
+ * 3.5    hj   14/04/2025 Added support for unique PPK hash programming for each SLR
  *
  * </pre>
  *
@@ -128,8 +129,92 @@ XNvm_ClientInstance NvmClientInstance;
 static u8 SharedMem[XNVM_TOTAL_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
 		__attribute__((section(".data.SharedMem")));
 
+static const char Ppk0Hash[XNVM_MAX_SLRS][XNVM_EFUSE_PPK_HASH_STRING_LEN + 1U]
+__attribute__((aligned(64U)))__attribute__((section(".data.XNVM_PPK0_HASH"))) = {
+	XNVM_EFUSE_PPK0_HASH,
+	XNVM_EFUSE_PPK0_SLR1_HASH,
+	XNVM_EFUSE_PPK0_SLR2_HASH,
+	XNVM_EFUSE_PPK0_SLR3_HASH
+};
+
+static const char Ppk1Hash[XNVM_MAX_SLRS][XNVM_EFUSE_PPK_HASH_STRING_LEN + 1U]
+__attribute__((aligned(64U)))__attribute__((section(".data.XNVM_PPK1_HASH"))) = {
+	XNVM_EFUSE_PPK1_HASH,
+	XNVM_EFUSE_PPK1_SLR1_HASH,
+	XNVM_EFUSE_PPK1_SLR2_HASH,
+	XNVM_EFUSE_PPK1_SLR3_HASH
+};
+
+static const char Ppk2Hash[XNVM_MAX_SLRS][XNVM_EFUSE_PPK_HASH_STRING_LEN + 1U]
+__attribute__((aligned(64U)))__attribute__((section(".data.XNVM_PPK2_HASH"))) = {
+	XNVM_EFUSE_PPK2_HASH,
+	XNVM_EFUSE_PPK2_SLR1_HASH,
+	XNVM_EFUSE_PPK2_SLR2_HASH,
+	XNVM_EFUSE_PPK2_SLR3_HASH
+};
+
+#ifdef XNVM_EN_ADD_PPKS
+static const char Ppk3Hash[XNVM_MAX_SLRS][XNVM_EFUSE_PPK_HASH_STRING_LEN + 1U]
+__attribute__((aligned(64U)))__attribute__((section(".data.XNVM_PPK3_HASH"))) = {
+	XNVM_EFUSE_PPK3_HASH,
+	XNVM_EFUSE_PPK3_SLR1_HASH,
+	XNVM_EFUSE_PPK3_SLR2_HASH,
+	XNVM_EFUSE_PPK3_SLR3_HASH
+};
+
+static const char Ppk4Hash[XNVM_MAX_SLRS][XNVM_EFUSE_PPK_HASH_STRING_LEN + 1U]
+__attribute__((aligned(64U)))__attribute__((section(".data.XNVM_PPK4_HASH"))) = {
+	XNVM_EFUSE_PPK4_HASH,
+	XNVM_EFUSE_PPK4_SLR1_HASH,
+	XNVM_EFUSE_PPK4_SLR2_HASH,
+	XNVM_EFUSE_PPK4_SLR3_HASH
+};
+#endif
+
+static const u8 Ppk0HashFlag[XNVM_MAX_SLRS]
+__attribute__((aligned(64U)))__attribute__((section(".data.XNVM_PPK0_HASH_FLAG"))) = {
+	XNVM_EFUSE_WRITE_PPK0_HASH,
+	XNVM_EFUSE_WRITE_PPK0_SLR1_HASH,
+	XNVM_EFUSE_WRITE_PPK0_SLR2_HASH,
+	XNVM_EFUSE_WRITE_PPK0_SLR3_HASH
+};
+
+static const u8 Ppk1HashFlag[XNVM_MAX_SLRS]
+__attribute__((aligned(64U)))__attribute__((section(".data.XNVM_PPK1_HASH_FLAG"))) = {
+	XNVM_EFUSE_WRITE_PPK1_HASH,
+	XNVM_EFUSE_WRITE_PPK1_SLR1_HASH,
+	XNVM_EFUSE_WRITE_PPK1_SLR2_HASH,
+	XNVM_EFUSE_WRITE_PPK1_SLR3_HASH
+};
+
+static const u8 Ppk2HashFlag[XNVM_MAX_SLRS]
+__attribute__((aligned(64U)))__attribute__((section(".data.XNVM_PPK2_HASH_FLAG"))) = {
+	XNVM_EFUSE_WRITE_PPK2_HASH,
+	XNVM_EFUSE_WRITE_PPK2_SLR1_HASH,
+	XNVM_EFUSE_WRITE_PPK2_SLR2_HASH,
+	XNVM_EFUSE_WRITE_PPK2_SLR3_HASH
+};
+
+#ifdef XNVM_EN_ADD_PPKS
+static const u8 Ppk3HashFlag[XNVM_MAX_SLRS]
+__attribute__((aligned(64U)))__attribute__((section(".data.XNVM_PPK3_HASH_FLAG"))) = {
+	XNVM_EFUSE_WRITE_PPK3_HASH,
+	XNVM_EFUSE_WRITE_PPK3_SLR1_HASH,
+	XNVM_EFUSE_WRITE_PPK3_SLR2_HASH,
+	XNVM_EFUSE_WRITE_PPK3_SLR3_HASH
+};
+
+static const u8 Ppk4HashFlag[XNVM_MAX_SLRS]
+__attribute__((aligned(64U)))__attribute__((section(".data.XNVM_PPK4_HASH_FLAG"))) = {
+	XNVM_EFUSE_WRITE_PPK4_HASH,
+	XNVM_EFUSE_WRITE_PPK4_SLR1_HASH,
+	XNVM_EFUSE_WRITE_PPK4_SLR2_HASH,
+	XNVM_EFUSE_WRITE_PPK4_SLR3_HASH
+};
+#endif
+
 /************************** Function Prototypes ******************************/
-static int XilNvm_EfuseWriteFuses(void);
+static int XilNvm_EfuseWriteFuses(u32 Idx);
 static int XilNvm_EfuseReadFuses(void);
 static int XilNvm_EfuseShowDna(void);
 static int XilNvm_EfuseShowPpkHash(XNvm_PpkType PpkType);
@@ -157,7 +242,7 @@ static int XilNvm_EfuseInitGlitchData(XNvm_EfuseDataAddr *WriteEfuse,
 static int XilNvm_EfuseInitAesKeys(XNvm_EfuseDataAddr *WriteEfuse,
 	XNvm_EfuseAesKeys *AesKeys);
 static int XilNvm_EfuseInitPpkHash(XNvm_EfuseDataAddr *WriteEfuse,
-	XNvm_EfusePpkHash *PpkHash);
+	XNvm_EfusePpkHash *PpkHash, u32 Idx);
 static int XilNvm_EfuseInitDecOnly(XNvm_EfuseDataAddr *WriteEfuse,
 	XNvm_EfuseDecOnly *DecOnly);
 static int XilNvm_EfuseInitUserFuses(XNvm_EfuseDataAddr *WriteEfuse,
@@ -185,7 +270,7 @@ static int XilNvm_EfuseInitPufFuses(XNvm_EfusePufFuseAddr *PufFuse);
 #endif
 #ifdef XNVM_EN_ADD_PPKS
 static int XilNvm_EfuseInitAdditionalPpkHash(XNvm_EfuseDataAddr *WriteEfuse,
-		XNvm_EfuseAdditionalPpkHash *PpkHash);
+		XNvm_EfuseAdditionalPpkHash *PpkHash, u32 Idx);
 #endif
 /*****************************************************************************/
 int main(void)
@@ -229,7 +314,7 @@ int main(void)
 			goto END;
 		}
 
-		Status = XilNvm_EfuseWriteFuses();
+		Status = XilNvm_EfuseWriteFuses(Index);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -299,7 +384,7 @@ END:
  *	- Error code - On failure.
  *
  ******************************************************************************/
-static int XilNvm_EfuseWriteFuses(void)
+static int XilNvm_EfuseWriteFuses(u32 Idx)
 {
 	int Status = XST_FAILURE;
 
@@ -359,7 +444,7 @@ static int XilNvm_EfuseWriteFuses(void)
 		goto END;
 	}
 
-	Status = XilNvm_EfuseInitPpkHash(WriteEfuse, PpkHash);
+	Status = XilNvm_EfuseInitPpkHash(WriteEfuse, PpkHash, Idx);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -379,7 +464,7 @@ static int XilNvm_EfuseWriteFuses(void)
 		goto END;
 	}
 #ifdef XNVM_EN_ADD_PPKS
-	Status = XilNvm_EfuseInitAdditionalPpkHash(WriteEfuse, AdditionalPpkHash);
+	Status = XilNvm_EfuseInitAdditionalPpkHash(WriteEfuse, AdditionalPpkHash, Idx);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -952,22 +1037,22 @@ END:
  *
  ******************************************************************************/
 static int XilNvm_EfuseInitPpkHash(XNvm_EfuseDataAddr *WriteEfuse,
-	XNvm_EfusePpkHash *PpkHash)
+	XNvm_EfusePpkHash *PpkHash, u32 Idx)
 {
 	int Status = XST_FAILURE;
 
-	PpkHash->PrgmPpk0Hash = XNVM_EFUSE_WRITE_PPK0_HASH;
-	PpkHash->PrgmPpk1Hash = XNVM_EFUSE_WRITE_PPK1_HASH;
-	PpkHash->PrgmPpk2Hash = XNVM_EFUSE_WRITE_PPK2_HASH;
+	PpkHash->PrgmPpk0Hash = Ppk0HashFlag[Idx];
+	PpkHash->PrgmPpk1Hash = Ppk1HashFlag[Idx];
+	PpkHash->PrgmPpk2Hash = Ppk2HashFlag[Idx];
 
 	if (PpkHash->PrgmPpk0Hash == TRUE) {
-		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK0_HASH,
+		Status = XilNvm_ValidateHash((char *)Ppk0Hash[Idx],
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
 			xil_printf("Ppk0Hash string validation failed\r\n");
 			goto END;
 		}
-		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK0_HASH,
+		Status = Xil_ConvertStringToHexBE((char *)Ppk0Hash[Idx],
 						(u8 *)PpkHash->Ppk0Hash,
 			XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
@@ -976,13 +1061,13 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseDataAddr *WriteEfuse,
 	}
 
 	if (PpkHash->PrgmPpk1Hash == TRUE) {
-		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK1_HASH,
+		Status = XilNvm_ValidateHash((char *)Ppk1Hash[Idx],
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
 			xil_printf("Ppk1Hash string validation failed\r\n");
 			goto END;
 		}
-		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK1_HASH,
+		Status = Xil_ConvertStringToHexBE((char *)Ppk1Hash[Idx],
 					(u8 *)PpkHash->Ppk1Hash,
 					XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
@@ -990,13 +1075,13 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseDataAddr *WriteEfuse,
 		}
 	}
 	if (PpkHash->PrgmPpk2Hash == TRUE) {
-		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK2_HASH,
+		Status = XilNvm_ValidateHash((char *)Ppk2Hash[Idx],
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
 			xil_printf("Ppk1Hash string validation failed\r\n");
 			goto END;
 		}
-		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK2_HASH,
+		Status = Xil_ConvertStringToHexBE((char *)Ppk2Hash[Idx],
 					(u8 *)PpkHash->Ppk2Hash,
 					XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
@@ -2600,21 +2685,21 @@ END:
  *
  ******************************************************************************/
 static int XilNvm_EfuseInitAdditionalPpkHash(XNvm_EfuseDataAddr *WriteEfuse,
-		XNvm_EfuseAdditionalPpkHash *PpkHash)
+		XNvm_EfuseAdditionalPpkHash *PpkHash, u32 Idx)
 {
 	int Status = XST_FAILURE;
 
-	PpkHash->PrgmPpk3Hash = XNVM_EFUSE_WRITE_PPK3_HASH;
-	PpkHash->PrgmPpk4Hash = XNVM_EFUSE_WRITE_PPK4_HASH;
+	PpkHash->PrgmPpk3Hash = Ppk3HashFlag[Idx];
+	PpkHash->PrgmPpk4Hash = Ppk4HashFlag[Idx];
 
 	if (PpkHash->PrgmPpk3Hash == TRUE) {
-		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK3_HASH,
+		Status = XilNvm_ValidateHash((char *)Ppk3Hash[Idx],
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
 			xil_printf("Ppk3Hash string validation failed\r\n");
 			goto END;
 		}
-		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK3_HASH,
+		Status = Xil_ConvertStringToHexBE((char *)Ppk3Hash[Idx],
 						(u8 *)PpkHash->Ppk3Hash,
 			XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
@@ -2623,13 +2708,13 @@ static int XilNvm_EfuseInitAdditionalPpkHash(XNvm_EfuseDataAddr *WriteEfuse,
 	}
 
 	if (PpkHash->PrgmPpk4Hash == TRUE) {
-		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK4_HASH,
+		Status = XilNvm_ValidateHash((char *)Ppk4Hash[Idx],
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);
 		if(Status != XST_SUCCESS) {
 			xil_printf("Ppk4Hash string validation failed\r\n");
 			goto END;
 		}
-		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK4_HASH,
+		Status = Xil_ConvertStringToHexBE((char *)Ppk4Hash[Idx],
 					(u8 *)PpkHash->Ppk4Hash,
 					XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
 		if (Status != XST_SUCCESS) {
