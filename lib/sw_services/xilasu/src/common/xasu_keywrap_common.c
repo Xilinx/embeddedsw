@@ -67,7 +67,8 @@ s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParam
 	/** Validate that the addresses of all input and output buffers are non-zero. */
 	if ((KwpunwpParamsPtr->InputDataAddr == 0U) || (KwpunwpParamsPtr->OutputDataAddr == 0U)
 	    || (KwpunwpParamsPtr->KeyCompAddr == 0U)
-	    || (KwpunwpParamsPtr->OptionalLabelAddr == 0U)) {
+	    || (KwpunwpParamsPtr->OptionalLabelAddr == 0U) ||
+	       (KwpunwpParamsPtr->ActualOutuputDataLenAddr == 0U)) {
 		goto END;
 	}
 

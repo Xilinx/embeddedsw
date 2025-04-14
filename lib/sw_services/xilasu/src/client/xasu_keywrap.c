@@ -87,7 +87,9 @@ s32 XAsu_KeyWrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyWrap
 	}
 
 	/** Generate a unique ID and register the callback function. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr,
+						(u8 *)KeyWrapParamsPtr->ActualOutuputDataLenAddr,
+						XASU_KEYWRAP_OUTPUT_LEN_SIZE_IN_BYTES, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -151,7 +153,9 @@ s32 XAsu_KeyUnwrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyUn
 	}
 
 	/** Generate a unique ID and register the callback function. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr,
+						(u8 *)KeyUnwrapParamsPtr->ActualOutuputDataLenAddr,
+						XASU_KEYWRAP_OUTPUT_LEN_SIZE_IN_BYTES, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;

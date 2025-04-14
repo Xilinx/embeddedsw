@@ -154,6 +154,10 @@ static u8 XAsu_KeyWrapWrappedOutput[XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES] __attribu
 static u8 XAsu_KeyWrapUnwrappedOutput[XASU_KEYWRAP_INPUT_SIZE_IN_BYTES] __attribute__ ((
         section (".data.XAsu_KeyWrapUnwrappedOutput")));
 
+static u32 XAsu_KeyWrapOutputLen __attribute__ ((section (".data.XAsu_KeyWrapOutputLen")));
+static u32 XAsu_KeyWrapUnwrapOutputLen
+__attribute__ ((section (".data.XAsu_KeyWrapUnwrapOutputLen")));
+
 static u8 Notify = 0; /**< To notify the call back from client library */
 volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned from
 						server. */
@@ -224,6 +228,7 @@ int main(void)
 	KwpunwpClientParam.RsaKeySize = XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES;
 	KwpunwpClientParam.OptionalLabelSize = XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES;
 	KwpunwpClientParam.OutuputDataLen = XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES;
+	KwpunwpClientParam.ActualOutuputDataLenAddr = (u64)(UINTPTR)&XAsu_KeyWrapOutputLen;
 	KwpunwpClientParam.AesKeySize = XASU_AES_KEY_SIZE_256_BITS;
 	KwpunwpClientParam.ShaType = XASU_SHA2_TYPE;
 	KwpunwpClientParam.ShaMode = XASU_SHA_MODE_SHA256;
@@ -236,6 +241,10 @@ int main(void)
 	}
 	while (!Notify);
 	Notify = 0;
+	if (XAsu_KeyWrapOutputLen != XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES) {
+		Status = XST_FAILURE;
+		goto END;
+	}
 	if (ErrorStatus != XST_SUCCESS) {
 		goto END;
 	}
@@ -255,6 +264,7 @@ int main(void)
 	KwpunwpClientParam.RsaKeySize = XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES;
 	KwpunwpClientParam.OptionalLabelSize = XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES;
 	KwpunwpClientParam.OutuputDataLen = XASU_KEYWRAP_INPUT_SIZE_IN_BYTES;
+	KwpunwpClientParam.ActualOutuputDataLenAddr = (u64)(UINTPTR)&XAsu_KeyWrapUnwrapOutputLen;
 	KwpunwpClientParam.AesKeySize = XASU_AES_KEY_SIZE_256_BITS;
 	KwpunwpClientParam.ShaType = XASU_SHA2_TYPE;
 	KwpunwpClientParam.ShaMode = XASU_SHA_MODE_SHA256;
@@ -267,6 +277,10 @@ int main(void)
 	}
 	while (!Notify);
 	Notify = 0;
+	if (XAsu_KeyWrapUnwrapOutputLen != XASU_KEYWRAP_INPUT_SIZE_IN_BYTES) {
+		Status = XST_FAILURE;
+		goto END;
+	}
 	if (ErrorStatus != XST_SUCCESS) {
 		goto END;
 	}

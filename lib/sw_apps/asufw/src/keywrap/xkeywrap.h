@@ -48,9 +48,9 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
-                XSha *ShaInstancePtr, XAes *AesInstancePtr);
+                XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr);
 s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
-                XSha *ShaInstancePtr, XAes *AesInstancePtr);
+                XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr);
 
 #ifdef __cplusplus
 }
