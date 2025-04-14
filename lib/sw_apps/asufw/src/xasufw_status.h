@@ -395,6 +395,15 @@ enum {
 	XASUFW_HKDF_HMAC_UPDATE_FAILED, /**< 0x111U - Error when HMAC update failed in HKDF */
 	XASUFW_HKDF_HMAC_FINAL_FAILED, /**< 0x112U - Error when HMAC hash generation failed in HKDF */
 	XASUFW_HKDF_GENERATE_FAILED, /**< 0x113U - Error when HKDF generate operation failed  */
+	XASUFW_KEYWRAP_INVALID_OUTPUT_BUF_LEN, /**< 0x114U -  Error when output buffer length provided by
+							user is less than required. */
+	XASUFW_KEYWRAP_INVALID_PAD_LEN, /**< 0x115U -  Error when output data has invalid padding
+							length. */
+	XASUFW_KEYWRAP_INVALID_PAD_VALUE, /**< 0x116U -  Error when output data has invalid padding
+							value i.e other than zeroes. */
+	XASUFW_KEYWRAP_CHANGE_ENDIANNESS_ERROR, /**< 0x117U - Error when change endianness in key
+							wrap fails */
+	XASUFW_KEYWRAP_LOOP_INDEX_CMP_ERROR, /**< 0x118U - Error when index of loop comparison failure */
 
 	XASUFW_AES_TAG_MATCHED = 0x3FD, /**< 0x3FDU - Successfully verified AES tag */
 	XASUFW_AES_TAG_READ = 0x3FE, /**< 0x3FEU - Successfully read AES tag */

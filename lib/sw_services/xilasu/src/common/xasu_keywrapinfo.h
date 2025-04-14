@@ -45,6 +45,7 @@ extern "C" {
 #define XASU_KEYWRAP_KAT_CMD_ID			(4U) /**< Command ID for Key wrap unwrap KAT */
 #define XASU_KEYWRAP_GET_INFO_CMD_ID		(5U) /**< Command ID for Key wrap unwrap Get Info */
 
+#define XASU_KEYWRAP_OUTPUT_LEN_SIZE_IN_BYTES	(4U)	/**< Key wrap unwrap output length size */
 /************************************** Type Definitions *****************************************/
 /**
  * @brief This structure contains Key wrap unwrap params info
@@ -58,6 +59,8 @@ typedef struct {
 	u64 KeyCompAddr;	/**< RSA key component address of type: XAsu_RsaPubKeyComp for key wrap
 					and XAsu_RsaPvtKeyComp  for key unwrap */
 	u64 OptionalLabelAddr;	/**< RSA optional label address for OAEP padding */
+	u64 ActualOutuputDataLenAddr;	/**< Actual output data length which is returned from
+						key wrap/unwrap operation */
 	u32 InputDataLen;	/**< Input data Len */
 	u32 RsaKeySize;		/**< RSA Key Size */
 	u32 OptionalLabelSize;	/**< RSA optional label size for OAEP padding */

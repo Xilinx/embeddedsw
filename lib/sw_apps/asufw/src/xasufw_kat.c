@@ -499,7 +499,7 @@ END:
  *************************************************************************************************/
 s32 XAsufw_RsaEncDecKat(XAsufw_Dma *AsuDmaPtr)
 {
-	s32 Status  = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
 	XAsu_RsaPubKeyComp PubKeyParam;
 	XAsu_RsaPvtKeyComp PvtKeyParam;
@@ -512,42 +512,55 @@ s32 XAsufw_RsaEncDecKat(XAsufw_Dma *AsuDmaPtr)
 	Status = Xil_SMemCpy(PubKeyParam.Modulus, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaModulus,
 			     XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
 	}
 
 	PvtKeyParam.PubKeyComp = PubKeyParam;
 	PvtKeyParam.PrimeCompOrTotientPrsnt = 0U;
 
-	Xil_SMemCpy(PvtKeyParam.PvtExp, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaPvtExp,
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(PvtKeyParam.PvtExp, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaPvtExp,
 		    XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
 
 	/** Perform RSA private exponentiation operation. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XRsa_PvtExp(AsuDmaPtr, PvtKeyParam.PubKeyComp.Keysize, (u64)(UINTPTR)RsaExpectedCt,
 			     (u64)(UINTPTR)Result, (u64)(UINTPTR)&PvtKeyParam, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		Status = XASUFW_RSA_PVT_OP_ERROR;
+		goto END;
 	}
 
 	/** Compare generated encrypted message with expected encrypted message. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCmp(Result, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaData,
 			     XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_DECRYPT_DATA_COMPARISON_FAILED;
+		goto END;
 	}
 
 	/** Perform RSA public exponentiation encryption operation. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XRsa_PubExp(AsuDmaPtr, PubKeyParam.Keysize, (u64)(UINTPTR)RsaData,
 			     (u64)(UINTPTR)Result, (u64)(UINTPTR)&PubKeyParam, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		XFIH_GOTO(END);
+		Status = XASUFW_RSA_PUB_OP_ERROR;
+		goto END;
 	}
 
 	/** Compare generated encrypted message with expected encrypted message. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCmp(Result, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaExpectedCt,
 			     XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ENCRYPT_DATA_COMPARISON_FAILED;
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 END:
@@ -1271,10 +1284,11 @@ END:
  *************************************************************************************************/
 s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 {
-	s32 Status  = XFih_VolatileAssign(XASUFW_FAILURE);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 SStatus = XASUFW_FAILURE;
+	u32 OutLengthVal = 0U;
 	XSha *Sha2Ptr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
-	XAes *AesPtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);;
+	XAes *AesPtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	XAsu_KeyWrapParams KwpunwpParam;
 	XAsu_RsaPubKeyComp PubKeyParam;
 	XAsu_RsaPvtKeyComp PvtKeyParam;
@@ -1294,6 +1308,7 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	PvtKeyParam.PubKeyComp = PubKeyParam;
 	PvtKeyParam.PrimeCompOrTotientPrsnt = 0U;
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy(PvtKeyParam.PvtExp, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, RsaPvtExp,
 		    XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES, XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
@@ -1306,6 +1321,7 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.ExpoCompAddr = 0U;
 	KwpunwpParam.KeyCompAddr = (u64)(UINTPTR)&PubKeyParam;
 	KwpunwpParam.OptionalLabelAddr = (u64)(UINTPTR)RsaOpt;
+	KwpunwpParam.ActualOutuputDataLenAddr = (u64)(UINTPTR)&OutLengthVal;
 	KwpunwpParam.InputDataLen = XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES;
 	KwpunwpParam.RsaKeySize = XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES;
 	KwpunwpParam.OptionalLabelSize = XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES;
@@ -1315,7 +1331,8 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.ShaMode = XASU_SHA_MODE_SHA256;
 
 	/** Perform key wrap operation with known inputs. */
-	Status = XKeyWrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr);
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyWrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr, &OutLengthVal);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL;
 		goto END;
@@ -1326,6 +1343,7 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.ExpoCompAddr = 0U;
 	KwpunwpParam.KeyCompAddr = (u64)(UINTPTR)&PvtKeyParam;
 	KwpunwpParam.OptionalLabelAddr = (u64)(UINTPTR)RsaOpt;
+	KwpunwpParam.ActualOutuputDataLenAddr = (u64)(UINTPTR)&OutLengthVal;
 	KwpunwpParam.InputDataLen = XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES;
 	KwpunwpParam.RsaKeySize = XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES;
 	KwpunwpParam.OptionalLabelSize = XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES;
@@ -1335,13 +1353,15 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.ShaMode = XASU_SHA_MODE_SHA256;
 
 	/** Perform key unwrap operation with known inputs. */
-	Status = XKeyUnwrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr);
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XKeyUnwrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr, &OutLengthVal);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_GEN_UNWRAPPED_KEY_OPERATION_FAIL;
 		goto END;
 	}
 
 	/** Compare generated unwrapped message with expected input. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCmp(UnwrappedResult, XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES, KeyWrapInput,
 				XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES, XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {

@@ -43,6 +43,7 @@
 							bytes */
 #define XASUFW_KEYWRAP_MAX_AES_ROUNDS		(5U)	/**< Key wrap unwrap maximum no of rounds */
 #define XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES		(520U)	/**< Key wrap maximum output size */
+#define XASUFW_KEYWRAP_MAX_PAD_LEN		(7U)	/**< Key wrap maximum padding length */
 
 /************************************** Type Definitions *****************************************/
 
@@ -52,7 +53,7 @@
 static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *AesInstancePtr,
 					XAsufw_Dma *AsuDmaPtr, u8 *OutData);
 static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesInstancePtr,
-					XAsufw_Dma *AsuDmaPtr);
+					XAsufw_Dma *AsuDmaPtr, u32 *OutDataLenPtr);
 /************************************** Macros Definitions ***************************************/
 
 /************************************** Function Definitions *************************************/
@@ -66,6 +67,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
  * @param	AsuDmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	ShaInstancePtr		Pointer to the SHA instance.
  * @param	AesInstancePtr		Pointer to the AES instance.
+ * @param	OutDataLenPtr		Pointer to the variable to store the actual output length.
  *
  * @return
  * 	- XASUFW_SUCCESS, if initialization is successful.
@@ -79,7 +81,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
  *
  *************************************************************************************************/
 s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
-			XSha *ShaInstancePtr, XAes *AesInstancePtr)
+			XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -94,7 +96,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 
 	/** Validate input parameters. */
 	if ((KeyWrapParamsPtr == NULL) || (AsuDmaPtr == NULL) || (ShaInstancePtr == NULL)
-		|| (AesInstancePtr == NULL)) {
+		|| (AesInstancePtr == NULL) || (OutDataLenPtr == NULL)) {
 		Status = XASUFW_KEYWRAP_INVALID_PARAM;
 		goto END;
 	}
@@ -118,8 +120,16 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 
 	OutDataLen = KeyWrapParamsPtr->InputDataLen + PadLen + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES;
 
-	/** Generate ephemeral AES key using TRNG. */
+	/** Updating actual output length. */
+	*OutDataLenPtr = OutDataLen + KeyWrapParamsPtr->RsaKeySize;
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if (KeyWrapParamsPtr->OutuputDataLen < (*OutDataLenPtr)) {
+		Status = XASUFW_KEYWRAP_INVALID_OUTPUT_BUF_LEN;
+		goto END;
+	}
+
+	/** Generate ephemeral AES key using TRNG. */
 	Status = XAsufw_TrngGetRandomNumbers(EphemeralAesKey, AesKeySizeInBytes);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_RAND_GEN_ERROR;
@@ -207,6 +217,7 @@ END:
  * @param	AsuDmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	ShaInstancePtr		Pointer to the SHA instance.
  * @param	AesInstancePtr		Pointer to the AES instance.
+ * @param	OutDataLenPtr		Pointer to the variable to store the actual output length.
  *
  * @return
  * 	- XASUFW_SUCCESS, if initialization is successful.
@@ -218,7 +229,7 @@ END:
  *
  *************************************************************************************************/
 s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
-			XSha *ShaInstancePtr, XAes *AesInstancePtr)
+			XSha *ShaInstancePtr, XAes *AesInstancePtr,  u32 *OutDataLenPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -229,7 +240,7 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 
 	/** Validate input parameters. */
 	if ((KeyUnwrapParamsPtr == NULL) || (AsuDmaPtr == NULL) || (ShaInstancePtr == NULL)
-		|| (AesInstancePtr == NULL)) {
+		|| (AesInstancePtr == NULL) ||  (OutDataLenPtr == NULL)) {
 		Status = XASUFW_KEYWRAP_INVALID_PARAM;
 		goto END;
 	}
@@ -284,7 +295,7 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 
 	/** Perform AES Key Unwrap. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XKeyWrap_UnwrapOp(KeyUnwrapParamsPtr, AesInstancePtr, AsuDmaPtr);
+	Status = XKeyWrap_UnwrapOp(KeyUnwrapParamsPtr, AesInstancePtr, AsuDmaPtr, OutDataLenPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR;
 	}
@@ -307,8 +318,8 @@ END:
  *
  * @param	KeyWrapParamsPtr	Pointer to the XAsu_KeyWrapParams structure.
  * @param	AesInstancePtr		Pointer to the XAes instance.
- * @param	AsuDmaPtr			Pointer to the XAsufw_Dma instance.
- * @param	OutData				Pointer to store wrapped output.
+ * @param	AsuDmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	OutData			Pointer to store wrapped output.
  *
  * @return
  * 	- XASUFW_SUCCESS, if initialization is successful.
@@ -501,7 +512,8 @@ END:
  *
  * @param	KeyUnwrapParamsPtr	Pointer to the XAsu_KeyWrapParams structure.
  * @param	AesInstancePtr		Pointer to the XAes instance.
- * @param	AsuDmaPtr			Pointer to the XAsufw_Dma instance.
+ * @param	AsuDmaPtr		Pointer to the XAsufw_Dma instance.
+ * @param	OutDataLenPtr		Pointer to the variable to store the actual output length.
  *
  * @return
  * 	- XASUFW_SUCCESS, if initialization is successful.
@@ -513,7 +525,7 @@ END:
  *
  *************************************************************************************************/
 static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesInstancePtr,
-				XAsufw_Dma *AsuDmaPtr)
+				XAsufw_Dma *AsuDmaPtr, u32 *OutDataLenPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -527,12 +539,15 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 	u8 *OutData = AesOutData + XASU_AES_BLOCK_SIZE_IN_BYTES;
 	s32 RoundNum = 0;
 	u32 BlkRoundNum = 0U;
+	u32 PadLen = 0U;
+	volatile u32 Index = 0U;
 	u32 *AesInDataSemiBlockPtr = (u32 *)(AesInData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
 	Asu_AesParams AesParams;
 	XAsu_AesKeyObject AesKeyObj;
 
 	/** Validate input parameters. */
-	if ((KeyUnwrapParamsPtr == NULL) || (AsuDmaPtr == NULL) || (AesInstancePtr == NULL)) {
+	if ((KeyUnwrapParamsPtr == NULL) || (AsuDmaPtr == NULL) || (AesInstancePtr == NULL)
+		||  (OutDataLenPtr == NULL)) {
 		Status = XASUFW_KEYWRAP_INVALID_PARAM;
 		goto END;
 	}
@@ -659,12 +674,49 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 		goto END_CLR;
 	}
 
+	/** Copy actual plain text length to pointer. */
+	*OutDataLenPtr = *(u32 *)(OutData + XASUFW_WORD_LEN_IN_BYTES);
+
+	/** Endianness change of output length. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_ChangeEndianness((u8 *)OutDataLenPtr, XASUFW_WORD_LEN_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_KEYWRAP_CHANGE_ENDIANNESS_ERROR;
+		goto END_CLR;
+	}
+
+	/** Calculate and compare padding length. */
+	PadLen = (XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES * MaxRounds) - (*OutDataLenPtr);
+
+	if (PadLen > XASUFW_KEYWRAP_MAX_PAD_LEN) {
+		Status = XASUFW_KEYWRAP_INVALID_PAD_LEN;
+		goto END_CLR;
+	}
+
+	/** Check for padded zeroes of padding length. */
+	for (Index = 0U; Index < PadLen; Index++) {
+		if (OutData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES + (*OutDataLenPtr)] != 0U) {
+			Status = XASUFW_KEYWRAP_INVALID_PAD_VALUE;
+			goto END_CLR;
+		}
+	}
+
+	if (Index != PadLen) {
+		Status = XASUFW_KEYWRAP_LOOP_INDEX_CMP_ERROR;
+		goto END_CLR;
+	}
+
 	/** Copy output data from ASU memory to user provided memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if (KeyUnwrapParamsPtr->OutuputDataLen < (*OutDataLenPtr)) {
+		Status = XASUFW_KEYWRAP_INVALID_OUTPUT_BUF_LEN;
+		goto END_CLR;
+	}
+
 	Status = XAsufw_DmaXfr(AsuDmaPtr,
 				(u64)(UINTPTR)&OutData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES],
 				KeyUnwrapParamsPtr->OutputDataAddr,
-				KeyUnwrapParamsPtr->OutuputDataLen, 0U);
+				(*OutDataLenPtr), 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_DMA_COPY_FAIL;
 	}
