@@ -699,7 +699,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSha_Digest(ShaInstancePtr, DmaPtr, &ShaParamsInput);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_SHA_DIGEST_CALC_FAIL;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_SHA_DIGEST_CALC_FAIL);
 		goto END;
 	}
 
@@ -1061,7 +1061,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSha_Digest(ShaInstancePtr, DmaPtr, &ShaParamsInput);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_SHA_DIGEST_CALC_FAIL;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_SHA_DIGEST_CALC_FAIL);
 		goto END;
 	}
 

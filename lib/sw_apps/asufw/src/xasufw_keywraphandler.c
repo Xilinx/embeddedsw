@@ -189,10 +189,13 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	volatile s32 Status = XASUFW_FAILURE;
 	const XAsu_KeyWrapParams *Cmd = (const XAsu_KeyWrapParams *)ReqBuf->Arg;
+	u32 *OutLenAddr;
 
 	/** Perform Key wrap operation using given SHA crypto engine. */
+	OutLenAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+						XASUFW_RESP_DATA_OFFSET;
 	Status = XKeyWrap(Cmd, XAsufw_KeyWrapModule.AsuDmaPtr, XAsufw_KeyWrapModule.ShaPtr,
-				XAsufw_KeyWrapModule.AesPtr);
+				XAsufw_KeyWrapModule.AesPtr, OutLenAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL);
 	}
@@ -227,10 +230,13 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	volatile s32 Status = XASUFW_FAILURE;
 	const XAsu_KeyWrapParams *Cmd = (const XAsu_KeyWrapParams *)ReqBuf->Arg;
+	u32 *OutLenAddr;
 
 	/** Perform Key unwrap operation using given SHA crypto engine. */
+	OutLenAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
+						XASUFW_RESP_DATA_OFFSET;
 	Status = XKeyUnwrap(Cmd, XAsufw_KeyWrapModule.AsuDmaPtr, XAsufw_KeyWrapModule.ShaPtr,
-				XAsufw_KeyWrapModule.AesPtr);
+				XAsufw_KeyWrapModule.AesPtr, OutLenAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYWRAP_GEN_UNWRAPPED_KEY_OPERATION_FAIL);
 	}
