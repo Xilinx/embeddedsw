@@ -19,6 +19,7 @@
  * 1.1   ma   12/12/24 Updated resource allocation logic
  *       am   01/20/25 Added AES CCM support
  *       am   04/03/25 Removed redundant release of AES resource
+ *       am   04/14/25 Added support for DMA non-blocking wait
  *
  * </pre>
  *
@@ -161,6 +162,23 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	const Asu_AesParams *AesParamsPtr = (const Asu_AesParams *)ReqBuf->Arg;
 	u8 EngineMode = XASUFW_AES_INVALID_ENGINE_MODE;
+	static u32 CmdStage = 0x0U;
+	u8 AadIsLast;
+
+	/**
+	 * If the DMA non-blocking transfer was initiated previously,
+	 * - In case of AES AAD update is in progress:
+	 *   - Jump to XAES_STAGE_DATA_UPDATE, to clear AAD configuration and proceed with
+	 *     the data update.
+	 * - In case of AES data update is in progress, jump to XAES_STAGE_DATA_UPDATE_DONE,
+	 *   to complete the update.
+	 */
+	if (CmdStage == XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS) {
+		goto XAES_STAGE_DATA_UPDATE;
+	}
+	else if (CmdStage == XAES_NON_BLOCKING_DATA_UPDATE_INPROGRESS) {
+		goto XAES_STAGE_DATA_UPDATE_DONE;
+	}
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
 		/** Write the given user key to the specified AES USER KEY register. */
@@ -188,6 +206,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XASUFW_AES_INVALID_ENGINE_MODE;
 			goto END;
 		}
+
 		/**
 		 * Update AAD data to AES engine.
 		 * User can push data in one go(entire AAD and Plaintext data at once) to the
@@ -198,13 +217,33 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 */
 		if ((AesParamsPtr->AadAddr != 0U) &&
 				((EngineMode == XASU_AES_GCM_MODE) || (EngineMode == XASU_AES_CMAC_MODE))) {
+			/**
+			 * IsLast flag behaviour for AAD based on AES mode and data:
+			 * For AES-GCM mode:
+			 * (1) If only AAD is provided (no payload), IsLast should be set to true
+			 *     as a part of last update of AAD.
+			 * (2) If payload follows AAD, IsLast is not set during AAD update.
+			 * For CMAC/CCM mode:
+			 * IsLast is set for the last block of both AAD and Plaintext.
+			 */
+			if  (EngineMode == XASU_AES_GCM_MODE) {
+				AadIsLast = (AesParamsPtr->InputDataAddr == 0U) ? AesParamsPtr->IsLast : XASU_FALSE;
+			} else if (EngineMode == XASU_AES_CMAC_MODE) {
+				AadIsLast = AesParamsPtr->IsLast;
+			}
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
-					AesParamsPtr->AadLen, XASU_FALSE);
-			if (Status != XASUFW_SUCCESS) {
+				AesParamsPtr->AadLen, AadIsLast);
+			if (Status == XASUFW_CMD_IN_PROGRESS) {
+				CmdStage = XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS;
+				XAsufw_DmaNonBlockingWait(XAsufw_AesModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
+					ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+				goto DONE;
+			} else if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
 				goto END;
 			}
 		}
+
 		/** For AES CCM mode, format and push the AAD to AES engine. */
 		if (EngineMode == XASU_AES_CCM_MODE) {
 			if ((AesParamsPtr->OperationFlags &
@@ -218,11 +257,18 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XAes_CcmFormatAadAndXfer(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
 				AesParamsPtr->AadAddr, AesParamsPtr->AadLen, AesParamsPtr->IvAddr,
 				(u8)AesParamsPtr->IvLen, AesParamsPtr->DataLen, AesParamsPtr->TagLen);
-			if (Status != XASUFW_SUCCESS) {
+			if (Status == XASUFW_CMD_IN_PROGRESS) {
+				CmdStage = XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS;
+				XAsufw_DmaNonBlockingWait(XAsufw_AesModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
+					ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+				goto DONE;
+			} else if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CCM_AAD_FORMATTING_FAILED);
 				goto END;
 			}
 		}
+
+XAES_STAGE_DATA_UPDATE:
 		/**
 		 * Update payload data to AES engine.
 		 * Updates can be single updates or multiple chunks.
@@ -233,12 +279,20 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
 					AesParamsPtr->InputDataAddr, AesParamsPtr->OutputDataAddr,
 					AesParamsPtr->DataLen, AesParamsPtr->IsLast);
-			if (Status != XASUFW_SUCCESS) {
+			if (Status == XASUFW_CMD_IN_PROGRESS) {
+				CmdStage = XAES_NON_BLOCKING_DATA_UPDATE_INPROGRESS;
+				XAsufw_DmaNonBlockingWait(XAsufw_AesModule.AsuDmaPtr, XASUDMA_DST_CHANNEL,
+					ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+				goto DONE;
+			} else if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
 				goto END;
 			}
 		}
 	}
+
+XAES_STAGE_DATA_UPDATE_DONE:
+	CmdStage = 0x0U;
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_FINAL) == XASU_AES_FINAL) {
 		/** Complete the AES operation. */
@@ -248,7 +302,6 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_FINAL_FAILED);
 			goto END;
 		}
-
 	} else {
 		if (XAsufw_AesModule.AsuDmaPtr != NULL) {
 			Status = XAsufw_ReleaseDmaResource(XAsufw_AesModule.AsuDmaPtr, ReqId);
@@ -269,6 +322,7 @@ END:
 		XAsufw_AesModule.AsuDmaPtr = NULL;
 	}
 
+DONE:
 	return Status;
 }
 
