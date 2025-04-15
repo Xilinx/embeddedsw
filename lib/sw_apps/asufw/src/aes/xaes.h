@@ -33,6 +33,7 @@
  *       yog  02/26/25 Added XAes_Compute() API
  *       am   03/14/25 Fixed alignment of function prototype
  *       yog  04/04/25 Added XAes_KeyClear() API
+ *       am   04/14/25 Added macros related to non-blocking update stages.
  *
  * </pre>
  *
@@ -62,6 +63,10 @@ typedef struct _XAes_Config XAes_Config; /**< This typedef is to create alias na
 typedef struct _XAes XAes; /**< This typedef is to create alias name for _XAes */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS	(0x1U) /**< AES AAD update in progress
+								stage for DMA non-blocking wait */
+#define XAES_NON_BLOCKING_DATA_UPDATE_INPROGRESS	(0x2U) /**< AES data update done stage for
+								 DMA non-blocking wait */
 
 /************************************ Variable Definitions ***************************************/
 
