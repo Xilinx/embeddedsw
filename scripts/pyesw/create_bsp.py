@@ -104,6 +104,14 @@ class Domain(Repo):
             )
             sys.exit(1)
 
+        proc_ip_name = avail_cpu_data[self.proc]
+        if proc_ip_name in ("cortexa78", "cortexr52") and "freertos" in self.os:
+            utils.remove_directory(self.domain_dir, cpulist_metafiles, force_remove=False)
+            logger.error(
+                f"Invalid os selection, {self.os} is not supported for the {self.proc} processor"
+            )
+            sys.exit(1)
+
         if "a53" not in self.proc and self.proc_mode == "32-bit":
             utils.remove_directory(self.domain_dir, cpulist_metafiles, force_remove=False)
             logger.error(
