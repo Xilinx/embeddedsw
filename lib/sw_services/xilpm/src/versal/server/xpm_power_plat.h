@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,6 +14,14 @@
 
 #ifdef __cplusplus
 extern "C" {
+#endif
+
+/*
+ * Versal DVS feature requires controlling external power rails, therefore,
+ * include the power rail control code.
+ */
+#if defined (VERSAL_DVS) && ! defined (RAIL_CONTROL)
+#define RAIL_CONTROL
 #endif
 
 typedef struct XPm_Power XPm_Power;
@@ -33,8 +41,10 @@ struct XPm_Power {
 		/**< HandleEvent: Pointer to event handler */
 };
 
+#if defined (RAIL_CONTROL)
 /* Support for up to 4 words of data for I2C commands */
 #define MAX_I2C_COMMAND_LEN	16
+#endif /* RAIL_CONTROL */
 
 /************************** Function Prototypes ******************************/
 maybe_unused static inline void XPmPower_SetPsmRegInfo(XPm_Power *Power, const u32 *Args)

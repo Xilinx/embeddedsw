@@ -17,12 +17,13 @@ extern "C" {
 #define MAX_MODES	19U
 #define MAX_PARENTS	3U
 
-typedef enum {
-	XPM_RAILTYPE_MODE_PMBUS = 1,
-	XPM_RAILTYPE_PGOOD,
-	XPM_RAILTYPE_TEMPVOLTADJ,
-	XPM_RAILTYPE_MODE_GPIO,
-} XPm_RailType;
+#define XPM_RAILTYPE_MODE_PMBUS		1U
+#if defined (VERSAL_DVS)
+#define XPM_RAILTYPE_TEMPVOLTADJ	3U
+#endif /* VERSAL_DVS */
+#define XPM_RAILTYPE_MODE_GPIO		4U
+
+#define XPM_RAILTYPE_PGOOD		2U
 
 typedef enum {
 	XPM_PGOOD_SYSMON = 1,
@@ -49,7 +50,7 @@ typedef struct {
 	XPm_Power Power;
 	XPm_PgoodSource Source;
 	u32 ParentIds[MAX_PARENTS];
-	XPm_RailType ControlType[MAX_PARENTS][MAX_MODES];
+	u8 ControlType[MAX_PARENTS][MAX_MODES];
 	XPm_I2cCmd I2cModes[MAX_PARENTS][MAX_MODES];	  /** Modes information if parent regulator is controlled by I2C */
 	XPm_GPIOCmd GPIOModes[MAX_MODES]; /** Modes information if parent regulator is controlled by GPIO */
 	SAVE_REGION(

@@ -23,11 +23,17 @@ option(XILPM_rpu0_as_overlay_config_master "true: RPU0 has permission to load ov
 option(XILPM_rpu1_as_overlay_config_master "true: RPU1 has permission to load overlay config objects, false: RPU1 doesn't have permission to load overlay config objects" OFF)
 option(XILPM_apu_as_overlay_config_master "true: APU has permission to load overlay config objects, false: APU doesn't have permission to load overlay config objects" OFF)
 
+option(XILPM_Rail_Control "true: Include power rail control feature support, false: Exclude power rail control feature support" OFF)
+if (XILPM_Rail_Control)
+  set(RAIL_CONTROL " ")
+endif()
+
 string(TOUPPER "${SPEED_GRADE}" SPEED_GRADE_U)
 string(COMPARE EQUAL "${SPEED_GRADE_U}" "2LLI" IS_SPEED_GRADE_2LLI)
 string(COMPARE EQUAL "${SPEED_GRADE_U}" "2LI" IS_SPEED_GRADE_2LI)
 option(XILPM_Versal_DVS "true: Include Versal DVS feature support, false: Exclude Versal DVS feature support" OFF)
 if (XILPM_Versal_DVS OR IS_SPEED_GRADE_2LLI OR IS_SPEED_GRADE_2LI)
+  set(RAIL_CONTROL " ")
   set(VERSAL_DVS " ")
 endif()
 

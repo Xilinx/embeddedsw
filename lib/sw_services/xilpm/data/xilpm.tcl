@@ -33,7 +33,7 @@ proc generate {libhandle} {
 	global rpu0_as_overlay_config_master
 	global rpu1_as_overlay_config_master
 	global apu_as_overlay_config_master
-	global versal_dvs
+	global rail_control versal_dvs
 	set rpu0_as_power_management_master [common::get_property CONFIG.rpu0_as_power_management_master $libhandle]
 	set rpu1_as_power_management_master [common::get_property CONFIG.rpu1_as_power_management_master $libhandle]
 	set apu_as_power_management_master [common::get_property CONFIG.apu_as_power_management_master $libhandle]
@@ -43,6 +43,7 @@ proc generate {libhandle} {
 	set rpu0_as_overlay_config_master [common::get_property CONFIG.rpu0_as_overlay_config_master $libhandle]
 	set rpu1_as_overlay_config_master [common::get_property CONFIG.rpu1_as_overlay_config_master $libhandle]
 	set apu_as_overlay_config_master [common::get_property CONFIG.apu_as_overlay_config_master $libhandle]
+	set rail_control [common::get_property CONFIG.rail_control $libhandle]
 	set versal_dvs [common::get_property CONFIG.versal_dvs $libhandle]
 
 	set zynqmp_dir "./src/zynqmp"
@@ -147,7 +148,7 @@ proc execs_generate {libhandle} {
 
 proc xgen_opts_file {libhandle} {
 
-	global versal_dvs
+	global rail_control versal_dvs
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	puts $file_handle "\#define XPAR_XILPM_ENABLED"
 	set part [::hsi::get_current_part]
@@ -159,8 +160,14 @@ proc xgen_opts_file {libhandle} {
 		puts $file_handle "\#define XCVP1902"
 	}
 
+	# Add macro for enabling power rail control feature
+	if { $rail_control == true } {
+		puts $file_handle "\#define RAIL_CONTROL"
+	}
+
 	# Add macro for enabling Versal DVS feature
 	if { $versal_dvs == true || [string match -nocase "2LLI" $speed_grade] || [string match -nocase "2LI" $speed_grade] } {
+		puts $file_handle "\#define RAIL_CONTROL"
 		puts $file_handle "\#define VERSAL_DVS"
 	}
 
