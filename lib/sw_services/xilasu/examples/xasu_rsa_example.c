@@ -233,7 +233,7 @@ int main(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_RsaParams RsaClientParam;
-	XAsu_ClientParams ClientParam;
+	XAsu_ClientParams ClientParam = {0U};
 	XAsu_RsaPubKeyComp PubKeyParam;
 	XAsu_RsaPvtKeyComp PvtKeyParam;
 	XMailbox MailboxInstance;

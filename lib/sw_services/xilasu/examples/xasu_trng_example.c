@@ -182,7 +182,7 @@ volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error 
 static void XAsu_TrngExample(void)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ClientParams ClientParams;
+	XAsu_ClientParams ClientParams = {0U};
 	XMailbox MailboxInstance;
 
 #ifdef XASU_TRNG_ENABLE_DRBG_MODE
