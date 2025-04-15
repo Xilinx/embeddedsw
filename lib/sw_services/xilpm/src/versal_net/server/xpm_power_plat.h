@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +13,14 @@
 
 #ifdef __cplusplus
 extern "C" {
+#endif
+
+/*
+ * Support for VID is a requirement for this platform, and since that support
+ * requires controlling external power rails, include the power rail control code.
+ */
+#if ! defined (RAIL_CONTROL)
+#define RAIL_CONTROL
 #endif
 
 typedef struct XPm_Power XPm_Power;

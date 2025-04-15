@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,9 +26,11 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs);
     defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
     defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
 XIicPs *XPmRail_GetIicInstance(void);
+#if defined (RAIL_CONTROL)
 XStatus I2CInitialize(XIicPs *Iic, const u32 ControllerID);
 XStatus I2CIdleBusWait(XIicPs *Iic);
 XStatus I2CWrite(XIicPs *Iic, u16 SlaveAddr, u8 *Buffer, s32 ByteCount);
+#endif /* RAIL_CONTROL */
 #endif
 
 #ifdef __cplusplus

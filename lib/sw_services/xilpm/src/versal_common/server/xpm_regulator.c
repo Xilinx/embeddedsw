@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,6 +11,7 @@
 #include "xpm_debug.h"
 #include "xpm_power.h"
 
+#if defined (RAIL_CONTROL)
 static XPm_Regulator *PmRegulators[XPM_NODEIDX_POWER_REGULATOR_MAX];
 
 XPm_Regulator *XPmRegulator_GetById(u32 Id)
@@ -109,3 +110,4 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+#endif /* RAIL_CONTROL */

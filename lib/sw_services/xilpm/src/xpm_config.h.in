@@ -8,6 +8,7 @@
 
 #cmakedefine XPAR_XILPM_ENABLED	@XPAR_XILPM_ENABLED@
 #cmakedefine XCVP1902 @XCVP1902@
+#cmakedefine RAIL_CONTROL @RAIL_CONTROL@
 #cmakedefine VERSAL_DVS @VERSAL_DVS@
 
 #endif /* XPM_CONFIG_H */

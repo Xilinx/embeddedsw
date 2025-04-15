@@ -254,8 +254,10 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_PROC		0x3606U
 /* Invalid NODE ID */
 #define XPM_INT_ERR_INVALID_NODE		0x3607U
+#if defined (VERSAL_ENABLE_DOMAIN_CONTROL_GPIO) || defined (RAIL_CONTROL)
 /* Invalid NODE index */
 #define XPM_INT_ERR_INVALID_NODE_IDX		0x3608U
+#endif /* VERSAL_ENABLE_DOMAIN_CONTROL_GPIO || RAIL_CONTROL */
 /* Invalid arguments */
 #define XPM_INT_ERR_INVALID_ARGS		0x3609U
 /* No feature supported */
@@ -582,10 +584,12 @@ extern "C" {
 #define XPM_INT_ERR_RAIL_SOURCE			0x4800U
 /* Timeout while waiting for new data flag */
 #define	XPM_INT_ERR_NEW_DATA_FLAG_TIMEOUT	0x4801U
+#if defined (RAIL_CONTROL)
 /* I2c initiliazation error */
 #define XPM_INT_ERR_I2C_INIT			0x4802U
 /* I2c write error */
 #define XPM_INT_ERR_I2C_WRITE			0x4803U
+#endif /* RAIL_CONTROL */
 #if defined (VERSAL_DVS)
 /* Failed to set voltage to upper limit */
 #define XPM_INT_ERR_RAIL_UPPER_VOLT		0x4804U
@@ -593,7 +597,7 @@ extern "C" {
 #define XPM_INT_ERR_RAIL_LOWER_VOLT		0x4805U
 /* Controller regulating rail is disabled */
 #define XPM_INT_ERR_RAIL_CONTROLLER_DISABLED	0x4806U
-#endif
+#endif /* VERSAL_DVS */
 /* VID adjustment failed */
 #define XPM_INT_ERR_VID_ADJUST			0x4807U
 /* Invalid VID value */
