@@ -290,7 +290,7 @@ static void XAsu_AesGcmExample(void)
 	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
 	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
 	/* Assign redundant variable address to get additional status */
-	AesClientParams.AdditionalStatusPtr = &ReturnStatus;
+	AesClientParams.AdditionalStatusPtr = (u32 *)&ReturnStatus;
 
 	/* AES parameters structure initialization for encryption */
 	AesParams.EngineMode = XASU_AES_GCM_MODE;
@@ -361,7 +361,7 @@ static void XAsu_AesGcmExample(void)
 	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
 	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
 	/* Assign redundant variable address to get additional status */
-	AesClientParams.AdditionalStatusPtr = &ReturnStatus;
+	AesClientParams.AdditionalStatusPtr = (u32 *)&ReturnStatus;
 
 	/* AES parameters structure initialization for decryption */
 	AesParams.EngineMode = XASU_AES_GCM_MODE;
@@ -431,7 +431,7 @@ static void XAsu_AesCtrExample(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_AesKeyObject AesKeyObj;
-	XAsu_ClientParams AesClientParams;
+	XAsu_ClientParams AesClientParams = {0U};
 	Asu_AesParams AesParams;
 	ErrorStatus = XST_FAILURE;
 

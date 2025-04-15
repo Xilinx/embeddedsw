@@ -151,7 +151,7 @@ int main(void)
 static s32 Asu_KdfExample(void)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ClientParams ClientParam;
+	XAsu_ClientParams ClientParam = {0U};
 	XAsu_KdfParams KdfClientParam;
 	XMailbox MailboxInstance;
 
