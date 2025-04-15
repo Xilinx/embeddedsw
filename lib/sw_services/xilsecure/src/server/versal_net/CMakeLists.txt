@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS Ecdsa.h)
@@ -19,5 +19,5 @@ collect (PROJECT_LIB_SOURCES xsecure_plat_kat.c)
 collect (PROJECT_LIB_SOURCES xsecure_plat_kat_ipihandler.c)
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
-  execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/libxilsecure_pmc.a ${CMAKE_LIBRARY_PATH}/libxilsecure_plat.a)
+  execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/libxilsecure_pmc.a ${CMAKE_BINARY_DIR}/libsrc/xilsecure/src/libxilsecure.a)
 endif()
