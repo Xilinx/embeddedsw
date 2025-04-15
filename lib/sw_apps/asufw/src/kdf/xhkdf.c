@@ -333,7 +333,7 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		 * - Copy the final HMAC of each iteration to the destination key output buffer.
 		 */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SMemCpy(KeyOutAddr, HashLen, KOut, HashLen, HashLen);
+		Status = Xil_SMemCpy((u8 *)(UINTPTR)KeyOutAddr, HashLen, KOut, HashLen, HashLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_MEM_COPY_FAIL);
 			goto END_CLR;
@@ -354,7 +354,8 @@ END:
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HKDF_GENERATE_FAILED);
 		Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(
-			HkdfParams->KdfParams.KeyOutAddr, HkdfParams->KdfParams.KeyOutLen));
+						(u8 *)(UINTPTR)HkdfParams->KdfParams.KeyOutAddr,
+						HkdfParams->KdfParams.KeyOutLen));
 	}
 
 	return Status;
