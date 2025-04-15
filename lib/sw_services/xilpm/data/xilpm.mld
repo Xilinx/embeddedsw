@@ -26,6 +26,7 @@ PARAM name = rpu0_as_overlay_config_master, type = bool, default = false, desc =
 PARAM name = rpu1_as_overlay_config_master, type = bool, default = false, desc = "true: RPU1 has permission to load overlay config objects, false: RPU1 doesn't have permission to load overlay config objects", permit = user;
 PARAM name = apu_as_overlay_config_master, type = bool, default = false, desc = "true: APU has permission to load overlay config objects, false: APU doesn't have permission to load overlay config objects", permit = user;
 
-PARAM name = Versal_DVS, type = bool, default = false, desc = "true: Include Versal DVS feature support, false: Exclude Versal DVS feature support", permit = user;
+PARAM name = rail_control, type = bool, default = false, desc = "true: Include power Rail control feature support, false: Exclude power rail control feature support", permit = user;
+PARAM name = versal_dvs, type = bool, default = false, desc = "true: Include Versal DVS feature support, false: Exclude Versal DVS feature support", permit = user;
 
 END LIBRARY

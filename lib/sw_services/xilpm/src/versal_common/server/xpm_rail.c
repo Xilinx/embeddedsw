@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,17 +22,23 @@
 #if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
     defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
     defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
-
 #include "xiicps.h"
-
-#define IIC_SCLK_RATE		400000
-
-static XIicPs IicInstance;
 
 XIicPs *XPmRail_GetIicInstance(void)
 {
+	static XIicPs IicInstance;
+
 	return &IicInstance;
 }
+#endif /* XPAR_XIICPS_0_DEVICE_ID || XPAR_XIICPS_1_DEVICE_ID || \
+	  XPAR_XIICPS_2_DEVICE_ID || XPAR_XIICPS_0_BASEADDR  || \
+	  XPAR_XIICPS_1_BASEADDR  || XPAR_XIICPS_2_BASEADDR */
+
+#if defined (RAIL_CONTROL)
+#if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
+    defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
+    defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
+#define IIC_SCLK_RATE		400000
 
 XStatus I2CInitialize(XIicPs *Iic, const u32 ControllerID)
 {
@@ -149,6 +155,7 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XIicPs *Iic;
 	u8 WriteBuffer[3] = {0};
 	const XPm_Regulator *Regulator;
 	u16 RegulatorSlaveAddress, MuxAddress;
@@ -164,9 +171,10 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 		goto done;
 	}
 
-	if ((u32)XIL_COMPONENT_IS_READY != IicInstance.IsReady) {
+	Iic = XPmRail_GetIicInstance();
+	if ((u32)XIL_COMPONENT_IS_READY != Iic->IsReady) {
 		ControllerID = Regulator->Cntrlr[XPM_I2C_CNTRLR]->Node.Id;
-		Status = I2CInitialize(&IicInstance, ControllerID);
+		Status = I2CInitialize(Iic, ControllerID);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_I2C_INIT;
 			goto done;
@@ -199,8 +207,7 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 			goto done;
 		}
 
-		Status = I2CWrite(&IicInstance, MuxAddress, WriteBuffer,
-				  (s32)BytesLen);
+		Status = I2CWrite(Iic, MuxAddress, WriteBuffer, (s32)BytesLen);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_I2C_WRITE;
 			goto done;
@@ -230,8 +237,7 @@ static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 			ByteIndex++;
 		}
 
-		Status = I2CWrite(&IicInstance, RegulatorSlaveAddress, WriteBuffer,
-				  (s32)BytesLen);
+		Status = I2CWrite(Iic, RegulatorSlaveAddress, WriteBuffer, (s32)BytesLen);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_I2C_WRITE;
 			goto done;
@@ -242,21 +248,19 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
-
 #else
-
 static XStatus XPmRail_PMBusControl(XPm_Rail *Rail, u8 Mode)
 {
-	(void)Rail;
-	(void)Mode;
+	(void) Rail;
+	(void) Mode;
 
 	return XST_SUCCESS;
 }
-
-#endif
+#endif /* XPAR_XIICPS_0_DEVICE_ID || XPAR_XIICPS_1_DEVICE_ID || \
+	  XPAR_XIICPS_2_DEVICE_ID || XPAR_XIICPS_0_BASEADDR  || \
+	  XPAR_XIICPS_1_BASEADDR  || XPAR_XIICPS_2_BASEADDR */
 
 #if defined (XPAR_XGPIOPS_0_DEVICE_ID) || defined (XPAR_XGPIOPS_1_DEVICE_ID)
-
 static XStatus XPmRail_GPIOControl(const XPm_Rail *Rail, u8 Mode)
 {
 	XStatus Status = XST_FAILURE;
@@ -327,18 +331,15 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
-
 #else
-
 static XStatus XPmRail_GPIOControl(XPm_Rail *Rail, u8 Mode)
 {
-	(void)Rail;
-	(void)Mode;
+	(void) Rail;
+	(void) Mode;
 
 	return XST_SUCCESS;
 }
-
-#endif
+#endif /* XPAR_XGPIOPS_0_DEVICE_ID || XPAR_XGPIOPS_1_DEVICE_ID */
 
 static XStatus WaitForPowerRailUp(u32 VoltageRailMask)
 {
@@ -460,6 +461,15 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+#else
+XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
+{
+	(void) Mode;
+
+	Rail->Power.Node.State = State;
+	return XST_SUCCESS;
+}
+#endif /* RAIL_CONTROL */
 
 #if defined (VERSAL_DVS)
 /*
@@ -736,6 +746,7 @@ done:
 }
 #endif /* VERSAL_DVS */
 
+#if defined (RAIL_CONTROL)
 static XStatus XPmRail_InitI2CMode(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -920,6 +931,7 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+#endif /* RAIL_CONTROL */
 
 /****************************************************************************/
 /**
@@ -941,7 +953,7 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 BaseAddress = 0;
-	u32 Type;
+	u8 Type;
 
 	u32 NodeIndex = NODEINDEX(RailId);
 	if ((u32)XPM_NODEIDX_POWER_MAX <= NodeIndex) {
@@ -951,25 +963,27 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 	}
 
 	if (3U < NumArgs) {
-		Type = Args[1];
+		Type = (u8)Args[1];
 		switch (Type) {
-		case (u32)XPM_RAILTYPE_MODE_PMBUS:
-			Status = XPmRail_InitI2CMode(Args, NumArgs);
-			break;
-		case (u32)XPM_RAILTYPE_PGOOD:
+		case XPM_RAILTYPE_PGOOD:
 			Rail->Source = (XPm_PgoodSource)Args[2];
 			BaseAddress =  Args[3];
 			Rail->Power.Node.BaseAddress = Args[3];
 			Status = XST_SUCCESS;
 			break;
+#if defined (RAIL_CONTROL)
+		case XPM_RAILTYPE_MODE_PMBUS:
+			Status = XPmRail_InitI2CMode(Args, NumArgs);
+			break;
 #if defined (VERSAL_DVS)
-		case (u32)XPM_RAILTYPE_TEMPVOLTADJ:
+		case XPM_RAILTYPE_TEMPVOLTADJ:
 			Status = XPmRail_InitTempVoltAdj(Args, NumArgs);
 			break;
-#endif
-		case (u32)XPM_RAILTYPE_MODE_GPIO:
+#endif /* VERSAL_DVS */
+		case XPM_RAILTYPE_MODE_GPIO:
 			Status = XPmRail_InitGPIOMode(Args, NumArgs);
 			break;
+#endif /* RAIL_CONTROL */
 		default:
 			DbgErr = XPM_INT_ERR_INVALID_ARGS;
 			Status = XST_INVALID_PARAM;

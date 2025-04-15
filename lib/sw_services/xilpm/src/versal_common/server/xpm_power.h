@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,10 +38,12 @@ typedef enum {
 	XPM_POWER_EVENT_TIMER,
 } XPm_PowerEvent;
 
+#if defined (RAIL_CONTROL)
 typedef struct {
 	u8 CmdLen; /** Total no of commands to configure this regulator */
 	u8 CmdArr[MAX_I2C_COMMAND_LEN]; /** Array of i2c command bytes. For example, Len1,bytes, Len2, bytes, Len3,bytes etc */
 } XPm_I2cCmd;
+#endif /* RAIL_CONTROL */
 
 /************************** Function Prototypes ******************************/
 XPm_Power *XPmPower_GetById(u32 Id);
