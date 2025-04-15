@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2020 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2020 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,6 +14,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/* PCIE SBI boot mode */
+#define XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE	(0x8U)
 
 #define FALSE_VALUE		(0U)
 #define TRUE_VALUE		(1U)
@@ -46,6 +49,7 @@ typedef enum {
 XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable);
 XStatus XPmDomainIso_ProcessPending(void);
 XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State);
+void XPmDomainIso_CpmPcieIsoRemoval(void);
 
 #ifdef __cplusplus
 }

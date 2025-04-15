@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,6 +15,8 @@
 #include "xpm_psm_api.h"
 #include "xpm_psm.h"
 #include "xpm_debug.h"
+#include "xloader.h"
+#include "xplmi_hw.h"
 
 /*TODO: Below data should come from topology */
 static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
@@ -436,6 +438,35 @@ static void DisablePlXramIso(void)
 	return;
 }
 
+static void DisableCpmPcieIso(u32 IsoNode)
+{
+	u32 Mask;
+
+	Mask = XPmDomainIso_List[IsoNode].Mask;
+
+	/* Remove Isolation */
+	XPm_RMW32(XPmDomainIso_List[IsoNode].Node.BaseAddress, Mask, Mask);
+
+	/* XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR isolation removal settings */
+	if (XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoNode) {
+		XPm_RMW32(PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H,
+			  PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H_MASK, 0U);
+
+		XPm_RMW32(PCIEA_ATTRIB_0_DPLL,
+			  PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x0);
+	}
+
+	/* XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR isolation removal settings */
+	if (XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR == IsoNode) {
+		XPm_RMW32(PCIEA_ATTRIB_1_DPLL,
+			  PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x0);
+
+	}
+
+	/* Mark isolation node state as OFF */
+	XPmDomainIso_List[IsoNode].Node.State = (u8)PM_ISOLATION_OFF;
+}
+
 static XStatus XPmDomainIso_SendEventToPsm(u32 IsoIdx, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
@@ -708,20 +739,36 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			    ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE >= IsoIdx)) {
 				XramIsoUnmask(IsoIdx);
 			}
+
+			if (((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) ||
+			    ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR == IsoIdx)) {
+				const XilPdi *PdiPtr = XLoader_GetPdiInstance();
+
+				/*
+				 * If isolation command comes during segmented boot
+				 * and secondary PDI is loaded from PCIE, the CPM-PCIE
+				 * isolations must be removed after PDI load has
+				 * completed, so mark the isolation removal as pending.
+				 */
+				if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) &&
+				    (XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE ==
+				     (XPm_In32(SLAVE_BOOT_SBI_CTRL) & XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE))) {
+					/* Mark it pending */
+					XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_REMOVE_PENDING;
+					Status = XST_SUCCESS;
+					goto done;
+				} else {
+					/*
+					 * If it is not a segmented boot PCIE load PDI,
+					 * remove the isolation immediately.
+					 */
+					DisableCpmPcieIso(IsoIdx);
+					Status = XST_SUCCESS;
+					goto done;
+				}
+			}
+
 			XPm_RMW32(XPmDomainIso_List[IsoIdx].Node.BaseAddress, Mask, Mask);
-			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
-				XPm_RMW32(PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H,
-					  PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H_MASK,
-					  0U);
-			}
-			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
-				XPm_RMW32(PCIEA_ATTRIB_0_DPLL,
-						PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x0);
-			}
-			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR == IsoIdx) {
-				XPm_RMW32(PCIEA_ATTRIB_1_DPLL,
-						PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x0);
-			}
 
 			if ((u32)XPM_NODEIDX_ISO_CPM5_PL_PCIEA0_MPIO == IsoIdx) {
 				/* Store CPM5_DMA0_ATTR_WPROTP register value */
@@ -791,6 +838,16 @@ XStatus XPmDomainIso_ProcessPending(void)
 			continue;
 		}
 
+		/*
+		 * If CPM PCIE isolations are pending to be removed, they need
+		 * to be removed after PDI load is complete and PDI done bit is
+		 * set. So skip these isolations for now.
+		 */
+		if (((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == i) ||
+		    ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR == i)) {
+			continue;
+		}
+
 		if (XPmDomainIso_List[i].Node.State == (u8)PM_ISOLATION_REMOVE_PENDING) {
 			Status = XPmDomainIso_Control(i, FALSE_VALUE);
 			if ((XST_SUCCESS != Status) && (XST_DEVICE_NOT_FOUND != Status)){
@@ -839,4 +896,26 @@ XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State)
 
 done:
 	return Status;
+}
+
+void XPmDomainIso_CpmPcieIsoRemoval(void)
+{
+	/* Exit if CPM PCIE isolations are not pending removal */
+	if (((u8)PM_ISOLATION_REMOVE_PENDING != XPmDomainIso_List[XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR].Node.State) &&
+	    ((u8)PM_ISOLATION_REMOVE_PENDING != XPmDomainIso_List[XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR].Node.State)) {
+		return;
+	}
+
+	/* Sleep for 100ms */
+	usleep(100000);
+
+	/* Remove XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR isolation if it is pending */
+	if (XPmDomainIso_List[XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR].Node.State == (u8)PM_ISOLATION_REMOVE_PENDING) {
+		DisableCpmPcieIso(XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR);
+	}
+
+	/* Remove XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR isolation if it is pending */
+	if (XPmDomainIso_List[XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR].Node.State == (u8)PM_ISOLATION_REMOVE_PENDING) {
+		DisableCpmPcieIso(XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR);
+	}
 }
