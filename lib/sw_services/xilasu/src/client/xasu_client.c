@@ -124,12 +124,6 @@ s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr)
 		goto END;
 	}
 
-	/** If client instance is already initialized, return success. */
-	if (ClientInstancePtr->IsReady == XASU_CLIENT_READY) {
-		Status = XST_SUCCESS;
-		goto END;
-	}
-
 	/** Check for ASUFW present bit. */
 	Status = XAsu_CheckAsufwPrsntBit();
 	if (Status != XST_SUCCESS) {
@@ -153,18 +147,19 @@ s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr)
 		goto END;
 	}
 
-	/* Assign channel shared memory. */
-	ClientInstancePtr->ChannelMemoryPtr = (XAsu_ChannelMemory *)(UINTPTR)(XASU_CHANNEL_MEMORY_BASEADDR +
-					(XASU_CHANNEL_MEMORY_OFFSET * ChannelIdx));
+	/* Verify if client instance is already initialized. */
+	if (ClientInstancePtr->IsReady != XASU_CLIENT_READY) {
+		/* Assign channel shared memory. */
+		ClientInstancePtr->ChannelMemoryPtr = (XAsu_ChannelMemory *)(UINTPTR)(XASU_CHANNEL_MEMORY_BASEADDR +
+						(XASU_CHANNEL_MEMORY_OFFSET * ChannelIdx));
 
+		ClientInstancePtr->P0NextFreeIndex = 0U;
+		ClientInstancePtr->P1NextFreeIndex = 0U;
+		ClientInstancePtr->IsReady = XASU_CLIENT_READY;
+	}
 	ClientInstancePtr->MailboxPtr = MailboxInstancePtr;
-	ClientInstancePtr->P0NextFreeIndex = 0U;
-	ClientInstancePtr->P1NextFreeIndex = 0U;
-
-	ClientInstancePtr->IsReady = XASU_CLIENT_READY;
-
 	Status = XMailbox_SetCallBack(ClientInstancePtr->MailboxPtr, XMAILBOX_RECV_HANDLER,
-				      XAsu_DoorBellToClient, ClientInstancePtr->MailboxPtr);
+					XAsu_DoorBellToClient, ClientInstancePtr->MailboxPtr);
 
 END:
 	return Status;
