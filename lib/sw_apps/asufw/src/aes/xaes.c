@@ -52,16 +52,85 @@
 #define XAES_INVALID_CFG		(0xFFFFFFFFU) /**<  AES invalid configuration */
 #define XAES_KEY_NOT_ZEROIZED		(0x0) /**< Key in AES subsystem is not zeroized */
 #define XAES_KEY_ZEROIZED		(0xF) /**< Key in AES subsystem is zeroized */
-#define	XAES_MAX_NONCE_HEADER_LEN	(0x12U) /**< AES CCM maximum header length
-						(0x1U (Flag) + XASU_AES_CCM_MAX_NONCE_LEN +
-						0x2U(AAD encoding length) +
-						0x2U(PT encoding length)) */
-#define XAES_B0FLAG(TagLen, NonceLen) (0x40U | (((TagLen - 2U) / 2U) << 3U) | (15U - (NonceLen)))
-						/**< Dynamic calculation of the B0 flag */
-#define XAES_NONCE_HEADER_FLAG_SIZE	(0x1U) /**< Nonce header flag size */
-#define XAES_NONCE_LENGTH_FIELD_SIZE	(0x2U) /**< Nonce length field size */
-#define XAES_NONCE_HEADER_LEN_OVERHEAD	(2 * XAES_NONCE_LENGTH_FIELD_SIZE)
-						/**< Nonce header length overhead */
+#define XAES_FULL_WORD_MASK		(0xFFFFFFFFU) /**< Mask to compare a full 32-bit word. */
+#define XAES_BIT_MASK(Bytes)		((1UL << ((Bytes) * XASUFW_BYTE_LEN_IN_BITS)) - 1U)
+						/**< Bit mask with lower (Bytes * 8) bits set. */
+#define XAES_WORD_COUNT_LEN(Length)	(((Length) + 3U) / 4U) /** Number of 4bytes words for
+								given length. */
+/**
+ * Bit 6 flag indicating the presence of Additional Authenticated Data (AAD).
+ * This flag is set in the B0 block of AES-CCM mode when AAD is present.
+ */
+#define XAES_CCM_AAD_FLAG		(0x40U)
+
+/**
+ * Number of bits to shift for tag length encoding in the B0 flag.
+ * Bits 5-3 in the B0 flag store the tag length as (t-2)/2.
+ */
+#define XAES_CCM_TAG_SHIFT      	(3U)
+
+/**
+ * Mask for extracting the 3-bit tag length encoding in the B0 flag.
+ * The tag length is stored in bits 5-3 and extracted using this mask.
+ */
+#define XAES_CCM_TAG_MASK       	(0x07U)
+
+/**
+ * Constant used for computing q, where q = 15 - nonce_len.
+ * q represents the number of bytes used to encode the message length.
+ */
+#define XAES_CCM_Q_CONST        	(15U)
+
+/**
+ * Mask to extract the lower 3 bits for q-1 encoding in the B0 flag.
+ * The message length encoding q-1 is stored in bits 2-0.
+ */
+#define XAES_CCM_Q_MASK         	(0x07U)
+
+/**
+ * @brief Macro to compute the B0 flag for AES-CCM mode.
+ *
+ * The B0 flag structure:
+ *
+ * Table 1: Formatting of the Flags Octet in B0
+ * | Bit Number |  7  |   6   | 5 | 4 | 3 | 2 | 1 | 0 |
+ * |------------|-----|-------|-----------|-----------|
+ * | Contents   |  0  | Adata |  (t-2)/2  |    q-1    |
+ *
+ *
+ * @param	AadLen		Length of the Additional Authenticated Data(AAD)
+ * @param	TagLen		Length of the authentication tag
+ * @param	NonceLen	Length of the nonce
+ *
+ * @return
+ *		Computed B0 flag as an 8-bit unsigned integer
+ *
+ */
+#define XAES_B0FLAG(AadLen, TagLen, NonceLen) \
+	((u8)(((((AadLen) > 0U) ? XAES_CCM_AAD_FLAG : 0x00U) | \
+	((((TagLen - 2U) / 2U) & XAES_CCM_TAG_MASK) << XAES_CCM_TAG_SHIFT) | \
+	((XAES_CCM_Q_CONST - NonceLen - 1U) & XAES_CCM_Q_MASK))))
+
+#define XAES_MAX_PLAIN_TEXT_SHORT	(0xFF00U) /**< (1 << 16) - (1 << 8) = 65280. */
+#define XAES_MAX_PLAIN_TEXT_LONG	(0xFFFFFFFFU) /**< (1UL << 32) = 2^32. */
+#define XAES_AAD_LENGTH_SHORT_LIMIT	XAES_MAX_PLAIN_TEXT_SHORT /**< (1 << 16) - (1 << 8) = 65280. */
+#define XAES_AAD_LENGTH_LONG_LIMIT	XAES_MAX_PLAIN_TEXT_LONG /**< (1UL << 32) = 2^32. */
+#define XAES_HEADER_6BYTE_INDICATOR	(0xFFFEU) /**< Header 6 byte indicator. */
+#define XAES_HEADER_10BYTE_INDICATOR	(0xFFFFU) /**< Header 10 byte indicator. */
+#define XAES_TWO_BYTE_ENCODING		(2U) /**< 2-byte encoding for small values. */
+#define XAES_SIX_BYTE_ENCODING		(6U) /**< 6-byte encoding for medium values. */
+#define XAES_TEN_BYTE_ENCODING		(10U) /**< 10-byte encoding for large values. */
+#define XAES_BYTE_MASK			(0xFF) /**< Byte mask. */
+#define XAES_MSB_SHIFT_32		(24U) /**< Most significant byte shift of 32-bit word. */
+
+#define XAES_NONCE_HEADER_FLAG		(0x1U) /**< Nonce header flag size. */
+#define XAES_MAX_PLEN_AAD_ENCODING_SIZE	(10U) /**< Maximum bytes needed to encode plaintext and
+						   AAD length. */
+#define	XAES_MAX_NONCE_HEADER_LEN	(XAES_NONCE_HEADER_FLAG + XASU_AES_CCM_MAX_NONCE_LEN + \
+						XAES_MAX_PLEN_AAD_ENCODING_SIZE)
+					/**< AES CCM maximum header length
+					(0x1U (Flag) + XASU_AES_CCM_MAX_NONCE_LEN +
+					XAES_MAX_PLEN_AAD_ENCODING_SIZE. */
 #define XAES_AAD_UPDATE_NO_OUTPUT_ADDR	(0U) /**< Output address should be zero during AAD update. */
 
 typedef enum {
@@ -289,7 +358,7 @@ static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
 static s32 XAes_ReadBackKeyConfig(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
 static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen);
 static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen);
-static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen);
+static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr);
 static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLen);
 static s32 XAes_ProcessTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen);
 static void XAes_ConfigAad(const XAes *InstancePtr);
@@ -962,7 +1031,8 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 		goto END;
 	}
 
-	if ((AadLen == 0U) || (PlainTextLen == 0U)) {
+	if ((AadLen == 0U) || (AadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
+			(PlainTextLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -981,7 +1051,7 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 
 	/** Validate the tag with respect to the AES-CCM engine mode. */
 	if (((TagLen % XASU_AES_EVEN_MODULUS) != 0U) ||
-			((TagLen < XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES) ||
+			((TagLen < XASU_AES_MIN_TAG_LENGTH_IN_BYTES) ||
 			(TagLen > XASU_AES_MAX_TAG_LENGTH_IN_BYTES))) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
@@ -996,11 +1066,11 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 
 	/**
 	 * AAD formatting:
-	 * B0 Flag || Nonce || Encoded PT Length || Encoded AAD Length || AAD || Zero padding
+	 * B0 Flag | Nonce | Encoded PT Length | Encoded AAD Length | AAD | Zero padding for 16 bytes alignment.
 	 */
 
 	/** Calculate the B0 flag dynamically based on tag length and nonce length. */
-	NonceHeader[0U] = XAES_B0FLAG(TagLen, NonceLen);
+	NonceHeader[0U] = XAES_B0FLAG(AadLen, TagLen, NonceLen);
 
 	/** Copy the nonce into NonceHeader local array. */
 	Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, NonceAddr, (u64)(UINTPTR)&NonceHeader[1U],
@@ -1009,19 +1079,45 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 		goto END;
 	}
 
-	/** Add plaintext length (encoded as 2 bytes). */
-	NonceHeader[XAES_NONCE_HEADER_FLAG_SIZE + NonceLen] = ((PlainTextLen >>
-		XASUFW_BYTE_LEN_IN_BITS) & 0xFFU);
-	NonceHeader[XAES_NONCE_HEADER_FLAG_SIZE + NonceLen + 1U] = (PlainTextLen & 0xFFU);
+	/** Total Nonce Header Length */
+	TotalNonceHeaderLen = XAES_NONCE_HEADER_FLAG + NonceLen;
 
-	/** Add AAD length (encoded as 2 bytes). */
-	NonceHeader[XAES_NONCE_HEADER_FLAG_SIZE + NonceLen + XAES_NONCE_LENGTH_FIELD_SIZE] =
-		((AadLen >> XASUFW_BYTE_LEN_IN_BITS) & 0xFFU);
-	NonceHeader[XAES_NONCE_HEADER_FLAG_SIZE + NonceLen + XAES_NONCE_LENGTH_FIELD_SIZE + 1U] =
-		(AadLen & 0xFFU);
+	/** Add Plaintext length (PlainTextLen encoding based on size). */
+	if (PlainTextLen < XAES_MAX_PLAIN_TEXT_SHORT) {
+		NonceHeader[TotalNonceHeaderLen] = (PlainTextLen >> XASUFW_BYTE_LEN_IN_BITS) &
+			XAES_BYTE_MASK;
+		NonceHeader[TotalNonceHeaderLen + 1U] = PlainTextLen & XAES_BYTE_MASK;
+		TotalNonceHeaderLen += XAES_TWO_BYTE_ENCODING;
+	}
+	else if (PlainTextLen < XAES_MAX_PLAIN_TEXT_LONG) {
+		NonceHeader[TotalNonceHeaderLen] = (XAES_HEADER_6BYTE_INDICATOR >>
+			XASUFW_BYTE_LEN_IN_BITS) & XAES_BYTE_MASK;
+		NonceHeader[TotalNonceHeaderLen + 1U] = XAES_HEADER_6BYTE_INDICATOR &
+			XAES_BYTE_MASK;
+		for (u8 Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; Index++) {
+			NonceHeader[TotalNonceHeaderLen + XAES_TWO_BYTE_ENCODING + Index] = (PlainTextLen >>
+				(XAES_MSB_SHIFT_32 - (Index * XASUFW_BYTE_LEN_IN_BITS))) & XAES_BYTE_MASK;
+		}
+		TotalNonceHeaderLen += XAES_SIX_BYTE_ENCODING;
+	}
 
-	TotalNonceHeaderLen = (XAES_NONCE_HEADER_FLAG_SIZE + NonceLen +
-		XAES_NONCE_HEADER_LEN_OVERHEAD);
+	/** Add AAD length (AadLen encoding based on size). */
+	if (AadLen < XAES_AAD_LENGTH_SHORT_LIMIT) {
+		NonceHeader[TotalNonceHeaderLen] = (AadLen >> XASUFW_BYTE_LEN_IN_BITS) &
+			XAES_BYTE_MASK;
+		NonceHeader[TotalNonceHeaderLen + 1U] = AadLen & XAES_BYTE_MASK;
+		TotalNonceHeaderLen += XAES_TWO_BYTE_ENCODING;
+	}
+	else if (AadLen < XAES_AAD_LENGTH_LONG_LIMIT) {
+		NonceHeader[TotalNonceHeaderLen] = (XAES_HEADER_6BYTE_INDICATOR >> XASUFW_BYTE_LEN_IN_BITS) &
+			XAES_BYTE_MASK;
+		NonceHeader[TotalNonceHeaderLen + 1U] = XAES_HEADER_6BYTE_INDICATOR & XAES_BYTE_MASK;
+		for (u8 Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; Index++) {
+			NonceHeader[TotalNonceHeaderLen + XAES_TWO_BYTE_ENCODING + Index] = (AadLen >>
+				(XAES_MSB_SHIFT_32 - (Index * XASUFW_BYTE_LEN_IN_BITS))) & XAES_BYTE_MASK;
+		}
+		TotalNonceHeaderLen += XAES_SIX_BYTE_ENCODING;
+	}
 
 	/** Configure DMA with AES and transfer the Nonce Header to AES engine. */
 	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, (u64)(UINTPTR)NonceHeader, 0U,
@@ -1605,6 +1701,7 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 	u32 Index = 0U;
 	u32 Iv[XASU_AES_IV_SIZE_128BIT_IN_WORDS] = {0U};
 	u32 IvLength = IvLen;
+	u8 *FormattedIv;
 
 	/**
 	 * For AES-GCM mode, if the IV length is not 96 bits, calculate GHASH and
@@ -1620,22 +1717,24 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 		IvLength = XASU_AES_IV_SIZE_128BIT_IN_BYTES;
 	}
 	else if (InstancePtr->EngineMode == XASU_AES_CCM_MODE) {
+		FormattedIv = (u8 *)(UINTPTR)Iv;
 		/** Set flag byte for AES-CCM nonce. */
-		Iv[0] = 0x01U;
-		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, IvAddr, (u64)(UINTPTR)&Iv[1U],
+		FormattedIv[0] = 0x01U;
+		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, IvAddr, (u64)(UINTPTR)&FormattedIv[1U],
 			IvLength, 0U);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 		/** Add zero padding if nonce length is less than 16 bytes in case of CCM mode. */
-		if ((IvLength + 1U) < XASU_AES_IV_SIZE_128BIT_IN_WORDS) {
-			Status = Xil_SMemSet(&Iv[IvLength + 1U],
-				(XASU_AES_IV_SIZE_128BIT_IN_WORDS - (IvLength + 1U)), 0U,
-				(XASU_AES_IV_SIZE_128BIT_IN_WORDS - (IvLength + 1U)));
+		if ((IvLength + 1U) < XASU_AES_IV_SIZE_128BIT_IN_BYTES) {
+			Status = Xil_SMemSet(&FormattedIv[IvLength + 1U],
+				(XASU_AES_IV_SIZE_128BIT_IN_BYTES - (IvLength + 1U)), 0U,
+				(XASU_AES_IV_SIZE_128BIT_IN_BYTES - (IvLength + 1U)));
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 		}
+		IvLength = XASU_AES_IV_SIZE_128BIT_IN_BYTES;
 	}
 	else {
 		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, IvAddr, (u64)(UINTPTR)Iv,
@@ -1714,7 +1813,7 @@ static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen)
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Get newly generated IV from the MAC registers. */
-	Status = XAes_ReadTag(InstancePtr, IvGen, XASU_AES_MAX_TAG_LENGTH_IN_BYTES);
+	Status = XAes_ReadTag(InstancePtr, IvGen);
 
 END:
 	return Status;
@@ -1733,13 +1832,13 @@ END:
  *		- XASUFW_AES_TAG_GENERATE_FAILED, if tag read fails.
  *
  *************************************************************************************************/
-static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen)
+static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_AES_TAG_GENERATE_FAILED);
 	volatile u32 Index = 0U;
 	u32 *TagPtr = (u32 *)TagOutAddr;
 
-	for (Index = 0U; Index < XASUFW_CONVERT_BYTES_TO_WORDS(TagLen); Index++) {
+	for (Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; Index++) {
 		TagPtr[Index] = Xil_EndianSwap32(XAsufw_ReadReg(InstancePtr->AesBaseAddress +
 						 (XAES_MAC_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
 		/*
@@ -1751,7 +1850,7 @@ static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen)
 						  (XAES_MAC_MASK_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
 #endif
 	}
-	if (Index == XASUFW_CONVERT_BYTES_TO_WORDS(TagLen)) {
+	if (Index == XASUFW_WORD_LEN_IN_BYTES) {
 		Status = XASUFW_SUCCESS;
 		ReturnStatus = XASUFW_AES_TAG_READ;
 	}
@@ -1776,11 +1875,13 @@ static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr, u32 TagLen)
 static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_AES_TAG_COMPARE_FAILED);
-	volatile u32 Index = 0U;
 	u32 ReadReg;
+	u32 Mask;
+	u32 RemainingBytes = TagLen;
+	volatile u32 Index = 0U;
 	const u32 *TagPtr = (const u32 *)TagInAddr;
 
-	for (Index = 0U; Index < XASUFW_CONVERT_BYTES_TO_WORDS(TagLen); Index++) {
+	while (RemainingBytes > 0U) {
 		ReadReg = Xil_EndianSwap32(XAsufw_ReadReg(InstancePtr->AesBaseAddress +
 					   (XAES_MAC_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
 		/*
@@ -1791,11 +1892,20 @@ static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLe
 		ReadReg ^= Xil_EndianSwap32(XAsufw_ReadReg(InstancePtr->AesBaseAddress +
 					    (XAES_MAC_MASK_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
 #endif
-		if (ReadReg != TagPtr[Index]) {
+		Mask = (RemainingBytes >= XASUFW_WORD_LEN_IN_BYTES) ? XAES_FULL_WORD_MASK :
+			XAES_BIT_MASK(RemainingBytes);
+
+		if ((ReadReg & Mask) != (TagPtr[Index] & Mask)) {
 			goto END;
 		}
+
+		RemainingBytes = (RemainingBytes > XASUFW_WORD_LEN_IN_BYTES) ?
+			(RemainingBytes - XASUFW_WORD_LEN_IN_BYTES) : 0U;
+
+		Index++;
 	}
-	if (Index == XASUFW_CONVERT_BYTES_TO_WORDS(TagLen)) {
+
+	if ((RemainingBytes == 0U) && (Index == XAES_WORD_COUNT_LEN(TagLen))) {
 		Status = XASUFW_SUCCESS;
 		ReturnStatus = XASUFW_AES_TAG_MATCHED;
 	}
@@ -1828,7 +1938,7 @@ static s32 XAes_ProcessTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen)
 	/** If AES operation type is encryption, */
 	if (InstancePtr->OperationType == XASU_AES_ENCRYPT_OPERATION) {
 		/** - Read the generated tag from AES engine to local array. */
-		Status = XAes_ReadTag(InstancePtr, (u32)Tag, TagLen);
+		Status = XAes_ReadTag(InstancePtr, (u32)Tag);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
