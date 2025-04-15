@@ -81,6 +81,9 @@ examples:
       - Versal
       - VersalNet
       - VersalGen2
+  xilsecure_versal_net_rsa_client_example.c:
+    - supported_platforms:
+      - VersalNet
   xilsecure_versal_rsa_server_example.c:
     - supported_platforms:
       - Versal
