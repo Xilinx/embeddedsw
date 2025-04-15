@@ -77,6 +77,11 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable);
 XStatus XPmDomainIso_ProcessPending(void);
 XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State);
 
+maybe_unused static inline void XPmDomainIso_CpmPcieIsoRemoval(void)
+{
+        /* unused function */
+}
+
 #ifdef __cplusplus
 }
 #endif

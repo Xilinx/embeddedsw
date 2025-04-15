@@ -48,6 +48,8 @@
 *       dd	 09/11/2023 MISRA-C violation Rule 17.7 fixed
 *       sk   03/13/24 Fixed doxygen comments format
 *       pre  03/02/2025 Added task based event notification functionality for partial PDI
+*       nb   04/09/2025 Add CPM PCIE isolation removal which has to come after
+*                       PDI load is complete
 *
 * </pre>
 *
@@ -69,6 +71,8 @@
 #include "xplmi_wdt.h"
 #include "xloader_secure.h"
 #include "xsecure_resourcehandling.h"
+#include "xpm_domain_iso.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -86,6 +90,7 @@
 #define XLOADER_PDILOAD_TRIGGERED     (0x1U) /**< State to represent pdi load
                                       which is triggered from queued event */
 #define XLOADER_PPDI_IPI_CMDID        (0x701) /**< Cmd Id for partial PDI load from IPI */
+#define XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE	(0x8U) /**< SBI PCIE PDI load */
 
 /************************** Function Prototypes **************************************************/
 /**
@@ -229,6 +234,14 @@ static int XLoader_SbiLoadPdi(void *Data)
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
+	}
+
+	/**
+	 * - Remove remaining PCIE isolations if it is PCIE load.
+	 */
+	if (XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE ==
+	    (XPlmi_In32(SLAVE_BOOT_SBI_CTRL) & XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE)) {
+		XPmDomainIso_CpmPcieIsoRemoval();
 	}
 
 	if (PdiPtr->IpiMask == 0U ) {
