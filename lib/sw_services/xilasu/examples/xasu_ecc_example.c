@@ -140,7 +140,7 @@ END:
 static void XAsu_GenSign(void)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ClientParams ClientParams;
+	XAsu_ClientParams ClientParams = {0U};
 	XAsu_EccParams EccParams;
 	u32 Index = 0U;
 

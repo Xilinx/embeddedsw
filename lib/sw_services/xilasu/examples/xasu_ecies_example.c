@@ -117,7 +117,7 @@ volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error 
 int main(void)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ClientParams ClientParams;
+	XAsu_ClientParams ClientParams = {0U};
 	XAsu_EciesParams EciesParams;
 	u32 Index = 0U;
 	XMailbox MailboxInstance;
