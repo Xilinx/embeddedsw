@@ -17,6 +17,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   pre  03/02/2025 Initial release
+*       pre  04/16/2025 Added core reset at resource freeing
 *
 * </pre>
 *
@@ -272,6 +273,38 @@ END:
 int XSecure_MakeResFree(XPlmi_CoreType Core)
 {
 	int Status = XST_FAILURE;
+#ifndef PLM_SECURE_EXCLUDE
+	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
+#endif
+	XSecure_Sha *XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	u32 ShaResetOffset = XSECURE_SHA3_RESET_OFFSET;
+
+	/** Reset core and get core state to default (initialized) */
+	switch (Core) {
+#ifdef VERSAL_AIEPG2
+		case XPLMI_SHA2_CORE:
+		XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
+		ShaResetOffset = XSECURE_SHA_RESET_OFFSET;
+		XSecure_SetReset(XSecureShaInstPtr->BaseAddress, ShaResetOffset);
+		XSecureShaInstPtr->ShaState = XSECURE_SHA_INITIALIZED;
+		break;
+#endif
+		case XPLMI_SHA3_CORE:
+		XSecure_SetReset(XSecureShaInstPtr->BaseAddress, ShaResetOffset);
+		XSecureShaInstPtr->ShaState = XSECURE_SHA_INITIALIZED;
+		break;
+#ifndef PLM_SECURE_EXCLUDE
+		case XPLMI_AES_CORE:
+		XSecure_SetReset(AesInstPtr->BaseAddress, XSECURE_AES_SOFT_RST_OFFSET);
+		AesInstPtr->AesState = XSECURE_AES_INITIALIZED;
+		break;
+#endif
+		case XPLMI_MAX_CORE:
+		default:
+		Status = XST_INVALID_PARAM;
+		goto END;
+		break;
+	}
 
 	/** Free resource by clearing its IPI mask and timeout */
 	XSecure_ResIpiMask[Core] = XSECURE_IPI_MASK_DEF_VAL;

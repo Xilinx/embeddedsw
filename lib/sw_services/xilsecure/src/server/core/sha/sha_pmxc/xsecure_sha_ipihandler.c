@@ -19,7 +19,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.4   kal  07/24/24 Initial release
 *       tri  10/07/24 Added easier approach to enable SHA2 Crypto engine in PMC
-*       pre  03/02/2025 Implemented task based event notification functionality for SHA IPI events
+*       pre  03/02/25 Implemented task based event notification functionality for SHA IPI events
+*       pre  04/16/25 Fixed warning
 *
 * </pre>
 *
@@ -66,8 +67,8 @@ int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd)
 	int SStatus = XST_FAILURE;
 	const u32 *Pload;
 	u32 ApiId;
-	XSecure_Sha *XSecureShaInstPtr = NULL;
-	XPlmi_CoreType Core = XPLMI_MAX_CORE;
+	XSecure_Sha *XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	XPlmi_CoreType Core =  XPLMI_SHA3_CORE;
 
 	if (NULL == Cmd) {
 		Status = XST_INVALID_PARAM;
@@ -79,10 +80,6 @@ int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd)
 	if (ApiId == XSECURE_API_SHA2_OPERATION) {
 		XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
 		Core = XPLMI_SHA2_CORE;
-	}
-	else if (ApiId == XSECURE_API_SHA3_OPERATION) {
-		XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-		Core = XPLMI_SHA3_CORE;
 	}
 
 	/** SHA IPI event handling */
