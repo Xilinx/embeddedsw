@@ -63,6 +63,8 @@
 *       kpt  03/15/24 Updated RSA KAT to use 2048-bit key
 *       obs  09/30/2024 Fixed Doxygen Warnings
 *       obs  02/27/2025 Added XLOADER_AUTH_JTAG_IDWORD macro
+*       kal  04/16/25 Updated XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD when
+*                     additional PPKs feature is enabled
 *
 * </pre>
 *
@@ -210,8 +212,13 @@ extern "C" {
 					/**< PPK1 invalid value */
 #define XLOADER_EFUSE_MISC_CTRL_PPK2_INVLD		(0x000000C0U)
 					/**< PPK2 invalid value */
+#ifndef PLM_EN_ADD_PPKS
 #define XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD		(0x000000FCU)
-					/**< All PPKs invalid value */
+					/**< All PPKs invalid value for PPK0-PPK2 */
+#else
+#define XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD		(0x00001EFCU)
+					/**< All PPKs invalid value for PPK0-PPK4 */
+#endif
 
 #define XLOADER_EFUSE_PPK_HASH_LEN			(32U)
 					/**< PPK hash length stored in eFUSE */
