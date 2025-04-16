@@ -1,5 +1,158 @@
 Changes for 2025.1
 ===============================
+can_v3_10:
+Add xlnx, tx-fifo-depth and xlnx, rx-fifo-depth as additional property
+
+canfd_v2_10:
+Remove the workaround used for CANFD2.0 ES1 issue.
+Add the missing additional properties.
+Fix C++ warnings.
+Fix C++ compilation warnings and errors
+Fix GCC warnings
+
+canps_v3_10:
+Add xlnx, can-clk-freq-hz as additional property
+Fix C++ compilation errors and warnings
+
+csudma_v1_17:
+Fix compilation warnings for peripheral test
+Add dependency for examples and peripheral test
+
+ddrcpsu_v1_8:
+Fix IAR compilation failures
+
+ddrpsv_v1_7:
+Fix HW designs where DDR block name does not have C*_ prefix
+
+dp21_v2_4:
+dp21: Fix Component format macros
+dp21: Read Repeater capability when HPD toggles
+dp21: Fix LTTPR issues with Parreto RX FMC card
+dp21: Fix payload allocation for multi-streams
+dp21: Update cds sequence wait timeout
+dp21: Fix 8b/10B Linktraining fallback complaince tests
+dp21: Add UHBR fallback configuration
+
+dp12_v7.6:
+dp12: Fix GCC warnings
+
+dp21rxss_v1_4:
+dp21rxss: dp21_rx_only: Control cache memory with SDT macro
+dp21rxss: Enable HDCP for DP21 RX subsystem
+
+dp21txss_v2_5:
+dp21txss: Enable HDCP for DP21 Tx subsystem
+dp21txss: Add lanecount set while establishing training
+dp21txss: Added support for parreto fmc to the dp21 txo app
+
+emaclite_v4_11:
+Fix unused variable warning(XEmacInstancePtr)
+
+emacps_v3_22:
+Added bit helper functions
+Added 10Gbe MAC register offsets and bit fields
+Append new registers to Queue Map and assertion
+Added PCS helper functions to configure 10Gbe
+Initialize High Speed MAC (10GbE)
+Added New supported speed macros
+Fix warnings and failure with GCC and IAR
+Add 10GbE compatible string
+Skip irrelevant clock and PHY configurations for 10GbE
+Add common MDIO Support
+Add GMII to RGMII convertor support with SDT flow
+
+ipipsu_v2_17:
+Avoid single byte reads from IPI buffer in CRC logic
+Fix MISRA C Rule 10.4 violation
+Update message length to accommodate CRC bytes when IPI CRC is enabled
+Update Max Message length to accommodate CRC bytes when IPI CRC is enabled
+Update MsgLength and XIPIPSU_MSG_BUF_SIZE comments for clearer description
+
+mcdma_v1_12:
+Fix warnings related to typecast
+
+mutex_v4_10:
+Update example to fix compilation warnings in Rigel flow
+Update the YAML to generate xparameters.h defines in alignment with the XSCT flow
+Add the compatible for mutex
+
+ospipsv_v1_12:
+Fix gcc and g++ compilation warnings and errors
+Add support for BusWidth parameter
+Use stig read for byte count less than 8bytes
+Update AMD Copyright year from 2024 to 2025
+Check for flash type when configuring dummy cycles for Macronix flashes
+Pass a valid write command in DAC mode
+Update the latest Versal Gen2 compatible strings in ospi and zdma YAML
+
+qspips_v3_14:
+Fix gcc and g++ compilation warnings and errors
+Increment driver version
+
+qspipsu_v1_21:
+Add support for Infineon S25HxxxxT flash parts
+Fix C++ warnings
+Update flash info with the correct die details
+Rename qspi-fbclk property
+Fix gcc and g++ compilation warnings and errors
+Update driver version
+
+rtcpsu_v1_15:
+Fix C++ compilation warnings and errors
+
+spi_v4_14:
+Fix GCC warnings
+
+ufspsxc_v1_1:
+Update copyright year
+Update Versal Gen2 compatible string
+Update setluncfg example to Enable Boot LUN
+
+xxvethernet_v1_11:
+Fix CPP warnings related to constant strings, typecasting.
+
+zdma_v1_20:
+Fix compilation warnings for peripheral test
+Update the latest Versal Gen2 compatible strings in ospi and zdma YAML
+Add support for Versal Gen2
+
+xilffs_v5_4:
+Update the FatFS version to v0.15a
+Update copyright year
+Fix stack memory access issues
+Fix C++ compilation warnings
+Avoid local header inclusion in CMake
+
+xilmailbox_v1_11:
+Avoid local header inclusion in CMake
+Update XMAILBOX_MAX_MSG_LEN to accomodate CRC bytes when IPI CRC is enabled
+Update handler registration for XMAILBOX_INTR_ID in SDT flow
+Fix GCC warnings
+Update message length to accommodate CRC bytes when IPI CRC is enabled
+Update MsgLen and XMAILBOX_MAX_MSG_LEN comments for clearer description
+
+xilsfl_v1_1:
+Avoid local header inclusion in CMake
+Add condition to avoid dma read on Lassen
+Add support to get flash Type
+Add support for MT25QU128 qspi flash
+Add support for dynamic address size
+Add support for x2/x4 operation
+Add support for Lassen platform
+Add support to read in stig when DMA is not available
+Update AMD Copyright year and version number
+Update example to support reading unaligned bytes
+Add support for non-blocking read and unaligned bytes read
+Update description in yaml file
+Update copyright
+Add serial flash library initial version
+
+lwip220_v1_2:
+Add missing lwip220_ prefix to use jumbo frames option. ( lwip220_temac_use_jumbo_frames).
+Fix TCPIP_CORE_LOCK not released when LWIP_TIMERS==0; introduce tcpip_mbox_fetch() for proper locking.
+Add SGMII mode support for TI DP83867 PHY, including device tree handling and RX workaround.
+Handle SGMII and PCS/PMA mode setup for GEM; skip internal PCS for PL-based PCS/PMA
+Configure GMII2RGMII converter speed if present.
 
 New Files Added for 2025.1:
 
