@@ -105,7 +105,7 @@ static inline u64 arch_counter_get_cntvct(void)
 #endif
 
 #if defined (ARMR52)
-#if defined (VERSAL_AIEPG2)
+#if defined (VERSAL_2VE_2VM)
 #define XIOU_SCNTRS_BASEADDR 0xEA470000U
 #else
 #define XIOU_SCNTRS_BASEADDR 0xEB5B0000U

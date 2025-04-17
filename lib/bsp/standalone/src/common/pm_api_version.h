@@ -141,7 +141,7 @@ extern "C" {
  * | IOCTL_SET_APU_OPER_MODE		| 36	| Versal	| Set APU operation mode		|
  * | IOCTL_PREPARE_DDR_SHUTDOWN		| 37	| Versal	| Prepare DDR for shut down		|
  * | IOCTL_GET_SSIT_TEMP		| 38	| Versal	| Get secondary SLR min/max temperature |
- * | IOCTL_AIE2PS_OPS			| 39 	| Versal_AiePg2	| AIE2PS Operations			|
+ * | IOCTL_AIE2PS_OPS			| 39 	| Versal_2ve_2vm	| AIE2PS Operations			|
  *
  *****************************************************************************/
 

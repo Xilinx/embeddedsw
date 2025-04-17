@@ -4,6 +4,6 @@
 add_subdirectory(core)
 if("${CMAKE_SUBMACHINE}" STREQUAL "VersalNet")
         add_subdirectory(versal_net)
-elseif("${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2")
+elseif("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
         add_subdirectory(versal_aiepg2)
 endif()

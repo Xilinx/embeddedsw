@@ -30,7 +30,7 @@ depends_libs:
       XILFFS_word_access : OFF
       XILFFS_enable_multi_partition : ON
       XILFFS_num_logical_vol : 10
-      VersalGen2:
+      Versal_2VE_2VM:
         XILFFS_num_logical_vol : 175
         XILFFS_enable_multi_partition : OFF
 

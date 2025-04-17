@@ -6,12 +6,12 @@
 /**
 * @file translation_table.s
 *
-* @addtogroup VersalGen2_apu_boot_code
+* @addtogroup Versal_2VE_2VM_apu_boot_code
 * @{
 * <h2> translation_table.S </h2>
 * The translation_table.S contains a static page table required by MMU for
 * cortex-A78. This translation table is flat mapped (input address = output
-* address) with default memory attributes defined for Versal Gen2
+* address) with default memory attributes defined for Versal_2VE_2VM
 * architecture. It utilizes translation granual size of 4 KB with 2 MB section
 * size for initial 4 GB memory and 1GB section size for memory after 4 GB.
 * The overview of translation table memory attributes is described below.
@@ -42,7 +42,7 @@
 
 	.set UNDEF_START, 0
 
-	/* Base addresses for all DDR regions in Versal Gen2 SoC TODO: revisit */
+	/* Base addresses for all DDR regions in Versal_2VE_2VM SoC TODO: revisit */
 	.set DDR_LOW_0_REGION_START_ADDR, 0x0000000000		/* 0x0000_0000_0000 */
 	.set DDR_LOW_1_REGION_START_ADDR, 0x800000000		/* 0x0008_0000_0000 */
 	.set DDR_LOW_2_REGION_START_ADDR, 0xC000000000		/* 0x00C0_0000_0000 */
@@ -66,7 +66,7 @@ MMUTableL0:
 
 /*
  * 96 sections each with 512 GB size covers 0 - 47 TB.
- * 48TB - 256TB is reserved in Versal Gen2 address map,
+ * 48TB - 256TB is reserved in Versal_2VE_2VM address map,
  * so not defining sections for that region.
  */
 
@@ -591,5 +591,5 @@ MMUTableL2:
 .end
 
 /**
-* @} End of "addtogroup VersalGen2_apu_boot_code".
+* @} End of "addtogroup Versal_2VE_2VM_apu_boot_code".
 */

@@ -65,7 +65,7 @@ examples:
       - xilnvm_efuse_spartan_ultrascale_plus_input.h
   xilnvm_bbram_config_limiter_client_example.c:
     - supported_platforms:
-      - VersalGen2
+      - Versal_2VE_2VM
   xilnvm_bbram_versal_ssit_client_example.c:
     - supported_platforms:
       - Versal

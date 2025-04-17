@@ -7,7 +7,8 @@
 /**
 * @file mpu.c
 *
-* This file contains initial configuration of the VersalGen2 CortexR52  MPU.
+* This file contains initial configuration of the CortexR52 MPU for Versal 2VE
+* and 2VM devices.
 *
 * <pre>
 * MODIFICATION HISTORY:

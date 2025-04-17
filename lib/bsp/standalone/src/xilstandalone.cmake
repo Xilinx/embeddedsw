@@ -59,8 +59,9 @@ elseif(("${CMAKE_MACHINE}" STREQUAL "SpartanUP") OR ("${CMAKE_MACHINE}" STREQUAL
     set(SPARTANUP " ")
 endif()
 
-if("${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2")
+if("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
     set(VERSAL_AIEPG2 " ")
+    set(VERSAL_2VE_2VM " ")
 endif()
 
 if ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")

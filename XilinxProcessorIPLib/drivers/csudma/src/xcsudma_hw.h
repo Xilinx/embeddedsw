@@ -120,7 +120,7 @@ extern "C" {
 /** @name Address register bit masks
  * @{
  */
-#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
+#if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
 #define XCSUDMA_ADDR_MASK	0xFFFFFFFFU	/**< Address mask */
 #else
 #define XCSUDMA_ADDR_MASK	0xFFFFFFFCU	/**< Address mask */
@@ -134,7 +134,7 @@ extern "C" {
  * @{
  */
 #define XCSUDMA_SIZE_MASK	0x1FFFFFFCU	/**< Mask for size */
-#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
+#if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
 #define XCSUDMA_LAST_WORD_MASK	0x20000000U	/**< Last word check bit mask*/
 #define XCSUDMA_SIZE_SHIFT	0U		/**< Shift for size */
 #else
