@@ -21,6 +21,7 @@
 * 1.0   kpt  07/30/2024 Initial release
 * 3.5   hj   04/02/2025 Remove unused PrgmAesWrlk variable
 *       hj   04/10/2025 Rename PPK hash size macros
+*       hj   04/10/2025 Remove security control bits not exposed to user
 *
 * </pre>
 *
@@ -219,12 +220,7 @@ typedef enum {
 } XNvm_EfuseSecCtrlBitRow4;
 
 typedef struct {
-	u8 PrgmScanClr; /**< Program scan clear */
 	u8 PrgmHashPufOrKey; /**< Program Hash PUF or PPK */
-	u8 PrgmAxiDis; /**< Program AXI disable */
-	u8 PrgmMdmDis; /**< Program mdm disable */
-	u8 PrgmIcapDis; /**< Program ICAP disable */
-	u8 PrgmMcapDis; /**< Program MCAP disable */
 	u8 PrgmRmaDis; /**< Program RMA disable */
 	u8 PrgmRmaEn; /**< Program RMA enable */
 	u8 PrgmCrcEn; /**< Program CRC enable */
@@ -234,17 +230,13 @@ typedef struct {
 	u8 PrgmPpk0Invld; /**< Program PPK0 invalid */
 	u8 PrgmPpk1Invld; /**< Program PPK1 invalid */
 	u8 PrgmPpk2Invld; /**< Program PPK2 invalid */
-	u8 PrgmExportCtrl; /**< Program export control */
 	u8 PrgmAesRdlk; /**< Program AES read lock */
 	u8 PrgmPpk0lck; /**< Program PPK 0 lock */
 	u8 PrgmPpk1lck; /**< Program PPK 1 lock */
 	u8 PrgmPpk2lck; /**< Program PPK 2 lock */
 	u8 PrgmJtagDis; /**< Program jtag disable */
 	u8 PrgmAesDis; /**< Program AES disable */
-	u8 PrgmAesCmDis; /**< Program AES countermeasure disable */
 	u8 PrgmUserWrlk; /**< Program user write lock */
-	u8 PrgmMemClrEn; /**< Program memory clear enable */
-	u8 PrgmDnaWrlk; /**< Program DNA write lock */
 	u8 PrgmJtagErrDis; /**< Program Jtag error disable */
 } XNvm_EfuseSecCtrl;
 
@@ -257,16 +249,8 @@ typedef struct {
 	u8 PPK0_INVLD1;  /**< PPK0 invalid 1 */
 	u8 PPK1_INVLD1;  /**< PPK1 invalid 1 */
 	u8 PPK2_INVLD1;  /**< PPK2 invalid 1 */
-	u8 MDM_DISABLE_1; /**< MDM disable 1 */
 	u8 USER_WR_LK; /**< User write lock */
 	u8 JTAG_ERR_OUT_DIS; /**< Jtag error out disable */
-	u8 OSC_TRIMMED; /**< Oscillator trimmed */
-	u8 MEM_CLEAR_EN; /**< Memory clear enable */
-	u8 SVD_WR_LK; /**< SVD write lock */
-	u8 DNA_WR_LK; /**< DNA write lock */
-	u8 SHA_DISABLE; /**< SHA disable */
-	u8 AXI_DISABLE; /**< Axi disable */
-	u8 MDM_DISABLE_0; /**< MDM disable 0 */
 	u8 AES_RD_WR_LK_1; /**< AES read write lock 1 */
 	u8 AES_RD_WR_LK_0; /**< AES read write lock 0 */
 	u8 PPK0_INVLD0; /**< PPK0 invalid 0 */
@@ -280,12 +264,7 @@ typedef struct {
 	u8 JTAG_DIS; /**< Jtag disable */
 	u8 RMA_ENABLE_0; /**< RMA disable 1 */
 	u8 RMA_DISABLE_0; /**< RMA disable 0 */
-	u8 EXPORT_CONTROL; /**< Export control */
-	u8 ICAP_DIS; /**< ICAP disable */
-	u8 MCAP_DIS; /**< MCAP disable */
-	u8 AES_CM_DIS; /**< AES counter measures disable */
 	u8 AES_DIS; /**< AES disable */
-	u8 SCAN_CLEAR_EN; /**< Scan clear enable */
 } XNvm_EfuseSecCtrlBits;
 
 typedef struct {
