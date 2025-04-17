@@ -731,6 +731,7 @@ done:
 	}
 	return Status;
 }
+
 static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsystem,
 			      u32 Capabilities, const u32 QoS)
 {
@@ -739,6 +740,16 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 	XPm_Requirement *PendingReqm = NULL;
 
 	PmInfo("Device: 0x%x, State: 0x%x\r\n", Device->Node.Id, Device->Node.State);
+
+	/** HACK!! FIXME: Linux drivers can never request UART0 or UART1
+	 * after releasing them; therefore, we have do this hack:
+	 * Only make transition to RUNNING state for UART0 and UART1, any other state transtion will be ignored
+	 */
+	if (((PM_DEV_UART_0 == Device->Node.Id) || (PM_DEV_UART_1 == Device->Node.Id)) && (1 != Capabilities)) {
+		PmInfo("Ignoring request for UART device: 0x%x\r\n", Device->Node.Id);
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	if (((u8)XPM_DEVSTATE_UNUSED != Device->Node.State) &&
 	    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
