@@ -22,6 +22,7 @@
 *       hj    04/01/25 Update comment of XNvm_EfuseReadSecCtrlBits
 *       hj    04/08/25 Rename XNVM_GET_BIT_VAL to XNVM_GET_8_BIT_VAL
 *       hj    04/10/25 Rename PPK hash size macros
+*       hj    04/10/25 Remove security control bits not exposed to user
 *
 * </pre>
 *
@@ -823,15 +824,6 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 
 	Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 
-	if (SecCtrl->PrgmAesCmDis == TRUE && ReadSecCtrlBits.AES_CM_DIS != TRUE) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
-				      XNVM_EFUSE_AES_CM_DIS, FALSE);
-		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
-			Status = Status | XNVM_EFUSE_ERR_WRITE_AES_CM_DIS;
-			goto END;
-		}
-	}
-
 	if (SecCtrl->PrgmAesDis ==  TRUE && ReadSecCtrlBits.AES_DIS != TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
 				      XNVM_EFUSE_AES_DIS, FALSE);
@@ -889,15 +881,6 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 				      XNVM_EFUSE_AES_RD_WR_LK_1, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
 			Status = Status | XNVM_EFUSE_ERR_WRITE_AES_RD_WR_LCK1;
-			goto END;
-		}
-	}
-
-	if (SecCtrl->PrgmExportCtrl == TRUE && ReadSecCtrlBits.EXPORT_CONTROL != TRUE) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
-				      XNVM_EFUSE_EXPORT_CONTROL, FALSE);
-		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
-			Status = Status | XNVM_EFUSE_ERR_WRITE_EXPORT_CTRL;
 			goto END;
 		}
 	}
@@ -1035,64 +1018,11 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmMcapDis == TRUE && ReadSecCtrlBits.MCAP_DIS != TRUE) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
-				      XNVM_EFUSE_MCAP_DIS, FALSE);
-		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
-			Status = Status | XNVM_EFUSE_ERR_WRITE_MCAP_DIS;
-			goto END;
-		}
-	}
-
-	if (SecCtrl->PrgmIcapDis == TRUE && ReadSecCtrlBits.ICAP_DIS != TRUE) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
-				      XNVM_EFUSE_ICAP_DIS, FALSE);
-		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
-			Status = Status | XNVM_EFUSE_ERR_WRITE_ICAP_DIS;
-			goto END;
-		}
-	}
-
-	if (SecCtrl->PrgmMdmDis == TRUE && ReadSecCtrlBits.MDM_DISABLE_0 != TRUE
-	    && ReadSecCtrlBits.MDM_DISABLE_1 != TRUE) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
-				      XNVM_EFUSE_MDM_DISABLE_0, FALSE);
-		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
-			Status = Status | XNVM_EFUSE_ERR_WRITE_MDM_DIS_0;
-			goto END;
-		}
-
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
-				      XNVM_EFUSE_MDM_DISABLE_1, FALSE);
-		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
-			Status = Status | XNVM_EFUSE_ERR_WRITE_MDM_DIS_1;
-			goto END;
-		}
-	}
-
-	if (SecCtrl->PrgmAxiDis == TRUE && ReadSecCtrlBits.AXI_DISABLE != TRUE) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
-				      XNVM_EFUSE_AXI_DIS, FALSE);
-		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
-			Status = Status | XNVM_EFUSE_ERR_WRITE_AXI_DIS;
-			goto END;
-		}
-	}
-
 	if (SecCtrl->PrgmHashPufOrKey == TRUE && ReadSecCtrlBits.HASH_PUF_OR_KEY != TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
 				      XNVM_EFUSE_HASH_PUF_OR_KEY, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
 			Status = Status | XNVM_EFUSE_ERR_WRITE_HASH_PUF_OR_KEY;
-			goto END;
-		}
-	}
-
-	if (SecCtrl->PrgmScanClr == TRUE && ReadSecCtrlBits.SCAN_CLEAR_EN != TRUE) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
-				      XNVM_EFUSE_SCAN_CLR_EN, FALSE);
-		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
-			Status = Status | XNVM_EFUSE_ERR_WRITE_SCAN_CLR;
 			goto END;
 		}
 	}
@@ -1106,29 +1036,12 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmMemClrEn == TRUE && ReadSecCtrlBits.MEM_CLEAR_EN != TRUE) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_4,
-				      XNVM_EFUSE_MEM_CLR_EN, FALSE);
-		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
-			Status = Status | XNVM_EFUSE_ERR_WRITE_MEM_CLR_EN;
-			goto END;
-		}
-	}
-
 	if (SecCtrl->PrgmJtagErrDis == TRUE && ReadSecCtrlBits.JTAG_ERR_OUT_DIS != TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_4,
 				      XNVM_EFUSE_JTAG_ERR_OUT_DIS, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
 			Status = Status | XNVM_EFUSE_ERR_WRITE_JTAG_ERR_OUT_DIS;
 			goto END;
-		}
-	}
-
-	if (SecCtrl->PrgmDnaWrlk == TRUE && ReadSecCtrlBits.DNA_WR_LK != TRUE) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_4,
-				      XNVM_EFUSE_DNA_WR_LK, FALSE);
-		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
-			Status = Status | XNVM_EFUSE_ERR_WRITE_DNA_WR_LK;
 		}
 	}
 
@@ -1661,12 +1574,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 		goto END;
 	}
 
-	SecCtrlBits->SCAN_CLEAR_EN = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 0U);
 	SecCtrlBits->AES_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 1U);
-	SecCtrlBits->AES_CM_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 2U);
-	SecCtrlBits->MCAP_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 3U);
-	SecCtrlBits->ICAP_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 4U);
-	SecCtrlBits->EXPORT_CONTROL =  XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 5U);
 	SecCtrlBits->RMA_DISABLE_0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 6U);
 	SecCtrlBits->RMA_ENABLE_0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 7U);
 	SecCtrlBits->JTAG_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 8U);
@@ -1680,16 +1588,8 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 	SecCtrlBits->PPK0_INVLD0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 16U);
 	SecCtrlBits->AES_RD_WR_LK_0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 17U);
 	SecCtrlBits->AES_RD_WR_LK_1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 18U);
-	SecCtrlBits->MDM_DISABLE_0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 19U);
-	SecCtrlBits->AXI_DISABLE = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 20U);
-	SecCtrlBits->SHA_DISABLE = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 21U);
-	SecCtrlBits->DNA_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 22U);
-	SecCtrlBits->SVD_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 23U);
-	SecCtrlBits->MEM_CLEAR_EN = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 24U);
-	SecCtrlBits->OSC_TRIMMED = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 25U);
 	SecCtrlBits->JTAG_ERR_OUT_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 26U);
 	SecCtrlBits->USER_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 27U);
-	SecCtrlBits->MDM_DISABLE_1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 28U);
 	SecCtrlBits->PPK2_INVLD1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 29U);
 	SecCtrlBits->PPK1_INVLD1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 30U);
 	SecCtrlBits->PPK0_INVLD1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 31U);

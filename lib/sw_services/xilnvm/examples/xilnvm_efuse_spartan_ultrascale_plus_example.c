@@ -23,6 +23,7 @@
  * 1.1   mb    04/11/2025 Passed args to XNvm_EfuseCheckAesKeyCrc in correct order
  * 3.5	 hj    04/02/2025 Remove unused PrgmAesWrlk variable
  *       hj    04/10/2025 Rename PPK hash size macros
+ *       hj    04/10/2025 Remove security control bits not exposed to user
  *
  * </pre>
  *
@@ -636,12 +637,7 @@ static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *EfuseData,
  * to program SECURITY_CONTROL eFuses.
  *
 typedef struct {
-	u8 PrgmScanClr;
 	u8 PrgmHashPufOrKey;
-	u8 PrgmAxiDis;
-	u8 PrgmMdmDis;
-	u8 PrgmIcapDis;
-	u8 PrgmMcapDis;
 	u8 PrgmRmaDis;
 	u8 PrgmRmaEn;
 	u8 PrgmCrcEn;
@@ -651,17 +647,13 @@ typedef struct {
 	u8 PrgmPpk0Invld;
 	u8 PrgmPpk1Invld;
 	u8 PrgmPpk2Invld;
-	u8 PrgmExportCtrl;
 	u8 PrgmAesRdlk;
 	u8 PrgmPpk0lck;
 	u8 PrgmPpk1lck;
 	u8 PrgmPpk2lck;
 	u8 PrgmJtagDis;
 	u8 PrgmAesDis;
-	u8 PrgmAesCmDis;
 	u8 PrgmUserWrlk;
-	u8 PrgmMemClrEn;
-	u8 PrgmDnaWrlk;
 	u8 PrgmJtagErrDis;
 } XNvm_EfuseSecCtrl;
  *
@@ -680,7 +672,6 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 {
 	int Status = XST_FAILURE;
 
-	SecCtrl->PrgmAesCmDis = XNVM_EFUSE_XNVM_EFUSE_AES_CM_DIS;
 	SecCtrl->PrgmAesDis = XNVM_EFUSE_XNVM_EFUSE_AES_DIS;
 	SecCtrl->PrgmAesRdlk = XNVM_EFUSE_XNVM_AES_RD_LK;
 	SecCtrl->PrgmPpk0lck = XNVM_EFUSE_XNVM_PPK0_LK;
@@ -688,15 +679,9 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	SecCtrl->PrgmPpk2lck = XNVM_EFUSE_XNVM_PPK2_LK;
 	SecCtrl->PrgmJtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
 	SecCtrl->PrgmUserWrlk = XNVM_EFUSE_XNVM_USER_WR_LK;
-	SecCtrl->PrgmMemClrEn = XNVM_EFUSE_XNVM_MEM_CLR_EN;
-	SecCtrl->PrgmDnaWrlk = XNVM_EFUSE_XNVM_DNA_WR_LK;
 	SecCtrl->PrgmJtagErrDis = XNVM_EFUSE_XNVM_JTAG_ERR_DIS;
 	SecCtrl->PrgmJtagDis = XNVM_EFUSE_XNVM_JTAG_DIS;
-	SecCtrl->PrgmScanClr = XNVM_EFUSE_XNVM_SCAN_CLR_EN;
 	SecCtrl->PrgmHashPufOrKey = XNVM_EFUSE_XNVM_HASH_PUF_OR_KEY;
-	SecCtrl->PrgmAxiDis = XNVM_EFUSE_XNVM_AXI_DIS;
-	SecCtrl->PrgmMdmDis = XNVM_EFUSE_XNVM_MDM_DIS;
-	SecCtrl->PrgmIcapDis = XNVM_EFUSE_XNVM_ICAP_DIS;
 	SecCtrl->PrgmRmaDis = XNVM_EFUSE_XNVM_RMA_DIS;
 	SecCtrl->PrgmRmaEn = XNVM_EFUSE_XNVM_RMA_EN;
 	SecCtrl->PrgmCrcEn = XNVM_EFUSE_XNVM_CRC_EN;
@@ -706,25 +691,17 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	SecCtrl->PrgmPpk0Invld = XNVM_EFUSE_XNVM_PPK0_INVLD;
 	SecCtrl->PrgmPpk1Invld = XNVM_EFUSE_XNVM_PPK1_INVLD;
 	SecCtrl->PrgmPpk2Invld = XNVM_EFUSE_XNVM_PPK2_INVLD;
-	SecCtrl->PrgmExportCtrl = XNVM_EFUSE_XNVM_EXP_CTRL;
 
-	if ((SecCtrl->PrgmAesCmDis == TRUE) ||
-	    (SecCtrl->PrgmAesDis == TRUE) ||
+	if ((SecCtrl->PrgmAesDis == TRUE) ||
 	    (SecCtrl->PrgmAesRdlk == TRUE) ||
 	    (SecCtrl->PrgmPpk0lck == TRUE) ||
 	    (SecCtrl->PrgmPpk1lck == TRUE) ||
 	    (SecCtrl->PrgmPpk2lck == TRUE) ||
 	    (SecCtrl->PrgmJtagDis == TRUE) ||
 	    (SecCtrl->PrgmUserWrlk == TRUE) ||
-	    (SecCtrl->PrgmMemClrEn == TRUE) ||
-	    (SecCtrl->PrgmDnaWrlk == TRUE) ||
 	    (SecCtrl->PrgmJtagErrDis == TRUE) ||
 	    (SecCtrl->PrgmJtagDis == TRUE) ||
-	    (SecCtrl->PrgmScanClr == TRUE) ||
 	    (SecCtrl->PrgmHashPufOrKey == TRUE) ||
-	    (SecCtrl->PrgmAxiDis == TRUE) ||
-	    (SecCtrl->PrgmMdmDis == TRUE) ||
-	    (SecCtrl->PrgmIcapDis == TRUE) ||
 	    (SecCtrl->PrgmRmaDis == TRUE) ||
 	    (SecCtrl->PrgmRmaEn == TRUE) ||
 	    (SecCtrl->PrgmCrcEn == TRUE) ||
@@ -733,8 +710,7 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	    (SecCtrl->PrgmPufTes2Dis == TRUE) ||
 	    (SecCtrl->PrgmPpk0Invld == TRUE) ||
 	    (SecCtrl->PrgmPpk1Invld == TRUE) ||
-	    (SecCtrl->PrgmPpk2Invld == TRUE) ||
-	    (SecCtrl->PrgmExportCtrl == TRUE)) {
+	    (SecCtrl->PrgmPpk2Invld == TRUE)) {
 		EfuseData->SecCtrlBits = SecCtrl;
 	}
 
@@ -1015,75 +991,30 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 	} else {
 		xil_printf("AES read/write lock is enabled \n\r");
 	}
-	if (SecCtrlBits.AES_CM_DIS == TRUE) {
-		xil_printf("AES DPACM is disabled \n\r");
-	} else {
-		xil_printf("AES DPACM is enabled \n\r");
-	}
 	if (SecCtrlBits.USER_WR_LK == TRUE) {
 		xil_printf("User write lock is enabled\n\r");
 	} else {
 		xil_printf("User write lock is enabled\n\r");
-	}
-	if (SecCtrlBits.AXI_DISABLE == TRUE) {
-		xil_printf("AXI is disabled \n\r");
-	} else {
-		xil_printf("AXI is enabled \n\r");
 	}
 	if (SecCtrlBits.DFT_DIS == TRUE) {
 		xil_printf("DFT boot mode is disabled\n\r");
 	} else {
 		xil_printf("DFT boot mode is disabled\n\r");
 	}
-	if (SecCtrlBits.DNA_WR_LK == TRUE) {
-		xil_printf("DNA write lock is enabled \n\r");
-	} else {
-		xil_printf("DNA write lock is disabled \n\r");
-	}
 	if (SecCtrlBits.EFUSE_CRC_EN == TRUE) {
 		xil_printf("EFUSE CRC is enabled\n\r");
 	} else {
 		xil_printf("EFUSE CRC is disabled\n\r");
-	}
-	if (SecCtrlBits.EXPORT_CONTROL == TRUE) {
-		xil_printf("export control bit is enabled\n\r");
-	} else {
-		xil_printf("export control bit is disabled\n\r");
 	}
 	if (SecCtrlBits.HASH_PUF_OR_KEY == TRUE) {
 		xil_printf("PUF hash is enabled \n\r");
 	} else {
 		xil_printf("PUF hash is disabled \n\r");
 	}
-	if (SecCtrlBits.ICAP_DIS == TRUE) {
-		xil_printf("ICAP is disabled\n\r");
-	} else {
-		xil_printf("ICAP is enabled\n\r");
-	}
 	if (SecCtrlBits.LCKDOWN == TRUE) {
 		xil_printf("secure lockdown is enabled\n\r");
 	} else {
 		xil_printf("secure lockdown is disabled\n\r");
-	}
-	if (SecCtrlBits.MCAP_DIS == TRUE) {
-		xil_printf("MCAP is disabled\n\r");
-	} else {
-		xil_printf("MCAP is enabled\n\r");
-	}
-	if (SecCtrlBits.MDM_DISABLE_0 == TRUE || SecCtrlBits.MDM_DISABLE_1 == TRUE) {
-		xil_printf("MDM is disabled\n\r");
-	} else {
-		xil_printf("MDM is enabled\n\r");
-	}
-	if (SecCtrlBits.MEM_CLEAR_EN == TRUE) {
-		xil_printf("mem clear is enabled\n\r");
-	} else {
-		xil_printf("mem clear is disabled\n\r");
-	}
-	if (SecCtrlBits.OSC_TRIMMED == TRUE) {
-		xil_printf("Oscillator trim is enabled \n\r");
-	} else {
-		xil_printf("Oscillator trim is disabled \n\r");
 	}
 	if (SecCtrlBits.PPK0_INVLD0 == TRUE || SecCtrlBits.PPK0_INVLD1 == TRUE) {
 		xil_printf("PPK0 is invalid\n\r");
@@ -1114,21 +1045,6 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 		xil_printf("RMA enable bits are programmed\n\r");
 	} else {
 		xil_printf("RMA enable bits are not programmed \n\r");
-	}
-	if (SecCtrlBits.SCAN_CLEAR_EN == TRUE) {
-		xil_printf("scan clear is enabled\n\r");
-	} else {
-		xil_printf("scan clear is disabled \n\r");
-	}
-	if (SecCtrlBits.SHA_DISABLE == TRUE) {
-		xil_printf("SHA is disabled\n\r");
-	} else {
-		xil_printf("SHA is enabled \n\r");
-	}
-	if (SecCtrlBits.SVD_WR_LK == TRUE) {
-		xil_printf("SVD write lock is enabled \n\r");
-	} else {
-		xil_printf("SVD write lock is disabled \n\r");
 	}
 
 	Status = XST_SUCCESS;
