@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@
 *       ms   04/10/17 Modified filename tag to include the file in doxygen
 *                     examples.
 * 4.6   ht   07/07/23 Added support for system device-tree flow.
+* 4.9   ht   04/17/25 Update Canonical definition to be inline with xsct flow.
 *</pre>
 *******************************************************************************/
 
@@ -60,7 +61,7 @@
 #endif
 
 #ifdef SDT
-#define XMBOX_BASEADDRESS XPAR_XMBOX_0_BASEADDR
+#define XMBOX_BASEADDRESS XPAR_MBOX_0_BASEADDR
 #endif
 
 /**************************** Type Definitions *******************************/

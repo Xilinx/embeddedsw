@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,7 +14,7 @@
 * This example attempts to send a known message through the mailbox from
 * the processor identified as 0 (XPAR_CPU_ID=0) to the other processor.
 * The message is received by the receiver and the test passes.
-* Since the application is running on two seperate processors, the
+* Since the application is running on two separate processors, the
 * initiator declares success when the message is sent and the receiver
 * declares success when the message is received. There is no feedback
 * to the initiator so a terminal is required for each processor to verify
@@ -49,6 +49,7 @@
 *                     modified filename tag to include the file in doxygen
 *                     examples.
 * 4.6   ht   07/07/23 Added support for system device-tree flow.
+* 4.9   ht   04/17/25 Update Canonical definition to be inline with xsct flow.
 *</pre>
 *******************************************************************************/
 
@@ -103,7 +104,7 @@ int Timeout;
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define MBOX_INTR_ID		XPAR_INTC_0_MBOX_0_VEC_ID
 #else
-#define XMBOX_BASEADDRESS XPAR_XMBOX_0_BASEADDR
+#define XMBOX_BASEADDRESS XPAR_MBOX_0_BASEADDR
 #endif
 /**************************** Type Definitions *******************************/
 
