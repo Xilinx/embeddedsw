@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,7 @@
 *       bm   02/12/2024 Updated logical partition comments for SD/eMMC bootmodes
 *       ng   02/14/2024 removed int typecast for errors
 *       bm   03/02/2024 Make SD drive number logic order independent
+*       pre  04/17/2025 Passing baseaddress for XSdPs_LookupConfig in SDT flow
 *
 * </pre>
 *
@@ -476,7 +477,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 	u8 PdiSrc = (u8)(DeviceFlags & XLOADER_PDISRC_FLAGS_MASK);
-	u8 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
+	u32 DrvNum = XLoader_GetDrvNumSD(PdiSrc);
 	XSdPs_Config *SdConfig;
 #ifndef VERSAL_AIEPG2
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
@@ -522,11 +523,24 @@ int XLoader_RawInit(u32 DeviceFlags)
 	XPlmi_Out32(SdCdnReg, PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK);
 
 	if (DrvNum != XLOADER_SD_DRV_NUM_0) {
+#ifdef SDT
+#if (defined(XPAR_XSDPS_NUM_INSTANCES) && (XPAR_XSDPS_NUM_INSTANCES > 1))
+		if ((XLoader_IsPdiSrcSD0(DeviceFlags) != (u8)TRUE) &&
+			(DeviceFlags != XLOADER_PDI_SRC_EMMC0)) {
+			DrvNum = XPAR_XSDPS_1_BASEADDR;
+		}
+#endif
+#else
 		DrvNum = XLOADER_SD_DRV_NUM_1;
+#endif
 	}
 
 	/** - Get the device configuration. */
+#ifdef SDT
 	SdConfig = XSdPs_LookupConfig(DrvNum);
+#else
+	SdConfig = XSdPs_LookupConfig((u16)DrvNum);
+#endif
 	if (NULL == SdConfig) {
 		XLoader_Printf(DEBUG_INFO,"RAW Lookup config failed\r\n");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_LOOKUP, Status);
