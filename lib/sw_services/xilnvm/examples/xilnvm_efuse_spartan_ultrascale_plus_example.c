@@ -22,6 +22,7 @@
  * 1.0	 kpt   08/13/2024 Initial release of xilnvm_efuse_spartan_ultrascale_plus_example
  * 1.1   mb    04/11/2025 Passed args to XNvm_EfuseCheckAesKeyCrc in correct order
  * 3.5	 hj    04/02/2025 Remove unused PrgmAesWrlk variable
+ *       hj    04/10/2025 Rename PPK hash size macros
  *
  * </pre>
  *
@@ -325,12 +326,12 @@ static int XilNvm_EfuseShowPpkHash(XNvm_EfusePpkType PpkType)
 	u32 ReadPpk[XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS] = {0U};
 	s8 Row;
 
-	Status = XNvm_EfuseReadPpkHash(PpkType, ReadPpk, XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES);
+	Status = XNvm_EfuseReadPpkHash(PpkType, ReadPpk, XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	} else {
 		XilNvm_FormatData((u8 *)ReadPpk, (u8 *)Ppk,
-				  XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES);
+				  XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES);
 		xil_printf("\n\rPPK%d:", PpkType);
 		for (Row = (XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS - 1U);
 		     Row >= 0; Row--) {
@@ -540,7 +541,7 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseData *EfuseData,
 	PpkHash->PrgmPpk0Hash = XNVM_EFUSE_WRITE_PPK0_HASH;
 	PpkHash->PrgmPpk1Hash = XNVM_EFUSE_WRITE_PPK1_HASH;
 	PpkHash->PrgmPpk2Hash = XNVM_EFUSE_WRITE_PPK2_HASH;
-	PpkHash->ActaulPpkHashSize = XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES;
+	PpkHash->ActaulPpkHashSize = XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES;
 
 	if (PpkHash->PrgmPpk0Hash == TRUE) {
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK0_HASH,
