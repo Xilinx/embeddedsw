@@ -21,6 +21,7 @@
  * ----- ---  -------- -------------------------------------------------------
  * 1.0	 kpt   08/13/2024 Initial release of xilnvm_efuse_spartan_ultrascale_plus_example
  * 1.1   mb    04/11/2025 Passed args to XNvm_EfuseCheckAesKeyCrc in correct order
+ * 3.5	 hj    04/02/2025 Remove unused PrgmAesWrlk variable
  *
  * </pre>
  *
@@ -651,7 +652,6 @@ typedef struct {
 	u8 PrgmPpk2Invld;
 	u8 PrgmExportCtrl;
 	u8 PrgmAesRdlk;
-	u8 PrgmAesWrlk;
 	u8 PrgmPpk0lck;
 	u8 PrgmPpk1lck;
 	u8 PrgmPpk2lck;
@@ -682,7 +682,6 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	SecCtrl->PrgmAesCmDis = XNVM_EFUSE_XNVM_EFUSE_AES_CM_DIS;
 	SecCtrl->PrgmAesDis = XNVM_EFUSE_XNVM_EFUSE_AES_DIS;
 	SecCtrl->PrgmAesRdlk = XNVM_EFUSE_XNVM_AES_RD_LK;
-	SecCtrl->PrgmAesWrlk = XNVM_EFUSE_XNVM_AES_WR_LK;
 	SecCtrl->PrgmPpk0lck = XNVM_EFUSE_XNVM_PPK0_LK;
 	SecCtrl->PrgmPpk1lck = XNVM_EFUSE_XNVM_PPK1_LK;
 	SecCtrl->PrgmPpk2lck = XNVM_EFUSE_XNVM_PPK2_LK;
@@ -711,7 +710,6 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
 	if ((SecCtrl->PrgmAesCmDis == TRUE) ||
 	    (SecCtrl->PrgmAesDis == TRUE) ||
 	    (SecCtrl->PrgmAesRdlk == TRUE) ||
-	    (SecCtrl->PrgmAesWrlk == TRUE) ||
 	    (SecCtrl->PrgmPpk0lck == TRUE) ||
 	    (SecCtrl->PrgmPpk1lck == TRUE) ||
 	    (SecCtrl->PrgmPpk2lck == TRUE) ||
