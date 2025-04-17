@@ -19,6 +19,7 @@
 * 1.0   kpt   07/30/24 First release
 * 1.1   mb    04/11/25 Passed args to XNvm_EfuseCheckAesKeyCrc in correct order
 * 3.5   hj    04/01/25 Remove flag checks from XNvm_EfusePrgmSecCtrlBits
+*       hj    04/01/25 Update comment of XNvm_EfuseReadSecCtrlBits
 *
 * </pre>
 *
@@ -1639,7 +1640,7 @@ static int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 OffsetCount, u32 *RowDat
 
 /******************************************************************************/
 /**
- * @brief	This function reads secure control bits from eFUSE cache.
+ * @brief	This function reads secure control bits and CRC_EN register bits from eFUSE cache.
  *
  * @param	SecCtrlBits - Pointer to XNvm_EfuseSecCtrlBits where secure control
  *                        bits are read.
