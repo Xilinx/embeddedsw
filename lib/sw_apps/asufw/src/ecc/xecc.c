@@ -40,11 +40,10 @@
 #include "xil_util.h"
 #include "xasu_eccinfo.h"
 #include "xfih.h"
+#include "xasufw_trnghandler.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XECC_CURVES_SUPPORTED		(2U) /**< Curves P-256 and P-384 are supported for ECC engine */
-#define XECC_RESET_ASSERT		(1U) /**< ECC reset assert value */
-#define XECC_RESET_DEASSERT		(0U) /**< ECC reset de-assert value */
 #define XECC_TIMEOUT_MAX		(0x1FFFFU) /**< ECC done timeout */
 						/* TBD: need to calculate as part of VNC */
 #define XECC_DOUBLE_CURVE_LENGTH_SHIFT	(0x1U) /**< Shift value to double the curve length */
@@ -52,6 +51,14 @@
 		XECC_CTRL_SUPPRESS_SCP2_MASK)  /**< Mask for enabling suppress SCP and SCP2 */
 #define XECC_CFG_WR_RD_ENDIANNESS_MASK	(XECC_CFG_WR_ENDIANNESS_MASK | \
 		XECC_CFG_RD_ENDIANNESS_MASK)  /**< Mask for enabling write and read endianness */
+#define XECC_SCP_RANDOM_MSB_BIT_SET_MASK	(0x7FU) /**< Mask for setting MSB bit of SCP random values to 0 */
+#define XECC_SCP_RANDOM_1_MSB_BYTE_OFFSET	(0U) /**< MSB byte offset of SCP random 1 value */
+#define XECC_RAND_NUM_REG_OFFSET		(48U) /**< Offset to be added to write random
+								numbers to the registers */
+#define XECC_RAND_NUM_COUNT_GEN_PUB_KEY		(2U) /**< Number of random values required for
+								generate public key operation. */
+#define XECC_RAND_NUM_COUNT_GEN_SIGN		(4U) /**< Number of random values required for
+								generate SIGN operation. */
 
 /************************************** Type Definitions *****************************************/
 
@@ -91,6 +98,9 @@ static XEcc_Config *XEcc_LookupConfig(u32 DeviceId);
 static inline s32 XEcc_WaitForDone(const XEcc *InstancePtr);
 static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode);
 static s32 XEcc_InputValidate(const XEcc *InstancePtr, u32 CurveType);
+#ifdef XASU_ECC_CM_ENABLE
+static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Count);
+#endif
 
 /************************************ Variable Definitions ***************************************/
 
@@ -220,6 +230,7 @@ END:
  * 		- XASUFW_ECC_READ_DATA_FAIL, if read data from registers through DMA fails.
  * 		- XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, if sign generation fails in PWCT.
  *		- XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, if sign verification fails in PWCT.
+ *		- XASUFW_ECC_SCP_RANDOM_NUM_UPDATE_FAIL, if random values updation fails.
  * 		- Also, this function can return termination error codes from 0x21U to 0x2CU from core,
  * 		please refer to xasufw_status.h.
  *
@@ -228,7 +239,7 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			   u64 PrivKeyAddr, u64 PubKeyAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 
 	/** Validate input parameters. */
@@ -259,7 +270,6 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
 	/** Copy private key to respective registers using DMA. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr,
 			(u64)(UINTPTR)(InstancePtr->BaseAddress + XECC_MEM_GEN_KEY_PVT_KEY_OFFSET),
 			CurveLen, 0U);
@@ -268,8 +278,24 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		goto END;
 	}
 
+#ifdef XASU_ECC_CM_ENABLE
+	/**
+	 * When SCP is enabled, the public key generation operation requires two random numbers.
+	 * Repeat the following steps twice to generate two random numbers.
+	 * - Generate a random number with a length equal to the curve length (CurveLen).
+	 * - Clear the most significant bit (MSB) of the buffer.
+	 * - Copy the buffer contents to the corresponding registers.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XEcc_GenNdUpdateRandNumToReg(InstancePtr, CurveLen,
+				XECC_RAND_NUM_COUNT_GEN_PUB_KEY);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_SCP_RANDOM_NUM_UPDATE_FAIL);
+		goto END;
+	}
+#endif
 	/** Update configuration and start the operation. */
-	XFIH_CALL_GOTO(XEcc_ConfigNStartOperation, XFihVar, Status, END, InstancePtr,
+	XFIH_CALL_GOTO(XEcc_ConfigNStartOperation, XFihEccVar, Status, END, InstancePtr,
 			XECC_CTRL_PUB_KEY_GENERATION_OP_CODE);
 
 	/** Copy public key from registers to destination address using DMA. */
@@ -292,11 +318,11 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	}
 
 	/** Validate the public key generated from the private key. */
-	XFIH_CALL_GOTO(XEcc_ValidatePublicKey, XFihVar, Status, END, InstancePtr, DmaPtr, CurveType,
+	XFIH_CALL_GOTO(XEcc_ValidatePublicKey, XFihEccVar, Status, END, InstancePtr, DmaPtr, CurveType,
 		CurveLen, PubKeyAddr);
 
 	/** Perform pair wise consistency test using the key pair. */
-	XFIH_CALL(XEcc_Pwct, XFihVar, Status, InstancePtr, DmaPtr, CurveType, CurveLen,
+	XFIH_CALL(XEcc_Pwct, XFihEccVar, Status, InstancePtr, DmaPtr, CurveType, CurveLen,
 		PrivKeyAddr, PubKeyAddr);
 
 END:
@@ -333,7 +359,7 @@ s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			   u64 PubKeyAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 
 	/** Validate input parameters. */
@@ -364,7 +390,6 @@ s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
 	/** Copy public key to respective registers using DMA. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + XECC_MEM_PUB_KEY_X_OFFSET),
 			       CurveLen, 0U);
@@ -383,7 +408,7 @@ s32 XEcc_ValidatePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	}
 
 	/** Update configuration and start the operation. */
-	XFIH_CALL(XEcc_ConfigNStartOperation, XFihVar, Status, InstancePtr,
+	XFIH_CALL(XEcc_ConfigNStartOperation, XFihEccVar, Status, InstancePtr,
 			XECC_CTRL_PUB_KEY_VALIDATION_OP_CODE);
 
 END:
@@ -419,6 +444,7 @@ END:
  * 			CurveLen and HashBufLen are invalid.
  * 		- XASUFW_ECC_WRITE_DATA_FAIL, if write data to registers through DMA fails.
  * 		- XASUFW_ECC_READ_DATA_FAIL,  if read data from registers through DMA fails.
+ * 		- XASUFW_ECC_SCP_RANDOM_NUM_UPDATE_FAIL, if random values updation fails.
  * 		- Also, this function can return termination error codes from 0x21U to 0x2CU from core,
  * 		please refer to xasufw_status.h.
  *
@@ -434,7 +460,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	XASUFW_MEASURE_PERF_START(StartTime, PerfTime);
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 
 	/** Validate input parameters. */
@@ -466,7 +492,6 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
 	/** Copy private key and hash to respective registers using DMA. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr,
 			(u64)(UINTPTR)(InstancePtr->BaseAddress + XECC_MEM_GEN_SIGN_PVT_KEY_OFFSET),
 			CurveLen, 0U);
@@ -493,8 +518,25 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 		goto END;
 	}
 
+#ifdef XASU_ECC_CM_ENABLE
+	/**
+	 * When SCP is enabled, the public key generation operation requires four random numbers.
+	 * Repeat the following steps four times to generate four random numbers.
+	 * - Generate a random number with a length equal to the curve length (CurveLen).
+	 * - Clear the most significant bit (MSB) of the buffer.
+	 * - Copy the buffer contents to the corresponding registers.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XEcc_GenNdUpdateRandNumToReg(InstancePtr, CurveLen,
+				XECC_RAND_NUM_COUNT_GEN_SIGN);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_SCP_RANDOM_NUM_UPDATE_FAIL);
+		goto END;
+	}
+#endif
+
 	/** Update configuration and start the operation. */
-	XFIH_CALL_GOTO(XEcc_ConfigNStartOperation, XFihVar, Status, END, InstancePtr,
+	XFIH_CALL_GOTO(XEcc_ConfigNStartOperation, XFihEccVar, Status, END, InstancePtr,
 			XECC_CTRL_SIGN_GENERATION_OP_CODE);
 
 	/** Copy generated signature from registers to destination address using DMA. */
@@ -559,7 +601,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 			 u64 PubKeyAddr, u64 HashAddr, u32 HashBufLen, u64 SignAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 
 	/** Validate input parameters. */
@@ -590,7 +632,6 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 			XECC_CFG_WR_RD_ENDIANNESS_MASK);
 
 	/** Copy signature, hash and public key to respective registers using DMA. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, SignAddr,
 			       (u64)(UINTPTR)(InstancePtr->BaseAddress + XECC_MEM_SIGN_R_OFFSET),
 			       CurveLen, 0U);
@@ -636,7 +677,7 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	}
 
 	/** Update configuration and start the operation. */
-	XFIH_CALL(XEcc_ConfigNStartOperation, XFihVar, Status, InstancePtr,
+	XFIH_CALL(XEcc_ConfigNStartOperation, XFihEccVar, Status, InstancePtr,
 			XECC_CTRL_SIGN_VERIFICATION_OP_CODE);
 
 END:
@@ -653,6 +694,7 @@ END:
 /**
  * @brief	This function performs ECC pair wise consistency test for ECC core
  *
+ * @param	InstancePtr	Pointer to the ECC instance.
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	CurveType	ECC Curve type.
  * @param	CurveLen	Length of the curve in bytes.
@@ -672,7 +714,7 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	u64 PrivKeyAddr, u64 PubKeyAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 Signature[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 Signature[XASU_ECC_P384_SIZE_IN_BYTES + XASU_ECC_P384_SIZE_IN_BYTES];
 
 	if ((DmaPtr == NULL) || (PrivKeyAddr == 0U) || (PubKeyAddr == 0U)) {
 		Status = XASUFW_RSA_ECC_INVALID_PARAM;
@@ -697,11 +739,74 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 
 END_CLR:
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
-					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES)));
+					XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES)));
 
 END:
 	return Status;
 }
+
+#ifdef XASU_ECC_CM_ENABLE
+/*************************************************************************************************/
+/**
+ * @brief	This function generates random numbers of length equal to CurveLen using the TRNG
+ * 		and updates the generated values to the corresponding registers,
+ * 		repeating the process Count times.
+ *
+ * @param	InstancePtr	Pointer to the ECC instance.
+ * @param	CurveLen	Length of the curve in bytes.
+ * @param	Count		Number of random numbers to be updated.
+ * 				Count = 2: In case of generate public key operation.
+ * 				Count = 4: In case of generate signature operation.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if generation and updation is successful.
+ * 	- XASUFW_ECC_SCP_RANDOM_NUM_GEN_FAIL, if random number generated is failed.
+ * 	- XASUFW_ECC_WRITE_DATA_FAIL, if write data to registers is failed.
+ * 	- XASUFW_ECC_SCP_RANDOM_NUM_COUNT_FAIL, if buffer clear is failed.
+ *
+ *************************************************************************************************/
+static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Count)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u8 ScpRandom[XASU_ECC_P384_SIZE_IN_BYTES];
+	u32 RegOffset = XECC_MEM_SCP_RAND_1_OFFSET;
+	u32 Index;
+
+	/** Perform the following steps Count times: */
+	for (Index = 0U; Index < Count; Index++) {
+		/** - Generate the random number using TRNG of length equal to CurveLen. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_TrngGetRandomNumbers(ScpRandom, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_ECC_SCP_RANDOM_NUM_GEN_FAIL;
+			goto END;
+		}
+		/** - Clear the Most Significant Bit(MSB). */
+		ScpRandom[XECC_SCP_RANDOM_1_MSB_BYTE_OFFSET] &= XECC_SCP_RANDOM_MSB_BIT_SET_MASK;
+
+		/** - Copy the buffer contents to the corresponding registers.  */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy((u8*)(InstancePtr->BaseAddress + RegOffset), CurveLen, ScpRandom,
+					CurveLen, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_ECC_WRITE_DATA_FAIL;
+			goto END;
+		}
+		RegOffset += XECC_RAND_NUM_REG_OFFSET;
+	}
+
+	if (Index != Count) {
+		Status = XASUFW_ECC_SCP_RANDOM_NUM_COUNT_FAIL;
+	}
+
+END:
+	/** Clear the local random buffer. */
+	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)ScpRandom,
+					XASU_ECC_P384_SIZE_IN_BYTES));
+
+	return Status;
+}
+#endif
 
 /*************************************************************************************************/
 /**
@@ -780,6 +885,7 @@ static XEcc_Config *XEcc_LookupConfig(u32 DeviceId)
  * 		- XASUFW_SUCCESS, if operation is successful.
  * 		- XASUFW_ECC_WAIT_FOR_DONE_TIMEOUT, if ECC operation DONE interrupt is not generated
  *        within given timeout.
+ * 		- XASUFW_ECC_SCP_DISABLE_FAILED, if SCP disable failed.
  * 		- Also, this function can return termination error codes from 0x21U to 0x2CU from core,
  * 		please refer to xasufw_status.h.
  *
@@ -798,10 +904,18 @@ static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode)
 			XECC_CTRL_CURVE_SHIFT);
 	CtrlRegValue |= (XECC_CTRL_OPCODE_MASK & (OpCode << XECC_CTRL_OPCODE_SHIFT)) |
 			XECC_CTRL_START_MASK;
+
 #ifdef XASU_ECC_CM_ENABLE
-	CtrlRegValue |= XECC_SUPPRESS_SCP_SCP2_MASK;
-#endif
 	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_CTRL_OFFSET, CtrlRegValue);
+#else
+	CtrlRegValue |= XECC_SUPPRESS_SCP_SCP2_MASK;
+	XAsufw_WriteReg(InstancePtr->BaseAddress + XECC_CTRL_OFFSET, CtrlRegValue);
+	if ((XAsufw_ReadReg(InstancePtr->BaseAddress + XECC_STATUS_OFFSET) &
+	     XECC_STATUS_SCP_ENABLED_MASK) == XECC_STATUS_SCP_ENABLED_MASK) {
+		Status = XASUFW_ECC_SCP_DISABLE_FAILED;
+		goto END;
+	}
+#endif
 
 	/** Wait for ECC operation to complete. */
 	Status = XEcc_WaitForDone(InstancePtr);

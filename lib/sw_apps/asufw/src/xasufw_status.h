@@ -404,6 +404,13 @@ enum {
 	XASUFW_KEYWRAP_CHANGE_ENDIANNESS_ERROR, /**< 0x117U - Error when change endianness in key
 							wrap fails */
 	XASUFW_KEYWRAP_LOOP_INDEX_CMP_ERROR, /**< 0x118U - Error when index of loop comparison failure */
+	XASUFW_ECC_SCP_DISABLE_FAILED, /**< 0x119U - Error when SCP is not disabled for ECC */
+	XASUFW_ECC_SCP_RANDOM_NUM_GEN_FAIL, /**< 0x11AU - Error when SCP random number generation
+						is failed */
+	XASUFW_ECC_SCP_RANDOM_NUM_UPDATE_FAIL, /**< 0x11BU - Error when SCP random number update
+						is failed */
+	XASUFW_ECC_SCP_RANDOM_NUM_COUNT_FAIL, /**< 0x11CU - Error when SCP random number generation
+						count is not matched with the input count */
 
 	XASUFW_AES_TAG_MATCHED = 0x3FD, /**< 0x3FDU - Successfully verified AES tag */
 	XASUFW_AES_TAG_READ = 0x3FE, /**< 0x3FEU - Successfully read AES tag */
