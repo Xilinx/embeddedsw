@@ -19,6 +19,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   kpt  07/30/2024 Initial release
+* 3.5   hj   04/02/2025 Remove unused PrgmAesWrlk variable
 *
 * </pre>
 *
@@ -234,7 +235,6 @@ typedef struct {
 	u8 PrgmPpk2Invld; /**< Program PPK2 invalid */
 	u8 PrgmExportCtrl; /**< Program export control */
 	u8 PrgmAesRdlk; /**< Program AES read lock */
-	u8 PrgmAesWrlk; /**< Program AES write lock */
 	u8 PrgmPpk0lck; /**< Program PPK 0 lock */
 	u8 PrgmPpk1lck; /**< Program PPK 1 lock */
 	u8 PrgmPpk2lck; /**< Program PPK 2 lock */
