@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   kpt  07/30/2024 Initial release
 * 3.5   hj   04/02/2025 Remove unused PrgmAesWrlk variable
+*       hj   04/10/2025 Rename PPK hash size macros
 *
 * </pre>
 *
@@ -49,7 +50,7 @@ extern "C" {
 #define XNVM_EFUSE_WORD_LEN			(4U) /**< Word length */
 #define XNVM_EFUSE_TOTAL_NUM_OF_ROWS		(64U) /**< Number of rows */
 #define XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS	(8U) /**< AES key size in words */
-#define XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES	(48U) /**< PPK hash size in bytes */
+#define XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES	(48U) /**< PPK hash size in bytes for DL9 */
 #define XNVM_EFUSE_PPK_HASH_SIZE_IN_WORDS	(12U) /**< PPK hash size in words */
 #define XNVM_EFUSE_AES_IV_SIZE_IN_BYTES		(12U) /**< AES IV size in bytes */
 #define XNVM_EFUSE_AES_IV_SIZE_IN_WORDS		(3U) /**< AES IV size in words */
@@ -92,7 +93,7 @@ extern "C" {
 #define XNVM_EFUSE_DEC_ONLY_START_COL		(8U) /**< Decrypt only start column */
 #define XNVM_EFUSE_DEC_ONLY_END_COL		(15U) /**< Decrypt only end column */
 #define XNVM_EFUSE_DEC_ONLY_NUM_OF_ROWS		(2U) /**< Decrypt only number of rows */
-#define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES	(32U) /**< Default PPK hash size in bytes */
+#define XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES	(32U) /**< PPK hash size in bytes for DL3*/
 #define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS	(8U) /**< Default PPK hash size in words */
 #define XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES	(3U) /**< Number of revoke id efuses */
 #define XNVM_EFUSE_AES_IV_NUM_OF_ROWS		(12U) /**< AES IV number of rows */
@@ -299,9 +300,9 @@ typedef struct {
 
 typedef struct {
 	u32 ActaulPpkHashSize; /**< PPK hash size to be programmed it can be either 256/384 bit */
-	u8 Ppk0Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]; /**< PPK0 hash value to be programmed */
-	u8 Ppk1Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]; /**< PPK1 hash value to be programmed */
-	u8 Ppk2Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]; /**< PPK2 hash value to be programmed */
+	u8 Ppk0Hash[XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES]; /**< PPK0 hash value to be programmed */
+	u8 Ppk1Hash[XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES]; /**< PPK1 hash value to be programmed */
+	u8 Ppk2Hash[XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES]; /**< PPK2 hash value to be programmed */
 	u8 PrgmPpk0Hash; /**< Program PPK0 hash */
 	u8 PrgmPpk1Hash; /**< Program PPK1 hash */
 	u8 PrgmPpk2Hash; /**< Program PPK2 hash */
