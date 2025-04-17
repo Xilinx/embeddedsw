@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,9 @@
 *                      CR#1088640.
 * 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
 * 2.15  ml   02/27/23 Add U to Numericals to fix misra-c violations.
+* 2.19  ml   04/15/25 Fixed multiple returns in XIOModule_Intc_SelfTest,
+*                     XIOModule_Timer_SelfTest and XIOModule_SelfTest
+*                     to comply with MISRA-C R15.5
 * </pre>
 *
 ******************************************************************************/
@@ -78,6 +81,7 @@ int XIOModule_Intc_SelfTest(XIOModule * InstancePtr)
 {
 	u32 CurrentISR;
 	u32 Temp;
+	XStatus Status = XST_SUCCESS;
 
 	/*
 	 * Assert the arguments
@@ -104,10 +108,9 @@ int XIOModule_Intc_SelfTest(XIOModule * InstancePtr)
 	 * occur at any time.
 	 */
 	if ((CurrentISR & 0xffffU) != 0U) {
-		return XST_INTC_FAIL_SELFTEST;
+		Status = XST_INTC_FAIL_SELFTEST;
 	}
-
-	return XST_SUCCESS;
+	return Status;
 }
 
 
@@ -140,6 +143,7 @@ s32 XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 TimerNumber)
 	u32 TimerCount1 = 0;
 	u32 TimerCount2 = 0;
 	u16 Count = 0;
+	XStatus Status = XST_FAILURE;
 
 	/*
 	 * Assert the arguments
@@ -186,11 +190,14 @@ s32 XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 TimerNumber)
 	XIOModule_Timer_Stop(InstancePtr, TimerNumber);
 
 	if (TimerCount1 == TimerCount2) {
-		return XST_FAILURE;
+		goto END;
 	}
 	else {
-		return XST_SUCCESS;
+		Status = XST_SUCCESS;
+		goto END;
 	}
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -213,7 +220,7 @@ s32 XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 TimerNumber)
 ******************************************************************************/
 s32 XIOModule_SelfTest(XIOModule * InstancePtr)
 {
-	XStatus Status;
+	XStatus Status = XST_FAILURE;
 	u8 Timer;
 	XIOModule_Config *CfgPtr;
 
@@ -229,7 +236,7 @@ s32 XIOModule_SelfTest(XIOModule * InstancePtr)
 	Status = XIOModule_Intc_SelfTest(InstancePtr);
 	if (Status != XST_SUCCESS)
 	{
-		return XST_FAILURE;
+		goto END;
 	}
 
 	/*
@@ -249,11 +256,12 @@ s32 XIOModule_SelfTest(XIOModule * InstancePtr)
 			Status = XIOModule_Timer_SelfTest(InstancePtr, Timer);
 			if (Status != XST_SUCCESS)
 			{
-				return XST_FAILURE;
+				goto END;
 			}
 		}
 	}
-
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+END:
+	return Status;
 }
 /** @} */

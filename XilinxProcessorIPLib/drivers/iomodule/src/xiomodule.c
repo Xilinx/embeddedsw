@@ -37,8 +37,9 @@
 * 2.16  ml   09/27/23 fixed compilation warnings for cpputest.
 *       ma   05/03/24 Added XIOModule_HandlerTable_Initialize function to
 *                       be called after In-place PLM update
-* 2.19  ml   03/24/25 Fixed multiple returns in XIOModule_Initialize to comply
-*                     with MISRA-C R15.5
+* 2.19  ml   03/24/25 Fixed multiple returns in XIOModule_Initialize,
+*                     XIOModule_Timer_Initialize and XIOModule_IsExpired
+*                     to comply with MISRA-C R15.5
 * </pre>
 *
 ******************************************************************************/
@@ -895,6 +896,7 @@ s32 XIOModule_Timer_Initialize(XIOModule *InstancePtr, u32 BaseAddress)
 	u32 TimerNumber;
 	u32 TimerOffset;
 	u32 StatusReg;
+	XStatus Status = XST_SUCCESS;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -909,7 +911,8 @@ s32 XIOModule_Timer_Initialize(XIOModule *InstancePtr, u32 BaseAddress)
 #endif
 
 	if (IOModuleConfigPtr == (XIOModule_Config *) NULL) {
-		return XST_DEVICE_NOT_FOUND;
+		Status = XST_DEVICE_NOT_FOUND;
+		goto END;
 	}
 
 	/*
@@ -967,8 +970,8 @@ s32 XIOModule_Timer_Initialize(XIOModule *InstancePtr, u32 BaseAddress)
 	 * Indicate the instance is ready to use, successfully initialized
 	 */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
-
-	return XST_SUCCESS;
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1229,6 +1232,7 @@ s32 XIOModule_IsExpired(XIOModule *InstancePtr, u8 TimerNumber)
 {
 	u32 CounterReg;
 	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
+	XStatus Status = XST_FAILURE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(TimerNumber < XTC_DEVICE_TIMER_COUNT);
@@ -1239,18 +1243,21 @@ s32 XIOModule_IsExpired(XIOModule *InstancePtr, u8 TimerNumber)
 	 * Check if timer is expired
 	 */
 	if ((bool)(InstancePtr->CurrentTCSR[TimerNumber] & XTC_CSR_AUTO_RELOAD_MASK)) {
-		return 1; /* Always expired for reload */
+		goto END; /* Always expired for reload */
 	} else {
 		CounterReg = XIOModule_ReadReg(InstancePtr->BaseAddress,
 					       TimerOffset + XTC_TCR_OFFSET);
 
 		if ((CounterReg & InstancePtr->CfgPtr->PitMask[TimerNumber]) ==
 		    InstancePtr->CfgPtr->PitMask[TimerNumber]) {
-			return 1;
+			goto END;
 		} else {
-			return 0;
+			Status = XST_SUCCESS;
+			goto END;
 		}
 	}
+END:
+	return Status;
 }
 
 /****************************************************************************/
