@@ -23,6 +23,7 @@
 *       hj    04/08/25 Rename XNVM_GET_BIT_VAL to XNVM_GET_8_BIT_VAL
 *       hj    04/10/25 Rename PPK hash size macros
 *       hj    04/10/25 Remove security control bits not exposed to user
+*       hj    04/10/25 Fix PPK hash size end index in XNvm_EfuseValidatePpkWriteReq
 *
 * </pre>
 *
@@ -273,7 +274,6 @@ static int XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *PpkHash)
 {
 	int Status = XST_FAILURE;
 	u32 RemPpkHashLen = 0U;
-	u32 Ppk1EndOffset = 0U;
 
 	if ((PpkHash->ActaulPpkHashSize != XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES) &&
 	    (PpkHash->ActaulPpkHashSize != XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES)) {
@@ -290,7 +290,7 @@ static int XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *PpkHash)
 	RemPpkHashLen = (PpkHash->ActaulPpkHashSize - XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES);
 	if (PpkHash->PrgmPpk0Hash == TRUE) {
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK0_START_OFFSET,
-					      (XNVM_EFUSE_PPK0_END_OFFSET + RemPpkHashLen));
+					      (XNVM_EFUSE_PPK0_START_OFFSET + PpkHash->ActaulPpkHashSize));
 		if (Status != XST_SUCCESS) {
 			Status = (int)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD;
 			goto END;
@@ -298,9 +298,9 @@ static int XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *PpkHash)
 	}
 
 	if (PpkHash->PrgmPpk1Hash == TRUE) {
-		Ppk1EndOffset = RemPpkHashLen != 0U ? RemPpkHashLen : 0U;
 		Status = XNvm_EfuseCheckZeros((XNVM_EFUSE_PPK1_START_OFFSET + RemPpkHashLen),
-					      (XNVM_EFUSE_PPK1_END_OFFSET + Ppk1EndOffset));
+					      (XNVM_EFUSE_PPK1_START_OFFSET + RemPpkHashLen +
+					       PpkHash->ActaulPpkHashSize));
 		if (Status != XST_SUCCESS) {
 			Status = (int)XNVM_EFUSE_ERR_PPK1_HASH_ALREADY_PRGMD;
 			goto END;
@@ -308,7 +308,8 @@ static int XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *PpkHash)
 	}
 
 	if (PpkHash->PrgmPpk2Hash == TRUE) {
-		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK2_START_OFFSET, XNVM_EFUSE_PPK2_END_OFFSET);
+		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK2_START_OFFSET, XNVM_EFUSE_PPK2_START_OFFSET +
+					      PpkHash->ActaulPpkHashSize);
 		if (Status != XST_SUCCESS) {
 			Status = (int)XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD;
 		}
