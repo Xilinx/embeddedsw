@@ -117,15 +117,6 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 	XStatus Status = XST_FAILURE;
 	u32 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	/** HACK!! FIXME: Linux driver can never request UART0 or UART1
-	 * after releasing them; therefore, we have do this hack:
-	 * check if UART 0 and UART 1 then skip shutting down */
-	if ((PM_DEV_UART_0 == Device->Node.Id) ||
-	    (PM_DEV_UART_1 == Device->Node.Id)) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
 	PmInfo("Shutting down the device %x\n", Device->Node.Id);
 	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Device->Node.Id)) &&
 	((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id))) {
