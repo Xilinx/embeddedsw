@@ -21,6 +21,7 @@
 * 3.5   hj    04/01/25 Remove flag checks from XNvm_EfusePrgmSecCtrlBits
 *       hj    04/01/25 Update comment of XNvm_EfuseReadSecCtrlBits
 *       hj    04/08/25 Rename XNVM_GET_BIT_VAL to XNVM_GET_8_BIT_VAL
+*       hj    04/10/25 Rename PPK hash size macros
 *
 * </pre>
 *
@@ -273,19 +274,19 @@ static int XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *PpkHash)
 	u32 RemPpkHashLen = 0U;
 	u32 Ppk1EndOffset = 0U;
 
-	if ((PpkHash->ActaulPpkHashSize != XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES) &&
-	    (PpkHash->ActaulPpkHashSize != XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES)) {
+	if ((PpkHash->ActaulPpkHashSize != XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES) &&
+	    (PpkHash->ActaulPpkHashSize != XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((PpkHash->PrgmPpk2Hash == TRUE)
-	    && (PpkHash->ActaulPpkHashSize != XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES)) {
+	    && (PpkHash->ActaulPpkHashSize != XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	RemPpkHashLen = (PpkHash->ActaulPpkHashSize - XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES);
+	RemPpkHashLen = (PpkHash->ActaulPpkHashSize - XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES);
 	if (PpkHash->PrgmPpk0Hash == TRUE) {
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK0_START_OFFSET,
 					      (XNVM_EFUSE_PPK0_END_OFFSET + RemPpkHashLen));
@@ -546,8 +547,8 @@ static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash)
 	u32 RemainingPpkLen = 0U;
 	u32 Ppk1NoofRows = 0U;
 
-	RemainingPpkLen = (PpkHash->ActaulPpkHashSize - XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES);
-	Ppk1NoofRows = RemainingPpkLen != 0U ? RemainingPpkLen : XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES;
+	RemainingPpkLen = (PpkHash->ActaulPpkHashSize - XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES);
+	Ppk1NoofRows = RemainingPpkLen != 0U ? RemainingPpkLen : XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES;
 	if (PpkHash->PrgmPpk0Hash ==  TRUE) {
 		PpkPrgmInfo.StartRow = XNVM_EFUSE_PPK0_HASH_START_ROW;
 		PpkPrgmInfo.NumOfRows = XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS;
@@ -569,7 +570,7 @@ static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash)
 
 			Status = XST_FAILURE;
 			Status = XNvm_EfusePgmAndVerifyData(&PpkPrgmInfo,
-							    (const u32 *)((UINTPTR)PpkHash->Ppk0Hash + XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES));
+							    (const u32 *)((UINTPTR)PpkHash->Ppk0Hash + XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES));
 			if (Status != XST_SUCCESS) {
 				Status = (Status | XNVM_EFUSE_ERR_WRITE_PPK0_HASH);
 				goto END;
@@ -1732,13 +1733,13 @@ int XNvm_EfuseReadPpkHash(XNvm_EfusePpkType PpkType, u32 *PpkData, u32 PpkSize)
 		goto END;
 	}
 
-	if ((PpkSize != XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_BYTES)
-	    && (PpkSize != XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES)) {
+	if ((PpkSize != XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES)
+	    && (PpkSize != XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((PpkSize == XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES) && (PpkType == XNVM_EFUSE_PPK2)) {
+	if ((PpkSize == XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES) && (PpkType == XNVM_EFUSE_PPK2)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
