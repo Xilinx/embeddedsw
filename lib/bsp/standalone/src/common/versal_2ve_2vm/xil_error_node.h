@@ -8,7 +8,8 @@
 *
 * @file xil_error_node.h
 *
-* This is the file which contains node IDs information for versal aiepg2 error events.
+* This is the file which contains node IDs information for Versal 2VE and 2VM
+* devices error events.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -16,8 +17,8 @@
 * Ver   Who 	 Date        Changes
 * ----- -------- -------- -----------------------------------------------------
 * 1.0   sk       02/20/2025 Initial release
-*       sk       02/21/2025 Added nodes for versal_aiepg2 EAM register
-*                           in LPD SLCR
+*       sk       02/21/2025 Added nodes for Versal 2VE and 2VM devices EAM
+*                           register in LPD SLCR
 *       sk       04/07/2025 Updated error id encoding for UFSFE
 *
 * </pre>
@@ -33,7 +34,7 @@ extern "C" {
 #endif
 
 /************************** Constant Definitions *****************************/
-/**@name Versal Gen2 Event Node IDs
+/**@name Versal_2VE_2VM Event Node IDs
  * @defgroup xileventnodes Event Node IDs
  * @ingroup xilnodeids
  * @{
@@ -56,7 +57,7 @@ extern "C" {
  * @}
  */
 
-/**@name Versal Gen2 Error event Mask
+/**@name Versal_2VE_2VM Error event Mask
  * @defgroup xilerroreventmask Error Event Mask
  * @ingroup xilnodeids
  * @{

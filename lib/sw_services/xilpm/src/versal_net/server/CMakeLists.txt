@@ -44,7 +44,7 @@ collect (PROJECT_LIB_HEADERS xpm_reset_plat.h)
 collect (PROJECT_LIB_SOURCES xpm_reset_plat.c)
 collect (PROJECT_LIB_HEADERS xpm_subsystem_plat.h)
 
-if(NOT "${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2")
+if(NOT "${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
 collect (PROJECT_LIB_SOURCES xpm_api_plat.c)
 collect (PROJECT_LIB_HEADERS xpm_api_plat.h)
 collect (PROJECT_LIB_SOURCES xpm_apucore_plat.c)

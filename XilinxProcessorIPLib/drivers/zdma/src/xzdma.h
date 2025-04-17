@@ -347,7 +347,7 @@ typedef struct {
 	XZDma_DscrConfig DscrConfig;	/**< Current configurations */
 	XZDmaState ChannelState;	 /**< ZDMA channel is busy */
 
-	u32 irq_offset;			/**< IRQ offset for Versal Gen 2 */
+	u32 irq_offset;			/**< IRQ offset for Versal_2VE_2VM */
 
 } XZDma;
 

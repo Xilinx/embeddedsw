@@ -85,7 +85,7 @@ extern "C" {
 
 /*@}*/
 
-/** @name IRQ Register offset for Versal Gen 2
+/** @name IRQ Register offset for Versal 2VE and 2VM devices
  * @{
  */
 #define XZDMA_IRQ_REG_OFFSET			(0x308U)

@@ -24,7 +24,7 @@
 *  1.1	adk      08/08/22 Added support for versal net.
 *  	adk      08/08/22 Added doxygen tags.
 *  2.2  adk	 05/03/25 Update LPD_RST_TIMESTAMP and XIOU_SCNTRS_BASEADDR
-*  			  defines for VERSAL_AIEPG2 platform.
+*  			  defines for Versal 2VE and 2VM platforms.
  *</pre>
  *
  *@note
@@ -39,7 +39,7 @@
 #endif
 
 #if defined (ARMR52)
-#if defined (VERSAL_AIEPG2)
+#if defined (VERSAL_2VE_2VM)
 #define LPD_RST_TIMESTAMP  0xEB5E03A4U
 #define XIOU_SCNTRS_BASEADDR 0xEA470000U
 #else

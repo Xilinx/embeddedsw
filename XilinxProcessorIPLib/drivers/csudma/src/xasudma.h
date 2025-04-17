@@ -6,8 +6,9 @@
 /**
 *
 * The file is a wrapper that calls APIs declared in xscudma.h This wrapper is
-* added for Versal Gen2 as there is no CSU DMA in Versal Gen2 and hence the ASUFW
-* should have no reference to CSU DMA. This is a security requirement.
+* added for Versal_2VE_2VM devices as there is no CSU DMA in Versal_2VE_2VM
+* devices and hence the ASUFW should have no reference to CSU DMA. This is a
+* security requirement.
 *
 * The ASU_DMA is present inside ASU (Application Security Unit) module.
 * ASU_DMA allows the ASU to move data efficiently between the memory (128 bit
@@ -68,8 +69,8 @@
 * macros), range macros, structure typedefs that can be used to access the
 * Xilinx ASU_DMA core instance.
 *
-* The functionality wise ZU+ CSU_DMA and Versal Gen2 ASU_DMA are similar, so all
-* ZU+ code is reused by wrapping in this file
+* The functionality wise ZU+ CSU_DMA and Versal_2VE_2VM ASU_DMA are similar, so
+* all ZU+ code is reused by wrapping in this file
 *
 * MODIFICATION HISTORY:
 *
@@ -90,7 +91,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xcsudma.h"
-#if defined (VERSAL_AIEPG2)
+#if defined (VERSAL_2VE_2VM)
 
 /************************** Constant Definitions *****************************/
 /** Ranges of Size */
@@ -1004,7 +1005,7 @@ static INLINE void XAsuDma_ByteAlignedTransfer(XAsuDma *InstancePtr, XAsuDma_Cha
 
 /******************************************************************************/
 
-#endif /* VERSAL_AIEPG2 */
+#endif /* VERSAL_2VE_2VM */
 
 #ifdef __cplusplus
 }

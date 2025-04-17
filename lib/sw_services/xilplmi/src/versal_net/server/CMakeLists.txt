@@ -1,7 +1,7 @@
 # Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
-if(NOT "${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2")
+if(NOT "${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
 collect (PROJECT_LIB_HEADERS xplmi_err.h)
 collect (PROJECT_LIB_HEADERS xplmi_hw.h)
 collect (PROJECT_LIB_HEADERS xplmi_plat.h)
@@ -11,7 +11,7 @@ endif()
 collect (PROJECT_LIB_HEADERS xplmi_update.h)
 collect (PROJECT_LIB_HEADERS xplmi_wdt.h)
 
-if(NOT "${CMAKE_SUBMACHINE}" STREQUAL "VersalGen2")
+if(NOT "${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
 collect (PROJECT_LIB_SOURCES xplmi_err.c)
 collect (PROJECT_LIB_SOURCES xplmi_plat.c)
 endif()

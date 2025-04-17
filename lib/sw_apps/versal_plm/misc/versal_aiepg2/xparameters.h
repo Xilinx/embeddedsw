@@ -255,6 +255,7 @@ extern "C" {
 #endif
 
 #define VERSAL_AIEPG2
+#define VERSAL_2VE_2VM
 
 /* Definitions for sleep timer configuration */
 #define XSLEEP_TIMER_IS_DEFAULT_TIMER

@@ -44,9 +44,9 @@
 * 9.2    ng  08/20/24 Added SpartanUP device support
 * 9.2    mus 09/23/24 Add definitions related to cluster/core specific offsets
 *                     for RPU_PCIL_X_PWRDWN register. They are applicable for
-*                     cluster C, D and E in VersalGen2 SoC.
+*                     cluster C, D and E in Versal 2VE and 2VM devices.
 * 9.3    mus 01/07/25 Fix address of RPU_PCIL_C0_PWRDWN register.
-* 9.3    tnt 02/10/25 VersalGen2: replace all RPU_PCI_[XY]_PWRDWN
+* 9.3    tnt 02/10/25 versal_2ve_2vm: replace all RPU_PCI_[XY]_PWRDWN
                       with XPS_PSX_RPU_CLUSTER_XY_CORE_X_PWRDWN registers
 * </pre>
 *
@@ -133,7 +133,7 @@ extern "C" {
 #endif
 #endif
 
-#if defined (VERSAL_AIEPG2)
+#if defined (VERSAL_2VE_2VM)
 #define XPS_PSX_RPU_CLUSTER_A0_CORE_0_PWRDWN 0xEB588200U
 /*
  * Offset between XPS_PSX_RPU_CLUSTER_Xi_CORE_i registers of consecutive

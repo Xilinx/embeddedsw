@@ -60,7 +60,7 @@ examples:
       - Versal
       - ZynqMP
       - VersalNet
-      - VersalGen2
+      - Versal_2VE_2VM
     - dependency_files:
       - timer.c
       - timer.h

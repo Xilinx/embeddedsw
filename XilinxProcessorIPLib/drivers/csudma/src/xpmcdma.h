@@ -973,7 +973,7 @@ static INLINE s32 XPmcDma_SelfTest(XPmcDma *InstancePtr)
 	return XCsuDma_SelfTest(InstancePtr);
 }
 
-#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
+#if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
 /*****************************************************************************/
 /**
 *

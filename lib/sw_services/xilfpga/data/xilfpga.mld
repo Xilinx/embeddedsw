@@ -62,7 +62,7 @@
 # 6.4 Nava   01/23/23  Added psx processors in supported peripherals
 # 6.5 Nava   05/04/23  Added support for system device-tree flow.
 # 6.6  adk   10/19/23  Added changes for NON_YOCTO variable specific to SDT flow
-# 6.7  oh    07/24/24  Added Versal Gen2 specific processor in dependency list
+# 6.7  oh    07/24/24  Added Versal_2VE_2VM specific processor in dependency list
 #
 ##############################################################################
 

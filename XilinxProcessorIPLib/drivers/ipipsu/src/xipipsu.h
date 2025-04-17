@@ -44,7 +44,7 @@
  * 		     in system device-tree flow.
  * 2.14 sd 07/27/23  Update the target count.
  * 2.15 ht 01/11/24  Add PMC, PSM bitmasks macros for versal-net
- * 2.16 ma 09/10/24  Updated to support VERSAL_AIEPG2 platform
+ * 2.16 ma 09/10/24  Updated to support VERSAL_2VE_2VM platform
  * 2.17 ht 11/25/24  Update Max Message length to accommodate for CRC bytes
  *                   when IPI CRC is enabled
  *	jb 12/26/24 Fixed misrac warnings
@@ -96,7 +96,7 @@ extern "C" {
  * would be generating the defines using lopper.
  */
 #ifdef	SDT
-#if defined (VERSAL_AIEPG2)
+#if defined (VERSAL_2VE_2VM)
 #define XPAR_XIPIPS_TARGET_PMC_0_CH0_MASK			0x00000002U
 #define XPAR_XIPIPS_TARGET_PMC_0_CH1_MASK			0x00000100U
 #define XPAR_XIPIPS_TARGET_ASU_0_CH0_MASK			0x00000001U
