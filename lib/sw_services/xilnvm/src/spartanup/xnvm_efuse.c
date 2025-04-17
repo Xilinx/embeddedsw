@@ -20,6 +20,7 @@
 * 1.1   mb    04/11/25 Passed args to XNvm_EfuseCheckAesKeyCrc in correct order
 * 3.5   hj    04/01/25 Remove flag checks from XNvm_EfusePrgmSecCtrlBits
 *       hj    04/01/25 Update comment of XNvm_EfuseReadSecCtrlBits
+*       hj    04/08/25 Rename XNVM_GET_BIT_VAL to XNVM_GET_8_BIT_VAL
 *
 * </pre>
 *
@@ -37,7 +38,7 @@
  */
 #define XNVM_POLL_TIMEOUT				(0x400U) /**< Poll timeout during CRC verification  */
 
-#define XNVM_GET_BIT_VAL(Val, bits, shift)	((Val >> shift) & (unsigned char)(~(0xFFU << bits)))
+#define XNVM_GET_8_BIT_VAL(Val, bits, shift)	((Val >> shift) & (unsigned char)(~(0xFFU << bits)))
 		/**< API to extract bit mask */
 
 /**************************** Type Definitions ******************************/
@@ -1659,49 +1660,49 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 		goto END;
 	}
 
-	SecCtrlBits->SCAN_CLEAR_EN = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 0U);
-	SecCtrlBits->AES_DIS = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 1U);
-	SecCtrlBits->AES_CM_DIS = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 2U);
-	SecCtrlBits->MCAP_DIS = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 3U);
-	SecCtrlBits->ICAP_DIS = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 4U);
-	SecCtrlBits->EXPORT_CONTROL =  XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 5U);
-	SecCtrlBits->RMA_DISABLE_0 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 6U);
-	SecCtrlBits->RMA_ENABLE_0 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 7U);
-	SecCtrlBits->JTAG_DIS = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 8U);
-	SecCtrlBits->PUF_TEST2_DIS = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 9U);
-	SecCtrlBits->HASH_PUF_OR_KEY = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 10U);
-	SecCtrlBits->PPK2_WR_LK = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 11U);
-	SecCtrlBits->PPK2_INVLD0 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 12U);
-	SecCtrlBits->PPK1_WR_LK = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 13U);
-	SecCtrlBits->PPK1_INVLD0 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 14U);
-	SecCtrlBits->PPK0_WR_LK = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 15U);
-	SecCtrlBits->PPK0_INVLD0 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 16U);
-	SecCtrlBits->AES_RD_WR_LK_0 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 17U);
-	SecCtrlBits->AES_RD_WR_LK_1 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 18U);
-	SecCtrlBits->MDM_DISABLE_0 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 19U);
-	SecCtrlBits->AXI_DISABLE = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 20U);
-	SecCtrlBits->SHA_DISABLE = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 21U);
-	SecCtrlBits->DNA_WR_LK = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 22U);
-	SecCtrlBits->SVD_WR_LK = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 23U);
-	SecCtrlBits->MEM_CLEAR_EN = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 24U);
-	SecCtrlBits->OSC_TRIMMED = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 25U);
-	SecCtrlBits->JTAG_ERR_OUT_DIS = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 26U);
-	SecCtrlBits->USER_WR_LK = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 27U);
-	SecCtrlBits->MDM_DISABLE_1 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 28U);
-	SecCtrlBits->PPK2_INVLD1 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 29U);
-	SecCtrlBits->PPK1_INVLD1 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 30U);
-	SecCtrlBits->PPK0_INVLD1 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 31U);
+	SecCtrlBits->SCAN_CLEAR_EN = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 0U);
+	SecCtrlBits->AES_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 1U);
+	SecCtrlBits->AES_CM_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 2U);
+	SecCtrlBits->MCAP_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 3U);
+	SecCtrlBits->ICAP_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 4U);
+	SecCtrlBits->EXPORT_CONTROL =  XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 5U);
+	SecCtrlBits->RMA_DISABLE_0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 6U);
+	SecCtrlBits->RMA_ENABLE_0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 7U);
+	SecCtrlBits->JTAG_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 8U);
+	SecCtrlBits->PUF_TEST2_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 9U);
+	SecCtrlBits->HASH_PUF_OR_KEY = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 10U);
+	SecCtrlBits->PPK2_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 11U);
+	SecCtrlBits->PPK2_INVLD0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 12U);
+	SecCtrlBits->PPK1_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 13U);
+	SecCtrlBits->PPK1_INVLD0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 14U);
+	SecCtrlBits->PPK0_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 15U);
+	SecCtrlBits->PPK0_INVLD0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 16U);
+	SecCtrlBits->AES_RD_WR_LK_0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 17U);
+	SecCtrlBits->AES_RD_WR_LK_1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 18U);
+	SecCtrlBits->MDM_DISABLE_0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 19U);
+	SecCtrlBits->AXI_DISABLE = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 20U);
+	SecCtrlBits->SHA_DISABLE = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 21U);
+	SecCtrlBits->DNA_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 22U);
+	SecCtrlBits->SVD_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 23U);
+	SecCtrlBits->MEM_CLEAR_EN = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 24U);
+	SecCtrlBits->OSC_TRIMMED = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 25U);
+	SecCtrlBits->JTAG_ERR_OUT_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 26U);
+	SecCtrlBits->USER_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 27U);
+	SecCtrlBits->MDM_DISABLE_1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 28U);
+	SecCtrlBits->PPK2_INVLD1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 29U);
+	SecCtrlBits->PPK1_INVLD1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 30U);
+	SecCtrlBits->PPK0_INVLD1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 31U);
 
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_CRC_EN_OFFSET, &SecCtrlVal);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	SecCtrlBits->EFUSE_CRC_EN = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 0U);
-	SecCtrlBits->DFT_DIS = XNVM_GET_BIT_VAL(SecCtrlVal, 2U, 1U);
-	SecCtrlBits->LCKDOWN = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 3U);
-	SecCtrlBits->RMA_DISABLE_1 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 4U);
-	SecCtrlBits->RMA_ENABLE_1 = XNVM_GET_BIT_VAL(SecCtrlVal, 1U, 5U);
+	SecCtrlBits->EFUSE_CRC_EN = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 0U);
+	SecCtrlBits->DFT_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 2U, 1U);
+	SecCtrlBits->LCKDOWN = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 3U);
+	SecCtrlBits->RMA_DISABLE_1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 4U);
+	SecCtrlBits->RMA_ENABLE_1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 5U);
 
 END:
 	return Status;
