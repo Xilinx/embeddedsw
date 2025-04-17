@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,7 @@
 * 4.6   ht   07/07/23 Added support for system device-tree flow.
 * 4.8   ht   08/08/24 Optimize wait time with timeout reduction and usleep()
 *                     inclusion.
+* 4.9   ht   04/17/25 Update Canonical definition to be inline with xsct flow.
 *</pre>
 *****************************************************************************/
 
@@ -93,7 +94,7 @@
 #ifndef SDT
 #define MBOX_DEVICE_ID		XPAR_MBOX_0_DEVICE_ID
 #else
-#define XMBOX_BASEADDRESS XPAR_XMBOX_0_BASEADDR
+#define XMBOX_BASEADDRESS XPAR_MBOX_0_BASEADDR
 #endif
 
 /**************************** Type Definitions *******************************/
