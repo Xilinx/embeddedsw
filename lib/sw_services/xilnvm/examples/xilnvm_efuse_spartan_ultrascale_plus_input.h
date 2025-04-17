@@ -153,6 +153,7 @@
 * Ver	Who	Date	Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   kal    03/02/20 First release to add different configurable options
+* 3.5   hj     04/02/2025 Remove unused PrgmAesWrlk variable
 *
 * </pre>
 *
@@ -183,7 +184,6 @@ extern "C" {
 #define XNVM_EFUSE_XNVM_EFUSE_AES_CM_DIS        FALSE
 #define XNVM_EFUSE_XNVM_EFUSE_AES_DIS           FALSE
 #define XNVM_EFUSE_XNVM_AES_RD_LK               FALSE
-#define XNVM_EFUSE_XNVM_AES_WR_LK               FALSE
 #define XNVM_EFUSE_XNVM_PPK0_LK                 FALSE
 #define XNVM_EFUSE_XNVM_PPK1_LK                 FALSE
 #define XNVM_EFUSE_XNVM_PPK2_LK                 FALSE
