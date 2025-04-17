@@ -13,8 +13,8 @@
 *
 * This section contains information about the driver structures, user
 * API prototypes and all the defines required for the user to interact
-* with the driver. ufspsxc driver supports the UFS controller in Versal Gen 2
-* SoC platform.
+* with the driver. ufspsxc driver supports the UFS controller in Versal 2VE and
+* 2VM SoC platforms.
 *
 * <b>Initialization & Configuration</b>
 *

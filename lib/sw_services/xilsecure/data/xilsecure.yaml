@@ -55,7 +55,7 @@ examples:
     - supported_platforms:
       - Versal
       - VersalNet
-      - VersalGen2
+      - Versal_2VE_2VM
   xilsecure_versal_aes_server_example.c:
     - supported_platforms:
       - Versal
@@ -64,23 +64,23 @@ examples:
     - supported_platforms:
       - Versal
       - VersalNet
-      - VersalGen2
+      - Versal_2VE_2VM
   xilsecure_versal_ecdsa_server_example.c:
     - supported_platforms:
       - Versal
   xilsecure_versal_net_trng_client_example.c:
     - supported_platforms:
       - VersalNet
-      - VersalGen2
+      - Versal_2VE_2VM
   xilsecure_versal_net_ecdh_client_example.c:
     - supported_platforms:
       - VersalNet
-      - VersalGen2
+      - Versal_2VE_2VM
   xilsecure_versal_rsa_client_example.c:
     - supported_platforms:
       - Versal
       - VersalNet
-      - VersalGen2
+      - Versal_2VE_2VM
   xilsecure_versal_net_rsa_client_example.c:
     - supported_platforms:
       - VersalNet
@@ -99,7 +99,7 @@ examples:
       - spartanuplus
   xilsecure_versal_aiepg2_sha_client_example.c:
     - supported_platforms:
-      - VersalGen2
+      - Versal_2VE_2VM
   xilsecure_versal_net_keyunwrap_client_example.c:
     - supported_platforms:
       - VersalNet

@@ -13,7 +13,7 @@ type: library
 
 version: 5.0
 
-description: Platform Management API Library for and VersalGen2.
+description: Platform Management API Library for Versal_2VE_2VM.
 
 supported_processors:
   - pmc

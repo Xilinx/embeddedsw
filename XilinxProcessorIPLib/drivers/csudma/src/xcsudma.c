@@ -147,7 +147,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	u32 DataSize = 0U;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-#if !defined(VERSAL_NET) && !defined(VERSAL_AIEPG2)
+#if !defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM)
 	Xil_AssertVoid(((Addr) & (u64)(XCSUDMA_ADDR_LSB_MASK)) == (u64)0x00);
 #endif
 	Xil_AssertVoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
@@ -155,7 +155,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
+#if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
 	DataSize = Size * XCSUDMA_WORD_SIZE;
 #else
 	DataSize = Size;
@@ -260,7 +260,7 @@ void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
+#if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
 	DataSize = Size * XCSUDMA_WORD_SIZE;
 #else
 	DataSize = Size;
@@ -913,7 +913,7 @@ void XCsuDma_GetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 
 }
 
-#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
+#if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
 /*****************************************************************************/
 /**
 *

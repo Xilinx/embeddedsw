@@ -48,9 +48,10 @@
 * 9.0    mus 07/27/23 Updated XGetCoreId API to support A9, R5 and A53 processor.
 * 9.1    mus 06/28/24 Fix typo in XGetCoreId, due to this XGetCoreId
 *                     always returns 0 in case of A78 processor CR#1204077.
-* 9.2    mus 09/23/24 Fix XGetBootStatus for VersalGen2.
-* 9.2    tnt 02/10/25 Replace all RPU_PCI_[XY]_PWRDWN for VersalGen2
-                      with XPS_PSX_RPU_CLUSTER_XY_CORE_X_PWRDWN registers
+* 9.2    mus 09/23/24 Fix XGetBootStatus for Versal 2VE and 2VM devices.
+* 9.2    tnt 02/10/25 Replace all RPU_PCI_[XY]_PWRDWN for Versal 2VE and 2VM
+                      devices with XPS_PSX_RPU_CLUSTER_XY_CORE_X_PWRDWN
+                      registers.
 * </pre>
 *
 ******************************************************************************/
@@ -257,7 +258,7 @@ u8 XGetBootStatus(void)
 
 	return (Status & XPS_CORE_X_PWRDWN_EN_MASK);
 #else
-#if defined (VERSAL_AIEPG2)
+#if defined (VERSAL_2VE_2VM)
 	u8 ClusterId = XGetClusterId();
 
 	/*

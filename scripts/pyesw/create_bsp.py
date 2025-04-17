@@ -71,7 +71,7 @@ class Domain(Repo):
             elif 'family = "VersalNet";' in content:
                 return "VersalNet"
             elif 'family = "VersalGen2";' in content:
-                return "VersalGen2"
+                return "Versal_2VE_2VM"
             elif "cpus_a78" in content:
                 return "VersalNet"
             elif family_str:
@@ -268,11 +268,11 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                 'set( CMAKE_SYSTEM_PROCESSOR "cortexa53-32")',
             )
 
-        if self.family == "VersalGen2":
+        if self.family == "Versal_2VE_2VM":
             utils.replace_line(
                 toolchain_file_copy,
                 'CMAKE_SUBMACHINE "VersalNet',
-                f'set( CMAKE_SUBMACHINE "VersalGen2" CACHE STRING "cmake submachine" FORCE)',
+                f'set( CMAKE_SUBMACHINE "Versal_2VE_2VM" CACHE STRING "cmake submachine" FORCE)',
             )
 
         if self.family == "SpartanUP":

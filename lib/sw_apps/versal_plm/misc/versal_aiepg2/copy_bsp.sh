@@ -152,7 +152,7 @@ rm -f $BSP_DIR/libsrc/xilsecure/src/libxilsecure_*.a
 cp -r $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
 cp $STANDALONE_DIR/common/clocking/*  $BSP_DIR/libsrc/standalone/src/
 cp $STANDALONE_DIR/common/versal_net/* $BSP_DIR/libsrc/standalone/src/
-cp $STANDALONE_DIR/common/versal_aiepg2/* $BSP_DIR/libsrc/standalone/src/
+cp $STANDALONE_DIR/common/versal_2ve_2vm/* $BSP_DIR/libsrc/standalone/src/
 cp $STANDALONE_DIR/microblaze/*  $BSP_DIR/libsrc/standalone/src/
 cp -r $STANDALONE_DIR/profile  $BSP_DIR/libsrc/standalone/src/
 cp $WORKING_DIR/bspconfig.h $BSP_DIR/libsrc/standalone/src/

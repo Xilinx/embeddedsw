@@ -8,7 +8,7 @@
 * @file xparameters_ps.h
 *
 * This file contains the address definitions for the hard peripherals
-* available in VersalGen2
+* available in Versal 2VE and 2VM devices.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -39,6 +39,10 @@ extern "C" {
 
 #if !defined(VERSAL_AIEPG2)
 #define VERSAL_AIEPG2
+#endif
+
+#if !defined(VERSAL_2VE_2VM)
+#define VERSAL_2VE_2VM
 #endif
 
 #if !defined (__aarch64__)
