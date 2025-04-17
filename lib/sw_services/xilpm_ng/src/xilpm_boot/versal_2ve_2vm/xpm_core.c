@@ -212,6 +212,7 @@ XStatus XPmCore_StoreResumeAddr(XPm_Core *Core, u64 Address)
 
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, SetResumeAddr, Core, Address);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+		Status |= StatusTmp;
 		goto done;
 	}
 done:
