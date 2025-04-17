@@ -121,6 +121,8 @@ extern "C" {
 #define XECC_MEM_PUB_KEY_X_OFFSET		(0x00000290U)
 #define XECC_MEM_PUB_KEY_Y_OFFSET		(0x000002C0U)
 
+#define XECC_MEM_SCP_RAND_1_OFFSET		(0x00000290U)
+
 #ifdef __cplusplus
 }
 #endif
