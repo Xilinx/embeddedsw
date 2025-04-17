@@ -18,6 +18,7 @@
 * ----- ----  -------- ------------------------------------------------------
 * 1.0   kpt   07/30/24 First release
 * 1.1   mb    04/11/25 Passed args to XNvm_EfuseCheckAesKeyCrc in correct order
+* 3.5   hj    04/01/25 Remove flag checks from XNvm_EfusePrgmSecCtrlBits
 *
 * </pre>
 *
@@ -812,42 +813,12 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 	int StatusTmp = XST_FAILURE;
 	XNvm_EfuseSecCtrlBits ReadSecCtrlBits;
 
-	if (SecCtrl->PrgmAesCmDis != TRUE &&
-	    SecCtrl->PrgmAesDis != TRUE &&
-	    SecCtrl->PrgmAesRdlk != TRUE &&
-	    SecCtrl->PrgmAesWrlk != TRUE &&
-	    SecCtrl->PrgmAxiDis != TRUE &&
-	    SecCtrl->PrgmCrcEn != TRUE &&
-	    SecCtrl->PrgmDftDis != TRUE &&
-	    SecCtrl->PrgmExportCtrl != TRUE &&
-	    SecCtrl->PrgmHashPufOrKey != TRUE &&
-	    SecCtrl->PrgmIcapDis != TRUE &&
-	    SecCtrl->PrgmJtagDis != TRUE &&
-	    SecCtrl->PrgmLckdwn != TRUE &&
-	    SecCtrl->PrgmMcapDis != TRUE &&
-	    SecCtrl->PrgmMdmDis != TRUE &&
-	    SecCtrl->PrgmPpk0Invld != TRUE &&
-	    SecCtrl->PrgmPpk0lck != TRUE &&
-	    SecCtrl->PrgmPpk1Invld != TRUE &&
-	    SecCtrl->PrgmPpk1lck != TRUE &&
-	    SecCtrl->PrgmPpk2Invld != TRUE &&
-	    SecCtrl->PrgmPpk2lck != TRUE &&
-	    SecCtrl->PrgmPufTes2Dis != TRUE &&
-	    SecCtrl->PrgmRmaDis != TRUE &&
-	    SecCtrl->PrgmRmaEn != TRUE &&
-	    SecCtrl->PrgmScanClr != TRUE &&
-	    SecCtrl->PrgmUserWrlk != TRUE &&
-	    SecCtrl->PrgmDnaWrlk != TRUE &&
-	    SecCtrl->PrgmJtagErrDis != TRUE &&
-	    SecCtrl->PrgmMemClrEn != TRUE) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
 	Status =  XNvm_EfuseReadSecCtrlBits(&ReadSecCtrlBits);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 
 	if (SecCtrl->PrgmAesCmDis == TRUE && ReadSecCtrlBits.AES_CM_DIS != TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
