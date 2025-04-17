@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,8 @@
 * 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
 * 2.14  dp   08/08/22 Fix doxygen warnings.
 * 2.15  ml   02/27/23 Typecast the variables to fix misra-c violations.
+* 2.19  ml   04/15/25 Fixed multiple returns in XIOModule_SetOptions
+*                     to comply with MISRA-C R15.5
 * </pre>
 *
 ******************************************************************************/
@@ -95,7 +97,7 @@ static Mapping OptionsTable[] = {
 ****************************************************************************/
 s32 XIOModule_SetOptions(XIOModule * InstancePtr, u32 Options)
 {
-
+	XStatus Status = XST_SUCCESS;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
@@ -105,11 +107,14 @@ s32 XIOModule_SetOptions(XIOModule * InstancePtr, u32 Options)
 	if ((Options == XIN_SVC_SGL_ISR_OPTION) ||
 	    (Options == XIN_SVC_ALL_ISRS_OPTION)) {
 		InstancePtr->CfgPtr->Options = Options;
-		return XST_SUCCESS;
+		goto END;
 	}
 	else {
-		return XST_INVALID_PARAM;
+		Status = XST_INVALID_PARAM;
+		goto END;
 	}
+END:
+	return Status;
 }
 
 /*****************************************************************************/
