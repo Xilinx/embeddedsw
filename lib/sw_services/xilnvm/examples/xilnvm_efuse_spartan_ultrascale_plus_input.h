@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -153,7 +153,8 @@
 * Ver	Who	Date	Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   kal    03/02/20 First release to add different configurable options
-* 3.5   hj     04/02/2025 Remove unused PrgmAesWrlk variable
+* 3.5   hj     04/02/25 Remove unused PrgmAesWrlk variable
+*       hj     04/10/25 Remove security control bits not exposed to user
 *
 * </pre>
 *
@@ -181,7 +182,6 @@ extern "C" {
  * Following is the define to select if the user wants to program
  * Secure control bits
  */
-#define XNVM_EFUSE_XNVM_EFUSE_AES_CM_DIS        FALSE
 #define XNVM_EFUSE_XNVM_EFUSE_AES_DIS           FALSE
 #define XNVM_EFUSE_XNVM_AES_RD_LK               FALSE
 #define XNVM_EFUSE_XNVM_PPK0_LK                 FALSE
@@ -189,15 +189,9 @@ extern "C" {
 #define XNVM_EFUSE_XNVM_PPK2_LK                 FALSE
 #define XNVM_EFUSE_XNVM_JTAG_DIS                FALSE
 #define XNVM_EFUSE_XNVM_USER_WR_LK              FALSE
-#define XNVM_EFUSE_XNVM_MEM_CLR_EN              FALSE
-#define XNVM_EFUSE_XNVM_DNA_WR_LK               FALSE
 #define XNVM_EFUSE_XNVM_JTAG_ERR_DIS            FALSE
 #define XNVM_EFUSE_XNVM_JTAG_DIS                FALSE
-#define XNVM_EFUSE_XNVM_SCAN_CLR_EN             FALSE
 #define XNVM_EFUSE_XNVM_HASH_PUF_OR_KEY         FALSE
-#define XNVM_EFUSE_XNVM_AXI_DIS                 FALSE
-#define XNVM_EFUSE_XNVM_MDM_DIS                 FALSE
-#define XNVM_EFUSE_XNVM_ICAP_DIS                FALSE
 #define XNVM_EFUSE_XNVM_RMA_DIS                 FALSE
 #define XNVM_EFUSE_XNVM_RMA_EN                  FALSE
 #define XNVM_EFUSE_XNVM_CRC_EN                  FALSE
@@ -207,7 +201,6 @@ extern "C" {
 #define XNVM_EFUSE_XNVM_PPK0_INVLD              FALSE
 #define XNVM_EFUSE_XNVM_PPK1_INVLD              FALSE
 #define XNVM_EFUSE_XNVM_PPK2_INVLD              FALSE
-#define XNVM_EFUSE_XNVM_EXP_CTRL                FALSE
 
 /**
  * Following is the define to select if the user wants to select
