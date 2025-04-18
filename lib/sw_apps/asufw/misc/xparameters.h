@@ -509,8 +509,8 @@
 #define XASU_ECC_CM_ENABLE
 
 /* Platform specific definitions */
-#ifndef VERSAL_AIEPG2
-#define VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
+#define VERSAL_2VE_2VM
 #endif
 
 #define VERSAL_NET

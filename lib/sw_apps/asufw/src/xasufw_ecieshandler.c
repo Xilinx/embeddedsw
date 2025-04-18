@@ -16,6 +16,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.0   yog  02/20/25 Initial release
 *       yog  03/24/25 Removed random number generation in encryption opetation.
+*       am   04/18/25 Removed unused variable
 *
 * </pre>
 *
@@ -180,7 +181,6 @@ END:
 static s32 XAsufw_EciesEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	volatile s32 Status = XASUFW_FAILURE;
-	volatile s32 ClearStatus = XASUFW_FAILURE;
 	const XAsu_EciesParams *EciesParamsPtr = (const XAsu_EciesParams *)ReqBuf->Arg;
 
 	/** Perform ECIES encryption. */
