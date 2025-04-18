@@ -34,7 +34,9 @@ collector_list(_headers PROJECT_LIB_HEADERS)
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 
 add_library(xilpm_ng STATIC ${_sources})
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
 target_compile_options(xilpm_ng PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
+endif()
 set_target_properties(xilpm_ng PROPERTIES LINKER_LANGUAGE C)
 get_headers(${_headers})
 set_target_properties(

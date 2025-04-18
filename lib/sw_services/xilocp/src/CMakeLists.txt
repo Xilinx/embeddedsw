@@ -31,7 +31,9 @@ collector_list (_headers PROJECT_LIB_HEADERS)
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 
 add_library(xilocp STATIC ${_sources})
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
 target_compile_options(xilocp PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
+endif()
 
 get_headers(${_headers})
 
