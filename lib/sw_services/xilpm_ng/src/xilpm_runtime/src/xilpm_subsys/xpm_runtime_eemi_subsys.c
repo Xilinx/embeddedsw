@@ -16,6 +16,7 @@
 #include "xpm_access.h"
 #include "xpm_ioctl.h"
 #include "xpm_runtime_api.h"
+#include "xpm_debug.h"
 
 static XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_SetState(XPm_Subsystem *Subsystem, u32 State);
@@ -410,12 +411,73 @@ done:
 XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 					const u32 Operation, const u32 CmdType)
 {
-	(void)HostId;
-	(void)TargetId;
-	(void)Operation;
-	(void)CmdType;
+	const XPm_Subsystem *TargetSubsystem = XPmSubsystem_GetById(TargetId);
+	u32 PermissionMask = 0;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XStatus Status = XST_FAILURE;
+	u32 SecureMask;
+	u32 NonSecureMask;
 
-	return XST_SUCCESS;
+	if ((PM_SUBSYS_PMC == TargetId) && (PM_SUBSYS_PMC != HostId)) {
+		Status = XPM_PM_NO_ACCESS;
+		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
+		goto done;
+	} else if (PM_SUBSYS_PMC == HostId) {
+		Status = XST_SUCCESS;
+		goto done;
+	} else {
+		/* Required by MISRA */
+	}
+
+	if ((NULL == TargetSubsystem)) {
+		Status = XST_INVALID_PARAM;
+		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
+		goto done;
+	}
+
+	switch (Operation)
+	{
+		case SUB_PERM_WAKE_MASK:
+			PermissionMask = TargetSubsystem->Perms.WakeupPerms;
+			Status = XST_SUCCESS;
+			break;
+		case SUB_PERM_PWRDWN_MASK:
+			PermissionMask = TargetSubsystem->Perms.PowerdownPerms;
+			Status = XST_SUCCESS;
+			break;
+		case SUB_PERM_SUSPEND_MASK:
+			PermissionMask = TargetSubsystem->Perms.SuspendPerms;
+			Status = XST_SUCCESS;
+			break;
+		default:
+			DbgErr = XPM_INT_ERR_INVALID_PARAM;
+			Status = XST_INVALID_PARAM;
+			break;
+	}
+
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	SecureMask = ((u32)1U << SUBSYS_TO_S_BITPOS(HostId));
+	NonSecureMask = ((u32)1U << SUBSYS_TO_NS_BITPOS(HostId));
+
+	/* Have Target check if Host can enact the operation */
+	if ((XPLMI_CMD_SECURE == CmdType) &&
+	    (SecureMask == (PermissionMask & SecureMask))) {
+			Status = XST_SUCCESS;
+	} else if (NonSecureMask == (PermissionMask & NonSecureMask)) {
+		Status = XST_SUCCESS;
+	} else {
+		/* Required by MISRA */
+		Status = XPM_PM_NO_ACCESS;
+		DbgErr = XPM_INT_ERR_SUBSYS_ACCESS;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		XPm_PrintDbgErr(Status, DbgErr);
+	}
+	return Status;
 }
 
 XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
@@ -513,8 +575,10 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 			goto done;
 		}
 
-		/* Check that force powerdown is not for self or PMC subsystem */
-		if ((SubsystemId == NodeId) || (PM_SUBSYS_PMC == NodeId)) {
+		/* Check that force powerdown is not for self or PMC/ASU subsystem */
+		if ((SubsystemId == NodeId) ||
+		    (PM_SUBSYS_PMC == NodeId) ||
+		    (PM_SUBSYS_ASU == NodeId)) {
 			goto done;
 		}
 		Status = XPmSubsystem_IsOperationAllowed(SubsystemId, NodeId,
