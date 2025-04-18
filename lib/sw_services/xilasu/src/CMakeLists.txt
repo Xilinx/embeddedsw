@@ -30,7 +30,9 @@ file(COPY ${CMAKE_BINARY_DIR}/include/xasu_bsp_config.h DESTINATION ${CMAKE_INCL
 endif()
 
 add_library(xilasu STATIC ${_sources})
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
 target_compile_options(xilasu PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
+endif()
 
 get_headers(${_headers})
 
