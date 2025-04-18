@@ -27,6 +27,7 @@
  *       am   02/22/25 Resolved key transfer done bit not being set
  *       am   04/04/25 Increased timeout for KV interrupt status poll
  *       am   04/10/25 Removed poll status interrupt timeout to wait indefinitely
+ *       am   04/18/25 Suppressed unused variable warning
  *
  * </pre>
  *
@@ -186,6 +187,7 @@ static void XAsufw_InitPitTimer(u8 Timer, u32 ResetValue)
  *************************************************************************************************/
 static void XAsufw_Pit3TimerHandler(const void *Data)
 {
+	(void)Data;
 	/** Update TaskTimeNow every time the scheduler handler is called for every 10ms */
 	TaskTimeNow += XASUFW_PIT3_TIMER_TICK;
 }
