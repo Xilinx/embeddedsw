@@ -1374,51 +1374,38 @@ static XStatus XPm_RequestHBMonDevice(const u32 SubsystemId, const u32 CmdType)
 XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Requirement *Reqm;
-	u32 DeviceId;
 
-	LIST_FOREACH(Subsystem->Requirements, ReqmNode){
-		Reqm = ReqmNode->Data;
-		DeviceId = Reqm->Device->Node.Id;
-		/**
-		 * PSM is required to be up when any application processor is
-		 * running. In case of default subsystem, PSM is part of
-		 * pre-alloc. So PSM might be powered down during force power
-		 * down of subsystem. Currently there is no user option to
-		 * force power down default subsystem because every processor
-		 * is part of default subsystem and we don't allow force power
-		 * down of own subsystem. However, if we want to use
-		 * XPmSubsystem_ForcePwrDwn() from other cases (e.g. subsystem
-		 * restart) then PSM power down will happen. So skip PSM power
-		 * down from XPmSubsystem_ForcePwrDwn().
-		 */
-		if ((1U == Reqm->Allocated) &&
-		    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId))) {
-			XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
-			if (NULL == Core) {
-				Status = XST_INVALID_PARAM;
-				goto done;
-			}
-			u8 IsCoreIdleSupported = 0;
-			PmInfo("Check if core 0x%x supports idle callback\r\n",
-			       Core->Device.Node.Id);
-			Status = XPmCore_GetCoreIdleSupport(Core, &IsCoreIdleSupported);
-			if (XST_SUCCESS != Status) {
-				if (XST_DEVICE_NOT_FOUND == Status) {
-					PmWarn("No idle callback registration for 0x%x, skipping\r\n", Core->Device.Node.Id);
-					continue;
-				}
-				PmErr("Failed to get core idle support for 0x%x: 0x%x\r\n", Core->Device.Node.Id, Status);
-				goto done;
-			}
-			if (1U == IsCoreIdleSupported) {
-				PmInfo("Sending idle callback notification to 0x%x\r\n", Core->Device.Node.Id);
-				XPm_CoreIdle(Core);
-			}
-			Status = XST_SUCCESS;
+	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
+		const XPm_Requirement *Reqm = ReqmNode->Data;
+		u32 DeviceId = Reqm->Device->Node.Id;
+		u8 IsCoreIdleSupported = 0U;
 
+		/* Make sure core device is requested by the subsystem */
+		if ((1U != Reqm->Allocated) ||
+			((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
+			continue;
+		}
+		XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+		if (NULL == Core) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+		PmInfo("Check if core 0x%x supports idle callback\r\n", Core->Device.Node.Id);
+		Status = XPmCore_GetCoreIdleSupport(Core, &IsCoreIdleSupported);
+		if (XST_SUCCESS != Status) {
+			if (XST_DEVICE_NOT_FOUND == Status) {
+				PmWarn(" --> No idle callback registration for 0x%x, skipping\r\n", Core->Device.Node.Id);
+				continue;
+			}
+			PmErr("Failed to get core idle support for 0x%x: 0x%x\r\n", Core->Device.Node.Id, Status);
+			goto done;
+		}
+		if (1U == IsCoreIdleSupported) {
+			PmInfo("Sending idle callback notification to 0x%x\r\n", Core->Device.Node.Id);
+			XPm_CoreIdle(Core);
 		}
 	}
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
