@@ -224,32 +224,20 @@ done:
 XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
-	u32 SubsystemId = Subsystem->Id; /* Subsystem Id of the core */
+	u32 SubsystemId = Subsystem->Id;
 	u32 DeviceId = Core->Device.Node.Id;
 	const XPm_Requirement *Reqm = NULL;
-	const XPm_ApuCore *ApuCore;
-	u32 Ack = 0U;
-	u32 IpiMask = 0U;
-	u32 NodeState = 0U;
 
 	PmInfo("Processing pending force power down for 0x%x, State: 0x%x\r\n", DeviceId, Core->Device.Node.State);
 
-	Ack = Subsystem->FrcPwrDwnReq.AckType;
-	IpiMask = Subsystem->FrcPwrDwnReq.InitiatorIpiMask;
-	NodeState = Subsystem->State;
-
-	PmInfo("Ack type: 0x%x, IpiMask: 0x%x, NodeState: 0x%x\r\n", Ack, IpiMask, NodeState);
-
-	/* Clear pwr dwn status. this will make boot status as initial boot*/
-	if(XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)){
-		ApuCore = (XPm_ApuCore *)Core;
-		XPm_RMW32(ApuCore->PcilPwrDwnReg,ApuCore->Core.PwrDwnMask,
-			~ApuCore->Core.PwrDwnMask);
+	/* Clear power down status, this will make boot status as initial boot */
+	if ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) {
+		const XPm_ApuCore *ApuCore = (XPm_ApuCore *)Core;
+		XPm_RMW32(ApuCore->PcilPwrDwnReg, ApuCore->Core.PwrDwnMask, ~ApuCore->Core.PwrDwnMask);
 	}
-	PmInfo("Check if any other cores in the subsystem are pending power down..\r\n");
 
 	/* Check any of core is pending power down in subsystem */
-	LIST_FOREACH(Subsystem->Requirements, ReqmNode){
+	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
 		Reqm = ReqmNode->Data;
 		if ((1U == Reqm->Allocated) &&
 		    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Reqm->Device->Node.Id)) &&
@@ -263,7 +251,7 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, XPm_Core *Co
 	}
 
 	if (NULL != Reqm) {
-		PmInfo("Core 0x%x is pending power down !! (BUG)\r\n", Reqm->Device->Node.Id);
+		PmInfo("Core 0x%x is pending power down!\r\n", Reqm->Device->Node.Id);
 	} else {
 		PmInfo("All cores are powered off\r\n");
 	}
@@ -295,13 +283,10 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, XPm_Core *Co
 	} else {
 		/* Required by MISRA */
 	}
-	NodeState = Subsystem->State; /* Update node state in case of subsystem restart or shutdown */
 
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
-	XPm_ProcessAckReq(Ack, IpiMask, Status, DeviceId, NodeState);
-
 	return Status;
 }
 

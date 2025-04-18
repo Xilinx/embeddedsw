@@ -1265,7 +1265,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 {
 //	//XPM_EXPORT_CMD(PM_FORCE_POWERDOWN, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
-	XPm_Subsystem *Subsystem;
+	XPm_Subsystem *Subsystem = NULL;
 	u32 NodeState = 0U;
 
 	if ((u32)REQUEST_ACK_BLOCKING == Ack) {
@@ -1276,14 +1276,14 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 	/* Validate access first */
 	Status = XPm_IsForcePowerDownAllowed(SubsystemId, NodeId, CmdType);
 	if (XST_SUCCESS != Status) {
-		goto process_ack;
+		goto done;
 	}
 
 	/* Retrieve target subsystem */
 	Subsystem = XPmSubsystem_GetById(NodeId);
 	if (NULL == Subsystem) {
 		Status = XST_INVALID_PARAM;
-		goto process_ack;
+		goto done;
 	}
 	Subsystem->FrcPwrDwnReq.AckType = Ack;
 	Subsystem->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
@@ -1311,34 +1311,24 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		Status = Subsystem->Ops->SetState(Subsystem,
 					       (u8)PENDING_POWER_OFF);
 		if (XST_SUCCESS != Status) {
-			goto process_ack;
+			goto done;
 		}
-		NodeState = Subsystem->State;
 
 		Status = XPm_SubsystemIdleCores(Subsystem);
 		if (XST_SUCCESS != Status) {
-			goto process_ack;
+			goto done;
 		}
-		NodeState = Subsystem->State; /* Update node state after idle cores */
-		goto done;
 	} else {
 		Status = XPmSubsystem_ForcePwrDwn(NodeId);
-		goto done;
 	}
-
-process_ack:
-	XPm_ProcessAckReq(Ack, IpiMask, Status, NodeId, NodeState);
 
 done:
-#ifdef XPLMI_IPI_DEVICE_ID
-	if ((u32)REQUEST_ACK_BLOCKING != Ack) {
-		/* Write response */
-		IPI_RESPONSE1(IpiMask, (u32)Status);
-		/* Clear interrupt status */
-		PmOut32(IPI_PMC_ISR, IpiMask);
-		PmOut32(IPI_PMC_IER, IpiMask);
+	/* Get current node state */
+	if (NULL != Subsystem) {
+		NodeState = Subsystem->State;
 	}
-#endif /* XPLMI_IPI_DEVICE_ID */
+	/* Process ack request */
+	XPm_ProcessAckReq(Ack, IpiMask, Status, NodeId, NodeState);
 
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
@@ -1455,24 +1445,24 @@ void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 	if (0U == IpiMask) {
 		goto done;
 	}
-
-	if ((u32)REQUEST_ACK_BLOCKING == Ack) {
-		/* Return status immediately */
-		IPI_RESPONSE1(IpiMask, (u32)Status);
-		/* Clear interrupt status */
-		PmOut32(IPI_PMC_ISR, IpiMask);
-		/* Enable IPI interrupt */
-		PmOut32(IPI_PMC_IER, IpiMask);
-	} else if ((u32)REQUEST_ACK_NON_BLOCKING == Ack) {
+	if ((u32)REQUEST_ACK_NON_BLOCKING == Ack) {
 		/* Return acknowledge through callback */
 		IPI_MESSAGE4(IpiMask, (u32)PM_ACKNOWLEDGE_CB, NodeId, (u32)Status,
 			      NodeState);
 		if (XST_SUCCESS != XPlmi_IpiTrigger(IpiMask)) {
-			PmWarn("Error in IPI trigger\r\n");
+			PmWarn("Error in IPI trigger from PMC to IpiMask: 0x%x\r\n", IpiMask);
 		}
-	} else {
-		/* No returning of the acknowledge */
 	}
+	/**
+	 * In either ACK case (NO_ACK, ACK_BLOCKING and ACK_NON_BLOCKING),
+	 * Send response and enable PMC interrupt
+	 **/
+	IPI_RESPONSE1(IpiMask, (u32)Status);
+	/* Clear interrupt status */
+	PmOut32(IPI_PMC_ISR, IpiMask);
+	/* Enable IPI interrupt */
+	PmOut32(IPI_PMC_IER, IpiMask);
+
 done:
 	return;
 #else
