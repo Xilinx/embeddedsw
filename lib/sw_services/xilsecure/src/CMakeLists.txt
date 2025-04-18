@@ -10,11 +10,7 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/xilsecure.cmake NO_POLICY_SCOPE)
 
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
-foreach(lang ASM C CXX)
-  # GNU ar always updates the index: no need for CMAKE_RANLIB
-  SET(CMAKE_${lang}_CREATE_STATIC_LIBRARY
-          "<CMAKE_AR> rc <TARGET> <LINK_FLAGS> <OBJECTS>")
-endforeach()
+
 include_directories(${CMAKE_BINARY_DIR}/include)
 
 if(("${XILSECURE_mode}" STREQUAL "server") AND
@@ -62,7 +58,11 @@ get_headers(${_headers})
 
 set_target_properties(xilsecure PROPERTIES LINKER_LANGUAGE C)
 
-set_target_properties(xilsecure PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilsecure.a;${CMAKE_INCLUDE_PATH}/xsecure_config.h;${clean_headers}")
+if ("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
+  set_target_properties(xilsecure PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilsecure.a;${CMAKE_INCLUDE_PATH}/xsecure_config.h;${clean_headers}")
+else()
+  set_target_properties(xilsecure PROPERTIES ADDITIONAL_CLEAN_FILES "${CMAKE_LIBRARY_PATH}/libxilsecure.a;${CMAKE_INCLUDE_PATH}/xsecure_config.h;${CMAKE_LIBRARY_PATH}/libxilsecure_plat.a;${clean_headers}")
+endif()
 
 install(TARGETS xilsecure LIBRARY DESTINATION ${CMAKE_LIBRARY_PATH} ARCHIVE DESTINATION ${CMAKE_LIBRARY_PATH})
 install(DIRECTORY ${CMAKE_BINARY_DIR}/include DESTINATION ${CMAKE_INCLUDE_PATH}/..)

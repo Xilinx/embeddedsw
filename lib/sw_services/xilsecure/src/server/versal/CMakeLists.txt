@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS Ecdsa.h)
@@ -19,13 +19,13 @@ if( NOT (
 endif()
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
-  execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/libxilsecure_pmc.a ${CMAKE_BINARY_DIR}/libsrc/xilsecure/src/libxilsecure.a)
+  execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/libxilsecure_pmc.a ${CMAKE_LIBRARY_PATH}/libxilsecure_plat.a)
 endif()
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72")
-  execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/libxilsecure_a72_64.a ${CMAKE_BINARY_DIR}/libsrc/xilsecure/src/libxilsecure.a)
+  execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/libxilsecure_a72_64.a ${CMAKE_LIBRARY_PATH}/libxilsecure_plat.a)
 endif()
 
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
-  execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/libxilsecure_r5.a ${CMAKE_LIBRARY_PATH}/libsrc/xilsecure/src/libxilsecure.a)
+  execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/libxilsecure_r5.a ${CMAKE_LIBRARY_PATH}/libxilsecure_plat.a)
 endif()
