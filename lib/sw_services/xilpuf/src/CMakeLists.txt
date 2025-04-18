@@ -38,7 +38,9 @@ if (NOT ${YOCTO})
 endif()
 
 add_library(xilpuf STATIC ${_sources})
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
 target_compile_options(xilpuf PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
+endif()
 
 get_headers(${_headers})
 

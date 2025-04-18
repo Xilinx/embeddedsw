@@ -51,7 +51,9 @@ file(COPY ${CMAKE_BINARY_DIR}/include/xilskey_bsp_config.h DESTINATION ${CMAKE_I
 endif()
 
 add_library(xilskey STATIC ${_sources})
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
 target_compile_options(xilskey PRIVATE -iquote ${CMAKE_BINARY_DIR}/include)
+endif()
 
 get_headers(${_headers})
 
