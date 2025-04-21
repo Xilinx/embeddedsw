@@ -17,8 +17,6 @@ properties:
           - xlnx,mipi-dphy-4.3
   reg:
     description: Physical base address and size of the controller register map
-  xlnx,highaddr:
-    description: High address for the Dphy IP.
   xlnx,dphy-mode:
     description: Flag for dphy-mode.
   xlnx,en-reg-if:
@@ -49,7 +47,6 @@ properties:
 required:
   - compatible
   - reg
-  - xlnx,highaddr
   - xlnx,dphy-mode
   - xlnx,en-reg-if
   - xlnx,dphy-lanes
