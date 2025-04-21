@@ -66,9 +66,6 @@
 #define XPLMI_PSM_KEEP_ALIVE_STS_VER 	(1U) /**< PSM keep alive status version */
 #define XPLMI_PSM_KEEP_ALIVE_STS_LCVER	(1U) /**< PSM keep alive status lowest compatible version */
 
-#define XPLMI_BH_PUF_HD_OFFSET		(0xB24U) /**< BootHeader PUF HD offset. */
-#define XPLMI_BH_PUF_AUX_OFFSET		(0x1128U) /**< BootHeader PUF auxiliary offset. */
-#define XPLMI_BH_PUF_CHASH_OFFSET	(0x1124U) /**< BootHeader PUF CHASH offset. */
 #define XPLMI_BH_PUF_SHUTTER_VALUE_OFFSET (0x60U) /**< BootHeader PUF shutter value offset. */
 #define XPLMI_BH_IMAGE_ATTRIBUTE_OFFSET	(0x24U) /**< BootHeader PUF Image attribute offset. */
 #define XPLMI_BH_PUF_HD_MASK_BITS	(0x3U) /**< BootHeader PUF HD mask bits. */
@@ -348,9 +345,9 @@ int XPlmi_PufOnDemandRegeneration(void)
 
 	if (PufData->ReadOption == XLOADER_PUF_HD_BHDR) {
 		PufData->ReadOption = XPUF_READ_FROM_RAM;
-		PufData->SyndromeAddr = XIH_BH_PRAM_ADDR + XPLMI_BH_PUF_HD_OFFSET;
-		PufData->Chash = *(u32 *)(XIH_BH_PRAM_ADDR + XPLMI_BH_PUF_CHASH_OFFSET);
-		PufData->Aux = *(u32 *)(XIH_BH_PRAM_ADDR + XPLMI_BH_PUF_AUX_OFFSET);
+		PufData->SyndromeAddr = XIH_BH_PRAM_ADDR + XIH_BH_PUF_HD_OFFSET;
+		PufData->Chash = *(u32 *)(XIH_BH_PRAM_ADDR + XIH_BH_PUF_CHASH_OFFSET);
+		PufData->Aux = *(u32 *)(XIH_BH_PRAM_ADDR + XIH_BH_PUF_AUX_OFFSET);
 		XPlmi_Printf(DEBUG_INFO, "BHDR PUF HELPER DATA with CHASH:"
 			"%0x and AUX:%0x\n\r", PufData->Chash, PufData->Aux);
 	}
