@@ -37,6 +37,7 @@
 * 3.4   kal  05/07/2024 Fixed issue in all DME keys programming
 *       vss  07/26/2024 Corrected offchipids to be programmed
 *       kal  11/13/2024 Corrected logic in XNvm_EfuseWriteRevocationID function
+*       obs   04/21/2025 Fixed GCC Warnings.
 *
 * </pre>
 *
@@ -91,7 +92,9 @@ static int XNvm_UdsCrcCalc(const u32 *Uds);
 static int XNvm_EfuseCacheReloadAndProtectionChecks(void);
 static int XNvm_EfusePrgmProtectionBits(void);
 static int XNvm_EfuseProtectionChecks(void);
+#ifndef VERSAL_AIEPG2
 static int XNvm_EfuseChangeEndianness(u8 *Dest, u8 *Src, u32 Size);
+#endif
 static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32 *RegData);
 static u32 XNvm_EfuseCalculateCrc32(const u8* Data, u32 Len);
 static int XNvm_EfuseValidateCrc(void);
