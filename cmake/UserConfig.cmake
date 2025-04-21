@@ -80,7 +80,8 @@ set(USER_COMPILE_VERBOSE )
 
 # Support ANSI_PROGRAM (-ansi)
 set(USER_COMPILE_ANSI )
-
+set(USER_COMPILE_RELAXATION "-Wl,--no-relax")
+set(USER_COMPILE_GARBAGE "-ffunction-sections -fdata-sections")
 # Add any compiler options that are not covered by the above variables, they will be added as extra compiler options
 # To enable profiling -pg [ for gprof ]  or -p [ for prof information ]
 set(USER_COMPILE_OTHER_FLAGS )
@@ -157,9 +158,7 @@ set(USER_LINK_OPTIONS
     " ${USER_LINK_OTHER_FLAGS}"
 )
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
-	set(enable_no_relaxation TRUE CACHE BOOL "Enable No relaxation(-Wl,-no-relax)" FORCE)
-	set(enable_garbage_collector TRUE CACHE BOOL "Enable Garbage collector (-ffunction-sections -fdata-sections)" FORCE)
-	if(enable_no_relaxation)
+	if(USER_COMPILE_RELAXATION)
 		string(FIND "${CMAKE_C_LINK_FLAGS}" "-Wl,--no-relax" POSITION)
 		if(POSITION EQUAL -1)
 		    set(CMAKE_C_LINK_FLAGS "  -Wl,--no-relax ${CMAKE_C_LINK_FLAGS}" CACHE STRING "CMAKE C LINK FLAGS" FORCE)
@@ -171,12 +170,12 @@ if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR ("${CMAKE_SYSTEM_PROCE
 		string(REPLACE "-Wl,--no-relax" "" CMAKE_ASM_LINK_FLAGS "${CMAKE_ASM_LINK_FLAGS}")
 		string(REPLACE "-Wl,--no-relax" "" CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS}")
 	endif()
-	if(enable_garbage_collector)
-		string(FIND "${CMAKE_C_FLAGS}" "-Wl,--no-relax" POSITION)
+	if(USER_COMPILE_GARBAGE)
+		string(FIND "${CMAKE_C_FLAGS}" "-ffunction-sections -fdata-sections" POSITION)
 		if(POSITION EQUAL -1)
-		    set(APPEND CMAKE_C_FLAGS " -ffunction-sections -fdata-sections" CACHE STRING "CMAKE C FLAGS" FORCE)
-		    set(APPEND CMAKE_CXX_FLAGS " -ffunction-sections -fdata-sections" CACHE STRING "CMAKE CXX FLAGS" FORCE)
-		    set(APPEND CMAKE_ASM_FLAGS " -ffunction-sections -fdata-sections" CACHE STRING "CMAKE ASM FLAGS" FORCE)
+		    set(CMAKE_C_FLAGS " -ffunction-sections -fdata-sections ${CMAKE_C_FLAGS}" CACHE STRING "CMAKE C FLAGS" FORCE)
+		    set(CMAKE_CXX_FLAGS " -ffunction-sections -fdata-sections ${CMAKE_CXX_FLAGS}" CACHE STRING "CMAKE CXX FLAGS" FORCE)
+		    set(CMAKE_ASM_FLAGS " -ffunction-sections -fdata-sections ${CMAKE_ASM_FLAGS}" CACHE STRING "CMAKE ASM FLAGS" FORCE)
 		endif()
 	else()
 		string(REPLACE "-ffunction-sections -fdata-sections" "" CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
