@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -111,13 +111,6 @@ extern "C" {
  */
 #define XIH_BH_AES_KEYSRC_OFFSET	(0x08U)
 #define XIH_BH_IMG_ATTRB_OFFSET		(0x24U)
-
-/**
- * Boot header PUF fields
- */
-#define XIH_BH_PUF_HD_OFFSET		(0x918U)
-#define XIH_BH_PUF_CHASH_OFFSET		(0xF18U)
-#define XIH_BH_PUF_AUX_OFFSET		(0xF1CU)
 
 /**
  * SMAP bus width macros

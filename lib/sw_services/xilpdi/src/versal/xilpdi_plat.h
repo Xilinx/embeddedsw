@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -145,6 +145,13 @@ extern "C" {
  * Boot header address in PRAM copied by ROM
  */
 #define XIH_BH_PRAM_ADDR			(0xF201E000U)
+
+/**
+ * Boot header PUF fields
+ */
+#define XIH_BH_PUF_HD_OFFSET		(0x918U) /**< BootHeader PUF HD offset. */
+#define XIH_BH_PUF_CHASH_OFFSET		(0xF18U) /**< BootHeader PUF CHASH offset. */
+#define XIH_BH_PUF_AUX_OFFSET		(0xF1CU) /**< BootHeader PUF auxiliary offset. */
 
 /**************************** Type Definitions *******************************/
 
