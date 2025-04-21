@@ -2512,7 +2512,7 @@ static void XV_Rx_HdmiRx_EnterStateFrlConfig(XV_Rx *InstancePtr)
 			XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 0);
 #endif
 #if defined (XPS_BOARD_VEK385)
-	Hdmiphy1.IsTelluride = 1;
+	Hdmiphy1.versal_2ve_2vm = 1;
 #endif
 	XHdmiphy1_Hdmi21Config(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX,
 			       LineRate, NChannels);
@@ -2636,7 +2636,7 @@ static void XV_Rx_HdmiRx_EnterStateTmdsConfig(XV_Rx *InstancePtr)
 	XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 1);
 #endif
 #if defined (XPS_BOARD_VEK385)
-	Hdmiphy1.IsTelluride = 1;
+	Hdmiphy1.versal_2ve_2vm = 1;
 #endif
 	XHdmiphy1_Hdmi20Config(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX);
 
