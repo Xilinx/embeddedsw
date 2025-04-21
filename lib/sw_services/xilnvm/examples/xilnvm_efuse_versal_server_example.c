@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +52,7 @@
  * 3.2   yog   09/13/2023 Added XilNvm_ShowData() API
  *       vss   09/19/23 Fixed MISRA-C Rule 2.5 violation
  * 3.3   har   12/04/2023 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
+ * 3.4   obs   04/21/2025 Fixed GCC Warnings.
  *
  * </pre>
  *
@@ -1914,8 +1915,7 @@ static int XilNvm_PrepareIvForWrite(const char *IvStr, u8 *Dst, u32 Len,
 
 	if ((IvStr == NULL) || (Dst == NULL) ||
 		(Len != XNVM_EFUSE_IV_LEN_IN_BITS) ||
-		(IvType > XNVM_EFUSE_DATA_PARTITION_IV_RANGE) ||
-		(IvType < XNVM_EFUSE_META_HEADER_IV_RANGE)) {
+		(IvType > XNVM_EFUSE_DATA_PARTITION_IV_RANGE)) {
 		goto END;
 	}
 
