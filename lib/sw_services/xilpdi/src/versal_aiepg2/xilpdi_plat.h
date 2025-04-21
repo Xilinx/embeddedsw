@@ -170,6 +170,13 @@ extern "C" {
  */
 #define XIH_HASH_BLOCK_1_HASH_OFFSET		(0xF201ED60U)
 
+/**
+ * Boot header PUF fields
+ */
+#define XIH_BH_PUF_HD_OFFSET			(0xB24U) /**< BootHeader PUF HD offset. */
+#define XIH_BH_PUF_CHASH_OFFSET			(0x1124U)/**< BootHeader PUF CHASH offset. */
+#define XIH_BH_PUF_AUX_OFFSET			(0x1128U)/**< BootHeader PUF auxiliary offset. */
+
 /**************************** Type Definitions *******************************/
 /**
  * Structure to store the Boot Header PMC FW fields
