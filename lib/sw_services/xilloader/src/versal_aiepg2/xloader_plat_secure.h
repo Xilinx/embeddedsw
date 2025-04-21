@@ -33,6 +33,8 @@
 *       am   03/02/2024 Added XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR
 *                       and XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR enum
 *       obs  09/30/2024 Fixed Doxygen Warnings
+* 2.2   har  04/07/2025 Added XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK and
+*                       XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK macro
 *
 * </pre>
 *
@@ -78,6 +80,10 @@ extern "C" {
 #define XLOADER_BBRAM_CL_FAILED_CONFIGS_MODE		(0x0U)  /**< Number of failed configurations selected as mode for Configuration Limiter */
 #define XLOADER_BBRAM_CL_FEATURE_ENABLE			(0x3U)  /**< Value when Configuration Limiter feature is enabled */
 
+#define XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK		(0x79FFF8C1U)
+		/**< Mask to enable required instrcutions in Instruction Mask 0 register */
+#define XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK		(0x070BFF91U)
+		/**< Mask to enable required instrcutions in Instruction Mask 1 register */
 /**************************** Type Definitions *******************************/
 typedef enum {
 	/* Add platform specific error codes from 0xA0 */

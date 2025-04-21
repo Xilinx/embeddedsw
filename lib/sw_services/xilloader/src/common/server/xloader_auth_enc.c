@@ -147,6 +147,7 @@
 *       sk   02/26/25 Reset Status variable before use in XLoader_SecureEncInit
 *       pre  03/02/25 Remove data context setting
 *       obs  03/22/25 Added redundant security checks to mitigate glitch attacks
+*	har  04/07/25 Updated instruction mask in XLoader_EnableJtag
 *
 * </pre>
 *
@@ -3273,9 +3274,9 @@ int XLoader_EnableJtag(volatile u32 CfgState)
 	 * Enable all the instructions
 	 */
 	XPlmi_Out32(XLOADER_PMC_TAP_INST_MASK_0_OFFSET,
-		XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK);
+		XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK);
 	XPlmi_Out32(XLOADER_PMC_TAP_INST_MASK_1_OFFSET,
-		XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK);
+		XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK);
 
 	/**
 	 * Disable security gate
