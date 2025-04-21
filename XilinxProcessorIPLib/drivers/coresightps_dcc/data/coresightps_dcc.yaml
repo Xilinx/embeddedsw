@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -17,11 +17,6 @@ properties:
         - enum:
           - xlnx,coresight-1.0
           - xlnx,ps7-coresight-comp-1.00.a
-          - xlnx,psx-coresight-fpd-stm-11.0
-          - xlnx,psx-coresight-lpd-atm-11.0
-          - xlnx,coresight-fpd-stm-11.0
-          - xlnx,coresight-lpd-atm-11.0
-          - xlnx,psx-coresight-11.0
 
 required:
     - compatible
