@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,8 @@
 *       yog  02/23/2024 Added XLOADER_SEC_CURVE_NOT_SUPPORTED error
 *       am   03/02/2024 Added XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR
 *                       and XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR enum
+* 2.2   har  04/07/2025 Added XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK and
+*                       XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK macro
 *
 * </pre>
 *
@@ -165,6 +167,11 @@ typedef struct {
 #define XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD              (0x00001800U)
 					/**< PPK4 invalid value */
 #endif /**< END OF PLM_EN_ADD_PPKS*/
+
+#define XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK		(0x7DFFF8C1U)
+		/**< Mask to enable required instrcutions in Instruction Mask 0 register */
+#define XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK		(0x071BFF91U)
+		/**< Mask to enable required instrcutions in Instruction Mask 1 register */
 
 /*****************************************************************************/
 /**

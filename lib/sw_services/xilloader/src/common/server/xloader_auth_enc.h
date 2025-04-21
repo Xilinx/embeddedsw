@@ -65,6 +65,7 @@
 *       obs  02/27/2025 Added XLOADER_AUTH_JTAG_IDWORD macro
 *       kal  04/16/25 Updated XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD when
 *                     additional PPKs feature is enabled
+* 2.2   har  04/21/25 Removed XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK macro
 *
 * </pre>
 *
@@ -336,8 +337,6 @@ extern "C" {
 							XLOADER_DAP_CFG_NIDEN_MASK |  \
 							XLOADER_DAP_CFG_DBGEN_MASK)
 			/**< Mask to enable all types of debug */
-#define XLOADER_PMC_TAP_INST_MASK_ENABLE_MASK		(0U)
-		/**< Value to mask all instructions for Instruction mask 0/1 register */
 #define XLOADER_CRP_RST_DBG_ENABLE_MASK			(0U)
 			/**< Mask to enable debug for CRP_RST */
 
