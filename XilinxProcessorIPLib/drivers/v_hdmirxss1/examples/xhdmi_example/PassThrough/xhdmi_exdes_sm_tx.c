@@ -2094,7 +2094,7 @@ void XV_Tx_HdmiTx_EnterStateConnected(XV_Tx *InstancePtr)
 	XHdmiphy1_Clkout1OBufTdsEnable(InstancePtr->VidPhy,
 				       XHDMIPHY1_DIR_TX, (FALSE));
 #if defined (XPS_BOARD_VEK385)
-	InstancePtr->VidPhy->IsTelluride = 1;
+	InstancePtr->VidPhy->versal_2ve_2vm = 1;
 #endif
 	XHdmiphy1_Hdmi20Config(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_TX);
 
@@ -2682,7 +2682,7 @@ void XV_Tx_HdmiTx_EnterStateFrlConfig(XV_Tx *InstancePtr)
 				XHDMIPHY1_DIR_TX, (TRUE));
 	}
 #if defined (XPS_BOARD_VEK385)
-	InstancePtr->VidPhy->IsTelluride = 1;
+	InstancePtr->VidPhy->versal_2ve_2vm = 1;
 #endif
 	XHdmiphy1_Hdmi21Config(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_TX,
 			       LineRate, NChannels);
@@ -3001,7 +3001,7 @@ void XV_Tx_HdmiTx_EnterStateTmdsConfig(XV_Tx *InstancePtr)
 
 	xdbg_xv_tx_print("Tmds Config ...\r\n");
 #if defined (XPS_BOARD_VEK385)
-	InstancePtr->VidPhy->IsTelluride = 1;
+	InstancePtr->VidPhy->versal_2ve_2vm = 1;
 #endif
 	XHdmiphy1_Hdmi20Config(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_TX);
 	XV_HdmiTx1_SetFrlLinkClock(InstancePtr->HdmiTxSs->HdmiTx1Ptr, 0);
