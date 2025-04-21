@@ -827,7 +827,7 @@ u32 XHdmiphy1_DruGetRefClkFreqHz(XHdmiphy1 *InstancePtr)
 		}
 	}
 	else {
-		if (InstancePtr->IsTelluride == 1) {
+		if (InstancePtr->versal_2ve_2vm == 1) {
 			if (DruFreqHz > XHDMIPHY1_HDMI_GTYP_DRU_REFCLK_MIN &&
 					DruFreqHz < XHDMIPHY1_HDMI_GTYP_DRU_REFCLK_MAX){
 				return XHDMIPHY1_HDMI_GTYP_DRU_REFCLK;
