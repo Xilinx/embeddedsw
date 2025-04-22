@@ -28,7 +28,18 @@ def retarget_app(args):
     # Update the domain path as per new domain
     app_config_file = os.path.join(obj.app_src_dir, "app.yaml")
     template = utils.fetch_yaml_data(app_config_file, "template")["template"]
+
+    # Read the current domain_path BEFORE updating it
+    current_domain_path = utils.fetch_yaml_data(app_config_file, "domain_path")['domain_path']
     utils.update_yaml(app_config_file, "domain_path", "domain_path", obj.domain_path, action="add")
+
+    # Compare and delete the build directory if domain_path has changed
+    if current_domain_path != obj.domain_path:
+        if args.get('build_dir'):
+            app_build_dir = utils.get_abs_path(args["build_dir"])
+            if utils.is_dir(app_build_dir):
+                logger.info(f"Deleting existing build directory: {app_build_dir} (domain path mismatch detected)")
+                utils.remove(app_build_dir)
 
     # Update link libraries as per new domain
     domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")
