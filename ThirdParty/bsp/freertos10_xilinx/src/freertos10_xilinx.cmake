@@ -136,6 +136,9 @@ if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72")
     else()
         set(EL3 " ")
     endif()
+elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78")
+    set(XPAR_PS_INCLUDE "#include \"xparameters_ps.h\"")
+    set(EL3 " ")
 endif()
 
 #enable stm trace event settings
