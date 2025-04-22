@@ -24,21 +24,14 @@
     defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
 #include "xiicps.h"
 
+#define IIC_SCLK_RATE		400000
+
 XIicPs *XPmRail_GetIicInstance(void)
 {
 	static XIicPs IicInstance;
 
 	return &IicInstance;
 }
-#endif /* XPAR_XIICPS_0_DEVICE_ID || XPAR_XIICPS_1_DEVICE_ID || \
-	  XPAR_XIICPS_2_DEVICE_ID || XPAR_XIICPS_0_BASEADDR  || \
-	  XPAR_XIICPS_1_BASEADDR  || XPAR_XIICPS_2_BASEADDR */
-
-#if defined (RAIL_CONTROL)
-#if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
-    defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
-    defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
-#define IIC_SCLK_RATE		400000
 
 XStatus I2CInitialize(XIicPs *Iic, const u32 ControllerID)
 {
@@ -104,7 +97,14 @@ XStatus I2CInitialize(XIicPs *Iic, const u32 ControllerID)
 done:
 	return Status;
 }
+#endif /* XPAR_XIICPS_0_DEVICE_ID || XPAR_XIICPS_1_DEVICE_ID || \
+	  XPAR_XIICPS_2_DEVICE_ID || XPAR_XIICPS_0_BASEADDR  || \
+	  XPAR_XIICPS_1_BASEADDR  || XPAR_XIICPS_2_BASEADDR */
 
+#if defined (RAIL_CONTROL)
+#if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
+    defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
+    defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
 XStatus I2CIdleBusWait(XIicPs *Iic)
 {
 	XStatus Status = XST_FAILURE;
