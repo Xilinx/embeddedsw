@@ -85,6 +85,10 @@
 
 XMutex Mutex;	/* Mutex instance */
 
+#ifndef SDT
+XMutex *MutexInstPtr = &Mutex;	/* Mutex instance pointer */
+#endif
+
 /************************** Function Prototypes ******************************/
 
 #ifndef SDT
@@ -149,7 +153,7 @@ int main(void)
 #ifndef SDT
 int MutexExample(u16 MutexDeviceID)
 #else
-int MutexExample (XMutex *Mutex, UINTPTR BaseAddress)
+int MutexExample (XMutex *MutexInstPtr, UINTPTR BaseAddress)
 #endif
 {
 	XMutex_Config *ConfigPtr;
@@ -173,7 +177,7 @@ int MutexExample (XMutex *Mutex, UINTPTR BaseAddress)
 	/*
 	 * Perform the rest of the initialization.
 	 */
-	Status = XMutex_CfgInitialize(Mutex, ConfigPtr,
+	Status = XMutex_CfgInitialize(MutexInstPtr, ConfigPtr,
 					ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -185,21 +189,21 @@ int MutexExample (XMutex *Mutex, UINTPTR BaseAddress)
 	 */
 	if (XPAR_CPU_ID == 0) {
 
-		XMutex_Lock(Mutex, MUTEX_NUM);	/* Acquire lock */
-		XMutex_Unlock(Mutex, MUTEX_NUM);	/* Release lock */
+		XMutex_Lock(MutexInstPtr, MUTEX_NUM);	/* Acquire lock */
+		XMutex_Unlock(MutexInstPtr, MUTEX_NUM);	/* Release lock */
 	} else {
 
 		/*
 		 * Try to acquire lock, other CPU should have it so it
 		 * should fail.
 		 */
-		while ((XMutex_Trylock(Mutex, MUTEX_NUM)) != XST_SUCCESS) {
+		while ((XMutex_Trylock(MutexInstPtr, MUTEX_NUM)) != XST_SUCCESS) {
 			if (TimeoutCount++ > LOCK_TIMEOUT) {
 				return XST_FAILURE;
 			}
 		}
 
-		XMutex_Unlock(Mutex, MUTEX_NUM);	/* Release lock */
+		XMutex_Unlock(MutexInstPtr, MUTEX_NUM);	/* Release lock */
 	}
 
 	return XST_SUCCESS;
