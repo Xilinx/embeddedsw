@@ -44,6 +44,7 @@
 *       sk   05/07/2024 Added support for In Place Update Error Notify
 * 2.01  gam  01/07/2025 Added IPI macro protection for IPI related APIs to fix
 *                       PLM build failure in no IPI cases.
+*       har  04/22/2025 Close JTAG in case of secure boot before in place plm update
 *
 * </pre>
 *
@@ -66,6 +67,7 @@
 #include "xplmi_task.h"
 #include "xplmi_scheduler.h"
 #include "xplmi_plat.h"
+#include "xloader_secure.h"
 #ifdef XPLMI_IPI_DEVICE_ID
 #include "xipipsu_buf.h"
 #endif
@@ -206,11 +208,20 @@ static int XPlmi_PlmUpdateMgr(void)
 	u32 RomIntReason;
 	u32 Index;
 	void (*XPlmi_ResetVector)(void) = (void (*)(void))XPLMI_RESET_VECTOR;
+	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 
 	/* Clear FW_IS_PRESENT bit */
 	RegVal = XPlmi_In32(PMC_GLOBAL_GLOBAL_CNTRL);
 	XPlmi_Out32(PMC_GLOBAL_GLOBAL_CNTRL,
 		RegVal & (~PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK));
+
+	/* Close JTAG */
+	if ((SecureStateAHWRoT != XPLMI_RTCFG_SECURESTATE_NONSECURE) &&
+		(SecureStateSHWRoT != XPLMI_RTCFG_SECURESTATE_NONSECURE)) {
+		XLoader_DisableJtag();
+	}
+
 	/* Send PLM update request to ROM */
 	XPlmi_Out32(PMC_GLOBAL_ROM_INT, XPLMI_ROM_PLM_UPDATE_REQ);
 
