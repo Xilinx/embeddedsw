@@ -17,6 +17,7 @@ extern "C" {
 
 /* PCIE SBI boot mode */
 #define XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE	(0x8U)
+#define SLAVE_BOOT_SBI_CTRL_ENABLE		(0x1U)
 
 #define FALSE_VALUE		(0U)
 #define TRUE_VALUE		(1U)
