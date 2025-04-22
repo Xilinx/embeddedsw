@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.5   kpt   08/16/22 Initial release
+*       vss   04/07/25 Initialized AesKeyLookupTbl array.
 *
 * </pre>
 *
@@ -36,168 +37,183 @@
 const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 {
 	/* BH_KEY */
-	{ XSECURE_AES_BH_KEY_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_BH_KEY,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_BH_KEY_MASK
+	[0U] = {
+		.RegOffset = XSECURE_AES_BH_KEY_0_OFFSET,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_BH_KEY,
+		.UsrWrAllowed = TRUE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = TRUE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_BH_KEY_MASK
 	},
 
 	/* BH_RED_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_BH_RD_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_KEY_DEC_SEL_BH_RED,
-	  XSECURE_AES_KEY_CLEAR_BH_RED_KEY_MASK
+	[1U] = {
+		.RegOffset = XSECURE_AES_INVALID_CFG,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_BH_RD_KEY,
+		.UsrWrAllowed = FALSE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_KEY_DEC_SEL_BH_RED,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_BH_RED_KEY_MASK
 	},
 
 	/* EFUSE_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_EFUSE_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_EFUSE_KEY_MASK
+	[2U] = {
+		.RegOffset = XSECURE_AES_INVALID_CFG,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_EFUSE_KEY,
+		.UsrWrAllowed = FALSE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = TRUE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_EFUSE_KEY_MASK
 	},
 
 	/* EFUSE_RED_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_EFUSE_RED_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_KEY_DEC_SEL_EFUSE_RED,
-	  XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_MASK
+	[3U] = {
+		.RegOffset = XSECURE_AES_INVALID_CFG,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_EFUSE_RED_KEY,
+		.UsrWrAllowed = FALSE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_KEY_DEC_SEL_EFUSE_RED,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_MASK
 	},
 
 	/* KUP_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_KUP_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK
+	[4U] = {
+		.RegOffset = XSECURE_AES_INVALID_CFG,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_KUP_KEY,
+		.UsrWrAllowed = FALSE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK
 	},
 
 	/* FAMILY_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_FAMILY_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_INVALID_CFG
+	[5U] = {
+		.RegOffset = XSECURE_AES_INVALID_CFG,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_FAMILY_KEY,
+		.UsrWrAllowed = FALSE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_INVALID_CFG
 	},
 
 	/* PUF_KEY */
-	{ XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_SEL_PUF_KEY,
-	  FALSE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_PUF_KEY_MASK
+	[6U] = {
+		.RegOffset = XSECURE_AES_INVALID_CFG,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_PUF_KEY,
+		.UsrWrAllowed = FALSE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_PUF_KEY_MASK
 	},
 
 	/* USER_KEY_0 */
-	{ XSECURE_AES_USER_KEY_0_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_0,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_0_MASK
+	[7U] = {
+		.RegOffset = XSECURE_AES_USER_KEY_0_0_OFFSET,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_0,
+		.UsrWrAllowed = TRUE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_0_MASK
 	},
 
 	/* USER_KEY_1 */
-	{ XSECURE_AES_USER_KEY_1_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_1,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_1_MASK
+	[8U] = {
+		.RegOffset = XSECURE_AES_USER_KEY_1_0_OFFSET,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_1,
+		.UsrWrAllowed = TRUE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_1_MASK
 	},
 
 	/* USER_KEY_2 */
-	{ XSECURE_AES_USER_KEY_2_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_2,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_2_MASK
+	[9U] = {
+		.RegOffset = XSECURE_AES_USER_KEY_2_0_OFFSET,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_2,
+		.UsrWrAllowed = TRUE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_2_MASK
 	},
 
 	/* USER_KEY_3 */
-	{ XSECURE_AES_USER_KEY_3_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_3,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_3_MASK
+	[10U] = {
+		.RegOffset = XSECURE_AES_USER_KEY_3_0_OFFSET,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_3,
+		.UsrWrAllowed = TRUE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_3_MASK
 	},
 
 	/* USER_KEY_4 */
-	{ XSECURE_AES_USER_KEY_4_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_4,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_4_MASK
+	[11U] = {
+		.RegOffset = XSECURE_AES_USER_KEY_4_0_OFFSET,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_4,
+		.UsrWrAllowed = TRUE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_4_MASK
 	},
 
 	/* USER_KEY_5 */
-	{ XSECURE_AES_USER_KEY_5_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_5,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_5_MASK
+	[12U] = {
+		.RegOffset = XSECURE_AES_USER_KEY_5_0_OFFSET,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_5,
+		.UsrWrAllowed = TRUE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_5_MASK
 	},
 
 	/* USER_KEY_6 */
-	{ XSECURE_AES_USER_KEY_6_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_6,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_6_MASK
+	[13U] = {
+		.RegOffset = XSECURE_AES_USER_KEY_6_0_OFFSET,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_6,
+		.UsrWrAllowed = TRUE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_6_MASK
 	},
 
 	/* USER_KEY_7 */
-	{ XSECURE_AES_USER_KEY_7_0_OFFSET,
-	  XSECURE_AES_KEY_SEL_USR_KEY_7,
-	  TRUE,
-	  TRUE,
-	  TRUE,
-	  FALSE,
-	  XSECURE_AES_INVALID_CFG,
-	  XSECURE_AES_KEY_CLEAR_USER_KEY_7_MASK
+	[14U] = {
+		.RegOffset = XSECURE_AES_USER_KEY_7_0_OFFSET,
+		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_7,
+		.UsrWrAllowed = TRUE,
+		.DecAllowed = TRUE,
+		.EncAllowed = TRUE,
+		.KeyDecSrcAllowed = FALSE,
+		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
+		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_7_MASK
 	}
 };
 
