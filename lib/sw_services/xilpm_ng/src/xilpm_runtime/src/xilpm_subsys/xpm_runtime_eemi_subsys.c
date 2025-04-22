@@ -419,11 +419,18 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 	u32 NonSecureMask;
 
 	if ((PM_SUBSYS_PMC == TargetId) && (PM_SUBSYS_PMC != HostId)) {
+		/* Only PMC subsystem can perform operations on itself */
 		Status = XPM_PM_NO_ACCESS;
 		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
 		goto done;
 	} else if (PM_SUBSYS_PMC == HostId) {
+		/* If PMC Subsystem is the host, it can perform any operation */
 		Status = XST_SUCCESS;
+		goto done;
+	} else if ((PM_SUBSYS_DEFAULT == TargetId) || (PM_SUBSYS_DEFAULT == HostId)) {
+		/* Calling this function when default subsystem is an error! */
+		Status = XST_INVALID_PARAM;
+		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
 		goto done;
 	} else {
 		/* Required by MISRA */
@@ -491,7 +498,7 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 		goto done;
 	}
 
-	if (SubsystemId == PM_SUBSYS_PMC) {
+	if (SubsystemId == PM_SUBSYS_PMC || SubsystemId == PM_SUBSYS_DEFAULT) {
 		/* PMC can wake up any Node */
 		Status = XST_SUCCESS;
 		goto done;
@@ -578,7 +585,9 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 		/* Check that force powerdown is not for self or PMC/ASU subsystem */
 		if ((SubsystemId == NodeId) ||
 		    (PM_SUBSYS_PMC == NodeId) ||
-		    (PM_SUBSYS_ASU == NodeId)) {
+		    (PM_SUBSYS_ASU == NodeId) ||
+		    (PM_SUBSYS_DEFAULT == NodeId)) {
+			Status = XST_INVALID_PARAM;
 			goto done;
 		}
 		Status = XPmSubsystem_IsOperationAllowed(SubsystemId, NodeId,
