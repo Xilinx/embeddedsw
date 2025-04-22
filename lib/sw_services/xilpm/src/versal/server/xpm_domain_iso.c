@@ -15,7 +15,6 @@
 #include "xpm_psm_api.h"
 #include "xpm_psm.h"
 #include "xpm_debug.h"
-#include "xloader.h"
 #include "xplmi_hw.h"
 
 /*TODO: Below data should come from topology */
@@ -742,7 +741,6 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 
 			if (((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) ||
 			    ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR == IsoIdx)) {
-				const XilPdi *PdiPtr = XLoader_GetPdiInstance();
 
 				/*
 				 * If isolation command comes during segmented boot
@@ -750,9 +748,9 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				 * isolations must be removed after PDI load has
 				 * completed, so mark the isolation removal as pending.
 				 */
-				if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) &&
-				    (XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE ==
-				     (XPm_In32(SLAVE_BOOT_SBI_CTRL) & XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE))) {
+				if ((XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE | SLAVE_BOOT_SBI_CTRL_ENABLE) ==
+				    (XPm_In32(SLAVE_BOOT_SBI_CTRL) &
+				     (XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE | SLAVE_BOOT_SBI_CTRL_ENABLE))) {
 					/* Mark it pending */
 					XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_REMOVE_PENDING;
 					Status = XST_SUCCESS;
