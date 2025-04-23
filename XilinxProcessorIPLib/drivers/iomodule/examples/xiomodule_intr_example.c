@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 2.16  ml   12/07/23 Make TimerExpired as a static variable.
+* 2.19  ml   04/18/25 Added support for system device-tree flow.
 * </pre>
 ******************************************************************************/
 
@@ -52,7 +53,11 @@
  * included if the example is generated from the TestAppGen test tool.
  */
 #ifndef TESTAPP_GEN
+#ifndef SDT
 #define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID
+#else
+#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_BASEADDR
+#endif
 #endif
 
 #define MAX_INTR_COUNT		3
@@ -65,12 +70,12 @@
 
 /************************** Function Prototypes ******************************/
 
-XStatus IOModuleIntrExample(XIOModule *IOModuleInstancePtr, u16 DeviceId);
+XStatus IOModuleIntrExample(XIOModule *IOModuleInstancePtr, u32 DeviceId);
 XStatus IOModuleInterruptSetup(XIOModule *IOModuleInstancePtr,
-			       u16 DeviceId);
+			       u32 DeviceId);
 
 void IOModuleHandler(void *CallBackRef, u8 Timer);
-void IOModuleSetupIntrSystem(XIOModule *IOModuleInstancePtr);
+void IOModuleSetupIntrSystem(void);
 void IOModuleDisableIntr(XIOModule *IOModuleInstancePtr);
 
 /************************** Variable Definitions *****************************/
@@ -136,7 +141,7 @@ int main(void)
 *		are not working it may never return.
 *
 *****************************************************************************/
-XStatus IOModuleIntrExample(XIOModule *IOModuleInstancePtr, u16 DeviceId)
+XStatus IOModuleIntrExample(XIOModule *IOModuleInstancePtr, u32 DeviceId)
 {
 	int Status;
 	u8 Timer;
@@ -162,7 +167,7 @@ XStatus IOModuleIntrExample(XIOModule *IOModuleInstancePtr, u16 DeviceId)
 	/*
 	 * Initialize and enable interrupts in the processor.
 	 */
-	IOModuleSetupIntrSystem(IOModuleInstancePtr);
+	IOModuleSetupIntrSystem();
 
 	/*
 	 * Setup the handler for the IO Module handler that will be called from
@@ -264,7 +269,7 @@ XStatus IOModuleIntrExample(XIOModule *IOModuleInstancePtr, u16 DeviceId)
 *
 ******************************************************************************/
 XStatus IOModuleInterruptSetup(XIOModule *IOModuleInstancePtr,
-			       u16 DeviceId)
+			       u32 DeviceId)
 {
 	XStatus Status;
 
@@ -287,7 +292,7 @@ XStatus IOModuleInterruptSetup(XIOModule *IOModuleInstancePtr,
 	/*
 	 * Initialize and enable interrupts in the processor.
 	 */
-	IOModuleSetupIntrSystem(IOModuleInstancePtr);
+	IOModuleSetupIntrSystem();
 
 	/*
 	 * Start the IO Module such that interrupts are enabled for all
@@ -352,7 +357,7 @@ void IOModuleHandler(void *CallBackRef, u8 Timer)
 * @note		None.
 *
 ******************************************************************************/
-void IOModuleSetupIntrSystem(XIOModule *IOModuleInstancePtr)
+void IOModuleSetupIntrSystem(void)
 {
 	/*
 	 * Initialize the exception table.
