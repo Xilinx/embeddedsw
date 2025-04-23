@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *                     CR-965028.
 * 2.15  sa   01/05/23 Removed inclusion of mb_interface.h, as it is not
 *                     required.
+* 2.19  ml   04/18/25 Added support for system device-tree flow.
 * </pre>
 ******************************************************************************/
 
@@ -53,7 +54,11 @@
  * included if the example is generated from the TestAppGen test tool.
  */
 #ifndef TESTAPP_GEN
-#define IOMODULE_DEVICE_ID XPAR_IOMODULE_0_DEVICE_ID
+#ifndef SDT
+#define	IOMODULE_DEVICE_ID	XPAR_IOMODULE_0_DEVICE_ID
+#else
+#define	IOMODULE_DEVICE_ID	XPAR_IOMODULE_0_BASEADDR
+#endif
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -64,7 +69,7 @@
 
 /************************** Function Prototypes ******************************/
 
-XStatus IOModuleSelfTestExample(u16 DeviceId);
+XStatus IOModuleSelfTestExample(u32 DeviceId);
 
 /************************** Variable Definitions *****************************/
 
@@ -95,11 +100,11 @@ int main(void)
     Status = IOModuleSelfTestExample(IOMODULE_DEVICE_ID);
     if (Status != XST_SUCCESS)
     {
-		xil_printf("Iomodule selftest Example Failed\r\n");
+	xil_printf("Iomodule selftest Example Failed\r\n");
         return XST_FAILURE;
     }
 
-	xil_printf("Successfully ran Iomodule selftest Example\r\n");
+    xil_printf("Successfully ran Iomodule selftest Example\r\n");
     return XST_SUCCESS;
 }
 #endif
@@ -122,7 +127,7 @@ int main(void)
 * @note     None.
 *
 ******************************************************************************/
-XStatus IOModuleSelfTestExample(u16 DeviceId)
+XStatus IOModuleSelfTestExample(u32 DeviceId)
 {
     XStatus Status;
 
