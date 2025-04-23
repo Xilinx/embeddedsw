@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,13 +60,7 @@ void EdidScdcCheck(XV_HdmiTxSs1          *HdmiTxSs1Ptr,
     if (CheckHdmiParam->EdidCableConnectRead) {
 	/*Read & Parse the EDID upon the Cable Connect to check
 		Sink's Capability*/
-	Status = XV_HdmiTxSs1_ReadEdid(HdmiTxSs1Ptr, (u8*)&Buffer, sizeof(Buffer));
-	/* Only Parse the EDID when the Read EDID success */
-	if (Status == XST_SUCCESS) {
-		XV_VidC_parse_edid((u8*)&Buffer,
-				&CheckHdmiParam->EdidCtrlParam,
-				XVIDC_VERBOSE_DISABLE);
-	}
+	Status = XV_HdmiTxSs1_ReadEdid_extension(HdmiTxSs1Ptr, &CheckHdmiParam->EdidCtrlParam);
 
         /*Check whether the Sink able to support HDMI 2.0 by checking the
         maximum supported video bandwidth*/
@@ -141,9 +135,10 @@ void EdidScdcCheck(XV_HdmiTxSs1          *HdmiTxSs1Ptr,
         if (CheckHdmiParam->IsReReadSinkEdid) {
             /*Read & Parse the EDID upon the Cable Connect to check
 															  Sink Capability*/
-            XV_HdmiTxSs1_ReadEdid(HdmiTxSs1Ptr, (u8*)&Buffer, sizeof(Buffer));
-            XV_VidC_parse_edid((u8*)&Buffer, &CheckHdmiParam->EdidCtrlParam,
-                                XVIDC_VERBOSE_DISABLE);
+		Status = XV_HdmiTxSs1_ReadEdid_extension(HdmiTxSs1Ptr, &CheckHdmiParam->EdidCtrlParam);
+		if (Status != XST_SUCCESS) {
+			xil_printf ("XVHdmiTxss1_ParseEDID failed \n\r");
+			}
 
             if(CheckHdmiParam->EdidCtrlParam.IsSCDCPresent ==
 															XVIDC_SUPPORTED) {
