@@ -29,6 +29,14 @@ properties:
 config:
     - XIOModule_Config
 
+examples:
+    xiomodule_low_level_example.c:
+            - reg
+    xiomodule_selftest_example.c:
+            - reg
+    xiomodule_intr_example.c:
+            - xlnx,pit1-interrupt
+
 required:
     - compatible
     - reg: 2

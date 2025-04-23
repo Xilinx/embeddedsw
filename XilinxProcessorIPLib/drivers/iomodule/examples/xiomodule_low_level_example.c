@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 *                     instead of Microblaze specific API
 *                     microblaze_enable_interrupts. It is needed to support
 *                     RISC-V.
+* 2.19  ml   04/15/25 Add support for SDT flow
 * </pre>
 ******************************************************************************/
 
@@ -49,9 +50,16 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define IOMODULE_BASEADDR  XPAR_IOMODULE_SINGLE_BASEADDR
-#define IOMODULE_DEVICE_ID XPAR_IOMODULE_SINGLE_DEVICE_ID
-
+#ifndef SDT
+#define	IOMODULE_BASEADDR	XPAR_IOMODULE_SINGLE_BASEADDR
+#define	IOMODULE_DEVICE_ID	XPAR_IOMODULE_SINGLE_DEVICE_ID
+#define	IOMODULE_DEVICE_INTR_ID		XPAR_IOMODULE_0_SYSTEM_INTC_INTERRUPT_7_INTR
+#define	IOMODULE_DEVICE_INT_MASK	XPAR_IOMODULE_0_SYSTEM_INTC_INTERRUPT_7_MASK
+#else
+#define	IOMODULE_BASEADDR	XPAR_IOMODULE_0_BASEADDR
+#define	IOMODULE_DEVICE_INTR_ID		0x7U
+#define	IOMODULE_DEVICE_INT_MASK	0x80U
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -74,7 +82,7 @@ void DeviceDriverHandler(void *CallbackRef);
  * Create a shared variable to be used by the main thread of processing and
  * the interrupt processing.
  */
-volatile static Xunit32 InterruptsProcessed = 0;
+static volatile u32 InterruptProcessed = 0;
 
 
 /*****************************************************************************/
@@ -100,11 +108,11 @@ int main(void)
     Status = IOModuleLowLevelExample(IOMODULE_BASEADDR);
     if (Status != XST_SUCCESS)
     {
-		xil_printf("Iomodule lowlevel Example Failed\r\n");
+	xil_printf("Iomodule lowlevel Example Failed\r\n");
         return XST_FAILURE;
     }
 
-	xil_printf("Successfully ran Iomodule lowlevel Example\r\n");
+    xil_printf("Successfully ran Iomodule lowlevel Example\r\n");
     return XST_SUCCESS;
 }
 
@@ -126,6 +134,7 @@ int main(void)
 ******************************************************************************/
 XStatus IOModuleLowLevelExample(u32 IOModuleBaseAddress)
 {
+
     /*
      * Connect a device driver handler that will be called when an interrupt
      * for the device occurs, the device driver handler performs the specific
@@ -149,7 +158,7 @@ XStatus IOModuleLowLevelExample(u32 IOModuleBaseAddress)
      * Cause an interrupt so the handler will be called. This is done by
      * writing a 1 to the interrupt status bit for the device interrupt.
      */
-    XIOModule_Out32(IOModuleBaseAddress + XIN_ISR_OFFSET,
+    XIomodule_Out32(IOModuleBaseAddress + XIN_ISR_OFFSET,
 		    IOMODULE_DEVICE_INT_MASK);
 
     /*
@@ -189,6 +198,10 @@ XStatus IOModuleLowLevelExample(u32 IOModuleBaseAddress)
 ******************************************************************************/
 void SetupInterruptSystem()
 {
+    Xil_ExceptionInit();
+    Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+               (Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
+               (void*) 0);
     /*
      * Enable the Interrupts on the processor.
      */
@@ -222,8 +235,10 @@ void SetupInterruptSystem()
 ******************************************************************************/
 void DeviceDriverHandler(void *CallbackRef)
 {
+   (void)CallbackRef;
     /*
      * Indicate the interrupt has been processed using a shared variable.
      */
     InterruptProcessed++;
+    XIomodule_Out32(IOMODULE_BASEADDR + XIN_IER_OFFSET, 0);
 }
