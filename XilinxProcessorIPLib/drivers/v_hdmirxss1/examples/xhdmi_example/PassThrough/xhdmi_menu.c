@@ -152,7 +152,7 @@ extern void UpdateColorDepth(XHdmiphy1 *Hdmiphy1Ptr,
 extern void UpdateFrameRate(XHdmiphy1 *Hdmiphy1Ptr,
 				XV_HdmiTxSs1 *pHdmiTxSs,
 				XVidC_FrameRate FrameRate);
-extern void XV_HdmiTxSs1_ShowEdid(XV_HdmiTxSs1 *InstancePtr);
+extern void XV_HdmiTxSs1_ShowEdid_extension(XV_HdmiTxSs1 *InstancePtr, XV_VidC_EdidCntrlParam *EdidCtrlParam);
 extern void CloneTxEdid(void);
 extern EdidHdmi EdidHdmi_t;
 #endif
@@ -1318,11 +1318,11 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	    /* Show source edid */
 	case 1 :
-	    XV_HdmiTxSs1_ShowEdid(&HdmiTxSs);
+	    XV_HdmiTxSs1_ShowEdid_extension(&HdmiTxSs, &EdidHdmi_t.EdidCtrlParam);
 	    /* Read TX edid */
 	    xil_printf("\r\n");
 
-	    Status = XV_HdmiTxSs1_ReadEdid(&HdmiTxSs, (u8*)&Buffer, sizeof(Buffer));
+	    Status = XV_HdmiTxSs1_ReadEdid_extension(&HdmiTxSs, &EdidHdmi_t.EdidCtrlParam);
 	    /* Only Parse the EDID when the Read EDID success */
 	    if (Status == XST_SUCCESS) {
 		XV_VidC_parse_edid((u8*)&Buffer,
