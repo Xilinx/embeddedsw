@@ -154,6 +154,215 @@ Add SGMII mode support for TI DP83867 PHY, including device tree handling and RX
 Handle SGMII and PCS/PMA mode setup for GEM; skip internal PCS for PL-based PCS/PMA
 Configure GMII2RGMII converter speed if present.
 
+axipmon_v6_12:
+Fix GCC warnings
+Update YAML binding
+
+bram_v4_12:
+bram: Add the generic compatible for bram
+
+clk_wiz_v1_9:
+Update the compatible for clkx5
+Remove unnecessary register write
+
+gpiops_v3_14:
+Fix C++ compilation issues in gpiops interrupt example
+change data type of EffectiveAddress
+
+i3c_v1_2:
+Update driver version
+Add Slave mode support
+Add examples for slave mode
+Add generic compatible string support
+
+i3cpsx_v1_5:
+Correct receive fifo handling for less than word size
+
+iic_v3_13:
+Fix run-time error from invalid memory access
+
+iicps_v3_21:
+Fix GCC warning and update driver version
+Fix C++ compilation issues in iicps examples
+Fix GCC warning
+Add VEK385 board slave address for xiicps_slave_monitor_example
+
+llfifo_v5_9:
+Add the generic compatible for llfifo
+
+pciepsu_v2_1:
+Remove PcieMode assignment, use generated device tree value
+Update the Readme file to include R5 processor support
+Fix GCC warnings
+
+trafgen_v4_8:
+trafgen: Fix GCC warning
+
+uartns550_v3_12:
+Fix multiple definition of outbyte error for PLM for uartns550 enabled designs
+Fix GCC warning
+Add generic compatible string support
+
+uartps_v3_16:
+Fix compilation warnings in SDT flow
+Replace cts-override with xlnx,has-modem
+
+uartpsv_v1_12:
+Fix C++ compilation issues in uartpsv interrupt example
+Fix GCC warning
+
+xdmapcie_v3_0:
+Add support for MMI PCIe IP and iATU program to handle PCIe transactions
+Update readme file to include R5 processor support
+Update the driver to support CPM5 Controller 1
+Fix compilation issue caused by 64bit variables
+Add compatibility string for CPM5 controller 1
+Revert preprocessor condition change to restore the Data variable definition for compatibility
+
+xilasu:
+Added HMAC client interface
+Added AES CCM support
+Support for KDF client interface
+RSA signature generation and verification support using RSA-PSS padding scheme
+RSA OAEP encode/decode support
+Support for TRNG DRBG client interface
+ECIES client interface
+Key wrap and unwrap client interface
+Support for performance measurements in client
+
+xilcert_v1_4:
+Store SPK ID used during boot in RTCA
+Additional sub-fields in TCB Info extension
+Add UTF8 encoding support for version field
+Support parallel make and incremental builds for SecureLibs
+Use SHA1 as hash algorithm for SKI/AKI fields
+Use uncompressed public key for SHA1 digest for SKI/AKI
+
+xilflash_v4_12:
+Avoid local header inclusion in CMake
+Add compiler check for -iquote usage
+
+xilloader_v2_2:
+SPK and SPKID need to be extended to PCR only if
+AUTH_KEYS_TO_HASH eFuse is programmed
+PDI metaheader instance moved to PMC RAM from PPU1 RAM
+Added the ISSI 256MB OSPI Flash part
+Added support to hand off to ASU processor after loading the ASU elf
+
+
+
+xilocp_v1_5:
+Fix for INIT-TO-FAIL security best practices
+Added redundancy checks for dynamic reconfiguration
+Get application version from user optional data
+Additional sub-fields in TCB Info extension
+Fix updating IsCsr value to FALSE
+Support parallel make and incremental builds for SecureLibs
+Correct IPI instance dependency check in SDT flow
+Changed IPI message length to accommodate for the CRC bytes when IPI CRC is enabled for xilplmi, xilloader,xilpuf, xilnvm, xilsecure and xilocp
+Add support for partition measurement for Versal_2Ve_2Vm
+Added Temporal check for Sha Init
+Address security review comments in XilOcp
+
+xilpdi_v1_11:
+Added macro name for Versal 2VE and 2VM devices
+Update ImgHdrTbl and PartitionHdr structures for versal 2ve and 2vm
+to align with PDI format
+
+xilplmi_v2_2:
+Proc buffer allocation in PPU RAM for versal_2ve_2vm
+Update STL test buffer size in PMC RAM from 320 bytes to 576 bytes of memory
+Registered PCIerrhandler for MMI uncorrectable event and handling PCIE
+EAM handler updated for versal 2ve and 2vm devices
+Added task based event notification functionality for partial PD
+Added elf loading support for all 5 RPU clusters for versal 2ve and 2vm devices
+Updated PMC IRO Freq Config Logic for Versal 2VE & 2VM devices
+Hash verification skip for non-secure boot in export control enabled devices for Versal 2VE & 2VM devices
+
+xilpuf_v2_5:
+SpartanUP SDT fixes
+Support parallel make and incremental builds for SecureLibs
+Changed IPI message length to accommodate for the CRC bytes when IPI CRC is enabled for xilplmi, xilloader,xilpuf, xilnvm, xilsecure and xilocp
+Add example to program black key encrypted with PUF key for SSIT device
+Fix compilation issue in xilpuf examples when XPUF_WRITE_SEC_CTRL_BITS macro is set as TRUE
+Add microblaze_risv support for SpartanUP devices
+Updated the value of XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS as to support only 4K mode
+Added compiler check to ensure -iquote compiler flag is used only with GCC and ARMClang
+
+xilsecure_v5_5:
+Replace xil_util.h with xil_sutil.h
+Changed FATAL_ERROR to WARNING for CMake Build files generation
+Added maximum supported hash size macro
+Change processor name for spartanup SDT flow
+Copy GCM Tag to local buffer in both GCM and GMAC
+Support parallel make and incremental builds for SecureLibs
+Add validation checks for intermediate aes updates
+Added status check in AesUpdate and CopyGcmTag functions
+Use SHA1 as hash algorithm for SKI/AKI fields
+Update description for Mod and Tot params
+Updated comments related to deprecated server mode for versalnet
+Address RTF review comments Versal AiePg2
+Update LMS KAT vectors and send data to LMS and HSS without pre-hasing
+Add support for IPI request to PMC for key transfer
+Update LMS APIs so that argument count is less than 5
+Update SSS config during XSecure_ShaUpdate
+Implemented task based event notification functionality to trigger IPI events and partial PDI event based on AES and SHA core status
+Address security review comments in XilSecure
+XSecure_GenSharedSecret client API is using all IPI words which is incorrect, Addressed the same
+Update sha client to handle SHA3/SHA2 with seperate instances
+Added core reset at resource freeing Add support for xilsecure_rsa_client app for Versal-Net
+
+xilskey_v7_7:
+Update XilSKey_ZynqMp_EfusePs_Write_UsrCtrlBits function
+Fix for efuse PL gpio device ID macro name
+
+ASUFW:
+Added HMAC
+Added AES CCM support
+Support for KDF interface
+RSA signature generation and verification support using RSA-PSS padding scheme
+RSA OAEP encode/decode support
+Added ECIES support
+support for Key wrap and unwrap
+
+zynqmp_fsbl:
+Initialize WDT before board initialization is done
+Check for both LPD and FPD WDT errors when both WDTs are enabled in the design in case of system reset
+
+zynqmp_pmufw:
+Correct IOU register base address for GEM2 in SGMII mode
+Add support for store and restore multiboot register value to ensure the system reboots from correct partition after restart
+Add new macro DISABLE_UART_IDLING to skip UART node idling during the WDT restart use cases
+Update IPI message length to 7 as last word is reserved for CRC
+Fix the WDT expiry flow when escalation is disabled
+Fix logic to get correct data for WDTs
+Fix size of TtcDeviceId variable for SDT flow
+Add support for custom ADMA reset
+
+xilnvm_v3_5:
+SpartanUP SDT fixes
+Removed zeroization during BBRAM key write at server side
+Correct the logic to program upper 128 revocation ID eFuses
+Fix issues in programming PPK hash and IV
+Fix for nvm doxygen warnings
+Support parallel make and incremental builds for SecureLibs
+Restrict the DME keys, DME_MODE and DME_REVOKE programming for VersalGen2
+Split check for AES disable and key write lock in XNvm_EfuseValidateAesKeyWriteReq
+eFUSE controller should be locked only if unlocked
+Add size validation check for BBRAM Key write in handler
+Changed IPI message length to accommodate for the CRC bytes when IPI CRC is enabled for xilplmi, xilloader,xilpuf, xilnvm, xilsecure and xilocp
+Revocation ID and Offchip Revocation ID range checks are added in xilnvm client library
+Support to read complete 384 ppk hash for versal_2ve_2vm
+Move EFUSE_WRITE_AES_KEYS code to CRITICAL_EFUSE block
+Update PLM and DP IV's endianness in versal efuse client app
+Add microblaze_risv support for SpartanUP devices
+Pass correct arguments to XNvm_EfuseCheckAesKeyCrc for SpartanUP
+xilnvm: Read user data from BBRAM_8_MEM for versal_2ve_2vm devices
+Update SSIT example to program unique PPK hash in efuse
+Add support for nvm_client_example for Versal-Net
+Address security review comments in SpartanUP
+
+
 New Files Added for 2025.1:
 
 SPDX-License-Identifier: MIT
