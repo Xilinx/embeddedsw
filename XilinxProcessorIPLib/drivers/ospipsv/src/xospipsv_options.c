@@ -327,6 +327,9 @@ u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode)
 	u32 ConfigReg;
 	u32 Status;
 	u32 ReadReg;
+#if defined(SPARTANUP)
+	u32 DlyCtrlReg;
+#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -369,6 +372,20 @@ u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode)
 		ReadReg |= (XOSPIPSV_NON_PHY_RD_DLY <<
 			XOSPIPSV_RD_DATA_CAPTURE_REG_DELAY_FLD_SHIFT);
 	}
+
+#if defined(SPARTANUP)
+	ReadReg &= ~(XOSPIPSV_RD_DATA_CAPTURE_REG_DELAY_FLD_MASK |
+			XOSPIPSV_RD_DATA_CAPTURE_REG_SAMPLE_EDGE_SEL_FLD_MASK);
+	if (InstancePtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_SDR_NON_PHY) {
+		DlyCtrlReg = 0;
+		ReadReg |= XOSPIPSV_RD_DATA_CAPTURE_REG_SAMPLE_EDGE_SEL_FLD_MASK |
+			(XOSPIPSV_RD_DATA_CAPTURE_REG_4_CLK_CYCLES << XOSPIPSV_RD_DATA_CAPTURE_REG_DELAY_FLD_SHIFT);
+	} else {
+		DlyCtrlReg = XOSPIPSV_REFCLK_DLY_DEFAULT_VAL;
+	}
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_REFCLK_DLY_CTRL_REG, DlyCtrlReg);
+#endif
+
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_RD_DATA_CAPTURE_REG, ReadReg);
 	XOspiPsv_Enable(InstancePtr);

@@ -347,6 +347,8 @@ extern "C" {
 #define XOSPIPSV_RD_DATA_CAPTURE_REG_BYPASS_FLD_SHIFT   0
 #define XOSPIPSV_RD_DATA_CAPTURE_REG_BYPASS_FLD_WIDTH   1
 #define XOSPIPSV_RD_DATA_CAPTURE_REG_BYPASS_FLD_MASK    0X00000001U
+
+#define XOSPIPSV_RD_DATA_CAPTURE_REG_4_CLK_CYCLES    1U
 /** @} */
 
 /**
@@ -2294,6 +2296,20 @@ extern "C" {
 #define XPMC_IOU_MIO_TRI0				0xF1060200U
 #define XPMC_MIO12_DATA_MASK_LSW_SHIFT		16
 #define XPMC_MIO12_DATA_MASK_LSW	0xEFFFU
+/** @} */
+
+/**
+ * @name Ref-Clock Delay Control Register
+ * This register contains bits to control clock for
+ * first stage receiver flops in Non-Phy Mode.
+ * @{
+ */
+/**
+ * Register: XOSPIPSV_REFCLK_DLY_CTRL
+ */
+#define XOSPIPSV_REFCLK_DLY_CTRL_REG    0X00002014U
+
+#define XOSPIPSV_REFCLK_DLY_DEFAULT_VAL   0X00000013U
 /** @} */
 
 #ifdef __cplusplus
