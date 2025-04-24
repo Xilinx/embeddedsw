@@ -18,6 +18,7 @@
 * 5.4   kal      07/24/24 Initial release
 *       sk       08/22/24 Added support for key transfer to ASU
 *       vss      04/08/25 Updated AesValidateSize function
+*       vss      04/23/25 Added byte aligned support.
 *
 * </pre>
 *
@@ -313,15 +314,13 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDm
 
 	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
 		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
-		XPmcDma_64BitTransfer(PmcDmaPtr, XPMCDMA_DST_CHANNEL,
-			(u32)AesDmaCfg->DestDataAddr, (u32)(AesDmaCfg->DestDataAddr >> XSECURE_ADDR_HIGH_SHIFT),
-			Size / XSECURE_WORD_SIZE, AesDmaCfg->IsLastChunkDest);
+		XPmcDma_ByteAlignedTransfer(PmcDmaPtr,XPMCDMA_DST_CHANNEL,
+									AesDmaCfg->DestDataAddr, Size, AesDmaCfg->IsLastChunkDest);
 	}
 
 	if (AesDmaCfg->SrcChannelCfg == TRUE) {
-		XPmcDma_64BitTransfer(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
-			(u32)AesDmaCfg->SrcDataAddr, (u32)(AesDmaCfg->SrcDataAddr >> XSECURE_ADDR_HIGH_SHIFT),
-			Size / XSECURE_WORD_SIZE, AesDmaCfg->IsLastChunkSrc);
+		XPmcDma_ByteAlignedTransfer(PmcDmaPtr,XPMCDMA_SRC_CHANNEL,
+									AesDmaCfg->SrcDataAddr, Size, AesDmaCfg->IsLastChunkSrc);
 	}
 
 	if (AesDmaCfg->SrcChannelCfg == TRUE) {
