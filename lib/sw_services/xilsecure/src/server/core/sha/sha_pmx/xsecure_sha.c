@@ -198,7 +198,8 @@ int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
 		goto END;
 	}
 
-	if (InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) {
+	if ((InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) &&
+		(InstancePtr->ShaState != XSECURE_SHA_UPDATE_IN_PROGRESS)) {
 		Status = (int)XSECURE_SHA3_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -334,9 +335,10 @@ int XSecure_Sha3Update64Bit(XSecure_Sha3 *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	if (InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) {
+	if ((InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) &&
+		(InstancePtr->ShaState != XSECURE_SHA_UPDATE_IN_PROGRESS)) {
 		Status = (int)XSECURE_SHA3_STATE_MISMATCH_ERROR;
-		goto END_RST;
+		goto END;
 	}
 
 	InstancePtr->Sha3Len += Size;
@@ -363,7 +365,11 @@ int XSecure_Sha3Update64Bit(XSecure_Sha3 *InstancePtr, u64 InDataAddr,
 	Status = XSecure_Sha3DataUpdate(InstancePtr,
 				(InDataAddr + TransferredBytes),
 				DataSize, (u8)InstancePtr->IsLastUpdate);
+	if (Status != XST_SUCCESS) {
+		goto END_RST;
+	}
 
+	InstancePtr->ShaState = XSECURE_SHA_UPDATE_IN_PROGRESS;
 END_RST:
 	if (Status != XST_SUCCESS) {
 		/* Set SHA under reset on failure condition */
@@ -429,9 +435,10 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 		goto END;
 	}
 
-	if (InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) {
-		Status = (int)XSECURE_SHA3_STATE_MISMATCH_ERROR;
-		goto END_RST;
+	if ((InstancePtr->ShaState != XSECURE_SHA_UPDATE_IN_PROGRESS) &&
+		(InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED)) {
+			Status = (int)XSECURE_SHA3_STATE_MISMATCH_ERROR;
+		goto END;
 	}
 
 	PadLen = InstancePtr->Sha3Len % XSECURE_SHA3_BLOCK_LEN;
@@ -579,11 +586,6 @@ int XSecure_Sha3ReadHash(const XSecure_Sha3 *InstancePtr,
 
 	HashPtr = (u32 *)Sha3Hash->Hash;
 
-	if (InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) {
-		Status = (int)XSECURE_SHA3_STATE_MISMATCH_ERROR;
-		goto END;
-	}
-
 	/** Read the hash from the registers and store in the local buffer in reverse order */
 	for (Index = 0U; Index < XSECURE_SHA3_HASH_LENGTH_IN_WORDS; Index++)
 	{
@@ -676,7 +678,6 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 	u64 DataAddr = InDataAddr;
 
 	XSecure_AssertNonvoid(InstancePtr != NULL);
-	XSecure_AssertNonvoid(InstancePtr->ShaState == XSECURE_SHA_ENGINE_STARTED);
 
 	PrevPartialLen = InstancePtr->PartialLen;
 	PartialData = InstancePtr->PartialData;
@@ -764,7 +765,6 @@ int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u32 DeviceId) {
 
 	InstancePtr->BaseAddress = CfgPtr->BaseAddress;
 	InstancePtr->ShaConfig = CfgPtr;
-	InstancePtr->ShaState = XSECURE_SHA_LOOKUP_CONFIG;
 	Status = XST_SUCCESS;
 END:
 	return Status;

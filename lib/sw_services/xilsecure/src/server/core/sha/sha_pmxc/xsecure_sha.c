@@ -176,12 +176,6 @@ int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 	Status = XST_SUCCESS;
 
 END:
-	if(Status != XST_SUCCESS) {
-		/** Set SHA2/3 under reset on failure condition. */
-		XSecure_SetReset(InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
-		InstancePtr->ShaState = XSECURE_SHA_INITIALIZED;
-	}
-
 	return Status;
 }
 
@@ -210,8 +204,9 @@ int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Si
 	}
 
 	/** Validate SHA state is started or not. */
-	if(InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) {
-		Status = (int)XSECURE_SHA_STATE_MISMATCH_ERROR;
+	if ((InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) &&
+		(InstancePtr->ShaState != XSECURE_SHA_UPDATE_IN_PROGRESS)) {
+			Status = (int)XSECURE_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -227,33 +222,40 @@ int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Si
 		(u16)(InstancePtr->DmaPtr->Config.DmaType - XSECURE_TYPE_PMC_DMA0),
 		InstancePtr->SssShaCfg);
 	if(Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
 	/** Push Data to SHA2/3 engine. */
 	Status = XSecure_ShaDmaXfer(InstancePtr->DmaPtr, DataAddr,
 				(u32)Size, (u8)InstancePtr->IsLastUpdate);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
 	/** Wait for PMC DMA done bit to be set. */
 	Status = XPmcDma_WaitForDoneTimeout(InstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL);
 	if(Status != (u32)XST_SUCCESS) {
 		Status = XST_FAILURE;
-		goto END;
+		goto END_RST;
 	}
 
 	/** Acknowledge the transfer has completed. */
 	XPmcDma_IntrClear(InstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 
-END:
+	if (InstancePtr->IsLastUpdate == TRUE) {
+		InstancePtr->ShaState = XSECURE_SHA_UPDATE_DONE;
+	}
+	else {
+		InstancePtr->ShaState = XSECURE_SHA_UPDATE_IN_PROGRESS;
+	}
+END_RST:
 	if(Status != XST_SUCCESS) {
 		/** Set SHA2/3 under reset on failure condition */
 		XSecure_SetReset(InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
 		InstancePtr->ShaState = XSECURE_SHA_INITIALIZED;
 	}
 
+END:
 	return Status;
 }
 
@@ -290,16 +292,18 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 		goto END;
 	}
 	/** Validate SHA state. */
-	if(InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) {
+	if ((InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) &&
+		(InstancePtr->ShaState != XSECURE_SHA_UPDATE_DONE)) {
 		Status = (int)XSECURE_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
+
 
 	/** Check the SHA2/3 DONE bit. */
 	Status = XSecure_ShaWaitForDone(InstancePtr);
 	if(Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
-		goto END;
+		goto END_RST;
 	}
 
 	ShaDigestSizeInWords = InstancePtr->ShaDigestSize / XSECURE_WORD_SIZE;
@@ -315,11 +319,12 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 		Status = XST_FAILURE;
 	}
 
-END:
+END_RST:
 	/** Set SHA2/3 under reset. */
 	XSecure_SetReset(InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
 	InstancePtr->ShaState = XSECURE_SHA_INITIALIZED;
 
+END:
 	return Status;
 }
 
@@ -345,8 +350,7 @@ u64 DataAddr, u32 DataSize, u64 HashAddr, u32 HashBufSize)
 	volatile int Status = XST_FAILURE;
 
 	/** Validate the input arguments */
-	if((InstancePtr == NULL) ||
-	(HashBufSize < InstancePtr->ShaDigestSize)) {
+	if((InstancePtr == NULL) || (HashBufSize < InstancePtr->ShaDigestSize)) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
@@ -366,8 +370,8 @@ u64 DataAddr, u32 DataSize, u64 HashAddr, u32 HashBufSize)
 	/** Configure Sha last update. */
 	Status = XSecure_ShaLastUpdate(InstancePtr);
 	if (Status != XST_SUCCESS) {
-                goto END;
-        }
+		goto END;
+	}
 
 	/** Update input data to SHA Engine to calculate Hash. */
 	Status = XST_FAILURE;
@@ -381,12 +385,6 @@ u64 DataAddr, u32 DataSize, u64 HashAddr, u32 HashBufSize)
 	Status = XSecure_ShaFinish(InstancePtr, HashAddr, HashBufSize);
 
 END:
-	if(InstancePtr != NULL) {
-		InstancePtr->ShaState = XSECURE_SHA_INITIALIZED;
-		/** Set SHA2/3 under reset. */
-		XSecure_SetReset(InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
-	}
-
 	return Status;
 }
 
@@ -414,8 +412,9 @@ int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr)
 	}
 
 	/** Validate SHA state */
-	if (InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) {
-		Status = (int)XSECURE_SHA_STATE_MISMATCH_ERROR;
+	if ((InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) &&
+		(InstancePtr->ShaState != XSECURE_SHA_UPDATE_IN_PROGRESS)) {
+			Status = (int)XSECURE_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
