@@ -248,7 +248,7 @@ int XSecure_AesSetDpaCm(const XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 		goto END;
 	}
 
-	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
+	if (InstancePtr->AesState != XSECURE_AES_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -347,7 +347,7 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 		goto END;
 	}
 
-	if ((InstancePtr->AesState == XSECURE_AES_UNINITIALIZED)) {
+	if ((InstancePtr->AesState != XSECURE_AES_INITIALIZED)) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -440,13 +440,13 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	/* Validate Aad Size for versal*/
 	if ((AadSize % XSECURE_QWORD_SIZE) != 0x00U) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
+		goto END;
 	}
 #endif
 	/* Validate AES state */
 	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END_RST;
+		goto END;
 	}
 	/** Enable AAD by writing to the register */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
@@ -461,6 +461,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	 * GMAC tag in correct order from hardware.
 	 */
 	if (InstancePtr->IsGmacEn == TRUE) {
+		InstancePtr->AesState = XSECURE_AES_UPDATE_DONE;
 #ifndef VERSAL_AIEPG2
 		XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
             XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
@@ -470,7 +471,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	/** Configure DMA and transfer AAD to AES engine */
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg, AadSize);
 	if (Status != XST_SUCCESS) {
-		goto END_AAD;
+		goto CLEAR;
 	}
 
 	if ((InstancePtr->IsGmacEn == TRUE) && (InstancePtr->OperationId) == XSECURE_ENCRYPT){
@@ -478,7 +479,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	}
 
 	InstancePtr->IsGmacEn = FALSE;
-END_AAD:
+CLEAR:
 #ifndef VERSAL_AIEPG2
 	/* Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
@@ -490,14 +491,11 @@ END_AAD:
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
 		XSECURE_AES_AAD_DISABLE);
 
-END_RST:
 	if (Status != XST_SUCCESS) {
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
-		InstancePtr->IsGmacEn = FALSE;
 		XSecure_SetReset(InstancePtr->BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
+				XSECURE_AES_SOFT_RST_OFFSET);
 	}
-
 END:
 	return Status;
 }
@@ -564,7 +562,7 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 		goto END_RST;
 	}
 
-	if ((InstancePtr->AesState == XSECURE_AES_UNINITIALIZED)) {
+	if ((InstancePtr->AesState != XSECURE_AES_INITIALIZED)) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END_RST;
 	}
@@ -667,13 +665,7 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	InstancePtr->OperationId = XSECURE_DECRYPT;
 
 	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr, XSECURE_AES_MODE_DEC);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
-	InstancePtr->AesState = XSECURE_AES_OPERATION_INITIALIZED;
-
-END:
 	return Status;
 }
 
@@ -752,12 +744,12 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 
 	if (GcmTagAddr == 0x00U) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
+		goto END;
 	}
 
-	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
-		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END_RST;
+	if (InstancePtr->AesState != XSECURE_AES_UPDATE_DONE) {
+			Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
+			goto END;
 	}
 
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -803,6 +795,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	Status = XSecure_AesGetNxtBlkLen(InstancePtr, &InstancePtr->NextBlkLen);
 
 END_RST:
+	InstancePtr->IsGmacEn = FALSE;
 #ifndef VERSAL_AIEPG2
 	/* Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
@@ -931,14 +924,7 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	InstancePtr->OperationId = XSECURE_ENCRYPT;
 
 	Status = XSecure_AesOpInit(InstancePtr, KeySrc, KeySize, IvAddr, XSECURE_AES_MODE_ENC);
-	if(Status != XST_SUCCESS) {
-		goto END;
-	}
 
-	InstancePtr->AesState = XSECURE_AES_OPERATION_INITIALIZED;
-
-
-END:
 	return Status;
 }
 
@@ -1012,20 +998,19 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 
 	if (GcmTagAddr == 0x00U) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
+		goto END;
 	}
 
-	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
+
+	if (InstancePtr->AesState != XSECURE_AES_UPDATE_DONE) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END_RST;
+		goto END;
 	}
 
 	/* Copying from local buffer which is already stored during encrypt update. */
 	XSecure_MemCpy64(GcmTagAddr, (u64)(UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
 
 	Status = XST_SUCCESS;
-
-END_RST:
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 #ifndef VERSAL_AIEPG2
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
@@ -1744,25 +1729,17 @@ int XSecure_AesGmacCfg(XSecure_Aes *InstancePtr, u32 IsGmacEn)
 
 	if ((IsGmacEn != TRUE) && (IsGmacEn != FALSE)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
+		goto END;
 	}
 
 	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END_RST;
+		goto END;
 	}
 
 	/** Enable/disable GMAC configuration */
 	InstancePtr->IsGmacEn = IsGmacEn;
 	Status = XST_SUCCESS;
-
-END_RST:
-	if (Status != XST_SUCCESS) {
-		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
-		InstancePtr->IsGmacEn = FALSE;
-		XSecure_SetReset(InstancePtr->BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
-	}
 
 END:
 	return Status;
@@ -1865,7 +1842,7 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 	}
 
 	/* Enable AAD */
-        XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
 		XSECURE_AES_AAD_ENABLE);
 
 	AesDmaCfg.SrcDataAddr = AadAddr;
@@ -1875,11 +1852,11 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 	/* Push the AAD to AES engine */
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg, AadSize);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
-        /* Disable AAD */
-        XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
+	/* Disable AAD */
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
 		XSECURE_AES_AAD_DISABLE);
 
 	AesDmaCfg.SrcDataAddr = GcmTagAddr;
@@ -1889,7 +1866,7 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg,
 		XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_RST;
 	}
 
 	Status = XST_FAILURE;
@@ -1904,19 +1881,18 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 	if ((GcmStatus != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK) ||
 	   (GcmStatusTmp != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK)) {
 		Status = (int)XSECURE_AES_GCM_TAG_MISMATCH;
-		goto END;
+		goto END_RST;
 	}
 
-        Status = (u32)XST_SUCCESS;
+	Status = (u32)XST_SUCCESS;
+
+END_RST:
+	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
+	/* Soft Reset Aes*/
+	XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
 
 END:
-	if (InstancePtr != NULL) {
-		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
-		/* Soft Reset Aes*/
-		XSecure_SetReset(InstancePtr->BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
-	}
-
     return Status;
 }
 
@@ -1956,18 +1932,19 @@ static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 
 	if (KeySrc >= XSECURE_MAX_KEY_SOURCES) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
+		goto END;
 	}
 
 	if ((XSECURE_AES_KEY_SIZE_128 != KeySize) &&
 		 (XSECURE_AES_KEY_SIZE_256 != KeySize)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
+		goto END;
 	}
 
-	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
+
+	if (InstancePtr->AesState != XSECURE_AES_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END_RST;
+		goto END;
 	}
 
 	KeyZeroedStatus = XSecure_ReadReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_ZEROED_STATUS_OFFSET);
@@ -1985,7 +1962,13 @@ static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	}
 	else {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END_RST;
+		goto END;
+	}
+
+	/* Key selected does not allow decryption or encryption */
+	if (IsKeySrcAllowed == FALSE) {
+		Status = XST_FAILURE;
+		goto END;
 	}
 
 	if(InstancePtr->NextBlkLen == 0U) {
@@ -1993,29 +1976,18 @@ static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
-	/* Key selected does not allow decryption or encryption */
-	if (IsKeySrcAllowed == FALSE) {
-		Status = XST_FAILURE;
-		goto END_RST;
-	}
-
 	/* Configure AES for decryption/encryption */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_MODE_OFFSET, Mode);
 
 	Status = XSecure_AesKeyLoadandIvXfer(InstancePtr, KeySrc, KeySize, IvAddr);
-
-END_RST:
 	if (Status != XST_SUCCESS) {
-		/*
-		 * Issue a soft to reset to AES engine and
-		 * set the AES state back to initialization state
-		 */
-		InstancePtr->NextBlkLen = 0U;
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
+		goto END;
 	}
+	InstancePtr->AesState = XSECURE_AES_OPERATION_INITIALIZED;
 
 END:
 	return Status;
@@ -2057,18 +2029,20 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 
 	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE))) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
-		goto END_RST;
+		goto END;
 	}
 	/* Validate the size for last chunk */
 	Status = XSecure_AesValidateSize(Size, IsLastChunk);
 	if (Status != XST_SUCCESS) {
-		goto END_RST;
+		goto END;
 	}
 	/* Validate the AES state */
-	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
+	if ((InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) &&
+		(InstancePtr->AesState != XSECURE_AES_UPDATE_IN_PROGRESS)) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END_RST;
+		goto END;
 	}
+
 	/* Enable AES Data swap */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
@@ -2077,6 +2051,13 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 	Status = XSecureAesUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
+	}
+
+	if (IsLastChunk == TRUE) {
+		InstancePtr->AesState = XSECURE_AES_UPDATE_DONE;
+	}
+	else {
+		InstancePtr->AesState = XSECURE_AES_UPDATE_IN_PROGRESS;
 	}
 
 	if ((XSecure_AesIsEcbModeEn(InstancePtr) == TRUE) && (IsLastChunk == TRUE)) {

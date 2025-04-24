@@ -114,7 +114,9 @@ typedef enum {
 typedef enum {
 	XSECURE_AES_UNINITIALIZED,		/**< Uninitialized state */
 	XSECURE_AES_INITIALIZED,		/**< Initialized state */
-	XSECURE_AES_OPERATION_INITIALIZED
+	XSECURE_AES_OPERATION_INITIALIZED, /**< Encrypt/Decrypt initialized */
+	XSECURE_AES_UPDATE_IN_PROGRESS, /**< Encrypt/Decrypt update is in progress */
+	XSECURE_AES_UPDATE_DONE /**< Encrypt/Decrypt update is in done */
 } XSecure_AesState;
 
 /**
