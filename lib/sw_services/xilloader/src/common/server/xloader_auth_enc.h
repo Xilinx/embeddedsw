@@ -697,8 +697,7 @@ int XLoader_AuthEncClear(void);
 int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u32 BlockSize, u8 Last);
 #ifndef PLM_RSA_EXCLUDE
-int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
-		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize);
+int XLoader_RsaPssSignVerify(u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize);
 #endif
 void XLoader_ClearKatOnPPDI(XilPdi *PdiPtr, u32 PlmKatMask);
 #ifndef PLM_AUTH_JTAG_EXCLUDE

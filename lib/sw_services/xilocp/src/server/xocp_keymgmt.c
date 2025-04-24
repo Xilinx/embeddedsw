@@ -957,14 +957,8 @@ static int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr,
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
-	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	XSecure_Sha3 Sha3Instance = {0U};
 	XSecure_Hmac HmacInstance;
-
-	Status = XSecure_ShaInitialize(&Sha3Instance, PmcDmaPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_Sha3Kat,

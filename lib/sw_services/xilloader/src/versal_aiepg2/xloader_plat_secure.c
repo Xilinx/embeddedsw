@@ -74,7 +74,7 @@
 
 /************************** Function Prototypes ******************************/
 #ifndef PLM_RSA_EXCLUDE
-static int XLoader_RsaPssSignVeirfyKat(XPmcDma *PmcDmaPtr);
+static int XLoader_RsaPssSignVeirfyKat(void);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -243,10 +243,10 @@ int XLoader_AddDeviceStateChangeToScheduler(void)
 * @return   XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-int XLoader_RsaKat(XPmcDma *PmcDmaPtr) {
+int XLoader_RsaKat(void) {
 	int Status = XST_FAILURE;
 
-	Status = XLoader_RsaPssSignVeirfyKat(PmcDmaPtr);
+	Status = XLoader_RsaPssSignVeirfyKat();
 
 	return Status;
 }
@@ -311,7 +311,7 @@ END:
 * @return   XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static int XLoader_RsaPssSignVeirfyKat(XPmcDma *PmcDmaPtr) {
+static int XLoader_RsaPssSignVeirfyKat(void) {
 	XSecure_Rsa *RsaInstance = XSecure_GetRsaInstance();
 	u32 *RsaModulus = XSecure_GetKatRsaModulus();
 	u32 *RsaModExt = XSecure_GetKatRsaModExt();
@@ -345,7 +345,7 @@ static int XLoader_RsaPssSignVeirfyKat(XPmcDma *PmcDmaPtr) {
 		goto END;
 	}
 
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_RsaPssSignVerify, PmcDmaPtr,
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_RsaPssSignVerify,
 			(u8*)MsgHash, RsaInstance, (u8*)RsaPssSign, XSECURE_RSA_2048_KEY_SIZE);
 	if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
 		Status = (int)XSECURE_RSA_KAT_PSS_SIGN_VER_ERROR;

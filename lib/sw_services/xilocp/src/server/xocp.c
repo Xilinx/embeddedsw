@@ -1937,12 +1937,6 @@ static int XOcp_MeasureSecureState(void)
 {
 	int Status = XST_FAILURE;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
-
-	Status = XSecure_ShaInitialize(Sha3InstPtr, PmcDmaPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	/* Calculate secure efuse configuration hash */
 	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384,

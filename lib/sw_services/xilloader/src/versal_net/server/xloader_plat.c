@@ -1415,7 +1415,6 @@ static int XLoader_InitSha3Instance1(void)
 {
 	int Status = XLOADER_ERR_SHA3_1_INIT;
 #ifdef PLM_OCP
-	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	XSecure_Sha *Sha3Instance = XSecure_GetSha3Instance(XSECURE_SHA_1_DEVICE_ID);;
 
 	Status = XSecure_ShaLookupConfig(Sha3Instance, XSECURE_SHA_1_DEVICE_ID);
@@ -1423,10 +1422,6 @@ static int XLoader_InitSha3Instance1(void)
 		goto END;
 	}
 
-	Status = XSecure_ShaInitialize(Sha3Instance, PmcDmaPtr);
-	if (Status != XST_SUCCESS) {
-		Status = XLOADER_ERR_SHA3_1_INIT;
-	}
 #else
 	Status = XST_SUCCESS;
 #endif
@@ -1551,11 +1546,6 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
 
 	AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
 
-	Status = XSecure_ShaInitialize(ShaInstPtr, SecurePtr->PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
 		SpkLen = XLOADER_SPK_SIZE - XOCP_WORD_LEN;
 	}
@@ -1570,7 +1560,6 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
 			(UINTPTR)&SecurePtr->AcPtr->Spk,
 			SpkLen, (u64)(UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
 
-END:
 	return Status;
 }
 
@@ -1618,14 +1607,9 @@ static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha
 	int Status = XST_FAILURE;
 	XSecure_Sha *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
-	Status = XSecure_ShaInitialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->AcPtr->SpkId,
 			sizeof(SecurePtr->AcPtr->SpkId), (u64)(UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
-END:
+
 	return Status;
 }
 
@@ -1673,14 +1657,9 @@ static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecu
 	int Status = XST_FAILURE;
 	XSecure_Sha *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 
-	Status = XSecure_ShaInitialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->PrtnHdr->EncRevokeID,
 			sizeof(SecurePtr->PrtnHdr->EncRevokeID), (u64)(UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
-END:
+
 	return Status;
 }
 

@@ -48,8 +48,6 @@
 #include "xsecure_resourcehandling.h"
 
 /************************** Constant Definitions *****************************/
-#define XSECURE_PMCDMA_DEVICEID		PMCDMA_0_DEVICE
-			/**< PMCDMA device id */
 
 /************************** Function Prototypes *****************************/
 #ifndef PLM_SECURE_EXCLUDE
@@ -194,27 +192,9 @@ static int XSecure_AesDecKat(void)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
 
-	if (NULL == PmcDmaInstPtr) {
-		goto END;
-	}
-
-	if (XSecureAesInstPtr->AesState == XSECURE_AES_OPERATION_INITIALIZED) {
-		Status = (int)XSECURE_AES_KAT_BUSY;
-		goto END;
-	}
-
-	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_FAILURE;
 	Status = XSecure_AesDecryptKat(XSecureAesInstPtr);
 
-END:
 	/* Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_AES_DEC_KAT_MASK);
@@ -240,27 +220,9 @@ static int XSecure_AesDecCmKat(void)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
 
-	if (NULL == PmcDmaInstPtr) {
-		goto END;
-	}
-
-	if (XSecureAesInstPtr->AesState == XSECURE_AES_OPERATION_INITIALIZED) {
-		Status = (int)XSECURE_AES_KAT_BUSY;
-		goto END;
-	}
-
-	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_FAILURE;
 	Status = XSecure_AesDecryptCmKat(XSecureAesInstPtr);
 
-END:
 	/* Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_AES_CMKAT_MASK);
@@ -286,27 +248,9 @@ static int XSecure_AesEncKat(void)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
 
-	if (NULL == PmcDmaInstPtr) {
-		goto END;
-	}
-
-	if (XSecureAesInstPtr->AesState == XSECURE_AES_OPERATION_INITIALIZED) {
-		Status = (int)XSECURE_AES_KAT_BUSY;
-		goto END;
-	}
-
-	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_FAILURE;
 	Status = XSecure_AesEncryptKat(XSecureAesInstPtr);
 
-END:
 	/* Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_AES_ENC_KAT_MASK);
@@ -442,26 +386,9 @@ static int XSecure_ShaKat(void)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha3 *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
 
-	if (NULL == PmcDmaInstPtr) {
-		goto END;
-	}
-
-	if (ShaInstPtr->ShaState == XSECURE_SHA_ENGINE_STARTED) {
-		Status = (int)XSECURE_SHA3_KAT_BUSY;
-		goto END;
-	}
-
-	Status = XSecure_ShaInitialize(ShaInstPtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_FAILURE;
 	Status = XSecure_Sha3Kat(ShaInstPtr);
 
-END:
 	/* Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_SHA3_KAT_MASK);
