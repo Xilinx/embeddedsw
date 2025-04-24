@@ -17,6 +17,8 @@
 * 0.3  rama  08/03/2023   Added support for system device-tree flow
 * 0.4  gam   08/07/2023   Corrected XSEM_SSIT_MAX_SLR_CNT macro definition
 * 0.5  anv   02/18/2025   Fixed IPI instance for versal_aiepg2
+* 0.6  gam   04/24/2025   Renamed device macro to VERSAL_2VE_2VM for
+*                         versal 2ve and 2vm.
 *
 * </pre>
 *
@@ -35,9 +37,9 @@ extern "C" {
 #include <xipipsu.h>
 #include "xsem_gic_setup.h"
 
-#if defined(VERSAL_NET) && !defined(VERSAL_AIEPG2)
+#if defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM)
 	#define SRC_IPI_MASK	(XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK)
-#elif defined(VERSAL_AIEPG2) && defined(VERSAL_NET)
+#elif defined(VERSAL_2VE_2VM) && defined(VERSAL_NET)
 	#define SRC_IPI_MASK	(XPAR_XIPIPS_TARGET_PMC_0_CH0_MASK)
 #else
 	#define SRC_IPI_MASK	(XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK)

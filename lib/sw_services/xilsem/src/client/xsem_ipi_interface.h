@@ -30,6 +30,8 @@
 * 1.1   ga   05/16/2023   Updated copyright information and
 *                         fixed IPI instance for versal net
 * 1.2   anv  02/18/2025   fixed IPI instance for versal_aiepg2
+* 1.3   ga   04/24/2025   Renamed device macro to VERSAL_2VE_2VM for
+*                         versal 2ve and 2vm.
 *
 * </pre>
 * @note
@@ -61,9 +63,9 @@ extern "C" {
 #define XSem_Dbg(MSG, ...)	{}
 #endif
 
-#if defined(VERSAL_NET) && !defined(VERSAL_AIEPG2)
+#if defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM)
 	#define TARGET_IPI_INT_MASK	(XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK)
-#elif defined(VERSAL_AIEPG2) && defined(VERSAL_NET)
+#elif defined(VERSAL_2VE_2VM) && defined(VERSAL_NET)
 	#define TARGET_IPI_INT_MASK	(XPAR_XIPIPS_TARGET_PMC_0_CH0_MASK)
 #else
 	#define TARGET_IPI_INT_MASK	(XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK)
