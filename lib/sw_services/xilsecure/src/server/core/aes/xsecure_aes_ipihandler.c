@@ -123,7 +123,7 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_AES_INIT):
 		/**   - @ref XSecure_AesInit */
-		Status = XSecure_AesInit();
+		Status = XST_SUCCESS;
 		break;
 	case XSECURE_API(XSECURE_API_AES_OP_INIT):
 		/**   - @ref XSecure_AesOperationInit */
@@ -234,14 +234,6 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_AesInitOps AesParams;
-	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-
-	if (XSecureAesInstPtr->AesState == XSECURE_AES_UNINITIALIZED) {
-		Status = XSecure_AesInit();
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
 
 	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 	if (Status != XST_SUCCESS) {
@@ -471,12 +463,6 @@ int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 	if ((KeySrc == (u32)XSECURE_AES_BH_KEY) ||
 		(KeySrc == (u32)XSECURE_AES_BH_RED_KEY)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Initialize the Aes driver */
-	Status = XSecure_AesInit();
-	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 

@@ -182,7 +182,7 @@ static void XSecure_MarkKeySlotOccupied(u64 KeySlotStatusAddr)
  *		 - XST_FAILURE  On failure.
  *
  ******************************************************************************/
-int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
+int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatusTmp = XST_FAILURE;
@@ -250,11 +250,6 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr)
 
 	KeyWrapAddr = KeyWrapAddr + XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES;
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)WrapAesKey, KeyWrapAddr, XSECURE_AES_256BIT_KEY_BLOCK_SIZE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XSecure_AesInitialize(AesInstPtr, DmaPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

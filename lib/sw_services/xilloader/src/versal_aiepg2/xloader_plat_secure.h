@@ -206,7 +206,7 @@ int XLoader_AddDeviceStateChangeToScheduler(void);
 int XLoader_CheckDeviceStateChange(void *Arg);
 int XLoader_UpdateCfgLimitCount(u32 UpdateFlag);
 #ifndef PLM_RSA_EXCLUDE
-int XLoader_RsaKat(XPmcDma *PmcDmaPtr);
+int XLoader_RsaKat(void);
 int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	u8 * Out, u32 OutLen, u8 *Input);
 #endif
