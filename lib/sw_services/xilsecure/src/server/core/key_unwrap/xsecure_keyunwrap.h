@@ -52,7 +52,7 @@ extern "C" {
 
 /***************************** Function Prototypes ***************************/
 
-int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData, XPmcDma *DmaPtr);
+int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData);
 
 #endif
 

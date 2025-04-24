@@ -145,16 +145,12 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)
 /**
 * @brief    This function runs the KAT for RSA
 *
-* @param    PmcDmaPtr - Pointer to DMA instance
-*
 * @return
 * 			- XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-int XLoader_RsaKat(XPmcDma *PmcDmaPtr) {
+int XLoader_RsaKat(void) {
 	int Status = XST_FAILURE;
-
-	(void)PmcDmaPtr;
 
 	Status = XSecure_RsaPublicEncryptKat();
 

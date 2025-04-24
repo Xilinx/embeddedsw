@@ -178,7 +178,6 @@ END:
 static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
-	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(0U);
 	u64 KeyWrapAddr = ((u64)KeyWrapAddrHigh << XSECURE_ADDR_HIGH_SHIFT) | (u64)KeyWrapAddrLow;
 	XSecure_KeyWrapData KeyWrapData = {0U};
 
@@ -192,7 +191,7 @@ static int XSecure_KeyUnwrapIpi(u32 KeyWrapAddrLow, u32 KeyWrapAddrHigh)
 		goto END;
 	}
 
-	Status = XSecure_KeyUnwrap(&KeyWrapData, PmcDmaPtr);
+	Status = XSecure_KeyUnwrap(&KeyWrapData);
 END:
 	return Status;
 }
