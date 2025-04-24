@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 2.14  sd   07/27/23 Update the target count
 * 2.16  ma   09/10/24 Updated to support VERSAL_2VE_2VM platform
 * 2.17  ht   11/08/24 Update description of XIPIPSU_MSG_BUF_SIZE
+* 2.17  ht   04/24/25 Update IPI bitmask definitions for Versal Platforms
 *
 * </pre>
 *
@@ -82,11 +83,12 @@ extern "C" {
 #define XIPIPSU_ISR_BASE	0xFF300010U /**< Versal ISR base address */
 #endif
 #define XIPIPSU_ECC_UE_MASK	0x40U  /**< Uncorrecteble Error mask */
+
 /* MASK of all valid IPI bits in above registers */
-#if defined (versal)
-#define XIPIPSU_ALL_MASK	0x000003FFU /**< All valid bit mask */
-#elif defined (VERSAL_2VE_2VM)
+#if defined (VERSAL_NET) || defined (VERSAL_2VE_2VM)
 #define XIPIPSU_ALL_MASK    0x0000FFFFU /**< All valid bit mask */
+#elif defined (versal)
+#define XIPIPSU_ALL_MASK        0x000003FFU /**< All valid bit mask */
 #else
 #define XIPIPSU_ALL_MASK	0x0F0F0301U /**< All valid bit mask */
 #endif
