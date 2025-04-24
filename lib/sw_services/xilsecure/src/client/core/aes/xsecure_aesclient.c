@@ -73,21 +73,12 @@
 int XSecure_AesInitialize(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_1U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
-	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_INIT);
-
-	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesInitialize
-	 * API and returns the status of the IPI response.
-	 */
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr ,Payload, sizeof(Payload)/sizeof(u32));
-
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
