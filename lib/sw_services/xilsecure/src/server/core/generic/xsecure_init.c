@@ -61,11 +61,12 @@ static XSecure_Sha XSecure_ShaInstance[XSECURE_SHA_NUM_OF_INSTANCES];
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static int XSecure_AesShaInit(XSecure_PartialPdiEventParams *PpdiEventParamsPtr);
 
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-#ifdef VERSAL_PLM
+
 /*****************************************************************************/
 /**
  * @brief	This function registers the handlers for XilSecure IPI commands
@@ -77,7 +78,7 @@ static XSecure_Sha XSecure_ShaInstance[XSECURE_SHA_NUM_OF_INSTANCES];
  *		 - error code  On failure
  *
  *****************************************************************************/
-int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
+static int XSecure_AesShaInit(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 {
 	int Status = XST_FAILURE;
 	XSecure_Sha *XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
@@ -116,14 +117,13 @@ int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 	(void)PpdiEventParamsPtr;
 #endif
 
-	XSecure_CmdsInit();
 
 	Status = XST_SUCCESS;
 
 END:
 	return Status;
 }
-#else
+
 /*****************************************************************************/
 /**
  * @brief	This function registers the handlers for XilSecure IPI commands
@@ -138,13 +138,19 @@ END:
 int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 {
 	int Status = XST_FAILURE;
+
+	Status = XSecure_AesShaInit(PpdiEventParamsPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	(void)PpdiEventParamsPtr;
 
 	XSecure_CmdsInit();
 
 #if defined (VERSAL_NET) && !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_AIEPG2)
 	if ((XPLMI_PLATFORM != PMC_TAP_VERSION_QEMU) &&
-		(XASUFW_PLATFORM != PMC_TAP_VERSION_COSIM)) {
+		(XPLMI_PLATFORM != PMC_TAP_VERSION_COSIM)) {
         /* Add keypair generation to scheduler for versalnet */
 		Status = XSecure_AddRsaKeyPairGenerationToScheduler();
 	}
@@ -155,9 +161,9 @@ int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 	Status = XST_SUCCESS;
 #endif
 
+END:
 	return Status;
 }
-#endif
 
 /*****************************************************************************/
 /**
