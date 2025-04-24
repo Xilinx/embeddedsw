@@ -78,7 +78,8 @@ typedef enum {
 	XSECURE_SHA_UNINITIALIZED = 0,
 	XSECURE_SHA_INITIALIZED,
 	XSECURE_SHA_ENGINE_STARTED,
-	XSECURE_SHA_LOOKUP_CONFIG,
+	XSECURE_SHA_UPDATE_IN_PROGRESS,
+	XSECURE_SHA_UPDATE_DONE, /**< This state is only used in aiepg2 */
 } XSecure_ShaState;
 
 typedef struct {
