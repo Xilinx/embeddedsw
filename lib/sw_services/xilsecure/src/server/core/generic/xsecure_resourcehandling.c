@@ -277,20 +277,18 @@ int XSecure_MakeResFree(XPlmi_CoreType Core)
 	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
 #endif
 	XSecure_Sha *XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	u32 ShaResetOffset = XSECURE_SHA3_RESET_OFFSET;
 
 	/** Reset core and get core state to default (initialized) */
 	switch (Core) {
 #ifdef VERSAL_AIEPG2
 		case XPLMI_SHA2_CORE:
 		XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
-		ShaResetOffset = XSECURE_SHA_RESET_OFFSET;
-		XSecure_SetReset(XSecureShaInstPtr->BaseAddress, ShaResetOffset);
+		XSecure_SetReset(XSecureShaInstPtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
 		XSecureShaInstPtr->ShaState = XSECURE_SHA_INITIALIZED;
 		break;
 #endif
 		case XPLMI_SHA3_CORE:
-		XSecure_SetReset(XSecureShaInstPtr->BaseAddress, ShaResetOffset);
+		XSecure_SetReset(XSecureShaInstPtr->BaseAddress, XSECURE_SHA3_RESET_OFFSET);
 		XSecureShaInstPtr->ShaState = XSECURE_SHA_INITIALIZED;
 		break;
 #ifndef PLM_SECURE_EXCLUDE
