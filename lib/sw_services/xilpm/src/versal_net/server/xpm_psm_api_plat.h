@@ -36,7 +36,7 @@ extern "C" {
 #endif
 
 /*******************************************************/
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 enum ProcDeviceId {
 	ACPU_0,
 	ACPU_1,

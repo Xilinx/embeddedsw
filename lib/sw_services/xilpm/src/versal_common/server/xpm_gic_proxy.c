@@ -11,7 +11,7 @@
 #include "xpm_common.h"
 #include "xpm_regs.h"
 #ifdef VERSAL_NET
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 #include "xpm_update.h"
 #include "xpm_update_data.h"
 #endif
@@ -131,7 +131,7 @@ static void XPmGicProxy_Clear(void)
 static XPm_GicProxyGroup XPm_GicProxyGroups[5];
 
 #ifdef VERSAL_NET
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 EXPORT_DS(XPm_GicProxyGroups, \
 	XPLMI_MODULE_XILPM_ID, XPM_GICPROXYGROUPS_DS_ID, \
 	XPM_DATA_STRUCT_VERSION, XPM_DATA_STRUCT_LCVERSION, \

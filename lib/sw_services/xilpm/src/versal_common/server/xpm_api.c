@@ -49,7 +49,7 @@
 #include "xpm_regulator.h"
 #include "xpm_plat_proc.h"
 #ifdef VERSAL_NET
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 #include "xpm_update.h"
 #endif
 #endif
@@ -159,7 +159,7 @@ static XPlmi_Module XPlmi_Pm =
 	NULL,
 	XPlmi_PmAccessPermBuff,
 #ifdef VERSAL_NET
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	XPmUpdate_ShutdownHandler
 #endif
 #endif

@@ -1021,7 +1021,7 @@ int XPmUpdate_ShutdownHandler(XPlmi_ModuleOp Op)
 
 	if (XPLMI_MODULE_SHUTDOWN_INITIATE == Op.Mode) {
 		if (XPLMI_MODULE_NORMAL_STATE == GenericHandlerState ) {
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 #ifdef XPLMI_IPI_DEVICE_ID
 			/** Remove check PSM alive task */
 			Status = XPlm_RemoveKeepAliveTask();
