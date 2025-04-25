@@ -1117,7 +1117,7 @@ maybe_unused static inline XStatus XPm_DisableDdrSr(const u32 SubsystemId)
 }
 maybe_unused static inline void XPm_ClearScanClear(void)
 {
-	/* Unused function for versal_gen2 */
+	/* Unused function for versal_2ve_2vm */
 }
 maybe_unused static inline XStatus XPm_PlatCmnFlush(const u32 SubsystemId)
 {

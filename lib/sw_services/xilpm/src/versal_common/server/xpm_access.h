@@ -19,7 +19,7 @@ extern "C" {
 #ifdef VERSAL_NET
 #define XPM_ENABLE_PLM_TO_PSM_FORWARDING
 #else
-/* By default, feature is disabled for versal, telluride architecture */
+/* By default, feature is disabled for versal, versal_2ve_2vm architecture */
 // #define XPM_ENABLE_PLM_TO_PSM_FORWARDING
 #endif
 

@@ -10,7 +10,7 @@
 
 #include "xil_types.h"
 #include "xstatus.h"
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 #include "xpm_psm_api_plat.h"
 #else
 #include "xpm_plat_proc.h"
