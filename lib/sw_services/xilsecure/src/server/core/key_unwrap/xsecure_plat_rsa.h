@@ -27,7 +27,7 @@
 *       kpt  06/13/24 Add support for RSA key generation.
 *       kpt  06/30/24 Added XSECURE_PRIME_FACTOR_MAX_P_SIZE and
 *                     XSECURE_PRIME_FACTOR_MAX_Q_SIZE
-*       kal  07/24/24 Code refactoring changes for versal_aiepg2
+*       kal  07/24/24 Code refactoring changes for versal_2ve_2vm
 *
 * </pre>
 *

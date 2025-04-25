@@ -135,7 +135,7 @@ int XOcp_RegenSubSysDevAk(void);
 int XOcp_ShutdownHandler(XPlmi_ModuleOp Op);
 int XOcp_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
 int XOcp_GenSharedSecretwithDevAk(u32 SubSystemId, u64 PubKeyAddr, u64 SharedSecretAddr);
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 int XOcp_SetAppVersion(u32 SubsystemID, u64 AppVersion, u32 AppVersionLen);
 #endif
 

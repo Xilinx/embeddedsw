@@ -33,7 +33,7 @@
 # 5.4   mb   04/23/24 Added xsecure_elliptic_p192_support parameter to enable/disable P192 curve
 #       mb   04/23/24 Added xsecure_elliptic_p224_support parameter to enable/disable P224 curve
 #       kpt  06/13/24 Added xsecure_key_slot_addr
-#       kal  07/24/24 Code refactoring for versal_aiepg2 plaform
+#       kal  07/24/24 Code refactoring for versal_2ve_2vm plaform
 #       kal  09/25/24 Remove deleting folders which are set in secure_drc
 #       pre  03/02/25 Deleting xsecure_resourcehandling files for client processor in server mode
 #
@@ -60,7 +60,7 @@ proc secure_drc {libhandle} {
 		IP_NAME=="psx_cortexr52" || IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
 	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psv_cortexr5" ||
 		IP_NAME=="psu_cortexr5" || IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
-	set is_versal_aiepg2 [hsi::get_cells -hier -filter {IP_NAME=="cortexr5" || IP_NAME=="cortexa72"}]
+	set is_versal_2ve_2vm [hsi::get_cells -hier -filter {IP_NAME=="cortexr5" || IP_NAME=="cortexa72"}]
 
 	if {$proc_type == "psu_cortexa53" ||
 		$proc_type == "psu_cortexr5" || $proc_type == "psu_pmu"} {
@@ -176,10 +176,10 @@ proc secure_drc {libhandle} {
 				foreach entry [glob -nocomplain -types f [file join "$server/core/softsha2-384" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$server/versal_aiepg2" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$server/versal_2ve_2vm" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$common/versal_aiepg2" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$common/versal_2ve_2vm" *]] {
 					file copy -force $entry "./src"
 				}
 			}
@@ -277,7 +277,7 @@ proc secure_drc {libhandle} {
 				foreach entry [glob -nocomplain -types f [file join "$client/core/trng" *]] {
                                         file copy -force $entry "./src"
                                 }
-			} elseif {($proc_type == "microblaze" && [llength $is_versal_aiepg2] > 0) ||
+			} elseif {($proc_type == "microblaze" && [llength $is_versal_2ve_2vm] > 0) ||
                                 $proc_type == "cortexa78" || $proc_type == "cortexr52"} {
 				foreach entry [glob -nocomplain -types f [file join "$client/core/sha/sha_pmxc" *]] {
                                         file copy -force $entry "./src"
@@ -291,10 +291,10 @@ proc secure_drc {libhandle} {
 				foreach entry [glob -nocomplain -types f [file join "$client/core/trng" *]] {
                                         file copy -force $entry "./src"
                                 }
-				foreach entry [glob -nocomplain -types f [file join "$common/versal_aiepg2" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$common/versal_2ve_2vm" *]] {
 					file copy -force $entry "./src"
 				}
-				foreach entry [glob -nocomplain -types f [file join "$client/versal_aiepg2" *]] {
+				foreach entry [glob -nocomplain -types f [file join "$client/versal_2ve_2vm" *]] {
 					file copy -force $entry "./src"
 				}
 			} else {

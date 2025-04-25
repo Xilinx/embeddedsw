@@ -81,7 +81,7 @@ static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col,
 		u32 SkipVerify);
 static int XNvm_EfuseCloseController(void);
 static int XNvm_EfusePrgmFipsInfo(u32 FipsMode, u32 FipsVersion);
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *EfuseKey);
 #endif
 static int XNvm_EfuseWritePufSynData(const u32 *SynData);
@@ -92,7 +92,7 @@ static int XNvm_UdsCrcCalc(const u32 *Uds);
 static int XNvm_EfuseCacheReloadAndProtectionChecks(void);
 static int XNvm_EfusePrgmProtectionBits(void);
 static int XNvm_EfuseProtectionChecks(void);
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 static int XNvm_EfuseChangeEndianness(u8 *Dest, u8 *Src, u32 Size);
 #endif
 static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32 *RegData);
@@ -1516,7 +1516,7 @@ END:
 int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeKey *EfuseKey)
 {
 	volatile int Status = XST_FAILURE;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	int CloseStatus = XST_FAILURE;
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
@@ -1615,7 +1615,7 @@ END:
 int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 {
 	volatile int Status = XST_FAILURE;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	int CloseStatus = XST_FAILURE;
 	u32 Row = 0U;
 	u32 Col_0_Num = 0U;
@@ -1894,7 +1894,7 @@ END:
 int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode)
 {
 	volatile int Status = XST_FAILURE;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
@@ -2553,7 +2553,7 @@ static int XNvm_EfuseWriteRoSwapEn(u32 RoSwap)
 	return Status;
 }
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 /******************************************************************************/
 /**
  * @brief	This function programs DME userkey eFuses.
@@ -3342,7 +3342,7 @@ static int XNvm_EfusePrgmPpkHash(XNvm_PpkType PpkType, XNvm_PpkHash *EfuseHash)
 		goto END;
 	}
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	if(PpkType == XNVM_EFUSE_PPK0) {
 		EfusePrgmInfo.StartRow = XNVM_EFUSE_ADD_PPK0_HASH_START_ROW;
                 EfusePrgmInfo.ColStart = XNVM_EFUSE_ADD_PPK0_HASH_START_COL_NUM;

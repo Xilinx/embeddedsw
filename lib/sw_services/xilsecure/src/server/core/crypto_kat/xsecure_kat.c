@@ -32,7 +32,7 @@
 * 5.4   yog  04/29/2024 Fixed doxygen warnings.
 *       mb   05/23/2024 Added support for P-192
 *       mb   05/23/2024 Added support for P-224
-*       kal  07/24/2024 Code refacroring for versal_aiepg2.
+*       kal  07/24/2024 Code refacroring for versal_2ve_2vm.
 *	vss  10/01/2024	Changed existing implementation of AES CM KAT to same key and data
 *	vss  10/23/2024 Removed AES duplicate code
 *
@@ -808,7 +808,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		Status = (int)XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR;
 		goto END_CLR;
 	}
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
 	/** Configure AES engine to decryption */
@@ -928,7 +928,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		Status = (int)XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR;
 		goto END_CLR;
 	}
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
 	/** Configure AES engine to encryption */
@@ -1044,7 +1044,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 		goto END_RST;
 	}
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	Status = XSecure_ShaLastUpdate(SecureSha3);
         if (Status != XST_SUCCESS) {
                 goto END_RST;

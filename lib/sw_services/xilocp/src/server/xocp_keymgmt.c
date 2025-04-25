@@ -1179,7 +1179,7 @@ END:
 	return Status;
 }
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 /*****************************************************************************/
 /**
  * @brief	This function stores the app version for the given subsystem ID

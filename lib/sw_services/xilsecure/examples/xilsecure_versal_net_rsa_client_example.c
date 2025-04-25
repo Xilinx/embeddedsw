@@ -69,7 +69,7 @@
 #include "xil_util.h"
 #include "xsecure_rsaclient.h"
 #include "xsecure_katclient.h"
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 #include "xsecure_plat_client.h"
 #endif
 /************************** Constant Definitions *****************************/

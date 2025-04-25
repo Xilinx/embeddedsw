@@ -28,7 +28,7 @@
 *       kpt     06/13/24 Added RSA key generation support.
 *       kpt     06/13/24 Added AES key unwrap with padding support.
 *       kpt     06/13/24 Updated keyvault map.
-*       kal     07/24/24 Code refactoring for versal_aiepg2
+*       kal     07/24/24 Code refactoring for versal_2ve_2vm
 *
 * </pre>
 *

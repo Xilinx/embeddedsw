@@ -73,7 +73,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 #define XNVM_EFUSE_PPK_HASH_STRING_LEN			(64U)
 #define XNVM_EFUSE_PPK_HASH_LENGTH_IN_BYTES		(32U)
 #else
@@ -378,7 +378,7 @@ static int XilNvm_EfuseShowPpkHash(XNvm_PpkType PpkType)
 	XNvm_PpkHash *EfusePpk = (XNvm_PpkHash *)(UINTPTR)&SharedMem[0U];
 	u32 ReadPpk[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS] = {0U};
 	s8 Row;
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XNvm_EfuseUserDataAddr *ReadUserFuses = (XNvm_EfuseUserDataAddr*)(UINTPTR)((u8*)EfusePpk + Align(sizeof(XNvm_PpkHash)));
 	u32 *UserFuseData = (u32*)(UINTPTR)((u8*)ReadUserFuses + Align(sizeof(XNvm_EfuseUserDataAddr)));
 	u32 ReadUserFuseHash[XNVM_EFUSE_NO_OF_PPK_HASH_USER_FUSES] = {0U};
@@ -396,7 +396,7 @@ static int XilNvm_EfuseShowPpkHash(XNvm_PpkType PpkType)
 		xil_printf("\n\rPPK%d:", PpkType);
 		XilNvm_FormatData((u8 *)EfusePpk->Hash, (u8 *)ReadPpk, XNVM_EFUSE_PPK_HASH_LENGTH_IN_BYTES);
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 		ReadUserFuses->NumOfUserFuses = XNVM_EFUSE_NO_OF_PPK_HASH_USER_FUSES;
 		ReadUserFuses->UserFuseDataAddr = (UINTPTR)UserFuseData;
 

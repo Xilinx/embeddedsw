@@ -34,7 +34,7 @@
 *       har  04/12/24 Fix size of buffer passed to XPlmi_MemSet
 *       har  06/10/24 Support to retain PCR log after In Place PLM update
 *       kal  06/27/24 Clearing first measurement in XOcp_GetSwPcrLog
-*       kal  07/24/2024 Code refactoring updates for versal_aiepg2
+*       kal  07/24/2024 Code refactoring updates for versal_2ve_2vm
 *	vss  09/23/24 Modified code as per security best practices
 * 1.4   vss  10/24/24 Modified xppu disabled macro and it's corresponding code as per security best practices
 *       vss  10/24/24 Added redundancy checks for dynamic reconfiguration as per security best practices
