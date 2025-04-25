@@ -19,7 +19,7 @@
 #include "xpm_regs.h"
 #include "xpm_requirement.h"
 #ifdef VERSAL_NET
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 #include "xpm_update.h"
 #endif
 #endif
@@ -666,7 +666,7 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 		goto done;
 	}
 	#ifdef VERSAL_NET
-	#ifndef VERSAL_AIEPG2
+	#ifndef VERSAL_2VE_2VM
 		XPmUpdate_AllNodes_Add((XPm_Node*)Subsystem);
 	#endif
 	#endif

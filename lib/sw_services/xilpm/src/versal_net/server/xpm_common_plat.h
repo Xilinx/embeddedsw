@@ -20,11 +20,11 @@ extern "C" {
 
 #define PMC_TAP_VERSION_PLATFORM_MASK		(0x0F000000U)
 
-/* @TODO: Added below macro as workaorund to compile for AIEPG2 platform
+/* @TODO: Added below macro as workaorund to compile for VERSAL_2VE_2VM platform
  * Since it doesn't have PSM, this macro should not be required for the platform
  * Fix this during code cleanup
  */
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 #ifndef XPAR_XIPIPS_TARGET_PSXL_PSM_0_CH0_MASK
 #define	XPAR_XIPIPS_TARGET_PSXL_PSM_0_CH0_MASK 0U
 #endif

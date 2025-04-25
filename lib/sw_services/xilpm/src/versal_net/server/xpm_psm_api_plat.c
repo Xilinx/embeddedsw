@@ -16,7 +16,7 @@
 #include "xpm_subsystem.h"
 #include "xplmi.h"
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 u32 ProcDevList[PROC_DEV_MAX] = {
 	[ACPU_0] = PM_DEV_ACPU_0_0,
 	[ACPU_1] = PM_DEV_ACPU_0_1,
