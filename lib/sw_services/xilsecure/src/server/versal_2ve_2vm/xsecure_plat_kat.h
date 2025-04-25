@@ -8,7 +8,7 @@
 * @file xsecure_plat_kat.h
 *
 *
-* This file contains KAT interface APIs for VersalAiePg2
+* This file contains KAT interface APIs for Versal_2Ve_2Vm
 *
 * <pre>
 * MODIFICATION HISTORY:

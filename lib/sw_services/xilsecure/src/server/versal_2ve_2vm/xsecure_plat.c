@@ -8,7 +8,7 @@
 /**
 *
 * @file xsecure_plat.c
-* This file contains VersalAiePg2 specific code for Xilsecure server.
+* This file contains Versal_2Ve_2Vm specific code for Xilsecure server.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -241,7 +241,7 @@ void XSecure_ConfigureDmaByteSwap(u32 Op)
 /*****************************************************************************/
 /**
  *
- * @brief	This function is not applicable for Versal_AiePg2.
+ * @brief	This function is not applicable for Versal_2Ve_2Vm.
  *
  * @param	Size		Size of data in bytes.
  * @param	IsLastChunk	Last chunk indication
@@ -442,7 +442,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function initializes the trng in HRNG mode if it is not initialized
- *		and it is applicable only for Versal_AiePg2
+ *		and it is applicable only for Versal_2Ve_2Vm
  *
  * @return
  *		- XST_SUCCESS  On Successful initialization
