@@ -8,7 +8,7 @@
 *
 * @file xsecure_plat_defs.h
 *
-* This file contains the xsecure API IDs for versal_aiepg2
+* This file contains the xsecure API IDs for versal_2ve_2vm
 *
 * <pre>
 * MODIFICATION HISTORY:

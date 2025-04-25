@@ -8,7 +8,7 @@
 *
 * @file xsecure_plat_ipihandler.c
 *
-* This file contains the Xilsecure VersalAiePg2 IPI handlers implementation.
+* This file contains the Xilsecure Versal_2Ve_2Vm IPI handlers implementation.
 *
 * <pre>
 * MODIFICATION HISTORY:
