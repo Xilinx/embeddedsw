@@ -83,6 +83,60 @@
 	(1ULL << (u64)IOCTL_READ_REG) | \
 	(1ULL << (u64)IOCTL_MASK_WRITE_REG))
 
+static XStatus GetMemRegnForSubsystem(u32 SubsystemId, XPm_AddrRegion *AddrRegnArray,
+	u32 AddrRegnArrayLen, u32 *NumOfRegions)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Subsystem *Subsystem;
+	const XPm_Requirement *Reqm;
+	const XPm_MemRegnDevice *MemRegnDevice;
+	u64 Address, Size;
+	u32 DeviceId;
+
+	*NumOfRegions = 0U;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	Reqm = Subsystem->Requirements;
+
+	/* Iterate over all devices for particular subsystem */
+	while (NULL != Reqm) {
+		DeviceId = Reqm->Device->Node.Id;
+
+		if ((u32)XPM_NODESUBCL_DEV_MEM_REGN != NODESUBCLASS(DeviceId)) {
+			Reqm = Reqm->NextDevice;
+			continue;
+		}
+
+		if (AddrRegnArrayLen <= *NumOfRegions) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		MemRegnDevice  = (XPm_MemRegnDevice *)Reqm->Device;
+		Address = MemRegnDevice->AddrRegion.Address;
+		Size = MemRegnDevice->AddrRegion.Size;
+
+		if (IS_PL_MEM_REGN(Size)) {
+			/* Zero-ing out upper flag bits[31:28] from 64bit size for PL */
+			Size &= ~PL_MEM_REGN_FLAGS_MASK_64;
+		}
+		AddrRegnArray[*NumOfRegions].Address = Address;
+		AddrRegnArray[*NumOfRegions].Size = Size;
+		(*NumOfRegions)++;
+
+		Reqm = Reqm->NextDevice;
+	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+
 XStatus XPm_PlatCmnFlush(const u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
@@ -94,7 +148,7 @@ XStatus XPm_PlatCmnFlush(const u32 SubsystemId)
 	 * Flush DDR and OCM addresses using ABF (Address based flush) for NID8, NID72,
 	 * NID136 and NID200.
 	 */
-	Status = XPm_GetAddrRegnForSubsystem(SubsystemId, AddrRegionarray,
+	Status = GetMemRegnForSubsystem(SubsystemId, AddrRegionarray,
 					     ARRAY_SIZE(AddrRegionarray), &NumberOfRegions);
 	if (XST_SUCCESS != Status) {
 			goto done;
@@ -457,11 +511,6 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
-	}
-
-	Status = XPm_AddPSMemRegnForDefaultSubsystem();
-	if (XST_SUCCESS != Status) {
-		goto done;
 	}
 
 	Status = XST_SUCCESS;

@@ -15,6 +15,25 @@
 extern "C" {
 #endif
 
+/* Enable MEM-REGN Checking Feature */
+#ifdef VERSAL_NET
+#define XPM_ENABLE_MEM_REGN_CHECKING
+#else
+/**
+ * By default, feature is disabled for versal architecture (to save space)
+ */
+// #define XPM_ENABLE_MEM_REGN_CHECKING
+#endif
+
+#define RTCA_IMAGE_STORE_ADDR_HIGH 	((u64)XPm_In32((u32)XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH))
+#define RTCA_IMAGE_STORE_ADDR_LOW 	((u64)XPm_In32((u32)XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW))
+#define RTCA_IMAGE_STORE_ADDR_SIZE 	(XPm_In32((u32)XPLMI_RTCFG_IMG_STORE_SIZE))
+
+#if defined(XPM_ENABLE_MEM_REGN_CHECKING)
+#define IS_BUILTIN_SUBSYSTEM(ID) 	(((u32)PM_SUBSYS_PMC == (ID)) || \
+					 ((u32)PM_SUBSYS_DEFAULT == (ID)))
+#endif
+
 #define IS_MEM_DEV_TYPE(Type)		(((u32)XPM_NODETYPE_DEV_OCM == (Type)) || \
 					 ((u32)XPM_NODETYPE_DEV_XRAM == (Type)) || \
 					 ((u32)XPM_NODETYPE_DEV_L2CACHE == (Type)) || \
@@ -22,6 +41,18 @@ extern "C" {
 					 ((u32)XPM_NODETYPE_DEV_TCM == (Type)) || \
 					 ((u32)XPM_NODETYPE_DEV_EFUSE == (Type)) || \
 					 ((u32)XPM_NODETYPE_DEV_HBM == (Type)))
+
+#define IS_MEM_DEV_OCM(ID)		(((u32)XPM_NODECLASS_DEVICE == NODECLASS(ID)) && \
+					 ((u32)XPM_NODESUBCL_DEV_MEM == NODESUBCLASS(ID)) && \
+					 ((u32)XPM_NODETYPE_DEV_OCM == NODETYPE(ID)))
+
+#define IS_MEM_DEV_TCM(ID)		(((u32)XPM_NODECLASS_DEVICE == NODECLASS(ID)) && \
+					 ((u32)XPM_NODESUBCL_DEV_MEM == NODESUBCLASS(ID)) && \
+					 ((u32)XPM_NODETYPE_DEV_TCM == NODETYPE(ID)))
+
+#define IS_MEM_DEV_DDRMC(ID)		(((u32)XPM_NODECLASS_DEVICE == NODECLASS(ID)) && \
+					 ((u32)XPM_NODESUBCL_DEV_MEM_CTRLR == NODESUBCLASS(ID)) && \
+					 ((u32)XPM_NODETYPE_DEV_DDR == NODETYPE(ID)))
 
 #define MEMREGN_DEVID(IDX)		NODEID((u32)XPM_NODECLASS_DEVICE, \
 					(u32)XPM_NODESUBCL_DEV_MEM_REGN, \
@@ -68,6 +99,24 @@ struct XPm_MemCtrlrDevice {
 	struct XPm_PlDeviceNode *PlDevice;	/**< Parent PL device */
 };
 
+/************************** Static Inline Functions ******************************/
+
+/**
+ * @brief  Checks whether given address range (addr + size) is contained
+ * 		for given Start and End address
+ * @param  RegionStart 	Start Address of the Region to compare
+ * @param  RegionEnd 	End Address of the Region to compare
+ * @param  StartAddr 	Start Address of the Range
+ * @param  EndAddr 	End Address of the Range
+ *
+ * @return true if the address range is within the region ( or false otherwise )
+ * @note   This is a static inline function
+ */
+static inline u8 IsAddrWithinRange(u64 RegionStart, u64 RegionEnd, u64 StartAddr, u64 EndAddr) {
+	return (((RegionStart >= StartAddr) && (RegionStart <= EndAddr)) &&
+		((RegionEnd >= StartAddr) && (RegionEnd <= EndAddr))) ? 1U : 0U;
+}
+
 /************************** Function Prototypes ******************************/
 XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		u32 Id,
@@ -80,9 +129,7 @@ XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
 XStatus XPm_GetRpuDevice(const XPm_Device **Rpu0Device,const XPm_Device **Rpu1Device,
 				const u32 Id);
 u32 XPm_CombTcm(const u32 Id, const u32 Mode);
-XStatus XPm_GetAddrRegnForSubsystem(u32 SubsystemId, XPm_AddrRegion *AddrRegnArray,
-					u32 AddrRegnArrayLen, u32 *NumOfRegions);
-XStatus XPm_IsAddressInSubsystem(u32 SubsystemId, u64 AddrToCheck, u8 *IsValid);
+XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize);
 
 #ifdef __cplusplus
 }
