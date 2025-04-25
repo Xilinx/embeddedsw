@@ -143,9 +143,9 @@
 *       ng   03/09/2024 Fixed format specifier for 32bit variables
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
 *       sk   05/07/2024 Added support for In Place Update Error Notify
-* 2.01  sk   08/26/2024 Updated EAM support for Versal Aiepg2
+* 2.01  sk   08/26/2024 Updated EAM support for Versal 2VE and 2VM Devices
 *       pre  10/07/2024 Added slave error notification
-*       sk   02/20/2025 Added emconfig support for Versal Aiepg2
+*       sk   02/20/2025 Added emconfig support for Versal 2VE and 2VM Devices
 *                       moved PSM code to separate source file
 *
 * </pre>
@@ -624,10 +624,10 @@ END:
 ****************************************************************************/
 int XPlmi_ErrorTaskHandler(void *Data)
 {
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	int Status = XST_FAILURE;
 
-	Status = XPlmi_VersalAiepG2EAMHandler(Data);
+	Status = XPlmi_Versal2Ve2VmEAMHandler(Data);
 
 	return Status;
 #else
@@ -722,7 +722,7 @@ void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId)
 {
 	u32 RegMask = XPlmi_ErrRegMask(ErrorId);
 	u32 Index;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
 #endif
 	switch (XPlmi_GetEventIndex(ErrorNodeType)) {
@@ -732,7 +732,7 @@ void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId)
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS +
 			(Index * PMC_GLOBAL_REG_PMC_ERR_OFFSET), RegMask);
 		break;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	case XPLMI_NODETYPE_EVENT_PSM_INDEX:
 		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
 		/* Clear previous errors */
@@ -874,7 +874,7 @@ int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask)
 		Status = XPlmi_EmDisablePmcErrors(
 				GET_PMC_ERR_ACTION_OFFSET(Index), RegMask);
 		break;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	case XPLMI_NODETYPE_EVENT_PSM_INDEX:
 		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
 		/**
@@ -943,7 +943,7 @@ static int XPlmi_EmEnableAction(XPlmi_EventType ErrorNodeType, u32 RegMask, u8 A
 	u32 Index;
 	u32 PmcActionMask;
 	u8 IrqAction = (u8)FALSE;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
 #else
 	u32 ErrMaskRegAddr;
@@ -983,7 +983,7 @@ static int XPlmi_EmEnableAction(XPlmi_EventType ErrorNodeType, u32 RegMask, u8 A
 		Status = EmEnableErrAction(GET_PMC_ERR_ACTION_ADDR(PmcActionMask,
 					Index), RegMask);
 		break;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	case XPLMI_NODETYPE_EVENT_PSM_INDEX:
 		Index = (u32)ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
 		/*
@@ -1166,7 +1166,7 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 		 * - Check for Valid handler.
 		 */
 		if((XPLMI_EM_ACTION_CUSTOM == ActionId) && (NULL == ErrorHandler)) {
-		#ifndef VERSAL_AIEPG2
+		#ifndef VERSAL_2VE_2VM
 			if ((XPLMI_ERROR_PMC_PSM_NCR != ErrorId)) {
 		#else
 			if ((XPLMI_ERROR_PSX_EAM_E3 != ErrorId)) {

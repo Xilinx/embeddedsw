@@ -478,7 +478,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 			Status);
 		goto END;
 	}
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	if ((Last == (u8)TRUE) || (SecurePtr->IsCdo == (u8)TRUE)) {
 		Status = XSecure_ShaLastUpdate(ShaInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -495,7 +495,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 	/* Update next chunk's hash from pmc ram */
 	if ((Last != (u8)TRUE) && (SecurePtr->IsCdo != (u8)TRUE)) {
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 		Status = XSecure_ShaLastUpdate(ShaInstPtr);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
@@ -565,7 +565,7 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 {
 	int Status = XST_FAILURE;
 	u32 ChecksumType;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	u64 ChecksumOffset;
 #else
 	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
@@ -587,7 +587,7 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 				XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE, 0);
 			goto END;
 		}
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 		/** - Copy checksum hash */
 		ChecksumOffset = SecurePtr->PdiPtr->MetaHdr->FlashOfstAddr +
 				((u64)SecurePtr->PrtnHdr->ChecksumWordOfst *
@@ -703,7 +703,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 		DataAddr = DestAddr;
 	}
 	/** Verify hash on the data */
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	/** Verify hash only when export control bit is not set */
 	if (((XPlmi_In32(EFUSE_CACHE_IP_DISABLE_0) & EFUSE_CACHE_IP_DISABLE_0_EXPORT_MASK) !=
 		EFUSE_CACHE_IP_DISABLE_0_EXPORT_MASK) ||

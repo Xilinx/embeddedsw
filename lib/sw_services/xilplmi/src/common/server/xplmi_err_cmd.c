@@ -42,8 +42,8 @@
 * 1.08  ma   09/27/2023 Add secure lockdown to EAM error actions list
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
 *       am   04/04/2024 Fixed doxygen warnings
-* 2.01  sk   08/26/2024 Updated EAM support for Versal Aiepg2
-*       sk   02/20/2025 EM Set action support fot Versal Aiepg2
+* 2.01  sk   08/26/2024 Updated EAM support for Versal 2VE and 2VM Devices
+*       sk   02/20/2025 EM Set action support fot Versal 2VE and 2VM Devices
 *
 * </pre>
 *
@@ -150,7 +150,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 
 	XPLMI_EXPORT_CMD(XPLMI_CMD_ID_EM_SET_ACTION, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	XPlmi_EventType NodeType =
 			(XPlmi_EventType)XPlmi_EventNodeType(Cmd->Payload[0U]);
 	u32 ErrorAction = Cmd->Payload[1U];
@@ -251,7 +251,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 
 END:
 #else
-	Status = XPlmi_VersalAiepg2SetAction(Cmd);
+	Status = XPlmi_Versal2Ve2VmSetAction(Cmd);
 #endif
 	return Status;
 }

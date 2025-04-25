@@ -134,9 +134,9 @@
 *       kal  06/04/24 Added XLoader_SecureConfigMeasurement call in
 *                     XLoader_ProcessAuthEncPrtn after Block 0 processing is success
 *       mb   06/30/24 Fixed AES Decryption issue when KAT is enabled
-*       kal  07/24/24 Code refactoring and updates for versal_aiepg2
+*       kal  07/24/24 Code refactoring and updates for Versal 2VE and 2VM Devices
 *       kal  09/18/24 Updated XLoader_PpkVerify to verify 384 bit ppk hash
-*                     for Versal_AiePg2
+*                     for Versal 2VE and 2VM Devices
 *       pre  12/09/24 use PMC RAM for Metaheader instead of PPU1 RAM
 *       kal  01/30/25 Send LMS and HSS data to signature verification
 *                     without pre-hasing
@@ -179,7 +179,7 @@
 #include "xloader_plat_secure.h"
 #include "xloader_plat.h"
 #include "xplmi_config.h"
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 #include "xsecure_lms_core.h"
 #include "xsecure_plat_kat.h"
 #endif
@@ -222,7 +222,7 @@ typedef struct {
 #endif
 
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 #define XLOADER_HASH_BLOCK_IV_INCREMENT_VAL             (0x01U)
 #define XLOADER_SECURE_IV_LEN_IN_BYTES                  (12U)
 #define XLOADER_BYTE_SHIFT                              (0x8U)
@@ -267,7 +267,7 @@ static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash);
 static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr);
 static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	XilPdi_MetaHdr *MetaHdr, u64 BufferAddr);
@@ -290,7 +290,7 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
 static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr);
 static int XLoader_ClearAesKeysOnCfg(void);
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBSignParams *HBSignParams);
 static int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash);
 static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
@@ -376,7 +376,7 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 	int Status = XST_FAILURE;
 	volatile u32 AuthCertificateOfstTmp = PrtnHdr->AuthCertificateOfst;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	u64 AcOffset;
 	XLoader_AuthCertificate *AuthCert = (XLoader_AuthCertificate *)
 		XPLMI_PMCRAM_CHUNK_MEMORY_1;
@@ -398,7 +398,7 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 		SecurePtr->SecureEn = (u8)TRUE;
 		SecureTempParams->SecureEn = (u8)TRUE;
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 		AcOffset = SecurePtr->PdiPtr->MetaHdr->FlashOfstAddr +
 			((u64)SecurePtr->PrtnHdr->AuthCertificateOfst *
 				XIH_PRTN_WORD_LEN);
@@ -464,7 +464,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
 #endif
 	/** - Check if encryption is enabled */
@@ -565,7 +565,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 				goto END;
 			}
 		}
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 
 		if (SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) {
 			Status = XST_FAILURE;
@@ -863,13 +863,13 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	u32 TotalImgHdrLen = MetaHdr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN;
 	u32 TotalPrtnHdrLen = MetaHdr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XLoader_HBSignParams HBSignParams;
 #endif
 	XPlmi_Printf(DEBUG_INFO,
 		"Loading secure image headers and partition headers\n\r");
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	HBSignParams.ReadOffset = MetaHdr->ImgHdrTbl.AcOffset * XIH_PRTN_WORD_LEN;
 	HBSignParams.TotalPpkSize = MetaHdr->ImgHdrTbl.TotalPpkSize;
 	HBSignParams.ActualPpkSize = MetaHdr->ImgHdrTbl.ActualPpkSize;
@@ -899,7 +899,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 			(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 			XPlmi_Printf(DEBUG_INFO, "Authentication is enabled\n\r");
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 			TotalSize -= XLOADER_AUTH_CERT_MIN_SIZE;
 #endif
 		}
@@ -924,7 +924,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		/** - Authenticate headers and decrypt the headers */
 		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 			(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_AuthNDecHdrs,
 				SecurePtr, MetaHdr, SecurePtr->ChunkAddr);
 #else
@@ -989,7 +989,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 			(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 		XPlmi_Printf(DEBUG_INFO, "Headers are only authenticated\n\r");
 		/** - Authenticate Image headers and partition headers */
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 		Status = XLoader_AuthHdrs(SecurePtr, MetaHdr);
 #else
 		Status = XLoader_AuthHdrsWithHashBlock(SecurePtr, &HBSignParams);
@@ -1225,7 +1225,7 @@ int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 	volatile u32 ReadRegTmp;
 	u32 PpkOffset;
 	u32 InvalidMask;
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	u32 UserOffset = 0U;
 #endif
 
@@ -1277,7 +1277,7 @@ int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 		Status = XST_SUCCESS;
 	}
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	if (PpkSelect == XLOADER_PPK_SEL_0) {
 		UserOffset = XLOADER_EFUSE_PPK0_USER_START_OFFSET;
 	}
@@ -1620,7 +1620,7 @@ int XLoader_RsaPssSignVerify( u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signatur
 		goto END;
 	}
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	Status = XSecure_ShaLastUpdate(ShaInstPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(
@@ -2041,7 +2041,7 @@ static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 			Status  = XLoader_UpdateMinorErr(XLOADER_SEC_DPA_CM_ERR, Status);
 			goto END;
 		}
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 		XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
 		/* Decrypting SH */
@@ -2317,12 +2317,12 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	u32 ReadEncReg;
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XLoader_HBAesParams HBAesParams;
 #endif
 	if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 		TotalSize = TotalSize - XLOADER_AUTH_CERT_MIN_SIZE;
 #endif
 	}
@@ -2396,7 +2396,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_DPA_CM_ERR, Status);
 		goto END;
 	}
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	/**
 	 * Endianness swap is not required for the first chunk as the IV will be transferred
 	 * using the DMA, and in all other cases, as the IV is part of chunk and decrypted and stored
@@ -2947,7 +2947,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	volatile u8 UseDnaTmp;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 MsgLen = 0;
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	u32 IdWord;
 	u8 SpkHash[XLOADER_SHA3_LEN];
 	u32 AuthType;
@@ -2967,7 +2967,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 		goto END;
 	}
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	IdWord = XPlmi_In32(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET);
 	if (IdWord == XLOADER_AUTH_JTAG_IDWORD) {
 		MsgLen = XPlmi_In32(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET + XSECURE_WORD_SIZE);
@@ -3032,7 +3032,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	}
 
 	/** Verify PPK in the authenticated JTAG data. */
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_PpkVerify, &SecureParams, SecureParams.AuthJtagMessagePtr->ActualPpkSize);
 #else
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_PpkVerify, &SecureParams, XLOADER_PPK_SIZE);
@@ -3054,7 +3054,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 		goto END;
 	}
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	Status = XLoader_ShaDigestCalculation((u8 *)&SecureParams.AuthJtagMessagePtr->SpkHeader,
 			XLOADER_SPK_HEADER_SIZE + SecureParams.AuthJtagMessagePtr->SpkHeader.TotalSPKSize,
 			&SpkHash[0]);
@@ -3091,7 +3091,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 		goto END;
 	}
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	Status = XSecure_ShaUpdate(ShaInstPtr,
 		 (UINTPTR)&(SecureParams.AuthJtagMessagePtr->AuthHdr),
 		 XLOADER_AUTH_JTAG_DATA_AH_LENGTH);
@@ -3127,7 +3127,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	}
 
 	/** Verify signature of Auth Jtag data */
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifySignature,
 		&SecureParams, Sha3Hash.Hash,
 		&(SecureParams.AuthJtagMessagePtr->PpkData),
@@ -3555,7 +3555,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 			(SecureTempParams->IsAuthenticated != (u8)TRUE)) {
 			SecurePtr->SecureData = SecurePtr->ChunkAddr;
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 			SecurePtr->SecureDataLen = TotalSize;
 #else
 			if (Last != (u8)TRUE) {
@@ -3843,7 +3843,7 @@ END:
 	return Status;
 }
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 
 /******************************************************************************/
 /**
@@ -5066,7 +5066,7 @@ END:
 
 #endif
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 
 /*****************************************************************************/
 /**
@@ -5489,7 +5489,7 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 	volatile int Status = XST_FAILURE;
 	int ClearStatus = XST_FAILURE;
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
 #else
 	XLoader_AuthCertificate *AcPtr=
@@ -5518,7 +5518,7 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 		goto END;
 	}
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	/** Hash should be calculated on AC + first chunk */
 	if (SecurePtr->BlockNum == 0x00U) {
 
@@ -5551,7 +5551,7 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 
 	/** Verify the hash */
 	if (SecurePtr->BlockNum == 0x00U) {
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 		if (SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT,
 					HBPtr->HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
@@ -5645,7 +5645,7 @@ END:
 	return Status;
 }
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 /*****************************************************************************/
 /**
 * @brief	This function authenticates the data with SPK.

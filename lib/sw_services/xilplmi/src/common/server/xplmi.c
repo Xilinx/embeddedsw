@@ -63,7 +63,8 @@
 * 1.10  sk   06/05/2024 Added code to populate PLM version in RTCA Reg
 *       mss  06/13/2024 Added timestamp banner conditionally
 *       bm   07/15/2024 Fixed timestamp print in banner
-* 1.11  sk   02/20/2025 Added EAM error config in LPDSLCR for Versal Aiepg2
+* 1.11  sk   02/20/2025 Added EAM error config in LPDSLCR for Versal 2VE
+*                       and 2VM Devices
 *
 * </pre>
 *
@@ -228,7 +229,7 @@ void XPlmi_LpdInit(void)
 #endif
 	/* For versal, PLM Update is not applicable, and this API returns FALSE */
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
-	#ifndef VERSAL_AIEPG2
+	#ifndef VERSAL_2VE_2VM
 		Status = XPlmi_PsEmInit();
 	#else
 		Status = XPlmi_LpdSlcrEmInit();
@@ -237,7 +238,7 @@ void XPlmi_LpdInit(void)
 			goto END;
 		}
 		XPlmi_SetLpdInitialized(LPD_INITIALIZED);
-	#ifndef VERSAL_AIEPG2
+	#ifndef VERSAL_2VE_2VM
 		/**
 		 * Enable Slave Error for PSM Global
 		 */

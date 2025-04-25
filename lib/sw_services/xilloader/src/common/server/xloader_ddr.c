@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -80,7 +80,7 @@ static u8 DdrRequested = (u8)FALSE;
 int XLoader_DdrInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	u32 CapAccess = (u32)PM_CAP_ACCESS;
 	u32 CapContext = (u32)PM_CAP_CONTEXT;
 #endif
@@ -90,7 +90,7 @@ int XLoader_DdrInit(u32 DeviceFlags)
 		 * - Initialize the device request for DDR_0.
 		 * - Otherwise return XLOADER_ERR_PM_DEV_DDR_0.
 		*/
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 		Status = XPm_PmcRequestDevice(PM_DEV_DDR_0);
 #else
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
@@ -192,7 +192,7 @@ int XLoader_DdrRelease(void)
 		 * - Initialize the DDR_0 device release request.
 		 * - Otherwise return XLOADER_ERR_RELEASE_PM_DEV_DDR_0.
 		*/
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 		Status = XPm_PmcReleaseDevice(PM_DEV_DDR_0);
 #else
 		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,

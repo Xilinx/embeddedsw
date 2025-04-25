@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,10 +33,6 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-/**
- * @addtogroup xilsecure_versal_2ve_2vm_error_codes XilSecure Error Codes
- * @{
- */
 typedef enum {
 	XSECURE_SHA_INIT_ERROR = 0x02,		/**< 0x02 - Error when SHA
 						   init fails. */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ****************************************************************************/
 
@@ -88,12 +88,12 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		XPLMI_PMCRAM_CHUNK_MEMORY;
 	struct Usb_DevData *UsbInstancePtr = (struct Usb_DevData *)
 		XPLMI_PMCRAM_CHUNK_MEMORY_1;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 #endif
 
 	(void) DeviceFlags;
-#ifdef	VERSAL_AIEPG2
+#ifdef	VERSAL_2VE_2VM
 	Status = XPm_PmcRequestDevice(PM_DEV_USB_0);
 #else
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
@@ -247,7 +247,7 @@ int XLoader_UsbRelease(void)
 	/**
 	 * - Release the USB device.
 	*/
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	Status = XPm_PmcReleaseDevice(PM_DEV_USB_0);
 #else
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
