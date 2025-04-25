@@ -24,7 +24,7 @@ if("${CMAKE_MACHINE}" STREQUAL "Versal")
 elseif("${CMAKE_MACHINE}" STREQUAL "VersalNet")
 	add_subdirectory(versal_net)
 	if(("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM") AND ("${XILPLMI_mode}" STREQUAL "server"))
-		add_subdirectory(versal_aiepg2)
+		add_subdirectory(versal_2ve_2vm)
 	endif()
 endif()
 

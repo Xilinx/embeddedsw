@@ -66,7 +66,7 @@ typedef void (*XPlmi_ErrorFunc_t)(int Status);
 
 typedef enum {
 	XPLMI_SHA3_CORE = 0, /* SHA3 core */
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XPLMI_SHA2_CORE, /* SHA2 core */
 #endif
 #ifndef PLM_SECURE_EXCLUDE

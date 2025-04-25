@@ -42,7 +42,8 @@
 *       sk   02/26/2024 Added support for Infineon OSPI flash part
 *       ng   03/05/2024 Added support for Macronix OSPI 2G flash part
 *       sk   03/16/2024 Added support for Spansion Die config
-*       pre  12/03/2024 Added support to reset OSPI device through OSPI controller in telluride
+*       pre  12/03/2024 Added support to reset OSPI device through OSPI controller in
+*                       versal 2ve and 2vm devices
 *       prt  12/30/2024 Added support for ISSI 256MB flash part
 *		prt	 04/02/2025 Added support for Infineon OSPI flash parts
 *		prt  04/08/2025 Added support for skipping OSPI copy on zero byte length
@@ -308,14 +309,14 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	XOspiPsv_Config *OspiConfig;
 	u8 OspiMode;
 	(void)DeviceFlags;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 #endif
 
 	/**
 	 * - Request driver for OSPI device.
 	*/
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	Status = XPm_PmcRequestDevice(PM_DEV_OSPI);
 #else
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
@@ -354,7 +355,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	Status = (int)XOspiPsv_DeviceResetViaOspi(&OspiPsvInstance, XOSPIPSV_HWPIN_RESET);
 #else
 	Status = (int)XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
@@ -1154,7 +1155,7 @@ int XLoader_OspiRelease(void)
 	/**
 	 * - Request the OSPI driver to release the device.
 	*/
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	Status = XPm_PmcReleaseDevice(PM_DEV_OSPI);
 #else
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,

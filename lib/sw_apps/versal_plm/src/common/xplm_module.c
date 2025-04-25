@@ -106,7 +106,7 @@
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 #include "xplm_ssitcomm.h"
 #endif
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 #include "xplmi_asu_cmd.h"
 #endif
 #ifdef PLM_TPM
@@ -206,7 +206,7 @@ int XPlm_ModuleInit(void *Arg)
 	}
 #endif
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XPlmi_AsuModuleInit(XPlmi_PufOnDemandRegeneration, XSecure_InitiateASUKeyTransfer);
 #endif
 

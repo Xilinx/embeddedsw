@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -101,7 +101,7 @@ int XLoader_SbiInit(u32 DeviceFlags)
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 				SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK,
 				XLOADER_SBI_CTRL_INTERFACE_JTAG);
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 		XPlmi_UtilRMW(XLOADER_PMC_TAP_INST_MASK_0_OFFSET,
 				PMC_TAP_INST_MASK_0_JCONFIG_MASK,
 				PMC_TAP_INST_MASK_0_JCONFIG_ENABLE);
