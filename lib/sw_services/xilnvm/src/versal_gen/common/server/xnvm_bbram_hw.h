@@ -56,7 +56,7 @@ extern "C" {
 #define XNVM_BBRAM_8_REG			(0x30U)
 #define XNVM_BBRAM_MSW_LOCK_REG			(0x4CU)
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 #define XNVM_BBRAM_8_MEM_REG			(0x50U)
 #endif
 

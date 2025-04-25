@@ -7,7 +7,7 @@
 /**
 *
 * @file xsecure_sha_ipihandler.h
-* @addtogroup xsecure_apis XilSecure Versal_AIEPG2 APIs
+* @addtogroup xsecure_apis XilSecure Versal_2Ve_2Vm APIs
 * @{
 * @cond xsecure_internal
 * This file contains the xilsecure SHA IPI handler declaration.

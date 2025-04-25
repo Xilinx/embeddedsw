@@ -65,7 +65,7 @@ int XNvm_BbramZeroize(const XNvm_ClientInstance *InstancePtr);
 int XNvm_BbramWriteUsrData(const XNvm_ClientInstance *InstancePtr, const u32 UsrData);
 int XNvm_BbramReadUsrData(const XNvm_ClientInstance *InstancePtr, const u64 OutDataAddr);
 int XNvm_BbramLockUsrDataWrite(const XNvm_ClientInstance *InstancePtr);
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 int XNvm_BbramWriteConfigLimiterParams(const XNvm_ClientInstance *InstancePtr, const u32 ClEnFlag,
 	const u32 ClMode, const u32 MaxNumOfConfigs);
 #endif

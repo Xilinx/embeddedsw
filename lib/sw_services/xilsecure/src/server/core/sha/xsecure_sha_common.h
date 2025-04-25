@@ -119,7 +119,7 @@ typedef struct {
 	u32 PartialLen; /**< Partial Length */
 	u8 PartialData[XSECURE_SHA3_BLOCK_LEN]; /**< Partial Data */
 
-	/* Versal_Aiepg2 specific fields */
+	/* Versal_2Ve_2Vm specific fields */
 	XSecure_SssSrc SssShaCfg; /**< SSS config value */
 	u32 ShaMode; /**< ShaMode value to be configured in SHA_MODE register */
 	u32 ShaDigestSize; /**< Digest size in bytes for specific SHA Mode */

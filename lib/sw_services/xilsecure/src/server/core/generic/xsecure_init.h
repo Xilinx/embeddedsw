@@ -22,7 +22,7 @@
  *       har  10/12/2020 Addressed security review comments
  * 4.5   bm   05/13/2021 Add common crypto instances
  * 4.6   ma   07/08/2022 Added support for secure lockdown
- * 5.4   kal  07/24/2024 Code refactoring for versal_aiepg2
+ * 5.4   kal  07/24/2024 Code refactoring for versal_2ve_2vm
  *       pre  03/02/2025 Modified prototype of XSecure_Init function
  *
  * </pre>

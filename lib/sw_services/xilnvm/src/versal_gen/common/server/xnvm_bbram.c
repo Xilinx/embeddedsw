@@ -59,7 +59,7 @@
 #define REVERSE_POLYNOMIAL			(0x82F63B78U)
 						/**< Polynomial used for CRC calculation */
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 #define XNVM_CL_ENABLE_SHIFT			(30U)
 			/**< Shift for enabling Configuration Limiter feature */
 #define XNVM_CL_MODE_SHIFT			(28U)
@@ -280,7 +280,7 @@ static int XNvm_BbramWriteBbram8(u32 Data)
 		 * For versal_2ve_2vm devices, the data should be written in BBRAM_8 register and
 		 * read from BBRAM_8_MEM register.
 		 */
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 		ReadReg = XNvm_BbramReadReg(XNVM_BBRAM_8_REG);
 #else
 		ReadReg = XNvm_BbramReadReg(XNVM_BBRAM_8_MEM_REG);
@@ -311,7 +311,7 @@ static int XNvm_BbramWriteBbram8(u32 Data)
 int XNvm_BbramWriteUsrData(u32 GeneralPurposeData)
 {
 	int Status = XST_FAILURE;
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	u32 AHwRotState = Xil_In32(XNVM_RTCFG_SECURESTATE_AHWROT_ADDR);
 	u32 SHwRotState = Xil_In32(XNVM_RTCFG_SECURESTATE_SHWROT_ADDR);
 
@@ -344,7 +344,7 @@ u32 XNvm_BbramReadUsrData(void)
 	/**
 	 * Read the 32 bit user data from the BBRAM_8 register and return it
 	 */
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	return XNvm_BbramReadReg(XNVM_BBRAM_8_REG);
 #else
 	return XNvm_BbramReadReg(XNVM_BBRAM_8_MEM_REG);
@@ -503,7 +503,7 @@ END:
 	return Status;
 }
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 /******************************************************************************/
 /**
  * @brief	This function provisions BBRAM_8 register with the parameters of

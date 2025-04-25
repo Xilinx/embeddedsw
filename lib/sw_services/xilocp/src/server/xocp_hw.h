@@ -19,7 +19,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- --------   -------------------------------------------------------
 * 1.0   vns  06/27/2022 Initial release
-* 1.5	tri  03/01/2025 Added XOCP_PMC_GLOBAL_PCR_OP address for versal_aiepg2
+* 1.5	tri  03/01/2025 Added XOCP_PMC_GLOBAL_PCR_OP address for versal_2ve_2vm
 *
 * </pre>
 *
@@ -97,7 +97,7 @@ extern "C" {
 
 #define XOCP_PMC_GLOBAL_PCR_OP_IDX_SHIFT	(3U)	/**< Index shift option for PCR */
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 /**
  * Register:  XOCP_PMC_GLOBAL_PCR_OP
  * @{
@@ -113,7 +113,7 @@ extern "C" {
 /** @} */
 #endif
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 /**
  * Register:  XOCP_PMC_GLOBAL_PCR_OP
  * @{

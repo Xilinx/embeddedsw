@@ -34,7 +34,7 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /**
- * @addtogroup xilsecure_versal_aiepg2_error_codes XilSecure Error Codes
+ * @addtogroup xilsecure_versal_2ve_2vm_error_codes XilSecure Error Codes
  * @{
  */
 typedef enum {

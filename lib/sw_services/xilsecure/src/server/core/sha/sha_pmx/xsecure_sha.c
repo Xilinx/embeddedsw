@@ -52,7 +52,7 @@
 *	vss  09/21/23 Fixed doxygen warnings
 *	vss  09/11/2023 Fixed MISRA-C Rule 10.3 and 10.4 violation
 * 5.4   yog  04/29/24 Fixed doxygen warnings
-*       kal  07/24/24 Code refactoring for versal_aiepg2
+*       kal  07/24/24 Code refactoring for versal_2ve_2vm
 *       pre  03/02/25 Removed data context lost setting
 *
 * </pre>

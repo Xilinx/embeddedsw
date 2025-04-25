@@ -172,7 +172,7 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 	u32 SecCtrlBits = 0U;
 	u32 PpkOffset = 0U;
 	u32 WrLkMask = 0U;
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	u32 UserFuseOffset = 0U;
 #endif
 	/**
@@ -208,7 +208,7 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 		goto END;
 	}
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	if (PpkType == XNVM_EFUSE_PPK0) {
                 UserFuseOffset = XNVM_EFUSE_CACHE_PPK0_USER_FUSE_OFFSET;
         }
@@ -224,7 +224,7 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
         }
 
 	/**
-	 * Check for corresponding user eFuses for zeros for Versal_Aiepg2
+	 * Check for corresponding user eFuses for zeros for Versal_2Ve_2Vm
 	 */
 	Status = XNvm_EfuseCheckZeros(UserFuseOffset,
                         XNVM_EFUSE_PPK_HASH_USER_FUSE_NUM_OF_CACHE_ROWS);

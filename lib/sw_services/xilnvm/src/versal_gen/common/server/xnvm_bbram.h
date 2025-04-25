@@ -64,7 +64,7 @@ extern "C" {
 						/**< Error in BBRAM user data locking */
 #define XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED    (XNVM_EFUSE_BBRAM_TAG | 0x05U)
 						/**< Error in BBRAM user data write, as BBRAM_8 reg is locked */
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 #define XNVM_BBRAM_ERROR_USER_DATA_WRITE_IN_SB    (XNVM_EFUSE_BBRAM_TAG | 0x06U)
 						/**< Error, in BBRAM8 write in Secure Boot */
 #endif
@@ -96,7 +96,7 @@ u32 XNvm_BbramReadUsrData(void);
 /* Zeroize BBRAM memory */
 int XNvm_BbramZeroize(void);
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 /* Write Configuration limiter parameters in BBRAM */
 int XNvm_BbramWriteConfigLimiterParams(u32 ClEnFlag, u32 ClMode, u32 MaxNumOfConfigs);
 #endif

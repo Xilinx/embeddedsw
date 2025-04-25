@@ -7,7 +7,7 @@
 /**
 *
 * @file xsecure_sha_hw.h
-* This file contains SHA3/SHA2 core hardware definitions for versal_aiepg2.
+* This file contains SHA3/SHA2 core hardware definitions for versal_2ve_2vm.
 *
 * <pre>
 * MODIFICATION HISTORY:

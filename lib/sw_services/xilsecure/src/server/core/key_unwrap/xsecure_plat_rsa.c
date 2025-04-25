@@ -28,7 +28,7 @@
 *       kpt     05/26/24 Added RSA Expopt API.
 *       kpt     06/13/24 Add support for RSA key generation.
 *       kpt     07/04/24 Add major error code for RSA key pair generation.
-*       kal     07/24/24 Code refactoring changes for versal_aiepg2
+*       kal     07/24/24 Code refactoring changes for versal_2ve_2vm
 *       mb      10/14/24 Removed duplicate definitions
 *
 * </pre>

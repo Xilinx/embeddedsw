@@ -97,7 +97,7 @@ examples:
   xilsecure_spartanup_sha_server_example.c:
     - supported_platforms:
       - spartanuplus
-  xilsecure_versal_aiepg2_sha_client_example.c:
+  xilsecure_versal_2ve_2vm_sha_client_example.c:
     - supported_platforms:
       - Versal_2VE_2VM
   xilsecure_versal_net_keyunwrap_client_example.c:
