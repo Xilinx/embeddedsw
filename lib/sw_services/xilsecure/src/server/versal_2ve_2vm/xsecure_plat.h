@@ -8,7 +8,7 @@
 *
 * @file xsecure_plat.h
 *
-* This file contains Versal_AiePg2 specific code for Xilsecure server.
+* This file contains Versal_2Ve_2Vm specific code for Xilsecure server.
 *
 * <pre>
 * MODIFICATION HISTORY:

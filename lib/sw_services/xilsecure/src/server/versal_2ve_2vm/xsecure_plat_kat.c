@@ -7,7 +7,7 @@
 *
 * @file xsecure_plat_kat.c
 *
-* This file contains known answer tests for Versal_AiePg2
+* This file contains known answer tests for Versal_2Ve_2Vm
 *
 * <pre>
 * MODIFICATION HISTORY:
