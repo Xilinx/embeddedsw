@@ -61,7 +61,7 @@ static int XNvm_BbramClear(void);
 static int XNvm_BbramUsrDataWrite(u32 UsrData);
 static int XNvm_BbramUsrDataRead(u32 DstAddrLow, u32 DstAddrHigh);
 static int XNvm_BbramLockUsrData(void);
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 static int XNvm_BbramConfigLimiterParamsWrite(u32 ClEnFlag, u32 ClMode, u32 MaxNumOfConfigs);
 #endif
 
@@ -117,7 +117,7 @@ int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA):
 		Status = XNvm_BbramLockUsrData();
 		break;
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS):
 		Status = XNvm_BbramConfigLimiterParamsWrite(Pload[0], Pload[1], Pload[2]);
 		break;
@@ -264,7 +264,7 @@ static int XNvm_BbramLockUsrData(void)
 	return Status;
 }
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 /*****************************************************************************/
 /**
  * @brief       This function write configuration limiter params
@@ -282,6 +282,6 @@ static int XNvm_BbramConfigLimiterParamsWrite(u32 ClEnFlag, u32 ClMode, u32 MaxN
 
 	return Status;
 }
-#endif /* VERSAL_AIEPG2 */
+#endif /* VERSAL_2VE_2VM */
 
 #endif /* PLM_NVM */

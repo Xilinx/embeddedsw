@@ -664,7 +664,7 @@ static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAdd
 		goto END;
 	}
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
 

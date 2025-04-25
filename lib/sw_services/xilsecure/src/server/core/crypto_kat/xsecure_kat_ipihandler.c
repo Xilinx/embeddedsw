@@ -24,7 +24,7 @@
 *       yog  08/07/2023 Removed trng init call in XSecure_EllipticSignGenKat API
 *                       since trng is being initialised in server API's
 * 5.4   yog  04/29/2024 Fixed doxygen grouping and doxygen warnings.
-* 	kal  07/24/2024 Code refactoring for versal_aiepg2
+* 	kal  07/24/2024 Code refactoring for versal_2ve_2vm
 *	vss  10/23/2024 Removed AES duplicate code
 *       pre  03/02/2025 Implemented task based event notification functionality for AES &
 *                       SHA IPI events

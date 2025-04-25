@@ -28,13 +28,13 @@ xilsecure library has 3 directories in xilsecure/src/
 		|
 		---rsa directory contains RSA core interface APIs and respective IPI handlers.
 		|  |
-		|  --- rsa_qmode contains RSA QUIET MODE implementation APIs - Applicable for VersalNet and Versal_AiePg2
+		|  --- rsa_qmode contains RSA QUIET MODE implementation APIs - Applicable for VersalNet and Versal_2Ve_2Vm
 		|
 		---sha directory contains SHA core interface APIs and respective IPI handlers.
 		|  |
 		|  ----- sha_pmx - Applicable for Versal and VersalNet
 		|  |
-		|  ----- sha_pmxc - Applicable for Versal_AiePg2
+		|  ----- sha_pmxc - Applicable for Versal_2Ve_2Vm
 		|
 		---softsha2-384 contains SOFT SHA2-384 APIs
 		|
@@ -43,7 +43,7 @@ xilsecure library has 3 directories in xilsecure/src/
 		---util directory contains utility APIs for SSS.
 	b. versal - Versal platform specific APIs
 	c. versal_net - VersalNet platform specific APIs
-	d. versal_aiepg2 - Versal_AiePg2 platform specific APIs
+	d. versal_2ve_2vm - Versal_2Ve_2Vm platform specific APIs
 	e. zynqmp - ZynqMp platform specific APIs
 	f. spartanup - SpartanUp platform specific APIs
 
@@ -52,7 +52,7 @@ xilsecure library has 3 directories in xilsecure/src/
 			Required features need to be included required platforms.
 	b. versal - Versal platform specific APIs
 	c. versal_net - VersalNet platform specific APIs
-	d. versal_aiepg2 - Versal_AiePg2 platform specific APIs
+	d. versal_2ve_2vm - Versal_2Ve_2Vm platform specific APIs
 
   3. client has 2 directories
 	a. core - Common core features which are applicable different platforms.
@@ -73,7 +73,7 @@ xilsecure library has 3 directories in xilsecure/src/
 		|  |
 		|  ----- sha_pmx - Applicable for Versal and VersalNet
 		|  |
-		|  ----- sha_pmxc - Applicable for Versal_AiePg2 and SpartanUp
+		|  ----- sha_pmxc - Applicable for Versal_2Ve_2Vm and SpartanUp
 		|
 		---trng directory contains TRNG client interface APIs.
 		|
@@ -89,7 +89,7 @@ core features are applicable for different platforms as below
    --- VersalNet - aes, sha/sha_pmx, rsa, ecdsa, crypto_kat, generic, util, hmac, key_unwrap, ecc_keypai,
    |               key_zeroize, trng and softsha2-384 features are applicable
    |
-   --- Versal_AiePg2 - aes, sha/sha_pmxc, rsa, ecdsa, crypto_kat, generic, util, hmac, key_unwrap, ecc_keypai,
+   --- Versal_2Ve_2Vm - aes, sha/sha_pmxc, rsa, ecdsa, crypto_kat, generic, util, hmac, key_unwrap, ecc_keypai,
    |                   key_zeroize, trng and softsha2-384 features are applicable
    |
    --- SpartanUp - aes and sha/sha_pmxc
@@ -101,5 +101,5 @@ core features are applicable for different platforms as below
    --- VersalNet - aes, sha/sha_pmx, rsa, ecdsa, crypto_kat, ecc_keypair,
    |               key_zeroize and trng features are applicable
    |
-   --- Versal_AiePg2 - aes, sha/sha_pmxc, rsa, ecdsa, crypto_kat, ecc_keypair,
+   --- Versal_2Ve_2Vm - aes, sha/sha_pmxc, rsa, ecdsa, crypto_kat, ecc_keypair,
                       key_zeroize and trng features are applicable

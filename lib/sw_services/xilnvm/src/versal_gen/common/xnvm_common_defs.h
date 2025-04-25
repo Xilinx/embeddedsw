@@ -50,18 +50,18 @@ extern "C" {
 #define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)	/**< Number of offchip revocation ID eFuses */
 #define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)	/**< AES key length in words */
 #define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)	/**< eFuse IV length in words */
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 #define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)	/**< PPK Hash length in words for Versal and VersalNet */
 #else
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS                (12U)	/**< PPK Hash length in words for VersalAiePg2 */
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS                (12U)	/**< PPK Hash length in words for Versal_2Ve_2Vm */
 #endif
 #define XNVM_EFUSE_DNA_LEN_IN_WORDS			(4U)	/**< DNA length in words */
 #define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)	/**< IV length in words */
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)	/**< AES key length in bits */
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 #define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)	/**< PPK hash length in bits for Versal and VersalNet */
 #else
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS                 (384U)	/**< PPK hash length in bits for VersalAiePg2 */
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS                 (384U)	/**< PPK hash length in bits for Versal_2Ve_2Vm */
 #endif
 #define XNVM_EFUSE_IV_LEN_IN_BYTES			(12U)	/**< IV length in bits */
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES			(32U)	/**< Aes key length in bytes */

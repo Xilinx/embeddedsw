@@ -20,7 +20,7 @@
 *       dd      10/11/23 MISRA-C violation Rule 8.13 fixed
 * 5.3   kpt     12/13/23 Added SHA384 MGF support
 *       kpt     03/22/24 Fixed MISRA-C violation Rule 17.7
-*       kal     07/24/24 Code refactoring for versal_aiepg2
+*       kal     07/24/24 Code refactoring for versal_2ve_2vm
 *
 * </pre>
 *

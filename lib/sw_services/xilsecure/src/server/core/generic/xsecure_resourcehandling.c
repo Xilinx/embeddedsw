@@ -31,7 +31,7 @@
 #include "xplmi_task.h"
 #include "xplmi_ipi.h"
 #include "xplmi_status.h"
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 #include "xsecure_plat_defs.h"
 #endif
 
@@ -83,7 +83,7 @@ int XSecure_GetShaAndAesSts(XSecure_ResourceSts *ResourceSts)
 #ifndef PLM_SECURE_EXCLUDE
 		|| (XSecure_ResIpiMask[XPLMI_AES_CORE] != XSECURE_IPI_MASK_DEF_VAL)
 #endif
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 		|| (XSecure_ResIpiMask[XPLMI_SHA2_CORE] != XSECURE_IPI_MASK_DEF_VAL)
 #endif
 		) {
@@ -280,7 +280,7 @@ int XSecure_MakeResFree(XPlmi_CoreType Core)
 
 	/** Reset core and get core state to default (initialized) */
 	switch (Core) {
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 		case XPLMI_SHA2_CORE:
 		XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
 		XSecure_SetReset(XSecureShaInstPtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
@@ -318,7 +318,7 @@ int XSecure_MakeResFree(XPlmi_CoreType Core)
 #ifndef PLM_SECURE_EXCLUDE
 		&& (XSecure_ResIpiMask[XPLMI_AES_CORE] == XSECURE_IPI_MASK_DEF_VAL)
 #endif
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 		&& (XSecure_ResIpiMask[XPLMI_SHA2_CORE] == XSECURE_IPI_MASK_DEF_VAL)
 #endif
 		) {

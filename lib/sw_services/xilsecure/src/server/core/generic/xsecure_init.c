@@ -30,7 +30,7 @@
 * 5.2   yog 08/07/2023 Moved Trng init API to xsecure_plat.c
 * 5.4   kpt 06/23/2024 Added XSecure_AddRsaKeyPairGenerationToScheduler
 *       kpt 07/17/2024 Remove RSA keypair generation support on QEMU
-* 	kal 07/24/2024 Code refactoring for versal_aiepg2
+* 	kal 07/24/2024 Code refactoring for versal_2ve_2vm
 *       pre 03/02/2025 Modified XSecure_Init for initialization of AES and SHA in server mode
 *
 * </pre>
@@ -43,7 +43,7 @@
 /***************************** Include Files *********************************/
 #include "xsecure_init.h"
 #include "xsecure_cmd.h"
-#if defined(VERSAL_NET) && !defined(VERSAL_AIEPG2)
+#if defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM)
 #include "xsecure_plat_kat.h"
 #include "xsecure_plat_rsa.h"
 #include "xplmi.h"
@@ -99,7 +99,7 @@ static int XSecure_AesShaInit(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 		goto END;
 	}
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XSecureShaInstPtr = XSecure_GetSha2Instance(XSECURE_SHA_1_DEVICE_ID);
 	Status = XSecure_ShaInitialize(XSecureShaInstPtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
@@ -148,7 +148,7 @@ int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 
 	XSecure_CmdsInit();
 
-#if defined (VERSAL_NET) && !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_AIEPG2)
+#if defined (VERSAL_NET) && !defined(PLM_RSA_EXCLUDE) && !defined(VERSAL_2VE_2VM)
 	if ((XPLMI_PLATFORM != PMC_TAP_VERSION_QEMU) &&
 		(XPLMI_PLATFORM != PMC_TAP_VERSION_COSIM)) {
         /* Add keypair generation to scheduler for versalnet */
