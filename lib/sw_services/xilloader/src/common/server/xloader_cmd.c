@@ -118,7 +118,7 @@
 #include "xloader_defs.h"
 #include "xloader_auth_enc.h"
 #include "xloader_secure.h"
-#if (!defined(VERSAL_NET) && !defined(VERSAL_AIEPG2))
+#if (!defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))
 #include "xplmi_ssit.h"
 #endif
 
@@ -185,7 +185,7 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_ATF_HANDOFF_FORMAT_SIZE		(8U)
 #define XLOADER_ATF_HANDOFF_PRTN_ENTRIES_SIZE	(16U)
 
-#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET)) && (!defined(VERSAL_AIEPG2))
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET)) && (!defined(VERSAL_2VE_2VM))
 #define XLOADER_ISHDR_IDX			(0U)
 #define XLOADER_HASH_LOW_ADDR_IDX		(1U)
 #define XLOADER_HASH_HIGH_ADDR_IDX		(2U)
@@ -1177,7 +1177,7 @@ END:
 	return Status;
 }
 
-#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET)) && (!defined(VERSAL_AIEPG2))
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET)) && (!defined(VERSAL_2VE_2VM))
 /*****************************************************************************/
 /**
  * @brief	This function verifies the signature of the provided hash
@@ -1283,7 +1283,7 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS),
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_CFRAME_DATA_CLEAR_CHECK),
 	XPLMI_ALL_IPI_NO_ACCESS(XLOADER_CMD_ID_WRITE_IMAGESTORE_PDI),
-#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET)) && !(defined(VERSAL_AIEPG2))
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(VERSAL_NET)) && !(defined(VERSAL_2VE_2VM))
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_CONFIG_JTAG_STATE),
 	XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CMD_ID_DATA_AUTH),
 #else
@@ -1298,7 +1298,7 @@ static XPlmi_AccessPerm_t XLoader_AccessPermBuff[XPLMI_ARRAY_SIZE(XLoader_Cmds)]
     XPLMI_ALL_IPI_FULL_ACCESS(XLOADER_CFI_SEL_READBACK_ID),
 };
 
-#if (!defined(VERSAL_NET) && !defined(VERSAL_AIEPG2))
+#if (!defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))
 /*****************************************************************************/
 /**
  * @brief	This function calls the handler for invalid commands
@@ -1328,7 +1328,7 @@ static XPlmi_Module XPlmi_Loader =
 	XPLMI_MODULE_LOADER_ID,
 	XLoader_Cmds,
 	XPLMI_ARRAY_SIZE(XLoader_Cmds),
-#if (!defined(VERSAL_NET) && !defined(VERSAL_AIEPG2))
+#if (!defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))
 	XLoader_InvalidCmdHandler,
 #else
 	NULL,

@@ -169,7 +169,7 @@ extern "C" {
  * @{
  */
 /**< Subsystem related macros */
-#if defined(VERSAL_NET) || defined(VERSAL_AIEPG2)
+#if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
 /* Limit to the maximum number of partitions possible */
 #define XLOADER_MAX_HANDOFF_CPUS	(XIH_MAX_PRTNS)
 #else

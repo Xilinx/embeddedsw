@@ -275,7 +275,7 @@ typedef struct {
 	u8 PrtnHash[XIPLDI_SHA3_HASH_SIZE_IN_BYTES]; /**< Partition hash */
 } XilPdi_PrtnHashInfo;
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 /**
  * HashBlock Definition
  */
@@ -295,7 +295,7 @@ typedef struct {
 	XilPdi_ImgHdrTbl ImgHdrTbl; /**< Img header table structure */
 	XilPdi_ImgHdr ImgHdr[XIH_MAX_IMGS]; /**< Image header */
 	XilPdi_PrtnHdr PrtnHdr[XIH_MAX_PRTNS]; /**< Prtn header */
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XilPdi_HashBlock HashBlock; /**< HashBlock containing partition hashes */
 #endif
 	u64 FlashOfstAddr; /**< Start of DPI start address in Flash */

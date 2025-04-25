@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -123,7 +123,7 @@ int XPlm_AddStartUpTasks(void)
 		{XPlm_LoadBootPdi, NULL},
 		{XPlm_HookAfterBootPdi, NULL},
 #ifdef XPLMI_IPI_DEVICE_ID
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 		{XPlm_CreateKeepAliveTask, (void *)&MilliSeconds},
 #endif
 #endif /* XPLMI_IPI_DEVICE_ID */

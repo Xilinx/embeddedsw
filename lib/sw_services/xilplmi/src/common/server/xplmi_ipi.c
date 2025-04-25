@@ -140,9 +140,9 @@ static XPlmi_SubsystemHandler XPlmi_GetPmSubsystemHandler(
 	XPlmi_SubsystemHandler SubsystemHandler);
 static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload);
 static XStatus (*XPlmi_PsmIpiHandler)(void);
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 static int XPlmi_PsmIpiDispatchHandler(void *Data);
-#endif /* VERSAL_AIEPG2 */
+#endif /* VERSAL_2VE_2VM */
 
 /************************** Variable Definitions *****************************/
 
@@ -247,7 +247,7 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler,
 		IpiIntrId = XPlmi_GetIpiIntrId(IpiCfgPtr->TargetList[Index].BufferIndex);
 		Task = XPlmi_GetTaskInstance(NULL, NULL, IpiIntrId);
 		if (Task == NULL) {
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 			if (IpiCfgPtr->TargetList[Index].BufferIndex ==
 				IPI_PSM_BUFFER_INDEX) {
 				Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_1,
@@ -324,7 +324,7 @@ void XPlmi_SetPsmToPlmEventInfo(volatile PsmToPlmEventInfo_t *EventInfo)
 	PsmToPlmEventInfo = EventInfo;
 }
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 /*****************************************************************************/
 /**
  * @brief	This is the handler for PSM IPI interrupts.

@@ -1659,7 +1659,7 @@ int XPlmi_SetBufferList(u32 Address, u16 Size)
 	int Status = XST_FAILURE;
 	XPlmi_BufferList *BufferList = XPlmi_GetBufferList(XPLMI_PSM_BUFFER_LIST);
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 
 	u32 StartAddr;
 	u32 EndAddr;
@@ -1770,7 +1770,7 @@ int XPlmi_ExecuteProc(u32 ProcId)
 
 	BufferList = XPlmi_GetBufferList(BufferListType);
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	if (BufferListType == XPLMI_PSM_BUFFER_LIST) {
 		/**
 		 * - If LPD is not initialized or Proc memory is not available,
@@ -1840,7 +1840,7 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 
 		/* Get the buffer list */
 		BufferList = XPlmi_GetBufferList(BufferListType);
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 		if (BufferListType == XPLMI_PSM_BUFFER_LIST) {
 			/*
 			 * Check if LPD is initialized and BufferList is initialized
@@ -1857,7 +1857,7 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 
 	/** Store Proc in the respective Buffer List */
 	Status = XPlmi_StoreBuffer(Cmd, ProcId, BufferList);
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 END:
 #endif
 	return Status;
@@ -2304,7 +2304,7 @@ int XPlmi_SetDDRMCMainRegSts(u32 DDRMCNum, u32 RegSts)
 	u32 DdrMcUbBaseAddr;
 	u32 PmcToUbInfoRegAddr;
 	u32 PcsrLockRegAddr;
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	const u32 XPlmi_DdrMcUbBaseAddr[MAX_DEV_DDRMC] = {XPLMI_DDRMC_UB0_BASE_ADDR,
 											XPLMI_DDRMC_UB1_BASE_ADDR, XPLMI_DDRMC_UB2_BASE_ADDR,
 											XPLMI_DDRMC_UB3_BASE_ADDR, XPLMI_DDRMC_UB4_BASE_ADDR};
@@ -2331,7 +2331,7 @@ int XPlmi_SetDDRMCMainRegSts(u32 DDRMCNum, u32 RegSts)
 	/* Take DDRMC ub register, Info, lock reg address based on DDRMC number */
 	DdrMcUbBaseAddr = XPlmi_DdrMcUbBaseAddr[DDRMCNum];
 
-	/* Using pmc2ub_info reg in versalnet & telluride and pmc2ub_gpi1 reg in versal */
+	/* Using pmc2ub_info reg in versalnet & versal 2ve and 2vm devices and pmc2ub_gpi1 reg in versal */
 #ifdef VERSAL_NET
 	PmcToUbInfoRegAddr = DdrMcUbBaseAddr + XPLMI_DDRMC_UB_PMC2UB_INFO_OFFSET;
 #else

@@ -70,7 +70,7 @@
 *			            restart type and subtype
 *       ma   02/29/2024 Removed XPlmi_ErrPrintToLog function from common folder
 *                       and moved it to xplmi_err.c
-* 1.12  sk   08/26/2024 Updated EAM support for Versal Aiepg2
+* 1.12  sk   08/26/2024 Updated EAM support for Versal 2VE and 2VM Devices
 *       sk   02/20/2025 Added declaration for PSM handlers
 * </pre>
 *
@@ -150,7 +150,7 @@ extern "C" {
 
 /* Event error Indexes */
 #define XPLMI_NODETYPE_EVENT_PMC_INDEX		(0x0U)
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 #define XPLMI_NODETYPE_EVENT_PSM_INDEX		(0x1U)
 #else
 #define XPLMI_NODETYPE_EVENT_LPDSLCR_INDEX	(0x1U)
@@ -261,7 +261,7 @@ void XPlmi_SoftResetHandler(void);
 void XPlmi_EmClearError(XPlmi_EventType ErrorNodeType, u32 ErrorId);
 u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType);
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask);
 #endif
 /* Functions defined in xplmi_err_cmd.c */

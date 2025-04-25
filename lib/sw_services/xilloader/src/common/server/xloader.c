@@ -173,7 +173,7 @@
 * 1.08  sk   04/18/2024 Enhance Restart Image to Support loading from
 *                       Boot PDI Present in Image Store
 *       kal  06/29/2024 Make XLoader_LoadImage as a non-static function
-*       kal  07/24/2024 Code refactoring for versal_aiepg2 updates.
+*       kal  07/24/2024 Code refactoring for Versal 2VE and 2VM Devices updates.
 *       mb   08/10/2024 Added support for loading cdo after secure boot.
 *       pre  10/03/2024 Clearing GSW error after PDI loading
 *       obs  09/30/2024 Fixed Doxygen Warnings
@@ -181,7 +181,7 @@
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       pre  01/02/2025 clearing metaheader space based on size of metaheader structure
 *       mb   01/22/2025 Fix SMAP secondary boot fail
-*       tri  03/01/2025 Added data measurement support for versal_aiepg2
+*       tri  03/01/2025 Added data measurement support for Versal 2VE and 2VM Devices
 *       tri  03/13/2025 Moved partition measurement to platform specific and
 *                       Added XLoader_DataMeasurement support for versal
 *       ma   03/19/2025 Update function ID of the PLD0 image to USR_ACCESS
@@ -205,7 +205,7 @@
 #include "xloader_qspi.h"
 #include "xloader_sbi.h"
 #include "xloader_sd.h"
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 #include "xloader_ufs.h"
 #endif
 #include "xloader_usb.h"
@@ -701,7 +701,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 			PdiPtr->MetaHdr->ImgHdrTbl.Idcode);
 	XPlmi_Printf(DEBUG_INFO, "Attributes: 0x%x\n\r",
 			PdiPtr->MetaHdr->ImgHdrTbl.Attr);
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XPlmi_Printf(DEBUG_INFO, "AutheticationHdr: 0x%x\n\r",
 			PdiPtr->MetaHdr->ImgHdrTbl.AuthenticationHdr);
 	XPlmi_Printf(DEBUG_INFO, "HashBlockSize: 0x%x\n\r",
@@ -795,7 +795,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 		}
 	}
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	/* Secure flow is not supported for PDI versions older than v4 */
 	if ((SecureParams.SecureEn == (u8)TRUE) &&
 	   ((PdiPtr->MetaHdr->ImgHdrTbl.Version == XLOADER_PDI_VERSION_1) ||
@@ -816,10 +816,10 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 
 	/**
 	 * Authenticate Image Header Table, this is applicable for only Versal and VersalNet
-	 * platforms. For Versal_Aiepg2 platform whole MetaHeader is autheticated with
+	 * platforms. For Versal_2ve_2vm platform whole MetaHeader is autheticated with
 	 * HashBlock signature.
 	 */
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 	if ((SecureParams.IsAuthenticated == (u8)TRUE) ||
 		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 			XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ImgHdrTblAuth,
@@ -867,9 +867,9 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 			goto END;
 		}
 
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 		/**
-		 * This is applicable for Versal_AiePg2 only.
+		 * This is applicable for Versal 2VE and 2VM Devices only.
 		 * Hashblock is a array of partition's hashes.
 		 * One partition integrity will be verified
 		 * with corresponding hash present in HashBlock.
@@ -885,7 +885,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 			goto END;
 		}
 		/**
-		 * This is applicable for Versal_AiePg2 only.
+		 * This is applicable for Versal 2VE and 2VM Devices only.
 		 * After HashBlock 1 integrity is verified above, verify MetaHeader integrity by
 		 * calculating IHT + IH's + PH's hash and compare it with MetaHeader hash
 		 * present in HashBlock 1.
@@ -1430,7 +1430,7 @@ END:
 static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 {
 	int Status = XST_FAILURE;
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	u32 DeviceState;
 #else
 	XPm_DeviceStatus DeviceStatus;
@@ -1446,7 +1446,7 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 	if ((ImageInfo->ImgID != XLOADER_INVALID_IMG_ID) &&
 		(ImageInfo->UID != XLOADER_INVALID_UID) &&
 		(XLoader_IsDFxApplicable(NodeId) == (u8)TRUE)) {
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 		Status = XPm_PmcGetDeviceState( ImageInfo->ImgID,
 				&DeviceState);
 #else
@@ -1548,7 +1548,7 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 	/* Configure preallocs for subsystem */
 	if (NODECLASS(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID)
 			== XPM_NODECLASS_SUBSYSTEM) {
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 		Status = XPm_PmcActivateSubsystem(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
 #else
 		Status = XPmSubsystem_Configure(
@@ -1986,7 +1986,7 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 				case XIH_IHT_ATTR_SBD_SMAP:
 					PdiSrc = XLOADER_PDI_SRC_SMAP;
 					break;
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 				case XIH_IHT_ATTR_SBD_JTAG:
 					PdiSrc = XLOADER_PDI_SRC_JTAG;
 					break;
@@ -2016,7 +2016,7 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 					}
 					PdiSrc = XLOADER_PDI_SRC_DDR;
 					break;
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 				case XIH_IHT_ATTR_SBD_UFS:
 					PdiSrc = XLOADER_PDI_SRC_UFS;
 					break;

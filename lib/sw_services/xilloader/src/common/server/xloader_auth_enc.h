@@ -371,7 +371,7 @@ extern "C" {
 
 #define XLOADER_NOLOAD_VAL			(0xFFFFFFFFU)	/**< To indicate no load */
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 #define XLOADER_SPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
 						XLOADER_RSA_4096_KEY_SIZE \
 						+ 4U +4U)
@@ -453,12 +453,12 @@ typedef struct {
 	u32 PubModulus[128U];	/**< Public Modulus */
 	u32 PubModulusExt[128U];	/**< Public Modulus Extension */
 	u32 PubExponent;	/**< Public Exponent */
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	u32 Reserved[3U];
 #endif
 } XLoader_RsaKey;
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 /**< Authentication Certificate */
 typedef struct {
 	u32 AuthHdr;	/**< Authentication Header */
@@ -524,7 +524,7 @@ typedef XLoader_HBAuthCertificate XLoader_AuthCertificate;
 typedef enum {
 	XLOADER_ECDSA,	/**< 0x0 - ECDSA */
 	XLOADER_RSA,	/**< 0x1 - RSA */
-#ifdef VERSAL_AIEPG2
+#ifdef VERSAL_2VE_2VM
 	XLOADER_LMS_HSS,/**< 0x2 - LMS_HSS */
 	XLOADER_LMS	/**< 0x3 - LMS*/
 #endif
@@ -549,7 +549,7 @@ typedef struct
 	u8 Padding1[8];	/**< Padding 1 */
 } XLoader_Vars;
 
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 /**< Authenticated Message structure */
 typedef struct {
 	u32 AuthHdr;	/**< Authentication Header */
@@ -586,7 +586,7 @@ typedef struct {
 	u8 SPKSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];
 	u8 EnableJtagSignature[XLOADER_MAX_TOTAL_SIGN_SIZE];
 } XLoader_AuthJtagMessage;
-#endif /**< end of VERSAL_AIEPG2 */
+#endif /**< end of VERSAL_2VE_2VM */
 #endif
 
 typedef struct XLoader_SecureParams {
@@ -711,7 +711,7 @@ int XLoader_ClearAesKey(u32 *DecKeySrc);
 #endif
 int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
 int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
-#ifndef VERSAL_AIEPG2
+#ifndef VERSAL_2VE_2VM
 int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
