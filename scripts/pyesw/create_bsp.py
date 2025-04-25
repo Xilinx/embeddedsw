@@ -72,8 +72,6 @@ class Domain(Repo):
                 return "VersalNet"
             elif 'family = "VersalGen2";' in content:
                 return "Versal_2VE_2VM"
-            elif "cpus_a78" in content:
-                return "VersalNet"
             elif family_str:
                 return family_str[0]
 
