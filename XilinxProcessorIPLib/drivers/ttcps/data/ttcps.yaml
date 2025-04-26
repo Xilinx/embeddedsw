@@ -30,6 +30,9 @@ required:
     - interrupts: 1
     - interrupt-parent
 
+additionalProperties:
+    - xlnx,ttc-clk0-clksrc
+
 examples:
     xttcps_low_level_example.c:
             - reg

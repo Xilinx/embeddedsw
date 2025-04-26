@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -50,6 +50,12 @@ required:
     - xlnx,intctype
     - Handler-table
     - xlnx,num-sw-intr
+
+additionalProperties:
+    - xlnx,has-ivr
+    - xlnx,has-cie
+    - xlnx,has-sie
+    - xlnx,has-ipr
 
 examples:
     xintc_example.c:
