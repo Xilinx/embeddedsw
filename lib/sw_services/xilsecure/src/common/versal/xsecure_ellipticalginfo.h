@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 -2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 -2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 *       vss     09/11/23 Fixed MISRA-C Rule 12.2 violation
 * 5.3   kpt     03/30/24 Updated minor version
 * 5.4   mb      05/23/24 Updated minor version for 24.2
+* 5.5   vss     04/25/25 Updated minor version
 * </pre>
 *
 ******************************************************************************/
@@ -36,7 +37,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_ELLIPTIC_MAJOR_VERSION	5U /**< Major version of ELLIPTIC */
-#define XSECURE_ELLIPTIC_MINOR_VERSION	4U /**< Minor version of ELLIPTIC */
+#define XSECURE_ELLIPTIC_MINOR_VERSION	5U /**< Minor version of ELLIPTIC */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
