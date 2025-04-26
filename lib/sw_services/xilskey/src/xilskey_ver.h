@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 7.6   mss     10/19/23 Initial Release
+* 7.8   vss     04/25/25 Updated minor version
 *
 * </pre>
 *
@@ -32,7 +33,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSKEY_MAJOR_VERSION	7U /**< Major Version of XilSkey */
-#define XSKEY_MINOR_VERSION	6U /**< Minor version of XilSkey */
+#define XSKEY_MINOR_VERSION	8U /**< Minor version of XilSkey */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
