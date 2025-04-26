@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.3   mss     10/19/23 Initial Release
+* 1.5   vss     04/25/25 Updated minor version
 *
 * </pre>
 *
@@ -32,7 +33,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XOCP_MAJOR_VERSION	1U /**< Major Version of XilOcp */
-#define XOCP_MINOR_VERSION	3U /**< Minor version of XilOcp */
+#define XOCP_MINOR_VERSION	5U /**< Minor version of XilOcp */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
