@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 *	vss	09/21/23 Fixed doxygen warnings
 *	vss	09/11/23 Fixed MISRA-C Rule 12.2 violation
 * 5.3   am      12/18/23 Updated rsaalgoinfo version to 5.3
+* 5.5   vss     04/25/25 Updated minor version
 *
 * </pre>
 *
@@ -36,7 +37,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_RSA_MAJOR_VERSION	5U /**< Major version of RSA */
-#define XSECURE_RSA_MINOR_VERSION	3U /**< Minor version of RSA */
+#define XSECURE_RSA_MINOR_VERSION	6U /**< Minor version of RSA */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

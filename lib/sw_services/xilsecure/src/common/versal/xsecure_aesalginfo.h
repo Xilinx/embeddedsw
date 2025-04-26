@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 *       vss     09/21/23 Fixed doxygen warnings
 *       vss     09/11/23 Fixed MISRA-C Rule 12.2 violation
 * 5.3   kpt     03/30/24 Updated version number
+* 5.5   vss     04/25/25 Updated minor version
 *
 * </pre>
 *
@@ -36,7 +37,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_AES_MAJOR_VERSION	5U /**< Major version of AES */
-#define XSECURE_AES_MINOR_VERSION	3U /**< Minor version of AES */
+#define XSECURE_AES_MINOR_VERSION	5U /**< Minor version of AES */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 *	vss	09/21/23 Fixed doxygen warnings
 *	vss	09/11/23 Fixed MISRA-C Rule 12.2 violation
 * 5.3   mb      04/01/24 Updated minor version
+* 5.5   vss     04/25/25 Updated minor version
 *
 * </pre>
 *
@@ -37,7 +38,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_SHA3_MAJOR_VERSION	5U /**< Major version of SHA3 */
-#define XSECURE_SHA3_MINOR_VERSION	3U /**< Minor version of SHA3 */
+#define XSECURE_SHA3_MINOR_VERSION	5U /**< Minor version of SHA3 */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
