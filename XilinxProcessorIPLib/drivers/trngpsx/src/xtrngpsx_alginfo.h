@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.1   mmd     07/04/23 Initial Release
 * 1.2   mb      04/01/24 Updated minor version
+* 1.4   vss     04/25/25 Updated minor version
 * </pre>
 *
 ******************************************************************************/
@@ -33,7 +34,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XTRNGPSX_MAJOR_VERSION	1
-#define XTRNGPSX_MINOR_VERSION	2
+#define XTRNGPSX_MINOR_VERSION	4
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
