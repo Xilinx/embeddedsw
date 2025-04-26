@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * 5.2   mmd     07/04/23 Initial Release
 *	vss	09/21/23 Fixed doxygen warnings
 * 5.3   mb      04/01/24 Updated minor version
+* 5.5   vss     04/25/25 Updated minor version
 * </pre>
 *
 ******************************************************************************/
@@ -34,7 +35,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_RSA_MAJOR_VERSION	5 /**< Major version of RSA */
-#define XSECURE_RSA_MINOR_VERSION	3 /**< Minor version of RSA */
+#define XSECURE_RSA_MINOR_VERSION	7 /**< Minor version of RSA */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

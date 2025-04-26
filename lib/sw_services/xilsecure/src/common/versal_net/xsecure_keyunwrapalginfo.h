@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 -2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.3   mss     10/19/23 Initial Release
 * 5.4   kpt     06/30/24 Updated version number
+* 5.5   vss     04/25/25 Updated minor version
 *
 * </pre>
 *
@@ -34,7 +35,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_KEYUNWRAP_MAJOR_VERSION	5U /**< Major version of Keyunwrap */
-#define XSECURE_KEYUNWRAP_MINOR_VERSION	5U /**< Minor version of Keyunwrap */
+#define XSECURE_KEYUNWRAP_MINOR_VERSION	7U /**< Minor version of Keyunwrap */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
