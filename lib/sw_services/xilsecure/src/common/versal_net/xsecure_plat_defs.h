@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -34,6 +34,7 @@
 *       kpt  05/26/24 Add support for RSA CRT and RRN operation
 *       kpt  06/13/24 Add support for XSECURE_API_RSA_RELEASE_KEY
 *       kpt  06/30/24 Updated version number
+* 5.5   vss  04/25/25 Updated minor version
 *
 * </pre>
 *
@@ -341,10 +342,10 @@ typedef struct {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_HMAC_MAJOR_VERSION	5 /**< Major version of HMAC */
-#define XSECURE_HMAC_MINOR_VERSION	5 /**< Minor version of HMAC */
+#define XSECURE_HMAC_MINOR_VERSION	7 /**< Minor version of HMAC */
 
 #define XSECURE_SHA2_MAJOR_VERSION	5 /**< Major version of SHA2 */
-#define XSECURE_SHA2_MINOR_VERSION	5 /**< Minor version of SHA2 */
+#define XSECURE_SHA2_MINOR_VERSION	7 /**< Minor version of SHA2 */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
