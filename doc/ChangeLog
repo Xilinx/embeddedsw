@@ -362,6 +362,179 @@ Update SSIT example to program unique PPK hash in efuse
 Add support for nvm_client_example for Versal-Net
 Address security review comments in SpartanUP
 
+cframe_v1_8:
+Fix GCC warnings
+
+cfupmc_v1_9:
+Fix GCC warnings
+
+cpu_cortexa53_v2_2:
+Add extern C keyword in header files for compatibility with C++ components
+
+cpu_cortexa72_v1_5:
+Add extern C keyword in header files for compatibility with C++ components
+
+cpu_cortexa78_v1_3:
+Add extern C keyword in header files for compatibility with C++ components
+
+cpu_cortexa9_v2_13:
+Add extern C keyword in header files for compatibility with C++ components
+
+cpu_cortexr5_v2_3:
+Add extern C keyword in header files for compatibility with C++ components
+
+cpu_cortexr52_v1_2:
+Add extern C keyword in header files for compatibility with C++ components
+
+cpu_riscv_v1_2:
+Add extern C keyword in header files for compatibility with C++ components
+
+hwicap_v11_7:
+Add extern C keyword in header files for compatibility with C++ components
+Add xlnx,icap-dwidth and xlnx,mode to driver YAML to align with thedriver’s config struct
+Updated the series_ultra_plus_idcodes array to include the ID code for UltraScale+ FPGAs, ensuring accurate identification and compliance with the latest UG570 specification.
+
+i2srx_v2_4:
+Fix the always true condition in code to avoid the redundancy
+
+intc_v3_20:
+Fix GCC warnings
+Fix incorrect interrupt number macro value in cascade mode
+
+iomodule_v2_18:
+Since iomodule can be configured as a serial device, update the depends section for it
+Update/add the device_type field in the iomodule yaml
+
+ipipsu_v2_17:
+Update IPI bit mask definitions for Versal Platforms
+Update macro name for Versal 2VE and 2VM devices
+Avoid single byte reads from IPI buffer in CRC logic
+Fix MISRA C Rule 10.4 violation
+Update message length to accommodate CRC bytes when IPI CRC is enabled
+Update Max Message length to accommodate CRC bytes when IPI CRC is enabled
+Update MsgLength and XIPIPSU_MSG_BUF_SIZE comments for clearer description
+
+mbox_v4_9:
+Update the YAML to generate xparameters.h defines in alignment with XSCT flow
+Add the compatible for mailbox
+
+mutex_v4_10:
+Update example to use MutexInstPtr in both xsct and sdt flow
+Update example to fix compilation warnings in Rigel flow
+Update the YAML to generate xparameters.h defines in alignment with the XSCT flow
+Add the compatible for mutex
+
+rfdc_v13_0:
+Allow Single Tile PLL Configuration (XRFdc_DynamicPLLConfig can change a single tile's PLL frequency in Gen3/DFE devices
+Fix VOP VCM Drop Issue
+Make updates to only do datapath mode checks for Gen3/DFE devices
+Check for the QMC XBar settings since the QMC for HSADCs is not taking multiband into account i.e. Block 1 could be using Block 0's mixer
+
+scugic_v5_5:
+Fix GCC warnings
+Update datatype of CpuBaseAddress and DistBaseAddress from u32 to UINTPTR to support both 32bit and 64bit platforms
+
+scutimer_v2_7:
+Add the missing extern "C" keyword to the header files
+
+srio_v1_6:
+Add support for system device-tree
+
+sysmonpsu_v3_1:
+Fix Coverity warnings
+
+sysmonpsv_v5_1:
+Fix compilation warnings with the SDT flow
+Fixed an issue where supply macros for only one SLR was being generated
+Add description in xsymonpsv_secure.h to fix doxygen warning
+
+tft_v6_6:
+Add a generic compatible for tft in driver yaml
+
+tmr_inject_v1_7:
+Add missing extern "C" declarations in headers
+Ported driver examples in SDT flow
+
+tmr_manager_v1_7:
+Add missing extern "C" declarations in headers
+Ported driver examples in SDT flow
+
+ttcps_v3_21:
+Exclude last TTC instance for R5 in peripheral test generation. In versal last TTC instance is reserved for R5 sleep timer.
+Add support for multiple counters in SDT flow
+Fix GCC warnings
+
+usbpsu_v1_17:
+Fix GCC warnings
+
+wdttb_v5_10:
+Add xlnx, max-count-width and xlnx, sst-count-width as required properties
+Fix compilation warnings
+
+xilfpga_v6_8:
+Avoid local header inclusion in CMake. With the current CMake setup, local headers take precedence over external ones due to include path ordering. Update to enforce the correct header lookup by adding -iquote ${CMAKE_BINARY_DIR}/include to target_compile_options, ensuring external headers are used where required
+Added support for additional configurable features in the xilfpga library via new CMake options: XILFPGA_reg_readback_en for enabling FPGA configuration register readback, XILFPGA_data_readback_en for data    readback, XILFPGA_get_version_info_en to retrieve the xilfpga library version, XILFPGA_get_feature_list_en to get the supported feature list, and XILPFGA_skip_efuse_check_en to optionally skip the eFUSE check during PL configuration. Corresponding macros were added to xfpga_config.h and are conditionally defined based on these options to allow fine-grained control over library features during build time.
+
+xilmailbox_v1_11:
+Add compiler check for -iquote usage
+Avoid local header inclusion in CMake
+Update XMAILBOX_MAX_MSG_LEN to accomodate CRC bytes when IPI CRC is enabled
+Update handler registration for XMAILBOX_INTR_ID in SDT flow
+Fix GCC warnings
+Update message length to accommodate CRC bytes when IPI CRC is enabled
+Update MsgLen and XMAILBOX_MAX_MSG_LEN comments for clearer description
+
+xilpki_v2_3:
+Avoid local header inclusion in CMake. With the current CMake setup, local headers take precedence over external ones due to include path ordering. Update to enforce the correct header lookup by adding -iquote ${CMAKE_BINARY_DIR}/include to target_compile_options, ensuring external headers are used where required
+
+xilpm_v6_0:
+Enable power rail control feature as an option
+Add DVS configuration for decoupling flow
+Fix TCM size calculation
+Add AIE segmented boot support
+Restrict force powerdown of cores and power domains
+Expanded support to TCM/PL mem-ranges
+Add PCSR unlock/lock to AIE housecleaning
+Add support for custom ADMA reset
+Added support for A/B firmware management for multiboot system
+Fix PLM build issue in case of no IPI instance
+Add support to unregister idle callback
+Skip peripheral idle during graceful restart
+Add support for CPM6 and GTMPW
+Extend VID implementation to support Load line adjustment
+Fix IPI message length and PsmToPlmEvent structure
+Add subsystem flag for idle callback
+Added support for PLM to PSM access
+
+xilsem_v1_11:
+Added A72 SSIT linux client support for Versal devices
+Added EBD example for Versal SSI devices
+Added CRAM HW ECC support for Versal 2VE and 2VM devices
+Added A78 baremetal client support for Versal 2VE and 2VM devices
+Fixed incorrect higher and lower addresses of CE locations in prints in example code
+Added support for no IPI cases in the design, when libxilsem.a is built with PLM to avoid build errors
+Added macro name for Versal 2VE and 2VM devices
+
+xiltimer_v2_2:
+Update the r5 default timer for Versal 2 platform.
+Updated code to support ARMCC , ARMCLANG and IAR compilers
+
+standalone_v9_3:
+Add support for A53/A72/A78 Plain EL1 Non-Secure Use case in SDT flow
+Add support for EL1 Non secure on top of xen use case in SDT flow for cortexa53 and cortexa72 processors.
+Add support for versal_2ve_2vm platform
+Add spin-lock support for ARMv8
+Fix long integer print issue for AMD Cortex-R series
+Add support for IAR, ARMCC and ARMCLANG support in SDT flow.
+
+Versal_PSMFW:
+Clear IPI ISR only if it's not cleared by handler
+Added support for PLM to PSM access
+Fix IPI message length
+Add support for CPM6 and GTMPW
+Fix util wait and poll functions
+Fix Doxygen warnings and SCA violations
+
 
 New Files Added for 2025.1:
 
