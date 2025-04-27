@@ -30,29 +30,6 @@
 
 /******************************************************************************/
 /**
- * This function clears XMMIDP_GENERAL_INT0 HPD_EVENT bit
- *
- * @param       InstancePtr is a pointer to the XMmiDp instance.
- *
- * @return	None
- *
- * @note        None.
- *
-*******************************************************************************/
-void XMmiDp_ClearGeneralHpdEvent(XMmiDp *InstancePtr)
-{
-	u32 RegVal = 0;;
-
-	RegVal = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
-				XMMIDP_GEN_INT0);
-
-	RegVal |= XMMIDP_GEN_INT0_HPD_EVENT_MASK;
-
-	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
-			XMMIDP_GEN_INT0, RegVal);
-}
-/******************************************************************************/
-/**
  * This function enables XMMIDP_GENERAL_INTERRUPT_0 bits based on the mask
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
@@ -68,11 +45,11 @@ void XMmiDp_GeneralInterruptEnable(XMmiDp *InstancePtr, u32 Mask)
 	u32 RegVal = 0;;
 
 	RegVal = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
-				XMMIDP_GEN_INT_ENABLE0);
+				XMMIDP_GEN_INT0);
 	RegVal |= Mask;
 
 	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
-			XMMIDP_GEN_INT_ENABLE0, RegVal);
+			XMMIDP_GEN_INT0, RegVal);
 }
 
 /******************************************************************************/
@@ -114,43 +91,16 @@ void XMmiDp_HpdInterruptEnable(XMmiDp *InstancePtr, u32 Mask)
  * @note        None.
  *
 *******************************************************************************/
-void XMmiDp_SetHpdIrqHandler(XMmiDp *InstancePtr,
-			     XMmiDp_HpdIrqHandler CallbackFunc, void *CallbackRef)
+void XMmiDp_SetIrqHpdHandler(XMmiDp *InstancePtr,
+			     XMmiDp_IrqHpdHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CallbackFunc != NULL);
 	Xil_AssertVoid(CallbackRef != NULL);
 
-	InstancePtr->HpdIrqHandler = CallbackFunc;
-	InstancePtr->HpdIrqCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a hpd hotplug
- * interrupt occurs.
- *
- * @param       InstancePtr is a pointer to the XMmiDp instance.
- * @param       CallbackFunc is the address to the callback function.
- * @param       CallbackRef is the user data item that will be passed to the
- *              callback function when it is invoked.
- *
- * @return      None.
- *
- * @note        None.
- *
-*******************************************************************************/
-void XMmiDp_SetHpdHotPlugHandler(XMmiDp *InstancePtr,
-				 XMmiDp_HpdHotPlugHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->HpdHotPlugHandler = CallbackFunc;
-	InstancePtr->HpdHotPlugCallbackRef = CallbackRef;
+	InstancePtr->IrqHpdHandler = CallbackFunc;
+	InstancePtr->IrqHpdCallbackRef = CallbackRef;
 }
 
 /******************************************************************************/
@@ -167,34 +117,16 @@ void XMmiDp_SetHpdHotPlugHandler(XMmiDp *InstancePtr,
  * @note        None.
  *
 *******************************************************************************/
-void XMmiDp_HpdInterruptHandler(XMmiDp *InstancePtr)
+void XMmiDp_HpdEventHandler(XMmiDp *InstancePtr)
 {
-	u32 IntrStatus;
-	u32 HpdIrq;
-	u32 HpdHotPlug;
-	u32 HpdStatus;
+	u32 Status = 0;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	IntrStatus = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
-				    XMMIDP_HPD_STATUS0);
+	Status = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_HPD_STATUS0);
 
-	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
-			XMMIDP_HPD_STATUS0, IntrStatus);
-
-	HpdStatus = (IntrStatus & XMMIDP_HPD_STATUS0_STATUS_MASK) >>
-		    XMMIDP_HPD_STATUS0_STATUS_SHIFT;
-	HpdIrq = (IntrStatus & XMMIDP_HPD_STATUS0_HPD_IRQ_MASK) >>
-		 XMMIDP_HPD_STATUS0_HPD_IRQ_SHIFT;
-	HpdHotPlug =  (IntrStatus & XMMIDP_HPD_STATUS0_HOT_PLUG_MASK) >>
-		      XMMIDP_HPD_STATUS0_HOT_PLUG_SHIFT;
-
-	if (HpdStatus & HpdIrq) {
-		InstancePtr->HpdIrqHandler(InstancePtr->HpdIrqCallbackRef);
-	}
-
-	if (HpdStatus & HpdHotPlug) {
-		InstancePtr->HpdHotPlugHandler(InstancePtr->HpdHotPlugCallbackRef);
+	if (Status & XMMIDP_HPD_STATUS0_HPD_IRQ_MASK) {
+		InstancePtr->IrqHpdHandler(InstancePtr->IrqHpdCallbackRef);
 	}
 
 }
