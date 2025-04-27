@@ -20,6 +20,7 @@
  *       am   03/14/25 Replaced XAsu_AesValidateIv() with XAsu_AesValidateIvParams() and
  *                     XAsu_AesValidateTag() with XAsu_AesValidateTagParams() function calls
  *       am   04/03/25 Optimized engine mode check for AAD update
+ *       am   04/26/25 Cleaned and simplified AAD and input data validation logic
  *
  * </pre>
  *
@@ -148,24 +149,53 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 		 * maximum length can be 0x1FFFFFFC bytes, which is the ASU DMA's maximum supported
 		 * data transfer length.
 		 */
-		if (AesClientParamPtr->AadAddr != 0U) {
-			if (!(XASU_AES_IS_AAD_SUPPORTED_MODE(AesClientParamPtr->EngineMode)) &&
-					(XASU_AES_IS_INVALID_DATALEN(AesClientParamPtr->AadLen))) {
+		if (AesClientParamPtr->AadLen != 0U) {
+			/**
+			 * If AAD length is non-zero, AAD address must be valid and AAD length within limit.
+			 */
+			if ((AesClientParamPtr->AadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
+					(AesClientParamPtr->AadAddr == 0U)) {
+				Status = XASU_INVALID_ARGUMENT;
+				goto END;
+			}
+			if (!(XASU_AES_IS_AAD_SUPPORTED_MODE(AesClientParamPtr->EngineMode))) {
 				Status = XASU_INVALID_ARGUMENT;
 				goto END;
 			}
 		}
-		if ((AesClientParamPtr->InputDataAddr != 0U) &&
-				(AesClientParamPtr->OutputDataAddr != 0U) &&
-				(AesClientParamPtr->EngineMode != XASU_AES_CMAC_MODE)) {
-			if (XASU_AES_IS_INVALID_DATALEN(AesClientParamPtr->DataLen)) {
-					Status = XASU_INVALID_ARGUMENT;
-					goto END;
+		else {
+			/** If AAD Length is zero, AAD address must also be zero. */
+			if ((AesClientParamPtr->AadAddr != 0U) &&
+					(XASU_AES_IS_AAD_SUPPORTED_MODE(AesClientParamPtr->EngineMode))) {
+				Status = XASU_INVALID_ARGUMENT;
+				goto END;
+			}
+		}
+
+		if (AesClientParamPtr->DataLen != 0U) {
+			/**
+			 * If Data length is non-zero, both input and output addresses must be valid and
+			 * data length within limit.
+			 * AES-CMAC engine mode must not allow data updates.
+			 */
+			if ((AesClientParamPtr->DataLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
+					(AesClientParamPtr->InputDataAddr == 0U) ||
+					(AesClientParamPtr->OutputDataAddr == 0U)) {
+				Status = XASU_INVALID_ARGUMENT;
+				goto END;
+			}
+			if (AesClientParamPtr->EngineMode == XASU_AES_CMAC_MODE) {
+				Status = XASU_INVALID_ARGUMENT;
+				goto END;
 			}
 		}
 		else {
-			Status = XASU_INVALID_ARGUMENT;
-			goto END;
+			/** If Data Length is zero, addresses must also be zero. */
+			if ((AesClientParamPtr->InputDataAddr != 0U) ||
+					(AesClientParamPtr->OutputDataAddr != 0U)) {
+				Status = XASU_INVALID_ARGUMENT;
+				goto END;
+			}
 		}
 
 		/**
