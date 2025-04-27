@@ -28,6 +28,7 @@
  *       yog  04/04/25 Added XAes_KeyClear() API
  *       am   04/10/25 Fixed incorrect AES base address usage in XAes_DecryptEfuseBlackKey()
  *       am   04/14/25 Added support for DMA non-blocking wait
+ *       am   04/26/25 Fixes IV & AAD formatting logic for different Iv lengths
  *
  * </pre>
  *
@@ -132,10 +133,16 @@
 					(0x1U (Flag) + XASU_AES_CCM_MAX_NONCE_LEN +
 					XAES_MAX_PLEN_AAD_ENCODING_SIZE. */
 #define XAES_AAD_UPDATE_NO_OUTPUT_ADDR	(0U) /**< Output address should be zero during AAD update. */
+#define XAES_U64_ONE			(1ULL) /**< Constant value 1 as an unsigned 64-bit integer. */
+#define XAES_NONCE_HEADER_FIRST_IDX	(0U) /**< First index in the NonceHeader array, used for
+					storing the high byte of AadLen. */
+#define XAES_NONCE_HEADER_SECOND_IDX	(1U) /**< Second index in the NonceHeader array, used for
+					storing the low byte of AadLen. */
 
 typedef enum {
 	XAES_INITIALIZED = 0x1, /**< AES is in initialized state */
 	XAES_STARTED, /**< AES is in start state */
+	XAES_ONLY_AAD_UPDATE_IN_PROGRESS, /**< AES only AAD update is in progress during AAD update */
 	XAES_AAD_UPDATE_IN_PROGRESS, /**< AES AAD update is in progress state during AAD updates */
 	XAES_DATA_UPDATE_IN_PROGRESS, /**< AES update is in progress state during data chunk updates */
 	XAES_UPDATE_COMPLETED, /**< AES update is in completed state after the final data chunk */
@@ -368,6 +375,7 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 static s32 XAes_DummyEncryption(XAes *InstancePtr);
 static s32 XAes_FinalizeAadUpdate(XAes *InstancePtr);
 static s32 XAes_WaitForDone(const XAes *InstancePtr);
+static s32 XAes_WaitForReady(const XAes *InstancePtr);
 static void XAes_SetReset(XAes *InstancePtr);
 
 /*************************************************************************************************/
@@ -632,7 +640,7 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 	/** Validate the input arguments.*/
 	if (InstancePtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		goto END;
+		goto RET;
 	}
 
 	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
@@ -756,7 +764,7 @@ END:
 	/** Clear local key object buffer. */
 	XFIH_CALL(Xil_SecureZeroize, XFihKeyClear, ClearStatus, (u8 *)(UINTPTR)&KeyObject,
 		sizeof(XAsu_AesKeyObject));
-	if ((InstancePtr != NULL) && (Status != XASUFW_SUCCESS)) {
+	if (Status != XASUFW_SUCCESS) {
 		/** Set AES under reset upon any failure. */
 		XAes_SetReset(InstancePtr);
 		/** Clear the XASU_AES_EXPANDED_KEYS. */
@@ -766,6 +774,7 @@ END:
 
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
+RET:
 	return Status;
 }
 
@@ -803,19 +812,7 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	/**
-	 * During initial payload update, finalize the AAD update phase by optionally sending
-	 * zero padding (for CCM mode) and clearing the AAD configuration for all modes.
-	 */
-	if ((InstancePtr->AesState == XAES_AAD_UPDATE_IN_PROGRESS) &&
-			(OutDataAddr != XAES_AAD_UPDATE_NO_OUTPUT_ADDR)) {
-		Status = XAes_FinalizeAadUpdate(InstancePtr);
-		if (Status != XASUFW_SUCCESS) {
-			goto END;
-		}
+		goto RET;
 	}
 
 	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
@@ -862,6 +859,17 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 		goto END;
 	}
 
+	/**
+	 * During initial payload update, finalize the AAD update phase by optionally sending
+	 * zero padding (for CCM mode) and clearing the AAD configuration for all modes.
+	 */
+	if (InstancePtr->AesState == XAES_AAD_UPDATE_IN_PROGRESS) {
+		Status = XAes_FinalizeAadUpdate(InstancePtr);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+	}
+
 	/** Initialize the AES instance with ASU DMA pointer. */
 	InstancePtr->AsuDmaPtr = DmaPtr;
 
@@ -871,21 +879,17 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 	 * configuration post DMA transfer.
 	 */
 	if (OutDataAddr == XAES_AAD_UPDATE_NO_OUTPUT_ADDR) {
+		InstancePtr->AesState = (IsLastChunk == XASU_TRUE) ? XAES_ONLY_AAD_UPDATE_IN_PROGRESS :
+			XAES_AAD_UPDATE_IN_PROGRESS;
 		XAes_ConfigAad(InstancePtr);
-		InstancePtr->AesState = XAES_AAD_UPDATE_IN_PROGRESS;
 	}
-
-	/**
-	 * Update the AES state machine to XAES_DATA_UPDATE_IN_PROGRESS or XAES_UPDATE_COMPLETED based
-	 * on the IsLastChunk flag set by the user during update of data.
-	 */
-	if (OutDataAddr != XAES_AAD_UPDATE_NO_OUTPUT_ADDR) {
-		if (IsLastChunk == TRUE) {
-			InstancePtr->AesState = XAES_UPDATE_COMPLETED;
-		}
-		else {
-			InstancePtr->AesState = XAES_DATA_UPDATE_IN_PROGRESS;
-		}
+	else {
+		/**
+		 * Update the AES state machine to XAES_DATA_UPDATE_IN_PROGRESS or XAES_UPDATE_COMPLETED based
+		 * on the IsLastChunk flag set by the user during update of data.
+		 */
+		InstancePtr->AesState = (IsLastChunk == TRUE) ? XAES_UPDATE_COMPLETED :
+			XAES_DATA_UPDATE_IN_PROGRESS;
 	}
 
 	/** Configure DMA with AES and transfer the data to AES engine. */
@@ -897,8 +901,7 @@ END:
 	 * Reset AES engine if InstancePtr is valid and Status is not SUCCESS or
 	 * XASUFW_CMD_IN_PROGRESS.
 	 */
-	if ((InstancePtr != NULL) && (Status != XASUFW_SUCCESS) &&
-			(Status != XASUFW_CMD_IN_PROGRESS)) {
+	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_CMD_IN_PROGRESS)) {
 		/** Set AES under reset upon any failure. */
 		XAes_SetReset(InstancePtr);
 		/** Clear the XASU_AES_EXPANDED_KEYS. */
@@ -906,6 +909,7 @@ END:
 			XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
+RET:
 	return Status;
 }
 
@@ -933,20 +937,7 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
 		Status = XASUFW_AES_INVALID_PARAM;
-		goto END;
-	}
-
-	/**
-	 * During only AAD update (no payload) after non-blocking DMA wait, finalize the AAD update
-	 * phase by optionally sending zero padding (for CCM mode) and clearing the AAD
-	 * configuration for all modes.
-	 */
-	if (InstancePtr->AesState == XAES_AAD_UPDATE_IN_PROGRESS) {
-		Status = XAes_FinalizeAadUpdate(InstancePtr);
-		if (Status != XASUFW_SUCCESS) {
-			goto END;
-		}
-		InstancePtr->AesState = XAES_UPDATE_COMPLETED;
+		goto RET;
 	}
 
 	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
@@ -954,7 +945,8 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 		goto END;
 	}
 
-	if (InstancePtr->AesState != XAES_UPDATE_COMPLETED) {
+	if ((InstancePtr->AesState != XAES_UPDATE_COMPLETED) &&
+			(InstancePtr->AesState != XAES_ONLY_AAD_UPDATE_IN_PROGRESS)) {
 		Status = XASUFW_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -965,11 +957,31 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 		goto END;
 	}
 
+	/**
+	 * During only AAD update (no payload) after non-blocking DMA wait, finalize the AAD update
+	 * phase by optionally sending zero padding (for CCM mode) and clearing the AAD
+	 * configuration for all modes.
+	 */
+	if (InstancePtr->AesState == XAES_ONLY_AAD_UPDATE_IN_PROGRESS) {
+		Status = XAes_FinalizeAadUpdate(InstancePtr);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+	}
+
 	/** Initialize the AES instance with ASU DMA pointer. */
 	InstancePtr->AsuDmaPtr = DmaPtr;
 
-	/** Wait for AES operation to complete. */
-	Status = XAes_WaitForDone(InstancePtr);
+	if (InstancePtr->AesState == XAES_UPDATE_COMPLETED) {
+		/** Wait for AES operation to complete. */
+		Status = XAes_WaitForDone(InstancePtr);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+	}
+
+	/** Wait for AES engine to be in idle and ready state. */
+	Status = XAes_WaitForReady(InstancePtr);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -986,14 +998,13 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 	}
 
 END:
-	if (InstancePtr != NULL) {
-		/** Set AES under reset after AES operation is complete. */
-		XAes_SetReset(InstancePtr);
-		/** Clear the XASU_AES_EXPANDED_KEYS. */
-		Status = XAsufw_UpdateErrorStatus(Status,
-			XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
-	}
+	/** Set AES under reset after AES operation is complete. */
+	XAes_SetReset(InstancePtr);
+	/** Clear the XASU_AES_EXPANDED_KEYS. */
+	Status = XAsufw_UpdateErrorStatus(Status,
+		XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
 
+RET:
 	return Status;
 }
 
@@ -1022,16 +1033,26 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 	u64 NonceAddr, u8 NonceLen, u32 PlainTextLen, u8 TagLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u8 NonceHeader[XAES_MAX_NONCE_HEADER_LEN];
-	u8 TotalNonceHeaderLen = 0U;
+	u8 NonceHeader[XASU_AES_BLOCK_SIZE_IN_BYTES];
+	volatile u8 Index = 0U;
+	u8 TotalAadLen;
+	u8 LengthFieldSize;
+	u64 PtLenCpy = PlainTextLen;
+	u8 IsLast;
+	u32 NonceHeaderIndex;
 
 	/** Validate the input arguments. */
-	if ((InstancePtr == NULL) || (DmaPtr == NULL) || (AadAddr == 0U) || (NonceAddr == 0U)) {
+	if (InstancePtr == NULL) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto RET;
+	}
+
+	if ((DmaPtr == NULL) || (NonceAddr == 0U)) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((AadLen == 0U) || (AadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
+	if ((AadLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
 			(PlainTextLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
@@ -1057,12 +1078,22 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 		goto END;
 	}
 
+	/** Number of bytes for payload length encoding. */
+	LengthFieldSize = XAES_CCM_Q_CONST - NonceLen;
+
+	/** Check if plaintext length fits in LengthFieldSize bytes. */
+	if (PlainTextLen >= (XAES_U64_ONE << (XASUFW_BYTE_LEN_IN_BITS * LengthFieldSize))) {
+		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
 	/** Initialize the AES instance with ASU DMA pointer. */
 	InstancePtr->AsuDmaPtr = DmaPtr;
 
 	/** Configure AES AAD configurations before pushing AAD data to AES engine. */
+	InstancePtr->AesState = (PlainTextLen == 0U) ? XAES_ONLY_AAD_UPDATE_IN_PROGRESS :
+		XAES_AAD_UPDATE_IN_PROGRESS;
 	XAes_ConfigAad(InstancePtr);
-	InstancePtr->AesState = XAES_AAD_UPDATE_IN_PROGRESS;
 
 	/**
 	 * AAD formatting:
@@ -1079,62 +1110,63 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 		goto END;
 	}
 
-	/** Total Nonce Header Length */
-	TotalNonceHeaderLen = XAES_NONCE_HEADER_FLAG + NonceLen;
+	NonceHeaderIndex = XAES_NONCE_HEADER_FLAG + NonceLen + (LengthFieldSize - 1U);
 
-	/** Add Plaintext length (PlainTextLen encoding based on size). */
-	if (PlainTextLen < XAES_MAX_PLAIN_TEXT_SHORT) {
-		NonceHeader[TotalNonceHeaderLen] = (PlainTextLen >> XASUFW_BYTE_LEN_IN_BITS) &
-			XAES_BYTE_MASK;
-		NonceHeader[TotalNonceHeaderLen + 1U] = PlainTextLen & XAES_BYTE_MASK;
-		TotalNonceHeaderLen += XAES_TWO_BYTE_ENCODING;
-	}
-	else if (PlainTextLen < XAES_MAX_PLAIN_TEXT_LONG) {
-		NonceHeader[TotalNonceHeaderLen] = (XAES_HEADER_6BYTE_INDICATOR >>
-			XASUFW_BYTE_LEN_IN_BITS) & XAES_BYTE_MASK;
-		NonceHeader[TotalNonceHeaderLen + 1U] = XAES_HEADER_6BYTE_INDICATOR &
-			XAES_BYTE_MASK;
-		for (u8 Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; Index++) {
-			NonceHeader[TotalNonceHeaderLen + XAES_TWO_BYTE_ENCODING + Index] = (PlainTextLen >>
-				(XAES_MSB_SHIFT_32 - (Index * XASUFW_BYTE_LEN_IN_BITS))) & XAES_BYTE_MASK;
-		}
-		TotalNonceHeaderLen += XAES_SIX_BYTE_ENCODING;
+	for (Index = 0U; Index < LengthFieldSize; Index++) {
+		NonceHeader[NonceHeaderIndex - Index]  = (u8)(PtLenCpy & XAES_BYTE_MASK);
+		PtLenCpy >>= XASUFW_ONE_BYTE_SHIFT_VALUE;
 	}
 
-	/** Add AAD length (AadLen encoding based on size). */
-	if (AadLen < XAES_AAD_LENGTH_SHORT_LIMIT) {
-		NonceHeader[TotalNonceHeaderLen] = (AadLen >> XASUFW_BYTE_LEN_IN_BITS) &
-			XAES_BYTE_MASK;
-		NonceHeader[TotalNonceHeaderLen + 1U] = AadLen & XAES_BYTE_MASK;
-		TotalNonceHeaderLen += XAES_TWO_BYTE_ENCODING;
-	}
-	else if (AadLen < XAES_AAD_LENGTH_LONG_LIMIT) {
-		NonceHeader[TotalNonceHeaderLen] = (XAES_HEADER_6BYTE_INDICATOR >> XASUFW_BYTE_LEN_IN_BITS) &
-			XAES_BYTE_MASK;
-		NonceHeader[TotalNonceHeaderLen + 1U] = XAES_HEADER_6BYTE_INDICATOR & XAES_BYTE_MASK;
-		for (u8 Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; Index++) {
-			NonceHeader[TotalNonceHeaderLen + XAES_TWO_BYTE_ENCODING + Index] = (AadLen >>
-				(XAES_MSB_SHIFT_32 - (Index * XASUFW_BYTE_LEN_IN_BITS))) & XAES_BYTE_MASK;
-		}
-		TotalNonceHeaderLen += XAES_SIX_BYTE_ENCODING;
-	}
+	/** Update IsLast based on the presence of AAD. */
+	IsLast = (AadLen == 0U) ? XASU_TRUE : XASU_FALSE;
 
 	/** Configure DMA with AES and transfer the Nonce Header to AES engine. */
 	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, (u64)(UINTPTR)NonceHeader, 0U,
-		TotalNonceHeaderLen, XASU_FALSE);
+		XASU_AES_BLOCK_SIZE_IN_BYTES, IsLast);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
-	InstancePtr->CcmAadZeroBlockPadLen = ((XASU_AES_BLOCK_SIZE_IN_BYTES -
-		((TotalNonceHeaderLen + AadLen) % XASU_AES_BLOCK_SIZE_IN_BYTES)) %
-		XASU_AES_BLOCK_SIZE_IN_BYTES);
+	if (AadLen > 0U) {
+		/** Add AAD length (AadLen encoding based on size). */
+		if (AadLen < XAES_AAD_LENGTH_SHORT_LIMIT) {
+			NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = (AadLen >>
+				XASUFW_BYTE_LEN_IN_BITS) & XAES_BYTE_MASK;
+			NonceHeader[XAES_NONCE_HEADER_SECOND_IDX] = AadLen & XAES_BYTE_MASK;
+			TotalAadLen = XAES_TWO_BYTE_ENCODING;
+		}
+		else if (AadLen < XAES_AAD_LENGTH_LONG_LIMIT) {
+			NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = (XAES_HEADER_6BYTE_INDICATOR >>
+				XASUFW_BYTE_LEN_IN_BITS) & XAES_BYTE_MASK;
+			NonceHeader[XAES_NONCE_HEADER_SECOND_IDX] = XAES_HEADER_6BYTE_INDICATOR &
+				XAES_BYTE_MASK;
+			for (Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; Index++) {
+				NonceHeader[XAES_TWO_BYTE_ENCODING + Index] = (AadLen >>
+					(XAES_MSB_SHIFT_32 - (Index * XASUFW_BYTE_LEN_IN_BITS))) & XAES_BYTE_MASK;
+			}
+			TotalAadLen = XAES_SIX_BYTE_ENCODING;
+		}
 
-	/** Configure DMA with AES and transfer the AAD data to AES engine. */
-	Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, AadAddr, 0U, AadLen,
-		(InstancePtr->CcmAadZeroBlockPadLen == 0U));
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
+		/** Configure DMA with AES and transfer the AAD data to AES engine. */
+		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, (u64)(UINTPTR)NonceHeader, 0U, TotalAadLen,
+			XASU_FALSE);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+
+		InstancePtr->CcmAadZeroBlockPadLen = ((XASU_AES_BLOCK_SIZE_IN_BYTES -
+			((TotalAadLen + AadLen) % XASU_AES_BLOCK_SIZE_IN_BYTES)) %
+			XASU_AES_BLOCK_SIZE_IN_BYTES);
+
+		/** Update IsLast based on whether zero padding is required. */
+		IsLast = (InstancePtr->CcmAadZeroBlockPadLen == 0U) ? XASU_TRUE : XASU_FALSE;
+
+		/** Configure DMA with AES and transfer the AAD data to AES engine. */
+		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, AadAddr, 0U, AadLen,
+			IsLast);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
 	}
 
 END:
@@ -1142,12 +1174,12 @@ END:
 	 * Reset AES engine if InstancePtr is valid and Status is not SUCCESS or
 	 * XASUFW_CMD_IN_PROGRESS.
 	 */
-	if ((InstancePtr != NULL) && (Status != XASUFW_SUCCESS) &&
-			(Status != XASUFW_CMD_IN_PROGRESS)) {
+	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_CMD_IN_PROGRESS)) {
 		/** Set AES under reset on failure. */
 		XAes_SetReset(InstancePtr);
 	}
 
+RET:
 	return Status;
 }
 
@@ -1718,8 +1750,10 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 	}
 	else if (InstancePtr->EngineMode == XASU_AES_CCM_MODE) {
 		FormattedIv = (u8 *)(UINTPTR)Iv;
+
 		/** Set flag byte for AES-CCM nonce. */
-		FormattedIv[0] = 0x01U;
+		FormattedIv[0] = (XAES_CCM_Q_CONST - IvLen - 1U) & XAES_CCM_Q_MASK;
+
 		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, IvAddr, (u64)(UINTPTR)&FormattedIv[1U],
 			IvLength, 0U);
 		if (Status != XASUFW_SUCCESS) {
@@ -1976,8 +2010,7 @@ END:
  *************************************************************************************************/
 static void XAes_ConfigAad(const XAes *InstancePtr)
 {
-	if ((InstancePtr->EngineMode == XASU_AES_GCM_MODE) ||
-	    (InstancePtr->EngineMode == XASU_AES_CCM_MODE)) {
+	if (InstancePtr->AesState == XAES_AAD_UPDATE_IN_PROGRESS) {
 		/**
 		 * For modes like AES-GCM and AES-CCM, where payload is expected after AAD,
 		 * configure only AUTH_MASK bit.
@@ -2213,6 +2246,29 @@ static s32 XAes_WaitForDone(const XAes *InstancePtr)
 	/* Check for AES operation is completed within Timeout(10sec) or not. */
 	Status = (s32)Xil_WaitForEvent((InstancePtr->AesBaseAddress + XAES_INTERRUPT_STATUS_OFFSET),
 				  XAES_INTERRUPT_STATUS_DONE_MASK, XAES_INTERRUPT_STATUS_DONE_MASK, XAES_TIMEOUT_MAX);
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+* @brief This function waits for the AES engine to become idle and ready.
+*
+* @param	InstancePtr	Pointer to the XAes instance.
+*
+* @return
+* 		- XASUFW_SUCCESS, if AES engine becomes ready before timeout.
+* 		- XASUFW_FAILURE, if READY bit is not set within given timeout.
+*
+*************************************************************************************************/
+static s32 XAes_WaitForReady(const XAes *InstancePtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/* Check for AES engine is idle and ready within Timeout(10sec) or not. */
+	Status = (s32)Xil_WaitForEvent((InstancePtr->AesBaseAddress + XAES_STATUS_OFFSET),
+		(XAES_STATUS_BUSY_MASK | XAES_STATUS_READY_MASK),
+		XAES_STATUS_READY_MASK, XAES_TIMEOUT_MAX);
 
 	return Status;
 }
