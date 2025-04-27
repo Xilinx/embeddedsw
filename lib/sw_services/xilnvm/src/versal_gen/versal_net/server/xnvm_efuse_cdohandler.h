@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 3.0  kal  07/12/2021 Initial release
 * 3.2  kum  05/03/2023 Added macros and structures to handle cdo chunk boundary
 * 3.3  kpt  01/22/2024 Added support to extend secure state into SWPCR
+* 3.4  har  04/26/2025 Updated value of XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS macro
 *
 * </pre>
 *
@@ -45,8 +46,16 @@ extern "c" {
 /*< 16-bits used for Environmental monitoring, 16-bits used for Key_type and 8 words are for AES Key> */
 #define XNVM_AES_KEY_CDO_PAYLOAD_LEN_IN_WORDS          (9U)
 
+#if defined(VERSAL_2VE_2VM)
+/*< 16-bits used for Env monitoring, 16-bits used for ppk_type and 12 words are for PPK Hash> */
+#define XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS (13U)
+#elif defined(VERSAL_NET)
 /*< 16-bits used for Env monitoring, 16-bits used for ppk_type and 8 words are for PPK Hash> */
-#define XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS         (9U)
+#define XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS (9U)
+#else
+/*< Define XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS for other devices here */
+#endif
+
 
 /*< 16-bits used for Environmental monitoring, 16-bits are reserved and 12 words are for DICE UDS> */
 #define XNVM_UDS_CDO_PAYLOAD_LEN_IN_WORDS              (13U)
