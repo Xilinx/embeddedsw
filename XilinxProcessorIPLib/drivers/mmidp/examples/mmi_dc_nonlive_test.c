@@ -1,8 +1,10 @@
 /******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
+*
+* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+*
 ******************************************************************************/
 
+// Test Name - mmi_dc_nonlive_test
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -11,6 +13,7 @@
 #include <xil_cache.h>
 #include <xil_types.h>
 #include <sleep.h>
+#include <xparameters.h>
 
 #include "mmi_dc_nonlive_test.h"
 #include "mmi_dp_init.h"
@@ -23,49 +26,25 @@
 #define LAST_DESC_FRAME_SHIFT           11U
 
 #define XDCDMA_IEN_VSYNC_INT_MASK	0x0000000C
-#define XDCDMA_INTR_ID			179
-#define XDCDMA_INTR_PARENT		0xe2000000
-
-#define XCLK_WIZ_REG1			0x0
-#define XCLK_WIZ_REG3			0x75f
-#define XCLK_WIZ_REG4   		0xa75
-#define XCLK_WIZ_CLKOUT1_1		0x0
-#define XCLK_WIZ_CLKOUT1_1_OFFSET	0x340
-#define XCLK_WIZ_CLKOUT1_2		0xa9c
-#define XCLK_WIZ_CLKOUT1_2_OFFSET	0x344
-#define XCLK_WIZ_CLKOUT2_1		0x0
-#define XCLK_WIZ_CLKOUT2_1_OFFSET	0x348
-#define XCLK_WIZ_CLKOUT2_2		0x20c
-#define XCLK_WIZ_CLKOUT2_2_OFFSET	0x34c
-#define XCLK_WIZ_CLKOUT3_1		0x0
-#define XCLK_WIZ_CLKOUT3_1_OFFSET	0x350
-#define XCLK_WIZ_CLKOUT3_2		0x20c
-#define XCLK_WIZ_CLKOUT3_2_OFFSET	0x354
-#define XCLK_WIZ_REG6			0x0
-#define XCLK_WIZ_REG6_OFFSET		0x37c
-#define XCLK_WIZ_REG7			0x0
-#define XCLK_WIZ_REG7_OFFSET		0x384
-#define XCLK_WIZ_REG13			0x6a0
-#define XCLK_WIZ_REG8			0x320
-#define XCLK_WIZ_REG8_OFFSET		0x394
-#define XCLK_WIZ_REG15			0x20
-#define XCLK_WIZ_REG16			0x20
-#define XCLK_WIZ_RECONFIG		0x3
 
 RunConfig RunCfg;
 XDcSub DcSub;
 XDcDma DcDma;
 XDc Dc;
-XMmiDp DpPsuPtr;
+XV_frmbufwr FrmbufWr;
+XScuGic IntrPtr;
+FrameInfo OutFbPtr;
 FrameInfo Video1FbPtr;
 FrameInfo Video2FbPtr;
+
+XMmiDp DpPsuPtr;
 
 XDcDma_Descriptor *Desc1 = (XDcDma_Descriptor *)0x33500;
 XDcDma_Descriptor *Desc2 = (XDcDma_Descriptor *)0x33600;
 
 /* SDTV Coeffs */
-u32 CSCCoeff_RGB[] = { 0x1000, 0x0000, 0x0000, 0x0000, 0x1000, 0x0000, 0x0000, 0x0000, 0x1000};
-u32 CSCOffset_RGB[] =  { 0x0000, 0x0000, 0x0000 };
+u32 In_CSCCoeff_RGB[] = { 0x1000, 0x0000, 0x0000, 0x0000, 0x1000, 0x0000, 0x0000, 0x0000, 0x1000};
+u32 In_CSCOffset_RGB[] =  { 0x0000, 0x0000, 0x0000 };
 
 XDc_VideoTiming VidTiming_640_480 = { .HTotal = 800, .HSWidth = 96, .HRes = 640, .HStart = 144, .VTotal = 525, .VSWidth = 2, .VRes = 480, .VStart = 35};
 
@@ -136,9 +115,13 @@ void GenerateFrames()
 		XDc_WriteReg(IN_BUFFER_0_ADDR_V1, 0x4 + (i * 12), 0x000000FF);
 		XDc_WriteReg(IN_BUFFER_0_ADDR_V1, 0x8 + (i * 12), 0x000000FF);
 
-		XDc_WriteReg(IN_BUFFER_0_ADDR_V2, 0x0 + (i * 12), 0x0000FF00);
-		XDc_WriteReg(IN_BUFFER_0_ADDR_V2, 0x4 + (i * 12), 0x0000FF00);
-		XDc_WriteReg(IN_BUFFER_0_ADDR_V2, 0x8 + (i * 12), 0x0000FF00);
+		XDc_WriteReg(IN_BUFFER_0_ADDR_V2, 0x0 + (i * 12), 0x000000FF);
+		XDc_WriteReg(IN_BUFFER_0_ADDR_V2, 0x4 + (i * 12), 0x000000FF);
+		XDc_WriteReg(IN_BUFFER_0_ADDR_V2, 0x8 + (i * 12), 0x000000FF);
+
+		XDc_WriteReg(OUTPUT_BUFFER_ADDR, 0x0 + (i * 12), 0xA5A5A5A5);
+		XDc_WriteReg(OUTPUT_BUFFER_ADDR, 0x4 + (i * 12), 0xA5A5A5A5);
+		XDc_WriteReg(OUTPUT_BUFFER_ADDR, 0x8 + (i * 12), 0xA5A5A5A5);
 
 	}
 
@@ -147,8 +130,18 @@ void GenerateFrames()
 
 void InitFrames(RunConfig *RunCfgPtr)
 {
+	FrameInfo *Out_FbInfo;
 	FrameInfo *V2_FbInfo;
 	FrameInfo *V1_FbInfo;
+
+	Out_FbInfo  = RunCfgPtr->Out_FbInfo;
+
+	Out_FbInfo->Address = OUTPUT_BUFFER_ADDR;
+	Out_FbInfo->VideoFormat = RGB888;
+	Out_FbInfo->Width = RunCfgPtr->Width;
+	Out_FbInfo->Height = RunCfgPtr->Height;
+	Out_FbInfo->Bpc = 5;
+	GenerateFrameInfoAttribute(Out_FbInfo);
 
 	V2_FbInfo = RunCfgPtr->V2_FbInfo;
 	V2_FbInfo->Address = IN_BUFFER_0_ADDR_V2;
@@ -174,32 +167,6 @@ void InitFrames(RunConfig *RunCfgPtr)
 
 }
 
-void InitClkWiz()
-{
-	XClk_Wiz InstancePtr;
-	XClk_Wiz_Config CfgPtr;
-
-	XClk_Wiz_CfgInitialize(&InstancePtr, &CfgPtr, CLK_WIZ_BASEADDR);
-
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG1_OFFSET, XCLK_WIZ_REG1);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG3_OFFSET, XCLK_WIZ_REG3);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG4_OFFSET, XCLK_WIZ_REG4);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT1_1_OFFSET, XCLK_WIZ_CLKOUT1_1);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT1_2_OFFSET, XCLK_WIZ_CLKOUT1_2);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT2_1_OFFSET, XCLK_WIZ_CLKOUT2_1);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT2_2_OFFSET, XCLK_WIZ_CLKOUT2_2);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT3_1_OFFSET, XCLK_WIZ_CLKOUT3_1);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT3_2_OFFSET, XCLK_WIZ_CLKOUT3_2);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG6_OFFSET, XCLK_WIZ_REG6);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG13_OFFSET, XCLK_WIZ_REG13);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG7_OFFSET, XCLK_WIZ_REG7);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG8_OFFSET, XCLK_WIZ_REG8);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG15_OFFSET, XCLK_WIZ_REG15);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG16_OFFSET, XCLK_WIZ_REG16);
-	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, XCLK_WIZ_RECONFIG);
-
-}
-
 void InitDcSubPtr(RunConfig *RunCfgPtr)
 {
 
@@ -214,12 +181,12 @@ void InitDcSubPtr(RunConfig *RunCfgPtr)
 					  RunCfgPtr->Stream2Format);
 	XDcSub_SetOutputVideoFormat(RunCfgPtr->DcSubPtr, RunCfgPtr->OutStreamFormat);
 	XDcSub_SetInputStreamLayerControl(RunCfgPtr->DcSubPtr, 0, 0);
-	XDcSub_SetGlobalAlpha(RunCfgPtr->DcSubPtr, ALPHA_ENABLE, 0xA5);
+	XDcSub_SetGlobalAlpha(RunCfgPtr->DcSubPtr, ALPHA_ENABLE, 0x0);
 	XDcSub_SetStreamPixelScaling(RunCfgPtr->DcSubPtr, NULL, NULL);
 
-	XDcSub_SetInputStreamCSC(RunCfgPtr->DcSubPtr, CSCCoeff_RGB, CSCOffset_RGB, CSCCoeff_RGB,
-				 CSCOffset_RGB);
-	XDcSub_SetOutputStreamCSC(RunCfgPtr->DcSubPtr, CSCCoeff_RGB, CSCOffset_RGB);
+	XDcSub_SetInputStreamCSC(RunCfgPtr->DcSubPtr, In_CSCCoeff_RGB, In_CSCOffset_RGB, In_CSCCoeff_RGB,
+				 In_CSCOffset_RGB);
+	XDcSub_SetOutputStreamCSC(RunCfgPtr->DcSubPtr, In_CSCCoeff_RGB, In_CSCOffset_RGB);
 	XDcSub_SetAudioVideoClkSrc(RunCfgPtr->DcSubPtr);
 	DcPtr->VideoClk = 0;
 	DcPtr->AudioClk = 0;
@@ -227,8 +194,47 @@ void InitDcSubPtr(RunConfig *RunCfgPtr)
 	XDcSub_EnableStream2Buffers(RunCfgPtr->DcSubPtr, 1, 15);
 	XDcSub_VidClkSelect(RunCfgPtr->DcSubPtr, 0, 0);
 	XDcSub_SetVidFrameSwitch(RunCfgPtr->DcSubPtr, 0x3F);
-	XDcSub_SetNonLiveLatency(RunCfgPtr->DcSubPtr, 0x00120138);
 
+}
+
+/*****************************************************************************/
+/**
+*
+* The purpose of this function is to configure framebuffer IP.
+*
+* @param        RunCfgPtr is a pointer to the application configuration structure.
+*
+* @return       None.
+*
+* @note         None.
+*
+*****************************************************************************/
+u32 ConfigFbWr(RunConfig *RunCfgPtr)
+{
+	XV_frmbufwr_Config CfgPtr;
+	XV_frmbufwr *FrmbufPtr;
+	FrameInfo *FbInfo;
+
+	UINTPTR FB_BASEADDR = 0xB0590000;
+
+	FrmbufPtr = RunCfgPtr->FrmbufPtr;
+	FbInfo = RunCfgPtr->Out_FbInfo;
+
+	XV_frmbufwr_CfgInitialize(FrmbufPtr, &CfgPtr, FB_BASEADDR);
+
+	XDc_WriteReg(RunCfgPtr->FbBaseAddr, 0x0, 0); //control register
+	XDc_WriteReg(RunCfgPtr->FbBaseAddr, 0x4, 1); //Interrupt Enable
+	XDc_WriteReg(RunCfgPtr->FbBaseAddr, 0x8, 3);
+	XDc_WriteReg(RunCfgPtr->FbBaseAddr, 0xC, 0);
+
+	XV_frmbufwr_Set_HwReg_width(FrmbufPtr, FbInfo->Width);
+	XV_frmbufwr_Set_HwReg_height(FrmbufPtr, FbInfo->Height);
+	XV_frmbufwr_Set_HwReg_stride(FrmbufPtr, FbInfo->Width * 5);
+	XV_frmbufwr_Set_HwReg_video_format(FrmbufPtr, 30); // Packed RGB - 30
+	XV_frmbufwr_Set_HwReg_frm_buffer_V(FrmbufPtr, FbInfo->Address);
+	XV_frmbufwr_Start(FrmbufPtr);
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -246,9 +252,14 @@ void InitDcSubPtr(RunConfig *RunCfgPtr)
 *****************************************************************************/
 u32 InitDcSubsystem(RunConfig *RunCfgPtr)
 {
+	XDc_VideoStream1 VideoSrc1;
+	XDc_VideoStream2 VideoSrc2;
 	XDcSub *DcSubPtr = RunCfgPtr->DcSubPtr;
 	XDc *DcPtr = DcSubPtr->DcPtr;
 	XDcDma *DmaPtr = DcSubPtr->DmaPtr;
+
+	VideoSrc1 = DcPtr->AVMode.VideoSrc1;
+	VideoSrc2 = DcPtr->AVMode.VideoSrc2;
 
 	XDcSub_Initialize(DcSubPtr);
 	XDcDma_CfgInitialize(DmaPtr, DCDMA_BASEADDR);
@@ -259,39 +270,34 @@ u32 InitDcSubsystem(RunConfig *RunCfgPtr)
 	XDc_SetVideoTiming(DcPtr);
 	XDcSub_ConfigureDcVideo(DcPtr);
 
+	XDcDma_InterruptEnable(DmaPtr, XDCDMA_IEN_VSYNC_INT_MASK);
+
 	DmaPtr->Video.Channel[XDCDMA_VIDEO_CHANNEL0].Current = RunCfgPtr->Desc1;
 	DmaPtr->Gfx.Channel[XDCDMA_GRAPHICS_CHANNEL3].Current = RunCfgPtr->Desc2;
 
 	DmaPtr->Video.VideoInfo = XDc_GetNonLiveVideoAttribute(RunCfgPtr->Stream1Format);
 	DmaPtr->Gfx.VideoInfo = XDc_GetNonLiveVideoAttribute(RunCfgPtr->Stream2Format);
 
+	uint8_t vsync_int = 0;
+	while (1) {
+		int val =  XDcDma_ReadReg(DCDMA_BASEADDR, 0x70);
+		if ((val & (XDCDMA_ISR_VSYNC1_INT_MASK | XDCDMA_ISR_VSYNC2_INT_MASK)) != 0U) {
+			vsync_int++;
+		}
+
+		if (vsync_int > 2) {
+			break ;
+		}
+
+	}
+
 	DmaPtr->Video.Video_TriggerStatus = XDCDMA_TRIGGER_EN;
 	DmaPtr->Gfx.Graphics_TriggerStatus = XDCDMA_TRIGGER_EN;
+	XDcDma_VSyncHandler(DmaPtr);
 
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************/
-/**
-*
-* The purpose of this function is to setup call back functions for the DP
-* controller interrupts.
-*
-* @param	RunCfgPtr is a pointer to the application configuration structure.
-*
-* @return	None.
-*
-* @note		None.
-*
-*****************************************************************************/
-void SetupInterrupts(RunConfig *RunCfgPtr)
-{
-	XDcDma *DmaPtr = RunCfgPtr->DcSubPtr->DmaPtr;
-
-	XSetupInterruptSystem(DmaPtr, &XDcDma_InterruptHandler, XDCDMA_INTR_ID,
-			      XDCDMA_INTR_PARENT, XINTERRUPT_DEFAULT_PRIORITY);
-	XDcDma_InterruptEnable(DmaPtr, XDCDMA_IEN_VSYNC_INT_MASK);
-}
 /*****************************************************************************/
 /**
 *
@@ -308,14 +314,15 @@ u32 InitPlatform(RunConfig *RunCfgPtr)
 {
 	u32 Status = XST_SUCCESS;
 
-	InitClkWiz();
+	if (RunCfgPtr->DpTxEnable) {
+		xil_printf("Enabling Output to DisplayPort\n");
+		/* Initialize DpSubsystem */
+		Status = InitDpPsuSubsystem(RunCfgPtr);
+		if (Status != XST_SUCCESS) {
+			xil_printf("DpPsu14 Subsystem Initialization failed\n");
+			return Status;
+		}
 
-	xil_printf("Enabling Output to DisplayPort\n");
-	/* Initialize DpSubsystem */
-	Status = InitDpPsuSubsystem(RunCfgPtr);
-	if (Status != XST_SUCCESS) {
-		xil_printf("DpPsu14 Subsystem Initialization failed\n");
-		return Status;
 	}
 
 	/* Initialize DcSubsystem */
@@ -325,7 +332,13 @@ u32 InitPlatform(RunConfig *RunCfgPtr)
 		return Status;
 	}
 
-	SetupInterrupts(RunCfgPtr);
+	/* Configure Framebuffer */
+	Status = ConfigFbWr(RunCfgPtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("FAILED to Initialize FrmbufWr Ip\n");
+		return Status;
+	}
+
 	return Status;
 }
 
@@ -349,14 +362,19 @@ u32 InitRunConfig(RunConfig *RunCfgPtr)
 	RunCfgPtr->DcSubPtr = &DcSub;
 	RunCfgPtr->DcSubPtr->DcPtr = &Dc;
 	RunCfgPtr->DcSubPtr->DmaPtr = &DcDma;
+	RunCfgPtr->FrmbufPtr = &FrmbufWr;
+	RunCfgPtr->IntrPtr = &IntrPtr;
+	RunCfgPtr->Out_FbInfo = &OutFbPtr;
 	RunCfgPtr->V1_FbInfo = &Video1FbPtr;
 	RunCfgPtr->V2_FbInfo = &Video2FbPtr;
 	RunCfgPtr->DpPsuPtr = &DpPsuPtr;
 	RunCfgPtr->Desc1 = Desc1;
 	RunCfgPtr->Desc2 = Desc2;
 
+	// BaseAddress
 	RunCfgPtr->DcBaseAddr = DC_BASEADDR;
 	RunCfgPtr->DcDmaBaseAddr = DCDMA_BASEADDR;
+	RunCfgPtr->FbBaseAddr = PL_VID_S0P0_FRMBUFWR0;
 
 	RunCfgPtr->Width = 640;
 	RunCfgPtr->Height = 480;
@@ -368,6 +386,9 @@ u32 InitRunConfig(RunConfig *RunCfgPtr)
 
 	RunCfgPtr->CursorEnable = CB_DISABLE;
 	RunCfgPtr->OutStreamFormat = RGB_8BPC;
+
+	/* Dp */
+	RunCfgPtr->DpTxEnable = 1;
 
 	InitFrames(RunCfgPtr);
 	InitDcSubPtr(RunCfgPtr);
