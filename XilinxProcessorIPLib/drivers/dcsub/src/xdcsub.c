@@ -279,7 +279,7 @@ u32 XDcSub_SetInputNonLiveVideoFormat(XDcSub *InstancePtr, XDc_VideoFormat Forma
 	DcConfigPtr->AVMode.NonLiveVideo2 =
 		XDc_GetNonLiveVideoAttribute(Format2);
 
-	if (!DcConfigPtr->AVMode.NonLiveVideo1 &&
+	if (!DcConfigPtr->AVMode.NonLiveVideo1 ||
 	    !DcConfigPtr->AVMode.NonLiveVideo2) {
 		return XST_FAILURE;
 	}
@@ -300,8 +300,8 @@ u32 XDcSub_SetInputNonLiveVideoFormat(XDcSub *InstancePtr, XDc_VideoFormat Forma
  *
  * @note        None.
 *******************************************************************************/
-u32 XDcSub_SetInputLiveStreamFormat(XDcSub *InstancePtr,
-				    XDc_VideoFormat Format1, XDc_VideoFormat Format2)
+u32 XDcSub_SetInputLiveStream1Format(XDcSub *InstancePtr,
+				     XDc_VideoFormat Format1, XDc_VideoFormat Format2)
 {
 	XDc *DcConfigPtr;
 
@@ -315,7 +315,7 @@ u32 XDcSub_SetInputLiveStreamFormat(XDcSub *InstancePtr,
 	DcConfigPtr->AVMode.LiveVideo2 =
 		XDc_GetLiveVideoAttribute(Format2);
 
-	if (!DcConfigPtr->AVMode.LiveVideo1 &&
+	if (!DcConfigPtr->AVMode.LiveVideo1 ||
 	    !DcConfigPtr->AVMode.LiveVideo2) {
 		return XST_FAILURE;
 	}
