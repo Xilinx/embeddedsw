@@ -146,7 +146,7 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 		goto END;
 	}
 
-	if (InstancePtr->ShaState == XSECURE_SHA_UNINITIALIZED) {
+	if (InstancePtr->ShaConfig == NULL) {
 		Status = XSecure_Sha3LookupConfig(InstancePtr,
 				XSECURE_SHA3_0_DEVICE_ID);
 		if (Status != XST_SUCCESS) {

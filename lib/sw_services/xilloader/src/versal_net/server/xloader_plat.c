@@ -156,7 +156,6 @@
 /************************** Function Prototypes ******************************/
 static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu,
 	const u32 DstnCluster);
-static int XLoader_InitSha3Instance1(void);
 static int XLoader_InitTrngInstance(void);
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams,
@@ -1206,13 +1205,8 @@ int XLoader_PlatInit(void)
 {
 	int Status = XST_FAILURE;
 
-	Status = XLoader_InitSha3Instance1();
-	if(Status != XST_SUCCESS){
-		goto END;
-	}
 	Status = XLoader_InitTrngInstance();
 
-END:
 	return Status;
 }
 
@@ -1399,34 +1393,6 @@ END:
 	Status = XST_SUCCESS;
 #endif	/* PLM_OCP */
 
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function initializes the SHA1 instance.
- *
- * @return
- * 			- XST_SUCCESS on success.
- * 			- XLOADER_ERR_SHA1_INIT if SHA1 initialization fails.
- *
- *****************************************************************************/
-static int XLoader_InitSha3Instance1(void)
-{
-	int Status = XLOADER_ERR_SHA3_1_INIT;
-#ifdef PLM_OCP
-	XSecure_Sha *Sha3Instance = XSecure_GetSha3Instance(XSECURE_SHA_1_DEVICE_ID);;
-
-	Status = XSecure_ShaLookupConfig(Sha3Instance, XSECURE_SHA_1_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-#else
-	Status = XST_SUCCESS;
-#endif
-
-END:
 	return Status;
 }
 
