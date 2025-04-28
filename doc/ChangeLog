@@ -17,6 +17,7 @@ Fix C++ compilation errors and warnings
 csudma_v1_17:
 Fix compilation warnings for peripheral test
 Add dependency for examples and peripheral test
+lib: bsp: standalone: Update macro name for Versal 2VE and 2VM devices
 
 ddrcpsu_v1_8:
 Fix IAR compilation failures
@@ -77,6 +78,7 @@ Update the YAML to generate xparameters.h defines in alignment with the XSCT flo
 Add the compatible for mutex
 
 ospipsv_v1_12:
+Update driver to add configurations in sdr non-phy for SpartanUp
 Fix gcc and g++ compilation warnings and errors
 Add support for BusWidth parameter
 Use stig read for byte count less than 8bytes
@@ -115,6 +117,7 @@ zdma_v1_20:
 Fix compilation warnings for peripheral test
 Update the latest Versal Gen2 compatible strings in ospi and zdma YAML
 Add support for Versal Gen2
+lib: bsp: standalone: Update macro name for Versal 2VE and 2VM devices
 
 xilffs_v5_4:
 Update the FatFS version to v0.15a
@@ -122,14 +125,6 @@ Update copyright year
 Fix stack memory access issues
 Fix C++ compilation warnings
 Avoid local header inclusion in CMake
-
-xilmailbox_v1_11:
-Avoid local header inclusion in CMake
-Update XMAILBOX_MAX_MSG_LEN to accomodate CRC bytes when IPI CRC is enabled
-Update handler registration for XMAILBOX_INTR_ID in SDT flow
-Fix GCC warnings
-Update message length to accommodate CRC bytes when IPI CRC is enabled
-Update MsgLen and XMAILBOX_MAX_MSG_LEN comments for clearer description
 
 xilsfl_v1_1:
 Avoid local header inclusion in CMake
