@@ -11,3 +11,4 @@ ttcps
 uartps
 ipipsu
 sdps
+spips

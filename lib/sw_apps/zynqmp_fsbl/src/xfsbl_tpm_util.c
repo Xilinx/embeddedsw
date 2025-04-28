@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -17,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bsv  04/01/21 Initial release
+* 2.00  sd   04/25/25 Fix incorrect TPM initialization
 *
 * </pre>
 *
@@ -113,7 +115,7 @@ u32 XFsbl_TpmAccessGet(u8* AccessPtr)
 ******************************************************************************/
 u32 XFsbl_TpmAccessSet(u8 Access)
 {
-	u32 Status = XST_FAILURE;
+	u32 Status = XFSBL_FAILURE;
 
 	Status = XFsbl_TpmTransfer(XFSBL_TPM_ACCESS, &Access, NULL, 1U);
 
@@ -185,7 +187,7 @@ u32 XFsbl_SpiInit(void)
 
 	Status = XSpiPs_CfgInitialize(&SpiInstance, SpiConfig,
 		SpiConfig->BaseAddress);
-	if (Status != XST_SUCCESS) {
+	if (Status != XFSBL_SUCCESS) {
 		goto END;
 	}
 
@@ -193,7 +195,7 @@ u32 XFsbl_SpiInit(void)
 	 * Perform a self-test to check hardware build
 	 */
 	Status = XSpiPs_SelfTest(&SpiInstance);
-	if (Status != XST_SUCCESS) {
+	if (Status != XFSBL_SUCCESS) {
 		goto END;
 	}
 
@@ -234,34 +236,34 @@ u32 XFsbl_TpmDataTransfer(u8* TxBuf, u8* RxBuf, u16 Txlen)
 
 	/* Set command ready request */
 	Status = XFsbl_TpmStatusSet(XFSBL_TPM_STS_CMD_READY);
-	if (Status != XST_SUCCESS) {
+	if (Status != XFSBL_SUCCESS) {
 		goto END;
 	}
 
 	do {
 		/* Check for command ready status */
 		Status = XFsbl_TpmStatusGet(&StatusVal);
-		if (Status != XST_SUCCESS) {
+		if (Status != XFSBL_SUCCESS) {
 			goto END;
 		}
 	} while ((StatusVal & XFSBL_TPM_STS_CMD_READY) == 0U);
 
 	/* Write Data to device */
 	Status = XFsbl_TpmFifoWrite(TxBuf, Txlen);
-	if (Status != XST_SUCCESS) {
+	if (Status != XFSBL_SUCCESS) {
 		goto END;
 	}
 
 	/* Set command to go */
 	Status = XFsbl_TpmStatusSet(XFSBL_TPM_STS_GO);
-	if (Status != XST_SUCCESS) {
+	if (Status != XFSBL_SUCCESS) {
 		goto END;
 	}
 	StatusVal = 0U;
 	do {
 		/* Check for command ready and valid */
 		Status = XFsbl_TpmStatusGet(&StatusVal);
-		if (Status != XST_SUCCESS) {
+		if (Status != XFSBL_SUCCESS) {
 			goto END;
 		}
 	} while ((StatusVal &
@@ -270,13 +272,13 @@ u32 XFsbl_TpmDataTransfer(u8* TxBuf, u8* RxBuf, u16 Txlen)
 
 	/* Read Data from device */
 	Status = XFsbl_TpmFifoRead(RxBuf, XFSBL_TPM_RX_HEAD_SIZE);
-	if (Status != XST_SUCCESS) {
+	if (Status != XFSBL_SUCCESS) {
 		goto END;
 	}
 
 	RxLen = RxBuf[XFSBL_TPM_DATA_SIZE_INDEX];
 	if (RxLen > XFSBL_TPM_RESP_MAX_SIZE) {
-		Status = XST_FAILURE;
+		Status = XFSBL_FAILURE;
 		goto END;
 	}
 
@@ -285,7 +287,7 @@ u32 XFsbl_TpmDataTransfer(u8* TxBuf, u8* RxBuf, u16 Txlen)
 		RxLen = RxBuf[XFSBL_TPM_DATA_SIZE_INDEX] - XFSBL_TPM_RX_HEAD_SIZE;
 		Status = XFsbl_TpmFifoRead(&RxBuf[XFSBL_TPM_RX_HEAD_SIZE],
 			RxLen);
-		if (Status != XST_SUCCESS) {
+		if (Status != XFSBL_SUCCESS) {
 			goto END;
 		}
 	}
@@ -304,14 +306,14 @@ END:
 * @param	RxBuf is pointer to receive buffer
 * @param	Length is transfer length
 *
-* @return	XST_SUCCESS if successful, else XST_FAILURE.
+* @return	XFSBL_SUCCESS if successful, else XFSBL_FAILURE.
 *
 * @note		None.
 *
 ******************************************************************************/
 u32 XFsbl_TpmTransfer(u16 Address, u8 *TxBuf, u8 *RxBuf, u16 Length)
 {
-	int Status = XST_FAILURE;
+	int Status = XFSBL_FAILURE;
 	u8 TranLen;
 	u16 RxOffset = 0U;
 	u8 TpmTxBuffer[XFSBL_TPM_REQ_MAX_SIZE + XFSBL_TPM_TX_HEAD_SIZE] = {0U};
@@ -338,7 +340,7 @@ u32 XFsbl_TpmTransfer(u16 Address, u8 *TxBuf, u8 *RxBuf, u16 Length)
 
 		Status = XSpiPs_PolledTransfer(&SpiInstance, TpmTxBuffer,
 			TpmRxBuffer, (TranLen + XFSBL_TPM_TX_HEAD_SIZE));
-		if (Status != XST_SUCCESS) {
+		if (Status != XFSBL_SUCCESS) {
 			goto END;
 		}
 
