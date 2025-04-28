@@ -690,69 +690,6 @@ done:
 
 }
 
-XStatus XPm_AddPSMemRegnForDefaultSubsystem(void) {
-	XStatus Status = XST_FAILURE;
-	u32 SubsystemId = PM_SUBSYS_DEFAULT;
-	XPm_Subsystem *Subsystem;
-	const XPm_MemDevice *MemDevice;
-	u32 DeviceId;
-
-	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if (NULL == Subsystem) {
-		/* do not error if default subsystem is not found */
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	for (u32 index = 0U; index < (u32)XPM_NODEIDX_DEV_MAX; index++) {
-		/*
-		 * Note: XPmDevice_GetByIndex() assumes that the caller
-		 * is responsible for validating the Node ID attributes
-		 * other than node index.
-		 */
-		XPm_Device *Device = XPmDevice_GetByIndex(index);
-		if ((NULL == Device) || (1U != XPmDevice_IsRequestable(Device->Node.Id))) {
-			continue;
-		}
-		DeviceId = Device->Node.Id;
-
-		u32 SubClass = NODESUBCLASS(DeviceId);
-		u32 Type = NODETYPE(DeviceId);
-		if (((u32)XPM_NODESUBCL_DEV_MEM == SubClass) &&
-		(((u32)XPM_NODETYPE_DEV_OCM == Type) || ((u32)XPM_NODETYPE_DEV_TCM == Type))) {
-			MemDevice  = (XPm_MemDevice *)Device;
-			u64 StartAddress = (u64)MemDevice->StartAddress;
-			u64 EndAddress = (u64)MemDevice->EndAddress;
-			u64 Size = EndAddress - StartAddress + 1U;
-
-			u32 MemRegnIndx = XPmDevice_GetMemRegnCount();
-			u32 MemRegnDeviceId = MEMREGN_DEVID(MemRegnIndx);
-
-			PmDbg("DeviceId: (0x%x) MemRegnDeviceId: (0x%x)\r\n", DeviceId, MemRegnDeviceId);
-			Status = XPm_AddMemRegnDevice(MemRegnDeviceId, StartAddress, Size);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-
-			Status = XPmRequirement_Add(Subsystem, XPmDevice_GetById(MemRegnDeviceId),
-				REQUIREMENT_FLAGS(1U,
-				(u32)REQ_ACCESS_SECURE_NONSECURE,
-				(u32)REQ_NO_RESTRICTION),
-				(u32)PM_CAP_ACCESS, XPM_DEF_QOS);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-		}
-
-	}
-
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
-
-}
-
 /*****************************************************************************/
 /**
  * @brief	This function is to link devices to the default subsystem.
@@ -851,11 +788,6 @@ XStatus XPm_HookAfterPlmCdo(void)
 		Status = XPm_AddReqsDefaultSubsystem(Subsystem);
 		if (XST_SUCCESS != Status) {
 			PmErr("Failed to add requirements to default subsystem\n\r");
-			goto done;
-		}
-		Status = XPm_AddPSMemRegnForDefaultSubsystem();
-		if (XST_SUCCESS != Status) {
-			PmErr("Failed to add PS Mem Regn requirements to default subsystem\n\r");
 			goto done;
 		}
 	} else {

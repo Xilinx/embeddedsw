@@ -15,7 +15,7 @@ endif
 LIB= libxilpm_runtime.a
 
 XILPM_RUNTIME_EEMI_SRCS := xpm_runtime_eemi.c
-XILPM_RUNTIME_SUBSYS_SRCS := xpm_runtime_eemi_subsys.c
+XILPM_RUNTIME_SUBSYS_SRCS := xpm_runtime_eemi_subsys.c xpm_runtime_mem_subsys.c
 
 # Check if XilPM_Runtime (EEMI) or XilPM_Runtime (Subsys) is enabled
 ifneq ($(filter -DXILPM_RUNTIME_EEMI, $(_CC_XILPM_FLAGS)),)
