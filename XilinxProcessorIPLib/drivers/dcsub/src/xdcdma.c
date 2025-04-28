@@ -481,7 +481,9 @@ u32 XDCDma_GetOutstandingTxn(XDcDma *InstancePtr, XDcDma_ChannelId Id)
 *******************************************************************************/
 void XDcDma_InterruptEnable(XDcDma *InstancePtr, u32 Mask)
 {
-	XDcDma_WriteReg(InstancePtr->Config.BaseAddr, XDCDMA_MISC_IER, Mask);
+	XDcDma_WriteReg(InstancePtr->Config.BaseAddr, XDCDMA_MISC_IER, 0xF);
+	XDcDma_WriteReg(InstancePtr->Config.BaseAddr, XDCDMA_MISC_ISR, 0xF);
+	XDcDma_WriteReg(0xEDD00000, 0xCC78, 0x1);
 }
 
 /******************************************************************************/
