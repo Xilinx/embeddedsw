@@ -107,6 +107,18 @@ static int XSecure_AesShaInit(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 	}
 #endif
 
+#if (defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))
+	XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_1_DEVICE_ID);
+	Status = XSecure_ShaLookupConfig(XSecureShaInstPtr, XSECURE_SHA_1_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XSecure_ShaInitialize(XSecureShaInstPtr, PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
+
 #if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))
 	/** AES & SHA IPI event queues and free resource task initialization */
 	Status = XSecure_QueuesAndTaskInit(PpdiEventParamsPtr);
