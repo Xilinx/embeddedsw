@@ -24,6 +24,7 @@
 *       sk   04/07/2025 Updated error actions for apll1 and rpu fatal error
 *       sk   04/07/2025 Added redundant call to enable EAM interrupt
 *       sk   04/09/2025 Updated LPD SLCR EAM Disable error logic
+*       pre  04/28/2025 Changed debug level for some prints
 *
 * </pre>
 *
@@ -842,14 +843,14 @@ static void XPlmi_HandleLinkDownError(u32 DeviceIrStatusReg, u32 GenralStsReg, u
 		}
 		else {
 			/* Received error is other than Link down error */
-			XPlmi_Printf(DEBUG_GENERAL, "Received error is other than "
+			XPlmi_Printf(DEBUG_INFO, "Received event is other than "
 									"link down event");
 		}
 		XPlmi_Out32(DeviceIrStatusReg, MMI_PCIE_DEVICE_IR_STATUS_SMLH_LINK_TOGGLE_MASK);
 	}
 	else {
 		/* Received error is other than PCIE local event */
-		XPlmi_Printf(DEBUG_GENERAL, "Received error is other than "
+		XPlmi_Printf(DEBUG_GENERAL, "Received event is other than "
 				"PCIE local event: 0x%x\r\n", DeviceIrStsUncorrErr);
 	}
 }
@@ -877,7 +878,7 @@ static void XPlmi_PcieErrHandler(u32 ErrorNodeId, u32 RegMask)
 		if ((PsUnCorrErrs & MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK) ==
 		    MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE0_MASK) {
 			/* Handle PCIE0 link down error */
-			XPlmi_Printf(DEBUG_GENERAL, "Received PCIE0 interrupt\r\n");
+			XPlmi_Printf(DEBUG_INFO, "Received PCIE0 interrupt\r\n");
 			XPlmi_HandleLinkDownError(MMI_PCIE0_CTRL_SLCR_DEV_IR_STS_UNCOCRR,
 			                  MMI_PCIE0_CTRL_SLCR_GENERAL_STATUS, PCIE0_LINK_DOWN_PROC_ID);
 			/* Clear PCIE0 error */
@@ -887,7 +888,7 @@ static void XPlmi_PcieErrHandler(u32 ErrorNodeId, u32 RegMask)
 		if ((PsUnCorrErrs & MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK) ==
 		     MMI_SLCR_PS_UNCORR_IR_STATUS_PCIE1_MASK) {
 			/* Handle PCIE1 link down error */
-			XPlmi_Printf(DEBUG_GENERAL, "Received PCIE1 interrupt\r\n");
+			XPlmi_Printf(DEBUG_INFO, "Received PCIE1 interrupt\r\n");
 			XPlmi_HandleLinkDownError(MMI_PCIE1_CTRL_SLCR_DEV_IR_STS_UNCOCRR,
 			                  MMI_PCIE1_CTRL_SLCR_GENERAL_STATUS, PCIE1_LINK_DOWN_PROC_ID);
 			/* Clear PCIE1 error */
