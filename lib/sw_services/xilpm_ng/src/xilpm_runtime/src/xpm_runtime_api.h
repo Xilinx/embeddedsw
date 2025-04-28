@@ -82,7 +82,6 @@ XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 
 XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider);
 XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentIdx);
 XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx);
-XStatus XPm_AddPSMemRegnForDefaultSubsystem(void);
 
 #ifdef __cplusplus
 }
