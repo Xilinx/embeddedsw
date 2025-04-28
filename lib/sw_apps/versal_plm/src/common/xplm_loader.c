@@ -60,6 +60,8 @@
 *       bm   02/23/2024 Ack In-Place PLM Update request after complete restore
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 * 1.12  sd   03/17/2025 Clear multiboot register for A/B firmware systems
+*       har  04/28/2025 Increment counter in Configuration Limiter register
+*                       if CL mode is failed configurations only if boot is successful
 *
 * </pre>
 *
@@ -106,6 +108,11 @@ int XPlm_LoadBootPdi(void *Arg)
 	int Status = XST_FAILURE;
 	PdiSrc_t BootMode = XLOADER_PDI_SRC_INVALID;
 	XilPdi *PdiInstPtr = XLoader_GetPdiInstance();
+#ifdef VERSAL_2VE_2VM
+#ifndef PLM_SECURE_EXCLUDE
+	u32 ReadCfgLimiterReg;
+#endif
+#endif
 
 	(void )Arg;
 
@@ -154,8 +161,17 @@ int XPlm_LoadBootPdi(void *Arg)
 		goto ERR_END;
 	}
 
+#ifdef VERSAL_2VE_2VM
 #ifndef PLM_SECURE_EXCLUDE
-	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_UpdateCfgLimitCount, XLOADER_BBRAM_CL_INCREMENT_COUNT);
+	/**
+	 * Increment counter in Configuration Limiter register if CL mode is failed configurations
+	 */
+	ReadCfgLimiterReg = XPlmi_In32(XLOADER_BBRAM_8_MEM_ADDRESS);
+	if ((ReadCfgLimiterReg & XLOADER_BBRAM_CL_MODE_MASK) == XLOADER_BBRAM_CL_FAILED_CONFIGS_MODE) {
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_UpdateCfgLimitCount, XLOADER_BBRAM_CL_INCREMENT_COUNT);
+	}
+
+#endif
 #endif
 
 	/* Save Boot PDI info */
