@@ -153,10 +153,10 @@ static u32 XMmiDp_GetAuxData(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Request
 		if (TimeoutCount >= XMMIDP_AUX_MAX_TIMEOUT_COUNT) {
 			return XST_ERROR_COUNT_MAX;
 		}
+
 		BytesRead = (Status & XMMIDP_AUX_BYTES_READ_MASK) >>
 			    XMMIDP_AUX_BYTES_READ_SHIFT;
 		BytesRead -= 1;
-
 	} while (BytesRead != Request->NumBytes);
 
 	/* Read AUX_DATA_0 Registers */
@@ -629,7 +629,6 @@ u32 XMmiDp_I2cRead(XMmiDp *InstancePtr, u32 I2cAddr, u16 Offset, u32 Bytes, void
 	BytesLeft = Bytes;
 
 	SegPtr = 0;
-
 	if ( Offset > 255 ) {
 		SegPtr += Offset / 256;
 		Offset %= 256;
@@ -638,7 +637,7 @@ u32 XMmiDp_I2cRead(XMmiDp *InstancePtr, u32 I2cAddr, u16 Offset, u32 Bytes, void
 	Offset8 = Offset;
 	NumBytesLeftInSeg = 256 - Offset8;
 
-	XMmiDp_I2cWrite(InstancePtr, XMMIDP_SEGPTR_ADDR, 1, &SegPtr);
+	XMmiDp_AuxChanCommand(InstancePtr, XMMIDP_AUX_CMD_I2C_MOT_WRITE, XMMIDP_SEGPTR_ADDR, 1, &SegPtr);
 
 	while ( BytesLeft > 0 ) {
 
@@ -660,7 +659,7 @@ u32 XMmiDp_I2cRead(XMmiDp *InstancePtr, u32 I2cAddr, u16 Offset, u32 Bytes, void
 		}
 
 		Status = XMmiDp_AuxChanCommand(InstancePtr, XMMIDP_AUX_CMD_I2C_READ,
-					       I2cAddr, Bytes, (u8 *)Data);
+					       I2cAddr, CurrBytesToRead, (u8 *)Data);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
@@ -679,8 +678,10 @@ u32 XMmiDp_I2cRead(XMmiDp *InstancePtr, u32 I2cAddr, u16 Offset, u32 Bytes, void
 				Offset %= 256;
 				SegPtr++;
 
-				XMmiDp_I2cWrite(InstancePtr, XMMIDP_SEGPTR_ADDR,
-						1, &SegPtr);
+				XMmiDp_AuxChanCommand(InstancePtr,
+						      XMMIDP_AUX_CMD_I2C_MOT_WRITE, XMMIDP_SEGPTR_ADDR, 1,
+						      &SegPtr);
+
 			}
 			Offset8 = Offset;
 		}
@@ -689,10 +690,6 @@ u32 XMmiDp_I2cRead(XMmiDp *InstancePtr, u32 I2cAddr, u16 Offset, u32 Bytes, void
 			BytesLeft = 0;
 		}
 	}
-
-	SegPtr = 0;
-
-	XMmiDp_I2cWrite(InstancePtr, XMMIDP_SEGPTR_ADDR, 1, &SegPtr);
 
 	return Status;
 
