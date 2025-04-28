@@ -286,7 +286,8 @@ typedef struct {
 	u8 RcrStuffData;
 } XMmiDp_VSampleCtrl;
 
-typedef void (*XMmiDp_IrqHpdHandler)(void *InstancePtr);
+typedef void (*XMmiDp_HpdIrqHandler)(void *InstancePtr);
+typedef void (*XMmiDp_HpdHotPlugHandler)(void *InstancePtr);
 
 /**
  * The XMmiDp driver instance data. The user is required to allocate a variable
@@ -301,8 +302,11 @@ typedef struct {
 	XMmiDp_VideoConfig VideoConfig[XMMIDP_MAX_LANES];
 	XMmiDp_VSampleCtrl VSampleCtrl[XMMIDP_MAX_LANES];
 	XMmiDp_MainStreamAttributes MsaConfig[XMMIDP_MAX_LANES];
-	XMmiDp_IrqHpdHandler IrqHpdHandler;
-	void *IrqHpdCallbackRef;
+	XMmiDp_HpdIrqHandler HpdIrqHandler;
+	void *HpdIrqCallbackRef;
+	XMmiDp_HpdHotPlugHandler HpdHotPlugHandler;
+	void *HpdHotPlugCallbackRef;
+
 } XMmiDp;
 
 /**************************** Function Prototypes *****************************/
@@ -350,8 +354,11 @@ void XMmiDp_SetPmConfig2(XMmiDp *InstancePtr, u32 Val);
 
 /* HPD */
 u32 XMmiDp_IsConnected(XMmiDp *InstancePtr);
-void XMmiDp_SetIrqHpdHandler(XMmiDp *InstancePtr, XMmiDp_IrqHpdHandler CallbackFun,
+void XMmiDp_SetHpdIrqHandler(XMmiDp *InstancePtr, XMmiDp_HpdIrqHandler CallbackFun,
 			     void *CallbackRef);
+void XMmiDp_SetHpdHotPlugHandler(XMmiDp *InstancePtr, XMmiDp_HpdHotPlugHandler CallbackFun,
+				 void *CallbackRef);
+
 void XMmiDp_HpdInterruptHandler(XMmiDp *InstancePtr);
 
 /* EDID */
@@ -400,7 +407,6 @@ u32 XMmiDp_CheckChannelEqualization(XMmiDp *InstancePtr, u8 LaneCount);
 XMmiDp_TrainingState XMmiDp_TrainingStateChannelEqualization(XMmiDp *InstancePtr);
 u32 XMmiDp_CheckLinkStatus(XMmiDp *InstancePtr, u8 LaneCount);
 u32 XMmiDp_RunTraining(XMmiDp *InstancePtr);
-u32 StartFullLinkTraining(XMmiDp *InstancePtr);
 
 void XMmiDp_WaitUs(XMmiDp *InstancePtr, u32 MicroSeconds);
 
