@@ -1,7 +1,6 @@
 /******************************************************************************
-*
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
-*
+* Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 #include <stdio.h>
@@ -9,27 +8,13 @@
 #include <xil_cache.h>
 #include <xil_printf.h>
 #include <sleep.h>
-#include <xuartpsv.h>
 
 #include "xmmidp.h"
 #include "mmi_dp_init.h"
-#include "mmi_dc_nonlive_test.h"
 
-#define DP_BASEADDR   	0xEDE00000
+u8 Edid[128];
+u8 EdidNext[128];
 
-/*****************************************************************************/
-/**
-*
-* Function to Initialize the DpPsu Subsystem.Initializes the core, trains
-* the link and configures video stream to display.
-*
-* @param        None
-*
-* @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note         None
-*
-******************************************************************************/
 void SinkPowerCycle(XMmiDp *DpPsuPtr)
 {
 	SinkPowerDown(DpPsuPtr);
@@ -62,88 +47,6 @@ void SinkPowerUp(XMmiDp *DpPsuPtr)
 			XMMIDP_DPCD_SET_POWER_DP_PWR_VOLTAGE, 1, Data);
 }
 
-/*****************************************************************************/
-/**
-*
-* Function to Initialize the DpPsu Subsystem.Initializes the core, trains
-* the link and configures video stream to display.
-*
-* @param        None
-*
-* @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note         None
-*
-******************************************************************************/
-u32 InitDpPsuSubsystem(RunConfig *RunCfgPtr)
-{
-
-	u32 Status = XST_SUCCESS;
-	XMmiDp *InstancePtr = RunCfgPtr->DpPsuPtr;
-
-	XMmiDp_CfgInitialize(InstancePtr, DP_BASEADDR);
-	XMmiDp_Initialize(InstancePtr);
-	XMmiDp_InitDpCore(InstancePtr);
-
-	while (1) {
-		Status = XMmiDp_HpdPoll(InstancePtr);
-		if (Status == XST_SUCCESS) {
-			xil_printf("DpPsu LinkTraining Successful\n");
-			break;
-		} else {
-			xil_printf("DpPsu LinkTraining failed\n");
-		}
-
-	}
-
-	XMmiDp_SetupVideoStream(RunCfgPtr);
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-*
-* Main function to Initialize the DpPsu BaseAddress and Phy Soft Reset
-*
-* @param        None
-*
-* @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note         None
-*
-******************************************************************************/
-u32 XMmiDp_InitDpCore(XMmiDp *InstancePtr)
-{
-	XMmiDp_PhySoftReset(InstancePtr);
-	XMmiDp_SetPhyPowerdown(InstancePtr, PHY_POWER_ON);
-	XMmiDp_SetAux_250Us_Cnt_Limit(InstancePtr, 0xF5);
-	XMmiDp_SetAux_2000Us_Cnt_Limit(InstancePtr, 0x7A8);
-	XMmiDp_SetAux_100000Us_Cnt_Limit(InstancePtr, 0x17ED0);
-	XMmiDp_SetPmConfig1(InstancePtr, 0x00400008);
-	XMmiDp_SetPmConfig2(InstancePtr, 0x00050000);
-	XMmiDp_PhySSCDisable(InstancePtr);
-	XMmiDp_GeneralInterruptEnable(InstancePtr, 0x0000000B);
-	XMmiDp_HpdInterruptEnable(InstancePtr, 0x0000000F);
-
-	if (XMmiDp_IsConnected(InstancePtr)) {
-		SinkPowerCycle(InstancePtr);
-	}
-
-	return XST_SUCCESS;
-}
-
-/******************************************************************************/
-/**
- * This function computes MsaConfig and VideoConfig values based on
- * video mode.
- *
- * @param       InstancePtr is a pointer to the XMmiDp instance.
- * @param       VideoMode is the video resolution, fps of video stream.
- *
- * @return      None.
- *
-*******************************************************************************/
 void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 	XVidC_VideoMode VideoMode, u8 Stream)
 {
@@ -206,27 +109,18 @@ void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 	MsaConfig->Misc0 = 0x28;
 	MsaConfig->Misc1 = 0;
 	MsaConfig->HBlankInterval = 0x0000035f;
+
 	BitsPerPixel = MsaConfig->BitsPerColor * 3;
 	VideoConfig->AvgBytesPerTuFrac = 0x3D;
 	VideoConfig->InitThreshold = 0x20;
 	TransferUnitSize = 64;
+
 	VideoBw = ((MsaConfig->PixelClockHz / 1000) * BitsPerPixel) / 8;
 	LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
 	VideoConfig->AvgBytesPerTu = (VideoBw * TransferUnitSize) / LinkBw;
 	VideoConfig->AvgBytesPerTu = 0x8;
 }
 
-/******************************************************************************/
-/**
- * This function computes MsaConfig and VideoConfig values based on
- * video mode.
- *
- * @param       InstancePtr is a pointer to the XMmiDp instance.
- * @param       VideoMode is the video resolution, fps of video stream.
- *
- * @return      None.
- *
-*******************************************************************************/
 void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr)
 {
 
@@ -245,17 +139,6 @@ void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr)
 	XMmiDp_ConfigureVideoController(InstancePtr, XMMIDP_STREAM_ID1);
 }
 
-/******************************************************************************/
-/**
- * This function computes MsaConfig and VideoConfig values based on
- * video mode.
- *
- * @param       InstancePtr is a pointer to the XMmiDp instance.
- * @param       VideoMode is the video resolution, fps of video stream.
- *
- * @return      None.
- *
-*******************************************************************************/
 u32 XMmiDp_HpdPoll(XMmiDp *InstancePtr)
 {
 	u32 GenIntStatus;
@@ -331,4 +214,160 @@ u32 XMmiDp_HpdPoll(XMmiDp *InstancePtr)
 
 	return Status;
 
+}
+
+/******************************************************************************/
+/**
+ * This function prepares forlink training process. It Checks for current link status.
+ * Obtains Edid and RxCapabilities and initializes the Dpcd reg before initiating
+ * link training algorithm.
+ *
+ * @param       InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *              - XST_SUCCESS if the training process succeeded.
+ *              - XST_FAILURE otherwise.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+u32 StartFullLinkTraining(XMmiDp *InstancePtr)
+{
+	u32 Status;
+
+	Status = XMmiDp_GetRxCapabilities(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Failed to get Rx Cap\n");
+		return XST_FAILURE;
+	}
+
+	Status = XMmiDp_CheckLinkStatus(InstancePtr, InstancePtr->RxConfig.MaxLaneCount);
+	if ( Status == XST_SUCCESS) {
+		xil_printf("Link is already trained for %x Lanes\n", InstancePtr->RxConfig.MaxLaneCount);
+
+		Status = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_PHYIF_CTRL_0);
+		if (((Status & XMMIDP_PHYIF_CTRL_0_PHY_RATE_MASK)
+		     >> XMMIDP_PHYIF_CTRL_0_PHY_RATE_SHIFT)
+		    == (InstancePtr->RxConfig.MaxLinkRate)) {
+			xil_printf("Link already trained at %d \n", InstancePtr->RxConfig.MaxLinkRate);
+			return XST_SUCCESS;
+		} else {
+			xil_printf("Link needs to be retrained at %d \n", InstancePtr->RxConfig.MaxLinkRate);
+		}
+
+	} else if (Status == XST_FAILURE) {
+		xil_printf("Link needs training\n");
+	} else {
+		xil_printf("Error checking link status\n");
+		return XST_FAILURE;
+	}
+
+	InstancePtr->LinkConfig.LaneCount = PHY_LANES_2;
+	InstancePtr->LinkConfig.NumLanes = 2;
+	InstancePtr->LinkConfig.LinkRate = PHY_RATE_HBR_270GBPS;
+	InstancePtr->LinkConfig.LinkBW = XMMIDP_DPCD_LINK_BW_SET_270GBPS;
+
+	memset(InstancePtr->LinkConfig.VsLevel, 0, 4);
+	memset(InstancePtr->LinkConfig.PeLevel, 0, 4);
+
+	/* By default, Fast Link Train is enabled */
+	XMmiDp_FastLinkTrainDisable(InstancePtr);
+
+	Status = XMmiDp_SetSinkDpcdLinkCfgField(InstancePtr);
+	if ( Status != XST_SUCCESS) {
+		xil_printf("XMmiDp_SetsinkDpcdLinkCfgField Failed %d\n", Status);
+		return Status;
+	}
+
+	Status = XMmiDp_StartLinkXmit(InstancePtr);
+	if ( Status != XST_SUCCESS) {
+		xil_printf("XMmiDp_StartLinkXmit Failed %d\n", Status);
+		return Status;
+	}
+
+	Status = XMmiDp_RunTraining(InstancePtr);
+	if ( Status != XST_SUCCESS) {
+		return Status;
+	}
+
+	/* End Training */
+	XMmiDp_SetPhyTrainingPattern(InstancePtr, PHY_NO_TRAIN);
+	XMmiDp_SetDpcdTrainingPattern(InstancePtr, PHY_NO_TRAIN);
+
+	xil_printf("Link Trained for %d Lanes", InstancePtr->LinkConfig.NumLanes);
+	xil_printf("Link Trained for %d BW", InstancePtr->LinkConfig.LinkBW);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* Main function to Initialize the DpPsu BaseAddress and Phy Soft Reset
+*
+* @param        None
+*
+* @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note         None
+*
+******************************************************************************/
+u32 XMmiDp_InitDpCore(XMmiDp *InstancePtr)
+{
+	XMmiDp_PhySoftReset(InstancePtr);
+	XMmiDp_SetPhyPowerdown(InstancePtr, PHY_POWER_ON);
+	XMmiDp_SetAux_250Us_Cnt_Limit(InstancePtr, 0xF5);
+	XMmiDp_SetAux_2000Us_Cnt_Limit(InstancePtr, 0x7A8);
+	XMmiDp_SetAux_100000Us_Cnt_Limit(InstancePtr, 0x17ED0);
+	XMmiDp_SetPmConfig1(InstancePtr, 0x00400008);
+	XMmiDp_SetPmConfig2(InstancePtr, 0x00050000);
+	XMmiDp_PhySSCDisable(InstancePtr);
+	XMmiDp_GeneralInterruptEnable(InstancePtr, 0x0000000B);
+	XMmiDp_HpdInterruptEnable(InstancePtr, 0x0000000F);
+
+	if (XMmiDp_IsConnected(InstancePtr)) {
+		xil_printf("Power Cycle\n");
+		SinkPowerCycle(InstancePtr);
+	}
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* Function to Initialize the DpPsu Subsystem.Initializes the core, trains
+* the link and configures video stream to display.
+*
+* @param        None
+*
+* @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note         None
+*
+******************************************************************************/
+u32 InitDpPsuSubsystem(RunConfig *RunCfgPtr)
+{
+
+	u32 Status = XST_SUCCESS;
+	XMmiDp *InstancePtr = RunCfgPtr->DpPsuPtr;
+
+	XMmiDp_CfgInitialize(InstancePtr, DP_BASEADDR);
+	XMmiDp_Initialize(InstancePtr);
+	XMmiDp_InitDpCore(InstancePtr);
+
+	XMmiDp_SetupVideoStream(RunCfgPtr);
+
+	while (1) {
+		Status = XMmiDp_HpdPoll(InstancePtr);
+		if (Status == XST_SUCCESS) {
+			xil_printf("DpPsu LinkTraining Successful\n");
+			break;
+		} else {
+			xil_printf("DpPsu LinkTraining failed\n");
+		}
+
+	}
+
+	return Status;
 }
