@@ -1,17 +1,178 @@
+# Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 %YAML 1.2
 ---
-# Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
-# SPDX-License-Identifier: MIT
-title: Bindings for MMI DP controller
-maintainers: [Sai Hari Chandana Kalluri <chandana.kalluri@amd.com>]
+title: AMD Multimedia Integrated Display Port Transmitter.
+description: The AMD Multimedia Integrated DisplayPort Tx subsystem block implements
+  the DisplayPort transmitter and outputs video data using DisplayPort protocol.
 type: driver
+maintainers: [Sai Hari Chandana Kalluri <chandana.kalluri@amd.com>]
 properties:
   compatible:
-    items:
-      - const: xlnx,mmi-udh-dp-11.0
+    const: amd,mmi-dptx-1.0
   reg:
-    description: Physical base address and size of the controller register map
+    items:
+      - description: dptx registers
+      - description: hdcp registers
+  reg-names:
+    items:
+      - const: dp
+      - const: hdcp
+  interrupts:
+    items:
+      - description: DP Tx event
+      - description: HDCP event
+  interrupt-names:
+    items:
+      - const: dptx
+      - const: hdcp
+  power-domains:
+    maxItems: 2
+  power-domain-names:
+    maxItems: 2
+  resets:
+    minItems: 3
+    maxItems: 3
+  reset-names:
+    items:
+      - const: dp
+      - const: aux
+      - const: hdcp
+  clocks:
+    items:
+      - description: APB Clock
+      - description: Video pixel clock
+      - description: Audio i2s clock
+  clock-names:
+    items:
+      - const: apb_clk
+      - const: pixel_clk
+      - const: i2s_clk
+  xlnx,hdcp-1x:
+    type: boolean
+    description: boolean present when HDCP version is 1.3.
+  xlnx,hdcp-2x:
+    type: boolean
+    description: boolean present when HDCP version is 2.3.
+  xlnx,dptx-streams:
+    description: number of input streams to DP Tx
+    $ref: /schemas/types.yaml#/definitions/uint32
+    enum: [1, 2, 4]
+  xlnx,dptx-pixel-mode:
+    description: Pixels per clock
+    $ref: /schemas/types.yaml#/definitions/uint32
+    enum: [1, 2, 4]
+  xlnx,dp-lanes:
+    description: Number of lanes for DP
+    enum: [x1, x2, x4]
+  phys:
+    description: PHYs for the DP data lanes
+    minItems: 1
+    maxItems: 4
+  phy-names:
+    minItems: 1
+    items:
+      - const: dptx-phy0
+      - const: dptx-phy1
+      - const: dptx-phy2
+      - const: dptx-phy3
+  ports:
+    $ref: /schemas/graph.yaml#/properties/ports
+    description: |
+      Connections to the Display Controller(DC) and DP monitor. Each port
+      shall have a single endpoint. Initial 4 are gets input from DC.
+      Next 1 is output port connected to DP monitor.
+    properties:
+      '#address-cells':
+        const: 1
+      '#size-cells':
+        const: 0
+      port@0:
+        $ref: /schemas/graph.yaml#/properties/port
+        description: video 0 with audio and sdp from DC
+      port@1:
+        $ref: /schemas/graph.yaml#/properties/port
+        description: video 1 with audio and sdp from DC
+      port@2:
+        $ref: /schemas/graph.yaml#/properties/port
+        description: video 2 with audio and sdp from DC
+      port@3:
+        $ref: /schemas/graph.yaml#/properties/port
+        description: video 3 with audio and sdp from DC
+      port@4:
+        $ref: /schemas/graph.yaml#/properties/port
+        description: DisplayPort output
+    required: ['#address-cells', '#size-cells', port@0, port@4]
 config: [XMmiDp_Config]
-required: [compatible, reg]
+required:
+  - compatible
+  - reg
+  - reg-names
+  - interrupts
+  - interrupt-names
+  - interrupt-parent
+  - ports
+  - xlnx,hdcp-1x
+  - xlnx,hdcp-2x
+  - xlnx,dptx-streams
+  - xlnx,dptx-pixel-mode
+  - xlnx,dp-lanes
+  - phys
+additionalProperties: false
 depends:
   video_common: []
+examples:
+  - |
+    # include <dt-bindings/phy/phy.h>
+    # include <dt-bindings/reset/xlnx-versal-resets.h>
+
+    mmi_dptx@ede00000 {
+        compatible = "amd,mmi-dptx-1.0";
+        reg = <0xede00000 0x40000>, <0xedeb0000 0x100>;
+        reg-names = "dp", "hdcp";
+        interrupts = <0 178 4>, <0 167 4>;
+        interrupt-names = "dptx", "hdcp";
+        interrupt-parent = <&imux>;
+        clocks = <&mmi_apb_clk>, <&mmi_pixel_clk>, <&mmi_i2s_clk>;
+        clock-names = "apb_clk", "pixel_clk", "i2s_clk";
+        phys = <&combophy 0 PHY_TYPE_DP>, <&combophy 1 PHY_TYPE_DP>;
+        phy-names = "dptx-phy0", "dptx-phy1";
+        resets = <&versal2_reset 0>, <&versal2_reset 1>, <&versal2_reset 2>;
+        reset-names = "dp", "aux", "hdcp";
+        power-domains = <&versal2_firmware 0>, <&versal2_firmware 1>;
+        power-domain-names = "dp", "hdcp";
+        xlnx,dp-lanes = "x2";
+        ports {
+            # address-cells = <1>;
+            # size-cells = <0>;
+            port@0 {
+                reg = <0>;
+                dptx_in_0: endpoint {
+                    remote-endpoint = <&dc_out_0>;
+                };
+            };
+            port@1 {
+                reg = <1>;
+                dptx_in_1: endpoint {
+                    remote-endpoint = <&dc_out_1>;
+                };
+            };
+            port@2 {
+                reg = <2>;
+                dptx_in_2: endpoint {
+                    remote-endpoint = <&dc_out_2>;
+                };
+            };
+            port@3 {
+                reg = <3>;
+                dptx_in_3: endpoint {
+                    remote-endpoint = <&dc_out_3>;
+                };
+            };
+            port@4 {
+                reg = <4>;
+                dptx_dp_out: endpoint {
+                    remote-endpoint = <&dp_connector>;
+                };
+            };
+        };
+    };
