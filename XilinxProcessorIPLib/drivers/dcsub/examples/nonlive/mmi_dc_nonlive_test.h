@@ -1,8 +1,8 @@
 /******************************************************************************
-*
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
-*
+* Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 #ifndef __NONLIVE_H__
 #define __NONLIVE_H__
 
@@ -10,13 +10,24 @@
 extern "C" {
 #endif
 
-#include "xv_frmbufwr.h"
-#include <xscugic.h>
+/* Platform specific */
+#include "xinterrupt_wrap.h"
+#include "xclk_wiz.h"
 
+/* Driver specific */
 #include "xdcsub.h"
 #include "xmmidp.h"
 
+#define DC_BASEADDR            	0xEDD00000
+#define DCDMA_BASEADDR         	0xEDD10000
+#define CLK_WIZ_BASEADDR	0xB0A00000
+#define DP_BASEADDR   		0xEDE00000
+
+#define IN_BUFFER_0_ADDR_V1 	0x01000000
+#define IN_BUFFER_0_ADDR_V2 	0x02000000
+
 typedef struct {
+
 	u64 Address;
 	u32 Size;
 	u32 Stride __attribute__((aligned(256)));
@@ -29,15 +40,11 @@ typedef struct {
 
 typedef struct {
 
-	u32 FbBaseAddr;
 	u32 DcBaseAddr;
 	u32 DcDmaBaseAddr;
 
 	XDcSub *DcSubPtr;
 	XMmiDp *DpPsuPtr;
-	XV_frmbufwr *FrmbufPtr;
-	XV_frmbufwr_Config *CfgPtr;
-	XScuGic *IntrPtr;
 
 	u32 Width;
 	u32 Height;
@@ -45,24 +52,17 @@ typedef struct {
 
 	XDc_VideoFormat Stream1Format;
 	u8 Stream1Bpc;
-
 	XDc_VideoFormat Stream2Format;
 	u8 Stream2Bpc;
-
 	XDc_VideoFormat OutStreamFormat;
 
 	XDc_CursorBlend CursorEnable;
-	XDc_PartialBlendEn Stream1PbEnable;
-	XDc_PartialBlendEn Stream2PbEnable;
 
 	XDcDma_Descriptor *Desc1;
 	XDcDma_Descriptor *Desc2;
 
-	FrameInfo *Out_FbInfo;
 	FrameInfo *V1_FbInfo;
 	FrameInfo *V2_FbInfo;
-
-	u8 DpTxEnable;
 
 } RunConfig;
 
@@ -70,7 +70,6 @@ u32 mmi_dc_nonlive_test(RunConfig *RunCfgPtr);
 u32 InitPlatform(RunConfig *RunCfgPtr);
 u32 InitDcSubsystem(RunConfig *RunCfgPtr);
 u32 InitRunConfig(RunConfig *RunCfgPtr);
-u32 ConfigFbWr(RunConfig *RunCfgPtr);
 void GenerateFrameInfoAttribute(FrameInfo *Frame);
 void CreateDescriptors(RunConfig *RunCfgPtr, XDcDma_Descriptor *XDesc, FrameInfo *FBInfo);
 void InitFrames(RunConfig *RunCfgPtr);
