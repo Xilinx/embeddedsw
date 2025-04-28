@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *       bsv  04/28/21 Added support to ensure authenticated images boot as
 *                     non-secure when RSA_EN is not programmed
 * 3.1   ng   03/09/24 Fixed format specifier for 32bit variables
+* 4.0   sd   04/26/25 Add TPM read function conditionally
 *
 * </pre>
 *
@@ -36,6 +37,9 @@
 #include "xfsbl_hw.h"
 #include "xfsbl_main.h"
 #include "bspconfig.h"
+#ifdef XFSBL_TPM
+#include "xfsbl_tpm.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -243,6 +247,9 @@ int main(void )
 #endif
 						FsblStage = XFSBL_STAGE4;
 						EarlyHandoff = FsblStatus;
+#if (defined (XFSBL_TPM) && defined (DEBUG_INFO))
+						XFsbl_ReadAllTpmRegisters();
+#endif
 
 					}
 				} /* End of else loop for Load Success */
