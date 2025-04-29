@@ -254,7 +254,7 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	 * length.
 	 * According to algorithm, maximum iterations should not exceed byte max length 0xFFU.
 	 */
-	Iterations = (u32)Xil_Ceil(HkdfParams->KdfParams.KeyOutLen / HashLen);
+	Iterations = (u32)Xil_Ceil((float)HkdfParams->KdfParams.KeyOutLen / HashLen);
 	if (Iterations > XHKDF_MAX_ITERATIONS) {
 		Status = XASUFW_HKDF_INVALID_PARAM;
 		goto END;
