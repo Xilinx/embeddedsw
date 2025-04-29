@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -879,10 +879,10 @@ int main(void)
 	/* Initialize SI570_gpio */
 #ifndef SDT
 	Gpio_si570_ConfigPtr =
-		XGpio_LookupConfig(XPAR_ZYNQ_US_SS_GPIO_REGISTER_SI5324_LOL1_GPIO_DEVICE_ID);
+		XGpio_LookupConfig(XPAR_ZYNQ_US_SS_GPIO_REGISTER_SIXXXX_LOL1_GPIO_DEVICE_ID);
 #else
 	Gpio_si570_ConfigPtr =
-		XGpio_LookupConfig(XPAR_ZYNQ_US_SS_GPIO_REGISTER_SI5324_LOL1_GPIO_BASEADDR);
+		XGpio_LookupConfig(XPAR_ZYNQ_US_SS_GPIO_REGISTER_SIXXXX_LOL1_GPIO_BASEADDR);
 #endif
 
 	if (!Gpio_si570_ConfigPtr) {
