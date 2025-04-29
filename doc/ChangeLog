@@ -504,6 +504,7 @@ Added support for PLM to PSM access
 xilsem_v1_11:
 Added A72 SSIT linux client support for Versal devices
 Added EBD example for Versal SSI devices
+Added SLR information in XilSEM status for Versal SSI devices
 Added CRAM HW ECC support for Versal 2VE and 2VM devices
 Added A78 baremetal client support for Versal 2VE and 2VM devices
 Fixed incorrect higher and lower addresses of CE locations in prints in example code
@@ -530,6 +531,43 @@ Add support for CPM6 and GTMPW
 Fix util wait and poll functions
 Fix Doxygen warnings and SCA violations
 
+dfeofdm_v1_4:
+Variable name update in yaml file to avoid name duplication
+
+v_mix_v6_6:
+Mixer driver enhancement to add YUV444 12bit and 3 planar video formats
+Example app fix for 7 series boards
+
+v_hdmirx_v2.9:
+xv_hdmirx: set SCDC registers before clear
+
+v_hdmirxss_v6_7:
+xv_hdmirxss: set SCDC registers before clear
+
+v_hdmitxss_v6.6:
+Add API to configure the HPD tolerance
+
+v_hdmirx1_v1.9:
+Handle video ready event when there a glitch
+Disable Timer3 when FRL training is failed
+
+v_hdmirxss1_v3.7:
+Register video ready error callback
+
+v_hdmitxss1_v3.7:
+Add API to configure the HPD tolerance
+Refactor EDID reading function to use control parameters
+
+v_hdmi_common_v1.8:
+Add support for HF-VSIF
+Add AVI infoframe parsing and generation for HDMI 2.1b
+
+video_common_v4.17:
+Add support for segment-wise EDID parsing
+Add support for parsing of HF-EEODB
+
+dsitxss_v2_5:
+Add support for MIPI TX PHY sub core calls.
 
 New Files Added for 2025.1:
 
