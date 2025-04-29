@@ -466,6 +466,12 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 	if (XPM_SUCCESS != Status) {
 		goto done;
 	}
+	/** For PL Mem-Regn, we have already checked the PLD Power Domain in IsMemRegnAddressValid()
+	 *  Hence, for XPM_SUCCESS and IsPlMem, we can skip rest everything! ( as PL doesn't have parent node )
+	*/
+	if (IsPlMem) {
+		goto done;
+	}
 #endif
 	/* manually over-write the status to failure */
 	Status = XPM_FAILURE;
