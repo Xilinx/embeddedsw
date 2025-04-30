@@ -824,7 +824,6 @@ u32 XDpTxSs_DpTxStartLink(XDp *InstancePtr, u8 TrainMaxCap)
 ******************************************************************************/
 static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 {
-	u32 MstCapable;
 	u32 LinkBw;
 	u8 BitsPerPixel;
 	u8 LinkRate;
@@ -891,8 +890,7 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 	 * This works because if the example will always run in MST mode if
 	 * the monitor is capable of it, otherwise in SST mode.
 	 */
-	if ((MstCapable != XST_SUCCESS) ||
-				(InstancePtr->TxInstance.MstEnable == 0)) {
+	if (!InstancePtr->TxInstance.MstEnable) {
 		u32 TransferUnitSize = 64;
 		u64 VideoBw;
 
@@ -924,8 +922,7 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 			return XST_BUFFER_TOO_SMALL;
 		}
 	}
-	else if ((MstCapable == XST_SUCCESS) &&
-				(InstancePtr->TxInstance.MstEnable == 1)) {
+	else if (InstancePtr->TxInstance.MstEnable) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Checking link "
 			"bandwidth validity for MST\n\r");
 
