@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -16,7 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kpt  08/14/2024 Initial release
-*
+* 1.1   mb   04/03/2025 Remove EMC clock control enable
 * </pre>
 *
 * @note
@@ -37,10 +37,6 @@
 #define REVERSE_POLYNOMIAL			(0x82F63B78U)
 
 /**< Efuse clock programming related macros */
-#define XNVM_EFUSE_CLK_CTRL_ADDR	(0x040A003CU)
-#define XNVM_EFUSE_IO_CTRL_ADDR		(0x040A00E8U)
-#define XNVM_EFUSE_EMC_CLK_EN_VAL	(1 << 1U)
-#define XNVM_EFUSE_CLK_SRC_SEL_VAL	(1 << 0U)
 #define XNVM_EFUSE_TPRGM_VALUE \
 	(((5.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000.0f))
 #define XNVM_EFUSE_TRD_VALUE	\
@@ -73,7 +69,6 @@
 /***************************** Function Definitions *******************************/
 
 static int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode);
-static void XNvm_EfuseSetRefClk(void);
 static int XNvm_EfuseCheckForTBits(void);
 static void XNvm_EfuseEnableProgramming(void);
 static void XNvm_EfuseInitTimers(void);
@@ -132,20 +127,6 @@ static int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 
 END:
 	return Status;
-}
-
-/******************************************************************************/
-/**
- * @brief	This function sets reference clock of eFUSE controller.
- *
- ******************************************************************************/
-static void XNvm_EfuseSetRefClk(void)
-{
-	/**
-	 *  Set Reference clock for efuse
-	 */
-	Xil_UtilRMW32(XNVM_EFUSE_IO_CTRL_ADDR, XNVM_EFUSE_EMC_CLK_EN_VAL, XNVM_EFUSE_EMC_CLK_EN_VAL);
-	Xil_UtilRMW32(XNVM_EFUSE_CLK_CTRL_ADDR, XNVM_EFUSE_CLK_SRC_SEL_VAL, XNVM_EFUSE_CLK_SRC_SEL_VAL);
 }
 
 /******************************************************************************/
@@ -282,8 +263,6 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-	XNvm_EfuseSetRefClk();
 
 	if (XNVM_EFUSE_MODE_PGM == Op) {
 		XNvm_EfuseEnableProgramming();
