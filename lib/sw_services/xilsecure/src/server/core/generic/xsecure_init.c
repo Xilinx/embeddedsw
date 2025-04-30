@@ -19,8 +19,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   rpo 06/25/2020 Initial release
 * 4.3   rpo 06/25/2020 Updated file version to sync with library version
-*	rpo 08/19/2020 Clear the tamper interrupt source
-*	am  09/24/2020 Resolved MISRA C violations
+*       rpo 08/19/2020 Clear the tamper interrupt source
+*       am  09/24/2020 Resolved MISRA C violations
 *       har 10/12/2020 Addressed security review comments
 * 4.5   ma  04/05/2021 Use error mask instead of ID to set an error action
 *       bm  05/13/2021 Add common crypto instances
@@ -30,8 +30,10 @@
 * 5.2   yog 08/07/2023 Moved Trng init API to xsecure_plat.c
 * 5.4   kpt 06/23/2024 Added XSecure_AddRsaKeyPairGenerationToScheduler
 *       kpt 07/17/2024 Remove RSA keypair generation support on QEMU
-* 	kal 07/24/2024 Code refactoring for versal_2ve_2vm
+*       kal 07/24/2024 Code refactoring for versal_2ve_2vm
 *       pre 03/02/2025 Modified XSecure_Init for initialization of AES and SHA in server mode
+*       sd  04/30/2025 Make XSecure_AesShaInit as non static function and move
+*                      XSecure_QueuesAndTaskInit to XSecure_Init function
 *
 * </pre>
 *
@@ -61,7 +63,6 @@ static XSecure_Sha XSecure_ShaInstance[XSECURE_SHA_NUM_OF_INSTANCES];
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XSecure_AesShaInit(XSecure_PartialPdiEventParams *PpdiEventParamsPtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -69,16 +70,14 @@ static int XSecure_AesShaInit(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 
 /*****************************************************************************/
 /**
- * @brief	This function registers the handlers for XilSecure IPI commands
- *
- * @param   PpdiEventParamsPtr is the pointer to partial PDI event parameters
+ * @brief	This function initializes AES and SHA hardware instances
  *
  * @return
  *		 - XST_SUCCESS  On success
  *		 - error code  On failure
  *
  *****************************************************************************/
-static int XSecure_AesShaInit(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
+int XSecure_AesShaInit(void)
 {
 	int Status = XST_FAILURE;
 	XSecure_Sha *XSecureShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
@@ -119,17 +118,6 @@ static int XSecure_AesShaInit(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 	}
 #endif
 
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))
-	/** AES & SHA IPI event queues and free resource task initialization */
-	Status = XSecure_QueuesAndTaskInit(PpdiEventParamsPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-#else
-	(void)PpdiEventParamsPtr;
-#endif
-
-
 	Status = XST_SUCCESS;
 
 END:
@@ -151,10 +139,18 @@ int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 {
 	int Status = XST_FAILURE;
 
-	Status = XSecure_AesShaInit(PpdiEventParamsPtr);
+	Status = XSecure_AesShaInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))
+	/** AES & SHA IPI event queues and free resource task initialization */
+	Status = XSecure_QueuesAndTaskInit(PpdiEventParamsPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 
 	(void)PpdiEventParamsPtr;
 
