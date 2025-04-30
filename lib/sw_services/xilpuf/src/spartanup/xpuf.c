@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kpt  08/21/2024 Initial release
+* 1.1   mb   04/30/2025 Fix PUF_REGEN_ON_DEMAND failure.
 *
 * </pre>
 *
@@ -47,6 +48,8 @@
 
 #define XPUF_PUF_IC_MASK			(1U << 31U)
 		/**< PUF iterative convergence mask */
+
+#define XPUF_PUF_KR_MASK			(1U << 3U) /**< PUF Key ready mask */
 
 #define XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE		(1U << 2U)	/**< PUF key capture mask */
 
@@ -505,7 +508,7 @@ static int XPuf_GeneratePufKey(XPuf_Data *PufData)
 	 * 	Request to capture Key & ID.
 	 */
 	Status = XPUF_ERROR_KEY_NOT_CONVERGED;
-	if ((VarPufStatus & XPUF_PUF_IC_MASK) == XPUF_PUF_IC_MASK) {
+	if ((VarPufStatus & XPUF_PUF_KR_MASK) == XPUF_PUF_KR_MASK) {
 		Xil_Out32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET,
 			  (XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE |
 			   XPUF_PMC_GLOBAL_PUF_ID_CAPTURE));
