@@ -145,10 +145,10 @@ static u32 XMmiDp_GetAuxData(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Request
 
 	/* Wait until all data has been received */
 	do {
-		XMmiDp_WaitUs(InstancePtr, 100);
-
 		Status = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
 					XMMIDP_AUX_STATUS0);
+
+		XMmiDp_WaitUs(InstancePtr, 100);
 		TimeoutCount++;
 		if (TimeoutCount >= XMMIDP_AUX_MAX_TIMEOUT_COUNT) {
 			return XST_ERROR_COUNT_MAX;
@@ -226,7 +226,7 @@ static u32 XMmiDp_AuxWaitReply(XMmiDp *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	u32 Timeout = XMMIDP_AUX_MAX_WAIT;
+	u32 Timeout = 100;
 	u32 Status;
 	u32 ReplyReceived = 0;
 	u32 ReplyError = 0;
@@ -289,6 +289,8 @@ static u32 XMmiDp_SetAuxRequest(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Requ
 	/* Check if AUX Channel is currently ACTIVE/BUSY */
 	do {
 		Status = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_AUX_STATUS0);
+
+		XMmiDp_WaitUs(InstancePtr, 20);
 		TimeoutCount++;
 		if (TimeoutCount >= XMMIDP_AUX_MAX_TIMEOUT_COUNT) {
 			return XST_ERROR_COUNT_MAX;
@@ -399,16 +401,14 @@ static u32 XMmiDp_AuxRequest(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Request
 
 		Status = XMmiDp_SetAuxRequest(InstancePtr, Request);
 		if (Status == XST_SEND_ERROR) {
-
 			DeferCount++;
 		} else if (Status == XST_ERROR_COUNT_MAX) {
-
 			TimeoutCount++;
 		} else {
 			return Status;
 		}
 
-		XMmiDp_WaitUs(InstancePtr, 100);
+		XMmiDp_WaitUs(InstancePtr, 3200);
 
 	} while ((DeferCount <  XMMIDP_AUX_MAX_DEFER_COUNT) && (TimeoutCount <
 		 XMMIDP_AUX_MAX_TIMEOUT_COUNT));
@@ -477,6 +477,8 @@ static u32 XMmiDp_AuxChanCommand(XMmiDp *InstancePtr, u32 AuxCmdType, u32
 		if ((Request.Cmd == XMMIDP_AUX_CMD_I2C_READ) && (BytesLeft > 0)) {
 			Request.Cmd == XMMIDP_AUX_CMD_I2C_MOT_READ;
 		}
+
+		XMmiDp_WaitUs(InstancePtr, 30000);
 
 		Status = XMmiDp_AuxRequest(InstancePtr, &Request);
 		if (Status != XST_SUCCESS) {
@@ -1511,7 +1513,7 @@ u32 XMmiDp_PhyWaitReady(XMmiDp *InstancePtr)
 
 	/* Wait until the PHY is ready. */
 	do {
-		XMmiDp_WaitUs(InstancePtr, 20);
+		XMmiDp_WaitUs(InstancePtr, 2000);
 		RegVal = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
 					XMMIDP_PHYIF_CTRL_0);
 
