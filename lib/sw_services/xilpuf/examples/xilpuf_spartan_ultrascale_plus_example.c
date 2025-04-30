@@ -57,15 +57,20 @@
 #define XPUF_AES_KEY_SIZE_256BIT_WORDS		(8U)
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES     (32U)
 #define XPUF_PPK_HASH_SIZE_IN_BYTES         (32U)
+#define XPUF_PMC_GLOBAL_SYN_DATA_ADDR       (0x040BF368U)
+#define XPUF_SYN_DATA_VALID_BITS            (0xFFFFF000U)
 
 /***************************** Type Definitions *******************************/
 
 /************************** Variable Definitions ******************************/
 
+static XSecure_Aes AesInstance __attribute__ ((aligned (64)))
+						__attribute__ ((section (".data.AesInstance")));
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
-	u32 PUF_TrimHD[XPUF_HD_TRIM_PAD_LEN_IN_WORDS] __attribute__ ((section (".data.PUF_TrimHD")));;
+u32 PUF_TrimHD[XPUF_HD_TRIM_PAD_LEN_IN_WORDS] __attribute__((aligned(32)))
+        __attribute__ ((section (".data.PUF_TrimHD")));;
 #endif
-static u8 FormattedBlackKey[XPUF_RED_KEY_LEN_IN_BITS]
+static u8 FormattedBlackKey[XPUF_RED_KEY_LEN_IN_BITS] __attribute__((aligned(32)))
 __attribute__ ((section (".data.FormattedBlackKey")));
 static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.Iv")));
 #if (XPUF_WRITE_BLACK_KEY_OPTION == TRUE || XPUF_WRITE_PUF_HASH_IN_EFUSE == TRUE || \
@@ -114,6 +119,9 @@ static int XPuf_CalculatePufHash(XPmcDma *DmaPtr, u32 *PufSyndromeData, u32 Synd
 #endif
 #if (XPUF_PRGM_HASH_PUF_OR_KEY == TRUE)
 static int XPuf_WritePufSecCtrlBits();
+#endif
+#if (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
+static int  XPuf_DecompressPufHd(u32 SynAddress, u32 *DeSynData);
 #endif
 
 /************************** Function Definitions *****************************/
@@ -283,8 +291,11 @@ END:
  ******************************************************************************/
 static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 {
-	int Status = XST_FAILURE;
+        int Status = XST_FAILURE;
 	XPuf_Data PufData;
+#if (XPUF_WRITE_IN_MEM || (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND))
+	u32 Index;
+#endif
 
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
@@ -330,6 +341,15 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 	xil_printf("Formatted syndrome data is \r\n");
 	XPuf_ShowData((u8 *)PUF_TrimHD, XPUF_HD_TRIM_PAD_LEN_IN_WORDS * XPUF_WORD_LENGTH);
 
+#if XPUF_WRITE_IN_MEM
+	for (Index = 0U; Index < XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES/ XPUF_WORD_LENGTH; Index++) {
+		Xil_Out32((XPUF_SYNDROME_DATA_WRITE_ADDR + Index * XPUF_WORD_LENGTH), Xil_EndianSwap32(PUF_TrimHD[Index]));
+	}
+
+	Xil_Out32(XPUF_CHASH_DATA_WRITE_ADDR, Xil_EndianSwap32(PufData.Chash));
+	Xil_Out32(XPUF_AUX_DATA_WRITE_ADDR, Xil_EndianSwap32(PufData.Aux));
+#endif
+
 	Status = XPuf_CalculatePufHash(DmaPtr, PUF_TrimHD, XPUF_HD_TRIM_PAD_LEN_IN_WORDS * XPUF_WORD_LENGTH,
 				       PufPpkHash);
 	if (Status != XST_SUCCESS) {
@@ -369,9 +389,19 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 #endif
 #elif (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
 	(void)DmaPtr;
+	for (Index = 0U; Index < XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES/ XPUF_WORD_LENGTH; Index++) {
+	        Xil_Out32((XPUF_PMC_GLOBAL_SYN_DATA_ADDR + (Index * XPUF_WORD_LENGTH)),
+                        Xil_In32((XPUF_SYN_DATA_ADDRESS + (Index * XPUF_WORD_LENGTH))));
+	}
+
+	Status = XPuf_DecompressPufHd(XPUF_PMC_GLOBAL_SYN_DATA_ADDR, (u32*)(UINTPTR)&PufData.SyndromeData);
+        if (Status != XST_SUCCESS) {
+                goto END;
+        }
+
 	PufData.Chash = XPUF_CHASH;
-	PufData.Aux = XPUF_AUX;
-	PufData.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
+	PufData.Aux = (XPUF_AUX >> XPUF_AUX_SHIFT_VALUE);
+	PufData.SyndromeAddr = (u32)(UINTPTR)&PufData.SyndromeData;
 	Status = XPuf_Regeneration(&PufData);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Puf Regeneration failed with error:%x\r\n", Status);
@@ -450,6 +480,182 @@ END:
 }
 #endif
 
+#if (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
+/******************************************************************************/
+/**
+ * @brief       This function is used to decompress the PUF helper data before pushing it
+ *              to PUF. It is called only in case of PUF 4k mode
+ *
+ * @param       SynAddress - Address of Syndrome data to be decompress
+ * @param       DeSynData - Pointer to store Decompressed Syndrome data
+ *
+ * @return	None
+ ******************************************************************************/
+static int  XPuf_DecompressPufHd(u32 SynAddress, u32 *DeSynData)
+{
+        int Status = XST_FAILURE;
+	u32 SIndex = 0U;
+	u32 DIndex = 0U;
+	u32 Index;
+	u32 SubIndex;
+	volatile const u32* SynData;
+
+	SynData = (u32*)SynAddress;
+	Status = Xil_SMemSet(DeSynData, sizeof(DeSynData), 0U, sizeof(DeSynData));
+        if (Status != XST_SUCCESS) {
+                goto END;
+        }
+
+	for (Index = 0U;Index < 4U;Index++) {
+		for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+			if (SubIndex == 3U) {
+				DeSynData[DIndex] =
+					(SynData[SIndex] & XPUF_SYN_DATA_VALID_BITS);
+			}
+			else {
+				DeSynData[DIndex] = SynData[SIndex];
+			}
+			SIndex++;
+			DIndex++;
+		}
+
+		for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+			if (SubIndex == 3U) {
+				DeSynData[DIndex] =
+					((SynData[SIndex - 1U] << 20U) |
+					((SynData[SIndex] & 0xFF000000U) >> 12U));
+			}
+			else {
+				DeSynData[DIndex] =
+					(((SynData[SIndex - 1U]) << 20U) | (SynData[SIndex] >> 12U));
+			}
+			SIndex++;
+			DIndex++;
+		}
+
+		for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+			if (SubIndex == 3U) {
+				DeSynData[DIndex] =
+					((SynData[SIndex - 1U] << 8U) & XPUF_SYN_DATA_VALID_BITS);
+			}
+			else {
+				DeSynData[DIndex] = ((SynData[SIndex - 1U] << 8U) |
+						(SynData[SIndex] >> 24U));
+				SIndex++;
+			}
+			DIndex++;
+		}
+
+		for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+			if (SubIndex == 3U) {
+				DeSynData[DIndex] =
+					((SynData[SIndex - 1U] << 28U) |
+					((SynData[SIndex] & 0xFFFF0000U) >> 4U));
+			}
+			else {
+				DeSynData[DIndex] = ((SynData[SIndex - 1U] << 28U) |
+						(SynData[SIndex] >> 4U));
+			}
+			SIndex++;
+			DIndex++;
+		}
+
+		for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+			if (SubIndex == 3U) {
+				DeSynData[DIndex] =
+					((SynData[SIndex - 1U] << 16U) |
+					((SynData[SIndex] & 0xF0000000U) >> 16U));
+			}
+			else {
+				DeSynData[DIndex] = ((SynData[SIndex - 1U] << 16U) |
+						(SynData[SIndex] >> 16U));
+			}
+			SIndex++;
+			DIndex++;
+		}
+
+		for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+			if (SubIndex == 3U) {
+				DeSynData[DIndex] = ((SynData[SIndex - 1U] << 4U) & XPUF_SYN_DATA_VALID_BITS);
+			}
+			else {
+				DeSynData[DIndex] = ((SynData[SIndex - 1U] << 4U) |
+						(SynData[SIndex] >> 28U));
+				SIndex++;
+			}
+			DIndex++;
+		}
+
+		for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+			if (SubIndex == 3U) {
+				DeSynData[DIndex] = ((SynData[SIndex - 1U] << 24U) |
+					((SynData[SIndex] & 0xFFF00000U) >> 8U));
+			}
+			else {
+				DeSynData[DIndex] = ((SynData[SIndex - 1U] << 24U) |
+							(SynData[SIndex] >> 8U));
+			}
+			SIndex++;
+			DIndex++;
+		}
+
+		for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+			if (SubIndex == 3U) {
+				DeSynData[DIndex] = (SynData[SIndex - 1U] << 12U);
+			}
+			else {
+				DeSynData[DIndex] = ((SynData[SIndex - 1U] << 12U) |
+						(SynData[SIndex] >> 20U));
+			}
+			SIndex++;
+			DIndex++;
+		}
+		SIndex--;
+	}
+
+	for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+		if (SubIndex == 3U) {
+			DeSynData[DIndex] =
+				(SynData[SIndex] & XPUF_SYN_DATA_VALID_BITS);
+		}
+		else {
+			DeSynData[DIndex] = SynData[SIndex];
+		}
+		SIndex++;
+		DIndex++;
+	}
+
+	for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+		if (SubIndex == 3U) {
+			DeSynData[DIndex] = ((SynData[SIndex - 1U] << 20U) |
+				((SynData[SIndex] & 0xFF000000U) >> 12U));
+		}
+		else {
+			DeSynData[DIndex] = (((SynData[SIndex - 1U]) << 20U) |
+					(SynData[SIndex] >> 12U));
+			SIndex++;
+		}
+		DIndex++;
+	}
+
+	for (SubIndex = 0U; SubIndex < 4U; SubIndex++) {
+		if (SubIndex == 3U) {
+			DeSynData[DIndex] = ((SynData[SIndex] << 8U) & XPUF_SYN_DATA_VALID_BITS);
+		}
+		else {
+			DeSynData[DIndex] = ((SynData[SIndex] << 8U) |
+			(SynData[SIndex + 1U] >> 24U));
+			SIndex++;
+		}
+		DIndex++;
+	}
+        Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+#endif
+
 #if (XPUF_GENERATE_KEK_N_ID == TRUE)
 /******************************************************************************/
 /**
@@ -467,7 +673,10 @@ END:
 static int XPuf_GenerateBlackKey(XPmcDma *DmaPtr)
 {
 	int Status = XST_FAILURE;
-	XSecure_Aes AesInstance;
+
+#if XPUF_WRITE_IN_MEM
+	u32 Index;
+#endif
 
 	if (Xil_Strnlen(XPUF_IV, (XPUF_IV_LEN_IN_BYTES * 2U)) ==
 	    (XPUF_IV_LEN_IN_BYTES * 2U)) {
@@ -529,12 +738,19 @@ static int XPuf_GenerateBlackKey(XPmcDma *DmaPtr)
 	if (Status == XST_SUCCESS) {
 		xil_printf("Black Key: \n\r");
 		XPuf_ShowData((u8 *)FormattedBlackKey, XPUF_RED_KEY_LEN_IN_BYTES);
+#if XPUF_WRITE_IN_MEM
+		for (Index = 0U; Index < XPUF_RED_KEY_LEN_IN_BYTES / XPUF_WORD_LENGTH; Index++) {
+			Xil_Out32((XPUF_AES_BLK_KEY_WRITE_ADDR + (Index * XPUF_WORD_LENGTH)),
+				Xil_EndianSwap32(*((u32*)(FormattedBlackKey + Index * XPUF_WORD_LENGTH))));
+		}
+#endif
 	}
 
 END:
 	return Status;
 }
 #endif
+
 #if (XPUF_WRITE_BLACK_KEY_OPTION == TRUE)
 /******************************************************************************/
 /**

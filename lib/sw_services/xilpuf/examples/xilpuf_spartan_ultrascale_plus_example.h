@@ -85,8 +85,8 @@
 * PUF hash to be compared with programmed hash in PPK2 during boot
 *
 ******************************************************************************/
-#ifndef XILPUF_EXAMPLE_H
-#define XILPUF_EXAMPLE_H
+#ifndef XILPUF_SPARTAN_ULTRASCALE_PLUS_EXAMPLE_H_
+#define XILPUF_SPARTAN_ULTRASCALE_PLUS_EXAMPLE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -96,11 +96,12 @@ extern "C" {
 #include "xil_types.h"
 
 /************************** Constant Definitions *****************************/
-/* For reading Secure control eFUSE bits of PUF */
 #define XPUF_READ_HASH_PUF_OR_KEY			(FALSE)
+/**< For reading Secure control eFUSE bits of PUF */
 
 #define XPUF_RED_KEY	\
 	"0000000000000000000000000000000000000000000000000000000000000000"
+/**< Red key that is encrypted using PUF KEK to form a black key  */
 
 /*
  * Below macro values should match with enum XSecure_AesKeySize.
@@ -108,35 +109,70 @@ extern "C" {
  * these macros are defined.
  */
 #define XPUF_RED_KEY_SIZE_128		(0U)
+/**< Keysize 128 */
 #define XPUF_RED_KEY_SIZE_256		(2U)
+/**< Keysize 256 */
 
 #define XPUF_RED_KEY_LEN			(XPUF_RED_KEY_SIZE_256)
+/**< Value to indicate red key length that is used during black key generation */
 
 #define XPUF_REGISTRATION 0U
+/**< Value to indicate PUF registration */
 #define XPUF_REGEN_ON_DEMAND 1U
+/**< Value to indicate regeneration on demand */
 
 #define XPUF_RED_KEY_LEN_IN_BYTES 		(32U)
+/**< RED key length in bytes */
 
 #define XPUF_IV					"000000000000000000000000"
+/**< IV that is used during black key generation */
 
 #define XPUF_GENERATE_KEK_N_ID			(TRUE)
+/**< This will enable/disable generating black key and
+     it is only applicable during registraion */
 #define XPUF_KEY_GENERATE_OPTION		(XPUF_REGISTRATION)
+/**< PUF kEK generate option it can be either registration/regeneration on demand */
 #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
+/**< Enables/disables global variation filter during PUF registraton/regeneration */
 
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
 #define XPUF_CHASH				(0x00000000U)
+/**< PUF CHASH value */
 #define XPUF_AUX				(0x00000000U)
+/**< PUF AUX value and it is expected to provide as 0x0FFFFFFF0U */
 #define XPUF_SYN_DATA_ADDRESS			(0x00000000U)
+/**< PUF syndrome address */
 #elif (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 #define XPUF_WRITE_PUF_HASH_IN_EFUSE 			(FALSE)
+/**< Write PUF hash in efuse */
+#define XPUF_WRITE_IN_MEM				(FALSE)
+/**< This will enable writing PUFHD,CHASH,AUX and black key into the memory */
 #endif
 
 #define XPUF_WRITE_BLACK_KEY_OPTION		(FALSE)
 
 /* For programming Secure control eFUSE bits of PUF */
+#if (XPUF_WRITE_PUF_HASH_IN_EFUSE ==  TRUE)
+#define XPUF_PRGM_HASH_PUF_OR_KEY				(TRUE)
+/**< This will enable programming HASH_PUF_OR_KEY efuse when XPUF_WRITE_PUF_HASH_IN_EFUSE is TRUE */
+#else
 #define XPUF_PRGM_HASH_PUF_OR_KEY				(FALSE)
+/**< This will enable/disable programming HASH_PUF_OR_KEY efuse */
+#endif
 
 #define PUF_RO_SWAP				(0x00000000U)
+/**< PUF RO swap value */
+
+#if (XPUF_WRITE_IN_MEM == TRUE)
+#define XPUF_SYNDROME_DATA_WRITE_ADDR           (0x040BF368U)
+/**< PUF syndrome data write address */
+#define XPUF_CHASH_DATA_WRITE_ADDR              (0x040BF564U)
+/**< PUF CHASH data write address */
+#define XPUF_AUX_DATA_WRITE_ADDR                (0x040A00D0U)
+/**< PUF AUX data write address */
+#define XPUF_AES_BLK_KEY_WRITE_ADDR             (0x040A00A0U)
+/**< PUF AES black key write address */
+#endif
 
 /**************************** Type Definitions *******************************/
 
