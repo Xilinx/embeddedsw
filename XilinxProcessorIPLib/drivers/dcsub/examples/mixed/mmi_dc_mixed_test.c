@@ -401,14 +401,6 @@ u32 InitPlatform(RunConfig *RunCfgPtr)
 
 	InitClkWiz();
 
-	xil_printf("Enabling Output to DisplayPort\n");
-	/* Initialize DpSubsystem */
-	Status = InitDpPsuSubsystem(RunCfgPtr);
-	if (Status != XST_SUCCESS) {
-		xil_printf("DpPsu14 Subsystem Initialization failed\n");
-		return Status;
-	}
-
 	/* Initialize DcSubsystem */
 	Status = InitDcSubsystem(RunCfgPtr);
 	if (Status != XST_SUCCESS) {
@@ -421,6 +413,14 @@ u32 InitPlatform(RunConfig *RunCfgPtr)
 	InitVtc0Subsystem(RunCfgPtr);
 	EnableStream0();
 	EnableAvTpg();
+
+	xil_printf("Enabling Output to DisplayPort\n");
+	/* Initialize DpSubsystem */
+	Status = InitDpPsuSubsystem(RunCfgPtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("DpPsu14 Subsystem Initialization failed\n");
+		return Status;
+	}
 
 	SetupInterrupts(RunCfgPtr);
 
@@ -536,6 +536,11 @@ int main()
 	}
 
 	xil_printf("Successfully ran MMI_DC_MIXED_TEST\r\n");
+
+	/* Do not exit application,
+	   required for monitor display */
+	while (1);
+
 
 	return 0;
 

@@ -292,6 +292,7 @@ void SetupInterrupts(RunConfig *RunCfgPtr)
 			      XDCDMA_INTR_PARENT, XINTERRUPT_DEFAULT_PRIORITY);
 	XDcDma_InterruptEnable(DmaPtr, XDCDMA_IEN_VSYNC_INT_MASK);
 }
+
 /*****************************************************************************/
 /**
 *
@@ -310,6 +311,13 @@ u32 InitPlatform(RunConfig *RunCfgPtr)
 
 	InitClkWiz();
 
+	/* Initialize DcSubsystem */
+	Status = InitDcSubsystem(RunCfgPtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("FAILED to Initialize DC Subsystem Ip\n");
+		return Status;
+	}
+
 	xil_printf("Enabling Output to DisplayPort\n");
 	/* Initialize DpSubsystem */
 	Status = InitDpPsuSubsystem(RunCfgPtr);
@@ -318,14 +326,8 @@ u32 InitPlatform(RunConfig *RunCfgPtr)
 		return Status;
 	}
 
-	/* Initialize DcSubsystem */
-	Status = InitDcSubsystem(RunCfgPtr);
-	if (Status != XST_SUCCESS) {
-		xil_printf("FAILED to Initialize DC Subsystem Ip\n");
-		return Status;
-	}
-
 	SetupInterrupts(RunCfgPtr);
+
 	return Status;
 }
 
@@ -426,6 +428,10 @@ int main()
 	}
 
 	xil_printf("Successfully ran MMI_DC_NONLIVE_TEST\r\n");
+
+	/* Do not exit application,
+	   required for monitor display */
+	while(1);
 
 	return 0;
 
