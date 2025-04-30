@@ -24,6 +24,7 @@
  * 4.6   ma   07/08/2022 Added support for secure lockdown
  * 5.4   kal  07/24/2024 Code refactoring for versal_2ve_2vm
  *       pre  03/02/2025 Modified prototype of XSecure_Init function
+ *       sd   04/30/2025 Make XSecure_AesShaInit as non static function
  *
  * </pre>
  *
@@ -63,6 +64,7 @@ typedef struct
 
 /************************** Function Prototypes ******************************/
 int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr);
+int XSecure_AesShaInit(void);
 XSecure_Sha *XSecure_GetSha3Instance(u32 DeviceId);
 XSecure_Sha *XSecure_GetSha2Instance(u32 DeviceId);
 XSecure_Aes *XSecure_GetAesInstance(void);
