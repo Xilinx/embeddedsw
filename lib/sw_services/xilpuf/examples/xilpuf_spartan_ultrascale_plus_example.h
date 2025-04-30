@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -76,19 +76,13 @@
 * If this option is configured as TRUE then hash of PUF helper data is written into the
 * eFuse.
 *
-
-* #define XPUF_READ_SEC_CTRL_BITS		(FALSE)
-* This option should be configured as TRUE to read secure control eFUSE bits
-* of PUF
-*
-* #define XPUF__SEC_CTRL_BITS		(FALSE)
-* This option should be configured as TRUE to program secure control eFUSE bits
-* of PUF
-*
-*
 * #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
 * It is recommended to always enable this option to ensure entropy. It can
 * be configured as FALSE to disable Global Variation Filter.
+*
+* #define XPUF_PRGM_HASH_PUF_OR_KEY (FALSE)
+* If this option is configured as TRUE then PRGM_HASH_PUF_OR_KEY bit is programmed and will enforce
+* PUF hash to be compared with programmed hash in PPK2 during boot
 *
 ******************************************************************************/
 #ifndef XILPUF_EXAMPLE_H
