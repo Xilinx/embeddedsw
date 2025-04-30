@@ -323,8 +323,8 @@ END:
 * This function updates TPM PCR registers by SHA digest of data
 *
 * @param	PcrIndex is the PCR register to send
-* @param	Size is size of SHA digest
-* @param	Data is SHA digest
+* @param	Size is size of Event data being internally hashed by TPM
+* @param	Data is Event data being internally hashed by TPM
 * @param	Response is TPM response buffer
 *
 * @return	XFSBL_SUCCESS if successful, else error code
@@ -334,7 +334,7 @@ u32 XFsbl_TpmEvent(u32 PcrIndex, u16 Size, u8 *Data, u8 *Response)
 {
 	u32 Status = XFSBL_FAILURE;
 	u32 Idx;
-	u8 TpmPcrExtend[XFSBL_TPM_PCR_EXT_CMD_SIZE + XFSBL_TPM_PCR_EVENT_CMD_SIZE + XFSBL_HASH_TYPE_SHA3] =
+	u8 TpmPcrEvent[XFSBL_TPM_PCR_EVENT_CMD_SIZE + XFSBL_TPM_REQ_MAX_SIZE] =
 	{
 		0x80U, 0x02U, /* TPM_ST_SESSIONS */
 		0x00U, 0x00U, 0x00U, 0x00U, /* Command Size */
@@ -345,13 +345,17 @@ u32 XFsbl_TpmEvent(u32 PcrIndex, u16 Size, u8 *Data, u8 *Response)
 		0x40U, 0x00U, 0x00U, 0x09U, /* Password authorization session - TPM_RH_PW */
 		0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x30U /* TPML_DIGEST_VALUES */
 	};
-	/* CmdPtr points to const data TpmPcrExtend */
-	u8* CmdPtr = TpmPcrExtend;
+	/* CmdPtr points to const data TpmPcrEvent */
+	u8* CmdPtr = TpmPcrEvent;
+
+	if(Size > XFSBL_TPM_REQ_MAX_SIZE) {
+		goto END;
+	}
 
 	if (PcrIndex < XFSBL_TPM_MAX_INDEX) {
 			XFsbl_Printf(DEBUG_INFO, "Sending PCR_Event to PCR #%d\r\n", PcrIndex);
-			TpmPcrExtend[XFSBL_TPM_DATA_SIZE_INDEX] = (u8)(XFSBL_TPM_PCR_EVENT_CMD_SIZE + Size);
-			TpmPcrExtend[XFSBL_TPM_PCR_EXTEND_INDEX] = (u8)PcrIndex;
+			TpmPcrEvent[XFSBL_TPM_DATA_SIZE_INDEX] = (u8)(XFSBL_TPM_PCR_EVENT_CMD_SIZE + Size);
+			TpmPcrEvent[XFSBL_TPM_PCR_EXTEND_INDEX] = (u8)PcrIndex;
 			/* Add the digest to the data structure */
 			CmdPtr += XFSBL_TPM_PCR_EVENT_CMD_SIZE;
 			for(Idx = 0; Idx < Size ; Idx++) {
@@ -360,7 +364,7 @@ u32 XFsbl_TpmEvent(u32 PcrIndex, u16 Size, u8 *Data, u8 *Response)
 			}
 
 			/* Send the command */
-			Status = XFsbl_TpmDataTransfer(TpmPcrExtend, Response, XFSBL_TPM_PCR_EVENT_CMD_SIZE + Size);
+			Status = XFsbl_TpmDataTransfer(TpmPcrEvent, Response, XFSBL_TPM_PCR_EVENT_CMD_SIZE + Size);
 	}
 
 END:
