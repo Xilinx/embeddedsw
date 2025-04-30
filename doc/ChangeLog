@@ -62,20 +62,8 @@ Skip irrelevant clock and PHY configurations for 10GbE
 Add common MDIO Support
 Add GMII to RGMII convertor support with SDT flow
 
-ipipsu_v2_17:
-Avoid single byte reads from IPI buffer in CRC logic
-Fix MISRA C Rule 10.4 violation
-Update message length to accommodate CRC bytes when IPI CRC is enabled
-Update Max Message length to accommodate CRC bytes when IPI CRC is enabled
-Update MsgLength and XIPIPSU_MSG_BUF_SIZE comments for clearer description
-
 mcdma_v1_12:
 Fix warnings related to typecast
-
-mutex_v4_10:
-Update example to fix compilation warnings in Rigel flow
-Update the YAML to generate xparameters.h defines in alignment with the XSCT flow
-Add the compatible for mutex
 
 ospipsv_v1_12:
 Update driver to add configurations in sdr non-phy for SpartanUp
@@ -568,6 +556,16 @@ Add support for parsing of HF-EEODB
 
 dsitxss_v2_5:
 Add support for MIPI TX PHY sub core calls.
+
+coresightps_dcc_v1_12:
+Remove unsupported compatible strings from coresight dt-binding
+
+xilpm_ng:
+Add new platform manager and power management services library for Versal_2VE_2VM type of platform
+
+emc_v4_5:
+Add generic compatible string
+
 
 New Files Added for 2025.1:
 
