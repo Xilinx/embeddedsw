@@ -201,6 +201,8 @@ u32 InitVtcSubsystem(RunConfig *RunCfgPtr, XVtc *Vtc, UINTPTR Addr)
 u32 InitAvTpgSubsystem(XAvTpg *AvTpgPtr)
 {
 	XAvTpg_SetVideoTiming(AvTpgPtr);
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -256,13 +258,6 @@ u32 InitPlatform(RunConfig *RunCfgPtr)
 
 	InitClkWiz();
 
-	/* Initialize DpSubsystem */
-	Status = InitDpPsuSubsystem(RunCfgPtr);
-	if (Status != XST_SUCCESS) {
-		xil_printf("DpPsu14 Subsystem Initialization failed\n");
-		return Status;
-	}
-
 	/* Initialize DcSubsystem */
 	Status = InitDcSubsystem(RunCfgPtr);
 	if (Status != XST_SUCCESS) {
@@ -270,6 +265,7 @@ u32 InitPlatform(RunConfig *RunCfgPtr)
 		return Status;
 	}
 
+	xil_printf("DcSubsystem Initialization complete\n");
 	InitLiveMode();
 
 	InitAvTpgSubsystem(RunCfgPtr->AvTpgPtr0);
@@ -281,6 +277,15 @@ u32 InitPlatform(RunConfig *RunCfgPtr)
 	EnableStream0();
 	EnableStream1();
 	EnableAvTpg();
+
+	xil_printf("AvTpg Initialization complete\n");
+
+	/* Initialize DpSubsystem */
+	Status = InitDpPsuSubsystem(RunCfgPtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("DpPsu14 Subsystem Initialization failed\n");
+		return Status;
+	}
 
 	return Status;
 }
@@ -418,6 +423,10 @@ int main()
 	}
 
 	xil_printf("Successfully ran MMI_DC Live Mode Example\r\n");
+
+	/* Do not exit application,
+	   required for monitor display */
+	while (1);
 
 	return 0;
 
