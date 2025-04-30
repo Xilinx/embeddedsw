@@ -15,29 +15,29 @@
 u8 Edid[128];
 u8 EdidNext[128];
 
-void SinkPowerCycle(XMmiDp *DpPsuPtr)
+void XMmiDp_SinkPowerCycle(XMmiDp *DpPsuPtr)
 {
-	SinkPowerDown(DpPsuPtr);
-	usleep(10000);
+	XMmiDp_SinkPowerDown(DpPsuPtr);
+	xil_printf("Monitor in power saving mode\n");
+	usleep(10000000);
 
-	SinkPowerUp(DpPsuPtr);
-	usleep(5000);
+	XMmiDp_SinkPowerUp(DpPsuPtr);
+	xil_printf("Monitor in active mode\n");
+	usleep(5000000);
 
-	SinkPowerUp(DpPsuPtr);
-	usleep(4000);
 }
 
-void SinkPowerDown(XMmiDp *DpPsuPtr)
+void XMmiDp_SinkPowerDown(XMmiDp *DpPsuPtr)
 {
 	u8 Data[8];
 
-	Data[0] = 0x2;
+	Data[0] = 0x0;
 
 	XMmiDp_AuxWrite(DpPsuPtr,
 			XMMIDP_DPCD_SET_POWER_DP_PWR_VOLTAGE, 1, Data);
 }
 
-void SinkPowerUp(XMmiDp *DpPsuPtr)
+void XMmiDp_SinkPowerUp(XMmiDp *DpPsuPtr)
 {
 	u8 Data[8];
 
@@ -108,10 +108,10 @@ void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 	MsaConfig->MVid = 0;
 	MsaConfig->Misc0 = 0x28;
 	MsaConfig->Misc1 = 0;
-	MsaConfig->HBlankInterval = 0x0000035f;
+	MsaConfig->HBlankInterval = 0x000000A0 ;
 
 	BitsPerPixel = MsaConfig->BitsPerColor * 3;
-	VideoConfig->AvgBytesPerTuFrac = 0x3D;
+	VideoConfig->AvgBytesPerTuFrac = 0x24;
 	VideoConfig->InitThreshold = 0x20;
 	TransferUnitSize = 64;
 
@@ -143,74 +143,27 @@ u32 XMmiDp_HpdPoll(XMmiDp *InstancePtr)
 {
 	u32 GenIntStatus;
 	u32 HpdIntStatus;
-	u32 HpdState;
-	u32 HpdStatus;
-	u32 HpdUnplugErr;
-	u32 HpdHotUnplug;
-	u32 HpdHotPlug;
-	u32 HpdIrq;
-	u32 HpdEvent;
-	u32 RegVal;
 	u32 Status;
 
 	Status = XST_FAILURE;
-	GenIntStatus = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_GEN_INT0);
+	while (1) {
+		GenIntStatus = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_GEN_INT0);
+		HpdIntStatus = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_HPD_STATUS0);
 
-	HpdEvent = (GenIntStatus & XMMIDP_GEN_INT0_HPD_EVENT_MASK) >> XMMIDP_GEN_INT0_HPD_EVENT_SHIFT;
-	HpdIntStatus = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_HPD_STATUS0);
-	HpdState = (HpdIntStatus & XMMIDP_HPD_STATUS0_STATE_MASK) >> XMMIDP_HPD_STATUS0_STATE_SHIFT;
-	HpdStatus = (HpdIntStatus & XMMIDP_HPD_STATUS0_STATUS_MASK) >> XMMIDP_HPD_STATUS0_STATUS_SHIFT;
-	HpdUnplugErr = (HpdIntStatus & XMMIDP_HPD_STATUS0_UNPLUG_ERR_MASK) >>
-		       XMMIDP_HPD_STATUS0_UNPLUG_ERR_SHIFT;
-	HpdHotUnplug = (HpdIntStatus & XMMIDP_HPD_STATUS0_HOT_UNPLUG_MASK) >>
-		       XMMIDP_HPD_STATUS0_HOT_UNPLUG_SHIFT;
-	HpdHotPlug = (HpdIntStatus & XMMIDP_HPD_STATUS0_HOT_PLUG_MASK) >> XMMIDP_HPD_STATUS0_HOT_PLUG_SHIFT;
-	HpdIrq = (HpdIntStatus & XMMIDP_HPD_STATUS0_HPD_IRQ_MASK) >> XMMIDP_HPD_STATUS0_HPD_IRQ_SHIFT;
-
-	if (HpdEvent) {
-		if (HpdStatus && HpdIrq) {
-			HpdIntStatus = 0;
-
-			xil_printf("HPD IRQ Detected\n");
-
-			Status = StartFullLinkTraining(InstancePtr);
-			if (Status != XST_SUCCESS) {
-				xil_printf("DpPsu LinkTraining failed\n");
-				return Status;
-			}
-
-			HpdIntStatus = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_HPD_STATUS0);
-			HpdIntStatus |= XMMIDP_HPD_STATUS0_STATUS_MASK;
-			XMmiDp_WriteReg(InstancePtr->Config.BaseAddr, XMMIDP_HPD_STATUS0, HpdIntStatus);
-
-		} else if (!HpdStatus && HpdHotUnplug) {
-			GenIntStatus = 0;
-
-			xil_printf("HPD Unplug Detected\n");
-			XMmiDp_SetPhyXmitDisable(InstancePtr);
-
-			GenIntStatus = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_GEN_INT0);
-			GenIntStatus |= XMMIDP_GEN_INT0_HPD_EVENT_MASK;
-			XMmiDp_WriteReg(InstancePtr->Config.BaseAddr, XMMIDP_GEN_INT0, GenIntStatus);
-
-		} else if (HpdStatus && HpdHotPlug) {
-
-			GenIntStatus = 0;
-
-			xil_printf("HPD HotPlug Detected\n");
-			Status = StartFullLinkTraining(InstancePtr);
-			if (Status != XST_SUCCESS) {
-				xil_printf("DpPsu LinkTraining failed\n");
-				return Status;
-			}
-
-			GenIntStatus = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_GEN_INT0);
-			GenIntStatus |= XMMIDP_GEN_INT0_HPD_EVENT_MASK;
-			XMmiDp_WriteReg(InstancePtr->Config.BaseAddr, XMMIDP_GEN_INT0, GenIntStatus);
+		xil_printf("GenIntStatus =0x%x \nHpdIntStatus=0x%x\n", GenIntStatus, HpdIntStatus);
+		if ((GenIntStatus & XMMIDP_GEN_INT0_HPD_EVENT_MASK) == XMMIDP_GEN_INT0_HPD_EVENT_MASK) {
+			break;
 		}
-	} else {
-		xil_printf("Waiting for HPD event\n");
+
 	}
+
+	if (HpdIntStatus & XMMIDP_HPD_STATUS0_HOT_PLUG_MASK) {
+		xil_printf("HPD HOT PLUG\n");
+		Status = XST_SUCCESS;
+	}
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr, XMMIDP_HPD_STATUS0, HpdIntStatus);
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr, XMMIDP_GEN_INT0, XMMIDP_GEN_INT0_HPD_EVENT_MASK);
 
 	return Status;
 
@@ -231,7 +184,7 @@ u32 XMmiDp_HpdPoll(XMmiDp *InstancePtr)
  * @note        None.
  *
 *******************************************************************************/
-u32 StartFullLinkTraining(XMmiDp *InstancePtr)
+u32 XMmiDp_StartFullLinkTraining(XMmiDp *InstancePtr)
 {
 	u32 Status;
 
@@ -240,6 +193,11 @@ u32 StartFullLinkTraining(XMmiDp *InstancePtr)
 		xil_printf("Failed to get Rx Cap\n");
 		return XST_FAILURE;
 	}
+
+	InstancePtr->RxConfig.MaxLaneCount = PHY_LANES_2;
+	InstancePtr->RxConfig.MaxNumLanes = 0x2;
+	InstancePtr->RxConfig.MaxLinkRate = PHY_RATE_HBR_270GBPS;
+	InstancePtr->RxConfig.MaxLinkBW = XMMIDP_DPCD_LINK_BW_SET_270GBPS;
 
 	Status = XMmiDp_CheckLinkStatus(InstancePtr, InstancePtr->RxConfig.MaxLaneCount);
 	if ( Status == XST_SUCCESS) {
@@ -256,7 +214,7 @@ u32 StartFullLinkTraining(XMmiDp *InstancePtr)
 		}
 
 	} else if (Status == XST_FAILURE) {
-		xil_printf("Link needs training\n");
+		xil_printf(" Link needs training\n");
 	} else {
 		xil_printf("Error checking link status\n");
 		return XST_FAILURE;
@@ -325,11 +283,6 @@ u32 XMmiDp_InitDpCore(XMmiDp *InstancePtr)
 	XMmiDp_GeneralInterruptEnable(InstancePtr, 0x0000000B);
 	XMmiDp_HpdInterruptEnable(InstancePtr, 0x0000000F);
 
-	if (XMmiDp_IsConnected(InstancePtr)) {
-		xil_printf("Power Cycle\n");
-		SinkPowerCycle(InstancePtr);
-	}
-
 	return XST_SUCCESS;
 }
 
@@ -351,23 +304,17 @@ u32 InitDpPsuSubsystem(RunConfig *RunCfgPtr)
 
 	u32 Status = XST_SUCCESS;
 	XMmiDp *InstancePtr = RunCfgPtr->DpPsuPtr;
+	InstancePtr->Config.BaseAddr = DP_BASEADDR;
 
-	XMmiDp_CfgInitialize(InstancePtr, DP_BASEADDR);
+	XMmiDp_CfgInitialize(InstancePtr, InstancePtr->Config.BaseAddr);
 	XMmiDp_Initialize(InstancePtr);
 	XMmiDp_InitDpCore(InstancePtr);
 
+	XMmiDp_HpdPoll(InstancePtr);
+
+	XMmiDp_SinkPowerCycle(InstancePtr);
+	XMmiDp_StartFullLinkTraining(InstancePtr);
 	XMmiDp_SetupVideoStream(RunCfgPtr);
-
-	while (1) {
-		Status = XMmiDp_HpdPoll(InstancePtr);
-		if (Status == XST_SUCCESS) {
-			xil_printf("DpPsu LinkTraining Successful\n");
-			break;
-		} else {
-			xil_printf("DpPsu LinkTraining failed\n");
-		}
-
-	}
 
 	return Status;
 }
