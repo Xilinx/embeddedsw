@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,7 @@
   * @file xilpuf_example.c
   *
   * This file illustrates encryption of red key using PUF KEY and
-  * programming the black key and helper data in a user specified location
+  * programming the black key and helper data.
   *
   * This example is supported for spartan ultrascale plus devices.
   *
@@ -19,6 +19,7 @@
   * Ver   Who   Date     Changes
   * ----- ---  -------- -------------------------------------------------------
   * 1.0   kpt  08/23/24 Initial release
+  *       mb  11/11/24 Add section attribute to required variables
   *
   *@note
   *
@@ -60,17 +61,22 @@
 /***************************** Type Definitions *******************************/
 
 /************************** Variable Definitions ******************************/
-static XPuf_Data PufData;
+
+#if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
+	u32 PUF_TrimHD[XPUF_HD_TRIM_PAD_LEN_IN_WORDS] __attribute__ ((section (".data.PUF_TrimHD")));;
+#endif
 static u8 FormattedBlackKey[XPUF_RED_KEY_LEN_IN_BITS]
 __attribute__ ((section (".data.FormattedBlackKey")));
 static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.Iv")));
+#if (XPUF_WRITE_BLACK_KEY_OPTION == TRUE || XPUF_WRITE_PUF_HASH_IN_EFUSE == TRUE || \
+		XPUF_PRGM_HASH_PUF_OR_KEY == TRUE)
 static XNvm_EfuseData EfuseData __attribute__ ((section (".data.EfuseData")));;
-
+#endif
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 #if (XPUF_WRITE_PUF_HASH_IN_EFUSE)
 static XNvm_EfusePpkHash PrgmPpkHash  __attribute__ ((section (".data.PrgmPpkHash")));
 #endif
-static u8 PufPpkHash[XPUF_PPK_HASH_SIZE_IN_BYTES];
+static u8 PufPpkHash[XPUF_PPK_HASH_SIZE_IN_BYTES] __attribute__ ((section (".data.PufPpkHash")));
 #endif
 
 #if defined (__GNUC__)
@@ -97,13 +103,15 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr);
 static int XPuf_GenerateBlackKey(XPmcDma *DmaPtr);
 #if (XPUF_WRITE_BLACK_KEY_OPTION == TRUE)
 static int XPuf_ProgramBlackKeynIV();
+static void XPuf_ReverseData(const u8 *OrgDataPtr, u8 *SwapPtr, u32 Len);
 #endif
 static void XPuf_ShowPufSecCtrlBits();
 static void XPuf_ShowData(const u8 *Data, u32 Len);
 static int XPuf_FormatAesKey(const u8 *Key, u8 *FormattedKey, u32 KeyLen);
-static void XPuf_ReverseData(const u8 *OrgDataPtr, u8 *SwapPtr, u32 Len);
+#if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 static int XPuf_CalculatePufHash(XPmcDma *DmaPtr, u32 *PufSyndromeData, u32 SyndromeDataLen,
 				 u8 *PufPpkHash);
+#endif
 #if (XPUF_PRGM_HASH_PUF_OR_KEY == TRUE)
 static int XPuf_WritePufSecCtrlBits();
 #endif
@@ -276,9 +284,7 @@ END:
 static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 {
 	int Status = XST_FAILURE;
-#if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
-	u32 PUF_TrimHD[XPUF_HD_TRIM_PAD_LEN_IN_WORDS];
-#endif
+	XPuf_Data PufData;
 
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
@@ -362,6 +368,7 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 	}
 #endif
 #elif (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
+	(void)DmaPtr;
 	PufData.Chash = XPUF_CHASH;
 	PufData.Aux = XPUF_AUX;
 	PufData.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
@@ -382,6 +389,7 @@ END:
 	return Status;
 }
 
+#if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 /******************************************************************************/
 /**
  * @brief	This function encrypts the red key with PUF KEY and IV.
@@ -402,6 +410,11 @@ static int XPuf_CalculatePufHash(XPmcDma *DmaPtr, u32 *PufSyndromeData, u32 Synd
 {
 	int Status = XST_FAILURE;
 	XSecure_Sha Sha;
+
+	Status = Xil_SMemSet(&Sha, sizeof(XSecure_Sha), 0U, sizeof(XSecure_Sha));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XSecure_ShaInitialize(&Sha, DmaPtr);
 	if (Status != XST_SUCCESS) {
@@ -435,6 +448,7 @@ END:
 	return Status;
 
 }
+#endif
 
 #if (XPUF_GENERATE_KEK_N_ID == TRUE)
 /******************************************************************************/
@@ -521,7 +535,7 @@ END:
 	return Status;
 }
 #endif
-#if (XPUF_GENERATE_KEK_N_ID == TRUE)
+#if (XPUF_WRITE_BLACK_KEY_OPTION == TRUE)
 /******************************************************************************/
 /**
  * @brief	This function programs black key into efuse or BBRAM.
@@ -705,7 +719,7 @@ END:
 	return Status;
 }
 #endif
-#if (XPUF_GENERATE_KEK_N_ID == TRUE)
+#if (XPUF_WRITE_BLACK_KEY_OPTION == TRUE)
 /******************************************************************************/
 /**
  *
