@@ -136,7 +136,7 @@ secure_features,0x500,1,1,1,1,1,1,0,IPI,Secure Features
 rsa_sign_verify,0x501,1,1,1,1,1,1,0,IPI,Rsa signature verification
 rsa_public_encrypt,0x502,1,1,1,1,1,1,0,IPI,RSA public encryption
 rsa_private_decrypt,0x503,1,1,1,1,1,1,0,IPI,RSA private decryption
-sha3_update,0x504,1,1,1,1,1,1,0,IPI,SHA3 digest calculation
+sha3_operation,0x504,1,1,1,1,1,1,0,IPI,SHA3 digest calculation
 elliptic_generate_key,0x505,1,1,1,1,1,1,0,IPI,Ecc public key generation
 elliptic_generate_sign,0x506,1,1,1,1,1,1,0,IPI,Ecc signature generation
 elliptic_validate_key,0x507,1,1,1,1,1,1,0,IPI,Ecc validate public key
@@ -165,12 +165,9 @@ update_hnic_kat_status,0x51d,1,1,1,1,1,1,0,IPI,Update Hnic Kat Status
 update_cpm5n_kat_status,0x51e,1,1,1,1,1,1,0,IPI,Update Cpm5N N_Kat Status
 update_pcide_kat_status,0x51f,1,1,1,1,1,1,0,IPI,Update Pcide Kat Status
 update_pki_kat_status,0x520,1,1,1,1,1,1,0,IPI,Update Pki Kat Status
-gen_shared_secret,0x521,1,1,1,1,1,1,0,IPI,Gen Shared Secret
-get_key_wrap_rsa_public_key,0x522,1,1,1,1,1,1,0,IPI,Get Key Wrap Rsa Public Key
-key_unwrap,0x523,1,1,1,1,1,1,0,IPI,Unwrap
-asu_key_transfer,0x524,0,0,0,0,0,0,3,IPI,Key transfer to ASU
-sha_init,0x526,1,1,1,1,1,1,0,IPI,Sha init
-sha_finish,0x527,1,1,1,1,1,1,0,IPI,Sha finish
+gen_shared_secret,0x521,1,1,1,1,1,1,0,IPI,Gen shared secret with user provided public and private key
+aes_perform_operation_and_zeroize_key,0x525,1,1,1,1,1,1,0,IPI,Perform Aes operation and zeroize key
+sha2_operation,0x526,1,1,1,1,1,1,0,IPI,Sha2 Digest Calculation
 pm_psm_to_plm_event,0x601,3,3,3,3,3,3,0,IPI,Pm Psm To Plm Event
 loader_features,0x700,3,3,3,3,3,3,0,IPI,Features
 load_subsystem_pdi,0x701,3,3,3,3,3,3,0,IPI,Load Subsystem Pdi
@@ -245,4 +242,4 @@ extend_swpcr,0xd0a,1,1,1,1,1,1,0,IPI,Extend Swpcr
 get_swpcr,0xd0b,1,1,1,1,1,1,0,IPI,Get Swpcr
 get_swpcrlog,0xd0c,1,1,1,1,1,1,0,IPI,Get Swpcrlog
 get_swpcrdata,0xd0d,1,1,1,1,1,1,0,IPI,Get Swpcrdata
-gen_shared_secret,0xd0e,1,1,1,1,1,1,0,IPI,Gen Shared Secret
+gen_shared_secret_with_devak,0xd0e,1,1,1,1,1,1,0,IPI,Gen shared secret with user public key and device attestation private key(DevAk)
