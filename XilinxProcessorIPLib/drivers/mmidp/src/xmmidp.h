@@ -295,6 +295,8 @@ typedef void (*XMmiDp_HpdHotPlugHandler)(void *InstancePtr);
  * this type is then passed to the driver API functions.
  */
 typedef struct {
+
+	u32 AuxDelayUs;
 	XMmiDp_Config Config;
 	XMmiDp_PhyConfig PhyConfig;
 	XMmiDp_RxConfig RxConfig;
