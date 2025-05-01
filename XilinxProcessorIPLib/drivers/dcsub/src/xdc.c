@@ -821,26 +821,25 @@ void XDc_SetChromaKey(XDc *InstancePtr)
 ******************************************************************************/
 void XDc_SetCursorBlend(XDc *InstancePtr)
 {
-	u32 RegVal;
+	u32 CoordVal;
+	u32 SizeVal;
 	XDc_Cursor *Cursor;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Cursor = &InstancePtr->Blender.Cursor;
 
-	Xil_AssertVoid(Cursor->CursorAttribute->VideoFormat
-		       != RGBA4444);
+	CoordVal = XDC_CURSOR_ENABLE_MASK;
+	CoordVal |= Cursor->CoordY << XDC_CURSOR_COORD_Y_SHIFT;
+	CoordVal |= Cursor->CoordX;
 
-	RegVal = Cursor->CoordY << XDC_CURSOR_COORD_Y_SHIFT;
-	RegVal |= Cursor->CoordX;
-
-	RegVal = Cursor->SizeY << XDC_CURSOR_SIZE_Y_SHIFT;
-	RegVal |= Cursor->SizeX;
+	SizeVal = Cursor->SizeY << XDC_CURSOR_SIZE_Y_SHIFT;
+	SizeVal |= Cursor->SizeX;
 
 	XDc_WriteReg(InstancePtr->Config.BaseAddr,
-		     XDC_CURSOR_COORDINATE, RegVal);
+		     XDC_CURSOR_COORDINATE, CoordVal);
 	XDc_WriteReg(InstancePtr->Config.BaseAddr,
-		     XDC_CURSOR_SIZE, RegVal);
+		     XDC_CURSOR_SIZE, SizeVal);
 
 }
 
