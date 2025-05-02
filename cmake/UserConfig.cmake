@@ -1,4 +1,4 @@
-# Copyright (C) 2023-2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.16)
 enable_language(C ASM CXX)
@@ -81,7 +81,7 @@ set(USER_COMPILE_VERBOSE )
 # Support ANSI_PROGRAM (-ansi)
 set(USER_COMPILE_ANSI )
 set(USER_COMPILE_RELAXATION "-Wl,--no-relax")
-set(USER_COMPILE_GARBAGE "-ffunction-sections -fdata-sections")
+set(USER_COMPILE_GARBAGE "")
 # Add any compiler options that are not covered by the above variables, they will be added as extra compiler options
 # To enable profiling -pg [ for gprof ]  or -p [ for prof information ]
 set(USER_COMPILE_OTHER_FLAGS )
