@@ -566,6 +566,12 @@ Add new platform manager and power management services library for Versal_2VE_2V
 emc_v4_5:
 Add generic compatible string
 
+trngpsv_v1_6:
+Replaced xil_util.h with xil_sutil.h
+Updated Algorithm version number
+
+trngpsx_v1_4:
+Updated Algorithm Version number
 
 New Files Added for 2025.1:
 
