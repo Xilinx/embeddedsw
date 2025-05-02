@@ -229,6 +229,14 @@ static const XPmFsm_Tran XPmGenericDevEventTransitions[] = {
 	.Latency = XPM_DEF_LATENCY,
 	.Action = ActionResume,
 	},
+	{
+	.Event = (u32)XPM_DEVEVENT_SHUTDOWN,
+	.FromState = (u32)XPM_DEVSTATE_RUNTIME_SUSPEND,
+	.ToState = (u32)XPM_DEVSTATE_UNUSED,
+	.Latency = XPM_DEF_LATENCY,
+	.Action = ActionShutdown,
+	},
+
 };
 
 
