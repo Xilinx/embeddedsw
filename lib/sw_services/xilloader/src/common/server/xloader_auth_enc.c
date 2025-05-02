@@ -480,6 +480,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
      * - Error out if checksum is enabled along with authentication or
      * encryption.
 	 */
+#ifndef VERSAL_2VE_2VM
 	if ((SecurePtr->IsCheckSumEnabled == (u8)TRUE) &&
 		((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 		 (SecureTempParams->IsAuthenticated== (u8)TRUE) ||
@@ -492,6 +493,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
+#endif
 	SecurePtr->AesInstPtr = XSecure_GetAesInstance();
 	/**
 	 * - Run AES Kat test if the image is encrypted
