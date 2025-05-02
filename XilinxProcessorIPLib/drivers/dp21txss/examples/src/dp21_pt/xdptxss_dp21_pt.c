@@ -20,6 +20,9 @@
 * ---- --- -------- --------------------------------------------------
 * 1.00 ND 09/23/24 Initial release.
 * 1.01 ND 04/10/25 Added Parreto fmc support.
+* 1.02 ND 04/30/25 Added logic to handle 13.5g failure on TX Qpll1, detection of
+*                  rx cable unplug and backward compatibility with dp14 sinks for
+*					8b/10b.
 * </pre>
 *
 ******************************************************************************/
@@ -664,35 +667,6 @@ u32 DpSs_Main(void)
 		}
 #endif
 
-	DpSs_SetupIntrSystem();
-
-	/* Setup Video Phy, left to the user for implementation */
-    #ifndef SDT
-	DpSs_PhyInit(XVPHY_DEVICE_ID);
-    #else
-    DpSs_PhyInit(XPAR_VID_PHY_CONTROLLER_1_BASEADDR);
-    #endif
-    u32 loop = 0;
-    u32 good;
-
-#ifdef Tx
-	XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
-	// This configures the vid_phy for line rate to start with
-	//Even though CPLL can be used in limited case,
-	//using QPLL is recommended for more coverage.
-#endif
-
-#ifdef Tx
-	config_phy(0x14);
-#endif
-
-#ifdef Rx
-	/* issue HPD at here to inform DP source */
-	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
-	XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x80000000);
-	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 50000);
-#endif
-
 #ifdef Tx
 #if XPAR_XV_FRMBUFRD_NUM_INSTANCES		/* FrameBuffer Rd initialization. */
     #ifndef SDT
@@ -721,6 +695,35 @@ u32 DpSs_Main(void)
 		return (XST_FAILURE);
 	}
 #endif
+#endif
+
+DpSs_SetupIntrSystem();
+
+	/* Setup Video Phy, left to the user for implementation */
+    #ifndef SDT
+	DpSs_PhyInit(XVPHY_DEVICE_ID);
+    #else
+    DpSs_PhyInit(XPAR_VID_PHY_CONTROLLER_1_BASEADDR);
+    #endif
+    u32 loop = 0;
+    u32 good;
+
+#ifdef Tx
+	XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
+	// This configures the vid_phy for line rate to start with
+	//Even though CPLL can be used in limited case,
+	//using QPLL is recommended for more coverage.
+#endif
+
+#ifdef Tx
+	config_phy(0x14);
+#endif
+
+#ifdef Rx
+	/* issue HPD at here to inform DP source */
+	XDp_RxInterruptDisable(DpRxSsInst.DpPtr, 0xFFF8FFFF);
+	XDp_RxInterruptEnable(DpRxSsInst.DpPtr, 0x80000000);
+	XDp_RxGenerateHpdInterrupt(DpRxSsInst.DpPtr, 50000);
 #endif
 
 #ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
@@ -1942,8 +1945,8 @@ int Dppt_DetectResolution(void *InstancePtr){//,
 	if (DpRxSsInst.link_up_trigger == 1) {
 		xil_printf(
 			"*** Resolution: "
-				"%lu x %lu @ %luHz, BPC = %lu, PPC = %d, Color = %s ***\r\n",
-				Msa_test[0].Vtm.Timing.HActive, Msa_test[0].Vtm.Timing.VActive,Msa_test[0].Vtm.FrameRate,Msa_test[0].BitsPerColor,(int)DpRxSsInst.UsrOpt.LaneCount,
+				"%lu x %lu @ %luHz, BPC = %lu, Color = %s ***\r\n",
+				Msa_test[0].Vtm.Timing.HActive, Msa_test[0].Vtm.Timing.VActive,Msa_test[0].Vtm.FrameRate,Msa_test[0].BitsPerColor,
 				color);
 	}
 	if (DpRxSsInst.link_up_trigger == 1) {

@@ -415,8 +415,8 @@ void DpPt_Main(void){
 				case 'c':
 					xil_printf ("========== Rx CRC===========\r\n");
 					xil_printf ("Rxd Hactive =  %d\r\n",
-							((XDp_ReadReg(VidFrameCRC_rx.Base_Addr,
-								0xC)&0xFFFF) + 1));
+							(8*((XDp_ReadReg(VidFrameCRC_rx.Base_Addr,
+								0xC)&0xFFFF) + 1)));
 					xil_printf ("Rxd Vactive =  %d\r\n",
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0xC)>>16);
 					xil_printf ("CRC Cfg     =  0x%x\r\n",
@@ -429,7 +429,7 @@ void DpPt_Main(void){
 							XDp_ReadReg(VidFrameCRC_rx.Base_Addr,0x8)&0xFFFF);
 					xil_printf ("========== Tx CRC===========\r\n");
 					xil_printf ("Txd Hactive =  %d\r\n",
-						((XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0xC)&0xFFFF)+ 1));
+						(8*((XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0xC)&0xFFFF)+ 1)));
 
 					xil_printf ("Txd Vactive =  %d\r\n",
 							XDp_ReadReg(VidFrameCRC_tx.Base_Addr,0xC)>>16);
@@ -613,10 +613,10 @@ void start_tx_after_rx (void) {
 	u8 max_cap_org=0;
 	u8 max_cap_lanes=0;
 
-	//Clipping Tx output to 4k30 if Rx receives above 8k30 due to bw issues
+	//scaling down Tx output to 4k30 if Rx receives above 8k30 due to bw issues
 	if (Msa_test[0].Vtm.FrameRate * Msa_test[0].Vtm.Timing.HActive *
 			Msa_test[0].Vtm.Timing.VActive > 7680*4320*30){
-		xil_printf("Clipping the output to 4k30 due to bw \r\n");
+		xil_printf("DDR BW not sufficient, Scaling the output to 4k30 \r\n");
 		Clip_4k=1;
 		Clip_4k_Hactive = Msa_test[0].Vtm.Timing.HActive;
 		Clip_4k_Vactive = Msa_test[0].Vtm.Timing.VActive;
@@ -651,7 +651,6 @@ void start_tx_after_rx (void) {
 		XDp_TxAuxRead(DpTxSsInst.DpPtr, 0x2201, 1, &rData);
 		if(rData == XDP_DPCD_LINK_BW_SET_810GBPS){
 			max_cap_org = 0x1E;
-			xil_printf ("Monitor is 8.1 capable\r\n");
 		}
 	}
 
@@ -666,6 +665,7 @@ void start_tx_after_rx (void) {
 		}else{
 			LineRate_init_tx = SinkMaxLinkrate;
 		}
+		xil_printf("VCU118 QPLL1 doesnt support 13.5g hence Training Tx at 0x%x Linkrate\r\n",LineRate_init_tx);
 	}
 #endif
 
@@ -796,7 +796,10 @@ void dprx_tracking (void) {
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x0);
 		XDpTxSs_Stop(&DpTxSsInst);
 #endif
-
+	    // retoring unplug counter
+        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					XDP_RX_CDR_CONTROL_CONFIG,
+			        XDP_RX_CDR_CONTROL_CONFIG_TDLOCK_DP159);
 		xil_printf(
 		"> Rx Training done !!! (BW: 0x%x, Lanes: 0x%x, Status: "
 		"0x%x;0x%x).\n\r",
@@ -821,17 +824,16 @@ void dprx_tracking (void) {
 		rx_all_detect = 0;
 	}
 
-	if(/*(DpRxSsInst.VBlankCount>VBLANK_WAIT_COUNT)*/(Video_valid == 1) && (rx_trained == 1)){
+	if((Video_valid == 1) && (rx_trained == 1)){
 		Tx_only=0;
 		Video_valid = 0;
+		XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
+				XDP_RX_INTERRUPT_MASK_VIDEO_MASK);
 		DpRxSsInst.no_video_trigger = 0;
 		//VBLANK Management
 		DpRxSsInst.VBlankCount = 0;
 		XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
 				XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
-
-		XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
-				XDP_RX_INTERRUPT_MASK_VIDEO_MASK);
 
 		XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 				XDP_RX_INTERRUPT_MASK_NO_VIDEO_MASK |
@@ -845,16 +847,6 @@ void dprx_tracking (void) {
 		tx_after_rx = 1;
         track_msa = Dppt_DetectResolution(DpRxSsInst.DpPtr, Msa_test,
 					DpRxSsInst.link_up_trigger);
-	}
-
-	if(tx_done == 1) {
-		track_color = Dppt_DetectColor(DpRxSsInst.DpPtr, Msa_test,
-		DpRxSsInst.link_up_trigger);
-		if (track_color == 1) {
-			track_color = 0;
-			tx_after_rx = 1;
-			tx_done = 0;
-		}
 	}
 }
 #endif

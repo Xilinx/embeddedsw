@@ -206,7 +206,7 @@ extern "C" {
 /*Max timeout tuned as per tester - AXI Clock=100 MHz
  *Some GPUs may need larger value, So user may tune if needed
  */
-#define DP_BS_IDLE_TIMEOUT       0xFFFFFFFF
+#define DP_BS_IDLE_TIMEOUT       0xFFFFFF
 #define VBLANK_WAIT_COUNT       200
 
 /*For compliance, please set AUX_DEFER_COUNT to be 8

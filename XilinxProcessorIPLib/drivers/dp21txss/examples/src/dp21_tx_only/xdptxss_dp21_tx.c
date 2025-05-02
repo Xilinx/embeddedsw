@@ -17,6 +17,7 @@
 * 						  vcu118
 * 1.01	ND		26/02/24  Added support for 13.5 and 20G
 * 1.02  ND      24/03/25  Added support for PARRETO fmc
+* 1.03  ND      02/05/25  Changed the VESA color encode format to CEA.
 * </pre>
 *
 ******************************************************************************/
@@ -1466,7 +1467,7 @@ u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	 * User can change coefficients here - By default 601 is used for YCbCr
 	 * */
 	XDp_TxCfgSetColorEncode(DpTxSsInst.DpPtr, XDP_TX_STREAM_ID1, \
-			format, XVIDC_BT_601, XDP_DR_VESA);
+			format, XVIDC_BT_601, XDP_DR_CEA);
 
 	if (set_phy == 0) {
 		Status = DpTxSubsystem_Start(&DpTxSsInst, 0);

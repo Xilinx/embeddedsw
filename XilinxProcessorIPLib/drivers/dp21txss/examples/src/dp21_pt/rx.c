@@ -21,6 +21,8 @@
 #include "main.h"
 #include "rx.h"
 
+//#define DEBUG
+
 #ifdef Rx
 extern XDpRxSs DpRxSsInst;    /* The DPRX Subsystem instance.*/
 extern XDpTxSs DpTxSsInst; 		/* The DPTX Subsystem instance.*/
@@ -147,6 +149,19 @@ u32 DpRxSs_Setup(void)
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
 			VidFrameCRC_rx.TEST_CRC_SUPPORTED<<5);
 
+       /*Disabling timeout */
+        ReadVal = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+                        XDP_RX_CDR_CONTROL_CONFIG);
+
+        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+                     XDP_RX_CDR_CONTROL_CONFIG,
+                     ReadVal |
+                     XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT);
+
+        /*Setting 8B10 Mode for backward compatibility */
+        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
+        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1600, 0x1);
+        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
 	/*Enable Rx*/
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_RX_LINK_ENABLE, 0x1);
@@ -298,7 +313,12 @@ void DpRxSs_PowerChangeHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_VideoValidHandler(void *InstancePtr)
 {
+	#ifdef DEBUG
+	xil_printf("DpRxSs_VideoValidHandler\r\n");
 	Video_valid = 1;
+	XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
+			XDP_RX_INTERRUPT_MASK_VIDEO_MASK);
+#endif
 }
 
 /*****************************************************************************/
@@ -333,6 +353,10 @@ void DpRxSs_VmChangeHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_NoVideoHandler(void *InstancePtr)
 {
+	#ifdef DEBUG
+	xil_printf("DpRxSs_NoVideoHandler\r\n");
+	#endif
+	Video_valid = 0;
 	DpRxSsInst.VBlankCount = 0;
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 			XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
@@ -355,7 +379,7 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 			XDP_RX_INTERRUPT_MASK_EXT_PKT_MASK);
 
-	Video_valid = 0;
+
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 			XDP_RX_INTERRUPT_MASK_VIDEO_MASK);
 	tx_done=0;
@@ -440,6 +464,12 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_VideoHandler(void *InstancePtr)
 {
+	#ifdef DEBUG
+	xil_printf("DpRxSs_VideoHandler\r\n");
+	#endif
+	Video_valid = 1;
+	XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
+			    XDP_RX_INTERRUPT_MASK_VIDEO_MASK);
 
 }
 
@@ -457,7 +487,7 @@ void DpRxSs_VideoHandler(void *InstancePtr)
 *
 ******************************************************************************/
 void DpRxSs_TrainingDoneHandler(void *InstancePtr)
-{;
+{
 	u32 ReadVal;
 	ReadVal = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 		XDP_RX_AUX_CLK_DIVIDER);
@@ -760,7 +790,9 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 				      I2C_MCDP6000_ADDR);
 	}
 
+#ifdef DEBUG
 	xil_printf("DpRxSs_AccessLinkQualHandler : 0x%x\r\n", ReadVal);
+#endif
 }
 
 /*****************************************************************************/
