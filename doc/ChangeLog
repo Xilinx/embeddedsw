@@ -817,6 +817,11 @@ lib/sw_services/xiltpm/src/xtpm.h
 lib/sw_services/xiltpm/src/xtpm_error.h
 lib/sw_services/xiltpm/src/xtpm_hw.h
 lib/sw_services/xiltpm/src/xtpm_util.c
+lib/sw_services/xilpm_ng/src/xilpm_common/xpm_ver.h
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_mem_subsys.c
+lib/sw_services/xilpdi/src/versal_2ve_2vm/CMakeLists.txt
+lib/sw_apps/asufw/src/kdf/xhkdf.c
+lib/sw_apps/asufw/src/kdf/xhkdf.h
 
 
 

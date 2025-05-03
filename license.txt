@@ -1,8 +1,9 @@
 
+
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2015 - 2022 Xilinx, Inc. Copyright (c) 2022 - 2024 Advanced Micro
+Copyright (C) 2015 - 2022 Xilinx, Inc. Copyright (c) 2022 - 2025 Advanced Micro
 Devices, Inc. All Rights Reserved. This file is part of the FreeRTOS port.
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -119,16 +120,7 @@ lib/bsp/standalone/src/riscv/xmicroblaze_riscv_config.h
 lib/sw_apps/memory_tests/src/platform_config.h
 lib/sw_services/xilpm/src/versal_net/server/xpm_repair_regs.h
 lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c
-lib/sw_services/xilsecure/src/common/versal_aiepg2/xsecure_rsaalginfo.h
-lib/sw_services/xilsecure/src/common/versal_aiepg2/xsecure_sha3alginfo.h
-lib/sw_services/xilsecure/src/common/versal_net/xsecure_rsaalginfo.h
-lib/sw_services/xilsecure/src/common/versal_net/xsecure_sha3alginfo.h
-lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c
 lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_aes.c
-lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c
-lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c
-lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aesalginfo.h
-lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha3alginfo.h
 --------------------------------------------------------------------------------
 
 
@@ -334,17 +326,8 @@ lib/sw_apps/mba_fs_boot/data/mba_fs_boot.yaml
 lib/sw_services/xilmailbox/src/PS/CMakeLists.txt
 lib/sw_services/xilmailbox/src/xilmailbox.cmake
 lib/sw_services/xilnvm/src/versal_gen/common/xnvm_ver.h
-lib/sw_services/xilocp/src/common/xocp_ver.h
 lib/sw_services/xilpuf/src/versal_gen/common/xpuf_ver.h
-lib/sw_services/xilsecure/src/common/versal/xsecure_aesalginfo.h
-lib/sw_services/xilsecure/src/common/versal/xsecure_rsaalginfo.h
-lib/sw_services/xilsecure/src/common/versal_aiepg2/xsecure_aesalginfo.h
-lib/sw_services/xilsecure/src/common/versal_net/xsecure_aesalginfo.h
-lib/sw_services/xilsecure/src/common/versal_net/xsecure_ecdhalginfo.h
-lib/sw_services/xilsecure/src/common/versal_net/xsecure_keyunwrapalginfo.h
-lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsaalginfo.h
 lib/sw_services/xilsecure/src/xsecure_ver.h
-lib/sw_services/xilskey/src/xilskey_ver.h
 --------------------------------------------------------------------------------
 
 
@@ -664,10 +647,10 @@ COPYRIGHT TEXT:
 ---------------
 
 FreeRTOS Kernel V10.6.1 Copyright (C) 2021 Amazon.com, Inc. or its affiliates.
-All Rights Reserved. Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights
-Reserved.
-SPDX-License-Identifier: MIT Permission is hereby granted, free of
-charge, to any person obtaining a copy of this software and associated
+All Rights Reserved. Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All
+Rights Reserved.
+SPDX-License-Identifier: MIT Permission is hereby granted, free
+of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without
 restriction, including without limitation the rights to use, copy, modify,
 merge, publish, distribute, sublicense, and/or sell copies of the Software, and
@@ -762,17 +745,24 @@ ThirdParty/sw_services/openamp/data/openamp.yaml
 XilinxProcessorIPLib/drivers/can/data/can.yaml
 XilinxProcessorIPLib/drivers/canfd/data/canfd.yaml
 XilinxProcessorIPLib/drivers/canps/data/canps.yaml
+XilinxProcessorIPLib/drivers/coresightps_dcc/data/coresightps_dcc.yaml
 XilinxProcessorIPLib/drivers/csudma/data/csudma.yaml
 XilinxProcessorIPLib/drivers/ddrcpsu/data/ddrcpsu.yaml
 XilinxProcessorIPLib/drivers/dfeofdm/data/dfeofdm.yaml
 XilinxProcessorIPLib/drivers/emacps/data/emacps.yaml
 XilinxProcessorIPLib/drivers/hwicap/data/hwicap.yaml
+XilinxProcessorIPLib/drivers/iomodule/data/iomodule.yaml
+XilinxProcessorIPLib/drivers/mbox/data/mbox.yaml
+XilinxProcessorIPLib/drivers/mutex/data/mutex.yaml
 XilinxProcessorIPLib/drivers/ospipsv/data/ospipsv.yaml
 XilinxProcessorIPLib/drivers/ospipsv/examples/CMakeLists.txt
 XilinxProcessorIPLib/drivers/ospipsv/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/qspipsu/data/qspipsu.yaml
+XilinxProcessorIPLib/drivers/tmr_inject/data/tmr_inject.yaml
 XilinxProcessorIPLib/drivers/tmr_manager/data/tmr_manager.yaml
+XilinxProcessorIPLib/drivers/tmr_manager/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/ttcps/data/ttcps.yaml
+XilinxProcessorIPLib/drivers/uartps/data/uartps.yaml
 XilinxProcessorIPLib/drivers/wdttb/data/wdttb.yaml
 cmake/Findcommon.cmake
 cmake/toolchainfiles/cortexa53_toolchain.cmake
@@ -781,17 +771,24 @@ lib/sw_apps/openamp_echo_test/data/openamp_echo_test.yaml
 lib/sw_apps/openamp_matrix_multiply/data/openamp_matrix_multiply.yaml
 lib/sw_apps/openamp_rpc_demo/data/openamp_rpc_demo.yaml
 lib/sw_apps/versal_plm/src/CMakeLists.txt
+lib/sw_apps/versal_plm/src/versal_2ve_2vm/CMakeLists.txt
 lib/sw_services/xilffs/data/xilffs.yaml
 lib/sw_services/xilffs/examples/CMakeLists.txt
 lib/sw_services/xilffs/src/CMakeLists.txt
 lib/sw_services/xilfpga/src/CMakeLists.txt
 lib/sw_services/xilnvm/data/xilnvm.yaml
 lib/sw_services/xilnvm/src/CMakeLists.txt
+lib/sw_services/xilnvm/src/xilnvm.cmake
 lib/sw_services/xilplmi/data/xilplmi.yaml
 lib/sw_services/xilpuf/data/xilpuf.yaml
 lib/sw_services/xilpuf/src/CMakeLists.txt
+lib/sw_services/xilpuf/src/xilpuf.cmake
 lib/sw_services/xilsecure/data/xilsecure.yaml
 lib/sw_services/xilsecure/src/CMakeLists.txt
+lib/sw_services/xilsecure/src/server/versal/CMakeLists.txt
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/CMakeLists.txt
+lib/sw_services/xilsecure/src/server/versal_net/CMakeLists.txt
+lib/sw_services/xilsecure/src/xilsecure.cmake
 lib/sw_services/xilsem/data/xilsem.yaml
 lib/sw_services/xilsem/src/CMakeLists.txt
 scripts/pyesw/build_app.py
@@ -1450,7 +1447,6 @@ XilinxProcessorIPLib/drivers/canps/examples/CMakeLists.txt
 XilinxProcessorIPLib/drivers/cframe/data/cframe.yaml
 XilinxProcessorIPLib/drivers/cfupmc/data/cfupmc.yaml
 XilinxProcessorIPLib/drivers/clockps/examples/CMakeLists.txt
-XilinxProcessorIPLib/drivers/coresightps_dcc/data/coresightps_dcc.yaml
 XilinxProcessorIPLib/drivers/csudma/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/dfeccf/data/dfeccf.yaml
 XilinxProcessorIPLib/drivers/dfeccf/examples/CMakeLists.txt
@@ -1461,7 +1457,6 @@ XilinxProcessorIPLib/drivers/dfeprach/data/dfeprach.yaml
 XilinxProcessorIPLib/drivers/dfeprach/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/emaclite/data/emaclite.yaml
 XilinxProcessorIPLib/drivers/i3cpsx/examples/CMakeLists.txt
-XilinxProcessorIPLib/drivers/iomodule/data/iomodule.yaml
 XilinxProcessorIPLib/drivers/ipipsu/data/ipipsu.yaml
 XilinxProcessorIPLib/drivers/ipipsu/examples/CMakeLists.txt
 XilinxProcessorIPLib/drivers/llfifo/data/llfifo.yaml
@@ -1480,7 +1475,6 @@ XilinxProcessorIPLib/drivers/spips/examples/CMakeLists.txt
 XilinxProcessorIPLib/drivers/tmrctr/data/tmrctr.yaml
 XilinxProcessorIPLib/drivers/trafgen/examples/CMakeLists.txt
 XilinxProcessorIPLib/drivers/trngpsx/data/trngpsx.yaml
-XilinxProcessorIPLib/drivers/uartps/data/uartps.yaml
 XilinxProcessorIPLib/drivers/uartps/examples/CMakeLists.txt
 XilinxProcessorIPLib/drivers/uartpsv/data/uartpsv.yaml
 XilinxProcessorIPLib/drivers/wdtps/examples/CMakeLists.txt
@@ -1518,16 +1512,12 @@ lib/sw_apps/zynqmp_fsbl/src/CMakeLists.txt
 lib/sw_services/xilfpga/data/xilfpga.yaml
 lib/sw_services/xilfpga/src/xilfpga.cmake
 lib/sw_services/xilnvm/src/versal_gen/CMakeLists.txt
-lib/sw_services/xilnvm/src/xilnvm.cmake
 lib/sw_services/xilpdi/data/xilpdi.yaml
 lib/sw_services/xilpm/src/versal_net/CMakeLists.txt
 lib/sw_services/xilrsa/src/CMakeLists.txt
 lib/sw_services/xilsecure/src/client/versal_net/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/spartanup/CMakeLists.txt
-lib/sw_services/xilsecure/src/server/versal_aiepg2/CMakeLists.txt
-lib/sw_services/xilsecure/src/server/versal_net/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/zynqmp/CMakeLists.txt
-lib/sw_services/xilsecure/src/xilsecure.cmake
 lib/sw_services/xiltimer/data/xiltimer.yaml
 lib/sw_services/xiltimer/src/core/CMakeLists.txt
 lib/sw_services/xiltimer/src/core/default_timer/CMakeLists.txt
@@ -6485,7 +6475,6 @@ XilinxProcessorIPLib/drivers/csi/data/csi.yaml
 XilinxProcessorIPLib/drivers/csi/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/csi2tx/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/csi2txss/src/CMakeLists.txt
-XilinxProcessorIPLib/drivers/dphy/data/dphy.yaml
 XilinxProcessorIPLib/drivers/dphy/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/dsi/data/dsi.yaml
 XilinxProcessorIPLib/drivers/dsi/src/CMakeLists.txt
@@ -6533,7 +6522,6 @@ XilinxProcessorIPLib/drivers/v_hdmiphy1/data/v_hdmiphy1.yaml
 XilinxProcessorIPLib/drivers/v_hdmirx/data/v_hdmirx.yaml
 XilinxProcessorIPLib/drivers/v_hdmirx1/data/v_hdmirx1.yaml
 XilinxProcessorIPLib/drivers/v_hdmirxss/data/v_hdmirxss.yaml
-XilinxProcessorIPLib/drivers/v_hdmirxss1/data/v_hdmirxss1.yaml
 XilinxProcessorIPLib/drivers/v_hdmitx/data/v_hdmitx.yaml
 XilinxProcessorIPLib/drivers/v_hdmitxss/data/v_hdmitxss.yaml
 XilinxProcessorIPLib/drivers/v_hscaler/data/v_hscaler.yaml
@@ -6544,7 +6532,6 @@ XilinxProcessorIPLib/drivers/v_letterbox/data/v_letterbox.yaml
 XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox.c
 XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_linux.c
 XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_sinit.c
-XilinxProcessorIPLib/drivers/v_mix/data/v_mix.yaml
 XilinxProcessorIPLib/drivers/v_mix/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_linux.c
 XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_sinit.c
@@ -6625,7 +6612,6 @@ XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform.h
 XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/platform_config.h
 XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/si570drv.c
 XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/si570drv.h
-XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/xsdi_example.c
 XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/xsdi_menu.c
 XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/xsdi_menu.h
 --------------------------------------------------------------------------------
@@ -6680,8 +6666,6 @@ XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h
 XilinxProcessorIPLib/drivers/spdif/src/xspdif_intr.c
 XilinxProcessorIPLib/drivers/spdif/src/xspdif_selftest.c
 XilinxProcessorIPLib/drivers/spdif/src/xspdif_sinit.c
-XilinxProcessorIPLib/drivers/v_hdmirx/data/v_hdmirx.mdd
-XilinxProcessorIPLib/drivers/v_hdmirxss/data/v_hdmirxss.mdd
 XilinxProcessorIPLib/drivers/v_hdmitx/data/v_hdmitx.mdd
 XilinxProcessorIPLib/drivers/v_sdirx/data/v_sdirx.mdd
 XilinxProcessorIPLib/drivers/v_sdirx/examples/xv_sdirx_example_selftest.c
@@ -6785,7 +6769,6 @@ XilinxProcessorIPLib/drivers/dpdma/src/xdpdma_g.c
 XilinxProcessorIPLib/drivers/dppsu/data/dppsu.yaml
 XilinxProcessorIPLib/drivers/dppsu/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_g.c
-XilinxProcessorIPLib/drivers/dppsu14/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/dual_splitter/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/emaclite/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/emacps/src/CMakeLists.txt
@@ -6794,10 +6777,8 @@ XilinxProcessorIPLib/drivers/i2srx/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/i2stx/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/iomodule/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/ipipsu/src/CMakeLists.txt
-XilinxProcessorIPLib/drivers/mbox/data/mbox.yaml
 XilinxProcessorIPLib/drivers/mbox/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/mcdma/examples/CMakeLists.txt
-XilinxProcessorIPLib/drivers/mutex/data/mutex.yaml
 XilinxProcessorIPLib/drivers/mutex/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/pciepsu/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/prc/data/prc.yaml
@@ -6820,9 +6801,7 @@ XilinxProcessorIPLib/drivers/spi/data/spi.yaml
 XilinxProcessorIPLib/drivers/spi/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/spips/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/tft/src/CMakeLists.txt
-XilinxProcessorIPLib/drivers/tmr_inject/data/tmr_inject.yaml
 XilinxProcessorIPLib/drivers/tmr_inject/src/CMakeLists.txt
-XilinxProcessorIPLib/drivers/tmr_manager/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/tmrctr/examples/CMakeLists.txt
 XilinxProcessorIPLib/drivers/tmrctr/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/trafgen/src/CMakeLists.txt
@@ -6875,7 +6854,6 @@ lib/sw_apps/lwip_udp_perf_server/src/lwip_udp_perf_server.cmake
 lib/sw_apps/rsa_auth_app/data/rsa_auth_app.yaml
 lib/sw_apps/srec_spi_bootloader/src/srec_spi_bootloader.cmake
 lib/sw_apps/versal_plm/src/common/CMakeLists.txt
-lib/sw_apps/versal_plm/src/versal_aiepg2/CMakeLists.txt
 lib/sw_apps/versal_plm/src/versal_net/CMakeLists.txt
 lib/sw_apps/zynq_dram_test/data/zynq_dram_test.yaml
 lib/sw_apps/zynq_fsbl/data/zynq_fsbl.yaml
@@ -6903,11 +6881,8 @@ lib/sw_services/xilpuf/src/spartanup/CMakeLists.txt
 lib/sw_services/xilpuf/src/versal_gen/client/CMakeLists.txt
 lib/sw_services/xilpuf/src/versal_gen/common/CMakeLists.txt
 lib/sw_services/xilpuf/src/versal_gen/server/CMakeLists.txt
-lib/sw_services/xilpuf/src/xilpuf.cmake
 lib/sw_services/xilrsa/data/xilrsa.yaml
-lib/sw_services/xilsecure/src/server/versal/CMakeLists.txt
 lib/sw_services/xilsem/src/client/CMakeLists.txt
-lib/sw_services/xilsem/src/server/CMakeLists.txt
 lib/sw_services/xilskey/data/xilskey.yaml
 lib/sw_services/xilskey/src/include/CMakeLists.txt
 lib/sw_services/xilskey/src/xilskey.cmake
@@ -6980,11 +6955,7 @@ XilinxProcessorIPLib/drivers/sysmonpsu/data/sysmonpsu_header.h
 XilinxProcessorIPLib/drivers/sysmonpsu/data/sysmonpsu_tapp.tcl
 XilinxProcessorIPLib/drivers/tmr_inject/data/tmr_inject.tcl
 XilinxProcessorIPLib/drivers/tmr_inject/data/tmr_inject_tapp.tcl
-XilinxProcessorIPLib/drivers/tmr_inject/examples/xtmr_inject_selftest_example.c
 XilinxProcessorIPLib/drivers/tmr_manager/data/tmr_manager.tcl
-XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_low_level_example.c
-XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_polled_example.c
-XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_selftest_example.c
 XilinxProcessorIPLib/drivers/v_sdirx/data/v_sdirx.tcl
 XilinxProcessorIPLib/drivers/v_sdirxss/data/v_sdirxss.tcl
 XilinxProcessorIPLib/drivers/v_sdirxss/data/v_sdirxss_tapp.tcl
@@ -7039,7 +7010,6 @@ XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_hw.h
 XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_intr.c
 XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_selftest.c
 XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_sinit.c
-XilinxProcessorIPLib/drivers/tmr_inject/examples/xtmr_inject_low_level_example.c
 XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_recover_l.S
 XilinxProcessorIPLib/drivers/zdma/data/zdma_tapp.tcl
 --------------------------------------------------------------------------------
@@ -7570,9 +7540,6 @@ SPDX-License-Identifier: MIT
 FILES:
 XilinxProcessorIPLib/drivers/axiethernet/examples/CMakeLists.txt
 XilinxProcessorIPLib/drivers/xxvethernet/examples/CMakeLists.txt
-cmake/UserConfig.cmake
-cmake/toolchainfiles/microblaze-pmu_toolchain.cmake
-cmake/toolchainfiles/microblaze-psm_toolchain.cmake
 --------------------------------------------------------------------------------
 
 
@@ -7595,7 +7562,6 @@ XilinxProcessorIPLib/drivers/rfdc/src/xrfdc_hw.h
 XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c
 XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h
 XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_sinit.c
-XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h
 XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_recover.c
 XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_sinit.c
 XilinxProcessorIPLib/drivers/uartpsv/data/uartpsv_tapp.tcl
@@ -7721,6 +7687,24 @@ SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/axipmon/data/axipmon.yaml
+XilinxProcessorIPLib/drivers/dcsub/examples/live/mmi_dc_live_test.c
+XilinxProcessorIPLib/drivers/dcsub/examples/live/mmi_dc_live_test.h
+XilinxProcessorIPLib/drivers/dcsub/examples/live/mmi_dp_init.c
+XilinxProcessorIPLib/drivers/dcsub/examples/live/mmi_dp_init.h
+XilinxProcessorIPLib/drivers/dcsub/examples/live/xavtpg.c
+XilinxProcessorIPLib/drivers/dcsub/examples/live/xavtpg.h
+XilinxProcessorIPLib/drivers/dcsub/examples/live/xavtpg_hw.h
+XilinxProcessorIPLib/drivers/dcsub/examples/mixed/mmi_dc_mixed_test.c
+XilinxProcessorIPLib/drivers/dcsub/examples/mixed/mmi_dc_mixed_test.h
+XilinxProcessorIPLib/drivers/dcsub/examples/mixed/mmi_dp_init.c
+XilinxProcessorIPLib/drivers/dcsub/examples/mixed/mmi_dp_init.h
+XilinxProcessorIPLib/drivers/dcsub/examples/mixed/xavtpg.c
+XilinxProcessorIPLib/drivers/dcsub/examples/mixed/xavtpg.h
+XilinxProcessorIPLib/drivers/dcsub/examples/mixed/xavtpg_hw.h
+XilinxProcessorIPLib/drivers/dcsub/examples/nonlive/mmi_dc_nonlive_test.c
+XilinxProcessorIPLib/drivers/dcsub/examples/nonlive/mmi_dc_nonlive_test.h
+XilinxProcessorIPLib/drivers/dcsub/examples/nonlive/mmi_dp_init.c
+XilinxProcessorIPLib/drivers/dcsub/examples/nonlive/mmi_dp_init.h
 XilinxProcessorIPLib/drivers/dcsub/src/xdc.c
 XilinxProcessorIPLib/drivers/dcsub/src/xdc.h
 XilinxProcessorIPLib/drivers/dcsub/src/xdc_hw.h
@@ -7744,7 +7728,7 @@ lib/sw_apps/asufw/src/kdf/CMakeLists.txt
 lib/sw_apps/asufw/src/keywrap/CMakeLists.txt
 lib/sw_services/xilpm_ng/src/xilpm_client/CMakeLists.txt
 lib/sw_services/xilpm_ng/src/xilpm_common/CMakeLists.txt
-lib/sw_services/xilsecure/src/client/versal_aiepg2/CMakeLists.txt
+lib/sw_services/xilsecure/src/client/versal_2ve_2vm/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/softsha1/CMakeLists.txt
 lib/sw_services/xiltpm/data/xiltpm.yaml
 lib/sw_services/xiltpm/src/CMakeLists.txt
@@ -7796,7 +7780,6 @@ SPDX-License-Identifier: MIT
 FILES:
 XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h
 XilinxProcessorIPLib/drivers/mbox/data/mbox_header.h
-XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c
 XilinxProcessorIPLib/drivers/sysmon/src/xsysmon_hw.h
 --------------------------------------------------------------------------------
 
@@ -7922,21 +7905,16 @@ lib/sw_services/xilloader/src/common/common/xloader_defs.h
 lib/sw_services/xilloader/src/common/server/CMakeLists.txt
 lib/sw_services/xilloader/src/versal/CMakeLists.txt
 lib/sw_services/xilloader/src/versal/server/CMakeLists.txt
-lib/sw_services/xilloader/src/versal_aiepg2/CMakeLists.txt
 lib/sw_services/xilloader/src/versal_net/client/CMakeLists.txt
-lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c
 lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.h
 lib/sw_services/xilloader/src/versal_net/server/CMakeLists.txt
 lib/sw_services/xilloader/src/xilloader.cmake
 lib/sw_services/xilnvm/src/spartanup/CMakeLists.txt
-lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c
 lib/sw_services/xilnvm/src/spartanup/xnvm_efuse_hw.h
-lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c
 lib/sw_services/xilocp/src/client/CMakeLists.txt
 lib/sw_services/xilocp/src/common/CMakeLists.txt
 lib/sw_services/xilocp/src/server/CMakeLists.txt
 lib/sw_services/xilocp/src/xilocp.cmake
-lib/sw_services/xilpdi/src/versal_aiepg2/CMakeLists.txt
 lib/sw_services/xilpki/data/xilpki.yaml
 lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c
 lib/sw_services/xilplmi/examples/xplmi_configure_secure_comm_example.c
@@ -7952,7 +7930,6 @@ lib/sw_services/xilplmi/src/common/common/CMakeLists.txt
 lib/sw_services/xilplmi/src/versal/CMakeLists.txt
 lib/sw_services/xilplmi/src/versal/common/CMakeLists.txt
 lib/sw_services/xilplmi/src/versal/server/CMakeLists.txt
-lib/sw_services/xilplmi/src/versal_aiepg2/CMakeLists.txt
 lib/sw_services/xilplmi/src/versal_net/CMakeLists.txt
 lib/sw_services/xilplmi/src/versal_net/client/CMakeLists.txt
 lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c
@@ -7973,9 +7950,6 @@ lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_fsm.h
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.h
 lib/sw_services/xilpuf/src/spartanup/xpuf.h
 lib/sw_services/xilpuf/src/versal_gen/CMakeLists.txt
-lib/sw_services/xilsecure/examples/CMakeLists.txt
-lib/sw_services/xilsecure/examples/xilsecure_versal_aiepg2_sha_client_example.c
-lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c
 lib/sw_services/xilsecure/src/client/core/CMakeLists.txt
 lib/sw_services/xilsecure/src/client/core/aes/CMakeLists.txt
 lib/sw_services/xilsecure/src/client/core/crypto_kat/CMakeLists.txt
@@ -7987,15 +7961,10 @@ lib/sw_services/xilsecure/src/client/core/rsa/CMakeLists.txt
 lib/sw_services/xilsecure/src/client/core/sha/CMakeLists.txt
 lib/sw_services/xilsecure/src/client/core/sha/sha_pmx/CMakeLists.txt
 lib/sw_services/xilsecure/src/client/core/sha/sha_pmxc/CMakeLists.txt
-lib/sw_services/xilsecure/src/client/core/sha/sha_pmxc/xsecure_shaclient.h
 lib/sw_services/xilsecure/src/client/core/trng/CMakeLists.txt
-lib/sw_services/xilsecure/src/common/CMakeLists.txt
 lib/sw_services/xilsecure/src/common/core/CMakeLists.txt
 lib/sw_services/xilsecure/src/common/versal/CMakeLists.txt
-lib/sw_services/xilsecure/src/common/versal_aiepg2/CMakeLists.txt
 lib/sw_services/xilsecure/src/common/versal_net/CMakeLists.txt
-lib/sw_services/xilsecure/src/server/CMakeLists.txt
-lib/sw_services/xilsecure/src/server/core/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/aes/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/crypto_kat/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/ecc_keypair/CMakeLists.txt
@@ -8005,13 +7974,11 @@ lib/sw_services/xilsecure/src/server/core/key_unwrap/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/key_zeroize/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/rsa/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/CMakeLists.txt
-lib/sw_services/xilsecure/src/server/core/sha/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/softsha2-384/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/trng/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/util/CMakeLists.txt
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_plat_kat.h
 lib/sw_services/xilskey/examples/CMakeLists.txt
 --------------------------------------------------------------------------------
 
@@ -8267,7 +8234,6 @@ XilinxProcessorIPLib/drivers/gpio/examples/CMakeLists.txt
 XilinxProcessorIPLib/drivers/gpiops/examples/CMakeLists.txt
 XilinxProcessorIPLib/drivers/iic/examples/CMakeLists.txt
 XilinxProcessorIPLib/drivers/iicps/examples/CMakeLists.txt
-XilinxProcessorIPLib/drivers/intc/data/intc.yaml
 XilinxProcessorIPLib/drivers/nandps/data/nandps.yaml
 XilinxProcessorIPLib/drivers/nandps/examples/CMakeLists.txt
 XilinxProcessorIPLib/drivers/nandps/src/CMakeLists.txt
@@ -8708,6 +8674,8 @@ SPDX-License-Identifier: MIT
 FILES:
 XilinxProcessorIPLib/drivers/cframe/src/xcframe_selftest.c
 XilinxProcessorIPLib/drivers/rfdc/data/rfdc.mdd
+XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c
+XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.h
 --------------------------------------------------------------------------------
 
 
@@ -8826,7 +8794,6 @@ XilinxProcessorIPLib/drivers/sysmonpsu/data/sysmonpsu.tcl
 XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu_g.c
 XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu_intr.c
 XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu_selftest.c
-XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c
 XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_selftest.c
 XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThrough/xhdcp.c
 XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThrough/xhdcp.h
@@ -8906,7 +8873,6 @@ FILES:
 XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_intr_example.c
 XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_setrate_example.c
 XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_versal_example.c
-XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h
 --------------------------------------------------------------------------------
 
 
@@ -9068,7 +9034,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved. Copyright (C) 2023 -
-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -9352,7 +9318,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/cpu_cortexr52/data/cpu_cortexr52.tcl
-XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_recovery_example.c
 --------------------------------------------------------------------------------
 
 
@@ -9690,12 +9655,9 @@ lib/sw_apps/zynqmp_pmufw/src/xpfw_error_manager.h
 lib/sw_apps/zynqmp_pmufw/src/xpfw_events.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_events.h
 lib/sw_apps/zynqmp_pmufw/src/xpfw_interrupts.h
-lib/sw_apps/zynqmp_pmufw/src/xpfw_main.c
-lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_dap.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_dap.h
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_em.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_em.h
-lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_legacy.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_legacy.h
 lib/sw_apps/zynqmp_pmufw/src/xpfw_module.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_module.h
@@ -9828,11 +9790,9 @@ XilinxProcessorIPLib/drivers/dsitxss/data/dsitxss_tapp.tcl
 XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_hw.h
 XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_intr.c
 XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss_sinit.c
-XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.c
 XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h
 XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_hw.h
 XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_sinit.c
-XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c
 XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss_coreinit.h
 XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss_sinit.c
 XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h
@@ -9855,7 +9815,10 @@ FILES:
 XilinxProcessorIPLib/drivers/csi2tx/data/csi2tx.yaml
 XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_g.c
 XilinxProcessorIPLib/drivers/csi2txss/data/csi2txss.yaml
+XilinxProcessorIPLib/drivers/dphy/data/dphy.yaml
 XilinxProcessorIPLib/drivers/dsitxss/data/dsitxss.yaml
+XilinxProcessorIPLib/drivers/v_hdmirxss1/data/v_hdmirxss1.yaml
+XilinxProcessorIPLib/drivers/v_mix/data/v_mix.yaml
 XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.c
 --------------------------------------------------------------------------------
 
@@ -10022,7 +9985,6 @@ SPDX-License-Identifier: MIT
 FILES:
 XilinxProcessorIPLib/drivers/ddrcpsu/data/ddrcpsu.tcl
 XilinxProcessorIPLib/drivers/ipipsu/data/ipipsu.mdd
-XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h
 XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.c
 XilinxProcessorIPLib/drivers/vphy/src/xvphy.c
 XilinxProcessorIPLib/drivers/vphy/src/xvphy_gthe4.c
@@ -10595,8 +10557,6 @@ XilinxProcessorIPLib/drivers/dmaps/data/dmaps_tapp.tcl
 XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_extra.c
 XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_intr.c
 XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_l.h
-XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_options.c
-XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_selftest.c
 XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart.c
 XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c
 --------------------------------------------------------------------------------
@@ -11248,7 +11208,6 @@ lib/sw_apps/zynqmp_fsbl/misc/inbyte.c
 lib/sw_apps/zynqmp_fsbl/misc/outbyte.c
 lib/sw_apps/zynqmp_fsbl/src/scatter_a53_64.scat
 lib/sw_apps/zynqmp_fsbl/src/scatter_r5.scat
-lib/sw_apps/zynqmp_fsbl/src/xfsbl_tpm_util.c
 lib/sw_apps/zynqmp_pmufw/misc/inbyte.c
 lib/sw_apps/zynqmp_pmufw/misc/outbyte.c
 lib/sw_apps/zynqmp_pmufw/src/iou_slcr.h
@@ -11383,6 +11342,7 @@ XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/PLL_Conf.h
 XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/xclk_wiz.h
 XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/xedid_print_example.h
 XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_intr.c
+XilinxProcessorIPLib/drivers/v_hdmirxss/data/v_hdmirxss.mdd
 --------------------------------------------------------------------------------
 
 
@@ -11475,7 +11435,6 @@ XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c
 XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.h
 XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_mcdp6000.c
 XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_mcdp6000.h
-XilinxProcessorIPLib/drivers/v_sditxss/data/v_sditxss.mdd
 XilinxProcessorIPLib/drivers/v_sditxss/data/v_sditxss.tcl
 XilinxProcessorIPLib/drivers/v_sditxss/examples/xv_sditxss_selftest_example.c
 XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_coreinit.c
@@ -11828,6 +11787,8 @@ XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/rx.h
 XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/si5344drv.h
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/si5344drv.h
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/si5344drv.h
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_exdes_sm_tx.c
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_exdes_sm_tx.c
 --------------------------------------------------------------------------------
 
 
@@ -11850,13 +11811,9 @@ XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/si5344drv.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/si5344drv.c
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/si5324drv.c
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/ti_lmk03318.c
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_exdes_sm_rx.h
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_exdes_sm_tx.c
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_exdes_sm_tx.h
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.c
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/ti_lmk03318.c
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_exdes_sm_rx.h
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_exdes_sm_tx.c
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_exdes_sm_tx.h
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/xhdmi_hdcp_keys.h
 --------------------------------------------------------------------------------
@@ -11874,14 +11831,57 @@ SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/rx.c
-XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/video_fmc.c
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.c
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.h
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/video_fmc.c
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.c
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.h
 XilinxProcessorIPLib/drivers/vphy/src/xvphy.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Filename: sha256.c Author: Brad Conte (brad AT bradconte.com) Copyright:
+Disclaimer: This code is presented "as is" without any guarantees. Details:
+Implementation of the SHA-256 hashing algorithm. SHA-256 is one of the three
+algorithms in the SHA2 specification. The others, SHA-384 and SHA-512, are not
+offered in this implementation. Algorithm specification can be found here:
+http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf
+This implementation uses little endian byte order.
+
+FILES:
+XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/sha256.c
+XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vck_example/sha256.c
+XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/sha256.c
+XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/sha256.c
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/sha256.c
+XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/sha256.c
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/sha256.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Filename: sha256.h Author: Brad Conte (brad AT bradconte.com) Copyright:
+Disclaimer: This code is presented "as is" without any guarantees. Details:
+Defines the API for the corresponding SHA1 implementation.
+
+FILES:
+XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/sha256.h
+XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vck_example/sha256.h
+XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/sha256.h
+XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/sha256.h
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/sha256.h
+XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/sha256.h
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/sha256.h
 --------------------------------------------------------------------------------
 
 
@@ -12109,13 +12109,10 @@ XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/idt_8t49n24x.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/idt_8t49n24x.h
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/menus.c
-XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/passthrough.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/rx.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/ti_lmk03318.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/ti_lmk03318.h
-XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/tx.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/videofmc_defs.h
-XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/xdptxss_dp21_pt.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/xvid_clk_gen.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/xvid_pat_gen.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/xvidframe_crc.c
@@ -12148,8 +12145,11 @@ SPDX-License-Identifier: MIT
 FILES:
 XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xdprxss_dp21_rx.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/main.h
+XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/passthrough.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/rx.h
+XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/tx.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/tx.h
+XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_pt/xdptxss_dp21_pt.c
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/clk_set.h
 XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xdptxss_dp21_tx.h
 --------------------------------------------------------------------------------
@@ -12167,6 +12167,7 @@ SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.c
+XilinxProcessorIPLib/drivers/v_sditxss/data/v_sditxss.mdd
 --------------------------------------------------------------------------------
 
 
@@ -12239,11 +12240,9 @@ lib/sw_apps/mba_fs_boot/data/mba_fs_boot.tcl
 lib/sw_apps/zynqmp_pmufw/src/efuse.h
 lib/sw_apps/zynqmp_pmufw/src/xpfw_aib.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_aib.h
-lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_pm.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_pm.h
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_rtc.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_rtc.h
-lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_sched.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_sched.h
 lib/sw_services/xilskey/examples/xilskey_bbram_ultrascale_example.c
 lib/sw_services/xilskey/examples/xilskey_puf_registration_example.c
@@ -12353,9 +12352,7 @@ lib/sw_apps/zynqmp_pmufw/src/pm_clock.h
 lib/sw_apps/zynqmp_pmufw/src/pm_config.h
 lib/sw_apps/zynqmp_pmufw/src/pm_ddr.h
 lib/sw_apps/zynqmp_pmufw/src/pm_extern.h
-lib/sw_apps/zynqmp_pmufw/src/pm_gic_proxy.c
 lib/sw_apps/zynqmp_pmufw/src/pm_gic_proxy.h
-lib/sw_apps/zynqmp_pmufw/src/pm_gpp.c
 lib/sw_apps/zynqmp_pmufw/src/pm_gpp.h
 lib/sw_apps/zynqmp_pmufw/src/pm_master.h
 lib/sw_apps/zynqmp_pmufw/src/pm_mmio_access.h
@@ -12364,15 +12361,12 @@ lib/sw_apps/zynqmp_pmufw/src/pm_node.h
 lib/sw_apps/zynqmp_pmufw/src/pm_node_reset.h
 lib/sw_apps/zynqmp_pmufw/src/pm_notifier.c
 lib/sw_apps/zynqmp_pmufw/src/pm_notifier.h
-lib/sw_apps/zynqmp_pmufw/src/pm_pll.c
 lib/sw_apps/zynqmp_pmufw/src/pm_pll.h
 lib/sw_apps/zynqmp_pmufw/src/pm_power.h
-lib/sw_apps/zynqmp_pmufw/src/pm_proc.c
 lib/sw_apps/zynqmp_pmufw/src/pm_proc.h
 lib/sw_apps/zynqmp_pmufw/src/pm_requirement.c
 lib/sw_apps/zynqmp_pmufw/src/pm_reset.h
 lib/sw_apps/zynqmp_pmufw/src/pm_sram.h
-lib/sw_apps/zynqmp_pmufw/src/pm_usb.c
 lib/sw_apps/zynqmp_pmufw/src/pm_usb.h
 lib/sw_services/xilrsa/data/xilrsa.tcl
 lib/sw_services/xilrsa/src/Makefile
@@ -12624,7 +12618,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (C) 2004 - 2020 Xilinx, Inc. All rights reserved. Copyright (C) 2023 -
-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -12656,13 +12650,26 @@ lib/sw_apps/srec_spi_bootloader/src/platform.c
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/emc/data/emc.yaml
-XilinxProcessorIPLib/drivers/emc/src/CMakeLists.txt
 XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_helper.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/emc/src/CMakeLists.txt
 lib/bsp/standalone/src/riscv/riscv_sleep.c
 lib/bsp/standalone/src/riscv/riscv_sleep.h
 lib/sw_apps/hello_world/src/helloworld.c
@@ -12890,7 +12897,6 @@ XilinxProcessorIPLib/drivers/gpiops/examples/xgpiops_polled_example.c
 XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_g.c
 XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h
 XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_sinit.c
-XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c
 XilinxProcessorIPLib/drivers/ttcps/src/xttcps_sinit.c
 --------------------------------------------------------------------------------
 
@@ -12909,6 +12915,7 @@ FILES:
 XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.c
 XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h
 XilinxProcessorIPLib/drivers/ttcps/examples/xttcps_intr_example.c
+XilinxProcessorIPLib/drivers/ttcps/src/xttcps.c
 --------------------------------------------------------------------------------
 
 
@@ -13257,7 +13264,10 @@ lib/sw_services/xilasu/src/xilasu.cmake
 lib/sw_services/xilloader/src/CMakeLists.txt
 lib/sw_services/xilloader/src/common/client/xloader_mailbox.h
 lib/sw_services/xilloader/src/versal_net/CMakeLists.txt
+lib/sw_services/xilloader/src/versal_net/client/xloader_plat_client.c
 lib/sw_services/xilnvm/examples/CMakeLists.txt
+lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.c
+lib/sw_services/xilnvm/src/spartanup/xnvm_utils.c
 lib/sw_services/xilocp/data/xilocp.yaml
 lib/sw_services/xilocp/src/CMakeLists.txt
 lib/sw_services/xilplmi/src/CMakeLists.txt
@@ -13274,8 +13284,14 @@ lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_device_idle.c
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_api.c
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_clock.c
 lib/sw_services/xilpuf/examples/CMakeLists.txt
+lib/sw_services/xilsecure/examples/CMakeLists.txt
+lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c
 lib/sw_services/xilsecure/src/client/CMakeLists.txt
+lib/sw_services/xilsecure/src/client/core/sha/sha_pmxc/xsecure_shaclient.h
+lib/sw_services/xilsecure/src/server/CMakeLists.txt
+lib/sw_services/xilsecure/src/server/core/CMakeLists.txt
 lib/sw_services/xilsecure/src/server/core/generic/CMakeLists.txt
+lib/sw_services/xilsecure/src/server/core/sha/CMakeLists.txt
 lib/sw_services/xilsfl/data/xilsfl.yaml
 --------------------------------------------------------------------------------
 
@@ -13299,7 +13315,6 @@ lib/bsp/standalone/src/arm/cortexr5/iccarm/boot.s
 lib/sw_apps/asufw/misc/xipipsu_g.c
 lib/sw_apps/asufw/src/xasufw_ecchandler.h
 lib/sw_apps/versal_plm/misc/versal/microblaze_exceptions_g.h
-lib/sw_apps/versal_plm/misc/versal_aiepg2/microblaze_exceptions_g.h
 lib/sw_apps/versal_plm/misc/versal_net/microblaze_exceptions_g.h
 lib/sw_services/xilasu/src/Makefile
 lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c
@@ -13310,11 +13325,8 @@ lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_clock.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_device.h
-lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.c
 lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h
-lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c
 lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_plat_kat_ipihandler.h
 --------------------------------------------------------------------------------
 
 
@@ -13336,8 +13348,8 @@ lib/sw_apps/asufw/src/xasufw_ecieshandler.h
 lib/sw_apps/asufw/src/xasufw_hmachandler.h
 lib/sw_apps/asufw/src/xasufw_kdfhandler.h
 lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_ssit_client_example.c
-lib/sw_services/xilplmi/src/versal_aiepg2/xplmi_asu_cmd.c
-lib/sw_services/xilplmi/src/versal_aiepg2/xplmi_asu_cmd.h
+lib/sw_services/xilplmi/src/versal_2ve_2vm/xplmi_asu_cmd.c
+lib/sw_services/xilplmi/src/versal_2ve_2vm/xplmi_asu_cmd.h
 lib/sw_services/xilpm_ng/src/xilpm_client/pm_api_sys.c
 lib/sw_services/xilpm_ng/src/xilpm_client/pm_api_sys.h
 lib/sw_services/xiltpm/src/xtpm.c
@@ -13436,7 +13448,6 @@ XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_intr_example.c
 XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_polled_example.c
 XilinxProcessorIPLib/drivers/i3cpsx/examples/xi3cpsx_slave_loopback.c
 XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_secure.h
-lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h
 --------------------------------------------------------------------------------
 
 
@@ -13745,6 +13756,24 @@ XilinxProcessorIPLib/drivers/intc/data/intc.tcl
 COPYRIGHT TEXT:
 ---------------
 
+Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+Copyright (c) 2021 Xilinx, Inc. All rights reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/intc/data/intc.yaml
+XilinxProcessorIPLib/drivers/intc/src/CMakeLists.txt
+XilinxProcessorIPLib/drivers/sysmonpsv/data/sysmonpsv.yaml
+lib/sw_apps/memory_tests/data/memory_tests.yaml
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
 Copyright (C) 2012 - 2021 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
@@ -13801,23 +13830,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/intc/examples/xintc_low_level_example.c
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
-Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
-Copyright (c) 2021 Xilinx, Inc. All rights reserved.
-SPDX-License-Identifier: MIT
-
-FILES:
-XilinxProcessorIPLib/drivers/intc/src/CMakeLists.txt
-XilinxProcessorIPLib/drivers/sysmonpsv/data/sysmonpsv.yaml
-lib/sw_apps/memory_tests/data/memory_tests.yaml
 --------------------------------------------------------------------------------
 
 
@@ -13941,8 +13953,8 @@ XilinxProcessorIPLib/drivers/xadcps/data/xadcps.tcl
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
-Copyright (C) 2011 - 2020 Xilinx, Inc. All rights reserved.
+Copyright (C) 2011 - 2020 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -13957,7 +13969,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (C) 2011 - 2020 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -13978,6 +13990,8 @@ SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.c
+XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_options.c
+XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_selftest.c
 --------------------------------------------------------------------------------
 
 
@@ -14024,6 +14038,7 @@ SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h
+XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h
 XilinxProcessorIPLib/drivers/vphy/data/vphy.mdd
 XilinxProcessorIPLib/drivers/vphy/src/xvphy_gtye4.c
 --------------------------------------------------------------------------------
@@ -14199,8 +14214,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/mbox/examples/data.c
-XilinxProcessorIPLib/drivers/mbox/examples/xmbox_example.c
-XilinxProcessorIPLib/drivers/mbox/examples/xmbox_intr_example.c
 XilinxProcessorIPLib/drivers/mbox/src/xmbox.c
 XilinxProcessorIPLib/drivers/mbox/src/xmbox.h
 XilinxProcessorIPLib/drivers/mbox/src/xmbox_g.c
@@ -14229,6 +14242,23 @@ XilinxProcessorIPLib/drivers/sysmon/src/xsysmon_sinit.c
 COPYRIGHT TEXT:
 ---------------
 
+Copyright (C) 2007 - 2020 Xilinx, Inc. All rights reserved. Copyright (C) 2023 -
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/mbox/examples/xmbox_example.c
+XilinxProcessorIPLib/drivers/mbox/examples/xmbox_intr_example.c
+XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
 Copyright (C) 2017 - 2022 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
 2025 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
@@ -14237,6 +14267,7 @@ FILES:
 XilinxProcessorIPLib/drivers/mcdma/data/mcdma.mdd
 XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h
 XilinxProcessorIPLib/drivers/spips/src/xspips.c
+XilinxProcessorIPLib/drivers/tmr_inject/examples/xtmr_inject_low_level_example.c
 --------------------------------------------------------------------------------
 
 
@@ -14468,7 +14499,6 @@ XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h
 XilinxProcessorIPLib/drivers/rfdc/src/xrfdc_g.c
 XilinxProcessorIPLib/drivers/rfdc/src/xrfdc_intr.c
 XilinxProcessorIPLib/drivers/tmr_manager/data/tmr_manager_tapp.tcl
-XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_intr_example.c
 --------------------------------------------------------------------------------
 
 
@@ -14655,30 +14685,16 @@ XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/rc21008adrv
 XilinxProcessorIPLib/drivers/v_hdmiphy1/data/v_hdmiphy1.tcl
 XilinxProcessorIPLib/drivers/v_hdmirxss1/data/v_hdmirxss1.mdd
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/video_fmc.h
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_edid.c
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/audiogen_drv.c
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/audiogen_drv.h
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/onsemi_nb7nq621m.c
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/rc21008adrv.c
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/rc21008adrv.h
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/ti_tmds1204.h
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/video_fmc.c
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/video_fmc.h
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_hdcp_keys.c
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_hdcp_keys.h
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/video_fmc.h
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_edid.c
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/audiogen_drv.c
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/audiogen_drv.h
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/onsemi_nb7nq621m.c
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/rc21008adrv.c
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/rc21008adrv.h
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/ti_tmds1204.h
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/xhdmi_hdcp_keys.c
 XilinxProcessorIPLib/drivers/vphy/data/vphy.tcl
 XilinxProcessorIPLib/drivers/vphy/src/xvphy_mmcme4.c
 --------------------------------------------------------------------------------
@@ -14730,8 +14746,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_selftest.c
-XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c
-XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.h
 XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c
 --------------------------------------------------------------------------------
 
@@ -14803,8 +14817,8 @@ XilinxProcessorIPLib/drivers/mutex/data/mutex.mdd
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2008 - 2020 Xilinx, Inc. All rights reserved. Copyright (C) 2023
-Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (C) 2008 - 2020 Xilinx, Inc. All rights reserved. Copyright (C) 2023 -
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -14955,6 +14969,7 @@ SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/ospipsv/data/dependencies.props
+XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h
 XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_generic_flash_non_blocking_read_example.c
 --------------------------------------------------------------------------------
 
@@ -16455,13 +16470,31 @@ XilinxProcessorIPLib/drivers/tft/src/xtft_sinit.c
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved. Copyright (C) 2024
-Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved. Copyright (C) 2024 -
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/tmr_inject/data/tmr_inject_header.h
 XilinxProcessorIPLib/drivers/tmr_manager/data/tmr_manager_header.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved. Copyright (c) 2025
+Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/tmr_inject/examples/xtmr_inject_selftest_example.c
+XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_low_level_example.c
+XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_polled_example.c
+XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_selftest_example.c
 --------------------------------------------------------------------------------
 
 
@@ -16480,7 +16513,6 @@ XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_g.c
 XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_i.h
 XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h
 XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_selftest.c
-XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager.c
 XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_g.c
 XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_i.h
 XilinxProcessorIPLib/drivers/tmr_manager/src/xtmr_manager_intr.c
@@ -16498,11 +16530,12 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (C) 2017 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2023 -
-2024 Advanced Micro Devices, Inc. All rights reserved.
+2025 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/tmr_manager/data/tmr_manager_intr_header.h
+XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_intr_tapp_example.c
 --------------------------------------------------------------------------------
 
 
@@ -16512,12 +16545,27 @@ XilinxProcessorIPLib/drivers/tmr_manager/data/tmr_manager_intr_header.h
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2017 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2023
+Copyright (C) 2017 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2025
 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_intr_tapp_example.c
+XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_intr_example.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (C) 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2025 Advanced
+Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_recovery_example.c
 --------------------------------------------------------------------------------
 
 
@@ -16736,11 +16784,25 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (C) 2021 - 2022 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
-2024 Advanced Micro Devices, Inc. All rights reserved.
+2025 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/trngpsv/data/trngpsv.mdd
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (C) 2021 - 2022 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
+2024 Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
 XilinxProcessorIPLib/drivers/trngpsv/examples/xtrngpsv_drng_df_example.c
 XilinxProcessorIPLib/drivers/trngpsv/examples/xtrngpsv_drng_example.c
 XilinxProcessorIPLib/drivers/trngpsv/examples/xtrngpsv_hrng_df_example.c
@@ -16791,7 +16853,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (C) 2021 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2023 -
-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -16805,13 +16867,12 @@ XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_alginfo.h
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2023 Xilinx, Inc. All rights reserved. Copyright (C) 2023 - 2024
+Copyright (c) 2023 Xilinx, Inc. All rights reserved. Copyright (C) 2023 - 2025
 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/trngpsx/data/trngpsx.mdd
-XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c
 --------------------------------------------------------------------------------
 
 
@@ -16843,119 +16904,47 @@ XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (c) 2023 Xilinx, Inc. All rights reserved. Copyright (C) 2023 - 2024
+Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_alginfo.h
-lib/bsp/standalone/src/arm/ARMv8/32bit/CMakeLists.txt
-lib/bsp/standalone/src/arm/ARMv8/32bit/gcc/CMakeLists.txt
-lib/bsp/standalone/src/arm/ARMv8/32bit/platform/CMakeLists.txt
-lib/bsp/standalone/src/arm/ARMv8/64bit/armclang/CMakeLists.txt
-lib/bsp/standalone/src/arm/ARMv8/64bit/platform/VersalGen2/CMakeLists.txt
-lib/bsp/standalone/src/arm/common/armclang/CMakeLists.txt
-lib/bsp/standalone/src/arm/common/gcc/gettimeofday.c
-lib/bsp/standalone/src/arm/common/iccarm/CMakeLists.txt
-lib/bsp/standalone/src/arm/cortexa9/armcc/CMakeLists.txt
-lib/bsp/standalone/src/arm/cortexa9/armcc/boot.S
-lib/bsp/standalone/src/arm/cortexr5/armclang/CMakeLists.txt
-lib/bsp/standalone/src/arm/cortexr5/platform/VersalGen2/CMakeLists.txt
-lib/bsp/standalone/src/arm/cortexr5/platform/VersalGen2/mpu_r52.c
-lib/bsp/standalone/src/arm/platform/VersalGen2/CMakeLists.txt
-lib/bsp/standalone/src/arm/platform/VersalGen2/xparameters_ps.h
-lib/bsp/standalone/src/riscv/fstat.c
-lib/sw_apps/asufw/misc/Makefile
-lib/sw_apps/asufw/misc/bspconfig.h
-lib/sw_apps/asufw/misc/config.make
-lib/sw_apps/asufw/misc/dep.mk
-lib/sw_apps/asufw/misc/inbyte.c
-lib/sw_apps/asufw/misc/outbyte.c
-lib/sw_apps/asufw/misc/xcsudma_g.c
-lib/sw_apps/asufw/misc/xiomodule_g.c
-lib/sw_apps/asufw/misc/xparameters.h
-lib/sw_apps/asufw/misc/xuartpsv_g.c
-lib/sw_apps/asufw/src/ecc/xecc_hw.h
-lib/sw_apps/asufw/src/rsa_ecc/xrsa_eccinfo.c
-lib/sw_apps/asufw/src/task/xlinklist.h
-lib/sw_apps/asufw/src/xasufw_aeshandler.h
-lib/sw_apps/asufw/src/xasufw_sha2handler.h
-lib/sw_apps/asufw/src/xasufw_sha3handler.h
-lib/sw_apps/asufw/src/xasufw_sss.h
-lib/sw_apps/asufw/src/xasufw_trnghandler.h
-lib/sw_apps/asufw/src/xfih/xfih.c
-lib/sw_apps/asufw/src/xfih/xfih_config.h
-lib/sw_apps/imgsel/misc/som/xparameters.h
-lib/sw_services/xilasu/examples/xasu_aes_example.c
-lib/sw_services/xilasu/examples/xasu_ecdh_example.c
-lib/sw_services/xilasu/examples/xasu_sha3_example.c
-lib/sw_services/xilasu/src/client/xasu_aes.h
-lib/sw_services/xilasu/src/client/xasu_ecc.h
-lib/sw_services/xilasu/src/client/xasu_sha2.h
-lib/sw_services/xilasu/src/client/xasu_sha3.h
-lib/sw_services/xilasu/src/client/xasu_trng.h
-lib/sw_services/xilasu/src/common/xasu_ecies_common.h
-lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c
-lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_input.h
-lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_net_client_example.c
-lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h
-lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c
-lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.h
-lib/sw_services/xilpm_ng/src/util/xpm_list.h
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.c
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.h
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_bisr.c
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_bisr.h
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_debug.h
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.c
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_periph.c
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regnode.c
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regnode.h
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair.h
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_regs.h
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_ioctl.h
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_ipi.c
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.c
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.h
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier_plat.h
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_periph.c
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c
-lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h
-lib/sw_services/xilpuf/src/spartanup/xpuf.c
-lib/sw_services/xilsecure/src/client/core/sha/sha_pmxc/xsecure_shaclient.c
-lib/sw_services/xilsecure/src/common/core/xsecure_core.h
-lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c
-lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha_ipihandler.h
-lib/sw_services/xilsecure/src/server/spartanup/xsecure_aesalginfo.h
-lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c
-lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h
-lib/sw_services/xilsecure/src/server/spartanup/xsecure_sha3alginfo.h
-lib/sw_services/xilsecure/src/server/spartanup/xsecure_sha_hw.h
-lib/sw_services/xilsecure/src/server/spartanup/xsecure_utils.h
-lib/sw_services/xilsecure/src/server/versal/xsecure_plat_ipihandler.c
-lib/sw_services/xilsecure/src/server/versal/xsecure_plat_ipihandler.h
-lib/sw_services/xilsecure/src/server/versal/xsecure_plat_kat.c
-lib/sw_services/xilsecure/src/server/versal/xsecure_plat_kat.h
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_lms.c
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_lms.h
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_lms_ots.c
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_lms_ots.h
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_plat.h
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_plat_ipihandler.c
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_plat_ipihandler.h
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_plat_kat_ipihandler.c
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_sha_hw.h
-lib/sw_services/xilsfl/examples/CMakeLists.txt
-lib/sw_services/xilsfl/src/include/CMakeLists.txt
-lib/sw_services/xilsfl/src/include/xilsfl_control.h
-lib/sw_services/xilsfl/src/xilsfl_interface.c
+lib/bsp/standalone/src/arm/ARMv8/64bit/CMakeLists.txt
+lib/bsp/standalone/src/xilstandalone.cmake
+lib/sw_apps/asufw/src/task/xtask.c
+lib/sw_apps/asufw/src/xasufw_init.h
+lib/sw_apps/asufw/src/xasufw_main.c
+lib/sw_services/xilffs/src/xilffs.cmake
+lib/sw_services/xilloader/data/xilloader.yaml
+lib/sw_services/xilocp/src/common/xocp_ver.h
+lib/sw_services/xilsecure/src/common/versal/xsecure_aesalginfo.h
+lib/sw_services/xilsecure/src/common/versal/xsecure_rsaalginfo.h
+lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_rsaalginfo.h
+lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_sha3alginfo.h
+lib/sw_services/xilsecure/src/common/versal_net/xsecure_rsaalginfo.h
+lib/sw_services/xilsecure/src/common/versal_net/xsecure_sha3alginfo.h
+lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c
+lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.c
+lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c
+lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aesalginfo.h
+lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsaalginfo.h
+lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha3alginfo.h
+lib/sw_services/xilskey/src/xilskey_ver.h
 --------------------------------------------------------------------------------
 
 
@@ -16972,7 +16961,6 @@ SPDX-License-Identifier: MIT Description: Driver configuration
 
 FILES:
 XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xtrngpsx_g.c
 lib/sw_apps/versal_plm/misc/versal_net/xtrngpsx_g.c
 --------------------------------------------------------------------------------
 
@@ -17364,7 +17352,7 @@ XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_g.c
 XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c
 XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_init.c
 XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_sinit.c
-lib/bsp/standalone/src/arm/ARMv8/64bit/platform/VersalGen2/translation_table.S
+lib/bsp/standalone/src/arm/ARMv8/64bit/platform/versal_2ve_2vm/translation_table.S
 lib/sw_apps/asufw/src/aes/xaes_hw.h
 lib/sw_apps/asufw/src/ecc/xecc.c
 lib/sw_apps/asufw/src/rsa_ecc/xrsa.c
@@ -17402,6 +17390,7 @@ lib/sw_apps/asufw/src/xasufw_util.c
 lib/sw_apps/asufw/src/xasufw_util.h
 lib/sw_apps/asufw/src/xfih/xfih.h
 lib/sw_apps/asufw/src/xfih/xfih_core.h
+lib/sw_services/xilasu/examples/xasu_aes_example.c
 lib/sw_services/xilasu/examples/xasu_ecc_example.c
 lib/sw_services/xilasu/examples/xasu_rsa_example.c
 lib/sw_services/xilasu/examples/xasu_sha2_example.c
@@ -17422,9 +17411,13 @@ lib/sw_services/xilasu/src/common/xasu_rsainfo.h
 lib/sw_services/xilasu/src/common/xasu_shainfo.h
 lib/sw_services/xilasu/src/common/xasu_sharedmem.h
 lib/sw_services/xilffs/examples/xilffs_polled_ufs_example.c
+lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_example.c
+lib/sw_services/xilnvm/examples/xilnvm_efuse_spartan_ultrascale_plus_input.h
+lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aiedevice.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_common.h
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_debug.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power.c
@@ -17439,10 +17432,12 @@ lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.h
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.c
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.c
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pin.h
+lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.h
+lib/sw_services/xilsecure/src/client/core/sha/sha_pmxc/xsecure_shaclient.c
 lib/sw_services/xilsecure/src/common/core/xsecure_core.c
-lib/sw_services/xilsecure/src/common/versal_aiepg2/xsecure_plat_defs.h
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_lms_hss.h
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_plat.c
+lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_lms_hss.h
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c
 lib/sw_services/xilsfl/examples/xilsfl_ospi_flash_readwrite_example.c
 lib/sw_services/xilsfl/src/include/xilsfl.h
 lib/sw_services/xilsfl/src/include/xilsfl_flashconfig.h
@@ -17465,7 +17460,18 @@ SPDX-License-Identifier: MIT
 FILES:
 XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.h
 lib/sw_apps/asufw/src/xasufw_intr.c
+lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_net_client_example.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pin.c
+lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha_ipihandler.h
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_lms.c
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_lms.h
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_lms_ots.c
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_lms_ots.h
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.h
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat_ipihandler.c
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat_ipihandler.h
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat_kat_ipihandler.c
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_sha_hw.h
 --------------------------------------------------------------------------------
 
 
@@ -18273,6 +18279,39 @@ XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h
 COPYRIGHT TEXT:
 ---------------
 
+Copyright (C) 2018 – 2022 Xilinx, Inc. All rights reserved. Copyright
+2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_edid.c
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.c
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/audiogen_drv.c
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/ti_tmds1204.c
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/ti_tmds1204.h
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/video_fmc.c
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/video_fmc.h
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_hdcp_keys.c
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_edid.c
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_menu.c
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/audiogen_drv.c
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/ti_tmds1204.c
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/ti_tmds1204.h
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/xhdmi_hdcp_keys.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
 Copyright (C) 2015 - 2021 Xilinx, Inc. All rights reserved. Copyright 2022-2023
 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
@@ -18294,6 +18333,55 @@ XilinxProcessorIPLib/drivers/video_common/examples/xvidc_edid_print_example.h
 COPYRIGHT TEXT:
 ---------------
 
+Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved. Copyright 2022-2025
+Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c
+XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved. Copyright 2024-2025
+Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/v_hdmirx/data/v_hdmirx.mdd
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved. Copyright 2024-2025
+Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.c
+XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_intr.c
+XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c
+XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
 Copyright (C) 2018 – 2020 Xilinx, Inc. All rights reserved. Copyright
 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
@@ -18301,6 +18389,8 @@ SPDX-License-Identifier: MIT
 FILES:
 XilinxProcessorIPLib/drivers/v_hdmirx1/data/v_hdmirx1.mdd
 XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1.c
+XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.c
+XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h
 XilinxProcessorIPLib/drivers/v_hdmitx1/data/v_hdmitx1.mdd
 --------------------------------------------------------------------------------
 
@@ -18330,7 +18420,6 @@ XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/hdcp_key_utility/xhdcp22_commo
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/platforms/platform.c
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/platforms/platform.h
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si5324drv.c
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si5324drv.h
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_hdcp_keys_table.h
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_intr.c
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_intr.h
@@ -18352,7 +18441,6 @@ XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/xhdcp22_commo
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/platforms/platform.c
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/platforms/platform.h
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/si5324drv.c
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/si5324drv.h
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/xhdmi_hdcp_keys_table.h
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/xhdmi_intr.c
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/xhdmi_intr.h
@@ -18512,13 +18600,13 @@ XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/ti_lmk03318.h
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2018 – 2022 Xilinx, Inc. All rights reserved. Copyright
+Copyright (C) 2018 – 2020 Xilinx, Inc. All rights reserved. Copyright
 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/ti_tmds1204.c
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/ti_tmds1204.c
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si5324drv.h
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/si5324drv.h
 --------------------------------------------------------------------------------
 
 
@@ -18528,14 +18616,13 @@ XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/ti_tmds1204.c
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2018 - 2022 Xilinx, Inc. All rights reserved. Copyright 2022-2024
+Copyright (C) 2018 - 2022 Xilinx, Inc. All rights reserved. Copyright 2024-2025
 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c
 XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_example.c
-XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c
 --------------------------------------------------------------------------------
 
 
@@ -18545,8 +18632,8 @@ XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2018 – 2021 Xilinx, Inc. All rights reserved. Copyright (C) 2023
-- 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (C) 2018 – 2021 Xilinx, Inc. All rights reserved. Copyright (C) 2024
+- 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -18561,12 +18648,14 @@ XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdm
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2018 – 2020 Xilinx, Inc. All rights reserved. Copyright
-2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (C) 2018 – 2022 Xilinx, Inc. All rights reserved. Copyright
+2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.c
+XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_exdes_sm_rx.h
+XilinxProcessorIPLib/drivers/v_hdmitxss1/data/v_hdmitxss1.mdd
+XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/PassThrough/xhdmi_exdes_sm_rx.h
 --------------------------------------------------------------------------------
 
 
@@ -18581,7 +18670,6 @@ Copyright (C) 2018 – 2020 Xilinx, Inc. All rights reserved. Copyright
 SPDX-License-Identifier: MIT
 
 FILES:
-XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h
 XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_coreinit.c
 XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_hdcp.c
 XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_coreinit.c
@@ -18687,42 +18775,12 @@ XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/TxOnly/xhdmi_exam
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved. Copyright 2024-2025
-Advanced Micro Devices, Inc. All Rights Reserved.
-SPDX-License-Identifier: MIT
-
-FILES:
-XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.c
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
 Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved. Copyright 2024 -
 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
-Copyright (C) 2018 – 2022 Xilinx, Inc. All rights reserved. Copyright
-2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
-SPDX-License-Identifier: MIT
-
-FILES:
-XilinxProcessorIPLib/drivers/v_hdmitxss1/data/v_hdmitxss1.mdd
 --------------------------------------------------------------------------------
 
 
@@ -18927,6 +18985,21 @@ SPDX-License-Identifier: MIT
 FILES:
 XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_g.c
 XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_g.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved. Copyright 2022-2025
+Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/v_sditxss/examples/xuhdsdi_pixco_example/xsdi_example.c
 --------------------------------------------------------------------------------
 
 
@@ -19228,6 +19301,21 @@ SPDX-License-Identifier: MIT
 
 FILES:
 XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (C) 2018 - 2022 Xilinx, Inc. All rights reserved. Copyright 2022-2024
+Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c
 --------------------------------------------------------------------------------
 
 
@@ -19613,13 +19701,25 @@ XilinxProcessorIPLib/drivers/xxvethernet/examples/xxxvethernet_example_util.c
 COPYRIGHT TEXT:
 ---------------
 
+Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+XilinxProcessorIPLib/drivers/dcsub/data/dcsub.yaml
+lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
 Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 
 FILES:
-XilinxProcessorIPLib/drivers/mmidp/examples/mmi_dc_nonlive_test.c
-XilinxProcessorIPLib/drivers/mmidp/examples/mmi_dc_nonlive_test.h
-XilinxProcessorIPLib/drivers/mmidp/examples/mmi_dp_init.c
-XilinxProcessorIPLib/drivers/mmidp/examples/mmi_dp_init.h
+XilinxProcessorIPLib/drivers/mmidp/data/mmidp.yaml
 --------------------------------------------------------------------------------
 
 
@@ -19647,16 +19747,20 @@ Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
+cmake/UserConfig.cmake
 cmake/toolchainfiles/cortexa72_toolchain.cmake
 cmake/toolchainfiles/cortexa78_toolchain.cmake
 cmake/toolchainfiles/cortexa9_toolchain.cmake
 cmake/toolchainfiles/cortexr52_toolchain.cmake
 cmake/toolchainfiles/cortexr5_toolchain.cmake
 cmake/toolchainfiles/microblaze-plm_toolchain.cmake
+cmake/toolchainfiles/microblaze-pmu_toolchain.cmake
+cmake/toolchainfiles/microblaze-psm_toolchain.cmake
 cmake/toolchainfiles/microblaze_riscv_toolchain.cmake
 cmake/toolchainfiles/microblaze_toolchain.cmake
 lib/sw_services/xilmailbox/src/CMakeLists.txt
 lib/sw_services/xilpdi/src/CMakeLists.txt
+lib/sw_services/xilsem/src/server/CMakeLists.txt
 lib/sw_services/xilskey/src/CMakeLists.txt
 lib/sw_services/xiltimer/src/CMakeLists.txt
 --------------------------------------------------------------------------------
@@ -19692,7 +19796,13 @@ lib/bsp/standalone/data/standalone.mld
 lib/sw_apps/zynqmp_pmufw/src/idle_hooks.c
 lib/sw_apps/zynqmp_pmufw/src/pm_common.h
 lib/sw_apps/zynqmp_pmufw/src/pm_core.c
+lib/sw_apps/zynqmp_pmufw/src/pm_gic_proxy.c
+lib/sw_apps/zynqmp_pmufw/src/pm_gpp.c
 lib/sw_apps/zynqmp_pmufw/src/pm_node_idle.h
+lib/sw_apps/zynqmp_pmufw/src/pm_periph.c
+lib/sw_apps/zynqmp_pmufw/src/pm_pll.c
+lib/sw_apps/zynqmp_pmufw/src/pm_slave.c
+lib/sw_apps/zynqmp_pmufw/src/pm_usb.c
 --------------------------------------------------------------------------------
 
 
@@ -19754,6 +19864,7 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/bsp/standalone/src/CMakeLists.txt
 lib/sw_services/xilffs/src/include/CMakeLists.txt
+lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_aesalginfo.h
 --------------------------------------------------------------------------------
 
 
@@ -19763,17 +19874,97 @@ lib/sw_services/xilffs/src/include/CMakeLists.txt
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/bsp/standalone/src/arm/ARMv8/64bit/CMakeLists.txt
-lib/bsp/standalone/src/xilstandalone.cmake
-lib/sw_apps/asufw/src/task/xtask.c
-lib/sw_apps/asufw/src/xasufw_init.h
-lib/sw_apps/asufw/src/xasufw_main.c
-lib/sw_services/xilffs/src/xilffs.cmake
-lib/sw_services/xilloader/data/xilloader.yaml
+lib/bsp/standalone/src/arm/ARMv8/32bit/CMakeLists.txt
+lib/bsp/standalone/src/arm/ARMv8/32bit/gcc/CMakeLists.txt
+lib/bsp/standalone/src/arm/ARMv8/32bit/platform/CMakeLists.txt
+lib/bsp/standalone/src/arm/ARMv8/64bit/armclang/CMakeLists.txt
+lib/bsp/standalone/src/arm/ARMv8/64bit/platform/versal_2ve_2vm/CMakeLists.txt
+lib/bsp/standalone/src/arm/common/armclang/CMakeLists.txt
+lib/bsp/standalone/src/arm/common/gcc/gettimeofday.c
+lib/bsp/standalone/src/arm/common/iccarm/CMakeLists.txt
+lib/bsp/standalone/src/arm/cortexa9/armcc/CMakeLists.txt
+lib/bsp/standalone/src/arm/cortexa9/armcc/boot.S
+lib/bsp/standalone/src/arm/cortexr5/armclang/CMakeLists.txt
+lib/bsp/standalone/src/arm/cortexr5/platform/versal_2ve_2vm/CMakeLists.txt
+lib/bsp/standalone/src/arm/cortexr5/platform/versal_2ve_2vm/mpu_r52.c
+lib/bsp/standalone/src/arm/platform/versal_2ve_2vm/CMakeLists.txt
+lib/bsp/standalone/src/arm/platform/versal_2ve_2vm/xparameters_ps.h
+lib/bsp/standalone/src/riscv/fstat.c
+lib/sw_apps/asufw/misc/Makefile
+lib/sw_apps/asufw/misc/bspconfig.h
+lib/sw_apps/asufw/misc/config.make
+lib/sw_apps/asufw/misc/dep.mk
+lib/sw_apps/asufw/misc/inbyte.c
+lib/sw_apps/asufw/misc/outbyte.c
+lib/sw_apps/asufw/misc/xcsudma_g.c
+lib/sw_apps/asufw/misc/xiomodule_g.c
+lib/sw_apps/asufw/misc/xparameters.h
+lib/sw_apps/asufw/misc/xuartpsv_g.c
+lib/sw_apps/asufw/src/ecc/xecc_hw.h
+lib/sw_apps/asufw/src/rsa_ecc/xrsa_eccinfo.c
+lib/sw_apps/asufw/src/task/xlinklist.h
+lib/sw_apps/asufw/src/xasufw_aeshandler.h
+lib/sw_apps/asufw/src/xasufw_sha2handler.h
+lib/sw_apps/asufw/src/xasufw_sha3handler.h
+lib/sw_apps/asufw/src/xasufw_sss.h
+lib/sw_apps/asufw/src/xasufw_trnghandler.h
+lib/sw_apps/asufw/src/xfih/xfih.c
+lib/sw_apps/asufw/src/xfih/xfih_config.h
+lib/sw_apps/imgsel/misc/som/xparameters.h
+lib/sw_services/xilasu/src/client/xasu_aes.h
+lib/sw_services/xilasu/src/client/xasu_ecc.h
+lib/sw_services/xilasu/src/client/xasu_sha2.h
+lib/sw_services/xilasu/src/client/xasu_sha3.h
+lib/sw_services/xilasu/src/client/xasu_trng.h
+lib/sw_services/xilasu/src/common/xasu_ecies_common.h
+lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c
+lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.h
+lib/sw_services/xilpm_ng/src/util/xpm_list.h
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_aie.h
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_api.h
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_apucore.h
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_bisr.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_bisr.h
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_node.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_periph.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.h
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regnode.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regnode.h
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair.h
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_regs.h
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.c
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_access.h
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_gic_proxy.c
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_ioctl.h
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_ipi.c
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.c
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier.h
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_notifier_plat.h
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_aie.h
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_periph.c
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_pll.h
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.c
+lib/sw_services/xilpuf/src/spartanup/xpuf.c
+lib/sw_services/xilsecure/src/common/core/xsecure_core.h
+lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c
+lib/sw_services/xilsecure/src/server/spartanup/xsecure_aesalginfo.h
+lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h
+lib/sw_services/xilsecure/src/server/spartanup/xsecure_sha3alginfo.h
+lib/sw_services/xilsecure/src/server/spartanup/xsecure_sha_hw.h
+lib/sw_services/xilsecure/src/server/spartanup/xsecure_utils.h
+lib/sw_services/xilsecure/src/server/versal/xsecure_plat_ipihandler.c
+lib/sw_services/xilsecure/src/server/versal/xsecure_plat_ipihandler.h
+lib/sw_services/xilsecure/src/server/versal/xsecure_plat_kat.c
+lib/sw_services/xilsecure/src/server/versal/xsecure_plat_kat.h
+lib/sw_services/xilsfl/examples/CMakeLists.txt
+lib/sw_services/xilsfl/src/include/CMakeLists.txt
+lib/sw_services/xilsfl/src/include/xilsfl_control.h
+lib/sw_services/xilsfl/src/xilsfl_interface.c
 --------------------------------------------------------------------------------
 
 
@@ -19800,8 +19991,6 @@ lib/sw_apps/zynqmp_fsbl/src/xfsbl_csu_dma.c
 lib/sw_apps/zynqmp_fsbl/src/xfsbl_csu_dma.h
 lib/sw_apps/zynqmp_fsbl/src/xfsbl_rsa_sha.c
 lib/sw_apps/zynqmp_fsbl/src/xfsbl_sd.c
-lib/sw_apps/zynqmp_pmufw/src/xpfw_core.c
-lib/sw_apps/zynqmp_pmufw/src/xpfw_interrupts.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_ipi_manager.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_ipi_manager.h
 lib/sw_apps/zynqmp_pmufw/src/xpfw_user_startup.c
@@ -20083,7 +20272,6 @@ lib/sw_apps/zynqmp_fsbl/misc/zcu102/a53/xparameters_ps.h
 lib/sw_apps/zynqmp_fsbl/misc/zcu102/r5/xparameters_ps.h
 lib/sw_apps/zynqmp_pmufw/src/pm_mmio_access.c
 lib/sw_apps/zynqmp_pmufw/src/pm_requirement.h
-lib/sw_apps/zynqmp_pmufw/src/pm_slave.c
 lib/sw_apps/zynqmp_pmufw/src/pm_slave.h
 lib/sw_apps/zynqmp_pmufw/src/pm_system.c
 lib/sw_apps/zynqmp_pmufw/src/pm_system.h
@@ -20133,7 +20321,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/bsp/standalone/src/arm/ARMv8/64bit/armclang/asm_vectors.S
-lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_common.c
 lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_ultra96.c
 lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.h
 lib/sw_services/xilpm/src/versal/server/xpm_npdomain.h
@@ -20171,8 +20358,6 @@ FILES:
 lib/bsp/standalone/src/arm/ARMv8/64bit/gcc/asm_vectors.S
 lib/bsp/standalone/src/arm/cortexr5/platform/ZynqMP/xparameters_ps.h
 lib/sw_apps/zynqmp_pmufw/src/pm_core.h
-lib/sw_apps/zynqmp_pmufw/src/pm_master.c
-lib/sw_apps/zynqmp_pmufw/src/pm_power.c
 --------------------------------------------------------------------------------
 
 
@@ -20220,7 +20405,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/bsp/standalone/src/arm/ARMv8/64bit/platform/ZynqMP/gcc/translation_table.S
-lib/sw_apps/zynqmp_pmufw/src/pm_extern.c
 --------------------------------------------------------------------------------
 
 
@@ -20265,12 +20449,14 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/bsp/standalone/src/arm/ARMv8/64bit/xpvxenconsole/CMakeLists.txt
-lib/bsp/standalone/src/common/versal_aiepg2/CMakeLists.txt
-lib/bsp/standalone/src/common/versal_aiepg2/xil_hw.h
+lib/bsp/standalone/src/common/versal_2ve_2vm/CMakeLists.txt
+lib/bsp/standalone/src/common/versal_2ve_2vm/xil_hw.h
 lib/sw_apps/asufw/src/ecies/xecies.c
 lib/sw_apps/asufw/src/ecies/xecies.h
 lib/sw_apps/asufw/src/hmac/xhmac.c
 lib/sw_apps/asufw/src/hmac/xhmac.h
+lib/sw_apps/asufw/src/kdf/xhkdf.c
+lib/sw_apps/asufw/src/kdf/xhkdf.h
 lib/sw_apps/asufw/src/kdf/xkdf.c
 lib/sw_apps/asufw/src/kdf/xkdf.h
 lib/sw_apps/asufw/src/keywrap/xkeywrap.c
@@ -20311,9 +20497,12 @@ lib/sw_services/xilpm_ng/src/xilpm_client/pm_callbacks.c
 lib/sw_services/xilpm_ng/src/xilpm_client/pm_callbacks.h
 lib/sw_services/xilpm_ng/src/xilpm_client/pm_client.c
 lib/sw_services/xilpm_ng/src/xilpm_client/pm_client.h
+lib/sw_services/xilpm_ng/src/xilpm_common/xpm_ver.h
+lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xilpm_subsys/xpm_runtime_mem_subsys.c
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pin_groups.c
 lib/sw_services/xilpuf/examples/xilpuf_ssit_client_example.c
 lib/sw_services/xilsecure/src/server/core/softsha1/xsecure_sha1.c
+lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.c
 lib/sw_services/xiltpm/src/xtpm_error.h
 --------------------------------------------------------------------------------
 
@@ -20582,6 +20771,7 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/bsp/standalone/src/arm/common/xil_spinlock.c
+lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c
 lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_mailbox.h
 lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_common_cdohandler.c
 lib/sw_services/xilsecure/examples/xilsecure_versal_ecdsa_server_example.c
@@ -20703,7 +20893,6 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/bsp/standalone/src/arm/common/gcc/kill.c
 lib/sw_apps/zynqmp_fsbl/misc/som/a53/xparameters_ps.h
-lib/sw_apps/zynqmp_pmufw/src/pm_periph.c
 lib/sw_apps/zynqmp_pmufw/src/pm_periph.h
 --------------------------------------------------------------------------------
 
@@ -21264,7 +21453,11 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/bsp/standalone/src/arm/cortexr5/platform/versal/mpu_r5.c
 lib/sw_apps/versal_plm/data/versal_plm.mss
+lib/sw_apps/versal_plm/src/common/xplm_pm.c
+lib/sw_apps/versal_plm/src/common/xplm_pm.h
+lib/sw_apps/versal_plm/src/common/xplm_startup.c
 lib/sw_apps/versal_psmfw/src/common/xpsmfw_util.c
+lib/sw_apps/versal_psmfw/src/versal/xpsmfw_power.c
 lib/sw_apps/versal_psmfw/src/versal_net/xpsmfw_power.h
 lib/sw_apps/zynqmp_pmufw/src/pm_reset.c
 lib/sw_services/xilloader/data/xilloader.mld
@@ -21275,14 +21468,27 @@ lib/sw_services/xilplmi/src/common/server/xplmi_generic.h
 lib/sw_services/xilplmi/src/common/server/xplmi_ipi.c
 lib/sw_services/xilplmi/src/versal/server/xplmi_config.h
 lib/sw_services/xilplmi/src/versal/server/xplmi_hw.h
-lib/sw_services/xilplmi/src/versal_aiepg2/xplmi_hw.h
+lib/sw_services/xilplmi/src/versal_2ve_2vm/xplmi_config.h
+lib/sw_services/xilplmi/src/versal_2ve_2vm/xplmi_hw.h
 lib/sw_services/xilplmi/src/versal_net/server/xplmi_hw.h
 lib/sw_services/xilpm/src/versal/client/pm_client.c
+lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h
+lib/sw_services/xilpm/src/versal/server/xpm_core_plat.h
 lib/sw_services/xilpm/src/versal/server/xpm_device_plat.h
+lib/sw_services/xilpm/src/versal/server/xpm_domain_iso.c
+lib/sw_services/xilpm/src/versal/server/xpm_pmcdomain.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_api.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_api.h
+lib/sw_services/xilpm/src/versal_common/server/xpm_apucore.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_core.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_device.c
+lib/sw_services/xilpm/src/versal_common/server/xpm_gic_proxy.c
+lib/sw_services/xilpm/src/versal_common/server/xpm_node.c
+lib/sw_services/xilpm/src/versal_common/server/xpm_periph.c
+lib/sw_services/xilpm/src/versal_common/server/xpm_rpucore.c
+lib/sw_services/xilpm/src/versal_net/server/xpm_common_plat.h
+lib/sw_services/xilpm/src/versal_net/server/xpm_core_plat.h
+lib/sw_services/xilpm/src/versal_net/server/xpm_psm_api_plat.c
 --------------------------------------------------------------------------------
 
 
@@ -21719,7 +21925,6 @@ lib/sw_apps/img_rcvry/misc/dep.mk
 lib/sw_apps/img_rcvry/misc/tools/config.make
 lib/sw_apps/img_rcvry/src/xbir_err.h
 lib/sw_apps/versal_plm/misc/versal/config.make
-lib/sw_apps/versal_plm/misc/versal_aiepg2/config.make
 lib/sw_apps/versal_plm/misc/versal_net/config.make
 --------------------------------------------------------------------------------
 
@@ -21774,7 +21979,7 @@ Copyright (c) 2025, Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/bsp/standalone/src/common/versal_aiepg2/xil_error_node.h
+lib/bsp/standalone/src/common/versal_2ve_2vm/xil_error_node.h
 lib/sw_services/xiltpm/data/xiltpm.mld
 lib/sw_services/xiltpm/data/xiltpm.tcl
 lib/sw_services/xiltpm/src/Makefile
@@ -22132,9 +22337,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/bsp/standalone/src/riscv/CMakeLists.txt
-lib/sw_services/xilsecure/src/common/versal/xsecure_ellipticalginfo.h
-lib/sw_services/xilsecure/src/common/versal_aiepg2/xsecure_ellipticalginfo.h
-lib/sw_services/xilsecure/src/common/versal_net/xsecure_ellipticalginfo.h
 lib/sw_services/xiltimer/src/core/default_timer/microblaze_riscv_sleep.c
 --------------------------------------------------------------------------------
 
@@ -22168,7 +22370,6 @@ lib/bsp/standalone/src/riscv/_open.c
 lib/bsp/standalone/src/riscv/close.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_npdomain.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_periph.h
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldomain.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmc.h
@@ -22195,8 +22396,6 @@ lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_power.c
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_power.h
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_rpucore.h
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_subsystem.h
-lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h
-lib/sw_services/xilsecure/src/server/spartanup/xsecure_error.h
 --------------------------------------------------------------------------------
 
 
@@ -22330,8 +22529,10 @@ lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_device_fsm.c
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_ioctl.c
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.c
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_power_handlers.h
+lib/sw_services/xilpuf/examples/xilpuf_spartan_ultrascale_plus_example.c
+lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c
 lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha_ipihandler.c
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_plat_kat.c
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat_kat.c
 lib/sw_services/xilsfl/data/xilsfl.mld
 --------------------------------------------------------------------------------
 
@@ -22388,8 +22589,8 @@ lib/sw_apps/versal_plm/src/versal/xplm_ssitcomm.c
 lib/sw_services/xilasu/src/common/xasu_aesinfo.h
 lib/sw_services/xilasu/src/common/xasu_eccinfo.h
 lib/sw_services/xilasu/src/common/xasu_trnginfo.h
-lib/sw_services/xilpdi/src/versal_aiepg2/xilpdi_plat.h
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_cmd.c
+lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_cmd.c
 --------------------------------------------------------------------------------
 
 
@@ -22404,6 +22605,8 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/asufw/src/xasufw_intr.h
+lib/sw_services/xilasu/examples/xasu_ecdh_example.c
+lib/sw_services/xilasu/examples/xasu_sha3_example.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_common.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_rpucore.h
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_pinfunc.c
@@ -22890,11 +23093,6 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/sw_apps/img_rcvry/data/img_rcvry.mss
 lib/sw_apps/img_rcvry/data/img_rcvry.tcl
-lib/sw_services/xilpm/src/versal/server/xpm_rail_plat.h
-lib/sw_services/xilpm/src/versal_common/server/xpm_rail.c
-lib/sw_services/xilpm/src/versal_common/server/xpm_rail.h
-lib/sw_services/xilpm/src/versal_common/server/xpm_regulator.c
-lib/sw_services/xilpm/src/versal_common/server/xpm_regulator.h
 --------------------------------------------------------------------------------
 
 
@@ -23039,6 +23237,7 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/img_rcvry/src/Makefile
+lib/sw_services/xilpm/src/versal_common/server/xpm_access.c
 lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c
 lib/sw_services/xilsecure/src/client/core/mailbox/xsecure_mailbox.h
 lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_ipihandler.c
@@ -23073,7 +23272,6 @@ lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c
 lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.h
 lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.c
 lib/sw_services/xilpm/src/versal/server/xpm_ioctl_plat.h
-lib/sw_services/xilpm/src/versal_common/server/xpm_debug.h
 lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_ioctl.h
 lib/sw_services/xilpm/src/versal_net/server/xpm_ioctl_plat.h
@@ -23162,7 +23360,6 @@ lib/sw_apps/zynqmp_fsbl/misc/zcu102-es2/r5/xparameters.h
 lib/sw_apps/zynqmp_fsbl/misc/zcu102/a53/xparameters.h
 lib/sw_apps/zynqmp_fsbl/misc/zcu102/r5/xparameters.h
 lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_client_example.c
-lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c
 lib/sw_services/xilsecure/src/server/core/generic/xsecure_cmd.h
 lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.c
 lib/sw_services/xilsem/src/client/xsem_client_api.c
@@ -23296,9 +23493,7 @@ lib/sw_apps/imgsel/misc/versal/dep.mk
 lib/sw_apps/versal_plm/src/versal_net/Makefile
 lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_efuse_common.h
 lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_validate.h
-lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_bbram_cdohandler.c
 lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_bbram_cdohandler.h
-lib/sw_services/xilocp/src/server/xocp_hw.h
 lib/sw_services/xilpuf/src/versal_gen/server/xpuf_cmd.h
 lib/sw_services/xilpuf/src/versal_gen/server/xpuf_init.c
 lib/sw_services/xilpuf/src/versal_gen/server/xpuf_init.h
@@ -23409,6 +23604,7 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/imgsel/misc/versal/xparameters.h
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xwdttb_g.c
 --------------------------------------------------------------------------------
 
 
@@ -23456,21 +23652,23 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/imgsel/src/versal/Makefile
-lib/sw_apps/versal_plm/src/versal_aiepg2/xplm_hooks.c
-lib/sw_apps/versal_plm/src/versal_aiepg2/xplm_plat.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xparameters.h
+lib/sw_apps/versal_plm/src/versal_2ve_2vm/xplm_hooks.c
+lib/sw_apps/versal_plm/src/versal_2ve_2vm/xplm_plat.c
 lib/sw_services/xilloader/src/versal/server/xloader_plat.c
 lib/sw_services/xilloader/src/versal/server/xloader_plat.h
-lib/sw_services/xilloader/src/versal_aiepg2/xloader_plat.c
-lib/sw_services/xilloader/src/versal_aiepg2/xloader_plat.h
-lib/sw_services/xilloader/src/versal_aiepg2/xloader_plat_secure.c
+lib/sw_services/xilloader/src/versal_2ve_2vm/xloader_plat.c
+lib/sw_services/xilloader/src/versal_2ve_2vm/xloader_plat.h
+lib/sw_services/xilloader/src/versal_2ve_2vm/xloader_plat_secure.c
 lib/sw_services/xilloader/src/versal_net/server/xloader_plat.c
 lib/sw_services/xilloader/src/versal_net/server/xloader_plat.h
+lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h
 lib/sw_services/xilnvm/src/versal_gen/common/xnvm_efuse_error.h
 lib/sw_services/xilplmi/src/versal/server/xplmi_err.c
 lib/sw_services/xilplmi/src/versal/server/xplmi_plat.c
 lib/sw_services/xilplmi/src/versal/server/xplmi_plat.h
-lib/sw_services/xilplmi/src/versal_aiepg2/xplmi_plat.c
-lib/sw_services/xilplmi/src/versal_aiepg2/xplmi_plat.h
+lib/sw_services/xilplmi/src/versal_2ve_2vm/xplmi_plat.c
+lib/sw_services/xilplmi/src/versal_2ve_2vm/xplmi_plat.h
 lib/sw_services/xilplmi/src/versal_net/server/xplmi_plat.c
 lib/sw_services/xilplmi/src/versal_net/server/xplmi_plat.h
 lib/sw_services/xilplmi/src/versal_net/server/xplmi_plat_cmd.c
@@ -23479,6 +23677,7 @@ lib/sw_services/xilpm/src/versal_common/server/xpm_node.h
 lib/sw_services/xilpm/src/versal_net/client/pm_client.c
 lib/sw_services/xilpuf/src/versal_gen/client/xpuf_mailbox.h
 lib/sw_services/xilsecure/src/common/core/xsecure_defs.h
+lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h
 lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c
 --------------------------------------------------------------------------------
 
@@ -23613,6 +23812,7 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/sw_apps/imgsel/src/zynqmp/Makefile
 lib/sw_services/xilloader/src/common/server/xloader_auth_enc.c
+lib/sw_services/xilpm/src/versal_common/server/xpm_debug.h
 lib/sw_services/xilpuf/examples/xilpuf_example.h
 --------------------------------------------------------------------------------
 
@@ -23629,7 +23829,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/imgsel/src/zynqmp/psu_init.c
-lib/sw_apps/versal_psmfw/src/versal/xpsmfw_gic.c
 lib/sw_apps/versal_psmfw/src/versal/xpsmfw_gic.h
 lib/sw_services/xilsecure/src/server/versal/Ecdsa.h
 --------------------------------------------------------------------------------
@@ -24750,18 +24949,337 @@ lib/sw_apps/versal_plm/misc/versal/xsysmonpsv_supplylist.h
 COPYRIGHT TEXT:
 ---------------
 
+Copyright (c) 2022 Xilinx, Inc. All rights reserved. Copyright (C) 2022 - 2025
+Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/Makefile
+lib/sw_apps/versal_plm/src/versal_2ve_2vm/Makefile
+lib/sw_services/xilnvm/src/versal_gen/common/xnvm_efuse_common_hw.h
+lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_validate.c
+lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_bbram_cdohandler.c
+lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_efuse_cdohandler.h
+lib/sw_services/xilocp/src/server/xocp_hw.h
+lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c
+lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2021.1 DO NOT
+EDIT. Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved. Copyright (c)
+2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT Description: Configurations for Standalone BSP
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/bspconfig.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2021 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2023 -
+2025, Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/config.make
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2021 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT This script will copy the required bsp directories present working dir
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/copy_bsp.sh
+lib/sw_apps/versal_plm/misc/versal_net/copy_bsp.sh
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2022 - 2023, Xilinx, Inc. All rights reserved. Copyright (c) 2023
+- 2025, Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/dep.mk
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/inbyte.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (C) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/microblaze_exceptions_g.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2021.1 DO NOT
+EDIT. Copyright (C) 2010 - 2022, Xilinx, Inc. All Rights Reserved. Copyright (c)
+2022 - 2025, Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT Description: Interrupt Handler Table for MicroBlaze Processor
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/microblaze_interrupts_g.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 - 2025,
+Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/outbyte.c
+lib/sw_services/xilocp/data/xilocp.mld
+lib/sw_services/xilocp/src/client/xocp_mailbox.h
+lib/sw_services/xilocp/src/server/xocp.c
+lib/sw_services/xilocp/src/server/xocp_ipihandler.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2021.1 DO NOT
+EDIT. Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved. Copyright (c)
+2022 - 2025, Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT Description: Driver configuration
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xcframe_g.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2021.1 DO NOT
+EDIT. Copyright (C) 2010 - 2022, Xilinx, Inc. All Rights Reserved. Copyright (c)
+2022 - 2025, Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT Description: Driver configuration
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xcfupmc_g.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xcsudma_g.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xemacps_g.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xgpiops_g.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xiicps_g.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2021.1 DO NOT
+EDIT. Copyright (c) 2010 - 2022, Xilinx, Inc. All Rights Reserved. Copyright (c)
+2022 - 2025, Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT Description: Driver configuration
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xiomodule_g.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xipipsu_g.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xpmonpsv_g.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xqspipsu_g.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2020.2 DO NOT
+EDIT. Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved. Copyright (c)
+2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT Description: Driver configuration
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xospipsv_g.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2020.1 DO NOT
+EDIT. Copyright (c) 2010 - 2022 Xilinx, Inc. All Rights Reserved. Copyright (c)
+2022 - 2025, Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT Description: Driver configuration
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xrtcpsu_g.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2021.1 DO NOT
+EDIT. Copyright (C) 2010 - 2022 Xilinx, Inc. All Rights Reserved. Copyright (C)
+2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT Description: Driver configuration
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xsdps_g.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2020.1 DO NOT
+EDIT. Copyright (C) 2010 - 2022 Xilinx, Inc. All Rights Reserved. Copyright (C)
+2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT Description: Driver configuration
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xsysmonpsv_g.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2021.1 DO NOT
+EDIT. Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved. Copyright (C)
+2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT Description: Enabled Supply List
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xsysmonpsv_supplylist.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2021.1 DO NOT
+EDIT. Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved. Copyright (C)
+2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT Description: Driver configuration
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xtmr_inject_g.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xtmr_manager_g.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xttcps_g.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xuartlite_g.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xusbpsu_g.c
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xzdma_g.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2023.1.0 DO NOT
+EDIT. Copyright (C) 2010-2023 Xilinx, Inc. All Rights Reserved. Copyright (C)
+2023-2025 Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT Description: Driver configuration
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xtrngpsx_g.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+CAUTION: This file is automatically generated by HSI. Version: 2020.1 DO NOT
+EDIT. Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved. Copyright (C)
+2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT Description: Driver configuration
+
+FILES:
+lib/sw_apps/versal_plm/misc/versal_2ve_2vm/xuartpsv_g.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
 Copyright (c) 2022 Xilinx, Inc. All rights reserved. Copyright (C) 2022 - 2024
 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_apps/versal_plm/misc/versal_aiepg2/Makefile
 lib/sw_apps/versal_plm/misc/versal_net/Makefile
-lib/sw_apps/versal_plm/src/versal_aiepg2/Makefile
-lib/sw_services/xilnvm/src/versal_gen/common/xnvm_efuse_common_hw.h
 lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h
 lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_cmd.h
-lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_efuse_cdohandler.h
 lib/sw_services/xilsecure/src/client/core/crypto_kat/xsecure_katclient.c
 lib/sw_services/xilsecure/src/server/core/trng/xsecure_trng.h
 lib/sw_services/xilsecure/src/server/core/trng/xsecure_trng_ipihandler.c
@@ -24782,24 +25300,7 @@ EDIT. Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved. Copyright (c)
 SPDX-License-Identifier: MIT Description: Configurations for Standalone BSP
 
 FILES:
-lib/sw_apps/versal_plm/misc/versal_aiepg2/bspconfig.h
 lib/sw_apps/versal_plm/misc/versal_net/bspconfig.h
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
-Copyright (c) 2021 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2025 Advanced Micro Devices, Inc. All Rights Reserved.
-SPDX-License-Identifier: MIT This script will copy the required bsp directories present working dir
-
-FILES:
-lib/sw_apps/versal_plm/misc/versal_aiepg2/copy_bsp.sh
-lib/sw_apps/versal_plm/misc/versal_net/copy_bsp.sh
 --------------------------------------------------------------------------------
 
 
@@ -24813,10 +25314,6 @@ Copyright (c) 2022 Xilinx, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_apps/versal_plm/misc/versal_aiepg2/dep.mk
-lib/sw_apps/versal_plm/misc/versal_aiepg2/inbyte.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/outbyte.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xwdttb_g.c
 lib/sw_apps/versal_plm/misc/versal_net/dep.mk
 lib/sw_apps/versal_plm/misc/versal_net/inbyte.c
 lib/sw_apps/versal_plm/misc/versal_net/outbyte.c
@@ -24839,23 +25336,6 @@ EDIT. Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_apps/versal_plm/misc/versal_aiepg2/microblaze_interrupts_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xcframe_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xcfupmc_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xcsudma_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xemacps_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xgpiops_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xiicps_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xiomodule_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xipipsu_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xpmonpsv_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xqspipsu_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xtmr_inject_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xtmr_manager_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xttcps_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xuartlite_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xusbpsu_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xzdma_g.c
 lib/sw_apps/versal_plm/misc/versal_net/microblaze_interrupts_g.c
 lib/sw_apps/versal_plm/misc/versal_net/xcframe_g.c
 lib/sw_apps/versal_plm/misc/versal_net/xcfupmc_g.c
@@ -24887,7 +25367,6 @@ EDIT. Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xospipsv_g.c
 lib/sw_apps/versal_plm/misc/versal_net/xospipsv_g.c
 --------------------------------------------------------------------------------
 
@@ -24903,7 +25382,6 @@ Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xparameters.h
 lib/sw_apps/versal_plm/misc/versal_net/xparameters.h
 lib/sw_apps/versal_plm/src/versal/xplm_plat.c
 lib/sw_apps/versal_plm/src/versal_net/xplm_hooks.c
@@ -24916,7 +25394,6 @@ lib/sw_apps/versal_psmfw/src/versal_net/xpsmfw_plat.c
 lib/sw_apps/versal_psmfw/src/versal_net/xpsmfw_plat.h
 lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.c
 lib/sw_services/xilloader/src/versal_net/server/xloader_plat_secure.c
-lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h
 lib/sw_services/xilplmi/src/common/server/xplmi_tamper.c
 lib/sw_services/xilplmi/src/versal/server/xplmi_err.h
 lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h
@@ -24935,7 +25412,6 @@ lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngclient.h
 lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_katclient.c
 lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_katclient.h
 lib/sw_services/xilsecure/src/common/versal/xsecure_plat_defs.h
-lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h
 lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.h
 lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat_ipihandler.h
 lib/sw_services/xilsecure/src/server/core/hmac/xsecure_hmac.c
@@ -24960,9 +25436,6 @@ EDIT. Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xrtcpsu_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xsysmonpsv_g.c
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xuartpsv_g.c
 lib/sw_apps/versal_plm/misc/versal_net/xrtcpsu_g.c
 lib/sw_apps/versal_plm/misc/versal_net/xsysmonpsv_g.c
 lib/sw_apps/versal_plm/misc/versal_net/xuartpsv_g.c
@@ -24981,7 +25454,6 @@ EDIT. Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved. Copyright (C)
 SPDX-License-Identifier: MIT Description: Driver configuration
 
 FILES:
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xsdps_g.c
 lib/sw_apps/versal_plm/misc/versal_net/xsdps_g.c
 --------------------------------------------------------------------------------
 
@@ -24998,7 +25470,6 @@ EDIT. Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved. Copyright (c)
 SPDX-License-Identifier: MIT Description: Enabled Supply List
 
 FILES:
-lib/sw_apps/versal_plm/misc/versal_aiepg2/xsysmonpsv_supplylist.h
 lib/sw_apps/versal_plm/misc/versal_net/xsysmonpsv_supplylist.h
 --------------------------------------------------------------------------------
 
@@ -25017,6 +25488,7 @@ FILES:
 lib/sw_apps/versal_plm/src/common/xplm_loader.c
 lib/sw_services/xilplmi/src/common/server/xplmi_cmd.h
 lib/sw_services/xilplmi/src/common/server/xplmi_dma.c
+lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h
 lib/sw_services/xilpm/src/versal_net/server/xpm_api_plat.c
 lib/sw_services/xilsem/data/xilsem.mld
 --------------------------------------------------------------------------------
@@ -25035,11 +25507,9 @@ FILES:
 lib/sw_apps/versal_plm/src/common/xplm_loader.h
 lib/sw_apps/zynqmp_pmufw/src/pm_pinctrl.c
 lib/sw_services/xilpm/src/versal/server/xpm_clock_plat.c
-lib/sw_services/xilpm/src/versal/server/xpm_pmcdomain.c
 lib/sw_services/xilpm/src/versal/server/xpm_power_plat.c
 lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.c
 lib/sw_services/xilpm/src/versal/server/xpm_reset_plat.h
-lib/sw_services/xilpm/src/versal_common/server/xpm_apucore.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_gic_proxy.h
 lib/sw_services/xilpm/src/versal_net/common/Makefile
 --------------------------------------------------------------------------------
@@ -25057,10 +25527,8 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/versal_plm/src/common/xplm_main.c
-lib/sw_apps/versal_plm/src/common/xplm_pm.c
 lib/sw_apps/versal_plm/src/common/xplm_proc.c
 lib/sw_apps/versal_plm/src/common/xplm_proc.h
-lib/sw_apps/versal_plm/src/common/xplm_startup.c
 lib/sw_apps/versal_psmfw/src/common/ipi.h
 lib/sw_apps/versal_psmfw/src/common/pmc_global.h
 lib/sw_apps/versal_psmfw/src/common/xpsmfw_debug.h
@@ -25070,7 +25538,6 @@ lib/sw_apps/versal_psmfw/src/versal/fpd_apu.h
 lib/sw_apps/versal_psmfw/src/versal/psm_global.h
 lib/sw_apps/versal_psmfw/src/versal/psm_local.h
 lib/sw_apps/versal_psmfw/src/versal/rpu.h
-lib/sw_apps/versal_psmfw/src/versal/xpsmfw_power.c
 lib/sw_apps/versal_psmfw/src/versal_net/crf.h
 lib/sw_apps/versal_psmfw/src/versal_net/crl.h
 lib/sw_apps/versal_psmfw/src/versal_net/rpu.h
@@ -25079,18 +25546,11 @@ lib/sw_services/xilloader/data/xilloader.tcl
 lib/sw_services/xilloader/src/common/server/xloader_cfi.c
 lib/sw_services/xilplmi/src/Makefile
 lib/sw_services/xilplmi/src/common/server/xplmi_cdo.c
-lib/sw_services/xilplmi/src/versal_aiepg2/xplmi_config.h
 lib/sw_services/xilplmi/src/versal_net/server/xplmi_config.h
 lib/sw_services/xilpm/src/versal/server/xpm_api_plat.h
-lib/sw_services/xilpm/src/versal/server/xpm_common_plat.h
 lib/sw_services/xilpm/src/versal/server/xpm_core_plat.c
-lib/sw_services/xilpm/src/versal/server/xpm_core_plat.h
-lib/sw_services/xilpm/src/versal/server/xpm_domain_iso.c
 lib/sw_services/xilpm/src/versal/server/xpm_rpucore_plat.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_common.c
-lib/sw_services/xilpm/src/versal_common/server/xpm_gic_proxy.c
-lib/sw_services/xilpm/src/versal_common/server/xpm_node.c
-lib/sw_services/xilpm/src/versal_common/server/xpm_periph.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_pin.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_pin.h
 lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.c
@@ -25098,13 +25558,10 @@ lib/sw_services/xilpm/src/versal_common/server/xpm_pinfunc.h
 lib/sw_services/xilpm/src/versal_common/server/xpm_pll.h
 lib/sw_services/xilpm/src/versal_net/server/xpm_api_plat.h
 lib/sw_services/xilpm/src/versal_net/server/xpm_apucore_plat.h
-lib/sw_services/xilpm/src/versal_net/server/xpm_common_plat.h
 lib/sw_services/xilpm/src/versal_net/server/xpm_core_plat.c
-lib/sw_services/xilpm/src/versal_net/server/xpm_core_plat.h
 lib/sw_services/xilpm/src/versal_net/server/xpm_pin_plat.c
 lib/sw_services/xilpm/src/versal_net/server/xpm_pinfunc_plat.c
 lib/sw_services/xilpm/src/versal_net/server/xpm_pinfunc_plat.h
-lib/sw_services/xilpm/src/versal_net/server/xpm_psm_api_plat.c
 --------------------------------------------------------------------------------
 
 
@@ -25121,21 +25578,6 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/sw_apps/versal_plm/src/common/xplm_module.c
 lib/sw_services/xilplmi/src/common/server/xplmi_modules.h
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
-Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved. Copyright (c) 2024
-Advanced Micro Devices, Inc. All Rights Reserved.
-SPDX-License-Identifier: MIT
-
-FILES:
-lib/sw_apps/versal_plm/src/common/xplm_pm.h
 --------------------------------------------------------------------------------
 
 
@@ -25220,7 +25662,6 @@ lib/sw_apps/versal_plm/src/versal/xplm_hooks.c
 lib/sw_apps/versal_psmfw/src/versal_net/xpsmfw_api.c
 lib/sw_apps/versal_psmfw/src/versal_net/xpsmfw_api.h
 lib/sw_services/xilnvm/data/xilnvm.tcl
-lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_client_example.c
 lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.c
 lib/sw_services/xilplmi/src/common/common/xplmi_ver.h
 lib/sw_services/xilplmi/src/common/server/xplmi_gic_interrupts.c
@@ -25232,16 +25673,11 @@ lib/sw_services/xilplmi/src/common/server/xplmi_task.c
 lib/sw_services/xilplmi/src/versal/common/xplmi_error_node.h
 lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.c
 lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h
-lib/sw_services/xilplmi/src/versal_aiepg2/xplmi_error_node.h
 lib/sw_services/xilplmi/src/versal_net/common/xplmi_error_node.h
 lib/sw_services/xilplmi/src/versal_net/server/xplmi_err.h
-lib/sw_services/xilpm/src/versal/server/xpm_aie.c
 lib/sw_services/xilpm/src/versal_common/client/pm_callbacks.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.c
-lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h
-lib/sw_services/xilpm/src/versal_net/server/xpm_psm_api_plat.h
 lib/sw_services/xilpuf/src/versal_gen/server/xpuf.c
-lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c
 lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c
 --------------------------------------------------------------------------------
 
@@ -25260,10 +25696,6 @@ FILES:
 lib/sw_apps/versal_plm/src/versal/xplm_plat.h
 lib/sw_apps/versal_plm/src/versal_net/xplm_plat.h
 lib/sw_apps/versal_psmfw/src/versal_net/apu.h
-lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.h
-lib/sw_services/xilloader/src/versal_net/server/xloader_plat_secure.h
-lib/sw_services/xilpdi/src/versal/xilpdi_plat.h
-lib/sw_services/xilpdi/src/versal_net/xilpdi_plat.h
 lib/sw_services/xilpm/src/versal_net/common/xpm_error_node.h
 --------------------------------------------------------------------------------
 
@@ -25279,7 +25711,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/versal_plm/src/versal/xplm_ssitcomm.h
-lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_net_input.h
 lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_ams_trim.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_ams_trim.c
@@ -25298,8 +25729,12 @@ Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_apps/versal_plm/src/versal_aiepg2/xplm_plat.h
-lib/sw_services/xilloader/src/versal_aiepg2/xloader_plat_secure.h
+lib/sw_apps/versal_plm/src/versal_2ve_2vm/xplm_plat.h
+lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.h
+lib/sw_services/xilloader/src/versal_2ve_2vm/xloader_plat_secure.h
+lib/sw_services/xilloader/src/versal_net/server/xloader_plat_secure.h
+lib/sw_services/xilpdi/src/versal/xilpdi_plat.h
+lib/sw_services/xilpdi/src/versal_net/xilpdi_plat.h
 lib/sw_services/xilplmi/src/common/server/xplmi_tamper.h
 lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.h
 --------------------------------------------------------------------------------
@@ -25334,7 +25769,6 @@ lib/sw_apps/versal_psmfw/data/versal_psmfw.yaml
 lib/sw_apps/versal_psmfw/src/CMakeLists.txt
 lib/sw_apps/versal_psmfw/src/versal/xpsmfw_stl.h
 lib/sw_services/xilpm/src/versal_common/CMakeLists.txt
-lib/sw_services/xilpm/src/xilpm.cmake
 --------------------------------------------------------------------------------
 
 
@@ -25466,7 +25900,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/versal_psmfw/src/common/xpsmfw_init.c
-lib/sw_apps/versal_psmfw/src/common/xpsmfw_iomodule.c
 lib/sw_apps/versal_psmfw/src/common/xpsmfw_ipi_manager.c
 --------------------------------------------------------------------------------
 
@@ -25484,6 +25917,21 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/sw_apps/versal_psmfw/src/common/xpsmfw_init.h
 lib/sw_apps/versal_psmfw/src/common/xpsmfw_util.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
+2025 Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_apps/versal_psmfw/src/common/xpsmfw_iomodule.c
 --------------------------------------------------------------------------------
 
 
@@ -25530,7 +25978,7 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/sw_apps/versal_psmfw/src/common/xpsmfw_main.h
 lib/sw_services/xilloader/src/common/server/xloader_qspi.h
-lib/sw_services/xilloader/src/versal_aiepg2/xloader_ufs.h
+lib/sw_services/xilloader/src/versal_2ve_2vm/xloader_ufs.h
 --------------------------------------------------------------------------------
 
 
@@ -25546,7 +25994,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/versal_psmfw/src/versal/Makefile
-lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h
 lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa_core.h
 --------------------------------------------------------------------------------
 
@@ -25595,6 +26042,7 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/sw_apps/versal_psmfw/src/versal/xpsmfw_dvsec.h
 lib/sw_apps/versal_psmfw/src/versal/xpsmfw_dvsec_common.h
+lib/sw_apps/versal_psmfw/src/versal/xpsmfw_gic.c
 --------------------------------------------------------------------------------
 
 
@@ -26140,6 +26588,13 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/zynqmp_fsbl/src/xfsbl_hw.h
+lib/sw_apps/zynqmp_pmufw/src/xpfw_core.c
+lib/sw_apps/zynqmp_pmufw/src/xpfw_error_manager.c
+lib/sw_apps/zynqmp_pmufw/src/xpfw_interrupts.c
+lib/sw_apps/zynqmp_pmufw/src/xpfw_main.c
+lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_dap.c
+lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_legacy.c
+lib/sw_services/xilpm/data/xilpm.tcl
 lib/sw_services/xilpm/src/zynqmp/client/apu/pm_client.c
 lib/sw_services/xilpm/src/zynqmp/client/common/pm_common.h
 lib/sw_services/xilpm/src/zynqmp/client/rpu/pm_client.c
@@ -26153,7 +26608,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2015 - 2021 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2024 Advanced Micro Devices, Inc. All rights reserve.
+2025 Advanced Micro Devices, Inc. All rights reserve.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -26289,16 +26744,17 @@ lib/sw_apps/zynqmp_fsbl/src/xfsbl_qspi.h
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2021 Xilinx, Inc. All rights reserved. Copyright (C) 2022 - 2023
+Copyright (c) 2021 Xilinx, Inc. All rights reserved. Copyright (C) 2022 - 2025
 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/zynqmp_fsbl/src/xfsbl_tpm.c
 lib/sw_apps/zynqmp_fsbl/src/xfsbl_tpm.h
-lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_common_cdohandler.h
-lib/sw_services/xilsem/examples/xsem_gic_setup.c
-lib/sw_services/xilsem/examples/xsem_gic_setup.h
+lib/sw_apps/zynqmp_fsbl/src/xfsbl_tpm_util.c
+lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.h
+lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_server_example.c
+lib/sw_services/xilsem/examples/xsem_ipi.h
 --------------------------------------------------------------------------------
 
 
@@ -26455,7 +26911,6 @@ FILES:
 lib/sw_apps/zynqmp_pmufw/src/iou_secure_slcr.h
 lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h
 lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_ipihandler.c
-lib/sw_services/xilpm/src/versal_common/server/xpm_access.c
 lib/sw_services/xilsecure/src/client/core/aes/xsecure_aesclient.c
 lib/sw_services/xilsecure/src/client/core/ecdsa/xsecure_ellipticclient.c
 lib/sw_services/xilsecure/src/client/core/mailbox/xsecure_mailbox.c
@@ -26486,7 +26941,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2014 - 2021 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2024 Advanced Micro Devices, Inc. All rights reserved.
+2025 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -26501,7 +26956,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2014 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+2025, Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -26531,11 +26986,43 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2014 - 2021 Xilinx, Inc. All rights reserved. Copyright (C)
-2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+2022-2025, Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/zynqmp_pmufw/src/pm_ddr.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2014 - 2020 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_apps/zynqmp_pmufw/src/pm_extern.c
+lib/sw_apps/zynqmp_pmufw/src/pm_sram.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2014 - 2021 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_apps/zynqmp_pmufw/src/pm_master.c
+lib/sw_apps/zynqmp_pmufw/src/pm_power.c
 --------------------------------------------------------------------------------
 
 
@@ -26562,6 +27049,21 @@ lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.c
 COPYRIGHT TEXT:
 ---------------
 
+Copyright (c) 2014 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
+2025 Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_apps/zynqmp_pmufw/src/pm_proc.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
 Copyright (c) 2017 - 2021 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
 2023 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
@@ -26577,12 +27079,13 @@ lib/sw_apps/zynqmp_pmufw/src/pm_qspi.h
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2014 - 2020 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (c) 2015 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
+2024 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_apps/zynqmp_pmufw/src/pm_sram.c
+lib/sw_apps/zynqmp_pmufw/src/xpfw_config.h
+lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h
 --------------------------------------------------------------------------------
 
 
@@ -26592,15 +27095,50 @@ lib/sw_apps/zynqmp_pmufw/src/pm_sram.c
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2015 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_apps/zynqmp_pmufw/src/xpfw_config.h
-lib/sw_apps/zynqmp_pmufw/src/xpfw_error_manager.c
-lib/sw_services/xilpm/data/xilpm.tcl
-lib/sw_services/xilpm/src/zynqmp/client/common/pm_defs.h
+lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_common.c
+lib/sw_services/xilloader/src/common/server/xloader_cmd.c
+lib/sw_services/xilloader/src/common/server/xloader_qspi.c
+lib/sw_services/xilloader/src/common/server/xloader_secure.c
+lib/sw_services/xilnvm/data/xilnvm.mld
+lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_client_example.c
+lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c
+lib/sw_services/xilplmi/src/common/server/xplmi.c
+lib/sw_services/xilplmi/src/common/server/xplmi.h
+lib/sw_services/xilplmi/src/common/server/xplmi_err_common.c
+lib/sw_services/xilplmi/src/common/server/xplmi_scheduler.c
+lib/sw_services/xilplmi/src/common/server/xplmi_scheduler.h
+lib/sw_services/xilplmi/src/versal_2ve_2vm/xplmi_err.c
+lib/sw_services/xilplmi/src/versal_2ve_2vm/xplmi_err.h
+lib/sw_services/xilplmi/src/versal_2ve_2vm/xplmi_error_node.h
+lib/sw_services/xilplmi/src/versal_net/server/xplmi_err.c
+lib/sw_services/xilpm/src/versal/server/xpm_aie.c
+lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.c
+lib/sw_services/xilpm/src/versal_common/server/xpm_mem.c
+lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.h
+lib/sw_services/xilpm/src/versal_common/server/xpm_psm_api.h
+lib/sw_services/xilpm/src/versal_net/server/xpm_psm_api_plat.h
+lib/sw_services/xilsecure/src/server/core/crypto_kat/xsecure_kat.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2016 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_pm.c
+lib/sw_apps/zynqmp_pmufw/src/xpfw_mod_sched.c
 --------------------------------------------------------------------------------
 
 
@@ -26632,6 +27170,7 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/zynqmp_pmufw/src/xpfw_restart.c
+lib/sw_services/xilloader/src/common/server/xloader_sd.c
 lib/sw_services/xilplmi/src/common/server/xplmi_util.c
 lib/sw_services/xilplmi/src/common/server/xplmi_util.h
 --------------------------------------------------------------------------------
@@ -26664,17 +27203,12 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_apps/zynqmp_pmufw/src/xpfw_version.h
-lib/sw_services/xilloader/src/common/server/xloader_ddr.c
 lib/sw_services/xilloader/src/common/server/xloader_dfu_util.h
 lib/sw_services/xilloader/src/common/server/xloader_secure.h
-lib/sw_services/xilloader/src/common/server/xloader_usb.c
 lib/sw_services/xilloader/src/common/server/xloader_usb.h
 lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_efuse_error_plat.h
 lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h
 lib/sw_services/xilplmi/src/common/server/xplmi_proc.h
-lib/sw_services/xilpm/src/versal/server/xpm_mem_plat.c
-lib/sw_services/xilpm/src/versal/server/xpm_npdomain.c
-lib/sw_services/xilpm/src/versal/server/xpm_psfpdomain.c
 --------------------------------------------------------------------------------
 
 
@@ -26690,8 +27224,15 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/sw_services/xilasu/src/CMakeLists.txt
 lib/sw_services/xilcert/src/CMakeLists.txt
+lib/sw_services/xilloader/src/versal_2ve_2vm/CMakeLists.txt
+lib/sw_services/xilpdi/src/versal_2ve_2vm/CMakeLists.txt
 lib/sw_services/xilpki/src/CMakeLists.txt
+lib/sw_services/xilplmi/src/versal_2ve_2vm/CMakeLists.txt
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_core.c
+lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c
+lib/sw_services/xilsecure/src/common/CMakeLists.txt
+lib/sw_services/xilsecure/src/common/versal_2ve_2vm/CMakeLists.txt
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat_kat.h
 lib/sw_services/xilsfl/src/CMakeLists.txt
 --------------------------------------------------------------------------------
 
@@ -27219,7 +27760,6 @@ FILES:
 lib/sw_services/xilloader/src/Makefile
 lib/sw_services/xilplmi/src/common/server/xplmi_cdo.h
 lib/sw_services/xilpm/src/versal/common/xpm_defs.h
-lib/sw_services/xilpm/src/versal/server/xpm_pslpdomain.c
 lib/sw_services/xilpm/src/versal/server/xpm_psm_plat.h
 lib/sw_services/xilpm/src/versal/server/xpm_regs.h
 lib/sw_services/xilpm/src/versal/server/xpm_subsystem_plat.c
@@ -27241,8 +27781,11 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/sw_services/xilloader/src/common/common/xloader.h
 lib/sw_services/xilpm/src/versal/server/xpm_bisr_plat.h
+lib/sw_services/xilpm/src/versal_common/server/xpm_power.c
+lib/sw_services/xilpm/src/versal_common/server/xpm_power.h
 lib/sw_services/xilpm/src/versal_common/server/xpm_reset.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_reset.h
+lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h
 lib/sw_services/xilpm/src/versal_net/server/xpm_reset_plat.h
 --------------------------------------------------------------------------------
 
@@ -27269,25 +27812,18 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+2025, Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_services/xilloader/src/common/server/xloader_cmd.c
-lib/sw_services/xilloader/src/common/server/xloader_qspi.c
-lib/sw_services/xilloader/src/common/server/xloader_secure.c
-lib/sw_services/xilnvm/data/xilnvm.mld
-lib/sw_services/xilplmi/src/common/server/xplmi.c
-lib/sw_services/xilplmi/src/common/server/xplmi.h
-lib/sw_services/xilplmi/src/common/server/xplmi_err_common.c
-lib/sw_services/xilplmi/src/common/server/xplmi_scheduler.c
-lib/sw_services/xilplmi/src/common/server/xplmi_scheduler.h
-lib/sw_services/xilplmi/src/versal_aiepg2/xplmi_err.c
-lib/sw_services/xilplmi/src/versal_aiepg2/xplmi_err.h
-lib/sw_services/xilplmi/src/versal_net/server/xplmi_err.c
-lib/sw_services/xilpm/src/versal/server/xpm_cpmdomain.c
-lib/sw_services/xilpm/src/versal_common/server/xpm_mem.c
-lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.h
+lib/sw_services/xilloader/src/common/server/xloader_ddr.c
+lib/sw_services/xilloader/src/common/server/xloader_intr.c
+lib/sw_services/xilloader/src/common/server/xloader_usb.c
+lib/sw_services/xilpm/src/versal/server/xpm_mem_plat.c
+lib/sw_services/xilpm/src/versal/server/xpm_npdomain.c
+lib/sw_services/xilpm/src/versal/server/xpm_psfpdomain.c
+lib/sw_services/xilpm/src/versal_common/common/xpm_nodeid.h
+lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c
 --------------------------------------------------------------------------------
 
 
@@ -27304,23 +27840,6 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/sw_services/xilloader/src/common/server/xloader_ddr.h
 lib/sw_services/xilloader/src/common/server/xloader_dfu_util.c
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
-Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2025, Advanced Micro Devices, Inc. All Rights Reserved.
-SPDX-License-Identifier: MIT
-
-FILES:
-lib/sw_services/xilloader/src/common/server/xloader_intr.c
-lib/sw_services/xilpm/src/versal_common/common/xpm_nodeid.h
-lib/sw_services/xilpm/src/versal_common/server/xpm_notifier.c
 --------------------------------------------------------------------------------
 
 
@@ -27351,15 +27870,16 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c
-lib/sw_services/xilloader/src/versal_aiepg2/xloader_ufs.c
+lib/sw_services/xilloader/src/versal_2ve_2vm/xloader_ufs.c
 lib/sw_services/xilplmi/data/xilplmi.mld
 lib/sw_services/xilplmi/data/xilplmi.tcl
 lib/sw_services/xilplmi/src/common/server/xplmi_cmd.c
 lib/sw_services/xilplmi/src/common/server/xplmi_ipi.h
 lib/sw_services/xilplmi/src/versal/server/xplmi_status.h
-lib/sw_services/xilplmi/src/versal_aiepg2/xplmi_status.h
+lib/sw_services/xilplmi/src/versal_2ve_2vm/xplmi_status.h
 lib/sw_services/xilplmi/src/versal_net/server/xplmi_status.h
 lib/sw_services/xilpm/src/versal/server/xpm_api_plat.c
+lib/sw_services/xilpm/src/versal/server/xpm_pslpdomain.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_common.h
 lib/sw_services/xilpm/src/versal_common/server/xpm_subsystem.c
 lib/sw_services/xilpm/src/versal_net/client/pm_client.h
@@ -27373,29 +27893,11 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2017 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2024 Advanced Micro Devices, Inc. All Rights Reserved.
-SPDX-License-Identifier: MIT
-
-FILES:
-lib/sw_services/xilloader/src/common/server/xloader_sd.c
-lib/sw_services/xilpdi/data/xilpdi.tcl
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
-Copyright (c) 2017 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2024, Advanced Micro Devices, Inc. All Rights Reserved.
+2025, Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilloader/src/common/server/xloader_sbi.c
-lib/sw_services/xilloader/src/common/server/xloader_sd.h
-lib/sw_services/xilpdi/src/common/xilpdi.c
 lib/sw_services/xilpdi/src/common/xilpdi.h
 --------------------------------------------------------------------------------
 
@@ -27412,6 +27914,22 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilloader/src/common/server/xloader_sbi.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2017 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
+2024, Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_services/xilloader/src/common/server/xloader_sd.h
+lib/sw_services/xilpdi/src/common/xilpdi.c
 --------------------------------------------------------------------------------
 
 
@@ -27561,7 +28079,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved. Copyright (c)
-2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+2022-2025, Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -27575,12 +28093,11 @@ lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (c) 2024-2025, Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c
+lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_net_input.h
 --------------------------------------------------------------------------------
 
 
@@ -27621,26 +28138,6 @@ lib/sw_services/xilpm/src/versal_common/server/xpm_device_idle.h
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2021 Xilinx, Inc. All rights reserved. Copyright (C) 2022 - 2024
-Advanced Micro Devices, Inc. All Rights Reserved.
-SPDX-License-Identifier: MIT
-
-FILES:
-lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.h
-lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_init.c
-lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_init.h
-lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_cmd.h
-lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_ipihandler.h
-lib/sw_services/xilsem/examples/xsem_ipi.c
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
 Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
 2025 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
@@ -27664,6 +28161,57 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2021 Xilinx, Inc. All rights reserved. Copyright (C) 2022 - 2023
+Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_common_cdohandler.h
+lib/sw_services/xilsem/examples/xsem_gic_setup.c
+lib/sw_services/xilsem/examples/xsem_gic_setup.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram_hw.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2021 Xilinx, Inc. All rights reserved. Copyright (C) 2022 - 2024
+Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_init.c
+lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_init.h
+lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_cmd.h
+lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_ipihandler.h
+lib/sw_services/xilsem/examples/xsem_ipi.c
 --------------------------------------------------------------------------------
 
 
@@ -27724,6 +28272,9 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient.c
+lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_defs.h
+lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_efuse_hw.h
+lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_cmd.c
 lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_efuse.c
 --------------------------------------------------------------------------------
 
@@ -27740,27 +28291,7 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient.h
-lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_defs.h
 lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_efuse_error_plat.h
-lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_efuse_hw.h
-lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_cmd.c
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
-Copyright (c) 2022 Xilinx, Inc. All rights reserved. Copyright (C) 2022 - 2025
-Advanced Micro Devices, Inc. All Rights Reserved.
-SPDX-License-Identifier: MIT
-
-FILES:
-lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_validate.c
-lib/sw_services/xilsecure/examples/xilsecure_versal_sha_server_example.c
-lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha_ipihandler.c
 --------------------------------------------------------------------------------
 
 
@@ -27793,22 +28324,6 @@ FILES:
 lib/sw_services/xilnvm/src/versal_gen/versal_net/server/xnvm_efuse_cdohandler.c
 lib/sw_services/xilpuf/examples/xilpuf_versal_net_example.h
 lib/sw_services/xilsecure/src/server/versal_net/xsecure_plat_kat.h
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
-Copyright (c) 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 - 2025,
-Advanced Micro Devices, Inc. All rights reserved.
-SPDX-License-Identifier: MIT
-
-FILES:
-lib/sw_services/xilocp/data/xilocp.mld
-lib/sw_services/xilocp/src/client/xocp_mailbox.h
 --------------------------------------------------------------------------------
 
 
@@ -27872,9 +28387,7 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/sw_services/xilocp/src/client/xocp_client.c
 lib/sw_services/xilocp/src/common/xocp_common.h
-lib/sw_services/xilocp/src/server/xocp.c
 lib/sw_services/xilocp/src/server/xocp_cmd.c
-lib/sw_services/xilocp/src/server/xocp_ipihandler.c
 --------------------------------------------------------------------------------
 
 
@@ -27890,20 +28403,6 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilocp/src/server/xocp.h
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
-Copyright (c) 2022 Xilinx, Inc. All rights reserved. Copyright (C) 2022 - 2024,
-Advanced Micro Devices, Inc. All rights reserved.
-SPDX-License-Identifier: MIT
-
-FILES:
 lib/sw_services/xilocp/src/server/xocp_keymgmt.c
 lib/sw_services/xilocp/src/server/xocp_keymgmt.h
 --------------------------------------------------------------------------------
@@ -27921,6 +28420,21 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilpdi/data/xilpdi.mld
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2017 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
+2024 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_services/xilpdi/data/xilpdi.tcl
 --------------------------------------------------------------------------------
 
 
@@ -28031,7 +28545,6 @@ FILES:
 lib/sw_services/xilplmi/src/common/server/xplmi_debug.c
 lib/sw_services/xilplmi/src/common/server/xplmi_debug.h
 lib/sw_services/xilplmi/src/common/server/xplmi_dma.h
-lib/sw_services/xilpm/src/versal/server/xpm_power_plat.h
 lib/sw_services/xilsem/data/xilsem.tcl
 --------------------------------------------------------------------------------
 
@@ -28127,6 +28640,7 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilpm/src/CMakeLists.txt
+lib/sw_services/xilpm/src/xilpm.cmake
 --------------------------------------------------------------------------------
 
 
@@ -28144,6 +28658,7 @@ FILES:
 lib/sw_services/xilpm/src/versal/client/pm_client.h
 lib/sw_services/xilpm/src/versal/server/xpm_reset_plat.c
 lib/sw_services/xilpm/src/versal_common/client/pm_api_sys.c
+lib/sw_services/xilpm/src/versal_common/server/xpm_psm.c
 --------------------------------------------------------------------------------
 
 
@@ -28244,7 +28759,6 @@ lib/sw_services/xilpm/src/versal/server/xpm_common_plat.c
 lib/sw_services/xilpm/src/versal/server/xpm_notifier_plat.h
 lib/sw_services/xilpm/src/versal/server/xpm_rpucore_plat.h
 lib/sw_services/xilpm/src/versal_common/server/xpm_apucore.h
-lib/sw_services/xilpm/src/versal_common/server/xpm_rpucore.c
 lib/sw_services/xilpm/src/versal_net/server/xpm_apucore_plat.c
 lib/sw_services/xilpm/src/versal_net/server/xpm_notifier_plat.h
 lib/sw_services/xilpm/src/versal_net/server/xpm_psm_plat.c
@@ -28300,10 +28814,7 @@ lib/sw_services/xilpm/src/versal/server/xpm_device_plat.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_periph.h
 lib/sw_services/xilpm/src/versal_common/server/xpm_pll.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_pmc.h
-lib/sw_services/xilpm/src/versal_common/server/xpm_power.c
-lib/sw_services/xilpm/src/versal_common/server/xpm_power.h
 lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.c
-lib/sw_services/xilpm/src/versal_net/server/xpm_power_plat.h
 --------------------------------------------------------------------------------
 
 
@@ -28314,7 +28825,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2018 - 2020 Xilinx, Inc. All rights reserved. Copyright (C) 2020 -
-2024, Advanced Micro Devices, Inc. All Rights Reserved.
+2025, Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -28353,7 +28864,6 @@ FILES:
 lib/sw_services/xilpm/src/versal/server/xpm_noc_config.c
 lib/sw_services/xilpm/src/versal_net/server/xpm_domain_iso.c
 lib/sw_services/xilpm/src/versal_net/server/xpm_domain_iso.h
-lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.c
 lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.h
 lib/sw_services/xilpm/src/versal_net/server/xpm_pslpdomain.c
 --------------------------------------------------------------------------------
@@ -28409,7 +28919,6 @@ FILES:
 lib/sw_services/xilpm/src/versal/server/xpm_pinfunc_plat.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_clock.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_clock.h
-lib/sw_services/xilpm/src/versal_common/server/xpm_psm.c
 lib/sw_services/xilpm/src/versal_common/server/xpm_requirement.c
 --------------------------------------------------------------------------------
 
@@ -28503,6 +29012,29 @@ lib/sw_services/xilpm/src/versal/server/xpm_powerdomain.c
 COPYRIGHT TEXT:
 ---------------
 
+Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
+2025 Advanced Micro Devices, Inc. All rights reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_services/xilpm/src/versal/server/xpm_rail_plat.h
+lib/sw_services/xilpm/src/versal_common/server/xpm_pldevice.c
+lib/sw_services/xilpm/src/versal_common/server/xpm_rail.c
+lib/sw_services/xilpm/src/versal_common/server/xpm_rail.h
+lib/sw_services/xilpm/src/versal_common/server/xpm_regulator.c
+lib/sw_services/xilpm/src/versal_common/server/xpm_regulator.h
+lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h
+lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha.h
+lib/sw_services/xilsecure/src/server/versal_net/xsecure_error.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
 Copyright (c) 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 - 2024
 Advanced Micro Devices, Inc. All rights reserve.
 SPDX-License-Identifier: MIT
@@ -28553,7 +29085,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2021 - 2021 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -28574,24 +29106,6 @@ SPDX-License-Identifier: MIT
 FILES:
 lib/sw_services/xilpm/src/versal_common/server/xpm_ipi.h
 lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes.c
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
-Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2025 Advanced Micro Devices, Inc. All rights reserved.
-SPDX-License-Identifier: MIT
-
-FILES:
-lib/sw_services/xilpm/src/versal_common/server/xpm_pldevice.c
-lib/sw_services/xilpm/src/versal_net/server/xpm_rail_plat.h
-lib/sw_services/xilsecure/src/server/core/sha/sha_pmx/xsecure_sha.h
-lib/sw_services/xilsecure/src/server/versal_net/xsecure_error.h
 --------------------------------------------------------------------------------
 
 
@@ -28712,6 +29226,21 @@ lib/sw_services/xilpm/src/versal_net/server/xpm_pmcdomain.h
 COPYRIGHT TEXT:
 ---------------
 
+Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
+2025 Advanced Micro Devices, Inc. All rights reserve.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_services/xilpm/src/versal_net/server/xpm_powerdomain.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
 Copyright (C) 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
@@ -28775,6 +29304,7 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_asucore.c
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat_kat_ipihandler.h
 --------------------------------------------------------------------------------
 
 
@@ -28792,8 +29322,6 @@ lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_bisr_plat.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_bisr_plat.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_domain_iso.h
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.c
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_npdomain.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldomain.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmc.c
@@ -28801,6 +29329,24 @@ lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_powerdomain.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_psfpdomain.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pslpdomain.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair.c
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserve.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_mem.h
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmcdomain.c
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_powerdomain.c
+lib/sw_services/xilpm_ng/src/xilpm_common/xpm_err.h
 --------------------------------------------------------------------------------
 
 
@@ -28829,33 +29375,16 @@ Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
+lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pldevice.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pll.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_regs.h
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_device.h
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.c
-lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_mem.h
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_reset.c
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_rpucore.c
 lib/sw_services/xilsecure/src/server/core/sha/xsecure_sha_common.h
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_error.h
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_lms_core.c
-lib/sw_services/xilsecure/src/server/versal_aiepg2/xsecure_lms_core.h
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
-Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All rights reserve.
-SPDX-License-Identifier: MIT
-
-FILES:
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_pmcdomain.c
-lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_powerdomain.c
-lib/sw_services/xilpm_ng/src/xilpm_common/xpm_err.h
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_error.h
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_lms_core.c
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_lms_core.h
 --------------------------------------------------------------------------------
 
 
@@ -28873,6 +29402,8 @@ lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_power.h
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_requirement.c
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_api.h
 lib/sw_services/xilpm_ng/src/xilpm_runtime/src/xpm_runtime_device.c
+lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h
+lib/sw_services/xilsecure/src/server/spartanup/xsecure_error.h
 --------------------------------------------------------------------------------
 
 
@@ -29137,12 +29668,11 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2021 - 2023 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
-2024 Advanced Micro Devices, Inc. All rights reserved.
+2025 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c
-lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c
 --------------------------------------------------------------------------------
 
 
@@ -29152,13 +29682,12 @@ lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2021 Xilinx, Inc. All rights reserved. Copyright (C) 2022 - 2025
-Advanced Micro Devices, Inc. All Rights Reserved.
+Copyright (c) 2021 - 2023 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
+2024 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_server_example.c
-lib/sw_services/xilsem/examples/xsem_ipi.h
+lib/sw_services/xilsecure/examples/xilsecure_versal_sha_client_example.c
 --------------------------------------------------------------------------------
 
 
@@ -29257,8 +29786,27 @@ Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_services/xilsecure/src/client/versal_aiepg2/xsecure_plat_katclient.c
-lib/sw_services/xilsecure/src/client/versal_aiepg2/xsecure_plat_katclient.h
+lib/sw_services/xilsecure/src/client/versal_2ve_2vm/xsecure_plat_katclient.c
+lib/sw_services/xilsecure/src/client/versal_2ve_2vm/xsecure_plat_katclient.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2023 -2025 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_services/xilsecure/src/common/versal/xsecure_ellipticalginfo.h
+lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_ellipticalginfo.h
+lib/sw_services/xilsecure/src/common/versal_net/xsecure_aesalginfo.h
+lib/sw_services/xilsecure/src/common/versal_net/xsecure_ecdhalginfo.h
+lib/sw_services/xilsecure/src/common/versal_net/xsecure_ellipticalginfo.h
+lib/sw_services/xilsecure/src/common/versal_net/xsecure_keyunwrapalginfo.h
 --------------------------------------------------------------------------------
 
 
@@ -29269,7 +29817,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2019 - 2023 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -29480,7 +30028,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2014 - 2021 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
-2024, Advanced Micro Devices, Inc. All Rights Reserved.
+2025, Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -29496,13 +30044,12 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2014 - 2020 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+2025 Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa.h
 lib/sw_services/xilsecure/src/server/zynqmp/xsecure_rsa.h
-lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.h
 --------------------------------------------------------------------------------
 
 
@@ -29691,12 +30238,42 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (C) 2022 IP Cores, Inc. All rights reserved. Copyright (C) 2022
+Xilinx, Inc. All rights reserved. Copyright (C) 2022 - 2025 Advanced Micro
+Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Ecdsa.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (C) 2022 IP Cores, Inc. All rights reserved. Copyright (C) 2023-2025
+Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Rsa.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (C) 2022 IP Cores, Inc. All rights reserved. Copyright (C) 2022
 Xilinx, Inc. All rights reserved. Copyright (C) 2022 - 2024 Advanced Micro
 Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_services/xilsecure/src/server/versal_aiepg2/Ecdsa.h
 lib/sw_services/xilsecure/src/server/versal_net/Ecdsa.h
 --------------------------------------------------------------------------------
 
@@ -29712,7 +30289,6 @@ Advanced Micro Devices, Inc. All Rights Reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
-lib/sw_services/xilsecure/src/server/versal_aiepg2/Rsa.h
 lib/sw_services/xilsecure/src/server/versal_net/Rsa.h
 --------------------------------------------------------------------------------
 
@@ -29744,6 +30320,21 @@ SPDX-License-Identifier: MIT
 
 FILES:
 lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h
+--------------------------------------------------------------------------------
+
+
+
+
+
+COPYRIGHT TEXT:
+---------------
+
+Copyright (c) 2014 - 2020 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
+2024 Advanced Micro Devices, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
+FILES:
+lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sha.h
 --------------------------------------------------------------------------------
 
 
@@ -30037,7 +30628,7 @@ COPYRIGHT TEXT:
 ---------------
 
 Copyright (c) 2013 - 2020 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
-2023 Advanced Micro Devices, Inc. All rights reserved.
+2025 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -30066,8 +30657,8 @@ lib/sw_services/xilskey/examples/xilskey_puf_regeneration_example.c
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2015 - 2022 Xilinx, Inc. All rights reserved. Copyright (C) 2022
-Advanced Micro Devices, Inc. All rights reserved.
+Copyright (c) 2015 - 2022 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
+2025 Advanced Micro Devices, Inc. All rights reserved.
 SPDX-License-Identifier: MIT
 
 FILES:
@@ -30239,47 +30830,3 @@ mcap/linux/mcap_lib.h
 --------------------------------------------------------------------------------
 
 
-
-
-
-COPYRIGHT TEXT:
----------------
-This file is taken from https://github.com/B-Con/crypto-algorithms.
-These are basic implementations of standard cryptography algorithms,
-written by Brad Conte (brad@bradconte.com) from scratch and without
-any cross-licensing. They exist to provide publically accessible,
-restriction-free implementations of popular cryptographic algorithms,
-like AES and SHA-1. These are primarily intended for educational and
-pragmatic purposes (such as comparing a specification to actual
-implementation code, or for building an internal application that
-computes test vectors for a product). The algorithms have been tested
-against standard test vectors.
-
-This code is released into the public domain free of any restrictions.
-The author requests acknowledgement if the code is used, but does not
-require it. This code is provided free of any liability and without any
-quality claims by the author.
-
-Note that these are not cryptographically secure implementations. They
-have no resistence to side-channel attacks and should not be used in
-contexts that need cryptographically secure implementations.
-
-These algorithms are not optimized for speed or space. They are primarily
-designed to be easy to read, although some basic optimization techniques
-have been employed
-
-
-XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/sha256.c
-XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vck_example/sha256.c
-XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/sha256.c
-XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/sha256.c
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/sha256.c
-XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/sha256.c
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/sha256.c
-XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/sha256.h
-XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vck_example/sha256.h
-XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek280_example/sha256.h
-XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/sha256.h
-XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/sha256.h
-XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/sha256.h
-XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/sha256.h
