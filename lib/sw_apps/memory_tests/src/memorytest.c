@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -127,6 +127,9 @@ int main()
 	print("--Starting Memory Test Application--\n\r");
 	print("NOTE: This application runs with D-Cache disabled.");
 	print("As a result, cacheline requests will not be generated\n\r");
+
+    print("Warning: If the DDR address apertures in the design are noncontiguous ");
+    print("with holes in between, the memory test will hang. \n\r");
 
 	for (i = 0; i < n_memory_ranges; i++) {
 		Status = test_memory_range(&memory_ranges[i]);
