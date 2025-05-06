@@ -91,8 +91,6 @@
 
 /************************** Function Prototypes ******************************/
 
-XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress);
-
 #if XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE
 static void XIntc_CascadeHandler(void *DeviceId);
 #endif

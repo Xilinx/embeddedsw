@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,6 +56,8 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.18  mus  03/27/24 Added handling for FAST interrupts.
+* 3.20  ml   05/06/24 Fixed GCC warnings by correcting qualifier order and adding
+*                     appropriate typecasts
 * </pre>
 ******************************************************************************/
 
@@ -107,7 +109,7 @@ void DeviceDriverHandler(void *CallbackRef);
  * Create a shared variable to be used by the main thread of processing and
  * the interrupt processing
  */
-volatile static int InterruptProcessed = FALSE;
+static volatile int InterruptProcessed = FALSE;
 
 /*****************************************************************************/
 /**
@@ -271,11 +273,11 @@ void SetupInterruptSystem()
 #ifndef SDT
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 				     (Xil_ExceptionHandler)XIntc_DeviceInterruptHandler,
-				     INTC_DEVICE_ID);
+				     (void *)INTC_DEVICE_ID);
 #else
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 				     (Xil_ExceptionHandler)XIntc_DeviceInterruptHandler,
-				     INTC_BASEADDR);
+				     (void *)INTC_BASEADDR);
 #endif
 
 	/*
@@ -312,6 +314,7 @@ void SetupInterruptSystem()
 ******************************************************************************/
 void DeviceDriverHandler(void *CallbackRef)
 {
+	(void)CallbackRef;
 	/*
 	 * Indicate the interrupt has been processed using a shared variable.
 	 */
