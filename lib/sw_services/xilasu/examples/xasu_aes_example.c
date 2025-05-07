@@ -273,6 +273,11 @@ END:
  * @brief	This  function performs AES encryption and decryption operation on a given data
  *		using AES-GCM engine mode.
  *
+ * @note	Verify the additional status if operation flag is set to XASU_AES_FINAL.
+ * 		- XASU_AES_TAG_READ, if encryption operation successfully done.
+ * 		- XASU_AES_TAG_MATCHED, if decryption operation successfully done.
+ * 		- Any other value shall be treated as failure.
+ *
  *************************************************************************************************/
 static void XAsu_AesGcmExample(void)
 {
@@ -281,7 +286,6 @@ static void XAsu_AesGcmExample(void)
 	XAsu_ClientParams AesClientParams = {0U};
 	Asu_AesParams AesParams;
 	ErrorStatus = XST_FAILURE;
-	s32 ReturnStatus;
 
 	xil_printf("\r\n AES-GCM Example: \r\n");
 
@@ -289,8 +293,7 @@ static void XAsu_AesGcmExample(void)
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
 	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
 	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
-	/* Assign redundant variable address to get additional status */
-	AesClientParams.AdditionalStatusPtr = (u32 *)&ReturnStatus;
+	AesClientParams.AdditionalStatus = XST_FAILURE;
 
 	/* AES parameters structure initialization for encryption */
 	AesParams.EngineMode = XASU_AES_GCM_MODE;
@@ -325,9 +328,10 @@ static void XAsu_AesGcmExample(void)
 	 * Verify additional status as well if operation flag set to XASU_AES_FINAL to know
 	 * operation is successful.
 	 */
-	if ((ErrorStatus != XST_SUCCESS) || (ReturnStatus != XASU_AES_TAG_READ)) {
+	if ((ErrorStatus != XST_SUCCESS) ||
+		(AesClientParams.AdditionalStatus != XASU_AES_TAG_READ)) {
 		xil_printf("\r\n AES-GCM Example failed from server with error %08x and "
-			"additional error of %08x", ErrorStatus, ReturnStatus);
+			"additional error of %08x", ErrorStatus, AesClientParams.AdditionalStatus);
 		goto END;
 	}
 
@@ -360,8 +364,7 @@ static void XAsu_AesGcmExample(void)
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
 	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
 	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
-	/* Assign redundant variable address to get additional status */
-	AesClientParams.AdditionalStatusPtr = (u32 *)&ReturnStatus;
+	AesClientParams.AdditionalStatus = XST_FAILURE;
 
 	/* AES parameters structure initialization for decryption */
 	AesParams.EngineMode = XASU_AES_GCM_MODE;
@@ -397,9 +400,10 @@ static void XAsu_AesGcmExample(void)
 	 * Verify additional status as well if operation flag set to XASU_AES_FINAL to know
 	 * operation is successful.
 	 */
-	if ((ErrorStatus != XST_SUCCESS) || (ReturnStatus != XASU_AES_TAG_MATCHED)) {
+	if ((ErrorStatus != XST_SUCCESS) ||
+		(AesClientParams.AdditionalStatus != XASU_AES_TAG_MATCHED)) {
 		xil_printf("\r\n AES-GCM Example failed from server with error %08x and "
-			"additional error of %08x", ErrorStatus, ReturnStatus);
+			"additional error of %08x", ErrorStatus, AesClientParams.AdditionalStatus);
 		goto END;
 	}
 

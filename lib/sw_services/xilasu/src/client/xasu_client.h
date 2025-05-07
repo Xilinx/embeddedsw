@@ -60,7 +60,7 @@ typedef struct {
 	XAsuClient_ResponseHandler CallBackFuncPtr;  /**< Callback function pointer */
 	void *CallBackRefPtr;   /**< Callback reference pointer */
 	void *ClientCtx; /**< Reserved for user operation */
-	u32 *AdditionalStatusPtr; /**< Additional status to detect glitches only for security
+	u32 AdditionalStatus; /**< Additional status to detect glitches only for security
 		critical functions */
 } XAsu_ClientParams;
 

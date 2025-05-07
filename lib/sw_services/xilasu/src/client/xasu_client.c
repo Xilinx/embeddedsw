@@ -412,11 +412,9 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 					AsuCallBackRef[UniqueId].ClientParams->CallBackFuncPtr(
 						AsuCallBackRef[UniqueId].ClientParams->CallBackRefPtr,
 						ChannelQueueBufPtr->RespBuf.Arg[XASU_RESPONSE_STATUS_INDEX]);
-					/** copy additional status if user provided address. */
-					if (AsuCallBackRef[UniqueId].ClientParams->AdditionalStatusPtr != NULL) {
-						Xil_Out32((AsuCallBackRef[UniqueId].ClientParams->AdditionalStatusPtr),
-								ChannelQueueBufPtr->RespBuf.AdditionalStatus);
-					}
+					/** Copy additional status from response buffer. */
+					AsuCallBackRef[UniqueId].ClientParams->AdditionalStatus =
+								ChannelQueueBufPtr->RespBuf.AdditionalStatus;
 					/** Clear the callback info upon completion. */
 					if (AsuCallBackRef[UniqueId].Clear == XASU_TRUE) {
 						AsuCallBackRef[UniqueId].ClientParams = NULL;

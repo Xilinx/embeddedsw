@@ -91,16 +91,6 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 		goto END;
 	}
 
-	/** Validate client additional status pointer for critical security calls. */
-	if (((AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE) ||
-		(AesClientParamPtr->EngineMode == XASU_AES_GCM_MODE) ||
-		(AesClientParamPtr->EngineMode == XASU_AES_CMAC_MODE)) &&
-		((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) != 0x0U) &&
-		(ClientParamPtr->AdditionalStatusPtr == NULL)) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
 	/** Validate the operation flags for AES CCM mode to ensure all the flags are set. */
 	if ((AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE) && ((AesClientParamPtr->OperationFlags &
 			(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) !=
