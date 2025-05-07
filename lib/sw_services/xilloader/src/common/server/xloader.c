@@ -189,6 +189,7 @@
 *       sk  03/29/2025 Added redundant check for XLoader_ValidateMetaHdrIntegrity
 *       pre 04/01/2025 Clearing metaheader in XLoader_InitPdiInstanceForExtractMHAndOptData
 *       pre 04/04/2025 Fixed bug in load image feature
+*       sk  05/07/2025 Fix the config for PCIe as secondary boot mode
 *
 * </pre>
 *
@@ -1954,7 +1955,7 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 		XPlmi_Printf(DEBUG_INFO, "+++Configuring Secondary Boot "
 				"Device\n\r");
 		if (SecBootMode == XIH_IHT_ATTR_SBD_PCIE) {
-			Status = XLoader_SbiInit((u32)PdiSrc);
+			Status = XLoader_SbiInit((u32)XLOADER_PDI_SRC_PCIE);
 		}
 		else {
 			switch(SecBootMode)
