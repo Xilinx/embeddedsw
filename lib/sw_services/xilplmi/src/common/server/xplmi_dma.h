@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 * 1.09  ng   07/06/2023 Added support for SDT flow
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
+*       pre  05/07/2025 Added macro to clear SSS configuration
 *
 * </pre>
 *
@@ -77,6 +78,8 @@ extern "C" {
 
 #define XPLMI_SSS_DMA0_DMA0			(0x0000000DU)
 #define XPLMI_SSS_DMA0_PZM			(0x00000003U)
+
+#define XPLMI_SSS_CFG_CLEAR         (0x00U) /**< Value to clear SSS configuration */
 
 #define XPLMI_DATA_INIT_PZM			(0xDEADBEEFU)
 #define XPLMI_PZM_WORD_LEN			(16U)

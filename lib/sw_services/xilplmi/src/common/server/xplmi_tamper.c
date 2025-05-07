@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,8 @@
 * 1.04  ma   10/10/2023 Added redundancy to TAMPER_RESP_0 and TAMPER_TRIG writes
 *       mss  10/31/2023 Added code to Trigger FW CR error in XPlmi_ProcessTamperResponse
 * 2.00  ng   12/27/2023 Reduced log level for less frequent prints
+*       pre  05/05/2025 Clearing SSS configuration before handing off to ROM to trigger
+*                       secure lockdown
 *
 * </pre>
 *
@@ -202,6 +204,9 @@ static int XPlmi_ProcessTamperResponse(void *Data)
 					"error\r\n", Status);
 		}
 	}
+
+	/** Clearing SSS configuration */
+	XPlmi_Out32(PMC_GLOBAL_PMC_SSS_CFG, XPLMI_SSS_CFG_CLEAR);
 
 	/**
 	 * Configure TAMPER_RESP_0 with the received response
