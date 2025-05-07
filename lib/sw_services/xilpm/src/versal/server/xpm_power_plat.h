@@ -11,6 +11,9 @@
 #include "xpm_defs.h"
 #include "xpm_node.h"
 #include "xpm_common.h"
+#ifdef SDT
+#include "xpm_config.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
