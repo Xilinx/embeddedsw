@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -66,10 +66,10 @@ properties:
     description: Maximum rate of RX GT
   xlnx,tx-maxgt-line-rate:
     description: Maximum rate of TX GT
-  xlnx,rx-clk-primitive:
-    description: rx clock primitive value
   xlnx,tx-clk-primitive:
     description: tx clock primitive value
+  xlnx,rx-clk-primitive:
+    description: rx clock primitive value
   xlnx,speedgrade:
     desciption: FPGA device speed grade
   interrupts:
@@ -103,8 +103,8 @@ required:
     - xlnx,use-gt-ch4-hdmi
     - xlnx,rx-max-gt-line-rate
     - xlnx,tx-max-gt-line-rate
-    - xlnx,rx-clk-primitive
     - xlnx,tx-clk-primitive
+    - xlnx,rx-clk-primitive
     - xlnx,speedgrade
     - interrupts
     - interrupt-parent
