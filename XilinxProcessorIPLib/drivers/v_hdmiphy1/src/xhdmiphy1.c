@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1023,9 +1023,9 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 	/* Check values if valid */
 #if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-	if (!((MmcmPtr->ClkOut0Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut0Div <= clokoutdiv1_dpll_high) &&
-		  (MmcmPtr->ClkOut1Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut1Div <= clokoutdiv1_dpll_high) &&
-		  (MmcmPtr->ClkOut2Div > clokoutdiv1_dpll_lo) && (MmcmPtr->ClkOut2Div <= clokoutdiv1_dpll_high))) {
+	if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 128) &&
+		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
+		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128))) {
 #else
 #if (XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_TX_CLK_PRIMITIVE == 1 || \
 		XPAR_HDMIPHY_SS_0_HDMI_GT_CONTROLLER_RX_CLK_PRIMITIVE == 1)
