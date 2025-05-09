@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.3)
 
@@ -150,9 +150,11 @@ if (("${XILTIMER_sleep_timer}" STREQUAL "Default") OR
 	set(XSLEEPTIMER_FREQ XPAR_CPU_TIMESTAMP_CLK_FREQ)
     endif()
 
-    if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
-       ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52"))
+    if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
 	set(XSLEEPTIMER_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ/64)
+    endif()
+    if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr52")
+	set(XSLEEPTIMER_FREQ XPAR_CPU_TIMESTAMP_CLK_FREQ)
     endif()
 
     if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9"))

@@ -25,6 +25,8 @@
 *  	adk      08/08/22 Added doxygen tags.
 *  2.2  adk	 05/03/25 Update LPD_RST_TIMESTAMP and XIOU_SCNTRS_BASEADDR
 *  			  defines for Versal 2VE and 2VM platforms.
+*  	adk      09/05/25 Adjust the delay calculation logic for the R52
+*  	                  processor to use XIOU_SCNTRS_FREQ.
  *</pre>
  *
  *@note
@@ -146,6 +148,8 @@ static void XCortexr5_ModifyInterval(XTimer *InstancePtr, u32 delay,
 #else
 	u32 frequency = XGet_CpuFreq()/64;
 #endif
+#else
+	u32 frequency = XIOU_SCNTRS_FREQ;
 #endif
 #if defined (ARMR52)
 	static u8 IsSleepTimerStarted = FALSE;
@@ -161,11 +165,7 @@ static void XCortexr5_ModifyInterval(XTimer *InstancePtr, u32 delay,
 	Xpm_ReadCycleCounterVal(TimeLowVal1);
 #endif
 
-#if defined (ARMR52)
-	tEnd = (u64)TimeLowVal1 + ((u64)(delay) * (DelayType));
-#else
 	tEnd = (u64)TimeLowVal1 + ((u64)(delay) * (frequency/(DelayType)));
-#endif
 
 	do {
 #if defined (ARMR52)
