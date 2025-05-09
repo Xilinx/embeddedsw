@@ -224,6 +224,7 @@
 * 21.3   dd  10/18/23   Updated SDK release year and SDK release quarter
 * 24.2	 prt 09/18/24	Updated SDK_RELEASE_QUARTER
 * 25.1   prt 02/06/25   Updated SDK release year and SDK release quarter
+*        pre 05/08/25   Added header version in boot header
 *
 * </pre>
 *
@@ -503,7 +504,7 @@ extern "C" {
 #define IMAGE_WIDTH_CHECK_OFFSET        (0x020)	/**< 0xaa995566 Width Detection word */
 #define IMAGE_IDENT_OFFSET              (0x024) /**< 0x584C4E58 "XLNX" */
 #define IMAGE_ENC_FLAG_OFFSET           (0x028) /**< 0xA5C3C5A3 */
-#define IMAGE_USR_DEF_OFFSET            (0x02C)	/**< undefined  could be used as  */
+#define IMAGE_HEADER_VERSION_OFFSET     (0x02C) /**< 0x01010000 */
 #define IMAGE_SOURCE_ADDR_OFFSET        (0x030)	/**< start address of image  */
 #define IMAGE_BYTE_LEN_OFFSET           (0x034)	/**< length of image> in bytes  */
 #define IMAGE_DEST_ADDR_OFFSET          (0x038)	/**< destination address in OCM */
@@ -511,6 +512,7 @@ extern "C" {
 #define IMAGE_TOT_BYTE_LEN_OFFSET       (0x040)	/**< total length of image in bytes */
 #define IMAGE_QSPI_CFG_WORD_OFFSET      (0x044)	/**< QSPI configuration data */
 #define IMAGE_CHECKSUM_OFFSET           (0x048) /**< Header Checksum offset */
+#define IMAGE_USR_DEF_OFFSET            (0x04C) /**< undefined  could be used as  */
 #define IMAGE_IDENT                     (0x584C4E58) /**< XLNX pattern */
 
 /* Reboot status register defines:
