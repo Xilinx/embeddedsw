@@ -147,7 +147,8 @@
 *       sk   02/26/25 Reset Status variable before use in XLoader_SecureEncInit
 *       pre  03/02/25 Remove data context setting
 *       obs  03/22/25 Added redundant security checks to mitigate glitch attacks
-*	har  04/07/25 Updated instruction mask in XLoader_EnableJtag
+*       har  04/07/25 Updated instruction mask in XLoader_EnableJtag
+*       pre  05/09/25 Updation is done to do hashBlock1 integrity validation for boot PDI only
 *
 * </pre>
 *
@@ -4532,7 +4533,7 @@ int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr)
 		goto END;
 	}
 
-	if (SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) {
+	if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		/** Run SHA3 KAT */
 		Status = XST_FAILURE;
 		Status = XLoader_Sha3Kat(SecurePtr);
