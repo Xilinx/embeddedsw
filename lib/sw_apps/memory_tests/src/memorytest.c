@@ -71,7 +71,11 @@ s32 test_memory_range(struct memory_range_s *range)
 #else
 	xil_printf("         Base Address: 0x%x \n\r", range->base);
 #endif
-	xil_printf("                 Size: 0x%lx bytes \n\r", range->size);
+	if (sizeof(unsigned long) == 8) {
+		xil_printf("                 Size: 0x%lx bytes \n\r", range->size);
+	} else {
+		xil_printf("                 Size: 0x%llx bytes \n\r", range->size);
+	}
 #endif
 
 	/*
