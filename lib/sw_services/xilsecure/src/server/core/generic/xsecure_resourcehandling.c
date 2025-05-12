@@ -18,6 +18,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   pre  03/02/2025 Initial release
 *       pre  04/16/2025 Added core reset at resource freeing
+*       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
 *
 * </pre>
 *
@@ -37,7 +38,8 @@
 
 /************************** Variable Definitions *****************************/
 static u32 XSecure_ResIpiMask[XPLMI_MAX_CORE];
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+     && defined(XPLMI_IPI_DEVICE_ID))
 static struct metal_list XSecure_IpiEventsQueue[XPLMI_MAX_CORE];
 static XSecure_PartialPdiEventParams *XSecure_PpdiEventParamsPtr;
 

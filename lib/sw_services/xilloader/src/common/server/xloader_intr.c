@@ -15,7 +15,7 @@
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
-* ----- ---- -------- -------------------------------------------------------
+* ----- ---- -------- -----------------------------------------------------------------------------
 * 1.00  kc   03/25/2019 Initial release
 * 1.01  kc   04/09/2019 Added support for PCIe secondary boot mode and
 *						partial PDI load
@@ -50,6 +50,7 @@
 *       pre  03/02/2025 Added task based event notification functionality for partial PDI
 *       nb   04/09/2025 Add CPM PCIE isolation removal which has to come after
 *                       PDI load is complete
+*       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
 *
 * </pre>
 *
@@ -84,13 +85,15 @@
 							 */
 #define XLOADER_LOG_LEVEL_MASK		(0xF0U) /**< Flag indicates Log level
                                                  * mask */
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))
+#define XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE	(0x8U) /**< SBI PCIE PDI load */
+
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+     && defined(XPLMI_IPI_DEVICE_ID))
 #define XLOADER_PDILOAD_DEFAULT     (0x0U) /**< State to represent default sbi
                                     pdi load which is triggered from interrupt*/
 #define XLOADER_PDILOAD_TRIGGERED     (0x1U) /**< State to represent pdi load
                                       which is triggered from queued event */
 #define XLOADER_PPDI_IPI_CMDID        (0x701) /**< Cmd Id for partial PDI load from IPI */
-#define XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE	(0x8U) /**< SBI PCIE PDI load */
 
 /************************** Function Prototypes **************************************************/
 /**
@@ -164,7 +167,8 @@ static int XLoader_SbiLoadPdi(void *Data)
 	PdiSrc_t PdiSrc;
 	u64 PdiAddr;
 	u32 RegVal;
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+     && defined(XPLMI_IPI_DEVICE_ID))
     u32 Response[XPLMI_CMD_RESP_SIZE] = {0U};
 #endif
 	XilPdi* PdiPtr = XLoader_GetPdiInstance();
@@ -185,7 +189,8 @@ static int XLoader_SbiLoadPdi(void *Data)
 		goto END1;
 	}
 
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+     && defined(XPLMI_IPI_DEVICE_ID))
 	if (XSecure_PdiLoadState == XLOADER_PDILOAD_TRIGGERED) {
 		PdiPtr->IpiMask = PpdiEventVars.IpiMask;
 		PdiSrc = PpdiEventVars.PdiSrc;
@@ -261,7 +266,8 @@ END:
 		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
 	}
 
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+     && defined(XPLMI_IPI_DEVICE_ID))
 	if (PdiPtr->IpiMask != 0U) {
 		Response[XLOADER_RESP_CMD_LOAD_PDI_STATUS_INDEX] = (u32)Status;
 		if (Status != XST_SUCCESS) {
@@ -285,7 +291,8 @@ END1:
 	return Status;
 }
 
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+     && defined(XPLMI_IPI_DEVICE_ID))
 /*****************************************************************************/
 /**
  * @brief	This function handles the partial PDI event based on status of
