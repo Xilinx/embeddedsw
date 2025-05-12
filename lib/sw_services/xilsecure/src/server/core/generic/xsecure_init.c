@@ -34,6 +34,7 @@
 *       pre 03/02/2025 Modified XSecure_Init for initialization of AES and SHA in server mode
 *       sd  04/30/2025 Make XSecure_AesShaInit as non static function and move
 *                      XSecure_QueuesAndTaskInit to XSecure_Init function
+*       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
 *
 * </pre>
 *
@@ -144,7 +145,8 @@ int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 		goto END;
 	}
 
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))
+#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+     && defined(XPLMI_IPI_DEVICE_ID))
 	/** AES & SHA IPI event queues and free resource task initialization */
 	Status = XSecure_QueuesAndTaskInit(PpdiEventParamsPtr);
 	if (Status != XST_SUCCESS) {
