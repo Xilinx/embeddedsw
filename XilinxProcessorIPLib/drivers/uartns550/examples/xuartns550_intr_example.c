@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -68,12 +68,13 @@
 #ifndef TESTAPP_GEN
 #ifndef SDT
 #define UART_DEVICE_ID		XPAR_UARTNS550_0_DEVICE_ID
-#define UART_IRPT_INTR		XPAR_INTC_0_UARTNS550_0_VEC_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define UART_IRPT_INTR		XPAR_INTC_0_UARTNS550_0_VEC_ID
 #else
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define UART_IRPT_INTR		XPAR_FABRIC_UARTNS550_0_VEC_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #else
 #define XUARTNS550_BASEADDRESS		XPAR_XUARTNS550_0_BASEADDR
@@ -262,7 +263,7 @@ int UartNs550IntrExample(XUartNs550 *UartInstancePtr,
 					  UartInstancePtr,
 					  UartIntrId);
 #else
-	Status = XSetupInterruptSystem(UartInstancePtr, &UartNs550IntrHandler,
+	Status = XSetupInterruptSystem(UartInstancePtr, (void *)&XUartNs550_InterruptHandler,
 				       CfgPtr->IntrId, CfgPtr->IntrParent,
 				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
