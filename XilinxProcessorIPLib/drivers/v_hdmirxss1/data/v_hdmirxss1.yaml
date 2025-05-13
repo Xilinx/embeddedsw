@@ -31,7 +31,7 @@ properties:
     description: Flag to indicate display stream compression feature support
   xlnx,axi-lite-freq-hz:
     description: Axi lite clock frequency in Hz
-  xlnx,video-interface:
+  xlnx,vid-interface:
     description: Video interface type supported
   hdcptimer-present:
     description: Sub-core instance presence
@@ -64,7 +64,7 @@ required:
     - xlnx,dynamic-hdr
     - xlnx,dsc
     - xlnx,axi-lite-freq-hz
-    - xlnx,video-interface
+    - xlnx,vid-interface
     - hdcptimer-present
     - hdcptimer-connected: phandle
     - hdcp14-present
