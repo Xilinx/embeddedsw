@@ -455,21 +455,21 @@ XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 				if (XST_SUCCESS != Status) {
 					goto done;
 				}
-				continue;
 			} else {
 				PmInfo("Core 0x%x is not in pending power down state (state: 0x%x)\r\n",
 					Core->Device.Node.Id, Core->Device.Node.State);
 
 				/* Call power down handler */
-				Status = XPmPower_ACpuDirectPwrDwn(ApuSleepHandlerTable[Index].Args);
+				Status = Core->CoreOps->PowerDown(Core);
+				if (XST_SUCCESS != Status) {
+					PmErr("Failed to power down core 0x%x!\r\n", Core->Device.Node.Id);
+					goto done;
+				}
 
 				/* Ack the service */
 				XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS, ApuSleepHandlerTable[Index].Mask);
 				XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_DIS, ApuSleepHandlerTable[Index].Mask);
 			}
-
-			/* Call XPmCore_AfterDirectPwrDwn to set the core power state */
-			Status = XPmCore_AfterDirectPwrDwn(Core);
 		}
 	}
 
