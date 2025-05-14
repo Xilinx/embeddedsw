@@ -348,16 +348,15 @@ XStatus XPm_DispatchApuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 
 			ResumeAddr = Core->ResumeAddr;
 
-			/* Call power up handler */
-			Status = XPmPower_ACpuDirectPwrUp(ApuWakeupHandlerTable[Index].Args, ResumeAddr);
+			Status = Core->CoreOps->RequestWakeup(Core, 1U, ResumeAddr);
+			if (XST_SUCCESS != Status) {
+				PmErr("Failed to wakeup core 0x%x!\r\n", Core->Device.Node.Id);
+				goto done;
+			}
 
 			/* Ack the service */
 			XPm_Out32(PSXC_LPX_SLCR_WAKEUP0_IRQ_STATUS, ApuWakeupHandlerTable[Index].Mask);
 			XPm_Out32(PSXC_LPX_SLCR_WAKEUP0_IRQ_DIS, ApuWakeupHandlerTable[Index].Mask);
-
-			/* Call XPmCore_AfterDirectPwrUp to set the core power state */
-			XPmCore_AfterDirectPwrUp(Core);
-
 		}
 	}
 
@@ -396,14 +395,15 @@ XStatus XPm_DispatchRpuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 
 			ResumeAddr = Core->ResumeAddr;
 			/* Call power up handler */
-			Status = XPmPower_RpuDirectPwrUp(RpuWakeupHandlerTable[Index].Args, ResumeAddr);
+			Status = Core->CoreOps->RequestWakeup(Core, 1U, ResumeAddr);
+			if (XST_SUCCESS != Status) {
+				PmErr("Failed to wakeup core 0x%x!\r\n", Core->Device.Node.Id);
+				goto done;
+			}
 
 			/* Ack the service */
 			XPm_Out32(PSXC_LPX_SLCR_WAKEUP1_IRQ_STATUS, RpuWakeupHandlerTable[Index].Mask);
 			XPm_Out32(PSXC_LPX_SLCR_WAKEUP1_IRQ_DIS, RpuWakeupHandlerTable[Index].Mask);
-
-			/* Call XPmCore_AfterDirectPwrUp to set the core power state */
-			XPmCore_AfterDirectPwrUp(Core);
 		}
 	}
 
