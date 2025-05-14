@@ -1047,9 +1047,9 @@ XStatus XPmPower_ACpuDirectPwrDwn(struct XPmFwPwrCtrl_t *Args)
 		goto done;
 	}
 
-	u32 PwrState = XPm_In32(PMXC_GLOBAL_PMC_AUX_PWR_STATE_0) & ((u32)0xFU << ((u32)Args->ClusterId * 4U));
+	u32 PwrState = XPm_In32(PMXC_GLOBAL_PMC_AUX_PWR_STATE_0) & PMXC_GLOBAL_CORE_PWR_STATE_MASK(Args->ClusterId);
 	/* Power down cluster if all cores in cluster are powered off */
-	if (1 == __builtin_popcount(PwrState)) {
+	if (0 == __builtin_popcount(PwrState)) {
 		XPm_Out32(Args->ClusterPcilAddr + APU_PCIL_CLUSTER_PSTATE_OFFSET, 0U);
 		XPm_Out32(Args->ClusterPcilAddr + APU_PCIL_CLUSTER_PREQ_OFFSET, APU_PCIL_CLUSTER_PREQ_MASK);
 
