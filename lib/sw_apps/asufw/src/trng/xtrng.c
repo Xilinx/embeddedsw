@@ -65,21 +65,6 @@
 #define XTRNG_STATUS_QCNT_VAL				4U /**< QCNT value for single burst */
 
 /************************************** Type Definitions *****************************************/
-/**
-* @brief This typedef contains configuration information for a TRNG core.
-* Each core should have an associated configuration structure.
-*/
-typedef struct {
-	u16 DeviceId; /**< DeviceId is the unique ID of the device */
-	u32 BaseAddress; /**< BaseAddress is the physical base address of the device's registers */
-	u32 TrngFifoAddr; /**< TRNG FIFO address */
-} XTrng_Config;
-
-/** @brief This typedef contains the seed life information. */
-typedef struct {
-	u32 ElapsedSeedLife; /**< Elapsed seed life */
-} XTrng_Status;
-
 /** This typedef is used to update the state of TRNG. */
 typedef enum {
 	XTRNG_UNINITIALIZED_STATE = 0, /**< Default state */
@@ -89,8 +74,25 @@ typedef enum {
 	XTRNG_AUTOPROC_STATE /**< TRNG in autoproc */
 } XTrng_State;
 
+/** @} */
+
 /**
-* @brief TRNG driver instance structure. A pointer to an instance data structure is passed around
+* This typedef contains configuration information for a TRNG core.
+* Each core should have an associated configuration structure.
+*/
+typedef struct {
+	u16 DeviceId; /**< DeviceId is the unique ID of the device */
+	u32 BaseAddress; /**< BaseAddress is the physical base address of the device's registers */
+	u32 TrngFifoAddr; /**< TRNG FIFO address */
+} XTrng_Config;
+
+/** This typedef contains the seed life information. */
+typedef struct {
+	u32 ElapsedSeedLife; /**< Elapsed seed life */
+} XTrng_Status;
+
+/**
+* TRNG driver instance structure. A pointer to an instance data structure is passed around
 * by functions to refer to a specific driver instance.
 */
 struct _XTrng {
@@ -104,6 +106,10 @@ struct _XTrng {
 	XTrng_State State; /**< TRNG core state */
 };
 
+/**
+* @addtogroup xtrng_server_apis TRNG Server APIs
+* @{
+*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/

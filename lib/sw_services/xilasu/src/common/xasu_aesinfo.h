@@ -109,10 +109,9 @@ extern "C" {
 #define XASU_AES_ENCRYPT_OPERATION	(0x0U) /**< AES encrypt operation */
 #define XASU_AES_DECRYPT_OPERATION	(0x1U) /**< AES decrypt operation */
 
+/** @} */
 /************************************ Type Definitions *******************************************/
-/**
- * @brief This structure contains AES key object information.
- */
+/** This structure contains AES key object information. */
 typedef struct {
 	u64 KeyAddress; /**< AES Key pointer */
 	u32 KeySize; /**< AES key size */
@@ -120,8 +119,8 @@ typedef struct {
 } XAsu_AesKeyObject;
 
 /**
- * @brief This structure is common for both client and handler, which contains AES input and output
- *  parameters information.
+ * This structure is common for both client and handler, which contains AES input and output
+ * parameters information.
  */
 typedef struct {
 	u64 InputDataAddr; /**< AES input data address */
@@ -143,7 +142,7 @@ typedef struct {
 	u8 OperationType; /**< AES encrypt/decrypt operation type
 					* - XASU_AES_ENCRYPT_OPERATION: For encrypt operation
 					* - XASU_AES_DECRYPT_OPERATION: For decrypt operation */
-} Asu_AesParams __attribute__ ((aligned (32)));
+} XAsu_AesParams __attribute__ ((aligned (32)));
 
 /************************************ Function Prototypes ****************************************/
 
@@ -154,4 +153,3 @@ typedef struct {
 #endif
 
 #endif  /* XASU_AESINFO_H_ */
-/** @} */

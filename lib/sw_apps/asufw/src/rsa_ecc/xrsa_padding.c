@@ -21,7 +21,7 @@
 *
 **************************************************************************************************/
 /**
-* @addtogroup xrsa_padding_apis RSA Padding APIs
+* @addtogroup xrsa_padding_apis RSA Padding Server APIs
 * @{
 */
 /*************************************** Include Files *******************************************/
@@ -66,7 +66,7 @@
 								one padding index offset value*/
 #define XRSA_INPUT_PADDING_ZERO_AND_ONE_OFFSET			(0X02U)	/**< RSA input message
 								length value calculation offset */
-
+/** @} */
 /************************************** Type Definitions *****************************************/
 /** Structure has input and output parameters used for MGF */
 typedef struct {
@@ -76,6 +76,10 @@ typedef struct {
 	u32 OutputLen; /**< Output buffer length */
 } XAsufw_MgfInput;
 
+/**
+* @addtogroup xrsa_padding_apis RSA Padding Server APIs
+* @{
+*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
@@ -227,7 +231,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		goto END;
 	}
 
-	/** Generate mask of required length for data block. */
+	/** Generate mask of required length for data block using MGF (Mask Generation Function). */
 	MgfInput.Output = MaskedDataBlock;
 	MgfInput.OutputLen = DataBlockLen;
 	MgfInput.Seed = SeedBuffer;
@@ -244,7 +248,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		DataBlock[Index] ^= MaskedDataBlock[Index];
 	}
 
-	/** Generate mask of required length for seed block. */
+	/** Generate mask of required length for seed block using MGF. */
 	MgfInput.Output = MaskSeedBuffer;
 	MgfInput.OutputLen = HashLen;
 	MgfInput.Seed = DataBlock;
@@ -439,7 +443,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	MaskedSeedBuffer = &DecryptOutputData[XRSA_DATA_BLOCK_SECOND_INDEX];
 	MaskedDataBlock = &DecryptOutputData[HashLen + XRSA_OAEP_ZERO_PADDING_DATA_BLOCK_OFFSET];
 
-	/** Generate mask of required length for seed block. */
+	/** Generate mask of required length for seed block using MGF. */
 	MgfInput.Output = SeedBuffer;
 	MgfInput.OutputLen = HashLen;
 	MgfInput.Seed = MaskedDataBlock;
@@ -456,7 +460,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		SeedBuffer[Index] ^= MaskedSeedBuffer[Index];
 	}
 
-	/** Generate mask of required length for data block. */
+	/** Generate mask of required length for data block using MGF. */
 	MgfInput.Output = DataBlock;
 	MgfInput.OutputLen = DataBlockLen;
 	MgfInput.Seed = SeedBuffer;
@@ -610,7 +614,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		goto END;
 	}
 
-	/** The length (in bytes) of the salt shall satisfy 0 ≤ SaltLen ≤ HashLen. */
+	/** The length (in bytes) of the salt shall satisfy 0 <= SaltLen <= HashLen. */
 	if (SaltLen > HashLen) {
 		Status = XASUFW_RSA_PSS_INVALID_SALT_LEN;
 		goto END;
@@ -736,7 +740,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		}
 	}
 
-	/** Generate mask of required length for data block. */
+	/** Generate mask of required length for data block using MGF. */
 	MgfInput.Output = OutputData;
 	MgfInput.OutputLen = DataBlockLen;
 	MgfInput.Seed = HashBuffer;
@@ -899,7 +903,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		goto END;
 	}
 
-	/** The length (in bytes) of the salt shall satisfy 0 ≤ SaltLen ≤ HashLen. */
+	/** The length (in bytes) of the salt shall satisfy 0 <= SaltLen <= HashLen. */
 	if (SaltLen > HashLen) {
 		Status = XASUFW_RSA_PSS_INVALID_SALT_LEN;
 		goto END;
@@ -965,7 +969,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	/**
 	* If MSbit is not 0x00 error out, else calculate the mask of data block on successful
-	* comparison.
+	* comparison using MGF.
 	*/
 	if ((MaskedDataBlock[XRSA_DATA_BLOCK_FIRST_INDEX] &
 	     XRSA_PSS_MSB_PADDING_CHECK_MASK) != 0x00U) {

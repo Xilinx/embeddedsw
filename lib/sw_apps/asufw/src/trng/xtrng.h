@@ -66,8 +66,9 @@ typedef enum {
 	XTRNG_PTRNG_MODE, /**< PTRNG Mode */
 	XTRNG_HRNG_MODE /**< HRNG Mode */
 } XTrng_Mode;
+/** @} */
 
-/** @brief This structure contains user configuration of TRNG. */
+/** This structure contains user configuration of TRNG. */
 typedef struct {
 	XTrng_Mode Mode; /**< TRNG Mode */
 	u32 SeedLife; /**< Seed life */
@@ -77,6 +78,10 @@ typedef struct {
 	u8 PredResistance; /**< prediction resistance */
 } XTrng_UserConfig;
 
+/**
+* @addtogroup xtrng_server_apis TRNG Server APIs
+* @{
+*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/

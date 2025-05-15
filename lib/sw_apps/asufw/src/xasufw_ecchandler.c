@@ -28,7 +28,7 @@
 
 /*************************************** Include Files *******************************************/
 /**
-* @addtogroup xasufw_application ASUFW Functionality
+* @addtogroup xasufw_application ASUFW Server Functionality
 * @{
 */
 #include "xasufw_ecchandler.h"

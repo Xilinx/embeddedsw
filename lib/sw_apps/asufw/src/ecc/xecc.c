@@ -59,19 +59,17 @@
 								generate public key operation. */
 #define XECC_RAND_NUM_COUNT_GEN_SIGN		(4U) /**< Number of random values required for
 								generate SIGN operation. */
-
+/** @} */
 /************************************** Type Definitions *****************************************/
 
-/**
-* @brief This structure contains curve related information.
-*/
+/** This structure contains curve related information. */
 typedef struct {
 	u32 CurveType; /**< Type of the curve */
 	u32 CurveBytes; /**< Length of the curve in bytes*/
 } XEcc_CurveInfo;
 
 /**
-* @brief This structure contains configuration information for a ECC core.
+* This structure contains configuration information for a ECC core.
 * Each core should have an associated configuration structure.
 */
 struct _XEcc_Config {
@@ -80,7 +78,7 @@ struct _XEcc_Config {
 };
 
 /**
-* @brief ECC driver instance data structure. A pointer to an instance data
+* ECC driver instance data structure. A pointer to an instance data
 * structure is passed around by functions to refer to a specific driver
 * instance.
 */
@@ -91,6 +89,10 @@ struct _XEcc {
 	XEcc_CurveInfo *CurveInfo; /**< ECC curve information */
 };
 
+/**
+* @addtogroup xecc_server_apis ECC Server APIs
+* @{
+*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/

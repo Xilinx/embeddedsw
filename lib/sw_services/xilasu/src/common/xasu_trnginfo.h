@@ -51,10 +51,11 @@ extern "C" {
 #define XASU_TRNG_DRBG_RESEED_CMD_ID            4U /**< Command ID for TRNG DRBG reseed cmd */
 #define XASU_TRNG_DRBG_GENERATE_CMD_ID          5U /**< Command ID for TRNG DRBG generate cmd */
 
+/** @} */
 /************************************** Type Definitions *****************************************/
 #ifdef XASU_TRNG_ENABLE_DRBG_MODE
 /**
- * @brief This structure contains configuration information for DRBG instantiation.
+ * This structure contains configuration information for DRBG instantiation.
  * where all buffers addresses supports only for 32 bit address range.
  */
 typedef struct {
@@ -66,7 +67,7 @@ typedef struct {
 } XAsu_DrbgInstantiateCmd;
 
 /**
- * @brief This structure contains configuration information for DRBG reseed.
+ * This structure contains configuration information for DRBG reseed.
  * where all buffers addresses supports only for 32 bit address range.
  */
 typedef struct {
@@ -75,7 +76,7 @@ typedef struct {
 } XAsu_DrbgReseedCmd;
 
 /**
- * @brief This structure contains configuration information for DRBG regenerate.
+ * This structure contains configuration information for DRBG regenerate.
  * where all buffers addresses supports only for 32 bit address range.
  */
 typedef struct {
@@ -95,4 +96,3 @@ typedef struct {
 #endif
 
 #endif  /* XASU_TRNGINFO_H_ */
-/** @} */

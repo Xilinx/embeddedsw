@@ -346,7 +346,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 	u32 RoundNum = 0U;
 	u32 BlkRoundNum = 0U;
 	u32 *AesInDataSemiBlockPtr = (u32 *)(AesInData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
-	Asu_AesParams AesParams;
+	XAsu_AesParams AesParams;
 	XAsu_AesKeyObject AesKeyObj;
 
 	/** Validate input parameters. */
@@ -542,7 +542,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 	u32 PadLen = 0U;
 	volatile u32 Index = 0U;
 	u32 *AesInDataSemiBlockPtr = (u32 *)(AesInData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
-	Asu_AesParams AesParams;
+	XAsu_AesParams AesParams;
 	XAsu_AesKeyObject AesKeyObj;
 
 	/** Validate input parameters. */

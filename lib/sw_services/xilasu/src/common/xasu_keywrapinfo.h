@@ -46,10 +46,9 @@ extern "C" {
 #define XASU_KEYWRAP_GET_INFO_CMD_ID		(5U) /**< Command ID for Key wrap unwrap Get Info */
 
 #define XASU_KEYWRAP_OUTPUT_LEN_SIZE_IN_BYTES	(4U)	/**< Key wrap unwrap output length size */
+/** @} */
 /************************************** Type Definitions *****************************************/
-/**
- * @brief This structure contains Key wrap unwrap params info
- */
+/** This structure contains Key wrap unwrap params info. */
 typedef struct {
 	u64 InputDataAddr;	/**< Address of the input data buffer which holds: Plain key for
 						 * key wrap or wrapped key for key unwrap */
@@ -87,4 +86,3 @@ typedef struct {
 #endif
 
 #endif  /* XASU_KEYWRAPINFO_H_ */
-/** @} */

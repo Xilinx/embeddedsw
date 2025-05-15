@@ -27,7 +27,7 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup xasufw_application ASUFW Functionality
+* @addtogroup xasufw_application ASUFW Server Functionality
 * @{
 */
 #ifndef XASUFW_MODULES_H_
@@ -50,16 +50,18 @@ extern "C" {
 #define XASUFW_MODULE_COMMAND(FUNC)		{ (FUNC) } /**< Module command define */
 
 /************************************** Type Definitions *****************************************/
-/** @brief This structure contains function pointer to command handler. */
-typedef struct {
-	s32 (*CmdHandler)(const XAsu_ReqBuf *ReqBuf, u32 ReqId); /**< Command handler */
-} XAsufw_ModuleCmd;
-
 typedef s32 (*XAsufw_ResourceHandler_t)(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 typedef u16 XAsufw_ResourcesRequired;
 
-/** @brief This structure contains Module information. */
+/** @} */
+/** This structure contains a function pointer to command handler. */
+typedef struct {
+	s32 (*CmdHandler)(const XAsu_ReqBuf *ReqBuf, u32 ReqId); /**< Command handler */
+} XAsufw_ModuleCmd;
+
+
+/** This structure contains Module information. */
 typedef struct {
 	u32 Id; /**< Module ID */
 	const XAsufw_ModuleCmd *Cmds; /**< Pointer to module command handlers */
@@ -71,6 +73,10 @@ typedef struct {
 	XAes *AesPtr; /**< Pointer to the AES instance */
 } XAsufw_Module;
 
+/**
+* @addtogroup xasufw_application ASUFW Server Functionality
+* @{
+*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/

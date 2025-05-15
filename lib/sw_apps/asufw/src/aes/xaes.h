@@ -85,7 +85,7 @@ s32 XAes_DpaCmDecryptData(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObje
 	u32 InputDataAddr, u32 OutputDataAddr, u32 DataLength);
 s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeySel, u8 DecKeySize,
 	u64 IvAddr, u32 IvLen);
-s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, Asu_AesParams *AesParams);
+s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, XAsu_AesParams *AesParams);
 u8 XAes_GetEngineMode(const XAes *InstancePtr);
 s32 XAes_KeyClear(const XAes *InstancePtr, u32 KeySrc);
 

@@ -284,7 +284,7 @@ static void XAsu_AesGcmExample(void)
 	s32 Status = XST_FAILURE;
 	XAsu_AesKeyObject AesKeyObj;
 	XAsu_ClientParams AesClientParams = {0U};
-	Asu_AesParams AesParams;
+	XAsu_AesParams AesParams;
 	ErrorStatus = XST_FAILURE;
 
 	xil_printf("\r\n AES-GCM Example: \r\n");
@@ -436,7 +436,7 @@ static void XAsu_AesCtrExample(void)
 	s32 Status = XST_FAILURE;
 	XAsu_AesKeyObject AesKeyObj;
 	XAsu_ClientParams AesClientParams = {0U};
-	Asu_AesParams AesParams;
+	XAsu_AesParams AesParams;
 	ErrorStatus = XST_FAILURE;
 
 	xil_printf("\r\n AES-CTR Example: \r\n");

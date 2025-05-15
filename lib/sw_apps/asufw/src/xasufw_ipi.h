@@ -23,7 +23,7 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup xasufw_application ASUFW Functionality
+* @addtogroup xasufw_application ASUFW Server Functionality
 * @{
 */
 #ifndef XASUFW_IPI_H_

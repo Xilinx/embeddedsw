@@ -317,7 +317,7 @@ static s32 XEcies_AesCompute(XAes *AesInstancePtr, XAsufw_Dma *DmaPtr,
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	Asu_AesParams AesParams;
+	XAsu_AesParams AesParams;
 	XAsu_AesKeyObject KeyObject;
 
 	KeyObject.KeySize = (u32)EciesParams->AesKeySize;

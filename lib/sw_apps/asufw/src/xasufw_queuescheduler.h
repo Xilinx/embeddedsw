@@ -25,7 +25,7 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup xasufw_application ASUFW Functionality
+* @addtogroup xasufw_application ASUFW Server Functionality
 * @{
 */
 #ifndef XASUFW_QUEUESCHEDULER_H_
@@ -48,17 +48,14 @@ extern "C" {
 #define XASUFW_MAX_CHANNELS_SUPPORTED	(8U) /**< Maximum channels supported */
 #define XASUFW_RESP_DATA_OFFSET			(2U) /**< Response data offset in response buffer */
 
+/** @} */
 /************************************** Type Definitions *****************************************/
-/**
- * @brief This structure is for shared memory of all channels.
- */
+/** This structure is for shared memory of all channels. */
 typedef struct {
 	XAsu_ChannelMemory ChannelMemory[XASUFW_MAX_CHANNELS_SUPPORTED]; /**< Channel memories */
 } XAsufw_SharedMemory;
 
-/**
- * @brief This structure contains P0 and P1 queue tasks and queue task handler required info.
- */
+/** This structure contains P0 and P1 queue tasks and queue task handler required info. */
 typedef struct {
 	XTask_TaskNode *P0QueueTask; /**< P0 queue task pointer */
 	u32 P0QueueBufIdx; /**< P0 queue previous buffer index */
@@ -66,13 +63,15 @@ typedef struct {
 	u32 P1QueueBufIdx; /**< P1 queue previous buffer index */
 } XAsufw_QueueTasks;
 
-/**
- * @brief This structure contains information about all channel's tasks.
- */
+/** This structure contains information about all the channel's tasks. */
 typedef struct {
 	XAsufw_QueueTasks Channel[XASU_MAX_IPI_CHANNELS]; /**< Queue task info of all channels */
 } XAsufw_ChannelTasks;
 
+/**
+* @addtogroup xasufw_application ASUFW Server Functionality
+* @{
+*/
 /** This define calculates the structure member address from Item and structure Type */
 #define XAsufw_GetRespBuf(Item, Type, Member)    \
 	((Type *)(((char *)(Item) - offsetof(Type, Item)) + offsetof(Type, Member)))

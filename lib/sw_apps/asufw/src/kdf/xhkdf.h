@@ -42,17 +42,19 @@ extern "C" {
 /************************************ Variable Definitions ***************************************/
 
 /************************************ Macro Definitions ******************************************/
-
+/** @} */
 /************************************ Type Definitions *******************************************/
-/**
-* @brief This structure contains HKDF params info
-*/
+/** This structure contains HKDF params info. */
 typedef struct {
 	XAsu_KdfParams KdfParams; /**< Kdf Parameters for HKDF operation */
 	u64 SaltAddr; /**< Address of the buffer holding salt which is optional */
 	u32 SaltLen; /**< Length of the Salt */
 } XAsu_HkdfParams;
 
+/**
+* @addtogroup xhkdf_server_apis HKDF Server APIs
+* @{
+*/
 /************************************ Function Prototypes ****************************************/
 s32 XHkdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_HkdfParams *HkdfParams);
 

@@ -43,6 +43,13 @@ typedef enum {
 	XHMAC_UPDATE_COMPLETED, /**< HMAC update is in completed state after the final data chunk */
 } XHmac_State;
 
+/** @} */
+
+/**
+* HMAC driver instance data structure. A pointer to an instance data
+* structure is passed around by functions to refer to a specific driver
+* instance.
+*/
 struct _XHmac {
 	XSha *ShaInstancePtr; /**< SHA instance pointer */
 	u8 BlockLen; /**< SHA block length */
@@ -54,6 +61,10 @@ struct _XHmac {
 	XHmac_State HmacState; /**< HMAC current state */
 };
 
+/**
+* @addtogroup xhmac_server_apis HMAC Server APIs
+* @{
+*/
 /************************************ Variable Definitions ***************************************/
 
 /************************************ Function Prototypes ****************************************/

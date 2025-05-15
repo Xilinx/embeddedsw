@@ -20,7 +20,7 @@
 *
 **************************************************************************************************/
 /**
-* @addtogroup xrsa_padding_apis RSA Padding APIs
+* @addtogroup xrsa_padding_apis RSA Padding Server APIs
 * @{
 */
 

@@ -147,11 +147,9 @@ typedef enum {
 	XAES_DATA_UPDATE_IN_PROGRESS, /**< AES update is in progress state during data chunk updates */
 	XAES_UPDATE_COMPLETED, /**< AES update is in completed state after the final data chunk */
 } XAes_State;
-
+/** @} */
 /**************************** Type Definitions ***************************************************/
-/**
- * @brief This structure defines look up table for AES key.
- */
+/** This structure defines look up table for AES key. */
 typedef struct {
 	u32 RegOffset; /**< Register offset for key source */
 	u32 KeySrcSelVal; /**< Selection value for key source */
@@ -163,7 +161,7 @@ typedef struct {
 } XAes_KeyLookup;
 
 /**
- * @brief This structure contains configuration information for AES core.
+ * This structure contains configuration information for AES core.
  * Each core should have an associated configuration structure.
  */
 struct _XAes_Config {
@@ -172,6 +170,28 @@ struct _XAes_Config {
 	u32 KeyBaseAddress; /**< Base address of ASU_KEY module */
 };
 
+/**
+ * AES driver instance data structure. A pointer to an instance data
+ * structure is passed around by functions to refer to a specific driver
+ * instance.
+ */
+struct _XAes {
+	u32 AesBaseAddress; /**< AES Base address */
+	u32 KeyBaseAddress; /**< Key Vault Base address */
+	u16 DeviceId;		/**< DeviceId is the unique ID of the device */
+	u16 AesCmConfig;	/**< AES counter Measure configuration */
+	XAsufw_Dma *AsuDmaPtr;	/**< ASU DMA instance pointer */
+	XAes_State AesState;	/**< AES internal state machine */
+	u8 OperationType;	/**< AES operation type (Encryption/Decryption) */
+	u8 EngineMode;		/**< Aes Engine mode */
+	u8 CcmAadZeroBlockPadLen; /**< Number of zero bytes needed to pad AAD to AES block length in CCM. */
+	u8 Reserved;		/**< Reserved for future */
+};
+
+/**
+* @addtogroup xaes_server_apis AES Server APIs
+* @{
+*/
 /************************** Variable Definitions *************************************************/
 /**
  * @brief AES Key Lookup Table
@@ -332,24 +352,6 @@ static XAes_Config AesConfigTable[XASU_XAES_NUM_INSTANCES] = {
 		XASU_XAES_0_BASEADDR,
 		XASU_XKEY_0_BASEADDR
 	}
-};
-
-/**
- * @brief AES driver instance data structure. A pointer to an instance data
- * structure is passed around by functions to refer to a specific driver
- * instance.
- */
-struct _XAes {
-	u32 AesBaseAddress; /**< AES Base address */
-	u32 KeyBaseAddress; /**< Key Vault Base address */
-	u16 DeviceId;		/**< DeviceId is the unique ID of the device */
-	u16 AesCmConfig;	/**< AES counter Measure configuration */
-	XAsufw_Dma *AsuDmaPtr;	/**< ASU DMA instance pointer */
-	XAes_State AesState;	/**< AES internal state machine */
-	u8 OperationType;	/**< AES operation type (Encryption/Decryption) */
-	u8 EngineMode;		/**< Aes Engine mode */
-	u8 CcmAadZeroBlockPadLen; /**< Number of zero bytes needed to pad AAD to AES block length in CCM. */
-	u8 Reserved;		/**< Reserved for future */
 };
 
 static XAes XAes_Instance[XASU_XAES_NUM_INSTANCES]; /**< ASUFW AES HW instances */
@@ -1413,7 +1415,7 @@ END:
  *
  * @param	InstancePtr	Pointer to the XAes instance.
  * @param	AsuDmaPtr	Pointer to the XAsufw_Dma instance.
- * @param	AesParams	Pointer to the Asu_AesParams structure containing user input
+ * @param	AesParams	Pointer to the XAsu_AesParams structure containing user input
  * 				parameters.
  *
  * @return
@@ -1424,7 +1426,7 @@ END:
  * 		- XASUFW_AES_FINAL_FAILED, if AES final fails.
  *
  *************************************************************************************************/
-s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, Asu_AesParams *AesParams)
+s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, XAsu_AesParams *AesParams)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 

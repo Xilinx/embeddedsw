@@ -24,7 +24,7 @@
  *
  *************************************************************************************************/
 /**
- * @addtogroup xasu_client_info Client APIs AND Error Codes
+ * @addtogroup xasu_client_error_codes Client Error Codes
  * @{
 */
 #ifndef XASU_STATUS_H_

@@ -73,19 +73,16 @@ extern "C" {
 #define XASU_RSA_SIGN_GENERATION		(3U)	/**< Sign Generation operation */
 #define XASU_RSA_SIGN_VERIFICATION		(4U)	/**< Sign Verification operation */
 
+/** @} */
 /************************************** Type Definitions *****************************************/
-/**
- * @brief This structure contains RSA public key parameters info.
- */
+/** This structure contains RSA public key parameters info. */
 typedef struct {
 	u32 Keysize;					/**< Key size in bytes*/
 	u32 Modulus[XRSA_MAX_KEY_SIZE_IN_WORDS];	/**< Rsa key Modulus */
 	u32 PubExp;					/**< Public exponent */
 } XAsu_RsaPubKeyComp;
 
-/**
- * @brief This structure contains RSA private key parameters info.
- */
+/** This structure contains RSA private key parameters info. */
 typedef struct {
 	XAsu_RsaPubKeyComp PubKeyComp;			/**< Contains public key components */
 	u32 PvtExp[XRSA_MAX_KEY_SIZE_IN_WORDS];		/**< Private Exponent */
@@ -96,9 +93,7 @@ typedef struct {
 						     2 : Array Consists Prime component*/
 } XAsu_RsaPvtKeyComp;
 
-/**
- * @brief This structure contains RSA private key CRT parameters info.
- */
+/** This structure contains RSA private key CRT parameters info. */
 typedef struct {
 	XAsu_RsaPubKeyComp PubKeyComp;			/**< Contains public key components */
 	u32 Prime1[XRSA_MAX_PRIME_SIZE_IN_WORDS];	/**< Prime number 1 */
@@ -108,24 +103,18 @@ typedef struct {
 	u32 QInv[XRSA_MAX_PRIME_SIZE_IN_WORDS];		/**< Inverse of Q*/
 } XAsu_RsaCrtKeyComp;
 
-/**
- * @brief This structure contains RSA exponent value (R square mod N).
- */
+/** This structure contains RSA exponent value (R square mod N). */
 typedef struct {
 	u32 RRn[XRSA_MAX_KEY_SIZE_IN_WORDS];	/**< R square modN exponent value */
 } XAsu_RsaRRModN;
 
-/**
- * @brief This structure contains RSA exponent values (R mod N,R square mod N).
- */
+/** This structure contains RSA exponent values (R mod N, R square mod N). */
 typedef struct {
 	XAsu_RsaRRModN RRModn;			/**< Contains R square modN component */
 	u32 Rn[XRSA_MAX_KEY_SIZE_IN_WORDS];	/**< R modN exponent value */
 } XAsu_RsaRModN;
 
-/**
- * @brief This structure contains RSA params info.
- */
+/** This structure contains RSA params info. */
 typedef struct {
 	u64 InputDataAddr; 	/**< Address of RSA input data */
 	u64 OutputDataAddr; 	/**< Address of RSA output data */
@@ -137,9 +126,7 @@ typedef struct {
 	u32 KeySize;		/**< Key Size */
 } XAsu_RsaParams;
 
-/**
- * @brief This structure contains RSA PSS padding params info.
- */
+/** This structure contains RSA PSS padding params info. */
 typedef struct {
 	XAsu_RsaParams  XAsu_RsaOpComp;	/**< RSA parameters */
 	u64 SignatureDataAddr;	/**< Address of RSA signature which acts as :
@@ -157,9 +144,7 @@ typedef struct {
 	u8 Reserved;	/**< Reserved */
 } XAsu_RsaPaddingParams;
 
-/**
- * @brief This structure contains RSA OAEP padding params info.
- */
+/** This structure contains RSA OAEP padding params info. */
 typedef struct {
 	XAsu_RsaParams  XAsu_RsaOpComp;	/**< Contains client components */
 	u64 OptionalLabelAddr;	/**< RSA optional label address for OAEP padding */
@@ -201,4 +186,3 @@ static inline s32 XAsu_RsaValidateKeySize(u32 Len)
 #endif
 
 #endif  /* XASU_RSAINFO_H_ */
-/** @} */

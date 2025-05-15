@@ -44,10 +44,9 @@ extern "C" {
 #define XASU_ECIES_KAT_CMD_ID		(4U) /**< Command ID for ECIES KAT command */
 #define XASU_ECIES_GET_INFO_CMD_ID	(5U) /**< Command ID for ECIES Get Info command */
 
+/** @} */
 /************************************** Type Definitions *****************************************/
-/**
- * @brief This structure contains ECIES params info
- */
+/** This structure contains ECIES params info. */
 typedef struct {
 	u64 RxKeyAddr; /**< Address of Rx's public key(length: 2 * EccKeyLength) for encryption or
 			Rx private key(length: EccKeyLength) for decryption */
@@ -86,4 +85,3 @@ typedef struct {
 #endif
 
 #endif  /* XASU_ECIESINFO_H_ */
-/** @} */

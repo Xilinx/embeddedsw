@@ -26,7 +26,7 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup xtask_apis Task Related APIs
+* @addtogroup xtask_apis Task Related Server APIs
 * @{
 */
 #ifndef XTASK_H_
@@ -50,7 +50,8 @@ extern "C" {
 /** Type definition for task handler */
 typedef s32 (*XTask_Handler_t)(void *Arg);
 
-/** @brief This structure contains task metadata. */
+/** @} */
+/** This structure contains task metadata. */
 typedef struct {
 	u32 Priority; /**< Priority of the task */
 	u32 Delay; /**< Task delay */
@@ -60,11 +61,19 @@ typedef struct {
 	u32 Interval; /**< Task interval. For non-periodic tasks, interval should be 0 */
 } XTask_TaskNode;
 
-/** @brief This structure contains the events list. */
+/** This structure contains the events list. */
 typedef struct {
 	u32 Tasks[(XTASK_MAX + XTASK_NUM_BITS_IN_U32 - 1U) / XTASK_NUM_BITS_IN_U32]; /**< Task events */
 } XTask_TaskEvent;
 
+/************************************ Variable Definitions ***************************************/
+/* Current time in ms */
+extern u32 TaskTimeNow;
+
+/**
+* @addtogroup xtask_apis Task Related Server APIs
+* @{
+*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
@@ -79,10 +88,6 @@ void XTask_EventNotify(XTask_TaskEvent *Event);
 u32 XTask_DelayTime(const XTask_TaskNode *Task);
 void XTask_DispatchLoop(void);
 XTask_TaskNode *XTask_GetInstance(void *PrivData);
-
-/************************************ Variable Definitions ***************************************/
-/** Current time in ms */
-extern u32 TaskTimeNow;
 
 #ifdef __cplusplus
 }

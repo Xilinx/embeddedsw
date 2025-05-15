@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -25,7 +25,7 @@
 *
 *******************************************************************************/
 /**
-* @addtogroup xfih_library_apis FIH Library API's
+* @addtogroup xfih_library_apis FIH Library APIs for ASUFW
 * @{
 */
 #ifndef XFIH_H_

@@ -49,10 +49,9 @@ extern "C" {
 
 #define XASU_HMAC_MAX_KEY_LENGTH		(0x1024U) /**< Max key length for HMAC. */
 
+/** @} */
 /************************************** Type Definitions *****************************************/
-/**
- * @brief This structure contains HMAC params info
- */
+/** This structure contains HMAC params info. */
 typedef struct {
 	u8 ShaType; /**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
 	u8 ShaMode; /**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
@@ -82,4 +81,3 @@ typedef struct {
 #endif
 
 #endif  /* XASU_HMACINFO_H_ */
-/** @} */

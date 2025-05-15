@@ -44,10 +44,9 @@ extern "C" {
 
 #define XASU_KDF_MAX_CONTEXT_LEN		(1024U) /**< Maximum context length */
 
+/** @} */
 /************************************** Type Definitions *****************************************/
-/**
- * @brief This structure contains KDF params info
- */
+/** This structure contains KDF params info. */
 typedef struct {
 	u64 KeyInAddr; /**< Address of the input key buffer */
 	u64 ContextAddr; /**< Address of the buffer holding the fixed input data */
@@ -71,4 +70,3 @@ typedef struct {
 #endif
 
 #endif  /* XASU_KDFINFO_H_*/
-/** @} */

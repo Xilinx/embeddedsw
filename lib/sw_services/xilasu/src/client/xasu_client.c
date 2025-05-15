@@ -33,7 +33,7 @@
  *
  *************************************************************************************************/
 /**
- * @addtogroup xasu_client_info Client APIs AND Error Codes
+ * @addtogroup xasu_client_info Client APIs
  * @{
 */
 /*************************************** Include Files *******************************************/
@@ -56,14 +56,15 @@
 
 #define XASU_NO_OF_CONTEXTS				(10U)	/**< No of contexts can be saved by client */
 
+/** @} */
 /************************************** Type Definitions *****************************************/
-/** @brief This structure represents a client context, storing a unique identifier. */
+/** This structure represents a client context, storing a unique identifier. */
 typedef struct {
 	u8 UniqueId;		/**< Unique identifier for the client context. */
 } XAsu_ClientCtx;
 
 /**
- * @brief This structure contains all the parameters required to manage the client library
+ * This structure contains all the parameters required to manage the client library
  * Also it holds the shared memory queue index details
  */
 typedef struct {
@@ -74,9 +75,7 @@ typedef struct {
 	u32 IsReady;	/**< Client ready flag */
 } XAsu_Client;
 
-/**
- * @brief This structure holds the callback reference of the requests to respond upon completion
- */
+/** This structure holds the callback reference of the requests to respond upon completion */
 typedef struct {
 	XAsu_ClientParams *ClientParams; /**< Pointer to the XAsu_ClientParams */
 	u8 *RespBufferPtr;		/**< Buffer to store the response data */
@@ -84,6 +83,10 @@ typedef struct {
 	u8 Clear;				/**< Clear the contents after the callback */
 } XAsu_RefToCallBack;
 
+/**
+ * @addtogroup xasu_client_info Client APIs
+ * @{
+*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
@@ -293,8 +296,10 @@ END:
  * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds
  * 								the client input arguments.
  * @param	RespBufferPtr		Buffer to hold the response from response buffer, if no data is
- *								part of response buffer for the request the value shall be NULL.
- * @param	Size				Size of the data to be filled in response buffer.
+ *					part of response buffer for the request the value shall be NULL.
+ * @param	Size			Size of the data to be filled in response buffer.
+ * @param	IsFinalCall		Flag indicating whether this is the final callback
+ *					(1 if final, 0 otherwise).
  *
  * @return
  * 			- Unique ID used for registration (valid values are 0 to (XASU_UNIQUE_ID_MAX - 1)).

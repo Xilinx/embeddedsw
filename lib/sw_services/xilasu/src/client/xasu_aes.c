@@ -52,7 +52,7 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
- * @param	AesParamsPtr	Pointer to Asu_AesParams structure which holds the parameters of
+ * @param	AesParamsPtr	Pointer to XAsu_AesParams structure which holds the parameters of
  * 				AES input arguments.
  *
  * @return
@@ -67,7 +67,7 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
  * 		- Any other value shall be treated as failure.
  *
  *************************************************************************************************/
-s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClientParamPtr)
+s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
@@ -252,7 +252,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, Asu_AesParams *AesClien
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, AesClientParamPtr,
-		sizeof(Asu_AesParams), Header);
+		sizeof(XAsu_AesParams), Header);
 
 END:
 	return Status;

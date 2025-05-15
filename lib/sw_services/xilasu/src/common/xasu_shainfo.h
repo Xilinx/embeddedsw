@@ -68,10 +68,9 @@ extern "C" {
 #define XASU_SHAKE_256_HASH_LEN			(32U) /**< SHAKE 256 hash length */
 #define XASU_SHAKE_256_MAX_HASH_LEN		(136U) /**< SHAKE 256 maximum hash length */
 
+/** @} */
 /************************************** Type Definitions *****************************************/
-/**
- * @brief This structure contains SHA params info
- */
+/** This structure contains SHA params info. */
 typedef struct {
 	u64 DataAddr; /**< SHA2/3 data address */
 	u64 HashAddr; /**< SHA2/3 hash address */
@@ -97,4 +96,3 @@ typedef struct {
 #endif
 
 #endif  /* XASU_SHAINFO_H_ */
-/** @} */

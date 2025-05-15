@@ -79,15 +79,16 @@ extern "C" {
 #define XASU_CHANNEL_MEMORY_OFFSET		(0x1000U) /**<Channel memory offset */
 #define XASU_CHANNEL_MEMORY_BASEADDR		(XASU_RTCA_BASEADDR + XASU_CHANNEL_MEMORY_OFFSET)
 
+/** @} */
 /************************************** Type Definitions *****************************************/
-/** @brief This structure is the request buffer */
+/** This structure is the request buffer. */
 typedef struct {
 	u32 Header; /**< Command header */
 	u32 Arg[XASU_COMMAND_REQ_ARGS]; /**< Command arguments */
 	u32 Reserved; /**< Reserved */
 } XAsu_ReqBuf;
 
-/** @brief  This structure is the response buffer */
+/** This structure is the response buffer. */
 typedef struct {
 	u32 Header; /**< Command header */
 	u32 Arg[XASU_COMMAND_RESP_ARGS]; /**< Response arguments */
@@ -95,7 +96,7 @@ typedef struct {
 	u32 Reserved; /**< Reserved */
 } XAsu_RespBuf;
 
-/** @brief This structure is the channel's queue buffer */
+/** This structure is the channel's queue buffer. */
 typedef struct {
 	u8 ReqBufStatus; /**< Request buffer status */
 	u8 RespBufStatus; /**< Response buffer status */
@@ -104,7 +105,7 @@ typedef struct {
 	XAsu_RespBuf RespBuf; /**< Response buffer */
 } XAsu_ChannelQueueBuf;
 
-/** @brief This structure is the channel's queue which is of 8 buffers */
+/** This structure is the channel's queue which is of 8 buffers. */
 typedef struct {
 	u32 IsCmdPresent; /**< Cmd present status of the queue */
 	u32 ReqSent; /**< Number of requests sent from client to ASUFW */
@@ -112,7 +113,7 @@ typedef struct {
 	XAsu_ChannelQueueBuf ChannelQueueBufs[XASU_MAX_BUFFERS]; /**< Channel's queue of 8 buffers */
 } XAsu_ChannelQueue;
 
-/** @brief This struture is the channel's memory */
+/** This structure is the channel's memory. */
 typedef struct {
 	u32 Version; /**< Structure version */
 	u8 Reserved[XASU_CHANNEL_RESERVED_MEM]; /**< Reserved memory */
@@ -120,7 +121,7 @@ typedef struct {
 	XAsu_ChannelQueue P1ChannelQueue; /**< P1 channel queue */
 } XAsu_ChannelMemory;
 
-/** @brief This structure contains information of each communication channel. */
+/** This structure contains information of each communication channel. */
 typedef struct {
 	u8 P0QueuePriority; /**< P0 Queue Priority of the channel */
 	u8 P1QueuePriority; /**< P1 Queue Priority of the channel */
@@ -128,7 +129,7 @@ typedef struct {
 	u32 Reserved; /**< Reserved */
 } XAsu_CommChannel;
 
-/** @brief This structure contains information of all communication channels. */
+/** This structure contains information of all communication channels. */
 typedef struct {
 	u32 CommChannelInfoHeader; /**< Communication channel information header */
 	u32 NumOfIpiChannels; /**< Number of IPI channels to be enabled */
@@ -146,4 +147,3 @@ typedef struct {
 #endif
 
 #endif  /* XASU_SHAREDMEM_H_ */
-/** @} */

@@ -26,7 +26,7 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup xasufw_application ASUFW Functionality
+* @addtogroup xasufw_application ASUFW Server Functionality
 * @{
 */
 #ifndef XASUFW_INIT_H_
@@ -41,13 +41,18 @@ extern "C" {
 
 /************************************ Constant Definitions ***************************************/
 
+/** @} */
 /************************************** Type Definitions *****************************************/
-/** @brief This structure contains the parameters required for Performance measurement. */
+/** This structure contains the parameters required for performance measurement. */
 typedef struct {
 	u64 TPerfMs; /**< Whole part of time in milliseconds */
 	u64 TPerfMsFrac; /**< Fractional part of time in milliseconds */
 } XAsufw_PerfTime;
 
+/**
+* @addtogroup xasufw_application ASUFW Server Functionality
+* @{
+*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 /** Device ID for ASU MB IO module */
 #ifndef SDT

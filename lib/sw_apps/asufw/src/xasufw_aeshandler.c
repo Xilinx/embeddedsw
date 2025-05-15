@@ -25,7 +25,7 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup xasufw_application ASUFW Functionality
+* @addtogroup xasufw_application ASUFW Server Functionality
 * @{
 */
 /*************************************** Include Files *******************************************/
@@ -160,7 +160,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
-	const Asu_AesParams *AesParamsPtr = (const Asu_AesParams *)ReqBuf->Arg;
+	const XAsu_AesParams *AesParamsPtr = (const XAsu_AesParams *)ReqBuf->Arg;
 	u8 EngineMode = XASUFW_AES_INVALID_ENGINE_MODE;
 	static u32 CmdStage = 0x0U;
 	u8 AadIsLast;

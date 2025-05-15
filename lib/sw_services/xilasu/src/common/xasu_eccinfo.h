@@ -73,10 +73,9 @@ extern "C" {
 #define XASU_ECC_P512_SIZE_IN_BYTES		(64U) /**< Size of Brainpool P-512 curve in bytes */
 #define XASU_ECC_P521_SIZE_IN_BYTES		(66U) /**< Size of NIST P-521 curve in bytes */
 
+/** @} */
 /************************************** Type Definitions *****************************************/
-/**
- * @brief This structure contains ECC params info
- */
+/** This structure contains ECC params info. */
 typedef struct {
 	u32 CurveType; /**< Type of curve */
 	u32 KeyLen; /**< Length of the key */
@@ -87,9 +86,7 @@ typedef struct {
 	u64 SignAddr; /**< Signature address */
 } XAsu_EccParams;
 
-/**
- * @brief This structure contains ECC params info for public key generation
- */
+/** This structure contains ECC params info for public key generation. */
 typedef struct {
 	u32 CurveType; /**< Type of curve */
 	u32 KeyLen; /**< Length of the key */
@@ -97,6 +94,7 @@ typedef struct {
 	u64 PubKeyAddr; /**< ECC Public Key buffer address of Y party, of double the KeyLen size */
 } XAsu_EccKeyParams;
 
+/** This structure contains ECDH params info. */
 typedef struct {
 	u32 CurveType; /**< Type of curve */
 	u32 KeyLen; /**< Length of the key */
@@ -106,6 +104,7 @@ typedef struct {
 	u64 SharedSecretObjIdAddr; /**< 0 : if SharedSecretAddr is not null
 				non zero: if SharedSecretAddr is null */
 } XAsu_EcdhParams;
+
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
@@ -131,4 +130,3 @@ static inline u32 XAsu_DoubleCurveLength(u32 CurveLength)
 #endif
 
 #endif  /* XASU_ECCINFO_H_ */
-/** @} */

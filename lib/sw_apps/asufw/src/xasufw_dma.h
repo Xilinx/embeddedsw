@@ -24,7 +24,7 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup xasufw_application ASUFW Functionality
+* @addtogroup xasufw_application ASUFW Server Functionality
 * @{
 */
 #ifndef XASUFW_DMA_H_
@@ -55,8 +55,9 @@ typedef enum {
 	XASUFW_RELEASE_DMA, /**< Release DMA */
 	XASUFW_BLOCK_DMA, /**< Block DMA */
 } XAsufw_DmaState;
+/** @} */
 
-/** @brief The structure XAsufw_Dma is DMA instance data structure. */
+/** The structure XAsufw_Dma is DMA instance data structure. */
 typedef struct {
 	XAsuDma AsuDma; /**< ASU DMA driver instance data structure */
 	XAsufw_SssSrc SssDmaCfg; /**< SSS configuration */
@@ -66,6 +67,10 @@ typedef struct {
 	XAsufw_DmaState DmaState; /**< DMA state to block or release after non-blocking wait */
 } XAsufw_Dma;
 
+/**
+* @addtogroup xasufw_application ASUFW Server Functionality
+* @{
+*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/

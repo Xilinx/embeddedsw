@@ -26,7 +26,7 @@
  *
  *************************************************************************************************/
 /**
- * @addtogroup xasu_client_info Client APIs AND Error Codes
+ * @addtogroup xasu_client_info Client APIs
  * @{
 */
 #ifndef XASU_CLIENT_H_
@@ -51,8 +51,9 @@ extern "C" {
 typedef void (*XAsuClient_ResponseHandler) (void *CallBackRefPtr, u32 Status);
                                             /**< Response handler */
 
+/** @} */
 
-/** @brief This structure contains client parameters information. */
+/** This structure contains client parameters information. */
 typedef struct {
 	u8 Priority;    /**< Task Priority */
 	u8 Reserved;    /**< Reserved */
@@ -107,6 +108,10 @@ inline u32 XAsu_CreateHeader(u8 CmdId, u8 UniqueId, u8 ModuleId, u8 CommandLen)
 	return Header;
 }
 
+/**
+ * @addtogroup xasu_client_info Client APIs
+ * @{
+*/
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr);
 s32 XAsu_ValidateClientParameters(XAsu_ClientParams *ClientParamPtr);

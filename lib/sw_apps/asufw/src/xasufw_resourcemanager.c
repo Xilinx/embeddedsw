@@ -29,7 +29,7 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup xasufw_application ASUFW Functionality
+* @addtogroup xasufw_application ASUFW Server Functionality
 * @{
 */
 /*************************************** Include Files *******************************************/
@@ -53,8 +53,10 @@ typedef enum {
 	XASUFW_RESOURCE_IS_BUSY		/**< Resource is busy in performing operation */
 } XAsufw_ResourceState;
 
+/** @} */
+
 /**
- * @brief Resource manager structure which contains each resource state, allocated resources and
+ * Resource manager structure which contains each resource state, allocated resources and
  * the owner ID which acquired the resource
  */
 typedef struct {
@@ -63,6 +65,10 @@ typedef struct {
 	u32 OwnerId;				/**< ID of the request which has blocked the resource */
 } XAsufw_ResourceManager;
 
+/**
+* @addtogroup xasufw_application ASUFW Server Functionality
+* @{
+*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/

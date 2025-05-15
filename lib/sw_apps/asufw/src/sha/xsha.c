@@ -54,8 +54,9 @@ typedef enum {
 	XSHA_UPDATE_COMPLETED, /**< SHA update is in completed state after the final data chunk */
 } XSha_State;
 
+/** @} */
 /**
-* @brief This structure contains configuration information for a SHA2/SHA3 core.
+* This structure contains configuration information for a SHA2/SHA3 core.
 * Each core should have an associated configuration structure.
 */
 struct _XSha_Config {
@@ -65,7 +66,7 @@ struct _XSha_Config {
 };
 
 /**
-* @brief SHA driver instance structure. A pointer to an instance data
+* SHA driver instance structure. A pointer to an instance data
 * structure is passed around by functions to refer to a specific driver
 * instance.
 */
@@ -81,6 +82,10 @@ struct _XSha {
 	u64 ShaLen; /**< SHA length */
 };
 
+/**
+* @addtogroup xsha_server_apis SHA Server APIs
+* @{
+*/
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
