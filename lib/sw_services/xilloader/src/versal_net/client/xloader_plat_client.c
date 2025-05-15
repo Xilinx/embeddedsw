@@ -21,6 +21,7 @@
  *       har  03/05/24 Fixed doxygen warnings
  *       kpt  10/04/24 Added support to validate partial and optimized authentication enabled PDI
  * 2.2   prt  04/12/25 Added support on Error code with more description for XLoader_ValidatePdiAuth
+ *	 prt  05/15/25 Removal of unnecessary log print message
  *
  * </pre>
  *
@@ -694,10 +695,6 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 	}
 
 	Status = XLoader_ValidateMhAndPrtnAuth(InstancePtr, PdiAddr, MhOffset, PrtnIdx);
-
-	if (Status != XST_SUCCESS) {
-			xil_printf("Error occured in XLoader_Validate Metaheader And partition authentication, Status = 0x%x \r\n", Status);
-	}
 
 END:
 	return Status;
