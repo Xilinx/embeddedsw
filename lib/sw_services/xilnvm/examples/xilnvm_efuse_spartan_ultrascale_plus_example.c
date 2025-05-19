@@ -13,6 +13,8 @@
  * This file illustrates Basic eFuse read/write using rows.
  * This example is supported for spartan ultrascale plus devices.
  *
+ * To build this application, xilnvm library must be in server mode.
+ * This example is supported for spartan ultrascale plus devices.
  *
  * <pre>
  * MODIFICATION HISTORY:

@@ -7,12 +7,14 @@
 /*****************************************************************************/
 /**
  *
- * @file xilnvm_efuse_versal_example.c
- * @addtogroup xnvm_efuse_versal_example	XilNvm eFuse API Usage
+ * @file xilnvm_efuse_versal_server_example.c
+ * @addtogroup xnvm_efuse_versal_server_example	XilNvm eFuse API Usage
  * @{
  *
  * This file illustrates Basic eFuse read/write using rows.
  * This example is supported for Versal devices.
+ *
+ * To build this application, xilnvm library must be in server mode
  *
  * <pre>
  * MODIFICATION HISTORY:

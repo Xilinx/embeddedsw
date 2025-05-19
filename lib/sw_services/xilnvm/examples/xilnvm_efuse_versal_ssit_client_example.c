@@ -13,8 +13,9 @@
  * This file illustrates Basic eFuse read/write using rows on Primary SLR0, Secondary SLR1, Secondary
  * SLR2 and Secondary SLR3.
  * To build this application, xilmailbox library must be included in BSP and
- * xilnvm library must be in client mode
- * This example is supported for Versal devices.
+ * xilnvm library must be in client mode.
+ *
+ * This example is supported for Versal SSIT devices.
  *
  * Procedure to link and compile the example for the default ddr less designs
  * ------------------------------------------------------------------------------------------------------------
