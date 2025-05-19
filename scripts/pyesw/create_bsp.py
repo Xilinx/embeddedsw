@@ -117,6 +117,17 @@ class Domain(Repo):
             )
             sys.exit(1)
 
+        if all([
+            "a53" in self.proc,
+            self.proc_mode == "32-bit",
+            "freertos" in self.os
+        ]):
+            utils.remove_directory(self.domain_dir, cpulist_metafiles, force_remove=False)
+            logger.error(
+                f"Invalid OS selection: {self.os} is unsupported for {self.proc} processor in {self.proc_mode} mode"
+            )
+            sys.exit(1)
+
         if self.app:
             validate_obj = ValidateHW(
                 self.domain_dir, self.proc, self.os, self.sdt,
