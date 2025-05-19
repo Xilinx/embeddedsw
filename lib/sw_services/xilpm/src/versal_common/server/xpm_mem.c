@@ -251,13 +251,15 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 	XStatus Status = XPM_FAILURE;
 	u64 imgStoreRegionAddress = 0x0ULL;
 	u64 imgStoreRegionSize    = 0x0ULL;
+	u64 RegionStartAddr = 0x0ULL;
+	u64 RegionEndAddr = 0x0ULL;
 
 	if (RegionSize < 1U) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	u64 RegionStartAddr = RegionAddr;
-	u64 RegionEndAddr = RegionAddr + (RegionSize - 1ULL);
+	RegionStartAddr = RegionAddr;
+	RegionEndAddr = RegionAddr + (RegionSize - 1ULL);
 
 	enum ExclusionRegionList {
 		PMC_RAM = 0x0,
@@ -422,7 +424,7 @@ static XStatus IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 Region
 			Status = XPM_SUCCESS;
 		}
 		else {
-			Status = XPM_FAILURE;
+			Status = XPM_PM_NO_ACCESS;
 		}
 	}
 
@@ -492,10 +494,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 		}
 
 		/* OCM/TCM Case */
-		MemDevice = (XPm_MemDevice *)Device;
-		if (NULL == MemDevice) {
-			continue;
-		}
+		MemDevice = (const XPm_MemDevice *)Device;
 		u64 StartAddress = (u64)MemDevice->StartAddress;
 		u64 EndAddress = (u64)MemDevice->EndAddress;
 		if (IsAddrWithinRange(RegionAddr, (RegionAddr + RegionSize - 1U), StartAddress, EndAddress)) {
@@ -523,10 +522,7 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 		}
 
 		/* DDR Case */
-		MCDev = (XPm_MemCtrlrDevice *)Device;
-		if (NULL == MCDev) {
-			continue;
-		}
+		MCDev = (const XPm_MemCtrlrDevice *)Device;
 
 		for (u32 Cnt = 0U; Cnt < MCDev->RegionCount; Cnt++) {
 			u64 StartAddress = MCDev->Region[Cnt].Address;
