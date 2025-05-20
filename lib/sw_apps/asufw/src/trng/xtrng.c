@@ -234,7 +234,7 @@ s32 XTrng_CfgInitialize(XTrng *InstancePtr)
 	Status = XASUFW_SUCCESS;
 
 SET_ERR:
-	if ((InstancePtr != NULL) && (Status != XASUFW_SUCCESS)) {
+	if (Status != XASUFW_SUCCESS) {
 		InstancePtr->ErrorState = XTRNG_ERROR;
 	}
 
