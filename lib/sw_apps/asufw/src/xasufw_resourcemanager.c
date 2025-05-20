@@ -24,6 +24,7 @@
  * 1.1   ma   12/12/24 Updated resource allocation logic
  *       ma   01/15/25 Added KDF to the resources list
  *       yog  02/25/25 Added ECIES to the resources list
+ * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *
  * </pre>
  *
@@ -124,7 +125,7 @@ s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 ReqId)
 	/** Release all the allocated resources of main resource. */
 	while (AllocatedResources != 0x0U) {
 		if ((AllocatedResources & 0x1U) != 0x0U) {
-			ResourceManager[Index].AllocatedResources &= ~(1U << (u32)Resource);
+			ResourceManager[Index].AllocatedResources &= ~((u32)1U << (u32)Resource);
 			/** If there are allocated resources for the dependency resource, make it free. */
 			if (ResourceManager[Index].AllocatedResources == 0x0U) {
 				ResourceManager[Index].State = XASUFW_RESOURCE_IS_FREE;
@@ -245,8 +246,8 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 		goto END;
 	}
 
-	for (Loop = 0U; ((Loop < XASUFW_INVALID) && (ReqResources != 0U)); ++Loop) {
-		TempResource = ReqResources & (1U << Loop);
+	for (Loop = 0U; ((Loop < (u32)XASUFW_INVALID) && (ReqResources != 0U)); ++Loop) {
+		TempResource = ReqResources & (u16)((u32)1U << Loop);
 		switch (TempResource) {
 			case XASUFW_DMA_RESOURCE_MASK:
 				if (XAsufw_IsResourceAvailable(XASUFW_DMA0, ReqId) == XASUFW_SUCCESS) {
@@ -354,8 +355,8 @@ XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 ReqId)
 	if (DmaAllocate != XASUFW_INVALID) {
 		AsuDmaPtr = XAsufw_GetDmaInstance(DmaDeviceId);
 		XAsufw_AllocateResource(DmaAllocate, Resource, ReqId);
-		ResourceManager[Resource].AllocatedResources |= (1U << (u32)DmaAllocate);
-		ResourceManager[DmaAllocate].AllocatedResources |= (1U << (u32)Resource);
+		ResourceManager[Resource].AllocatedResources |= ((u32)1U << (u32)DmaAllocate);
+		ResourceManager[DmaAllocate].AllocatedResources |= ((u32)1U << (u32)Resource);
 	}
 
 END:

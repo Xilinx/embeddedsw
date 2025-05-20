@@ -18,6 +18,7 @@
  *       yog  03/24/25 Used XRsa_EccGeneratePrivKey() API in ECIES encryption operation.
  *       yog  04/04/25 Performing AesKeyClear operation in XEcies_AesCompute() API
  *       LP   04/07/25 Added HKDF support for key generation
+ * 1.1   am   05/18/25 Fixed implicit conversion of operands
  *
  * </pre>
  *
@@ -278,8 +279,8 @@ static s32 XEcies_HkdfGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	} else {
 		HkdfParams.KdfParams.KeyOutLen = XASU_AES_KEY_SIZE_256BIT_IN_BYTES;
 	}
-	HkdfParams.KdfParams.ShaType = (u16)EciesParams->ShaType;
-	HkdfParams.KdfParams.ShaMode = (u32)EciesParams->ShaMode;
+	HkdfParams.KdfParams.ShaType = (u8)EciesParams->ShaType;
+	HkdfParams.KdfParams.ShaMode = (u8)EciesParams->ShaMode;
 	HkdfParams.KdfParams.KeyInAddr = (u64)(UINTPTR)SharedSecretPtr;
 	HkdfParams.KdfParams.KeyInLen = (u32)EciesParams->EccKeyLength;
 	HkdfParams.KdfParams.KeyOutAddr = (u64)(UINTPTR)KOutPtr;

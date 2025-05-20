@@ -5,24 +5,25 @@
 
 /*************************************************************************************************/
 /**
-*
-* @file xrsa.c
-*
-* This file contains implementation of the interface functions for RSA hardware engine.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who  Date     Changes
-* ----- ---- -------- -----------------------------------------------------------------------------
-* 1.0   ss   07/11/24 Initial release
-*       ss   08/20/24 Added 64-bit address support
-*       yog  08/25/24 Integrated FIH library
-*       ss   09/26/24 Fixed doxygen comments
-*
-* </pre>
-*
-**************************************************************************************************/
+ *
+ * @file xrsa.c
+ *
+ * This file contains implementation of the interface functions for RSA hardware engine.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- -------- ----------------------------------------------------------------------------
+ * 1.0   ss   07/11/24 Initial release
+ *       ss   08/20/24 Added 64-bit address support
+ *       yog  08/25/24 Integrated FIH library
+ *       ss   09/26/24 Fixed doxygen comments
+ * 1.1   am   05/18/25 Fixed implicit conversion of operands
+ *
+ * </pre>
+ *
+ *************************************************************************************************/
 /**
 * @addtogroup xrsa_server_apis RSA Server APIs
 * @{
@@ -49,7 +50,7 @@
 #define XRSA_PUBEXP_SIZE_IN_BYTES	(4U)		/**< RSA public exponent size in bytes */
 
 #define XRSA_HALF_LEN(x)		((x) >> 1U)	/**< Calculate half value */
-#define XRSA_BYTE_TO_BIT(x)		((s32)((x) << 3U)) /**< Byte to bit conversion */
+#define XRSA_BYTE_TO_BIT(x)		(((u32)(x) << 3U)) /**< Byte to bit conversion */
 
 #define XRSA_NO_PRIME_NO_TOT_PRSNT	(0U)		/**< Indicates no prime num or totient
 								is present as parameter for private decryption operation */
@@ -255,7 +256,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	/** Perform private decryption operation using CRT algorithm. */
 	XFIH_CALL(RSA_ExpCrtQ, XFihVar, Status, InData, (u8 *)KeyPtr->Prime1, (u8 *)KeyPtr->Prime2,
 		  (u8 *)KeyPtr->DP, (u8 *)KeyPtr->DQ, (u8 *)KeyPtr->QInv, PubExpoArr,
-		  (u8 *)KeyPtr->PubKeyComp.Modulus, XRSA_BYTE_TO_BIT(Len), OutData);
+		  (u8 *)KeyPtr->PubKeyComp.Modulus, (s32)XRSA_BYTE_TO_BIT(Len), OutData);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XRsa_UpdateStatus(Status);
 		goto END;
@@ -472,18 +473,18 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 			XFIH_CALL(RSA_ExpQ, XFihVar, Status, InData, (u8 *)KeyPtr->PvtExp,
 				  (u8 *)KeyPtr->PubKeyComp.Modulus, NULL, NULL,
 				  PubExpoArr, (u8 *)KeyPtr->PrimeCompOrTotient,
-				  XRSA_BYTE_TO_BIT(Len), OutData);
+				  (s32)XRSA_BYTE_TO_BIT(Len), OutData);
 		} else if (KeyPtr->PrimeCompOrTotientPrsnt == XRSA_PRIME_NUM_IS_PRSNT) {
 			XFIH_CALL(RSA_ExpQ, XFihVar, Status, InData, (u8 *)KeyPtr->PvtExp,
 				  (u8 *)KeyPtr->PubKeyComp.Modulus,
 				  (u8 *)KeyPtr->PrimeCompOrTotient,
 				  (u8 *)KeyPtr->PrimeCompOrTotient +
 				  XRSA_MAX_PRIME_SIZE_IN_BYTES, PubExpoArr, NULL,
-				  XRSA_BYTE_TO_BIT(Len), OutData);
+				  (s32)XRSA_BYTE_TO_BIT(Len), OutData);
 		} else {
 			XFIH_CALL(RSA_ExpQ, XFihVar, Status, InData, (u8 *)KeyPtr->PvtExp,
 				  (u8 *)KeyPtr->PubKeyComp.Modulus, NULL, NULL, PubExpoArr,
-				  NULL, XRSA_BYTE_TO_BIT(Len), OutData);
+				  NULL, (s32)XRSA_BYTE_TO_BIT(Len), OutData);
 		}
 	} else {
 		/* DMA transfer of pre-calculated modulus values from client address to server
@@ -511,18 +512,18 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 			XFIH_CALL(RSA_ExpoptQ, XFihVar, Status, InData, (u8 *)KeyPtr->PvtExp,
 				  (u8 *)KeyPtr->PubKeyComp.Modulus, RN, RRN, NULL, NULL,
 				  PubExpoArr, (u8 *)KeyPtr->PrimeCompOrTotient,
-				  XRSA_BYTE_TO_BIT(Len), OutData);
+				  (s32)XRSA_BYTE_TO_BIT(Len), OutData);
 		} else if (KeyPtr->PrimeCompOrTotientPrsnt == XRSA_PRIME_NUM_IS_PRSNT) {
 			XFIH_CALL(RSA_ExpoptQ, XFihVar, Status, InData, (u8 *)KeyPtr->PvtExp,
 				  (u8 *)KeyPtr->PubKeyComp.Modulus, RN, RRN,
 				  (u8 *)KeyPtr->PrimeCompOrTotient,
 				  (u8 *)KeyPtr->PrimeCompOrTotient +
 				  XRSA_MAX_PRIME_SIZE_IN_BYTES, PubExpoArr, NULL,
-				  XRSA_BYTE_TO_BIT(Len), OutData);
+				  (s32)XRSA_BYTE_TO_BIT(Len), OutData);
 		} else {
 			XFIH_CALL(RSA_ExpoptQ, XFihVar, Status, InData, (u8 *)KeyPtr->PvtExp,
 				  (u8 *)KeyPtr->PubKeyComp.Modulus, RN, RRN,
-				  NULL, NULL, PubExpoArr, NULL, XRSA_BYTE_TO_BIT(Len),
+				  NULL, NULL, PubExpoArr, NULL, (s32)XRSA_BYTE_TO_BIT(Len),
 				  OutData);
 		}
 
@@ -682,7 +683,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	 * pre calculated exponentiation values based on available parameters.
 	 */
 	if (ExpoAddr == 0U) {
-		rsaexp(InData, PubExpoArr, (u8 *)KeyPtr->Modulus, XRSA_BYTE_TO_BIT(Len), OutData);
+		rsaexp(InData, PubExpoArr, (u8 *)KeyPtr->Modulus, (s32)XRSA_BYTE_TO_BIT(Len), OutData);
 	} else {
 		/* DMA transfer of pre-calculated modulus values from client address to server
 			memory */
@@ -699,7 +700,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END;
 		}
-		rsaexpopt(InData, PubExpoArr, (u8 *)KeyPtr->Modulus, RRN, XRSA_BYTE_TO_BIT(Len),
+		rsaexpopt(InData, PubExpoArr, (u8 *)KeyPtr->Modulus, RRN, (s32)XRSA_BYTE_TO_BIT(Len),
 			  OutData);
 	}
 
@@ -785,10 +786,10 @@ static s32 XRsa_ValidatePubExp(u8 *BuffAddr)
 	s32 Status = XASUFW_FAILURE;
 	volatile u32 PubExpVal = 0U;
 
-	PubExpVal = BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 4U] << 24U |
-			BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 3U] << 16U |
-				BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 2U] << 8U |
-					BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 1U];
+	PubExpVal = ((u32)BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 4U] << 24U) |
+		((u32)BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 3U] << 16U) |
+		((u32)BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 2U] << 8U) |
+		((u32)BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 1U]);
 
 	if ((PubExpVal != XRSA_PUB_EXP_INVALID_ZERO_VALUE) &&
 	    (PubExpVal != XRSA_PUB_EXP_INVALID_ZERO_VALUE) &&

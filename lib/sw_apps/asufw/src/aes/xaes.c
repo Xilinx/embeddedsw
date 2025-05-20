@@ -20,7 +20,7 @@
  *       am   08/24/24 Added AES DPA CM KAT support
  *       yog  08/25/24 Integrated FIH library
  *       am   08/25/24 Initialized ASU DMA pointer before XAsufw_DmaXfr() function call.
- *       am   01/20/25 Added AES CCM support
+ * 1.1   am   01/20/25 Added AES CCM support
  *       vns  02/12/25 Removed XAsufw_RCMW() API
  *       yog  02/26/25 Added XAes_Compute() API
  *       am   03/14/25 Updated doxygen comments
@@ -29,6 +29,7 @@
  *       am   04/10/25 Fixed incorrect AES base address usage in XAes_DecryptEfuseBlackKey()
  *       am   04/14/25 Added support for DMA non-blocking wait
  *       am   04/26/25 Fixes IV & AAD formatting logic for different Iv lengths
+ * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *
  * </pre>
  *
@@ -121,7 +122,7 @@
 #define XAES_TWO_BYTE_ENCODING		(2U) /**< 2-byte encoding for small values. */
 #define XAES_SIX_BYTE_ENCODING		(6U) /**< 6-byte encoding for medium values. */
 #define XAES_TEN_BYTE_ENCODING		(10U) /**< 10-byte encoding for large values. */
-#define XAES_BYTE_MASK			(0xFF) /**< Byte mask. */
+#define XAES_BYTE_MASK			(0xFFU) /**< Byte mask. */
 #define XAES_MSB_SHIFT_32		(24U) /**< Most significant byte shift of 32-bit word. */
 
 #define XAES_NONCE_HEADER_FLAG		(0x1U) /**< Nonce header flag size. */
@@ -890,7 +891,7 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 		 * Update the AES state machine to XAES_DATA_UPDATE_IN_PROGRESS or XAES_UPDATE_COMPLETED based
 		 * on the IsLastChunk flag set by the user during update of data.
 		 */
-		InstancePtr->AesState = (IsLastChunk == TRUE) ? XAES_UPDATE_COMPLETED :
+		InstancePtr->AesState = (IsLastChunk == XASU_TRUE) ? XAES_UPDATE_COMPLETED :
 			XAES_DATA_UPDATE_IN_PROGRESS;
 	}
 
@@ -1041,7 +1042,7 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 	u8 LengthFieldSize;
 	u64 PtLenCpy = PlainTextLen;
 	u8 IsLast;
-	u32 NonceHeaderIndex;
+	u8 NonceHeaderIndex;
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
@@ -1132,19 +1133,19 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 	if (AadLen > 0U) {
 		/** Add AAD length (AadLen encoding based on size). */
 		if (AadLen < XAES_AAD_LENGTH_SHORT_LIMIT) {
-			NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = (AadLen >>
-				XASUFW_BYTE_LEN_IN_BITS) & XAES_BYTE_MASK;
-			NonceHeader[XAES_NONCE_HEADER_SECOND_IDX] = AadLen & XAES_BYTE_MASK;
+			NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = (u8)((AadLen >>
+				XASUFW_BYTE_LEN_IN_BITS) & XAES_BYTE_MASK);
+			NonceHeader[XAES_NONCE_HEADER_SECOND_IDX] = (u8)(AadLen & XAES_BYTE_MASK);
 			TotalAadLen = XAES_TWO_BYTE_ENCODING;
 		}
 		else if (AadLen < XAES_AAD_LENGTH_LONG_LIMIT) {
-			NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = (XAES_HEADER_6BYTE_INDICATOR >>
-				XASUFW_BYTE_LEN_IN_BITS) & XAES_BYTE_MASK;
-			NonceHeader[XAES_NONCE_HEADER_SECOND_IDX] = XAES_HEADER_6BYTE_INDICATOR &
-				XAES_BYTE_MASK;
+			NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = (u8)((XAES_HEADER_6BYTE_INDICATOR >>
+				XASUFW_BYTE_LEN_IN_BITS) & XAES_BYTE_MASK);
+			NonceHeader[XAES_NONCE_HEADER_SECOND_IDX] = (u8)(XAES_HEADER_6BYTE_INDICATOR &
+				XAES_BYTE_MASK);
 			for (Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; Index++) {
-				NonceHeader[XAES_TWO_BYTE_ENCODING + Index] = (AadLen >>
-					(XAES_MSB_SHIFT_32 - (Index * XASUFW_BYTE_LEN_IN_BITS))) & XAES_BYTE_MASK;
+				NonceHeader[XAES_TWO_BYTE_ENCODING + Index] = (u8)((AadLen >>
+					(XAES_MSB_SHIFT_32 - (Index * XASUFW_BYTE_LEN_IN_BITS))) & XAES_BYTE_MASK);
 			}
 			TotalAadLen = XAES_SIX_BYTE_ENCODING;
 		}
@@ -1156,7 +1157,7 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 			goto END;
 		}
 
-		InstancePtr->CcmAadZeroBlockPadLen = ((XASU_AES_BLOCK_SIZE_IN_BYTES -
+		InstancePtr->CcmAadZeroBlockPadLen = (u8)((XASU_AES_BLOCK_SIZE_IN_BYTES -
 			((TotalAadLen + AadLen) % XASU_AES_BLOCK_SIZE_IN_BYTES)) %
 			XASU_AES_BLOCK_SIZE_IN_BYTES);
 
@@ -1656,7 +1657,7 @@ static void XAes_ConfigAesOperation(const XAes *InstancePtr)
 {
 	if (InstancePtr->OperationType == XASU_AES_ENCRYPT_OPERATION) {
 		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
-			(InstancePtr->EngineMode | (XAES_MODE_CONFIG_ENC_DEC_MASK)));
+			((u32)InstancePtr->EngineMode | (XAES_MODE_CONFIG_ENC_DEC_MASK)));
 	} else {
 		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_MODE_CONFIG_OFFSET),
 			InstancePtr->EngineMode);
@@ -1754,7 +1755,7 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 		FormattedIv = (u8 *)(UINTPTR)Iv;
 
 		/** Set flag byte for AES-CCM nonce. */
-		FormattedIv[0] = (XAES_CCM_Q_CONST - IvLen - 1U) & XAES_CCM_Q_MASK;
+		FormattedIv[0] = (u8)((XAES_CCM_Q_CONST - IvLen - 1U) & XAES_CCM_Q_MASK);
 
 		Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, IvAddr, (u64)(UINTPTR)&FormattedIv[1U],
 			IvLength, 0U);
@@ -2180,7 +2181,8 @@ END:
  *************************************************************************************************/
 u8 XAes_GetEngineMode(const XAes *InstancePtr)
 {
-	return (InstancePtr != NULL) ? InstancePtr->EngineMode : XASUFW_AES_INVALID_ENGINE_MODE;
+	return (InstancePtr != NULL) ? InstancePtr->EngineMode :
+		(u8)XASUFW_AES_INVALID_ENGINE_MODE;
 }
 
 /*************************************************************************************************/

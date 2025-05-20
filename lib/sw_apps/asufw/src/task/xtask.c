@@ -24,6 +24,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.3   ma   12/12/24 Added support for DMA non-blocking wait
  *       ma   02/03/25 Update comment for TaskTimeNow to reflect proper units for time.
+ * 1.4   am   05/18/25 Fixed implicit conversion of operands
  *
  * </pre>
  *
@@ -249,7 +250,7 @@ END:
 s32 XTask_TriggerOnEvent(const XTask_TaskNode *Task, XTask_TaskEvent *Event)
 {
 	s32 Status = XASUFW_FAILURE;
-	u32 Idx = Task - TaskList;
+	u32 Idx = (u32)(Task - TaskList);
 
 	if (Task->TaskHandler == NULL) {
 		Status = XASUFW_TASK_INVALID_HANDLER;
@@ -286,7 +287,7 @@ void XTask_EventNotify(XTask_TaskEvent *Event)
 	 * If the event has occurred, update the event structure and trigger the task to be executed.
 	 */
 	for (Idx = 0U; Idx < XTASK_MAX; Idx++) {
-		TaskEventBitVal = 1U << (Idx & (XTASK_NUM_BITS_IN_U32 - 1U));
+		TaskEventBitVal = (u32)1U << (Idx & (XTASK_NUM_BITS_IN_U32 - 1U));
 		if ((Event->Tasks[Idx / XTASK_NUM_BITS_IN_U32] & TaskEventBitVal) != 0U) {
 			Event->Tasks[Idx / XTASK_NUM_BITS_IN_U32] &= ~TaskEventBitVal;
 			XTask_TriggerNow(&TaskList[Idx]);

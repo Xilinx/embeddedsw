@@ -27,6 +27,7 @@
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
  *       ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
  *       ma   03/17/25 Update Status before writing response in case of command validation failure
+ * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *
  * </pre>
  *
@@ -307,8 +308,8 @@ void XAsufw_ChannelConfigInit(void)
 		 * nothing but Queue Unique ID.
 		 */
 		PrivData = (ChannelIndex << XASUFW_CHANNELINDEX_SHIFT) |
-					(XASUFW_P0_QUEUE << XASUFW_QUEUEINDEX_SHIFT) |
-					(CommChannelInfo->Channel[ChannelIndex]. IpiBitMask << XASUFW_IPI_BITMASK_SHIFT);
+					((u32)XASUFW_P0_QUEUE << XASUFW_QUEUEINDEX_SHIFT) |
+					((u32)CommChannelInfo->Channel[ChannelIndex]. IpiBitMask << XASUFW_IPI_BITMASK_SHIFT);
 		CommChannelTasks.Channel[ChannelIndex].P0QueueTask = XTask_Create(
 					CommChannelInfo->Channel[ChannelIndex].P0QueuePriority, XAsufw_QueueTaskHandler,
 					(void *)PrivData, 0x0U);
@@ -320,8 +321,8 @@ void XAsufw_ChannelConfigInit(void)
 		 * nothing but Queue Unique ID.
 		 */
 		PrivData = (ChannelIndex << XASUFW_CHANNELINDEX_SHIFT) |
-					(XASUFW_P1_QUEUE << XASUFW_QUEUEINDEX_SHIFT) |
-					(CommChannelInfo->Channel[ChannelIndex]. IpiBitMask << XASUFW_IPI_BITMASK_SHIFT);
+					((u32)XASUFW_P1_QUEUE << XASUFW_QUEUEINDEX_SHIFT) |
+					((u32)CommChannelInfo->Channel[ChannelIndex]. IpiBitMask << XASUFW_IPI_BITMASK_SHIFT);
 		CommChannelTasks.Channel[ChannelIndex].P1QueueTask = XTask_Create(
 					CommChannelInfo->Channel[ChannelIndex].P1QueuePriority, XAsufw_QueueTaskHandler,
 					(void *)PrivData, 0x0U);

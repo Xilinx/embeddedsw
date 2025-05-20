@@ -5,21 +5,22 @@
 
 /*************************************************************************************************/
 /**
-*
-* @file xrsa_padding.c
-*
-* This file contains implementation of the padding interface functions for RSA.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who  Date     Changes
-* ----- ---- -------- -----------------------------------------------------------------------------
-* 1.0   ss   02/04/25 Initial release
-*
-* </pre>
-*
-**************************************************************************************************/
+ *
+ * @file xrsa_padding.c
+ *
+ * This file contains implementation of the padding interface functions for RSA.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- -------- ----------------------------------------------------------------------------
+ * 1.0   ss   02/04/25 Initial release
+ * 1.1   am   05/18/25 Fixed implicit conversion of operands
+ *
+ * </pre>
+ *
+ *************************************************************************************************/
 /**
 * @addtogroup xrsa_padding_apis RSA Padding Server APIs
 * @{
@@ -1162,7 +1163,7 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XSha_Update(ShaInstancePtr, DmaPtr, (u64)(UINTPTR)MgfInput->Seed,
-				     MgfInput->SeedLen, (u32)FALSE);
+			MgfInput->SeedLen, (u32)XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_ERROR);
 			goto END;
@@ -1170,7 +1171,7 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XSha_Update(ShaInstancePtr, DmaPtr, (u64)(UINTPTR)Bytes,
-				     XASUFW_WORD_LEN_IN_BYTES, (u32)TRUE);
+			XASUFW_WORD_LEN_IN_BYTES, (u32)XASU_TRUE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_ERROR);
 			goto END;
@@ -1178,7 +1179,7 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XSha_Finish(ShaInstancePtr, (u32 *)Hash, HashLen,
-				     XASU_FALSE);
+			XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_ERROR);
 			goto END;

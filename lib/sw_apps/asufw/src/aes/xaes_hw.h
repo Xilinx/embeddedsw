@@ -18,6 +18,7 @@
  * 1.0   am   06/26/24 Initial release
  *       am   08/24/24 Added macros related to split configuration register
  * 1.1   am   01/22/25 Added macros related to key transfer
+ * 1.2   am   05/18/25 Removed duplicate macros
  *
  * </pre>
  *
@@ -414,8 +415,8 @@ extern "C" {
  */
 #define XAES_KV_INTERRUPT_STATUS_OFFSET			(0x00000194U)
 	/**< KV interrupt status offset */
-#define XAES_KV_INTERRUPT_STATUS_MASK			(0x00000001U)
-	/**< KV interrupt status mask */
+#define XAES_KV_INTERRUPT_STATUS_DONE_MASK		(0x00000001U)
+	/**< KV interrupt status done mask */
 #define XAES_KV_INTERRUPT_STATUS_CLEAR_MASK		(0x00000001U)
 	/**< KV interrupt status clear mask */
 /** @} */
@@ -427,39 +428,6 @@ extern "C" {
 #define XAES_KEY_MASK_0_OFFSET				(0x00000024U)
 	/**< Offset of key mask0 */
 /** @} */
-
-/**
- * @name  ASU_PMXC_KEY_TRANSFER_READY register
- * @{
- */
-#define XAES_ASU_PMXC_KEY_TRANSFER_READY_OFFSET		(0x00000184U)
-	/**< ASU PMXC key transfer ready offset */
-#define XAES_ASU_PMXC_KEY_TRANSFER_READY_MASK		(0X00000001U)
-	/**< ASU PMXC key transfer ready mask */
-#define XAES_ASU_PMXC_KEY_TRANSFER_READY_DISABLE	(0x00000000U)
-	/**< ASU PMXC key transfer ready disable */
-/** @} */
-
-/**
- * @name  EFUSE_KEY_BLACK_OR_RED register
- * @{
- */
-#define XAES_EFUSE_KEY_0_BLACK_OR_RED_OFFSET		(0x00000188U)
-	/**< Efuse key 0 black or red offset */
-#define XAES_EFUSE_KEY_1_BLACK_OR_RED_OFFSET		(0x0000018CU)
-	/**< Efuse key 1 black or red offset */
-/** @} */
-
-/**
- * @name  KV_INTERRUPT_STATUS register
- * @{
- */
-#define XAES_KV_INTERRUPT_STATUS_OFFSET			(0x00000194U)
-	/**< KV interrupt status offset */
-#define XAES_KV_INTERRUPT_STATUS_MASK			(0x00000001U)
-	/**< KV interrupt status mask */
-#define XAES_KV_INTERRUPT_STATUS_CLEAR_MASK		(0x00000001U)
-	/**< KV interrupt status clear mask */
 
 #ifdef __cplusplus
 }

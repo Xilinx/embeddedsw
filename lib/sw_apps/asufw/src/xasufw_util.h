@@ -24,6 +24,7 @@
  *       ss   10/05/24 Added XAsufw_IsBufferNonZero function.
  * 1.1   vns  02/06/25 Removed XAsufw_ChangeEndiannessAndCpy() function which is not in use
  *       am   02/21/25 Added performance measurement macros
+ * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *
  * </pre>
  *
@@ -68,7 +69,7 @@ extern "C" {
 #define XASUFW_WORD_LEN_IN_BYTES		4U	/**< Word length in bytes */
 #define XASUFW_BYTE_LEN_IN_BITS			8U	/**< Byte length in bits */
 #define XASUFW_ARRAY_SIZE(x)	(u32)(sizeof(x) / sizeof(x[0U]))	/**< Size of array */
-#define XASUFW_CONVERT_BYTES_TO_WORDS(x)	((x) / (sizeof(int)))	/**< Converts bytes to
+#define XASUFW_CONVERT_BYTES_TO_WORDS(x)	((x) / (sizeof(u32)))	/**< Converts bytes to
 									     integer words */
 #define XASUFW_DOUBLE_VALUE(x)			((x) << 1U)	/**< multiply the value by twice */
 

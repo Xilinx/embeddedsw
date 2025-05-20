@@ -26,6 +26,7 @@
  *       yog  01/02/25 Added XSha_GetShaBlockLen() and XSha_Reset() API's
  *       ma   01/15/25 Minor updates to XSha_GetHashLen API
  *       ss   02/04/25 Added XSha_Digest() API
+ * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *
  * </pre>
  *
@@ -344,7 +345,7 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 
 	/** Push Data to SHA2/3 engine using DMA and check for PMC DMA done bit. */
 	XAsuDma_ByteAlignedTransfer(&InstancePtr->AsuDmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL, InDataAddr, Size,
-				    EndLast);
+		(u8)EndLast);
 
 	/**
 	 * If the data size is greater than XASUFW_DMA_BLOCKING_SIZE, return XASUFW_CMD_IN_PROGRESS
@@ -722,7 +723,7 @@ s32 XSha_Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr,
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSha_Update(ShaInstancePtr, DmaPtr, ShaParamsPtr->DataAddr,
-			     ShaParamsPtr->DataSize, (u32)TRUE);
+		ShaParamsPtr->DataSize, (u32)XASU_TRUE);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
 		CmdStage = SHA_UPDATE_DONE;
 		goto END;

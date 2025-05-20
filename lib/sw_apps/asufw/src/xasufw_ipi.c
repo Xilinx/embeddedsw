@@ -18,6 +18,7 @@
  * 1.0   ma   01/02/24 Initial release
  *       ma   03/16/24 Added error codes at required places
  *       ma   07/08/24 Add task based approach at queue level
+ * 1.1   am   05/18/25 Fixed implicit conversion of operands
  *
  * </pre>
  *
@@ -89,7 +90,7 @@ END:
  *************************************************************************************************/
 void XAsufw_EnableIpiInterrupt(u16 IpiBitMask)
 {
-	XIpiPsu_InterruptEnable(&IpiInst, IpiBitMask);
+	XIpiPsu_InterruptEnable(&IpiInst, (u32)IpiBitMask);
 }
 
 /*************************************************************************************************/
@@ -111,7 +112,7 @@ void XAsufw_IpiHandler(const void *Data)
 
 	/** Trigger Queue tasks of the IPI channels on which the new request is received. */
 	while (IpiIsr != 0U) {
-		IpiMask = IpiIsr & (0x1U << Count);
+		IpiMask = IpiIsr & ((u32)0x1U << Count);
 		if (IpiMask != 0U) {
 			XAsufw_TriggerQueueTask(IpiMask);
 			XAsufw_WriteReg(IPI_ASU_ISR, IpiMask);

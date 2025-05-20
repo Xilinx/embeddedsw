@@ -24,6 +24,7 @@
  * 1.1   ma   12/24/24 Added API to disable autoproc mode
  *       ma   01/03/25 Configure TRNG core registers properly
  *       ma   02/11/25 Added volatile to NumOfBursts variable in XTrng_CollectRandData
+ * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *
  * </pre>
  *
@@ -491,7 +492,7 @@ s32 XTrng_Instantiate(XTrng *InstancePtr, const u8 *Seed, u32 SeedLength, const 
 	}
 
 	if ((UserCfg->Mode == XTRNG_DRBG_MODE) &&
-	    (SeedLength != ((UserCfg->DFLength + 1U) * XTRNG_BLOCK_LEN_IN_BYTES))) {
+	    (SeedLength != (((u32)UserCfg->DFLength + 1U) * XTRNG_BLOCK_LEN_IN_BYTES))) {
 		Status = XASUFW_TRNG_INVALID_SEED_LENGTH;
 		goto END;
 	}
@@ -717,7 +718,7 @@ s32 XTrng_Generate(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResi
 		if (InstancePtr->UserCfg.Mode == XTRNG_HRNG_MODE) {
 			/** Perform auto reseed in HRNG mode. */
 			if ((InstancePtr->TrngStats.ElapsedSeedLife >= InstancePtr->UserCfg.SeedLife) ||
-				(PredResistance == TRUE)) {
+				(PredResistance == XASU_TRUE)) {
 				XFIH_CALL_GOTO(XTrng_Reseed, XFihVar, Status, END, InstancePtr, NULL,
 						InstancePtr->UserCfg.DFLength);
 			}
@@ -1023,10 +1024,10 @@ static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSiz
 	for (NumofBursts = 0; NumofBursts < XTRNG_SEC_STRENGTH_IN_BURSTS; NumofBursts++) {
 		/** Check whether TRNG operation is completed within Timeout or not. */
 		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(XTrng_WaitForEvent, XASUFW_TRNG_TIMEOUT_ERROR,
-						   XFihVar, Status, END,
-						   (UINTPTR)(InstancePtr->BaseAddress + XASU_TRNG_STATUS_OFFSET),
-						   XASU_TRNG_STATUS_QCNT_MASK,
-						   (XTRNG_STATUS_QCNT_VAL << XASU_TRNG_STATUS_QCNT_SHIFT), XTRNG_GENERATE_TIMEOUT);
+			XFihVar, Status, END,
+			(UINTPTR)(InstancePtr->BaseAddress + XASU_TRNG_STATUS_OFFSET),
+			XASU_TRNG_STATUS_QCNT_MASK,
+			((u32)XTRNG_STATUS_QCNT_VAL << XASU_TRNG_STATUS_QCNT_SHIFT), XTRNG_GENERATE_TIMEOUT);
 
 		if ((XAsufw_ReadReg(InstancePtr->BaseAddress + XASU_TRNG_STATUS_OFFSET) &
 		     XASU_TRNG_STATUS_DFT_MASK) == XASU_TRNG_STATUS_DFT_MASK) {
@@ -1038,7 +1039,7 @@ static s32 XTrng_CollectRandData(XTrng *InstancePtr, u8 *RandBuf, u32 RandBufSiz
 		BurstIdx = NumofBursts * XTRNG_BURST_SIZE_IN_WORDS;
 		for (Idx = 0U; Idx < XTRNG_BURST_SIZE_IN_WORDS; Idx++) {
 			RegVal = XAsufw_ReadReg(InstancePtr->BaseAddress + XASU_TRNG_CORE_OUTPUT_OFFSET);
-			if ((Idx + BurstIdx) < Size) {
+			if (((u32)Idx + BurstIdx) < Size) {
 				*((u32 *)RandBuf + Idx + BurstIdx) = Xil_EndianSwap32(RegVal);
 			}
 		}
@@ -1070,7 +1071,7 @@ END:
 static s32 XTrng_WriteSeed(const XTrng *InstancePtr, const u8 *Seed, u8 DLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u32 SeedLen = (DLen + 1U) * XTRNG_BLOCK_LEN_IN_BYTES;
+	u32 SeedLen = ((u32)DLen + 1U) * XTRNG_BLOCK_LEN_IN_BYTES;
 	volatile u32 Idx = 0U;
 	u8 Cnt = 0U;
 	u32 Bit = 0U;
@@ -1079,7 +1080,7 @@ static s32 XTrng_WriteSeed(const XTrng *InstancePtr, const u8 *Seed, u8 DLen)
 	while (Idx < SeedLen) {
 		SeedConstruct = 0U;
 		for (Cnt = 0; Cnt < XASUFW_BYTE_LEN_IN_BITS; Cnt++) {
-			Bit = (u32)(Seed[Idx] >> (XASUFW_BYTE_LEN_IN_BITS - 1U - Cnt)) & 0x01U;
+			Bit = ((u32)Seed[Idx] >> (XASUFW_BYTE_LEN_IN_BITS - 1U - Cnt)) & 0x01U;
 			XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_TRNG_TEST_OFFSET, Bit);
 			SeedConstruct = (u8)((SeedConstruct << 1U) | (u8)Bit);
 		}
@@ -1126,7 +1127,7 @@ static s32 XTrng_WritePersString(const XTrng *InstancePtr, const u8 *PersString)
 				 PersString[(Idx * XASUFW_WORD_LEN_IN_BYTES) + Cnt];
 		}
 		XAsufw_WriteReg((InstancePtr->BaseAddress +
-				 (XASU_TRNG_PER_STRNG_11_OFFSET - (Idx * XASUFW_WORD_LEN_IN_BYTES))), RegVal);
+				 (XASU_TRNG_PER_STRNG_11_OFFSET - ((u32)Idx * XASUFW_WORD_LEN_IN_BYTES))), RegVal);
 	}
 	if (Idx == XTRNG_PERS_STRING_LEN_IN_WORDS) {
 		Status = XASUFW_SUCCESS;

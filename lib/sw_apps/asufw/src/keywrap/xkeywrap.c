@@ -4,22 +4,22 @@
 **************************************************************************************************/
 /*************************************************************************************************/
 /**
-*
-* @file xkeywrap.c
-*
-* This file contains the implementation of the Key Wrap Unwrap APIs.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who  Date     Changes
-* ----- ---- -------- -----------------------------------------------------------------------------
-* 1.0   ss   02/24/25 Initial release
-*
-* </pre>
-*
-*
-**************************************************************************************************/
+ *
+ * @file xkeywrap.c
+ *
+ * This file contains the implementation of the Key Wrap Unwrap APIs.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- -------- ----------------------------------------------------------------------------
+ * 1.0   ss   02/24/25 Initial release
+ * 1.1   am   05/18/25 Fixed implicit conversion of operands
+ *
+ * </pre>
+ *
+ *************************************************************************************************/
 /**
 * @addtogroup xkeywrap_server_apis Keywrap Server APIs
 * @{
@@ -458,11 +458,11 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 					Status =  XASUFW_KEYWRAP_AES_DATA_CALC_FAIL;
 					goto END_CLR;
 				}
-				AesOutValue = (AesOutData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
+				AesOutValue = ((u64)AesOutData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
 						- XASUFW_BUFFER_INDEX_TWO] << XASUFW_ONE_BYTE_SHIFT_VALUE)
 						| AesOutData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
 								- XASUFW_BUFFER_INDEX_ONE];
-				AesOutValue = AesOutValue ^ ((MaxRounds * RoundNum) + BlkRoundNum);
+				AesOutValue = AesOutValue ^ (((u64)MaxRounds * RoundNum) + BlkRoundNum);
 				AesOutData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES - XASUFW_BUFFER_INDEX_TWO]
 				= (u8)(AesOutValue >> XASUFW_ONE_BYTE_SHIFT_VALUE);
 				AesOutData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
@@ -618,11 +618,11 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 						(XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
 						* BlkRoundNum), XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
 				}
-				AesInValue = (AesInData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
+				AesInValue = ((u64)AesInData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
 						- XASUFW_BUFFER_INDEX_TWO] << XASUFW_ONE_BYTE_SHIFT_VALUE)
 						| AesInData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
 								- XASUFW_BUFFER_INDEX_ONE];
-				AesInValue = AesInValue ^ ((MaxRounds * (u32)RoundNum) + BlkRoundNum);
+				AesInValue = AesInValue ^ (((u64)MaxRounds * (u32)RoundNum) + BlkRoundNum);
 				AesInData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES - XASUFW_BUFFER_INDEX_TWO]
 				= (u8)(AesInValue >> XASUFW_ONE_BYTE_SHIFT_VALUE);
 				AesInData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES

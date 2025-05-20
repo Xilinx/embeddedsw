@@ -20,6 +20,7 @@
  *       am   01/20/25 Added AES CCM support
  *       am   04/03/25 Removed redundant release of AES resource
  *       am   04/14/25 Added support for DMA non-blocking wait
+ * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *
  * </pre>
  *
@@ -202,7 +203,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	if ((AesParamsPtr->OperationFlags & XASU_AES_UPDATE) == XASU_AES_UPDATE) {
 		/* Fetch the actual engine mode from the initialized AES instance */
 		EngineMode = XAes_GetEngineMode(XAsufw_Aes);
-		if (EngineMode == XASUFW_AES_INVALID_ENGINE_MODE) {
+		if (EngineMode == (u8)XASUFW_AES_INVALID_ENGINE_MODE) {
 			Status = XASUFW_AES_INVALID_ENGINE_MODE;
 			goto END;
 		}
@@ -256,7 +257,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 			Status = XAes_CcmFormatAadAndXfer(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
 				AesParamsPtr->AadAddr, AesParamsPtr->AadLen, AesParamsPtr->IvAddr,
-				(u8)AesParamsPtr->IvLen, AesParamsPtr->DataLen, AesParamsPtr->TagLen);
+				(u8)AesParamsPtr->IvLen, AesParamsPtr->DataLen, (u8)AesParamsPtr->TagLen);
 			if (Status == XASUFW_CMD_IN_PROGRESS) {
 				CmdStage = XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS;
 				XAsufw_DmaNonBlockingWait(XAsufw_AesModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
@@ -315,7 +316,8 @@ XAES_STAGE_DATA_UPDATE_DONE:
 
 END:
 	/** Release the resource in the event of failure or after a successful final operation. */
-	if ((Status != XASUFW_SUCCESS) || (AesParamsPtr->OperationFlags & XASU_AES_FINAL)) {
+	if ((Status != XASUFW_SUCCESS) || ((AesParamsPtr->OperationFlags & XASU_AES_FINAL) ==
+			XASU_AES_FINAL)) {
 		if (XAsufw_ReleaseResource(XASUFW_AES, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}

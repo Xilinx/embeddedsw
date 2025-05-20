@@ -28,6 +28,7 @@
  *       am   04/04/25 Increased timeout for KV interrupt status poll
  *       am   04/10/25 Removed poll status interrupt timeout to wait indefinitely
  *       am   04/18/25 Suppressed unused variable warning
+ * 1.3   am   05/18/25 Changed wait condition from implicit to explicit comparison
  *
  * </pre>
  *
@@ -423,8 +424,8 @@ s32 XAsufw_PmcKeyTransfer(void)
 	}
 
 	/** Wait till HW to set the KV interrupt status bit when key transfer(KT) is done. */
-	while (!(XAsufw_ReadReg(XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET) &
-		XAES_KV_INTERRUPT_STATUS_MASK));
+	while ((XAsufw_ReadReg(XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET) &
+		XAES_KV_INTERRUPT_STATUS_DONE_MASK) == 0U);
 
 	/** Clear KV interrupt status. */
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET),
