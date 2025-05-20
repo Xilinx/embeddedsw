@@ -38,6 +38,7 @@ extern "C" {
 #include "xasufw_dma.h"
 #include "xasu_keywrapinfo.h"
 
+#ifdef XASU_KEYWRAP_ENABLE
 /************************************ Constant Definitions ***************************************/
 
 /************************************ Variable Definitions ***************************************/
@@ -51,6 +52,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
                 XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr);
 s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
                 XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr);
+#endif /* XASU_KEYWRAP_ENABLE */
 
 #ifdef __cplusplus
 }

@@ -33,6 +33,7 @@
 #include "xasufw_util.h"
 #include "xasufw_kat.h"
 
+#ifdef XASU_KDF_ENABLE
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_KdfResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -93,10 +94,8 @@ s32 XAsufw_KdfInit(void)
 	Status = XAsufw_ModuleRegister(&XAsufw_KdfModule);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_MODULE_REGISTRATION_FAILED);
-		goto END;
 	}
 
-END:
 	return Status;
 }
 
@@ -236,4 +235,5 @@ static s32 XAsufw_KdfGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/* TODO: Implement XAsufw_KdfGetInfo */
 	return Status;
 }
+#endif /* XASU_KDF_ENABLE */
 /** @} */

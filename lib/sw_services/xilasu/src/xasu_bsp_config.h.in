@@ -5,9 +5,23 @@
 #ifndef XASU_BSP_CONFIG_H
 #define XASU_BSP_CONFIG_H
 
-#cmakedefine	XASU_TRNG_ENABLE_DRBG_MODE
-#cmakedefine	XASU_PERF_MEASUREMENT_ENABLE
-#cmakedefine	XASU_AES_CM_ENABLE
-#cmakedefine	XASU_ECC_CM_ENABLE
+#cmakedefine    XASU_TRNG_ENABLE_DRBG_MODE
+#cmakedefine    XASU_PERF_MEASUREMENT_ENABLE
+#cmakedefine    XASU_AES_CM_ENABLE
+#cmakedefine    XASU_ECC_CM_ENABLE
+#cmakedefine    XASU_HMAC_ENABLE
+#cmakedefine    XASU_KDF_ENABLE
+#cmakedefine    XASU_ECIES_ENABLE
+#cmakedefine    XASU_KEYWRAP_ENABLE
+#cmakedefine    XASU_RSA_PADDING_ENABLE
+#cmakedefine    XASU_ECC_SUPPORT_NIST_P192
+#cmakedefine    XASU_ECC_SUPPORT_NIST_P224
+#cmakedefine    XASU_ECC_SUPPORT_NIST_P256
+#cmakedefine    XASU_ECC_SUPPORT_NIST_P384
+#cmakedefine    XASU_ECC_SUPPORT_NIST_P521
+#cmakedefine    XASU_ECC_SUPPORT_BRAINPOOL_P256
+#cmakedefine    XASU_ECC_SUPPORT_BRAINPOOL_P320
+#cmakedefine    XASU_ECC_SUPPORT_BRAINPOOL_P384
+#cmakedefine    XASU_ECC_SUPPORT_BRAINPOOL_P512
 
 #endif /* XASU_BSP_CONFIG_H */

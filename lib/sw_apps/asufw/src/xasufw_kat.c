@@ -118,26 +118,32 @@ static const u8 ExpSha3256Hash[XASU_SHA_256_HASH_LEN] = {
 	0xA5U, 0xD1U, 0xB4U, 0x31U, 0xC0U, 0x67U, 0x5CU, 0xDDU
 };
 
+#ifdef XASU_HMAC_ENABLE
 static const u8 ExpHmacOutput[XASU_SHA_256_HASH_LEN] = {
 	0x72U, 0xC5U, 0x39U, 0x7DU, 0x23U, 0x49U, 0x3EU, 0xFFU,
 	0xF9U, 0x16U, 0xC8U, 0x4BU, 0x08U, 0x11U, 0x3EU, 0x26U,
 	0x2FU, 0xA8U, 0x55U, 0x76U, 0xAFU, 0xFEU, 0x96U, 0x4AU,
 	0x09U, 0x79U, 0xAAU, 0x05U, 0xBEU, 0xAFU, 0x5FU, 0x2DU
 };
+#endif
 
+#ifdef XASU_KDF_ENABLE
 static const u8 ExpKdfOutput[XASU_SHA_256_HASH_LEN] = {
 	0x91U, 0x53U, 0x33U, 0xF0U, 0x62U, 0x3DU, 0xBCU, 0x73U,
 	0x7EU, 0x92U, 0x3CU, 0x1BU, 0xB3U, 0xA9U, 0x92U, 0x31U,
 	0x4EU, 0x66U, 0xC4U, 0x6EU, 0x2CU, 0x8DU, 0x81U, 0x45U,
 	0xD2U, 0xE4U, 0x70U, 0x4EU, 0x75U, 0xD0U, 0x3AU, 0x77U
 };
+#endif
 
+#ifdef XASU_ECIES_ENABLE
 static const u8 ExpHkdfOutput[XASU_SHA_256_HASH_LEN] = {
 	0x10U, 0x27U, 0x1dU, 0x64U, 0xbaU, 0xafU, 0xd3U, 0x75U,
 	0x75U, 0xedU, 0x28U, 0x73U, 0xe7U, 0x30U, 0x27U, 0x03U,
 	0x43U, 0xacU, 0xa1U, 0xc7U, 0x64U, 0x40U, 0x79U, 0x03U,
 	0xddU, 0x17U, 0x88U, 0xd0U, 0xb1U, 0xb4U, 0x48U, 0xd2U
 };
+#endif
 
 static const u8 RsaData[XASUFW_RSA_KAT_MSG_LENGTH_IN_BYTES] = {
 	0x30U, 0x68U, 0x1BU, 0x08U, 0x2EU, 0x9BU, 0xAAU, 0x9DU, 0x14U, 0x81U, 0x7AU, 0x3AU,
@@ -374,6 +380,7 @@ static const u8 EcdhExpSharedSecret[XASU_ECC_P192_SIZE_IN_BYTES] = {
 	0x95U, 0x8BU, 0xDFU, 0xECU, 0x86U, 0x8CU, 0xA8U, 0x23U, 0xDCU, 0xE5U, 0x65U
 };
 
+#ifdef XASU_ECIES_ENABLE
 static const u8 EciesRxPrivKey[XASU_ECC_P384_SIZE_IN_BYTES] = {
 	0x02U, 0x87U, 0xF6U, 0x2AU, 0x5AU, 0xA8U, 0x43U, 0x2FU,
 	0xF5U, 0xE9U, 0x56U, 0x18U, 0xECU, 0x8FU, 0x9CU, 0xCAU,
@@ -402,6 +409,9 @@ static const u8 EciesIv[XASU_AES_IV_SIZE_96BIT_IN_BYTES] = {
 	0x99U, 0xD1U, 0x58U, 0x32U, 0xCCU, 0x65U, 0xF6U, 0xB4U,
 	0xC5U, 0xC5U, 0xC3U, 0x4FU
 };
+#endif
+
+#ifdef XASU_KEYWRAP_ENABLE
 static const u8 KeyWrapInput[XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES] = {
 	0xffU, 0xe9U, 0x52U, 0x60U, 0x48U, 0x34U, 0xbfU, 0xf8U, 0x99U, 0xe6U, 0x36U, 0x58U, 0xf3U,
 	0x42U, 0x46U, 0x81U, 0x5cU, 0x91U, 0x59U, 0x7eU, 0xb4U, 0x0aU, 0x21U, 0x72U, 0x9eU, 0x0aU,
@@ -411,6 +421,7 @@ static const u8 KeyWrapInput[XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES] = {
 static const char RsaOpt[XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES + 1U] = "ASUFW";
 
 static u8 WrappedResult[XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES];
+#endif
 /*************************************************************************************************/
 /**
  * @brief	This function runs SHA KAT on the given SHA instance for 256-bit digest size.
@@ -1004,6 +1015,7 @@ END:
 	return Status;
 }
 
+#ifdef XASU_HMAC_ENABLE
 /*************************************************************************************************/
 /**
  * @brief	This function runs HMAC KAT on the given HMAC instance using SHA2-256.
@@ -1069,7 +1081,9 @@ END:
 
 	return Status;
 }
+#endif /* XASU_HMAC_ENABLE */
 
+#ifdef XASU_KDF_ENABLE
 /*************************************************************************************************/
 /**
  * @brief	This function runs KDF KAT using SHA2-256.
@@ -1124,7 +1138,9 @@ END:
 
 	return Status;
 }
+#endif /* XASU_KDF_ENABLE */
 
+#ifdef XASU_ECIES_ENABLE
 /*************************************************************************************************/
 /**
  * @brief	This function runs HKDF KAT using SHA2-256.
@@ -1267,7 +1283,9 @@ END:
 
 	return Status;
 }
+#endif /* XASU_ECIES_ENABLE */
 
+#ifdef XASU_KEYWRAP_ENABLE
 /*************************************************************************************************/
 /**
  * @brief	This function runs key wrap unwrap KAT using SHA2-256.
@@ -1390,6 +1408,7 @@ END:
 
 	return Status;
 }
+#endif /* XASU_KEYWRAP_ENABLE */
 
 /*****************************************************************************/
 /**

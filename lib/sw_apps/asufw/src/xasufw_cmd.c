@@ -173,6 +173,14 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf)
 		goto END;
 	}
 
+	/**
+	 * Checks if the command with the specified CmdId in the Module's Cmds array is NULL.
+	 */
+	if (Module->Cmds[CmdId].CmdHandler == NULL) {
+		Status = XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED;
+		goto END;
+	}
+
 	/* TODO: Access permissions check should happen here */
 	Status = XASUFW_SUCCESS;
 

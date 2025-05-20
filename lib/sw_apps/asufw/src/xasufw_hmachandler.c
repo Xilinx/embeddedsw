@@ -32,8 +32,8 @@
 #include "xasufw_util.h"
 #include "xasufw_cmd.h"
 #include "xasufw_kat.h"
-#include "xasu_hmacinfo.h"
 
+#ifdef XASU_HMAC_ENABLE
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_HmacKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_HmacGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -48,6 +48,7 @@ static XAsufw_Module XAsufw_HmacModule; /**< ASUFW HMAC Module ID and commands a
 /************************************** Macros Definitions ***************************************/
 
 /************************************** Function Definitions *************************************/
+
 /*************************************************************************************************/
 /**
  * @brief	This function initializes the HMAC module.
@@ -304,4 +305,5 @@ static s32 XAsufw_HmacGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/* TODO: Implement XAsufw_HmacGetInfo */
 	return Status;
 }
+#endif  /* XASU_HMAC_ENABLE */
 /** @} */

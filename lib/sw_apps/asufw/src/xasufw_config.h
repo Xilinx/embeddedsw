@@ -57,30 +57,6 @@ extern "C" {
 									configuration */
 #define XASUFW_PMXC_EFUSE_USER_KEY_1 	(XASUFW_EFUSE_RED_KEY) /**< PMX eFuse user key 1
 									configuration */
-/**
- * @name Supported ECC curves
- * @{
- */
-/* Macros to enable / disable support of NIST and Brainpool curves */
-#define XASUFW_ECC_SUPPORT_NIST_P521	(XASUFW_CONFIG_ENABLE) /**< To enable/disable P521
-								curve support configuration */
-#define XASUFW_ECC_SUPPORT_NIST_P192	(XASUFW_CONFIG_ENABLE) /**< To enable/disable P192
-								curve support configuration */
-#define XASUFW_ECC_SUPPORT_NIST_P224	(XASUFW_CONFIG_ENABLE) /**< To enable/disable P224
-								curve support configuration */
-#define XASUFW_ECC_SUPPORT_NIST_P256	(XASUFW_CONFIG_ENABLE) /**< To enable/disable P256
-								curve support configuration */
-#define XASUFW_ECC_SUPPORT_NIST_P384	(XASUFW_CONFIG_ENABLE) /**< To enable/disable P384
-								curve support configuration */
-#define XASUFW_ECC_SUPPORT_BRAINPOOL_P256	(XASUFW_CONFIG_ENABLE) /**< To enable/disable
-							Brainpool P256 curve support configuration */
-#define XASUFW_ECC_SUPPORT_BRAINPOOL_P320	(XASUFW_CONFIG_ENABLE) /**< To enable/disable
-							Brainpool P320 curve support configuration */
-#define XASUFW_ECC_SUPPORT_BRAINPOOL_P384	(XASUFW_CONFIG_ENABLE) /**< To enable/disable
-							Brainpool P384 curve support configuration */
-#define XASUFW_ECC_SUPPORT_BRAINPOOL_P512	(XASUFW_CONFIG_ENABLE) /**< To enable/disable
-							Brainpool P512 curve support configuration */
-/** @} */
 
 #define XASUFW_ENABLE_PERF_MEASUREMENT		(XASUFW_CONFIG_DISABLE) /** To enable/disable
 									performance measurement. */

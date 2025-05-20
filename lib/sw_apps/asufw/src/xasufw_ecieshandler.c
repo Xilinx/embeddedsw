@@ -34,10 +34,10 @@
 #include "xasufw_util.h"
 #include "xasufw_cmd.h"
 #include "xasufw_kat.h"
-#include "xasu_eciesinfo.h"
 #include "xasu_eccinfo.h"
 #include "xasufw_trnghandler.h"
 
+#ifdef XASU_ECIES_ENABLE
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_EciesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EciesGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -53,6 +53,7 @@ static XAsufw_Module XAsufw_EciesModule; /**< ASUFW ECIES Module ID and commands
 /************************************** Macros Definitions ***************************************/
 
 /************************************** Function Definitions *************************************/
+
 /*************************************************************************************************/
 /**
  * @brief	This function initializes the ECIES module.
@@ -297,4 +298,5 @@ static s32 XAsufw_EciesGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/* TODO: Implement XAsufw_EciesGetInfo */
 	return Status;
 }
+#endif /* XASU_ECIES_ENABLE */
 /** @} */

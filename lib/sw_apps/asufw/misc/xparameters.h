@@ -508,6 +508,41 @@
 #define XASU_AES_CM_ENABLE
 #define XASU_ECC_CM_ENABLE
 
+/* Enable/disable for HMAC,KDF,ECIES,Keywrap and RSA padding schemes */
+#define XASU_HMAC_ENABLE
+#define XASU_KDF_ENABLE
+#define XASU_ECIES_ENABLE
+#define XASU_KEYWRAP_ENABLE
+#define XASU_RSA_PADDING_ENABLE
+
+/* Macros to enable / disable support of NIST and Brainpool curves */
+/**< Macro to enable/disable support of NIST P-192 curve */
+#define XASU_ECC_SUPPORT_NIST_P192
+
+/**< Macro to enable/disable support of NIST P-224 curve */
+//#define XASU_ECC_SUPPORT_NIST_P224
+
+/**< Macro to enable/disable support of NIST P-256 curve */
+//#define XASU_ECC_SUPPORT_NIST_P256
+
+/**< Macro to enable/disable support of NIST P-384 curve */
+//#define XASU_ECC_SUPPORT_NIST_P384
+
+/**< Macro to enable/disable support of NIST P-521 curve */
+//#define XASU_ECC_SUPPORT_NIST_P521
+
+/**< Macro to enable/disable support of Brainpool P-256 curve */
+//#define XASU_ECC_SUPPORT_BRAINPOOL_P256
+
+/**< Macro to enable/disable support of Brainpool P-320 curve */
+//#define XASU_ECC_SUPPORT_BRAINPOOL_P320
+
+/**< Macro to enable/disable support of Brainpool P-384 curve */
+//#define XASU_ECC_SUPPORT_BRAINPOOL_P384
+
+/**< Macro to enable/disable support of Brainpool P-512 curve */
+//#define XASU_ECC_SUPPORT_BRAINPOOL_P512
+
 /* Platform specific definitions */
 #ifndef VERSAL_2VE_2VM
 #define VERSAL_2VE_2VM

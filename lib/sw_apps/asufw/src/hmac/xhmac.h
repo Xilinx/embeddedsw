@@ -35,7 +35,9 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xsha.h"
 #include "xasufw_dma.h"
+#include "xasu_hmacinfo.h"
 
+#ifdef XASU_HMAC_ENABLE
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_HMAC_SHA_HASH_MAX_LEN		(64U) /**< Length of the maximum hash length */
 #define HMAC_UPDATE_IN_PROGRESS			(0x1U) /**< HMAC update done stage for DMA
@@ -56,6 +58,7 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 DataLen,
 		 u32 IsLastUpdate);
 s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr);
+#endif /* XASU_HMAC_ENABLE */
 
 #ifdef __cplusplus
 }

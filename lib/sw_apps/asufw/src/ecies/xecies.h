@@ -38,6 +38,7 @@ extern "C" {
 #include "xasufw_dma.h"
 #include "xasu_eciesinfo.h"
 
+#ifdef XASU_ECIES_ENABLE
 /************************************ Constant Definitions ***************************************/
 
 /************************************ Variable Definitions ***************************************/
@@ -51,6 +52,7 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 		   const XAsu_EciesParams *EciesParams);
 s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePtr,
 		   const XAsu_EciesParams *EciesParams);
+#endif /* XASU_ECIES_ENABLE */
 
 #ifdef __cplusplus
 }

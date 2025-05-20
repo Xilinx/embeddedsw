@@ -42,6 +42,7 @@
 #include "xasu_ecies_common.h"
 #include "xasu_def.h"
 
+#ifdef XASU_ECIES_ENABLE
 /************************************** Type Definitions *****************************************/
 
 /************************************ Variable Definitions ***************************************/
@@ -359,4 +360,5 @@ END:
 
 	return Status;
 }
+#endif /* XASU_ECIES_ENABLE */
 /** @} */

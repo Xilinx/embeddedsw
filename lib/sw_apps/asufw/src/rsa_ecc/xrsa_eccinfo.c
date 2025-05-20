@@ -31,9 +31,11 @@
 */
 /*************************************** Include Files *******************************************/
 #include "xrsa_eccinfo.h"
+#include "xparameters.h"
+#include "xasu_eccinfo.h"
 
 /************************************ Constant Definitions ***************************************/
-#ifdef XRSA_ECC_SUPPORT_NIST_P521
+#ifdef XASU_ECC_SUPPORT_NIST_P521
 static const u8 XRsa_EccP521D0[] = {
 	0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xCAU, 0xA8U, 0x3DU, 0x0FU,
 	0x39U, 0xF6U, 0x25U, 0xD7U, 0x97U, 0xECU, 0x95U, 0x9CU,
@@ -193,9 +195,9 @@ static const u8 XRsa_EccP521D12[] = {
 static const u8 XRsa_EccP521D13[] = {
 	18U, 6U, 3U, 1U,
 };
-#endif /* XRSA_ECC_SUPPORT_NIST_P521 */
+#endif /* XASU_ECC_SUPPORT_NIST_P521 */
 
-#ifdef XRSA_ECC_SUPPORT_NIST_P192
+#ifdef XASU_ECC_SUPPORT_NIST_P192
 static const u8 XRsa_EccP192D0[] = {
 	0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xA8U, 0x14U, 0x15U, 0x79U,
 	0xE4U, 0x3DU, 0xF0U, 0x9FU, 0xB1U, 0xA1U, 0x78U, 0xFAU,
@@ -279,9 +281,9 @@ static const u8 XRsa_EccP192D12[] = {
 static const u8 XRsa_EccP192D13[] = {
 	7U, 2U, 1U, 2U,
 };
-#endif /* XRSA_ECC_SUPPORT_NIST_P192 */
+#endif /* XASU_ECC_SUPPORT_NIST_P192 */
 
-#ifdef XRSA_ECC_SUPPORT_NIST_P224
+#ifdef XASU_ECC_SUPPORT_NIST_P224
 static const u8 XRsa_EccP224D0[] = {
 	0xFFU, 0xFFU, 0xFFU, 0xFFU, 0x4FU, 0xCBU, 0xEFU, 0x8CU,
 	0xE8U, 0x8EU, 0x91U, 0x3BU, 0xAFU, 0xFFU, 0x16U, 0x7DU,
@@ -376,9 +378,9 @@ static const u8 XRsa_EccP224D12[] = {
 static const u8 XRsa_EccP224D13[] = {
 	8U, 3U, 1U, 0U,
 };
-#endif /* XRSA_ECC_SUPPORT_NIST_P224 */
+#endif /* XASU_ECC_SUPPORT_NIST_P224 */
 
-#ifdef XRSA_ECC_SUPPORT_NIST_P256
+#ifdef XASU_ECC_SUPPORT_NIST_P256
 static const u8 XRsa_EccP256D0[] = {
 	0xFFU, 0xFFU, 0xFFU, 0xFFU, 0x35U, 0xF0U, 0xE0U, 0xEDU,
 	0x84U, 0x48U, 0x4AU, 0x83U, 0xABU, 0xD7U, 0xB6U, 0x5CU,
@@ -462,9 +464,9 @@ static const u8 XRsa_EccP256D12[] = {
 static const u8 XRsa_EccP256D13[] = {
 	0x09U, 0x03U, 0x01U, 0x01u,
 };
-#endif /* XRSA_ECC_SUPPORT_NIST_P256 */
+#endif /* XASU_ECC_SUPPORT_NIST_P256 */
 
-#ifdef XRSA_ECC_SUPPORT_NIST_P384
+#ifdef XASU_ECC_SUPPORT_NIST_P384
 static const u8 XRsa_EccP384D0[] = {
 	0xFFU, 0xFFU, 0xFFU, 0xFFU, 0x74U, 0xB1U, 0xB5U, 0xBDU,
 	0xA7U, 0x16U, 0xEBU, 0x5BU, 0xFAU, 0x99U, 0x41U, 0x5BU,
@@ -587,9 +589,9 @@ static const u8 XRsa_EccP384D12[] = {
 static const u8 XRsa_EccP384D13[] = {
 	13U, 4U, 2U, 2U,
 };
-#endif /* XRSA_ECC_SUPPORT_NIST_P384 */
+#endif /* XASU_ECC_SUPPORT_NIST_P384 */
 
-#ifdef XRSA_ECC_SUPPORT_BRAINPOOL_P256
+#ifdef XASU_ECC_SUPPORT_BRAINPOOL_P256
 static const u8 XRsa_EccBrainPoolP256D0[] = {
 	0xFFU, 0xFFU, 0xFFU, 0xFFU, 0xB4U, 0x14U, 0xEFU, 0x91U,
 	0xD7U, 0xABU, 0x5BU, 0x22U, 0xFBU, 0x8AU, 0xF5U, 0xD0U,
@@ -673,9 +675,9 @@ static const u8 XRsa_EccBrainPoolP256D12[] = {
 static const u8 XRsa_EccBrainPoolP256D13[] = {
 	0x09U,  0x03U,  0x01U,	0x01U,
 };
-#endif /* XRSA_ECC_SUPPORT_BRAINPOOL_P256 */
+#endif /* XASU_ECC_SUPPORT_BRAINPOOL_P256 */
 
-#ifdef XRSA_ECC_SUPPORT_BRAINPOOL_P320
+#ifdef XASU_ECC_SUPPORT_BRAINPOOL_P320
 static const u8 XRsa_EccBrainPoolP320D0[] = {
 	0xFFU, 0xFFU, 0xFFU, 0xFFU, 0x7AU, 0x58U, 0x28U, 0xDFU,
 	0x08U, 0xFEU, 0xA7U, 0x86U, 0x29U, 0xD8U, 0x9FU, 0xFAU,
@@ -772,9 +774,9 @@ static const u8 XRsa_EccBrainPoolP320D12[] = {
 static const u8 XRsa_EccBrainPoolP320D13[] = {
 	0x0BU, 0x04U, 0x01U, 0x00U,
 };
-#endif /* XRSA_ECC_SUPPORT_BRAINPOOL_P320 */
+#endif /* XASU_ECC_SUPPORT_BRAINPOOL_P320 */
 
-#ifdef XRSA_ECC_SUPPORT_BRAINPOOL_P384
+#ifdef XASU_ECC_SUPPORT_BRAINPOOL_P384
 static const u8 XRsa_EccBrainPoolP384D0[] = {
 	0xFFU, 0xFFU, 0xFFU, 0xFFU, 0x6DU, 0x2CU, 0x89U, 0x13U,
 	0x13U, 0xE7U, 0xB8U, 0xCDU, 0xAFU, 0xF5U, 0xD1U, 0x16U,
@@ -884,9 +886,9 @@ static const u8 XRsa_EccBrainPoolP384D12[] = {
 static const u8 XRsa_EccBrainPoolP384D13[] = {
 	0x0DU, 0x04U, 0x02U, 0x02U,
 };
-#endif /* XRSA_ECC_SUPPORT_BRAINPOOL_P384 */
+#endif /* XASU_ECC_SUPPORT_BRAINPOOL_P384 */
 
-#ifdef XRSA_ECC_SUPPORT_BRAINPOOL_P512
+#ifdef XASU_ECC_SUPPORT_BRAINPOOL_P512
 static const u8 XRsa_EccBrainPoolP512D0[] = {
 	0xFFU, 0xFFU, 0xFFU, 0xFFU, 0x48U, 0x7FU, 0x75U, 0x80U,
 	0x50U, 0x6EU, 0x12U, 0x69U, 0x0AU, 0x0EU, 0xB9U, 0x30U,
@@ -1022,11 +1024,11 @@ static const u8 XRsa_EccBrainPoolP512D12[] = {
 static const u8 XRsa_EccBrainPoolP512D13[] = {
 	0x11U, 0x06U, 0x02U, 0x00U,
 };
-#endif /* XRSA_ECC_SUPPORT_BRAINPOOL_P512 */
+#endif /* XASU_ECC_SUPPORT_BRAINPOOL_P512 */
 
 /**************************************** Type Definitions ***************************************/
 EcdsaCrvInfo XRsa_EccCrvsDb[] = {
-#ifdef XRSA_ECC_SUPPORT_NIST_P521
+#ifdef XASU_ECC_SUPPORT_NIST_P521
 	{
 		ECDSA_NIST_P521,
 		521U,
@@ -1049,9 +1051,9 @@ EcdsaCrvInfo XRsa_EccCrvsDb[] = {
 		NULL,
 		0U
 	},
-#endif /* XRSA_ECC_SUPPORT_NIST_P521 */
+#endif /* XASU_ECC_SUPPORT_NIST_P521 */
 
-#ifdef XRSA_ECC_SUPPORT_NIST_P192
+#ifdef XASU_ECC_SUPPORT_NIST_P192
 	{
 		ECDSA_NIST_P192,
 		192U,
@@ -1074,9 +1076,9 @@ EcdsaCrvInfo XRsa_EccCrvsDb[] = {
 		NULL,
 		0U
 	},
-#endif /* XRSA_ECC_SUPPORT_NIST_P192 */
+#endif /* XASU_ECC_SUPPORT_NIST_P192 */
 
-#ifdef XRSA_ECC_SUPPORT_NIST_P224
+#ifdef XASU_ECC_SUPPORT_NIST_P224
 	{
 		ECDSA_NIST_P224,
 		224U,
@@ -1099,9 +1101,9 @@ EcdsaCrvInfo XRsa_EccCrvsDb[] = {
 		NULL,
 		0U
 	},
-#endif /* XRSA_ECC_SUPPORT_NIST_P224 */
+#endif /* XASU_ECC_SUPPORT_NIST_P224 */
 
-#ifdef XRSA_ECC_SUPPORT_NIST_P256
+#ifdef XASU_ECC_SUPPORT_NIST_P256
 	{
 		ECDSA_NIST_P256,
 		256U,
@@ -1124,9 +1126,9 @@ EcdsaCrvInfo XRsa_EccCrvsDb[] = {
 		NULL,
 		0U
 	},
-#endif /* XRSA_ECC_SUPPORT_NIST_P256 */
+#endif /* XASU_ECC_SUPPORT_NIST_P256 */
 
-#ifdef XRSA_ECC_SUPPORT_NIST_P384
+#ifdef XASU_ECC_SUPPORT_NIST_P384
 	{
 		ECDSA_NIST_P384,
 		384U,
@@ -1149,9 +1151,9 @@ EcdsaCrvInfo XRsa_EccCrvsDb[] = {
 		NULL,
 		0U
 	},
-#endif /* XRSA_ECC_SUPPORT_NIST_P384 */
+#endif /* XASU_ECC_SUPPORT_NIST_P384 */
 
-#ifdef XRSA_ECC_SUPPORT_BRAINPOOL_P256
+#ifdef XASU_ECC_SUPPORT_BRAINPOOL_P256
 	{
 		ECDSA_BRAINPOOL_P256,
 		256U,
@@ -1174,9 +1176,9 @@ EcdsaCrvInfo XRsa_EccCrvsDb[] = {
 		NULL,
 		0U
 	},
-#endif /* XRSA_ECC_SUPPORT_BRAINPOOL_P256 */
+#endif /* XASU_ECC_SUPPORT_BRAINPOOL_P256 */
 
-#ifdef XRSA_ECC_SUPPORT_BRAINPOOL_P320
+#ifdef XASU_ECC_SUPPORT_BRAINPOOL_P320
 	{
 		ECDSA_BRAINPOOL_P320,
 		320U,
@@ -1199,9 +1201,9 @@ EcdsaCrvInfo XRsa_EccCrvsDb[] = {
 		NULL,
 		0U
 	},
-#endif /* XRSA_ECC_SUPPORT_BRAINPOOL_P320 */
+#endif /* XASU_ECC_SUPPORT_BRAINPOOL_P320 */
 
-#ifdef XRSA_ECC_SUPPORT_BRAINPOOL_P384
+#ifdef XASU_ECC_SUPPORT_BRAINPOOL_P384
 	{
 		ECDSA_BRAINPOOL_P384,
 		384U,
@@ -1224,9 +1226,9 @@ EcdsaCrvInfo XRsa_EccCrvsDb[] = {
 		NULL,
 		0U
 	},
-#endif /*XRSA_ECC_SUPPORT_BRAINPOOL_P384 */
+#endif /*XASU_ECC_SUPPORT_BRAINPOOL_P384 */
 
-#ifdef XRSA_ECC_SUPPORT_BRAINPOOL_P512
+#ifdef XASU_ECC_SUPPORT_BRAINPOOL_P512
 	{
 		ECDSA_BRAINPOOL_P512,
 		512U,
@@ -1249,8 +1251,8 @@ EcdsaCrvInfo XRsa_EccCrvsDb[] = {
 		NULL,
 		0U
 	},
-#endif
-}; /* XRSA_ECC_SUPPORT_BRAINPOOL_P512 */
+#endif /* XASU_ECC_SUPPORT_BRAINPOOL_P512 */
+};
 
 /****************************** Macros (Inline Functions) Definitions ****************************/
 

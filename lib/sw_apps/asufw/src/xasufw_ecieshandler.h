@@ -34,7 +34,9 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xasu_eciesinfo.h"
 
+#ifdef XASU_ECIES_ENABLE
 /************************************ Constant Definitions ***************************************/
 
 /************************************ Variable Definitions ***************************************/
@@ -43,6 +45,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_EciesInit(void);
+#endif /* XASU_ECIES_ENABLE */
 
 #ifdef __cplusplus
 }

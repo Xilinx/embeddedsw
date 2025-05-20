@@ -33,6 +33,7 @@
 #include "xasufw_util.h"
 #include "xfih.h"
 
+#ifdef XASU_KDF_ENABLE
 /************************************** Type Definitions *****************************************/
 
 /************************************ Variable Definitions ***************************************/
@@ -175,4 +176,5 @@ END_CLR:
 END:
 	return Status;
 }
+#endif /* XASU_KDF_ENABLE */
 /** @} */

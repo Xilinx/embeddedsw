@@ -35,6 +35,7 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 
+#ifdef XASU_KEYWRAP_ENABLE
 /************************************ Constant Definitions ***************************************/
 
 /************************************ Variable Definitions ***************************************/
@@ -43,6 +44,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_KeyWrapInit(void);
+#endif /* XASU_KEYWRAP_ENABLE */
 
 #ifdef __cplusplus
 }

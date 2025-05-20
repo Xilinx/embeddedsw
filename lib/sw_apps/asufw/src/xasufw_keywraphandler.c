@@ -35,6 +35,7 @@
 #include "xasufw_kat.h"
 #include "xasu_keywrapinfo.h"
 
+#ifdef XASU_KEYWRAP_ENABLE
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_KeyWrapKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyWrapGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -306,4 +307,5 @@ static s32 XAsufw_KeyWrapGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/* TODO: Implement XAsufw_KeyWrapGetInfo */
 	return Status;
 }
+#endif /* XASU_KEYWRAP_ENABLE */
 /** @} */

@@ -34,6 +34,9 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#ifdef SDT
+#include "xasu_bsp_config.h"
+#endif
 
 /************************************ Constant Definitions ***************************************/
 /* KDF module command IDs */

@@ -259,25 +259,37 @@ static s32 XAsufw_ModulesInit(void)
 		goto END;
 	}
 
+#ifdef XASU_HMAC_ENABLE
 	/** HMAC module initialization. */
 	Status = XAsufw_HmacInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
+#endif
 
+#ifdef XASU_KDF_ENABLE
 	/** KDF module initialization. */
 	Status = XAsufw_KdfInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
+#endif
 
+#ifdef XASU_ECIES_ENABLE
 	/** ECIES module initialization. */
 	Status = XAsufw_EciesInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
+#endif
+
+#ifdef XASU_KEYWRAP_ENABLE
 	/** Key wrap unwrap module initialization. */
 	Status = XAsufw_KeyWrapInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+#endif
 
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Modules init done\r\n");
 

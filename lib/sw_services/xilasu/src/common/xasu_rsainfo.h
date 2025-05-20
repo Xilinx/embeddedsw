@@ -37,6 +37,10 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "xil_util.h"
+#ifdef SDT
+#include "xasu_bsp_config.h"
+#endif
+
 /************************************ Constant Definitions ***************************************/
 
 /* RSA module command IDs */

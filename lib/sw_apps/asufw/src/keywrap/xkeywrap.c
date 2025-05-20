@@ -31,11 +31,11 @@
 #include "xil_mem.h"
 #include "xasufw_util.h"
 #include "xfih.h"
-#include "xasu_keywrapinfo.h"
 #include "xasu_keywrap_common.h"
 #include "xasu_aesinfo.h"
 #include "xasufw_trnghandler.h"
 
+#ifdef XASU_KEYWRAP_ENABLE
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_KEYWRAP_BLOCK_ROUND_INDEX	(1U)	/**< Key wrap unwrap half block size in
 							bytes */
@@ -730,4 +730,5 @@ END_CLR:
 END:
 	return Status;
 }
+#endif /* XASU_KEYWRAP_ENABLE */
 /** @} */

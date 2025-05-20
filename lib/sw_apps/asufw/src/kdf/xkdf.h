@@ -37,6 +37,7 @@ extern "C" {
 #include "xasufw_dma.h"
 #include "xasu_kdfinfo.h"
 
+#ifdef XASU_KDF_ENABLE
 /************************************ Constant Definitions ***************************************/
 
 /************************************ Variable Definitions ***************************************/
@@ -47,6 +48,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams *KdfParams);
+#endif /* XASU_KDF_ENABLE */
 
 #ifdef __cplusplus
 }

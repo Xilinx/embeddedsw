@@ -33,6 +33,7 @@
 #include "xasufw_trnghandler.h"
 #include "xasu_rsa_common.h"
 
+#ifdef XASU_RSA_PADDING_ENABLE
 /************************************ Constant Definitions ***************************************/
 #define XRSA_MAX_DB_LEN		(479U)	/**< RSA max padding data block size in bytes */
 #define XRSA_PSS_MAX_MSG_LEN	(550U)	/**< RSA PSS padding max message length */
@@ -1208,4 +1209,5 @@ END:
 
 	return Status;
 }
+#endif /* XASU_RSA_PADDING_ENABLE */
 /** @} */

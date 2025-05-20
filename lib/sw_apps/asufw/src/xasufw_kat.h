@@ -67,11 +67,19 @@ s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_AesDecryptDpaCmKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_P192EcdhKat(XAsufw_Dma *AsuDmaPtr);
+#ifdef XASU_HMAC_ENABLE
 s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr);
+#endif
+#ifdef XASU_KDF_ENABLE
 s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr);
+#endif
+#ifdef XASU_ECIES_ENABLE
 s32 XAsufw_HkdfOperationKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr);
+#endif
+#ifdef XASU_KEYWRAP_ENABLE
 s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr);
+#endif
 
 /************************************ Variable Definitions ***************************************/
 

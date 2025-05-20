@@ -47,16 +47,18 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#ifdef XASU_RSA_PADDING_ENABLE
 static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#endif
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_RsaModule; /**< ASUFW RSA Module ID and commands array */
@@ -79,6 +81,7 @@ s32 XAsufw_RsaInit(void)
 		[XASU_RSA_PUB_ENC_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPubEnc),
 		[XASU_RSA_PVT_DEC_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPvtDec),
 		[XASU_RSA_PVT_CRT_DEC_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPvtCrtDec),
+#ifdef XASU_RSA_PADDING_ENABLE
 		[XASU_RSA_OAEP_ENC_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaOaepEnc),
 		[XASU_RSA_OAEP_DEC_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaOaepDec),
 		[XASU_RSA_OAEP_ENC_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaOaepEnc),
@@ -87,6 +90,16 @@ s32 XAsufw_RsaInit(void)
 		[XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPssSignVer),
 		[XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPssSignGen),
 		[XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPssSignVer),
+#else
+		[XASU_RSA_OAEP_ENC_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+		[XASU_RSA_OAEP_DEC_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+		[XASU_RSA_OAEP_ENC_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+		[XASU_RSA_OAEP_DEC_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+		[XASU_RSA_PSS_SIGN_GEN_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+		[XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+		[XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+		[XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+#endif
 		[XASU_RSA_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaKat),
 		[XASU_RSA_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaGetInfo),
 	};
@@ -295,6 +308,7 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	return Status;
 }
 
+#ifdef XASU_RSA_PADDING_ENABLE
 /*************************************************************************************************/
 /**
  * @brief	This function is a handler for RSA OAEP encryption operation command
@@ -476,6 +490,7 @@ END:
 RET:
 	return Status;
 }
+#endif /* XASU_RSA_PADDING_ENABLE */
 
 /*************************************************************************************************/
 /**

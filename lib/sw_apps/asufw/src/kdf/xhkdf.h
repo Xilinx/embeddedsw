@@ -37,6 +37,7 @@ extern "C" {
 #include "xasufw_dma.h"
 #include "xasu_kdfinfo.h"
 
+#ifdef XASU_ECIES_ENABLE
 /************************************ Constant Definitions ***************************************/
 
 /************************************ Variable Definitions ***************************************/
@@ -57,6 +58,7 @@ typedef struct {
 */
 /************************************ Function Prototypes ****************************************/
 s32 XHkdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_HkdfParams *HkdfParams);
+#endif /* XASU_ECIES_ENABLE */
 
 #ifdef __cplusplus
 }

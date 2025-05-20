@@ -31,9 +31,9 @@
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xfih.h"
-#include "xasu_hmacinfo.h"
 #include "xasu_def.h"
 
+#ifdef XASU_HMAC_ENABLE
 /************************************** Type Definitions *****************************************/
 /** This typedef is used to update the state of HMAC. */
 typedef enum {
@@ -523,4 +523,5 @@ static inline void XHmac_Xor(const u32 *Data, const u32 Value, u32 *Result, u32 
 		Result[Index] = Data[Index] ^ Value;
 	}
 }
+#endif /* XASU_HMAC_ENABLE */
 /** @} */

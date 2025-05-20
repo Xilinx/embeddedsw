@@ -36,6 +36,7 @@ extern "C" {
 #include "xsha.h"
 #include "xasu_rsainfo.h"
 
+#ifdef XASU_RSA_PADDING_ENABLE
 /************************************ Constant Definitions ***************************************/
 
 /************************************** Type Definitions *****************************************/
@@ -53,6 +54,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		   const XAsu_RsaPaddingParams *PaddingParamsPtr);
 
 /************************************ Variable Definitions ***************************************/
+#endif /* XASU_RSA_PADDING_ENABLE */
 
 #ifdef __cplusplus
 }
