@@ -28,6 +28,7 @@
  *       vns  02/06/25 Removed XAsufw_ChangeEndiannessAndCpy() function which is not in use
  *       vns  02/12/25 Removed XAsufw_RCMW() API
  *       vns  02/21/25 Added XAsufw_NvmEfuseWriteOffChipRevokeId() API
+ * 1.2   am   05/18/25 Added XAsufw_WriteDataToRegs() API
  *
  * </pre>
  *
@@ -253,6 +254,40 @@ s32 XAsufw_SMemSet(void *Dest, const u32 DestSize)
 	Status =  Xil_SMemSet(Dest, DestSize, 0x00U, DestSize);
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function writes a sequence of data words to the specified registers by
+ * 		swapping the endian.
+ *
+ * @param	BaseAddress	Base address of the peripheral.
+ * @param	RegOffset	Starting register offset for writing data.
+ * @param	DataArray	Array of data words to be written to the registers.
+ * @param	NumOfWords	Number of data words to write to the registers.
+ *
+ * @return	- XASUFW_SUCCESS, if write data to registers is successful.
+ * 		- XASUFW_FAILURE, if write data to registers fails.
+ *
+ *************************************************************************************************/
+s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u32 *DataArray,
+	u32 NumOfWords)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	volatile u32 Index = 0U;
+
+	/** Write data words to the respective registers by converting them to big-endian. */
+	for (Index = 0U; Index < NumOfWords; Index++) {
+		XAsufw_WriteReg((BaseAddress + RegOffset), Xil_Htonl(DataArray[Index]));
+		RegOffset = RegOffset - XASUFW_WORD_LEN_IN_BYTES;
+	}
+
+	/** If all data words were written successfully, return success. */
+	if ((Index == NumOfWords) && (NumOfWords != 0U)) {
+		Status = XASUFW_SUCCESS;
+	}
+
 	return Status;
 }
 /** @} */

@@ -113,10 +113,7 @@
 	((((TagLen - 2U) / 2U) & XAES_CCM_TAG_MASK) << XAES_CCM_TAG_SHIFT) | \
 	((XAES_CCM_Q_CONST - NonceLen - 1U) & XAES_CCM_Q_MASK))))
 
-#define XAES_MAX_PLAIN_TEXT_SHORT	(0xFF00U) /**< (1 << 16) - (1 << 8) = 65280. */
-#define XAES_MAX_PLAIN_TEXT_LONG	(0xFFFFFFFFU) /**< (1UL << 32) = 2^32. */
-#define XAES_AAD_LENGTH_SHORT_LIMIT	XAES_MAX_PLAIN_TEXT_SHORT /**< (1 << 16) - (1 << 8) = 65280. */
-#define XAES_AAD_LENGTH_LONG_LIMIT	XAES_MAX_PLAIN_TEXT_LONG /**< (1UL << 32) = 2^32. */
+#define XAES_AAD_LENGTH_SHORT_LIMIT	(0xFF00U) /**< (1 << 16) - (1 << 8) = 65280. */
 #define XAES_HEADER_6BYTE_INDICATOR	(0xFFFEU) /**< Header 6 byte indicator. */
 #define XAES_HEADER_10BYTE_INDICATOR	(0xFFFFU) /**< Header 10 byte indicator. */
 #define XAES_TWO_BYTE_ENCODING		(2U) /**< 2-byte encoding for small values. */
@@ -136,9 +133,9 @@
 #define XAES_AAD_UPDATE_NO_OUTPUT_ADDR	(0U) /**< Output address should be zero during AAD update. */
 #define XAES_U64_ONE			(1ULL) /**< Constant value 1 as an unsigned 64-bit integer. */
 #define XAES_NONCE_HEADER_FIRST_IDX	(0U) /**< First index in the NonceHeader array, used for
-					storing the high byte of AadLen. */
+					storing the high byte. */
 #define XAES_NONCE_HEADER_SECOND_IDX	(1U) /**< Second index in the NonceHeader array, used for
-					storing the low byte of AadLen. */
+					storing the low byte. */
 
 typedef enum {
 	XAES_INITIALIZED = 0x1, /**< AES is in initialized state */
@@ -154,9 +151,6 @@ typedef enum {
 typedef struct {
 	u32 RegOffset; /**< Register offset for key source */
 	u32 KeySrcSelVal; /**< Selection value for key source */
-	u32 UsrWrAllowed; /**< User write allowed state for key source */
-	u32 KeyDecSrcAllowed; /**< Key decryption source allowed state */
-	u32 KeyDecSrcSelVal; /**< Selection value for key decryption source */
 	u32 KeyClearVal; /**< Key source clear value */
 	u32 KeyZeroedStatusMask; /**< Key zeroed status mask */
 } XAes_KeyLookup;
@@ -206,9 +200,6 @@ struct _XAes {
 	{
 		XAES_USER_KEY_0_0_OFFSET,       /**< Register offset of USER KEY0 */
 		XAES_KEY_SEL_USER_KEY_0_VALUE,  /**< USER KEY0 selection value */
-		XASU_TRUE,                      /**< Write allowed to AES user key registers */
-		XASU_FALSE,                     /**< Key decryption source not allowed */
-		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
 		XAES_KEY_CLEAR_USER_KEY_0_MASK, /**< Mask to clear the USER KEY0 */
 		XAES_KEY_ZEROED_STATUS_USER_KEY_0_MASK /**< Mask to check if USER KEY0 is zeroed */
 	},
@@ -217,9 +208,6 @@ struct _XAes {
 	{
 		XAES_USER_KEY_1_0_OFFSET,       /**< Register offset of USER KEY1 */
 		XAES_KEY_SEL_USER_KEY_1_VALUE,  /**< USER KEY1 selection value */
-		XASU_TRUE,                      /**< Write allowed to AES user key registers */
-		XASU_FALSE,                     /**< Key decryption source not allowed */
-		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
 		XAES_KEY_CLEAR_USER_KEY_1_MASK, /**< Mask to clear the USER KEY1 */
 		XAES_KEY_ZEROED_STATUS_USER_KEY_1_MASK /**< Mask to check if USER KEY1 is zeroed */
 	},
@@ -228,9 +216,6 @@ struct _XAes {
 	{
 		XAES_USER_KEY_2_0_OFFSET,       /**< Register offset of USER KEY2 */
 		XAES_KEY_SEL_USER_KEY_2_VALUE,  /**< USER KEY2 selection value */
-		XASU_TRUE,                      /**< Write allowed to AES user key registers */
-		XASU_FALSE,                     /**< Key decryption source not allowed */
-		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
 		XAES_KEY_CLEAR_USER_KEY_2_MASK, /**< Mask to clear the USER KEY2 */
 		XAES_KEY_ZEROED_STATUS_USER_KEY_2_MASK /**< Mask to check if USER KEY2 is zeroed */
 	},
@@ -239,9 +224,6 @@ struct _XAes {
 	{
 		XAES_USER_KEY_3_0_OFFSET,       /**< Register offset of USER KEY3 */
 		XAES_KEY_SEL_USER_KEY_3_VALUE,  /**< USER KEY3 selection value */
-		XASU_TRUE,                      /**< Write allowed to AES user key registers */
-		XASU_FALSE,                     /**< Key decryption source not allowed */
-		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
 		XAES_KEY_CLEAR_USER_KEY_3_MASK, /**< Mask to clear the USER KEY3 */
 		XAES_KEY_ZEROED_STATUS_USER_KEY_3_MASK /**< Mask to check if USER KEY3 is zeroed */
 	},
@@ -250,9 +232,6 @@ struct _XAes {
 	{
 		XAES_USER_KEY_4_0_OFFSET,       /**< Register offset of USER KEY4 */
 		XAES_KEY_SEL_USER_KEY_4_VALUE,  /**< USER KEY4 selection value */
-		XASU_TRUE,                      /**< Write allowed to AES user key registers */
-		XASU_FALSE,                     /**< Key decryption source not allowed */
-		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
 		XAES_KEY_CLEAR_USER_KEY_4_MASK, /**< Mask to clear the USER KEY4 */
 		XAES_KEY_ZEROED_STATUS_USER_KEY_4_MASK /**< Mask to check if USER KEY4 is zeroed */
 	},
@@ -261,9 +240,6 @@ struct _XAes {
 	{
 		XAES_USER_KEY_5_0_OFFSET,       /**< Register offset of USER KEY5 */
 		XAES_KEY_SEL_USER_KEY_5_VALUE,  /**< USER KEY5 selection value */
-		XASU_TRUE,                      /**< Write allowed to AES user key registers */
-		XASU_FALSE,                     /**< Key decryption source not allowed */
-		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
 		XAES_KEY_CLEAR_USER_KEY_5_MASK, /**< Mask to clear the USER KEY5 */
 		XAES_KEY_ZEROED_STATUS_USER_KEY_5_MASK /**< Mask to check if USER KEY5 is zeroed */
 	},
@@ -272,9 +248,6 @@ struct _XAes {
 	{
 		XAES_USER_KEY_6_0_OFFSET,       /**< Register offset of USER KEY6 */
 		XAES_KEY_SEL_USER_KEY_6_VALUE,  /**< USER KEY6 selection value */
-		XASU_TRUE,                      /**< Write allowed to AES user key registers */
-		XASU_FALSE,                     /**< Key decryption source not allowed */
-		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
 		XAES_KEY_CLEAR_USER_KEY_6_MASK, /**< Mask to clear the USER KEY6 */
 		XAES_KEY_ZEROED_STATUS_USER_KEY_6_MASK /**< Mask to check if USER KEY6 is zeroed */
 	},
@@ -283,9 +256,6 @@ struct _XAes {
 	{
 		XAES_USER_KEY_7_0_OFFSET,       /**< Register offset of USER KEY7 */
 		XAES_KEY_SEL_USER_KEY_7_VALUE,  /**< USER KEY7 selection value */
-		XASU_TRUE,                      /**< Write allowed to AES user key registers */
-		XASU_FALSE,                     /**< Key decryption source not allowed */
-		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
 		XAES_KEY_CLEAR_USER_KEY_7_MASK, /**< Mask to clear the USER KEY7 */
 		XAES_KEY_ZEROED_STATUS_USER_KEY_7_MASK /**< Mask to check if USER KEY7 is zeroed */
 	},
@@ -294,9 +264,6 @@ struct _XAes {
 	{
 		XAES_INVALID_CFG,               /**< Invalid register offset of EFUSE KEY0 */
 		XASU_FALSE,                     /**< Invalid EFUSE KEY0 selection value */
-		XASU_FALSE,                     /**< Write not allowed to AES user key registers */
-		XASU_TRUE,                      /**< Key decryption source allowed */
-		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_0_VALUE, /**< EFUSE KEY0 decryption source select value */
 		XAES_KEY_CLEAR_EFUSE_KEY_0_MASK, /**< Mask to clear the EFUSE KEY0 */
 		XAES_KEY_ZEROED_STATUS_EFUSE_KEY_0_MASK /**< Mask to check if EFUSE KEY0 is zeroed */
 	},
@@ -305,9 +272,6 @@ struct _XAes {
 	{
 		XAES_INVALID_CFG,               /**< Invalid register offset of EFUSE KEY1 */
 		XASU_FALSE,                     /**< Invalid EFUSE KEY1 selection value */
-		XASU_FALSE,                     /**< Write not allowed to AES user key registers */
-		XASU_TRUE,                      /**< Key decryption source allowed */
-		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_1_VALUE, /**< EFUSE KEY1 decryption source select value */
 		XAES_KEY_CLEAR_EFUSE_KEY_1_MASK, /**< Mask to clear the EFUSE KEY1 */
 		XAES_KEY_ZEROED_STATUS_EFUSE_KEY_1_MASK /**< Mask to check if EFUSE KEY1 is zeroed */
 	},
@@ -316,9 +280,6 @@ struct _XAes {
 	{
 		XAES_INVALID_CFG,               /**< Invalid register offset of PUF KEY */
 		XAES_KEY_SEL_PUF_KEY_VALUE,     /**< PUF KEY selection value */
-		XASU_FALSE,                     /**< Write not allowed to AES user key registers */
-		XASU_FALSE,                     /**< Key decryption source not allowed */
-		XAES_INVALID_CFG,               /**< Invalid key decryption source select value */
 		XAES_KEY_CLEAR_PUF_KEY_MASK,    /**< Mask to clear the PUF KEY */
 		XAES_KEY_ZEROED_STATUS_PUF_KEY_MASK /**< Mask to check if PUF KEY is zeroed */
 	},
@@ -327,9 +288,6 @@ struct _XAes {
 	{
 		XAES_INVALID_CFG,               /**< Invalid register offset of EFUSE KEY RED0 */
 		XAES_KEY_SEL_EFUSE_KEY_RED_0_VALUE, /**< EFUSE KEY RED0 selection value */
-		XASU_FALSE,                     /**< Write not allowed to AES user key registers */
-		XASU_TRUE,                      /**< Key decryption source allowed */
-		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_0_VALUE, /**< EFUSE RED KEY0 decryption source select value */
 		XAES_KEY_CLEAR_EFUSE_KEY_RED_0_MASK, /**< Mask to clear the EFUSE KEY RED0 */
 		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_0_MASK /**< Mask to check if EFUSE KEY RED0 is zeroed */
 	},
@@ -338,9 +296,6 @@ struct _XAes {
 	{
 		XAES_INVALID_CFG,               /**< Invalid register offset of EFUSE KEY RED1 */
 		XAES_KEY_SEL_EFUSE_KEY_RED_1_VALUE, /**< EFUSE KEY RED1 selection value */
-		XASU_FALSE,                     /**< Write not allowed to AES user key registers */
-		XASU_TRUE,                      /**< Key decryption source allowed */
-		XAES_KEY_TO_BE_DEC_SEL_EFUSE_KEY_1_VALUE, /**< EFUSE RED KEY0 decryption source select value */
 		XAES_KEY_CLEAR_EFUSE_KEY_RED_1_MASK, /**< Mask to clear the EFUSE KEY RED1 */
 		XAES_KEY_ZEROED_STATUS_EFUSE_RED_KEY_1_MASK /**< Mask to check if EFUSE KEY RED1 is zeroed */
 	},
@@ -365,9 +320,9 @@ static s32 XAes_IsKeyZeroized(const XAes *InstancePtr, u32 KeySrc);
 static void XAes_ConfigCounterMeasures(const XAes *InstancePtr);
 static void XAes_ConfigAesOperation(const XAes *InstancePtr);
 static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
-static s32 XAes_ReadBackKeyConfig(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
+static s32 XAes_ValidateKeyConfig(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
 static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen);
-static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen);
+static s32 XAes_GHashCal(const XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen);
 static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr);
 static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLen);
 static s32 XAes_ProcessTag(const XAes *InstancePtr, u64 TagAddr, u32 TagLen);
@@ -487,20 +442,24 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
 	XFih_Var XFihKeyClear;
-	volatile u32 Index = 0U;
 	u32 Key[XASU_AES_KEY_SIZE_256BIT_IN_WORDS];
 	u32 Offset;
 	u32 KeySizeInWords = 0U;
 	XAsu_AesKeyObject KeyObject;
 
 	/** Validate the input arguments. */
-	if (InstancePtr == NULL) {
+	if ((InstancePtr == NULL) || (DmaPtr == NULL)) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((DmaPtr == NULL) || (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY)) {
+	if (DmaPtr->AsuDma.IsReady != XIL_COMPONENT_IS_READY) {
 		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->AesState != XAES_INITIALIZED) {
+		Status = XASUFW_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -530,13 +489,13 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr)
 		goto END_CLR;
 	}
 
-	if (AesKeyLookupTbl[KeyObject.KeySrc].UsrWrAllowed != XASU_TRUE) {
-		Status = XASUFW_AES_INVALID_KEY_SRC;
-		goto END_CLR;
+	if (KeyObject.KeySize == XASU_AES_KEY_SIZE_128_BITS) {
+		KeySizeInWords = XASU_AES_KEY_SIZE_128BIT_IN_WORDS;
 	}
-
-	if ((KeyObject.KeySize != XASU_AES_KEY_SIZE_128_BITS) &&
-			(KeyObject.KeySize != XASU_AES_KEY_SIZE_256_BITS)) {
+	else if (KeyObject.KeySize == XASU_AES_KEY_SIZE_256_BITS) {
+		KeySizeInWords = XASU_AES_KEY_SIZE_256BIT_IN_WORDS;
+	}
+	else {
 		Status = XASUFW_AES_INVALID_KEY_SIZE;
 		goto END_CLR;
 	}
@@ -545,12 +504,6 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr)
 	if (Offset == XAES_INVALID_CFG) {
 		Status = XASUFW_AES_INVALID_KEY_SRC;
 		goto END_CLR;
-	}
-
-	if (KeyObject.KeySize == XASU_AES_KEY_SIZE_128_BITS) {
-		KeySizeInWords = XASU_AES_KEY_SIZE_128BIT_IN_WORDS;
-	} else {
-		KeySizeInWords = XASU_AES_KEY_SIZE_256BIT_IN_WORDS;
 	}
 
 	/** Copy Key from 64-bit address space to local array using ASU DMA. */
@@ -568,13 +521,8 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr)
 	 */
 	Offset = Offset + (KeySizeInWords * XASUFW_WORD_LEN_IN_BYTES) - XASUFW_WORD_LEN_IN_BYTES;
 
-	for (Index = 0U; Index < KeySizeInWords; Index++) {
-		XAsufw_WriteReg((InstancePtr->KeyBaseAddress + Offset), Xil_Htonl(Key[Index]));
-		Offset = Offset - XASUFW_WORD_LEN_IN_BYTES;
-	}
-	if ((Index == KeySizeInWords) && (KeySizeInWords != 0U)) {
-		Status = XASUFW_SUCCESS;
-	}
+	/** Write user key to the respective user key registers by changing the endianness. */
+	Status = XAsufw_WriteDataToRegsWithEndianSwap(InstancePtr->KeyBaseAddress, Offset, Key, KeySizeInWords);
 
 END_CLR:
 	/** Clear local key object structure. */
@@ -651,7 +599,7 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 		goto END;
 	}
 
-	if ((InstancePtr->AesState != XAES_INITIALIZED)) {
+	if (InstancePtr->AesState != XAES_INITIALIZED) {
 		Status = XASUFW_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
@@ -702,17 +650,17 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 		goto END;
 	}
 
-	/** Initialize the AES instance with engine mode and operation type. */
-	InstancePtr->EngineMode = EngineMode;
-	InstancePtr->OperationType = OperationType;
-
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Validate the IV with respect to the user provided engine mode. */
-	Status = XAsu_AesValidateIvParams(InstancePtr->EngineMode, IvAddr, IvLen);
+	Status = XAsu_AesValidateIvParams(EngineMode, IvAddr, IvLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_INVALID_IV;
 		goto END;
 	}
+
+	/** Initialize the AES instance with engine mode and operation type. */
+	InstancePtr->EngineMode = EngineMode;
+	InstancePtr->OperationType = OperationType;
 
 	/** Release reset of AES engine. */
 	XAsufw_CryptoCoreReleaseReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);
@@ -727,7 +675,7 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 	XAes_ConfigAesOperation(InstancePtr);
 
 	/** Verify the key source and size by reading them back from the AES key vault registers. */
-	Status = XAes_ReadBackKeyConfig(InstancePtr, KeyObject.KeySrc, KeyObject.KeySize);
+	Status = XAes_ValidateKeyConfig(InstancePtr, KeyObject.KeySrc, KeyObject.KeySize);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_AES_KEY_CONFIG_READBACK_ERROR;
 		goto END;
@@ -1104,7 +1052,7 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 	 */
 
 	/** Calculate the B0 flag dynamically based on tag length and nonce length. */
-	NonceHeader[0U] = XAES_B0FLAG(AadLen, TagLen, NonceLen);
+	NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = XAES_B0FLAG(AadLen, TagLen, NonceLen);
 
 	/** Copy the nonce into NonceHeader local array. */
 	Status = XAsufw_DmaXfr(InstancePtr->AsuDmaPtr, NonceAddr, (u64)(UINTPTR)&NonceHeader[1U],
@@ -1138,7 +1086,7 @@ s32 XAes_CcmFormatAadAndXfer(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 AadAddr,
 			NonceHeader[XAES_NONCE_HEADER_SECOND_IDX] = (u8)(AadLen & XAES_BYTE_MASK);
 			TotalAadLen = XAES_TWO_BYTE_ENCODING;
 		}
-		else if (AadLen < XAES_AAD_LENGTH_LONG_LIMIT) {
+		else if (AadLen < XASU_ASU_DMA_MAX_TRANSFER_LENGTH) {
 			NonceHeader[XAES_NONCE_HEADER_FIRST_IDX] = (u8)((XAES_HEADER_6BYTE_INDICATOR >>
 				XASUFW_BYTE_LEN_IN_BITS) & XAES_BYTE_MASK);
 			NonceHeader[XAES_NONCE_HEADER_SECOND_IDX] = (u8)(XAES_HEADER_6BYTE_INDICATOR &
@@ -1624,8 +1572,7 @@ static s32 XAes_IsKeyZeroized(const XAes *InstancePtr, u32 KeySrc)
 
 /*************************************************************************************************/
 /**
- * @brief	This function configures the AES engine for encrypt/decrypt operation based on the
- * 		OperationType selected by the user while sending the request.
+ * @brief	This function configures AES DPA counter measures by reading system configuration.
  *
  * @param	InstancePtr	Pointer to the XAes instance.
  *
@@ -1685,8 +1632,8 @@ static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize)
 
 /*************************************************************************************************/
 /**
-* @brief	This function verifies the key source and size by reading them back from the
-* 		registers.
+* @brief	This function validates the key source and size by reading them back from the
+* 		registers and comparing with expected value.
 *
 * @param	InstancePtr	Pointer to the XAes instance.
 * @param	KeySrc		Expected key source.
@@ -1697,7 +1644,7 @@ static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize)
 * 		- XASUFW_AES_KEY_CONFIG_READBACK_ERROR, if there is a mismatch.
 *
 *************************************************************************************************/
-static s32 XAes_ReadBackKeyConfig(const XAes *InstancePtr, u32 KeySrc, u32 KeySize)
+static s32 XAes_ValidateKeyConfig(const XAes *InstancePtr, u32 KeySrc, u32 KeySize)
 {
 	CREATE_VOLATILE(Status, XASUFW_AES_KEY_CONFIG_READBACK_ERROR);
 
@@ -1733,9 +1680,9 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
 	XFih_Var XFihIvClear;
-	u32 Index = 0U;
 	u32 Iv[XASU_AES_IV_SIZE_128BIT_IN_WORDS] = {0U};
 	u32 IvLength = IvLen;
+	u32 ZeroPadLen = 0U;
 	u8 *FormattedIv;
 
 	/**
@@ -1764,9 +1711,8 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 		}
 		/** Add zero padding if nonce length is less than 16 bytes in case of CCM mode. */
 		if ((IvLength + 1U) < XASU_AES_IV_SIZE_128BIT_IN_BYTES) {
-			Status = Xil_SMemSet(&FormattedIv[IvLength + 1U],
-				(XASU_AES_IV_SIZE_128BIT_IN_BYTES - (IvLength + 1U)), 0U,
-				(XASU_AES_IV_SIZE_128BIT_IN_BYTES - (IvLength + 1U)));
+			ZeroPadLen = XASU_AES_IV_SIZE_128BIT_IN_BYTES - (IvLength + 1U);
+			Status = Xil_SMemSet(&FormattedIv[IvLength + 1U], ZeroPadLen, 0U, ZeroPadLen);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -1782,10 +1728,10 @@ static s32 XAes_ProcessAndLoadIv(XAes *InstancePtr, u64 IvAddr, u32 IvLen)
 	}
 
 	/** Write IV to the respective IV registers by changing the endianness. */
-	for (Index = 0U; Index < XASUFW_CONVERT_BYTES_TO_WORDS(IvLength); Index++) {
-		XAsufw_WriteReg((InstancePtr->AesBaseAddress +
-				 (XAES_IV_IN_3_OFFSET - (Index * XASUFW_WORD_LEN_IN_BYTES))),
-				Xil_Htonl(Iv[Index]));
+	Status = XAsufw_WriteDataToRegsWithEndianSwap(InstancePtr->AesBaseAddress, XAES_IV_IN_3_OFFSET, Iv,
+		XASUFW_CONVERT_BYTES_TO_WORDS(IvLength));
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
 	}
 
 	if ((InstancePtr->EngineMode == XASU_AES_GCM_MODE) &&
@@ -1821,7 +1767,7 @@ END:
  *		- XASUFW_FAILURE, if GHASH calculation on given Iv fails.
  *
  *************************************************************************************************/
-static s32 XAes_GHashCal(XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen)
+static s32 XAes_GHashCal(const XAes *InstancePtr, u64 IvAddr, u32 IvGen, u32 IvLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 ReadModeConfigReg;
@@ -1876,16 +1822,18 @@ static s32 XAes_ReadTag(const XAes *InstancePtr, u32 TagOutAddr)
 	u32 *TagPtr = (u32 *)TagOutAddr;
 
 	for (Index = 0U; Index < XASUFW_WORD_LEN_IN_BYTES; Index++) {
-		TagPtr[Index] = Xil_EndianSwap32(XAsufw_ReadReg(InstancePtr->AesBaseAddress +
-						 (XAES_MAC_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
+		TagPtr[Index] = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+			(XAES_MAC_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES)));
 		/*
 		 * If AES DPA CM is enabled then, read MAC from both MAC_OUT and MAC_MASK_OUT registers,
 		 * If disabled, no need to read the MAC_MASK_OUT register as it contains zeros.
 		 */
 #ifdef XASU_AES_CM_ENABLE
-		TagPtr[Index] ^= Xil_EndianSwap32(XAsufw_ReadReg(InstancePtr->AesBaseAddress +
-						  (XAES_MAC_MASK_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
+		TagPtr[Index] ^= XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+			(XAES_MAC_MASK_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES)));
 #endif
+		/* Perform endian swap. */
+		TagPtr[Index] = Xil_EndianSwap32(TagPtr[Index]);
 	}
 	if (Index == XASUFW_WORD_LEN_IN_BYTES) {
 		Status = XASUFW_SUCCESS;
@@ -1919,16 +1867,19 @@ static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLe
 	const u32 *TagPtr = (const u32 *)TagInAddr;
 
 	while (RemainingBytes > 0U) {
-		ReadReg = Xil_EndianSwap32(XAsufw_ReadReg(InstancePtr->AesBaseAddress +
-					   (XAES_MAC_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
+		ReadReg = XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+			(XAES_MAC_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES)));
 		/*
 		 * If AES DPA CM is enabled then, read MAC from both MAC_OUT and MAC_MASK_OUT registers,
 		 * If disabled, no need to read the MAC_MASK_OUT register as it contains zeros.
 		 */
 #ifdef XASU_AES_CM_ENABLE
-		ReadReg ^= Xil_EndianSwap32(XAsufw_ReadReg(InstancePtr->AesBaseAddress +
-					    (XAES_MAC_MASK_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES))));
+		ReadReg ^= XAsufw_ReadReg(InstancePtr->AesBaseAddress +
+			(XAES_MAC_MASK_OUT_3_MASK - (Index * XASUFW_WORD_LEN_IN_BYTES)));
 #endif
+		/* Perform endian swap. */
+		ReadReg = Xil_EndianSwap32(ReadReg);
+
 		Mask = (RemainingBytes >= XASUFW_WORD_LEN_IN_BYTES) ? XAES_FULL_WORD_MASK :
 			XAES_BIT_MASK(RemainingBytes);
 

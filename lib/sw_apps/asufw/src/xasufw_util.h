@@ -166,6 +166,8 @@ s32 XAsufw_ChangeEndianness(u8 *Buffer, u32 Length);
 s32 XAsufw_IsBufferNonZero(u8 *Buffer, u32 Length);
 s32 XAsufw_NvmEfuseWriteOffChipRevokeId(const u32 OffChipRevokeIdNum);
 s32 XAsufw_SMemSet(void *Dest, const u32 DestSize);
+s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u32 *DataArray,
+        u32 NumOfWords);
 
 /************************************ Variable Definitions ***************************************/
 extern s32 ReturnStatus;  /**< Redundant variable holds non-zero success value helps to	detect any

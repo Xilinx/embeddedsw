@@ -46,6 +46,12 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XASUFW_AES_OP_FLAGS_ALL	(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL) /**< Combined
+							mask for all operation flags. */
+#define XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS	(0x1U) /**< AES AAD update in progress
+							stage for DMA non-blocking wait */
+#define XAES_NON_BLOCKING_DATA_UPDATE_INPROGRESS	(0x2U) /**< AES data update done stage for
+							DMA non-blocking wait */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -181,6 +187,12 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto XAES_STAGE_DATA_UPDATE_DONE;
 	}
 
+	if ((AesParamsPtr->EngineMode == XASU_AES_CCM_MODE) && ((AesParamsPtr->OperationFlags &
+			XASUFW_AES_OP_FLAGS_ALL) != XASUFW_AES_OP_FLAGS_ALL)) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_CCM_INVALID_OPERATION_FLAGS);
+		goto END;
+	}
+
 	if ((AesParamsPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
 		/** Write the given user key to the specified AES USER KEY register. */
 		Status = XAes_WriteKey(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
@@ -227,10 +239,9 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			 * For CMAC/CCM mode:
 			 * IsLast is set for the last block of both AAD and Plaintext.
 			 */
-			if  (EngineMode == XASU_AES_GCM_MODE) {
-				AadIsLast = (AesParamsPtr->InputDataAddr == 0U) ? AesParamsPtr->IsLast : XASU_FALSE;
-			} else if (EngineMode == XASU_AES_CMAC_MODE) {
-				AadIsLast = AesParamsPtr->IsLast;
+			AadIsLast = AesParamsPtr->IsLast;
+			if  ((EngineMode == XASU_AES_GCM_MODE) && (AesParamsPtr->InputDataAddr != 0U)) {
+				AadIsLast = XASU_FALSE;
 			}
 			Status = XAes_Update(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr, AesParamsPtr->AadAddr, 0U,
 				AesParamsPtr->AadLen, AadIsLast);
@@ -247,14 +258,6 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 		/** For AES CCM mode, format and push the AAD to AES engine. */
 		if (EngineMode == XASU_AES_CCM_MODE) {
-			if ((AesParamsPtr->OperationFlags &
-					(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) !=
-					(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL)) {
-				Status = XAsufw_UpdateErrorStatus(Status,
-					XASUFW_AES_CCM_INVALID_OPERATION_FLAGS);
-				goto END;
-			}
-
 			Status = XAes_CcmFormatAadAndXfer(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
 				AesParamsPtr->AadAddr, AesParamsPtr->AadLen, AesParamsPtr->IvAddr,
 				(u8)AesParamsPtr->IvLen, AesParamsPtr->DataLen, (u8)AesParamsPtr->TagLen);
