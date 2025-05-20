@@ -17,6 +17,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ma   02/09/24 Initial release
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ * 1.1   am   05/18/25 Fixed parameter name mismatch
  *
  * </pre>
  *
@@ -55,11 +56,11 @@ typedef enum {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_SssDmaLoopback(XAsufw_SssSrc DmaResource);
-s32 XAsufw_SssDmaLoopbackWithSha(XAsufw_SssSrc DmaResource, XAsufw_SssSrc OutputSrc);
+s32 XAsufw_SssDmaLoopbackWithSha(XAsufw_SssSrc DmaResource, XAsufw_SssSrc ShaResource);
 s32 XAsufw_SssDmaToPli(XAsufw_SssSrc DmaResource);
-s32 XAsufw_SssShaWithDma(XAsufw_SssSrc ShaResource, XAsufw_SssSrc InputSrc);
+s32 XAsufw_SssShaWithDma(XAsufw_SssSrc ShaResource, XAsufw_SssSrc DmaResource);
 s32 XAsufw_SssShaForPli(XAsufw_SssSrc ShaResource);
-s32 XAsufw_SssAesWithDma(XAsufw_SssSrc InputSrc);
+s32 XAsufw_SssAesWithDma(XAsufw_SssSrc DmaResource);
 s32 XAsufw_SssAesForPli(void);
 
 /************************************ Variable Definitions ***************************************/
