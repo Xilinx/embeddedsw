@@ -312,6 +312,11 @@ static XAes_Config AesConfigTable[XASU_XAES_NUM_INSTANCES] = {
 
 static XAes XAes_Instance[XASU_XAES_NUM_INSTANCES]; /**< ASUFW AES HW instances */
 
+#ifdef XASUFW_ENABLE_PERF_MEASUREMENT
+static u64 StartTime; /**< Performance measurement start time. */
+static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
+#endif
+
 /************************** Inline Function Definitions ******************************************/
 
 /************************** Function Prototypes **************************************************/
@@ -583,6 +588,12 @@ END:
 s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAddr, u32 IvLen,
 	u8 EngineMode, u8 OperationType)
 {
+	/**
+	 * Capture the start time of the AES initialization operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START();
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
 	XFih_Var XFihKeyClear;
@@ -947,6 +958,12 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 			(InstancePtr->EngineMode == XASU_AES_CMAC_MODE)) {
 		Status = XAes_ProcessTag(InstancePtr, TagAddr, TagLen);
 	}
+
+	/**
+	 * Measure and print the performance time for the AES finalization operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(__func__);
 
 END:
 	/** Set AES under reset after AES operation is complete. */

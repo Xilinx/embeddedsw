@@ -79,6 +79,11 @@ static s32 XRsa_ValidateModulus(u8 *BuffAddr, u8 *InputData, u32 Len);
 /** RSA data block memory allocated in ASU RAM. */
 static u8  Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES] __attribute__ ((section (".rsa_data_block")));
 
+#ifdef XASUFW_ENABLE_PERF_MEASUREMENT
+static u64 StartTime; /**< Performance measurement start time. */
+static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
+#endif
+
 /*************************************************************************************************/
 /**
  * @brief	This function performs RSA decryption using CRT algorithm for the provided
@@ -106,6 +111,12 @@ static u8  Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES] __attribute__ ((section (".rsa
 s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
 	       u64 KeyParamAddr)
 {
+	/**
+	 * Capture the start time of the RSA CRT operation, if performance measurement is
+	 * enabled.
+	 */
+	XASUFW_MEASURE_PERF_START();
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -274,6 +285,12 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)OutData, OutputDataAddr, Len, 0U);
 
+	/**
+	 * Measure and print the performance time for the RSA CRT operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(__func__);
+
 END:
 	/** Zeroize local copy of all the parameters. */
 	ASSIGN_VOLATILE(SStatus, XASUFW_FAILURE);
@@ -314,6 +331,12 @@ END:
 s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
 		u64 KeyParamAddr, u64 ExpoAddr)
 {
+	/**
+	 * Capture the start time of the RSA private exponent operation, if performance measurement
+	 * is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START();
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -545,6 +568,12 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)OutData, OutputDataAddr, Len, 0U);
 
+	/**
+	 * Measure and print the performance time for the RSA private exponent operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(__func__);
+
 END:
 	/** Zeroize local copy of all the parameters. */
 	ASSIGN_VOLATILE(SStatus, XASUFW_FAILURE);
@@ -584,6 +613,12 @@ END:
 s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAddr,
 		u64 KeyParamAddr, u64 ExpoAddr)
 {
+	/**
+	 * Capture the start time of the RSA public exponent operation, if performance measurement
+	 * is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START();
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(SStatus, XASUFW_FAILURE);
 	u8 *InData = XRsa_GetDataBlockAddr();
@@ -715,6 +750,12 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	/** Copy output data to user memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)OutData, OutputDataAddr, Len, 0U);
+
+	/**
+	 * Measure and print the performance time for the RSA public exponent operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(__func__);
 
 END:
 	/** Zeroize local copy of all the parameters. */

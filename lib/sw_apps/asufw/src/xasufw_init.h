@@ -21,6 +21,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   am   01/22/25 Added key transfer support
  *       am   02/24/25 Renamed XAsufw_GetKeys() to XAsufw_PmcKeyTransfer()
+ * 1.2   am   05/20/25 Changed time units from ms to us in XAsufw_PerfTime
  *
  * </pre>
  *
@@ -45,8 +46,8 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 /** This structure contains the parameters required for performance measurement. */
 typedef struct {
-	u64 TPerfMs; /**< Whole part of time in milliseconds */
-	u64 TPerfMsFrac; /**< Fractional part of time in milliseconds */
+	u64 TPerfUs; /**< Whole part of time in microseconds. */
+	u64 TPerfUsFrac; /**< Fractional part of time in microseconds. */
 } XAsufw_PerfTime;
 
 /**

@@ -5,28 +5,29 @@
 
 /*************************************************************************************************/
 /**
-*
-* @file xrsa_ecc.c
-*
-* This file contains implementation of the interface functions for RSA hardware engine.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who  Date     Changes
-* ----- ---- -------- -----------------------------------------------------------------------------
-* 1.0   yog  07/11/24 Initial release
-*       yog  08/19/24 Received Dma instance from handler
-*       yog  08/25/24 Integrated FIH library
-*       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
-*       ss   12/02/24 Added support for ECDH
-*       yog  02/21/25 Changed the API XRsa_EccValidateAndGetCrvInfo() to be non-static
-*       yog  03/21/25 Added PWCT support
-*       yog  03/24/25 Added XRsa_EccGeneratePrivKey() API
-*
-* </pre>
-*
-**************************************************************************************************/
+ *
+ * @file xrsa_ecc.c
+ *
+ * This file contains implementation of the interface functions for RSA hardware engine.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- -------- ----------------------------------------------------------------------------
+ * 1.0   yog  07/11/24 Initial release
+ *       yog  08/19/24 Received Dma instance from handler
+ *       yog  08/25/24 Integrated FIH library
+ *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
+ *       ss   12/02/24 Added support for ECDH
+ * 1.1   yog  02/21/25 Changed the API XRsa_EccValidateAndGetCrvInfo() to be non-static
+ *       yog  03/21/25 Added PWCT support
+ *       yog  03/24/25 Added XRsa_EccGeneratePrivKey() API
+ * 1.2   am   05/20/25 Integrated performance measurement macros
+ *
+ * </pre>
+ *
+ *************************************************************************************************/
 /**
 * @addtogroup xrsa_ecc_server_apis RSA ECC Server APIs
 * @{
@@ -113,6 +114,11 @@ static const u8 EKeyPwctRsaEcc[XASU_ECC_P521_SIZE_IN_BYTES] = {
 	0xD8U, 0x25U, 0x5DU, 0x21U, 0x33U, 0xD5U, 0xCAU, 0x38U,
 	0xCAU, 0x38U
 };
+
+#ifdef XASUFW_ENABLE_PERF_MEASUREMENT
+static u64 StartTime; /**< Performance measurement start time. */
+static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
+#endif
 
 /*************************************************************************************************/
 /**
@@ -369,8 +375,14 @@ END:
  *
  *************************************************************************************************/
 s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
-			      const u8 *EphemeralKeyPtr, u64 HashAddr, u32 HashBufLen, u64 SignAddr)
+	const u8 *EphemeralKeyPtr, u64 HashAddr, u32 HashBufLen, u64 SignAddr)
 {
+	/**
+	 * Capture the start time of the ECC signature generation operation using RSA core, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START();
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -480,6 +492,12 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		}
 	}
 
+	/**
+	 * Measure and print the performance time for the ECC signature generation operation
+	 * using RSA core, if performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(__func__);
+
 END_CLR:
 	/** Zeroize local key copy. */
 	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PrivKey,
@@ -533,8 +551,14 @@ END:
  *
  *************************************************************************************************/
 s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PubKeyAddr,
-			    u64 HashAddr, u32 HashBufLen, u64 SignAddr)
+	u64 HashAddr, u32 HashBufLen, u64 SignAddr)
 {
+	/**
+	 * Capture the start time of the ECC signature verification operation using RSA core, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START();
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -643,6 +667,12 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	} else {
 		Status = XASUFW_SUCCESS;
 	}
+
+	/**
+	 * Measure and print the performance time for the ECC signature verification operation
+	 * using RSA core, if performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(__func__);
 
 END_CLR:
 	/** Zeroize local key copy. */

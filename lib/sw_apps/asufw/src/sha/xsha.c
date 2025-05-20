@@ -114,6 +114,11 @@ static XSha_Config XSha_ConfigTable[XASU_XSHA_NUM_INSTANCES] = {
 
 static XSha XSha_Instance[XASU_XSHA_NUM_INSTANCES]; /**< ASUFW SHA HW instances */
 
+#ifdef XASUFW_ENABLE_PERF_MEASUREMENT
+static u64 StartTime; /**< Performance measurement start time. */
+static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
+#endif
+
 /*************************************************************************************************/
 /**
  * @brief	This function returns SHA instance pointer of the provided device ID.
@@ -229,6 +234,12 @@ END:
  *************************************************************************************************/
 s32 XSha_Start(XSha *InstancePtr, u32 ShaMode)
 {
+	/**
+	 * Capture the start time of the SHA start operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START();
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Validate the input arguments. */
@@ -461,6 +472,12 @@ s32 XSha_Finish(XSha *InstancePtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOut
 	if ((Index == ShaDigestSizeInWords) && (ShaDigestSizeInWords != 0U)) {
 		Status = XASUFW_SUCCESS;
 	}
+
+	/**
+	 * Measure and print the performance time for the SHA finish operation, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(__func__);
 
 END:
 	if (InstancePtr != NULL) {

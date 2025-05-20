@@ -5,26 +5,27 @@
 
 /*************************************************************************************************/
 /**
-*
-* @file xecc.c
-* This file contains implementation of the interface functions for ECC engine.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who  Date     Changes
-* ----- ---- ---------- -----------------------------------------------------------------------------
-* 1.0   yog  06/19/2024 Initial release
-*       yog  08/19/2024 Received Dma instance from handler
-*       yog  08/25/2024 Integrated FIH library
-*       yog  09/26/2024 Added doxygen groupings and fixed doxygen comments.
-*       am   02/21/2025 Integrated performance measurement macros
-*       yog  03/13/2025 Removed CmConfig variable in InstancePtr and used the macro directly.
-*       yog  03/21/2025 Added PWCT support
-*
-* </pre>
-*
-**************************************************************************************************/
+ *
+ * @file xecc.c
+ * This file contains implementation of the interface functions for ECC engine.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- ---------- --------------------------------------------------------------------------
+ * 1.0   yog  06/19/2024 Initial release
+ *       yog  08/19/2024 Received Dma instance from handler
+ *       yog  08/25/2024 Integrated FIH library
+ *       yog  09/26/2024 Added doxygen groupings and fixed doxygen comments.
+ * 1.1   am   02/21/2025 Integrated performance measurement macros
+ *       yog  03/13/2025 Removed CmConfig variable in InstancePtr and used the macro directly.
+ *       yog  03/21/2025 Added PWCT support
+ * 1.2   am   05/20/2025 Integrated performance measurement macros
+ *
+ * </pre>
+ *
+ *************************************************************************************************/
 /**
 * @addtogroup xecc_server_apis ECC Server APIs
 * @{
@@ -146,6 +147,11 @@ static const u8 EKeyPwctEcc[XASU_ECC_P384_SIZE_IN_BYTES] = {
 	0x0CU, 0x67U, 0x48U, 0x94U, 0xE8U, 0x53U, 0xD3U, 0x6BU,
 	0xBEU, 0xC6U, 0xC2U, 0x1FU, 0xDCU, 0xFCU, 0x7BU, 0xD1U
 };
+
+#ifdef XASUFW_ENABLE_PERF_MEASUREMENT
+static u64 StartTime; /**< Performance measurement start time. */
+static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
+#endif
 
 /*************************************************************************************************/
 /**
@@ -456,10 +462,10 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 			   u64 SignAddr)
 {
 	/**
-	 * Capture start time of ECC signature generation operation if performance measurement is
-	 * enabled.
+	 * Capture the start time of the ECC signature generation operation using ECC core, if
+	 * performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_START(StartTime, PerfTime);
+	XASUFW_MEASURE_PERF_START();
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
@@ -560,10 +566,10 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 	}
 
 	/**
-	 * Measure ECC signature generation operation performance time if performance measurement is
-	 * enabled.
+	 * Measure and print the performance time for the ECC signature generation operation
+	 * using ECC core, if performance measurement is enabled.
 	 */
-	XASUFW_MEASURE_PERF_STOP(StartTime, PerfTime, __func__);
+	XASUFW_MEASURE_PERF_STOP(__func__);
 
 END:
 	if (InstancePtr != NULL) {
@@ -602,6 +608,12 @@ END:
 s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
 			 u64 PubKeyAddr, u64 HashAddr, u32 HashBufLen, u64 SignAddr)
 {
+	/**
+	 * Capture the start time of the ECC signature verification operation using ECC core, if
+	 * performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_START();
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
@@ -682,6 +694,12 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	XFIH_CALL(XEcc_ConfigNStartOperation, XFihEccVar, Status, InstancePtr,
 			XECC_CTRL_SIGN_VERIFICATION_OP_CODE);
 
+	/**
+	 * Measure and print the performance time for the ECC signature verification operation
+	 * using ECC core, if performance measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(__func__);
+
 END:
 	if (InstancePtr != NULL) {
 		/** Set ECC under reset. */
@@ -690,7 +708,6 @@ END:
 
 	return Status;
 }
-
 
 /*************************************************************************************************/
 /**

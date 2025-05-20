@@ -91,18 +91,18 @@ extern "C" {
 #define XASUFW_MAX_32BIT_ADDRESS		(0xFFFFFFFFU) /**< Max supported 32-bit address */
 
 #if XASUFW_ENABLE_PERF_MEASUREMENT
-#define XASUFW_MEASURE_PERF_START(TimeVar, PerfTimeVar) XAsufw_PerfTime PerfTime; \
-					u64 TimeVar = XAsufw_GetTimerValue()
-				/**< Capture the start time for performance measurement */
-#define XASUFW_MEASURE_PERF_STOP(StartTime, PerfTimeVar, func_name) \
-		XAsufw_MeasurePerfTime(StartTime, &PerfTimeVar); \
-		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "%s execution time: %u.%03u ms\n\r", func_name, \
-		(u32)PerfTimeVar.TPerfMs, (u32)PerfTimeVar.TPerfMsFrac)
-				/**< Measure and print execution time with the function name */
+#define XASUFW_MEASURE_PERF_START() \
+	StartTime = XAsufw_GetTimerValue()
+		/**< Capture the start time for performance measurement */
+#define XASUFW_MEASURE_PERF_STOP(func_name) \
+	XAsufw_MeasurePerfTime(StartTime, &PerfTime); \
+	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "%s execution time: %llu.%06llu us\n\r", func_name, \
+		(u64)PerfTime.TPerfUs, (u64)PerfTime.TPerfUsFrac)
+		/**< Measure and print execution time with the function name */
 #else
-#define XASUFW_MEASURE_PERF_START(TimeVar, PerfTimeVar)
+#define XASUFW_MEASURE_PERF_START()
 		/**< No operation when XASUFW_ENABLE_PERF_MEASUREMENT is not enabled */
-#define XASUFW_MEASURE_PERF_STOP(StartTime, PerfTimeVar, func_name)
+#define XASUFW_MEASURE_PERF_STOP(func_name)
 		/**< No operation when XASUFW_ENABLE_PERF_MEASUREMENT is not enabled */
 #endif
 

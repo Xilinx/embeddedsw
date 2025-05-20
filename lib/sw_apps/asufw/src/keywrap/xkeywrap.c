@@ -48,6 +48,10 @@
 /************************************** Type Definitions *****************************************/
 
 /************************************ Variable Definitions ***************************************/
+#ifdef XASUFW_ENABLE_PERF_MEASUREMENT
+static u64 StartTime; /**< Performance measurement start time. */
+static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
+#endif
 
 /************************************ Function Prototypes ****************************************/
 static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *AesInstancePtr,
@@ -83,6 +87,12 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 			XSha *ShaInstancePtr, XAes *AesInstancePtr, u32 *OutDataLenPtr)
 {
+	/**
+	 * Capture the start time of the key wrap operation, if performance measurement is
+	 * enabled.
+	 */
+	XASUFW_MEASURE_PERF_START();
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -195,6 +205,12 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		Status = XASUFW_KEYWRAP_DMA_COPY_FAIL;
 	}
 
+	/**
+	 * Measure and print the performance time for the key wrap operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(__func__);
+
 END_CLR:
 	/** Zeroize output data. */
 	ClearStatus = Xil_SecureZeroize(OutData, XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES);
@@ -231,6 +247,12 @@ END:
 s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 			XSha *ShaInstancePtr, XAes *AesInstancePtr,  u32 *OutDataLenPtr)
 {
+	/**
+	 * Capture the start time of the key unwrap operation, if performance measurement is
+	 * enabled.
+	 */
+	XASUFW_MEASURE_PERF_START();
+
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -299,6 +321,12 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR;
 	}
+
+	/**
+	 * Measure and print the performance time for the key unwrap operation, if performance
+	 * measurement is enabled.
+	 */
+	XASUFW_MEASURE_PERF_STOP(__func__);
 
 END_KEY_CLR:
 	ASSIGN_VOLATILE(ClearStatus, XASUFW_FAILURE);

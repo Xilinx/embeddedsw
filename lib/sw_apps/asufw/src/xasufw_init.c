@@ -336,25 +336,27 @@ u64 XAsufw_GetTimerValue(void)
  * @brief	This function measures the total time taken between two points for performance
  * 		measurement.
  *
- * @param	TCur		Current time
+ * @param	TimerValStart 	Timer value captured at the beginning.
  * @param	PerfTime	Variable to hold the time elapsed
  *
  *************************************************************************************************/
-void XAsufw_MeasurePerfTime(u64 TCur, XAsufw_PerfTime *PerfTime)
+void XAsufw_MeasurePerfTime(u64 TimerValStart, XAsufw_PerfTime *PerfTime)
 {
-	u64 TEnd;
-	u64 PerfUs;
+	u64 TimerValEnd;
 	u64 TDiff;
 	u32 AsuIroFreqMHz = XASUFW_ASU_IRO_FREQ_IN_HZ / XASUFW_MEGA;
 
-	/** Get the difference between two points. */
-	TEnd = XAsufw_GetTimerValue();
-	TDiff = TCur - TEnd;
+	/** Capture the timer value at the end of the measured interval. */
+	TimerValEnd = XAsufw_GetTimerValue();
 
-	/** Convert TPerf into microseconds. */
-	PerfUs = TDiff / AsuIroFreqMHz;
-	PerfTime->TPerfMsFrac = PerfUs % XASUFW_KILO;
-	PerfTime->TPerfMs = PerfUs / XASUFW_KILO;
+	/** Capture elapsed time. */
+	TDiff = TimerValStart - TimerValEnd;
+
+	/** Calculate whole microseconds. */
+	PerfTime->TPerfUs = TDiff / AsuIroFreqMHz;
+
+	/** Calculate the fractional part in microseconds. */
+	PerfTime->TPerfUsFrac = TDiff % AsuIroFreqMHz;
 }
 
 /*************************************************************************************************/
@@ -368,9 +370,9 @@ void XAsufw_PrintAsuTimeStamp(void)
 
 	/* Print time stamp of ASUFW */
 	XAsufw_MeasurePerfTime((XASUFW_PIT1_CYCLE_VALUE << XASUFW_WORD_SIZE_IN_BITS) |
-			       XASUFW_PIT2_CYCLE_VALUE, &PerfTime);
-	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "[%u.%03u]", (u32)PerfTime.TPerfMs,
-		      (u32)PerfTime.TPerfMsFrac);
+		XASUFW_PIT2_CYCLE_VALUE, &PerfTime);
+	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "[%llu.%06llu]", (u64)PerfTime.TPerfUs,
+		(u64)PerfTime.TPerfUsFrac);
 }
 
 /*************************************************************************************************/
