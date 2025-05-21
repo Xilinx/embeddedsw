@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
-title: Srec_bootloader
+title: SREC Bootloader
 
 maintainers:
     - Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>

@@ -3,7 +3,7 @@
 
 %YAML 1.2
 ---
-title: Zynq MP FSBL
+title: ZynqMP FSBL
 
 maintainers:
   - Kundella, Sreedhar <Sreedhar.Kundella@amd.com>

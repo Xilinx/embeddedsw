@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
-title: OpenAMP matrix multiplication Demo
+title: OpenAMP Matrix Multiplication Demo
 description: OpenAMP matrix multiplication application
 
 type: apps

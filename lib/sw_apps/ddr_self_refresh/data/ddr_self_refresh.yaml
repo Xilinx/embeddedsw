@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
-title: DDR self refresh
+title: DDR Self Refresh
 
 maintainers:
   - Harini T <harini.t@amd.com>

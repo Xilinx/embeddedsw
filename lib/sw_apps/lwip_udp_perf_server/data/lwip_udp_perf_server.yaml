@@ -2,7 +2,7 @@
 ---
 # Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-title: lwIP UDP Perf Server
+title: LwIP UDP Perf Server
 maintainers: [Vineeth Karumanchi <vineeth.karumanchi@amd.com>]
 description: The LwIP UDP Perf Server application is used for creating UDP server
   and measure downlink performance using light-weight IP stack (lwIP). This application

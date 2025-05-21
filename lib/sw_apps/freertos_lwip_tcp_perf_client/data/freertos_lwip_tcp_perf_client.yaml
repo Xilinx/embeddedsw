@@ -2,7 +2,7 @@
 ---
 # Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
-title: FreeRTOS lwIP TCP Perf Client
+title: FreeRTOS LwIP TCP Perf Client
 maintainers: [Vineeth Karumanchi <vineeth.karumanchi@amd.com>]
 type: apps
 description: The FreeRTOS LwIP TCP Perf Client application is used for creating TCP
