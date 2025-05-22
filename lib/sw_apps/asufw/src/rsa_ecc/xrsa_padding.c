@@ -110,7 +110,7 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
  *		- XASUFW_RSA_OAEP_ENCRYPT_ERROR, if Public encryption error occurs after
  *		  OAEP padding.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
- * 		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ * 		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *		- XASUFW_MEM_COPY_FAIL, if memcpy fails
  *
  *************************************************************************************************/
@@ -221,7 +221,7 @@ s32 XRsa_OaepEncode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	Status = XAsufw_DmaXfr(DmaPtr, PaddingParamsPtr->XAsu_RsaOpComp.InputDataAddr,
 			       (u64)(UINTPTR)&DataBlock[DataBlockLen - Len], Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_DMA_COPY_FAIL;
+		Status = XASUFW_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -324,7 +324,7 @@ RET:
  *		- XASUFW_RSA_OAEP_INVALID_LEN, if input length is greater than OAEP defined length.
  * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *		  non-blocking mode.
- * 		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ * 		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *		- XASUFW_MEM_COPY_FAIL, if memcpy fails
  *		- Also, this function can return termination error codes 0xBBU, 0xBCU and 0xBDU,
  * 		please refer to xasufw_status.h.
@@ -520,7 +520,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 				PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr,
 				MsgLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_DMA_COPY_FAIL;
+		Status = XASUFW_DMA_COPY_FAIL;
 	}
 
 END:
@@ -556,7 +556,7 @@ RET:
  * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *		  non-blocking mode.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
- * 		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ * 		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *		- Also, this function can return termination error codes from 0xBFU to 0xC3U and 0xD0U,
  * 		please refer to xasufw_status.h.
  *
@@ -667,7 +667,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 				       (u64)(UINTPTR)&MPrime[XRSA_PSS_HASH_BLOCK_ZEROIZE_LEN],
 				       PaddingParamsPtr->XAsu_RsaOpComp.Len, 0U);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_DMA_COPY_FAIL;
+			Status = XASUFW_DMA_COPY_FAIL;
 			goto END;
 		}
 	}
@@ -820,7 +820,7 @@ RET:
  * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *		  non-blocking mode.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
- * 		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ * 		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *		- Also, this function can return termination error codes from 0xC4U to 0xCAU and 0xD0U,
 
  * 		please refer to xasufw_status.h.
@@ -941,7 +941,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 				       (u64)(UINTPTR)HashedInputData,
 				       PaddingParamsPtr->XAsu_RsaOpComp.Len, 0U);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_DMA_COPY_FAIL;
+			Status = XASUFW_DMA_COPY_FAIL;
 			goto END;
 		}
 	}
@@ -1073,7 +1073,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	XFIH_CALL(Xil_SMemCmp, XFihSignVerify, Status, HashBuffer, XASU_SHA_512_HASH_LEN,
 				EncodedMsgHashBuffer, XASU_SHA_512_HASH_LEN, HashLen);
-	XFIH_IF_FAILOUT_WITH_VALUE(XFihSignVerify, != , (u32)XASUFW_SUCCESS) {
+	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_PSS_HASH_CMP_FAIL;
 	}
 
@@ -1182,7 +1182,7 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
 			XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_MASK_GEN_ERROR);
-			goto END;
+			XFIH_GOTO(END);
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);

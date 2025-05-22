@@ -81,7 +81,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
  * 	- XASUFW_AES_WRITE_KEY_FAILED, if AES write key fails.
  * 	- XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, if AES key clear fails.
  * 	- XASUFW_KEYWRAP_AES_WRAPPED_KEY_ERROR, if AES key wrap fails.
- * 	- XASUFW_KEYWRAP_DMA_COPY_FAIL, if coping wrapped key to user provided address using DMA fails.
+ * 	- XASUFW_DMA_COPY_FAIL, if coping wrapped key to user provided address using DMA fails.
  *
  *************************************************************************************************/
 s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
@@ -202,7 +202,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 				(KeyWrapParamsPtr->OutputDataAddr + KeyWrapParamsPtr->RsaKeySize),
 				OutDataLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYWRAP_DMA_COPY_FAIL;
+		Status = XASUFW_DMA_COPY_FAIL;
 	}
 
 	/**
@@ -353,7 +353,7 @@ END:
  * 	- XASUFW_SUCCESS, if initialization is successful.
  * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
  * 	- XASUFW_MEM_COPY_FAIL, if copying of ICV fails.
- * 	- XASUFW_KEYWRAP_DMA_COPY_FAIL, if input data copy using DMA fails.
+ * 	- XASUFW_DMA_COPY_FAIL, if input data copy using DMA fails.
  * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroization fails for padding length.
  * 	- XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, if AES operation fails.
  *
@@ -417,7 +417,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 				(u64)(UINTPTR)&InData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES],
 				KeyWrapParamsPtr->InputDataLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYWRAP_DMA_COPY_FAIL;
+		Status = XASUFW_DMA_COPY_FAIL;
 		goto END_CLR;
 	}
 
@@ -484,7 +484,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 				Status = XAes_Compute(AesInstancePtr, AsuDmaPtr, &AesParams);
 				if (Status != XASUFW_SUCCESS) {
 					Status =  XASUFW_KEYWRAP_AES_DATA_CALC_FAIL;
-					goto END_CLR;
+					XFIH_GOTO(END_CLR);
 				}
 				AesOutValue = ((u64)AesOutData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES
 						- XASUFW_BUFFER_INDEX_TWO] << XASUFW_ONE_BYTE_SHIFT_VALUE)
@@ -547,7 +547,7 @@ END:
  * 	- XASUFW_SUCCESS, if initialization is successful.
  * 	- XASUFW_KEYWRAP_INVALID_PARAM, if input parameter validation fails.
  * 	- XASUFW_MEM_COPY_FAIL, if Xil_SMemCpy fails.
- * 	- XASUFW_KEYWRAP_DMA_COPY_FAIL, if input data copy using DMA fails.
+ * 	- XASUFW_DMA_COPY_FAIL, if input data copy using DMA fails.
  * 	- XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, if AES operation fails.
  * 	- XASUFW_KEYWRAP_ICV_CMP_FAIL, if ICV comparison with first 4 bytes of output fails.
  *
@@ -593,7 +593,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 				(KeyUnwrapParamsPtr->InputDataLen - KeyUnwrapParamsPtr->RsaKeySize),
 				0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYWRAP_DMA_COPY_FAIL;
+		Status = XASUFW_DMA_COPY_FAIL;
 		goto END_CLR;
 	}
 
@@ -660,7 +660,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 				Status = XAes_Compute(AesInstancePtr, AsuDmaPtr, &AesParams);
 				if (Status != XASUFW_SUCCESS) {
 					Status =  XASUFW_KEYWRAP_AES_DATA_CALC_FAIL;
-					goto END_CLR;
+					XFIH_GOTO(END_CLR);
 				}
 				/**
 				 * - Copy AES output data of length eight bytes in terms of two words
@@ -699,7 +699,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 				XASUFW_WORD_LEN_IN_BYTES, XASUFW_WORD_LEN_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_ICV_CMP_FAIL;
-		goto END_CLR;
+		XFIH_GOTO(END_CLR);
 	}
 
 	/** Copy actual plain text length to pointer. */
@@ -746,7 +746,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 				KeyUnwrapParamsPtr->OutputDataAddr,
 				(*OutDataLenPtr), 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYWRAP_DMA_COPY_FAIL;
+		Status = XASUFW_DMA_COPY_FAIL;
 	}
 
 END_CLR:

@@ -945,7 +945,7 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 	/** Wait for AES engine to be in idle and ready state. */
 	Status = XAes_WaitForReady(InstancePtr);
 	if (Status != XASUFW_SUCCESS) {
-		goto END;
+		XFIH_GOTO(END);
 	}
 
 	/**
@@ -1901,7 +1901,7 @@ static s32 XAes_ReadNVerifyTag(const XAes *InstancePtr, u32 TagInAddr, u32 TagLe
 			XAES_BIT_MASK(RemainingBytes);
 
 		if ((ReadReg & Mask) != (TagPtr[Index] & Mask)) {
-			goto END;
+			XFIH_GOTO(END);
 		}
 
 		RemainingBytes = (RemainingBytes > XASUFW_WORD_LEN_IN_BYTES) ?

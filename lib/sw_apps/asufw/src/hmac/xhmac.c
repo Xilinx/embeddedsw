@@ -297,6 +297,8 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 	}
 
 SHA_IN_HMAC_STAGE_UPDATE_DONE:
+	HmacUpdateStage = 0U;
+
 	if (IsLastUpdate == XASU_TRUE) {
 		/**
 		 * If this is the last update, get the HASH calculated for input (iPad || Data)
@@ -341,6 +343,7 @@ DONE:
  * 	- XASUFW_SUCCESS, if calculation of HMAC is successful.
  * 	- XASUFW_HMAC_INVALID_PARAM, if input parameters are invalid.
  * 	- XASUFW_HMAC_STATE_MISMATCH_ERROR, if HMAC state is mismatched.
+ * 	- XASUFW_HMAC_ERROR, if any operation fails.
  *
  *************************************************************************************************/
 s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
@@ -363,6 +366,7 @@ s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
 	/** Initialize SHA engine to calculate the hash on Opad || IntHash. */
 	Status = XSha_Start(InstancePtr->ShaInstancePtr, (u32)InstancePtr->ShaMode);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
 		goto END;
 	}
 
@@ -372,6 +376,7 @@ s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
 			     (u64)(UINTPTR)(InstancePtr->OPadRes), (u32)InstancePtr->BlockLen,
 			     XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
 		goto END;
 	}
 
@@ -381,6 +386,7 @@ s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
 			     (u64)(UINTPTR)(InstancePtr->IntHash), (u32)InstancePtr->HashBufLen,
 			     XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
 		goto END;
 	}
 
@@ -389,7 +395,7 @@ s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
 	Status = XSha_Finish(InstancePtr->ShaInstancePtr, (u32 *)HmacOutPtr,
 			     (u32)InstancePtr->HashBufLen, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
-		goto END;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
 	}
 
 END:
@@ -426,6 +432,10 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if preprocessing key is successful.
+ * 	- XASUFW_SHA_INVALID_SHA_MODE, if get SHA block length fails.
+ * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if memset fails.
+ * 	- XASUFW_HMAC_ERROR, if any operation fails.
+ * 	- XASUFW_MEM_COPY_FAIL, if mem copy fails.
  *
  *************************************************************************************************/
 static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 KeyAddr,
@@ -437,6 +447,7 @@ static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr
 	Status = XSha_GetShaBlockLen(InstancePtr->ShaInstancePtr, InstancePtr->ShaMode,
 				     &InstancePtr->BlockLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SHA_INVALID_SHA_MODE;
 		goto END;
 	}
 
@@ -445,6 +456,7 @@ static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr
 	Status = Xil_SMemSet(ProcessedKey, XASUFW_SHAKE_SHA3_256_BLOCK_LEN, 0x0U,
 			     XASUFW_SHAKE_SHA3_256_BLOCK_LEN);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 
@@ -457,6 +469,7 @@ static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr
 		 */
 		Status = XSha_Start(InstancePtr->ShaInstancePtr, (u32)InstancePtr->ShaMode);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
 			goto END;
 		}
 
@@ -464,6 +477,7 @@ static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr
 		Status = XSha_Update(InstancePtr->ShaInstancePtr, AsuDmaPtr, KeyAddr,
 				     KeyLen, XASU_TRUE);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
 			goto END;
 		}
 
@@ -471,7 +485,8 @@ static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr
 		Status = XSha_Finish(InstancePtr->ShaInstancePtr, (u32 *)ProcessedKey,
 				     (u32)InstancePtr->HashBufLen, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
-			goto END;
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
+			XFIH_GOTO(END);
 		}
 	} else {
 		/**
@@ -483,7 +498,8 @@ static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr
 		 */
 		Status = Xil_SMemCpy(ProcessedKey, KeyLen, (u8 *)(UINTPTR)KeyAddr, KeyLen, KeyLen);
 		if (Status != XASUFW_SUCCESS) {
-			goto END;
+			Status = XASUFW_MEM_COPY_FAIL;
+			XFIH_GOTO(END);
 		}
 	}
 

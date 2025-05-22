@@ -101,7 +101,7 @@ static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing resul
  *		- XASUFW_FAILURE, if RSA decryption using CRT algorithm fails.
  *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
- *		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change error occurs.
  *		- XASUFW_MEM_COPY_FAIL, if memory copy fails.
  * 		- Also, this function can return termination error codes from 0x9CU to 0x9FU
@@ -153,7 +153,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_DMA_COPY_FAIL;
+		Status = XASUFW_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -162,7 +162,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
 			       sizeof(XAsu_RsaCrtKeyComp), 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_DMA_COPY_FAIL;
+		Status = XASUFW_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -320,7 +320,7 @@ END:
  *		- XASUFW_FAILURE, if RSA decryption fails.
  *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
- *		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change error occurs.
  *		- XASUFW_MEM_COPY_FAIL, if memory copy fails.
  *		- XASUFW_RSA_INVALID_PRIME_TOT_FLAG, if invalid prime/totient flag.
@@ -375,7 +375,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_DMA_COPY_FAIL;
+		Status = XASUFW_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -384,7 +384,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
 			       sizeof(XAsu_RsaPvtKeyComp), 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_DMA_COPY_FAIL;
+		Status = XASUFW_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -516,7 +516,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		Status = XAsufw_DmaXfr(DmaPtr, ExpoAddr, (u64)(UINTPTR)RRN, sizeof(XAsu_RsaRModN),
 				       0U);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_DMA_COPY_FAIL;
+			Status = XASUFW_DMA_COPY_FAIL;
 			goto END;
 		}
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -603,7 +603,7 @@ END:
  *		- XASUFW_FAILURE, if RSA encryption fails.
  *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroize memset fails.
- *		- XASUFW_RSA_DMA_COPY_FAIL, if DMA copy fails.
+ *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *		- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change error occurs.
  *		- XASUFW_MEM_COPY_FAIL, if memory copy fails.
  *		- Also, this function can return termination error codes from 0x9CU to 0x9EU and 0xA1U
@@ -655,7 +655,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_DMA_COPY_FAIL;
+		Status = XASUFW_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -664,7 +664,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	Status = XAsufw_DmaXfr(DmaPtr, KeyParamAddr, (u64)(UINTPTR)KeyPtr,
 			       sizeof(XAsu_RsaPubKeyComp), 0U);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_DMA_COPY_FAIL;
+		Status = XASUFW_DMA_COPY_FAIL;
 		goto END;
 	}
 
@@ -726,7 +726,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		Status = XAsufw_DmaXfr(DmaPtr, ExpoAddr, (u64)(UINTPTR)RRN, sizeof(XAsu_RsaRRModN),
 				       0U);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_DMA_COPY_FAIL;
+			Status = XASUFW_DMA_COPY_FAIL;
 			goto END;
 		}
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);

@@ -950,7 +950,8 @@ static s32 XEcc_ConfigNStartOperation(const XEcc *InstancePtr, u32 OpCode)
 	TerminationCode = XAsufw_ReadReg(InstancePtr->BaseAddress + XECC_STATUS_OFFSET);
 	TerminationCode &= XECC_STATUS_TERMINATION_CODE_MASK;
 	if (TerminationCode != 0U) {
-		Status = (s32)(TerminationCode | XASUFW_ECC_TERMINATION_CODE_MASK);
+		Status = XAsufw_UpdateErrorStatus(Status, (s32)(TerminationCode |
+				XASUFW_ECC_TERMINATION_CODE_MASK));
 	}
 
 END:

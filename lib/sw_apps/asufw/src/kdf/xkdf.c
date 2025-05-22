@@ -57,6 +57,8 @@
  * @return
  * 	- XASUFW_SUCCESS, if KDF generate operation is successful.
  * 	- XASUFW_KDF_INVALID_PARAM, if input parameters are invalid.
+ * 	- XASUFW_KDF_ERROR, if any operation fails.
+ * 	- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  * 	- Errors codes from HMAC, if HMAC operation fails.
  *
  *************************************************************************************************/
@@ -115,6 +117,7 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 		Status = XHmac_Init(HmacPtr, DmaPtr, ShaInstancePtr, KdfParams->KeyInAddr,
 				KdfParams->KeyInLen, KdfParams->ShaMode, HashLen);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_ERROR);
 			goto END_CLR;
 		}
 
@@ -127,6 +130,7 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 		Status = XHmac_Update(HmacPtr, DmaPtr, (u64)(UINTPTR)&KdfValue, XASUFW_WORD_LEN_IN_BYTES,
 				XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_ERROR);
 			goto END_CLR;
 		}
 
@@ -135,6 +139,7 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 		Status = XHmac_Update(HmacPtr, DmaPtr, KdfParams->ContextAddr, KdfParams->ContextLen,
 				XASU_TRUE);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_ERROR);
 			goto END_CLR;
 		}
 
@@ -142,7 +147,8 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XHmac_Final(HmacPtr, DmaPtr, (u32 *)KOut);
 		if (Status != XASUFW_SUCCESS) {
-			goto END_CLR;
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KDF_ERROR);
+			XFIH_GOTO(END_CLR);
 		}
 
 		/**
@@ -158,6 +164,7 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KOut, KeyOutAddr, HashLen, 0U);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
 			goto END_CLR;
 		}
 		KeyOutAddr = KeyOutAddr + HashLen;

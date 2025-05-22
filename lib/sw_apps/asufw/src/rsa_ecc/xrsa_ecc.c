@@ -141,6 +141,7 @@ static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing resul
  *	- XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails
  *	- XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, if sign generation fails in PWCT.
  *	- XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, if sign verification fails in PWCT.
+ *	- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *
  *************************************************************************************************/
 s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
@@ -183,6 +184,7 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PrivKey, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
@@ -203,12 +205,14 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PubKey + CurveLen, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
@@ -217,6 +221,7 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 					XAsu_DoubleCurveLength(CurveLen), 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_READ_DATA_FAIL;
+		goto END_CLR;
 	}
 
 	/** Validate the public key generated from the private key. */
@@ -263,6 +268,7 @@ END:
  *	- XASUFW_RSA_ECC_PUBLIC_KEY_WRONG_ORDER, if public key is in wrong order.
  *	- XASUFW_RSA_ECC_PUBLIC_KEY_NOT_ON_CRV, if public key is not on curve.
  *	- XASUFW_FAILURE, if validation fails due to other reasons.
+ *	- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *
  *************************************************************************************************/
 s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PubKeyAddr)
@@ -303,12 +309,14 @@ s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PubKey + CurveLen, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
@@ -371,6 +379,7 @@ END:
  *	- XASUFW_RSA_ECC_GEN_SIGN_BAD_RAND_NUM, if bad random number used for sign generation.
  *	- XASUFW_RSA_ECC_GEN_SIGN_INCORRECT_HASH_LEN, if incorrect hash length is provided
  *					for sign generation.
+ *	- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	- XASUFW_FAILURE, if sign generation fails due to other reasons.
  *
  *************************************************************************************************/
@@ -421,6 +430,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(EphemeralKey, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
@@ -437,6 +447,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PrivKey, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
@@ -449,6 +460,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(Hash, HashBufLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
@@ -476,11 +488,13 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_ChangeEndianness(Signature, CurveLen);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END_CLR;
 		}
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_ChangeEndianness(Signature + CurveLen, CurveLen);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 			goto END_CLR;
 		}
 
@@ -547,6 +561,7 @@ END:
  *	-	XASUFW_RSA_ECC_VER_SIGN_S_ZERO, if provided S is zero.
  *	-	XASUFW_RSA_ECC_VER_SIGN_R_ORDER_ERROR, if R is not within ECC order.
  *	-	XASUFW_RSA_ECC_VER_SIGN_S_ORDER_ERROR, if S is not within ECC order.
+ *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	-	XASUFW_FAILURE, if operation fails due to any other reasons.
  *
  *************************************************************************************************/
@@ -599,6 +614,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(Hash, HashBufLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
@@ -612,11 +628,13 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PubKey + CurveLen, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
@@ -633,11 +651,13 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(Signature, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(Signature + CurveLen, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
@@ -852,6 +872,7 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
  *	-	XASUFW_RSA_ECC_WRITE_DATA_FAIL, if write data through DMA fails.
  *	-	XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails.
  *	-	XASUFW_ECDH_OTHER_ERROR, if operation fails due to any other error from IP cores.
+ *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	-	XASUFW_FAILURE, if operation fails due to any other reasons.
  *
  *************************************************************************************************/
@@ -896,11 +917,13 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness((PubKey + CurveLen), CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
@@ -917,6 +940,7 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(PrivKey, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
@@ -949,6 +973,7 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(SharedSecret, CurveLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 

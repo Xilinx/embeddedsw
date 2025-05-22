@@ -312,8 +312,7 @@ enum {
 	XASUFW_RSA_DECRYPT_DATA_COMPARISON_FAILED, /**< 0xCDU - Error when RSA decrypt output
 						comparison failed */
 	XASUFW_RSA_KAT_FAILED, /**< 0xCEU - Error when RSA KAT failed */
-	XASUFW_RSA_DMA_COPY_FAIL, /**< 0xCFU - When data transfer to/from memory using DMA fails in
-						RSA */
+	XASUFW_DMA_COPY_FAIL, /**< 0xCFU - When data transfer to/from memory using DMA fails */
 	XASUFW_MEM_COPY_FAIL,  /**< 0xD0U - Error When copy data to memory fails */
 	XASUFW_ECDH_INVALID_POINT_ON_CRV, /**< 0x0D1U - Error when generated point is invalid */
 	XASUFW_ECDH_RAND_GEN_ERROR, /**< 0xD2U - Random number generation failed to ECDH APIs */
@@ -370,10 +369,9 @@ enum {
 	XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR, /**< 0xFEU - AES Key unwrap output generation failed */
 	XASUFW_KEYWRAP_ICV_CMP_FAIL, /**< 0xFFU - Error when integrity check value fails for key
 						unwrap */
-	XASUFW_RESERVED1, /**< 0x100U - Reserved Error*/
+	XASUFW_KDF_ERROR, /**< 0x100U - Generic error in KDF */
 	XASUFW_KEYWRAP_AES_KEY_CLEAR_FAIL, /**< 0x101U - Error when AES key clear fails */
-	XASUFW_KEYWRAP_DMA_COPY_FAIL, /**< 0x102U - When data transfer to/from memory using DMA
-						fails */
+	XASUFW_HMAC_ERROR, /**< 0x102U - Generic error in HMAC */
 	XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, /**< 0x103U - When AES operation fails in key wrap unwrap */
 	XASUFW_KEYWRAP_UNWRAPPED_DATA_COMPARISON_FAILED, /**< 0x104U -Error when unwrapped output
 						comparison failed in KAT */

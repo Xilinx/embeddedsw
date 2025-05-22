@@ -135,7 +135,6 @@ s32 XAsufw_EccInit(void)
 	Status = XEcc_Initialize(XAsufw_Ecc);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_INIT_FAILED);
-		goto END;
 	}
 
 END:
