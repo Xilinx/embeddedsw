@@ -46,7 +46,6 @@ extern "C" {
 #include "xaes.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_MAX_MODULES			    (10U) /**< Maximum supported modules in ASUFW */
 #define XASUFW_MODULE_COMMAND(FUNC)		{ (FUNC) } /**< Module command define */
 
 /************************************** Type Definitions *****************************************/

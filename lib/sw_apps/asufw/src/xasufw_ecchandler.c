@@ -53,7 +53,6 @@
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XAsufw_EccGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -84,7 +83,6 @@ s32 XAsufw_EccInit(void)
 		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccGenSign),
 		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccVerifySign),
 		[XASU_ECC_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccKat),
-		[XASU_ECC_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccGetInfo),
 		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EcdhGenSharedSecret),
 		[XASU_ECDH_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EcdhKat),
 		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccGenPubKey),
@@ -106,7 +104,6 @@ s32 XAsufw_EccInit(void)
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_ECC_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
 		XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
-		[XASU_ECC_GET_INFO_CMD_ID] = 0U,
 		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_ECDH_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
@@ -160,18 +157,16 @@ static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 
 	/** Allocate DMA resource for ECC module commands except for Get_Info command. */
-	if ((CmdId != XASU_ECC_GET_INFO_CMD_ID)) {
-		ResourceId = XAsufw_GetEccMaskResourceId(ReqBuf);
-		XAsufw_EccModule.AsuDmaPtr = XAsufw_AllocateDmaResource(ResourceId, ReqId);
-		if (XAsufw_EccModule.AsuDmaPtr == NULL) {
-			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-			goto END;
-		}
-		XAsufw_AllocateResource(ResourceId, ResourceId, ReqId);
-		XAsufw_AllocateResource(XASUFW_TRNG, ResourceId, ReqId);
-		if (CmdId == XASU_ECC_KAT_CMD_ID) {
-			XAsufw_AllocateResource(XASUFW_RSA, ResourceId, ReqId);
-		}
+	ResourceId = XAsufw_GetEccMaskResourceId(ReqBuf);
+	XAsufw_EccModule.AsuDmaPtr = XAsufw_AllocateDmaResource(ResourceId, ReqId);
+	if (XAsufw_EccModule.AsuDmaPtr == NULL) {
+		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+		goto END;
+	}
+	XAsufw_AllocateResource(ResourceId, ResourceId, ReqId);
+	XAsufw_AllocateResource(XASUFW_TRNG, ResourceId, ReqId);
+	if (CmdId == XASU_ECC_KAT_CMD_ID) {
+		XAsufw_AllocateResource(XASUFW_RSA, ResourceId, ReqId);
 	}
 
 	Status = XASUFW_SUCCESS;
@@ -464,29 +459,6 @@ static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 	XAsufw_EccModule.AsuDmaPtr = NULL;
 
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function is a handler for ECC Get Info command.
- *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Request Unique ID.
- *
- * @return
- *	- XASUFW_SUCCESS, if command execution is successful.
- *	- Otherwise, returns an error code.
- *
- *************************************************************************************************/
-static s32 XAsufw_EccGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
-{
-	s32 Status = XASUFW_FAILURE;
-
-	(void)ReqBuf;
-	(void)ReqId;
-
-	/* TODO: Implement XAsufw_EccGetInfo */
 	return Status;
 }
 

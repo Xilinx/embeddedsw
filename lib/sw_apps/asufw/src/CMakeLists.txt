@@ -65,6 +65,7 @@ collect (PROJECT_LIB_SOURCES xasufw_ecieshandler.c)
 collect (PROJECT_LIB_HEADERS xasufw_ecieshandler.h)
 collect (PROJECT_LIB_SOURCES xasufw_keywraphandler.c)
 collect (PROJECT_LIB_HEADERS xasufw_keywraphandler.h)
+collect (PROJECT_LIB_HEADERS xasufw_alginfo.h)
 
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)

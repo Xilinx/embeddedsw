@@ -42,8 +42,7 @@ extern "C" {
 /* KDF module command IDs */
 #define XASU_KDF_GENERATE_SHA2_CMD_ID	(0U) /**< Command ID for KDF generate for SHA2 command */
 #define XASU_KDF_GENERATE_SHA3_CMD_ID	(1U) /**< Command ID for KDF generate for SHA3 command */
-#define XASU_KDF_KAT_CMD_ID				(2U) /**< Command ID for KDF KAT command */
-#define XASU_KDF_GET_INFO_CMD_ID		(3U) /**< Command ID for KDF Get Info command */
+#define XASU_KDF_KAT_CMD_ID		(2U) /**< Command ID for KDF KAT command */
 
 #define XASU_KDF_MAX_CONTEXT_LEN		(1024U) /**< Maximum context length */
 

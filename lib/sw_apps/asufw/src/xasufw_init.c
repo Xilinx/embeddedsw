@@ -50,6 +50,8 @@
 #include "xasufw_memory.h"
 #include "xaes.h"
 #include "xasufw_error_manager.h"
+#include "xasu_def.h"
+#include "xasufw_alginfo.h"
 
 /************************************ Constant Definitions ***************************************/
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U) /**< IO Module PIT1 prescaler source mask */
@@ -444,6 +446,75 @@ s32 XAsufw_PmcKeyTransfer(void)
 	}
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function writes crypto algorithm information
+ * 		(NIST compliant status,Version Info) of each module to the reserved RTCA memory.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if all modules version and NIST status information is updated.
+ *
+ *************************************************************************************************/
+s32 XAsufw_UpdateModulesInfo(void)
+{
+	s32 Status = XASUFW_FAILURE;
+	XAsu_CryptoAlgInfo *XAsu_CryptoAlgInfoPtr = (XAsu_CryptoAlgInfo*)XASU_RTCA_MODULE_INFO_BASEADDR;
+
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_TRNG_ID].Version = XASUFW_ALG_BUILD_VERSION(
+								XASUFW_TRNG_MAJOR_VERSION,
+								XASUFW_TRNG_MINOR_VERSION);
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_TRNG_ID].NistStatus = XASUFW_NIST_COMPLIANT;
+
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_SHA2_ID].Version = XASUFW_ALG_BUILD_VERSION(
+								XASUFW_SHA2_MAJOR_VERSION,
+								XASUFW_SHA2_MINOR_VERSION);
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_SHA2_ID].NistStatus = XASUFW_NIST_COMPLIANT;
+
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_SHA3_ID].Version = XASUFW_ALG_BUILD_VERSION(
+								XASUFW_SHA3_MAJOR_VERSION,
+								XASUFW_SHA3_MINOR_VERSION);
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_SHA3_ID].NistStatus = XASUFW_NIST_COMPLIANT;
+
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_ECC_ID].Version = XASUFW_ALG_BUILD_VERSION(
+								XASUFW_ECC_MAJOR_VERSION,
+								XASUFW_ECC_MINOR_VERSION);
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_ECC_ID].NistStatus = XASUFW_NIST_COMPLIANT;
+
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_RSA_ID].Version = XASUFW_ALG_BUILD_VERSION(
+								XASUFW_RSA_MAJOR_VERSION,
+								XASUFW_RSA_MINOR_VERSION);
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_RSA_ID].NistStatus = XASUFW_NIST_COMPLIANT;
+
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_AES_ID].Version = XASUFW_ALG_BUILD_VERSION(
+								XASUFW_AES_MAJOR_VERSION,
+								XASUFW_AES_MINOR_VERSION);
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_AES_ID].NistStatus = XASUFW_NIST_COMPLIANT;
+
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_HMAC_ID].Version = XASUFW_ALG_BUILD_VERSION(
+								XASUFW_HMAC_MAJOR_VERSION,
+								XASUFW_HMAC_MINOR_VERSION);
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_HMAC_ID].NistStatus = XASUFW_NIST_COMPLIANT;
+
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_KDF_ID].Version = XASUFW_ALG_BUILD_VERSION(
+								XASUFW_KDF_MAJOR_VERSION,
+								XASUFW_KDF_MINOR_VERSION);
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_KDF_ID].NistStatus = XASUFW_NIST_COMPLIANT;
+
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_ECIES_ID].Version = XASUFW_ALG_BUILD_VERSION(
+								XASUFW_ECIES_MAJOR_VERSION,
+								XASUFW_ECIES_MINOR_VERSION);
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_ECIES_ID].NistStatus = XASUFW_NIST_NON_COMPLIANT;
+
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_KEYWRAP_ID].Version = XASUFW_ALG_BUILD_VERSION(
+								XASUFW_KEYWRAP_MAJOR_VERSION,
+								XASUFW_KEYWRAP_MINOR_VERSION);
+	XAsu_CryptoAlgInfoPtr[XASU_MODULE_KEYWRAP_ID].NistStatus = XASUFW_NIST_COMPLIANT;
+
+	Status = XASUFW_SUCCESS;
+
 	return Status;
 }
 /** @} */

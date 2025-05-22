@@ -41,6 +41,7 @@ extern "C" {
 #include "xilmailbox.h"
 #include "xasu_perf.h"
 #include "xasu_status.h"
+#include "xasu_def.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASU_PRIORITY_LOW                   1U  /**< LOW priority */
@@ -123,6 +124,8 @@ void XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsF
 void *XAsu_UpdateNGetCtx(u8 UniqueId);
 s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId);
 void XAsu_FreeCtx(void *Context);
+s32 XAsu_GetModuleInfo(XAsu_CryptoAlgInfo *AlginfoPtr, u32 ModuleId);
+
 /************************************ Variable Definitions ***************************************/
 
 #ifdef __cplusplus

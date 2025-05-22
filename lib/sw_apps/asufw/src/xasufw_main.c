@@ -202,7 +202,12 @@ static s32 XAsufw_Init(void)
 
 	/** Initialize all ASUFW modules. */
 	Status = XAsufw_ModulesInit();
+	if (XASUFW_SUCCESS != Status) {
+		XAsufw_Printf(DEBUG_GENERAL, "ASUFW module initialization failed with error: 0x%x\r\n", Status);
+		goto END;
+	}
 
+	Status = XAsufw_UpdateModulesInfo();
 END:
 	return Status;
 }

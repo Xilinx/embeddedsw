@@ -39,7 +39,7 @@
 /************************************ Function Prototypes ****************************************/
 
 /************************************ Variable Definitions ***************************************/
-XAsufw_Module *Modules[XASUFW_MAX_MODULES]; /**< Array for Modules structures */
+XAsufw_Module *Modules[XASU_MAX_MODULES]; /**< Array for Modules structures */
 
 /*************************************************************************************************/
 /**
@@ -61,7 +61,7 @@ s32 XAsufw_ModuleRegister(XAsufw_Module *Module)
 	 * If the Module ID is greater than maximum supported modules or the module is already registered,
 	 * return failure. Otherwise, register the module.
 	 */
-	if ((ModuleId >= XASUFW_MAX_MODULES) || (Modules[ModuleId] != NULL)) {
+	if ((ModuleId >= XASU_MAX_MODULES) || (Modules[ModuleId] != NULL)) {
 		Status = XASUFW_MODULE_REGISTRATION_FAILED;
 		goto END;
 	}
@@ -88,7 +88,7 @@ XAsufw_Module *XAsufw_GetModule(u32 ModuleId)
 {
 	XAsufw_Module *Module = NULL;
 
-	if (ModuleId < XASUFW_MAX_MODULES) {
+	if (ModuleId < XASU_MAX_MODULES) {
 		Module = Modules[ModuleId];
 	}
 

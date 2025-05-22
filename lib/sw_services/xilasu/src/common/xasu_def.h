@@ -52,11 +52,32 @@ extern "C" {
 #define XASU_MODULE_KDF_ID			(7U) /**< KDF module ID */
 #define XASU_MODULE_ECIES_ID			(8U) /**< ECIES module ID */
 #define XASU_MODULE_KEYWRAP_ID			(9U) /**< Key wrap unwrap module ID */
+#define XASU_MAX_MODULES			(10U) /**< Maximum supported modules in ASU */
 
 #define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
 						/** < ASU DMA maximum transfer rate in bytes. */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+
+/************************************** Type Definitions *****************************************/
+/**
+ * This structure contains data for cryptographic algorithms, including versioning
+ * and NIST compliance status, for up to maximum modules in ASUFW.
+ */
+typedef struct {
+	u32 Version;	/**< Version of the cryptographic algorithm */
+				/**< [15:0] : Algorithm minor version
+				     [31:16]: Algorithm major version */
+	u8 NistStatus;	/**< NIST compliance status of the cryptographic algorithm */
+				/**< oxFF : Algorithm is NIST compliant
+				     0x00 : Algorithm is not NIST compliant or NIST compliance is not
+					    applicable */
+	u8 Reserved1;	/**< Reserved */
+	u8 Reserved2;	/**< Reserved */
+	u8 Reserved3;	/**< Reserved */
+	u32 Reserved4;	/**< Reserved */
+
+} XAsu_CryptoAlgInfo;
 
 /************************************ Function Prototypes ****************************************/
 

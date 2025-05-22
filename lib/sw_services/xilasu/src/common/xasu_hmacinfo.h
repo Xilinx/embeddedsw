@@ -43,7 +43,6 @@ extern "C" {
 #define XASU_HMAC_COMPUTE_SHA2_CMD_ID		(0U) /**< Command ID for HMAC compute for SHA2 command */
 #define XASU_HMAC_COMPUTE_SHA3_CMD_ID		(1U) /**< Command ID for HMAC compute for SHA3 command */
 #define XASU_HMAC_KAT_CMD_ID			(2U) /**< Command ID for HMAC KAT command */
-#define XASU_HMAC_GET_INFO_CMD_ID		(3U) /**< Command ID for HMAC Get Info command */
 
 /* HMAC operation mode */
 #define XASU_HMAC_INIT				(0x1U) /**< HMAC init operation flag */

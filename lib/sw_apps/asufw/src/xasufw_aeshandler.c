@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -56,7 +56,6 @@
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XAsufw_AesGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_AesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
@@ -81,14 +80,12 @@ s32 XAsufw_AesInit(void)
 	static const XAsufw_ModuleCmd XAsufw_AesCmds[] = {
 		[XASU_AES_OPERATION_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AesOperation),
 		[XASU_AES_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AesKat),
-		[XASU_AES_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_AesGetInfo),
 	};
 
 	/** The XAsufw_AesResourcesBuf contains the required resources for each supported command. */
 	static XAsufw_ResourcesRequired XAsufw_AesResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_AesCmds)] = {
 		[XASU_AES_OPERATION_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
 		[XASU_AES_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
-		[XASU_AES_GET_INFO_CMD_ID] = 0U,
 	};
 
 	XAsufw_AesModule.Id = XASU_MODULE_AES_ID;
@@ -130,17 +127,15 @@ END:
 static s32 XAsufw_AesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 
 	/** Allocate AES and DMA resources for AES operation and AES KAT commands. */
-	if (CmdId != XASU_AES_GET_INFO_CMD_ID) {
-		XAsufw_AesModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, ReqId);
-		if (XAsufw_AesModule.AsuDmaPtr == NULL) {
-			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-			goto END;
-		}
-		XAsufw_AllocateResource(XASUFW_AES, XASUFW_AES, ReqId);
+	XAsufw_AesModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, ReqId);
+	if (XAsufw_AesModule.AsuDmaPtr == NULL) {
+		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+		goto END;
 	}
+	XAsufw_AllocateResource(XASUFW_AES, XASUFW_AES, ReqId);
+
 	Status = XASUFW_SUCCESS;
 
 END:
@@ -359,29 +354,6 @@ static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 	XAsufw_AesModule.AsuDmaPtr = NULL;
 
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function is a handler for AES Get Info command.
- *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Request Unique ID.
- *
- * @return
- *	- XASUFW_SUCCESS, if command execution is successful.
- *	- Otherwise, returns an error code.
- *
- *************************************************************************************************/
-static s32 XAsufw_AesGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
-{
-	s32 Status = XASUFW_FAILURE;
-
-	(void)ReqBuf;
-	(void)ReqId;
-
-	/* TODO: Implement XAsufw_AesGetInfo */
 	return Status;
 }
 /** @} */

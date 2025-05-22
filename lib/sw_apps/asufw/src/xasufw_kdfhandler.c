@@ -38,7 +38,6 @@
 static s32 XAsufw_KdfResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KdfKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XAsufw_KdfGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_KdfModule; /**< ASUFW KDF Module ID and commands array */
@@ -67,7 +66,6 @@ s32 XAsufw_KdfInit(void)
 		[XASU_KDF_GENERATE_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KdfGenerate),
 		[XASU_KDF_GENERATE_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KdfGenerate),
 		[XASU_KDF_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KdfKat),
-		[XASU_KDF_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KdfGetInfo),
 	};
 
 	/** The XAsufw_KdfResourcesBuf contains the required resources for each supported command. */
@@ -78,7 +76,6 @@ s32 XAsufw_KdfInit(void)
 		XASUFW_HMAC_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK | XASUFW_KDF_RESOURCE_MASK,
 		[XASU_KDF_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_HMAC_RESOURCE_MASK |
 		XASUFW_SHA2_RESOURCE_MASK | XASUFW_KDF_RESOURCE_MASK,
-		[XASU_KDF_GET_INFO_CMD_ID] = 0U,
 	};
 
 	/** Initialize the KDF module structure. */
@@ -128,16 +125,14 @@ static s32 XAsufw_KdfResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/**
 	 * Allocate DMA, KDF, HMAC and SHA2/3 resource based on Command ID.
 	 */
-	if (CmdId != XASU_KDF_GET_INFO_CMD_ID) {
-		XAsufw_KdfModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_KDF, ReqId);
-		if (XAsufw_KdfModule.AsuDmaPtr == NULL) {
-			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-			goto END;
-		}
-		XAsufw_AllocateResource(XASUFW_HMAC, XASUFW_KDF, ReqId);
-		XAsufw_AllocateResource(ResourceId, XASUFW_KDF, ReqId);
-		XAsufw_AllocateResource(XASUFW_KDF, XASUFW_KDF, ReqId);
+	XAsufw_KdfModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_KDF, ReqId);
+	if (XAsufw_KdfModule.AsuDmaPtr == NULL) {
+		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+		goto END;
 	}
+	XAsufw_AllocateResource(XASUFW_HMAC, XASUFW_KDF, ReqId);
+	XAsufw_AllocateResource(ResourceId, XASUFW_KDF, ReqId);
+	XAsufw_AllocateResource(XASUFW_KDF, XASUFW_KDF, ReqId);
 
 	Status = XASUFW_SUCCESS;
 
@@ -211,28 +206,6 @@ static s32 XAsufw_KdfKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function is a handler for KDF Get Info command.
- *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Requester ID.
- *
- * @return
- *	- XASUFW_SUCCESS, if command execution is successful.
- *	- Otherwise, returns an error code.
- *
- *************************************************************************************************/
-static s32 XAsufw_KdfGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
-{
-	volatile s32 Status = XASUFW_FAILURE;
-	(void)ReqBuf;
-	(void)ReqId;
-
-	/* TODO: Implement XAsufw_KdfGetInfo */
 	return Status;
 }
 #endif /* XASU_KDF_ENABLE */

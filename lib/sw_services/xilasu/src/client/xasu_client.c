@@ -346,6 +346,39 @@ void XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsF
 
 /*************************************************************************************************/
 /**
+ * @brief	This function fetches the algorithm information based on Module ID and populates
+ * 		the algorithm information structure.
+ *
+ * @param	AlginfoPtr	Pointer to the structure where the KDF algorithm
+ *				information will be stored.
+ * @param	ModuleId	Registered ID of the module.
+ *
+ * @return
+ *      	- XST_SUCCESS, if version info is updated successfully.
+ *      	- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ *
+ *************************************************************************************************/
+s32 XAsu_GetModuleInfo(XAsu_CryptoAlgInfo *AlginfoPtr, u32 ModuleId)
+{
+	s32 Status = XST_FAILURE;
+	const XAsu_CryptoAlgInfo *AlgInfoDataPtr = (const XAsu_CryptoAlgInfo*)XASU_RTCA_MODULE_INFO_BASEADDR;
+
+	/** Validate input parameters. */
+	if (ModuleId >= XASU_MAX_MODULES) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	AlginfoPtr->Version = AlgInfoDataPtr[ModuleId].Version;
+	AlginfoPtr->NistStatus = AlgInfoDataPtr[ModuleId].NistStatus;
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function sends an IPI request to ASU.
  *
  * @return

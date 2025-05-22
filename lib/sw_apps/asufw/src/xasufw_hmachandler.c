@@ -36,7 +36,6 @@
 #ifdef XASU_HMAC_ENABLE
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_HmacKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XAsufw_HmacGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_HmacResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
@@ -69,7 +68,6 @@ s32 XAsufw_HmacInit(void)
 		[XASU_HMAC_COMPUTE_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HmacComputeSha),
 		[XASU_HMAC_COMPUTE_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HmacComputeSha),
 		[XASU_HMAC_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HmacKat),
-		[XASU_HMAC_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_HmacGetInfo),
 	};
 
 	/** The XAsufw_HmacResourcesBuf contains the required resources for each supported command. */
@@ -80,7 +78,6 @@ s32 XAsufw_HmacInit(void)
 		XASUFW_HMAC_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK,
 		[XASU_HMAC_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_HMAC_RESOURCE_MASK |
 		XASUFW_SHA2_RESOURCE_MASK,
-		[XASU_HMAC_GET_INFO_CMD_ID] = 0U,
 	};
 
 	XAsufw_HmacModule.Id = XASU_MODULE_HMAC_ID;
@@ -137,15 +134,13 @@ static s32 XAsufw_HmacResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/**
 	 * Allocate DMA, HMAC and SHA2/3 resource based on Command ID.
 	 */
-	if (CmdId != XASU_HMAC_GET_INFO_CMD_ID) {
-		XAsufw_HmacModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_HMAC, ReqId);
-		if (XAsufw_HmacModule.AsuDmaPtr == NULL) {
-			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-			goto END;
-		}
-		XAsufw_AllocateResource(XASUFW_HMAC, XASUFW_HMAC, ReqId);
-		XAsufw_AllocateResource(ResourceId, XASUFW_HMAC, ReqId);
+	XAsufw_HmacModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_HMAC, ReqId);
+	if (XAsufw_HmacModule.AsuDmaPtr == NULL) {
+		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+		goto END;
 	}
+	XAsufw_AllocateResource(XASUFW_HMAC, XASUFW_HMAC, ReqId);
+	XAsufw_AllocateResource(ResourceId, XASUFW_HMAC, ReqId);
 
 	Status = XASUFW_SUCCESS;
 
@@ -281,28 +276,6 @@ static s32 XAsufw_HmacKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAsufw_HmacModule.AsuDmaPtr = NULL;
 	XAsufw_HmacModule.ShaPtr = NULL;
 
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function is a handler for HMAC Get Info command.
- *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Requester ID.
- *
- * @return
- *	- XASUFW_SUCCESS, if command execution is successful.
- *	- Otherwise, returns an error code.
- *
- *************************************************************************************************/
-static s32 XAsufw_HmacGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
-{
-	volatile s32 Status = XASUFW_FAILURE;
-	(void)ReqBuf;
-	(void)ReqId;
-
-	/* TODO: Implement XAsufw_HmacGetInfo */
 	return Status;
 }
 #endif  /* XASU_HMAC_ENABLE */

@@ -44,7 +44,6 @@ extern "C" {
 /* SHA module command IDs */
 #define XASU_SHA_OPERATION_CMD_ID		(0U) /**< Command ID for SHA3 operation command */
 #define XASU_SHA_KAT_CMD_ID			(1U) /**< Command ID for SHA3 KAT command */
-#define XASU_SHA_GET_INFO_CMD_ID		(2U) /**< Command ID for SHA3 Get Info command */
 
 /* SHA modes */
 #define XASU_SHA_MODE_SHA256			(0U) /**< SHA mode 256 */

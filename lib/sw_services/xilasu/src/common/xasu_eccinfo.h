@@ -48,11 +48,10 @@ extern "C" {
 /* ECC module command IDs */
 #define XASU_ECC_GEN_SIGNATURE_CMD_ID		(0U) /**< Command ID for ECC sign generation */
 #define XASU_ECC_VERIFY_SIGNATURE_CMD_ID	(1U) /**< Command ID for ECC sign verification */
-#define XASU_ECC_KAT_CMD_ID					(2U) /**< Command ID for ECC KAT */
-#define XASU_ECC_GET_INFO_CMD_ID			(3U) /**< Command ID for ECC Get Info */
-#define XASU_ECDH_SHARED_SECRET_CMD_ID		(4U) /**< Command ID for ECDH generate shared secret */
-#define XASU_ECDH_KAT_CMD_ID				(5U) /**< Command ID for ECDH KAT */
-#define XASU_ECC_GEN_PUBKEY_CMD_ID			(6U) /**< Command ID for ECC public key generation */
+#define XASU_ECC_KAT_CMD_ID			(2U) /**< Command ID for ECC KAT */
+#define XASU_ECDH_SHARED_SECRET_CMD_ID		(3U) /**< Command ID for ECDH generate shared secret */
+#define XASU_ECDH_KAT_CMD_ID			(4U) /**< Command ID for ECDH KAT */
+#define XASU_ECC_GEN_PUBKEY_CMD_ID		(5U) /**< Command ID for ECC public key generation */
 
 /* ECC curve Type values */
 #define XASU_ECC_NIST_P192				(1U) /**< NIST P-192 curve */

@@ -49,7 +49,6 @@
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XAsufw_RsaGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -101,7 +100,6 @@ s32 XAsufw_RsaInit(void)
 		[XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
 #endif
 		[XASU_RSA_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaKat),
-		[XASU_RSA_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaGetInfo),
 	};
 
 	/** The XAsufw_RsaResourcesBuf contains the required resources for each supported command. */
@@ -129,7 +127,6 @@ s32 XAsufw_RsaInit(void)
 		| XASUFW_SHA3_RESOURCE_MASK,
 		[XASU_RSA_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
-		[XASU_RSA_GET_INFO_CMD_ID] = 0U,
 	};
 
 	XAsufw_RsaModule.Id = XASU_MODULE_RSA_ID;
@@ -167,36 +164,34 @@ static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 
 	/** Allocate resources for the RSA module commands except for Get_Info command. */
-	if (CmdId != XASU_RSA_GET_INFO_CMD_ID) {
-		/** Allocate DMA resource. */
-		XAsufw_RsaModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, ReqId);
-		if (XAsufw_RsaModule.AsuDmaPtr == NULL) {
-			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-			goto END;
-		}
-		/** Allocate RSA resource. */
-		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_RSA, ReqId);
+	/** Allocate DMA resource. */
+	XAsufw_RsaModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_RSA, ReqId);
+	if (XAsufw_RsaModule.AsuDmaPtr == NULL) {
+		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+		goto END;
+	}
+	/** Allocate RSA resource. */
+	XAsufw_AllocateResource(XASUFW_RSA, XASUFW_RSA, ReqId);
 
-		/** Allocate SHA2/SHA3 resource for commands which are dependent on SHA2/SHA3 HW. */
-		if ((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_SHA2_RESOURCE_MASK)
-			== XASUFW_SHA2_RESOURCE_MASK) {
-				XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_RSA, ReqId);
-				XAsufw_RsaModule.ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
-		} else if ((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_SHA3_RESOURCE_MASK)
-			== XASUFW_SHA3_RESOURCE_MASK) {
-				XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_RSA, ReqId);
-				XAsufw_RsaModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
-		} else {
-			/* Do nothing */
-		}
+	/** Allocate SHA2/SHA3 resource for commands which are dependent on SHA2/SHA3 HW. */
+	if ((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_SHA2_RESOURCE_MASK)
+		== XASUFW_SHA2_RESOURCE_MASK) {
+			XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_RSA, ReqId);
+			XAsufw_RsaModule.ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	} else if ((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_SHA3_RESOURCE_MASK)
+		== XASUFW_SHA3_RESOURCE_MASK) {
+			XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_RSA, ReqId);
+			XAsufw_RsaModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+	} else {
+		/* Do nothing */
+	}
 
-		/** Allocate TRNG resoource for commands which are dependent on TRNG HW. */
-		if (((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_TRNG_RESOURCE_MASK)
-			== XASUFW_TRNG_RESOURCE_MASK) &&
-			((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_TRNG_RANDOM_BYTES_MASK)
-			== XASUFW_TRNG_RANDOM_BYTES_MASK)) {
-				XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_RSA, ReqId);
-		}
+	/** Allocate TRNG resoource for commands which are dependent on TRNG HW. */
+	if (((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_TRNG_RESOURCE_MASK)
+		== XASUFW_TRNG_RESOURCE_MASK) &&
+		((XAsufw_RsaModule.ResourcesRequired[CmdId] & XASUFW_TRNG_RANDOM_BYTES_MASK)
+		== XASUFW_TRNG_RANDOM_BYTES_MASK)) {
+			XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_RSA, ReqId);
 	}
 
 	Status = XASUFW_SUCCESS;
@@ -519,29 +514,6 @@ static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 	XAsufw_RsaModule.AsuDmaPtr = NULL;
-
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function is a handler for RSA Get Info command.
- *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Request Unique ID.
- *
- * @return
- * 	- XASUFW_SUCCESS, if command execution is successful.
- * 	- Otherwise, returns an error code.
- *
- *************************************************************************************************/
-static s32 XAsufw_RsaGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
-{
-	/* TODO: Implement XAsufw_RsaGetInfo */
-	s32 Status = XASUFW_FAILURE;
-
-	(void)ReqBuf;
-	(void)ReqId;
 
 	return Status;
 }

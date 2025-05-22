@@ -66,7 +66,6 @@ extern "C" {
 /* AES module command IDs */
 #define XASU_AES_OPERATION_CMD_ID	(0x0U) /**< Command ID for AES operation command */
 #define XASU_AES_KAT_CMD_ID		(0x1U) /**< Command ID for AES KAT command */
-#define XASU_AES_GET_INFO_CMD_ID	(0x2U) /**< Command ID for AES Get Info command */
 
 /* AES operation flags */
 #define XASU_AES_INIT			(0x1U) /**< AES initialize operation flag */

@@ -45,7 +45,6 @@ extern "C" {
 #define XASU_ECIES_DECRYPT_SHA2_CMD_ID	(2U) /**< Command ID for ECIES encrypt command */
 #define XASU_ECIES_DECRYPT_SHA3_CMD_ID	(3U) /**< Command ID for ECIES decrypt command */
 #define XASU_ECIES_KAT_CMD_ID		(4U) /**< Command ID for ECIES KAT command */
-#define XASU_ECIES_GET_INFO_CMD_ID	(5U) /**< Command ID for ECIES Get Info command */
 
 /** @} */
 /************************************** Type Definitions *****************************************/

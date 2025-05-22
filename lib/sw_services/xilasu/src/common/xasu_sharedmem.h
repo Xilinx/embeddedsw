@@ -75,6 +75,10 @@ extern "C" {
 #define XASU_RTCA_COMM_CHANNEL_INFO_ADDR	(XASU_RTCA_BASEADDR + 0x10U) /**< Communication
 										channel info register
 										address */
+#define XASU_RTCA_MODULE_INFO_BASEADDR		(XASU_RTCA_BASEADDR + 0x68U)
+						/**< Base address of module info of
+						size (180 bytes) */
+
 #define XASU_MAX_IPI_CHANNELS			(8U) /**< Maximum IPI channels supported by ASUFW */
 #define XASU_CHANNEL_MEMORY_OFFSET		(0x1000U) /**<Channel memory offset */
 #define XASU_CHANNEL_MEMORY_BASEADDR		(XASU_RTCA_BASEADDR + XASU_CHANNEL_MEMORY_OFFSET)

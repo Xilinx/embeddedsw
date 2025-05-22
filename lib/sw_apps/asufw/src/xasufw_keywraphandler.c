@@ -38,7 +38,6 @@
 #ifdef XASU_KEYWRAP_ENABLE
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_KeyWrapKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XAsufw_KeyWrapGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyWrapResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -75,7 +74,6 @@ s32 XAsufw_KeyWrapInit(void)
 		[XASU_KEYWRAP_KEY_UNWRAP_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyUnwrap),
 		[XASU_KEYWRAP_KEY_UNWRAP_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyUnwrap),
 		[XASU_KEYWRAP_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyWrapKat),
-		[XASU_KEYWRAP_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_KeyWrapGetInfo),
 	};
 
 	/** The XAsufw_KeyWrapResourcesBuf contains the required resources for each supported command. */
@@ -95,7 +93,6 @@ s32 XAsufw_KeyWrapInit(void)
 		[XASU_KEYWRAP_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_KEYWRAP_RESOURCE_MASK
 		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK
 		| XASUFW_TRNG_RANDOM_BYTES_MASK,
-		[XASU_KEYWRAP_GET_INFO_CMD_ID] = 0U,
 	};
 
 	XAsufw_KeyWrapModule.Id = XASU_MODULE_KEYWRAP_ID;
@@ -134,36 +131,34 @@ static s32 XAsufw_KeyWrapResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 
 	/** Allocate resources for the module except for Get_Info command. */
-	if (CmdId != XASU_KEYWRAP_GET_INFO_CMD_ID) {
-		/** Allocate DMA resource. */
-		XAsufw_KeyWrapModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_KEYWRAP, ReqId);
-		if (XAsufw_KeyWrapModule.AsuDmaPtr == NULL) {
-			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-			goto END;
-		}
+	/** Allocate DMA resource. */
+	XAsufw_KeyWrapModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_KEYWRAP, ReqId);
+	if (XAsufw_KeyWrapModule.AsuDmaPtr == NULL) {
+		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+		goto END;
+	}
 
-		/** Allocate AES resource. */
-		XAsufw_AllocateResource(XASUFW_AES, XASUFW_KEYWRAP, ReqId);
-		XAsufw_KeyWrapModule.AesPtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
+	/** Allocate AES resource. */
+	XAsufw_AllocateResource(XASUFW_AES, XASUFW_KEYWRAP, ReqId);
+	XAsufw_KeyWrapModule.AesPtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 
-		/** Allocate Key wrap resource. */
-		XAsufw_AllocateResource(XASUFW_KEYWRAP, XASUFW_KEYWRAP, ReqId);
+	/** Allocate Key wrap resource. */
+	XAsufw_AllocateResource(XASUFW_KEYWRAP, XASUFW_KEYWRAP, ReqId);
 
-		/** Allocate TRNG resource. */
-		XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_KEYWRAP, ReqId);
+	/** Allocate TRNG resource. */
+	XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_KEYWRAP, ReqId);
 
-		/** Allocate SHA2/SHA3 resource for commands which are dependent on SHA2/SHA3 HW. */
-		if ((XAsufw_KeyWrapModule.ResourcesRequired[CmdId] & XASUFW_SHA2_RESOURCE_MASK)
-			== XASUFW_SHA2_RESOURCE_MASK) {
-				XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_KEYWRAP, ReqId);
-				XAsufw_KeyWrapModule.ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
-		} else if ((XAsufw_KeyWrapModule.ResourcesRequired[CmdId] & XASUFW_SHA3_RESOURCE_MASK)
-			== XASUFW_SHA3_RESOURCE_MASK) {
-				XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_KEYWRAP, ReqId);
-				XAsufw_KeyWrapModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
-		} else {
-			/* Do nothing */
-		}
+	/** Allocate SHA2/SHA3 resource for commands which are dependent on SHA2/SHA3 HW. */
+	if ((XAsufw_KeyWrapModule.ResourcesRequired[CmdId] & XASUFW_SHA2_RESOURCE_MASK)
+		== XASUFW_SHA2_RESOURCE_MASK) {
+			XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_KEYWRAP, ReqId);
+			XAsufw_KeyWrapModule.ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	} else if ((XAsufw_KeyWrapModule.ResourcesRequired[CmdId] & XASUFW_SHA3_RESOURCE_MASK)
+		== XASUFW_SHA3_RESOURCE_MASK) {
+			XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_KEYWRAP, ReqId);
+			XAsufw_KeyWrapModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+	} else {
+		/* Do nothing */
 	}
 
 	Status = XASUFW_SUCCESS;
@@ -283,28 +278,6 @@ static s32 XAsufw_KeyWrapKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function is a handler for key wrap unwrap Get Info command.
- *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Requester ID.
- *
- * @return
- *	- XASUFW_SUCCESS, if command execution is successful.
- *	- Otherwise, returns an error code.
- *
- *************************************************************************************************/
-static s32 XAsufw_KeyWrapGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
-{
-	volatile s32 Status = XASUFW_FAILURE;
-	(void)ReqBuf;
-	(void)ReqId;
-
-	/* TODO: Implement XAsufw_KeyWrapGetInfo */
 	return Status;
 }
 #endif /* XASU_KEYWRAP_ENABLE */

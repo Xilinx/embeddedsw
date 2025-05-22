@@ -40,7 +40,6 @@
 #ifdef XASU_ECIES_ENABLE
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_EciesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XAsufw_EciesGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EciesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EciesEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EciesDecrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -74,7 +73,6 @@ s32 XAsufw_EciesInit(void)
 		[XASU_ECIES_DECRYPT_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EciesDecrypt),
 		[XASU_ECIES_DECRYPT_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EciesDecrypt),
 		[XASU_ECIES_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EciesKat),
-		[XASU_ECIES_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EciesGetInfo),
 	};
 
 	/** The XAsufw_EciesResourcesBuf contains the required resources for each supported command. */
@@ -94,7 +92,6 @@ s32 XAsufw_EciesInit(void)
 		[XASU_ECIES_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECIES_RESOURCE_MASK |
 		XASUFW_SHA2_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK |
 		XASUFW_HMAC_RESOURCE_MASK,
-		[XASU_ECIES_GET_INFO_CMD_ID] = 0U,
 	};
 
 	XAsufw_EciesModule.Id = XASU_MODULE_ECIES_ID;
@@ -136,28 +133,26 @@ static s32 XAsufw_EciesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/**
 	 * Allocate DMA, ECIES, AES, RSA and SHA2/3 resource based on Command ID.
 	 */
-	if (CmdId != XASU_ECIES_GET_INFO_CMD_ID) {
-		if ((CmdId == XASU_ECIES_ENCRYPT_SHA2_CMD_ID) || (CmdId == XASU_ECIES_DECRYPT_SHA2_CMD_ID)
-			|| (CmdId == XASU_ECIES_KAT_CMD_ID)) {
-			ResourceId = XASUFW_SHA2;
-			XAsufw_EciesModule.ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
-		} else {
-			ResourceId = XASUFW_SHA3;
-			XAsufw_EciesModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
-		}
-		XAsufw_EciesModule.AesPtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
-		XAsufw_EciesModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_ECIES, ReqId);
-		if (XAsufw_EciesModule.AsuDmaPtr == NULL) {
-			Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
-			goto END;
-		}
-		XAsufw_AllocateResource(XASUFW_ECIES, XASUFW_ECIES, ReqId);
-		XAsufw_AllocateResource(XASUFW_RSA, XASUFW_ECIES, ReqId);
-		XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_ECIES, ReqId);
-		XAsufw_AllocateResource(XASUFW_HMAC, XASUFW_ECIES, ReqId);
-		XAsufw_AllocateResource(ResourceId, XASUFW_ECIES, ReqId);
-		XAsufw_AllocateResource(XASUFW_AES, XASUFW_ECIES, ReqId);
+	if ((CmdId == XASU_ECIES_ENCRYPT_SHA2_CMD_ID) || (CmdId == XASU_ECIES_DECRYPT_SHA2_CMD_ID)
+		|| (CmdId == XASU_ECIES_KAT_CMD_ID)) {
+		ResourceId = XASUFW_SHA2;
+		XAsufw_EciesModule.ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	} else {
+		ResourceId = XASUFW_SHA3;
+		XAsufw_EciesModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 	}
+	XAsufw_EciesModule.AesPtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
+	XAsufw_EciesModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_ECIES, ReqId);
+	if (XAsufw_EciesModule.AsuDmaPtr == NULL) {
+		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
+		goto END;
+	}
+	XAsufw_AllocateResource(XASUFW_ECIES, XASUFW_ECIES, ReqId);
+	XAsufw_AllocateResource(XASUFW_RSA, XASUFW_ECIES, ReqId);
+	XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_ECIES, ReqId);
+	XAsufw_AllocateResource(XASUFW_HMAC, XASUFW_ECIES, ReqId);
+	XAsufw_AllocateResource(ResourceId, XASUFW_ECIES, ReqId);
+	XAsufw_AllocateResource(XASUFW_AES, XASUFW_ECIES, ReqId);
 
 	Status = XASUFW_SUCCESS;
 
@@ -274,28 +269,6 @@ static s32 XAsufw_EciesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function is a handler for ECIES Get Info command.
- *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Requester ID.
- *
- * @return
- *	- XASUFW_SUCCESS, if command execution is successful.
- *	- Otherwise, returns an error code.
- *
- *************************************************************************************************/
-static s32 XAsufw_EciesGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
-{
-	volatile s32 Status = XASUFW_FAILURE;
-	(void)ReqBuf;
-	(void)ReqId;
-
-	/* TODO: Implement XAsufw_EciesGetInfo */
 	return Status;
 }
 #endif /* XASU_ECIES_ENABLE */

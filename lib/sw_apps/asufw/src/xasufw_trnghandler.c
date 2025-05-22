@@ -60,7 +60,6 @@
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_TrngGetRandomBytes(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_TrngKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XAsufw_TrngGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_TrngDrbgInstantiate(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_TrngDrbgReseed(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_TrngDrbgGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -88,7 +87,6 @@ s32 XAsufw_TrngInit(void)
 	static const XAsufw_ModuleCmd XAsufw_TrngCmds[] = {
 		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngGetRandomBytes),
 		[XASU_TRNG_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngKat),
-		[XASU_TRNG_GET_INFO_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngGetInfo),
 		[XASU_TRNG_DRBG_INSTANTIATE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngDrbgInstantiate),
 		[XASU_TRNG_DRBG_RESEED_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngDrbgReseed),
 		[XASU_TRNG_DRBG_GENERATE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_TrngDrbgGenerate),
@@ -99,7 +97,6 @@ s32 XAsufw_TrngInit(void)
 		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK |
 		XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_TRNG_KAT_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK,
-		[XASU_TRNG_GET_INFO_CMD_ID] = 0U,
 		[XASU_TRNG_DRBG_INSTANTIATE_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK,
 		[XASU_TRNG_DRBG_RESEED_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK,
 		[XASU_TRNG_DRBG_GENERATE_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK,

@@ -56,7 +56,6 @@ extern "C" {
 #define XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID	(9U) /**< Command ID for PSS sign gen with SHA3 */
 #define XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID	(10U) /**< Command ID for PSS sign ver with SHA3 */
 #define XASU_RSA_KAT_CMD_ID			(11U) /**< Command ID for RSA KAT command */
-#define XASU_RSA_GET_INFO_CMD_ID		(12U) /**< Command ID for RSA Get Info command */
 
 /* RSA key size */
 #define XRSA_2048_KEY_SIZE		(256U) /**< 2048 bit key size in bytes */
