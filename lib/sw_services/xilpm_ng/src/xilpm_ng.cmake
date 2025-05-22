@@ -30,3 +30,25 @@ else()
     message(STATUS "EEMI support is disabled.")
   endif()
 endif()
+
+# If the part used in BSP is one of the following speed-grades, it can be subject to
+# VID adjustment.  Depending on to which HW SKU the part belongs, voltage on different
+# power rails needs to be adjusted.  The VID_SPGD_INDEX macro setting identifies to
+# which HW SKU the part belongs.
+if ("${SPEED_GRADE}" STREQUAL "1LHP")
+  set(VID_SPGD_INDEX "1")
+elseif ("${SPEED_GRADE}" STREQUAL "1LXP")
+  set(VID_SPGD_INDEX "2")
+elseif ("${SPEED_GRADE}" STREQUAL "1LXHP")
+  set(VID_SPGD_INDEX "3")
+elseif ("${SPEED_GRADE}" STREQUAL "1LHQ" OR "${SPEED_GRADE}" STREQUAL "1LHJ")
+  set(VID_SPGD_INDEX "4")
+elseif ("${SPEED_GRADE}" STREQUAL "1LXHQ" OR "${SPEED_GRADE}" STREQUAL "1LXHJ")
+  set(VID_SPGD_INDEX "5")
+elseif ("${SPEED_GRADE}" STREQUAL "2LHP")
+  set(VID_SPGD_INDEX "6")
+elseif ("${SPEED_GRADE}" STREQUAL "2LLHI" OR "${SPEED_GRADE}" STREQUAL "2LLHJ")
+  set(VID_SPGD_INDEX "7")
+endif()
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xpm_config.h.in ${CMAKE_BINARY_DIR}/include/xpm_config.h)

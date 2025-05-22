@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,12 +31,12 @@ static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	// /* Perform VID adjustment */
-	// Status = XPmRail_AdjustVID((XPm_Rail *)VccintPsfpRail);
-	// if (XST_SUCCESS != Status) {
-	// 	DbgErr = XPM_INT_ERR_VID_ADJUST;
-	// 	goto done;
-	// }
+	/* Perform VID adjustment */
+	Status = XPmRail_AdjustVID((XPm_Rail *)VccintPsfpRail);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VID_ADJUST;
+		goto done;
+	}
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@ typedef struct XPm_AllocablePool_s {
 } XPm_AllocablePool_t;
 
 void *XPm_AllocBytes(u32 SizeInBytes);
+void *XPm_AllocBytesBoard(u32 SizeInBytes);
 
 void *XPm_AllocPool(u32 SizeInBytes, XPm_AllocablePool_t* PoolMem);
 void  XPm_DumpMemUsage_Pool(XPm_AllocablePool_t PoolMem);

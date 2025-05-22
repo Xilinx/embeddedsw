@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,12 +12,25 @@
 static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
+
+	/* Perform VID adjustment */
+	Status = XPmRail_AdjustVID((XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_ME));
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_VID_ADJUST;
+		goto done;
+	}
+
 	/* TODO Adding a place holder.
 	 * Need to Implement while adding AIE support to xilpm */
-	return XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
 }
 
 static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
