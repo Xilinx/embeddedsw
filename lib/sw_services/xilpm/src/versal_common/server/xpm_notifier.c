@@ -212,14 +212,17 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 		PmNotifiers[Idx].WakeMask |= Event;
 	}
 
-	if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
-		XPm_Core* const Core = (XPm_Core *)XPmDevice_GetById(NodeId);
-		if (NULL == Core) {
-			goto done;
-		}
+	/* Special handling for PM Notify events */
+	if ((u32)XPM_NODECLASS_EVENT != NODECLASS(NodeId)) {
+		if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
+			XPm_Core* const Core = (XPm_Core *)XPmDevice_GetById(NodeId);
+			if (NULL == Core) {
+				goto done;
+			}
 
-		Core->IsCoreIdleSupported = 1U;
-		Subsystem->Flags |= (u8)SUBSYSTEM_IDLE_SUPPORTED;
+			Core->IsCoreIdleSupported = 1U;
+			Subsystem->Flags |= (u8)SUBSYSTEM_IDLE_SUPPORTED;
+		}
 	}
 
 	Status = XST_SUCCESS;
@@ -650,9 +653,7 @@ XStatus XPmNotifier_Unregister(XPm_Subsystem* const Subsystem,
 			 */
 			if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
 				(void)XPlmi_EmDisable(NodeId, Event);
-			}
-
-			if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
+			} else if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
 				XPm_Core* const Core = (XPm_Core *)XPmDevice_GetById(NodeId);
 				if (NULL == Core) {
 					goto done;
@@ -660,6 +661,8 @@ XStatus XPmNotifier_Unregister(XPm_Subsystem* const Subsystem,
 
 				Core->IsCoreIdleSupported = 0U;
 				Subsystem->Flags &= (u8)(~SUBSYSTEM_IDLE_SUPPORTED);
+			} else {
+				/* Required for MISRA */
 			}
 			break;
 		}
