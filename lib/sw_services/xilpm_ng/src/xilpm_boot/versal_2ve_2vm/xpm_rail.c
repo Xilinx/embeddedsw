@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,7 +39,9 @@ XStatus I2CInitialize(XIicPs *Iic, const u32 ControllerID)
 	XStatus Status = XST_FAILURE;
 	XIicPs_Config *Config;
 	const XPm_Device *Device;
+#ifndef SDT
 	u16 I2CDeviceId;
+#endif
 
 	/* Request the I2C controller */
 	Status = XPm_PmcRequestDevice(ControllerID);
@@ -650,6 +652,91 @@ done:
 	return Status;
 }
 
+XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Device *EfuseCache;
+	XPmRail_VIDAdj *VIDAdj;
+	u32 VID, MP_MAP;
+	u8 ValidOverride = 0;
+	int Index;
+
+	if (NULL == Rail->VIDAdj) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* if this rail has already been VID adjusted, then nothing more to do */
+	VIDAdj = Rail->VIDAdj;
+	if (1U == VIDAdj->VIDAdjusted) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* A non-zero value in RTCA location indicates an override value */
+	VID = XPm_In32(XPLMI_RTCFG_VID_OVERRIDE);
+	if (0U != VID) {
+		if ((0U == ((VID >> VID_CNTRL_OFFSET) & VID_CNTRL_MASK))) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+
+		/* Override control value is valid if it is set to 1 */
+		if (1U == ((VID >> VID_CNTRL_OFFSET) & VID_CNTRL_MASK)) {
+			ValidOverride = 1;
+		} else {
+			DbgErr = XPM_INT_ERR_INVALID_VID;
+			goto done;
+		}
+	}
+
+	/* No override value is present so read the eFuse location */
+	if (0U == ValidOverride) {
+		EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+		if (NULL == EfuseCache) {
+			DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+			goto done;
+		}
+
+		VID = XPm_In32(EfuseCache->Node.BaseAddress + EFUSE_CACHE_VID);
+
+		/* eFuse value is 0 if the part is not characterized for VID */
+		if (0U == VID) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+	}
+
+	MP_MAP = ((VID >> VID_MP_MAP_OFFSET) & VID_MP_MAP_MASK);
+
+	/*
+	 * Start from end of the performance array and walk back until an entry is
+	 * found that has a value less than or equal to MP_MAP value.  The 'Index'
+	 * value plus 2 selects which power state the rail needs to transition to.
+	 * The reason for plus 2 is because 0 is assigned for OFF and 1 for ON power
+	 * states.
+	 */
+	for (Index = (MAX_MODES - 1); Index >= 0; Index--) {
+		if ((0 == VIDAdj->Performance[Index]) || (MP_MAP < VIDAdj->Performance[Index])) {
+			continue;
+		}
+
+		Status = XPmRail_Control(Rail, (u8)XPM_POWER_STATE_ON, (Index + 2));
+		if (XST_SUCCESS == Status) {
+			VIDAdj->VIDAdjusted = 1;
+			break;
+		} else {
+			DbgErr = XPM_INT_ERR_RAIL_VID;
+			goto done;
+		}
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 /*
  * This routine is invoked if the add node command for a power rail indicates
  * that voltage adjustment for the rail at different temperature is required.
@@ -920,6 +1007,78 @@ done:
 	return Status;
 }
 
+static XStatus XPmRail_InitVID(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_Rail *Rail;
+	u8 SPGD_Index = 0;
+	u8 Index = 0;
+	u8 Entries;
+	static XPmRail_VIDAdj VID_Rails[MAX_VID_RAILS];
+
+	if (NumArgs < 3U) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Rail = (XPm_Rail *)XPmPower_GetById(Args[0]);
+	if (NULL == Rail) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if ((u32)XPM_RAILTYPE_VID != (Args[1] & 0xFFU)) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Entries = ((Args[2] >> 8U) & 0xFFU);
+	if ((Entries > MAX_MODES) || ((u32)(Entries + 3) > NumArgs)) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+#if defined (VID_SPGD_INDEX)
+	SPGD_Index = VID_SPGD_INDEX;
+#endif
+	/*
+	 * If the part used is not a VID-qualified part based on its speed-grade, or
+	 * the CDO entry that is being processed does not belong to the part, return.
+	 */
+	if ((0U == SPGD_Index) || ((Args[2] & 0xFFU) != SPGD_Index)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Find an existing entry for the power rail (if any), or fill-in the first blank entry */
+	while ((VID_Rails[Index].RailId != Args[0]) && (0U != VID_Rails[Index].RailId) && (Index < MAX_VID_RAILS)) {
+		Index++;
+	}
+
+	if (MAX_VID_RAILS == Index) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	VID_Rails[Index].RailId = Args[0];
+	for (u8 j = 0; j < Entries; j++) {
+		VID_Rails[Index].Performance[j] = Args[j + 3];
+	}
+
+	Rail->VIDAdj = &VID_Rails[Index];
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  Initialize rail node base class
@@ -966,6 +1125,9 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 			break;
 		case (u32)XPM_RAILTYPE_MODE_GPIO:
 			Status = XPmRail_InitGPIOMode(Args, NumArgs);
+			break;
+		case (u32)XPM_RAILTYPE_VID:
+			Status = XPmRail_InitVID(Args, NumArgs);;
 			break;
 		default:
 			DbgErr = XPM_INT_ERR_INVALID_ARGS;

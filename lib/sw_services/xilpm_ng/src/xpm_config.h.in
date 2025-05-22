@@ -1,0 +1,11 @@
+/******************************************************************************
+* Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
+#ifndef _XPM_CONFIG_H
+#define _XPM_CONFIG_H
+
+#cmakedefine VID_SPGD_INDEX @VID_SPGD_INDEX@
+
+#endif /* XPM_CONFIG_H */

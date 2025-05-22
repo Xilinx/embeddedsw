@@ -119,3 +119,32 @@ void __attribute__((weak, noinline)) XPm_DumpMemUsage(void)
 {
 	(void)XPm_DumpTopologyMemUsage();
 }
+
+#define MAX_BOARD_POOL_SIZE	(1 * 1024U)
+
+static u8 BoardPoolMemBuffer[MAX_BOARD_POOL_SIZE];	/** Board Pool Memory Buffer */
+
+static XPm_AllocablePool_t BoardPoolMem = {
+	.Size = MAX_BOARD_POOL_SIZE,
+	.Pool = BoardPoolMemBuffer,
+	.FreeMem = BoardPoolMemBuffer
+};
+
+/**
+ * @brief Allocates a block of memory from the BoardPoolMem.
+ *
+ * This function allocates a block of memory of the specified size from the BoardPoolMem.
+ * If the allocation fails, an error message is printed and the memory usage is dumped.
+ *
+ * @param SizeInBytes The size of the memory block to allocate, in bytes.
+ * @return A pointer to the allocated memory block, or NULL if the allocation fails.
+ */
+void *XPm_AllocBytesBoard(u32 SizeInBytes)
+{
+	void* ret =  XPm_AllocPool(SizeInBytes, &BoardPoolMem);
+	if (NULL == ret) {
+		PmErr("Failed to allocate %u bytes from BoardPoolMem\n\r", SizeInBytes);
+		XPm_DumpMemUsage();
+	}
+	return ret;
+}

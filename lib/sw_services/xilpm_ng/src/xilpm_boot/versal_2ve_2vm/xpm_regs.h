@@ -483,12 +483,8 @@ extern "C" {
 #define TSENS_BIAS_VAL_SHIFT					(0U)
 
 /* VID fields */
-#define VID_VCCINT_VCC_HNICX_OFFSET		(0x0U)
-#define VID_VCCINT_VCC_HNICX_MASK		(0x3FU)
-#define VID_VCC_FPD_OFFSET			(0x6U)
-#define VID_VCC_FPD_MASK			(0x3FU)
-#define VID_VCC_CPM5N_OFFSET			(0xCU)
-#define VID_VCC_CPM5N_MASK			(0x3FU)
+#define VID_MP_MAP_OFFSET			(0xFU)
+#define VID_MP_MAP_MASK				(0x7FFFU)
 #define VID_CNTRL_OFFSET			(0x1EU)
 #define VID_CNTRL_MASK				(0x3U)
 
