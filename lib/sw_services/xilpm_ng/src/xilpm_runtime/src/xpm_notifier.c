@@ -153,23 +153,26 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 		PmNotifiers[Idx].WakeMask |= Event;
 	}
 
-	if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
+	/* Special handling for PM Notify events */
+	if ((u32)XPM_NODECLASS_EVENT != NODECLASS(NodeId)) {
+		if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
 
-		/* TODO: This property should be handle by runtime */
-		//Core->IsCoreIdleSupported = 1U;
-		XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(NodeId);
-		if (NULL == Core) {
-			Status = XST_INVALID_PARAM;
-			goto done;
+			/* TODO: This property should be handle by runtime */
+			//Core->IsCoreIdleSupported = 1U;
+			XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(NodeId);
+			if (NULL == Core) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			Status = XPmCore_SetCoreIdleSupport(Core, 1U);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			PmInfo("Core Idle supported for 0x%x\r\n", Core->Device.Node.Id);
+			Subsystem->Flags |= (u8)SUBSYSTEM_IDLE_SUPPORTED;
+			PmInfo("Subsystem Idle support enabled for 0x%x, Flags: 0x%x\r\n\r\n",
+			       Subsystem->Id, Subsystem->Flags);
 		}
-		Status = XPmCore_SetCoreIdleSupport(Core, 1U);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		PmInfo("Core Idle supported for 0x%x\r\n", Core->Device.Node.Id);
-		Subsystem->Flags |= (u8)SUBSYSTEM_IDLE_SUPPORTED;
-		PmInfo("Subsystem Idle support enabled for 0x%x, Flags: 0x%x\r\n\r\n",
-		       Subsystem->Id, Subsystem->Flags);
 	}
 
 	Status = XST_SUCCESS;
@@ -600,10 +603,7 @@ XStatus XPmNotifier_Unregister(XPm_Subsystem* const Subsystem,
 			 */
 			if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
 				(void)XPlmi_EmDisable(NodeId, Event);
-			}
-
-
-			if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
+			} else if ((u8)EVENT_CPU_IDLE_FORCE_PWRDWN == Event) {
 
 				/* TODO: This property should be handle by runtime */
 				//Core->IsCoreIdleSupported = 1U;
@@ -620,6 +620,8 @@ XStatus XPmNotifier_Unregister(XPm_Subsystem* const Subsystem,
 				Subsystem->Flags &= ~(u8)SUBSYSTEM_IDLE_SUPPORTED;
 				PmInfo("Subsystem Idle support disabled for 0x%x, Flags: 0x%x\r\n\r\n",
 				       Subsystem->Id, Subsystem->Flags);
+			} else {
+				/* Required for MISRA */
 			}
 			break;
 		}
