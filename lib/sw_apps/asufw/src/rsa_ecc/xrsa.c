@@ -294,7 +294,8 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 END:
 	/** Zeroize local copy of all the parameters. */
 	ASSIGN_VOLATILE(SStatus, XASUFW_FAILURE);
-	SStatus = XAsufw_SMemSet(InData, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
+	XFIH_CALL(Xil_SecureZeroize, XFihVar, SStatus, InData,
+					XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 
@@ -577,7 +578,8 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 END:
 	/** Zeroize local copy of all the parameters. */
 	ASSIGN_VOLATILE(SStatus, XASUFW_FAILURE);
-	SStatus = XAsufw_SMemSet(InData, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
+	XFIH_CALL(Xil_SecureZeroize, XFihVar, SStatus, InData,
+					XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 
 	Status = XAsufw_UpdateBufStatus(Status, SStatus);
 
