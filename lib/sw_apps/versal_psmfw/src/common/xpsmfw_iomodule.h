@@ -262,6 +262,7 @@ extern XIOModule IOModule;
 XStatus XPsmFw_IoModuleInit(u16 DeviceId);
 XStatus SetUpInterruptSystem(void);
 
+#ifdef VERSAL_NET
 /******************************************************************************/
 /**
 *
@@ -285,6 +286,8 @@ void XPsmFw_DisableInterruptSystem(void);
 *
 ****************************************************************************/
 void XPsmFw_StopIoModule(void);
+#endif
+
 void XPsmFw_IntrHandler(void *IntrNumber);
 #ifdef PSM_ENABLE_STL
 int XPsmFw_RegisterStlInterruptHandler(u8 InteruptNumber,

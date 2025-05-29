@@ -353,6 +353,7 @@ XStatus SetUpInterruptSystem(void)
 	return XST_SUCCESS;
 }
 
+#ifdef VERSAL_NET
 /******************************************************************************/
 /**
 *
@@ -386,6 +387,7 @@ void XPsmFw_StopIoModule(void)
 {
 	XIOModule_Stop(&IOModule);
 }
+#endif
 
 #ifdef PSM_ENABLE_STL
 /******************************************************************************/

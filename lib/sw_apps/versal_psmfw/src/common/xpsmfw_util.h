@@ -70,6 +70,7 @@ XStatus XPsmFw_UtilPollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
  */
 void XPsmFw_UtilWait(u32 TimeOutCount);
 
+#ifdef VERSAL_NET
 /**
  * Poll for certain value to be set under mask
  * or until we TimeOut
@@ -79,6 +80,7 @@ void XPsmFw_UtilWait(u32 TimeOutCount);
  * @param TimeOutUs is timeout value in microsecond
  */
 XStatus XPsmFw_UtilPollForValue(u32 RegAddress, u32 Mask, u32 Value, u32 TimeOutUs);
+#endif
 
 #ifdef __cplusplus
 }

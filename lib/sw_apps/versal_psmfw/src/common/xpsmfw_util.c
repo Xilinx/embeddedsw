@@ -107,6 +107,7 @@ void XPsmFw_UtilWait(u32 TimeOutCount)
 	}
 }
 
+#ifdef VERSAL_NET
 /****************************************************************************/
 /**
  * @brief	Polls a register until a specified value is read or a timeout occurs
@@ -137,3 +138,4 @@ XStatus XPsmFw_UtilPollForValue(u32 RegAddress, u32 Mask, u32 Value, u32 TimeOut
 	}
 	return Status;
 }
+#endif
