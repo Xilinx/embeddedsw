@@ -1396,14 +1396,13 @@ static void PmSystemShutdown(PmMaster* const master, const u32 type,
 		goto done;
 	}
 
-#ifdef ENABLE_CSU_MULTIBOOT
-	/* Re-store Multiboot register value */
-	XPfw_Write32(CSU_MULTI_BOOT, GetCsuMultibootVal());
-#endif
-
 	/* Now distinguish the restart scope depending on the subtype */
 	switch (subtype) {
 	case PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM:
+#ifdef ENABLE_CSU_MULTIBOOT
+		/* Re-store Multiboot register value */
+		XPfw_Write32(CSU_MULTI_BOOT, GetCsuMultibootVal());
+#endif
 		status = PmMasterRestart(master);
 		break;
 	case PMF_SHUTDOWN_SUBTYPE_PS_ONLY:
