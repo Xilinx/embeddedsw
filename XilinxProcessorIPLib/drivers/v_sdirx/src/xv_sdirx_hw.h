@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -107,8 +107,10 @@ extern "C" {
 #define XV_SDIRX_MDL_CTRL_MODE_DET_EN_SHIFT			5
 #define XV_SDIRX_MDL_CTRL_MODE_EN_SHIFT				8
 #define XV_SDIRX_MDL_CTRL_FORCED_MODE_SHIFT			16
+#define XV_SDIRX_MDL_CTRL_DYNAMIC_BPC_SHIFT_0			13
+#define XV_SDIRX_MDL_CTRL_DYNAMIC_BPC_SHIFT_1			14
 
-/* Global interrupt Enable regiser masks */
+/* Global interrupt Enable register masks */
 #define XV_SDIRX_GIER_GIE_MASK					(1<<0)
 #define XV_SDIRX_GIER_GIE_SHIFT					0
 #define XV_SDIRX_GIER_SET					1

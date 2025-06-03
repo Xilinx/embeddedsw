@@ -1,4 +1,4 @@
-# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -28,6 +28,7 @@ required:
     - reg
     - xlnx,include-edh
     - xlnx,sdiline-rate
+    - xlnx,dbpc
 
 config:
     - XV_SdiRx_Config

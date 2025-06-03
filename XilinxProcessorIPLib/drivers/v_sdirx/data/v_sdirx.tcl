@@ -1,5 +1,6 @@
 ################################################################################
 # Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ################################################################################
@@ -11,7 +12,8 @@ proc generate {drv_handle} {
     "C_S_AXI_CTRL_BASEADDR" \
     "C_S_AXI_CTRL_HIGHADDR" \
     "C_INCLUDE_EDH" \
-    "C_LINE_RATE"
+    "C_LINE_RATE" \
+    "C_DYNAMIC_BPP_CHANGE"
 
     xdefine_config_file $drv_handle "xv_sdirx_g.c" \
     "XV_SdiRx" \
@@ -26,7 +28,8 @@ proc generate {drv_handle} {
     "C_S_AXI_CTRL_BASEADDR" \
     "C_S_AXI_CTRL_HIGHADDR" \
     "C_INCLUDE_EDH" \
-    "C_LINE_RATE"
+    "C_LINE_RATE" \
+    "C_DYNAMIC_BPP_CHANGE"
 
 set orig_dir [pwd]
 cd ../../include/
@@ -53,9 +56,13 @@ while {[gets $in line] != -1} {
 		if { [regexp -nocase {INCLUDE_EDH } $line] } {
 		}
 	}
-
-		# then write the transformed line
-		puts $out $line
+	#if _DYNAMIC_BPP_MODE is present in the string
+        if { [regexp -nocase {_DYNAMIC_BPP_} $line] } {
+                # replace true with 1 and false with 0
+                set line [string map {true 1 false 0} $line]
+        }
+	# then write the transformed line
+	puts $out $line
 	}
 close $in
 close $out

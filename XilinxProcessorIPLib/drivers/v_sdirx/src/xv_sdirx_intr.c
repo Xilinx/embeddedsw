@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -486,6 +486,20 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		else
 			SdiStream->ColorDepth = XVIDC_BPC_UNKNOWN;
 
+		/* The Dynamic BPC support in SDI Rx IP */
+		#ifdef XPAR_XV_SDIRX_0_DBPC
+		u32 regval = 0;
+			regval = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress, XV_SDIRX_MDL_CTRL_OFFSET);
+			if (bitdepth == XST352_BYTE4_BIT_DEPTH_10 || bitdepth == XST352_BYTE4_BIT_DEPTH_8) {
+				regval = (regval | (XST352_BYTE4_BIT_DEPTH_10 << XV_SDIRX_MDL_CTRL_DYNAMIC_BPC_SHIFT_0));
+				XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress, XV_SDIRX_MDL_CTRL_OFFSET, regval);
+			}
+			else if (bitdepth == XST352_BYTE4_BIT_DEPTH_12) {
+				regval = (regval | (XST352_BYTE4_BIT_DEPTH_12 << XV_SDIRX_MDL_CTRL_DYNAMIC_BPC_SHIFT_1));
+				XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress, XV_SDIRX_MDL_CTRL_OFFSET, regval);
+			}
+		#endif
+
 		/*
 		 * when in SDI SD,HD and 3G scenario there is no ST352 payload, we are setting
 		 * colorformat as YUV 422 10bpc. Resolution will be 1920x1080/2048x1080
@@ -504,11 +518,13 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			SdiStream->ColorDepth = XVIDC_BPC_10;
 		}
 
-		if (((SdiStream->ColorDepth != XVIDC_BPC_10) ||
+		if (!XPAR_XV_SDIRX_0_DBPC) {
+			if (((SdiStream->ColorDepth != XVIDC_BPC_10) ||
 				(SdiStream->ColorDepth != XVIDC_BPC_12)) &&
 				(SdiStream->ColorDepth != InstancePtr->BitDepth)) {
-			xil_printf("Error::: Unsupported Color depth detected \r\n");
-			return;
+					xil_printf("Error::: Unsupported Color depth detected \r\n");
+					return;
+			}
 		}
 
 		/*YUV420 color format is supported only for >= 6G modes */
@@ -1596,7 +1612,7 @@ static void SdiRx_VsyncIntrHandler(XV_SdiRx *InstancePtr)
 		goto do_vsync;
 
 	/*
-	 * Payload has changed without video lock / unlock occuring. So update
+	 * Payload has changed without video lock / unlock occurring. So update
 	 * the video parameters
 	 */
 	SdiRx_VidLckIntrHandler(InstancePtr);
