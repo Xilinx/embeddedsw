@@ -12,6 +12,6 @@ BEGIN driver dp21rxss
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (video_common_v4_0 );
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.4;
+	OPTION VERSION = 1.5;
 	OPTION NAME = dp21rxss;
 END driver
