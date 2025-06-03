@@ -36,6 +36,22 @@ examples:
             - reg
     xiomodule_intr_example.c:
             - xlnx,pit1-interrupt
+    xiomodule_intr_setup_example.c:
+            - xlnx,intc-use-ext-intr
+
+tapp:
+  xiomodule_selftest_example.c:
+    declaration: IOModuleSelfTestExample
+    hwproperties:
+      - reg
+  xiomodule_intr_example.c:
+    declaration: IOModuleIntrExample
+    hwproperties:
+      - xlnx,pit1-interrupt
+  xiomodule_intr_setup_example.c:
+    declaration: IOModuleInterruptSetup
+    hwproperties:
+      - xlnx,intc-use-ext-intr
 
 required:
     - compatible

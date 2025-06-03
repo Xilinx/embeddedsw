@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -85,4 +85,15 @@ examples:
         - interrupts
     xbram_example.c:
         - reg
+
+tapp:
+  xbram_example.c:
+    declaration: BramExample
+    hwproperties:
+      - reg
+      - xlnx,ecc-status-registers: 1
+  xbram_intr_example.c:
+    declaration: BramIntrExample
+    hwproperties:
+      - interrupts
 ...

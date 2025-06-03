@@ -71,8 +71,6 @@
 /************************** Function Prototypes ******************************/
 
 XStatus IOModuleIntrExample(XIOModule *IOModuleInstancePtr, u32 DeviceId);
-XStatus IOModuleInterruptSetup(XIOModule *IOModuleInstancePtr,
-			       u32 DeviceId);
 
 void IOModuleHandler(void *CallBackRef, u8 Timer);
 void IOModuleSetupIntrSystem(void);
@@ -249,59 +247,6 @@ XStatus IOModuleIntrExample(XIOModule *IOModuleInstancePtr, u32 DeviceId)
 	}
 
 	IOModuleDisableIntr(IOModuleInstancePtr);
-
-	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is used by the TestAppGen generated application to setup
-* the IO Module interrupts.
-*
-* @param    IOModuleInstancePtr is the reference to the IO Module instance.
-* @param    DeviceId is device ID of the IO Module Device , typically
-*           XPAR_<IOMODULE_instance>_DEVICE_ID value from xparameters.h
-*
-* @return   XST_SUCCESS to indicate success, otherwise XST_FAILURE
-*
-* @note     None.
-*
-******************************************************************************/
-XStatus IOModuleInterruptSetup(XIOModule *IOModuleInstancePtr,
-			       u32 DeviceId)
-{
-	XStatus Status;
-
-	/*
-	 * Initialize the IO Module driver so that it is ready to use.
-	 */
-	Status = XIOModule_Initialize(IOModuleInstancePtr, DeviceId);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Perform a self-test to ensure that the hardware was built correctly.
-	 */
-	Status = XIOModule_SelfTest(IOModuleInstancePtr);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Initialize and enable interrupts in the processor.
-	 */
-	IOModuleSetupIntrSystem();
-
-	/*
-	 * Start the IO Module such that interrupts are enabled for all
-	 * internal interrupts.
-	 */
-	Status = XIOModule_Start(IOModuleInstancePtr);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
 
 	return XST_SUCCESS;
 }
