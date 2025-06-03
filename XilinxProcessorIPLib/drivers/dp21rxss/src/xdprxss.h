@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -345,6 +345,27 @@ typedef struct {
 } XDpRxSs_DpSubCore;
 
 /**
+* This typedef contains configuration information for the
+* DpRxSs I2C dummy subcore instance.
+*/
+typedef struct {
+#ifndef SDT
+	u16 DeviceId;	  /**< Unique ID  of device */
+#else
+	char *Name;
+#endif
+	UINTPTR BaseAddress;  /**< Device base address */
+	int Has10BitAddr; /**< Does device have 10 bit address decoding */
+	u8 GpOutWidth;	  /**< Number of bits in general purpose output */
+#ifdef SDT
+	u16 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
+} XDpRxSs_IicDummySubCoreConfig;
+
+/**
 * IIC Sub-core structure.
 */
 typedef struct {
@@ -353,6 +374,8 @@ typedef struct {
 #ifdef XPAR_XIIC_NUM_INSTANCES
 	XIic_Config IicConfig;	/**< IIC core configuration
 				  *  information */
+#else
+	XDpRxSs_IicDummySubCoreConfig	XIicConfig;
 #endif
 } XDpRxSs_IicSubCore;
 
