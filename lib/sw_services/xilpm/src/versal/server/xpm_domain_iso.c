@@ -355,6 +355,31 @@ static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM6 },
 	},
+	[XPM_NODEIDX_ISO_SOC_CPM6] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_SOC_CPM6),
+		.Node.BaseAddress = CPM6_SLCR_BASEADDR + CPM6_SLCR_CPM_ISO_CTRL_OFFSET,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = BIT(CPM6_SLCR_CPM_ISO_CTRL_SOC_CPM_SHIFT),
+		.Polarity = (u8)PM_ACTIVE_LOW,
+		.DependencyNodeHandles = { PM_DEV_PLD_0, PM_POWER_CPM6 },
+	},
+	[XPM_NODEIDX_ISO_RAM_CPM6] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_RAM_CPM6),
+		.Node.BaseAddress = CPM6_SLCR_BASEADDR + CPM6_SLCR_CPM_ISO_CTRL_OFFSET,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = BIT(CPM6_SLCR_CPM_ISO_CTRL_RAM_CPM_SHIFT),
+		.Polarity = (u8)PM_ACTIVE_LOW,
+		.DependencyNodeHandles = { PM_DEV_PLD_0, PM_POWER_CPM6 },
+	},
+	[XPM_NODEIDX_ISO_PL_CPM6] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_PL_CPM6),
+		.Node.BaseAddress = CPM6_SLCR_BASEADDR + CPM6_SLCR_CPM_ISO_CTRL_OFFSET,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = BIT(CPM6_SLCR_CPM_ISO_CTRL_PL_CPM_SHIFT),
+		.Polarity = (u8)PM_ACTIVE_LOW,
+		.DependencyNodeHandles = { PM_DEV_PLD_0, PM_POWER_CPM6 },
+	},
+
 };
 
 static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
