@@ -70,6 +70,7 @@
 *       am   03/02/2024 Added IsAuthOptimized variable in XilPdi_MetaHdr structure
 * 1.11  kpt  11/05/2024 Add XilPdi_ReadOptionalData to read optional data
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
+* 1.12  prt  06/04/2025 Fixed Misra-C R8.13 and R15.7 Violations
 *
 * </pre>
 *
@@ -564,12 +565,12 @@ int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
-int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType);
+int XilPdi_ReadIhtAndOptionalData(const XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType);
 int XilPdi_ValidateChecksum(const void *Buffer, u32 Length);
 XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent(u32 PrtnNum, u32 HashTableSize);
 int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr);
 u64 XilPdi_SearchOptionalData(u64 StartAddress, u64 EndAddress, u32 DataId);
-int XilPdi_ReadOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType);
+int XilPdi_ReadOptionalData(const XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType);
 
 /** @} */
 #ifdef __cplusplus

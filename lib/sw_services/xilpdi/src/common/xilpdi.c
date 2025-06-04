@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,6 +61,7 @@
 *                       start address
 * 1.11  kpt  11/05/2024 Add XilPdi_ReadOptionalData to read optional data
 *       pre  12/09/2024 use PMC RAM for PDI instance instead of PPU1 RAM
+* 1.12  prt  06/04/2025 Fixed Misra-C R8.13 and R15.7 Violations
 *
 * </pre>
 *
@@ -345,7 +346,7 @@ END:
 * 			- XST_FAILURE on unsuccessful copy.
 *
 *****************************************************************************/
-int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
+int XilPdi_ReadIhtAndOptionalData(const XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
 {
 	int Status = XST_FAILURE;
 
@@ -385,7 +386,7 @@ END:
 * 			- XST_FAILURE on unsuccessful copy.
 *
 *****************************************************************************/
-int XilPdi_ReadOptionalData(XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
+int XilPdi_ReadOptionalData(const XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
 {
 	int Status = XST_FAILURE;
 	u64 OptionalDataStartAddress;
@@ -448,10 +449,11 @@ int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr)
 		if (OptionalDataLen < XILPDI_OPTIONAL_DATA_WORD_LEN) {
 				Status = XILPDI_ERR_NO_VALID_OPTIONAL_DATA;
 				goto END;
-		}
-		else if (OptionalDataLen > XILPDI_OPTIONAL_DATA_ID_3_MAX_SIZE_2K_BYTES) {
+		} else if (OptionalDataLen > XILPDI_OPTIONAL_DATA_ID_3_MAX_SIZE_2K_BYTES) {
 			Status = XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA_AT_DATA_ID_3;
 			goto END;
+		} else {
+			/* Misra-C Compliance */
 		}
 
 		/** @verbatim
