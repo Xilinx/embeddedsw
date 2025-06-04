@@ -12,6 +12,6 @@ BEGIN driver dp21txss
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (dual_splitter_v1_0 vtc_v7_2);
 	OPTION copyfiles = all;
-	OPTION VERSION = 2.5;
+	OPTION VERSION = 2.6;
 	OPTION NAME = dp21txss;
 END driver
