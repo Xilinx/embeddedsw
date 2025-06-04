@@ -593,8 +593,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		}
 		else {
 			InstancePtr->TxInstance.MsaConfig[
-				0].DynamicRange = 0;
-			InstancePtr->TxInstance.MsaConfig[
 				0].YCbCrColorimetry = 0;
 			/* Enable async clock mode */
 			XDp_TxCfgMsaEnSynchClkMode(InstancePtr,
