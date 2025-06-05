@@ -280,11 +280,6 @@ XStatus XPsmFw_IoModuleInit(u16 DeviceId)
     }
 
 	Status = SetUpInterruptSystem();
-	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR,
-		        "IO Module: Connecting intr handler to IO Module failed\r\n");
-        goto END;
-    }
 
 	XPsmFw_Printf(DEBUG_DETAILED, "IO Module init completed\r\n");
 
