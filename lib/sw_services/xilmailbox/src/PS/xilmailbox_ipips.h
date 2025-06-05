@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
  * 1.3   sd   03/03/21    Doxygen Fixes
  * 1.6   sd   28/02/21    Add support for microblaze
  * 1.8   ht   07/24/23    Restructure the code for more modularity
+ * 1.12  ht   06/04/25    Refactor conditional inclusion of interrupt headers.
  *</pre>
  *
  *@note
@@ -36,7 +37,11 @@ extern "C" {
 #include "xilmailbox.h"
 #include "xipipsu.h"
 #if !defined (__MICROBLAZE__) && !defined (__riscv)
+#ifndef SDT
 #include "xscugic.h"
+#else
+#include "xinterrupt_wrap.h"
+#endif
 #endif
 
 /**************************** Type Definitions *******************************/

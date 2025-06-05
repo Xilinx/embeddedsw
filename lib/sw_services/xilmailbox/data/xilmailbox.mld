@@ -15,6 +15,7 @@
 # 1.8  am    09/03/23 Updated library version for 2023.2
 # 1.9  ht    09/12/23 Added code for versioning of library.
 # 1.10 ht    06/05/24 Register GIC handler using device id
+# 1.12 ht    06/04/25 Refactor conditional inclusion of interrupt header files
 #
 ##############################################################################
 
@@ -27,6 +28,6 @@ BEGIN LIBRARY xilmailbox
   OPTION SUPPORTED_PERIPHERALS = (psv_cortexa72 psx_cortexa78 psv_cortexr5 psu_cortexa72 psu_cortexa53 psu_cortexr5 psx_cortexr52 psu_pmu psu_pmc psv_pmc psx_pmc microblaze microblaze_riscv);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilmailbox,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx IPI Mailbox Library";
-  OPTION VERSION = 1.11;
+  OPTION VERSION = 1.12;
   OPTION NAME = xilmailbox;
 END LIBRARY

@@ -18,6 +18,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.8   ht   07/24/23    Restructure the code for more modularity.
  * 1.11  ht   01/02/25    Fix GCC warnings
+ * 1.12  ht   06/04/25    Refactor conditional inclusion of interrupt headers.
  *
  *  *</pre>
  *
@@ -37,12 +38,13 @@ extern "C" {
 #include "xilmailbox.h"
 #include "xil_util.h"
 #if !defined (__MICROBLAZE__) && !defined (__riscv)
+#ifndef SDT
 #include "xscugic.h"
-#endif
-#include "sleep.h"
-#ifdef SDT
+#else
 #include "xinterrupt_wrap.h"
 #endif
+#endif
+#include "sleep.h"
 
 /**************************** Type Definitions *******************************/
 
