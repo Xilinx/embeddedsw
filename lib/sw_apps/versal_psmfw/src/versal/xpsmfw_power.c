@@ -400,10 +400,8 @@ void XPsmFw_SecLockDown(void)
  * @note	None
  *
  ****************************************************************************/
-XStatus XPsmFw_FpdPreHouseClean(void)
+void XPsmFw_FpdPreHouseClean(void)
 {
-	XStatus Status = XST_FAILURE;
-
 	/*
 	 * Capture the current Power State
 	 * Power up all ACPU Cores and reflect their PWR_STATE
@@ -432,10 +430,6 @@ XStatus XPsmFw_FpdPreHouseClean(void)
 
 	/* Wait until reset is propagated in FPD */
 	XPsmFw_UtilWait(XPSMFW_PWRON_RST_FPD_WAIT_TIME);
-
-	Status = XST_SUCCESS;
-
-	return Status;
 }
 
 /****************************************************************************/

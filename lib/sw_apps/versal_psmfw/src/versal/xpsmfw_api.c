@@ -28,10 +28,8 @@ static XStatus XPsmFw_FpHouseClean(u32 FunctionId)
 
 	switch (FunctionId) {
 	case (u32)FUNC_INIT_START:
-		Status = XPsmFw_FpdPreHouseClean();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		XPsmFw_FpdPreHouseClean();
+		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_INIT_FINISH:
 		XPsmFw_FpdPostHouseClean();
@@ -54,7 +52,6 @@ static XStatus XPsmFw_FpHouseClean(u32 FunctionId)
 		break;
 	}
 
-done:
 	return Status;
 }
 

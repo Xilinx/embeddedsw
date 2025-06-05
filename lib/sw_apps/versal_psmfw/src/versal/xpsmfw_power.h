@@ -309,7 +309,7 @@ XStatus XPsmFw_DispatchWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
 XStatus XPsmFw_DispatchPwrCtlHandler(u32 PwrCtlStatus, u32 PwrCtlIntMask);
 XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId);
 XStatus XPsmFw_DirectPwrUp(const u32 DeviceId);
-XStatus XPsmFw_FpdPreHouseClean(void);
+void XPsmFw_FpdPreHouseClean(void);
 void XPsmFw_FpdPostHouseClean(void);
 void XPsmFw_FpdMbisr(void);
 void XPsmFw_FpdMbistClear(void);
