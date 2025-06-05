@@ -48,7 +48,7 @@ string(SUBSTRING "${DEVICE_ID}" 2 -1 PartName)
 list(FIND part_list "${PartName}" index)
 
 if (XILNVM_en_add_ppks OR (index EQUAL -1))
-  set(PLM_EN_ADD_PPKS " ")
+  set(XNVM_EN_ADD_PPKS " ")
 endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/xilnvm_bsp_config.h.in ${CMAKE_BINARY_DIR}/include/xilnvm_bsp_config.h)
