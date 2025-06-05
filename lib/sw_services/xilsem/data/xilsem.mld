@@ -23,6 +23,7 @@
 # 1.13  gm   02-26-24 Removed dummy BSP options.
 # 1.10  oh   07/24/24 Updated Library version for 2024.2 to 1.10
 # 1.11  gm   01-08-25 Uprev library to v1.11
+# 1.12  gm   06-04-25 Uprev library to v1.12 for 2025.2
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -34,6 +35,6 @@ BEGIN LIBRARY xilsem
   OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc psxl_pmc psx_pmc psv_cortexr5 psxl_cortexr52 psx_cortexr52 psu_cortexa72 psv_cortexa72 microblaze psx_cortexa78 );
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsem,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
-  OPTION VERSION = 1.11;
+  OPTION VERSION = 1.12;
   OPTION NAME = xilsem;
 END LIBRARY
