@@ -134,18 +134,18 @@ class Domain(Repo):
                 self.app, self.repo_yaml_path
             )
             validate_obj.validate_hw()
+        app_list_file = os.path.join(self.domain_dir, "app_list.yaml")
+        lib_list_file = os.path.join(self.domain_dir, "lib_list.yaml")
+
+        if not utils.is_file(app_list_file) or not utils.is_file(lib_list_file):
+            utils.runcmd(
+                f"lopper --werror -f -O {self.domain_dir} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}",
+                cwd = self.domain_dir,
+                log_message = "Getting supported component list",
+                error_message = "Could not get the supported component list"
+            )
         if os.environ.get("VALIDATE_ARGS") == "True":
             logger.info("Validating inputs")
-            app_list_file = os.path.join(self.domain_dir, "app_list.yaml")
-            lib_list_file = os.path.join(self.domain_dir, "lib_list.yaml")
-
-            if not utils.is_file(app_list_file) or not utils.is_file(lib_list_file):
-                utils.runcmd(
-                    f"lopper --werror -f -O {self.domain_dir} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}",
-                    cwd = self.domain_dir,
-                    log_message = "Getting supported component list",
-                    error_message = "Could not get the supported component list"
-                )
             proc_data = utils.fetch_yaml_data(app_list_file, "app_list")[self.proc]
             Validation.validate_template_name(
                 self.domain_dir, proc_data, self.os, self.app

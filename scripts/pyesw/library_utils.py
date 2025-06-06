@@ -244,7 +244,8 @@ class Library(Repo):
         yaml_file = os.path.join(comp_dir, "data", f"{comp_name}.yaml")
         schema = utils.load_yaml(yaml_file)
         if schema.get("depends"):
-            dep_drvlist = list(schema.get("depends").keys())
+            schema["depends"].pop("condition",None)
+            dep_drvlist = list(schema["depends"].keys())
             valid_lib = [drv for drv in dep_drvlist if drv in drvlist]
             """
             Since sleep related implementation is part of xiltimer library
@@ -424,34 +425,16 @@ class Library(Repo):
                             for key, value in props.items():
                                 if not isinstance(value,dict):
                                     lib_config[name][key]["value"] = str(value)
-
+            yaml_file = os.path.join(self.domain_path, "lib_list.yaml")
+            schema = utils.load_yaml(yaml_file)
             for lib in lib_list:
                 # Update examples if any for the library
-                comp_dir = self.get_comp_dir(lib)
-                yaml_file = os.path.join(comp_dir, "data", f"{lib}.yaml")
-                schema = utils.load_yaml(yaml_file)
-                example_schema = schema.get('examples',{})
-                if example_schema:
-                    # check for platform dependency
-                    #supported_platforms
-                    example_dict = {}
-                    for ex,deps in example_schema.items():
-                        if deps:
-                            # Read the supported_platforms check if any
-                            dep_plat_list = [dep for dep in deps if "supported_platforms" in dep]
-                            dep_file_list = [dep for dep in deps if "dependency_files" in dep]
-                            if dep_plat_list:
-                                plat_list = dep_plat_list[0]['supported_platforms']
-                                if self.domain_data['family'] in plat_list:
-                                    if dep_file_list:
-                                        example_dict.update({ex:dep_file_list[0]['dependency_files']})
-                                    else:
-                                        example_dict.update({ex:[]})
-                            elif dep_file_list:
-                                example_dict.update({ex:dep_file_list[0]['dependency_files']})
-                        else:
-                            example_dict.update({ex:[]})
-                    self.lib_info[lib].update({"examples":example_dict})
+                example_dict={}
+                try:
+                    example_dict = schema[self.proc][self.os][lib]["examples"]
+                except KeyError:
+                    logger.warning(f"Example key is missing for this combination {self.proc}-{self.os}-{lib} in lib_list.yaml file")
+                self.lib_info[lib].update({"examples":example_dict})
             # Update the yaml config file with new entries.
             utils.update_yaml(self.domain_config_file, "domain", "lib_config", lib_config)
             utils.update_yaml(self.domain_config_file, "domain", "lib_info", self.lib_info)
