@@ -35,6 +35,7 @@
 *       sd  04/30/2025 Make XSecure_AesShaInit as non static function and move
 *                      XSecure_QueuesAndTaskInit to XSecure_Init function
 *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
+*       pre  06/05/2025 Bypassed AES & SHA initialization for crypto disabled boards
 *
 * </pre>
 *
@@ -140,9 +141,12 @@ int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 {
 	int Status = XST_FAILURE;
 
-	Status = XSecure_AesShaInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
+	Status = XSecure_CryptoCheck();
+	if (Status == XST_SUCCESS) {
+		Status = XSecure_AesShaInit();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 #if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\

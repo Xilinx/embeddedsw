@@ -42,6 +42,7 @@
 #       mb  05/23/24  Added xsecure_elliptic_p192_support parameter to enable/disable P192 curve
 #       mb  05/23/24  Added xsecure_elliptic_p224_support parameter to enable/disable P224 curve
 #       kpt 06/13/24  Added xsecure_key_slot_addr
+# 5.5   pre 06/06/25 Updated library version for 2025.2
 #
 ##############################################################################
 
@@ -54,7 +55,7 @@ BEGIN LIBRARY xilsecure
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5 microblaze psxl_pmc psxl_cortexa78 psxl_cortexr52 psx_pmc psx_cortexa78 psx_cortexr52);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc and Versal";
-  OPTION VERSION = 5.5;
+  OPTION VERSION = 5.6;
   OPTION NAME = xilsecure;
   PARAM name = xsecure_environment, desc = "Enables trusted execution environment \nto allow device key usage(post boot) in ZynqMP \nfor IPI response/Linux/U-boot calls valid only \nfor PMUFW BSP", type = bool, default = false;
   PARAM name = tpm_support, desc = "Enables decryption of bitstream to memory and \nthen writes it to PCAP, allows calculation of \nsha on decrypted bitstream in chunks \nvalid only for ZynqMP FSBL BSP", type = bool, default = false;
