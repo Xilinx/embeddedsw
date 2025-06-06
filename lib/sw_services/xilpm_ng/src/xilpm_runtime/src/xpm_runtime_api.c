@@ -1681,9 +1681,6 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 		goto done;
 	}
 
-	/* Restore multiboot register value*/
-	XPlmi_RestoreMultiboot();
-
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
 	if (PM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
 		/* Idle the subsystem first */
@@ -1708,6 +1705,8 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 
 	switch (SubType) {
 	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
+		/* Restore multiboot register value*/
+		XPlmi_RestoreMultiboot();
 
 		/* FIXME: Disable idle callback support for now */
 		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {

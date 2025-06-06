@@ -4447,9 +4447,6 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 		goto done;
 	}
 
-	/* Restore multiboot register value*/
-	XPlmi_RestoreMultiboot();
-
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
 	if (PM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
 		Subsystem->Flags |= (u8)SUBSYSTEM_DO_PERIPH_IDLE;
@@ -4475,6 +4472,9 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 
 	switch (SubType) {
 	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
+		/* Restore multiboot register value*/
+		XPlmi_RestoreMultiboot();
+
 		/**
 		 * Temporary increase FPD use count to avoid FPD power
 		 * down during subsystem restart
