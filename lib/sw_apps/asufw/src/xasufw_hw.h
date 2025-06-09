@@ -20,6 +20,7 @@
  * 1.1   ma   12/12/24 Added defines related to ASU IO MODULE
  *       ma   02/06/25 Removed unused defines
  *       ma   02/21/25 Added defines related to FATAL and NON-FAL registers
+ *       rmv  08/01/25 Added defines related to EFUSE CACHE registers
  *
  * </pre>
  *
@@ -107,6 +108,17 @@ extern "C" {
 /** ASU_IO_BUS IRQ_ACK register address */
 #define ASU_IO_BUS_IRQ_ACK							(ASU_IO_BUS_BASEADDR + 0x0000003CU)
 
+/*
+ * Definitions required from efuse_cache.h
+ */
+/** EFUSE_CACHE base address */
+#define EFUSE_CACHE_BASEADDR				(0xF1250000U)
+
+/** EFUSE_CACHE_DNA_0 register address */
+#define EFUSE_CACHE_DNA_0				(EFUSE_CACHE_BASEADDR + 0x00000020U)
+
+/** EFUSE_CACHE Device DNA Size in bytes */
+#define EFUSE_CACHE_DNA_SIZE				(16U)
 
 /************************************** Type Definitions *****************************************/
 

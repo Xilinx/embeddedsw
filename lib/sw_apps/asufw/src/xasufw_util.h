@@ -27,6 +27,7 @@
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *       rmv  07/09/25 Added XAsufw_AsciiToInt() function prototype and added macro for integer
  *                     value.
+ *       rmv  07/16/25 Added macro for buffer index zero
  *
  * </pre>
  *
@@ -80,6 +81,7 @@ extern "C" {
 
 #define XASUFW_EVEN_MODULUS			(2U)	/**< Modulus to determine evenness */
 
+#define XASUFW_BUFFER_INDEX_ZERO		(0U) /**< Zero index of buffer */
 #define XASUFW_BUFFER_INDEX_ONE			(1U) /**< First index of buffer */
 #define XASUFW_BUFFER_INDEX_TWO			(2U) /**< Second index of buffer */
 #define XASUFW_BUFFER_INDEX_THREE		(3U) /**< Third index of buffer */

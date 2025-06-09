@@ -52,6 +52,7 @@
  *       am   04/01/25 Added XASUFW_AES_KEY_CONFIG_READBACK_ERROR error code
  *       LP   04/07/25 Added HKDF error codes
  *       rmv  08/04/25 Added error code for TRNG mode configuration failure
+ *       rmv  08/04/25 Added error codes for OCP functionality
  *
  * </pre>
  *
@@ -513,6 +514,20 @@ enum {
 
 	XASUFW_TRNG_MODE_INIT_CFG_FAIL, /**< 0x15AU - Error when TRNG mode init and configuration is
 					failed */
+	XASUFW_OCP_TRNG_INSTANTIATE_FAIL, /**< 0x15BU - Error when TRNG instantiate is failed */
+	XASUFW_OCP_TRNG_UNINSTANTIATE_FAIL, /**< 0x15CU - Error when TRNG uninstantiate is
+						failed */
+	XASUFW_OCP_TRNG_FAIL, /**< 0x15DU - Error when TRNG is failed */
+	XASUFW_OCP_GEN_ECC_PVT_KEY_FAIL, /**< 0x15EU - Error when ECC private key generation is
+						failed */
+	XASUFW_OCP_INVALID_PARAM, /**< 0x15FU - Error when parameter is invalid */
+	XASUFW_OCP_GEN_DEVIK_PVT_KEY_FAIL, /**< 0x160U - Error when DevIk private key generation
+						is failed */
+	XASUFW_OCP_GEN_DEVIK_PUB_KEY_FAIL, /**< 0x161U - Error when DevIk public key generation
+						is failed */
+	XASUFW_OCP_GET_ASU_CDI_FAIL, /**< 0x162U - Error when get ASU CDI is failed */
+	XASUFW_OCP_SEND_IPI_REQ_FAIL, /**< 0x163U - Error when ipi request is failed */
+	XASUFW_OCP_READ_IPI_RESP_FAIL, /**< 0x164U - Error when ipi response is failed */
 
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */

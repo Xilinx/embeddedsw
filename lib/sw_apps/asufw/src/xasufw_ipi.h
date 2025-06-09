@@ -18,6 +18,7 @@
  * 1.0   ma   01/02/24 Initial release
  *       ma   07/08/24 Added IPI_ASU_TRIG macro
  *       am   02/24/25 Added macros related to PLM ASU IPI module
+ *       rmv  07/31/25 Added XASUFW_PLM_CMD_ID_ASU_CDI_TX_ID command ID
  *
  * </pre>
  *
@@ -73,6 +74,11 @@ extern "C" {
 		/**< Header for PLM IPI commands */
 
 #define XASUFW_PLM_ASU_KEY_TX_API_ID	(1U) /**< PLM ASU key transfer API Id */
+#define XASUFW_PLM_CMD_ID_ASU_CDI_TX_ID	(2U) /**< Command Id of ASU CDI transfer */
+
+#define XOCP_ASU_CDI_TX_ID_CMD_LEN		(0U)	/**< ASU CDI transfer ID command length */
+#define XOCP_ASU_CDI_TX_PAYLOAD_RESP_SIZE	(1U)	/**< ASU CDI ID payload response size */
+#define XOCP_ASU_CDI_TX_PAYLOAD_SIZE		(3U)	/**< ASU CDI transfer payload size*/
 
 #define XASUFW_PLM_ASU_MODULE_ID	(14U) /**< PLM ASU module Id */
 
