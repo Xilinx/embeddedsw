@@ -1,0 +1,25 @@
+var xdcdma_8c =
+[
+    [ "XDcDma_CfgInitialize", "xdcdma_8c.html#ga3416ce41bac7a473de1c1b9665019800", null ],
+    [ "XDcDma_ConfigChannelState", "xdcdma_8c.html#ga93387eeab9e483b1dd0c30c890d6e501", null ],
+    [ "XDcDma_DescInit", "xdcdma_8c.html#ga83715748f55fe649eefc6d6a7e091dfd", null ],
+    [ "XDcDma_GetNewDescId", "xdcdma_8c.html#gaba2c3b0d2480b34ccad95c9fdd7f5478", null ],
+    [ "XDCDma_GetOutstandingTxn", "xdcdma_8c.html#ga4349a3332fbf75d1be2ce9accb7082f6", null ],
+    [ "XDCDma_GetWriteProt", "xdcdma_8c.html#ga91f1b1f6e28e522f43cd33bb8a17a4f9", null ],
+    [ "XDcDma_InterruptDisable", "xdcdma_8c.html#ga00a98d41f9767c53fab0a3284f005e49", null ],
+    [ "XDcDma_InterruptEnable", "xdcdma_8c.html#ga178425efb51b5e613b27cdd6eac15a59", null ],
+    [ "XDcDma_InterruptHandler", "xdcdma_8c.html#ga34970edec008b2d87dfb528dc57ff180", null ],
+    [ "XDcDma_ReTrigger", "xdcdma_8c.html#gad0608c2fb88769d23b5e9d8d40a260e3", null ],
+    [ "XDcDma_SetAxCache", "xdcdma_8c.html#ga08fe48548a67b91d7eeadea4ae85b908", null ],
+    [ "XDcDma_SetAxProt", "xdcdma_8c.html#gad05901557988e38b788efcb691a179a2", null ],
+    [ "XDcDma_SetCallBack", "xdcdma_8c.html#ga153e5abe962b93c6ee19741da7f150ed", null ],
+    [ "XDcDma_SetDataQoS", "xdcdma_8c.html#gac128f4e7ac7421d2dfafe00c784d5990", null ],
+    [ "XDcDma_SetDescDelay", "xdcdma_8c.html#gabc7c14d891e4136ce8c504151deeda69", null ],
+    [ "XDcDma_SetDescQoS", "xdcdma_8c.html#ga292c45343371203644273eb47c9fbd4d", null ],
+    [ "XDcDma_SetupChannel", "xdcdma_8c.html#ga60e5ca11878233ce1128eb6dd13c0ee3", null ],
+    [ "XDcDma_Trigger", "xdcdma_8c.html#gab566cabb8dd713e5aa4c1e41e82d9c35", null ],
+    [ "XDcDma_VSyncHandler", "xdcdma_8c.html#ga731efbd7eed1559de335f1e93dd6ac1c", null ],
+    [ "XDcDma_WaitPendingTransaction", "xdcdma_8c.html#gabbe395a1ddd2a306a4afd940b6acfdda", null ],
+    [ "XDcDma_WriteProtDisable", "xdcdma_8c.html#ga5d173da16718d01d9ef53fc5d424678a", null ],
+    [ "XDcDma_WriteProtEnable", "xdcdma_8c.html#ga406539d327e2a84079b1105fc64465ba", null ]
+];
