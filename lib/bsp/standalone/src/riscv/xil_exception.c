@@ -23,6 +23,7 @@
 * 9.2   ml   17/01/24 Modified description and code for Xil_ExceptionRegisterHandler and
 *                     Xil_ExceptionRemoveHandler API's to fix doxygen warnings.
 * 9.3   ml   02/19/25 Add support for RISC-V Interrupt Handling
+* 9.4   ml   11/06/25 Add support for RISC-V Exception Handling
 * </pre>
 *
 * @note
@@ -139,6 +140,9 @@ void Xil_ExceptionRegisterHandler(u32 Exception_id, Xil_ExceptionHandler Handler
 		Handler = Handler;
 		RISCV_InterruptVectorTable[Exception_id - XIL_INTERRUPT_ID_FIRST].
 		CallBackRef = Data;
+	} else if (Exception_id <= XIL_EXCEPTION_ID_LAST) {
+		RISCV_InterruptVectorTable[Exception_id].Handler = Handler;
+		RISCV_InterruptVectorTable[Exception_id].CallBackRef = Data;
 	}
 }
 
@@ -160,6 +164,9 @@ void Xil_ExceptionRemoveHandler(u32 Exception_id)
 		Handler = Xil_ExceptionNullHandler;
 		RISCV_InterruptVectorTable[Exception_id - XIL_INTERRUPT_ID_FIRST].
 		CallBackRef = NULL;
+	} else if (Exception_id <= XIL_EXCEPTION_ID_LAST) {
+		RISCV_InterruptVectorTable[Exception_id].Handler = Xil_ExceptionNullHandler;
+		RISCV_InterruptVectorTable[Exception_id].CallBackRef = NULL;
 	}
 }
 /**
