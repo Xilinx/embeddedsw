@@ -1,5 +1,5 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
-DRIVER_LIB_VERSION = 1.7
+# Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+DRIVER_LIB_VERSION = 1.8
 COMPILER=
 ARCHIVER=
 CP=cp
