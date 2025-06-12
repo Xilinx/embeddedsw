@@ -26,7 +26,7 @@
 *                    normal memory.
 * 9.3  adk  04/11/25 Updated the translation table to reflect DDR regions
 *		     in accordance with the design configuration.
-*
+* 9.4  ml   06/12/25 Removed irrelevent comment
 ******************************************************************************/
 #include "bspconfig.h"
 
@@ -503,7 +503,7 @@ MMUTableL2:
 .endr
 
 .rept	0x020			/* 0xBC00_0000 - 0xBFFF_FFFF */
-.8byte	SECT + Device		/* 64MB ATTICUS_C2C_LOW */
+.8byte	SECT + Device
 .set	SECT, SECT+0x200000
 .endr
 
