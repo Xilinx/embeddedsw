@@ -26,6 +26,8 @@
  * 1.2   am   05/20/25 Integrated performance measurement macros
  *       yog  07/11/25 Added support for Edward curves.
  *       kd   07/23/25 Fixed gcc warnings
+ *       rmv  07/16/25 Update XRsa_EccGeneratePvtKey() function to add support for providing
+ *                     random number as optional parameter
  *
  * </pre>
  *
@@ -851,19 +853,24 @@ END:
  * @param	CurveType	ECC Curve type.
  * @param	CurveLen	Length of the curve in bytes.
  * @param	PvtKey		Pointer to store the generated private key.
+ * @param	InputRandBuf	Pointer to variable containing random buffer.
+ * @param	InputRandBufLen	Length of random buffer.
  *
  * @return
  *	-	XASUFW_SUCCESS, if private key generation is successful.
  *	-	XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameter is invalid.
  *	-	XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
  *	-	XASUFW_RSA_ECC_TRNG_FAILED, if random number generation fails.
+ *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if changing edianness is failed.
  *	-	XASUFW_RSA_ECC_MOD_ORDER_FAILED, if ModEccOrder fails.
  *
  *************************************************************************************************/
-s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8* PvtKey)
+s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRandBuf,
+			   u32 InputRandBufLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 RandBuf[XRSA_ECC_P521_RANDBUFLEN_IN_BYTES] = {0U};
+	u8 *RandBufPtr = InputRandBuf;
 	EcdsaCrvInfo *CrvInfo = NULL;
 	u32 CurveSize = 0U;
 	u8 RandBufLen = 0U;
@@ -881,16 +888,28 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8* PvtKey)
 		goto END;
 	}
 
-	/** Generate random number for calculating private key. */
-	Status = XAsufw_TrngGetRandomNumbers(RandBuf, (CurveLen + XRSA_ECC_RAND_NUM_GEN_EXTRA_BYTES));
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_TRNG_FAILED);
+	RandBufLen = (u8)((CurveLen & ~(XASUFW_VALUE_THREE)) + XRSA_ECC_KEY_PAIR_GEN_EXTRA_BYTES);
+
+	/** Validate input random buffer length. */
+	if ((InputRandBuf != NULL) && (InputRandBufLen < RandBufLen)) {
+		Status = XASUFW_RSA_ECC_INVALID_PARAM;
 		goto END;
 	}
 
-	RandBufLen = (u8)((CurveLen & ~(XASUFW_VALUE_THREE)) + XRSA_ECC_KEY_PAIR_GEN_EXTRA_BYTES);
+	/** Generate random number for calculating private key. */
+	if (InputRandBuf == NULL) {
+		Status = XAsufw_TrngGetRandomNumbers(RandBuf,
+						     (CurveLen +
+						      XRSA_ECC_RAND_NUM_GEN_EXTRA_BYTES));
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_TRNG_FAILED);
+			goto END;
+		}
+		RandBufPtr = RandBuf;
+	}
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(RandBuf, RandBufLen);
+	Status = XAsufw_ChangeEndianness(RandBufPtr, RandBufLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
@@ -904,16 +923,18 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8* PvtKey)
 	 * Ecdsa_ModWithEccOrder API.
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = Ecdsa_ModWithEccOrder(CrvInfo, RandBuf, RandBufLen,
+	Status = Ecdsa_ModWithEccOrder(CrvInfo, RandBufPtr, RandBufLen,
 				PvtKey);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_MOD_ORDER_FAILED;
 	}
 
 END:
-	/** Zeroize the local buffer. */
-	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)RandBuf,
-			XASU_ECC_P521_SIZE_IN_BYTES));
+	if (InputRandBuf == NULL) {
+		/** Zeroize the local buffer. */
+		Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(RandBufPtr,
+						XASU_ECC_P521_SIZE_IN_BYTES));
+	}
 
 	/** Set RSA under reset. */
 	XAsufw_CryptoCoreSetReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);

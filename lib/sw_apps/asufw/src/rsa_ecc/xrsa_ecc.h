@@ -25,6 +25,8 @@
  *       yog  03/21/25 Added PWCT support
  *       yog  03/24/25 Added XRsa_EccGeneratePrivKey() prototype
  *       yog  07/11/25 Removed curve type macros.
+ *       rmv  07/16/25 Update function prototype of XRsa_EccGeneratePvtKey() for ECC private key
+ *                     generation
  *
  * </pre>
  *
@@ -72,7 +74,8 @@ EcdsaCrvInfo *XRsa_EccGetCrvData(u32 CurveType);
 u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv);
 s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
 	u64 PubKeyAddr);
-s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8* PvtKey);
+s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8 *PvtKey, u8 *InputRandBuf,
+			   u32 InputRandBufLen);
 
 /************************************ Variable Definitions ***************************************/
 
