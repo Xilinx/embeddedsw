@@ -29,6 +29,7 @@
  *       am   04/10/25 Removed poll status interrupt timeout to wait indefinitely
  *       am   04/18/25 Suppressed unused variable warning
  * 1.3   am   05/18/25 Changed wait condition from implicit to explicit comparison
+ *       am   06/16/25 Fixed consecutive PMC to ASU key transfers failing
  *
  * </pre>
  *
@@ -431,13 +432,13 @@ s32 XAsufw_PmcKeyTransfer(void)
 	while ((XAsufw_ReadReg(XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET) &
 		XAES_KV_INTERRUPT_STATUS_DONE_MASK) == 0U);
 
-	/** Clear KV interrupt status. */
-	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET),
-		XAES_KV_INTERRUPT_STATUS_CLEAR_MASK);
-
 	/** Disable ASU Key transfer. */
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_ASU_PMXC_KEY_TRANSFER_READY_OFFSET),
 		XAES_ASU_PMXC_KEY_TRANSFER_READY_DISABLE);
+
+	/** Clear KV interrupt status. */
+	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET),
+		XAES_KV_INTERRUPT_STATUS_CLEAR_MASK);
 
 	/** Read Key transfer response received from PLM. */
 	Status = XAsufw_ReadIpiRespFromPlm((u32 *)(UINTPTR)&Response, XASUFW_KEY_TX_PAYLOAD_RESP_SIZE);
