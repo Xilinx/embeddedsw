@@ -557,7 +557,7 @@ u32 XUfsPsxc_ProcessUpiu(const XUfsPsxc *InstancePtr, const XUfsPsxc_Xfer_CmdDes
 	}
 
 	if ((u8)(InstancePtr->PowerMode >> 8U) == XUFSPSXC_TX_RX_FAST) {
-		if ((u8)(InstancePtr->PowerMode >> 8U) == XUFSPSXC_HSSERIES_A) {
+		if ((u8)(InstancePtr->PowerMode >> 16U) == XUFSPSXC_HSSERIES_A) {
 			MinBytes = XUFSPSXC_HSG1A_MIN_BPS;
 		} else {
 			MinBytes = XUFSPSXC_HSG1B_MIN_BPS;
