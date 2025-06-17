@@ -783,4 +783,73 @@ ERROR:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+* @brief
+* This API Overrides the PHY rx_req.
+*
+* @param	InstancePtr is a pointer to the XUfsPsxc instance.
+* @param	RxReq indicates PHY should be receiver mode or not
+* @param	NumLanes indicates Number of connected lanes
+*
+* @return	XUFSPSXC_SUCCESS or Error codes.
+*
+******************************************************************************/
+u32 XUfsPsxc_OverridePhyRxReq(const XUfsPsxc *InstancePtr, u32 RxReq, u32 NumLanes)
+{
+	XUfsPsxc_UicCmd UicCmd = {0};
+	volatile u32 Status = (u32)XUFSPSXC_FAILURE;
+	u32 TimeLeft;
+	u32 ReadReg;
+	u32 Lane;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Override PHY rx_req for each connected lane */
+	for (Lane = 0U; Lane < NumLanes; Lane++) {
+		TimeLeft = 1000000U;
+		Status = XUfsPsxc_ReadPhyReg(InstancePtr, &UicCmd, (0x3006U + (Lane * 0x100U)), &ReadReg);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
+			goto ERROR;
+		}
+
+		ReadReg |= 0x8U; /* Enable PHY RX Override */
+		if (RxReq) {
+			ReadReg |= 0x4U; /* Set MPHY_RX_OVRD_VAL */
+		} else {
+			ReadReg &= ~0x4U; /* Clear MPHY_RX_OVRD_VAL */
+		}
+
+		Status = XUfsPsxc_WritePhyReg(InstancePtr, &UicCmd, (0x3006U + (Lane * 0x100U)), ReadReg);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
+			goto ERROR;
+		}
+
+		/* Poll PHY rx_ack for the current connected lane */
+		do {
+			Status = XUfsPsxc_ReadPhyReg(InstancePtr, &UicCmd, (0x300FU + (Lane * 0x100U)), &ReadReg);
+			if (Status != (u32)XUFSPSXC_SUCCESS) {
+				goto ERROR;
+			}
+
+			/* check MPHY_RX_ACK_MASK */
+			ReadReg &= 0x1U;
+			if (ReadReg == RxReq) {
+				break;
+			}
+
+			TimeLeft--;
+			usleep(1);
+		} while (TimeLeft != 0U);
+
+		if (TimeLeft == 0U) {
+			Status = (u32)XUFSPSXC_FAILURE;
+			goto ERROR;
+		}
+	}
+
+ERROR:
+	return Status;
+}
+
 /** @} */

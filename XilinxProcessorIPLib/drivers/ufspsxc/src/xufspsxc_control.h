@@ -65,6 +65,7 @@ u32 XUfsPsxc_Set4KBlkSize(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescP
 u32 XUfsPsxc_PhyInit(const XUfsPsxc *InstancePtr);
 u32 XUfsPsxc_SetRmmiConfig(const XUfsPsxc *InstancePtr);
 u32 XUfsPsxc_EnableMPhy(const XUfsPsxc *InstancePtr);
+u32 XUfsPsxc_OverridePhyRxReq(const XUfsPsxc *InstancePtr, u32 RxReq, u32 NumLanes);
 u32 XUfsPsxc_ConfigureTxRxAttributes(const XUfsPsxc *InstancePtr, u32 SpeedGear,
 				u32 RxTermCap, u32 TxTermCap);
 u32 XUfsPsxc_ReadDeviceInfo(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr);

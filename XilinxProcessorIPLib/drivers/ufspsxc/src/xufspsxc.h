@@ -32,6 +32,7 @@
 * 1.0   sk  01/16/24 First release
 * 1.1   sk  01/13/25 Update the example to enable the LU before
 *                    configuring the Boot LUN ID.
+* 1.2   an  06/09/25 Configure RMMI and M-PHY registers for HS mode
 *
 * </pre>
 *

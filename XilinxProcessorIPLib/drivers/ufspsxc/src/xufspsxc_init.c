@@ -755,6 +755,9 @@ u32 XUfsPsxc_ConfigureTxRxAttributes(const XUfsPsxc *InstancePtr, u32 SpeedGear,
 	u32 Rate;
 	u32 TxLanes;
 	u32 RxLanes;
+	u32 ReadReg;
+	u32 Lane;
+	u32 RateSel;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -787,17 +790,76 @@ u32 XUfsPsxc_ConfigureTxRxAttributes(const XUfsPsxc *InstancePtr, u32 SpeedGear,
 		goto ERROR;
 	}
 
+	XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x1561U << 16U), 0U, 0U, XUFSPSXC_DME_GET_OPCODE);   /*  PA_ConnectedTxDataLanes */
+	Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
+	if (Status != (u32)XUFSPSXC_SUCCESS) {
+		goto ERROR;
+	}
+	TxLanes = UicCmd.MibValue;
+
+	XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x1581U << 16U), 0U, 0U, XUFSPSXC_DME_GET_OPCODE);   /*  PA_ConnectedRxDataLanes */
+	Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
+	if (Status != (u32)XUFSPSXC_SUCCESS) {
+		goto ERROR;
+	}
+	RxLanes = UicCmd.MibValue;
+
 	/* Check for High Speed */
 	if (PowerMode == XUFSPSXC_TX_RX_FAST) {
-		/* Fixed to Series A */
 		XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x156AU << 16U), Rate, 0U, XUFSPSXC_DME_SET_OPCODE);	/*  PA_HSSERIES */
 		Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
 		if (Status != (u32)XUFSPSXC_SUCCESS) {
 			goto ERROR;
 		}
 
+		if (Rate == XUFSPSXC_HSSERIES_B) {
+			RateSel = 1U;
+		} else {
+			RateSel = 0U;
+		}
+
+		/* RMMI CBRATESEL */
+		XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x8114U << 16U), RateSel, 0U, XUFSPSXC_DME_SET_OPCODE);
+		Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
+			goto ERROR;
+		}
+
+		/* L VS_MphyCfgUpdt */
+		XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0xD085U << 16U), 1U, 0U, XUFSPSXC_DME_SET_OPCODE);
+		Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
+			goto ERROR;
+		}
+
+		/* Override PHY rx_req to 1 */
+		Status = XUfsPsxc_OverridePhyRxReq(InstancePtr, 1U, RxLanes);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
+			goto ERROR;
+		}
+
+		/* Override PHY rx_req to 0 */
+		Status = XUfsPsxc_OverridePhyRxReq(InstancePtr, 0U, RxLanes);
+		if (Status != (u32)XUFSPSXC_SUCCESS) {
+			goto ERROR;
+		}
+
+		/* Remove PHY rx_req override (Connected lanes) */
+		for (Lane = 0U; Lane < RxLanes; Lane++) {
+			Status = XUfsPsxc_ReadPhyReg(InstancePtr, &UicCmd, (0x3006U + (Lane * 0x100U)), &ReadReg);
+			if (Status != (u32)XUFSPSXC_SUCCESS) {
+				goto ERROR;
+			}
+
+			ReadReg &= ~(0x8U); /* Clear MPHY_RX_OVRD_EN */
+			Status = XUfsPsxc_WritePhyReg(InstancePtr, &UicCmd, (0x3006U + (Lane * 0x100U)), ReadReg);
+			if (Status != (u32)XUFSPSXC_SUCCESS) {
+				goto ERROR;
+			}
+		}
+
 		/* Program initial ADAPT for G4 */
-		if ((tx_gear == XUFSPSXC_GEAR4) || (rx_gear == XUFSPSXC_GEAR4)) {
+		if (((tx_gear == XUFSPSXC_GEAR4) || (rx_gear == XUFSPSXC_GEAR4)) && (RxLanes == 2U)) {
 			XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x15D4U << 16U), 1U, 0U, XUFSPSXC_DME_SET_OPCODE);	/* PA_TxHsAdaptType */
 			Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
 			if (Status != (u32)XUFSPSXC_SUCCESS) {
@@ -805,22 +867,6 @@ u32 XUfsPsxc_ConfigureTxRxAttributes(const XUfsPsxc *InstancePtr, u32 SpeedGear,
 			}
 		}
 	}
-
-	XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x1561U << 16U), 0U, 0U, XUFSPSXC_DME_GET_OPCODE);	/*  PA_ConnectedTxDataLanes */
-	Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
-	if (Status != (u32)XUFSPSXC_SUCCESS) {
-		goto ERROR;
-	}
-
-	TxLanes = UicCmd.MibValue;
-
-	XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x1581U << 16U), 0U, 0U, XUFSPSXC_DME_GET_OPCODE);	/*  PA_ConnectedRxDataLanes */
-	Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
-	if (Status != (u32)XUFSPSXC_SUCCESS) {
-		goto ERROR;
-	}
-
-	RxLanes = UicCmd.MibValue;
 
 	/* Configuring one Tx and one Rx */
 	XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x1560U << 16U), TxLanes, 0U, XUFSPSXC_DME_SET_OPCODE);	/*  PA_ActiveTxDataLanes */
