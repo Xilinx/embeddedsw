@@ -37,8 +37,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #define SEC_TO_MSEC		1000000U
-#define XUFSPSXC_HSG1A_MIN_BPS		157286400U
-#define XUFSPSXC_HSG1B_MIN_BPS		188743680U
+#define XUFSPSXC_HSG1A_MIN_BPS		78643200U
+#define XUFSPSXC_HSG1B_MIN_BPS		83886080U
 #define XUFSPSXC_PWMG1_MIN_BPS		393216U
 /************************** Function Prototypes ******************************/
 
@@ -566,8 +566,7 @@ u32 XUfsPsxc_ProcessUpiu(const XUfsPsxc *InstancePtr, const XUfsPsxc_Xfer_CmdDes
 		MinBytes = XUFSPSXC_PWMG1_MIN_BPS;
 	}
 
-	MinBytes = (MinBytes << ((u8)InstancePtr->PowerMode - 1U));
-	TimeOut = ((u32)(CmdDescPtr->ReqUpiu.CmdUpiu.ExpDataXferLen / MinBytes) * SEC_TO_MSEC) + (5U * SEC_TO_MSEC);
+	TimeOut = ((u32)(Xil_EndianSwap32(CmdDescPtr->ReqUpiu.CmdUpiu.ExpDataXferLen) / MinBytes) * SEC_TO_MSEC) + (5U * SEC_TO_MSEC);
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheFlushRange((INTPTR)&CmdDescPtr->ReqUpiu.UpiuHeader, (INTPTR)sizeof(CmdDescPtr->ReqUpiu.UpiuHeader));
