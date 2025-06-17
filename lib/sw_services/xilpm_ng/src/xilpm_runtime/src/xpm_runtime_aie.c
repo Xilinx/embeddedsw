@@ -307,10 +307,9 @@ static XStatus Aie2ps_ShimRst(const XPm_Device *AieDev, const u32 StartCol, cons
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 NodeAddress = AieDev->Node.BaseAddress;
+	u32 ColData;
 
 	/* Unused arguments */
-	(void)StartCol;
-	(void)EndCol;
 	(void)Buf;
 
 	/* Unlock PCSR */
@@ -320,6 +319,23 @@ static XStatus Aie2ps_ShimRst(const XPm_Device *AieDev, const u32 StartCol, cons
 	XPm_RMW32(NodeAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 1U);
 
+	/*
+	 * Store ME_PROT_REG_CTRL first and last col data so it can be restored
+	 * after shim reset is complete.
+	 */
+	ColData = XPm_In32(NodeAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET) &
+			  (AIE2PS_NPI_ME_PROT_REG_CTRL_WE_COL_ID_FIRST_MASK |
+			   AIE2PS_NPI_ME_PROT_REG_CTRL_WE_COL_ID_LAST_MASK);
+
+	/* Set first and last col to the StartCol and EndCol of partition */
+	XPm_RMW32(NodeAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  AIE2PS_NPI_ME_PROT_REG_CTRL_WE_COL_ID_FIRST_MASK,
+		  StartCol << AIE2PS_NPI_ME_PROT_REG_CTRL_WE_COL_ID_FIRST_SHIFT);
+
+	XPm_RMW32(NodeAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  AIE2PS_NPI_ME_PROT_REG_CTRL_WE_COL_ID_LAST_MASK,
+		  EndCol << AIE2PS_NPI_ME_PROT_REG_CTRL_WE_COL_ID_LAST_SHIFT);
+
 	/* Enable SHIM reset */
 	Status = XPm_PcsrWrite(NodeAddress, ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK,
 			      ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK);
@@ -327,20 +343,20 @@ static XStatus Aie2ps_ShimRst(const XPm_Device *AieDev, const u32 StartCol, cons
 		DbgErr = XPM_INT_ERR_AIE_SHIM_RST_EN;
 	}
 
-	/* Disable privileged write access */
-	XPm_RMW32(NodeAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
-		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
-
-	/* Skip next pcsr write if previous one is failed */
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
 	/* Disable SHIM reset */
 	Status = XPm_PcsrWrite(NodeAddress, ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK, 0U);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_AIE_SHIM_RST_DIS;
 	}
+
+	/* Restore ME_PROT_REG_CTRL first and last col data */
+	XPm_RMW32(NodeAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  AIE2PS_NPI_ME_PROT_REG_CTRL_WE_COL_ID_FIRST_MASK |
+		  AIE2PS_NPI_ME_PROT_REG_CTRL_WE_COL_ID_LAST_MASK, ColData);
+
+	/* Disable privileged write access */
+	XPm_RMW32(NodeAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
 
 done:
 	/* Lock Pcsr */
