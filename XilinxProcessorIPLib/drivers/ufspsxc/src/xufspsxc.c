@@ -153,6 +153,14 @@ u32 XUfsPsxc_ConfigureSpeedGear(XUfsPsxc *InstancePtr, u32 SpeedGear)
 		TxTermCap = 0U;
 		RxTermCap = 0U;
 	} else {
+		/* For High Speeds, Check if device is calibrated */
+		if (((InstancePtr->RxCTLECompValL0 == (u32)0x0U) || (InstancePtr->RxCTLECompValL0 == (u32)0xFFU))
+		    && ((InstancePtr->RxATTCompValL1 == (u32)0x0U) || (InstancePtr->RxATTCompValL1 == (u32)0xFFU))
+		    && ((InstancePtr->RxCTLECompValL0 == (u32)0x0U) || (InstancePtr->RxCTLECompValL0 == (u32)0xFFU))
+		    && ((InstancePtr->RxCTLECompValL1 == (u32)0x0U) || (InstancePtr->RxCTLECompValL1 == (u32)0xFFU))) {
+			Status = ((u32)XUFSPSXC_GENERAL_ERROR << 8U) | (u32)XUFSPSXC_PHY_NOT_CALIBRATED;
+			goto ERROR;
+		}
 		TxTermCap = 1U;
 		RxTermCap = 1U;
 	}
