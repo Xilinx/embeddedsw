@@ -26,6 +26,8 @@
 * 1.4   har  06/10/2024 Add data structure IDs for OCP module
 *       vss  10/24/2024 Added xppu disabled value macro for dynamic reconfiguration
 * 1.5   sk   03/05/2025 Added define for OCP PCR Measurement index position
+*       rmv  07/17/2025 Move declaration of XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() APIs
+*			from xocp_keymgmt.h file to xocp.h file as exported function.
 *
 * </pre>
 *
@@ -47,6 +49,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xocp_common.h"
 #include "xplmi_debug.h"
+#include "xsecure_hmac.h"
 
 /************************** Constant Definitions *****************************/
 #define XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL		(0x03FF0246U)
@@ -148,6 +151,9 @@ extern "C" {
 #define XOCP_SWPCR_CONFIG_DS_ID			(2U)	/**< SW PCR config data structure ID */
 #define XOCP_SWPCR_STORE_DS_ID			(3U)	/**< SW PCR store data structure ID */
 #define XOCP_HWPCR_LOG_DS_ID			(4U)	/**< HW PCR log data structure ID */
+
+#define XOCP_CDI_SIZE_IN_BYTES			(48U)	/**< CDI size in bytes */
+#define XOCP_CDI_SIZE_IN_WORDS			(12U)	/**< CDI size in words */
 
 /* Efuse number of rows */
 #define XOCP_EFUSE_PPK_HASH_NO_OF_WORDS		(8U)	/**< PPK Hash number of words */
@@ -277,6 +283,8 @@ int XOcp_CheckAndExtendSecureState(void);
 int XOcp_MeasureSecureStateAndExtendSwPcr(void);
 XOcp_DmeResponse* XOcp_GetDmeResponse(void);
 u32 XOcp_IsDmeChlAvail(void);
+int XOcp_ValidateDiceCdi(void);
+int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr, u32 DataLen, XSecure_HmacRes *Out);
 
 #ifdef __cplusplus
 }

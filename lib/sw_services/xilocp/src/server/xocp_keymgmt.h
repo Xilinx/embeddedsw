@@ -27,6 +27,8 @@
 * 1.4   har  06/10/2024   Moved XOCP_DEVAK_SUBSYS_HASH_DS_ID macro to xocp.h
 * 1.4   har  26/04/2024   Add support to store personalization string for additional DevAk
 *                         Renamed XOCP_GenSubSysDevAk to XOcp_GenSubSysDevAk
+*       rmv  07/17/2025   Move declaration of XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() APIs
+*			  from xocp_keymgmt.h file to xocp.h file as exported function.
 *
 * </pre>
 *
@@ -53,8 +55,6 @@ extern "C" {
 #define XOCP_EFUSE_DEVICE_DNA_CACHE			(0xF1250020U) /**< DNA cache */
 #define XOCP_EFUSE_DEVICE_DNA_SIZE_WORDS		(4U) /**< DNA size in words */
 #define XOCP_EFUSE_DEVICE_DNA_SIZE_BYTES		(16U) /**< DNA size in bytes */
-#define XOCP_CDI_SIZE_IN_BYTES				(48U) /**< CDI size in bytes */
-#define XOCP_CDI_SIZE_IN_WORDS				(12U) /**< CDI size in words */
 #define XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES		(48U) /**< Trng seed size in bytes */
 #define XOCP_TIMEOUT_MAX				(0x1FFFFU) /**< Maximum timeout */
 

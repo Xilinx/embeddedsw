@@ -37,6 +37,8 @@
 *	vss  09/23/24 Modified code as per security best practices
 *       kpt  12/03/24 Updated IsCsr value to False during DevAk certificate generation
 *       tvp  07/30/25 Limit number of DevAK per subsystem to 0 and/or 1
+*       rmv  07/17/25 Move XOcp_ValidateDiceCdi() and XOcp_KeyGenDevAkSeed() from xocp_keymgmt.c
+*                     file to xocp.c file as exported function.
 *
 * </pre>
 * @note
@@ -79,13 +81,10 @@
 #define XOcp_MemSet					XPlmi_MemSet
 
 /************************** Function Prototypes ******************************/
-static int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr,
-	u32 DataLen, XSecure_HmacRes *Out);
 static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg);
 static int XOcp_KeyGenerateDevIk(void);
 static XOcp_KeyMgmt *XOcp_GetKeyMgmtInstance(void);
 static XOcp_SubSysHash *XOcp_GetSubSysHash(void);
-static int XOcp_ValidateDiceCdi(void);
 static XOcp_DevAkData *XOcp_GetDevAkData(void);
 static int XOcp_Attestation(XOcp_Attest *AttestationInfoPtr, u32 DevAkIndex);
 
@@ -944,76 +943,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function generates the seed for DEVAK key generation using
- *		HMAC
- *
- * @param	KeyAddr holds the address of key to be used for HMAC.
- * @param	KeyLen specifies the length of the key.
- * @param	DataAddr holds the data address to be updated to HMAC.
- * @param	DataLen specifies the length of the data to be updated to HMAC.
- * @param	Out is a pointer of type XSecure_HmacRes where the resultant gets
- *		updated.
- *
- * @return
- *	-	XST_SUCCESS - upon success
- *	-	XST_FAILURE - Upon any failure
- *
- ******************************************************************************/
-static int XOcp_KeyGenDevAkSeed(u32 CdiAddr, u32 CdiLen, u32 DataAddr,
-	u32 DataLen, XSecure_HmacRes *Out)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
-	volatile int RetStatus = XST_GLITCH_ERROR;
-	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	XSecure_Hmac HmacInstance;
-
-	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_Sha3Kat,
-				Sha3InstPtr);
-		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-			Status |= StatusTmp;
-			goto END;
-		}
-		XPlmi_SetKatMask(XPLMI_SECURE_SHA3_KAT_MASK);
-	}
-
-	if (XPlmi_IsKatRan(XPLMI_SECURE_HMAC_KAT_MASK) != TRUE) {
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_HmacKat,
-				Sha3InstPtr);
-		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-			Status |= StatusTmp;
-			goto END;
-		}
-		XPlmi_SetKatMask(XPLMI_SECURE_HMAC_KAT_MASK);
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_HmacInit(&HmacInstance, Sha3InstPtr, CdiAddr, CdiLen);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_HmacUpdate(&HmacInstance, (u64)DataAddr, DataLen);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_HmacFinal(&HmacInstance, Out);
-	RetStatus = Status;
-
-END:
-	if ((RetStatus != XST_SUCCESS) && (Status != XST_SUCCESS)) {
-		RetStatus = Status;
-	}
-
-	return RetStatus;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function provides the pointer to the common XOcp_KeyMgmt
  *		instance which has to be used across the project to store the data.
  *
@@ -1027,53 +956,6 @@ static XOcp_KeyMgmt *XOcp_GetKeyMgmtInstance(void)
 	static XOcp_KeyMgmt KeyMgmtInstance = {0U};
 
 	return &KeyMgmtInstance;
-}
-
-/*****************************************************************************/
-/**
- * @brief       This function validates the DICE CDI stored in PMC global register.
- *
- * @return
- *      -   XST_SUCCESS - On Successful read and validation of CDI Seed
- *	-   Errorcode  - On failure
- *
- ******************************************************************************/
-static int XOcp_ValidateDiceCdi(void)
-{
-	volatile int Status = (int)XOCP_DICE_CDI_SEED_ZERO;
-	volatile u32 Index;
-	volatile u32 CdiParity = 0U;
-	volatile u32 CdiParityTmp = 0U;
-
-	/** Upon DICE CDI SEED zeroize, if CDI valid bit is not cleared in Versal Net.
-	 *  Check whether DICE CDI SEED is non zero or not.
-	 */
-	for (Index = 0U; Index < XOCP_CDI_SIZE_IN_WORDS; Index++) {
-		if (XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_0 +
-			(Index * XSECURE_WORD_LEN)) != 0x0U) {
-			CdiParity = XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY) &
-				XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY_ERROR_MASK;
-			CdiParityTmp = XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY) &
-				XOCP_PMC_GLOBAL_DICE_CDI_SEED_PARITY_ERROR_MASK;
-			if ((CdiParity != 0x0U) || (CdiParityTmp != 0x0U)) {
-				Status = (int)XOCP_DICE_CDI_PARITY_ERROR;
-				goto END;
-			}
-			else {
-				Status = XST_SUCCESS;
-				break;
-			}
-		}
-	}
-	if (Index > XOCP_CDI_SIZE_IN_WORDS) {
-		Status = (int)XOCP_ERR_GLITCH_DETECTED;
-	}
-	else {
-		Status = XST_SUCCESS;
-	}
-
-END:
-	return Status;
 }
 
 /*****************************************************************************/
