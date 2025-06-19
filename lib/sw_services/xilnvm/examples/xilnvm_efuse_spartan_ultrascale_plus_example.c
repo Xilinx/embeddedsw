@@ -16,6 +16,28 @@
  * To build this application, xilnvm library must be in server mode.
  * This example is supported for spartan ultrascale plus devices.
  *
+ * Procedure to link and compile the example for the default ddr less designs
+ * ------------------------------------------------------------------------------------------------------------
+ * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
+ * any data shared between PL and PMC peripherals, should be placed in area which is accessible to both PL and PMC.
+ *
+ * Following is the procedure to compile the example on any memory region which can be accessed by both PL and PMC
+ *
+ *		1. In linker script(lscript.ld) user can add new memory region in declaration section as shown below
+ *			shared_mem : ORIGIN = 0x0402C000, LENGTH = 0x2000
+ *
+ *		2. Data elements that are passed by reference to the PMC side should be stored in the above shared memory section.
+ *                 Change the .data section region to point to the new shared_mem region created in step 1. as below
+ *
+ *			.data : {
+ *			. = ALIGN(4);
+ *			__data_start = .;
+ *			*(.data)
+ *			*(.data.*)
+ *			*(.gnu.linkonce.d.*)
+ *			__data_end = .;
+ *			} > shared_mem
+ *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -26,6 +48,7 @@
  * 3.5	 hj    04/02/2025 Remove unused PrgmAesWrlk variable
  *       hj    04/10/2025 Rename PPK hash size macros
  *       hj    04/10/2025 Remove security control bits not exposed to user
+ *       mb    06/10/2025 Added description on usage of shared memory
  *
  * </pre>
  *
