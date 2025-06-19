@@ -66,7 +66,7 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_AesDecryptDpaCmKat(XAsufw_Dma *AsuDmaPtr);
-s32 XAsufw_P192EcdhKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_P256EcdhKat(XAsufw_Dma *AsuDmaPtr);
 #ifdef XASU_HMAC_ENABLE
 s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr);
 #endif

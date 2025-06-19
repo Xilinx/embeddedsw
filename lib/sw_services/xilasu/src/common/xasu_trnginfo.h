@@ -46,9 +46,9 @@ extern "C" {
 #define XASU_TRNG_KAT_CMD_ID			(1U) /**< Command ID for TRNG KAT command */
 
 /* Internal purpose */
-#define XASU_TRNG_DRBG_INSTANTIATE_CMD_ID       (3U) /**< Command ID for TRNG DRBG instantiate cmd */
-#define XASU_TRNG_DRBG_RESEED_CMD_ID            (4U) /**< Command ID for TRNG DRBG reseed cmd */
-#define XASU_TRNG_DRBG_GENERATE_CMD_ID          (5U) /**< Command ID for TRNG DRBG generate cmd */
+#define XASU_TRNG_DRBG_INSTANTIATE_CMD_ID       (2U) /**< Command ID for TRNG DRBG instantiate cmd */
+#define XASU_TRNG_DRBG_RESEED_CMD_ID            (3U) /**< Command ID for TRNG DRBG reseed cmd */
+#define XASU_TRNG_DRBG_GENERATE_CMD_ID          (4U) /**< Command ID for TRNG DRBG generate cmd */
 
 /** @} */
 /************************************** Type Definitions *****************************************/

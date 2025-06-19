@@ -34,6 +34,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xasu_keywrapinfo.h"
 
 #ifdef XASU_KEYWRAP_ENABLE
 /************************************ Constant Definitions ***************************************/

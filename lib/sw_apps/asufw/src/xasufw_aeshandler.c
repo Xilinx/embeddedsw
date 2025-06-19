@@ -128,6 +128,8 @@ static s32 XAsufw_AesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 
+	(void)ReqBuf;
+
 	/** Allocate AES and DMA resources for AES operation and AES KAT commands. */
 	XAsufw_AesModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, ReqId);
 	if (XAsufw_AesModule.AsuDmaPtr == NULL) {

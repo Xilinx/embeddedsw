@@ -418,7 +418,7 @@ static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-	/** Perform KAT on P-192 curve using RSA core. */
+	/** Perform KAT on P-256 curve using RSA core. */
 	Status = XAsufw_RsaEccKat(XAsufw_EccModule.AsuDmaPtr);
 
 END:
@@ -441,7 +441,7 @@ END:
  * @return
  * 		- XASUFW_SUCCESS, if command execution is successful.
  *		- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
- *		- Error codes from XAsufw_P192EcdhKat, if any operation fails.
+ *		- Error codes from XAsufw_P256EcdhKat, if any operation fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -450,8 +450,8 @@ static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	(void)ReqBuf;
 
-	/** Perform KAT on P-192 curve using RSA core. */
-	Status = XAsufw_P192EcdhKat(XAsufw_EccModule.AsuDmaPtr);
+	/** Perform KAT on P-256 curve using RSA core. */
+	Status = XAsufw_P256EcdhKat(XAsufw_EccModule.AsuDmaPtr);
 
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {

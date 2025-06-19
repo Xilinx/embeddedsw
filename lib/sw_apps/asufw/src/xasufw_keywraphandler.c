@@ -33,7 +33,6 @@
 #include "xasufw_util.h"
 #include "xasufw_cmd.h"
 #include "xasufw_kat.h"
-#include "xasu_keywrapinfo.h"
 
 #ifdef XASU_KEYWRAP_ENABLE
 /************************************ Function Prototypes ****************************************/

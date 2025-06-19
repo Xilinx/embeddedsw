@@ -265,29 +265,6 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function is a handler for TRNG Get Info command.
- *
- * @param	ReqBuf	Pointer to the request buffer.
- * @param	ReqId	Request Unique ID.
- *
- * @return
- * 	- XASUFW_SUCCESS, if command execution is successful.
- * 	- Otherwise, returns an error code.
- *
- *************************************************************************************************/
-static s32 XAsufw_TrngGetInfo(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
-{
-	s32 Status = XASUFW_FAILURE;
-
-	(void)ReqBuf;
-	(void)ReqId;
-
-	/** TODO: Need to add support TRNG Get Info command */
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
  * @brief	This function is a handler for TRNG DRBG instantiate command.
  *
  * @param	ReqBuf	Pointer to the request buffer.
