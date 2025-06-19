@@ -28,6 +28,7 @@
 #include "xocp.h"
 #include "xocp_plat.h"
 #include "xocp_hw.h"
+#include "xplmi_scheduler.h"
 
 /********************************** Constant Definitions *****************************************/
 
@@ -47,12 +48,30 @@ typedef struct {
 
 #define XOCP_ASU_SUBSYSTEM_ID			(0x1C000002U)	/**< ASU subsystem ID */
 
+#define XOCP_ASUFW_IPI_MASK			(0x00000001U)	/**< ASUFW IPI mask */
+#define XOCP_PLM_ASUFW_EVENT_MASK		(0x00000001U)	/**< PLM to ASU event mask */
+#define XOCP_ASUFW_EVENT_PAYLOAD_SIZE		(2U)	/**< ASUFW event payload size */
+#define XOCP_ASUFW_NOTIFICATION_TASK_DELAY	(100U)	/**< Notify ASUFW task delay in
+							milliseconds */
+#define XOCP_ASUFW_MAX_TASK_COUNT		(3U)	/**< Maximum count to schedule task if
+							ASUFW is not present */
+#define XOCP_ASU_GLOBAL_BASEADDR			(0xEBF80000U)
+								/** ASU_GLOBAL base address */
+#define XOCP_ASU_GLOBAL_GLOBAL_CNTRL			(XOCP_ASU_GLOBAL_BASEADDR + 0x00000000U)
+								/** ASU_GLOBAL GLOBAL_CNTRL register
+								address */
+#define XOCP_ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK	(0x00000010U)
+								/** ASU_GLOBAL GLOBAL_CNTRL
+								FW_Is_Present mask */
+
 /************************************ Function Prototypes ****************************************/
+static int XOcp_NotifyAsuTask(void *Arg);
 static int XOcp_GetSubsysDigestAddr(u32 SubsystemId, u32 *SubsysHashAddrPtr);
 static int XOcp_GenerateAsuCdiSeed(void);
 static XOcp_SubsysInfo *XOcp_GetOcpSubsysInfoDb(void);
 
 /********************************** Variable Definitions *****************************************/
+static u32 XOcpPlmAsufwEvent;
 static u8 XOcpAsuCdi[XOCP_CDI_SIZE_IN_BYTES];
 
 /********************************** Function Definitions *****************************************/
@@ -118,6 +137,7 @@ int XOcp_StoreSubsysDigest(u32 SubsystemId, u64 Hash)
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
+			XOcpPlmAsufwEvent |= XPLMI_BIT(Idx);
 			break;
 		}
 	}
@@ -127,6 +147,98 @@ END:
 	return Status;
 }
 
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a notification to the ASU system.
+ *
+ * @return
+ *	- XST_SUCCESS, if notification is sent to ASUFW or the notification task is scheduled
+ *		       successfully.
+ *	- XST_FAILURE, in case of failure.
+ *
+ *************************************************************************************************/
+int XOcp_NotifyAsu(void)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Payload[XOCP_ASUFW_EVENT_PAYLOAD_SIZE] = {0U};
+	u32 IsAsuPresent = 0U;
+	u32 PlmAsufwEvent = XOcpPlmAsufwEvent;
+	static u32 TaskCount = 0U;
+
+	if (XOcpPlmAsufwEvent == 0U) {
+		/* No event to notify, return success. */
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/*
+	 * Check if ASUFW is present or not. If ASUFW is not present, schedule
+	 * task to notify ASUFW later.
+	 */
+	IsAsuPresent = (XPlmi_In32(XOCP_ASU_GLOBAL_GLOBAL_CNTRL)) &
+			XOCP_ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK;
+	if (IsAsuPresent == 0U) {
+		if (TaskCount < XOCP_ASUFW_MAX_TASK_COUNT) {
+			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILOCP_ID, XOcp_NotifyAsuTask,
+					NULL, XOCP_ASUFW_NOTIFICATION_TASK_DELAY,
+					XPLM_TASK_PRIORITY_0, NULL, XPLMI_NON_PERIODIC_TASK);
+		}
+		TaskCount++;
+		goto END;
+	}
+	XOcpPlmAsufwEvent = 0U;
+
+	/* If ASUFW event is set, generate ASU CDI seed and copy device DNA. */
+	if ((PlmAsufwEvent & XOCP_PLM_ASUFW_EVENT_MASK) != 0U) {
+		Status = XOcp_GenerateAsuCdiSeed();
+		if (XST_SUCCESS != Status) {
+			goto END;
+		}
+	}
+
+	/** Assign PLM event based on subsystem state changes. */
+	Payload[0U] = XOCP_PLM_ASUFW_CMD_HDR;
+	Payload[1U] = PlmAsufwEvent;
+
+	/* Write the IPI payload buffer. */
+	Status = XPlmi_IpiWrite(XOCP_ASUFW_IPI_MASK, Payload, XOCP_ASUFW_EVENT_PAYLOAD_SIZE,
+				XIPIPSU_BUF_TYPE_MSG);
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+
+	/* Trigger the IPI to notify ASUFW. */
+	Status = XPlmi_IpiTrigger(XOCP_ASUFW_IPI_MASK);
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function triggers an ASU task notification.
+ *
+ * @param	Arg
+ *
+ * @return
+ *	- XST_SUCCESS, if the ASU task is triggered successfully.
+ *	- XST_FAILURE, in case of failure.
+ *
+ *************************************************************************************************/
+static int XOcp_NotifyAsuTask(void *Arg)
+{
+	XStatus Status = XST_FAILURE;
+
+	(void)Arg;
+
+	/* Notify ASUFW with the event mask stored in XOcpPlmAsufwEvent. */
+	Status = XOcp_NotifyAsu();
+
+	return Status;
+}
 
 /*************************************************************************************************/
 /**
