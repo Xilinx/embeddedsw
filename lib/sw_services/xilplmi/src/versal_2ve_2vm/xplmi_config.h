@@ -33,6 +33,7 @@
 *       bm   11/11/2024 Added config option for I2C Handshake feature
 *       sk   03/07/2025 Added config option for UFS
 *       rmv  07/17/2025 Disable PLM OCP key management
+*       rmv  07/17/2025 Added PLM_OCP_ASUFW_KEY_MGMT configuration macro and enable by default
 *
 * </pre>
 *
@@ -151,6 +152,10 @@ extern "C" {
 
 #if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP))
 #define PLM_OCP
+#endif
+
+#if (!defined(PLM_OCP_ASUFW_KEY_MGMT)) && (defined(PLM_OCP))
+#define PLM_OCP_ASUFW_KEY_MGMT
 #endif
 
 /**
