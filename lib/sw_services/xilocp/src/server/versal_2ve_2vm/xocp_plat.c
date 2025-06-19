@@ -45,11 +45,15 @@ typedef struct {
 #define XOCP_ASUFW_MAX_SUBSYS_SUPPORT		(5U)	/**< Maximum number of OCP subsystems
 							(including ASU subsystem) */
 
+#define XOCP_ASU_SUBSYSTEM_ID			(0x1C000002U)	/**< ASU subsystem ID */
+
 /************************************ Function Prototypes ****************************************/
 static int XOcp_GetSubsysDigestAddr(u32 SubsystemId, u32 *SubsysHashAddrPtr);
+static int XOcp_GenerateAsuCdiSeed(void);
 static XOcp_SubsysInfo *XOcp_GetOcpSubsysInfoDb(void);
 
 /********************************** Variable Definitions *****************************************/
+static u8 XOcpAsuCdi[XOCP_CDI_SIZE_IN_BYTES];
 
 /********************************** Function Definitions *****************************************/
 /*************************************************************************************************/
@@ -187,6 +191,79 @@ int XOcp_GetSubsysDigest(u32 SubsystemId, u32 SubsysHashAddrPtr)
 			     XOCP_SHA3_LEN_IN_BYTES);
 
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates CDI seed for ASUFW.
+ *
+ * @return
+ *	- XST_SUCCESS, if ASU CDI seed is generated successfully.
+ *	- XST_FAILURE, in case of failure.
+ *
+ *************************************************************************************************/
+static int XOcp_GenerateAsuCdiSeed(void)
+{
+	volatile int Status = XST_FAILURE;
+	u32 AsuHashAddr = 0U;
+	u8 Seed[XOCP_CDI_SIZE_IN_BYTES];
+	u32 PlmCdiAddr = (u32)(UINTPTR)&Seed[0];
+
+	/* If CDI is not valid device key generation is skipped */
+	if (XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_VALID) == 0x0U) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/* Read and validate whether, DICE CDI SEED is valid or not */
+	Status = XOcp_ValidateDiceCdi();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Copy CDI from PMC global registers to Seed buffer */
+	Status = Xil_SMemCpy((void *)(UINTPTR)Seed, XOCP_CDI_SIZE_IN_BYTES,
+			     (const void *)(UINTPTR)XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
+			     XOCP_CDI_SIZE_IN_BYTES, XOCP_CDI_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Get the subsystem digest for the ASUFW. */
+	Status = XOcp_GetSubsysDigestAddr(XOCP_ASU_SUBSYSTEM_ID, &AsuHashAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Generate ASUFW CDI. */
+	Status = XOcp_KeyGenDevAkSeed(PlmCdiAddr, XOCP_CDI_SIZE_IN_BYTES, (u32)(UINTPTR)AsuHashAddr,
+				      XOCP_CDI_SIZE_IN_BYTES,
+				      (XSecure_HmacRes *)(UINTPTR)XOcpAsuCdi);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function copies the ASU CDI to provided address.
+ *
+ * @param	CdiAddr		Address to store ASU CDI.
+ *
+ * @return
+ *	- XST_SUCCESS, if ASU CDI is copied successfully.
+ *	- XST_FAILURE, in case of failure.
+ *
+ **************************************************************************************************/
+int XOcp_GetAsuCdiSeed(u32 CdiAddr)
+{
+	volatile int Status = XST_FAILURE;
+
+	Status = Xil_SMemCpy((void *)(UINTPTR)CdiAddr, XOCP_CDI_SIZE_IN_BYTES,
+			     (const void *)(UINTPTR)XOcpAsuCdi, XOCP_CDI_SIZE_IN_BYTES,
+			     XOCP_CDI_SIZE_IN_BYTES);
+
 	return Status;
 }
 

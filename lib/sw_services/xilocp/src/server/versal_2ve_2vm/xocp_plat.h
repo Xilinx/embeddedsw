@@ -43,6 +43,7 @@ extern "C" {
 int XOcp_StoreOcpSubsysIDs(u32 SubsystemIdListLen, const u32 *SubsystemIdList);
 int XOcp_StoreSubsysDigest(u32 SubsystemId, u64 Hash);
 int XOcp_GetSubsysDigest(u32 SubsystemId, u32 SubsysHashAddrPtr);
+int XOcp_GetAsuCdiSeed(u32 CdiAddr);
 
 /********************************** Variable Definitions *****************************************/
 
