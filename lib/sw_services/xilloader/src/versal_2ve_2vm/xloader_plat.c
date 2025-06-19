@@ -66,6 +66,7 @@
 *       sk   03/29/2025 Added redundancy for handoff address
 * 1.04  obs  08/01/2025 Updated status with valid error code in XLoader_DataMeasurement API
 *       tvp  07/28/2025 Added comment for better code readability
+*       rmv  07/17/2025 Call XOcp_StoreSubsysDigest() to store subsystem digest for ASUFW
 *
 * </pre>
 *
@@ -92,6 +93,9 @@
 #include "xocp.h"
 #ifdef PLM_OCP_KEY_MNGMT
 #include "xocp_keymgmt.h"
+#endif
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+#include "xocp_plat.h"
 #endif
 #include "xsecure_sha.h"
 #include "xsecure_init.h"
@@ -1387,6 +1391,10 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 			}
 		}
 #endif /* PLM_OCP_KEY_MNGMT */
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+	/* Store subsystem digest for corresponding subsystem ID. */
+	XOcp_StoreSubsysDigest(ImageInfo->SubsystemID, (u64)(UINTPTR)Sha3Hash.Hash);
+#endif
 
 		if (ImageInfo->PcrInfo != XOCP_PCR_INVALID_VALUE) {
 			PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
