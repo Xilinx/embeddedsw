@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 1.2   kal  05/28/23 Added SW PCR API IDs
 * 1.3   ng   01/28/24 Added SDT support
 * 1.4   har  06/11/24 Added XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK API ID
+* 	rmv  07/17/25 Added XOCP_API_OCP_SUBSYS_INPUT API ID
 *
 * </pre>
 * @note
@@ -105,7 +106,8 @@ typedef enum {
 	XOCP_API_GET_SWPCRDATA,	/**< 13U */
 	XOCP_API_GEN_SHARED_SECRET, /**< 14U*/
 	XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK, /**< 15U */
-	XOCP_API_MAX		/**< 16U */
+	XOCP_API_OCP_SUBSYS_INPUT, /**< 16U */
+	XOCP_API_MAX		/**< 17U */
 } XOcp_ApiId;
 /** @} */
 

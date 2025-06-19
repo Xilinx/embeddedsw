@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *       am   01/31/24 Moved key Management operations under PLM_OCP_KEY_MNGMT macro
 *       kpt  02/20/24 Added support to extend secure state into SWPCR
 *       har  06/04/24 Added support to get Key Index as part of DevAkInput CDO command
+*       rmv  07/17/25 Added support to store OCP subsystem IDs for ASUFW
 *
 * </pre>
 *
@@ -51,6 +52,9 @@
 #include "xcert_genx509cert.h"
 #endif
 #include "xocp.h"
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+#include "xocp_plat.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -77,6 +81,9 @@ static int XOcp_SetSwPcrConfig(const XPlmi_Cmd *Cmd);
 #ifdef PLM_OCP_KEY_MNGMT
 static int XOcp_DevAkInput(const XPlmi_Cmd *Cmd);
 static int XOcp_GetCertUserCfg(const XPlmi_Cmd *Cmd);
+#endif
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+static int XOcp_InputOcpSubsysIDs(const XPlmi_Cmd *Cmd);
 #endif
 
 /************************** Function Definitions ******************************/
@@ -196,6 +203,12 @@ static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 			Status = XOCP_ERR_KEY_MANAGEMENT_NOT_ENABLED;
 			break;
 #endif
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+		case XOCP_API(XOCP_API_OCP_SUBSYS_INPUT):
+			Status = XOcp_InputOcpSubsysIDs(Cmd);
+			break;
+#endif
+
 		default:
 			XOcp_Printf(DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 			Status = XST_INVALID_PARAM;
@@ -351,5 +364,33 @@ static int XOcp_GetCertUserCfg(const XPlmi_Cmd *Cmd)
 	return Status;
 }
 #endif	/* PLM_OCP_KEY_MNGMT */
+
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+/*****************************************************************************/
+/**
+ * @brief	This function stores OCP subsystem IDs for ASUFW operations.
+ *
+ * @param	Cmd - Pointer to the XPlmi_Cmd structure
+ *
+ * @return
+ *		- XST_SUCCESS - On success
+ *		- Error Code - On Failure
+ *
+ *****************************************************************************/
+static int XOcp_InputOcpSubsysIDs(const XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	const u32 *Pload = Cmd->Payload;
+
+	if (Cmd->ProcessedLen != 0U) {
+		Status = (int)XOCP_ERR_CHUNK_BOUNDARY_CROSSED;
+	} else {
+		Status = XOcp_StoreOcpSubsysIDs(Pload[0], (u32 *)(UINTPTR)&Pload[1]);
+	}
+
+	return Status;
+}
+#endif /* PLM_OCP_ASUFW_KEY_MGMT */
+
 #endif /* PLM_OCP */
 
