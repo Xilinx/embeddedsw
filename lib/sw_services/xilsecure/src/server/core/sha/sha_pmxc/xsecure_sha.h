@@ -21,6 +21,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.4   kal  07/24/24 Initial release
+* 5.6   vss  06/17/25 Removed dead code
 *
 * </pre>
 *
@@ -70,7 +71,6 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 int XSecure_ShaDigest(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode, const u64 DataAddr,
 u32 DataSize, u64 HashAddr, u32 HashBufSize);
 int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr);
-void XSecure_ShaSetDataContext(XSecure_Sha *InstancePtr);
 int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 	XSecure_ShaMode ShaMode);
 

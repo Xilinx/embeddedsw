@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.5   kpt   08/16/22 Initial release
 *       vss   04/07/25 Initialized AesKeyLookupTbl array.
+*       vss   06/19/25 Removed dead code
 *
 * </pre>
 *
@@ -544,32 +545,6 @@ int XSecure_CfgSssAes(XPmcDma *DmaPtr, const XSecure_Sss *SssInstance)
 	}
 
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function is used to set the Data context bit
- * 		of the corresponding IPI channel if the previous data context is lost.
- *
- * @param	InstancePtr		Pointer to the XSecure_Aes instance
- *
- *
- ******************************************************************************/
-void XSecure_AesSetDataContext(XSecure_Aes *InstancePtr) {
-	(void)InstancePtr;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function is used to set the Data context bit of the
- * 		corresponding IPI channel if the previous data context is lost.
- *
- * @param	InstancePtr	Pointer to the XSecure_Sha instance
- *
- ******************************************************************************/
-void XSecure_ShaSetDataContext(XSecure_Sha *InstancePtr)
-{
-	(void)InstancePtr;
 }
 
 /***************************************************************************/
