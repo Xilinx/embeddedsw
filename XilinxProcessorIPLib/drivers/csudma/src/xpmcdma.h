@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -973,7 +973,7 @@ static INLINE s32 XPmcDma_SelfTest(XPmcDma *InstancePtr)
 	return XCsuDma_SelfTest(InstancePtr);
 }
 
-#if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
+#ifdef VERSAL_NET
 /*****************************************************************************/
 /**
 *

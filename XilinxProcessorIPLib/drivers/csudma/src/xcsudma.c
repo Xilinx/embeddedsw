@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -155,7 +155,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-#if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
+#ifdef VERSAL_NET
 	DataSize = Size * XCSUDMA_WORD_SIZE;
 #else
 	DataSize = Size;
@@ -260,7 +260,7 @@ void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	Xil_AssertVoid(Size <= (u32)(XCSUDMA_SIZE_MAX));
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)(XIL_COMPONENT_IS_READY));
 
-#if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
+#ifdef VERSAL_NET
 	DataSize = Size * XCSUDMA_WORD_SIZE;
 #else
 	DataSize = Size;
@@ -913,7 +913,7 @@ void XCsuDma_GetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 
 }
 
-#if defined(VERSAL_NET) || defined(VERSAL_2VE_2VM)
+#ifdef VERSAL_NET
 /*****************************************************************************/
 /**
 *
