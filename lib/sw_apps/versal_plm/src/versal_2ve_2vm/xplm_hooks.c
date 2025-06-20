@@ -25,6 +25,7 @@
 * 1.12  nb   10/09/2024 Add XilPM hook to XPlm_HookAfterBootPdi
 * 1.13  sk   12/13/2024 Added proc buffer init in XPlm_HookBeforePmcCdo
 * 1.14  sk   03/25/2025 Updated platform name
+*	rmv  07/17/2025 Added call to XOcp_NotifyAsu()
 *
 * </pre>
 *
@@ -49,6 +50,9 @@
 #include "xpm_alloc.h"
 #else
 #include "xpm_alloc.h"
+#endif
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+#include "xocp_plat.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -131,5 +135,10 @@ int XPlm_HookAfterBootPdi(void *Arg)
 	/* Call XilPM hook */
 	Status = XPm_HookAfterBootPdi();
 	(void)XPm_DumpMemUsage();
+
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+	Status = XOcp_NotifyAsu();
+#endif
+
 	return Status;
 }
