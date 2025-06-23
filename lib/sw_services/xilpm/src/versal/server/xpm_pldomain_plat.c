@@ -24,6 +24,10 @@
 /* Modify value of MAX_DEV_GT if we run out */
 #define MAX_DEV_GT		52U
 
+/* The current number of GTMPW devices */
+#define XPM_NODEIDX_DEV_GTMPW_MIN	XPM_NODEIDX_DEV_GTMPW_0
+#define XPM_NODEIDX_DEV_GTMPW_MAX	XPM_NODEIDX_DEV_GTMPW_13
+
 /* The current number of VDU device. Used to run housecleaning for each VDU */
 #define XPM_NODEIDX_DEV_VDU_MIN     XPM_NODEIDX_DEV_VDU_0
 #define XPM_NODEIDX_DEV_VDU_MAX     XPM_NODEIDX_DEV_VDU_3
@@ -72,8 +76,14 @@ static XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	Status = XPmPowerDomain_SecureEfuseTransfer(PM_POWER_PLD);
+	if (PM_HOUSECLEAN_CHECK(PLD, PLD_EFUSE)) {
+		Status = XPmPowerDomain_SecureEfuseTransfer(PM_POWER_PLD);
+		goto done;
+	}
 
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }
 
@@ -632,6 +642,21 @@ static XStatus InitGtyAddrArr(u32 *GtArrPtr, const u32 ArrLen)
 			goto done;
 		}
 
+		/*
+		 * TODO: This is a temporary workaround because this operation
+		 * is not applicable to the GTMPW block.
+		 */
+		if ((i < (u32)XPM_NODEIDX_DEV_GTMPW_MIN) ||
+		    (i > (u32)XPM_NODEIDX_DEV_GTMPW_MAX)) {
+			Status = XPm_PollForMask(Device->Node.BaseAddress + GTY_PCSR_STATUS_OFFSET,
+						 GTY_PCSR_STATUS_HOUSECLEAN_DONE_MASK, XPM_POLL_TIMEOUT);
+			if (XST_SUCCESS != Status) {
+				PmErr("HOUSECLEAN_DONE poll failed for GT:0x%08X\n\r", Device->Node.BaseAddress);
+				DbgErr = XPM_INT_ERR_GTY_HC;
+				goto done;
+			}
+		}
+
 		GtArrPtr[Idx] = Device->Node.BaseAddress;
 		++Idx;
 	}
@@ -662,13 +687,6 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld, u32 PollTimeOut)
 	for (i = 0; i < ARRAY_SIZE(GtyAddrs); i++) {
 		if (0U == GtyAddrs[i]) {
 			continue;
-		}
-		Status = XPm_PollForMask(GtyAddrs[i] + GTY_PCSR_STATUS_OFFSET,
-					GTY_PCSR_STATUS_HOUSECLEAN_DONE_MASK, PollTimeOut);
-		if (XST_SUCCESS != Status) {
-			PmErr("HOUSECLEAN_DONE poll failed for GT:0x%08X\n\r", GtyAddrs[i]);
-			DbgErr = XPM_INT_ERR_GTY_HC;
-			goto done;
 		}
 
 		XPm_UnlockPcsr(GtyAddrs[i]);
