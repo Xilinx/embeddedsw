@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -117,13 +117,13 @@ static XAxiCdma AxiCdmaInstance;	/* Instance of the XAxiCdma */
 
 /* Source and Destination buffer for DMA transfer.
  */
-volatile static u8 SrcBuffer[BUFFER_BYTESIZE] __attribute__ ((aligned (64)));
-volatile static u8 DestBuffer[BUFFER_BYTESIZE] __attribute__ ((aligned (64)));
+ static volatile u8 SrcBuffer[BUFFER_BYTESIZE] __attribute__ ((aligned (64)));
+ static volatile u8 DestBuffer[BUFFER_BYTESIZE] __attribute__ ((aligned (64)));
 
 /* Shared variables used to test the callbacks.
  */
-volatile static u32 Done = 0;	/* Dma transfer is done */
-volatile static u32 Error = 0;	/* Dma Error occurs */
+ static volatile u32 Done = 0;	/* Dma transfer is done */
+ static volatile u32 Error = 0;	/* Dma Error occurs */
 
 
 /*****************************************************************************/

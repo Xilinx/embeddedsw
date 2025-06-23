@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +15,11 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int AxiDMASelfTestExample(u16 DeviceId);
+#else
+int AxiDMASelfTestExample(u32 BaseAddress);
+#endif
 
 #ifdef __cplusplus
 }

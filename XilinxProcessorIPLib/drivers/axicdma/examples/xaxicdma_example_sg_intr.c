@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -222,8 +222,8 @@ static u32 *ReceiveBufferPtr = (u32 *) RX_BUFFER_BASE;
 
 /* Shared variables used to test the callbacks.
  */
-volatile static u32 Done = 0;	/* Dma transfer is done */
-volatile static u32 Error = 0;	/* Dma Bus Error occurs */
+ static volatile u32 Done = 0;	/* Dma transfer is done */
+ static volatile u32 Error = 0;	/* Dma Bus Error occurs */
 
 
 /*****************************************************************************/
