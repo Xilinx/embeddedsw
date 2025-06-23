@@ -224,7 +224,11 @@ static struct XPsmTcmPwrCtrl_t Tcm0APwrCtrl = {
 	.PowerState = STATE_POWER_DEFAULT,
 };
 
+#ifdef CPPUTEST
+struct XPsmTcmPwrCtrl_t Tcm0BPwrCtrl = {
+#else
 static struct XPsmTcmPwrCtrl_t Tcm0BPwrCtrl = {
+#endif
 	.TcmMemPwrCtrl = {
 		.PwrStateMask = PSM_LOCAL_PWR_STATE_TCM0B_MASK,
 		.ChipEnAddr = PSM_LOCAL_TCM_CE_CNTRL,
@@ -1312,7 +1316,7 @@ done:
 static XStatus XTcmPwrUp(struct XPsmTcmPwrCtrl_t *Tcm)
 {
 	XStatus Status = XST_FAILURE;
-	struct XPsmTcmPwrCtrl_t *OtherTcm;
+	struct XPsmTcmPwrCtrl_t *OtherTcm = NULL;
 
 	switch (Tcm->Id) {
 	case TCM_0_A:
@@ -1328,7 +1332,6 @@ static XStatus XTcmPwrUp(struct XPsmTcmPwrCtrl_t *Tcm)
 		OtherTcm = &Tcm1APwrCtrl;
 		break;
 	default:
-		OtherTcm = NULL;
 		break;
 	}
 
@@ -1364,7 +1367,7 @@ done:
 static XStatus XTcmPwrDown(struct XPsmTcmPwrCtrl_t *Tcm)
 {
 	XStatus Status = XST_FAILURE;
-	struct XPsmTcmPwrCtrl_t *OtherTcm;
+	struct XPsmTcmPwrCtrl_t *OtherTcm = NULL;
 
 	switch (Tcm->Id) {
 	case TCM_0_A:
@@ -1380,7 +1383,6 @@ static XStatus XTcmPwrDown(struct XPsmTcmPwrCtrl_t *Tcm)
 		OtherTcm = &Tcm1APwrCtrl;
 		break;
 	default:
-		OtherTcm = NULL;
 		break;
 	}
 
