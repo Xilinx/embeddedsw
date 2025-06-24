@@ -22,6 +22,7 @@
 * 3.5   hj   04/02/2025 Remove unused PrgmAesWrlk variable
 *       hj   04/10/2025 Rename PPK hash size macros
 *       hj   04/10/2025 Remove security control bits not exposed to user
+* 3.6   hj   04/10/2025 Remove zero IV validation check in dec_only case
 *
 * </pre>
 *
@@ -374,7 +375,7 @@ typedef enum {
 	XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD = 0x50, /**< 0x50 - Error DEC only already programmed */
 	XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED = 0x60, /**< 0x60 - Error nothing to be programmed */
 	XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD = 0x70,  /**< 0x70 - Error dec only key must be programmed */
-	XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD = 0x80,  /**< 0x80 - Error dec only iv must be programmed */
+	XNVM_EFUSE_ERR_RSVD_1 = 0x80,  /**< 0x80 - RSVD error */
 	XNVM_EFUSE_ERR_DEC_ONLY_HASH_OR_PUF_KEY_MUST_BE_PRGMD = 0x90, /**< 0x90 - Error hash or puf key must be programmed */
 	XNVM_EFUSE_ERR_BIT_CANT_REVERT = 0xA0,  /**< 0xA0 - Error bit can't revert */
 	XNVM_EFUSE_ERR_FUSE_PROTECTED = 0xF0, /**< 0xA0 - Error fuse protected */

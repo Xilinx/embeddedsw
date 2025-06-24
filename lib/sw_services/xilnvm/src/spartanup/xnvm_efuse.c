@@ -24,6 +24,7 @@
 *       hj    04/10/25 Rename PPK hash size macros
 *       hj    04/10/25 Remove security control bits not exposed to user
 *       hj    04/10/25 Fix PPK hash size end index in XNvm_EfuseValidatePpkWriteReq
+* 3.6   hj    04/10/25 Remove zero IV validation check in dec_only case
 *
 * </pre>
 *
@@ -398,21 +399,7 @@ static int XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *EfuseData)
 					goto END;
 				}
 			}
-			Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_IV_START_OFFSET,
-						      XNVM_EFUSE_IV_START_OFFSET + XNVM_EFUSE_AES_IV_NUM_OF_ROWS);
-			if (Status == XST_SUCCESS) {
-				if (EfuseData->Ivs != NULL) {
-					if (EfuseData->Ivs->PrgmIv != TRUE) {
-						Status =
-							(int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
-						goto END;
-					}
-				} else {
-					Status =
-						(int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
-					goto END;
-				}
-			}
+
 			Status =  XNvm_EfuseReadSecCtrlBits(&ReadSecCtrlBits);
 			if (Status != XST_SUCCESS) {
 				goto END;
