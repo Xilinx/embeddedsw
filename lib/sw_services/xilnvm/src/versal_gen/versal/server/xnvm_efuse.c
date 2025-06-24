@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -97,6 +97,7 @@
 *       kpt 03/28/2024  Updated validation to allow additional PPK programming along with
 *                       PPK0/1/2 and additional ppk enable bit
 *       ng   12/12/2023 Fixed doxygen grouping
+* 3.6   hj   04/15/2025 Remove zero IV check in dec_only fuse programming
 *
 * </pre>
 *
@@ -4105,24 +4106,6 @@ static int XNvm_EfuseValidateDecOnlyWriteReq(const XNvm_EfuseData *WriteReq)
 				else {
 					Status =
 					(int)XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
-					goto END;
-				}
-			}
-			Status = XNvm_EfuseCheckZeros(
-				XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW,
-				XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW +
-				XNVM_EFUSE_IV_NUM_OF_ROWS);
-			if (Status == XST_SUCCESS) {
-				if (WriteReq->Ivs != NULL) {
-					if (WriteReq->Ivs->PrgmBlkObfusIv != TRUE) {
-						Status =
-						(int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
-						goto END;
-					}
-				}
-				else {
-					Status =
-					(int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
 					goto END;
 				}
 			}

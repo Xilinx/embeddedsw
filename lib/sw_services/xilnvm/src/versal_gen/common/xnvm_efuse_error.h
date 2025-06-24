@@ -26,6 +26,7 @@
 *	vss  02/23/24 Added IPI support for eFuse read and write
 *       ng   11/22/23 Fixed doxygen grouping
 * 3.5   har  12/04/24 Added error code XNVM_EFUSE_ERR_AES_DISABLED
+* 3.6   hj   04/15/25 Remove zero IV check in dec_only fuse programming
 *
 * </pre>
 *
@@ -102,11 +103,7 @@ typedef enum {
 	XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD = 0xB0,/**<0xB0 - Aes key
 						* should be programmed for
 						* DEC_ONLY eFuse programming */
-
-	XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD = 0xC0,/**<0xC0 - Blk obfus
-						* IV should be programmed for
-						* DEC_ONLY eFuse programming */
-
+	XNVM_EFUSE_ERR_RSVD_1 = 0xC0,/**<0xC0 - Reserved */
 	XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD = 0xD0,/**<0xD0 - Dec only eFuse
 						* is already programmed */
 
