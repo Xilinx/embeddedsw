@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * 3.0   kal  07/12/2022 Initial release
  * 3.2   har  02/22/2023 Added error code for ROM Rsvd bits
  *       kpt  09/11/2023 Added error code XNVM_EFUSE_ERR_WRITE_PUF_SEC_CTRL_BITS
+ * 3.5   hj   05/10/2025 Remove zero IV check in dec_only fuse programming
  *
  * </pre>
  *
@@ -155,17 +156,11 @@ typedef enum {
 	XNVM_EFUSE_ERROR_SECURE_STATE_MEASUREMENT = 0xF500,/**<0xF500 - Error
 						* during secure state measurement */
 
-	XNVM_EFUSE_ERR_DEC_ONLY_METAHEADER_IV_MUST_BE_PRGMD = 0xF600,/**<0xF600 - Error
-						* METAHEADER IV should be programmed for
-						* DEC_ONLY eFuse programming */
+	XNVM_EFUSE_ERR_PLAT_RSVD_1 = 0xF600,/**<0xF600 - Error Reserved */
 
-	XNVM_EFUSE_ERR_DEC_ONLY_PLM_IV_MUST_BE_PRGMD = 0xF700,/**<0xF700 - Error
-						* PLM IV should be programmed for
-						* DEC_ONLY eFuse programming */
+	XNVM_EFUSE_ERR_PLAT_RSVD_2 = 0xF700,/**<0xF700 - Error Reserved */
 
-	XNVM_EFUSE_ERR_DEC_ONLY_DATA_PARTITION_IV_MUST_BE_PRGMD = 0xF800,/**<0xF800 - Error
-						* DATA_PARTITION IV should be programmed for
-						* DEC_ONLY eFuse programming */
+	XNVM_EFUSE_ERR_PLAT_RSVD_3 = 0xF800,/**<0xF800 - Error Reserved */
 
 	XNVM_EFUSE_ERR_DEC_ONLY_PUF_HD_MUST_BE_PRGMD = 0xF900,/**<0xF900 - Error
 						* PUF HELPER DATA should be programmed for

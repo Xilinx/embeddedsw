@@ -25,6 +25,7 @@
 * 3.3	vss  04/01/2024 Fixed MISRA-C 12.1 violation and EXPRESSION_WITH_MAGIC_NUMBERS coverity warning
 *			Fixed MISRA-C Rule 8.3 violation
 * 3.5   har  12/04/2024 Split check for AES disable and key write lock in XNvm_EfuseValidateAesKeyWriteReq
+* 3.5   hj   05/10/2025 Remove zero IV check in dec_only fuse programming
 *
 * </pre>
 *
@@ -45,7 +46,6 @@
 
 /************************** Function Prototypes ******************************/
 static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset);
-static int XNvm_EfuseAreAllIvsProgrammed(void);
 
 /************************** Constant Definitions *****************************/
 #define XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK			(0x0000000FU) /**< DME mode mask*/
@@ -449,66 +449,11 @@ END:
 
 /******************************************************************************/
 /**
- * @brief 	This function checks whether all IVs programmed or not.
- *
- * @return	- XST_SUCCESS - if all IVs are not programmed.
- * 		- XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD- If BLACK_IV is not programmed.
- * 		- XNVM_EFUSE_ERR_DEC_ONLY_PLM_IV_MUST_BE_PRGMD- If PLM IV is not programmed.
- * 		- XNVM_EFUSE_ERR_DEC_ONLY_DATA_PARTITION_IV_MUST_BE_PRGMD-
- * 						If DATA_PARTITION_IV is not programmed.
- * 		- XNVM_EFUSE_ERR_DEC_ONLY_METAHEADER_IV_MUST_BE_PRGMD-
- * 						If METAHEADER_IV is not programmed.
- * 		- XST_FAILURE - if any of the IVs is already programmed.
- *
- *******************************************************************************/
-static int XNvm_EfuseAreAllIvsProgrammed(void)
-{
-	int Status = XST_FAILURE;
-
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
-	if (Status == XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_METAHEADER_IV_MUST_BE_PRGMD;
-		goto END;
-	}
-
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_BLACK_IV_0_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
-	if (Status == XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
-		goto END;
-	}
-
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_PLM_IV_RANGE_0_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
-	if (Status == XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_PLM_IV_MUST_BE_PRGMD;
-		goto END;
-	}
-
-	Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_DATA_PARTITION_IV_RANGE_0_OFFSET,
-					XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
-	if (Status == XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_DATA_PARTITION_IV_MUST_BE_PRGMD;
-		goto END;
-	}
-
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
  * @brief	This function validates DEC_ONLY eFuse programming request.
  *
  * @return	- XST_SUCCESS - if validation is successful.
  *  		- XNVM_EFUSE_ERR_INVALID_PARAM 	- On Invalid Parameter.
  *		- XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD- Aes key should be
- *							 programmed for DEC_ONLY
- *							 eFuse programming.
- *		- XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD - Blk IV should be
  *							 programmed for DEC_ONLY
  *							 eFuse programming.
  *		- XNVM_EFUSE_ERR_DEC_ONLY_PUF_HD_MUST_BE_PRGMD - Puf helper should be
@@ -534,15 +479,6 @@ int XNvm_EfuseValidateDecOnlyRequest(void)
 				XNVM_EFUSE_CRC_AES_ZEROS);
 		if (Status == XST_SUCCESS) {
 			Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
-			goto END;
-		}
-
-		/**
-		 * Check Zeros at offset of all IVs. Return XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD if not success
-		 */
-
-		Status = XNvm_EfuseAreAllIvsProgrammed();
-		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
