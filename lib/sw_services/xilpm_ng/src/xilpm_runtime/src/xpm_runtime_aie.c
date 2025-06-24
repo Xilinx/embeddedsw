@@ -54,6 +54,7 @@ static XStatus Aie2ps_EnbMemPriv(const XPm_Device *AieDev, u32 StartCol, u32 End
 static XStatus Aie2ps_EnbAxiMmErrEvent(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_SetL2CtrlNpiIntr(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_StartNumCol(u32 *StartCol, u32 *EndCol, const void *Buffer);
+static XStatus Aie2ps_CtrlPktTlastErr(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
 
 static struct XPmAieOpsHandlers AieOpsHandlers[] = {
 	{AIE_OPS_COL_RST,		Aie2ps_ColRst},
@@ -79,6 +80,7 @@ static struct XPmAieOpsHandlers AieOpsHandlers[] = {
 	{AIE_OPS_PROG_MEM_ZEROIZATION,	Aie2ps_Zeroization},
 	{AIE_OPS_DATA_MEM_ZEROIZATION,	Aie2ps_Zeroization},
 	{AIE_OPS_MEM_TILE_ZEROIZATION,	Aie2ps_Zeroization},
+	{AIE_OPS_CTRL_PKT_TLAST_ERR,	Aie2ps_CtrlPktTlastErr},
 };
 
 static XStatus Aie2ps_StartNumCol(u32 *StartCol, u32 *EndCol, const void *Buffer) {
@@ -788,6 +790,62 @@ static XStatus Aie2ps_HandShake(const XPm_Device *AieDev, u32 StartCol, u32 EndC
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
+}
+
+static XStatus Aie2ps_CtrlPktTlastErr(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer)
+{
+	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
+	const u64 NocAddress = AieDomain->Array.NocAddress;
+	u32 Value = (((struct XPm_AieCtrlPktTlastErr *)Buffer)->State) << AIE2PS_CTRL_PKT_TLAST_ERR_EN_SHIFT;
+	u32 RowStart = AieDomain->Array.StartRow;
+	u32 RowEnd = RowStart + AieDomain->Array.NumRowsAdjusted - 1U;
+	u32 StartTileRow = RowStart + AieDomain->Array.NumMemRows;
+	u64 BaseAddress;
+	u32 Row, Col;
+
+	/* Unlock PCSR */
+	XPm_UnlockPcsr(AieDev->Node.BaseAddress);
+
+	/* Enable privileged write access */
+	XPm_RMW32(AieDev->Node.BaseAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 1U);
+
+	/* Core Tile */
+	for (Col = StartCol; Col <= EndCol; Col++) {
+		for (Row = StartTileRow; Row <= RowEnd; Row++) {
+			BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, Row);
+
+			AieRMW64(BaseAddress + AIE2PS_CORE_MODULE_MODULE_CLOCK_CONTROL_OFFSET,
+				 AIE2PS_CORE_MODULE_CLK_CTRL_PKT_TLAST_ERR_EN_MASK, Value);
+		}
+	}
+
+	/* Mem Tile */
+	for (Col = StartCol; Col <= EndCol; Col++) {
+		for (Row = RowStart; Row < StartTileRow; Row++) {
+			BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, Row);
+
+			AieRMW64(BaseAddress + AIE2PS_MEM_TILE_MODULE_MODULE_CLK_CTRL_OFFSET,
+				 AIE2PS_MEM_TILE_MODULE_CLK_CTRL_PKT_TLAST_ERR_EN_MASK, Value);
+		}
+	}
+
+	/* Shim Tile */
+	for (Col = StartCol; Col <= EndCol; Col++) {
+		BaseAddress = AIE2PS_TILE_BADDR(NocAddress, Col, 0U);
+
+		AieRMW64(BaseAddress + AIE2PS_PL_MODULE_MODULE_CLK_CTRL_OFFSET,
+			 AIE2PS_PL_MODULE_CLK_CTRL_PKT_TLAST_ERR_EN_MASK, Value);
+	}
+
+	/* Disable privileged write access */
+	XPm_RMW32(AieDev->Node.BaseAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
+
+	/* Lock Pcsr */
+	XPm_LockPcsr(AieDev->Node.BaseAddress );
+
+	return XST_SUCCESS;
 }
 
 /******************************************************/

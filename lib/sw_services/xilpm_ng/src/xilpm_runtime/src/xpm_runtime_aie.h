@@ -40,6 +40,7 @@ enum XPmAieOperations {
         AIE_OPS_HW_ERR_INT = 17U,
         AIE_OPS_HW_ERR_MASK = 18U,
         AIE_OPS_ENB_MEM_PRIV = 19U,
+        AIE_OPS_CTRL_PKT_TLAST_ERR = 20U,
         AIE_OPS_ENB_AXI_MM_ERR_EVENT = 32U,     /* Backward compatibility for AIE1/AIE2 */
         AIE_OPS_SET_L2_CTRL_NPI_INTR = 64U,     /* Backward compatibility for AIE1/AIE2 */
         AIE_OPS_PROG_MEM_ZEROIZATION = 128U,    /* Backward compatibility for AIE1/AIE2 */
@@ -108,7 +109,15 @@ struct XPm_AieOpEccScrubPeriod {
 	u16 Len;	/* Operation struct length */
 	u16 ScrubPeriod; /* Value to be written to the ecc scrub period register */
 } __attribute__ ((aligned(4)));
+
+struct XPm_AieCtrlPktTlastErr {
+	u16 Type;	/* Operation Type */
+	u16 Len;	/* Operation struct length */
+	u16 State;	/* Value to set CTRL_PKT_TLAST_ERR bit in module clock control register */
+} __attribute__ ((aligned(4)));
+
 XStatus XPmAie_Operations(u32 Part, u32 Ops, u32 Arg3);
+
 #ifdef __cplusplus
 }
 #endif
