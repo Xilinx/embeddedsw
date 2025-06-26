@@ -184,8 +184,11 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir):
     overlay_dst = os.path.join(obj.domain_path, "hw_artifacts", "domain.yaml")
     output_sdt = os.path.join(obj.app_src_dir, "openamp_output.dts")
 
-    utils.copy_file(os.path.join(os.environ.get('XILINX_VITIS'), 'data', 'openamp-metadata', f"openamp-overlay-{soc}.yaml"),
-                    overlay_dst)
+    if os.path.exists(overlay_dst):
+        logger.info("%s already exists. not copying in a new one. please remove this file if you want default one copied in." % overlay_dst)
+    else:
+        utils.copy_file(os.path.join(os.environ.get('XILINX_VITIS'), 'data', 'openamp-metadata', f"openamp-overlay-{soc}.yaml"),
+                        overlay_dst)
 
     cmd =  f"lopper -f -v --enhanced --permissive -i lop-xlate-yaml.dts "
     cmd += f"-i {overlay_dst} -O {obj.app_src_dir} {bsp_sdt} {output_sdt} "
