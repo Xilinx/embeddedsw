@@ -64,9 +64,10 @@
 *       ng   02/12/2024 optimised u8 vars to u32 for size reduction
 *       sk   02/18/2024 Added define for DDRMC Calib Check Status RTCA Reg init
 * 1.12  sk   06/05/2024 Added defines for PLM Version in RTCA register
-* 24.2  prt  09/18/2024 Updated the SDK_RELEASE_QUARTER as 2 and XPLMI_PLM_MINOR_VERSION as 2
+* 2.1   prt  09/18/2024 Updated the SDK_RELEASE_QUARTER as 2 and XPLMI_PLM_MINOR_VERSION as 2
 *       obs  09/30/2024 Fixed Doxygen Warnings
-* 25.1  prt  02/06/2025 Updated the SDK RELEASE YEAR and QUARTER
+* 2.2   prt  02/06/2025 Updated the SDK RELEASE YEAR and QUARTER
+* 2.3   aa   06/19/2025 Updated SDK release version
 * </pre>
 *
 * @note
@@ -86,10 +87,10 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* SDK release version */
 #define SDK_RELEASE_YEAR	"2025" /**< Specifies the SDK release year */
-#define SDK_RELEASE_QUARTER	"1"    /**< Specifies the SDK release quarter */
+#define SDK_RELEASE_QUARTER	"2"    /**< Specifies the SDK release quarter */
 
 #define XPLMI_PLM_MAJOR_VERSION		25U /**< PLM Major Version */
-#define XPLMI_PLM_MINOR_VERSION		1U  /**< PLM Minor Version */
+#define XPLMI_PLM_MINOR_VERSION		2U  /**< PLM Minor Version */
 #define XPLMI_PLM_RC_VERSION		XPLMI_PLM_PLAT_RC_VERSION  /**< PLM RC Version */
 
 #define XPLMI_PLM_MAJOR_VERSION_SHIFT	24U  /**< PLM Major Version Shift */

@@ -30,6 +30,7 @@
 * 6.2   dd   10/18/23 Updated SDK release year and SDK release quarter
 * 7.0   sd   07/23/24 Updated SDK release to 2024.2
 * 8.0   prt  02/06/25 Updated SDK release year and SDK release quarter
+* 9.0   aa   06/19/25 Updated SDK release version
 *
 * </pre>
 *
@@ -108,7 +109,7 @@ typedef struct {
 
 /* SDK release version */
 #define SDK_RELEASE_YEAR	2025
-#define SDK_RELEASE_QUARTER	1
+#define SDK_RELEASE_QUARTER	2
 
 #define XFSBL_RUNNING			(0xFFFFU)
 #define XFSBL_COMPLETED			(0x0U)
