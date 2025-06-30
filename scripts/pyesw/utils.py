@@ -610,6 +610,12 @@ def find_compiler_path(compiler_name):
         command = "where"
     else:
         command = "which"
+        # When the workspace is copied from Windows, the CMake cache contains the windows
+        # compiler name which ends with .exe. 'which' command in linux doesnt recognize
+        # binaries ending with .exe as valid executables. Therefore, strip '.exe' from the compiler_name.
+        if compiler_name.endswith(".exe"):
+            logger.info("Detected Windows based compiler executable in Cache on a Linux based system")
+            compiler_name = compiler_name.rstrip('.exe')
     return subprocess.check_output([command, compiler_name], stderr=subprocess.STDOUT, text=True).strip()
 
 def setup_log(verbose_level):
