@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -73,7 +73,6 @@ typedef struct {
 #else
 	char *Name;	/**< Compatible string */
 #endif
-#if defined(__aarch64__) || defined(__arch64__)
 #if defined(SDT)
 	u64 BrigReg;  /**< Bridge Register base address */
         u64 PciReg;             /**< pcie Register base address */
@@ -90,13 +89,6 @@ typedef struct {
 	u64	PMemBaseAddr;		/**< prefetchable memory base address */
 	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
 	u64	PMemMaxAddr;	/**< prefetchable memory max base address */
-#endif
-#else
-	u32 BrigReg;  /**< Bridge Register base address */
-	u32 PciReg;		/**< pcie Register base address */
-	u32 Ecam;		/**< Ecam space base address */
-	u32	NpMemBaseAddr;		/**< non prefetchable memory base address */
-	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
 #endif
 	u32 DmaBaseAddr;	/**< DMA base address */
 	u8	PcieMode;		/**< pcie mode rc or endpoint */
