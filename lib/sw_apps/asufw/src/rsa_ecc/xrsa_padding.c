@@ -428,10 +428,11 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 			     (u64)(UINTPTR)DecryptOutputData,
 			     PaddingParamsPtr->XAsu_RsaOpComp.KeyCompAddr,
 			     PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr);
-	if (Status != XASUFW_SUCCESS) {
+	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_RSA_DECRYPTION_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_OAEP_DECRYPT_ERROR);
 		goto END;
 	}
+	ReturnStatus = XASUFW_FAILURE;
 
 	/** Copy seed buffer and data block from decrypted output. */
 	/** EM = Y || maskedSeed || maskedDB . */
@@ -787,9 +788,10 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 			     (u64)(UINTPTR)OutputData, PaddingParamsPtr->XAsu_RsaOpComp.OutputDataAddr,
 			     PaddingParamsPtr->XAsu_RsaOpComp.KeyCompAddr,
 			     PaddingParamsPtr->XAsu_RsaOpComp.ExpoCompAddr);
-	if (Status != XASUFW_SUCCESS) {
+	if ((Status != XASUFW_SUCCESS ) || (ReturnStatus != XASUFW_RSA_DECRYPTION_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_PSS_ENCRYPT_ERROR);
 	}
+	ReturnStatus = XASUFW_FAILURE;
 
 END:
 	/** Zeroize local copy of all the parameters. */
@@ -836,7 +838,6 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	volatile u32 Index = XASUFW_FAILURE;
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	XFih_Var XFihSignVerify = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u32 SaltLen = 0U;
 	u32 KeySize = 0U;
 	u32 HashLen = 0U;
@@ -1073,11 +1074,14 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		goto END;
 	}
 
-	XFIH_CALL(Xil_SMemCmp, XFihSignVerify, Status, HashBuffer, XASU_SHA_512_HASH_LEN,
-				EncodedMsgHashBuffer, XASU_SHA_512_HASH_LEN, HashLen);
+	Status = Xil_SMemCmp(HashBuffer, XASU_SHA_512_HASH_LEN, EncodedMsgHashBuffer,
+					XASU_SHA_512_HASH_LEN, HashLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_PSS_HASH_CMP_FAIL;
+		goto END;
 	}
+
+	ReturnStatus = XASUFW_RSA_PSS_SIGNATURE_VERIFIED;
 
 END:
 	/** Zeroize local copy of all the parameters. */

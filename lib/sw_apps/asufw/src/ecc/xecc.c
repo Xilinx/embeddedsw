@@ -615,7 +615,6 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	XASUFW_MEASURE_PERF_START();
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XFih_Var XFihEccVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XEcc_CurveInfo *CurveInfo = NULL;
 
 	/** Validate input parameters. */
@@ -691,8 +690,13 @@ s32 XEcc_VerifySignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u
 	}
 
 	/** Update configuration and start the operation. */
-	XFIH_CALL(XEcc_ConfigNStartOperation, XFihEccVar, Status, InstancePtr,
-			XECC_CTRL_SIGN_VERIFICATION_OP_CODE);
+	Status = XEcc_ConfigNStartOperation(InstancePtr,XECC_CTRL_SIGN_VERIFICATION_OP_CODE);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_CONFIGURE_AND_START_FAIL);
+		goto END;
+	}
+
+	ReturnStatus = XASUFW_ECC_SIGNATURE_VERIFIED;
 
 	/**
 	 * Measure and print the performance time for the ECC signature verification operation
@@ -752,9 +756,10 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	Status = XEcc_VerifySignature(InstancePtr, DmaPtr, CurveType, CurveLen, PubKeyAddr,
 			(u64)(UINTPTR)MsgPwctEcc, CurveLen,
 			(u64)(UINTPTR)Signature);
-	if (Status != XASUFW_SUCCESS) {
+	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_ECC_SIGNATURE_VERIFIED)) {
 		Status = XAsufw_UpdateBufStatus(Status, XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL);
 	}
+	ReturnStatus = XASUFW_FAILURE;
 
 END_CLR:
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)Signature,

@@ -409,9 +409,15 @@ enum {
 						is failed */
 	XASUFW_ECC_SCP_RANDOM_NUM_COUNT_FAIL, /**< 0x11CU - Error when SCP random number generation
 						count is not matched with the input count */
+	XASUFW_ECC_CONFIGURE_AND_START_FAIL, /**< 0x11DU - Error when ECC configuration failed */
 
-	XASUFW_AES_TAG_MATCHED = 0x3FD, /**< 0x3FDU - Successfully verified AES tag */
-	XASUFW_AES_TAG_READ = 0x3FE, /**< 0x3FEU - Successfully read AES tag */
+	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
+						operation is successful */
+	XASUFW_RSA_DECRYPTION_SUCCESS, /**< 0x3FBU - Successfully decrypted RSA provided
+					message */
+	XASUFW_ECC_SIGNATURE_VERIFIED, /**< 0x3FCU - Successfully verified ECC signature */
+	XASUFW_AES_TAG_MATCHED, /**< 0x3FDU - Successfully verified AES tag */
+	XASUFW_AES_TAG_READ, /**< 0x3FEU - Successfully read AES tag */
 	XASUFW_CMD_IN_PROGRESS = 0x3FF, /**< 0x3FFU - Command is in progress */
 };
 
