@@ -71,6 +71,8 @@ collect (PROJECT_LIB_SOURCES xasufw_plmeventhandler.c)
 collect (PROJECT_LIB_HEADERS xasufw_plmeventhandler.h)
 collect (PROJECT_LIB_SOURCES xasufw_plmeventschedular.c)
 collect (PROJECT_LIB_HEADERS xasufw_plmeventschedular.h)
+collect (PROJECT_LIB_SOURCES xasufw_ocphandler.c)
+collect (PROJECT_LIB_HEADERS xasufw_ocphandler.h)
 
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)

@@ -20,6 +20,7 @@
  *       am   02/24/25 Added macros related to PLM ASU IPI module
  *       rmv  07/31/25 Added XASUFW_PLM_CMD_ID_ASU_CDI_TX_ID command ID
  *       rmv  07/16/25 Added function prototype of "XAsufw_ReadIpiMsgFromPlm" function
+ *	 rmv  07/16/25 Added XASUFW_PLM_CMD_ID_ASU_GET_SUBSYS_ID macro
  *
  * </pre>
  *

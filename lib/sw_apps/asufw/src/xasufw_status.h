@@ -547,6 +547,20 @@ enum {
 						failed */
 	XASUFW_PLM_INVALID_CMD_HEADER, /**< 0x16FU - Error when IPI command header is invalid */
 	XASUFW_PLM_DEV_KEYS_GEN_FAIL, /**< 0x170U - Error when device keys generation is failed */
+	XASUFW_OCP_X509_MODULE_INIT_FAIL, /**< 0x171U - OCP X.509 module initialization is failed */
+	XASUFW_OCP_MODULE_REGISTRATION_FAIL, /**< 0x172U - OCP module registration is failed */
+	XASUFW_OCP_X509_CERT_GEN_FAIL, /**< 0x173U - X.509 certificate generation is failed */
+	XASUFW_OCP_DEVICE_KEY_TYPE_INVALID, /**< 0x174U - Error when device key type is invalid */
+	XASUFW_OCP_INVALID_SUBSYSTEM_ID, /**< 0x175U - Error when subsystem ID is invalid */
+	XASUFW_OCP_KEY_MGMT_NOT_READY, /**< 0x176U - Error when DevIk pair is not ready */
+	XASUFW_OCP_DEVAK_NOT_READY, /**< 0x177U - Error when DevAk pair is not ready */
+	XASUFW_OCP_X509_DEVIK_CERT_GEN_FAIL, /**< 0x178U - Error when DevIk certificate generation
+						is failed */
+	XASUFW_OCP_X509_DEVIK_CSR_GEN_FAIL, /**< 0x179U - Error when DevIk CSR generation is
+						failed */
+	XASUFW_OCP_X509_DEVAK_CERT_GEN_FAIL, /**< 0x17AU - Error when DevAk certificate generation
+						is failed */
+	XASUFW_OCP_INVALID_BUF_SIZE, /**< 0x17B - Error when OCP buffer size is invalid */
 
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */

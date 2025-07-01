@@ -25,6 +25,7 @@
  * @{
  */
 /************************************** Include Files ********************************************/
+#include "x509_cert.h"
 #include "xasu_eccinfo.h"
 #include "xasufw_hw.h"
 #include "xasufw_ipi.h"
@@ -66,6 +67,7 @@ static s32 XOcp_GetAsuCdiAddr(u32 *AsuCdiAddr);
 static s32 XOcp_GenerateDevIk(XAsufw_Dma *DmaPtr);
 static s32 XOcp_GetSubsystemHashAddr(u32 SubsystemId, u32 *SwHashAddr);
 static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr);
+static s32 XOcp_GetSubsytemIndex(u32 SubsystemId, u32 *SubsystemIdx);
 
 /*************************************************************************************************/
 /**
@@ -368,6 +370,169 @@ static s32 XOcp_GenerateDevIkAkPvtKey(const XOcp_PrivateKeyGen *PvtKeyInfo)
 	/** Enable TRNG to default mode. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XTrng_EnableDefaultMode(TrngInstance);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function gets the index of subsystem ID.
+ *
+ * @param	SubsystemId	Subsystem ID.
+ * @param	SubsystemIdx	Pointer to store subsystem index.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if subsystem index is retrieved successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *
+ *************************************************************************************************/
+static s32 XOcp_GetSubsytemIndex(u32 SubsystemId, u32 *SubsystemIdx)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	const XOcp_CdoData *CdoData = (XOcp_CdoData *)XOCP_CDO_DATA_ADDR;
+	u32 Idx;
+
+	/** Iterate through subsystem list and return an index if subsystem ID is matched. */
+	for (Idx = 0U; Idx < CdoData->NumSubsys; Idx++) {
+		if (SubsystemId == CdoData->SubsysData[Idx].SubSystemID) {
+			*SubsystemIdx = Idx;
+			Status = XASUFW_SUCCESS;
+			goto END;
+		}
+	}
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates the X.509 certificate and DevIK CSR for device keys.
+ *
+ * @param	SubsystemId	Subsystem ID for which certificate is to be generated.
+ * @param	CertPtr		Pointer to the certificate data.
+ * @param	PlatData	Pointer to platform specific data.
+ * @param	IsCsr		Indicates if this is a Certificate Signing Request(CSR).
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if certificate is generated successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
+ *	- XASUFW_OCP_DEVICE_KEY_TYPE_INVALID, if device key type is invalid.
+ *	- XASUFW_OCP_KEY_MGMT_NOT_READY, if DevIk pair is not generated.
+ *	- XASUFW_OCP_DEVAK_NOT_READY, if DevAk pair is not generated.
+ *	- XASUFW_OCP_INVALID_SUBSYSTEM_INDEX, if subsystem index is invalid.
+ *	- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroize memset is failed.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
+ *	- XASUFW_OCP_X509_CERT_GEN_FAIL, if certificate generation is failed.
+ *
+ *************************************************************************************************/
+s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatData, u8 IsCsr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	X509_Config CertCfg;
+	XOcp_CdoData *CdoData = (XOcp_CdoData *)XOCP_CDO_DATA_ADDR;
+	u32 SubsysIdx = 0U;
+
+	/** Validate platform data and CSR flag parameter. */
+	if ((PlatData == NULL) || (CertPtr == NULL) || (CertPtr->CertAddr == 0U) ||
+	    ((IsCsr != XASU_FALSE) && (IsCsr != XASU_TRUE))) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+
+	}
+
+	/** Validate device key type. */
+	if (((IsCsr == XASU_TRUE) && (CertPtr->DevKeyType != (u32)XOCP_DEVIK)) ||
+	    ((CertPtr->DevKeyType != (u32)XOCP_DEVAK) &&
+	    (CertPtr->DevKeyType != (u32)XOCP_DEVIK))) {
+		Status = XASUFW_OCP_DEVICE_KEY_TYPE_INVALID;
+		goto END;
+	}
+
+	/** Subsystem ID should be ASU subsystem ID for DevIk. */
+	if ((CertPtr->DevKeyType == (u32)XOCP_DEVIK) && (SubsystemId != XASUFW_SUBSYTEM_ID)) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Check if DevIk is ready or not. */
+	if (DevIkData.IsDevIkKeyReady != (u32)XASU_TRUE) {
+		Status = XASUFW_OCP_KEY_MGMT_NOT_READY;
+		goto END;
+	}
+
+	/** Set X.509 certificate configurations. */
+	CertCfg.PubKeyInfo.PubKeyType = X509_PUB_KEY_ECC;
+	CertCfg.PubKeyInfo.EccCurveType = X509_ECC_CURVE_TYPE_384;
+	CertCfg.IsCsr = IsCsr;
+	CertCfg.IssuerPubKeyLen = DevIkData.PublicKeyLen;
+	CertCfg.IssuerPublicKey = (u8 *)DevIkData.EccX;
+	CertCfg.IssuerPrvtKey = (u8 *)DevIkData.EccPvtKey;
+	CertCfg.PlatformData = PlatData;
+
+	if (CertPtr->DevKeyType == (u32)XOCP_DEVIK) {
+		/**
+		 * Get user configurations for DevIk certificate.
+		 * For DevIk, subsystem shall be ASU and subsystem index 0.
+		 */
+		CertCfg.UserCfg = &CdoData->AsuSubsysData.UserCfg;
+
+		/** Set subject public key for DevIk certificate. */
+		CertCfg.PubKeyInfo.SubjectPubKeyLen = DevIkData.PublicKeyLen;
+		CertCfg.PubKeyInfo.SubjectPublicKey = (u8 *)DevIkData.EccX;
+		CertCfg.IsSelfSigned = (u8)XASU_TRUE;
+	} else {
+		/** Get subsystem index using subsystem ID. */
+		Status = XOcp_GetSubsytemIndex(SubsystemId, &SubsysIdx);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_OCP_INVALID_SUBSYSTEM_INDEX;
+			goto END;
+		}
+
+		/** Check if DevAk is ready or not. */
+		if (DevAkData[SubsysIdx].IsDevAkKeyReady != (u8)XASU_TRUE) {
+			Status = XASUFW_OCP_DEVAK_NOT_READY;
+			goto END;
+		}
+
+		/** Get user configurations for DevAk certificate. */
+		CertCfg.UserCfg = &CdoData->SubsysData[SubsysIdx].UserCfg;
+
+		/** Update Issuer with CA issuer. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemSet(CertCfg.UserCfg->Issuer, X509_ISSUER_MAX_SIZE, 0U,
+				     CertCfg.UserCfg->IssuerLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+			goto END;
+		}
+		CertCfg.UserCfg->IssuerLen = 0U;
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = Xil_SMemCpy(CertCfg.UserCfg->Issuer, X509_ISSUER_MAX_SIZE,
+				     CdoData->AsuSubsysData.UserCfg.Issuer,
+				     X509_ISSUER_MAX_SIZE,
+				     CdoData->AsuSubsysData.UserCfg.IssuerLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+		CertCfg.UserCfg->IssuerLen = CdoData->AsuSubsysData.UserCfg.IssuerLen;
+
+		/** Set subject public key for DevAk certificate. */
+		CertCfg.PubKeyInfo.SubjectPubKeyLen = DevAkData[SubsysIdx].PublicKeyLen;
+		CertCfg.PubKeyInfo.SubjectPublicKey = (u8 *)DevAkData[SubsysIdx].EccX;
+		CertCfg.IsSelfSigned = (u8)XASU_FALSE;
+	}
+
+	/** Generate X.509 certificate. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = X509_GenerateX509Cert(CertPtr->CertAddr, CertPtr->CertMaxSize,
+				       CertPtr->CertActualSize, &CertCfg);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_X509_CERT_GEN_FAIL);
+	}
 
 END:
 	return Status;

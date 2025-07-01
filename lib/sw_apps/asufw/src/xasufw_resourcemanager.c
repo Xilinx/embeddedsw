@@ -26,6 +26,7 @@
  *       yog  02/25/25 Added ECIES to the resources list
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *	 rmv  07/16/25 Added PLM event to the resources list
+ *	 rmv  07/16/25 Added OCP to the resources list
  *
  * </pre>
  *
@@ -288,6 +289,9 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 				break;
 			case XASUFW_PLM_RESOURCE_MASK:
 				Resource = XASUFW_PLM;
+				break;
+			case XASUFW_OCP_RESOURCE_MASK:
+				Resource = XASUFW_OCP;
 				break;
 			case XASUFW_HMAC_RESOURCE_MASK:
 				Resource = XASUFW_HMAC;

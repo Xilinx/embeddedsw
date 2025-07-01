@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   rmv  05/08/25 Initial release
+*        rmv  08/06/25 Add macro for certificate maximum size
  *
  * </pre>
  *
@@ -249,6 +250,8 @@ typedef struct {
 #define X509_SINGLE_BYTE				(1U)	/**< Value of single byte */
 #define X509_VERSION_VALUE_V3				(0x02U)	/**< X.509 certificate version
 								v3 */
+#define X509_CERTIFICATE_MAX_SIZE_IN_BYTES		(2000U)	/**< Maximum length of X.509
+								certificate */
 
 #define X509_ASN1_UNUSED_BITS_SIZE_IN_BYTE		(1U)	/**< No of bytes used to store
 								count of unused bits */

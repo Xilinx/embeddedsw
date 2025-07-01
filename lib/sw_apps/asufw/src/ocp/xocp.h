@@ -34,6 +34,7 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "x509_cert.h"
 #include "xasu_eccinfo.h"
+#include "xasu_ocpinfo.h"
 #include "xasufw_dma.h"
 #include "xil_types.h"
 
@@ -48,6 +49,8 @@ extern "C" {
 #define XOCP_USER_SUBSYS_START_INDEX	(1U)	/**< Start index for OCP subsystem */
 
 #define XOCP_PERSONAL_STRING_LEN		(48U)	/**< Personalised string length */
+
+#define XASUFW_SUBSYTEM_ID		(0x1C000002U)	/**< ASUFW subsystem ID */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -92,8 +95,20 @@ typedef struct {
 	u32 NumSubsys;						/**< Total number of subsystems */
 } XOcp_CdoData;
 
+/**
+ * This structure contains X.509 certificate related data.
+ */
+typedef struct {
+	u32 DevKeyType;			/**< Device key type */
+	u64 CertAddr;			/**< X.509 certificate address */
+	u32 CertMaxSize;		/**< Maximum size of X.509 certificate */
+	u32 *CertActualSize;		/**< Pointer to stores the actual size of X.509
+					certificate */
+} XOcp_CertData;
+
 /************************************ Function Prototypes ****************************************/
 s32 XOcp_GenerateDeviceKeys(XAsufw_Dma *DmaPtr, u32 EventMask);
+s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatData, u8 IsCsr);
 
 /************************************ Variable Definitions ***************************************/
 

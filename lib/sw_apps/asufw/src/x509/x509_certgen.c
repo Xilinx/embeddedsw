@@ -15,9 +15,10 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date       Changes
-* ----- ---- ---------- ---------------------------------------------------------------------------
-* 1.0   rmv  05/19/2025 Initial release
+* Ver   Who  Date     Changes
+* ----- ---- -------- ---------------------------------------------------------------------------
+* 1.0   rmv  05/19/25 Initial release
+*       rmv  08/06/25 Move X509_CERTIFICATE_MAX_SIZE_IN_BYTES macro to header file
 *
 * </pre>
 *
@@ -64,8 +65,6 @@ static const u8 Oid_P256[] = {0x06U, 0x08U, 0x2AU, 0x86U, 0x48U, 0xCEU, 0x3DU, 0
 #define X509_LOWER_NIBBLE_MASK					(0xFU)	/**< Mask to get lower
 									nibble */
 #define X509_NULL_VALUE						(0x00U)	/**< Value of NULL */
-#define X509_CERTIFICATE_MAX_SIZE_IN_BYTES			(2000U)	/**< Maximum length of
-									X.509 certificate */
 #define X509_HASH_MAX_SIZE_IN_BYTES				(48)	/**< Maximum length of
 									hash */
 #define X509_SIGNATURE_MAX_SIZE_IN_BYTES			(96U)	/**< Maximum length of

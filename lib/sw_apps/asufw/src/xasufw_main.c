@@ -38,6 +38,7 @@
  *       yog  02/24/25 Initialize ECIES module
  *       am   04/04/25 Added PMC key transfer support
  *       rmv  08/11/25 Initialize PLM event module
+ *       rmv  08/11/25 Initialize OCP module
  *
  * </pre>
  *
@@ -71,6 +72,7 @@
 #include "xasufw_error_manager.h"
 #include "xasufw_config.h"
 #include "xasufw_plmeventhandler.h"
+#include "xasufw_ocphandler.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -311,6 +313,14 @@ static s32 XAsufw_ModulesInit(void)
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
+
+#ifdef XASU_OCP_ENABLE
+	/** PLM event handler initialization. */
+	Status = XAsufw_OcpInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+#endif
 
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Modules init done\r\n");
 
