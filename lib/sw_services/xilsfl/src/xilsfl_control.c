@@ -23,6 +23,7 @@
  *                    add support for non-blocking read
  * 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
  * 1.1   sb  02/11/25  Add support for x2/x4 operation.
+ * 1.2   sb  06/27/25  Copy the flash ID to driver instance irrespective of type of flash.
  *
  * </pre>
  *
@@ -94,10 +95,8 @@ u32 XSfl_FlashIdRead(XSfl_Interface *SflInstancePtr, u8 ChipSelNum, u8 *SflReadB
 		return XST_FAILURE;
 	}
 
-	if(Flash_Config_Table[SflInstancePtr->SflFlashInfo.FlashIndex].FlashType ==  XSFL_OSPI_FLASH){
-		*(SflInstancePtr->CntrlInfo.DeviceIdData) = (u32)((SflReadBuffer[3] << 24) | (SflReadBuffer[2] << 16) |
-				(SflReadBuffer[1] << 8) | SflReadBuffer[0]);
-	}
+	*(SflInstancePtr->CntrlInfo.DeviceIdData) = (u32)((SflReadBuffer[3] << 24) | (SflReadBuffer[2] << 16) |
+			(SflReadBuffer[1] << 8) | SflReadBuffer[0]);
 	return Status;
 }
 
@@ -740,7 +739,7 @@ u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstancePtr, int Mode,u8 *SflRead
 	}
 
 	/* Set Controller modes  and Configure dual byte*/
-	SflInstancePtr->CntrlInfo.SetSdrDdr(Mode, DualByteOpCode);
+	Status = SflInstancePtr->CntrlInfo.SetSdrDdr(Mode, DualByteOpCode);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -783,7 +782,7 @@ u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstancePtr, int Mode,u8 *SflRead
 			return XST_FAILURE;
 		}
 		/* set the controller mode back to requested mode */
-		SflInstancePtr->CntrlInfo.SetSdrDdr(Mode, DualByteOpCode);
+		Status = SflInstancePtr->CntrlInfo.SetSdrDdr(Mode, DualByteOpCode);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
