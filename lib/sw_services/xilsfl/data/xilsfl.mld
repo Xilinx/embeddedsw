@@ -17,7 +17,7 @@ BEGIN LIBRARY xilsfl
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsfl,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Serial NOR Flash Library";
-  OPTION VERSION = 1.1;
+  OPTION VERSION = 1.2;
   OPTION NAME = xilsfl;
 
 END LIBRARY
