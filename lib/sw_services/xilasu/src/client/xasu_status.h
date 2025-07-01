@@ -64,7 +64,12 @@ enum {
  * functionalities and these codes should not be used for failures in client
  */
 enum {
-	XASU_AES_TAG_MATCHED = 0x3FD, /**< 0x3FDU - Successfully verified AES tag */
+	XASU_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
+						operation is successful */
+	XASU_RSA_DECRYPTION_SUCCESS, /**< 0x3FBU - Successfully decrypted RSA provided
+					message */
+	XASU_ECC_SIGNATURE_VERIFIED, /**< 0x3FBU - Successfully verified ECC signature */
+	XASU_AES_TAG_MATCHED, /**< 0x3FDU - Successfully verified AES tag */
 	XASU_AES_TAG_READ, /**< 0x3FEU - Successfully read AES tag */
 };
 

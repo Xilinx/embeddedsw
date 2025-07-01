@@ -200,6 +200,7 @@ static void XAsu_VerifySign(void)
 	ClientParams.Priority = XASU_PRIORITY_HIGH;
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EccCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
+	ClientParams.AdditionalStatus = XST_FAILURE;
 
 	ErrorStatus = XST_FAILURE;
 	EccParams.CurveType = XASU_CURVE_TYPE;
@@ -217,8 +218,9 @@ static void XAsu_VerifySign(void)
 	Notify = 0U;
 
 END:
-	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n ECC sign verification operation failed with Status = %08x", Status);
+	if ((Status != XST_SUCCESS) || (ClientParams.AdditionalStatus != XASU_ECC_SIGNATURE_VERIFIED)) {
+		xil_printf("\r\n ECC sign verification operation failed with Status = %08x and "
+			"additional error of %08x", Status, ClientParams.AdditionalStatus);
 	} else if (ErrorStatus != XST_SUCCESS) {
 		xil_printf("\r\n ECC sign verification operation failed with error from server = %08x",
 				ErrorStatus);

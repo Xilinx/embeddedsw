@@ -306,6 +306,7 @@ int main(void)
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_RsaCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
+	ClientParam.AdditionalStatus = XST_FAILURE;
 
 	ErrorStatus = XST_FAILURE;
 	RsaClientParam.Len = XASU_RSA_4096_KEY_SIZE_IN_BYTES;
@@ -321,7 +322,10 @@ int main(void)
 	}
 	while (!Notify);
 	Notify = 0;
-	if (ErrorStatus != XST_SUCCESS) {
+	if ((ErrorStatus != XST_SUCCESS) ||
+		(ClientParam.AdditionalStatus != XASU_RSA_DECRYPTION_SUCCESS)) {
+		xil_printf("\r\n RSA client example failed from server with error %08x and "
+			"additional error of %08x", ErrorStatus, ClientParam.AdditionalStatus);
 		goto END;
 	}
 
@@ -329,15 +333,14 @@ int main(void)
 				XASU_RSA_4096_KEY_SIZE_IN_BYTES, XASU_RSA_4096_KEY_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ASU RSA Example Failed at Decrypted data Comparison \r\n");
+		goto END;
 	}
+
+	xil_printf("\r\n Successfully ran RSA client example ");
 
 END:
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n RSA client example failed with Status = %08x", Status);
-	} else if (ErrorStatus != XST_SUCCESS) {
-		xil_printf("\r\n RSA client example failed with error from server = %08x", ErrorStatus);
-	} else {
-		xil_printf("\r\n Successfully ran RSA client example ");
 	}
 
 	return Status;
