@@ -48,6 +48,8 @@
 * 1.10	sb   02/09/24 Add support for Infineon flash part S28HS02G.
 * 1.11  ng  08/20/24 Add spartanup device support
 * 1.12  sb  01/28/25 Use stig read for byte count less than 8bytes.
+* 1.13  sb  06/26/25 Set the required configurations for SpartanUp in
+*                    SDR-PHY & DDR-PHY mode.
 *
 * </pre>
 *
@@ -65,6 +67,11 @@
 #define SILICON_VERSION_1	0x10U	/**< Silicon version */
 
 #define READ_ID		0x9FU	/**< Read Id opcode */
+
+#if defined (SPARTANUP)
+#define MAX_PHASE_SELECTOR_SPARTANUP     7U    /**< Max Phase selector for Spartanup */
+#define MIN_PHASE_SELECTOR_SPARTANUP     2U    /**< Min Phase selector for Spartanup */
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -893,6 +900,10 @@ u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
 #else
 	u8 ReadBfrPtr[8]__attribute__ ((aligned(4))) = {0};
 #endif
+#if defined (SPARTANUP)
+	u32 PhaseSel;
+	u32 PhyMstrCntrlReg;
+#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -960,14 +971,33 @@ u32 XOspiPsv_SetDllDelay(XOspiPsv *InstancePtr)
 					XOSPIPSV_PHY_CONFIGURATION_REG, 0x0);
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 					XOSPIPSV_PHY_MASTER_CONTROL_REG, 0x4);
+#if defined (SPARTANUP)
+		for (PhaseSel = MIN_PHASE_SELECTOR_SPARTANUP; PhaseSel <= MAX_PHASE_SELECTOR_SPARTANUP;
+				PhaseSel++) {
+			PhyMstrCntrlReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress, XOSPIPSV_PHY_MASTER_CONTROL_REG);
+			PhyMstrCntrlReg = (~XOSPIPSV_PHY_MASTER_PHASE_DETECT_SELECTOR_FLD_MASK & PhyMstrCntrlReg) |
+				(PhaseSel << XOSPIPSV_PHY_MASTER_PHASE_DETECT_SELECTOR_FLD_SHIFT);
+			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_PHY_MASTER_CONTROL_REG, PhyMstrCntrlReg);
+#endif
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_PHY_CONFIGURATION_REG,
 				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK);
 		Status = XOspiPsv_WaitForLock(InstancePtr,
 				XOSPIPSV_DLL_OBSERVABLE_LOWER_LOOPBACK_LOCK_FLD_MASK);
+#if defined (SPARTANUP)
+			if (Status == (u32)XST_SUCCESS) {
+				break;
+			}
+		}
+		if (PhaseSel > MAX_PHASE_SELECTOR_SPARTANUP) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+#else
 		if (Status != (u32)XST_SUCCESS) {
 			goto RETURN_PATH;
 		}
+#endif
 		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 				XOSPIPSV_PHY_CONFIGURATION_REG,
 				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK);

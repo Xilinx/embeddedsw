@@ -59,6 +59,8 @@
 * 1.10	akm  02/01/24 Update OSPI TX tap delay element to 0x26 for DDR mode.
 * 1.11	akm  05/15/24 Added support for x2/x4 operations.
 * 1.11  ng  08/20/24 Add spartanup device support
+* 1.13  sb  06/26/25 Set the required configurations for SpartanUp in
+*                    SDR-PHY & DDR-PHY mode.
 *
 * </pre>
 *
@@ -355,7 +357,11 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
 #else
 #define XOSPIPSV_DDR_TX_VAL_MASTER		0x1EU
 #endif
+#if defined (SPARTANUP)
+#define XOSPIPSV_SDR_TX_VAL_MASTER		0x40U
+#else
 #define XOSPIPSV_SDR_TX_VAL_MASTER		0x3CU
+#endif
 #define XOSPIPSV_DLL_MAX_TAPS			0x7FU
 /** @} */
 
