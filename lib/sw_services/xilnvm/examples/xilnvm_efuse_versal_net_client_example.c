@@ -57,6 +57,7 @@
 * ----- ------  ----------  ------------------------------------------------------
 * 1.0   har     07/01/2024  Initial release
 * 3.5   kal     03/28/2025  Added support to show 384 ppk hash for versal_2ve_2vm
+* 3.5   vss     05/14/2025  Added validations for sysmon voltage and temp before writing into efuses.
  *
  * </pre>
  *
@@ -1470,15 +1471,35 @@ static int XilNvm_EfuseWriteBootEnvCtrl()
 		*BootEnvCtrlBits = *BootEnvCtrlBits | XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_SOC_MASK;
 	}
 	if (XNVM_EFUSE_SYSMON_TEMP_HOT == TRUE) {
+		if (XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES > XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX) {
+			xil_printf("Invalid i/p for XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES\r\n");
+			goto END;
+		}
+
 		*BootEnvCtrlBits = *BootEnvCtrlBits | (XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES << XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_SHIFT);
 	}
 	if (XNVM_EFUSE_SYSMON_VOLT_PMC == TRUE) {
+		if (XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES > XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX) {
+			xil_printf("Invalid i/p for XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES\r\n");
+			goto END;
+		}
+
 		*BootEnvCtrlBits = *BootEnvCtrlBits | (XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES << XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_SHIFT);
 	}
 	if (XNVM_EFUSE_SYSMON_VOLT_PSLP == TRUE) {
+		if (XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE > XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX) {
+			xil_printf("Invalid i/p for XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE\r\n");
+			goto END;
+		}
+
 		*BootEnvCtrlBits = *BootEnvCtrlBits | (XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE << XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_SHIFT);
 	}
 	if (XNVM_EFUSE_SYSMON_TEMP_COLD == TRUE) {
+		if (XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES > XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX) {
+			xil_printf("Invalid i/p for XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES\r\n");
+			goto END;
+		}
+
 		*BootEnvCtrlBits = *BootEnvCtrlBits | (XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES << XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_SHIFT);
 	}
 
