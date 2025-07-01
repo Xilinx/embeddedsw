@@ -171,11 +171,7 @@ static u32  XClk_Wiz_CalculateDivisors (XClk_Wiz  *InstancePtr, u64 SetRate)
 
 	for (m = Mmin; m <= Mmax; m++) {
 		for (d = Dmin; d <= Dmax; d++) {
-#ifndef SDT
 			Fvco = InstancePtr->Config.PrimInClkFreq  * m / d;
-#else
-			Fvco = InstancePtr->Config.PrimInClkFreq  * m / (d * XCLK_MHZ);
-#endif
 			if ( Fvco >= VcoMin && Fvco <= VcoMax ) {
 
 				for (Div = Omin; Div <= Omax; Div++ ) {
@@ -268,11 +264,7 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 
 	for (m = Mmin; m <= Mmax; m++) {
 		for (d = Dmin; d <= Dmax; d++) {
-#ifndef SDT
 			Fvco = InstancePtr->Config.PrimInClkFreq  * XCLK_MHZ * m / d;
-#else
-			Fvco = InstancePtr->Config.PrimInClkFreq  * m / d;
-#endif
 			if ( Fvco >= VcoMin * XCLK_MHZ && Fvco <= VcoMax * XCLK_MHZ ) {
 
 				for (Div = Omin; Div <= Omax; Div++ ) {
