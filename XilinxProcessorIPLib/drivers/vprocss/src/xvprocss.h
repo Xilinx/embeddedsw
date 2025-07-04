@@ -608,7 +608,7 @@ int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr);
 XVprocSs_Config* XVprocSs_LookupConfig(u32 DeviceId);
 #else
 XVprocSs_Config* XVprocSs_LookupConfig(UINTPTR BaseAddress);
-u32 XVprocSs_GetDrvIndex(XVprocSs *InstancePtr, UINTPTR BaseAddress);
+u32 XVprocSs_GetDrvIndex(UINTPTR BaseAddress);
 #endif
 
 void XVprocSs_Start(XVprocSs *InstancePtr);

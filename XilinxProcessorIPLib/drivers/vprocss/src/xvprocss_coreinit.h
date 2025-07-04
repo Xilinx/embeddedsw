@@ -36,6 +36,13 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
+static int ComputeSubcoreAbsAddr(UINTPTR subsys_baseaddr,
+		                         UINTPTR subsys_highaddr,
+		                         u32 subcore_offset,
+					 UINTPTR *subcore_baseaddr);
+
+#endif
 int XVprocSs_SubcoreInitResetAxis(XVprocSs *XVprocSsPtr);
 int XVprocSs_SubcoreInitResetAximm(XVprocSs *XVprocSsPtr);
 int XVprocSs_SubcoreInitRouter(XVprocSs *XVprocSsPtr);

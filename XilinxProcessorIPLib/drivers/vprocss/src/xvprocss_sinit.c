@@ -104,7 +104,7 @@ XVprocSs_Config* XVprocSs_LookupConfig(UINTPTR BaseAddress)
 *
 *******************************************************************************/
 
-u32 XVprocSs_GetDrvIndex(XVprocSs *InstancePtr, UINTPTR BaseAddress)
+u32 XVprocSs_GetDrvIndex(UINTPTR BaseAddress)
 {
  u32 Index = 0;
 

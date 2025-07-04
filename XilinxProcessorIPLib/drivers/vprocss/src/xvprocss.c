@@ -316,7 +316,7 @@ static void GetIncludedSubcores(XVprocSs *XVprocSsPtr)
 #else
   u32 Index = 0;
 
-  Index = XVprocSs_GetDrvIndex(XVprocSsPtr, XVprocSsPtr->Config.BaseAddress);
+  Index = XVprocSs_GetDrvIndex(XVprocSsPtr->Config.BaseAddress);
 
   XVprocSsPtr->HcrsmplrPtr    = ((XVprocSsPtr->Config.HCrsmplr.IsPresent)   \
                               ? (&subcoreRepo[Index].Hcrsmplr)    : NULL);

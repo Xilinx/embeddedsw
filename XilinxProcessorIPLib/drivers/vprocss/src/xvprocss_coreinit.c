@@ -39,12 +39,8 @@
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-static int ComputeSubcoreAbsAddr(UINTPTR subsys_baseaddr,
-		                         UINTPTR subsys_highaddr,
-		                         u32 subcore_offset,
-								 UINTPTR *subcore_baseaddr);
 
-
+#ifndef SDT
 /*****************************************************************************/
 /**
 * This function computes the subcore absolute address on axi-lite interface
@@ -65,7 +61,7 @@ static int ComputeSubcoreAbsAddr(UINTPTR subsys_baseaddr,
 static int ComputeSubcoreAbsAddr(UINTPTR subsys_baseaddr,
 		                         UINTPTR subsys_highaddr,
 		                         u32 subcore_offset,
-								 UINTPTR *subcore_baseaddr)
+					 UINTPTR *subcore_baseaddr)
 {
   int status;
   UINTPTR absAddr;
@@ -84,6 +80,7 @@ static int ComputeSubcoreAbsAddr(UINTPTR subsys_baseaddr,
 
   return(status);
 }
+#endif
 
 /*****************************************************************************/
 /**
