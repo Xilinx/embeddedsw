@@ -486,10 +486,11 @@ XStatus XPmReset_PlatSystemReset(void)
 {
 	XStatus Status = XST_FAILURE;
 	u32 PlatformVersion = 0x0U;
+	u32 IdCode = XPm_GetIdCode();
 
 	/*
-	 * For, ES1, When NPI_REF clock is used a source for SYSMON, SRST hangs
-	 * at ROM stage (EDT-994792). So, switch to IRO CLK as source of
+	 * For, VC1902 ES1, When NPI_REF clock is used as a source for SYSMON,
+	 * SRST hangs at ROM stage. So, switch to IRO CLK as source of
 	 * SYSMON_REF_CLK before issuing SRST.
 	 *
 	 * There is no need to set original parent of SYSMON_REF_CLK explicitly,
@@ -497,7 +498,8 @@ XStatus XPmReset_PlatSystemReset(void)
 	 */
 	PlatformVersion = XPm_GetPlatformVersion();
 	if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
-	    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion)) {
+	    ((u32)PLATFORM_VERSION_SILICON_ES1 == PlatformVersion) &&
+	    (PMC_TAP_IDCODE_DEV_SBFMLY_VC1902 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
 		u16 i;
 		XPm_OutClockNode *Clk;
 		Clk = (XPm_OutClockNode *)XPmClock_GetById(PM_CLK_SYSMON_REF);
