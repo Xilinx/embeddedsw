@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,8 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support.
+* 3.14  bkv  07/07/25 Fixed GCC Warnings.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -440,6 +442,7 @@ static int SetupInterruptSystem(XIic *IicPtr)
 ****************************************************************************/
 static void RecvHandler(void *CallbackRef, int ByteCount)
 {
+	(void)CallbackRef;
 	HandlerInfo.RemainingRecvBytes = ByteCount;
 	HandlerInfo.RecvBytesUpdated = TRUE;
 }
@@ -461,6 +464,7 @@ static void RecvHandler(void *CallbackRef, int ByteCount)
 ****************************************************************************/
 static void StatusHandler(void *CallbackRef, int Status)
 {
+	(void)CallbackRef;
 	HandlerInfo.EventStatus |= Status;
 	HandlerInfo.EventStatusUpdated = TRUE;
 }
