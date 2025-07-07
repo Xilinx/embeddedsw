@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,8 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.9   gm   07/09/23 Added SDT support
+* 3.13  bkv  07/07/25 Fixed GCC Warnings.
+*
 * </pre>
 ******************************************************************************/
 
@@ -132,7 +134,7 @@ int UartNs550HelloWorldExample(UINTPTR BaseAddress)
 #endif
 {
 	u8 HelloWorld[] = "Hello World";
-	int SentCount = 0;
+	unsigned int SentCount = 0;
 	int Status;
 
 	/*
