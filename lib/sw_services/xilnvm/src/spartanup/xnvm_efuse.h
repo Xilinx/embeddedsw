@@ -6,7 +6,7 @@
 /******************************************************************************/
 /**
 *
-* @file versal/server/xnvm_efuse.h
+* @file spartanup/xnvm_efuse.h
 * @addtogroup xnvm_versal_efuse_apis XilNvm spartan ultrascale plus eFuse APIs
 * @{
 *
@@ -23,6 +23,7 @@
 *       hj   04/10/2025 Rename PPK hash size macros
 *       hj   04/10/2025 Remove security control bits not exposed to user
 * 3.6   hj   04/10/2025 Remove zero IV validation check in dec_only case
+*       hj   05/27/2025 Support XILINX_CTRL efuse PUFHD_INVLD and DIS_SJTAG bit programming
 *
 * </pre>
 *
@@ -95,6 +96,14 @@ extern "C" {
 #define XNVM_EFUSE_DEC_ONLY_START_COL		(8U) /**< Decrypt only start column */
 #define XNVM_EFUSE_DEC_ONLY_END_COL		(15U) /**< Decrypt only end column */
 #define XNVM_EFUSE_DEC_ONLY_NUM_OF_ROWS		(2U) /**< Decrypt only number of rows */
+
+#define XNVM_EFUSE_PUF_HD_INVLD_START_ROW	(50U) /**< PUF_HD_INVLD start row */
+#define XNVM_EFUSE_PUF_HD_INVLD_START_COL	(13U) /**< DPUF_HD_INVLD start column */
+#define XNVM_EFUSE_PUF_HD_INVLD_END_COL		(14U) /**< PUF_HD_INVLD end column */
+#define XNVM_EFUSE_PUF_HD_INVLD_NUM_OF_ROWS	(1U) /**< PUF_HD_INVLD number of rows */
+#define XNVM_EFUSE_DIS_SJTAG_ROW		(50) /**< DIS_SJTAG start row */
+#define XNVM_EFUSE_DIS_SJTAG_COL		(12) /**< DIS_SJTAG column */
+
 #define XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES	(32U) /**< PPK hash size in bytes for DL3*/
 #define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS	(8U) /**< Default PPK hash size in words */
 #define XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES	(3U) /**< Number of revoke id efuses */
@@ -147,6 +156,14 @@ extern "C" {
 #define XNVM_EFUSE_PS_REF_CLK_FREQ		33330000U /**< PS reference clock */
 
 #define XNVM_EFUSE_CRC_AES_ZEROS		(0x6858A3D5U) /**< CRC for Aes zero key */
+#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_BITS	(0x02U) /*Puf Invalid Bits*/
+#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_SHIFT	(0x13U) /*Puf Invalid shift*/
+#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_MASK	(0x00006000U) /*Puf Invalid mask*/
+#define XNVM_EFUSE_PUFHD_INVLD_EFUSE_VAL	(0x03U) /*Puf Invalid */
+
+#define XNVM_EFUSE_DISSJTAG_EFUSE_BITS		(0x01U) /*Disable Secure JTAG shift*/
+#define XNVM_EFUSE_DISSJTAG_EFUSE_SHIFT		(0x12U) /*Disable Secure JTAG shift*/
+#define XNVM_EFUSE_DISSJTAG_EFUSE_MASK		(0x00001000U) /*Disable Secure JTAG shift*/
 
 /***************************** Type Definitions *******************************/
 
@@ -303,6 +320,12 @@ typedef struct {
 } XNvm_EfuseAesRevokeId;
 
 typedef struct {
+	u32 PrgmPufHDInvld;  /**< Program PUFHD_INVLD */
+	u32 PrgmDisSJtag;    /**< Program Disable Secure JTAG */
+} XNvm_EfuseXilinxCtrl;
+
+
+typedef struct {
 	u32 UserFuseVal; /**< User efuse value */
 	u8 PrgmUserEfuse; /**< Program user efuse */
 } XNvm_EfuseUserFuse;
@@ -353,6 +376,7 @@ typedef struct {
 	XNvm_EfuseSpkRevokeId *SpkRevokeId; /**< Pointer to the SPK revoke ID structure*/
 	XNvm_EfuseAesRevokeId *AesRevokeId; /**< Pointer to the AES revoke ID structure */
 	XNvm_EfuseUserFuse *UserFuse; /**< Pointer to the user efuse structure */
+	XNvm_EfuseXilinxCtrl *XilinxCtrl; /**< Pointer to the Xilinx Ctrl efuse structure */
 } XNvm_EfuseData;
 
 typedef enum {
@@ -421,7 +445,8 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_JTAG_ERR_OUT_DIS = 0xA700, /**< 0xA700 - Error write jtag error out disable */
 	XNVM_EFUSE_ERR_WRITE_DNA_WR_LK = 0xA800, /**< 0xA800 - Error write DNA write lock */
 	XNVM_EFUSE_ERR_GLITCH_DETECTED = 0xA900, /**< 0xA900 - Error glitch detected */
-
+	XNVM_EFUSE_ERR_WRITE_PUFHD_INVLD = 0xAA00, /**< 0xAA00 - Error write PUF_HD_INVLD detected */
+	XNVM_EFUSE_ERR_WRITE_DIS_SJTAG = 0xAB00, /**< 0xAB00 - Error write DIS_SJTAG detected */
 	XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS = 0xC000, /**< 0xC000 - Error read secure control bits */
 	XNVM_EFUSE_ERR_BEFORE_PROGRAMMING = 0x80000, /**< 0x80000 - Error before programming */
 } XNvm_EfuseErr;
@@ -437,6 +462,7 @@ int XNvm_EfuseReadIv(XNvm_EfuseIvType IvType, u32 *IvData);
 int XNvm_EfuseReadDna(u32 *Dna);
 int XNvm_EfuseReadDecOnly(u32 *DecOnly);
 int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask, u32 Crc);
+int XNvm_EfuseReadXilinxCtrl(XNvm_EfuseXilinxCtrl *XilinxCtrl);
 
 #ifdef __cplusplus
 }

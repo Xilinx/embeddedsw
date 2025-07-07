@@ -25,6 +25,7 @@
 *       hj    04/10/25 Remove security control bits not exposed to user
 *       hj    04/10/25 Fix PPK hash size end index in XNvm_EfuseValidatePpkWriteReq
 * 3.6   hj    04/10/25 Remove zero IV validation check in dec_only case
+*       hj    05/27/25 Support XILINX_CTRL efuse PUFHD_INVLD and DIS_SJTAG bit programming
 *
 * </pre>
 *
@@ -42,7 +43,7 @@
  */
 #define XNVM_POLL_TIMEOUT				(0x400U) /**< Poll timeout during CRC verification  */
 
-#define XNVM_GET_8_BIT_VAL(Val, bits, shift)	((Val >> shift) & (unsigned char)(~(0xFFU << bits)))
+#define XNVM_GET_8_BIT_VAL(Val, bits, shift)	(((Val) >> (shift)) & (unsigned char)(~(0xFFU << (bits))))
 		/**< API to extract bit mask */
 
 /**************************** Type Definitions ******************************/
@@ -84,6 +85,8 @@ static int XNvm_EfuseReadCache(u32 Offset, u32 *RowData);
 static int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 OffsetCount, u32 *RowData);
 int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits);
 static int XNvm_EfuseCheckZeros(u32 OffsetStart, u32 OffsetEnd);
+static int XNvm_EfusePrgmPufHDInvld(const XNvm_EfuseXilinxCtrl *PufHDInvld);
+static int XNvm_EfusePrgmXilinxCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl);
 
 /************************** Function Definitions *****************************/
 
@@ -119,6 +122,7 @@ int XNvm_EfuseWrite(XNvm_EfuseData *EfuseData)
 	    EfuseData->PpkHash == NULL &&
 	    EfuseData->SecCtrlBits == NULL &&
 	    EfuseData->SpkRevokeId == NULL &&
+	    EfuseData->XilinxCtrl == NULL &&
 	    EfuseData->UserFuse == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 		goto END;
@@ -187,6 +191,14 @@ int XNvm_EfuseWrite(XNvm_EfuseData *EfuseData)
 	if (EfuseData->DecOnly != NULL) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePrgmDecOnly(EfuseData->DecOnly);
+		if (Status != XST_SUCCESS) {
+			goto END_RST;
+		}
+	}
+
+	if (EfuseData->XilinxCtrl != NULL) {
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePrgmXilinxCtrl(EfuseData->XilinxCtrl);
 		if (Status != XST_SUCCESS) {
 			goto END_RST;
 		}
@@ -788,6 +800,96 @@ static int XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly)
 
 	return Status;
 }
+
+/******************************************************************************/
+/**
+ * @brief	This function is used to program PUFHD_INVLD fuses.
+ *
+ * @param	PufHDInvld - Pointer to XNvm_EfuseXilinxCtrl structure which holds
+ * 		PufHDInvld flag which says to program eFuse.
+ *
+ * @return
+ *		- XST_SUCCESS  Specified data read.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM  Invalid input parameter.
+ *		- XNVM_EFUSE_ERR_WRITE_PUF_HD_INVLD  Error in PUFHD_INVLD
+ *						     programming.
+ *
+ ******************************************************************************/
+static int XNvm_EfusePrgmPufHDInvld(const XNvm_EfuseXilinxCtrl *PufHDInvld)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfusePrgmInfo PufHDInvld_Info = {0U};
+	u32 PrgmPufHDInvld = XNVM_EFUSE_PUFHD_INVLD_EFUSE_VAL;
+
+	if (PufHDInvld == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	PufHDInvld_Info.StartRow = XNVM_EFUSE_PUF_HD_INVLD_START_ROW;
+	PufHDInvld_Info.NumOfRows = XNVM_EFUSE_PUF_HD_INVLD_NUM_OF_ROWS;
+	PufHDInvld_Info.ColStart = XNVM_EFUSE_PUF_HD_INVLD_START_COL;
+	PufHDInvld_Info.ColEnd = XNVM_EFUSE_PUF_HD_INVLD_END_COL;
+	PufHDInvld_Info.SkipVerify = FALSE;
+
+	Status = XNvm_EfusePgmAndVerifyData(&PufHDInvld_Info, (const u32 *)&PrgmPufHDInvld);
+	if (Status != XST_SUCCESS) {
+		Status = (Status | XNVM_EFUSE_ERR_WRITE_PUFHD_INVLD);
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function is used to program XILINX_CTRL fuses.
+ *
+ * @param	XilinxCtrl - Pointer to XNvm_EfuseXilinxCtrl structure which holds
+ * 		PufHDInvld and PrgmDisSJtag flag which says to program eFuse.
+ *
+ * @return
+ *		- XST_SUCCESS  Specified data read.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM  Invalid input parameter.
+ *		- XNVM_EFUSE_ERR_WRITE_PUF_HD_INVLD  Error in PUFHD_INVLD
+ *						     programming.
+ *		- XNVM_EFUSE_ERR_WRITE_DIS_SJTAG Error in DIS_SJTAG
+ *						     programming.
+ *
+ ******************************************************************************/
+static int XNvm_EfusePrgmXilinxCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl)
+{
+	int Status = XST_FAILURE;
+	int StatusTmp = XST_FAILURE;
+	u32 Data;
+
+	Status =  XNvm_EfuseReadCache(XNVM_EFUSE_XILINX_CTRL_OFFSET, &Data);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((XilinxCtrl->PrgmPufHDInvld == TRUE) &&
+	    ((Data & XNVM_EFUSE_PUFHD_INVLD_EFUSE_MASK) == 0x0)) {
+		Status = XNvm_EfusePrgmPufHDInvld(XilinxCtrl);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	if ((XilinxCtrl->PrgmDisSJtag == TRUE) &&
+	    ((Data & XNVM_EFUSE_DISSJTAG_EFUSE_MASK) != XNVM_EFUSE_DISSJTAG_EFUSE_MASK)) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_DIS_SJTAG_ROW,
+				      XNVM_EFUSE_DIS_SJTAG_COL, FALSE);
+		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
+			Status = Status | XNVM_EFUSE_ERR_WRITE_DIS_SJTAG;
+			goto END;
+		}
+	}
+
+END:
+	return Status;
+
+}
+
 
 /******************************************************************************/
 /**
@@ -1816,6 +1918,39 @@ int XNvm_EfuseReadDecOnly(u32 *DecOnly)
 
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_DEC_ONLY_OFFSET, DecOnly);
 
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function reads Xilinx Ctrl fuse from eFUSE cache.
+ *
+ * @param	XilinxCtrl - Pointer to the XilinxCtrl efuse data.
+ *
+ * @return	- XST_SUCCESS	- Specified data read.
+ *          - Errorcode on failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadXilinxCtrl(XNvm_EfuseXilinxCtrl *XilinxCtrl)
+{
+	int Status = XST_FAILURE;
+	u32 Data = 0U;
+
+	if (XilinxCtrl ==  NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_XILINX_CTRL_OFFSET, &Data);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XilinxCtrl->PrgmPufHDInvld = XNVM_GET_8_BIT_VAL(Data, XNVM_EFUSE_PUFHD_INVLD_EFUSE_BITS,
+							XNVM_EFUSE_PUFHD_INVLD_EFUSE_SHIFT);
+	XilinxCtrl->PrgmDisSJtag = XNVM_GET_8_BIT_VAL(Data, XNVM_EFUSE_DISSJTAG_EFUSE_BITS,
+							XNVM_EFUSE_DISSJTAG_EFUSE_SHIFT);
 END:
 	return Status;
 }

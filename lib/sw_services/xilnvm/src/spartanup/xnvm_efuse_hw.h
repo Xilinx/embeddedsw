@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   kpt     08/23/24 First release
+* 3.6   hj      05/27/25 Support XILINX_CTRL PUFHD_INVLD and DIS_SJTAG efuse bit programming
 *
 * </pre>
 *
@@ -201,6 +202,7 @@ extern "C" {
 #define XNVM_EFUSE_SPK_REVOKE_ID_OFFSET     0x00001124U /**< SPK revoke id cache start offset */
 #define XNVM_EFUSE_SPK_REVOKE_ID_END_OFFSET 0x0000112CU /**< SPK revoke id cache end offset */
 #define XNVM_EFUSE_AES_REVOKE_ID_OFFSET     0x0000113CU /**< AES revoke id cache offset */
+#define XNVM_EFUSE_XILINX_CTRL_OFFSET       0x00001000U /**< Xilinx Control cache offset */
 /** @} */
 
 #ifdef __cplusplus

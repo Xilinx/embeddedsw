@@ -147,6 +147,14 @@
 *	Even if the bits are already programmed user must pass these already
 *	programmed bits along with the new bits that need to be programmed.
 *
+*	#define XNVM_EFUSE_WRITE_PUFHD_INVLD
+*	TRUE will burn the 2 bits of PUFHD_INVLD eFuse row.
+*	FALSE will not modify 2 bits of PUFHD_INVLD eFuse row.
+*
+*	#define XNVM_EFUSE_WRITE_DIS_SJTAG
+*	TRUE will burn the DIS_SJTAG eFuse bit.
+*	FALSE will not modify DIS_SJTAG eFuse bit.
+
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -155,13 +163,14 @@
 * 1.0   kal    03/02/20 First release to add different configurable options
 * 3.5   hj     04/02/25 Remove unused PrgmAesWrlk variable
 *       hj     04/10/25 Remove security control bits not exposed to user
+* 3.6   hj     05/27/25 Support XILINX_CTRL PUFHD_INVLD and DIS_SJTAG efuse bit programming
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XILNVM_EFUSE_VERSAL_INPUT_H_
-#define XILNVM_EFUSE_VERSAL_INPUT_H_
+#ifndef XILNVM_EFUSE_SPARTAN_ULTRASCALE_PLUS_INPUT_H_
+#define XILNVM_EFUSE_SPARTAN_ULTRASCALE_PLUS_INPUT_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -223,6 +232,9 @@ extern "C" {
 
 #define XNVM_EFUSE_WRITE_AES_REVOKE_ID  FALSE
 
+#define XNVM_EFUSE_WRITE_PUFHD_INVLD	FALSE
+#define XNVM_EFUSE_WRITE_DIS_SJTAG	FALSE
+
 /**
  * Following defines should be given in the form of hex string.
  * The length of AES_KEY string must be 64, PPK hash should be 64 for
@@ -256,4 +268,4 @@ extern "C" {
 }
 #endif
 
-#endif /* XILNVM_EFUSE_VERSAL_INPUT_H_ */
+#endif /* XILNVM_EFUSE_SPARTAN_ULTRASCALE_PLUS_INPUT_H_ */

@@ -49,6 +49,7 @@
  *       hj    04/10/2025 Rename PPK hash size macros
  *       hj    04/10/2025 Remove security control bits not exposed to user
  *       mb    06/10/2025 Added description on usage of shared memory
+ * 3.6   hj    05/27/2025 Support XILINX_CTRL PUFHD_INVLD and DIS_SJTAG efuse bit programming
  *
  * </pre>
  *
@@ -119,6 +120,9 @@ static void XilNvm_FormatData(const u8 *OrgDataPtr, u8 *SwapPtr, u32 Len);
 static int XilNvm_PrepareRevokeIdsForWrite(const char *RevokeIdStr,
 	u32 *Dst, u32 Len);
 static int XNvm_ValidateAesKey(const char *Key);
+static int XilNvm_EfuseInitXilinxCtrl(XNvm_EfuseData *EfuseData,
+				      XNvm_EfuseXilinxCtrl *XilinxCtrl);
+static int XilNvm_EfuseShowXilinxCtrl(void);
 
 /*****************************************************************************/
 int main(void)
@@ -185,6 +189,7 @@ static int XilNvm_EfuseWriteFuses(void)
 	XNvm_EfuseAesRevokeId AesRevId;
 	XNvm_EfuseSecCtrl SecCtrl;
 	XNvm_EfuseDecOnly DecOnly;
+	XNvm_EfuseXilinxCtrl XilinxCtrl;
 
 	/* Clear total shared memory */
 	Status = Xil_SMemSet(&EfuseData, sizeof(XNvm_EfuseData), 0U, sizeof(XNvm_EfuseData));
@@ -228,6 +233,11 @@ static int XilNvm_EfuseWriteFuses(void)
 	}
 
 	Status = XilNvm_EfuseInitUserFuses(&EfuseData, &UserFuse);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XilNvm_EfuseInitXilinxCtrl(&EfuseData, &XilinxCtrl);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -303,7 +313,13 @@ static int XilNvm_EfuseReadFuses(void)
 	xil_printf("\n\r");
 
 	Status = XilNvm_EfuseShowCtrlBits();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
+	xil_printf("\n\r");
+
+	Status = XilNvm_EfuseShowXilinxCtrl();
 END:
 	return Status;
 }
@@ -893,6 +909,41 @@ END:
 
 /****************************************************************************/
 /**
+ * This function is used to initialize the XNvm_EfuseXilinxCtrl structure with
+ * user provided data and assign the same to global structure XNvm_EfuseData
+ * to program XILINX_CTRL eFuse.
+ *
+ * typedef struct {
+ *	u8 PrgmPufHDInvld;
+*	u8 PrgmDisSJtag;
+ * } XNvm_EfuseXilinxCtrl;
+ *
+ * @param	EfuseData	Pointer to XNvm_EfuseData structure.
+ *
+ * @param 	XilinxCtrl	Pointer to XNvm_EfuseXilinxCtrl structure.
+ *
+ * @return
+ *		- XST_SUCCESS - If initialization of XNvm_EfuseXilinxCtrl structure
+ *				is successful
+ *		- ErrorCode - On failure.
+ *
+ ******************************************************************************/
+static int XilNvm_EfuseInitXilinxCtrl(XNvm_EfuseData *EfuseData,
+				   XNvm_EfuseXilinxCtrl *XilinxCtrl)
+{
+	XilinxCtrl->PrgmPufHDInvld = XNVM_EFUSE_WRITE_PUFHD_INVLD;
+	XilinxCtrl->PrgmDisSJtag = XNVM_EFUSE_WRITE_DIS_SJTAG;
+
+	if (XilinxCtrl->PrgmPufHDInvld == TRUE || (XilinxCtrl->PrgmDisSJtag == TRUE))
+	{
+		EfuseData->XilinxCtrl = XilinxCtrl;
+	}
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
  * This function is used to initialize XNvm_UserEfuseData structure with user
  * provided data and assign the same to global structure XNvm_EfuseDataAddr to
  * program User Fuses.
@@ -1074,6 +1125,33 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 
 	Status = XST_SUCCESS;
 
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * This function read and display Xilinx Ctrl eFuses data.
+ *
+ * @return
+ *	- XST_SUCCESS - If the read request is successful.
+ *	- Error code - On failure.
+ *
+ ******************************************************************************/
+static int XilNvm_EfuseShowXilinxCtrl(void)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseXilinxCtrl XilinxCtrl;
+
+	Status = XNvm_EfuseReadXilinxCtrl(&XilinxCtrl);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	xil_printf("PUFHD_INVLD Fuse : %x\r\n", XilinxCtrl.PrgmPufHDInvld);
+	xil_printf("DIS_SJTAG Fuse : %x\r\n", XilinxCtrl.PrgmDisSJtag);
+
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
