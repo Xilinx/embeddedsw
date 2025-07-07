@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,8 @@
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
 * 3.9   gm   07/08/23 Added SDT support
+* 3.12  bkv  07/07/25 Fixed GCC Warnings.
+*
 * </pre>
 ******************************************************************************/
 
@@ -207,6 +209,7 @@ int UartLiteIntrExample(XUartLite *UartLiteInstPtr,
 	int Index;
 #ifdef SDT
 	XUartLite_Config *CfgPtr;
+	(void)UartLiteInstPtr;
 #endif
 
 	/*
@@ -324,6 +327,7 @@ int UartLiteIntrExample(XUartLite *UartLiteInstPtr,
 ****************************************************************************/
 void SendHandler(void *CallBackRef, unsigned int EventData)
 {
+	(void)CallBackRef;
 	TotalSentCount = EventData;
 }
 
@@ -352,6 +356,7 @@ void SendHandler(void *CallBackRef, unsigned int EventData)
 ****************************************************************************/
 void RecvHandler(void *CallBackRef, unsigned int EventData)
 {
+	(void)CallBackRef;
 	TotalReceivedCount = EventData;
 }
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,8 @@
 *                     CR-965028.
 * 3.9   gm   07/08/23 Added SDT support
 * 3.9   gm   09/05/23 Corrected SDT support checks.
+* 3.12  bkv  07/07/25 Fixed GCC Warnings.
+*
 * </pre>
 ******************************************************************************/
 
@@ -341,6 +343,7 @@ int UartLiteIntrExample(XUartLite *UartLiteInstPtr,
 ****************************************************************************/
 static void UartLiteSendHandler(void *CallBackRef, unsigned int EventData)
 {
+	(void)CallBackRef;
 	TotalSentCount = EventData;
 }
 
@@ -369,7 +372,8 @@ static void UartLiteSendHandler(void *CallBackRef, unsigned int EventData)
 ****************************************************************************/
 static void UartLiteRecvHandler(void *CallBackRef, unsigned int EventData)
 {
-
+	(void)CallBackRef;
+	(void)EventData;
 }
 
 #ifndef SDT

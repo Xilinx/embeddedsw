@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -29,7 +29,7 @@ BEGIN driver uartlite
   OPTION supported_peripherals = (mdm axi_uartlite tmr_sem psv_pmc_ppu1_mdm mdm_riscv);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;	
-  OPTION VERSION = 3.11;
+  OPTION VERSION = 3.12;
   OPTION NAME = uartlite; 
 
     BEGIN INTERFACE stdin
