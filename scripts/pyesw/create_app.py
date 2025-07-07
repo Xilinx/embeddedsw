@@ -77,14 +77,19 @@ def create_app(args):
     domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")
     esw_app_dir = obj.get_comp_dir(obj.template)
     srcdir = os.path.join(esw_app_dir, "src")
+    dstdir = obj.app_src_dir
     if obj.template in openamp_app_names.keys():
         srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
         srcdir = os.path.join(srcdir, 'openamp-system-reference')
+        utils.copy_file(os.path.join(esw_app_dir, '..', 'openamp_sdt', 'CMakeLists.txt'), dstdir)
+        dstdir = os.path.join(dstdir, 'openamp-system-reference')
     elif obj.template == 'libmetal_echo_demo':
         srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
         srcdir = os.path.join(srcdir, 'libmetal')
 
-    utils.copy_directory(srcdir, obj.app_src_dir)
+    # Make it easier for user to replace the upstream openamp-system-reference demo area
+    # by having it in its own subdirectory.
+    utils.copy_directory(srcdir, dstdir)
 
     if obj.app_name:
         src_cmake = os.path.join(obj.app_src_dir, "CMakeLists.txt")

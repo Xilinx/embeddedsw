@@ -118,7 +118,7 @@ def create_openamp_app(obj, esw_app_dir):
     openamp_app_configure_common(obj, esw_app_dir)
 
     # Point to correct demo to build
-    utils.replace_line(os.path.join(obj.app_src_dir, "examples", "legacy_apps", "CMakeLists.txt"),
+    utils.replace_line(os.path.join(obj.app_src_dir, "openamp-system-reference", "examples", "legacy_apps", "CMakeLists.txt"),
                        f'project (osr_legacy_apps C)',
                        f'set (OPENAMP_APP_NAME \"' + open_amp_app_name(obj.template) + '\")\n')
 
@@ -182,7 +182,7 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir):
 
     (host, remote, soc) = openamp_lopper_host_remote_tuples[obj.proc]
     overlay_dst = os.path.join(obj.domain_path, "hw_artifacts", "domain.yaml")
-    output_sdt = os.path.join(obj.app_src_dir, "openamp_output.dts")
+    output_sdt = os.path.join(obj.app_src_dir, "openamp-system-reference", "openamp_output.dts")
 
     if os.path.exists(overlay_dst):
         logger.info("%s already exists. not copying in a new one. please remove this file if you want default one copied in." % overlay_dst)
@@ -196,7 +196,7 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir):
     utils.runcmd(cmd, log_message="OpenAMP Lopper Run")
 
     if utils.is_file('amd_platform_info.h'):
-        utils.copy_file('amd_platform_info.h', os.path.join(obj.app_src_dir,
+        utils.copy_file('amd_platform_info.h', os.path.join(obj.app_src_dir, "openamp-system-reference",
                         'examples', 'legacy_apps', 'machine', 'zynqmp_r5', 'amd_platform_info.h'))
         utils.remove('amd_platform_info.h')
 
