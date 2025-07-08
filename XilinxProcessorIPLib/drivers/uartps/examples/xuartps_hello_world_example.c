@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 *                       ensure that "Successfully ran" and "Failed" strings
 *                       are available in all examples. This is a fix for
 *                       CR-965028.
+* 3.17  bkv    07/08/25 Fixed GCC Warning.
 *
 * </pre>
 ******************************************************************************/
@@ -131,7 +132,7 @@ int UartPsHelloWorldExample(UINTPTR BaseAddress)
 #endif
 {
 	u8 HelloWorld[] = "Hello World";
-	int SentCount = 0;
+	u32 SentCount = 0;
 	int Status;
 	XUartPs_Config *Config;
 
