@@ -1,6 +1,6 @@
 
 /******************************************************************************
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -23,6 +23,7 @@
  * 1.00 sd   06/21/22 First release
  * 1.3  sd   11/17/23 Added support for system device-tree flow
  * 1.4  gm   10/06/24 Added return statements and remove resetfifos
+ * 1.6  an   07/08/25 Fixed GCC warnings
  *
  * </pre>
  *
@@ -440,6 +441,8 @@ static int SetupInterruptSystem(XI3cPsx *InstancePtr)
 *******************************************************************************/
 void Handler(void *CallBackRef, u32 Event)
 {
+	(void)CallBackRef;
+
 	if (!Event == 0)
 		TotalErrorCount++;
 
