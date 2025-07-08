@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kpt  08/23/2024 Initial release
+* 2.6   mb   07/04/2025 Updated XPuf_Data doxygen comments
 *
 * </pre>
 *
@@ -92,8 +93,11 @@ extern "C" {
 #define XPUF_AUX_SHIFT_VALUE 				(4U)	/**< No of bits aux has to shift*/
 
 /***************************** Type Definitions *******************************/
+/**
+ *  This structure is used as input to perform PUF operations
+ *  i.e. Registration and  On demand regeneration.
+ */
 typedef struct _XPuf_Data {
-	/**< PUF Registration/ Regeneration On-Demand/ ID only regeneration) */
 	u8 GlobalVarFilter;	/**< Option to configure Global Variation Filter */
 	u32 ShutterValue;	/**< Option to configure Shutter Value */
 	u32 SyndromeData[XPUF_4K_PUF_SYN_LEN_IN_WORDS];

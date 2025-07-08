@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kpt  08/21/2024 Initial release
 * 1.1   mb   04/30/2025 Fix PUF_REGEN_ON_DEMAND failure.
+* 2.6   mb   06/25/2025 Updated doxygen comments
 *
 * </pre>
 *
@@ -351,7 +352,7 @@ END:
  *
  * @return
  *		- XST_SUCCESS  PUF key regeneration successful
- *		- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT  Timeout occurred while
+ *		- XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT Timeout occurred while
  *			waiting for PUF Syndrome data
  *		- XPUF_ERROR_KEY_NOT_CONVERGED When PUF key is not converged
  *		- XST_FAILURE  Unexpected event
@@ -362,6 +363,11 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 
+	/**
+	 * Configure the PUF,
+	 * return XPUF_ERROR_INVALID_PARAM when input parameters are NULL
+	 */
+
 	Status = XPuf_Cfg(PufData);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -370,6 +376,10 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	Status = XST_FAILURE;
 	/**
 	 * Run PUF regeneration through iterative convergence
+	 * - Check for the syndrom data is ready or not in the given timeout vlaue.
+	 *   if not, return XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT
+	 * - Capture the Key and ID. Return XPUF_ERROR_KEY_NOT_CONVERGED on failure.
+	 * - Once the Key and ID are captured, reset the PUF
 	 */
 	Status = XPuf_GeneratePufKey(PufData);
 
@@ -388,7 +398,7 @@ END:
  *
  * @return
  * 		 - XST_SUCCESS if PUF ID is cleared successfully
- * 		 - XPUF_ERROR_PUF_ID_ZERO_TIMEOUT if timedout while clearing PUF ID
+ * 		 - XPUF_ERROR_PUF_ID_ZERO_TIMEOUT if timeout while clearing PUF ID
  *
  *****************************************************************************/
 int XPuf_ClearPufID(void)
@@ -553,6 +563,7 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
  * @return
  *		- XST_SUCCESS  Syndrome data is successfully trimmed
  *		- XPUF_ERROR_INVALID_PARAM  PufData instance pointer is NULL
+ *		- XST_INVALID_PARAM Input parameters for Xil_SMemCpy are NULL
  *
  * @note
  *		Formatted data will be available at PufData->TrimmedSynData
@@ -577,6 +588,7 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 
 	/**
 	 *  Copy syndrome data from instance pointer to a local variable.
+	 *  Return XST_INVALID_PARAM if the given input parameters are invalid(NULL)
 	 */
 	Status = Xil_SMemCpy(SynData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
 			     PufData->SyndromeData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
