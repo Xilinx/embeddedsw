@@ -24,3 +24,13 @@ examples:
   xasu_trng_example.c: []
   xasu_ecies_example.c: []
   xasu_keywrap_example.c: []
+
+  condition : |
+    examples = []
+    if platform == "Versal_2VE_2VM":
+      if proc in ["cortexa78", "cortexr52", "microblaze"]:
+        examples += ["xasu_aes_example.c", "xasu_ecc_example.c", "xasu_rsa_example.c",
+                  "xasu_sha2_example.c", "xasu_sha3_example.c",
+                "xasu_ecdh_example.c", "xasu_hmac_example.c",
+                "xasu_kdf_example.c", "xasu_trng_example.c",
+                "xasu_ecies_example.c", "xasu_keywrap_example.c"]
