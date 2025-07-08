@@ -130,6 +130,7 @@
 *       pre  12/09/24 use PMC RAM for Metaheader instead of PPU1 RAM
 *       pre  03/02/25 setting data context lost for SHA when the resource is busy
 *       pre  04/07/25 Hash verification skip for non-secure boot in export control enabled devices
+*       pre  06/07/25 Hash verification skip is done using crypto check function
 *
 * </pre>
 *
@@ -645,6 +646,10 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 {
 
 	volatile int Status = XST_FAILURE;
+#ifdef VERSAL_2VE_2VM
+	volatile int CryptoChkStatus = XST_FAILURE;
+	volatile int CryptoChkStatusTmp = XST_FAILURE;
+#endif
 	u32 TotalSize = BlockSize;
 	u64 SrcAddr;
 	u64 DataAddr;
@@ -704,11 +709,9 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	}
 	/** Verify hash on the data */
 #ifdef VERSAL_2VE_2VM
-	/** Verify hash only when export control bit is not set */
-	if (((XPlmi_In32(EFUSE_CACHE_IP_DISABLE_0) & EFUSE_CACHE_IP_DISABLE_0_EXPORT_MASK) !=
-		EFUSE_CACHE_IP_DISABLE_0_EXPORT_MASK) ||
-		((XPlmi_In32(EFUSE_CACHE_IP_DISABLE_0) & EFUSE_CACHE_IP_DISABLE_0_EXPORT_MASK) !=
-		EFUSE_CACHE_IP_DISABLE_0_EXPORT_MASK))
+	/** Verify only when crypto engines are enabled */
+	XSECURE_REDUNDANT_CALL(CryptoChkStatus, CryptoChkStatusTmp, XSecure_CryptoCheck);
+	if ((CryptoChkStatus == XST_SUCCESS) || (CryptoChkStatusTmp == XST_SUCCESS))
 #endif
 	{
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyHashNUpdateNext,
