@@ -1,6 +1,6 @@
 ##############################################################################
 # Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,6 +11,6 @@ BEGIN driver mipicsiss
 	OPTION supported_peripherals = (mipi_csi2_rx_subsystem);
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.13;
+	OPTION VERSION = 1.14;
 	OPTION NAME = mipicsiss;
 END driver
