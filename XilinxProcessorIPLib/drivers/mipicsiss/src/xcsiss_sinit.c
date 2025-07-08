@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -94,21 +94,19 @@ XCsiSs_Config* XCsiSs_LookupConfig(UINTPTR BaseAddress)
 /**
 * This function returns the Index number of config table using BaseAddress.
 *
-* @param  A pointer to the instance structure
-*
-* @param  Base address of the instance
+* @param  BaseAddress is base address of the instance
 *
 * @return Index number of the config table
 *
 *
 *******************************************************************************/
 
-u32 XCsiSs_GetDrvIndex(XCsiSs *InstancePtr, UINTPTR BaseAddress)
+u32 XCsiSs_GetDrvIndex(UINTPTR BaseAddress)
 {
  u32 Index = 0;
 
  for (Index = 0U; XCsiSs_ConfigTable[Index].Name != NULL; Index++) {
-   if ((XCsiSs_ConfigTable[Index].BaseAddr == BaseAddress)) {
+   if (XCsiSs_ConfigTable[Index].BaseAddr == BaseAddress) {
 	break;
    }
  }

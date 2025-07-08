@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -287,7 +287,7 @@ typedef struct {
 XCsiSs_Config* XCsiSs_LookupConfig(u32 DeviceId);
 #else
 XCsiSs_Config* XCsiSs_LookupConfig(UINTPTR BaseAddress);
-u32 XCsiSs_GetDrvIndex(XCsiSs *InstancePtr, UINTPTR BaseAddress);
+u32 XCsiSs_GetDrvIndex(UINTPTR BaseAddress);
 #endif
 
 /* Initialization and control functions xcsiss.c */

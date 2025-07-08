@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -547,7 +547,7 @@ static void CsiSs_GetIncludedSubCores(XCsiSs *CsiSsPtr)
 #endif
 #else
 	u32 Index = 0;
-	Index = XCsiSs_GetDrvIndex(CsiSsPtr, CsiSsPtr->Config.BaseAddr);
+	Index = XCsiSs_GetDrvIndex(CsiSsPtr->Config.BaseAddr);
 
 	CsiSsPtr->CsiPtr = ((CsiSsPtr->Config.CsiInfo.IsPresent) ?
 		(&CsiSsSubCores[Index].CsiInst) : NULL);
@@ -575,7 +575,7 @@ static void CsiSs_GetIncludedSubCores(XCsiSs *CsiSsPtr)
 * @param	CsiSsPtr is a pointer to the Subsystem instance to be worked.
 *
 * @return
-*		- XST_SUCCESS If CSI sub core is initialised sucessfully
+*		- XST_SUCCESS If CSI sub core is initialised successfully
 *		- XST_FAILURE If CSI sub core inititlization fails
 *
 * @note		None
@@ -629,7 +629,7 @@ static u32 CsiSs_SubCoreInitCsi(XCsiSs *CsiSsPtr)
 * @param	CsiSsPtr is a pointer to the Subsystem instance to be worked.
 *
 * @return
-*		- XST_SUCCESS If IIC sub core is initialised sucessfully
+*		- XST_SUCCESS If IIC sub core is initialised successfully
 *		- XST_FAILURE Otherwise
 *
 * @note		None
@@ -686,7 +686,7 @@ static u32 CsiSs_SubCoreInitIic(XCsiSs *CsiSsPtr)
 * @param	CsiSsPtr is a pointer to the Subsystem instance to be worked.
 *
 * @return
-*		- XST_SUCCESS If DPHY sub core is initialised sucessfully
+*		- XST_SUCCESS If DPHY sub core is initialised successfully
 *		- XST_FAILURE If DPHY sub core initialization failed
 *
 * @note		None
@@ -742,7 +742,7 @@ static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr)
 * @param	CsiSsPtr is a pointer to the Subsystem instance to be worked.
 *
 * @return
-*		- XST_SUCCESS If DPHY sub core is initialised sucessfully
+*		- XST_SUCCESS If DPHY sub core is initialised successfully
 *		- XST_FAILURE If DPHY sub core initialization failed
 *
 * @note		None
