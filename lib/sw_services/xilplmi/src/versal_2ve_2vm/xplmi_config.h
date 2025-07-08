@@ -32,6 +32,7 @@
 *       pre  10/22/2024 Added configurable option for CFI selective read feature
 *       bm   11/11/2024 Added config option for I2C Handshake feature
 *       sk   03/07/2025 Added config option for UFS
+*       rmv  07/17/2025 Disable PLM OCP key management
 *
 * </pre>
 *
@@ -150,10 +151,6 @@ extern "C" {
 
 #if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP))
 #define PLM_OCP
-#endif
-
-#if (!defined(PLM_ECDSA_EXCLUDE)) && (defined(PLM_OCP))
-#define PLM_OCP_KEY_MNGMT
 #endif
 
 /**
