@@ -149,6 +149,7 @@
 *       obs  03/22/25 Added redundant security checks to mitigate glitch attacks
 *       har  04/07/25 Updated instruction mask in XLoader_EnableJtag
 *       pre  05/09/25 Updation is done to do hashBlock1 integrity validation for boot PDI only
+*       vss  07/08/25 Initialised DMA instance in read and verify secure headers.
 *
 * </pre>
 *
@@ -871,6 +872,13 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 #endif
 	XPlmi_Printf(DEBUG_INFO,
 		"Loading secure image headers and partition headers\n\r");
+
+	/* Get DMA instance */
+	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
+	if (SecurePtr->PmcDmaInstPtr == NULL) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, 0);
+		goto ERR_END;
+	}
 
 #ifdef VERSAL_2VE_2VM
 	HBSignParams.ReadOffset = MetaHdr->ImgHdrTbl.AcOffset * XIH_PRTN_WORD_LEN;
