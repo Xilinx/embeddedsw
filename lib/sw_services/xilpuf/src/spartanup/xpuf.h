@@ -17,6 +17,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kpt  08/23/2024 Initial release
 * 2.6   mb   07/04/2025 Updated XPuf_Data doxygen comments
+*       mb   07/08/2025 Update PUF shutter value
 *
 * </pre>
 *
@@ -88,7 +89,7 @@ extern "C" {
 
 #define XPUF_ERROR_PUF_OVERFLOW				(0xA)	/**< Error due to PUF overflow */
 
-#define XPUF_SHUTTER_VALUE				(0x01000020U)	/**< Shutter value */
+#define XPUF_SHUTTER_VALUE				(0x01000080U)	/**< Shutter value */
 
 #define XPUF_AUX_SHIFT_VALUE 				(4U)	/**< No of bits aux has to shift*/
 
