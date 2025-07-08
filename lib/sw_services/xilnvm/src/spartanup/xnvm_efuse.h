@@ -24,6 +24,7 @@
 *       hj   04/10/2025 Remove security control bits not exposed to user
 * 3.6   hj   04/10/2025 Remove zero IV validation check in dec_only case
 *       hj   05/27/2025 Support XILINX_CTRL efuse PUFHD_INVLD and DIS_SJTAG bit programming
+*       mb   07/02/2025 Update doxygen comments for structures definitions
 *
 * </pre>
 *
@@ -225,7 +226,7 @@ typedef enum {
 	XNVM_EFUSE_PPK0_WR_LK, /**< PPK0 write lock bit */
 	XNVM_EFUSE_PPK1_WR_LK, /**< PPK1 write lock bit */
 	XNVM_EFUSE_PPK2_WR_LK, /**< PPK2 write lock bit */
-	XNVM_EFUSE_JTAG_DIS, /**< AES jtag disable bit */
+	XNVM_EFUSE_JTAG_DIS, /**< AES JTAG disable bit */
 	XNVM_EFUSE_AES_DIS, /**< AES disable bit */
 	XNVM_EFUSE_AES_CM_DIS, /**< AES counter measures disable bit */
 } XNvm_EfuseSecCtrlBitRow3;
@@ -233,29 +234,29 @@ typedef enum {
 typedef enum {
 	XNVM_EFUSE_DNA_WR_LK = 10, /**< DNA write lock bit */
 	XNVM_EFUSE_MEM_CLR_EN = 12, /**< Memory clear enable bit */
-	XNVM_EFUSE_JTAG_ERR_OUT_DIS = 14, /**< Jtag error out disable bit */
+	XNVM_EFUSE_JTAG_ERR_OUT_DIS = 14, /**< JTAG error out disable bit */
 	XNVM_EFUSE_USER_WR_LK, /**< User write lock bit */
 } XNvm_EfuseSecCtrlBitRow4;
 
 typedef struct {
-	u8 PrgmHashPufOrKey; /**< Program Hash PUF or PPK */
-	u8 PrgmRmaDis; /**< Program RMA disable */
-	u8 PrgmRmaEn; /**< Program RMA enable */
-	u8 PrgmCrcEn; /**< Program CRC enable */
-	u8 PrgmDftDis; /**< Program DFT disable */
-	u8 PrgmLckdwn; /**< Program lockdown enable */
-	u8 PrgmPufTes2Dis; /**< Program PUF test2 disable */
-	u8 PrgmPpk0Invld; /**< Program PPK0 invalid */
-	u8 PrgmPpk1Invld; /**< Program PPK1 invalid */
-	u8 PrgmPpk2Invld; /**< Program PPK2 invalid */
-	u8 PrgmAesRdlk; /**< Program AES read lock */
-	u8 PrgmPpk0lck; /**< Program PPK 0 lock */
-	u8 PrgmPpk1lck; /**< Program PPK 1 lock */
-	u8 PrgmPpk2lck; /**< Program PPK 2 lock */
-	u8 PrgmJtagDis; /**< Program jtag disable */
-	u8 PrgmAesDis; /**< Program AES disable */
-	u8 PrgmUserWrlk; /**< Program user write lock */
-	u8 PrgmJtagErrDis; /**< Program Jtag error disable */
+	u8 PrgmHashPufOrKey; /**< Flag to program either hash of PUF syndrome date or PPK  */
+	u8 PrgmRmaDis; /**< Flag to disable RMA */
+	u8 PrgmRmaEn; /**< Flag to enable RMA */
+	u8 PrgmCrcEn; /**< Flag to enable CRC enable */
+	u8 PrgmDftDis; /**< Flag to disable DFT */
+	u8 PrgmLckdwn; /**< Flag to enable lockdown */
+	u8 PrgmPufTes2Dis; /**< Flag to disable PUF test2 */
+	u8 PrgmPpk0Invld; /**< Flag to program PPK0 invalid */
+	u8 PrgmPpk1Invld; /**< Flag to program PPK1 invalid */
+	u8 PrgmPpk2Invld; /**< Flag to program PPK2 invalid */
+	u8 PrgmAesRdlk; /**< Flag to lock AES read */
+	u8 PrgmPpk0lck; /**< Flag to lock PPK0 read/write */
+	u8 PrgmPpk1lck; /**< Flag to lock PPK1 read/write */
+	u8 PrgmPpk2lck; /**< Flag to lock PPK2 read/write */
+	u8 PrgmJtagDis; /**< Flag to disable JTAG */
+	u8 PrgmAesDis; /**< Flag to disable AES */
+	u8 PrgmUserWrlk; /**< Flag to lock writing user efuses*/
+	u8 PrgmJtagErrDis; /**< Flag to disable JTAG error out*/
 } XNvm_EfuseSecCtrl;
 
 typedef struct {
@@ -268,7 +269,7 @@ typedef struct {
 	u8 PPK1_INVLD1;  /**< PPK1 invalid 1 */
 	u8 PPK2_INVLD1;  /**< PPK2 invalid 1 */
 	u8 USER_WR_LK; /**< User write lock */
-	u8 JTAG_ERR_OUT_DIS; /**< Jtag error out disable */
+	u8 JTAG_ERR_OUT_DIS; /**< JTAG error out disable */
 	u8 AES_RD_WR_LK_1; /**< AES read write lock 1 */
 	u8 AES_RD_WR_LK_0; /**< AES read write lock 0 */
 	u8 PPK0_INVLD0; /**< PPK0 invalid 0 */
@@ -279,7 +280,7 @@ typedef struct {
 	u8 PPK2_WR_LK; /**< PPK2 write lock */
 	u8 HASH_PUF_OR_KEY; /**< Hash PUF or PPK key */
 	u8 PUF_TEST2_DIS; /**< PUF test2 disable */
-	u8 JTAG_DIS; /**< Jtag disable */
+	u8 JTAG_DIS; /**< JTAG disable */
 	u8 RMA_ENABLE_0; /**< RMA disable 1 */
 	u8 RMA_DISABLE_0; /**< RMA disable 0 */
 	u8 AES_DIS; /**< AES disable */
@@ -287,12 +288,12 @@ typedef struct {
 
 typedef struct {
 	u32 AesKey[XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS]; /**< AES key value to be programmed */
-	u8 PrgmAesKey; /**< Program AES key */
+	u8 PrgmAesKey; /**< Flag to determine whether to program AES key or not */
 } XNvm_EfuseAesKeys;
 
 typedef struct {
 	u32 AesIv[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS]; /**< AES IV value to be programmed */
-	u8 PrgmIv; /**< Program IV */
+	u8 PrgmIv; /**< Flag to determine whether to program IV or not */
 } XNvm_EfuseAesIvs;
 
 typedef struct {
@@ -300,23 +301,23 @@ typedef struct {
 	u8 Ppk0Hash[XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES]; /**< PPK0 hash value to be programmed */
 	u8 Ppk1Hash[XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES]; /**< PPK1 hash value to be programmed */
 	u8 Ppk2Hash[XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES]; /**< PPK2 hash value to be programmed */
-	u8 PrgmPpk0Hash; /**< Program PPK0 hash */
-	u8 PrgmPpk1Hash; /**< Program PPK1 hash */
-	u8 PrgmPpk2Hash; /**< Program PPK2 hash */
+	u8 PrgmPpk0Hash; /**< Flag to determine whether to program PPK0 hash or not */
+	u8 PrgmPpk1Hash; /**< Flag to determine whether to program PPK1 hash or not */
+	u8 PrgmPpk2Hash; /**< Flag to determine whether to program PPK2 hash or not */
 } XNvm_EfusePpkHash;
 
 typedef struct {
-	u8 PrgmDeconly; /**< Program Decrypt only */
+	u8 PrgmDeconly; /**< Flag to determine whether to program Decrypt only or not */
 } XNvm_EfuseDecOnly;
 
 typedef struct {
 	u32 RevokeId[XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES]; /**< Revoke ID value */
-	u8 PrgmSpkRevokeId; /**< Program SPK revoke ID */
+	u8 PrgmSpkRevokeId; /**< Flag to determine whether to program SPK revoke ID or not */
 } XNvm_EfuseSpkRevokeId;
 
 typedef struct {
 	u32 AesRevokeId; /**< AES revoke ID */
-	u8 PrgmAesRevokeId; /**< Program AES revoke ID */
+	u8 PrgmAesRevokeId; /**< Flag to determine whether to program AES revoke ID or not */
 } XNvm_EfuseAesRevokeId;
 
 typedef struct {
@@ -365,7 +366,7 @@ typedef enum {
  */
 
 /**
- *  This structure defines sub structures of Versal eFuses to be blown
+ *  This structure defines sub structures of Spartan Ultrascale+ eFuses to be blown
  */
 typedef struct {
 	XNvm_EfuseAesKeys *AesKeys; /**< Pointer to Aes keys*/

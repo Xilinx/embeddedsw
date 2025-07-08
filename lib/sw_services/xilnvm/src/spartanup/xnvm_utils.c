@@ -17,6 +17,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kpt  08/14/2024 Initial release
 * 1.1   mb   04/03/2025 Remove EMC clock control enable
+* 3.6   mb   06/25/2025 Update doxygen comments
 * </pre>
 *
 * @note
@@ -108,9 +109,9 @@ static int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 	 *  Read modify and write to EFUSE_CFG_REG
 	 */
 	Xil_UtilRMW32((XNVM_EFUSE_CTRL_BASEADDR +
-		       XNVM_EFUSE_CFG_OFFSET),
-		      XNVM_EFUSE_CFG_MARGIN_RD_MASK,
-		      Mask);
+			XNVM_EFUSE_CFG_OFFSET),
+			XNVM_EFUSE_CFG_MARGIN_RD_MASK,
+			Mask);
 
 	NewRegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				      XNVM_EFUSE_CFG_OFFSET);
@@ -169,7 +170,8 @@ int XNvm_EfuseDisableProgramming(void)
 				    XNVM_EFUSE_CFG_OFFSET);
 
 	/**
-	 *  disable eFuse program mode by writing EFUSE_CFG_REG register
+	 *  Disable eFuse program mode by writing EFUSE_CFG_REG register
+	 *  and return XST_FAILURE on failure
 	 */
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_ENABLE_PGM;
 	Status = Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
@@ -240,16 +242,17 @@ static void XNvm_EfuseInitTimers(void)
 
 /******************************************************************************/
 /**
- * @brief	This function setups eFUSE controller for given operation and
+ * @brief	This function sets up eFUSE controller for given operation and
  *			read mode.
  *
  * @param	Op     - Operation to be performed read/program(write).
  * @param	RdMode - Read mode for eFUSE read operation.
  *
  * @return	- XST_SUCCESS - eFUSE controller setup for given op.
- *			- XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
- *						register access.
- *
+ *		- XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
+ *					  register access.
+ *		- XNVM_EFUSE_ERR_PGM_TBIT_PATTERN - Error in T-Bit pattern.
+ *		- XST_FAILURE - Error on set read mode failure.
  ******************************************************************************/
 int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 			      XNvm_EfuseRdMode RdMode)
@@ -257,7 +260,7 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 	volatile int Status = XST_FAILURE;
 
 	/**
-	 *  Unlock eFuse controller to write into eFuse registers
+	 *  Unlock eFuse controller by writing into WR_LOCK_REG
 	 */
 	Status = XNvm_EfuseUnlockController();
 	if (Status != XST_SUCCESS) {
@@ -269,7 +272,7 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 	}
 
 	/**
-	 *  Set Read mode
+	 *  Set Read mode and return XST_FAILURE on failure
 	 */
 	Status = XNvm_EfuseSetReadMode(RdMode);
 	if (Status != XST_SUCCESS) {
@@ -277,7 +280,8 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 	}
 
 	/**
-	 *   Initialize eFuse Timers
+	 *  Initialize eFuse controller timers by writing into
+	 *  registers(tpgm, trd, tsu_h_ps, tsu_h_ps_cs, tsu_h_cs)
 	 */
 	XNvm_EfuseInitTimers();
 
@@ -288,7 +292,8 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 			   XNVM_EFUSE_TEST_CTRL_REG_OFFSET, 0x00U);
 
 	/**
-	 *   Check for T bits enabled
+	 *   Check for T bits enabled and return XNVM_EFUSE_ERR_PGM_TBIT_PATTERN
+	 *   on failure
 	 */
 	Status = XNvm_EfuseCheckForTBits();
 
@@ -329,8 +334,8 @@ END :
 /**
  * @brief	This function reads the given register.
  *
- * @param	BaseAddress is the eFuse controller base address.
- * @param	RegOffset is the register offset from the base address.
+ * @param	BaseAddress - eFuse controller base address.
+ * @param	RegOffset   - Register offset from the base address.
  *
  * @return	The 32-bit value of the register.
  *
@@ -344,9 +349,9 @@ u32 XNvm_EfuseReadReg(u32 BaseAddress, u32 RegOffset)
 /**
  * @brief	This function writes the value into the given register.
  *
- * @param	BaseAddress is the eFuse controller base address.
- * @param	RegOffset is the register offset from the base address.
- * @param	Data is the 32-bit value to be written to the register.
+ * @param	BaseAddress - eFuse controller base address.
+ * @param	RegOffset   - Register offset from the base address.
+ * @param	Data        - 32-bit value to be written to the register.
  *
  ******************************************************************************/
 void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
@@ -444,7 +449,7 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 
 	for (Idx = 0U; Idx < XNVM_AES_KEY_SIZE_IN_WORDS; Idx++) {
 		/**
-		*	Process each bits of 32-bit Value
+		*	Process each bit of 32-bit Value
 		 */
 		Value = Key[XNVM_AES_KEY_SIZE_IN_WORDS - Idx - 1U];
 		for (BitNo = 0U; BitNo < 32U; BitNo++) {
@@ -482,7 +487,8 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to zeroize the memory
+ * @brief	This function zeroizes the memory and verifies that the memory
+ *		has been correctly zeroized.
  *
  * @param	DataPtr Pointer to the memory which need to be zeroized.
  * @param	Length	Length of the data in bytes.
@@ -497,7 +503,7 @@ int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 	volatile u32 Index;
 
 	/**
-	*	Clear the decrypted data
+	*	Clear the buffer provided.
 	 */
 	Status = Xil_SMemSet(DataPtr, Length, 0, Length);
 	if (Status != XST_SUCCESS) {
@@ -505,7 +511,8 @@ int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 	}
 
 	/**
-	*	Read it back to verify
+	*  Read it back to verify.
+	 * Return success upon successful zeroization else return XST_FAILURE.
 	 */
 	Status = XST_FAILURE;
 	for (Index = 0U; Index < Length; Index++) {
