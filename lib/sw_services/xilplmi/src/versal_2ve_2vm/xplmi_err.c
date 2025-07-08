@@ -25,6 +25,7 @@
 *       sk   04/07/2025 Added redundant call to enable EAM interrupt
 *       sk   04/09/2025 Updated LPD SLCR EAM Disable error logic
 *       pre  04/28/2025 Changed debug level for some prints
+*       pre  07/04/2025 Throwing error code for PMC's FW_CR err action change
 *
 * </pre>
 *
@@ -1400,6 +1401,15 @@ int XPlmi_Versal2Ve2VmSetAction(XPlmi_Cmd * Cmd)
 	if (NodeType > XPLMI_NODETYPE_EVENT_SW_ERR) {
 		Status = XPLMI_INVALID_NODE_ID;
 		goto END;
+	}
+
+	/* PMC's FW_CR error action must not be changed */
+	if ((NodeType == XPLMI_NODETYPE_EVENT_PMC_ERR1) &&
+	    ((ErrorMasks & XPLMI_BIT(XPLMI_ERROR_FW_CR))  != 0U)) {
+			XPlmi_Printf(DEBUG_INFO, "Error: XPlmi_CmdEmSetAction: "
+				"Error Action cannot be changed for PMC FW CR \r\n");
+			Status = XPLMI_CANNOT_CHANGE_ACTION;
+			goto END;
 	}
 
 	if (NodeType == XPLMI_NODETYPE_EVENT_PMC_ERR3) {
