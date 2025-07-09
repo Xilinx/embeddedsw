@@ -266,7 +266,7 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	Audio peripheral
 	*/
 
-	/* The audio peripheral willl be enabled in the RX init done callback */
+	/* The audio peripheral will be enabled in the RX init done callback */
 	/* XV_HdmiRx1_AudioEnable(InstancePtr); */
 
 	/* Enable AUD peripheral interrupt */
@@ -1891,7 +1891,7 @@ int XV_HdmiRx1_GetVideoProperties(XV_HdmiRx1 *InstancePtr)
 *
 * @param    InstancePtr is a pointer to the XV_HdmiRx1 core instance.
 *
-* @return   None.
+* @return   Calculates video timing and returns video timing parameters structure
 *
 * @note     None.
 *
@@ -2467,12 +2467,38 @@ static void StubCallback(void *CallbackRef)
 	/* Xil_AssertVoidAlways(); */
 }
 
+/*****************************************************************************/
+/**
+*
+* This function returns Video Timing Extended Metadata
+*
+* @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
+*
+* @return   XV_HdmiC_VideoTimingExtMeta
+*
+* @note   None.
+*
+******************************************************************************/
 XV_HdmiC_VideoTimingExtMeta *XV_HdmiRx1_GetVidTimingExtMeta(
 		XV_HdmiRx1 *InstancePtr)
 {
 	return &(InstancePtr->VrrIF.VidTimingExtMeta);
 }
 
+/*****************************************************************************/
+/**
+*
+* This function reads the VTEM (Video Timing Extended Metadatai) InfoFrame data
+* from the HDMI RX auxiliary register and populates the corresponding fields in
+* the XV_HdmiC_VideoTimingExtMeta structure.
+* The VTEM InfoFrame provides metadata for features like Variable Refresh Rate (VRR),
+* Quick Media Switching (QMS), and other advanced timing parameters.
+*
+* @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
+*
+* @note   None.
+*
+******************************************************************************/
 void XV_HdmiRx1_ParseVideoTimingExtMetaIF(XV_HdmiRx1 *InstancePtr)
 {
 	XV_HdmiC_VideoTimingExtMeta *ExtMeta;
@@ -2502,12 +2528,35 @@ void XV_HdmiRx1_ParseVideoTimingExtMetaIF(XV_HdmiRx1 *InstancePtr)
 				XV_HDMIRX1_AUX_VTEM_NEXT_TFR_SHIFT;
 }
 
+/*****************************************************************************/
+/**
+*
+* This function returns AMD Source Product Descriptor Infoframe
+*
+* @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
+*
+* @return   XV_HdmiC_SrcProdDescIF
+*
+* @note   None.
+*
+******************************************************************************/
 XV_HdmiC_SrcProdDescIF *XV_HdmiRx1_GetSrcProdDescIF(
 		XV_HdmiRx1 *InstancePtr)
 {
 	return &(InstancePtr->VrrIF.SrcProdDescIF);
 }
 
+/*****************************************************************************/
+/**
+*
+* This function Parses the Source Product Descriptor (SPD) InfoFrame to extract
+* FreeSync and FreeSync Pro information
+*
+* @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
+*
+* @note   None.
+*
+******************************************************************************/
 void XV_HdmiRx1_ParseSrcProdDescInfoframe(XV_HdmiRx1 *InstancePtr)
 {
 	XV_HdmiC_SrcProdDescIF *SpdIfPtr;
@@ -2615,9 +2664,8 @@ void XV_HdmiRx1_SetVrrIfType(XV_HdmiRx1 *InstancePtr,
 * This function sets the Dynamic HDR buffer address
 *
 * @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
-* @param    Addr is an address in 64bit format.
 *
-* @return None.
+* @param    Addr is an address in 64bit format.
 *
 * @note   None.
 *
@@ -2654,9 +2702,8 @@ void XV_HdmiRx1_DynHDR_SetAddr(XV_HdmiRx1 *InstancePtr, u64 Addr)
 * overlay and errors if any.
 *
 * @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
-* @param    RxDynHdrInfoPtr is a pointer to XHdmiRx1 Dynamic HDR info instance.
 *
-* @return None.
+* @param    RxDynHdrInfoPtr is a pointer to XHdmiRx1 Dynamic HDR info instance.
 *
 * @note   None.
 *
@@ -2691,6 +2738,21 @@ void XV_HdmiRx1_DynHDR_GetInfo(XV_HdmiRx1 *InstancePtr,
 		XV_HDMIRX1_AUX_DYN_HDR_STS_ERR_MASK);
 }
 
+/*****************************************************************************/
+/**
+*
+* This function checks if Display Stream Compression (DSC) is enabled on the HDMI
+* RX stream.
+*
+* @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
+*
+* @return
+* 	    - `1` if DSC is enabled on the stream.
+* 	    - `0` if DSC is not enabled or not supported.
+*
+* @note   None.
+*
+******************************************************************************/
 u32 XV_HdmiRx1_DSC_IsEnableStream(XV_HdmiRx1 *InstancePtr)
 {
 	u32 tmp;
@@ -2706,6 +2768,20 @@ u32 XV_HdmiRx1_DSC_IsEnableStream(XV_HdmiRx1 *InstancePtr)
 	return ((tmp & XV_HDMIRX1_PIO_IN_DSC_EN_STRM_MASK) ? 1 : 0);
 }
 
+/*****************************************************************************/
+/**
+*
+* This function sets the DSC Decode Fail flag in the HDMI RX FRL DDC field.
+*
+* @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
+*
+* @return
+* 	    - XST_SUCCESS if the operation was successful.
+* 	    - XST_NO_FEATURE if DSC is not supported in the current configuration
+*
+* @note   This function uses an assertion to ensure that the input pointer is not NULL.
+*
+******************************************************************************/
 int XV_HdmiRx1_DSC_SetDecodeFail(XV_HdmiRx1 *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr);
@@ -2718,6 +2794,23 @@ int XV_HdmiRx1_DSC_SetDecodeFail(XV_HdmiRx1 *InstancePtr)
 					   1);
 }
 
+/*****************************************************************************/
+/**
+*
+* This function sets the DSC FRL Max flag in the HDMI RX FRL DDC field. This function
+* writes a value of `1` to the `DSC_FRL_MAX` field using the FRL DDC interface. It is
+* used to indicate that the maximum FRL (Fixed Rate Link) bandwidth is being used for
+* Display Stream Compression (DSC) on the HDMI RX path
+*
+* @param    InstancePtr is a pointer to the XHdmiRx1 core instance.
+*
+* @return
+* 	    - XST_SUCCESS if the operation was successful.
+* 	    - XST_NO_FEATURE if DSC is not supported in the current configuration
+*
+* @note   This function uses an assertion to ensure that the input pointer is not NULL.
+*
+******************************************************************************/
 int XV_HdmiRx1_DSC_SetDscFrlMax(XV_HdmiRx1 *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr);

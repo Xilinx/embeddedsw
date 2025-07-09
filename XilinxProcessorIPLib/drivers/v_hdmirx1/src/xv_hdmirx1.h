@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -191,6 +191,9 @@ typedef enum {
 /** @name HDMI RX stream status
 * @{
 */
+/**
+* These constants specify different types of stream states.
+*/
 typedef enum {
 	XV_HDMIRX1_STATE_FRL_LINK_TRAINING,
 	XV_HDMIRX1_STATE_STREAM_DOWN,		/**< Stream down */
@@ -201,17 +204,26 @@ typedef enum {
 	XV_HDMIRX1_STATE_STREAM_RDY,		/**< Stream ready */
 	XV_HDMIRX1_STATE_STREAM_UP		/**< Stream up */
 } XV_HdmiRx1_State;
+/*@}*/
 
 /** @name HDMI RX sync status
 * @{
+*/
+/**
+* These constants specifies the sycn lock status.
 */
 typedef enum {
 	XV_HDMIRX1_SYNCSTAT_SYNC_LOSS,		/**< Sync Loss */
 	XV_HDMIRX1_SYNCSTAT_SYNC_EST,		/**< Sync Lock */
 } XV_HdmiRx1_SyncStatus;
+/*@}*/
 
 /** @name HDMI RX audio format
 * @{
+*/
+/**
+* These constants defines the various audio format types that can be
+* detected or processed by the HDMI RX subsystem.
 */
 typedef enum {
 	XV_HDMIRX1_AUDFMT_UNKNOWN = 0,
@@ -219,9 +231,13 @@ typedef enum {
 	XV_HDMIRX1_AUDFMT_HBR,      /* HBR*/
 	XV_HDMIRX1_AUDFMT_3D,	    /* 3D Audio */
 } XV_HdmiRx1_AudioFormatType;
+/*@}*/
 
 /** @name HDMI RX EDID RAM Size
 * @{
+*/
+/**
+* These constants defines the supported EDID RAM sizes for the HDMI RX subsystem
 */
 typedef enum {
 	XV_HDMIRX1_EDID_SIZE_256B = 256,
@@ -229,6 +245,7 @@ typedef enum {
 	XV_HDMIRX1_EDID_SIZE_1024B = 1024,
 	XV_HDMIRX1_EDID_SIZE_4096B = 4096
 } XV_HdmiRx1_EdidSize;
+/*@}*/
 
 
 /**************************** Type Definitions *******************************/
@@ -250,7 +267,7 @@ typedef struct {
 	u32 AxiLiteClkFreq;
 	u32 FRLClkFreqkHz;
 	u32 VideoClkFreqkHz;
-	u32 MaxFrlRate; /** < Maximum FRL Rate Supporte */
+	u32 MaxFrlRate; /** < Maximum FRL Rate Supported */
 	u32 DynamicHDR; /**< Dynamic HDR supported */
 	u32 DSC; /**< DSC supported */
 	XV_HdmiRx1_EdidSize EdidRamSize;
@@ -297,9 +314,14 @@ typedef struct {
 /** @name HDMI RX Dynamic HDR Error type
 * @{
 */
+/**
+* This enumeration defines the possible error conditions that may occur while handling
+* Dynamic HDR metadata in the HDMI RX subsystem.
+*
+*/
 typedef enum {
-	XV_HDMIRX1_DYNHDR_ERR_SEQID = 1, /* Sequence id or ECC error */
-	XV_HDMIRX1_DYNHDR_ERR_MEMWR = 2, /* Memory write error */
+	XV_HDMIRX1_DYNHDR_ERR_SEQID = 1, /**< Sequence id or ECC error */
+	XV_HDMIRX1_DYNHDR_ERR_MEMWR = 2, /**< Memory write error */
 } XV_HdmiRx1_DynHdrErrType;
 
 /**
@@ -325,6 +347,21 @@ typedef struct {
 *
 */
 typedef void (*XV_HdmiRx1_Callback)(void *CallbackRef);
+
+/**
+* Callback type for interrupt.
+*
+* @param	CallbackRef is a callback reference passed in by the upper
+*		layer when setting the callback functions, and passed back to
+*		the upper layer when the callback is invoked.
+*
+* @param	Data is a type of HDCP event
+*
+* @return	None.
+*
+* @note		None.
+*
+*/
 typedef void (*XV_HdmiRx1_HdcpCallback)(void *CallbackRef, int Data);
 
 /**
@@ -465,10 +502,39 @@ typedef struct {
 } XV_HdmiRx1;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define TIME_10MS	(XPAR_XV_HDMIRX1_0_AXI_LITE_FREQ_HZ/100)
-#define TIME_200MS	(XPAR_XV_HDMIRX1_0_AXI_LITE_FREQ_HZ/5)
-#define TIME_16MS	((XPAR_XV_HDMIRX1_0_AXI_LITE_FREQ_HZ*10)/625)
-#define TIME_500MS	(XPAR_XV_HDMIRX1_0_AXI_LITE_FREQ_HZ / 2)
+/**
+ * @def TIME_10MS
+ * @brief Represents a 10 millisecond time interval in clock cycles.
+ *
+ * Calculated based on the AXI Lite interface frequency. Useful for short delays or
+ * polling intervals.
+ */
+#define TIME_10MS       (XPAR_XV_HDMIRX1_0_AXI_LITE_FREQ_HZ / 100)
+
+/**
+ * @def TIME_200MS
+ * @brief Represents a 200 millisecond time interval in clock cycles.
+ *
+ * Useful for medium-duration timeouts or periodic checks.
+ */
+#define TIME_200MS      (XPAR_XV_HDMIRX1_0_AXI_LITE_FREQ_HZ / 5)
+
+/**
+ * @def TIME_16MS
+ * @brief Represents a 16 millisecond time interval in clock cycles.
+ *
+ * Equivalent to approximately one frame at 60 Hz refresh rate. Useful for
+ * frame-based timing.
+ */
+#define TIME_16MS       ((XPAR_XV_HDMIRX1_0_AXI_LITE_FREQ_HZ * 10) / 625)
+
+/**
+ * @def TIME_500MS
+ * @brief Represents a 500 millisecond time interval in clock cycles.
+ *
+ * Suitable for longer delays or watchdog timers.
+ */
+#define TIME_500MS      (XPAR_XV_HDMIRX1_0_AXI_LITE_FREQ_HZ / 2)
 
 /*****************************************************************************/
 /**
@@ -710,7 +776,7 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XHdmi_Rx core instance.
 * @param	SetClr specifies TRUE/FALSE value to either enable or disable the
-*		Pixel Repitition.
+*		Pixel Repetition.
 *
 * @return	None.
 *
@@ -738,8 +804,9 @@ typedef struct {
 * This macro asserts or clears the AXIS enable output port.
 *
 * @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
-* @param	Reset specifies TRUE/FALSE value to either assert or
-*		release HDMI RX reset.
+*
+* @param	Enable specifies TRUE/FALSE value to either enable or disable the
+*		AXIS output port.
 *
 * @return	None.
 *
@@ -916,6 +983,8 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
 *
+* @param	Value specifies the timer's frequency in number of clockcycles
+*
 * @return	None.
 *
 * @note		C-style signature:
@@ -1021,6 +1090,8 @@ typedef struct {
 * This macro starts the HDMI RX timer peripheral.
 *
 * @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @param	Value specifies the timer's frequency in number of clockcycles
 *
 * @return	None.
 *
@@ -1128,6 +1199,8 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
 *
+* @param	Value specifies the timer's frequency in number of clockcycles
+*
 * @return	None.
 *
 * @note		C-style signature:
@@ -1233,6 +1306,8 @@ typedef struct {
 * This macro starts the HDMI RX timer peripheral.
 *
 * @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @param	Value specifies the timer's frequency in number of clockcycles
 *
 * @return	None.
 *
@@ -1369,6 +1444,8 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
 *
+* @param	Value specifies the timer's frequency in number of clockcycles
+*
 * @return	None.
 *
 * @note		C-style signature:
@@ -1435,6 +1512,17 @@ typedef struct {
 			    (XV_HDMIRX1_DDC_CTRL_SET_OFFSET), \
 			    (XV_HDMIRX1_DDC_CTRL_HDCP_EN_MASK));
 
+/*****************************************************************************/
+/**
+*
+* This macro disables the HDCP in the DDC peripheral.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx1_DdcHdcpEnable(XV_HdmiRx1 *InstancePtr)
+*
+******************************************************************************/
 #define XV_HdmiRx1_DdcHdcpDisable(InstancePtr) \
 	XV_HdmiRx1_WriteReg((InstancePtr)->Config.BaseAddress, \
 			    (XV_HDMIRX1_DDC_CTRL_CLR_OFFSET), \
