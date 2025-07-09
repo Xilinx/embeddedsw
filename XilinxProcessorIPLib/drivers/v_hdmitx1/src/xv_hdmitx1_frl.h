@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -116,41 +117,58 @@ extern "C" {
 #define XV_HDMITX1_DDC_ADDRESS 0x54
 
 /**************************** Type Definitions *******************************/
-/** @name HDMI TX FRL training state
-* @{
-*/
+/**
+ * @enum XV_HdmiTx1_FrlTrainingState
+ *
+ * This enumeration defines the various training states for the HDMI TX FRL link.
+ */
 typedef enum {
-	XV_HDMITX1_FRLSTATE_LTS_L,		/* LTS:L*/
-	XV_HDMITX1_FRLSTATE_LTS_1,		/* LTS:1*/
-	XV_HDMITX1_FRLSTATE_LTS_2,		/* LTS:2*/
-	XV_HDMITX1_FRLSTATE_LTS_3_ARM,		/* LTS:3 (ARM)*/
-	XV_HDMITX1_FRLSTATE_LTS_3,		/* LTS:3*/
-	XV_HDMITX1_FRLSTATE_LTS_4,		/* LTS:4*/
-	XV_HDMITX1_FRLSTATE_LTS_P_ARM,		/* LTS:P (Step 1)*/
-	XV_HDMITX1_FRLSTATE_LTS_P,		/* LTS:P*/
-	XV_HDMITX1_FRLSTATE_LTS_P_FRL_RDY	/* LTS:P (FRL_START = 1)*/
+	XV_HDMITX1_FRLSTATE_LTS_L,        /**< LTS:L */
+	XV_HDMITX1_FRLSTATE_LTS_1,        /**< LTS:1 */
+	XV_HDMITX1_FRLSTATE_LTS_2,        /**< LTS:2 */
+	XV_HDMITX1_FRLSTATE_LTS_3_ARM,    /**< LTS:3 (ARM) */
+	XV_HDMITX1_FRLSTATE_LTS_3,        /**< LTS:3 */
+	XV_HDMITX1_FRLSTATE_LTS_4,        /**< LTS:4 */
+	XV_HDMITX1_FRLSTATE_LTS_P_ARM,    /**< LTS:P (Step 1) */
+	XV_HDMITX1_FRLSTATE_LTS_P,        /**< LTS:P */
+	XV_HDMITX1_FRLSTATE_LTS_P_FRL_RDY /**< LTS:P (FRL_START = 1) */
 } XV_HdmiTx1_FrlTrainingState;
 
-/** @name HDMI TX LTP Type
-* @{
-*/
+/**
+ * @enum XV_HdmiTx1_FrlLtpType
+ *
+ * This enumeration defines the possible Link Training Patterns (LTP) used by the HDMI TX FRL link.
+ */
 typedef enum {
-	XV_HDMITX1_LTP_NO_LTP = 0,
-	XV_HDMITX1_LTP_ALL_ONES,
-	XV_HDMITX1_LTP_ALL_ZEROES,
-	XV_HDMITX1_LTP_NYQUIST_CLOCK,
-	XV_HDMITX1_LTP_TXDDE_COMPLIANCE,
-	XV_HDMITX1_LTP_LFSR0,
-	XV_HDMITX1_LTP_LFSR1,
-	XV_HDMITX1_LTP_LFSR2,
-	XV_HDMITX1_LTP_LFSR3
+	XV_HDMITX1_LTP_NO_LTP = 0,           /**< No LTP pattern */
+	XV_HDMITX1_LTP_ALL_ONES,             /**< All ones pattern */
+	XV_HDMITX1_LTP_ALL_ZEROES,           /**< All zeroes pattern */
+	XV_HDMITX1_LTP_NYQUIST_CLOCK,        /**< Nyquist clock pattern */
+	XV_HDMITX1_LTP_TXDDE_COMPLIANCE,     /**< TXDDE compliance pattern */
+	XV_HDMITX1_LTP_LFSR0,                /**< LFSR0 pattern */
+	XV_HDMITX1_LTP_LFSR1,                /**< LFSR1 pattern */
+	XV_HDMITX1_LTP_LFSR2,                /**< LFSR2 pattern */
+	XV_HDMITX1_LTP_LFSR3                 /**< LFSR3 pattern */
 } XV_HdmiTx1_FrlLtpType;
 
-/** @name HDMI TX FRL Active Mode
-* @{
-*/
+/**
+ * @enum XV_HdmiTx1_FrlActiveMode
+ *
+ * This enumeration defines the operational modes for the HDMI transmitter
+ * when using FRL. It indicates whether the transmitter is sending only
+ * gap sequences or the full HDMI stream including video, audio, and auxiliary data.
+ */
 typedef enum {
+       /**
+        * @brief Gap-only mode.
+        * Only FRL gap sequences are transmitted. No active video or audio data is sent.
+        */
 	XV_HDMITX1_FRL_ACTIVE_MODE_GAP_ONLY = 0,
+       /**
+        * @brief Full stream mode.
+        * The full HDMI stream is transmitted over FRL, including video, audio,
+	* and auxiliary data.
+        */
 	XV_HDMITX1_FRL_ACTIVE_MODE_FULL_STREAM
 } XV_HdmiTx1_FrlActiveMode;
 

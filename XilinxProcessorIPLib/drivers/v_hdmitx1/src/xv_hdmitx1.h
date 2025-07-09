@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -173,6 +173,10 @@ typedef enum {
 /** @name HDMI TX stream status
 * @{
 */
+/**
+ * This enumeration defines the possible states of the HDMI transmitter stream.
+ * It is used to indicate whether the HDMI stream is currently active or inactive.
+ */
 typedef enum {
 	XV_HDMITX1_STATE_STREAM_DOWN,    /* Stream down*/
 	XV_HDMITX1_STATE_STREAM_UP       /* Stream up*/
@@ -181,6 +185,10 @@ typedef enum {
 /** @name HDMI TX audio format
 * @{
 */
+/**
+ * This enumeration specifies the different audio formats supported by the HDMI transmitter.
+ */
+
 typedef enum {
 	XV_HDMITX1_AUDFMT_LPCM = 0,    /* L-PCM*/
 	XV_HDMITX1_AUDFMT_HBR,         /* HBR*/
@@ -190,6 +198,12 @@ typedef enum {
 /** @name HDMI TX SCDC Fields
 * @{
 */
+/**
+ * This enumeration lists the various SCDC fields used in HDMI 2.0/2.1 communication
+ * between the HDMI transmitter and receiver. These fields are used for configuring
+ * and monitoring the FRL (Fixed Rate Link) and other HDMI link parameters.
+ */
+
 typedef enum {
 	XV_HDMITX1_SCDCFIELD_SOURCE_VER = 0,
 	XV_HDMITX1_SCDCFIELD_SNK_CFG0,		/* Bit0 = RR_Enable
@@ -207,6 +221,11 @@ typedef enum {
 /** @name HDMI TX CTS and N Source
 * @{
 */
+/**
+ * This enumeration defines whether the HDMI transmitter uses
+ * external or internal sources for the CTS (Clock Time Stamp)
+ * and N values, which are used in audio clock recovery.
+ */
 typedef enum {
 	XV_HDMITX1_EXTERNAL_CTS_N = 0,
 	XV_HDMITX1_INTERNAL_CTS_N,
@@ -579,7 +598,7 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XHdmi_Tx core instance.
 * @param	SetClr specifies TRUE/FALSE value to either enable or disable the
-*		Pixel Repitition Support.
+*		Pixel Repetition Support.
 *
 * @return	None.
 *
@@ -1097,14 +1116,14 @@ typedef struct {
 * This macro sets the Header packet type and length for Dynamic HDR in HDMI Tx
 *
 * @param	InstancePtr is a pointer to the XV_HdmiTx1 core instance.
-* @param	PktLength is a u16 length of Dynamic HDR packet.
+* @param	PktLen is a u16 length of Dynamic HDR packet.
 * @param	PktType is a u16 Type of Dynamic HDR packet.
 *
 * @return	None.
 *
 * @note		C-style signature:
 *		void XV_HdmiTx1_DynHdr_SetPacket(XV_HdmiTx1 *InstancePtr,
-*						u16 PacketLength, u16 PacketType)
+*						u16 PktLen, u16 PktType)
 *
 ******************************************************************************/
 #define XV_HdmiTx1_DynHdr_SetPacket(InstancePtr, PktLen, PktType) \
