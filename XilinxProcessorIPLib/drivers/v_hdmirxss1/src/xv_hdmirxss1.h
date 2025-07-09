@@ -80,11 +80,33 @@ extern "C" {
 * @{
 */
 
+/**
+ * @def ANSI_COLOR_RED
+ * @brief ANSI escape code for red colored text output in terminal.
+ */
+
+/**
+ * @def ANSI_COLOR_YELLOW
+ * @brief ANSI escape code for yellow colored text output in terminal.
+ */
+
+/**
+ * @def ANSI_COLOR_RESET
+ * @brief ANSI escape code to reset text formatting to default in terminal.
+ */
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
+/**
+ *
+ * This enumeration defines the various log events that can occur within the
+ * HDMI RX Subsystem (HDMIRXSS1). Each value corresponds to a specific event
+ * such as initialization, stream changes, error conditions, and protocol-specific
+ * events. These events are used for logging and debugging purposes.
+ *
+ */
 typedef enum {
 	XV_HDMIRXSS1_LOG_EVT_NONE = 1,		/**< Log event none. */
 	XV_HDMIRXSS1_LOG_EVT_HDMIRX1_INIT,	/**< Log event HDMIRX Init. */
@@ -295,7 +317,7 @@ typedef struct
   u16 IsPresent;  /**< Flag to indicate if sub-core is present in the design*/
 #ifndef SDT
   u16 DeviceId;   /**< Device ID of the sub-core */
-  UINTPTR AbsAddr; /**< Absolute Base Address of hte Sub-cores*/
+  UINTPTR AbsAddr; /**< Absolute Base Address of the Sub-cores*/
 #else
   UINTPTR AbsAddr;
 #endif
@@ -320,7 +342,7 @@ typedef struct
                         subsystem address range */
   XVidC_PixelsPerClock Ppc;         /**< Supported Pixel per Clock */
   u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
-  u32 MaxFrlRate;                   /** < Maximum FRL Rate Supporte */
+  u32 MaxFrlRate;                   /** < Maximum FRL Rate Supported */
   u32 DynamicHDR;	/**< Dynamic HDR supported */
   u32 DSC; /**< DSC Supported */
   u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
@@ -533,6 +555,10 @@ typedef struct
 /** @name HDMI RX SS Dynamic HDR Error type
 * @{
 */
+/**
+ * This enumeration defines the possible error types that can occur during
+ * Dynamic HDR processing in the HDMI receiver subsystem.
+ */
 typedef enum {
 	XV_HDMIRXSS1_DYNHDR_ERR_SEQID = 1, /* Sequence id or ECC error */
 	XV_HDMIRXSS1_DYNHDR_ERR_MEMWR = 2, /* Memory write error */

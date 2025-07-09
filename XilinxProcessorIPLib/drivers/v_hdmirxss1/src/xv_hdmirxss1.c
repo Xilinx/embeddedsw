@@ -97,15 +97,15 @@ static void XV_HdmiRxSs1_ConfigBridgeMode(XV_HdmiRxSs1 *InstancePtr);
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
 /**
-* This macros selects the bridge YUV420 mode
-*
+* This macro selects the bridge YUV420 mode.
 * @param  InstancePtr is a pointer to the HDMI RX Subsystem
+* @param  Enable enables or disables YUV420 mode
 *
 *****************************************************************************/
 #define XV_HdmiRxSs1_BridgeYuv420(InstancePtr,Enable) \
 { \
     XV_HdmiRx1_Bridge_yuv420(InstancePtr->HdmiRx1Ptr, Enable); \
-} \
+}
 
 /*****************************************************************************/
 /**
@@ -121,6 +121,18 @@ static void XV_HdmiRxSs1_ConfigBridgeMode(XV_HdmiRxSs1 *InstancePtr);
 
 /************************** Function Definition ******************************/
 
+/*****************************************************************************/
+/**
+* This function prints detailed information about the HDMI RX Subsystem,
+* including core info, timing, link quality, audio, HDR metadata, and InfoFrames.
+*
+* @param	InstancePtr  Instance Pointer to the main data structure
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
 void XV_HdmiRxSs1_ReportInfo(XV_HdmiRxSs1 *InstancePtr)
 {
     xil_printf("------------\r\n");
@@ -150,15 +162,14 @@ void XV_HdmiRxSs1_ReportInfo(XV_HdmiRxSs1 *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function prints out the sub-core register dump
-*
-* @param	InstancePtr  Instance Pointer to the main data structure
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
+ * This function prints out the sub-core register dump.
+ *
+ * @param   InstancePtr Instance pointer to the main data structure.
+ *
+ * @return  None.
+ *
+ * @note    None.
+ ******************************************************************************/
 void XV_HdmiRxSs1_RegisterDebug(XV_HdmiRxSs1 *InstancePtr)
 {
 	/* HDMI RX Core */
@@ -167,11 +178,13 @@ void XV_HdmiRxSs1_RegisterDebug(XV_HdmiRxSs1 *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function reports list of cores included in Video Processing Subsystem
+* This function reports the list of cores included in the HDMI RX Subsystem.
 *
-* @param  InstancePtr is a pointer to the Subsystem instance.
+* @param  InstancePtr is a pointer to the HDMI RX Subsystem instance.
 *
 * @return None
+*
+* @note   None.
 *
 ******************************************************************************/
 void XV_HdmiRxSs1_ReportCoreInfo(XV_HdmiRxSs1 *InstancePtr)
@@ -206,22 +219,21 @@ void XV_HdmiRxSs1_ReportCoreInfo(XV_HdmiRxSs1 *InstancePtr)
 #endif
 }
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
- * This function installs a custom delay/sleep function to be used by the
- *  XV_HdmiRxSs1 driver.
- *
- * @param   InstancePtr is a pointer to the HdmiSsRx instance.
- * @param   CallbackFunc is the address to the callback function.
- * @param   CallbackRef is the user data item (microseconds to delay) that
- *      will be passed to the custom sleep/delay function when it is
- *      invoked.
- *
- * @return  None.
- *
- * @note    None.
- *
-*******************************************************************************/
+* This function allows the user to specify a custom delay or sleep function,
+* which will be invoked by the driver when a delay is required.
+*
+* @param   InstancePtr is a pointer to the XV_HdmiRxSs1 instance.
+* @param   CallbackFunc is the address of the custom delay/sleep callback function.
+* @param   CallbackRef is the user data (e.g., microseconds to delay) that will be
+*                    passed to the callback function.
+*
+* @return None
+*
+* @note None
+*
+******************************************************************************/
 void XV_HdmiRxSs1_SetUserTimerHandler(XV_HdmiRxSs1 *InstancePtr,
             XVidC_DelayHandler CallbackFunc, void *CallbackRef)
 {
@@ -246,6 +258,7 @@ void XV_HdmiRxSs1_SetUserTimerHandler(XV_HdmiRxSs1 *InstancePtr,
  * hardware timer is used.
  *
  * @param   InstancePtr is a pointer to the HdmiSsRx instance.
+ *
  * @param   MicroSeconds is the number of microseconds to delay/sleep for.
  *
  * @return  None.
@@ -275,11 +288,15 @@ static void XV_HdmiRxSs1_WaitUs(XV_HdmiRxSs1 *InstancePtr, u32 MicroSeconds)
 
 /*****************************************************************************/
 /**
- * This function calls the interrupt handler for HDMI RX
- *
- * @param  InstancePtr is a pointer to the HDMI RX Subsystem
- *
- *****************************************************************************/
+* This function calls the interrupt handler for HDMI RX
+*
+* @param   InstancePtr is a pointer to the HDMI RX Subsystem
+*
+* @return  None.
+*
+* @note    None.
+*
+******************************************************************************/
 void XV_HdmiRxSS1_HdmiRxIntrHandler(XV_HdmiRxSs1 *InstancePtr)
 {
     XV_HdmiRx1_IntrHandler(InstancePtr->HdmiRx1Ptr);
@@ -290,8 +307,12 @@ void XV_HdmiRxSS1_HdmiRxIntrHandler(XV_HdmiRxSs1 *InstancePtr)
  * This function register's all sub-core ISR's with interrupt controller and
  * any subsystem level call back function with requisite sub-core
  *
- * @param  InstancePtr is a pointer to the Subsystem instance to be
- *       worked on.
+ * @param	InstancePtr is a pointer to the Subsystem instance to be
+ *		worked on.
+ *
+ * @return	None.
+ *
+ * @note	None.
  *
  *****************************************************************************/
 static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
@@ -476,6 +497,8 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
 *
 * @param  HdmiRxSs1Ptr is a pointer to the Subsystem instance to be worked on.
 *
+* @param  DevId	specifies device instance number
+*
 * @return None
 *
 ******************************************************************************/
@@ -525,8 +548,10 @@ static void XV_HdmiRxSs1_GetIncludedSubcores(XV_HdmiRxSs1 *HdmiRxSs1Ptr,
 * sub-core therein, and ensuring the hardware is in a known stable state.
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+*
 * @param  CfgPtr points to the configuration structure associated with the
 *         subsystem instance.
+*
 * @param  EffectiveAddr is the base address of the device. If address
 *         translation is being used, then this parameter must reflect the
 *         virtual base address. Otherwise, the physical address should be
@@ -652,15 +677,20 @@ int XV_HdmiRxSs1_CfgInitialize(XV_HdmiRxSs1 *InstancePtr,
   }
 #endif
 
-  /* Reset the hardware and set the flag to indicate the
-     subsystem is ready
-   */
+  /**
+  * @internal
+  * Reset the hardware and set the flag to indicate the subsystem is ready
+  * @endinternal
+  */
   XV_HdmiRxSs1_Reset(HdmiRxSs1Ptr);
   HdmiRxSs1Ptr->IsReady = XIL_COMPONENT_IS_READY;
 
-  /* Initialize the application version with 0 <default value>.
+   /**
+   * @internal
+   * Initialize the application version with 0 <default value>.
    * Application need to set the this variable properly to let driver know
    * what version of application is being used.
+   * @endinternal
    */
   HdmiRxSs1Ptr->AppMajVer = 0;
   HdmiRxSs1Ptr->AppMinVer = 0;
@@ -703,12 +733,12 @@ void XV_HdmiRxSs1_Start(XV_HdmiRxSs1 *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function stops the HDMI RX subsystem including all sub-cores
-* Stop the video pipe starting from front to back
+* This function stops the HDMI RX subsystem including all sub-cores.
+* Stop the video pipe starting from front to back.
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return None
+* @return None.
 *
 ******************************************************************************/
 void XV_HdmiRxSs1_Stop(XV_HdmiRxSs1 *InstancePtr)
@@ -766,10 +796,13 @@ void XV_HdmiRxSs1_Reset(XV_HdmiRxSs1 *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function asserts or releases the Internal Video reset
-* of the HDMI subcore within the subsystem
+* This function controls the internal video reset signal for the HDMI subcore
+* inside the subsystem. It can either assert (activate) or release (deactivate)
+* the reset based on the value of the Reset parameter.
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Reset is the value indicating whether to assert (non-zero) or
+*         release (zero) the reset.
 *
 * @return None
 *
@@ -821,6 +854,8 @@ void XV_HdmiRxSs1_VRST(XV_HdmiRxSs1 *InstancePtr, u8 Reset)
 * blocks within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Reset is the value indicating whether to assert (non-zero) or
+*         release (zero) the reset.
 *
 * @return None
 *
@@ -1844,7 +1879,9 @@ int XV_HdmiRxSs1_SetCallback(XV_HdmiRxSs1 *InstancePtr,
 * API:
 *
 * @param    InstancePtr is a pointer to the HDMI RX Subsystem instance.
+*
 * @param    CallbackFunc is the address of the callback function.
+*
 * @param    CallbackRef is a user data item that will be passed to the
 *       callback function when it is invoked.
 *
@@ -1871,6 +1908,13 @@ int XV_HdmiRxSs1_SetLogCallback(XV_HdmiRxSs1 *InstancePtr,
 /**
 *
 * This function Sets the EDID parameters in the HDMI RX SS struct
+*
+* @param    InstancePtr is a pointer to the HDMI RX Subsystem instance.
+*
+* @param    EdidDataPtr is a pointer to EDID data
+*
+* @param    Length specifies the length of EDID data
+*
 * @return None.
 *
 * @note   None.
@@ -1887,9 +1931,12 @@ void XV_HdmiRxSs1_SetEdidParam(XV_HdmiRxSs1 *InstancePtr, u8 *EdidDataPtr,
 /**
 *
 * This function loads the default EDID to the HDMI RX
-* @return None.
 *
-* @note   None.
+* @param    InstancePtr is a pointer to the HDMI RX Subsystem instance.
+*
+* @return   None.
+*
+* @note     None.
 *
 ******************************************************************************/
 void XV_HdmiRxSs1_LoadDefaultEdid(XV_HdmiRxSs1 *InstancePtr)
@@ -1911,6 +1958,13 @@ void XV_HdmiRxSs1_LoadDefaultEdid(XV_HdmiRxSs1 *InstancePtr)
 /**
 *
 * This function loads the default EDID to the HDMI RX
+*
+* @param    InstancePtr is a pointer to the HDMI RX Subsystem instance.
+*
+* @param    EdidDataPtr is a pointer to EDID data
+*
+* @param    Length specifies the length of EDID data
+*
 * @return None.
 *
 * @note   None.
@@ -1938,9 +1992,11 @@ void XV_HdmiRxSs1_LoadEdid(XV_HdmiRxSs1 *InstancePtr, u8 *EdidDataPtr,
 *
 * This function sets the HPD on the HDMI RX.
 *
-* @param  Value is a flag used to set the HPD.
-*   - TRUE drives HPD high
-*   - FALSE drives HPD low
+* @param    InstancePtr is a pointer to the HDMI RX Subsystem instance.
+*
+* @param    Value is a flag used to set the HPD.
+*	    - TRUE drives HPD high
+*	    - FALSE drives HPD low
 *
 * @return None.
 *
@@ -1957,6 +2013,8 @@ void XV_HdmiRxSs1_SetHpd(XV_HdmiRxSs1 *InstancePtr, u8 Value)
 /**
 *
 * This function toggles the HPD on the HDMI RX.
+*
+* @param    InstancePtr is a pointer to the HDMI RX Subsystem instance.
 *
 * @return None.
 *
@@ -1988,7 +2046,7 @@ void XV_HdmiRxSs1_ToggleHpd(XV_HdmiRxSs1 *InstancePtr)
 *
 * @param  InstancePtr pointer to XV_HdmiRxSs1 instance
 *
-* @return XVidC_VideoStream pointer
+* @return XHdmiC_Aux pointer
 *
 * @note   None.
 *
@@ -2089,9 +2147,13 @@ XHdmiC_VSIF *XV_HdmiRxSs1_GetVSIF(XV_HdmiRxSs1 *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function set HDMI RX susbsystem stream parameters
+* This function set HDMI RX subsystem stream parameters
 *
-* @param  None.
+* @param  InstancePtr pointer to XV_HdmiRxSs1 instance
+*
+* @param  Clock specifies reference pixel clock frequency.
+*
+* @param  LineRate specifies FRL linerate
 *
 * @return Calculated TMDS Clock
 *
@@ -2289,7 +2351,7 @@ u32 XV_HdmiRxSs1_GetAudioAcrNVal(XV_HdmiRxSs1 *InstancePtr)
 *
 * This function is called when HDMI RX SS TMDS clock changes
 *
-* @param  None.
+* @param  InstancePtr pointer to XV_HdmiRxSs1 instance
 *
 * @return None
 *
@@ -2346,7 +2408,7 @@ void XV_HdmiRxSs1_DdcRegDump(XV_HdmiRxSs1 *InstancePtr)
 *
 * This function prints the HDMI RX SS timing information
 *
-* @param  None.
+* @param  InstancePtr pointer to XV_HdmiRxSs1 instance
 *
 * @return None.
 *
@@ -2389,7 +2451,7 @@ void XV_HdmiRxSs1_ReportTiming(XV_HdmiRxSs1 *InstancePtr)
 *
 * This function reports the link quality based on the link error counter
 *
-* @param  None.
+* @param  InstancePtr pointer to XV_HdmiRxSs1 instance
 *
 * @return None.
 *
@@ -2560,7 +2622,7 @@ void XV_HdmiRxSs1_ReportDRMInfo(XV_HdmiRxSs1 *InstancePtr)
 *
 * This function prints the HDMI RX SS audio information
 *
-* @param  None.
+* @param  InstancePtr pointer to XV_HdmiRxSs1 instance
 *
 * @return None.
 *
@@ -2598,7 +2660,7 @@ void XV_HdmiRxSs1_ReportAudio(XV_HdmiRxSs1 *InstancePtr)
 *
 * This function prints the HDMI RX SS audio information
 *
-* @param  None.
+* @param  InstancePtr pointer to XV_HdmiRxSs1 instance
 *
 * @return None.
 *
@@ -2615,7 +2677,7 @@ void XV_HdmiRxSs1_ReportInfoFrame(XV_HdmiRxSs1 *InstancePtr)
 *
 * This function prints the HDMI RX SS subcore versions
 *
-* @param  None.
+* @param  InstancePtr pointer to XV_HdmiRxSs1 instance
 *
 * @return None.
 *
@@ -2648,7 +2710,7 @@ void XV_HdmiRxSs1_ReportSubcoreVersion(XV_HdmiRxSs1 *InstancePtr)
 *
 * This function checks if the video stream is up.
 *
-* @param  None.
+* @param  InstancePtr pointer to XV_HdmiRxSs1 instance
 *
 * @return
 *   - TRUE if stream is up.
@@ -2667,11 +2729,11 @@ int XV_HdmiRxSs1_IsStreamUp(XV_HdmiRxSs1 *InstancePtr)
 *
 * This function checks if the interface is connected.
 *
-* @param  None.
+* @param  InstancePtr pointer to XV_HdmiRxSs1 instance
 *
 * @return
-*   - TRUE if interface is connected.
-*   - FALSE if interface is not connected.
+*	- TRUE if interface is connected.
+*	- FALSE if interface is not connected.
 *
 * @note   None.
 *
@@ -2686,13 +2748,11 @@ int XV_HdmiRxSs1_IsStreamConnected(XV_HdmiRxSs1 *InstancePtr)
 *
 * This function configures the Bridge for YUV420 functionality and repeater
 *
-* @param InstancePtr  Instance Pointer to the main data structure
-* @param None
+* @param	InstancePtr pointer to XV_HdmiRxSs1 instance
 *
-* @return
+* @return	None
 *
-* @note
-*   None.
+* @note		None
 *
 ******************************************************************************/
 static void XV_HdmiRxSs1_ConfigBridgeMode(XV_HdmiRxSs1 *InstancePtr) {
@@ -2753,6 +2813,7 @@ static void XV_HdmiRxSs1_ConfigBridgeMode(XV_HdmiRxSs1 *InstancePtr) {
 * This function will set the default in HDF.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiRxSs1 core instance.
+*
 * @param    Id is the XV_HdmiRxSs1 ID to operate on.
 *
 * @return   None.
@@ -2774,7 +2835,9 @@ void XV_HdmiRxSs1_SetDefaultPpc(XV_HdmiRxSs1 *InstancePtr, u8 Id) {
 * This function will set PPC specified by user.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiRxSs1 core instance.
+*
 * @param    Id is the XV_HdmiRxSs1 ID to operate on.
+*
 * @param    Ppc is the PPC to be set.
 *
 * @return   None.
@@ -2792,9 +2855,12 @@ void XV_HdmiRxSs1_SetPpc(XV_HdmiRxSs1 *InstancePtr, u8 Id, u8 Ppc) {
 * This function will set the major and minor application version in RXSs struct
 *
 * @param    InstancePtr is a pointer to the XV_HdmiRxSs1 core instance.
+*
 * @param    maj is the major version of the application.
+*
 * @param    min is the minor version of the application.
-* @return   void.
+*
+* @return   None.
 *
 * @note     None.
 *
@@ -2810,6 +2876,8 @@ void XV_HdmiRxSS1_SetAppVersion(XV_HdmiRxSs1 *InstancePtr, u8 maj, u8 min)
 /**
 *
 * This function set HDMI RX audio parameters
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRxSs1 core instance.
 *
 * @param  Enable 0: Unmute the audio 1: Mute the audio.
 *
@@ -2833,6 +2901,8 @@ void XV_HdmiRxSs1_AudioMute(XV_HdmiRxSs1 *InstancePtr, u8 Enable)
 /**
 *
 * This function controls HDMI RX VFP event enable/disable
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRxSs1 core instance.
 *
 * @param  Enable 0: disable VFP event 1: enable VFP event.
 *
@@ -2936,6 +3006,7 @@ void XV_HdmiRxSs1_DynHDR_DM_Disable(XV_HdmiRxSs1 *InstancePtr)
 * This function sets the buffer address for Dyanamic HDR
 *
 * @param  InstancePtr pointer to XV_HdmiRXSs instance
+*
 * @param  Addr 64 bit address
 *
 * @return None
@@ -2965,6 +3036,7 @@ void XV_HdmiRxSs1_DynHDR_SetAddr(XV_HdmiRxSs1 *InstancePtr, u64 Addr)
 * This function sets the buffer address for Dyanamic HDR
 *
 * @param  InstancePtr pointer to XV_HdmiRXSs instance
+*
 * @param  RxDynHdrInfo pointer to dynamic hdr info structure. This is passed
 *	  by the application.
 *
@@ -3071,6 +3143,19 @@ static void XV_HdmiRxSs1_DynHdrEvtCallback(void *CallbackRef)
 		HdmiRxSs1Ptr->DynHdrCallback(HdmiRxSs1Ptr->DynHdrRef);
 }
 
+/*****************************************************************************/
+/**
+ * This function verifies whether the DSC feature is enabled in the HDMI RX subsystem
+ * and, if so, queries the underlying HDMI RX core to determine if the DSC stream is active.
+ *
+ * @param InstancePtr Pointer to the XV_HdmiRxSs1 instance.
+ *
+ * @return
+ *   - 1 if the DSC stream is enabled.
+ *   - 0 if the DSC stream is not enabled or DSC is not supported.
+ *
+ * @note The function asserts that both InstancePtr and InstancePtr->HdmiRx1Ptr are valid.
+ *******************************************************************************/
 u32 XV_HdmiRxSs1_DSC_IsEnableStream(XV_HdmiRxSs1 *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr);
@@ -3082,6 +3167,21 @@ u32 XV_HdmiRxSs1_DSC_IsEnableStream(XV_HdmiRxSs1 *InstancePtr)
 	return XV_HdmiRx1_DSC_IsEnableStream(InstancePtr->HdmiRx1Ptr);
 }
 
+/*****************************************************************************/
+/**
+*
+* This function sets the DSC Decode Fail flag in the HDMI RX FRL DDC field.
+*
+* @param    InstancePtr pointer to XV_HdmiRXSs instance
+*
+* @return
+*           - XST_SUCCESS if the operation was successful.
+*           - XST_NO_FEATURE if DSC is not supported in the current configuration
+*
+* @note   This function uses an assertion to ensure that the input pointer is not NULL.
+*
+******************************************************************************/
+
 int XV_HdmiRxSs1_DSC_SetDecodeFail(XV_HdmiRxSs1 *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr);
@@ -3090,6 +3190,23 @@ int XV_HdmiRxSs1_DSC_SetDecodeFail(XV_HdmiRxSs1 *InstancePtr)
 	return XV_HdmiRx1_DSC_SetDecodeFail(InstancePtr->HdmiRx1Ptr);
 }
 
+/*****************************************************************************/
+/**
+*
+* This function sets the DSC FRL Max flag in the HDMI RX FRL DDC field. This function
+* writes a value of `1` to the `DSC_FRL_MAX` field using the FRL DDC interface. It is
+* used to indicate that the maximum FRL (Fixed Rate Link) bandwidth is being used for
+* Display Stream Compression (DSC) on the HDMI RX path
+*
+* @param    InstancePtr pointer to XV_HdmiRXSs instance
+*
+* @return
+*           - XST_SUCCESS if the operation was successful.
+*           - XST_NO_FEATURE if DSC is not supported in the current configuration
+*
+* @note   This function uses an assertion to ensure that the input pointer is not NULL.
+*
+******************************************************************************/
 int XV_HdmiRxSs1_DSC_SetDscFrlMax(XV_HdmiRxSs1 *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr);
@@ -3098,6 +3215,18 @@ int XV_HdmiRxSs1_DSC_SetDscFrlMax(XV_HdmiRxSs1 *InstancePtr)
 	return XV_HdmiRx1_DSC_SetDscFrlMax(InstancePtr->HdmiRx1Ptr);
 }
 
+/*****************************************************************************/
+/**
+  * This function is called internally to handle DSC stream change events. It logs the event if
+ * logging is enabled and then invokes the user-registered DSC stream change event callback,
+ * if one is set.
+ *
+ * @param CallbackRef Pointer to the HDMI RX Subsystem instance (XV_HdmiRxSs1 *).
+ *
+ * @note
+ * The user must register a callback function using the appropriate API to receive DSC stream
+ * change notifications.
+ *******************************************************************************/
 static void XV_HdmiRxSs1_DSCStreamChngCallback(void *CallbackRef)
 {
 	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
@@ -3108,7 +3237,16 @@ static void XV_HdmiRxSs1_DSCStreamChngCallback(void *CallbackRef)
 	if (HdmiRxSs1Ptr->DSCStreamChangeEventCallback)
 		HdmiRxSs1Ptr->DSCStreamChangeEventCallback(HdmiRxSs1Ptr->DSCStrmChgEvtRef);
 }
-
+/******************************************************************************/
+/**
+  * This function logs the DSC packet error event if logging is enabled, and then
+ * calls the user-registered DSC packet error callback, if it is set.
+ *
+ * @param CallbackRef Pointer to the XV_HdmiRxSs1 instance passed as callback reference.
+ *
+ * @note
+ * This function is intended for internal use by the HDMI RX Subsystem driver.
+ *******************************************************************************/
 static void XV_HdmiRxSs1_DSCPktErrCallback(void *CallbackRef)
 {
 	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
@@ -3120,7 +3258,17 @@ static void XV_HdmiRxSs1_DSCPktErrCallback(void *CallbackRef)
 	if (HdmiRxSs1Ptr->DSCPktErrCallback)
 		HdmiRxSs1Ptr->DSCPktErrCallback(HdmiRxSs1Ptr->DSCPktErrRef);
 }
-
+/******************************************************************************/
+/**
+ * This function is invoked when a DSC status update event occurs. It logs the event
+ * if logging is enabled and then calls the registered DSC status update event callback,
+ * if one is set.
+ *
+ * @param CallbackRef Pointer to the HDMI RX Subsystem instance (XV_HdmiRxSs1).
+ *
+ * @note
+ * This function is intended for internal use within the HDMI RX Subsystem driver.
+ *******************************************************************************/
 static void XV_HdmiRxSs1_DSCStatusUpdateCallback(void *CallbackRef)
 {
 	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
