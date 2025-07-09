@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,9 +38,8 @@
 *
 * This function sets the FFE Levels.
 *
-* @param  None.
-*
-* @return None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem.
+* @param   FfeLevel    FFE level value to be set.
 *
 * @note   None.
 *
@@ -54,7 +54,10 @@ void XV_HdmiTxSs1_SetFfeLevels(XV_HdmiTxSs1 *InstancePtr, u8 FfeLevel)
 *
 * This function returns the FFE Level for the selected lane.
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem.
+*
+* @param Lane        Lane number for which the FFE Level is requested.
+* @return u8         FFE Level for the specified lane.
 *
 * @return FFE Level.
 *
@@ -71,7 +74,7 @@ u8 XV_HdmiTxSs1_GetTxFfe(XV_HdmiTxSs1 *InstancePtr, u8 Lane)
 *
 * This function returns the FRL Rate.
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem.
 *
 * @return FRL Rate.
 *
@@ -88,7 +91,7 @@ u8 XV_HdmiTxSs1_GetFrlRate(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function returns the FRL Line Rate.
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem.
 *
 * @return FRL Line Rate.
 *
@@ -105,7 +108,7 @@ u8 XV_HdmiTxSs1_GetFrlLineRate(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function returns the the number of active FRL lanes.
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem
 *
 * @return Number of active FRL lanes.
 *
@@ -123,7 +126,7 @@ u8 XV_HdmiTxSs1_GetFrlLanes(XV_HdmiTxSs1 *InstancePtr)
 * This function is called when the FRL link training requires configuration
 * from application.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -150,7 +153,7 @@ void XV_HdmiTxSs1_FrlConfigCallback(void *CallbackRef)
 * This function is called when the FRL  link training requires configuring of
 * FFE.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -173,7 +176,7 @@ void XV_HdmiTxSs1_FrlFfeCallback(void *CallbackRef)
 * This function is called when the FRL link training passes and sink is ready
 * to receive video, audio and control packets.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -199,7 +202,7 @@ void XV_HdmiTxSs1_FrlStartCallback(void *CallbackRef)
 *
 * This function is called when sink requested for FRL to be stopped.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -219,10 +222,10 @@ void XV_HdmiTxSs1_FrlStopCallback(void *CallbackRef)
 /*****************************************************************************/
 /**
 *
-* This function is called when during FRL link training, it is decided to
+* This function is called during FRL link training when it is decided to
 * fallback to the legacy HDMI TMDS mode.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -247,6 +250,8 @@ void XV_HdmiTxSs1_TmdsConfigCallback(void *CallbackRef)
 /**
 *
 * This function starts the Legacy HDMI TMDS Mode.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx1 core instance.
 *
 * @return	Status on if TMDS mode is successfully started or not.
 *
@@ -421,22 +426,14 @@ void XV_HdmiTxSs1_ClearFrlWrongLtp(XV_HdmiTxSs1 *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
-* This function sets the FRL LTP
-*
-* @param    InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
-*
-* @param	Lanes specifies FRL operation lane
-* 			- 3  = 3 lanes
-*			- 4  = 4 lanes
-*
-* @param	Ltp is a FRL LTP Type
-*
-* @return
-*
-* @note     Debug purpose.
-*
-******************************************************************************/
+ * Set the FRL LTP for a specific lane.
+ *
+ * @param    InstancePtr Pointer to the XV_HdmiTxSs1 core instance.
+ * @param    Lane        Lane number to set the LTP for (0-based).
+ * @param    Ltp         FRL LTP Type to set for the lane.
+ *
+ * @note     For debug purposes.
+ *******************************************************************************/
 void XV_HdmiTxSs1_SetFrlLtp(XV_HdmiTxSs1 *InstancePtr, u8 Lane,
 			XV_HdmiTx1_FrlLtpType Ltp)
 {
@@ -463,7 +460,7 @@ void XV_HdmiTxSs1_SetFrlExtVidCke(XV_HdmiTxSs1 *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the CKE Source for Interal Generated
+* This function sets the CKE Source for Internal Generated
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
 *

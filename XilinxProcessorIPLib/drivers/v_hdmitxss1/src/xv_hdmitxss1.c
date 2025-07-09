@@ -119,6 +119,7 @@ static void XV_HdmiTxSs1_ConfigBridgeMode(XV_HdmiTxSs1 *InstancePtr);
 * This macro selects the bridge YUV420 mode
 *
 * @param  InstancePtr is a pointer to the HDMI TX Subsystem
+* @param  Enable      Enable or disable YUV420 mode
 *
 *****************************************************************************/
 #define XV_HdmiTxSs1_BridgeYuv420(InstancePtr, Enable) \
@@ -128,11 +129,14 @@ static void XV_HdmiTxSs1_ConfigBridgeMode(XV_HdmiTxSs1 *InstancePtr);
 
 /*****************************************************************************/
 /**
-* This macro selects the bridge pixel repeat mode
-*
-* @param  InstancePtr is a pointer to the HDMI TX Subsystem
-*
-*****************************************************************************/
+ * This macro selects the bridge pixel repeat mode.
+ *
+ * @param InstancePtr Pointer to the HDMI TX Subsystem.
+ * @param Enable      Enable or disable pixel repeat mode.
+ *
+ * @note This is a macro, not a function.
+ *
+ *****************************************************************************/
 #define XV_HdmiTxSs1_BridgePixelRepeat(InstancePtr, Enable) \
 { \
     XV_HdmiTx1_Bridge_pixel(InstancePtr->HdmiTx1Ptr, Enable); \
@@ -257,7 +261,7 @@ void XV_HdmiTxSS1_HdmiTx1IntrHandler(XV_HdmiTxSs1 *InstancePtr)
  * any subsystem level call back function with requisite sub-core
  *
  * @param  InstancePtr is a pointer to the Subsystem instance to be
- *       worked on.
+ *         worked on.
  *
  *****************************************************************************/
 static int XV_HdmiTxSs1_RegisterSubsysCallbacks(XV_HdmiTxSs1 *InstancePtr)
@@ -390,16 +394,16 @@ static int XV_HdmiTxSs1_RegisterSubsysCallbacks(XV_HdmiTxSs1 *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function queries the subsystem instance configuration to determine
-* the included sub-cores. For each sub-core that is present in the design
-* the sub-core driver instance is binded with the subsystem sub-core driver
-* handle
-*
-* @param  HdmiTxSs1Ptr is a pointer to the Subsystem instance to be worked on.
-*
-* @return None
-*
-******************************************************************************/
+ * This function queries the subsystem instance configuration to determine
+ * the included sub-cores. For each sub-core that is present in the design,
+ * the sub-core driver instance is bound with the subsystem sub-core driver
+ * handle.
+ *
+ * @param  HdmiTxSs1Ptr is a pointer to the Subsystem instance to be worked on.
+ * @param  DevId is the device ID of the subsystem instance.
+ *
+ * @return None
+ *****************************************************************************/
 #ifndef SDT
 static void XV_HdmiTxSs1_GetIncludedSubcores(XV_HdmiTxSs1 *HdmiTxSs1Ptr, u16 DevId)
 {
@@ -687,9 +691,9 @@ void XV_HdmiTxSs1_Reset(XV_HdmiTxSs1 *InstancePtr)
 * of the HDMI subcore within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Reset specifies whether to assert (TRUE) or release (FALSE) the reset.
 *
 * @return None
-*
 ******************************************************************************/
 void XV_HdmiTxSs1_TXCore_VRST(XV_HdmiTxSs1 *InstancePtr, u8 Reset)
 {
@@ -704,9 +708,9 @@ void XV_HdmiTxSs1_TXCore_VRST(XV_HdmiTxSs1 *InstancePtr, u8 Reset)
 * of the HDMI subcore within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Reset specifies whether to assert (TRUE) or release (FALSE) the reset.
 *
 * @return None
-*
 ******************************************************************************/
 void XV_HdmiTxSs1_TXCore_LRST(XV_HdmiTxSs1 *InstancePtr, u8 Reset)
 {
@@ -718,9 +722,10 @@ void XV_HdmiTxSs1_TXCore_LRST(XV_HdmiTxSs1 *InstancePtr, u8 Reset)
 /*****************************************************************************/
 /**
 * This function asserts or releases the video reset of other
-* blocks within the subsystem
+* blocks within the subsystem.
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Reset specifies whether to assert (TRUE) or release (FALSE) the reset.
 *
 * @return None
 *
@@ -738,6 +743,7 @@ void XV_HdmiTxSs1_VRST(XV_HdmiTxSs1 *InstancePtr, u8 Reset)
 * blocks within the subsystem
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param  Reset specifies whether to assert (TRUE) or release (FALSE) the reset.
 *
 * @return None
 *
@@ -817,10 +823,10 @@ void XV_HdmiTxSs1_ClearGcpClearAvmuteBit(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function configures Video Timing Controller (VTC).
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @return  XST_SUCCESS if successful, else XST_FAILURE.
 *
-* @return None.
-*
+* @return None
 * @note   None.
 *
 ******************************************************************************/
@@ -1018,11 +1024,11 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 /**
 * This function set the TMDSClock and return it.
 *
-* @param  None.
+* @param InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return Calculated TMDS Clock
 *
-* @note   None.
+* @note This function is called by the HDMI TX sub-core to set the TMDS clock.
 *
 *****************************************************************************/
 static u64 XV_HdmiTxSS1_SetTMDS(XV_HdmiTxSs1 *InstancePtr)
@@ -1042,7 +1048,7 @@ static u64 XV_HdmiTxSS1_SetTMDS(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function is called when a TX connect event has occurred.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -1107,7 +1113,7 @@ static void XV_HdmiTxSs1_ConnectCallback(void *CallbackRef)
 *
 * This function is called when a TX toggle event has occurred.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -1140,7 +1146,7 @@ static void XV_HdmiTxSs1_ToggleCallback(void *CallbackRef)
 *
 * This function is called when a bridge locked has occurred.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -1166,7 +1172,7 @@ static void XV_HdmiTxSs1_BrdgLockedCallback(void *CallbackRef)
 *
 * This function is called when a bridge unlocked has occurred.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -1192,7 +1198,7 @@ static void XV_HdmiTxSs1_BrdgUnlockedCallback(void *CallbackRef)
 *
 * This function is called when a bridge Overflow has occurred.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -1218,7 +1224,7 @@ static void XV_HdmiTxSs1_BrdgOverflowCallback(void *CallbackRef)
 *
 * This function is called when a bridge Underflow has occurred.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -1243,7 +1249,7 @@ static void XV_HdmiTxSs1_BrdgUnderflowCallback(void *CallbackRef)
 *
 * This function is called when a TX vsync has occurred.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -1265,7 +1271,7 @@ static void XV_HdmiTxSs1_VsCallback(void *CallbackRef)
 *
 * This function is called when the TX stream is up.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -1331,7 +1337,7 @@ static void XV_HdmiTxSs1_StreamUpCallback(void *CallbackRef)
 *
 * This function is called when the TX stream is down.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -1386,7 +1392,7 @@ static void XV_HdmiTxSs1_StreamDownCallback(void *CallbackRef)
 * This function is called whenever user needs to be informed of an error
 * condition.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -1407,7 +1413,7 @@ static void XV_HdmiTxSs1_ErrorCallback(void *CallbackRef)
 * This function is called whenever user needs to be informed of an MTW End
 * condition.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -1427,7 +1433,7 @@ static void XV_HdmiTxSs1_DynHdrMtwCallback(void *CallbackRef)
 * This function is called whenever user needs to be informed of DSC decode fail
 * condition.
 *
-* @param  None.
+* @param  CallbackRef is a pointer to the callback reference.
 *
 * @return None.
 *
@@ -1723,8 +1729,8 @@ int XV_HdmiTxSs1_SetLogCallback(XV_HdmiTxSs1 *InstancePtr,
 *
 * This function is used to Send CVTEM Packet
 *
-* @param    InstancePtr is a pointer to the HDMI TX Subsystem instance.
-* @param	DscAuxFifo is a pointer to the HDMI Aux fifo
+* @param   InstancePtr is a pointer to the HDMI TX Subsystem instance.
+* @param	 DscAuxFifo is a pointer to the HDMI Aux fifo
 *
 * @return	XST_SUCCESS on successful update of header and data.
 * 			XST_FAILURE if the device is busy
@@ -1772,6 +1778,14 @@ int XV_HdmiTxSs1_SendCvtemAuxPackets(XV_HdmiTxSs1 *InstancePtr, XHdmiC_Aux *DscA
 /**
 *
 * This function reads the HDMI Sink EDID.
+*
+* @param   InstancePtr is a pointer to the HDMI TX Subsystem instance.
+* @param   Buffer is a pointer to the buffer where the EDID data will be stored.
+* @param   BufferSize is the size of the buffer in bytes.
+*
+* @return
+*   - XST_SUCCESS if EDID is read successfully.
+*   - XST_FAILURE if the operation failed or the buffer is too small.
 *
 * @return None.
 *
@@ -1833,13 +1847,16 @@ int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u32 BufferSize)
 *
 * This function reads the HDMI Sink EDID.
 *
-* @return None.
+* @param   InstancePtr is a pointer to the HDMI TX Subsystem instance.
+* @param   EdidCtrlParam is a pointer to the EDID control parameter structure.
+*
+* @return  XST_SUCCESS if EDID is read successfully, otherwise XST_FAILURE.
 *
 * @note   None.
 *
 ******************************************************************************/
 int XV_HdmiTxSs1_ReadEdid_extension(XV_HdmiTxSs1 *InstancePtr,
-				    XV_VidC_EdidCntrlParam *EdidCtrlParam)
+            XV_VidC_EdidCntrlParam *EdidCtrlParam)
 {
 	u32 Status;
 	u8 ExtensionFlag = 0;
@@ -1892,14 +1909,23 @@ int XV_HdmiTxSs1_ReadEdid_extension(XV_HdmiTxSs1 *InstancePtr,
 
 /*****************************************************************************/
 /**
-*
-* This function reads one block from the HDMI Sink EDID.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
+ *
+ * This function reads a 256-byte EDID segment from the HDMI sink connected to the transmitter.
+ * It handles segment selection and reads two 128-byte blocks (offsets 0 and 128) into the provided buffer.
+ * If the segment is not zero, it sets the segment pointer before reading.
+ *
+ * @param InstancePtr Pointer to the HDMI TX Subsystem instance.
+ * @param Buffer Pointer to a buffer where the EDID data will be stored. Must be at least 256 bytes.
+ * @param segment The EDID segment number to read.
+ *
+ * @return
+ *   - XST_SUCCESS if the EDID segment was read successfully.
+ *   - XST_FAILURE if the operation failed or no sink is connected.
+ *
+ * @note
+ *   - The function assumes that the HDMI sink is connected.
+ *   - The buffer must be large enough to hold 256 bytes.
+ ******************************************************************************/
 int XV_HdmiTxSs1_ReadEdidSegment(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u8 segment)
 {
     u32 Status;
@@ -1965,6 +1991,8 @@ int XV_HdmiTxSs1_ReadEdidSegment(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u8 segme
 *
 * This function shows the HDMI source edid.
 *
+* @param   InstancePtr is a pointer to the HDMI TX Subsystem instance.
+* @param   EdidCtrlParam is a pointer to the EDID control parameter structure.
 * @return None.
 *
 * @note   None.
@@ -2045,6 +2073,7 @@ void XV_HdmiTxSs1_ShowEdid_extension(XV_HdmiTxSs1 *InstancePtr, XV_VidC_EdidCntr
 *
 * This function shows the HDMI source edid.
 *
+* @param   InstancePtr is a pointer to the HDMI TX Subsystem instance.
 * @return None.
 *
 * @note   None.
@@ -2120,8 +2149,7 @@ void XV_HdmiTxSs1_ShowEdid(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function starts the HDMI TX stream
 *
-* @return None.
-*
+* @param   InstancePtr is a pointer to the HDMI TX Subsystem instance.
 * @note   None.
 *
 ******************************************************************************/
@@ -2204,7 +2232,8 @@ void XV_HdmiTxSs1_SetScrambler(XV_HdmiTxSs1 *InstancePtr, u8 Enable)
 *
 * This function sends audio info frames.
 *
-* @param  None.
+* @param    InstancePtr is a pointer to the HDMI TX Subsystem instance.
+* @param    Aux is a pointer to the auxiliary infoframe structure to send.
 *
 * @return None.
 *
@@ -2277,16 +2306,16 @@ void XV_HdmiTxSs1_SendAuxInfoframe(XV_HdmiTxSs1 *InstancePtr, void *Aux)
 
 /*****************************************************************************/
 /**
+* This function sends a generic HDMI auxiliary infoframe.
 *
-* This function sends generic info frames.
-*
-* @param  None.
+* @param    InstancePtr is a pointer to the HDMI TX Subsystem instance.
+* @param    Aux is a pointer to the auxiliary infoframe structure to send.
 *
 * @return
-*       - XST_SUCCESS if infoframes transmitted successfully.
+*       - XST_SUCCESS if infoframe transmitted successfully.
 *       - XST_FAILURE if AUX FIFO is full.
 *
-* @note   None.
+* @note     None.
 *
 ******************************************************************************/
 u32 XV_HdmiTxSs1_SendGenericAuxInfoframe(XV_HdmiTxSs1 *InstancePtr, void *Aux)
@@ -2338,6 +2367,7 @@ void XV_HdmiTxSs1_SetAudioChannels(XV_HdmiTxSs1 *InstancePtr, u8 AudioChannels)
 *
 * This function set HDMI TX audio parameters
 *
+* @param  InstancePtr pointer to XV_HdmiTxSs1 instance*
 * @param  Enable 0: Unmute the audio 1: Mute the audio.
 *
 * @return None.
@@ -2408,7 +2438,6 @@ XV_HdmiTx1_AudioFormatType XV_HdmiTxSs1_GetAudioFormat(XV_HdmiTxSs1 *InstancePtr
 * This function Sets use the internal ACR Module
 *
 * @param  InstancePtr pointer to XV_HdmiTxSs1 instance
-* @param  Audio Sample Frequency in Hz
 *
 * @return None.
 *
@@ -2427,7 +2456,6 @@ void XV_HdmiTxSs1_SetIntACR(XV_HdmiTxSs1 *InstancePtr)
 * This function Sets use the external ACR Module
 *
 * @param  InstancePtr pointer to XV_HdmiTxSs1 instance
-* @param  Audio Sample Frequency in Hz
 *
 * @return None.
 *
@@ -2446,7 +2474,7 @@ void XV_HdmiTxSs1_SetExtACR(XV_HdmiTxSs1 *InstancePtr)
 * This function Sets the audio sampling frequency
 *
 * @param  InstancePtr pointer to XV_HdmiTxSs1 instance
-* @param  Audio Sample Frequency in Hz
+* @param  AudSampleFreqVal Sample Frequency in Hz
 *
 * @return None.
 *
@@ -2590,17 +2618,17 @@ XHdmiC_DRMInfoFrame *XV_HdmiTxSs1_GetDrmInfoframe(XV_HdmiTxSs1 *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function set HDMI TX susbsystem stream parameters. It returns the
+* This function set HDMI TX subsystem stream parameters. It returns the
 * calculated TMDS clock value.
 *
 * @param  InstancePtr -	Pointer to HDMI 2.1 Tx Subsystem.
-*	  VideoTiming -	Video Timing of the video to be displayed.
-*	  FrameRate -	Frame rate to set
-*	  ColorFormat -	Color format of stream (RGB, YUV444/422/420)
-*	  Bpc -		Bit per component
-*	  IsDSCompressed - Flag to indicate DSCompression
-*	  Info3D -	3D Info
-*	  TmdsClock -	Address where the calculated TMDS Clock value is stored.
+* @param	VideoTiming -	Video Timing of the video to be displayed.
+*	@param  FrameRate -	Frame rate to set
+*	@param  ColorFormat -	Color format of stream (RGB, YUV444/422/420)
+*	@param  Bpc -		Bit per component
+*	@param  IsDSCompressed - Flag to indicate DSCompression
+*	@param  Info3D -	3D Info
+*	@param  TmdsClock -	Address where the calculated TMDS Clock value is stored.
 *
 * @return XST_SUCCESS - In case TMDS clock is calculated correctly
 *	  XST_INVALID_PARAM - In case invalid parameters
@@ -2755,9 +2783,9 @@ XVidC_VideoStream *XV_HdmiTxSs1_GetVideoStream(XV_HdmiTxSs1 *InstancePtr)
 * This function Sets the HDMI TX SS video stream
 *
 * @param  InstancePtr pointer to XV_HdmiTxSs1 instance
-* @param
+* @param  VidStream video stream to be set
 *
-* @return XVidC_VideoStream pointer
+* @return None.
 *
 * @note   None.
 *
@@ -2793,7 +2821,7 @@ void XV_HdmiTxSs1_SetSamplingRate(XV_HdmiTxSs1 *InstancePtr, u8 SamplingRate)
 * This function Sets the HDMI TX SS video Identification code
 *
 * @param  InstancePtr pointer to XV_HdmiTxSs1 instance
-* @param  InstancePtr VIC Flag Value
+* @param  Vic is a VIC ID value
 *
 * @return None.
 *
@@ -2908,7 +2936,6 @@ void XV_HdmiTxSs1_SetTmdsClockRatio(XV_HdmiTxSs1 *InstancePtr, u8 Ratio)
 * This function Sets the HDMI TX SS video Identification code
 *
 * @param  InstancePtr pointer to XV_HdmiTxSs1 instance
-* @param
 *
 * @return Stream Data Structure (TMDS Clock)
 *
@@ -2944,7 +2971,7 @@ int XV_HdmiTxSs1_DetectHdmi20(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function is called when HDMI TX SS TMDS clock changes
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
 *
 * @return None
 *
@@ -2971,7 +2998,7 @@ void XV_HdmiTxSs1_RefClockChangeInit(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function prints the HDMI TX SS timing information
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem instance..
 *
 * @return None.
 *
@@ -3023,7 +3050,7 @@ void XV_HdmiTxSs1_ReportTiming(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function prints the HDMI 2.1 TX SS DRM If information
 *
-* @param  Pointer to HDMI 2.1 Tx SS Instance.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
 *
 * @return None.
 *
@@ -3071,7 +3098,7 @@ void XV_HdmiTxSs1_ReportDRMInfo(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function prints the HDMI TX SS audio information
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
 *
 * @return None.
 *
@@ -3110,7 +3137,7 @@ void XV_HdmiTxSs1_ReportAudio(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function prints the HDMI TX SS subcore versions
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
 *
 * @return None.
 *
@@ -3171,7 +3198,7 @@ void XV_HdmiTxSs1_ReportSubcoreVersion(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function prints the HDMI TX SS subcore versions
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
 *
 * @return None.
 *
@@ -3261,7 +3288,7 @@ void XV_HdmiTxSs1_RegisterDebug(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function checks if the video stream is up.
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
 *
 * @return
 *   - TRUE if stream is up.
@@ -3283,7 +3310,7 @@ int XV_HdmiTxSs1_IsStreamUp(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function checks if the interface is connected.
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
 *
 * @return
 *   - TRUE if the interface is connected.
@@ -3305,7 +3332,7 @@ int XV_HdmiTxSs1_IsStreamConnected(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function checks if the interface has toggled.
 *
-* @param  None.
+* @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
 *
 * @return
 *   - TRUE if the interface HPD has toggled.
@@ -3664,9 +3691,9 @@ XVidC_PixelsPerClock XV_HdmiTxSS1_GetCorePpc(XV_HdmiTxSs1 *InstancePtr)
 *
 * This function allows enabling/disabling of VRR in HDMI Tx
 *
-* @param  Enable 0: disable VRR 1: enable VRR
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
 *
-* @return None.
+* @param  Enable 0: disable VRR 1: enable VRR
 *
 * @note   None.
 *
@@ -3681,6 +3708,7 @@ void XV_HdmiTxSs1_VrrControl(XV_HdmiTxSs1 *InstancePtr, u8 Enable)
 *
 * This function allows enabling/disabling of FSync in HDMI Tx
 *
+* @param  InstancePtr is a pointer to the XV_HdmiTxSs1 core instance.
 * @param  Enable 0: disable FSync 1: enable FSync
 *
 * @return None.
@@ -3706,7 +3734,7 @@ void XV_HdmiTxSs1_FSyncControl(XV_HdmiTxSs1 *InstancePtr, u8 Enable)
 *
 * @return	None.
 *
-* @note		Should be called before XV_HdmiTxSs1_SetStream atleast once for
+* @note		Should be called before XV_HdmiTxSs1_SetStream at least once for
 *		VRR use case.
 *
 ******************************************************************************/
@@ -3815,8 +3843,8 @@ void XV_HdmiTxSs1_SetVrrIf(XV_HdmiTxSs1 *InstancePtr,
 *
 * @param	InstancePtr is a pointer to the XV_HdmiTxSs1 instance.
 * @param	VrrIF is a pointer to the XV_HdmiC_VrrInfoFrame structure
-* @param	Value of sync in Vrr packet
-* @param	Value of data set length
+* @param	Sync is a Value of sync in Vrr packet
+* @param	DataSetLen is a Value of data set length
 *
 * @return	None.
 *
@@ -4093,6 +4121,17 @@ u32 XV_HdmiTxSs1_DynHdr_GetErr(XV_HdmiTxSs1 *InstancePtr)
 	return XV_HdmiTx1_DynHdr_GetReadStatus(InstancePtr);
 }
 
+/*****************************************************************************/
+/**
+ * This function is called when the HDMI TX Subsystem enters the LTSL state
+ * during FRL link training. If logging is enabled, it records the event in the
+ * HDMI TX Subsystem log.
+ *
+ * @param   CallbackRef Pointer to the HDMI TX Subsystem instance.
+ * @return  None.
+ *
+ * @note     None.
+ */
 static void XV_HdmiTxSs1_FrlLtsLCallback(void *CallbackRef)
 {
 	XV_HdmiTxSs1 *HdmiTxSs1Ptr = (XV_HdmiTxSs1 *)CallbackRef;
@@ -4102,6 +4141,17 @@ static void XV_HdmiTxSs1_FrlLtsLCallback(void *CallbackRef)
 #endif
 }
 
+/*****************************************************************************/
+/**
+ * This function is called when the HDMI TX Subsystem enters the LTS1 state
+ * during FRL link training. If logging is enabled, it records the event in the
+ * HDMI TX Subsystem log.
+ *
+ * @param   CallbackRef Pointer to the HDMI TX Subsystem instance.
+ * @return  None.
+ *
+ * @note    None.
+ *****************************************************************************/
 static void XV_HdmiTxSs1_FrlLts1Callback(void *CallbackRef)
 {
 	XV_HdmiTxSs1 *HdmiTxSs1Ptr = (XV_HdmiTxSs1 *)CallbackRef;
@@ -4111,6 +4161,17 @@ static void XV_HdmiTxSs1_FrlLts1Callback(void *CallbackRef)
 #endif
 }
 
+/*****************************************************************************/
+/**
+ * This function is called when the HDMI TX Subsystem enters the LTS2 state
+ * during FRL link training. If logging is enabled, it records the event in the
+ * HDMI TX Subsystem log, including FFE levels and line rate.
+ *
+ * @param   CallbackRef Pointer to the HDMI TX Subsystem instance.
+ * @return  None.
+ *
+ * @note    None.
+ *****************************************************************************/
 static void XV_HdmiTxSs1_FrlLts2Callback(void *CallbackRef)
 {
 	XV_HdmiTxSs1 *HdmiTxSs1Ptr = (XV_HdmiTxSs1 *)CallbackRef;
@@ -4122,6 +4183,17 @@ static void XV_HdmiTxSs1_FrlLts2Callback(void *CallbackRef)
 #endif
 }
 
+/*****************************************************************************/
+/**
+ * This function is called when the HDMI TX Subsystem enters the LTS3 state
+ * during FRL link training. If logging is enabled, it records the event in the
+ * HDMI TX Subsystem log, including the debug message.
+ *
+ * @param   CallbackRef Pointer to the HDMI TX Subsystem instance.
+ * @return  None.
+ *
+ * @note    None.
+ *****************************************************************************/
 static void XV_HdmiTxSs1_FrlLts3Callback(void *CallbackRef)
 {
 	XV_HdmiTxSs1 *HdmiTxSs1Ptr = (XV_HdmiTxSs1 *)CallbackRef;
@@ -4132,6 +4204,17 @@ static void XV_HdmiTxSs1_FrlLts3Callback(void *CallbackRef)
 #endif
 }
 
+/*****************************************************************************/
+/**
+ * This function is called when the HDMI TX Subsystem enters the LTS4 state
+ * during FRL link training. If logging is enabled, it records the event in the
+ * HDMI TX Subsystem log, including FFE levels and line rate.
+ *
+ * @param   CallbackRef Pointer to the HDMI TX Subsystem instance.
+ * @return  None.
+ *
+ * @note    None.
+ *****************************************************************************/
 static void XV_HdmiTxSs1_FrlLts4Callback(void *CallbackRef)
 {
 	XV_HdmiTxSs1 *HdmiTxSs1Ptr = (XV_HdmiTxSs1 *)CallbackRef;
@@ -4143,6 +4226,17 @@ static void XV_HdmiTxSs1_FrlLts4Callback(void *CallbackRef)
 #endif
 }
 
+/*****************************************************************************/
+/**
+ * This function is called when the HDMI TX Subsystem enters the LTSP state
+ * during FRL link training. If logging is enabled, it records the event in the
+ * HDMI TX Subsystem log, including the debug message.
+ *
+ * @param   CallbackRef Pointer to the HDMI TX Subsystem instance.
+ * @return  None.
+ *
+ * @note    None.
+ *****************************************************************************/
 static void XV_HdmiTxSs1_FrlLtsPCallback(void *CallbackRef)
 {
 	XV_HdmiTxSs1 *HdmiTxSs1Ptr = (XV_HdmiTxSs1 *)CallbackRef;
@@ -4153,6 +4247,15 @@ static void XV_HdmiTxSs1_FrlLtsPCallback(void *CallbackRef)
 #endif
 }
 
+/*****************************************************************************/
+/**
+ *
+ * This function checks if a user-defined CED (Channel Error Detection) update
+ * callback has been registered. If so, it calls the registered callback with
+ * the provided connection reference.
+ *
+ * @param CallbackRef Pointer to the HDMI TX Subsystem instance (XV_HdmiTxSs1).
+ ******************************************************************************/
 static void XV_HdmiTxSs1_CedUpdateCallback(void *CallbackRef)
 {
 	XV_HdmiTxSs1 *HdmiTxSs1Ptr = (XV_HdmiTxSs1 *)CallbackRef;
@@ -4163,6 +4266,15 @@ static void XV_HdmiTxSs1_CedUpdateCallback(void *CallbackRef)
   }
 }
 
+/*****************************************************************************/
+/**
+ *
+ * This function returns a pointer to the SCDC ED registers associated with the HDMI transmitter instance.
+ *
+ * @param InstancePtr Pointer to the XV_HdmiTxSs1 instance.
+ *
+ * @return Pointer to the SCDC ED registers.
+ *****************************************************************************/
 u8 *XV_HdmiTxSs1_GetScdcEdRegisters(XV_HdmiTxSs1 *InstancePtr)
 {
 	return XV_HdmiTx1_GetScdcEdRegisters(InstancePtr->HdmiTx1Ptr);

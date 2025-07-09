@@ -92,6 +92,12 @@ extern "C" {
 /** @name Handler Types
 * @{
 */
+/**
+ * @enum XV_HdmiTxSs1_LogEvent
+ * This enum contains log event types for XV_HdmiTxSs1.
+ *
+ * These values are used to identify different log events within the HDMI TX Subsystem.
+ */
 #ifdef XV_HDMITXSS1_LOG_ENABLE
 typedef enum {
 	XV_HDMITXSS1_LOG_EVT_NONE = 1,		  /**< Log event none. */
@@ -151,10 +157,18 @@ typedef struct {
 } XV_HdmiTxSs1_Log;
 #endif
 
+/**
+ * This enum defines the types of tolerance that can be applied to the HPD signal
+ * in the HDMI transmitter subsystem. It is used to specify how the system should
+ * interpret timing variations in the HPD signal.
+ */
 typedef enum {
-	XV_HDMITXSS1_LEADING_TOLERANCE,
-	XV_HDMITXSS1_LAGGING_TOLERANCE,
-	XV_HDMITXSS1_UNKNOWN
+	XV_HDMITXSS1_LEADING_TOLERANCE, /**< system should tolerate leading
+                                        edge variations in the HPD signal */
+	XV_HDMITXSS1_LAGGING_TOLERANCE, /**< system should tolerate lagging
+                                        edge variations in the HPD signal */
+	XV_HDMITXSS1_UNKNOWN            /**< HPD tolerance type is unknown or
+                                        not specified */
 } XV_HdmiTxSs1_HpdToleranceType;
 
 /**
@@ -314,7 +328,7 @@ typedef struct
     u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
 	u8 LowResolutionSupp;
 	u8 YUV420Supp;
-	u32 MaxFrlRate;                   /** < Maximum FRL Rate Supporte */
+	u32 MaxFrlRate;                   /** < Maximum FRL Rate Supported */
 	u32 DynHdr;			/**< Supports Dynamic HDR */
     u32 DSC; /**< DSC Supported */
     u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
