@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,7 +45,6 @@
 #include "xparameters.h"
 #endif
 #include "xstatus.h"
-#include "xscugic.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
 #include "sleep.h"
@@ -60,12 +59,8 @@
  */
 
 #define SYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
-#define SCUGIC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define INTR_ID			XPAR_XSYSMONPSU_INTR
 #else
 #define SYSMON_DEVICE_ID	0xffa50000
-#define SCUGIC_DEVICE_ID	0
-#define INTR_ID	(56U + 32U)
 #endif
 #define EOC_POLLING_TIMEOUT 1000000
 
@@ -76,27 +71,20 @@
 
 /************************** Function Prototypes *****************************/
 
-int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
-			XSysMonPsu* SysMonInstPtr,
-			u32 SysMonDeviceId,
-			u16 SysMonIntrId);
+int SysMonPsuAMSExample(XSysMonPsu* SysMonInstPtr,
+			u32 SysMonDeviceId);
 static int SysMonPsuFractionToInt(float FloatNum);
-static s32 XSysmonPsu_Poll_timeout(u32 Addr, u64 *Value, u32 Conditon, u64 TimeOutUs);
+static s32 XSysmonPsu_Poll_timeout(u32 Addr, u64 *Value, u32 Condition, u64 TimeOutUs);
 
 /************************** Variable Definitions ****************************/
 
 static XSysMonPsu SysMonInst; 	  /* System Monitor driver instance */
-static XScuGic InterruptController; /* Instance of the XScuGic driver. */
-
-/* Shared variables used to test the callbacks. */
-volatile int EocFlag = FALSE;	  	/* EOC interrupt */
-volatile int VccintIntr = FALSE;	  	/* VCCINT alarm interrupt */
 
 
 /****************************************************************************/
 /**
 *
-* Main function that invokes the Single Channel Interrupt example.
+* Main function that invokes the Single Channel AMS polled example.
 *
 * @param	None.
 *
@@ -113,13 +101,11 @@ int main(void)
 
 	xil_printf("Entering Sysmon AMS Example Test\r\n");
 	/*
-	 * Run the SysMonitor interrupt example, specify the parameters that
+	 * Run the SysMonitor AMS polled example, specify the parameters that
 	 * are generated in xparameters.h.
 	 */
-	Status = SysMonPsuAMSExample(&InterruptController,
-				   &SysMonInst,
-				   SYSMON_DEVICE_ID,
-				   INTR_ID);
+	Status = SysMonPsuAMSExample(&SysMonInst,
+				   SYSMON_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\nSysmon AMS Example Test Failed\r\n");
 		return XST_FAILURE;
@@ -181,21 +167,14 @@ static s32 XSysmonPsu_Poll_timeout(u32 Addr, u64 *Val, u32 Condition, u64 TimeOu
 *	- Initiate the System Monitor device driver instance
 *	- Run self-test on the device
 *	- Reset the device
-*	- Set up alarm for VCCINT
 *	- Set up the configuration registers for single channel continuous mode
-*	for VCCINT channel
-*	- Setup interrupt system
-*	- Enable interrupts
-*	- Wait until the VCCINT alarm interrupt occurs
+*	for voltage channels
+*	- wait for interrupt status bit to set
+*	- print voltage values
 *
-* @param	XScuGicInstancePtr is a pointer to the Interrupt Controller
-*		driver Instance.
 * @param	SysMonInstPtr is a pointer to the XSysMon driver Instance.
 * @param	SysMonDeviceId is the XPAR_<SYSMON_instance>_DEVICE_ID value
 *		from xparameters.h.
-* @param	SysMonIntrId is
-*		XPAR_<SYSMON_instance>_VEC_ID
-*		value from xparameters_ps.h
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
@@ -204,10 +183,8 @@ static s32 XSysmonPsu_Poll_timeout(u32 Addr, u64 *Val, u32 Condition, u64 TimeOu
 * @note		This function may never return if no interrupt occurs.
 *
 ****************************************************************************/
-int SysMonPsuAMSExample(XScuGic* XScuGicInstancePtr,
-					XSysMonPsu* SysMonInstPtr,
-					u32 SysMonDeviceId,
-					u16 SysMonIntrId)
+int SysMonPsuAMSExample(XSysMonPsu* SysMonInstPtr,
+					u32 SysMonDeviceId)
 {
 	int Status;
 	XSysMonPsu_Config *ConfigPtr;

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -88,8 +88,8 @@ static XSysMonPsu SysMonInst; 	  /* System Monitor driver instance */
 static XScuGic InterruptController; /* Instance of the XScuGic driver. */
 
 /* Shared variables used to test the callbacks. */
-volatile static int EocFlag = FALSE;	  	/* EOC interrupt */
-volatile static int VccintIntr = FALSE;	  	/* VCCINT alarm interrupt */
+static volatile int EocFlag = FALSE;	  	/* EOC interrupt */
+static volatile int VccintIntr = FALSE;	  	/* VCCINT alarm interrupt */
 
 
 /****************************************************************************/

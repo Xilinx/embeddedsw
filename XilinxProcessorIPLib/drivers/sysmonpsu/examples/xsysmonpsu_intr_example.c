@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -131,9 +131,9 @@ static XScuGic XScuGicInst; 			/* Instance of the XXScuGic driver */
 #endif
 
 /* Shared variables used to test the callbacks. */
-volatile static int TempIntrActive = FALSE;	/* Temperature alarm intr active */
-volatile static int Supply1Intr = FALSE;	/* Supply 1 alarm interrupt */
-volatile static int Supply3Intr = FALSE;	/* Supply 3 alarm interrupt */
+static volatile int TempIntrActive = FALSE;	/* Temperature alarm intr active */
+static volatile int Supply1Intr = FALSE;	/* Supply 1 alarm interrupt */
+static volatile int Supply3Intr = FALSE;	/* Supply 3 alarm interrupt */
 
 #ifndef TESTAPP_GEN
 /****************************************************************************/
