@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -456,8 +456,7 @@ int main()
 	 * means DON'T BOOT.  We do this silently to save memory space, the
 	 * __fs_preboot can use fsprint() etc to output messages if required */
 	if (__fs_preboot) {
-		if(__fs_preboot(image_start))
-			;
+		__fs_preboot(image_start);
 	}
 
 	GO(image_start);
