@@ -524,7 +524,7 @@ DRESULT disk_read (
 *		RES_OK		Command successful
 *		RES_PARERR	Command is invalid
 *		RES_NOTRDY	Drive not initialized
-*		RES_ERROR	Error occured
+*		RES_ERROR	Error occurred
 *
 * @note
 *
@@ -539,7 +539,9 @@ DRESULT disk_ioctl (
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
 	void *LocBuff = buff;
+#ifdef XPAR_XSDPS_NUM_INSTANCES
 	DWORD *SendBuff = (DWORD *)(void *)buff;
+#endif
 #ifdef XPAR_XUFSPSXC_NUM_INSTANCES
 	u32 Status = XST_FAILURE;
 #endif

@@ -40,7 +40,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* Library version info */
 #define XILFFS_MAJOR_VERSION	5U
-#define XILFFS_MINOR_VERSION	4U
+#define XILFFS_MINOR_VERSION	5U
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
