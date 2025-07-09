@@ -1644,6 +1644,7 @@ int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 	u32 IdString;
 
 
+	PdiPtr->IsSubsystemRestart = (u8)TRUE;
 	/**
 	 * - Scan through PdiList for the given ImageId and restart image from
 	 * that respective PDI if ImageId is found
@@ -1718,6 +1719,7 @@ END1:
 	Status = XLoader_StartImage(PdiPtr);
 
 END:
+	PdiPtr->IsSubsystemRestart = (u8)FALSE;
 	SStatus = XLoader_ClearKeys(PdiPtr);
 	if (Status == XST_SUCCESS) {
 		XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);

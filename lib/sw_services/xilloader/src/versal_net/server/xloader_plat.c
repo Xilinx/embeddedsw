@@ -441,7 +441,8 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 	ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 	ImageMeasureInfo.DigestIndex = &PdiPtr->DigestIndex;
 	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) ||
-		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU)) {
+		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU) ||
+		(PdiPtr->IsSubsystemRestart == (u8)TRUE)) {
 		ImageMeasureInfo.OverWrite = TRUE;
 	}
 	else {
