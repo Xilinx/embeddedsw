@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -483,11 +483,11 @@ static u64 XMt_GetRefVal(u64 Addr, u64 Index, s32 ModeVal, u64 *Pattern, s64 Ran
 	u64 RefVal;
 	u64 Mod128;
 
-	if (ModeVal == 0U) {
+	if (ModeVal == 0) {
 		RefVal = ((((Addr + 4) << 32) | Addr) & U64_MASK);
-	} else if (ModeVal <= 8U) {
+	} else if (ModeVal <= 8) {
 		RefVal = (u64)Pattern[(Index % 32) / 8];
-	} else if (ModeVal <= 10U) {
+	} else if (ModeVal <= 10) {
 		Mod128 = (Index >> 2) & 0x07f;
 		RefVal = (u64)Pattern[Mod128] & U64_MASK;
 	} else {
@@ -862,7 +862,7 @@ int main(void)
 	u64 StartAddr;
 	u64 TestSize;
 	u32 Status;
-	u32 Index;
+	s32 Index;
 	u32 BusWidth;
 	s8 Ch;
 	s8 SizeChar;
@@ -1066,7 +1066,7 @@ int main(void)
 				}
 			} while ((SizeChar != '\n') && (SizeChar != '\r'));
 
-			if (RankArg >= XMt.DdrConfigRanks || RankArg < 0) {
+			if (RankArg < 0 || (u32)RankArg >= XMt.DdrConfigRanks) {
 				xil_printf("\r\nInvalid Selection. "
 					   "Available no. of ranks: %d."
 					   "Rank selected: %d\r\n",

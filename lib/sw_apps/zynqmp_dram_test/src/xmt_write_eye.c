@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -195,7 +195,7 @@ static INLINE u32 XMt_GetWrDgsl(u32 Addr)
  *****************************************************************************/
 static void XMt_ClearTapCount(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++)
 		XMtPtr->TapCount[Index] = 0;
@@ -213,7 +213,7 @@ static void XMt_ClearTapCount(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 static u32 XMt_GetWrCenter(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	if (XMtPtr->WriteCenterFetched == 1U) {
 		return XST_SUCCESS;
@@ -249,7 +249,7 @@ static u32 XMt_GetWrCenter(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 static u32 XMt_ResetWrCenter(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		XMt_SetWrWdqd(XMT_LCDLR1_BASE + (XMT_LANE_OFFSET*Index),
@@ -273,7 +273,7 @@ static u32 XMt_ResetWrCenter(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 static void XMt_PopulateWrDs(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		XMtPtr->WrDs[Index].Wdqd = XMt_GetWrWdqd(XMT_LCDLR1_BASE +
@@ -300,7 +300,7 @@ static void XMt_PopulateWrDs(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 static void XMt_PrintTapCounts(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	xil_printf(" TAPS/cycle:\r\n");
 	XMt_PrintLine(XMtPtr, 3);
@@ -320,7 +320,7 @@ static void XMt_PrintTapCounts(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 static u32 XMt_SetWdqdSw(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	#ifdef XMT_DEBUG
 	xil_printf("\r\n");
@@ -368,7 +368,7 @@ static u32 XMt_SetWdqdSw(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 static void XMt_PrintWrCenter(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	xil_printf(" AUTO CENTER (Delay Line Taps):\r\n");
 	XMt_PrintLine(XMtPtr, 3);
@@ -390,7 +390,7 @@ static void XMt_PrintWrCenter(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 static void XMt_SetWdqdWithIncr(XMt_CfgData *XMtPtr, s32 Position)
 {
-	s32 Index;
+	u32 Index;
 	s32 XFine;
 	s32 Xc;
 	s32 Tc;

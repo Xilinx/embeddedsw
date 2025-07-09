@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -103,7 +103,7 @@ static INLINE u32 XMt_GetRdQsnd(u32 Addr)
  *****************************************************************************/
 static u32 XMt_GetRdCenter(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	if (XMtPtr->ReadCenterFetched == 1U) {
 		return XST_SUCCESS;
@@ -133,7 +133,7 @@ static u32 XMt_GetRdCenter(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 static u32 XMt_ResetRdCenter(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	/* Disable the Refresh during training */
 	XMt_DisableRefresh();
@@ -163,7 +163,7 @@ static u32 XMt_ResetRdCenter(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 static void XMt_PrintRdCenter(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	xil_printf(" AUTO CENTER (Delay Line Taps DQS_T, DQS_C):\r\n");
 	XMt_PrintLine(XMtPtr, 3);
@@ -187,7 +187,7 @@ static void XMt_PrintRdCenter(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 static void XMt_PrintQsdQsnd(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	xil_printf("Lane(QSD/QSND): ");
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
@@ -215,7 +215,7 @@ static void XMt_PrintQsdQsnd(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 static void XMt_SetRdDqsDelay(XMt_CfgData *XMtPtr, s32 Position)
 {
-	s32 Index;
+	u32 Index;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		if (((Position > 0) && XMtPtr->EyeEnd[Index] == 0) ||

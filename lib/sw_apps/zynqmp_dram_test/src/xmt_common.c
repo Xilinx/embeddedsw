@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -489,7 +489,7 @@ static INLINE u32 XMt_GetVref(XMt_CfgData *XMtPtr, u32 Addr)
  *****************************************************************************/
 u32 XMt_GetVRefAuto(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		XMtPtr->VRefAuto[Index] = XMt_GetVref(XMtPtr, XMT_LANE0GCR5_OFFSET +
@@ -511,7 +511,7 @@ u32 XMt_GetVRefAuto(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 u32 XMt_GetVRefAutoMin(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 	u32 VRefMin;
 
 	VRefMin = XMtPtr->VRefAuto[0];
@@ -538,7 +538,7 @@ u32 XMt_GetVRefAutoMin(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 u32 XMt_GetVRefAutoMax(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 	u32 VRefMax;
 
 	VRefMax = XMtPtr->VRefAuto[0];
@@ -563,7 +563,7 @@ u32 XMt_GetVRefAutoMax(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 void XMt_SetVrefVal(XMt_CfgData *XMtPtr, u32 VRef)
 {
-	s32 Index;
+	u32 Index;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		if (XMtPtr->RankSel == 1U) {
@@ -588,7 +588,7 @@ void XMt_SetVrefVal(XMt_CfgData *XMtPtr, u32 VRef)
  *****************************************************************************/
 void XMt_ResetVrefAuto(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		if (XMtPtr->RankSel == 1U) {
@@ -742,7 +742,7 @@ static u32 XMt_ReadMprVRef(XMt_CfgData *XMtPtr)
  *
  * @note none
  *****************************************************************************/
-static u32 XMt_ReadMrsVRef(XMt_CfgData *XMtPtr)
+static u32 XMt_ReadMrsVRef()
 {
 	u32 RetVal;
 
@@ -789,7 +789,7 @@ u32 XMt_GetWrVRef(XMt_CfgData *XMtPtr)
 	if (XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) {
 		RetVal = XMt_ReadMprVRef(XMtPtr);
 	} else {
-		RetVal = XMt_ReadMrsVRef(XMtPtr);
+		RetVal = XMt_ReadMrsVRef();
 	}
 
 	return RetVal;
@@ -889,7 +889,7 @@ void XMt_ResetWrVref(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 void XMt_Print2DReadEyeResults(XMt_CfgData *XMtPtr, u32 VRef)
 {
-	s32 Index;
+	u32 Index;
 	s32 Index1;
 	float VrefPercent;
 	u32 VrefPercentInteger;
@@ -948,7 +948,7 @@ void XMt_Print2DReadEyeResults(XMt_CfgData *XMtPtr, u32 VRef)
  *****************************************************************************/
 void XMt_Print2DWriteEyeResultsR1(XMt_CfgData *XMtPtr, u32 VRef)
 {
-	s32 Index;
+	u32 Index;
 	s32 Index1;
 	float VrefPercent;
 	u32 VrefPercentInteger;
@@ -1011,7 +1011,7 @@ void XMt_Print2DWriteEyeResultsR1(XMt_CfgData *XMtPtr, u32 VRef)
  *****************************************************************************/
 void XMt_Print2DWriteEyeResultsR2(XMt_CfgData *XMtPtr, u32 VRef)
 {
-	s32 Index;
+	u32 Index;
 	s32 Index1;
 	float VrefPercent;
 	u32 VrefPercentInteger;
@@ -1314,7 +1314,7 @@ void XMt_PrintLine(XMt_CfgData *XMtPtr, u8 LineCode)
  *****************************************************************************/
 void XMt_PrintResults(XMt_CfgData *XMtPtr)
 {
-	s32 Index;
+	u32 Index;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		xil_printf(" %6d |", Xil_In32(XMT_RESULTS_BASE + (Index * 4)));
