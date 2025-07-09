@@ -421,6 +421,9 @@ extern "C" {
 #define PM_RST_UDH_AUX				(0xC10411DU)
 #define PM_RST_UDH_DP				(0xC10411EU)
 #define PM_RST_UDH_HDCPRAM			(0xC10411FU)
+#define PM_RST_MMI_GEM				(0xC104120U)
+#define PM_RST_MMI_GEM_CFG			(0xC104121U)
+#define PM_RST_MMI_GEM_TSU			(0xC104122U)
 /** @} */
 
 /**
@@ -655,6 +658,8 @@ extern "C" {
 #define PM_CLK_PS_AXI_DMA			(0x82080DDU)
 #define PM_CLK_MMI_PLL				(0x81040DEU)
 #define PM_CLK_MMI_AUX1_REF			(0x82080DFU)
+#define PM_CLK_MMI_GEM_HCLK			(0x82080E0U)
+#define PM_CLK_SOCDMA				(0x82080E1U)
 /** @} */
 
 /**
@@ -1071,6 +1076,7 @@ extern "C" {
 #define PM_DEV_MMI_DC				(0x18224137U)
 #define PM_DEV_MMI_HDCP				(0x18224138U)
 #define PM_DEV_MMI_DP				(0x18224139U)
+#define PM_DEV_MMI_GEM				(0x1822413AU)
 /** @} */
 
 /**
