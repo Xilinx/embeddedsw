@@ -43,6 +43,7 @@
   * 1.0   kpt  08/23/24 Initial release
   *       mb   11/11/24 Add section attribute to required variables
   * 1.1   mb   06/10/25 Added description on usage of shared memory
+  *       mb   07/08/25 Added XPUF_FORMATTED_HD_IN_WORDS macro to print 129 words PUF HD
   *
   *@note
   *
@@ -75,6 +76,9 @@
 	XPUF_WORD_LENGTH)
 #define XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES	(XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * \
 	XPUF_WORD_LENGTH)
+#define XPUF_CHASH_AND_AUX_IN_WORDS		(2U)
+#define XPUF_FORMATTED_HD_IN_WORDS		(XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS + \
+        XPUF_CHASH_AND_AUX_IN_WORDS)		/* 127U Syn_data + 1 Aux + 1 Chash */
 
 #define XPUF_AES_KEY_SIZE_128BIT_WORDS		(4U)
 #define XPUF_AES_KEY_SIZE_256BIT_WORDS		(8U)
@@ -362,7 +366,7 @@ static int XPuf_GenerateKey(XPmcDma *DmaPtr)
 	PUF_TrimHD[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS + 1U] = PufData.Aux;
 
 	xil_printf("Formatted syndrome data is \r\n");
-	XPuf_ShowData((u8 *)PUF_TrimHD, XPUF_HD_TRIM_PAD_LEN_IN_WORDS * XPUF_WORD_LENGTH);
+	XPuf_ShowData((u8 *)PUF_TrimHD, XPUF_FORMATTED_HD_IN_WORDS * XPUF_WORD_LENGTH);
 
 #if XPUF_WRITE_IN_MEM
 	for (Index = 0U; Index < XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES/ XPUF_WORD_LENGTH; Index++) {
