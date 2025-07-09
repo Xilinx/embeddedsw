@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@
 * 2.14	ht	06/13/23	Restructured the code for more modularity
 * 2.17	ht	11/08/24	Update description of Msglength for XIpiPsu_ReadMessage
 * 				and XIpiPsu_WriteMessage.
+* 2.18  an	08/07/25	Fix pointer to integer cast warning
 * </pre>
 *
 *****************************************************************************/
@@ -224,7 +225,7 @@ XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
 					     InstancePtr->Config.BitMask, BufferType);
 	if (BufferPtr != NULL) {
 #ifdef ENABLE_IPI_CRC
-		Crc = XIpiPsu_CalculateCRC((u32)BufferPtr, XIPIPSU_W0_TO_W6_SIZE);
+		Crc = XIpiPsu_CalculateCRC((u32)(uintptr_t)BufferPtr, XIPIPSU_W0_TO_W6_SIZE);
 
 		/* Word 8 in IPI is reserved for storing CRC */
 		if (BufferPtr[XIPIPSU_CRC_INDEX] != Crc) {
@@ -285,7 +286,7 @@ XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, const u32 *M
 #ifdef ENABLE_IPI_CRC
 		/* Word 8 in IPI is reserved for storing CRC */
 		BufferPtr[XIPIPSU_CRC_INDEX] =
-			XIpiPsu_CalculateCRC((u32)BufferPtr, XIPIPSU_W0_TO_W6_SIZE);
+			XIpiPsu_CalculateCRC((u32)(uintptr_t)BufferPtr, XIPIPSU_W0_TO_W6_SIZE);
 #endif
 		Status = (XStatus)XST_SUCCESS;
 	}
