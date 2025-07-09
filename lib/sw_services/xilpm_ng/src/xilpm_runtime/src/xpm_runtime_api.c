@@ -85,7 +85,6 @@ static XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId
 static void XPm_CoreIdle(XPm_Core *Core);
 static XStatus XPm_DoAbortSuspend(XPlmi_Cmd* Cmd);
 
-static XStatus XPm_RequestHBMonDevice(const u32 SubsystemId, const u32 CmdType);
 static XStatus XPm_DoWakeUp(XPlmi_Cmd* Cmd);
 static XStatus XPm_SubsystemPwrUp(const u32 SubsystemId);
 static XStatus SetSubsystemState_ByCore(XPm_Core* Core, const u32 State);
@@ -1273,34 +1272,6 @@ static void XPm_CoreIdle(XPm_Core *Core)
 	Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
 	XPmNotifier_Event(Core->Device.Node.Id,
 			  (u8)EVENT_CPU_IDLE_FORCE_PWRDWN);
-}
-
-static XStatus XPm_RequestHBMonDevice(const u32 SubsystemId, const u32 CmdType)
-{
-	u32 DeviceIdx;
-	XStatus Status = XST_DEVICE_NOT_FOUND;
-	const XPm_Device *Device;
-	XPm_Requirement *Reqm = NULL;
-
-	/* Request run time Healthy Boot Monitor node if it is added */
-	for (DeviceIdx = (u32)XPM_NODEIDX_DEV_HB_MON_0;
-	     DeviceIdx < (u32)XPM_NODEIDX_DEV_HB_MON_MAX; DeviceIdx++) {
-		Device = XPmDevice_GetHbMonDeviceByIndex(DeviceIdx);
-		if (NULL == Device) {
-			continue;
-		}
-		Reqm = XPmDevice_FindRequirement(Device->Node.Id, SubsystemId);
-		/* Skip if boot time healthy boot monitor node found */
-		if ((NULL == Reqm) || (1U == PREALLOC((u32)Reqm->Flags))) {
-			continue;
-		}
-		Status = XPmDevice_Request(SubsystemId, Device->Node.Id,
-					   (u32)PM_CAP_ACCESS, Reqm->PreallocQoS,
-					   CmdType);
-		break;
-	}
-
-	return Status;
 }
 
 XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem)

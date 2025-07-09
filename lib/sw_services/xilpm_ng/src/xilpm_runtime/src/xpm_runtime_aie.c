@@ -360,7 +360,6 @@ static XStatus Aie2ps_ShimRst(const XPm_Device *AieDev, const u32 StartCol, cons
 	XPm_RMW32(NodeAddress + AIE2PS_NPI_ME_PROT_REG_CTRL_OFFSET,
 		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
 
-done:
 	/* Lock Pcsr */
 	XPm_LockPcsr(NodeAddress);
 

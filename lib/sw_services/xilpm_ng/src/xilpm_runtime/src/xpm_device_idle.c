@@ -80,6 +80,7 @@ XStatus NodeQspiIdle(u16 DeviceId, u32 BaseAddress)
 #ifndef SDT
 	ConfigPtr = XQspiPsu_LookupConfig(DeviceId);
 #else
+	(void)DeviceId;
 	ConfigPtr = XQspiPsu_LookupConfig(BaseAddress);
 #endif
 	if (NULL == ConfigPtr) {
@@ -151,6 +152,7 @@ XStatus NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
 #ifndef SDT
 	ConfigPtr = XSdPs_LookupConfig(DeviceId);
 #else
+	(void)DeviceId;
 	ConfigPtr = XSdPs_LookupConfig(BaseAddress);
 #endif
 	if (NULL == ConfigPtr) {

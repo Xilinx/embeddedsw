@@ -84,8 +84,8 @@ static XStatus ActionBringUpAll(XPm_Device* Device)
 		goto done;
 	}
 	/** Skip releasing reset if device is core type; since it is done as the part of request wakeup */
-	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Device->Node.Id)) &&
-	    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id))) {
+	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
+	    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(NodeId))) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -100,18 +100,6 @@ done:
 	return Status;
 }
 
-static u32 IsRunning(const XPm_Device *Device)
-{
-	u32 Running = 0;
-	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
-	LIST_FOREACH(DevOps->Requirements, ReqmNode){
-		if (1 == ReqmNode->Data->Allocated) {
-			Running = 1;
-			break;
-		}
-	}
-	return Running;
-}
 static XStatus ActionShutdown(XPm_Device* const Device) {
 
 	XStatus Status = XST_FAILURE;

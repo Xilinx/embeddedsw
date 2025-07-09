@@ -12,7 +12,6 @@
 static XStatus XPmAsucore_Wakeup(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_AsuCore *AsuCore = (XPm_AsuCore *)Core;
 	/* Handoff address is not able to adjust; hence ignore them */
 	(void)SetAddress;
 	(void)Address;
