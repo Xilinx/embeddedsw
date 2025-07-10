@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -101,7 +101,7 @@ u32 DstBuf[300]; /**< Destination buffer */
 #else
 u32 DstBuf[300] __attribute__ ((aligned (64))); /**< Destination buffer */
 #endif
-volatile static u32 Done = 0;	/**< Done Flag for interrupt generation */
+static volatile u32 Done = 0;	/**< Done Flag for interrupt generation */
 
 /*****************************************************************************/
 /**
