@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,7 +11,7 @@ BEGIN driver zdma
   OPTION supported_peripherals = (psu_adma psu_gdma psv_adma psv_gdma psxl_adma psx_adma);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.20;
+  OPTION VERSION = 1.21;
   OPTION NAME = zdma;
 
 END driver
