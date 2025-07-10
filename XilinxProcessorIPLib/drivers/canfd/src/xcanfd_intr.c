@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -229,7 +229,7 @@ void XCanFd_InterruptEnable_RxBuffFull(XCanFd *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if ((RxBuffNumber == (u32)0)) {
+	if (RxBuffNumber == (u32)0) {
 		IntrValue = XCanFd_ReadReg(
 				InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_RXBFLL1_OFFSET);

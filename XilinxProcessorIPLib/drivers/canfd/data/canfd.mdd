@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -25,7 +25,7 @@ BEGIN driver canfd
   OPTION supported_peripherals = (canfd psv_canfd psxl_canfd psx_canfd);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.10;
+  OPTION VERSION = 2.11;
   OPTION NAME = canfd;
 
 END driver
