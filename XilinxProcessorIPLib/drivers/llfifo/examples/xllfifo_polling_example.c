@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -323,7 +323,7 @@ int TxSend(XLlFifo *InstancePtr, u32  *SourceAddr)
 int RxReceive (XLlFifo *InstancePtr, u32* DestinationAddr)
 {
 
-	int i;
+	u32 i;
 	int Status;
 	u32 RxWord;
 	static u32 ReceiveLength;
@@ -335,7 +335,7 @@ int RxReceive (XLlFifo *InstancePtr, u32* DestinationAddr)
 		ReceiveLength = (XLlFifo_iRxGetLen(InstancePtr))/WORD_SIZE;
 		for (i=0; i < ReceiveLength; i++) {
 			RxWord = XLlFifo_RxGetWord(InstancePtr);
-			*(DestinationBuffer+i) = RxWord;
+			*(DestinationAddr+i) = RxWord;
 		}
 	}
 
