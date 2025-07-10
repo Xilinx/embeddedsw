@@ -108,14 +108,14 @@ int main(void)
 	/** Initialize mailbox instance. */
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		XilAsu_Printf("Mailbox initialize failed: %08x \r\n", Status);
 		goto END;
 	}
 
 	/* Initialize the client instance */
 	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Client initialize failed:%08x \r\n", Status);
+		XilAsu_Printf("Client initialize failed:%08x \r\n", Status);
 		goto END;
 	}
 
@@ -170,9 +170,9 @@ static void XAsu_GenSign(void)
 	/* Compute execution time in milliseconds. */
 	XAsu_EndTiming("XAsu_EccGenSign");
 
-	xil_printf("\r\n Generated Sign: ");
+	XilAsu_Printf("\r\n Generated Sign: ");
 	for (Index = 0; Index < XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES; Index++) {
-		xil_printf("%02x", Sign[Index]);
+		XilAsu_Printf("%02x", Sign[Index]);
 	}
 
 END:
@@ -264,7 +264,7 @@ static void XAsu_GenPubKey(void)
 	Status = Xil_SMemCmp_CT(PubKeyOut, XAsu_DoubleCurveLength(XASU_CURVE_LENGTH), PubKey,
 			XAsu_DoubleCurveLength(XASU_CURVE_LENGTH), XAsu_DoubleCurveLength(XASU_CURVE_LENGTH));
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU ECC Example Failed at generated public key data Comparison \r\n");
+		XilAsu_Printf("ASU ECC Example Failed at generated public key data Comparison \r\n");
 	}
 
 END:

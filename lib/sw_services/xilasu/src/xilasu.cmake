@@ -17,6 +17,11 @@ if(XILASU_enable_perf_measurement)
     set(XASU_PERF_MEASUREMENT_ENABLE " ")
 endif()
 
+option(XILASU_debug_prints "Enables/Disables debug prints in client library." ON)
+if(XILASU_debug_prints )
+    set(XASU_DEBUG_PRINTS_ENABLE " ")
+endif()
+
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
     option(XILASU_aes_cm_mode_support "Enables/Disables counter measure mode for AES." ON)
     if(XILASU_aes_cm_mode_support)

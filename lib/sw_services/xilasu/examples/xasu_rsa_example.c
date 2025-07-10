@@ -249,14 +249,14 @@ int main(void)
 	/** Initialize mailbox instance. */
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		XilAsu_Printf("Mailbox initialize failed: %08x \r\n", Status);
 		goto END;
 	}
 
 	/* Initialize the client instance */
 	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Client initialize failed:%08x \r\n", Status);
+		XilAsu_Printf("Client initialize failed:%08x \r\n", Status);
 		goto END;
 	}
 
@@ -287,7 +287,7 @@ int main(void)
 	RsaClientParam.ExpoCompAddr = 0U;
 	Status = XAsu_RsaEnc(&ClientParam, &RsaClientParam);
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n Encrypt operation Status = %08x", Status);
+		XilAsu_Printf("\r\n Encrypt operation Status = %08x", Status);
 		goto END;
 	}
 	while (!Notify);
@@ -299,7 +299,7 @@ int main(void)
 	Status = Xil_SMemCmp_CT(XAsu_RsaCt, XASU_RSA_4096_KEY_SIZE_IN_BYTES, EncResult,
 				XASU_RSA_4096_KEY_SIZE_IN_BYTES, XASU_RSA_4096_KEY_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU RSA Example Failed at Encrypted data Comparison \r\n");
+		XilAsu_Printf("ASU RSA Example Failed at Encrypted data Comparison \r\n");
 		goto END;
 	}
 
@@ -317,14 +317,14 @@ int main(void)
 	RsaClientParam.ExpoCompAddr = 0U;
 	Status = XAsu_RsaDec(&ClientParam, &RsaClientParam);
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n Decrypt operation Status = %08x", Status);
+		XilAsu_Printf("\r\n Decrypt operation Status = %08x", Status);
 		goto END;
 	}
 	while (!Notify);
 	Notify = 0;
 	if ((ErrorStatus != XST_SUCCESS) ||
 		(ClientParam.AdditionalStatus != XASU_RSA_DECRYPTION_SUCCESS)) {
-		xil_printf("\r\n RSA client example failed from server with error %08x and "
+		XilAsu_Printf("\r\n RSA client example failed from server with error %08x and "
 			"additional error of %08x", ErrorStatus, ClientParam.AdditionalStatus);
 		goto END;
 	}
@@ -332,7 +332,7 @@ int main(void)
 	Status = Xil_SMemCmp_CT(XAsu_RsaPt, XASU_RSA_4096_KEY_SIZE_IN_BYTES, DecResult,
 				XASU_RSA_4096_KEY_SIZE_IN_BYTES, XASU_RSA_4096_KEY_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU RSA Example Failed at Decrypted data Comparison \r\n");
+		XilAsu_Printf("ASU RSA Example Failed at Decrypted data Comparison \r\n");
 		goto END;
 	}
 

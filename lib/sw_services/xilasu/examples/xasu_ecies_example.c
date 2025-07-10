@@ -129,14 +129,14 @@ int main(void)
 	/** Initialize mailbox instance. */
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		XilAsu_Printf("Mailbox initialize failed: %08x \r\n", Status);
 		goto END;
 	}
 
 	/* Initialize the client instance */
 	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU Client initialize failed: %08x \r\n", Status);
+		XilAsu_Printf("ASU Client initialize failed: %08x \r\n", Status);
 		goto END;
 	}
 
@@ -165,7 +165,7 @@ int main(void)
 
 	Status = XAsu_EciesEncrypt(&ClientParams, &EciesParams);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Encrypt operation failed, Status = %x \n\r", Status);
+		XilAsu_Printf("Encrypt operation failed, Status = %x \n\r", Status);
 		goto END;
 	}
 	while(!Notify);
@@ -174,19 +174,19 @@ int main(void)
 		goto END;
 	}
 
-	xil_printf("\r\n Encrypted Output: ");
+	XilAsu_Printf("\r\n Encrypted Output: ");
 	for (Index = 0; Index < XASU_ECIES_INPUT_DATA_LENGTH; Index++) {
-		xil_printf("%02x", OutEncData[Index]);
+		XilAsu_Printf("%02x", OutEncData[Index]);
 	}
 
-	xil_printf("\r\n Generated Mac: ");
+	XilAsu_Printf("\r\n Generated Mac: ");
 	for (Index = 0; Index < XASU_AES_MAX_TAG_LENGTH_IN_BYTES; Index++) {
-		xil_printf("%02x", Mac[Index]);
+		XilAsu_Printf("%02x", Mac[Index]);
 	}
 
-	xil_printf("\r\n Generated Iv: ");
+	XilAsu_Printf("\r\n Generated Iv: ");
 	for (Index = 0; Index < XASU_AES_IV_SIZE_96BIT_IN_BYTES; Index++) {
-		xil_printf("%02x", Iv[Index]);
+		XilAsu_Printf("%02x", Iv[Index]);
 	}
 
 	ErrorStatus = XST_FAILURE;
@@ -211,7 +211,7 @@ int main(void)
 
 	Status = XAsu_EciesDecrypt(&ClientParams, &EciesParams);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Decrypt operation failed, Status = %x \n\r", Status);
+		XilAsu_Printf("Decrypt operation failed, Status = %x \n\r", Status);
 		goto END;
 	}
 	while(!Notify);
@@ -222,12 +222,12 @@ int main(void)
 
 	Status = Xil_SMemCmp_CT(OutDecData, XASU_ECIES_INPUT_DATA_LENGTH, Data,
 				XASU_ECIES_INPUT_DATA_LENGTH, XASU_ECIES_INPUT_DATA_LENGTH);
-	xil_printf("\r\n Decrypted Output: ");
+	XilAsu_Printf("\r\n Decrypted Output: ");
 	for (Index = 0; Index < XASU_ECIES_INPUT_DATA_LENGTH; Index++) {
-		xil_printf("%02x", OutDecData[Index]);
+		XilAsu_Printf("%02x", OutDecData[Index]);
 	}
 	if (Status != XST_SUCCESS) {
-		xil_printf("Decrypted Output comparision failed, Status = %x \n\r", Status);
+		XilAsu_Printf("Decrypted Output comparision failed, Status = %x \n\r", Status);
 	}
 
 END:

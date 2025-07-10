@@ -282,6 +282,7 @@ s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuff
 	/** Place an IPI request to ASU. */
 	Status = XAsu_SendIpi();
 	if (Status != XST_SUCCESS) {
+		XilAsu_Printf("Failed to send IPI request\r\n");
 		goto END;
 	}
 
@@ -441,7 +442,7 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 							AsuCallBackRef[UniqueId].Size,
 							(void *)(&(ChannelQueueBufPtr->RespBuf.Arg[XASU_RESPONSE_BUFF_ADDR_INDEX])),
 							AsuCallBackRef[UniqueId].Size) != XST_SUCCESS) {
-						xil_printf("Response copy to application failed\r\n");
+						XilAsu_Printf("Response copy to application failed\r\n");
 					}
 				}
 

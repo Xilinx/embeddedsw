@@ -144,20 +144,20 @@ static s32 Asu_Sha3Example(void)
 	/** Initialize mailbox instance. */
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		XilAsu_Printf("Mailbox initialize failed: %08x \r\n", Status);
 		goto END;
 	}
 
 	/* Initialize the client instance */
 	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Client initialize failed:%08x \r\n", Status);
+		XilAsu_Printf("Client initialize failed:%08x \r\n", Status);
 		goto END;
 	}
 
 	Size = Xil_Strnlen(Data, ASU_SHA3_INPUT_DATA_LEN);
 	if (Size != ASU_SHA3_INPUT_DATA_LEN) {
-		xil_printf("Provided data length is Invalid\n\r");
+		XilAsu_Printf("Provided data length is Invalid\n\r");
 		Status = XST_FAILURE;
 		goto END;
 	}
@@ -183,7 +183,7 @@ static s32 Asu_Sha3Example(void)
 
 	Status = XAsu_Sha3Operation(&ClientParam, &ShaClientParam);
 	if(Status != XST_SUCCESS) {
-		xil_printf("Calculation of SHA digest failed, Status = %x \n\r", Status);
+		XilAsu_Printf("Calculation of SHA digest failed, Status = %x \n\r", Status);
 		goto END;
 	}
 
@@ -204,9 +204,9 @@ static void Asu_Sha3PrintHash(const u8 *Hash)
 	u32 Index;
 
 	for (Index = 0U; Index < ASU_SHA3_HASH_LEN_IN_BYTES; Index++) {
-		xil_printf(" %02x ", Hash[Index]);
+		XilAsu_Printf(" %02x ", Hash[Index]);
 	}
-	xil_printf(" \r\n ");
+	XilAsu_Printf(" \r\n ");
  }
 
 /*************************************************************************************************/
@@ -223,20 +223,20 @@ static void Asu_Sha3PrintHash(const u8 *Hash)
   static void XAsu_Sha3CallBackRef(void *CallBackRef, u32 Status)
  {
 	(void)CallBackRef;
-	xil_printf("Example: Received response\n\r");
+	XilAsu_Printf("Example: Received response\n\r");
 	if (Status != 0x0U) {
-		xil_printf("SHA example is failed with the response %x\n\r", Status);
+		XilAsu_Printf("SHA example is failed with the response %x\n\r", Status);
 		goto END;
 	}
-	xil_printf(" Calculated Hash \r\n ");
+	XilAsu_Printf(" Calculated Hash \r\n ");
 	Asu_Sha3PrintHash((u8 *)(UINTPTR)&Sha3Hash);
 
 	Status = Xil_SMemCmp_CT(ExpHash, ASU_SHA3_HASH_LEN_IN_BYTES, Sha3Hash, ASU_SHA3_HASH_LEN_IN_BYTES,
 					ASU_SHA3_HASH_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Expected Hash \r\n");
+		XilAsu_Printf("Expected Hash \r\n");
 		Asu_Sha3PrintHash(ExpHash);
-		xil_printf("SHA Example Failed at Hash Comparison \r\n");
+		XilAsu_Printf("SHA Example Failed at Hash Comparison \r\n");
 	}
 END:
 	/* Update the variable to notify the callback */

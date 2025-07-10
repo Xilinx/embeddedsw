@@ -67,6 +67,11 @@ typedef struct {
 } XAsu_ClientParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#ifdef XASU_DEBUG_PRINTS_ENABLE
+#define XilAsu_Printf(...)	xil_printf(__VA_ARGS__)
+#else
+#define XilAsu_Printf(...)
+#endif
 
 /*************************************************************************************************/
 /**

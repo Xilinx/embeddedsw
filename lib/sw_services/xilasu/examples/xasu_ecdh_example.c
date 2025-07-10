@@ -120,14 +120,14 @@ int main(void)
 	/** Initialize mailbox instance. */
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		XilAsu_Printf("Mailbox initialize failed: %08x \r\n", Status);
 		goto END;
 	}
 
 	/* Initialize the client instance */
 	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU Client initialize failed: %08x \r\n", Status);
+		XilAsu_Printf("ASU Client initialize failed: %08x \r\n", Status);
 		goto END;
 	}
 
@@ -145,7 +145,7 @@ int main(void)
 
 	Status = XAsu_EcdhGenSharedSecret(&ClientParams, &EcdhParams);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Secret1 generation for ECDH failed, Status = %x \n\r", Status);
+		XilAsu_Printf("Secret1 generation for ECDH failed, Status = %x \n\r", Status);
 		goto END;
 	}
 	while(!Notify);
@@ -156,12 +156,12 @@ int main(void)
 
 	Status = Xil_SMemCmp_CT(SharedSecret, XASU_ECC_P256_SIZE_IN_BYTES, ExpSharedSecret,
 				XASU_ECC_P256_SIZE_IN_BYTES, XASU_ECC_P256_SIZE_IN_BYTES);
-	xil_printf("\r\n Generated Secret1: ");
+	XilAsu_Printf("\r\n Generated Secret1: ");
 	for (Index = 0; Index < XASU_ECC_P256_SIZE_IN_BYTES; Index++) {
-		xil_printf("%02x", SharedSecret[Index]);
+		XilAsu_Printf("%02x", SharedSecret[Index]);
 	}
 	if (Status != XST_SUCCESS) {
-		xil_printf("Secret1 and Expected Secret Comparison failed, Status = %x \n\r", Status);
+		XilAsu_Printf("Secret1 and Expected Secret Comparison failed, Status = %x \n\r", Status);
 		goto END;
 	}
 
@@ -179,7 +179,7 @@ int main(void)
 
         Status = XAsu_EcdhGenSharedSecret(&ClientParams, &EcdhParams);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Secret2 generation for ECDH failed, Status = %x \n\r", Status);
+		XilAsu_Printf("Secret2 generation for ECDH failed, Status = %x \n\r", Status);
 		goto END;
 	}
 	while(!Notify);
@@ -190,12 +190,12 @@ int main(void)
 
 	Status = Xil_SMemCmp_CT(SharedSecret1, XASU_ECC_P256_SIZE_IN_BYTES, ExpSharedSecret,
 				XASU_ECC_P256_SIZE_IN_BYTES, XASU_ECC_P256_SIZE_IN_BYTES);
-	xil_printf("\r\n Generated Secret2: ");
+	XilAsu_Printf("\r\n Generated Secret2: ");
 	for (Index = 0; Index < XASU_ECC_P256_SIZE_IN_BYTES; Index++) {
-		xil_printf("%02x", SharedSecret1[Index]);
+		XilAsu_Printf("%02x", SharedSecret1[Index]);
 	}
 	if (Status != XST_SUCCESS) {
-		xil_printf("Secret2 and Expected Secret Comparison failed, Status = %x \n\r", Status);
+		XilAsu_Printf("Secret2 and Expected Secret Comparison failed, Status = %x \n\r", Status);
 	}
 
 END:

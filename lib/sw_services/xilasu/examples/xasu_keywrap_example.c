@@ -193,14 +193,14 @@ int main(void)
 	/** Initialize mailbox instance. */
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		XilAsu_Printf("Mailbox initialize failed: %08x \r\n", Status);
 		goto END;
 	}
 
 	/* Initialize the client instance */
 	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Client initialize failed:%08x \r\n", Status);
+		XilAsu_Printf("Client initialize failed:%08x \r\n", Status);
 		goto END;
 	}
 
@@ -236,7 +236,7 @@ int main(void)
 	/* Perform key wrap operation */
 	Status = XAsu_KeyWrap(&ClientParam, &KwpunwpClientParam);
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n Key wrap operation Status = %08x", Status);
+		XilAsu_Printf("\r\n Key wrap operation Status = %08x", Status);
 		goto END;
 	}
 	while (!Notify);
@@ -272,7 +272,7 @@ int main(void)
 	/* Perform key unwrap operation */
 	Status = XAsu_KeyUnwrap(&ClientParam, &KwpunwpClientParam);
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n Decrypt operation Status = %08x", Status);
+		XilAsu_Printf("\r\n Decrypt operation Status = %08x", Status);
 		goto END;
 	}
 	while (!Notify);
@@ -289,7 +289,7 @@ int main(void)
 	Status = Xil_SMemCmp_CT(XAsu_KeywrapInput, XASU_KEYWRAP_INPUT_SIZE_IN_BYTES, XAsu_KeyWrapUnwrappedOutput,
 		XASU_KEYWRAP_INPUT_SIZE_IN_BYTES, XASU_KEYWRAP_INPUT_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU Key Wrap Unwrap Example Failed at Unwrapped data Comparison \r\n");
+		XilAsu_Printf("ASU Key Wrap Unwrap Example Failed at Unwrapped data Comparison \r\n");
 	}
 
 END:

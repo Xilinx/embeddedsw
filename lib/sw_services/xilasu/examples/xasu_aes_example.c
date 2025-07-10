@@ -247,14 +247,14 @@ int main(void)
 	/** Initialize mailbox instance. */
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		XilAsu_Printf("Mailbox initialize failed: %08x \r\n", Status);
 		goto END;
 	}
 
 	/* Initialize the client instance */
 	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU Client initialize failed: %08x \r\n", Status);
+		XilAsu_Printf("ASU Client initialize failed: %08x \r\n", Status);
 		goto END;
 	}
 
@@ -319,7 +319,7 @@ static void XAsu_AesGcmExample(void)
 
 	Status = XAsu_AesOperation(&AesClientParams, &AesParams);
 	if (Status != XST_SUCCESS) {
-		xil_printf("AES-GCM Encryption failed: %08x \r\n", Status);
+		XilAsu_Printf("AES-GCM Encryption failed: %08x \r\n", Status);
 		goto END;
 	}
 	while(!Notify);
@@ -330,7 +330,7 @@ static void XAsu_AesGcmExample(void)
 	 */
 	if ((ErrorStatus != XST_SUCCESS) ||
 		(AesClientParams.AdditionalStatus != XASU_AES_TAG_READ)) {
-		xil_printf("\r\n AES-GCM Example failed from server with error %08x and "
+		XilAsu_Printf("\r\n AES-GCM Example failed from server with error %08x and "
 			"additional error of %08x", ErrorStatus, AesClientParams.AdditionalStatus);
 		goto END;
 	}
@@ -342,7 +342,7 @@ static void XAsu_AesGcmExample(void)
 	Status = Xil_SMemCmp_CT(XAsu_AesGcmExpCt, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesEncData,
 				XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU AES-GCM Example Failed at Encrypted data Comparison \r\n");
+		XilAsu_Printf("ASU AES-GCM Example Failed at Encrypted data Comparison \r\n");
 		goto END;
 	}
 
@@ -350,14 +350,14 @@ static void XAsu_AesGcmExample(void)
 	Status = Xil_SMemCmp_CT(XAsu_AesGcmExpTag, XASU_AES_TAG_LEN_IN_BYTES, XAsu_AesTag,
 				XASU_AES_TAG_LEN_IN_BYTES, XASU_AES_TAG_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU AES-GCM Example Failed at Encrypted data Comparison \r\n");
+		XilAsu_Printf("ASU AES-GCM Example Failed at Encrypted data Comparison \r\n");
 		goto END;
 	}
 
-	xil_printf("AES-GCM Encrypted data: \n\r");
+	XilAsu_Printf("AES-GCM Encrypted data: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesEncData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 
-	xil_printf("AES-GCM tag: \n\r");
+	XilAsu_Printf("AES-GCM tag: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesTag, XASU_AES_TAG_LEN_IN_BYTES);
 
 	/* AES decryption */
@@ -390,7 +390,7 @@ static void XAsu_AesGcmExample(void)
 
 	Status = XAsu_AesOperation(&AesClientParams, &AesParams);
 	if (Status != XST_SUCCESS) {
-		xil_printf("AES-GCM Decryption failed: %08x \r\n", Status);
+		XilAsu_Printf("AES-GCM Decryption failed: %08x \r\n", Status);
 		goto END;
 	}
 	while(!Notify);
@@ -402,19 +402,19 @@ static void XAsu_AesGcmExample(void)
 	 */
 	if ((ErrorStatus != XST_SUCCESS) ||
 		(AesClientParams.AdditionalStatus != XASU_AES_TAG_MATCHED)) {
-		xil_printf("\r\n AES-GCM Example failed from server with error %08x and "
+		XilAsu_Printf("\r\n AES-GCM Example failed from server with error %08x and "
 			"additional error of %08x", ErrorStatus, AesClientParams.AdditionalStatus);
 		goto END;
 	}
 
-	xil_printf("AES-GCM Decrypted data: \n\r");
+	XilAsu_Printf("AES-GCM Decrypted data: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesDecData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 
 	/* Comparison of decrypted Data with expected input data */
 	Status = Xil_SMemCmp_CT(XAsu_AesInputData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesDecData,
 				XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("\r\n ASU AES-GCM Example Failed at Decrypted data Comparison = %08x", Status);
+		XilAsu_Printf("\r\n ASU AES-GCM Example Failed at Decrypted data Comparison = %08x", Status);
 		goto END;
 	}
 	xil_printf("\r\n Successfully ran AES-GCM client example ");
@@ -471,7 +471,7 @@ static void XAsu_AesCtrExample(void)
 
 	Status = XAsu_AesOperation(&AesClientParams, &AesParams);
 	if (Status != XST_SUCCESS) {
-		xil_printf("AES-CTR Encryption failed: %08x \r\n", Status);
+		XilAsu_Printf("AES-CTR Encryption failed: %08x \r\n", Status);
 		goto END;
 	}
 	while(!Notify);
@@ -487,11 +487,11 @@ static void XAsu_AesCtrExample(void)
 	Status = Xil_SMemCmp_CT(XAsu_AesCtrExpCt, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XAsu_AesEncData,
 				XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU AES-CTR Example Failed at Encrypted data Comparison \r\n");
+		XilAsu_Printf("ASU AES-CTR Example Failed at Encrypted data Comparison \r\n");
 		goto END;
 	}
 
-	xil_printf("AES-CTR Encrypted data: \n\r");
+	XilAsu_Printf("AES-CTR Encrypted data: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesEncData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
@@ -516,7 +516,7 @@ static void XAsu_AesCtrExample(void)
 
 	Status = XAsu_AesOperation(&AesClientParams, &AesParams);
 	if (Status != XST_SUCCESS) {
-		xil_printf("AES-CTR Decryption failed: %08x \r\n", Status);
+		XilAsu_Printf("AES-CTR Decryption failed: %08x \r\n", Status);
 		goto END;
 	}
 
@@ -527,7 +527,7 @@ static void XAsu_AesCtrExample(void)
 		goto END;
 	}
 
-	xil_printf("Decrypted data: \n\r");
+	XilAsu_Printf("Decrypted data: \n\r");
 	XAsu_AesPrintData((const u8 *)XAsu_AesDecData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 
 	/* Comparison of decrypted Data with expected input data */
@@ -560,9 +560,9 @@ static void XAsu_AesPrintData(const u8 *Data, u32 DataLen)
 	u32 Index;
 
 	for (Index = 0U; Index < DataLen; Index++) {
-		xil_printf("%02x ", Data[Index]);
+		XilAsu_Printf("%02x ", Data[Index]);
 	}
-	xil_printf(" \r\n ");
+	XilAsu_Printf(" \r\n ");
 }
 
 /*************************************************************************************************/

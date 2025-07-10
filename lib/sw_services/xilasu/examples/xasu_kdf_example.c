@@ -158,14 +158,14 @@ static s32 Asu_KdfExample(void)
 	/** Initialize mailbox instance. */
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		XilAsu_Printf("Mailbox initialize failed: %08x \r\n", Status);
 		goto END;
 	}
 
 	/* Initialize the client instance */
 	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Client initialize failed:%08x \r\n", Status);
+		XilAsu_Printf("Client initialize failed:%08x \r\n", Status);
 		goto END;
 	}
 
@@ -192,7 +192,7 @@ static s32 Asu_KdfExample(void)
 
 	Status = XAsu_KdfGenerate(&ClientParam, &KdfClientParam);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Calculation of KDF failed, Status = %x \n\r", Status);
+		XilAsu_Printf("Calculation of KDF failed, Status = %x \n\r", Status);
 		goto END;
 	}
 	while (!Notify);
@@ -221,9 +221,9 @@ static void Asu_PrintKdf(const u8 *Kdf)
 	u32 Index;
 
 	for (Index = 0U; Index < ASU_KDF_OUTPUT_LEN_IN_BYTES; Index++) {
-		xil_printf("%02x ", Kdf[Index]);
+		XilAsu_Printf("%02x ", Kdf[Index]);
 	}
-	xil_printf(" \r\n ");
+	XilAsu_Printf(" \r\n ");
 }
 
 /*************************************************************************************************/
@@ -241,20 +241,20 @@ static void XAsu_KdfCallBackRef(void *CallBackRef, u32 Status)
 {
 	(void)CallBackRef;
 	ErrorStatus = Status;
-	xil_printf("Example: Received response\n\r");
+	XilAsu_Printf("Example: Received response\n\r");
 	if (Status != 0x0U) {
-		xil_printf("KDF example is failed with the response %x\n\r", Status);
+		XilAsu_Printf("KDF example is failed with the response %x\n\r", Status);
 		goto END;
 	}
-	xil_printf("Calculated KDF key output \r\n ");
+	XilAsu_Printf("Calculated KDF key output \r\n ");
 	Asu_PrintKdf((u8 *)(UINTPTR)&KdfOutput);
 
 	Status = Xil_SMemCmp_CT(ExpKdf, ASU_KDF_OUTPUT_LEN_IN_BYTES, KdfOutput,
 				ASU_KDF_OUTPUT_LEN_IN_BYTES, ASU_KDF_OUTPUT_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Expected KDF key output \r\n");
+		XilAsu_Printf("Expected KDF key output \r\n");
 		Asu_PrintKdf(ExpKdf);
-		xil_printf("KDF Example Failed at KDF Comparison\r\n");
+		XilAsu_Printf("KDF Example Failed at KDF Comparison\r\n");
 	}
 END:
 	/* Update the variable to notify the callback */

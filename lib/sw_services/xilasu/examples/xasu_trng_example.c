@@ -194,14 +194,14 @@ static void XAsu_TrngExample(void)
 	/** Initialize mailbox instance. */
 	Status = (s32)XMailbox_Initialize(&MailboxInstance, XPAR_XIPIPSU_0_BASEADDR);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Mailbox initialize failed: %08x \r\n", Status);
+		XilAsu_Printf("Mailbox initialize failed: %08x \r\n", Status);
 		goto END;
 	}
 
 	/* Initialize the client instance */
 	Status = XAsu_ClientInit(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Client initialize failed:%08x \r\n", Status);
+		XilAsu_Printf("Client initialize failed:%08x \r\n", Status);
 		goto END;
 	}
 
@@ -224,26 +224,26 @@ static void XAsu_TrngExample(void)
 
 	Status = XAsu_TrngDrbgInstantiate(&ClientParams, &InstantiateCmdParams);
 	if (Status != XST_SUCCESS) {
-		xil_printf("TRNG DRBG instantiate operation Status = %08x\r\n", Status);
+		XilAsu_Printf("TRNG DRBG instantiate operation Status = %08x\r\n", Status);
 		goto END;
 	}
 	while (!Notify);
 	Notify = 0;
 	if (ErrorStatus != XST_SUCCESS) {
-		xil_printf("TRNG client example failed in instantiate operation from server\r\n");
+		XilAsu_Printf("TRNG client example failed in instantiate operation from server\r\n");
 		goto END;
 	}
 	ErrorStatus = XST_FAILURE;
 
 	Status = XAsu_TrngDrbgReseed(&ClientParams, &ReseedCmdParams);
 	if (Status != XST_SUCCESS) {
-		xil_printf("TRNG DRBG reseed operation Status = %08x\r\n", Status);
+		XilAsu_Printf("TRNG DRBG reseed operation Status = %08x\r\n", Status);
 		goto END;
 	}
 	while (!Notify);
 	Notify = 0;
 	if (ErrorStatus != XST_SUCCESS) {
-        xil_printf("TRNG client example failed in reseed operation from server\r\n");
+        XilAsu_Printf("TRNG client example failed in reseed operation from server\r\n");
 		goto END;
 	}
 	ErrorStatus = XST_FAILURE;
@@ -251,13 +251,13 @@ static void XAsu_TrngExample(void)
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_TrngGenerateCallBackRef);
 	Status = XAsu_TrngDrbgGenerate(&ClientParams, &GenerateCmdParams);
     if (Status != XST_SUCCESS) {
-		xil_printf("TRNG DRBG generate operation Status = %08x\r\n", Status);
+		XilAsu_Printf("TRNG DRBG generate operation Status = %08x\r\n", Status);
 		goto END;
 	}
 #else
 	Status = XAsu_TrngGetRandomNum(&ClientParams, Output, XASU_OUTPUT_LENGTH_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("TRNG Get random bytes operation failed = 0x%x\r\n", Status);
+		XilAsu_Printf("TRNG Get random bytes operation failed = 0x%x\r\n", Status);
 		goto END;
 	}
 #endif
@@ -265,11 +265,11 @@ static void XAsu_TrngExample(void)
 	while(!Notify);
 	Notify = 0;
 	if (ErrorStatus != XST_SUCCESS) {
-		xil_printf("TRNG Get random bytes failed from Server with Status = 0x%x\r\n", ErrorStatus);
+		XilAsu_Printf("TRNG Get random bytes failed from Server with Status = 0x%x\r\n", ErrorStatus);
 		goto END;
 	}
 
-	xil_printf("Generated random number \r\n ");
+	XilAsu_Printf("Generated random number \r\n ");
 	Asu_TrngPrintOutput(Output);
 
 END:
@@ -296,9 +296,9 @@ static void Asu_TrngPrintOutput(const u8 *Output)
 	u32 Index;
 
 	for (Index = 0U; Index < XASU_OUTPUT_LENGTH_IN_BYTES; Index++) {
-		xil_printf("%02x ", Output[Index]);
+		XilAsu_Printf("%02x ", Output[Index]);
 	}
-	xil_printf("\r\n");
+	XilAsu_Printf("\r\n");
  }
 
 /*************************************************************************************************/
@@ -337,19 +337,19 @@ static void XAsu_TrngCallBackRef(void *CallBackRef, u32 Status)
 static void XAsu_TrngGenerateCallBackRef(void *CallBackRef, u32 Status)
 {
 	(void)CallBackRef;
-	xil_printf("Example: Received response 0x%x\n\r", Status);
+	XilAsu_Printf("Example: Received response 0x%x\n\r", Status);
 	ErrorStatus = Status;
 	if (Status != 0x0U) {
-		xil_printf("TRNG DRBG example is failed with the response %x\n\r", Status);
+		XilAsu_Printf("TRNG DRBG example is failed with the response %x\n\r", Status);
 		goto END;
 	}
 
 	Status = Xil_SMemCmp_CT(ExpectedOutput, XASU_OUTPUT_LENGTH_IN_BYTES, Output,
 				XASU_OUTPUT_LENGTH_IN_BYTES, XASU_OUTPUT_LENGTH_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Expected random number \r\n");
+		XilAsu_Printf("Expected random number \r\n");
 		Asu_TrngPrintOutput(ExpectedOutput);
-		xil_printf("TRNG DRBG Example Failed at random number Comparison \r\n");
+		XilAsu_Printf("TRNG DRBG Example Failed at random number Comparison \r\n");
 	}
 
 END:
