@@ -1472,9 +1472,9 @@ static void XEmacPsErrorHandler(void *Callback, u8 Direction, u32 ErrorWord)
 * @note		None.
 *
 *****************************************************************************/
-void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
+void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId __attribute__((unused)))
 {
-	u32 ClkCntrl;
+	u32 ClkCntrl __attribute__((unused)) = 0;
 	u32 BaseAddress = EmacPsInstancePtr->Config.BaseAddress;
 
 	if (GemVersion == 2) {
