@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -150,9 +150,9 @@ static u32 RxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS];
 /*
  * Shared variables used to test the callbacks.
  */
-volatile static int LoopbackError;	/* Asynchronous error occurred */
-volatile static int RecvDone;		/* Received a frame */
-volatile static int SendDone;		/* Frame was sent successfully */
+static volatile  int LoopbackError;	/* Asynchronous error occurred */
+static volatile  int RecvDone;		/* Received a frame */
+static volatile  int SendDone;		/* Frame was sent successfully */
 
 static u8 TestDataOffset;	/* Test Data value added to the CAN data */
 
