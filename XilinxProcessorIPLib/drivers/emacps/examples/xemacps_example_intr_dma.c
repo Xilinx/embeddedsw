@@ -210,6 +210,8 @@
 #define GEMVERSION_VERSAL	0x107
 #define GEMVERSION_VERSAL_2VE_2VM_10GBE	0xC
 
+#define QUEUE_DISABLE 	0x1
+
 /*************************** Variable Definitions ***************************/
 
 #ifdef __ICCARM__
@@ -723,7 +725,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 	 */
 	PayloadSize = rand() % (PayloadSize - 64 + 1) + 64;
 
-	/* Excercise all available queues */
+	/* Exercise all available queues */
 	queue = packet % (EmacPsInstancePtr->MaxQueues);
 
 	/* Print packet count and payload size */
@@ -828,7 +830,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 		Xil_DCacheFlushRange((UINTPTR)Bd1Ptr, 64);
 	}
 	/*
-	 * Set the Queue pointers and Tie-off unsed queue pointers.
+	 * Set the Queue pointers and Tie-off unused queue pointers.
 	 */
 	if (EmacPsInstancePtr->MaxQueues > 1) {
 		/*
@@ -840,25 +842,35 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 		 * from these queues.
 		 */
 
-		XEmacPs_BdClear(&BdRxTerminate);
-		XEmacPs_BdSetAddressRx(&BdRxTerminate, (XEMACPS_RXBUF_NEW_MASK |
-							XEMACPS_RXBUF_WRAP_MASK));
-		XEmacPs_BdClear(&BdTxTerminate);
-		XEmacPs_BdSetStatus(&BdTxTerminate, (XEMACPS_TXBUF_USED_MASK |
-						     XEMACPS_TXBUF_WRAP_MASK));
+		u8 isVersalPlatform = (GemVersion == GEMVERSION_VERSAL) ||
+                       (GemVersion == GEMVERSION_VERSAL_2VE_2VM_10GBE);
+		u8 needsCacheFlush = !EmacPsInstancePtr->Config.IsCacheCoherent && !isVersalPlatform;
 
-		/* Tie-off unsed queues */
-		for (i=0; i < EmacPsInstancePtr->MaxQueues; i++ ) {
-			if ( i != queue ) {
-				XEmacPs_SetQueuePtr(EmacPsInstancePtr, (UINTPTR)&BdRxTerminate,
-					i, XEMACPS_RECV);
-				XEmacPs_SetQueuePtr(EmacPsInstancePtr, (UINTPTR)&BdTxTerminate,
-					i, XEMACPS_SEND);
-			}
+		/* Setup termination descriptors only for older platforms */
+		if (!isVersalPlatform) {
+			XEmacPs_BdClear(&BdRxTerminate);
+			XEmacPs_BdSetAddressRx(&BdRxTerminate,
+					XEMACPS_RXBUF_NEW_MASK | XEMACPS_RXBUF_WRAP_MASK);
+			XEmacPs_BdClear(&BdTxTerminate);
+			XEmacPs_BdSetStatus(&BdTxTerminate,
+					XEMACPS_TXBUF_USED_MASK | XEMACPS_TXBUF_WRAP_MASK);
 		}
-		if (EmacPsInstancePtr->Config.IsCacheCoherent == 0) {
-			Xil_DCacheFlushRange((UINTPTR)(&BdTxTerminate), 64);
-			Xil_DCacheFlushRange((UINTPTR)(&BdRxTerminate), 64);
+
+		/* Precompute queue pointers */
+		UINTPTR txPtr = isVersalPlatform ? QUEUE_DISABLE : (UINTPTR)&BdTxTerminate;
+		UINTPTR rxPtr = isVersalPlatform ? QUEUE_DISABLE : (UINTPTR)&BdRxTerminate;
+
+		/* Tie-off unused queues */
+		for (i=0; i < EmacPsInstancePtr->MaxQueues; i++ ) {
+			if (i == queue) continue;
+			XEmacPs_SetQueuePtr(EmacPsInstancePtr, txPtr, i, XEMACPS_SEND);
+			XEmacPs_SetQueuePtr(EmacPsInstancePtr, rxPtr, i, XEMACPS_RECV);
+		}
+
+		/* Flush cache if needed */
+		if (needsCacheFlush) {
+			Xil_DCacheFlushRange((UINTPTR)&BdTxTerminate, 64);
+			Xil_DCacheFlushRange((UINTPTR)&BdRxTerminate, 64);
 		}
 	}
 	XEmacPs_SetQueuePtr(EmacPsInstancePtr, EmacPsInstancePtr->RxBdRing.BaseBdAddr,
