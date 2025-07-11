@@ -20,6 +20,7 @@
  *       yog  08/19/24 Added XAsu_EccParams structure, module command ID's and curve type values
  *       ss   12/02/24 Added support for ECDH
  *       yog  03/25/25 Added XAsu_EccKeyParams structure and XASU_ECC_GEN_PUBKEY_CMD_ID.
+ *       yog  07/11/25 Added XASU_ECC_P448_SIZE_IN_BYTES macro and updated curve type macro values.
  *
  * </pre>
  *
@@ -53,16 +54,20 @@ extern "C" {
 #define XASU_ECDH_KAT_CMD_ID			(4U) /**< Command ID for ECDH KAT */
 #define XASU_ECC_GEN_PUBKEY_CMD_ID		(5U) /**< Command ID for ECC public key generation */
 
-/* ECC curve Type values */
-#define XASU_ECC_NIST_P192				(1U) /**< NIST P-192 curve */
-#define XASU_ECC_NIST_P224				(2U) /**< NIST P-224 curve */
-#define XASU_ECC_NIST_P256				(3U) /**< NIST P-256 curve */
-#define XASU_ECC_NIST_P384				(4U) /**< NIST P-384 curve */
-#define XASU_ECC_NIST_P521				(5U) /**< NIST P-521 curve */
-#define XASU_ECC_BRAINPOOL_P256			(21U) /**< Brainpool P-256 curve */
-#define XASU_ECC_BRAINPOOL_P320			(22U) /**< Brainpool P-320 curve */
-#define XASU_ECC_BRAINPOOL_P384			(23U) /**< Brainpool P-384 curve */
-#define XASU_ECC_BRAINPOOL_P512			(24U) /**< Brainpool P-512 curve */
+/* ECC curve Type index values */
+#define XASU_ECC_NIST_P256			(0U) /**< NIST P-256 curve */
+#define XASU_ECC_NIST_P384			(1U) /**< NIST P-384 curve */
+#define XASU_ECC_NIST_P192			(2U) /**< NIST P-192 curve */
+#define XASU_ECC_NIST_P224			(3U) /**< NIST P-224 curve */
+#define XASU_ECC_NIST_P521			(4U) /**< NIST P-521 curve */
+#define XASU_ECC_BRAINPOOL_P256			(5U) /**< Brainpool P-256 curve */
+#define XASU_ECC_BRAINPOOL_P320			(6U) /**< Brainpool P-320 curve */
+#define XASU_ECC_BRAINPOOL_P384			(7U) /**< Brainpool P-384 curve */
+#define XASU_ECC_BRAINPOOL_P512			(8U) /**< Brainpool P-512 curve */
+#define XASU_ECC_NIST_ED25519			(9U) /**< NIST ED25519 curve */
+#define XASU_ECC_NIST_ED448			(10U) /**< NIST ED448 curve */
+#define XASU_ECC_NIST_ED25519_PH		(11U) /**< NIST Hash-ED25519 curve */
+#define XASU_ECC_NIST_ED448_PH			(12U) /**< NIST Hash-ED448 curve */
 
 #define XASU_ECC_P192_SIZE_IN_BYTES		(24U) /**< Size of NIST P-192 curve in bytes */
 #define XASU_ECC_P224_SIZE_IN_BYTES		(28U) /**< Size of NIST P-224 curve in bytes */
@@ -71,6 +76,7 @@ extern "C" {
 #define XASU_ECC_P384_SIZE_IN_BYTES		(48U) /**< Size of NIST P-384 curve in bytes */
 #define XASU_ECC_P512_SIZE_IN_BYTES		(64U) /**< Size of Brainpool P-512 curve in bytes */
 #define XASU_ECC_P521_SIZE_IN_BYTES		(66U) /**< Size of NIST P-521 curve in bytes */
+#define XASU_ECC_P448_SIZE_IN_BYTES		(57U) /**< Size of Edwards Ed448 curve in bytes */
 
 /** @} */
 /************************************** Type Definitions *****************************************/

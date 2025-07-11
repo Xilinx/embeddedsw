@@ -21,6 +21,7 @@
  * 1.1   ss   12/02/24 Added support for ECDH
  *       ma   12/12/24 Updated resource allocation logic
  *       yog  03/25/25 Added support for public key generation.
+ *       yog  07/11/25 Updated code related to curve type value updation.
  *
  * </pre>
  *
@@ -44,8 +45,6 @@
 #include "xfih.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_ECC_CURVE_TYPE_DIFF_VALUE	3U /**< Subtract this value to get curve type
-							value for ECC core from actual curve type from IP CORES */
 
 /************************************** Type Definitions *****************************************/
 
@@ -195,17 +194,14 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
-	u32 CurveType = 0U;
 	u8 EphemeralKey[XASU_ECC_P521_SIZE_IN_BYTES];
 	u64 PvtKeyAddr = EccParamsPtr->KeyAddr;
 
 	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
 		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
 		ResourceId = XASUFW_ECC;
-		CurveType = EccParamsPtr->CurveType - XASUFW_ECC_CURVE_TYPE_DIFF_VALUE;
 	} else {
 		ResourceId = XASUFW_RSA;
-		CurveType = EccParamsPtr->CurveType;
 	}
 
 	/** Generate ephemeral key using TRNG. */
@@ -220,13 +216,14 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 * based on curve type.
 	 */
 	if (ResourceId == XASUFW_ECC) {
-		Status = XEcc_GenerateSignature(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr, CurveType,
-					EccParamsPtr->KeyLen, PvtKeyAddr, EphemeralKey, EccParamsPtr->DigestAddr,
-					EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
+		Status = XEcc_GenerateSignature(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr,
+				EccParamsPtr->CurveType, EccParamsPtr->KeyLen, PvtKeyAddr,
+				EphemeralKey, EccParamsPtr->DigestAddr,	EccParamsPtr->DigestLen,
+				EccParamsPtr->SignAddr);
 	} else {
-		Status = XRsa_EccGenerateSignature(XAsufw_EccModule.AsuDmaPtr, CurveType,
-					EccParamsPtr->KeyLen, PvtKeyAddr, EphemeralKey, EccParamsPtr->DigestAddr,
-					EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
+		Status = XRsa_EccGenerateSignature(XAsufw_EccModule.AsuDmaPtr, EccParamsPtr->CurveType,
+			EccParamsPtr->KeyLen, PvtKeyAddr, EphemeralKey, EccParamsPtr->DigestAddr,
+			EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
 	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_GEN_SIGN_OPERATION_FAIL);
@@ -261,16 +258,13 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
-	u32 CurveType = 0U;
 	u64 PubKeyAddr = EccParamsPtr->KeyAddr;
 
 	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
 		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
 		ResourceId = XASUFW_ECC;
-		CurveType = EccParamsPtr->CurveType - XASUFW_ECC_CURVE_TYPE_DIFF_VALUE;
 	} else {
 		ResourceId = XASUFW_RSA;
-		CurveType = EccParamsPtr->CurveType;
 	}
 
 	/**
@@ -278,13 +272,14 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 * based on curve type.
 	 */
 	if (ResourceId == XASUFW_ECC) {
-		Status = XEcc_VerifySignature(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr, CurveType,
-					EccParamsPtr->KeyLen, PubKeyAddr, EccParamsPtr->DigestAddr,
-					EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
+		Status = XEcc_VerifySignature(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr,
+				EccParamsPtr->CurveType, EccParamsPtr->KeyLen, PubKeyAddr,
+				EccParamsPtr->DigestAddr, EccParamsPtr->DigestLen,
+				EccParamsPtr->SignAddr);
 	} else {
-		Status = XRsa_EccVerifySignature(XAsufw_EccModule.AsuDmaPtr, CurveType,
-					EccParamsPtr->KeyLen, PubKeyAddr, EccParamsPtr->DigestAddr,
-					EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
+		Status = XRsa_EccVerifySignature(XAsufw_EccModule.AsuDmaPtr, EccParamsPtr->CurveType,
+				EccParamsPtr->KeyLen, PubKeyAddr, EccParamsPtr->DigestAddr,
+				EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
 	}
 
 	if (Status != XASUFW_SUCCESS) {
@@ -319,15 +314,12 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const XAsu_EccKeyParams *EccParamsPtr = (const XAsu_EccKeyParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
-	u32 CurveType = 0U;
 
 	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
 		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
 		ResourceId = XASUFW_ECC;
-		CurveType = EccParamsPtr->CurveType - XASUFW_ECC_CURVE_TYPE_DIFF_VALUE;
 	} else {
 		ResourceId = XASUFW_RSA;
-		CurveType = EccParamsPtr->CurveType;
 	}
 
 	/**
@@ -335,10 +327,11 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 * based on curve type.
 	 */
 	if (ResourceId == XASUFW_ECC) {
-		Status = XEcc_GeneratePublicKey(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr, CurveType,
-					EccParamsPtr->KeyLen, EccParamsPtr->PvtKeyAddr, EccParamsPtr->PubKeyAddr);
+		Status = XEcc_GeneratePublicKey(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr,
+				EccParamsPtr->CurveType, EccParamsPtr->KeyLen,
+				EccParamsPtr->PvtKeyAddr, EccParamsPtr->PubKeyAddr);
 	} else {
-		Status = XRsa_EccGeneratePubKey(XAsufw_EccModule.AsuDmaPtr, CurveType,
+		Status = XRsa_EccGeneratePubKey(XAsufw_EccModule.AsuDmaPtr, EccParamsPtr->CurveType,
 			EccParamsPtr->KeyLen, EccParamsPtr->PvtKeyAddr, EccParamsPtr->PubKeyAddr);
 	}
 

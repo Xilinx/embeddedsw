@@ -16,6 +16,7 @@
  * Ver   Who   Date     Changes
  * ----- ----  -------- ----------------------------------------------------------------------------
  * 1.0   yog   02/18/25 Initial release
+ *       yog   07/11/25 Added support for Edward curves.
  *
  * </pre>
  *
@@ -138,6 +139,8 @@ s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen)
 			break;
 		case XASU_ECC_NIST_P256:
 		case XASU_ECC_BRAINPOOL_P256:
+		case XASU_ECC_NIST_ED25519:
+		case XASU_ECC_NIST_ED25519_PH:
 			Len = XASU_ECC_P256_SIZE_IN_BYTES;
 			break;
 		case XASU_ECC_BRAINPOOL_P320:
@@ -152,6 +155,10 @@ s32 XAsu_EccValidateCurveInfo(u32 CurveType, u32 CurveLen)
 			break;
 		case XASU_ECC_NIST_P521:
 			Len = XASU_ECC_P521_SIZE_IN_BYTES;
+			break;
+		case XASU_ECC_NIST_ED448:
+		case XASU_ECC_NIST_ED448_PH:
+			Len = XASU_ECC_P448_SIZE_IN_BYTES;
 			break;
 		default:
 			Len = 0U;

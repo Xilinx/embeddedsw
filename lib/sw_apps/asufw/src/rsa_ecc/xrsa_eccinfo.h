@@ -18,6 +18,7 @@
 * 1.0   yog  07/11/24 Initial release
 *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
 *       ss   12/02/24 Added support for NIST curves P-256,P-384
+*       yog  07/11/25 Added support for Edward curves.
 *
 * </pre>
 *
@@ -45,6 +46,7 @@ extern "C" {
 typedef enum {
 	XRSA_ECC_PRIME = 0,		/**< Prime curve value in Ecdsa.h */
 	XRSA_ECC_BINARY = 1,		/**< Binary curve value in Ecdsa.h */
+	XRSA_ECC_ED_PH = 2,		/**< EdDSA PH curve value in Ecdsa.h */
 } XRsa_EccCrvClass;
 
 /************************************** Type Definitions *****************************************/

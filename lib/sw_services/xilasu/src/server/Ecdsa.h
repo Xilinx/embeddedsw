@@ -55,12 +55,15 @@ typedef enum {
 	ECDSA_BRAINPOOL_P320,		/**< Brainpool P-320 curve */
 	ECDSA_BRAINPOOL_P384,		/**< Brainpool P-384 curve */
 	ECDSA_BRAINPOOL_P512,		/**< Brainpool P-512 curve */
+	ECDSA_ED25519,
+	ECDSA_ED448,
 	ECDSA_INVALID_HIGH			/**< Invalid value (max) */
 } EcdsaCrvTyp;
 
 typedef enum {
 	ECDSA_PRIME = 0,	/**< Prime curve */
 	ECDSA_BINARY = 1,	/**< Binary curve */
+	ECDSA_ED_PH = 2,   // "ph" version of an EDDSA (prime) algorithm
 } EcdsaCrvClass;
 
 /**
@@ -95,6 +98,8 @@ typedef struct {
 	const u8 d16;		/**< curve specific data field 16 */
 } EcdsaCrvInfo;
 /** @} */
+
+#define ENABLE_CONST_TIME_MEMCMP
 
 /**
  * @name ECC variables size in bits
@@ -146,6 +151,14 @@ typedef struct {
 /** @} */
 
 /**
+ * @name Elliptic generic error codes
+ * @{
+ */
+/**< Error code for glitch error */
+#define ELLIPTIC_GLITCH_ERROR			(0xFF)
+#define ELLIPTIC_INVALID_PARAM			(0x55)
+
+/**
  * @name IPCores API declarations
  * @{
  */
@@ -158,6 +171,8 @@ externC s32 Ecdsa_VerifySign(const EcdsaCrvInfo *CrvInfo, u8 *z, u32 zlen,
 externC s32 Ecdsa_GenerateSign(const EcdsaCrvInfo *CrvInfo, const u8 *z, u32 zlen,
 			       const u8 *D, const u8 *K, const EcdsaSign *Sign);
 
+externC s32 Ecdsa_GenerateEdSign(EcdsaCrvInfo* CrvInfo, unsigned char* Message, unsigned int MsgLen,
+	const unsigned char* D, EcdsaKey* Key, EcdsaSign* Sign);
 externC s32 Ecdsa_GeneratePublicKey(const EcdsaCrvInfo *CrvInfo, const u8 *D, const EcdsaKey *Key);
 
 externC void sdk_assert(int cond);
@@ -167,6 +182,19 @@ externC s32 Ecdsa_ModEccOrder(const EcdsaCrvInfo *CrvInfo, const u8 *In, u8 *Out
 externC int Ecdsa_CDH_Q(EcdsaCrvInfo *CrvInfo, const unsigned char *Secret, const EcdsaKey *Public,
 			unsigned char *Result);
 void Ecdsa_ClearEccRam(void);
+#ifdef ENABLE_CONST_TIME_MEMCMP
+
+s32 Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
+		   const void *Src2, const u32 Src2Size, const u32 CmpLen);
+
+#define RSA5X_MEM_CMP(Src1, Src2, Len)   Xil_SMemCmp_CT(Src1, Len, Src2, Len, Len)
+
+#else   // ENABLE_CONST_TIME_MEMCMP
+
+#include <memory.h>
+#define RSA5X_MEM_CMP(Src1, Src2, Len)   memcmp(Src1, Len, Src2, Len)
+
+#endif  // ENABLE_CONST_TIME_MEMCMP
 /** @} */
 
 #endif

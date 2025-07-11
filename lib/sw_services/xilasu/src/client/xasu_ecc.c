@@ -22,6 +22,7 @@
  *       ss   12/02/24 Added support for ECDH
  *       yog  02/21/25 Changed XAsu_EccValidateCurveInfo() API to be non-static
  *       yog  03/25/25 Added support for public key generation.
+ *       yog  07/11/25 Added support for Edward curves.
  *
  * </pre>
  *
@@ -384,11 +385,23 @@ static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr)
 	}
 
 	if ((EccParamsPtr->DigestAddr == 0U) || (EccParamsPtr->KeyAddr == 0U) ||
-		(EccParamsPtr->SignAddr == 0U) || (EccParamsPtr->KeyLen != EccParamsPtr->DigestLen)) {
+		(EccParamsPtr->SignAddr == 0U)) {
 		goto END;
 	}
 
 	if (XAsu_EccValidateCurveInfo(EccParamsPtr->CurveType, EccParamsPtr->KeyLen)!= XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * TODO: For curves other than Edward curves, hash calculation of message logic
+	 * is to be supported. Will remove this logic once it is supported.
+	 */
+	if (((EccParamsPtr->CurveType != XASU_ECC_NIST_ED25519) &&
+	    (EccParamsPtr->CurveType != XASU_ECC_NIST_ED448) &&
+	    (EccParamsPtr->CurveType != XASU_ECC_NIST_ED25519_PH) &&
+	    (EccParamsPtr->CurveType != XASU_ECC_NIST_ED448_PH)) &&
+	    (EccParamsPtr->DigestLen != EccParamsPtr->KeyLen)) {
 		goto END;
 	}
 

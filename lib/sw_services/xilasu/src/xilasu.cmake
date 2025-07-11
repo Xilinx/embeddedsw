@@ -78,6 +78,16 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
         set(XASU_ECC_SUPPORT_BRAINPOOL_P512 " ")
     endif()
 
+    option(XILASU_ecc_p25519_support "Enables/Disables EDWARD P-25519 curve support for ECC in ASUFW." OFF)
+    if(XILASU_ecc_p25519_support )
+        set(XASU_ECC_SUPPORT_EDWARD_P25519 " ")
+    endif()
+
+    option(XILASU_ecc_p448_support "Enables/Disables EDWARD P-448 curve support for ECC in ASUFW." OFF)
+    if(XILASU_ecc_p448_support )
+        set(XASU_ECC_SUPPORT_EDWARD_P448 " ")
+    endif()
+
     option(XILASU_hmac_support "Enables/Disables HMAC algorithm in ASUFW." ON)
     if(XILASU_hmac_support)
         set(XASU_HMAC_ENABLE " ")

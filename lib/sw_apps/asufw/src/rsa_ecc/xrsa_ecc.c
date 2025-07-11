@@ -24,6 +24,7 @@
  *       yog  03/21/25 Added PWCT support
  *       yog  03/24/25 Added XRsa_EccGeneratePrivKey() API
  * 1.2   am   05/20/25 Integrated performance measurement macros
+ *       yog  07/11/25 Added support for Edward curves.
  *
  * </pre>
  *
@@ -83,6 +84,31 @@
 							 * if generated point is invalid */
 
 /************************************** Type Definitions *****************************************/
+/** This structure contains curve type and cuvre class for indexing. */
+typedef struct {
+	u16 CurveType; /**< Type of the curve. */
+	u16 CurveClass; /**< Class of the curve. */
+} XRsa_EccCrvIndex;
+
+/**
+ * This is a configuration table to configure the curve type and curve class for all curves
+ * based on index.
+ */
+XRsa_EccCrvIndex XRsa_EccCrvIndexDb[] = {
+	{ ECDSA_NIST_P256, ECDSA_PRIME },
+	{ ECDSA_NIST_P384, ECDSA_PRIME },
+	{ ECDSA_NIST_P192, ECDSA_PRIME },
+	{ ECDSA_NIST_P224, ECDSA_PRIME },
+	{ ECDSA_NIST_P521, ECDSA_PRIME },
+	{ ECDSA_BRAINPOOL_P256, ECDSA_PRIME },
+	{ ECDSA_BRAINPOOL_P320, ECDSA_PRIME },
+	{ ECDSA_BRAINPOOL_P384, ECDSA_PRIME },
+	{ ECDSA_BRAINPOOL_P512, ECDSA_PRIME },
+	{ ECDSA_ED25519, ECDSA_PRIME },
+	{ ECDSA_ED448, ECDSA_PRIME },
+	{ ECDSA_ED25519, ECDSA_ED_PH },
+	{ ECDSA_ED448, ECDSA_ED_PH }
+};
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
@@ -181,11 +207,13 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 		goto END_CLR;
 	}
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(PrivKey, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PrivKey, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
 	}
 
 	Key.Qx = (u8 *)(UINTPTR)PubKey;
@@ -200,22 +228,23 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 					   Crv, PrivKey, (EcdsaKey *)&Key);
 	/**
 	 * Change endianness of the generated public key and copy it to destination address
-	 * using DMA.
+	 * using DMA for all curves except Ed25519 and Ed448.
 	 */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
-	}
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(PubKey + CurveLen, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PubKey + CurveLen, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
 	}
-
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)PubKey, PubKeyAddr,
 					XAsu_DoubleCurveLength(CurveLen), 0U);
@@ -225,14 +254,15 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	}
 
 	/** Validate the public key generated from the private key. */
-	XFIH_CALL_GOTO(XRsa_EccValidatePubKey, XFihVar, Status, END_CLR, DmaPtr, CurveType, CurveLen, PubKeyAddr);
+	XFIH_CALL_GOTO(XRsa_EccValidatePubKey, XFihVar, Status, END_CLR, DmaPtr, CurveType,
+			CurveLen, PubKeyAddr);
 
 	/** Perform pair wise consistency test using the key pair. */
 	XFIH_CALL(XRsa_EccPwct, XFihVar, Status, DmaPtr, CurveType, CurveLen, PrivKeyAddr,
 		PubKeyAddr);
 
 END_CLR:
-	/** Zeroize local key copy. */
+	/** Zeroize local buffers. */
 	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PrivKey,
 					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -306,18 +336,20 @@ s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 		goto END_CLR;
 	}
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
-	}
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(PubKey + CurveLen, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PubKey + CurveLen, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
 	}
 
 	Key.Qx = (u8 *)(UINTPTR)PubKey;
@@ -341,7 +373,7 @@ s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	}
 
 END_CLR:
-	/** Zeroize local key copy. */
+	/** Zeroize local buffers. */
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
 			XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -356,7 +388,7 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function generates an ECDSA signature for the provided hash by using the
- * 		given private key associated with the elliptic curve using RSA core.
+ * 		given private key associated with the elliptic curve.
  *
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	CurveType	ECC curve type.
@@ -364,7 +396,7 @@ END:
  * @param	PrivKeyAddr	Address of the private key buffer, whose length shall be equal to
  * 				CurveLen.
  * @param	EphemeralKeyPtr	Pointer to the ephemeral key buffer, whose length shall be
- * 				CurveLen.
+ * 				CurveLen. This pointer shall be unused in case of Edward curves.
  * @param	HashAddr	Address of the hash on which signature has to be generated.
  * @param	HashBufLen	Length of the hash in bytes.
  * @param	SignAddr	Address of the buffer to store the generated signature, whose
@@ -376,11 +408,11 @@ END:
  *	- XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameter is invalid.
  *	- XASUFW_RSA_ECC_WRITE_DATA_FAIL, if write data through DMA fails.
  *	- XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails.
- *	- XASUFW_RSA_ECC_GEN_SIGN_BAD_RAND_NUM, if bad random number used for sign generation.
- *	- XASUFW_RSA_ECC_GEN_SIGN_INCORRECT_HASH_LEN, if incorrect hash length is provided
- *					for sign generation.
  *	- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	- XASUFW_FAILURE, if sign generation fails due to other reasons.
+ *	- XASUFW_RSA_ECC_GEN_SIGN_BAD_RAND_NUM, if bad signature is generated.
+ *	- XASUFW_RSA_ECC_GEN_SIGN_INCORRECT_HASH_LEN, if invalid hash length is provided to the
+ *	IP cores.
  *
  *************************************************************************************************/
 s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
@@ -400,79 +432,112 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	u8 Signature[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
 	u8 Hash[XASU_ECC_P521_SIZE_IN_BYTES];
 	u8 EphemeralKey[XASU_ECC_P521_SIZE_IN_BYTES];
+	u8 PubKey[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
 	EcdsaSign Sign;
+	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
 
 	/** Validate the input arguments. */
 	if ((DmaPtr == NULL) || (HashAddr == 0U) || (PrivKeyAddr == 0U) || (SignAddr == 0U) ||
-			(EphemeralKeyPtr == NULL)) {
+			(EphemeralKeyPtr == NULL) || (HashBufLen == 0U)) {
 		Status = XASUFW_RSA_ECC_INVALID_PARAM;
 		goto END;
 	}
 
 	CurveSize = XRsa_EccValidateAndGetCrvInfo(CurveType, &Crv);
-	if ((CurveSize == 0U) || (Crv == NULL)) {
+	if ((CurveSize == 0U) || (Crv == NULL) || (CurveLen != CurveSize)) {
 		Status = XASUFW_RSA_ECC_INVALID_PARAM;
 		goto END;
-	}
-
-	if ((CurveLen != CurveSize) || (HashBufLen != CurveSize)) {
-		Status = XASUFW_RSA_ECC_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Copy ephemeral key to local address and change the endianness of the data. */
-	Status = Xil_SMemCpy((u8 *)EphemeralKey, CurveLen, (const u8 *)EphemeralKeyPtr, CurveLen, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
-		goto END_CLR;
-	}
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(EphemeralKey, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
 	}
 
 	/**
-	 * Copy private key and hash to local address using DMA and change the endianness
-	 * of the data.
+	 * TODO: For curves other than Edward curves, hash calculation of message logic
+	 * is to be supported. Will remove this validation once it is supported.
 	 */
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+		if (HashBufLen != CurveSize) {
+			Status = XASUFW_RSA_ECC_INVALID_PARAM;
+			goto END;
+		}
+	}
+
+	/** Copy private key to local address using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, PrivKeyAddr, (u64)(UINTPTR)PrivKey, CurveLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 		goto END_CLR;
 	}
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(PrivKey, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
-	}
 
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)Hash, HashBufLen, 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
-		goto END_CLR;
+	/** For curves other than Edward curves, */
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+		/** - Copy private key to local address using DMA. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)Hash, HashBufLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
+			goto END_CLR;
+		}
+
+		/** - Change endianness of the hash and private key. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PrivKey, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(Hash, HashBufLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
+
+		/** - Copy ephemeral key to local address and change the endianness of it. */
+		Status = Xil_SMemCpy((u8 *)EphemeralKey, CurveLen, (const u8 *)EphemeralKeyPtr, CurveLen, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
+			goto END_CLR;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(EphemeralKey, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
 	}
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(Hash, HashBufLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
-	}
+	/** Release RSA core reset. */
+	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
 	Sign.r = (u8 *)(UINTPTR)Signature;
 	Sign.s = (u8 *)(UINTPTR)(Signature + CurveLen);
 
-	/** Release RSA core reset. */
-	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
-
-	/** Generate signature with provided inputs and curve type. */
-	XFIH_CALL(Ecdsa_GenerateSign, XFihVar, Status, Crv, Hash, Crv->Bits, PrivKey, EphemeralKey,
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+		/**
+		 * For curves other than Edward curves,
+		 * generate signature with provided inputs and curve type.
+		 */
+		XFIH_CALL(Ecdsa_GenerateSign, XFihVar, Status, Crv, Hash, Crv->Bits, PrivKey, EphemeralKey,
 		  (EcdsaSign *)&Sign);
+	} else {
+		/**
+		 * For Edward curves,
+		 * - Generate the public key using the provided private key.
+		 */
+		Key.Qx = (u8 *)(UINTPTR)PubKey;
+		Key.Qy = (u8 *)(UINTPTR)(PubKey + CurveLen);
+
+		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Ecdsa_GeneratePublicKey,
+				XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, XFihVar, Status, END_CLR,
+				Crv, PrivKey, (EcdsaKey *)&Key);
+
+		/** Generate signature with provided inputs. */
+		XFIH_CALL(Ecdsa_GenerateEdSign, XFihVar, Status, Crv, (UINTPTR)HashAddr,
+		 (HashBufLen * XASUFW_BYTE_LEN_IN_BITS), (UINTPTR)PrivKeyAddr, (EcdsaKey *)&Key,
+		 (EcdsaSign *)&Sign);
+	}
 	if ((Status == XRSA_ECC_GEN_SIGN_BAD_R) ||
 	    (Status == XRSA_ECC_GEN_SIGN_BAD_S)) {
 		Status = XASUFW_RSA_ECC_GEN_SIGN_BAD_RAND_NUM;
@@ -483,19 +548,21 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	} else {
 		/**
 		 *  Change endianness of the generated signature and copy it to destination address
-		 *  using DMA.
+		 *  using DMA if the curve type provided is other than Edward curve.
 		 */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(Signature, CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
-		}
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_ChangeEndianness(Signature + CurveLen, CurveLen);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-			goto END_CLR;
+		if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XAsufw_ChangeEndianness(Signature, CurveLen);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+				goto END_CLR;
+			}
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XAsufw_ChangeEndianness(Signature + CurveLen, CurveLen);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+				goto END_CLR;
+			}
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -513,7 +580,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	XASUFW_MEASURE_PERF_STOP(__func__);
 
 END_CLR:
-	/** Zeroize local key copy. */
+	/** Zeroize local buffers. */
 	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PrivKey,
 					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -526,6 +593,10 @@ END_CLR:
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)EphemeralKey, XASU_ECC_P521_SIZE_IN_BYTES);
+	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+
+	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
+					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	/** Set RSA under reset. */
@@ -592,32 +663,19 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	}
 
 	CurveSize = XRsa_EccValidateAndGetCrvInfo(CurveType, &Crv);
-	if ((CurveSize == 0U) || (Crv == NULL)) {
+	if ((CurveSize == 0U) || (Crv == NULL) || (CurveLen != CurveSize)) {
 		Status = XASUFW_RSA_ECC_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((CurveLen != CurveSize) || (HashBufLen != CurveSize)) {
-		Status = XASUFW_RSA_ECC_INVALID_PARAM;
-		goto END;
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+		if (HashBufLen != CurveSize) {
+			Status = XASUFW_RSA_ECC_INVALID_PARAM;
+			goto END;
+		}
 	}
 
-	/**
-	 * Copy signature, public key and hash to local address using DMA and change the
-	 * endianness of the data.
-	 */
-	Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)Hash, HashBufLen, 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
-		goto END_CLR;
-	}
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(Hash, HashBufLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
-	}
-
+	/** Copy signature and public key to local address using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, PubKeyAddr, (u64)(UINTPTR)PubKey,
 			       XAsu_DoubleCurveLength(CurveLen), 0U);
@@ -625,21 +683,6 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 		goto END_CLR;
 	}
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
-	}
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(PubKey + CurveLen, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
-	}
-
-	Key.Qx = (u8 *)(UINTPTR)PubKey;
-	Key.Qy = (u8 *)(UINTPTR)(PubKey + CurveLen);
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, SignAddr, (u64)(UINTPTR)Signature,
@@ -648,18 +691,55 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 		Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
 		goto END_CLR;
 	}
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(Signature, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
+
+	/** For the curves other than Edward curves, */
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+		/** - Copy the Hash to the local address using DMA. */
+		Status = XAsufw_DmaXfr(DmaPtr, HashAddr, (u64)(UINTPTR)Hash, HashBufLen, 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_ECC_WRITE_DATA_FAIL;
+			goto END_CLR;
+		}
+
+		/** - Change endianness of the hash, public key and the signature. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(Hash, HashBufLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PubKey, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(PubKey + CurveLen, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(Signature, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_ChangeEndianness(Signature + CurveLen, CurveLen);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			goto END_CLR;
+		}
 	}
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(Signature + CurveLen, CurveLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
-		goto END_CLR;
-	}
+
+	Key.Qx = (u8 *)(UINTPTR)PubKey;
+	Key.Qy = (u8 *)(UINTPTR)(PubKey + CurveLen);
 
 	Sign.r = (u8 *)(UINTPTR)Signature;
 	Sign.s = (u8 *)(UINTPTR)(Signature + CurveLen);
@@ -668,8 +748,14 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
 	/** Verify the signature with provided inputs and curve type. */
-	XFIH_CALL(Ecdsa_VerifySign, XFihVar, Status, Crv, Hash, Crv->Bits, (EcdsaKey *)&Key,
-		  (EcdsaSign *)&Sign);
+	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
+		XFIH_CALL(Ecdsa_VerifySign, XFihVar, Status, Crv, Hash, Crv->Bits,
+			 (EcdsaKey *)&Key, (EcdsaSign *)&Sign);
+	} else {
+		XFIH_CALL(Ecdsa_VerifySign, XFihVar, Status, Crv, HashAddr,
+			 (HashBufLen * XASUFW_BYTE_LEN_IN_BITS), (EcdsaKey *)&Key,
+			 (EcdsaSign *)&Sign);
+	}
 	if ((XRSA_ECC_BAD_SIGN == Status)) {
 		Status = XASUFW_RSA_ECC_BAD_SIGN;
 	} else if ((XRSA_ECC_VER_SIGN_INCORRECT_HASH_LEN == Status)) {
@@ -695,7 +781,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	XASUFW_MEASURE_PERF_STOP(__func__);
 
 END_CLR:
-	/** Zeroize local key copy. */
+	/** Zeroize local buffers. */
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
 					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
@@ -802,21 +888,19 @@ EcdsaCrvInfo *XRsa_EccGetCrvData(u32 CurveType)
 	u32 Index;
 	EcdsaCrvInfo *Crv = NULL;
 	u32 TotalCurves = XRsa_EccCrvsGetCount();
+	u16 CrvType;
+	u16 CrvClass;
 
-	if ((CurveType != XRSA_ECC_CURVE_TYPE_NIST_P521) &&
-	    (CurveType != XRSA_ECC_CURVE_TYPE_NIST_P192) &&
-	    (CurveType != XRSA_ECC_CURVE_TYPE_NIST_P224) &&
-	    (CurveType != XRSA_ECC_CURVE_TYPE_NIST_P256) &&
-	    (CurveType != XRSA_ECC_CURVE_TYPE_NIST_P384) &&
-	    (CurveType != XRSA_ECC_CURVE_TYPE_BRAINPOOL_P256) &&
-	    (CurveType != XRSA_ECC_CURVE_TYPE_BRAINPOOL_P320) &&
-	    (CurveType != XRSA_ECC_CURVE_TYPE_BRAINPOOL_P384) &&
-	    (CurveType != XRSA_ECC_CURVE_TYPE_BRAINPOOL_P512)) {
+	if (CurveType > XASU_ECC_NIST_ED448_PH) {
 		goto END;
 	}
 
+	CrvType = XRsa_EccCrvIndexDb[CurveType].CurveType;
+	CrvClass = XRsa_EccCrvIndexDb[CurveType].CurveClass;
+
 	for (Index = 0U; Index < TotalCurves; Index++) {
-		if (XRsa_EccCrvsDb[Index].CrvType == (EcdsaCrvTyp)CurveType) {
+		if ((XRsa_EccCrvsDb[Index].CrvType == (EcdsaCrvTyp)CrvType) &&
+		    (XRsa_EccCrvsDb[Index].Class == (EcdsaCrvClass)CrvClass)) {
 			Crv = &XRsa_EccCrvsDb[Index];
 			break;
 		}
@@ -845,7 +929,9 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
 
 	if (CrvInfo != NULL) {
 		CurveSize = (u32)CrvInfo->Bits / XASUFW_BYTE_LEN_IN_BITS;
-		CurveSize += (CurveSize % XRSA_ECC_ALGN_CRV_SIZE_IN_BYTES);
+		if (CrvInfo->CrvType == ECDSA_NIST_P521) {
+			CurveSize += (CurveSize % XRSA_ECC_ALGN_CRV_SIZE_IN_BYTES);
+		}
 		*Crv = CrvInfo;
 	}
 
@@ -1043,8 +1129,8 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 	}
 
 	Status = XRsa_EccGenerateSignature(DmaPtr, CurveType, CurveLen, PrivKeyAddr,
-			EKeyPwctRsaEcc, (u64)(UINTPTR)MsgPwctRsaEcc, CurveLen,
-			(u64)(UINTPTR)Signature);
+		 EKeyPwctRsaEcc, (u64)(UINTPTR)MsgPwctRsaEcc, CurveLen,
+		 (u64)(UINTPTR)Signature);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL);
 		goto END_CLR;
