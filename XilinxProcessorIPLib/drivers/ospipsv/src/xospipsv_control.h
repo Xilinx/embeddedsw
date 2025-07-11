@@ -190,6 +190,10 @@ u32 XOspiPsv_CalculateRxTap(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 		u8 *AvgRXTap, u8 *MaxWindowSize, u8 DummyIncr, u32 TXTap);
 u32 XOspiPsv_ConfigureTaps(const XOspiPsv *InstancePtr, u32 RxTap, u32 TxTap);
 u32 XOspiPsv_IDac_Write(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg);
+u32 XOspiPsv_PollRecvData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
+u32 XOspiPsv_PollSendData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
+void XOspiPsv_IntrRecvData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
+void XOspiPsv_IntrSendData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
 
 #ifdef __cplusplus
 }

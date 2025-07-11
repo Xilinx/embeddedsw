@@ -427,38 +427,9 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 
 	XOspiPsv_Setup_Devsize(InstancePtr, Msg);
 	if ((Msg->Flags & XOSPIPSV_MSG_FLAG_RX) != (u32)FALSE) {
-		XOspiPsv_Setup_Dev_Read_Instr_Reg(InstancePtr, Msg);
-		InstancePtr->RxBytes = Msg->ByteCount;
-		InstancePtr->SendBufferPtr = NULL;
-		InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
-		if ((InstancePtr->OpMode == XOSPIPSV_IDAC_MODE) ||
-					(Msg->Addrvalid == 0U)) {
-			if ((Msg->Addrvalid == 0U) || ((Msg->ByteCount <= 8U) &&
-						((Msg->Proto == XOSPIPSV_READ_1_1_1) || (Msg->Proto == XOSPIPSV_READ_8_8_8)))) {
-				Status = XOspiPsv_Stig_Read(InstancePtr, Msg);
-			} else {
-				Status = XOspiPsv_Dma_Read(InstancePtr,Msg);
-			}
-		} else {
-			Status = XOspiPsv_Dac_Read(InstancePtr, Msg);
-		}
+		Status = XOspiPsv_PollRecvData(InstancePtr, Msg);
 	} else {
-		XOspiPsv_Setup_Dev_Write_Instr_Reg(InstancePtr, Msg);
-		InstancePtr->TxBytes = Msg->ByteCount;
-		InstancePtr->SendBufferPtr = Msg->TxBfrPtr;
-		InstancePtr->RecvBufferPtr = NULL;
-		if((InstancePtr->OpMode == XOSPIPSV_DAC_MODE) &&
-				(InstancePtr->TxBytes != 0U)) {
-			Status = XOspiPsv_Dac_Write(InstancePtr, Msg);
-		} else {
-			if (InstancePtr->TxBytes > 8U) {
-				XOspiPsv_ConfigureMux_Linear(InstancePtr);
-				Status = XOspiPsv_IDac_Write(InstancePtr, Msg);
-				XOspiPsv_ConfigureMux_Dma(InstancePtr);
-			} else {
-				Status = XOspiPsv_Stig_Write(InstancePtr, Msg);
-			}
-		}
+		Status = XOspiPsv_PollSendData(InstancePtr, Msg);
 	}
 
 	/* Clear the ISR */
@@ -627,9 +598,6 @@ ERROR_PATH:
 u32 XOspiPsv_IntrTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 {
 	u32 Status;
-	u32 ByteCount;
-	u8 WriteDataEn;
-	u32 Reqaddr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Msg != NULL);
@@ -670,66 +638,9 @@ u32 XOspiPsv_IntrTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	XOspiPsv_Setup_Devsize(InstancePtr, Msg);
 
 	if ((Msg->Flags & XOSPIPSV_MSG_FLAG_RX) != 0U) {
-		XOspiPsv_Setup_Dev_Read_Instr_Reg(InstancePtr, Msg);
-		InstancePtr->RxBytes = Msg->ByteCount;
-		InstancePtr->RecvBufferPtr = Msg->RxBfrPtr;
-		InstancePtr->SendBufferPtr = NULL;
-		if (Msg->Addrvalid == 0U) {
-			XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
-				1, (u32)InstancePtr->RxBytes - (u32)1, Msg->Addrvalid, 0,
-				(u32)Msg->Addrsize - (u32)1, 0, 0, (u32)Msg->Dummy, 0);
-			/* Execute the command */
-			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_FLASH_CMD_CTRL_REG,
-				(XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					XOSPIPSV_FLASH_CMD_CTRL_REG) |
-					(u32)XOSPIPSV_FLASH_CMD_CTRL_REG_CMD_EXEC_FLD_MASK));
-		} else {
-			if (Msg->ByteCount >= (u32)4) {
-				if ((Msg->ByteCount % 4U) != 0U) {
-					InstancePtr->IsUnaligned = 1U;
-				}
-				Msg->ByteCount -= (Msg->ByteCount % 4U);
-			} else {
-				Msg->ByteCount = 4;
-				Msg->RxBfrPtr = InstancePtr->UnalignReadBuffer;
-				InstancePtr->IsUnaligned = 0U;
-			}
-			XOspiPsv_Config_Dma(InstancePtr,Msg);
-			XOspiPsv_Config_IndirectAhb(InstancePtr,Msg);
-			/* Start the transfer */
-			XOspiPsv_Start_Indr_RdTransfer(InstancePtr);
-		}
+		XOspiPsv_IntrRecvData(InstancePtr, Msg);
 	} else {
-		XOspiPsv_Setup_Dev_Write_Instr_Reg(InstancePtr, Msg);
-		InstancePtr->TxBytes = Msg->ByteCount;
-		InstancePtr->SendBufferPtr = Msg->TxBfrPtr;
-		InstancePtr->RecvBufferPtr = NULL;
-		if (Msg->Addrvalid != 0U) {
-			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_FLASH_CMD_ADDR_REG, Msg->Addr);
-			Reqaddr = 1;
-		} else {
-			Reqaddr = 0U;
-		}
-		if (InstancePtr->TxBytes != 0U) {
-			WriteDataEn = 1;
-			ByteCount = InstancePtr->TxBytes;
-			XOspiPsv_FifoWrite(InstancePtr, Msg);
-		} else {
-			WriteDataEn = 0U;
-			ByteCount = 1;
-		}
-		XOspiPsv_Setup_Stig_Ctrl(InstancePtr, (u32)Msg->Opcode,
-			0, 0, Reqaddr, 0, (u32)Msg->Addrsize - (u32)1,
-			WriteDataEn, (u32)ByteCount - (u32)1, 0, 0);
-
-		/* Execute the command */
-		XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_FLASH_CMD_CTRL_REG,
-			(XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_FLASH_CMD_CTRL_REG) |
-				(u32)XOSPIPSV_FLASH_CMD_CTRL_REG_CMD_EXEC_FLD_MASK));
+		XOspiPsv_IntrSendData(InstancePtr, Msg);
 	}
 
 	Status = (u32)XST_SUCCESS;
