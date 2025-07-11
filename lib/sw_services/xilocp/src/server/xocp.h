@@ -51,12 +51,12 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XOCP_XPPU_MASTER_ID0_PPU0_CONFIG_VAL		(0x03FF0246U)
 							/**< PPU0 SMID */
-#define XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL		(0x03FF0247U)
-							/**< PPU1 SMID */
+#define XOCP_XPPU_MASTER_ID1_PPU1_CONFIG_VAL		(0x83FF0247U)
+							/**< PPU1 SMID with parity protection bit set*/
 #define XOCP_XPPU_EN_PPU0_APERPERM_CONFIG_VAL		(0x10000001U)
 							/**< PPU0 configuration value */
-#define XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL	(0x00000003U)
-							/**< PPU1 configuration value */
+#define XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL	(0x88000003U)
+							/**< PPU1 configuration value with parity bit and trustzone settings enabled */
 #define XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE	(0x31U)
 							  /**< Dynamic reconfiguration set value */
 #define XOCP_XPPU_DYNAMIC_RECONFIG_DISABLE_VAL		(0x0U)
