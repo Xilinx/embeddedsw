@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -128,10 +128,12 @@ typedef u8 EepromBuffer[BUFFER_SIZE];
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 static int SpiSetupIntrSystem(XScuGic *IntcInstancePtr,
 			      XSpiPs *SpiInstancePtr, u16 SpiIntrId);
 
 static void SpiDisableIntrSystem(XScuGic *IntcInstancePtr, u16 SpiIntrId);
+#endif
 
 void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
 
@@ -155,7 +157,9 @@ int SpiPsEepromIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress);
  * are initialized to zero each time the program runs.  They could be local
  * but should at least be static so they are zeroed.
  */
+#ifndef SDT
 static XScuGic IntcInstance;
+#endif
 static XSpiPs SpiInstance;
 
 /*
@@ -393,6 +397,8 @@ int SpiPsEepromIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 ******************************************************************************/
 void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
 	/*
 	 * Indicate the transfer on the SPI bus is no longer in progress
 	 * regardless of the status event

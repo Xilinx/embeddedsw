@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -132,10 +132,12 @@ static int is_sst;
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 static int SpiPsSetupIntrSystem(XScuGic *IntcInstancePtr,
 				XSpiPs *SpiInstancePtr, u16 SpiIntrId);
 
 static void SpiPsDisableIntrSystem(XScuGic *IntcInstancePtr, u16 SpiIntrId);
+#endif
 
 void SpiPsHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
 
@@ -164,7 +166,9 @@ static int SST_GlobalBlkProtectUnlk(XSpiPs *SpiInstancePtr);
  * but should at least be static so they are zeroed.
  */
 #ifndef TESTAPP_GEN
+#ifndef SDT
 static XScuGic IntcInstance;
+#endif
 static XSpiPs SpiInstance;
 #endif
 
@@ -491,6 +495,8 @@ int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 ******************************************************************************/
 void SpiPsHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
 	/*
 	 * Indicate the transfer on the SPI bus is no longer in progress
 	 * regardless of the status event
