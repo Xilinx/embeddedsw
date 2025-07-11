@@ -16,7 +16,8 @@ MEMORY
    tmr_ram_instr_cntlr_Mem : ORIGIN = 0xEBE00000, LENGTH = 0x40000
    tmr_ram_data_Confg_Mem : ORIGIN = 0xEBE40000, LENGTH = 0x1000
    tmr_ram_data_ipi_shared_Mem : ORIGIN = 0xEBE41000, LENGTH = 0x8000
-   tmr_ram_data_cntlr_Mem : ORIGIN = 0xEBE49000, LENGTH = 0x14C00
+   tmr_ram_data_cntlr_Mem : ORIGIN = 0xEBE49000, LENGTH = 0x12C00
+   tmr_ram_data_ocp_Mem : ORIGIN = 0xEBE5BC00, LENGTH = 0x2000
    tmr_ram_data_log_buf_Mem : ORIGIN = 0xEBE5DC00, LENGTH = _LOG_BUF_SIZE
    tmr_ram_data_rsa_Mem : ORIGIN = 0xEBE5EC00, LENGTH = _RSA_DATA_SIZE
 }
