@@ -173,10 +173,10 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 				Status = XAsufw_ValidateCommand(&QueueBuf->ReqBuf);
 				if (XASUFW_SUCCESS == Status) {
 					ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-					XAsufw_Printf(DEBUG_GENERAL, "Validate command successful\r\n");
+					XAsufw_Printf(DEBUG_INFO, "Validate command successful\r\n");
 					Status = XAsufw_CheckAndAllocateResources(&QueueBuf->ReqBuf, ReqId);
 				} else {
-					XAsufw_Printf(DEBUG_GENERAL, "Validate command failed\r\n");
+					XAsufw_Printf(DEBUG_INFO, "Validate command failed\r\n");
 					/** Update Status and write the response. */
 					Status = XAsufw_UpdateErrorStatus(Status, XASUFW_VALIDATE_COMMAND_FAILED);
 					XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, Status);

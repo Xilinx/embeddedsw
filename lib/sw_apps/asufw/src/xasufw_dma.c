@@ -304,7 +304,7 @@ void XAsufw_HandleDmaDoneIntr(u32 DmaIntrNum)
 				/** Release the DMA resource based on the DmaState. */
 				if (DmaPtr->DmaState == XASUFW_RELEASE_DMA) {
 					if (XAsufw_ReleaseDmaResource(DmaPtr, DmaPtr->ReqId) != XASUFW_SUCCESS) {
-						XAsufw_Printf(DEBUG_GENERAL, "DMA resource release failed\r\n");
+						XAsufw_Printf(DEBUG_DETAILED, "DMA resource release failed\r\n");
 					}
 				}
 				/** Reset the DMA non-blocking related parameters. */
@@ -316,7 +316,7 @@ void XAsufw_HandleDmaDoneIntr(u32 DmaIntrNum)
 				/** Trigger the queue task which is waiting for DMA operation completion. */
 				Task = XTask_GetInstance((void *)TaskPrivData);
 				if (Task != NULL) {
-					XAsufw_Printf(DEBUG_GENERAL, "Triggering the task waiting for DMA done\r\n");
+					XAsufw_Printf(DEBUG_INFO, "Triggering the task waiting for DMA done\r\n");
 					XTask_TriggerNow(Task);
 				}
 			}

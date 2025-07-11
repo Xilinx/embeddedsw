@@ -133,7 +133,7 @@ void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, s32 Response)
 	QueueBuf->RespBuf.AdditionalStatus = (u32)ReturnStatus;
 	ReturnStatus = XASUFW_FAILURE;
 	QueueBuf->RespBufStatus = XASU_RESPONSE_IS_PRESENT;
-	XAsufw_Printf(DEBUG_GENERAL, "Command response: 0x%x\r\n", Response);
+	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Command response: 0x%x\r\n", Response);
 }
 
 /*************************************************************************************************/

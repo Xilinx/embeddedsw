@@ -792,7 +792,7 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 	Status = XAes_WriteKey(AesInstance, AsuDmaPtr, (u64)(UINTPTR)&KeyObject);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_WRITE_KEY_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/**
@@ -803,7 +803,7 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 			   XASUFW_AES_IV_LEN_IN_BYTES, XASU_AES_GCM_MODE, XASU_AES_ENCRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Perform AES update operation for AAD and message. */
@@ -811,14 +811,14 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 			     XASUFW_AES_AAD_LEN_IN_BYTES, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Status = XAes_Update(AesInstance, AsuDmaPtr, (u64)(UINTPTR)KatMessage,
 			     (u64)(UINTPTR)AesOutData, XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Perform AES final operation for encryption. */
@@ -826,23 +826,21 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 			    XASUFW_AES_TAG_LEN_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_FINAL_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Compare encrypted data with expected ciphertext data. */
 	Status = Xil_SMemCmp_CT(ExpAesGcmCt, XASUFW_KAT_MSG_LENGTH_IN_BYTES, AesOutData,
 				XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASUFW_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU AES KAT Failed at Encrypted data Comparison \r\n");
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Compare generated GCM tag with the expected GCM tag. */
 	Status = Xil_SMemCmp_CT(ExpAesGcmTag, XASUFW_AES_TAG_LEN_IN_BYTES, AesTag,
 				XASUFW_AES_TAG_LEN_IN_BYTES, XASUFW_AES_TAG_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU AES KAT Failed at Encrypted data Comparison \r\n");
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/**
@@ -853,7 +851,7 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 			   XASUFW_AES_IV_LEN_IN_BYTES, XASU_AES_GCM_MODE, XASU_AES_DECRYPT_OPERATION);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Perform AES update operation for AAD and ciphertext. */
@@ -861,14 +859,14 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 			     XASUFW_AES_AAD_LEN_IN_BYTES, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	Status = XAes_Update(AesInstance, AsuDmaPtr, (u64)(UINTPTR)ExpAesGcmCt,
 			     (u64)(UINTPTR)AesOutData, XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASU_TRUE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Perform AES final operation for decryption. */
@@ -876,15 +874,14 @@ s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr)
 			    XASUFW_AES_TAG_LEN_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_FINAL_FAILED);
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 	/** Compare decrypted data with expected input data. */
 	Status = Xil_SMemCmp_CT(KatMessage, XASUFW_KAT_MSG_LENGTH_IN_BYTES, AesOutData,
 				XASUFW_KAT_MSG_LENGTH_IN_BYTES, XASUFW_KAT_MSG_LENGTH_IN_BYTES);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ASU AES KAT Failed at Decrypted data Comparison \r\n");
-		XFIH_GOTO(END);
+		goto END;
 	}
 
 END:

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
@@ -517,13 +517,13 @@
 
 /* Macros to enable / disable support of NIST and Brainpool curves */
 /**< Macro to enable/disable support of NIST P-192 curve */
-#define XASU_ECC_SUPPORT_NIST_P192
+//#define XASU_ECC_SUPPORT_NIST_P192
 
 /**< Macro to enable/disable support of NIST P-224 curve */
 //#define XASU_ECC_SUPPORT_NIST_P224
 
 /**< Macro to enable/disable support of NIST P-256 curve */
-//#define XASU_ECC_SUPPORT_NIST_P256
+#define XASU_ECC_SUPPORT_NIST_P256
 
 /**< Macro to enable/disable support of NIST P-384 curve */
 //#define XASU_ECC_SUPPORT_NIST_P384

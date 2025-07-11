@@ -97,7 +97,7 @@ static void XAsufw_ExceptionEnable(void)
 	s32 Status = XASUFW_FAILURE;
 	u16 Index;
 
-	XAsufw_Printf(DEBUG_GENERAL, "Exception Init Start\r\n");
+	XAsufw_Printf(DEBUG_INFO, "Exception Init Start\r\n");
 
 	/** Initialize processor registers related to interrupts and exceptions. */
 	Xil_ExceptionInit();
@@ -118,7 +118,7 @@ static void XAsufw_ExceptionEnable(void)
 	/** Enable processor interrupts and exceptions. */
 	Xil_ExceptionEnable();
 
-	XAsufw_Printf(DEBUG_GENERAL, "Exception Init Done\r\n");
+	XAsufw_Printf(DEBUG_INFO, "Exception Init Done\r\n");
 }
 
 /*************************************************************************************************/
@@ -424,7 +424,7 @@ s32 XAsufw_PmcKeyTransfer(void)
 	/** Send Key transfer IPI request to PLM. */
 	Status = XAsufw_SendIpiToPlm(&Payload, XASUFW_KEY_TX_PAYLOAD_RESP_SIZE);
 	if (Status != XASUFW_SUCCESS) {
-		XAsufw_Printf(DEBUG_GENERAL, "Send IPI to PLM failed\r\n");
+		XAsufw_Printf(DEBUG_INFO, "Send IPI to PLM failed\r\n");
 		goto END;
 	}
 
@@ -443,7 +443,7 @@ s32 XAsufw_PmcKeyTransfer(void)
 	/** Read Key transfer response received from PLM. */
 	Status = XAsufw_ReadIpiRespFromPlm((u32 *)(UINTPTR)&Response, XASUFW_KEY_TX_PAYLOAD_RESP_SIZE);
 	if ((Status != XASUFW_SUCCESS) || (Response != XASUFW_SUCCESS)) {
-		XAsufw_Printf(DEBUG_GENERAL, "Read IPI response from PLM failed\r\n");
+		XAsufw_Printf(DEBUG_INFO, "Read IPI response from PLM failed\r\n");
 	}
 
 END:

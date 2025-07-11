@@ -96,7 +96,7 @@ int main(void)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "\r\nVersal Gen2 Application Security Unit Firmware\r\n");
+	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "\r\nXilinx Versal_2VE_2VM Application Security Unit Firmware\r\n");
 
 	/** Initialize ASUFW. */
 	Status = XAsufw_Init();

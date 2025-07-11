@@ -36,7 +36,7 @@
 /*************************************** Include Files *******************************************/
 #include "xtask.h"
 #include "xasufw_status.h"
-#include "xil_printf.h"
+#include "xasufw_debug.h"
 #include "riscv_interface.h"
 #include "xasufw_intr.h"
 
@@ -103,7 +103,7 @@ XTask_TaskNode *XTask_Create(u32 Priority, XTask_Handler_t TaskHandler, void *Pr
 
 	/** If the maximum allowed tasks are already created, do not create a new task. */
 	if (Idx >= XTASK_MAX) {
-		xil_printf("Task create failed: too many tasks created\n");
+		XAsufw_Printf(DEBUG_PRINT_ALWAYS,"Task creation failed: maximum task limit reached.\n");
 		goto END;
 	}
 
@@ -338,7 +338,7 @@ void XTask_DispatchLoop(void)
 	u32 Priority;
 	u32 DeltaTime;
 
-	xil_printf("In task dispatch loop\r\n");
+	XAsufw_Printf(DEBUG_PRINT_ALWAYS,"In task dispatch loop\r\n");
 
 	/**
 	 * This function should never return
@@ -401,7 +401,7 @@ void XTask_DispatchLoop(void)
 			XLinkList_RemoveItem(&Task->TaskNode);
 			Status = Task->TaskHandler(Task->PrivData);
 			if ((XASUFW_SUCCESS != Status) && (Status != XASUFW_CMD_IN_PROGRESS)) {
-				xil_printf("Task execution failed with error: 0x%x\r\n", Status);
+				XAsufw_Printf(DEBUG_PRINT_ALWAYS,"Task execution failed with error: 0x%x\r\n", Status);
 			}
 			continue;
 		}
