@@ -1,6 +1,6 @@
 
 /******************************************************************************
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.00  gm  06/30/22 First release
  * 3.18  gm  07/14/23 Added SDT support.
+ * 3.22  bkv 07/09/25 Fixed GCC Warnings.
  *
  * </pre>
  *
@@ -61,6 +62,8 @@
 
 #ifndef SDT
 int IicPsMasterPolledExample(u16 DeviceId);
+#else
+int IicPsMasterPolledExample(UINTPTR BaseAddress);
 #endif
 int XIicPsSmbusPolledMasterWriteBlockData(XIicPs *InstancePtr, u8 Command, u8 ByteCount, u8 *SendBufferPtr);
 int XIicPsSmbusPolledMasterReadBlockData(XIicPs *InstancePtr, u8 Command, u8 ByteCount, u8 *RecvBufferPtr);
@@ -233,6 +236,7 @@ int XIicPsSmbusPolledMasterWriteBlockData(XIicPs *InstancePtr, u8 Command, u8 By
 	u32 Index;
 	u32 BufferIndex;
 	static u8 SmbusSendBuffer[TEST_BUFFER_SIZE + 2];
+	(void)InstancePtr;
 
 	while (XIicPs_BusIsBusy(&Iic)) {
 		/* NOP */
@@ -288,6 +292,7 @@ int XIicPsSmbusPolledMasterReadBlockData(XIicPs *InstancePtr, u8 Command, u8 Byt
 	u32 Index;
 	u32 BufferIndex;
 	static u8 SmbusRecvBuffer[TEST_BUFFER_SIZE + 1];
+	(void)InstancePtr;
 
 	/*
 	 * Command Part

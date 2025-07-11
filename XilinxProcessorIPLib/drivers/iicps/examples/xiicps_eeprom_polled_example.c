@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +46,7 @@
 *		      instances
 *        rna  03/26/20 Eeprom page size detection support is added.
 * 3.18   gm   07/14/23 Added SDT support.
+* 3.22   bkv  07/09/25 Fixed GCC Warning.
 *
 * </pre>
 *
@@ -633,6 +634,7 @@ static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr)
 	int WrBfrOffset = 0;
 	u32 ps[3] = {64, 32, 16};
 	u32 PageSize_test, count;
+	(void)EepromAddr;
 
 	for (i = 0; i < 3; i++) {
 		count = 0;

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.00  gm  05/10/22 First release
  * 3.18  gm  07/14/23 Added SDT support.
+ * 3.22  bkv 07/09/25 Fixed GCC Warning.
  *
  * </pre>
  *
@@ -266,6 +267,7 @@ int XIicPsSmbusPolledReadBlockData(XIicPs *InstancePtr, u8 *Command, u8 *ByteCou
 	u32 Index;
 	u32 BufferIndex;
 	static u8 SmbusRecvBuffer[BUFFER_SIZE + 2];
+	(void)InstancePtr;
 
 	/*
 	 * Receive data from master.

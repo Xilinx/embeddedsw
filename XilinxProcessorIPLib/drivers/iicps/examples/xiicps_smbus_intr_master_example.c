@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.00  gm  06/30/22 First release
  * 3.18  gm  07/14/23 Added SDT support.
+ * 3.22  bkv 07/09/25 Fixed GCC Warnings.
  *
  * </pre>
  *
@@ -291,7 +292,7 @@ int XIicPsSmbusMasterWriteBlockData(XIicPs *InstancePtr, u8 Command, u8 ByteCoun
 	SmbusSendBuffer[0] = Command;
 	SmbusSendBuffer[1] = ByteCount;
 
-	for (Index = 2, BufferIndex = 0; Index < (ByteCount + 2); Index++, BufferIndex++) {
+	for (Index = 2, BufferIndex = 0; Index < ((u32)ByteCount + 2); Index++, BufferIndex++) {
 		SmbusSendBuffer[Index] = SendBufferPtr[BufferIndex];
 	}
 
@@ -419,7 +420,7 @@ int XIicPsSmbusMasterReadBlockData(XIicPs *InstancePtr, u8 Command, u8 ByteCount
 
 	RecvByteCount = SmbusRecvBuffer[0];
 
-	for (BufferIndex = 0, Index = 1; Index < (ByteCount + 1); BufferIndex++, Index++) {
+	for (BufferIndex = 0, Index = 1; Index < ((u32)ByteCount + 1); BufferIndex++, Index++) {
 		RecvBufferPtr[BufferIndex] = SmbusRecvBuffer[Index];
 	}
 
