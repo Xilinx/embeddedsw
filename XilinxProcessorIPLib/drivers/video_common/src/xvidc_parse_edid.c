@@ -671,10 +671,6 @@ xvidc_disp_cea861_extended_data(
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
                   XV_VidC_Verbose VerboseEn) {
 
-	/* During Verbosity 0, VerboseEn won't be used */
-	/* To avoid compilation warnings */
-	VerboseEn = VerboseEn;
-
 #if XVIDC_EDID_VERBOSITY > 0
     if (VerboseEn) {
         xil_printf("CEA Extended Tags\r\n");
