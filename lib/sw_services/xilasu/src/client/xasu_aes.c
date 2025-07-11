@@ -21,6 +21,7 @@
  *                     XAsu_AesValidateTag() with XAsu_AesValidateTagParams() function calls
  *       am   04/03/25 Optimized engine mode check for AAD update
  *       am   04/26/25 Cleaned and simplified AAD and input data validation logic
+ *       yog   07/10/25 Added support for priority based multiple request and context verification.
  *
  * </pre>
  *
@@ -60,6 +61,10 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.
+ * 		- XASU_REQUEST_INPROGRESS, if split request already in progress.
+ *  		- XASU_FAIL_SAVE_CTX, if saving context fails.
+ * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  *
  * @note	Verify the additional status if operation flag is set to XASU_AES_FINAL.
  * 		- XASU_AES_TAG_READ, if encryption operation successfully done.
@@ -72,7 +77,8 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
-	void *AesCtx = NULL;
+	static void *P0AesCtx = NULL;
+	static void *P1AesCtx = NULL;
 
 	/** Validate the input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
@@ -215,27 +221,71 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 		}
 	}
 
-	/** If operation flag is set to INIT, */
+	/** If the operation flag is set to INIT, */
 	if ((AesClientParamPtr->OperationFlags & XASU_AES_INIT) == XASU_AES_INIT) {
-		/** - Generate Unique ID. */
-		UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_FALSE);
-		if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-			Status = XASU_INVALID_UNIQUE_ID;
-			goto END;
+		/**
+		 * - If either P0AesCtx or P1AesCtx is not NULL depending on whether the priority
+		 * is HIGH or LOW, it indicates that a multi-request operation is already in progress.
+		 */
+		if (((ClientParamPtr->Priority == XASU_PRIORITY_HIGH) && (P0AesCtx != NULL)) ||
+			((ClientParamPtr->Priority == XASU_PRIORITY_LOW) && (P1AesCtx != NULL))) {
+			/** - Additionally, if the operation flag is set to UPDATE and FINAL, */
+			if (((AesClientParamPtr->OperationFlags & XASU_AES_UPDATE)
+				== XASU_AES_UPDATE) && ((AesClientParamPtr->OperationFlags & XASU_AES_FINAL)
+				== XASU_AES_FINAL)) {
+				/** - Generate a Unique ID for the new request. */
+				UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+								NULL, 0U, XASU_FALSE);
+				if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+					Status = XASU_INVALID_UNIQUE_ID;
+					goto END;
+				}
+			} else {
+				/** - Else, return an error. */
+				Status = XASU_REQUEST_INPROGRESS;
+				goto END;
+			}
+		} else {
+			/** - If context is NULL based on priority, generate Unique ID. */
+			UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+							NULL, 0U, XASU_FALSE);
+			if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+				Status = XASU_INVALID_UNIQUE_ID;
+				goto END;
+			}
+			/** - If P0 priority and respective context is NULL, */
+			if ((ClientParamPtr->Priority == XASU_PRIORITY_HIGH) && (P0AesCtx == NULL)) {
+				/** - Save the P0 Context. */
+				P0AesCtx = XAsu_UpdateNGetCtx(UniqueId);
+				if (P0AesCtx == NULL) {
+					Status = XASU_FAIL_SAVE_CTX;
+					goto END;
+				}
+				ClientParamPtr->ClientCtx = P0AesCtx;
+			} else {
+				/** - If P1 priority and respective context is NULL, */
+				if ((ClientParamPtr->Priority == XASU_PRIORITY_LOW) && (P1AesCtx == NULL)) {
+					/** - Save the P1 Context. */
+					P1AesCtx = XAsu_UpdateNGetCtx(UniqueId);
+					if (P1AesCtx == NULL) {
+						Status = XASU_FAIL_SAVE_CTX;
+						goto END;
+					}
+					ClientParamPtr->ClientCtx = P1AesCtx;
+				}
+			}
 		}
-		/** - Save the context. */
-		AesCtx = XAsu_UpdateNGetCtx(UniqueId);
-		if (AesCtx == NULL) {
-			Status = XASU_FAIL_SAVE_CTX;
-			goto END;
-		}
-		ClientParamPtr->ClientCtx = AesCtx;
 	}
 	/** If operation flag is either UPDATE or FINAL, */
 	else {
-		/** - Verify the context. */
-		Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr->ClientCtx, &UniqueId);
-		if (Status != XST_SUCCESS) {
+		/** - Check if the context already exists. If not, return an error. */
+		if (ClientParamPtr->ClientCtx != NULL) {
+			Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr->ClientCtx, &UniqueId);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		} else {
+			Status = XASU_CLIENT_CTX_NOT_CREATED;
 			goto END;
 		}
 	}
@@ -243,8 +293,16 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 	/** If FINISH operation flag is set, update response buffer details. */
 	if ((AesClientParamPtr->OperationFlags & XASU_AES_FINAL) == XASU_AES_FINAL) {
 		XAsu_UpdateCallBackDetails(UniqueId, NULL, 0U, XASU_TRUE);
+		if (ClientParamPtr->ClientCtx == P0AesCtx) {
+			P0AesCtx = NULL;
+		} else {
+			if (ClientParamPtr->ClientCtx == P1AesCtx) {
+				P1AesCtx = NULL;
+			}
+		}
 		/* Free AES Ctx */
 		XAsu_FreeCtx(ClientParamPtr->ClientCtx);
+		ClientParamPtr->ClientCtx = NULL;
 	}
 
 	/** Create command header. */
@@ -270,6 +328,7 @@ END:
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  *
  *************************************************************************************************/
 s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr)

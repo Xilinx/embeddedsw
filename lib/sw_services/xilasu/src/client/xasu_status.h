@@ -19,6 +19,7 @@
  *       ss   09/19/24 Added XASU_ASUFW_NOT_PRESENT error code
  *       yog  09/26/24 Added doxygen groupings.
  *       yog  03/25/25 Added XASU_INVALID_CURVEINFO error code.
+ *       lp   07/10/25 Added XASU_CLIENT_CTX_NOT_CREATED and XASU_REQUEST_INPROGRESS error codes.
  *
  * </pre>
  *
@@ -57,6 +58,9 @@ enum {
 	XASU_INVALID_CLIENT_CTX,	/**< 0x19 - Client context is not valid */
 	XASU_FAIL_SAVE_CTX,		/**< 0x1A - Failed in saving the context */
 	XASU_INVALID_CURVEINFO,		/**< 0x1B - Invalid curve type or curve length */
+	XASU_CLIENT_CTX_NOT_CREATED,	/**< 0x1C - Client context is not created */
+	XASU_REQUEST_INPROGRESS,	/**< 0x1D - Client should not allow more than one split
+				request */
 };
 
 /**

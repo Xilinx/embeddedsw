@@ -20,6 +20,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       am   10/22/24 Fixed validation of hash buffer size.
  * 1.1   ma   12/12/24 Updated hash buffer address to the response buffer of the callback function
+ *       lp   07/10/25 Added support for priority based multiple request and context verification.
  *
  * </pre>
  *
@@ -56,6 +57,10 @@
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XASU_REQUEST_INPROGRESS, if split request already in progress.
+ * 		- XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.
+ * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
+ * 		- XASU_FAIL_SAVE_CTX, if saving context fails.
  *
  *************************************************************************************************/
 s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *ShaClientParamPtr)
@@ -63,7 +68,8 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
-	void *Sha2Ctx = NULL;
+	static void *P0Sha2Ctx = NULL;
+	static void *P1Sha2Ctx = NULL;
 
 	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
@@ -122,27 +128,71 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
+
 	/** If operation flag is set to START, */
 	if ((ShaClientParamPtr->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
-		/** - Generate Unique ID. */
-		UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_FALSE);
-		if (UniqueId >= XASU_UNIQUE_ID_MAX) {
-			Status = XASU_INVALID_UNIQUE_ID;
-			goto END;
+		/**
+		 * - If either P0Sha2Ctx or P1Sha2Ctx is not NULL depending on whether the priority
+		 * is HIGH or LOW, it indicates that a multi-request operation is already in progress.
+		 */
+		if (((ClientParamPtr->Priority == XASU_PRIORITY_HIGH) && (P0Sha2Ctx != NULL)) ||
+			((ClientParamPtr->Priority == XASU_PRIORITY_LOW) && (P1Sha2Ctx != NULL))) {
+			/** - Additionally, if the operation flag is set to FINISH, */
+			if ((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH)
+				== XASU_SHA_FINISH) {
+				/** - Generate a Unique ID for the new request. */
+				UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+								NULL, 0U, XASU_FALSE);
+				if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+					Status = XASU_INVALID_UNIQUE_ID;
+					goto END;
+				}
+			} else {
+				/** - Else, return an error. */
+				Status = XASU_REQUEST_INPROGRESS;
+				goto END;
+			}
+		} else {
+			/** - If context is NULL based on priority, generate Unique ID. */
+			UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
+							NULL, 0U, XASU_FALSE);
+			if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+				Status = XASU_INVALID_UNIQUE_ID;
+				goto END;
+			}
+			/** If P0 priority and respective context is NULL, */
+			if ((ClientParamPtr->Priority == XASU_PRIORITY_HIGH) && (P0Sha2Ctx == NULL)) {
+				/** - Save the P0 Context. */
+				P0Sha2Ctx = XAsu_UpdateNGetCtx(UniqueId);
+				if (P0Sha2Ctx == NULL) {
+					Status = XASU_FAIL_SAVE_CTX;
+					goto END;
+				}
+				ClientParamPtr->ClientCtx = P0Sha2Ctx;
+			} else {
+				/** If P1 priority and respective context is NULL, */
+				if ((ClientParamPtr->Priority == XASU_PRIORITY_LOW) && (P1Sha2Ctx == NULL)) {
+					/** - Save the P1 Context. */
+					P1Sha2Ctx = XAsu_UpdateNGetCtx(UniqueId);
+					if (P1Sha2Ctx == NULL) {
+						Status = XASU_FAIL_SAVE_CTX;
+						goto END;
+					}
+					ClientParamPtr->ClientCtx = P1Sha2Ctx;
+				}
+			}
 		}
-		/** - Save the Context. */
-		Sha2Ctx = XAsu_UpdateNGetCtx(UniqueId);
-		if (Sha2Ctx == NULL) {
-			Status = XASU_FAIL_SAVE_CTX;
-			goto END;
-		}
-		ClientParamPtr->ClientCtx = Sha2Ctx;
 	}
 	/** If operation flag is either UPDATE or FINISH, */
 	else {
-		/** - Verify the context. */
-		Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr->ClientCtx, &UniqueId);
-		if (Status != XST_SUCCESS) {
+		/** - Check if the context already exists. If not, return an error. */
+		if (ClientParamPtr->ClientCtx != NULL) {
+			Status = XAsu_VerifyNGetUniqueIdCtx(ClientParamPtr->ClientCtx, &UniqueId);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		} else {
+			Status = XASU_CLIENT_CTX_NOT_CREATED;
 			goto END;
 		}
 	}
@@ -151,13 +201,20 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 	if ((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
 		XAsu_UpdateCallBackDetails(UniqueId, (u8 *)ShaClientParamPtr->HashAddr,
 			ShaClientParamPtr->HashBufSize, XASU_TRUE);
-		/* Free Sha2 Ctx */
+		if (ClientParamPtr->ClientCtx == P0Sha2Ctx) {
+			P0Sha2Ctx = NULL;
+		} else {
+			if (ClientParamPtr->ClientCtx == P1Sha2Ctx) {
+				P1Sha2Ctx = NULL;
+			}
+		}
+		/* Free Sha3 Ctx */
 		XAsu_FreeCtx(ClientParamPtr->ClientCtx);
+		ClientParamPtr->ClientCtx = NULL;
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_SHA_OPERATION_CMD_ID, UniqueId,
-				   XASU_MODULE_SHA2_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_SHA_OPERATION_CMD_ID, UniqueId, XASU_MODULE_SHA2_ID, 0U);
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, ShaClientParamPtr,
 						sizeof(XAsu_ShaOperationCmd), Header);
@@ -178,6 +235,7 @@ END:
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
  * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  *
  *************************************************************************************************/
 s32 XAsu_Sha2Kat(XAsu_ClientParams *ClientParamPtr)
