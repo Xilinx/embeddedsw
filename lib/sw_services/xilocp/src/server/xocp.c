@@ -954,7 +954,7 @@ END:
 		XppuStatus = XOcp_DmeRestoreXppuDefaultConfig();
 		if (XppuStatus != XST_SUCCESS) {
 			if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
-				Status = XppuStatus | XOCP_DME_ERR;
+				Status = XppuStatus;
 			}
 			goto RET;
 		}
@@ -1181,16 +1181,25 @@ static int XOcp_DmeRestoreXppuDefaultConfig(void)
 
 	/* Restore XPPU registers to their previous state */
 	for (Index = 0U; Index < XOCP_XPPU_MAX_APERTURES; Index++) {
+		if ((XOcp_DmeXppuCfgTable[Index].XppuAperAddr == PMC_XPPU_DYNAMIC_RECONFIG_APER_ADDR) ||
+			(XOcp_DmeXppuCfgTable[Index].XppuAperAddr == PMC_XPPU_DYNAMIC_RECONFIG_APER_PERM)) {
+			continue;
+		}
+
 		if (XOcp_DmeXppuCfgTable[Index].IsModified == TRUE) {
-			Xil_Out32(XOcp_DmeXppuCfgTable[Index].XppuAperAddr,
+			Status = Xil_SecureOut32(XOcp_DmeXppuCfgTable[Index].XppuAperAddr,
 				XOcp_DmeXppuCfgTable[Index].XppuAperReadCfgVal);
+			if (Status != XST_SUCCESS) {
+				Status = XOCP_DME_ERR;
+				goto END;
+			}
 		}
 	}
 
 	if (Index == XOCP_XPPU_MAX_APERTURES) {
 		Status = XST_SUCCESS;
 	}
-
+END:
 	return Status;
 }
 
