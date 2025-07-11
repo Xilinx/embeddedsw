@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
 * 5.9	ht   07/22/24 Add support for peripheral tests in SDT flow.
 * 5.10  ht   10/28/24 Fix compilation warnings in SDT flow peripheral tests.
+* 5.11  bkv  07/08/25 Fixed GCC Warning.
 *
 * </pre>
 *
@@ -173,7 +174,7 @@ int WinWdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 	XWdtTb_Config *Config;
 
 #ifdef SDT
-	(void*)WdtTbInstancePtr;
+	(void)WdtTbInstancePtr;
 #endif
 	/*
 	 * Initialize the WDTTB driver so that it's ready to use look up

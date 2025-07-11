@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -37,7 +37,7 @@ BEGIN driver wdttb
   OPTION supported_peripherals = (axi_timebase_wdt psv_wwdt psxl_wwdt psxl_pmc_wwdt psx_wwdt psx_pmc_wwdt);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 5.10;
+  OPTION VERSION = 5.11;
   OPTION NAME = wdttb;
 
 END driver
