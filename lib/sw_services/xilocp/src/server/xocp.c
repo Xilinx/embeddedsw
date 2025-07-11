@@ -821,6 +821,7 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 	volatile u32 XppuEnabled = XOCP_XPPU_DISABLED;
 	volatile u32 XppuEnabledTmp = XOCP_XPPU_DISABLED;
 	u32 Index;
+	u32 Aper049InitVal = Xil_In32(PMC_XPPU_APERPERM_049);
 
 	/*
 	 * Check if XPPU_LOCK is enabled.
@@ -959,7 +960,7 @@ END:
 		}
 	}
 	XSECURE_TEMPORAL_IMPL(Status, SStatus, Xil_SecureOut32,
-				PMC_XPPU_APERPERM_049, XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL);
+				PMC_XPPU_APERPERM_049, Aper049InitVal);
 	if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
 		Status |= XOCP_DME_ERR;
 		goto RET;
