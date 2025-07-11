@@ -141,8 +141,8 @@ void Xil_ExceptionRegisterHandler(u32 Exception_id, Xil_ExceptionHandler Handler
 		RISCV_InterruptVectorTable[Exception_id - XIL_INTERRUPT_ID_FIRST].
 		CallBackRef = Data;
 	} else if (Exception_id <= XIL_EXCEPTION_ID_LAST) {
-		RISCV_InterruptVectorTable[Exception_id].Handler = Handler;
-		RISCV_InterruptVectorTable[Exception_id].CallBackRef = Data;
+		RISCV_ExceptionVectorTable[Exception_id].Handler = Handler;
+		RISCV_ExceptionVectorTable[Exception_id].CallBackRef = Data;
 	}
 }
 
@@ -165,8 +165,8 @@ void Xil_ExceptionRemoveHandler(u32 Exception_id)
 		RISCV_InterruptVectorTable[Exception_id - XIL_INTERRUPT_ID_FIRST].
 		CallBackRef = NULL;
 	} else if (Exception_id <= XIL_EXCEPTION_ID_LAST) {
-		RISCV_InterruptVectorTable[Exception_id].Handler = Xil_ExceptionNullHandler;
-		RISCV_InterruptVectorTable[Exception_id].CallBackRef = NULL;
+		RISCV_ExceptionVectorTable[Exception_id].Handler = Xil_ExceptionNullHandler;
+		RISCV_ExceptionVectorTable[Exception_id].CallBackRef = NULL;
 	}
 }
 /**
