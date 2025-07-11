@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2001 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -349,6 +349,8 @@ int main(void)
 ******************************************************************************/
 void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
 	/*
 	 * Indicate the transfer on the SPI bus is no longer in progress
 	 * regardless of the status event

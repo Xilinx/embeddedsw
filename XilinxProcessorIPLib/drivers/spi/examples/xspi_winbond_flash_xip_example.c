@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -131,7 +131,6 @@ int SpiXipExample(XSpi *SpiInstancePtr, u16 SpiDeviceId)
 int SpiXipExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 #endif
 {
-	u32 Flashdata;
 	int Status;
 	XSpi_Config *ConfigPtr;	/* Pointer to Configuration data */
 
@@ -156,7 +155,7 @@ int SpiXipExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 	/* Read data from flash in the way any memory is accessed using
 		Flash Memory Base Address in InstancePtr */
 
-	Flashdata = Xil_In32(SpiInstancePtr->FlashBaseAddr);
+	(void)Xil_In32(SpiInstancePtr->FlashBaseAddr);
 
 
 

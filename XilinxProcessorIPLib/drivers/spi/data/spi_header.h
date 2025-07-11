@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +15,12 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifndef SDT
 int SpiSelfTestExample(u16 DeviceId);
+#else
+int SpiSelfTestExample(UINTPTR BaseAddress);
+int SpiIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress);
+#endif
 
 #ifdef __cplusplus
 }

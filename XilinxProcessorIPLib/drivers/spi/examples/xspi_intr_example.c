@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2006 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -373,6 +373,8 @@ int SpiIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 ******************************************************************************/
 void SpiIntrHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
 	/*
 	 * Indicate the transfer on the SPI bus is no longer in progress
 	 * regardless of the status event.

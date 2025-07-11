@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -174,7 +174,7 @@ static XSpi Spi;
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
-volatile static int TransferInProgress;
+static volatile int TransferInProgress;
 
 /*
  * The following variable tracks any errors that occur during interrupt
@@ -817,6 +817,8 @@ int SpiIntelFlashWaitForFlashNotBusy(void)
 ******************************************************************************/
 void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
 	/*
 	 * Indicate the transfer on the SPI bus is no longer in progress
 	 * regardless of the status event.

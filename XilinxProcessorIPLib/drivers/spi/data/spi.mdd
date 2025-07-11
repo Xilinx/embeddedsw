@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -29,7 +29,7 @@ BEGIN driver spi
   OPTION supported_peripherals = (axi_spi axi_quad_spi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.14;
+  OPTION VERSION = 4.15;
   OPTION NAME = spi;
 
 END driver
