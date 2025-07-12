@@ -29,6 +29,7 @@
  *       vns  02/12/25 Removed XAsufw_RCMW() API
  *       vns  02/21/25 Added XAsufw_NvmEfuseWriteOffChipRevokeId() API
  * 1.2   am   05/18/25 Added XAsufw_WriteDataToRegs() API
+ *       rmv  07/09/25 Added XAsufw_AsciiToInt() function.
  *
  * </pre>
  *
@@ -289,5 +290,32 @@ s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u
 	}
 
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function converts ASCII value to integer form.
+ *
+ * @param	Buf	Pointer to Data buffer.
+ * @param	Len	Length of ascii value.
+ *
+ * @return
+ *	- ASCII to integer converted value.
+ *
+ *************************************************************************************************/
+u32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len)
+{
+	u32 Val = 0U;
+	u32 Idx = 0U;
+	u32 LenTmp = Len;
+
+	/** Convert ASCII value to integer. */
+	while (LenTmp != 0U) {
+		Val = ((Val * 10U) + (Buf[Idx] - (u8)'0'));
+		Idx++;
+		LenTmp--;
+	}
+
+	return Val;
 }
 /** @} */

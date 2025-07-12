@@ -105,6 +105,7 @@ add_subdirectory(hmac)
 add_subdirectory(kdf)
 add_subdirectory(ecies)
 add_subdirectory(keywrap)
+add_subdirectory(x509)
 
 if (CMAKE_EXPORT_COMPILE_COMMANDS AND
     (NOT ${YOCTO}))

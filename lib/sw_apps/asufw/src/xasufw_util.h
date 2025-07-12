@@ -25,6 +25,8 @@
  * 1.1   vns  02/06/25 Removed XAsufw_ChangeEndiannessAndCpy() function which is not in use
  *       am   02/21/25 Added performance measurement macros
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
+ *       rmv  07/09/25 Added XAsufw_AsciiToInt() function prototype and added macro for integer
+ *                     value.
  *
  * </pre>
  *
@@ -89,6 +91,8 @@ extern "C" {
 
 #define XASUFW_LSB_MASK_VALUE			(255U) /**< Integer to octet stream primitive limit */
 #define XASUFW_MAX_32BIT_ADDRESS		(0xFFFFFFFFU) /**< Max supported 32-bit address */
+
+#define XASUFW_VALUE_ONE			(1U)	/**< Integer value 1U */
 
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 #define XASUFW_MEASURE_PERF_START() \
@@ -168,6 +172,7 @@ s32 XAsufw_NvmEfuseWriteOffChipRevokeId(const u32 OffChipRevokeIdNum);
 s32 XAsufw_SMemSet(void *Dest, const u32 DestSize);
 s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u32 *DataArray,
         u32 NumOfWords);
+u32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len);
 
 /************************************ Variable Definitions ***************************************/
 extern s32 ReturnStatus;  /**< Redundant variable holds non-zero success value helps to	detect any

@@ -411,6 +411,48 @@ enum {
 						count is not matched with the input count */
 	XASUFW_ECC_CONFIGURE_AND_START_FAIL, /**< 0x11DU - Error when ECC configuration failed */
 
+	XASUFW_X509_UNEXPECTED_TAG = 0x11EU, /**< 0x11EU - Error when unexpected tag is found */
+	XASUFW_X509_INVALID_FIELD_LEN, /**< 0x11FU - Error when field length is invalid */
+	XASUFW_X509_INVALID_BUFFER_SIZE, /**< 0x120U - Error when certificate size is invalid */
+	XASUFW_X509_INVALID_DATA, /**< 0x121U - Error when data is invalid */
+	XASUFW_X509_UNSUPPORTED_ALGORITHM, /**< 0x122U - Error when algorithm id is unsupported */
+	XASUFW_X509_UNSUPPORTED_EXTN, /**< 0x123U - Error when extension is unsupported */
+	XASUFW_X509_BOOLEAN_TAG_NOT_FOUND, /**< 0x124 - Error when boolean tag is not found */
+	XASUFW_X509_INVALID_PARAM, /**< 0X125U - Error when parameter is invalid */
+	XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, /**< 0x126U - Error when tag validation failed
+							during x509 parsing */
+	XASUFW_X509_PARSER_TBS_INVALID_TAG, /**< 0x127U - Error when invalid tag is found during
+							TBS parsing */
+	XASUFW_X509_PARSER_GET_VERSION_FAIL, /**< 0x128U - Error when parsing x509 version
+							parsing failed */
+	XASUFW_X509_PARSER_SERIAL_NO_INVALID_TAG, /**< 0x129U - Error when invalid tag found while
+							x509 serial number parsing */
+	XASUFW_X509_PARSER_SIGN_ALGO_INVALID_TAG, /**< 0x12AU - Error when invalid tag found while
+							x509 parsing signature algorithm */
+	XASUFW_X509_PARSER_ISSUER_INVALID_TAG, /**< 0x12BU - Error when invalid tag found while
+							parsing x509 issuer */
+	XASUFW_X509_PARSER_VALIDITY_INVALID_INFO, /**< 0x12CU - Error when invalid information found
+							while parsing x509 validity */
+	XASUFW_X509_PARSER_VALIDITY_FROM_FAIL, /**< 0x12DU - Error when parsing x509 validity
+							"From" field */
+	XASUFW_X509_PARSER_VALIDITY_TO_FAIL, /**< 0x12EU - Error when parsing x509 validity
+							"To" field */
+	XASUFW_X509_PARSER_SUB_INVALID_TAG, /**< 0x12FU - Error when invalid tag found while parsing
+							x509 subject */
+	XASUFW_X509_PARSER_PUB_KEY_ALGO_FAIL, /**< 0x130U - Error when parsing public key algorithm
+							failed */
+	XASUFW_X509_PARSER_EXT_KEY_USAGE_FAIL, /**< 0x131U - Error when x509 key usage extension
+							parsing failed */
+	XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, /**< 0x132U - Error when update offset failed */
+	XASUFW_X509_PARSER_GET_FIELD_LEN_FAIL, /**< 0x133U - Error when get field length failed */
+	XASUFW_X509_PARSER_VALIDITY_FAIL, /**< 0x134U - Error when parsing validity is failed */
+	XASUFW_X509_PARSER_PUBLIC_KEY_INFO_FAIL, /**< 0x135U - Error when public key info parsing
+							is failed */
+	XASUFW_X509_PARSER_EXTENSION_INFO_FAIL, /**< 0x136U - Error when extension parsing is
+							failed */
+	XASUFW_X509_PARSER_GET_EXTN_OID_FAIL, /**< 0x137U - Error when get the extension OID is
+							failed */
+
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */
 	XASUFW_RSA_DECRYPTION_SUCCESS, /**< 0x3FBU - Successfully decrypted RSA provided
