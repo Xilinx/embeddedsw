@@ -35,6 +35,14 @@ extern "C" {
 #include "xil_types.h"
 
 /************************************ Constant Definitions ***************************************/
+#define X509_ISSUER_MAX_SIZE		(600U)	/**< Max length of the DER encoded Issuer field
+						received from CDO */
+#define X509_SUBJECT_MAX_SIZE		(600U)	/**< Max length of the DER encoded Subject field
+						received from CDO */
+#define X509_VALIDITY_MAX_SIZE		(40U)	/**< Max length of the DER encoded Validity field
+						received from CDO */
+#define X509_SUB_ALT_NAME_MAX_SIZE	(90U)	/**< Max length of the DER encoded Subject
+						Alternative Name field received from CDO */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -143,6 +151,100 @@ typedef struct {
 	u32 KeyUsage;				/**< Key usage extension value */
 } X509_CertInfo;
 
+/**
+ * This typedef contains information about signature type.
+ */
+typedef enum {
+	X509_SIGN_TYPE_ECC_SHA3_256 = 0U,	/**< Signature type SHA3-256 */
+	X509_SIGN_TYPE_ECC_SHA3_384,		/**< Signature type SHA3-384 */
+	X509_SIGN_TYPE_MAX,			/**< Maximum no of supported signature type */
+} X509_SignAlgoType;
+
+/**
+ * This structure contains information about signature type and its OID.
+ */
+typedef struct {
+	X509_SignAlgoType SignType;	/**< Signature algorithm type */
+	u8 SignLen;			/**< Signature OID length */
+	const u8 *SignOid;		/**< Pointer to variable containing OID */
+} X509_SignatureOidDescriptor;
+
+/**
+ * This typedef contains information about ECC curve type.
+ */
+typedef enum {
+	X509_ECC_CURVE_TYPE_256 = 0U,	/**< ECC curve type P-256 */
+	X509_ECC_CURVE_TYPE_384,	/**< ECC curve type P-384 */
+	X509_ECC_CURVE_TYPE_MAX,	/**< Maximum number of supported curve type */
+} X509_EccCurveType;
+
+/**
+ * This structure contains information about parameter type and its OID.
+ */
+typedef struct {
+	X509_EccCurveType EccCurveType;	/**< ECC curve type */
+	u8 ParamOidLen;			/**< Parameter OID length */
+	const u8 *ParamOid;		/**< Pointer to variable containing OID */
+} X509_AlgoEccParam;
+
+typedef s32 (*X509_GenerateDigest_t)(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBufLen,
+				     u32 *HashLen, const void *PlatformData);
+typedef	s32 (*X509_GenerateSignature_t)(const u8 *Hash, u32 HashLen, const u8 *Sign, u32 SignLen,
+					u32 *SignActualLen, u8 *PvtKey, const void *PlatformData);
+/**
+ * This structure holds the information of user configs.
+ */
+typedef struct {
+	X509_SignAlgoType SignType;			/**< Signature algorithm type */
+	X509_GenerateDigest_t GenerateDigest;		/**< Function pointer to generate digest */
+	X509_GenerateSignature_t GenerateSignature;	/**< Function pointer to generate
+							signature */
+} X509_InitData;
+
+/**
+ * This structure contains information of the fields of X.509 certificate which is provided by user.
+ */
+typedef struct {
+	u8 Issuer[X509_ISSUER_MAX_SIZE];		/**< DER encoded value of Issuer */
+	u32 IssuerLen;					/**< Length of DER encoded Issuer field */
+	u8 Subject[X509_SUBJECT_MAX_SIZE];		/**< DER encoded value of Subject */
+	u32 SubjectLen;					/**< Length of DER encoded Subject field */
+	u8 Validity[X509_VALIDITY_MAX_SIZE];		/**< DER encoded value of Validity */
+	u32 ValidityLen;				/**< Length of DER encoded Validity field */
+	u32 IsSubAltNameAvailable;			/**< Flag to indicate if Subject Alt Name is
+							given by user */
+	u8 SubAltName[X509_SUB_ALT_NAME_MAX_SIZE];	/**< DER encoded value of Subject Alt
+							Name */
+	u32 SubAltNameLen;				/**< Length of DER encoded Subject Alt
+							Name */
+} X509_UserCfg;
+
+/**
+ * This structure contains information about subject public key.
+ */
+typedef struct {
+	X509_PublicKeyType PubKeyType;	/**< Public Key type */
+	X509_EccCurveType EccCurveType;	/**< ECC curve type */
+	u32 SubjectPubKeyLen;		/**< Issuer Public Key Length */
+	u8 *SubjectPublicKey;		/**< Subject Public Key */
+} X509_SubjectPublicKeyInfo;
+
+/**
+ * This structure contains the configuration for X.509 certificate for given Subsystem ID.
+ */
+typedef struct {
+	X509_UserCfg *UserCfg;			/**< Configuration from User */
+	X509_SubjectPublicKeyInfo PubKeyInfo;	/**< Subject public key information */
+	u32 IsCsr;				/**< Flag to check if Certificate Signing Request */
+	u32 IsSelfSigned;			/**< Flag to check if self-signed certificate */
+	u32 IssuerPubKeyLen;			/**< Issuer Public Key Length */
+	u8 *IssuerPublicKey;			/**< Issuer Public Key */
+	u8 *IssuerPrvtKey;			/**< Issuer Private Key */
+	void *PlatformData;			/**< Platform specific parameters required for
+						platform specific digest calculation and signature
+						generation APIs */
+} X509_Config;
+
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define X509_SINGLE_BYTE				(1U)	/**< Value of single byte */
 #define X509_VERSION_VALUE_V3				(0x02U)	/**< X.509 certificate version
@@ -182,6 +284,19 @@ typedef struct {
 #define X509_ASN1_ZERO_TIME_OFFSET_LEN			(1U)	/**< Length of zero time offset */
 #define X509_ASN1_ZERO_TIME_OFFSET_VAL			(0x5A)	/**< Value of zero time offset */
 #define X509_ASN1_MAX_UNUSED_BITS			(7U)	/**< Maximum unused bits */
+#define X509_ASN1_BYTE0_MASK				(0xFFU)	/**< Mask to get byte 0 */
+#define X509_ASN1_BYTE1_MASK				(0xFF00U)	/**< Mask to get byte 1 */
+#define X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES	(127U)	/**< Max length for which short form
+								encoding of length is used */
+#define X509_ASN1_LONG_FORM_2_BYTES_MAX_LENGTH_IN_BYTES	(255U)	/**< Max length for which long form
+								encoding of length is used */
+#define X509_ASN1_LONG_FORM_LENGTH_1BYTE		(0x81U)	/**< To indicate that length is
+								1 byte long*/
+#define X509_ASN1_LONG_FORM_LENGTH_2BYTES		(0x82U) /**< To indicate that length is
+								2 bytes long*/
+#define X509_ASN1_LEN_OF_VALUE_OF_BOOLEAN		(0x1U)	/**< Len of Boolean */
+#define X509_ASN1_BOOLEAN_TRUE				(0xFFU)	/**< Value of Boolean TRUE */
+#define X509_ASN1_BOOLEAN_FALSE				(0x00U)	/**< Value of Boolean FALSE */
 
 /**< ASN.1 tags */
 #define X509_ASN1_TAG_BOOLEAN				(0x01U)	/**< ASN.1 tag for boolean */
@@ -195,12 +310,18 @@ typedef struct {
 #define X509_ASN1_TAG_GENERALIZED_TIME			(0x18U)	/**< ASN.1 tag for GENERALIZED
 								time format */
 #define X509_ASN1_TAG_SEQUENCE				(0x30U)	/**< ASN.1 tag for sequence */
+#define X509_ASN1_TAG_SET				(0x31U) /**< ASN.1 tag for set */
 #define X509_ASN1_TAG_OPTIONAL_PARAM_0_CONSTRUCTED_TAG	(0xA0U)	/**< ASN.1 optional parameter 0
 								constructed tag */
 #define X509_ASN1_TAG_OPTIONAL_PARAM_3_CONSTRUCTED_TAG	(0xA3U)	/**< ASN.1 optional parameter 3
 								constructed tag */
+#define X509_ASN1_TAG_CONTEXT_SPECIFIC			(0x80U) /**< ASN.1 tag for context */
+
 /************************************ Function Prototypes ****************************************/
 s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo);
+s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
+			  const X509_Config *Cfg);
+s32 X509_Init(const X509_InitData *CfgData);
 
 /************************************ Variable Definitions ***************************************/
 

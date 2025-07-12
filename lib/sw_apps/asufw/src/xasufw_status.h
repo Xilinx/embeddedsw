@@ -452,6 +452,62 @@ enum {
 							failed */
 	XASUFW_X509_PARSER_GET_EXTN_OID_FAIL, /**< 0x137U - Error when get the extension OID is
 							failed */
+	XASUFW_X509_UNSUPPORTED_CURVE_TYPE, /**< 0x138U - Error when curve type is unsupported */
+	XASUFW_X509_UNSUPPORTED_SIGN_TYPE, /**< 0x139U - Error when signature type in unsupported */
+	XASUFW_X509_ECC_EPHEMERAL_KEY_GEN_FAIL, /**< 0x13AU - Error when ephemeral key generation is
+						failed */
+	XASUFW_X509_GEN_SIGN_ECC_FAIL, /**< 0x13BU - Error when ECC key generation is failed */
+	XASUFW_X509_SHA_DIGEST_FAIL, /**< 0x13CU - Error when SHA digest calculation is failed */
+	XASUFW_X509_DMA_RELEASE_FAIL, /**< 0x13DU - Error when DMA release is failed */
+	XASUFW_X509_GEN_PUB_KEY_INFO_FIELD_FAIL, /**< 0x13EU - Error when public key information
+						field generation is failed */
+	XASUFW_X509_GEN_VERSION_FIELD_FAIL, /**< 0x13FU - Error when version field generation is
+						failed */
+	XASUFW_X509_GEN_SIGN_ALGO_FIELD_FAIL, /**< 0x140U - Error when signature algorithm field
+						generation is failed */
+	XASUFW_X509_GEN_ISSUER_FIELD_FAIL, /**< 0x141U - Error when issuer field generation is
+						failed*/
+	XASUFW_X509_GEN_VALIDITY_FIELD_FAIL, /**< 0x142U - Error when validity field generation
+						is failed */
+	XASUFW_X509_GEN_EXTENSION_FIELD_FAIL, /**< 0x143U - Error when extension field generation
+						is failed */
+	XASUFW_X509_GEN_SUB_KEY_IDENTIFIER_FIELD_FAIL, /**< 0x144U - Error when subject key
+							identifier field generation is failed */
+	XASUFW_X509_GEN_AUTH_KEY_IDENTIFIER_FIELD_FAIL,/**< 0x145U - Error when authority key
+							identifier field generation is failed */
+	XASUFW_X509_GEN_KEY_USAGE_FIELD_FAIL, /**< 0x146U - Error when key usage field generation
+						is failed */
+	XASUFW_X509_GEN_EXT_KEY_USAGE_FIELD_FAIL, /**< 0x147U - Error when extended key usage field
+							generation is failed */
+	XASUFW_X509_GEN_SUB_ALT_NAME_FIELD_FAIL, /**< 0x148U - Error when subject alternate name
+							field generation is failed */
+	XASUFW_X509_GEN_SUBJECT_FIELD_FAIL, /**< 0x149U - Error when subject field generation is
+						failed */
+	XASUFW_X509_GEN_SERIAL_FIELD_FAIL, /**< 0x14AU - Error when serial field generation is
+						failed */
+	XASUFW_X509_GEN_SIGN_FIELD_FAIL, /**< 0x14BU - Error when signature field generation is
+						failed */
+	XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, /**< 0x14CU - Error when encoded length is not
+						updated */
+	XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED, /**< 0x14DU - Error when call back not
+							registered for digest/sign calculation */
+	XASUFW_X509_INVALID_PLAT_DATA, /**< 0x14EU - Error when platform data is invalid */
+	XASUFW_X509_GENERATE_DIGEST_FAIL, /**< 0x14FU - Error when digest generation is failed */
+	XASUFW_X509_GENERATE_SIGN_FAIL, /**< 0x150U - Error when signature generation is failed */
+	XASUFW_X509_GENERATE_PUB_KEY_ALGO_FIELD_FAIL, /**< 0x151U - Error when public key algorithm
+							field generation is failed */
+	XASUFW_X509_CREATE_INTEGER_FIELD_FROM_ARRAY_FAIL, /**< 0x152U - Error when create integer
+								field from array is failed */
+	XASUFW_X509_CREATE_INTEGER_FIELD_FAIL, /**<* 0x153U - Error when integer field creation
+						failed */
+	XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, /**< 0x154U - Error when raw data field
+								creation is failed */
+	XASUFW_X509_CREATE_BIT_STRING_FAIL, /**< 0x155U - Error when bit string creation is
+						failed */
+	XASUFW_X509_CREATE_OCTET_STRING_FAIL, /**< 0x156U - Error when octet string creation is
+						failed */
+	XASUFW_MEM_MOVE_FAIL, /**< 0x157U - Error when move memory failed */
+	XASUFW_X509_CERT_GEN_FAIL, /**< 0x158U - Error when certificate generation failed */
 
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */

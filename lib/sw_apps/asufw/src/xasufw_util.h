@@ -93,6 +93,7 @@ extern "C" {
 #define XASUFW_MAX_32BIT_ADDRESS		(0xFFFFFFFFU) /**< Max supported 32-bit address */
 
 #define XASUFW_VALUE_ONE			(1U)	/**< Integer value 1U */
+#define XASUFW_VALUE_TWO			(2U)	/**< Integer value 2U */
 
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 #define XASUFW_MEASURE_PERF_START() \

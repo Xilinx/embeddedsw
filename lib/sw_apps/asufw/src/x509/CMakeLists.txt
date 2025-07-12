@@ -3,3 +3,6 @@
 
 collect (PROJECT_LIB_SOURCES x509_certparser.c)
 collect (PROJECT_LIB_HEADERS x509_cert.h)
+collect (PROJECT_LIB_SOURCES x509_certgen.c)
+collect (PROJECT_LIB_SOURCES x509_asufw.c)
+collect (PROJECT_LIB_HEADERS x509_asufw.h)
