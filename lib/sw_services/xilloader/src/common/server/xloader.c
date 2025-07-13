@@ -190,6 +190,7 @@
 *       pre 04/01/2025 Clearing metaheader in XLoader_InitPdiInstanceForExtractMHAndOptData
 *       pre 04/04/2025 Fixed bug in load image feature
 *       sk  05/07/2025 Fix the config for PCIe as secondary boot mode
+*       sk  07/13/2025 Renamed XLoader_LoadAndStartSecPdi to XLoader_LoadAndStartSecondaryPdi
 *
 * </pre>
 *
@@ -259,7 +260,7 @@
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr);
 static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
 static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
-static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
+static int XLoader_LoadAndStartSecondaryPdi(XilPdi* PdiPtr);
 static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo);
 static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild);
 static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount);
@@ -1098,7 +1099,7 @@ static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 		goto END;
 	}
 
-	Status = XLoader_LoadAndStartSecPdi(PdiPtr);
+	Status = XLoader_LoadAndStartSecondaryPdi(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1939,7 +1940,7 @@ END:
  * 			- XLOADER_ERR_MEMSET_PDIPTR if failed to create instance for PdiPtr.
  *
  *****************************************************************************/
-static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
+static int XLoader_LoadAndStartSecondaryPdi(XilPdi* PdiPtr)
 {
 	int Status = XST_FAILURE;
 	u32 PdiSrc = 0U;
