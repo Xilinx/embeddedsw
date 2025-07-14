@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -65,9 +65,9 @@
 /************************** Function Prototypes ******************************/
 
 #ifndef SDT
-u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, u32 DeviceId);
+u32 ClkWiz_Example(u32 DeviceId);
 #else
-u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, UINTPTR BaseAddress);
+u32 ClkWiz_Example(UINTPTR BaseAddress);
 #endif
 u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr_Dynamic);
 
@@ -130,9 +130,9 @@ int main()
 	xil_printf("-------------------------------------------\n\r\n\r");
 
 #ifndef SDT
-	Status = ClkWiz_Example(&ClkWiz_Dynamic, XCLK_WIZARD_DEVICE_ID);
+	Status = ClkWiz_Example(XCLK_WIZARD_DEVICE_ID);
 #else
-	Status = ClkWiz_Example(&ClkWiz_Dynamic, XPAR_XCLK_WIZ_0_BASEADDR);
+	Status = ClkWiz_Example(XPAR_XCLK_WIZ_0_BASEADDR);
 #endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("CLK_WIZARD Monitor interrupt example Failed");
@@ -161,9 +161,9 @@ int main()
 *
 ******************************************************************************/
 #ifndef SDT
-u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, u32 DeviceId)
+u32 ClkWiz_Example(u32 DeviceId)
 #else
-u32 ClkWiz_Example(XClk_Wiz *IntcInstancePtr, UINTPTR BaseAddress)
+u32 ClkWiz_Example(UINTPTR BaseAddress)
 #endif
 {
 	XClk_Wiz_Config *CfgPtr_Dynamic;
