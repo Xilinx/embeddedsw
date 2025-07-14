@@ -2753,7 +2753,7 @@ u32 Xhdmiphy1_RefClkValue() {
 u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir, u64 LineRate, u8 NChannels)
 {
-	XHdmiphy1_PllType PllType;
+	XHdmiphy1_PllType PllType = XHDMIPHY1_PLL_TYPE_UNKNOWN;
 	u32 Status = XST_SUCCESS;
 	u32 Hdmi21_frl_refclk;
 

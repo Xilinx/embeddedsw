@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -39,6 +40,7 @@
 extern void XHdmiphy1_Ch2Ids(XHdmiphy1 *InstancePtr, XHdmiphy1_ChannelId ChId,
         u8 *Id0, u8 *Id1);
 
+extern u32 Xhdmiphy1_RefClkValue(void);
 static void XHdmiphy1_HdmiGtHandler(XHdmiphy1 *InstancePtr);
 static void XHdmiphy1_ClkDetHandler(XHdmiphy1 *InstancePtr);
 
