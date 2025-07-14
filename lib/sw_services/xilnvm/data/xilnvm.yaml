@@ -73,5 +73,5 @@ examples:
     - supported_platforms:
       - Versal
     - dependency_files:
-      - xilnvm_efuse_versal_input.h
+      - xilnvm_efuse_versal_ssit_input.h
 ...
