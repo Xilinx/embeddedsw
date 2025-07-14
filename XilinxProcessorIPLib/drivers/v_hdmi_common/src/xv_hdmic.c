@@ -565,7 +565,7 @@ XHdmiC_SamplingFrequency
 
 		default:
 			ExtACRSampFreq =
-					XHDMIC_SAMPLING_FREQ;
+					(XHdmiC_SamplingFrequency)XHDMIC_SAMPLING_FREQ;
 		break;
 	}
 
@@ -1010,7 +1010,7 @@ void XV_HdmiC_ParseDRMIF(XHdmiC_Aux *AuxPtr, XHdmiC_DRMInfoFrame *DRMInfoFrame)
 /*****************************************************************************/
 /**
 *
-* This function generates and sends Auxilliary Video Infoframes
+* This function generates and sends Auxiliary Video Infoframes
 *
 * @param  InstancePtr is a pointer to the HDMI TX Subsystem instance.
 *
