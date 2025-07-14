@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 #include "xparameters.h"
@@ -14,7 +14,9 @@ void outbyte(char c);
 }
 #endif
 
+#ifndef ASUFW
 void outbyte(char c)
 {
 	XUartPsv_SendByte(STDOUT_BASEADDRESS, c);
 }
+#endif

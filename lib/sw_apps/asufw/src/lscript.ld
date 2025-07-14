@@ -6,6 +6,7 @@
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0xC00;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x800;
 _RSA_DATA_SIZE = DEFINED(_RSA_DATA_SIZE) ? _RSA_DATA_SIZE : 0x1400;
+_LOG_BUF_SIZE = DEFINED(_LOG_BUF_SIZE) ? _LOG_BUF_SIZE : 0x1000;
 
 /* Define Memories in the system */
 
@@ -15,7 +16,8 @@ MEMORY
    tmr_ram_instr_cntlr_Mem : ORIGIN = 0xEBE00000, LENGTH = 0x40000
    tmr_ram_data_Confg_Mem : ORIGIN = 0xEBE40000, LENGTH = 0x1000
    tmr_ram_data_ipi_shared_Mem : ORIGIN = 0xEBE41000, LENGTH = 0x8000
-   tmr_ram_data_cntlr_Mem : ORIGIN = 0xEBE49000, LENGTH = 0x15C00
+   tmr_ram_data_cntlr_Mem : ORIGIN = 0xEBE49000, LENGTH = 0x14C00
+   tmr_ram_data_log_buf_Mem : ORIGIN = 0xEBE5DC00, LENGTH = _LOG_BUF_SIZE
    tmr_ram_data_rsa_Mem : ORIGIN = 0xEBE5EC00, LENGTH = _RSA_DATA_SIZE
 }
 
@@ -185,6 +187,15 @@ SECTIONS
    *(.gnu.linkonce.rs.*)
    __rsa_data_block_end = .;
 } > tmr_ram_data_rsa_Mem
+
+.debug_log_buffer (NOLOAD):
+{
+   __debug_log_buffer_start = .;
+   *(.debug_log_buffer)
+   *(.debug_log_buffer.*)
+   *(.gnu.linkonce.rs.*)
+   __=debug_log_buffer_end = .;
+} > tmr_ram_data_log_buf_Mem
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 

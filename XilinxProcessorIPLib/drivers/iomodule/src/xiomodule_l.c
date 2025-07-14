@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,8 @@
 * 		       system device-tree flow.
 *       adk  12/09/24  Since PLM has custom implementation of outbyte() API
 *       	       don't pull it for PLM template app case.
+*       ss   07/11/25  Add define for ASUFW as outbyte() specific implementation
+*                      for ASUFW is added
 * </pre>
 *
 ******************************************************************************/
@@ -374,7 +376,7 @@ u8 XIOModule_RecvByte(UINTPTR BaseAddress)
 }
 
 #if defined (SDT) && defined (XPAR_STDIN_IS_IOMODULE)
-#if !defined(VERSAL_PLM) && !defined(SPARTANUP_PLM)
+#if !defined(VERSAL_PLM) && !defined(SPARTANUP_PLM) && !defined(ASUFW)
 void outbyte(char c) {
          XIOModule_SendByte(STDOUT_BASEADDRESS, c);
 }

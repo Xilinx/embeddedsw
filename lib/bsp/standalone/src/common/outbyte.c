@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *
 ******************************************************************************/
@@ -16,7 +16,7 @@ void outbyte(char c);
 }
 #endif
 
-#if !defined(VERSAL_PLM) && !defined(STDOUT_BASEADDRESS) && !defined(SPARTANUP_PLM)
+#if !defined(VERSAL_PLM) && !defined(STDOUT_BASEADDRESS) && !defined(SPARTANUP_PLM) && !defined(ASUFW)
 void outbyte(char c)
 {
     (void) c;

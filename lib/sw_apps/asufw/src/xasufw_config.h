@@ -61,6 +61,10 @@ extern "C" {
 #define XASUFW_ENABLE_PERF_MEASUREMENT		(XASUFW_CONFIG_DISABLE) /** To enable/disable
 									performance measurement. */
 
+/** SDK release version */
+#define SDK_RELEASE_YEAR		2025	/**< Specifies the SDK release year */
+#define SDK_RELEASE_QUARTER		2	/**< Specifies the SDK release quarter */
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

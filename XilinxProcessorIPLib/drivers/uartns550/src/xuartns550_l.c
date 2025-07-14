@@ -34,6 +34,8 @@
 * 3.6   sd   03/02/20 Updated the register macros for DRL and DRM registers.
 * 3.12  adk  06/02/25 Since PLM has custom implementation of outbyte() API
 *                     don't pull it for PLM template app case.
+*       ss   07/11/25 Add define for ASUFW as outbyte() specific implementation
+*                     for ASUFW is added
 * </pre>
 *
 ******************************************************************************/
@@ -176,7 +178,7 @@ void XUartNs550_SetBaud(UINTPTR BaseAddress, u32 InputClockHz, u32 BaudRate)
 	XUartNs550_SetLineControlReg(BaseAddress, LcrRegister);
 }
 #if defined(SDT) && defined(XPAR_STDIN_IS_UARTNS550)
-#if !defined(VERSAL_PLM)
+#if !defined(VERSAL_PLM) && !defined(ASUFW)
 void outbyte(char c) {
          XUartNs550_SendByte(STDOUT_BASEADDRESS, c);
 }

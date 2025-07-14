@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -103,7 +103,7 @@ void XUartPsv_ResetHw(UINTPTR BaseAddress)
 
 #ifdef SDT
 #ifdef XPAR_STDIN_IS_UARTPSV
-#if !defined(VERSAL_PLM)
+#if !defined(VERSAL_PLM) && !defined(ASUFW)
 void outbyte(char c) {
          XUartPsv_SendByte(STDOUT_BASEADDRESS, c);
 }

@@ -68,6 +68,7 @@
 #include "xasufw_keywraphandler.h"
 #include "xfih.h"
 #include "xasufw_error_manager.h"
+#include "xasufw_config.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -96,7 +97,12 @@ int main(void)
 {
 	s32 Status = XASUFW_FAILURE;
 
+	/** Initializes the debug log buffer for ASUFW. */
+	XAsufw_InitDebugLogBuffer();
+
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "\r\nXilinx Versal_2VE_2VM Application Security Unit Firmware\r\n");
+
+	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Release %d.%d", SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER);
 
 	/** Initialize ASUFW. */
 	Status = XAsufw_Init();

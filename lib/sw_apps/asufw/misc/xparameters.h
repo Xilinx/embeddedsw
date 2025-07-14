@@ -550,4 +550,6 @@
 
 #define VERSAL_NET
 
+#define ASUFW
+
 #endif /* end of protection macro */

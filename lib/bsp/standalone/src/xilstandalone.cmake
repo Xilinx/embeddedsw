@@ -119,6 +119,10 @@ if(("${CMAKE_MACHINE}" STREQUAL "SpartanUP") AND
     set(SPARTANUP_PLM " ")
 endif()
 
+if("${TEMPLATE}" STREQUAL "asufw")
+    set(ASUFW " ")
+endif()
+
 string(FIND "${CMAKE_C_FLAGS}" "-flto" has_flto)
 if (${has_flto} EQUAL -1)
     set(XIL_INTERRUPT " ")

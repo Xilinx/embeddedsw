@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef BSPCONFIG_H
@@ -29,6 +29,7 @@
 #cmakedefine VERSALNET_PLM @VERSALNET_PLM@
 #cmakedefine SPARTANUP_PLM @SPARTANUP_PLM@
 #cmakedefine PLATFORM_MB @PLATFORM_MB@
+#cmakedefine ASUFW @ASUFW@
 #define XPAR_CPU_ID ${CPU_ID_VAL}
 #cmakedefine XIL_INTERRUPT @XIL_INTERRUPT@
 #cmakedefine XPAR_STDIN_IS_UARTLITE @XPAR_STDIN_IS_UARTLITE@
