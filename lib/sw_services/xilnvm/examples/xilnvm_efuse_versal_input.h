@@ -267,51 +267,6 @@
 *		XNVM_EFUSE_PPK2_HASH.
 *	FALSE will ignore the hash provided in XNVM_EFUSE_PPK2_HASH.
 *
-*	#define XNVM_EFUSE_WRITE_PPK0_SLR1_HASH		FALSE
-* 	TRUE will burn PPK0 in SLR1 with it's SHA3 hash provided in
-* 		XNVM_EFUSE_PPK0_SLR1_HASH.
-*	FALSE will ignore the hash provided in XSK_EFUSEPS_PPK0_SLR1_HASH.
-*
-*	#define XNVM_EFUSE_WRITE_PPK1_SLR1_HASH		FALSE
-*	TRUE will burn PPK1 in SLR1 with it's SHA3 hash provided in
-*		XNVM_EFUSE_PPK1_SLR1_HASH.
-*	FALSE will ignore the hash provided in XNVM_EFUSE_PPK1_SLR1_HASH.
-*
-*	#define XNVM_EFUSE_WRITE_PPK2_SLR1_HASH		FALSE
-*	TRUE will burn PPK2 in SLR1 with it's SHA3 hash provided in
-*		XNVM_EFUSE_PPK2_SLR1_HASH.
-*	FALSE will ignore the hash provided in XNVM_EFUSEPS_PPK2_SLR1_HASH.
-*
-*	#define XNVM_EFUSE_WRITE_PPK0_SLR2_HASH		FALSE
-* 	TRUE will burn PPK0 in SLR2 with it's SHA3 hash provided in
-* 		XNVM_EFUSE_PPK0_SLR2_HASH.
-*	FALSE will ignore the hash provided in XNVM_EFUSE_PPK0_SLR2_HASH.
-*
-*	#define XNVM_EFUSE_WRITE_PPK1_SLR2_HASH		FALSE
-*	TRUE will burn PPK1 in SLR2 with it's SHA3 hash provided in
-*		XNVM_EFUSE_PPK1_SLR2_HASH.
-*	FALSE will ignore the hash provided in XNVM_EFUSE_PPK1_SLR2_HASH.
-*
-*	#define XNVM_EFUSE_WRITE_PPK2_SLR2_HASH		FALSE
-*	TRUE will burn PPK2 in SLR2 with it's SHA3 hash provided in
-*		XNVM_EFUSE_PPK2_SLR2_HASH.
-*	FALSE will ignore the hash provided in XNVM_EFUSE_PPK2_SLR2_HASH.
-*
-*	#define XNVM_EFUSE_WRITE_PPK0_SLR3_HASH		FALSE
-* 	TRUE will burn PPK0 in SLR3 with it's SHA3 hash provided in
-* 		XNVM_EFUSE_PPK0_SLR3_HASH.
-*	FALSE will ignore the hash provided in XNVM_EFUSE_PPK0_SLR3_HASH.
-*
-*	#define XNVM_EFUSE_WRITE_PPK1_SLR3_HASH		FALSE
-*	TRUE will burn PPK1 in SLR3 with it's SHA3 hash provided in
-*		XNVM_EFUSE_PPK1_SLR3_HASH.
-*	FALSE will ignore the hash provided in XNVM_EFUSE_PPK1_SLR3_HASH.
-*
-*	#define XNVM_EFUSE_WRITE_PPK2_SLR3_HASH		FALSE
-*	TRUE will burn PPK2 in SLR3 with it's SHA3 hash provided in
-*		XNVM_EFUSE_PPK2_SLR3_HASH.
-*	FALSE will ignore the hash provided in XNVM_EFUSE_PPK2_SLR3_HASH.
-*
 *	#define XNVM_EFUSE_WRITE_REVOCATION_ID_0	FALSE
 *	TRUE will burn Revocation Id 0 eFuse with the data provided in
 *		XNVM_EFUSE_REVOCATION_ID_0 FUSES.
@@ -501,96 +456,6 @@
 *	characters are 0-9,a-f,A-F. Any other character is considered invalid
 *	and will not burn PPK2 hash.
 *	Note that,for writing the PPK2 hash, XNVM_EFUSE_WRITE_PPK2_HASH
-*	should be set to TRUE.
-*
-*	#define		XNVM_EFUSE_PPK0_SLR1_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFUSE array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK0 hash.
-*	Note that,for writing the PPK0 hash in SLR1, XNVM_EFUSE_WRITE_PPK0_SLR1_HASH
-*	should be set to TRUE.
-*
-*	#define		XNVM_EFUSE_PPK1_SLR1_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK1 hash.
-*	Note that,for writing the PPK1 hash in SLR1, XNVM_EFUSE_WRITE_PPK1_SLR1_HASH
-*	should be set to TRUE.
-*
-* 	#define		XNVM_EFUSE_PPK2_SLR1_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK2 hash.
-*	Note that,for writing the PPK2 hash in SLR1, XNVM_EFUSE_WRITE_PPK2_SLR1_HASH
-*	should be set to TRUE.
-*
-*	#define		XNVM_EFUSE_PPK0_SLR2_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFUSE array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK0 hash.
-*	Note that,for writing the PPK0 hash in SLR2, XNVM_EFUSE_WRITE_PPK0_SLR2_HASH
-*	should be set to TRUE.
-*
-*	#define		XNVM_EFUSE_PPK1_SLR2_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK1 hash.
-*	Note that,for writing the PPK1 hash in SLR2, XNVM_EFUSE_WRITE_PPK1_SLR2_HASH
-*	should be set to TRUE.
-*
-* 	#define		XNVM_EFUSE_PPK2_SLR2_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK2 hash.
-*	Note that,for writing the PPK2 hash in SLR2, XNVM_EFUSE_WRITE_PPK2_SLR2_HASH
-*	should be set to TRUE.
-*
-*	#define		XNVM_EFUSE_PPK0_SLR3_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFUSE array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK0 hash.
-*	Note that,for writing the PPK0 hash in SLR3, XNVM_EFUSE_WRITE_PPK0_SLR3_HASH
-*	should be set to TRUE.
-*
-*	#define		XNVM_EFUSE_PPK1_SLR3_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK1 hash.
-*	Note that,for writing the PPK1 hash in SLR3, XNVM_EFUSE_WRITE_PPK1_SLR3_HASH
-*	should be set to TRUE.
-*
-* 	#define		XNVM_EFUSE_PPK2_SLR3_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK2 hash.
-*	Note that,for writing the PPK2 hash in SLR3, XNVM_EFUSE_WRITE_PPK2_SLR3_HASH
 *	should be set to TRUE.
 *
 *	#define 	XNVM_EFUSE_META_HEADER_IV
@@ -851,72 +716,6 @@
 *	XNVM_EFUSE_WRITE_PPK4_HASH should be set to TRUE, XNVM_EN_ADD_PPKS should
 *	be defined and PPK0,PPK1,PPK2 should already be programmed.
 *
-* 	#define		XNVM_EFUSE_PPK3_SLR1_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK3 hash.
-*	Note that,USER_[55:48] are repurposed as PPK3 and for writing the PPK3 hash,
-*	XNVM_EFUSE_WRITE_PPK3_SLR1_HASH should be set to TRUE and XNVM_EN_ADD_PPKS should
-*	be defined and PPK0,PPK1,PPK2 should already be programmed..
-*
-* 	#define		XNVM_EFUSE_PPK4_SLR1_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK4 hash.
-*	Note that,USER_[63:56] are repurposed as PPK4 and for writing the PPK4 hash,
-*	XNVM_EFUSE_WRITE_PPK4_SLR1_HASH should be set to TRUE, XNVM_EN_ADD_PPKS should
-*	be defined and PPK0,PPK1,PPK2 should already be programmed.
-
-* 	#define		XNVM_EFUSE_PPK3_SLR2_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK3 hash.
-*	Note that,USER_[55:48] are repurposed as PPK3 and for writing the PPK3 hash,
-*	XNVM_EFUSE_WRITE_PPK3_SLR2_HASH should be set to TRUE and XNVM_EN_ADD_PPKS should
-*	be defined and PPK0,PPK1,PPK2 should already be programmed..
-*
-* 	#define		XNVM_EFUSE_PPK4_SLR2_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK4 hash.
-*	Note that,USER_[63:56] are repurposed as PPK4 and for writing the PPK4 hash,
-*	XNVM_EFUSE_WRITE_PPK4_SLR2_HASH should be set to TRUE, XNVM_EN_ADD_PPKS should
-*	be defined and PPK0,PPK1,PPK2 should already be programmed.
-*
-* 	#define		XNVM_EFUSE_PPK3_SLR3_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK3 hash.
-*	Note that,USER_[55:48] are repurposed as PPK3 and for writing the PPK3 hash,
-*	XNVM_EFUSE_WRITE_PPK3_SLR3_HASH should be set to TRUE and XNVM_EN_ADD_PPKS should
-*	be defined and PPK0,PPK1,PPK2 should already be programmed..
-*
-* 	#define		XNVM_EFUSE_PPK4_SLR3_HASH
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value will be converted to a hex buffer and will be written
-*	into the Versal eFuse array. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered invalid
-*	and will not burn PPK4 hash.
-*	Note that,USER_[63:56] are repurposed as PPK4 and for writing the PPK4 hash,
-*	XNVM_EFUSE_WRITE_PPK4_SLR3_HASH should be set to TRUE, XNVM_EN_ADD_PPKS should
-*	be defined and PPK0,PPK1,PPK2 should already be programmed.
-*
 *   #define XNVM_EFUSE_ADD_PPK_EN FALSE
 *   TRUE permanently enables the additional PPK support
 *   FALSE will not modify this control bit of efuse
@@ -982,7 +781,6 @@ extern "C" {
  * Following is the define to select if the user wants to program
  * Secure control bits
  */
-#define XNVM_MAX_SLRS 4U
 #define XNVM_EFUSE_REG_INIT_DIS			FALSE
 #define XNVM_EFUSE_BOOT_ENV_WR_LK		FALSE
 #define XNVM_EFUSE_PMC_SC_EN			FALSE
@@ -1057,16 +855,6 @@ extern "C" {
 #define XNVM_EFUSE_WRITE_PPK0_HASH		FALSE
 #define XNVM_EFUSE_WRITE_PPK1_HASH		FALSE
 #define XNVM_EFUSE_WRITE_PPK2_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK0_SLR1_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK1_SLR1_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK2_SLR1_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK0_SLR2_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK1_SLR2_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK2_SLR2_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK0_SLR3_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK1_SLR3_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK2_SLR3_HASH		FALSE
-
 
 #define XNVM_EFUSE_WRITE_DEC_EFUSE_ONLY		FALSE
 
@@ -1117,25 +905,6 @@ extern "C" {
 
 #define XNVM_EFUSE_PPK2_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
 
-#define XNVM_EFUSE_PPK0_SLR1_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK1_SLR1_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK2_SLR1_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK0_SLR2_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK1_SLR2_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK2_SLR2_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK0_SLR3_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK1_SLR3_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK2_SLR3_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-
 #define XNVM_EFUSE_META_HEADER_IV	"000000000000000000000000"
 
 #define XNVM_EFUSE_BLACK_OBFUS_IV	"000000000000000000000000"
@@ -1177,28 +946,10 @@ extern "C" {
 #define XNVM_EFUSE_ADD_PPK_EN           FALSE
 #define XNVM_EFUSE_WRITE_PPK3_HASH		FALSE
 #define XNVM_EFUSE_WRITE_PPK4_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK3_SLR1_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK4_SLR1_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK3_SLR2_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK4_SLR2_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK3_SLR3_HASH		FALSE
-#define XNVM_EFUSE_WRITE_PPK4_SLR3_HASH		FALSE
 
 #define XNVM_EFUSE_PPK3_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
 
 #define XNVM_EFUSE_PPK4_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK3_SLR1_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK4_SLR1_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK3_SLR2_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK4_SLR2_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK3_SLR3_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
-
-#define XNVM_EFUSE_PPK4_SLR3_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
 
 #define XNVM_EFUSE_PPK3_INVLD			FALSE
 #define XNVM_EFUSE_PPK4_INVLD			FALSE
