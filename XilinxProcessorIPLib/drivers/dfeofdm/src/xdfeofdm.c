@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *       dc     03/22/24 Update hw version
 * 1.3   dc     06/18/24 Add FR1 and FR2 frequency range
 *       dc     09/23/24 Add frequency range MODEL_PARAM
+* 1.5   dc     07/14/25 Update comments about status and delay
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -61,7 +62,7 @@
 * @endcond
 */
 #define XDFEOFDM_DRIVER_VERSION_MINOR                                          \
-	(3U) /**< Minor version number of driver */
+	(5U) /**< Minor version number of driver */
 #define XDFEOFDM_DRIVER_VERSION_MAJOR                                          \
 	(1U) /**< Major version number of driver */
 

@@ -19,7 +19,7 @@ BEGIN driver dfeofdm
   OPTION supported_peripherals = (xdfe_ofdm);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.4;
+  OPTION VERSION = 1.5;
   OPTION NAME = dfeofdm;
   OPTION depends = libmetal;
   OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";

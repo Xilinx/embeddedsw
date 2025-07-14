@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +57,7 @@
 *       cog    02/21/24 Fixed SDT runtime issue
 * 1.3   dc     06/18/24 Add FR1 and FR2 frequency range
 *       dc     09/23/24 Add frequency range MODEL_PARAM
+* 1.5   dc     07/14/25 Update comments about status and delay
 *
 * </pre>
 * @endcond
@@ -313,8 +314,8 @@ typedef struct {
 		- 1 = LTE
 		- 0 = 5G NR */
 	/* CC slot delay */
-	u32 OutputDelay; /**< [0-2047] Delay required before outputting CC
-		in order to balance CC Filter group delay. */
+	u32 OutputDelay; /**< [0-4095 for DL, 0-3921 for UL] Delay required before
+		outputting CC in order to balance CC Filter group delay. */
 	u32 PhaseCompensation[XDFEOFDM_PHASE_COMPENSATION_MAX]; /**< Phase weight is
 		a complex number with 0 to 15 bits providing the I and 16 to 31
 		bits the Q part of the weight. */
@@ -354,7 +355,7 @@ typedef struct {
 		- 1 = LTE
 		- 0 = 5G NR */
 	/* CC slot delay */
-	u32 OutputDelay; /**< [0-2047] Delay required before outputting CC
+	u32 OutputDelay; /**< [0-4095] Delay required before outputting CC
 		in order to balance CC Filter group delay. */
 	u32 PhaseCompensation[XDFEOFDM_PHASE_COMPENSATION_MAX]; /**< Phase weight is
 		a complex number with 0 to 15 bits providing the I and 16 to 31
@@ -379,12 +380,12 @@ typedef struct {
 		occurred. */
 	u32 SaturationCount; /**< [0,2**14-1] Saturation events count across
 		real and imaginary components. */
-	u32 CCUpdate; /**< [0,1] There has been an overflow or underflow in
-		the filter for one or more of the antennas and CCIDs. */
-	u32 FTCCSequenceError; /**< [0,1] TRIGGER.CC_UPDATE has been
-		triggered. */
-	u32 Saturation; /**< [0,1] A difference between CC_CONFIGURATION.
+	u32 CCUpdate; /**< [0,1] TRIGGER.CC_UPDATE has been
+		triggered.  */
+	u32 FTCCSequenceError;  /**< [0,1] A difference between CC_CONFIGURATION.
 		SEQUENCE and DIN TID has been detected. */
+	u32 Saturation; /**< [0,1] There has been an overflow or underflow in
+		 the OFDM IP for one or more of the antennas and CCIDs. */
 	u32 Overflow; /**< [0,1] UL OFDM receives tready low during packet
 		transaction */
 } XDfeOfdm_Status;
