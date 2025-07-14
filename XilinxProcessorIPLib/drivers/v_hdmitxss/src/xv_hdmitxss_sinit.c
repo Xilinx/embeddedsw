@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -101,7 +101,7 @@ XV_HdmiTxSs_Config* XV_HdmiTxSs_LookupConfig(UINTPTR BaseAddress)
 *
 *******************************************************************************/
 
-u32 XV_HdmiTxSs_GetDrvIndex(XV_HdmiTxSs *InstancePtr, UINTPTR BaseAddress)
+u32 XV_HdmiTxSs_GetDrvIndex(UINTPTR BaseAddress)
 {
 	u32 Index = 0;
 

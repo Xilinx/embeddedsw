@@ -452,7 +452,7 @@ typedef struct
 XV_HdmiTxSs_Config *XV_HdmiTxSs_LookupConfig(u32 DeviceId);
 #else
 XV_HdmiTxSs_Config *XV_HdmiTxSs_LookupConfig(UINTPTR BaseAddress);
-u32 XV_HdmiTxSs_GetDrvIndex(XV_HdmiTxSs *InstancePtr, UINTPTR BaseAddress);
+u32 XV_HdmiTxSs_GetDrvIndex(UINTPTR BaseAddress);
 #endif
 void XV_HdmiTxSS_SetHdmiMode(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSS_SetDviMode(XV_HdmiTxSs *InstancePtr);

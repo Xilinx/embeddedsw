@@ -436,7 +436,7 @@ static void XV_HdmiTxSs_GetIncludedSubcores(XV_HdmiTxSs *HdmiTxSsPtr,
 {
 	u32 Index = 0;
 
-	Index = XV_HdmiTxSs_GetDrvIndex(HdmiTxSsPtr, BaseAddress);
+	Index = XV_HdmiTxSs_GetDrvIndex(BaseAddress);
 	HdmiTxSsPtr->HdmiTxPtr = ((HdmiTxSsPtr->Config.HdmiTx.IsPresent) \
 		? (&XV_HdmiTxSs_SubCoreRepo[Index].HdmiTx) : NULL);
 	HdmiTxSsPtr->VtcPtr = ((HdmiTxSsPtr->Config.Vtc.IsPresent)  \
