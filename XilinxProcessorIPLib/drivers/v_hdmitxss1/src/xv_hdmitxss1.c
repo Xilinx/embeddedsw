@@ -430,7 +430,7 @@ static void XV_HdmiTxSs1_GetIncludedSubcores(XV_HdmiTxSs1 *HdmiTxSs1Ptr,
 {
   u32 Index = 0;
 
-  Index = XV_HdmiTxSs1_GetDrvIndex(HdmiTxSs1Ptr, BaseAddress);
+  Index = XV_HdmiTxSs1_GetDrvIndex(BaseAddress);
   HdmiTxSs1Ptr->HdmiTx1Ptr     = ((HdmiTxSs1Ptr->Config.HdmiTx1.IsPresent)    \
                         ? (&XV_HdmiTxSs1_SubCoreRepo[Index].HdmiTx1) : NULL);
   HdmiTxSs1Ptr->VtcPtr        = ((HdmiTxSs1Ptr->Config.Vtc.IsPresent)  \
@@ -1821,8 +1821,8 @@ int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u32 BufferSize)
 		if (Status == (XST_SUCCESS)) {
 			ExtensionFlag = Buffer[126];
 			ExtensionFlag = ExtensionFlag >> 1;
-			if ((BufferSize / XV_HDMITXSS1_DDC_EDID_LENGTH) <
-			    (ExtensionFlag + 1)) {
+			if ((u32)(BufferSize / XV_HDMITXSS1_DDC_EDID_LENGTH) <
+			    (u32)(ExtensionFlag + 1)) {
 				xil_printf(ANSI_COLOR_YELLOW "Buffer size is small. Pass input buffer of size %d\r\n",
 					   (ExtensionFlag + 1) *
 					   XV_HDMITXSS1_DDC_EDID_LENGTH,

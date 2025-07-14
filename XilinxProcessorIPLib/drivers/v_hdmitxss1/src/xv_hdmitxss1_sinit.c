@@ -100,7 +100,7 @@ XV_HdmiTxSs1_Config* XV_HdmiTxSs1_LookupConfig(UINTPTR BaseAddress)
 *
 *******************************************************************************/
 
-u32 XV_HdmiTxSs1_GetDrvIndex(XV_HdmiTxSs1 *InstancePtr, UINTPTR BaseAddress)
+u32 XV_HdmiTxSs1_GetDrvIndex(UINTPTR BaseAddress)
 {
  u32 Index = 0;
 
