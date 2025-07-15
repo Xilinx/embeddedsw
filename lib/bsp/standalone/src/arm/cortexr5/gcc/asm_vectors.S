@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -16,6 +17,7 @@
 * 5.00  pkp	02/10/14 Initial version
 * 6.0   mus     27/07/16 Added UndefinedException handler
 * 6.3	pkp	02/13/17 Added support for hard float
+* 9.4   vmt     14/07/25 Extended FPU register support to 32 for Cortex-R52
 * </pre>
 *
 ******************************************************************************/
@@ -49,8 +51,12 @@ _vector_table:
 IRQHandler:					/* IRQ vector handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code*/
 #ifndef __SOFTFP__
-
+#if defined (ARMR52)
+        vpush {d0-d15}
+        vpush {d16-d31}
+#else
 	vpush {d0-d7}				/* Store floating point registers */
+#endif
 	vmrs r1, FPSCR
 	push {r1}
 	vmrs r1, FPEXC
@@ -63,7 +69,12 @@ IRQHandler:					/* IRQ vector handler */
 	vmsr    FPEXC, r1
 	pop 	{r1}
 	vmsr    FPSCR, r1
+#if defined (ARMR52)
+        vpop    {d16-d31}
+        vpop    {d0-d15}
+#else
 	vpop    {d0-d7}
+#endif
 #endif
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
 	subs	pc, lr, #4			/* adjust return */

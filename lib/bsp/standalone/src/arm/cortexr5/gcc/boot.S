@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -75,6 +75,7 @@
 *                     CPU affinity register to read CPU ID.
 * 9.0  mus  08/01/23  Enable low latency peripheral port for CortexR52.
 * 9.1  mus  04/19/24  Add support for lockstep_mode_debug handling in SDT flow
+* 9.4  vmt  15/07/25  Add support to clear FPU registers D16–D31 for Cortex-R52
 * </pre>
 *
 ******************************************************************************/
@@ -292,7 +293,24 @@ InitEL1:
 	vmov	d13,r1,r1
 	vmov	d14,r1,r1
 	vmov	d15,r1,r1
-
+#if defined (ARMR52)
+        vmov    d16, r1, r1
+        vmov    d17, r1, r1
+        vmov    d18, r1, r1
+        vmov    d19, r1, r1
+        vmov    d20, r1, r1
+        vmov    d21, r1, r1
+        vmov    d22, r1, r1
+        vmov    d23, r1, r1
+        vmov    d24, r1, r1
+        vmov    d25, r1, r1
+        vmov    d26, r1, r1
+        vmov    d27, r1, r1
+        vmov    d28, r1, r1
+        vmov    d29, r1, r1
+        vmov    d30, r1, r1
+        vmov    d31, r1, r1
+#endif
 #ifdef __SOFTFP__
 /* Disable the FPU if SOFTFP is defined*/
 	vmsr	FPEXC,r3

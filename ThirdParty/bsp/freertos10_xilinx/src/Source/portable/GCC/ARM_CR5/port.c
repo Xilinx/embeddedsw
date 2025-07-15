@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2018 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -199,7 +199,11 @@ debugger. */
  * vfpv3-d16 has 16 64 bit registers or 32 32 bit registers. plus
  * a 32 bit status register
  */
+#if defined (ARMR52)
+#define portFPU_REGISTER_WORDS ( (32 * 2) + 1)
+#else
 #define portFPU_REGISTER_WORDS ( (16 * 2) + 1)
+#endif
 /*-----------------------------------------------------------*/
 
 /*

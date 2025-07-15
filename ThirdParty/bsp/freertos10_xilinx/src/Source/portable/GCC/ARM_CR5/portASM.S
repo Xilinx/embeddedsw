@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2018 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -81,7 +81,12 @@
 
 	/* Save the floating point context, if any. */
 	FMRXNE  R1,  FPSCR
+#if defined (ARMR52)
+        VPUSHNE {D0-D15}
+        VPUSHNE {D16-D31}
+#else
 	VPUSHNE {D0-D15}
+#endif
 	PUSHNE	{R1}
 
         /* Save ulPortTaskHasFPUContext itself. */
@@ -116,7 +121,12 @@
 
         /* Restore the floating point context, if any. */
         POPNE   {R0}
+#if defined (ARMR52)
+        VPOPNE  {D16-D31}
         VPOPNE  {D0-D15}
+#else
+        VPOPNE  {D0-D15}
+#endif
         VMSRNE  FPSCR, R0
     #endif /* __ARM_FP */
 
