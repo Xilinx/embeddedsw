@@ -11,7 +11,7 @@ BEGIN driver ttcps
   OPTION supported_peripherals = (ps7_ttc psu_ttc psv_ttc psxl_ttc psx_ttc);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.21;
+  OPTION VERSION = 3.22;
   OPTION NAME = ttcps;
 
 END driver

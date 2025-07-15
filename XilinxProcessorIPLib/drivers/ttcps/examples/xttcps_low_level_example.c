@@ -30,6 +30,7 @@
 *                      platform.
 * 3.18 ml     03/06/24 Added support for system device-tree flow.
 * 3.21 vmt    03/28/25 Fixed signedness warning by explicitly casting to u8.
+* 3.22 ml     07/14/25 Fixed GCC warnings.
 *</pre>
 ******************************************************************************/
 
@@ -193,7 +194,7 @@ int TmrCtrLowLevelExample(u8 SettingsTableOffset)
 	 * Assert on the value of constants calculated above
 	 * Because the counters are 16 bits, no value can be greater than 65535
 	 */
-	if (((u8)SettingsTableOffset + 2) > SETTINGS_TABLE_SIZE) {
+	if (((u8)SettingsTableOffset + 2U) > SETTINGS_TABLE_SIZE) {
 		return XST_FAILURE;
 	}
 

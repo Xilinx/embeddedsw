@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 * 		       timeout loop.
 * 3.18 gm     07/17/23 Invoke XTtcPs_Release to release ttc node.
 * 3.18 gm     03/06/24 Added support for system device-tree flow.
+* 3.22 ml     07/14/25 Fixed GCC warnings.
 *</pre>
 ******************************************************************************/
 
@@ -496,7 +497,7 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 *****************************************************************************/
 static void TickHandler(void *CallBackRef, u32 StatusEvent)
 {
-
+	(void)CallBackRef;
 	if (0 != (XTTCPS_IXR_INTERVAL_MASK & StatusEvent)) {
 		TickCount++;
 
