@@ -82,6 +82,8 @@ XStatus NodeQspiIdle(u16 DeviceId, u32 BaseAddress)
 #ifndef SDT
 	ConfigPtr = XQspiPsu_LookupConfig(DeviceId);
 #else
+	/* Warning Fix */
+	(void)(DeviceId);
 	ConfigPtr = XQspiPsu_LookupConfig(BaseAddress);
 #endif
 	if (NULL == ConfigPtr) {
@@ -118,6 +120,8 @@ XStatus NodeOspiIdle(u16 DeviceId, u32 BaseAddress)
 	(void)(BaseAddress);
 	ConfigPtr = XOspiPsv_LookupConfig(DeviceId);
 #else
+	/* Warning Fix */
+	(void)(DeviceId);
 	ConfigPtr = XOspiPsv_LookupConfig(BaseAddress);
 #endif
 
@@ -153,6 +157,8 @@ XStatus NodeSdioIdle(u16 DeviceId, u32 BaseAddress)
 #ifndef SDT
 	ConfigPtr = XSdPs_LookupConfig(DeviceId);
 #else
+	/* Warning Fix */
+	(void)(DeviceId);
 	ConfigPtr = XSdPs_LookupConfig(BaseAddress);
 #endif
 	if (NULL == ConfigPtr) {
@@ -186,6 +192,8 @@ XStatus NodeUsbIdle(u16 DeviceId, u32 BaseAddress)
 #ifndef SDT
 	ConfigPtr = XUsbPsu_LookupConfig(DeviceId);
 #else
+	/* Warning Fix */
+	(void)(DeviceId);
 	ConfigPtr = XUsbPsu_LookupConfig(BaseAddress);
 #endif
 	if (NULL == ConfigPtr) {

@@ -38,7 +38,9 @@ XStatus I2CInitialize(XIicPs *Iic, const u32 ControllerID)
 	XStatus Status = XST_FAILURE;
 	XIicPs_Config *Config;
 	const XPm_Device *Device;
+#ifndef SDT
 	u16 I2CDeviceId;
+#endif
 
 	Device = XPmDevice_GetById(ControllerID);
 	if (NULL == Device) {
