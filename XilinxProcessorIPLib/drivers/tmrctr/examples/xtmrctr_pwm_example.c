@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00b cjp  03/28/18 First release
+* 4.14  ml   07/14/25 Fixed GCC warnings.
 *</pre>
 ******************************************************************************/
 
@@ -314,6 +315,7 @@ err:
 ******************************************************************************/
 static void TimerCounterHandler(void *CallBackRef, u8 TmrCtrNumber)
 {
+	(void)CallBackRef;
 	/* Mark if period timer expired */
 	if (TmrCtrNumber == TMRCTR_0) {
 		PeriodTimerHit = TRUE;
