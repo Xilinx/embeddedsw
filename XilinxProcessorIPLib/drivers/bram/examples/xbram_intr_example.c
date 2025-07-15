@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *                     declared in case of peripheral test, added condition to skip
 *                     them in case of peripheral test (CR#1108877)
 * 4.9   sd   07/07/23 Added SDT support.
+* 4.13  ml   07/14/25 Fix GCC warnings.
 *</pre>
 *
 ******************************************************************************/
@@ -62,11 +63,10 @@
 #endif
 
 /************************** Function Prototypes ******************************/
-static void BramIntrExceptionHandler(void *InstancePtr);
-
 static void BramDriverHandler(void *CallBackRef);
 
 #ifndef SDT
+static void BramIntrExceptionHandler(void *InstancePtr);
 int BramIntrExample(XIntc* IntcInstancePtr, XBram* InstancePtr,
 		     u16 DeviceId, u16 IntrId);
 #else
@@ -441,9 +441,12 @@ static void BramDisableIntr(XIntc* IntcInstancePtr, XBram* InstancePtr, u16 Intr
 * @note		None
 *
 ******************************************************************************/
+#ifndef SDT
 static void BramIntrExceptionHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	u32 Esr = mfesr();
 	if ((Esr & 0x81F) == 0x804)
 		ExceptionCount++;
 }
+#endif
