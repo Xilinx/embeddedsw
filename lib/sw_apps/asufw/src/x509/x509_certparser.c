@@ -8,7 +8,7 @@
  *
  * @file x509_certparser.c
  *
- * This file contains the code for parsing extension from x509 certificate.
+ * This file contains the code for parsing extension from X.509 certificate.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -110,18 +110,18 @@ static X509_ExtensionIdDescriptor ExtnList[] = {
 
 /*************************************************************************************************/
 /**
- * @brief	This function parses DER encoded X509 certificate.
+ * @brief	This function parses DER encoded X.509 certificate.
  *
- * @param	X509CertAddr	X509 Certificate address.
- * @param	Size		Size of X509 certificate in bytes.
+ * @param	X509CertAddr	X.509 Certificate address.
+ * @param	Size		Size of X.509 certificate in bytes.
  * @param	CertInfo	Pointer to the structure containing addresses to store X.509 parsed
  *				fields information.
  *
  * @return
- *	- XASUFW_SUCCESS, If X509 certificate parsed successfully.
- *	- XASUFW_X509_INVALID_BUFFER_SIZE, If buffer size is invalid.
- *	- XASUFW_X509_INVALID_PARAM, If parameter is invalid.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, If tag validation is failed while parsing x509.
+ *	- XASUFW_SUCCESS, if X.509 certificate parsed successfully.
+ *	- XASUFW_X509_INVALID_BUFFER_SIZE, if buffer size is invalid.
+ *	- XASUFW_X509_INVALID_PARAM, if parameter is invalid.
+ *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed while parsing X.509.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -151,7 +151,7 @@ s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo)
 	X509_CertInstance.Offset = 0U;
 	X509_CertInstance.Size = Size;
 
-	/** Validate tag for X509 certificate. */
+	/** Validate tag for X.509 certificate. */
 	Status = X509_ValidateTag(X509_ASN1_TAG_SEQUENCE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
@@ -173,7 +173,7 @@ END:
  * @param	Len	Number of bytes to update the offset.
  *
  * @return
- *	- XASUFW_X509_INVALID_BUFFER_SIZE, If buffer size is invalid.
+ *	- XASUFW_X509_INVALID_BUFFER_SIZE, if buffer size is invalid.
  *
  *************************************************************************************************/
 static inline s32 X509_UpdateOffsetToNextField(u32 Len)
@@ -201,11 +201,11 @@ END:
  * @param	Tag	Expected Tag value.
  *
  * @return
- *	- XASUFW_SUCCESS, If tag validation is successful.
- *	- XASUFW_FAILURE, If tag validation is failed.
- *	- XASUFW_X509_INVALID_BUFFER_SIZE, If buffer size is invalid.
- *	- XASUFW_X509_UNEXPECTED_TAG, If unexpected is found.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, If update offset is failed.
+ *	- XASUFW_SUCCESS, if tag validation is successful.
+ *	- XASUFW_FAILURE, if tag validation is failed.
+ *	- XASUFW_X509_INVALID_BUFFER_SIZE, if buffer size is invalid.
+ *	- XASUFW_X509_UNEXPECTED_TAG, if unexpected is found.
+ *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -251,8 +251,8 @@ END:
  * @param	DateTime	Pointer to the structure containing time and date.
  *
  * @return
- *	- XASUFW_SUCCESS, If date and time is valid.
- *	- XASUFW_X509_INVALID_DATA, If date or time is invalid.
+ *	- XASUFW_SUCCESS, if date and time is valid.
+ *	- XASUFW_X509_INVALID_DATA, if date or time is invalid.
  *
  *************************************************************************************************/
 static s32 X509_ValidateTimeAndDate(const X509_DateTime *DateTime)
@@ -317,9 +317,9 @@ END:
  *				updated.
  *
  * @return
- *	- XASUFW_SUCCESS, If date and time are parsed successfully.
- *	- XASUFW_X509_INVALID_PARAM, If parameter is invalid.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, If update offset is failed.
+ *	- XASUFW_SUCCESS, if date and time are parsed successfully.
+ *	- XASUFW_X509_INVALID_PARAM, if parameter is invalid.
+ *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -419,11 +419,11 @@ END:
  * @brief	This function parses validity field from DER encoded data buffer.
  *
  * @return
- *	- XASUFW_SUCCESS, If validity is parsed successfully.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, If tag validation is failed.
- *	- XASUFW_X509_PARSER_VALIDITY_INVALID_INFO, If validity information is invalid.
- *	- XASUFW_X509_PARSER_VALIDITY_FROM_FAIL, If validity "From" field is invalid.
- *	- XASUFW_X509_PARSER_VALIDITY_TO_FAIL, If validity "To" field is invalid.
+ *	- XASUFW_SUCCESS, if validity is parsed successfully.
+ *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed.
+ *	- XASUFW_X509_PARSER_VALIDITY_INVALID_INFO, if validity information is invalid.
+ *	- XASUFW_X509_PARSER_VALIDITY_FROM_FAIL, if validity "From" field is invalid.
+ *	- XASUFW_X509_PARSER_VALIDITY_TO_FAIL, if validity "To" field is invalid.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -434,7 +434,7 @@ static s32 X509_GetValidity(void)
 	X509_DateTime DateTime;
 	u8 YearLen = 0U;
 
-	/** Validate tag for x509 validity. */
+	/** Validate tag for X.509 validity. */
 	Status = X509_ValidateTag(X509_ASN1_TAG_SEQUENCE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
@@ -479,10 +479,10 @@ END:
  * @param	KeyType	Pointer to the variable to store the public key type.
  *
  * @return
- *	- XASUFW_SUCCESS, If public key algorithm is parsed successfully.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, If tag validation is failed.
- *	- XASUFW_X509_UNSUPPORTED_ALGORITHM, If algorithm is not supported.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, If update offset is failed.
+ *	- XASUFW_SUCCESS, if public key algorithm is parsed successfully.
+ *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed.
+ *	- XASUFW_X509_UNSUPPORTED_ALGORITHM, if algorithm is not supported.
+ *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -541,9 +541,9 @@ END:
  *				fields information.
  *
  * @return
- *	- XASUFW_SUCCESS, If ECC public key is parsed successfully.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, If tag validation is failed.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, If update offset is failed.
+ *	- XASUFW_SUCCESS, if ECC public key is parsed successfully.
+ *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed.
+ *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -603,9 +603,9 @@ END:
  *				fields information.
  *
  * @return
- *	- XASUFW_SUCCESS, If RSA public key is parsed successfully.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, If tag validation is failed.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, If update offset is failed.
+ *	- XASUFW_SUCCESS, if RSA public key is parsed successfully.
+ *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed.
+ *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -698,11 +698,11 @@ END:
  *				fields information.
  *
  * @return
- *	- XASUFW_SUCCESS, If public key information is parsed successfully.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, If tag validation is failed.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, If update offset is failed.
- *	- XASUFW_X509_PARSER_PUB_KEY_ALGO_FAIL, If public key algorithm parsing is failed.
- *	- XASUFW_X509_INVALID_DATA, If data is invalid.
+ *	- XASUFW_SUCCESS, if public key information is parsed successfully.
+ *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed.
+ *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
+ *	- XASUFW_X509_PARSER_PUB_KEY_ALGO_FAIL, if public key algorithm parsing is failed.
+ *	- XASUFW_X509_INVALID_DATA, if data is invalid.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -765,11 +765,11 @@ END:
  *				fields information.
  *
  * @return
- *	- XASUFW_SUCCESS, If key usage extension is parsed successfully.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, If tag validation is failed.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, If update offset is failed.
- *	- XASUFW_X509_INVALID_DATA, If data is invalid.
- *	- XASUFW_X509_INVALID_FIELD_LEN, If ASN.1 field length is invalid.
+ *	- XASUFW_SUCCESS, if key usage extension is parsed successfully.
+ *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed.
+ *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
+ *	- XASUFW_X509_INVALID_DATA, if data is invalid.
+ *	- XASUFW_X509_INVALID_FIELD_LEN, if ASN.1 field length is invalid.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -843,8 +843,8 @@ END:
  * @param	ExtType Pointer to the variable to store extension type.
  *
  * @return
- *	- XASUFW_SUCCESS, If extension type is parsed successfully.
- *	- XASUFW_FAILURE, In case of failure.
+ *	- XASUFW_SUCCESS, if extension type is parsed successfully.
+ *	- XASUFW_FAILURE, in case of failure.
  *
  *************************************************************************************************/
 static s32 X509_GetExtTypeFromOid(u32 Len, X509_ExtensionType *ExtType)
@@ -880,11 +880,11 @@ END:
  * @param	Value	Pointer to the variable to store boolean value.
  *
  * @return
- *	- XASUFW_SUCCESS, If boolean value parsed successfully.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, If tag validation is failed.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, If update offset is failed.
- *	- XASUFW_X509_BOOLEAN_TAG_NOT_FOUND, If boolean tag is not found.
- *	- XASUFW_X509_INVALID_FIELD_LEN, If ASN.1 field length is invalid.
+ *	- XASUFW_SUCCESS, if boolean value parsed successfully.
+ *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed.
+ *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
+ *	- XASUFW_X509_BOOLEAN_TAG_NOT_FOUND, if boolean tag is not found.
+ *	- XASUFW_X509_INVALID_FIELD_LEN, if ASN.1 field length is invalid.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -935,11 +935,11 @@ END:
  *				fields information.
  *
  * @return
- *	- XASUFW_SUCCESS, If extensions are parsed successfully.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, If tag validation is failed.
- *	- XASUFW_X509_PARSER_EXT_KEY_USAGE_FAIL, If key usage extension parsing is failed.
- *	- XASUFW_X509_UNSUPPORTED_EXTN, If extension is unsupported.
- *	- XASUFW_X509_PARSER_GET_EXTN_OID_FAIL, If get extension OID is failed.
+ *	- XASUFW_SUCCESS, if extensions are parsed successfully.
+ *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed.
+ *	- XASUFW_X509_PARSER_EXT_KEY_USAGE_FAIL, if key usage extension parsing is failed.
+ *	- XASUFW_X509_UNSUPPORTED_EXTN, if extension is unsupported.
+ *	- XASUFW_X509_PARSER_GET_EXTN_OID_FAIL, if get extension OID is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1040,8 +1040,8 @@ END:
  *				fields information.
  *
  * @return
- *	- XASUFW_SUCCESS, If extensions information is parsed successfully.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, If tag validation is failed.
+ *	- XASUFW_SUCCESS, if extensions information is parsed successfully.
+ *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1080,9 +1080,9 @@ END:
  * @param	Version	Pointer to the variable to store the version.
  *
  * @return
- *	- XASUFW_SUCCESS, If version is parsed successfully.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, If tag validation is failed.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, If update offset is failed.
+ *	- XASUFW_SUCCESS, if version is parsed successfully.
+ *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed.
+ *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1128,19 +1128,19 @@ END:
  *				fields information.
  *
  * @return
- *	- XASUFW_SUCCESS, If TBS certificate is parsed successfully.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, If update offset is failed.
- *	- XASUFW_X509_PARSER_TBS_INVALID_TAG, If invalid tag found during TBS parsing.
- *	- XASUFW_X509_PARSER_GET_VERSION_FAIL, If version field parsing is failed.
- *	- XASUFW_X509_PARSER_SERIAL_NO_INVALID_TAG, If invalid tag found during serial number
+ *	- XASUFW_SUCCESS, if TBS certificate is parsed successfully.
+ *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
+ *	- XASUFW_X509_PARSER_TBS_INVALID_TAG, if invalid tag found during TBS parsing.
+ *	- XASUFW_X509_PARSER_GET_VERSION_FAIL, if version field parsing is failed.
+ *	- XASUFW_X509_PARSER_SERIAL_NO_INVALID_TAG, if invalid tag found during serial number
  *	  parsing.
- *	- XASUFW_X509_PARSER_SIGN_ALGO_INVALID_TAG, If invalid tag found during signature algorithm
+ *	- XASUFW_X509_PARSER_SIGN_ALGO_INVALID_TAG, if invalid tag found during signature algorithm
  *	  parsing.
- *	- XASUFW_X509_PARSER_ISSUER_INVALID_TAG, If invalid tag found while parsing issuer field .
- *	- XASUFW_X509_PARSER_VALIDITY_FAIL, If vaidity parsing is failed.
- *	- XASUFW_X509_PARSER_SUB_INVALID_TAG, If invalid tag found while parsing subject field.
- *	- XASUFW_X509_PARSER_PUBLIC_KEY_INFO_FAIL, If public key info parsing is failed.
- *	- XASUFW_X509_PARSER_EXTENSION_INFO_FAIL, If extension parsing is failed.
+ *	- XASUFW_X509_PARSER_ISSUER_INVALID_TAG, if invalid tag found while parsing issuer field .
+ *	- XASUFW_X509_PARSER_VALIDITY_FAIL, if validity parsing is failed.
+ *	- XASUFW_X509_PARSER_SUB_INVALID_TAG, if invalid tag found while parsing subject field.
+ *	- XASUFW_X509_PARSER_PUBLIC_KEY_INFO_FAIL, if public key info parsing is failed.
+ *	- XASUFW_X509_PARSER_EXTENSION_INFO_FAIL, if extension parsing is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1237,7 +1237,7 @@ static s32 X509_ParseTbs(X509_CertInfo *CertInfo)
 		goto END;
 	}
 
-	/** Parse extensions for V3 certificates. */
+	/** Parse extensions for v3 certificates. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (Version == X509_VERSION_VALUE_V3) {
 		Status = X509_GetExtensionsInfo(CertInfo);
@@ -1259,10 +1259,10 @@ END:
  * @param	Len	Pointer to the variable to store the length value.
  *
  * @return
- *	- XASUFW_SUCCESS, If ASN1 length is valid.
- *	- XASUFW_X509_INVALID_BUFFER_SIZE, If certificate size is invalid.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, If update offset is failed.
- *	- XASUFW_X509_INVALID_FIELD_LEN, If field length is invalid.
+ *	- XASUFW_SUCCESS, if ASN1 length is valid.
+ *	- XASUFW_X509_INVALID_BUFFER_SIZE, if certificate size is invalid.
+ *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
+ *	- XASUFW_X509_INVALID_FIELD_LEN, if field length is invalid.
  *	- Error code received from called functions in case of other failure from the called
  *	function.
  *
@@ -1341,11 +1341,11 @@ END:
  * @param	YearLen		Pointer to the variable to store the year length.
  *
  * @return
- *	- XASUFW_SUCCESS, If get time successful.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, If update offset is failed.
- *	- XASUFW_X509_UNEXPECTED_TAG, If unexpected tag is found.
- *	- XASUFW_X509_INVALID_DATA, If data is invalid.
- *	- XASUFW_X509_PARSER_GET_FIELD_LEN_FAIL, If get field length is failed.
+ *	- XASUFW_SUCCESS, if get time successful.
+ *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
+ *	- XASUFW_X509_UNEXPECTED_TAG, if unexpected tag is found.
+ *	- XASUFW_X509_INVALID_DATA, if data is invalid.
+ *	- XASUFW_X509_PARSER_GET_FIELD_LEN_FAIL, if get field length is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	function.
  *

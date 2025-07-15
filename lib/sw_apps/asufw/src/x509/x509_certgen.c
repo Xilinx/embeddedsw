@@ -63,8 +63,7 @@ static const u8 Oid_P256[] = {0x06U, 0x08U, 0x2AU, 0x86U, 0x48U, 0xCEU, 0x3DU, 0
 									uncompressed public key */
 #define X509_LOWER_NIBBLE_MASK					(0xFU)	/**< Mask to get lower
 									nibble */
-#define X509_NULL_VALUE						(0x00U)	/**< Value of
-									NULL */
+#define X509_NULL_VALUE						(0x00U)	/**< Value of NULL */
 #define X509_CERTIFICATE_MAX_SIZE_IN_BYTES			(2000U)	/**< Maximum length of
 									X.509 certificate */
 #define X509_HASH_MAX_SIZE_IN_BYTES				(48)	/**< Maximum length of
@@ -179,23 +178,23 @@ static s32 X509_GenCertReqInfo(const X509_Config *Cfg, u32 *CsrLen);
  * @brief	This function creates the X.509 Certificate/Certificate Signing Request(CSR).
  *
  * @param	X509CertAddr	Address of the buffer for storing the generated X.509 certificate.
- * @param	MaxCertSize	Maximum size of the input buffer used for storing X.509 Certificate.
+ * @param	MaxCertSize	Maximum size of the input buffer used for storing X.509 certificate.
  * @param	X509CertSize	Pointer to store the actual size of the X.509 certificate copied to
  *				the given buffer.
  * @param	Cfg		Pointer to structure which includes configuration for the X.509
- *				Certificate.
+ *				certificate.
  *
  * @return
- *	- XASUFW_SUCCESS, If successfully created X.509 certificate or CSR.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_INVALID_PARAM, If parameter is invalid.
- *	- XASUFW_X509_CERT_GEN_FAIL, If certificate generation is failed.
- *	- XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED, If digest or sign call back is not
+ *	- XASUFW_SUCCESS, if X.509 certificate or CSR is created successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_INVALID_PARAM, if parameter is invalid.
+ *	- XASUFW_X509_CERT_GEN_FAIL, if certificate generation is failed.
+ *	- XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED, if digest or sign callback is not
  *	  registered.
- *	- XASUFW_X509_GENERATE_DIGEST_FAIL, If digest calculation is failed.
- *	- XASUFW_X509_GEN_SIGN_ALGO_FIELD_FAIL, Error in generating signature algorithm field.
- *	- XASUFW_X509_GEN_SIGN_FIELD_FAIL, Error in generating signature generation field.
- *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, If update encoded length is failed.
+ *	- XASUFW_X509_GENERATE_DIGEST_FAIL, if digest calculation is failed.
+ *	- XASUFW_X509_GEN_SIGN_ALGO_FIELD_FAIL, if signature algorithm field generation is failed.
+ *	- XASUFW_X509_GEN_SIGN_FIELD_FAIL, if signature field generation is failed.
+ *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, if update encoded length is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -246,7 +245,7 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 		goto END;
 	}
 
-	/** Validate digest and signature callbacks validation. */
+	/** Validate digest and signature callbacks. */
 	if ((InitData->GenerateDigest == NULL) || (InitData->GenerateSignature == NULL)) {
 		Status = XAsufw_UpdateErrorStatus(Status,
 						  XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED);
@@ -264,6 +263,7 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 
 	TBSCertStart = &(CertInstance->Buf[CertInstance->Offset]);
 
+	/** Generate CSR or TBS depending on the request. */
 	if (Cfg->IsCsr == XASU_TRUE) {
 		Status = X509_GenCertReqInfo(Cfg, &DataLen);
 	} else {
@@ -275,7 +275,7 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 		goto END;
 	}
 
-	/** Generate Sign Algorithm field. */
+	/** Generate Signature Algorithm field. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GenSignAlgoField();
 	if (Status != XASUFW_SUCCESS) {
@@ -283,7 +283,7 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 		goto END;
 	}
 
-	/** Calculate Digest for TBS certificate. */
+	/** Calculate digest for TBS certificate. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = InitData->GenerateDigest(TBSCertStart, DataLen, Hash,
 					  (u32)X509_HASH_MAX_SIZE_IN_BYTES, &HashLen,
@@ -293,7 +293,7 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 		goto END;
 	}
 
-	/** Generate signature for calculated HASH of TBS. */
+	/** Generate signature for calculated hash of TBS. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = InitData->GenerateSignature(Hash, HashLen, Sign,
 					     X509_SIGNATURE_MAX_SIZE_IN_BYTES, &SignLen,
@@ -336,16 +336,16 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function initialize the call-backs and data for the digest and signature
+ * @brief	This function initialize the callbacks and data for the digest and signature
  *		calculation.
  *
  * @param	CfgData		Pointer to structure containing data required to calculate digest
  *		and signature calculation.
  *
  * @return
- *	- XASUFW_SUCCESS, In case of success.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_INVALID_PARAM, If parameter is NULL.
+ *	- XASUFW_SUCCESS, in case of success.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_INVALID_PARAM, if parameter is NULL.
  *
  *************************************************************************************************/
 s32 X509_Init(const X509_InitData *CfgData)
@@ -353,11 +353,13 @@ s32 X509_Init(const X509_InitData *CfgData)
 	s32 Status = XASUFW_FAILURE;
 	X509_InitData *InitData = X509_GetInitData();
 
+	/** Validate input parameter. */
 	if (CfgData == NULL) {
 		Status = XASUFW_X509_INVALID_PARAM;
 		goto END;
 	}
 
+	/** Assign signature type config and callbacks for digest and signature generation */
 	InitData->SignType = CfgData->SignType;
 	InitData->GenerateDigest = CfgData->GenerateDigest;
 	InitData->GenerateSignature = CfgData->GenerateSignature;
@@ -379,9 +381,9 @@ END:
  * @param	ValIdx	Pointer to the Value field of the encoded value.
  *
  * @return
- *	- XASUFW_SUCCESS, If updating encoded length is success.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_MEM_MOVE_FAIL, If memory move failed.
+ *	- XASUFW_SUCCESS, if updating encoded length is successful.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_MEM_MOVE_FAIL, if memory move is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -434,7 +436,7 @@ static X509_InitData *X509_GetInitData(void)
 
 /*************************************************************************************************/
 /**
- * @brief	This function takes a byte array as input and returns offset of an
+ * @brief	This function takes a byte array as input and returns offset of a
  *		starting non-zero byte.
  *
  *
@@ -468,9 +470,9 @@ static u32 X509_Asn1GetFirstNonZeroByteOffset(const u8 *Data, u32 Cnt)
  * @param	IntegerLen	Length of the integer.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully created DER encoded ASN.1 integer.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_MEM_COPY_FAIL, If memory copy failed.
+ *	- XASUFW_SUCCESS, if successfully created DER encoded ASN.1 integer.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	function.
  *
@@ -489,6 +491,7 @@ static s32 X509_Asn1CreateIntegerFieldFromByteArray(const u8 *IntegerVal, u32 In
 		CertInstance->Buf[CertInstance->Offset++] = 0x0U;
 	}
 
+	/** Copy integer values. */
 	Status = Xil_SMemCpy(&(CertInstance->Buf[CertInstance->Offset]), IntegerLen - Offset,
 			     &IntegerVal[Offset], IntegerLen - Offset, IntegerLen - Offset);
 	if (Status != XASUFW_SUCCESS) {
@@ -509,9 +512,9 @@ END:
  * @param	IntegerLen	Length of the value of the ASN.1 Integer.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully created DER encoded ASN.1 Integer.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_CREATE_INTEGER_FIELD_FROM_ARRAY_FAIL, If create integer field is failed.
+ *	- XASUFW_SUCCESS, if successfully created DER encoded ASN.1 Integer.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_CREATE_INTEGER_FIELD_FROM_ARRAY_FAIL, if create integer field is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	function.
  *
@@ -552,9 +555,9 @@ END:
  * @param	LenOfRawDataVal	Length of DER encoded value.
  *
  * @return
- *	- XASUFW_SUCCESS, If update is successful.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_MEM_COPY_FAIL, If memory copy failed.
+ *	- XASUFW_SUCCESS, if update is successful.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *
  *************************************************************************************************/
 static s32 X509_Asn1CreateRawDataFromByteArray(const u8 *RawData, const u32 LenOfRawDataVal)
@@ -582,8 +585,7 @@ END:
  * @param	Data	Input byte for which number of trailing zeroes need to be counted.
  *
  * @return
- *	- Number of trailing zeroes. In case the Data is 0 then number of
- *	trailing zeroes is 8.
+ *	- Number of trailing zeroes. In case the Data is 0 then number of trailing zeroes is 8.
  *
  *************************************************************************************************/
 static u8 X509_Asn1GetTrailingZeroesCount(u8 Data)
@@ -612,9 +614,9 @@ static u8 X509_Asn1GetTrailingZeroesCount(u8 Data)
  * @param	IsLastByteFull	Flag to check if the last byte is full or not.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully created DER encoded ASN.1 BitString.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_MEM_COPY_FAIL, If memory copy failed.
+ *	- XASUFW_SUCCESS, if successfully created DER encoded ASN.1 BitString.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	function.
  *
@@ -665,9 +667,9 @@ END:
  * @param	OctetStringLen	Length of the value of the ASN.1 OctetString.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully created DER encoded ASN.1 OctetString.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_MEM_COPY_FAIL, If memory copy failed.
+ *	- XASUFW_SUCCESS, if successfully created DER encoded ASN.1 OctetString.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	function.
  *
@@ -736,14 +738,14 @@ static void X509_Asn1CreateBoolean(const u32 BooleanVal)
  * @param	Version		Value of version.
  *
  * @return
- *	- XASUFW_SUCCESS, If successfully created version field.
- *	- XASUFW_FAILURE, In case of failure.
+ *	- XASUFW_SUCCESS, if successfully created version field.
+ *	- XASUFW_FAILURE, in case of failure.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
  * @note	Version ::= INTEGER { v1(0), v2(1), v3(2) }
  *		This field describes the version of the encoded certificate.
- *		For Certificate Signing Request, the supported version is V1
+ *		For Certificate Signing Request, the supported version is v1.
  *
  *************************************************************************************************/
 static inline s32 X509_GenVersionField(u8 Version)
@@ -758,13 +760,13 @@ static inline s32 X509_GenVersionField(u8 Version)
 /*************************************************************************************************/
 /**
  * @brief	This function creates the Signature Algorithm field. This field
- *		is present in TBS Certificate as well as the X.509 certificate.
+ *		is present in TBS certificate as well as the X.509 certificate.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully created Signature Algorithm field.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_UNSUPPORTED_SIGN_TYPE, If signature type is not supported.
- *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, If raw data field creation is failed.
+ *	- XASUFW_SUCCESS, if successfully created Signature Algorithm field.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_UNSUPPORTED_SIGN_TYPE, if signature type is not supported.
+ *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -832,8 +834,8 @@ END:
  * @param	IssuerValLen	Length of the DER encoded value.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully created Issuer field.
- *	- XASUFW_FAILURE, In case of failure.
+ *	- XASUFW_SUCCESS, if successfully created Issuer field.
+ *	- XASUFW_FAILURE, in case of failure.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -855,8 +857,8 @@ static inline s32 X509_GenIssuerField(const u8 *Issuer, const u32 IssuerValLen)
  * @param	ValidityValLen	Length of the DER encoded value.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully created Validity field.
- *	- XASUFW_FAILURE, In case of failure.
+ *	- XASUFW_SUCCESS, if successfully created Validity field.
+ *	- XASUFW_FAILURE, in case of failure.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -878,8 +880,8 @@ static inline s32 X509_GenValidityField(const u8 *Validity, const u32 ValidityVa
  * @param	SubjectValLen	Length of the DER encoded value.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully created Subject field.
- *	- XASUFW_FAILURE, In case of failure.
+ *	- XASUFW_SUCCESS, if successfully created Subject field.
+ *	- XASUFW_FAILURE, in case of failure.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -902,11 +904,11 @@ static inline s32 X509_GenSubjectField(const u8 *Subject, const u32 SubjectValLe
  * @param	PubKeyInfo	Pointer to structure containing public-key information.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully created Public Key Algorithm Identifier sub-field.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_UNSUPPORTED_ALGORITHM, If Public Key Algorithm is not supported.
- *	- XASUFW_X509_UNSUPPORTED_CURVE_TYPE, If curve type is not supported.
- *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, If raw data field creation is failed.
+ *	- XASUFW_SUCCESS, if successfully created Public Key Algorithm Identifier sub-field.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_UNSUPPORTED_ALGORITHM, if Public Key Algorithm is not supported.
+ *	- XASUFW_X509_UNSUPPORTED_CURVE_TYPE, if curve type is not supported.
+ *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -991,12 +993,12 @@ END:
  * @param	PubKeyInfo	Pointer to structure containing public-key information.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully generated Public Key Info field.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_GENERATE_PUB_KEY_ALGO_FIELD_FAIL, If public key algorithm generation is
+ *	- XASUFW_SUCCESS, if successfully generated Public Key Info field.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_GENERATE_PUB_KEY_ALGO_FIELD_FAIL, if public key algorithm generation is
  *	  failed.
- *	- XASUFW_X509_CREATE_BIT_STRING_FAIL, If bit string creation is failed.
- *	- XASUFW_MEM_COPY_FAIL, If memory copy failed.
+ *	- XASUFW_X509_CREATE_BIT_STRING_FAIL, if bit string creation is failed.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1066,14 +1068,15 @@ END:
  * @param	SubjectPublicKey	Public key whose hash will be used as Subject Key
  *		Identifier.
  * @param	SubjectPubKeyLen	Public key length.
+ * @param	PlatformData		Pointer to platform related data.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully generated Subject Key Identifier field.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, If raw data field creation is failed.
- *	- XASUFW_X509_CREATE_OCTET_STRING_FAIL, If octet string creation is failed.
- *	- XASUFW_X509_GENERATE_DIGEST_FAIL, If generate digest is failed.
- *	- XASUFW_MEM_COPY_FAIL, If memory copy failed.
+ *	- XASUFW_SUCCESS, if successfully generated Subject Key Identifier field.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
+ *	- XASUFW_X509_CREATE_OCTET_STRING_FAIL, if octet string creation is failed.
+ *	- XASUFW_X509_GENERATE_DIGEST_FAIL, if generate digest is failed.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1142,7 +1145,7 @@ static s32 X509_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey, u32 Sub
 	OctetStrLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
 	OctetStrValIdx = &(CertInstance->Buf[CertInstance->Offset]);
 
-	/** Create octet string field to store calculated HASH. */
+	/** Create octet string field to store calculated hash. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_Asn1CreateOctetString(Hash, X509_SUB_KEY_ID_VAL_LEN);
 	if (Status != XASUFW_SUCCESS) {
@@ -1164,17 +1167,18 @@ END:
  * @brief	This function creates the Authority Key Identifier field present in
  *		TBS Certificate.
  *
- * @param	IssuerPublicKey			Public key whose hash will be used as Authority Key
- *		Identifier.
- * @param	IssuerPubKeyLen			Issuer public key length.
+ * @param	IssuerPublicKey		Public key whose hash will be used as Authority Key
+ *					Identifier.
+ * @param	IssuerPubKeyLen		Issuer public key length.
+ * @param	PlatformData		Pointer to platform related data.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully generated Authority Key Identifier field.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, If raw data field creation is failed.
- *	- XASUFW_X509_GENERATE_DIGEST_FAIL, If generate digest is failed.
- *	- XASUFW_X509_CREATE_OCTET_STRING_FAIL, If octet string creation is failed.
- *	- XASUFW_MEM_COPY_FAIL, If memory copy failed.
+ *	- XASUFW_SUCCESS, if successfully generated Authority Key Identifier field.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
+ *	- XASUFW_X509_GENERATE_DIGEST_FAIL, if generate digest is failed.
+ *	- XASUFW_X509_CREATE_OCTET_STRING_FAIL, if octet string creation is failed.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
 
@@ -1255,7 +1259,7 @@ static s32 X509_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey, u32 Is
 	KeyIdSequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
 	KeyIdSequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
 
-	/** Create octet string field to store calculated HASH. */
+	/** Create octet string field to store calculated hash. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_Asn1CreateOctetString(Hash, X509_AUTH_KEY_ID_VAL_LEN);
 	if (Status != XASUFW_SUCCESS) {
@@ -1306,10 +1310,10 @@ static void X509_UpdateKeyUsageVal(u8 *KeyUsageVal, X509_KeyUsageOption KeyUsage
  * @param	Cfg	Pointer to structure which includes configuration for the TBS Certificate.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully generated Key Usage field.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, If raw data field creation is failed.
- *	- XASUFW_X509_CREATE_BIT_STRING_FAIL, If bit string creation is failed.
+ *	- XASUFW_SUCCESS, if successfully generated Key Usage field.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
+ *	- XASUFW_X509_CREATE_BIT_STRING_FAIL, if bit string creation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1394,9 +1398,9 @@ END:
  *		present in TBS Certificate.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully generated Extended Key Usage field.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, If raw data field creation is failed.
+ *	- XASUFW_SUCCESS, if successfully generated Extended Key Usage field.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1470,8 +1474,8 @@ END:
  * @param	SubAltNameValLen	Length of the DER encoded value.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully generated Subject Alternative Name extension field.
- *	- XASUFW_FAILURE, In case of failure.
+ *	- XASUFW_SUCCESS, if successfully generated Subject Alternative Name extension field.
+ *	- XASUFW_FAILURE, in case of failure.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1487,7 +1491,7 @@ static inline s32 X509_GenSubAltNameField(const u8 *SubAltName, const u32 SubAlt
 
 /*************************************************************************************************/
 /**
- * @brief	This function adds ASN.1 tag field in X509 Certificate.
+ * @brief	This function adds ASN.1 tag field in X.509 Certificate.
  *
  * @param	Asn1Tag		ASN.1 tag to be added.
  *
@@ -1505,16 +1509,18 @@ static inline void X509_AddTagField(u8 Asn1Tag)
  * @param	Cfg	structure which includes configuration for the TBS Certificate.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully generated X.509 V3 Extensions field.
- *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, Failure in updating encoded length.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_GEN_SUB_KEY_IDENTIFIER_FIELD_FAIL, Error in generating subject key identifier
- *	  field.
- *	- XASUFW_X509_GEN_AUTH_KEY_IDENTIFIER_FIELD_FAIL, Error in generating authority key
- *	  identifier field.
- *	- XASUFW_X509_GEN_KEY_USAGE_FIELD_FAIL, Error in generating key usage field.
- *	- XASUFW_X509_GEN_EXT_KEY_USAGE_FIELD_FAIL, Error in generating extended key usage field.
- *	- XASUFW_X509_GEN_SUB_ALT_NAME_FIELD_FAIL, Error in generating subject alternate name field.
+ *	- XASUFW_SUCCESS, if successfully generated X.509 v3 Extensions field.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, if updating encoded length is failed.
+ *	- XASUFW_X509_GEN_SUB_KEY_IDENTIFIER_FIELD_FAIL, if subject key identifier field generation
+ *	  is failed.
+ *	- XASUFW_X509_GEN_AUTH_KEY_IDENTIFIER_FIELD_FAIL, if authority key identifier field
+ *	  generation is failed.
+ *	- XASUFW_X509_GEN_KEY_USAGE_FIELD_FAIL, if key usage field generation is failed.
+ *	- XASUFW_X509_GEN_EXT_KEY_USAGE_FIELD_FAIL, if extended key usage field generation
+ *	  is failed.
+ *	- XASUFW_X509_GEN_SUB_ALT_NAME_FIELD_FAIL, if subject alternate name field generation
+ *	  is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1629,21 +1635,21 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function creates the Serial field of the TBS Certificate.
+ * @brief	This function creates the Serial field of the TBS certificate.
  *
  * @param	DataHash	Hash which is to be used as value in Serial field.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully generated Serial field.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_MEM_COPY_FAIL, If memory copy failed.
+ *	- XASUFW_SUCCESS, if successfully generated Serial field.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
  * @note	CertificateSerialNumber ::= INTEGER
  *		The length of the serial must not be more than 20 bytes.
  *		The value of the serial is determined by calculating the
- *		SHA2 hash of the fields in the TBS Certificate except the Version
+ *		SHA2 hash of the fields in the TBS certificate except the Version
  *		and Serial Number fields. 20 bytes from LSB of the calculated
  *		hash is updated as the Serial Number.
  *
@@ -1691,26 +1697,26 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function creates the TBS(To Be Signed) Certificate.
+ * @brief	This function creates the TBS(To Be Signed) certificate.
  *
- * @param	Cfg		Structure which includes configuration for the TBS Certificate.
- * @param	TBSCertLen	Length of the TBS Certificate.
+ * @param	Cfg		Structure which includes configuration for the TBS certificate.
+ * @param	TBSCertLen	Length of the TBS certificate.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully generated TBS Certificate.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_GEN_PUB_KEY_INFO_FIELD_FAIL, Error in generating Public Key Info
+ *	- XASUFW_SUCCESS, if successfully generated TBS certificate.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_GEN_PUB_KEY_INFO_FIELD_FAIL, error in generating Public Key Info
  *	  field.
- *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, Error in updating encoded length.
- *	- XASUFW_X509_GEN_ISSUER_FIELD_FAIL, Error in generating issuer field.
- *	- XASUFW_X509_GEN_VERSION_FIELD_FAIL, Error in generating Version field.
- *	- XASUFW_X509_GEN_VALIDITY_FIELD_FAIL, Error in generating validity field.
- *	- XASUFW_X509_GEN_SUBJECT_FIELD_FAIL, Error in generating Subject field.
- *	- XASUFW_X509_GEN_PUB_KEY_INFO_FIELD_FAIL, Error in generating public key info field.
- *	- XASUFW_X509_GEN_SIGN_ALGO_FIELD_FAIL, Error in generating signature algorithm field.
- *	- XASUFW_X509_GEN_SERIAL_FIELD_FAIL, Error in generating signature field.
- *	- XASUFW_X509_GENERATE_DIGEST_FAIL, If digest calculation is failed.
- *	- XASUFW_X509_GEN_EXTENSION_FIELD_FAIL, Error in generating extension field.
+ *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, error in updating encoded length.
+ *	- XASUFW_X509_GEN_ISSUER_FIELD_FAIL, if Issuer field generation is failed.
+ *	- XASUFW_X509_GEN_VERSION_FIELD_FAIL, if Version field generation is failed.
+ *	- XASUFW_X509_GEN_VALIDITY_FIELD_FAIL, if Validity field generation is failed.
+ *	- XASUFW_X509_GEN_SUBJECT_FIELD_FAIL, if Subject field generation is failed.
+ *	- XASUFW_X509_GEN_PUB_KEY_INFO_FIELD_FAIL, if Public Key Info field generation is failed.
+ *	- XASUFW_X509_GEN_SIGN_ALGO_FIELD_FAIL, if Signature Algorithm field generation is failed.
+ *	- XASUFW_X509_GEN_SERIAL_FIELD_FAIL, if Signature field generation is failed.
+ *	- XASUFW_X509_GENERATE_DIGEST_FAIL, if digest calculation is failed.
+ *	- XASUFW_X509_GEN_EXTENSION_FIELD_FAIL, if Extensions field generation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1804,7 +1810,7 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 		goto END;
 	}
 
-	/** Generate X.509 V3 extensions field. */
+	/** Generate X.509 v3 extensions field. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_GenX509v3ExtensionsField(Cfg);
 	if (Status != XASUFW_SUCCESS) {
@@ -1864,9 +1870,9 @@ END:
  * @param	SignLen		Length of the Signature field.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully generated Sign field.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_CREATE_INTEGER_FIELD_FAIL, If integer field creation is failed.
+ *	- XASUFW_SUCCESS, if successfully generated Sign field.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_CREATE_INTEGER_FIELD_FAIL, if integer field creation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -1926,17 +1932,16 @@ END:
  * @brief	This function creates the X.509 v3 extensions field present in
  *		Certificate request Info.
  *
- * @param	Cfg		Structure which includes configuration for the Certificate Request
+ * @param	Cfg	Structure which includes configuration for the Certificate Request
  *		Info.
  *
  * @return
- *	- XASUFW_SUCCESS, Successfully generated Extensions field for Certification Request
- *	  Info.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_GEN_KEY_USAGE_FIELD_FAIL, Error in generating key usage filed.
- *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, If raw data field creation is failed.
- *	- XASUFW_X509_GEN_EXT_KEY_USAGE_FIELD_FAIL, Error in generating extended key usage field.
- *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, If update encoded length is failed.
+ *	- XASUFW_SUCCESS, if successfully generated Extensions field for Certification Request Info.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_GEN_KEY_USAGE_FIELD_FAIL, if key usage field generation is failed.
+ *	- XASUFW_X509_CREATE_RAW_DATA_FIELD_FROM_ARRAY_FAIL, if raw data field creation is failed.
+ *	- XASUFW_X509_GEN_EXT_KEY_USAGE_FIELD_FAIL, if extended key usage field generation is failed.
+ *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, if update encoded length is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -2061,15 +2066,16 @@ END:
  * @param	CsrLen		Length of the CSR info.
  *
  * @return
- *	- XASUFW_SUCCESS, If Certificate request info created successfully.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_GEN_PUB_KEY_INFO_FIELD_FAIL, Error in generating Public Key Info
+ *	- XASUFW_SUCCESS, if Certificate request info created successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_GEN_PUB_KEY_INFO_FIELD_FAIL, error in generating Public Key Info
  *	  field.
- *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, Error in updating encoded length.
- *	- XASUFW_X509_GEN_VERSION_FIELD_FAIL, Error in generating Version field.
- *	- XASUFW_X509_GEN_SUBJECT_FIELD_FAIL, Error in generating Subject field.
- *	- XASUFW_X509_GEN_PUB_KEY_INFO_FIELD_FAIL, Error in generating public key information field.
- *	- XASUFW_X509_GEN_EXTENSION_FIELD_FAIL, Error in generating extension field.
+ *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, error in updating encoded length.
+ *	- XASUFW_X509_GEN_VERSION_FIELD_FAIL, if Version field generation is failed.
+ *	- XASUFW_X509_GEN_SUBJECT_FIELD_FAIL, if Subject field generation is failed.
+ *	- XASUFW_X509_GEN_PUB_KEY_INFO_FIELD_FAIL, if Public Key Information field generation
+ *	  is failed.
+ *	- XASUFW_X509_GEN_EXTENSION_FIELD_FAIL, if Extension field generation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *

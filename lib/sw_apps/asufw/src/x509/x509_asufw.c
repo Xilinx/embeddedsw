@@ -48,7 +48,7 @@
 #define X509_ECC_SIGN_SIZE_IN_BYTES	XASU_ECC_P384_SIZE_IN_BYTES	/**< ECC Signature size in
 									bytes */
 #define X509_SHA_MODE			XASU_SHA_MODE_SHA384		/**< SHA mode used for
-									X.509 certficate digest
+									X.509 certificate digest
 									calculation */
 #define X509_SHA_HASH_LEN		XASU_SHA_384_HASH_LEN		/**< SHA Length in bytes */
 
@@ -65,8 +65,8 @@ static s32 X509_ShaDigest(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBu
  * @brief	This function configures X.509 for ASUFW.
  *
  * @return
- *	- XASUFW_SUCCESS, If X.509 configured successfully.
- *	- XASUFW_FAILURE, In case of failure.
+ *	- XASUFW_SUCCESS, if X.509 is configured successfully.
+ *	- XASUFW_FAILURE, in case of failure.
  *
  *************************************************************************************************/
 s32 X509_CfgInitialize(void)
@@ -97,14 +97,14 @@ s32 X509_CfgInitialize(void)
  * @param	PlatformData	Pointer contains platform related data.
  *
  * @return
- *	- XASUFW_SUCCESS, If signature calculated successfully.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_INVALID_PLAT_DATA, If platform data is invalid.
- *	- XASUFW_X509_INVALID_BUFFER_SIZE, If buffer size is invalid.
- *	- XASUFW_X509_ECC_EPHEMERAL_KEY_GEN_FAIL, If ephemeral key is not generated.
- *	- XASUFW_X509_GEN_SIGN_ECC_FAIL, If signature is not generated.
+ *	- XASUFW_SUCCESS, if signature is calculated successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_INVALID_PLAT_DATA, if platform data is invalid.
+ *	- XASUFW_X509_INVALID_BUFFER_SIZE, if buffer size is invalid.
+ *	- XASUFW_X509_ECC_EPHEMERAL_KEY_GEN_FAIL, if ephemeral key is not generated.
+ *	- XASUFW_X509_GEN_SIGN_ECC_FAIL, if signature is not generated.
  *	- Error code received from called functions in case of other failure from the called
- *	function.
+ *	  function.
  *
  *************************************************************************************************/
 static s32 X509_GenerateSignEcc(const u8 *Hash, u32 HashLen, const u8 *Sign, u32 SignLen,
@@ -159,15 +159,15 @@ END:
  * @param	DataLen		Data length.
  * @param	Hash		Pointer to variable which stores calculated hash.
  * @param	HashBufLen	Length of hash buffer.
- * @param	HashLen		Pointer to variable which stores total length of calculated hash.
+ * @param	HashLen		Pointer to variable which stores actual length of calculated hash.
  * @param	PlatformData	Pointer containing platform related data.
  *
  * @return
- *	- XASUFW_SUCCESS, If digest calculated successfully.
- *	- XASUFW_FAILURE, In case of failure.
- *	- XASUFW_X509_INVALID_PLAT_DATA, If platform data is invalid.
- *	- XASUFW_X509_INVALID_BUFFER_SIZE, If HASH buffer size is invalid.
- *	- XASUFW_X509_SHA_DIGEST_FAIL, If sha digest calculation is failed.
+ *	- XASUFW_SUCCESS, if digest is calculated successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_INVALID_PLAT_DATA, if platform data is invalid.
+ *	- XASUFW_X509_INVALID_BUFFER_SIZE, if hash buffer size is invalid.
+ *	- XASUFW_X509_SHA_DIGEST_FAIL, if digest calculation is failed.
  *	- Error code received from called functions in case of other failure from the called
  *	  function.
  *
@@ -179,7 +179,7 @@ static s32 X509_ShaDigest(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBu
 	XAsu_ShaOperationCmd ShaParam;
 	const X509_PlatData *PlatData = (X509_PlatData *)PlatformData;
 
-	/** Validate input paramaters. */
+	/** Validate input parameters. */
 	if ((Buf == NULL) || (Hash == NULL) || (HashLen == NULL) || (PlatData == NULL)) {
 		Status = XASUFW_X509_INVALID_PLAT_DATA;
 		goto END;

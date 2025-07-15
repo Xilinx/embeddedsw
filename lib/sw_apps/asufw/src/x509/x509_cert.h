@@ -8,7 +8,7 @@
  *
  * @file x509_cert.h
  *
- * This file contains declarations for x509 certificate related files.
+ * This file contains declarations for X.509 certificate related files.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -192,7 +192,7 @@ typedef s32 (*X509_GenerateDigest_t)(const u8 *Buf, u32 DataLen, const u8 *Hash,
 typedef	s32 (*X509_GenerateSignature_t)(const u8 *Hash, u32 HashLen, const u8 *Sign, u32 SignLen,
 					u32 *SignActualLen, u8 *PvtKey, const void *PlatformData);
 /**
- * This structure holds the information of user configs.
+ * This structure holds the information about user configs.
  */
 typedef struct {
 	X509_SignAlgoType SignType;			/**< Signature algorithm type */
@@ -202,7 +202,7 @@ typedef struct {
 } X509_InitData;
 
 /**
- * This structure contains information of the fields of X.509 certificate which is provided by user.
+ * This structure contains information about fields of X.509 certificate which is provided by user.
  */
 typedef struct {
 	u8 Issuer[X509_ISSUER_MAX_SIZE];		/**< DER encoded value of Issuer */
@@ -230,16 +230,16 @@ typedef struct {
 } X509_SubjectPublicKeyInfo;
 
 /**
- * This structure contains the configuration for X.509 certificate for given Subsystem ID.
+ * This structure contains the configuration for X.509 certificate for given subsystem ID.
  */
 typedef struct {
 	X509_UserCfg *UserCfg;			/**< Configuration from User */
 	X509_SubjectPublicKeyInfo PubKeyInfo;	/**< Subject public key information */
 	u32 IsCsr;				/**< Flag to check if Certificate Signing Request */
 	u32 IsSelfSigned;			/**< Flag to check if self-signed certificate */
-	u32 IssuerPubKeyLen;			/**< Issuer Public Key Length */
-	u8 *IssuerPublicKey;			/**< Issuer Public Key */
-	u8 *IssuerPrvtKey;			/**< Issuer Private Key */
+	u32 IssuerPubKeyLen;			/**< Issuer public Key length */
+	u8 *IssuerPublicKey;			/**< Issuer public Key */
+	u8 *IssuerPrvtKey;			/**< Issuer private Key */
 	void *PlatformData;			/**< Platform specific parameters required for
 						platform specific digest calculation and signature
 						generation APIs */
@@ -250,8 +250,8 @@ typedef struct {
 #define X509_VERSION_VALUE_V3				(0x02U)	/**< X.509 certificate version
 								v3 */
 
-#define X509_ASN1_UNUSED_BITS_SIZE_IN_BYTE		(1U)	/**< No of unused bits size in
-								byte */
+#define X509_ASN1_UNUSED_BITS_SIZE_IN_BYTE		(1U)	/**< No of bytes used to store
+								count of unused bits */
 #define X509_ASN1_TAG_LEN_VAL_MIN_SIZE			(3U)	/**< Minimum size of ASN.1
 								TLV(Tag, Len, Value) pair */
 #define X509_ASN1_LEN_VAL_MIN_SIZE			(2U)	/**< Minimum size of ASN.1
@@ -260,15 +260,15 @@ typedef struct {
 #define X509_ASN1_BIT7_MASK				(0x80U)	/**< Mask to get bit 7 */
 #define X509_ASN1_NO_OF_BITS_IN_BYTE			(8U)	/**< Number of bits in a byte */
 #define X509_ASN1_YEAR_LEN_GEN_BYTES			(4U)	/**< Year length for
-								Generalized(YYYY) format */
+								generalized(YYYY) format */
 #define X509_ASN1_YEAR_LEN_UTC_BYTES			(2U)	/**< Year length for UTC(YY)
 								format */
 #define X509_ASN1_TIME_WITH_OUT_ZERO_TIME_OFFSET(n)	(10U + (n))	/**< Length value without
-									trailing 'Z' (YYDDMMHHMMSSZ)
-									/(YYYYDDMMHHMMSS) */
+									trailing 'Z' (YYMMDDHHMMSSZ)
+									/(YYYYMMDDHHMMSS) */
 #define X509_ASN1_TIME_WITH_ZERO_TIME_OFFSET(n)		(11U + (n))	/**< Length value with
-									trailing 'Z' (YYDDMMHHMMSSZ)
-									/(YYYYDDMMHHMMSSZ) */
+									trailing 'Z' (YYMMDDHHMMSSZ)
+									/(YYYYMMDDHHMMSSZ) */
 #define X509_ASN1_MAX_LEN_BYTES				(4U)	/**< Maximum supported length bytes
 								in ASN.1 */
 #define X509_ASN1_MIN_LEN_BYTES				(1U)	/**< Minimum supported length bytes
@@ -280,7 +280,7 @@ typedef struct {
 #define X509_ASN1_THRESHOLD_YEARS			(50U)	/**< Threshold year to decide valid
 								year */
 #define X509_ASN1_TIME_SEGMENT_LEN			(2U)	/**< Number of bytes for each ASN.1
-								time field (e.g month, day, hour)*/
+								time field (e.g month, day, hour) */
 #define X509_ASN1_ZERO_TIME_OFFSET_LEN			(1U)	/**< Length of zero time offset */
 #define X509_ASN1_ZERO_TIME_OFFSET_VAL			(0x5A)	/**< Value of zero time offset */
 #define X509_ASN1_MAX_UNUSED_BITS			(7U)	/**< Maximum unused bits */
@@ -289,14 +289,14 @@ typedef struct {
 #define X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES	(127U)	/**< Max length for which short form
 								encoding of length is used */
 #define X509_ASN1_LONG_FORM_2_BYTES_MAX_LENGTH_IN_BYTES	(255U)	/**< Max length for which long form
-								encoding of length is used */
-#define X509_ASN1_LONG_FORM_LENGTH_1BYTE		(0x81U)	/**< To indicate that length is
+								encoding of 2 byte length is used */
+#define X509_ASN1_LONG_FORM_LENGTH_1BYTE		(0x81U)	/**< Indicates that length is
 								1 byte long*/
-#define X509_ASN1_LONG_FORM_LENGTH_2BYTES		(0x82U) /**< To indicate that length is
+#define X509_ASN1_LONG_FORM_LENGTH_2BYTES		(0x82U) /**< Indicates that length is
 								2 bytes long*/
-#define X509_ASN1_LEN_OF_VALUE_OF_BOOLEAN		(0x1U)	/**< Len of Boolean */
-#define X509_ASN1_BOOLEAN_TRUE				(0xFFU)	/**< Value of Boolean TRUE */
-#define X509_ASN1_BOOLEAN_FALSE				(0x00U)	/**< Value of Boolean FALSE */
+#define X509_ASN1_LEN_OF_VALUE_OF_BOOLEAN		(0x1U)	/**< Len of boolean */
+#define X509_ASN1_BOOLEAN_TRUE				(0xFFU)	/**< ASN.1 value of boolean TRUE */
+#define X509_ASN1_BOOLEAN_FALSE				(0x00U)	/**< ASN.1 value of boolean FALSE */
 
 /**< ASN.1 tags */
 #define X509_ASN1_TAG_BOOLEAN				(0x01U)	/**< ASN.1 tag for boolean */
