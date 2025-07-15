@@ -60,8 +60,8 @@ typedef enum {
  */
 typedef struct {
 	X509_PublicKeyType PubKeyType;	/**< Public key type */
-	u8 OidLen;			/**< Public key OID length */
 	const u8 *Oid;			/**< Pointer to variable containing OID */
+	u8 OidLen;			/**< Public key OID length */
 } X509_OidPublicKeyDescriptor;
 
 /**
@@ -82,8 +82,8 @@ typedef enum {
  */
 typedef struct {
 	X509_ExtensionType ExtnType;	/**< Extension type */
-	u8 ExtnLen;			/**< Extension OID length */
 	const u8 *ExtnId;		/**< Pointer to variable containing OID */
+	u8 ExtnLen;			/**< Extension OID length */
 } X509_ExtensionIdDescriptor;
 
 /**
@@ -165,8 +165,8 @@ typedef enum {
  */
 typedef struct {
 	X509_SignAlgoType SignType;	/**< Signature algorithm type */
-	u8 SignLen;			/**< Signature OID length */
 	const u8 *SignOid;		/**< Pointer to variable containing OID */
+	u8 SignLen;			/**< Signature OID length */
 } X509_SignatureOidDescriptor;
 
 /**
@@ -183,8 +183,8 @@ typedef enum {
  */
 typedef struct {
 	X509_EccCurveType EccCurveType;	/**< ECC curve type */
-	u8 ParamOidLen;			/**< Parameter OID length */
 	const u8 *ParamOid;		/**< Pointer to variable containing OID */
+	u8 ParamOidLen;			/**< Parameter OID length */
 } X509_AlgoEccParam;
 
 typedef s32 (*X509_GenerateDigest_t)(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBufLen,

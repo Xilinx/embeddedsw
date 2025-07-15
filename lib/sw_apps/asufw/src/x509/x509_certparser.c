@@ -88,23 +88,23 @@ static const u8 ExtnKeyUsage[] = {0X55U, 0X1DU, 0X0FU};	/**< Key usage extension
 /**< X.509 public key OID list */
 static X509_OidPublicKeyDescriptor PubKeyOidList[] = {
 	{
+		.PubKeyType = X509_PUB_KEY_ECC,
 		.Oid = Oid_EcPublicKey,
 		.OidLen = (u8)XASUFW_ARRAY_SIZE(Oid_EcPublicKey),
-		.PubKeyType = X509_PUB_KEY_ECC,
 	},
 	{
+		.PubKeyType = X509_PUB_KEY_RSA,
 		.Oid = Oid_RsaPublicKey,
 		.OidLen = (u8)XASUFW_ARRAY_SIZE(Oid_RsaPublicKey),
-		.PubKeyType = X509_PUB_KEY_RSA,
 	},
 };
 
 /** X.509 extensions OID list */
 static X509_ExtensionIdDescriptor ExtnList[] = {
 	{
+		.ExtnType = X509_EXTN_KEY_USAGE,
 		.ExtnId = ExtnKeyUsage,
 		.ExtnLen = (u8)XASUFW_ARRAY_SIZE(ExtnKeyUsage),
-		.ExtnType = X509_EXTN_KEY_USAGE,
 	},
 };
 

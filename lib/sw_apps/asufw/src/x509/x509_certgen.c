@@ -101,38 +101,43 @@ typedef enum {
 /********************************** Variable Definitions *****************************************/
 /**< X.509 public key OID list */
 static X509_OidPublicKeyDescriptor PubKeyOidList[X509_PUB_KEY_MAX] = {
+	[X509_PUB_KEY_UNSUPPORTED] = {
+		.PubKeyType = X509_PUB_KEY_UNSUPPORTED,
+		.Oid = NULL,
+		.OidLen = 0U,
+	},
 	[X509_PUB_KEY_ECC] = {
+		.PubKeyType = X509_PUB_KEY_ECC,
 		.Oid = Oid_EcPublicKey,
 		.OidLen = (u8)XASUFW_ARRAY_SIZE(Oid_EcPublicKey),
-		.PubKeyType = X509_PUB_KEY_ECC,
 	},
 };
 
 /**< X.509 algorithm parameter OID list */
 static X509_AlgoEccParam ParamOidList[X509_ECC_CURVE_TYPE_MAX] = {
 	[X509_ECC_CURVE_TYPE_256] = {
+		.EccCurveType = X509_ECC_CURVE_TYPE_256,
 		.ParamOid = Oid_P256,
 		.ParamOidLen = (u8)XASUFW_ARRAY_SIZE(Oid_P256),
-		.EccCurveType = X509_ECC_CURVE_TYPE_256,
 	},
 	[X509_ECC_CURVE_TYPE_384] = {
+		.EccCurveType = X509_ECC_CURVE_TYPE_384,
 		.ParamOid = Oid_P384,
 		.ParamOidLen = (u8)XASUFW_ARRAY_SIZE(Oid_P384),
-		.EccCurveType = X509_ECC_CURVE_TYPE_384,
 	},
 };
 
 /**< X.509 signature OID list */
 static X509_SignatureOidDescriptor SignOidList[X509_SIGN_TYPE_MAX] = {
-	[X509_SIGN_TYPE_ECC_SHA3_384] = {
-		.SignOid = Oid_SignAlgoSha3_384,
-		.SignLen = (u8)XASUFW_ARRAY_SIZE(Oid_SignAlgoSha3_384),
-		.SignType = X509_SIGN_TYPE_ECC_SHA3_384,
-	},
 	[X509_SIGN_TYPE_ECC_SHA3_256] = {
+		.SignType = X509_SIGN_TYPE_ECC_SHA3_256,
 		.SignOid = Oid_SignAlgoSha3_256,
 		.SignLen = (u8)XASUFW_ARRAY_SIZE(Oid_SignAlgoSha3_256),
-		.SignType = X509_SIGN_TYPE_ECC_SHA3_256,
+	},
+	[X509_SIGN_TYPE_ECC_SHA3_384] = {
+		.SignType = X509_SIGN_TYPE_ECC_SHA3_384,
+		.SignOid = Oid_SignAlgoSha3_384,
+		.SignLen = (u8)XASUFW_ARRAY_SIZE(Oid_SignAlgoSha3_384),
 	},
 };
 
