@@ -26,8 +26,12 @@
 * @{
 */
 /*************************************** Include Files *******************************************/
+#include "xasufw_debug.h"
 #include "xasu_sharedmem.h"
+#if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
 #include "xuartpsv_hw.h"
+#endif
+#include "xil_io.h"
 #include "bspconfig.h"
 
 /************************************ Constant Definitions ***************************************/
