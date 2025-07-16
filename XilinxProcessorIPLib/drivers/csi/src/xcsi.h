@@ -118,13 +118,13 @@ extern "C" {
 /** @name Interrupt Types for setting Callbacks
  * @{
 */
-#define XCSI_HANDLER_DPHY		1
-#define XCSI_HANDLER_PKTLVL		2
-#define XCSI_HANDLER_PROTLVL		3
-#define XCSI_HANDLER_SHORTPACKET	4
-#define XCSI_HANDLER_FRAMERECVD		5
-#define XCSI_HANDLER_VCXERR		6
-#define XCSI_HANDLER_OTHERERROR		7
+#define XCSI_HANDLER_DPHY		1	/**< D-PHY level error handler */
+#define XCSI_HANDLER_PKTLVL		2	/**< Packet level error handler */
+#define XCSI_HANDLER_PROTLVL		3	/**< Protocol level error handler */
+#define XCSI_HANDLER_SHORTPACKET	4	/**< Short packet handler */
+#define XCSI_HANDLER_FRAMERECVD		5	/**< Frame received handler */
+#define XCSI_HANDLER_VCXERR		6	/**< Virtual channel error handler */
+#define XCSI_HANDLER_OTHERERROR		7	/**< Other error handler */
 
 /*@}*/
 

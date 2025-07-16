@@ -336,7 +336,8 @@ extern "C" {
 				 XCSI_ISR_VC1FLVLERR_MASK | \
 				 XCSI_ISR_VC0FSYNCERR_MASK | \
 				 XCSI_ISR_VC0FLVLERR_MASK | \
-				 XCSI_ISR_VCXFE_MASK)
+				 XCSI_ISR_VCXFE_MASK)	/**< Protocol decoding error
+							  * mask for VC0-3 */
 
 #define XCSI_ISR_VC15FSYNCERR_MASK	0x00800000	/**< Frame Sync Error
 							  *  on Virtual
@@ -434,29 +435,35 @@ extern "C" {
 				 XCSI_ISR_VC14FSYNCERR_MASK | \
 				 XCSI_ISR_VC14FLVLERR_MASK | \
 				 XCSI_ISR_VC15FSYNCERR_MASK | \
-				 XCSI_ISR_VC15FLVLERR_MASK)
+				 XCSI_ISR_VC15FLVLERR_MASK)	/**< Virtual channel frame error
+							  * mask for VC4-15 */
 
 #define XCSI_INTR_PKTLVL_MASK 	(XCSI_ISR_ECC2BERR_MASK |	\
 				 XCSI_ISR_ECC1BERR_MASK |	\
 				 XCSI_ISR_CRCERR_MASK   |	\
-				 XCSI_ISR_DATAIDERR_MASK)
+				 XCSI_ISR_DATAIDERR_MASK)	/**< Packet level error
+							  * interrupt mask */
 
 #define XCSI_INTR_DPHY_MASK 	(XCSI_ISR_SOTERR_MASK 	|	\
-				 XCSI_ISR_SOTSYNCERR_MASK)
+				 XCSI_ISR_SOTSYNCERR_MASK)	/**< D-PHY level error
+							  * interrupt mask */
 
 #define XCSI_INTR_SPKT_MASK 	(XCSI_ISR_SPFIFOF_MASK |	\
-				 XCSI_ISR_SPFIFONE_MASK)
+				 XCSI_ISR_SPFIFONE_MASK)	/**< Short packet FIFO
+							  * interrupt mask */
 
-#define XCSI_INTR_FRAMERCVD_MASK	(XCSI_ISR_FR_MASK)
+#define XCSI_INTR_FRAMERCVD_MASK	(XCSI_ISR_FR_MASK)	/**< Frame received
+							  * interrupt mask */
 
-#define XCSI_INTR_VCXFE_MASK		(XCSI_ISR_VCXFE_MASK)
+#define XCSI_INTR_VCXFE_MASK		(XCSI_ISR_VCXFE_MASK)	/**< VCX frame error
+							  * interrupt mask */
 
 #define XCSI_INTR_ERR_MASK 	(XCSI_ISR_SKEWCALCHS_MASK |\
 				 XCSI_ISR_YUV420_MASK	|\
 				 XCSI_ISR_WC_MASK	|\
 				 XCSI_ISR_ILC_MASK 	|\
 				 XCSI_ISR_SLBF_MASK 	|\
-				 XCSI_ISR_STOP_MASK)
+				 XCSI_ISR_STOP_MASK)	/**< Other error interrupt mask */
 
 /*@}*/
 
