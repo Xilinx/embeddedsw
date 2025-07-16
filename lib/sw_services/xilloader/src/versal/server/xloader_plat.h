@@ -464,7 +464,7 @@ int Xloader_SsitEoPdiSync(XilPdi *PdiPtr);
 XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
-
+void XLoader_ShaInstance1Reset(void);
 
 /************************** Variable Definitions *****************************/
 

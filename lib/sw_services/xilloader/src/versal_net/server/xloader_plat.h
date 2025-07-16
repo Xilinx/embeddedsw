@@ -443,6 +443,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 #ifdef PLM_OCP_KEY_MNGMT
 int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataId);
 #endif
+void XLoader_ShaInstance1Reset(void);
 
 /************************** Variable Definitions *****************************/
 

@@ -483,6 +483,7 @@ int XLoader_ReadDdrCryptoPerfCounters(XPlmi_Cmd *Cmd);
 int XLoader_LoadLpdAndPsmElf(void);
 int XLoader_CheckAndUpdateSecureState(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
+void XLoader_ShaInstance1Reset(void);
 
 /************************** Variable Definitions *****************************/
 

@@ -1408,3 +1408,15 @@ int Xloader_SsitEoPdiSync(XilPdi *PdiPtr)
 	}
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This Function does the following:
+ *		- It resets the SHA instance 1.
+ *		- It puts the SHA instance 1 into initialized state.
+ *
+*****************************************************************************/
+void XLoader_ShaInstance1Reset(void)
+{
+	/** Not Applicable for Versal */
+}

@@ -1901,3 +1901,21 @@ END:
 	return Status;
 }
 #endif
+
+/*****************************************************************************/
+/**
+ * @brief	This Function does the following:
+ *		- It resets the SHA instance 1.
+ *		- It puts the SHA instance 1 into initialized state.
+ *
+*****************************************************************************/
+void XLoader_ShaInstance1Reset(void)
+{
+	XSecure_Sha *ShaInstance = XSecure_GetShaInstance(XSECURE_SHA_1_DEVICE_ID);
+
+	/** Set SHA under reset on failure condition */
+	XSecure_SetReset(ShaInstance->BaseAddress,
+			XSECURE_SHA3_RESET_OFFSET);
+	/** Put the SHA instance 1 into initialized state */
+	ShaInstance->ShaState = XSECURE_SHA_INITIALIZED;
+}

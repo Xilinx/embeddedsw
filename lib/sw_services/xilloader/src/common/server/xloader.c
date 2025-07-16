@@ -1616,6 +1616,8 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 #endif
 
 END:
+	XLoader_ShaInstance1Reset();
+
 	return Status;
 }
 
