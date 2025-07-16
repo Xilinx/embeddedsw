@@ -75,10 +75,16 @@ extern "C" {
 
 #define XASUFW_PLM_ASU_KEY_TX_API_ID	(1U) /**< PLM ASU key transfer API Id */
 #define XASUFW_PLM_CMD_ID_ASU_CDI_TX_ID	(2U) /**< Command Id of ASU CDI transfer */
+#define XASUFW_PLM_CMD_ID_SUBSYSTEM_HASH_TX_ID	(3U) /**< Command Id of subsystem hash transfer */
 
 #define XOCP_ASU_CDI_TX_ID_CMD_LEN		(0U)	/**< ASU CDI transfer ID command length */
 #define XOCP_ASU_CDI_TX_PAYLOAD_RESP_SIZE	(1U)	/**< ASU CDI ID payload response size */
 #define XOCP_ASU_CDI_TX_PAYLOAD_SIZE		(3U)	/**< ASU CDI transfer payload size*/
+
+#define XOCP_SUBSYS_HASH_TX_CMD_LEN		(0U)	/**< Get subsystem ID command length */
+#define XOCP_SUBSYS_HASH_TX_PAYLOAD_RESP_SIZE	(1U)	/**< Get subsystem hash payload
+							response size */
+#define XOCP_SUBSYS_HASH_TX_PAYLOAD_SIZE	(3U)	/**< ASU hash transfer Payload size */
 
 #define XASUFW_PLM_ASU_MODULE_ID	(14U) /**< PLM ASU module Id */
 

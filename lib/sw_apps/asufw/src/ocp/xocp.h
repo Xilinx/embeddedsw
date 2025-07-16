@@ -32,6 +32,7 @@ extern "C" {
 #endif
 
 /*************************************** Include Files *******************************************/
+#include "x509_cert.h"
 #include "xasu_eccinfo.h"
 #include "xasufw_dma.h"
 #include "xil_types.h"
@@ -40,6 +41,12 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+/** Starting from this memory address, 8K of memory is reserved for OCP CDO in the linker script. */
+#define XOCP_CDO_DATA_ADDR		(0xEBE5BC00U)	/**< User data address */
+
+#define XOCP_MAX_OCP_SUBSYSTEMS		(4U)	/**< Maximum number of OCP subsystems */
+#define XOCP_USER_SUBSYS_START_INDEX	(1U)	/**< Start index for OCP subsystem */
+
 #define XOCP_PERSONAL_STRING_LEN		(48U)	/**< Personalised string length */
 
 /************************************** Type Definitions *****************************************/
@@ -52,6 +59,7 @@ typedef struct {
 	u8 EccX[XASU_ECC_P384_SIZE_IN_BYTES];		/**< ECC public key x coordinate */
 	u8 EccY[XASU_ECC_P384_SIZE_IN_BYTES];		/**< ECC public key y coordinate */
 	u8 IsDevIkKeyReady;				/**< Indicates if DevIk is ready or not */
+	u8 IsDevAkKeyReady;				/**< Indicates if DevAk is ready or not */
 } XOcp_DeviceKeys;
 
 /**
@@ -63,6 +71,26 @@ typedef struct {
 	u32 PerStringAddr;	/**< Personalized string. */
 	u32 PvtKeyAddr;		/**< Key output address. */
 } XOcp_PrivateKeyGen;
+
+/**
+ * This structure contains information about Subsystems data.
+ */
+typedef struct {
+	u32 SubSystemID;				/**< Subsystem Id */
+	u8 PersonalString[XOCP_PERSONAL_STRING_LEN];	/**< Subsystem personalized string */
+	u32 IsPersonalStringAvailable;			/**< Flag to indicate if personalized string
+							is given by user */
+	X509_UserCfg UserCfg;				/**< User configurations */
+} XOcp_SubsystemData;
+
+/**
+ * This structure contains information related to CDO data.
+ */
+typedef struct {
+	XOcp_SubsystemData AsuSubsysData;			/**< ASU Subsystem data */
+	XOcp_SubsystemData SubsysData[XOCP_MAX_OCP_SUBSYSTEMS];	/**< Subsystem data */
+	u32 NumSubsys;						/**< Total number of subsystems */
+} XOcp_CdoData;
 
 /************************************ Function Prototypes ****************************************/
 

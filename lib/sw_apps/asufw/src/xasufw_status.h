@@ -528,6 +528,15 @@ enum {
 	XASUFW_OCP_GET_ASU_CDI_FAIL, /**< 0x162U - Error when get ASU CDI is failed */
 	XASUFW_OCP_SEND_IPI_REQ_FAIL, /**< 0x163U - Error when ipi request is failed */
 	XASUFW_OCP_READ_IPI_RESP_FAIL, /**< 0x164U - Error when ipi response is failed */
+	XASUFW_OCP_GEN_DEVAK_PVT_KEY_FAIL, /**< 0x165U - Error when DevAk private key generation
+						is failed */
+	XASUFW_OCP_GEN_DEVAK_PUB_KEY_FAIL, /**< 0x166U - Error when DevAk public key generation
+						is failed */
+	XASUFW_OCP_GEN_SUBSYSTEM_CDI_FAIL, /**< 0x167U - Error when subsystem CDI generation is
+						failed */
+	XASUFW_OCP_INVALID_SUBSYSTEM_INDEX, /**< 0x168U Error when parameter is invalid */
+	XASUFW_OCP_GET_SUBSYSTEM_HASH_FAIL, /**< 0x169U - Error when retrieved subsystem
+							hash is failed */
 
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */
