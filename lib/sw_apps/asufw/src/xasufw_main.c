@@ -104,6 +104,8 @@ int main(void)
 
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Release %d.%d", SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER);
 
+	XAsufw_Printf(DEBUG_PRINT_ALWAYS, " %s - %s\r\n", __DATE__, __TIME__);
+
 	/** Initialize ASUFW. */
 	Status = XAsufw_Init();
 	if (XASUFW_SUCCESS != Status) {

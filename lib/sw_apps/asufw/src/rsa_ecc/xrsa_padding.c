@@ -338,7 +338,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihBufClearStatus = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u32 KeySize = 0U;
 	u32 Len = 0U;
 	u32 HashLen = 0U;
@@ -536,15 +536,15 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, DataBlock,
+	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, DataBlock,
 					XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, HashBuffer,
+	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, HashBuffer,
 			XASU_SHA_512_HASH_LEN);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, DecryptOutputData,
+	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, DecryptOutputData,
 			XRSA_MAX_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 RET:
@@ -636,8 +636,9 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Validate input length which should not be less than HashLen + SaltLen + 2. */
-	if (PaddingParamsPtr->XAsu_RsaOpComp.Len < (HashLen + SaltLen +
-		XRSA_INPUT_PADDING_ZERO_AND_ONE_OFFSET)) {
+	if ((PaddingParamsPtr->InputDataType != XASU_RSA_HASHED_INPUT_DATA) &&
+		(PaddingParamsPtr->XAsu_RsaOpComp.Len < (HashLen + SaltLen +
+		XRSA_INPUT_PADDING_ZERO_AND_ONE_OFFSET))) {
 		Status = XASUFW_RSA_PSS_INVALID_LEN;
 		goto END;
 	}
@@ -847,7 +848,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	volatile u32 Index = XASUFW_FAILURE;
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihBufClearStatus = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u32 SaltLen = 0U;
 	u32 KeySize = 0U;
 	u32 HashLen = 0U;
@@ -912,8 +913,9 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	/** Validate input length which should not be less than HashLen + SaltLen + 2. */
-	if (PaddingParamsPtr->XAsu_RsaOpComp.Len < (HashLen + SaltLen +
-		XRSA_INPUT_PADDING_ZERO_AND_ONE_OFFSET)) {
+	if ((PaddingParamsPtr->InputDataType != XASU_RSA_HASHED_INPUT_DATA) &&
+		(PaddingParamsPtr->XAsu_RsaOpComp.Len < (HashLen + SaltLen +
+		XRSA_INPUT_PADDING_ZERO_AND_ONE_OFFSET))) {
 		Status = XASUFW_RSA_PSS_INVALID_LEN;
 		goto END;
 	}
@@ -1098,11 +1100,11 @@ END:
 	ClearStatus = XAsufw_SMemSet(DataBlock, XRSA_MAX_KEY_SIZE_IN_BYTES * XRSA_TOTAL_PARAMS);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, HashedInputData,
+	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, HashedInputData,
 				   XASU_SHA_512_HASH_LEN);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, SignedInputData,
+	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, SignedInputData,
 				   XRSA_MAX_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
@@ -1131,7 +1133,7 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
 		     const XAsufw_MgfInput *MgfInput)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihBufClearStatus = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	s32 ClearStatus = XASUFW_FAILURE;
 	u32 Counter = 0U;
 	u32 HashLen = 0U;
@@ -1218,7 +1220,7 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
 
 END:
 	/** Zeroize local copy of all the parameters. */
-	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus, Hash, XASU_SHA_512_HASH_LEN);
+	XFIH_CALL(Xil_SecureZeroize, XFihBufClearStatus, ClearStatus, Hash, XASU_SHA_512_HASH_LEN);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Bytes, XASUFW_WORD_LEN_IN_BYTES);
