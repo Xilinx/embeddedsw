@@ -139,7 +139,7 @@ extern "C" {
 					XMIPI_RX_PHY_CLSTATUS_REG_STOPSTATE_MASK |\
 					XMIPI_RX_PHY_CLSTATUS_REG_INITDONE_MASK |\
 					XMIPI_RX_PHY_CLSTATUS_REG_ULPS_MASK |\
-					XMIPI_RX_PHY_CLSTATUS_REG_MODE_MASK)
+					XMIPI_RX_PHY_CLSTATUS_REG_MODE_MASK) /**< All clock lane status mask */
 
 #define XMIPI_RX_PHY_CLSTATUS_REG_ERRCTRL_OFFSET 5 /**< Bit offset for Control Error
 					      *  on Clock*/
@@ -178,7 +178,8 @@ extern "C" {
 					XMIPI_RX_PHY_DLXSTATUS_REG_ESCABRT_MASK |\
 					XMIPI_RX_PHY_DLXSTATUS_REG_STOP_MASK |\
 					XMIPI_RX_PHY_DLXSTATUS_REG_CALIB_STATUS_MASK |\
-					XMIPI_RX_PHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK)
+					XMIPI_RX_PHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK) /**< All data lane
+									  * status mask */
 
 #define XMIPI_RX_PHY_DLXSTATUS_REG_PACKCOUNT_OFFSET 16 /**<Bit offset packet count*/
 #define XMIPI_RX_PHY_DLXSTATUS_REG_CALIB_STATUS_OFFSET 8 /**<Bit offset calib status*/
@@ -204,7 +205,7 @@ extern "C" {
 #define XMIPI_RX_PHY_HSSETTLE_REG_TIMEOUT_OFFSET 0 /**< Bit offset for HS_SETTLE */
 /*@}*/
 
-#define DL_LANE_OFFSET	4
+#define DL_LANE_OFFSET	4	/**< Data lane register offset spacing */
 
 /**************************** Type Definitions *******************************/
 

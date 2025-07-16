@@ -146,21 +146,21 @@ extern "C" {
 /** @name mipi_rx_phy HSTIMEOUT range
  * @{
 */
-#define XMIPI_RX_PHY_HS_TIMEOUT_MIN_VALUE	10000UL
-#define XMIPI_RX_PHY_HS_TIMEOUT_MAX_VALUE	65541UL
+#define XMIPI_RX_PHY_HS_TIMEOUT_MIN_VALUE	10000UL	/**< Min HS timeout value */
+#define XMIPI_RX_PHY_HS_TIMEOUT_MAX_VALUE	65541UL	/**< Max HS timeout value */
 /*@}*/
 
 /** @name mipi_rx_phy HSSETTLE range
  * @{
 */
-#define XMIPI_RX_PHY_HS_SETTLE_MAX_VALUE	0x1FF
+#define XMIPI_RX_PHY_HS_SETTLE_MAX_VALUE	0x1FF	/**< Max HS settle value */
 /*@}*/
 
 /** @name mipi_rx_phy Flags to Enable or Disable core
  * @{
 */
-#define XMIPI_RX_PHY_ENABLE_FLAG 	1
-#define XMIPI_RX_PHY_DISABLE_FLAG 	0
+#define XMIPI_RX_PHY_ENABLE_FLAG 	1		/**< Flag to enable core */
+#define XMIPI_RX_PHY_DISABLE_FLAG 	0		/**< Flag to disable core */
 /*@}*/
 
 /************************* Bit field operations ****************************/
