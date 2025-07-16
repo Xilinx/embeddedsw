@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +40,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings are
 *                     available in all examples. This is a fix for CR-965028.
 * 6.10  ht     06/23/23 Added support for system device-tree flow.
+* 6.13  sd     07/10/25 Fix a gcc warning.
 * </pre>
 *
 *****************************************************************************/
@@ -113,7 +114,7 @@ INTC Intc;	/* The Instance of the Interrupt Controller Driver */
 /*
  * Shared variables used to test the callbacks.
  */
-volatile static int SampleCounterIntr = FALSE;  /*
+static volatile int SampleCounterIntr = FALSE;  /*
 						 * Sample Interval Counter
 						 * Overflow interrupt
 						 */
