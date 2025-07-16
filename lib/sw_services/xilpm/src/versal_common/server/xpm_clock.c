@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -950,7 +950,12 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
 			Resp[i] = 0xFFFFFFFFU;
 			break;
 		}
-		Resp[i] = Clk->Topology.MuxSources[Index + i];
+
+		if (Clk->Topology.MuxSources[Index + i] == (u16)CLK_DUMMY_PARENT) {
+			Resp[i] = (u32)CLK_DUMMY_PARENT;
+		} else {
+			Resp[i] = Clk->Topology.MuxSources[Index + i];
+		}
 	}
 
 	Status = XST_SUCCESS;

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,8 @@ extern "C" {
 #define ISREFCLK(id)	((NODECLASS(id) == (u32)XPM_NODECLASS_CLOCK) && \
 			 (NODESUBCLASS(id) == (u32)XPM_NODESUBCL_CLOCK_REF) && \
 			 (NODEINDEX(id) < (u32)XPM_NODEIDX_CLK_MAX))
+
+#define CLK_DUMMY_PARENT	(0xFFFFFFFEU)
 
 /* Topology types */
 #define	TOPOLOGY_GENERIC_PLL		1U
