@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,7 +57,7 @@ extern "C" {
 			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_TOPSW_REF) ||	\
 			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_DMA_ALT) ||		\
 			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_AUX2_REF))
-#define CLK_DUMMY_PARENT	(0xFFFFFFFFU)
+#define CLK_DUMMY_PARENT	(0xFFFFFFFEU)
 /**
  * The topology node class.	 This is the class to represent each node
  * in clock topology. It can be mux/div/gate/fixed factor.
