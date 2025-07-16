@@ -409,7 +409,8 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
 			break;
 		}
 
-		if (Clk->Topology.MuxSources[Index + i] == (u16)CLK_DUMMY_PARENT) {
+		if (((u16)CLK_DUMMY_PARENT == Clk->Topology.MuxSources[Index + i]) ||
+		    ((u16)0xFFFFFFFFU == Clk->Topology.MuxSources[Index + i])) {
 			Resp[i] = (u32)CLK_DUMMY_PARENT;
 		} else {
 			Resp[i] = Clk->Topology.MuxSources[Index + i];
