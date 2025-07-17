@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -71,7 +71,7 @@
  * Change this parameter to limit the number of ping requests sent by this
  * program.
  */
-#define NUM_OF_PING_REQ_PKTS	100	/* Number of ping req it generates */
+#define NUM_OF_PING_REQ_PKTS	12	/* Number of ping req it generates */
 
 #define ECHO_REPLY		0x00	/* Echo reply */
 #define HW_TYPE			0x01	/* Hardware type (10/100 Mbps) */
@@ -213,6 +213,12 @@ int SeqNum;
  */
 int NumOfPingReqPkts;
 
+/*
+ * Flag to track if destination MAC address is resolved via ARP before sending
+ * ICMP packets
+ */
+static int ArpResolved = 0;
+
 /****************************************************************************/
 /**
 *
@@ -319,7 +325,7 @@ static int EmacLitePingReqExample(u16 DeviceId)
 		/*
 		 * Send an ARP or an ICMP packet based on receive packet.
 		 */
-		if (SeqNum == 0) {
+		if (!ArpResolved) {
 			SendArpReqFrame(EmacLiteInstPtr);
 		} else {
 			SendEchoReqFrame(EmacLiteInstPtr);
@@ -377,6 +383,11 @@ static int EmacLitePingReqExample(u16 DeviceId)
 			xil_printf(" Seq NO %d Request timed out\r\n",
 				   SeqNum);
 		}
+
+		/* Reset status to prepare for next icmp reply and to prevent
+		 * false positives
+		 */
+		EchoReplyStatus = XST_FAILURE;
 	}
 	return XST_SUCCESS;
 }
@@ -581,7 +592,7 @@ static void SendEchoReqFrame(XEmacLite *InstancePtr)
 	/*
 	 * Add identifier and sequence number to the frame.
 	 */
-	*(TxFramePtr + ICMP_IDEN_FIELD_LOC) = (IDEN_NUM);
+	*(TxFramePtr + ICMP_IDEN_FIELD_LOC) = Xil_Htons(IDEN_NUM);
 	*(TxFramePtr + (ICMP_IDEN_FIELD_LOC + 1)) = Xil_Htons((u16)(++SeqNum));
 
 	/*
@@ -590,7 +601,7 @@ static void SendEchoReqFrame(XEmacLite *InstancePtr)
 	Index = ICMP_KNOWN_DATA_LEN;
 	while (Index--) {
 		*(TxFramePtr + (Index + ICMP_KNOWN_DATA_LOC)) =
-			Xil_Htons(*(IcmpData + Index));
+			(*(IcmpData + Index));
 	}
 
 	/*
@@ -673,10 +684,11 @@ static int ProcessRecvFrame(XEmacLite *InstancePtr)
 							   Index));
 					}
 
-					/*
-					 * Send Echo request packet.
+					/* Mark ARP resolution complete, now ready to send
+					 * ICMP ping packets
 					 */
-					SendEchoReqFrame(InstancePtr);
+					ArpResolved = 1;
+					return XST_SUCCESS;
 				}
 			}
 		}
