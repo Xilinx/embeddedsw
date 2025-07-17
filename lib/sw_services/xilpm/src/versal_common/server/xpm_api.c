@@ -4174,7 +4174,9 @@ done:
 
 static void XPm_CoreIdle(XPm_Core *Core)
 {
-	Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
+	if (1U == Core->isCoreUp) {
+		Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
+	}
 	XPmNotifier_Event(Core->Device.Node.Id,
 			  (u8)EVENT_CPU_IDLE_FORCE_PWRDWN);
 }
