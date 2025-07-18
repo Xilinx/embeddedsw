@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -82,6 +82,7 @@ config:
 depends:
     video_common: []
     v_hdmi_common: []
+    vtc: []
 
 examples:
     hdcp_key_utility/hdcp_key_utility.c:
