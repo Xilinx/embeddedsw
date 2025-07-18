@@ -396,7 +396,7 @@ END:
  * @param	PrivKeyAddr	Address of the private key buffer, whose length shall be equal to
  * 				CurveLen.
  * @param	EphemeralKeyPtr	Pointer to the ephemeral key buffer, whose length shall be
- * 				CurveLen. This pointer shall be unused in case of Edward curves.
+ * 				CurveLen. This pointer shall be unused in the case of Edward curves.
  * @param	HashAddr	Address of the hash on which signature has to be generated.
  * @param	HashBufLen	Length of the hash in bytes.
  * @param	SignAddr	Address of the buffer to store the generated signature, whose
@@ -534,8 +534,8 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 				Crv, PrivKey, (EcdsaKey *)&Key);
 
 		/** Generate signature with provided inputs. */
-		XFIH_CALL(Ecdsa_GenerateEdSign, XFihVar, Status, Crv, (UINTPTR)HashAddr,
-		 (HashBufLen * XASUFW_BYTE_LEN_IN_BITS), (UINTPTR)PrivKeyAddr, (EcdsaKey *)&Key,
+		XFIH_CALL(Ecdsa_GenerateEdSign, XFihVar, Status, Crv, (u8*)(UINTPTR)HashAddr,
+		 (HashBufLen * XASUFW_BYTE_LEN_IN_BITS), (u8*)(UINTPTR)PrivKeyAddr, (EcdsaKey *)&Key,
 		 (EcdsaSign *)&Sign);
 	}
 	if ((Status == XRSA_ECC_GEN_SIGN_BAD_R) ||
@@ -752,7 +752,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 		XFIH_CALL(Ecdsa_VerifySign, XFihVar, Status, Crv, Hash, Crv->Bits,
 			 (EcdsaKey *)&Key, (EcdsaSign *)&Sign);
 	} else {
-		XFIH_CALL(Ecdsa_VerifySign, XFihVar, Status, Crv, HashAddr,
+		XFIH_CALL(Ecdsa_VerifySign, XFihVar, Status, Crv, (u8*)(UINTPTR)HashAddr,
 			 (HashBufLen * XASUFW_BYTE_LEN_IN_BITS), (EcdsaKey *)&Key,
 			 (EcdsaSign *)&Sign);
 	}
@@ -957,7 +957,8 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
  *	-	XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameters are invalid.
  *	-	XASUFW_RSA_ECC_WRITE_DATA_FAIL, if write data through DMA fails.
  *	-	XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails.
- *	-	XASUFW_ECDH_OTHER_ERROR, if operation fails due to any other error from IP cores.
+ *	-	XASUFW_ECDH_OTHER_ERROR, if operation fails due to any other error from
+ *		third-party code.
  *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	-	XASUFW_FAILURE, if operation fails due to any other reasons.
  *
@@ -1033,7 +1034,7 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	/** Release RSA core reset. */
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
-	/** Generate ECDH shared secret using IPCores. */
+	/** Generate ECDH shared secret using third-party library. */
 	XFIH_CALL(Ecdsa_CDH_Q, XFihEcdh, Status, Crv, PrivKey, (EcdsaKey *)&Key, SharedSecret);
 
 	/** Set RSA under reset. */

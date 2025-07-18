@@ -710,7 +710,7 @@ s32 XSha_GetShaBlockLen(const XSha *InstancePtr, u8 ShaMode, u8* BlockLen)
  *		- XASUFW_SUCCESS, if SHA digest is successful.
  *		- XASUFW_FAILURE, if SHA digest fails.
  *		- XASUFW_SHA_INVALID_PARAM, if input parameter validation fails.
- * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *		  non-blocking mode.
  *
  *************************************************************************************************/

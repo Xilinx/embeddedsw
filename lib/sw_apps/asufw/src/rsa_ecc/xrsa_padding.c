@@ -95,7 +95,7 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
 /*************************************************************************************************/
 /**
  * @brief	This function performs RSA OAEP padding for the provided message to output a data
- * 		of length equal to keysize.
+ * 		of length equal to key size.
  *
  * @param	DmaPtr			Pointer to the AsuDma instance.
  * @param	ShaInstancePtr		Pointer to the SHA instance.
@@ -107,12 +107,12 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
  *		- XASUFW_FAILURE, if RSA OAEP encoding fails.
  *		- XASUFW_RSA_INVALID_PARAM, if input parameters validation fails.
  *		- XASUFW_RSA_OAEP_INVALID_LEN, if input length is greater than OAEP defined length.
- * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *		  non-blocking mode.
  *		- XASUFW_RSA_OAEP_ENCRYPT_ERROR, if Public encryption error occurs after
  *		  OAEP padding.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
- * 		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
+ *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *		- XASUFW_MEM_COPY_FAIL, if memcpy fails
  *
  *************************************************************************************************/
@@ -324,12 +324,12 @@ RET:
  *		- XASUFW_FAILURE, if OAEP decode operation fails.
  *		- XASUFW_RSA_INVALID_PARAM, if input parameters are invalid.
  *		- XASUFW_RSA_OAEP_INVALID_LEN, if input length is greater than OAEP defined length.
- * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *		  non-blocking mode.
- * 		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
+ *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *		- XASUFW_MEM_COPY_FAIL, if memcpy fails
  *		- Also, this function can return termination error codes 0xBBU, 0xBCU and 0xBDU,
- * 		please refer to xasufw_status.h.
+ *		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
 s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
@@ -500,7 +500,7 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	/**
 	* Iterate a loop until last but one index in data block to check for 0x01U from which
-	* original message is seperated from rest of the data block and validating the padding
+	* original message is separated from rest of the data block and validating the padding
 	* string to have zeroes until 0x01U is found and copy data to output data address
 	* using DMA on successful comparison.
 	*/
@@ -565,12 +565,12 @@ RET:
  *		- XASUFW_SUCCESS, if PSS sign generation is successful.
  *		- XASUFW_FAILURE, if PSS sign generation fails.
  *		- XASUFW_RSA_INVALID_PARAM on invalid parameters.
- * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *		  non-blocking mode.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
- * 		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
+ *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *		- Also, this function can return termination error codes from 0xBFU to 0xC3U and 0xD0U,
- * 		please refer to xasufw_status.h.
+ *		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
 s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
@@ -651,7 +651,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	/**
 	* Calculate data block length which is KeySize - HashLen - 1 as it is of the format
-	* Datablock = 0x00(length= (KeySize - SaltLen - HashLen - 2) || 0x01 || salt(SaltLen).
+	* Datablock = 0x00(length= (KeySize - SaltLen - HashLen - 2) || 0x01 || salt (SaltLen).
 	*/
 	DataBlockLen = KeySize - HashLen - XRSA_DATA_BLOCK_LENGTH_OFFSET;
 
@@ -776,7 +776,7 @@ s32 XRsa_PssSignGenerate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	OutputData[XRSA_DATA_BLOCK_FIRST_INDEX] = OutputData[XRSA_DATA_BLOCK_FIRST_INDEX]
 							& XRSA_PSS_MSB_PADDING_MASK;
 
-	/** Append hash buffer, and end byte 0xBC for final padded output. */
+	/** Append hash buffer and end byte 0xBC for final padded output. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy(&OutputData[DataBlockLen],
 			     XRSA_MAX_KEY_SIZE_IN_BYTES, HashBuffer, XASU_SHA_512_HASH_LEN,
@@ -832,10 +832,10 @@ RET:
  *		- XASUFW_SUCCESS, if PSS sign verification is successful.
  *		- XASUFW_FAILURE, if PSS sign verification fails.
  *		- XASUFW_RSA_INVALID_PARAM, if input parameter validation fails.
- * 		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
+ *		- XASUFW_CMD_IN_PROGRESS, if command is in progress when SHA is operating in DMA
  *		  non-blocking mode.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memset with zero fails.
- * 		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
+ *		- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
  *		- Also, this function can return termination error codes from 0xC4U to 0xCAU and 0xD0U,
 
  * 		please refer to xasufw_status.h.
@@ -928,7 +928,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 
 	/**
 	* Calculate data block length which is KeySize - HashLen - 1 as it is of the format
-	* Datablock = 0x00(length= (KeySize - SaltLen - HashLen - 2) || 0x01 || salt(SaltLen).
+	* Datablock = 0x00(length= (KeySize - SaltLen - HashLen - 2) || 0x01 || salt (SaltLen).
 	*/
 	DataBlockLen = KeySize - HashLen - XRSA_DATA_BLOCK_LENGTH_OFFSET;
 
@@ -1021,7 +1021,7 @@ s32 XRsa_PssSignVerify(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	* check 0x01U and seperate salt if available i.e of the form DB = PS || 0x01 || salt.
 	*/
 
-	/** Check for zero's of length which is KeySize - SaltLen - HashLen - 2 which is PS. */
+	/** Check for zeroes of length which is KeySize - SaltLen - HashLen - 2 which is PS. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if ((KeySize - SaltLen - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET) != 0U) {
 		for (Index = 0U; Index < (KeySize - SaltLen - HashLen - XRSA_DATA_BLOCK_RANDOM_STRING_OFFSET); Index++) {
@@ -1120,7 +1120,7 @@ RET:
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	ShaInstancePtr	Pointer to the SHA instance.
  * @param	ShaMode		SHA mode selection.
- * @param       MgfInput	Pointer to all required parameters of MGF.
+ * @param	MgfInput	Pointer to all required parameters of MGF.
  *
  * @return
  *		- XASUFW_SUCCESS, if mask generation is successful.

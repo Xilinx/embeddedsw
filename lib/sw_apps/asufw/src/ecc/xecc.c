@@ -231,16 +231,16 @@ END:
  * 				Qx, Qy components.
  *
  * @return
- * 		- XASUFW_SUCCESS, if public key generated successfully.
- * 		- XASUFW_ECC_INVALID_PARAM, if InstancePtr is NULL or if curve type or curve length
- * 				is invalid.
- * 		- XASUFW_ECC_WRITE_DATA_FAIL, if write data to registers through DMA fails.
- * 		- XASUFW_ECC_READ_DATA_FAIL, if read data from registers through DMA fails.
- * 		- XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, if sign generation fails in PWCT.
+ *		- XASUFW_SUCCESS, if public key generated successfully.
+ *		- XASUFW_ECC_INVALID_PARAM, if InstancePtr is NULL or if curve type or curve length
+ *				is invalid.
+ *		- XASUFW_ECC_WRITE_DATA_FAIL, if write data to registers through DMA fails.
+ *		- XASUFW_ECC_READ_DATA_FAIL, if read data from registers through DMA fails.
+ *		- XASUFW_RSA_ECC_PWCT_SIGN_GEN_FAIL, if sign generation fails in PWCT.
  *		- XASUFW_RSA_ECC_PWCT_SIGN_VER_FAIL, if sign verification fails in PWCT.
  *		- XASUFW_ECC_SCP_RANDOM_NUM_UPDATE_FAIL, if random values updation fails.
- * 		- Also, this function can return termination error codes from 0x21U to 0x2CU from core,
- * 		please refer to xasufw_status.h.
+ *		- Also, this function can return termination error codes from 0x21U to 0x2CU from core,
+ *		please refer to xasufw_status.h.
  *
  *************************************************************************************************/
 s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen,
@@ -739,11 +739,13 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 Signature[XASU_ECC_P384_SIZE_IN_BYTES + XASU_ECC_P384_SIZE_IN_BYTES];
 
+	/** Validate input parameters. */
 	if ((DmaPtr == NULL) || (PrivKeyAddr == 0U) || (PubKeyAddr == 0U)) {
 		Status = XASUFW_RSA_ECC_INVALID_PARAM;
 		goto END;
 	}
 
+	/** Generate signature using the provided private key and curve type. */
 	Status = XEcc_GenerateSignature(InstancePtr, DmaPtr, CurveType, CurveLen, PrivKeyAddr,
 			EKeyPwctEcc, (u64)(UINTPTR)MsgPwctEcc, CurveLen,
 			(u64)(UINTPTR)Signature);
@@ -752,6 +754,7 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 		goto END_CLR;
 	}
 
+	/** Verify the generated signature using the provided public key and curve type. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcc_VerifySignature(InstancePtr, DmaPtr, CurveType, CurveLen, PubKeyAddr,
 			(u64)(UINTPTR)MsgPwctEcc, CurveLen,
@@ -762,6 +765,7 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	ReturnStatus = XASUFW_FAILURE;
 
 END_CLR:
+	/** Zeroize the local buffer. */
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
 					XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES)));
 

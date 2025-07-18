@@ -49,6 +49,7 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+/** Prints debug information based on debug type. */
 #if defined (ASUFW_DEBUG_DETAILED)
 /* Prints detailed debug information. */
 #define XAsufwDbgCurrentTypes ((DEBUG_DETAILED) | (DEBUG_INFO) | \

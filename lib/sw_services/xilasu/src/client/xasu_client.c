@@ -52,7 +52,7 @@
 
 #define ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK       0x10U          /**< ASU FW Present mask
                                                                               value */
-#define XASU_ASUFW_BIT_CHECK_TIMEOUT_VALUE	0xFFFFFU	/**< ASUFW check timoeout value */
+#define XASU_ASUFW_BIT_CHECK_TIMEOUT_VALUE	0xFFFFFU	/**< ASUFW check timeout value */
 
 #define XASU_NO_OF_CONTEXTS				(10U)	/**< No of contexts can be saved by client */
 
@@ -114,7 +114,7 @@ static XAsu_ClientCtx AsuContext[XASU_NO_OF_CONTEXTS];	/**< ASU saved context */
  * @return
  * 		- XST_SUCCESS, On successful initialization.
  * 		- XST_FAILURE, On failure.
- *,
+ *
  *************************************************************************************************/
 s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr)
 {
@@ -213,7 +213,7 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function updates the queue buffer status to notify the request is present and
- * 		generates a door bell to ASU.
+ * 		generates a doorbell to ASU.
  *
  * @param	ClientParam	 	Pointer to the XAsu_ClientParams instance.
  * @param	ReqBuffer		Pointer to the XAsu_ChannelQueueBuf's Request buffer data to be filled.
@@ -471,7 +471,7 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 
 /*************************************************************************************************/
 /**
- * @brief	This function returns ASUFW application present status.
+ * @brief	This function returns the ASUFW application's present status.
  *
  * @return
  * 	- XST_SUCCESS, if ASUFW is present.
@@ -498,7 +498,7 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function generates an unique ID.
+ * @brief	This function generates a unique ID.
  *
  * @return	Unique ID
  *			- 0 to (XASU_UNIQUE_ID_MAX-1) if AsuCallBackRef array has any empty index.
@@ -548,7 +548,7 @@ static u8 XAsu_GetFreeIndex(u8 Priority)
 	u8 *FreeIndexPtr = NULL;
 	u8 TempIndex;
 
-	/** Get next free index. */
+	/** Get the next free index. */
 	if (Priority == XASU_PRIORITY_HIGH) {
 		FreeIndexPtr = &ClientInstancePtr->P0NextFreeIndex;
 		ChannelQPtr = &ClientInstancePtr->ChannelMemoryPtr->P0ChannelQueue;

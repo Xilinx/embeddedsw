@@ -60,9 +60,8 @@ static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr);
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
- * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr)
@@ -112,9 +111,8 @@ END:
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
- * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr)
@@ -166,8 +164,9 @@ END:
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XASU_INVALID_CURVEINFO, if curve info is invalid.
+ * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_EccGenPubKey(XAsu_ClientParams *ClientParamsPtr, XAsu_EccKeyParams *EccKeyParamsPtr)
@@ -225,9 +224,8 @@ END:
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
- * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr)
@@ -265,15 +263,15 @@ END:
  * 		by using the provided ECC public key and private key.
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
- * 				input parameters
+ * 				input parameters.
  * @param	EcdhParamsPtr	Pointer to XAsu_EcdhParams structure which holds the parameters of
  * 				ECDH input arguments.
  *
  * @return
- *		- XST_SUCCESS, if signature generated successfully
- *		- XASU_INVALID_ARGUMENT, if any argument is invalid
- *		- XASU_INVALID_UNIQUE_ID, if unique ID is invalid
- *		- XST_FAILURE, if send IPI fails
+ *		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ *		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ *		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
+ *		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams *EcdhParamsPtr)
@@ -330,9 +328,9 @@ END:
  * @param	ClientParamsPtr	Pointer to client params structure.
  *
  * @return
- *		- XST_SUCCESS, if ECDH Kat runs succefully
- *		- XASU_INVALID_UNIQUE_ID, if unique ID is invalid
- *		- XST_FAILURE, if send IPI fails
+ *		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ *		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
+ *		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_EcdhKat(XAsu_ClientParams *ClientParamsPtr)

@@ -46,15 +46,20 @@ extern "C" {
 /* RSA module command IDs */
 #define XASU_RSA_PUB_ENC_CMD_ID			(0U) /**< Command ID for RSA public encryption */
 #define XASU_RSA_PVT_DEC_CMD_ID			(1U) /**< Command ID for RSA private decryption */
-#define XASU_RSA_PVT_CRT_DEC_CMD_ID		(2U) /**< Command ID for RSA private CRT decryption */
-#define XASU_RSA_OAEP_ENC_SHA2_CMD_ID		(3U) /**< Command ID for OAEP enc with SHA2 */
-#define XASU_RSA_OAEP_DEC_SHA2_CMD_ID		(4U) /**< Command ID for OAEP dec with SHA2 */
-#define XASU_RSA_OAEP_ENC_SHA3_CMD_ID		(5U) /**< Command ID for OAEP enc with SHA3 */
-#define XASU_RSA_OAEP_DEC_SHA3_CMD_ID		(6U) /**< Command ID for OAEP dec with SHA3 */
-#define XASU_RSA_PSS_SIGN_GEN_SHA2_CMD_ID	(7U) /**< Command ID for PSS sign gen with SHA2 */
-#define XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID	(8U) /**< Command ID for PSS sign ver  with SHA2 */
-#define XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID	(9U) /**< Command ID for PSS sign gen with SHA3 */
-#define XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID	(10U) /**< Command ID for PSS sign ver with SHA3 */
+#define XASU_RSA_PVT_CRT_DEC_CMD_ID		(2U) /**< Command ID for RSA private CRT
+							decryption */
+#define XASU_RSA_OAEP_ENC_SHA2_CMD_ID		(3U) /**< Command ID for OAEP encryption with SHA2 */
+#define XASU_RSA_OAEP_DEC_SHA2_CMD_ID		(4U) /**< Command ID for OAEP decryption with SHA2 */
+#define XASU_RSA_OAEP_ENC_SHA3_CMD_ID		(5U) /**< Command ID for OAEP encryption with SHA3 */
+#define XASU_RSA_OAEP_DEC_SHA3_CMD_ID		(6U) /**< Command ID for OAEP decryption with SHA3 */
+#define XASU_RSA_PSS_SIGN_GEN_SHA2_CMD_ID	(7U) /**< Command ID for PSS sign generation
+							with SHA2 */
+#define XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID	(8U) /**< Command ID for PSS sign verification
+							with SHA2 */
+#define XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID	(9U) /**< Command ID for PSS sign generation with
+							SHA3 */
+#define XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID	(10U) /**< Command ID for PSS sign verification
+							with SHA3 */
 #define XASU_RSA_KAT_CMD_ID			(11U) /**< Command ID for RSA KAT command */
 
 /* RSA key size */
@@ -73,8 +78,8 @@ extern "C" {
 /* RSA operation flags */
 #define XASU_RSA_ENCRYPTION			(1U)	/**< Encryption operation */
 #define XASU_RSA_EXPONENTIATION_DECRYPTION	(2U)	/**< Exponentiation Decryption operation */
-#define XASU_RSA_SIGN_GENERATION		(3U)	/**< Sign Generation operation */
-#define XASU_RSA_SIGN_VERIFICATION		(4U)	/**< Sign Verification operation */
+#define XASU_RSA_SIGN_GENERATION		(3U)	/**< Sign generation operation */
+#define XASU_RSA_SIGN_VERIFICATION		(4U)	/**< Sign verification operation */
 
 /** @} */
 /************************************** Type Definitions *****************************************/

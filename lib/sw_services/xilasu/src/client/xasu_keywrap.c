@@ -54,7 +54,7 @@
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_KeyWrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyWrapParamsPtr)
@@ -120,7 +120,7 @@ END:
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_KeyUnwrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyUnwrapParamsPtr)
@@ -184,7 +184,7 @@ END:
  * 	- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 	- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 	- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
- * 	- XST_FAILURE, if sending IPI request to ASU fails.
+ * 	- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_KeyWrapKat(XAsu_ClientParams *ClientParamsPtr)

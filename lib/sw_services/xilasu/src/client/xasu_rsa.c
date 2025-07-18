@@ -57,7 +57,7 @@
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr)
@@ -66,7 +66,7 @@ s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 	u32 Header;
 	u8 UniqueId;
 
-	/** Validatations of inputs. */
+	/** Validations of inputs. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -126,7 +126,7 @@ END:
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr)
@@ -135,7 +135,7 @@ s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 	u32 Header;
 	u8 UniqueId;
 
-	/** Validatations of inputs. */
+	/** Validations of inputs. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -196,7 +196,7 @@ END:
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr)
@@ -216,7 +216,7 @@ s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientP
 		goto END;
 	}
 
-	/** Validatations of inputs. */
+	/** Validations of inputs. */
 	if (((RsaClientParamPtr->InputDataAddr == 0U) ||
 	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
 	     (RsaClientParamPtr->KeyCompAddr == 0U))) {
@@ -267,7 +267,7 @@ END:
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
@@ -289,7 +289,7 @@ s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	/** Validatations of inputs. */
+	/** Validations of inputs. */
 	Status = XAsu_RsaValidateInputParams(&(RsaClientParamPtr->XAsu_RsaOpComp));
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -364,7 +364,7 @@ END:
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
@@ -386,7 +386,7 @@ s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	/** Validatations of inputs. */
+	/** Validations of inputs. */
 	Status = XAsu_RsaValidateInputParams(&(RsaClientParamPtr->XAsu_RsaOpComp));
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -415,7 +415,7 @@ s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	/** Set the command ID based on selected SHA type. */
+	/** Set the command ID based on the selected SHA type. */
 	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
 		CmdId = XASU_RSA_OAEP_DEC_SHA2_CMD_ID;
 	} else if (RsaClientParamPtr->ShaType == XASU_SHA3_TYPE) {
@@ -466,7 +466,7 @@ END:
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams *RsaClientParamPtr)
@@ -487,7 +487,7 @@ s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
-	/** Validatations of inputs. */
+	/** Validations of inputs. */
 	Status = XAsu_RsaValidateInputParams(&(RsaClientParamPtr->XAsu_RsaOpComp));
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -565,7 +565,7 @@ END:
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams *RsaClientParamPtr)
@@ -586,7 +586,7 @@ s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
-	/** Validatations of inputs. */
+	/** Validations of inputs. */
 	Status = XAsu_RsaValidateInputParams(&(RsaClientParamPtr->XAsu_RsaOpComp));
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -666,7 +666,7 @@ END:
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_RsaKat(XAsu_ClientParams *ClientParamPtr)

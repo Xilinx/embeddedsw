@@ -85,7 +85,7 @@ s32 XHkdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_HkdfPara
 	}
 
 	/**
-	 * Extract Pseudo Random Key(PRK) using HMAC with the "salt" as the key and the "IKM" as
+	 * Extract Pseudo Random Key (PRK) using HMAC with the "salt" as the key and the "IKM" as
 	 * the message.
 	 */
 	Status = XHkdf_Extract(DmaPtr, ShaInstancePtr, HkdfParams, (u8 *)&Prk);
@@ -253,7 +253,7 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	/**
 	 * Calculate number of iterations based on HKDF output key length and SHA algorithm hash
 	 * length.
-	 * According to algorithm, maximum iterations should not exceed byte max length 0xFFU.
+	 * According to the algorithm, maximum iterations should not exceed byte max length 0xFFU.
 	 */
 	Iterations = (u32)Xil_Ceil((float)HkdfParams->KdfParams.KeyOutLen / HashLen);
 	if (Iterations > XHKDF_MAX_ITERATIONS) {
@@ -262,7 +262,7 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	}
 
 	/**
-	 * Use HMAC as pseudorandom function, run the below steps in iterations until requested
+	 * Use HMAC as a pseudorandom function, run the below steps in iterations until requested
 	 * bytes of key output is generated and form the final output.
 	 * The HMAC inputs are chained by prepending the previous hash block to the "info" field
 	 * and appending with an incrementing 8-bit counter.
@@ -322,7 +322,7 @@ static s32 XHkdf_Expand(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 		/**
 		 * - HMAC output size is the SHA algorithm hash length. HKDF key output can be any
 		 * length.
-		 * - In last iteration, data to be copied to the destination can be less than or
+		 * - In the last iteration, data to be copied to the destination can be less than or
 		 * equal to SHA algorithm hash length which varies based on the requested key
 		 * output length.
 		 */

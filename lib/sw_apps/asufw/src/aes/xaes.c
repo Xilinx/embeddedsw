@@ -57,7 +57,7 @@
 #define XAES_FULL_WORD_MASK		(0xFFFFFFFFU) /**< Mask to compare a full 32-bit word. */
 #define XAES_BIT_MASK(Bytes)		((1UL << ((Bytes) * XASUFW_BYTE_LEN_IN_BITS)) - 1U)
 						/**< Bit mask with lower (Bytes * 8) bits set. */
-#define XAES_WORD_COUNT_LEN(Length)	(((Length) + 3U) / 4U) /** Number of 4bytes words for
+#define XAES_WORD_COUNT_LEN(Length)	(((Length) + 3U) / 4U) /**< Number of 4-byte words for
 								given length. */
 /**
  * Bit 6 flag indicating the presence of Additional Authenticated Data (AAD).
@@ -114,8 +114,8 @@
 	((XAES_CCM_Q_CONST - NonceLen - 1U) & XAES_CCM_Q_MASK))))
 
 #define XAES_AAD_LENGTH_SHORT_LIMIT	(0xFF00U) /**< (1 << 16) - (1 << 8) = 65280. */
-#define XAES_HEADER_6BYTE_INDICATOR	(0xFFFEU) /**< Header 6 byte indicator. */
-#define XAES_HEADER_10BYTE_INDICATOR	(0xFFFFU) /**< Header 10 byte indicator. */
+#define XAES_HEADER_6BYTE_INDICATOR	(0xFFFEU) /**< Header 6-byte indicator. */
+#define XAES_HEADER_10BYTE_INDICATOR	(0xFFFFU) /**< Header 10-byte indicator. */
 #define XAES_TWO_BYTE_ENCODING		(2U) /**< 2-byte encoding for small values. */
 #define XAES_SIX_BYTE_ENCODING		(6U) /**< 6-byte encoding for medium values. */
 #define XAES_TEN_BYTE_ENCODING		(10U) /**< 10-byte encoding for large values. */
@@ -132,10 +132,10 @@
 					XAES_MAX_PLEN_AAD_ENCODING_SIZE. */
 #define XAES_AAD_UPDATE_NO_OUTPUT_ADDR	(0U) /**< Output address should be zero during AAD update. */
 #define XAES_U64_ONE			(1ULL) /**< Constant value 1 as an unsigned 64-bit integer. */
-#define XAES_NONCE_HEADER_FIRST_IDX	(0U) /**< First index in the NonceHeader array, used for
-					storing the high byte. */
-#define XAES_NONCE_HEADER_SECOND_IDX	(1U) /**< Second index in the NonceHeader array, used for
-					storing the low byte. */
+#define XAES_NONCE_HEADER_FIRST_IDX	(0U) /**< First index of the NonceHeader array, used to
+					store the high byte. */
+#define XAES_NONCE_HEADER_SECOND_IDX	(1U) /**< Second index of the NonceHeader array, used to
+					store the low byte. */
 
 typedef enum {
 	XAES_INITIALIZED = 0x1, /**< AES is in initialized state */
@@ -345,7 +345,7 @@ static void XAes_SetReset(XAes *InstancePtr);
 /**
  * @brief	This function returns an AES instance pointer of the provided device ID.
  *
- * @param	DeviceId	The device ID of AES core.
+ * @param	DeviceId	DeviceID of the AES core.
  *
  * @return
  * 		- XAes_Instance corresponding to the Device ID.
@@ -1825,7 +1825,6 @@ END:
  *
  * @param	InstancePtr	Pointer to the XAes instance.
  * @param	TagOutAddr	Address of the buffer to store tag.
- * @param	TagLen		Length of the tag in bytes.
  *
  * @return
  *		- XASUFW_SUCCESS, if tag read is successful.
@@ -2001,7 +2000,7 @@ static void XAes_ConfigAad(const XAes *InstancePtr)
 
 /*************************************************************************************************/
 /**
- * @brief	This function clears configuration of AAD after pushing final AAD data to
+ * @brief	This function clears the configuration of AAD after pushing final AAD data to
  * 		AES engine.
  *
  * @param	InstancePtr	Pointer to the XAes instance.

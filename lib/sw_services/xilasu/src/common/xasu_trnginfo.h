@@ -42,13 +42,13 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 
 /* TRNG module command IDs */
-#define XASU_TRNG_GET_RANDOM_BYTES_CMD_ID	(0U) /**< Command ID for TRNG Get Random Bytes cmd */
-#define XASU_TRNG_KAT_CMD_ID			(1U) /**< Command ID for TRNG KAT command */
+#define XASU_TRNG_GET_RANDOM_BYTES_CMD_ID	(0U) /**< Command ID for TRNG Get Random Bytes */
+#define XASU_TRNG_KAT_CMD_ID			(1U) /**< Command ID for TRNG KAT */
 
 /* Internal purpose */
-#define XASU_TRNG_DRBG_INSTANTIATE_CMD_ID       (2U) /**< Command ID for TRNG DRBG instantiate cmd */
-#define XASU_TRNG_DRBG_RESEED_CMD_ID            (3U) /**< Command ID for TRNG DRBG reseed cmd */
-#define XASU_TRNG_DRBG_GENERATE_CMD_ID          (4U) /**< Command ID for TRNG DRBG generate cmd */
+#define XASU_TRNG_DRBG_INSTANTIATE_CMD_ID       (2U) /**< Command ID for TRNG DRBG instantiate */
+#define XASU_TRNG_DRBG_RESEED_CMD_ID            (3U) /**< Command ID for TRNG DRBG reseed */
+#define XASU_TRNG_DRBG_GENERATE_CMD_ID          (4U) /**< Command ID for TRNG DRBG generate */
 
 /** @} */
 /************************************** Type Definitions *****************************************/

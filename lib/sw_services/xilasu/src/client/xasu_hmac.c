@@ -44,7 +44,7 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr);
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends command to ASUFW to computes the Message Authentication Code (MAC)
+ * @brief	This function sends command to ASUFW to compute the Message Authentication Code (MAC)
  * 		for the given message using the specified hash function and the provided key.
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
@@ -56,7 +56,7 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr);
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  * 		- XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.
  * 		- XASU_FAIL_SAVE_CTX, if saving context fails.
  * 		- XASU_REQUEST_INPROGRESS, if split request already in progress.
@@ -82,7 +82,7 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 		goto END;
 	}
 
-	/** If operation flag is set to INIT, */
+	/** If the operation flag is set to INIT, */
 	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT) {
 		/**
 		 * - If either P0HmacCtx or P1HmacCtx is not NULL depending on whether the priority
@@ -138,7 +138,7 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 			}
 		}
 	}
-	/** If operation flag is either UPDATE or FINAL, */
+	/** If the operation flag is either UPDATE or FINAL, */
 	else {
 		/** - Check if the context already exists. If not, return an error. */
 		if (ClientParamsPtr->ClientCtx != NULL) {
@@ -196,7 +196,7 @@ END:
  * 	- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 	- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 	- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
- * 	- XST_FAILURE, if sending IPI request to ASU fails.
+ * 	- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_HmacKat(XAsu_ClientParams *ClientParamsPtr)

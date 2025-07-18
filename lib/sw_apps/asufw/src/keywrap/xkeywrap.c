@@ -196,7 +196,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		goto END_CLR;
 	}
 
-	/** Copy wrapped output data to user provided output memory using DMA. */
+	/** Copy wrapped output data to the user provided output memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(AsuDmaPtr, (u64)(UINTPTR)OutData,
 				(KeyWrapParamsPtr->OutputDataAddr + KeyWrapParamsPtr->RsaKeySize),
@@ -398,7 +398,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 	MaxRounds = ((PadLen + KeyWrapParamsPtr->InputDataLen +
 			XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES) / XASUFW_BYTE_LEN_IN_BITS) - 1U;
 
-	/** Copy integrity check value(ICV) to input data. */
+	/** Copy integrity check value (ICV) to input data. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SMemCpy(InData, XRSA_MAX_KEY_SIZE_IN_BYTES, InitValue,
 				XASUFW_WORD_LEN_IN_BYTES, XASUFW_WORD_LEN_IN_BYTES);
@@ -407,7 +407,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 		goto END_CLR;
 	}
 
-	/** Copy message length indicator(MLI) to input data. */
+	/** Copy message length indicator (MLI) to input data. */
 	XAsufw_I2Osp(KeyWrapParamsPtr->InputDataLen, XASUFW_WORD_LEN_IN_BYTES,
 			&InData[XASUFW_WORD_LEN_IN_BYTES]);
 
@@ -421,7 +421,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 		goto END_CLR;
 	}
 
-	/** Append 0's if calulcated padding length is non zero. */
+	/** Append 0's if calculated padding length is non zero. */
 	if (PadLen != 0U) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = Xil_SMemSet(&InData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES +
@@ -734,7 +734,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 		goto END_CLR;
 	}
 
-	/** Copy output data from ASU memory to user provided memory using DMA. */
+	/** Copy output data from ASU memory to the user provided memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (KeyUnwrapParamsPtr->OutuputDataLen < (*OutDataLenPtr)) {
 		Status = XASUFW_KEYWRAP_INVALID_OUTPUT_BUF_LEN;

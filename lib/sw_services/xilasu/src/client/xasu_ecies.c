@@ -44,7 +44,7 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends a command to perform the encryption of the given plaintext
+ * @brief	This function sends a command to perform the encryption of the given plain text
  * 		message using the ECIES protocol.
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
@@ -56,7 +56,7 @@
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_EciesEncrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *EciesParamsPtr)
@@ -116,7 +116,7 @@ END:
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_EciesDecrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *EciesParamsPtr)
@@ -180,7 +180,7 @@ END:
  * 	- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 	- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 	- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
- * 	- XST_FAILURE, if sending IPI request to ASU fails.
+ * 	- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_EciesKat(XAsu_ClientParams *ClientParamsPtr)

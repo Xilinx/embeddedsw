@@ -233,7 +233,7 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 
 	/**
 	 * Perform the AES operation to decrypt the provided ciphertext using the key derived
-	 * from the KDF, and verify the received MAC against the generated MAC.
+	 * from the KDF and verify the received MAC against the generated MAC.
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcies_AesCompute(AesInstancePtr, DmaPtr, EciesParams, KOut,

@@ -133,7 +133,7 @@ s32 XAsu_AesValidateTagParams(u8 EngineMode, u64 TagAddr, u32 TagLen)
 	 * | AES-GCM, CMAC       |   Non-zero     |  8<=TagLen<=16       |
 	 * | AES-CCM             |   Non-zero     |  4,6,8,10,12,14,16   |
 	 *
-	 * NIST recommends using a tag length of atleast 64 bits to provide adequate protection
+	 * NIST recommends using a tag length of at least 64 bits to provide adequate protection
 	 * against guessing attacks.
 	 */
 	switch (EngineMode) {

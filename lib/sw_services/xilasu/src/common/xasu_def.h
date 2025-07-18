@@ -55,7 +55,7 @@ extern "C" {
 #define XASU_MAX_MODULES			(10U) /**< Maximum supported modules in ASU */
 
 #define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
-						/** < ASU DMA maximum transfer rate in bytes. */
+						/**< ASU DMA maximum transfer length in bytes. */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
@@ -66,11 +66,11 @@ extern "C" {
  */
 typedef struct {
 	u32 Version;	/**< Version of the cryptographic algorithm */
-				/**< [15:0] : Algorithm minor version
+				/**< [15:0]: Algorithm minor version
 				     [31:16]: Algorithm major version */
 	u8 NistStatus;	/**< NIST compliance status of the cryptographic algorithm */
-				/**< oxFF : Algorithm is NIST compliant
-				     0x00 : Algorithm is not NIST compliant or NIST compliance is not
+				/**< 0xFF: Algorithm is NIST compliant
+				     0x00: Algorithm is not NIST compliant or NIST compliance is not
 					    applicable */
 	u8 Reserved1;	/**< Reserved */
 	u8 Reserved2;	/**< Reserved */

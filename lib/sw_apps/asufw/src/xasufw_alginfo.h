@@ -77,7 +77,8 @@ extern "C" {
 								applicable*/
 
 #define XASUFW_ALG_BUILD_VERSION(Major, Minor)	((((u32)Major) << XASUFW_TWO_BYTE_SHIFT_VALUE) \
-						| (Minor))
+						| (Minor)) /**< Concatenate 16-bit Major version
+							and Minor version of crypto module */
 /************************************ Function Prototypes ****************************************/
 
 /************************************ Variable Definitions ***************************************/

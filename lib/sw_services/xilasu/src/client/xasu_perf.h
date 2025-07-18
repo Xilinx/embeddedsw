@@ -37,7 +37,7 @@ extern "C" {
 #include "xasu_bsp_config.h"
 #endif
 
-/** If performance measurement is enabled */
+/* If performance measurement is enabled */
 #ifdef XASU_PERF_MEASUREMENT_ENABLE
 
 /************************************ Constant Definitions ***************************************/

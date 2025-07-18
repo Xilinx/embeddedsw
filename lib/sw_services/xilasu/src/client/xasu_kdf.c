@@ -57,7 +57,7 @@ static s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr);
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_KdfGenerate(XAsu_ClientParams *ClientParamsPtr, XAsu_KdfParams *KdfParamsPtr)
@@ -111,7 +111,7 @@ END:
  * 	- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 	- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 	- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
- * 	- XST_FAILURE, if sending IPI request to ASU fails.
+ * 	- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
 s32 XAsu_KdfKat(XAsu_ClientParams *ClientParamsPtr)

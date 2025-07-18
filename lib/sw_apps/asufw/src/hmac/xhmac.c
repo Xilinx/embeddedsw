@@ -381,7 +381,7 @@ s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Update SHA with IntHash = (HASH(IPad || input)) data. */
+	/** Update SHA with IntHash = (HASH (IPad || input)) data. */
 	Status = XSha_Update(InstancePtr->ShaInstancePtr, AsuDmaPtr,
 			     (u64)(UINTPTR)(InstancePtr->IntHash), (u32)InstancePtr->HashBufLen,
 			     XASU_TRUE);
@@ -391,7 +391,7 @@ s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	/** Get the final HMAC output = HASH(OPad || IntHash). */
+	/** Get the final HMAC output = HASH (OPad || IntHash). */
 	Status = XSha_Finish(InstancePtr->ShaInstancePtr, (u32 *)HmacOutPtr,
 			     (u32)InstancePtr->HashBufLen, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
@@ -426,8 +426,8 @@ END:
  *
  * @param	InstancePtr	Pointer to the XHmac instance.
  * @param	AsuDmaPtr	Pointer to the XAsufw_Dma instance.
- * @param	KeyAddr		is the address which holds the key for HMAC.
- * @param	KeyLen		variable holds the length of the key.
+ * @param	KeyAddr		Address which holds the key for HMAC.
+ * @param	KeyLen		Variable holds the length of the key.
  * @param	ProcessedKey	Pointer to hold the processed key.
  *
  * @return
@@ -519,15 +519,14 @@ END:
 
 /*************************************************************************************************/
 /**
- *
  * @brief	This function performs XOR operation on provided data of SHA block length
- *		with constant provided on whole bytes of data and result is been updated.
+ *		with constant provided on whole bytes of data and result shall be updated.
  *
- * @param	Data	is the pointer which holds data to be XORed.
- * @param	Value	with which XOR operation to be performed.
- * @param	Result	is the pointer of SHA3 block length array which is been
- * 			updated with the result.
- * @param	BlockLen Block length of the SHA mode.
+ * @param	Data		Pointer which holds data to be XORed.
+ * @param	Value		Value with which XOR operation to be performed.
+ * @param	Result		Pointer of SHA3 block length array which is been
+ * 				updated with the result.
+ * @param	BlockLen	Block length of the SHA mode.
  *
  *************************************************************************************************/
 static inline void XHmac_Xor(const u32 *Data, const u32 Value, u32 *Result, u32 BlockLen)

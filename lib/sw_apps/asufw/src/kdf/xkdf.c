@@ -107,7 +107,7 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 	}
 
 	/**
-	 * Use HMAC as pseudorandom function, run the below steps in iterations until requested bytes
+	 * Use HMAC as a pseudorandom function, run the below steps in iterations until requested bytes
 	 * of key output is generated and form the final output.
 	 */
 	KeyOutAddr = KdfParams->KeyOutAddr;
@@ -134,7 +134,7 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 			goto END_CLR;
 		}
 
-		/** - Update context provided by user to HMAC. */
+		/** - Update context provided by the user to HMAC. */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XHmac_Update(HmacPtr, DmaPtr, KdfParams->ContextAddr, KdfParams->ContextLen,
 				XASU_TRUE);

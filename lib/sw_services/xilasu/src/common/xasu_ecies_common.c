@@ -82,7 +82,7 @@ s32 XAsu_ValidateEciesParameters(const XAsu_EciesParams *EciesParams)
 	    (EciesParams->AesKeySize != XASU_AES_KEY_SIZE_256_BITS))) {
 		goto END;
 	}
-	/** Validate IV and MAC length paramters. */
+	/** Validate IV and MAC length parameters. */
 	if ((EciesParams->IvLength != XASU_AES_IV_SIZE_96BIT_IN_BYTES) ||
 	    (EciesParams->MacLength != XASU_AES_MAX_TAG_LENGTH_IN_BYTES)) {
 		goto END;

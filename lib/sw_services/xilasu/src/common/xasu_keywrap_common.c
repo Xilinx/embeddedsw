@@ -53,7 +53,7 @@
  *
  * @return
  *	- XST_SUCCESS, if input validation is successful.
- * 	- XST_FAILURE, if input validation fails.
+ *	- XST_FAILURE, if input validation fails.
  *
  *************************************************************************************************/
 s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParamsPtr)

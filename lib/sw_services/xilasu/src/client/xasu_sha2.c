@@ -56,7 +56,7 @@
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  * 		- XASU_REQUEST_INPROGRESS, if split request already in progress.
  * 		- XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
@@ -129,7 +129,7 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	/** If operation flag is set to START, */
+	/** If the operation flag is set to START, */
 	if ((ShaClientParamPtr->OperationFlags & XASU_SHA_START) == XASU_SHA_START) {
 		/**
 		 * - If either P0Sha2Ctx or P1Sha2Ctx is not NULL depending on whether the priority
@@ -183,7 +183,7 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 			}
 		}
 	}
-	/** If operation flag is either UPDATE or FINISH, */
+	/** If the operation flag is either UPDATE or FINISH, */
 	else {
 		/** - Check if the context already exists. If not, return an error. */
 		if (ClientParamPtr->ClientCtx != NULL) {
@@ -234,7 +234,7 @@ END:
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_QUEUE_FULL, if Queue buffer is full.
- * 		- XST_FAILURE, if sending IPI request to ASU fails.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  *
  *************************************************************************************************/

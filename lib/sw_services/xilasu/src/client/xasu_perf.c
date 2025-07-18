@@ -29,7 +29,7 @@
 #include "xil_io.h"
 #include <stdio.h>
 
-/** If performance measurement is enabled */
+/* If performance measurement is enabled */
 #ifdef XASU_PERF_MEASUREMENT_ENABLE
 
 /************************************ Constant Definitions ***************************************/
@@ -61,7 +61,7 @@ static u64 XAsu_ReadTimestamp(void)
 
 	do {
 		/**
-		 * Reading upper 32bits twice to avoid race condition, lower 32bits should not be
+		 * Reading upper 32bits twice to avoid race conditions, lower 32bits should not be
 		 * overflowed between the reads, leading to incorrect values.
 		 */
 		Upper32bit_Prev = Xil_In32(XASU_LPD_SYSTMR_CTRL_BASE_ADDRESS +
@@ -97,7 +97,7 @@ void XAsu_PerfInit(void)
 
 /*************************************************************************************************/
 /**
- * @brief	This function starts execution timing. Stores the timestamp internally.
+ * @brief	This function starts execution timinga and stores the timestamp internally.
  *
  *************************************************************************************************/
 void XAsu_StartTiming(void)

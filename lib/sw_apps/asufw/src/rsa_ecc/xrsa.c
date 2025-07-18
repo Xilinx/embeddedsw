@@ -42,9 +42,10 @@
 #define XASU_RSA_BASEADDR		(0xEBF50000U)	/**< RSA base address */
 #define XRSA_RESET_REG_OFFSET		(0x40U)		/**< RSA reset register offset */
 
-/* Errors from IPcores library */
-#define XRSA_KEY_PAIR_COMP_ERROR	(1)		/**< RSA IPcores keypair compare error */
-#define XRSA_RAND_GEN_ERROR		(2)		/**< RSA IPcores random number generation error */
+/* Errors from third-party library */
+#define XRSA_KEY_PAIR_COMP_ERROR	(1)		/**< RSA third-party keypair compare error */
+#define XRSA_RAND_GEN_ERROR		(2)		/**< RSA third-party random number
+								generation error */
 
 #define XRSA_MAX_PRIME_SIZE_IN_BYTES	(256U)		/**< RSA max prime size in bytes */
 #define XRSA_PUBEXP_SIZE_IN_BYTES	(4U)		/**< RSA public exponent size in bytes */
@@ -149,7 +150,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 		goto END;
 	}
 
-	/** Copy input data to server memory using DMA. */
+	/** Copy the input data to server memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
@@ -197,7 +198,7 @@ s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAdd
 	}
 
 	/**
-	 * Endianness change from BE to LE for following components
+	 * Endianness change from BE to LE for the following components
 	 * - Input Data.
 	 * - Public exponent.
 	 * - Modulus.
@@ -372,7 +373,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Copy input data to server memory using DMA. */
+	/** Copy the input data to server memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
@@ -421,7 +422,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 
 
 	/**
-	 * Endianness change from BE to LE for following components
+	 * Endianness change from BE to LE for the following components
 	 * - Input Data.
 	 * - Public exponent.
 	 * - Modulus.
@@ -565,7 +566,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Copy output data to user memory using DMA. */
+	/** Copy output data to the user memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)OutData, OutputDataAddr, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
@@ -659,7 +660,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 		goto END;
 	}
 
-	/** Copy input data to server memory using DMA. */
+	/** Copy the input data to server memory using DMA. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_DmaXfr(DmaPtr, InputDataAddr, (u64)(UINTPTR)InData, Len, 0U);
 	if (Status != XASUFW_SUCCESS) {
@@ -693,7 +694,7 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 	}
 
 	/**
-	 * Endianness change from BE to LE for following components
+	 * Endianness change from BE to LE for the following components
 	 * - Input Data.
 	 * - Public exponent.
 	 * - Modulus.
@@ -795,7 +796,7 @@ u8 *XRsa_GetDataBlockAddr(void)
  * @brief	This function maps the status returned from IP cores to the respective error
  * 		from xasufw_status.h.
  *
- * @param	Status	Status returned from IPcores library.
+ * @param	Status	Status returned from third-party library.
  *
  * @return
  *		- XASUFW_RSA_RAND_GEN_ERROR, if random number generation fails.
