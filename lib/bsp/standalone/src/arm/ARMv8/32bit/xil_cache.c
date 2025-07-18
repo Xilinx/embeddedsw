@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,9 @@
  *                    of unaligned cache line for start address and end
  *                    addresses.
  *                    Fix overflow scenarios in Xil_ICacheInvalidateRange.
+ * 9.4 vmt   17/07/25 Fix Xil_DCacheInvalidateRange to ensure all cache lines
+ *                    are invalidated correctly by using the proper address
+ *                    variable in the loop.
  *
  * </pre>
  *
@@ -286,14 +289,14 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 			mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x0);
 			/* Invalidate Data cache line */
 			mtcp(XREG_CP15_INVAL_DC_LINE_MVA_POC,
-				(tempadr & (~0x3F)));
+				(adr & (~0x3F)));
 			/* Wait for invalidate to complete */
 			dsb();
 			/* Select cache level 0 and D cache in CSSR */
 			mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x2);
 			/* Invalidate Data cache line */
 			mtcp(XREG_CP15_INVAL_DC_LINE_MVA_POC,
-				(tempadr & (~0x3F)));
+				(adr & (~0x3F)));
 			/* Wait for invalidate to complete */
 			dsb();
 			((MAX_ADDR - (u32)adr) < cacheline) ? (adr = MAX_ADDR) : (adr += cacheline);
