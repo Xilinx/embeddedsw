@@ -26,6 +26,7 @@
  *                     Added support for DMA non-blocking wait
  *                     Updated copying the hash to response buffer
  *       ma   12/23/24 Allocate SHA resource for SHA start and SHA finish as well
+ *       am   07/18/25 Added core reset support for single glitch recovery
  *
  * </pre>
  *
@@ -241,6 +242,7 @@ END:
 		if (XAsufw_ReleaseResource(XASUFW_SHA3, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
+		XSha_Reset(XAsufw_Sha3);
 		XAsufw_Sha3Module.AsuDmaPtr = NULL;
 	}
 

@@ -30,6 +30,7 @@
  *       am   04/14/25 Added support for DMA non-blocking wait
  *       am   04/26/25 Fixes IV & AAD formatting logic for different Iv lengths
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
+ *       am   07/18/25 Modified XAes_SetReset() visibility from static to non-static
  *
  * </pre>
  *
@@ -339,7 +340,6 @@ static s32 XAes_DummyEncryption(XAes *InstancePtr);
 static s32 XAes_FinalizeAadUpdate(XAes *InstancePtr);
 static s32 XAes_WaitForDone(const XAes *InstancePtr);
 static s32 XAes_WaitForReady(const XAes *InstancePtr);
-static void XAes_SetReset(XAes *InstancePtr);
 
 /*************************************************************************************************/
 /**
@@ -2252,7 +2252,7 @@ static s32 XAes_WaitForReady(const XAes *InstancePtr)
  * @param	InstancePtr	Pointer to the XAes instance.
  *
  *************************************************************************************************/
-static void XAes_SetReset(XAes *InstancePtr)
+void XAes_SetReset(XAes *InstancePtr)
 {
 	InstancePtr->AesState = XAES_INITIALIZED;
 	XAsufw_CryptoCoreSetReset(InstancePtr->AesBaseAddress, XAES_SOFT_RST_OFFSET);

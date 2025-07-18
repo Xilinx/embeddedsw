@@ -35,6 +35,7 @@
  *       yog  04/04/25 Added XAes_KeyClear() API
  *       am   04/14/25 Added macros related to non-blocking update stages.
  * 1.2   am   05/18/25 Moved non-blocking update stages macros to aes handler
+ *       am   07/18/25 Modified XAes_SetReset() visibility from static to non-static
  *
  * </pre>
  *
@@ -85,6 +86,7 @@ s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeyS
 s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, XAsu_AesParams *AesParams);
 u8 XAes_GetEngineMode(const XAes *InstancePtr);
 s32 XAes_KeyClear(const XAes *InstancePtr, u32 KeySrc);
+void XAes_SetReset(XAes *InstancePtr);
 
 #ifdef __cplusplus
 }

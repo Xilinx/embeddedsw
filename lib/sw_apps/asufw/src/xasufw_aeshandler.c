@@ -21,6 +21,7 @@
  *       am   04/03/25 Removed redundant release of AES resource
  *       am   04/14/25 Added support for DMA non-blocking wait
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
+ *       am   07/18/25 Added core reset support for single glitch recovery
  *
  * </pre>
  *
@@ -321,6 +322,9 @@ END:
 		if (XAsufw_ReleaseResource(XASUFW_AES, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
+		XAes_SetReset(XAsufw_Aes);
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XAes_KeyClear(XAsufw_Aes, XASU_AES_EXPANDED_KEYS));
 		XAsufw_AesModule.AsuDmaPtr = NULL;
 	}
 
