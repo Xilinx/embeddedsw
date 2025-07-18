@@ -842,9 +842,14 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 		 * from these queues.
 		 */
 
-		u8 isVersalPlatform = (GemVersion == GEMVERSION_VERSAL) ||
+		u8 isVersalPlatform;
+		u8 needsCacheFlush;
+		UINTPTR txPtr;
+		UINTPTR rxPtr;
+
+		isVersalPlatform = (GemVersion == GEMVERSION_VERSAL) ||
                        (GemVersion == GEMVERSION_VERSAL_2VE_2VM_10GBE);
-		u8 needsCacheFlush = !EmacPsInstancePtr->Config.IsCacheCoherent && !isVersalPlatform;
+		needsCacheFlush = !EmacPsInstancePtr->Config.IsCacheCoherent && !isVersalPlatform;
 
 		/* Setup termination descriptors only for older platforms */
 		if (!isVersalPlatform) {
@@ -857,8 +862,8 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 		}
 
 		/* Precompute queue pointers */
-		UINTPTR txPtr = isVersalPlatform ? QUEUE_DISABLE : (UINTPTR)&BdTxTerminate;
-		UINTPTR rxPtr = isVersalPlatform ? QUEUE_DISABLE : (UINTPTR)&BdRxTerminate;
+		txPtr = isVersalPlatform ? QUEUE_DISABLE : (UINTPTR)&BdTxTerminate;
+		rxPtr = isVersalPlatform ? QUEUE_DISABLE : (UINTPTR)&BdRxTerminate;
 
 		/* Tie-off unused queues */
 		for (i=0; i < EmacPsInstancePtr->MaxQueues; i++ ) {
