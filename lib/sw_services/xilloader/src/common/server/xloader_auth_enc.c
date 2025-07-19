@@ -1460,7 +1460,6 @@ END:
  * 			required PSS operations to extract salt and calculates M prime hash and
  * 			compares with hash obtained from EM.
  *
- * @param   PmcDmaInstPtr Pointer to DMA instance
  * @param   MsgHash of the data to be authenticated.
  * @param   RsaInstPtr is pointer to the XSecure_Rsa instance.
  * @param   Signature is pointer to RSA signature for data to be authenticated.
@@ -1697,7 +1696,6 @@ END:
  * @brief	This function initializes the RSA module with provided key and
  *			verifies the signature
  *
- * @param   SecurePtr is pointer to the XLoader_SecureParams instance
  * @param   MsgHash of the data to be authenticated.
  * @param   Key is pointer to the XSecure_Rsa instance.
  * @param   Signature is pointer to RSA signature for data to be authenticated.

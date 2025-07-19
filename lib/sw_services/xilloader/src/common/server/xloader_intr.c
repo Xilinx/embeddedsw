@@ -298,13 +298,13 @@ END1:
  * @brief	This function handles the partial PDI event based on status of
  *          resources
  *
- * @param	PdiPtr is the instance pointer that points to PDI details
  * @param	PdiSrc is source of PDI.
  * @param	PdiAddr is the address at which PDI is located in the PDI source
+ * @param   IpiMask is mask  of IPI channel from which current partial PDI event is received
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure.
-*
+ *
  *****************************************************************************/
 int XLoader_PpdiEventHandling(PdiSrc_t PdiSrc, u64 PdiAddr, u32 IpiMask)
 {

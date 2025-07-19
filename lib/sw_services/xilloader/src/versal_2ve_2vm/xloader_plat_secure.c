@@ -238,8 +238,6 @@ int XLoader_AddDeviceStateChangeToScheduler(void)
 /**
 * @brief    This function runs the KAT for RSA
 *
-* @param    PmcDmaPtr - Pointer to DMA instance
-*
 * @return   XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/

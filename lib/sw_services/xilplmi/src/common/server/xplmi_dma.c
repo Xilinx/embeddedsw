@@ -273,8 +273,6 @@ static void XPlmi_SSSCfgDmaDma(u32 Flags)
 /**
  * @brief	This function is used set SSS configuration for SBI to DMA.
  *
- * @param	Flags to select PMC DMA
- *
  *****************************************************************************/
 static void XPlmi_SSSCfgSbiDma(void)
 {
@@ -297,8 +295,6 @@ static void XPlmi_SSSCfgSbiDma(void)
 /*****************************************************************************/
 /**
  * @brief	This function is used set SSS configuration for DMA to PZM.
- *
- * @param	Flags to select PMC DMA
  *
  *****************************************************************************/
 static void XPlmi_SSSCfgDmaPzm(void)
