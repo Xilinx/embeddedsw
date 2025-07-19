@@ -129,11 +129,11 @@ static s32 XAsufw_Sha2ResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	const XAsu_ShaOperationCmd *Cmd = (const XAsu_ShaOperationCmd *)ReqBuf->Arg;
 
 	/**
-	 * Allocate DMA and SHA2 resource if CmdId is SHA Operation with Update or if CmdId is SHA
-	 * KAT.
+	 * Allocate DMA and SHA2 resource if CmdId is SHA Operation with Update or Finish flag
+	 * or if CmdId is SHA KAT.
 	 */
 	if (((CmdId == XASU_SHA_OPERATION_CMD_ID) &&
-		((Cmd->OperationFlags & XASU_SHA_UPDATE) == XASU_SHA_UPDATE)) ||
+		((Cmd->OperationFlags & (XASU_SHA_UPDATE | XASU_SHA_FINISH)) != 0U)) ||
 		(CmdId == XASU_SHA_KAT_CMD_ID)) {
 		XAsufw_Sha2Module.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_SHA2, ReqId);
 		if (XAsufw_Sha2Module.AsuDmaPtr == NULL) {
@@ -211,13 +211,11 @@ SHA_STAGE_UPDATE_DONE:
 		/** If operation flags include SHA FINISH, perform SHA2 finish operation. */
 		HashAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 						XASUFW_RESP_DATA_OFFSET;
-		Status = XSha_Finish(XAsufw_Sha2, HashAddr, Cmd->HashBufSize, XASU_FALSE);
+		Status = XSha_Finish(XAsufw_Sha2, XAsufw_Sha2Module.AsuDmaPtr, HashAddr,
+						Cmd->HashBufSize, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_FINISH_FAILED);
 			goto END;
-		}
-		if (XAsufw_ReleaseResource(XASUFW_SHA2, ReqId) != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 		}
 	} else {
 		if (XAsufw_Sha2Module.AsuDmaPtr != NULL) {
@@ -235,7 +233,8 @@ SHA_STAGE_UPDATE_DONE:
 	}
 
 END:
-	if (Status != XASUFW_SUCCESS) {
+	if ((Status != XASUFW_SUCCESS) ||
+		((Cmd->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH)) {
 		/** Release resources. */
 		if (XAsufw_ReleaseResource(XASUFW_SHA2, ReqId) != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);

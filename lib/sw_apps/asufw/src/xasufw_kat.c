@@ -450,7 +450,7 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, XAsufw_Dma *AsuDmaPtr, XAsufw_Resour
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Perform SHA finish operation. */
-	Status = XSha_Finish(XAsufw_ShaInstance, (u32 *)OutVal, XASU_SHA_256_HASH_LEN,
+	Status = XSha_Finish(XAsufw_ShaInstance, AsuDmaPtr, (u32 *)OutVal, XASU_SHA_256_HASH_LEN,
 			     XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;

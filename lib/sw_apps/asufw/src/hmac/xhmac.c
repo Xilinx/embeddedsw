@@ -305,7 +305,7 @@ SHA_IN_HMAC_STAGE_UPDATE_DONE:
 		 * and update HMAC state to XHMAC_UPDATE_COMPLETED.
 		 */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Finish(InstancePtr->ShaInstancePtr, (u32 *)(InstancePtr->IntHash),
+		Status = XSha_Finish(InstancePtr->ShaInstancePtr, AsuDmaPtr, (u32 *)(InstancePtr->IntHash),
 				     (u32)InstancePtr->HashBufLen, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
@@ -392,7 +392,7 @@ s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Get the final HMAC output = HASH (OPad || IntHash). */
-	Status = XSha_Finish(InstancePtr->ShaInstancePtr, (u32 *)HmacOutPtr,
+	Status = XSha_Finish(InstancePtr->ShaInstancePtr, AsuDmaPtr, (u32 *)HmacOutPtr,
 			     (u32)InstancePtr->HashBufLen, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
@@ -482,7 +482,7 @@ static s32 XHmac_ProcessKeyWithPadding(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr
 		}
 
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XSha_Finish(InstancePtr->ShaInstancePtr, (u32 *)ProcessedKey,
+		Status = XSha_Finish(InstancePtr->ShaInstancePtr, AsuDmaPtr, (u32 *)ProcessedKey,
 				     (u32)InstancePtr->HashBufLen, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);

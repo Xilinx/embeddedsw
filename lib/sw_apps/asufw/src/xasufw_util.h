@@ -95,6 +95,8 @@ extern "C" {
 #define XASUFW_VALUE_ONE			(1U)	/**< Integer value 1U */
 #define XASUFW_VALUE_TWO			(2U)	/**< Integer value 2U */
 
+#define XASUFW_U64_IN_BYTES			(8U)	/**< U64 value in bytes */
+
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 #define XASUFW_MEASURE_PERF_START() \
 	StartTime = XAsufw_GetTimerValue()

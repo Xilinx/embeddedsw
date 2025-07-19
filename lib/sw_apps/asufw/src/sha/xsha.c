@@ -46,6 +46,25 @@
 #define	XSHA_LAST_WORD					(1U) /**< SHA last word value */
 #define XSHA_TIMEOUT_MAX				(0x1FFFFU) /**< SHA finish timeout */
 
+#define XSHA_SHA2_START_NIST_PADDING_MASK		(0x80U)
+						/**< Nist Start padding masks */
+#define XSHA_SHA3_START_NIST_PADDING_MASK		(0x06U)
+						/**< Nist Start padding masks */
+#define XSHA_SHAKE_START_NIST_PADDING_MASK		(0x1FU)
+						/**< Nist Start padding masks */
+#define XSHA_SHA3_END_NIST_PADDING_MASK			(0x80U)
+						/**< Nist End padding masks */
+#define XSHA_MAX_PADDING_LENGTH					(144U)
+						/**< Maximum padding length for SHA */
+#define XSHA_SHA2_256_LENGTH_FIELD_SIZE			(8U)
+						/**< SHA2-256 length field size */
+#define XSHA_SHA2_384_512_LENGTH_FIELD_SIZE		(16U)
+						/**< SHA2 384 and 512 length field size */
+#define XSHA_PADDING_BYTE						(1U)
+						/**< Padding byte for SHA */
+#define XSHA_BYTES_TO_BITS_CONVERSION_SHIFT		(3U)
+						/**< Bytes to bits conversion shift value */
+
 /************************************** Type Definitions *****************************************/
 /** This typedef is used to update the state of SHA. */
 typedef enum {
@@ -75,7 +94,6 @@ struct _XSha {
 	u32 BaseAddress; /**< Base address of SHA2/SHA3 */
 	u16 ShaType; /**< SHA Type SHA2/SHA3 */
 	u16 DeviceId; /**< DeviceId is the unique ID of the device */
-	XAsufw_Dma *AsuDmaPtr; /**< DMA instance assigned for SHA operation */
 	XAsufw_SssSrc SssShaCfg; /**< SHA SSS configuration */
 	u32 ShaMode; /**< SHA Mode */
 	u32 ShaDigestSize; /**< SHA digest size */
@@ -93,6 +111,7 @@ struct _XSha {
 static XSha_Config *XSha_LookupConfig(u16 DeviceId);
 static s32 XSha_ValidateModeAndInit(XSha *InstancePtr, u32 ShaMode);
 static inline s32 XSha_WaitForDone(const XSha *InstancePtr);
+static s32 XSha_NistPadd(const XSha *InstancePtr, u8 *Buf, u32 PadLen);
 
 /************************************ Variable Definitions ***************************************/
 /**
@@ -345,18 +364,23 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 		goto END;
 	}
 
+	/** If the input data is of 0 length, do not initiate DMA transfer. */
+	if (Size == 0U) {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
+
 	InstancePtr->ShaLen += Size;
-	InstancePtr->AsuDmaPtr = DmaPtr;
 
 	/** Configure the SSS for SHA hardware engine. */
-	Status = XAsufw_SssShaWithDma(InstancePtr->SssShaCfg, InstancePtr->AsuDmaPtr->SssDmaCfg);
+	Status = XAsufw_SssShaWithDma(InstancePtr->SssShaCfg, DmaPtr->SssDmaCfg);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
 	/** Push Data to SHA2/3 engine using DMA and check for PMC DMA done bit. */
-	XAsuDma_ByteAlignedTransfer(&InstancePtr->AsuDmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL, InDataAddr, Size,
-		(u8)EndLast);
+	XAsuDma_ByteAlignedTransfer(&DmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL, InDataAddr, Size,
+			(u8)EndLast);
 
 	/**
 	 * If the data size is greater than XASUFW_DMA_BLOCKING_SIZE, return XASUFW_CMD_IN_PROGRESS
@@ -364,14 +388,14 @@ s32 XSha_Update(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u32 Size,
 	 * */
 	if (Size <= XASUFW_DMA_BLOCKING_SIZE) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsuDma_WaitForDoneTimeout(&InstancePtr->AsuDmaPtr->AsuDma, XASUDMA_SRC_CHANNEL);
+		Status = XAsuDma_WaitForDoneTimeout(&DmaPtr->AsuDma, XASUDMA_SRC_CHANNEL);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_FAILURE;
 			goto END;
 		}
 
 		/** Acknowledge the transfer has completed in DMA blocking operation. */
-		XAsuDma_IntrClear(&InstancePtr->AsuDmaPtr->AsuDma, XASUDMA_SRC_CHANNEL, XASUDMA_IXR_DONE_MASK);
+		XAsuDma_IntrClear(&DmaPtr->AsuDma, XASUDMA_SRC_CHANNEL, XASUDMA_IXR_DONE_MASK);
 	} else {
 		Status = XASUFW_CMD_IN_PROGRESS;
 	}
@@ -409,13 +433,18 @@ END:
  * 	- XASUFW_FAILURE, if there is any other failure.
  *
  *************************************************************************************************/
-s32 XSha_Finish(XSha *InstancePtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOutput)
+s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOutput)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	volatile u32 Index = 0U;
 	u32 *HashPtr = HashAddr;
 	u32 ShaDigestAddr;
 	u32 ShaDigestSizeInWords = 0U;
+	u32 PadLen;
+	u32 BlockLen;
+	u8 Data[XSHA_MAX_PADDING_LENGTH];
+	u32 LengthFieldSize = 0U;
+	u64 TotalLen = 0U;
 
 	/** Validate input parameters. */
 	if (InstancePtr == NULL) {
@@ -447,10 +476,60 @@ s32 XSha_Finish(XSha *InstancePtr, u32 *HashAddr, u32 HashBufSize, u8 NextXofOut
 	}
 
 	/** Validate SHA state. */
-	if ((InstancePtr->ShaState != XSHA_STARTED) &&
-	    (InstancePtr->ShaState != XSHA_UPDATE_COMPLETED)) {
+	if (InstancePtr->ShaState == XSHA_INITIALIZED) {
 		Status = XASUFW_SHA_STATE_MISMATCH_ERROR;
 		goto END;
+	}
+
+	if (InstancePtr->ShaState != XSHA_UPDATE_COMPLETED) {
+		/**
+		 * Switch padding to SW based padding to address the following scenarios.
+		 * - SHA zero-data length use case.
+		 * - SHA Final call without preceding SHA update call with IsLast set to TRUE use case.
+		 */
+		XAsufw_WriteReg(InstancePtr->BaseAddress + XASU_SHA_AUTO_PADDING_OFFSET, 0U);
+
+		/** Calculate block length based on SHA mode and type for SW padding. */
+		if (InstancePtr->BaseAddress == XASU_XSHA_1_S_AXI_BASEADDR) {
+			if (HashBufSize == XASU_SHA_256_HASH_LEN) {
+				BlockLen = XASUFW_SHAKE_SHA3_256_BLOCK_LEN;
+			}
+			else if (HashBufSize == XASU_SHA_384_HASH_LEN) {
+				BlockLen = XASUFW_SHA3_384_BLOCK_LEN;
+			}
+			else {
+				BlockLen = XASUFW_SHA3_512_BLOCK_LEN;
+			}
+			LengthFieldSize = 0U;
+		}
+		else {
+			if (InstancePtr->ShaMode == XASU_SHA_MODE_SHA256) {
+				LengthFieldSize = XSHA_SHA2_256_LENGTH_FIELD_SIZE;
+				BlockLen = XASUFW_SHA2_256_BLOCK_LEN;
+			}
+			else {
+				LengthFieldSize = XSHA_SHA2_384_512_LENGTH_FIELD_SIZE;
+				BlockLen = XASUFW_SHA2_384_512_BLOCK_LEN;
+			}
+		}
+
+		/** Calculate padding bytes. */
+		TotalLen = InstancePtr->ShaLen + XSHA_PADDING_BYTE + LengthFieldSize;
+		PadLen = (u32)(TotalLen % BlockLen);
+		PadLen = (PadLen == 0U) ? 0U : (BlockLen - PadLen);
+		PadLen += XSHA_PADDING_BYTE + LengthFieldSize;
+
+		/** Perform NIST padding. */
+		Status = XSha_NistPadd(InstancePtr, &Data[0U], PadLen);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+
+		/** Send NIST padding bytes to SHA engine. */
+		Status = XSha_Update(InstancePtr, DmaPtr, (u64)(UINTPTR)Data, PadLen, (u32)XASU_TRUE);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
 	}
 
 	/** Check the SHA2/3 DONE bit. */
@@ -753,7 +832,7 @@ s32 XSha_Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr,
 SHA_STAGE_UPDATE_DONE:
 	CmdStage = 0x0U;
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSha_Finish(ShaInstancePtr, (u32 *)(UINTPTR)ShaParamsPtr->HashAddr,
+	Status = XSha_Finish(ShaInstancePtr, DmaPtr, (u32 *)(UINTPTR)ShaParamsPtr->HashAddr,
 			     ShaParamsPtr->HashBufSize, XASU_FALSE);
 
 END:
@@ -773,5 +852,71 @@ void XSha_Reset(XSha *InstancePtr)
 		InstancePtr->ShaState = XSHA_INITIALIZED;
 		XAsufw_CryptoCoreSetReset(InstancePtr->BaseAddress, XASU_SHA_RESET_OFFSET);
 	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function generates NIST padding for SHA2 and SHA3 modes.
+ *
+ * @param	Buf    Pointer to location where padding is to be applied.
+ * @param	PadLen Length of padding in bytes.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if SHA NIST padding is successful.
+ *		- XASUFW_FAILURE, if SHA NIST padding fails.
+ *
+ *************************************************************************************************/
+static s32 XSha_NistPadd(const XSha *InstancePtr, u8 *Buf, u32 PadLen)
+{
+	s32 Status = XASUFW_FAILURE;
+	u32 Index;
+	u64 MsgLenInBits;
+
+	/** Validates the input arguments. */
+	if (PadLen == 0U) {
+		goto END;
+	}
+
+	/** Zeroize the padding buffer memory. */
+	Status = Xil_SMemSet(Buf, PadLen, 0U, PadLen);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Update the padding buffer for different modes of SHA2 and SHA3 engine according to the
+	 * NIST standard.
+	 */
+	if (InstancePtr->BaseAddress == XASU_XSHA_1_S_AXI_BASEADDR) {
+		if (InstancePtr->ShaMode == XASU_SHA_MODE_SHAKE256) {
+			Buf[0U] = XSHA_SHAKE_START_NIST_PADDING_MASK;
+		}
+		else {
+			Buf[0U] = XSHA_SHA3_START_NIST_PADDING_MASK;
+		}
+		Buf[PadLen - 1U] |= XSHA_SHA3_END_NIST_PADDING_MASK;
+	}
+	else {
+		Buf[0U] = XSHA_SHA2_START_NIST_PADDING_MASK;
+		MsgLenInBits = (InstancePtr->ShaLen << XSHA_BYTES_TO_BITS_CONVERSION_SHIFT);
+
+		if (InstancePtr->ShaMode == XASU_SHA_MODE_SHA256) {
+			for (Index = 1U; Index <= XSHA_SHA2_256_LENGTH_FIELD_SIZE; Index++) {
+				Buf[PadLen - Index] = (u8)((MsgLenInBits >>
+						((Index - 1U) * XASUFW_ONE_BYTE_SHIFT_VALUE)) & XASUFW_LSB_MASK_VALUE);
+			}
+		}
+		else {
+			for (Index = 1U; Index <= XASUFW_U64_IN_BYTES; Index++) {
+				Buf[PadLen - Index] = (u8)((MsgLenInBits >>
+						((Index - 1U) * XASUFW_ONE_BYTE_SHIFT_VALUE)) & XASUFW_LSB_MASK_VALUE);
+			}
+		}
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
 }
 /** @} */
