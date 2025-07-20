@@ -2,6 +2,7 @@
  * FreeRTOS Kernel V10.1.1
  * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2019 Xilinx, Inc. All Rights Reserved.
+ * Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -136,6 +137,7 @@ int main( void )
 /*-----------------------------------------------------------*/
 static void prvTxTask( void *pvParameters )
 {
+	(void)pvParameters;
 const TickType_t x1second = pdMS_TO_TICKS( DELAY_1_SECOND );
 
 	for( ;; )
@@ -145,7 +147,7 @@ const TickType_t x1second = pdMS_TO_TICKS( DELAY_1_SECOND );
 		/*
 		 * writing to stream buffer byte-wise
 		 */
-		for(int i = 0; i< strlen(HWstring); i++)
+		for(int i = 0; (size_t)i< strlen(HWstring); i++)
 {
 			xStreamBufferSend( xStreamBuffer,
 					( void * ) (HWstring + i),
@@ -165,6 +167,7 @@ const TickType_t x1second = pdMS_TO_TICKS( DELAY_1_SECOND );
 /*-----------------------------------------------------------*/
 static void prvRxTask( void *pvParameters )
 {
+	(void)pvParameters;
 char Recdstring[20] = "";
 
 	for( ;; )

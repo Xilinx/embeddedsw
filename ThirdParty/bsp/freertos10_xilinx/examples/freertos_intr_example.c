@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2020-2022 Xilinx, Inc. All Rights Reserved.
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -72,6 +72,7 @@
 *                      cases where xiltimer or SDT is enabled.
 * 1.15  dp   01/30/24  Update the example to support SDT flow.
 * 1.16  ml   07/26/24  Add support for SDT flow.
+* 1.17  ml   07/21/25  Fixed GCC warnings.
 * </pre>
 ******************************************************************************/
 
@@ -89,7 +90,7 @@
 
 #ifdef SDT
 
-#ifdef XPAR_XTTCPS_3_BASEADDR
+#if defined (XPAR_XTTCPS_3_BASEADDR)
 #include "xttcps.h"
 /* Instance for ttcps */
 static XTtcPs xTimerInstance;
@@ -160,7 +161,6 @@ static TaskHandle_t xTimerTask;
 static SemaphoreHandle_t xSemaphore;
 int main( void )
 {
-	const TickType_t x10seconds = pdMS_TO_TICKS( DELAY_10_SECONDS );
 	/* Create the timer tasks. This task would register timer interrupt with
 	interrupt controller initialized by FreeRTOS porting layer. Customized
 	interrupt handler, registered by this task would be triggered, once
@@ -186,15 +186,13 @@ int main( void )
 /*-----------------------------------------------------------*/
 static void prvTimerTask( void *pvParameters )
 {
-	const TickType_t x1second = pdMS_TO_TICKS( DELAY_1_SECOND );
-
+	(void)pvParameters;
 	const TickType_t x100mseconds = pdMS_TO_TICKS( DELAY_100_MILISEC );
 	int xStatus;
 
 	xSemaphore = xSemaphoreCreateBinary();
 	if ( xSemaphore == NULL ) {
 		xil_printf("Failed to create semaphore\n");
-		return XST_FAILURE;
 	}
 
 #if defined (XPAR_XTTCPS_3_DEVICE_ID) || defined(XPAR_XTTCPS_3_BASEADDR)
@@ -214,7 +212,6 @@ static void prvTimerTask( void *pvParameters )
 		xStatus = XTtcPs_CfgInitialize( &xTimerInstance, pxTimerConfig, pxTimerConfig->BaseAddress );
 		if ( xStatus != XST_SUCCESS ) {
 			xil_printf( "In %s: Timer Cfg initialization failed...\r\n", __func__ );
-			return xStatus;
 		}
 	}
 	XTtcPs_SetOptions( &xTimerInstance, XTTCPS_OPTION_INTERVAL_MODE | XTTCPS_OPTION_WAVE_DISABLE );
@@ -297,7 +294,6 @@ static void prvTimerTask( void *pvParameters )
 	if ( xSemaphoreTake( xSemaphore, x100mseconds ) != pdTRUE ) {
 		xil_printf("FreeRTOS interrupt example FAILED \n");
 		vTaskDelete( xTimerTask );
-		return XST_FAILURE;
 	}
 
 	xil_printf("Successfully ran FreeRTOS interrupt example, FreeRTOS tick count is %x \n",
@@ -311,7 +307,7 @@ void TtcHandler(XTtcPs *InstancePtr)
 {
 	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 	u32 XTtcPsStatusReg;
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
 
 	XTtcPsStatusReg = XTtcPs_GetInterruptStatus(InstancePtr);
 	XTtcPs_ClearInterruptStatus(InstancePtr, XTtcPsStatusReg);

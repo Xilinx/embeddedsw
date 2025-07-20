@@ -2,6 +2,7 @@
  * FreeRTOS Kernel V10.1.1
  * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2019 Xilinx, Inc. All Rights Reserved.
+ * Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -117,6 +118,7 @@ int main( void )
 /*-----------------------------------------------------------*/
 static void prvTask1( void *pvParameters )
 {
+	(void)pvParameters;
 
 	for( ;; ) {
 		xil_printf(".");
@@ -127,6 +129,7 @@ static void prvTask1( void *pvParameters )
 /*-----------------------------------------------------------*/
 static void prvTask2( void *pvParameters )
 {
+	(void)pvParameters;
 
 	for( ;; ) {
 		xil_printf("*");
@@ -136,6 +139,7 @@ static void prvTask2( void *pvParameters )
 
 static void prvTask3( void *pvParameters )
 {
+	(void)pvParameters;
 
 	for( ;; ) {
 		xil_printf(">");
