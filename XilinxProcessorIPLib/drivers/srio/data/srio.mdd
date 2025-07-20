@@ -17,7 +17,7 @@ BEGIN driver srio
   OPTION supported_peripherals = (srio_gen2);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;	
-  OPTION VERSION = 1.6;
+  OPTION VERSION = 1.7;
   OPTION NAME = srio; 
 
 END driver

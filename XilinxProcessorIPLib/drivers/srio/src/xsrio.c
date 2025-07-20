@@ -22,6 +22,7 @@
 * 1.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XSrio_CfgInitialize API.
 * 1.6   adk  06/02/24 Added support for system device-tree flow.
+* 1.7   ml   18/07/25 Fix unused parameter GCC warning.
 * </pre>
 ******************************************************************************/
 
@@ -64,6 +65,8 @@ int XSrio_CfgInitialize(XSrio *InstancePtr,
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
 #ifndef SDT
 	InstancePtr->Config.DeviceId = Config->DeviceId;
+#else
+	(void)Config;
 #endif
 
 	/* Port width for the Device */
