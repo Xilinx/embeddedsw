@@ -104,6 +104,7 @@
 * 5.5   ml   12/19/24 Fixed GCC warnings
 * 5.5   ml   01/08/25 Update datatype of function arguments from u32 to UINTPTR to
 *                     support both 32bit and 64bit platforms.
+* 5.6   ml   07/21/25 Fixed compilation warnings
 * </pre>
 *
 ******************************************************************************/
@@ -115,9 +116,9 @@
 #include "xscugic.h"
 #ifndef SDT
 #include "xparameters.h"
+#endif
 #if defined (VERSAL_NET)
 #include "xplatform_info.h"
-#endif
 #endif
 
 /************************** Constant Definitions *****************************/

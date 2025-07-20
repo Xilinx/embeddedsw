@@ -74,6 +74,7 @@
 * 5.4   ksr  07/23/24 Added support for Versal_2VE_2VM
 * 5.5   ml   01/08/25 Update datatype of function arguments from u32 to UINTPTR to
 *                     support both 32bit and 64bit platforms.
+* 5.6   ml   07/21/25 Fixed GCC warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -556,7 +557,7 @@ extern "C" {
 /*
  * GICR_IGROUPR  register definitions
  */
-#if EL3
+#if defined EL3
 #define XSCUGIC_DEFAULT_SECURITY    0x0U
 #else
 #define XSCUGIC_DEFAULT_SECURITY    0xFFFFFFFFU

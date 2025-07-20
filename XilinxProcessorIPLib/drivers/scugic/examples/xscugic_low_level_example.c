@@ -36,6 +36,7 @@
 * 5.1   mus  02/15/23 Added support for VERSAL_NET.
 * 5.2   dp   06/20/23 Make interrupt as Group1 interrupt for Cortex-R52.
 * 5.5   ml   12/20/24 Fixed GCC warnings
+* 5.6   ml   07/21/25 Fixed GCC warnings
 * </pre>
 ******************************************************************************/
 
@@ -85,7 +86,7 @@
 static int ScuGicLowLevelExample();
 void SetupInterruptSystem();
 
-void LowInterruptHandler(u32 CallbackRef);
+void LowInterruptHandler(void *CallbackRef);
 
 static void GicDistInit(u32 BaseAddress);
 
@@ -98,7 +99,7 @@ static void GicCPUInit(u32 BaseAddress);
  * Create a shared variable to be used by the main thread of processing and
  * the interrupt processing
  */
-volatile static u32 InterruptProcessed = FALSE;
+static volatile u32 InterruptProcessed = FALSE;
 
 static XScuGic_Config *CfgPtr;
 /*****************************************************************************/
@@ -294,11 +295,13 @@ void SetupInterruptSystem(void)
 * @note     None.
 *
 ******************************************************************************/
-void LowInterruptHandler(u32 CallbackRef)
+void LowInterruptHandler(void *CallbackRef)
 {
 #if ! defined (GICv3)
 	u32 BaseAddress;
-	BaseAddress = CallbackRef;
+	BaseAddress = (u32)(UINTPTR)CallbackRef;
+#else
+	(void)CallbackRef;
 #endif
 	u32 IntID;
 

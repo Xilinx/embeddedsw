@@ -148,6 +148,7 @@
 * 5.2   adk  04/14/23 Added support for system device-tree flow.
 * 5.5   ml   01/08/25 Update datatype of distributor and cpu base address in
 *                     scugic config structure.
+* 5.6   ml   07/21/25 Fix GCC warnings
 * </pre>
 *
 ******************************************************************************/
@@ -445,8 +446,8 @@ extern XScuGic_Config XScuGic_ConfigTable[];	/**< Config table */
 *
 *****************************************************************************/
 #if defined (__aarch64__)
-#define XScuGic_Enable_SystemReg_CPU_Interface_EL3() mtcpnotoken(XREG_ICC_SRE_EL3, 0xF);
-#define XScuGic_Enable_SystemReg_CPU_Interface_EL1() mtcpnotoken(XREG_ICC_SRE_EL1, 0xF);
+#define XScuGic_Enable_SystemReg_CPU_Interface_EL3() mtcpnotoken(XREG_ICC_SRE_EL3, (u64)0xF);
+#define XScuGic_Enable_SystemReg_CPU_Interface_EL1() mtcpnotoken(XREG_ICC_SRE_EL1, (u64)0xF);
 #elif defined (ARMR52)
 #define XScuGic_Enable_SystemReg_CPU_Interface_EL1() mtcp(XREG_ICC_SRE_EL1, 0xF);
 #endif
@@ -463,7 +464,7 @@ extern XScuGic_Config XScuGic_ConfigTable[];	/**< Config table */
 #if defined(ARMR52)
 #define XScuGic_Enable_Group0_Interrupts() mtcp(XREG_ICC_IGRPEN0_EL1,0x1);
 #else
-#define XScuGic_Enable_Group0_Interrupts() mtcpnotoken(XREG_ICC_IGRPEN0_EL1,0x1);
+#define XScuGic_Enable_Group0_Interrupts() mtcpnotoken(XREG_ICC_IGRPEN0_EL1,(u64)0x1);
 #endif
 /****************************************************************************/
 /**
@@ -546,7 +547,7 @@ extern XScuGic_Config XScuGic_ConfigTable[];	/**< Config table */
 #if defined (ARMR52)
 #define XScuGic_set_priority_filter(val)  mtcp(XREG_ICC_PMR_EL1, val)
 #else
-#define XScuGic_set_priority_filter(val)  mtcpnotoken(XREG_ICC_PMR_EL1, val)
+#define XScuGic_set_priority_filter(val)  mtcpnotoken(XREG_ICC_PMR_EL1, (u64)val)
 #endif
 /****************************************************************************/
 /**
@@ -578,7 +579,7 @@ extern XScuGic_Config XScuGic_ConfigTable[];	/**< Config table */
 #if defined(ARMR52)
 #define XScuGic_ack_Int(val)   mtcp(XREG_ICC_EOIR1_EL1,val)
 #elif EL3
-#define XScuGic_ack_Int(val)   mtcpnotoken(XREG_ICC_EOIR0_EL1,val)
+#define XScuGic_ack_Int(val)   mtcpnotoken(XREG_ICC_EOIR0_EL1,(u64)val)
 #else
 #define XScuGic_ack_Int(val)   mtcpnotoken(XREG_ICC_EOIR1_EL1,val)
 #endif

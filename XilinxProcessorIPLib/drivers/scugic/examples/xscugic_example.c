@@ -38,6 +38,7 @@
 * 5.2   ml   02/21/24 Fix compilation error reported by C++ compiler.
 * 5.2   mus  04/33/34 Use interrupt wrapper APIs in case of SDT flow.
 * 5.5   ml   02/05/25 Fixed compilation warnings and errors
+* 5.6   ml   07/21/25 Fixed GCC warnings.
 * </pre>
 ******************************************************************************/
 
@@ -99,7 +100,7 @@ static XScuGic_Config *GicConfig;    /* The configuration parameters of the
  * Create a shared variable to be used by the main thread of processing and
  * the interrupt processing
  */
-volatile static u32 InterruptProcessed = FALSE;
+static volatile u32 InterruptProcessed = FALSE;
 
 static void AssertPrint(const char8 *FilenamePtr, s32 LineNumber)
 {
