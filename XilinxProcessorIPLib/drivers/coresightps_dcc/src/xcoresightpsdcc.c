@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 1.9   ht     07/05/23 Added support for system device-tree flow.
 * 1.10  mus    10/06/23 Fix compilation error for Microblaze RISC-V processor.
 * 1.10  ml     11/15/23 Fix compilation errors reported with -std=c2x compiler flag
+* 1.13  ml     07/21/25 Fixed GCC warnings
 * </pre>
 *
 ******************************************************************************/
@@ -81,7 +82,9 @@ void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data)
 		dsb();
 	}
 #ifdef __aarch64__
-	__asm volatile ("msr dbgdtrtx_el0, %0" : : "r" (Data));
+	u64 Data64 = (u64)Data;
+	__asm volatile ("msr dbgdtrtx_el0, %0" : : "r" (Data64));
+	Data = (u8)Data64;
 #elif defined (__GNUC__) || defined (__ICCARM__)
 	__asm volatile("mcr p14, 0, %0, c0, c5, 0"
 			     : : "r" (Data));
@@ -112,7 +115,7 @@ void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data)
 ******************************************************************************/
 u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 {
-	u8 Data = 0U;
+	u64 Data = 0U;
 	(void) BaseAddress;
 
 	while (!(XCoresightPs_DccGetStatus() & XCORESIGHTPS_DCC_STATUS_RX)) {
@@ -132,7 +135,7 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 #endif
 	isb();
 
-	return Data;
+	return (u8)Data;
 }
 
 /****************************************************************************/
@@ -149,7 +152,7 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 ******************************************************************************/
 static INLINE u32 XCoresightPs_DccGetStatus(void)
 {
-	u32 Status = 0U;
+	u64 Status = 0U;
 
 #ifdef __aarch64__
 	__asm volatile ("mrs %0, mdccsr_el0" : "=r" (Status));
@@ -162,7 +165,7 @@ static INLINE u32 XCoresightPs_DccGetStatus(void)
 		Status = Reg;
 	}
 #endif
-	return Status;
+	return (u32)Status;
 }
 
 #ifdef XPAR_STDIN_IS_CORESIGHTPS_DCC
