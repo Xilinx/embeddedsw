@@ -26,6 +26,7 @@
 *       hj    04/10/25 Fix PPK hash size end index in XNvm_EfuseValidatePpkWriteReq
 * 3.6   hj    04/10/25 Remove zero IV validation check in dec_only case
 *       hj    05/27/25 Support XILINX_CTRL efuse PUFHD_INVLD and DIS_SJTAG bit programming
+*       mb    07/18/25 Add AES key CRC calculation steps
 *
 * </pre>
 *
@@ -1503,8 +1504,10 @@ END:
  *			- XST_FAILURE - If AES boot key integrity check
  *							has not finished.
  *
- * @note	For Calculating the CRC of the AES key use the
- *		XNvm_AesCrcCalc() function.
+ * @note	Expected CRC calculation steps:
+ *		1. Convert the key provided at XNVM_EFUSE_AES_KEY into hexadecimal little-endian format.
+ *		2. Calculate the CRC on this little-endian formatted AES key using XNvm_AesCrcCalc() function.
+ *		3. Provide the calculated CRC as the value of expected CRC.
  *
  ******************************************************************************/
 int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask, u32 Crc)

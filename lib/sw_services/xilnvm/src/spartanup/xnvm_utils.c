@@ -18,6 +18,7 @@
 * 1.0   kpt  08/14/2024 Initial release
 * 1.1   mb   04/03/2025 Remove EMC clock control enable
 * 3.6   mb   06/25/2025 Update doxygen comments
+*       mb   07/22/2025 Update doxygen comments for XNvm_AesCrcCalc
 * </pre>
 *
 * @note
@@ -433,7 +434,7 @@ int XNvm_EfuseUnlockController(void)
 /**
  * @brief	This function calculates CRC of AES key.
  *
- * @param	Key - Pointer to the key for which CRC has to be calculated.
+ * @param	Key - Pointer to the little-endian formatted key for which CRC has to be calculated.
  *
  * @return	CRC of AES key.
  *

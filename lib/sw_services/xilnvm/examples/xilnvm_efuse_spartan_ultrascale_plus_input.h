@@ -131,6 +131,11 @@
 *	CRC verification is done after programming the key to verify the key
 *	is programmed properly or not, if not library error outs the same.
 *	NOTE:
+*	Expected CRC calculation steps:
+*	1. Convert the key provided at XNVM_EFUSE_AES_KEY into hexadecimal little-endian format.
+*	2. Calculate the CRC on this little-endian formatted AES key using XNvm_AesCrcCalc() function.
+*	3. Provide the calculated CRC as the value of XNVM_EFUSE_EXPECTED_AES_KEY_CRC.
+*
 *	Please make sure if intention is to check only CRC of the provided key
 *	and not programming AES key then do not modify XNVM_EFUSE_WRITE_AES_KEY
 *	(TRUE will Program key).
@@ -164,6 +169,7 @@
 * 3.5   hj     04/02/25 Remove unused PrgmAesWrlk variable
 *       hj     04/10/25 Remove security control bits not exposed to user
 * 3.6   hj     05/27/25 Support XILINX_CTRL PUFHD_INVLD and DIS_SJTAG efuse bit programming
+*       mb     07/18/25 Add AES key CRC calculation steps
 *
 * </pre>
 *
