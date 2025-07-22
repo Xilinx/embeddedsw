@@ -47,6 +47,7 @@ extern "C" {
 							generation */
 #define XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID	(2U)	/**< Command ID for DevIk CSR x509
 							certificate generation */
+#define XASU_OCP_DEVAK_ATTESTATION_CMD_ID	(3U)	/**< Command ID for DevAk attestation */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -67,6 +68,16 @@ typedef struct {
 	u32 CertActualSize;	/**< Certificate actual size */
 	u32 DevKeySel;		/**< Device key type */
 } XAsu_OcpCertParams;
+
+/**
+ * This structure contains information related to DevAk attestation.
+ */
+typedef struct {
+	u64 DataAddr;		/**< Address of the data */
+	u64 SignatureAddr;	/**< Address of the signature */
+	u32 DataLen;		/**< Length of the data */
+	u32 SignatureBufLen;	/**< Length of the signature buffer */
+} XAsu_OcpDevAkAttest;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

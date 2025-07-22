@@ -109,6 +109,8 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 s32 XOcp_GenerateDeviceKeys(XAsufw_Dma *DmaPtr, u32 EventMask);
 s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatData, u8 IsCsr);
+s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttestParam,
+			 u32 SubsystemId);
 
 /************************************ Variable Definitions ***************************************/
 

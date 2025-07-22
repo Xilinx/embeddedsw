@@ -46,6 +46,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_OcpValidateCertParams(const XAsu_OcpCertParams *OcpCertParam);
+s32 XAsu_OcpValidateAttestParams(const XAsu_OcpDevAkAttest *OcpAttestParam);
 
 #ifdef __cplusplus
 }

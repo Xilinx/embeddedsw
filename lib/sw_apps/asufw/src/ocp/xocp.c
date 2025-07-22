@@ -30,7 +30,9 @@
 #include "xasufw_hw.h"
 #include "xasufw_ipi.h"
 #include "xasufw_status.h"
+#include "xasufw_trnghandler.h"
 #include "xasufw_util.h"
+#include "xecc.h"
 #include "xhmac.h"
 #include "xil_types.h"
 #include "xil_util.h"
@@ -118,6 +120,78 @@ s32 XOcp_GenerateDeviceKeys(XAsufw_Dma *DmaPtr, u32 EventMask)
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function allows user to sign his own data using device attestation key.
+ *
+ * @param	DmaPtr		Pointer to allocated DMA resource.
+ * @param	OcpAttestParam	Pointer to the attestation information.
+ * @param	SubsystemId	Subsystem ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if DevAk is attested successfully.
+ *	- XASUFW_FAILURE, in case of failure
+ *	- XASUFW_OCP_INVALID_PARAM, if parameter is invalid.
+ *	- XASUFW_OCP_INVALID_SUBSYSTEM_INDEX, if subsystem index in invalid.
+ *	- XASUFW_OCP_DEVAK_NOT_READY, if DevAk key is not generated.
+ *	- XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL, if ephemeral key is not generated.
+ *
+ *************************************************************************************************/
+s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttestParam,
+			 u32 SubsystemId)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XEcc *EccInstance = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
+	u8 EphemeralKey[XASU_ECC_P384_SIZE_IN_BYTES] = {0U};
+	u32 SubsysIdx = 0U;
+
+	/** Validate input parameter. */
+	if ((DmaPtr == NULL) || (OcpAttestParam == NULL) || (SubsystemId == 0U)) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate signature buffer. */
+	if ((OcpAttestParam->SignatureAddr == 0U) ||
+	    (OcpAttestParam->SignatureBufLen < XASU_ECC_P384_SIZE_IN_BYTES)) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get subsystem index using subsystem ID. */
+	Status = XOcp_GetSubsytemIndex(SubsystemId, &SubsysIdx);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_OCP_INVALID_SUBSYSTEM_INDEX;
+		goto END;
+	}
+
+	/** Check whether DevAk key is ready or not. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	if (DevAkData[SubsysIdx].IsDevAkKeyReady != (u8)XASU_TRUE) {
+		Status = XASUFW_OCP_DEVAK_NOT_READY;
+		goto END;
+	}
+
+	/** Generate ephemeral key using TRNG. */
+	Status = XAsufw_TrngGetRandomNumbers(EphemeralKey, XASU_ECC_P384_SIZE_IN_BYTES);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL);
+		goto END;
+	}
+
+	/* Generate the signature using DevAk private key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XEcc_GenerateSignature(EccInstance, DmaPtr, XASU_ECC_NIST_P384,
+					XASU_ECC_P384_SIZE_IN_BYTES,
+					(u64)(UINTPTR)DevAkData[SubsysIdx].EccPvtKey,
+					EphemeralKey, OcpAttestParam->DataAddr,
+					OcpAttestParam->DataLen, OcpAttestParam->SignatureAddr);
+
+END:
+	return Status;
+}
+
 /*************************************************************************************************/
 /**
  * @brief	This function generates a DevIk key pair(private and public key).

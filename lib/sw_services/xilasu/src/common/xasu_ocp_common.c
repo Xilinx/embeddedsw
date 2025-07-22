@@ -27,6 +27,7 @@
 
 /************************************ Include Files **********************************************/
 #include "xasu_ocp_common.h"
+#include "xasu_eccinfo.h"
 
 /********************************* Constant Definitions ******************************************/
 
@@ -59,6 +60,34 @@ s32 XAsu_OcpValidateCertParams(const XAsu_OcpCertParams *OcpCertParam)
 	if ((OcpCertParam->CertBufAddr == 0U) || (OcpCertParam->CertBufLen == 0U) ||
 	    (OcpCertParam->CertActualSize == 0U) ||
 	    (OcpCertParam->DevKeySel >= (u32)XOCP_MAX_DEVICE_KEY)) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the OCP DevAk attestation parameters.
+ *
+ * @param	OcpAttestParam	Pointer to XAsu_OcpDevAkAttest Params structure which holds the
+ *				parameters of OCP attestation input argument.
+ *
+ * @return
+ *	- XST_SUCCESS, if OCP attestation parameters are validated successfully.
+ *	- XST_FAILURE, if OCP attestation parameters validation is failed.
+ *
+ *************************************************************************************************/
+s32 XAsu_OcpValidateAttestParams(const XAsu_OcpDevAkAttest *OcpAttestParam)
+{
+	s32 Status = XST_FAILURE;
+
+	if ((OcpAttestParam->DataAddr == 0U) || (OcpAttestParam->DataLen == 0U) ||
+	    (OcpAttestParam->SignatureAddr == 0U) ||
+	    (OcpAttestParam->SignatureBufLen < XASU_ECC_P384_SIZE_IN_BYTES)) {
 		goto END;
 	}
 

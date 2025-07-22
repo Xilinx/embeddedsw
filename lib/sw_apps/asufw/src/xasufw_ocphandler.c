@@ -52,6 +52,7 @@
 static s32 XAsufw_OcpDevIkCsrX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpDevIkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_OcpDevAkAttestation(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
@@ -80,6 +81,8 @@ s32 XAsufw_OcpInit(void)
 			XASUFW_MODULE_COMMAND(XAsufw_OcpDevAkX509CertGen),
 		[XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID] =
 			XASUFW_MODULE_COMMAND(XAsufw_OcpDevIkCsrX509CertGen),
+		[XASU_OCP_DEVAK_ATTESTATION_CMD_ID] =
+			XASUFW_MODULE_COMMAND(XAsufw_OcpDevAkAttestation),
 	};
 
 	/**
@@ -96,6 +99,9 @@ s32 XAsufw_OcpInit(void)
 		[XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
 			XASUFW_SHA3_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK,
+		[XASU_OCP_DEVAK_ATTESTATION_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
+			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
+			XASUFW_ECC_RESOURCE_MASK,
 	};
 
 	XAsufw_OcpModule.Id = XASU_MODULE_OCP_ID;
@@ -373,6 +379,48 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function is handler for DevAk attestation.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if DevAk is attested successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
+ *	- XASUFW_OCP_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_OcpDevAkAttestation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_OcpDevAkAttest *OcpAttestParam = (const XAsu_OcpDevAkAttest *)ReqBuf->Arg;
+	u32 SubsystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Validate client parameter. */
+	Status = XAsu_OcpValidateAttestParams(OcpAttestParam);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Get subsystem ID from IPI mask. */
+	SubsystemId = XAsufw_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_INVALID_SUBSYSTEM_ID);
+		goto END;
+	}
+
+	/** DevAk attestation. */
+	Status = XOcp_AttestWithDevAk(XAsufw_OcpModule.AsuDmaPtr, OcpAttestParam, SubsystemId);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function allocates required resources for OCP module related commands.
  *
  * @param	ReqBuf	Pointer to the request buffer.
@@ -387,7 +435,7 @@ END:
 static s32 XAsufw_OcpResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	(void)ReqBuf;
+	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 
 	/** Allocate DMA resource. */
 	XAsufw_OcpModule.AsuDmaPtr = XAsufw_AllocateDmaResource(XASUFW_OCP, ReqId);
@@ -398,9 +446,13 @@ static s32 XAsufw_OcpResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Allocate OCP resource. */
 	XAsufw_AllocateResource(XASUFW_OCP, XASUFW_OCP, ReqId);
 
-	/** Allocate SHA3 resource which are dependent on SHA3 HW. */
-	XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_OCP, ReqId);
-	XAsufw_OcpModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+	if ((CmdId == XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID) ||
+	    (CmdId == XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID) ||
+	    (CmdId == XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID)) {
+		/** Allocate SHA3 resource which are dependent on SHA3 HW. */
+		XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_OCP, ReqId);
+		XAsufw_OcpModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+	}
 
 	/** Allocate TRNG resource which are dependent on TRNG HW. */
 	XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_OCP, ReqId);
