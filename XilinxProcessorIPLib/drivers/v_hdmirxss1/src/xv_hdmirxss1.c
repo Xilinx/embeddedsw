@@ -525,7 +525,7 @@ static void XV_HdmiRxSs1_GetIncludedSubcores(XV_HdmiRxSs1 *HdmiRxSs1Ptr,
 {
   u32 Index = 0;
 
-  Index = XV_HdmiRxSs1_GetDrvIndex(HdmiRxSs1Ptr, BaseAddress);
+  Index = XV_HdmiRxSs1_GetDrvIndex(BaseAddress);
   HdmiRxSs1Ptr->HdmiRx1Ptr   =((HdmiRxSs1Ptr->Config.HdmiRx1.IsPresent) ?
                             (&XV_HdmiRxSs1_SubCoreRepo[Index].HdmiRx1) : NULL);
 #ifdef XPAR_XHDCP_NUM_INSTANCES

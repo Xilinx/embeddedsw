@@ -584,7 +584,7 @@ typedef struct {
 XV_HdmiRxSs1_Config* XV_HdmiRxSs1_LookupConfig(u32 DeviceId);
 #else
 XV_HdmiRxSs1_Config* XV_HdmiRxSs1_LookupConfig(UINTPTR BaseAddress);
-u32 XV_HdmiRxSs1_GetDrvIndex(XV_HdmiRxSs1 *InstancePtr, UINTPTR BaseAddress);
+u32 XV_HdmiRxSs1_GetDrvIndex(UINTPTR BaseAddress);
 #endif
 void XV_HdmiRxSs1_SetUserTimerHandler(XV_HdmiRxSs1 *InstancePtr,
 	XVidC_DelayHandler CallbackFunc, void *CallbackRef);
