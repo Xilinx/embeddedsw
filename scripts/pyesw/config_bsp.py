@@ -77,6 +77,7 @@ def configure_bsp(args):
             lib_name, obj.repo_yaml_path
         )
         validate_obj.validate_hw()
+        obj.gen_lib_list()
         lib_list = obj.get_depends_libs(lib_name, lib_list=[lib_name])
         # Remove duplicate libs
         lib_list = list(dict.fromkeys(lib_list))

@@ -45,6 +45,38 @@ class Library(Repo):
         self.os_config = None
         self.cmake_generator = utils.get_cmake_generator()
 
+    def gen_lib_list(self):
+        """
+        Generates the list of libraries that are available for the given
+        processor and os combination.
+
+        Returns:
+            lib_list.yaml (file): List of libraries available for the given proc and os
+        """
+        #FiX ME: This is a workaround for the issue where the bare-metal BSP does not work with the older flow
+        # Check if lib_list.yaml exists and has the example key
+        # If not regenerate the lib_list.yaml.
+        # This is required for the bare-metal BSP to work correctly with the older flow.
+        recreate_lib_list_yaml = False
+        lib_list_yaml_path = os.path.join(self.domain_path, "lib_list.yaml")
+        if not utils.is_file(lib_list_yaml_path):
+            recreate_lib_list_yaml = True
+        else:
+            # After obj.proc, obj.os is a key, under which there are multiple libs as keys.
+            # Check if any of these libs contain "examples" as a key.
+            schema=utils.fetch_yaml_data(
+                lib_list_yaml_path, "lib_list"
+                )
+            libs_dict = schema.get(self.proc, {}).get(self.os, {})
+            if not any("examples" in libs_dict.get(lib, {}) for lib in libs_dict):
+                recreate_lib_list_yaml = True
+        if recreate_lib_list_yaml:
+            utils.runcmd(
+                f"lopper --werror -f -O {self.domain_path} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}",
+                log_message="Extracting and validating supported bare-metal components for processor",
+                error_message="Could not fetch the required supported component info",
+                verbose_level=0
+                    )
     def validate_lib_name(self, lib):
         """
         Checks if the passed library name from the user is valid for the sdt
@@ -54,15 +86,7 @@ class Library(Repo):
         Args:
             lib (str): Library name that needs to be validated
         """
-        lib_list_yaml_path = os.path.join(self.domain_path, "lib_list.yaml")
         if os.environ.get("VALIDATE_ARGS") == "True":
-            if not utils.is_file(lib_list_yaml_path):
-                utils.runcmd(
-                    f"lopper --werror -f -O {self.domain_path} {self.sdt} -- baremetal_getsupported_comp_xlnx {self.proc} {self.repo_yaml_path}",
-                    log_message = "Extracting and validating supported bare-metal components for processor",
-                    error_message = "Could not fetch the required supported component info",
-                    verbose_level = 0
-                )
             proc_os_data = utils.fetch_yaml_data(
                 os.path.join(self.domain_path, "lib_list.yaml"), "lib_list"
             )
