@@ -166,21 +166,21 @@ extern "C" {
 /** @name DPHY HSTIMEOUT range
  * @{
 */
-#define XDPHY_HS_TIMEOUT_MIN_VALUE	10000UL
-#define XDPHY_HS_TIMEOUT_MAX_VALUE	65541UL
+#define XDPHY_HS_TIMEOUT_MIN_VALUE	10000UL /**< Minimum HS timeout value */
+#define XDPHY_HS_TIMEOUT_MAX_VALUE	65541UL /**< Maximum HS timeout value */
 /*@}*/
 
 /** @name DPHY HSSETTLE range
  * @{
 */
-#define XDPHY_HS_SETTLE_MAX_VALUE	0x1FF
+#define XDPHY_HS_SETTLE_MAX_VALUE	0x1FF /**< Maximum HS settle value */
 /*@}*/
 
 /** @name DPHY Flags to Enable or Disable core
  * @{
 */
-#define XDPHY_ENABLE_FLAG 	1
-#define XDPHY_DISABLE_FLAG 	0
+#define XDPHY_ENABLE_FLAG 	1 /**< Flag to enable DPHY core */
+#define XDPHY_DISABLE_FLAG 	0 /**< Flag to disable DPHY core */
 /*@}*/
 
 /************************* Bit field operations ****************************/

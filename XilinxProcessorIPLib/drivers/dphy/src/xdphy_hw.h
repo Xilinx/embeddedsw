@@ -171,7 +171,10 @@ extern "C" {
 					XDPHY_CLSTATUS_REG_STOPSTATE_MASK |\
 					XDPHY_CLSTATUS_REG_INITDONE_MASK |\
 					XDPHY_CLSTATUS_REG_ULPS_MASK |\
-					XDPHY_CLSTATUS_REG_MODE_MASK)
+					XDPHY_CLSTATUS_REG_MODE_MASK)	/**< Bitmask combining
+							  * all clock lane status flags: error control,
+							  * stop state, initialization done, ULPS
+							  * mode, and mode bits */
 
 #define XDPHY_CLSTATUS_REG_ERRCTRL_OFFSET 5 /**< Bit offset for Control Error
 					      *  on Clock*/
@@ -210,7 +213,10 @@ extern "C" {
 					XDPHY_DLXSTATUS_REG_ESCABRT_MASK |\
 					XDPHY_DLXSTATUS_REG_STOP_MASK |\
 					XDPHY_DLXSTATUS_REG_CALIB_STATUS_MASK |\
-					XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK)
+					XDPHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK)	/**< Bitmask
+						  * combining all data lane status flags: mode, ULPS,
+						  * init done, HS abort, escape abort, stop state,
+						  * calibration status and complete */
 
 #define XDPHY_DLXSTATUS_REG_PACKCOUNT_OFFSET 16 /**<Bit offset packet count*/
 #define XDPHY_DLXSTATUS_REG_CALIB_STATUS_OFFSET 8 /**<Bit offset calib status*/
@@ -236,7 +242,7 @@ extern "C" {
 #define XDPHY_HSSETTLE_REG_TIMEOUT_OFFSET 0 /**< Bit offset for HS_SETTLE */
 /*@}*/
 
-#define DL_LANE_OFFSET	4
+#define DL_LANE_OFFSET	4	/**< Offset value for data lane registers */
 
 /**************************** Type Definitions *******************************/
 
