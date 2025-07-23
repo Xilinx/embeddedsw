@@ -20,6 +20,7 @@
  *       yog  08/25/24 Integrated FIH library
  *       ss   09/26/24 Fixed doxygen comments
  * 1.1   am   05/18/25 Fixed implicit conversion of operands
+ *       kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -80,7 +81,7 @@ static s32 XRsa_ValidateModulus(u8 *BuffAddr, u8 *InputData, u32 Len);
 /** RSA data block memory allocated in ASU RAM. */
 static u8  Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES] __attribute__ ((section (".rsa_data_block")));
 
-#ifdef XASUFW_ENABLE_PERF_MEASUREMENT
+#if XASUFW_ENABLE_PERF_MEASUREMENT
 static u64 StartTime; /**< Performance measurement start time. */
 static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
 #endif

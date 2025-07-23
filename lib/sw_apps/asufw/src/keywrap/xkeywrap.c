@@ -16,6 +16,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   02/24/25 Initial release
  * 1.1   am   05/18/25 Fixed implicit conversion of operands
+ *       kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -48,7 +49,7 @@
 /************************************** Type Definitions *****************************************/
 
 /************************************ Variable Definitions ***************************************/
-#ifdef XASUFW_ENABLE_PERF_MEASUREMENT
+#if XASUFW_ENABLE_PERF_MEASUREMENT
 static u64 StartTime; /**< Performance measurement start time. */
 static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
 #endif

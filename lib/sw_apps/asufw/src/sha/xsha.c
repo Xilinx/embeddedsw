@@ -27,6 +27,7 @@
  *       ma   01/15/25 Minor updates to XSha_GetHashLen API
  *       ss   02/04/25 Added XSha_Digest() API
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
+ *       kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -133,7 +134,7 @@ static XSha_Config XSha_ConfigTable[XASU_XSHA_NUM_INSTANCES] = {
 
 static XSha XSha_Instance[XASU_XSHA_NUM_INSTANCES]; /**< ASUFW SHA HW instances */
 
-#ifdef XASUFW_ENABLE_PERF_MEASUREMENT
+#if XASUFW_ENABLE_PERF_MEASUREMENT
 static u64 StartTime; /**< Performance measurement start time. */
 static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
 #endif

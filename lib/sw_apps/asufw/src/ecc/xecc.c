@@ -22,6 +22,7 @@
  *       yog  03/13/2025 Removed CmConfig variable in InstancePtr and used the macro directly.
  *       yog  03/21/2025 Added PWCT support
  * 1.2   am   05/20/2025 Integrated performance measurement macros
+ *       kd   07/23/2025 Fixed gcc warnings
  *
  * </pre>
  *
@@ -148,7 +149,7 @@ static const u8 EKeyPwctEcc[XASU_ECC_P384_SIZE_IN_BYTES] = {
 	0xBEU, 0xC6U, 0xC2U, 0x1FU, 0xDCU, 0xFCU, 0x7BU, 0xD1U
 };
 
-#ifdef XASUFW_ENABLE_PERF_MEASUREMENT
+#if XASUFW_ENABLE_PERF_MEASUREMENT
 static u64 StartTime; /**< Performance measurement start time. */
 static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
 #endif

@@ -25,6 +25,7 @@
  *       yog  03/24/25 Added XRsa_EccGeneratePrivKey() API
  * 1.2   am   05/20/25 Integrated performance measurement macros
  *       yog  07/11/25 Added support for Edward curves.
+ *       kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -141,7 +142,7 @@ static const u8 EKeyPwctRsaEcc[XASU_ECC_P521_SIZE_IN_BYTES] = {
 	0xCAU, 0x38U
 };
 
-#ifdef XASUFW_ENABLE_PERF_MEASUREMENT
+#if XASUFW_ENABLE_PERF_MEASUREMENT
 static u64 StartTime; /**< Performance measurement start time. */
 static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
 #endif

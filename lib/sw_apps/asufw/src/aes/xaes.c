@@ -31,6 +31,7 @@
  *       am   04/26/25 Fixes IV & AAD formatting logic for different Iv lengths
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *       am   07/18/25 Modified XAes_SetReset() visibility from static to non-static
+ *       kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -313,7 +314,7 @@ static XAes_Config AesConfigTable[XASU_XAES_NUM_INSTANCES] = {
 
 static XAes XAes_Instance[XASU_XAES_NUM_INSTANCES]; /**< ASUFW AES HW instances */
 
-#ifdef XASUFW_ENABLE_PERF_MEASUREMENT
+#if XASUFW_ENABLE_PERF_MEASUREMENT
 static u64 StartTime; /**< Performance measurement start time. */
 static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
 #endif
