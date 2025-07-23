@@ -146,7 +146,7 @@ int main(void)
 
 	EciesParams.EccCurveType = XASU_ECC_NIST_P384;
 	EciesParams.ShaType = XASU_SHA2_TYPE;
-	EciesParams.ShaMode = XASU_SHA_MODE_SHA256;
+	EciesParams.ShaMode = XASU_SHA_MODE_256;
 	EciesParams.AesKeySize = XASU_AES_KEY_SIZE_256_BITS;
 	EciesParams.DataLength = XASU_ECIES_INPUT_DATA_LENGTH;
 	EciesParams.EccKeyLength = XASU_ECC_P384_SIZE_IN_BYTES;
@@ -192,7 +192,7 @@ int main(void)
 	ErrorStatus = XST_FAILURE;
 	EciesParams.EccCurveType = XASU_ECC_NIST_P384;
 	EciesParams.ShaType = XASU_SHA2_TYPE;
-	EciesParams.ShaMode = XASU_SHA_MODE_SHA256;
+	EciesParams.ShaMode = XASU_SHA_MODE_256;
 	EciesParams.AesKeySize = XASU_AES_KEY_SIZE_256_BITS;
 	EciesParams.DataLength = XASU_ECIES_INPUT_DATA_LENGTH;
 	EciesParams.EccKeyLength = XASU_ECC_P384_SIZE_IN_BYTES;

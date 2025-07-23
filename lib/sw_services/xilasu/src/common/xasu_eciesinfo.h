@@ -67,7 +67,7 @@ typedef struct {
 	u8 EccCurveType; /**< ECC curve type */
 	u8 ShaType; /**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
 	u8 ShaMode; /**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
-		* (XASU_SHA_MODE_SHA256 / XASU_SHA_MODE_SHA384 / XASU_SHA_MODE_SHA512 /
+		* (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 /
 		* XASU_SHA_MODE_SHAKE256) */
 	u8 Reserved; /**< Reserved */
 	u8 AesKeySize; /**< AES key size XASU_AES_KEY_SIZE_128_BITS: 128 bit key,

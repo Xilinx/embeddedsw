@@ -108,20 +108,20 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 		goto END;
 	}
 
-	if ((ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
-			(ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
-			(ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+	if ((ShaClientParamPtr->ShaMode != XASU_SHA_MODE_256) &&
+			(ShaClientParamPtr->ShaMode != XASU_SHA_MODE_384) &&
+			(ShaClientParamPtr->ShaMode != XASU_SHA_MODE_512) &&
 			(ShaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
 	if (((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) &&
-			(((ShaClientParamPtr->ShaMode == XASU_SHA_MODE_SHA256) &&
+			(((ShaClientParamPtr->ShaMode == XASU_SHA_MODE_256) &&
 			(ShaClientParamPtr->HashBufSize != XASU_SHA_256_HASH_LEN)) ||
-			((ShaClientParamPtr->ShaMode == XASU_SHA_MODE_SHA384) &&
+			((ShaClientParamPtr->ShaMode == XASU_SHA_MODE_384) &&
 			(ShaClientParamPtr->HashBufSize != XASU_SHA_384_HASH_LEN)) ||
-			((ShaClientParamPtr->ShaMode == XASU_SHA_MODE_SHA512) &&
+			((ShaClientParamPtr->ShaMode == XASU_SHA_MODE_512) &&
 			(ShaClientParamPtr->HashBufSize != XASU_SHA_512_HASH_LEN)) ||
 			((ShaClientParamPtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
 			(ShaClientParamPtr->HashBufSize != XASU_SHAKE_256_HASH_LEN)))) {

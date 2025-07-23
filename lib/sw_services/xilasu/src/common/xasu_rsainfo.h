@@ -144,7 +144,7 @@ typedef struct {
 	u32 SaltLen;		/**< RSA salt len for PSS padding */
 	u8 ShaType; /**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
 	u8 ShaMode; /**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
-		* (XASU_SHA_MODE_SHA256 / XASU_SHA_MODE_SHA384 / XASU_SHA_MODE_SHA512 /
+		* (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 /
 		* XASU_SHA_MODE_SHAKE256) */
 	u8 InputDataType;	/**< Input data type
 					* - 0: Plain data where Hash has to be calculated
@@ -159,7 +159,7 @@ typedef struct {
 	u32 OptionalLabelSize;	/**< RSA optional label size for OAEP padding */
 	u8 ShaType; /**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
 	u8 ShaMode; /**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
-		* (XASU_SHA_MODE_SHA256 / XASU_SHA_MODE_SHA384 / XASU_SHA_MODE_SHA512 /
+		* (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 /
 		* XASU_SHA_MODE_SHAKE256) */
 	u8 Reserved; /**< Reserved */
 	u8 Reserved1; /**< Reserved */

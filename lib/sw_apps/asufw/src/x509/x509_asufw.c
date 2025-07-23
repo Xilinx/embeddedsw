@@ -47,7 +47,7 @@
 									X.509 certificate signing */
 #define X509_ECC_SIGN_SIZE_IN_BYTES	XASU_ECC_P384_SIZE_IN_BYTES	/**< ECC Signature size in
 									bytes */
-#define X509_SHA_MODE			XASU_SHA_MODE_SHA384		/**< SHA mode used for
+#define X509_SHA_MODE			XASU_SHA_MODE_384		/**< SHA mode used for
 									X.509 certificate digest
 									calculation */
 #define X509_SHA_HASH_LEN		XASU_SHA_384_HASH_LEN		/**< SHA Length in bytes */

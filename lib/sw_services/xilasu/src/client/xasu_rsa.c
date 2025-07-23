@@ -323,9 +323,9 @@ s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_256) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_384) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_512) &&
 	    ((RsaClientParamPtr->ShaType != XASU_SHA3_TYPE) ||
 	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -425,9 +425,9 @@ s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_256) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_384) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_512) &&
 	    ((RsaClientParamPtr->ShaType != XASU_SHA3_TYPE) ||
 	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -524,9 +524,9 @@ s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
-	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_256) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_384) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_512) &&
 	    ((RsaClientParamPtr->ShaType != XASU_SHA3_TYPE) ||
 	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
 		Status = XASU_INVALID_ARGUMENT;
@@ -629,9 +629,9 @@ s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
-	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_256) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_384) &&
+	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_512) &&
 	    ((RsaClientParamPtr->ShaType != XASU_SHA3_TYPE) ||
 	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
 		Status = XASU_INVALID_ARGUMENT;

@@ -177,7 +177,7 @@ static s32 Asu_Sha2Example(void)
 	ShaClientParam.HashAddr = (u64)(UINTPTR)Sha2Hash;
 	ShaClientParam.DataSize = Size;
 	ShaClientParam.HashBufSize = ASU_SHA2_HASH_LEN_IN_BYTES;
-	ShaClientParam.ShaMode = XASU_SHA_MODE_SHA256;
+	ShaClientParam.ShaMode = XASU_SHA_MODE_256;
 	ShaClientParam.IsLast = TRUE;
 	ShaClientParam.OperationFlags = (XASU_SHA_START | XASU_SHA_UPDATE | XASU_SHA_FINISH);
 

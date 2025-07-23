@@ -46,10 +46,10 @@ extern "C" {
 #define XASU_SHA_KAT_CMD_ID			(1U) /**< Command ID for SHA3 KAT command */
 
 /* SHA modes */
-#define XASU_SHA_MODE_SHA256			(0U) /**< SHA mode 256 */
-#define XASU_SHA_MODE_SHA384			(1U) /**< SHA mode 384 */
-#define XASU_SHA_MODE_SHA512			(2U) /**< SHA mode 512 */
-#define XASU_SHA_MODE_SHAKE256			(4U) /**< SHA mode SHAKE */
+#define XASU_SHA_MODE_256			(0U) /**< SHA2/SHA3 mode 256 */
+#define XASU_SHA_MODE_384			(1U) /**< SHA2/SHA3 mode 384 */
+#define XASU_SHA_MODE_512			(2U) /**< SHA2/SHA3 mode 512 */
+#define XASU_SHA_MODE_SHAKE256			(4U) /**< SHA3 mode SHAKE */
 
 /* SHA operation mode */
 #define XASU_SHA_START				(0x1U) /**< SHA start operation flag */
@@ -76,7 +76,7 @@ typedef struct {
 	u32 DataSize; /**< SHA2/3 data size */
 	u32 HashBufSize; /**< SHA2/3 hash buffer size */
 	u8 ShaMode; /**< SHA2/3 Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
-		* (XASU_SHA_MODE_SHA256 / XASU_SHA_MODE_SHA384 / XASU_SHA_MODE_SHA512 /
+		* (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 /
 		* XASU_SHA_MODE_SHAKE256) */
 	u8 IsLast; /**< Indicates whether it is the last update of data to AES engine.
 				 * - FALSE: Not Last update.

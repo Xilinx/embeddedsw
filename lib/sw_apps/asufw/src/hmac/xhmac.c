@@ -162,8 +162,8 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 		goto END;
 	}
 
-	if ((ShaMode != XASU_SHA_MODE_SHA256) && (ShaMode != XASU_SHA_MODE_SHA384) &&
-	    (ShaMode != XASU_SHA_MODE_SHA512) && (ShaMode != XASU_SHA_MODE_SHAKE256)) {
+	if ((ShaMode != XASU_SHA_MODE_256) && (ShaMode != XASU_SHA_MODE_384) &&
+	    (ShaMode != XASU_SHA_MODE_512) && (ShaMode != XASU_SHA_MODE_SHAKE256)) {
 		Status = XASUFW_HMAC_INVALID_PARAM;
 		goto END;
 	}

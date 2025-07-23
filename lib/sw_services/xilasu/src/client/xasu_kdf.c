@@ -166,9 +166,9 @@ static s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr)
 		goto END;
 	}
 
-	if ((KdfParamsPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
-		(KdfParamsPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
-		(KdfParamsPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+	if ((KdfParamsPtr->ShaMode != XASU_SHA_MODE_256) &&
+		(KdfParamsPtr->ShaMode != XASU_SHA_MODE_384) &&
+		(KdfParamsPtr->ShaMode != XASU_SHA_MODE_512) &&
 		((KdfParamsPtr->ShaType != XASU_SHA3_TYPE) ||
 		 (KdfParamsPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
 		goto END;
@@ -181,11 +181,11 @@ static s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr)
 		goto END;
 	}
 
-	if (((KdfParamsPtr->ShaMode == XASU_SHA_MODE_SHA256) &&
+	if (((KdfParamsPtr->ShaMode == XASU_SHA_MODE_256) &&
 		 (KdfParamsPtr->KeyInLen < XASU_SHA_256_HASH_LEN)) ||
-		((KdfParamsPtr->ShaMode == XASU_SHA_MODE_SHA384) &&
+		((KdfParamsPtr->ShaMode == XASU_SHA_MODE_384) &&
 		 (KdfParamsPtr->KeyInLen < XASU_SHA_384_HASH_LEN)) ||
-		((KdfParamsPtr->ShaMode == XASU_SHA_MODE_SHA512) &&
+		((KdfParamsPtr->ShaMode == XASU_SHA_MODE_512) &&
 		 (KdfParamsPtr->KeyInLen < XASU_SHA_512_HASH_LEN)) ||
 		((KdfParamsPtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
 		 (KdfParamsPtr->KeyInLen < XASU_SHA_256_HASH_LEN))) {

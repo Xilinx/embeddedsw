@@ -504,7 +504,7 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u32 *HashAddr, u32 HashBu
 			LengthFieldSize = 0U;
 		}
 		else {
-			if (InstancePtr->ShaMode == XASU_SHA_MODE_SHA256) {
+			if (InstancePtr->ShaMode == XASU_SHA_MODE_256) {
 				LengthFieldSize = XSHA_SHA2_256_LENGTH_FIELD_SIZE;
 				BlockLen = XASUFW_SHA2_256_BLOCK_LEN;
 			}
@@ -593,17 +593,17 @@ s32 XSha_GetHashLen(u8 ShaMode, u32 *HashLen)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	switch (ShaMode) {
 		/* SHA2-256 Mode */
-		case XASU_SHA_MODE_SHA256:
+		case XASU_SHA_MODE_256:
 			*HashLen = XASU_SHA_256_HASH_LEN;
 			Status = XASUFW_SUCCESS;
 			break;
 		/* SHA2-384 Mode */
-		case XASU_SHA_MODE_SHA384:
+		case XASU_SHA_MODE_384:
 			*HashLen = XASU_SHA_384_HASH_LEN;
 			Status = XASUFW_SUCCESS;
 			break;
 		/* SHA2-512 Mode */
-		case XASU_SHA_MODE_SHA512:
+		case XASU_SHA_MODE_512:
 			*HashLen = XASU_SHA_512_HASH_LEN;
 			Status = XASUFW_SUCCESS;
 			break;
@@ -660,19 +660,19 @@ static s32 XSha_ValidateModeAndInit(XSha *InstancePtr, u32 ShaMode)
 	/** Initialize the SHA instance based on SHA Mode. */
 	switch (ShaMode) {
 		/* SHA2-256 Mode */
-		case XASU_SHA_MODE_SHA256:
+		case XASU_SHA_MODE_256:
 			InstancePtr->ShaDigestSize = XASU_SHA_256_HASH_LEN;
-			InstancePtr->ShaMode = XASU_SHA_MODE_SHA256;
+			InstancePtr->ShaMode = XASU_SHA_MODE_256;
 			break;
 		/* SHA2-384 Mode */
-		case XASU_SHA_MODE_SHA384:
+		case XASU_SHA_MODE_384:
 			InstancePtr->ShaDigestSize = XASU_SHA_384_HASH_LEN;
-			InstancePtr->ShaMode = XASU_SHA_MODE_SHA384;
+			InstancePtr->ShaMode = XASU_SHA_MODE_384;
 			break;
 		/* SHA2-512 Mode */
-		case XASU_SHA_MODE_SHA512:
+		case XASU_SHA_MODE_512:
 			InstancePtr->ShaDigestSize = XASU_SHA_512_HASH_LEN;
-			InstancePtr->ShaMode = XASU_SHA_MODE_SHA512;
+			InstancePtr->ShaMode = XASU_SHA_MODE_512;
 			break;
 		/* SHAKE-256 Mode */
 		case XASU_SHA_MODE_SHAKE256:
@@ -728,14 +728,14 @@ s32 XSha_GetShaBlockLen(const XSha *InstancePtr, u8 ShaMode, u8* BlockLen)
 		case XASU_SHA2_TYPE:
 			switch (ShaMode) {
 				/* SHA2-256 Mode */
-				case XASU_SHA_MODE_SHA256:
+				case XASU_SHA_MODE_256:
 					*BlockLen = XASUFW_SHA2_256_BLOCK_LEN;
 					Status = XASUFW_SUCCESS;
 					break;
 				/* SHA2-384 Mode */
-				case XASU_SHA_MODE_SHA384:
+				case XASU_SHA_MODE_384:
 				/* SHA2-512 Mode */
-				case XASU_SHA_MODE_SHA512:
+				case XASU_SHA_MODE_512:
 					*BlockLen = XASUFW_SHA2_384_512_BLOCK_LEN;
 					Status = XASUFW_SUCCESS;
 					break;
@@ -748,18 +748,18 @@ s32 XSha_GetShaBlockLen(const XSha *InstancePtr, u8 ShaMode, u8* BlockLen)
 		case XASU_SHA3_TYPE:
 			switch (ShaMode) {
 				/* SHA2-256 Mode */
-				case XASU_SHA_MODE_SHA256:
+				case XASU_SHA_MODE_256:
 				case XASU_SHA_MODE_SHAKE256:
 					*BlockLen = XASUFW_SHAKE_SHA3_256_BLOCK_LEN;
 					Status = XASUFW_SUCCESS;
 					break;
 				/* SHA2-384 Mode */
-				case XASU_SHA_MODE_SHA384:
+				case XASU_SHA_MODE_384:
 					*BlockLen = XASUFW_SHA3_384_BLOCK_LEN;
 					Status = XASUFW_SUCCESS;
 					break;
 				/* SHA2-512 Mode */
-				case XASU_SHA_MODE_SHA512:
+				case XASU_SHA_MODE_512:
 					*BlockLen = XASUFW_SHA3_512_BLOCK_LEN;
 					Status = XASUFW_SUCCESS;
 					break;
@@ -901,7 +901,7 @@ static s32 XSha_NistPadd(const XSha *InstancePtr, u8 *Buf, u32 PadLen)
 		Buf[0U] = XSHA_SHA2_START_NIST_PADDING_MASK;
 		MsgLenInBits = (InstancePtr->ShaLen << XSHA_BYTES_TO_BITS_CONVERSION_SHIFT);
 
-		if (InstancePtr->ShaMode == XASU_SHA_MODE_SHA256) {
+		if (InstancePtr->ShaMode == XASU_SHA_MODE_256) {
 			for (Index = 1U; Index <= XSHA_SHA2_256_LENGTH_FIELD_SIZE; Index++) {
 				Buf[PadLen - Index] = (u8)((MsgLenInBits >>
 						((Index - 1U) * XASUFW_ONE_BYTE_SHIFT_VALUE)) & XASUFW_LSB_MASK_VALUE);

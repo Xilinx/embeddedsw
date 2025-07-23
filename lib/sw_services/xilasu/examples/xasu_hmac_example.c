@@ -200,7 +200,7 @@ static s32 Asu_HmacExample(void)
 
 	ErrorStatus = XST_FAILURE;
 	HmacClientParam.ShaType = (u8)XASU_SHA2_TYPE;
-	HmacClientParam.ShaMode = (u8)XASU_SHA_MODE_SHA512;
+	HmacClientParam.ShaMode = (u8)XASU_SHA_MODE_512;
 	HmacClientParam.IsLast = (u8)TRUE;
 	HmacClientParam.OperationFlags = (u8)(XASU_HMAC_INIT | XASU_HMAC_UPDATE | XASU_HMAC_FINAL);
 	HmacClientParam.KeyAddr = (u64)(UINTPTR)Key;

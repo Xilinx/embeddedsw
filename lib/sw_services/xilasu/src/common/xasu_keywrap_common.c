@@ -85,9 +85,9 @@ s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParam
 	}
 
 	/** Validate SHA type and Mode. */
-	if ((KwpunwpParamsPtr->ShaMode != XASU_SHA_MODE_SHA256) &&
-	    (KwpunwpParamsPtr->ShaMode != XASU_SHA_MODE_SHA384) &&
-	    (KwpunwpParamsPtr->ShaMode != XASU_SHA_MODE_SHA512) &&
+	if ((KwpunwpParamsPtr->ShaMode != XASU_SHA_MODE_256) &&
+	    (KwpunwpParamsPtr->ShaMode != XASU_SHA_MODE_384) &&
+	    (KwpunwpParamsPtr->ShaMode != XASU_SHA_MODE_512) &&
 	    ((KwpunwpParamsPtr->ShaType != XASU_SHA3_TYPE) ||
 	    (KwpunwpParamsPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
 		goto END;

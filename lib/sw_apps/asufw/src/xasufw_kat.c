@@ -435,7 +435,7 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, XAsufw_Dma *AsuDmaPtr, XAsufw_Resour
 	const u8 *ExpHash = NULL;
 
 	/** Perform SHA start operation. */
-	Status = XSha_Start(XAsufw_ShaInstance, XASU_SHA_MODE_SHA256);
+	Status = XSha_Start(XAsufw_ShaInstance, XASU_SHA_MODE_256);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -1025,7 +1025,7 @@ s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr)
 
 	/** Perform HMAC init operation. */
 	Status = XHmac_Init(XAsufw_HmacInstance, AsuDmaPtr, Sha2Ptr, (u64)(UINTPTR)EccPrivKey,
-			    XASU_ECC_P256_SIZE_IN_BYTES, XASU_SHA_MODE_SHA256, XASU_SHA_256_HASH_LEN);
+			    XASU_ECC_P256_SIZE_IN_BYTES, XASU_SHA_MODE_256, XASU_SHA_256_HASH_LEN);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
@@ -1097,7 +1097,7 @@ s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Params.ContextLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
 	Params.KeyOutAddr = (u64)(UINTPTR)KdfOutput;
 	Params.KeyOutLen = XASU_SHA_256_HASH_LEN;
-	Params.ShaMode = XASU_SHA_MODE_SHA256;
+	Params.ShaMode = XASU_SHA_MODE_256;
 
 	/** Perform KDF generate with known inputs. */
 	Status = XKdf_Generate(AsuDmaPtr, Sha2Ptr, &Params);
@@ -1152,7 +1152,7 @@ s32 XAsufw_HkdfOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Params.KdfParams.ContextLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
 	Params.KdfParams.KeyOutAddr = (u64)(UINTPTR)HkdfOutput;
 	Params.KdfParams.KeyOutLen = XASU_SHA_256_HASH_LEN;
-	Params.KdfParams.ShaMode = XASU_SHA_MODE_SHA256;
+	Params.KdfParams.ShaMode = XASU_SHA_MODE_256;
 	Params.SaltAddr = (u64)(UINTPTR)EccHash;
 	Params.SaltLen = XASU_ECC_P256_SIZE_IN_BYTES;
 
@@ -1217,7 +1217,7 @@ s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr)
 	Params.RxKeyAddr = (u64)(UINTPTR)EciesRxPubKey;
 	Params.ContextAddr = (u64)(UINTPTR)RsaData;
 	Params.ContextLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
-	Params.ShaMode = XASU_SHA_MODE_SHA256;
+	Params.ShaMode = XASU_SHA_MODE_256;
 	Params.ShaType = XASU_SHA2_TYPE;
 
 	/** Perform ECIES encryption with known inputs. */
@@ -1333,7 +1333,7 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.OutuputDataLen = XASUFW_KEYWRAP_OUTPUT_SIZE_IN_BYTES;
 	KwpunwpParam.AesKeySize = XASU_AES_KEY_SIZE_128_BITS;
 	KwpunwpParam.ShaType = XASU_SHA2_TYPE;
-	KwpunwpParam.ShaMode = XASU_SHA_MODE_SHA256;
+	KwpunwpParam.ShaMode = XASU_SHA_MODE_256;
 
 	/** Perform key wrap operation with known inputs. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -1355,7 +1355,7 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.OutuputDataLen = XASUFW_KEYWRAP_INPUT_SIZE_IN_BYTES;
 	KwpunwpParam.AesKeySize = XASU_AES_KEY_SIZE_128_BITS;
 	KwpunwpParam.ShaType = XASU_SHA2_TYPE;
-	KwpunwpParam.ShaMode = XASU_SHA_MODE_SHA256;
+	KwpunwpParam.ShaMode = XASU_SHA_MODE_256;
 
 	/** Perform key unwrap operation with known inputs. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
