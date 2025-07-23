@@ -14,9 +14,9 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date       Changes
-* ----- ---- ---------- ---------------------------------------------------------------------------
-* 1.0   rmv  05/19/2025 Initial release
+* Ver   Who  Date     Changes
+* ----- ---- -------- ---------------------------------------------------------------------------
+* 1.0   rmv  05/19/25 Initial release
 *
 * </pre>
 *
@@ -71,7 +71,7 @@ static s32 X509_ShaDigest(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBu
  *************************************************************************************************/
 s32 X509_CfgInitialize(void)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	X509_InitData InitData;
 
 	/** Assign signature algorithm based on the configurations. */
@@ -110,13 +110,13 @@ s32 X509_CfgInitialize(void)
 static s32 X509_GenerateSignEcc(const u8 *Hash, u32 HashLen, const u8 *Sign, u32 SignLen,
 				u32 *SignActualLen, u8 *PvtKey, const void *PlatformData)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XEcc *EccInstance = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	u8 EphemeralKey[X509_ECC_SIGN_SIZE_IN_BYTES] = {0U};
 	const X509_PlatData *PlatData = (X509_PlatData *)PlatformData;
 	u32 SignatureSize = XAsu_DoubleCurveLength(X509_ECC_SIGN_SIZE_IN_BYTES);
 
-	/** Validate input paramaters. */
+	/** Validate input parameters. */
 	if ((Hash == NULL) || (Sign == NULL) || (SignActualLen == NULL) || (PvtKey == NULL) ||
 	    (PlatData == NULL)) {
 		Status = XASUFW_X509_INVALID_PLAT_DATA;
@@ -137,6 +137,7 @@ static s32 X509_GenerateSignEcc(const u8 *Hash, u32 HashLen, const u8 *Sign, u32
 	}
 
 	/* Generate signature on the hash data. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XEcc_GenerateSignature(EccInstance, PlatData->DmaPtr, X509_XECC_CURVE_TYPE,
 					X509_ECC_SIGN_SIZE_IN_BYTES, (u64)(UINTPTR)PvtKey,
 					EphemeralKey, (u64)(UINTPTR)Hash,
@@ -175,7 +176,7 @@ END:
 static s32 X509_ShaDigest(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBufLen,
 			  u32 *HashLen, const void *PlatformData)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XAsu_ShaOperationCmd ShaParam;
 	const X509_PlatData *PlatData = (X509_PlatData *)PlatformData;
 
