@@ -77,7 +77,7 @@ extern "C" {
 
 #define XOCP_EFUSE_CACHE_BOOT_ENV_CTRL			(0xF1250094U) /**< Boot environmental register address */
 #define XOCP_PMC_LOCAL_BOOT_MODE_DIS			(0xF00441D0U) /**< Boot mode register address */
-#define XOCP_EFUSE_CACHE_MISC_CTRL				(0xF12500A0U) /**< MISC control register address */
+#define XOCP_EFUSE_CACHE_MISC_CTRL			(0xF12500A0U) /**< MISC control register address */
 #define XOCP_EFUSE_CACHE_ANLG_TRIM_3			(0xF1250010U) /**< Analog Trim3 registe address */
 #define XOCP_EFUSE_CACHE_IP_DISABLE_0			(0xF1250018U) /**< IP disable 0 register address */
 #define XOCP_EFUSE_CACHE_IP_DISABLE_1			(0xF125001CU) /**< IP disable 1 register address */
@@ -103,18 +103,57 @@ extern "C" {
 #define XOCP_PMC_TAP_INST_MASK_1_OFFSET			(0xF11B0004U) /**< Instruction Mask 1 register address */
 #define XOCP_PMC_TAP_DAP_SECURITY_OFFSET		(0xF11B000CU) /**< DAP security register address */
 
+#define XOCP_EFUSE_PPK_0_HASH_START_OFFSET		(0xF1250100U) /**< PPK Hash 0 cache start offset */
+#define XOCP_EFUSE_PPK_1_HASH_START_OFFSET		(0xF1250120U) /**< PPK Hash 1 cache start offset */
+#define XOCP_EFUSE_PPK_2_HASH_START_OFFSET		(0xF1250140U) /**< PPK Hash 2 cache start offset */
+#define XOCP_EFUSE_REVOCATION_ID_0_START_OFFSET		(0xF12500B0U) /**< Revocation ID 0 cache start offset */
+#define XOCP_EFUSE_OFFCHIP_ID_0_START_OFFSET		(0xF1250160U) /**< OffChip Id 0 cache start offset */
+
+#define XOCP_EFUSE_PPK0_WR_LK_MASK			(0x00000040U) /**< PPK 0 write lock eFuse mask */
+#define XOCP_EFUSE_PPK1_WR_LK_MASK			(0x00000080U) /**< PPK 1 write lock eFuse mask */
+#define XOCP_EFUSE_PPK2_WR_LK_MASK			(0x00000100U) /**< PPK 2 write lock eFuse mask */
+
+#define XOCP_EFUSE_PPK0_INVLD_1_0_MASK			(0x0000000CU) /**< PPK 0 invalid eFuse mask */
+#define XOCP_EFUSE_PPK1_INVLD_1_0_MASK			(0x00000030U) /**< PPK 1 invalid eFuse mask */
+#define XOCP_EFUSE_PPK2_INVLD_1_0_MASK			(0x000000C0U) /**< PPK 2 invalid eFuse mask */
+
+#define XOCP_EFUSE_DME_REVOKE_0_MASK			(0x00000030U) /**< DME revoke 0 eFuse mask */
+#define XOCP_EFUSE_DME_REVOKE_1_MASK			(0x000000C0U) /**< DME revoke 1 eFuse mask */
+#define XOCP_EFUSE_DME_REVOKE_2_MASK			(0x00000300U) /**< DME revoke 2 eFuse mask */
+#define XOCP_EFUSE_DME_REVOKE_3_MASK			(0x00000C00U) /**< DME revoke 3 eFuse mask */
+
+#define XOCP_EFUSE_UDS_WR_LK_MASK			(0x00000010U) /**< UDS write lock eFuse mask */
+#define XOCP_EFUSE_HWTST_BIT_DIS_MASK			(0x00000008U) /**< HWTST bit disable eFuse mask */
+#define XOCP_EFUSE_PUF_DIS_MASK				(0x00040000U) /**< PUF Disable eFuse mask */
+#define XOCP_EFUSE_PMC_SC_EN_MASK			(0x03800000U) /**< PMC_SC_EN eFuse mask */
+#define XOCP_EFUSE_SYSMON_TEMP_MON_EN_MASK		(0x00000003U) /**< SYSMON_TEMP_MON_EN eFuse mask */
+#define XOCP_EFUSE_DME_MODE_MASK			(0x0000000FU) /**< DME_MODE eFuse mask */
+
+
 #define XOCP_PMC_PLM_HASH_ADDR					(0xF1110750U) /**< PLM hash address */
 #define XOCP_PMC_ROM_HASH_ADDR					(0xF1110704U) /**< ROM hash address */
 
 #define XOCP_SW_PCR_NUM_0  (0U)    /**< SW PCR number 0 */
 #define XOCP_SW_PCR_NUM_1  (1U)    /**< SW PCR number 1 */
 #define XOCP_SW_PCR_SEC_STATE_MEASUREMENT_IDX  (0U) /**< Measurement index for secure state extension */
+#define XOCP_SW_PCR_PPK_CONFIG_MEASUREMENT_IDX (1U) /**< Measurement index for efuse ppk config extension */
+#define XOCP_SW_PCR_SPK_REVOKE_CONFIG_MEASUREMENT_IDX (2U) /**< Measurement index for efuse spk revoke config extension */
+#define XOCP_SW_PCR_REVOKE_OTHER_CONFIG_MEASUREMENT_IDX (3U) /**< Measurement index for efuse revoke other config extension */
+#define XOCP_SW_PCR_MISC_CONFIG_MEASUREMENT_IDX (4U) /**< Measurement index for efuse misc config extension */
+
+
 
 /* XilOcp Module Data Structure Ids*/
 #define XOCP_DEVAK_SUBSYS_HASH_DS_ID		(1U)	/**< DevAk Subsystem Hash data structure ID */
 #define XOCP_SWPCR_CONFIG_DS_ID			(2U)	/**< SW PCR config data structure ID */
 #define XOCP_SWPCR_STORE_DS_ID			(3U)	/**< SW PCR store data structure ID */
 #define XOCP_HWPCR_LOG_DS_ID			(4U)	/**< HW PCR log data structure ID */
+
+/* Efuse number of rows */
+#define XOCP_EFUSE_PPK_HASH_NO_OF_WORDS		(8U)	/**< PPK Hash number of words */
+#define XOCP_EFUSE_REVOCATION_NO_OF_WORDS	(8U)	/**< Revocation ID number of words */
+#define XOCP_EFUSE_PPK_NUM_OF_BYTES		(48U)	/**< PPK Hash number of bytes */
+#define XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES	(32U)	/**< Revocation ID number of bytes */
 
 /**************************** Type Definitions *******************************/
 /*
@@ -179,6 +218,39 @@ typedef struct {
 	u32 DapSecurity;	/* DAP security */
 	u32 BootDevice;		/* Boot Device */
 } XOcp_SecureTapConfig;
+
+typedef struct {
+	u32 Ppk0WrLk;		/* PPK0 WR LK eFuse */
+	u32 Ppk1WrLk;		/* PPK1 WR LK eFuse */
+	u32 Ppk2WrLk;		/* PPK2 WR LK eFuse */
+	u32 Ppk0Invld;		/* PPK0 INVALID eFuse */
+	u32 Ppk1Invld;		/* PPK1 INVALID eFuse */
+	u32 Ppk2Invld;		/* PPK2 INVALID eFuse */
+	u32 Ppk0Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /* PPK0 Hash eFuse */
+	u32 Ppk1Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /* PPK1 Hash eFuse */
+	u32 Ppk2Hash[XOCP_EFUSE_PPK_HASH_NO_OF_WORDS]; /* PPK2 Hash eFuse */
+} XOcp_PpkEfuseConfig;
+
+typedef struct {
+	u32 RevocationId[XOCP_EFUSE_REVOCATION_NO_OF_WORDS]; /* REVOCATION_ID eFuses */
+} XOcp_RevocationSpkEfuseConfig;
+
+typedef struct {
+	u32 DmeRevoke0;	/* DME_REVOKE_0 eFuse */
+	u32 DmeRevoke1; /* DME_REVOKE_1 eFuse */
+	u32 DmeRevoke2; /* DME_REVOKE_2 eFuse */
+	u32 DmeRevoke3; /* DME_REVOKE_3 eFuse */
+	u32 OffChipRevocationId[XOCP_EFUSE_REVOCATION_NO_OF_WORDS]; /* OFFCHIP Revocation ID eFuses */
+} XOcp_RevocationOtherEfuseConfig;
+
+typedef struct {
+	u32 UdsWrLk; 			/* UDS_WR_LK eFuse */
+	u32 HwTstBitsDis; 		/* HWTST_DIS eFuse */
+	u32 PufDis;			/* PUF_DIS eFuse */
+	u32 PmcScEn;	 		/* PMC_SC_EN eFuses */
+	u32 SysmonTempMonEn; 		/* SYSMON_TEMP_MON_EN eFuses */
+	u32 DmeMode;			/* DME_MODE eFuses */
+} XOcp_MiscEfuseConfig;
 
 typedef struct {
 	u8 RomHash[XOCP_PCR_HASH_SIZE_IN_BYTES]; /* Rom hash */

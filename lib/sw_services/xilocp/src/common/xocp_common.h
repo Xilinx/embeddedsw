@@ -227,8 +227,34 @@ typedef enum {
 	                                             and CSR is requested */
 	XOCP_ERR_PUB_KEY_NOT_AVAIL,             /**< 0x2E Error when public key is not available during
 	                                             keywrap attestation request */
-	XOCP_ERR_INVALID_ATTEST_BUF_SIZE        /**< 0x2F Error when invalid buffer size is provided during
+	XOCP_ERR_INVALID_ATTEST_BUF_SIZE,        /**< 0x2F Error when invalid buffer size is provided during
 	                                             keywrap attestation request */
+	XOCP_ERR_SECURE_PPK_CONFIG,		/**< 0x30 Error when updating eFuse PPK configuration */
+
+	XOCP_ERR_SECURE_SPK_REVOKE_CONFIG,	/**< 0x31 Error when updating eFuse SPK Revocation configuration */
+
+	XOCP_ERR_SECURE_OTHER_REVOKE_CONFIG,	/**< 0x32 Error when updating eFuse OffChip revocation configuration */
+
+	XOCP_ERR_SECURE_MISC_CONFIG,		/**< 0x33 Error when updating eFuse miscellaneous configuration */
+
+	XOCP_ERR_READ_PPK_CONFIG,		/**< 0x34 Error when reading PPK eFuse configuration */
+
+	XOCP_ERR_READ_SPK_REVOKE_CONFIG,	/**< 0x35 Error when reading SPK eFuse configuration */
+
+	XOCP_ERR_READ_OTHER_REVOKE_CONFIG,	/**< 0x36 Error when reading Offchip revocation configuration */
+
+	XOCP_ERR_IN_EXTEND_PPK_CONFIG,		/**< 0x37 Error when extending PPK eFuse configuration */
+
+	XOCP_ERR_IN_EXTEND_SPK_REVOKE_CONFIG,	/**< 0x38 Error when extending SPK revocation eFuse configuration */
+
+	XOCP_ERR_IN_EXTEND_OTHER_REVOKE_CONFIG,	/**< 0x39 Error when extending Offchip revocation eFuse configuration */
+
+	XOCP_ERR_IN_EXTEND_MISC_CONFIG,		/**< 0x3A Error when extending Miscellaneous eFuse configuration */
+
+	XOCP_ERR_IN_EXTEND_SECURE_STATE_CONFIG,	/**< 0x3B Error when extending secure state configuration */
+
+	XOCP_ERR_IN_MEMCPY			/**< 0x3C Error in mem copy */
+
 }XOcp_OcpErrorStatus;
 
 /***************** Macros (Inline Functions) Definitions *********************/

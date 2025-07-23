@@ -96,6 +96,8 @@
 #define XOCP_HWPCR_LOG_LCVERSION	(1U)   /**< HW PCR log LC version */
 #define XOCP_HWPCR_LOG_VERSION		(1U)   /**< HW PCR log version */
 
+#define XOCP_MIN_NUM_OF_DIGESTS_FOR_SW_PCR1 (5U) /**< Minimum number of digests for SW PCR1 */
+
 /**************************** Type Definitions *******************************/
 static XOcp_DmeXppuCfg XOcp_DmeXppuCfgTable[XOCP_XPPU_MAX_APERTURES] =
 {
@@ -159,8 +161,16 @@ static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType);
 static int XOcp_StoreSwPcrConfig(u32 *Pload, u32 Len);
 static void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig);
 static void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig);
+static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig);
+static int XOcp_ReadRevocationSpkConfig(XOcp_RevocationSpkEfuseConfig* SpkEfuseConfig);
+static int XOcp_ReadRevocationOtherConfig(XOcp_RevocationOtherEfuseConfig* RevokeOtherEfuseConfig);
+static void XOcp_ReadMiscConfig(XOcp_MiscEfuseConfig* MiscConfig);
 static int XOcp_CheckAndUpdateSecConfigState(u32 *MeasureSecureConfig);
 static int XOcp_CheckAndUpdateTapConfigState(u32 *MeasureTapConfig);
+static int XOcp_CheckAndUpdatePpkConfigState(u32 *MeasurePpkConfig);
+static int XOcp_CheckAndUpdateSpkRevokeConfigState(u32 *MeasureSpkRevokeConfig);
+static int XOcp_CheckAndUpdateOtherRevokeConfigState(u32 *MeasureOtherRevokeConfig);
+static int XOcp_CheckAndUpdateMiscConfigState(u32 *MeasureMiscConfig);
 static int XOcp_MeasureSecureState(void);
 static XOcp_HwPcrLog *XOcp_GetHwPcrLogInstance(void);
 
@@ -174,6 +184,14 @@ static XOcp_SecureConfig SecureConfig;
 
 /**< Secure tap configuration */
 static XOcp_SecureTapConfig SecureTapConfig;
+/**< PPK efuse configuration */
+static XOcp_PpkEfuseConfig PpkEfuseConfig;
+/**< SPK revocation efuse configuration */
+static XOcp_RevocationSpkEfuseConfig RevocationSpkEfuseConfig;
+/**< Other revocation efuse configuration */
+static XOcp_RevocationOtherEfuseConfig RevocationOtherEfuseConfig;
+/**< Miscellaneous efuse configuration */
+static XOcp_MiscEfuseConfig MiscEfuseConfig;
 
 /**< DME challenge available */
 static u32 IsDmeChlAvail = FALSE;
@@ -548,10 +566,12 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 		}
 	}
 
+
 	DigestIdxInLog = XOcp_GetPcrOffsetInLog(PcrNum) + MeasurementIdx;
 
 	/* Store the SW PCR Extend request details to SW PCR Log */
 	SwPcr->Data[DigestIdxInLog].Measurement.DataLength = DataSize;
+
 	XPlmi_Printf_WoTS(DEBUG_INFO,
 			"\r\nSwPcrNum: %x MeasurementIdx: %x DigestIdxInLog: %x\r\n",
 			PcrNum, MeasurementIdx, DigestIdxInLog);
@@ -600,7 +620,7 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 
 	/* Send Notification to the subscriber about the log update */
 	XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
-                        XIL_EVENT_ERROR_PCR_LOG_UPDATE);
+			        XIL_EVENT_ERROR_PCR_LOG_UPDATE);
 END:
 	return Status;
 }
@@ -1074,11 +1094,72 @@ int XOcp_MeasureSecureStateAndExtendSwPcr(void)
 	Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_0, XOCP_SW_PCR_SEC_STATE_MEASUREMENT_IDX,
 				(u64)(UINTPTR)&SecureStateHash, sizeof(XOcp_SecureStateHash), TRUE);
 	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_EXTEND_SECURE_STATE_CONFIG;
 		goto END;
 	}
 
 	Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1, XOCP_SW_PCR_SEC_STATE_MEASUREMENT_IDX,
 				(u64)(UINTPTR)&SecureStateHash, sizeof(XOcp_SecureStateHash), TRUE);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_EXTEND_SECURE_STATE_CONFIG;
+		goto END;
+	}
+
+	/** Read PPK eFuse configuration */
+	Status = XOcp_ReadPpkConfig(&PpkEfuseConfig);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_READ_PPK_CONFIG;
+                goto END;
+        }
+
+	/** Read SPK revocation eFuse configuration */
+	Status = XOcp_ReadRevocationSpkConfig(&RevocationSpkEfuseConfig);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_READ_SPK_REVOKE_CONFIG;
+                goto END;
+        }
+
+	/** Read OffChip revocation eFuse configuration */
+	Status = XOcp_ReadRevocationOtherConfig(&RevocationOtherEfuseConfig);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_READ_OTHER_REVOKE_CONFIG;
+                goto END;
+        }
+
+	/** Read UDS_WR_LK, HWTST_BITS, PUF_DIS, PMC_SC_EN,
+	  * SYSMON_TEMP_MON_EN and DME_MODE eFuse configuration
+	  */
+	XOcp_ReadMiscConfig(&MiscEfuseConfig);
+
+	/** Extend PPK eFuse config to SW PCR 1 at measurement index 1 */
+	Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1, XOCP_SW_PCR_PPK_CONFIG_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&PpkEfuseConfig, sizeof(XOcp_PpkEfuseConfig), TRUE);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_EXTEND_PPK_CONFIG;
+		goto END;
+	}
+
+	/** Extend SPK revocation eFuse config to SW PCR 1 at measurement index 2 */
+	Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1, XOCP_SW_PCR_SPK_REVOKE_CONFIG_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&RevocationSpkEfuseConfig, sizeof(XOcp_RevocationSpkEfuseConfig), TRUE);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_EXTEND_SPK_REVOKE_CONFIG;
+		goto END;
+	}
+
+	/** Extend Offchip revocation eFuse config to SW PCR 1 at measurement index 3 */
+	Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1, XOCP_SW_PCR_REVOKE_OTHER_CONFIG_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&RevocationOtherEfuseConfig, sizeof(XOcp_RevocationOtherEfuseConfig), TRUE);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_EXTEND_OTHER_REVOKE_CONFIG;
+		goto END;
+        }
+	/** Extend Misalleanous eFuse config to SW PCR 1 at measurement index 4 */
+	Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1, XOCP_SW_PCR_MISC_CONFIG_MEASUREMENT_IDX,
+                                (u64)(UINTPTR)&MiscEfuseConfig, sizeof(XOcp_MiscEfuseConfig), TRUE);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_EXTEND_MISC_CONFIG;
+	}
 END:
 	return Status;
 }
@@ -1100,6 +1181,10 @@ int XOcp_CheckAndExtendSecureState(void)
 	XOcp_SwPcrConfig *SwPcrConfig = XOcp_GetSwPcrConfigInstance();
 	u32 MeasureSecureConfig = TRUE;
 	u32 MeasureTapConfig = TRUE;
+	u32 MeasurePpkConfig = TRUE;
+	u32 MeasureSpkRevokeConfig = TRUE;
+	u32 MeasureOtherRevokeConfig = TRUE;
+	u32 MeasureMiscConfig = TRUE;
 
 	if (SwPcrConfig->IsPcrConfigReceived != TRUE) {
 		XPlmi_Printf(DEBUG_INFO,"Secure State Measurement is not configured \r\n");
@@ -1128,6 +1213,73 @@ int XOcp_CheckAndExtendSecureState(void)
 		}
 		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1, XOCP_SW_PCR_SEC_STATE_MEASUREMENT_IDX,
 					(u64)(UINTPTR)&SecureStateHash, sizeof(XOcp_SecureStateHash), TRUE);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	Status = XOcp_CheckAndUpdatePpkConfigState(&MeasurePpkConfig);
+        if (Status != XST_SUCCESS) {
+                Status = (int)XOCP_ERR_SECURE_PPK_CONFIG;
+                goto END;
+        }
+
+	Status = XOcp_CheckAndUpdateSpkRevokeConfigState(&MeasureSpkRevokeConfig);
+        if (Status != XST_SUCCESS) {
+                Status = (int)XOCP_ERR_SECURE_SPK_REVOKE_CONFIG;
+                goto END;
+        }
+
+	Status = XOcp_CheckAndUpdateOtherRevokeConfigState(&MeasureOtherRevokeConfig);
+        if (Status != XST_SUCCESS) {
+                Status = (int)XOCP_ERR_SECURE_OTHER_REVOKE_CONFIG;
+                goto END;
+        }
+
+	Status = XOcp_CheckAndUpdateMiscConfigState(&MeasureMiscConfig);
+        if (Status != XST_SUCCESS) {
+                Status = (int)XOCP_ERR_SECURE_MISC_CONFIG;
+                goto END;
+        }
+
+	/** Any change in PPK eFuses, SPK revocation eFuses, Offchip revocation
+	  * eFuses and miscellaneous eFuses extend the new configuration to
+	  * respective measurement indices of SW PCR 1
+	  */
+	if ((MeasurePpkConfig == TRUE) || (MeasureSpkRevokeConfig == TRUE) ||
+			(MeasureOtherRevokeConfig == TRUE) || (MeasureMiscConfig == TRUE)) {
+		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
+				XOCP_SW_PCR_PPK_CONFIG_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&PpkEfuseConfig,
+				sizeof(XOcp_PpkEfuseConfig), TRUE);
+		if (Status != XST_SUCCESS) {
+			Status = (int)XOCP_ERR_IN_EXTEND_PPK_CONFIG;
+			goto END;
+		}
+		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
+				XOCP_SW_PCR_SPK_REVOKE_CONFIG_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&RevocationSpkEfuseConfig,
+				sizeof(XOcp_RevocationSpkEfuseConfig), TRUE);
+		if (Status != XST_SUCCESS) {
+			Status = (int)XOCP_ERR_IN_EXTEND_SPK_REVOKE_CONFIG;
+			goto END;
+		}
+		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
+				XOCP_SW_PCR_REVOKE_OTHER_CONFIG_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&RevocationOtherEfuseConfig,
+				sizeof(XOcp_RevocationOtherEfuseConfig), TRUE);
+		if (Status != XST_SUCCESS) {
+			Status = (int)XOCP_ERR_IN_EXTEND_OTHER_REVOKE_CONFIG;
+			goto END;
+		}
+		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
+				XOCP_SW_PCR_MISC_CONFIG_MEASUREMENT_IDX,
+				(u64)(UINTPTR)&MiscEfuseConfig,
+				sizeof(XOcp_MiscEfuseConfig), TRUE);
+		if (Status != XST_SUCCESS) {
+			Status = (int)XOCP_ERR_IN_EXTEND_MISC_CONFIG;
+			goto END;
+		}
 	}
 
 END:
@@ -1150,7 +1302,7 @@ u32 XOcp_IsDmeChlAvail(void)
  *		before DME operation.
  *
  ******************************************************************************/
-static int  XOcp_DmeStoreXppuDefaultConfig(void)
+static int XOcp_DmeStoreXppuDefaultConfig(void)
 {
 	volatile u32 Index;
 	int Status = XST_FAILURE;
@@ -1284,6 +1436,14 @@ static int XOcp_StoreSwPcrConfig(u32 *Pload, u32 Len)
 			goto END;
 		}
 
+		/* Validate minimum number of Digests for SW PCR1 */
+		if ((PcrNum == XOCP_PCR_1) &&
+			(NoOfDigests < XOCP_MIN_NUM_OF_DIGESTS_FOR_SW_PCR1)) {
+			Status = (int)XOCP_PCR_ERR_IN_SWPCR_CONFIG;
+                        goto END;
+		}
+
+		/* Store number of digests per PCR into buffer */
 		Status = XOcp_StoreNoOfDigestPerPcr(PcrNum, NoOfDigests);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -1739,6 +1899,7 @@ static int XOcp_UpdateHwPcrLog(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
 	HwPcrLog->LogInfo.TotalHwPcrLogEvents++;
 	XOcp_UpdateHwPcrIndex(&HwPcrLog->HeadIndex, 1U);
 
+	/* Send Notification to the subscriber about the log update */
 	XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
 			XIL_EVENT_ERROR_PCR_LOG_UPDATE);
 
@@ -1862,6 +2023,121 @@ static void XOcp_ReadTapConfig(XOcp_SecureTapConfig* TapConfig)
 
 /*****************************************************************************/
 /**
+ * @brief	This function reads PPK eFuse configuration such as
+ * 		PPK Hash 0/1/2 , PPK_WR_LK 0/1/2 and PPK_INVALID 0/1/2.
+ *
+ * @param 	PpkConfig Pointer to XOcp_PpkEfuseConfig
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+*****************************************************************************/
+static int XOcp_ReadPpkConfig(XOcp_PpkEfuseConfig* PpkConfig)
+{
+	int Status = XST_FAILURE;
+	u32 SecureCtrl = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL);
+	u32 MiscCtrl = Xil_In32(XOCP_EFUSE_CACHE_MISC_CTRL);
+
+	PpkConfig->Ppk0WrLk = SecureCtrl & XOCP_EFUSE_PPK0_WR_LK_MASK;
+	PpkConfig->Ppk1WrLk = SecureCtrl & XOCP_EFUSE_PPK1_WR_LK_MASK;
+	PpkConfig->Ppk2WrLk = SecureCtrl & XOCP_EFUSE_PPK2_WR_LK_MASK;
+	PpkConfig->Ppk0Invld = MiscCtrl & XOCP_EFUSE_PPK0_INVLD_1_0_MASK;
+	PpkConfig->Ppk1Invld = MiscCtrl & XOCP_EFUSE_PPK1_INVLD_1_0_MASK;
+	PpkConfig->Ppk2Invld = MiscCtrl & XOCP_EFUSE_PPK2_INVLD_1_0_MASK;
+
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)PpkConfig->Ppk0Hash,
+			(u64)(UINTPTR)XOCP_EFUSE_PPK_0_HASH_START_OFFSET,
+			XOCP_EFUSE_PPK_NUM_OF_BYTES);
+        if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_MEMCPY;
+                goto END;
+        }
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)PpkConfig->Ppk1Hash,
+			(u64)(UINTPTR)XOCP_EFUSE_PPK_1_HASH_START_OFFSET,
+			XOCP_EFUSE_PPK_NUM_OF_BYTES);
+        if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_MEMCPY;
+                goto END;
+        }
+
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)PpkConfig->Ppk2Hash,
+			(u64)(UINTPTR)XOCP_EFUSE_PPK_2_HASH_START_OFFSET,
+			XOCP_EFUSE_PPK_NUM_OF_BYTES);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function reads SPK revocation id eFuse configuration
+ *
+ * @param 	SpkEfuseConfig Pointer to XOcp_RevocationSpkEfuseConfig
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+*****************************************************************************/
+static int XOcp_ReadRevocationSpkConfig(XOcp_RevocationSpkEfuseConfig* SpkEfuseConfig)
+{
+	return XPlmi_MemCpy64((u64)(UINTPTR)SpkEfuseConfig->RevocationId,
+			(u64)(UINTPTR)XOCP_EFUSE_REVOCATION_ID_0_START_OFFSET,
+			XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function reads OffChip revocation and DmeRevoke eFuse
+ * 		configuration
+ *
+ * @param 	RevokeOtherEfuseConfig Pointer to XOcp_RevocationOtherEfuseConfig
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+*****************************************************************************/
+static int XOcp_ReadRevocationOtherConfig(XOcp_RevocationOtherEfuseConfig* RevokeOtherEfuseConfig)
+{
+	volatile int Status = XST_FAILURE;
+	u32 DmeFips = Xil_In32(XOCP_EFUSE_CACHE_DME_FIPS);
+
+	RevokeOtherEfuseConfig->DmeRevoke0 = DmeFips & XOCP_EFUSE_DME_REVOKE_0_MASK;
+	RevokeOtherEfuseConfig->DmeRevoke1 = DmeFips & XOCP_EFUSE_DME_REVOKE_1_MASK;
+	RevokeOtherEfuseConfig->DmeRevoke2 = DmeFips & XOCP_EFUSE_DME_REVOKE_2_MASK;
+	RevokeOtherEfuseConfig->DmeRevoke3 = DmeFips & XOCP_EFUSE_DME_REVOKE_3_MASK;
+
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)RevokeOtherEfuseConfig->OffChipRevocationId,
+                        (u64)(UINTPTR)XOCP_EFUSE_OFFCHIP_ID_0_START_OFFSET,
+			XOCP_EFUSE_REVOCATION_ID_NUM_OF_BYTES);
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function reads miscellaneous eFuse configuration those are
+ * 		UdsWrLk, HwTstBitsDis, PufDis, PmcScEn, SysmonTempMonEn and DmeMode.
+ *
+ * @param 	MiscConfig Pointer to XOcp_MiscEfuseConfig
+ *
+*****************************************************************************/
+static void XOcp_ReadMiscConfig(XOcp_MiscEfuseConfig* MiscConfig)
+{
+	u32 SecureCtrl = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_CONTROL);
+
+	MiscConfig->UdsWrLk = SecureCtrl & XOCP_EFUSE_UDS_WR_LK_MASK;
+	MiscConfig->HwTstBitsDis = SecureCtrl & XOCP_EFUSE_HWTST_BIT_DIS_MASK;
+	MiscConfig->PufDis = SecureCtrl & XOCP_EFUSE_PUF_DIS_MASK;
+	MiscConfig->PmcScEn = SecureCtrl & XOCP_EFUSE_PMC_SC_EN_MASK;
+	MiscConfig->SysmonTempMonEn = Xil_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_1) &
+					XOCP_EFUSE_SYSMON_TEMP_MON_EN_MASK;
+	MiscConfig->DmeMode = Xil_In32(XOCP_EFUSE_CACHE_DME_FIPS) &
+					XOCP_EFUSE_DME_MODE_MASK;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function compares secure efuse configuration with previous configuration
  *          and updates the configuration state
  *
@@ -1933,6 +2209,196 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function compares Ppk configuration with previous configuration
+ *		and updates the configuration state
+ *
+ * @param	MeasurePpkConfig	Flag to indicate ppk configuration measurement
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+*****************************************************************************/
+static int XOcp_CheckAndUpdatePpkConfigState(u32 *MeasurePpkConfig)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
+	XOcp_PpkEfuseConfig PpkConfig;
+
+	Status = Xil_SMemCpy((void*)(UINTPTR)&PpkConfig, sizeof(XOcp_PpkEfuseConfig),
+			(void*)(UINTPTR)&PpkEfuseConfig, sizeof(XOcp_PpkEfuseConfig),
+			sizeof(XOcp_PpkEfuseConfig));
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_MEMCPY;
+		goto END;
+	}
+
+	Status = XOcp_ReadPpkConfig(&PpkEfuseConfig);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_READ_PPK_CONFIG;
+                goto END;
+        }
+
+	XSECURE_TEMPORAL_IMPL(Status, SStatus, Xil_SMemCmp, (void*)(UINTPTR)&PpkConfig,
+			sizeof(XOcp_PpkEfuseConfig), (void*)(UINTPTR)&PpkEfuseConfig,
+			sizeof(XOcp_PpkEfuseConfig), sizeof(XOcp_PpkEfuseConfig));
+	if ((Status == XST_SUCCESS) && (SStatus == XST_SUCCESS)) {
+		*MeasurePpkConfig = FALSE;
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function compares SPK revoke configuration with previous
+ * 		configuration and updates the configuration state.
+ *
+ * @param	MeasureSpkRevokeConfig	Flag to indicate SpkRevoke configuration
+ * 					measurement.
+ *
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+*****************************************************************************/
+static int XOcp_CheckAndUpdateSpkRevokeConfigState(u32 *MeasureSpkRevokeConfig)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
+	XOcp_RevocationSpkEfuseConfig SpkRevokeConfig;
+
+	Status = Xil_SMemCpy((void*)(UINTPTR)&SpkRevokeConfig,
+			sizeof(XOcp_RevocationSpkEfuseConfig),
+			(void*)(UINTPTR)&RevocationSpkEfuseConfig,
+			sizeof(XOcp_RevocationSpkEfuseConfig),
+			sizeof(XOcp_RevocationSpkEfuseConfig));
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_MEMCPY;
+		goto END;
+	}
+
+	Status = XOcp_ReadRevocationSpkConfig(&RevocationSpkEfuseConfig);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_READ_SPK_REVOKE_CONFIG;
+                goto END;
+        }
+
+	XSECURE_TEMPORAL_IMPL(Status, SStatus, Xil_SMemCmp,
+			(void*)(UINTPTR)&SpkRevokeConfig,
+			sizeof(XOcp_RevocationSpkEfuseConfig),
+			(void*)(UINTPTR)&RevocationSpkEfuseConfig,
+			sizeof(XOcp_RevocationSpkEfuseConfig),
+			sizeof(XOcp_RevocationSpkEfuseConfig));
+
+	if ((Status == XST_SUCCESS) && (SStatus == XST_SUCCESS)) {
+		*MeasureSpkRevokeConfig = FALSE;
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function compares offchip revocation configuration with
+ * 		previous configuration and updates the configuration state.
+ *
+ * @param	MeasureOtherRevokeConfig	Flag to indicate Other revoke
+ *						configuration measurement.
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- Error code on failure.
+ *
+*****************************************************************************/
+static int XOcp_CheckAndUpdateOtherRevokeConfigState(u32 *MeasureOtherRevokeConfig)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
+	XOcp_RevocationOtherEfuseConfig OtherRevokeConfig;
+
+	Status = Xil_SMemCpy((void*)(UINTPTR)&OtherRevokeConfig,
+			sizeof(XOcp_RevocationOtherEfuseConfig),
+			(void*)(UINTPTR)&RevocationOtherEfuseConfig,
+			sizeof(XOcp_RevocationOtherEfuseConfig),
+			sizeof(XOcp_RevocationOtherEfuseConfig));
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_MEMCPY;
+		goto END;
+	}
+
+	Status = XOcp_ReadRevocationOtherConfig(&RevocationOtherEfuseConfig);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_READ_OTHER_REVOKE_CONFIG;
+		goto END;
+	}
+
+	XSECURE_TEMPORAL_IMPL(Status, SStatus, Xil_SMemCmp,
+			(void*)(UINTPTR)&OtherRevokeConfig,
+			sizeof(XOcp_RevocationOtherEfuseConfig),
+			(void*)(UINTPTR)&RevocationOtherEfuseConfig,
+			sizeof(XOcp_RevocationOtherEfuseConfig),
+			sizeof(XOcp_RevocationOtherEfuseConfig));
+
+	if ((Status == XST_SUCCESS) && (SStatus == XST_SUCCESS)) {
+		*MeasureOtherRevokeConfig = FALSE;
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function compares miscellaneous configuration with previous
+ * 		configuration and updates the configuration state.
+ *
+ * @param	MeasureMiscConfig	Flag to indicate misc configuration
+ * 					measurement
+ * @return
+ * 		- XST_SUCCESS on success.
+ * 		- XST_FAILURE on failure.
+ *
+*****************************************************************************/
+static int XOcp_CheckAndUpdateMiscConfigState(u32 *MeasureMiscConfig)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
+	XOcp_MiscEfuseConfig MiscConfig;
+
+	Status = Xil_SMemCpy((void*)(UINTPTR)&MiscConfig,
+			sizeof(XOcp_MiscEfuseConfig),
+			(void*)(UINTPTR)&MiscEfuseConfig,
+			sizeof(XOcp_MiscEfuseConfig),
+			sizeof(XOcp_MiscEfuseConfig));
+	if (Status != XST_SUCCESS) {
+		Status = (int)XOCP_ERR_IN_MEMCPY;
+		goto END;
+	}
+
+	XOcp_ReadMiscConfig(&MiscEfuseConfig);
+
+	XSECURE_TEMPORAL_IMPL(Status, SStatus, Xil_SMemCmp,
+			(void*)(UINTPTR)&MiscConfig,
+			sizeof(XOcp_MiscEfuseConfig),
+			(void*)(UINTPTR)&MiscEfuseConfig,
+			sizeof(XOcp_MiscEfuseConfig),
+			sizeof(XOcp_MiscEfuseConfig));
+
+	if ((Status == XST_SUCCESS) && (SStatus == XST_SUCCESS)) {
+		*MeasureMiscConfig = FALSE;
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
 /*****************************************************************************/
 /**
  * @brief	This function calculates the hash of secure efuse and tap configuration
