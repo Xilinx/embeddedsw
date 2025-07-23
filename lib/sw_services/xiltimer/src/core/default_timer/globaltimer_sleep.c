@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -24,6 +24,7 @@
  * 1.1	 adk  08/08/22 Added support for versal net.
  *  	 adk  08/08/22 Added doxygen tags.
  * 2.0   adk  04/07/24 Update the checks for A53 32-bit configuration.
+ * 2.3   ml   18/07/25 Added one time init for XGlobalTimer_Start
  *</pre>
  *
  *@note
@@ -51,10 +52,11 @@
 #define XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK	0x00000001U
 
 /************************** Function Prototypes ******************************/
-static void XGlobalTimer_Start(XTimer *InstancePtr);
+static void XGlobalTimer_Start(void);
 static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
 					XTimer_DelayType DelayType);
 
+static u8 IsSleepTimerStarted = FALSE;
 #if defined(ARMA53_32)
 static inline u64 arch_counter_get_cntvct(void)
  {
@@ -94,9 +96,8 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
  * @return	None
  */
 /****************************************************************************/
-static void XGlobalTimer_Start(XTimer *InstancePtr)
+static void XGlobalTimer_Start(void)
 {
-	(void) InstancePtr;
 #ifndef SDT
 #if defined(VERSAL_NET)
 	u32 TimerStampFreq = XPAR_CPU_CORTEXA78_0_TIMESTAMP_CLK_FREQ;
@@ -152,10 +153,9 @@ static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
         u32 TimerStampFreq = XGet_TimeStampFreq();
 #endif
         u32 iterpersec = TimerStampFreq;
-	static u8 IsSleepTimerStarted = FALSE;
 
 	if (FALSE == IsSleepTimerStarted) {
-		XGlobalTimer_Start(InstancePtr);
+		XGlobalTimer_Start();
 		IsSleepTimerStarted = TRUE;
 	}
 #if defined(ARMA53_32)
@@ -188,6 +188,10 @@ static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
  ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
 {
+	if (FALSE == IsSleepTimerStarted) {
+		XGlobalTimer_Start();
+		IsSleepTimerStarted = TRUE;
+	}
 #if defined(ARMA53_32)
 	*Xtime_Global = arch_counter_get_cntvct();
 #else
