@@ -317,7 +317,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 	 * Once complete Syndrome data is captured and PUF operation is done,
 	 * read CHash, Auxiliary data and PUF ID.
 	 */
-	if (Idx == XPUF_4K_PUF_SYN_LEN_IN_WORDS &&
+	if ((Idx == XPUF_4K_PUF_SYN_LEN_IN_WORDS) &&
 	    ((PufStatus & XPUF_STATUS_KEY_RDY) == XPUF_STATUS_KEY_RDY)) {
 		/** Check for overflow and return XPUF_ERROR_PUF_OVERFLOW incase of error */
 		if ((PufStatus & XPUF_OV_MASK_VALUE) != 0U) {
