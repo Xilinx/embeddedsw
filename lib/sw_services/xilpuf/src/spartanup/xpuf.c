@@ -55,7 +55,7 @@
 
 #define XPUF_PMC_GLOBAL_PUF_KEY_CAPTURE		(1U << 2U)	/**< PUF key capture mask */
 
-#define XPUF_PMC_GLOBAL_PUF_ID_CAPTURE		(1 << 1U)	/**< PUF ID capture mask */
+#define XPUF_PMC_GLOBAL_PUF_ID_CAPTURE		(1U << 1U)	/**< PUF ID capture mask */
 
 #define XPUF_KEY_GEN_ITERATIONS			6U
 		/**< PUF maximum key generation iterations to obtain PUF iterative convergence */
@@ -451,7 +451,7 @@ static int XPuf_GeneratePufKey(XPuf_Data *PufData)
 	u32 Index;
 	u32 SyndromeIndex = 0U;
 	volatile u32 VarPufStatus = 0U;
-	volatile u32 Status = (u32)XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	const u32 *SynData;
 	u32 SynDataTmp;
 	u32 SynDataSize;
