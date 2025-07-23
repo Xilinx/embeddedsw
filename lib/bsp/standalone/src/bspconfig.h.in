@@ -24,6 +24,7 @@
 #cmakedefine SPARTANUP @SPARTANUP@
 #cmakedefine PSU_PMU @PSU_PMU@
 #cmakedefine PLATFORM_ZYNQMP @PLATFORM_ZYNQMP@
+#cmakedefine XCLOCKING @XCLOCKING@
 #cmakedefine PLATFORM_ZYNQ @PLATFORM_ZYNQ@
 #cmakedefine VERSAL_PLM @VERSAL_PLM@
 #cmakedefine VERSALNET_PLM @VERSALNET_PLM@
