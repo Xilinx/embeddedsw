@@ -126,8 +126,8 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 
 	/** Calculate padding length. */
 	PadLen = (XASUFW_BYTE_LEN_IN_BITS *
-		((u32)Xil_Ceil(((float)(KeyWrapParamsPtr->InputDataLen) / (float)XASUFW_BYTE_LEN_IN_BITS))))
-		- KeyWrapParamsPtr->InputDataLen;
+		((KeyWrapParamsPtr->InputDataLen + XASUFW_BYTE_LEN_IN_BITS - XASUFW_VALUE_ONE)
+		/ XASUFW_BYTE_LEN_IN_BITS)) - KeyWrapParamsPtr->InputDataLen;
 
 	OutDataLen = KeyWrapParamsPtr->InputDataLen + PadLen + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES;
 
@@ -394,8 +394,8 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 
 	/** Calculate padding length. */
 	PadLen = (XASUFW_BYTE_LEN_IN_BITS *
-		((u32)Xil_Ceil(((float)(KeyWrapParamsPtr->InputDataLen) / (float)XASUFW_BYTE_LEN_IN_BITS))))
-		- KeyWrapParamsPtr->InputDataLen;
+		((KeyWrapParamsPtr->InputDataLen + XASUFW_BYTE_LEN_IN_BITS - XASUFW_VALUE_ONE)
+		/ XASUFW_BYTE_LEN_IN_BITS)) - KeyWrapParamsPtr->InputDataLen;
 
 	MaxRounds = ((PadLen + KeyWrapParamsPtr->InputDataLen +
 			XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES) / XASUFW_BYTE_LEN_IN_BITS) - 1U;

@@ -1167,7 +1167,7 @@ static s32 XRsa_MaskGenFunc(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, u8 ShaMode
 	}
 
 	OutputPtr = MgfInput->Output;
-	NoOfIterations = (u32)Xil_Ceil(((float)(MgfInput->OutputLen) / (float)HashLen));
+	NoOfIterations = (MgfInput->OutputLen + HashLen - XASUFW_VALUE_ONE) / HashLen;
 
 	while (Counter < NoOfIterations) {
 		XAsufw_I2Osp(Counter, XASUFW_WORD_LEN_IN_BYTES, Bytes);
