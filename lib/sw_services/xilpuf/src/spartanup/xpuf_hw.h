@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kpt  08/21/2024 Initial release
+* 2.6   aa   07/14/2025 Removed unused macros
 *
 * </pre>
 *
@@ -98,10 +99,8 @@ extern "C" {
 /**< PUF_STATUS register definition */
 #define XPUF_STATUS_SYNDROME_WORD_RDY		((u32)0x01U << 0U)
 #define XPUF_STATUS_ID_ZERO					((u32)0x01U << 1U)
-#define XPUF_STATUS_ID_RDY					((u32)0x01U << 2U)
 #define XPUF_STATUS_KEY_RDY					((u32)0x01U << 3U)
 #define XPUF_STATUS_ZZ_MASK					((u32)0x01U << 1U)
-#define XPUF_STATUS_PUF_DONE				((u32)0x01U << 30U)
 #define XPUF_STATUS_SEG_RDY					((u32)0x01U << 2U)
 /** @} */
 

@@ -18,6 +18,7 @@
 * 1.0   kpt  08/23/2024 Initial release
 * 2.6   mb   07/04/2025 Updated XPuf_Data doxygen comments
 *       mb   07/08/2025 Update PUF shutter value
+*       aa   07/14/2025 Removed unused macros
 *
 * </pre>
 *
@@ -73,8 +74,6 @@ extern "C" {
 		/**< Error due to invalid parameter */
 #define XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT		(0x04)
 		/**< Error due to timeout while waiting for syndrome data to be generated */
-#define XPUF_ERROR_SYNDROME_SEG_WAIT_TIMEOUT		(0x05)
-		/**< Error due to timeout while waiting for syndrome segment ready */
 
 #define XPUF_ERROR_KEY_NOT_CONVERGED			(0x06)
 		/**< Error when iterative convergence not done */
