@@ -45,7 +45,7 @@
 * 3.18 gm     07/25/23 Invoke XTtcPs_Release to release ttc node.
 * 3.18 ml     03/06/24 Added support for system device-tree flow.
 * 3.21 ml     02/05/25 Fixed compilation warnings and errors
-*
+* 3.22 ml     07/24/25 Fixed ARMCC compilation error
 *</pre>
 ******************************************************************************/
 
@@ -757,8 +757,8 @@ static void TickHandler(void *CallBackRef, u32 StatusEvent)
 *****************************************************************************/
 static void PWMHandler(void *CallBackRef, u32 StatusEvent)
 {
-	(void)CallBackRef;
 	XTtcPs *Timer;
+	(void)CallBackRef;
 
 #ifndef SDT
 	Timer = &(TtcPsInst[TTC_PWM_DEVICE_ID]);
