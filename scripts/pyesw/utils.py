@@ -490,7 +490,7 @@ def get_rel_path(curr_path, ref_path):
     Returns:
         string: the relative path between ref_path and curr_path
     """
-    return os.path.relpath(curr_path, ref_path)
+    return os.path.relpath(curr_path, ref_path).replace("\\", "/")
 
 
 def find_file(search_file: str, search_path: str):

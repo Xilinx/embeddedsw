@@ -33,7 +33,7 @@ class BSP:
         )
         domain_data = utils.fetch_yaml_data(self.domain_config_file, "domain")
 
-        self.sdt = os.path.join(self.domain_path, domain_data["sdt"])
+        self.sdt = os.path.join(self.domain_path, domain_data["sdt"]).replace("\\", "/")
         self.proc = domain_data["proc"]
         self.os = domain_data["os"]
         self.include_folder = os.path.join(
