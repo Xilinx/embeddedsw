@@ -618,9 +618,11 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 	SwPcr->Data[DigestIdxInLog].IsReqExtended = TRUE;
 	SwPcr->CountPerPcr[PcrNum] += 1U ;
 
-	/* Send Notification to the subscriber about the log update */
-	XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
+	if (XPlmi_IsLoadBootPdiDone() == TRUE) {
+		/** Send Notification to the subscriber about the log update */
+		XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
 			        XIL_EVENT_ERROR_PCR_LOG_UPDATE);
+	}
 END:
 	return Status;
 }
@@ -1899,10 +1901,11 @@ static int XOcp_UpdateHwPcrLog(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
 	HwPcrLog->LogInfo.TotalHwPcrLogEvents++;
 	XOcp_UpdateHwPcrIndex(&HwPcrLog->HeadIndex, 1U);
 
-	/* Send Notification to the subscriber about the log update */
-	XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
-			XIL_EVENT_ERROR_PCR_LOG_UPDATE);
-
+	if (XPlmi_IsLoadBootPdiDone() == TRUE) {
+		/** Send Notification to the subscriber about the log update */
+		XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
+				XIL_EVENT_ERROR_PCR_LOG_UPDATE);
+	}
 END:
 	return Status;
 }
