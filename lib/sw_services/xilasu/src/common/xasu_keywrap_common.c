@@ -58,7 +58,7 @@
  *************************************************************************************************/
 s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParamsPtr)
 {
-	s32 Status = XST_FAILURE;
+	volatile s32 Status = XST_FAILURE;
 
 	if (KwpunwpParamsPtr == NULL) {
 		goto END;

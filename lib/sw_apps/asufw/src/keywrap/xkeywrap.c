@@ -501,14 +501,25 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 				 * - Copy AES output data of length eight bytes in terms of two words to AES input
 				 * data for next iteration.
 				 */
-				Xil_MemCpy(AesInData, AesOutData, XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
+				ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+				Status = Xil_SMemCpy(AesInData, XASU_AES_BLOCK_SIZE_IN_BYTES, AesOutData, XASU_AES_BLOCK_SIZE_IN_BYTES,
+						XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
+				if (Status != XASUFW_SUCCESS) {
+					Status = XASUFW_MEM_COPY_FAIL;
+					goto END_CLR;
+				}
 				/**
 				 * - Copy AES output data of length eight bytes in terms of two words to output
 				 * data.
 				 */
-				Xil_MemCpy(OutData + (XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES * BlkRoundNum),
-						AesOutData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES,
+				ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+				Status = Xil_SMemCpy(OutData + (XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES * BlkRoundNum), XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES,
+						AesOutData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES, XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES,
 						XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
+				if (Status != XASUFW_SUCCESS) {
+					Status = XASUFW_MEM_COPY_FAIL;
+					goto END_CLR;
+				}
 			}
 		}
 		CopyLen = XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES;
@@ -517,6 +528,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 		Status = XAes_Compute(AesInstancePtr, AsuDmaPtr, &AesParams);
 		if (Status != XASUFW_SUCCESS) {
 			Status =  XASUFW_KEYWRAP_AES_DATA_CALC_FAIL;
+			goto END_CLR;
 		}
 		CopyLen = XASU_AES_BLOCK_SIZE_IN_BYTES;
 	}
@@ -672,14 +684,25 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 				 * - Copy AES output data of length eight bytes in terms of two words
 				 * to AES input data for next iteration.
 				 */
-				Xil_MemCpy(AesInData, AesOutData, XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
+				ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+				Status = Xil_SMemCpy(AesInData, XASU_AES_BLOCK_SIZE_IN_BYTES, AesOutData, XASU_AES_BLOCK_SIZE_IN_BYTES,
+							XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
+				if (Status != XASUFW_SUCCESS) {
+					Status = XASUFW_MEM_COPY_FAIL;
+					goto END_CLR;
+				}
 				/**
 				 * - Copy AES output data of length eight bytes in terms of two words
 				 * to output data.
 				 */
-				Xil_MemCpy(OutData + (XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES * BlkRoundNum),
-						AesOutData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES,
+				ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+				Status = Xil_SMemCpy(OutData + (XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES * BlkRoundNum), XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES,
+						AesOutData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES, XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES,
 						XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
+				if (Status != XASUFW_SUCCESS) {
+					Status = XASUFW_MEM_COPY_FAIL;
+					goto END_CLR;
+				}
 			}
 
 		}
