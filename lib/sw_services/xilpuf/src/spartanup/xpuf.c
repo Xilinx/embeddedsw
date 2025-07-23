@@ -18,6 +18,7 @@
 * 1.0   kpt  08/21/2024 Initial release
 * 1.1   mb   04/30/2025 Fix PUF_REGEN_ON_DEMAND failure.
 * 2.6   mb   06/25/2025 Updated doxygen comments
+*       aa   07/14/2025 Fixed MISRA-C violations
 *
 * </pre>
 *
@@ -451,12 +452,12 @@ static int XPuf_GeneratePufKey(XPuf_Data *PufData)
 	u32 SyndromeIndex = 0U;
 	volatile u32 VarPufStatus = 0U;
 	volatile u32 Status = (u32)XST_FAILURE;
-	u32 *SynData;
+	const u32 *SynData;
 	u32 SynDataTmp;
 	u32 SynDataSize;
 
 	SynDataSize = XPUF_4K_PUF_SYN_LEN_IN_WORDS;
-	SynData = (u32 *)(UINTPTR)PufData->SyndromeAddr;
+	SynData = (const u32 *)(UINTPTR)PufData->SyndromeAddr;
 
 	for (Index = 0U; Index < XPUF_KEY_GEN_ITERATIONS; Index++) {
 		SyndromeIndex = 0U;
