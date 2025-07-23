@@ -21,7 +21,8 @@
  *                     XAsu_AesValidateTag() with XAsu_AesValidateTagParams() function calls
  *       am   04/03/25 Optimized engine mode check for AAD update
  *       am   04/26/25 Cleaned and simplified AAD and input data validation logic
- *       yog   07/10/25 Added support for priority based multiple request and context verification.
+ *       yog  07/10/25 Added support for priority based multiple request and context verification
+ *       kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -124,7 +125,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 
 		/** Validate AES key object structure parameters. */
 		Status = XAsu_AesValidateKeyObjectParams(
-			(const XAsu_AesKeyObject *)AesClientParamPtr->KeyObjectAddr);
+			(const XAsu_AesKeyObject *)(UINTPTR)AesClientParamPtr->KeyObjectAddr);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}

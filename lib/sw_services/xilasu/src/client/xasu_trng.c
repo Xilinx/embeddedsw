@@ -20,6 +20,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   02/03/25 Pass UniqueId as part of header in XAsu_TrngGetRandomNum API.
  *       ma   02/07/25 Added DRBG support in client
+ *       kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -58,7 +59,7 @@
  * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, const u8 *BufPtr, u32 Length)
+s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Length)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;

@@ -19,6 +19,7 @@
  * 1.0   vns  08/23/24 Initial release
  *       yog  09/26/24 Added doxygen groupings.
  * 1.1   ma   02/07/25 Added DRBG support in client
+ *       kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -48,7 +49,7 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, const u8 *RandomBuf, u32 Length);
+s32 XAsu_TrngGetRandomNum(XAsu_ClientParams *ClientParamPtr, u8 *BufPtr, u32 Length);
 s32 XAsu_TrngKat(XAsu_ClientParams *ClientParamPtr);
 
 #ifdef XASU_TRNG_ENABLE_DRBG_MODE

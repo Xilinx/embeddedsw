@@ -20,7 +20,8 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       am   10/22/24 Fixed validation of hash buffer size.
  * 1.1   ma   12/12/24 Updated hash buffer address to the response buffer of the callback function
- *       lp   07/10/25 Added support for priority based multiple request and context verification.
+ *       lp   07/10/25 Added support for priority based multiple request and context verification
+ *       kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -199,7 +200,7 @@ s32 XAsu_Sha2Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 
 	/** If FINISH operation flag is set, update response buffer details. */
 	if ((ShaClientParamPtr->OperationFlags & XASU_SHA_FINISH) == XASU_SHA_FINISH) {
-		XAsu_UpdateCallBackDetails(UniqueId, (u8 *)ShaClientParamPtr->HashAddr,
+		XAsu_UpdateCallBackDetails(UniqueId, (u8 *)(UINTPTR)ShaClientParamPtr->HashAddr,
 			ShaClientParamPtr->HashBufSize, XASU_TRUE);
 		if (ClientParamPtr->ClientCtx == P0Sha2Ctx) {
 			P0Sha2Ctx = NULL;

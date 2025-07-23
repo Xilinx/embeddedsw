@@ -17,7 +17,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   yog  01/02/25 Initial release
- *       yog   07/10/25 Added support for priority based multiple request and context verification.
+ *       yog  07/10/25 Added support for priority based multiple request and context verification
+ * 1.1   kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -154,7 +155,7 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 
 	/** If FINISH operation flag is set, update response buffer details. */
 	if ((HmacParamsPtr->OperationFlags & XASU_HMAC_FINAL) == XASU_HMAC_FINAL) {
-		XAsu_UpdateCallBackDetails(UniqueId, (u8 *)HmacParamsPtr->HmacAddr,
+		XAsu_UpdateCallBackDetails(UniqueId, (u8 *)(UINTPTR)HmacParamsPtr->HmacAddr,
 			HmacParamsPtr->HmacLen, XASU_TRUE);
 		if (ClientParamsPtr->ClientCtx == P0HmacCtx) {
 			P0HmacCtx = NULL;

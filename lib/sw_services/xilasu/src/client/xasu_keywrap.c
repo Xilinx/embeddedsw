@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   ss   02/24/25 Initial release
+ * 1.1   kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -88,7 +89,7 @@ s32 XAsu_KeyWrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyWrap
 
 	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr,
-						(u8 *)KeyWrapParamsPtr->ActualOutuputDataLenAddr,
+						(u8 *)(UINTPTR)KeyWrapParamsPtr->ActualOutuputDataLenAddr,
 						XASU_KEYWRAP_OUTPUT_LEN_SIZE_IN_BYTES, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
@@ -154,7 +155,7 @@ s32 XAsu_KeyUnwrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyUn
 
 	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr,
-						(u8 *)KeyUnwrapParamsPtr->ActualOutuputDataLenAddr,
+						(u8 *)(UINTPTR)KeyUnwrapParamsPtr->ActualOutuputDataLenAddr,
 						XASU_KEYWRAP_OUTPUT_LEN_SIZE_IN_BYTES, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;

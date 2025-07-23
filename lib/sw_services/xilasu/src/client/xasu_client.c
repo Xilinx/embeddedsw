@@ -28,6 +28,7 @@
  *       ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
  *       am   03/05/25 Added performance measurement init call
  *       ma   03/14/25 Replace memcpy with Xil_SecureMemCpy to avoid arch dependencies during copy
+ *       kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -307,8 +308,8 @@ END:
  * 			- XASU_UNIQUE_ID_MAX, if unique ID is unavailable.
  *
  *************************************************************************************************/
-u8 XAsu_RegCallBackNGetUniqueId(const XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr, u32 Size,
-					u8 IsFinalCall)
+u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr, u32 Size,
+	u8 IsFinalCall)
 {
 	/** Generate unique ID for the request.*/
 	u8 UniqueId = XAsu_GenerateUniqueId();

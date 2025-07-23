@@ -21,6 +21,7 @@
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  *       vns  09/30/24 Added support for asynchronous communication
  *       am   03/05/25 Added include for performance measurement header
+ * 1.1   kd   07/23/25 Fixed gcc warnings
  *
  * </pre>
  *
@@ -122,9 +123,9 @@ inline u32 XAsu_CreateHeader(u8 CmdId, u8 UniqueId, u8 ModuleId, u8 CommandLen)
 s32 XAsu_ClientInit(XMailbox *MailboxInstancePtr);
 s32 XAsu_ValidateClientParameters(XAsu_ClientParams *ClientParamPtr);
 s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuffer,
-				   u32 Size, u32 Header);
-u8 XAsu_RegCallBackNGetUniqueId(const XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr,
-					u32 Size, u8 IsFinalCall);
+	u32 Size, u32 Header);
+u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr,
+	u32 Size, u8 IsFinalCall);
 void XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsFinalCall);
 void *XAsu_UpdateNGetCtx(u8 UniqueId);
 s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId);
