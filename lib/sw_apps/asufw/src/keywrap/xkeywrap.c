@@ -374,6 +374,7 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 	u8 *AesOutData = AesInData + XASU_AES_BLOCK_SIZE_IN_BYTES;
 	u32 RoundNum = 0U;
 	u32 BlkRoundNum = 0U;
+	u32 CopyLen = 0U;
 	u32 *AesInDataSemiBlockPtr = (u32 *)(AesInData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
 	XAsu_AesParams AesParams;
 	XAsu_AesKeyObject AesKeyObj;
@@ -510,18 +511,20 @@ static s32 XKeywrap_WrapOp(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAes *Aes
 						XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
 			}
 		}
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SMemCpy(OutData, XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES, AesOutData,
-			XASU_AES_BLOCK_SIZE_IN_BYTES, XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_MEM_COPY_FAIL;
-		}
+		CopyLen = XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES;
 	} else {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAes_Compute(AesInstancePtr, AsuDmaPtr, &AesParams);
 		if (Status != XASUFW_SUCCESS) {
 			Status =  XASUFW_KEYWRAP_AES_DATA_CALC_FAIL;
 		}
+		CopyLen = XASU_AES_BLOCK_SIZE_IN_BYTES;
+	}
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(OutData, XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES, AesOutData,
+		XASU_AES_BLOCK_SIZE_IN_BYTES, CopyLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_MEM_COPY_FAIL;
 	}
 
 END_CLR:
@@ -569,6 +572,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 	s32 RoundNum = 0;
 	u32 BlkRoundNum = 0U;
 	u32 PadLen = 0U;
+	u32 CopyLen = 0U;
 	volatile u32 Index = 0U;
 	u32 *AesInDataSemiBlockPtr = (u32 *)(AesInData + XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
 	XAsu_AesParams AesParams;
@@ -630,7 +634,8 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 	}
 
 	/** Perform AES unwrap operation. */
-	if (KeyUnwrapParamsPtr->InputDataLen > XASU_AES_BLOCK_SIZE_IN_BYTES) {
+	if ((KeyUnwrapParamsPtr->InputDataLen - KeyUnwrapParamsPtr->RsaKeySize -
+		XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES) > XASU_AES_BLOCK_SIZE_IN_BYTES) {
 		for(RoundNum = (s32)XASUFW_KEYWRAP_MAX_AES_ROUNDS; RoundNum >= 0; RoundNum--) {
 			for(BlkRoundNum = MaxRounds; BlkRoundNum >= XASUFW_KEYWRAP_BLOCK_ROUND_INDEX;
 				BlkRoundNum--) {
@@ -678,13 +683,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 			}
 
 		}
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = Xil_SMemCpy(OutData, XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES, AesOutData,
-			XASU_AES_BLOCK_SIZE_IN_BYTES, XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_MEM_COPY_FAIL;
-			goto END_CLR;
-		}
+		CopyLen = XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES;
 	} else {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAes_Compute(AesInstancePtr, AsuDmaPtr, &AesParams);
@@ -692,6 +691,15 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 			Status =  XASUFW_KEYWRAP_AES_DATA_CALC_FAIL;
 			goto END_CLR;
 		}
+		CopyLen = XASU_AES_BLOCK_SIZE_IN_BYTES;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = Xil_SMemCpy(OutData, XASUFW_KEYWRAP_MAX_OUTPUT_SIZE_IN_BYTES, AesOutData,
+		XASU_AES_BLOCK_SIZE_IN_BYTES, CopyLen);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END_CLR;
 	}
 
 	/** Compare default integrity check value with first four bytes of output data. */
