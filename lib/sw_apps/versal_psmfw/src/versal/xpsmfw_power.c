@@ -17,6 +17,7 @@
 * Ver	Who	Date		Changes
 * ---- ---- -------- ------------------------------
 * 1.00	rp	07/13/2018 	Initial release
+* 1.01	hg	07/07/2025	Replaced assert with Xil_AssertNonvoid.
 *
 * </pre>
 *
@@ -34,7 +35,7 @@
 #include "crl.h"
 #include "crf.h"
 #include "pmc_global.h"
-#include <assert.h>
+#include "xil_assert.h"
 #define CHECK_BIT(reg, mask)	(((reg) & (mask)) == (mask)) /**< Check specific bit of register */
 
 /**
@@ -2014,9 +2015,8 @@ XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
 static XStatus ACPU0Wakeup(void)
 {
 	XStatus Status = XST_FAILURE;
-
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
+	Xil_AssertNonvoid(PsmToPlmEvent.Event[ACPU_0] == 0U);
 	/* Set the event bit for PLM */
 	PsmToPlmEvent.Event[ACPU_0] = PWR_UP_EVT;
 	Status = XPsmFw_NotifyPlmEvent();
@@ -2038,7 +2038,7 @@ static XStatus ACPU0Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_0] == 0U);
+	Xil_AssertNonvoid(PsmToPlmEvent.Event[ACPU_0] == 0U);
 	/* Set the event bit for PLM */
 	PsmToPlmEvent.Event[ACPU_0] = PWR_DWN_EVT;
 	Status = XPsmFw_NotifyPlmEvent();
@@ -2060,7 +2060,7 @@ static XStatus ACPU1Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
+	Xil_AssertNonvoid(PsmToPlmEvent.Event[ACPU_1] == 0U);
 	/* Set the event bit for PLM */
 	PsmToPlmEvent.Event[ACPU_1] = PWR_UP_EVT;
 	Status = XPsmFw_NotifyPlmEvent();
@@ -2082,7 +2082,7 @@ static XStatus ACPU1Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[ACPU_1] == 0U);
+	Xil_AssertNonvoid(PsmToPlmEvent.Event[ACPU_1] == 0U);
 	/* Set the event bit for PLM */
 	PsmToPlmEvent.Event[ACPU_1] = PWR_DWN_EVT;
 	Status = XPsmFw_NotifyPlmEvent();
@@ -2104,7 +2104,7 @@ static XStatus R50Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
+	Xil_AssertNonvoid(PsmToPlmEvent.Event[RPU0_0] == 0U);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_0]) {
 		Status = XPsmFwRPUxDirectPwrUp(&Rpu0PwrCtrl);
@@ -2135,7 +2135,7 @@ static XStatus R50Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
+	Xil_AssertNonvoid(PsmToPlmEvent.Event[RPU0_0] == 0U);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_0]) {
 		Status = XPsmFwRPUxDirectPwrDwn(&Rpu0PwrCtrl);
@@ -2166,7 +2166,7 @@ static XStatus R51Wakeup(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);
+	Xil_AssertNonvoid(PsmToPlmEvent.Event[RPU0_1] == 0U);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_1]) {
 		Status = XPsmFwRPUxDirectPwrUp(&Rpu1PwrCtrl);
@@ -2197,7 +2197,7 @@ static XStatus R51Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/* Check for any pending event */
-	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);
+	Xil_AssertNonvoid(PsmToPlmEvent.Event[RPU0_1] == 0U);
 
 	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_1]) {
 		Status = XPsmFwRPUxDirectPwrDwn(&Rpu1PwrCtrl);

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,8 @@
 * Ver	Who		Date		Changes
 * ---- ---- -------- ------------------------------
 * 1.00  ma   04/09/2018 Initial release
+* 1.01  hg   07/07/2025 Added Xil_AssertCallbackRoutine to handle
+*                       xil_assert failures with debug print.
 *
 * </pre>
 *
@@ -24,6 +26,7 @@
 *
 ******************************************************************************/
 
+#include "xil_assert.h"
 #include "xil_printf.h"
 #include "xil_io.h"
 #include "mb_interface.h"
@@ -40,6 +43,24 @@
 #endif
 #define XPAR_IOMODULE_0_DEVICE_ID 0U /**< IOMODULE 0 Device ID */
 
+/*****************************************************************************/
+/**
+ * @brief This is a function handler for xil_assert
+ *
+ * This function is called when an assertion fails. It prints the file name
+ * and line number where the assertion occurred.
+ *
+ * @param   File - Pointer to the name of the source file where the assertion failed.
+ * @param   Line - Line number in the source file where the assertion failed.
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void Xil_AssertCallbackRoutine(const char8 *File, s32 Line)
+{
+	XPsmFw_Printf(DEBUG_PRINT_ALWAYS, "Assertion in File %s, on line %u\r\n", File, Line);
+}
+
 /****************************************************************************/
 /**
  * @brief	Main function. This is the entry point of the program.
@@ -51,6 +72,9 @@
 int main(void)
 {
 	XStatus Status = XST_FAILURE;
+
+	/* Register Assert call back handler*/
+	Xil_AssertSetCallback((Xil_AssertCallback) Xil_AssertCallbackRoutine);
 
 #ifdef VERSAL_NET
 	if (XPsmFw_GetUpdateState() == PSM_UPDATE_STATE_LOAD_ELF_DONE) {
