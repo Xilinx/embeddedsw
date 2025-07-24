@@ -175,7 +175,7 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 			   u64 PubKeyAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihEcc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u32 CurveSize = 0U;
 	u8 PrivKey[XASU_ECC_P521_SIZE_IN_BYTES];
@@ -225,7 +225,7 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 
 	/** Generate public key with provided private key and curve type. */
 	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Ecdsa_GeneratePublicKey,
-					   XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, XFihVar, Status, END_CLR,
+					   XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, XFihEcc, Status, END_CLR,
 					   Crv, PrivKey, (EcdsaKey *)&Key);
 	/**
 	 * Change endianness of the generated public key and copy it to destination address
@@ -255,16 +255,16 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	}
 
 	/** Validate the public key generated from the private key. */
-	XFIH_CALL_GOTO(XRsa_EccValidatePubKey, XFihVar, Status, END_CLR, DmaPtr, CurveType,
+	XFIH_CALL_GOTO(XRsa_EccValidatePubKey, XFihEcc, Status, END_CLR, DmaPtr, CurveType,
 			CurveLen, PubKeyAddr);
 
 	/** Perform pair wise consistency test using the key pair. */
-	XFIH_CALL(XRsa_EccPwct, XFihVar, Status, DmaPtr, CurveType, CurveLen, PrivKeyAddr,
+	XFIH_CALL(XRsa_EccPwct, XFihEcc, Status, DmaPtr, CurveType, CurveLen, PrivKeyAddr,
 		PubKeyAddr);
 
 END_CLR:
 	/** Zeroize local buffers. */
-	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PrivKey,
+	XFIH_CALL(Xil_SecureZeroize, XFihEcc, ClearStatus, (u8 *)(UINTPTR)PrivKey,
 					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
@@ -305,7 +305,7 @@ END:
 s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PubKeyAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihEcc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	u32 CurveSize = 0U;
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u8 PubKey[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
@@ -360,7 +360,7 @@ s32 XRsa_EccValidatePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	XAsufw_CryptoCoreReleaseReset(XRSA_BASEADDRESS, XRSA_RESET_OFFSET);
 
 	/** Validate public key with provided public key and curve type. */
-	XFIH_CALL(Ecdsa_ValidateKey, XFihVar, Status, Crv, (EcdsaKey *)&Key);
+	XFIH_CALL(Ecdsa_ValidateKey, XFihEcc, Status, Crv, (EcdsaKey *)&Key);
 	if (Status == XRSA_ECC_KEY_ZERO) {
 		Status = XASUFW_RSA_ECC_PUBLIC_KEY_ZERO;
 	} else if (Status == XRSA_ECC_KEY_WRONG_ORDER) {
@@ -426,7 +426,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	XASUFW_MEASURE_PERF_START();
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihEcc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u32 CurveSize = 0U;
 	u8 PrivKey[XASU_ECC_P521_SIZE_IN_BYTES];
@@ -520,7 +520,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		 * For curves other than Edward curves,
 		 * generate signature with provided inputs and curve type.
 		 */
-		XFIH_CALL(Ecdsa_GenerateSign, XFihVar, Status, Crv, Hash, Crv->Bits, PrivKey, EphemeralKey,
+		XFIH_CALL(Ecdsa_GenerateSign, XFihEcc, Status, Crv, Hash, Crv->Bits, PrivKey, EphemeralKey,
 		  (EcdsaSign *)&Sign);
 	} else {
 		/**
@@ -531,11 +531,11 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		Key.Qy = (u8 *)(UINTPTR)(PubKey + CurveLen);
 
 		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Ecdsa_GeneratePublicKey,
-				XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, XFihVar, Status, END_CLR,
+				XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, XFihEcc, Status, END_CLR,
 				Crv, PrivKey, (EcdsaKey *)&Key);
 
 		/** Generate signature with provided inputs. */
-		XFIH_CALL(Ecdsa_GenerateEdSign, XFihVar, Status, Crv, (u8*)(UINTPTR)HashAddr,
+		XFIH_CALL(Ecdsa_GenerateEdSign, XFihEcc, Status, Crv, (u8*)(UINTPTR)HashAddr,
 		 (HashBufLen * XASUFW_BYTE_LEN_IN_BITS), (u8*)(UINTPTR)PrivKeyAddr, (EcdsaKey *)&Key,
 		 (EcdsaSign *)&Sign);
 	}
@@ -582,7 +582,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 
 END_CLR:
 	/** Zeroize local buffers. */
-	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)(UINTPTR)PrivKey,
+	XFIH_CALL(Xil_SecureZeroize, XFihEcc, ClearStatus, (u8 *)(UINTPTR)PrivKey,
 					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
@@ -647,7 +647,7 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	XASUFW_MEASURE_PERF_START();
 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	XFih_Var XFihEcc = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	u32 CurveSize = 0U;
 	u8 PubKey[XASU_ECC_P521_SIZE_IN_BYTES + XASU_ECC_P521_SIZE_IN_BYTES];
@@ -750,10 +750,10 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 
 	/** Verify the signature with provided inputs and curve type. */
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
-		XFIH_CALL(Ecdsa_VerifySign, XFihVar, Status, Crv, Hash, Crv->Bits,
+		XFIH_CALL(Ecdsa_VerifySign, XFihEcc, Status, Crv, Hash, Crv->Bits,
 			 (EcdsaKey *)&Key, (EcdsaSign *)&Sign);
 	} else {
-		XFIH_CALL(Ecdsa_VerifySign, XFihVar, Status, Crv, (u8*)(UINTPTR)HashAddr,
+		XFIH_CALL(Ecdsa_VerifySign, XFihEcc, Status, Crv, (u8*)(UINTPTR)HashAddr,
 			 (HashBufLen * XASUFW_BYTE_LEN_IN_BITS), (EcdsaKey *)&Key,
 			 (EcdsaSign *)&Sign);
 	}
