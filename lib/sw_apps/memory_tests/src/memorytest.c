@@ -30,10 +30,8 @@ void putnum(unsigned int num);
 s32 test_memory_range(struct memory_range_s *range)
 {
 	XStatus status;
-	u64 itr, cnt;
+	u64 num_words, cnt;
 	UINTPTR base;
-	itr = range->size / 4096;
-
 
 	/* This application uses print statements instead of xil_printf/printf
 	 * to reduce the text size.
@@ -77,12 +75,14 @@ s32 test_memory_range(struct memory_range_s *range)
 		xil_printf("                 Size: 0x%llx bytes \n\r", range->size);
 	}
 #endif
+#ifdef XIL_ENABLE_MEMTEST_4KB_CHUNK
+	num_words = range->size / 4096;
 
 	/*
 	* This for loop covers whole memory range for given memory
 	* in 4 KB chunks
 	*/
-	for (base = range->base, cnt = 0; cnt < itr; cnt++, base += 0x1000) {
+	for (base = range->base, cnt = 0; cnt < num_words; cnt++, base += 0x1000) {
 #if defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)
 		status = Xil_TestMem32((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), 1024, 0xAAAA5555,
 				       XIL_TESTMEM_ALLMEMTESTS);
@@ -119,6 +119,51 @@ s32 test_memory_range(struct memory_range_s *range)
 #endif
 #endif
 	}
+#else
+	 /*
+        * This test covers whole memory range for given memory
+        * at once
+        */
+	 num_words = range->size / 4;
+	 base = range->base;
+#if defined(__MICROBLAZE__) && !defined(__arch64__) && (XPAR_MICROBLAZE_ADDR_SIZE > 32)
+                status = Xil_TestMem32((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), num_words, 0xAAAA5555,
+                                       XIL_TESTMEM_ALLMEMTESTS);
+                if (status != XST_SUCCESS) {
+                        return XST_FAILURE;
+                }
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
+                status = Xil_TestMem16((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), (num_words * 2), 0xAA55,
+                                       XIL_TESTMEM_ALLMEMTESTS);
+                if (status != XST_SUCCESS) {
+                        return XST_FAILURE;
+                }
+                status = Xil_TestMem8((base & LOWER_4BYTES_MASK), ((base & UPPER_4BYTES_MASK) >> 32), (num_words * 4), 0xA5,
+                                      XIL_TESTMEM_ALLMEMTESTS);
+                if (status != XST_SUCCESS) {
+                        return XST_FAILURE;
+                }
+#endif
+#else
+
+                status = Xil_TestMem32((u32 *)base, num_words, 0xAAAA5555, XIL_TESTMEM_ALLMEMTESTS);
+                if (status != XST_SUCCESS) {
+                        return XST_FAILURE;
+                }
+#ifdef XIL_ENABLE_MEMORY_STRESS_TEST
+                status = Xil_TestMem16((u16 *)base, (num_words * 2), 0xAA55, XIL_TESTMEM_ALLMEMTESTS);
+                if (status != XST_SUCCESS) {
+                        return XST_FAILURE;
+                }
+                status = Xil_TestMem8((u8 *)base, (num_words * 4), 0xA5, XIL_TESTMEM_ALLMEMTESTS);
+                if (status != XST_SUCCESS) {
+                        return XST_FAILURE;
+                }
+#endif
+#endif
+
+#endif /* #ifdef XIL_ENABLE_MEMTEST_4KB_CHUNK */
+
 	return status;
 }
 
