@@ -593,7 +593,8 @@ END_CLR:
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)Hash, XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)EphemeralKey, XASU_ECC_P521_SIZE_IN_BYTES);
+	XFIH_CALL(Xil_SecureZeroize, XFihEcc, ClearStatus, (u8 *)(UINTPTR)EphemeralKey,
+					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey,
@@ -1092,7 +1093,8 @@ END_CLR:
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)SharedSecretObjId, XECDH_SHARED_SEC_OBJ_ID_SIZE);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)SharedSecret, XASU_ECC_P521_SIZE_IN_BYTES);
+	XFIH_CALL(Xil_SecureZeroize, XFihEcdh, ClearStatus, (u8 *)(UINTPTR)SharedSecret,
+					XASU_ECC_P521_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 END:
