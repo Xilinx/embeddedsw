@@ -101,6 +101,8 @@ int             Arr_2_Glob [50] [50];
 
 Enumeration Func_1 ();
 /* forward declaration necessary since Enumeration may not simply be int */
+void init_platform();
+void cleanup_platform();
 extern Boolean Func_2 (Str_30  Str_1_Par_Ref, Str_30  Str_2_Par_Ref);
 extern int Proc_6(Enumeration  Enum_Val_Par, Enumeration *Enum_Ref_Par);
 extern int Proc_7(One_Fifty Int_1_Par_Val, One_Fifty  Int_2_Par_Val,
@@ -340,7 +342,7 @@ int main ()
 	xil_printf ("Arr_2_Glob[8][7]:    %d\n", Arr_2_Glob[8][7]);
 	xil_printf ("        should be:   Number_Of_Runs + 10\n");
 	xil_printf ("Ptr_Glob->\n");
-	xil_printf ("  Ptr_Comp:          %d\n", (int) Ptr_Glob->Ptr_Comp);
+	xil_printf ("  Ptr_Comp:          %lu\n", (UINTPTR) Ptr_Glob->Ptr_Comp);
 	xil_printf ("        should be:   (implementation-dependent)\n");
 	xil_printf ("  Discr:             %d\n", Ptr_Glob->Discr);
 	xil_printf ("        should be:   %d\n", 0);
@@ -351,7 +353,7 @@ int main ()
 	xil_printf ("  Str_Comp:          %s\n", Ptr_Glob->variant.var_1.Str_Comp);
 	xil_printf ("        should be:   DHRYSTONE PROGRAM, SOME STRING\n");
 	xil_printf ("Next_Ptr_Glob->\n");
-	xil_printf ("  Ptr_Comp:          %d\n", (int) Next_Ptr_Glob->Ptr_Comp);
+	xil_printf ("  Ptr_Comp:          %lu\n", (UINTPTR) Next_Ptr_Glob->Ptr_Comp);
 	xil_printf ("        should be:   (implementation-dependent), same as above\n");
 	xil_printf ("  Discr:             %d\n", Next_Ptr_Glob->Discr);
 	xil_printf ("        should be:   %d\n", 0);
