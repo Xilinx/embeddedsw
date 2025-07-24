@@ -55,8 +55,8 @@ typedef enum {
 	ECDSA_BRAINPOOL_P320,		/**< Brainpool P-320 curve */
 	ECDSA_BRAINPOOL_P384,		/**< Brainpool P-384 curve */
 	ECDSA_BRAINPOOL_P512,		/**< Brainpool P-512 curve */
-	ECDSA_ED25519,
-	ECDSA_ED448,
+	ECDSA_ED25519,			/**< Edward 25519 curve */
+	ECDSA_ED448,			/**< Edward 448 curve */
 	ECDSA_INVALID_HIGH			/**< Invalid value (max) */
 } EcdsaCrvTyp;
 
@@ -178,7 +178,7 @@ externC s32 Ecdsa_GeneratePublicKey(const EcdsaCrvInfo *CrvInfo, const u8 *D, co
 externC void sdk_assert(int cond);
 
 externC s32 Ecdsa_ModEccOrder(const EcdsaCrvInfo *CrvInfo, const u8 *In, u8 *Out);
-
+externC s32 Ecdsa_ModWithEccOrder(const EcdsaCrvInfo* CrvInfo, const u8* In, u32 InSize, u8* Out);
 externC int Ecdsa_CDH_Q(EcdsaCrvInfo *CrvInfo, const unsigned char *Secret, const EcdsaKey *Public,
 			unsigned char *Result);
 void Ecdsa_ClearEccRam(void);
