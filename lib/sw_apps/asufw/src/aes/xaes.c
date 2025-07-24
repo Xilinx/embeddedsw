@@ -32,6 +32,7 @@
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *       am   07/18/25 Modified XAes_SetReset() visibility from static to non-static
  *       kd   07/23/25 Fixed gcc warnings
+ *       am   07/23/25 Replaced runtime AesCmConfig checks with compile-time macro
  *
  * </pre>
  *
@@ -173,16 +174,16 @@ struct _XAes_Config {
  * instance.
  */
 struct _XAes {
-	u32 AesBaseAddress; /**< AES Base address */
-	u32 KeyBaseAddress; /**< Key Vault Base address */
+	u32 AesBaseAddress;	/**< AES Base address */
+	u32 KeyBaseAddress;	/**< Key Vault Base address */
 	u16 DeviceId;		/**< DeviceId is the unique ID of the device */
-	u16 AesCmConfig;	/**< AES counter Measure configuration */
+	u16 Reserved1;		/**< Reserved for alignment */
 	XAsufw_Dma *AsuDmaPtr;	/**< ASU DMA instance pointer */
 	XAes_State AesState;	/**< AES internal state machine */
 	u8 OperationType;	/**< AES operation type (Encryption/Decryption) */
 	u8 EngineMode;		/**< Aes Engine mode */
 	u8 CcmAadZeroBlockPadLen; /**< Number of zero bytes needed to pad AAD to AES block length in CCM. */
-	u8 Reserved;		/**< Reserved for future */
+	u8 Reserved2;		/**< Reserved for alignment */
 };
 
 /**
@@ -324,7 +325,7 @@ static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing resul
 /************************** Function Prototypes **************************************************/
 static XAes_Config *XAes_LookupConfig(u16 DeviceId);
 static s32 XAes_IsKeyZeroized(const XAes *InstancePtr, u32 KeySrc);
-static void XAes_ConfigCounterMeasures(const XAes *InstancePtr);
+static inline void XAes_ConfigCounterMeasures(const XAes *InstancePtr);
 static void XAes_ConfigAesOperation(const XAes *InstancePtr);
 static void XAes_LoadKey(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
 static s32 XAes_ValidateKeyConfig(const XAes *InstancePtr, u32 KeySrc, u32 KeySize);
@@ -399,11 +400,7 @@ s32 XAes_CfgInitialize(XAes *InstancePtr)
 	/** Initialize AES instance. */
 	InstancePtr->AesBaseAddress = CfgPtr->AesBaseAddress;
 	InstancePtr->KeyBaseAddress = CfgPtr->KeyBaseAddress;
-#ifdef XASU_AES_CM_ENABLE
-	InstancePtr->AesCmConfig = XASUFW_CONFIG_ENABLE;
-#else
-	InstancePtr->AesCmConfig = XASUFW_CONFIG_DISABLE;
-#endif
+
 	InstancePtr->AesState = XAES_INITIALIZED;
 
 	Status = XASUFW_SUCCESS;
@@ -1598,16 +1595,13 @@ static s32 XAes_IsKeyZeroized(const XAes *InstancePtr, u32 KeySrc)
  * 		every start of AES operation.
  *
  *************************************************************************************************/
-static void XAes_ConfigCounterMeasures(const XAes *InstancePtr)
+static inline void XAes_ConfigCounterMeasures(const XAes *InstancePtr)
 {
-	if (InstancePtr->AesCmConfig == XASUFW_CONFIG_ENABLE) {
-		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_CM_OFFSET),
-			XAES_CM_ENABLE_MASK);
-	}
-	else {
-		XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_CM_OFFSET),
-			XAES_CM_DISABLE);
-	}
+#ifdef XASU_AES_CM_ENABLE
+	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_CM_OFFSET),	XAES_CM_ENABLE_MASK);
+#else
+	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_CM_OFFSET), XAES_CM_DISABLE);
+#endif
 }
 
 /*************************************************************************************************/
