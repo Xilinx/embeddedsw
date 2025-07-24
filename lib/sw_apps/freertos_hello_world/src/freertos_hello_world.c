@@ -1,6 +1,7 @@
 /*
     Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
     Copyright (c) 2012 - 2022 Xilinx, Inc. All Rights Reserved.
+    Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 	SPDX-License-Identifier: MIT
 
 
@@ -154,6 +155,7 @@ int main( void )
 /*-----------------------------------------------------------*/
 static void prvTxTask( void *pvParameters )
 {
+	(void)pvParameters;
 const TickType_t x1second = pdMS_TO_TICKS( DELAY_1_SECOND );
 
 	for( ;; )
@@ -172,6 +174,7 @@ const TickType_t x1second = pdMS_TO_TICKS( DELAY_1_SECOND );
 /*-----------------------------------------------------------*/
 static void prvRxTask( void *pvParameters )
 {
+	(void)pvParameters;
 char Recdstring[15] = "";
 
 	for( ;; )
