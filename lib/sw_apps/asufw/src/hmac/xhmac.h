@@ -39,8 +39,8 @@ extern "C" {
 
 #ifdef XASU_HMAC_ENABLE
 /************************************ Constant Definitions ***************************************/
-#define XASUFW_HMAC_SHA_HASH_MAX_LEN		(64U) /**< Length of the maximum hash length */
-#define HMAC_UPDATE_IN_PROGRESS			(0x1U) /**< HMAC update done stage for DMA
+#define XHMAC_CMD_STAGE_IDLE			(0x0U) /**< HMAC uninit stage */
+#define XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS	(0x1U) /**< HMAC update done stage for DMA
 							non-blocking wait */
 
 /************************************ Variable Definitions ***************************************/

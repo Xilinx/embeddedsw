@@ -56,7 +56,7 @@ struct _XHmac {
 	u8 ShaMode; /**< SHA mode */
 	u8 HashBufLen; /**< SHA hash buffer length */
 	u8 Reserved; /**< Reserved for future */
-	u8 IntHash[XASUFW_HMAC_SHA_HASH_MAX_LEN]; /**< Buffer to store intermediate hash */
+	u8 IntHash[XASU_SHA_512_HASH_LEN]; /**< Buffer to store intermediate hash */
 	u8 OPadRes[XASUFW_SHAKE_SHA3_256_BLOCK_LEN]; /**< Buffer to store OPAD result */
 	XHmac_State HmacState; /**< HMAC current state */
 };
@@ -261,7 +261,7 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	static u32 HmacUpdateStage = 0x0U;
+	static u32 HmacUpdateStage = XHMAC_CMD_STAGE_IDLE;
 
 	/** Validate input parameters. */
 	if ((InstancePtr == NULL) || (AsuDmaPtr == NULL) || (DataAddr == 0U)) {
@@ -280,7 +280,7 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 		goto END;
 	}
 
-	if (HmacUpdateStage != 0U) {
+	if (HmacUpdateStage != XHMAC_CMD_STAGE_IDLE) {
 		goto SHA_IN_HMAC_STAGE_UPDATE_DONE;
 	}
 
@@ -288,7 +288,7 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 	Status = XSha_Update(InstancePtr->ShaInstancePtr, AsuDmaPtr, DataAddr, DataLen,
 			     IsLastUpdate);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
-		HmacUpdateStage = HMAC_UPDATE_IN_PROGRESS;
+		HmacUpdateStage = XHMAC_CMD_STAGE_UPDATE_IN_PROGRESS;
 		goto DONE;
 	} else if (Status != XASUFW_SUCCESS) {
 		goto END;
@@ -297,7 +297,7 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 	}
 
 SHA_IN_HMAC_STAGE_UPDATE_DONE:
-	HmacUpdateStage = 0U;
+	HmacUpdateStage = XHMAC_CMD_STAGE_IDLE;
 
 	if (IsLastUpdate == XASU_TRUE) {
 		/**
@@ -323,7 +323,7 @@ END:
 		XSha_Reset(InstancePtr->ShaInstancePtr);
 		/** Zeroize intermediate hash buffer upon any failure. */
 		XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus,
-			  (InstancePtr->IntHash), XASUFW_HMAC_SHA_HASH_MAX_LEN);
+			  (InstancePtr->IntHash), XASU_SHA_512_HASH_LEN);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
 DONE:
@@ -402,7 +402,7 @@ END:
 	if (InstancePtr != NULL) {
 		/** Zeroize intermediate hash buffer. */
 		XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus,
-			  (InstancePtr->IntHash), XASUFW_HMAC_SHA_HASH_MAX_LEN);
+			  (InstancePtr->IntHash), XASU_SHA_512_HASH_LEN);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 		/** Zeroize local OpadRes buffer. */
