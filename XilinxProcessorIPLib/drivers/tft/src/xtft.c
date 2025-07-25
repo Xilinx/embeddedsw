@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,13 +34,14 @@
 * 4.00a  bss   01/25/13	 Added support for AXI TFT controller,
 *			 XTft_WriteReg and XTft_ReadReg functions are updated
 *			 Removed all functionality associated with DCR access
-* 6.0    sd   07/13/15	 Modified the XTft_SetFrameBaseAddr API to
+* 6.0    sd    07/13/15	 Modified the XTft_SetFrameBaseAddr API to
 *			 void XTft_SetFrameBaseAddr(XTft *InstancePtr,
 *			 UINTPR NewFrameBaseAddr) so that it can be used
 *			 in systems with memory greater than 4 GB
 *			 Updated XTft_CfgInitialize API so that input
 *			 argument EffectiveAddr is a UINTPTR type
-* 6.4    sd  7/07/23     Added SDT support.
+* 6.4    sd    07/07/23  Added SDT support.
+* 6.7    ml    07/24/25  Fixed GCC Warnings.
 * </pre>
 *
 ****************************************************************************/
@@ -431,7 +432,7 @@ void XTft_Write(XTft *InstancePtr, u8 CharValue)
 ****************************************************************************/
 void XTft_Scroll(XTft *InstancePtr)
 {
-	u32 PixelVal;
+	u32 PixelVal = 0;
 	u32 ColIndex;
 	u32 RowIndex;
 

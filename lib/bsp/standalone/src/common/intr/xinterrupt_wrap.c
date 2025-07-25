@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -27,6 +27,7 @@
 * 		      transformation.
 * 9.2   ml   19/09/24 Fix compilation warnings by typecasting and adding
 *                     conditional compilation checks.
+* 9.4   ml   24/07/24 Fixed GCC warnings
 * </pre>
 *
 ******************************************************************************/
@@ -59,8 +60,10 @@ static XIntc XIntcInstance ;
 ******************************************************************************/
 int XConfigInterruptCntrl(UINTPTR IntcParent)
 {
+#if defined (XPAR_AXI_INTC) || defined (XPAR_SCUGIC)
 	int Status = XST_FAILURE;
 	UINTPTR BaseAddr = XGet_BaseAddr(IntcParent);
+#endif
 
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
 #if defined (XPAR_SCUGIC)
@@ -115,7 +118,12 @@ int XConfigInterruptCntrl(UINTPTR IntcParent)
 ******************************************************************************/
 int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, UINTPTR IntcParent)
 {
-	int Status;
+	int Status = XST_FAILURE;
+#if !defined (XPAR_AXI_INTC) && !defined (XPAR_SCUGIC)
+	(void)IntrId;
+	(void)IntrHandler;
+	(void)CallBackRef;
+#endif
 #if defined (XPAR_SCUGIC)
 	int Doconnect = FALSE;
 #endif
@@ -137,7 +145,7 @@ int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, U
 			return XST_SUCCESS;
 		}
 #else
-		return XST_FAILURE;
+		return Status;
 #endif
 	} else {
 #if defined (XPAR_AXI_INTC)
@@ -146,7 +154,7 @@ int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, U
 				       (XInterruptHandler)IntrHandler, CallBackRef);
 		return Status;
 #else
-		return XST_FAILURE;
+		return Status;
 #endif
 
 	}
@@ -170,7 +178,11 @@ int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, U
 #if defined (__MICROBLAZE__) || defined(__riscv)
 int XConnectToFastInterruptCntrl(u32 IntrId, void *IntrHandler, UINTPTR IntcParent)
 {
-	int Status;
+	int Status = XST_FAILURE;
+#if !defined (XPAR_AXI_INTC)
+	(void)IntrId;
+	(void)IntrHandler;
+#endif
 
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_INTC) {
 #if defined (XPAR_AXI_INTC)
@@ -182,7 +194,7 @@ int XConnectToFastInterruptCntrl(u32 IntrId, void *IntrHandler, UINTPTR IntcPare
 		return XST_FAILURE;
 #endif
 	}
-	return XST_FAILURE;
+	return Status;
 }
 #endif
 /*****************************************************************************/
@@ -201,6 +213,9 @@ int XConnectToFastInterruptCntrl(u32 IntrId, void *IntrHandler, UINTPTR IntcPare
 ******************************************************************************/
 int XDisconnectInterruptCntrl(u32 IntrId, UINTPTR IntcParent)
 {
+#if !defined (XPAR_SCUGIC) && !defined (XPAR_AXI_INTC)
+	(void)IntrId;
+#endif
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
 #if defined (XPAR_SCUGIC)
 		u16 IntrNum = XGet_IntrId(IntrId);
@@ -280,6 +295,10 @@ int XStartInterruptCntrl(u32 Mode, UINTPTR IntcParent)
 ******************************************************************************/
 void XEnableIntrId( u32 IntrId, UINTPTR IntcParent)
 {
+#if !defined (XPAR_SCUGIC) && !defined (XPAR_AXI_INTC)
+        (void)IntrId;
+#endif
+
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
 #if defined (XPAR_SCUGIC)
 		u16 IntrNum = XGet_IntrId(IntrId);
@@ -312,6 +331,10 @@ void XEnableIntrId( u32 IntrId, UINTPTR IntcParent)
 ******************************************************************************/
 void XDisableIntrId( u32 IntrId, UINTPTR IntcParent)
 {
+#if !defined (XPAR_SCUGIC) && !defined (XPAR_AXI_INTC)
+        (void)IntrId;
+#endif
+
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
 #if defined (XPAR_SCUGIC)
 		u16 IntrNum = XGet_IntrId(IntrId);
@@ -424,6 +447,9 @@ void XStopInterruptCntrl( UINTPTR IntcParent)
 ******************************************************************************/
 void XRegisterInterruptHandler(void *IntrHandler,  UINTPTR IntcParent)
 {
+#if !defined (XPAR_SCUGIC) && !defined (XPAR_AXI_INTC)
+	(void)IntrHandler;
+#endif
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
 #if defined (XPAR_SCUGIC)
 		if (IntrHandler == NULL) {
@@ -581,6 +607,10 @@ s32 XTriggerSoftwareIntr(u32 IntrId, UINTPTR IntcParent, u32 Cpu_Id)
 {
 	s32 Status = XST_SUCCESS;
 	u16 IntrNum = XGet_IntrId(IntrId);
+#if !defined (XPAR_SCUGIC) && !defined (XPAR_AXI_INTC)
+	(void) IntrNum;
+	(void) Cpu_Id;
+#endif
 
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
 #if defined (XPAR_SCUGIC)

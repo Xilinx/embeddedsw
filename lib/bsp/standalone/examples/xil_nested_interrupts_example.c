@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 7.3   mus  04/16/20  First release of example which demonstrates nested
 *                      interrupt handling.
 * 9.1   ml   02/29/24  Fixed compilation error.
+* 9.4   ml   07/24/25  Fixed GCC warnings
 * </pre>
 ******************************************************************************/
 
@@ -156,9 +157,9 @@ int main(void)
 int TmrNestedInterruptExample()
 {
 	u32 Status;
+#ifndef SDT
 	u32 IntrPriority;
 	u32 TtcTickIntrID;
-#ifndef SDT
 	u32 DeviceID;
 #else
 	u32 BaseAddr;
@@ -419,6 +420,7 @@ int SetupTimer(u32 BaseAddr, XTtcPs *TtcPsInst, TmrCntrSetup SettingsTable)
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 *****************************************************************************/
+#ifndef SDT
 static int SetupInterruptSystem(u16 IntcDeviceID,
 				XScuGic *IntcInstancePtr)
 {
@@ -458,6 +460,7 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 
 	return XST_SUCCESS;
 }
+#endif
 
 /***************************************************************************/
 /**

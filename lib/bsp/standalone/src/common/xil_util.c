@@ -1,7 +1,7 @@
 /******************************************************************************/
 /**
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -94,7 +94,7 @@
 *       pre      08/16/24 Added Xil_MemCpy64 function
 *       pre      08/29/24 Fixed compilation warning
 *       kpt      10/17/24 Move API's used in secure libs to xil_sutil.c
-*
+* 9.4   ml       07/24/25 Fixed GCC warnings
 * </pre>
 *
 *****************************************************************************/
@@ -109,34 +109,6 @@
 /************************** Constant Definitions ****************************/
 
 /************************** Function Prototypes *****************************/
-
-#ifdef __ARMCC_VERSION
-/******************************************************************************/
-/**
- *
- * This API returns the length of the input string
- *
- * @param  StartPtr is the pointer to the input string
- * @param  StrSize is the maximum length of the input string
- *
- * @return Returns the length of the input string
- *
- ******************************************************************************/
-static size_t strnlen (const char *StartPtr, size_t StrSize)
-{
-	const char *EndPtr = StartPtr;
-	size_t StrLen = 0U;
-
-	EndPtr = memchr(StartPtr, '\0', StrSize);
-	if (EndPtr == NULL) {
-		StrLen = StrSize;
-	} else {
-		StrLen = (size_t) (EndPtr - StartPtr);
-	}
-
-	return StrLen;
-}
-#endif
 
 /******************************************************************************/
 /**

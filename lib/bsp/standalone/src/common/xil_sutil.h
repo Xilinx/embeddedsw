@@ -28,7 +28,7 @@
 * ----- -------- -------- -----------------------------------------------
 * 9.2   kpt      04/21/19 First release.
 * 9.3   ml       02/19/25 Fix Type Mismatch in Xil_UtilRMW32
-*
+* 9.4   ml       07/24/25 Fixed GCC warnings
 * </pre>
 *
 *****************************************************************************/
@@ -107,11 +107,11 @@ extern "C" {
  ******************************************************************************/
 #define XSECURE_TEMPORAL_CHECK(Label, Status, Function, ...)   \
 	{ \
-		volatile int StatusTmp; \
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Function, __VA_ARGS__); \
+		volatile int StatusTmpVal; \
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmpVal, Function, __VA_ARGS__); \
 		if ((Status != XST_SUCCESS) || \
-		    (StatusTmp != XST_SUCCESS)) { \
-			if (((Status) != (StatusTmp)) || \
+		    (StatusTmpVal != XST_SUCCESS)) { \
+			if (((Status) != (StatusTmpVal)) || \
 			    (Status == XST_SUCCESS)) { \
 				Status = XST_GLITCH_ERROR; \
 			}\

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +57,7 @@
 *                     violations for Rule 7.2 and 10.4
 * 9.0   ml   09/13/23 Added parenthensis on sub-expression to fix MISRA-C
 *                     violations for Rule 12.1
+* 9.4   ml   07/24/25 Fixed GCC warnings
 * </pre>
 *
 * @note
@@ -90,7 +91,7 @@
 #endif
 
 /************************** Variable Definitions *****************************/
-
+#ifdef	XPAR_PSU_R5_DDR_0_LOW_ADDR
 static const struct {
 	u64 size;
 	u32 encoding;
@@ -124,6 +125,7 @@ static const struct {
 	{ 0x80000000U, REGION_2G },
 	{ 0x100000000U, REGION_4G },
 };
+#endif
 
 #ifdef	XPAR_PSU_R5_DDR_0_LOW_ADDR
 #if defined (__GNUC__)
@@ -186,14 +188,15 @@ void Init_MPU(void)
 	u32 Addr;
 	u32 RegSize = 0U;
 	u32 Attrib;
-	u32 RegNum = 0, i, Offset = 0;
-	u64 size;
+	u32 RegNum = 0;
 	u32 CreateTCMRegion = 0;
 
 	Xil_DisableMPURegions();
 
 	Addr = 0x00000000U;
 #ifdef	XPAR_PSU_R5_DDR_0_LOW_ADDR
+	u32 i, Offset = 0;
+	u64 size;
 	/* If the DDR is present, configure region as per DDR size */
 	size = (XPAR_PSU_R5_DDR_0_HIGH_ADDR - XPAR_PSU_R5_DDR_0_LOW_ADDR) + 1;
 	if (size < 0x80000000) {
