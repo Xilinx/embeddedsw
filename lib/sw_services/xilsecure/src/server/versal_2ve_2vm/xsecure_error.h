@@ -19,7 +19,8 @@
  *       sk   08/22/24 Added error code for key transfer to ASU
  *       mb   09/20/24 Added XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR
  *       pre  03/02/2025 Added error codes for IPI events handling
- *
+ * 5.6   tus  07/24/2025 change XSecure_ErrorCode from typedef enum to plain
+ *                       enum for MISRA C-2023 Rule 10.3 violation fix
  * </pre>
  *
  ******************************************************************************/
@@ -38,7 +39,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-typedef enum {
+enum {
 	XSECURE_SHA_INIT_ERROR = 0x02,		/**< 0x02 - Error when SHA
 						   init fails. */
 	XSECURE_SHA_LAST_UPDATE_ERROR,		/**< 0x03 - Error when SHA
@@ -261,7 +262,7 @@ typedef enum {
 	XSECURE_ERR_IN_TRNG_SELF_TESTS,		/**< 0xFC - Error in TRNG operation self tests */
 	XSECURE_ERR_TRNG_INIT_N_CONFIG		/**< 0xFD - Error in TRNG Instantiate and configuration */
 
-} XSecure_ErrorCodes;
+};
 
 #define XSECURE_SHA3_KAT_FAILED_ERROR		XSECURE_SHA_KAT_FAILED_ERROR
 

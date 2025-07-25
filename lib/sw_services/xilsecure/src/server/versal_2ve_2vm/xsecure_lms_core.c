@@ -17,6 +17,8 @@
 * 5.4   kal  07/24/24  Initial release
 *       kal  01/30/25  Update LMS/HSS APIs to accept the original data instead
 *                      of pre calculated hash.
+* 5.6   tus  07/24/25  Add else clause in XSecure_GetLmsHashAlgo api with
+*                      appropriate error code
 *
 * </pre>
 * @note
@@ -379,7 +381,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 
 	/**
 	 *  6. Public key checks
-	 *  1, 2a, 2b - Length should be atleast 8 bytes to be able to fetch Type of algo used for
+	 *  1, 2a, 2b - Length should be at least 8 bytes to be able to fetch Type of algo used for
 	 * 		LMS & LMS OTS
 	 *  2c  - Once Type is extracted, set m
 	 *  2d - Public key should be == 24 + m otherwise stop process and raise error
@@ -735,7 +737,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 
 	/**
 	 * 6.4, Now that we have arrived at root value, compare with expected to see if it matches,
-	 * comparision should be single glitch resistant
+	 * comparison should be single glitch resistant
 	 */
 	for (Index = 0U; Index < XSECURE_LMS_PUB_KEY_T_FIELD_SIZE; Index++) {
 		if (LmsSignVerifyParams->ExpectedPubKey[XSECURE_LMS_PUB_KEY_T_OFFSET + Index] != TmpBuff[Index]) {
@@ -1267,7 +1269,8 @@ static u32 XSecure_SwapBytes(const u8 *const source, size_t bytes)
 *
 * @return
 *	-	@ref XST_SUCCESS - If operation success, otherwise following errors
-*	-	@ref XSECURE_LMS_KAT_PUB_KEY_UNSUPPORTED_LMS_TYPE_ERROR
+*	-	@ref XSECURE_LMS_HSS_L0_PUB_KEY_LMS_TYPE_UNSUPPORTED_ERROR
+*	-	@ref XSECURE_LMS_INVALID_PARAM - If an invalid public algorithm is provided
 *******************************************************************************/
 int XSecure_GetLmsHashAlgo(u32 PubAlgo, const u8* const PubKey, XSecure_ShaMode *SignAlgo)
 {
@@ -1286,8 +1289,12 @@ int XSecure_GetLmsHashAlgo(u32 PubAlgo, const u8* const PubKey, XSecure_ShaMode 
 		PublicKeyLmsType =  (XSecure_LmsType)XSecure_SwapBytes(&PubKey[XSECURE_LMS_PUB_KEY_TYPE_OFFSET],
 		XSECURE_LMS_TYPE_SIZE);
 	}
+	else {
+		Status = XSECURE_LMS_INVALID_PARAM;
+		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Provided Pub Key LMS Type is invalid");
+		goto END;
+	}
 
-	XSecure_Printf(XSECURE_DEBUG_GENERAL, "Pub Key LMS Type 0x%x\n\r", PublicKeyLmsType);
 	/* Fetch the Type of public key, if not a valid/supported Type return error */
 	Status = XSecure_LmsLookupParamSet(PublicKeyLmsType,
 			(XSecure_LmsParam**)&PubKeyLmsParam);
