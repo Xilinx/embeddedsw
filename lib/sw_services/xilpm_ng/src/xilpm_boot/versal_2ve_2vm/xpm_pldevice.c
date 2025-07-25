@@ -121,7 +121,8 @@ static XStatus Pld_ReleaseMemCtrlr(XPm_PlDevice *PlDevice)
 		    ((u8)XPM_DEVSTATE_RUNNING != PlDevice->MemCtrlr[i]->Device.Node.State)) {
 			continue;
 		}
-		Status = XPmDevice_Release(PM_SUBSYS_PMC,
+		/* TODO: FIXME: Quick Fix for now! Eventually, need more re-modelling and changes for PLD */
+		Status = XPmDevice_Release(PM_SUBSYS_DEFAULT,
 				PlDevice->MemCtrlr[i]->Device.Node.Id,
 				XPLMI_CMD_SECURE);
 		if (XST_SUCCESS != Status) {
@@ -217,11 +218,6 @@ static XStatus Pld_ReleaseChildren(XPm_PlDevice *PlDevice)
 		}
 		PldChild->WfPowerBitMask = PWR_DOMAIN_UNUSED_BITMASK;
 		PldChild->Device.Node.State = (u8)XPM_DEVSTATE_UNUSED;
-		Status = XPmDevice_Release(PM_SUBSYS_PMC, PldChild->Device.Node.Id,
-					   XPLMI_CMD_SECURE);
-		if(XST_SUCCESS != Status) {
-			goto done;
-		}
 		PldToUnlink = PldChild;
 		PldChild = PldChild->NextPeer;
 		PldToUnlink->Parent = NULL;
@@ -385,31 +381,6 @@ static XStatus PlInitStart(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
 		}
 	}
 
-	// /*
-	//  * Sufficient to only check for Unused state before Requesting PLD as:
-	//  * 1. PLD has been newly created by add_node (hence state is unused) and
-	//  *    needs to be requested
-	//  * 2. PLD has been powered down and released, therefore in unused state
-	//  */
-	// if ((u8)XPM_DEVSTATE_UNUSED == PlDevice->Device.Node.State) {
-	// 	Status = XPmDevice_Request(PM_SUBSYS_PMC, PlDevice->Device.Node.Id,
-	// 				   (u32)PM_CAP_ACCESS, XPM_MAX_QOS,
-	// 				   XPLMI_CMD_SECURE);
-	// 	if (XST_SUCCESS != Status) {
-	// 		DbgErr = XPM_INT_ERR_DEVICE_REQUEST;
-	// 		goto done;
-	// 	}
-	// } else if ((u8)XPM_DEVSTATE_RUNNING == PlDevice->Device.Node.State) {
-	// 	Status = XPmDevice_ChangeState(&PlDevice->Device,
-	// 		   (u32)XPM_DEVSTATE_UNUSED);
-	// 	if (XST_SUCCESS != Status) {
-	// 		DbgErr = XPM_INT_ERR_DEVICE_CHANGE_STATE;
-	// 		goto done;
-	// 	}
-	// } else {
-	// 	DbgErr = XPM_INT_ERR_INVALID_STATE;
-	// 	goto done;
-	// }
 	Status = Pld_ManagePower(PlDevice);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PLDEVICE_PWR_MANAGE;
@@ -497,12 +468,6 @@ static XStatus PlInitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_PLDEVICE_MEM_CTRLR_RELEASE;
 			goto done;
-		}
-		/* Release PLD */
-		Status = XPmDevice_Release(PM_SUBSYS_PMC, PlDevice->Device.Node.Id,
-					   XPLMI_CMD_SECURE);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_DEVICE_RELEASE;
 		}
 	} else {
 		// DO nothing
