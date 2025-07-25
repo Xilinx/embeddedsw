@@ -28435,24 +28435,6 @@ lib/sw_services/xilpm/src/versal/server/xpm_pinfunc_plat.h
 COPYRIGHT TEXT:
 ---------------
 
-Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved. Copyright (C) 2022 -
-2023, Advanced Micro Devices, Inc. All Rights Reserved.
-SPDX-License-Identifier: MIT
-
-FILES:
-lib/sw_services/xilpm/src/versal/server/xpm_plat_proc.c
-lib/sw_services/xilpm/src/versal/server/xpm_plat_proc.h
-lib/sw_services/xilpm/src/versal_net/server/xpm_plat_proc.c
-lib/sw_services/xilpm/src/versal_net/server/xpm_plat_proc.h
---------------------------------------------------------------------------------
-
-
-
-
-
-COPYRIGHT TEXT:
----------------
-
 Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved. Copyright (c) 2022 -
 2023 Advanced Micro Devices, Inc. All rights reserve.
 SPDX-License-Identifier: MIT

@@ -47,7 +47,6 @@
 #include "xpm_pldevice.h"
 #include "xpm_rail.h"
 #include "xpm_regulator.h"
-#include "xpm_plat_proc.h"
 #ifdef VERSAL_NET
 #ifndef VERSAL_2VE_2VM
 #include "xpm_update.h"
@@ -1949,7 +1948,7 @@ static XStatus AddProcDevice(const u32 *Args, u32 PowerId)
 		Status = XPmPmc_Init(Pmc, DeviceId, 0, BaseAddr, Power, NULL, NULL);
 		break;
 	default:
-		Status = XPmPlatAddProcDevice(DeviceId, Ipi, BaseAddr, Power);
+		Status = XST_INVALID_PARAM;
 		break;
 	}
 

@@ -12,8 +12,6 @@
 #include "xstatus.h"
 #ifndef VERSAL_2VE_2VM
 #include "xpm_psm_api_plat.h"
-#else
-#include "xpm_plat_proc.h"
 #endif
 
 #ifdef __cplusplus
