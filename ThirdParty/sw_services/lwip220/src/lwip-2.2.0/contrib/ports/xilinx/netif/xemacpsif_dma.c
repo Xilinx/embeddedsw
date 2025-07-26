@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -621,6 +621,8 @@ XStatus init_dma(struct xemac_s *xemac)
 	XEmacPs_Bd *bdtxterminate = NULL;
 	XEmacPs_Bd *bdrxterminate = NULL;
 	u32 *temp;
+
+	bd_space_index = 0;
 
 	xemacpsif_s *xemacpsif = (xemacpsif_s *)(xemac->state);
 #ifndef SDT
