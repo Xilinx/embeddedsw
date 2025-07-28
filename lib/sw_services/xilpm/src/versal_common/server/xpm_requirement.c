@@ -10,10 +10,16 @@
 #include "xpm_power.h"
 #include "xpm_api.h"
 
-static void XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
+static XStatus XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
 				XPm_Device *Device, u32 Flags,
 				u32 PreallocCaps, u32 PreallocQoS)
 {
+	XStatus Status = XST_FAILURE;
+
+	if ((NULL == Subsystem) || (NULL == Device)) {
+		goto done;
+	}
+
 	/* Prepend to subsystem's device reqm list */
 	Reqm->NextDevice = Subsystem->Requirements;
 	Subsystem->Requirements = Reqm;
@@ -36,6 +42,11 @@ static void XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
 	Reqm->Next.Capabilities = XPM_MIN_CAPABILITY;
 	Reqm->Next.Latency = XPM_MAX_LATENCY;
 	Reqm->Next.QoS = XPM_MAX_QOS;
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
@@ -50,7 +61,10 @@ XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
 		goto done;
 	}
 
-	XPmRequirement_Init(Reqm, Subsystem, Device, Flags, PreallocCaps, PreallocQoS);
+	Status = XPmRequirement_Init(Reqm, Subsystem, Device, Flags, PreallocCaps, PreallocQoS);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 	Status = XST_SUCCESS;
 
 done:
