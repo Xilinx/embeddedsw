@@ -64,14 +64,24 @@ elseif("${CMAKE_MACHINE}" STREQUAL "ZynqMP")
     set(PLATFORM_ZYNQMP " ")
 elseif("${CMAKE_MACHINE}" STREQUAL "Zynq")
     set(PLATFORM_ZYNQ " ")
-elseif(("${CMAKE_MACHINE}" STREQUAL "SpartanUP") OR ("${CMAKE_MACHINE}" STREQUAL "spartanuplus"))
+elseif("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
     set(SPARTANUP " ")
+elseif(DEFINED CMAKE_MACHINE AND NOT CMAKE_MACHINE STREQUAL "" AND NOT CMAKE_MACHINE IN_LIST VARIANT)
+    list(APPEND VARIANT ${CMAKE_MACHINE})
 endif()
 
 if("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
     set(VERSAL_AIEPG2 " ")
     set(VERSAL_2VE_2VM " ")
+elseif(DEFINED CMAKE_SUBMACHINE AND NOT CMAKE_SUBMACHINE STREQUAL "" AND NOT CMAKE_SUBMACHINE IN_LIST VARIANT)
+    list(APPEND VARIANT ${CMAKE_SUBMACHINE})
 endif()
+
+set(VARIANT_DEFINES "")
+foreach(entry ${VARIANT})
+    string(TOUPPER "${entry}" VARIANT_MACRO)
+    set(VARIANT_DEFINES "${VARIANT_DEFINES}\n#define ${VARIANT_MACRO}")
+endforeach()
 
 if ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
 	option(standalone_lockstep_mode_debug "Enable debug logic in non-JTAG boot mode, when Cortex R5 is configured in lockstep mode" OFF)
@@ -112,11 +122,6 @@ endif()
 if(("${CMAKE_MACHINE}" STREQUAL "VersalNet") AND
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze"))
     set(VERSALNET_PLM " ")
-endif()
-
-if(("${CMAKE_MACHINE}" STREQUAL "SpartanUP") AND
-   ("${TEMPLATE}" STREQUAL "spartanup_plm"))
-    set(SPARTANUP_PLM " ")
 endif()
 
 if("${TEMPLATE}" STREQUAL "asufw")

@@ -284,12 +284,6 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                 f'set( CMAKE_SUBMACHINE "Versal_2VE_2VM" CACHE STRING "cmake submachine" FORCE)',
             )
 
-        if self.family == "SpartanUP":
-            utils.add_newline(
-                toolchain_file_copy,
-                f'set(CMAKE_MACHINE "{self.family}")'
-            )
-
         if self.app:
             utils.add_newline(
                 toolchain_file_copy,
@@ -909,7 +903,6 @@ def main(arguments=None):
             - lwip_udp_perf_server
             - dhrystone
             - zynqmp_dram_test
-            - spartanup_plm
         """
         ),
     )
