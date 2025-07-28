@@ -647,7 +647,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 
 	/** Perform AES unwrap operation. */
 	if ((KeyUnwrapParamsPtr->InputDataLen - KeyUnwrapParamsPtr->RsaKeySize -
-		XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES) > XASU_AES_BLOCK_SIZE_IN_BYTES) {
+		XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES) > XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES) {
 		for(RoundNum = (s32)XASUFW_KEYWRAP_MAX_AES_ROUNDS; RoundNum >= 0; RoundNum--) {
 			for(BlkRoundNum = MaxRounds; BlkRoundNum >= XASUFW_KEYWRAP_BLOCK_ROUND_INDEX;
 				BlkRoundNum--) {
