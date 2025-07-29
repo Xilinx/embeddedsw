@@ -150,6 +150,7 @@
 *       har  04/07/25 Updated instruction mask in XLoader_EnableJtag
 *       pre  05/09/25 Updation is done to do hashBlock1 integrity validation for boot PDI only
 *       vss  07/08/25 Initialised DMA instance in read and verify secure headers.
+*       vss  07/22/2025 Added Hashblock hash verification check to update major errorcode.
 *
 * </pre>
 *
@@ -4237,13 +4238,13 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 	if ((AuthType == XLOADER_PUB_STRENGTH_RSA_4096) ||
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
 		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
-		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature, SecurePtr,
+		XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_VerifySignature, SecurePtr,
 				(u8 *)&HashBlockHash, &SecurePtr->AcPtr->Spk,
 				(u8 *)&SecurePtr->AcPtr->HBSignature);
 	}
 	else if ((AuthType == XLOADER_PUB_STRENGTH_LMS) ||
 		(AuthType == XLOADER_PUB_STRENGTH_LMS_HSS)) {
-		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyLmsSignature, SecurePtr,
+		XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_VerifyLmsSignature, SecurePtr,
 			(u8 *)&SecurePtr->AcPtr->HBSignature,
 			HBSignParams->ActualHBSignSize,
 			(u8 *)&SecurePtr->AcPtr->Spk,
@@ -4255,6 +4256,12 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 		/** Not supported */
 		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+		goto END;
+	}
+
+	if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
+		XPlmi_Printf(DEBUG_INFO, "Verification of hash block signature failed %x \r\n", AuthType);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_SIGN_VERIF_FAIL, Status);
 		goto END;
 	}
 

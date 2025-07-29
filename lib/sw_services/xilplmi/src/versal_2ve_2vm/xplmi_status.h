@@ -58,6 +58,7 @@
 *       pre  03/15/2025 Added XPLMI_CMD_IN_PROGRESS error state
 *       sk   03/24/2025 Updated error codes for versal_2ve_2vm platform
 *       sk   03/28/2025 Added error code for UFS dev PM request
+*       vss  07/22/2025 Added Hashblock hash verification error code.
 *
 * </pre>
 *
@@ -781,6 +782,7 @@ typedef enum {
 	XLOADER_ERR_CONFIG_LIMIT_EXCEEDED, /**< 0x656 Error when the configuration limit is exceeded */
 	XLOADER_ERR_UPDATE_CONFIG_LIMITER_CNT_FAILED, /**< 0x657 Error when the configuration limiter update failed */
 	XLOADER_ERR_KEY_AUTH_FAIL, /**< 0x658 Error when authentication of keys is failed */
+	XLOADER_ERR_HASH_BLOCK_SIGN_VERIF_FAIL, /**< 0x659 Error in verifying hash block signature */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 	XOCP_PCR_ERR_SWPCR_DUP_CONFIG = 0x6A0, /**< 0x6A0 Duplicate Pcr configuration provided */
