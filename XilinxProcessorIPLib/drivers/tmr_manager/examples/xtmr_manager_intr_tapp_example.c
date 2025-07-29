@@ -25,6 +25,7 @@
 * 1.3	adk  31/01/22 Updated the example independent of SEM IP hardware
 * 		      configuration.
 * 1.7   adk  04/04/25 Ported example to the SDT flow.
+* 1.8   ml   29/07/25 Fixed unused parameter warning
 * </pre>
 ******************************************************************************/
 
@@ -311,6 +312,7 @@ int TMR_ManagerIntrExample(XTMR_Manager *TMR_ManagerInstPtr,
 ****************************************************************************/
 static void TMR_ManagerHandler(void *CallBackRef)
 {
+	(void)CallBackRef;
 	TotalEventCount++;
 }
 
