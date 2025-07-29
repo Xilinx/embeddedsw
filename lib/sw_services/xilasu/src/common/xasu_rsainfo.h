@@ -176,7 +176,7 @@ typedef struct {
  *************************************************************************************************/
 static inline s32 XAsu_RsaValidateKeySize(u32 Len)
 {
-	s32 Status = XST_FAILURE;
+	volatile s32 Status = XST_FAILURE;
 
     if ((Len == XRSA_2048_KEY_SIZE) || (Len == XRSA_3072_KEY_SIZE) ||
 		(Len == XRSA_4096_KEY_SIZE)) {

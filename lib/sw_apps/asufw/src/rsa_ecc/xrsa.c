@@ -837,10 +837,10 @@ static s32 XRsa_ValidatePubExp(u8 *BuffAddr)
 	s32 Status = XASUFW_FAILURE;
 	volatile u32 PubExpVal = 0U;
 
-	PubExpVal = ((u32)BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 4U] << 24U) |
-		((u32)BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 3U] << 16U) |
-		((u32)BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 2U] << 8U) |
-		((u32)BuffAddr[XRSA_PUBEXP_SIZE_IN_BYTES - 1U]);
+	PubExpVal = ((u32)BuffAddr[0U] << XASUFW_THREE_BYTE_SHIFT_VALUE) |
+		((u32)BuffAddr[XASUFW_BUFFER_INDEX_ONE] << XASUFW_TWO_BYTE_SHIFT_VALUE) |
+		((u32)BuffAddr[XASUFW_BUFFER_INDEX_TWO] << XASUFW_ONE_BYTE_SHIFT_VALUE) |
+		((u32)BuffAddr[XASUFW_BUFFER_INDEX_THREE]);
 
 	if ((PubExpVal != XRSA_PUB_EXP_INVALID_ZERO_VALUE) &&
 	    (PubExpVal != XRSA_PUB_EXP_INVALID_ZERO_VALUE) &&

@@ -45,7 +45,7 @@
  * @brief	This function validates input parameters for padding.
  *
  * @param	RsaParamsPtr	Pointer to XAsu_RsaParams structure that holds the input parameters
- *			for RSA.
+ *				for RSA.
  * @return
  * 	- XST_SUCCESS, if input validation is successful.
  * 	- XST_FAILURE, if input validation fails.
@@ -53,7 +53,7 @@
  *************************************************************************************************/
 s32 XAsu_RsaValidateInputParams(const XAsu_RsaParams *RsaParamsPtr)
 {
-	s32 Status = XST_FAILURE;
+	volatile s32 Status = XST_FAILURE;
 
 	/** Validate that the addresses of all input buffers are non-zero. */
 	if ((RsaParamsPtr->InputDataAddr == 0U) ||
