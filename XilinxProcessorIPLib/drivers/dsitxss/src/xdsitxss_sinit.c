@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -108,6 +108,7 @@ u32 XDsiTxSs_GetDrvIndex(XDsiTxSs *InstancePtr, UINTPTR BaseAddress)
 {
  u32 Index = 0;
 
+ (void) InstancePtr;
  for (Index = 0U; XDsiTxSs_ConfigTable[Index].Name != NULL; Index++) {
    if ((XDsiTxSs_ConfigTable[Index].BaseAddr == BaseAddress)) {
 	break;
