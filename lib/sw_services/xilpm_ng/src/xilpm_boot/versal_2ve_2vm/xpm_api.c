@@ -30,6 +30,7 @@
 #include "xpm_psfpdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_regs.h"
+#include "xpm_repair.h"
 #include "xpm_reset.h"
 #include "xpm_rpucore.h"
 #include "xsysmonpsv.h"

@@ -37,13 +37,25 @@ void XPmBisr_CopyStandard(u32 * BisrDataAddr, u32 TagSize, u64 BisrDataDestAddr)
 	}
 }
 
-XStatus PollForMask_ext(u64 RegAddr, u32 Mask, u32 TimeOutCount)
+XStatus XPmcFw_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount)
 {
-	u32 RegV;
+	u32 l_RegValue;
 	u32 TimeOut = TimeOutCount;
-	RegV = lwea(RegAddr);
-	while(((RegV & Mask) != Mask) && (TimeOut > 0U)){
-		RegV = lwea(RegAddr);
+	/**
+	 * Read the Register value
+	 */
+	l_RegValue = Xil_In32(RegAddr);
+	/**
+	 * Loop while the MAsk is not set or we timeout
+	 */
+	while(((l_RegValue & Mask) != Mask) && (TimeOut > 0U)){
+		/**
+		 * Latch up the Register value again
+		 */
+		l_RegValue = Xil_In32(RegAddr);
+		/**
+		 * Decrement the TimeOut Count
+		 */
 		TimeOut--;
 	}
 
@@ -87,7 +99,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 
 
 	/* check requested ID is a valid ID */
-	if (255U < TagId) {
+	if ((u32)MAX_BISR_TAG_NUM <= TagId) {
 		DbgErr = XPM_INT_ERR_BISR_UNKN_TAG_ID;
 		Status = XST_FAILURE;
 		goto done;
@@ -133,8 +145,32 @@ XStatus XPmBisr_Repair(u32 TagId)
 			case VCU2_TAG_ID:
 				Status = XPmRepair_Vcu2(&EfuseCurrAddr);
 				break;
+			case ISP2_TAG_ID:
+				Status = XPmRepair_ISP2(&EfuseCurrAddr);
+				break;
+			case GT_TAG_ID:
+				Status = XPmRepair_GtmGtyGtyp(&EfuseCurrAddr);
+				break;
+			case DDRMC5_CRYPTO_TAG_ID:
+				Status = XPmRepair_Ddrmc5_Crypto(&EfuseCurrAddr);
+				break;
+			case MMI_TAG_ID:
+				Status = XPmRepair_Mmi(&EfuseCurrAddr);
+				break;
+			case DDRMC5_MAIN_TAG_ID:
+				Status = XPmRepair_Ddrmc5_Main(&EfuseCurrAddr);
+				break;
+			case MMI_GTYP_TAG_ID:
+				Status = XPmRepair_Mmi_Gtyp(&EfuseCurrAddr);
+				break;
 			case AIE2PS_TAG_ID:
 				Status = XPmRepair_Aie2p_s(&EfuseCurrAddr);
+				break;
+			case MRMAC_TAG_ID:
+				EfuseNextAddr = XPmBisr_RepairHardBlock(EfuseCurrAddr, EfuseBisrSize);
+				if (EfuseNextAddr != ~0U) {
+					Status = XST_SUCCESS;
+				}
 				break;
 			case BRAM_TAG_ID:
 				EfuseNextAddr = XPmBisr_RepairBram(EfuseCurrAddr, EfuseBisrSize);
