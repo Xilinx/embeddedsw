@@ -1,5 +1,5 @@
 #############################################################################
-# Copyright (C) 2017-2023 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2017-2025 Xilinx, Inc. All rights reserved.
 # Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##
@@ -14,6 +14,6 @@ BEGIN driver v_frmbuf_rd
  OPTION copyfiles = all;
  OPTION DEPENDS = (video_common);
  OPTION name = v_frmbuf_rd;
- OPTION version = 5.0;
+ OPTION version = 5.1;
 
 END driver
