@@ -24,6 +24,7 @@
  * 1.1   ma   12/12/24 Updated command states
  *       ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
  *       ma   02/26/25 Corrected XASU_CHANNEL_RESERVED_MEM define value
+ *       rmv  07/30/25 Updated XAsu_CommChannel structure
  *
  * </pre>
  *
@@ -75,11 +76,11 @@ extern "C" {
 #define XASU_RTCA_COMM_CHANNEL_INFO_ADDR	(XASU_RTCA_BASEADDR + 0x10U) /**< Communication
 										channel info register
 										address */
-#define XASU_RTCA_MODULE_INFO_BASEADDR		(XASU_RTCA_BASEADDR + 0x68U)
+#define XASU_RTCA_MODULE_INFO_BASEADDR		(XASU_RTCA_BASEADDR + 0xA8U)
 						/**< Base address of module info of
 						size (180 bytes) */
 
-#define XASU_RTCA_DBG_LOG_BUF_INFO_ADDR		(XASU_RTCA_BASEADDR + 0x11CU)
+#define XASU_RTCA_DBG_LOG_BUF_INFO_ADDR		(XASU_RTCA_BASEADDR + 0x15CU)
 						/**< Debug log buffer info address */
 
 #define XASU_MAX_IPI_CHANNELS			(8U) /**< Maximum IPI channels supported by ASUFW */
@@ -133,6 +134,8 @@ typedef struct {
 	u8 P0QueuePriority; /**< P0 Queue Priority of the channel */
 	u8 P1QueuePriority; /**< P1 Queue Priority of the channel */
 	u16 IpiBitMask; /**< Bit mask of the IPI channel to enable interrupts */
+	u32 SmId; /**< SmId */
+	u32 SubsystemId; /**< SubsystemId */
 	u32 Reserved; /**< Reserved */
 } XAsu_CommChannel;
 

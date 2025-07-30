@@ -28,6 +28,7 @@
  *       ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
  *       ma   03/17/25 Update Status before writing response in case of command validation failure
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
+ *       rmv  07/30/25 Added function to provide subsystem ID
  *
  * </pre>
  *
@@ -271,6 +272,32 @@ void XAsufw_TriggerQueueTask(u32 IpiMask)
 			SharedMemory->ChannelMemory[ChannelIdx].P1ChannelQueue.IsCmdPresent = XASU_FALSE;
 		}
 	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function provides subsystem ID based on IPI mask.
+ *
+ * @param	IpiMask		IPI mask.
+ *
+ * @return
+ *	- Returns subsystem ID correspond to IPI mask.
+ *
+ *************************************************************************************************/
+u32 XAsufw_GetSubsysIdFromIpiMask(u32 IpiMask)
+{
+	u32 ChannelIndex;
+	u32 SubsystemId = XASUFW_INVALID_SUBSYS_ID;
+
+	for (ChannelIndex = 0U; ChannelIndex < CommChannelInfo->NumOfIpiChannels; ++ChannelIndex) {
+		if (CommChannelInfo->Channel[ChannelIndex].IpiBitMask == IpiMask) {
+			SubsystemId = CommChannelInfo->Channel[ChannelIndex].SubsystemId;
+			goto END;
+		}
+	}
+
+END:
+	return SubsystemId;
 }
 
 /*************************************************************************************************/

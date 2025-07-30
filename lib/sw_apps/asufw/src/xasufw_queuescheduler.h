@@ -20,6 +20,7 @@
  *       ma   07/08/24 Add task based approach at queue level
  *       ss   09/26/24 Fixed doxygen comments
  * 1.1   ma   12/12/24 Added support for DMA non-blocking wait
+ *       rmv  07/30/25 Added declaration for XAsufw_GetSubsysIdFromIpiMask() function
  *
  * </pre>
  *
@@ -47,6 +48,8 @@ extern "C" {
 #define XASUFW_QUEUE_TASK_PRIVDATA_RSVD_MASK	(0xFFU) /**< Queue task PrivData reserved mask */
 #define XASUFW_MAX_CHANNELS_SUPPORTED	(8U) /**< Maximum channels supported */
 #define XASUFW_RESP_DATA_OFFSET			(2U) /**< Response data offset in response buffer */
+
+#define XASUFW_INVALID_SUBSYS_ID		(0xFFFFFFFFU) /**< Invalid subsystem ID */
 
 /** @} */
 /************************************** Type Definitions *****************************************/
@@ -80,6 +83,7 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 void XAsufw_ChannelConfigInit(void);
 void XAsufw_TriggerQueueTask(u32 IpiMask);
+u32 XAsufw_GetSubsysIdFromIpiMask(u32 IpiMask);
 
 /************************************ Variable Definitions ***************************************/
 
