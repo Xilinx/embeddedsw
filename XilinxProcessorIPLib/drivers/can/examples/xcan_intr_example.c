@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,7 @@
 * 3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
 * 3.7   ht   07/04/23 Added support for system device-tree flow.
 * 3.8   ht   12/13/23 Added support for ECC.
+* 3.11  sp   21/07/25 Fix GCC Warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -140,11 +141,10 @@ static void SendHandler(void *CallBackRef);
 static void RecvHandler(void *CallBackRef);
 static void ErrorHandler(void *CallBackRef, u32 ErrorMask);
 static void EventHandler(void *CallBackRef, u32 Mask);
-
+#ifndef SDT
 static int SetupInterruptSystem(XCan *InstancePtr);
-
+#endif
 /************************** Variable Definitions *****************************/
-
 /*
  * Allocate an instance of the XCan driver
  */
@@ -161,9 +161,9 @@ static u32 RxFrame[XCAN_MAX_FRAME_SIZE_IN_WORDS];
 /*
  * Shared variables used to test the callbacks.
  */
-volatile static int LoopbackError;	/* Asynchronous error occurred */
-volatile static int RecvDone;		/* Received a frame */
-volatile static int SendDone;		/* Frame was sent successfully */
+static volatile  int LoopbackError;	/* Asynchronous error occurred */
+static volatile  int RecvDone;		/* Received a frame */
+static volatile  int SendDone;		/* Frame was sent successfully */
 
 /*****************************************************************************/
 /**

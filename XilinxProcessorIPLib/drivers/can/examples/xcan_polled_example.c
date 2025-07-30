@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *               available in all examples. This is a fix for CR-965028.
 * 3.3   ask  08/01/18 Fixed Cppcheck and GCC warnings in can driver
 * 3.7   ht     07/04/23 Added support for system device-tree flow.
+* 3.11  sp     21/07/25 Fix GCC Warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -108,8 +109,11 @@ static int RecvFrame(XCan *InstancePtr);
 static u32 TxFrame[XCAN_MAX_FRAME_SIZE_IN_WORDS];
 static u32 RxFrame[XCAN_MAX_FRAME_SIZE_IN_WORDS];
 
+#if !(defined (SDT) && defined (TESTAPP_GEN))
 /* Driver instance */
 static XCan Can;
+#endif
+
 
 /*****************************************************************************/
 /**
@@ -170,9 +174,12 @@ int main(void)
 #ifndef SDT
 int XCanPolledExample(u16 DeviceId)
 #else
-int XCanPolledExample(XCan *Can, UINTPTR BaseAddress)
+int XCanPolledExample(XCan *CanPtr, UINTPTR BaseAddress)
 #endif
 {
+#ifdef SDT
+	XCan Can = *CanPtr;
+#endif
 	int Status;
 
 	/*
