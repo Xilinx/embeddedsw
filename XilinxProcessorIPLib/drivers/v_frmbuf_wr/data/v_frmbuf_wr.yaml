@@ -1,4 +1,4 @@
-# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -16,6 +16,7 @@ properties:
         - enum:
           - xlnx,v-frmbuf-wr-2.5
           - xlnx,v-frmbuf-wr-3.0
+          - xlnx,v-frmbuf-wr-3.1
 
   reg:
     description: Physical base address and size of the controller register map
@@ -95,10 +96,14 @@ properties:
     description: y-u-v10 3 planar support
   xlnx,has-y-u-v8-420:
     description: y-u-v8-420 3 planar support
+  xlnx,has-y-u-v12:
+    description: y-u-v12 3 planar support
   xlnx,has-interlaced:
     description: Interlaced support
   xlnx,is-tile-format:
-    description: tileformat support
+    description: Tileformat support
+  xlnx,enable-sync-signals:
+    description: Low latency support
   interrupts:
     description: Interrupt number
   interrupt-parent:
@@ -148,6 +153,7 @@ required:
     - xlnx,has-y-u-v12
     - xlnx,has-interlaced
     - xlnx,is-tile-format
+    - xlnx,enable-sync-signals
     - interrupts
     - interrupt-parent
 

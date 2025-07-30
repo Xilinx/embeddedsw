@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017-2023 Xilinx Inc. All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -688,7 +688,7 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
-* This macro returns if Video Format Y16 is available
+* This macro returns if Tile format is enabled
 *
 * @param    InstancePtr is a pointer to the core instance.
 *
@@ -699,6 +699,21 @@ typedef struct {
 ******************************************************************************/
 #define XVFrmbufWr_IsTileFormatEnabled(InstancePtr) \
                                  ((InstancePtr)->FrmbufWr.Config.IsTileFormat)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Low latency support is enabled
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsEnSyncSignals(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.EnSyncSignals)
 
 
 /**************************** Function Prototypes *****************************/

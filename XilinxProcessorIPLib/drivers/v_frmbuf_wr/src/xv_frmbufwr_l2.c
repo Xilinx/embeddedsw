@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017-2023 Xilinx Inc. All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -866,6 +866,7 @@ void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
   xil_printf("Y_U_V12 Enabled:            %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V12En);
   xil_printf("Interlaced Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Interlaced);
   xil_printf("Tile format Enabled:        %d\r\n", InstancePtr->FrmbufWr.Config.IsTileFormat);
+  xil_printf("Low Latency Support:        %d\r\n", InstancePtr->FrmbufWr.Config.EnSyncSignals);
 
   xil_printf("Control Reg:                0x%x\r\n", ctrl);
   xil_printf("Width:                      %d\r\n", XV_frmbufwr_Get_HwReg_width(&InstancePtr->FrmbufWr));
