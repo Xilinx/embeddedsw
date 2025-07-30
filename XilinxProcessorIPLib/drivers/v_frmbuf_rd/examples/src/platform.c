@@ -1,9 +1,14 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+/**
+*
+* @file platform.c
+* @addtogroup v_frmbuf_rd Overview
+*/
 
 #include "xparameters.h"
 #include "xil_cache.h"
@@ -20,6 +25,17 @@
  #define UART_BAUD 9600
 #endif
 
+/**
+ * @brief Enables instruction and data caches based on the target processor architecture.
+ *
+ * This function enables the instruction and data caches for either PowerPC or MicroBlaze
+ * processors. For PowerPC, it enables cache regions specified by CACHEABLE_REGION_MASK.
+ * For MicroBlaze, it checks if instruction and data caches are configured and enables them
+ * accordingly.
+ *
+ * Conditional compilation is used to ensure the correct cache enabling functions are called
+ * for the detected processor architecture.
+ */
 void
 enable_caches()
 {
@@ -36,6 +52,15 @@ enable_caches()
 #endif
 }
 
+/**
+ * @brief Disables both the data cache and instruction cache.
+ *
+ * This function calls the Xil_DCacheDisable() and Xil_ICacheDisable()
+ * functions to turn off the data and instruction caches, respectively.
+ * It is typically used in bare-metal embedded systems where cache
+ * coherency is not required or before performing operations that
+ * require caches to be disabled.
+ */
 void
 disable_caches()
 {
@@ -43,6 +68,16 @@ disable_caches()
     Xil_ICacheDisable();
 }
 
+/**
+ * @brief Initializes the UART peripheral based on the platform configuration.
+ *
+ * This function configures the UART for standard output. If the platform uses
+ * the 16550 UART, it sets the baud rate and line control register. If the platform
+ * uses the PS7 UART, it assumes the bootrom or BSP has already configured it to 115200 bps.
+ *
+ * Platform-specific macros (STDOUT_IS_16550, STDOUT_IS_PS7_UART) determine which
+ * initialization steps are performed.
+ */
 void
 init_uart()
 {
@@ -55,6 +90,14 @@ init_uart()
 #endif
 }
 
+/**
+ * @brief Initializes the platform hardware and peripherals.
+ *
+ * This function performs platform-specific initialization steps, such as
+ * enabling processor caches and initializing the UART for standard output.
+ * If running outside of the SDK, PS7 initialization can be enabled by
+ * uncommenting the relevant lines and including the required files.
+ */
 void
 init_platform()
 {
@@ -69,6 +112,13 @@ init_platform()
     init_uart();
 }
 
+/**
+ * @brief Cleans up the platform by disabling CPU caches.
+ *
+ * This function is typically called during the shutdown or cleanup phase
+ * of an embedded application to ensure that all CPU caches are properly
+ * disabled before exiting or resetting the system.
+ */
 void
 cleanup_platform()
 {
