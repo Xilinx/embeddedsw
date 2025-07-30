@@ -1,57 +1,214 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2025 Advanced Micro Devices, Inc.  All rights reserved.
  * SPDX-License-Identifier: MIT
- *****************************************************************************/
+ ******************************************************************************/
 
-#ifndef XPM_REPAIR_H_
-#define XPM_REPAIR_H_
-
-#include "xpm_bisr.h"
-#include "xpm_regs.h"
-#include "xpm_powerdomain.h"
-#include "xpm_repair_regs.h"
+#ifndef XPM_REPAIR_H
+#define XPM_REPAIR_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-maybe_unused static inline XStatus XPmRepair_Vdu(u32 EfuseTagAddr, u32 TagSize,
-                        u32 TagOptional, u32 *TagDataAddr)
-{
-	(void)EfuseTagAddr;
-	(void)TagSize;
-	(void)TagOptional;
-	(void)TagDataAddr;
+#include "xpm_regs.h"
+#include "xpm_common.h"
+#include "xpm_pldomain.h"
+#include "xpm_device.h"
 
-	return XST_INVALID_PARAM;
-}
+#define PMC_EFUSE_BISR_EXIT_CODE	(0U)
+#define PMC_EFUSE_BISR_SKIP_CODE	(0xFFFFFFFFU)
+#define PMC_EFUSE_BISR_SIZE_MASK	(0x00FF0000U)
+#define PMC_EFUSE_BISR_SIZE_SHIFT	(16U)
+#define PMC_EFUSE_BISR_OPTIONAL_MASK	(0x0000FFFFU)
+#define PMC_EFUSE_BISR_OPTIONAL_SHIFT	(0U)
+#define PMC_EFUSE_BISR_TAG_ID_MASK	(0xFF000000U)
+#define PMC_EFUSE_BISR_TAG_ID_SHIFT	(24U)
 
-maybe_unused static inline XStatus XPmRepair_Bfrb(u32 EfuseTagAddr, u32 TagSize,
-			u32 TagOptional, u32 *TagDataAddr)
-{
-	(void)EfuseTagAddr;
-	(void)TagSize;
-	(void)TagOptional;
-	(void)TagDataAddr;
+#define NPI_FIXED_BASEADDR		(0x00F6000000U)
+#define NPI_FIXED_MASK			(0x00FE000000U)
+#define NPI_EFUSE_ENDPOINT_SHIFT	(16U)
+#define NPI_EFUSE_ENDPOINT_ADDR_MASK	(0x0001FF0000U)
+#define NPI_PCSR_CTRL_OFFSET		(0X00000004U)
 
-	return XST_INVALID_PARAM;
-}
+/*Macro for 0XFFFFFFFF*/
+#define SET_ALLBITS_TO_ONE	    (u32)(0xFFFFFFFFU)
+
+/*
+ * LPD BISR register definitions
+ */
+#define LPD_SLCR_BISR_CACHE_DATA_0			(PSXC_LPX_SLCR_BASEADDR + (u32)0x00000110U)
+#define LPD_SLCR_BISR_CACHE_CTRL_0			(PSXC_LPX_SLCR_BASEADDR + (u32)0x00000100U)
+#define LPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK		(0x00000010U)
+#define LPD_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK		(0x00000001U)
+#define LPD_SLCR_BISR_CACHE_CTRL_1			(PSXC_LPX_SLCR_BASEADDR + (u32)0x00000104U)
+#define LPD_SLCR_BISR_CACHE_CTRL_1_FULLMASK		(0x0000007FU)
+
+#define LPD_SLCR_BISR_CACHE_STATUS			(PSXC_LPX_SLCR_BASEADDR + (u32)0x00000108U)
+#define LPD_SLCR_BISR_CACHE_STATUS_DONE_GLOBAL_MASK	(0x40000000U)
+#define LPD_SLCR_BISR_CACHE_STATUS_DONE_0_MASK		(0x00000001U)
+#define LPD_SLCR_BISR_CACHE_STATUS_DONE_1_MASK		(0x00000004U)
+#define LPD_SLCR_BISR_CACHE_STATUS_DONE_2_MASK		(0x00000010U)
+#define LPD_SLCR_BISR_CACHE_STATUS_DONE_3_MASK		(0x00000040U)
+#define LPD_SLCR_BISR_CACHE_STATUS_DONE_4_MASK		(0x00000100U)
+#define LPD_SLCR_BISR_CACHE_STATUS_DONE_5_MASK		(0x00000400U)
+#define LPD_SLCR_BISR_CACHE_STATUS_DONE_6_MASK		(0x00001000U)
+#define LPD_SLCR_BISR_CACHE_STATUS_DONE_7_MASK		(0x00004000U)
+#define LPD_SLCR_BISR_CACHE_STATUS_DONE_8_MASK		(0x00010000U)
+#define LPD_SLCR_BISR_CACHE_STATUS_DONE_9_MASK		(0x00040000U)
+#define LPD_SLCR_BISR_CACHE_STATUS_DONE_10_MASK		(0x00100000U)
+
+#define LPD_SLCR_BISR_CACHE_STATUS_PASS_GLOBAL_MASK	(0x80000000U)
+#define LPD_SLCR_BISR_CACHE_STATUS_PASS_0_MASK		(0x00000002U)
+#define LPD_SLCR_BISR_CACHE_STATUS_PASS_1_MASK		(0x00000008U)
+#define LPD_SLCR_BISR_CACHE_STATUS_PASS_2_MASK		(0x00000020U)
+#define LPD_SLCR_BISR_CACHE_STATUS_PASS_3_MASK		(0x00000080U)
+#define LPD_SLCR_BISR_CACHE_STATUS_PASS_4_MASK		(0x00000200U)
+#define LPD_SLCR_BISR_CACHE_STATUS_PASS_5_MASK		(0x00000800U)
+#define LPD_SLCR_BISR_CACHE_STATUS_PASS_6_MASK		(0x00002000U)
+#define LPD_SLCR_BISR_CACHE_STATUS_PASS_7_MASK		(0x00008000U)
+#define LPD_SLCR_BISR_CACHE_STATUS_PASS_8_MASK		(0x00020000U)
+#define LPD_SLCR_BISR_CACHE_STATUS_PASS_9_MASK		(0x00080000U)
+#define LPD_SLCR_BISR_CACHE_STATUS_PASS_10_MASK		(0x00200000U)
+
+/*
+ * FPD BISR register definitions
+ */
+#define FPD_SLCR_BISR_CACHE_DATA_0			(FPD_SLCR_BASEADDR + (u32)0x00000410U)
+#define FPD_SLCR_BISR_CACHE_DATA_16			(FPD_SLCR_BASEADDR + (u32)0x00000500U)
+#define FPD_SLCR_BISR_CACHE_DATA_32			(FPD_SLCR_BASEADDR + (u32)0x00000580U)
+#define FPD_SLCR_BISR_CACHE_DATA_48			(FPD_SLCR_BASEADDR + (u32)0x00000600U)
+#define FPD_SLCR_BISR_CACHE_DATA_64			(FPD_SLCR_BASEADDR + (u32)0x00000680U)
+
+#define FPD_SLCR_BISR_CACHE_CTRL_0			(FPD_SLCR_BASEADDR + (u32)0x00000400U)
+#define FPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK		(0x00000010U)
+#define FPD_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK		(0x00000001U)
+#define FPD_SLCR_BISR_CACHE_CTRL_1			(FPD_SLCR_BASEADDR + (u32)0x00000404U)
+#define FPD_SLCR_BISR_CACHE_CTRL_1_FULLMASK		(0x001FFFFFU)
+
+#define FPD_SLCR_BISR_CACHE_STATUS0			(FPD_SLCR_BASEADDR + (u32)0x00000408U)
+#define FPD_SLCR_BISR_CACHE_STATUS1			(FPD_SLCR_BASEADDR + (u32)0x0000040CU)
+#define FPD_SLCR_BISR_CACHE_STATUS0_DONE_MASK		(0x00000001U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_DONE_0_MASK		(0x00000004U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_DONE_1_MASK		(0x00000010U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_DONE_2_MASK		(0x00000040U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_DONE_5_MASK		(0x00001000U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_DONE_6_MASK		(0x00004000U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_DONE_9_MASK		(0x00100000U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_DONE_10_MASK	(0x00400000U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_DONE_13_MASK	(0x10000000U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_DONE_14_MASK	(0x40000000U)
+#define FPD_SLCR_BISR_CACHE_STATUS1_DONE_17_MASK	(0x00000010U)
+#define FPD_SLCR_BISR_CACHE_STATUS1_DONE_18_MASK	(0x00000040U)
+#define FPD_SLCR_BISR_CACHE_STATUS1_DONE_19_MASK	(0x00000100U)
+#define FPD_SLCR_BISR_CACHE_STATUS1_DONE_20_MASK	(0x00000400U)
+
+#define FPD_SLCR_BISR_CACHE_STATUS0_PASS_MASK		(0x00000002U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_PASS_0_MASK		(0x00000008U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_PASS_1_MASK		(0x00000020U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_PASS_2_MASK		(0x00000080U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_PASS_5_MASK		(0x00002000U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_PASS_6_MASK		(0x00008000U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_PASS_9_MASK		(0x00200000U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_PASS_10_MASK	(0x00800000U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_PASS_13_MASK	(0x20000000U)
+#define FPD_SLCR_BISR_CACHE_STATUS0_PASS_14_MASK	(0x80000000U)
+#define FPD_SLCR_BISR_CACHE_STATUS1_PASS_17_MASK	(0x00000020U)
+#define FPD_SLCR_BISR_CACHE_STATUS1_PASS_18_MASK	(0x00000080U)
+#define FPD_SLCR_BISR_CACHE_STATUS1_PASS_19_MASK	(0x00000200U)
+#define FPD_SLCR_BISR_CACHE_STATUS1_PASS_20_MASK	(0x00000800U)
+
+/*
+ * VCU BISR register definitions
+ */
+#define VCU2_NPI_0_BASEADDR				(0xF6A40000U)
+#define VCU2_NPI_0_BISR_CACHE_DATA_SSSS_0		(VCU2_NPI_0_BASEADDR + (u32)0x00000104U)
+#define VCU2_NPI_0_MMD_NPI_PCSR_MASK_BISR_TRIGGER_MASK	(0x20000000U)
+#define VCU2_NPI_0_MMD_NPI_PCSR_CONTROL_BISR_TRIGGER_MASK	(0x20000000U)
+#define VCU2_NPI_0_MMD_NPI_PCSR_STATUS_BISR_DONE_MASK	(0x00800000U)
+#define VCU2_NPI_0_MMD_NPI_PCSR_STATUS_BISR_PASS_MASK	(0x01000000U)
+
+/*
+ * AIE2PS BISR register defintions
+ */
+#define ME_BISR_EFUSE_OFFSET_SHIFT			20U
+#define AIE2PS_PL_MODULE_0_0_BASEADDR			(0x20000000000U)
+#define AIE2PS_PL_MODULE_0_0_BISR_CACHE_DATA0		(AIE2PS_PL_MODULE_0_0_BASEADDR + 0x00000036010U)
+#define AIE2PS_PL_MODULE_0_0_BISR_CACHE_CTRL		(AIE2PS_PL_MODULE_0_0_BASEADDR + 0x00000036000U)
+#define AIE2PS_PL_MODULE_0_0_BISR_CACHE_CTRL_TRIGGER_MASK	(0x00000001U)
+#define AIE2PS_PL_MODULE_0_0_BISR_CACHE_STATUS		(AIE2PS_PL_MODULE_0_0_BASEADDR + 0x00000036008U)
+#define AIE2PS_PL_MODULE_0_0_BISR_CACHE_STATUS_DONE_MASK	(0x00000001U)
+#define AIE2PS_PL_MODULE_0_0_BISR_CACHE_STATUS_PASS_MASK	(0x00000002U)
+
+/*
+ * BRAM BISR register definitions
+ */
+#define CFRM_BRAM_REPAIR_ROW_MASK                       (0x000f0000U)
+#define CFRM_BRAM_REPAIR_ROW_SHIFT                      (16U)
+#define CFRM_BRAM_REPAIR_COL_MASK                       (0x0000fc00U)
+#define CFRM_BRAM_REPAIR_COL_SHIFT                      (10U)
+#define CFRM_BRAM_REPAIR_INDEX_MASK                     (0x000003E0U)
+#define CFRM_BRAM_REPAIR_INDEX_SHIFT                    (5U)
+#define CFRM_BRAM_REPAIR_VAL_MASK                       (0x0000001FU)
+#define CFRM_BRAM_REPAIR_VAL_SHIFT                      (0U)
+#define CFRM_BRAM_EXP_REPAIR_BLK_TYPE_BRAM              (0x3UL)
+#define CFRM_BRAM_EXP_REPAIR_BLK_TYPE_SHIFT             (15U)
+#define CFRM_BRAM_EXP_REPAIR_COL_SHIFT                  (7U)
+#define CFRM_BRAM_EXP_REPAIR_INDEX_SHIFT                (0U)
+#define CFRM_BRAM_EXP_REPAIR_VAL_SHIFT                  (0U)
+
+/*
+ * URAM BISR register definitions
+ */
+#define CFRM_URAM_REPAIR_ROW_MASK                       (0x000f0000U)
+#define CFRM_URAM_REPAIR_ROW_SHIFT                      (16U)
+#define CFRM_URAM_REPAIR_COL_MASK                       (0x0000f800U)
+#define CFRM_URAM_REPAIR_COL_SHIFT                      (11U)
+#define CFRM_URAM_REPAIR_INDEX_MASK                     (0x000007C0U)
+#define CFRM_URAM_REPAIR_INDEX_SHIFT                    (6U)
+#define CFRM_URAM_REPAIR_VAL_MASK                       (0x0000003FU)
+#define CFRM_URAM_REPAIR_VAL_SHIFT                      (0U)
+#define CFRM_URAM_EXP_REPAIR_BLK_TYPE_URAM              (0x4UL)
+#define CFRM_URAM_EXP_REPAIR_BLK_TYPE_SHIFT             (15U)
+#define CFRM_URAM_EXP_REPAIR_COL_SHIFT                  (7U)
+#define CFRM_URAM_EXP_REPAIR_INDEX_SHIFT                (0U)
+#define CFRM_URAM_EXP_REPAIR_VAL_SHIFT                  (0U)
+
+
+typedef enum {
+	PMC_EFUSE_BISR_STATUS_PASSED = 0,	// The BISR for TAGID has run and passed
+	PMC_EFUSE_BISR_STATUS_NOREPAIR = 1,	// There is no BISR Repair data for TAGID
+	PMC_EFUSE_BISR_STATUS_NOT_RUN = 5,	// eFuse Sorted, The TAG hasn't run the Bisr Repair
+	ERRSTS_REPAIR_TIMEOUT = 0x93,		// ERRSTS_PMC2ATE_REPAIR_TIMEOUT
+	ERRSTS_REPAIR_FUNCTION_FAILED = 0x94,	// ERRSTS_PMC2ATE_REPAIR_FUNCTION_FAILED, Repair Done but not Pass
+	ERRSTS_REPAIR_INVALID_TAGID = 0x95,	// ERRSTS_PMC2ATE_REPAIR_INVALID_TAGID, TagID defined, but not valid for device
+	ERRSTS_REPAIR_INIT_FAIL	= 0x96,		// ERRSTS_PMC2ATE_REPAIR_INIT_FAIL, may due to isolation or other reason
+	ERRSTS_REPAIR_UNSUPPORT_TAGID = 0x97,	// ERRSTS_PMC2ATE_REPAIR_UNSUPPORT_TAGID, Valid TagID, but not support by GOQ FW
+	ERRSTS_REPAIR_BAD_TAG_SIZE = 0x98,	// ERRSTS_PMC2ATE_REPAIR_BAD_TAG_SIZE, BISR_SIZE error. for HardBlock repair, the tag size is unexpected (must be 1)
+	ERRSTS_REPAIR_TAGID_OUTOFRANGE = 0x99,	// ERRSTS_PMC2ATE_REPAIR_TAGID_OUTOFRANGE. can't be written into st_BisrTagsTable.status
+} bisr_Repair_Status;
+
+enum BISR_TAG_IDs {
+	BRAM_TAG_ID = 0x11,	//  XPmBisr_RepairBram
+	URAM_TAG_ID = 0x12,	//  XPmBisr_RepairUram
+	VCU2_TAG_ID = 0x2A,	//  XPmRepair_Vcu2
+	FPXC_TAG_ID = 0x2B,	//  XPmRepair_Fpd
+	LPXC_TAG_ID = 0x2C,	//  XPmRepair_Lpd
+	AIE2PS_TAG_ID = 0x2D,	//  XPmRepair_Aie2p_s
+	MAX_BISR_TAG_NUM = 0x35
+};
 
 /************************** Function Prototypes ******************************/
-XStatus XPmRepair_Lpx(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
-XStatus XPmRepair_Fpx(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
-XStatus XPmRepair_Hnicx_Nthub(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
-XStatus XPmRepair_Cpm5n(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
-XStatus XPmRepair_Ddrmc5_Crypto(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
-	 u32 *TagDataAddr);
-XStatus XPmRepair_Ddrmc5_Main(u32 EfuseTagAddr, u32 TagSize,
-                u32 TagOptional, u32 *TagDataAddr);
-XStatus XPmRepair_Hnicx_Dpu(u32 EfuseTagAddr, u32 TagSize,
-            u32 TagOptional, u32 *TagDataAddr);
-XStatus XPmRepair_Hnicx_Lcs(u32 EfuseTagAddr, u32 TagSize,
-            u32 TagOptional, u32 *TagDataAddr);
+XStatus XPmBisr_Repair(u32 TagId);
+void XPmBisr_CopyStandard(u32 * BisrDataAddr, u32 TagSize, u64 BisrDataDestAddr);
+u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize);
+u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize);
+XStatus XPmRepair_Lpd(u32 * EfuseTagAddr);
+XStatus XPmRepair_Fpd(u32 * EfuseTagAddr);
+XStatus XPmRepair_Vcu2(u32 * EfuseTagAddr);
+XStatus XPmRepair_Aie2p_s(u32 * EfuseTagAddr);
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XPM_REPAIR_H_ */
+#endif /* XPM_REPAIR_H */

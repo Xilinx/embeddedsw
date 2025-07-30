@@ -6,7 +6,6 @@
 #ifndef XPM_PLDOMAIN_H_
 #define XPM_PLDOMAIN_H_
 
-#include "xpm_bisr.h"
 #include "xpm_powerdomain.h"
 #include "xpm_regs.h"
 #include "xcframe.h"

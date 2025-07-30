@@ -437,11 +437,7 @@ XStatus XPm_DoBisr(XPlmi_Cmd* Cmd)
 	XStatus Status = XST_FAILURE;
 	u32 TagId = Cmd->Payload[0];
 
-	if (XST_SUCCESS == XPmBisr_TagSupportCheck2(TagId)) {
-		Status = XPmBisr_Repair2(TagId);
-	} else {
-		Status = XPmBisr_Repair(TagId);
-	}
+	Status = XPmBisr_Repair(TagId);
 
 	Cmd->Response[0] = (u32)Status;
 	return Status;

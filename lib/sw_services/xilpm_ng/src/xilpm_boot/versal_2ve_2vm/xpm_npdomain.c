@@ -9,7 +9,6 @@
 #include "xpm_npdomain.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_regs.h"
-#include "xpm_bisr.h"
 #include "xpm_debug.h"
 #include "xpm_device.h"
 #include "xpm_rail.h"

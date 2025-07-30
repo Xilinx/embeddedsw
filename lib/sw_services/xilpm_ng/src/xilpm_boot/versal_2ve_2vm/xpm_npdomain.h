@@ -7,7 +7,6 @@
 #ifndef XPM_NPDOMAIN_H_
 #define XPM_NPDOMAIN_H_
 
-#include "xpm_bisr.h"
 #include "xpm_powerdomain.h"
 #include "xpm_regs.h"
 

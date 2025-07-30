@@ -6,7 +6,6 @@
 #ifndef XPM_PSLPDOMAIN_H_
 #define XPM_PSLPDOMAIN_H_
 
-#include "xpm_bisr.h"
 #include "xpm_powerdomain.h"
 #include "xpm_regs.h"
 
