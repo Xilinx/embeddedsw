@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -79,6 +79,20 @@ XHdmiphy1_Config *XHdmiphy1_LookupConfig(u16 DeviceId)
 	return CfgPtr;
 }
 #else
+/******************************************************************************/
+/**
+ * This function looks for the device configuration based on the base address.
+ * The table XHdmiphy1_ConfigTable[] contains the configuration information
+ * for each device in the system.
+ *
+ * @param	BaseAddress is the base address of the device being looked up.
+ *
+ * @return	A pointer to the configuration table entry corresponding to the
+ *		given base address, or NULL if no match is found.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
 XHdmiphy1_Config* XHdmiphy1_LookupConfig(UINTPTR BaseAddress)
 {
   XHdmiphy1_Config *CfgPtr = NULL;

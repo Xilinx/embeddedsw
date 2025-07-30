@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -235,7 +236,7 @@ u32 XHdmiphy1_WriteCfgRefClkSelReg(XHdmiphy1 *InstancePtr, u8 QuadId)
 * @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
 * @param	QuadId is the GT quad ID to operate on.
 * @param	ChId is the channel ID to operate on.
-* @param	SysClkDataSel is the reference clock selection to configure.
+* @param	RefClkSel is the reference clock selection to configure.
 *
 * @return	None.
 *
@@ -1167,7 +1168,6 @@ void XHdmiphy1_SetBufgGtDiv(XHdmiphy1 *InstancePtr,
 * @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
 * @param	QuadId is the GT quad ID to operate on.
 * @param	ChId is the channel ID to power down the PLL for.
-* @param	Dir is an indicator for TX or RX.
 * @param	Hold is an indicator whether to "hold" the power down if set
 *		to 1. If set to 0: power down, then power back up.
 *
@@ -1380,7 +1380,7 @@ u32 XHdmiphy1_ClkReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 * This function will translate from XHdmiphy1_PllType to
 * XHdmiphy1_SysClkDataSelType.
 *
-* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	PllSelect is the PLL type to translate.
 *
 * @return	The reference clock type based on the PLL selection.
 *
@@ -1404,7 +1404,7 @@ XHdmiphy1_SysClkDataSelType XHdmiphy1_Pll2SysClkData(XHdmiphy1_PllType PllSelect
 * This function will translate from XHdmiphy1_PllType to
 * XHdmiphy1_SysClkOutSelType.
 *
-* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	PllSelect is the PLL type to translate.
 *
 * @return	The reference clock type based on the PLL selection.
 *
@@ -1535,6 +1535,7 @@ calc_done:
 *
 * @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
 * @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
 * @param	Dir is an indicator for TX or RX.
 *
 * @return	PLL VCO frequency in Hz
@@ -1856,7 +1857,6 @@ u8 XHdmiphy1_IsHDMI(XHdmiphy1 *InstancePtr, XHdmiphy1_DirectionType Dir)
 * This function is the error condition handler
 *
 * @param	InstancePtr is a pointer to the HDMIPHY instance.
-* @param    ErrIrqType is the error type
 *
 * @return	None.
 *

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -83,18 +83,81 @@ u32 XHdmiphy1_RxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 u32 XHdmiphy1_TxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId);
 #else
+/**
+ * @brief Configure CDR settings (GT adaptor wrapper).
+ *
+ * This macro provides a wrapper to call the GT adaptor's CfgSetCdr function.
+ *
+ * @param Ip Pointer to the HDMI PHY instance.
+ * @param ... Variable arguments passed to the GT adaptor function.
+ * @return Result from the GT adaptor's CfgSetCdr function.
+ */
 #define XHdmiphy1_CfgSetCdr(Ip, ...) \
 		((Ip)->GtAdaptor->CfgSetCdr(Ip, __VA_ARGS__))
+/**
+ * @brief Check PLL operating range (GT adaptor wrapper).
+ *
+ * This macro provides a wrapper to call the GT adaptor's CheckPllOpRange function.
+ *
+ * @param Ip Pointer to the HDMI PHY instance.
+ * @param ... Variable arguments passed to the GT adaptor function.
+ * @return Result from the GT adaptor's CheckPllOpRange function.
+ */
 #define XHdmiphy1_CheckPllOpRange(Ip, ...) \
 		((Ip)->GtAdaptor->CheckPllOpRange(Ip, __VA_ARGS__))
+/**
+ * @brief Reconfigure output divider for channel (GT adaptor wrapper).
+ *
+ * This macro provides a wrapper to call the GT adaptor's OutDivChReconfig function.
+ *
+ * @param Ip Pointer to the HDMI PHY instance.
+ * @param ... Variable arguments passed to the GT adaptor function.
+ * @return Result from the GT adaptor's OutDivChReconfig function.
+ */
 #define XHdmiphy1_OutDivChReconfig(Ip, ...) \
 		((Ip)->GtAdaptor->OutDivChReconfig(Ip, __VA_ARGS__))
+/**
+ * @brief Reconfigure channel clock (GT adaptor wrapper).
+ *
+ * This macro provides a wrapper to call the GT adaptor's ClkChReconfig function.
+ *
+ * @param Ip Pointer to the HDMI PHY instance.
+ * @param ... Variable arguments passed to the GT adaptor function.
+ * @return Result from the GT adaptor's ClkChReconfig function.
+ */
 #define XHdmiphy1_ClkChReconfig(Ip, ...) \
 		((Ip)->GtAdaptor->ClkChReconfig(Ip, __VA_ARGS__))
+/**
+ * @brief Reconfigure common clock (GT adaptor wrapper).
+ *
+ * This macro provides a wrapper to call the GT adaptor's ClkCmnReconfig function.
+ *
+ * @param Ip Pointer to the HDMI PHY instance.
+ * @param ... Variable arguments passed to the GT adaptor function.
+ * @return Result from the GT adaptor's ClkCmnReconfig function.
+ */
 #define XHdmiphy1_ClkCmnReconfig(Ip, ...) \
 		((Ip)->GtAdaptor->ClkCmnReconfig(Ip, __VA_ARGS__))
+/**
+ * @brief Reconfigure RX channel (GT adaptor wrapper).
+ *
+ * This macro provides a wrapper to call the GT adaptor's RxChReconfig function.
+ *
+ * @param Ip Pointer to the HDMI PHY instance.
+ * @param ... Variable arguments passed to the GT adaptor function.
+ * @return Result from the GT adaptor's RxChReconfig function.
+ */
 #define XHdmiphy1_RxChReconfig(Ip, ...) \
 		((Ip)->GtAdaptor->RxChReconfig(Ip, __VA_ARGS__))
+/**
+ * @brief Reconfigure TX channel (GT adaptor wrapper).
+ *
+ * This macro provides a wrapper to call the GT adaptor's TxChReconfig function.
+ *
+ * @param Ip Pointer to the HDMI PHY instance.
+ * @param ... Variable arguments passed to the GT adaptor function.
+ * @return Result from the GT adaptor's TxChReconfig function.
+ */
 #define XHdmiphy1_TxChReconfig(Ip, ...) \
 		((Ip)->GtAdaptor->TxChReconfig(Ip, __VA_ARGS__))
 #endif

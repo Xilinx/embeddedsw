@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -57,7 +58,7 @@ void XHdmiphy1_IntrEnable(XHdmiphy1 *InstancePtr,
 
 /******************************************************************************/
 /**
- * This function disabled interrupts associated with the specified interrupt
+ * This function disables interrupts associated with the specified interrupt
  * type.
  *
  * @param	InstancePtr is a pointer to the XHdmiphy1 instance.

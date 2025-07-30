@@ -28,7 +28,7 @@
  * 1.2   ssh  22/07/22 Added multi gt support and updated the frl and
  * 		       dru clk freq to 200MHz for -1 GTHE4 and GTYE4 device
  * 1.3   ssh  18/10/22 Updated the extended txdiffctrl mask and added
- * 		       support for NI-DRU diabled case
+ * 		       support for NI-DRU disabled case
  * 1.4   ssh  10/09/24 Added DPLL clock primitive support for Versal
  * </pre>
  *
@@ -291,7 +291,7 @@ u32 XHdmiphy1_GetVersion(XHdmiphy1 *InstancePtr)
 * @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
 * @param	QuadId is the GT quad ID to operate on.
 * @param	ChId is the channel ID to operate on.
-* @param	LineRate is the line rate to configure software.
+* @param	LineRateHz is the line rate to configure software.
 *
 * @return
 *		- XST_SUCCESS if the reference clock type is valid.
@@ -649,12 +649,11 @@ u32 XHdmiphy1_SetPrbsSel(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 /*****************************************************************************/
 /**
-* This function will set the TX/RXPRBSEL of the GT
+* This function will force an error in the TX PRBS pattern for the GT.
 *
 * @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
 * @param	QuadId is the GT quad ID to operate on.
 * @param	ChId is the channel ID which to operate on.
-* @param	Dir is an indicator for TX or RX.
 * @param	ForceErr 0-No Error 1-Force Error
 *
 * @return
@@ -784,12 +783,12 @@ void XHdmiphy1_SetTxPreEmphasis(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 /*****************************************************************************/
 /**
-* This function will set the TX post-curosr value for a given channel.
+* This function will set the TX post-cursor value for a given channel.
 *
 * @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
 * @param	QuadId is the GT quad ID to operate on.
 * @param	ChId is the channel ID to operate on.
-* @param	Pe is the pre-emphasis value to write.
+* @param	Pc is the post-cursor value to write.
 *
 * @return	None.
 *
@@ -1099,6 +1098,7 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 * This function enables the TX or RX IBUFDS peripheral.
 *
 * @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	QuadId is the GT quad ID to operate on.
 * @param	Dir is an indicator for TX or RX.
 * @param	Enable specifies TRUE/FALSE value to either enable or disable
 *		the IBUFDS, respectively.

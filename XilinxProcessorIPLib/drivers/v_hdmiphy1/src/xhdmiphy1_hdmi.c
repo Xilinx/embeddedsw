@@ -73,6 +73,7 @@ static void XHdmiphy1_MmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
  * @param	InstancePtr is a pointer to the XHdmiphy1 instance.
  * @param	CfgPtr is a pointer to the configuration structure that will
  *		        be used to copy the settings from.
+* @param	QuadId is the GT quad ID to operate on.
  *
  * @return	None.
  *
@@ -1047,7 +1048,7 @@ u64 XHdmiphy1_DruCalcCenterFreqHz(XHdmiphy1 *InstancePtr, u8 QuadId,
 			(ChPtr->PllParams.MRefClkDiv * ChPtr->RxOutDiv * 20);
 	}
 #else
-	/* Supress Warning */
+	/* Suppress Warning */
 	QuadId = QuadId;
 	ChId = ChId;
 
@@ -2602,7 +2603,6 @@ void XHdmiphy1_PatgenEnable(XHdmiphy1 *InstancePtr, u8 QuadId, u8 Enable)
 *
 * @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
 * @param	QuadId is the GT quad ID to operate on.
-* @param	ChId is the channel ID to operate on.
 * @param	TxLineRate in Mbps.
 *
 * @return	None.
@@ -2639,7 +2639,6 @@ void XHdmiphy1_PatgenSetRatio(XHdmiphy1 *InstancePtr, u8 QuadId,
 *
 * @param	InstancePtr is a pointer to the Hdmiphy core instance.
 * @param	QuadId is the GT quad ID to operate on.
-* @param	ChId is the channel ID to operate on.
 * @param	Dir is an indicator for RX or TX.
 *
 * @return
@@ -2740,8 +2739,9 @@ u32 Xhdmiphy1_RefClkValue() {
 *
 * @param	InstancePtr is a pointer to the Hdmiphy core instance.
 * @param	QuadId is the GT quad ID to operate on.
-* @param	ChId is the channel ID to operate on.
 * @param	Dir is an indicator for RX or TX.
+* @param	LineRate is the line rate for HDMI 2.1 operation.
+* @param	NChannels is the number of channels for HDMI 2.1 operation.
 *
 * @return
 *		- XST_SUCCESS if TX parameters set/updated.

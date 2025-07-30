@@ -276,7 +276,12 @@ typedef enum {
     XHDMIPHY1_OUTCLKSEL_TYPE_PROGDIVCLK
 } XHdmiphy1_OutClkSelType;
 
-/* This typedef enumerates the possible states a transceiver can be in. */
+/**
+ * @brief Enumeration of possible states a transceiver can be in.
+ *
+ * This enumeration defines the various operational states that a GT
+ * transceiver can be in during its operation.
+ */
 typedef enum {
     XHDMIPHY1_GT_STATE_IDLE,     /**< Idle state. */
 	XHDMIPHY1_GT_STATE_GPO_RE,   /**< GPO RE state. */
@@ -287,6 +292,12 @@ typedef enum {
 } XHdmiphy1_GtState;
 
 #ifdef XV_HDMIPHY1_LOG_ENABLE
+/**
+ * @brief Enumeration of log events for the HDMI PHY driver.
+ *
+ * This enumeration defines the various log events that can be recorded
+ * by the HDMI PHY driver for debugging and monitoring purposes.
+ */
 typedef enum {
     XHDMIPHY1_LOG_EVT_NONE = 1,      /**< Log event none. */
     XHDMIPHY1_LOG_EVT_QPLL_EN,       /**< Log event QPLL enable. */
@@ -372,8 +383,12 @@ typedef enum {
 	XHDMIPHY1_MMCM_CLKINSEL_CLKIN2 = 0,
 } XHdmiphy1_MmcmClkinsel;
 
-/* This typedef enumerates the Linerate to TMDS Clock ratio
- * for HDMI TX TMDS Clock pattern generator. */
+/**
+ * @brief Enumeration of linerate to TMDS clock ratio for HDMI TX pattern generator.
+ *
+ * This enumeration defines the various line rate to TMDS clock ratios
+ * that can be used for the HDMI TX TMDS clock pattern generator.
+ */
 typedef enum {
     XHDMIPHY1_Patgen_Ratio_10    = 0x1,  /**< LR:Clock Ratio = 10 */
     XHDMIPHY1_Patgen_Ratio_20    = 0x2,  /**< LR:Clock Ratio = 20 */
@@ -693,7 +708,7 @@ typedef struct {
     u8  HdmiFastSwitch;     /**< HDMI fast switching is enabled in the
                                  design. */
     u8  TransceiverWidth;   /**< Transceiver Width seeting in the design */
-    u32 ErrIrq;             /**< Error IRQ is enalbed in design */
+    u32 ErrIrq;             /**< Error IRQ is enabled in design */
     u32 AxiLiteClkFreq;     /**< AXI Lite Clock Frequency in Hz */
     u32 DrpClkFreq;         /**< DRP Clock Frequency in Hz */
     u8  UseGtAsTxTmdsClk;   /**< Use 4th GT channel as TX TMDS clock */
@@ -942,6 +957,14 @@ u16 XHdmiphy1_LogRead(XHdmiphy1 *InstancePtr);
 void XHdmiphy1_LogWrite(XHdmiphy1 *InstancePtr, XHdmiphy1_LogEvent Evt,
 		u8 Data);
 #else
+/**
+ * @brief Log write macro (disabled version).
+ *
+ * When logging is disabled, this macro expands to nothing, effectively
+ * removing all logging calls from the compiled code.
+ *
+ * @param ... Variable arguments (ignored when logging is disabled).
+ */
 #define XHdmiphy1_LogWrite(...)
 #endif
 
@@ -997,15 +1020,69 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
+/**
+ * @brief Convert channel ID to array index.
+ *
+ * This macro converts a channel ID to the corresponding array index
+ * by subtracting the base channel ID.
+ *
+ * @param Id Channel ID to convert.
+ * @return Array index corresponding to the channel ID.
+ */
 #define XHDMIPHY1_CH2IDX(Id) ((Id) - XHDMIPHY1_CHANNEL_ID_CH1)
+/**
+ * @brief Check if channel ID is a regular channel.
+ *
+ * This macro checks if the given channel ID represents a regular channel
+ * (channel A or channels 1-4).
+ *
+ * @param Id Channel ID to check.
+ * @return Non-zero if the ID is a regular channel, 0 otherwise.
+ */
 #define XHDMIPHY1_ISCH(Id)       (((Id) == XHDMIPHY1_CHANNEL_ID_CHA) || \
 	((XHDMIPHY1_CHANNEL_ID_CH1 <= (Id)) && ((Id) <= XHDMIPHY1_CHANNEL_ID_CH4)))
+/**
+ * @brief Check if channel ID is a common channel.
+ *
+ * This macro checks if the given channel ID represents a common channel
+ * (common channel A or common channels 0-1).
+ *
+ * @param Id Channel ID to check.
+ * @return Non-zero if the ID is a common channel, 0 otherwise.
+ */
 #define XHDMIPHY1_ISCMN(Id)      (((Id) == XHDMIPHY1_CHANNEL_ID_CMNA) || \
   ((XHDMIPHY1_CHANNEL_ID_CMN0 <= (Id)) && ((Id) <= XHDMIPHY1_CHANNEL_ID_CMN1)))
+/**
+ * @brief Check if channel ID is the TX MMCM channel.
+ *
+ * This macro checks if the given channel ID represents the transmit MMCM channel.
+ *
+ * @param Id Channel ID to check.
+ * @return Non-zero if the ID is the TX MMCM channel, 0 otherwise.
+ */
 #define XHDMIPHY1_ISTXMMCM(Id)   ((Id) == XHDMIPHY1_CHANNEL_ID_TXMMCM)
+/**
+ * @brief Check if channel ID is the RX MMCM channel.
+ *
+ * This macro checks if the given channel ID represents the receive MMCM channel.
+ *
+ * @param Id Channel ID to check.
+ * @return Non-zero if the ID is the RX MMCM channel, 0 otherwise.
+ */
 #define XHDMIPHY1_ISRXMMCM(Id)   ((Id) == XHDMIPHY1_CHANNEL_ID_RXMMCM)
 
 #if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
+/**
+ * @brief Check if TX is using QPLL.
+ *
+ * This macro checks if the transmit channel is using any QPLL type
+ * (QPLL, QPLL0, or QPLL1) for the specified channel.
+ *
+ * @param InstancePtr Pointer to the HDMI PHY instance.
+ * @param QuadId Quad ID.
+ * @param ChId Channel ID.
+ * @return Non-zero if TX is using QPLL, 0 otherwise.
+ */
 #define XHdmiphy1_IsTxUsingQpll(InstancePtr, QuadId, ChId) \
         ((XHDMIPHY1_PLL_TYPE_QPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_TX, ChId)) || \
@@ -1013,6 +1090,17 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr);
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_TX, ChId)) || \
         (XHDMIPHY1_PLL_TYPE_QPLL1 == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_TX, ChId)))
+/**
+ * @brief Check if RX is using QPLL.
+ *
+ * This macro checks if the receive channel is using any QPLL type
+ * (QPLL, QPLL0, or QPLL1) for the specified channel.
+ *
+ * @param InstancePtr Pointer to the HDMI PHY instance.
+ * @param QuadId Quad ID.
+ * @param ChId Channel ID.
+ * @return Non-zero if RX is using QPLL, 0 otherwise.
+ */
 #define XHdmiphy1_IsRxUsingQpll(InstancePtr, QuadId, ChId) \
         ((XHDMIPHY1_PLL_TYPE_QPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_RX, ChId)) || \
@@ -1020,22 +1108,88 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr);
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_RX, ChId)) || \
         (XHDMIPHY1_PLL_TYPE_QPLL1 == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_RX, ChId)))
+/**
+ * @brief Check if TX is using CPLL.
+ *
+ * This macro checks if the transmit channel is using CPLL
+ * for the specified channel.
+ *
+ * @param InstancePtr Pointer to the HDMI PHY instance.
+ * @param QuadId Quad ID.
+ * @param ChId Channel ID.
+ * @return Non-zero if TX is using CPLL, 0 otherwise.
+ */
 #define XHdmiphy1_IsTxUsingCpll(InstancePtr, QuadId, ChId) \
         (XHDMIPHY1_PLL_TYPE_CPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_TX, ChId))
+/**
+ * @brief Check if RX is using CPLL.
+ *
+ * This macro checks if the receive channel is using CPLL
+ * for the specified channel.
+ *
+ * @param InstancePtr Pointer to the HDMI PHY instance.
+ * @param QuadId Quad ID.
+ * @param ChId Channel ID.
+ * @return Non-zero if RX is using CPLL, 0 otherwise.
+ */
 #define XHdmiphy1_IsRxUsingCpll(InstancePtr, QuadId, ChId) \
         (XHDMIPHY1_PLL_TYPE_CPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_RX, ChId))
 #else
+/**
+ * @brief Check if TX is using LCPLL (for GTYE5/GTYP transceivers).
+ *
+ * This macro checks if the transmit channel is using LCPLL
+ * for the specified channel on GTYE5/GTYP transceivers.
+ *
+ * @param InstancePtr Pointer to the HDMI PHY instance.
+ * @param QuadId Quad ID.
+ * @param ChId Channel ID.
+ * @return Non-zero if TX is using LCPLL, 0 otherwise.
+ */
 #define XHdmiphy1_IsTxUsingLcpll(InstancePtr, QuadId, ChId) \
         (XHDMIPHY1_PLL_TYPE_LCPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_TX, ChId))
+/**
+ * @brief Check if RX is using LCPLL (for GTYE5/GTYP transceivers).
+ *
+ * This macro checks if the receive channel is using LCPLL
+ * for the specified channel on GTYE5/GTYP transceivers.
+ *
+ * @param InstancePtr Pointer to the HDMI PHY instance.
+ * @param QuadId Quad ID.
+ * @param ChId Channel ID.
+ * @return Non-zero if RX is using LCPLL, 0 otherwise.
+ */
 #define XHdmiphy1_IsRxUsingLcpll(InstancePtr, QuadId, ChId) \
         (XHDMIPHY1_PLL_TYPE_LCPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_RX, ChId))
+/**
+ * @brief Check if TX is using RPLL (for GTYE5/GTYP transceivers).
+ *
+ * This macro checks if the transmit channel is using RPLL
+ * for the specified channel on GTYE5/GTYP transceivers.
+ *
+ * @param InstancePtr Pointer to the HDMI PHY instance.
+ * @param QuadId Quad ID.
+ * @param ChId Channel ID.
+ * @return Non-zero if TX is using RPLL, 0 otherwise.
+ */
 #define XHdmiphy1_IsTxUsingRpll(InstancePtr, QuadId, ChId) \
         (XHDMIPHY1_PLL_TYPE_RPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_TX, ChId))
+/**
+ * @brief Check if RX is using RPLL (for GTYE5/GTYP transceivers).
+ *
+ * This macro checks if the receive channel is using RPLL
+ * for the specified channel on GTYE5/GTYP transceivers.
+ *
+ * @param InstancePtr Pointer to the HDMI PHY instance.
+ * @param QuadId Quad ID.
+ * @param ChId Channel ID.
+ * @return Non-zero if RX is using RPLL, 0 otherwise.
+ */
 #define XHdmiphy1_IsRxUsingRpll(InstancePtr, QuadId, ChId) \
         (XHDMIPHY1_PLL_TYPE_RPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_RX, ChId))

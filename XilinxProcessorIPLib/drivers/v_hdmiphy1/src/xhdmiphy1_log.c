@@ -1,12 +1,13 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /******************************************************************************/
 /**
  *
- * @file xhdmiphy1.c
+ * @file xhdmiphy1_log.c
  *
  * Contains a minimal set of functions for the XHdmiphy1 driver that allow
  * access to all of the Video PHY core's functionality. See xhdmiphy1.h for a
@@ -48,7 +49,7 @@
 
 /*****************************************************************************/
 /**
-* This function will reset the driver's logginc mechanism.
+* This function will reset the driver's logging mechanism.
 *
 * @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
 *
@@ -71,7 +72,7 @@ void XHdmiphy1_LogReset(XHdmiphy1 *InstancePtr)
 #ifdef XV_HDMIPHY1_LOG_ENABLE
 /*****************************************************************************/
 /**
-* This function will insert an event in the driver's logginc mechanism.
+* This function will insert an event in the driver's logging mechanism.
 *
 * @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
 * @param	Evt is the event type to log.
