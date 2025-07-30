@@ -156,7 +156,7 @@ volatile int DeviceErrors;/* Num of errors detected in the device */
 #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif
 
-#ifndef TESTAPP_GEN
+#if !defined(TESTAPP_GEN) && !defined(SDT)
 static INTC IntcInstance;
 #endif
 
@@ -178,16 +178,13 @@ int UsxgmiiSgDmaIntrExample(INTC *IntcInstancePtr,
 #endif
 int UsxgmiiSgDmaIntrSingleFrameExample(XXxvEthernet *XxvEthernetInstancePtr,
 				       XMcdma *DmaInstancePtr, u8 ChanId);
-static int RxBdSetup(XMcdma *McDmaInstPtr, XXxvEthernet *XxvEthernetInstancePtr,
-		     XXxvEthernet_Config *MacCfgPtr);
-static int TxBdSetup(XMcdma *McDmaInstPtr, XXxvEthernet *XxvEthernetInstancePtr,
-		     XXxvEthernet_Config *MacCfgPtr);
+static int RxBdSetup(XMcdma *McDmaInstPtr);
+static int TxBdSetup(XMcdma *McDmaInstPtr);
 static void DoneHandler(void *CallBackRef, u32 Chan_id);
 static void ErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask);
 static void TxDoneHandler(void *CallBackRef, u32 Chan_id);
 static void TxErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask);
-static int inline AxiEnetMapper(u8 ChanId);
-static int ChanIntr_Id(XMcdma_ChanCtrl *Chan, int ChanId);
+static inline int AxiEnetMapper(u8 ChanId);
 
 /*
  * Interrupt setup and Callbacks for examples
@@ -197,6 +194,7 @@ static int XxvEthernetSetupIntrSystem(INTC *IntcInstancePtr,
 				      XMcdma *DmaInstancePtr,
 				      u8 McdmaIntrId,
 				      u8 Direction);
+static int ChanIntr_Id(XMcdma_ChanCtrl *Chan, int ChanId);
 #endif
 
 /*****************************************************************************/
@@ -355,8 +353,8 @@ int UsxgmiiSgDmaIntrExample(INTC *IntcInstancePtr,
 	Xil_SetTlbAttributes((UINTPTR)RxBdSpace + BLOCK_SIZE_2MB, NORM_NONCACHE | INNER_SHAREABLE);
 #endif
 
-	RxBdSetup(DmaInstancePtr, XxvEthernetInstancePtr, MacCfgPtr);
-	TxBdSetup(DmaInstancePtr, XxvEthernetInstancePtr, MacCfgPtr);
+	RxBdSetup(DmaInstancePtr);
+	TxBdSetup(DmaInstancePtr);
 
 	/* Setup USXGMII at 1Gbps Full Duplex.
 	 * To test loop TX and RX externally on your setup.
@@ -391,8 +389,7 @@ int UsxgmiiSgDmaIntrExample(INTC *IntcInstancePtr,
 	return XST_SUCCESS;
 }
 
-static int RxBdSetup(XMcdma *McDmaInstPtr, XXxvEthernet *XxvEthernetInstancePtr,
-		     XXxvEthernet_Config *MacCfgPtr)
+static int RxBdSetup(XMcdma *McDmaInstPtr)
 {
 	XMcdma_ChanCtrl *Rx_Chan;
 	u8 ChanId;
@@ -447,8 +444,7 @@ static int RxBdSetup(XMcdma *McDmaInstPtr, XXxvEthernet *XxvEthernetInstancePtr,
 	return XST_SUCCESS;
 }
 
-static int TxBdSetup(XMcdma *McDmaInstPtr, XXxvEthernet *XxvEthernetInstancePtr,
-		     XXxvEthernet_Config *MacCfgPtr)
+static int TxBdSetup(XMcdma *McDmaInstPtr)
 {
 	XMcdma_ChanCtrl  *Tx_Chan;
 	u8 ChanId;
@@ -508,7 +504,7 @@ void AxiEthernetSetMAC(char *MacAddr, u8 ChanTdest)
 	}
 }
 
-static int inline AxiEnetMapper(u8 ChanId)
+static inline int AxiEnetMapper(u8 ChanId)
 {
 
 	switch (ChanId) {
@@ -567,22 +563,28 @@ static int inline AxiEnetMapper(u8 ChanId)
 
 static void DoneHandler(void *CallBackRef, u32 Chan_id)
 {
+	(void)CallBackRef;
+	(void)Chan_id;
 	FramesRx++;
 }
 
 
 static void ErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask)
 {
+	(void)CallBackRef;
 	xil_printf("Inside error Handler Chan_id is %d Error word is 0x%x \n\r", Chan_id, Mask);
 }
 
 static void TxDoneHandler(void *CallBackRef, u32 Chan_id)
 {
+	(void)CallBackRef;
+	(void)Chan_id;
 	FramesTx++;
 }
 
 static void TxErrorHandler(void *CallBackRef, u32 Chan_id, u32 Mask)
 {
+	(void)CallBackRef;
 	xil_printf("Inside Tx error Handler Chan_id is %d and Mask %x\n\r", Chan_id, Mask);
 }
 
