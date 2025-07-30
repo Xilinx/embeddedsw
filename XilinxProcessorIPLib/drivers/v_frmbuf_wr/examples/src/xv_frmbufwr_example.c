@@ -1,13 +1,13 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file main.c
+* @file xv_frmbufwr_example.c
 *
 * This file demonstrates the example usage of Frame Buffer Read/Write IP
 * available in catalogue. Please refer v_frmbuf_wr example design guide for
@@ -162,13 +162,30 @@ static int CheckVidoutLock(void);
 static int CheckVidinOverflow(void);
 
 #ifndef SDT
-/*****************************************************************************/
 /**
- * This function initializes and configures the system interrupt controller
+ * @brief Sets up the interrupt controller and connects interrupt handlers for frame buffer read and write modules.
  *
- * @return XST_SUCCESS if init is OK else XST_FAILURE
+ * This function initializes the interrupt controller and connects the interrupt service routines (ISRs)
+ * for the frame buffer read (FRMBUF RD) and frame buffer write (FRMBUF WR) hardware modules. It supports
+ * both MicroBlaze and ARM Cortex-A9/A53 (Zynq/ZynqMP) architectures by using the appropriate interrupt
+ * controller APIs (XIntc for MicroBlaze, XScuGic for ARM).
  *
- *****************************************************************************/
+ * For MicroBlaze:
+ *   - Initializes the XIntc interrupt controller.
+ *   - Connects the FRMBUF RD and FRMBUF WR ISRs.
+ *   - Enables the corresponding interrupt vectors.
+ *   - Starts the interrupt controller in real mode.
+ *
+ * For ARM (Zynq/ZynqMP):
+ *   - Looks up and initializes the XScuGic interrupt controller.
+ *   - Connects the FRMBUF RD and FRMBUF WR ISRs.
+ *   - Registers the interrupt handler with the exception table.
+ *   - Enables the corresponding interrupt vectors.
+ *
+ * @return
+ *   - XST_SUCCESS if all steps complete successfully.
+ *   - XST_FAILURE or XST_DEVICE_NOT_FOUND if any step fails.
+ */
 static int SetupInterrupts(void)
 {
 #if defined(__MICROBLAZE__)
@@ -273,13 +290,24 @@ static int SetupInterrupts(void)
 }
 #endif
 
-/*****************************************************************************/
 /**
- * This function initializes system wide peripherals.
+ * @brief Initializes the video processing hardware drivers.
  *
- * @return XST_SUCCESS if init is OK else XST_FAILURE
+ * This function performs the initialization of the following hardware components:
+ *   - Video Timing Controller (VTC)
+ *   - Frame Buffer Read (frmbufrd)
+ *   - Frame Buffer Write (frmbufwr)
+ *   - Video Lock Monitor GPIO (vmon)
  *
- *****************************************************************************/
+ * The function uses conditional compilation to select between device ID and base address
+ * depending on whether SDT is defined. It checks for configuration lookup failures and
+ * initialization errors for each component, printing error messages via xil_printf and
+ * returning XST_FAILURE on failure.
+ *
+ * @return
+ *   - XST_SUCCESS if all components are initialized successfully.
+ *   - XST_FAILURE if any component fails to initialize.
+ */
 static int DriverInit(void)
 {
   int Status;
@@ -345,13 +373,19 @@ static int DriverInit(void)
   return(XST_SUCCESS);
 }
 
-/*****************************************************************************/
 /**
- * This function configures VTC for defined mode
+ * @brief Configures the Video Timing Controller (VTC) based on the provided video stream parameters.
  *
- * @return none
+ * This function initializes and sets up the VTC timing structure using the timing
+ * information from the given XVidC_VideoStream pointer. It divides the horizontal
+ * timing parameters by the number of pixels per clock to match the VTC's requirements,
+ * copies the vertical timing parameters, and applies the configuration to the VTC hardware.
+ * After configuration, it enables the VTC, its generator, and register updates.
  *
- *****************************************************************************/
+ * @param StreamPtr Pointer to an XVidC_VideoStream structure containing the video timing parameters.
+ *
+ * @return None.
+ */
 static void ConfigVtc(XVidC_VideoStream *StreamPtr)
 {
   XVtc_Timing vtc_timing = {0};
@@ -374,13 +408,33 @@ static void ConfigVtc(XVidC_VideoStream *StreamPtr)
   xil_printf("INFO: VTC configured\r\n");
 }
 
-/*****************************************************************************/
 /**
- * This function calculates the stride
+ * CalcStride - Calculate the stride (number of bytes per video line) for a given color format.
  *
- * @returns stride in bytes
+ * This function computes the stride required for a video frame buffer line based on the color format,
+ * AXI memory-mapped data width, and the video stream's active width. The stride is aligned to the
+ * AXI memory-mapped data width in bytes.
  *
- *****************************************************************************/
+ * @param  Cfmt           The color format of the video stream (XVidC_ColorFormat).
+ * @param  AXIMMDataWidth The AXI memory-mapped data width in bits.
+ * @param  StreamPtr      Pointer to the XVidC_VideoStream structure containing video timing information.
+ *
+ * @return The stride in bytes, aligned to the AXI memory-mapped data width.
+ *
+ * Color format to bytes-per-pixel mapping:
+ *   - Y_UV10, Y_UV10_420, Y10:         4 bytes per 3 pixels
+ *   - Y_UV8, Y_UV8_420, Y8, Y_U_V8, Y_U_V10: 1 byte per pixel
+ *   - RGB8, YUV8, BGR8:                3 bytes per pixel
+ *   - RGBX12, YUVX12:                  5 bytes per pixel
+ *   - Y_UV12, Y_UV12_420, Y12:         3 bytes per 2 pixels
+ *   - RGB16, YUV16:                    6 bytes per pixel
+ *   - YUYV8, UYVY8, Y_UV16, Y_UV16_420, Y16: 2 bytes per pixel
+ *   - Default:                         4 bytes per pixel
+ *
+ * The stride is calculated as:
+ *   stride = ceil((width * bytes_per_pixel) / MMWidthBytes) * MMWidthBytes
+ * where MMWidthBytes = AXIMMDataWidth / 8.
+ */
 static u32 CalcStride(XVidC_ColorFormat Cfmt,
                       u16 AXIMMDataWidth,
                       XVidC_VideoStream *StreamPtr)
@@ -448,13 +502,30 @@ static u32 CalcStride(XVidC_ColorFormat Cfmt,
   return(stride);
 }
 
-/*****************************************************************************/
 /**
- * This function configures Frame Buffer for defined mode
+ * @brief Configures the Frame Buffer Read and Write IP cores with the specified parameters.
  *
- * @return XST_SUCCESS if init is OK else XST_FAILURE
+ * This function stops the frame buffer IPs, resets them, waits for them to become idle,
+ * and then configures their memory formats and buffer addresses according to the provided
+ * stride, color format, and video stream. It also handles chroma and V buffer addresses
+ * for semi-planar and 3-planar color formats, respectively. Interrupts are enabled and
+ * the frame buffers are started after configuration.
  *
- *****************************************************************************/
+ * @param StrideInBytes   The stride (in bytes) for the frame buffer memory.
+ * @param Cfmt            The color format (XVidC_ColorFormat) to be used for the frame buffer.
+ * @param StreamPtr       Pointer to the video stream configuration (XVidC_VideoStream).
+ *
+ * @return
+ *   - XST_SUCCESS if configuration is successful.
+ *   - XST_FAILURE if any configuration step fails.
+ *
+ * @note
+ *   - This function assumes that the global variables 'frmbufrd' and 'frmbufwr' are
+ *     properly initialized.
+ *   - The function also assumes that the macros XVFRMBUFRD_BUFFER_BASEADDR,
+ *     XVFRMBUFWR_BUFFER_BASEADDR, CHROMA_ADDR_OFFSET, and V_CHROMA_ADDR_OFFSET are defined.
+ *   - The function prints error messages via xil_printf if any step fails.
+ */
 static int ConfigFrmbuf(u32 StrideInBytes,
                         XVidC_ColorFormat Cfmt,
                         XVidC_VideoStream *StreamPtr)
@@ -538,13 +609,24 @@ static int ConfigFrmbuf(u32 StrideInBytes,
   return(Status);
 }
 
-/*****************************************************************************/
 /**
- * This function checks if video mode and format are supported by HW
+ * ValidateTestCase - Validates the combination of pixel-per-clock, video mode,
+ *                    data width, and video format for hardware support.
  *
- * @return TRUE if testcase is valid else FALSE
+ * @param PixPerClk:   Number of pixels processed per clock cycle.
+ * @param Mode:        Video mode (resolution, refresh rate, etc.) as defined by XVidC_VideoMode.
+ * @param DataWidth:   Data width in bits (e.g., 8, 10, 12, 16).
+ * @param Format:      Video format structure containing format information, including bit depth.
  *
- *****************************************************************************/
+ * @return
+ *   TRUE  - If the specified combination of parameters is supported by the hardware.
+ *   FALSE - If the combination is not supported (with diagnostic messages printed).
+ *
+ * The function checks:
+ *   - If the selected video mode is supported for the given pixel-per-clock value.
+ *   - If the data width is compatible with the memory video format's bit depth.
+ *   - Prints diagnostic messages if an unsupported combination is detected.
+ */
 static int ValidateTestCase(u16 PixPerClk,
                             XVidC_VideoMode Mode,
                             u16 DataWidth,
@@ -583,13 +665,17 @@ static int ValidateTestCase(u16 PixPerClk,
   return(Status);
 }
 
-/*****************************************************************************/
 /**
- * This function checks Video Out lock status
+ * @brief Checks if the video output is locked within a specified timeout period.
  *
- * @return T/F
+ * This function waits for a short period, then repeatedly checks if the video output
+ * is locked by calling XVMonitor_IsVideoLocked(). If the lock is detected within the
+ * timeout period, it prints "Locked" and returns TRUE. If the timeout expires without
+ * detecting a lock, it prints an error message and returns FALSE.
  *
- *****************************************************************************/
+ * @return
+ *   TRUE if the video output is locked within the timeout period, FALSE otherwise.
+ */
 static int CheckVidoutLock(void)
 {
   int Status = FALSE;
@@ -615,25 +701,48 @@ static int CheckVidoutLock(void)
   return(Status);
 }
 
+/**
+ * @brief Callback function for Frame Buffer Read interrupt.
+ *
+ * This function is called when a Frame Buffer Read interrupt is received.
+ * It starts the frame buffer read operation by calling XVFrmbufRd_Start().
+ *
+ * @param data Pointer to user data (unused).
+ * @return Always returns NULL.
+ */
 void *XVFrameBufferRdCallback(void *data)
 {
 	//xil_printf("\nFrame Buffer Read interrupt received.\r\n");
 	  XVFrmbufRd_Start(&frmbufrd);
 }
 
+/**
+ * @brief Callback function for Frame Buffer Write interrupt.
+ *
+ * This function is called when a Frame Buffer Write interrupt is received.
+ * It starts the frame buffer write operation by invoking XVFrmbufWr_Start().
+ *
+ * @param data Pointer to user data (unused in this implementation).
+ * @return Always returns NULL.
+ */
 void *XVFrameBufferWrCallback(void *data)
 {
 	//xil_printf("\nFrame Buffer Read interrupt received.\r\n");
 	  XVFrmbufWr_Start(&frmbufwr);
 }
 
-/*****************************************************************************/
 /**
- * This function checks Video In overflow status
+ * @brief Checks for video input overflow condition.
  *
- * @return T/F
+ * This function monitors the video input for an overflow condition by polling
+ * the video monitor for a specified timeout period. If an overflow is detected
+ * within the timeout, an error message is printed; otherwise, a message
+ * indicating no overflow is printed.
  *
- *****************************************************************************/
+ * @return
+ *   - TRUE if a video overflow was detected.
+ *   - FALSE if no overflow was detected within the timeout period.
+ */
 static int CheckVidinOverflow(void)
 {
   int Overflow = FALSE;
@@ -655,13 +764,19 @@ static int CheckVidinOverflow(void)
   return(Overflow);
 }
 
-/*****************************************************************************/
 /**
- * This function toggles HW reset line for all IP's
+ * @brief Resets the HLS (High-Level Synthesis) IP core and stops the frame buffer write operation.
  *
- * @return None
+ * This function performs the following steps:
+ * 1. Stops the frame buffer write core and waits for it to become idle.
+ * 2. Prints a message indicating that the HLS IP is being reset.
+ * 3. Asserts the reset line for the HLS IP by writing 0 to the reset GPIO.
+ * 4. Waits for 1 millisecond to ensure the reset is asserted.
+ * 5. Deasserts the reset line by writing 1 to the reset GPIO.
+ * 6. Waits for another millisecond to allow the IP to come out of reset.
  *
- *****************************************************************************/
+ * This ensures a proper reset sequence for the HLS IP and the frame buffer write core.
+ */
 void resetIp(void)
 {
 
@@ -675,10 +790,16 @@ void resetIp(void)
   usleep(1000);          //wait
 }
 
-
-/***************************************************************************
-*  This is the main loop of the application
-***************************************************************************/
+/**
+ * @brief Main application entry point for the Frame Buffer Example Design Test.
+ *
+ * This function initializes the platform, configures hardware drivers (VTC, frame buffers, GPIO),
+ * sets up interrupts, and iterates through all supported video formats and test video modes.
+ * For each valid combination, it configures the VTC and frame buffer, checks for video lock and overflow,
+ * and tracks pass/fail results. At the end, it prints a summary of the test results.
+ *
+ * @return 0 on success, 1 on failure.
+ */
 int main(void)
 {
   int Status, index, format;
