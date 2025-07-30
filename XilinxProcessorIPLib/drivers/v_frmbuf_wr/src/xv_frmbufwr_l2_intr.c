@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017-2023 Xilinx Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,11 +41,13 @@
 * -----------------------         --------------------------------------------------
 * (XVFRMBUFWR_HANDLER_DONE)       DoneCallback
 * (XVFRMBUFWR_HANDLER_READY)      ReadyCallback
+* </pre>
 *
 * @param    InstancePtr is a pointer to the Frame Buffer Write core instance.
 * @param    CallbackFunc is the address of the callback function.
 * @param    CallbackRef is a user data item that will be passed to the
 *           callback function when it is invoked.
+* @param	  HandlerType specifies the type of handler.
 *
 * @return
 *           - XST_SUCCESS if callback function installed successfully.

@@ -1,6 +1,6 @@
 // ==============================================================
 // Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 #ifndef XV_FRMBUFWR_HW_H_  /* prevent circular inclusions */
@@ -10,6 +10,12 @@
 extern "C" {
 #endif
 
+/**
+ * *
+* @file xv_frmbufwr_hw.h
+* @addtogroup v_frmbuf_wr Overview
+*
+**/
 // CTRL
 // 0x00 : Control signals
 //        bit 0  - ap_start (Read/Write/COH)
