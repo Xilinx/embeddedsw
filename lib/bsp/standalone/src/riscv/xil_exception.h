@@ -23,6 +23,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sa   08/27/22 Initial release
 * 9.3   ml   02/19/25 Add support for RISC-V Interrupt Handling
+* 9.4   vmt  29/07/25 Add support for RISC-V Exception and Interrupt
+*                     Handling in User and Supervisor modes.
 *
 * </pre>
 *
@@ -63,12 +65,17 @@ extern "C" {
 #define XIL_EXCEPTION_ID_LACCESS_FAULT        5U
 #define XIL_EXCEPTION_ID_SADDR_MISALIGN       6U
 #define XIL_EXCEPTION_ID_SACCESS_FAULT        7U
+#define XIL_EXCEPTION_ID_ENVCALL_UMODE        8U
+#define XIL_EXCEPTION_ID_ENVCALL_SMODE        9U
 #define XIL_EXCEPTION_ID_ENVCALL_MMODE        11U
+#define XIL_EXCEPTION_ID_IPAGE_FAULT          12U
+#define XIL_EXCEPTION_ID_LPAGE_FAULT          13U
+#define XIL_EXCEPTION_ID_SPAGE_FAULT          15U
 #ifdef RISCV_FSL_EXCEPTION
 #define XIL_EXCEPTION_ID_FSL_ERROR            24U
 #define XIL_EXCEPTION_ID_LAST                 XIL_EXCEPTION_ID_FSL_ERROR
 #else
-#define XIL_EXCEPTION_ID_LAST                 XIL_EXCEPTION_ID_ENVCALL_MMODE
+#define XIL_EXCEPTION_ID_LAST                 XIL_EXCEPTION_ID_SPAGE_FAULT
 #endif
 
 #define XIL_INTERRUPT_ID_FIRST                0x8000000U
@@ -77,6 +84,9 @@ extern "C" {
 #define XIL_INTERRUPT_ID_MACHINE_TIMER        0x8000007U
 #define XIL_INTERRUPT_ID_MACHINE_EXTERNAL     0x800000BU
 #define XIL_INTERRUPT_ID_PLATFORM_BREAK       0x8000010U
+#define XIL_INTERRUPT_ID_SUPERVISOR_SOFTWARE  0x80000001U
+#define XIL_INTERRUPT_ID_SUPERVISOR_TIMER     0x80000005U
+#define XIL_INTERRUPT_ID_SUPERVISOR_EXTERNAL  0x80000009U
 #define XIL_INTERRUPT_ID_LAST                 XIL_INTERRUPT_ID_PLATFORM_BREAK
 
 /*

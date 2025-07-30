@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -647,20 +647,28 @@ RISCV_ExceptionVectorTable:
     INTPTR_DATAITEM XNullHandler
     INTPTR_DATAITEM 7					/* Store/AMO access fault */
     INTPTR_DATAITEM XNullHandler
-    INTPTR_DATAITEM 8					/* Unimplemented */
+    INTPTR_DATAITEM 8					/* Environment call from U-mode */
     INTPTR_DATAITEM XNullHandler
-    INTPTR_DATAITEM 9					/* Unimplemented */
+    INTPTR_DATAITEM 9					/* Environment call from S-mode */
     INTPTR_DATAITEM XNullHandler
     INTPTR_DATAITEM 10					/* Reserved */
     INTPTR_DATAITEM XNullHandler
     INTPTR_DATAITEM 11					/* Environment call from M-mode */
+    INTPTR_DATAITEM XNullHandler
+    INTPTR_DATAITEM 12                                  /* Instruction page fault */
+    INTPTR_DATAITEM XNullHandler
+    INTPTR_DATAITEM 13                                  /* Load page fault */
+    INTPTR_DATAITEM XNullHandler
+    INTPTR_DATAITEM 14                                  /* Reserved */
+    INTPTR_DATAITEM XNullHandler
+    INTPTR_DATAITEM 15                                  /* Store/AMO page fault */
 
 .global RISCV_InterruptVectorTable
 RISCV_InterruptVectorTable:
     INTPTR_DATAITEM XNullHandler
     INTPTR_DATAITEM 0					/* Unimplemented */
     INTPTR_DATAITEM XNullHandler
-    INTPTR_DATAITEM 1					/* Unimplemented */
+    INTPTR_DATAITEM 1					/* Supervisor software interrupt */
     INTPTR_DATAITEM XNullHandler
     INTPTR_DATAITEM 2					/* Reserved for future standard use */
     INTPTR_DATAITEM XNullHandler
@@ -668,7 +676,7 @@ RISCV_InterruptVectorTable:
     INTPTR_DATAITEM XNullHandler
     INTPTR_DATAITEM 4					/* Unimplemented */
     INTPTR_DATAITEM XNullHandler
-    INTPTR_DATAITEM 5					/* Unimplemented */
+    INTPTR_DATAITEM 5					/* Supervisor timer interrupt */
     INTPTR_DATAITEM XNullHandler
     INTPTR_DATAITEM 6					/* Reserved for future standard use */
     INTPTR_DATAITEM XNullHandler
@@ -676,7 +684,7 @@ RISCV_InterruptVectorTable:
     INTPTR_DATAITEM XNullHandler
     INTPTR_DATAITEM 8					/* Unimplemented */
     INTPTR_DATAITEM XNullHandler
-    INTPTR_DATAITEM 9					/* Unimplemented */
+    INTPTR_DATAITEM 9					/* Supervisor external interrupt */
     INTPTR_DATAITEM XNullHandler
     INTPTR_DATAITEM 10					/* Reserved for future standard use */
     INTPTR_DATAITEM XNullHandler
