@@ -4,6 +4,12 @@
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
+/**
+*
+* @file xv_mix_hw.h
+* @addtogroup v_mix Overview
+*/
+
 #ifndef XV_MIX_HW_H_     /* prevent circular inclusions */
 #define XV_MIX_HW_H_     /* by using protection macros */
 

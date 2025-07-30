@@ -49,6 +49,7 @@
 * 6.00  pg    01/10/20   Add Colorimetry feature.
 *                        Program Mixer CSC registers to do color conversion
 *                        from YUV to RGB and RGB to YUV.
+* 7.00  pg    07/29/25   Added Tile format Support.
 * </pre>
 *
 ******************************************************************************/
@@ -95,18 +96,23 @@ static int IsWindowValid(XVidC_VideoStream *Strm,
                          XVidC_VideoWindow *Win,
                          XVMix_Scalefactor ScaleFactor);
 
-/*****************************************************************************/
-/**
-* This function initializes the core instance
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  DeviceId is instance id of the core
-*
-* @return XST_SUCCESS if device is found and initialized
-*         XST_DEVICE_NOT_FOUND if device is not found
-*
-******************************************************************************/
 #ifndef SDT
+/**
+ * XVMix_Initialize - Initialize the XV_Mix_l2 instance.
+ *
+ * This function initializes the XV_Mix_l2 instance specified by InstancePtr
+ * using the hardware configuration identified by DeviceId. It first asserts
+ * that the provided pointer is not NULL, clears the instance memory, and then
+ * calls the lower-level XV_mix_Initialize function. If initialization is
+ * successful, it sets the instance to its power-on default state.
+ *
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance to be initialized.
+ * @param DeviceId    Device ID of the hardware configuration to use.
+ *
+ * @return
+ *   - XST_SUCCESS if initialization was successful.
+ *   - Error code defined by XV_mix_Initialize otherwise.
+ */
 int XVMix_Initialize(XV_Mix_l2 *InstancePtr, u16 DeviceId)
 {
   int Status;
@@ -122,6 +128,22 @@ int XVMix_Initialize(XV_Mix_l2 *InstancePtr, u16 DeviceId)
   return(Status);
 }
 #else
+/**
+ * XVMix_Initialize - Initialize the XV_Mix_l2 instance for SDT flow.
+ *
+ * This function initializes the XV_Mix_l2 instance specified by InstancePtr
+ * using the hardware configuration at the given BaseAddress. It first asserts
+ * that the provided pointer is not NULL, clears the instance memory, and then
+ * calls the lower-level XV_mix_Initialize function. If initialization is
+ * successful, it sets the instance to its power-on default state.
+ *
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance to be initialized.
+ * @param BaseAddress Base address of the hardware configuration to use.
+ *
+ * @return
+ *   - XST_SUCCESS if initialization was successful.
+ *   - Error code defined by XV_mix_Initialize otherwise.
+ */
 int XVMix_Initialize(XV_Mix_l2 *InstancePtr, UINTPTR BaseAddress)
 {
   int Status;
@@ -138,15 +160,25 @@ int XVMix_Initialize(XV_Mix_l2 *InstancePtr, UINTPTR BaseAddress)
 }
 #endif
 
-/*****************************************************************************/
 /**
-* This function initializes the mixer core instance to default state
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return None
-*
-******************************************************************************/
+ * @brief Sets the XV_Mix_l2 instance to its power-on default state.
+ *
+ * This function initializes the video mixer instance to a known default state
+ * after power-on or reset. The following actions are performed:
+ *   - Disables all video layers.
+ *   - Sets up a default video stream configuration with custom mode, color format,
+ *     frame rate, color depth, and active video dimensions based on the IP configuration.
+ *   - Applies the default video stream to the mixer.
+ *   - Sets the default background color to blue with the configured color depth.
+ *   - For each layer, if scaling is disabled, updates the layer's maximum width to
+ *     the IP's maximum width.
+ *   - Enables only the master (stream) layer.
+ *   - Disables interrupts to set up polling mode.
+ *
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance to be initialized.
+ *
+ * @return None
+ */
 static void SetPowerOnDefaultState(XV_Mix_l2 *InstancePtr)
 {
   u32 index;
@@ -198,15 +230,19 @@ static void SetPowerOnDefaultState(XV_Mix_l2 *InstancePtr)
   XVMix_InterruptDisable(InstancePtr);
 }
 
-/*****************************************************************************/
 /**
-* This function enables interrupts in the core
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return none
-*
-******************************************************************************/
+ * Enables interrupts for the XV_Mix_l2 instance.
+ *
+ * This function performs the following actions:
+ * 1. Asserts that the provided instance pointer is not NULL.
+ * 2. Enables the DONE interrupt for the underlying XV_mix hardware.
+ * 3. Globally enables interrupts for the XV_mix hardware.
+ * 4. Disables the auto-restart feature of the XV_mix hardware.
+ *
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance.
+ *
+ * @return none
+ */
 void XVMix_InterruptEnable(XV_Mix_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
@@ -219,15 +255,19 @@ void XVMix_InterruptEnable(XV_Mix_l2 *InstancePtr)
   XV_mix_DisableAutoRestart(&InstancePtr->Mix);
 }
 
-/*****************************************************************************/
 /**
-* This function disables interrupts in the core
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return none
-*
-******************************************************************************/
+ * XVMix_InterruptDisable - Disables interrupts for the XV_Mix_l2 instance.
+ *
+ * This function disables the DONE interrupt and the global interrupt for the
+ * specified XV_Mix_l2 instance. After disabling interrupts, it enables the
+ * auto-restart feature to allow the hardware to automatically restart processing
+ * without requiring software intervention.
+ *
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance.
+ *
+ * @return none
+ * @note The InstancePtr must not be NULL.
+ */
 void XVMix_InterruptDisable(XV_Mix_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
@@ -240,15 +280,18 @@ void XVMix_InterruptDisable(XV_Mix_l2 *InstancePtr)
   XV_mix_EnableAutoRestart(&InstancePtr->Mix);
 }
 
-/*****************************************************************************/
 /**
-* This function starts the core instance
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return none
-*
-******************************************************************************/
+ * @brief
+ *   Starts the video mixer hardware.
+ *
+ * This function asserts that the provided instance pointer is not NULL,
+ * and then starts the underlying XV_mix hardware by calling its Start function.
+ *
+ * @param InstancePtr
+ *   Pointer to the XV_Mix_l2 instance to be started.
+ *
+ * @return none
+ */
 void XVMix_Start(XV_Mix_l2 *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
@@ -256,15 +299,24 @@ void XVMix_Start(XV_Mix_l2 *InstancePtr)
   XV_mix_Start(&InstancePtr->Mix);
 }
 
-/*****************************************************************************/
 /**
-* This function stops the core instance
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return none
-*
-******************************************************************************/
+ * Stops the XV_Mix_l2 core operation.
+ *
+ * This function disables the autostart feature, initiates a flush operation,
+ * and waits for the flush to complete or until a timeout occurs.
+ *
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance.
+ *
+ * The function performs the following steps:
+ *   1. Asserts that the instance pointer is not NULL.
+ *   2. Disables the autostart mode of the core.
+ *   3. Sets the flush bit to initiate a flush operation.
+ *   4. Waits for the flush operation to complete by polling the flush done status,
+ *      with a timeout to prevent indefinite waiting.
+ *   5. Returns early if the flush operation does not complete within the timeout.
+ *
+ * @return none
+ */
 void XVMix_Stop(XV_Mix_l2 *InstancePtr)
 {
   u32 Data = 0;
@@ -288,17 +340,21 @@ void XVMix_Stop(XV_Mix_l2 *InstancePtr)
         return;
 }
 
-/*****************************************************************************/
 /**
-* This function validates if the requested window is within the frame boundary
-*
-* @param  Strm is a pointer to Mixer master video stream
-* @param  Win is the pointer to window coordinates to be validated
-* @param  Scale is the scale factor of the window
-*
-* @return None
-*
-******************************************************************************/
+ * Checks if a given video window is valid within the bounds of a video stream,
+ * considering a specified scaling factor.
+ *
+ * This function creates a copy of the provided window, applies the scaling
+ * factor to its width and height, and then verifies whether the scaled window
+ * fits within the active area of the video stream.
+ *
+ * @param Strm   Pointer to the video stream structure containing timing info.
+ * @param Win    Pointer to the video window structure to validate.
+ * @param Scale  Scaling factor to apply to the window dimensions.
+ *
+ * @return TRUE if the scaled window fits within the stream's active area,
+ *         FALSE otherwise.
+ */
 static int IsWindowValid(XVidC_VideoStream *Strm,
                          XVidC_VideoWindow *Win,
                          XVMix_Scalefactor Scale)
@@ -323,16 +379,20 @@ static int IsWindowValid(XVidC_VideoStream *Strm,
   }
 }
 
-/*****************************************************************************/
 /**
-* This function configures the mixer input stream
-*
-* @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  StrmIn is the pointer to input stream configuration
-*
-* @return none
-*
-******************************************************************************/
+ * Sets the video stream configuration for the mixer instance.
+ *
+ * This function copies the provided video stream structure into the mixer instance,
+ * and programs the hardware registers for the active video width and height.
+ *
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance.
+ * @param StrmIn      Pointer to the input XVidC_VideoStream structure.
+ *
+ * @return None.
+ *
+ * @note The function asserts that the input pointers are valid and that the
+ *       resolution is within the supported range.
+ */
 void XVMix_SetVidStream(XV_Mix_l2 *InstancePtr,
                         const XVidC_VideoStream *StrmIn)
 {
@@ -1058,19 +1118,18 @@ int XVMix_SetLayerColorFormat(XV_Mix_l2 *InstancePtr,
 }
 #endif
 
-/*****************************************************************************/
 /**
 * This function reads the color format of the specified layer
 *
 * @param  InstancePtr is a pointer to core instance to be worked upon
 * @param  LayerId is the layer to be updated
-* @param  cfmt is pointer to color format return variable
+* @param  Cfmt is pointer to color format return variable
 *
 * @return XST_SUCCESS or XST_FAILURE
 *
 * @note   none
 *
-******************************************************************************/
+**/
 int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
                               XVMix_LayerId LayerId,
                               XVidC_ColorFormat *Cfmt)
@@ -1105,7 +1164,6 @@ int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
       }
       Status = XST_SUCCESS;
   }
-
   return(Status);
 }
 
@@ -1284,20 +1342,29 @@ UINTPTR XVMix_GetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
   return(ReadVal);
 }
 
-/*****************************************************************************/
 /**
-* This function sets the buffer address of the specified layer
-* for the V plane for 3-planar formats
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  LayerId is the layer to be updated
-* @param  Addr is the absolute address of second buffer in memory
-*
-* @return XST_SUCCESS or XST_FAILURE
-*
-* @note   Applicable only for Layer1-16
-*
-******************************************************************************/
+ * Set the chroma buffer address for the specified layer.
+ *
+ * This function sets the address of the second chroma buffer for a given layer in the
+ * XV_Mix_l2 instance. It checks for valid input parameters, ensures the address is properly
+ * aligned according to the AXI memory interface requirements, and writes the address to the
+ * appropriate hardware register. The function updates the internal state of the instance
+ * with the new buffer address.
+ *
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance.
+ * @param LayerId     ID of the layer for which the chroma buffer address is to be set.
+ *                    Must be greater than XVMIX_LAYER_MASTER and less than XVMIX_LAYER_LOGO.
+ * @param Addr        Physical address of the chroma buffer. Must be non-zero and properly aligned.
+ *
+ * @return
+ *   - XST_SUCCESS if the address was set successfully.
+ *   - XVMIX_ERR_MEM_ADDR_MISALIGNED if the address is not properly aligned.
+ *   - XST_FAILURE for other failures (e.g., invalid parameters).
+ *
+ * @note
+ *   The address must be aligned to (2 * PixPerClk * 4) bytes.
+ *   The function does not perform any memory allocation or buffer management.
+ */
 int XVMix_SetLayerChromaBuffer2Addr(XV_Mix_l2 *InstancePtr,
                                    XVMix_LayerId LayerId,
                                    UINTPTR Addr)
@@ -1337,19 +1404,21 @@ int XVMix_SetLayerChromaBuffer2Addr(XV_Mix_l2 *InstancePtr,
   return(Status);
 }
 
-/*****************************************************************************/
 /**
-* This function reads the buffer address of the specified layer
-* for the V plane for 3-planar formats
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  LayerId is the layer to be updated
-*
-* @return Address of second buffer in memory
-*
-* @note   Applicable only for Layer1-16
-*
-******************************************************************************/
+ * Retrieves the address of the second chroma buffer
+ *                                   for a specified layer in the video mixer instance.
+ *
+ * @param InstancePtr: Pointer to the XV_Mix_l2 instance.
+ * @param LayerId:      Identifier of the layer for which the chroma buffer address is requested.
+ *                      Must be greater than XVMIX_LAYER_MASTER and less than XVMIX_LAYER_LOGO.
+ *
+ * @return The address (UINTPTR) of the second chroma buffer for the specified layer.
+ *         Returns 0 if the LayerId is invalid or out of range.
+ *
+ * @note   The function asserts that InstancePtr is not NULL and that LayerId is within
+ *         the valid range. The function only returns a valid address if LayerId is less
+ *         than the number of layers configured in the instance.
+ */
 UINTPTR XVMix_GetLayerChromaBuffer2Addr(XV_Mix_l2 *InstancePtr,
                                        XVMix_LayerId LayerId)
 {
@@ -1372,18 +1441,21 @@ UINTPTR XVMix_GetLayerChromaBuffer2Addr(XV_Mix_l2 *InstancePtr,
   return(ReadVal);
 }
 
-/*****************************************************************************/
 /**
-* This function sets the logo layer color key data
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  ColorKeyData is the structure that holds the min/max values
-*
-* @return XST_SUCCESS or XST_FAILURE
-*
-* @note   none
-*
-******************************************************************************/
+ * Set the logo color key values for the XV_Mix_l2 instance.
+ *
+ * This function configures the minimum and maximum RGB values for the logo color key,
+ * which are used to enable color keying (transparency) for the logo overlay in the video mixer.
+ * The function only sets the color key values if both the logo and logo color key features
+ * are enabled in the instance.
+ *
+ * @param InstancePtr   Pointer to the XV_Mix_l2 instance.
+ * @param ColorKeyData  Structure containing the minimum and maximum RGB values for the color key.
+ *
+ * @return
+ *   - XST_SUCCESS if the color key values were set successfully.
+ *   - XST_FAILURE if the logo or logo color key feature is not enabled.
+ */
 int XVMix_SetLogoColorKey(XV_Mix_l2 *InstancePtr,
                           XVMix_LogoColorKey ColorKeyData)
 {
@@ -1409,18 +1481,21 @@ int XVMix_SetLogoColorKey(XV_Mix_l2 *InstancePtr,
   return(Status);
 }
 
-/*****************************************************************************/
 /**
-* This function reads the logo layer color key data
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  ColorKeyData is the structure that holds return min/max values
-*
-* @return XST_SUCCESS or XST_FAILURE
-*
-* @note   none
-*
-******************************************************************************/
+ * Retrieves the current logo color key range from the hardware.
+ *
+ * @param InstancePtr   Pointer to the XV_Mix_l2 instance.
+ * @param ColorKeyData  Pointer to an XVMix_LogoColorKey structure where the color key
+ *                 minimum and maximum RGB values will be stored.
+ *
+ * This function checks if the logo and logo color key features are enabled.
+ * If both are enabled, it reads the minimum and maximum RGB values for the logo
+ * color key from the hardware registers and stores them in the provided
+ * ColorKeyData structure.
+ *
+ * @return  XST_SUCCESS if the color key values were successfully retrieved,
+ *          XST_FAILURE otherwise.
+ */
 int XVMix_GetLogoColorKey(XV_Mix_l2 *InstancePtr,
                           XVMix_LogoColorKey *ColorKeyData)
 {
@@ -1446,21 +1521,34 @@ int XVMix_GetLogoColorKey(XV_Mix_l2 *InstancePtr,
   return(Status);
 }
 
-/*****************************************************************************/
 /**
-* This function loads the logo data into core BRAM
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  Win is logo window (logo width must be multiple of 4 bytes)
-* @param  RBuffer is the pointer to Red buffer
-* @param  GBuffer is the pointer to Green buffer
-* @param  BBuffer is the pointer to Blue buffer
-*
-* @return XST_SUCCESS or XST_FAILURE
-*
-* @note   none
-*
-******************************************************************************/
+ * Loads a logo image into the mixer hardware.
+ *
+ * This function takes separate R, G, and B buffers representing a logo image,
+ * and writes the pixel data into the hardware registers of the video mixer
+ * for display as a logo overlay. The function supports logos with dimensions
+ * and alignment constraints as specified by the hardware configuration.
+ *
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance.
+ * @param Win         Pointer to an XVidC_VideoWindow structure specifying
+ *                    the position and size of the logo window.
+ * @param RBuffer     Pointer to the buffer containing the red channel data.
+ * @param GBuffer     Pointer to the buffer containing the green channel data.
+ * @param BBuffer     Pointer to the buffer containing the blue channel data.
+ *
+ * @return
+ *   - XST_SUCCESS if the logo was loaded successfully.
+ *   - XST_FAILURE if the logo could not be loaded (e.g., invalid parameters or logo not enabled).
+ *
+ * Preconditions:
+ *   - The logo feature must be enabled in the mixer hardware.
+ *   - The window dimensions and alignment must meet hardware requirements.
+ *   - The input buffers must be valid and sized appropriately for the window.
+ *
+ * Side Effects:
+ *   - Writes logo pixel data to hardware registers.
+ *   - Updates the logo layer buffer pointers in the instance.
+ */
 int XVMix_LoadLogo(XV_Mix_l2 *InstancePtr,
                    XVidC_VideoWindow *Win,
                    u8 *RBuffer,
@@ -1525,19 +1613,20 @@ int XVMix_LoadLogo(XV_Mix_l2 *InstancePtr,
   return(Status);
 }
 
-/*****************************************************************************/
 /**
-* This function loads the logo pixel alpha data into core BRAM
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  Win is logo window (logo width must be multiple of 4 bytes)
-* @param  ABuffer is the pointer to Pixel Alpha buffer
-*
-* @return XST_SUCCESS or XST_FAILURE
-*
-* @note   none
-*
-******************************************************************************/
+ * XVMix_LoadLogoPixelAlpha - Loads per-pixel alpha values for a logo window into the hardware.
+ *
+ * @param InstancePtr  Pointer to the XV_Mix_l2 instance.
+ * @param Win          Pointer to the XVidC_VideoWindow structure specifying the logo window position and size.
+ * @param ABuffer      Pointer to the buffer containing alpha values for each pixel in the logo window.
+ *
+ * This function loads the per-pixel alpha values from the provided buffer into the hardware registers
+ * for the specified logo window. The function checks that the logo and per-pixel alpha features are enabled,
+ * and that the window parameters are within valid ranges. The alpha values are packed into 32-bit words
+ * (4 pixels per word) and written to the hardware.
+ *
+ * @return  XST_SUCCESS if the operation is successful, XST_FAILURE otherwise.
+ */
 int XVMix_LoadLogoPixelAlpha(XV_Mix_l2 *InstancePtr,
                              XVidC_VideoWindow *Win,
                              u8 *ABuffer)
@@ -1580,17 +1669,26 @@ int XVMix_LoadLogoPixelAlpha(XV_Mix_l2 *InstancePtr,
   return(Status);
 }
 
-/*****************************************************************************/
 /**
-* This function reports the mixer status
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-*
-* @return none
-*
-* @note   none
-*
-******************************************************************************/
+ * XVMix_DbgReportStatus - Prints the current status and configuration of the mixer instance.
+ *
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance to report status for.
+ *
+ * This function outputs detailed information about the mixer hardware and its configuration
+ * to the standard output using xil_printf. The reported information includes:
+ *   - Pixels per clock
+ *   - Color depth
+ *   - Number of layers
+ *   - Control register value
+ *   - Layer enable register value
+ *   - Enable/disable status of each layer (Master, Layer 1-N, Logo)
+ *   - Background color values (Y/R, U/G, V/B)
+ *
+ * The function asserts that the provided instance pointer is not NULL.
+ * It is intended for debugging and diagnostic purposes.
+ *
+ * @return None.
+ */
 void XVMix_DbgReportStatus(XV_Mix_l2 *InstancePtr)
 {
   XV_mix *MixPtr;
@@ -1622,20 +1720,33 @@ void XVMix_DbgReportStatus(XV_Mix_l2 *InstancePtr)
   xil_printf("Background Color Y/R: %d\r\n", XV_mix_Get_HwReg_background_Y_R(MixPtr));
   xil_printf("Background Color U/G: %d\r\n", XV_mix_Get_HwReg_background_U_G(MixPtr));
   xil_printf("Background Color V/B: %d\r\n\r\n", XV_mix_Get_HwReg_background_V_B(MixPtr));
+
+  IsEnabled = XVMix_IsTileFormatEnabled(InstancePtr);
+  xil_printf("Tile Format : %s\r\n\r\n", Status[IsEnabled]);
 }
 
-/*****************************************************************************/
 /**
-* This function reports the mixer status of the specified layer
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  LayerId is the layer to be updated
-*
-* @return none
-*
-* @note   none
-*
-******************************************************************************/
+ * Prints debug information for a specific layer in the video mixer.
+ *
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance.
+ * @param LayerId     Identifier of the layer to report (master, logo, or regular layer).
+ *
+ * This function prints detailed status and configuration information for the specified
+ * layer in the video mixer. The information includes:
+ *   - Whether the layer is enabled or disabled.
+ *   - For the master layer: color format, resolution, and stream info.
+ *   - For the logo layer: alpha, scale factor, window position/size, color key data,
+ *     and pixel alpha status.
+ *   - For regular layers: interface type (memory/stream), buffer addresses, alpha and
+ *     scaling status/values, color format, window position/size, and stride.
+ *
+ * The function uses xil_printf for output and is intended for debugging purposes.
+ * Assertions are used to validate input parameters.
+ *
+ * @return none
+ *
+ * @note   none
+ */
 void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
 {
   XV_mix *MixPtr;
@@ -1758,20 +1869,24 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
   }
 }
 
-/*****************************************************************************/
 /**
-* This function sets up the Mixer coefficient values for YUV to RGB
-*
-* @param  InstancePtr is a pointer to core instance to be worked upon
-* @param  ColorStd is used to calculate coefficients
-* @param  colorRange is used to calculate coefficients
-* @param  colorDepth is width of colour component
-*
-* @return none
-*
-* @note   Applicable for all 16 Layers
-*
-******************************************************************************/
+ * @brief Sets the coefficients for YUV to RGB color space conversion in the XV_Mix hardware.
+ *
+ * This function configures the color space conversion (CSC) matrix coefficients
+ * for converting YUV to RGB based on the specified color standard, color range,
+ * and color depth. The coefficients are written to the hardware registers of the
+ * XV_Mix instance.
+ *
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance.
+ * @param ColorStd    The color standard to use (e.g., BT.601, BT.709).
+ * @param colorRange  The color range (e.g., full range, limited range).
+ * @param colorDepth  The color depth in bits per component (e.g., 8, 10, 12).
+ *
+ * @return none
+ *
+ * @note   Applicable for all 16 Layers
+ *
+ ***/
 static void XVMix_SetCoeffForYuvToRgb(XV_Mix_l2 *InstancePtr,
 		XVidC_ColorStd ColorStd,
 		XVidC_ColorRange colorRange,
@@ -1797,20 +1912,20 @@ static void XVMix_SetCoeffForYuvToRgb(XV_Mix_l2 *InstancePtr,
 
 }
 
-/*****************************************************************************/
 /**
- * This function sets up the Mixer coefficient values for RGB to YUV
+ * @brief Sets the RGB to YUV color space conversion coefficients for the mixer instance.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
- * @param  ColorStd is used to calculate coefficients
- * @param  colorRange is used to calculate coefficients
- * @param  colorDepth is width of colour component
+ * This function configures the color space conversion (CSC) matrix coefficients
+ * in the hardware registers of the mixer to perform RGB to YUV conversion.
+ * The coefficients are selected based on the specified color standard, color range,
+ * and color depth. The function writes the scaled coefficients to the appropriate
+ * hardware registers.
  *
- * @return none
- *
- * @note   Applicable for all 16 Layers
- *
- ******************************************************************************/
+ * @param InstancePtr Pointer to the XV_Mix_l2 instance.
+ * @param ColorStd    The color standard to use (e.g., BT.601, BT.709).
+ * @param colorRange  The color range (e.g., full range, limited range).
+ * @param colorDepth  The color depth (bits per component).
+ */
 static void XVMix_SetCoeffForRgbToYuv(XV_Mix_l2 *InstancePtr,
 		XVidC_ColorStd ColorStd,
 		XVidC_ColorRange colorRange,
@@ -1836,20 +1951,25 @@ static void XVMix_SetCoeffForRgbToYuv(XV_Mix_l2 *InstancePtr,
 
 }
 
-/*****************************************************************************/
-/*
- * This function calls Mixer coefficient programming functions
+/**
+ * Sets the Color Space Conversion (CSC) coefficients for the XV_Mix_l2 instance.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
- * @param  colorStandard is used to calculate coefficients
- * @param  colorRange is used to calculate coefficients
- * @param  colorDepth is width of colour component
+ * This function configures the CSC coefficients based on the specified color standard,
+ * color range, and color depth. It first checks if the provided color standard and color range
+ * are supported. If the CSC coefficient registers are enabled in the hardware, it sets the
+ * coefficients for both YUV-to-RGB and RGB-to-YUV conversions. If the registers are not enabled,
+ * it returns an error indicating that the feature is not available.
  *
- * @return XST_SUCCESS if command is successful else error code with reason
+ * @param	InstancePtr	Pointer to the XV_Mix_l2 instance.
+ * @param	colorStandard	Specifies the color standard (e.g., BT.601, BT.709).
+ * @param	colorRange	Specifies the color range (e.g., full, limited).
+ * @param	colorDepth	Specifies the color depth (in bits).
  *
- * @note   none
- *
- ******************************************************************************/
+ * @return
+ *		- XST_SUCCESS if the coefficients are set successfully.
+ *		- XST_FAILURE if an unknown color standard or color range is provided.
+ *		- XST_NO_FEATURE if the CSC coefficient registers are not enabled.
+ */
 u32 XVMix_SetCscCoeffs(XV_Mix_l2 *InstancePtr,
 		XVidC_ColorStd colorStandard,
 		XVidC_ColorRange colorRange,

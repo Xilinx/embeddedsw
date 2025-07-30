@@ -439,6 +439,22 @@ typedef struct {
 #define XVMix_IsAlphaEnabled(InstancePtr, LayerId) \
                 ((InstancePtr)->Mix.Config.AlphaEn[LayerId-1])
 
+/**
+ * @brief Checks if the tile format is enabled for the given XVMix instance.
+ *
+ * This macro evaluates to the value of the IsTileFormat field in the Mix configuration
+ * structure of the specified instance. It is used to determine whether the tile format
+ * feature is enabled for the XVMix hardware.
+ *
+ * @param InstancePtr
+ *        A pointer to the XVMix instance to be checked.
+ *
+ * @return
+ *        Non-zero if tile format is enabled, zero otherwise.
+ */
+#define XVMix_IsTileFormatEnabled(InstancePtr) \
+                ((InstancePtr)->Mix.Config.IsTileFormat)
+
 /*****************************************************************************/
 /**
 *

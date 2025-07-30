@@ -16,6 +16,8 @@ properties:
         - enum:
           - xlnx,v-mix-5.2
           - xlnx,v-mix-5.3
+          - xlnx,v-mix-6.0
+
   reg:
     description: Physical base address and size of the controller register map
   samples-per-clock:
@@ -52,6 +54,8 @@ properties:
     description: Interface type of Layer[n]
   xlnx,layer*-video-format:
     description: Supported video format of Layer[n]
+  xlnx,is-tile-format:
+    description: Tileformat support
   interrupts:
     description: Interrupt number
   interrupt-parent:
@@ -152,6 +156,7 @@ required:
     - xlnx,layer14-video-format
     - xlnx,layer15-video-format
     - xlnx,layer16-video-format
+    - xlnx,is-tile-format
     - interrupts
     - interrupt-parent
 

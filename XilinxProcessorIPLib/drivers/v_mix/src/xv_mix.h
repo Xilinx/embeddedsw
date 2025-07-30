@@ -1,8 +1,14 @@
 // ==============================================================
 // Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+*
+* @file xv_mix.h
+* @addtogroup v_mix Overview
+*/
 
 #ifndef XV_MIX_H
 #define XV_MIX_H
@@ -172,7 +178,7 @@ typedef struct {
   u16 MaxLogoHeight;     /**< Maximum rows supported by log layer */
   u16 LogoColorKeyEn;    /**< Logo layer color key feature indicator flag */
   u16 LogoPixAlphaEn;    /**< Logo layer per pixel alpha feature indicator flag */
-  u16 CscCoeffsRegsEn;    /**< Logo layer per pixel alpha feature indicator flag */
+  u16 CscCoeffsRegsEn;   /**< CSC coefficients registers enable flag */
   union {                /**< Alpha feature enable flag per memory layer */
 	  XVMix_AlphaFlag AlphaFlag;
 	  u8 AlphaEn[XV_MIX_MAX_MEMORY_LAYERS];
@@ -193,6 +199,7 @@ typedef struct {
 	  XVMix_LayerColorFormat LyrColorFmt;
 	  u8 LayerColorFmt[XV_MIX_MAX_MEMORY_LAYERS];
   };
+  u16 IsTileFormat; 	/**< Tile format support indicator flag */
 #ifdef SDT
   u16 IntrId; 		    /**< Interrupt ID */
   UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
