@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017-2023 Xilinx, Inc. All Rights Reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -175,17 +175,25 @@ XVidC_ColorFormat RdMemory2Live(XVidC_ColorFormat MemFmt)
 	return(StrmFmt);
 }
 
-/*****************************************************************************/
 /**
- * This function initializes the core instance
+ * Initializes the XV_FrmbufRd_l2 instance.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
- * @param  DeviceId is instance id of the core
+ * This function sets up the XV_FrmbufRd_l2 instance structure, zeroes its memory,
+ * and initializes the underlying XV_frmbufrd hardware or driver instance.
+ * Depending on the build configuration, it uses either a DeviceId or a BaseAddress
+ * to perform the initialization.
  *
- * @return XST_SUCCESS if device is found and initialized
- *         XST_DEVICE_NOT_FOUND if device is not found
+ * @param InstancePtr Pointer to the XV_FrmbufRd_l2 instance to be initialized.
+ * @param DeviceId Device ID of the XV_frmbufrd hardware (used if SDT is not defined).
  *
- ******************************************************************************/
+ * @return
+ *   - XST_SUCCESS if initialization was successful.
+ *   - Error code otherwise.
+ *
+ * @note
+ *   - The function asserts that InstancePtr is not NULL.
+ *   - After successful initialization, the instance is set to its power-on default state.
+ */
 #ifndef SDT
 int XVFrmbufRd_Initialize(XV_FrmbufRd_l2 *InstancePtr, u16 DeviceId)
 #else
@@ -195,29 +203,34 @@ int XVFrmbufRd_Initialize(XV_FrmbufRd_l2 *InstancePtr, UINTPTR BaseAddress)
 	int Status;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Setup the instance */
+	/*Initialising frmbufrd structure to 0*/
 	memset(InstancePtr, 0, sizeof(XV_FrmbufRd_l2));
+	/* Setup the instance */
 #ifndef SDT
 	Status = XV_frmbufrd_Initialize(&InstancePtr->FrmbufRd, DeviceId);
 #else
 	Status = XV_frmbufrd_Initialize(&InstancePtr->FrmbufRd, BaseAddress);
 #endif
-
+	/*Programming frmbufrd structure with default values*/
 	if (Status == XST_SUCCESS) {
 		SetPowerOnDefaultState(InstancePtr);
 	}
 	return(Status);
 }
 
-/*****************************************************************************/
 /**
- * This function initializes the frame buffer read core instance to default state
+ * SetPowerOnDefaultState - Initializes the frame buffer reader instance to its default power-on state.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * This function configures the XV_FrmbufRd_l2 instance with default video stream parameters,
+ * including resolution, color format, frame rate, color depth, and pixels per clock. It sets
+ * the hardware registers for frame width, height, stride, and memory video format. If interlaced
+ * mode is enabled, it also sets the field ID register. The function disables the DONE and READY
+ * interrupts to set up polling mode.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufRd_l2 instance to be initialized.
  *
  * @return None
- *
- ******************************************************************************/
+ */
 static void SetPowerOnDefaultState(XV_FrmbufRd_l2 *InstancePtr)
 {
 	XVidC_VideoStream VidStrm;
@@ -254,15 +267,20 @@ static void SetPowerOnDefaultState(XV_FrmbufRd_l2 *InstancePtr)
 	XVFrmbufRd_InterruptDisable(InstancePtr, IrqMask);
 }
 
-/*****************************************************************************/
 /**
- * This function enables interrupts in the core
+ * Enables specific interrupts for the Frame Buffer Read core and globally enables interrupts.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * This function enables the interrupts specified by the IrqMask for the Frame Buffer Read
+ * instance pointed to by InstancePtr. It also globally enables interrupts for the core and
+ * disables the autostart feature to ensure manual control of frame buffer operations.
  *
- * @return none
+ * @param InstancePtr Pointer to the XV_FrmbufRd_l2 instance.
+ * @param IrqMask     is the interrupt mask the driver interrupt handler
+ * 	      			  passes to the callback function.
+ * @return None.
  *
- ******************************************************************************/
+ * @note The InstancePtr must not be NULL.
+ */
 void XVFrmbufRd_InterruptEnable(XV_FrmbufRd_l2 *InstancePtr, u32 IrqMask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -275,15 +293,21 @@ void XVFrmbufRd_InterruptEnable(XV_FrmbufRd_l2 *InstancePtr, u32 IrqMask)
 	XV_frmbufrd_DisableAutoRestart(&InstancePtr->FrmbufRd);
 }
 
-/*****************************************************************************/
 /**
- * This function disables interrupts in the core
+ * XVFrmbufRd_InterruptDisable - Disables specific interrupts and enables auto-restart.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * This function disables the interrupts specified by the IrqMask for the given
+ * Frame Buffer Read (FrmbufRd) instance. It also globally disables interrupts
+ * for the instance and sets the auto-restart bit to ensure the hardware continues
+ * operation without further software intervention.
  *
- * @return none
+ * @param  InstancePtr Pointer to the XV_FrmbufRd_l2 instance.
+ * @param  IrqMask is the interrupt mask the driver interrupt handler
+ * 	       passes to the callback function.
+ * @return None.
  *
- ******************************************************************************/
+ * @note The InstancePtr must not be NULL.
+ */
 void XVFrmbufRd_InterruptDisable(XV_FrmbufRd_l2 *InstancePtr, u32 IrqMask)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -296,15 +320,17 @@ void XVFrmbufRd_InterruptDisable(XV_FrmbufRd_l2 *InstancePtr, u32 IrqMask)
 	XV_frmbufrd_EnableAutoRestart(&InstancePtr->FrmbufRd);
 }
 
-/*****************************************************************************/
 /**
- * This function starts the core instance
+ * This function starts the Frame Buffer Read core.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * This function initiates the frame buffer read operation by calling the
+ * lower-level start function for the frame buffer read hardware. It asserts
+ * that the provided instance pointer is not NULL before proceeding.
+ *
+ * @param InstancePtr Pointer to the XV_FrmbufRd_l2 instance.
  *
  * @return none
- *
- ******************************************************************************/
+ */
 void XVFrmbufRd_Start(XV_FrmbufRd_l2 *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -312,16 +338,22 @@ void XVFrmbufRd_Start(XV_FrmbufRd_l2 *InstancePtr)
 	XV_frmbufrd_Start(&InstancePtr->FrmbufRd);
 }
 
-/*****************************************************************************/
 /**
- * This function stops the core instance
+ * XVFrmbufRd_Stop - Stops the Frame Buffer Read core.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * This function disables the auto-restart feature, initiates a flush operation,
+ * and waits for the flush to complete or until a timeout occurs. It returns
+ * XST_SUCCESS if the flush completes successfully, or XST_FAILURE if the flush
+ * does not complete within the allowed number of attempts.
  *
- * @return XST_SUCCESS if the core in stop state
- *         XST_FAILURE if the core is not in stop state
+ * @param	InstancePtr is a pointer to the XV_FrmbufRd_l2 instance.
  *
- ******************************************************************************/
+ * @return
+ *		- XST_SUCCESS if the flush operation completes successfully.
+ *		- XST_FAILURE if the flush operation times out.
+ *
+ * @note	None.
+ */
 int XVFrmbufRd_Stop(XV_FrmbufRd_l2 *InstancePtr)
 {
 	int Status = XST_SUCCESS;
@@ -347,16 +379,20 @@ int XVFrmbufRd_Stop(XV_FrmbufRd_l2 *InstancePtr)
 	return Status;
 }
 
-/*****************************************************************************/
 /**
- * This function Waits for the core to reach idle state
+ * XVFrmbufRd_WaitForIdle - Waits until the Frame Buffer Read core is idle or a timeout occurs.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * @param InstancePtr: Pointer to the XV_FrmbufRd_l2 instance.
+ *
+ * This function polls the Frame Buffer Read core's status until it becomes idle
+ * or until a predefined timeout (XVFRMBUFRD_IDLE_TIMEOUT) is reached. It uses
+ * the XV_frmbufrd_IsIdle function to check the idle status. If the core becomes
+ * idle within the timeout period, the function returns XST_SUCCESS. Otherwise,
+ * it returns XST_FAILURE.
  *
  * @return XST_SUCCESS if the core is in idle state
  *         XST_FAILURE if the core is not in idle state
- *
- ******************************************************************************/
+ */
 int XVFrmbufRd_WaitForIdle(XV_FrmbufRd_l2 *InstancePtr)
 {
 	int Status = XST_FAILURE;
@@ -377,18 +413,29 @@ int XVFrmbufRd_WaitForIdle(XV_FrmbufRd_l2 *InstancePtr)
 
 	return Status;
 }
-/*****************************************************************************/
+
 /**
- * This function configures the frame buffer read memory input
+ * XVFrmbufRd_SetMemFormat - Configure the memory format and stream parameters for the frame buffer reader.
  *
- * @param  InstancePtr is a pointer to the core instance to be worked on.
- * @param  StrideInBytes is the memory stride in bytes
- * @param  MemFormat is the video format to be read from memory
- * @param  StrmOut is the pointer to output stream configuration
+ * @param  InstancePtr:    Pointer to the XV_FrmbufRd_l2 instance.
+ * @param  StrideInBytes:  Stride of the frame buffer in bytes. Must be aligned to 2 * PixPerClk * 4 bytes.
+ * @param  MemFmt:         Memory color format (XVidC_ColorFormat) to be used for reading frames.
+ * @param  StrmOut:        Pointer to the output video stream structure (XVidC_VideoStream).
  *
- * @return none
+ * This function validates the provided memory format, stride, and stream parameters,
+ * ensuring they are compatible with the hardware and the selected memory format.
+ * It checks for alignment, format support, and matching between memory and streaming formats.
+ * If all checks pass, it configures the hardware registers for the frame buffer reader
+ * with the specified parameters.
  *
- ******************************************************************************/
+ * @return
+ *   - XST_SUCCESS if the configuration is successful.
+ *   - XVFRMBUFRD_ERR_FRAME_SIZE_INVALID if the frame size is invalid for the selected format.
+ *   - XVFRMBUFRD_ERR_STRIDE_MISALIGNED if the stride is not properly aligned.
+ *   - XVFRMBUFRD_ERR_VIDEO_FORMAT_MISMATCH if the memory and stream formats do not match.
+ *   - XVFRMBUFRD_ERR_DISABLED_IN_HW if the selected memory format is not supported in hardware.
+ *   - XST_FAILURE for other failures.
+ */
 int XVFrmbufRd_SetMemFormat(XV_FrmbufRd_l2 *InstancePtr,
 		u32 StrideInBytes,
 		XVidC_ColorFormat MemFmt,
@@ -616,30 +663,34 @@ int XVFrmbufRd_SetMemFormat(XV_FrmbufRd_l2 *InstancePtr,
 	return(Status);
 }
 
-/*****************************************************************************/
 /**
- * This function reads the pointer to the output stream configuration
+ * Retrieves a pointer to the video stream associated with the given Frame Buffer Read instance.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * @param	InstancePtr	Pointer to the XV_FrmbufRd_l2 instance.
  *
- * @return  Pointer to output stream configuration
- *
- ******************************************************************************/
+ * @return	Pointer to the XVidC_VideoStream structure associated with the instance.
+ */
 XVidC_VideoStream *XVFrmbufRd_GetVideoStream(XV_FrmbufRd_l2 *InstancePtr)
 {
 	return(&InstancePtr->Stream);
 }
 
-/*****************************************************************************/
 /**
- * This function sets the buffer address
+ * XVFrmbufRd_SetBufferAddr - Set the frame buffer address for the Frame Buffer Read core.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
- * @param  Addr is the absolute address of buffer in memory
+ * @param  InstancePtr: Pointer to the XV_FrmbufRd_l2 instance.
+ * @param  Addr:        Physical address of the frame buffer to be set.
  *
- * @return XST_SUCCESS or XST_FAILURE
+ * This function sets the frame buffer address for the Frame Buffer Read core.
+ * It checks if the provided address is aligned to the required AXI memory width,
+ * which is calculated as 2 * PixelsPerClock * 4 bytes. If the address is not
+ * properly aligned, the function returns an error code indicating misalignment.
+ * If the address is valid and aligned, it writes the address to the hardware register.
  *
- ******************************************************************************/
+ * @return XST_SUCCESS if the address is set successfully.
+ *         XVFRMBUFRD_ERR_MEM_ADDR_MISALIGNED if the address is misaligned.
+ *         XST_FAILURE for other failures.
+ */
 int XVFrmbufRd_SetBufferAddr(XV_FrmbufRd_l2 *InstancePtr,
 		UINTPTR Addr)
 {
@@ -796,16 +847,18 @@ UINTPTR XVFrmbufRd_GetChromaBufferAddr(XV_FrmbufRd_l2 *InstancePtr)
 	return(ReadVal);
 }
 
-/*****************************************************************************/
 /**
- * This function sets the field ID
+ * XVFrmbufRd_SetFieldID - Sets the Field ID for the Frame Buffer Read hardware.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
- * @param  Field ID
+ * @param InstancePtr Pointer to the XV_FrmbufRd_l2 instance.
+ * @param FieldID     Field ID value to set (typically 0 or 1 for interlaced operation).
  *
- * @return XST_SUCCESS or XST_FAILURE
+ * This function writes the specified Field ID value to the hardware register
+ * controlling the field selection for interlaced video modes. It asserts that
+ * the instance pointer is valid and that the hardware is configured for interlaced mode.
  *
- ******************************************************************************/
+ * @return XST_SUCCESS if the Field ID is set successfully, otherwise XST_FAILURE.
+ */
 int XVFrmbufRd_SetFieldID(XV_FrmbufRd_l2 *InstancePtr,
 		u32 FieldID)
 {
@@ -820,15 +873,16 @@ int XVFrmbufRd_SetFieldID(XV_FrmbufRd_l2 *InstancePtr,
 	return(Status);
 }
 
-/*****************************************************************************/
 /**
- * This function reads the field ID
+ * XVFrmbufRd_GetFieldID - Retrieves the current Field ID from the Frame Buffer Read hardware.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * @param	InstancePtr: Pointer to the XV_FrmbufRd_l2 instance.
  *
- * @return Field ID
+ * @return	The current Field ID value as read from the hardware register.
  *
- ******************************************************************************/
+ * @note	This function asserts that the InstancePtr is not NULL and that
+ *          the Frame Buffer Read instance is configured for interlaced mode.
+ */
 u32 XVFrmbufRd_GetFieldID(XV_FrmbufRd_l2 *InstancePtr)
 {
 	u32 ReadVal;
@@ -840,16 +894,18 @@ u32 XVFrmbufRd_GetFieldID(XV_FrmbufRd_l2 *InstancePtr)
 	return(ReadVal);
 }
 
-/*****************************************************************************/
 /**
- * This function sets the Fidout Mode Value
+ * XVFrmbufRd_Set_FidOutMode - Sets the Field ID Output Mode for the Frame Buffer Read core.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
- * @param  fidmodeval is a value to be written
+ * @param  InstancePtr Pointer to the XV_FrmbufRd_l2 instance.
+ * @param  fidmodeval  Field ID output mode value (must be 0, 1, or 2).
  *
- * @return XST_SUCCESS or XST_FAILURE
+ * This function configures the Field ID Output Mode register of the Frame Buffer Read
+ * hardware. It asserts that the instance pointer is valid, the fidmodeval is within
+ * the allowed range, and that the core is configured for interlaced operation.
  *
- ******************************************************************************/
+ * @return XST_SUCCESS if the operation is successful, otherwise XST_FAILURE.
+ */
 int XVFrmbufRd_Set_FidOutMode(XV_FrmbufRd_l2 *InstancePtr, u32 fidmodeval)
 {
 	int Status = XST_FAILURE;
@@ -865,15 +921,17 @@ int XVFrmbufRd_Set_FidOutMode(XV_FrmbufRd_l2 *InstancePtr, u32 fidmodeval)
 	return(Status);
 }
 
-/*****************************************************************************/
 /**
- * This function reads the Fidout Mode Value
+ * Retrieves the Field ID Output Mode (FidOutMode) from the Frame Buffer Read core instance.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * This function reads the current FidOutMode hardware register value from the specified
+ * XV_FrmbufRd_l2 instance. It asserts that the instance pointer is not NULL and that the
+ * instance is configured for interlaced mode before accessing the register.
  *
- * @return Fidout Mode Value
+ * @param	InstancePtr	Pointer to the XV_FrmbufRd_l2 instance.
  *
- ******************************************************************************/
+ * @return	The value of the FidOutMode hardware register.
+ */
 u32 XVFrmbufRd_Get_FidOutMode(XV_FrmbufRd_l2 *InstancePtr)
 {
 	u32 ReadVal;
@@ -886,15 +944,16 @@ u32 XVFrmbufRd_Get_FidOutMode(XV_FrmbufRd_l2 *InstancePtr)
 	return(ReadVal);
 }
 
-/*****************************************************************************/
 /**
- * This function reads the Fid error Register and extract error flag
+ * XVFrmbufRd_Get_FidErrorOut - Retrieves the Field ID (FID) error status from the Frame Buffer Read core.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * @param	InstancePtr: Pointer to the XV_FrmbufRd_l2 instance.
  *
- * @return Fid Error flag
+ * @return	The value of the FID error output register. Non-zero indicates an FID error.
  *
- ******************************************************************************/
+ * @note	This function asserts that the InstancePtr is not NULL and that the
+ *          Frame Buffer Read core is configured for interlaced mode.
+ */
 u32 XVFrmbufRd_Get_FidErrorOut(XV_FrmbufRd_l2 *InstancePtr)
 {
 	u32 ReadVal;
@@ -907,15 +966,16 @@ u32 XVFrmbufRd_Get_FidErrorOut(XV_FrmbufRd_l2 *InstancePtr)
 	return(ReadVal);
 }
 
-/*****************************************************************************/
 /**
- * This function reads the Fid error Register and extract error count
+ * XVFrmbufRd_Get_FidErrorCount - Retrieves the Field ID (FID) error count from the Frame Buffer Read core.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * @param	InstancePtr: Pointer to the XV_FrmbufRd_l2 instance.
  *
- * @return Fid Error count
+ * @return	The number of FID errors detected by the hardware.
  *
- ******************************************************************************/
+ * @note	This function asserts that the InstancePtr is not NULL and that the
+ *          Frame Buffer Read core is configured for interlaced mode.
+ */
 u32 XVFrmbufRd_Get_FidErrorCount(XV_FrmbufRd_l2 *InstancePtr)
 {
 	u32 ReadVal;
@@ -928,15 +988,19 @@ u32 XVFrmbufRd_Get_FidErrorCount(XV_FrmbufRd_l2 *InstancePtr)
 	return(ReadVal);
 }
 
-/*****************************************************************************/
 /**
- * This function reads the field Out
+ * Retrieves the current field output value from the Frame Buffer Read hardware.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * This function reads the hardware register associated with the field output
+ * and returns its value, masked with the appropriate control bits. It asserts
+ * that the provided instance pointer is not NULL and that the instance is
+ * configured for interlaced mode.
  *
- * @return Field Out
+ * @param	InstancePtr is a pointer to the XV_FrmbufRd_l2 instance.
  *
- ******************************************************************************/
+ * @return	The value of the field output as a 32-bit unsigned integer.
+ *
+ */
 u32 XVFrmbufRd_Get_FieldOut(XV_FrmbufRd_l2 *InstancePtr)
 {
 	u32 ReadVal;
@@ -949,17 +1013,23 @@ u32 XVFrmbufRd_Get_FieldOut(XV_FrmbufRd_l2 *InstancePtr)
 	return(ReadVal);
 }
 
-/*****************************************************************************/
 /**
- * This function reports the frame buffer read status
+ * XVFrmbufRd_DbgReportStatus - Prints the current status and configuration of the Frame Buffer Read core.
  *
- * @param  InstancePtr is a pointer to core instance to be worked upon
+ * @param  InstancePtr Pointer to the XV_FrmbufRd_l2 instance.
+ *
+ * This function outputs a detailed debug report of the Frame Buffer Read (FrmbufRd) core's
+ * configuration and runtime status to the console using xil_printf. The report includes
+ * information such as pixel format support, color depth, AXI-MM data width, enabled formats,
+ * control register value, frame dimensions, stride, video format, and buffer addresses.
+ *
+ * This function is intended for debugging and diagnostic purposes.
+ *
+ * Preconditions:
+ * - InstancePtr must not be NULL.
  *
  * @return none
- *
- * @note   none
- *
- ******************************************************************************/
+ */
 void XVFrmbufRd_DbgReportStatus(XV_FrmbufRd_l2 *InstancePtr)
 {
 	u32 ctrl;

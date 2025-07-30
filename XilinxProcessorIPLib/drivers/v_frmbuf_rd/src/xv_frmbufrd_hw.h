@@ -1,8 +1,14 @@
 // ==============================================================
 // Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+/**
+*
+* @file xv_frmbufrd_hw.h
+* @addtogroup v_frmbuf_rd Overview
+*/
+
 #ifndef XV_FRMBUFRD_HW_H_  /* prevent circular inclusions */
 #define XV_FRMBUFRD_HW_H_  /* by using protection macros  */
 

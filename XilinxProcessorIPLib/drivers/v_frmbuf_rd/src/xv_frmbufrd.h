@@ -1,9 +1,14 @@
 // ==============================================================
 // Copyright (c) 1986 - 2023 Xilinx Inc. All rights reserved.
-// Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
+/**
+*
+* @file xv_frmbufrd.h
+* @addtogroup v_frmbuf_rd Overview
+*/
 #ifndef XV_FRMBUFRD_H
 #define XV_FRMBUFRD_H
 
@@ -89,7 +94,7 @@ typedef struct {
   u16 Y_U_V8_420En;         /**< Y_U_V8_420   support */
   u16 Y_U_V12En;            /**< Y_U_V12 support */
   u16 Interlaced;           /**< Interlaced support */
-  u16 IsTileFormat;           /**< Interlaced support */
+  u16 IsTileFormat;           /**< Tile format support */
 #ifdef SDT
   u16 IntrId; 		    /**< Interrupt ID */
   UINTPTR IntrParent; 	    /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */

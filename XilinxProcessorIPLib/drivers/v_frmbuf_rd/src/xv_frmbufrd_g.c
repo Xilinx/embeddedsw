@@ -1,17 +1,27 @@
 
 /*******************************************************************
 * Copyright (c) 2010-2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************/
 
+/**
+*
+* @file xv_frmbufrd_g.c
+* @addtogroup v_frmbuf_rd Overview
+*/
+
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xv_frmbufrd.h"
 
 /*
-* The configuration table for devices
-*/
-
+ * XV_frmbufrd_ConfigTable:
+ * This table contains the configuration parameters for each instance of the
+ * XV_frmbufrd device present in the system. Each entry is initialized using
+ * values from xparameters.h, which are generated based on the hardware design.
+ */
 XV_frmbufrd_Config XV_frmbufrd_ConfigTable[XPAR_XV_FRMBUFRD_NUM_INSTANCES] =
 {
 	{
