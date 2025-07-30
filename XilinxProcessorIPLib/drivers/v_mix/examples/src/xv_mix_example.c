@@ -1,13 +1,14 @@
 /*******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file main.c
+* @file xv_mix_example.c
+* @addtogroup v_mix Overview
 *
 * This file demonstrates the example usage of Mixer IP available in catalogue
 * Please refer v_mix example design guide for details on HW setup
@@ -38,6 +39,7 @@
 *                        Program CSC coefficient registers to do color conversion
 *                        from YUV to RGB and RGB to YUV.
 *       se    30/05/22	 Added 4K overlay layer support
+* 7.00  pg    30/07/25   Added tile format support
 * </pre>
 *
 ******************************************************************************/
@@ -187,13 +189,27 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr);
 static int CheckVidoutLock(void);
 
 #ifndef SDT
-/*****************************************************************************/
 /**
- * This function initializes and configures the system interrupt controller
+ * @brief Sets up the interrupt controller and connects the V_MIX interrupt handler.
  *
- * @return XST_SUCCESS if init is OK else XST_FAILURE
+ * This function initializes the interrupt controller and connects the interrupt
+ * service routine for the V_MIX hardware block. It supports both MicroBlaze and
+ * ARM Cortex-A (Zynq/Versal) architectures by using the appropriate interrupt
+ * controller APIs:
+ *   - For MicroBlaze, it uses the XIntc driver.
+ *   - For ARM Cortex-A, it uses the XScuGic driver.
  *
- *****************************************************************************/
+ * Steps performed:
+ *   1. Initializes the interrupt controller.
+ *   2. Connects the V_MIX interrupt handler to the controller.
+ *   3. Enables the interrupt in the controller.
+ *   4. Starts the interrupt controller (if required by architecture).
+ *   5. Registers the exception handler (for ARM Cortex-A).
+ *
+ * @return
+ *   - XST_SUCCESS if the setup is successful.
+ *   - XST_FAILURE or XST_DEVICE_NOT_FOUND if any step fails.
+ */
 static int SetupInterrupts(void)
 {
 #if defined(__MICROBLAZE__)
@@ -274,13 +290,24 @@ static int SetupInterrupts(void)
 }
 #endif
 
-/*****************************************************************************/
 /**
- * This function initializes system wide peripherals.
+ * @brief Initializes all required video processing drivers and peripherals.
  *
- * @return XST_SUCCESS if init is OK else XST_FAILURE
+ * This function performs the initialization of the following hardware components:
+ * - Video Timing Controller (VTC)
+ * - Test Pattern Generator (TPG)
+ * - Frame Buffer Read (if available)
+ * - Video Mixer
+ * - Video Lock Monitor GPIO
  *
- *****************************************************************************/
+ * The function uses conditional compilation to support both SDT and non-SDT
+ * environments for device lookup and initialization.
+ *
+ * @return
+ *   - XST_SUCCESS if all components are initialized successfully.
+ *   - XST_FAILURE if any component fails to initialize, with an error message
+ *     printed to the console indicating the failure reason.
+ */
 static int DriverInit(void)
 {
   int Status;
@@ -362,13 +389,16 @@ static int DriverInit(void)
   return(XST_SUCCESS);
 }
 
-/*****************************************************************************/
 /**
- * This function configures TPG for defined mode
+ * @brief Configures the Test Pattern Generator (TPG) with the specified video stream parameters.
  *
- * @return none
+ * This function stops the TPG, sets its height, width, color format, background, and overlay
+ * according to the provided video stream, and then restarts the TPG. It also prints an
+ * informational message upon completion.
  *
- *****************************************************************************/
+ * @param StreamPtr Pointer to an XVidC_VideoStream structure containing the desired video timing
+ *                  and color format settings for the TPG.
+ */
 static void ConfigTpg(XVidC_VideoStream *StreamPtr)
 {
   //Stop TPG
@@ -387,13 +417,27 @@ static void ConfigTpg(XVidC_VideoStream *StreamPtr)
 }
 
 #ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
-/*****************************************************************************/
+
 /**
- * This function calculates the stride
+ * CalcStride - Calculates the memory stride (in bytes) for a video frame line
+ *              based on the color format, AXI memory interface data width, and
+ *              video stream parameters.
  *
- * @returns stride in bytes
+ * @param  Cfmt           The color format of the video frame (XVidC_ColorFormat).
+ * @param  AXIMMDataWidth The AXI memory-mapped interface data width (in bits).
+ * @param  StreamPtr      Pointer to the XVidC_VideoStream structure containing
+ *                        video timing information (e.g., active width).
  *
- *****************************************************************************/
+ * @return The stride (in bytes) required for one line of the video frame,
+ *         aligned to the AXI memory interface width.
+ *
+ * @note   The stride is calculated differently depending on the color format:
+ *         - For 10-bit packed formats (Y_UV10, Y_UV10_420, Y10): 4 bytes per 3 pixels.
+ *         - For 8-bit formats (Y_UV8, Y_UV8_420, Y8): 1 byte per pixel.
+ *         - For 8-bit RGB/YUV/BGR formats: 3 bytes per pixel.
+ *         - For all other formats: 4 bytes per pixel.
+ *         The stride is always aligned to the AXI memory interface width.
+ */
 static u32 CalcStride(XVidC_ColorFormat Cfmt,
                       u16 AXIMMDataWidth,
                       XVidC_VideoStream *StreamPtr)
@@ -425,13 +469,19 @@ static u32 CalcStride(XVidC_ColorFormat Cfmt,
   return(stride);
 }
 
-/*****************************************************************************/
 /**
- * This function finds a compatible memory format for the frame buffer
+ * FindMemFormat - Maps a given video stream color format to its corresponding
+ * memory color format.
  *
- * @returns video color format
+ * @param StreamFmt: The input color format of the video stream (of type XVidC_ColorFormat).
  *
- *****************************************************************************/
+ * @return The corresponding memory color format (of type XVidC_ColorFormat) suitable
+ *         for storing the video stream in memory.
+ *
+ * This function takes a video stream color format and returns the appropriate
+ * memory color format constant to be used for frame buffer allocation or processing.
+ * If the input format is not recognized, it defaults to XVIDC_CSF_MEM_RGB8.
+ */
 static XVidC_ColorFormat FindMemFormat(XVidC_ColorFormat StreamFmt)
 {
   XVidC_ColorFormat Cfmt;
@@ -463,13 +513,20 @@ static XVidC_ColorFormat FindMemFormat(XVidC_ColorFormat StreamFmt)
   return(Cfmt);
 }
 
-/*****************************************************************************/
 /**
- * This function configures Frame Buffer for defined mode
+ * @brief Configures the Frame Buffer Read (FRMBUF_RD) core for a given layer.
  *
- * @return XST_SUCCESS if init is OK else XST_FAILURE
+ * This function sets up the memory format, stride, color format, and buffer addresses
+ * for the Frame Buffer Read instance. It also handles chroma buffer configuration for
+ * semi-planar formats and starts the frame buffer hardware.
  *
- *****************************************************************************/
+ * @param LayerFrmbuf   Pointer to the XV_FrmbufRd_l2 instance for the layer.
+ * @param StrideInBytes Stride (in bytes) for one line of the video frame.
+ * @param Cfmt          Color format to be used for memory (XVidC_ColorFormat).
+ * @param StreamPtr     Pointer to the video stream configuration (XVidC_VideoStream).
+ *
+ * @return XST_SUCCESS if configuration is successful, XST_FAILURE otherwise.
+ */
 static int ConfigFrmbuf(XV_FrmbufRd_l2 *LayerFrmbuf,
                         u32 StrideInBytes,
                         XVidC_ColorFormat Cfmt,
@@ -511,13 +568,17 @@ static int ConfigFrmbuf(XV_FrmbufRd_l2 *LayerFrmbuf,
 }
 #endif
 
-/*****************************************************************************/
 /**
- * This function configures vtc for defined mode
+ * @brief Configures the Video Timing Controller (VTC) based on the provided video stream parameters.
  *
- * @return none
+ * This function initializes and sets the timing parameters for the VTC hardware using the
+ * timing information from the given XVidC_VideoStream structure. It calculates the horizontal
+ * timing values based on the number of pixels per clock and sets the vertical timing values
+ * directly from the stream. After configuring the timing, it enables the VTC, its generator,
+ * and register updates.
  *
- *****************************************************************************/
+ * @param StreamPtr Pointer to an XVidC_VideoStream structure containing the video timing parameters.
+ */
 static void ConfigVtc(XVidC_VideoStream *StreamPtr)
 {
   XVtc_Timing vtc_timing = {0};
@@ -540,13 +601,27 @@ static void ConfigVtc(XVidC_VideoStream *StreamPtr)
   xil_printf("INFO: VTC configured\r\n");
 }
 
-/*****************************************************************************/
 /**
- * This function configures Mixer for defined mode
+ * @brief Configures the video mixer with the provided video stream settings.
  *
- * @return none
+ * This function sets up the XV_Mix_l2 mixer instance with the specified video stream.
+ * It performs the following operations:
+ *   - Disables the master layer and sets the video stream.
+ *   - Iterates through all mixer layers, assigning memory buffer addresses for each
+ *     memory-based layer and, if applicable, chroma buffer addresses for YUV formats.
+ *   - Loads a logo into the mixer if the logo layer is enabled, including optional
+ *     per-pixel alpha data if supported.
+ *   - Sets the background color to blue.
+ *   - Optionally programs color space conversion (CSC) coefficients if enabled in hardware.
+ *   - Enables the master layer, disables interrupts, and starts the mixer.
  *
- *****************************************************************************/
+ * @param StreamPtr Pointer to the XVidC_VideoStream structure containing video stream parameters.
+ *
+ * @note
+ *   - The function assumes that the mixer instance 'mix' is globally accessible.
+ *   - Error messages are printed via xil_printf if any configuration step fails.
+ *   - The function is hardware-dependent and expects the mixer IP to be properly instantiated.
+ */
 static void ConfigMixer(XVidC_VideoStream *StreamPtr)
 {
   XV_Mix_l2 *MixerPtr = &mix;
@@ -629,13 +704,16 @@ static void ConfigMixer(XVidC_VideoStream *StreamPtr)
   xil_printf("INFO: Mixer configured\r\n");
 }
 
-/*****************************************************************************/
 /**
- * This function checks vidout lock status
+ * @brief Checks if the video output is locked within a specified timeout period.
  *
- * @return none
+ * This function waits for a short period, then repeatedly checks if the video output
+ * is locked by calling XVMonitor_IsVideoLocked(). If the lock is detected within the
+ * timeout period, it prints "Locked" and returns TRUE. If the timeout expires without
+ * detecting a lock, it prints an error message and returns FALSE.
  *
- *****************************************************************************/
+ * @return int Returns TRUE if the video output is locked, otherwise FALSE.
+ */
 static int CheckVidoutLock(void)
 {
   int Status = FALSE;
@@ -661,13 +739,34 @@ static int CheckVidoutLock(void)
   return(Status);
 }
 
-/*****************************************************************************/
 /**
- * This function runs defined tests on Mixer core
+ * RunMixerFeatureTests - Executes a series of feature tests on the video mixer hardware.
  *
- * @return none
+ * This function performs a comprehensive set of tests on the video mixer, including:
+ *   1. Master Layer Enable/Disable:
+ *      - Disables and enables the master layer, checking for video output lock after each operation.
+ *   2. Per-Layer Feature Tests:
+ *      - For each memory layer:
+ *          - Sets the layer window position and size.
+ *          - Sets the layer alpha value if supported.
+ *          - Sets the layer scaling factor if supported.
+ *          - Enables the layer and checks for video output lock.
+ *          - Moves the layer window and checks for video output lock.
+ *          - Disables the layer and checks for video output lock.
+ *   3. Memory Layer Disable:
+ *      - Disables all memory layers and checks for video output lock.
+ *   4. Logo Layer Tests:
+ *      - Enables the logo layer and checks for video output lock.
+ *      - Sets the logo layer color key if supported.
+ *      - Moves the logo window and checks for video output lock.
+ *      - Disables the logo layer and checks for video output lock.
  *
- *****************************************************************************/
+ * The function prints the status of each operation to the console and counts any errors encountered.
+ *
+ * @param StreamPtr Pointer to the current video stream configuration.
+ *
+ * @return Number of errors encountered during the tests.
+ */
 static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
 {
   int layerIndex, Status;
@@ -905,14 +1004,21 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
   return(ErrorCount);
 }
 
-
-/*****************************************************************************/
 /**
- * This function toggles HW reset line for all IP's
+ * @brief Resets the HLS IP and optionally stops all Frame Buffer Read instances.
  *
- * @return None
+ * This function performs the following actions:
+ * - If the XVFrmbufRd driver is present (determined by XPAR_XV_FRMBUFRD_NUM_INSTANCES),
+ *   it stops all Frame Buffer Read instances and waits for them to become idle.
+ * - Prints a message indicating that the HLS IP is being reset.
+ * - Asserts the reset signal to the HLS IP via the gpio_hlsIpReset pointer,
+ *   holds the reset for a short period, and then releases it.
+ * - Waits briefly after releasing the reset to ensure proper initialization.
  *
- *****************************************************************************/
+ * This function is typically used to ensure that the HLS IP and associated
+ * frame buffer readers are properly reset before starting or reconfiguring
+ * video processing operations.
+ */
 void resetIp(void)
 {
 #ifdef XPAR_XV_FRMBUFRD_NUM_INSTANCES
@@ -929,9 +1035,21 @@ void resetIp(void)
   usleep(1000);         //wait
 }
 
-/***************************************************************************
-*  This is the main loop of the application
-***************************************************************************/
+/**
+ * @brief Main entry point for the Mixer Example Design Test.
+ *
+ * This function initializes the platform, configures the video mixer and its associated
+ * components, and runs a series of tests for different video modes. It performs the following:
+ *   - Initializes hardware and drivers.
+ *   - Sets up interrupts and exception handling.
+ *   - Iterates through a set of predefined video modes, configuring the video stream,
+ *     video timing, and frame buffers for each mode.
+ *   - Configures the mixer, test pattern generator, and video timing controller.
+ *   - Waits for video output lock and runs feature tests for each mode.
+ *   - Reports the number of failed tests and returns the appropriate status.
+ *
+ * @return XST_SUCCESS on success, or 1 if initialization or test setup fails.
+ */
 int main(void)
 {
   int Status, index;

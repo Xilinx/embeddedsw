@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 
 /*
- * logo.c
+ * @file logo.c
+ * @addtogroup v_mix Overview
  *
  *  Created on: Oct 19, 2015
  *      Author: rohitco
