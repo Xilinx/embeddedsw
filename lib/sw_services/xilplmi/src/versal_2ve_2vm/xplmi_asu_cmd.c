@@ -18,6 +18,8 @@
 * 1.00  am   02/19/25 Initial release
 *       rmv  07/31/25 Add XPlmi_CmdAsuCdiTransfer() function to transfer
 *		      ASU CDI to provided address.
+*       rmv  07/31/25 Add XPlmi_CmdAsuSubsystemHashTransfer() function to transfer
+*		      subsystem hash to provided address.
 *
 * </pre>
 *
@@ -43,6 +45,8 @@
 				/**< Command Id of ASU key transfer features */
 #define XPLMI_CMD_ID_ASU_CDI_TRANSFER	(2U)
 				/**< Command Id of ASU CDI transfer features */
+#define XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER	(3U)
+				/**< Command Id of subsystem hash transfer features */
 /* Command Id index */
 #define XPLMI_CMD_ID_ASU_FEATURES_INDEX		(0U)
 				/**< ASU module features index */
@@ -51,6 +55,8 @@
 #define XPLMI_RESP_CMD_EXEC_STATUS_INDEX	(0U)
 				/**< Response command execution status index */
 #define XPLMI_CMD_ID_ASU_CDI_ADDR_INDEX		(0U)
+#define XPLMI_CMD_ID_SUBSYSTEM_ID_INDEX		(0U)
+#define XPLMI_CMD_ID_SUBSYSTEM_HASH_ADDR_INDEX	(1U)
 
 /**************************** Type Definitions *******************************/
 static int (* AsuGeneratePufKEK)(void) = NULL;
@@ -180,6 +186,40 @@ END:
 }
 #endif
 
+/*****************************************************************************/
+/**
+ * @brief	This function transfers the subsystem hash to provided address.
+ *
+ * @param	Cmd	Pointer to the command structure
+ *
+ * @return
+ *	- XST_SUCCESS, if subsystem hash is transferred successfully.
+ *	- XST_FAILURE, in case of failure.
+ *
+ *****************************************************************************/
+static int XPlmi_CmdAsuSubsystemHashTransfer(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 HashAddr;
+	u32 SubsystemId;
+
+	/* Validate input parameter. */
+	if (Cmd == NULL) {
+		goto END;
+	}
+
+	SubsystemId = Cmd->Payload[XPLMI_CMD_ID_SUBSYSTEM_ID_INDEX];
+	HashAddr = Cmd->Payload[XPLMI_CMD_ID_SUBSYSTEM_HASH_ADDR_INDEX];
+
+	/* Copy subsystem hash to provided address. */
+	Status = XOcp_GetSubsysDigest(SubsystemId, HashAddr);
+
+	Cmd->Response[XPLMI_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+
+END:
+	return Status;
+}
+
 /**
  * @{
  * @cond xplmi_internal
@@ -195,7 +235,9 @@ static const XPlmi_ModuleCmd XPlmi_AsuCmds[] =
 	XPLMI_MODULE_COMMAND(XPlmi_CmdAsuKeyTransfer),
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
 	XPLMI_MODULE_COMMAND(XPlmi_CmdAsuCdiTransfer),
+	XPLMI_MODULE_COMMAND(XPlmi_CmdAsuSubsystemHashTransfer),
 #else
+	NULL,
 	NULL,
 #endif
 };
@@ -211,7 +253,9 @@ static XPlmi_AccessPerm_t XPlmi_AsuAccessPermBuff[XPLMI_ARRAY_SIZE(XPlmi_AsuCmds
 	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_KEY_TRANSFER),
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
 	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_CDI_TRANSFER),
+	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_SUBSYSTEM_HASH_TRANSFER),
 #else
+	0U,
 	0U,
 #endif
 };
