@@ -126,7 +126,7 @@ extern "C" {
 		/**< Enable efuse programming */
 #define XNVM_EFUSE_CFG_MARGIN_RD		(XNVM_EFUSE_CFG_MARGIN_2_RD << XNVM_EFUSE_CFG_MARGIN_RD_SHIFT)
 		/**< Enable efuse margin read */
-#define XNVM_EFUSE_STATUS_TBIT_0		(1 << XNVM_EFUSE_STS_0_TBIT_SHIFT) /**< Tbit 0 value */
+#define XNVM_EFUSE_STATUS_TBIT_0		(1U << XNVM_EFUSE_STS_0_TBIT_SHIFT) /**< Tbit 0 value */
 
 #define XNVM_EFUSE_ADDR_COLUMN_SHIFT		(0U) /**< Column shift */
 #define XNVM_EFUSE_ADDR_ROW_SHIFT		(5U) /**< Row shift */
@@ -181,7 +181,7 @@ typedef struct {
  */
 /**< This structer defines Security control bits*/
 
-typedef enum {
+enum {
 	XNVM_EFUSE_SVD_0, /**< SVD0 bit */
 	XNVM_EFUSE_SVD_1, /**< SVD1 bit */
 	XNVM_EFUSE_SVD_2, /**< SVD2 bit */
@@ -198,18 +198,18 @@ typedef enum {
 	XNVM_EFUSE_TBIT_1, /**< Tbit1 enable bit */
 	XNVM_EFUSE_TBIT_2, /**< Tbit2 enable bit */
 	XNVM_EFUSE_TBIT_3 /**< Tbit3 enable bit */
-} XNvm_EfuseSecCtrlBitRow0;
+};
 
-typedef enum {
+enum {
 	XNVM_EFUSE_CRC_EN = 24, /**< Efuse CRC enable bit */
 	XNVM_EFUSE_DFT_DISABLE_0, /**< DFT disable 0 bit */
 	XNVM_EFUSE_DFT_DISABLE_1, /**< DFT disable 1 bit */
 	XNVM_EFUSE_LCKDOWN, /**< Lockdown enable bit */
 	XNVM_EFUSE_RMA_DISABLE_1, /**< RMA disable 1 bit */
 	XNVM_EFUSE_RMA_ENABLE_1 /**< RMA enable 1 bit */
-} XNvm_EfuseSecCtrlBitRow1;
+};
 
-typedef enum {
+enum {
 	XNVM_EFUSE_PUF_TEST2_DIS = 24, /**< PUF test2 disable bit */
 	XNVM_EFUSE_PPK0_INVLD_0, /**< PPK0 invalid 0 bit */
 	XNVM_EFUSE_PPK0_INVLD_1, /**< PPK0 invalid 1 bit */
@@ -218,9 +218,9 @@ typedef enum {
 	XNVM_EFUSE_PPK2_INVLD_0, /**< PPK2 invalid 0 bit */
 	XNVM_EFUSE_PPK2_INVLD_1, /**< PPK2 invalid 1 bit */
 	XNVM_EFUSE_EXPORT_CONTROL /**< Export control bit */
-} XNvm_EfuseSecCtrlBitRow2;
+};
 
-typedef enum {
+enum {
 	XNVM_EFUSE_AES_RD_WR_LK_0 = 24, /**< AES read/write lock bit 0 */
 	XNVM_EFUSE_AES_RD_WR_LK_1, /**< AES read/write lock bit 1 */
 	XNVM_EFUSE_PPK0_WR_LK, /**< PPK0 write lock bit */
@@ -229,14 +229,14 @@ typedef enum {
 	XNVM_EFUSE_JTAG_DIS, /**< AES JTAG disable bit */
 	XNVM_EFUSE_AES_DIS, /**< AES disable bit */
 	XNVM_EFUSE_AES_CM_DIS, /**< AES counter measures disable bit */
-} XNvm_EfuseSecCtrlBitRow3;
+};
 
-typedef enum {
+enum {
 	XNVM_EFUSE_DNA_WR_LK = 10, /**< DNA write lock bit */
 	XNVM_EFUSE_MEM_CLR_EN = 12, /**< Memory clear enable bit */
 	XNVM_EFUSE_JTAG_ERR_OUT_DIS = 14, /**< JTAG error out disable bit */
 	XNVM_EFUSE_USER_WR_LK, /**< User write lock bit */
-} XNvm_EfuseSecCtrlBitRow4;
+};
 
 typedef struct {
 	u8 PrgmHashPufOrKey; /**< Flag to program either hash of PUF syndrome date or PPK  */
@@ -380,7 +380,7 @@ typedef struct {
 	XNvm_EfuseXilinxCtrl *XilinxCtrl; /**< Pointer to the Xilinx Ctrl efuse structure */
 } XNvm_EfuseData;
 
-typedef enum {
+enum {
 	XNVM_EFUSE_ERR_UNLOCK = 2U, /**< 0x2 - Error efuse unlock */
 	XNVM_EFUSE_ERR_LOCK, /**< 0x3 - Error efuse locked */
 	XNVM_EFUSE_ERR_PGM_TBIT_PATTERN, /**< 0x4 - Error program tbit pattern */
@@ -450,7 +450,7 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_DIS_SJTAG = 0xAB00, /**< 0xAB00 - Error write DIS_SJTAG detected */
 	XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS = 0xC000, /**< 0xC000 - Error read secure control bits */
 	XNVM_EFUSE_ERR_BEFORE_PROGRAMMING = 0x80000, /**< 0x80000 - Error before programming */
-} XNvm_EfuseErr;
+};
 
 /*************************** Function Prototypes ******************************/
 int XNvm_EfuseWrite(XNvm_EfuseData *EfuseData);

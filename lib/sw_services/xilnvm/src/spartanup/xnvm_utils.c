@@ -19,6 +19,7 @@
 * 1.1   mb   04/03/2025 Remove EMC clock control enable
 * 3.6   mb   06/25/2025 Update doxygen comments
 *       mb   07/22/2025 Update doxygen comments for XNvm_AesCrcCalc
+*       aa   07/24/2025 Typecast to essential datatypes to avoid implicit conversions
 * </pre>
 *
 * @note
@@ -40,15 +41,15 @@
 
 /**< Efuse clock programming related macros */
 #define XNVM_EFUSE_TPRGM_VALUE \
-	(((5.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000.0f))
+	(((5.0f) * ((float)XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000.0f))
 #define XNVM_EFUSE_TRD_VALUE	\
-	(((15.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (100000000.0f))
+	(((15.0f) * ((float)XNVM_EFUSE_PS_REF_CLK_FREQ)) / (100000000.0f))
 #define XNVM_EFUSE_TSUHPS_VALUE \
-	(((67.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
+	(((67.0f) * ((float)XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
 #define XNVM_EFUSE_TSUHPSCS_VALUE \
-	(((46.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
+	(((46.0f) * ((float)XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
 #define XNVM_EFUSE_TSUHCS_VALUE \
-	(((30.0f) * (XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
+	(((30.0f) * ((float)XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
 
 /**<  Timer related macros */
 #define Tpgm() \
@@ -219,26 +220,26 @@ static void XNvm_EfuseInitTimers(void)
 	/* CLK_FREQ = 1/CLK_PERIOD */
 	/* TPGM = ceiling(5us/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-			   XNVM_EFUSE_TPGM_OFFSET, Tpgm());
+			   XNVM_EFUSE_TPGM_OFFSET, (u32)Tpgm());
 
 	/* TRD = ceiling(150ns/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-			   XNVM_EFUSE_TRD_OFFSET, Trd());
+			   XNVM_EFUSE_TRD_OFFSET, (u32)Trd());
 
 	/* TSU_H_PS = ceiling(67ns/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			   XNVM_EFUSE_TSU_H_PS_OFFSET,
-			   Tsu_h_ps());
+			   (u32)Tsu_h_ps());
 
 	/* TSU_H_PS_CS = ceiling(46ns/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			   XNVM_EFUSE_TSU_H_PS_CS_OFFSET,
-			   Tsu_h_ps_cs());
+			   (u32)Tsu_h_ps_cs());
 
 	/* TSU_H_CS = ceiling(30ns/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			   XNVM_EFUSE_TSU_H_CS_OFFSET,
-			   Tsu_h_cs());
+			   (u32)Tsu_h_cs());
 }
 
 /******************************************************************************/

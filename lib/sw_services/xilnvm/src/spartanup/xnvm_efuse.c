@@ -27,6 +27,7 @@
 * 3.6   hj    04/10/25 Remove zero IV validation check in dec_only case
 *       hj    05/27/25 Support XILINX_CTRL efuse PUFHD_INVLD and DIS_SJTAG bit programming
 *       mb    07/18/25 Add AES key CRC calculation steps
+*       aa    07/24/25 Typecast to essential datatypes to avoid implicit conversions
 *
 * </pre>
 *
@@ -112,7 +113,7 @@ int XNvm_EfuseWrite(XNvm_EfuseData *EfuseData)
 	volatile int SStatus = XST_FAILURE;
 
 	if (EfuseData == NULL) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -125,7 +126,7 @@ int XNvm_EfuseWrite(XNvm_EfuseData *EfuseData)
 	    EfuseData->SpkRevokeId == NULL &&
 	    EfuseData->XilinxCtrl == NULL &&
 	    EfuseData->UserFuse == NULL) {
-		Status = (int)XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
+		Status = XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 		goto END;
 	}
 
@@ -245,17 +246,17 @@ static int XNvm_EfuseValidateAesWriteReq(XNvm_EfuseAesKeys *AesKey)
 	volatile int Status = XST_FAILURE;
 	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits;
 
-	if (AesKey->PrgmAesKey == TRUE) {
+	if (AesKey->PrgmAesKey == (u8)TRUE) {
 		Status = XNvm_EfuseReadSecCtrlBits(
 				 &ReadBackSecCtrlBits);
 		if (Status != XST_SUCCESS) {
-			Status = (int)XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS;
+			Status = XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS;
 			goto END;
 		}
 
-		if ((ReadBackSecCtrlBits.AES_DIS == TRUE) ||
-		    (ReadBackSecCtrlBits.AES_RD_WR_LK_0 == TRUE) ||
-		    (ReadBackSecCtrlBits.AES_RD_WR_LK_1 == TRUE)) {
+		if ((ReadBackSecCtrlBits.AES_DIS == (u8)TRUE) ||
+		    (ReadBackSecCtrlBits.AES_RD_WR_LK_0 == (u8)TRUE) ||
+		    (ReadBackSecCtrlBits.AES_RD_WR_LK_1 == (u8)TRUE)) {
 			Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
 				  XNVM_EFUSE_ERR_WRITE_AES_KEY);
 			goto END;
@@ -266,7 +267,7 @@ static int XNvm_EfuseValidateAesWriteReq(XNvm_EfuseAesKeys *AesKey)
 						  XNVM_EFUSE_STS_AES_CRC_PASS_MASK,
 						  XNVM_EFUSE_CRC_AES_ZEROS);
 		if (Status != XST_SUCCESS) {
-			Status = (int)XNVM_EFUSE_ERR_AES_ALREADY_PRGMD;
+			Status = XNVM_EFUSE_ERR_AES_ALREADY_PRGMD;
 		}
 	}
 
@@ -291,41 +292,41 @@ static int XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *PpkHash)
 
 	if ((PpkHash->ActaulPpkHashSize != XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES) &&
 	    (PpkHash->ActaulPpkHashSize != XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES)) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((PpkHash->PrgmPpk2Hash == TRUE)
+	if ((PpkHash->PrgmPpk2Hash == (u8)TRUE)
 	    && (PpkHash->ActaulPpkHashSize != XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES)) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	RemPpkHashLen = (PpkHash->ActaulPpkHashSize - XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES);
-	if (PpkHash->PrgmPpk0Hash == TRUE) {
+	if (PpkHash->PrgmPpk0Hash == (u8)TRUE) {
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK0_START_OFFSET,
 					      (XNVM_EFUSE_PPK0_START_OFFSET + PpkHash->ActaulPpkHashSize));
 		if (Status != XST_SUCCESS) {
-			Status = (int)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD;
+			Status = XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD;
 			goto END;
 		}
 	}
 
-	if (PpkHash->PrgmPpk1Hash == TRUE) {
+	if (PpkHash->PrgmPpk1Hash == (u8)TRUE) {
 		Status = XNvm_EfuseCheckZeros((XNVM_EFUSE_PPK1_START_OFFSET + RemPpkHashLen),
 					      (XNVM_EFUSE_PPK1_START_OFFSET + RemPpkHashLen +
 					       PpkHash->ActaulPpkHashSize));
 		if (Status != XST_SUCCESS) {
-			Status = (int)XNVM_EFUSE_ERR_PPK1_HASH_ALREADY_PRGMD;
+			Status = XNVM_EFUSE_ERR_PPK1_HASH_ALREADY_PRGMD;
 			goto END;
 		}
 	}
 
-	if (PpkHash->PrgmPpk2Hash == TRUE) {
+	if (PpkHash->PrgmPpk2Hash == (u8)TRUE) {
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK2_START_OFFSET, XNVM_EFUSE_PPK2_START_OFFSET +
 					      PpkHash->ActaulPpkHashSize);
 		if (Status != XST_SUCCESS) {
-			Status = (int)XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD;
+			Status = XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD;
 		}
 	}
 
@@ -349,7 +350,7 @@ static int XNvm_EfuseValidateIvsWriteReq(XNvm_EfuseAesIvs *Ivs)
 	u32 IvRow;
 	u32 IvRowsRd[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS];
 
-	if (Ivs->PrgmIv == TRUE) {
+	if (Ivs->PrgmIv == (u8)TRUE) {
 		Status = XNvm_EfuseReadCacheRange(XNVM_EFUSE_IV_START_OFFSET, XNVM_EFUSE_AES_IV_SIZE_IN_WORDS,
 						  IvRowsRd);
 		if (Status != XST_SUCCESS) {
@@ -389,7 +390,7 @@ static int XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *EfuseData)
 	u32 DecOnlyVal = 0U;
 	XNvm_EfuseSecCtrlBits ReadSecCtrlBits;
 
-	if (EfuseData->DecOnly->PrgmDeconly == TRUE) {
+	if (EfuseData->DecOnly->PrgmDeconly == (u8)TRUE) {
 		Status = XNvm_EfuseReadCache(XNVM_EFUSE_DEC_ONLY_OFFSET, &DecOnlyVal);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -402,13 +403,12 @@ static int XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *EfuseData)
 							  XNVM_EFUSE_CRC_AES_ZEROS);
 			if (Status == XST_SUCCESS) {
 				if (EfuseData->AesKeys != NULL) {
-					if (EfuseData->AesKeys->PrgmAesKey != TRUE) {
-						Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
+					if (EfuseData->AesKeys->PrgmAesKey != (u8)TRUE) {
+						Status = XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
 						goto END;
 					}
 				} else {
-					Status =
-						(int)XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
+					Status = XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
 					goto END;
 				}
 			}
@@ -418,16 +418,16 @@ static int XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *EfuseData)
 				goto END;
 			}
 
-			if (ReadSecCtrlBits.HASH_PUF_OR_KEY != TRUE) {
+			if (ReadSecCtrlBits.HASH_PUF_OR_KEY != (u8)TRUE) {
 				if (EfuseData->SecCtrlBits != NULL) {
-					if (EfuseData->SecCtrlBits->PrgmHashPufOrKey != TRUE) {
-						Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_HASH_OR_PUF_KEY_MUST_BE_PRGMD;
+					if (EfuseData->SecCtrlBits->PrgmHashPufOrKey != (u8)TRUE) {
+						Status = XNVM_EFUSE_ERR_DEC_ONLY_HASH_OR_PUF_KEY_MUST_BE_PRGMD;
 						goto END;
 					}
 				}
 			}
 		} else {
-			Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD;
+			Status = XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD;
 		}
 	}
 
@@ -505,7 +505,7 @@ static int XNvm_EfusePrgmAesKey(XNvm_EfuseAesKeys *AesKey)
 	AesPrgmInfo.NumOfRows = XNVM_EFUSE_AES_KEY_NUM_OF_ROWS;
 	AesPrgmInfo.ColStart = XNVM_EFUSE_AES_KEY_START_COL;
 	AesPrgmInfo.ColEnd = XNVM_EFUSE_AES_KEY_END_COL;
-	AesPrgmInfo.SkipVerify = TRUE;
+	AesPrgmInfo.SkipVerify = (u32)TRUE;
 
 	Status = XNvm_EfusePgmAndVerifyData(&AesPrgmInfo, AesKey->AesKey);
 	if (Status != XST_SUCCESS) {
@@ -551,12 +551,12 @@ static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash)
 
 	RemainingPpkLen = (PpkHash->ActaulPpkHashSize - XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES);
 	Ppk1NoofRows = RemainingPpkLen != 0U ? RemainingPpkLen : XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES;
-	if (PpkHash->PrgmPpk0Hash ==  TRUE) {
+	if (PpkHash->PrgmPpk0Hash ==  (u8)TRUE) {
 		PpkPrgmInfo.StartRow = XNVM_EFUSE_PPK0_HASH_START_ROW;
 		PpkPrgmInfo.NumOfRows = XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS;
 		PpkPrgmInfo.ColStart = XNVM_EFUSE_PPK0_START_COL;
 		PpkPrgmInfo.ColEnd = XNVM_EFUSE_PPK0_END_COL;
-		PpkPrgmInfo.SkipVerify = FALSE;
+		PpkPrgmInfo.SkipVerify = (u32)FALSE;
 
 		Status = XNvm_EfusePgmAndVerifyData(&PpkPrgmInfo, (const u32 *)PpkHash->Ppk0Hash);
 		if (Status != XST_SUCCESS) {
@@ -568,7 +568,7 @@ static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash)
 			PpkPrgmInfo.NumOfRows = RemainingPpkLen;
 			PpkPrgmInfo.ColStart = XNVM_EFUSE_PPK1_START_COL;
 			PpkPrgmInfo.ColEnd = XNVM_EFUSE_PPK1_END_COL;
-			PpkPrgmInfo.SkipVerify = FALSE;
+			PpkPrgmInfo.SkipVerify = (u32)FALSE;
 
 			Status = XST_FAILURE;
 			Status = XNvm_EfusePgmAndVerifyData(&PpkPrgmInfo,
@@ -580,12 +580,12 @@ static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash)
 		}
 	}
 
-	if (PpkHash->PrgmPpk1Hash == TRUE) {
+	if (PpkHash->PrgmPpk1Hash == (u8)TRUE) {
 		PpkPrgmInfo.StartRow = (XNVM_EFUSE_PPK1_HASH_START_ROW + RemainingPpkLen);
 		PpkPrgmInfo.NumOfRows = Ppk1NoofRows;
 		PpkPrgmInfo.ColStart = XNVM_EFUSE_PPK1_START_COL;
 		PpkPrgmInfo.ColEnd = XNVM_EFUSE_PPK1_END_COL;
-		PpkPrgmInfo.SkipVerify = FALSE;
+		PpkPrgmInfo.SkipVerify = (u32)FALSE;
 
 		Status = XNvm_EfusePgmAndVerifyData(&PpkPrgmInfo, (const u32 *)PpkHash->Ppk1Hash);
 		if (Status != XST_SUCCESS) {
@@ -598,7 +598,7 @@ static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash)
 			PpkPrgmInfo.NumOfRows = XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS;
 			PpkPrgmInfo.ColStart = XNVM_EFUSE_PPK2_START_COL;
 			PpkPrgmInfo.ColEnd = XNVM_EFUSE_PPK2_END_COL;
-			PpkPrgmInfo.SkipVerify = FALSE;
+			PpkPrgmInfo.SkipVerify = (u32)FALSE;
 
 			Status = XST_FAILURE;
 			Status = XNvm_EfusePgmAndVerifyData(&PpkPrgmInfo,
@@ -610,12 +610,12 @@ static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash)
 		}
 	}
 
-	if (PpkHash->PrgmPpk2Hash == TRUE) {
+	if (PpkHash->PrgmPpk2Hash == (u8)TRUE) {
 		PpkPrgmInfo.StartRow = XNVM_EFUSE_PPK2_HASH_START_ROW;
 		PpkPrgmInfo.NumOfRows = XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS;
 		PpkPrgmInfo.ColStart = XNVM_EFUSE_PPK2_START_COL;
 		PpkPrgmInfo.ColEnd = XNVM_EFUSE_PPK2_END_COL;
-		PpkPrgmInfo.SkipVerify = FALSE;
+		PpkPrgmInfo.SkipVerify = (u32)FALSE;
 
 		Status = XNvm_EfusePgmAndVerifyData(&PpkPrgmInfo, (const u32 *)PpkHash->Ppk2Hash);
 		if (Status != XST_SUCCESS) {
@@ -647,7 +647,7 @@ static int XNvm_EfusePrgmIv(XNvm_EfuseAesIvs *AesIv)
 	AesIvInfo.NumOfRows = XNVM_EFUSE_AES_IV_NUM_OF_ROWS;
 	AesIvInfo.ColStart = XNVM_EFUSE_AES_IV_START_COL;
 	AesIvInfo.ColEnd = XNVM_EFUSE_AES_IV_END_COL;
-	AesIvInfo.SkipVerify = FALSE;
+	AesIvInfo.SkipVerify = (u32)FALSE;
 
 	Status = XNvm_EfusePgmAndVerifyData(&AesIvInfo, AesIv->AesIv);
 	if (Status != XST_SUCCESS) {
@@ -683,7 +683,7 @@ static int XNvm_EfusePrgmUserFuse(XNvm_EfuseUserFuse *UserFuse)
 	UserFuseInfo.NumOfRows = XNVM_EFUSE_USER_FUSE_NUM_OF_ROWS;
 	UserFuseInfo.ColStart = XNVM_EFUSE_USER_FUSE_START_COL;
 	UserFuseInfo.ColEnd = XNVM_EFUSE_USER_FUSE_END_COL;
-	UserFuseInfo.SkipVerify = FALSE;
+	UserFuseInfo.SkipVerify = (u32)FALSE;
 
 	Status = XNvm_EfusePgmAndVerifyData(&UserFuseInfo, (const u32 *)&UserFuse->UserFuseVal);
 	if (Status != XST_SUCCESS) {
@@ -721,7 +721,7 @@ static int XNvm_EfusePrgmSpkRevokeId(XNvm_EfuseSpkRevokeId *SpkRevokeId)
 	SpkRevokeIdInfo.NumOfRows = XNVM_EFUSE_SPK_REVOKE_ID_NUM_OF_ROWS;
 	SpkRevokeIdInfo.ColStart = XNVM_EFUSE_SPK_REVOKE_ID_START_COL;
 	SpkRevokeIdInfo.ColEnd = XNVM_EFUSE_SPK_REVOKE_ID_END_COL;
-	SpkRevokeIdInfo.SkipVerify = FALSE;
+	SpkRevokeIdInfo.SkipVerify = (u32)FALSE;
 
 	Status = XNvm_EfusePgmAndVerifyData(&SpkRevokeIdInfo, (const u32 *)&SpkRevokeIdFuse);
 	if (Status != XST_SUCCESS) {
@@ -759,7 +759,7 @@ static int XNvm_EfusePrgmAesRevokeId(XNvm_EfuseAesRevokeId *AesRevokeId)
 	AesRevokeIdInfo.NumOfRows = XNVM_EFUSE_AES_REVOKE_ID_NUM_OF_ROWS;
 	AesRevokeIdInfo.ColStart = XNVM_EFUSE_AES_REVOKE_ID_START_COL;
 	AesRevokeIdInfo.ColEnd = XNVM_EFUSE_AES_REVOKE_ID_END_COL;
-	AesRevokeIdInfo.SkipVerify = FALSE;
+	AesRevokeIdInfo.SkipVerify = (u32)FALSE;
 
 	Status = XNvm_EfusePgmAndVerifyData(&AesRevokeIdInfo, (const u32 *)&AesRevokeIdFuse);
 	if (Status != XST_SUCCESS) {
@@ -786,12 +786,12 @@ static int XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly)
 	XNvm_EfusePrgmInfo DecOnlyInfo = {0U};
 	u32 PrgmDecOnly = XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK;
 
-	if (DecOnly->PrgmDeconly == TRUE) {
+	if (DecOnly->PrgmDeconly == (u8)TRUE) {
 		DecOnlyInfo.StartRow = XNVM_EFUSE_DEC_ONLY_START_ROW;
 		DecOnlyInfo.NumOfRows = XNVM_EFUSE_DEC_ONLY_NUM_OF_ROWS;
 		DecOnlyInfo.ColStart = XNVM_EFUSE_DEC_ONLY_START_COL;
 		DecOnlyInfo.ColEnd = XNVM_EFUSE_DEC_ONLY_END_COL;
-		DecOnlyInfo.SkipVerify = FALSE;
+		DecOnlyInfo.SkipVerify = (u32)FALSE;
 
 		Status = XNvm_EfusePgmAndVerifyData(&DecOnlyInfo, (const u32 *)&PrgmDecOnly);
 		if (Status != XST_SUCCESS) {
@@ -823,7 +823,7 @@ static int XNvm_EfusePrgmPufHDInvld(const XNvm_EfuseXilinxCtrl *PufHDInvld)
 	u32 PrgmPufHDInvld = XNVM_EFUSE_PUFHD_INVLD_EFUSE_VAL;
 
 	if (PufHDInvld == NULL) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -831,7 +831,7 @@ static int XNvm_EfusePrgmPufHDInvld(const XNvm_EfuseXilinxCtrl *PufHDInvld)
 	PufHDInvld_Info.NumOfRows = XNVM_EFUSE_PUF_HD_INVLD_NUM_OF_ROWS;
 	PufHDInvld_Info.ColStart = XNVM_EFUSE_PUF_HD_INVLD_START_COL;
 	PufHDInvld_Info.ColEnd = XNVM_EFUSE_PUF_HD_INVLD_END_COL;
-	PufHDInvld_Info.SkipVerify = FALSE;
+	PufHDInvld_Info.SkipVerify = (u32)FALSE;
 
 	Status = XNvm_EfusePgmAndVerifyData(&PufHDInvld_Info, (const u32 *)&PrgmPufHDInvld);
 	if (Status != XST_SUCCESS) {
@@ -869,14 +869,14 @@ static int XNvm_EfusePrgmXilinxCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl)
 		goto END;
 	}
 
-	if ((XilinxCtrl->PrgmPufHDInvld == TRUE) &&
-	    ((Data & XNVM_EFUSE_PUFHD_INVLD_EFUSE_MASK) == 0x0)) {
+	if ((XilinxCtrl->PrgmPufHDInvld == (u32)TRUE) &&
+	    ((Data & XNVM_EFUSE_PUFHD_INVLD_EFUSE_MASK) == 0x0U)) {
 		Status = XNvm_EfusePrgmPufHDInvld(XilinxCtrl);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
-	if ((XilinxCtrl->PrgmDisSJtag == TRUE) &&
+	if ((XilinxCtrl->PrgmDisSJtag == (u32)TRUE) &&
 	    ((Data & XNVM_EFUSE_DISSJTAG_EFUSE_MASK) != XNVM_EFUSE_DISSJTAG_EFUSE_MASK)) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_DIS_SJTAG_ROW,
 				      XNVM_EFUSE_DIS_SJTAG_COL, FALSE);
@@ -913,9 +913,9 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		goto END;
 	}
 
-	Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+	Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 
-	if (SecCtrl->PrgmAesDis ==  TRUE && ReadSecCtrlBits.AES_DIS != TRUE) {
+	if (SecCtrl->PrgmAesDis ==  (u8)TRUE && ReadSecCtrlBits.AES_DIS != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
 				      XNVM_EFUSE_AES_DIS, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -924,7 +924,7 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmJtagDis ==  TRUE && ReadSecCtrlBits.JTAG_DIS != TRUE) {
+	if (SecCtrl->PrgmJtagDis ==  (u8)TRUE && ReadSecCtrlBits.JTAG_DIS != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
 				      XNVM_EFUSE_JTAG_DIS, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -933,7 +933,7 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmPpk2lck ==  TRUE && ReadSecCtrlBits.PPK2_WR_LK != TRUE) {
+	if (SecCtrl->PrgmPpk2lck ==  (u8)TRUE && ReadSecCtrlBits.PPK2_WR_LK != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
 				      XNVM_EFUSE_PPK2_WR_LK, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -942,7 +942,7 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmPpk1lck ==  TRUE && ReadSecCtrlBits.PPK1_WR_LK != TRUE) {
+	if (SecCtrl->PrgmPpk1lck ==  (u8)TRUE && ReadSecCtrlBits.PPK1_WR_LK != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
 				      XNVM_EFUSE_PPK1_WR_LK, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -951,7 +951,7 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmPpk0lck ==  TRUE && ReadSecCtrlBits.PPK0_WR_LK != TRUE) {
+	if (SecCtrl->PrgmPpk0lck ==  (u8)TRUE && ReadSecCtrlBits.PPK0_WR_LK != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
 				      XNVM_EFUSE_PPK0_WR_LK, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -960,8 +960,8 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmAesRdlk ==  TRUE && ReadSecCtrlBits.AES_RD_WR_LK_0 != TRUE
-	    && ReadSecCtrlBits.AES_RD_WR_LK_1 != TRUE) {
+	if (SecCtrl->PrgmAesRdlk ==  (u8)TRUE && ReadSecCtrlBits.AES_RD_WR_LK_0 != (u8)TRUE
+	    && ReadSecCtrlBits.AES_RD_WR_LK_1 != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_3,
 				      XNVM_EFUSE_AES_RD_WR_LK_0, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -976,8 +976,8 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmPpk2Invld == TRUE && ReadSecCtrlBits.PPK2_INVLD0 != TRUE
-	    && ReadSecCtrlBits.PPK2_INVLD1 != TRUE) {
+	if (SecCtrl->PrgmPpk2Invld == (u8)TRUE && ReadSecCtrlBits.PPK2_INVLD0 != (u8)TRUE
+	    && ReadSecCtrlBits.PPK2_INVLD1 != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
 				      XNVM_EFUSE_PPK2_INVLD_0, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -992,8 +992,8 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmPpk1Invld == TRUE && ReadSecCtrlBits.PPK1_INVLD0 != TRUE
-	    && ReadSecCtrlBits.PPK1_INVLD1 != TRUE) {
+	if (SecCtrl->PrgmPpk1Invld == (u8)TRUE && ReadSecCtrlBits.PPK1_INVLD0 != (u8)TRUE
+	    && ReadSecCtrlBits.PPK1_INVLD1 != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
 				      XNVM_EFUSE_PPK1_INVLD_0, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -1008,8 +1008,8 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmPpk0Invld == TRUE && ReadSecCtrlBits.PPK0_INVLD0 != TRUE
-	    && ReadSecCtrlBits.PPK0_INVLD1 != TRUE) {
+	if (SecCtrl->PrgmPpk0Invld == (u8)TRUE && ReadSecCtrlBits.PPK0_INVLD0 != (u8)TRUE
+	    && ReadSecCtrlBits.PPK0_INVLD1 != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
 				      XNVM_EFUSE_PPK0_INVLD_0, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -1024,7 +1024,7 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmPufTes2Dis == TRUE && ReadSecCtrlBits.PUF_TEST2_DIS != TRUE) {
+	if (SecCtrl->PrgmPufTes2Dis == (u8)TRUE && ReadSecCtrlBits.PUF_TEST2_DIS != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
 				      XNVM_EFUSE_PUF_TEST2_DIS, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -1033,7 +1033,7 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmPufTes2Dis == TRUE && ReadSecCtrlBits.PUF_TEST2_DIS != TRUE) {
+	if (SecCtrl->PrgmPufTes2Dis == (u8)TRUE && ReadSecCtrlBits.PUF_TEST2_DIS != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_2,
 				      XNVM_EFUSE_PUF_TEST2_DIS, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -1042,8 +1042,8 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmRmaEn == TRUE && ReadSecCtrlBits.RMA_ENABLE_0 != TRUE
-	    && ReadSecCtrlBits.RMA_ENABLE_1 != TRUE) {
+	if (SecCtrl->PrgmRmaEn == (u8)TRUE && ReadSecCtrlBits.RMA_ENABLE_0 != (u8)TRUE
+	    && ReadSecCtrlBits.RMA_ENABLE_1 != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
 				      XNVM_EFUSE_RMA_ENABLE_0, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -1059,8 +1059,8 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmRmaDis == TRUE && ReadSecCtrlBits.RMA_DISABLE_0 != TRUE
-	    && ReadSecCtrlBits.RMA_DISABLE_1 != TRUE) {
+	if (SecCtrl->PrgmRmaDis == (u8)TRUE && ReadSecCtrlBits.RMA_DISABLE_0 != (u8)TRUE
+	    && ReadSecCtrlBits.RMA_DISABLE_1 != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
 				      XNVM_EFUSE_RMA_DISABLE_0, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -1076,7 +1076,7 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmLckdwn == TRUE && ReadSecCtrlBits.LCKDOWN != TRUE) {
+	if (SecCtrl->PrgmLckdwn == (u8)TRUE && ReadSecCtrlBits.LCKDOWN != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_1,
 				      XNVM_EFUSE_LCKDOWN, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -1085,7 +1085,7 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmDftDis == TRUE && ReadSecCtrlBits.DFT_DIS == FALSE) {
+	if (SecCtrl->PrgmDftDis == (u8)TRUE && ReadSecCtrlBits.DFT_DIS == (u8)FALSE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_1,
 				      XNVM_EFUSE_DFT_DISABLE_0, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -1100,7 +1100,7 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmCrcEn == TRUE && ReadSecCtrlBits.EFUSE_CRC_EN != TRUE) {
+	if (SecCtrl->PrgmCrcEn == (u8)TRUE && ReadSecCtrlBits.EFUSE_CRC_EN != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_1,
 				      XNVM_EFUSE_CRC_EN, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -1109,7 +1109,7 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmHashPufOrKey == TRUE && ReadSecCtrlBits.HASH_PUF_OR_KEY != TRUE) {
+	if (SecCtrl->PrgmHashPufOrKey == (u8)TRUE && ReadSecCtrlBits.HASH_PUF_OR_KEY != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_0,
 				      XNVM_EFUSE_HASH_PUF_OR_KEY, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -1118,7 +1118,7 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmUserWrlk == TRUE && ReadSecCtrlBits.USER_WR_LK != TRUE) {
+	if (SecCtrl->PrgmUserWrlk == (u8)TRUE && ReadSecCtrlBits.USER_WR_LK != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_4,
 				      XNVM_EFUSE_USER_WR_LK, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -1127,7 +1127,7 @@ static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
 		}
 	}
 
-	if (SecCtrl->PrgmJtagErrDis == TRUE && ReadSecCtrlBits.JTAG_ERR_OUT_DIS != TRUE) {
+	if (SecCtrl->PrgmJtagErrDis == (u8)TRUE && ReadSecCtrlBits.JTAG_ERR_OUT_DIS != (u8)TRUE) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_SEC_CTRL_ROW_4,
 				      XNVM_EFUSE_JTAG_ERR_OUT_DIS, FALSE);
 		if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
@@ -1163,13 +1163,13 @@ static int XNvm_EfuseComputeProgrammableBits(const u32 *ReqData, u32 *PrgmData,
 	u32 StartOffset, u32 EndOffset)
 {
 	volatile int Status = XST_FAILURE;
-	int IsrStatus = XST_FAILURE;
+	u32 IsrStatus = XST_FAILURE;
 	u32 ReadReg = 0U;
 	volatile u32 Offset = 0U;
 	u32 Idx = 0U;
 
 	if ((ReqData == NULL) || (PrgmData == NULL)) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1177,13 +1177,16 @@ static int XNvm_EfuseComputeProgrammableBits(const u32 *ReqData, u32 *PrgmData,
 				      XNVM_EFUSE_ISR_OFFSET);
 	if ((IsrStatus & XNVM_EFUSE_ISR_CACHE_ERROR)
 	    == XNVM_EFUSE_ISR_CACHE_ERROR) {
-		Status = (int)XNVM_EFUSE_ERR_CACHE_PARITY;
+		Status = XNVM_EFUSE_ERR_CACHE_PARITY;
 		goto END;
 	}
 
 	Offset = StartOffset;
 	while (Offset <= EndOffset) {
-		XNvm_EfuseReadCache(Offset, &ReadReg);
+		Status = XNvm_EfuseReadCache(Offset, &ReadReg);
+		if (Status != XST_SUCCESS) {
+			break;
+		}
 		Idx = (Offset - StartOffset) / XNVM_WORD_LEN;
 		PrgmData[Idx] = (~ReadReg) & ReqData[Idx];
 		Offset = Offset + XNVM_WORD_LEN;
@@ -1230,7 +1233,7 @@ static int XNvm_EfuseCacheReload(void)
 				       XNVM_EFUSE_STS_CACHE_DONE,
 				       XNVM_EFUSE_CACHE_LOAD_TIMEOUT_VAL);
 	if (CacheStatus != (u32)XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERR_CACHE_LOAD;
+		Status = XNVM_EFUSE_ERR_CACHE_LOAD;
 		goto END;
 	}
 
@@ -1242,7 +1245,7 @@ static int XNvm_EfuseCacheReload(void)
 					XNVM_EFUSE_ISR_OFFSET);
 	if ((CacheStatus & XNVM_EFUSE_ISR_CACHE_ERROR) ==
 	    XNVM_EFUSE_ISR_CACHE_ERROR) {
-		Status = (int)XNVM_EFUSE_ERR_CACHE_LOAD;
+		Status = XNVM_EFUSE_ERR_CACHE_LOAD;
 		goto END;
 	}
 
@@ -1285,7 +1288,7 @@ static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo, const u
 
 	if ((DataPtr == NULL) || (EfusePrgmInfo->NumOfRows == 0U)) {
 
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1315,7 +1318,7 @@ static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo, const u
 	}
 
 	if (Row != EndRow) {
-		Status = (int)XNVM_EFUSE_ERR_GLITCH_DETECTED;
+		Status = XNVM_EFUSE_ERR_GLITCH_DETECTED;
 	}
 
 END:
@@ -1353,9 +1356,9 @@ static int XNvm_EfusePgmBit(u32 Row, u32 Col)
 					&EventMask);
 
 	if (XST_TIMEOUT == Status) {
-		Status = (int)XNVM_EFUSE_ERR_PGM_TIMEOUT;
+		Status = XNVM_EFUSE_ERR_PGM_TIMEOUT;
 	} else if ((EventMask & XNVM_EFUSE_ISR_PGM_ERROR) == XNVM_EFUSE_ISR_PGM_ERROR) {
-		Status = (int)XNVM_EFUSE_ERR_PGM;
+		Status = XNVM_EFUSE_ERR_PGM;
 	} else {
 		Status = XST_SUCCESS;
 	}
@@ -1398,7 +1401,7 @@ static int XNvm_EfuseReadRow(u32 Row, u32 *RegData)
 					XNVM_EFUSE_RD_TIMEOUT_VAL,
 					&EventMask);
 	if (XST_TIMEOUT == Status) {
-		Status = (int)XNVM_EFUSE_ERR_RD_TIMEOUT;
+		Status = XNVM_EFUSE_ERR_RD_TIMEOUT;
 		goto END;
 	}
 
@@ -1438,7 +1441,7 @@ static int XNvm_EfuseVerifyBit(u32 Row, u32 Col)
 	if ((RegData & (((u32)0x01U) << Col)) != 0U) {
 		Status = XST_SUCCESS;
 	} else {
-		Status = (int)XNVM_EFUSE_ERR_PGM_VERIFY;
+		Status = XNVM_EFUSE_ERR_PGM_VERIFY;
 	}
 
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
@@ -1515,7 +1518,7 @@ int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask,
 	int Status = XST_FAILURE;
 	int LockStatus = XST_FAILURE;
 	u32 ReadReg;
-	u32 IsUnlocked = FALSE;
+	u32 IsUnlocked = (u32)FALSE;
 
 	/**
 	 *  Read the WR_LOCK_REG. Unlock the controller if read as locked
@@ -1527,7 +1530,7 @@ int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask,
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		IsUnlocked = TRUE;
+		IsUnlocked = (u32)TRUE;
 	}
 
 	/**
@@ -1557,7 +1560,7 @@ int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask,
 	 *  Return XNVM_EFUSE_ERR_CRC_VERIFICATION if Crc is not Pass. Return XST_SUCCESS upon crc pass and done
 	 */
 	else if ((ReadReg & CrcPassMask) != CrcPassMask) {
-		Status = (int)XNVM_EFUSE_ERR_CRC_VERIFICATION;
+		Status = XNVM_EFUSE_ERR_CRC_VERIFICATION;
 	} else {
 		Status = XST_SUCCESS;
 	}
@@ -1565,7 +1568,7 @@ END:
 	/**
 	 *  Lock efuse controller
 	 */
-	if (IsUnlocked == TRUE) {
+	if (IsUnlocked == (u32)TRUE) {
 		LockStatus = XNvm_EfuseLockController();
 		if (XST_SUCCESS == Status) {
 			Status = LockStatus;
@@ -1594,7 +1597,7 @@ static int XNvm_EfuseReadCache(u32 Offset, u32 *RowData)
 	u32 IsrStatus;
 
 	if (RowData == NULL) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1603,7 +1606,7 @@ static int XNvm_EfuseReadCache(u32 Offset, u32 *RowData)
 				      XNVM_EFUSE_ISR_OFFSET);
 	if ((IsrStatus & XNVM_EFUSE_ISR_CACHE_ERR_MASK)
 	    == XNVM_EFUSE_ISR_CACHE_ERR_MASK) {
-		Status = (int)XNVM_EFUSE_ERR_CACHE_PARITY;
+		Status = XNVM_EFUSE_ERR_CACHE_PARITY;
 		goto END;
 	}
 	*RowData = CacheData;
@@ -1667,36 +1670,36 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
 		goto END;
 	}
 
-	SecCtrlBits->AES_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 1U);
-	SecCtrlBits->RMA_DISABLE_0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 6U);
-	SecCtrlBits->RMA_ENABLE_0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 7U);
-	SecCtrlBits->JTAG_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 8U);
-	SecCtrlBits->PUF_TEST2_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 9U);
-	SecCtrlBits->HASH_PUF_OR_KEY = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 10U);
-	SecCtrlBits->PPK2_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 11U);
-	SecCtrlBits->PPK2_INVLD0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 12U);
-	SecCtrlBits->PPK1_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 13U);
-	SecCtrlBits->PPK1_INVLD0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 14U);
-	SecCtrlBits->PPK0_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 15U);
-	SecCtrlBits->PPK0_INVLD0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 16U);
-	SecCtrlBits->AES_RD_WR_LK_0 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 17U);
-	SecCtrlBits->AES_RD_WR_LK_1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 18U);
-	SecCtrlBits->JTAG_ERR_OUT_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 26U);
-	SecCtrlBits->USER_WR_LK = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 27U);
-	SecCtrlBits->PPK2_INVLD1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 29U);
-	SecCtrlBits->PPK1_INVLD1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 30U);
-	SecCtrlBits->PPK0_INVLD1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 31U);
+	SecCtrlBits->AES_DIS = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 1U);
+	SecCtrlBits->RMA_DISABLE_0 = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 6U);
+	SecCtrlBits->RMA_ENABLE_0 = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 7U);
+	SecCtrlBits->JTAG_DIS = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 8U);
+	SecCtrlBits->PUF_TEST2_DIS = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 9U);
+	SecCtrlBits->HASH_PUF_OR_KEY = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 10U);
+	SecCtrlBits->PPK2_WR_LK = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 11U);
+	SecCtrlBits->PPK2_INVLD0 = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 12U);
+	SecCtrlBits->PPK1_WR_LK = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 13U);
+	SecCtrlBits->PPK1_INVLD0 = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 14U);
+	SecCtrlBits->PPK0_WR_LK = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 15U);
+	SecCtrlBits->PPK0_INVLD0 = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 16U);
+	SecCtrlBits->AES_RD_WR_LK_0 = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 17U);
+	SecCtrlBits->AES_RD_WR_LK_1 = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 18U);
+	SecCtrlBits->JTAG_ERR_OUT_DIS = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 26U);
+	SecCtrlBits->USER_WR_LK = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 27U);
+	SecCtrlBits->PPK2_INVLD1 = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 29U);
+	SecCtrlBits->PPK1_INVLD1 = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 30U);
+	SecCtrlBits->PPK0_INVLD1 = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 31U);
 
 	Status = XNvm_EfuseReadCache(XNVM_EFUSE_CRC_EN_OFFSET, &SecCtrlVal);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	SecCtrlBits->EFUSE_CRC_EN = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 0U);
-	SecCtrlBits->DFT_DIS = XNVM_GET_8_BIT_VAL(SecCtrlVal, 2U, 1U);
-	SecCtrlBits->LCKDOWN = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 3U);
-	SecCtrlBits->RMA_DISABLE_1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 4U);
-	SecCtrlBits->RMA_ENABLE_1 = XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 5U);
+	SecCtrlBits->EFUSE_CRC_EN = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 0U);
+	SecCtrlBits->DFT_DIS = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 2U, 1U);
+	SecCtrlBits->LCKDOWN = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 3U);
+	SecCtrlBits->RMA_DISABLE_1 = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 4U);
+	SecCtrlBits->RMA_ENABLE_1 = (u8)XNVM_GET_8_BIT_VAL(SecCtrlVal, 1U, 5U);
 
 END:
 	return Status;
@@ -1722,18 +1725,18 @@ int XNvm_EfuseReadPpkHash(XNvm_EfusePpkType PpkType, u32 *PpkData, u32 PpkSize)
 	u32 OffsetCnt = 0U;
 
 	if (PpkData ==  NULL) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((PpkSize != XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES)
 	    && (PpkSize != XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES)) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((PpkSize == XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES) && (PpkType == XNVM_EFUSE_PPK2)) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1751,7 +1754,7 @@ int XNvm_EfuseReadPpkHash(XNvm_EfusePpkType PpkType, u32 *PpkData, u32 PpkSize)
 		goto END;
 	}
 
-	Status = XNvm_EfuseReadCacheRange(PpkStartOffset, OffsetCnt, PpkData);
+	Status = XNvm_EfuseReadCacheRange(PpkStartOffset, (u8)OffsetCnt, PpkData);
 
 END:
 	return Status;
@@ -1773,12 +1776,12 @@ int XNvm_EfuseReadSpkRevokeId(u32 *SpkRevokeData, u32 SpkRevokeRow)
 	int Status = XST_FAILURE;
 
 	if (SpkRevokeData == NULL) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
 	if (SpkRevokeRow >= XNVM_EFUSE_MAX_SPK_REVOKE_ID) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1804,7 +1807,7 @@ int XNvm_EfuseReadAesRevokeId(u32 *AesRevokeData)
 	int Status = XST_FAILURE;
 
 	if (AesRevokeData == NULL) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1829,7 +1832,7 @@ int XNvm_EfuseReadUserFuse(u32 *UserFuseData)
 	int Status = XST_FAILURE;
 
 	if (UserFuseData == NULL) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1856,7 +1859,7 @@ int XNvm_EfuseReadIv(XNvm_EfuseIvType IvType, u32 *IvData)
 	u32 IvStartOffset = 0U;
 
 	if (IvData ==  NULL) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1890,7 +1893,7 @@ int XNvm_EfuseReadDna(u32 *Dna)
 	int Status = XST_FAILURE;
 
 	if (Dna ==  NULL) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1915,7 +1918,7 @@ int XNvm_EfuseReadDecOnly(u32 *DecOnly)
 	int Status = XST_FAILURE;
 
 	if (DecOnly ==  NULL) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1941,7 +1944,7 @@ int XNvm_EfuseReadXilinxCtrl(XNvm_EfuseXilinxCtrl *XilinxCtrl)
 	u32 Data = 0U;
 
 	if (XilinxCtrl ==  NULL) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 

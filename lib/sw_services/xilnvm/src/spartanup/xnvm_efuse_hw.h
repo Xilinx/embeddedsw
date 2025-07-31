@@ -47,7 +47,7 @@ extern "C" {
 /**< Write lock register offsets and definitions */
 #define XNVM_EFUSE_WR_LOCK_OFFSET	0x00000000U
 
-#define XNVM_EFUSE_WR_UNLOCK_VALUE	0xDF0D
+#define XNVM_EFUSE_WR_UNLOCK_VALUE	0xDF0DU
 /** @} */
 
 /**
