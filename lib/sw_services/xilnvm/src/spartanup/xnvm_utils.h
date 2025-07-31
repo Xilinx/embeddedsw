@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -19,6 +19,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   kpt  08/14/2024 Initial release
+* 3.6   aa   07/24/2025 Remove unused macros
 *
 * </pre>
 *
@@ -42,11 +43,7 @@ extern "C" {
  */
 /**< Aes key lengths in different sizes*/
 #define XNVM_256_BITS_AES_KEY_LEN_IN_BYTES (256U / XIL_SIZE_OF_BYTE_IN_BITS)
-#define XNVM_256_BITS_AES_KEY_LEN_IN_CHARS (XNVM_256_BITS_AES_KEY_LEN_IN_BYTES * 2U)
-#define XNVM_128_BITS_AES_KEY_LEN_IN_BYTES (128U / XIL_SIZE_OF_BYTE_IN_BITS)
-#define XNVM_128_BITS_AES_KEY_LEN_IN_CHARS (XNVM_128_BITS_AES_KEY_LEN_IN_BYTES * 2U)
 
-#define XNVM_MAX_AES_KEY_LEN_IN_CHARS	XNVM_256_BITS_AES_KEY_LEN_IN_CHARS
 #define XNVM_AES_KEY_SIZE_IN_WORDS	(XNVM_256_BITS_AES_KEY_LEN_IN_BYTES / 4U)
 #define XNVM_WORD_LEN			(4U)
 /**

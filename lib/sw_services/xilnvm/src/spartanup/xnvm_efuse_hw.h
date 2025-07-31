@@ -17,13 +17,14 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   kpt     08/23/24 First release
 * 3.6   hj      05/27/25 Support XILINX_CTRL PUFHD_INVLD and DIS_SJTAG efuse bit programming
+*       aa      07/24/25 Remove unused macros
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef __XNVM_EFUSE_HW_H__
-#define __XNVM_EFUSE_HW_H__
+#ifndef XNVM_EFUSE_HW_H
+#define XNVM_EFUSE_HW_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -74,8 +75,6 @@ extern "C" {
 #define XNVM_EFUSE_STS_AES_CRC_PASS_MASK	0x00000080U
 
 #define XNVM_EFUSE_STS_AES_CRC_DONE_MASK	0x00000040U
-
-#define XNVM_EFUSE_STS_CACHE_DONE_DEFVAL	0x0U
 
 #define XNVM_EFUSE_STS_0_TBIT_SHIFT		0U
 
@@ -189,15 +188,11 @@ extern "C" {
 #define XNVM_EFUSE_DNA_OFFSET               0x0000100CU /**< DNA cache offset */
 #define XNVM_EFUSE_USER_FUSE_OFFSET         0x00001020U /**< User efuse cache offset */
 #define XNVM_EFUSE_PPK0_START_OFFSET        0x00001080U /**< PPK0 cache start offset */
-#define XNVM_EFUSE_PPK0_END_OFFSET          0x0000109CU /**< PPK0 cache end offset */
 #define XNVM_EFUSE_PPK1_START_OFFSET        0x000010A0U /**< PPK1 cache start offset */
-#define XNVM_EFUSE_PPK1_END_OFFSET          0x000010BCU /**< PPK1 cache end offset */
 #define XNVM_EFUSE_PPK2_START_OFFSET        0x000010C0U /**< PPK2 cache start offset */
-#define XNVM_EFUSE_PPK2_END_OFFSET          0x000010DCU /**< PPK2 cache end offset */
 #define XNVM_EFUSE_IV_RANGE_START_OFFSET    0x00001130U /**< IV range cache start offset */
 #define XNVM_EFUSE_DEC_ONLY_OFFSET          0x00001140U /**< Decrypt only cache offset */
 #define XNVM_EFUSE_IV_START_OFFSET          0x00001144U /**< IV cache start offset */
-#define XNVM_EFUSE_IV_END_OFFSET            0x0000114CU /**< IV cache end offset */
 #define XNVM_EFUSE_CRC_EN_OFFSET            0x00001150U /**< CRC enable offset */
 #define XNVM_EFUSE_SPK_REVOKE_ID_OFFSET     0x00001124U /**< SPK revoke id cache start offset */
 #define XNVM_EFUSE_SPK_REVOKE_ID_END_OFFSET 0x0000112CU /**< SPK revoke id cache end offset */
@@ -209,4 +204,4 @@ extern "C" {
 }
 #endif
 
-#endif /* __XNVM_EFUSE_HW_H__ */
+#endif /* XNVM_EFUSE_HW_H */

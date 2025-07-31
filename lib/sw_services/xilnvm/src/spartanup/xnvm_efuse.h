@@ -25,6 +25,7 @@
 * 3.6   hj   04/10/2025 Remove zero IV validation check in dec_only case
 *       hj   05/27/2025 Support XILINX_CTRL efuse PUFHD_INVLD and DIS_SJTAG bit programming
 *       mb   07/02/2025 Update doxygen comments for structures definitions
+*       aa   07/24/2025 Remove unused macros
 *
 * </pre>
 *
@@ -52,13 +53,10 @@ extern "C" {
 * @}
 */
 #define XNVM_EFUSE_WORD_LEN			(4U) /**< Word length */
-#define XNVM_EFUSE_TOTAL_NUM_OF_ROWS		(64U) /**< Number of rows */
 #define XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS	(8U) /**< AES key size in words */
 #define XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES	(48U) /**< PPK hash size in bytes for DL9 */
-#define XNVM_EFUSE_PPK_HASH_SIZE_IN_WORDS	(12U) /**< PPK hash size in words */
 #define XNVM_EFUSE_AES_IV_SIZE_IN_BYTES		(12U) /**< AES IV size in bytes */
 #define XNVM_EFUSE_AES_IV_SIZE_IN_WORDS		(3U) /**< AES IV size in words */
-#define XNVM_EFUSE_TOTAL_NUM_OF_PPKS		(3U) /**< Total number of PPKs */
 #define XNVM_EFUSE_PPK0_HASH_START_ROW		(0U) /**< PPK0 hash start row */
 #define XNVM_EFUSE_PPK1_HASH_START_ROW		(1U) /**< PPK1 hash start row */
 #define XNVM_EFUSE_PPK2_HASH_START_ROW		(4U) /**< PPK2 hash start row */
@@ -70,7 +68,6 @@ extern "C" {
 #define XNVM_EFUSE_PPK2_END_COL			(31U) /**< PPK2 hash end column */
 #define XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS		(32U) /**< PPK hash number of rows */
 #define XNVM_EFUSE_SPK_REVOKE_ID_START_ROW	(48U) /**< SPK revoke ID start row */
-#define XNVM_EFUSE_SPK_REVOKE_ID_END_ROW	(59U) /**< SPK revoke ID end row */
 #define XNVM_EFUSE_SPK_REVOKE_ID_START_COL	(24U) /**< SPK revoke ID start column */
 #define XNVM_EFUSE_SPK_REVOKE_ID_END_COL	(31U) /**< SPK revoke ID end column */
 #define XNVM_EFUSE_SPK_REVOKE_ID_NUM_OF_ROWS	(12U) /**< SPK revoke ID number of rows */
@@ -79,20 +76,16 @@ extern "C" {
 #define XNVM_EFUSE_AES_KEY_END_COL		(23U) /**< AES key end column */
 #define XNVM_EFUSE_AES_KEY_NUM_OF_ROWS		(32U) /**< AES key number of rows */
 #define XNVM_EFUSE_AES_IV_START_ROW		(36U) /**< AES IV start row */
-#define XNVM_EFUSE_AES_IV_END_ROW		(47U) /**< AES IV end row */
 #define XNVM_EFUSE_AES_IV_START_COL		(24U) /**< AES IV start column */
 #define XNVM_EFUSE_AES_IV_END_COL		(31U)  /**< AES IV end column */
 #define XNVM_EFUSE_AES_REVOKE_ID_START_ROW	(62U) /**< AES revoke ID start row */
-#define XNVM_EFUSE_AES_REVOKE_ID_END_ROW	(63U) /**< AES revoke ID end row */
 #define XNVM_EFUSE_AES_REVOKE_ID_START_COL	(8U) /**< AES revoke ID start column */
 #define XNVM_EFUSE_AES_REVOKE_ID_END_COL	(15U) /**< AES revoke ID end column */
 #define XNVM_EFUSE_AES_REVOKE_ID_NUM_OF_ROWS 	(2U) /**< AES revoke ID number of rows */
 #define XNVM_EFUSE_USER_FUSE_START_ROW		(60U) /**< User efuse start row */
-#define XNVM_EFUSE_USER_FUSE_END_ROW		(63U) /**< User efuse end row */
 #define XNVM_EFUSE_USER_FUSE_START_COL		(24U) /**< User efuse start column */
 #define XNVM_EFUSE_USER_FUSE_END_COL		(31U) /**< User efuse end column */
 #define XNVM_EFUSE_USER_FUSE_NUM_OF_ROWS	(4U) /**< User efuse number of rows */
-#define XNVM_EFUSE_USER_FUSE_SIZE_IN_BYTES	(4U) /**< User efuse size in bytes */
 #define XNVM_EFUSE_DEC_ONLY_START_ROW		(48U) /**< Decrypt only start row */
 #define XNVM_EFUSE_DEC_ONLY_START_COL		(8U) /**< Decrypt only start column */
 #define XNVM_EFUSE_DEC_ONLY_END_COL		(15U) /**< Decrypt only end column */
@@ -130,7 +123,6 @@ extern "C" {
 
 #define XNVM_EFUSE_ADDR_COLUMN_SHIFT		(0U) /**< Column shift */
 #define XNVM_EFUSE_ADDR_ROW_SHIFT		(5U) /**< Row shift */
-#define XNVM_EFUSE_ADDR_PAGE_SHIFT		(13U) /**< Address shift */
 #define XNVM_EFUSE_ISR_PGM_DONE			(0x01U << 0U) /**< Program done value */
 #define XNVM_EFUSE_ISR_PGM_ERROR		(0x01U << 1U) /**< Program error value */
 #define XNVM_EFUSE_ISR_RD_DONE			(0x01U << 2U) /**< Read done value */
