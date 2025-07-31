@@ -28,6 +28,7 @@
 *       hj    05/27/25 Support XILINX_CTRL efuse PUFHD_INVLD and DIS_SJTAG bit programming
 *       mb    07/18/25 Add AES key CRC calculation steps
 *       aa    07/24/25 Typecast to essential datatypes to avoid implicit conversions
+*                      added const qualifier for function prototypes
 *
 * </pre>
 *
@@ -62,23 +63,23 @@
 /**< Prototype declarations for xilnvm efuse API's */
 /** @} */
 
-static int XNvm_EfuseValidateAesWriteReq(XNvm_EfuseAesKeys *AesKey);
-static int XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *PpkHash);
-static int XNvm_EfuseValidateIvsWriteReq(XNvm_EfuseAesIvs *Ivs);
-static int XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *EfuseData);
-static int XNvm_EfuseValidateBeforeWriteReq(XNvm_EfuseData *EfuseData);
-static int XNvm_EfusePrgmAesKey(XNvm_EfuseAesKeys *AesKey);
+static int XNvm_EfuseValidateAesWriteReq(const XNvm_EfuseAesKeys *AesKey);
+static int XNvm_EfuseValidatePpkWriteReq(const XNvm_EfusePpkHash *PpkHash);
+static int XNvm_EfuseValidateIvsWriteReq(const XNvm_EfuseAesIvs *Ivs);
+static int XNvm_EfuseValidateDecOnlyWriteReq(const XNvm_EfuseData *EfuseData);
+static int XNvm_EfuseValidateBeforeWriteReq(const XNvm_EfuseData *EfuseData);
+static int XNvm_EfusePrgmAesKey(const XNvm_EfuseAesKeys *AesKey);
 static int XNvm_EfusePrgmPpkHash(XNvm_EfusePpkHash *PpkHash);
-static int XNvm_EfusePrgmIv(XNvm_EfuseAesIvs *AesIv);
-static int XNvm_EfusePrgmUserFuse(XNvm_EfuseUserFuse *UserFuse);
-static int XNvm_EfusePrgmSpkRevokeId(XNvm_EfuseSpkRevokeId *SpkRevokeId);
-static int XNvm_EfusePrgmAesRevokeId(XNvm_EfuseAesRevokeId *AesRevokeId);
-static int XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly);
-static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl);
+static int XNvm_EfusePrgmIv(const XNvm_EfuseAesIvs *AesIv);
+static int XNvm_EfusePrgmUserFuse(const XNvm_EfuseUserFuse *UserFuse);
+static int XNvm_EfusePrgmSpkRevokeId(const XNvm_EfuseSpkRevokeId *SpkRevokeId);
+static int XNvm_EfusePrgmAesRevokeId(const XNvm_EfuseAesRevokeId *AesRevokeId);
+static int XNvm_EfusePrgmDecOnly(const XNvm_EfuseDecOnly *DecOnly);
+static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrl *SecCtrl);
 static int XNvm_EfuseComputeProgrammableBits(const u32 *ReqData, u32 *PrgmData,
 	u32 StartOffset, u32 EndOffset);
 static int XNvm_EfuseCacheReload(void);
-static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo, const u32 *RowData);
+static int XNvm_EfusePgmAndVerifyData(const XNvm_EfusePrgmInfo *EfusePrgmInfo, const u32 *RowData);
 static int XNvm_EfusePgmBit(u32 Row, u32 Col);
 static int XNvm_EfuseReadRow(u32 Row, u32 *RegData);
 static int XNvm_EfuseVerifyBit(u32 Row, u32 Col);
@@ -241,7 +242,7 @@ END:
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfuseValidateAesWriteReq(XNvm_EfuseAesKeys *AesKey)
+static int XNvm_EfuseValidateAesWriteReq(const XNvm_EfuseAesKeys *AesKey)
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits;
@@ -285,7 +286,7 @@ END:
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfuseValidatePpkWriteReq(XNvm_EfusePpkHash *PpkHash)
+static int XNvm_EfuseValidatePpkWriteReq(const XNvm_EfusePpkHash *PpkHash)
 {
 	int Status = XST_FAILURE;
 	u32 RemPpkHashLen = 0U;
@@ -344,7 +345,7 @@ END:
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfuseValidateIvsWriteReq(XNvm_EfuseAesIvs *Ivs)
+static int XNvm_EfuseValidateIvsWriteReq(const XNvm_EfuseAesIvs *Ivs)
 {
 	int Status = XST_FAILURE;
 	u32 IvRow;
@@ -384,7 +385,7 @@ END:
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfuseValidateDecOnlyWriteReq(XNvm_EfuseData *EfuseData)
+static int XNvm_EfuseValidateDecOnlyWriteReq(const XNvm_EfuseData *EfuseData)
 {
 	int Status = XST_FAILURE;
 	u32 DecOnlyVal = 0U;
@@ -447,7 +448,7 @@ END:
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfuseValidateBeforeWriteReq(XNvm_EfuseData *EfuseData)
+static int XNvm_EfuseValidateBeforeWriteReq(const XNvm_EfuseData *EfuseData)
 {
 	volatile int Status = XST_FAILURE;
 
@@ -495,7 +496,7 @@ END:
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmAesKey(XNvm_EfuseAesKeys *AesKey)
+static int XNvm_EfusePrgmAesKey(const XNvm_EfuseAesKeys *AesKey)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePrgmInfo AesPrgmInfo = {0U};
@@ -638,7 +639,7 @@ END:
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmIv(XNvm_EfuseAesIvs *AesIv)
+static int XNvm_EfusePrgmIv(const XNvm_EfuseAesIvs *AesIv)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePrgmInfo AesIvInfo = {0U};
@@ -667,7 +668,7 @@ static int XNvm_EfusePrgmIv(XNvm_EfuseAesIvs *AesIv)
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmUserFuse(XNvm_EfuseUserFuse *UserFuse)
+static int XNvm_EfusePrgmUserFuse(const XNvm_EfuseUserFuse *UserFuse)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePrgmInfo UserFuseInfo = {0U};
@@ -704,7 +705,7 @@ END:
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmSpkRevokeId(XNvm_EfuseSpkRevokeId *SpkRevokeId)
+static int XNvm_EfusePrgmSpkRevokeId(const XNvm_EfuseSpkRevokeId *SpkRevokeId)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePrgmInfo SpkRevokeIdInfo = {0U};
@@ -742,7 +743,7 @@ END:
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmAesRevokeId(XNvm_EfuseAesRevokeId *AesRevokeId)
+static int XNvm_EfusePrgmAesRevokeId(const XNvm_EfuseAesRevokeId *AesRevokeId)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePrgmInfo AesRevokeIdInfo = {0U};
@@ -780,7 +781,7 @@ END:
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmDecOnly(XNvm_EfuseDecOnly *DecOnly)
+static int XNvm_EfusePrgmDecOnly(const XNvm_EfuseDecOnly *DecOnly)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePrgmInfo DecOnlyInfo = {0U};
@@ -902,7 +903,7 @@ END:
  *          - Errorcode on failure
  *
  ******************************************************************************/
-static int XNvm_EfusePrgmSecCtrlBits(XNvm_EfuseSecCtrl *SecCtrl)
+static int XNvm_EfusePrgmSecCtrlBits(const XNvm_EfuseSecCtrl *SecCtrl)
 {
 	int Status = XST_FAILURE;
 	int StatusTmp = XST_FAILURE;
@@ -1276,7 +1277,7 @@ END:
  *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *
  ******************************************************************************/
-static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo, const u32 *RowData)
+static int XNvm_EfusePgmAndVerifyData(const XNvm_EfusePrgmInfo *EfusePrgmInfo, const u32 *RowData)
 {
 	volatile int Status = XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 	const u32 *DataPtr = RowData;
