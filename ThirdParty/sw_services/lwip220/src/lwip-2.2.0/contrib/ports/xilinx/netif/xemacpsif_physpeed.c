@@ -181,7 +181,9 @@ u32_t phymapemac1[32];
 #if defined (CONFIG_LINKSPEED_AUTODETECT)
 static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr);
 #endif
-static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed);
+static void SetUpSLCRDivisors(XEmacPs *xemacpsp __attribute__((unused)),
+                              s32_t speed __attribute__((unused)));
+
 #if defined (CONFIG_LINKSPEED1000) || defined (CONFIG_LINKSPEED100) \
 	|| defined (CONFIG_LINKSPEED10)
 static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t speed);
@@ -349,7 +351,7 @@ u32_t pcs_setup_emacps (XEmacPs *xemacps)
 {
 	u32_t link_speed;
 
-	SetUpSLCRDivisors(xemacps->Config.BaseAddress,1000);
+	SetUpSLCRDivisors(xemacps,1000);
 	link_speed = 1000;
 	sleep(1);
 	return link_speed;
@@ -375,32 +377,32 @@ u32_t phy_setup_emacps (XEmacPs *xemacpsp, u32_t phy_addr)
 #ifdef  CONFIG_LINKSPEED_AUTODETECT
 	link_speed = get_IEEE_phy_speed(xemacpsp, phy_addr);
 	if (link_speed == 1000) {
-		SetUpSLCRDivisors(xemacpsp->Config.BaseAddress,1000);
+		SetUpSLCRDivisors(xemacpsp,1000);
 		convspeeddupsetting = XEMACPS_GMII2RGMII_SPEED1000_FD;
 	} else if (link_speed == 100) {
-		SetUpSLCRDivisors(xemacpsp->Config.BaseAddress,100);
+		SetUpSLCRDivisors(xemacpsp,100);
 		convspeeddupsetting = XEMACPS_GMII2RGMII_SPEED100_FD;
 	} else if (link_speed != XST_FAILURE){
-		SetUpSLCRDivisors(xemacpsp->Config.BaseAddress,10);
+		SetUpSLCRDivisors(xemacpsp,10);
 		convspeeddupsetting = XEMACPS_GMII2RGMII_SPEED10_FD;
 	} else {
-		xil_printf("Phy setup error \r\n");
+		xil_printf("Phy setup error : link_speed invalid\r\n");
 		return XST_FAILURE;
 	}
 #elif	defined(CONFIG_LINKSPEED1000)
-	SetUpSLCRDivisors(xemacpsp->Config.BaseAddress,1000);
+	SetUpSLCRDivisors(xemacpsp,1000);
 	link_speed = 1000;
 	configure_IEEE_phy_speed(xemacpsp, phy_addr, link_speed);
 	convspeeddupsetting = XEMACPS_GMII2RGMII_SPEED1000_FD;
 	sleep(1);
 #elif	defined(CONFIG_LINKSPEED100)
-	SetUpSLCRDivisors(xemacpsp->Config.BaseAddress,100);
+	SetUpSLCRDivisors(xemacpsp,100);
 	link_speed = 100;
 	configure_IEEE_phy_speed(xemacpsp, phy_addr, link_speed);
 	convspeeddupsetting = XEMACPS_GMII2RGMII_SPEED100_FD;
 	sleep(1);
 #elif	defined(CONFIG_LINKSPEED10)
-	SetUpSLCRDivisors(xemacpsp->Config.BaseAddress,10);
+	SetUpSLCRDivisors(xemacpsp,10);
 	link_speed = 10;
 	configure_IEEE_phy_speed(xemacpsp, phy_addr, link_speed);
 	convspeeddupsetting = XEMACPS_GMII2RGMII_SPEED10_FD;
@@ -1097,7 +1099,8 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 }
 #endif
 
-static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
+static void SetUpSLCRDivisors(XEmacPs *xemacpsp __attribute__((unused)),
+                              s32_t speed __attribute__((unused)))
 {
 #ifndef SDT
 	volatile UINTPTR slcrBaseAddress;
@@ -1109,6 +1112,9 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 	u32_t CrlApbDiv0 = 0;
 	u32_t CrlApbDiv1 = 0;
 	u32_t CrlApbGemCtrl;
+
+	UINTPTR mac_baseaddr = xemacpsp->Config.BaseAddress;
+
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	u32_t ClkId;
 #endif
@@ -1396,7 +1402,29 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 		}
 	}
 #else
+
+#if defined(PLATFORM_ZYNQMP) && defined(XCLOCKING)
+	XClockRate SetClockRate = 0;
+	u32_t ClockId;
+
+	ClockId = xemacpsp->Config.RefClk;
+
+	if (speed == 1000)
+	{
+		Xil_ClockSetRate(ClockId, CLOCK_FREQ_1000MBPS, &SetClockRate);
+	}
+	else if (speed == 100)
+	{
+		Xil_ClockSetRate(ClockId, CLOCK_FREQ_100MBPS, &SetClockRate);
+	}
+	else if (speed == 10)
+	{
+		Xil_ClockSetRate(ClockId, CLOCK_FREQ_10MBPS, &SetClockRate);
+	}
+#else
 	xil_printf("Using default Speed from design\r\n");
+#endif
+
 #endif
 	return;
 }
