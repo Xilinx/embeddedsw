@@ -246,7 +246,7 @@ END:
 static int XNvm_EfuseValidateAesWriteReq(const XNvm_EfuseAesKeys *AesKey)
 {
 	volatile int Status = XST_FAILURE;
-	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits;
+	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits = {0U};
 
 	if (AesKey->PrgmAesKey == (u8)TRUE) {
 		Status = XNvm_EfuseReadSecCtrlBits(
@@ -350,7 +350,7 @@ static int XNvm_EfuseValidateIvsWriteReq(const XNvm_EfuseAesIvs *Ivs)
 {
 	int Status = XST_FAILURE;
 	u32 IvRow;
-	u32 IvRowsRd[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS];
+	u32 IvRowsRd[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS] = {0U};
 
 	if (Ivs->PrgmIv == (u8)TRUE) {
 		Status = XNvm_EfuseReadCacheRange(XNVM_EFUSE_IV_START_OFFSET, XNVM_EFUSE_AES_IV_SIZE_IN_WORDS,
