@@ -471,6 +471,10 @@ extern "C" {
 #define XEMACPS_8BYTE_BURST		0x00000008
 #define XEMACPS_16BYTE_BURST	0x00000010
 
+/* Clock Frequencies for different GEM speeds */
+#define CLOCK_FREQ_1000MBPS 125000000 /* 1000 Mbps = 125,000,000 Hz = 125 MHz */
+#define CLOCK_FREQ_100MBPS  25000000  /* 100 Mbps = 25,000,000 Hz = 25 MHz */
+#define CLOCK_FREQ_10MBPS   2500000   /* 10 Mbps = 2,500,000 Hz = 2.5 MHz */
 
 /**************************** Type Definitions ******************************/
 /** @name Typedefs for callback functions
