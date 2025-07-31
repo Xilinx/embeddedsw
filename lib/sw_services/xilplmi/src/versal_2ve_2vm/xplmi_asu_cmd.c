@@ -16,6 +16,8 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ======================================================
 * 1.00  am   02/19/25 Initial release
+*       rmv  07/31/25 Add XPlmi_CmdAsuCdiTransfer() function to transfer
+*		      ASU CDI to provided address.
 *
 * </pre>
 *
@@ -27,6 +29,7 @@
  */
 
 /***************************** Include Files *********************************/
+#include "xocp_plat.h"
 #include "xplmi_modules.h"
 #include "xplmi.h"
 #include "xplmi_debug.h"
@@ -38,6 +41,8 @@
 				/**< Command Id of ASU module features */
 #define XPLMI_CMD_ID_ASU_KEY_TRANSFER	(1U)
 				/**< Command Id of ASU key transfer features */
+#define XPLMI_CMD_ID_ASU_CDI_TRANSFER	(2U)
+				/**< Command Id of ASU CDI transfer features */
 /* Command Id index */
 #define XPLMI_CMD_ID_ASU_FEATURES_INDEX		(0U)
 				/**< ASU module features index */
@@ -45,6 +50,7 @@
 				/**< ASU module response index */
 #define XPLMI_RESP_CMD_EXEC_STATUS_INDEX	(0U)
 				/**< Response command execution status index */
+#define XPLMI_CMD_ID_ASU_CDI_ADDR_INDEX		(0U)
 
 /**************************** Type Definitions *******************************/
 static int (* AsuGeneratePufKEK)(void) = NULL;
@@ -140,6 +146,40 @@ RET:
 	return Status;
 }
 
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+/*****************************************************************************/
+/**
+ * @brief	This function transfers the ASU CDI to provided address.
+ *
+ * @param	Cmd	Pointer to the command structure
+ *
+ * @return
+ *	- XST_SUCCESS, if ASU CDI is transferred successfully.
+ *	- XST_FAILURE, in case of failure.
+ *
+ *****************************************************************************/
+static int XPlmi_CmdAsuCdiTransfer(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 CdiAddr;
+
+	/* Validate input parameter. */
+	if (Cmd == NULL) {
+		goto END;
+	}
+
+	CdiAddr = Cmd->Payload[XPLMI_CMD_ID_ASU_CDI_ADDR_INDEX];
+
+	/* Copy ASU CDI to provided address. */
+	Status = XOcp_GetAsuCdiSeed(CdiAddr);
+
+	Cmd->Response[XPLMI_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+
+END:
+	return Status;
+}
+#endif
+
 /**
  * @{
  * @cond xplmi_internal
@@ -153,6 +193,11 @@ static const XPlmi_ModuleCmd XPlmi_AsuCmds[] =
 {
 	XPLMI_MODULE_COMMAND(XPlmi_CmdAsuFeatures),
 	XPLMI_MODULE_COMMAND(XPlmi_CmdAsuKeyTransfer),
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+	XPLMI_MODULE_COMMAND(XPlmi_CmdAsuCdiTransfer),
+#else
+	NULL,
+#endif
 };
 
 /*****************************************************************************/
@@ -164,6 +209,11 @@ static XPlmi_AccessPerm_t XPlmi_AsuAccessPermBuff[XPLMI_ARRAY_SIZE(XPlmi_AsuCmds
 {
 	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_FEATURES),
 	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_KEY_TRANSFER),
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_ASU_CDI_TRANSFER),
+#else
+	0U,
+#endif
 };
 
 /*****************************************************************************/
