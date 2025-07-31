@@ -38,7 +38,7 @@ required:
     - dma-coherent
     - interrupts
     - interrupt-parent
-    - ref-clk
+    - clocks
     - phy-mode
     - phy-handle: phandle
     - mdioproducer-baseaddr
