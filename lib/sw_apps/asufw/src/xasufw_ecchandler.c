@@ -98,9 +98,9 @@ s32 XAsufw_EccInit(void)
 	 */
 	static XAsufw_ResourcesRequired XAsufw_EccResourcesBuf[XASUFW_ARRAY_SIZE(XAsufw_EccCmds)] = {
 		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
-		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK,
 		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
-		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK,
 		[XASU_ECC_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
 		XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
@@ -108,7 +108,7 @@ s32 XAsufw_EccInit(void)
 		[XASU_ECDH_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
-		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK,
 	};
 
 	XAsufw_EccModule.Id = XASU_MODULE_ECC_ID;
@@ -458,7 +458,7 @@ static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 /*************************************************************************************************/
 /**
  * @brief	This function is used to get the resource ID when XASUFW_ECC_RESOURCE_MASK is included.
- * For XASU_ECC_GEN_SIGNATURE_CMD_ID and XASU_ECC_VERIFY_SIGNATURE_CMD_ID,
+ * For XASU_ECC_GEN_SIGNATURE_CMD_ID, XASU_ECC_VERIFY_SIGNATURE_CMD_ID and XASU_ECC_GEN_PUBKEY_CMD_ID,
  * 	- XASUFW_ECC_RESOURCE_MASK checks for the availability of ECC or RSA core based on the
  *	  curve type received.
  * For XASU_ECC_KAT_CMD_ID, both RSA and ECC cores are required. So, XASUFW_ECC_RESOURCE_MASK
@@ -487,6 +487,38 @@ XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 		Resource = XASUFW_ECC;
 	} else {
 		Resource = XASUFW_RSA;
+	}
+
+	return Resource;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is used to get the resource ID when XASUFW_RSA_SHA_RESOURCE_MASK is
+ * 		included. For XASU_ECC_GEN_SIGNATURE_CMD_ID, XASU_ECC_VERIFY_SIGNATURE_CMD_ID and
+ * 		XASU_ECC_GEN_PUBKEY_CMD_ID, XASUFW_RSA_SHA_RESOURCE_MASK checks for the
+ * 		availability of SHA2 or SHA3 for Ed25519/Ed25519PH or Ed448/Ed448PH respectively.
+ * 		If the curve type is other than these, no resource availability is checked.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ *
+ * @return
+ *	- SHA2, SHA3 or RSA resource ID.
+ *
+ *************************************************************************************************/
+XAsufw_Resource XAsufw_GetRsaShaMaskResourceId(const XAsu_ReqBuf *ReqBuf)
+{
+	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
+	XAsufw_Resource Resource = XASUFW_INVALID;
+
+	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_ED25519) ||
+		(EccParamsPtr->CurveType == XASU_ECC_NIST_ED25519_PH)) {
+		Resource = XASUFW_SHA2;
+	} else if ((EccParamsPtr->CurveType == XASU_ECC_NIST_ED448) ||
+		(EccParamsPtr->CurveType == XASU_ECC_NIST_ED448_PH)) {
+		Resource = XASUFW_SHA3;
+	} else {
+		Resource = XASUFW_NONE;
 	}
 
 	return Resource;

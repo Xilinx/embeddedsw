@@ -166,14 +166,14 @@ typedef struct {
 externC s32 Ecdsa_ValidateKey(const EcdsaCrvInfo *CrvInfo, const EcdsaKey *Key);
 
 externC s32 Ecdsa_VerifySign(const EcdsaCrvInfo *CrvInfo, u8 *z, u32 zlen,
-			     const EcdsaKey *Key, const EcdsaSign *Sign);
+			     const EcdsaKey *Key, const EcdsaSign *Sign, void *DmaPtr);
 
 externC s32 Ecdsa_GenerateSign(const EcdsaCrvInfo *CrvInfo, const u8 *z, u32 zlen,
 			       const u8 *D, const u8 *K, const EcdsaSign *Sign);
 
 externC s32 Ecdsa_GenerateEdSign(EcdsaCrvInfo* CrvInfo, unsigned char* Message, unsigned int MsgLen,
-	const unsigned char* D, EcdsaKey* Key, EcdsaSign* Sign);
-externC s32 Ecdsa_GeneratePublicKey(const EcdsaCrvInfo *CrvInfo, const u8 *D, const EcdsaKey *Key);
+	const unsigned char* D, EcdsaKey* Key, EcdsaSign* Sign, void *DmaPtr);
+externC s32 Ecdsa_GeneratePublicKey(const EcdsaCrvInfo *CrvInfo, const u8 *D, const EcdsaKey *Key, void *DmaPtr);
 
 externC void sdk_assert(int cond);
 

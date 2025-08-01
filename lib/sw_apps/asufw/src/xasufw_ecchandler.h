@@ -45,6 +45,7 @@ extern "C" {
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_EccInit(void);
 XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf);
+XAsufw_Resource XAsufw_GetRsaShaMaskResourceId(const XAsu_ReqBuf *ReqBuf);
 
 /************************************ Variable Definitions ***************************************/
 

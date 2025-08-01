@@ -297,6 +297,9 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 			case XASUFW_KEYWRAP_RESOURCE_MASK:
 				Resource = XASUFW_KEYWRAP;
 				break;
+			case XASUFW_RSA_SHA_RESOURCE_MASK:
+				Resource = XAsufw_GetRsaShaMaskResourceId(ReqBuf);
+				break;
 			default:
 				Status = XASUFW_RESOURCE_INVALID;
 				break;
@@ -307,9 +310,13 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 		}
 
 		if (TempResource != 0x0U) {
-			Status = XAsufw_IsResourceAvailable(Resource, ReqId);
-			if (Status != XASUFW_SUCCESS) {
-				goto END;
+			if (Resource == XASUFW_NONE) {
+				Status = XASUFW_SUCCESS;
+			} else {
+				Status = XAsufw_IsResourceAvailable(Resource, ReqId);
+				if (Status != XASUFW_SUCCESS) {
+					goto END;
+				}
 			}
 		}
 		ReqResources = ReqResources & (~TempResource);

@@ -228,7 +228,7 @@ s32 XRsa_EccGeneratePubKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 
 	/** Generate public key with provided private key and curve type. */
 	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Ecdsa_GeneratePublicKey,
 					   XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, XFihEcc, Status, END_CLR,
-					   Crv, PrivKey, (EcdsaKey *)&Key);
+					   Crv, PrivKey, (EcdsaKey *)&Key, DmaPtr);
 	/**
 	 * Change endianness of the generated public key and copy it to destination address
 	 * using DMA for all curves except Ed25519 and Ed448.
@@ -534,12 +534,12 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 
 		XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Ecdsa_GeneratePublicKey,
 				XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, XFihEcc, Status, END_CLR,
-				Crv, PrivKey, (EcdsaKey *)&Key);
+				Crv, PrivKey, (EcdsaKey *)&Key, DmaPtr);
 
 		/** Generate signature with provided inputs. */
 		XFIH_CALL(Ecdsa_GenerateEdSign, XFihEcc, Status, Crv, (u8*)(UINTPTR)HashAddr,
 		 (HashBufLen * XASUFW_BYTE_LEN_IN_BITS), (u8*)(UINTPTR)PrivKeyAddr, (EcdsaKey *)&Key,
-		 (EcdsaSign *)&Sign);
+		 (EcdsaSign *)&Sign, DmaPtr);
 	}
 	if ((Status == XRSA_ECC_GEN_SIGN_BAD_R) ||
 	    (Status == XRSA_ECC_GEN_SIGN_BAD_S)) {
@@ -754,11 +754,11 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	/** Verify the signature with provided inputs and curve type. */
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
 		XFIH_CALL(Ecdsa_VerifySign, XFihEcc, Status, Crv, Hash, Crv->Bits,
-			 (EcdsaKey *)&Key, (EcdsaSign *)&Sign);
+			 (EcdsaKey *)&Key, (EcdsaSign *)&Sign, DmaPtr);
 	} else {
 		XFIH_CALL(Ecdsa_VerifySign, XFihEcc, Status, Crv, (u8*)(UINTPTR)HashAddr,
 			 (HashBufLen * XASUFW_BYTE_LEN_IN_BITS), (EcdsaKey *)&Key,
-			 (EcdsaSign *)&Sign);
+			 (EcdsaSign *)&Sign, DmaPtr);
 	}
 	if ((XRSA_ECC_BAD_SIGN == Status)) {
 		Status = XASUFW_RSA_ECC_BAD_SIGN;

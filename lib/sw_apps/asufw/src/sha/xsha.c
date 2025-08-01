@@ -458,14 +458,13 @@ s32 XSha_Finish(XSha *InstancePtr, XAsufw_Dma *DmaPtr, u32 *HashAddr, u32 HashBu
 		goto END;
 	}
 
-	if ((HashBufSize == 0U) || (HashBufSize != InstancePtr->ShaDigestSize)) {
-		Status = XASUFW_SHA_INVALID_HASH_SIZE;
-		goto END;
-	}
-
-	if ((InstancePtr->ShaType == XASU_XSHA_1_TYPE) &&
-	    (InstancePtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
-	    (HashBufSize > XASU_SHAKE_256_MAX_HASH_LEN)) {
+	if ((HashBufSize == 0U) ||
+	   ((InstancePtr->ShaMode != XASU_SHA_MODE_SHAKE256) &&
+	   (HashBufSize != InstancePtr->ShaDigestSize)) ||
+	   ((InstancePtr->ShaType == XASU_XSHA_1_TYPE) &&
+	   (InstancePtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
+	   ((HashBufSize < XASU_SHA_256_HASH_LEN) ||
+	   (HashBufSize > XASU_SHAKE_256_MAX_HASH_LEN)))) {
 		Status = XASUFW_SHA_INVALID_HASH_SIZE;
 		goto END;
 	}
