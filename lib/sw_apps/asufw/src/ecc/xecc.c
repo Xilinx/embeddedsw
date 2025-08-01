@@ -300,7 +300,7 @@ s32 XEcc_GeneratePublicKey(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 				XECC_RAND_NUM_COUNT_GEN_PUB_KEY);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_SCP_RANDOM_NUM_UPDATE_FAIL);
-		goto END;
+		XFIH_GOTO(END);
 	}
 #endif
 	/** Update configuration and start the operation. */
@@ -540,7 +540,7 @@ s32 XEcc_GenerateSignature(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType,
 				XECC_RAND_NUM_COUNT_GEN_SIGN);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_SCP_RANDOM_NUM_UPDATE_FAIL);
-		goto END;
+		XFIH_GOTO(END);
 	}
 #endif
 
@@ -808,7 +808,7 @@ static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Cou
 		Status = XAsufw_TrngGetRandomNumbers(ScpRandom, CurveLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_ECC_SCP_RANDOM_NUM_GEN_FAIL;
-			goto END;
+			XFIH_GOTO(END);
 		}
 		/** - Clear the Most Significant Bit(MSB). */
 		ScpRandom[XECC_SCP_RANDOM_1_MSB_BYTE_OFFSET] &= XECC_SCP_RANDOM_MSB_BIT_SET_MASK;
@@ -819,7 +819,7 @@ static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Cou
 					CurveLen, CurveLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_ECC_WRITE_DATA_FAIL;
-			goto END;
+			XFIH_GOTO(END);
 		}
 		RegOffset += XECC_RAND_NUM_REG_OFFSET;
 	}
