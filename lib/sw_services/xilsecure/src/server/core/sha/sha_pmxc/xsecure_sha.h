@@ -22,6 +22,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.4   kal  07/24/24 Initial release
 * 5.6   vss  06/17/25 Removed dead code
+* 5.6   aa   07/21/25 Removed unused macros
 *
 * </pre>
 *
@@ -50,8 +51,6 @@ extern "C" {
 #define XSECURE_SHA_MODE_OFFSET             	(0xA0U) /**< SHA Mode Register */
 #define XSECURE_SHA_AUTO_PADDING_OFFSET     	(0xA4U) /**< SHA Auto Padding Register */
 #define XSECURE_SHA_DONE_OFFSET             	(0x08U) /**< SHA Done Register */
-#define XSECURE_SHA_RESET_ASSERT		(1U)	/**< SHA Reset Assert Register */
-#define XSECURE_SHA_RESET_DEASSERT		(0U)	/**< SHA Reset Deassert Register */
 #define	XSECURE_SHA_START_VALUE			(1U)	/**< SHA Start Value */
 #define	XSECURE_SHA_DONE_VALUE			(1U)	/**< SHA Done Value */
 #define	XSECURE_SHA_AUTO_MODE_ENABLE		(1U)	/**< SHA AUTO_MODE enable */

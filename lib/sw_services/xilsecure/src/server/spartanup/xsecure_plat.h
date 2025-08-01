@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -16,6 +16,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.5   kpt   08/16/22 Initial release
 * 5.6   mb    02/28/25 Added XSecure_AesOp enum
+* 5.6   aa    07/21/25 Removed unused macros
 *
 * </pre>
 *
@@ -50,9 +51,6 @@ extern "C" {
 
 #define XSECURE_SSS_SHA_DMA0_VAL	(0x500U) /**< SSS SHA3 instance 0 DMA0 value*/
 #define XSECURE_AES_NO_CFG_DST_DMA 	(0xFFFFFFFFU) /**< Not to configure Dst DMA at this address in AES*/
-#define XSECURE_ENABLE_BYTE_SWAP	(0x1U)	/**< Enables data swap in AES */
-
-#define XSECURE_DISABLE_BYTE_SWAP	(0x0U)	/**< Disables data swap in AES */
 
 #define XSECURE_SSS_SBI_MASK	(0xF000U)
 #define XSECURE_SSS_AES_MASK	(0xF0U)
@@ -129,13 +127,8 @@ extern "C" {
 #define XSECURE_MAX_KEY_SOURCES			XSECURE_AES_EXPANDED_KEYS
 										/**< Max key source value */
 
-#define XCSUDMA_WORD_SIZE			(4U)	/**< WORD size */
 #define XSECURE_SHA3_256_HASH_LEN		(32U) /**< SHA3_256 block length */
-#define XSECURE_SHA2_256_BLOCK_LEN		(64U) /**< SHA2_256 block length */
-#define XSECURE_SHAKE_256_BLOCK_LEN		(136U)/**< SHAKE_256 block length */
 #define XSECURE_SHAKE_256_HASH_LEN		(32U) /**< SHAKE_256 hash length */
-#define XSECURE_SHAKE_256_HASH_WORD_LEN		(XSECURE_SHAKE_256_HASH_LEN / XCSUDMA_WORD_SIZE)
-							/**< SHAKE_256 hash word length */
 
 #define SHA256					(0U) /** SHA256 mode */
 #define SHAKE256				(1U) /** SHAKE256 mode */

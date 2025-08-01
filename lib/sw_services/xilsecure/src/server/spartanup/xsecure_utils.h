@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.1   kpt     08/18/24 Initial Release
+* 5.6   aa      07/21/25 Removed unused macros
 *
 * </pre>
 *
@@ -43,8 +44,6 @@ extern "C" {
 #define XSECURE_WORD_IN_BITS		(32U) /**< WORD size in BITS */
 #define XSECURE_BYTE_IN_BITS		(8U)  /**< Byte size in BITS */
 #define XSECURE_WORD_ALIGN_MASK			(XSECURE_WORD_SIZE - 1U)/**< WORD alignment */
-#define XSECURE_SET_BIT				(0x0U) /**< To set bit */
-#define XSECURE_CLEAR_BIT			(0xFFFFFFFFU) /**< To clear bit */
 
 /***************************** Type Definitions******************************/
 
