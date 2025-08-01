@@ -14,6 +14,7 @@
 #cmakedefine    XASU_ECIES_ENABLE
 #cmakedefine    XASU_KEYWRAP_ENABLE
 #cmakedefine    XASU_RSA_PADDING_ENABLE
+#cmakedefine    XASU_OCP_ENABLE
 #cmakedefine    XASU_ECC_SUPPORT_NIST_P192
 #cmakedefine    XASU_ECC_SUPPORT_NIST_P224
 #cmakedefine    XASU_ECC_SUPPORT_NIST_P256

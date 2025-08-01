@@ -508,12 +508,13 @@
 #define XASU_AES_CM_ENABLE
 #define XASU_ECC_CM_ENABLE
 
-/* Enable/disable for HMAC,KDF,ECIES,Keywrap and RSA padding schemes */
+/* Enable/disable for HMAC,KDF,ECIES,Keywrap,RSA padding schemes and OCP */
 #define XASU_HMAC_ENABLE
 #define XASU_KDF_ENABLE
 #define XASU_ECIES_ENABLE
 #define XASU_KEYWRAP_ENABLE
 #define XASU_RSA_PADDING_ENABLE
+#define XASU_OCP_ENABLE
 
 /* Macros to enable / disable support of NIST and Brainpool curves */
 /**< Macro to enable/disable support of NIST P-192 curve */
