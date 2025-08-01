@@ -19,6 +19,7 @@
  *       ma   07/26/24 Removed XTrng_DisableAutoProcMode API and updated TRNG to support PTRNG mode
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.1   ma   12/24/24 Added API to disable autoproc mode
+ *       rmv  08/01/25 Added API to set TRNG to default mode
  *
  * </pre>
  *
@@ -99,6 +100,7 @@ s32 XTrng_EnableAutoProcMode(XTrng *InstancePtr);
 s32 XTrng_ReadTrngFifo(const XTrng *InstancePtr, u32 *OutputBuf, u32 OutputBufSize);
 s32 XTrng_IsRandomNumAvailable(const XTrng *InstancePtr);
 s32 XTrng_DisableAutoProcMode(XTrng *InstancePtr);
+s32 XTrng_EnableDefaultMode(XTrng *InstancePtr);
 
 /************************************ Variable Definitions ***************************************/
 

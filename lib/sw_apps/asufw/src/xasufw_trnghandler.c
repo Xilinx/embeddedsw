@@ -26,6 +26,7 @@
  *       ma   02/07/25 Added DRBG support in client
  *       ma   02/11/25 Added redundancy, validations and clearing of local buffer in
  *                     XAsufw_TrngGetRandomNumbers
+ *       rmv  08/01/25 Added function call to set TRNG to default mode
  *
  * </pre>
  *
@@ -81,7 +82,6 @@ s32 XAsufw_TrngInit(void)
 {
 	s32 Status = XASUFW_FAILURE;
 	XTrng *XAsufw_Trng = XTrng_GetInstance(XASU_XTRNG_0_DEVICE_ID);
-	XTrng_Mode TrngMode = XTRNG_HRNG_MODE;
 
 	/** The XAsufw_TrngCmds array contains the list of commands supported by TRNG module. */
 	static const XAsufw_ModuleCmd XAsufw_TrngCmds[] = {
@@ -128,26 +128,8 @@ s32 XAsufw_TrngInit(void)
 		goto END;
 	}
 
-#if defined(XASUFW_TRNG_ENABLE_PTRNG_MODE)
-	TrngMode = XTRNG_PTRNG_MODE;
-#endif
-
-#if !defined(XASU_TRNG_ENABLE_DRBG_MODE)
-	/**
-	 * Instantiate to complete initialization of TRNG in HRNG or PTRNG mode based on configuration.
-	 *  - If XASUFW_TRNG_ENABLE_PTRNG_MODE macro is enabled, initialize TRNG in PTRNG mode.
-	 *  - Otherwise, initialize TRNG in HRNG mode
-	 */
-	Status = XTrng_InitNCfgTrngMode(XAsufw_Trng, TrngMode);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-#endif
-
-#if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) && !defined(XASU_TRNG_ENABLE_DRBG_MODE)
-	/** Enable auto proc mode for TRNG only when the TRNG is configured in HRNG mode. */
-	Status = XTrng_EnableAutoProcMode(XAsufw_Trng);
-#endif /* XASUFW_TRNG_ENABLE_PTRNG_MODE */
+	/** Set TRNG to default mode. */
+	Status = XTrng_EnableDefaultMode(XAsufw_Trng);
 
 END:
 	return Status;

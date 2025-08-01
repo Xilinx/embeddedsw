@@ -51,6 +51,7 @@
  *       am   03/21/25 Added XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED error code
  *       am   04/01/25 Added XASUFW_AES_KEY_CONFIG_READBACK_ERROR error code
  *       LP   04/07/25 Added HKDF error codes
+ *       rmv  08/04/25 Added error code for TRNG mode configuration failure
  *
  * </pre>
  *
@@ -509,6 +510,9 @@ enum {
 	XASUFW_MEM_MOVE_FAIL, /**< 0x157U - Error when move memory failed */
 	XASUFW_X509_CERT_GEN_FAIL, /**< 0x158U - Error when certificate generation failed */
 	XASUFW_HMAC_KEY_PROCESS_ERROR, /**< 0x159U - Error when HMAC key processing failed */
+
+	XASUFW_TRNG_MODE_INIT_CFG_FAIL, /**< 0x15AU - Error when TRNG mode init and configuration is
+					failed */
 
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */

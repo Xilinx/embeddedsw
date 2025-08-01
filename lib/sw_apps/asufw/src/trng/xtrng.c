@@ -25,6 +25,7 @@
  *       ma   01/03/25 Configure TRNG core registers properly
  *       ma   02/11/25 Added volatile to NumOfBursts variable in XTrng_CollectRandData
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
+ *       rmv  08/01/25 Added API to set TRNG to default mode
  *
  * </pre>
  *
@@ -1319,6 +1320,58 @@ s32 XTrng_DisableAutoProcMode(XTrng *InstancePtr)
 
 	/** Reset/uninstantiate the TRNG core. */
 	Status = XTrng_Uninstantiate(InstancePtr);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function set TRNG to default mode.
+ *
+ * @param	InstancePtr	Pointer to the TRNG Instance.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if TRNG is set to default mode.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_TRNG_INVALID_PARAM, if input parameter is invalid.
+ *	- XASUFW_TRNG_MODE_INIT_CFG_FAIL, if TRNG init and config is failed.
+ *
+ *************************************************************************************************/
+s32 XTrng_EnableDefaultMode(XTrng *InstancePtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XTrng_Mode TrngMode = XTRNG_HRNG_MODE;
+
+	/** Validate input parameters. */
+	if (InstancePtr == NULL) {
+		Status = XASUFW_TRNG_INVALID_PARAM;
+		goto END;
+	}
+
+#if defined(XASUFW_TRNG_ENABLE_PTRNG_MODE)
+	TrngMode = XTRNG_PTRNG_MODE;
+#endif
+
+#if !defined(XASU_TRNG_ENABLE_DRBG_MODE)
+	/**
+	 * Instantiate to complete initialization of TRNG in HRNG or PTRNG mode based on
+	 * configuration.
+	 *  - If XASUFW_TRNG_ENABLE_PTRNG_MODE macro is enabled, initialize TRNG in PTRNG mode.
+	 *  - Otherwise, initialize TRNG in HRNG mode
+	 */
+	Status = XTrng_InitNCfgTrngMode(InstancePtr, TrngMode);
+	if (Status != XST_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_TRNG_MODE_INIT_CFG_FAIL);
+		goto END;
+	}
+#endif
+
+#if !defined(XASUFW_TRNG_ENABLE_PTRNG_MODE) && !defined(XASU_TRNG_ENABLE_DRBG_MODE)
+	/** Enable auto proc mode for TRNG only when the TRNG is configured in HRNG mode. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XTrng_EnableAutoProcMode(InstancePtr);
+#endif /* XASUFW_TRNG_ENABLE_PTRNG_MODE */
 
 END:
 	return Status;
