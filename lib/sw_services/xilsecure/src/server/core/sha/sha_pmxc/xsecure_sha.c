@@ -20,6 +20,7 @@
 *       sk   08/29/24 Added support for SDT flow
 *		tri  03/01/25 Added SSS configuration for SHA3 hashing
 * 5.6   aa   07/21/25 Typecast to essential datatype to avoid implicit conversions
+*                     fix dereference before null check
 *
 * </pre>
 *
@@ -93,12 +94,21 @@ static const XSecure_ShaConfig *XSecure_ShaLookupConfig(u32 DeviceId)
 int XSecure_ShaInitialize(XSecure_Sha* const InstancePtr, XPmcDma* DmaPtr)
 {
 	int Status = XST_FAILURE;
-	const XSecure_ShaConfig *CfgPtr = XSecure_ShaLookupConfig(InstancePtr->DeviceId);
+	const XSecure_ShaConfig *CfgPtr = NULL;
 
 	/** Validate the input arguments */
-	if((InstancePtr == NULL) || (DmaPtr == NULL) ||
-		(DmaPtr->IsReady != (u32)XIL_COMPONENT_IS_READY) ||
-		(CfgPtr == NULL)) {
+	if((InstancePtr == NULL) || (DmaPtr == NULL)) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+
+	if (DmaPtr->IsReady != (u32)XIL_COMPONENT_IS_READY) {
+		Status = (int)XSECURE_SHA_DMA_COMPONENT_IS_NOT_READY;
+		goto END;
+	}
+
+	CfgPtr = XSecure_ShaLookupConfig(InstancePtr->DeviceId);
+	if (CfgPtr == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}

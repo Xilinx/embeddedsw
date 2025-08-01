@@ -44,6 +44,7 @@
  *       kpt  06/13/2024 Added XSECURE_ERR_AES_KEY_UNWRAP_FAILED_ERROR
  *       mb   09/20/2024 Added XSECURE_RSA_OP_MEM_CPY_FAILED_ERROR
  *       pre  03/02/2025 Added error codes for IPI events handling
+ * 5.6   aa   07/31/2025 Added error code for AES
  *
  * </pre>
  *
@@ -147,6 +148,7 @@ typedef enum {
 	XSECURE_AES_UNALIGNED_SIZE_ERROR,      /**< 0x5C - Error when data is unaligned*/
 	XSECURE_AES_INVALID_MODE,             /**< 0x5D - Error when invalid mode is used for AES operation */
     XSECURE_INVALID_RESOURCE,		/**< 0X5F - Error when resource is other than SHA/AES */
+	XSECURE_AES_DMA_COMPONENT_IS_NOT_READY,	/**< 0X60 - Error when DMA component is not ready */
 
 	XSECURE_RSA_OAEP_INVALID_PARAM = 0x70,        /**< 0x70 - RSA OAEP Invalid param */
 	XSECURE_RSA_OAEP_INVALID_MSG_LEN,             /**< 0x71 - RSA OAEP Invalid Msg length */

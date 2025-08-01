@@ -16,6 +16,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- ---------- -------------------------------------------------------
  * 5.5   kpt  08/18/2024 Initial release
+ * 5.6   aa   07/29/2025 Added error codes
  *
  * </pre>
  *
@@ -56,6 +57,8 @@ typedef enum {
 
 	XSECURE_SHA384_KAT_ERROR,		/**< 0x0C - Error when SHA384 KAT fails */
 
+	XSECURE_SHA_DMA_COMPONENT_IS_NOT_READY,  /**< 0x0D - Error when DMA component is not ready */
+
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */
 	XSECURE_AES_KEY_CLEAR_ERROR,
@@ -83,7 +86,9 @@ typedef enum {
 							sss config fails */
 	XSECURE_AESDPACM_KAT_FAILED_ERROR,  /**< 0x4B - Error when AESDPACM
 							KAT failed */
-	XSECURE_AESKAT_INVALID_PARAM		     /**< 0x4C - Invalid Argument */
+	XSECURE_AESKAT_INVALID_PARAM,		     /**< 0x4C - Invalid Argument */
+
+	XSECURE_AES_DMA_COMPONENT_IS_NOT_READY /**< 0x4D - Error when DMA component is not ready */
 } XSecure_ErrorCodes;
 
 #define XSECURE_SHA3_KAT_FAILED_ERROR		XSECURE_SHA_KAT_FAILED_ERROR

@@ -183,9 +183,13 @@ int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 	}
 
 	/* Validate the input arguments */
-	if ((InstancePtr == NULL) || (PmcDmaPtr == NULL) ||
-			(PmcDmaPtr->IsReady != (u32)(XIL_COMPONENT_IS_READY))) {
+	if ((InstancePtr == NULL) || (PmcDmaPtr == NULL)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if (PmcDmaPtr->IsReady != (u32)(XIL_COMPONENT_IS_READY)) {
+		Status = (int)XSECURE_AES_DMA_COMPONENT_IS_NOT_READY;
 		goto END;
 	}
 

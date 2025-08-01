@@ -21,6 +21,7 @@
  *       pre  03/02/2025 Added error codes for IPI events handling
  * 5.6   tus  07/24/2025 change XSecure_ErrorCode from typedef enum to plain
  *                       enum for MISRA C-2023 Rule 10.3 violation fix
+ *       aa   07/31/2025 Added error code for AES and SHA
  * </pre>
  *
  ******************************************************************************/
@@ -61,6 +62,8 @@ enum {
 	XSECURE_SHA384_INVALID_PARAM,		/**< 0x0B - Invalid Param for SHA384 digest calculation*/
 
 	XSECURE_SHA384_KAT_ERROR,		/**< 0x0C - Error when SHA384 KAT fails */
+
+	XSECURE_SHA_DMA_COMPONENT_IS_NOT_READY,	/**< 0x0D - Error when DMA component is not ready */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */
@@ -121,6 +124,7 @@ enum {
 	XSECURE_AES_UNALIGNED_SIZE_ERROR,      /**< 0x5C - Error when data is unaligned*/
 	XSECURE_AES_INVALID_MODE,             /**< 0x5D - Error when invalid mode is used for AES operation */
     XSECURE_INVALID_RESOURCE,		/**< 0X5F - Error when resource is other than SHA/AES */
+	XSECURE_AES_DMA_COMPONENT_IS_NOT_READY,	/**< 0X60 - Error when DMA component is not ready */
 
 	XSECURE_RSA_OAEP_INVALID_PARAM = 0x70,        /**< 0x70 - RSA OAEP Invalid param */
 	XSECURE_RSA_OAEP_INVALID_MSG_LEN,             /**< 0x71 - RSA OAEP Invalid Msg length */
