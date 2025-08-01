@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,7 +55,7 @@
 *                         PPK efuses
 * 7.5   ng       07/13/23 Added support for system device tree flow
 *       ng       08/31/23 removed redundant header file inclusion
-*
+* 7.8   rpu      07/16/25 Fixed GCC warnings
 * </pre>
 *
 ******************************************************************************/
@@ -96,7 +96,7 @@ static inline u32 XilSKey_EfusePs_ZynqMp_ReadPufFuses(void);
 int main()
 {
 
-	XilSKey_ZynqMpEPs PsInstance = {{0}};
+	XilSKey_ZynqMpEPs PsInstance = {0};
 	u32 PsStatus;
 	u32 UserFuses[8];
 	u32 Ppk0[12];
