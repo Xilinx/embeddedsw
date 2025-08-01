@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,7 +26,7 @@
   *	  vss	11/22/23 Added header file required for SDT flow
   * 2.3	  vss	03/06/24 Removed server related APIs
   * 2.4   har   05/06/24 Fixed issue in case of regeneration from eFUSE cache
-  *
+  * 2.6   rpu   07/15/25 Fixed GCC warnings
   *@note
   *
  *****************************************************************************/
@@ -679,7 +679,7 @@ static int XPuf_PrgmUdsAndDmeEfuses(XNvm_ClientInstance *NvmClientInstance)
 	u32* EncDataInWords;
 	u32* PrgmDataInWords;
 	u32 DmeModeVal = XPUF_DME_MODE_VAL;
-	int Index;
+	u32 Index;
 
 	if (XPUF_PRGM_UDS == TRUE) {
 		EncDataInWords = (u32*)EncryptedData->UdsPrime;

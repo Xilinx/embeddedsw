@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,7 +43,7 @@
   * 2.2   am   05/03/23 Added KAT before crypto usage
 		 vek  05/31/23  Added support for Programming PUF secure control bits
   *	  vss	11/22/23 Added header file required for SDT flow
-  *
+  * 2.6   rpu  07/15/25 Fixed GCC warnings
   *@note
   *
  *****************************************************************************/
@@ -459,7 +459,9 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr)
 	else {
 		xil_printf("PUF helper data written in eFUSE\r\n");
 	}
-#endif
+#else
+    (void )InstancePtr;
+#endif /* XPUF_WRITE_HD_IN_EFUSE */
 
 #elif (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
 	PufData.ReadOption = XPUF_READ_HD_OPTION;
