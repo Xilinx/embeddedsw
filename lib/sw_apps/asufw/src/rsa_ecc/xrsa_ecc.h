@@ -51,21 +51,11 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define XRSA_ECC_P192_RANDBUFLEN_IN_BYTES	(0x24) /**< Length of the random number to be
-							generated for NIST P-192 in bytes */
-#define XRSA_ECC_P224_RANDBUFLEN_IN_BYTES	(0x28) /**< Length of the random number to be
-							generated for NIST P-224 in bytes */
-#define XRSA_ECC_P256_RANDBUFLEN_IN_BYTES	(0x2C) /**< Length of the random number to be
-							generated for NIST P-256 & BP-256 in bytes */
-#define XRSA_ECC_P320_RANDBUFLEN_IN_BYTES	(0x34) /**< Length of the random number to be
-							generated for BP-320 in bytes */
-#define XRSA_ECC_P384_RANDBUFLEN_IN_BYTES	(0x3C) /**< Length of the random number to be
-							generated for NIST P-384 & BP-384 in bytes */
-#define XRSA_ECC_P512_RANDBUFLEN_IN_BYTES	(0x4C) /**< Length of the random number to be
-							generated for BP-512 in bytes */
 #define XRSA_ECC_P521_RANDBUFLEN_IN_BYTES	(0x4C) /**< Length of the random number to be
 							generated for NIST P-521 in bytes */
-#define XRSA_ECC_KEY_PAIR_GEN_EXTRA_BYTES	(0x8U) /**< Extra bytes count used for key pair
+#define XRSA_ECC_KEY_PAIR_GEN_EXTRA_BYTES	(0xCU) /**< Extra bytes count used for key pair
+							generation */
+#define XRSA_ECC_RAND_NUM_GEN_EXTRA_BYTES	(0x8U) /**< Extra bytes count for random number
 							generation */
 
 /************************************ Function Prototypes ****************************************/

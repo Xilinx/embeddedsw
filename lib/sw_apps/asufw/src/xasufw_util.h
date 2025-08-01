@@ -94,6 +94,7 @@ extern "C" {
 
 #define XASUFW_VALUE_ONE			(1U)	/**< Integer value 1U */
 #define XASUFW_VALUE_TWO			(2U)	/**< Integer value 2U */
+#define XASUFW_VALUE_THREE			(3U)	/**< Integer value 3U */
 
 #define XASUFW_U64_IN_BYTES			(8U)	/**< U64 value in bytes */
 

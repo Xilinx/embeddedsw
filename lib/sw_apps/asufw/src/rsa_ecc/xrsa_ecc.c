@@ -42,6 +42,8 @@
 #include "xasu_eccinfo.h"
 #include "xfih.h"
 #include "xasufw_trnghandler.h"
+#include "xsha.h"
+#include "xsha_hw.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XRSA_ECC_ALGN_CRV_SIZE_IN_BYTES		(2U)	/**< Align ECDSA curve size in bytes */
@@ -85,37 +87,37 @@
 							 * if generated point is invalid */
 
 /************************************** Type Definitions *****************************************/
-/** This structure contains curve type and cuvre class for indexing. */
+/** This structure contains curve type and curve class for indexing. */
 typedef struct {
-	u8 CurveType; /**< Type of the curve */
-	u8 CurveClass; /**< Class of the curve */
-	u8 RandBufLen; /**< Random buffer length for key pair generation in bytes */
-	u8 Reserved; /**< Reserved */
+	u16 CurveType; /**< Type of the curve */
+	u16 CurveClass; /**< Class of the curve */
 } XRsa_EccCrvIndex;
 
 /**
- * This is a configuration table to configure the curve type and curve class for all curves
- * based on index.
- */
+ * This is a configuration table to configure the curve type and curve class for all curves
+ * based on index.
+ */
 XRsa_EccCrvIndex XRsa_EccCrvIndexDb[] = {
-	{ (u8)ECDSA_NIST_P256, (u8)ECDSA_PRIME, XRSA_ECC_P256_RANDBUFLEN_IN_BYTES, 0U },
-	{ (u8)ECDSA_NIST_P384, (u8)ECDSA_PRIME, XRSA_ECC_P384_RANDBUFLEN_IN_BYTES, 0U },
-	{ (u8)ECDSA_NIST_P192, (u8)ECDSA_PRIME, XRSA_ECC_P192_RANDBUFLEN_IN_BYTES, 0U },
-	{ (u8)ECDSA_NIST_P224, (u8)ECDSA_PRIME, XRSA_ECC_P224_RANDBUFLEN_IN_BYTES, 0U },
-	{ (u8)ECDSA_NIST_P521, (u8)ECDSA_PRIME, XRSA_ECC_P521_RANDBUFLEN_IN_BYTES, 0U },
-	{ (u8)ECDSA_BRAINPOOL_P256, (u8)ECDSA_PRIME, XRSA_ECC_P256_RANDBUFLEN_IN_BYTES, 0U },
-	{ (u8)ECDSA_BRAINPOOL_P320, (u8)ECDSA_PRIME, XRSA_ECC_P320_RANDBUFLEN_IN_BYTES, 0U },
-	{ (u8)ECDSA_BRAINPOOL_P384, (u8)ECDSA_PRIME, XRSA_ECC_P384_RANDBUFLEN_IN_BYTES, 0U },
-	{ (u8)ECDSA_BRAINPOOL_P512, (u8)ECDSA_PRIME, XRSA_ECC_P512_RANDBUFLEN_IN_BYTES, 0U },
-	{ (u8)ECDSA_ED25519, (u8)ECDSA_PRIME, 0U, 0U },
-	{ (u8)ECDSA_ED448, (u8)ECDSA_PRIME, 0U, 0U },
-	{ (u8)ECDSA_ED25519, (u8)ECDSA_ED_PH, 0U, 0U },
-	{ (u8)ECDSA_ED448, (u8)ECDSA_ED_PH, 0U, 0U }
+	{ (u16)ECDSA_NIST_P256, (u16)ECDSA_PRIME },
+	{ (u16)ECDSA_NIST_P384, (u16)ECDSA_PRIME },
+	{ (u16)ECDSA_NIST_P192, (u16)ECDSA_PRIME },
+	{ (u16)ECDSA_NIST_P224, (u16)ECDSA_PRIME },
+	{ (u16)ECDSA_NIST_P521, (u16)ECDSA_PRIME },
+	{ (u16)ECDSA_BRAINPOOL_P256, (u16)ECDSA_PRIME },
+	{ (u16)ECDSA_BRAINPOOL_P320, (u16)ECDSA_PRIME },
+	{ (u16)ECDSA_BRAINPOOL_P384, (u16)ECDSA_PRIME },
+	{ (u16)ECDSA_BRAINPOOL_P512, (u16)ECDSA_PRIME },
+	{ (u16)ECDSA_ED25519, (u16)ECDSA_PRIME },
+	{ (u16)ECDSA_ED448, (u16)ECDSA_PRIME },
+	{ (u16)ECDSA_ED25519, (u16)ECDSA_ED_PH },
+	{ (u16)ECDSA_ED448, (u16)ECDSA_ED_PH }
 };
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+static s32 XRsa_EccHashCalc(XAsufw_Dma *DmaPtr, u32 CurveType, u64 DataAddr, u64 HashAddr,
+		u32 DataSize);
 
 /************************************ Variable Definitions ***************************************/
 /** Message to be used for pair wise consistency test. */
@@ -415,7 +417,8 @@ END:
  *	- XASUFW_FAILURE, if sign generation fails due to other reasons.
  *	- XASUFW_RSA_ECC_GEN_SIGN_BAD_RAND_NUM, if bad signature is generated.
  *	- XASUFW_RSA_ECC_GEN_SIGN_INCORRECT_HASH_LEN, if invalid hash length is provided to the
- *	IP cores.
+ *	third party code.
+ *	- XASUFW_RSA_ECC_HASH_CALC_FAIL, if hash calculation fails in case of Ed25519ph or Ed448ph.
  *
  *************************************************************************************************/
 s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
@@ -439,10 +442,12 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	EcdsaSign Sign;
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
+	u64 HashBufAddr = 0U;
+	u32 HashLen = 0U;
 
 	/** Validate the input arguments. */
 	if ((DmaPtr == NULL) || (HashAddr == 0U) || (PrivKeyAddr == 0U) || (SignAddr == 0U) ||
-			(EphemeralKeyPtr == NULL) || (HashBufLen == 0U)) {
+			(EphemeralKeyPtr == NULL)) {
 		Status = XASUFW_RSA_ECC_INVALID_PARAM;
 		goto END;
 	}
@@ -520,7 +525,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 	if ((Crv->CrvType != ECDSA_ED25519) && (Crv->CrvType != ECDSA_ED448)) {
 		/**
 		 * For curves other than Edward curves,
-		 * generate signature with provided inputs and curve type.
+		 * - Generate signature with provided inputs and curve type.
 		 */
 		XFIH_CALL(Ecdsa_GenerateSign, XFihEcc, Status, Crv, Hash, Crv->Bits, PrivKey, EphemeralKey,
 		  (EcdsaSign *)&Sign);
@@ -536,10 +541,26 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 				XASUFW_RSA_ECC_GEN_PUB_KEY_OPERATION_FAIL, XFihEcc, Status, END_CLR,
 				Crv, PrivKey, (EcdsaKey *)&Key, DmaPtr);
 
-		/** Generate signature with provided inputs. */
-		XFIH_CALL(Ecdsa_GenerateEdSign, XFihEcc, Status, Crv, (u8*)(UINTPTR)HashAddr,
-		 (HashBufLen * XASUFW_BYTE_LEN_IN_BITS), (u8*)(UINTPTR)PrivKeyAddr, (EcdsaKey *)&Key,
-		 (EcdsaSign *)&Sign, DmaPtr);
+		if (Crv->Class == ECDSA_ED_PH) {
+			/** - Calculate the hash for the input message for Hash-based EdDSA mode. */
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XRsa_EccHashCalc(DmaPtr, (u32)Crv->CrvType, HashAddr, (u64)(UINTPTR)Hash,
+					HashBufLen);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_RSA_ECC_HASH_CALC_FAIL;
+				goto END;
+			}
+			HashBufAddr = (u64)(UINTPTR)Hash;
+			HashLen = XASU_SHA_512_HASH_LEN;
+		} else {
+			HashBufAddr = HashAddr;
+			HashLen = HashBufLen;
+		}
+
+		/** - Generate signature with provided inputs. */
+		XFIH_CALL(Ecdsa_GenerateEdSign, XFihEcc, Status, Crv, (u8*)(UINTPTR)HashBufAddr,
+			(HashLen * XASUFW_BYTE_LEN_IN_BITS), PrivKey, (EcdsaKey *)&Key,
+			(EcdsaSign *)&Sign, DmaPtr);
 	}
 	if ((Status == XRSA_ECC_GEN_SIGN_BAD_R) ||
 	    (Status == XRSA_ECC_GEN_SIGN_BAD_S)) {
@@ -659,6 +680,8 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 	EcdsaSign Sign;
 	EcdsaKey Key;
 	EcdsaCrvInfo *Crv = NULL;
+	u64 HashBufAddr = 0U;
+	u32 HashLen = 0U;
 
 	/** Validate the input arguments. */
 	if ((DmaPtr == NULL) || (HashAddr == 0U) || (PubKeyAddr == 0U) || (SignAddr == 0U)) {
@@ -756,8 +779,24 @@ s32 XRsa_EccVerifySignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64
 		XFIH_CALL(Ecdsa_VerifySign, XFihEcc, Status, Crv, Hash, Crv->Bits,
 			 (EcdsaKey *)&Key, (EcdsaSign *)&Sign, DmaPtr);
 	} else {
-		XFIH_CALL(Ecdsa_VerifySign, XFihEcc, Status, Crv, (u8*)(UINTPTR)HashAddr,
-			 (HashBufLen * XASUFW_BYTE_LEN_IN_BITS), (EcdsaKey *)&Key,
+
+		if (Crv->Class == ECDSA_ED_PH) {
+			/** Calculate the hash for the input message for Hash-based EdDSA mode. */
+			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+			Status = XRsa_EccHashCalc(DmaPtr, (u32)Crv->CrvType, HashAddr, (u64)(UINTPTR)Hash,
+					HashBufLen);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_RSA_ECC_HASH_CALC_FAIL;
+				goto END;
+			}
+			HashBufAddr = (u64)(UINTPTR)Hash;
+			HashLen = XASU_SHA_512_HASH_LEN;
+		} else {
+			HashBufAddr = HashAddr;
+			HashLen = HashBufLen;
+		}
+		XFIH_CALL(Ecdsa_VerifySign, XFihEcc, Status, Crv, (u8*)(UINTPTR)HashBufAddr,
+			 (HashLen * XASUFW_BYTE_LEN_IN_BITS), (EcdsaKey *)&Key,
 			 (EcdsaSign *)&Sign, DmaPtr);
 	}
 	if ((XRSA_ECC_BAD_SIGN == Status)) {
@@ -827,6 +866,7 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8* PvtKey)
 	u8 RandBuf[XRSA_ECC_P521_RANDBUFLEN_IN_BYTES] = {0U};
 	EcdsaCrvInfo *CrvInfo = NULL;
 	u32 CurveSize = 0U;
+	u8 RandBufLen = 0U;
 
 	/** Validate input parameters. */
 	if (PvtKey == NULL) {
@@ -842,14 +882,15 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8* PvtKey)
 	}
 
 	/** Generate random number for calculating private key. */
-	Status = XAsufw_TrngGetRandomNumbers(RandBuf, (CurveLen + XRSA_ECC_KEY_PAIR_GEN_EXTRA_BYTES));
+	Status = XAsufw_TrngGetRandomNumbers(RandBuf, (CurveLen + XRSA_ECC_RAND_NUM_GEN_EXTRA_BYTES));
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RSA_ECC_TRNG_FAILED);
 		goto END;
 	}
 
+	RandBufLen = (u8)((CurveLen & ~(XASUFW_VALUE_THREE)) + XRSA_ECC_KEY_PAIR_GEN_EXTRA_BYTES);
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_ChangeEndianness(RandBuf, XRsa_EccCrvIndexDb[CurveType].RandBufLen);
+	Status = XAsufw_ChangeEndianness(RandBuf, RandBufLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
 		goto END;
@@ -863,7 +904,7 @@ s32 XRsa_EccGeneratePvtKey(u32 CurveType, u32 CurveLen, u8* PvtKey)
 	 * Ecdsa_ModWithEccOrder API.
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = Ecdsa_ModWithEccOrder(CrvInfo, RandBuf, XRsa_EccCrvIndexDb[CurveType].RandBufLen,
+	Status = Ecdsa_ModWithEccOrder(CrvInfo, RandBuf, RandBufLen,
 				PvtKey);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_MOD_ORDER_FAILED;
@@ -1082,7 +1123,7 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 					CurveLen, 0U);
 	}
 	if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_ECC_READ_DATA_FAIL;
+		Status = XASUFW_RSA_ECC_READ_DATA_FAIL;
 	}
 
 END_CLR:
@@ -1157,6 +1198,57 @@ s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAdd
 END_CLR:
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)Signature,
 					XAsu_DoubleCurveLength(XASU_ECC_P521_SIZE_IN_BYTES)));
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function calculates the hash for the input message for Hash-based EdDSA mode.
+ * 		For Ed25519ph mode, it uses SHA-512 and for Ed448ph mode, it uses SHAKE256. Length
+ * 		of the hash is 64 bytes for both modes.
+ *
+ * @param	DmaPtr		Pointer to the AsuDma instance.
+ * @param	CurveType	ECC Curve type.
+ * @param	DataAddr	Address of the input data buffer.
+ * @param	HashAddr	Address of the hash buffer at which the generated hash to be stored.
+ * @param	DataSize	Length of the input data in bytes.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if Hash calculation is successful.
+ *	- XASUFW_SHA_INVALID_PARAM, if ShaInstancePtr is NULL.
+ *
+ *************************************************************************************************/
+static s32 XRsa_EccHashCalc(XAsufw_Dma *DmaPtr, u32 CurveType, u64 DataAddr, u64 HashAddr,
+			u32 DataSize)
+{
+	s32 Status = XASUFW_FAILURE;
+	XSha *ShaInstancePtr = NULL;
+	XAsu_ShaOperationCmd ShaOperation;
+
+	if (CurveType == (u32)ECDSA_ED25519) {
+		/** For Ed25519ph, get the SHA2 instance for SHA512 mode. */
+		ShaInstancePtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+		ShaOperation.ShaMode = XASU_SHA_MODE_512;
+	} else {
+		/** For Ed448ph, get the SHA3 instance for SHAKE256 mode. */
+		ShaInstancePtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+		ShaOperation.ShaMode = XASU_SHA_MODE_SHAKE256;
+	}
+	/** Validate the SHA instance pointer. */
+	if (ShaInstancePtr == NULL) {
+		Status = XASUFW_SHA_INVALID_PARAM;
+		goto END;
+	}
+	/** Set up the SHA operation parameters. */
+	ShaOperation.HashBufSize = XASU_SHA_512_HASH_LEN;
+	ShaOperation.DataAddr = DataAddr;
+	ShaOperation.HashAddr = HashAddr;
+	ShaOperation.DataSize = DataSize;
+
+	/** Calculate the hash. */
+	Status = XSha_Digest(ShaInstancePtr, DmaPtr, &ShaOperation);
 
 END:
 	return Status;

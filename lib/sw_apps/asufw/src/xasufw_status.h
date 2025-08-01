@@ -211,7 +211,7 @@ enum {
 	XASUFW_TRNG_CATASTROPHIC_DTF_ERROR, /**< 0x77U - TRNG catastrophic DTF error */
 	XASUFW_TRNG_CATASTROPHIC_CTF_ERROR, /**< 0x78U - TRNG catastrophic CTF error */
 	XASUFW_TRNG_KAT_FAILED_ERROR, /**< 0x79U - TRNG KAT operation failed */
-	XASUFW_RESERVED0, /**< 0x7AU - Reserved error */
+	XASUFW_RSA_ECC_HASH_CALC_FAIL, /**< 0x7AU - RSA ECC hash calculation failed for input message. */
 	XASUFW_INVALID_PREDRES_VALUE, /**< 0x7BU - TRNG invalid prediction resistance value */
 	XASUFW_TRNG_FIFO_IS_EMPTY, /**< 0x7CU - TRNG random numbers fifo is empty */
 	XASUFW_RANDOM_DATA_FAILED_TO_GENERATE, /**< 0x7DU - TRNG random data generate failed */
