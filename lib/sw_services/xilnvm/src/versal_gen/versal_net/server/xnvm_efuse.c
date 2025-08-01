@@ -38,7 +38,7 @@
 *       vss  07/26/2024 Corrected offchipids to be programmed
 *       kal  11/13/2024 Corrected logic in XNvm_EfuseWriteRevocationID function
 *       obs   04/21/2025 Fixed GCC Warnings.
-*
+* 3.6   rpu  07/21/2025 Fixed GCC warnings
 * </pre>
 *
 *******************************************************************************/
@@ -3949,7 +3949,7 @@ static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col, u32 
 END:
 	return Status;
 }
-
+#ifndef VERSAL_2VE_2VM
 /*****************************************************************************/
 /**
  * @brief       This function changes the endianness of Data of given size
@@ -3983,13 +3983,13 @@ static int XNvm_EfuseChangeEndianness(u8 *Dest, u8 *Src, u32 Size)
 END:
 	return Status;
 }
-
+#endif
 /******************************************************************************/
 /**
 * @brief	This function calculate CRC on below eFUSE cache registers and
 *		compares against eFUSE CRC value
 *
-*| Register Name	|  Register Adress	|
+*| Register Name	|  Register Address	|
 *| -------------  	|  ---------------	|
 *|  ANLG_TRIM_0		|     0xF1250004	|
 *|  ANLG_TRIM_1		|     0xF1250008	|
@@ -4032,7 +4032,7 @@ END:
 * @return
 *	- XST_SUCCESS - Up on Success
 *	- XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR - Error as calculated CRC and CRC
-*					value written in eFuse doesnt match.
+*					value written in eFuse doesn't match.
 *******************************************************************************/
 static int XNvm_EfuseValidateCrc(void)
 {

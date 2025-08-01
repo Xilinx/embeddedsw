@@ -22,13 +22,13 @@
 * 3.2  har  02/21/23  Added support for writing Misc Ctrl bits and ROM Rsvd bits
 *      am   03/09/23  Replaced xnvm payload lengths with xmailbox payload lengths
 * 	   vek  05/31/23  Added support for Programming PUF secure control bits
-*      kpt  09/02/23  Avoid returning XST_SUCCESS incase of fault injection
+*      kpt  09/02/23  Avoid returning XST_SUCCESS in case of fault injection
 *      yog  09/13/23  Fixed review comments
 * 3.4  kal  09/26/24  Updated AES, PPK and IV functions to pass EnvMonDis flag
 *                     to server through IPI commands
 * 3.5  kal  02/05/25  Make status as volatile and reset status to XST_FAILURE
 *                     before security critical calls
-*
+* 3.6  rpu  07/21/25  Fixed GCC warnings
 * </pre>
 *
 * @note
@@ -47,7 +47,13 @@
 /************************** Constant Definitions *****************************/
 #define XNVM_ADDR_HIGH_SHIFT	(32U)	/**< Shift to get upper 32 bits of address */
 #define XNVM_MAX_PAYLOAD_LEN	(7U)	/**< Maximum IPI payload length */
-
+#if defined(__aarch64__)
+/**< Upper 32 bit address from the input address */
+#define XNVM_GET_HADDR(InputAddr, HighAddr) \
+                HighAddr = (u32)(((UINTPTR)(InputAddr)) >> XNVM_ADDR_HIGH_SHIFT)
+#else
+#define XNVM_GET_HADDR(InputAddr, HighAddr) HighAddr = 0U
+#endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -90,10 +96,10 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	volatile int Status = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
-	XNvm_EfuseWriteDataAddr *EfuseData = (XNvm_EfuseWriteDataAddr *)DataAddr;
-	XNvm_EfuseAesKeys *AesKeys = (XNvm_EfuseAesKeys *)EfuseData->AesKeyAddr;
-	XNvm_EfusePpkHash *EfusePpk = (XNvm_EfusePpkHash *)EfuseData->PpkHashAddr;
-	XNvm_EfuseIvs *Ivs = (XNvm_EfuseIvs *)EfuseData->IvAddr;
+	XNvm_EfuseWriteDataAddr *EfuseData = (XNvm_EfuseWriteDataAddr *)(UINTPTR)DataAddr;
+	XNvm_EfuseAesKeys *AesKeys = (XNvm_EfuseAesKeys *)(UINTPTR)EfuseData->AesKeyAddr;
+	XNvm_EfusePpkHash *EfusePpk = (XNvm_EfusePpkHash *)(UINTPTR)EfuseData->PpkHashAddr;
+	XNvm_EfuseIvs *Ivs = (XNvm_EfuseIvs *)(UINTPTR)EfuseData->IvAddr;
 	XNvm_AesKeyWriteCdo *KeyWrCdo = (XNvm_AesKeyWriteCdo *)Payload;
 	XNvm_PpkWriteCdo *PpkWrCdo = (XNvm_PpkWriteCdo *)Payload;
 
@@ -281,7 +287,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	/**
 	 *  Fill the EfuseData structure with the IV address, Environmental disable flag.
 	 */
-	Ivs = (XNvm_EfuseIvs *)IvAddr;
+	Ivs = (XNvm_EfuseIvs *)(UINTPTR)IvAddr;
 
 	Xil_DCacheFlushRange((UINTPTR)Ivs, TotalSize);
 
@@ -335,7 +341,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	}
 
 	if (Ivs->PrgmDataPartitionIv == TRUE) {
-		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming Data Parition IV \r\n");
+		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming Data Partition IV \r\n");
 		Status = XNvm_EfuseValidateNdWriteIv(InstancePtr, IvWrCdo,
 		XNVM_EFUSE_DATA_PARTITION_IV_RANGE, (u64)(UINTPTR)(Ivs->DataPartitionIv),
 		EnvDisFlag);
@@ -383,7 +389,7 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 	volatile int Status = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
-	XNvm_Uds *Uds = (XNvm_Uds *)UdsAddr;
+	XNvm_Uds *Uds = (XNvm_Uds *)(UINTPTR)UdsAddr;
 	XNvm_UdsWriteCdo *UdsWriteCdo = (XNvm_UdsWriteCdo *)Payload;
 
 	/**
@@ -453,7 +459,7 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 	volatile int Status = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
-	XNvm_DmeKey *DmeKey = (XNvm_DmeKey *)DmeKeyAddr;
+	XNvm_DmeKey *DmeKey = (XNvm_DmeKey *)(UINTPTR)DmeKeyAddr;
 	XNvm_DmeKeyWriteCdo *DmeKeyWriteCdo = (XNvm_DmeKeyWriteCdo *)Payload;
 
 	/**
@@ -1344,7 +1350,7 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
-	XNvm_EfusePufHdAddr *EfusePuf = (XNvm_EfusePufHdAddr *)PufHdAddr;
+	XNvm_EfusePufHdAddr *EfusePuf = (XNvm_EfusePufHdAddr *)(UINTPTR)PufHdAddr;
 	XNvm_PufWriteCdo *PufWrCdo = (XNvm_PufWriteCdo *)Payload;
 	u32 HighAddr;
 	u32 LowAddr;
@@ -1360,7 +1366,7 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 
 	Xil_DCacheFlushRange((UINTPTR)EfusePuf, sizeof(XNvm_EfusePufHdAddr));
 
-	HighAddr = (u32)((UINTPTR)EfusePuf >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(EfusePuf, HighAddr);
 	LowAddr = (u32)(UINTPTR)EfusePuf;
 	XNvm_EfuseCreateWritePufCmd(PufWrCdo, LowAddr, HighAddr);
 
@@ -1409,7 +1415,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	volatile int RetStatus = XST_GLITCH_ERROR;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
-	XNvm_EfusePufHdAddr *EfusePuf = (XNvm_EfusePufHdAddr *)PufHdAddr;
+	XNvm_EfusePufHdAddr *EfusePuf = (XNvm_EfusePufHdAddr *)(UINTPTR)PufHdAddr;
 	u32 ReadPufHd[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS] = {0U};
 	u32 ReadChash = 0U;
 	u32 ReadAux = 0U;
@@ -1434,7 +1440,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	/**
 	 * Read Puf helper data.
 	 */
-	HighAddr = (u32)((UINTPTR)(ReadPufHd) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(ReadPufHd, HighAddr);
 	LowAddr = (u32)(UINTPTR)ReadPufHd;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_SYN_DATA_OFFSET, XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS,
 		LowAddr, HighAddr);
@@ -1450,7 +1456,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	/**
 	 * Read Puf Chash.
 	 */
-	HighAddr = (u32)((UINTPTR)(&ReadChash) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadChash, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadChash;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET, 1U, LowAddr,
 		HighAddr);
@@ -1467,7 +1473,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	/**
 	 * Read Puf Aux data.
 	 */
-	HighAddr = (u32)((UINTPTR)(&ReadAux) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadAux, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadAux;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_ECC_CTRL_OFFSET, 1U, LowAddr,
 		HighAddr);
@@ -1484,7 +1490,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	/**
 	 * Read RO Swap.
 	 */
-	HighAddr = (u32)((UINTPTR)(&ReadRoSwap) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadRoSwap, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadRoSwap;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_RO_SWAP_OFFSET, 1U, LowAddr,
 		HighAddr);
@@ -1672,7 +1678,7 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
-	XNvm_EfuseUserDataAddr *UserFuseData = (XNvm_EfuseUserDataAddr *)UserFuseAddr;
+	XNvm_EfuseUserDataAddr *UserFuseData = (XNvm_EfuseUserDataAddr *)(UINTPTR)UserFuseAddr;
 	u16 StartOffset = XNVM_EFUSE_CACHE_USER_FUSE_START_OFFSET + UserFuseData->StartUserFuseNum * XNVM_WORD_LEN;
 	u32 HighAddr;
 	u32 LowAddr;
@@ -1691,7 +1697,7 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 		goto END;
 	}
 
-	HighAddr = (u32)((UINTPTR)(UserFuseData->UserFuseDataAddr) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(UserFuseData->UserFuseDataAddr, HighAddr);
 	LowAddr = (u32)(UINTPTR)UserFuseData->UserFuseDataAddr;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, UserFuseData->NumOfUserFuses, LowAddr,
 		HighAddr);
@@ -1728,7 +1734,7 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscC
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
-	XNvm_EfuseMiscCtrlBits *MiscCtrlBitsData = (XNvm_EfuseMiscCtrlBits *)MiscCtrlBits;
+	XNvm_EfuseMiscCtrlBits *MiscCtrlBitsData = (XNvm_EfuseMiscCtrlBits *)(UINTPTR)MiscCtrlBits;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -1743,7 +1749,7 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscC
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
 
-	HighAddr = (u32)((UINTPTR)(&ReadReg) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadReg;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_MISC_CTRL_OFFSET, 1U, LowAddr,
 		HighAddr);
@@ -1827,7 +1833,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtr
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
-	XNvm_EfuseSecCtrlBits *SecCtrlBitsData = (XNvm_EfuseSecCtrlBits *)SecCtrlBits;
+	XNvm_EfuseSecCtrlBits *SecCtrlBitsData = (XNvm_EfuseSecCtrlBits *)(UINTPTR)SecCtrlBits;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -1842,7 +1848,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtr
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
 
-	HighAddr = (u32)((UINTPTR)(&ReadReg) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadReg;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET, 1U, LowAddr,
 		HighAddr);
@@ -1961,7 +1967,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMi
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
-	XNvm_EfuseSecMisc1Bits *SecMisc1BitsData = (XNvm_EfuseSecMisc1Bits *)SecMisc1Bits;
+	XNvm_EfuseSecMisc1Bits *SecMisc1BitsData = (XNvm_EfuseSecMisc1Bits *)(UINTPTR)SecMisc1Bits;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -1976,7 +1982,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMi
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
 
-	HighAddr = (u32)((UINTPTR)(&ReadReg) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadReg;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_SEC_MISC1_OFFSET, 1U, LowAddr,
 		HighAddr);
@@ -2040,7 +2046,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Bo
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
-	XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBitsData = (XNvm_EfuseBootEnvCtrlBits *)BootEnvCtrlBits;
+	XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBitsData = (XNvm_EfuseBootEnvCtrlBits *)(UINTPTR)BootEnvCtrlBits;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -2055,7 +2061,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Bo
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
 
-	HighAddr = (u32)((UINTPTR)(&ReadReg) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadReg;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET, 1U, LowAddr,
 		HighAddr);
@@ -2127,7 +2133,7 @@ int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsv
 	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
-	XNvm_EfuseRomRsvdBits *RomRsvdBitsData = (XNvm_EfuseRomRsvdBits *)RomRsvdBits;
+	XNvm_EfuseRomRsvdBits *RomRsvdBitsData = (XNvm_EfuseRomRsvdBits *)(UINTPTR)RomRsvdBits;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -2142,7 +2148,7 @@ int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsv
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
 
-	HighAddr = (u32)((UINTPTR)(&ReadReg) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadReg;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_ROM_RSVD_OFFSET, 1U, LowAddr,
 		HighAddr);
@@ -2206,7 +2212,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadDmeFipsReg;
 	u32 ReadIpDisable0Reg;
-	XNvm_EfuseFipsInfoBits *FipsInfoBitsData = (XNvm_EfuseFipsInfoBits *)FipsInfoBits;
+	XNvm_EfuseFipsInfoBits *FipsInfoBitsData = (XNvm_EfuseFipsInfoBits *)(UINTPTR)FipsInfoBits;
 	u32 HighAddr;
 	u32 LowAddr;
 	u8 FipsVersionUpperBits;
@@ -2224,7 +2230,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadDmeFipsReg, XNVM_WORD_LEN);
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadIpDisable0Reg, XNVM_WORD_LEN);
 
-	HighAddr = (u32)((UINTPTR)(&ReadDmeFipsReg) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadDmeFipsReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadDmeFipsReg;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_DME_FIPS_OFFSET, 1U, LowAddr,
 		HighAddr);
@@ -2243,7 +2249,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadDmeFipsReg, XNVM_WORD_LEN);
 
-	HighAddr = (u32)((UINTPTR)(&ReadIpDisable0Reg) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadDmeFipsReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadIpDisable0Reg;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_IP_DISABLE_0_OFFSET, 1U, LowAddr,
 		HighAddr);
@@ -2302,7 +2308,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadSecurityCtrlReg;
 	u32 ReadEccCtrlReg;
-	XNvm_EfusePufSecCtrlBits *PufSecCtrlBitsData = (XNvm_EfusePufSecCtrlBits *)PufSecCtrlBits;
+	XNvm_EfusePufSecCtrlBits *PufSecCtrlBitsData = (XNvm_EfusePufSecCtrlBits *)(UINTPTR)PufSecCtrlBits;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -2318,7 +2324,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadEccCtrlReg, XNVM_WORD_LEN);
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadSecurityCtrlReg, XNVM_WORD_LEN);
 
-	HighAddr = (u32)((UINTPTR)(&ReadSecurityCtrlReg) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadSecurityCtrlReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadSecurityCtrlReg;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET, 1U, LowAddr,
 		HighAddr);
@@ -2332,7 +2338,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadSecurityCtrlReg, XNVM_WORD_LEN);
 
-	HighAddr = (u32)((UINTPTR)(&ReadEccCtrlReg) >> XNVM_ADDR_HIGH_SHIFT);
+	XNVM_GET_HADDR(&ReadEccCtrlReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadEccCtrlReg;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_ECC_CTRL_OFFSET, 1U, LowAddr,
 		HighAddr);
@@ -2921,7 +2927,7 @@ static int XNvm_EfuseValidateNdWriteIv(const XNvm_ClientInstance *InstancePtr,
 	/**
 	 * Validate IV's requested for programming
 	 */
-	Status = XNvm_EfuseValidateIvWriteReq(IvType, (XNvm_Iv*)(Addr));
+	Status = XNvm_EfuseValidateIvWriteReq(IvType, (XNvm_Iv*)(UINTPTR)(Addr));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

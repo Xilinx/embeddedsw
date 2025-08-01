@@ -98,7 +98,7 @@
 *                       PPK0/1/2 and additional ppk enable bit
 *       ng   12/12/2023 Fixed doxygen grouping
 * 3.6   hj   04/15/2025 Remove zero IV check in dec_only fuse programming
-*
+* 3.6   rpu  07/21/2025 Fixed GCC warnings
 * </pre>
 *
 *******************************************************************************/
@@ -4129,7 +4129,7 @@ END:
  *
  * @return
  *		- XST_SUCCESS  If eFUSE rows contains zeros.
- *		- XST_FAILURE  If eFUSE rows doesnt contain zeros.
+ *		- XST_FAILURE  If eFUSE rows doesn't contain zeros.
  *
  ******************************************************************************/
 static int XNvm_EfuseCheckZeros(u32 RowStart, u32 RowEnd)
@@ -4964,7 +4964,7 @@ END:
  *
  * @return
  *		- XST_SUCCESS  Specified bit set in eFUSE (Aes and user key eFuses
- * 				cannot be verified as they dont have eFuse cache,
+ * 				cannot be verified as they don't have eFuse cache,
  * 				hence those cases are skipped and returns Success).
  *		- XNVM_EFUSE_ERR_PGM_VERIFY  Verification failed, specified bit
  *						   is not set.
@@ -6046,7 +6046,6 @@ END:
 static int XNvm_EfuseValidateAdditionalPpkWriteReq(const XNvm_EfuseData *WriteChecks)
 {
 	int Status = XST_FAILURE;
-	u32 Index = 0U;
 	const XNvm_EfuseAdditionalPpkHash *WriteReq = WriteChecks->AdditionalPpkHash;
 
 	if (WriteReq == NULL) {
