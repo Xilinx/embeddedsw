@@ -19,7 +19,8 @@
 *       vss   04/07/25 Initialized AesKeyLookupTbl array.
 *       vss   06/19/25 Removed dead code
 * 5.6   aa    07/15/25 Typecast to essential datatype to avoid implicit conversions
-*                      and added explicit parenthesis for sub-expression
+*                      added explicit parenthesis for sub-expression and fix
+*                      partially initialized array
 *
 * </pre>
 *
@@ -228,11 +229,11 @@ const u8 XSecure_SssLookupTable
 	*+----+-----+-----+-----+-----+-----+-----+--------+
 	* 0x00 = INVALID value
 	*/
-	{0x05U, 0x09U, 0x00U, 0x0AU}, /* DMA0 */
-	{0x05U, 0x00U, 0x00U, 0x00U}, /* AES  */
-	{0x05U, 0x00U, 0x00U, 0x0AU}, /* SHA  */
-	{0x05U, 0x00U, 0x00U, 0x00U}, /* SBI  */
-	{0x00U, 0x00U, 0x00U, 0x00U}, /* Invalid  */
+	{0x05U, 0x09U, 0x00U, 0x0AU, 0x00U}, /* DMA0 */
+	{0x05U, 0x00U, 0x00U, 0x00U, 0x00U}, /* AES  */
+	{0x05U, 0x00U, 0x00U, 0x0AU, 0x00U}, /* SHA  */
+	{0x05U, 0x00U, 0x00U, 0x00U, 0x00U}, /* SBI  */
+	{0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, /* Invalid  */
 };
 
 /*
