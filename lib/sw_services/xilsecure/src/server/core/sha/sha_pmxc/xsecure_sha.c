@@ -19,6 +19,7 @@
 * 5.4   kal  07/24/24 Initial release
 *       sk   08/29/24 Added support for SDT flow
 *		tri  03/01/25 Added SSS configuration for SHA3 hashing
+* 5.6   aa   07/21/25 Typecast to essential datatype to avoid implicit conversions
 *
 * </pre>
 *
@@ -65,7 +66,7 @@ static const XSecure_ShaConfig *XSecure_ShaLookupConfig(u32 DeviceId)
 	u32 Index;
 
 	/** Checks all the instances */
-	for (Index = 0x0U; Index < XSECURE_SHA_NUM_OF_INSTANCES; Index++) {
+	for (Index = 0x0U; Index < (u32)XSECURE_SHA_NUM_OF_INSTANCES; Index++) {
 		if (ShaConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &ShaConfigTable[Index];
 			break;
@@ -105,7 +106,7 @@ int XSecure_ShaInitialize(XSecure_Sha* const InstancePtr, XPmcDma* DmaPtr)
 	InstancePtr->BaseAddress = CfgPtr->BaseAddress;
 	InstancePtr->SssShaCfg = CfgPtr->SssShaCfg;
 	InstancePtr->DmaPtr = DmaPtr;
-	InstancePtr->IsLastUpdate = FALSE;
+	InstancePtr->IsLastUpdate = (u32)FALSE;
 
 	/** Initializes the secure stream switch instance */
 	Status = XSecure_SssInitialize(&(InstancePtr->SssInstance));
@@ -157,7 +158,7 @@ int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 	}
 
 	InstancePtr->HashAlgo = ShaMode;
-	InstancePtr->IsLastUpdate = FALSE;
+	InstancePtr->IsLastUpdate = (u32)FALSE;
 
 	/** Release Reset SHA2/3 engine. */
 	XSecure_ReleaseReset((UINTPTR)InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
@@ -234,7 +235,7 @@ int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Si
 
 	/** Wait for PMC DMA done bit to be set. */
 	Status = XPmcDma_WaitForDoneTimeout(InstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL);
-	if(Status != (u32)XST_SUCCESS) {
+	if(Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto END_RST;
 	}
@@ -242,7 +243,7 @@ int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Si
 	/** Acknowledge the transfer has completed. */
 	XPmcDma_IntrClear(InstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 
-	if (InstancePtr->IsLastUpdate == TRUE) {
+	if (InstancePtr->IsLastUpdate == (u32)TRUE) {
 		InstancePtr->ShaState = XSECURE_SHA_UPDATE_DONE;
 	}
 	else {
@@ -419,7 +420,7 @@ int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr)
 	}
 
 	/** Make IsLastUpdate to TRUE */
-	InstancePtr->IsLastUpdate = TRUE;
+	InstancePtr->IsLastUpdate = (u32)TRUE;
 
 	Status = XST_SUCCESS;
 

@@ -18,6 +18,7 @@
 * 5.5   kpt   08/16/22 Initial release
 *       vss   04/07/25 Initialized AesKeyLookupTbl array.
 *       vss   06/19/25 Removed dead code
+* 5.6   aa    07/15/25 Typecast to essential datatype to avoid implicit conversions
 *
 * </pre>
 *
@@ -41,10 +42,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[0U] = {
 		.RegOffset = XSECURE_AES_BH_KEY_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_BH_KEY,
-		.UsrWrAllowed = TRUE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = TRUE,
+		.UsrWrAllowed = (u8)TRUE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)TRUE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_BH_KEY_MASK
 	},
@@ -53,10 +54,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[1U] = {
 		.RegOffset = XSECURE_AES_INVALID_CFG,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_BH_RD_KEY,
-		.UsrWrAllowed = FALSE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)FALSE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_KEY_DEC_SEL_BH_RED,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_BH_RED_KEY_MASK
 	},
@@ -65,10 +66,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[2U] = {
 		.RegOffset = XSECURE_AES_INVALID_CFG,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_EFUSE_KEY,
-		.UsrWrAllowed = FALSE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = TRUE,
+		.UsrWrAllowed = (u8)FALSE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)TRUE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_EFUSE_KEY_MASK
 	},
@@ -77,10 +78,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[3U] = {
 		.RegOffset = XSECURE_AES_INVALID_CFG,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_EFUSE_RED_KEY,
-		.UsrWrAllowed = FALSE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)FALSE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_KEY_DEC_SEL_EFUSE_RED,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_MASK
 	},
@@ -89,10 +90,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[4U] = {
 		.RegOffset = XSECURE_AES_INVALID_CFG,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_KUP_KEY,
-		.UsrWrAllowed = FALSE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)FALSE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK
 	},
@@ -101,10 +102,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[5U] = {
 		.RegOffset = XSECURE_AES_INVALID_CFG,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_FAMILY_KEY,
-		.UsrWrAllowed = FALSE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)FALSE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_INVALID_CFG
 	},
@@ -113,10 +114,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[6U] = {
 		.RegOffset = XSECURE_AES_INVALID_CFG,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_PUF_KEY,
-		.UsrWrAllowed = FALSE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)FALSE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_PUF_KEY_MASK
 	},
@@ -125,10 +126,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[7U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_0_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_0,
-		.UsrWrAllowed = TRUE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)TRUE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_0_MASK
 	},
@@ -137,10 +138,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[8U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_1_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_1,
-		.UsrWrAllowed = TRUE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)TRUE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_1_MASK
 	},
@@ -149,10 +150,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[9U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_2_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_2,
-		.UsrWrAllowed = TRUE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)TRUE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_2_MASK
 	},
@@ -161,10 +162,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[10U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_3_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_3,
-		.UsrWrAllowed = TRUE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)TRUE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_3_MASK
 	},
@@ -173,10 +174,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[11U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_4_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_4,
-		.UsrWrAllowed = TRUE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)TRUE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_4_MASK
 	},
@@ -185,10 +186,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[12U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_5_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_5,
-		.UsrWrAllowed = TRUE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)TRUE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_5_MASK
 	},
@@ -197,10 +198,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[13U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_6_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_6,
-		.UsrWrAllowed = TRUE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)TRUE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_6_MASK
 	},
@@ -209,10 +210,10 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	[14U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_7_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_7,
-		.UsrWrAllowed = TRUE,
-		.DecAllowed = TRUE,
-		.EncAllowed = TRUE,
-		.KeyDecSrcAllowed = FALSE,
+		.UsrWrAllowed = (u8)TRUE,
+		.DecAllowed = (u8)TRUE,
+		.EncAllowed = (u8)TRUE,
+		.KeyDecSrcAllowed = (u8)FALSE,
 		.KeyDecSrcSelVal = XSECURE_AES_INVALID_CFG,
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_7_MASK
 	}
@@ -309,7 +310,7 @@ int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 		goto END;
 	}
 	/* Validate the size based on last chunk */
-	if ((IsLastChunk != TRUE) &&
+	if ((IsLastChunk != (u8)TRUE) &&
 		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
 		goto END;
@@ -344,20 +345,20 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg 
 		goto END;
 	}
 
-	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
+	if ((AesDmaCfg->DestChannelCfg == (u8)TRUE) &&
 		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
 		XPmcDma_64BitTransfer(PmcDmaPtr, XPMCDMA_DST_CHANNEL,
 			(u32)AesDmaCfg->DestDataAddr, (u32)(AesDmaCfg->DestDataAddr >> XSECURE_ADDR_HIGH_SHIFT),
 			Size / XSECURE_WORD_SIZE, AesDmaCfg->IsLastChunkDest);
 	}
 
-	if (AesDmaCfg->SrcChannelCfg == TRUE) {
+	if (AesDmaCfg->SrcChannelCfg == (u8)TRUE) {
 		XPmcDma_64BitTransfer(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 			(u32)AesDmaCfg->SrcDataAddr, (u32)(AesDmaCfg->SrcDataAddr >> XSECURE_ADDR_HIGH_SHIFT),
 			Size / XSECURE_WORD_SIZE, AesDmaCfg->IsLastChunkSrc);
 	}
 
-	if (AesDmaCfg->SrcChannelCfg == TRUE) {
+	if (AesDmaCfg->SrcChannelCfg == (u8)TRUE) {
 		/* Wait for the SRC DMA completion. */
 		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr,
 			XPMCDMA_SRC_CHANNEL);
@@ -370,7 +371,7 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg 
 			XPMCDMA_IXR_DONE_MASK);
 	}
 
-	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
+	if ((AesDmaCfg->DestChannelCfg == (u8)TRUE) &&
 		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
 		/* Wait for the DEST DMA completion. */
 		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr,
@@ -453,7 +454,7 @@ int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 			break;
 	}
 
-	if (Status == XSECURE_SHA_INVALID_PARAM) {
+	if (Status == (int)XSECURE_SHA_INVALID_PARAM) {
 		goto END;
 	}
 	else {
@@ -506,7 +507,7 @@ int XSecure_ShaDmaXfer(XPmcDma *DmaPtr, u64 DataAddr, u32 Size, u8 IsLastUpdate)
 		goto END;
 	}
 
-	if ((IsLastUpdate != TRUE) && (IsLastUpdate != FALSE)) {
+	if ((IsLastUpdate != (u8)TRUE) && (IsLastUpdate != (u8)FALSE)) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
@@ -538,7 +539,7 @@ int XSecure_CfgSssAes(XPmcDma *DmaPtr, const XSecure_Sss *SssInstance)
 #ifndef SDT
 	if (DmaPtr->Config.DeviceId == (u16)PMCDMA_0_DEVICE_ID) {
 #else
-	if (DmaPtr->Config.BaseAddress == PMCDMA_0_DEVICE_ID) {
+	if (DmaPtr->Config.BaseAddress == (UINTPTR)PMCDMA_0_DEVICE_ID) {
 #endif
 		Status = XSecure_SssAes(SssInstance,
 				XSECURE_SSS_DMA0, XSECURE_SSS_DMA0);

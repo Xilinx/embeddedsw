@@ -100,6 +100,7 @@
 *       vss  11/20/2024 Fix for data corruption of GCM tag when any other
 *                       operation uses DMA0 after encrypt update.
 *       vss  01/22/2025   Added status check in AesUpdate and CopyGcmTag functions.
+* 5.6   aa   07/15/2025 Typecast to essential datatypes to avoid implicit conversions
 *
 * </pre>
 *
@@ -191,7 +192,7 @@ int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 	InstancePtr->BaseAddress = XSECURE_AES_BASEADDR;
 	InstancePtr->PmcDmaPtr = PmcDmaPtr;
 	InstancePtr->NextBlkLen = 0U;
-	InstancePtr->IsGmacEn = FALSE;
+	InstancePtr->IsGmacEn = (u32)FALSE;
 #ifdef VERSAL_NET
 	InstancePtr->IsEcbEn = (u32)FALSE;
 #endif
@@ -258,9 +259,9 @@ int XSecure_AesSetDpaCm(const XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 		XSECURE_EFUSE_DPA_CM_DIS_MASK) != XSECURE_EFUSE_DPA_CM_DIS_MASK) {
 
 		/** Set DPA counter measures as per the user input */
-		if ((DpaCmCfgEn != FALSE) || (DpaCmCfgEnTmp != FALSE)) {
-			DpaCmCfgEn = TRUE;
-			DpaCmCfgEnTmp = TRUE;
+		if ((DpaCmCfgEn != (u32)FALSE) || (DpaCmCfgEnTmp != (u32)FALSE)) {
+			DpaCmCfgEn = (u32)TRUE;
+			DpaCmCfgEnTmp = (u32)TRUE;
 		}
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 						XSECURE_AES_CM_EN_OFFSET, (DpaCmCfgEn | DpaCmCfgEnTmp));
@@ -335,7 +336,7 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 		goto END;
 	}
 
-	if ((AesKeyLookupTbl[KeySrc].UsrWrAllowed != TRUE) ||
+	if ((AesKeyLookupTbl[KeySrc].UsrWrAllowed != (u8)TRUE) ||
 		(KeyAddr == 0x00U)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -431,7 +432,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 		goto END;
 	}
 
-	if (XSecure_AesIsEcbModeEn(InstancePtr) != FALSE) {
+	if (XSecure_AesIsEcbModeEn(InstancePtr) != (u32)FALSE) {
 		Status = (int)XSECURE_AES_INVALID_MODE;
 		goto END;
 	}
@@ -453,14 +454,14 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 		XSECURE_AES_AAD_ENABLE);
 
 	AesDmaCfg.SrcDataAddr = AadAddr;
-	AesDmaCfg.SrcChannelCfg = TRUE;
+	AesDmaCfg.SrcChannelCfg = (u8)TRUE;
 	AesDmaCfg.IsLastChunkSrc = (u8)InstancePtr->IsGmacEn;
 
 	/*
 	 * Enable destination channel swapping to read
 	 * GMAC tag in correct order from hardware.
 	 */
-	if (InstancePtr->IsGmacEn == TRUE) {
+	if (InstancePtr->IsGmacEn == (u32)TRUE) {
 		InstancePtr->AesState = XSECURE_AES_UPDATE_DONE;
 #ifndef VERSAL_2VE_2VM
 		XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
@@ -474,11 +475,11 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 		goto CLEAR;
 	}
 
-	if ((InstancePtr->IsGmacEn == TRUE) && (InstancePtr->OperationId) == XSECURE_ENCRYPT){
+	if ((InstancePtr->IsGmacEn == (u32)TRUE) && (InstancePtr->OperationId) == XSECURE_ENCRYPT){
 		Status = XSecure_AesCopyGcmTag(InstancePtr, &AesDmaCfg);
 	}
 
-	InstancePtr->IsGmacEn = FALSE;
+	InstancePtr->IsGmacEn = (u32)FALSE;
 CLEAR:
 #ifndef VERSAL_2VE_2VM
 	/* Clear endianness */
@@ -555,7 +556,7 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 		goto END_RST;
 	}
 
-	if ((AesKeyLookupTbl[DecKeySrc].KeyDecSrcAllowed != TRUE) ||
+	if ((AesKeyLookupTbl[DecKeySrc].KeyDecSrcAllowed != (u8)TRUE) ||
 	    (AesKeyLookupTbl[DstKeySrc].KeyDecSrcSelVal ==
 				XSECURE_AES_INVALID_CFG)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
@@ -591,9 +592,9 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 
 	Status = XST_FAILURE;
 
-	AesDmaCfg.SrcChannelCfg = TRUE;
+	AesDmaCfg.SrcChannelCfg = (u8)TRUE;
 	AesDmaCfg.SrcDataAddr = IvAddr;
-	AesDmaCfg.IsLastChunkSrc = TRUE;
+	AesDmaCfg.IsLastChunkSrc = (u8)TRUE;
 
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg,
 		XSECURE_SECURE_GCM_TAG_SIZE);
@@ -737,7 +738,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	if (XSecure_AesIsEcbModeEn(InstancePtr) != FALSE) {
+	if (XSecure_AesIsEcbModeEn(InstancePtr) != (u32)FALSE) {
 		Status = (int)XSECURE_AES_INVALID_MODE;
 		goto END;
 	}
@@ -755,9 +756,9 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
 
-	AesDmaCfg.SrcChannelCfg = TRUE;
+	AesDmaCfg.SrcChannelCfg = (u8)TRUE;
 	AesDmaCfg.SrcDataAddr = GcmTagAddr;
-	AesDmaCfg.IsLastChunkSrc = FALSE;
+	AesDmaCfg.IsLastChunkSrc = (u8)FALSE;
 
 	/** Update AES engine with the GCM Tag data to verify the GCM Tag */
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg,
@@ -795,7 +796,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	Status = XSecure_AesGetNxtBlkLen(InstancePtr, &InstancePtr->NextBlkLen);
 
 END_RST:
-	InstancePtr->IsGmacEn = FALSE;
+	InstancePtr->IsGmacEn = (u32)FALSE;
 #ifndef VERSAL_2VE_2VM
 	/* Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
@@ -861,12 +862,12 @@ int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	Status = XSecure_AesValidateSize(Size, TRUE);
+	Status = XSecure_AesValidateSize(Size, (u8)TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if (XSecure_AesIsEcbModeEn(InstancePtr) != FALSE) {
+	if (XSecure_AesIsEcbModeEn(InstancePtr) != (u32)FALSE) {
 		Status = (int)XSECURE_AES_INVALID_MODE;
 		goto END;
 	}
@@ -883,7 +884,7 @@ int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	/** Update AES engine with encrypted data and get the decrypted data output */
 	Status = XSecure_AesDecryptUpdate(InstancePtr, InDataAddr, OutDataAddr,
-						Size, TRUE);
+						Size, (u8)TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -991,7 +992,7 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	if (XSecure_AesIsEcbModeEn(InstancePtr) != FALSE) {
+	if (XSecure_AesIsEcbModeEn(InstancePtr) != (u32)FALSE) {
 		Status = (int)XSECURE_AES_INVALID_MODE;
 		goto END;
 	}
@@ -1076,7 +1077,7 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	if (XSecure_AesIsEcbModeEn(InstancePtr) != FALSE) {
+	if (XSecure_AesIsEcbModeEn(InstancePtr) != (u32)FALSE) {
 		Status = (int)XSECURE_AES_INVALID_MODE;
 		goto END;
 	}
@@ -1086,7 +1087,7 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	Status = XSecure_AesValidateSize(Size, TRUE);
+	Status = XSecure_AesValidateSize(Size, (u8)TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1098,7 +1099,7 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	/** Update the data to AES engine */
 	Status = XSecure_AesEncryptUpdate(InstancePtr, InDataAddr, OutDataAddr,
-					Size, TRUE);
+					Size, (u8)TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1622,7 +1623,7 @@ static int XSecure_AesKeyLoadandIvXfer(const XSecure_Aes *InstancePtr,
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
 
-	if (XSecure_AesIsEcbModeEn(InstancePtr) == FALSE) {
+	if (XSecure_AesIsEcbModeEn(InstancePtr) == (u32)FALSE) {
 		Status = XSecure_AesIvXfer(InstancePtr, IvAddr);
 	}
 
@@ -1654,9 +1655,9 @@ static int XSecure_AesIvXfer(const XSecure_Aes *InstancePtr, u64 IvAddr)
 		goto END;
 	}
 
-	AesDmaCfg.SrcChannelCfg = TRUE;
+	AesDmaCfg.SrcChannelCfg = (u8)TRUE;
 	AesDmaCfg.SrcDataAddr = IvAddr;
-	AesDmaCfg.IsLastChunkSrc = FALSE;
+	AesDmaCfg.IsLastChunkSrc = (u8)FALSE;
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg,
 			XSECURE_SECURE_GCM_TAG_SIZE);
 	if (InstancePtr->DmaSwapEn == XSECURE_DISABLE_BYTE_SWAP) {
@@ -1727,7 +1728,7 @@ int XSecure_AesGmacCfg(XSecure_Aes *InstancePtr, u32 IsGmacEn)
 		goto END;
 	}
 
-	if ((IsGmacEn != TRUE) && (IsGmacEn != FALSE)) {
+	if ((IsGmacEn != (u32)TRUE) && (IsGmacEn != (u32)FALSE)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -1770,8 +1771,8 @@ static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	AesDmaCfg.SrcDataAddr = InDataAddr;
 	AesDmaCfg.DestDataAddr = OutDataAddr;
-	AesDmaCfg.SrcChannelCfg = TRUE;
-	AesDmaCfg.DestChannelCfg = TRUE;
+	AesDmaCfg.SrcChannelCfg = (u8)TRUE;
+	AesDmaCfg.DestChannelCfg = (u8)TRUE;
 	AesDmaCfg.IsLastChunkSrc = IsLastChunk;
 
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg, Size);
@@ -1779,7 +1780,7 @@ static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	if((InstancePtr->OperationId == XSECURE_ENCRYPT) && (IsLastChunk == TRUE)){
+	if((InstancePtr->OperationId == XSECURE_ENCRYPT) && (IsLastChunk == (u8)TRUE)){
 		Status = XSecure_AesCopyGcmTag(InstancePtr, &AesDmaCfg);
 	}
 
@@ -1818,7 +1819,7 @@ END:
 int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 	u32 AadSize, u64 GcmTagAddr)
 {
-	volatile int Status = (u32)XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
         volatile u32 GcmStatus = 0U;
         volatile u32 GcmStatusTmp = 0U;
@@ -1846,8 +1847,8 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 		XSECURE_AES_AAD_ENABLE);
 
 	AesDmaCfg.SrcDataAddr = AadAddr;
-	AesDmaCfg.SrcChannelCfg = TRUE;
-	AesDmaCfg.IsLastChunkSrc = TRUE;
+	AesDmaCfg.SrcChannelCfg = (u8)TRUE;
+	AesDmaCfg.IsLastChunkSrc = (u8)TRUE;
 
 	/* Push the AAD to AES engine */
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg, AadSize);
@@ -1860,8 +1861,8 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 		XSECURE_AES_AAD_DISABLE);
 
 	AesDmaCfg.SrcDataAddr = GcmTagAddr;
-	AesDmaCfg.SrcChannelCfg = TRUE;
-	AesDmaCfg.IsLastChunkSrc = FALSE;
+	AesDmaCfg.SrcChannelCfg = (u8)TRUE;
+	AesDmaCfg.IsLastChunkSrc = (u8)FALSE;
 	/* Push the GCM TAG to AES engine */
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg,
 		XSECURE_SECURE_GCM_TAG_SIZE);
@@ -1884,7 +1885,7 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 		goto END_RST;
 	}
 
-	Status = (u32)XST_SUCCESS;
+	Status = XST_SUCCESS;
 
 END_RST:
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
@@ -1922,7 +1923,7 @@ static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 {
 	volatile int Status = XST_FAILURE;
 	volatile u32 KeyZeroedStatus = XSECURE_PUF_KEY_ZEROED_MASK;
-	u32 IsKeySrcAllowed = FALSE;
+	u32 IsKeySrcAllowed = (u32)FALSE;
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -1966,7 +1967,7 @@ static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	}
 
 	/* Key selected does not allow decryption or encryption */
-	if (IsKeySrcAllowed == FALSE) {
+	if (IsKeySrcAllowed == (u32)FALSE) {
 		Status = XST_FAILURE;
 		goto END;
 	}
@@ -2027,7 +2028,7 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 		goto END;
 	}
 
-	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE))) {
+	if (((IsLastChunk != (u8)TRUE) && (IsLastChunk != (u8)FALSE))) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
 		goto END;
 	}
@@ -2053,14 +2054,14 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 		goto END_RST;
 	}
 
-	if (IsLastChunk == TRUE) {
+	if (IsLastChunk == (u8)TRUE) {
 		InstancePtr->AesState = XSECURE_AES_UPDATE_DONE;
 	}
 	else {
 		InstancePtr->AesState = XSECURE_AES_UPDATE_IN_PROGRESS;
 	}
 
-	if ((XSecure_AesIsEcbModeEn(InstancePtr) == TRUE) && (IsLastChunk == TRUE)) {
+	if ((XSecure_AesIsEcbModeEn(InstancePtr) == (u32)TRUE) && (IsLastChunk == (u8)TRUE)) {
 		/* Wait for AES Done for last chunk in ECB mode */
 		Status = XSecure_AesWaitForDone(InstancePtr);
 	}
@@ -2104,10 +2105,10 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 {
 	int Status = XST_FAILURE;
 
-	if (XSecure_AesIsEcbModeEn(InstancePtr) != TRUE) {
+	if (XSecure_AesIsEcbModeEn(InstancePtr) != (u32)TRUE) {
 		AesDmaCfg->DestDataAddr = (u64)(UINTPTR)InstancePtr->GcmTag;
-		AesDmaCfg->DestChannelCfg = TRUE;
-		AesDmaCfg->SrcChannelCfg = FALSE;
+		AesDmaCfg->DestChannelCfg = (u8)TRUE;
+		AesDmaCfg->SrcChannelCfg = (u8)FALSE;
 
 #if(!defined(VERSAL_PLM) && !(defined(__MICROBLAZE__)))
 		/* Invalidate Cache before and after dma transfer to ensure cache coherency for a72 and r5 processors */
