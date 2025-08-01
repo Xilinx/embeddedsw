@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -292,6 +292,13 @@ BaseType_t xPortStartScheduler( void )
 	/* Restore the context of the first task that is going to run.  From here
 	on, the created tasks will be executing. */
 	vPortStartFirstTask();
+
+        /* Will only get here if vTaskStartScheduler() was called with the CPU in
+	a non-privileged mode or the binary point register was not set to its lowest
+	possible value.  prvTaskExitError() is referenced to prevent a compiler
+	warning about it being defined but not referenced in the case that the user
+	defines their own exit address. */
+        (void)prvTaskExitError;
 
 	/* Should not get here as the tasks are now running! */
 	return pdFALSE;
