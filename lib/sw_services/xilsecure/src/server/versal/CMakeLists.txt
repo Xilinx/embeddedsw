@@ -8,11 +8,7 @@ collect (PROJECT_LIB_SOURCES xsecure_plat.c)
 collect (PROJECT_LIB_HEADERS xsecure_sha_hw.h)
 collect (PROJECT_LIB_SOURCES xsecure_plat_kat.c)
 collect (PROJECT_LIB_HEADERS xsecure_plat_kat.h)
-if( NOT (
-		("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
-		("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5")
-	)
-  )
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
   collect (PROJECT_LIB_SOURCES xsecure_plat_ipihandler.c)
   collect (PROJECT_LIB_HEADERS xsecure_plat_ipihandler.h)
   collect (PROJECT_LIB_SOURCES xsecure_cmd.c)

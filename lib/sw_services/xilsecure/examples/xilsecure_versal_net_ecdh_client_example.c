@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,7 +20,7 @@
 * ------------------------------------------------------------------------------------------------------------
 * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
 * any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
-* which is acccessible to both client and server.
+* which is accessible to both client and server.
 *
 * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
 *
@@ -58,7 +58,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   har  06/20/2023 Initial release
-*
+* 5.5   rpu  07/17/2025 Fixed GCC warnings
 * </pre>
 *
 * @note
@@ -177,7 +177,6 @@ static int GenerateSharedSecretExample(XSecure_ClientInstance *InstancePtr)
 {
 	int Status = XST_FAILURE;
 	u8* Secret = NULL;
-	u32 Index= 0;
 
 	if (Xil_Strnlen(XSECURE_D_P384, (XSECURE_ECC_P384_SIZE_IN_BYTES * 2U)) ==
 		(XSECURE_ECC_P384_SIZE_IN_BYTES * 2U)) {
