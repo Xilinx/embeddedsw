@@ -19,6 +19,7 @@
 *       vss   04/07/25 Initialized AesKeyLookupTbl array.
 *       vss   06/19/25 Removed dead code
 * 5.6   aa    07/15/25 Typecast to essential datatype to avoid implicit conversions
+*                      and added explicit parenthesis for sub-expression
 *
 * </pre>
 *
@@ -478,7 +479,7 @@ int XSecure_ValidateShaDataSize(const u32 Size)
 {
 	int Status = XST_FAILURE;
 
-	if (Size % XSECURE_WORD_SIZE == 0U) {
+	if ((Size % XSECURE_WORD_SIZE) == 0U) {
 		Status = XST_SUCCESS;
 	}
 

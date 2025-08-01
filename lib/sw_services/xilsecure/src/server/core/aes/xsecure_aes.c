@@ -101,6 +101,7 @@
 *                       operation uses DMA0 after encrypt update.
 *       vss  01/22/2025   Added status check in AesUpdate and CopyGcmTag functions.
 * 5.6   aa   07/15/2025 Typecast to essential datatypes to avoid implicit conversions
+*                       and added explicit parenthesis for sub-expression
 *
 * </pre>
 *
@@ -475,7 +476,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 		goto CLEAR;
 	}
 
-	if ((InstancePtr->IsGmacEn == (u32)TRUE) && (InstancePtr->OperationId) == XSECURE_ENCRYPT){
+	if ((InstancePtr->IsGmacEn == (u32)TRUE) && (InstancePtr->OperationId == XSECURE_ENCRYPT)){
 		Status = XSecure_AesCopyGcmTag(InstancePtr, &AesDmaCfg);
 	}
 

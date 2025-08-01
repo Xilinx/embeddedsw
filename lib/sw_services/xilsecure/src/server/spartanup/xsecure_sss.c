@@ -17,6 +17,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.5   kpt     08/18/24 Initial release
 * 5.6   aa      07/15/25 Typecast to essential datatypes to avoid implicit conversions
+*                        and added explicit parenthesis for sub-expression
 *
 * </pre>
 *
@@ -199,7 +200,7 @@ int XSecure_SssDmaLoopBack(const XSecure_Sss *InstancePtr, u16 DmaId)
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) ||
-		DmaId != (u16)XSECURE_SSS_DMA0) {
+		(DmaId != (u16)XSECURE_SSS_DMA0)) {
 		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
 	}
