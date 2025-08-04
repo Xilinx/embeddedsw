@@ -24,6 +24,7 @@ examples:
   xasu_trng_example.c: []
   xasu_ecies_example.c: []
   xasu_keywrap_example.c: []
+  xasu_ocp_example.c: []
 
   condition : |
     examples = []
@@ -33,4 +34,5 @@ examples:
                   "xasu_sha2_example.c", "xasu_sha3_example.c",
                 "xasu_ecdh_example.c", "xasu_hmac_example.c",
                 "xasu_kdf_example.c", "xasu_trng_example.c",
-                "xasu_ecies_example.c", "xasu_keywrap_example.c"]
+                "xasu_ecies_example.c", "xasu_keywrap_example.c",
+                "xasu_ocp_example.c"]
