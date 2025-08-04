@@ -42,7 +42,7 @@ depends_libs:
   xilsecure: {}
 
 examples:
-  xilloader_add_image_store_pdi_client_example.c: []
+  xilloader_image_store_pdi_client_example.c: []
   xilloader_configure_jtag_status_client_example.c:
     - supported_platforms:
       - VersalNet
@@ -52,17 +52,15 @@ examples:
   xilloader_get_image_info_list_client_example.c: []
   xilloader_load_image_client_example.c: []
   xilloader_load_pdi_client_example.c: []
-  xilloader_load_pdi_from_is_client_example.c: []
   xilloader_read_ddr_crypto_perf_counters_client_example.c:
     - supported_platforms:
       - VersalNet
-  xilloader_remove_image_store_pdi_client_example.c: []
   xilloader_update_multiboot_client_example.c: []
   xilloader_validate_pdi_auth_example.c:
     - supported_platforms:
       - VersalNet
   xilloader_get_opt_data_example.c:
-    - supported platforms:
+    - supported_platforms:
       - VersalNet
   xilloader_cfi_selective_readback_example.c: []
 ...
