@@ -16,6 +16,7 @@ properties:
         - enum:
           - xlnx,versal-ospi-1.0
           - amd,versal2-ospi
+          - xlnx,pmc-ospi
   reg:
     description: Physical base address and size of the controller register map
   xlnx,ospi-clk-freq-hz:

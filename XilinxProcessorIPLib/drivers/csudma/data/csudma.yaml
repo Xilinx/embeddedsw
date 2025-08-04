@@ -16,6 +16,7 @@ properties:
         - enum:
           - xlnx,zynqmp-csudma-1.0
           - amd,versal2-asudma-1.0
+          - xlnx,pmc-dma
   reg:
     description: Physical base address and size of the controller register map
   xlnx,dma-type:
