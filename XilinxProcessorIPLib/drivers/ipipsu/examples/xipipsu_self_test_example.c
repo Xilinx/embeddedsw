@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 * 2.17  ht  11/08/24 Update description of TEST_MSG_LEN.
 *       ht  11/25/24 Update Message length to accommodate for CRC bytes
 *                    when IPI CRC is enabled
+* 2.18  an  08/01/25 Added support for Microblaze in system device-tree flow
 * </pre>
 *
 ******************************************************************************/
@@ -49,12 +50,14 @@
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xil_cache.h"
-#include "xscugic.h"
 #include "xipipsu.h"
 #include "xipipsu_hw.h"
 #ifdef SDT
 #include "xinterrupt_wrap.h"
+#else
+#include "xscugic.h"
 #endif
+#include "sleep.h"
 
 /************************* Test Configuration ********************************/
 /* IPI device ID to use for this test */
@@ -83,7 +86,9 @@
 /*****************************************************************************/
 
 /* Global Instances of GIC and IPI devices */
+#ifndef SDT
 XScuGic GicInst;
+#endif
 XIpiPsu IpiInst;
 
 /* Buffers to store Test Data */
@@ -338,7 +343,11 @@ int main()
 		 * Do Nothing
 		 * We need to loop on to receive IPIs and respond to them
 		 */
+#if defined (__MICROBLAZE__)
+		usleep(100);
+#else
 		__asm("wfi");
+#endif
 	}
 	while (1);
 
