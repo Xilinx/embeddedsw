@@ -28,18 +28,18 @@ if (r5)
   set( DEMO_LINK_FLAGS " -lxil -lxilstandalone -lxiltimer -lxilpm -lgcc" )
 endif()
 
-set (LIBMETAL_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+set (LIBMETAL_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libmetal")
 
 list (APPEND CMAKE_MODULE_PATH
       "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
       "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules"
       "${CMAKE_CURRENT_SOURCE_DIR}/cmake/platforms")
 
-include (syscheck)
+include (libmetal/cmake/syscheck.cmake)
 include (CheckIncludeFiles)
 include (CheckCSourceCompiles)
-include (collect)
-include (options)
+include (libmetal/cmake/collect.cmake)
+include (libmetal/cmake/options.cmake)
 set_property (GLOBAL PROPERTY "PROJECT_EC_FLAGS" -Wall -Wextra)
 
 foreach(_inc_path ${CMAKE_INCLUDE_PATH})
@@ -47,6 +47,6 @@ foreach(_inc_path ${CMAKE_INCLUDE_PATH})
 endforeach()
 
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/")
-add_subdirectory (examples)
+add_subdirectory (libmetal/examples)
 
 # vim: expandtab:ts=2:sw=2:smartindent

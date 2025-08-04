@@ -137,7 +137,7 @@ def create_libmetal_app(obj, esw_app_dir):
     Returns:
         None
     """
-    utils.copy_file(os.path.join(esw_app_dir, 'src', 'sdt', 'top-CMakeLists.txt'),
+    utils.copy_file(os.path.join(esw_app_dir, 'src', 'sdt', 'CMakeLists.txt'),
                     os.path.join(obj.app_src_dir, 'CMakeLists.txt'),
                     silent_discard=True)
 

@@ -86,6 +86,8 @@ def create_app(args):
     elif obj.template == 'libmetal_echo_demo':
         srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
         srcdir = os.path.join(srcdir, 'libmetal')
+        utils.copy_file(os.path.join(esw_app_dir, 'src', 'sdt', 'CMakeLists.txt'), dstdir)
+        dstdir = os.path.join(dstdir, 'libmetal')
 
     # Make it easier for user to replace the upstream openamp-system-reference demo area
     # by having it in its own subdirectory.
