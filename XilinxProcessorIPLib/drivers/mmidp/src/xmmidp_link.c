@@ -103,7 +103,7 @@ u32 XMmiDp_GetRxMaxLaneCount(XMmiDp *InstancePtr)
 		>> XMMIDP_DPCD_MAX_LANE_COUNT_SHIFT;
 
 	InstancePtr->RxConfig.MaxLaneCount =
-		GetLaneCount(InstancePtr, InstancePtr->RxConfig.MaxNumLanes);
+		XMmiDp_GetLaneCount(InstancePtr, InstancePtr->RxConfig.MaxNumLanes);
 
 	InstancePtr->RxConfig.EnhancedFrameCap =
 		(DpcdVal & XMMIDP_DPCD_ENHANCED_FRAME_CAP_MASK)
@@ -145,7 +145,7 @@ u32 XMmiDp_GetRxMaxLinkRate(XMmiDp *InstancePtr)
 
 	InstancePtr->RxConfig.MaxLinkBW = MaxLinkBW;
 	InstancePtr->RxConfig.MaxLinkRate =
-		GetLinkRate(InstancePtr, MaxLinkBW);
+		XMmiDp_GetLinkRate(InstancePtr, MaxLinkBW);
 
 	return XST_SUCCESS;
 }
@@ -632,7 +632,7 @@ u32 XMmiDp_SetLinkRate(XMmiDp *InstancePtr, XMmiDp_PhyRate LinkRate)
 	}
 
 	InstancePtr->LinkConfig.LinkRate = LinkRate;
-	InstancePtr->LinkConfig.LinkBW = GetLinkBW(InstancePtr, LinkRate);
+	InstancePtr->LinkConfig.LinkBW = XMmiDp_GetLinkBW(InstancePtr, LinkRate);
 
 	XMmiDp_SetPhyLinkRate(InstancePtr, LinkRate);
 	XMmiDp_SetPhyPowerdown(InstancePtr, PHY_POWER_ON);
@@ -658,7 +658,7 @@ void XMmiDp_SetLaneCount(XMmiDp *InstancePtr, XMmiDp_PhyLanes LaneCount)
 {
 
 	InstancePtr->LinkConfig.LaneCount = LaneCount;
-	InstancePtr->LinkConfig.NumLanes = GetNumLanes(InstancePtr, LaneCount);
+	InstancePtr->LinkConfig.NumLanes = XMmiDp_GetNumLanes(InstancePtr, LaneCount);
 
 	XMmiDp_SetPhyLaneCount(InstancePtr, LaneCount);
 	XMmiDp_SetDpcdLaneCount(InstancePtr);
@@ -949,7 +949,7 @@ u32 XMmiDp_GetRxCapabilities(XMmiDp *InstancePtr)
 		InstancePtr->RxConfig.MaxLinkBW = (InstancePtr->RxConfig.MaxLinkBW <= MaxLinkBW)
 						  ? MaxLinkBW : InstancePtr->RxConfig.MaxLinkBW;
 		InstancePtr->RxConfig.MaxLinkRate =
-			GetLinkRate(InstancePtr, InstancePtr->RxConfig.MaxLinkBW);
+			XMmiDp_GetLinkRate(InstancePtr, InstancePtr->RxConfig.MaxLinkBW);
 	}
 
 	InstancePtr->LinkConfig.CrDoneCnt = InstancePtr->RxConfig.MaxLaneCount;
@@ -1158,7 +1158,7 @@ XMmiDp_TrainingState XMmiDp_TrainingStateChannelEqualization(XMmiDp *InstancePtr
 		InstancePtr->LinkConfig.LaneCount =
 			InstancePtr->RxConfig.MaxLaneCount;
 		InstancePtr->LinkConfig.NumLanes =
-			GetNumLanes(InstancePtr, InstancePtr->LinkConfig.LaneCount);
+			XMmiDp_GetNumLanes(InstancePtr, InstancePtr->LinkConfig.LaneCount);
 
 		InstancePtr->LinkConfig.CrDoneOldState =
 			InstancePtr->RxConfig.MaxLaneCount;

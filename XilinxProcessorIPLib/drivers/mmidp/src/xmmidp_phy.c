@@ -760,7 +760,7 @@ void XMmiDp_DpcdReadModifyWrite(XMmiDp *InstancePtr, u32 DpcdReg,
 
 }
 
-int GetLaneCount(XMmiDp *InstancePtr, u8 NumLanes)
+u8 XMmiDp_GetLaneCount(XMmiDp *InstancePtr, u8 NumLanes)
 {
 	if (NumLanes == 4) {
 		return PHY_LANES_4;
@@ -775,7 +775,7 @@ int GetLaneCount(XMmiDp *InstancePtr, u8 NumLanes)
 	return 0;
 }
 
-int GetNumLanes(XMmiDp *InstancePtr, u8 LaneCount)
+u8 XMmiDp_GetNumLanes(XMmiDp *InstancePtr, u8 LaneCount)
 {
 
 	if (LaneCount == PHY_LANES_1) {
@@ -837,7 +837,7 @@ void XMmiDp_SetPhyLaneCount(XMmiDp *InstancePtr, XMmiDp_PhyLanes LaneCount)
 	InstancePtr->PhyConfig.LaneCount = LaneCount;
 
 	/* Get Number of Lanes from LaneCount option */
-	InstancePtr->PhyConfig.NumLanes = GetNumLanes(InstancePtr, LaneCount);
+	InstancePtr->PhyConfig.NumLanes = XMmiDp_GetNumLanes(InstancePtr, LaneCount);
 
 	XMmiDp_RegReadModifyWrite(InstancePtr, XMMIDP_PHYIF_CTRL_0,
 				  XMMIDP_PHYIF_CTRL_0_PHY_LANES_MASK,
@@ -846,7 +846,7 @@ void XMmiDp_SetPhyLaneCount(XMmiDp *InstancePtr, XMmiDp_PhyLanes LaneCount)
 
 }
 
-int GetLinkRate(XMmiDp *InstancePtr, u8 LinkBW)
+u8 XMmiDp_GetLinkRate(XMmiDp *InstancePtr, u8 LinkBW)
 {
 
 	if (LinkBW == XMMIDP_DPCD_LINK_BW_SET_162GBPS) {
@@ -868,7 +868,7 @@ int GetLinkRate(XMmiDp *InstancePtr, u8 LinkBW)
 	return 0;
 }
 
-int GetLinkBW(XMmiDp *InstancePtr, u8 LinkRate)
+u8 XMmiDp_GetLinkBW(XMmiDp *InstancePtr, u8 LinkRate)
 {
 	if (LinkRate == PHY_RATE_RBR_162GBPS) {
 		return XMMIDP_DPCD_LINK_BW_SET_162GBPS;
@@ -944,7 +944,7 @@ void XMmiDp_SetPhyLinkRate(XMmiDp *InstancePtr, XMmiDp_PhyRate LinkRate)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	InstancePtr->PhyConfig.LinkRate = LinkRate;
-	InstancePtr->PhyConfig.LinkBW = GetLinkBW(InstancePtr, LinkRate);
+	InstancePtr->PhyConfig.LinkBW = XMmiDp_GetLinkBW(InstancePtr, LinkRate);
 
 	switch (LinkRate) {
 		case PHY_RATE_RBR_162GBPS:
