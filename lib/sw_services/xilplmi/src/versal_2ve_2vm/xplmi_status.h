@@ -46,9 +46,9 @@
 *       yog  08/18/2023 Added error XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
 *       am   08/18/2023 Moved run time error codes to respective libraries
 *       yog  08/25/2023 Removed XLOADER_ERR_PLM_MH_SEC_MISMATCH error code
-*       mss  09/04/2023 Added error code for Null Check of EmInit params
-* 2.0   ng   11/11/2023 Added error code for User modules
-* 2.00  ng   01/26/2024 Updated minor error codes
+*       mss  09/04/2023 Added error code for Null Check of EmInit params
+* 2.00  ng   11/11/2023 Added error code for User modules
+*       ng   01/26/2024 Updated minor error codes
 *       am   01/31/2024 Removed XOCP_ECDSA_NOT_ENABLED_ERR enum
 *       am   03/02/2024 Added XLOADER_ERR_ZEROIZE_DIGEST_TABLE error code
 *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
@@ -58,8 +58,9 @@
 *       pre  03/15/2025 Added XPLMI_CMD_IN_PROGRESS error state
 *       sk   03/24/2025 Updated error codes for versal_2ve_2vm platform
 *       sk   03/28/2025 Added error code for UFS dev PM request
-*       vss  07/22/2025 Added Hashblock hash verification error code.
-*
+* 2.3   vss  07/22/2025 Added Hashblock hash verification error code.
+*       ng   07/17/2025 Added new error codes partition copy failure when boot copy optimization is
+*                       disabled
 * </pre>
 *
 * @note
@@ -581,7 +582,11 @@ typedef enum {
 	XLOADER_ERR_ECDSA_NOT_ENABLED, /**< 0x373 - ECDSA code is excluded */
 	XLOADER_ERR_RSA_NOT_ENABLED, /**< 0x374 - RSA code is excluded */
 	XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR,	/**< 0x375 - Invalid Destination address in
-												PrtnCopy API for Raw Partition Loading*/
+						PrtnCopy API for Raw Partition Loading*/
+	XLOADER_ERR_PRTN_COPY_TO_PMCRAM,	/**< 0x376 - Error when copying partition from boot
+						 device to PMCRAM */
+	XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST, /**< 0x377 - Error when copying partition from
+							PMCRAM to destination */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 	XLOADER_ERR_WAKEUP_A78_0 = 0x3A0,	/**< 0x3A0 - Error waking up the A78-0 during handoff. */

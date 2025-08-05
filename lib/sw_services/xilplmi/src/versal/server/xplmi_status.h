@@ -133,6 +133,8 @@
 *       ma   09/23/2024 Added error codes related to PSM to PLM IPI events
 *       tri  03/13/2025 Added XLOADER_ERR_DATA_MEASUREMENT, XLOADER_PRTN_HASH_NOT_PRESENT error code
 *       pre  03/19/2025 Added XPLMI_CMD_IN_PROGRESS error state
+* 2.3   ng   07/17/2025 Added new error codes partition copy failure when boot copy optimization is
+*                       disabled
 *
 * </pre>
 *
@@ -647,7 +649,11 @@ typedef enum {
 	XLOADER_ERR_ECDSA_NOT_ENABLED, /**< 0x373 - ECDSA code is excluded */
 	XLOADER_ERR_RSA_NOT_ENABLED, /**< 0x374 - RSA code is excluded */
 	XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR,	/**< 0x375 - Invalid Destination address in
-												PrtnCopy API for Raw Partition Loading*/
+						 PrtnCopy API for Raw Partition Loading*/
+	XLOADER_ERR_PRTN_COPY_TO_PMCRAM,	/**< 0x376 - Error when copying partition from boot
+						 device to PMCRAM */
+	XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST, /**< 0x377 - Error when copying partition from
+							PMCRAM to destination */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 

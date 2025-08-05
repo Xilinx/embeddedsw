@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -111,7 +111,9 @@
 *       mss  04/05/2024 Added logic to disable device copy optimization
 *       bm   09/25/2024 Fix Boot Device Copy Optimization logic
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
-*		tri  03/01/2025 Updated XLoader_ImageMeasureInfo for partion measurement
+*       tri  03/01/2025 Updated XLoader_ImageMeasureInfo for partition measurement
+* 2.3   ng   07/17/2025 Implemented partition copy when boot copy optimization is disabled
+*
 * </pre>
 *
 * @note
@@ -391,6 +393,18 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	volatile int StatusTmp = XST_FAILURE;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 	XLoader_SecureParams *SecureParams = (XLoader_SecureParams *)SecureParamsPtr;
+	u32 Len;
+	u64 SourceAddr;
+	u64 DestinationAddr;
+	u32 DevCopyOptimization = (XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR) &
+				   XLOADER_DEVICE_COPY_OPTIMIZATION_MASK);
+
+	/*
+	 * Chunk length stores the maximum size of data that can be copied in one go. Chunk memory
+	 * space allocated in PMC RAM is 64KB. First 40 bytes are reserved for CDO command header.
+	 * Total memory available for data copy is 64KB - 40B = 63.96KB.
+	 */
+	u32 ChunkLen = (XPLMI_CHUNK_SIZE - (XPLMI_CMD_LEN_TEMPBUF * XPLMI_WORD_LEN));
 
 #ifndef VERSAL_2VE_2VM
 	u32 PrtnNum = PdiPtr->PrtnNum;
@@ -399,7 +413,7 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 #endif
 
-	/** Verify the destination address range before writing */
+	/** - Verify the destination address range before writing. */
 	Status = XPlmi_VerifyAddrRange(DeviceCopy->DestAddr, DeviceCopy->DestAddr + (u64)DeviceCopy->Len - 1U);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR, Status);
@@ -411,12 +425,52 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	 * Otherwise copy the partition in non-secure mode.
 	 */
 	if ((SecureParams->SecureEn == (u8)FALSE) &&
-			(SecureTempParams->SecureEn == (u8)FALSE) &&
-			(SecureParams->IsCheckSumEnabled == (u8)FALSE)) {
-		Status = PdiPtr->MetaHdr->DeviceCopy(DeviceCopy->SrcAddr,
-			DeviceCopy->DestAddr,DeviceCopy->Len, DeviceCopy->Flags);
-	}
-	else {
+	    (SecureTempParams->SecureEn == (u8)FALSE) &&
+	    (SecureParams->IsCheckSumEnabled == (u8)FALSE)) {
+		/**
+		 * - In non-secure mode, if device copy optimization is enabled, directly copy the
+		 * partition to destination address. Otherwise copy the partition to PMC RAM and
+		 * then to the destination address.
+		 */
+		if (DevCopyOptimization == XLOADER_BOOT_COPY_OPTIMIZATION_ENABLED) {
+			Status = PdiPtr->MetaHdr->DeviceCopy(DeviceCopy->SrcAddr,
+							     DeviceCopy->DestAddr, DeviceCopy->Len,
+							     DeviceCopy->Flags);
+		} else {
+			Len = DeviceCopy->Len;
+			SourceAddr = DeviceCopy->SrcAddr;
+			DestinationAddr = DeviceCopy->DestAddr;
+			while (Len > 0U) {
+				if (Len <= ChunkLen) {
+					ChunkLen = Len;
+				}
+
+				/* Copy the data from boot device to PMC RAM. */
+				Status = PdiPtr->MetaHdr->DeviceCopy(SourceAddr,
+								     XPLMI_PMCRAM_CHUNK_MEMORY,
+								     ChunkLen,
+								     DeviceCopy->Flags);
+				if (Status != XST_SUCCESS) {
+					Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_COPY_TO_PMCRAM,
+								    Status);
+					goto END;
+				}
+
+				/* Copy the data from PMC RAM to destination address. */
+				Status = XPlmi_DmaXfr(XPLMI_PMCRAM_CHUNK_MEMORY, DestinationAddr,
+						      ChunkLen, XPLMI_PMCDMA_0);
+				if (Status != XST_SUCCESS) {
+					Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST,
+								    Status);
+					goto END;
+				}
+
+				Len = Len - ChunkLen;
+				SourceAddr = SourceAddr + ChunkLen;
+				DestinationAddr = DestinationAddr + ChunkLen;
+			}
+		}
+	} else {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureCopy,
 					SecureParams, DeviceCopy->DestAddr,
 					DeviceCopy->Len);
@@ -424,10 +478,10 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 			Status |= StatusTmp;
 		}
 	}
+
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed\n\r");
-	}
-	else {
+	} else {
 #ifndef VERSAL_2VE_2VM
 		ImageMeasureInfo.DataAddr = DeviceCopy->DestAddr;
 		ImageMeasureInfo.DataSize = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
@@ -470,7 +524,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	u32 ChunkAddrTemp;
 	u8 LastChunk = (u8)FALSE;
 	u8 Flags;
-	u32 DevCopyOptimization = (u32)(XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR) &
+	u32 DevCopyOptimization = (XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR) &
 					XLOADER_DEVICE_COPY_OPTIMIZATION_MASK);
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 #ifdef PLM_PRINT_PERF_CDO_PROCESS
