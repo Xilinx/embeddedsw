@@ -58,9 +58,6 @@ static s32 PmConfigGpoSectionHandler(u32* const addr);
 
 #define PM_CONFIG_GPO_MASK	(BIT(5U) | BIT(4U) | BIT(3U) | BIT(2U))
 
-/* Default number of sections in configuration object */
-#define DEFAULT_SECTIONS_NUM	8U
-
 /* Type of Config Obejcts */
 #define PM_CONFIG_OBJECT_TYPE_BASE	(1U)
 #define PM_CONFIG_OBJECT_TYPE_OVERLAY	(2U)
@@ -131,7 +128,6 @@ static PmConfig pmConfig = {
 	.configPerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
 	.flags = 0U,
 	.headerLength = 0U,
-	.secNumber = DEFAULT_SECTIONS_NUM,
 	.confObjType = PM_CONFIG_OBJECT_TYPE_BASE,
 	.overlayConfigPerms = 0U,
 };
@@ -521,9 +517,10 @@ done:
  * PmConfigHeaderHandler() - Read and process header of config object
  * @addr        Start address of the header in configuration object
  */
-static void PmConfigHeaderHandler(u32* const addr)
+static s32 PmConfigHeaderHandler(u32* const addr)
 {
 	u32 remWords;
+	s32 status = XST_FAILURE;
 
 	/* Read number of remaining words in header */
 	remWords = PmConfigReadNext(addr);
@@ -533,6 +530,11 @@ static void PmConfigHeaderHandler(u32* const addr)
 	if (remWords > 0U) {
 		pmConfig.secNumber = PmConfigReadNext(addr);
 		remWords--;
+	} else {
+		/* Exit if section number is missing in config object */
+		PmErr("Missing section numbers\r\n");
+		status = XST_FAILURE;
+		goto done;
 	}
 
 	/* If there is words in header, get type of config object */
@@ -543,6 +545,11 @@ static void PmConfigHeaderHandler(u32* const addr)
 
 	/* Skip the remaining words in header */
 	PmConfigSkipWords(addr, remWords);
+
+	status = XST_SUCCESS;
+
+done:
+	return status;
 }
 
 /**
@@ -601,7 +608,6 @@ static void PmConfigClear(void)
 	PmResetClearConfig();
 	PmNodeClearConfig();
 	pmConfig.configPerms = 0U;
-	pmConfig.secNumber = DEFAULT_SECTIONS_NUM;
 }
 
 /**
@@ -652,7 +658,11 @@ s32 PmConfigLoadObject(const u32 address, const u32 callerIpi)
 	pmConfig.confObjType = PM_CONFIG_OBJECT_TYPE_BASE;
 
 	/* Read and process header from the object */
-	PmConfigHeaderHandler(&currAddr);
+	status = PmConfigHeaderHandler(&currAddr);
+	if (XST_SUCCESS != status) {
+		goto ret;
+	}
+
 	confObjType = pmConfig.confObjType;
 
 	/* Check for the config object type */
