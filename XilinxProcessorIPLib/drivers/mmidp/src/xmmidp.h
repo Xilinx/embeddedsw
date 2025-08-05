@@ -53,7 +53,7 @@ typedef enum {
 } XMmiDp_PhyRate;
 
 /**
- * This typedef describes PHY TrainingPattern
+ * This typedef describes PHY Training Pattern
  */
 typedef enum {
 	PHY_NO_TRAIN 		= 0x0,
@@ -131,12 +131,12 @@ typedef enum {
  * during the link training process.
  */
 typedef enum {
-	XMMIDP_TS_CLOCK_RECOVERY,
-	XMMIDP_TS_CHANNEL_EQUALIZATION,
-	XMMIDP_TS_ADJUST_LINK_RATE,
-	XMMIDP_TS_ADJUST_LANE_COUNT,
-	XMMIDP_TS_FAILURE,
-	XMMIDP_TS_SUCCESS,
+	XMMIDP_TS_CLOCK_RECOVERY	= 0x0,
+	XMMIDP_TS_CHANNEL_EQUALIZATION	= 0x1,
+	XMMIDP_TS_ADJUST_LINK_RATE	= 0x2,
+	XMMIDP_TS_ADJUST_LANE_COUNT	= 0x3,
+	XMMIDP_TS_FAILURE		= 0x4,
+	XMMIDP_TS_SUCCESS		= 0x5,
 } XMmiDp_TrainingState;
 
 /**
@@ -181,22 +181,25 @@ typedef enum {
 } XMmiDp_VidMap;
 
 typedef struct {
+	u8 *VsLevel;
+	u8 *PeLevel;
 	u8 LaneCount;
 	u8 NumLanes;
 	u8 LinkRate;
 	u8 LinkBW;
 	u8 TrainingPattern;
-	u8 *VsLevel;
-	u8 *PeLevel;
 	u8 XmitEn;
 	u8 ScrambleEn;
 	u8 SSCEn;
 	u8 PwrDown;
+	u8 Reserved[3];
 } XMmiDp_PhyConfig;
 
 typedef struct {
 	u8 Edid[XMMIDP_MAX_EDID_READ];
 	u8 EdidNext[XMMIDP_MAX_EDID_READ];
+	u32 TrainingAuxRdInterval;
+	u8 LaneStatusAdjReqs[6];
 	u8 MaxLaneCount;
 	u8 MaxNumLanes;
 	u8 EnhancedFrameCap;
@@ -204,23 +207,22 @@ typedef struct {
 	u8 Tps3Supported;
 	u8 MaxLinkRate;
 	u8 MaxLinkBW;
-	u32 TrainingAuxRdInterval;
-	u8 LaneStatusAdjReqs[6];
 	u8 Tps4Supported;
 	u8 NoAuxLinkTraining;
 	u8 MaxDownspread;
 	u8 DpcdRev;
 	u8 ExtendedReceiverCap;
+	u8 Reserved[2];
 } XMmiDp_RxConfig;
 
 typedef struct {
+	u8 VsLevel[XMMIDP_MAX_LANES];
+	u8 PeLevel[XMMIDP_MAX_LANES];
 	u8 LaneCount;
 	u8 NumLanes;
 	u8 LinkRate;
 	u8 LinkBW;
 	u8 FastLinkTrainEn;
-	u8 VsLevel[XMMIDP_MAX_LANES];
-	u8 PeLevel[XMMIDP_MAX_LANES];
 	u8 SpreadAmp;
 	u8 ChannelCodingSet;
 	u8 CrDoneCnt;
@@ -236,8 +238,6 @@ typedef struct {
  */
 typedef struct {
 	XVidC_VideoTimingMode Vtm;
-	u8 BitsPerColor;
-	u8 PixelClockHz;
 	u32 HStart;
 	u32 VStart;
 	u32 Misc0;
@@ -245,37 +245,41 @@ typedef struct {
 	u32 Misc1;
 	u32 NVid;
 	u32 HBlankInterval;
+	u8 BitsPerColor;
+	u8 PixelClockHz;
+	u8 Reserved[2];
 } XMmiDp_MainStreamAttributes;
 
 /**
  * typedef contains VideoConfig values
  */
 typedef struct {
-	u8 DeInPolarity;
-	u8 HSyncInPolarity;
-	u8 VSyncInPolarity;
 	u16 HActive;
 	u16 HBlank;
-	u8 I_P;
-	u8 RVBlankInOsc;
 	u16 VBlank;
 	u16 VActive;
 	u16 HSyncWidth;
 	u16 VSyncWidth;
+	u8 DeInPolarity;
+	u8 HSyncInPolarity;
+	u8 VSyncInPolarity;
+	u8 I_P;
+	u8 RVBlankInOsc;
 	u8 InitThresholdHi;
 	u8 En3DFrameFieldSeq;
 	u8 AvgBytesPerTuFrac;
 	u8 InitThreshold;
 	u8 AvgBytesPerTu;
+	u8 Reserved[2];
 } XMmiDp_VideoConfig;
 
 typedef struct {
+	XMmiDp_PPC PixModeSel;
+	XMmiDp_VidMap VideoMapping;
 	u8 LinkUpdPps;
 	u8 StreamType;
 	u8 EncryptionEnable;
 	u8 DscEn;
-	XMmiDp_PPC PixModeSel;
-	XMmiDp_VidMap VideoMapping;
 	u8 VidMapIpiEn;
 	u8 VidStreamEn;
 	u8 BcbStuffData;
@@ -284,6 +288,7 @@ typedef struct {
 	u8 BcbDataStuffEn;
 	u8 GyStuffData;
 	u8 RcrStuffData;
+	u8 Reserved[2];
 } XMmiDp_VSampleCtrl;
 
 typedef void (*XMmiDp_HpdIrqHandler)(void *InstancePtr);
@@ -295,20 +300,18 @@ typedef void (*XMmiDp_HpdHotPlugHandler)(void *InstancePtr);
  * this type is then passed to the driver API functions.
  */
 typedef struct {
-
-	u32 AuxDelayUs;
-	XMmiDp_Config Config;
-	XMmiDp_PhyConfig PhyConfig;
+	XMmiDp_MainStreamAttributes MsaConfig[XMMIDP_MAX_LANES];
 	XMmiDp_RxConfig RxConfig;
-	XMmiDp_LinkConfig LinkConfig;
 	XMmiDp_VideoConfig VideoConfig[XMMIDP_MAX_LANES];
 	XMmiDp_VSampleCtrl VSampleCtrl[XMMIDP_MAX_LANES];
-	XMmiDp_MainStreamAttributes MsaConfig[XMMIDP_MAX_LANES];
-	XMmiDp_HpdIrqHandler HpdIrqHandler;
-	void *HpdIrqCallbackRef;
-	XMmiDp_HpdHotPlugHandler HpdHotPlugHandler;
+	XMmiDp_PhyConfig PhyConfig;
+	XMmiDp_LinkConfig LinkConfig;
+	u32 AuxDelayUs;
+	XMmiDp_Config Config;
 	void *HpdHotPlugCallbackRef;
-
+	void *HpdIrqCallbackRef;
+	XMmiDp_HpdIrqHandler HpdIrqHandler;
+	XMmiDp_HpdHotPlugHandler HpdHotPlugHandler;
 } XMmiDp;
 
 /**************************** Function Prototypes *****************************/
