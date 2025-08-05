@@ -81,11 +81,19 @@ def create_app(args):
     if obj.template in openamp_app_names.keys():
         srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
         srcdir = os.path.join(srcdir, 'openamp-system-reference')
+        if 'LOCAL_OPENAMP_DEMO_REPO' in os.environ:
+            srcdir = os.environ.get('LOCAL_OPENAMP_DEMO_REPO')
+            print(f"[INFO]: LOCAL_OPENAMP_DEMO_REPO variable is set to {srcdir}")
+
         utils.copy_file(os.path.join(esw_app_dir, '..', 'openamp_sdt', 'CMakeLists.txt'), dstdir)
         dstdir = os.path.join(dstdir, 'openamp-system-reference')
     elif obj.template == 'libmetal_echo_demo':
         srcdir = os.path.join(os.environ.get('XILINX_VITIS'), 'data')
         srcdir = os.path.join(srcdir, 'libmetal')
+        if 'LOCAL_LIBMETAL_DEMO_REPO' in os.environ:
+            srcdir = os.environ.get('LOCAL_LIBMETAL_DEMO_REPO')
+            print(f"[INFO]: LOCAL_LIBMETAL_DEMO_REPO variable is set to {srcdir}")
+
         utils.copy_file(os.path.join(esw_app_dir, 'src', 'sdt', 'CMakeLists.txt'), dstdir)
         dstdir = os.path.join(dstdir, 'libmetal')
 
