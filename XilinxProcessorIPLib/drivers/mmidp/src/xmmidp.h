@@ -37,93 +37,93 @@ typedef struct {
  * This typedef describes PHY LANES
  */
 typedef enum {
-	PHY_LANES_1 = 0x0,
-	PHY_LANES_2 = 0x1,
-	PHY_LANES_4 = 0x2,
+	XMMIDP_PHY_LANES_1 = 0x0,
+	XMMIDP_PHY_LANES_2 = 0x1,
+	XMMIDP_PHY_LANES_4 = 0x2,
 } XMmiDp_PhyLanes;
 
 /**
  * This typedef describes PHY RATE
  */
 typedef enum {
-	PHY_RATE_RBR_162GBPS  = 0x0,
-	PHY_RATE_HBR_270GBPS  = 0x1,
-	PHY_RATE_HBR2_540GBPS = 0x2,
-	PHY_RATE_HBR3_810GBPS = 0x3,
+	XMMIDP_PHY_RATE_RBR_162GBPS  = 0x0,
+	XMMIDP_PHY_RATE_HBR_270GBPS  = 0x1,
+	XMMIDP_PHY_RATE_HBR2_540GBPS = 0x2,
+	XMMIDP_PHY_RATE_HBR3_810GBPS = 0x3,
 } XMmiDp_PhyRate;
 
 /**
  * This typedef describes PHY Training Pattern
  */
 typedef enum {
-	PHY_NO_TRAIN 		= 0x0,
-	PHY_TPS1 		= 0x1,
-	PHY_TPS2 		= 0x2,
-	PHY_TPS3 		= 0x3,
-	PHY_TPS4 		= 0x4,
-	PHY_SYMBOL_ERR_RATE 	= 0x5,
-	PHY_PRBS7 		= 0x6,
-	PHY_CUSTOMPAT 		= 0x7,
-	PHY_CP2520_PAT_1 	= 0x8,
-	PHY_CP2520_PAT_2 	= 0x9,
+	XMMIDP_PHY_NO_TRAIN 		= 0x0,
+	XMMIDP_PHY_TPS1 		= 0x1,
+	XMMIDP_PHY_TPS2 		= 0x2,
+	XMMIDP_PHY_TPS3 		= 0x3,
+	XMMIDP_PHY_TPS4 		= 0x4,
+	XMMIDP_PHY_SYMBOL_ERR_RATE 	= 0x5,
+	XMMIDP_PHY_PRBS7 		= 0x6,
+	XMMIDP_PHY_CUSTOMPAT 		= 0x7,
+	XMMIDP_PHY_CP2520_PAT_1 	= 0x8,
+	XMMIDP_PHY_CP2520_PAT_2 	= 0x9,
 } XMmiDp_PhyTrainingPattern;
 
 /**
  * This typedef describes PHY VSWING Level
  */
 typedef enum {
-	PHY_VSWING_LEVEL0 = 0x0,
-	PHY_VSWING_LEVEL1 = 0x1,
-	PHY_VSWING_LEVEL2 = 0x2,
-	PHY_VSWING_LEVEL3 = 0x3,
+	XMMIDP_PHY_VSWING_LEVEL0 = 0x0,
+	XMMIDP_PHY_VSWING_LEVEL1 = 0x1,
+	XMMIDP_PHY_VSWING_LEVEL2 = 0x2,
+	XMMIDP_PHY_VSWING_LEVEL3 = 0x3,
 } XMmiDp_PhyVSwing;
 
 /**
  * This typedef describes PHY PREEMP Level
  */
 typedef enum {
-	PHY_PREEMP_LEVEL0 = 0x0,
-	PHY_PREEMP_LEVEL1 = 0x1,
-	PHY_PREEMP_LEVEL2 = 0x2,
-	PHY_PREEMP_LEVEL3 = 0x3,
+	XMMIDP_PHY_PREEMP_LEVEL0 = 0x0,
+	XMMIDP_PHY_PREEMP_LEVEL1 = 0x1,
+	XMMIDP_PHY_PREEMP_LEVEL2 = 0x2,
+	XMMIDP_PHY_PREEMP_LEVEL3 = 0x3,
 } XMmiDp_PhyPreEmp;
 
 /**
  * This typedef describes PHY XMIT ENABLE
  */
 typedef enum {
-	PHY_XMIT_EN_LANE0 = 0x1,
-	PHY_XMIT_EN_LANE1 = 0x2,
-	PHY_XMIT_EN_LANE2 = 0x4,
-	PHY_XMIT_EN_LANE3 = 0x8,
+	XMMIDP_PHY_XMIT_EN_LANE0 = 0x1,
+	XMMIDP_PHY_XMIT_EN_LANE1 = 0x2,
+	XMMIDP_PHY_XMIT_EN_LANE2 = 0x4,
+	XMMIDP_PHY_XMIT_EN_LANE3 = 0x8,
 } XMmiDp_PhyXmitEn;
 
 /**
  * This typedef describes PHY BUSY
  */
 typedef enum {
-	PHY_BUSY_LANE0 = 0x1,
-	PHY_BUSY_LANE1 = 0x2,
-	PHY_BUSY_LANE2 = 0x4,
-	PHY_BUSY_LANE3 = 0x8,
+	XMMIDP_PHY_BUSY_LANE0 = 0x1,
+	XMMIDP_PHY_BUSY_LANE1 = 0x2,
+	XMMIDP_PHY_BUSY_LANE2 = 0x4,
+	XMMIDP_PHY_BUSY_LANE3 = 0x8,
 } XMmiDp_PhyBusy;
 
 /**
  * This typedef describes PHY POWERDOWN CTRL
  */
 typedef enum {
-	PHY_POWER_ON 	   = 0x0,
-	PHY_INTER_P2_POWER = 0x2,
-	PHY_POWER_DOWN 	   = 0x3,
-	PHY_POWER_STATE    = 0xC,
+	XMMIDP_PHY_POWER_ON	  = 0x0,
+	XMMIDP_PHY_INTER_P2_POWER = 0x2,
+	XMMIDP_PHY_POWER_DOWN 	  = 0x3,
+	XMMIDP_PHY_POWER_STATE    = 0xC,
 } XMmiDp_PhyPwrDown;
 
 /**
  * This typedef describes PHY POWERDOWN CTRL
  */
 typedef enum {
-	PHY_20BIT = 0x0,
-	PHY_40BIT = 0x1,
+	XMMIDP_PHY_20BIT = 0x0,
+	XMMIDP_PHY_40BIT = 0x1,
 } XMmiDp_PhyWidth;
 
 /**

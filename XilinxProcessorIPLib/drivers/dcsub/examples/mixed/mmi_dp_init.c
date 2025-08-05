@@ -194,9 +194,9 @@ u32 XMmiDp_StartFullLinkTraining(XMmiDp *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	InstancePtr->RxConfig.MaxLaneCount = PHY_LANES_2;
+	InstancePtr->RxConfig.MaxLaneCount = XMMIDP_PHY_LANES_2;
 	InstancePtr->RxConfig.MaxNumLanes = 0x2;
-	InstancePtr->RxConfig.MaxLinkRate = PHY_RATE_HBR_270GBPS;
+	InstancePtr->RxConfig.MaxLinkRate = XMMIDP_PHY_RATE_HBR_270GBPS;
 	InstancePtr->RxConfig.MaxLinkBW = XMMIDP_DPCD_LINK_BW_SET_270GBPS;
 
 	Status = XMmiDp_CheckLinkStatus(InstancePtr, InstancePtr->RxConfig.MaxLaneCount);
@@ -220,9 +220,9 @@ u32 XMmiDp_StartFullLinkTraining(XMmiDp *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	InstancePtr->LinkConfig.LaneCount = PHY_LANES_2;
+	InstancePtr->LinkConfig.LaneCount = XMMIDP_PHY_LANES_2;
 	InstancePtr->LinkConfig.NumLanes = 2;
-	InstancePtr->LinkConfig.LinkRate = PHY_RATE_HBR_270GBPS;
+	InstancePtr->LinkConfig.LinkRate = XMMIDP_PHY_RATE_HBR_270GBPS;
 	InstancePtr->LinkConfig.LinkBW = XMMIDP_DPCD_LINK_BW_SET_270GBPS;
 
 	memset(InstancePtr->LinkConfig.VsLevel, 0, 4);
@@ -249,8 +249,8 @@ u32 XMmiDp_StartFullLinkTraining(XMmiDp *InstancePtr)
 	}
 
 	/* End Training */
-	XMmiDp_SetPhyTrainingPattern(InstancePtr, PHY_NO_TRAIN);
-	XMmiDp_SetDpcdTrainingPattern(InstancePtr, PHY_NO_TRAIN);
+	XMmiDp_SetPhyTrainingPattern(InstancePtr, XMMIDP_PHY_NO_TRAIN);
+	XMmiDp_SetDpcdTrainingPattern(InstancePtr, XMMIDP_PHY_NO_TRAIN);
 
 	xil_printf("Link Trained for %d Lanes", InstancePtr->LinkConfig.NumLanes);
 	xil_printf("Link Trained for %d BW", InstancePtr->LinkConfig.LinkBW);
@@ -273,7 +273,7 @@ u32 XMmiDp_StartFullLinkTraining(XMmiDp *InstancePtr)
 u32 XMmiDp_InitDpCore(XMmiDp *InstancePtr)
 {
 	XMmiDp_PhySoftReset(InstancePtr);
-	XMmiDp_SetPhyPowerdown(InstancePtr, PHY_POWER_ON);
+	XMmiDp_SetPhyPowerdown(InstancePtr, XMMIDP_PHY_POWER_ON);
 	XMmiDp_SetAux_250Us_Cnt_Limit(InstancePtr, 0xF5);
 	XMmiDp_SetAux_2000Us_Cnt_Limit(InstancePtr, 0x7A8);
 	XMmiDp_SetAux_100000Us_Cnt_Limit(InstancePtr, 0x17ED0);

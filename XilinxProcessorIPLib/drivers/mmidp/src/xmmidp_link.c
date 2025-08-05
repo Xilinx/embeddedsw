@@ -174,8 +174,8 @@ u32 XMmiDp_StartLinkXmit(XMmiDp *InstancePtr)
 	XMmiDp_SetPhyVoltageSwing(InstancePtr, InstancePtr->LinkConfig.VsLevel);
 	XMmiDp_SetPhyPreEmphasis(InstancePtr, InstancePtr->LinkConfig.PeLevel);
 
-	XMmiDp_SetPhyTrainingPattern(InstancePtr, PHY_NO_TRAIN);
-	XMmiDp_SetDpcdTrainingPattern(InstancePtr, PHY_NO_TRAIN);
+	XMmiDp_SetPhyTrainingPattern(InstancePtr, XMMIDP_PHY_NO_TRAIN);
+	XMmiDp_SetDpcdTrainingPattern(InstancePtr, XMMIDP_PHY_NO_TRAIN);
 
 	XMmiDp_SetPhyXmitEnable(InstancePtr);
 
@@ -372,7 +372,7 @@ u32 XMmiDp_CheckClockRecovery(XMmiDp *InstancePtr, u8 LaneCount)
 {
 	/* Check that all LANEx_CR_DONE bits are set. */
 	switch (LaneCount) {
-		case PHY_LANES_4:
+		case XMMIDP_PHY_LANES_4:
 
 			if (!((InstancePtr->RxConfig.LaneStatusAdjReqs[0] &
 			       XMMIDP_DPCD_LANE0_CR_DONE_MASK) >>
@@ -401,7 +401,7 @@ u32 XMmiDp_CheckClockRecovery(XMmiDp *InstancePtr, u8 LaneCount)
 			InstancePtr->LinkConfig.CrDoneCnt =
 				XMMIDP_LANE_ALL_CR_DONE;
 
-		case PHY_LANES_2:
+		case XMMIDP_PHY_LANES_2:
 			if (!((InstancePtr->RxConfig.LaneStatusAdjReqs[0] &
 			       XMMIDP_DPCD_LANE0_CR_DONE_MASK) >>
 			      XMMIDP_DPCD_LANE0_CR_DONE_SHIFT)) {
@@ -417,7 +417,7 @@ u32 XMmiDp_CheckClockRecovery(XMmiDp *InstancePtr, u8 LaneCount)
 			InstancePtr->LinkConfig.CrDoneCnt =
 				XMMIDP_LANE_2_CR_DONE;
 
-		case PHY_LANES_1:
+		case XMMIDP_PHY_LANES_1:
 			if (!((InstancePtr->RxConfig.LaneStatusAdjReqs[0] &
 			       XMMIDP_DPCD_LANE0_CR_DONE_MASK) >>
 			      XMMIDP_DPCD_LANE0_CR_DONE_SHIFT)) {
@@ -583,7 +583,7 @@ u32 XMmiDp_SetTrainingPattern(XMmiDp *InstancePtr, XMmiDp_PhyTrainingPattern Pat
 
 	XMmiDp_SetPhyTrainingPattern(InstancePtr, Pattern);
 
-	if (Pattern == PHY_TPS4) {
+	if (Pattern == XMMIDP_PHY_TPS4) {
 		Val = 0x7;
 		InstancePtr->LinkConfig.ScrambleEn = 0x1;
 		XMmiDp_PhyScrambleDisable(InstancePtr);
@@ -597,7 +597,7 @@ u32 XMmiDp_SetTrainingPattern(XMmiDp *InstancePtr, XMmiDp_PhyTrainingPattern Pat
 
 	XMmiDp_SetVswingPreemp(InstancePtr, &AuxData[1]);
 
-	if (Pattern == PHY_NO_TRAIN)
+	if (Pattern == XMMIDP_PHY_NO_TRAIN)
 		Status = XMmiDp_AuxWrite(InstancePtr,
 					 XMMIDP_DPCD_TRAINING_PATTERN_SET, 1, AuxData);
 	else
@@ -627,7 +627,7 @@ u32 XMmiDp_SetLinkRate(XMmiDp *InstancePtr, XMmiDp_PhyRate LinkRate)
 {
 	u32 Status = 0;
 
-	XMmiDp_SetPhyPowerdown(InstancePtr, PHY_POWER_DOWN);
+	XMmiDp_SetPhyPowerdown(InstancePtr, XMMIDP_PHY_POWER_DOWN);
 	Status = XMmiDp_PhyWaitReady(InstancePtr);
 	if ( Status != XST_SUCCESS ) {
 		xil_printf("Phy Busy Timeout %d\n", Status);
@@ -638,7 +638,7 @@ u32 XMmiDp_SetLinkRate(XMmiDp *InstancePtr, XMmiDp_PhyRate LinkRate)
 	InstancePtr->LinkConfig.LinkBW = XMmiDp_GetLinkBW(InstancePtr, LinkRate);
 
 	XMmiDp_SetPhyLinkRate(InstancePtr, LinkRate);
-	XMmiDp_SetPhyPowerdown(InstancePtr, PHY_POWER_ON);
+	XMmiDp_SetPhyPowerdown(InstancePtr, XMMIDP_PHY_POWER_ON);
 
 	XMmiDp_SetDpcdLinkRate(InstancePtr);
 
@@ -709,7 +709,7 @@ XMmiDp_TrainingState XMmiDp_TrainingStateClockRecovery(XMmiDp *InstancePtr)
 	memset(InstancePtr->LinkConfig.VsLevel, 0, 4);
 	memset(InstancePtr->LinkConfig.PeLevel, 0, 4);
 
-	Status = XMmiDp_SetTrainingPattern(InstancePtr, PHY_TPS1);
+	Status = XMmiDp_SetTrainingPattern(InstancePtr, XMMIDP_PHY_TPS1);
 
 	if ( Status != XST_SUCCESS ) {
 		return XMMIDP_TS_FAILURE;
@@ -756,7 +756,7 @@ XMmiDp_TrainingState XMmiDp_TrainingStateClockRecovery(XMmiDp *InstancePtr)
 	if (InstancePtr->LinkConfig.LinkRate ==  XMMIDP_DPCD_LINK_BW_SET_162GBPS) {
 		if ((InstancePtr->LinkConfig.CrDoneCnt != XMMIDP_LANE_ALL_CR_DONE) &&
 		    (InstancePtr->LinkConfig.CrDoneCnt != XMMIDP_LANE_0_CR_DONE)) {
-			Status = XMmiDp_SetTrainingPattern(InstancePtr, PHY_NO_TRAIN);
+			Status = XMmiDp_SetTrainingPattern(InstancePtr, XMMIDP_PHY_NO_TRAIN);
 			XMmiDp_SetLinkRate(InstancePtr,
 					   XMMIDP_DPCD_LINK_BW_SET_810GBPS);
 			XMmiDp_SetLaneCount(InstancePtr,
@@ -796,17 +796,17 @@ XMmiDp_TrainingState XMmiDp_TrainingStateAdjustLinkRate(XMmiDp *InstancePtr)
 	switch (InstancePtr->LinkConfig.LinkBW) {
 		case XMMIDP_DPCD_LINK_BW_SET_810GBPS:
 			XMmiDp_SetLinkRate(InstancePtr,
-					   PHY_RATE_HBR2_540GBPS);
+					   XMMIDP_PHY_RATE_HBR2_540GBPS);
 			Status = XMMIDP_TS_CLOCK_RECOVERY;
 			break;
 		case XMMIDP_DPCD_LINK_BW_SET_540GBPS:
 			XMmiDp_SetLinkRate(InstancePtr,
-					   PHY_RATE_HBR_270GBPS);
+					   XMMIDP_PHY_RATE_HBR_270GBPS);
 			Status = XMMIDP_TS_CLOCK_RECOVERY;
 			break;
 		case XMMIDP_DPCD_LINK_BW_SET_270GBPS:
 			XMmiDp_SetLinkRate(InstancePtr,
-					   PHY_RATE_RBR_162GBPS);
+					   XMMIDP_PHY_RATE_RBR_162GBPS);
 			Status = XMMIDP_TS_CLOCK_RECOVERY;
 			break;
 		default:
@@ -846,14 +846,14 @@ XMmiDp_TrainingState XMmiDp_TrainingStateAdjustLaneCount(XMmiDp *InstancePtr)
 	u32 Status;
 
 	switch (InstancePtr->LinkConfig.LaneCount) {
-		case PHY_LANES_4:
-			XMmiDp_SetLaneCount(InstancePtr, PHY_LANES_2);
+		case XMMIDP_PHY_LANES_4:
+			XMmiDp_SetLaneCount(InstancePtr, XMMIDP_PHY_LANES_2);
 			XMmiDp_SetLinkRate(InstancePtr, InstancePtr->RxConfig.MaxLinkRate);
 			Status = XMMIDP_TS_CLOCK_RECOVERY;
 			break;
 
-		case PHY_LANES_2:
-			XMmiDp_SetLaneCount(InstancePtr, PHY_LANES_1);
+		case XMMIDP_PHY_LANES_2:
+			XMmiDp_SetLaneCount(InstancePtr, XMMIDP_PHY_LANES_1);
 			XMmiDp_SetLinkRate(InstancePtr, InstancePtr->RxConfig.MaxLinkRate);
 			Status = XMMIDP_TS_CLOCK_RECOVERY;
 			break;
@@ -986,7 +986,7 @@ u32 XMmiDp_CheckChannelEqualization(XMmiDp *InstancePtr, u8 LaneCount)
 	u8 InterlaneAlign = 0;
 
 	switch (LaneCount) {
-		case PHY_LANES_4:
+		case XMMIDP_PHY_LANES_4:
 			if (!((InstancePtr->RxConfig.LaneStatusAdjReqs[1] &
 			       XMMIDP_DPCD_LANE3_CHANNEL_EQ_DONE_MASK) >>
 			      XMMIDP_DPCD_LANE3_CHANNEL_EQ_DONE_SHIFT)) {
@@ -1001,7 +1001,7 @@ u32 XMmiDp_CheckChannelEqualization(XMmiDp *InstancePtr, u8 LaneCount)
 
 		/* fall through */
 
-		case PHY_LANES_2:
+		case XMMIDP_PHY_LANES_2:
 			if (!((InstancePtr->RxConfig.LaneStatusAdjReqs[0] &
 			       XMMIDP_DPCD_LANE1_CHANNEL_EQ_DONE_MASK) >>
 			      XMMIDP_DPCD_LANE1_CHANNEL_EQ_DONE_SHIFT)) {
@@ -1010,7 +1010,7 @@ u32 XMmiDp_CheckChannelEqualization(XMmiDp *InstancePtr, u8 LaneCount)
 
 		/* fall through */
 
-		case PHY_LANES_1:
+		case XMMIDP_PHY_LANES_1:
 			if (!((InstancePtr->RxConfig.LaneStatusAdjReqs[0] &
 			       XMMIDP_DPCD_LANE0_CHANNEL_EQ_DONE_MASK) >>
 			      XMMIDP_DPCD_LANE0_CHANNEL_EQ_DONE_SHIFT)) {
@@ -1023,7 +1023,7 @@ u32 XMmiDp_CheckChannelEqualization(XMmiDp *InstancePtr, u8 LaneCount)
 	}
 
 	switch (LaneCount) {
-		case PHY_LANES_4:
+		case XMMIDP_PHY_LANES_4:
 			if (!((InstancePtr->RxConfig.LaneStatusAdjReqs[1] &
 			       XMMIDP_DPCD_LANE3_SYMBOL_LOCKED_MASK) >>
 			      XMMIDP_DPCD_LANE3_SYMBOL_LOCKED_SHIFT)) {
@@ -1038,7 +1038,7 @@ u32 XMmiDp_CheckChannelEqualization(XMmiDp *InstancePtr, u8 LaneCount)
 
 		/* fall through */
 
-		case PHY_LANES_2:
+		case XMMIDP_PHY_LANES_2:
 			if (!((InstancePtr->RxConfig.LaneStatusAdjReqs[0] &
 			       XMMIDP_DPCD_LANE1_SYMBOL_LOCKED_MASK) >>
 			      XMMIDP_DPCD_LANE1_SYMBOL_LOCKED_SHIFT)) {
@@ -1047,7 +1047,7 @@ u32 XMmiDp_CheckChannelEqualization(XMmiDp *InstancePtr, u8 LaneCount)
 
 		/* fall through */
 
-		case PHY_LANES_1:
+		case XMMIDP_PHY_LANES_1:
 			if (!((InstancePtr->RxConfig.LaneStatusAdjReqs[0] &
 			       XMMIDP_DPCD_LANE0_SYMBOL_LOCKED_MASK) >>
 			      XMMIDP_DPCD_LANE0_SYMBOL_LOCKED_SHIFT)) {
@@ -1117,11 +1117,11 @@ XMmiDp_TrainingState XMmiDp_TrainingStateChannelEqualization(XMmiDp *InstancePtr
 	DelayUs = XMmiDp_GetTrainingDelay(InstancePtr);
 
 	if (InstancePtr->RxConfig.Tps4Supported) {
-		Status =  XMmiDp_SetTrainingPattern(InstancePtr, PHY_TPS4);
+		Status =  XMmiDp_SetTrainingPattern(InstancePtr, XMMIDP_PHY_TPS4);
 	} else if (InstancePtr->RxConfig.Tps3Supported) {
-		Status = XMmiDp_SetTrainingPattern(InstancePtr, PHY_TPS3);
+		Status = XMmiDp_SetTrainingPattern(InstancePtr, XMMIDP_PHY_TPS3);
 	} else {
-		Status = XMmiDp_SetTrainingPattern(InstancePtr, PHY_TPS2);
+		Status = XMmiDp_SetTrainingPattern(InstancePtr, XMMIDP_PHY_TPS2);
 	}
 
 	if (Status != XST_SUCCESS) {
@@ -1303,7 +1303,7 @@ u32 XMmiDp_RunTraining(XMmiDp *InstancePtr)
 		}
 		if ((TrainingState == XMMIDP_TS_ADJUST_LINK_RATE) ||
 		    (TrainingState == XMMIDP_TS_ADJUST_LANE_COUNT)) {
-			Status = XMmiDp_SetTrainingPattern(InstancePtr, PHY_NO_TRAIN);
+			Status = XMmiDp_SetTrainingPattern(InstancePtr, XMMIDP_PHY_NO_TRAIN);
 			if (Status != XST_SUCCESS) {
 				return XST_FAILURE;
 			}

@@ -119,7 +119,6 @@ static void XMmiDp_SetAuxData(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Reques
 		data[Index / 4] |= (Request->Data[Index] << ((Index % 4) * 8));
 	}
 
-
 	for (Index = 0; Index < 4; Index++) {
 		XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
 				XMMIDP_AUX_DATA0_0 + (Index * 4), data[Index]);
@@ -778,22 +777,22 @@ void XMmiDp_DpcdReadModifyWrite(XMmiDp *InstancePtr, u32 DpcdReg,
 u8 XMmiDp_GetLaneCount(XMmiDp *InstancePtr, u8 NumLanes)
 {
 	if (NumLanes == 4) {
-		return PHY_LANES_4;
+		return XMMIDP_PHY_LANES_4;
 	} else if (NumLanes == 2) {
-		return PHY_LANES_2;
+		return XMMIDP_PHY_LANES_2;
 	} else {
-		return PHY_LANES_1;
+		return XMMIDP_PHY_LANES_1;
 	}
 }
 
 u8 XMmiDp_GetNumLanes(XMmiDp *InstancePtr, u8 LaneCount)
 {
 
-	if (LaneCount == PHY_LANES_1) {
+	if (LaneCount == XMMIDP_PHY_LANES_1) {
 		return 0x1;
-	} else if (LaneCount == PHY_LANES_2) {
+	} else if (LaneCount == XMMIDP_PHY_LANES_2) {
 		return 0x2;
-	} else if (LaneCount == PHY_LANES_4) {
+	} else if (LaneCount == XMMIDP_PHY_LANES_4) {
 		return 0x4;
 	} else {
 		return 0;
@@ -857,25 +856,25 @@ u8 XMmiDp_GetLinkRate(XMmiDp *InstancePtr, u8 LinkBW)
 {
 
 	if (LinkBW == XMMIDP_DPCD_LINK_BW_SET_270GBPS) {
-		return PHY_RATE_HBR_270GBPS;
+		return XMMIDP_PHY_RATE_HBR_270GBPS;
 	} else if (LinkBW == XMMIDP_DPCD_LINK_BW_SET_540GBPS) {
-		return PHY_RATE_HBR2_540GBPS;
+		return XMMIDP_PHY_RATE_HBR2_540GBPS;
 	} else if (LinkBW == XMMIDP_DPCD_LINK_BW_SET_810GBPS) {
-		return PHY_RATE_HBR3_810GBPS;
+		return XMMIDP_PHY_RATE_HBR3_810GBPS;
 	} else {
-		return PHY_RATE_RBR_162GBPS;
+		return XMMIDP_PHY_RATE_RBR_162GBPS;
 	}
 }
 
 u8 XMmiDp_GetLinkBW(XMmiDp *InstancePtr, u8 LinkRate)
 {
-	if (LinkRate == PHY_RATE_RBR_162GBPS) {
+	if (LinkRate == XMMIDP_PHY_RATE_RBR_162GBPS) {
 		return XMMIDP_DPCD_LINK_BW_SET_162GBPS;
-	} else if (LinkRate == PHY_RATE_HBR_270GBPS) {
+	} else if (LinkRate == XMMIDP_PHY_RATE_HBR_270GBPS) {
 		return XMMIDP_DPCD_LINK_BW_SET_270GBPS;
-	} else if (LinkRate == PHY_RATE_HBR2_540GBPS) {
+	} else if (LinkRate == XMMIDP_PHY_RATE_HBR2_540GBPS) {
 		return XMMIDP_DPCD_LINK_BW_SET_540GBPS;
-	} else if (LinkRate == PHY_RATE_HBR3_810GBPS) {
+	} else if (LinkRate == XMMIDP_PHY_RATE_HBR3_810GBPS) {
 		return XMMIDP_DPCD_LINK_BW_SET_810GBPS;
 	} else {
 		return 0;
@@ -939,15 +938,15 @@ void XMmiDp_SetPhyLinkRate(XMmiDp *InstancePtr, XMmiDp_PhyRate LinkRate)
 	InstancePtr->PhyConfig.LinkBW = XMmiDp_GetLinkBW(InstancePtr, LinkRate);
 
 	switch (LinkRate) {
-		case PHY_RATE_RBR_162GBPS:
-		case PHY_RATE_HBR_270GBPS:
+		case XMMIDP_PHY_RATE_RBR_162GBPS:
+		case XMMIDP_PHY_RATE_HBR_270GBPS:
 			/* Set 20-bit PHY width */
-			XMmiDp_SetPhyWidth(InstancePtr, PHY_20BIT);
+			XMmiDp_SetPhyWidth(InstancePtr, XMMIDP_PHY_20BIT);
 			break;
-		case PHY_RATE_HBR2_540GBPS:
-		case PHY_RATE_HBR3_810GBPS:
+		case XMMIDP_PHY_RATE_HBR2_540GBPS:
+		case XMMIDP_PHY_RATE_HBR3_810GBPS:
 			/* Set 40-bit PHY width */
-			XMmiDp_SetPhyWidth(InstancePtr, PHY_40BIT);
+			XMmiDp_SetPhyWidth(InstancePtr, XMMIDP_PHY_40BIT);
 			break;
 	}
 
@@ -966,16 +965,16 @@ void XMmiDp_SetPhyLinkRate(XMmiDp *InstancePtr, XMmiDp_PhyRate LinkRate)
  * @param       InstancePtr is a pointer to the XDpPsu instance.
  * @param       Pattern select to be used over the main link based on
  *              one of the following selects:
- *		 PHY_NO_TRAIN = 0x0,
- *		 PHY_TPS1 = 0x1,
- *		 PHY_TPS2 = 0x2,
- *		 PHY_TPS3 = 0x3,
- *		 PHY_TPS4 = 0x4,
- *		 PHY_SYMBOL_ERR_RATE = 0x5,
- *		 PHY_PRBS7 = 0x6,
- *		 PHY_CUSTOMPAT = 0x7,
- *		 PHY_CP2520_PAT_1 = 0x8,
- *		 PHY_CP2520_PAT_2 = 0x9,
+ *		 XMMIDP_PHY_NO_TRAIN = 0x0,
+ *		 XMMIDP_PHY_TPS1 = 0x1,
+ *		 XMMIDP_PHY_TPS2 = 0x2,
+ *		 XMMIDP_PHY_TPS3 = 0x3,
+ *		 XMMIDP_PHY_TPS4 = 0x4,
+ *		 XMMIDP_PHY_SYMBOL_ERR_RATE = 0x5,
+ *		 XMMIDP_PHY_PRBS7 = 0x6,
+ *		 XMMIDP_PHY_CUSTOMPAT = 0x7,
+ *		 XMMIDP_PHY_CP2520_PAT_1 = 0x8,
+ *		 XMMIDP_PHY_CP2520_PAT_2 = 0x9,
  *
  * @return
  *              - none.
@@ -992,15 +991,15 @@ void XMmiDp_SetDpcdLinkQualPattern(XMmiDp *InstancePtr,
 	u32 Shift = XMMIDP_DPCD_LINK_QUAL_PATTERN_SET_SHIFT;
 	u32 Mask = XMMIDP_DPCD_LINK_QUAL_PATTERN_SET_MASK;
 
-	if (Pattern == PHY_SYMBOL_ERR_RATE) {
+	if (Pattern == XMMIDP_PHY_SYMBOL_ERR_RATE) {
 		Val = 0x2;
-	} else if (Pattern == PHY_PRBS7) {
+	} else if (Pattern == XMMIDP_PHY_PRBS7) {
 		Val = 0x3;
-	} else if (Pattern == PHY_CUSTOMPAT) {
+	} else if (Pattern == XMMIDP_PHY_CUSTOMPAT) {
 		Val = 0x4;
-	} else if (Pattern == PHY_CP2520_PAT_1) {
+	} else if (Pattern == XMMIDP_PHY_CP2520_PAT_1) {
 		Val = 0x5;
-	} else if (Pattern == PHY_CP2520_PAT_2) {
+	} else if (Pattern == XMMIDP_PHY_CP2520_PAT_2) {
 		Val = 0x6;
 	} else {
 		Val = 0x0;
@@ -1023,16 +1022,16 @@ void XMmiDp_SetDpcdLinkQualPattern(XMmiDp *InstancePtr,
  * @param       InstancePtr is a pointer to the XDpPsu instance.
  * @param       Pattern select to be used over the main link based on
  *              one of the following selects:
- *		 PHY_NO_TRAIN = 0x0,
- *		 PHY_TPS1 = 0x1,
- *		 PHY_TPS2 = 0x2,
- *		 PHY_TPS3 = 0x3,
- *		 PHY_TPS4 = 0x4,
- *		 PHY_SYMBOL_ERR_RATE = 0x5,
- *		 PHY_PRBS7 = 0x6,
- *		 PHY_CUSTOMPAT = 0x7,
- *		 PHY_CP2520_PAT_1 = 0x8,
- *		 PHY_CP2520_PAT_2 = 0x9,
+ *		 XMMIDP_PHY_NO_TRAIN = 0x0,
+ *		 XMMIDP_PHY_TPS1 = 0x1,
+ *		 XMMIDP_PHY_TPS2 = 0x2,
+ *		 XMMIDP_PHY_TPS3 = 0x3,
+ *		 XMMIDP_PHY_TPS4 = 0x4,
+ *		 XMMIDP_PHY_SYMBOL_ERR_RATE = 0x5,
+ *		 XMMIDP_PHY_PRBS7 = 0x6,
+ *		 XMMIDP_PHY_CUSTOMPAT = 0x7,
+ *		 XMMIDP_PHY_CP2520_PAT_1 = 0x8,
+ *		 XMMIDP_PHY_CP2520_PAT_2 = 0x9,
  *
  * @return
  *              - none.
@@ -1053,11 +1052,11 @@ void XMmiDp_SetDpcdTrainingPattern(XMmiDp *InstancePtr,
 
 	Val = Pattern;
 
-	if (Pattern == PHY_NO_TRAIN) {
+	if (Pattern == XMMIDP_PHY_NO_TRAIN) {
 		ScrambleEn = 0x0;
 	}
 
-	if (Pattern == PHY_TPS4) {
+	if (Pattern == XMMIDP_PHY_TPS4) {
 		Val = 0x7;
 	}
 
@@ -1083,16 +1082,16 @@ void XMmiDp_SetDpcdTrainingPattern(XMmiDp *InstancePtr,
  * @param       InstancePtr is a pointer to the XDpPsu instance.
  * @param       Pattern select to be used over the main link based on
  *              one of the following selects:
- *		 PHY_NO_TRAIN = 0x0,
- *		 PHY_TPS1 = 0x1,
- *		 PHY_TPS2 = 0x2,
- *		 PHY_TPS3 = 0x3,
- *		 PHY_TPS4 = 0x4,
- *		 PHY_SYMBOL_ERR_RATE = 0x5,
- *		 PHY_PRBS7 = 0x6,
- *		 PHY_CUSTOMPAT = 0x7,
- *		 PHY_CP2520_PAT_1 = 0x8,
- *		 PHY_CP2520_PAT_2 = 0x9,
+ *		 XMMIDP_PHY_NO_TRAIN = 0x0,
+ *		 XMMIDP_PHY_TPS1 = 0x1,
+ *		 XMMIDP_PHY_TPS2 = 0x2,
+ *		 XMMIDP_PHY_TPS3 = 0x3,
+ *		 XMMIDP_PHY_TPS4 = 0x4,
+ *		 XMMIDP_PHY_SYMBOL_ERR_RATE = 0x5,
+ *		 XMMIDP_PHY_PRBS7 = 0x6,
+ *		 XMMIDP_PHY_CUSTOMPAT = 0x7,
+ *		 XMMIDP_PHY_CP2520_PAT_1 = 0x8,
+ *		 XMMIDP_PHY_CP2520_PAT_2 = 0x9,
  *
  * @return
  *              - none.
@@ -1145,10 +1144,10 @@ static void XMmiDp_GetVoltageSwingMask(u32 Lane, u32 *VsShift, u32 *VsMask)
  * @param       InstancePtr is a pointer to the XDpPsu instance.
  * @param       VoltageSwing for each lane to be used over the main link based on
  *              one of the following selects:
- *		- PHY_VSWING_LEVEL0
- *		- PHY_VSWING_LEVEL1
- *		- PHY_VSWING_LEVEL2
- *		- PHY_VSWING_LEVEL3
+ *		- XMMIDP_PHY_VSWING_LEVEL0
+ *		- XMMIDP_PHY_VSWING_LEVEL1
+ *		- XMMIDP_PHY_VSWING_LEVEL2
+ *		- XMMIDP_PHY_VSWING_LEVEL3
  * @return
  *              - none.
  *
@@ -1177,10 +1176,10 @@ void XMmiDp_SetDpcdVoltageSwing(XMmiDp *InstancePtr, XMmiDp_PhyVSwing *VsLevel)
  * @param       InstancePtr is a pointer to the XDpPsu instance.
  * @param       VoltageSwing for each lane to be used over the main link based on
  *              one of the following selects:
- *		- PHY_VSWING_LEVEL0
- *		- PHY_VSWING_LEVEL1
- *		- PHY_VSWING_LEVEL2
- *		- PHY_VSWING_LEVEL3
+ *		- XMMIDP_PHY_VSWING_LEVEL0
+ *		- XMMIDP_PHY_VSWING_LEVEL1
+ *		- XMMIDP_PHY_VSWING_LEVEL2
+ *		- XMMIDP_PHY_VSWING_LEVEL3
  * @return
  *              - none.
  *
@@ -1273,10 +1272,10 @@ void XMmiDp_SetDpcdPreEmphasis(XMmiDp *InstancePtr, XMmiDp_PhyPreEmp *PeLevel)
  * @param       InstancePtr is a pointer to the XDpPsu instance.
  * @param       VoltageSwing for each lane to be used over the main link based on
  *              one of the following selects:
- *		- PHY_PREEMP_LEVEL0
- *		- PHY_PREEMP_LEVEL1
- *		- PHY_PREEMP_LEVEL2
- *		- PHY_PREEMP_LEVEL3
+ *		- XMMIDP_PHY_PREEMP_LEVEL0
+ *		- XMMIDP_PHY_PREEMP_LEVEL1
+ *		- XMMIDP_PHY_PREEMP_LEVEL2
+ *		- XMMIDP_PHY_PREEMP_LEVEL3
  * @return
  *              - none.
  *
@@ -1322,14 +1321,14 @@ void XMmiDp_SetPhyXmitEnable(XMmiDp *InstancePtr)
 
 	switch ( InstancePtr->PhyConfig.LaneCount ) {
 		case 2:
-			XmitEn |= PHY_XMIT_EN_LANE3 |
-				  PHY_XMIT_EN_LANE2;
+			XmitEn |= XMMIDP_PHY_XMIT_EN_LANE3 |
+				  XMMIDP_PHY_XMIT_EN_LANE2;
 		/* fall through */
 		case 1:
-			XmitEn |= PHY_XMIT_EN_LANE1;
+			XmitEn |= XMMIDP_PHY_XMIT_EN_LANE1;
 		/* fall through */
 		case 0:
-			XmitEn |= PHY_XMIT_EN_LANE0;
+			XmitEn |= XMMIDP_PHY_XMIT_EN_LANE0;
 			break;
 	}
 
@@ -1362,14 +1361,14 @@ void XMmiDp_SetPhyXmitDisable(XMmiDp *InstancePtr)
 
 	switch ( InstancePtr->PhyConfig.LaneCount ) {
 		case 2:
-			XmitEn &= (~PHY_XMIT_EN_LANE3) &
-				  (~PHY_XMIT_EN_LANE2);
+			XmitEn &= (~XMMIDP_PHY_XMIT_EN_LANE3) &
+				  (~XMMIDP_PHY_XMIT_EN_LANE2);
 		/* fall through */
 		case 1:
-			XmitEn &= ~PHY_XMIT_EN_LANE1;
+			XmitEn &= ~XMMIDP_PHY_XMIT_EN_LANE1;
 		/* fall through */
 		case 0:
-			XmitEn &= ~PHY_XMIT_EN_LANE0;
+			XmitEn &= ~XMMIDP_PHY_XMIT_EN_LANE0;
 			break;
 	}
 
@@ -1503,12 +1502,12 @@ u32 XMmiDp_PhyWaitReady(XMmiDp *InstancePtr)
 
 	switch ( InstancePtr->PhyConfig.LaneCount ) {
 		case 2:
-			BusyLanes |= PHY_BUSY_LANE3 |
-				     PHY_BUSY_LANE2;
+			BusyLanes |= XMMIDP_PHY_BUSY_LANE3 |
+				     XMMIDP_PHY_BUSY_LANE2;
 		case 1:
-			BusyLanes |= PHY_BUSY_LANE1;
+			BusyLanes |= XMMIDP_PHY_BUSY_LANE1;
 		case 0:
-			BusyLanes |= PHY_BUSY_LANE0;
+			BusyLanes |= XMMIDP_PHY_BUSY_LANE0;
 			break;
 	}
 
