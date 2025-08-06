@@ -62,6 +62,7 @@
 * 1.11  kpt  11/05/2024 Add XilPdi_ReadOptionalData to read optional data
 *       pre  12/09/2024 use PMC RAM for PDI instance instead of PPU1 RAM
 * 1.12  prt  06/04/2025 Fixed Misra-C R8.13 and R15.7 Violations
+* 		abh	 07/16/2025 Fixed GCC warnings
 *
 * </pre>
 *
@@ -478,7 +479,7 @@ int XilPdi_StoreDigestTable(XilPdi_MetaHdr * MetaHdrPtr)
 		}
 
 		/** Verify checksum of data structure info */
-		XSECURE_REDUNDANT_CALL(Status, StatusTmp, XilPdi_ValidateChecksum, (void *)Offset,
+		XSECURE_REDUNDANT_CALL(Status, StatusTmp, XilPdi_ValidateChecksum, (void *)(UINTPTR)Offset,
 				OptionalDataLen);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status = XILPDI_ERR_OPTIONAL_DATA_CHECKSUM_FAILED;
