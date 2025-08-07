@@ -5,7 +5,7 @@
  */
 
 /*
- * @file	metal_xlnx_extention.c
+ * @file	metal_xlnx_extension.c
  * @brief	machine specific system primitives implementation.
  */
 

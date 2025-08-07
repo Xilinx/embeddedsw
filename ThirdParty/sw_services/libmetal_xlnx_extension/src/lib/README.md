@@ -42,7 +42,7 @@ cmake --build <build dir> --target install
 
 libmetal header files and xlnx BSP header files are needed build
 this static library module. The final library archive created:
-`libmetal_xlnx_extention.a`
+`libmetal_xlnx_extension.a`
 
 ## Contribution
 
