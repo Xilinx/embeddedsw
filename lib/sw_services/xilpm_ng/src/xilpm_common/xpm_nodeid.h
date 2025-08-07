@@ -660,6 +660,8 @@ extern "C" {
 #define PM_CLK_MMI_AUX1_REF			(0x82080DFU)
 #define PM_CLK_MMI_GEM_HCLK			(0x82080E0U)
 #define PM_CLK_SOCDMA				(0x82080E1U)
+#define PM_CLK_DC_REF				(0x82080E2U)
+#define PM_CLK_DC_27M				(0x82080E3U)
 /** @} */
 
 /**
