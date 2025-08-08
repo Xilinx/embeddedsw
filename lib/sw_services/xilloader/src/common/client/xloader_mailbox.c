@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -18,11 +18,15 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   01/09/24 Initial release
  *       har  03/05/24 Fixed doxygen warnings
+ * 1.01  abh  07/22/25 Added doxygen tag
  *
  * </pre>
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xloader_client_apis XilLoader Client APIs
+ * @{
+ */
 /*************************************** Include Files *******************************************/
 
 #include "xil_types.h"

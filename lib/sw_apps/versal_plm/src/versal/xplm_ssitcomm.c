@@ -27,13 +27,17 @@
 *       pre  09/24/2024 Added key zeroization and saving new key in PPU RAM
 * 1.01  sk   02/05/2025 Added redundancy to check secure comm state
 *       pre  03/25/2025 Added redundancy to check message type in XPlm_SsitCommReceiveMessage
-*
+* 1.02 	abh  07/22/2025 Added doxygen tag
 * </pre>
 *
 * @note
 *
 **************************************************************************************************/
-
+/**
+ * @addtogroup xplm_apis Versal PLM APIs
+ * @{
+ * @cond xplm_internal
+ */
 /***************************** Include Files *****************************************************/
 #include "xplm_ssitcomm.h"
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM

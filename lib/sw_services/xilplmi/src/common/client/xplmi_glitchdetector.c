@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -23,13 +23,16 @@
  *       pre  07/17/2024 Used register node to access PMC analog registers and fixed
  *                       misrac warnings
  *       pre  10/19/2024 Added support for PL microblaze
- *
+ * 1.01   abh   07/22/2025 Added doxygen tag
  * </pre>
  *
  * @note
  *
  *************************************************************************************************/
-
+/**
+ * @addtogroup xilplmi_client_apis XilPlmi Client APIs
+ * @{
+ */
 /***************************** Include Files *****************************************************/
 #include "xplmi_glitchdetector.h"
 #include "xil_io.h"
