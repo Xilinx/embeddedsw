@@ -1,5 +1,6 @@
 /*******************************************************************************
 # Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+# Copyright 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -104,7 +105,6 @@ void XV_HdmiRxSs1_LogWrite(XV_HdmiRxSs1 *InstancePtr, XV_HdmiRxSs1_LogEvent Evt,
 		}
 	}
 
-/*	xil_printf(">r%d\r\n", Evt);*/
 }
 
 /*****************************************************************************/
