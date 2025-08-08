@@ -155,7 +155,6 @@ void XV_HdmiRx1_FrlModeEnable(XV_HdmiRx1 *InstancePtr, u8 LtpThreshold,
 				DefaultLtp.Byte[3] == 0);
 	Xil_AssertVoid(FfeSuppFlag == 0 || FfeSuppFlag == 1);
 
-/*	InstancePtr->Stream.Frl.DefaultLtp.Data = DefaultLtp.Data;*/
 	InstancePtr->Stream.Frl.DefaultLtp.Byte[0] = DefaultLtp.Byte[0];
 	InstancePtr->Stream.Frl.DefaultLtp.Byte[1] = DefaultLtp.Byte[1];
 	InstancePtr->Stream.Frl.DefaultLtp.Byte[2] = DefaultLtp.Byte[2];
@@ -918,7 +917,6 @@ void XV_HdmiRx1_SetFrlLtpDetection(XV_HdmiRx1 *InstancePtr, u8 Lane,
 u32 XV_HdmiRx1_GetFrlLtpDetection(XV_HdmiRx1 *InstancePtr, u8 Lane)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
-/*	Xil_AssertVoid(Ltp >= 5 && Ltp <= 8);*/
 
 	u32 Data = 0;
 
@@ -1280,7 +1278,6 @@ void XV_HdmiRx1_FrlLinkRetrain(XV_HdmiRx1 *InstancePtr, u8 LtpThreshold,
 	Xil_AssertVoid((DefaultLtp.Byte[3] >= 5 && DefaultLtp.Byte[3] <= 8) ||
 		       DefaultLtp.Byte[3] == 0);
 
-	/* InstancePtr->Stream.Frl.DefaultLtp.Data = DefaultLtp.Data;*/
 	InstancePtr->Stream.Frl.DefaultLtp.Byte[0] = DefaultLtp.Byte[0];
 	InstancePtr->Stream.Frl.DefaultLtp.Byte[1] = DefaultLtp.Byte[1];
 	InstancePtr->Stream.Frl.DefaultLtp.Byte[2] = DefaultLtp.Byte[2];
@@ -1488,7 +1485,6 @@ void XV_HdmiRx1_FrlReset(XV_HdmiRx1 *InstancePtr, u8 Reset)
 		XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
 				    (XV_HDMIRX1_FRL_CTRL_CLR_OFFSET),
 				    (XV_HDMIRX1_FRL_CTRL_RSTN_MASK));
-		/* xil_printf("RESET SET\r\n");*/
 		XV_HdmiRx1_FrlDdcWriteField(InstancePtr,
 					    XV_HDMIRX1_SCDCFIELD_SINK_VER,
 					    1);

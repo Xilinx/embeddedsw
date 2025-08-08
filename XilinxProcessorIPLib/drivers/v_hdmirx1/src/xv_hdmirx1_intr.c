@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -796,12 +796,6 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 					}
 
 
-					/* Enable sync loss */
-					/* XV_HdmiRx1_WriteReg(
-					*	InstancePtr->Config.BaseAddress,
-					*	(XV_HDMIRX1_VTD_CTRL_SET_OFFSET),
-					*	(XV_HDMIRX1_VTD_CTRL_SYNC_LOSS_MASK));
-					*/
 
 					/* Enable the Dynamic HDR Datamover */
 					XV_HdmiRx1_DynHDR_DM_Enable(InstancePtr);
@@ -835,12 +829,6 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 					}
 				}
 			} else {
-				/* Disable sync loss */
-				/* XV_HdmiRx1_WriteReg(
-				 *	InstancePtr->Config.BaseAddress,
-				 *	(XV_HDMIRX1_VTD_CTRL_CLR_OFFSET),
-				 *	(XV_HDMIRX1_VTD_CTRL_SYNC_LOSS_MASK));
-				 */
 
 #ifdef DEBUG_RX_FRL_VERBOSITY
 				XVidC_ReportTiming(
@@ -1269,7 +1257,6 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 				/* VID_RDY goes down*/
 			}
 
-/*    		return;*/
 		} else if (InstancePtr->Stream.IsFrl == TRUE) {
 			InstancePtr->DBMessage = 0x80;
 
@@ -1282,7 +1269,6 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 			xil_printf(ANSI_COLOR_RED "VID_RDY during FRL Link!\r\n"
 					ANSI_COLOR_RESET);
 #endif
-/*    		return;*/
 		} else {
 			/* Ready*/
 			if ((Data) & (XV_HDMIRX1_PIO_IN_VID_RDY_MASK)) {
@@ -1549,9 +1535,7 @@ static void HdmiRx1_TmrIntrHandler(XV_HdmiRx1 *InstancePtr)
 
 				/* Clear GetVideoPropertiesTries*/
 				InstancePtr->Stream.GetVideoPropertiesTries = 0;
-				/* xil_printf(ANSI_COLOR_RED "Skew Locked!\r\n" ANSI_COLOR_RESET); */
 			} else {
-				/*xil_printf(ANSI_COLOR_RED "Skew Unlocked!\r\n" ANSI_COLOR_RESET); */
 			}
 
 			/* Load timer - 200 ms (one UHD frame is 40 ms, 5 frames)*/
@@ -2034,7 +2018,6 @@ static void HdmiRx1_FrlIntrHandler(XV_HdmiRx1 *InstancePtr)
 		InstancePtr->Stream.Frl.TrainingState =
 					XV_HDMIRX1_FRLSTATE_LTS_3_RATE_CH;
 		XV_HdmiRx1_ExecFrlState(InstancePtr);
-/*        XV_HdmiRx1_SetFrl10MicroSecondsTimer(InstancePtr);*/
 	}
 
 	/* Source has cleared FLT_update flag */
@@ -2079,7 +2062,6 @@ xil_printf(ANSI_COLOR_YELLOW "RX: INTR LTP_DET\r\n" ANSI_COLOR_RESET);
 					XV_HDMIRX1_FRLSTATE_LTS_3_LTP_DET;
 
 			XV_HdmiRx1_ExecFrlState(InstancePtr);
-/*			XV_HdmiRx1_SetFrl10MicroSecondsTimer(InstancePtr);*/
 		}
 	}
 
@@ -2106,7 +2088,6 @@ xil_printf(ANSI_COLOR_YELLOW "RX: INTR LTP_DET\r\n" ANSI_COLOR_RESET);
 				    "FRL_START\r\n" ANSI_COLOR_RESET);
 #endif
 			 XV_HdmiRx1_ExecFrlState(InstancePtr);
-/*			 XV_HdmiRx1_SetFrl10MicroSecondsTimer(InstancePtr);*/
 		}
 	}
 

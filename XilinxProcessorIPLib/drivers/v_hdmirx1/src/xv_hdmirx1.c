@@ -103,7 +103,6 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	InstancePtr->AudCallback = NULL;
 	InstancePtr->LnkStaCallback = NULL;
 	InstancePtr->DdcCallback = NULL;
-	/* InstancePtr->StreamDownCallback = (XV_HdmiRx1_Callback)((void *)StubCallback);*/
 	InstancePtr->StreamDownCallback = NULL;
 	InstancePtr->StreamInitCallback = NULL;
 	InstancePtr->StreamUpCallback = NULL;
@@ -245,18 +244,12 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	/* Enable DDC */
 	XV_HdmiRx1_DdcEnable(InstancePtr);
 
-	/* Enable DDC peripheral interrupt */
-	/*XV_HdmiRx1_DdcIntrEnable(InstancePtr);*/
-
 	/* Enable SCDC*/
 	XV_HdmiRx1_DdcScdcEnable(InstancePtr);
 
 	/*
 	AUX peripheral
 	*/
-
-	/* The aux peripheral will be enabled in the RX init done callback*/
-	/*XV_HdmiRx1_AuxEnable(InstancePtr);*/
 
 	/* Enable AUX peripheral interrupt */
 	XV_HdmiRx1_AuxIntrEnable(InstancePtr);
@@ -266,14 +259,8 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	Audio peripheral
 	*/
 
-	/* The audio peripheral will be enabled in the RX init done callback */
-	/* XV_HdmiRx1_AudioEnable(InstancePtr); */
-
 	/* Enable AUD peripheral interrupt */
 	XV_HdmiRx1_AudioIntrEnable(InstancePtr);
-
-	/* Enable Audio ACR Update Event */
-	/* XV_HdmiRx1_SetAudioAcrUpdateEventEn(InstancePtr); */
 
 	/* Enable Link Status */
 	XV_HdmiRx1_LnkstaEnable(InstancePtr);
@@ -300,9 +287,6 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 				    0);
 
 	XV_HdmiRx1_SetFrlRateWrEvent_En(InstancePtr);
-
-	/* Enable Link Status peripheral interrupt */
-	/* XV_HdmiRx1_LinkIntrEnable(InstancePtr); */
 
 	/* Reset the hardware and set the flag to indicate the driver is ready */
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
@@ -2464,7 +2448,6 @@ void XV_HdmiRx1_TmrStartMs(XV_HdmiRx1 *InstancePtr, u32 Milliseconds,
 static void StubCallback(void *CallbackRef)
 {
 	Xil_AssertVoid(CallbackRef != NULL);
-	/* Xil_AssertVoidAlways(); */
 }
 
 /*****************************************************************************/
