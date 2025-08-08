@@ -261,9 +261,6 @@ void XV_HdmiTxSs1_TmdsConfigCallback(void *CallbackRef)
 int XV_HdmiTxSs1_TmdsStart(XV_HdmiTxSs1 *InstancePtr)
 {
 	int Status = XST_FAILURE;
-/*#ifdef XV_HDMITXSS1_LOG_ENABLE*/
-/*	XV_HdmiTxSs1_LogWrite(InstancePtr, XV_HDMITXSS1_LOG_EVT_FRL_START, 0);*/
-/*#endif*/
 
 	Status = XV_HdmiTx1_FrlRate(InstancePtr->HdmiTx1Ptr,
 			XHDMIC_MAXFRLRATE_NOT_SUPPORTED);
