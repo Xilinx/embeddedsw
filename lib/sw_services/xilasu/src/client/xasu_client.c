@@ -29,6 +29,7 @@
  *       am   03/05/25 Added performance measurement init call
  *       ma   03/14/25 Replace memcpy with Xil_SecureMemCpy to avoid arch dependencies during copy
  *       kd   07/23/25 Fixed gcc warnings
+ *       am   08/08/25 Removed redundant condition before END label
  *
  * </pre>
  *
@@ -282,10 +283,6 @@ s32 XAsu_UpdateQueueBufferNSendIpi(XAsu_ClientParams *ClientParam, void *ReqBuff
 
 	/** Place an IPI request to ASU. */
 	Status = XAsu_SendIpi();
-	if (Status != XST_SUCCESS) {
-		XilAsu_Printf("Failed to send IPI request\r\n");
-		goto END;
-	}
 
 END:
 	return Status;
