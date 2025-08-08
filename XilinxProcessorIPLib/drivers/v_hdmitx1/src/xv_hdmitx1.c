@@ -218,13 +218,6 @@ int XV_HdmiTx1_CfgInitialize(XV_HdmiTx1 *InstancePtr, XV_HdmiTx1_Config *CfgPtr,
 	/* Set HDMI mode */
 	XV_HdmiTx1_SetHdmiTmdsMode(InstancePtr);
 
-	/* Enable the AUX peripheral */
-	/* The aux peripheral is enabled at stream up */
-	/*XV_HdmiTx1_AuxEnable(InstancePtr);*/
-
-	/* Enable audio */
-	/* The audio peripheral is enabled at stream up */
-	/*XV_HdmiTx1_AudioEnable(InstancePtr);*/
 
 	/* Enable FRL peripheral */
 	XV_HdmiTx1_FrlReset(InstancePtr, FALSE);
@@ -1036,10 +1029,6 @@ u32 XV_HdmiTx1_SetStream(XV_HdmiTx1 *InstancePtr,
 	if (ColorFormat == XVIDC_CSF_YCRCB_422) {
 		InstancePtr->Stream.Video.ColorDepth = XVIDC_BPC_12;
 	}
-
-/*	InstancePtr->Stream.Vic = XV_HdmiTx1_LookupVic(
-		InstancePtr->Stream.Video.VmId);
-*/
 
 	/* Set TX pixel rate*/
 	XV_HdmiTx1_SetPixelRate(InstancePtr);

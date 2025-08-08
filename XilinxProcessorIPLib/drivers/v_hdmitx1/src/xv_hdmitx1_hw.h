@@ -1,8 +1,7 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -46,7 +45,6 @@ extern "C" {
 #define XV_HDMITX1_DDC_STAT_FLGS_REG                 0x40
 #define XV_HDMITX1_DDC_STAT_FLGS_LN01_REG            0x41
 #define XV_HDMITX1_DDC_STAT_FLGS_LN23_REG            0x42
-/*#define XV_HDMITX1_DDC_CFG_1_REG                     0x31*/
 
 /* DDC UPDATE FLAGS register masks and shifts*/
 #define XV_HDMITX1_DDC_UPDATE_FLGS_CED_UPDATE_MASK   0x02

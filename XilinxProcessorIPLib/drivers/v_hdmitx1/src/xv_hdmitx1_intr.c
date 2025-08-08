@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -375,7 +376,6 @@ static void HdmiTx1_PioIntrHandler(XV_HdmiTx1 *InstancePtr)
 			InstancePtr->Stream.IsConnected = (TRUE);
 		    	InstancePtr->Stream.Frl.TrainingState =
 					XV_HDMITX1_FRLSTATE_LTS_L;
-			/* XV_HdmiTx1_ExecFrlState(InstancePtr);*/
 			XV_HdmiTx1_SetFrl10MicroSecondsTimer(InstancePtr);
 		} else {
 			if (InstancePtr->Stream.IsFrl == TRUE) {
@@ -472,7 +472,6 @@ xil_printf(" up\n\r" ANSI_COLOR_RESET);
 				if (InstancePtr->Stream.Frl.TrainingState ==
 			    	    XV_HDMITX1_FRLSTATE_LTS_3_ARM) {
 					XV_HdmiTx1_ExecFrlState(InstancePtr);
-					/* XV_HdmiTx1_SetFrl10MicroSecondsTimer(InstancePtr);*/
 				}
 			} else {
 				/* Enable the AUX peripheral */
@@ -481,8 +480,6 @@ xil_printf(" up\n\r" ANSI_COLOR_RESET);
 				/* Enable the AUX peripheral interrupt */
 				XV_HdmiTx1_AuxIntrEnable(InstancePtr);
 
-				/* Enable audio */
-				/*XV_HdmiTx1_AudioEnable(InstancePtr);*/
 
 				XV_HdmiTx1_DynHdr_DM_Enable(InstancePtr);
 

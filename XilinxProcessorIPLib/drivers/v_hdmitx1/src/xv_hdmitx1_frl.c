@@ -74,7 +74,6 @@ int XV_HdmiTx1_StartTmdsMode(XV_HdmiTx1 *InstancePtr)
 	xil_printf(ANSI_COLOR_CYAN "TX: Start TMDS Mode\r\n" ANSI_COLOR_RESET);
 #endif
 
-/*    InstancePtr->Stream.VidMode = XHDMIC_VIDMODE_HDMI_FRL;*/
 	InstancePtr->Stream.Frl.TrainingState = XV_HDMITX1_FRLSTATE_LTS_L;
 
 	/* Clear timer event flag*/
@@ -392,9 +391,6 @@ static int XV_HdmiTx1_ExecFrlState_Lts2(XV_HdmiTx1 *InstancePtr)
 			/* Disable timer */
 			XV_HdmiTx1_SetFrlTimer(InstancePtr, 0);
 
-/*			if (InstancePtr->Stream.Frl.RateLock == FALSE) {*/
-			/* Start FRL rate with maximum supported rate */
-/*			}*/
 
 			/* Reset LaneFfeAdjReq so application can reset TxFFE */
 			InstancePtr->Stream.Frl.LaneFfeAdjReq.Data = 0;
@@ -431,9 +427,6 @@ static int XV_HdmiTx1_ExecFrlState_Lts2(XV_HdmiTx1 *InstancePtr)
 						InstancePtr->FrlLts2Ref);
 			}
 
-			/* xil_printf(ANSI_COLOR_CYAN "TX: FRL LTS:2 endless"
-			 *	      " loop\r\n" ANSI_COLOR_RESET);*/
-			/* while (1);*/
 
 		}
 	} else { /* Timeout, fallback to LTS:L */
@@ -1066,8 +1059,6 @@ int XV_HdmiTx1_FrlStreamStart(XV_HdmiTx1 *InstancePtr)
 				XV_HDMITX1_FRL_ACTIVE_MODE_FULL_STREAM);
 
 /*	/\* Clears FRL_Start *\/*/
-/*	Status = XV_HdmiTx1_DdcWriteField(InstancePtr,*/
-/*					  XV_HDMITX1_SCDCFIELD_FRL_START, 1);*/
 
 	/* Set stream status to up */
 	InstancePtr->Stream.State = XV_HDMITX1_STATE_STREAM_UP;
@@ -1113,13 +1104,6 @@ int XV_HdmiTx1_FrlStreamStop(XV_HdmiTx1 *InstancePtr)
 	/* Disable the AUX peripheral interrupt */
 	XV_HdmiTx1_AuxIntrDisable(InstancePtr);
 
-/*	/\* FRL transmission includes video, audio and control packets *\/ */
-/*	XV_HdmiTx1_SetFrlActive(InstancePtr,*/
-/*				XV_HDMITX1_FRL_ACTIVE_MODE_GAP_ONLY);*/
-
-/*	/\* Clear FLT_start *\/ */
-/*	Status = XV_HdmiTx1_DdcWriteField(InstancePtr,*/
-/*					  XV_HDMITX1_SCDCFIELD_FRL_START, 1);*/
 
 	/* Set stream status to up */
 	InstancePtr->Stream.State = XV_HDMITX1_STATE_STREAM_DOWN;
