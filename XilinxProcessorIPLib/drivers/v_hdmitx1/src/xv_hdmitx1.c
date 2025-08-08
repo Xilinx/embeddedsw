@@ -2197,7 +2197,7 @@ int XV_HdmiTx1_DdcWriteField(XV_HdmiTx1 *InstancePtr,
 void XV_HdmiTx1_Aux_Dsc_Send_Header(XV_HdmiTx1 *InstancePtr, u32 Data)
 {
 	/* Verify argument. */
-	Xil_Assertvoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Update DSC packet header */
 	XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress, XV_HDMITX1_DSC_BASE, Data);
@@ -2219,7 +2219,7 @@ void XV_HdmiTx1_Aux_Dsc_Send_Header(XV_HdmiTx1 *InstancePtr, u32 Data)
 void XV_HdmiTx1_Aux_Dsc_Send_Data(XV_HdmiTx1 *InstancePtr, u32 Data)
 {
 	/* Verify argument. */
-	Xil_Assertvoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Update DSC packet Data */
 	XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress, XV_HDMITX1_DSC_BASE, Data);
