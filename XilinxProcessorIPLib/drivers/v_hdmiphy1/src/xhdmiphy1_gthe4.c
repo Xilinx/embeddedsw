@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -349,12 +350,6 @@ u32 XHdmiphy1_Gthe4CfgSetCdr(XHdmiphy1 *InstancePtr, u8 QuadId,
     ChPtr->PllParams.Cdr[3] = XHDMIPHY1_GTHE4_RXCDR_CFG_WORD3;
     ChPtr->PllParams.Cdr[4] = XHDMIPHY1_GTHE4_RXCDR_CFG_WORD4;
     if (XHdmiphy1_IsHDMI(InstancePtr, XHDMIPHY1_DIR_RX)) {
-        /* RxOutDiv = 1  => Cdr[2] = 0x0262
-         * RxOutDiv = 2  => Cdr[2] = 0x0252
-         * RxOutDiv = 4  => Cdr[2] = 0x0242
-         * RxOutDiv = 8  => Cdr[2] = 0x0232
-         * RxOutDiv = 16 => Cdr[2] = 0x0222 */
-
         ChPtr->PllParams.Cdr[2] = XHDMIPHY1_GTHE4_RXCDR_CFG_WORD2;
 
         while (RxOutDiv >>= 1) {

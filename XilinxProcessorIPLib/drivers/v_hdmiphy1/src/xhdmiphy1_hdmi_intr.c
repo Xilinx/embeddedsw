@@ -104,7 +104,7 @@ void XHdmiphy1_SetHdmiCallback(XHdmiphy1 *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function sets the appropriate HDMI interupt handlers.
+* This function sets the appropriate HDMI interrupt handlers.
 *
 * @param    InstancePtr is a pointer to the HDMIPHY instance.
 *
@@ -743,8 +743,6 @@ void XHdmiphy1_HdmiTxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
     /* Mask the MMCM Lock */
     XHdmiphy1_MmcmLockedMaskEnable(InstancePtr, 0, XHDMIPHY1_DIR_TX, TRUE);
 
-    /* Disable TX MMCM. */
-    /* XHdmiphy1_MmcmPowerDown(InstancePtr, 0, XHDMIPHY1_DIR_TX, TRUE); */
 
     /* Clear TX timer. */
     XHdmiphy1_ClkDetTimerClear(InstancePtr, 0, XHDMIPHY1_DIR_TX);

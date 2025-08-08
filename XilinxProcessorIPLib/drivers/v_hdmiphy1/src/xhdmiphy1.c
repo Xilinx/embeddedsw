@@ -1079,8 +1079,6 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 
 
-	/* Configure MMCM. */
-	//XHdmiphy1_MmcmWriteParameters(InstancePtr, QuadId, Dir);
 
 	/* Release MMCM reset. */
 	XHdmiphy1_MmcmReset(InstancePtr, QuadId, Dir, FALSE);

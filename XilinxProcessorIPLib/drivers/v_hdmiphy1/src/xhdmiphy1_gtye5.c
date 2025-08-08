@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -53,11 +53,6 @@ u32 XHdmiphy1_Gtye5TxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 #define XHDMIPHY1_HDMI_GTYE5_DRU_LRATE  3000000000U
 
 const XHdmiphy1_GtConfig Gtye5Config = {
-/*  .CfgSetCdr = XHdmiphy1_Gtye4CfgSetCdr,
-    .CheckPllOpRange = XHdmiphy1_Gtye4CheckPllOpRange,
-    .OutDivChReconfig = XHdmiphy1_Gtye4OutDivChReconfig,
-    .ClkChReconfig = XHdmiphy1_Gtye4ClkChReconfig,
-    .ClkCmnReconfig = XHdmiphy1_Gtye4ClkCmnReconfig, */
     .RxChReconfig = XHdmiphy1_Gtye5RxChReconfig,
     .TxChReconfig = XHdmiphy1_Gtye5TxChReconfig,
 
