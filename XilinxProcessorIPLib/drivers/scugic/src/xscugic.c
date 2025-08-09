@@ -180,6 +180,7 @@
 *                     and XScuGic_UnmapAllInterruptsFromCpu APIs to skip
 *                     Un-mapping of interrupts in case of GICv3.
 * 5.5   ml   12/20/24 Fixed GCC warnings
+* 5.6   ml   08/10/25 Fixed ARMCLANG warning
 * </pre>
 *
 ******************************************************************************/
@@ -482,8 +483,8 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 			* the callback reference to this instance so that
 			* unhandled interrupts can be tracked.
 			*/
-			if ((InstancePtr->Config->HandlerTable[Int_Id].Handler
-			     == (Xil_InterruptHandler)NULL)) {
+			if (InstancePtr->Config->HandlerTable[Int_Id].Handler
+			     == (Xil_InterruptHandler)NULL) {
 				InstancePtr->Config->HandlerTable[Int_Id].Handler
 					= (Xil_InterruptHandler)StubHandler;
 			}
