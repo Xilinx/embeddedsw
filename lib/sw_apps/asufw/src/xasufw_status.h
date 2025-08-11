@@ -537,6 +537,16 @@ enum {
 	XASUFW_OCP_INVALID_SUBSYSTEM_INDEX, /**< 0x168U Error when parameter is invalid */
 	XASUFW_OCP_GET_SUBSYSTEM_HASH_FAIL, /**< 0x169U - Error when retrieved subsystem
 							hash is failed */
+	XASUFW_READ_IPI_MSG_FROM_PLM_FAIL, /**< 0x16AU - Error when reading IPI message from PLM */
+	XASUFW_PLM_EVENT_HANDLING_FAIL, /**< 0x16BU - Error when PLM event handling is failed */
+	XASUFW_PLM_MODULE_REGISTRATION_FAIL, /**< 0x16CU - Error when PLM module registration is
+						failed */
+	XASUFW_OCP_DEVIK_GENERATION_FAIL, /**< 0x16DU - Error when DevIk key pair generation is
+						failed */
+	XASUFW_OCP_DEVAK_GENERATION_FAIL, /**< 0x16EU - Error when DevAk key pair generation is
+						failed */
+	XASUFW_PLM_INVALID_CMD_HEADER, /**< 0x16FU - Error when IPI command header is invalid */
+	XASUFW_PLM_DEV_KEYS_GEN_FAIL, /**< 0x170U - Error when device keys generation is failed */
 
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */

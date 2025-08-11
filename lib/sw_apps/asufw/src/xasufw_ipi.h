@@ -19,6 +19,7 @@
  *       ma   07/08/24 Added IPI_ASU_TRIG macro
  *       am   02/24/25 Added macros related to PLM ASU IPI module
  *       rmv  07/31/25 Added XASUFW_PLM_CMD_ID_ASU_CDI_TX_ID command ID
+ *       rmv  07/16/25 Added function prototype of "XAsufw_ReadIpiMsgFromPlm" function
  *
  * </pre>
  *
@@ -93,6 +94,7 @@ s32 XAsufw_IpiInit(void);
 void XAsufw_IpiHandler(const void *Data);
 s32 XAsufw_SendIpiToPlm(const u32 *MsgBufPtr, u32 MsgBufLen);
 s32 XAsufw_ReadIpiRespFromPlm(u32 *RespBufPtr, u32 RespBufLen);
+s32 XAsufw_ReadIpiMsgFromPlm(u32 *MsgBufPtr, u32 MsgBufLen);
 void XAsufw_EnableIpiInterrupt(u16 IpiBitMask);
 
 /************************************ Variable Definitions ***************************************/

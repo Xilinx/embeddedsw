@@ -93,6 +93,7 @@ typedef struct {
 } XOcp_CdoData;
 
 /************************************ Function Prototypes ****************************************/
+s32 XOcp_GenerateDeviceKeys(XAsufw_Dma *DmaPtr, u32 EventMask);
 
 /************************************ Variable Definitions ***************************************/
 

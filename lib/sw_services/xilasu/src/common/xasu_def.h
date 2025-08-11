@@ -19,6 +19,7 @@
  *       am   08/01/24 Added macro for AES module Id.
  *       yog  01/02/25 Added macro for HMAC module ID.
  *       ma   01/15/25 Added macro for KDF module ID.
+ *       rmv  08/11/25 Added macro for PLM event module ID.
  *
  * </pre>
  *
@@ -52,7 +53,8 @@ extern "C" {
 #define XASU_MODULE_KDF_ID			(7U) /**< KDF module ID */
 #define XASU_MODULE_ECIES_ID			(8U) /**< ECIES module ID */
 #define XASU_MODULE_KEYWRAP_ID			(9U) /**< Key wrap unwrap module ID */
-#define XASU_MAX_MODULES			(10U) /**< Maximum supported modules in ASU */
+#define XASU_MODULE_PLM_ID			(10U) /**< PLM module ID */
+#define XASU_MAX_MODULES			(11U) /**< Maximum supported modules in ASU */
 
 #define XASU_ASU_DMA_MAX_TRANSFER_LENGTH	(0x1FFFFFFCU)
 						/**< ASU DMA maximum transfer length in bytes. */

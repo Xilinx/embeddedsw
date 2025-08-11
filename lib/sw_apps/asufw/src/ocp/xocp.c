@@ -50,6 +50,9 @@
 #define XOCP_TRNG_DRBG_SEED_LIFE	(7U)		/**< User config seed life */
 #define XOCP_DEV_KEY_RANDOM_BUF_SIZE	(64U)		/**< Maximum device private key size */
 
+#define XOCP_SUBSYS_EVENT_MASK		(0x01U)		/**< Subsystem event mask */
+#define XOCP_SUBSYS_EVENT_SHIFT		(1U)		/**< Subsystem event size */
+
 /************************************ Type Definitions *******************************************/
 
 /********************************** Variable Definitions *****************************************/
@@ -64,6 +67,55 @@ static s32 XOcp_GenerateDevIk(XAsufw_Dma *DmaPtr);
 static s32 XOcp_GetSubsystemHashAddr(u32 SubsystemId, u32 *SwHashAddr);
 static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr);
 
+/*************************************************************************************************/
+/**
+ * @brief	This function generates device keys based on event mask.
+ *
+ * @param	DmaPtr		Pointer to allocated DMA resource.
+ * @param	EventMask	Event mask representing subsystem state changes.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if PLM event is handled successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_OCP_DEVIK_GENERATION_FAIL, if DevIk generation is failed.
+ *	- XASUFW_OCP_DEVAK_GENERATION_FAIL, if DevAk generation is failed.
+ *
+ *************************************************************************************************/
+s32 XOcp_GenerateDeviceKeys(XAsufw_Dma *DmaPtr, u32 EventMask)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 Idx = XASUFW_VALUE_ONE;
+	u32 EvtMask = EventMask;
+
+	/** Generate DevIK key pair. */
+	if (((EvtMask & XOCP_SUBSYS_EVENT_MASK) == XOCP_SUBSYS_EVENT_MASK)) {
+		Status = XOcp_GenerateDevIk(DmaPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_OCP_DEVIK_GENERATION_FAIL);
+			goto END;
+		}
+	}
+
+	/** Generate DevAK key pair according to event mask for required subsystems. */
+	EvtMask = EvtMask >> XOCP_SUBSYS_EVENT_SHIFT;
+	while (EvtMask != 0x0U) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		if ((EvtMask & XOCP_SUBSYS_EVENT_MASK) == XOCP_SUBSYS_EVENT_MASK) {
+			Status = XOcp_GenerateDevAk((Idx - XOCP_USER_SUBSYS_START_INDEX), DmaPtr);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+						XASUFW_OCP_DEVAK_GENERATION_FAIL);
+				goto END;
+			}
+		}
+		EvtMask = EvtMask >> XOCP_SUBSYS_EVENT_SHIFT;
+		Idx++;
+	}
+
+END:
+	return Status;
+}
 /*************************************************************************************************/
 /**
  * @brief	This function generates a DevIk key pair(private and public key).

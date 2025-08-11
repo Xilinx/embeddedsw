@@ -19,6 +19,7 @@
  *       ma   03/16/24 Added error codes at required places
  *       ma   07/08/24 Add task based approach at queue level
  * 1.1   am   05/18/25 Fixed implicit conversion of operands
+ *       rmv  07/16/25 Added "XAsufw_ReadIpiMsgFromPlm" function and PLM event handling
  *
  * </pre>
  *
@@ -28,11 +29,13 @@
 * @{
 */
 /*************************************** Include Files *******************************************/
+#include "xasu_bsp_config.h"
 #include "xasufw_ipi.h"
 #include "xasufw_queuescheduler.h"
 #include "xasufw_debug.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xasufw_plmeventschedular.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_IPI_MAX_MSG_LEN          8U /**< Maximum IPI buffer length */
@@ -114,7 +117,15 @@ void XAsufw_IpiHandler(const void *Data)
 	while (IpiIsr != 0U) {
 		IpiMask = IpiIsr & ((u32)0x1U << Count);
 		if (IpiMask != 0U) {
-			XAsufw_TriggerQueueTask(IpiMask);
+			/**
+			 * If IPI is received from PLM, trigger the PLM notification handler else
+			 * handles the client request.
+			 */
+			if (IpiMask == XASUFW_IPI_PMC_MASK) {
+				XAsufw_HandlePlmEvent();
+			} else {
+				XAsufw_TriggerQueueTask(IpiMask);
+			}
 			XAsufw_WriteReg(IPI_ASU_ISR, IpiMask);
 		}
 		IpiIsr = IpiIsr & (~IpiMask);
@@ -217,5 +228,49 @@ s32 XAsufw_ReadIpiRespFromPlm(u32 *RespBufPtr, u32 RespBufLen)
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function reads IPI message from PLM.
+ *
+ * @param	MsgBufPtr	Pointer to the message buffer.
+ * @param	MsgBufLen	Message buffer length.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if IPI read message from PLM is successful.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_IPI_INVALID_INPUT_PARAMETERS, if input arguments for IPI receive is invalid.
+ *	- XASUFW_IPI_POLL_FOR_ACK_FAILED, if IPI polling for acknowledgment fails.
+ *	- XASUFW_IPI_READ_MESSAGE_FAILED, if IPI read message fails.
+ *
+ *************************************************************************************************/
+s32 XAsufw_ReadIpiMsgFromPlm(u32 *MsgBufPtr, u32 MsgBufLen)
+{
+	s32 Status = XASUFW_FAILURE;
+
+	/** Validate inputs. */
+	if ((NULL == MsgBufPtr) || (MsgBufLen == 0U) || (MsgBufLen > XASUFW_IPI_MAX_MSG_LEN)) {
+		Status = XASUFW_IPI_INVALID_INPUT_PARAMETERS;
+		goto END;
+	}
+
+	/** Check if the IPI interrupt is processed. */
+	Status = XIpiPsu_PollForAck(&IpiInst, XASUFW_IPI_PMC_MASK, 0x1FFFFFFFU);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);
+		goto END;
+	}
+
+	/** Read IPI message from PLM. */
+	Status = XIpiPsu_ReadMessage(&IpiInst, XASUFW_IPI_PMC_MASK, MsgBufPtr, MsgBufLen,
+			XIPIPSU_BUF_TYPE_MSG);
+	if (XASUFW_SUCCESS != Status) {
+		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_READ_MESSAGE_FAILED, Status);
+	}
+
+END:
+	return Status;
+}
+
 #endif
 /** @} */

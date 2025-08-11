@@ -25,6 +25,7 @@
  * 1.1   ma   12/12/24 Updated resource allocation logic
  *       ma   01/15/25 Added KDF to the resources list
  *       yog  02/20/25 Added ECIES to the resources list
+ *       rmv  07/16/25 Added macro for PLM event resource mask
  *
  * </pre>
  *
@@ -62,6 +63,7 @@ extern "C" {
 #define XASUFW_ECIES_RESOURCE_MASK		0x800U /**< ECIES resource mask */
 #define XASUFW_KEYWRAP_RESOURCE_MASK	0x1000U /**< Keywrap unwrap resource mask */
 #define XASUFW_RSA_SHA_RESOURCE_MASK	0x2000U /**< SHA resource mask for Edward curves */
+#define XASUFW_PLM_RESOURCE_MASK        0x4000U /**< PLM resource mask */
 
 /************************************** Type Definitions *****************************************/
 /**
@@ -82,7 +84,8 @@ typedef enum {
 	XASUFW_ECIES,	/**< 11: ECIES */
 	XASUFW_KEYWRAP,	/**< 12: Key wrap unwrap */
 	XASUFW_NONE,	/**< 13: None */
-	XASUFW_INVALID,	/**< 14: Invalid */
+	XASUFW_PLM,	/**< 14: PLM */
+	XASUFW_INVALID,	/**< 15: Invalid */
 } XAsufw_Resource;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
