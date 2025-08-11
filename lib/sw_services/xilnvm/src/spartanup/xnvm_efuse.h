@@ -54,7 +54,8 @@ extern "C" {
 */
 #define XNVM_EFUSE_WORD_LEN			(4U) /**< Word length */
 #define XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS	(8U) /**< AES key size in words */
-#define XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES	(48U) /**< PPK hash size in bytes for DL9 */
+#define XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES	(48U) /**< PPK hash size in bytes for all other
+							parts except SU10P,SU25P,SU35P */
 #define XNVM_EFUSE_AES_IV_SIZE_IN_BYTES		(12U) /**< AES IV size in bytes */
 #define XNVM_EFUSE_AES_IV_SIZE_IN_WORDS		(3U) /**< AES IV size in words */
 #define XNVM_EFUSE_PPK0_HASH_START_ROW		(0U) /**< PPK0 hash start row */
@@ -98,7 +99,7 @@ extern "C" {
 #define XNVM_EFUSE_DIS_SJTAG_ROW		(50) /**< DIS_SJTAG start row */
 #define XNVM_EFUSE_DIS_SJTAG_COL		(12) /**< DIS_SJTAG column */
 
-#define XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES	(32U) /**< PPK hash size in bytes for DL3*/
+#define XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES	(32U) /**< PPK hash size in bytes for parts-SU10P,SU25P,SU35P*/
 #define XNVM_EFUSE_DEF_PPK_HASH_SIZE_IN_WORDS	(8U) /**< Default PPK hash size in words */
 #define XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES	(3U) /**< Number of revoke id efuses */
 #define XNVM_EFUSE_AES_IV_NUM_OF_ROWS		(12U) /**< AES IV number of rows */
