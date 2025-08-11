@@ -175,6 +175,7 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 	/** Get hash length based on the SHA mode to validate the input hash length. */
 	Status = XSha_GetHashLen((u8)ShaMode, &ExpHashLen);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SHA_INVALID_SHA_MODE;
 		goto END;
 	}
 
@@ -198,6 +199,7 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 	/** Preprocess key. */
 	Status = XHmac_ProcessKeyWithPadding(InstancePtr, AsuDmaPtr, KeyAddr, KeyLen, (u8 *)K0);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_HMAC_KEY_PROCESS_ERROR;
 		goto END_CLR;
 	}
 
@@ -205,6 +207,7 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 	/** Initialize SHA engine to calculate the hash on IPad || Data. */
 	Status = XSha_Start(InstancePtr->ShaInstancePtr, (u32)InstancePtr->ShaMode);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
 		goto END_CLR;
 	}
 
@@ -213,6 +216,7 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 	Status = XSha_Update(InstancePtr->ShaInstancePtr, AsuDmaPtr,
 			     (u64)(UINTPTR)K0, (u32)InstancePtr->BlockLen, XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
 		goto END_CLR;
 	}
 
@@ -308,6 +312,7 @@ SHA_IN_HMAC_STAGE_UPDATE_DONE:
 		Status = XSha_Finish(InstancePtr->ShaInstancePtr, AsuDmaPtr, (u32 *)(InstancePtr->IntHash),
 				     (u32)InstancePtr->HashBufLen, XASU_FALSE);
 		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
 			goto END;
 		}
 

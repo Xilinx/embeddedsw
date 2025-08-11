@@ -508,6 +508,7 @@ enum {
 						failed */
 	XASUFW_MEM_MOVE_FAIL, /**< 0x157U - Error when move memory failed */
 	XASUFW_X509_CERT_GEN_FAIL, /**< 0x158U - Error when certificate generation failed */
+	XASUFW_HMAC_KEY_PROCESS_ERROR, /**< 0x159U - Error when HMAC key processing failed */
 
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */
