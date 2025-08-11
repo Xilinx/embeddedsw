@@ -55,7 +55,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------------------------------------
 * 1.0   ma     02/07/25 Initial release
-*
+*       kd     08/11/25 Fixed Gcc warnings
 * </pre>
  *************************************************************************************************/
 
@@ -147,7 +147,7 @@ const u8 ExpectedOutput[XASU_OUTPUT_LENGTH_IN_BYTES] __attribute__ ((
 };
 #endif /** XASU_TRNG_ENABLE_DRBG_MODE */
 
-static const u8 Output[XASU_OUTPUT_LENGTH_IN_BYTES] __attribute__ ((section (".data.Output")));
+static u8 Output[XASU_OUTPUT_LENGTH_IN_BYTES] __attribute__ ((section (".data.Output")));
 
 volatile u8 Notify = 0U; /**< To notify the call back from client library. */
 volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error returned from server. */
@@ -270,7 +270,7 @@ static void XAsu_TrngExample(void)
 	}
 
 	XilAsu_Printf("Generated random number \r\n ");
-	Asu_TrngPrintOutput(Output);
+	Asu_TrngPrintOutput((const u8 *)Output);
 
 END:
 
