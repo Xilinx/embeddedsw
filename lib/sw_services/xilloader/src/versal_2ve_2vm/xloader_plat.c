@@ -64,6 +64,7 @@
 *       sk   03/17/2025 Added support for all 5 RPU clusters
 *       sk   03/22/2025 Updated status variable as volatile in XLoader_StartImage
 *       sk   03/29/2025 Added redundancy for handoff address
+* 1.04  obs  08/01/2025 Updated status with valid error code in XLoader_DataMeasurement API
 *
 * </pre>
 *
@@ -1364,7 +1365,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		break;
 	}
 	if (Status != XST_SUCCESS) {
-		XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
 		goto END;
 	}
 
@@ -1398,7 +1399,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 
 END:
 	if (Status != XST_SUCCESS) {
-		XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
 	}
 #else
 	(void)ImageInfo;

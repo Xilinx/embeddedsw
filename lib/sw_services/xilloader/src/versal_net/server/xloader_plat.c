@@ -55,6 +55,7 @@
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       obs  12/10/2024 Fixed GCC Warnings
 *       tri  03/13/2025 Added XLoader_MeasureNLoad support
+* 1.04  obs  08/01/2025 Updated status with valid error code in XLoader_DataMeasurement API
 *
 * </pre>
 *
@@ -1353,7 +1354,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		break;
 	}
 	if (Status != XST_SUCCESS) {
-		XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
 		goto END;
 	}
 
@@ -1387,7 +1388,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 
 END:
 	if (Status != XST_SUCCESS) {
-		XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
 	}
 #else
 	(void)ImageInfo;
