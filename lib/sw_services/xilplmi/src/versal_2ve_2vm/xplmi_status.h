@@ -61,6 +61,8 @@
 * 2.3   vss  07/22/2025 Added Hashblock hash verification error code.
 *       ng   07/17/2025 Added new error codes partition copy failure when boot copy optimization is
 *                       disabled
+*       tvp  07/30/2025 Added XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED error code
+*
 * </pre>
 *
 * @note
@@ -794,6 +796,7 @@ typedef enum {
 	XOCP_PCR_ERR_IN_SWPCR_CONFIG, /**< 0x6A1 Error in SwPcr configuration */
 
 	XOCP_DEVAK_MAX_COUNT_EXCEED = 0x6B0,	/**< 0x6B0 DEVAK MAX count exceeded */
+	XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED = 0x6B1,      /**< 0x6B1 DEVAK per subsystem MAX count exceeded */
 
 	XOCP_ERR_KAT_FAILED = 0x6C0, /**< 0x6C0 Error when KAT fails */
 

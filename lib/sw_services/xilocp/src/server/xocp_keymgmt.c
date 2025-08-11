@@ -36,6 +36,7 @@
 *       har  08/08/24 Update FwHash for both DevIk certificate and DevIk CSR
 *	vss  09/23/24 Modified code as per security best practices
 *       kpt  12/03/24 Updated IsCsr value to False during DevAk certificate generation
+*       tvp  07/30/25 Limit number of DevAK per subsystem to 0 and/or 1
 *
 * </pre>
 * @note
@@ -303,6 +304,13 @@ int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString, u32 KeyIndex)
 		goto END;
 	}
 
+	if (KeyIndex >= XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM) {
+		XOcp_Printf(DEBUG_GENERAL,
+			"Maximum count of DEVAK supported per sub-system is %d\r\n",
+			XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM);
+		Status = (int)XOCP_DEVAK_PER_SUBSYSTEM_MAX_COUNT_EXCEED;
+		goto END;
+	}
 	DevAkData[KeyMgmtInstance->DevAkInputIndex].SubSystemId = SubSystemId;
 	DevAkData[KeyMgmtInstance->DevAkInputIndex].KeyIndex = KeyIndex;
 
