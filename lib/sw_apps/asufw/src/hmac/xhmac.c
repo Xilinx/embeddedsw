@@ -268,7 +268,12 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 	static u32 HmacUpdateStage = XHMAC_CMD_STAGE_IDLE;
 
 	/** Validate input parameters. */
-	if ((InstancePtr == NULL) || (AsuDmaPtr == NULL) || (DataAddr == 0U)) {
+	if (InstancePtr == NULL) {
+		Status = XASUFW_HMAC_INVALID_PARAM;
+		goto DONE;
+	}
+
+	if ((AsuDmaPtr == NULL) || (DataAddr == 0U)) {
 		Status = XASUFW_HMAC_INVALID_PARAM;
 		goto END;
 	}
