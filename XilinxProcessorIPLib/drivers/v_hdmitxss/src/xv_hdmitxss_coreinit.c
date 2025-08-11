@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,10 +90,6 @@ int XV_HdmiTxSs_SubcoreInitHdmiTx(XV_HdmiTxSs *HdmiTxSsPtr)
       return(XST_FAILURE);
     }
 
-#ifdef SDT
-	HdmiTxSsPtr->Config.HdmiTx.AbsAddr += HdmiTxSsPtr->Config.BaseAddress;
-	ConfigPtr->BaseAddress += HdmiTxSsPtr->Config.BaseAddress;
-#endif
     /* Initialize core */
     Status = XV_HdmiTx_CfgInitialize(HdmiTxSsPtr->HdmiTxPtr,
                                     ConfigPtr,
@@ -140,10 +136,6 @@ int XV_HdmiTxSs_SubcoreInitVtc(XV_HdmiTxSs *HdmiTxSsPtr)
       return(XST_FAILURE);
     }
 
-#ifdef SDT
-	HdmiTxSsPtr->Config.Vtc.AbsAddr += HdmiTxSsPtr->Config.BaseAddress;
-	ConfigPtr->BaseAddress += HdmiTxSsPtr->Config.BaseAddress;
-#endif
 
     /* Initialize core */
     Status = XVtc_CfgInitialize(HdmiTxSsPtr->VtcPtr,
@@ -190,10 +182,6 @@ int XV_HdmiTxSs_SubcoreInitHdcpTimer(XV_HdmiTxSs *HdmiTxSsPtr)
       return(XST_FAILURE);
     }
 
-#ifdef SDT
-	HdmiTxSsPtr->Config.HdcpTimer.AbsAddr +=  HdmiTxSsPtr->Config.BaseAddress;
-	ConfigPtr->BaseAddress += HdmiTxSsPtr->Config.BaseAddress;
-#endif
     /* Setup the instance */
     memset(HdmiTxSsPtr->HdcpTimerPtr, 0, sizeof(XTmrCtr));
 
@@ -259,10 +247,6 @@ int XV_HdmiTxSs_SubcoreInitHdcp14(XV_HdmiTxSs *HdmiTxSsPtr)
                     "HDMITXSS ERR:: HDCP 1.4 device not found\r\n");
         return(XST_FAILURE);
       }
-#ifdef SDT
-	HdmiTxSsPtr->Config.Hdcp14.AbsAddr +=  HdmiTxSsPtr->Config.BaseAddress;
-	ConfigPtr->BaseAddress += HdmiTxSsPtr->Config.BaseAddress;
-#endif
       /* Initialize core */
       void *PhyIfPtr = HdmiTxSsPtr->HdmiTxPtr;
 
@@ -340,10 +324,6 @@ int XV_HdmiTxSs_SubcoreInitHdcp22(XV_HdmiTxSs *HdmiTxSsPtr)
 	/* Initialize HDCP 2.2 TX */
 	Hdcp22TxConfig =
 		XHdcp22Tx_LookupConfig(HdmiTxSsPtr->Config.Hdcp22.AbsAddr);
-#endif
-#ifdef SDT
-	HdmiTxSsPtr->Config.Hdcp22.AbsAddr +=  HdmiTxSsPtr->Config.BaseAddress;
-	Hdcp22TxConfig->BaseAddress += HdmiTxSsPtr->Config.BaseAddress;
 #endif
       if (Hdcp22TxConfig == NULL) {
         xdbg_printf(XDBG_DEBUG_GENERAL,
