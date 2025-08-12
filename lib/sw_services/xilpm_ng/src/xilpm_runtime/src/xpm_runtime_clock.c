@@ -232,10 +232,16 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 	}
 
 	if (ISPLL(ClockId)) {
-		/* Do not allow permission by default when PLL is shared */
-		DbgErr = XPM_INT_ERR_PLL_PERMISSION;
-		Status = XPM_PM_NO_ACCESS;
-		goto done;
+		if (PM_CLK_MMI_PLL == ClockId) {
+			/* Allow MMI PLL to be reprogrammed runtime as required for
+			 * accurate video clock frequencies for DC device */
+			Status = XST_SUCCESS;
+		} else {
+			/* Do not allow permission by default when PLL is shared */
+			DbgErr = XPM_INT_ERR_PLL_PERMISSION;
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
+		}
 	}
 
 	DevHandle = Clk->ClkHandles;
