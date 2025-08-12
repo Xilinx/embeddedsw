@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2023 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,10 +67,6 @@ int XV_SdiTxSs_SubcoreInitSdiTx(XV_SdiTxSs *SdiTxSsPtr)
 				"SDITXSS ERR:: SDI TX device not found\r\n");
 			return XST_FAILURE;
 		}
-#ifdef SDT
-	SdiTxSsPtr->Config.SdiTx.AbsAddr += SdiTxSsPtr->Config.BaseAddress;
-	ConfigPtr->BaseAddress += SdiTxSsPtr->Config.BaseAddress;
-#endif
 
 		/* Initialize core */
 		Status = XV_SdiTx_CfgInitialize(SdiTxSsPtr->SdiTxPtr,
@@ -117,10 +113,6 @@ int XV_SdiTxSs_SubcoreInitVtc(XV_SdiTxSs *SdiTxSsPtr)
 			return XST_FAILURE;
 		}
 
-#ifdef SDT
-	SdiTxSsPtr->Config.Vtc.AbsAddr += SdiTxSsPtr->Config.BaseAddress;
-	ConfigPtr->BaseAddress += SdiTxSsPtr->Config.BaseAddress;
-#endif
 		/* Initialize core */
 		Status = XVtc_CfgInitialize(SdiTxSsPtr->VtcPtr,
 		ConfigPtr,
