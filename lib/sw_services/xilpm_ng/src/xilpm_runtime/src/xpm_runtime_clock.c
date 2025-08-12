@@ -555,6 +555,11 @@ XStatus XPmClock_SetDivider(const XPm_OutClockNode *Clk, u32 Divider)
 		goto done;
 	}
 
+	if ((Divider == 0) && !(Ptr->Typeflags & CLK_DIVIDER_ALLOW_ZERO)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	Divider1 = Divider & 0xFFFFU;
 	if (Divider1 > BITMASK(Ptr->Param2.Width)) {
 		Status = XST_INVALID_PARAM;

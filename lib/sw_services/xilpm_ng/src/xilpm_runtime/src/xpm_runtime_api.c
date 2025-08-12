@@ -2741,11 +2741,6 @@ XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 
 	XStatus Status = XST_FAILURE;
 	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
-	if (0U == Divider) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	/* Check if subsystem is allowed to access requested clock or not */
 	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
 	if (Status != XST_SUCCESS) {
