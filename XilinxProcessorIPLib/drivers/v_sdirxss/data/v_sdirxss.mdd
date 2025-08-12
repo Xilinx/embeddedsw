@@ -1,6 +1,6 @@
 ################################################################################
 # Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -21,6 +21,6 @@ BEGIN driver v_sdirxss
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (v_sdirx);
   OPTION copyfiles = all;
-  OPTION VERSION = 3.4;
+  OPTION VERSION = 3.5;
   OPTION NAME = v_sdirxss;
 END driver

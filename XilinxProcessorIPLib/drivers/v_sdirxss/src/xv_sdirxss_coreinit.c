@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,11 +66,6 @@ int XV_SdiRxSs_SubcoreInitSdiRx(XV_SdiRxSs *SdiRxSsPtr)
 				"SDIRXSS ERR:: SDI RX device not found\r\n");
 			return XST_FAILURE;
 		}
-
-#ifdef SDT
-		SdiRxSsPtr->Config.SdiRx.AbsAddr += SdiRxSsPtr->Config.BaseAddress;
-		ConfigPtr->BaseAddress += SdiRxSsPtr->Config.BaseAddress;
-#endif
 
 		/* Initialize core */
 		Status = XV_SdiRx_CfgInitialize(SdiRxSsPtr->SdiRxPtr,
