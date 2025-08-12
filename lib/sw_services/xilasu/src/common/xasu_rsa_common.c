@@ -42,7 +42,8 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates input parameters for padding.
+ * @brief	This function validates input parameters that are common to all RSA padding
+ * 		algorithms.
  *
  * @param	RsaParamsPtr	Pointer to XAsu_RsaParams structure that holds the input parameters
  *				for RSA.
