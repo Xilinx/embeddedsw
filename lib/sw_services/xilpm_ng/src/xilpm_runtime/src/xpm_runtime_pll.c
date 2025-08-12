@@ -88,7 +88,7 @@ done:
 	return Status;
 }
 
-XStatus XPmClockPll_SetParam(const XPm_PllClockNode *Pll, u32 Param, u32 Value)
+XStatus XPmClockPll_SetParam(XPm_PllClockNode *Pll, u32 Param, u32 Value)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_PllParam *PtrParam;
@@ -104,6 +104,8 @@ XStatus XPmClockPll_SetParam(const XPm_PllClockNode *Pll, u32 Param, u32 Value)
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
+
+	Status = XPmClockPll_Reset(Pll, PLL_RESET_ASSERT);
 
 	/* Allow config change only if PLL is in reset mode */
 	if (Pll->ClkNode.Node.State != PM_PLL_STATE_RESET) {
@@ -147,6 +149,8 @@ XStatus XPmClockPll_SetParam(const XPm_PllClockNode *Pll, u32 Param, u32 Value)
 	if (XST_SUCCESS == Status) {
 		XPm_RMW32(Reg, Mask, ParamValue);
 	}
+
+	Status = XPmClockPll_Reset(Pll, PLL_RESET_RELEASE);
 
 done:
 	return Status;

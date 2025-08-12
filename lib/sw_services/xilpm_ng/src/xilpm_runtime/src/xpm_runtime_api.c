@@ -2384,7 +2384,7 @@ XStatus XPm_SetPllParameter(const u32 SubsystemId, const u32 ClockId, const u32 
 {
 	//XPM_EXPORT_CMD(PM_PLL_SET_PARAMETER, XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 	XStatus Status = XST_FAILURE;
-	const XPm_PllClockNode* Clock;
+	XPm_PllClockNode* Clock;
 
 	if (!ISPLL(ClockId)) {
 		Status = XPM_INVALID_CLKID;
