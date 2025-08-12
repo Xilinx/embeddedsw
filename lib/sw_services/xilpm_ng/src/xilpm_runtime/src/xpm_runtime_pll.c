@@ -17,16 +17,6 @@
 XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Val = 0;
-
-	if ((u32)PM_PLL_MODE_FRACTIONAL == Mode) {
-		/* Check if fractional value has been set */
-		Status = XPmClockPll_GetParam(Pll, (u32)PM_PLL_PARAM_ID_DATA, &Val);
-		if ((XST_SUCCESS != Status) || (0U == Val)) {
-			Status = XST_FAILURE;
-			goto done;
-		}
-	}
 
 	Status = XPmClockPll_Reset(Pll, PLL_RESET_ASSERT);
 	if (XST_SUCCESS != Status) {
