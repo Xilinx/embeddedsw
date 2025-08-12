@@ -52,6 +52,7 @@
 *       ng   01/28/2024 optimized u8 variables
 *       pre  03/02/2025 Added timeout handling for AES and SHA resources
 *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
+*       vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
 *
 * </pre>
 *
@@ -72,7 +73,7 @@
  */
 
 /************************** Constant Definitions *****************************/
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
 #define XPLMI_TIMEOUT_CLEAR  (0U) /*< Zero Timeout value */
 #endif
@@ -92,7 +93,7 @@ static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,
 
 /************************** Variable Definitions *****************************/
 static XPlmi_Scheduler_t Sched;
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
 static u32 XPlmi_ResourceTimeOut[XPLMI_MAX_CORE];
 #endif

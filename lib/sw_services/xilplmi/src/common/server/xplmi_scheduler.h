@@ -60,7 +60,7 @@ extern "C" {
 #define XPLMI_PERIODIC_TASK		(0U)
 #define XPLMI_NON_PERIODIC_TASK		(1U)
 #define XPLMI_SCHED_TICK		(10U)
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET)\
+#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
 #define XPLMI_FREE_RESOURCE_TASK_ID  (0x121U)/**< Task ID for free resource task */
 #endif
@@ -103,7 +103,7 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	void *Data,	u8 TaskType);
 int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	u32 MilliSeconds, const void *Data);
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET)\
+#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET))\
     && defined(XPLMI_IPI_DEVICE_ID))
 int XPlmi_LoadResourceTimeout(XPlmi_CoreType Core, u32 TimeoutVal);
 #endif

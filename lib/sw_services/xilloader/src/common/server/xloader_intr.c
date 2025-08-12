@@ -51,6 +51,7 @@
 *       nb   04/09/2025 Add CPM PCIE isolation removal which has to come after
 *                       PDI load is complete
 *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
+*       vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
 *
 * </pre>
 *
@@ -87,7 +88,7 @@
                                                  * mask */
 #define XLOADER_SBI_CTRL_INTERFACE_AXI_SLAVE	(0x8U) /**< SBI PCIE PDI load */
 
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
 #define XLOADER_PDILOAD_DEFAULT     (0x0U) /**< State to represent default sbi
                                     pdi load which is triggered from interrupt*/
@@ -167,7 +168,7 @@ static int XLoader_SbiLoadPdi(void *Data)
 	PdiSrc_t PdiSrc;
 	u64 PdiAddr;
 	u32 RegVal;
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
     u32 Response[XPLMI_CMD_RESP_SIZE] = {0U};
 #endif
@@ -189,7 +190,7 @@ static int XLoader_SbiLoadPdi(void *Data)
 		goto END1;
 	}
 
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
 	if (XSecure_PdiLoadState == XLOADER_PDILOAD_TRIGGERED) {
 		PdiPtr->IpiMask = PpdiEventVars.IpiMask;
@@ -266,7 +267,7 @@ END:
 		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
 	}
 
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
 	if (PdiPtr->IpiMask != 0U) {
 		Response[XLOADER_RESP_CMD_LOAD_PDI_STATUS_INDEX] = (u32)Status;
@@ -291,7 +292,7 @@ END1:
 	return Status;
 }
 
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
 /*****************************************************************************/
 /**

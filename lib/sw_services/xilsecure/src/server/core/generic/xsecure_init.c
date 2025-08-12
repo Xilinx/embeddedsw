@@ -36,6 +36,7 @@
 *                      XSecure_QueuesAndTaskInit to XSecure_Init function
 *       pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
 *       pre  06/05/2025 Bypassed AES & SHA initialization for crypto disabled boards
+*       vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
 *
 * </pre>
 *
@@ -149,7 +150,7 @@ int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 		}
 	}
 
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET)\
+#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) || defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
 	/** AES & SHA IPI event queues and free resource task initialization */
 	Status = XSecure_QueuesAndTaskInit(PpdiEventParamsPtr);
