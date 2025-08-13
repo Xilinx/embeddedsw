@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *                     Changed the prototype of XCan_VmInitialize API.
 * 3.7   ht   07/04/23 Added support for system device-tree flow.
 * 3.8   ht   12/13/23 Added support for ECC.
+* 3.11  sp   13/01/25 Fix GCC warnings.
 * </pre>
 ******************************************************************************/
 
@@ -1063,7 +1064,7 @@ XCan_Config *XCan_GetConfig(unsigned int InstanceIndex)
 	}
 
 #else
-	int Index;
+	unsigned int Index;
 
 	for (Index = 0U; XCan_ConfigTable[Index].Name != NULL; Index++) {
 		if (Index == InstanceIndex) {

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,7 +18,7 @@ extern "C" {
 #ifndef SDT
 int XCanPolledExample(u16 DeviceId);
 #else
-int XCanPolledExample(XCan *Can, u16 DeviceId);
+int XCanPolledExample(XCan *Can, UINTPTR BaseAddress);
 #endif
 
 #ifdef __cplusplus
