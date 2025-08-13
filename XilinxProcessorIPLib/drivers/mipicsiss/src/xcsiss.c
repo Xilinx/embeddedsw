@@ -600,6 +600,7 @@ static u32 CsiSs_SubCoreInitCsi(XCsiSs *CsiSsPtr)
 	}
 
 	/* Compute absolute base address */
+#ifndef SDT
 	AbsAddr = 0;
 	Status = CsiSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
 					CsiSsPtr->Config.HighAddr,
@@ -610,6 +611,9 @@ static u32 CsiSs_SubCoreInitCsi(XCsiSs *CsiSsPtr)
 			"address (0x%x) invalid %d\n\r", AbsAddr);
 		return XST_FAILURE;
 	}
+#else
+	AbsAddr = ConfigPtr->BaseAddr;
+#endif
 
 	/* Initialize core */
 	Status = XCsi_CfgInitialize(CsiSsPtr->CsiPtr, ConfigPtr, AbsAddr);
@@ -655,6 +659,7 @@ static u32 CsiSs_SubCoreInitIic(XCsiSs *CsiSsPtr)
 	}
 
 	/* Compute absolute base address */
+#ifndef SDT
 	AbsAddr = 0;
 	Status = CsiSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
 					CsiSsPtr->Config.HighAddr,
@@ -665,6 +670,9 @@ static u32 CsiSs_SubCoreInitIic(XCsiSs *CsiSsPtr)
 			"address (0x%x) invalid %d\n\r", AbsAddr);
 		return XST_FAILURE;
 	}
+#else
+	AbsAddr = ConfigPtr->BaseAddress;
+#endif
 
 	/* Initialize core */
 	Status = XIic_CfgInitialize(CsiSsPtr->IicPtr, ConfigPtr, AbsAddr);
@@ -711,6 +719,7 @@ static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr)
 	}
 
 	/* Compute absolute base address */
+#ifndef SDT
 	AbsAddr = 0;
 	Status = CsiSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
 					CsiSsPtr->Config.HighAddr,
@@ -721,6 +730,9 @@ static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr)
 			"address (0x%x) invalid %d\n\r", AbsAddr);
 		return XST_FAILURE;
 	}
+#else
+	AbsAddr = ConfigPtr->BaseAddr;
+#endif
 
 	/* Initialize core */
 	Status = XDphy_CfgInitialize(CsiSsPtr->DphyPtr, ConfigPtr, AbsAddr);
@@ -765,6 +777,7 @@ static u32 CsiSs_SubCoreInitMipiRxPhy(XCsiSs *CsiSsPtr)
 	}
 
 	/* Compute absolute base address */
+#ifndef SDT
 	AbsAddr = 0;
 	Status = CsiSs_ComputeSubCoreAbsAddr(CsiSsPtr->Config.BaseAddr,
 					CsiSsPtr->Config.HighAddr,
@@ -775,6 +788,9 @@ static u32 CsiSs_SubCoreInitMipiRxPhy(XCsiSs *CsiSsPtr)
 			"address (0x%x) invalid %d\n\r", AbsAddr);
 		return XST_FAILURE;
 	}
+#else
+	AbsAddr = ConfigPtr->BaseAddr;
+#endif
 
 	/* Initialize core */
 	Status = XMipi_Rx_Phy_CfgInitialize(CsiSsPtr->MipiRxPhyPtr, ConfigPtr, AbsAddr);
