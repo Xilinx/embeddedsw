@@ -97,9 +97,11 @@ def openamp_app_configure_common(obj, esw_app_dir):
     if obj.template in openamp_app_names.keys():
         obj.cmake_paths_append += ' -DOPENAMP_APP_NAME=' + openamp_app_names[obj.template]
         obj.cmake_paths_append += " -D_AMD_GENERATED_=ON "
+        obj.cmake_paths_append += " -DWITH_OPENAMP_FIND=OFF "
 
     obj.cmake_paths_append += " -DPROJECT_VENDOR=\"xlnx\" "
     obj.cmake_paths_append += " -DWITH_DOC=OFF "
+    obj.cmake_paths_append += " -DWITH_LIBMETAL_FIND=OFF "
 
     if obj.os == "freertos":
         obj.cmake_paths_append += " -DUSE_FREERTOS=ON"
