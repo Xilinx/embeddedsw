@@ -159,7 +159,7 @@ def create_app(args):
 
         # Note that lopper command to generate linker script will be updated
         # here to use OpenAMP SDT. To generate OpenAMP SDT, need original SDT
-        linker_cmd = openamp_lopper_run(original_sdt, linker_cmd, obj, esw_app_dir)
+        linker_cmd = openamp_lopper_run(original_sdt, linker_cmd, obj, esw_app_dir, domain_data['family'].lower())
 
     if obj.template == "memory_tests":
         utils.runcmd(

@@ -150,7 +150,7 @@ def create_libmetal_app(obj, esw_app_dir):
         utils.replace_line(os.path.join(obj.app_src_dir, "CMakeLists.txt"),
                            f'project (libmetal_amp_demod C)', f'project ({obj.app_name} C)')
 
-def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir):
+def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
     """
     Run Lopper upon OpenAMP YAML information if present.
     Args:
@@ -158,33 +158,15 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir):
         linker_cmd (str): Current lopper linker command
         obj (App): App object that contains Takes all the user inputs in a dictionary.
         esw_app_dir (str): Path to application source area
+        soc (str): SOC Family string in lower case
     Returns:
         None
     """
-    openamp_lopper_host_remote_tuples = {
-        'cortexr52_0' : ('a78_0', 'r52_0', 'versal-2ve-2vm'),
-        'cortexr52_1' : ('a78_0', 'r52_1', 'versal-2ve-2vm'),
-        'cortexr52_2' : ('a78_0', 'r52_2', 'versal-2ve-2vm'),
-        'cortexr52_3' : ('a78_0', 'r52_3', 'versal-2ve-2vm'),
-        'cortexr52_4' : ('a78_0', 'r52_4', 'versal-2ve-2vm'),
-        'cortexr52_5' : ('a78_0', 'r52_5', 'versal-2ve-2vm'),
-        'cortexr52_6' : ('a78_0', 'r52_6', 'versal-2ve-2vm'),
-        'cortexr52_7' : ('a78_0', 'r52_7', 'versal-2ve-2vm'),
-        'cortexr52_8' : ('a78_0', 'r52_8', 'versal-2ve-2vm'),
-        'cortexr52_9' : ('a78_0', 'r52_9', 'versal-2ve-2vm'),
-        'psx_cortexr52_0' : ('a78_0', 'r52_0', 'versal-net'),
-        'psx_cortexr52_1' : ('a78_0', 'r52_1', 'versal-net'),
-        'psx_cortexr52_2' : ('a78_0', 'r52_2', 'versal-net'),
-        'psx_cortexr52_3' : ('a78_0', 'r52_3', 'versal-net'),
-        'psv_cortexr5_0'  : ('a72_0', 'r5_0', 'versal'),
-        'psv_cortexr5_1'  : ('a72_0', 'r5_1', 'versal'),
-        'psu_cortexr5_0'  : ('a53_0', 'r5_0', 'zynqmp'),
-        'psu_cortexr5_1'  : ('a53_0', 'r5_1', 'zynqmp'),
-    }
-
-    (host, remote, soc) = openamp_lopper_host_remote_tuples[obj.proc]
     overlay_dst = os.path.join(obj.domain_path, "hw_artifacts", "domain.yaml")
     output_sdt = os.path.join(obj.app_src_dir, "openamp-system-reference", "openamp_output.dts")
+    fname = 'amd_platform_info.h'
+    header_location = os.path.join(obj.app_src_dir, "openamp-system-reference", 'examples',
+                                   'legacy_apps', 'machine', 'zynqmp_r5')
 
     if os.path.exists(overlay_dst):
         logger.info("%s already exists. not copying in a new one. please remove this file if you want default one copied in." % overlay_dst)
@@ -192,15 +174,20 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir):
         utils.copy_file(os.path.join(os.environ.get('XILINX_VITIS'), 'data', 'openamp-metadata', f"openamp-overlay-{soc}.yaml"),
                         overlay_dst)
 
-    cmd =  f"lopper -f -v --enhanced --permissive -i lop-xlate-yaml.dts "
-    cmd += f"-i {overlay_dst} -O {obj.app_src_dir} {bsp_sdt} {output_sdt} "
-    cmd += f"-- openamp --openamp_role=remote --openamp_host={host} --openamp_remote={remote}"
-    utils.runcmd(cmd, log_message="OpenAMP Lopper Run")
+    cmd1 = (f"lopper -f --enhanced --permissive -i lop-xlate-yaml.dts "
+            f"-i {overlay_dst} -i lop-r5-imux.dts "
+            f"-O {obj.app_src_dir} {bsp_sdt} {output_sdt} "
+            f"-- gen_domain_dts {obj.proc} --openamp_no_header ")
+    utils.runcmd(cmd1, log_message="OpenAMP Lopper Run 1 - create openamp DT for remote")
 
-    if utils.is_file('amd_platform_info.h'):
-        utils.copy_file('amd_platform_info.h', os.path.join(obj.app_src_dir, "openamp-system-reference",
-                        'examples', 'legacy_apps', 'machine', 'zynqmp_r5', 'amd_platform_info.h'))
-        utils.remove('amd_platform_info.h')
+    cmd2 = (f"lopper -f --enhanced --permissive -O {obj.app_src_dir} {output_sdt} "
+            f"-- openamp --openamp_header_only --openamp_output_filename={fname} "
+            f"--openamp_remote={obj.proc} ")
+    utils.runcmd(cmd2, log_message="OpenAMP Lopper Run 2 - Generate Header")
+
+    if utils.is_file(fname):
+        utils.copy_file(fname, os.path.join(header_location, fname))
+        utils.remove(fname)
 
         # Change out SDT to use OpenAMP SDT here
         linker_cmd = linker_cmd.replace(obj.sdt, output_sdt)
