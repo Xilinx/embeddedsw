@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 * @file xv_vscaler_l2.c
 * @addtogroup v_vscaler Overview
 * @{
-* @details
+* @brief
 *
 * The Vertical Scaler Layer-2 Driver.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -319,21 +319,24 @@ void XV_VScalerLoadExtCoeff(XV_Vscaler_l2 *InstancePtr,
 
 /*****************************************************************************/
 /**
-* This function programs the computed filter coefficients and phase data into
-* core registers
-*
-* @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  VCoeff is the array that holds computed coefficients
-*
-* @return None
-*
-* @Note  This version of driver does not make use of computed coefficients.
-*        Pre-computed coefficients are stored in a local table which are used
-*        to overwrite any computed coefficients before being programmed into
-*        the core registers. Control flow still computes the coefficients to
-*        maintain the sw latency for driver version which would eventually use
-*        computed coefficients
-******************************************************************************/
+ * This Function Sets the vertical scaler filter coefficients in hardware registers.
+ *
+ * This function programs the hardware vertical scaler with the appropriate
+ * filter coefficients stored in the XV_Vscaler_l2 instance. It calculates
+ * the number of phases and taps, determines the correct offset for the
+ * coefficients, and writes the packed coefficients to the hardware registers.
+ *
+ * @param VscPtr Pointer to the XV_Vscaler_l2 instance containing configuration
+ *               and coefficient data.
+ *
+ * @return None
+ * @Note  This version of driver does not make use of computed coefficients.
+ *        Pre-computed coefficients are stored in a local table which are used
+ *        to overwrite any computed coefficients before being programmed into
+ *        the core registers. Control flow still computes the coefficients to
+ *        maintain the sw latency for driver version which would eventually use
+ *        computed coefficients
+ */
 static void XV_VScalerSetCoeff(XV_Vscaler_l2 *VscPtr)
 {
   int num_phases = 1<<VscPtr->Vsc.Config.PhaseShift;
@@ -357,22 +360,22 @@ static void XV_VScalerSetCoeff(XV_Vscaler_l2 *VscPtr)
 /*****************************************************************************/
 /**
 * This function configures the scaler core registers with the specified
-* configuration parameters of the axi stream
+* configuration parameters of the AXI stream.
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  WidthIn is the input stream width
-* @param  HeightIn is the input stream height
-* @param  HeightOut is the output stream height
-* @param  ColorFormat is the color format of the stream
+* @param  WidthIn is the input stream width.
+* @param  HeightIn is the input stream height.
+* @param  HeightOut is the output stream height.
+* @param  ColorFormat is the color format of the stream.
 *
-* @return None
+* @return XST_SUCCESS if successful, XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int XV_VScalerSetup(XV_Vscaler_l2  *InstancePtr,
-                    u32            WidthIn,
-                    u32            HeightIn,
-                    u32            HeightOut,
-                    u32            ColorFormat)
+          u32            WidthIn,
+          u32            HeightIn,
+          u32            HeightOut,
+          u32            ColorFormat)
 {
   u32 LineRate;
 

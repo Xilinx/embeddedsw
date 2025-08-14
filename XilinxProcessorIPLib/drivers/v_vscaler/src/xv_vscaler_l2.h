@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,8 +9,7 @@
 *
 * @file xv_vscaler_l2.h
 * @addtogroup v_vscaler Overview
-* @{
-* @details
+* @brief
 *
 * This header file contains layer 2 API's of the verrtical scaler sub-core
 * driver.The functions contained herein provides a high level implementation of
@@ -161,4 +160,3 @@ void XV_VScalerDbgReportStatus(XV_Vscaler_l2 *InstancePtr);
 #endif
 
 #endif
-/** @} */

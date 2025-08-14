@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,12 @@
 ******************************************************************************/
 #include "xv_vscaler_l2.h"
 
+/**
+ * XV_vscaler_Lanczos2_taps6
+ * Default fixed coefficient set for 6-tap Lanczos2 vertical scaler filter.
+ * Each row represents a phase; columns are tap coefficients.
+ * Values are in Q12 fixed-point format.
+ */
 const short XV_vscaler_Lanczos2_taps6[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6] = {
 	{   0,    0, 4096,    0,    0,   0, },
 	{   0,  -40, 4099,   42,    0,  -5, },
@@ -773,3 +779,4 @@ const short XV_vscaler_fixedcoeff_taps12_ScalingRatio4[XV_VSCALER_MAX_V_PHASES][
 	{ -22, -19,   2, 159, 506,  894, 1059, 874, 480, 143,  -2,  22, },
 	{ -22, -19,   1, 155, 499,  889, 1059, 879, 487, 147,  -1,  22, }
 };
+/* @} */
