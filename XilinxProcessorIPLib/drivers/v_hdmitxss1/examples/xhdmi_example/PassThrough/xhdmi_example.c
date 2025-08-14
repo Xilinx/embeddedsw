@@ -3446,24 +3446,44 @@ void CloneTxEdid(void)
 {
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	u8 Buffer[XV_HdmiRx1_DdcGetEdidWords(&HdmiRxSs)];
+	XV_VidC_EdidCntrlParam EdidCtrlParam;
 	u32 Status;
+	u32 TotalEdidSize = 0;
 
-	/* Read TX edid */
-	Status = XV_HdmiTxSs1_ReadEdid(&HdmiTxSs, (u8*)&Buffer, sizeof(Buffer));
+	/* Initialize EDID control parameter structure */
+	XV_VidC_EdidCtrlParamInit(&EdidCtrlParam);
+
+	/* Read TX EDID using optimized extension function with raw buffer support */
+	Status = XV_HdmiTxSs1_ReadEdid_extension(&HdmiTxSs, &EdidCtrlParam,
+						 (u8*)&Buffer, sizeof(Buffer));
 
 	/* Check if read was successful */
 	if (Status == (XST_SUCCESS)) {
-		/* Load new EDID */
-		XV_HdmiRxSs1_LoadEdid(&HdmiRxSs, (u8*)&Buffer, sizeof(Buffer));
+		/* Calculate total EDID size: base block (128) + extensions (128 each) */
+		TotalEdidSize = 128 + (EdidCtrlParam.Extensions * 128);
 
-		/* Toggle HPD after loading new HPD */
+		/* Ensure the total size doesn't exceed our buffer */
+		if (TotalEdidSize > sizeof(Buffer)) {
+			TotalEdidSize = sizeof(Buffer);
+			xil_printf("Warning: EDID size truncated to fit buffer.\r\n");
+		}
+
+		/* Load new EDID using the raw buffer data from the extension function */
+		XV_HdmiRxSs1_LoadEdid(&HdmiRxSs, (u8*)&Buffer, TotalEdidSize);
+
+		/* Toggle HPD after loading new EDID */
 		ToggleHdmiRxHpd(&Hdmiphy1, &HdmiRxSs);
 
 		xil_printf("\r\n");
-		xil_printf("Successfully cloned EDID and toggled HPD.\r\n");
+		xil_printf("Successfully cloned EDID\r\n");
+		xil_printf("EDID Info: %s, Extensions: %d, Total Size: %d bytes\r\n",
+			   (EdidCtrlParam.IsHdmi == XVIDC_ISHDMI) ? "HDMI" : "DVI",
+			   EdidCtrlParam.Extensions, TotalEdidSize);
+	} else {
+		xil_printf("Error: Failed to read EDID using extension function.\r\n");
 	}
 #else
-	xil_printf("\r\nEdid Cloning no possible with HDMI RX SS.\r\n");
+	xil_printf("\r\nEdid Cloning not possible with HDMI RX SS.\r\n");
 #endif
 }
 

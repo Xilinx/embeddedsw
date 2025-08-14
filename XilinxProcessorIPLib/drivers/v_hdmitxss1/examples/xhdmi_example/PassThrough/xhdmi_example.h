@@ -94,6 +94,7 @@ extern "C" {
 #include "xv_hdmic_vsif.h"
 #include "sleep.h"
 #include "xhdmi_edid.h"
+#include "xvidc_edid_ext.h"
 
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 #include "audiogen_drv.h"

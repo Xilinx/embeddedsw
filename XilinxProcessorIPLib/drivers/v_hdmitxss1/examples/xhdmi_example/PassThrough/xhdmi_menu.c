@@ -1322,12 +1322,15 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    /* Read TX edid */
 	    xil_printf("\r\n");
 
-	    Status = XV_HdmiTxSs1_ReadEdid_extension(&HdmiTxSs, &EdidHdmi_t.EdidCtrlParam);
+	    Status = XV_HdmiTxSs1_ReadEdid_extension(&HdmiTxSs, &EdidHdmi_t.EdidCtrlParam,
+						     (u8*)&Buffer, sizeof(Buffer));
 	    /* Only Parse the EDID when the Read EDID success */
 	    if (Status == XST_SUCCESS) {
-		XV_VidC_parse_edid((u8*)&Buffer,
-				    &EdidHdmi_t.EdidCtrlParam,
-				    XVIDC_VERBOSE_ENABLE);
+			/* EDID parsing is already done in the extension function,
+			   but we can enable verbose mode by parsing again */
+			XV_VidC_parse_edid((u8*)&Buffer,
+						&EdidHdmi_t.EdidCtrlParam,
+						XVIDC_VERBOSE_ENABLE);
 	    } else {
 		xil_printf(ANSI_COLOR_YELLOW "EDID parsing has failed.\r\n"
 			    ANSI_COLOR_RESET);
