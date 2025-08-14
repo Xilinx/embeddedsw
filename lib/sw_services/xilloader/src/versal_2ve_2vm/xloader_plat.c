@@ -91,9 +91,6 @@
 #include "xplmi_gic_interrupts.h"
 #ifdef PLM_OCP
 #include "xocp.h"
-#ifdef PLM_OCP_KEY_MNGMT
-#include "xocp_keymgmt.h"
-#endif
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
 #include "xocp_plat.h"
 #endif
@@ -129,9 +126,6 @@
 #define XLOADER_CMD_CONFIG_JTAG_STATE_FLAG_MASK		(0x03U) /**< Mask for JTAG state flag */
 #define XLOADER_CONFIG_JTAG_STATE_FLAG_ENABLE		(0x03U) /**< Value of JTAG state flag if enabled */
 #define XLOADER_CONFIG_JTAG_STATE_FLAG_DISABLE		(0x00U) /**< Value of JTAG state flag if disabled */
-#endif
-#ifdef PLM_OCP_KEY_MNGMT
-#define XLOADER_INVALID_DEVAK_INDEX			(0xFFFFFFFFU) /**< INVALID DEVAK INDEX */
 #endif
 #define XLOADER_TRNG_DEVICE_ID				(0U)
 #define XLOADER_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)  /**< Mask for PCR Measurement index */
@@ -1335,23 +1329,6 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	XSecure_Sha3Hash Sha3Hash;
 	u32 PcrNo;
 
-
-#ifdef PLM_OCP_KEY_MNGMT
-	u32 DevAkIndex[XOCP_MAX_KEYS_SUPPPORTED_PER_SUBSYSTEM];
-
-	Status = XOcp_GetSubSysDevAkIndex(ImageInfo->SubsystemID, DevAkIndex);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	if ((ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) &&
-		((DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] == XLOADER_INVALID_DEVAK_INDEX) &&
-		(DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX] == XLOADER_INVALID_DEVAK_INDEX))) {
-		Status = XST_SUCCESS;
-		goto END;
-	}
-#endif /* PLM_OCP_KEY_MNGMT */
-
 	switch(ImageInfo->Flags) {
 	case XLOADER_MEASURE_START:
 		Status = XSecure_ShaStart(Sha3InstPtr, XSECURE_SHA3_384);
@@ -1380,17 +1357,6 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	}
 
 	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
-#ifdef PLM_OCP_KEY_MNGMT
-		if ((DevAkIndex[XOCP_DEFAULT_DEVAK_KEY_INDEX] != XLOADER_INVALID_DEVAK_INDEX) ||
-			(DevAkIndex[XOCP_KEYWRAP_DEVAK_KEY_INDEX] != XLOADER_INVALID_DEVAK_INDEX)) {
-			/* Generate DEVAK */
-			Status = XOcp_GenSubSysDevAk(ImageInfo->SubsystemID,
-						(u64)(UINTPTR)Sha3Hash.Hash);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
-		}
-#endif /* PLM_OCP_KEY_MNGMT */
 #ifdef PLM_OCP_ASUFW_KEY_MGMT
 	/* Store subsystem digest for corresponding subsystem ID. */
 	XOcp_StoreSubsysDigest(ImageInfo->SubsystemID, (u64)(UINTPTR)Sha3Hash.Hash);
