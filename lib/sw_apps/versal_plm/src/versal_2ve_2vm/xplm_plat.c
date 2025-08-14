@@ -50,9 +50,6 @@
 #include "xloader.h"
 #include "xloader_plat.h"
 #ifdef PLM_OCP
-#ifdef PLM_OCP_KEY_MNGMT
-#include "xocp_keymgmt.h"
-#endif
 #include "xocp.h"
 #endif
 #ifdef XPLMI_IPI_DEVICE_ID
@@ -274,12 +271,8 @@ int XPlm_PostPlmUpdate(void)
 #endif
 	/* Regenerate DEVAK keys of the sub-systems */
 #ifdef PLM_OCP
-	#ifdef PLM_OCP_KEY_MNGMT
-	Status = XOcp_RegenSubSysDevAk();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	#endif
+	/* TBD: Notify ASUFW to regenerate device keys. */
+
 	/* Restore secure state configuration and extend SWPCR */
 	Status = XOcp_MeasureSecureStateAndExtendSwPcr();
 #else
