@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 * @file xv_hscaler_coeff.c
 * @addtogroup v_hscaler Overview
 * @{
-* @details
+* @brief
 *
 * This file provides the default fixed coefficient sets for supported taps
 *
@@ -26,6 +26,21 @@
 *
 ******************************************************************************/
 #include "xv_hscaler_l2.h"
+
+
+/**
+ * @brief 2D array containing precomputed filter coefficients for a 6-tap Lanczos2 horizontal scaler.
+ *
+ * This constant array holds the coefficients for each phase of the horizontal scaling operation,
+ * using a 6-tap Lanczos2 filter. The array is indexed first by the phase (from 0 to XV_HSCALER_MAX_H_PHASES-1),
+ * and then by the tap index (from 0 to XV_HSCALER_TAPS_6-1).
+ *
+ * These coefficients are used by the horizontal scaler hardware or software to perform
+ * high-quality image resampling with minimal artifacts.
+ *
+ * @see XV_HSCALER_MAX_H_PHASES
+ * @see XV_HSCALER_TAPS_6
+ */
 
 const short XV_hscaler_Lanczos2_taps6[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6] =
 {
@@ -776,3 +791,5 @@ const short XV_hscaler_fixedcoeff_taps12_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][
 	{ -22, -19,   2, 159, 506,  894, 1059, 874, 480, 143,  -2,  22, },
 	{ -22, -19,   1, 155, 499,  889, 1059, 879, 487, 147,  -1,  22, }
 };
+
+/* @} */

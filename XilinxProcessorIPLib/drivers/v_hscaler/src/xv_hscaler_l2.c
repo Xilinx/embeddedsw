@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -515,7 +515,7 @@ static void XV_HScalerSetPhase(XV_Hscaler_l2 *HscPtr)
 		u64 phaseHData, phaseHData_H;
 		/*
 		 * PhaseH and PhaseH_H are 64bits and each entry has valid 44
-		 * bits. PhaseH has lower 44 bits and PhaseH_H has higer 44 bits
+		 * bits. PhaseH has lower 44 bits and PhaseH_H has higher 44 bits
 		 * Need to form 3 32b writes form the total 88 bits, and
 		 * write each 32bits into IP registers.
 		 * (index is array loc and offset is address offset)
@@ -752,14 +752,14 @@ void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr)
 /*****************************************************************************/
 /**
 * This function checks if the given input and output color formats
-* are valid configuration parameters for this instance
+* are valid configuration parameters for this instance.
 *
 * @param  InstancePtr is a pointer to the core instance to be worked on.
-* @param  cformat is the input stream color format
-* @param  cformatOut is the output stream color format
+* @param  cformatIn is the input stream color format.
+* @param  cformatOut is the output stream color format.
 *
-* @return TRUE if the requested setup parameters are valid
-*         FALSE otherwise
+* @return TRUE if the requested setup parameters are valid,
+*         FALSE otherwise.
 *
 ******************************************************************************/
 int XV_HScalerValidateConfig(XV_Hscaler_l2 *InstancePtr,

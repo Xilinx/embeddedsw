@@ -1,8 +1,13 @@
 // ==============================================================
 // Copyright (c) 2015 - 2020 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_hscaler_hw.h
+ * @addtogroup v_hscaler_hw Overview
+ */
 
 #ifndef XV_HSCALER_HW_H_        /* prevent circular inclusions */
 #define XV_HSCALER_HW_H_        /* by using protection macros  */
@@ -64,30 +69,43 @@ extern "C" {
 //                   others      - reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
-#define XV_HSCALER_CTRL_ADDR_AP_CTRL              0x0000
-#define XV_HSCALER_CTRL_ADDR_GIE                  0x0004
-#define XV_HSCALER_CTRL_ADDR_IER                  0x0008
-#define XV_HSCALER_CTRL_ADDR_ISR                  0x000c
-#define XV_HSCALER_CTRL_ADDR_HWREG_HEIGHT_DATA    0x0010
-#define XV_HSCALER_CTRL_BITS_HWREG_HEIGHT_DATA    16
-#define XV_HSCALER_CTRL_ADDR_HWREG_WIDTHIN_DATA   0x0018
-#define XV_HSCALER_CTRL_BITS_HWREG_WIDTHIN_DATA   16
-#define XV_HSCALER_CTRL_ADDR_HWREG_WIDTHOUT_DATA  0x0020
-#define XV_HSCALER_CTRL_BITS_HWREG_WIDTHOUT_DATA  16
-#define XV_HSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA 0x0028
-#define XV_HSCALER_CTRL_BITS_HWREG_COLORMODE_DATA 8
-#define XV_HSCALER_CTRL_ADDR_HWREG_PIXELRATE_DATA 0x0030
-#define XV_HSCALER_CTRL_BITS_HWREG_PIXELRATE_DATA 32
-#define XV_HSCALER_CTRL_ADDR_HWREG_COLORMODEOUT_DATA 0x0038
-#define XV_HSCALER_CTRL_BITS_HWREG_COLORMODEOUT_DATA 8
-#define XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE 0x0800
-#define XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_HIGH 0x0bff
-#define XV_HSCALER_CTRL_WIDTH_HWREG_HFLTCOEFF     16
-#define XV_HSCALER_CTRL_DEPTH_HWREG_HFLTCOEFF     384
-#define XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE 0x4000
-#define XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_HIGH 0x7fff
-#define XV_HSCALER_CTRL_WIDTH_HWREG_PHASESH_V     9
-#define XV_HSCALER_CTRL_DEPTH_HWREG_PHASESH_V     8192
+/**
+ * Register address and bit-width definitions for XV_HSCALER hardware
+ */
+#define XV_HSCALER_CTRL_ADDR_AP_CTRL              0x0000  // Control signals register
+#define XV_HSCALER_CTRL_ADDR_GIE                  0x0004  // Global Interrupt Enable register
+#define XV_HSCALER_CTRL_ADDR_IER                  0x0008  // IP Interrupt Enable register
+#define XV_HSCALER_CTRL_ADDR_ISR                  0x000c  // IP Interrupt Status register
+
+// Data registers and their bit widths
+#define XV_HSCALER_CTRL_ADDR_HWREG_HEIGHT_DATA    0x0010  // Height register address
+#define XV_HSCALER_CTRL_BITS_HWREG_HEIGHT_DATA    16      // Height register width
+
+#define XV_HSCALER_CTRL_ADDR_HWREG_WIDTHIN_DATA   0x0018  // Input width register address
+#define XV_HSCALER_CTRL_BITS_HWREG_WIDTHIN_DATA   16      // Input width register width
+
+#define XV_HSCALER_CTRL_ADDR_HWREG_WIDTHOUT_DATA  0x0020  // Output width register address
+#define XV_HSCALER_CTRL_BITS_HWREG_WIDTHOUT_DATA  16      // Output width register width
+
+#define XV_HSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA 0x0028  // Color mode register address
+#define XV_HSCALER_CTRL_BITS_HWREG_COLORMODE_DATA 8       // Color mode register width
+
+#define XV_HSCALER_CTRL_ADDR_HWREG_PIXELRATE_DATA 0x0030  // Pixel rate register address
+#define XV_HSCALER_CTRL_BITS_HWREG_PIXELRATE_DATA 32      // Pixel rate register width
+
+#define XV_HSCALER_CTRL_ADDR_HWREG_COLORMODEOUT_DATA 0x0038  // Output color mode register address
+#define XV_HSCALER_CTRL_BITS_HWREG_COLORMODEOUT_DATA 8       // Output color mode register width
+
+// Memory-mapped coefficient and phase registers
+#define XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_BASE 0x0800  // Horizontal filter coefficient base address
+#define XV_HSCALER_CTRL_ADDR_HWREG_HFLTCOEFF_HIGH 0x0bff  // Horizontal filter coefficient high address
+#define XV_HSCALER_CTRL_WIDTH_HWREG_HFLTCOEFF     16      // Horizontal filter coefficient width
+#define XV_HSCALER_CTRL_DEPTH_HWREG_HFLTCOEFF     384     // Horizontal filter coefficient depth
+
+#define XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_BASE 0x4000  // Horizontal phase register base address
+#define XV_HSCALER_CTRL_ADDR_HWREG_PHASESH_V_HIGH 0x7fff  // Horizontal phase register high address
+#define XV_HSCALER_CTRL_WIDTH_HWREG_PHASESH_V     9       // Horizontal phase register width
+#define XV_HSCALER_CTRL_DEPTH_HWREG_PHASESH_V     8192    // Horizontal phase register depth
 
 #ifdef __cplusplus
 }

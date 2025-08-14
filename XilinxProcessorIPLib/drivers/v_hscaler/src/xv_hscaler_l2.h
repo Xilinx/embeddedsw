@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,8 +9,7 @@
 *
 * @file xv_hscaler_l2.h
 * @addtogroup v_hscaler Overview
-* @{
-* @details
+* @brief
 *
 * This header file contains layer 2 API's of the horizontal scaler sub-core
 * driver.The functions contained herein provides a high level implementation of
@@ -85,8 +84,8 @@ extern "C" {
 #include "xv_hscaler.h"
 
 /************************** Constant Definitions *****************************/
-/** @name Hw Configuration
- * @{
+/**
+ * @name Hw Configuration
  * The following constants define the scaler HW MAX configuration
  */
 #define XV_HSCALER_MAX_H_TAPS           (12)
@@ -191,4 +190,3 @@ void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr);
 #endif
 
 #endif
-/** @} */
