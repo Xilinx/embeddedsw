@@ -198,20 +198,13 @@ static u64 XDmaPcie_ReserveBarMem(XDmaPcie *InstancePtr,
 {
 	u64 Ret = 0;
 
-	if (BarType & XDMAPCIE_BAR_MEM_TYPE_64) {
-		if (BarType & (XDMAPCIE_BAR_MEM_TYPE_64 << 1)) {
+	if ((BarType & XDMAPCIE_BAR_MEM_TYPE_64) &&
+		(BarType & (XDMAPCIE_BAR_MEM_TYPE_64 << 1))) {
 			Ret = InstancePtr->Config.PMemBaseAddr;
 			InstancePtr->Config.PMemBaseAddr = InstancePtr->Config.PMemBaseAddr
 								+ Size;
 			Xil_AssertNonvoid(InstancePtr->Config.PMemBaseAddr <=
 					InstancePtr->Config.PMemMaxAddr);
-		} else {
-			Ret = InstancePtr->Config.NpMemBaseAddr;
-			InstancePtr->Config.NpMemBaseAddr = InstancePtr->Config.NpMemBaseAddr
-								+ Size;
-			Xil_AssertNonvoid(InstancePtr->Config.NpMemBaseAddr <=
-					InstancePtr->Config.NpMemMaxAddr);
-		}
 	} else {
 
 		Ret = InstancePtr->Config.NpMemBaseAddr;
@@ -316,7 +309,73 @@ static void XDmaPcie_AlignBarResources(u64* Value,u8 MaxBars, u32* Index)
 	}
 
 }
+/******************************************************************************/
+/**
+* This function calculates the size of the BAR requested by the endpoint and
+* allocates appropriate memory space from the available non-prefetchable memory
+* window. It supports both AArch64 and other architectures via conditional compilation.
+*
+* If the requested BAR size exceeds the available non-prefetchable memory, the
+* function logs an error and returns without allocation.
+*
+* @param   InstancePtr pointer to XDmaPcie Instance Pointer
+* @param   Location BAR configuration offset within the ECAM space.
+* @param   Bus is PCIe Bus number of the Endpoint
+* @param   Device is PCIe Device number of the Endpoint.
+* @param   Function is PCIe Function number of the Endpoint.
+* @param   Value is a Combination of Location and Offset value
+* @param   Size of the Bar Request
+* @param   BarAllocControl is to differentiate Unsorted and Sorted Bar Sizes
+* @param   BarNo is the BAR index (0 to 5).
+*
+* @return  Void
+*
+*******************************************************************************/
+static void XDmaPcie_Assign32bBarMem(XDmaPcie *InstancePtr, u32 Location, u8 Bus, u8 Device,
+	u8 Function, u64* Value, u64* Size, u8 BarAllocControl, u8 BarNo)
+{
+	u32 BarAddr = 0;
+	u32 MaxBarSize = 0;
+	u32 TestWrite = 0;
+	u32 BarAddrLo = 0;
+	#if defined(__aarch64__) || defined(__arch64__)
+	u8 MemAs = 0;
+	#endif
 
+	MaxBarSize = InstancePtr->Config.NpMemMaxAddr - InstancePtr->Config.NpMemBaseAddr;
+	TestWrite = XDmaPcie_PositionRightmostSetbit(Size[BarNo]);
+	Value[BarNo] = 2<<(TestWrite-1);
+
+	/* Store the Data into Array */
+	if (BarAllocControl != 0) {
+		if(Value[BarNo] > MaxBarSize) {
+			XDmaPcie_Dbg(
+				"Requested BAR size of %uK for bus: %02X, dev: %02X, "
+				"function: %02X is out of range \n",
+				(Value[BarNo] / 1024),Bus,Device,Function);
+				return;
+		}
+	}
+
+	if (BarAllocControl != 0) {
+#if defined(__aarch64__) || defined(__arch64__)
+		MemAs = Size[BarNo];
+		/* actual bar size is 2 << TestWrite */
+		BarAddr =
+			XDmaPcie_ReserveBarMem(InstancePtr, MemAs,
+				((u64)2 << (TestWrite - 1U)));
+#else
+		BarAddr =
+			XDmaPcie_ReserveBarMem(InstancePtr,
+				((u64)2 << (TestWrite - 1U)));
+#endif
+
+		BarAddrLo = (u32)BarAddr;
+		/* Write actual bar address here */
+		XDmaPcie_WriteReg((InstancePtr->Config.Ecam), Location,
+				BarAddrLo);
+	}
+}
 /******************************************************************************/
 /**
 * This function Allocates Bar Memory
@@ -339,17 +398,15 @@ static void XDmaPcie_BarMemoryAlloc(XDmaPcie *InstancePtr, u8 Bus,u8 Device,u8 F
 {
 	u32 Data = DATA_MASK_32;
 	u32 Location = 0, Location_1 = 0;
-	u32 TestWrite;
 	u32 Size_1 = 0;
 	u8  BarNo = 0;
-	u64 MaxBarSize = 0;
 #if defined(__aarch64__) || defined(__arch64__)
-	u64 BarAddr;
-	u8 MemAs;
-#else
-	u32 BarAddr;
+	u64 BarAddr = 0;
+	u64 MaxBarSize = 0;
+	u8 MemAs = 0;
+	u64 BarAddrLo = 0;
+	u32 TestWrite = 0;
 #endif
-	u64 Tmp;
 	u8  BarIndex;
 	u64 Prefetchable_Size;
 
@@ -399,7 +456,7 @@ static void XDmaPcie_BarMemoryAlloc(XDmaPcie *InstancePtr, u8 Bus,u8 Device,u8 F
 		}
 
 		/* return saying that BAR is not implemented */
-		if ((Size[BarNo] & ~((u64)0xfU)) == 0x00U) {
+		if (XDMAPCIE_IS_BAR_UNIMPLEMENTED(Size[BarNo])) {
 			continue;
 		}
 
@@ -408,9 +465,9 @@ static void XDmaPcie_BarMemoryAlloc(XDmaPcie *InstancePtr, u8 Bus,u8 Device,u8 F
 			continue;
 		}
 
+#if defined(__aarch64__) || defined(__arch64__)
 		 /* check for 32 bit AS or 64 bit AS  */
 		if ((Size[BarNo] & XDMAPCIE_CFG_BAR_MEM_AS_MASK) != 0U) {
-#if defined(__aarch64__) || defined(__arch64__)
 			/* 64 bit AS is required */
 			MemAs = Size[BarNo];
 			MaxBarSize = InstancePtr->Config.PMemMaxAddr - InstancePtr->Config.PMemBaseAddr;
@@ -427,7 +484,7 @@ static void XDmaPcie_BarMemoryAlloc(XDmaPcie *InstancePtr, u8 Bus,u8 Device,u8 F
 						"Requested BAR size of %uK for bus: %02X, dev: %02X, "
 						"function: %02X is out of range \n",
 						(Value[BarNo] / 1024),Bus,Device,Function);
-					return XST_SUCCESS;
+					return;
 				}
 
 				/* actual bar size is 2 << TestWrite */
@@ -435,77 +492,27 @@ static void XDmaPcie_BarMemoryAlloc(XDmaPcie *InstancePtr, u8 Bus,u8 Device,u8 F
 					XDmaPcie_ReserveBarMem(InstancePtr, MemAs,
 						((u64)2 << (TestWrite - 1U)));
 
-				Tmp = (u32)BarAddr;
+				BarAddrLo = (u32)BarAddr;
 
 				/* Write actual bar address here */
 				XDmaPcie_WriteReg((InstancePtr->Config.Ecam), Location,
-					  Tmp);
+					  BarAddrLo);
 
-				Tmp = (u32)(BarAddr >> 32U);
+				BarAddrLo = (u32)(BarAddr >> 32U);
 
 				/* Write actual bar address here */
 				XDmaPcie_WriteReg((InstancePtr->Config.Ecam),
-						Location_1, Tmp);
+						Location_1, BarAddrLo);
 			}
-
-#else
-			TestWrite = XDmaPcie_PositionRightmostSetbit(Size[BarNo]);
-			Value[BarNo] = 2<<(TestWrite-1);
-
-
-			if (BarAllocControl != 0) {
-				/* actual bar size is 2 << TestWrite */
-				BarAddr =
-					XDmaPcie_ReserveBarMem(InstancePtr,
-							((u32)2U << (TestWrite - 1U)));
-
-				Tmp = (u32)BarAddr;
-
-				/* Write actual bar address here */
-				XDmaPcie_WriteReg((InstancePtr->Config.Ecam), Location,
-						Tmp);
-		}
-#endif
 
 		} else {
-			MaxBarSize = InstancePtr->Config.NpMemMaxAddr - InstancePtr->Config.NpMemBaseAddr;
-			TestWrite = XDmaPcie_PositionRightmostSetbit(Size[BarNo]);
-			Value[BarNo] = 2<<(TestWrite-1);
-
-#if defined(__aarch64__) || defined(__arch64__)
-			/* 32 bit AS is required */
-			MemAs = Size[BarNo];
-
-			if (BarAllocControl != 0) {
-
-				if(Value[BarNo] > MaxBarSize) {
-					XDmaPcie_Dbg(
-						"Requested BAR size of %uK for bus: %02X, dev: %02X, "
-						"function: %02X is out of range \n",
-						(Value[BarNo] / 1024),Bus,Device,Function);
-					return XST_SUCCESS;
-				}
-
-				/* actual bar size is 2 << TestWrite */
-				BarAddr =
-					XDmaPcie_ReserveBarMem(InstancePtr, MemAs,
-						((u64)2U << (TestWrite - 1U)));
-			}
-#else
-			if (BarAllocControl != 0 ) {
-				/* actual bar size is 2 << TestWrite */
-				BarAddr =
-					XDmaPcie_ReserveBarMem(InstancePtr,
-						((u32)2U << (TestWrite - 1U)));
-			}
-#endif
-			if (BarAllocControl != 0) {
-				Tmp = (u32)BarAddr;
-				/* Write actual bar address here */
-				XDmaPcie_WriteReg((InstancePtr->Config.Ecam), Location,
-					Tmp	);
-			}
+			XDmaPcie_Assign32bBarMem(InstancePtr, Location, Bus,Device,Function,
+				Value,Size, BarAllocControl,BarNo);
 		}
+#else
+		XDmaPcie_Assign32bBarMem(InstancePtr, Location, Bus,Device,Function,
+			Value,Size, BarAllocControl,BarNo);
+#endif
 		/* no need to probe next bar if present BAR requires 64 bit AS */
 		if ((Size[BarNo] & XDMAPCIE_CFG_BAR_MEM_AS_MASK) != 0U) {
 			BarIndex = BarIndex + 1U;
@@ -531,18 +538,18 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 {
 	u8  BarAllocControl = 0;
 	u8  MaxBars = 0;
-	u64 ReqSize;
-	u32 Location;
-	u32 Position;
+	u64 ReqSize = 0;
+	u32 Location = 0;
+	u32 Position = 0;
 #if defined(__aarch64__) || defined(__arch64__)
 	u64 BarAddr, ReqAddr;
 	u32 Location_1;
 	u32 *PPtr;
 	u64 ReqBar, ReqBar_1;
-	u64 MaxBarSize;
+	u64 MaxBarSize = 0;
 #else
-	u32 MaxBarSize;
-	u32 ReqAddr;
+	u32 MaxBarSize = 0;
+	u32 ReqAddr = 0;
 
 #endif
 
@@ -582,7 +589,7 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 	/* prints all BARs that have been allocated memory */
 	for (u8 Bar=0 ; Bar < MaxBars; Bar++ ) {
 
-		if ((Size[Bar] & ~((u64)0xfU)) == 0x00U) {
+		if (XDMAPCIE_IS_BAR_UNIMPLEMENTED(Size[Bar])) {
 		   /* return saying that BAR is not implemented */
 			XDmaPcie_Dbg(
 				"bus: %02X, device: %02X, function: %02X: BAR %d is "
@@ -1714,15 +1721,16 @@ void XDmaPcie_ReadRemoteConfigSpace(XDmaPcie *InstancePtr, u8 Bus, u8 Device,
 	if ((Bus == 1) && (Device == 0))
 		IATUAddr = InstancePtr->Config.Ecam + Location;
 
-	if((Bus == 1) && (Device == 0))
+	if((Bus == 1) && (Device == 0)) {
 		XDmaPcie_ConfigureIATURegion(InstancePtr, Bus, XDMAPCIE_CFG_TLP_TYPE0,
 			XDMAPCIE_REGION_EN, IATUAddr, XDMAPCIE_ATU_LIMIT_ADDR, PCIeAddr,
 			XDMAPCIE_ATU_REGION_SIZE);
 
-        else
+	} else {
 		XDmaPcie_ConfigureIATURegion(InstancePtr, Bus, XDMAPCIE_CFG_TLP_TYPE1,
 			XDMAPCIE_REGION_EN, IATUAddr, XDMAPCIE_ATU_LIMIT_ADDR, PCIeAddr,
 			XDMAPCIE_ATU_REGION_SIZE);
+	}
 #endif
 	while(XDmaPcie_IsEcamBusy(InstancePtr));
 

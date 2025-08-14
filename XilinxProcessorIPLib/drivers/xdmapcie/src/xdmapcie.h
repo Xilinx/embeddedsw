@@ -117,7 +117,6 @@ typedef  struct {
 	u8  IncludeRootComplex;		/**< Is IP built as root complex */
 	u32 IATUAddress;		/** IATU Region Address for versal2*/
 
-#if defined(__aarch64__) || defined(__arch64__)
 #if defined(SDT)
 	u64 Ecam;
 	u32     NpMemBaseAddr;          /**< non prefetchable memory base address */
@@ -130,11 +129,6 @@ typedef  struct {
 	u64	PMemBaseAddr;		/**< prefetchable memory base address */
 	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
 	u64	PMemMaxAddr;	/**< prefetchable memory max base address */
-#endif
-#else
-	u32 Ecam;
-	u32	NpMemBaseAddr;		/**< non prefetchable memory base address */
-	u32	NpMemMaxAddr;	/**< non prefetchable memory max base address*/
 #endif
 
 } XDmaPcie_Config;

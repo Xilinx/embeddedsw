@@ -15,7 +15,7 @@ BEGIN driver xdmapcie
  OPTION supported_peripherals = (xdma psv_pciea_attrib pcie_dma_versal qdma psv_noc_pcie_0 psv_noc_pcie_1 psv_noc_pcie_2);
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
- OPTION VERSION = 3.0;
+ OPTION VERSION = 3.1;
  OPTION NAME = xdmapcie;
 
 END driver

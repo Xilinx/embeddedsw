@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -39,6 +39,14 @@ extern "C" {
 
 #define BITSPERLONG 						64
 #define GENMASK(h, l) (((~0ULL) << (l)) & (~0ULL) >> (BITSPERLONG - 1 - (h)))
+
+#define XDMAPCIE_ERROR_RESPONSE         (~0ULL)
+#define XDMAPCIE_POSSIBLE_ERROR(val)    ((val) == ((typeof(val)) XDMAPCIE_ERROR_RESPONSE))
+
+#define XDMAPCIE_IS_BAR_UNIMPLEMENTED(size) (                                      \
+    (((size) & ~0xFULL) == 0x00) ||      /* Size is zero or too small */     \
+    XDMAPCIE_POSSIBLE_ERROR(size)         /* All 1s — read failure or unimpl */ \
+)
 
 /* Command register offsets */
 
