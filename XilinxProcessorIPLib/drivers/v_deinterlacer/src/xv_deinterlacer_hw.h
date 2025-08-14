@@ -1,8 +1,17 @@
-// ==============================================================
-// Copyright (c) 1986-2020 Xilinx, Inc. All Rights Reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
-// SPDX-License-Identifier: MIT
-// ==============================================================
+/******************************************************************************
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+/**
+ * @file xv_deinterlacer_hw.h
+ * @addtogroup v_deinterlacer_hw Overview
+ */
+
+/**
+ * Register address and bit-width definitions for XV Deinterlacer hardware control interface
+ */
+
 // CTRL
 // 0x00 : Control signals
 //        bit 0  - ap_start (Read/Write/COH)
@@ -52,22 +61,28 @@
 // 0x58 : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
-#define XV_DEINTERLACER_CTRL_ADDR_AP_CTRL              0x00
-#define XV_DEINTERLACER_CTRL_ADDR_GIE                  0x04
-#define XV_DEINTERLACER_CTRL_ADDR_IER                  0x08
-#define XV_DEINTERLACER_CTRL_ADDR_ISR                  0x0c
-#define XV_DEINTERLACER_CTRL_ADDR_WIDTH_DATA           0x10
-#define XV_DEINTERLACER_CTRL_BITS_WIDTH_DATA           32
-#define XV_DEINTERLACER_CTRL_ADDR_HEIGHT_DATA          0x18
-#define XV_DEINTERLACER_CTRL_BITS_HEIGHT_DATA          32
-#define XV_DEINTERLACER_CTRL_ADDR_READ_FB_V_DATA       0x20
-#define XV_DEINTERLACER_CTRL_BITS_READ_FB_V_DATA       64
-#define XV_DEINTERLACER_CTRL_ADDR_COLORFORMAT_DATA     0x30
-#define XV_DEINTERLACER_CTRL_BITS_COLORFORMAT_DATA     8
-#define XV_DEINTERLACER_CTRL_ADDR_ALGO_DATA            0x38
-#define XV_DEINTERLACER_CTRL_BITS_ALGO_DATA            8
-#define XV_DEINTERLACER_CTRL_ADDR_INVERT_FIELD_ID_DATA 0x40
-#define XV_DEINTERLACER_CTRL_BITS_INVERT_FIELD_ID_DATA 1
-#define XV_DEINTERLACER_CTRL_ADDR_WRITE_FB_V_DATA      0x50
-#define XV_DEINTERLACER_CTRL_BITS_WRITE_FB_V_DATA      64
+#define XV_DEINTERLACER_CTRL_ADDR_AP_CTRL              0x00  // Control signals
+#define XV_DEINTERLACER_CTRL_ADDR_GIE                  0x04  // Global Interrupt Enable Register
+#define XV_DEINTERLACER_CTRL_ADDR_IER                  0x08  // IP Interrupt Enable Register
+#define XV_DEINTERLACER_CTRL_ADDR_ISR                  0x0c  // IP Interrupt Status Register
 
+#define XV_DEINTERLACER_CTRL_ADDR_WIDTH_DATA           0x10  // Frame width data register
+#define XV_DEINTERLACER_CTRL_BITS_WIDTH_DATA           32    // Width data bit-width
+
+#define XV_DEINTERLACER_CTRL_ADDR_HEIGHT_DATA          0x18  // Frame height data register
+#define XV_DEINTERLACER_CTRL_BITS_HEIGHT_DATA          32    // Height data bit-width
+
+#define XV_DEINTERLACER_CTRL_ADDR_READ_FB_V_DATA       0x20  // Read frame buffer address register
+#define XV_DEINTERLACER_CTRL_BITS_READ_FB_V_DATA       64    // Read frame buffer address bit-width
+
+#define XV_DEINTERLACER_CTRL_ADDR_COLORFORMAT_DATA     0x30  // Color format data register
+#define XV_DEINTERLACER_CTRL_BITS_COLORFORMAT_DATA     8     // Color format data bit-width
+
+#define XV_DEINTERLACER_CTRL_ADDR_ALGO_DATA            0x38  // Algorithm selection register
+#define XV_DEINTERLACER_CTRL_BITS_ALGO_DATA            8     // Algorithm data bit-width
+
+#define XV_DEINTERLACER_CTRL_ADDR_INVERT_FIELD_ID_DATA 0x40  // Invert field ID register
+#define XV_DEINTERLACER_CTRL_BITS_INVERT_FIELD_ID_DATA 1     // Invert field ID bit-width
+
+#define XV_DEINTERLACER_CTRL_ADDR_WRITE_FB_V_DATA      0x50  // Write frame buffer address register
+#define XV_DEINTERLACER_CTRL_BITS_WRITE_FB_V_DATA      64    // Write frame buffer address bit-width
