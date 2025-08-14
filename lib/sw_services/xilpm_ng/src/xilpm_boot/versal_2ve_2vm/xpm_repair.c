@@ -137,34 +137,34 @@ XStatus XPmBisr_Repair(u32 TagId)
 		} else {
 			switch(TagId) {
 			case LPXC_TAG_ID:
-				Status = XPmRepair_Lpd(&EfuseCurrAddr);
+				Status = XPmRepair_Lpd((u32 *)EfuseCurrAddr);
 				break;
 			case FPXC_TAG_ID:
-				Status = XPmRepair_Fpd(&EfuseCurrAddr);
+				Status = XPmRepair_Fpd((u32 *)EfuseCurrAddr);
 				break;
 			case VCU2_TAG_ID:
-				Status = XPmRepair_Vcu2(&EfuseCurrAddr);
+				Status = XPmRepair_Vcu2((u32 *)EfuseCurrAddr);
 				break;
 			case ISP2_TAG_ID:
-				Status = XPmRepair_ISP2(&EfuseCurrAddr);
+				Status = XPmRepair_ISP2((u32 *)EfuseCurrAddr);
 				break;
 			case GT_TAG_ID:
-				Status = XPmRepair_GtmGtyGtyp(&EfuseCurrAddr);
+				Status = XPmRepair_GtmGtyGtyp((u32 *)EfuseCurrAddr);
 				break;
 			case DDRMC5_CRYPTO_TAG_ID:
-				Status = XPmRepair_Ddrmc5_Crypto(&EfuseCurrAddr);
+				Status = XPmRepair_Ddrmc5_Crypto((u32 *)EfuseCurrAddr);
 				break;
 			case MMI_TAG_ID:
-				Status = XPmRepair_Mmi(&EfuseCurrAddr);
+				Status = XPmRepair_Mmi((u32 *)EfuseCurrAddr);
 				break;
 			case DDRMC5_MAIN_TAG_ID:
-				Status = XPmRepair_Ddrmc5_Main(&EfuseCurrAddr);
+				Status = XPmRepair_Ddrmc5_Main((u32 *)EfuseCurrAddr);
 				break;
 			case MMI_GTYP_TAG_ID:
-				Status = XPmRepair_Mmi_Gtyp(&EfuseCurrAddr);
+				Status = XPmRepair_Mmi_Gtyp((u32 *)EfuseCurrAddr);
 				break;
 			case AIE2PS_TAG_ID:
-				Status = XPmRepair_Aie2p_s(&EfuseCurrAddr);
+				Status = XPmRepair_Aie2p_s((u32 *)EfuseCurrAddr);
 				break;
 			case MRMAC_TAG_ID:
 				EfuseNextAddr = XPmBisr_RepairHardBlock(EfuseCurrAddr, EfuseBisrSize);
