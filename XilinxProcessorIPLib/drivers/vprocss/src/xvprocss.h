@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,7 @@
 /**
 *
 * @file xvprocss.h
+* @addtogroup vprocss Overview
 *
 * This is main header file of the Xilinx Video Processing Subsystem driver
 *
@@ -19,7 +20,7 @@
 *
 * <b>Subsystem Driver Features</b>
 *
-* Video Subsystem supports following features
+* Video Subsystem supports following features:
 * 	- AXI Stream Input/Output interface
 * 	- 1, 2 or 4 pixel-wide video interface
 * 	- 8/10/12/16 bits per component
@@ -27,10 +28,10 @@
 * 	- Memory based/streaming mode scaling in either direction (Up/Down)
 * 	- Up to 4k2k 60Hz resolution at both Input and Output interface
 * 	- Interlaced input support (1080i 50Hz/60Hz)
-* 	- Frame rate conversion
+* 	- Frame rate conversion:
 * 		- Drop frames if input rate > output rate
 * 		- Repeat frames if input rate < output rate
-* 	- Auto configuration of processing pipe based on detected use case
+* 	- Auto configuration of processing pipe based on detected use case:
 * 		- Scale Up/Down
 * 		- Zoom mode wherein a window in input is scaled to panel resolution
 * 		- Picture-In-Picture mode wherein the input stream is scaled down to
@@ -40,14 +41,14 @@
 *
 * <b>Subsystem Configurations</b>
 *
-* Six types of configurations, each with options, are supported via GUI in IPI
+* Six types of configurations, each with options, are supported via GUI in IPI:
 * 	- Full Configuration: provides all the features mentioned above
 * 	- Five streaming mode configurations have specific limited functionalities:
-*     - Scaler-only mode allows only for changing the picture size
-*     - Deinterlace-only mode allows for converting interlaced to progressive
-*     - Csc-only mode allows only for changing the color space, e.g. YUV to RGB
-*     - Vertical Chroma Resamp-only mode allows only for 420<->422 conversion
-*     - Horizontal Chroma Resamp-only mode allows only for 422<->444 conversion
+*     		- Scaler-only mode allows only for changing the picture size
+*     		- Deinterlace-only mode allows for converting interlaced to progressive
+*     		- Csc-only mode allows only for changing the color space, e.g. YUV to RGB
+*     		- Vertical Chroma Resamp-only mode allows only for 420<->422 conversion
+*     		- Horizontal Chroma Resamp-only mode allows only for 422<->444 conversion
 *
 * Number of processing cores that get included in the design will depend upon
 * the configuration selected. Static configuration parameters are stored in
@@ -58,7 +59,7 @@
 * of memory mapped devices, user specified DDR address for buffer management
 * and address range available for subsystem frame/field buffers.
 *
-* Full configuration mode includes following sub-cores in HW
+* Full configuration mode includes following sub-cores in HW:
 * 	- Scalers (horizontal/vertical)
 * 	- Deinterlacer
 * 	- Chroma Resamplers (one horizontal and two vertical)
@@ -67,7 +68,7 @@
 * 	- Letterbox
 * 	- AXIS Switch
 *
-* Streaming mode configurations include the following sub-cores in HW
+* Streaming mode configurations include the following sub-cores in HW:
 * 	- Scaler-only: Scalers (horizontal/vertical)
 * 	- Deinterlace-only: Deinterlacer
 * 	- Csc-only: Color Space Converter
@@ -140,7 +141,7 @@
 * This is a potenital debugging aid should the system not behave as expected.
 * If code size becomes a concern this logging capability can be removed from
 * the driver by defining XV_CONFIG_LOG_VPRCOSS_DISABLE preprocessor macro in
-* driver/BSP makefile. For maximun code savings logging capaibility can be
+* driver/BSP makefile. For maximum code savings logging capaibility can be
 * disabled, globally, for all included video drivers in BSP by defining the
 * preprocessor macro XV_CONFIG_LOG_DISABLE_ALL in the BSP makefile.
 *
@@ -352,16 +353,16 @@ typedef struct
   u16 HasMADI;           /**< Motion Adaptive Deinterlacer available flag */
   XSubCore RstAximm;     /**< Axi MM reset network instance configuration */
   XSubCore RstAxis;      /**< Axi stream reset network instance configuration */
-  XSubCore Vdma;         /**< Sub-core instance configuration */
-  XSubCore Router;       /**< Sub-core instance configuration */
-  XSubCore Csc;          /**< Sub-core instance configuration */
-  XSubCore Deint;        /**< Sub-core instance configuration */
-  XSubCore HCrsmplr;     /**< Sub-core instance configuration */
-  XSubCore Hscale;       /**< Sub-core instance configuration */
-  XSubCore Lbox;         /**< Sub-core instance configuration */
-  XSubCore VCrsmplrIn;   /**< Sub-core instance configuration */
-  XSubCore VCrsmplrOut;  /**< Sub-core instance configuration */
-  XSubCore Vscale;       /**< Sub-core instance configuration */
+  XSubCore Vdma;         /**< Vdma Sub-core instance configuration */
+  XSubCore Router;       /**< Router Sub-core instance configuration */
+  XSubCore Csc;          /**< Csc Sub-core instance configuration */
+  XSubCore Deint;        /**< Deint Sub-core instance configuration */
+  XSubCore HCrsmplr;     /**< HCrsmplr Sub-core instance configuration */
+  XSubCore Hscale;       /**< Hscale Sub-core instance configuration */
+  XSubCore Lbox;         /**< Lbox Sub-core instance configuration */
+  XSubCore VCrsmplrIn;   /**< VCrsmplrIn Sub-core instance configuration */
+  XSubCore VCrsmplrOut;  /**< VCrsmplrOut Sub-core instance configuration */
+  XSubCore Vscale;       /**< VscaleSub-core instance configuration */
 } XVprocSs_Config;
 
 /**

@@ -1,8 +1,13 @@
 /*******************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************/
+
+/**
+* @file xvprocss_g.c
+* @addtogroup vprocss Overview
+*/
 
 #ifndef SDT
 #include "xparameters.h"
@@ -10,8 +15,8 @@
 #include "xvprocss.h"
 
 #ifndef SDT
-/*
-* Subsystem Instance: <v_proc_ss_0>
+/**
+* Subsystem Instance:
 *   - List of sub-cores included in the subsystem
 */
 

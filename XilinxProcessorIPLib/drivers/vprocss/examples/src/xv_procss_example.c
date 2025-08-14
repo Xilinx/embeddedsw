@@ -1,14 +1,14 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 /*****************************************************************************/
 /**
 *
-* @file main.c
+* @file xv_procss_example.c
+* @addtogroup vprocss Overview
 *
 * This is main file for the Video Processing Subsystem example design.
 *
@@ -38,8 +38,17 @@
 *     after several seconds the test reports "FAILED"
 *  4) Optionally, go back and set up the next use case, repeating steps 1,2,3.
 *
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who    Date     Changes
+* ----- ---- --------  -------------------------------------------------------
+* 0.01  rc   07/07/14  First release
+* 1.00  dmc  01/25/16  Initialize the VPSS Event Logging system in XSys_Init()
+*
+* </pre>
+*
 ******************************************************************************/
-
 #include <stdio.h>
 #include "xil_cache.h"
 #include "xparameters.h"
@@ -51,7 +60,7 @@
 #endif
 
 /************************** Local Constants *********************************/
-#define XVPROCSS_SW_VER "v2.00"
+#define XVPROCSS_SW_VER "v2.15"
 #define VERBOSE_MODE 0
 #define TOPOLOGY_COUNT 6
 #define USECASE_COUNT 2
@@ -246,6 +255,17 @@ vpssVideo useCase[TOPOLOGY_COUNT][USECASE_COUNT] =
 	}
 };
 
+/**
+ * @brief Resets the video IP cores by toggling the GPIO pins.
+ *
+ * This function performs a reset sequence on the video IPs by writing specific
+ * values to the GPIO base address. The sequence involves setting the GPIO pins
+ * high, waiting for a short delay, setting them low, waiting again, and then
+ * setting them high once more. After the reset sequence, a message is printed
+ * to indicate completion.
+ *
+ * Note: The delay is implemented using a simple for-loop and may not be precise.
+ */
 void reset_video_ips(void)
 {
 	u32 count;
@@ -261,6 +281,17 @@ void reset_video_ips(void)
 
 #if XPAR_XCLK_WIZ_NUM_INSTANCES
 
+/**
+ * Waits for the clock to lock by polling the lock status register.
+ *
+ * This function continuously checks the lock status bit at offset 0x04 from the
+ * provided clock wizard base address. It waits until the lock bit (CLK_LOCK) is set,
+ * or until a maximum number of polling attempts (10,000) is reached.
+ *
+ * @param  CfgPtr_Dynamic  Pointer to the clock wizard configuration structure containing the base address.
+ *
+ * @return  0 if the lock was acquired successfully, or 1 if the maximum polling count was reached without acquiring the lock.
+ */
 int Wait_For_Lock(XClk_Wiz_Config *CfgPtr_Dynamic)
 {
 	u32 Count = 0;
@@ -293,7 +324,7 @@ int Wait_For_Lock(XClk_Wiz_Config *CfgPtr_Dynamic)
 ******************************************************************************/
 void Delay(u32 Seconds)
 {
-#if defined (__MICROBLAZE__) || defined(__PPC__)
+#if defined (__MICROBLAZE__) || defined(__PPC__) || defined(__riscv)
 	static s32 WarningFlag = 0;
 
 	/* If MB caches are disabled or do not exist, this delay loop could
@@ -327,8 +358,7 @@ void Delay(u32 Seconds)
 * per input array
 *
 * @param	CfgPtr_Dynamic provides pointer to clock wizard dynamic config
-* @param	Findex provides the index for Frequency divide register
-* @param	Sindex provides the index for Frequency phase register
+* @param	outfreq Desired output frequency
 *
 * @return
 *		-  Error 0 for pass scenario
@@ -465,7 +495,8 @@ int Clk_Wiz_Reconfig(XClk_Wiz_Config *CfgPtr_Dynamic, u32 outfreq)
 * handlers.
 *
 * @param	DeviceId is the unique device ID of the CLK_WIZ
-*		Subsystem core.
+*		       Subsystem core.
+* @param	outfreq Desired output frequency
 *
 * @return
 *		- XST_FAILURE if the system setup failed.
@@ -557,6 +588,20 @@ u32 ClkWiz_IntrExample(u32 DeviceId, u32 outfreq)
 }
 
 #else
+/**
+ * ClkWiz_IntrExample - Example function for clock wizard dynamic reconfiguration (SDT version)
+ *
+ * This function initializes the clock wizard driver using the provided base address,
+ * performs dynamic reconfiguration to set the output frequency, and returns the status.
+ * It is intended for use in systems where the SDT (System Device Tree) flow is used,
+ * and the clock wizard is referenced by its base address.
+ *
+ * @param  BaseAddress  Base address of the clock wizard instance.
+ * @param  outfreq      Desired output frequency (in kHz * 10).
+ *
+ * @return XST_SUCCESS on success, XST_FAILURE on error.
+ */
+
 u32 ClkWiz_IntrExample(UINTPTR BaseAddress, u32 outfreq)
 {
 	XClk_Wiz_Config *CfgPtr_Mon;
@@ -634,11 +679,36 @@ u32 ClkWiz_IntrExample(UINTPTR BaseAddress, u32 outfreq)
 	//		&& (Clk_Stop_Flag == 1));
 	return XST_SUCCESS;
 }
-
 #endif
 
 #endif
 
+/******************************************************************************
+ * main
+ *
+ * Entry point for the Video Processing Subsystem (VPSS) example design.
+ *
+ * This function initializes the hardware, sets up video input/output streams,
+ * and runs through a series of predefined use cases to validate VPSS functionality.
+ * It configures video formats based on the selected topology, starts and monitors
+ * the video pipeline, and reports the results of each test case.
+ *
+ * Key steps:
+ *  - Initialize peripheral and VPSS instances.
+ *  - Disable data cache and perform initial setup.
+ *  - Loop through all use cases:
+ *      - Configure input/output formats based on topology and sub-core presence.
+ *      - Set up video IO (TPG and VPSS streams).
+ *      - Configure clock, VTC, and TPG.
+ *      - Start VPSS and monitor for output lock.
+ *      - Report configuration and test results.
+ *      - Stop VPSS and ensure sub-cores are idle if required.
+ *  - Report overall test status.
+ *  - Enter infinite loop on completion.
+ *
+ * Returns:
+ *  XST_SUCCESS on successful execution.
+ ******************************************************************************/
 int main(void)
 {
 	XPeriph *PeriphPtr;
@@ -659,6 +729,7 @@ int main(void)
 	xil_printf("\r\n--------------------------------------------------------\r\n");
 	xil_printf("  Video Processing Subsystem Example Design %s\r\n", XVPROCSS_SW_VER);
 	xil_printf("  (c) 2015, 2016 by Xilinx Inc.\r\n");
+	xil_printf("  (c) 2022, 2025 by AMD Inc.\r\n");
 
 	status = XSys_Init(PeriphPtr, VpssPtr);
 	if (status != XST_SUCCESS) {

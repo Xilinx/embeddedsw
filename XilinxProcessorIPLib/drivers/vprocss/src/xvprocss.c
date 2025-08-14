@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,7 @@
 /**
 *
 * @file xvprocss.c
+* @addtogroup vprocss Overview
 *
 * This is main code of Xilinx Video Processing Subsystem device driver.
 * Please see xvprocss.h for more details of the driver.
@@ -2310,7 +2311,7 @@ void XVprocSs_SetPictureColorRange(XVprocSs *InstancePtr,
 /**
 * This function sets picture Demo Window.
 * Post this function call all further picture settings will apply only within
-* the defined window. Demo window gets reset everytime subsystem
+* the defined window. Demo window gets reset every time subsystem
 * configuration changes
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
@@ -2362,7 +2363,7 @@ int XVprocSs_SetPictureDemoWindow(XVprocSs *InstancePtr,
 * This function sets PIP background color
 *
 * @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
-* @param  ColorIs is the requested background color
+* @param  ColorId is the requested background color
 *           - XLBOX_BKGND_BLACK
 *           - XLBOX_BKGND_WHITE
 *           - XLBOX_BKGND_RED

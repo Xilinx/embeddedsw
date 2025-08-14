@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,7 @@
 /**
 *
 * @file periph.c
+* @addtogroup vprocss Overview
 *
 * This is top level resource file that will initialize all system level
 * peripherals
@@ -246,15 +247,19 @@ void XPeriph_ConfigTpg(XPeriph *InstancePtr)
   XV_tpg_EnableAutoRestart(pTpg);
   XV_tpg_Start(pTpg);
 }
-
-/*****************************************************************************/
 /**
- * This function programs TPG to user defined resolution
+ * This function sets the parameters for the Test Pattern Generator (TPG) in the XPeriph instance.
  *
- * @param  InstancePtr is a pointer to the peripheral instance
- * @param  width is the new active width
- * @param  height is the new active height
- *****************************************************************************/
+ * @param	InstancePtr	Pointer to the XPeriph instance.
+ * @param	width		Width of the test pattern to be generated.
+ * @param	height		Height of the test pattern to be generated.
+ * @param	Cformat		Color format for the test pattern (of type XVidC_ColorFormat).
+ * @param	Pattern		Pattern type to be generated.
+ * @param	IsInterlaced	Flag indicating whether the output should be interlaced (1) or progressive (0).
+ *
+ * @return	None
+ */
+
 void XPeriph_SetTpgParams(XPeriph *InstancePtr,
 		                  u16 width,
 		                  u16 height,
@@ -287,6 +292,8 @@ void XPeriph_DisableTpg(XPeriph *InstancePtr)
  * This function reports TPG Status
  *
  * @param  InstancePtr is a pointer to the peripheral instance
+ *
+ * @return None.
  *
  *****************************************************************************/
 void XPeriph_TpgDbgReportStatus(XPeriph *InstancePtr)
@@ -321,14 +328,26 @@ void XPeriph_TpgDbgReportStatus(XPeriph *InstancePtr)
   }
 }
 
-/*****************************************************************************/
 /**
- * This function configures VTC to output parameters
+ * This function configures the Video Timing Controller (VTC) for a given peripheral instance
+ * based on the provided video stream parameters and the number of pixels per clock.
  *
- * @param  InstancePtr is a pointer to the peripheral instance
- * @param  StreamPtr is a pointer output stream
+ * The function performs the following steps:
+ *   - Disables and resets the VTC generator.
+ *   - Sets the source selection to use generator registers for all timing parameters.
+ *   - Manually writes to the VTC control register to handle the interlace field workaround.
+ *   - Populates the XVtc_Timing structure with horizontal and vertical timing values from the
+ *     provided video stream, adjusting horizontal counts by the PixPerClk value.
+ *   - Applies a workaround for known VTC offset issues by adjusting vertical porch values.
+ *   - Sets the polarity of all VTC outputs according to the video stream timing.
+ *   - Enables the VTC generator and updates the register configuration.
  *
- *****************************************************************************/
+ * @param InstancePtr Pointer to the XPeriph instance to configure.
+ * @param StreamPtr Pointer to the XVidC_VideoStream structure containing timing information.
+ * @param PixPerClk Number of pixels processed per clock cycle.
+ *
+ * @return None.
+ */
 void XPeriph_ConfigVtc(XPeriph *InstancePtr,
 		               XVidC_VideoStream *StreamPtr,
 		               u32 PixPerClk)

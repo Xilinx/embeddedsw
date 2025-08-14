@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,8 +9,7 @@
 *
 * @file xvprocss_log.h
 * @addtogroup vprocss Overview
-* @{
-* @details
+* @brief
 *
 * This header file contains the video processing event log
 * initialization routines and helper functions.

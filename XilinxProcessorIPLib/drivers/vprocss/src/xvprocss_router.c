@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 * @file xvprocss_router.c
 * @addtogroup vprocss Overview
 * @{
-* @details
+* @brief
 
 * Video buffer management routine.
 * The functions in this file provides an abstraction from the register peek/poke
@@ -24,7 +24,7 @@
 * 1.00  rco  07/21/15   Initial Release
 * 2.00  dmc  12/17/15   Accommodate Full topology with no VDMA
 *                       Rename and modify H,VCresample constants and routines
-*                       Mods to conform to coding sytle
+*                       Mods to conform to coding style
 *            01/11/16   Write to new Event Log: log status and error events
 *                       The Event Logging replaces all the printf statements
 * 2.1   mpe  04/28/16   Added optional color format conversion handling in

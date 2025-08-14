@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,7 @@
 /**
 *
 * @file system.c
+* @addtogroup vprocss Overview
 *
 * This is top level resource file that will initialize all system level
 * peripherals
@@ -123,25 +124,20 @@ int XSys_Init(XPeriph  *pPeriph, XVprocSs *pVprocss)
   return(status);
 }
 
-/*****************************************************************************/
 /**
-*
-* This function is to set vpss stream parameters
-*
-* @param	pVprocss is a pointer to the video proc subsystem instance
-* @param	Direction defined if parameters are to be applied to Input or
-*		output stream
-* @param	Width is stream width
-* @param	Height is stream height
-* @param	FrameRate is stream frame rate
-* @param	cfmt is stream color format
-*
-* @return	XST_SUCCESS - if the stream configuration is proper
-* 		XST_INVALID_PARAM  - if the stream configuration is not proper
-*
-* @note		None.
-*
-******************************************************************************/
+ * This function sets the video stream parameters for the Video Processing Subsystem (VProcSS).
+ *
+ * @param pVprocss      Pointer to the XVprocSs instance.
+ * @param Direction     Stream direction (XSYS_VPSS_STREAM_IN or XSYS_VPSS_STREAM_OUT).
+ * @param Width         Width of the video stream in pixels.
+ * @param Height        Height of the video stream in pixels.
+ * @param FrameRate     Frame rate of the video stream (XVidC_FrameRate).
+ * @param cfmt          Color format of the video stream (XVidC_ColorFormat).
+ * @param IsInterlaced  Indicates if the video stream is interlaced (1) or progressive (0).
+ *
+ * @return XST_SUCCESS if successful, XST_INVALID_PARAM if the video mode is not supported.
+ */
+
 int XSys_SetStreamParam(XVprocSs *pVprocss, u16 Direction, u16 Width,
 			u16 Height, XVidC_FrameRate FrameRate,
 			XVidC_ColorFormat cfmt, u16 IsInterlaced)

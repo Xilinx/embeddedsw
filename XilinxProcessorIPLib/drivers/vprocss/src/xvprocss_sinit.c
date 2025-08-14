@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 * @file xvprocss_sinit.c
 * @addtogroup vprocss Overview
 * @{
-* @details
+* @brief
 *
 * This file contains the implementation of the Video Processing Subsystem
 * driver's static initialization functionality.
@@ -76,6 +76,18 @@ XVprocSs_Config* XVprocSs_LookupConfig(u32 DeviceId)
   return (CfgPtr);
 }
 #else
+/**
+ * This function searches for and returns a pointer to the XVprocSs_Config
+ * structure that matches the specified BaseAddress. If BaseAddress is zero,
+ * it returns the first entry in the XVprocSs_ConfigTable. If no matching
+ * configuration is found, it returns NULL.
+ *
+ * @param	BaseAddress is the base address of the device to look up.
+ *
+ * @return	A pointer to the matching XVprocSs_Config structure if found,
+ *          otherwise NULL.
+ */
+
 XVprocSs_Config* XVprocSs_LookupConfig(UINTPTR BaseAddress)
 {
   XVprocSs_Config *CfgPtr = NULL;
@@ -91,18 +103,21 @@ XVprocSs_Config* XVprocSs_LookupConfig(UINTPTR BaseAddress)
   return (CfgPtr);
 }
 
-/*****************************************************************************/
 /**
-* This function returns the Index number of config table using BaseAddress.
-*
-* @param  A pointer to the instance structure
-*
-* @param  Base address of the instance
-*
-* @return Index number of the config table
-*
-*
-*******************************************************************************/
+ * Retrieves the index of the driver configuration in the XVprocSs_ConfigTable
+ * that matches the specified BaseAddress.
+ *
+ * This function iterates through the XVprocSs_ConfigTable array and compares
+ * each entry's BaseAddress with the provided BaseAddress. If a match is found,
+ * the corresponding index is returned. If no match is found, the function
+ * returns the index at which the Name field is NULL (end of the table).
+ *
+ * @param	BaseAddress	The base address to search for in the configuration table.
+ *
+ * @return	The index of the matching configuration entry in XVprocSs_ConfigTable.
+ *		If no match is found, returns the index at the end of the table.
+ */
+
 
 u32 XVprocSs_GetDrvIndex(UINTPTR BaseAddress)
 {

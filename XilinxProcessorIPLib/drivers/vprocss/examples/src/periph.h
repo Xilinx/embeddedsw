@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +8,7 @@
 /**
 *
 * @file periph.h
+* @addtogroup vprocss Overview
 *
 * This is header for resource file that will initialize all system
 * level peripherals
@@ -88,7 +89,7 @@ typedef struct
  * This macro sets the TPG pattern
  *
  * @param  pPeriph is pointer to the peripheral Instance
- * @param  pattern  is the new pattern id
+ * @param  Pattern  is the new pattern id
  * @return none
  *
  *****************************************************************************/
@@ -99,8 +100,8 @@ typedef struct
 /**
  * This macro sets TPG active width
  *
- * @param  pPeriph is pointer to the peripheral Instance
- * @param  width  is the new active width
+ * @param pPeriph Pointer to the peripheral instance whose TPG width is to be set.
+ * @param width   The desired width value to set for the TPG.
  * @return none
  *
  *****************************************************************************/

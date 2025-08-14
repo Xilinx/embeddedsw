@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,12 +39,16 @@
 
 /*****************************************************************************/
 /**
-* This function starts Read and Write channels
-*
-* @param  XVdmaPtr is the pointer to core instance to be worked on
-*
-* @return None
-*
+ * This Function Starts the VDMA (Video Direct Memory Access) engine for the given Video Processing Subsystem instance.
+ *
+ * This function initiates both the write and read channels of the VDMA associated with the
+ * specified XVprocSs instance. It checks if the VDMA pointer is valid before starting the
+ * DMA operations.
+ *
+ * @param XVprocSsPtr Pointer to the XVprocSs instance containing the VDMA configuration.
+ *
+ * @return None.
+ *
 *******************************************************************************/
 void XVprocSs_VdmaStart(XVprocSs *XVprocSsPtr)
 {
@@ -57,11 +61,15 @@ void XVprocSs_VdmaStart(XVprocSs *XVprocSsPtr)
 
 /*****************************************************************************/
 /**
-* This function stops Read and Write channels
-*
-* @param  XVdmaPtr is the pointer to core instance to be worked on
-*
-* @return None
+ * This Function Stops the VDMA (Video Direct Memory Access) engine for the given Video Processing Subsystem instance.
+ *
+ * This function stops both the write and read channels of the VDMA associated with the
+ * specified XVprocSs instance. It checks if the VDMA pointer is valid before starting the
+ * DMA operations.
+ *
+ * @param XVprocSsPtr Pointer to the XVprocSs instance containing the VDMA configuration.
+ *
+ * @return None.
 *
 *******************************************************************************/
 void XVprocSs_VdmaStop(XVprocSs *XVprocSsPtr)
@@ -499,17 +507,20 @@ void XVprocSs_VdmaSetWinToUpScaleMode(XVprocSs *XVprocSsPtr, u32 updateCh)
   }
 }
 
-/*****************************************************************************/
 /**
-*
-* This function prints VDMA status on the console
-*
-* @param  XVdmaPtr is the instance pointer to the DMA engine.
-* @param  Bpp is Bytes per pixel to be used for data transfer
-*
-* @return	None
-*
-******************************************************************************/
+ * XVprocSs_VdmaDbgReportStatus - Used for reporting the status of the VDMA IP.
+ *
+ * This function prints debug information about the current status of the VDMA (Video Direct Memory Access)
+ * associated with the given XVprocSs instance. It reports both the read and write channel settings,
+ * including height, width, and stride, with values interpreted according to the specified pixel width in bits.
+ * The function also clears DMA channel errors and dumps relevant register values for both channels.
+ *
+ * @param XVprocSsPtr: Pointer to the XVprocSs instance containing the VDMA pointer.
+ * @param PixelWidthInBits: The width of a pixel in bits, used to calculate bytes per pixel and interpret register values.
+ *
+ * @return : None.
+ */
+
 void XVprocSs_VdmaDbgReportStatus(XVprocSs *XVprocSsPtr, u32 PixelWidthInBits)
 {
   u32 height,width,stride;
