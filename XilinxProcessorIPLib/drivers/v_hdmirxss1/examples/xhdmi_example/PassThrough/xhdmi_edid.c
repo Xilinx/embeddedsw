@@ -60,7 +60,11 @@ void EdidScdcCheck(XV_HdmiTxSs1          *HdmiTxSs1Ptr,
     if (CheckHdmiParam->EdidCableConnectRead) {
 	/*Read & Parse the EDID upon the Cable Connect to check
 		Sink's Capability*/
-	Status = XV_HdmiTxSs1_ReadEdid_extension(HdmiTxSs1Ptr, &CheckHdmiParam->EdidCtrlParam);
+	Status = XV_HdmiTxSs1_ReadEdid_extension(HdmiTxSs1Ptr, &CheckHdmiParam->EdidCtrlParam,
+						 (u8*)&Buffer, sizeof(Buffer));
+	if (Status != XST_SUCCESS) {
+		xil_printf ("XVHdmiTxss1_ParseEDID failed \n\r");
+	}
 
         /*Check whether the Sink able to support HDMI 2.0 by checking the
         maximum supported video bandwidth*/
@@ -133,15 +137,14 @@ void EdidScdcCheck(XV_HdmiTxSs1          *HdmiTxSs1Ptr,
     } else {
         /*If retry Re Read EDID or Re Access SCDC is enabled*/
         if (CheckHdmiParam->IsReReadSinkEdid) {
-            /*Read & Parse the EDID upon the Cable Connect to check
-															  Sink Capability*/
-		Status = XV_HdmiTxSs1_ReadEdid_extension(HdmiTxSs1Ptr, &CheckHdmiParam->EdidCtrlParam);
+            /*Read & Parse the EDID upon the Cable Connect to check Sink Capability*/
+		Status = XV_HdmiTxSs1_ReadEdid_extension(HdmiTxSs1Ptr, &CheckHdmiParam->EdidCtrlParam,
+							 (u8*)&Buffer, sizeof(Buffer));
 		if (Status != XST_SUCCESS) {
 			xil_printf ("XVHdmiTxss1_ParseEDID failed \n\r");
-			}
+		}
 
-            if(CheckHdmiParam->EdidCtrlParam.IsSCDCPresent ==
-															XVIDC_SUPPORTED) {
+            if(CheckHdmiParam->EdidCtrlParam.IsSCDCPresent == XVIDC_SUPPORTED) {
                 if (CheckHdmiParam->EdidCtrlParam.IsSCDCReadRequestReady ==
                         XVIDC_SUPPORTED) {
                     CheckHdmiParam->IsReReadSinkEdid = (FALSE);
