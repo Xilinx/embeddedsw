@@ -1,8 +1,13 @@
 // ==============================================================
 // Copyright (c) 2015 - 2020 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_vcresampler_hw.h
+ * @addtogroup v_vcresampler Overview
+ */
 
 #ifndef XV_VCHROMA_RESAMPLER_HW_H_	   /* prevent circular inclusions */
 #define XV_VCHROMA_RESAMPLER_HW_H_    /* by using protection macros  */
@@ -56,20 +61,23 @@ extern "C" {
 // 0xcc : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
-#define XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL                        0x00
-#define XV_VCRESAMPLER_CTRL_ADDR_GIE                            0x04
-#define XV_VCRESAMPLER_CTRL_ADDR_IER                            0x08
-#define XV_VCRESAMPLER_CTRL_ADDR_ISR                            0x0c
-#define XV_VCRESAMPLER_CTRL_ADDR_HWREG_WIDTH_DATA               0x10
-#define XV_VCRESAMPLER_CTRL_BITS_HWREG_WIDTH_DATA               16
-#define XV_VCRESAMPLER_CTRL_ADDR_HWREG_HEIGHT_DATA              0x18
-#define XV_VCRESAMPLER_CTRL_BITS_HWREG_HEIGHT_DATA              16
-#define XV_VCRESAMPLER_CTRL_ADDR_HWREG_INPUT_VIDEO_FORMAT_DATA  0x20
-#define XV_VCRESAMPLER_CTRL_BITS_HWREG_INPUT_VIDEO_FORMAT_DATA  16
-#define XV_VCRESAMPLER_CTRL_ADDR_HWREG_OUTPUT_VIDEO_FORMAT_DATA 0x28
-#define XV_VCRESAMPLER_CTRL_BITS_HWREG_OUTPUT_VIDEO_FORMAT_DATA 16
-#define XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA           0x30
-#define XV_VCRESAMPLER_CTRL_BITS_HWREG_COEFS_0_0_DATA           16
+/**
+ * Register address and bit-width definitions for XV VChroma Resampler
+ */
+#define XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL                        0x00  // Control signals register
+#define XV_VCRESAMPLER_CTRL_ADDR_GIE                            0x04  // Global Interrupt Enable register
+#define XV_VCRESAMPLER_CTRL_ADDR_IER                            0x08  // IP Interrupt Enable register
+#define XV_VCRESAMPLER_CTRL_ADDR_ISR                            0x0c  // IP Interrupt Status register
+#define XV_VCRESAMPLER_CTRL_ADDR_HWREG_WIDTH_DATA               0x10  // Width register
+#define XV_VCRESAMPLER_CTRL_BITS_HWREG_WIDTH_DATA               16    // Width register bit-width
+#define XV_VCRESAMPLER_CTRL_ADDR_HWREG_HEIGHT_DATA              0x18  // Height register
+#define XV_VCRESAMPLER_CTRL_BITS_HWREG_HEIGHT_DATA              16    // Height register bit-width
+#define XV_VCRESAMPLER_CTRL_ADDR_HWREG_INPUT_VIDEO_FORMAT_DATA  0x20  // Input video format register
+#define XV_VCRESAMPLER_CTRL_BITS_HWREG_INPUT_VIDEO_FORMAT_DATA  16    // Input video format register bit-width
+#define XV_VCRESAMPLER_CTRL_ADDR_HWREG_OUTPUT_VIDEO_FORMAT_DATA 0x28  // Output video format register
+#define XV_VCRESAMPLER_CTRL_BITS_HWREG_OUTPUT_VIDEO_FORMAT_DATA 16    // Output video format register bit-width
+#define XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA           0x30  // Coefficient 0_0 register
+#define XV_VCRESAMPLER_CTRL_BITS_HWREG_COEFS_0_0_DATA           16    // Coefficient 0_0 register bit-width
 
 #ifdef __cplusplus
 }
