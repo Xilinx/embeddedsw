@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 * @file xv_hcresampler_l2.c
 * @addtogroup v_hcresampler Overview
 * @{
-* @details
+* @brief
 *
 * The Horizontal Chroma Resampler Layer-2 Driver.
 * The functions in this file provides an abstraction from the register peek/poke

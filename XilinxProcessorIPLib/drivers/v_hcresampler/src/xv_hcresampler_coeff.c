@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,10 +26,12 @@
 ******************************************************************************/
 #include "xv_hcresampler_l2.h"
 
-// 4 tap filter
 #ifdef __cplusplus
 extern "C"
 #endif
+/**
+ * 4 tap filter coefficients
+ */
 const short XV_hcrsmplrcoeff_taps4[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_4] =
 {
   //444->422
@@ -89,3 +91,4 @@ const short XV_hcrsmplrcoeff_taps10[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX
    { 305, -638, -586,  705, 2262, 2262,  705, -586, -638,  305}
   }
 };
+/** @} */

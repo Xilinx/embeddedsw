@@ -1,16 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-/*****************************************************************************/
 /**
 *
 * @file xv_hcresampler_l2.h
 * @addtogroup v_hcresampler Overview
-* @{
-* @details
 *
 * This header file contains layer 2 API's of the horizontal chroma resampler
 * sub-core driver.The functions contained herein provides a high level
@@ -71,8 +68,8 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef XV_HCHROMA_RESAMPLER_L2_H	   /* prevent circular inclusions */
-#define XV_HCHROMA_RESAMPLER_L2_H    /* by using protection macros  */
+#ifndef XV_HCHRESAMPLER_L2_H	   /* prevent circular inclusions */
+#define XV_HCHRESAMPLER_L2_H    /* by using protection macros  */
 
 #ifdef __cplusplus
 extern "C" {
@@ -82,18 +79,17 @@ extern "C" {
 #include "xv_hcresampler.h"
 
 /************************** Constant Definitions *****************************/
- /** @name Hw Configuration
-   * @{
-   * The following constants define the horiz. resampler HW MAX configuration
-   *
-   */
+ /**
+ * @name Hw Configuration
+ * The following constants define the horiz. resampler HW MAX configuration
+ */
 #define XV_HCRSMPLR_MAX_TAPS           (10)
 #define XV_HCRSMPLR_MAX_PHASES         (2)
 
 /**************************** Type Definitions *******************************/
  /**
-  * This typedef enumerates the supported taps
-  */
+ * This typedef enumerates the supported taps
+ */
  typedef enum
  {
    XV_HCRSMPLR_TAPS_4  = 4,
@@ -104,8 +100,8 @@ extern "C" {
  }XV_HCRESAMPLER_TAPS;
 
  /**
-  * This typedef enumerates the conversion type
-  */
+ * This typedef enumerates the conversion type
+ */
  typedef enum
  {
    XV_HCRSMPLR_444_TO_422  = 0,
@@ -113,9 +109,9 @@ extern "C" {
    XV_HCRSMPLR_NUM_CONVERSIONS
  }XV_HCRESAMPLER_CONVERSION;
 
- /** This typedef enumerates the resampling algorithm
-  *
-  */
+ /**
+ * This typedef enumerates the resampling algorithm
+ */
  typedef enum
  {
    XV_HCRSMPLR_TYPE_NEAREST_NEIGHBOR = 0,
@@ -159,4 +155,3 @@ void XV_HCrsmplDbgReportStatus(XV_Hcresampler_l2 *InstancePtr);
 }
 #endif
 #endif
-/** @} */
