@@ -1,8 +1,31 @@
-// ==============================================================
-// Copyright (c) 2015 - 2020 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
-// SPDX-License-Identifier: MIT
-// ==============================================================
+/*******************************************************************
+ * Copyright (c) 2015-2020 Xilinx Inc. All rights reserved.
+ * Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
+ ******************************************************************/
+
+/**
+ * @file xv_csc_hw.h
+ * @addtogroup v_csc Overview
+ * @{
+ *
+ * @brief Hardware register definitions for the Xilinx Video Color Space Converter (CSC) core.
+ *
+ * This header file defines the register offsets and bit widths for the control and configuration
+ * registers of the Xilinx Video Color Space Converter (CSC) hardware core. These macros are used
+ * to access and configure the CSC hardware via memory-mapped I/O. The CSC core performs color
+ * space conversion operations, such as RGB to YUV and vice versa, in video processing pipelines.
+ *
+ * The register map includes:
+ *   - Control and status registers (AP_CTRL, GIE, IER, ISR)
+ *   - Video format configuration (input/output format)
+ *   - Frame dimension and region selection (width, height, column/row start/end)
+ *   - Color conversion matrix coefficients (K11-K33 and K11_2-K33_2)
+ *   - Offset and clamp/clip parameters for each color channel
+ *
+ * Each register is defined with its memory offset and the number of bits used for its data field.
+ * These definitions facilitate low-level driver development and hardware abstraction for the CSC core.
+ */
 
 #ifndef XV_CSC_HW_H_  /* prevent circular inclusions */
 #define XV_CSC_HW_H_  /* by using protection macros  */
@@ -10,6 +33,41 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+ * XV_CSC Hardware Register Definitions
+ *
+ * This header file defines the register addresses and bit widths for the XV_CSC hardware module.
+ * The XV_CSC module is typically used for color space conversion operations in embedded systems.
+ *
+ * Register Address Map:
+ * - Control and Status Registers:
+ *   - XV_CSC_CTRL_ADDR_AP_CTRL: Control register
+ *   - XV_CSC_CTRL_ADDR_GIE: Global interrupt enable
+ *   - XV_CSC_CTRL_ADDR_IER: Interrupt enable register
+ *   - XV_CSC_CTRL_ADDR_ISR: Interrupt status register
+ *
+ * - Configuration Registers:
+ *   - HWREG_INVIDEOFORMAT_DATA: Input video format (8 bits)
+ *   - HWREG_OUTVIDEOFORMAT_DATA: Output video format (8 bits)
+ *   - HWREG_WIDTH_DATA: Frame width (16 bits)
+ *   - HWREG_HEIGHT_DATA: Frame height (16 bits)
+ *   - HWREG_COLSTART_DATA / HWREG_COLEND_DATA: Column start/end (16 bits)
+ *   - HWREG_ROWSTART_DATA / HWREG_ROWEND_DATA: Row start/end (16 bits)
+ *
+ * - Color Space Conversion Coefficients:
+ *   - HWREG_K11_DATA to HWREG_K33_DATA: 3x3 matrix coefficients (16 bits each)
+ *   - HWREG_ROFFSET_V_DATA, HWREG_GOFFSET_V_DATA, HWREG_BOFFSET_V_DATA: RGB offsets (12 bits each)
+ *   - HWREG_CLAMPMIN_V_DATA, HWREG_CLIPMAX_V_DATA: Clamp min/max values (10 bits each)
+ *
+ * - Secondary Coefficient Set:
+ *   - HWREG_K11_2_DATA to HWREG_K33_2_DATA: Alternate 3x3 matrix coefficients (16 bits each)
+ *   - HWREG_ROFFSET_2_V_DATA, HWREG_GOFFSET_2_V_DATA, HWREG_BOFFSET_2_V_DATA: Alternate RGB offsets (12 bits each)
+ *   - HWREG_CLAMPMIN_2_V_DATA, HWREG_CLIPMAX_2_V_DATA: Alternate clamp min/max values (10 bits each)
+ *
+ * Each register address is defined as an offset from the base address of the XV_CSC hardware module.
+ * The corresponding bit width for each register is also defined for proper data handling.
+ */
 
 // CTRL
 // 0x000 : Control signals
@@ -258,3 +316,4 @@ extern "C" {
 #endif
 
 #endif /* end of protection macro */
+/** @} */
