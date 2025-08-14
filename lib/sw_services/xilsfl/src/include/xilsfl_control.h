@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -45,7 +45,7 @@
 u32 XSfl_OspiInit(XSfl_Interface *Ptr, const XSfl_UserConfig *UserConfig);
 u32 XSfl_FlashIdRead(XSfl_Interface *SflInstnacePtr, u8 ChipSelect, u8 *SflReadBuffer );
 u32 XSfl_CalculateFCTIndex(u32 ReadId, u32 *FCTIndex);
-u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstnacePtr, int Mode, u8 *SflReadBuffer);
+u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstnacePtr, int Mode);
 u32 XSfl_FlashEnterExit4BAddMode(XSfl_Interface *SflInstnacePtr, int Enable, u8 ChpiSelect);
 u32 XSfl_GetRealAddr(XSfl_Interface *SflInstnacePtr, u32 Address);
 u32 XSfl_SectorErase(XSfl_Interface *SflInstnacePtr, u32 Address);

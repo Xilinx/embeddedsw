@@ -85,7 +85,7 @@ typedef struct {
 u32 XSfl_CalculateFCTIndex(u32 ReadId, u32 *FCTIndex);
 
 /************************** Variable Definitions *****************************/
-const extern XFlashInfo Flash_Config_Table[];
+extern const XFlashInfo Flash_Config_Table[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

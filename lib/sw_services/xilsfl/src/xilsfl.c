@@ -118,8 +118,7 @@ u32 XSfl_FlashInit(u8 *SflHandler, XSfl_UserConfig SflUserOptions, u8 Controller
 				((SflInstance.Instance[Idx].CntrlInfo.BusWidth == XSFL_X8_BUS_WIDTH) ||
 				 !(SflInstance.Instance[Idx].CntrlInfo.BusWidth))) {
 			/* Set Flash device and Controller mode to DDR Phy */
-			Status = XSfl_FlashSetSDRDDRMode(&SflInstance.Instance[Idx], XSFL_EDGE_MODE_DDR_PHY,
-					SflReadBuffer);
+			Status = XSfl_FlashSetSDRDDRMode(&SflInstance.Instance[Idx], XSFL_EDGE_MODE_DDR_PHY);
 			if (Status == XST_SUCCESS) {
 #ifdef XSFL_DEBUG
 				xil_printf("Controller and Flash are in DDR Phy mode\n");
@@ -139,8 +138,7 @@ u32 XSfl_FlashInit(u8 *SflHandler, XSfl_UserConfig SflUserOptions, u8 Controller
 
 		/* Set Flash device and Controller mode to SDR Phy */
 		if (SflInstance.Instance[Idx].CntrlInfo.RefClockHz <= Flash_Config_Table[FCTIndex].SdrMaxFreq) {
-			Status = XSfl_FlashSetSDRDDRMode(&SflInstance.Instance[Idx], XSFL_EDGE_MODE_SDR_PHY,
-					SflReadBuffer);
+			Status = XSfl_FlashSetSDRDDRMode(&SflInstance.Instance[Idx], XSFL_EDGE_MODE_SDR_PHY);
 			if (Status == XST_SUCCESS) {
 #ifdef XSFL_DEBUG
 				xil_printf("Controller and Flash are in SDR Phy mode\n");
@@ -159,8 +157,7 @@ u32 XSfl_FlashInit(u8 *SflHandler, XSfl_UserConfig SflUserOptions, u8 Controller
 		}
 
 		/* Set Flash device and Controller mode to SDR Phy */
-		Status = XSfl_FlashSetSDRDDRMode(&SflInstance.Instance[Idx], XSFL_EDGE_MODE_SDR_NON_PHY,
-				SflReadBuffer);
+		Status = XSfl_FlashSetSDRDDRMode(&SflInstance.Instance[Idx], XSFL_EDGE_MODE_SDR_NON_PHY);
 		if (Status != XST_SUCCESS) {
 #ifdef XSFL_DEBUG
 			xil_printf("XSfl_FlashSetSDRDDRMode Failed\n");

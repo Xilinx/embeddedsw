@@ -118,14 +118,12 @@ u32 XSfl_FlashEnterExit4BAddMode(XSfl_Interface *SflInstancePtr, int Enable, u8 
 {
 	u32 Status;
 	u32 FlashMake;
-	u8 FlashType;
 	u8 Command;
 
 	/* Validate the input arguments */
 	Xil_AssertNonvoid(SflInstancePtr != NULL);
 
 	FlashMake = SflInstancePtr->SflFlashInfo.FlashMake;
-	FlashType = Flash_Config_Table[SflInstancePtr->SflFlashInfo.FlashIndex].FlashType;
 
 	if (Enable) {
 		Command = XSFL_ENTER_4B_ADDR_MODE;
@@ -405,12 +403,9 @@ u32 XSfl_FlashReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteC
 	u32 RealAddr;
 	u32 BytesToRead;
 	u32 ByteCnt = ByteCount;
-	u32 FlashMake;
-	u32 Addr = Address;
 	u8 FCTIndex;
 	u8 Status;
 
-	FlashMake = SflInstancePtr->SflFlashInfo.FlashMake;
 	FCTIndex = SflInstancePtr->SflFlashInfo.FlashIndex;
 
 	if ((Address < Flash_Config_Table[FCTIndex].FlashDeviceSize) &&
@@ -525,12 +520,10 @@ u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address
 	u32 RealAddr;
 	u32 BytesToRead;
 	u32 ByteCnt = ByteCount;
-	u32 FlashMake;
 	u32 Addr = Address;
 	u8 FCTIndex;
 	u8 Status;
 
-	FlashMake = SflInstancePtr->SflFlashInfo.FlashMake;
 	FCTIndex = SflInstancePtr->SflFlashInfo.FlashIndex;
 
 	if ((Address < Flash_Config_Table[FCTIndex].FlashDeviceSize) &&
@@ -666,7 +659,7 @@ u32 XSfl_FlashTransferDone(XSfl_Interface *SflInstancePtr){
  * 		 - error code if it fails.
  *
  ******************************************************************************/
-u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstancePtr, int Mode,u8 *SflReadBuffer){
+u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstancePtr, int Mode){
 	/* Validate the input arguments */
 	Xil_AssertNonvoid(SflInstancePtr != NULL);
 
