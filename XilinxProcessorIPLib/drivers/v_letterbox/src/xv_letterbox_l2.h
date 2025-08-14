@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 * @file xv_letterbox_l2.h
 * @addtogroup v_letterbox Overview
 * @{
-* @details
+* @brief
 *
 * This header file contains layer 2 API's of the letter box sub-core driver.
 * The functions contained herein provides a high level implementation of

@@ -1,6 +1,6 @@
 ##############################################################################
 # Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##
 #############################################################################
@@ -14,6 +14,6 @@ BEGIN driver v_letterbox
  OPTION DEPENDS = (video_common);
  OPTION copyfiles = all;
  OPTION name = v_letterbox;
- OPTION version = 2.4;
+ OPTION version = 2.5;
 
 END driver

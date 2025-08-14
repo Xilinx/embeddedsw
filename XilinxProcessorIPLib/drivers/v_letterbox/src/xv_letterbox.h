@@ -1,9 +1,13 @@
 // ==============================================================
 // Copyright (c) 2015 - 2020 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 
+/**
+ * @file xv_letterbox.h
+ * @addtogroup xv_letterbox Overview
+ */
 #ifndef XV_LETTERBOX_H
 #define XV_LETTERBOX_H
 

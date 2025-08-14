@@ -1,8 +1,13 @@
 // ==============================================================
 // Copyright (c) 2015 - 2020 Xilinx Inc. All rights reserved.
-// Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
+
+/**
+ * @file xv_letterbox_hw.h
+ * @addtogroup xv_letterbox Overview
+ */
 
 #ifndef XV_LETTERBOX_HW_H_		 /* prevent circular inclusions */
 #define XV_LETTERBOX_HW_H_		 /* by using protection macros */
@@ -72,30 +77,43 @@ extern "C" {
 // 0x5c : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
-#define XV_LETTERBOX_CTRL_ADDR_AP_CTRL                 0x00
-#define XV_LETTERBOX_CTRL_ADDR_GIE                     0x04
-#define XV_LETTERBOX_CTRL_ADDR_IER                     0x08
-#define XV_LETTERBOX_CTRL_ADDR_ISR                     0x0c
-#define XV_LETTERBOX_CTRL_ADDR_HWREG_WIDTH_DATA        0x10
-#define XV_LETTERBOX_CTRL_BITS_HWREG_WIDTH_DATA        16
-#define XV_LETTERBOX_CTRL_ADDR_HWREG_HEIGHT_DATA       0x18
-#define XV_LETTERBOX_CTRL_BITS_HWREG_HEIGHT_DATA       16
-#define XV_LETTERBOX_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA 0x20
-#define XV_LETTERBOX_CTRL_BITS_HWREG_VIDEO_FORMAT_DATA 16
-#define XV_LETTERBOX_CTRL_ADDR_HWREG_COL_START_DATA    0x28
-#define XV_LETTERBOX_CTRL_BITS_HWREG_COL_START_DATA    16
-#define XV_LETTERBOX_CTRL_ADDR_HWREG_COL_END_DATA      0x30
-#define XV_LETTERBOX_CTRL_BITS_HWREG_COL_END_DATA      16
-#define XV_LETTERBOX_CTRL_ADDR_HWREG_ROW_START_DATA    0x38
-#define XV_LETTERBOX_CTRL_BITS_HWREG_ROW_START_DATA    16
-#define XV_LETTERBOX_CTRL_ADDR_HWREG_ROW_END_DATA      0x40
-#define XV_LETTERBOX_CTRL_BITS_HWREG_ROW_END_DATA      16
-#define XV_LETTERBOX_CTRL_ADDR_HWREG_Y_R_VALUE_DATA    0x48
-#define XV_LETTERBOX_CTRL_BITS_HWREG_Y_R_VALUE_DATA    16
-#define XV_LETTERBOX_CTRL_ADDR_HWREG_CB_G_VALUE_DATA   0x50
-#define XV_LETTERBOX_CTRL_BITS_HWREG_CB_G_VALUE_DATA   16
-#define XV_LETTERBOX_CTRL_ADDR_HWREG_CR_B_VALUE_DATA   0x58
-#define XV_LETTERBOX_CTRL_BITS_HWREG_CR_B_VALUE_DATA   16
+/**
+ * Register address and bit-width definitions for XV_LETTERBOX hardware control interface
+ */
+#define XV_LETTERBOX_CTRL_ADDR_AP_CTRL                 0x00  // Control signals register
+#define XV_LETTERBOX_CTRL_ADDR_GIE                     0x04  // Global Interrupt Enable register
+#define XV_LETTERBOX_CTRL_ADDR_IER                     0x08  // IP Interrupt Enable register
+#define XV_LETTERBOX_CTRL_ADDR_ISR                     0x0c  // IP Interrupt Status register
+
+#define XV_LETTERBOX_CTRL_ADDR_HWREG_WIDTH_DATA        0x10  // Width register address
+#define XV_LETTERBOX_CTRL_BITS_HWREG_WIDTH_DATA        16    // Width register bit width
+
+#define XV_LETTERBOX_CTRL_ADDR_HWREG_HEIGHT_DATA       0x18  // Height register address
+#define XV_LETTERBOX_CTRL_BITS_HWREG_HEIGHT_DATA       16    // Height register bit width
+
+#define XV_LETTERBOX_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA 0x20  // Video format register address
+#define XV_LETTERBOX_CTRL_BITS_HWREG_VIDEO_FORMAT_DATA 16    // Video format register bit width
+
+#define XV_LETTERBOX_CTRL_ADDR_HWREG_COL_START_DATA    0x28  // Column start register address
+#define XV_LETTERBOX_CTRL_BITS_HWREG_COL_START_DATA    16    // Column start register bit width
+
+#define XV_LETTERBOX_CTRL_ADDR_HWREG_COL_END_DATA      0x30  // Column end register address
+#define XV_LETTERBOX_CTRL_BITS_HWREG_COL_END_DATA      16    // Column end register bit width
+
+#define XV_LETTERBOX_CTRL_ADDR_HWREG_ROW_START_DATA    0x38  // Row start register address
+#define XV_LETTERBOX_CTRL_BITS_HWREG_ROW_START_DATA    16    // Row start register bit width
+
+#define XV_LETTERBOX_CTRL_ADDR_HWREG_ROW_END_DATA      0x40  // Row end register address
+#define XV_LETTERBOX_CTRL_BITS_HWREG_ROW_END_DATA      16    // Row end register bit width
+
+#define XV_LETTERBOX_CTRL_ADDR_HWREG_Y_R_VALUE_DATA    0x48  // Y/R value register address
+#define XV_LETTERBOX_CTRL_BITS_HWREG_Y_R_VALUE_DATA    16    // Y/R value register bit width
+
+#define XV_LETTERBOX_CTRL_ADDR_HWREG_CB_G_VALUE_DATA   0x50  // Cb/G value register address
+#define XV_LETTERBOX_CTRL_BITS_HWREG_CB_G_VALUE_DATA   16    // Cb/G value register bit width
+
+#define XV_LETTERBOX_CTRL_ADDR_HWREG_CR_B_VALUE_DATA   0x58  // Cr/B value register address
+#define XV_LETTERBOX_CTRL_BITS_HWREG_CR_B_VALUE_DATA   16    // Cr/B value register bit width
 
 #ifdef __cplusplus
 }
