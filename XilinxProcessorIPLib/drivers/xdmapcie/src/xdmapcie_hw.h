@@ -50,7 +50,7 @@ extern "C" {
 #endif
 
 #if defined XPAR_MDB_PCIE0_COMPATIBLE
-#define versal2
+#define versal_2ve_2vm
 #endif
 
 #if defined(XPAR_XDMA_0_DEVICE_ID) || defined(XPAR_XDMA_0_COMPATIBLE)
@@ -70,7 +70,7 @@ extern "C" {
 						       * register offset
 						       */
 
-#if (defined(versal) || defined(QDMA_PCIE_BRIDGE) || defined(versal2)) && !defined(XDMA_PCIE_BRIDGE)
+#if (defined(versal) || defined(QDMA_PCIE_BRIDGE) || defined(versal_2ve_2vm)) && !defined(XDMA_PCIE_BRIDGE)
 #define XDMAPCIE_VSECC_OFFSET			0xE00 /**<
 						       * VSEC Capability
 						       * Register
@@ -96,7 +96,7 @@ extern "C" {
 #define XDMAPCIE_BL_OFFSET			0xE18 /**<
 						       * Bus Location Register
 						       */
-#if defined(versal2)
+#if defined(versal_2ve_2vm)
 #define XDMAPCIE_PHYSC_OFFSET			0x0E8 /**<
 						       * Physical status and
 						       * Control Register
@@ -104,7 +104,7 @@ extern "C" {
 #else
 #define XDMAPCIE_PHYSC_OFFSET                   0xE1C /**<
                                                        * Physical status and
-                                                       * Control Register                       	                               							      */
+                                                       * Control Register                      	                               							      */
 #endif
 #define XDMAPCIE_RPSC_OFFSET			0xE20 /**<
 						       * Root Port Status &
@@ -325,7 +325,7 @@ extern "C" {
  * @{
  */
 
-/* versal2 */
+/* versal_2ve_2vm */
 
 #define XDMAPCIE_IATU_REGION_CNTRL_OFFSET	0x004 /**<EN/DE IATU transalation*/
 #define XDMAPCIE_IATU_LWR_BASE_ADDR_OFFSET	0x008 /**<ATU Lower Base Address*/
@@ -511,7 +511,7 @@ extern "C" {
 #define XDMAPCIE_PHYSC_LTSSM_STATE_MASK	0x000001F8 /**< LTSSM State Mask */
 #define XDMAPCIE_PHYSC_LANE_REV_MASK	0x00000600 /**< Lane Reversal Mask */
 
-#if defined(versal2)
+#if defined(versal_2ve_2vm)
 #define XDMAPCIE_PHYSC_LINK_UP_MASK	0x00000001 /**< Link Up Status Mask */
 #else
 #define XDMAPCIE_PHYSC_LINK_UP_MASK	0x00000800 /**< Link Up Status Mask */

@@ -115,7 +115,7 @@ typedef  struct {
 					 */
 #endif
 	u8  IncludeRootComplex;		/**< Is IP built as root complex */
-	u32 IATUAddress;		/** IATU Region Address for versal2*/
+	u32 IATUAddress;		/** IATU Region Address for versal_2ve_2vm*/
 
 #if defined(SDT)
 	u64 Ecam;

@@ -148,7 +148,7 @@ int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 		XDmaPcie_QdmaAddPgm(InstancePtr);
 #endif
 
-#if defined(SDT) && defined(versal) && !defined(QDMA_PCIE_BRIDGE) && !defined(XDMA_PCIE_BRIDGE) && !defined(versal2)
+#if defined(SDT) && defined(versal) && !defined(QDMA_PCIE_BRIDGE) && !defined(XDMA_PCIE_BRIDGE) && !defined(versal_2ve_2vm)
 	InstancePtr->Config.BaseAddress= InstancePtr->Config.Ecam;
 	InstancePtr->Config.Ecam= EffectiveAddress;
 #endif
@@ -160,7 +160,7 @@ int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 	XDmaPcie_DisableInterrupts(InstancePtr, XDMAPCIE_IM_DISABLE_ALL_MASK);
 
 	/* Max number of buses */
-#if defined(versal) || defined(QDMA_PCIE_BRIDGE) || defined(versal2)
+#if defined(versal) || defined(QDMA_PCIE_BRIDGE) || defined(versal_2ve_2vm)
 	InstancePtr->MaxNumOfBuses = XDMAPCIE_NUM_BUSES;
 #else
 	Data = XDmaPcie_ReadReg(InstancePtr->Config.BaseAddress,
@@ -1696,7 +1696,7 @@ void XDmaPcie_ReadRemoteConfigSpace(XDmaPcie *InstancePtr, u8 Bus, u8 Device,
 {
 	u32 Location = 0;
 	u32 Data = 0;
-#if defined(versal2)
+#if defined(versal_2ve_2vm)
 	u64 PCIeAddr = 0;
 	u64 IATUAddr = 0;
 #endif
@@ -1715,7 +1715,7 @@ void XDmaPcie_ReadRemoteConfigSpace(XDmaPcie *InstancePtr, u8 Bus, u8 Device,
 	/* Compose function configuration space location */
 	Location = XDmaPcie_ComposeExternalConfigAddress (Bus, Device,
 							Function, Offset);
-#if defined(versal2)
+#if defined(versal_2ve_2vm)
 	PCIeAddr = InstancePtr->Config.Ecam + Location;
 
 	if ((Bus == 1) && (Device == 0))
