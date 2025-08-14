@@ -567,7 +567,7 @@ int XV_HdmiTxSs1_SetLogCallback(XV_HdmiTxSs1 *InstancePtr,
 	void *CallbackRef);
 int XV_HdmiTxSs1_SendCvtemAuxPackets(XV_HdmiTxSs1 *InstancePtr, XHdmiC_Aux *DscAuxFifo);
 int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *BufferPtr, u32 BufferSize);
-int XV_HdmiTxSs1_ReadEdid_extension(XV_HdmiTxSs1 *InstancePtr, XV_VidC_EdidCntrlParam *EdidCtrlParam);
+int XV_HdmiTxSs1_ReadEdid_extension(XV_HdmiTxSs1 *InstancePtr, XV_VidC_EdidCntrlParam *EdidCtrlParam, u8 *BufferPtr, u32 BufferSize);
 int XV_HdmiTxSs1_ReadEdidSegment(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u8 segment);
 void XV_HdmiTxSs1_ShowEdid(XV_HdmiTxSs1 *InstancePtr);
 void XV_HdmiTxSs1_ShowEdid_extension(XV_HdmiTxSs1 *InstancePtr, XV_VidC_EdidCntrlParam *EdidCtrlParam);

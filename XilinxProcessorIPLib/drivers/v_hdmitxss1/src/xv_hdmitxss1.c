@@ -1856,12 +1856,22 @@ int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u32 BufferSize)
 *
 ******************************************************************************/
 int XV_HdmiTxSs1_ReadEdid_extension(XV_HdmiTxSs1 *InstancePtr,
-            XV_VidC_EdidCntrlParam *EdidCtrlParam)
+				    XV_VidC_EdidCntrlParam *EdidCtrlParam,
+				    u8 *BufferPtr, u32 BufferSize)
 {
 	u32 Status;
 	u8 ExtensionFlag = 0;
 	u8 Segment = 1, segments;
-	u8 Buffer[256];
+	u8 Buffer[512];  /* Internal buffer for reading segments */
+	u32 TotalBytesRead = 0;
+	u32 BytesToCopy = 0;
+	u32 i;
+
+	/* Verify parameters */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(EdidCtrlParam != NULL);
+	Xil_AssertNonvoid(BufferPtr != NULL);
+	Xil_AssertNonvoid(BufferSize > 0);
 
 	/* Default*/
 	Status = (XST_FAILURE);
@@ -1873,16 +1883,24 @@ int XV_HdmiTxSs1_ReadEdid_extension(XV_HdmiTxSs1 *InstancePtr,
 					     Buffer, (FALSE));
 		/* Check if write was successful*/
 		if (Status == (XST_SUCCESS)) {
-			/* Read edid*/
+			/* Read first 256 bytes of EDID*/
 			Status = XV_HdmiTx1_DdcRead(InstancePtr->HdmiTx1Ptr,
 						    0x50, 256, Buffer, (TRUE));
 		}
 
 		/* Read if more than 2 Blocks of EDID present */
 		if (Status == (XST_SUCCESS)) {
+			/* Parse the first blocks to get extension information */
 			XV_VidC_parse_edid_extension((u8 *)&Buffer,
 						     EdidCtrlParam,
 						     XVIDC_VERBOSE_DISABLE, 0);
+
+			/* Copy first 256 bytes to output buffer */
+			BytesToCopy = (BufferSize < 256) ? BufferSize : 256;
+			for (i = 0; i < BytesToCopy; i++) {
+				BufferPtr[i] = Buffer[i];
+			}
+			TotalBytesRead = BytesToCopy;
 
 			if (EdidCtrlParam->Extensions > 1) {
 				ExtensionFlag = EdidCtrlParam->Extensions;
@@ -1890,17 +1908,29 @@ int XV_HdmiTxSs1_ReadEdid_extension(XV_HdmiTxSs1 *InstancePtr,
 				ExtensionFlag = Buffer[126];
 			}
 			segments = ExtensionFlag >> 1;
-			while (Segment <= segments) {
+
+			/* Read additional segments if present and buffer has space */
+			while (Segment <= segments && TotalBytesRead < BufferSize) {
 				Status = XV_HdmiTxSs1_ReadEdidSegment(InstancePtr,
 								      (u8 *) &Buffer,
 								      Segment);
-			if (Status == XST_SUCCESS) {
-				XV_VidC_parse_edid_extension((u8 *)&Buffer,
-							     EdidCtrlParam,
-							     XVIDC_VERBOSE_DISABLE,
-							     Segment);
-			}
-			    Segment++;
+				if (Status == XST_SUCCESS) {
+					XV_VidC_parse_edid_extension((u8 *)&Buffer,
+								     EdidCtrlParam,
+								     XVIDC_VERBOSE_DISABLE,
+								     Segment);
+
+					/* Copy segment data to output buffer */
+					BytesToCopy = (BufferSize - TotalBytesRead < 256) ?
+								  (BufferSize - TotalBytesRead) : 256;
+					if (BytesToCopy > 0) {
+						for (i = 0; i < BytesToCopy; i++) {
+							BufferPtr[TotalBytesRead + i] = Buffer[i];
+						}
+						TotalBytesRead += BytesToCopy;
+					}
+				}
+				Segment++;
 			}
 		}
 	}
