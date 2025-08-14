@@ -22,6 +22,9 @@
  * 5.6   tus  07/24/2025 change XSecure_ErrorCode from typedef enum to plain
  *                       enum for MISRA C-2023 Rule 10.3 violation fix
  *       aa   07/31/2025 Added error code for AES and SHA
+ *       tus  08/06/2025 Add error code for XSECURE_SHA_DMA_TRANSFER_ERROR,
+ *			 XSECURE_SHA_PADDING_BUFFER_INIT_ERROR and
+ *			 XSECURE_SHA_NIST_PADDING_ERROR
  * </pre>
  *
  ******************************************************************************/
@@ -64,6 +67,14 @@ enum {
 	XSECURE_SHA384_KAT_ERROR,		/**< 0x0C - Error when SHA384 KAT fails */
 
 	XSECURE_SHA_DMA_COMPONENT_IS_NOT_READY,	/**< 0x0D - Error when DMA component is not ready */
+
+	XSECURE_SHA_DMA_TRANSFER_ERROR,		/**< 0x0E - Error when SHA padding DMA transfer fails */
+
+	XSECURE_SHA_PADDING_BUFFER_INIT_ERROR,	/**< 0x0F - Error when SHA padding buffer
+						    initialization fails */
+
+	XSECURE_SHA_NIST_PADDING_ERROR,		/**< 0x10 - Error during NIST padding
+						     operation */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */

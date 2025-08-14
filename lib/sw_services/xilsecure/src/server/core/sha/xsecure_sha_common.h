@@ -19,6 +19,8 @@
 * 5.4   kal  07/24/2024 Initial release
 *       tri  10/07/2024 Added maximum supported hash size
 *       pre  03/02/2025 Removed data context setting and resource busy functionality for SHA
+* 5.6   tus  08/06/2025 Make Sha3Len variable common, earlier it was specific to
+*			Versal and Versal net
 *
 * </pre>
 *
@@ -113,9 +115,9 @@ typedef struct {
 	const XSecure_ShaConfig *ShaConfig;
 	u32 IsLastUpdate; /**< Last DMA block indication */
 	u32 DeviceId;
+	u32 Sha3Len; /**< SHA Input Length */
 
 	/* Versal and VersalNet specific fields */
-	u32 Sha3Len; /**< SHA3 Input Length */
 	u32 PartialLen; /**< Partial Length */
 	u8 PartialData[XSECURE_SHA3_BLOCK_LEN]; /**< Partial Data */
 
@@ -124,7 +126,6 @@ typedef struct {
 	u32 ShaMode; /**< ShaMode value to be configured in SHA_MODE register */
 	u32 ShaDigestSize; /**< Digest size in bytes for specific SHA Mode */
 	XSecure_ShaMode HashAlgo; /**< ShaMode input */
-
 } XSecure_Sha;
 
 /**

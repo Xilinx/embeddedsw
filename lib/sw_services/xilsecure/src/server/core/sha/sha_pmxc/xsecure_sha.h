@@ -23,6 +23,7 @@
 * 5.4   kal  07/24/24 Initial release
 * 5.6   vss  06/17/25 Removed dead code
 * 5.6   aa   07/21/25 Removed unused macros
+*       tus  08/06/25 Add macro for disabling auto padding mode
 *
 * </pre>
 *
@@ -54,6 +55,7 @@ extern "C" {
 #define	XSECURE_SHA_START_VALUE			(1U)	/**< SHA Start Value */
 #define	XSECURE_SHA_DONE_VALUE			(1U)	/**< SHA Done Value */
 #define	XSECURE_SHA_AUTO_MODE_ENABLE		(1U)	/**< SHA AUTO_MODE enable */
+#define XSECURE_SHA_AUTO_PADDING_MODE_DISABLE	(0U)	/** SHA Auto padding disable */
 #define XSECURE_SHA_TIMEOUT_MAX			(0x1FFFFU) /**< SHA Timeout max */
 #define XSECURE_HASH_SIZE_IN_BYTES		(48U) 	/**< SHA3-384 hash in size of bytes */
 #define XSECURE_SHA_DIGEST_OFFSET		(0x10U) /**< SHA Digest Register */
