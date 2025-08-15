@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2009 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -34,6 +34,8 @@
 extern "C" {
 #endif
 
+#include "xil_types.h"
+
 /* Platform timer is calibrated for 50 ms, so kept interval value 20 to call
  * eth_link_detect() at every one second
  */
@@ -43,7 +45,7 @@ void init_platform();
 void cleanup_platform();
 #ifdef SDT
 void init_timer();
-void TimerCounterHandler(void *CallBackRef, u32_t TmrCtrNumber);
+void TimerCounterHandler(void *CallBackRef __attribute__((unused)), u32 TmrCtrNumber __attribute__((unused)));
 #endif
 #ifdef __MICROBLAZE__
 void timer_callback();
