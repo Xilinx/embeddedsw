@@ -225,6 +225,15 @@ typedef enum {
 } XDc_Sdp;
 
 /**
+ *  This typedef enables audio
+ * */
+typedef enum {
+	XDC_AUD_DISABLE = 0x0,
+	XDC_AUD_ENABLE  = 0x1,
+} XDc_AudEn;
+
+
+/**
  *  This typedef enables partial blend
  * */
 typedef enum {
@@ -398,8 +407,10 @@ typedef struct {
 	u8 AudChannelEn;
 	u8 AudBurstLen;
 	u8 AudChannelSel;
-	u8 AudSampleRate;
-	u8 AudEnable;
+	u16 AudSampleRate;
+	XDc_AudEn AudioEnable;
+	u16 AudChCtrl;
+	u8 AudSegmentedMode;
 
 	XDc_Sdp Sdp;
 	u8 SdpEmptyThreshold;
@@ -476,5 +487,7 @@ void XDc_SetAudInterfaceMode(XDc *InstancePtr);
 void XDc_EnableAudio(XDc *InstancePtr);
 void XDc_DisableAudio(XDc *InstancePtr);
 void XDc_SetVideoTiming(XDc *InstancePtr);
+void XDc_SetAudioChCtrl(XDc *InstancePtr);
+void XDc_SetAudioSegmentedMode(XDc *InstancePtr);
 
 #endif /* __XDC_H__ */

@@ -201,6 +201,10 @@ typedef struct {
 typedef struct {
 	XDcDma_Channel_Dscr Channel;
 	XDcDma_AudioBuffer *Buffer;
+	u8 Audio_TriggerStatus;
+	XDcDma_State State;
+	u8 DscrErrDis;
+	u8 VidActvFetchEn;
 } XDcDma_AudioChannel;
 
 /**
@@ -284,6 +288,7 @@ void XDcDma_InterruptHandler(XDcDma *InstancePtr);
 void XDcDma_VSyncHandler(XDcDma *InstancePtr);
 void XDcDma_DescInit(XDcDma_Descriptor *XDesc);
 u32 XDcDma_GetNewDescId(XDcDma *InstancePtr);
+void XDcDma_SetAudioChCtrl(XDcDma *InstancePtr);
 
 #ifdef __cplusplus
 }

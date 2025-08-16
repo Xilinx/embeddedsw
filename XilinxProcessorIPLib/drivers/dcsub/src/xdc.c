@@ -1440,22 +1440,19 @@ void XDc_EnableAudioBuffer(XDc *InstancePtr)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	RegVal = (InstancePtr->AudBurstLen
-		  << XDC_AV_CHBUF_AUD_BURST_LENGTH_SHIFT)
-		 | (XDC_AV_CHBUF_AUD_FLUSH_MASK);
-
 	XDc_WriteReg(InstancePtr->Config.BaseAddr,
-		     XDC_AV_CHBUF_AUD, RegVal);
-	if (InstancePtr->AudChannelEn) {
+		     XDC_AV_CHBUF_AUD, XDC_AV_CHBUF_AUD_FLUSH_MASK);
 
+	if (InstancePtr->AudChannelEn) {
 		RegVal = (InstancePtr->AudBurstLen
 			  << XDC_AV_CHBUF_AUD_BURST_LENGTH_SHIFT)
-			 | (XDC_AV_CHBUF_AUD_FLUSH_MASK);
+			 | (XDC_AV_CHBUF_AUD_EN_MASK);
 
 		XDc_WriteReg(InstancePtr->Config.BaseAddr,
 			     XDC_AV_CHBUF_AUD, RegVal);
 
 	}
+
 }
 
 /******************************************************************************/
@@ -1583,4 +1580,39 @@ void XDc_SetVideoTiming(XDc *InstancePtr)
 
 }
 
+/******************************************************************************/
+/** This function controls the Audio channel preamble and status bits.
+ *
+ * @param       InstancePtr is a pointer to the XDc instance.
+ *
+ * @return      None.
+ *
+ *
+*******************************************************************************/
+void XDc_SetAudioChCtrl(XDc *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XDc_WriteReg(InstancePtr->Config.BaseAddr,
+			XDC_AUD_MIXER_VOLUME_CONTROL, InstancePtr->AudChCtrl);
+
+}
+
+/******************************************************************************/
+/** This function sets Audio Segmented Mode.
+ *
+ * @param       InstancePtr is a pointer to the XDc instance.
+ *
+ * @return      None.
+ *
+ *
+*******************************************************************************/
+void XDc_SetAudioSegmentedMode(XDc *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XDc_WriteReg(InstancePtr->Config.BaseAddr,
+		XDC_AUD_MIXER_META_DATA, InstancePtr->AudSegmentedMode);
+
+}
 /** @} */

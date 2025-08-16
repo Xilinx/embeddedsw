@@ -45,6 +45,9 @@ extern "C" {
 #define XDC_BUF_10BIT_SF	0x10040
 #define XDC_BUF_12BIT_SF 	0x10000
 
+#define XDC_MAX_CH_STATUS_REG	6
+#define XDC_MAX_CH_DATA_REG	6
+
 /******************************************************************************/
 /**
  * Address mapping for DC.

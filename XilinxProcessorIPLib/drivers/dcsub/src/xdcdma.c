@@ -830,6 +830,26 @@ void XDcDma_VSyncHandler(XDcDma *InstancePtr)
 		 */
 	}
 
+	/* Audio Channel Trigger/Retrigger Handler */
+	if (InstancePtr->Audio.Audio_TriggerStatus == XDCDMA_TRIGGER_EN) {
+
+		XDcDma_SetupChannel(InstancePtr, AudioChan);
+		XDcDma_ConfigChannelState(InstancePtr, AudioChan,
+					  XDCDMA_STATE_ENABLE);
+		XDcDma_Trigger(InstancePtr, AudioChan);
+
+	} else if (InstancePtr->Audio.Audio_TriggerStatus == XDCDMA_RETRIGGER_EN) {
+
+		XDcDma_SetupChannel(InstancePtr, AudioChan);
+		XDcDma_ReTrigger(InstancePtr, AudioChan);
+
+	} else {
+
+		/* Do nothing if TriggerStatus is XDCDMA_TRIGGER_DONE or
+		 * XDCDMA_RETRIGGER_DONE
+		 */
+	}
+
 	XDcDma_WriteReg(InstancePtr->Config.BaseAddr,
 			XDCDMA_GBL, InstancePtr->ChanTrigger);
 
@@ -962,6 +982,11 @@ void XDcDma_SetupChannel(XDcDma *InstancePtr, XDcDma_ChannelType Channel)
 				InstancePtr, CursorSDPChan);
 			break;
 
+		case AudioChan:
+			XDcDma_SetDescriptorAddress(
+				InstancePtr, AudioChan);
+			break;
+
 		default:
 			break;
 
@@ -1003,6 +1028,29 @@ u32 XDcDma_GetNewDescId(XDcDma *InstancePtr)
 	InstancePtr->LastDescId += 1;
 
 	return InstancePtr->LastDescId;
+
+}
+
+/******************************************************************************/
+/**
+ * This function sets DcDma Audio Channel Control.
+ *
+ * @param       InstancePtr is a pointer to the XDcDma instance.
+ *
+ * @return      None
+ *
+*******************************************************************************/
+void XDcDma_SetAudioChCtrl(XDcDma *InstancePtr)
+{
+	u32 RegVal;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	RegVal = InstancePtr->Audio.DscrErrDis;
+	RegVal |= (InstancePtr->Audio.VidActvFetchEn)
+			<< XDCDMA_AUD_CTRL_VID_ACTV_FETCH_EN_SHIFT;
+
+	XDcDma_WriteReg(InstancePtr->Config.BaseAddr, XDCDMA_AUD_CTRL, RegVal);
 
 }
 

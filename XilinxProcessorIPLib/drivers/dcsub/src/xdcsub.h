@@ -92,11 +92,14 @@ u64 XDcSub_GetStcCustomEventTs(XDcSub *InstancePtr);
 u64 XDcSub_GetStcCustomEvent2Ts(XDcSub *InstancePtr);
 u64 XDcSub_GetStcSnapshot(XDcSub *InstancePtr);
 u32 XDcSub_EnableAudioBuffer(XDcSub *InstancePtr, u8 Enable, u8 BurstLen);
-u32 XDcSub_AudioChannelSelect(XDcSub *InstancePtr, u8 ChannelSel, u8 SampleRate);
+u32 XDcSub_AudioChannelSelect(XDcSub *InstancePtr, u8 ChannelSel, u16 SampleRate);
 u32 XDcSub_AudClkSelect(XDcSub *InstancePtr, u32 Select);
 u32 XDcSub_SetAudInterfaceMode(XDcSub *InstancePtr, XDc_AudInterface Mode);
 u32 XDcSub_EnableAudio(XDcSub *InstancePtr);
 u32 XDcSub_DisableAudio(XDcSub *InstancePtr);
+u32 XDcSub_SetInputAudioSelect(XDcSub *InstancePtr, XDc_AudioStream AudStream);
 u32 XDcSub_ConfigureDcVideo(XDc *InstancePtr);
+u32 XDcSub_SetAudioChCtrl(XDcSub *InstancePtr, u16 AudChCtrl);
+u32 XDcSub_SetAudioSegmentedMode(XDcSub *InstancePtr, u8 AudSegmentedMode);
 
 #endif /* __XDCSUB_H__ */

@@ -1145,7 +1145,7 @@ u32 XDcSub_EnableAudioBuffer(XDcSub *InstancePtr, u8 Enable, u8 BurstLen)
  *
  *
 *******************************************************************************/
-u32 XDcSub_AudioChannelSelect(XDcSub *InstancePtr, u8 ChannelSel, u8 SampleRate)
+u32 XDcSub_AudioChannelSelect(XDcSub *InstancePtr, u8 ChannelSel, u16 SampleRate)
 {
 	XDc *DcConfigPtr;
 
@@ -1232,7 +1232,7 @@ u32 XDcSub_EnableAudio(XDcSub *InstancePtr)
 
 	DcConfigPtr = InstancePtr->DcPtr;
 
-	DcConfigPtr->AudEnable = 0x1;
+	DcConfigPtr->AudioEnable = 0x1;
 
 	return XST_SUCCESS;
 
@@ -1257,7 +1257,59 @@ u32 XDcSub_DisableAudio(XDcSub *InstancePtr)
 
 	DcConfigPtr = InstancePtr->DcPtr;
 
-	DcConfigPtr->AudEnable = 0x0;
+	DcConfigPtr->AudioEnable = 0x0;
+
+	return XST_SUCCESS;
+
+}
+
+/******************************************************************************/
+/**
+ * This function allows user to disable channelX preamble and status.
+ * Set 1 to disable, 0 to enable at bits 0-7 for corresponding channel.
+ * Set bit 8 to load user_bit adn channel status.
+ *
+ * @param       InstancePtr is a pointer to the XDc instance.
+ *
+ * @return      XST_SUCCESS or XST_FAILURE.
+ *
+ *
+*******************************************************************************/
+u32 XDcSub_SetAudioChCtrl(XDcSub *InstancePtr, u16 AudChCtrl)
+{
+	XDc *DcConfigPtr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->DcPtr != NULL);
+
+	DcConfigPtr = InstancePtr->DcPtr;
+
+	DcConfigPtr->AudChCtrl = AudChCtrl;
+
+	return XST_SUCCESS;
+
+}
+
+/******************************************************************************/
+/**
+ * This function sets  Audio Segmented Mode.
+ *
+ * @param       InstancePtr is a pointer to the XDc instance.
+ *
+ * @return      XST_SUCCESS or XST_FAILURE.
+ *
+ *
+*******************************************************************************/
+u32 XDcSub_SetAudioSegmentedMode(XDcSub *InstancePtr, u8 AudSegmentedMode)
+{
+	XDc *DcConfigPtr;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->DcPtr != NULL);
+
+	DcConfigPtr = InstancePtr->DcPtr;
+
+	DcConfigPtr->AudSegmentedMode = AudSegmentedMode;
 
 	return XST_SUCCESS;
 
@@ -1305,6 +1357,12 @@ u32 XDcSub_ConfigureDcVideo(XDc *InstancePtr)
 
 	XDc_EnablePartialBlend(InstancePtr);
 
+	if(InstancePtr->AudioEnable) {
+		XDc_EnableAudio(InstancePtr);
+		XDc_EnableAudioBuffer(InstancePtr);
+		XDc_AudioChannelSelect(InstancePtr);
+	}
+
 	XDc_SetAudioVideoClkSrc(InstancePtr);
 
 	if (VideoSrc1 != XDC_VIDSTREAM1_NONE) {
@@ -1316,6 +1374,9 @@ u32 XDcSub_ConfigureDcVideo(XDc *InstancePtr)
 	}
 
 	XDc_SetInputVideoSelect(InstancePtr);
+
+	if(InstancePtr->AudioEnable)
+		XDc_SetInputAudioSelect(InstancePtr);
 
 	return XST_SUCCESS;
 }
