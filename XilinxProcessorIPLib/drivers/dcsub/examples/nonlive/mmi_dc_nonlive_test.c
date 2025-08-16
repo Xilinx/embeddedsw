@@ -26,42 +26,85 @@
 #define XDCDMA_INTR_ID			179
 #define XDCDMA_INTR_PARENT		0xe2000000
 
+/* Clk Wiz IP offsets */
+#define XCLK_WIZ_CLKOUT1_1_OFFSET	0x340
+#define XCLK_WIZ_CLKOUT1_2_OFFSET	0x344
+#define XCLK_WIZ_CLKOUT2_1_OFFSET	0x348
+#define XCLK_WIZ_CLKOUT2_2_OFFSET	0x34c
+#define XCLK_WIZ_CLKOUT3_1_OFFSET	0x350
+#define XCLK_WIZ_CLKOUT3_2_OFFSET	0x354
+#define XCLK_WIZ_REG6_OFFSET		0x37c
+#define XCLK_WIZ_REG7_OFFSET		0x384
+#define XCLK_WIZ_REG8_OFFSET		0x394
+
+/* Video Clk values for 640x480 */
 #define XCLK_WIZ_REG1			0x0
 #define XCLK_WIZ_REG3			0x75f
 #define XCLK_WIZ_REG4   		0xa75
 #define XCLK_WIZ_CLKOUT1_1		0x0
-#define XCLK_WIZ_CLKOUT1_1_OFFSET	0x340
 #define XCLK_WIZ_CLKOUT1_2		0xa9c
-#define XCLK_WIZ_CLKOUT1_2_OFFSET	0x344
 #define XCLK_WIZ_CLKOUT2_1		0x0
-#define XCLK_WIZ_CLKOUT2_1_OFFSET	0x348
 #define XCLK_WIZ_CLKOUT2_2		0x20c
-#define XCLK_WIZ_CLKOUT2_2_OFFSET	0x34c
 #define XCLK_WIZ_CLKOUT3_1		0x0
-#define XCLK_WIZ_CLKOUT3_1_OFFSET	0x350
 #define XCLK_WIZ_CLKOUT3_2		0x20c
-#define XCLK_WIZ_CLKOUT3_2_OFFSET	0x354
 #define XCLK_WIZ_REG6			0x0
-#define XCLK_WIZ_REG6_OFFSET		0x37c
 #define XCLK_WIZ_REG7			0x0
-#define XCLK_WIZ_REG7_OFFSET		0x384
 #define XCLK_WIZ_REG13			0x6a0
 #define XCLK_WIZ_REG8			0x320
-#define XCLK_WIZ_REG8_OFFSET		0x394
 #define XCLK_WIZ_REG15			0x20
 #define XCLK_WIZ_REG16			0x20
 #define XCLK_WIZ_RECONFIG		0x3
+
+/* Audio Clk values for 48KHz */
+#define XCLK_WIZ_AUD_REG1		0x1600
+#define XCLK_WIZ_AUD_REG2		0x6e6e
+#define XCLK_WIZ_AUD_REG3		0x1a00
+#define XCLK_WIZ_AUD_REG4   		0x1010
+#define XCLK_WIZ_AUD_CLKOUT1_1		0x1a00
+#define XCLK_WIZ_AUD_CLKOUT1_2		0x2020
+#define XCLK_WIZ_AUD_CLKOUT2_1		0xa00
+#define XCLK_WIZ_AUD_CLKOUT2_2		0x303
+#define XCLK_WIZ_AUD_CLKOUT3_1		0xa00
+#define XCLK_WIZ_AUD_CLKOUT3_2		0x303
+#define XCLK_WIZ_AUD_REG6		0x0
+#define XCLK_WIZ_AUD_REG7		0x303
+#define XCLK_WIZ_AUD_REG13		0x0
+#define XCLK_WIZ_AUD_REG8		0x0
+#define XCLK_WIZ_AUD_REG15		0x7df4
+#define XCLK_WIZ_AUD_REG16		0x7fe9
+#define XCLK_WIZ_AUD_RECONFIG		0x3
 
 RunConfig RunCfg;
 XDcSub DcSub;
 XDcDma DcDma;
 XDc Dc;
+
 XMmiDp DpPsuPtr;
 FrameInfo Video1FbPtr;
 FrameInfo Video2FbPtr;
 
+FrameInfo Aud0_FbInfo;
+FrameInfo Aud1_FbInfo;
+FrameInfo Aud2_FbInfo;
+FrameInfo Aud3_FbInfo;
+FrameInfo Aud4_FbInfo;
+FrameInfo Aud5_FbInfo;
+FrameInfo Aud6_FbInfo;
+FrameInfo Aud7_FbInfo;
+
+
 XDcDma_Descriptor *Desc1 = (XDcDma_Descriptor *)0x33500;
 XDcDma_Descriptor *Desc2 = (XDcDma_Descriptor *)0x33600;
+
+XDcDma_Descriptor *AudDesc0 = (XDcDma_Descriptor *)0x08000000;
+XDcDma_Descriptor *AudDesc1 = (XDcDma_Descriptor *)0x08000100;
+XDcDma_Descriptor *AudDesc2 = (XDcDma_Descriptor *)0x08000200;
+XDcDma_Descriptor *AudDesc3 = (XDcDma_Descriptor *)0x08000300;
+XDcDma_Descriptor *AudDesc4 = (XDcDma_Descriptor *)0x08000400;
+XDcDma_Descriptor *AudDesc5 = (XDcDma_Descriptor *)0x08000500;
+XDcDma_Descriptor *AudDesc6 = (XDcDma_Descriptor *)0x08000600;
+XDcDma_Descriptor *AudDesc7 = (XDcDma_Descriptor *)0x08000700;
+
 
 /* SDTV Coeffs */
 u32 CSCCoeff_RGB[] = { 0x1000, 0x0000, 0x0000, 0x0000, 0x1000, 0x0000, 0x0000, 0x0000, 0x1000};
@@ -87,8 +130,10 @@ void GenerateFrameInfoAttribute(FrameInfo *Frame)
 
 }
 
-void CreateDescriptors(RunConfig *RunCfgPtr, XDcDma_Descriptor *XDesc, FrameInfo *FBInfo)
+void CreateDescriptors(RunConfig *RunCfgPtr, XDcDma_Descriptor *XDesc, FrameInfo *FBInfo, XDcDma_Descriptor *NextDesc)
 {
+	u64 DescAddr;
+
 	u8 Last_Desc_Frame = 1;
 	u8 Last_Desc = 0;
 	u8 Update_Enable = 1;
@@ -112,7 +157,11 @@ void CreateDescriptors(RunConfig *RunCfgPtr, XDcDma_Descriptor *XDesc, FrameInfo
 	XDesc->Src_Addr_Lo = FBAddr & 0xFFFF;
 	XDesc->Src_Addr_Hi = (FBAddr >> 16);
 
-	u64 DescAddr = (u64)XDesc;
+	if(NextDesc == NULL)
+		DescAddr = (u64)XDesc;
+	else
+		DescAddr = (u64)NextDesc;
+
 	XDesc->Next_Desc_Addr_Lo = LOWER_32_BITS(DescAddr);
 	XDesc->Next_Desc_Addr_Hi = (DescAddr) >> 32;
 
@@ -167,14 +216,44 @@ void InitFrames(RunConfig *RunCfgPtr)
 	GenerateFrameInfoAttribute(V1_FbInfo);
 
 	/* Create Descriptors */
-	CreateDescriptors(RunCfgPtr, RunCfgPtr->Desc2, RunCfgPtr->V2_FbInfo);
-	CreateDescriptors(RunCfgPtr, RunCfgPtr->Desc1, RunCfgPtr->V1_FbInfo);
+	CreateDescriptors(RunCfgPtr, RunCfgPtr->Desc2, RunCfgPtr->V2_FbInfo, NULL);
+	CreateDescriptors(RunCfgPtr, RunCfgPtr->Desc1, RunCfgPtr->V1_FbInfo, NULL);
 
 	GenerateFrames();
 
+	if(RunCfgPtr->AudioEnable)
+	{
+		Aud0_FbInfo.Address = CH6_BUFFER_ADDR_0;
+		Aud0_FbInfo.Size = 0x30000;
+		Aud1_FbInfo.Address = CH6_BUFFER_ADDR_1;
+		Aud1_FbInfo.Size = 0x30000;
+		Aud2_FbInfo.Address = CH6_BUFFER_ADDR_2;
+		Aud2_FbInfo.Size = 0x30000;
+		Aud3_FbInfo.Address = CH6_BUFFER_ADDR_3;
+		Aud3_FbInfo.Size = 0x30000;
+		Aud4_FbInfo.Address = CH6_BUFFER_ADDR_4;
+		Aud4_FbInfo.Size = 0x30000;
+		Aud5_FbInfo.Address = CH6_BUFFER_ADDR_5;
+		Aud5_FbInfo.Size = 0x30000;
+		Aud6_FbInfo.Address = CH6_BUFFER_ADDR_6;
+		Aud6_FbInfo.Size = 0x30000;
+		Aud7_FbInfo.Address = CH6_BUFFER_ADDR_7;
+		Aud7_FbInfo.Size = 0x30000;
+
+		CreateDescriptors(RunCfgPtr, AudDesc0, &Aud0_FbInfo, AudDesc1);
+		CreateDescriptors(RunCfgPtr, AudDesc1, &Aud1_FbInfo, AudDesc2);
+		CreateDescriptors(RunCfgPtr, AudDesc2, &Aud2_FbInfo, AudDesc3);
+		CreateDescriptors(RunCfgPtr, AudDesc3, &Aud3_FbInfo, AudDesc4);
+		CreateDescriptors(RunCfgPtr, AudDesc4, &Aud4_FbInfo, AudDesc5);
+		CreateDescriptors(RunCfgPtr, AudDesc5, &Aud5_FbInfo, AudDesc6);
+		CreateDescriptors(RunCfgPtr, AudDesc6, &Aud6_FbInfo, AudDesc7);
+		CreateDescriptors(RunCfgPtr, AudDesc7, &Aud7_FbInfo, AudDesc0);
+
+	}
+
 }
 
-void InitClkWiz()
+void InitClkWiz(RunConfig *RunCfgPtr)
 {
 	XClk_Wiz InstancePtr;
 	XClk_Wiz_Config CfgPtr;
@@ -198,11 +277,36 @@ void InitClkWiz()
 	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_REG16_OFFSET, XCLK_WIZ_REG16);
 	XClk_Wiz_WriteReg(InstancePtr.Config.BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, XCLK_WIZ_RECONFIG);
 
+	if(RunCfgPtr->AudioEnable)
+	{
+		XClk_Wiz AudInstancePtr;
+		XClk_Wiz_Config AudCfgPtr;
+
+		XClk_Wiz_CfgInitialize(&AudInstancePtr, &AudCfgPtr, CLK_WIZ_AUD_BASEADDR);
+
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_REG1_OFFSET, XCLK_WIZ_AUD_REG1);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_REG2_OFFSET, XCLK_WIZ_AUD_REG2);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_REG3_OFFSET, XCLK_WIZ_AUD_REG3);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_REG4_OFFSET, XCLK_WIZ_AUD_REG4);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT1_1_OFFSET, XCLK_WIZ_AUD_CLKOUT1_1);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT1_2_OFFSET, XCLK_WIZ_AUD_CLKOUT1_2);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT2_1_OFFSET, XCLK_WIZ_AUD_CLKOUT2_1);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT2_2_OFFSET, XCLK_WIZ_AUD_CLKOUT2_2);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT3_1_OFFSET, XCLK_WIZ_AUD_CLKOUT3_1);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_CLKOUT3_2_OFFSET, XCLK_WIZ_AUD_CLKOUT3_2);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_REG6_OFFSET, XCLK_WIZ_AUD_REG6);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_REG13_OFFSET, XCLK_WIZ_AUD_REG13);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_REG7_OFFSET, XCLK_WIZ_AUD_REG7);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_REG8_OFFSET, XCLK_WIZ_AUD_REG8);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_REG15_OFFSET, XCLK_WIZ_AUD_REG15);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_REG16_OFFSET, XCLK_WIZ_AUD_REG16);
+		XClk_Wiz_WriteReg(AudInstancePtr.Config.BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, XCLK_WIZ_AUD_RECONFIG);
+	}
+
 }
 
 void InitDcSubPtr(RunConfig *RunCfgPtr)
 {
-
 	XDc *DcPtr = RunCfgPtr->DcSubPtr->DcPtr;
 	DcPtr->Config.BaseAddr = DC_BASEADDR;
 	DcPtr->VideoTiming = VidTiming_640_480;
@@ -228,6 +332,18 @@ void InitDcSubPtr(RunConfig *RunCfgPtr)
 	XDcSub_VidClkSelect(RunCfgPtr->DcSubPtr, 0, 0);
 	XDcSub_SetVidFrameSwitch(RunCfgPtr->DcSubPtr, 0x3F);
 	XDcSub_SetNonLiveLatency(RunCfgPtr->DcSubPtr, 0x00120138);
+
+	if(RunCfgPtr->AudioEnable)
+	{
+		XDcSub_SetAudInterfaceMode(RunCfgPtr->DcSubPtr,XDC_AUD_FUNCTIONAL);
+		XDcSub_SetInputAudioSelect(RunCfgPtr->DcSubPtr, XDC_AUDSTREAM_NONLIVE);
+		XDcSub_EnableAudio(RunCfgPtr->DcSubPtr);
+		XDcSub_AudClkSelect(RunCfgPtr->DcSubPtr,0);
+
+		/* default values expected as per spec(non-segmented) */
+		XDcSub_AudioChannelSelect(RunCfgPtr->DcSubPtr, 7, 0x1FF);
+		XDcSub_EnableAudioBuffer(RunCfgPtr->DcSubPtr, 1, 15);
+	}
 
 }
 
@@ -256,9 +372,17 @@ u32 InitDcSubsystem(RunConfig *RunCfgPtr)
 	XDc_VidClkSelect(DcPtr);
 	XDc_VideoSoftReset(DcPtr);
 	XDc_SetVidFrameSwitch(DcPtr);
+
+	if(RunCfgPtr->AudioEnable)
+	{
+		XDc_AudioSoftReset(DcPtr);
+		XDc_AudClkSelect(DcPtr);
+	}
+
 	XDc_SetVideoTiming(DcPtr);
 	XDcSub_ConfigureDcVideo(DcPtr);
 
+	/* Video DMA */
 	DmaPtr->Video.Channel[XDCDMA_VIDEO_CHANNEL0].Current = RunCfgPtr->Desc1;
 	DmaPtr->Gfx.Channel[XDCDMA_GRAPHICS_CHANNEL3].Current = RunCfgPtr->Desc2;
 
@@ -267,6 +391,10 @@ u32 InitDcSubsystem(RunConfig *RunCfgPtr)
 
 	DmaPtr->Video.Video_TriggerStatus = XDCDMA_TRIGGER_EN;
 	DmaPtr->Gfx.Graphics_TriggerStatus = XDCDMA_TRIGGER_EN;
+
+	/* Audio DMA */
+	DmaPtr->Audio.Channel.Current = AudDesc0;
+	DmaPtr->Audio.Audio_TriggerStatus = XDCDMA_TRIGGER_EN;
 
 	return XST_SUCCESS;
 }
@@ -309,7 +437,8 @@ u32 InitPlatform(RunConfig *RunCfgPtr)
 {
 	u32 Status = XST_SUCCESS;
 
-	InitClkWiz();
+	/* Configure Video/Audio Clock */
+	InitClkWiz(RunCfgPtr);
 
 	/* Initialize DcSubsystem */
 	Status = InitDcSubsystem(RunCfgPtr);
@@ -370,6 +499,9 @@ u32 InitRunConfig(RunConfig *RunCfgPtr)
 
 	RunCfgPtr->CursorEnable = CB_DISABLE;
 	RunCfgPtr->OutStreamFormat = RGB_8BPC;
+
+	/* Enable/Disable Audio */
+	RunCfgPtr->AudioEnable = 1;
 
 	InitFrames(RunCfgPtr);
 	InitDcSubPtr(RunCfgPtr);

@@ -139,6 +139,30 @@ void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr)
 	XMmiDp_ConfigureVideoController(InstancePtr, XMMIDP_STREAM_ID1);
 }
 
+void XMmiDp_SetupAudioStream(RunConfig *RunCfgPtr)
+{
+	XMmiDp *InstancePtr = RunCfgPtr->DpPsuPtr;
+
+	XMmiDp_SetAudStreamInterfaceSel(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_AUD_INF_I2S);
+	XMmiDp_SetAudDataInputEn(InstancePtr, XMMIDP_STREAM_ID1, 0xF);
+	XMmiDp_SetAudDataWidth(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_AUDIO_INPUT_16_BIT);
+	XMmiDp_SetAudHbrModeEn(InstancePtr, XMMIDP_STREAM_ID1, 0x0);
+	XMmiDp_SetAudNumChannels(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_AUDIO_8_CHANNEL);
+	XMmiDp_SetAudMuteFlag(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_CLEAR_AUDIOMUTE);
+	XMmiDp_SetAudTimeStampVerNum(InstancePtr, XMMIDP_STREAM_ID1, 0x12);
+	XMmiDp_SetAudClkMultFs(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_AUDIO_CLK_512FS);
+
+	XMmiDp_SetSdpVertAudStreamEn(InstancePtr, XMMIDP_STREAM_ID1,0x1);
+	XMmiDp_SetSdpVertAudTimeStampEn(InstancePtr, XMMIDP_STREAM_ID1, 0x1);
+
+	XMmiDp_SetSdpHorAudStreamEn(InstancePtr, XMMIDP_STREAM_ID1,0x1);
+	XMmiDp_SetSdpHorAudTimeStampEn(InstancePtr, XMMIDP_STREAM_ID1, 0x1);
+
+	XMmiDp_ConfigureAudioController(InstancePtr, XMMIDP_STREAM_ID1);
+
+}
+
+
 u32 XMmiDp_HpdPoll(XMmiDp *InstancePtr)
 {
 	u32 GenIntStatus;
@@ -280,6 +304,7 @@ u32 XMmiDp_InitDpCore(XMmiDp *InstancePtr)
 	XMmiDp_SetPmConfig1(InstancePtr, 0x00400008);
 	XMmiDp_SetPmConfig2(InstancePtr, 0x00050000);
 	XMmiDp_PhySSCDisable(InstancePtr);
+
 	XMmiDp_GeneralInterruptEnable(InstancePtr, 0x0000000B);
 	XMmiDp_HpdInterruptEnable(InstancePtr, 0x0000000F);
 
@@ -306,6 +331,7 @@ u32 InitDpPsuSubsystem(RunConfig *RunCfgPtr)
 	XMmiDp *InstancePtr = RunCfgPtr->DpPsuPtr;
 	InstancePtr->Config.BaseAddr = DP_BASEADDR;
 
+
 	XMmiDp_CfgInitialize(InstancePtr, InstancePtr->Config.BaseAddr);
 	XMmiDp_Initialize(InstancePtr);
 	XMmiDp_InitDpCore(InstancePtr);
@@ -315,6 +341,9 @@ u32 InitDpPsuSubsystem(RunConfig *RunCfgPtr)
 	XMmiDp_SinkPowerCycle(InstancePtr);
 	XMmiDp_StartFullLinkTraining(InstancePtr);
 	XMmiDp_SetupVideoStream(RunCfgPtr);
+
+	if(RunCfgPtr->AudioEnable)
+		XMmiDp_SetupAudioStream(RunCfgPtr);
 
 	return Status;
 }
