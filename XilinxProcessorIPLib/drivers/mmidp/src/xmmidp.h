@@ -180,6 +180,51 @@ typedef enum {
 	XMMIDP_RAW_16BPC 	= 0x1B,
 } XMmiDp_VidMap;
 
+/**
+ * This typedef gets Audio Interface mapping
+ */
+typedef enum {
+	XMMIDP_AUD_INF_I2S = 0x0,
+	XMMIDP_AUD_INF_SPDIF = 0x1,
+} XMmiDp_AudioInterfaceSel;
+
+/**
+ * This typedef gets Audio Data Width mapping
+ */
+typedef enum {
+	XMMIDP_AUDIO_INPUT_16_BIT	= 0x10,
+	XMMIDP_AUDIO_INPUT_17_BIT	= 0x11,
+	XMMIDP_AUDIO_INPUT_18_BIT	= 0x12,
+	XMMIDP_AUDIO_INPUT_19_BIT	= 0x13,
+	XMMIDP_AUDIO_INPUT_20_BIT	= 0x14,
+	XMMIDP_AUDIO_INPUT_21_BIT	= 0x15,
+	XMMIDP_AUDIO_INPUT_22_BIT	= 0x16,
+	XMMIDP_AUDIO_INPUT_23_BIT	= 0x17,
+	XMMIDP_AUDIO_INPUT_24_BIT	= 0x18,
+
+} XMmiDp_AudioDataWidth;
+
+/**
+ * This typedef gets Audio Num Channels mapping
+ */
+typedef enum {
+	XMMIDP_AUDIO_1_CHANNEL	= 0x0,
+	XMMIDP_AUDIO_2_CHANNEL	= 0x1,
+	XMMIDP_AUDIO_8_CHANNEL	= 0x2,
+
+} XMmiDp_AudioNumChannels;
+
+/**
+ * This typedef gets Audio Clk Multiplier Freq mapping
+ */
+typedef enum {
+	XMMIDP_AUDIO_CLK_512FS	= 0x0,
+	XMMIDP_AUDIO_CLK_256FS	= 0x1,
+	XMMIDP_AUDIO_CLK_128FS	= 0x2,
+	XMMIDP_AUDIO_CLK_64FS	= 0x3,
+
+} XMmiDp_AudioClkMultFs;
+
 typedef struct {
 	u8 *VsLevel;
 	u8 *PeLevel;
@@ -291,6 +336,37 @@ typedef struct {
 	u8 Reserved[2];
 } XMmiDp_VSampleCtrl;
 
+typedef struct {
+	XMmiDp_AudioClkMultFs ClkMultFs;
+	u8 TimeStampVerNum;
+	u8 PktId;
+	u8 AudioMute;
+	XMmiDp_AudioNumChannels NumChannels;
+	u8 HbrModeEn;
+	XMmiDp_AudioDataWidth DataWidth;
+	u8 DataInEn;
+	XMmiDp_AudioInterfaceSel InterfaceSel;
+	u8 Reserved[3];
+} XMmiDp_AudioConfig;
+
+typedef struct {
+	u32 EnVerticalSdp;
+	u8 FixedPriorityArb;
+	u8 DisableExtSdp;
+	u8 En128Bytes;
+	u8 EnAudioStreamSdp;
+	u8 EnAudioTimeStampSdp;
+	u8 Reserved[3];
+} XMmiDp_SdpVerticalCtrl;
+
+typedef struct {
+	u32 EnHorizontalSdp;
+	u8 FixedPriorityArb;
+	u8 EnAudioStreamSdp;
+	u8 EnAudioTimeStampSdp;
+	u8 Reserved;
+} XMmiDp_SdpHorizontalCtrl;
+
 typedef void (*XMmiDp_HpdIrqHandler)(void *InstancePtr);
 typedef void (*XMmiDp_HpdHotPlugHandler)(void *InstancePtr);
 
@@ -304,6 +380,9 @@ typedef struct {
 	XMmiDp_RxConfig RxConfig;
 	XMmiDp_VideoConfig VideoConfig[XMMIDP_MAX_LANES];
 	XMmiDp_VSampleCtrl VSampleCtrl[XMMIDP_MAX_LANES];
+	XMmiDp_AudioConfig AudCfg[XMMIDP_MAX_LANES];
+	XMmiDp_SdpVerticalCtrl SdpVertCtrl[XMMIDP_MAX_LANES];
+	XMmiDp_SdpHorizontalCtrl SdpHorCtrl[XMMIDP_MAX_LANES];
 	XMmiDp_PhyConfig PhyConfig;
 	XMmiDp_LinkConfig LinkConfig;
 	u32 AuxDelayUs;
@@ -443,4 +522,26 @@ void XMmiDp_SetVideoMapping(XMmiDp *InstancePtr,
 void XMmiDp_SetVidStreamEnable(XMmiDp *InstancePtr, u8 Stream,
 			       u8 StreamEnable);
 
+void XMmiDp_SetAudStreamInterfaceSel(XMmiDp *InstancePtr, u8 Stream, u8 InterfaceSel);
+void XMmiDp_SetAudDataInputEn(XMmiDp *InstancePtr, u8 Stream, u8 ActiveDataInput);
+void XMmiDp_SetAudDataWidth(XMmiDp *InstancePtr, u8 Stream, u8 DataWidth);
+void XMmiDp_SetAudHbrModeEn(XMmiDp *InstancePtr, u8 Stream, u8 HbrModeEn);
+void XMmiDp_SetAudNumChannels(XMmiDp *InstancePtr, u8 Stream, u8 NumChannels);
+void XMmiDp_SetAudMuteFlag(XMmiDp *InstancePtr, u8 Stream, u8 AudioMute);
+void XMmiDp_SetAudPktId(XMmiDp *InstancePtr, u8 Stream, u8 PktId);
+void XMmiDp_SetAudTimeStampVerNum(XMmiDp *InstancePtr, u8 Stream, u8 VerNum);
+void XMmiDp_SetAudClkMultFs(XMmiDp *InstancePtr, u8 Stream, u8 ClkMultFs);
+void XMmiDp_SetAudioConfig1(XMmiDp *InstancePtr, u8 Stream);
+void XMmiDp_SetSdpVertAudTimeStampEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudTimeStamp);
+void XMmiDp_SetSdpVertAudStreamEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudStream);
+void XMmiDp_SetSdpVertEn(XMmiDp *InstancePtr, u8 Stream, u32 EnVerticalSdp);
+void XMmiDp_SetSdpVertEn128Bytes(XMmiDp *InstancePtr, u8 Stream, u8 En128Bytes);
+void XMmiDp_SetDisableExternalSdp(XMmiDp *InstancePtr, u8 Stream, u8 DisExternalSdp);
+void XMmiDp_SetSdpVertFixedPriority(XMmiDp *InstancePtr, u8 Stream, u8 EnFixedPriority);
+void XMmiDp_SetSdpVerticalCtrl(XMmiDp *InstancePtr, u8 Stream);
+void XMmiDp_SetSdpHorAudTimeStampEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudTimeStamp);
+void XMmiDp_SetSdpHorAudStreamEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudStream);
+void XMmiDp_SetSdpHorizontalEn(XMmiDp *InstancePtr, u8 Stream, u32 EnHorizontalSdp);
+void XMmiDp_SetSdpHorFixedPriority(XMmiDp *InstancePtr, u8 Stream, u8 EnFixedPriority);
+void XMmiDp_SetSdpHorizontalCtrl(XMmiDp *InstancePtr, u8 Stream);
 #endif /* __XMMIDP_H__ */
