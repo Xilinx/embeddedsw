@@ -265,6 +265,7 @@ void XDmaPcie_WriteRemoteConfigSpace(XDmaPcie *InstancePtr, u8 Bus, u8 Device,
 u32 XDmaPcie_ComposeExternalConfigAddress(u8 Bus, u8 Device, u8 Function,
 								 u16 Offset);
 void XDmaPcie_EnumerateFabric(XDmaPcie *XdmaPciePtr);
+int XDmaPcie_IicInit(void);
 
 /*
  * Interrupt Functions.
