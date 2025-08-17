@@ -1365,4 +1365,197 @@ void XMmiDp_ConfigureAudioController(XMmiDp *InstancePtr, u8 Stream)
 	XMmiDp_SetAudioConfig1(InstancePtr, Stream);
 
 }
+
+/******************************************************************************/
+/**
+ * This function sets the Sdp manual mode. Setting this bit causes
+ * corresponding SDP to be transmitted once.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param	Enable/Disable Sdp Manual Ctrl
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetSdpManualCtrl(XMmiDp *InstancePtr, u8 Stream, u32 SdpManualCtrl)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	InstancePtr->SdpManualCtrl[Stream - 1] = SdpManualCtrl;
+}
+
+/******************************************************************************/
+/**
+ * This function overrides the number of available bytes required to
+ * transmit a 16 byte SDP during Horizontal blanking period.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param	SdpHBlankOver
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetSdpCfg1HBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpHBlankOvr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	InstancePtr->SdpCfg1[Stream - 1].OverrideBytesReqHBlank = SdpHBlankOvr;
+}
+
+void XMmiDp_SetSdpCfgr2HBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpHBlankOvr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	InstancePtr->SdpCfg2[Stream - 1].OverrideBytesReqHBlank = SdpHBlankOvr;
+}
+
+void XMmiDp_SetSdpCfgr3HBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpHBlankOvr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	InstancePtr->SdpCfg3[Stream - 1].OverrideBytesReqHBlank = SdpHBlankOvr;
+}
+
+/******************************************************************************/
+/**
+ ** This function overrides the number of available bytes required to
+ * transmit a 16 byte SDP during Vertical blanking period.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param	SdpVBlankOver
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetSdpCfg1VBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpVBlankOvr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	InstancePtr->SdpCfg1[Stream - 1].OverrideBytesReqVBlank = SdpVBlankOvr;
+}
+
+void XMmiDp_SetSdpCfg2VBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpVBlankOvr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	InstancePtr->SdpCfg2[Stream - 1].OverrideBytesReqVBlank = SdpVBlankOvr;
+}
+
+void XMmiDp_SetSdpCfg3VBlankOvr(XMmiDp *InstancePtr, u8 Stream, u8 SdpVBlankOvr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	InstancePtr->SdpCfg3[Stream - 1].OverrideBytesReqVBlank = SdpVBlankOvr;
+}
+
+/******************************************************************************/
+/**
+ * This function sets the SDP_CONFIG_X registers
+ *
+ * @param       InstancePtr is a pointer to the XDpPsu instance.
+ * @param       Stream is the stream number for which to enable or disable
+ *              video stream.
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+void XMmiDp_SetSdpConfig(XMmiDp *InstancePtr, u8 Stream)
+{
+
+	u32 SdpCfg1Offset;
+	u32 SdpCfg1Val;
+	u32 SdpCfg2Offset;
+	u32 SdpCfg2Val;
+	u32 SdpCfg3Offset;
+	u32 SdpCfg3Val;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	SdpCfg1Offset = XMMIDP_SDP_CONFIG1 +
+			((Stream - 1) * XMMIDP_STREAM_OFFSET);
+
+	SdpCfg1Val = InstancePtr->SdpCfg1[Stream - 1].OverrideBytesReqVBlank;
+	SdpCfg1Val |= InstancePtr->SdpCfg1[Stream - 1].OverrideBytesReqHBlank
+		      << XMMIDP_SDP_CONFIG1_128BYTES_REQD_HBLANK_OVR_SHIFT;
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			SdpCfg1Offset, SdpCfg1Val);
+
+	SdpCfg2Offset = XMMIDP_SDP_CONFIG2 +
+			((Stream - 1) * XMMIDP_STREAM_OFFSET);
+
+	SdpCfg2Val = InstancePtr->SdpCfg2[Stream - 1].OverrideBytesReqVBlank;
+	SdpCfg2Val |= InstancePtr->SdpCfg2[Stream - 1].OverrideBytesReqHBlank
+		      << XMMIDP_SDP_CONFIG1_128BYTES_REQD_HBLANK_OVR_SHIFT;
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			SdpCfg2Offset, SdpCfg2Val);
+
+	SdpCfg3Offset = XMMIDP_SDP_CONFIG3 +
+			((Stream - 1) * XMMIDP_STREAM_OFFSET);
+
+	SdpCfg3Val = InstancePtr->SdpCfg3[Stream - 1].OverrideBytesReqVBlank;
+	SdpCfg3Val |= InstancePtr->SdpCfg3[Stream - 1].OverrideBytesReqHBlank
+		      << XMMIDP_SDP_CONFIG1_128BYTES_REQD_HBLANK_OVR_SHIFT;
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			SdpCfg3Offset, SdpCfg3Val);
+
+}
+
+/******************************************************************************/
+/**
+ ** This function defines the header and data for SDP
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param	SdpReg
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetSdpRegBank(XMmiDp *InstancePtr, u8 Stream, u32 SdpReg)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	InstancePtr->SdpRegBank[Stream - 1] = SdpReg;
+}
+
 /** @} */

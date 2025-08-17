@@ -367,6 +367,11 @@ typedef struct {
 	u8 Reserved;
 } XMmiDp_SdpHorizontalCtrl;
 
+typedef struct {
+	u8 OverrideBytesReqHBlank;
+	u8 OverrideBytesReqVBlank;
+} XMmiDp_SdpConfig;
+
 typedef void (*XMmiDp_HpdIrqHandler)(void *InstancePtr);
 typedef void (*XMmiDp_HpdHotPlugHandler)(void *InstancePtr);
 
@@ -385,6 +390,11 @@ typedef struct {
 	XMmiDp_SdpHorizontalCtrl SdpHorCtrl[XMMIDP_MAX_LANES];
 	XMmiDp_PhyConfig PhyConfig;
 	XMmiDp_LinkConfig LinkConfig;
+	u32 SdpManualCtrl[XMMIDP_MAX_LANES];
+	XMmiDp_SdpConfig SdpCfg1[XMMIDP_MAX_LANES];
+	XMmiDp_SdpConfig SdpCfg2[XMMIDP_MAX_LANES];
+	XMmiDp_SdpConfig SdpCfg3[XMMIDP_MAX_LANES];
+	u32 SdpRegBank[XMMIDP_MAX_LANES];
 	u32 AuxDelayUs;
 	XMmiDp_Config Config;
 	void *HpdHotPlugCallbackRef;
@@ -451,6 +461,7 @@ u32 XMmiDp_GetEdidBlock(XMmiDp *InstancePtr, u8 *Data, u8 BlockNum);
 /* Interrupt Enable */
 void XMmiDp_GeneralInterruptEnable(XMmiDp *InstancePtr, u32 Mask);
 void XMmiDp_HpdInterruptEnable(XMmiDp *InstancePtr, u32 Mask);
+void XMmiDp_SdpStatusInterruptEnable(XMmiDp *InstancePtr, u32 Mask);
 
 /* DPCD */
 void XMmiDp_SetDpcdLaneCount(XMmiDp *InstancePtr);

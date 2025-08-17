@@ -198,4 +198,28 @@ void XMmiDp_HpdInterruptHandler(XMmiDp *InstancePtr)
 	}
 
 }
+
+/******************************************************************************/
+/**
+ * This function enables SDP_STATUS_ENABLE bits based on the mask
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Mask specifies the interrupt bits to enable
+ *
+ * @return	None
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+void XMmiDp_SdpStatusInterruptEnable(XMmiDp *InstancePtr, u32 Mask)
+{
+	u32 RegVal = 0;;
+
+	RegVal = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr,
+				XMMIDP_SDP_STATUS_EN);
+	RegVal |= Mask;
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_HPD_INTERRUPT_ENABLE, RegVal);
+}
 /** @} */
