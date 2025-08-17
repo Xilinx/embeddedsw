@@ -1316,6 +1316,79 @@ u32 XDcSub_SetAudioSegmentedMode(XDcSub *InstancePtr, u8 AudSegmentedMode)
 }
 
 /******************************************************************************/
+/** This function sets Cursor Sdp Ready Interval.
+ *
+ * @param       InstancePtr is a pointer to the XDc instance.
+ *
+ * @return      None.
+ *
+ *
+*******************************************************************************/
+u32 XDcSub_SetCursorSdpRdyInterval(XDcSub *InstancePtr, u16 RdyInterval)
+{
+	XDc *DcConfigPtr;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->DcPtr != NULL);
+
+	DcConfigPtr = InstancePtr->DcPtr;
+
+	DcConfigPtr->RdyInterval = RdyInterval;
+
+	return XST_SUCCESS;
+
+}
+
+/******************************************************************************/
+/** This function sets SDP ACK from either DP or PL.
+ *
+ * @param       InstancePtr is a pointer to the XDc instance.
+ *
+ * @return      None.
+ *
+ *
+*******************************************************************************/
+void XDcSub_SetSdpAckSel(XDcSub *InstancePtr, u8 AckSel)
+{
+	XDc *DcConfigPtr;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->DcPtr != NULL);
+	Xil_AssertNonvoid((AckSel == XDC_SDP_DP_ACK) ||
+			  (AckSel == XDC_SDP_PL_ACK));
+
+	DcConfigPtr = InstancePtr->DcPtr;
+
+	DcConfigPtr->SdpAckSel = AckSel;
+
+	return XST_SUCCESS;
+
+}
+
+/******************************************************************************/
+/** This function enable DC SDP.
+ *
+ * @param       InstancePtr is a pointer to the XDc instance.
+ *
+ * @return      None.
+ *
+ *
+*******************************************************************************/
+void XDcSub_EnableSdp(XDcSub *InstancePtr)
+{
+	XDc *DcConfigPtr;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->DcPtr != NULL);
+
+	DcConfigPtr = InstancePtr->DcPtr;
+
+	DcConfigPtr->SdpEnable = 0x1;
+
+	return XST_SUCCESS;
+
+}
+/******************************************************************************/
 /**
  * This function configures Dc Video registers in the required sequence.
  *
@@ -1357,7 +1430,14 @@ u32 XDcSub_ConfigureDcVideo(XDc *InstancePtr)
 
 	XDc_EnablePartialBlend(InstancePtr);
 
-	if(InstancePtr->AudioEnable) {
+	if (InstancePtr->SdpEnable) {
+		XDc_SetSdpSource(InstancePtr);
+		XDc_SetCursorSdpRdyInterval(InstancePtr);
+		XDc_SetSdpAckSel(InstancePtr);
+		XDc_SetSdpCursorBuffers(InstancePtr);
+	}
+
+	if (InstancePtr->AudioEnable) {
 		XDc_EnableAudio(InstancePtr);
 		XDc_EnableAudioBuffer(InstancePtr);
 		XDc_AudioChannelSelect(InstancePtr);
@@ -1375,8 +1455,9 @@ u32 XDcSub_ConfigureDcVideo(XDc *InstancePtr)
 
 	XDc_SetInputVideoSelect(InstancePtr);
 
-	if(InstancePtr->AudioEnable)
+	if (InstancePtr->AudioEnable) {
 		XDc_SetInputAudioSelect(InstancePtr);
+	}
 
 	return XST_SUCCESS;
 }

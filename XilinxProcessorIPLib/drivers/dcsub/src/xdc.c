@@ -1594,7 +1594,7 @@ void XDc_SetAudioChCtrl(XDc *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XDc_WriteReg(InstancePtr->Config.BaseAddr,
-			XDC_AUD_MIXER_VOLUME_CONTROL, InstancePtr->AudChCtrl);
+		     XDC_AUD_MIXER_VOLUME_CONTROL, InstancePtr->AudChCtrl);
 
 }
 
@@ -1612,7 +1612,43 @@ void XDc_SetAudioSegmentedMode(XDc *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XDc_WriteReg(InstancePtr->Config.BaseAddr,
-		XDC_AUD_MIXER_META_DATA, InstancePtr->AudSegmentedMode);
+		     XDC_AUD_MIXER_META_DATA, InstancePtr->AudSegmentedMode);
+
+}
+
+/******************************************************************************/
+/** This function sets Cursor Sdp Ready Interval.
+ *
+ * @param       InstancePtr is a pointer to the XDc instance.
+ *
+ * @return      None.
+ *
+ *
+*******************************************************************************/
+void XDc_SetCursorSdpRdyInterval(XDc *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XDc_WriteReg(InstancePtr->Config.BaseAddr,
+		     XDC_RDY_INTERVAL, InstancePtr->RdyInterval);
+
+}
+
+/******************************************************************************/
+/** This function sets Cursor Sdp Ready Interval.
+ *
+ * @param       InstancePtr is a pointer to the XDc instance.
+ *
+ * @return      None.
+ *
+ *
+*******************************************************************************/
+void XDc_SetSdpAckSel(XDc *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XDc_WriteReg(InstancePtr->Config.BaseAddr,
+		     XDC_DP, InstancePtr->SdpAckSel);
 
 }
 /** @} */

@@ -2017,6 +2017,9 @@ extern "C" {
 #define XDC_DP_SDP_ACK_SEL_WIDTH   1
 #define XDC_DP_SDP_ACK_SEL_MASK    0x00000001
 
+#define XDC_SDP_DP_ACK		1
+#define XDC_SDP_PL_ACK		0
+
 /**
  *  * Register: XDC_DC_VID_CLK
  *   */

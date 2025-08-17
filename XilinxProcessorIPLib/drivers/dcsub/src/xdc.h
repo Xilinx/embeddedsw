@@ -412,10 +412,13 @@ typedef struct {
 	u16 AudChCtrl;
 	u8 AudSegmentedMode;
 
+	u8 SdpEnable;
 	XDc_Sdp Sdp;
 	u8 SdpEmptyThreshold;
 	u8 SdpChannelEn;
 	u8 SdpBurstLen;
+	u16 RdyInterval;
+	u8 SdpAckSel;
 
 	u32 VidFrameSwitchCtrl;
 
@@ -489,5 +492,7 @@ void XDc_DisableAudio(XDc *InstancePtr);
 void XDc_SetVideoTiming(XDc *InstancePtr);
 void XDc_SetAudioChCtrl(XDc *InstancePtr);
 void XDc_SetAudioSegmentedMode(XDc *InstancePtr);
+void XDc_SetCursorSdpRdyInterval(XDc *InstancePtr);
+void XDc_SetSdpAckSel(XDc *InstancePtr);
 
 #endif /* __XDC_H__ */

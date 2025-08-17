@@ -1048,7 +1048,7 @@ void XDcDma_SetAudioChCtrl(XDcDma *InstancePtr)
 
 	RegVal = InstancePtr->Audio.DscrErrDis;
 	RegVal |= (InstancePtr->Audio.VidActvFetchEn)
-			<< XDCDMA_AUD_CTRL_VID_ACTV_FETCH_EN_SHIFT;
+		  << XDCDMA_AUD_CTRL_VID_ACTV_FETCH_EN_SHIFT;
 
 	XDcDma_WriteReg(InstancePtr->Config.BaseAddr, XDCDMA_AUD_CTRL, RegVal);
 

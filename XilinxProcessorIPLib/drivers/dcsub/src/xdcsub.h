@@ -101,5 +101,8 @@ u32 XDcSub_SetInputAudioSelect(XDcSub *InstancePtr, XDc_AudioStream AudStream);
 u32 XDcSub_ConfigureDcVideo(XDc *InstancePtr);
 u32 XDcSub_SetAudioChCtrl(XDcSub *InstancePtr, u16 AudChCtrl);
 u32 XDcSub_SetAudioSegmentedMode(XDcSub *InstancePtr, u8 AudSegmentedMode);
+void XDcSub_EnableSdp(XDcSub *InstancePtr);
+void XDcSub_SetSdpAckSel(XDcSub *InstancePtr, u8 AckSel);
+u32 XDcSub_SetCursorSdpRdyInterval(XDcSub *InstancePtr, u16 RdyInterval);
 
 #endif /* __XDCSUB_H__ */
