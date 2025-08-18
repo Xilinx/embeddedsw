@@ -755,7 +755,7 @@ static s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes 
 
 	/** Check for padded zeroes of padding length. */
 	for (Index = 0U; Index < PadLen; Index++) {
-		if (OutData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES + (*OutDataLenPtr)] != 0U) {
+		if (OutData[XASUFW_KEYWRAP_SEMI_BLOCK_SIZE_IN_BYTES + (*OutDataLenPtr) + Index] != 0U) {
 			Status = XASUFW_KEYWRAP_INVALID_PAD_VALUE;
 			goto END_CLR;
 		}
