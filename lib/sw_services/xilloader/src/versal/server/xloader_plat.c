@@ -42,6 +42,8 @@
 *       tri  03/13/2025 Added XLoader_MeasureNLoad support and
 *                       Added XLoader_DataMeasurement support for versal
 * 1.02  obs  08/01/2025 Updated status with valid error code in XLoader_DataMeasurement API
+*       tvp  07/28/2025 Add wrapper function API XLoader_UpdateDataMeasurement
+*                       to update DataMeasurement
 *
 * </pre>
 *
@@ -121,6 +123,37 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 static int XLoader_DumpDdrmcRegisters(void);
 
 /************************** Variable Definitions *****************************/
+
+/*****************************************************************************/
+/**
+ * @brief	This functions updates the partition data to SHA engine for
+ * 		measurement.
+ *
+ * @param	PdiPtr 		Pointer to the XilPdi structure.
+ * 		DataAddr 	Address of Data for measure the hash.
+ * 		DataLen		Length of data for DataMeasument.
+ *
+ * @return
+ * 		- XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen)
+{
+	int Status = XST_FAILURE;
+	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
+	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
+
+	ImageMeasureInfo.DataAddr = DataAddr;
+	ImageMeasureInfo.DataSize = DataLen;
+	ImageMeasureInfo.PcrInfo = PcrInfo;
+	ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
+	ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
+
+	/* Update the data for measurement */
+	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+
+	return Status;
+}
 
 /*****************************************************************************/
 /**

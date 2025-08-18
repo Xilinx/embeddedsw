@@ -113,6 +113,7 @@
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       tri  03/01/2025 Updated XLoader_ImageMeasureInfo for partition measurement
 * 2.3   ng   07/17/2025 Implemented partition copy when boot copy optimization is disabled
+*       tvp  07/28/2025 Refactor platform specific code.
 *
 * </pre>
 *
@@ -406,12 +407,8 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	 */
 	u32 ChunkLen = (XPLMI_CHUNK_SIZE - (XPLMI_CMD_LEN_TEMPBUF * XPLMI_WORD_LEN));
 
-#ifndef VERSAL_2VE_2VM
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
-	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
-	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
-#endif
 
 	/** - Verify the destination address range before writing. */
 	Status = XPlmi_VerifyAddrRange(DeviceCopy->DestAddr, DeviceCopy->DestAddr + (u64)DeviceCopy->Len - 1U);
@@ -482,15 +479,8 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed\n\r");
 	} else {
-#ifndef VERSAL_2VE_2VM
-		ImageMeasureInfo.DataAddr = DeviceCopy->DestAddr;
-		ImageMeasureInfo.DataSize = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
-		ImageMeasureInfo.PcrInfo = PcrInfo;
-		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
-		ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
-		/* Update the data for measurement, only VersalNet */
-		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
-#endif
+		Status = XLoader_UpdateDataMeasurement(PdiPtr, DeviceCopy->DestAddr,
+						       PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT);
 	}
 
 END:
@@ -532,11 +522,6 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	u64 CdoProcessTimeEnd;
 	u64 CdoProcessTime = 0U;
 	XPlmi_PerfTime PerfTime;
-#endif
-
-#ifndef VERSAL_2VE_2VM
-	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
-	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 #endif
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
@@ -695,18 +680,10 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			}
 		}
 		else {
-#ifndef VERSAL_2VE_2VM
-			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)Cdo.BufPtr;
-			ImageMeasureInfo.DataSize = ChunkLenTemp;
-			ImageMeasureInfo.PcrInfo = PcrInfo;
-			ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
-			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
-			/* Update the data for measurement, only VersalNet */
-			Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+			Status = XLoader_UpdateDataMeasurement(PdiPtr, (u64)(UINTPTR)Cdo.BufPtr, ChunkLenTemp);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-#endif
 		}
 	}
 

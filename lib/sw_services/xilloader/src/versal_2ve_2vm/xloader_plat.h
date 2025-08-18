@@ -49,6 +49,8 @@
 *       tri  03/13/2025 Added XLoader_MeasureNLoad prototype
 *       sk   03/17/2025 Added define for RPU cluster C
 *       tvp  07/28/2025 Removed unnecessary macro protection
+*       tvp  07/28/2025 Add wrapper function XLoader_UpdateDataMeasurement
+*                       to update DataMeasurement
 *
 * </pre>
 *
@@ -459,6 +461,29 @@ static inline int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataI
 	return XST_SUCCESS;
 }
 #endif
+
+/*****************************************************************************/
+/**
+ * @brief	This functions updates the partition data to SHA engine for
+ * 			measurement.
+ *
+ * @param	PdiPtr 		Pointer to the XilPdi structure.
+ * 		DataAddr 	Address of Data for measure the hash.
+ * 		DataLen		Length of data for DataMeasument.
+ *
+ * @return
+ * 		- XST_SUCCESS always.
+ *
+ *****************************************************************************/
+static inline int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen)
+{
+	(void)PdiPtr;
+	(void)DataAddr;
+	(void)DataLen;
+	/* Not Applicable for versal_2ve_2vm*/
+
+	return XST_SUCCESS;
+}
 
 /************************** Function Prototypes ******************************/
 XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void);

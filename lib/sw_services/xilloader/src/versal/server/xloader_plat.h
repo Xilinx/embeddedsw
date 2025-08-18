@@ -39,6 +39,8 @@
 *       bm   11/11/2024 Move I2C Handshake feature to common code
 *       tri  03/13/2025 Added XLoader_MeasureNLoad prototype and
 *                       XLoader_DataMeasurement prototype
+*       tvp  07/28/2025 Add wrapper function prototype XLoader_UpdateDataMeasurement
+*                       to update DataMeasurement
 *
 * </pre>
 *
@@ -465,6 +467,7 @@ XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 void XLoader_ShaInstance1Reset(void);
+int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen);
 
 /************************** Variable Definitions *****************************/
 

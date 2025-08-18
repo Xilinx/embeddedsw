@@ -47,6 +47,8 @@
 *       pre  10/22/2024 Added XLOADER_ERR_CMD_NOT_SUPPORTED error code
 *       bm   11/11/2024 Move I2C Handshake feature to common code
 *       tri  03/13/2025 Added XLoader_MeasureNLoad prototype
+*       tvp  07/28/2025 Add wrapper function prototype XLoader_UpdateDataMeasurement
+*                       to update DataMeasurement
 *
 * </pre>
 *
@@ -444,6 +446,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataId);
 #endif
 void XLoader_ShaInstance1Reset(void);
+int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen);
 
 /************************** Variable Definitions *****************************/
 
