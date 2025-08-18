@@ -26,6 +26,7 @@
 *                     non-secure when RSA_EN is not programmed
 * 3.1   ng   03/09/24 Fixed format specifier for 32bit variables
 * 4.0   sd   04/26/25 Add TPM read function conditionally
+*       sd   08/14/25 Added function to get Reset reason
 *
 * </pre>
 *
@@ -626,4 +627,16 @@ static void XFsbl_MarkUsedRPUCores(XFsblPs *FsblInstPtr, u32 PartitionNum)
 				  XFSBL_R5_0_STATUS_MASK);
 		}
 	}
+}
+
+/*****************************************************************************/
+/**
+ * This function returns reset reason
+ *
+ * @return Reset Reason
+ *
+ *****************************************************************************/
+u32 XFsbl_GetResetReasonVal(void)
+{
+	return FsblInstance.ResetReason;
 }

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,8 @@
  *                     garbage prints and removed DEBUG_HANDOFF macro
  *       sd   03/01/24 Removed XFsbl_Handoff_Printf macro and added
  *                     uart fifo check function just before handoff
+ *       sd   08/14/25 Skip UART Wait Transmission done check in FSBL
+ *                     Handoff exit function depending on reset type
  *
  * </pre>
  *
@@ -560,11 +562,14 @@ void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 	RegVal |= XFSBL_EXEC_COMPLETED;
 	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, RegVal);
 
-	XFsbl_Printf(DEBUG_GENERAL,"Exit from FSBL \n\r");
+	if (XFsbl_GetResetReasonVal() == XFSBL_SYSTEM_RESET) {
+
+		XFsbl_Printf(DEBUG_GENERAL,"Exit from FSBL \n\r");
 
 #ifdef XPAR_XUARTPS_NUM_INSTANCES
-	XUartPs_WaitTransmitDone(STDOUT_BASEADDRESS);
+		XUartPs_WaitTransmitDone(STDOUT_BASEADDRESS);
 #endif
+	}
 
 	/**
 	 * Exit to handoff address

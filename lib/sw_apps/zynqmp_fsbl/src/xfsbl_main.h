@@ -31,6 +31,7 @@
 * 7.0   sd   07/23/24 Updated SDK release to 2024.2
 * 8.0   prt  02/06/25 Updated SDK release year and SDK release quarter
 * 9.0   aa   06/19/25 Updated SDK release version
+*       sd   08/14/25 Added function declaration
 *
 * </pre>
 *
@@ -191,6 +192,7 @@ typedef struct {
  */
 void XFsbl_PrintFsblBanner(void );
 void XFsbl_ErrorLockDown(u32 ErrorStatus);
+u32 XFsbl_GetResetReasonVal(void);
 
 #if defined(XFSBL_PERF)
 void XFsbl_MeasurePerfTime(XTime tCur);
