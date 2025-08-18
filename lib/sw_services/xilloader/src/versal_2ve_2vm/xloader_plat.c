@@ -65,6 +65,7 @@
 *       sk   03/22/2025 Updated status variable as volatile in XLoader_StartImage
 *       sk   03/29/2025 Added redundancy for handoff address
 * 1.04  obs  08/01/2025 Updated status with valid error code in XLoader_DataMeasurement API
+*       tvp  07/28/2025 Added comment for better code readability
 *
 * </pre>
 *
@@ -464,6 +465,11 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
 		ImageMeasureInfo.PcrInfo = PcrInfo;
 		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
+		/**
+		 * For versal_2ve_2vm, sha_pmxc driver requires notification
+		 * before the last ShaUpate.
+		 * Set the flag accordingly for the last partition.
+		 */
 		if((NoOfPrtns - Index) > 1U) {
 			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
 		}
