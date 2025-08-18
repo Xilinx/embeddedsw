@@ -48,6 +48,7 @@
 *       tri  03/01/2025 Added XLOADER_MEASURE_LAST macro
 *       tri  03/13/2025 Added XLoader_MeasureNLoad prototype
 *       sk   03/17/2025 Added define for RPU cluster C
+*       tvp  07/28/2025 Removed unnecessary macro protection
 *
 * </pre>
 *
@@ -128,9 +129,7 @@ extern "C" {
 #define XLOADER_MEASURE_START		(0U) /**< Data measure start */
 #define XLOADER_MEASURE_UPDATE		(1U) /**< Data measure update */
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
-#ifdef VERSAL_2VE_2VM
 #define XLOADER_MEASURE_LAST		(3U) /**< Data measure last */
-#endif
 
 #define XLOADER_VERSAL_2VE_2VM_PDI_VERSION_1	(0x00010000U) /**< PDI Version */
 
