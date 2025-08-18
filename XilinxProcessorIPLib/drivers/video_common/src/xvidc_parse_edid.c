@@ -1,6 +1,7 @@
 /* vim: set et fde fdm=syntax ft=c.doxygen ts=4 sts=4 sw=4 : */
 /*
  * Copyright © 2021 Saleem Abdulrasool <compnerd@compnerd.org>.
+ * Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -974,11 +975,12 @@ xvidc_disp_cea861_hf_sink_capability_data(
 					XV_VidC_EdidCntrlParam *EdidCtrlParam,
 					XV_VidC_Verbose VerboseEn) {
 
-	/* During Verbosity 0, VerboseEn won't be used */
-	/* To avoid compilation warnings */
-	VerboseEn = VerboseEn;
 	const struct xvidc_cea861_hdmi_hf_sink_capability_data_block * const hdmi =
 			(struct xvidc_cea861_hdmi_hf_sink_capability_data_block *) edb;
+
+#if XVIDC_EDID_VERBOSITY == 0
+    xil_printf("VERBOSITY is disabled : %d\r\n",VerboseEn);
+#endif
 
 #if XVIDC_EDID_VERBOSITY > 0
     if (VerboseEn) {
@@ -1161,13 +1163,14 @@ static void
 xvidc_disp_cea861_hf_edid_ext_override_data(
 					const struct xvidc_cea861_extended_data_block * const edb,
 					XV_VidC_EdidCntrlParam *EdidCtrlParam,
-					XV_VidC_Verbose VerboseEn)
-{
-	/* During Verbosity 0, VerboseEn won't be used */
-	/* To avoid compilation warnings */
-	VerboseEn = VerboseEn;
+					XV_VidC_Verbose VerboseEn) {
+
 	const struct xvidc_cea861_hdmi_hf_edid_ext_override_data_block * const hdmi =
 			(struct xvidc_cea861_hdmi_hf_edid_ext_override_data_block *)edb;
+
+#if XVIDC_EDID_VERBOSITY == 0
+    xil_printf("VERBOSITY is disabled : %d\r\n",VerboseEn);
+#endif
 
 #if XVIDC_EDID_VERBOSITY > 0
 	if (VerboseEn) {
@@ -1199,13 +1202,14 @@ xvidc_disp_cea861_vendor_data(
                   XV_VidC_EdidCntrlParam *EdidCtrlParam,
                   XV_VidC_Verbose VerboseEn) {
 
-	/* During Verbosity 0, VerboseEn won't be used */
-	/* To avoid compilation warnings */
-	VerboseEn = VerboseEn;
-
     const u8 oui[] = { vsdb->ieee_registration[2],
                             vsdb->ieee_registration[1],
                             vsdb->ieee_registration[0] };
+
+#if XVIDC_EDID_VERBOSITY == 0
+    xil_printf("VERBOSITY is disabled : %d\r\n",VerboseEn);
+#endif
+
 #if XVIDC_EDID_VERBOSITY > 0
     if (VerboseEn) {
         xil_printf("CEA vendor specific data (VSDB)\r\n");
