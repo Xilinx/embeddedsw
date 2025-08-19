@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -185,7 +185,10 @@ static void XDp_TxGetDeviceInfoFromSbMsgLinkAddress(
 static u32 XDp_TxSendActTrigger(XDp *InstancePtr);
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if (XPAR_XDPRXSS_NUM_INSTANCES || XPAR_XDPTXSS_NUM_INSTANCES)
 static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg);
+static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg);
+#endif
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
 static void XDp_RxReadDownReq(XDp *InstancePtr, XDp_SidebandMsg *Msg);
@@ -196,16 +199,16 @@ static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply);
 static u32 XDp_TxWaitSbReply(XDp *InstancePtr);
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
-static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg);
-
 #if XPAR_XDPRXSS_NUM_INSTANCES
 static u32 XDp_RxWriteRawDownReply(XDp *InstancePtr, u8 *Data, u8 DataLength);
 static u32 XDp_RxSendSbMsg(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if (XPAR_XDPRXSS_NUM_INSTANCES || XPAR_XDPTXSS_NUM_INSTANCES)
 static u8 XDp_Crc4CalculateHeader(XDp_SidebandMsgHeader *Header);
 static u8 XDp_Crc8CalculateBody(XDp_SidebandMsg *Msg);
 static u8 XDp_CrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial);
+#endif
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
 static u32 XDp_TxIsSameTileDisplay(u8 *DispIdSecTile0, u8 *DispIdSecTile1);
@@ -3566,7 +3569,7 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
 }
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
-
+#if (XPAR_XDPRXSS_NUM_INSTANCES || XPAR_XDPTXSS_NUM_INSTANCES)
 /******************************************************************************/
 /**
  * Operating in TX mode, this function will send a sideband message by creating
@@ -3653,6 +3656,7 @@ static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 
 	return Status;
 }
+#endif
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
@@ -3838,6 +3842,7 @@ static u32 XDp_TxWaitSbReply(XDp *InstancePtr)
 }
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if (XPAR_XDPRXSS_NUM_INSTANCES || XPAR_XDPTXSS_NUM_INSTANCES)
 /******************************************************************************/
 /**
  * This function will take a byte array and convert it into a sideband message
@@ -3923,6 +3928,7 @@ static u32 XDp_Transaction2MsgFormat(u8 *Transaction, XDp_SidebandMsg *Msg)
 
 	return XST_SUCCESS;
 }
+#endif
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
@@ -4047,6 +4053,7 @@ static u32 XDp_RxSendSbMsg(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 }
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if (XPAR_XDPRXSS_NUM_INSTANCES || XPAR_XDPTXSS_NUM_INSTANCES)
 /******************************************************************************/
 /**
  * This function will perform a cyclic redundancy check (CRC) on the header of a
@@ -4207,6 +4214,7 @@ static u8 XDp_CrcCalculate(const u8 *Data, u32 NumberOfBits, u8 Polynomial)
 
 	return Remainder & 0xFF;
 }
+#endif
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/

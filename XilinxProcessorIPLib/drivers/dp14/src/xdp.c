@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -138,7 +138,9 @@ static u32 XDp_TxAuxWaitReady(XDp *InstancePtr);
 static u32 XDp_TxSetClkSpeed(XDp *InstancePtr, u32 Speed);
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask);
+#endif
 
 /**************************** Function Definitions ****************************/
 
@@ -3867,6 +3869,7 @@ u32 XDp_TxCheckVscColorimetrySupport(XDp *InstancePtr)
 
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if (XPAR_XDPTXSS_NUM_INSTANCES)
 /******************************************************************************/
 /**
  * This function waits for the DisplayPort PHY to come out of reset.
@@ -3912,6 +3915,7 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 
 	return XST_SUCCESS;
 }
+#endif
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
