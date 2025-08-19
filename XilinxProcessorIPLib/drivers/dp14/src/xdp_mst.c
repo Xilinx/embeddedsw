@@ -35,6 +35,7 @@
 /******************************* Include Files ********************************/
 
 #include "string.h"
+#include "sleep.h"
 #include "xdp.h"
 
 /**************************** Constant Definitions ****************************/
@@ -1282,7 +1283,7 @@ u32 XDp_TxRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u8 IicAddress, u8 BytesToWrite,
 	u8 *WriteData)
 {
-	u32 Status;
+	u32 Status = 0;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1334,7 +1335,6 @@ u32 XDp_TxSendEnumPathResourceRequest(XDp *InstancePtr)
 	u32 Status;
 	u8 StreamIndex;
 	XDp_TxMstStream *MstStream;
-	XDp_TxMainStreamAttributes *MsaConfig;
 	u16 FullPbn;
 	u16 AvailPbn;
 
@@ -1389,16 +1389,13 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 	u32 Status;
 	u8 StreamIndex;
 	u8 StartTs = 1;
-	u8 NumOfStreams;
 	XDp_TxMstStream *MstStream;
 	XDp_TxMainStreamAttributes *MsaConfig;
-	XDp_TxTopology *Msatopology;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Msatopology = &InstancePtr->TxInstance.Topology;
 
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device. */
@@ -3593,7 +3590,7 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
 *******************************************************************************/
 static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 {
-	u32 Status;
+	u32 Status = 0;
 	u8 Data[XDP_MAX_LENGTH_SBMSG];
 	XDp_SidebandMsgHeader *Header = &Msg->Header;
 	XDp_SidebandMsgBody *Body = &Msg->Body;

@@ -217,7 +217,7 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 *******************************************************************************/
 u32 XDp_Initialize(XDp *InstancePtr)
 {
-	u32 Status;
+	u32 Status = 0;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
