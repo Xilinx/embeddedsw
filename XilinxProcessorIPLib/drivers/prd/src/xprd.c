@@ -22,6 +22,8 @@
 * --- ----- ----------  -----------------------------------------------
 * 1.0  ms    07/14/2016     First release
 * 2.2  Nava  06/22/2023     Added support for system device-tree flow.
+* 2.3  Nava  07/30/2025     Improve self-test by validating control register
+*                           read/write path.
 * </pre>
 *
 ******************************************************************************/
@@ -103,8 +105,6 @@ s32 XPrd_CfgInitialize(XPrd *InstancePtr, XPrd_Config *ConfigPtr,
 ******************************************************************************/
 void XPrd_SetDecouplerState(XPrd *InstancePtr, XPrd_State DecouplerValue)
 {
-	u32 Data;
-
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((DecouplerValue == XPRD_DECOUPLER_ON) ||
