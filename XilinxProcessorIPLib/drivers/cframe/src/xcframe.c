@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,8 @@
 *       mss  09/04/2023 Fixed MISRA-C violation 8.13
 *       pre  08/22/2024 Added XCframe_GetLastFrameAddr function and modified
 *                       XCframe_SetReadParam function
+* 1.9   Nava 07/30/2025 Fixed GCC warnings about missing field initializers
+*                       for Xuint128
 *
 * </pre>
 *
@@ -226,7 +228,7 @@ s32 XCframe_SafetyWriteReg(const XCframe *InstancePtr, u32 AddrOffset,
  ******************************************************************************/
 void XCframe_WriteCmd(const XCframe *InstancePtr, XCframe_FrameNo CframeNo, u32 Cmd)
 {
-	Xuint128 CfrCmd={0};
+	Xuint128 CfrCmd={0U, 0U, 0U, 0U};
 
 	XCframe_Printf("CFRAME CMD: %0x\n\r", Cmd);
 
@@ -246,7 +248,7 @@ void XCframe_WriteCmd(const XCframe *InstancePtr, XCframe_FrameNo CframeNo, u32 
  ******************************************************************************/
 void XCframe_VggTrim(const XCframe *InstancePtr,const Xuint128 *TrimVal)
 {
-	Xuint128 MaskVal={0};
+	Xuint128 MaskVal={0U, 0U, 0U, 0U};
 
         MaskVal.Word0 = XCFRAME_MASK_DEFVAL;
         MaskVal.Word1 = XCFRAME_MASK_DEFVAL;
@@ -270,8 +272,8 @@ void XCframe_VggTrim(const XCframe *InstancePtr,const Xuint128 *TrimVal)
  ******************************************************************************/
 void XCframe_CramTrim(const XCframe *InstancePtr, u32 TrimValue)
 {
-	Xuint128 TrimVal={0};
-	Xuint128 MaskVal={0};
+	Xuint128 TrimVal={0U, 0U, 0U, 0U};
+	Xuint128 MaskVal={0U, 0U, 0U, 0U};
 
 	MaskVal.Word0 = XCFRAME_MASK_DEFVAL;
 	XCframe_WriteReg(InstancePtr, XCFRAME_MASK_OFFSET,
@@ -294,8 +296,8 @@ void XCframe_CramTrim(const XCframe *InstancePtr, u32 TrimValue)
  ******************************************************************************/
 void XCframe_BramTrim(const XCframe *InstancePtr, u32 TrimValue)
 {
-	Xuint128 TrimVal={0};
-	Xuint128 MaskVal={0};
+	Xuint128 TrimVal={0U, 0U, 0U, 0U};
+	Xuint128 MaskVal={0U, 0U, 0U, 0U};
 
 	MaskVal.Word0 = XCFRAME_MASK_DEFVAL;
 	MaskVal.Word1 = XCFRAME_MASK_DEFVAL;
@@ -321,8 +323,8 @@ void XCframe_BramTrim(const XCframe *InstancePtr, u32 TrimValue)
  ******************************************************************************/
 void XCframe_UramTrim(const XCframe *InstancePtr, u32 TrimValue)
 {
-	Xuint128 TrimVal={0};
-	Xuint128 MaskVal={0};
+	Xuint128 TrimVal={0U, 0U, 0U, 0U};
+	Xuint128 MaskVal={0U, 0U, 0U, 0U};
 
         MaskVal.Word0 = XCFRAME_MASK_DEFVAL;
         MaskVal.Word1 = XCFRAME_MASK_DEFVAL;
@@ -352,7 +354,7 @@ void XCframe_UramTrim(const XCframe *InstancePtr, u32 TrimValue)
 void XCframe_SetReadParam(const XCframe *InstancePtr,
 		XCframe_FrameNo CframeNo, u32 CframeLen, u32 FrameAddr)
 {
-	Xuint128 Value128={0};
+	Xuint128 Value128={0U, 0U, 0U, 0U};
 
 	/* Enable ROWON, READ_CFR, CFRM_CNT */
 	XCframe_WriteCmd(InstancePtr, CframeNo,	XCFRAME_CMD_REG_ROWON);

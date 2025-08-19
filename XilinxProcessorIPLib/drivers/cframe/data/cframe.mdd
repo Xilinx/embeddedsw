@@ -10,6 +10,8 @@
 # 1.6   mss  10/19/23 Updated driver version for 2024.1
 # 1.7   oh   07/24/24 Updated driver version for 2024.2
 # 1.8   pre  01/16/25 Updated driver version for 2025.1
+# 1.9   Nava 07/30/25 Fixed GCC warnings about missing field initializers
+#                     for Xuint128
 #
 ###############################################################################
 OPTION psf_version = 2.1;
@@ -19,7 +21,7 @@ BEGIN driver cframe
   OPTION supported_peripherals = (psv_pmc_cfi_cframe psxl_pmc_cfi_cframe psx_pmc_cfi_cframe cfi_cframe);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.8;
+  OPTION VERSION = 1.9;
   OPTION NAME = cframe;
 
 END driver
