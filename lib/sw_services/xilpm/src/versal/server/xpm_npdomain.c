@@ -591,12 +591,107 @@ static void AssertPcsrLockMem(const u32 *DdrMcAddresses, const u32 DdrMcAddrLeng
 	}
 }
 
+static void Clear_ScanClearErrors(void)
+{
+	u32 i;
+
+	/* TBD: this is a workaround, get these addresses from topology */
+	const u32 NpsAddresses[83] = { 0xF6020000U, 0xF6022000U, 0xF6024000U, 0xF6080000U, 0xF6082000U, 0xF6084000U, 0xF6086000U, 0xF6150000U,
+		 0xF6152000U, 0xF6154000U, 0xF6156000U, 0xF6160000U, 0xF6162000U, 0xF6164000U, 0xF6166000U, 0xF6260000U, 0xF6262000U,
+		 0xF6264000U, 0xF6266000U, 0xF62C0000U, 0xF62C2000U, 0xF62C4000U, 0xF62C6000U, 0xF6320000U, 0xF6322000U, 0xF6324000U,
+		 0xF6326000U, 0xF6330000U, 0xF6332000U, 0xF6334000U, 0xF6336000U, 0xF6344000U, 0xF6346000U, 0xF6374000U, 0xF6376000U,
+		 0xF63A4000U, 0xF63A6000U, 0xF63C4000U, 0xF63C6000U, 0xF63F4000U, 0xF63F6000U, 0xF6414000U, 0xF6416000U, 0xF6444000U,
+		 0xF6446000U, 0xF6464000U, 0xF6466000U, 0xF68A0000U, 0xF68A2000U, 0xF68A4000U, 0xF68A6000U, 0xF6900000U, 0xF6902000U,
+		 0xF6904000U, 0xF6906000U, 0xF6960000U, 0xF6962000U, 0xF6964000U, 0xF6966000U, 0xF6970000U, 0xF6972000U, 0xF6974000U,
+		 0xF6976000U, 0xF6980000U, 0xF6982000U, 0xF6984000U, 0xF6986000U, 0xF6D44000U, 0xF6D46000U, 0xF6D74000U, 0xF6D76000U,
+		 0xF6DA4000U, 0xF6DA6000U, 0xF6DC4000U, 0xF6DC6000U, 0xF6DF4000U, 0xF6DF6000U, 0xF6E14000U, 0xF6E16000U, 0xF6E44000U,
+		 0xF6E46000U, 0xF6E64000U, 0xF6E66000U };
+	const u32 DdrmcMainAddresses[6] = { 0xF60D0000U, 0xF61E0000U, 0xF6A20000U, 0xF6AD0000U, 0xF6BD0000U, 0xF6CC0000U };
+	const u32 NsuAddresses[22] = { 0xF6010000U, 0xF6012000U, 0xF6178000U, 0xF617A000U, 0xF617C000U, 0xF617E000U, 0xF6342000U,
+		0xF6372000U, 0xF63A2000U, 0xF63C2000U, 0xF63F2000U, 0xF6412000U, 0xF6442000U, 0xF6462000U, 0xF6D42000U, 0xF6D72000U,
+		0xF6DA2000U, 0xF6DC2000U, 0xF6DF2000U, 0xF6E12000U, 0xF6E42000U, 0xF6E62000U };
+
+	const u32 NmuAddresses[34] = { 0xF6014000U, 0xF6016000U, 0xF6018000U, 0xF601A000U,
+		 0xF6090000U, 0xF6092000U, 0xF6170000U, 0xF6172000U, 0xF6174000U, 0xF6176000U,
+		 0xF6340000U, 0xF6370000U, 0xF63A0000U, 0xF63C0000U, 0xF63F0000U, 0xF6410000U,
+		 0xF6440000U, 0xF6460000U, 0xF69E0000U, 0xF69E2000U, 0xF6AA0000U, 0xF6AA2000U,
+		 0xF6B50000U, 0xF6B52000U, 0xF6C50000U, 0xF6C52000U, 0xF6D40000U, 0xF6D70000U,
+		 0xF6DA0000U, 0xF6DC0000U, 0xF6DF0000U, 0xF6E10000U, 0xF6E40000U, 0xF6E60000U };
+
+	/*clear NOC2_NSU ISR*/
+	for (i = 0U; i < ARRAY_SIZE(NsuAddresses); i++) {
+		/*TODO: Recognise NPS nodes using node type from node structure*/
+		if (0U == NsuAddresses[i]) {
+			continue;
+		}
+
+		/*unlock pcsr*/
+		XPm_UnlockPcsr(NsuAddresses[i]);
+		/* clear scan clear error */
+		XPm_RMW32(NsuAddresses[i] + NOC2_NSU_0_REG_ISR_OFFSET,
+				NOC2_NSU_0_REG_ISR_SCAN_CLR_ERR_MASK, NOC2_NSU_0_REG_ISR_SCAN_CLR_ERR_MASK);
+		/*lock pcsr*/
+		XPm_LockPcsr(NsuAddresses[i]);
+	}
+
+	/*clear NOC2_NMU ISR*/
+	for (i = 0U; i < ARRAY_SIZE(NmuAddresses); i++) {
+		/*TODO: Recognise NMU nodes using node type from node structure*/
+		if (0U == NmuAddresses[i]) {
+			continue;
+		}
+
+		/*unlock pcsr*/
+		XPm_UnlockPcsr(NmuAddresses[i]);
+		/* clear scan clear error */
+		XPm_RMW32(NmuAddresses[i] + NOC2_NMU_0_REG_ISR_OFFSET,
+			NOC2_NMU_0_REG_ISR_SCAN_CLEAR_MASK, NOC2_NMU_0_REG_ISR_SCAN_CLEAR_MASK);
+		/*lock pcsr*/
+		XPm_LockPcsr(NmuAddresses[i]);
+	}
+
+	/*clear NOC2_NPS ISR*/
+	for (i = 0U; i < ARRAY_SIZE(NpsAddresses); i++) {
+		/*TODO: Recognise NMU nodes using node type from node structure*/
+		if (0U == NpsAddresses[i]) {
+			continue;
+		}
+
+		/*unlock pcsr*/
+		XPm_UnlockPcsr(NpsAddresses[i]);
+		/* clear scan clear error */
+		XPm_RMW32(NpsAddresses[i] + NOC2_NPS_0_REG_ISR_OFFSET,
+			NOC2_NPS_0_REG_ISR_SCAN_CLR_MASK, NOC2_NPS_0_REG_ISR_SCAN_CLR_MASK);
+		/*lock pcsr*/
+		XPm_LockPcsr(NpsAddresses[i]);
+	}
+
+	/*clear DDRMC_MAIN ISR*/
+	for (i = 0U; i < ARRAY_SIZE(DdrmcMainAddresses); i++) {
+		/*TODO: Recognise NMU nodes using node type from node structure*/
+		if (0U == DdrmcMainAddresses[i]) {
+			continue;
+		}
+
+		/*unlock pcsr*/
+		XPm_UnlockPcsr(DdrmcMainAddresses[i]);
+		/* clear scan clear error */
+		XPm_RMW32(DdrmcMainAddresses[i] + DDRMC_MAIN_DDRMC_ISR_OFFSET,
+			DDRMC_MAIN_DDRMC_ISR_SCAN_CLEAR_FAIL_MASK, DDRMC_MAIN_DDRMC_ISR_SCAN_CLEAR_FAIL_MASK);
+		/*lock pcsr*/
+		XPm_LockPcsr(DdrmcMainAddresses[i]);
+	}
+
+}
+
 static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	volatile XStatus Status = XST_FAILURE;
 	u32 i;
 	const XPm_Device *Device;
+	const XPm_Pmc *Pmc;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 DdrMcAddrLength = ARRAY_SIZE(DdrMcAddresses);
@@ -674,6 +769,25 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Unwrite trigger bits */
 	CleanupMemClearNpd(DdrMcAddresses, DdrMcAddrLength);
 
+	/* Clear Scan Clear Errors */
+	u32 DevIdCode = (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK);
+	if ((PMC_TAP_IDCODE_DEV_SBFMLY_VR1602 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR1652 == DevIdCode) ||
+		(PMC_TAP_IDCODE_DEV_SBFMLY_VR16XX_PARENT == DevIdCode)) {
+
+		Clear_ScanClearErrors();
+		Status = XPM_STRICT_CHECK_IF_NULL(StatusTmp, Pmc, XPm_Pmc, XPmDevice_GetById, PM_DEV_PMC_PROC);
+		if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
+			DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+			Status = XST_FAILURE;
+			goto done;
+		}
+		/*
+		* clear all errors.
+		*/
+		XPm_Out32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
+			PMC_GLOBAL_ERR1_STATUS_ALL_MASK);
+	}
 	Status = XST_SUCCESS;
 
 done:
