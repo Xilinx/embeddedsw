@@ -17,6 +17,7 @@
  * ----- ---- ---------- -------------------------------------------------------
  * 5.5   kpt  08/18/2024 Initial release
  * 5.6   aa   07/29/2025 Added error codes
+ * 5.6   tus  08/19/2025 Add error codes for SHA
  *
  * </pre>
  *
@@ -34,7 +35,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-typedef enum {
+enum {
 	XSECURE_SHA_INIT_ERROR = 0x02,		/**< 0x02 - Error when SHA
 						   init fails. */
 	XSECURE_SHA_LAST_UPDATE_ERROR,		/**< 0x03 - Error when SHA
@@ -58,6 +59,14 @@ typedef enum {
 	XSECURE_SHA384_KAT_ERROR,		/**< 0x0C - Error when SHA384 KAT fails */
 
 	XSECURE_SHA_DMA_COMPONENT_IS_NOT_READY,  /**< 0x0D - Error when DMA component is not ready */
+
+	XSECURE_SHA_DMA_TRANSFER_ERROR,		/**< 0x0E - Error when SHA DMA transfer fails */
+
+	XSECURE_SHA_PADDING_BUFFER_INIT_ERROR,	/**< 0x0F - Error when SHA padding buffer
+						    initialization fails */
+
+	XSECURE_SHA_NIST_PADDING_ERROR,		/**< 0x10 - Error during NIST padding
+						     operation */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */
@@ -89,7 +98,7 @@ typedef enum {
 	XSECURE_AESKAT_INVALID_PARAM,		     /**< 0x4C - Invalid Argument */
 
 	XSECURE_AES_DMA_COMPONENT_IS_NOT_READY /**< 0x4D - Error when DMA component is not ready */
-} XSecure_ErrorCodes;
+};
 
 #define XSECURE_SHA3_KAT_FAILED_ERROR		XSECURE_SHA_KAT_FAILED_ERROR
 
