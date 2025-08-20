@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,7 +39,7 @@
  *                         function arguments to read KeyAddr and
  *                         Size(Bitstream size).
  * 6.1   Nava    09/13/21  Fixed compilation warning.
- *
+ * 6.9   Arvd    08/12/25  Fixed GCC warnings
  * </pre>
  *
  ******************************************************************************/
@@ -67,7 +67,11 @@
 int main(void)
 {
 	u64 addr = XFPGA_BASE_ADDRESS;
-	XFpga XFpgaInstance = {0U};
+	/*
+	 * Empty brace initializer initializes all members of a structure
+	 * to zero (for numeric types) or NULL (for pointers)
+	 */
+	XFpga XFpgaInstance = {};
 	UINTPTR KeyAddr = (UINTPTR)NULL;
 	s32 Status;
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
  * 5.2   Nava   12/18/19  Fix for security violation in the readback path.
  * 5.2   Nava   02/14/20  Removed unwanted header file inclusion.
  * 5.3   Nava   06/16/20  Modified the date format from dd/mm to mm/dd.
+ * 6.9   Arvd   08/12/25  Fixed GCC warning
  *</pre>
  ******************************************************************************/
 
@@ -71,7 +72,11 @@ static int Xfpga_RegReadExample(XFpga *InstancePtr);
 int main(void)
 {
 	int Status;
-	XFpga XFpgaInstance = {0U};
+	/*
+	 * Empty brace initializer initializes all members of a structure
+	 * to zero (for numeric types) or NULL (for pointers)
+	 */
+	XFpga XFpgaInstance = {};
 
 	xil_printf("Register Read back example\r\n");
 
