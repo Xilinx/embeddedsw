@@ -39,7 +39,7 @@
 #include "platform.h"
 #include "sleep.h"
 #ifndef SDT
-#if defined(__MICROBLAZE__)
+#if defined(__MICROBLAZE__) || defined(__riscv)
 #include "xintc.h"
 #else
 #include "xscugic.h"
@@ -53,7 +53,7 @@
 #include "xvtc.h"
 #include "xgpio.h"
 
-#if defined(__MICROBLAZE__)
+#if defined(__MICROBLAZE__) || defined(__riscv)
 #ifndef  SDT
 #define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
 #else
@@ -121,7 +121,7 @@ XV_frmbufrd_Config frmbufrd_cfg;
 XV_FrmbufWr_l2     frmbufwr;
 XV_frmbufwr_Config frmbufwr_cfg;
 XVtc       vtc;
-#if defined(__MICROBLAZE__)
+#if defined(__MICROBLAZE__) || defined(__riscv)
 XIntc      intc;
 #else
 XScuGic    intc;
@@ -188,7 +188,7 @@ static int CheckVidinOverflow(void);
  */
 static int SetupInterrupts(void)
 {
-#if defined(__MICROBLAZE__)
+#if defined(__MICROBLAZE__) || defined(__riscv)
   int Status;
   XIntc *IntcPtr = &intc;
 

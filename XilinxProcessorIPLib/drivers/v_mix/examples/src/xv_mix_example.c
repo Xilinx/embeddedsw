@@ -54,7 +54,7 @@
 #include "xgpio.h"
 
 #ifndef SDT
-#if defined (__MICROBLAZE__)
+#if defined (__MICROBLAZE__) || defined(__riscv)
 #include "xintc.h"
 #else
 #include "xscugic.h"
@@ -63,7 +63,7 @@
 #include "xinterrupt_wrap.h"
 #endif
 
-#if defined(__MICROBLAZE__)
+#if defined(__MICROBLAZE__) || defined(__riscv)
 #ifndef  SDT
 #define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
 #else
@@ -109,7 +109,7 @@ extern unsigned char Logo_A[];
 XV_tpg     tpg;
 XV_Mix_l2  mix;
 XVtc       vtc;
-#if defined (__MICROBLAZE__)
+#if defined (__MICROBLAZE__) || defined(__riscv)
 XIntc      intc;
 #else
 XScuGic    intc;
@@ -212,7 +212,7 @@ static int CheckVidoutLock(void);
  */
 static int SetupInterrupts(void)
 {
-#if defined(__MICROBLAZE__)
+#if defined(__MICROBLAZE__) || defined(__riscv)
   int Status;
   XIntc *IntcPtr = &intc;
 
