@@ -45,17 +45,6 @@ typedef struct XPm_ResetNode XPm_ResetNode;
 typedef struct XPm_ResetHandle XPm_ResetHandle;
 
 /**
- * xPmResetOps - Reset operations
- * @SetState	Assert or release reset line
- * @GetState	Get current status of reset line
- */
-typedef struct XPmResetOps {
-	XStatus (*const SetState)(XPm_ResetNode *Rst, const u32 Action);
-	u32 (*const GetState)(const XPm_ResetNode *Rst);
-} XPm_ResetOps;
-
-
-/**
  * XPm_ResetHandle - This models reset/device pair.
  */
 struct XPm_ResetHandle {
@@ -73,7 +62,6 @@ struct XPm_ResetNode {
 	u16 Parents[MAX_RESET_PARENTS]; /**< List of Parent Reset Index */
 	uint8_t Shift;
 	uint8_t Width;
-	XPm_ResetOps *Ops;
 	XPm_ResetHandle *RstHandles; /**< Pointer to the reset/device pairs */
 };
 
