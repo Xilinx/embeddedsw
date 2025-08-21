@@ -26,6 +26,7 @@
 * 1.13  sk   12/13/2024 Added proc buffer init in XPlm_HookBeforePmcCdo
 * 1.14  sk   03/25/2025 Updated platform name
 *	rmv  07/17/2025 Added call to XOcp_NotifyAsu()
+* 1.15  tt  08/20/2025 Add IPI re-init after IPU(Impactless PLM Update)
 *
 * </pre>
 *
@@ -99,6 +100,15 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 	int Status = XST_FAILURE;
 
 	(void)Arg;
+#ifdef XPLMI_IPI_DEVICE_ID
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		Status = XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask, NULL);
+		if (XST_SUCCESS != Status) {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Error %u in IPI initialization\r\n", Status);
+			goto END;
+		}
+	}
+#endif /* XPLMI_IPI_DEVICE_ID */
 	/*
 	 * if ROM SWDT usage EFUSE is enabled and no WDT is configured,
 	 * enable WDT with default timeout
