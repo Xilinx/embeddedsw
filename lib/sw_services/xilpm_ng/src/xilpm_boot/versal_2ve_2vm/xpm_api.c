@@ -1941,25 +1941,12 @@ static XStatus PldInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArg
 		goto done;
 	}
 
-	if (NULL == PlDevice->Ops) {
-		DbgErr = XPM_INT_ERR_NO_FEATURE;
-		goto done;
-	}
-
 	switch (Function) {
 	case (u32)FUNC_INIT_START:
-		if (NULL == PlDevice->Ops->InitStart) {
-			DbgErr = XPM_INT_ERR_NO_FEATURE;
-			goto done;
-		}
-		Status = PlDevice->Ops->InitStart(PlDevice, Args, NumArgs);
+		Status = XPmPlDevice_InitStart(PlDevice, Args, NumArgs);
 		break;
 	case (u32)FUNC_INIT_FINISH:
-		if (NULL == PlDevice->Ops->InitFinish) {
-			DbgErr = XPM_INT_ERR_NO_FEATURE;
-			goto done;
-		}
-		Status = PlDevice->Ops->InitFinish(PlDevice, Args, NumArgs);
+		Status = XPmPlDevice_InitFinish(PlDevice, Args, NumArgs);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -1970,11 +1957,7 @@ static XStatus PldInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArg
 		}
 		break;
 	case (u32)FUNC_MEM_CTRLR_MAP:
-		if (NULL == PlDevice->Ops->MemCtrlrMap) {
-			DbgErr = XPM_INT_ERR_NO_FEATURE;
-			goto done;
-		}
-		Status = PlDevice->Ops->MemCtrlrMap(PlDevice, Args, NumArgs);
+		Status = XPmPlDevice_MemCtrlrMap(PlDevice, Args, NumArgs);
 		break;
 	default:
 		DbgErr = XPM_INT_ERR_INVALID_FUNC;

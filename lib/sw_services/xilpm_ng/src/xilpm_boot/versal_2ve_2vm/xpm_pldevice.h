@@ -19,13 +19,6 @@ extern "C" {
  * PLD node class.
  */
 typedef struct XPm_PlDeviceNode XPm_PlDevice;
-typedef struct XPm_PldInitNodeOps XPm_PldInitNodeOps;
-
-struct XPm_PldInitNodeOps {
-	XStatus (*InitStart)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
-	XStatus (*InitFinish)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
-	XStatus (*MemCtrlrMap)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
-};
 
 struct XPm_PlDeviceNode {
 	XPm_Device Device;              /**< Device: Base class */
@@ -35,9 +28,8 @@ struct XPm_PlDeviceNode {
 	u32 NocClockEnablement[MAX_NOC_CLOCK_ARRAY_SIZE];	/**< Bit array representing NoC clock enablement */
 	XPm_PlDevice *Parent;           /**< Parent of PLD */
 	XPm_PlDevice *NextPeer;         /**< Sibling/Peer of PLD */
-	XPm_PlDevice *Child;            /**< Child head PLD’s children */
+	XPm_PlDevice *Child;            /**< Child head PLD's children */
 	XPm_MemCtrlrDevice *MemCtrlr[MAX_PLAT_DDRMC_COUNT];	/**< Link to DDR Mem controllers */
-	XPm_PldInitNodeOps *Ops;	/**< Node Initialization Operations */
 	struct XPm_AieDeviceNode *AieDevice;       /**< Link to AIE Device */
 };
 
@@ -55,6 +47,11 @@ XStatus XPmPlDevice_IfNocClkEnable(XPlmi_Cmd *Cmd, u32 BitArrayIdx, u16 State,
 void XPmPlDevice_ReleaseAieDevice(XPm_PlDevice *PlDevice);
 void XPmPlDevice_GetAieParent(const XPm_Device* Device, const XPm_PlDevice **OutParent);
 void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId));
+
+/* PLD Operations Functions */
+XStatus XPmPlDevice_InitStart(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
+XStatus XPmPlDevice_InitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
+XStatus XPmPlDevice_MemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
 #ifdef __cplusplus
 }
 #endif

@@ -347,7 +347,20 @@ done:
 	return Status;
 }
 
-static XStatus PlInitStart(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
+/****************************************************************************/
+/**
+ * @brief  Start Node initialization for PlDevice
+ *
+ * @param  PlDevice: PlDevice pointer
+ * @param  Args: Arguments for PlDevice
+ * @param  NumArgs: Number of arguments for PlDevice
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note Arguments consist of Power Domain Node Ids that PlDevice depends on
+ *
+ ****************************************************************************/
+XStatus XPmPlDevice_InitStart(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_FUNC_INIT_START;
@@ -410,6 +423,7 @@ done:
 /**
  * @brief  Finish Node initialization for PlDevice
  *
+ * @param  PlDevice: PlDevice pointer
  * @param  Args: Arguments for PlDevice
  * @param  NumArgs: Number of arguments for PlDevice
  *
@@ -418,7 +432,7 @@ done:
  * @note Arguments consist of Power Domain Node Ids that PlDevice depends on
  *
  ****************************************************************************/
-static XStatus PlInitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
+XStatus XPmPlDevice_InitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
@@ -487,6 +501,7 @@ done:
 /**
  * @brief  DDRMC mapping/annotation for PlDevice
  *
+ * @param  PlDevice: PlDevice pointer
  * @param  Args: Arguments for PlDevice
  * @param  NumArgs: Number of arguments for PlDevice
  *
@@ -498,7 +513,7 @@ done:
  * exactly one PLD, however each PLD can link to one or more DDRMC devices.
  *
  ****************************************************************************/
-static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
+XStatus XPmPlDevice_MemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -622,11 +637,6 @@ done:
 	return Status;
 }
 
-static struct XPm_PldInitNodeOps PldOps = {
-	.InitStart = PlInitStart,
-	.InitFinish = PlInitFinish,
-	.MemCtrlrMap = PldMemCtrlrMap,
-};
 
 /****************************************************************************/
 /**
@@ -660,7 +670,6 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 	PlDevice->AieDevice = NULL;
 	PlDevice->PowerBitMask = (u8)0x0U;
 	PlDevice->WfPowerBitMask = (u8)0x0U;
-	PlDevice->Ops = &PldOps;
 
 	Status = XPmDevice_Init(&PlDevice->Device, PldId, BaseAddress, Power, Clock, Reset);
 	if (XST_SUCCESS != Status) {
