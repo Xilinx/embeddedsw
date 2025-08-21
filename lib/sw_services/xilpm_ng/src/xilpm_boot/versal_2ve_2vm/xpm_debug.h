@@ -627,12 +627,6 @@ extern "C" {
 
 /*********************** AIE Device specific Errors **************************/
 /************************** (0x4980) - (0x49FF) ******************************/
-/* Uninitialized Init Node Ops field for AIE Device */
-#define XPM_INT_ERR_AIE_UNDEF_INIT_NODE				0x4980U
-/* Uninitialized Init Node Start function pointer for AIE Device */
-#define XPM_INT_ERR_AIE_UNDEF_INIT_NODE_START			0x4981U
-/* Uninitialized Init Node finish function pointer for AIE Device */
-#define XPM_INT_ERR_AIE_UNDEF_INIT_NODE_FINISH			0x4982U
 /* Error: PM_DEV_AIE is not present in topology */
 #define XPM_INT_ERR_DEV_AIE					0x4983U
 /* Error due to parentless AIE Device */

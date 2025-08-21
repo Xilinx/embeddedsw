@@ -42,3 +42,53 @@ done:
 	return Status;
 
 }
+
+/****************************************************************************/
+/**
+ * @brief  Perform initialization start operations for AIE Device
+ *
+ * @param  AieDevice: Pointer to an AieDevice struct
+ * @param  Args: Arguments passed from topology
+ * @param  NumArgs: Number of arguments
+ *
+ * @return XST_SUCCESS (stub implementation)
+ *
+ * @note This is a stub implementation. Add specific initialization
+ *       operations as needed.
+ *
+ ****************************************************************************/
+XStatus XPmAieDevice_InitStart(XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs)
+{
+	(void)AieDevice;
+	(void)Args;
+	(void)NumArgs;
+
+	/* TODO: Add device-specific initialization start operations */
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Perform initialization finish operations for AIE Device
+ *
+ * @param  AieDevice: Pointer to an AieDevice struct
+ * @param  Args: Arguments passed from topology
+ * @param  NumArgs: Number of arguments
+ *
+ * @return XST_SUCCESS (stub implementation)
+ *
+ * @note This is a stub implementation. Add specific initialization
+ *       finish operations as needed.
+ *
+ ****************************************************************************/
+XStatus XPmAieDevice_InitFinish(const XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs)
+{
+	(void)AieDevice;
+	(void)Args;
+	(void)NumArgs;
+
+	/* TODO: Add device-specific initialization finish operations */
+
+	return XST_SUCCESS;
+}
