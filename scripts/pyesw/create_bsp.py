@@ -511,8 +511,7 @@ def create_domain(args):
     cmake_paths_append = f" -DCMAKE_LIBRARY_PATH={obj.lib_folder} \
 -DCMAKE_INCLUDE_PATH={obj.include_folder} \
 -DCMAKE_MODULE_PATH={obj.domain_dir} \
--DCMAKE_TOOLCHAIN_FILE={obj.toolchain_file} \
--DCMAKE_VERBOSE_MAKEFILE=ON"
+-DCMAKE_TOOLCHAIN_FILE={obj.toolchain_file}"
 
     if "gcc" in obj.compiler:
         cmake_paths_append += f" -DCMAKE_SPECS_FILE={obj.specs_file} "
@@ -715,6 +714,23 @@ def create_domain(args):
     utils.copy_file(libxil_cmake, f"{obj.libsrc_folder}/")
 
     bsp_libsrc_cmake_subdirs = "libsrc standalone " + " ".join(lib_list)
+    cmake_extra_flags_append=f'''
+
+        split_string_by_length("Compiler FLAGS: ${{CMAKE_C_FLAGS}} ${{proc_extra_compiler_flags}} ${{CMAKE_C_FLAGS_RELEASE}}" 100 CHUNKS)
+
+        add_custom_target(print_compiler ALL
+            COMMAND ${{CMAKE_COMMAND}} -E echo ""
+            COMMAND ${{CMAKE_COMMAND}} -E echo "Compiler PATH: ${{CMAKE_C_COMPILER}}"
+            COMMAND ${{CMAKE_COMMAND}} -E echo ""
+            COMMAND ${{CMAKE_COMMAND}} -E cmake_echo_color ${{CHUNKS}}
+            COMMAND ${{CMAKE_COMMAND}} -E echo ""
+            COMMAND ${{CMAKE_COMMAND}} -E echo "==========================================="
+            COMMAND ${{CMAKE_COMMAND}} -E echo "** The above flags are BSP level flags. Increase verbosity to see component specific flags **"
+            COMMAND ${{CMAKE_COMMAND}} -E echo "==========================================="
+            COMMENT "========== BSP Build Information =========="
+        )'''
+    if args.get("verbose") > 1:
+        cmake_extra_flags_append = ''
 
     # Create new CMakeLists.txt
     cmake_file = os.path.join(obj.domain_dir, "CMakeLists.txt")
@@ -739,7 +755,6 @@ if (EXISTS ${{metal_BINARY_DIR}})
 include_directories(${{metal_BINARY_DIR}}/lib/include)
 endif()
 set (BSP_LIBSRC_SUBDIRS {bsp_libsrc_cmake_subdirs})
-
 if (SUBDIR_LIST STREQUAL "ALL")
     set (SUBDIR_LIST ${{BSP_LIBSRC_SUBDIRS}})
 endif()
@@ -758,6 +773,7 @@ cmake_language(DEFER DIRECTORY ${{CMAKE_SOURCE_DIR}} CALL _my_hook_end_of_config
 function(_my_hook_end_of_configure)
     set(SUBDIR_LIST "ALL" CACHE STRING "sub dir list" FORCE)
 endfunction(_my_hook_end_of_configure)
+{cmake_extra_flags_append}
     '''
 
     utils.write_into_file(cmake_file, cmake_file_cmds)

@@ -67,7 +67,9 @@ file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 string(APPEND CMAKE_C_LINK_FLAGS ${USER_LINK_OPTIONS})
 
 add_executable(${APP_NAME}.elf ${S_SOURCES} ${_sources})
-target_link_libraries(${APP_NAME}.elf -Wl,-Map=${APP_NAME}.map -Wl,--build-id=none -Wl,--gc-sections -T\"${CMAKE_CURRENT_SOURCE_DIR}/lscript.ld\" -L\"${CMAKE_LIBRARY_PATH}/\" -L\"${USER_LINK_DIRECTORIES}/\" -Wl,--start-group ${_deps} -Wl,--end-group)
+string (REPLACE ";" ",-l" _deps "${_deps}")
+set(_linker_command "-Wl,-Map=${APP_NAME}.map -Wl,--build-id=none -Wl,--gc-sections -T\"${CMAKE_CURRENT_SOURCE_DIR}/lscript.ld\" -L\"${CMAKE_LIBRARY_PATH}/\" -L\"${USER_LINK_DIRECTORIES}/\" -Wl,--start-group,-l${_deps} -Wl,--end-group")
+target_link_libraries(${APP_NAME}.elf ${_linker_command})
 
 target_compile_definitions(${APP_NAME}.elf PUBLIC ${USER_COMPILE_DEFINITIONS})
 if (${NON_YOCTO})
@@ -76,5 +78,5 @@ if (${NON_YOCTO})
       "${CMAKE_BINARY_DIR}/include")
   target_include_directories(${APP_NAME}.elf PUBLIC ${INCLUDE_DIRS} ${USER_INCLUDE_DIRECTORIES})
 endif()
-
+print_build_info_target(${APP_NAME}.elf "${CMAKE_C_FLAGS}" "${USER_COMPILE_DEFINITIONS}" "${CMAKE_C_LINK_FLAGS}" "${_linker_command}")
 print_elf_size(CMAKE_SIZE ${APP_NAME})

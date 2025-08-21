@@ -27,6 +27,7 @@ class BSP:
 
     def __init__(self, args):
         self.domain_path = utils.get_abs_path(args.get("domain_path"))
+        self.verbose = args.get("verbose")
         self.domain_config_file = os.path.join(self.domain_path, "bsp.yaml")
         utils.validate_if_not_exist(
             self.domain_config_file, "domain", utils.get_base_name(self.domain_path)
@@ -52,8 +53,7 @@ class BSP:
         self.cmake_paths_append = f" -DCMAKE_LIBRARY_PATH={self.lib_folder} \
 -DCMAKE_INCLUDE_PATH={self.include_folder} \
 -DCMAKE_MODULE_PATH={self.domain_path} \
--DCMAKE_TOOLCHAIN_FILE={self.toolchain_file} \
--DCMAKE_VERBOSE_MAKEFILE=ON"
+-DCMAKE_TOOLCHAIN_FILE={self.toolchain_file}"
 
         if domain_data.get("compiler", "gcc") == "gcc":
             self.cmake_paths_append += f" -DCMAKE_SPECS_FILE={self.specs_file} "
@@ -110,22 +110,31 @@ endfunction(_my_hook_end_of_configure)
             logger.debug("Reconfiguring BSP")
             utils.touch(cmake_file)
             utils.update_yaml(self.domain_config_file, "domain", "config", "None")
-
+        verbosity = utils.get_cmake_verbosity(self.verbose)
+        capture_output = True if verbosity == "" else False
+        cmake_cmd = f'cmake --build . --parallel 22 {verbosity}'
         utils.runcmd(
-            "cmake --build . --parallel 22 --verbose",
+            cmake_cmd,
             cwd = build_libxil,
             log_message = "Building BSP",
             error_message = "Failed to build the BSP",
-            verbose_level = 0
+            verbose_level = 0,
+            capture_output = capture_output
         )
+        # Redirecting output to NUL
+        dump = f' > {utils.discard_dump()}'
+        if self.verbose > 1:
+            dump = ""
 
         utils.runcmd(
-            "cmake --install .",
+            f"cmake --install . {dump}",
             cwd = build_libxil,
             log_message = "Copying headers and built archives",
             error_message = "Failed to copy headers and built archives, cmake install failed",
             verbose_level = 0
         )
+        archives = [os.path.basename(archive) for archive in utils.find_files("*.a", os.path.join(self.domain_path, "lib"))]
+        logger.info(f"Successfully built BSP. Generated {', '.join(archives)}")
 
     def clean_bsp(self):
         self.libsrc_folder = self.libsrc_folder.replace("\\", "/")
@@ -160,6 +169,7 @@ def generate_bsp(args):
     """
     Function to compile the created bsp for the user input domain path.
     """
+
     obj = BSP(args)
     if obj.cleanbsp:
         obj.clean_bsp()

@@ -91,17 +91,20 @@ def build_app(args):
             f'collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})',
         )
     utils.runcmd(
-        f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append}',
+        f'cmake -G "{obj.cmake_generator}" {obj.app_src_dir} {obj.cmake_paths_append} > {utils.discard_dump()}',
         cwd = obj.app_build_dir,
         log_message = f"Configuring CMake for the Application",
         error_message = f"CMake Configuration for the Application Failed",
     )
     utils.copy_file(f"{obj.app_build_dir}/compile_commands.json", obj.app_src_dir, silent_discard=True)
+    verbosity = utils.get_cmake_verbosity(obj.verbose)
+    capture_output = True if verbosity == "" else False
     utils.runcmd(
-        "cmake --build . --parallel 22 --verbose",
+        f"cmake --build . --parallel 22 {verbosity}",
         cwd = obj.app_build_dir,
         log_message = f"Building Application",
         error_message = f"Application Building Failed",
+        capture_output=capture_output,
         verbose_level = 0
     )
 

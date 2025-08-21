@@ -412,7 +412,7 @@ def replace_string(File, search_string: str, replace_string: str) -> None:
         raise FileNotFoundError(err_msg)
 
 @log_time
-def runcmd(cmd, cwd=None, log_message=None, error_message=None, verbose_level = None):
+def runcmd(cmd, cwd=None, log_message=None, error_message=None, verbose_level = None, capture_output= False):
     """
     Run the shell commands.
 
@@ -424,7 +424,14 @@ def runcmd(cmd, cwd=None, log_message=None, error_message=None, verbose_level = 
     try:
         if log_message and verbose_level == 0:
             logger.info(log_message)
-        subprocess.check_call(cmd, cwd=cwd, shell=True)
+        if not capture_output:
+            subprocess.check_call(cmd, cwd=cwd, shell=True)
+        else:
+            with subprocess.Popen(cmd, shell =True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=cwd) as process:
+                for line in process.stdout:
+                    print(line.strip('\n'))
+                if process.wait() != 0:
+                    raise subprocess.CalledProcessError(process.returncode, cmd)
     except subprocess.CalledProcessError as exc:
         logger.error(exc)
         if error_message is not None:
@@ -627,3 +634,13 @@ def setup_log(verbose_level):
         logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - [%(levelname)s]: %(message)s')
     else:
         logging.basicConfig(level=logging.INFO,format='[%(levelname)s]: %(message)s')
+
+def get_cmake_verbosity(verbose=0):
+    """
+    Returns the cmake verbosity string based on the verbose level.
+    """
+    if verbose > 1 or os.environ.get("CMAKE_VERBOSE_MAKEFILE"):
+        verbosity = "--verbose"
+    else:
+        verbosity = ""
+    return verbosity

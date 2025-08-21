@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 project(libxil)
@@ -64,7 +64,9 @@ add_custom_target(combined ALL
 	COMMAND ${CUSTOM_COMMAND}
 	COMMAND ${CMAKE_COMMAND} -E copy ${XIL_LIB} ${CMAKE_LIBRARY_PATH}
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+	COMMENT "Archiving C static library libsrc/build_configs/gen_bsp/libxil.a"
 	DEPENDS ${DRIVER_LIST})
+
 if("${proc_compiler}" STREQUAL "iccarm.exe")
     add_custom_target(remove ALL
         COMMAND ${CMAKE_COMMAND} -E remove ${EXTRACTED_OBJECTS}

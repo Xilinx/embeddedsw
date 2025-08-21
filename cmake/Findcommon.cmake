@@ -1,3 +1,4 @@
+
 # Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
@@ -289,6 +290,38 @@ function(add_dependency_on_bsp sources)
     file(GLOB bsp_archives "${CMAKE_LIBRARY_PATH}/*.a")
     set_source_files_properties(${${sources}} OBJECT_DEPENDS "${bsp_archives}")
   endif()
+endfunction()
+
+function(split_string_by_length INPUT_STRING CHUNK_SIZE OUTPUT_LIST)
+    string(LENGTH "${INPUT_STRING}" STRING_LENGTH)
+    set(INDEX 0)
+    set(RESULT)
+
+    while(INDEX LESS STRING_LENGTH)
+        math(EXPR NEXT_INDEX "${INDEX} + ${CHUNK_SIZE}")
+        string(SUBSTRING "${INPUT_STRING}" ${INDEX} ${CHUNK_SIZE} CHUNK)
+        list(APPEND RESULT "${CHUNK}")
+        set(INDEX "${NEXT_INDEX}")
+    endwhile()
+
+    set(${OUTPUT_LIST} "${RESULT}" PARENT_SCOPE)
+endfunction()
+
+function(print_build_info_target target_name compiler_flags compile_defs linker_flags linker_command)
+    split_string_by_length("Compiler Flags: ${compiler_flags}  ${compile_defs}" 100 cflag_print)
+    split_string_by_length("Linker Flags: ${linker_flags} ${linker_command}" 100 linker_flag_print)
+
+    add_custom_target(print_build_info ALL
+        COMMAND ${CMAKE_COMMAND} -E echo ""
+        COMMAND ${CMAKE_COMMAND} -E cmake_echo_color ${cflag_print}
+        COMMAND ${CMAKE_COMMAND} -E echo ""
+        COMMAND ${CMAKE_COMMAND} -E cmake_echo_color ${linker_flag_print}
+        COMMAND ${CMAKE_COMMAND} -E echo ""
+        COMMAND ${CMAKE_COMMAND} -E echo "==========================================="
+        COMMENT "==========Application Build Information =========="
+        VERBATIM
+    )
+    add_dependencies(${target_name} print_build_info)
 endfunction()
 
 macro(remove_pg)
