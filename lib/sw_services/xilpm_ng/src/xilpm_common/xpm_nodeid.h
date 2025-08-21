@@ -424,6 +424,8 @@ extern "C" {
 #define PM_RST_MMI_GEM				(0xC104120U)
 #define PM_RST_MMI_GEM_CFG			(0xC104121U)
 #define PM_RST_MMI_GEM_TSU			(0xC104122U)
+#define PM_RST_CAN_FD_4				(0xC104123U)
+#define PM_RST_CAN_FD_5				(0xC104124U)
 /** @} */
 
 /**
@@ -662,6 +664,8 @@ extern "C" {
 #define PM_CLK_SOCDMA				(0x82080E1U)
 #define PM_CLK_DC_REF				(0x82080E2U)
 #define PM_CLK_DC_27M				(0x82080E3U)
+#define PM_CLK_CAN5_REF_2X			(0x82080E4U)
+#define PM_CLK_CAN4_REF_2X			(0x82080E5U)
 /** @} */
 
 /**
@@ -1079,6 +1083,8 @@ extern "C" {
 #define PM_DEV_MMI_HDCP				(0x18224138U)
 #define PM_DEV_MMI_DP				(0x18224139U)
 #define PM_DEV_MMI_GEM				(0x1822413AU)
+#define PM_DEV_CAN_FD_4				(0x1822413BU)
+#define PM_DEV_CAN_FD_5				(0x1822413CU)
 /** @} */
 
 /**
