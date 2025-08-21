@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -142,6 +142,8 @@ extern "C" {
  *				register during the PMU firmware initialization and
  *				restart processes, ensuring the boot partition is
  *				maintained during a restart.
+ *	- ENABLE_MEM_RANGE: Validates the requested address details before proceeding
+ *			    further.
  */
 #ifndef ENABLE_PM_VAL
 #define	ENABLE_PM_VAL						(1U)
@@ -321,6 +323,22 @@ extern "C" {
 
 #ifndef ENABLE_CSU_MULTIBOOT_VAL
 #define ENABLE_CSU_MULTIBOOT_VAL			(0U)
+#endif
+
+#ifndef ENABLE_MEM_RANGE_VAL
+#define ENABLE_MEM_RANGE_VAL				(1U)
+#endif
+
+#ifndef ENABLE_MEM_RANGE_PM_SET_CONFIG_VAL
+#define ENABLE_MEM_RANGE_PM_SET_CONFIG_VAL		(0U)
+#endif
+
+#ifndef ENABLE_MEM_RANGE_PM_SELF_SUSPEND_VAL
+#define ENABLE_MEM_RANGE_PM_SELF_SUSPEND_VAL		(0U)
+#endif
+
+#ifndef ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP_VAL
+#define ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP_VAL		(0U)
 #endif
 
 /*
@@ -637,6 +655,22 @@ extern "C" {
 
 #if (ENABLE_CSU_MULTIBOOT_VAL) && (!defined(ENABLE_CSU_MULTIBOOT))
 #define ENABLE_CSU_MULTIBOOT
+#endif
+
+#if (ENABLE_MEM_RANGE_VAL) && (!defined(ENABLE_MEM_RANGE))
+#define ENABLE_MEM_RANGE
+#endif
+
+#if (ENABLE_MEM_RANGE_PM_SET_CONFIG_VAL) && (!defined(ENABLE_MEM_RANGE_PM_SET_CONFIG))
+#define ENABLE_MEM_RANGE_PM_SET_CONFIG
+#endif
+
+#if (ENABLE_MEM_RANGE_PM_SELF_SUSPEND_VAL) && (!defined(ENABLE_MEM_RANGE_PM_SELF_SUSPEND))
+#define ENABLE_MEM_RANGE_PM_SELF_SUSPEND
+#endif
+
+#if (ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP_VAL) && (!defined(ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP))
+#define ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP
 #endif
 
 #ifdef __cplusplus

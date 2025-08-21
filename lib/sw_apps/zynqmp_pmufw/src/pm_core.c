@@ -275,9 +275,20 @@ static void PmSelfSuspend(const PmMaster *const master,
 	u32 worstCaseLatency = 0U;
 	/* the node ID must refer to a processor belonging to this master */
 	PmProc* proc = PmGetProcOfThisMaster(master, (PmNodeId)node);
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_PM_SELF_SUSPEND)
+	u32 length = SELF_SUSPEND_DDR_OCM_ADDR_LEN;
+	u32 access = MEM_RANGE_ANY_ACCESS;
+#endif
 
 	PmInfo("%s> SelfSuspend(%lu, %lu, %lu, 0x%llx)\r\n", master->name, node,
 	       latency, state, address);
+
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_PM_SELF_SUSPEND)
+	if(0U == PmIsValidAddressRange(master, address, length, access)) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+#endif
 
 	if (NULL == proc) {
 		PmLog(PM_ERRNO_INVALID_NODE, node, master->name);
@@ -488,9 +499,19 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 	s32 status;
 	u32 oppoint = 0U;
 	PmProc* proc = (PmProc*)PmNodeGetProc(node);
-
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP)
+	u32 length = REQUEST_WAKEUP_OCM_ADDR_LEN;
+	u32 access = MEM_RANGE_ANY_ACCESS;
+#endif
 	PmInfo("%s> RequestWakeup(%lu, %lu, %llu, %lu)\r\n", master->name, node,
 	       setAddress, address, ack);
+
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP)
+	if(0U == PmIsValidAddressRange(master, address, length, access)) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+#endif
 
 	if ((NULL == proc) || (NULL == proc->master)) {
 		PmLog(PM_ERRNO_INVALID_NODE, node, master->name);
@@ -1473,14 +1494,35 @@ static void PmSetConfiguration(const PmMaster *const master, const u32 address)
 	s32 status;
 	u32 configAddr = address;
 	u32 callerIpiMask = master->ipiMask;
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_PM_SET_CONFIG)
+	u32 access = MEM_RANGE_ANY_ACCESS;
+	u32 length;
+#endif
 
 	PmInfo("%s> SetConfig(0x%lx)\r\n", master->name, address);
+
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_PM_SET_CONFIG)
+	if ((address >= OCM_START_ADDR) && (address <= OCM_END_ADDR)) {
+		length = BASE_CONFIG_OBJ_LEN;
+	} else {
+		length = OVERLAY_CONFIG_OBJ_LEN;
+	}
+
+	if(0U == PmIsValidAddressRange(master, address, length, access)) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+#endif
 
 	if (NULL != master->remapAddr) {
 		configAddr = master->remapAddr(address);
 	}
 
 	status = PmConfigLoadObject(configAddr, callerIpiMask);
+
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_PM_SET_CONFIG)
+done:
+#endif
 	/*
 	 * Respond using the saved IPI mask of the caller (master's IPI mask
 	 * may change after setting the configuration)

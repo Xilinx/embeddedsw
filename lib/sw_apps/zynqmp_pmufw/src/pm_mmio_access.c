@@ -1,5 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -27,6 +28,85 @@ enum mmio_access_type {
 	MMIO_ACCESS_TYPE_READ,
 	MMIO_ACCESS_TYPE_WRITE,
 };
+
+#ifdef ENABLE_MEM_RANGE
+/**
+ * PmMemRange - Represents a memory range and its associated access permissions.
+ * @address	Base address of the memory range.
+ * @length	Length of the memory range in bytes.
+ * @ipiMask	IPI mask identifying the processor(s) allowed to access this range.
+ * @access	Access permission type for the memory range.
+ */
+typedef struct {
+	UINTPTR address;
+	u32 length;
+	u32 ipiMask;
+	u32 access;
+} PmMemRange;
+
+static PmMemRange addressTable[] = {
+#ifdef ENABLE_MEM_RANGE_PM_SET_CONFIG
+	{
+		/* PmSetConfiguration
+		 * This block is used to check the base configuration object.
+		 * Note that the size specified below may vary depending on
+		 * the design, so the parameters may need to be adjusted as
+		 * required. This block is provided for reference only.
+		 */
+		.address = BASE_CONFIG_OBJ_START_ADDR,
+		.length = BASE_CONFIG_OBJ_LEN,
+		.ipiMask = IPI_PMU_0_IER_APU_MASK,
+		.access = MEM_RANGE_ANY_ACCESS,
+	},
+	{
+		/* PmSetConfiguration
+		 * This block is used to check the overlay configuration object.
+		 * Note that the size specified below may vary depending on
+		 * the design, so the parameters may need to be adjusted as
+		 * required. This block is provided for reference only.
+		 */
+		.address = OVERLAY_CONFIG_OBJ_START_ADDR,
+		.length = OVERLAY_CONFIG_OBJ_LEN,
+		.ipiMask = IPI_PMU_0_IER_APU_MASK,
+		.access = MEM_RANGE_ANY_ACCESS,
+	},
+#endif
+#ifdef ENABLE_MEM_RANGE_PM_SELF_SUSPEND
+	{
+		/* PmSelfSuspend
+		 * This block is used to check the address details from which
+		 * the core is supposed to resume.
+		 */
+		.address = SELF_SUSPEND_DDR_START_ADDR,
+		.length = SELF_SUSPEND_DDR_OCM_ADDR_LEN,
+		.ipiMask = IPI_PMU_0_IER_APU_MASK,
+		.access = MEM_RANGE_ANY_ACCESS,
+	},
+	{
+		/* PmSelfSuspend
+		 * This block is used to check the address details from which
+		 * the core is supposed to resume.
+		 */
+		.address = SELF_SUSPEND_OCM_START_ADDR,
+		.length = SELF_SUSPEND_DDR_OCM_ADDR_LEN,
+		.ipiMask = IPI_PMU_0_IER_APU_MASK,
+		.access = MEM_RANGE_ANY_ACCESS,
+	},
+#endif
+#ifdef ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP
+	{
+		/* PmRequestWakeup
+		 * This block is used to check the address details from which
+		 * the core is supposed to resume.
+		 */
+		.address = REQUEST_WAKEUP_OCM_START_ADDR,
+		.length = REQUEST_WAKEUP_OCM_ADDR_LEN,
+		.ipiMask = IPI_PMU_0_IER_APU_MASK,
+		.access = MEM_RANGE_ANY_ACCESS,
+	},
+#endif
+};
+#endif
 
 /**
  * PmAccessRegion - Structure containing information about memory access
@@ -865,6 +945,47 @@ static const PmAccessRegion pmAccessTable[] = {
 #endif
 
 };
+
+#ifdef ENABLE_MEM_RANGE
+/**
+ * PmIsValidAddressRange - Checks if a given memory range is valid for a
+ *			   specific master.
+ * @master	Master who requests access permission.
+ * @address	Base address of the memory range to validate.
+ * @length	Length of the memory range in bytes.
+ * @access	Requested access type.
+ *
+ * @return
+ * - `1U` if the memory range is valid for the master with the given access.
+ * - `0U` if the memory range is invalid.
+ */
+u32 PmIsValidAddressRange(const PmMaster *const master, const UINTPTR address,
+			  const u32 length, const u32 access)
+{
+	u32 status = 0U;
+	u32 i;
+
+	if (ARRAYSIZE(addressTable) == 0U) {
+		/* Allow any access by default. */
+		status = 1U;
+		PmWarn("Address table is empty.\r\n");
+		goto done;
+	}
+
+	for (i = 0; i < ARRAYSIZE(addressTable); i++) {
+		PmMemRange range = addressTable[i];
+		if (((range.ipiMask & master->ipiMask) == range.ipiMask) &&
+		    ((range.access & access) == range.access) &&
+		    (range.address <= address) &&
+		    ((address + length - range.address) <= range.length)) {
+			status = 1U;
+			break;
+		}
+	}
+done:
+	return status;
+}
+#endif
 
 /**
  * PmGetMmioAccess() - Retrieve access info for a particular address

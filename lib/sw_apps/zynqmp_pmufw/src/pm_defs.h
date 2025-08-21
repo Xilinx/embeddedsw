@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -661,6 +661,18 @@ typedef enum {
 #define PINCTRL_CONFIG_VOLTAGE_STATUS	5U
 #define PINCTRL_CONFIG_TRI_STATE	6U
 #define PINCTRL_MAX_CONFIG		7U
+
+/* DDR low memory details */
+#define DDR_LOW_START_ADDR      0x00000000U
+#define DDR_LOW_END_ADDR        0x7FFFFFFFU
+
+/* DDR high memory details */
+#define DDR_HIGH_START_ADDR	0x800000000U
+#define DDR_HIGH_END_ADDR	0xFFFFFFFFFU
+
+/* OCM memory details */
+#define OCM_START_ADDR          0xFFFC0000U
+#define OCM_END_ADDR            0xFFFFFFFFU
 
 #ifdef __cplusplus
 }
