@@ -29,7 +29,6 @@
 * @{
 */
 /*************************************** Include Files *******************************************/
-#include "xasu_bsp_config.h"
 #include "xasufw_ipi.h"
 #include "xasufw_queuescheduler.h"
 #include "xasufw_debug.h"
