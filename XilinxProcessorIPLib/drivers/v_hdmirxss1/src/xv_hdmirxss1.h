@@ -49,7 +49,9 @@ extern "C" {
 #include "xstatus.h"
 #include "xv_hdmirx1.h"
 #include "xv_hdmic_vsif.h"
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 #include "xv_hdmirxss1_frl.h"
+#endif
 #if !defined(XV_CONFIG_LOG_VHDMIRXSS1_DISABLE) && \
                                              !defined(XV_CONFIG_LOG_DISABLE_ALL)
 #define XV_HDMIRXSS1_LOG_ENABLE
@@ -672,11 +674,13 @@ u16 XV_HdmiRxSs1_LogRead(XV_HdmiRxSs1 *InstancePtr);
 #endif
 void XV_HdmiRxSs1_LogDisplay(XV_HdmiRxSs1 *InstancePtr);
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 /* Fixed Rate Link */
 void XV_HdmiRxSs1_FrlLinkRetrain(XV_HdmiRxSs1 *InstancePtr, u8 LtpThreshold,
 		XV_HdmiRx1_FrlLtp DefaultLtp);
 void XV_HdmiRxSs1_FrlModeEnable(XV_HdmiRxSs1 *InstancePtr, u8 LtpThreshold,
 				XV_HdmiRx1_FrlLtp DefaultLtp, u8 FfeSuppFlag);
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
 void XV_HdmiRxSs1_SetFrlFltNoTimeout(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_ClearFrlFltNoTimeout(XV_HdmiRxSs1 *InstancePtr);
 

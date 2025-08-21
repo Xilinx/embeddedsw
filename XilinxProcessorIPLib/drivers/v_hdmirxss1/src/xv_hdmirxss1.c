@@ -79,12 +79,14 @@ static void XV_HdmiRxSs1_VicErrorCallback(void *CallbackRef);
 static void XV_HdmiRxSs1_LnkRdyErrorCallback(void *CallbackRef);
 static void XV_HdmiRxSs1_VidRdyErrorCallback(void *CallbackRef);
 static void XV_HdmiRxSs1_SkewLockErrorCallback(void *CallbackRef);
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 static void XV_HdmiRxSs1_FrlLtsLCallback(void *CallbackRef);
 static void XV_HdmiRxSs1_FrlLts1Callback(void *CallbackRef);
 static void XV_HdmiRxSs1_FrlLts2Callback(void *CallbackRef);
 static void XV_HdmiRxSs1_FrlLts3Callback(void *CallbackRef);
 static void XV_HdmiRxSs1_FrlLts4Callback(void *CallbackRef);
 static void XV_HdmiRxSs1_FrlLtsPCallback(void *CallbackRef);
+#endif
 static void XV_HdmiRxSs1_VfpChanged(void *CallbackRef);
 static void XV_HdmiRxSs1_VrrReady(void *CallbackRef);
 static void XV_HdmiRxSs1_DynHdrEvtCallback(void *CallbackRef);
@@ -409,6 +411,7 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
                           (void *)XV_HdmiRxSs1_SkewLockErrorCallback,
                           (void *)InstancePtr);
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
     XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
 			  XV_HDMIRX1_HANDLER_FRL_CONFIG,
 			  (void *)XV_HdmiRxSs1_FrlConfigCallback,
@@ -453,6 +456,7 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
 			  XV_HDMIRX1_HANDLER_FRL_LTSP,
 			  (void *)XV_HdmiRxSs1_FrlLtsPCallback,
 			  (void *)InstancePtr);
+#endif
 
     XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
 			  XV_HDMIRX1_HANDLER_VFP_CHANGE,
@@ -750,8 +754,10 @@ void XV_HdmiRxSs1_Stop(XV_HdmiRxSs1 *InstancePtr)
   /* Clear SCDC variables */
   XV_HdmiRx1_DdcScdcClear(InstancePtr->HdmiRx1Ptr);
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
   /* Disable the scrambler */
   XV_HdmiRx1_SetScrambler(InstancePtr->HdmiRx1Ptr, (FALSE));
+#endif
 
 #ifdef XV_HDMIRXSS1_LOG_ENABLE
   XV_HdmiRxSs1_LogWrite(InstancePtr, XV_HDMIRXSS1_LOG_EVT_STOP, 0);
@@ -942,7 +948,9 @@ static void XV_HdmiRxSs1_ConnectCallback(void *CallbackRef)
     XV_HdmiRxSs1_HdcpPushEvent(HdmiRxSs1Ptr, XV_HDMIRXSS1_HDCP_DISCONNECT_EVT);
 #endif
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
     XV_HdmiRx1_SetScrambler(HdmiRxSs1Ptr->HdmiRx1Ptr, (FALSE)); /*Disable scrambler*/
+#endif
   }
 
 
@@ -1398,11 +1406,15 @@ static void XV_HdmiRxSs1_StreamDownCallback(void *CallbackRef)
   XVidC_VideoStream *VidCStream;
   XHdmiC_DRMInfoFrame *DrmInfoFramePtr;
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
   if (HdmiRxSs1Ptr->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
+#endif
 	  /* Assert HDMI RX core resets */
 	  XV_HdmiRxSs1_RXCore_VRST(HdmiRxSs1Ptr, TRUE);
 	  XV_HdmiRxSs1_RXCore_LRST(HdmiRxSs1Ptr, TRUE);
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
   }
+#endif
   HdmiRxSs1Ptr->HdmiRx1Ptr->IsFirstVtemReceived = FALSE;
 
   /* Assert SYSCLK VID_IN bridge reset */
@@ -1652,6 +1664,7 @@ int XV_HdmiRxSs1_SetCallback(XV_HdmiRxSs1 *InstancePtr,
 	    Status = (XST_SUCCESS);
 	    break;
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 	/* FRL Config */
 	case (XV_HDMIRXSS1_HANDLER_FRL_CONFIG):
             InstancePtr->FrlConfigCallback =
@@ -1667,6 +1680,7 @@ int XV_HdmiRxSs1_SetCallback(XV_HdmiRxSs1 *InstancePtr,
             InstancePtr->FrlStartRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
 
 	/* TMDS Config */
 	case (XV_HDMIRXSS1_HANDLER_TMDS_CONFIG):
@@ -2026,8 +2040,10 @@ void XV_HdmiRxSs1_ToggleHpd(XV_HdmiRxSs1 *InstancePtr)
   /* Clear SCDC variables */
   XV_HdmiRx1_DdcScdcClear(InstancePtr->HdmiRx1Ptr);
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
   /* Disable the scrambler */
   XV_HdmiRx1_SetScrambler(InstancePtr->HdmiRx1Ptr, (FALSE));
+#endif
 
   /* Drive HDMI RX HPD Low */
   XV_HdmiRx1_SetHpd(InstancePtr->HdmiRx1Ptr, (FALSE));
@@ -2258,7 +2274,11 @@ u8 XV_HdmiRxSs1_GetVideoStreamType(XV_HdmiRxSs1 *InstancePtr)
 ******************************************************************************/
 u8 XV_HdmiRxSs1_GetTransportMode(XV_HdmiRxSs1 *InstancePtr)
 {
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
     return (InstancePtr->HdmiRx1Ptr->Stream.IsFrl);
+#else
+    return (0);
+#endif
 }
 
 /*****************************************************************************/
@@ -2400,7 +2420,9 @@ void XV_HdmiRxSs1_DebugInfo(XV_HdmiRxSs1 *InstancePtr)
 ******************************************************************************/
 void XV_HdmiRxSs1_DdcRegDump(XV_HdmiRxSs1 *InstancePtr)
 {
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 	XV_HdmiRx1_DdcRegDump(InstancePtr->HdmiRx1Ptr);
+#endif
 }
 
 /*****************************************************************************/
@@ -2421,6 +2443,7 @@ void XV_HdmiRxSs1_ReportTiming(XV_HdmiRxSs1 *InstancePtr)
 		xil_printf("HDMI RX Mode - DVI");
 	} else {
 		xil_printf("HDMI RX Mode - HDMI ");
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 		if (InstancePtr->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
 			xil_printf("TMDS");
 		} else {
@@ -2428,6 +2451,9 @@ void XV_HdmiRxSs1_ReportTiming(XV_HdmiRxSs1 *InstancePtr)
 					InstancePtr->HdmiRx1Ptr->Stream.Frl.Lanes,
 					InstancePtr->HdmiRx1Ptr->Stream.Frl.LineRate);
 		}
+#else
+		xil_printf("TMDS");
+#endif
 	}
 
 	xil_printf("\r\n");
@@ -2464,7 +2490,9 @@ void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr)
 	u32 Errors;
 	u16 Data = 0;
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 	if (InstancePtr->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
+#endif
 		for (Channel = 0; Channel < 3; Channel++)
 		{
 			Errors = XV_HdmiRx1_GetLinkStatus(InstancePtr->HdmiRx1Ptr,
@@ -2490,6 +2518,7 @@ void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr)
 
 			xil_printf(" (%0d)\r\n", Errors);
 		}
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 	} else {
 		Data = XV_HdmiRx1_FrlDdcReadField(InstancePtr->HdmiRx1Ptr,
 					(XV_HDMIRX1_SCDCFIELD_CH0_ERRCNT_MSB));
@@ -2561,6 +2590,7 @@ void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr)
 			xil_printf("Invalid\r\n", Data);
 		}
 	}
+#endif
 
 	xil_printf("\r\n");
 
@@ -3061,6 +3091,7 @@ void XV_HdmiRxSs1_DynHDR_GetInfo(XV_HdmiRxSs1 *InstancePtr,
 				  (XV_HdmiRx1_DynHDR_Info *)RxDynHdrInfo);
 }
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 static void XV_HdmiRxSs1_FrlLtsLCallback(void *CallbackRef)
 {
 	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
@@ -3107,7 +3138,9 @@ static void XV_HdmiRxSs1_FrlLts4Callback(void *CallbackRef)
 	XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_FRL_LTS4, 0);
 #endif
 }
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 static void XV_HdmiRxSs1_FrlLtsPCallback(void *CallbackRef)
 {
 	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
@@ -3116,6 +3149,7 @@ static void XV_HdmiRxSs1_FrlLtsPCallback(void *CallbackRef)
 	XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_FRL_LTSP, 0);
 #endif
 }
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
 
 static void XV_HdmiRxSs1_VfpChanged(void *CallbackRef)
 {

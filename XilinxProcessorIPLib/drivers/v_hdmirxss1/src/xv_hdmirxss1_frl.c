@@ -22,6 +22,8 @@
 *
 ******************************************************************************/
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
+
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xil_assert.h"
@@ -212,3 +214,5 @@ void XV_HdmiRxSs1_ClearFrlFltNoTimeout(XV_HdmiRxSs1 *InstancePtr)
 {
 	XV_HdmiRx1_ClearFrlFltNoTimeout(InstancePtr->HdmiRx1Ptr);
 }
+
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
