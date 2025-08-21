@@ -9,7 +9,7 @@
 #include "xpm_alloc.h"
 
 
-static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -33,7 +33,7 @@ done:
 	return Status;
 }
 
-static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	(void)PwrDomain;
@@ -44,24 +44,17 @@ static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	return XST_SUCCESS;
 }
 
-static struct XPm_PowerDomainOps AieOps = {
-	.InitStart = Aie2InitStart,
-	.InitFinish = Aie2InitFinish
-};
-
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			  XPm_Power *Parent, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Platform = XPm_GetPlatform();
-	const struct XPm_PowerDomainOps *Ops = NULL;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u16 ArrayInfoPresent = 0U;
 
 	(void)Args;
 	(void)NumArgs;
 	XPm_AieArray *Array = &AieDomain->Array;
-	Ops = &AieOps;
 
 	if (PM_POWER_ME2 == Id) {
 		if (PLATFORM_VERSION_SPP == Platform) {
@@ -115,7 +108,7 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 	Array->NumRowsAdjusted = Array->NumRows - Array->TRowOffset;
 
 	Status = XPmPowerDomain_Init(&AieDomain->Domain, Id, BaseAddress,
-			Parent, Ops);
+			Parent);
 
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;

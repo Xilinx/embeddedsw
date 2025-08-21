@@ -33,9 +33,89 @@
  */
 #define RAILIDX(Idx) \
 		((u32)(Idx) - (u32)XPM_NODEIDX_POWER_VCCINT_PMC)
+/* Forward declarations for domain-specific operations */
+extern XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+extern XStatus LpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+extern XStatus LpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+
+extern XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+extern XStatus FpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+extern XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+
+extern XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+extern XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+
+extern XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+extern XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+extern XStatus NpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+
+extern XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+extern XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+
+/* Function pointer typedefs for dispatch mechanism */
+typedef XStatus (*XPm_DomainInitStartOp)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+typedef XStatus (*XPm_DomainInitFinishOp)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+typedef XStatus (*XPm_DomainAmsTrimOp)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
+
+/* Dispatch functions */
+static XPm_DomainInitStartOp XPmPowerDomain_GetInitStartOp(u32 DomainId)
+{
+	switch (DomainId) {
+	case PM_POWER_LPD:
+		return LpdInitStart;
+	case PM_POWER_FPD:
+		return FpdInitStart;
+	case PM_POWER_PLD:
+		return PldInitStart;
+	case PM_POWER_NOC:
+		return NpdInitStart;
+	case PM_POWER_ME:
+	case PM_POWER_ME2:
+		return Aie2InitStart;
+	default:
+		return NULL;
+	}
+}
+
+static XPm_DomainInitFinishOp XPmPowerDomain_GetInitFinishOp(u32 DomainId)
+{
+	switch (DomainId) {
+	case PM_POWER_LPD:
+		return LpdInitFinish;
+	case PM_POWER_FPD:
+		return FpdInitFinish;
+	case PM_POWER_PLD:
+		return PldInitFinish;
+	case PM_POWER_NOC:
+		return NpdInitFinish;
+	case PM_POWER_ME:
+	case PM_POWER_ME2:
+		return Aie2InitFinish;
+	default:
+		return NULL;
+	}
+}
+
+static XPm_DomainAmsTrimOp XPmPowerDomain_GetAmsTrimOp(u32 DomainId)
+{
+	switch (DomainId) {
+	case PM_POWER_LPD:
+		return LpdAmsTrim;
+	case PM_POWER_FPD:
+		return FpdAmsTrim;
+	case PM_POWER_NOC:
+		return NpdAmsTrim;
+	case PM_POWER_PLD:
+	case PM_POWER_ME:
+	case PM_POWER_ME2:
+		return NULL; /* These domains don't have AMS trim operations */
+	default:
+		return NULL;
+	}
+}
+
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
-			    u32 BaseAddress, XPm_Power *Parent,
-			    const struct XPm_PowerDomainOps *Ops)
+			    u32 BaseAddress, XPm_Power *Parent)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -46,7 +126,6 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 		goto done;
 	}
 
-	PowerDomain->DomainOps = Ops;
 	if (NULL != Parent) {
 		PowerDomain->Parents[0] = Parent->Node.Id;
 	}
@@ -461,8 +540,8 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
-	const struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 DomainId = PwrDomain->Power.Node.Id;
 
 	switch (Function) {
 	case (u32)FUNC_INIT_START:
@@ -474,8 +553,9 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			goto done;
 		}
 
-		if ((NULL != Ops) && (NULL != Ops->InitStart)) {
-			Status = Ops->InitStart(PwrDomain, Args, NumArgs);
+		XPm_DomainInitStartOp InitStartOp = XPmPowerDomain_GetInitStartOp(DomainId);
+		if (NULL != InitStartOp) {
+			Status = InitStartOp(PwrDomain, Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_FUNC_INIT_START;
 				goto done;
@@ -492,8 +572,9 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			Status = XST_SUCCESS;
 			goto done;
 		}
-		if ((NULL != Ops) && (NULL != Ops->InitFinish)) {
-			Status = Ops->InitFinish(PwrDomain, Args, NumArgs);
+		XPm_DomainInitFinishOp InitFinishOp = XPmPowerDomain_GetInitFinishOp(DomainId);
+		if (NULL != InitFinishOp) {
+			Status = InitFinishOp(PwrDomain, Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
 				goto done;
@@ -509,8 +590,9 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_AMS_TRIM:
-		if (NULL != Ops->TrimAms) {
-			Status = Ops->TrimAms(PwrDomain, Args, NumArgs);
+		XPm_DomainAmsTrimOp AmsTrimOp = XPmPowerDomain_GetAmsTrimOp(DomainId);
+		if (NULL != AmsTrimOp) {
+			Status = AmsTrimOp(PwrDomain, Args, NumArgs);
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_FUNC_AMS_TRIM;
 			}

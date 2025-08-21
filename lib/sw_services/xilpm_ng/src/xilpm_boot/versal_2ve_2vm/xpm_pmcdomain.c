@@ -44,8 +44,7 @@ XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id, XPm_Power *Parent)
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	Status = XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, Parent,
-				     NULL);
+	Status = XPmPowerDomain_Init(&PmcDomain->Domain, Id, 0x00000000, Parent);
 	if (XST_SUCCESS != Status) {
 		PmErr("Status: 0x%x\r\n", Status);
 		goto done;

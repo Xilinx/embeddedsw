@@ -16,7 +16,7 @@
 
 #define XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN	XPM_NODEIDX_MONITOR_SYSMON_NPD_0
 
-static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -40,7 +40,7 @@ done:
 }
 
 
-static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -70,7 +70,7 @@ done:
 	return Status;
 }
 
-static XStatus NpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+XStatus NpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs) {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -95,12 +95,6 @@ done:
 	return Status;
 }
 
-static const struct XPm_PowerDomainOps NpdOps = {
-	.InitStart = NpdInitStart,
-	.InitFinish = NpdInitFinish,
-	.TrimAms = NpdAmsTrim
-};
-
 
 
 XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
@@ -109,7 +103,7 @@ XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	Status = XPmPowerDomain_Init(&Npd->Domain, Id, BaseAddress, Parent, &NpdOps);
+	Status = XPmPowerDomain_Init(&Npd->Domain, Id, BaseAddress, Parent);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 	}

@@ -111,7 +111,7 @@ done:
 	return Status;
 }
 
-static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -165,7 +165,7 @@ done:
 	return Status;
 }
 
-static XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -185,11 +185,6 @@ done:
 	return Status;
 }
 
-static const struct XPm_PowerDomainOps PlDomainOps = {
-	.InitStart = PldInitStart,
-	.InitFinish = PldInitFinish,
-	.TrimAms = NULL
-};
 
 XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 {
@@ -209,7 +204,7 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	Status = XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent, &PlDomainOps);
+	Status = XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 		goto done;

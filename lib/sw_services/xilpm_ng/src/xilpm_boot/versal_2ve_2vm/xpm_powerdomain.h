@@ -20,29 +20,17 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
 #define MAX_POWERDOMAINS			6U
 
-/**
- * The power domain node class.  This is the base class for all the power domain
- * classes.
- */
-struct XPm_PowerDomainOps {
-	XStatus (*InitStart)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-	XStatus (*InitFinish)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-	XStatus (*TrimAms)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-};
-
 struct XPm_PowerDomain {
 	XPm_Power Power; /**< Power: Power node base class */
 	u32 Parents[MAX_POWERDOMAINS]; /**< List of Parent Rail Ids */
 	u32 Children[MAX_POWERDOMAINS]; /**< List of depedent children Ids */
 	u16 InitFlag; /**< Flag to indicate which Ops are performed */
 	u32 HcDisableMask; /**< Mask for skipping housecleaning operations */
-	const struct XPm_PowerDomainOps *DomainOps; /**< house cleaning operations */
 };
 
 /************************** Function Prototypes ******************************/
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
-			    u32 BaseAddress, XPm_Power *Parent,
-			    struct XPm_PowerDomainOps const *Ops);
+			    u32 BaseAddress, XPm_Power *Parent);
 XStatus XPmPowerDomain_AddParent(u32 Id, const u32 *ParentNodes, u32 NumParents);
 XStatus XPm_PowerUpLPD(const XPm_Node *Node);
 XStatus XPm_PowerDwnLPD(void);

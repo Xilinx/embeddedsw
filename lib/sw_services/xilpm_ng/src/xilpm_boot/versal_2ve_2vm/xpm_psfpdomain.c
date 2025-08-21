@@ -11,7 +11,7 @@
 #include "xpm_rail.h"
 #include "xpm_ams_trim.h"
 
-static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -42,7 +42,7 @@ done:
 	return Status;
 }
 
-static XStatus FpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+XStatus FpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -67,7 +67,7 @@ static XStatus FpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	return Status;
 }
 
-static XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+XStatus FpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -98,12 +98,6 @@ done:
 	return Status;
 }
 
-static struct XPm_PowerDomainOps FpdOps = {
-	.InitStart = FpdInitStart,
-	.InitFinish = FpdInitFinish,
-	.TrimAms = FpdAmsTrim
-};
-
 XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent,  const u32 *OtherBaseAddresses,
 			   u32 OtherBaseAddressCnt)
@@ -111,7 +105,7 @@ XStatus XPmPsFpDomain_Init(XPm_PsFpDomain *PsFpd, u32 Id, u32 BaseAddress,
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	Status = XPmPowerDomain_Init(&PsFpd->Domain, Id, BaseAddress, Parent, &FpdOps);
+	Status = XPmPowerDomain_Init(&PsFpd->Domain, Id, BaseAddress, Parent);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 		goto done;

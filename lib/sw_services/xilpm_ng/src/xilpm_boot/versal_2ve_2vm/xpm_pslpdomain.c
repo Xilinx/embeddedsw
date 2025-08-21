@@ -12,7 +12,7 @@
 #include "xplmi.h"
 #include "xpm_ams_trim.h"
 
-static XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -36,7 +36,7 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
-static XStatus LpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+XStatus LpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
@@ -46,7 +46,8 @@ static XStatus LpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = XST_SUCCESS;
 	return Status;
 }
-static XStatus LpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+
+XStatus LpdAmsTrim(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs){
 
 	XStatus Status = XST_FAILURE;
@@ -75,12 +76,6 @@ done:
 	return Status;
 }
 
-static const struct XPm_PowerDomainOps LpdOps = {
-	.InitStart = LpdInitStart,
-	.InitFinish = LpdInitFinish,
-	.TrimAms = LpdAmsTrim
-};
-
 XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 			   XPm_Power *Parent, const u32 *OtherBaseAddresses,
 			   u32 OtherBaseAddressesCnt)
@@ -88,7 +83,7 @@ XStatus XPmPsLpDomain_Init(XPm_PsLpDomain *PsLpd, u32 Id, u32 BaseAddress,
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	Status = XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent, &LpdOps);
+	Status = XPmPowerDomain_Init(&PsLpd->Domain, Id, BaseAddress, Parent);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 		goto done;
