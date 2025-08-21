@@ -3898,6 +3898,7 @@ static int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash)
 static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBSignParams *HBSignParams)
 {
 	volatile int Status = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	u8 SpkHash[XLOADER_SHA3_LEN];
 	volatile u32 IsEfuseAuth = (u32)TRUE;
 	volatile u32 IsEfuseAuthTmp = (u32)TRUE;
@@ -3990,6 +3991,18 @@ static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBS
 	XPlmi_Printf(DEBUG_INFO, "SPK authentication is successful\n\r");
 
 END:
+	/** Zeroize the SpkHash buffer used for storing calculated Spk hash */
+	ClearStatus = XPlmi_MemSetBytes(&SpkHash, XLOADER_SHA3_LEN, 0U,
+			XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
+	else {
+		if (Status != XST_SUCCESS) {
+			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
+		}
+	}
+
 	return Status;
 }
 
@@ -4107,6 +4120,7 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	u8 HashBlockHash[XLOADER_SHA3_LEN];
 	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
 	XLoader_AuthCertificate *AuthCert = (XLoader_AuthCertificate *)
@@ -4268,6 +4282,18 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 	/** Copy Autheticated HashBlock to PPU1 RAM */
 	Status = XLoader_CopyHashBlock(HBSignParams->HBSize, &MetaHdrPtr->HashBlock);
 END:
+	/** Zeroize the HashBlockHash buffer used for storing calculated HashBlock hash */
+	ClearStatus = XPlmi_MemSetBytes(&HashBlockHash, XLOADER_SHA3_LEN, 0U,
+			XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
+	else {
+                if (Status != XST_SUCCESS) {
+                        Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
+                }
+        }
+
 	return Status;
 }
 
@@ -4456,6 +4482,7 @@ static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
 				XLoader_HBAesParams *HBParams)
 {
 	int Status = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
 	u8 HashBlockGcmTag[XSECURE_SECURE_GCM_TAG_SIZE] = {0U};
 	u8 Iv[XLOADER_SECURE_IV_LEN_IN_BYTES] = {0U};
@@ -4502,6 +4529,18 @@ static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
 	}
 
 END:
+	/** Zeroize the GcmTag buffer and verify to make sure buffer is cleared */
+	ClearStatus = Xil_SecureZeroize(HashBlockGcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
+	else {
+                if (Status != XST_SUCCESS) {
+                        Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
+                }
+        }
+
+
 	return Status;
 }
 
@@ -4530,6 +4569,7 @@ int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr)
 {
 	int Status = XST_FAILURE;
 	int StatusTmp = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	u8 HashBlock1Hash[XLOADER_SHA3_LEN];
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XilPdi_MetaHdr *MetaHdrPtr = SecurePtr->PdiPtr->MetaHdr;
@@ -4596,6 +4636,19 @@ int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr)
 	 */
 	Status = XLoader_CopyHashBlock(HashBlockSize, &MetaHdrPtr->HashBlock);
 END:
+	/** Zeroize the HashBlock1Hash buffer used for storing calculated HashBlock1 hash */
+	ClearStatus = XPlmi_MemSetBytes(&HashBlock1Hash, XLOADER_SHA3_LEN, 0U,
+			XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
+	else {
+                if (Status != XST_SUCCESS) {
+                        Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
+                }
+        }
+
+
 	return Status;
 }
 
@@ -4617,6 +4670,7 @@ int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr)
 {
 	int Status = XST_FAILURE;
 	int StatusTmp = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	u8 MetaHdrHash[XLOADER_SHA3_LEN];
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
 	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
@@ -4695,6 +4749,19 @@ int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr)
 			Status);
 	}
 END:
+	/** Zeroize the MetaHdrHash buffer used for storing calculated MetaHeader hash */
+	ClearStatus = XPlmi_MemSetBytes(&MetaHdrHash, XLOADER_SHA3_LEN, 0U,
+			XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
+	else {
+                if (Status != XST_SUCCESS) {
+                        Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
+                }
+        }
+
+
 	return Status;
 }
 
