@@ -23,10 +23,11 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 #include "xv_hdmirx1_frl.h"
 #include "xv_hdmirx1.h"
 /*#include "string.h"*/
+
 
 /************************** Constant Definitions *****************************/
 #define Timer2MS		2
@@ -1653,3 +1654,29 @@ void XV_HdmiRx1_RestartFrlLt(XV_HdmiRx1 *InstancePtr)
 		xil_printf("RestartFrlLt_1\r\n");
 	}
 }
+
+/*****************************************************************************/
+/**
+*
+* This function initializes FRL-specific SCDC fields that are required for
+* FRL operation. This should be called separately from the basic SCDC clear
+* operation when FRL is enabled.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx1 core instance.
+*
+* @return	None.
+*
+* @note		This function should only be called when FRL is enabled.
+*
+******************************************************************************/
+void XV_HdmiRx1_FrlScdcInit(XV_HdmiRx1 *InstancePtr)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Initialize FRL-specific SCDC fields */
+	XV_HdmiRx1_FrlDdcWriteField(InstancePtr, XV_HDMIRX1_SCDCFIELD_FLT_READY, 1);
+	XV_HdmiRx1_FrlDdcWriteField(InstancePtr, XV_HDMIRX1_SCDCFIELD_SINK_VER, 1);
+}
+
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */

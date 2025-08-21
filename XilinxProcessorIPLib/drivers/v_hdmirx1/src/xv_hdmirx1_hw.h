@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +49,7 @@ extern "C" {
 #define XV_HDMIRX1_SR_SSB_ERR_CNT3_OFFSET            ((XV_HDMIRX1_VER_BASE)+(6*4))    /**< SR/SSB period error 3 counter register offset */
 #define XV_HDMIRX1_DBG_STA_OFFSET                     ((XV_HDMIRX1_VER_BASE)+(7*4))    /**< FRL word aligner tap select changed register offset */
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 #define XV_HDMIRX1_SR_SSB_ERR1_SHIFT                 0         /**< FRL SR/SSB period error during training period shift */
 #define XV_HDMIRX1_SR_SSB_ERR1_MASK                  0xFFFF    /**< FRL SR/SSB period error during training period mask */
 #define XV_HDMIRX1_SR_SSB_ERR2_SHIFT                 16        /**< FRL SR/SSB period error during NON-training period shift */
@@ -78,6 +79,7 @@ extern "C" {
 #define XV_HDMIRX1_DBG_STA_LANE_LOCK_CHG2_MASK       (1<<14)    /**< Word aligner tap select changed lane 2 mask */
 #define XV_HDMIRX1_DBG_STA_LANE_LOCK_CHG3_MASK       (1<<15)    /**< FRL Word aligner tap select changed lane 3 mask */
 #define XV_HDMIRX1_DBG_STA_SKEW_LOCK_CHG_MASK        (1<<16)    /**< Word aligner tap select changed lane 0 mask */
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
 
 /* PIO (Parallel Interface) peripheral register offsets*/
 #define XV_HDMIRX1_PIO_BASE                          (1*64)
@@ -477,6 +479,8 @@ extern "C" {
 
 /* Fixed Rate Link (FRL) peripheral register offsets*/
 #define XV_HDMIRX1_FRL_BASE              (8*64)
+
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 #define XV_HDMIRX1_FRL_ID_OFFSET         ((XV_HDMIRX1_FRL_BASE)+(0*4)) /**< FRL
                                 * Identification Register offset */
 #define XV_HDMIRX1_FRL_CTRL_OFFSET       ((XV_HDMIRX1_FRL_BASE)+(1*4)) /**< FRL
@@ -489,8 +493,12 @@ extern "C" {
                                 * Status Register offset */
 #define XV_HDMIRX1_FRL_VCLK_VCKE_RATIO_OFFSET ((XV_HDMIRX1_FRL_BASE)+(7*4)) /**< FRL
                                 * Video Clock  to VCKE Ratio Register offset */
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
+
 #define XV_HDMIRX1_FRL_SCDC_OFFSET       ((XV_HDMIRX1_FRL_BASE)+(8*4)) /**< FRL
                                 * Video Clock Register offset */
+
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 #define XV_HDMIRX1_FRL_RATIO_TOT_OFFSET     ((XV_HDMIRX1_FRL_BASE)+(9*4)) /**<
                                 * FRL Total Data Register offset */
 #define XV_HDMIRX1_FRL_RATIO_ACT_OFFSET     ((XV_HDMIRX1_FRL_BASE)+(10*4)) /**<
@@ -501,7 +509,9 @@ extern "C" {
                                 * FRL Error Count Data Register offset */
 #define XV_HDMIRX1_FRL_VID_LOCK_CNT_OFFSET  ((XV_HDMIRX1_FRL_BASE)+(13*4)) /**<
                                 * Video Lock Count Data Register offset */
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 /* FRL Control register masks*/
 #define XV_HDMIRX1_FRL_CTRL_RSTN_MASK                        (1<<0)  /**< FRL Control Resetn
                                                                        * mask */
@@ -627,6 +637,7 @@ extern "C" {
 /* FRL Link Clock register masks*/
 #define XV_HDMIRX1_FRL_LNK_CLK_MASK       0xFFFFF /**< FRL Link Clock mask */
 #define XV_HDMIRX1_FRL_VID_CLK_MASK       0xFFFFF /**< FRL Video Clock mask */
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
 
 /* FRL SCDC register masks*/
 #define XV_HDMIRX1_FRL_SCDC_ADDR_MASK           0xFF    /**< FRL SCDC Address
@@ -637,6 +648,15 @@ extern "C" {
                                                        * mask */
 #define XV_HDMIRX1_FRL_SCDC_DAT_SHIFT           8       /**< FRL SCDC Data
                                                        * mask */
+
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
+#define XV_HDMIRX1_FRL_SCDC_WR_MASK             (1<<16) /**< FRL SCDC Write
+                                                       * mask */
+#define XV_HDMIRX1_FRL_SCDC_RD_MASK             (1<<17) /**< FRL SCDC Read
+                                                       * mask */
+#define XV_HDMIRX1_FRL_SCDC_RDY_MASK            (1<<18) /**< FRL SCDC Ready
+                                                       * mask */
+/* FRL Error Count register masks */
 #define XV_HDMIRX1_FRL_SCDC_WR_MASK             (1<<16) /**< FRL SCDC Write
                                                        * mask */
 #define XV_HDMIRX1_FRL_SCDC_RD_MASK             (1<<17) /**< FRL SCDC Read
@@ -651,6 +671,7 @@ extern "C" {
 #define XV_HDMIRX1_FRL_ERR_CNT1_DPACK_ERR_CNT_SHIFT 16
 #define XV_HDMIRX1_FRL_ERR_CNT1_RSCC_ERR_CNT_MASK   0xFFFF
 #define XV_HDMIRX1_FRL_ERR_CNT1_RSCC_ERR_CNT_SHIFT  0
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
 
 /* Peripheral ID and General shift values.*/
 #define XV_HDMIRX1_SHIFT_16      16  /**< 16 shift value */

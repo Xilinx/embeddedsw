@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +29,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
@@ -270,6 +273,8 @@ typedef struct {
 /************************** Variable Declarations ****************************/
 
 /************************** Variable Declarations ****************************/
+
+#endif /* XPAR_XV_HDMI_RX_FRL_ENABLE */
 
 #ifdef __cplusplus
 }
