@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -18,6 +18,7 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xstatus.h"
+#include <stdbool.h>
 
 /*********************************************************************
  * Enum definitions
@@ -56,6 +57,12 @@ void XPfw_DapRpuWakeEvent(void);
 #ifdef ENABLE_CSU_MULTIBOOT
 /* Get CSU multiboot register value */
 u32 GetCsuMultibootVal(void);
+#endif
+
+#ifdef ENABLE_SECURE_FLAG
+uint32_t isApiAllowed(const uint32_t apiId, const uint32_t isCallerSecure);
+uint32_t extractSecureFlagTfa(const uint32_t apiId);
+s32 readTrustzoneBit(uint32_t ipiMask, uint32_t *trustzoneBit);
 #endif
 
 #ifdef __cplusplus

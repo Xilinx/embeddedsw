@@ -226,6 +226,7 @@ XStatus XPfw_CoreDispatchIpi(u32 IpiNum, u32 SrcMask)
 	u32 MaskIndex;
 	u32 CallCount = 0U;
 	u32 Payload[XPFW_IPI_MAX_MSG_LEN] = {0U};
+	u32 ModuleId;
 
 	if ((CorePtr == NULL) || (IpiNum > 3U)) {
 		Status = XST_FAILURE;
@@ -247,9 +248,10 @@ XStatus XPfw_CoreDispatchIpi(u32 IpiNum, u32 SrcMask)
 			}
 			/* Dispatch based on IPI ID (MSB 16 bits of Word-0) of the module */
 			for (Idx = 0U; Idx < CorePtr->ModCount; Idx++) {
+				ModuleId = ((Payload[0] >> 16U) & 0xFFU);
 				/* If API ID matches and IpiHandler is set */
-				if ( (CorePtr->ModList[Idx].IpiId == (Payload[0] >> 16U)) &&
-					(CorePtr->ModList[Idx].IpiHandler != NULL)) {
+				if ( (CorePtr->ModList[Idx].IpiId == ModuleId) &&
+				     (CorePtr->ModList[Idx].IpiHandler != NULL)) {
 					/* Call the module's IPI handler */
 					CorePtr->ModList[Idx].IpiHandler(&CorePtr->ModList[Idx],
 							IpiNum,

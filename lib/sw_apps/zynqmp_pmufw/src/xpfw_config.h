@@ -341,6 +341,10 @@ extern "C" {
 #define ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP_VAL		(0U)
 #endif
 
+#ifndef ENABLE_SECURE_FLAG_VAL
+#define ENABLE_SECURE_FLAG_VAL				(1U)
+#endif
+
 /*
  * XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT
  * 		Default watchdog timeout
@@ -671,6 +675,10 @@ extern "C" {
 
 #if (ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP_VAL) && (!defined(ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP))
 #define ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP
+#endif
+
+#if (ENABLE_SECURE_FLAG_VAL) && (!defined(ENABLE_SECURE_FLAG))
+#define ENABLE_SECURE_FLAG
 #endif
 
 #ifdef __cplusplus

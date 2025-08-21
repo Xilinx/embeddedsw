@@ -13,7 +13,7 @@
  *********************************************************************/
 
 #include "csu.h"
-#ifdef ENABLE_CSU_MULTIBOOT
+#if defined(ENABLE_CSU_MULTIBOOT) || defined (ENABLE_SECURE_FLAG)
 #include "pm_binding.h"
 #endif
 #include "pm_core.h"
@@ -2325,12 +2325,45 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 	u32 setAddress;
 	u64 address;
 	bool approved = PmApiApprovalCheck(pload[0]);
+	const uint32_t apiId = (pload[0] & 0xFFU);
+#ifdef ENABLE_SECURE_FLAG
+	s32 status = XST_FAILURE;
+	uint32_t secureChannel;
+	uint32_t secureFlag;
+	uint32_t secureRequest;
+#endif
 
 	if (false == approved) {
 		IPI_RESPONSE1(master->ipiMask, XST_PM_NO_ACCESS);
 		goto done;
 	}
-	switch (pload[0]) {
+
+#ifdef ENABLE_SECURE_FLAG
+	/* Validate API ID before proceeding further. */
+	if ((apiId == 0U) || (apiId >= PM_API(PM_API_MAX))) {
+		IPI_RESPONSE1(master->ipiMask, XST_PM_NO_ACCESS);
+		goto done;
+	}
+
+	/* Extrace secure flag payload[0] i.e., 24th bit. */
+	secureFlag = extractSecureFlagTfa(pload[0]);
+
+	/* Read trustzone bit from APERPERM register. */
+	status = readTrustzoneBit(master->ipiMask, &secureChannel);
+	if (status != XST_SUCCESS) {
+		IPI_RESPONSE1(master->ipiMask, status);
+                goto done;
+	}
+
+	secureRequest = (uint32_t)((secureChannel != 0U) && (secureFlag != 0U));
+
+	if (0U == isApiAllowed(apiId, secureRequest)) {
+		IPI_RESPONSE1(master->ipiMask, XST_PM_NO_ACCESS);
+		goto done;
+	}
+#endif
+
+	switch (apiId) {
 	case PM_API(PM_SELF_SUSPEND):
 		address = ((u64) pload[5]) << 32ULL;
 		address += pload[4];
