@@ -214,7 +214,7 @@ XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx)
 		goto done;
 	}
 
-	Status = Core->CoreOps->RequestWakeup(Core, 0, 0);
+	Status = XPmCore_RequestWakeup(Core, 0, 0);
 
 done:
 	return Status;
@@ -1486,8 +1486,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 		case (u32)XPM_NODECLASS_DEVICE:
 			CoreDeviceId = DeviceId;
 			Core = (XPm_Core *)XPmDevice_GetById(CoreDeviceId);
-			if ((NULL == Core) ||
-			    (NULL == Core->CoreOps->RequestWakeup)) {
+			if (NULL == Core) {
 				Status = XPM_ERR_WAKEUP;
 				break;
 			}
@@ -1504,7 +1503,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 				}
 			}
 
-			Status = Core->CoreOps->RequestWakeup(Core, SetAddress, Address);
+			Status = XPmCore_RequestWakeup(Core, SetAddress, Address);
 			if (XST_SUCCESS == Status) {
 				Status = SetSubsystemState_ByCore(Core, (u32)ONLINE);
 				if (XST_SUCCESS != Status) {

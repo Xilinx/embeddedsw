@@ -48,6 +48,8 @@ u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore);
 void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId);
 void XPmRpuCore_SetTcmBoot(const u32 DeviceId, const u8 TcmBootFlag);
 XStatus XPmRpuCore_ReleaseReset(u32 CoreId);
+XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address);
+XStatus XPmRpuCore_PwrDwn(XPm_Core *Core);
 #ifdef __cplusplus
 }
 #endif

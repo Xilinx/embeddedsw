@@ -66,6 +66,8 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 XStatus XPmApuCore_AssignRegisterMask(struct XPm_ApuCore *ApuCore, const u32 Id);
 XStatus XPm_ApuSetOperMode(const u32 ClusterId, const u32 Mode);
 XStatus XPm_ApuGetOperMode(const u32 ClusterId, u32 *Mode);
+XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address);
+XStatus XPmApuCore_PwrDwn(XPm_Core *Core);
 #ifdef __cplusplus
 }
 #endif

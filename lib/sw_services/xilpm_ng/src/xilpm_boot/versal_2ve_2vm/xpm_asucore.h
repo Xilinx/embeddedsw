@@ -22,6 +22,8 @@ struct XPm_AsuCore {
 XStatus XPmAsuCore_Init(XPm_AsuCore *AsuCore, u32 Id, u32 Ipi, const u32 *BaseAddress,
 			XPm_Power *Power, XPm_ClockNode *Clock,
 			XPm_ResetNode *Reset);
+XStatus XPmAsuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address);
+XStatus XPmAsuCore_PwrDwn(XPm_Core *Core);
 
 #ifdef __cplusplus
 }

@@ -110,8 +110,8 @@ static XStatus ActionShutdown(XPm_Device* const Device) {
 	((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Device->Node.Id))) {
 		/** Shutdown Core */
 		XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(Device->Node.Id);
-		if ((NULL != Core) && (NULL != Core->CoreOps) && (NULL != Core->CoreOps->PowerDown)) {
-			Status = Core->CoreOps->PowerDown(Core);
+		if (NULL != Core) {
+			Status = XPmCore_PowerDown(Core);
 			goto done;
 		}
 	}

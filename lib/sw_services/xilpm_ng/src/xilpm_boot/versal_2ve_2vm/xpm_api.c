@@ -1876,17 +1876,8 @@ XStatus XPm_PmcWakeUpCore(const u32 CoreId , const u32 SetAddress, const u64 Add
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
-	if (NULL == Core->CoreOps) {
-		Status = XST_NO_FEATURE;
-		goto done;
-	}
 
-	if (NULL == Core->CoreOps->RequestWakeup) {
-		Status = XST_NO_FEATURE;
-		goto done;
-	}
-
-	Status = Core->CoreOps->RequestWakeup(Core, SetAddress, Address);
+	Status = XPmCore_RequestWakeup(Core, SetAddress, Address);
 done:
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to wake up core 0x%x. Status = 0x%x\n\r", CoreId, Status);

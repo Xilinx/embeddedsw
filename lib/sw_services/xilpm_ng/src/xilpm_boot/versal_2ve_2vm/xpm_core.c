@@ -10,11 +10,11 @@
 #include "xpm_rpucore.h"
 #include "xpm_regs.h"
 #include "xpm_apucore.h"
+#include "xpm_asucore.h"
 #include "xpm_power_core.h"
 
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
-		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh,
-		     struct XPm_CoreOps *Ops)
+		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -25,7 +25,6 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		DbgErr = XPM_INT_ERR_DEVICE_INIT;
 		goto done;
 	}
-	Core->CoreOps = Ops;
 	Core->isCoreUp = 0;
 
 done:
@@ -257,4 +256,50 @@ XStatus __attribute__((weak,noinline)) XPmCore_SetClock(u32 CoreId, u32 Enable)
 	(void)CoreId;
 	(void)Enable;
 	return XST_SUCCESS;
+}
+
+XStatus XPmCore_RequestWakeup(XPm_Core *Core, u32 SetAddress, u64 Address)
+{
+	XStatus Status = XST_FAILURE;
+	u32 CoreType = NODETYPE(Core->Device.Node.Id);
+
+	switch (CoreType) {
+	case (u32)XPM_NODETYPE_DEV_CORE_APU:
+		Status = XPmApuCore_WakeUp(Core, SetAddress, Address);
+		break;
+	case (u32)XPM_NODETYPE_DEV_CORE_RPU:
+		Status = XPmRpuCore_WakeUp(Core, SetAddress, Address);
+		break;
+	case (u32)XPM_NODETYPE_DEV_CORE_ASU:
+		Status = XPmAsuCore_WakeUp(Core, SetAddress, Address);
+		break;
+	default:
+		Status = XST_NO_FEATURE;
+		break;
+	}
+
+	return Status;
+}
+
+XStatus XPmCore_PowerDown(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+	u32 CoreType = NODETYPE(Core->Device.Node.Id);
+
+	switch (CoreType) {
+	case (u32)XPM_NODETYPE_DEV_CORE_APU:
+		Status = XPmApuCore_PwrDwn(Core);
+		break;
+	case (u32)XPM_NODETYPE_DEV_CORE_RPU:
+		Status = XPmRpuCore_PwrDwn(Core);
+		break;
+	case (u32)XPM_NODETYPE_DEV_CORE_ASU:
+		Status = XPmAsuCore_PwrDwn(Core);
+		break;
+	default:
+		Status = XST_NO_FEATURE;
+		break;
+	}
+
+	return Status;
 }

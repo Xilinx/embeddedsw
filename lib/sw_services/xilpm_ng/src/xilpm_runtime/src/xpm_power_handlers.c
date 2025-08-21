@@ -348,7 +348,7 @@ XStatus XPm_DispatchApuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 
 			ResumeAddr = Core->ResumeAddr;
 
-			Status = Core->CoreOps->RequestWakeup(Core, 1U, ResumeAddr);
+			Status = XPmCore_RequestWakeup(Core, 1U, ResumeAddr);
 			if (XST_SUCCESS != Status) {
 				PmErr("Failed to wakeup core 0x%x!\r\n", Core->Device.Node.Id);
 				goto done;
@@ -395,7 +395,7 @@ XStatus XPm_DispatchRpuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 
 			ResumeAddr = Core->ResumeAddr;
 			/* Call power up handler */
-			Status = Core->CoreOps->RequestWakeup(Core, 1U, ResumeAddr);
+			Status = XPmCore_RequestWakeup(Core, 1U, ResumeAddr);
 			if (XST_SUCCESS != Status) {
 				PmErr("Failed to wakeup core 0x%x!\r\n", Core->Device.Node.Id);
 				goto done;
@@ -460,7 +460,7 @@ XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 					Core->Device.Node.Id, Core->Device.Node.State);
 
 				/* Call power down handler */
-				Status = Core->CoreOps->PowerDown(Core);
+				Status = XPmCore_PowerDown(Core);
 				if (XST_SUCCESS != Status) {
 					PmErr("Failed to power down core 0x%x!\r\n", Core->Device.Node.Id);
 					goto done;

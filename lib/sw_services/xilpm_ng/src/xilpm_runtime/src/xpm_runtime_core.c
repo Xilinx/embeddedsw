@@ -196,20 +196,15 @@ XStatus XPmCore_ForcePwrDwn(u32 DeviceId)
 		goto done;
 	}
 
-	if ((NULL != Core->CoreOps) && (NULL != Core->CoreOps->PowerDown)) {
-		Status = Core->CoreOps->PowerDown(Core);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		/**
-		 * Disable the direct wake in case of force
-		 * power down.
-		 */
-		DisableWake(Core);
-	} else {
-		Status = XST_NO_FEATURE;
+	Status = XPmCore_PowerDown(Core);
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
+	/**
+	 * Disable the direct wake in case of force
+	 * power down.
+	 */
+	DisableWake(Core);
 	/*
 	 * Do APU GIC pulse reset if All the cores are in Power OFF
 	 * state and FPD in Power ON state. Now APU has two core as

@@ -9,7 +9,7 @@
 #include "xpm_api.h"
 #include "xpm_regs.h"
 
-static XStatus XPmAsucore_Wakeup(XPm_Core *Core, u32 SetAddress, u64 Address)
+XStatus XPmAsuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	/* Handoff address is not able to adjust; hence ignore them */
@@ -38,10 +38,12 @@ done:
 	return Status;
 }
 
-static struct XPm_CoreOps AsuOps = {
-	.RequestWakeup = XPmAsucore_Wakeup,
-	.PowerDown = NULL,
-};
+XStatus XPmAsuCore_PwrDwn(XPm_Core *Core)
+{
+	/* ASU cores don't have a power down implementation */
+	(void)Core;
+	return XST_SUCCESS;
+}
 
 XStatus XPmAsuCore_Init(struct XPm_AsuCore *AsuCore, u32 Id, u32 Ipi, const u32 *BaseAddress,
 			XPm_Power *Power, XPm_ClockNode *Clock,
@@ -49,7 +51,7 @@ XStatus XPmAsuCore_Init(struct XPm_AsuCore *AsuCore, u32 Id, u32 Ipi, const u32 
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init(&AsuCore->Core, Id, Power, Clock, Reset, (u8)Ipi, &AsuOps);
+	Status = XPmCore_Init(&AsuCore->Core, Id, Power, Clock, Reset, (u8)Ipi);
 	if (XST_SUCCESS != Status) {
 		PmErr("Status: 0x%x\r\n", Status);
 		goto done;

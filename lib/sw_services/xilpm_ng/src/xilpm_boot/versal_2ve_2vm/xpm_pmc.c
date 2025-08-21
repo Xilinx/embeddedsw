@@ -12,8 +12,7 @@ XStatus XPmPmc_Init(XPm_Pmc *Pmc, u32 DevcieId, u32 Ipi, const u32 *BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 
-	Status = XPmCore_Init(&Pmc->Core, DevcieId, Power, Clock, Reset, (u8)Ipi,
-			      NULL);
+	Status = XPmCore_Init(&Pmc->Core, DevcieId, Power, Clock, Reset, (u8)Ipi);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

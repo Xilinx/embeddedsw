@@ -10,7 +10,7 @@
 #include "xpm_psfpdomain.h"
 
 #define XPM_APU_MODE_MASK(ClusterId)		BIT(ClusterId)
-static XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
+XStatus XPmApuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -24,7 +24,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
+XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -37,11 +37,6 @@ static XStatus XPmApuCore_PwrDwn(XPm_Core *Core)
 	return Status;
 }
 
-static struct XPm_CoreOps ApuOps= {
-	.RequestWakeup = XPmApuCore_WakeUp,
-	.PowerDown = XPmApuCore_PwrDwn
-};
-
 XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	u32 Id,
 	u32 Ipi,
@@ -51,8 +46,7 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	Status = XPmCore_Init(&ApuCore->Core, Id, Power, Clock, Reset, (u8)Ipi,
-			      &ApuOps);
+	Status = XPmCore_Init(&ApuCore->Core, Id, Power, Clock, Reset, (u8)Ipi);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_CORE_INIT;
 		goto done;
