@@ -18,15 +18,29 @@ XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
+	XPm_Rail* Aie2PsRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_ME);
+	if (NULL == Aie2PsRail) {
+		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	if ((u32)XPM_PGOOD_SYSMON == Aie2PsRail->Source) {
+		Status = XPmPower_SysmonCheckPower(Aie2PsRail);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		}
+	} else {
+		/** We can safely ignore; since Preconfig CDO
+		already checked PCSR Status bit of AIE2PS */
+	}
+
 	/* Perform VID adjustment */
-	Status = XPmRail_AdjustVID((XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_ME));
+	Status = XPmRail_AdjustVID(Aie2PsRail);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_VID_ADJUST;
 		goto done;
 	}
-
-	/* TODO Adding a place holder.
-	 * Need to Implement while adding AIE support to xilpm */
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

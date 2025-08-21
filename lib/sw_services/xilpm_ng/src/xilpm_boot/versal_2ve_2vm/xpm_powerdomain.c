@@ -346,7 +346,8 @@ static XStatus SysmonVoltageCheck(const XPm_Rail *Rail, u32 RailVoltage)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 NodeIndex;
+	u32 NodeIndex, RailVoltageTableIndex;
+	u32 LowThreshVal;
 
 	/**
 	 * Hardcoded voltages used when sysmon lower threshold values are not used.
@@ -364,12 +365,22 @@ static XStatus SysmonVoltageCheck(const XPm_Rail *Rail, u32 RailVoltage)
 	};
 
 	NodeIndex = NODEINDEX(Rail->Power.Node.Id);
+	RailVoltageTableIndex = RAILIDX(NodeIndex);
+	if (RailVoltageTableIndex < ARRAY_SIZE(RailVoltageTable)) {
+		LowThreshVal = RailVoltageTable[RailVoltageTableIndex][0];
+	} else if (NODEINDEX(XPM_NODEIDX_POWER_VCCINT_ME) == NodeIndex) {
+		LowThreshVal = 0x2547AU; /* 0.66V */
+	} else {
+		DbgErr = XPM_INT_ERR_DEVICE_NOT_SUPPORTED;
+		Status = XPM_ERR_RAIL_VOLTAGE;
+		goto done;
+	}
 
 	/**
 	 * Check if current rail voltage reading is below the required minimum
 	 * voltage for proper operation.
 	 */
-	if (RailVoltage < RailVoltageTable[RAILIDX(NodeIndex)][0]) {
+	if (RailVoltage < LowThreshVal) {
 		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 		Status = XPM_ERR_RAIL_VOLTAGE;
 		goto done;
