@@ -828,7 +828,7 @@ static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 TargetSubsystemId)
 
 	Subsystem = XPmSubsystem_GetById(TargetSubsystemId);
 	if (NULL != Subsystem) {
-		Status = Subsystem->Ops->Activate(Subsystem);
+		Status = XPmSubsystem_Activate(Subsystem);
 	} else {
 		Status = XPM_INVALID_SUBSYSID;
 	}
@@ -915,7 +915,7 @@ static XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
 		Status = XPmPower_GetStatus(DeviceId, DeviceStatus);
 		break;
 	case (u32)XPM_NODECLASS_SUBSYSTEM:
-		Status = Subsystem->Ops->GetStatus(Subsystem, DeviceStatus);
+		Status = XPmSubsystem_GetStatus(Subsystem, DeviceStatus);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
@@ -1121,7 +1121,7 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 		/* Clear the pending suspend cb reason */
 		Subsystem->PendCb.Reason = 0U;
 
-		Status = Subsystem->Ops->SetState(Subsystem, (u32)SUSPENDING);
+		Status = XPmSubsystem_SetState(Subsystem, (u32)SUSPENDING);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -1240,7 +1240,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 		}
 		#endif
 
-		Status = Subsystem->Ops->SetState(Subsystem,
+		Status = XPmSubsystem_SetState(Subsystem,
 					       (u8)PENDING_POWER_OFF);
 		if (XST_SUCCESS != Status) {
 			goto done;
@@ -1413,7 +1413,7 @@ XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 
 	DISABLE_WFI(Core->SleepMask);
 
-	Status = Subsystem->Ops->SetState(Subsystem, (u32)ONLINE);
+	Status = XPmSubsystem_SetState(Subsystem, (u32)ONLINE);
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -1555,7 +1555,7 @@ static XStatus XPm_SubsystemPwrUp(const u32 SubsystemId)
 	}
 
 	/* Activate the subsystem by requesting its pre-alloc devices */
-	Status = Subsystem->Ops->Activate(Subsystem);
+	Status = XPmSubsystem_Activate(Subsystem);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1612,7 +1612,7 @@ static XStatus SetSubsystemState_ByCore(XPm_Core* Core, const u32 State){
 	}
 	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(CoreSubsystemId);
 
-	Status = Subsystem->Ops->SetState(Subsystem, State);
+	Status = XPmSubsystem_SetState(Subsystem, State);
 done:
 	return Status;
 }
@@ -1655,7 +1655,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
 	if (PM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
 		/* Idle the subsystem first */
-		Status = Subsystem->Ops->Idle(Subsystem);
+		Status = XPmSubsystem_Idle(Subsystem);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_SUBSYS_IDLE;
 			goto done;
@@ -1670,7 +1670,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 		/* Clear the pending suspend cb reason */
 		Subsystem->PendCb.Reason = 0U;
 
-		Status = Subsystem->Ops->SetState(Subsystem, (u32)POWERED_OFF);
+		Status = XPmSubsystem_SetState(Subsystem, (u32)POWERED_OFF);
 		goto done;
 	}
 
@@ -1696,7 +1696,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 			}
 		#endif
 
-			Status = Subsystem->Ops->SetState(Subsystem, (u8)PENDING_RESTART);
+			Status = XPmSubsystem_SetState(Subsystem, (u8)PENDING_RESTART);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -1924,7 +1924,7 @@ static XStatus XPm_DoInitFinalize(XPlmi_Cmd* Cmd)
 	if (NULL == Subsystem) {
 		goto done;
 	}
-	Status = Subsystem->Ops->InitFinalize(Subsystem);
+	Status = XPmSubsystem_InitFinalize(Subsystem);
 	Cmd->Response[0] = (u32)Status;
 done:
 	return Status;

@@ -167,6 +167,22 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 					const u32 Operation, const u32 CmdType);
 XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType);
 
+XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystem_SetState(XPm_Subsystem *Subsystem, u32 State);
+XStatus XPmSubsystem_GetStatus(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus);
+XStatus XPmSubsystem_ShutDown(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystem_WakeUp(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystem_Suspend(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystem_Idle(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystem_InitFinalize(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystem_AddPermissions(XPm_Subsystem *Subsystem, u32 TargetId, u32 Operations);
+XStatus XPmSubsystem_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen);
+XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
+XStatus XPmSubsystem_StartBootTimer(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystem_StopBootTimer(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystem_StartRecoveryTimer(XPm_Subsystem *Subsystem);
+XStatus XPmSubsystem_StopRecoveryTimer(XPm_Subsystem *Subsystem);
+
 #ifdef __cplusplus
 }
 #endif

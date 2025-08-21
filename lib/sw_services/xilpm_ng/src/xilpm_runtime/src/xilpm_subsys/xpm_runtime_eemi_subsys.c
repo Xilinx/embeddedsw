@@ -18,72 +18,75 @@
 #include "xpm_runtime_api.h"
 #include "xpm_debug.h"
 
-static XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_SetState(XPm_Subsystem *Subsystem, u32 State);
-static XStatus XPmSubsystem_GetStatus(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus);
-static XStatus XPmSubsystem_ShutDown(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_WakeUp(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_Suspend(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_Idle(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_InitFinalize(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_AddPermissions(XPm_Subsystem *Subsystem, u32 TargetId, u32 Operations);
-static XStatus XPmSubsystem_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen);
-static XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
-static XStatus XPmSubsystem_StartBootTimer(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_StopBootTimer(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_StartRecoveryTimer(XPm_Subsystem *Subsystem);
-static XStatus XPmSubsystem_StopRecoveryTimer(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_Activate(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_SetState(XPm_Subsystem *Subsystem, u32 State);
+static XStatus XPmSubsystem_Generic_GetStatus(XPm_Subsystem *Subsystem, XPm_DeviceStatus *const DeviceStatus);
+static XStatus XPmSubsystem_Generic_ShutDown(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_WakeUp(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_Suspend(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_Idle(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_InitFinalize(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_AddPermissions(XPm_Subsystem *Subsystem, u32 TargetId, u32 Operations);
+static XStatus XPmSubsystem_Generic_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen);
+static XStatus XPmSubsystem_Generic_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
+static XStatus XPmSubsystem_Generic_StartBootTimer(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_StopBootTimer(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_StartRecoveryTimer(XPm_Subsystem *Subsystem);
+static XStatus XPmSubsystem_Generic_StopRecoveryTimer(XPm_Subsystem *Subsystem);
 
 XPm_SubsystemMgr SubsysMgr = {
 	.Subsystems = { .Root = NULL },
 	.NumSubsystems = 0,
-	.SubsysOps[SUBSYS_OPS_GENERIC] = {
-		.Activate = XPmSubsystem_Activate,
-		.SetState = XPmSubsystem_SetState,
-		.InitFinalize = XPmSubsystem_InitFinalize,
-		.GetStatus = XPmSubsystem_GetStatus,
-		.AddRequirement = XPmSubsystem_AddRequirement,
-		.ShutDown = XPmSubsystem_ShutDown,
-		.WakeUp = XPmSubsystem_WakeUp,
-		.Suspend = XPmSubsystem_Suspend,
-		.Idle = XPmSubsystem_Idle,
-		.IsAccessAllowed = XPmSubsystem_IsAccessAllowed,
-		.StartBootTimer = XPmSubsystem_StartBootTimer,
-		.StopBootTimer = XPmSubsystem_StopBootTimer,
-		.StartRecoveryTimer = XPmSubsystem_StartRecoveryTimer,
-		.StopRecoveryTimer = XPmSubsystem_StopRecoveryTimer,
+};
+XPm_SubsystemOps SubsystemOpsTable[] = {
+	/* Generic Subsystem Operations */
+	[SUBSYS_OPS_GENERIC] = {
+		.Activate = XPmSubsystem_Generic_Activate,
+		.SetState = XPmSubsystem_Generic_SetState,
+		.InitFinalize = XPmSubsystem_Generic_InitFinalize,
+		.GetStatus = XPmSubsystem_Generic_GetStatus,
+		.AddRequirement = XPmSubsystem_Generic_AddRequirement,
+		.ShutDown = XPmSubsystem_Generic_ShutDown,
+		.WakeUp = XPmSubsystem_Generic_WakeUp,
+		.Suspend = XPmSubsystem_Generic_Suspend,
+		.Idle = XPmSubsystem_Generic_Idle,
+		.IsAccessAllowed = XPmSubsystem_Generic_IsAccessAllowed,
+		.StartBootTimer = XPmSubsystem_Generic_StartBootTimer,
+		.StopBootTimer = XPmSubsystem_Generic_StopBootTimer,
+		.StartRecoveryTimer = XPmSubsystem_Generic_StartRecoveryTimer,
+		.StopRecoveryTimer = XPmSubsystem_Generic_StopRecoveryTimer,
 	},
 };
 
-static XStatus XPmSubsystem_StartBootTimer(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_StartBootTimer(XPm_Subsystem *Subsystem)
 {
 	(void)Subsystem;
 
 	return XST_SUCCESS;
 }
 
-static XStatus XPmSubsystem_StopBootTimer(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_StopBootTimer(XPm_Subsystem *Subsystem)
 {
 	(void)Subsystem;
 
 	return XST_SUCCESS;
 }
 
-static XStatus XPmSubsystem_StartRecoveryTimer(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_StartRecoveryTimer(XPm_Subsystem *Subsystem)
 {
 	(void)Subsystem;
 
 	return XST_SUCCESS;
 }
 
-static XStatus XPmSubsystem_StopRecoveryTimer(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_StopRecoveryTimer(XPm_Subsystem *Subsystem)
 {
 	(void)Subsystem;
 
 	return XST_SUCCESS;
 }
 
-static XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId)
+static XStatus XPmSubsystem_Generic_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -133,7 +136,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmSubsystem_AddPermissions(XPm_Subsystem *Host, u32 TargetId, u32 Operations)
+static XStatus XPmSubsystem_Generic_AddPermissions(XPm_Subsystem *Host, u32 TargetId, u32 Operations)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Target = XPmSubsystem_GetById(TargetId);
@@ -177,35 +180,35 @@ done:
 	return Status;
 }
 
-static XStatus XPmSubsystem_InitFinalize(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_InitFinalize(XPm_Subsystem *Subsystem)
 {
 	(void)Subsystem;
 
 	return XST_SUCCESS;
 }
 
-static XStatus XPmSubsystem_Idle(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_Idle(XPm_Subsystem *Subsystem)
 {
 	(void)Subsystem;
 
 	return XST_SUCCESS;
 }
 
-static XStatus XPmSubsystem_Suspend(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_Suspend(XPm_Subsystem *Subsystem)
 {
 	(void)Subsystem;
 
 	return XST_SUCCESS;
 }
 
-static XStatus XPmSubsystem_WakeUp(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_WakeUp(XPm_Subsystem *Subsystem)
 {
 	(void)Subsystem;
 
 	return XST_SUCCESS;
 }
 
-static XStatus XPmSubsystem_ShutDown(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_ShutDown(XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Requirement *Reqm = NULL;
@@ -230,7 +233,7 @@ static XStatus XPmSubsystem_ShutDown(XPm_Subsystem *Subsystem)
 	}
 
 	/* Idle the subsystem */
-	Status = Subsystem->Ops->Idle(Subsystem);
+	Status = XPmSubsystem_Idle(Subsystem);
 	if(XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -244,7 +247,7 @@ static XStatus XPmSubsystem_ShutDown(XPm_Subsystem *Subsystem)
 	/* Clear the pending suspend cb reason */
 	Subsystem->PendCb.Reason = 0U;
 
-	Status = Subsystem->Ops->SetState(Subsystem, (u32)POWERED_OFF);
+	Status = XPmSubsystem_SetState(Subsystem, (u32)POWERED_OFF);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -259,7 +262,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmSubsystem_SetState(XPm_Subsystem *Subsystem, u32 State)
+static XStatus XPmSubsystem_Generic_SetState(XPm_Subsystem *Subsystem, u32 State)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -273,7 +276,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmSubsystem_GetStatus(XPm_Subsystem *Subsystem,
+static XStatus XPmSubsystem_Generic_GetStatus(XPm_Subsystem *Subsystem,
 				      XPm_DeviceStatus *const DeviceStatus)
 {
 	XStatus Status = XPM_ERR_DEVICE_STATUS;
@@ -350,7 +353,7 @@ done:
 }
 
 
-static XStatus XPmSubsystem_Activate(XPm_Subsystem *Subsystem)
+static XStatus XPmSubsystem_Generic_Activate(XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
@@ -741,7 +744,7 @@ static XStatus XPm_AddSubsysRequirement(XPm_Subsystem *Subsystem, u32 *Payload, 
 	TargetSubsysId = Payload[1];
 	Operations = Payload[2];
 
-	Status = XPmSubsystem_AddPermissions(Subsystem, TargetSubsysId, Operations);
+	Status = XPmSubsystem_Generic_AddPermissions(Subsystem, TargetSubsysId, Operations);
 
 	PmDbg("SubsysId: 0x%x, NodeId: 0x%x, Flags: 0x%x\n\r",
 		SubsysId, TargetSubsysId, Operations);
@@ -753,7 +756,7 @@ done:
 	return Status;
 }
 
-static XStatus XPmSubsystem_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
+static XStatus XPmSubsystem_Generic_AddRequirement(XPm_Subsystem *Subsystem, u32 *Payload, u32 PayloadLen)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeId = Payload[1];
