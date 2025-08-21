@@ -119,6 +119,8 @@ mkdir -p $BSP_DIR/libsrc/xilocp/src
 cp -r $SERVICES_DIR/xilocp/src/Makefile $BSP_DIR/libsrc/xilocp/src/
 cp -r $SERVICES_DIR/xilocp/src/common/* $BSP_DIR/libsrc/xilocp/src/
 cp -r $SERVICES_DIR/xilocp/src/server/* $BSP_DIR/libsrc/xilocp/src/
+cp -r $SERVICES_DIR/xilocp/src/server/versal_2ve_2vm/* $BSP_DIR/libsrc/xilocp/src/
+cp -r $SERVICES_DIR/xilocp/src/server/versal_2ve_2vm/*.h $BSP_DIR/include/
 
 mkdir -p $BSP_DIR/libsrc/xilcert/src
 cp -r $SERVICES_DIR/xilcert/src/Makefile $BSP_DIR/libsrc/xilcert/src/
