@@ -118,6 +118,13 @@ if ("${CMAKE_MACHINE}" STREQUAL "VersalNet")
   endif()
 endif()
 
+if ("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
+  option(XILPLMI_plm_ocp_asufw_key_mgmt_en "Enables or Disables OCP ASUFW key management" OFF)
+  if (NOT XILPLMI_plm_ocp_asufw_key_mgmt_en)
+    set(PLM_OCP_ASUFW_KEY_MGMT_EXCLUDE " ")
+  endif()
+endif()
+
 if("${CMAKE_MACHINE}" STREQUAL "Versal")
   option(XILPLMI_ssit_plm_to_plm_comm_en "Enables or Disables SSIT PLM to PLM communication (valid only for Versal)" ON)
   option(XILPLMI_ssit_secure_plm_to_plm_comm_en "Enables or Disables SSIT secure PLM to PLM communication (valid only for Versal)" OFF)

@@ -34,6 +34,7 @@
 *       sk   03/07/2025 Added config option for UFS
 *       rmv  07/17/2025 Disable PLM OCP key management
 *       rmv  07/17/2025 Added PLM_OCP_ASUFW_KEY_MGMT configuration macro and enable by default
+*       rmv  08/21/2025 Added option to enable/disable ASUFW OCP key management support
 *
 * </pre>
 *
@@ -154,7 +155,7 @@ extern "C" {
 #define PLM_OCP
 #endif
 
-#if (!defined(PLM_OCP_ASUFW_KEY_MGMT)) && (defined(PLM_OCP))
+#if (!defined(PLM_OCP_ASUFW_KEY_MGMT_EXCLUDE)) && (defined(PLM_OCP))
 #define PLM_OCP_ASUFW_KEY_MGMT
 #endif
 

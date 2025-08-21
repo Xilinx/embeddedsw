@@ -398,6 +398,13 @@ proc xgen_opts_file {libhandle} {
 		}
 	}
 
+	# Get plm_ocp_key_mgmt value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.plm_ocp_asufw_key_mgmt_en $libhandle]
+	if {$value == false} {
+		puts $file_handle "\n/* OCP ASUFW key management disable */"
+		puts $file_handle "#define PLM_OCP_ASUFW_KEY_MGMT_EXCLUDE"
+	}
+
 	# Check if hsi::get_current_part is available
 	if { [info commands ::hsi::get_current_part] != ""} {
 		#Get part name from the design
