@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -42,10 +42,14 @@
 #include "netif/xadapter.h"
 #include "netif/xaxiemacif.h"
 
+#ifndef SDT
 #if XLWIP_CONFIG_INCLUDE_AXIETH_ON_ZYNQ == 1
 #include "xscugic.h"
 #else
 #include "xintc_l.h"
+#endif
+#else
+#include "xinterrupt_wrap.h"
 #endif
 
 #if XLWIP_CONFIG_INCLUDE_AXIETH_ON_ZYNQ == 1
@@ -211,6 +215,9 @@ xllfifo_intr_handler(struct xemac_s *xemac)
 
 XStatus init_axi_fifo(struct xemac_s *xemac)
 {
+	UINTPTR baseaddr;
+	XLlFifo_Config *FifoConfig;
+
 	xaxiemacif_s *xaxiemacif = (xaxiemacif_s *)(xemac->state);
 #if XPAR_INTC_0_HAS_FAST == 1
 	xaxiemacif_fast = xaxiemacif;
@@ -222,12 +229,18 @@ XStatus init_axi_fifo(struct xemac_s *xemac)
 	XLlFifo_Initialize(&xaxiemacif->axififo,
 			XAxiEthernet_AxiDevBaseAddress(&xaxiemacif->axi_ethernet));
 
+#ifdef SDT
+	baseaddr = xaxiemacif->axi_ethernet.AxiDevBaseAddress;
+	FifoConfig = XLlFfio_LookupConfig(baseaddr);
+#endif
+
 	/* Clear any pending FIFO interrupts */
 	XLlFifo_IntClear(&xaxiemacif->axififo, XLLF_INT_ALL_MASK);
 
 	/* enable fifo interrupts */
 	XLlFifo_IntEnable(&xaxiemacif->axififo, XLLF_INT_ALL_MASK);
 
+#ifndef SDT
 #if XLWIP_CONFIG_INCLUDE_AXIETH_ON_ZYNQ == 1
 	XScuGic_RegisterHandler(xtopologyp->scugic_baseaddr,
 				xaxiemacif->axi_ethernet.Config.TemacIntr,
@@ -329,6 +342,19 @@ XStatus init_axi_fifo(struct xemac_s *xemac)
 	} while (0);
 #endif
 #endif
+#else
+	XSetupInterruptSystem(&xaxiemacif->axi_ethernet,
+			&xaxiemac_error_handler,
+			xaxiemacif->axi_ethernet.Config.IntrId,
+			xaxiemacif->axi_ethernet.Config.IntrParent,
+			XINTERRUPT_DEFAULT_PRIORITY);
+
+	XSetupInterruptSystem(xemac,
+			&xllfifo_intr_handler,
+			FifoConfig->IntId,
+			FifoConfig->IntrParent,
+			XINTERRUPT_DEFAULT_PRIORITY);
+#endif /* #ifndef SDT */
 
 	return 0;
 }
