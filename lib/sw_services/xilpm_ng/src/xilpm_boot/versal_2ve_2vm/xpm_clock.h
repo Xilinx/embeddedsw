@@ -189,7 +189,7 @@ XStatus XPmClock_SetRate(XPm_ClockNode *Clk, const u32 ClkRate);
 XPm_ClockNode** XPmClock_GetClkList(void);
 u32 XPmClock_GetMaxClkNodes(void);
 void XPmClock_InitParent(XPm_OutClockNode *Clk);
-
+XStatus XPmClock_InitGenericTopology(void);
 
 #ifdef __cplusplus
 }

@@ -341,6 +341,14 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 {
 	XStatus Status = XST_FAILURE;
 	PmInfo("Initializing XilPM Boot Library\n\r");
+
+	/* Initialize clock topology templates */
+	Status = XPmClock_InitGenericTopology();
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to initialize clock topology templates\r\n");
+		goto done;
+	}
+
 	/* Initializing XPLmi_PmCmds array*/
 	XPlmi_PmCmds[PM_ADD_NODE].Handler = (XPlmi_CmdHandler)XPm_AddNode;
 	XPlmi_PmCmds[PM_ADD_REQUIREMENT].Handler = (XPlmi_CmdHandler)XPm_AddRequirement;

@@ -11,70 +11,95 @@
 #include "xpm_device.h"
 #include "xpm_debug.h"
 #include "xpm_alloc.h"
-/* Query related defines */
 
+/* Macros to initialize individual node types without creating temporaries */
+#define INIT_MUX_NODE(node, idx) \
+	(node)[(idx)].Type = (u8)TYPE_MUX; \
+	(node)[(idx)].Param1.Shift = PERIPH_MUX_SHIFT; \
+	(node)[(idx)].Param2.Width = PERIPH_MUX_WIDTH; \
+	(node)[(idx)].Clkflags = CLK_SET_RATE_NO_REPARENT; \
+	(node)[(idx)].Typeflags = NA_TYPE_FLAGS; \
+	(node)[(idx)].Reg = 0U;
 
+#define INIT_DIV_NODE(node, idx) \
+	(node)[(idx)].Type = (u8)TYPE_DIV1; \
+	(node)[(idx)].Param1.Shift = PERIPH_DIV_SHIFT; \
+	(node)[(idx)].Param2.Width = PERIPH_DIV_WIDTH; \
+	(node)[(idx)].Clkflags = CLK_SET_RATE_NO_REPARENT; \
+	(node)[(idx)].Typeflags = CLK_DIVIDER_ONE_BASED | CLK_DIVIDER_ALLOW_ZERO; \
+	(node)[(idx)].Reg = 0U;
 
-#define GENERIC_MUX						\
-	{									\
-		.Type = (u8)TYPE_MUX,				\
-		.Param1.Shift = PERIPH_MUX_SHIFT,		\
-		.Param2.Width = PERIPH_MUX_WIDTH,		\
-		.Clkflags = CLK_SET_RATE_NO_REPARENT,		\
-		.Typeflags = NA_TYPE_FLAGS,		\
+#define INIT_GATE_NODE(node, idx, gate_id) \
+	(node)[(idx)].Type = (u8)TYPE_GATE; \
+	(node)[(idx)].Param1.Shift = PERIPH_GATE##gate_id##_SHIFT; \
+	(node)[(idx)].Param2.Width = PERIPH_GATE_WIDTH; \
+	(node)[(idx)].Clkflags = CLK_SET_RATE_PARENT | CLK_SET_RATE_GATE; \
+	(node)[(idx)].Typeflags = NA_TYPE_FLAGS; \
+	(node)[(idx)].Reg = 0U;
+
+/* Macro to allocate and check for a topology */
+#define ALLOC_TOPOLOGY_NODES(num_nodes, alloc_var) \
+	alloc_var = (struct XPm_ClkTopologyNode *)XPm_AllocBytes( \
+		(num_nodes) * sizeof(struct XPm_ClkTopologyNode)); \
+	if (NULL == alloc_var) { \
+		DbgErr = XPM_INT_ERR_BUFFER_TOO_SMALL; \
+		Status = XST_BUFFER_TOO_SMALL; \
+		goto done; \
 	}
 
-#define GENERIC_DIV						\
-	{									\
-		.Type = (u8)TYPE_DIV1,				\
-		.Param1.Shift = PERIPH_DIV_SHIFT,		\
-		.Param2.Width = PERIPH_DIV_WIDTH,		\
-		.Clkflags = CLK_SET_RATE_NO_REPARENT,		\
-		.Typeflags = CLK_DIVIDER_ONE_BASED |	\
-				 CLK_DIVIDER_ALLOW_ZERO,		\
-	}
+/* Macro to set a topology in the array */
+#define SET_TOPOLOGY(topo_type, nodes_ptr, num) \
+	ClkTopologies[(topo_type) - TOPOLOGY_GENERIC_MUX_DIV].Nodes = \
+		(struct XPm_ClkTopologyNode(*)[])(nodes_ptr); \
+	ClkTopologies[(topo_type) - TOPOLOGY_GENERIC_MUX_DIV].NumNodes = (num);
 
-#define GENERIC_GATE(id)				\
-	{									\
-		.Type = (u8)TYPE_GATE,				\
-		.Param1.Shift = PERIPH_GATE##id##_SHIFT,		\
-		.Param2.Width = PERIPH_GATE_WIDTH,				\
-		.Clkflags = CLK_SET_RATE_PARENT |		\
-				CLK_SET_RATE_GATE,		\
-		.Typeflags = NA_TYPE_FLAGS,		\
-	}
-static struct XPm_ClkTopologyNode GenericMuxDivNodes[] = {
-	GENERIC_MUX,
-	GENERIC_DIV,
-};
+/* Macro for 2-node topologies */
+#define INIT_TOPOLOGY_2(topo_type, node1_init, node2_init) do { \
+	ALLOC_TOPOLOGY_NODES(2U, AllocatedNodes); \
+	node1_init(AllocatedNodes, 0); \
+	node2_init(AllocatedNodes, 1); \
+	SET_TOPOLOGY(topo_type, AllocatedNodes, 2U); \
+} while(0)
 
-static struct XPm_ClkTopologyNode GenericMuxGate2Nodes[] = {
-	GENERIC_MUX,
-	GENERIC_GATE(2),
-};
-static struct XPm_ClkTopologyNode GenericDivGate2Nodes[] = {
-	GENERIC_DIV,
-	GENERIC_GATE(2),
-};
-static struct XPm_ClkTopologyNode GenericMuxDivGate1Nodes[] = {
-	GENERIC_MUX,
-	GENERIC_DIV,
-	GENERIC_GATE(1),
-};
+/* Macro for 3-node topologies */
+#define INIT_TOPOLOGY_3(topo_type, node1_init, node2_init, node3_init) do { \
+	ALLOC_TOPOLOGY_NODES(3U, AllocatedNodes); \
+	node1_init(AllocatedNodes, 0); \
+	node2_init(AllocatedNodes, 1); \
+	node3_init(AllocatedNodes, 2); \
+	SET_TOPOLOGY(topo_type, AllocatedNodes, 3U); \
+} while(0)
 
-static struct XPm_ClkTopologyNode GenericMuxDivGate2Nodes[] = {
-	GENERIC_MUX,
-	GENERIC_DIV,
-	GENERIC_GATE(2),
-};
+/* Wrapper macros for GATE nodes with specific IDs */
+#define INIT_GATE1_NODE(node, idx) INIT_GATE_NODE(node, idx, 1)
+#define INIT_GATE2_NODE(node, idx) INIT_GATE_NODE(node, idx, 2)
 
 static XPm_ClkTopology ClkTopologies[ ] = {
-	 {&GenericMuxDivNodes, TOPOLOGY_GENERIC_MUX_DIV, ARRAY_SIZE(GenericMuxDivNodes), {0}},
-	 {&GenericMuxGate2Nodes, TOPOLOGY_GENERIC_MUX_GATE, ARRAY_SIZE(GenericMuxGate2Nodes), {0}},
-	 {&GenericDivGate2Nodes, TOPOLOGY_GENERIC_DIV_GATE, ARRAY_SIZE(GenericDivGate2Nodes), {0}},
-	 {&GenericMuxDivGate1Nodes, TOPOLOGY_GENERIC_MUX_DIV_GATE_1, ARRAY_SIZE(GenericMuxDivGate1Nodes), {0}},
-	 {&GenericMuxDivGate2Nodes, TOPOLOGY_GENERIC_MUX_DIV_GATE_2, ARRAY_SIZE(GenericMuxDivGate2Nodes), {0}},
+	 {NULL, TOPOLOGY_GENERIC_MUX_DIV, 0, {0}},
+	 {NULL, TOPOLOGY_GENERIC_MUX_GATE, 0, {0}},
+	 {NULL, TOPOLOGY_GENERIC_DIV_GATE, 0, {0}},
+	 {NULL, TOPOLOGY_GENERIC_MUX_DIV_GATE_1, 0, {0}},
+	 {NULL, TOPOLOGY_GENERIC_MUX_DIV_GATE_2, 0, {0}},
 };
+
+XStatus XPmClock_InitGenericTopology(void)
+{
+	XStatus Status = XST_FAILURE;
+	struct XPm_ClkTopologyNode *AllocatedNodes;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	INIT_TOPOLOGY_2(TOPOLOGY_GENERIC_MUX_DIV, INIT_MUX_NODE, INIT_DIV_NODE);
+	INIT_TOPOLOGY_2(TOPOLOGY_GENERIC_MUX_GATE, INIT_MUX_NODE, INIT_GATE2_NODE);
+	INIT_TOPOLOGY_2(TOPOLOGY_GENERIC_DIV_GATE, INIT_DIV_NODE, INIT_GATE2_NODE);
+	INIT_TOPOLOGY_3(TOPOLOGY_GENERIC_MUX_DIV_GATE_1, INIT_MUX_NODE, INIT_DIV_NODE, INIT_GATE1_NODE);
+	INIT_TOPOLOGY_3(TOPOLOGY_GENERIC_MUX_DIV_GATE_2, INIT_MUX_NODE, INIT_DIV_NODE, INIT_GATE2_NODE);
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
 
 static XPm_ClockNode *ClkNodeList[(u32)XPM_NODEIDX_CLK_MAX];
 static u32 MaxClkNodes;
