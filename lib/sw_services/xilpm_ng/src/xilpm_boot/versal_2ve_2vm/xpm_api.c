@@ -76,6 +76,8 @@ static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs);
 u32 ResetReason;
 void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload) = NULL;
 int (*PmRestartCb)(u32 ImageId, u32 *FuncId) = NULL;
+extern u8 __xpm_bss_start[];
+extern u8 __xpm_bss_end[];
 
 /**
  * @brief Get the pointer to the array of PM commands
@@ -340,14 +342,23 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 		 int (*const RestartCb)(u32 ImageId, u32 *FuncId))
 {
 	XStatus Status = XST_FAILURE;
-	PmInfo("Initializing XilPM Boot Library\n\r");
 
-	/* Initialize clock topology templates */
-	Status = XPmClock_InitGenericTopology();
-	if (XST_SUCCESS != Status) {
-		PmErr("Failed to initialize clock topology templates\r\n");
-		goto done;
+	/* Zeroized xpm_bss_data session during none In-place update*/
+	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+		Status = Xil_SMemSet(__xpm_bss_start, __xpm_bss_end - __xpm_bss_start, 0, __xpm_bss_end - __xpm_bss_start);
+		if (XST_SUCCESS != Status) {
+			PmErr("Failed to zeroize xpm_bss_data session\r\n");
+			goto done;
+		}
+		/* Initialize clock topology templates */
+		Status = XPmClock_InitGenericTopology();
+		if (XST_SUCCESS != Status) {
+			PmErr("Failed to initialize clock topology templates\r\n");
+			goto done;
+		}
 	}
+
+	PmInfo("Initializing XilPM Boot Library\n\r");
 
 	/* Initializing XPLmi_PmCmds array*/
 	XPlmi_PmCmds[PM_ADD_NODE].Handler = (XPlmi_CmdHandler)XPm_AddNode;
@@ -567,6 +578,12 @@ static XStatus XPm_AddNodeParent(XPlmi_Cmd *Cmd)
 
 	NumParents = NumArgs-1U;
 	Parents = &Args[1];
+
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		/* Skip during PLM update */
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	switch (NODECLASS(Id)) {
 	case (u32)XPM_NODECLASS_POWER:
@@ -1290,6 +1307,10 @@ XStatus XPm_AddNodeName(XPlmi_Cmd *Cmd)
 	u32 i = 0U, j = 0U;
 	const u32 CopySize = 4U;
 
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 	if (0U == NumArgs) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -1618,6 +1639,12 @@ XStatus XPm_AddNode(XPlmi_Cmd *Cmd)
 	u32 NumArgs = Cmd->Len;
 	u32 Id = Args[0];
 
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		/* Skip during PLM update */
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	switch (NODECLASS(Id)) {
 	case (u32)XPM_NODECLASS_POWER:
 		Status = XPm_AddNodePower(Args, NumArgs);
@@ -1647,6 +1674,8 @@ XStatus XPm_AddNode(XPlmi_Cmd *Cmd)
 		Status = XST_INVALID_PARAM;
 		break;
 	}
+
+done:
 	Cmd->Response[0] = (u32)Status;
 	return Status;
 }

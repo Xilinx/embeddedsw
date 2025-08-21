@@ -9,12 +9,10 @@
 #include "xpm_regs.h"
 #include "xpm_pll.h"
 #include "xpm_debug.h"
+#include "xpm_update.h"
 
-
-
-static XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX];
-static u32 PmNumPowers;
-
+static XPm_Power *PmPowers[XPM_NODEIDX_POWER_MAX] XPM_INIT_DATA(PmPowers) = { NULL };
+static u32 PmNumPowers XPM_INIT_DATA(PmNumPowers) = 0U;
 
 XPm_Power *XPmPower_GetById(u32 Id)
 {

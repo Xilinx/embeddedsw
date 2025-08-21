@@ -20,23 +20,23 @@
 #include "xpm_reset.h"
 #include "xpm_alloc.h"
 #include "xpm_aiedevice.h"
+#include "xpm_update.h"
 
 #define SD_DLL_DIV_MAP_RESET_VAL	(0x50505050U)
 
-XPm_Device *PmDevices[(u32)XPM_NODEIDX_DEV_MAX];
-static XPm_Device *PmPlDevices[(u32)XPM_NODEIDX_DEV_PLD_MAX];
-static XPm_Device *PmAieDevices[(u32)XPM_NODEIDX_DEV_AIE_MAX];
-static XPm_Device *PmVirtualDevices[(u32)XPM_NODEIDX_DEV_VIRT_MAX];
-static XPm_Device *PmHbMonDevices[(u32)XPM_NODEIDX_DEV_HB_MON_MAX];
-static XPm_Device *PmMemRegnDevices[(u32)XPM_NODEIDX_DEV_MEM_REGN_MAX];
-static u32 PmNumPlDevices;
-static u32 PmNumVirtualDevices;
-static u32 PmNumHbMonDevices;
-static u32 PmNumMemRegnDevices;
-static u32 PmSysmonAddresses[(u32)XPM_NODEIDX_MONITOR_MAX];
-static u32 PmNumDevices;
-static u32 PmNumAieDevices;
-//static XStatus SetClocks(const XPm_Device *Device, u32 Enable);
+static XPm_Device *PmDevices[(u32)XPM_NODEIDX_DEV_MAX] XPM_INIT_DATA(PmDevices) = { NULL };
+static XPm_Device *PmPlDevices[(u32)XPM_NODEIDX_DEV_PLD_MAX] XPM_INIT_DATA(PmPlDevices) = { NULL };
+static XPm_Device *PmAieDevices[(u32)XPM_NODEIDX_DEV_AIE_MAX] XPM_INIT_DATA(PmAieDevices) = { NULL };
+static XPm_Device *PmVirtualDevices[(u32)XPM_NODEIDX_DEV_VIRT_MAX] XPM_INIT_DATA(PmVirtualDevices) = { NULL };
+static XPm_Device *PmHbMonDevices[(u32)XPM_NODEIDX_DEV_HB_MON_MAX] XPM_INIT_DATA(PmHbMonDevices) = { NULL };
+static XPm_Device *PmMemRegnDevices[(u32)XPM_NODEIDX_DEV_MEM_REGN_MAX] XPM_INIT_DATA(PmMemRegnDevices) = { NULL };
+static u32 PmSysmonAddresses[(u32)XPM_NODEIDX_MONITOR_MAX] XPM_INIT_DATA(PmSysmonAddresses) = { 0U };
+static u32 PmNumPlDevices XPM_INIT_DATA(PmNumPlDevices) = 0U;
+static u32 PmNumVirtualDevices XPM_INIT_DATA(PmNumVirtualDevices) = 0U;
+static u32 PmNumHbMonDevices XPM_INIT_DATA(PmNumHbMonDevices) = 0U;
+static u32 PmNumMemRegnDevices XPM_INIT_DATA(PmNumMemRegnDevices) = 0U;
+static u32 PmNumDevices XPM_INIT_DATA(PmNumDevices) = 0U;
+static u32 PmNumAieDevices XPM_INIT_DATA(PmNumAieDevices) = 0U;
 
 u32 XPmDevice_GetMemRegnCount(void) {
 	return PmNumMemRegnDevices;

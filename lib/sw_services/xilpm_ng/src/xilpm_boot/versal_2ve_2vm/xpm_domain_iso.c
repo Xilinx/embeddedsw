@@ -9,8 +9,9 @@
 #include "xpm_device.h"
 #include "xpm_regs.h"
 #include "xpm_alloc.h"
+#include "xpm_update.h"
 
-static XPm_Iso* XPmDomainIso_List[XPM_NODEIDX_ISO_MAX];
+static XPm_Iso* XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] XPM_INIT_DATA(XPmDomainIso_List) = { NULL };
 
 #define IS_PSM_ISO(ISO_NODE) ((((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_LOW) || \
 			      (((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_HIGH)) ? 1U : 0U

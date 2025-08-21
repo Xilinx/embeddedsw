@@ -16,11 +16,12 @@
 #include "xpm_runtime_reset.h"
 #include "xpm_mem_tcm.h"
 #include "xpm_aiedevice.h"
+#include "xpm_update.h"
 
 /* Device security bit in register */
 #define DEV_NONSECURE			(1U)
 #define DEV_SECURE			(0U)
-static XPmRuntime_DeviceOpsList* DevOpsList = NULL;
+static XPmRuntime_DeviceOpsList* DevOpsList XPM_INIT_DATA(DevOpsList) = NULL;
 static const u32 IpiMasks[][2] = {
 	{ PM_DEV_IPI_0, IPI_0_MASK },
 	{ PM_DEV_IPI_1, IPI_1_MASK },

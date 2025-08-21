@@ -5,28 +5,34 @@
 #include "xpm_runtime_alloc.h"
 #include "xpm_common.h"
 #include "xpm_memory_pools.h"
+#include "xplmi_update.h"
+#include "xpm_runtime_reset.h"
+#include "xpm_subsystem.h"
+#include "xpm_runtime_device.h"
+#include "xpm_regnode.h"
+#include "xpm_update.h"
 
-static u8 SubSystemPoolMemBuffer[MAX_SUBSYS_POOL_SIZE]; /** For Subsystem and requirement data */
-static u8 ReqmPoolMemBuffer[MAX_REQM_POOL_SIZE]; /** For Subsystem and requirement data */
-static u8 DevOpsPoolMemBuffer[MAX_DEVOPS_POOL_SIZE]; /** Other Pool Memory Buffer */
-static u8 OtherPoolMemBuffer[MAX_OTHER_POOL_SIZE]; /** Other Pool Memory Buffer */
+static u8 SubSystemPoolMemBuffer[MAX_SUBSYS_POOL_SIZE] XPM_PLACE_IN(".SubSystemPoolMemBuffer"); /** For Subsystem and requirement data */
+static u8 ReqmPoolMemBuffer[MAX_REQM_POOL_SIZE] XPM_PLACE_IN(".ReqmPoolMemBuffer"); /** For Subsystem and requirement data */
+static u8 DevOpsPoolMemBuffer[MAX_DEVOPS_POOL_SIZE] XPM_PLACE_IN(".DevOpsPoolMemBuffer"); /** Other Pool Memory Buffer */
+static u8 OtherPoolMemBuffer[MAX_OTHER_POOL_SIZE] XPM_PLACE_IN(".OtherPoolMemBuffer"); /** Other Pool Memory Buffer */
 
-static XPm_AllocablePool_t SubSystemPoolMem = {
+static XPm_AllocablePool_t SubSystemPoolMem XPM_INIT_DATA(SubSystemPoolMem)= {
 	.Size = MAX_SUBSYS_POOL_SIZE,
 	.Pool = SubSystemPoolMemBuffer,
 	.FreeMem = SubSystemPoolMemBuffer
 };
-static XPm_AllocablePool_t ReqmPoolMem = {
+static XPm_AllocablePool_t ReqmPoolMem XPM_INIT_DATA(ReqmPoolMem)= {
 	.Size = MAX_REQM_POOL_SIZE,
 	.Pool = ReqmPoolMemBuffer,
 	.FreeMem = ReqmPoolMemBuffer
 };
-static XPm_AllocablePool_t DevOpsPoolMem = {
+static XPm_AllocablePool_t DevOpsPoolMem XPM_INIT_DATA(DevOpsPoolMem)= {
 	.Size = MAX_DEVOPS_POOL_SIZE,
 	.Pool = DevOpsPoolMemBuffer,
 	.FreeMem = DevOpsPoolMemBuffer
 };
-static XPm_AllocablePool_t OtherPoolMem = {
+static XPm_AllocablePool_t OtherPoolMem XPM_INIT_DATA(OtherPoolMem)= {
 	.Size = MAX_OTHER_POOL_SIZE,
 	.Pool = OtherPoolMemBuffer,
 	.FreeMem = OtherPoolMemBuffer

@@ -15,7 +15,11 @@
 #include "xplmi.h"
 #include "xpm_subsystem.h"
 #include "xpm_runtime_device.h"
-static XPmRuntime_ResetList *RuntimeResetList = NULL;
+#include "xpm_update.h"
+#include <stdlib.h>
+
+static XPmRuntime_ResetList *RuntimeResetList XPM_INIT_DATA(RuntimeResetList) =  NULL;
+
 /*
  * In the case of default subsystem with a pre-defined set of requirements,
  * add entire list of resets that are allowed to have permissions to the

@@ -4,7 +4,9 @@
 ******************************************************************************/
 
 #include "xpm_regnode.h"
-static XPm_RegNode *PmRegnodes;
+#include "xpm_update.h"
+#include <stdlib.h>
+static XPm_RegNode *PmRegnodes XPM_INIT_DATA(XPm_RegNode) = NULL;
 
 XPm_RegNode* XPmRegNode_GetNodes(void)
 {

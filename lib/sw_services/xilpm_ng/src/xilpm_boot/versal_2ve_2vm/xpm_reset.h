@@ -22,8 +22,6 @@ extern "C" {
 					((u32)XPM_NODETYPE_RESET_COLD != (Subcls)))
 
 
-extern u32 UserAssertPsSrst;
-
 /* All reset types */
 typedef enum {
 	XPM_RSTTYPE_POR,

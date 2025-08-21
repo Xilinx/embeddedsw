@@ -5,8 +5,9 @@
 
 #include "xil_util.h"
 #include "xpm_pin.h"
-static XPm_PinNode *PmMioPins[XPM_NODEIDX_STMIC_MAX];
-static u16 PmNumPins;
+#include "xpm_update.h"
+static XPm_PinNode *PmMioPins[XPM_NODEIDX_STMIC_MAX] XPM_INIT_DATA(PmMioPins) = { NULL };
+static u32 PmNumPins XPM_INIT_DATA(PmNumPins) = 0U;
 
 /****************************************************************************/
 /**

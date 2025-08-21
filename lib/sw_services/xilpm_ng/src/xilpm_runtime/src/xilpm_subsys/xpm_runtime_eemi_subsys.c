@@ -17,6 +17,7 @@
 #include "xpm_ioctl.h"
 #include "xpm_runtime_api.h"
 #include "xpm_debug.h"
+#include "xpm_update.h"
 
 static XStatus XPmSubsystem_Generic_Activate(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_Generic_SetState(XPm_Subsystem *Subsystem, u32 State);
@@ -34,7 +35,7 @@ static XStatus XPmSubsystem_Generic_StopBootTimer(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_Generic_StartRecoveryTimer(XPm_Subsystem *Subsystem);
 static XStatus XPmSubsystem_Generic_StopRecoveryTimer(XPm_Subsystem *Subsystem);
 
-XPm_SubsystemMgr SubsysMgr = {
+XPm_SubsystemMgr SubsysMgr XPM_INIT_DATA(SubsysMgr) = {
 	.Subsystems = { .Root = NULL },
 	.NumSubsystems = 0,
 };

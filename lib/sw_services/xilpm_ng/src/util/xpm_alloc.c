@@ -6,14 +6,15 @@
 #include "xpm_alloc.h"
 #include "xpm_common.h"
 #include "xpm_memory_pools.h"
+#include "xpm_update.h"
 
-/** List of memory pool list:*/
-static u8 TopoPoolMemBuffer[MAX_TOPO_POOL_SIZE]; /** For Topology data  */
-static XPm_AllocablePool_t TopoPoolMem = {
+static u8 TopoPoolMemBuffer[MAX_TOPO_POOL_SIZE] XPM_PLACE_IN(".TopoPoolMemBuffer") ; /** For Topology data  */
+static XPm_AllocablePool_t TopoPoolMem XPM_INIT_DATA(TopoPoolMem) =  {
 	.Size = MAX_TOPO_POOL_SIZE,
 	.Pool = TopoPoolMemBuffer,
 	.FreeMem = TopoPoolMemBuffer
 };
+
 /**
  * @brief Allocates a pool of memory of the specified size.
  *
@@ -120,9 +121,8 @@ void __attribute__((weak, noinline)) XPm_DumpMemUsage(void)
 	(void)XPm_DumpTopologyMemUsage();
 }
 
-static u8 BoardPoolMemBuffer[MAX_BOARD_POOL_SIZE];	/** Board Pool Memory Buffer */
-
-static XPm_AllocablePool_t BoardPoolMem = {
+static u8 BoardPoolMemBuffer[MAX_BOARD_POOL_SIZE] XPM_PLACE_IN(".BoardPoolMemBuffer");	/** Board Pool Memory Buffer */
+static XPm_AllocablePool_t BoardPoolMem XPM_INIT_DATA(BoardPoolMem)=  {
 	.Size = MAX_BOARD_POOL_SIZE,
 	.Pool = BoardPoolMemBuffer,
 	.FreeMem = BoardPoolMemBuffer

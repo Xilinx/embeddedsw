@@ -11,6 +11,7 @@
 #include "xpm_device.h"
 #include "xpm_debug.h"
 #include "xpm_alloc.h"
+#include "xpm_update.h"
 
 /* Macros to initialize individual node types without creating temporaries */
 #define INIT_MUX_NODE(node, idx) \
@@ -74,7 +75,7 @@
 #define INIT_GATE1_NODE(node, idx) INIT_GATE_NODE(node, idx, 1)
 #define INIT_GATE2_NODE(node, idx) INIT_GATE_NODE(node, idx, 2)
 
-static XPm_ClkTopology ClkTopologies[ ] = {
+static XPm_ClkTopology ClkTopologies[] XPM_INIT_DATA(ClkTopologies)= {
 	 {NULL, TOPOLOGY_GENERIC_MUX_DIV, 0, {0}},
 	 {NULL, TOPOLOGY_GENERIC_MUX_GATE, 0, {0}},
 	 {NULL, TOPOLOGY_GENERIC_DIV_GATE, 0, {0}},
@@ -101,8 +102,8 @@ done:
 	return Status;
 }
 
-static XPm_ClockNode *ClkNodeList[(u32)XPM_NODEIDX_CLK_MAX];
-static u32 MaxClkNodes;
+static XPm_ClockNode *ClkNodeList[(u32)XPM_NODEIDX_CLK_MAX] XPM_INIT_DATA(ClkNodeList) = { NULL };
+static u32 MaxClkNodes XPM_INIT_DATA(MaxClkNodes) = 0U;
 
 XPm_ClockNode** XPmClock_GetClkList(void)
 {

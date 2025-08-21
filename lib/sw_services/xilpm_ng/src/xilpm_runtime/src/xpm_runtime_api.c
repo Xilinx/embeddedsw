@@ -121,7 +121,6 @@ static XStatus XPm_DoGetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd);
 
 /* Defined in xilpm-boot */
-extern XPm_Device *PmDevices[(u32)XPM_NODEIDX_DEV_MAX];
 extern int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 
 /**
@@ -604,11 +603,20 @@ XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->Payload[0];
+
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		/* Skip during PLM update */
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	Status = XPmSubsystem_Add(SubsystemId);
 	Cmd->Response[0] = (u32)Status;
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
+
+done:
 	return Status;
 }
 
@@ -629,6 +637,7 @@ XStatus XPm_AddSubsystem(XPlmi_Cmd* Cmd)
  ****************************************************************************/
 static XStatus XPm_DoAddRequirement(XPlmi_Cmd* Cmd)
 {
+
 	return XPm_AddRequirement(Cmd);
 }
 
@@ -637,10 +646,19 @@ XStatus XPm_AddRequirement(XPlmi_Cmd* Cmd)
 	XStatus Status = XST_FAILURE;
 	u32 *Payload = Cmd->Payload;
 	u32 PayloadLen = Cmd->PayloadLen;
+
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		/* Skip during PLM update */
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	Status = XPmSubsystem_AddReqm(Payload[0], Payload, PayloadLen);
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
+
+done:
 	return Status;
 }
 
@@ -778,6 +796,12 @@ XStatus XPm_HookAfterPlmCdo(void)
 	/* Registers all  power related interrupt post PLM cdo loaded*/
 	Status = RegisterNEnablePwrIntr();
 	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (XPlmi_IsPlmUpdateDone() == TRUE) {
+		/* Skip during PLM update */
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
@@ -2913,6 +2937,9 @@ XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx)
 	Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk, (u32)TYPE_MUX, ParentIdx);
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
 	return Status;
 }
 static XStatus XPm_DoGetClockParent(XPlmi_Cmd *Cmd)
@@ -3013,8 +3040,15 @@ XStatus XPm_HookAfterBootPdi(void)
 {
 	/* TODO: Review where interrupts need to be enabled */
 	/* Enable power related interrupts to PMC */
+
 	XPm_RMW32(PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN, PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN_MASK,
 		  PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN_MASK);
+
+	if (XPlmi_IsPlmUpdateDone() == TRUE){
+		/* Skip during PLM update */
+		goto done;
+	}
+
 	/* Init Pin RuntimeOps */
 	for (int i = 0; i < XPM_NODEIDX_STMIC_MAX; i++) {
 		XPm_PinNode* Pin = XPmPin_GetByIndex(i);
@@ -3023,5 +3057,6 @@ XStatus XPm_HookAfterBootPdi(void)
 		}
 		XPmPin_RuntimeOps_Init(Pin);
 	}
+done:
 	return XST_SUCCESS;
 }

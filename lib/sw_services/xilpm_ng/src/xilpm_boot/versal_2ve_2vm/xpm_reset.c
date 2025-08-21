@@ -14,14 +14,11 @@
 #include "xpm_common.h"
 #include "xplmi.h"
 #include "xpm_alloc.h"
+#include "xpm_update.h"
 
-
-static XPm_ResetNode *RstNodeList[(u32)XPM_NODEIDX_RST_MAX];
+static XPm_ResetNode *RstNodeList[(u32)XPM_NODEIDX_RST_MAX] XPM_INIT_DATA(RstNodeList) = { NULL };
 static const u32 MaxRstNodes = (u32)XPM_NODEIDX_RST_MAX;
-static u32 PmNumResets;
-
-u32 UserAssertPsSrst = 0U;
-
+static u32 PmNumResets XPM_INIT_DATA(PmNumResets) = 0U;
 
 static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst)
 {
@@ -103,7 +100,7 @@ XPm_ResetNode* XPmReset_GetById(u32 ResetId)
 
 	if ((NODECLASS(ResetId) != (u32)XPM_NODECLASS_RESET) ||
 	    (ResetIndex >= MaxRstNodes)) {
-		goto done;;
+		goto done;
 	}
 
 	Rst = RstNodeList[ResetIndex];
