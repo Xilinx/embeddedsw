@@ -34,8 +34,8 @@ ifneq (,$(findstring win,$(RDI_PLATFORM)))
 endif
 
 all:
-	$(MAKE) -j1 --no-print-directory seq_libs
-	$(MAKE) -j --no-print-directory par_libs
+	$(MAKE) --no-print-directory seq_libs
+	$(MAKE) --no-print-directory par_libs
 	$(MAKE) --no-print-directory archive
 	@echo 'Finished building libraries'
 

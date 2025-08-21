@@ -1,0 +1,17 @@
+/******************************************************************************
+* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
+#ifndef XPM_MEMORY_POOLS_H
+#define XPM_MEMORY_POOLS_H
+
+/* Memory pool size compile-time constants */
+#define MAX_TOPO_POOL_SIZE     @XILPM_NG_TOPO_POOL_SIZE@
+#define MAX_SUBSYS_POOL_SIZE   @XILPM_NG_SUBSYS_POOL_SIZE@
+#define MAX_REQM_POOL_SIZE     @XILPM_NG_REQM_POOL_SIZE@
+#define MAX_DEVOPS_POOL_SIZE   @XILPM_NG_DEVOPS_POOL_SIZE@
+#define MAX_OTHER_POOL_SIZE    @XILPM_NG_OTHER_POOL_SIZE@
+#define MAX_BOARD_POOL_SIZE    @XILPM_NG_BOARD_POOL_SIZE@
+#endif /* XPM_MEMORY_POOLS_H */

@@ -190,6 +190,8 @@ cp -r $DRIVERS_DIR/$PROC_DIRNAME/src $BSP_DIR/libsrc/$PROC_DIRNAME/src
 
 #copy the xparameters.h
 cp $WORKING_DIR/xparameters*.h $BSP_DIR/include/
+cp $WORKING_DIR/xpm_memory_pools.h $BSP_DIR/include/
+cp $WORKING_DIR/xpm_memory_pools.ld $BSP_DIR/lib/
 
 # other dependencies which are required
 cp $WORKING_DIR/config.make $BSP_DIR/libsrc/standalone/src/

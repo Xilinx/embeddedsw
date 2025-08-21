@@ -5,6 +5,7 @@
 
 #include "xpm_alloc.h"
 #include "xpm_common.h"
+#include "xpm_memory_pools.h"
 
 /** List of memory pool list:*/
 static u8 TopoPoolMemBuffer[MAX_TOPO_POOL_SIZE]; /** For Topology data  */
@@ -73,11 +74,10 @@ void *XPm_AllocBytes(u32 SizeInBytes)
 	void* ret =  XPm_AllocPool(SizeInBytes, &TopoPoolMem);
 
 	if (NULL == ret) {
-		PmInfo("Failed to allocate %u bytes from TopoPoolMem\n\r", SizeInBytes);
+		PmErr("Failed to allocate %u bytes from TopoPoolMem\n\r", SizeInBytes);
+		XPm_DumpMemUsage();
 	}
-
 	return ret;
-
 }
 
 /**
@@ -119,8 +119,6 @@ void __attribute__((weak, noinline)) XPm_DumpMemUsage(void)
 {
 	(void)XPm_DumpTopologyMemUsage();
 }
-
-#define MAX_BOARD_POOL_SIZE	(1 * 1024U)
 
 static u8 BoardPoolMemBuffer[MAX_BOARD_POOL_SIZE];	/** Board Pool Memory Buffer */
 
