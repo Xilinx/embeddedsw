@@ -396,7 +396,7 @@ done:
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
  *
  ****************************************************************************/
-static XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail)
+XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;

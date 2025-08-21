@@ -48,6 +48,7 @@ XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State);
 XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				  const u32 *Args, u32 NumArgs);
 XStatus XPmPower_CheckPower(const XPm_Rail *Rail, u32 VoltageRailMask);
+XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail);
 #ifdef __cplusplus
 }
 #endif
