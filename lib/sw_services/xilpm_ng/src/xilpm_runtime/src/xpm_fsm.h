@@ -11,6 +11,13 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+typedef enum {
+	XPM_FSM_TYPE_MIN = 0x0,
+	XPM_FSM_TYPE_GENERIC_DEVICE = 0x1, /**< Generic device FSM */
+	XPM_FSM_TYPE_MAX = 0xE
+} XPm_FsmType;
+
 typedef struct XPm_Fsm XPm_Fsm;
 
 typedef struct {
@@ -34,8 +41,8 @@ struct XPm_Fsm{
 	const u8 TransCnt; /**< Number of elements in event transition array */
 };
 
-XStatus HandleDeviceEvent(XPm_Device* Device, const u32 Event);
-XStatus XPm_Fsm_Init(XPmRuntime_DeviceOps* const DevOps);
+XStatus XPmFsm_GetFsmByType(XPm_FsmType FsmType, XPm_Fsm** Fsm);
+
 #ifdef __cplusplus
 }
 #endif

@@ -9,8 +9,8 @@
 #include "xpm_power.h"
 #include "xpm_api.h"
 #include "xpm_runtime_device.h"
-#include "xpm_runtime_api.h"
 #include "xpm_aiedevice.h"
+#include "xpm_device_fsm.h"
 
 static XStatus XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
 				XPm_Device *Device, u32 Flags,
@@ -77,7 +77,7 @@ XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
 			goto done;
 		}
 	}
-	Status = XPm_Fsm_Init(DevOps);
+	Status = XPmDeviceFsm_Init(DevOps);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

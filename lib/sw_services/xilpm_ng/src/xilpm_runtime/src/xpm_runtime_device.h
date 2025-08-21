@@ -20,15 +20,16 @@ typedef struct XPmRuntime_DeviceOps XPmRuntime_DeviceOps;
 /* Device Operations */
 struct XPmRuntime_DeviceOps
 {
+	u8 FsmType; /**< Type of the FSM of the device */
 	XPm_Device *Device;
 	XPm_RequirementList* Requirements;
-	XPm_Fsm *Fsm; /**< Pointer to the FSM of the device */
 };
 
 CREATE_LIST(XPmRuntime_DeviceOps);
 XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 				 const u32 Capabilities, const u32 QoS);
 u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *Device);
+XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
 XStatus XPmDevice_GetStatus(XPm_Subsystem *Subsystem,
 			u32 DeviceId,
 			XPm_DeviceStatus *const DeviceStatus);
@@ -50,6 +51,7 @@ XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask);
 XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
 XPm_Requirement *XPmDevice_GetAieReqmDefault(XPm_Device *Device, XPm_Subsystem *Subsystem);
+
 #ifdef __cplusplus
 }
 #endif

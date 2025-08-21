@@ -878,16 +878,22 @@ static XStatus GetStateWithCaps(const XPm_Device* const Device, const u32 Caps,
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
 	}
-	if (NULL == DevOps->Fsm) {
+	XPm_Fsm *Fsm = NULL;
+	Status = XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to get FSM for device 0x%x\r\n", Device->Node.Id);
+		goto done;
+	}
+	if (NULL == Fsm) {
 		goto done;
 	}
 
-	for (Idx = 0U; Idx < DevOps->Fsm->StatesCnt; Idx++) {
+	for (Idx = 0U; Idx < Fsm->StatesCnt; Idx++) {
 		/* Find the first state that contains all capabilities */
-		if ((Caps & DevOps->Fsm->States[Idx].Cap) == Caps) {
+		if ((Caps & Fsm->States[Idx].Cap) == Caps) {
 			Status = XST_SUCCESS;
 			if (NULL != State) {
-				*State = DevOps->Fsm->States[Idx].State;
+				*State = Fsm->States[Idx].State;
 			}
 			break;
 		}
@@ -938,18 +944,25 @@ static u32 GetLatencyFromState(const XPm_Device *const Device, const u32 State)
 {
 	u32 Idx;
 	u32 Latency = 0U;
+	XStatus Status = XST_FAILURE;
 	XPmRuntime_DeviceOps* DevOps = XPm_GetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
 	}
-	u32 HighestStateIdx =DevOps->Fsm->StatesCnt - (u32)1U;
-	u32 HighestState = DevOps->Fsm->States[HighestStateIdx].State;
+	XPm_Fsm *Fsm = NULL;
+	Status = XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to get FSM for device 0x%x\r\n", Device->Node.Id);
+		goto done;
+	}
+	u32 HighestStateIdx = Fsm->StatesCnt - (u32)1U;
+	u32 HighestState = Fsm->States[HighestStateIdx].State;
 
-	for (Idx = 0U; Idx < DevOps->Fsm->TransCnt; Idx++) {
-		if ((State == DevOps->Fsm->Trans[Idx].FromState) &&
-		    (HighestState == DevOps->Fsm->Trans[Idx].ToState)) {
-			Latency = DevOps->Fsm->Trans[Idx].Latency;
+	for (Idx = 0U; Idx < Fsm->TransCnt; Idx++) {
+		if ((State == Fsm->Trans[Idx].FromState) &&
+		    (HighestState == Fsm->Trans[Idx].ToState)) {
+			Latency = Fsm->Trans[Idx].Latency;
 			break;
 		}
 	}
@@ -984,33 +997,85 @@ static XStatus ConstrainStateByLatency(const XPm_Device *const Device,
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
 	}
+	XPm_Fsm *Fsm = NULL;
+	Status = XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to get FSM for device 0x%x\r\n", Device->Node.Id);
+		goto done;
+	}
 	/*
 	 * Need to find higher power state, so ignore lower power states
 	 * and find index for chosen state
 	 */
-	while (DevOps->Fsm->States[Idx].State != *State)
+	while (Fsm->States[Idx].State != *State)
 	{
 		Idx++;
 	}
 
-	for (; Idx < DevOps->Fsm->StatesCnt; Idx++) {
-		if ((CapsToSet & DevOps->Fsm->States[Idx].Cap) != CapsToSet) {
+	for (; Idx < Fsm->StatesCnt; Idx++) {
+		if ((CapsToSet & Fsm->States[Idx].Cap) != CapsToSet) {
 			/* State candidate has no required capabilities */
 			continue;
 		}
-		WkupLat = GetLatencyFromState(Device, DevOps->Fsm->States[Idx].State);
+		WkupLat = GetLatencyFromState(Device, Fsm->States[Idx].State);
 		if (WkupLat > MinLatency) {
 			/* State does not satisfy latency requirement */
 			continue;
 		}
 
 		Status = XST_SUCCESS;
-		*State = DevOps->Fsm->States[Idx].State;
+		*State = Fsm->States[Idx].State;
 		break;
 	}
 done:
 	return Status;
 }
+
+
+XStatus HandleDeviceEvent(XPm_Device* Device, const u32 Event)
+{
+	XStatus Status = XST_FAILURE;
+	XPmRuntime_DeviceOps *DevOps = XPm_GetDevOps_ById(Device->Node.Id);
+	if (NULL == DevOps) {
+		PmErr("Runtime Device Ops is not initalized. Device ID = 0x%x\n", Device->Node.Id);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	XPm_Fsm *Fsm = NULL;
+	// Get the FSM for the device
+	if (XST_SUCCESS != XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm)) {
+		PmErr("Failed to get FSM for Device ID = 0x%x\n", Device->Node.Id);
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	const XPmFsm_Tran* EventTransitions = Fsm->Trans;
+	u8 TransCnt = Fsm->TransCnt;
+
+	// Find the transition for the current state and event
+	for (u8 i = 0; i < TransCnt; i++) {
+		if (EventTransitions[i].Event == Event && EventTransitions[i].FromState == Device->Node.State) {
+			u8 NextState = EventTransitions[i].ToState;
+			// Perform the necessary actions to transition to the next state
+			if (EventTransitions[i].Action == NULL) {
+				PmWarn("Action is NULL for transition FromState=%d ToState=%d Event=%d\n", EventTransitions[i].FromState, EventTransitions[i].ToState, EventTransitions[i].Event);
+				Status = XST_SUCCESS;
+				goto done;
+			}
+			if (EventTransitions[i].Action(Device) == XST_SUCCESS) {
+				// Update the current state of the device
+				Device->Node.State = NextState;
+				return XST_SUCCESS;
+		} else {
+			return XST_FAILURE;
+			}
+		}
+	}
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief	Change state of a device
@@ -1035,7 +1100,12 @@ XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState)
 	PmInfo("Device: 0x%x, State: 0x%x, NextState: 0x%x\r\n", Device->Node.Id,
 		Device->Node.State, NextState);
 
-	const XPm_Fsm* Fsm = DevOps->Fsm;
+	XPm_Fsm* Fsm = NULL;
+	Status = XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to get FSM for device 0x%x\r\n", Device->Node.Id);
+		goto done;
+	}
 	u32 OldState = Device->Node.State;
 	u32 Trans;
 	if (NULL == Fsm) {
@@ -1315,13 +1385,16 @@ XStatus XPm_CheckCapabilities(const XPm_Device *Device, u32 Caps)
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
 	}
-	if (NULL == DevOps->Fsm) {
+	XPm_Fsm *Fsm = NULL;
+	Status = XPmFsm_GetFsmByType(DevOps->FsmType, &Fsm);
+	if (XST_SUCCESS != Status) {
+		PmErr("Failed to get FSM for device 0x%x\r\n", Device->Node.Id);
 		goto done;
 	}
 
-	for (Idx = 0U; Idx <  DevOps->Fsm->StatesCnt; Idx++) {
+	for (Idx = 0U; Idx <  Fsm->StatesCnt; Idx++) {
 		/* Find the first state that contains all capabilities */
-		if ((Caps &  DevOps->Fsm->States[Idx].Cap) == Caps) {
+		if ((Caps &  Fsm->States[Idx].Cap) == Caps) {
 			Status = XST_SUCCESS;
 			break;
 		}

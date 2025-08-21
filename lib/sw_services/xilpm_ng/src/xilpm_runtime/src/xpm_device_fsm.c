@@ -227,25 +227,25 @@ static const XPmFsm_Tran XPmGenericDevEventTransitions[] = {
 
 };
 
-
 #define DEFINE_DEV_STATES(S)	.States = (S), \
 				.StatesCnt = ARRAY_SIZE(S)
 
 #define DEFINE_DEV_TRANS(T)	.Trans = (T), \
 				.TransCnt = ARRAY_SIZE(T)
 
-static XPm_Fsm XPmGenericDeviceFsm = {
+const XPm_Fsm XPmGenericDeviceFsm = {
 	DEFINE_DEV_STATES(XPmGenericDeviceStates),
 	DEFINE_DEV_TRANS(XPmGenericDevEventTransitions),
 };
-XStatus XPm_Fsm_Init(XPmRuntime_DeviceOps* const DevOps) {
+
+XStatus XPmDeviceFsm_Init(XPmRuntime_DeviceOps* const DevOps) {
 	XStatus Status = XST_FAILURE;
 	if (NULL == DevOps) {
 		PmErr("Runtime Device Ops is not initalized.");
 		Status = XST_FAILURE;
 		goto done;
 	}
-	DevOps->Fsm =&XPmGenericDeviceFsm;
+	DevOps->FsmType = XPM_FSM_TYPE_GENERIC_DEVICE;
 	Status = XST_SUCCESS;
 done:
 	return Status;
