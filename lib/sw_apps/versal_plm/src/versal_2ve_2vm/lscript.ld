@@ -5,19 +5,36 @@
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
+INCLUDE "xpm_memory_pools.ld"
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x2000;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x100;
 _USER_CODE_SIZE = DEFINED(_USER_CODE_SIZE) ? _USER_CODE_SIZE : 0x4000;
 _PLM_UPDATE_CODE_SIZE = DEFINED(_PLM_UPDATE_CODE_SIZE) ? _PLM_UPDATE_CODE_SIZE : 0x200;
 _PROCBUFFER_SIZE = DEFINED(_PROCBUFFER_SIZE) ? _PROCBUFFER_SIZE : 0x3000;
-/* Define Memories in the system */
+/* Size reserved for PDI processing default is 16KB */
+_PDI_PROCESSING_SIZE = DEFINED(_PDI_PROCESSING_SIZE) ? _PDI_PROCESSING_SIZE : 0x4000;
 
+/* Define the length of TMR RAM */
+TMR_RAM_BASE = 0xF0200000; /* Base address of TMR RAM */
+TMR_RAM_LENGTH = 0x9FFB0; /* Total TMR RAM length */
+
+/* PLM RAM length after user code and update manager code */
+PLM_RAM_LENGTH = TMR_RAM_LENGTH - _USER_CODE_SIZE - _PLM_UPDATE_CODE_SIZE;
+
+/* Data controller base address and length */
+TMR_RAM_DATA_CNTRL_BASE = 0xF0280000; /* Base address for TMR RAM data controller */
+TMR_RAM_DATA_CNTRL_LENGTH = 0x20000; /* Length of TMR RAM data controller memory 128KB*/
+/* Update manager base address */
+UPDATE_MGR_BASE = TMR_RAM_DATA_CNTRL_BASE + TMR_RAM_DATA_CNTRL_LENGTH - _PLM_UPDATE_CODE_SIZE - _PDI_PROCESSING_SIZE;
+XILPM_BSS_BASE = TMR_RAM_DATA_CNTRL_BASE + TMR_RAM_DATA_CNTRL_LENGTH - _PLM_UPDATE_CODE_SIZE - _PDI_PROCESSING_SIZE - XILPM_BSS_MAX_SIZE;
+
+/* Define Memories in the system */
 MEMORY
 {
-   tmr_ram_cntlr_Mem : ORIGIN = 0xF0200000, LENGTH = (0x9FFB0 - _USER_CODE_SIZE - _PLM_UPDATE_CODE_SIZE)
-   tmr_ram_instr_cntlr_Mem : ORIGIN = 0xF0200000, LENGTH = 0x7FFB0
-   tmr_ram_data_cntlr_Mem : ORIGIN = 0xF0280000, LENGTH = 0x20000
-   update_mgr_Mem : ORIGIN = 0xF029BE00, LENGTH = _PLM_UPDATE_CODE_SIZE
+   /* Total TMR RAM memory */
+   tmr_ram_cntlr_Mem : ORIGIN = TMR_RAM_BASE, LENGTH = TMR_RAM_LENGTH
+   /* Data controller memory */
+   tmr_ram_data_cntlr_Mem : ORIGIN = TMR_RAM_DATA_CNTRL_BASE, LENGTH = TMR_RAM_DATA_CNTRL_LENGTH
 }
 
 /* Specify the default entry point to the program */
@@ -227,13 +244,6 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    __stack = _stack;
 } > tmr_ram_cntlr_Mem
 
-.update_mgr_b (NOLOAD) : {
-   __update_mgr_b = .;
-   __update_mgr_b_start = .;
-   . += _PLM_UPDATE_CODE_SIZE;
-   __update_mgr_b_end = .;
-} > update_mgr_Mem
-
 /* Define the .ProcBuffer section */
 .ProcBuffer (NOLOAD) : {
  __ProcBuffer_start = .;
@@ -250,6 +260,79 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    KEEP(*(.struct_info_hdr))
    KEEP(*(.struct_versions))
 }
+/*******************************************************************************************
+ * @brief xpm_initialized_data Xilpm initialized data section
+ *
+ * This section defines memory layout for initialized data that needs to be
+ * saved and restored during XilPM (Xilinx Power Management) runtime operations.
+ *
+ * @details The init data section contains:
+ * - Runtime variables that maintain state across PLM impactless update
+ * - Configuration parameters that are initialized at boot but may change during runtime
+ * - Critical system state information required for proper power management operation
+ *
+ *******************************************************************************************/
+.xpm_initialized_data : {
+   . = ALIGN(4);
+   __xpm_init_data_start = . ;
+   KEEP(*(.RefTable))
+   . = ALIGN(4);
+   KEEP(*(SORT(.RefTable.*)))
+    __xpm_init_data_end = .;
+} > tmr_ram_cntlr_Mem
+
+/******************************************************************************************
+ * @brief xpm_bss_data XilPm Uninitialized Data Section
+ *
+ * This section defines memory layout for XilPm (Xilinx Power Management)
+ * uninitialized data that requires fixed memory locations. The fixed
+ * positioning is essential to maintain consistent memory references
+ * across impactless firmware updates, ensuring that power management
+ * state and configuration data remain accessible and valid during
+ * system updates without requiring a full system restart.
+ *
+ * @note Fixed memory locations prevent reference corruption during
+ *       hot updates and maintain system stability.
+ */
+/*******************************************************************************************/
+.xpm_bss_data XILPM_BSS_BASE (NOLOAD) : {
+   /* TopoPoolMemBuffer */
+   . = ALIGN(4);
+   __xpm_bss_start = .;
+   __xpm_topo_start = .;
+   KEEP(*(.TopoPoolMemBuffer))
+   __xpm_topo_end = .;
+   __xpm_subsys_start = .;
+      /* SubSystemPoolMemBuffer */
+   . = ALIGN(4);
+   KEEP(*(.SubSystemPoolMemBuffer))
+
+   . = ALIGN(4);
+   /* ReqmPoolMemBuffer */
+   KEEP(*(.ReqmPoolMemBuffer))
+
+   . = ALIGN(4);
+   /* DevOpsPoolMemBuffer */
+   KEEP(*(.DevOpsPoolMemBuffer))
+
+   . = ALIGN(4);
+   /* OtherPoolMemBuffer */
+   KEEP(*(.OtherPoolMemBuffer))
+   __xpm_subsys_end = .;
+   __xpm_board_bss_start = .;
+   . = ALIGN(4);
+   KEEP(*(.BoardPoolMemBuffer))
+   __xpm_board_bss_end = .;
+   __xpm_bss_end = .;
+} > tmr_ram_cntlr_Mem
+
+/**********************************************/
+.update_mgr_b  UPDATE_MGR_BASE (NOLOAD) : {
+   __update_mgr_b = .;
+   __update_mgr_b_start = .;
+   . += _PLM_UPDATE_CODE_SIZE;
+   __update_mgr_b_end = .;
+} > tmr_ram_cntlr_Mem
 
 _end = .;
 }
