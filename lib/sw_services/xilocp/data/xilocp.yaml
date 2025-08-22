@@ -27,11 +27,6 @@ supported_os:
   - standalone
   - freertos10_xilinx
 
-depends_libs:
-  xilplmi: {}
-  xilsecure: {}
-  xilcert: {}
-
 examples:
   xilocp_client_devicekey_example.c: []
   xilocp_client_dme_example.c: []
