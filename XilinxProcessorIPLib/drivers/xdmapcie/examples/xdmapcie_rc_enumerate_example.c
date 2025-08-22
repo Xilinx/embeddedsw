@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -139,17 +139,6 @@ int main(void)
 {
 
 	int Status;
-
-#if defined(versal_2ve_2vm)
-	/* Initialize I2C and perform GPIO reset sequence */
-	Status = XDmaPcie_IicInit();
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERROR: I2C initialization failed\n");
-		return XST_FAILURE;
-	}
-
-	xil_printf("I2C GPIO configuration complete\n");
-#endif
 
 	/* Initialize Root Complex */
 #ifndef SDT
