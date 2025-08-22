@@ -191,6 +191,7 @@
 *       pre 04/04/2025 Fixed bug in load image feature
 *       sk  05/07/2025 Fix the config for PCIe as secondary boot mode
 *       sk  07/13/2025 Renamed XLoader_LoadAndStartSecPdi to XLoader_LoadAndStartSecondaryPdi
+* 2.3   vss 08/13/2025 Removed code which masks major errorcodes.
 *
 * </pre>
 *
@@ -901,8 +902,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 			XLoader_ReadAndVerifySecureHdrs, &SecureParams,
 			(PdiPtr->MetaHdr));
 		if ((Status != XST_SUCCESS) || (StatusTemp != XST_SUCCESS)) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_METAHDR,
-						Status);
+			Status |= StatusTemp;
 			goto END;
 		}
 	}

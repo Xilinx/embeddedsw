@@ -135,6 +135,7 @@
 *       pre  03/19/2025 Added XPLMI_CMD_IN_PROGRESS error state
 * 2.3   ng   07/17/2025 Added new error codes partition copy failure when boot copy optimization is
 *                       disabled
+*       vss  08/20/2025 Marked metaheader authentication failure error code as reserved.
 *
 * </pre>
 *
@@ -506,8 +507,7 @@ typedef enum {
 					  CFG fails */
 	XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE, /**< 0x324 - Error for
 					 unsupported secondary boot mode */
-	XLOADER_ERR_SECURE_METAHDR,	/**< 0x325 - Error when meta header
-					  secure validations fail. */
+	XLOADER_ERR_RESERVED6,		/**< 0x325 - XLoader Reserved Error 6 */
 	XLOADER_ERR_GEN_IDCODE,		/**< 0X326 - Error if Vivado configured part (IDCODE)
 						mismatches with the actual part */
 	XLOADER_ERR_USB_LOOKUP,		/**< 0x327 - Error when USB lookup fails*/

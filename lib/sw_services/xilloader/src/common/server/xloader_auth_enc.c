@@ -151,6 +151,7 @@
 *       pre  05/09/25 Updation is done to do hashBlock1 integrity validation for boot PDI only
 *       vss  07/08/25 Initialised DMA instance in read and verify secure headers.
 *       vss  07/22/2025 Added Hashblock hash verification check to update major errorcode.
+*       vss  08/13/2025 Removed code which masks major errorcodes.
 *
 * </pre>
 *
@@ -995,6 +996,10 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		Status = Xil_SMemCpy((void *)MetaHdr->PrtnHdr, TotalPrtnHdrLen,
 			(void *)(UINTPTR)(SecurePtr->ChunkAddr + TotalImgHdrLen),
 			TotalPrtnHdrLen, TotalPrtnHdrLen);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_COPY_FAIL, Status);
+			goto ERR_END;
+		}
 	}
 	/* If only authentication is enabled */
 	else if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
@@ -1002,20 +1007,21 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		XPlmi_Printf(DEBUG_INFO, "Headers are only authenticated\n\r");
 		/** - Authenticate Image headers and partition headers */
 #ifndef VERSAL_2VE_2VM
-		Status = XLoader_AuthHdrs(SecurePtr, MetaHdr);
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_AuthHdrs, SecurePtr, MetaHdr);
 #else
-		Status = XLoader_AuthHdrsWithHashBlock(SecurePtr, &HBSignParams);
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_AuthHdrsWithHashBlock, SecurePtr, &HBSignParams);
 #endif
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status |= StatusTmp;
+			goto ERR_END;
+		}
 	}
 	else {
 		XPlmi_Printf(DEBUG_INFO, "Headers are not secure\n\r");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_SECURE, 0);
 		goto END;
 	}
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_PH_READ_FAIL, Status);
-		goto ERR_END;
-	}
+
 	Status = XilPdi_VerifyPrtnHdrs(MetaHdr);
 	if(Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_PH_VERIFY_FAIL, Status);
