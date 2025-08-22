@@ -90,6 +90,7 @@
 *       pre  10/26/2024 Removed XLoader_LoadReadBackPdi
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 *       pre  03/17/2025 Added task based event notification functionality for subsystem PDI load
+* 2.3   tvp  07/07/2025 Do not include xplmi_ssit.h for versal_2vp
 *
 * </pre>
 *
@@ -118,7 +119,7 @@
 #include "xloader_defs.h"
 #include "xloader_auth_enc.h"
 #include "xloader_secure.h"
-#if (!defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))
+#if (!defined(VERSAL_NET) && !defined(VERSAL_2VP))
 #include "xplmi_ssit.h"
 #endif
 
