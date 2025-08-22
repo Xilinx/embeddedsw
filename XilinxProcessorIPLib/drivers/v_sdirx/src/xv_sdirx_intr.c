@@ -490,12 +490,13 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		#ifdef XPAR_XV_SDIRX_0_DBPC
 		u32 regval = 0;
 			regval = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress, XV_SDIRX_MDL_CTRL_OFFSET);
+			regval &= ~(0x3 << XV_SDIRX_MDL_CTRL_DYNAMIC_BPC_SHIFT);
 			if (bitdepth == XST352_BYTE4_BIT_DEPTH_10 || bitdepth == XST352_BYTE4_BIT_DEPTH_8) {
-				regval = (regval | (XST352_BYTE4_BIT_DEPTH_10 << XV_SDIRX_MDL_CTRL_DYNAMIC_BPC_SHIFT_0));
+				regval = (regval | (XST352_BYTE4_BIT_DEPTH_10 << XV_SDIRX_MDL_CTRL_DYNAMIC_BPC_SHIFT));
 				XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress, XV_SDIRX_MDL_CTRL_OFFSET, regval);
 			}
 			else if (bitdepth == XST352_BYTE4_BIT_DEPTH_12) {
-				regval = (regval | (XST352_BYTE4_BIT_DEPTH_12 << XV_SDIRX_MDL_CTRL_DYNAMIC_BPC_SHIFT_1));
+				regval = (regval | (XST352_BYTE4_BIT_DEPTH_12 << XV_SDIRX_MDL_CTRL_DYNAMIC_BPC_SHIFT));
 				XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress, XV_SDIRX_MDL_CTRL_OFFSET, regval);
 			}
 		#endif
@@ -518,14 +519,14 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			SdiStream->ColorDepth = XVIDC_BPC_10;
 		}
 
-		if (!XPAR_XV_SDIRX_0_DBPC) {
+		#ifndef XPAR_XV_SDIRX_0_DBPC
 			if (((SdiStream->ColorDepth != XVIDC_BPC_10) ||
 				(SdiStream->ColorDepth != XVIDC_BPC_12)) &&
 				(SdiStream->ColorDepth != InstancePtr->BitDepth)) {
 					xil_printf("Error::: Unsupported Color depth detected \r\n");
 					return;
 			}
-		}
+		#endif
 
 		/*YUV420 color format is supported only for >= 6G modes */
 		if (InstancePtr->Transport.TMode >= XSDIVID_MODE_6G) {
