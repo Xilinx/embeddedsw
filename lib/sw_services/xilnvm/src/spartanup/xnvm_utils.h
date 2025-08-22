@@ -61,8 +61,7 @@ u32 XNvm_EfuseReadReg(u32 BaseAddress, u32 RegOffset);
 void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data);
 int XNvm_EfuseLockController(void);
 int XNvm_EfuseUnlockController(void);
-int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
-			      XNvm_EfuseRdMode RdMode);
+int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op, XNvm_EfuseRdMode RdMode, u32 EfuseClkFreq);
 int XNvm_EfuseResetReadMode(void);
 int XNvm_EfuseDisableProgramming(void);
 

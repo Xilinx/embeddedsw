@@ -20,6 +20,8 @@
 * 3.6   mb   06/25/2025 Update doxygen comments
 *       mb   07/22/2025 Update doxygen comments for XNvm_AesCrcCalc
 *       aa   07/24/2025 Typecast to essential datatypes to avoid implicit conversions
+*       mb   20/08/2025 Update Timer calculate API's by passing Frequency value to macros
+*
 * </pre>
 *
 * @note
@@ -39,29 +41,17 @@
 /**< Polynomial used for CRC calculation */
 #define REVERSE_POLYNOMIAL			(0x82F63B78U)
 
-/**< Efuse clock programming related macros */
-#define XNVM_EFUSE_TPRGM_VALUE \
-	(((5.0f) * ((float)XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000.0f))
-#define XNVM_EFUSE_TRD_VALUE	\
-	(((15.0f) * ((float)XNVM_EFUSE_PS_REF_CLK_FREQ)) / (100000000.0f))
-#define XNVM_EFUSE_TSUHPS_VALUE \
-	(((67.0f) * ((float)XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
-#define XNVM_EFUSE_TSUHPSCS_VALUE \
-	(((46.0f) * ((float)XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
-#define XNVM_EFUSE_TSUHCS_VALUE \
-	(((30.0f) * ((float)XNVM_EFUSE_PS_REF_CLK_FREQ)) / (1000000000.0f))
-
 /**<  Timer related macros */
-#define Tpgm() \
-	Xil_Ceil(XNVM_EFUSE_TPRGM_VALUE)
-#define Trd() \
-	Xil_Ceil(XNVM_EFUSE_TRD_VALUE)
-#define Tsu_h_ps() \
-	Xil_Ceil(XNVM_EFUSE_TSUHPS_VALUE)
-#define Tsu_h_ps_cs() \
-	Xil_Ceil(XNVM_EFUSE_TSUHPSCS_VALUE)
-#define Tsu_h_cs() \
-	Xil_Ceil(XNVM_EFUSE_TSUHCS_VALUE)
+#define Tpgm(ClkFreq) \
+    Xil_Ceil(((5.0f) * ((float)ClkFreq)) / (1000000.0f))
+#define Trd(ClkFreq) \
+    Xil_Ceil(((15.0f) * ((float)ClkFreq)) / (100000000.0f))
+#define Tsu_h_ps(ClkFreq) \
+    Xil_Ceil(((67.0f) * ((float)ClkFreq)) / (1000000000.0f))
+#define Tsu_h_ps_cs(ClkFreq) \
+    Xil_Ceil(((46.0f) * ((float)ClkFreq)) / (1000000000.0f))
+#define Tsu_h_cs(ClkFreq) \
+    Xil_Ceil(((30.0f) * ((float)ClkFreq)) / (1000000000.0f))
 
 /**
  * @}
@@ -74,7 +64,7 @@
 static int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode);
 static int XNvm_EfuseCheckForTBits(void);
 static void XNvm_EfuseEnableProgramming(void);
-static void XNvm_EfuseInitTimers(void);
+static void XNvm_EfuseInitTimers(u32 ClkFreq);
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
@@ -215,31 +205,28 @@ int XNvm_EfuseResetReadMode(void)
  * @brief	This function initializes eFUSE controller timers.
  *
  ******************************************************************************/
-static void XNvm_EfuseInitTimers(void)
+static void XNvm_EfuseInitTimers(u32 ClkFreq)
 {
 	/* CLK_FREQ = 1/CLK_PERIOD */
 	/* TPGM = ceiling(5us/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-			   XNVM_EFUSE_TPGM_OFFSET, (u32)Tpgm());
+		XNVM_EFUSE_TPGM_OFFSET,  (u32)Tpgm(ClkFreq));
 
 	/* TRD = ceiling(150ns/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-			   XNVM_EFUSE_TRD_OFFSET, (u32)Trd());
+		XNVM_EFUSE_TRD_OFFSET, (u32)Trd(ClkFreq));
 
 	/* TSU_H_PS = ceiling(67ns/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-			   XNVM_EFUSE_TSU_H_PS_OFFSET,
-			   (u32)Tsu_h_ps());
+		XNVM_EFUSE_TSU_H_PS_OFFSET, (u32)Tsu_h_ps(ClkFreq));
 
 	/* TSU_H_PS_CS = ceiling(46ns/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-			   XNVM_EFUSE_TSU_H_PS_CS_OFFSET,
-			   (u32)Tsu_h_ps_cs());
+		XNVM_EFUSE_TSU_H_PS_CS_OFFSET, (u32)Tsu_h_ps_cs(ClkFreq));
 
 	/* TSU_H_CS = ceiling(30ns/REF_CLK_PERIOD) */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
-			   XNVM_EFUSE_TSU_H_CS_OFFSET,
-			   (u32)Tsu_h_cs());
+		XNVM_EFUSE_TSU_H_CS_OFFSET, (u32)Tsu_h_cs(ClkFreq));
 }
 
 /******************************************************************************/
@@ -249,6 +236,7 @@ static void XNvm_EfuseInitTimers(void)
  *
  * @param	Op     - Operation to be performed read/program(write).
  * @param	RdMode - Read mode for eFUSE read operation.
+ * @param	EfuseClkFreq - Input Clock frequency for timers initialization.
  *
  * @return	- XST_SUCCESS - eFUSE controller setup for given op.
  *		- XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
@@ -257,7 +245,7 @@ static void XNvm_EfuseInitTimers(void)
  *		- XST_FAILURE - Error on set read mode failure.
  ******************************************************************************/
 int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
-			      XNvm_EfuseRdMode RdMode)
+			      XNvm_EfuseRdMode RdMode, u32 EfuseClkFreq)
 {
 	volatile int Status = XST_FAILURE;
 
@@ -282,10 +270,10 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 	}
 
 	/**
-	 *  Initialize eFuse controller timers by writing into
-	 *  registers(tpgm, trd, tsu_h_ps, tsu_h_ps_cs, tsu_h_cs)
+	 *  Initialize eFuse controller timers with validated frequency
+	 *  by writing into registers(tpgm, trd, tsu_h_ps, tsu_h_ps_cs, tsu_h_cs)
 	 */
-	XNvm_EfuseInitTimers();
+	XNvm_EfuseInitTimers(EfuseClkFreq);
 
 	/**
 	*	Enable programming of Xilinx reserved eFuse

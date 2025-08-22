@@ -30,6 +30,7 @@
 *       aa    07/24/25 Typecast to essential datatypes to avoid implicit conversions
 *                      added const qualifier for function prototypes and added explicit
 *                       parenthesis
+*       mb    07/22/25 Add XNvm_EfuseInitClockAndValidateFreq to set eFuse clock frequency and clk src
 *
 * </pre>
 *
@@ -91,8 +92,60 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits);
 static int XNvm_EfuseCheckZeros(u32 OffsetStart, u32 OffsetEnd);
 static int XNvm_EfusePrgmPufHDInvld(const XNvm_EfuseXilinxCtrl *PufHDInvld);
 static int XNvm_EfusePrgmXilinxCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl);
+static int XNvm_EfuseInitClockAndValidateFreq(XNvm_EfuseData *EfuseData);
 
 /************************** Function Definitions *****************************/
+/******************************************************************************/
+/**
+ * @brief Initializes the eFUSE clock and validates its frequency.
+ * This function sets up the Efuse clock configuration required for eFUSE programming
+ * and verifies that the clock frequency is within the supported range for
+ * reliable operation.
+ *
+ * @param  EfuseData	Pointer to the XNvm_EfuseData.
+ *
+ * @return
+ *		- XST_SUCCESS Clock initialization and frequency validation were successful.
+ *		- XNVM_EFUSE_ERR_INVALID_FREQUENCY If clock frequency is invalid.
+ *
+ *****************************************************************************/
+static int XNvm_EfuseInitClockAndValidateFreq(XNvm_EfuseData *EfuseData)
+{
+	volatile int Status = XST_FAILURE;
+
+	/**
+	 * If XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA is set,
+	 * read the frequency and clock source from RTCA space.
+	 * and initialize to EfuseClkFreq and EfuseClkSrc.
+	 */
+#ifdef XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA
+	EfuseData->EfuseClkFreq = Xil_In32(XNVM_PLM_CONFIG_BASE_ADDRESS +
+				XNVM_RTCA_EFUSE_CLK_FREQUENCY_OFFSET);
+	EfuseData->EfuseClkSrc = Xil_In32(XNVM_EFUSE_CLK_CTRL_ADDR);
+#endif
+
+	/**
+	 *  Validate the Efuse clock frequency
+	 */
+	if ((EfuseData->EfuseClkFreq <= XNVM_EMCCLK_MIN_FREQUENCY) ||
+		(EfuseData->EfuseClkFreq >= XNVM_EMCCLK_MAX_FREQUENCY)) {
+		Status = XNVM_EFUSE_ERR_INVALID_CLK_FREQUENCY;
+		goto END;
+	}
+
+	/**
+	 *  If Clock source is EMC, set the EMC clock enable bit in XNVM_EFUSE_IO_CTRL_ADDR
+	 */
+	if (EfuseData->EfuseClkSrc == XNVM_EFUSE_CLK_SRC_EMCCLK_VALUE) {
+		Xil_UtilRMW32(XNVM_EFUSE_IO_CTRL_ADDR, XNVM_EFUSE_EMC_CLK_EN_VAL,
+				XNVM_EFUSE_EMC_CLK_EN_VAL);
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
 
 /***************************************************************************/
 /**
@@ -132,7 +185,19 @@ int XNvm_EfuseWrite(XNvm_EfuseData *EfuseData)
 		goto END;
 	}
 
-	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM, XNVM_EFUSE_MARGIN_RD);
+	/**
+	 *  Initialize Efuse clock settings and validate frequency
+	 */
+	Status = XNvm_EfuseInitClockAndValidateFreq(EfuseData);
+	if (Status != XST_SUCCESS) {
+		Status = Status;
+		goto END;
+	}
+
+	/**
+	 * Sets up Efuse controller with validated frequency
+	 */
+	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM, XNVM_EFUSE_MARGIN_RD, EfuseData->EfuseClkFreq);
 	if (Status != XST_SUCCESS) {
 		Status = Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING;
 		goto END;

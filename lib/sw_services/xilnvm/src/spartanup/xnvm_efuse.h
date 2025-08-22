@@ -26,6 +26,7 @@
 *       hj   05/27/2025 Support XILINX_CTRL efuse PUFHD_INVLD and DIS_SJTAG bit programming
 *       mb   07/02/2025 Update doxygen comments for structures definitions
 *       aa   07/24/2025 Remove unused macros
+*       mb   20/08/2025 Add EfuseCClkFreq and EfuseClkSrc to XNvm_EfuseData structure
 *
 * </pre>
 *
@@ -46,6 +47,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xil_util.h"
 #include "xnvm_efuse_hw.h"
+#include "xilnvm_bsp_config.h"
 
 /*************************** Constant Definitions *****************************/
 
@@ -147,8 +149,6 @@ extern "C" {
 
 #define XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET		(0xFFU) /**< Byte mask */
 
-#define XNVM_EFUSE_PS_REF_CLK_FREQ		33330000U /**< PS reference clock */
-
 #define XNVM_EFUSE_CRC_AES_ZEROS		(0x6858A3D5U) /**< CRC for Aes zero key */
 #define XNVM_EFUSE_PUFHD_INVLD_EFUSE_BITS	(0x02U) /*Puf Invalid Bits*/
 #define XNVM_EFUSE_PUFHD_INVLD_EFUSE_SHIFT	(0x13U) /*Puf Invalid shift*/
@@ -158,6 +158,20 @@ extern "C" {
 #define XNVM_EFUSE_DISSJTAG_EFUSE_BITS		(0x01U) /*Disable Secure JTAG shift*/
 #define XNVM_EFUSE_DISSJTAG_EFUSE_SHIFT		(0x12U) /*Disable Secure JTAG shift*/
 #define XNVM_EFUSE_DISSJTAG_EFUSE_MASK		(0x00001000U) /*Disable Secure JTAG shift*/
+
+/**< Efuse clock programming related macros */
+#ifndef XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA
+#define XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER	/**< Set efuse clock frequency from user */
+#endif
+
+#define XNVM_PLM_CONFIG_BASE_ADDRESS	(0x0402B200U)
+#define XNVM_RTCA_EFUSE_CLK_FREQUENCY_OFFSET	(0x0000002CU)
+#define XNVM_EFUSE_CLK_CTRL_ADDR	(0x040A003CU)
+#define XNVM_EFUSE_IO_CTRL_ADDR		(0x040A00E8U)
+#define XNVM_EFUSE_CLK_SRC_EMCCLK_VALUE	(0x1U)
+#define XNVM_EMCCLK_MIN_FREQUENCY	(25000000U)
+#define XNVM_EMCCLK_MAX_FREQUENCY	(200000000U)
+#define XNVM_EFUSE_EMC_CLK_EN_VAL	(1U << 1U)
 
 /***************************** Type Definitions *******************************/
 
@@ -371,6 +385,8 @@ typedef struct {
 	XNvm_EfuseAesRevokeId *AesRevokeId; /**< Pointer to the AES revoke ID structure */
 	XNvm_EfuseUserFuse *UserFuse; /**< Pointer to the user efuse structure */
 	XNvm_EfuseXilinxCtrl *XilinxCtrl; /**< Pointer to the Xilinx Ctrl efuse structure */
+	u64 EfuseClkFreq; /**< eFuse clock frequency */
+	u32 EfuseClkSrc; /**< eFuse clock source */
 } XNvm_EfuseData;
 
 enum {
@@ -442,6 +458,7 @@ enum {
 	XNVM_EFUSE_ERR_WRITE_PUFHD_INVLD = 0xAA00, /**< 0xAA00 - Error write PUF_HD_INVLD detected */
 	XNVM_EFUSE_ERR_WRITE_DIS_SJTAG = 0xAB00, /**< 0xAB00 - Error write DIS_SJTAG detected */
 	XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS = 0xC000, /**< 0xC000 - Error read secure control bits */
+	XNVM_EFUSE_ERR_INVALID_CLK_FREQUENCY = 0xD000, /**< 0xD000 - Error Invalid Clock Frequency */
 	XNVM_EFUSE_ERR_BEFORE_PROGRAMMING = 0x80000, /**< 0x80000 - Error before programming */
 };
 

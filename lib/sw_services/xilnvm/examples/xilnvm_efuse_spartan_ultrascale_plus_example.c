@@ -50,6 +50,7 @@
  *       hj    04/10/2025 Remove security control bits not exposed to user
  *       mb    06/10/2025 Added description on usage of shared memory
  * 3.6   hj    05/27/2025 Support XILINX_CTRL PUFHD_INVLD and DIS_SJTAG efuse bit programming
+ *       mb    08/20/2025 Add support to configure the clock settings from application.
  *
  * </pre>
  *
@@ -241,6 +242,12 @@ static int XilNvm_EfuseWriteFuses(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/* If BSP configuration is disabled, set the freq and src provided by user */
+#ifdef XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER
+	EfuseData.EfuseClkFreq = XNVM_EFUSE_SET_REF_CLK_FREQ;
+	EfuseData.EfuseClkSrc = XNVM_EFUSE_SET_CLK_SRC_OP;
+#endif
 
 	Status = XNvm_EfuseWrite(&EfuseData);
 

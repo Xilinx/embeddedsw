@@ -39,6 +39,13 @@ if(XILNVM_mode STREQUAL "client")
   endif()
 endif()
 
+if("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
+  option(XILNVM_en_efuse_clk_freq_rtca "Efuse clock frequency and clock source selection: ON to get from RTCA , OFF to get from application. Default is ON." ON)
+  if(XILNVM_en_efuse_clk_freq_rtca)
+    set(XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA " ")
+  endif()
+endif()
+
 option(XILNVM_en_add_ppks "Enables or Disables additional PPKs" OFF)
 #Part list for which additional PPK support is not enabled by default
 set(part_list "vc1502" "vc1702" "vc1802" "vc1902" "vc2602" "vc2802" "ve1752" "ve2202" "ve2302" "ve2602" "ve2802"

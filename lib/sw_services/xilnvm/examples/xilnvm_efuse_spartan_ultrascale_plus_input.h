@@ -159,7 +159,24 @@
 *	#define XNVM_EFUSE_WRITE_DIS_SJTAG
 *	TRUE will burn the DIS_SJTAG eFuse bit.
 *	FALSE will not modify DIS_SJTAG eFuse bit.
-
+*
+*	#define XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER	FALSE
+*	Default value is FALSE
+*	When XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA sets to FALSE, then
+*	XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER will be set to TRUE
+*	through xnvm_efuse.h.
+*	The clock frequency and source for the eFuse programming will be
+*	taken from the user provided at XNVM_EFUSE_SET_REF_CLK_FREQ and
+*	XNVM_EFUSE_SET_CLK_SRC_OP
+*
+*	#define XNVM_EFUSE_SET_REF_CLK_FREQ  (0U)
+*	Used to give the reference clock frequency for eFuse programming from User.
+*	By default the frequency value is 0MHz.
+*
+*	#define XNVM_EFUSE_SET_CLK_SRC_OP   (0U)
+*	By default, the value is 0, this will select the IRO clock source.
+*	To set the clock source to EMC, set this macro to 1U
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -170,6 +187,7 @@
 *       hj     04/10/25 Remove security control bits not exposed to user
 * 3.6   hj     05/27/25 Support XILINX_CTRL PUFHD_INVLD and DIS_SJTAG efuse bit programming
 *       mb     07/18/25 Add AES key CRC calculation steps
+*       mb     07/18/25 Add clock configuration support for eFuse programming from application
 *
 * </pre>
 *
@@ -264,6 +282,11 @@ extern "C" {
 #define XNVM_EFUSE_AES_REVOCATION_ID_EFUSE  "00000000"
 
 #define XNVM_EFUSE_USER_FUSE			"00000000"
+
+#ifdef XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER
+#define XNVM_EFUSE_SET_REF_CLK_FREQ  (0U) /* Set Efuse reference clock frequency */
+#define XNVM_EFUSE_SET_CLK_SRC_OP   (0U) /* Set Efuse clock source */
+#endif
 
 /* Checks CRC of provided AES key if TRUE */
 #define XNVM_EFUSE_CHECK_AES_KEY_CRC		FALSE
