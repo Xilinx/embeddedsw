@@ -65,6 +65,7 @@ typedef struct _XAes_Config XAes_Config; /**< This typedef is to create alias na
 typedef struct _XAes XAes; /**< This typedef is to create alias name for _XAes */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XAES_AAD_UPDATE_NO_OUTPUT_ADDR	(0U) /**< Output address should be zero during AAD update. */
 
 /************************************ Variable Definitions ***************************************/
 

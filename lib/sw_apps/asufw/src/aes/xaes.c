@@ -133,7 +133,6 @@
 					/**< AES CCM maximum header length
 					(0x1U (Flag) + XASU_AES_CCM_MAX_NONCE_LEN +
 					XAES_MAX_PLEN_AAD_ENCODING_SIZE. */
-#define XAES_AAD_UPDATE_NO_OUTPUT_ADDR	(0U) /**< Output address should be zero during AAD update. */
 #define XAES_U64_ONE			(1ULL) /**< Constant value 1 as an unsigned 64-bit integer. */
 #define XAES_NONCE_HEADER_FIRST_IDX	(0U) /**< First index of the NonceHeader array, used to
 					store the high byte. */
@@ -708,8 +707,7 @@ s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 KeyObjectAddr, u64 IvAd
 	}
 
 	/** Process and load IV to AES engine. */
-	if ((InstancePtr->EngineMode != XASU_AES_ECB_MODE) &&
-			(InstancePtr->EngineMode != XASU_AES_CMAC_MODE)) {
+	if (InstancePtr->EngineMode != XASU_AES_ECB_MODE) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAes_ProcessAndLoadIv(InstancePtr, IvAddr, IvLen);
 		if (Status != XASUFW_SUCCESS) {

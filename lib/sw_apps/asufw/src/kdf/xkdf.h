@@ -36,6 +36,7 @@ extern "C" {
 #include "xsha.h"
 #include "xasufw_dma.h"
 #include "xasu_kdfinfo.h"
+#include "xaes.h"
 
 #ifdef XASU_KDF_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -48,6 +49,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams *KdfParams);
+s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, const XAsu_KdfParams *KdfParams, u32 AesKeySrc);
 #endif /* XASU_KDF_ENABLE */
 
 #ifdef __cplusplus
