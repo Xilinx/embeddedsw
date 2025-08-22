@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ======================================================-
 * 1.00  sk   02/20/2025 Initial release
+* 2.3   tvp  08/12/2025 ssit is not required for Versal_2vp
 *
 * </pre>
 *
@@ -31,7 +32,7 @@
 #include "xplmi_sysmon.h"
 #include "xplmi_err.h"
 #include "xplmi_plat.h"
-#ifndef VERSAL_NET
+#if (!defined(VERSAL_NET) && !defined(VERSAL_2VP))
 #include "xplmi_ssit.h"
 #endif
 #include "xplmi_tamper.h"

@@ -124,6 +124,7 @@
 *       bm   10/29/2024 Fix chunk boundary handling in KeyholeXfr logic
 *       pre  12/24/2024 Skip LPD initialized check for other than PSM_BUFFER_LIST type
 *       pre  01/13/2025 Added command to set access status of DDRMC main registers
+* 2.3   tvp  08/12/2025 ssit is not required for Versal_2vp
 *
 * </pre>
 *
@@ -150,7 +151,7 @@
 #include "xplmi_cdo.h"
 #include "xplmi_sysmon.h"
 #include "xplmi.h"
-#ifndef VERSAL_NET
+#if (!defined(VERSAL_NET) && !defined(VERSAL_2VP))
 #include "xplmi_ssit.h"
 #endif
 #include "xplmi_plat.h"
