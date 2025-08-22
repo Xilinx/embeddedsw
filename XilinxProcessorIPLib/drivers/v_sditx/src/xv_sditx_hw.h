@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -102,6 +102,7 @@ extern "C" {
 #define XV_SDITX_MDL_CTRL_VID_FRMT_MASK			0x600000
 #define XV_SDITX_MDL_CTRL_C_ST352_MASK			(1<<23)
 #define XV_SDITX_MDL_CTRL_C_ST352_SWITCH_3GA_MASK	(1<<24)
+#define XV_SDITX_MDL_CTRL_DYNAMIC_BPC_SHIFT		26
 #define XV_SDITX_MDL_CTRL_MODE_SHIFT			4
 #define XV_SDITX_MDL_CTRL_M_SHIFT			7
 #define XV_SDITX_MDL_CTRL_MUX_PATTERN_SHIFT		8

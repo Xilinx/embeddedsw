@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -308,6 +308,9 @@ void XV_SdiTx_SetYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr);
 void XV_SdiTx_ClearYCbCr444_RGB_10bit(XV_SdiTx *InstancePtr);
 void XV_SdiTx_Set_Bpc(XV_SdiTx *InstancePtr,
 		XVidC_ColorDepth bitdepth);
+#ifdef XPAR_XV_SDITX_0_DBPC
+void XV_SdiTx_ConfigureDynamicBpc(XV_SdiTx *InstancePtr);
+#endif
 
 /************************** Variable Declarations ****************************/
 

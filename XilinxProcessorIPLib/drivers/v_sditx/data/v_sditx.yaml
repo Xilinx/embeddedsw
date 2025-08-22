@@ -1,4 +1,4 @@
-# Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -23,6 +23,8 @@ properties:
     description: SDI line rate SD-SDI, HD-SDI, 3G-SDI, 6G,12G..etc
   xlnx,c_str_st352:
     description: SDI Stream ST352 id.
+  xlnx,dbpc:
+    description: Dynamic BPC support in SDI Tx.
 
 required:
     - compatible
@@ -30,6 +32,7 @@ required:
     - xlnx,include-edh
     - xlnx,sdiline-rate
     - xlnx,c_str_st352
+    - xlnx,dbpc
 
 config:
     - XV_SdiTx_Config
