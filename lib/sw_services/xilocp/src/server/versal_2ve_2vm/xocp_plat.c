@@ -47,6 +47,7 @@ typedef struct {
 							(including ASU subsystem) */
 
 #define XOCP_ASU_SUBSYSTEM_ID			(0x1C000002U)	/**< ASU subsystem ID */
+#define XOCP_INVALID_SUBSYSTEM_ID		(0x00000000U)	/**< Invalid subsystem ID */
 
 #define XOCP_ASUFW_IPI_MASK			(0x00000001U)	/**< ASUFW IPI mask */
 #define XOCP_PLM_ASUFW_EVENT_MASK		(0x00000001U)	/**< PLM to ASU event mask */
@@ -128,6 +129,11 @@ int XOcp_StoreSubsysDigest(u32 SubsystemId, u64 Hash)
 	volatile int Status = XST_FAILURE;
 	XOcp_SubsysInfo *OcpSubsysInfo = XOcp_GetOcpSubsysInfoDb();
 	u32 Idx;
+
+	/* Return in case of invalid subsystem ID. */
+	if (SubsystemId == XOCP_INVALID_SUBSYSTEM_ID) {
+		goto END;
+	}
 
 	/* Copy hash if OCP support is required for the subsystem, else ignore it. */
 	for (Idx = 0; Idx < XOCP_ASUFW_MAX_SUBSYS_SUPPORT; Idx++) {
