@@ -97,6 +97,7 @@ struct XPm_MemCtrlrDevice {
 	u8 IntlvIndex;		/**< DDRMC Interleave order index */
 	)
 	struct XPm_PlDeviceNode *PlDevice;	/**< Parent PL device */
+	u32 DdrMc_MainAddr; /**< DDRMC Main Address */
 };
 
 /************************** Static Inline Functions ******************************/

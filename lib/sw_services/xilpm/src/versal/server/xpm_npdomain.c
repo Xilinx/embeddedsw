@@ -290,6 +290,22 @@ static void Clear_ScanClearErr(void){
 		XPm_LockPcsr(MemIcAddr);
 	}
 
+	/* clear reg_isr in ddrmc main*/
+	for(i=(u32)XPM_NODEIDX_DEV_DDRMC_0; i <= (u32)XPM_NODEIDX_DEV_MAX; i++) {
+		Device = (XPm_MemCtrlrDevice *)XPmDevice_GetById(DDRMC_DEVID(i));
+		if (NULL == Device) {
+			continue;
+		}
+		/* clear ISR only if ddrmc main address is present*/
+		if(0U != Device->DdrMc_MainAddr){
+			BaseAddr = Device->DdrMc_MainAddr;
+			XPm_UnlockPcsr(BaseAddr);
+			PmRmw32(BaseAddr + DDRMC_MAIN_DDRMC_ISR_OFFSET,
+				DDRMC_MAIN_DDRMC_ISR_SCAN_CLEAR_FAIL_MASK, DDRMC_MAIN_DDRMC_ISR_SCAN_CLEAR_FAIL_MASK);
+			XPm_LockPcsr(BaseAddr);
+		}
+	}
+
 }
 static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)

@@ -2118,7 +2118,7 @@ done:
 	return Status;
 }
 
-static XStatus AddMemCtrlrDevice(const u32 *Args, u32 PowerId)
+static XStatus AddMemCtrlrDevice(const u32 *Args, u32 PowerId, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DeviceId;
@@ -2162,6 +2162,9 @@ static XStatus AddMemCtrlrDevice(const u32 *Args, u32 PowerId)
 		}
 		Status = XPmDevice_Init(&MemCtrlr->Device, DeviceId, BaseAddr,
 					Power, NULL, NULL);
+		if (NumArgs == 4U) {
+			MemCtrlr->DdrMc_MainAddr = Args[3];
+		}
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
@@ -2334,7 +2337,7 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 		Status = AddPlDevice(Args, NumArgs ,PowerId);
 		break;
 	case (u32)XPM_NODESUBCL_DEV_MEM_CTRLR:
-		Status = AddMemCtrlrDevice(Args, PowerId);
+		Status = AddMemCtrlrDevice(Args, PowerId , NumArgs);
 		break;
 	case (u32)XPM_NODESUBCL_DEV_MEM_REGN:
 		Status = AddMemRegnDevice(Args, NumArgs);
