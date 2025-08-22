@@ -29,6 +29,7 @@
 * 3.5  kal  02/05/25  Make status as volatile and reset status to XST_FAILURE
 *                     before security critical calls
 * 3.6  rpu  07/21/25  Fixed GCC warnings
+*      vss  08/08/2025 Added DME support for telluride.
 * </pre>
 *
 * @note
@@ -470,6 +471,11 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 		goto END;
 	}
 
+	if (DmeKeyType > XNVM_DME_USER_KEY_MAX_VALUE) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
 	Xil_DCacheFlushRange((UINTPTR)DmeKey, sizeof(XNvm_DmeKey));
 
 	DmeKeyWriteCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_DME_KEY);
@@ -508,6 +514,69 @@ END:
 	return RetStatus;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to program DME revoke eFuses.
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	DmeRevokeNum DME revoke id to be revoked.
+ * @param	EnvDisFlag	Environmental monitoring flag set by the user.
+ *                      when set to true it will not check for voltage
+ *                      and temparature limits.
+ *
+ * @return
+ *		- XST_SUCCESS  If the programming is successful
+ * 		- ErrorCode  If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, const u32 EnvDisFlag)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	XNvm_RevokeIdCdo *RevokeIdCdo = (XNvm_RevokeIdCdo *)Payload;
+
+	/**
+	 *  Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if (DmeRevokeNum > XNVM_DME_REVOKE_MAX_VALUE) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	RevokeIdCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_DME_REVOKE);
+	RevokeIdCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
+	RevokeIdCdo->Pload.RevokeIdNum = DmeRevokeNum;
+
+	/**
+	 *  @{ Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_DME_REVOKE CDO command.
+	 *     Wait for IPI response from PLM  with a default timeout of 300 seconds
+	 */
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RevokeIdCdo,
+			sizeof(XNvm_RevokeIdCdo) / XNVM_WORD_LEN);
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		XNvm_Printf(XNVM_DEBUG_GENERAL, "DME key revoke failed; Error Code = %x\r\n", Status);
+		goto END;
+	}
+	else {
+		XNvm_Printf(XNVM_DEBUG_GENERAL, "Successfully revoked DME key \r\n");
+	}
+
+	Status = XST_FAILURE;
+
+	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+
+END:
+	return Status;
+}
+
+#ifndef VERSAL_2VE_2VM
 /*****************************************************************************/
 /**
  * @brief	This function sends IPI request to program DME mode requested by the user
@@ -566,6 +635,7 @@ int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const 
 END:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1692,10 +1762,12 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 		goto END;
 	}
 
+#ifndef VERSAL_2VE_2VM
 	Status = XNvm_IsDmeModeEn();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#endif
 
 	XNVM_GET_HADDR(UserFuseData->UserFuseDataAddr, HighAddr);
 	LowAddr = (u32)(UINTPTR)UserFuseData->UserFuseDataAddr;
@@ -2560,6 +2632,7 @@ int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAdd
 END:
 	return Status;
 }
+
 
 /*****************************************************************************/
 /**

@@ -39,6 +39,7 @@
 *       kal  11/13/2024 Corrected logic in XNvm_EfuseWriteRevocationID function
 *       obs   04/21/2025 Fixed GCC Warnings.
 * 3.6   rpu  07/21/2025 Fixed GCC warnings
+*       vss  08/08/2025 Added DME support for telluride.
 * </pre>
 *
 *******************************************************************************/
@@ -81,9 +82,7 @@ static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col,
 		u32 SkipVerify);
 static int XNvm_EfuseCloseController(void);
 static int XNvm_EfusePrgmFipsInfo(u32 FipsMode, u32 FipsVersion);
-#ifndef VERSAL_2VE_2VM
 static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *EfuseKey);
-#endif
 static int XNvm_EfuseWritePufSynData(const u32 *SynData);
 static int XNvm_EfuseWritePufChash(u32 Chash);
 static int XNvm_EfuseWritePufAux(u32 Aux);
@@ -92,9 +91,7 @@ static int XNvm_UdsCrcCalc(const u32 *Uds);
 static int XNvm_EfuseCacheReloadAndProtectionChecks(void);
 static int XNvm_EfusePrgmProtectionBits(void);
 static int XNvm_EfuseProtectionChecks(void);
-#ifndef VERSAL_2VE_2VM
 static int XNvm_EfuseChangeEndianness(u8 *Dest, u8 *Src, u32 Size);
-#endif
 static int XNvm_EfuseReadRow(XNvm_EfuseType Page, u32 Row, u32 *RegData);
 static u32 XNvm_EfuseCalculateCrc32(const u8* Data, u32 Len);
 static int XNvm_EfuseValidateCrc(void);
@@ -1516,7 +1513,6 @@ END:
 int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeKey *EfuseKey)
 {
 	volatile int Status = XST_FAILURE;
-#ifndef VERSAL_2VE_2VM
 	int CloseStatus = XST_FAILURE;
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
@@ -1524,13 +1520,11 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 	 * Validate input parameters.
 	 * Return XNVM_EFUSE_ERR_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((KeyType != XNVM_EFUSE_DME_USER_KEY_0) &&
-		(KeyType != XNVM_EFUSE_DME_USER_KEY_1) &&
-		(KeyType != XNVM_EFUSE_DME_USER_KEY_2) &&
-		(KeyType != XNVM_EFUSE_DME_USER_KEY_3)) {
+	if (KeyType > XNVM_DME_USER_KEY_MAX_VALUE) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
+
 	if (EfuseKey == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
@@ -1546,7 +1540,7 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 			goto END;
 		}
 	}
-
+#ifndef VERSAL_2VE_2VM
 	/**
 	 * Check if DmeMode eFuse is programmed.
 	 * If yes, return failure.
@@ -1555,7 +1549,7 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
+#endif
 	Status = XST_FAILURE;
 	/**
 	 * Else unlock eFuse controller.
@@ -1584,13 +1578,6 @@ END_CLS_CONTROLLER:
 	}
 
 END:
-#else
-	(void)EnvDisFlag;
-	(void)KeyType;
-	(void)EfuseKey;
-	Status = XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED;
-#endif
-
 	return Status;
 }
 
@@ -1615,7 +1602,6 @@ END:
 int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 {
 	volatile int Status = XST_FAILURE;
-#ifndef VERSAL_2VE_2VM
 	int CloseStatus = XST_FAILURE;
 	u32 Row = 0U;
 	u32 Col_0_Num = 0U;
@@ -1627,10 +1613,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 	 *  Validate input parameters.
 	 *  Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((RevokeNum != XNVM_EFUSE_DME_REVOKE_0) &&
-		(RevokeNum != XNVM_EFUSE_DME_REVOKE_1) &&
-		(RevokeNum != XNVM_EFUSE_DME_REVOKE_2) &&
-		(RevokeNum != XNVM_EFUSE_DME_REVOKE_3)) {
+	if (RevokeNum > XNVM_DME_REVOKE_MAX_VALUE) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
@@ -1675,12 +1658,14 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 		Col_0_Num = XNVM_EFUSE_DME_REVOKE_2_0_COL_NUM;
 		Col_1_Num = XNVM_EFUSE_DME_REVOKE_2_1_COL_NUM;
 	}
+#ifndef VERSAL_2VE_2VM
 	else if (RevokeNum == XNVM_EFUSE_DME_REVOKE_3) {
 		RevokeNumTmp = XNVM_EFUSE_DME_REVOKE_3;
 		Row = XNVM_EFUSE_DME_REVOKE_2_AND_3_ROW;
 		Col_0_Num = XNVM_EFUSE_DME_REVOKE_3_0_COL_NUM;
 		Col_1_Num = XNVM_EFUSE_DME_REVOKE_3_1_COL_NUM;
 	}
+#endif
 	else {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
@@ -1722,12 +1707,6 @@ END_CLS_CONTROLLER:
 	}
 
 END:
-#else
-	(void)EnvDisFlag;
-	(void)RevokeNum;
-	Status = XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED;
-#endif
-
 	return Status;
 }
 
@@ -2553,7 +2532,7 @@ static int XNvm_EfuseWriteRoSwapEn(u32 RoSwap)
 	return Status;
 }
 
-#ifndef VERSAL_2VE_2VM
+
 /******************************************************************************/
 /**
  * @brief	This function programs DME userkey eFuses.
@@ -2601,6 +2580,7 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 		EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
 		StartOffset = XNVM_EFUSE_DME_2_USER_EFUSE_CACHE_OFFSET;
 	}
+#ifndef VERSAL_2VE_2VM
 	else if (KeyType == XNVM_EFUSE_DME_USER_KEY_3) {
 		EfusePrgmInfo.StartRow = XNVM_EFUSE_DME_USER_KEY_3_START_ROW;
 		EfusePrgmInfo.ColStart = XNVM_EFUSE_DME_USER_KEY_3_START_COL_NUM;
@@ -2609,6 +2589,7 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 		EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
 		StartOffset = XNVM_EFUSE_DME_3_USER_EFUSE_CACHE_OFFSET;
 	}
+#endif
 	else {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
@@ -2641,7 +2622,6 @@ static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *
 END:
 	return Status;
 }
-#endif
 /******************************************************************************/
 /**
  * @brief	This function reloads the cache of eFUSE so that can be directly
@@ -3949,7 +3929,6 @@ static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col, u32 
 END:
 	return Status;
 }
-#ifndef VERSAL_2VE_2VM
 /*****************************************************************************/
 /**
  * @brief       This function changes the endianness of Data of given size
@@ -3983,7 +3962,6 @@ static int XNvm_EfuseChangeEndianness(u8 *Dest, u8 *Src, u32 Size)
 END:
 	return Status;
 }
-#endif
 /******************************************************************************/
 /**
 * @brief	This function calculate CRC on below eFUSE cache registers and

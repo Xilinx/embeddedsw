@@ -22,6 +22,7 @@
 * 3.0   kal  07/12/22 Initial release
 * 3.2   har  02/21/23 Added support for writing Misc Ctrl bits and ROM Rsvd bits
 *    	vek  05/31/23 Added support for Programming PUF secure control bits
+* 3.6   vss  08/22/25 Added macros required to support DME in telluride.
 *
 * </pre>
 * @note
@@ -76,6 +77,17 @@ extern "C" {
 #define XNVM_BBRAM_CONFIG_LIMITER_FAIL_CONFIGS_COUNT	(0x0U) /** Mode of counter is for failed configurations */
 #define XNVM_BBRAM_CONFIG_LIMITER_TOTAL_CONFIGS_COUNT	(0x3U) /** Mode of counter is for total configurations */
 
+#ifndef VERSAL_2VE_2VM
+#define XNVM_DME_REVOKE_MAX_VALUE	XNVM_EFUSE_DME_REVOKE_3 /** Maximum value for DME revoke */
+#else
+#define XNVM_DME_REVOKE_MAX_VALUE	XNVM_EFUSE_DME_REVOKE_2 /** Maximum value for DME revoke */
+#endif
+
+#ifndef VERSAL_2VE_2VM
+#define XNVM_DME_USER_KEY_MAX_VALUE	XNVM_EFUSE_DME_USER_KEY_3 /** Maximum value for DME user key */
+#else
+#define XNVM_DME_USER_KEY_MAX_VALUE	XNVM_EFUSE_DME_USER_KEY_2 /** Maximum value for DME user key */
+#endif
 
 /************************** Variable Definitions *****************************/
 #define XNVM_UDS_SIZE_IN_WORDS          (12U) /** UDS size in words */

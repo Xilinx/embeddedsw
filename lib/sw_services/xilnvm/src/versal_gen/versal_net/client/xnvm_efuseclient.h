@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 3.0   har  07/06/22 Initial release
 * 3.2   har  02/21/23 Added support for writing Misc Ctrl bits and ROM Rsvd bits
 *   	vek  05/31/23 Added support for Programming PUF secure control bits
+* 3.6   vss  08/08/2025 Added DME support for telluride.
 *
 * </pre>
 *
@@ -53,7 +54,9 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr);
 int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const u32 EnvDisFlag);
 int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, const u32 EnvDisFlag);
 int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, const u64 DmeKeyAddr, const u32 EnvDisFlag);
+#ifndef VERSAL_2VE_2VM
 int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const u32 EnvDisFlag);
+#endif
 int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits, const u32 EnvDisFlag);
 int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits, const u32 EnvDisFlag);
 int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBits, const u32 EnvDisFlag);
@@ -85,6 +88,7 @@ int XNvm_EfuseReadBootModeDis(XNvm_ClientInstance *InstancePtr, const u64 BootMo
 int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsvdBits);
 int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAddr);
 int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsInfoBits);
+int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, const u32 EnvDisFlag);
 
 /************************** Variable Definitions *****************************/
 
