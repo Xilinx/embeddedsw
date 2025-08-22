@@ -441,11 +441,10 @@ static s32 XOcp_GenerateDevIkAkPvtKey(const XOcp_PrivateKeyGen *PvtKeyInfo)
 		goto END;
 	}
 
-	/** Enable TRNG to default mode. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XTrng_EnableDefaultMode(TrngInstance);
-
 END:
+	/** Enable TRNG to default mode. */
+	Status = XAsufw_UpdateErrorStatus(Status, XTrng_EnableDefaultMode(TrngInstance));
+
 	return Status;
 }
 
