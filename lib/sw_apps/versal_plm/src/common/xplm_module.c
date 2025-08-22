@@ -58,6 +58,7 @@
 *       am   02/22/2025 Added module support for ASU
 *       tri  03/13/2025 Added module support for XilTpm
 *       pre  03/02/2025 Passing partial PDI functions to secure module
+* 1.2   tvp  08/19/2025 ssit is not required for Versal_2vp
 *
 * </pre>
 *
@@ -88,7 +89,7 @@
 #include "xplm_pm.h"
 #include "xplmi.h"
 #include "xil_util.h"
-#ifndef VERSAL_NET
+#if (!defined(VERSAL_NET) && !defined(VERSAL_2VP))
 #include "xplmi_ssit.h"
 #endif
 #ifdef XPLM_SEM
