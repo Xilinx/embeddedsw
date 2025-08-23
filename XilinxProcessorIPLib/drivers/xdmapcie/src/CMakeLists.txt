@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 project(xdmapcie)
@@ -8,6 +8,7 @@ collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(${CMAKE_BINARY_DIR}/include)
 collect (PROJECT_LIB_SOURCES xdmapcie.c)
+collect (PROJECT_LIB_SOURCES xdmapcie_i2c.c)
 collect (PROJECT_LIB_HEADERS xdmapcie.h)
 collect (PROJECT_LIB_SOURCES xdmapcie_caps.c)
 collect (PROJECT_LIB_HEADERS xdmapcie_common.h)

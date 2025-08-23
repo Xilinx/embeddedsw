@@ -97,7 +97,7 @@ extern "C" {
 						       * Bus Location Register
 						       */
 #if defined(versal_2ve_2vm)
-#define XDMAPCIE_PHYSC_OFFSET			0x0E8 /**<
+#define XDMAPCIE_PHYSC_OFFSET			0x2064 /**<
 						       * Physical status and
 						       * Control Register
 						       */
@@ -512,7 +512,7 @@ extern "C" {
 #define XDMAPCIE_PHYSC_LANE_REV_MASK	0x00000600 /**< Lane Reversal Mask */
 
 #if defined(versal_2ve_2vm)
-#define XDMAPCIE_PHYSC_LINK_UP_MASK	0x00000001 /**< Link Up Status Mask */
+#define XDMAPCIE_PHYSC_LINK_UP_MASK	0x00001000 /**< Link Up Status Mask */
 #else
 #define XDMAPCIE_PHYSC_LINK_UP_MASK	0x00000800 /**< Link Up Status Mask */
 #endif
