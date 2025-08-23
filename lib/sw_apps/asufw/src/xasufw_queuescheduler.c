@@ -171,7 +171,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 			*/
 			if (ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
 				XASU_COMMAND_IS_PRESENT) {
-				Status = XAsufw_ValidateCommand(&QueueBuf->ReqBuf);
+				Status = XAsufw_ValidateCommand(&QueueBuf->ReqBuf, ChannelIndex);
 				if (XASUFW_SUCCESS == Status) {
 					ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 					XAsufw_Printf(DEBUG_INFO, "Validate command successful\r\n");

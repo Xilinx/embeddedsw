@@ -67,6 +67,8 @@ extern "C" {
 #define XASU_MODULE_ID_SHIFT				(12U) /**< Shift value for module ID */
 #define XASU_COMMAND_LENGTH_MASK			(0x00FC0000U) /**< Mask for command length in header */
 #define XASU_COMMAND_LENGTH_SHIFT			(18U) /**< Shift for command length */
+#define XASU_COMMAND_SECURE_FLAG_MASK		(0x01000000U) /**< Mask for secure bit in command header */
+#define XASU_COMMAND_SECURE_FLAG_SHIFT		(24U) /**< Shift for secure flag in command header */
 
 #define XASU_COMMAND_REQ_ARGS				(22U) /**< Command arguments count */
 #define XASU_COMMAND_RESP_ARGS				(17U) /**< Response arguments count */

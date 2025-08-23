@@ -76,7 +76,7 @@ s32 XAsufw_Sha3Init(void)
 	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha3 = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
 
-	/** The XAsufw_Sha3Cmds array contains the list of commands supported by SHA2 module. */
+	/** The XAsufw_Sha3Cmds array contains the list of commands supported by SHA3 module. */
 	static const XAsufw_ModuleCmd XAsufw_Sha3Cmds[] = {
 		[XASU_SHA_OPERATION_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_Sha3Operation),
 		[XASU_SHA_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_Sha3Kat),
@@ -88,12 +88,19 @@ s32 XAsufw_Sha3Init(void)
 		[XASU_SHA_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_SHA3_RESOURCE_MASK,
 	};
 
+	/** The XAsufw_Sha3AccessPermBuf contains the IPI access permissions for each supported command. */
+	static XAsufw_AccessPerm_t XAsufw_Sha3AccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_Sha3Cmds)] = {
+		[XASU_SHA_OPERATION_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_SHA_OPERATION_CMD_ID),
+		[XASU_SHA_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_SHA_KAT_CMD_ID),
+	};
+
 	XAsufw_Sha3Module.Id = XASU_MODULE_SHA3_ID;
 	XAsufw_Sha3Module.Cmds = XAsufw_Sha3Cmds;
 	XAsufw_Sha3Module.ResourcesRequired = XAsufw_Sha3ResourcesBuf;
 	XAsufw_Sha3Module.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_Sha3Cmds);
 	XAsufw_Sha3Module.ResourceHandler = XAsufw_Sha3ResourceHandler;
 	XAsufw_Sha3Module.AsuDmaPtr = NULL;
+	XAsufw_Sha3Module.AccessPermBufferPtr = XAsufw_Sha3AccessPermBuf;
 
 	/** Register SHA3 module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_Sha3Module);
@@ -200,7 +207,7 @@ static s32 XAsufw_Sha3Operation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			XAsufw_Sha3Module.AsuDmaPtr = NULL;
 			goto DONE;
 		} else if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA2_UPDATE_FAILED);
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA3_UPDATE_FAILED);
 			goto END;
 		} else {
 			/* Do nothing */

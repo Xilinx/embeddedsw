@@ -43,6 +43,9 @@ extern "C" {
 #define XASU_TRUE		(TRUE)
 #define XASU_FALSE		(FALSE)
 
+#define XASU_CMD_SECURE			(0x0U) /**< Secure command */
+#define XASU_CMD_NON_SECURE		(0x1U) /**< Non-secure command */
+
 /* Module ID */
 #define XASU_MODULE_TRNG_ID			(0U) /**< TRNGs module ID */
 #define XASU_MODULE_SHA2_ID			(1U) /**< SHA2 module ID */

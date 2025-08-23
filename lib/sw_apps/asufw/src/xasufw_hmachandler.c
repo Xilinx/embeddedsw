@@ -80,6 +80,13 @@ s32 XAsufw_HmacInit(void)
 		XASUFW_SHA2_RESOURCE_MASK,
 	};
 
+	/** The XAsufw_HmacAccessPermBuf contains the IPI access permissions for each supported command. */
+	static XAsufw_AccessPerm_t XAsufw_HmacAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_HmacCmds)] = {
+		[XASU_HMAC_COMPUTE_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_HMAC_COMPUTE_SHA2_CMD_ID),
+		[XASU_HMAC_COMPUTE_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_HMAC_COMPUTE_SHA3_CMD_ID),
+		[XASU_HMAC_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_HMAC_KAT_CMD_ID),
+	};
+
 	XAsufw_HmacModule.Id = XASU_MODULE_HMAC_ID;
 	XAsufw_HmacModule.Cmds = XAsufw_HmacCmds;
 	XAsufw_HmacModule.ResourcesRequired = XAsufw_HmacResourcesBuf;
@@ -87,6 +94,7 @@ s32 XAsufw_HmacInit(void)
 	XAsufw_HmacModule.ResourceHandler = XAsufw_HmacResourceHandler;
 	XAsufw_HmacModule.AsuDmaPtr = NULL;
 	XAsufw_HmacModule.ShaPtr = NULL;
+	XAsufw_HmacModule.AccessPermBufferPtr = XAsufw_HmacAccessPermBuf;
 
 	/** Register HMAC module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_HmacModule);

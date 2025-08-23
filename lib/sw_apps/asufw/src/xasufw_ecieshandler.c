@@ -94,6 +94,15 @@ s32 XAsufw_EciesInit(void)
 		XASUFW_HMAC_RESOURCE_MASK,
 	};
 
+	/** The XAsufw_EciesAccessPermBuf contains the IPI access permissions for each supported command. */
+	static XAsufw_AccessPerm_t XAsufw_EciesAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_EciesCmds)] = {
+		[XASU_ECIES_ENCRYPT_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECIES_ENCRYPT_SHA2_CMD_ID),
+		[XASU_ECIES_ENCRYPT_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECIES_ENCRYPT_SHA3_CMD_ID),
+		[XASU_ECIES_DECRYPT_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECIES_DECRYPT_SHA2_CMD_ID),
+		[XASU_ECIES_DECRYPT_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECIES_DECRYPT_SHA3_CMD_ID),
+		[XASU_ECIES_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECIES_KAT_CMD_ID),
+	};
+
 	XAsufw_EciesModule.Id = XASU_MODULE_ECIES_ID;
 	XAsufw_EciesModule.Cmds = XAsufw_EciesCmds;
 	XAsufw_EciesModule.ResourcesRequired = XAsufw_EciesResourcesBuf;
@@ -102,6 +111,7 @@ s32 XAsufw_EciesInit(void)
 	XAsufw_EciesModule.AsuDmaPtr = NULL;
 	XAsufw_EciesModule.ShaPtr = NULL;
 	XAsufw_EciesModule.AesPtr = NULL;
+	XAsufw_EciesModule.AccessPermBufferPtr = XAsufw_EciesAccessPermBuf;
 
 	/** Register ECIES module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_EciesModule);

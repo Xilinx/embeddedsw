@@ -107,9 +107,7 @@ int main(void)
 	XAsufw_InitDebugLogBuffer();
 
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "\r\nXilinx Versal_2VE_2VM Application Security Unit Firmware\r\n");
-
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Release %d.%d", SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER);
-
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, " %s - %s\r\n", __DATE__, __TIME__);
 
 	/** Initialize ASUFW. */
@@ -121,6 +119,14 @@ int main(void)
 
 	/** Initialize error manager functionality. */
 	XAsufw_ErrorManagerInit();
+
+	/** Update access permissions for all modules. */
+	Status = XAsufw_UpdateAccessPermissions();
+	if (XASUFW_SUCCESS != Status) {
+		XAsufw_Printf(DEBUG_GENERAL, "ASUFW update access permissions failed. Error: 0x%x\r\n",
+					Status);
+		goto END;
+	}
 
 	/** Get keys from PMC. */
 	Status = XAsufw_PmcKeyTransfer();

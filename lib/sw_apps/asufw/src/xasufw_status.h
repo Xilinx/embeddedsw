@@ -511,7 +511,6 @@ enum {
 	XASUFW_MEM_MOVE_FAIL, /**< 0x157U - Error when move memory failed */
 	XASUFW_X509_CERT_GEN_FAIL, /**< 0x158U - Error when certificate generation failed */
 	XASUFW_HMAC_KEY_PROCESS_ERROR, /**< 0x159U - Error when HMAC key processing failed */
-
 	XASUFW_TRNG_MODE_INIT_CFG_FAIL, /**< 0x15AU - Error when TRNG mode init and configuration is
 					failed */
 	XASUFW_OCP_TRNG_INSTANTIATE_FAIL, /**< 0x15BU - Error when TRNG instantiate is failed */
@@ -561,7 +560,19 @@ enum {
 	XASUFW_OCP_X509_DEVAK_CERT_GEN_FAIL, /**< 0x17AU - Error when DevAk certificate generation
 						is failed */
 	XASUFW_OCP_INVALID_BUF_SIZE, /**< 0x17B - Error when OCP buffer size is invalid */
+	XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX, /**< 0x17CU - Error when channel index is invalid */
+	XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS, /**< 0x17DU - Error when IPI access is not available */
+	XASUFW_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS, /**< 0x17EU - Error when non-secure access is not
+						available */
+	XASUFW_ERR_VALIDATE_IPI_NO_SECURE_ACCESS, /**< 0x17FU - Error when secure access is not
+						available */
+	XASUFW_ERR_NO_ACCESS_PERMISSIONS, /**< 0x180U - Error when no access permissions are
+						available */
+	XASUFW_UPDATE_ACCESS_PERM_INVALID_MODULE_INFO, /**< 0x181U - Error when module information is
+						invalid */
+	XASUFW_ERR_UPDATE_ACCESS_PERM_FAILED, /**< 0x182U - Error when updating access permissions */
 
+	/* Additional status success codes */
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
 						operation is successful */
 	XASUFW_RSA_DECRYPTION_SUCCESS, /**< 0x3FBU - Successfully decrypted RSA provided

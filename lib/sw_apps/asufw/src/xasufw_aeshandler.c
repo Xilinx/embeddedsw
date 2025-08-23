@@ -89,12 +89,19 @@ s32 XAsufw_AesInit(void)
 		[XASU_AES_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
 	};
 
+	/** The XAsufw_AesAccessPermBuf contains the IPI access permissions for each supported command. */
+	static XAsufw_AccessPerm_t XAsufw_AesAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_AesCmds)] = {
+		[XASU_AES_OPERATION_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_AES_OPERATION_CMD_ID),
+		[XASU_AES_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_AES_KAT_CMD_ID),
+	};
+
 	XAsufw_AesModule.Id = XASU_MODULE_AES_ID;
 	XAsufw_AesModule.Cmds = XAsufw_AesCmds;
 	XAsufw_AesModule.ResourcesRequired = XAsufw_AesResourcesBuf;
 	XAsufw_AesModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_AesCmds);
 	XAsufw_AesModule.ResourceHandler = XAsufw_AesResourceHandler;
 	XAsufw_AesModule.AsuDmaPtr = NULL;
+	XAsufw_AesModule.AccessPermBufferPtr = XAsufw_AesAccessPermBuf;
 
 	/** Register AES module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_AesModule);

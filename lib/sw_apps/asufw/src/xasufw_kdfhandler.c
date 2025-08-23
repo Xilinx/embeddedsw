@@ -78,6 +78,13 @@ s32 XAsufw_KdfInit(void)
 		XASUFW_SHA2_RESOURCE_MASK | XASUFW_KDF_RESOURCE_MASK,
 	};
 
+	/** The XAsufw_KdfAccessPermBuf contains the IPI access permissions for each supported command. */
+	static XAsufw_AccessPerm_t XAsufw_KdfAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_KdfCmds)] = {
+		[XASU_KDF_GENERATE_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KDF_GENERATE_SHA2_CMD_ID),
+		[XASU_KDF_GENERATE_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KDF_GENERATE_SHA3_CMD_ID),
+		[XASU_KDF_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KDF_KAT_CMD_ID),
+	};
+
 	/** Initialize the KDF module structure. */
 	XAsufw_KdfModule.Id = XASU_MODULE_KDF_ID;
 	XAsufw_KdfModule.Cmds = XAsufw_KdfCmds;
@@ -86,6 +93,7 @@ s32 XAsufw_KdfInit(void)
 	XAsufw_KdfModule.ResourceHandler = XAsufw_KdfResourceHandler;
 	XAsufw_KdfModule.AsuDmaPtr = NULL;
 	XAsufw_KdfModule.ShaPtr = NULL;
+	XAsufw_KdfModule.AccessPermBufferPtr = XAsufw_KdfAccessPermBuf;
 
 	/** Register KDF module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_KdfModule);

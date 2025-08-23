@@ -100,6 +100,7 @@ s32 XAsufw_PlmInit(void)
 	XAsufw_PlmEvtModule.ResourceHandler = XAsufw_PlmEvtResourceHandler;
 	XAsufw_PlmEvtModule.AsuDmaPtr = NULL;
 	XAsufw_PlmEvtModule.ShaPtr = NULL;
+	XAsufw_PlmEvtModule.AccessPermBufferPtr = NULL;
 
 	/** Register PLM event module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_PlmEvtModule);

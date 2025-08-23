@@ -104,6 +104,14 @@ s32 XAsufw_OcpInit(void)
 			XASUFW_ECC_RESOURCE_MASK,
 	};
 
+	/** The XAsufw_OcpAccessPermBuf contains the IPI access permissions for each supported command. */
+	static XAsufw_AccessPerm_t XAsufw_OcpAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_OcpCmds)] = {
+		[XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID),
+		[XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID),
+		[XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID),
+		[XASU_OCP_DEVAK_ATTESTATION_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_DEVAK_ATTESTATION_CMD_ID),
+	};
+
 	XAsufw_OcpModule.Id = XASU_MODULE_OCP_ID;
 	XAsufw_OcpModule.Cmds = XAsufw_OcpCmds;
 	XAsufw_OcpModule.ResourcesRequired = XAsufw_OcpResources;
@@ -111,6 +119,7 @@ s32 XAsufw_OcpInit(void)
 	XAsufw_OcpModule.ResourceHandler = XAsufw_OcpResourceHandler;
 	XAsufw_OcpModule.AsuDmaPtr = NULL;
 	XAsufw_OcpModule.ShaPtr = NULL;
+	XAsufw_OcpModule.AccessPermBufferPtr = XAsufw_OcpAccessPermBuf;
 
 	/** Initialize X.509 module. */
 	Status = X509_CfgInitialize();

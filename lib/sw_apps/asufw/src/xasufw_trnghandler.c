@@ -102,12 +102,22 @@ s32 XAsufw_TrngInit(void)
 		[XASU_TRNG_DRBG_GENERATE_CMD_ID] = XASUFW_TRNG_RESOURCE_MASK,
 	};
 
+	/** The XAsufw_TrngAccessPermBuf contains the IPI access permissions for each supported command. */
+	static XAsufw_AccessPerm_t XAsufw_TrngAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_TrngCmds)] = {
+		[XASU_TRNG_GET_RANDOM_BYTES_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_TRNG_GET_RANDOM_BYTES_CMD_ID),
+		[XASU_TRNG_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_TRNG_KAT_CMD_ID),
+		[XASU_TRNG_DRBG_INSTANTIATE_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_TRNG_DRBG_INSTANTIATE_CMD_ID),
+		[XASU_TRNG_DRBG_RESEED_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_TRNG_DRBG_RESEED_CMD_ID),
+		[XASU_TRNG_DRBG_GENERATE_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_TRNG_DRBG_GENERATE_CMD_ID),
+	};
+
 	XAsufw_TrngModule.Id = XASU_MODULE_TRNG_ID;
 	XAsufw_TrngModule.Cmds = XAsufw_TrngCmds;
 	XAsufw_TrngModule.ResourcesRequired = XAsufw_TrngResourcesBuf;
 	XAsufw_TrngModule.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_TrngCmds);
 	XAsufw_TrngModule.ResourceHandler = NULL;
 	XAsufw_TrngModule.AsuDmaPtr = NULL;
+	XAsufw_TrngModule.AccessPermBufferPtr = XAsufw_TrngAccessPermBuf;
 
 	/** Register TRNG module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_TrngModule);

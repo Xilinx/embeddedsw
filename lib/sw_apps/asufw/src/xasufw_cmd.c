@@ -150,12 +150,28 @@ void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, s32 Response)
  *	- XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
-s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf)
+s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+	u32 CmdPermission;
 	u32 ModuleId = XAsufw_GetModuleId(ReqBuf->Header);
 	const XAsufw_Module *Module = NULL;
+	u32 AccessPerm = XASUFW_NO_IPI_ACCESS;
+
+	/** Validate channel index. */
+	if (ChannelIndex >= XASUFW_MAX_CHANNELS_SUPPORTED) {
+		Status = XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX;
+		goto END;
+	}
+
+	/** Determine command permission based on secure bit in command header. */
+	/* TODO: Need to identify a way to determine if the channel is secure or not. */
+	if ((ReqBuf->Header & XASU_COMMAND_SECURE_FLAG_MASK) == 0U) {
+		CmdPermission = XASU_CMD_SECURE;
+	} else {
+		CmdPermission = XASU_CMD_NON_SECURE;
+	}
 
 	/** Get module from the module ID received in the command header and validate. */
 	Module = XAsufw_GetModule(ModuleId);
@@ -174,14 +190,40 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf)
 	}
 
 	/**
-	 * Checks if the command with the specified CmdId in the Module's Cmds array is NULL.
+	 * Check if the command with the specified CmdId in the Module's Cmds array is NULL.
 	 */
 	if (Module->Cmds[CmdId].CmdHandler == NULL) {
 		Status = XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED;
 		goto END;
 	}
 
-	/* TODO: Access permissions check should happen here */
+	/** Perform access permission checks */
+	if (Module->AccessPermBufferPtr != NULL) {
+		AccessPerm = Module->AccessPermBufferPtr[CmdId] >>
+							(XASUFW_ACCESS_PERM_SHIFT * ChannelIndex);
+		AccessPerm &= XASUFW_ACCESS_PERM_MASK;
+		/** - If the requested command is not given IPI access, return error. */
+		if (AccessPerm == XASUFW_NO_IPI_ACCESS) {
+			Status = XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS;
+			goto END;
+		}
+		/**
+		 * - If the request type is Non-Secure and the requested API requires Secure access,
+		 * return an error.
+		 */
+		if ((CmdPermission == XASU_CMD_NON_SECURE) && (AccessPerm == XASUFW_SECURE_IPI_ACCESS)) {
+			Status = XASUFW_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS;
+			goto END;
+		}
+		/**
+		 * - If the request type is Non-Secure and the requested API requires Secure access,
+		 * return an error.
+		 */
+		if ((CmdPermission == XASU_CMD_SECURE) && (AccessPerm == XASUFW_NON_SECURE_IPI_ACCESS)) {
+			Status = XASUFW_ERR_VALIDATE_IPI_NO_SECURE_ACCESS;
+			goto END;
+		}
+	}
 	Status = XASUFW_SUCCESS;
 
 END:

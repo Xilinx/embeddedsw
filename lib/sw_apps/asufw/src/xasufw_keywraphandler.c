@@ -94,6 +94,15 @@ s32 XAsufw_KeyWrapInit(void)
 		| XASUFW_TRNG_RANDOM_BYTES_MASK,
 	};
 
+	/** The XAsufw_KeyWrapAccessPermBuf contains the IPI access permissions for each supported command. */
+	static XAsufw_AccessPerm_t XAsufw_KeyWrapAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_KeyWrapCmds)] = {
+		[XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID),
+		[XASU_KEYWRAP_KEY_WRAP_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KEYWRAP_KEY_WRAP_SHA3_CMD_ID),
+		[XASU_KEYWRAP_KEY_UNWRAP_SHA2_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KEYWRAP_KEY_UNWRAP_SHA2_CMD_ID),
+		[XASU_KEYWRAP_KEY_UNWRAP_SHA3_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KEYWRAP_KEY_UNWRAP_SHA3_CMD_ID),
+		[XASU_KEYWRAP_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_KEYWRAP_KAT_CMD_ID),
+	};
+
 	XAsufw_KeyWrapModule.Id = XASU_MODULE_KEYWRAP_ID;
 	XAsufw_KeyWrapModule.Cmds = XAsufw_KeyWrapCmds;
 	XAsufw_KeyWrapModule.ResourcesRequired = XAsufw_KeyWrapResourcesBuf;
@@ -102,6 +111,7 @@ s32 XAsufw_KeyWrapInit(void)
 	XAsufw_KeyWrapModule.AsuDmaPtr = NULL;
 	XAsufw_KeyWrapModule.ShaPtr = NULL;
 	XAsufw_KeyWrapModule.AesPtr = NULL;
+	XAsufw_KeyWrapModule.AccessPermBufferPtr = XAsufw_KeyWrapAccessPermBuf;
 
 	/** Register Key wrap unwrap module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_KeyWrapModule);

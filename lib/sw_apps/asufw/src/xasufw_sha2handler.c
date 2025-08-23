@@ -87,12 +87,19 @@ s32 XAsufw_Sha2Init(void)
 		[XASU_SHA_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_SHA2_RESOURCE_MASK,
 	};
 
+	/** The XAsufw_Sha2AccessPermBuf contains the IPI access permissions for each supported command. */
+	static XAsufw_AccessPerm_t XAsufw_Sha2AccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_Sha2Cmds)] = {
+		[XASU_SHA_OPERATION_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_SHA_OPERATION_CMD_ID),
+		[XASU_SHA_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_SHA_KAT_CMD_ID),
+	};
+
 	XAsufw_Sha2Module.Id = XASU_MODULE_SHA2_ID;
 	XAsufw_Sha2Module.Cmds = XAsufw_Sha2Cmds;
 	XAsufw_Sha2Module.ResourcesRequired = XAsufw_Sha2ResourcesBuf;
 	XAsufw_Sha2Module.CmdCnt = XASUFW_ARRAY_SIZE(XAsufw_Sha2Cmds);
 	XAsufw_Sha2Module.ResourceHandler = XAsufw_Sha2ResourceHandler;
 	XAsufw_Sha2Module.AsuDmaPtr = NULL;
+	XAsufw_Sha2Module.AccessPermBufferPtr = XAsufw_Sha2AccessPermBuf;
 
 	/** Register SHA2 module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_Sha2Module);

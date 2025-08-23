@@ -37,6 +37,8 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 /*  ASUFW Run Time Configuration Area related register defines */
 #define	XASUFW_RTCA_BASEADDR			(0xEBE40000U) /**< ASUFW RTCA Base Address */
+#define XASUFW_RTCA_ACCESS_PERM_ADDR	(XASUFW_RTCA_BASEADDR + 0xC00U)
+							/**< ASUFW RTCA commands access permissions data address */
 #define XASUFW_RTCA_IDENTIFICATION_ADDR		(XASUFW_RTCA_BASEADDR + 0x0U)
 							/**< RTCA identification address */
 #define XASUFW_RTCA_VERSION_ADDR		(XASUFW_RTCA_BASEADDR + 0x4U)

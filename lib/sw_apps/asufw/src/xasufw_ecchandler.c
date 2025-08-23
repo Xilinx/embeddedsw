@@ -111,6 +111,16 @@ s32 XAsufw_EccInit(void)
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK,
 	};
 
+	/** The XAsufw_EccAccessPermBuf contains the IPI access permissions for each supported command. */
+	static XAsufw_AccessPerm_t XAsufw_EccAccessPermBuf[XASUFW_ARRAY_SIZE(XAsufw_EccCmds)] = {
+		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_GEN_SIGNATURE_CMD_ID),
+		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_VERIFY_SIGNATURE_CMD_ID),
+		[XASU_ECC_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_KAT_CMD_ID),
+		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECDH_SHARED_SECRET_CMD_ID),
+		[XASU_ECDH_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECDH_KAT_CMD_ID),
+		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_GEN_PUBKEY_CMD_ID),
+	};
+
 	XAsufw_EccModule.Id = XASU_MODULE_ECC_ID;
 	XAsufw_EccModule.Cmds = XAsufw_EccCmds;
 	XAsufw_EccModule.ResourcesRequired = XAsufw_EccResourcesBuf;
@@ -119,6 +129,7 @@ s32 XAsufw_EccInit(void)
 	XAsufw_EccModule.AsuDmaPtr = NULL;
 	XAsufw_EccModule.ShaPtr = NULL;
 	XAsufw_EccModule.AesPtr = NULL;
+	XAsufw_EccModule.AccessPermBufferPtr = XAsufw_EccAccessPermBuf;
 
 	/** Register ECC module. */
 	Status = XAsufw_ModuleRegister(&XAsufw_EccModule);
