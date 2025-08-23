@@ -1,5 +1,5 @@
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.14.7)
 
@@ -11,6 +11,7 @@ project(${APP_NAME})
 
 enable_language(C ASM)
 find_package(common)
+find_package(commonmeta)
 collect(PROJECT_LIB_DEPS xilstandalone)
 collect(PROJECT_LIB_DEPS xil)
 collect(PROJECT_LIB_DEPS xiltimer)
@@ -24,7 +25,11 @@ if (CMAKE_EXPORT_COMPILE_COMMANDS AND
     set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES})
     set(CMAKE_C_STANDARD_INCLUDE_DIRECTORIES ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
 endif()
-collect (PROJECT_LIB_SOURCES bootloader.c)
+if("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
+	collect (PROJECT_LIB_SOURCES bootloader_ospi.c)
+else()
+	collect (PROJECT_LIB_SOURCES bootloader.c)
+endif()
 collect (PROJECT_LIB_SOURCES platform.c)
 collect (PROJECT_LIB_SOURCES srec.c)
 collector_list (_sources PROJECT_LIB_SOURCES)
