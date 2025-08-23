@@ -58,7 +58,7 @@ typedef void (*XAsuClient_ResponseHandler) (void *CallBackRefPtr, u32 Status);
 /** This structure contains client parameters information. */
 typedef struct {
 	u8 Priority;    /**< Task Priority */
-	u8 Reserved;    /**< Reserved */
+	u8 SecureFlag;  /**< Secure Flag */
 	u16 Reserved2;  /**< Reserved */
 	XAsuClient_ResponseHandler CallBackFuncPtr;  /**< Callback function pointer */
 	void *CallBackRefPtr;   /**< Callback reference pointer */
@@ -91,26 +91,28 @@ inline u8 XAsu_GetUniqueId(u32 Header)
 
 /*************************************************************************************************/
 /**
- * @brief	This function formats the command header with module ID, command ID and command
- * 		length.
+ * @brief	This function formats the command header with module ID, command ID, command length
+ * and secure flag.
  *
  * @param	CmdId		Command ID to be updated.
  * @param	UniqueId	Unique ID of the request.
  * @param	ModuleId	Module ID to be updated.
  * @param	CommandLen	Length of the command.
+ * @param	SecureFlag	Secure flag for the command.
  *
  * @return
  * 	- Header	Command Header.
  *
  *************************************************************************************************/
-inline u32 XAsu_CreateHeader(u8 CmdId, u8 UniqueId, u8 ModuleId, u8 CommandLen)
+inline u32 XAsu_CreateHeader(u8 CmdId, u8 UniqueId, u8 ModuleId, u8 CommandLen, u8 SecureFlag)
 {
 	u32 Header = 0U;
 
 	Header = (CmdId & XASU_COMMAND_ID_MASK) |
 		 (UniqueId << XASU_UNIQUE_REQ_ID_SHIFT) |
 		 (ModuleId << XASU_MODULE_ID_SHIFT) |
-		 (CommandLen << XASU_COMMAND_LENGTH_SHIFT);
+		 (CommandLen << XASU_COMMAND_LENGTH_SHIFT) |
+		 (SecureFlag << XASU_COMMAND_SECURE_FLAG_SHIFT);
 
 	return Header;
 }

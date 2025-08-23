@@ -61,6 +61,7 @@ enum {
 	XASU_CLIENT_CTX_NOT_CREATED,	/**< 0x1C - Client context is not created */
 	XASU_REQUEST_INPROGRESS,	/**< 0x1D - Client should not allow more than one split
 				request */
+	XASU_INVALID_SECURE_FLAG,	/**< 0x1E - Invalid secure flag */
 };
 
 /**

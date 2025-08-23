@@ -89,7 +89,8 @@ s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParam
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_ECC_GEN_SIGNATURE_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_ECC_GEN_SIGNATURE_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EccParamsPtr,
@@ -141,7 +142,7 @@ s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccPa
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_ECC_VERIFY_SIGNATURE_CMD_ID, UniqueId, XASU_MODULE_ECC_ID,
-					0U);
+					0U, ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EccParamsPtr,
@@ -205,7 +206,8 @@ s32 XAsu_EccGenPubKey(XAsu_ClientParams *ClientParamsPtr, XAsu_EccKeyParams *Ecc
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_ECC_GEN_PUBKEY_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_ECC_GEN_PUBKEY_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EccKeyParamsPtr,
@@ -256,7 +258,8 @@ s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr, u32 CurveType)
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_ECC_KAT_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_ECC_KAT_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, &CurveType, sizeof(CurveType), Header);
@@ -319,7 +322,8 @@ s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_ECDH_SHARED_SECRET_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_ECDH_SHARED_SECRET_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EcdhParamsPtr,
@@ -361,7 +365,8 @@ s32 XAsu_EcdhKat(XAsu_ClientParams *ClientParamsPtr)
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_ECDH_KAT_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_ECDH_KAT_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);

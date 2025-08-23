@@ -145,6 +145,7 @@ static void XAsu_GenSign(void)
 	u32 Index = 0U;
 
 	ClientParams.Priority = XASU_PRIORITY_HIGH;
+	ClientParams.SecureFlag = XASU_CMD_SECURE;
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EccCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
@@ -198,6 +199,7 @@ static void XAsu_VerifySign(void)
 	XAsu_EccParams EccParams;
 
 	ClientParams.Priority = XASU_PRIORITY_HIGH;
+	ClientParams.SecureFlag = XASU_CMD_SECURE;
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EccCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 	ClientParams.AdditionalStatus = XST_FAILURE;
@@ -241,6 +243,7 @@ static void XAsu_GenPubKey(void)
 	XAsu_EccKeyParams EccKeyParams;
 
 	ClientParams.Priority = XASU_PRIORITY_HIGH;
+	ClientParams.SecureFlag = XASU_CMD_SECURE;
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EccCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 

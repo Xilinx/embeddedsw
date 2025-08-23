@@ -206,6 +206,13 @@ s32 XAsu_ValidateClientParameters(XAsu_ClientParams *ClientParamPtr)
 		goto END;
 	}
 
+	/** Validate the secure flag. */
+    if ((ClientParamPtr->SecureFlag != XASU_CMD_SECURE) &&
+	    (ClientParamPtr->SecureFlag != XASU_CMD_NON_SECURE)) {
+		Status = XASU_INVALID_SECURE_FLAG;
+		goto END;
+	}
+
     Status = XST_SUCCESS;
 
 END:

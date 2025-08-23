@@ -187,6 +187,7 @@ int main(void)
 
 	/* Initialize client parametrs */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_KeywrapunwrapCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
@@ -250,6 +251,7 @@ int main(void)
 	}
 
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_KeywrapunwrapCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 

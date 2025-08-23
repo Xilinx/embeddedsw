@@ -243,6 +243,7 @@ int main(void)
 #endif
 
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_RsaCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
@@ -304,6 +305,7 @@ int main(void)
 	}
 
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_RsaCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 	ClientParam.AdditionalStatus = XST_FAILURE;

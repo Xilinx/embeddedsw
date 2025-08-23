@@ -92,7 +92,8 @@ s32 XAsu_EciesEncrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_ECIES_ID, 0U);
+	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_ECIES_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EciesParamsPtr,
@@ -159,7 +160,8 @@ s32 XAsu_EciesDecrypt(XAsu_ClientParams *ClientParamsPtr, XAsu_EciesParams *Ecie
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_ECIES_ID, 0U);
+	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_ECIES_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, EciesParamsPtr,
@@ -203,7 +205,8 @@ s32 XAsu_EciesKat(XAsu_ClientParams *ClientParamsPtr)
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_ECIES_KAT_CMD_ID, UniqueId, XASU_MODULE_ECIES_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_ECIES_KAT_CMD_ID, UniqueId, XASU_MODULE_ECIES_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);

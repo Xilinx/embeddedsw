@@ -307,7 +307,8 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_AES_OPERATION_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_AES_OPERATION_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U,
+		ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, AesClientParamPtr,
@@ -362,7 +363,8 @@ s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr, u32 KatMode)
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_AES_KAT_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_AES_KAT_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U,
+		ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, &KatMode,

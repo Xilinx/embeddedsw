@@ -291,6 +291,7 @@ static void XAsu_AesGcmExample(void)
 
 	/* Set Queue priority */
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
+	AesClientParams.SecureFlag = XASU_CMD_SECURE;
 	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
 	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
 	AesClientParams.AdditionalStatus = XST_FAILURE;
@@ -362,6 +363,7 @@ static void XAsu_AesGcmExample(void)
 
 	/* AES decryption */
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
+	AesClientParams.SecureFlag = XASU_CMD_SECURE;
 	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
 	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
 	AesClientParams.AdditionalStatus = XST_FAILURE;
@@ -443,6 +445,7 @@ static void XAsu_AesCtrExample(void)
 
 	/* Set Queue priority */
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
+	AesClientParams.SecureFlag = XASU_CMD_SECURE;
 	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
 	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
 
@@ -495,6 +498,7 @@ static void XAsu_AesCtrExample(void)
 	XAsu_AesPrintData((const u8 *)XAsu_AesEncData, XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES);
 
 	AesClientParams.Priority = XASU_PRIORITY_HIGH;
+	AesClientParams.SecureFlag = XASU_CMD_SECURE;
 	AesClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_AesCallBackRef);
 	AesClientParams.CallBackRefPtr = (void *)&AesClientParams;
 	/* AES parameters structure initialization for decryption */

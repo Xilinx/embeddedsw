@@ -195,6 +195,7 @@ static int XOcp_GetX509DevIK(void)
 
 	/* Set Queue priority and register call back function. */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_OcpCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
@@ -254,6 +255,7 @@ static int XOcp_GetX509DevAK(void)
 
 	/* Set Queue priority and register call back function. */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_OcpCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
@@ -312,6 +314,7 @@ static int XOcp_GetX509DevIkCsr(void)
 
 	/* Set Queue priority and register call back function. */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_OcpCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 
@@ -370,6 +373,7 @@ static int XAsu_OcpAttestation(void)
 
 	/* Set Queue priority and register call back function. */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_OcpCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 

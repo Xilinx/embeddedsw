@@ -219,7 +219,8 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_SHA_OPERATION_CMD_ID, UniqueId, XASU_MODULE_SHA3_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_SHA_OPERATION_CMD_ID, UniqueId, XASU_MODULE_SHA3_ID, 0U,
+				ClientParamPtr->SecureFlag);
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, ShaClientParamPtr,
 						sizeof(XAsu_ShaOperationCmd), Header);
@@ -261,7 +262,7 @@ s32 XAsu_Sha3Kat(XAsu_ClientParams *ClientParamPtr)
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_SHA_KAT_CMD_ID, UniqueId,
-				   XASU_MODULE_SHA3_ID, 0U);
+				   XASU_MODULE_SHA3_ID, 0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);

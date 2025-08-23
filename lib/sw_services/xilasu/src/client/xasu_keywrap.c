@@ -97,7 +97,8 @@ s32 XAsu_KeyWrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyWrap
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_KEYWRAP_ID, 0U);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_KEYWRAP_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, KeyWrapParamsPtr,
@@ -163,7 +164,8 @@ s32 XAsu_KeyUnwrap(XAsu_ClientParams *ClientParamsPtr, XAsu_KeyWrapParams *KeyUn
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_KEYWRAP_ID, 0U);
+	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_KEYWRAP_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, KeyUnwrapParamsPtr,
@@ -208,7 +210,8 @@ s32 XAsu_KeyWrapKat(XAsu_ClientParams *ClientParamsPtr)
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_KEYWRAP_KAT_CMD_ID, UniqueId, XASU_MODULE_KEYWRAP_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_KEYWRAP_KAT_CMD_ID, UniqueId, XASU_MODULE_KEYWRAP_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);

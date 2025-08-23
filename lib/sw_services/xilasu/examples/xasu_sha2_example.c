@@ -169,6 +169,7 @@ static s32 Asu_Sha2Example(void)
 
 	/* Inputs of client request */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_Sha2CallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 

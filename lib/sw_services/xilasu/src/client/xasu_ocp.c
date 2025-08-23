@@ -90,7 +90,7 @@ s32 XAsu_OcpGetDevIkX509Certificate(XAsu_ClientParams *ClientParamPtr,
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID, UniqueId,
-				   XASU_MODULE_OCP_ID, 0U);
+				   XASU_MODULE_OCP_ID, 0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, OcpCertClientParamPtr,
@@ -149,7 +149,7 @@ s32 XAsu_OcpGetDevAkX509Certificate(XAsu_ClientParams *ClientParamPtr,
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID, UniqueId,
-				   XASU_MODULE_OCP_ID, 0U);
+				   XASU_MODULE_OCP_ID, 0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, OcpCertClientParamPtr,
@@ -208,7 +208,7 @@ s32 XAsu_OcpGetDevIkCsr(XAsu_ClientParams *ClientParamPtr,
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID, UniqueId,
-				   XASU_MODULE_OCP_ID, 0U);
+				   XASU_MODULE_OCP_ID, 0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, OcpCertClientParamPtr,
@@ -266,7 +266,7 @@ s32 XAsu_OcpDevAkAttestation(XAsu_ClientParams *ClientParamPtr,
 
 	/** Create command header. */
 	Header = XAsu_CreateHeader(XASU_OCP_DEVAK_ATTESTATION_CMD_ID, UniqueId, XASU_MODULE_OCP_ID,
-				   0U);
+				   0U, ClientParamPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASUFW. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, OcpDevAkAttestParamPtr,

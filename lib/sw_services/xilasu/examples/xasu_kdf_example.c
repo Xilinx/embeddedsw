@@ -177,6 +177,7 @@ static s32 Asu_KdfExample(void)
 
 	/* Inputs of client request */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
+	ClientParam.SecureFlag = XASU_CMD_SECURE;
 	ClientParam.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_KdfCallBackRef);
 	ClientParam.CallBackRefPtr = (void *)&ClientParam;
 

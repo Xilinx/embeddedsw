@@ -132,6 +132,7 @@ int main(void)
 	}
 
 	ClientParams.Priority = XASU_PRIORITY_HIGH;
+	ClientParams.SecureFlag = XASU_CMD_SECURE;
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EcdhCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 
@@ -166,6 +167,7 @@ int main(void)
 	}
 
 	ClientParams.Priority = XASU_PRIORITY_HIGH;
+	ClientParams.SecureFlag = XASU_CMD_SECURE;
 	ClientParams.CallBackFuncPtr = (XAsuClient_ResponseHandler)((void *)XAsu_EcdhCallBackRef);
 	ClientParams.CallBackRefPtr = (void *)&ClientParams;
 

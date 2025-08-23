@@ -176,7 +176,8 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 		CommandId = XASU_HMAC_COMPUTE_SHA3_CMD_ID;
 	}
 	/** Create command header. */
-	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_HMAC_ID, 0U);
+	Header = XAsu_CreateHeader(CommandId, UniqueId, XASU_MODULE_HMAC_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, HmacParamsPtr,
@@ -220,7 +221,8 @@ s32 XAsu_HmacKat(XAsu_ClientParams *ClientParamsPtr)
 	}
 
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_HMAC_KAT_CMD_ID, UniqueId, XASU_MODULE_HMAC_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_HMAC_KAT_CMD_ID, UniqueId, XASU_MODULE_HMAC_ID, 0U,
+				ClientParamsPtr->SecureFlag);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
