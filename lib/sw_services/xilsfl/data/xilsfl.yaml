@@ -23,6 +23,7 @@ supported_processors:
   - psx_pmc
   - psx_psm
   - microblaze_riscv
+  - microblaze
 
 supported_os:
   - standalone
@@ -34,3 +35,4 @@ examples:
                         - Versal
                         - VersalNet
                         - SpartanUP
+                        - spartanuplus
