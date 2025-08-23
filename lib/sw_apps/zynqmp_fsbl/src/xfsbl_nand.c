@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   04/21/14 Initial release
 * 6.01  ng   07/31/23 Added SDT support
-*
+* 		abh  07/19/25 Fixed GCC warnings
 * </pre>
 *
 * @note
@@ -63,9 +63,11 @@ XNandPsu *NandInstPtr = &NandInstance;
  * @return	None
  *
  *****************************************************************************/
-u32 XFsbl_NandInit(void )
+u32 XFsbl_NandInit(u32 DeviceFlags)
 {
 	u32 Status = XFSBL_SUCCESS;
+
+	(void)DeviceFlags;
 
 	Config = XNandPsu_LookupConfig(NAND_DEVICE_ID);
         if (Config == NULL) {

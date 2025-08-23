@@ -27,6 +27,7 @@
 * 6.1   ng   07/13/23 Added SDT support
 * 7.0   sd   03/21/25 Enable watchdog timer error and system reset for both
 *                     LPD and FPD SWDTs
+* 	    abh  07/19/25 Fixed GCC warnings
 *
 * </pre>
 *
@@ -67,10 +68,8 @@
 #if defined(XPAR_XIPIPSU_0_DEVICE_ID) || defined(XPAR_XIPIPSU_0_BASEADDR)
 	#ifndef SDT
 		#define IPI_DEVICE_ID			XPAR_XIPIPSU_0_DEVICE_ID
-		#define IPI_PMU_PM_INT_MASK		XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
 	#else
 		#define IPI_DEVICE_ID			XPAR_XIPIPSU_0_BASEADDR
-		#define IPI_PMU_PM_INT_MASK		(0x00010000U)
 	#endif
 	#define PM_INIT		(21U)
 #endif
