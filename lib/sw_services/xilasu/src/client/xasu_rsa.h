@@ -49,15 +49,17 @@ extern "C" {
 s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr);
 s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr);
 s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr);
-s32 XAsu_RsaKat(XAsu_ClientParams *ClientParamPtr);
 s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
-                                XAsu_RsaOaepPaddingParams *RsaClientParamPtr);
+	XAsu_RsaOaepPaddingParams *RsaClientParamPtr);
 s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
-                                XAsu_RsaOaepPaddingParams *RsaClientParamPtr);
+	XAsu_RsaOaepPaddingParams *RsaClientParamPtr);
 s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr,
-                                XAsu_RsaPaddingParams *RsaClientParamPtr);
+	XAsu_RsaPaddingParams *RsaClientParamPtr);
 s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr,
-                                XAsu_RsaPaddingParams *RsaClientParamPtr);
+	XAsu_RsaPaddingParams *RsaClientParamPtr);
+s32 XAsu_RsaOaepEncDecKat(XAsu_ClientParams *ClientParamPtr);
+s32 XAsu_RsaPssSignGenAndVerKat(XAsu_ClientParams *ClientParamPtr);
+
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus
 }

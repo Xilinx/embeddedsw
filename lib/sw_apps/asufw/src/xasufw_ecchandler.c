@@ -402,6 +402,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
+	const u32 CurveType = *((const u32 *)ReqBuf->Arg);
 
 	(void)ReqBuf;
 
@@ -412,7 +413,7 @@ static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	}
 
 	/** Perform KAT on P-256 curve using RSA core. */
-	Status = XAsufw_RsaEccKat(XAsufw_EccModule.AsuDmaPtr);
+	Status = XAsufw_RsaEccKat(XAsufw_EccModule.AsuDmaPtr, (u8)CurveType);
 
 END:
 	/** Release resources. */

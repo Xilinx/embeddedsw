@@ -73,6 +73,7 @@
 #include "xasufw_config.h"
 #include "xasufw_plmeventhandler.h"
 #include "xasufw_ocphandler.h"
+#include "xasufw_kat.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -83,6 +84,7 @@
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_Init(void);
 static s32 XAsufw_ModulesInit(void);
+static void XAsufw_StartKatTasks(void);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -133,6 +135,9 @@ int main(void)
 	 */
 	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
 		   ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
+
+	/** Create and trigger KAT tasks. */
+	XAsufw_StartKatTasks();
 
 	/**
 	 * Call task dispatch loop to check and execute the tasks.
@@ -219,7 +224,8 @@ static s32 XAsufw_Init(void)
 		goto END;
 	}
 
-	Status = XAsufw_UpdateModulesInfo();
+	XAsufw_UpdateModulesInfo();
+
 END:
 	return Status;
 }
@@ -326,5 +332,23 @@ static s32 XAsufw_ModulesInit(void)
 
 END:
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function creates KAT tasks and triggers them, the task will be deleted after
+ * 		the execution of the KATs.
+ *
+ *************************************************************************************************/
+static void XAsufw_StartKatTasks(void)
+{
+	XTask_TaskNode *KatTask = XTask_Create(XTASK_PRIORITY_0, XAsufw_RunKatTaskHandler, NULL,
+		0U);
+
+	if (KatTask != NULL) {
+		/* Self-reference for deletion. */
+		KatTask->PrivData = KatTask;
+		XTask_TriggerNow(KatTask);
+	}
 }
 /** @} */

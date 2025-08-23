@@ -48,7 +48,6 @@
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_RsaResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
-static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -57,6 +56,8 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaPssSignGenAndVerifKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_RsaEncDecOaepKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 #endif
 
 /************************************ Variable Definitions ***************************************/
@@ -89,6 +90,8 @@ s32 XAsufw_RsaInit(void)
 		[XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPssSignVer),
 		[XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPssSignGen),
 		[XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPssSignVer),
+		[XASU_RSA_OAEP_ENC_DEC_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaEncDecOaepKat),
+		[XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaPssSignGenAndVerifKat),
 #else
 		[XASU_RSA_OAEP_ENC_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
 		[XASU_RSA_OAEP_DEC_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
@@ -98,8 +101,9 @@ s32 XAsufw_RsaInit(void)
 		[XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
 		[XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
 		[XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+		[XASU_RSA_OAEP_ENC_DEC_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+		[XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
 #endif
-		[XASU_RSA_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_RsaKat),
 	};
 
 	/** The XAsufw_RsaResourcesBuf contains the required resources for each supported command. */
@@ -125,8 +129,10 @@ s32 XAsufw_RsaInit(void)
 		| XASUFW_SHA3_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID]  = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
 		| XASUFW_SHA3_RESOURCE_MASK,
-		[XASU_RSA_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
-		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		[XASU_RSA_OAEP_ENC_DEC_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
+		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
+		[XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK
+		| XASUFW_SHA2_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 	};
 
 	XAsufw_RsaModule.Id = XASU_MODULE_RSA_ID;
@@ -489,7 +495,7 @@ RET:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs Known Answer Tests (KATs).
+ * @brief	This function performs RSA OAEP encryption and decryption Known Answer Tests (KATs).
  *
  * @param	ReqBuf	Pointer to the request buffer.
  * @param	ReqId	Request Unique ID.
@@ -497,17 +503,47 @@ RET:
  * @return
  * 	- XASUFW_SUCCESS, if KAT is successful.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
- * 	- Error code from XAsufw_RsaEncDecKat API, if any operation fails.
+ * 	- Error code from XAsufw_RsaEncDecOaepKat API, if any operation fails.
  *
  *************************************************************************************************/
-static s32 XAsufw_RsaKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+static s32 XAsufw_RsaEncDecOaepKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-
 	(void)ReqBuf;
 
-	/** Perform KAT on 2048 bit key size. */
-	Status = XAsufw_RsaEncDecKat(XAsufw_RsaModule.AsuDmaPtr);
+	/** Perform RSA-OAEP KAT on 2048 bit key size. */
+	Status = XAsufw_RsaEncDecOaepOpKat(XAsufw_RsaModule.AsuDmaPtr);
+
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_RsaModule.AsuDmaPtr = NULL;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function performs RSA PSS signature generation and verification
+ * 		Known Answer Tests (KATs).
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if KAT is successful.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- Error code from XAsufw_RsaPssSignGenAndVerifKat API, if any operation fails.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_RsaPssSignGenAndVerifKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	(void)ReqBuf;
+
+	/** Perform RSA-OAEP KAT on 2048 bit key size. */
+	Status = XAsufw_RsaPssSignGenAndVerifOpKat(XAsufw_RsaModule.AsuDmaPtr);
 
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {

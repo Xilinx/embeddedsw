@@ -230,6 +230,7 @@ END:
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
+ * @param	Sha2Mode	SHA2 mode to test KAT (XASU_SHA_MODE_256 or XASU_SHA_MODE_512).
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
@@ -239,7 +240,7 @@ END:
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  *
  *************************************************************************************************/
-s32 XAsu_Sha2Kat(XAsu_ClientParams *ClientParamPtr)
+s32 XAsu_Sha2Kat(XAsu_ClientParams *ClientParamPtr, u32 Sha2Mode)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
@@ -248,6 +249,11 @@ s32 XAsu_Sha2Kat(XAsu_ClientParams *ClientParamPtr)
 	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
 	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((Sha2Mode != XASU_SHA_MODE_256) && (Sha2Mode != XASU_SHA_MODE_512)) {
+		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
@@ -262,7 +268,7 @@ s32 XAsu_Sha2Kat(XAsu_ClientParams *ClientParamPtr)
 	Header = XAsu_CreateHeader(XASU_SHA_KAT_CMD_ID, UniqueId, XASU_MODULE_SHA2_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, &Sha2Mode, sizeof(Sha2Mode), Header);
 
 END:
 	return Status;

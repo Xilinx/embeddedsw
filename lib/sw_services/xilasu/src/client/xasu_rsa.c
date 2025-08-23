@@ -657,10 +657,11 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function sends a command to ASUFW to perform RSA Known Answer Tests (KAT's).
+ * @brief	This function sends a command to ASUFW to perform RSA OAEP encrypt and decrypt
+ * 		Known Answer Tests (KAT's).
  *
- * @param	ClientParamPtr		Pointer to the XAsu_ClientParams structure which holds the
- * 					client input parameters.
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the
+ * 				client input parameters.
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
@@ -669,7 +670,7 @@ END:
  * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_RsaKat(XAsu_ClientParams *ClientParamPtr)
+s32 XAsu_RsaOaepEncDecKat(XAsu_ClientParams *ClientParamPtr)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
@@ -687,8 +688,10 @@ s32 XAsu_RsaKat(XAsu_ClientParams *ClientParamPtr)
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
+
 	/** Create command header. */
-	Header = XAsu_CreateHeader(XASU_RSA_KAT_CMD_ID, UniqueId, XASU_MODULE_RSA_ID, 0U);
+	Header = XAsu_CreateHeader(XASU_RSA_OAEP_ENC_DEC_KAT_CMD_ID, UniqueId,
+		XASU_MODULE_RSA_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
 	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
@@ -696,4 +699,50 @@ s32 XAsu_RsaKat(XAsu_ClientParams *ClientParamPtr)
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sends a command to ASUFW to perform RSA PSS sign generation and
+ * 		verification Known Answer Tests (KAT's).
+ *
+ * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the
+ * 				client input parameters.
+ *
+ * @return
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_QUEUE_FULL, if Queue buffer is full.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_RsaPssSignGenAndVerKat(XAsu_ClientParams *ClientParamPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validate input parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Generate unique ID and register callback. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID, UniqueId,
+		XASU_MODULE_RSA_ID, 0U);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamPtr, NULL, 0U, Header);
+
+END:
+	return Status;
+}
+
 /** @} */

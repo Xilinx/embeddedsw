@@ -3,7 +3,7 @@
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
-_STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0xC00;
+_STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1000;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x800;
 _RSA_DATA_SIZE = DEFINED(_RSA_DATA_SIZE) ? _RSA_DATA_SIZE : 0x1400;
 _LOG_BUF_SIZE = DEFINED(_LOG_BUF_SIZE) ? _LOG_BUF_SIZE : 0x1000;

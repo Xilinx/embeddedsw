@@ -27,5 +27,6 @@
 #cmakedefine    XASU_DEBUG_PRINTS_ENABLE
 #cmakedefine    XASU_ECC_SUPPORT_EDWARD_P25519
 #cmakedefine    XASU_ECC_SUPPORT_EDWARD_P448
+#cmakedefine    XASU_TRIGGER_SLD_ON_KAT_FAILURE
 
 #endif /* XASU_BSP_CONFIG_H */

@@ -323,6 +323,9 @@ END:
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
+ * @param	KatMode		AES supported KAT mode (for standard mode : XASU_AES_ECB_MODE,
+ * 				for mac mode : XASU_AES_GCM_MODE, and
+ * 				for DPA mode : XASU_AES_KAT_DPA_MODE in CTR engine mode)
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
@@ -332,7 +335,7 @@ END:
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  *
  *************************************************************************************************/
-s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr)
+s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr, u32 KatMode)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
@@ -341,6 +344,13 @@ s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr)
 	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
 	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** Validate KAT mode. */
+	if ((KatMode != XASU_AES_ECB_MODE) && (KatMode != XASU_AES_GCM_MODE) &&
+			(KatMode != XASU_AES_KAT_DPA_MODE)) {
+		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
@@ -355,7 +365,8 @@ s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr)
 	Header = XAsu_CreateHeader(XASU_AES_KAT_CMD_ID, UniqueId, XASU_MODULE_AES_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, &KatMode,
+		sizeof(KatMode), Header);
 
 END:
 	return Status;

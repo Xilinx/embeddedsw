@@ -70,7 +70,7 @@ void XAsufw_MeasurePerfTime(u64 TCur, XAsufw_PerfTime *PerfTime);
 void XAsufw_PrintAsuTimeStamp(void);
 void XAsufw_RtcaInit(void);
 s32 XAsufw_PmcKeyTransfer(void);
-s32 XAsufw_UpdateModulesInfo(void);
+void XAsufw_UpdateModulesInfo(void);
 
 /************************************ Variable Definitions ***************************************/
 

@@ -73,16 +73,16 @@ extern "C" {
  */
 typedef enum {
 	XASUFW_DMA0,	/**< 0: DMA 0 */
-	XASUFW_AES,		/**< 1: AES */
+	XASUFW_AES,	/**< 1: AES */
 	XASUFW_SHA2,	/**< 2: SHA2 */
 	XASUFW_SHA3,	/**< 3: SHA3 */
-	XASUFW_PLI,		/**< 4: PLI */
+	XASUFW_PLI,	/**< 4: PLI */
 	XASUFW_DMA1,	/**< 5: DMA 1 */
 	XASUFW_TRNG,	/**< 6: TRNG */
-	XASUFW_ECC,		/**< 7: ECC */
-	XASUFW_RSA,		/**< 8: RSA */
+	XASUFW_ECC,	/**< 7: ECC */
+	XASUFW_RSA,	/**< 8: RSA */
 	XASUFW_HMAC,	/**< 9: HMAC */
-	XASUFW_KDF,		/**< 10: KDF */
+	XASUFW_KDF,	/**< 10: KDF */
 	XASUFW_ECIES,	/**< 11: ECIES */
 	XASUFW_KEYWRAP,	/**< 12: Key wrap unwrap */
 	XASUFW_NONE,	/**< 13: None */
@@ -102,6 +102,7 @@ s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 ReqId);
 void XAsufw_AllocateResource(XAsufw_Resource Resource, XAsufw_Resource MainResource, u32 ReqId);
 s32 XAsufw_ReleaseDmaResource(XAsufw_Dma *AsuDmaPtr, u32 ReqId);
 void XAsufw_IdleResource(XAsufw_Resource Resource);
+void XAsufw_DisableResource(XAsufw_Resource Resource);
 
 /************************************ Variable Definitions ***************************************/
 

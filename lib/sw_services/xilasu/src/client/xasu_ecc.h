@@ -49,7 +49,7 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr);
+s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr, u32 CurveType);
 s32 XAsu_EccGenSign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr);
 s32 XAsu_EccVerifySign(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr);
 s32 XAsu_EccGenPubKey(XAsu_ClientParams *ClientParamsPtr, XAsu_EccKeyParams *EccKeyParamsPtr);

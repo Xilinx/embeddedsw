@@ -263,12 +263,12 @@ enum {
 	XASUFW_AES_CCM_AAD_FORMATTING_FAILED, /**< 0xA2U - AES CCM AAD formatting failed */
 	XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED, /**< 0xA3U - Error when AES CBC/ECB dummy
 						encryption fails */
-	XASUFW_AES_DPA_CM_KAT_CHECK1_FAILED, /**< 0xA4U - AES DPA CM check1 failed */
-	XASUFW_AES_DPA_CM_KAT_CHECK2_FAILED, /**< 0xA5U - AES DPA CM check2 failed */
-	XASUFW_AES_DPA_CM_KAT_CHECK3_FAILED, /**< 0xA6U - AES DPA CM check3 failed */
-	XASUFW_AES_DPA_CM_KAT_CHECK4_FAILED, /**< 0xA7U - AES DPA CM check4 failed */
-	XASUFW_AES_DPA_CM_KAT_CHECK5_FAILED, /**< 0xA8U - AES DPA CM check5 failed */
-	XASUFW_AES_DPA_CM_KAT_FAILED, /**< 0xA9U - AES DPA CM KAT failed */
+	XASUFW_AES_DPA_CM_KAT_CHECK_FAILED, /**< 0xA4U - AES DPA CM check1 failed */
+	XASUFW_AES_KAT_FAILED, /**< 0xA5U - AES KAT failed */
+	XASUFW_AES_DPA_CM_KAT_FAILED, /**< 0xA6U - AES DPA CM KAT failed */
+	XASUFW_AES_DPA_CM_ENC_OP_FAILED, /**< 0xA7U - AES DPA CM KAT encrypt operation failed */
+	XASUFW_AES_DPA_CM_DEC_OP_FAILED, /**< 0xA8U - AES DPA CM KAT decrypt operation failed */
+	XASUFW_RESOURCE_DISABLED, /**< 0xA9U - Resource disabled due to KAT failure. */
 	XASUFW_RSA_INVALID_PARAM, /**< 0xAAU - Invalid parameters to RSA APIs */
 	XASUFW_RSA_PUB_EXP_INVALID_VALUE, /**< 0xABU - Error in Public exponent value */
 	XASUFW_RSA_MOD_DATA_IS_ZERO, /**< 0xACU - Modulus data is zero */

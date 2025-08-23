@@ -58,14 +58,48 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XASUFW_KAT_STATUS_NOT_RUN	(0x0U) /** KAT not run status. */
+#define XASUFW_KAT_STATUS_FAIL		(0x1U) /** KAT failed status. */
+#define XASUFW_KAT_STATUS_PASS		(0x3U) /** KAT passed status. */
+
+/**
+ * @brief	Gets pointer to module information array.
+ */
+static inline XAsu_CryptoAlgInfo *GetModuleInfoPtr(void)
+{
+	return (XAsu_CryptoAlgInfo *)XASU_RTCA_MODULE_INFO_BASEADDR;
+}
+
+/**
+ * @brief	Returns pointer to the KatStatus for the specified module.
+ */
+static inline u8 *XAsu_GetKatStatusPtr(u32 ModuleId)
+{
+	return &GetModuleInfoPtr()[ModuleId].KatStatus;
+}
+
+/** Set KAT status as passed. */
+#define XASUFW_SET_KAT_PASSED(ModuleId) \
+	(GetModuleInfoPtr()[ModuleId].KatStatus = XASUFW_KAT_STATUS_PASS)
+
+/** Mark KAT status as failed. */
+#define XASUFW_MARK_KAT_FAILED(ModuleId) \
+	(GetModuleInfoPtr()[ModuleId].KatStatus = XASUFW_KAT_STATUS_FAIL)
+
+/** Check whether KAT status is passed or not. */
+#define XASUFW_IS_KAT_PASSED(ModuleId) \
+	(GetModuleInfoPtr()[ModuleId].KatStatus == XASUFW_KAT_STATUS_PASS)
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, XAsufw_Dma *AsuDmaPtr, XAsufw_Resource ShaResource);
-s32 XAsufw_RsaEncDecKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_RunKatTaskHandler(void *KatTask);
+s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, XAsufw_Dma *AsuDmaPtr, XAsufw_Resource ShaResource,
+	u32 ShaMode);
+s32 XAsufw_RsaEncDecOaepOpKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_RsaPssSignGenAndVerifOpKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr);
-s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr);
-s32 XAsufw_AesGcmKat(XAsufw_Dma *AsuDmaPtr);
-s32 XAsufw_AesDecryptDpaCmKat(XAsufw_Dma *AsuDmaPtr);
+s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr, u8 CurveType);
+s32 XAsufw_AesOperationKat(XAsufw_Dma *AsuDmaPtr, u8 EngineMode);
+s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_P256EcdhKat(XAsufw_Dma *AsuDmaPtr);
 #ifdef XASU_HMAC_ENABLE
 s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr);
@@ -74,7 +108,6 @@ s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_KdfOperationKat(XAsufw_Dma *AsuDmaPtr);
 #endif
 #ifdef XASU_ECIES_ENABLE
-s32 XAsufw_HkdfOperationKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_EciesOperationKat(XAsufw_Dma *AsuDmaPtr);
 #endif
 #ifdef XASU_KEYWRAP_ENABLE

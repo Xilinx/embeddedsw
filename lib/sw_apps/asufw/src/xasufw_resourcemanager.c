@@ -53,7 +53,8 @@
 typedef enum {
 	XASUFW_RESOURCE_IS_FREE,	/**< Resource is not blocked */
 	XASUFW_RESOURCE_IS_IDLE,	/**< Resource is blocked by an application, but idle in state */
-	XASUFW_RESOURCE_IS_BUSY		/**< Resource is busy in performing operation */
+	XASUFW_RESOURCE_IS_BUSY,	/**< Resource is busy in performing operation */
+	XASUFW_RESOURCE_IS_DISABLED	/**< Resource is disabled due to KAT failure */
 } XAsufw_ResourceState;
 
 /** @} */
@@ -208,9 +209,12 @@ static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 ReqId)
 
 	/** Check resource availability. */
 	if ((ResourceManager[Resource].State == XASUFW_RESOURCE_IS_BUSY) ||
-		((ResourceManager[Resource].State == XASUFW_RESOURCE_IS_IDLE) &&
+			((ResourceManager[Resource].State == XASUFW_RESOURCE_IS_IDLE) &&
 			(ResourceManager[Resource].OwnerId != ReqId))) {
 		Status = XASUFW_RESOURCE_UNAVAILABLE;
+	}
+	else if (ResourceManager[Resource].State == XASUFW_RESOURCE_IS_DISABLED) {
+		Status = XASUFW_RESOURCE_DISABLED;
 	}
 	else {
 		Status = XASUFW_SUCCESS;
@@ -410,5 +414,20 @@ s32 XAsufw_ReleaseDmaResource(XAsufw_Dma *AsuDmaPtr, u32 ReqId)
 
 END:
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function disables the specified resources.
+ *
+ * @param	Resource	The resource to be disabled.
+ *
+ *************************************************************************************************/
+void XAsufw_DisableResource(XAsufw_Resource Resource)
+{
+	ResourceManager[Resource].State = XASUFW_RESOURCE_IS_DISABLED;
+	ResourceManager[Resource].OwnerId = 0U;
+	ResourceManager[Resource].AllocatedResources = 0U;
+	XAsufw_Printf(DEBUG_GENERAL, "KAT failed for Resource Id : %d, corresponding module is disabled\r\n", Resource);
 }
 /** @} */

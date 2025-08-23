@@ -267,11 +267,11 @@ static s32 XAsufw_Sha3Kat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha3 = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
-
 	(void)ReqBuf;
 
 	/** Perform SHA3 KAT. */
-	Status = XAsufw_ShaKat(XAsufw_Sha3, XAsufw_Sha3Module.AsuDmaPtr, XASUFW_SHA3);
+	Status = XAsufw_ShaKat(XAsufw_Sha3, XAsufw_Sha3Module.AsuDmaPtr, XASUFW_SHA3,
+		XASU_SHA_MODE_256);
 
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_SHA3, ReqId) != XASUFW_SUCCESS) {

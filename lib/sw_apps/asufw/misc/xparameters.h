@@ -544,6 +544,12 @@
 /**< Macro to enable/disable support of Brainpool P-512 curve */
 //#define XASU_ECC_SUPPORT_BRAINPOOL_P512
 
+/**< Macro to enable/disable support of EDWARD P-25519 curve */
+#define XASU_ECC_SUPPORT_EDWARD_P25519
+
+/**< Macro to enable/disable support of EDWARD P-448 curve */
+#define XASU_ECC_SUPPORT_EDWARD_P448
+
 /* Platform specific definitions */
 #ifndef VERSAL_2VE_2VM
 #define VERSAL_2VE_2VM

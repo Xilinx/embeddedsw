@@ -334,25 +334,37 @@ DONE:
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs Known Answer Tests (KATs) on AES core.
+ * @brief	This function executes AES Known Answer Tests (KATs) using the user-specified mode.
  *
  * @param	ReqBuf	Pointer to the request buffer.
  * @param	ReqId	Request Unique ID.
  *
  * @return
  * 	- XASUFW_SUCCESS, if AES KAT is successful.
- *  - XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  * 	- XASUFW_FAILURE, upon failure.
  *
  *************************************************************************************************/
 static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
+	const u32 AesKatMode = *((const u32 *)ReqBuf->Arg);
 
-	(void)ReqBuf;
-
-	/** Perform AES GCM KAT operation. */
-	Status = XAsufw_AesGcmKat(XAsufw_AesModule.AsuDmaPtr);
+	/** Run KAT based on user specified KAT mode. */
+	switch (AesKatMode) {
+		case XASU_AES_ECB_MODE:
+		case  XASU_AES_GCM_MODE:
+			Status = XAsufw_AesOperationKat(XAsufw_AesModule.AsuDmaPtr, (u8)AesKatMode);
+			break;
+#ifdef XASU_AES_CM_ENABLE
+		case XASU_AES_KAT_DPA_MODE:
+			Status = XAsufw_AesDpaCmKat(XAsufw_AesModule.AsuDmaPtr);
+			break;
+#endif
+		default:
+			Status = XASUFW_AES_INVALID_ENGINE_MODE;
+			break;
+	}
 
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_AES, ReqId) != XASUFW_SUCCESS) {

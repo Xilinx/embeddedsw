@@ -341,6 +341,8 @@ extern "C" {
  */
 #define XAES_USER_KEY_0_0_OFFSET			(0x00000064U)
 	/**< AES User_key_0 word0 register offset */
+#define XAES_USER_KEY_0_3_OFFSET			(0x00000070U)
+	/**< AES User_key_0 word3 register offset */
 #define XAES_USER_KEY_1_0_OFFSET			(0x00000084U)
 	/**< AES User_key_1 word0 register offset */
 #define XAES_USER_KEY_2_0_OFFSET			(0x000000A4U)
@@ -427,6 +429,8 @@ extern "C" {
  */
 #define XAES_KEY_MASK_0_OFFSET				(0x00000024U)
 	/**< Offset of key mask0 */
+#define XAES_KEY_MASK_3_OFFSET				(0x00000030U)
+	/**< Offset of key mask3 */
 /** @} */
 
 #ifdef __cplusplus

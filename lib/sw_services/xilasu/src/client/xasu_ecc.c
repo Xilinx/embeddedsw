@@ -221,14 +221,16 @@ END:
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
+ * @param	CurveType	Type of supported elliptic curve for KAT.
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
  * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
  * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
-s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr)
+s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr, u32 CurveType)
 {
 	s32 Status = XST_FAILURE;
 	u32 Header;
@@ -237,6 +239,12 @@ s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr)
 	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
 	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((CurveType != XASU_ECC_NIST_P256) && (CurveType != XASU_ECC_NIST_ED25519) &&
+			(CurveType != XASU_ECC_NIST_ED448)) {
+		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
@@ -251,7 +259,7 @@ s32 XAsu_EccKat(XAsu_ClientParams *ClientParamsPtr)
 	Header = XAsu_CreateHeader(XASU_ECC_KAT_CMD_ID, UniqueId, XASU_MODULE_ECC_ID, 0U);
 
 	/** Update request buffer and send an IPI request to ASU. */
-	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, NULL, 0U, Header);
+	Status = XAsu_UpdateQueueBufferNSendIpi(ClientParamsPtr, &CurveType, sizeof(CurveType), Header);
 
 END:
 	return Status;

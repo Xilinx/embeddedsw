@@ -76,11 +76,10 @@ typedef struct {
 				/**< 0xFF: Algorithm is NIST compliant
 				     0x00: Algorithm is not NIST compliant or NIST compliance is not
 					    applicable */
-	u8 Reserved1;	/**< Reserved */
+	u8 KatStatus;	/**< KAT status bit, 0 - KAT not run, 1 - KAT fail and 3 - KAT pass */
 	u8 Reserved2;	/**< Reserved */
 	u8 Reserved3;	/**< Reserved */
 	u32 Reserved4;	/**< Reserved */
-
 } XAsu_CryptoAlgInfo;
 
 /************************************ Function Prototypes ****************************************/

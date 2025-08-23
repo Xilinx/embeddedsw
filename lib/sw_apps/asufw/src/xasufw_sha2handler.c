@@ -265,12 +265,17 @@ static s32 XAsufw_Sha2Kat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XSha *XAsufw_Sha2 = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	u32 Sha2Mode = *((u32 *)ReqBuf->Arg);
 
-	(void)ReqBuf;
+	if ((Sha2Mode != XASU_SHA_MODE_256) && (Sha2Mode != XASU_SHA_512_HASH_LEN)) {
+		Status = XASUFW_SHA_INVALID_SHA_MODE;
+		goto END;
+	}
 
 	/** Perform SHA2 KAT. */
-	Status = XAsufw_ShaKat(XAsufw_Sha2, XAsufw_Sha2Module.AsuDmaPtr, XASUFW_SHA2);
+	Status = XAsufw_ShaKat(XAsufw_Sha2, XAsufw_Sha2Module.AsuDmaPtr, XASUFW_SHA2, Sha2Mode);
 
+END:
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_SHA2, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);

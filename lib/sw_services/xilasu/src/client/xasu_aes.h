@@ -44,7 +44,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClientParamPtr);
-s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr);
+s32 XAsu_AesKat(XAsu_ClientParams *ClientParamsPtr, u32 KatMode);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

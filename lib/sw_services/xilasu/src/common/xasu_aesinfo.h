@@ -82,6 +82,8 @@ extern "C" {
 #define XASU_AES_GCM_MODE		(0x6U) /**< AES GCM mode */
 #define XASU_AES_CMAC_MODE		(0x8U) /**< AES CMAC mode */
 #define XASU_AES_GHASH_MODE		(0xEU) /**< AES GHASH mode */
+/** Select this mode to run AES DPA KAT. */
+#define XASU_AES_KAT_DPA_MODE		(0xFU)
 
 /* AES key source */
 #define XASU_AES_USER_KEY_0		(0x0U) /**< User Key 0 */

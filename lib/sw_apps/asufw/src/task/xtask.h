@@ -42,6 +42,7 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 #define XTASK_MAX               (32U) /**< Maximum tasks allowed to be created */
 #define XTASK_PRIORITIES        (16U) /**< Number of task priorities allowed */
+#define XTASK_PRIORITY_0	(0U) /**< Highest priority. */
 
 #define XTASK_NUM_BITS_IN_U32   (32U) /**< Maximum bits in unsigned int */
 

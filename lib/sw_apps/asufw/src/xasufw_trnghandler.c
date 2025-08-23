@@ -122,15 +122,6 @@ s32 XAsufw_TrngInit(void)
 		goto END;
 	}
 
-	/** Perform health test on TRNG. */
-	Status = XTrng_PreOperationalSelfTests(XAsufw_Trng);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
-	}
-
-	/** Set TRNG to default mode. */
-	Status = XTrng_EnableDefaultMode(XAsufw_Trng);
-
 END:
 	return Status;
 }
