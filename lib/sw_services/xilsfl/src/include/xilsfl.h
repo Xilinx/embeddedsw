@@ -122,7 +122,7 @@
 #define	XSFL_BROKEN_DMA 0x01
 
 /**< Max Byte count in Stig Mode */
-#define	XSFL_MAX_STIG_BYTE_CNT  0x08;
+#define	XSFL_MAX_STIG_BYTE_CNT  8
 
 /* Flash Device Type */
 #define XSFL_QSPI_FLASH  0x01

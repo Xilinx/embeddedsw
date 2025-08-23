@@ -433,7 +433,11 @@ u32 XSfl_FlashReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteC
 		SflMsg.Dummy = 0;
 		if ((SflInstancePtr->CntrlInfo.OpMode == XOSPIPSV_IDAC_EN_OPTION)
 				&& (SflInstancePtr->Quirks & XSFL_BROKEN_DMA)) {
-			BytesToRead = XSFL_MAX_STIG_BYTE_CNT;
+			if(ByteCount < XSFL_MAX_STIG_BYTE_CNT) {
+				BytesToRead = ByteCount;
+			} else {
+				BytesToRead = XSFL_MAX_STIG_BYTE_CNT;
+			}
 		} else {
 			if (Flash_Config_Table[FCTIndex].FlashType == XSFL_QSPI_FLASH) {
 				if ((SflInstancePtr->CntrlInfo.BusWidth == XSFL_X4_BUS_WIDTH) ||
@@ -551,7 +555,11 @@ u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address
 		SflMsg.Proto =  (u8)Flash_Config_Table[FCTIndex].Proto;
 		if ((SflInstancePtr->CntrlInfo.OpMode == XOSPIPSV_IDAC_EN_OPTION)
 				&& (SflInstancePtr->Quirks & XSFL_BROKEN_DMA)) {
-			BytesToRead = XSFL_MAX_STIG_BYTE_CNT;
+			if(ByteCount < XSFL_MAX_STIG_BYTE_CNT) {
+				BytesToRead = ByteCount;
+			} else {
+				BytesToRead = XSFL_MAX_STIG_BYTE_CNT;
+			}
 		} else {
 			if (Flash_Config_Table[FCTIndex].FlashType == XSFL_QSPI_FLASH) {
 				if ((SflInstancePtr->CntrlInfo.BusWidth == XSFL_X4_BUS_WIDTH) ||
