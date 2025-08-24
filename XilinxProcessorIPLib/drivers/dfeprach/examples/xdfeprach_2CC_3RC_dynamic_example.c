@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.5   dc     12/14/22 Update multiband register arithmetic
 *       dc     01/02/23 Multiband registers update
 * 1.6   dc     06/15/23 Configure all trigger parameters in examples
+* 1.8   dc     08/23/25 Add missing parameter to yaml
 *
 * </pre>
 * @addtogroup Overview
@@ -71,6 +72,18 @@ int XDfePrach_2CC3RCDynamicTestExample()
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfePrach_Cfg Cfg = {
 		{ 0, 0, 0, 0 },
+		{
+			{ 0, 0, 0,},
+			{ 0, 0, 0,},
+			{ 0, 0, 0,},
+			{ 0, 0, 0,},
+			0,
+			0,
+			0,
+			0,
+			0,
+			0
+		}
 	};
 	XDfePrach *InstancePtr = NULL;
 	XDfePrach_Version SwVersion = { 0 };
@@ -86,10 +99,10 @@ int XDfePrach_2CC3RCDynamicTestExample()
 	XDfePrach_CCCfg CCCfg = { 0 };
 	/* Full RC config structure */
 	XDfePrach_RCCfg RCCfg = { 0 };
-	int Index;
-	int fir_stg;
-	int RC_idx;
-	int CC_idx;
+	u32 Index;
+	u32 fir_stg;
+	u32 RC_idx;
+	u32 CC_idx;
 
 	XDfePrach_CarrierCfg CarrierCfg[XDFEPRACH_NUMBER_CC]; /* CC settings */
 	u32 CCSeqBitmap[XDFEPRACH_NUMBER_CC]; /* Insertion location */

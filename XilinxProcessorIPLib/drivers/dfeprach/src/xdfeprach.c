@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,7 @@
 *       dc     01/19/24 Correct memset destination address
 *       dc     03/22/24 Correct order of RACH mapping steps
 * 1.8   dc     06/12/25 Set phase offsets to 0 on startup
+*       dc     08/23/25 Add missing  parameter to yaml
 * </pre>
 * @addtogroup dfeprach Overview
 * @{

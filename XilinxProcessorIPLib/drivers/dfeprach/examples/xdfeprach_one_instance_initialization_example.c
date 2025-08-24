@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 1.2   dc     11/19/21 Update doxygen documentation
 * 1.3   dc     02/07/22 Configure 2 CC and 3 RC examples
 * 1.5   dc     01/02/23 Multiband registers update
+* 1.8   dc     08/23/25 Add missing parameter to yaml
 *
 * </pre>
 * @addtogroup Overview
@@ -52,8 +53,8 @@
 *	- Deactivate the device.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+*	- XST_SUCCESS if the example has completed successfully.
+*	- XST_FAILURE if the example has failed.
 *
 ****************************************************************************/
 /** //! [testexample1] */
@@ -62,6 +63,18 @@ int XDfePrach_SelfTestExample()
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 	XDfePrach_Cfg Cfg = {
 		{ 0, 0, 0, 0 },
+		{
+			{ 0, 0, 0,},
+			{ 0, 0, 0,},
+			{ 0, 0, 0,},
+			{ 0, 0, 0,},
+			0,
+			0,
+			0,
+			0,
+			0,
+			0
+		}
 	};
 	XDfePrach *InstancePtr = NULL;
 	XDfePrach_Version SwVersion = { 0 };
