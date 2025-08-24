@@ -1,13 +1,35 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
 project(visp_ss)
-
+include(CheckSymbolExists)
 find_package(common)
 collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
+collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories(${CMAKE_BINARY_DIR}/include)
+include(${CMAKE_CURRENT_SOURCE_DIR}/VISP_SSConfig.cmake)
 collect (PROJECT_LIB_HEADERS xvisp_ss.h)
+collect (PROJECT_LIB_SOURCES xvisp_ss_g.c)
+collect (PROJECT_LIB_SOURCES xvisp_ss_sinit.c)
+collect (PROJECT_LIB_SOURCES xvisp_ss.c)
+add_subdirectory(mailbox)
+add_subdirectory(visp_ss)
+check_symbol_exists(XPAR_I2C0_BASEADDR "xparameters.h" HAVE_XIICPS1)
+if(HAVE_XIICPS1)
+    message(STATUS "XPAR_I2C0_BASEADDR found → enabling sensor drivers")
+    add_subdirectory(sensor)
+else()
+    message(STATUS "XPAR_I2C0_BASEADDR not found → skipping sensor drivers")
+endif()
+add_compile_options(-w)
+collector_list (_sources PROJECT_LIB_SOURCES)
 collector_list (_headers PROJECT_LIB_HEADERS)
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
-add_library(visp_ss INTERFACE)
+add_library(visp_ss STATIC ${_sources})
+set_target_properties(visp_ss PROPERTIES LINKER_LANGUAGE C)
+
+# Apply user compile definitions
+if(DEFINED USER_COMPILE_DEFINITIONS)
+    target_compile_definitions(visp_ss PRIVATE ${USER_COMPILE_DEFINITIONS})
+endif()
