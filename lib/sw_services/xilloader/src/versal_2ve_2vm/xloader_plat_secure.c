@@ -510,6 +510,103 @@ int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 
 
 /*****************************************************************************/
 /**
+* @brief	This function checks and updates the configuration limiter count
+*		based on the boot phase (before or after boot) and configured mode.
+*		In case of any error, secure lockdown is triggered.
+*
+* @param	BootPhase - Indicates the boot phase:
+*		XLOADER_CL_BEFORE_BOOT: Called before boot starts
+*		XLOADER_CL_AFTER_BOOT: Called after successful boot
+*
+* @return	XST_SUCCESS on success.
+*		Error code in case of failure
+*
+******************************************************************************/
+int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase)
+{
+	int Status = XST_FAILURE;
+	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
+	u32 ReadCfgLimiterReg;
+	u32 ClMode;
+
+	/**
+	 * - Validate input parameters
+	 */
+	if ((BootPhase != XLOADER_CL_BEFORE_BOOT) && (BootPhase != XLOADER_CL_AFTER_BOOT)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	ReadCfgLimiterReg = XPlmi_In32(XLOADER_BBRAM_8_MEM_ADDRESS);
+
+	if ((ReadCfgLimiterReg & XLOADER_BBRAM_CL_FEATURE_EN_MASK) == XLOADER_BBRAM_CL_FEATURE_EN_MASK) {
+		/**
+		 * - Configuration limiter feature is enabled - process based on mode and boot phase
+		 */
+		ClMode = ReadCfgLimiterReg & XLOADER_BBRAM_CL_MODE_MASK;
+
+		if (ClMode == XLOADER_BBRAM_CL_TOTAL_CONFIGS_MODE) {
+			if (BootPhase == XLOADER_CL_BEFORE_BOOT) {
+				/**
+				 * - Decrement counter before boot attempt
+				 */
+				XSECURE_TEMPORAL_CHECK(END, Status, XLoader_UpdateCfgLimitCount,
+						XLOADER_BBRAM_CL_DECREMENT_COUNT);
+			}
+			else {
+				/**
+				 *-  No action after successful boot - counter already decremented
+				 */
+				Status = XST_SUCCESS;
+				XPlmi_Printf(DEBUG_DETAILED, "CL: Total configs mode - no action required after boot\n\r");
+			}
+		}
+		else if (ClMode == XLOADER_BBRAM_CL_FAILED_CONFIGS_MODE) {
+			if (BootPhase == XLOADER_CL_BEFORE_BOOT) {
+				/**
+				 * - Decrement counter before boot attempt
+				 */
+				XSECURE_TEMPORAL_CHECK(END, Status, XLoader_UpdateCfgLimitCount,
+						XLOADER_BBRAM_CL_DECREMENT_COUNT);
+			}
+			else {
+				/**
+				 * - Boot was successful - increment counter back to restore the attempt
+				 */
+				XSECURE_TEMPORAL_CHECK(END, Status, XLoader_UpdateCfgLimitCount,
+						XLOADER_BBRAM_CL_INCREMENT_COUNT);
+			}
+		}
+		else {
+			/**
+			 * - Invalid/Corrupted CL Mode: Zeroize AES key in BBRAM and trigger Secure Lockdown
+			 */
+			if (AesInstPtr != NULL) {
+				Status = XSecure_AesKeyZero(AesInstPtr, XSECURE_AES_BBRAM_RED_KEY);
+			}
+
+			/**
+			 * - Initiate Secure lockdown
+			 */
+			XPlmi_Printf(DEBUG_GENERAL, "CL: Triggering Secure Lockdown\n\r");
+			XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_TASK);
+			goto END;
+		}
+	}
+	else {
+		/**
+		 * - Configuration Limiter feature is disabled - no action required
+		 */
+		Status = XST_SUCCESS;
+		XPlmi_Printf(DEBUG_DETAILED, "CL: Feature disabled - no action required\n\r");
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
 * @brief	This function updates the configuration limiter count if
 *		Configuration limiter feature is enabled in case of secure boot.
 *		In case of eny error, secure lockdown is triggered.

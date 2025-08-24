@@ -319,6 +319,10 @@ typedef struct {
 #define XLoader_MbPmcI2cHandshake	(NULL) /**< DDRMB - PMC I2C Handshake */
 #endif
 
+/* Configuration Limiter Boot Phase definitions */
+#define XLOADER_CL_BEFORE_BOOT		(0x0U)	/**< Before boot starts */
+#define XLOADER_CL_AFTER_BOOT		(0x1U)	/**< After successful boot */
+
 /**************************** Type Definitions *******************************/
 /*
  * This stores the handoff Address of the different cpu's

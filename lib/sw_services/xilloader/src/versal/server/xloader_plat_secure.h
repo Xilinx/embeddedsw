@@ -205,6 +205,28 @@ static inline int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief	This function checks and updates the configuration limiter count
+*		based on the boot phase (before or after boot) and configured mode.
+*		In case of any error, secure lockdown is triggered.
+*
+* @param	BootPhase - Indicates the boot phase:
+*		XLOADER_CL_BEFORE_BOOT: Called before boot starts
+*		XLOADER_CL_AFTER_BOOT: Called after successful boot
+*
+* @return	XST_SUCCESS on success.
+*		Error code in case of failure
+*
+* @note		Not applicable in case of Versal
+*
+******************************************************************************/
+static inline int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase)
+{
+	(void)BootPhase;
+	return XST_SUCCESS;
+}
+
 /************************** Function Prototypes ******************************/
 u32 XLoader_GetKekSrc(void);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);

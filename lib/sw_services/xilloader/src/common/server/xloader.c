@@ -192,6 +192,7 @@
 *       sk  05/07/2025 Fix the config for PCIe as secondary boot mode
 *       sk  07/13/2025 Renamed XLoader_LoadAndStartSecPdi to XLoader_LoadAndStartSecondaryPdi
 * 2.3   vss 08/13/2025 Removed code which masks major errorcodes.
+*       har 08/21/2025 Added code to handle invalid CL mode
 *
 * </pre>
 *
@@ -356,8 +357,10 @@ int XLoader_Init(void)
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SetSecureState);
 
 #ifndef PLM_SECURE_EXCLUDE
-	/** - Decrements the count of configuration limiter */
-	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_UpdateCfgLimitCount, XLOADER_BBRAM_CL_DECREMENT_COUNT);
+	Status = XLoader_CheckAndUpdateCfgLimit(XLOADER_CL_BEFORE_BOOT);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 #ifndef PLM_AUTH_JTAG_EXCLUDE
 	/** - Add task to the scheduler to handle Authenticated JTAG message */
@@ -375,7 +378,8 @@ int XLoader_Init(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-#endif
+#endif	/**< PLM_SECURE_EXCLUDE */
+
 	Status = XLoader_PlatInit();
 
 END:

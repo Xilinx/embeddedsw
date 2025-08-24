@@ -35,6 +35,7 @@
 *       obs  09/30/2024 Fixed Doxygen Warnings
 * 2.2   har  04/07/2025 Added XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK and
 *                       XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK macro
+*       har  08/21/2025 Added XLOADER_BBRAM_CL_TOTAL_CONFIGS_MODE macro
 *
 * </pre>
 *
@@ -78,6 +79,7 @@ extern "C" {
 			/**< Mask to get the value of Feature enable in Configuration Limiter register */
 #define XLOADER_CL_FEATURE_EN_SHIFT			(30U)	/**<  CL Feature Enable Shift*/
 #define XLOADER_BBRAM_CL_FAILED_CONFIGS_MODE		(0x0U)  /**< Number of failed configurations selected as mode for Configuration Limiter */
+#define XLOADER_BBRAM_CL_TOTAL_CONFIGS_MODE		(0x3U)  /**< Number of failed configurations selected as mode for Configuration Limiter */
 #define XLOADER_BBRAM_CL_FEATURE_ENABLE			(0x3U)  /**< Value when Configuration Limiter feature is enabled */
 
 #define XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK		(0x79FFF8C1U)
@@ -205,6 +207,7 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);
 int XLoader_AddDeviceStateChangeToScheduler(void);
 int XLoader_CheckDeviceStateChange(void *Arg);
 int XLoader_UpdateCfgLimitCount(u32 UpdateFlag);
+int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase);
 #ifndef PLM_RSA_EXCLUDE
 int XLoader_RsaKat(void);
 int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
