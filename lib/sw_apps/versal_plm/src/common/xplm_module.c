@@ -59,6 +59,7 @@
 *       tri  03/13/2025 Added module support for XilTpm
 *       pre  03/02/2025 Passing partial PDI functions to secure module
 * 1.2   tvp  08/19/2025 ssit is not required for Versal_2vp
+*       pre  08/21/2025 Removed TPM initialization here to add it after LPD initialization
 *
 * </pre>
 *
@@ -109,9 +110,6 @@
 #endif
 #ifdef VERSAL_2VE_2VM
 #include "xplmi_asu_cmd.h"
-#endif
-#ifdef PLM_TPM
-#include "xtpm.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -220,13 +218,6 @@ int XPlm_ModuleInit(void *Arg)
 	 * Init function for OCP module for handler registration to server
 	 */
 	XOcp_Init();
-#endif
-	/* TPM module is applicable only for Versal */
-#ifdef PLM_TPM
-	Status = XTpm_Init();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 #endif
 
 END:

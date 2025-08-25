@@ -131,6 +131,8 @@
 *       pre  03/02/25 setting data context lost for SHA when the resource is busy
 *       pre  04/07/25 Hash verification skip for non-secure boot in export control enabled devices
 *       pre  06/07/25 Hash verification skip is done using crypto check function
+* 2.03  tvp  08/22/25 Added support to store partition Block hash in PtrnHashTable.
+*       pre  08/23/25 Did versal macro change
 *
 * </pre>
 *
@@ -456,6 +458,9 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 DataLen = Size;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
 	volatile int ClearStatus = XST_FAILURE;
+#if defined(versal) && defined(PLM_TPM)
+	XSecure_Sha3Hash *PtrnHashTablePtr = XLoader_GetPtrnHashTable();
+#endif
 
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		goto END;
@@ -530,6 +535,19 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 			Status);
 		goto END;
 	}
+
+#if defined(versal) && defined(PLM_TPM)
+	/** Store Hash of first block requird for the data measurements */
+	if (SecurePtr->BlockNum == 0x0U) {
+		/** Store Hash of the first block of the partition, required for data measurement */
+		Status = Xil_SMemCpy(&PtrnHashTablePtr[SecurePtr->PdiPtr->ImagePrtnId].Hash,
+				     XLOADER_SHA3_LEN, &BlkHash.Hash,
+				     XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+#endif
 
 	/** Update the next expected hash and data location */
 	if (Last != (u8)TRUE) {

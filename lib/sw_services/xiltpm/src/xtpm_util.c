@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  tri  03/13/25 Initial release
+*       pre  08/23/25 Did enhancements needed
 *
 * </pre>
 *
@@ -42,6 +43,8 @@
 
 /************************** Variable Definitions *****************************/
 static XSpiPs SpiInstance;
+static u8 TpmTxBuffer[XTPM_REQ_MAX_SIZE + XTPM_TX_HEAD_SIZE] = {0U};
+static u8 TpmRxBuffer[XTPM_RESP_MAX_SIZE + XTPM_TX_HEAD_SIZE] = {0U};
 
 /*****************************************************************************/
 /**
@@ -177,7 +180,7 @@ u32 XTpm_SpiInit(void)
 		goto END;
 	}
 
-	Status = XSpiPs_SetClkPrescaler(&SpiInstance, XSPIPS_CLK_PRESCALE_16);
+	Status = XSpiPs_SetClkPrescaler(&SpiInstance, XSPIPS_CLK_PRESCALE_32);
 	if (Status != XST_SUCCESS) {
 		Status = XTPM_ERR_SPIPS_SET_CLK_PRESCALER;
 		goto END;
@@ -296,8 +299,6 @@ u32 XTpm_Transfer(u16 Address, u8 *TxBuf, u8 *RxBuf, u16 Len)
 	u8 TranLen;
 	u16 Length = Len;
 	u16 RxOffset = 0U;
-	u8 TpmTxBuffer[XTPM_REQ_MAX_SIZE + XTPM_TX_HEAD_SIZE] = {0U};
-	u8 TpmRxBuffer[XTPM_RESP_MAX_SIZE + XTPM_TX_HEAD_SIZE] = {0U};
 
 	if (Length > XTPM_REQ_MAX_SIZE) {
 		Status = XTPM_ERR_DATA_TX_LENGTH_LIMIT;

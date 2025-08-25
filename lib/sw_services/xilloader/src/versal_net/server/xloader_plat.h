@@ -49,6 +49,7 @@
 *       tri  03/13/2025 Added XLoader_MeasureNLoad prototype
 *       tvp  07/28/2025 Add wrapper function prototype XLoader_UpdateDataMeasurement
 *                       to update DataMeasurement
+*       pre  08/23/2025 Added prototype for XLoader_MeasureRomAndPlm function
 *
 * </pre>
 *
@@ -310,6 +311,20 @@ typedef struct {
 		{"SDLS_B1", XLOADER_SD_INDEX}, /* SDLS_B1 - 0xE */\
 		{"DDR", XLOADER_DDR_INDEX}, /* DDR - 0xF */\
 	}/**< Get PDI source info */
+
+/***************************************************************************************/
+/**
+ * @brief	This function extends the image hashes of ROM and PLM data
+ *
+ * @return
+ * 			- XST_SUCCESS on successful extension
+ * 			- error code on failure
+ *
+ ***************************************************************************************/
+static inline int XLoader_MeasureRomAndPlm(void)
+{
+	return XST_SUCCESS;
+}
 
 /*****************************************************************************/
 /**

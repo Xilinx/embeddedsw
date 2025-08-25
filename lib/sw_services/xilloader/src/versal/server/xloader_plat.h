@@ -41,6 +41,8 @@
 *                       XLoader_DataMeasurement prototype
 *       tvp  07/28/2025 Add wrapper function prototype XLoader_UpdateDataMeasurement
 *                       to update DataMeasurement
+* 2.3   tvp  08/19/2025 Add function prototype XLoader_GetPtrnHashTable to get partition hash table
+*       pre  08/23/2025 Added prototype for XLoader_MeasureRomAndPlm function
 *
 * </pre>
 *
@@ -106,9 +108,11 @@ extern "C" {
 #define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU1	(0x200U) /**< VINITHI CPU1 mask */
 
 /* Data measurement flags applicable only for VersalNet */
+#ifdef PLM_TPM
 #define XLOADER_MEASURE_START		(0U) /**< Data measure start */
 #define XLOADER_MEASURE_UPDATE		(1U) /**< Data measure update */
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
+#endif
 
 #define XLoader_ConfigureJtagState	(NULL) /**< Configure JTAG State */
 
@@ -468,6 +472,10 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 void XLoader_ShaInstance1Reset(void);
 int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen);
+#if defined(PLM_TPM)
+XSecure_Sha3Hash* XLoader_GetPtrnHashTable(void);
+#endif
+int XLoader_MeasureRomAndPlm(void);
 
 /************************** Variable Definitions *****************************/
 

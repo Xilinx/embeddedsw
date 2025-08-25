@@ -128,6 +128,8 @@
 *       pre  03/02/2025 Added XLoader_PpdiEventParamsPtr function and
 *                       XLoader_ResourceSts type definition
 *       sk   03/28/2025 Updated the max handoff count for versal_2ve_2vm
+* 2.03  tvp  08/22/2025 Removed unnecessary XLoader_ImageMeasureInfo structure member for TPM.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -422,10 +424,6 @@ typedef struct {
 	u32 Flags;	/**< Flags to indicate state of hash calculation - start, update, finish */
 	u32 SubsystemID;	/**< Subsystem ID */
 	u32 OverWrite;	/**< Flag to indicate if digest can be overwritten at the measurement index */
-#ifdef PLM_TPM
-	u32 IsAuthOptimized;	/**< Digest table size in bytes */
-	u32 DigestTableSize;	/**< Authentication optimization enabled or disabled by the user */
-#endif
 } XLoader_ImageMeasureInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/

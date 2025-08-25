@@ -193,6 +193,7 @@
 *       sk  07/13/2025 Renamed XLoader_LoadAndStartSecPdi to XLoader_LoadAndStartSecondaryPdi
 * 2.3   vss 08/13/2025 Removed code which masks major errorcodes.
 *       har 08/21/2025 Added code to handle invalid CL mode
+*       pre 08/21/2025 Moved extension of image hashes of ROM and PLM to TPM after boot
 *
 * </pre>
 *
@@ -527,27 +528,6 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-#ifdef PLM_TPM
-	/**
-	 * - Sends ROM digest stored in PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
-	 * - register to TPM
-	 */
-	Status = XTpm_MeasureRom();
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_MEASURE_ROM_FAILURE, Status);
-		goto END;
-	}
-
-	/**
-	 * - Sends PLM digest stored in PMC_GLOBAL_FW_AUTH_HASH_0 register to TPM
-	 */
-	Status = XTpm_MeasurePlm();
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_MEASURE_PLM_FAILURE, Status);
-		goto END;
-	}
-#endif
 
 	goto END;
 
@@ -1107,6 +1087,8 @@ static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	Status = XLoader_MeasureRomAndPlm();
 
 	/* Mark PDI loading is completed */
 	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_COMPLETE);

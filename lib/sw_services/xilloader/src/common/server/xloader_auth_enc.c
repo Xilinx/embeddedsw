@@ -152,6 +152,8 @@
 *       vss  07/08/25 Initialised DMA instance in read and verify secure headers.
 *       vss  07/22/2025 Added Hashblock hash verification check to update major errorcode.
 *       vss  08/13/2025 Removed code which masks major errorcodes.
+* 2.3   tvp  08/19/2025 Added support to store partition Block hash in PtrnHashTable.
+*       pre  08/23/2025 Did versal macro change
 *
 * </pre>
 *
@@ -5584,6 +5586,9 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 #else
 	XLoader_AuthCertificate *AcPtr=
 		(XLoader_AuthCertificate *)SecurePtr->AcPtr;
+#if defined(versal) && defined(PLM_TPM)
+	XSecure_Sha3Hash *PtrnHashTablePtr = XLoader_GetPtrnHashTable();
+#endif
 #endif
 	u8 *Data = (u8 *)SecurePtr->ChunkAddr;
 	XSecure_Sha3Hash BlkHash;
@@ -5689,6 +5694,15 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr, u3
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_AUTH_FAIL, Status);
 			goto END;
 		}
+#if defined(versal) && defined(PLM_TPM)
+		/** Store Hash of the first block of the partition, required for data measurement */
+		Status = Xil_SMemCpy(&PtrnHashTablePtr[SecurePtr->PdiPtr->ImagePrtnId].Hash,
+				     XLOADER_SHA3_LEN, &BlkHash.Hash,
+				     XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+#endif
 #endif
 	}
 	else {

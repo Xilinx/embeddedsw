@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  tri  03/13/25 Initial release
+*       pre  08/23/25 Did enhancements needed
 *
 * </pre>
 *
@@ -37,6 +38,10 @@
 #include "xtpm_error.h"
 
 /************************** Constant Definitions *****************************/
+#define XTPM_BYTE6 (6U) /**< Byte 6 */
+#define XTPM_BYTE7 (7U) /**< Byte 7 */
+#define XTPM_BYTE8 (8U) /**< Byte 8 */
+#define XTPM_BYTE9 (9U) /**< Byte 9 */
 
 /**************************** Type Definitions *******************************/
 
@@ -45,8 +50,10 @@
 /************************** Function Prototypes ******************************/
 static u32 XTpm_StartUp(void);
 static u32 XTpm_SelfTest(void);
+static u32 XTpm_GetCap(void);
 
 /************************** Variable Definitions *****************************/
+static u8 TpmRespBuffer[XTPM_RESP_MAX_SIZE + XTPM_TX_HEAD_SIZE] = {0U};
 
 /*****************************************************************************/
 /**
@@ -93,7 +100,10 @@ u32 XTpm_Init(void)
 	Status = XTpm_SelfTest();
 	if (Status != XST_SUCCESS) {
 		Status = XTPM_ERR_SELF_TEST;
+		goto END;
 	}
+
+	Status = XTpm_GetCap();
 
 END:
 	return Status;
@@ -110,7 +120,6 @@ END:
 static u32 XTpm_StartUp(void)
 {
 	int Status = XST_FAILURE;
-	u8 TpmRespBuffer[XTPM_RESP_MAX_SIZE] = {0U};
 	u8 TpmStartup[XTPM_START_CMD_SIZE] = {
 		0x80U, 0x01U, /* TPM_ST_NO_SESSIONS */
 		0x00U, 0x00U, 0x00U, 0x0CU, /* Command Size */
@@ -135,7 +144,6 @@ static u32 XTpm_StartUp(void)
 static u32 XTpm_SelfTest(void)
 {
 	int Status = XST_FAILURE;
-	u8 TpmRespBuffer[XTPM_RESP_MAX_SIZE] = {0U};
 	u8 TpmSelfTest[XTPM_SELF_TEST_CMD_SIZE] = {
 		0x80U, 0x01U, /* TPM_ST_NO_SESSIONS */
 		0x00U, 0x00U, 0x00, 0x0CU, /* Command Size */
@@ -146,6 +154,41 @@ static u32 XTpm_SelfTest(void)
 	Status = XTpm_DataTransfer(TpmSelfTest, TpmRespBuffer,
 		TpmSelfTest[XTPM_DATA_SIZE_INDEX]);
 
+	return Status;
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function does a get capabilities of TPM.
+*
+* @return	XST_SUCCESS if successful, else error code
+*
+******************************************************************************/
+static u32 XTpm_GetCap(void)
+{
+	u32 Status = XST_FAILURE;
+	u8 TpmGetCap[] = {
+		0x80, 0x01, /* TPM_ST_NO_SESSIONS */
+		0x00, 0x00, 0x00, 0x16, /* Command Size */
+		0x00, 0x00, 0x01, 0x7A, /* TPM_CC_Get Cap */
+		0x00, 0x00, 0x00, 0x06, /* TPM_SU_CLEAR */
+		0x00, 0x00, 0x01, 0x29, 0x00, 0x00, 0x00, 0x01
+	};
+
+	Status = XTpm_DataTransfer(TpmGetCap, TpmRespBuffer,
+		TpmGetCap[XTPM_DATA_SIZE_INDEX]);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if ((TpmRespBuffer[XTPM_BYTE6] != 0U) || (TpmRespBuffer[XTPM_BYTE7] != 0U) ||
+		(TpmRespBuffer[XTPM_BYTE8] != 0U) || (TpmRespBuffer[XTPM_BYTE9] != 0U)) {
+		Status = XTPM_ERR_RESP_POLLING;
+	}
+
+END:
 	return Status;
 }
 
@@ -163,19 +206,6 @@ int XTpm_MeasureRom(void)
 	u32 ShaData[XTPM_HASH_TYPE_SHA3 / XTPM_DATA_WORD_LENGTH];
 	u8 Index = 0U;
 	u32 RegVal;
-	u8 TpmPcrExtend[XTPM_PCR_EXT_CMD_SIZE + XTPM_DIGEST_SIZE] =
-	{
-		0x80U, 0x02U, /* TPM_ST_SESSIONS */
-		0x00U, 0x00U, 0x00U, 0x00U, /* Command Size */
-		0x00U, 0x00U, 0x01U, 0x82U, /* TPM_CC_PCR_Extend */
-		0x00U, 0x00U, 0x00U, 0x00U, /* PCR_Index */
-		0x00U, 0x00U, /* NULL Password */
-		0x00U, 0x09U, /* Authorization Size */
-		0x40U, 0x00U, 0x00U, 0x09U, /* Password authorization session */
-		0x00U, 0x00U, 0x01U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x01U, /* TPML_DIGEST_VALUES */
-		0x00U, 0x0BU /* SHA2 Hash Algorithm */
-	};
-	u8 TpmRespBuffer[XTPM_RESP_MAX_SIZE] = {0U};
 
 	/* Re-order the data to match LSB first */
 	for (RegVal = PMC_GLOBAL_ROM_VALIDATION_DIGEST_11; RegVal >= PMC_GLOBAL_ROM_VALIDATION_DIGEST_0;
@@ -184,17 +214,11 @@ int XTpm_MeasureRom(void)
 		Index++;
 	}
 
-	TpmPcrExtend[XTPM_DATA_SIZE_INDEX] = XTPM_PCR_EXT_CMD_SIZE +
-		XTPM_DIGEST_SIZE;
-	(void)Xil_SMemCpy(&TpmPcrExtend[XTPM_PCR_EXT_CMD_SIZE], XTPM_DIGEST_SIZE, (u8 *)ShaData,
-		XTPM_DIGEST_SIZE, XTPM_DIGEST_SIZE);
-
 	Status = (int)XTpm_Event(XTPM_TPM_ROM_PCR_INDEX, XTPM_HASH_TYPE_SHA3, (u8 *)ShaData, TpmRespBuffer);
-	if ((TpmRespBuffer[6U] != 0U) || (TpmRespBuffer[7U] != 0U) ||
-		(TpmRespBuffer[8U] != 0U) || (TpmRespBuffer[9U] != 0U)) {
-		if (Status != XST_SUCCESS) {
-			Status = XTPM_ERR_RESP_POLLING;
-		}
+
+	if ((TpmRespBuffer[XTPM_BYTE6] != 0U) || (TpmRespBuffer[XTPM_BYTE7] != 0U) ||
+		(TpmRespBuffer[XTPM_BYTE8] != 0U) || (TpmRespBuffer[XTPM_BYTE9] != 0U)) {
+		Status = XTPM_ERR_RESP_POLLING;
 	}
 
 	return Status;
@@ -214,19 +238,6 @@ int XTpm_MeasurePlm(void)
 	u32 ShaData[XTPM_HASH_TYPE_SHA3 / XTPM_DATA_WORD_LENGTH];
 	u8 Index = 0U;
 	u32 RegVal;
-	u8 TpmPcrExtend[XTPM_PCR_EXT_CMD_SIZE + XTPM_DIGEST_SIZE] =
-	{
-		0x80U, 0x02U, /* TPM_ST_SESSIONS */
-		0x00U, 0x00U, 0x00U, 0x00U, /* Command Size */
-		0x00U, 0x00U, 0x01U, 0x82U, /* TPM_CC_PCR_Extend */
-		0x00U, 0x00U, 0x00U, 0x01U, /* PCR_Index */
-		0x00U, 0x00U, /* NULL Password */
-		0x00U, 0x09U, /* Authorization Size */
-		0x40U, 0x00U, 0x00U, 0x09U, /* Password authorization session */
-		0x00U, 0x00U, 0x01U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x01U, /* TPML_DIGEST_VALUES */
-		0x00U, 0x0BU /* SHA2 Hash Algorithm */
-	};
-	u8 TpmRespBuffer[XTPM_RESP_MAX_SIZE] = {0U};
 
 	/* Re-order the data to match LSB first */
 	for (RegVal = PMC_GLOBAL_FW_AUTH_HASH_11 ; RegVal >= PMC_GLOBAL_FW_AUTH_HASH_0;
@@ -235,17 +246,11 @@ int XTpm_MeasurePlm(void)
 		Index++;
 	}
 
-	TpmPcrExtend[XTPM_DATA_SIZE_INDEX] = XTPM_PCR_EXT_CMD_SIZE +
-		XTPM_DIGEST_SIZE;
-	(void)Xil_SMemCpy(&TpmPcrExtend[XTPM_PCR_EXT_CMD_SIZE], XTPM_DIGEST_SIZE, (u8 *)ShaData,
-		XTPM_DIGEST_SIZE, XTPM_DIGEST_SIZE);
-
 	Status = XTpm_Event(XTPM_TPM_PLM_PCR_INDEX, XTPM_HASH_TYPE_SHA3, (u8 *)ShaData, TpmRespBuffer);
-	if ((TpmRespBuffer[6U] != 0U) || (TpmRespBuffer[7U] != 0U) ||
-		(TpmRespBuffer[8U] != 0U) || (TpmRespBuffer[9U] != 0U)) {
-		if (Status != XST_SUCCESS) {
-			Status = XTPM_ERR_RESP_POLLING;
-		}
+
+	if ((TpmRespBuffer[XTPM_BYTE6] != 0U) || (TpmRespBuffer[XTPM_BYTE7] != 0U) ||
+		(TpmRespBuffer[XTPM_BYTE8] != 0U) || (TpmRespBuffer[XTPM_BYTE9] != 0U)) {
+		Status = XTPM_ERR_RESP_POLLING;
 	}
 
 	return Status;
@@ -265,39 +270,12 @@ int XTpm_MeasurePlm(void)
 int XTpm_MeasurePartition(u32 PcrIndex, u8* ImageHash)
 {
 	int Status = XTPM_ERR_MEASURE_PARTITION;
-	u8 TpmPcrExtend[XTPM_PCR_EXT_CMD_SIZE + XTPM_DIGEST_SIZE] =
-	{
-		0x80U, 0x02U, /* TPM_ST_SESSIONS */
-		0x00U, 0x00U, 0x00U, 0x00U, /* Command Size */
-		0x00U, 0x00U, 0x01U, 0x82U, /* TPM_CC_PCR_Extend */
-		0x00U, 0x00U, 0x00U, 0x00U, /* PCR_Index */
-		0x00U, 0x00U, /* NULL Password */
-		0x00U, 0x09U, /* Authorization Size */
-		0x40U, 0x00U, 0x00U, 0x09U, /* Password authorization session */
-		0x00U, 0x00U, 0x01U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x01U, /* TPML_DIGEST_VALUES */
-		0x00U, 0x0BU /* SHA2 Hash Algorithm */
-	};
-	u8 TpmRespBuffer[XTPM_RESP_MAX_SIZE + XTPM_TX_HEAD_SIZE] =
-		{0U};
-	u8 Index;
-
-	for (Index = 0U; Index < XTPM_HASH_TYPE_SHA3; ++Index) {
-		XPlmi_Printf(DEBUG_INFO, "%02x", ImageHash[Index]);
-	}
-	XPlmi_Printf(DEBUG_INFO, "\n\r");
-
-	TpmPcrExtend[XTPM_DATA_SIZE_INDEX] = XTPM_PCR_EXT_CMD_SIZE +
-		XTPM_DIGEST_SIZE;
-	TpmPcrExtend[XTPM_PCR_EXTEND_INDEX] = (u8)PcrIndex;
-	(void)Xil_SMemCpy((void *)&TpmPcrExtend[XTPM_PCR_EXT_CMD_SIZE], XTPM_DIGEST_SIZE,
-		(void *)ImageHash, XTPM_DIGEST_SIZE, XTPM_DIGEST_SIZE);
 
 	Status = (int)XTpm_Event(PcrIndex, XTPM_HASH_TYPE_SHA3, (u8 *)ImageHash, TpmRespBuffer);
-	if ((TpmRespBuffer[6U] != 0U) || (TpmRespBuffer[7U] != 0U) ||
-		(TpmRespBuffer[8U] != 0U) || (TpmRespBuffer[9U] != 0U)) {
-		if (Status != XST_SUCCESS) {
-			Status = XTPM_ERR_RESP_POLLING;
-		}
+
+	if ((TpmRespBuffer[XTPM_BYTE6] != 0U) || (TpmRespBuffer[XTPM_BYTE7] != 0U) ||
+		(TpmRespBuffer[XTPM_BYTE8] != 0U) || (TpmRespBuffer[XTPM_BYTE9] != 0U)) {
+		Status = XTPM_ERR_RESP_POLLING;
 	}
 
 	return Status;
@@ -321,34 +299,42 @@ u32 XTpm_Event(u32 PcrIndex, u16 size, u8 *data, u8 *Response)
 {
 	int Status = XST_FAILURE;
 	u32 idx;
-	u8 TpmPcrExtend[XTPM_PCR_MAX_EVENT_SIZE + XTPM_PCR_EVENT_CMD_SIZE + XTPM_HASH_TYPE_SHA3] =
+	u8 TpmPcrEvent[XTPM_PCR_MAX_EVENT_SIZE + XTPM_PCR_EVENT_CMD_SIZE] =
 	{
 		0x80U, 0x02U, /* TPM_ST_SESSIONS */
 		0x00U, 0x00U, 0x00U, 0x00U, /* Command Size */
 		0x00U, 0x00U, 0x01U, 0x3CU, /* TPM_CC_PCR_EVENT */
 		0x00U, 0x00U, 0x00U, 0x00U, /* PCR_Index */
+		0x00U, 0x00U, /* NULL Password */
 		0x00U, 0x09U, /* Authorization Size */
 		0x40U, 0x00U, 0x00U, 0x09U, /* Password authorization session - TPM_RH_PW */
-		0x00U, 0x00U, 0x01U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x01U, /* TPML_DIGEST_VALUES */
+		0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x30U /* TPML_DIGEST_VALUES */
 	};
-	/* cmd_ptr points to const data TpmPcrExtend */
-	u8* cmd_ptr = TpmPcrExtend;
+	/* cmd_ptr points to const data TpmPcrEvent */
+	u8* cmd_ptr = TpmPcrEvent;
+
+	if(size > XTPM_REQ_MAX_SIZE) {
+		goto END;
+	}
+
 	if (PcrIndex < XTPM_MAX_PCR_CNT) {
-		TpmPcrExtend[XTPM_DATA_SIZE_INDEX] = (u8)(XTPM_PCR_EVENT_CMD_SIZE + size);
-		TpmPcrExtend[XTPM_PCR_EXTEND_INDEX] = (u8)PcrIndex;
+		XPlmi_Printf(DEBUG_INFO, "Sending PCR_Event to PCR #%d\r\n", PcrIndex);
+		TpmPcrEvent[XTPM_DATA_SIZE_INDEX] = (u8)(XTPM_PCR_EVENT_CMD_SIZE + size);
+		TpmPcrEvent[XTPM_PCR_EXTEND_INDEX] = (u8)PcrIndex;
 		/* Add the digest to the data structure */
 		cmd_ptr += XTPM_PCR_EVENT_CMD_SIZE;
 		for(idx = 0; idx < size ; idx++) {
-			*TpmPcrExtend = data[idx];
+			*cmd_ptr = data[idx];
 			cmd_ptr++;
 		}
 
-		Status = XTpm_DataTransfer(TpmPcrExtend, Response, XTPM_PCR_EVENT_CMD_SIZE + size);
+		Status = XTpm_DataTransfer(TpmPcrEvent, Response, XTPM_PCR_EVENT_CMD_SIZE + size);
 		if (Status != XST_SUCCESS) {
 			Status = XTPM_ERR_DATA_TRANSFER;
 		}
 	}
 
+END:
 	return Status;
 }
 

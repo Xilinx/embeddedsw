@@ -65,6 +65,7 @@
 *       bm   07/15/2024 Fixed timestamp print in banner
 * 1.11  sk   02/20/2025 Added EAM error config in LPDSLCR for Versal 2VE
 *                       and 2VM Devices
+*       pre  08/21/2025 Added TPM initialization after LPD initialization
 *
 * </pre>
 *
@@ -87,6 +88,9 @@
 #include "xplmi_wdt.h"
 #include "xil_util.h"
 #include "xplmi_err.h"
+#ifdef PLM_TPM
+#include "xtpm.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -237,6 +241,15 @@ void XPlmi_LpdInit(void)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+
+	#if (defined(versal) && defined(PLM_TPM))
+		/* TPM module is applicable only for Versal */
+		Status = (int)XTpm_Init();
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_TPM_INIT, Status);
+			goto END;
+		}
+	#endif
 		XPlmi_SetLpdInitialized(LPD_INITIALIZED);
 	#ifndef VERSAL_2VE_2VM
 		/**
@@ -250,6 +263,9 @@ void XPlmi_LpdInit(void)
 	}
 
 END:
+	if (Status != XST_SUCCESS) {
+		XPlmi_ErrMgr(Status);
+	}
 	return;
 }
 

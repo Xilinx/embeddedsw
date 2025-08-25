@@ -51,6 +51,7 @@
 *       tvp  07/28/2025 Removed unnecessary macro protection
 *       tvp  07/28/2025 Add wrapper function XLoader_UpdateDataMeasurement
 *                       to update DataMeasurement
+*       pre  08/23/2025 Added prototype for XLoader_MeasureRomAndPlm function
 *
 * </pre>
 *
@@ -330,6 +331,20 @@ typedef struct {
 	}/**< Get PDI source info */
 
 #define XLoader_VerifyDataAuth NULL  /**< Reserved */
+
+/***************************************************************************************/
+/**
+ * @brief	This function extends the image hashes of ROM and PLM data
+ *
+ * @return
+ * 			- XST_SUCCESS on successful extension
+ * 			- error code on failure
+ *
+ ***************************************************************************************/
+static inline int XLoader_MeasureRomAndPlm(void)
+{
+	return XST_SUCCESS;
+}
 
 /*****************************************************************************/
 /**

@@ -44,6 +44,8 @@
 * 1.02  obs  08/01/2025 Updated status with valid error code in XLoader_DataMeasurement API
 *       tvp  07/28/2025 Add wrapper function API XLoader_UpdateDataMeasurement
 *                       to update DataMeasurement
+* 2.3   tvp  08/19/2025 Updated data measurement flow for authenticate/non-authenticated boot
+*       pre  08/21/2025 Extending image hashes after LPD initialization only
 *
 * </pre>
 *
@@ -70,6 +72,7 @@
 #include "xloader_ddr.h"
 #include "xilpdi.h"
 #ifdef PLM_TPM
+#include "xloader_secure.h"
 #include "xsecure_sha.h"
 #include "xsecure_init.h"
 #include "xsecure_plat.h"
@@ -88,12 +91,9 @@
 #ifdef PLM_TPM
 #define XLOADER_PCR_MEASUREMENT_INDEX_MASK 	(0xFFFF0000U)  /**< Mask for
                                                    * PCR Measurement index */
+#define XLOADER_PCR_MEASUREMENT_INDEX_SHIFT		(16U) /**< PCR Measurement index shift */
 #define XLOADER_PRTN_PCR_START_IDX	(2U) /**< Partition hash extend to PCR:2 */
 #define XLOADER_PRTN_PCR_END_IDX	(23U) /**< Final PCR index of TPM */
-#define XLOADER_GET_PRTN_HASH_INDEX(PdiPtr)	((PdiPtr->PrtnNum) == XLOADER_PDI_TYPE_FULL) \
-						? (PdiPtr->PrtnNum) : ((PdiPtr->PrtnNum) + 1U)
-                        /**< Get partition hash index depending on full/partial PDI
-                         * Digest table idx start with 0U, use case requires next prtn number*/
 #endif
 /**
  * @{
@@ -123,11 +123,30 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 static int XLoader_DumpDdrmcRegisters(void);
 
 /************************** Variable Definitions *****************************/
+#if defined(PLM_TPM)
+/*****************************************************************************/
+/**
+ * @brief	This function provides pointer to PrtitionHashTable
+ *
+ * @return	pointer to PrtitionHashTable Info
+ *
+ *****************************************************************************/
+XSecure_Sha3Hash* XLoader_GetPtrnHashTable(void)
+{
+	static XSecure_Sha3Hash PtrnHashTable[XIH_MAX_PRTNS]
+		__attribute__ ((aligned(4U))) = {0}; /** < Partition Hash Storage */
+
+	return &PtrnHashTable[0];
+}
+#endif
 
 /*****************************************************************************/
 /**
- * @brief	This functions updates the partition data to SHA engine for
- * 		measurement.
+ * @brief	This function updates the partition data to SHA engine for data
+ * 		measurement only if authentication or checksum is not enabled.
+ * 		If authentication or checksum is enabled, nothing needs to be
+ * 		done as SHA engine would be in use for the authentication/checksum
+ * 		process.
  *
  * @param	PdiPtr 		Pointer to the XilPdi structure.
  * 		DataAddr 	Address of Data for measure the hash.
@@ -140,18 +159,39 @@ static int XLoader_DumpDdrmcRegisters(void);
 int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen)
 {
 	int Status = XST_FAILURE;
-	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
+#if defined(PLM_TPM)
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
+	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
+	u32 ChecksumType;
+	u32 PrtnNum = PdiPtr->PrtnNum;
+	ChecksumType = XilPdi_GetChecksumType(&PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
+	/** Update data for measurement only if Authentication or ChecksumType is not SHA3 hash */
+	if ((!XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr->ImgHdrTbl)) &&
+	    (ChecksumType != XIH_PH_ATTRB_HASH_SHA3)) {
+		ImageMeasureInfo.DataAddr = DataAddr;
+		ImageMeasureInfo.DataSize = DataLen;
+		ImageMeasureInfo.PcrInfo = PcrInfo & XLOADER_PCR_NUMBER_MASK;
+		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
+		ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
 
-	ImageMeasureInfo.DataAddr = DataAddr;
-	ImageMeasureInfo.DataSize = DataLen;
-	ImageMeasureInfo.PcrInfo = PcrInfo;
-	ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
-	ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
+		/* Update the data for measurement */
+		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+	} else {
+		/**
+		 * - If authentication or checksum is enabled, SHA engine is used for partition
+		 *   authentication or checksum calculation.
+		 *   So, data should not be updated to SHA engine from this place.
+		 */
+		Status = XST_SUCCESS;
+	}
+#else
+	(void)PdiPtr;
+	(void)DataAddr;
+	(void)DataLen;
 
-	/* Update the data for measurement */
-	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
-
+	/** Nothing needs to be done in case, PLM_TPM is not defined */
+	Status = XST_SUCCESS;
+#endif
 	return Status;
 }
 
@@ -331,7 +371,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function measures the partion hashes
+ * @brief	This function measures the partition hashes
  *
  * @param	PdiPtr is pointer to XilPdi instance
  *
@@ -347,64 +387,121 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	u32 Index;
-	u32 PrtNum;
-	u32 NoOfPrtns;
+	XSecure_Sha3Hash *PtrnHashTablePtr;
+	u32 ChecksumType;
+	ChecksumType = XilPdi_GetChecksumType(&PdiPtr->MetaHdr->PrtnHdr[PdiPtr->PrtnNum]);
+	PtrnHashTablePtr = XLoader_GetPtrnHashTable();
+	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >>
+			       XLOADER_PCR_MEASUREMENT_INDEX_SHIFT;
 
-	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
-	PrtNum = PdiPtr->PrtnNum;
-	Status = XLoader_LoadImagePrtns(PdiPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	if (XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr->ImgHdrTbl) ||
+	    (ChecksumType == XIH_PH_ATTRB_HASH_SHA3)) {
+		Status = XLoader_LoadImagePrtns(PdiPtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 
-	ImageMeasureInfo.PcrInfo = PcrInfo;
-	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
-	ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
-	ImageMeasureInfo.DigestIndex = &PdiPtr->DigestIndex;
-	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) ||
-		(PdiPtr->PdiType == XLOADER_PDI_TYPE_IPU)) {
-		ImageMeasureInfo.OverWrite = TRUE;
-	}
-	else {
-		ImageMeasureInfo.OverWrite = FALSE;
-	}
-
-	ImageMeasureInfo.IsAuthOptimized = PdiPtr->MetaHdr->IsAuthOptimized;
-	ImageMeasureInfo.DigestTableSize = PdiPtr->MetaHdr->DigestTableSize;
-	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	NoOfPrtns = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
-	for(Index = 0U; Index < NoOfPrtns; Index++)
-	{
-		ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
-		ImageMeasureInfo.PcrInfo = PcrInfo;
+		ImageMeasureInfo.PcrInfo = PcrInfo & XLOADER_PCR_NUMBER_MASK;
+		ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
 		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
-		ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
-		/* Update the data for measurement, only for Versal */
-		XPlmi_Printf(DEBUG_INFO, "Partition Measurement started\r\n");
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		PrtNum++;
+		for(Index = 0U; Index < PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns; Index++)
+		{
+			ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
+			ImageMeasureInfo.PcrInfo = PcrInfo & XLOADER_PCR_NUMBER_MASK;
+			ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
+			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
+			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)PtrnHashTablePtr[Index].Hash;
+
+			/* Update the data for measurement */
+			XPlmi_Printf(DEBUG_INFO, "Partition Measurement started\r\n");
+			Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+		ImageMeasureInfo.Flags = XLOADER_MEASURE_FINISH;
+		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+	} else {
+		ImageMeasureInfo.PcrInfo = PcrInfo & XLOADER_PCR_NUMBER_MASK;
+		ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
+		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
+		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XLoader_LoadImagePrtns(PdiPtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		ImageMeasureInfo.Flags = XLOADER_MEASURE_FINISH;
+		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 	}
-	ImageMeasureInfo.Flags = XLOADER_MEASURE_FINISH;
-	/* This is applicable only for Versal */
-	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+END:
 #else
 	Status = XLoader_LoadImagePrtns(PdiPtr);
-	if (Status != XST_SUCCESS) {
+#endif
+	return Status;
+}
+
+/***************************************************************************************/
+/**
+ * @brief	This function extends the image hashes of ROM and PLM data
+ *
+ * @return
+ * 			- XST_SUCCESS on successful extension
+ * 			- error code on failure
+ *
+ ***************************************************************************************/
+int XLoader_MeasureRomAndPlm(void)
+{
+#ifdef PLM_TPM
+	int Status = XST_FAILURE;
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+
+	if (LpdInitializedPtr == NULL) {
 		goto END;
 	}
-#endif
+
+	if ((*LpdInitializedPtr & LPD_INITIALIZED) != LPD_INITIALIZED) {
+		XPlmi_Printf(DEBUG_GENERAL, "%s: Warning: PCR extension failed for "
+					"ROM and PLM images due to uninitialized LPD\r\n", __func__);
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/**
+	 * - Sends ROM digest stored in PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
+	 * - register to TPM
+	 */
+	Status = XTpm_MeasureRom();
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_MEASURE_ROM_FAILURE, Status);
+		goto END;
+	}
+
+	/* Skip PCR extension of PLM hash in case of non authenticated PDI */
+	if (XLoader_GetAHWRoT(NULL)  == (u32)XPLMI_RTCFG_SECURESTATE_NONSECURE) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/**
+	 * - Sends PLM digest stored in PMC_GLOBAL_FW_AUTH_HASH_0 register to TPM
+	 */
+	Status = XTpm_MeasurePlm();
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_MEASURE_PLM_FAILURE, Status);
+	}
 
 END:
 	return Status;
+#else
+	return XST_SUCCESS;
+#endif
 }
 
 /*****************************************************************************/
@@ -421,25 +518,12 @@ END:
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 {
 #ifdef PLM_TPM
-	volatile int Status = (int)XLOADER_ERR_DATA_MEASUREMENT;
-	XilPdi *PdiPtr;
-	u32 PcrNo;
+	int Status = XST_FAILURE;
 	XSecure_Sha3Hash Sha3Hash;
-	XilPdi_PrtnHashInfo* PrtnHashData = NULL;
-	XilPdi_PrtnHashInfo* PrtnHashDataTmp = NULL;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
 
-	if (ImageInfo->IsAuthOptimized == (u32)TRUE) {
-		XSECURE_REDUNDANT_CALL(PrtnHashData, PrtnHashDataTmp, XilPdi_IsPrtnHashPresent,
-			XLOADER_GET_PRTN_HASH_INDEX(PdiPtr), ImageInfo->DigestTableSize);
-		if ((PrtnHashData == NULL) || (PrtnHashDataTmp == NULL)) {
-			Status = (int)XLOADER_PRTN_HASH_NOT_PRESENT;
-			goto END;
-		}
-		ImageInfo->DataAddr = (u64)(UINTPTR)PrtnHashData;
-	}
-	else {
-		XPlmi_Printf(DEBUG_INFO, "Data measurement not possible, please enable AuthOptimization\r\n");
+	if (LpdInitializedPtr == NULL) {
 		goto END;
 	}
 
@@ -455,7 +539,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		Status = XSecure_ShaFinish(Sha3InstPtr, (UINTPTR)&Sha3Hash, XLOADER_SHA3_LEN);
 		break;
 	default:
-		XPlmi_Printf(DEBUG_INFO, "Please check provided case\r\n");
+		/* No action*/
 		break;
 	}
 	if (Status != XST_SUCCESS) {
@@ -464,10 +548,15 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	}
 
 	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
-		PcrNo = ImageInfo->PcrInfo & XLOADER_PCR_NUMBER_MASK;
+		if ((*LpdInitializedPtr & LPD_INITIALIZED) != LPD_INITIALIZED) {
+			XPlmi_Printf(DEBUG_GENERAL, "%s: Warning: PCR extension failed for "
+					"PCR 0x%x value due to uninitialized LPD\r\n", __func__, ImageInfo->PcrInfo);
+			goto END;
+		}
+
 		/* Extend TPM PCR Image Digest, Pcr0: ROM, Pcr1: PLM */
-		if (PcrNo >= XLOADER_PRTN_PCR_START_IDX && PcrNo <= XLOADER_PRTN_PCR_END_IDX) {
-			Status = XTpm_MeasurePartition(PcrNo,(u8*)(UINTPTR)&Sha3Hash.Hash);
+		if (ImageInfo->PcrInfo >= XLOADER_PRTN_PCR_START_IDX && ImageInfo->PcrInfo <= XLOADER_PRTN_PCR_END_IDX) {
+			Status = XTpm_MeasurePartition(ImageInfo->PcrInfo, (u8*)(UINTPTR)&Sha3Hash.Hash);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT,
 						Status);

@@ -136,6 +136,7 @@
 * 2.3   ng   07/17/2025 Added new error codes partition copy failure when boot copy optimization is
 *                       disabled
 *       vss  08/20/2025 Marked metaheader authentication failure error code as reserved.
+*       pre  08/23/2025 Added error code for TPM initialization failure
 *
 * </pre>
 *
@@ -374,9 +375,10 @@ typedef enum {
 	XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS, /**< 0x1B3 - Error when IPI request size exceeds */
 	XPLMI_SSIT_SECURE_COMM_KEYWRITE_FAILURE, /**< 0x1B4 - Error if key write fails during
 	                 secure plm to plm communication establishment */
-	XPlMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK, /**< 0x1B6 PSM IPI handler task received
+	XPlMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK, /**< 0x1B5 PSM IPI handler task received
 						invalid buffer index*/
-	XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID, /**< 0x1B7 PSM IPI event structure not initialized */
+	XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID, /**< 0x1B6 PSM IPI event structure not initialized */
+	XPLMI_ERR_TPM_INIT, /**< 0x1B7 Error when TPM initialization gets failed */
 
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
