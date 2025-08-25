@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +15,8 @@
  * To support multiple runtime loading and initialization strategies employed by various
  * operating systems, the driver instance can be initialized in one of two ways:
  * - XSdFecInitialize(InstancePtr, DeviceId)  - The driver looks up its own configuration structure created by the tool-chain 
- *                                              based on an ID provided by the tool-chain.
+ *                                              based on an ID (for XSCT build flow) or Base Address (for SDT flow) provided
+ *                                              by the tool-chain.
  * - XSdFecCfgInitialize(InstancePtr, CfgPtr) - Uses a configuration structure provided by the caller.
  *
  * \section sec_data Data Structures
@@ -142,9 +143,14 @@ typedef struct {
 // API Function Prototypes
 /** \brief Device initialization
  *
- * The driver looks up its own configuration structure created by the tool-chain based on an ID provided by the tool-chain.
+ * The driver looks up its own configuration structure created by the tool-chain
+ * based on an Device ID (XSCT flow) or Base Address (SDT flow) provided by the tool-chain.
  */
+#ifndef SDT
 int XSdFecInitialize(XSdFec *InstancePtr, u16 DeviceId);
+#else
+int XSdFecInitialize(XSdFec *InstancePtr, UINTPTR BaseAddress);
+#endif
 
 /** \brief Configuration lookup
  *

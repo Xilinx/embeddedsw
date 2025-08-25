@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* Copyright (C) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,7 +29,7 @@ XSdFec_Config *XSdFecLookupConfig(u16 DeviceId) {
 	return ConfigPtr;
 }
 #else
-XSdFec_Config *XSdFec_LookupConfig(UINTPTR BaseAddress)
+XSdFec_Config *XSdFecLookupConfig(UINTPTR BaseAddress)
 {
        XSdFec_Config *CfgPtr = NULL;
        u32 Index;
@@ -47,12 +47,20 @@ XSdFec_Config *XSdFec_LookupConfig(UINTPTR BaseAddress)
 }
 #endif
 
+#ifndef SDT
 int XSdFecInitialize(XSdFec *InstancePtr, u16 DeviceId) {
+#else
+int XSdFecInitialize(XSdFec *InstancePtr, UINTPTR BaseAddress) {
+#endif
 	XSdFec_Config *ConfigPtr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+#ifndef SDT
 	ConfigPtr = XSdFecLookupConfig(DeviceId);
+#else
+	ConfigPtr = XSdFecLookupConfig(BaseAddress);
+#endif
 	if (ConfigPtr == NULL) {
 		InstancePtr->IsReady = 0;
 		return (XST_DEVICE_NOT_FOUND);
