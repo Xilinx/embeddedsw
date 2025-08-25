@@ -52,6 +52,7 @@
 *                         given row in SSIT devices
 * 2.7   anv  01/27/2025   Modified ErrAddrL & ErrAddrH in XSemSatatus structure
 *                         to be in sync with Xilsem server update.
+* 2.8   rama 08/22/2025   Added SMC IDs for EL1_Non secure smc calls
 * </pre>
 *
 * @note
@@ -232,6 +233,28 @@ extern "C" {
 
 /** Command ID for CRAM Get Total Frames */
 #define CMD_ID_CFR_GET_TF				(0X0EU)
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+#define XSEM_LOWER_32_BITS(n) ((u32)((n) & 0xFFFFFFFFU))
+#define XSEM_UPPER_32_BITS(n) ((u32)((n) >> 32U))
+/* SMC IDs for EL1_Non Secure SMC calls */
+#define XSEM_CFR_INIT_SMC_FID 			0xC2000301U
+#define XSEM_CFR_START_SMC_FID 			0xC2000302U
+#define XSEM_CFR_STOP_SMC_FID 			0xC2000303U
+#define XSEM_CFR_ERRINJ_SMC_FID 		0xC2000304U
+#define XSEM_CFR_RD_ECC_SMC_FID 		0xC200030BU
+#define XSEM_CFR_STATUS_SMC_FID 		0xC200030DU
+#define XSEM_CFR_CRC_SMC_FID 			0xC200030CU
+#define XSEM_CFR_TOTAL_FRAMES_SMC_FID 	0xC200030EU
+
+#define XSEM_NPI_START_SMC_FID  	0xC2000305U
+#define XSEM_NPI_STOP_SMC_FID  		0xC2000306U
+#define XSEM_NPI_ERRINJ_SMC_FID 	0xC2000307U
+#define XSEM_NPI_GLDNSHA_SMC_FID 	0xC200030AU
+
+#define XSEM_EVENT_REG_SMC_FID  	0xC2000308U
+#define XSEM_GET_CFG_SMC_FID  		0xC2000309U
+#endif
 
 /**
  * XSemIpiResp - IPI Response Data structure

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -52,6 +52,7 @@
 * 2.3   anv  02/18/2024   Added client interface to read total frames for a
 *                         given row in SSIT devices and Updated comments for
 *                         Ug643
+* 2.4   rama 08/22/2025   Added SMC call support for EL1 Non-secure apps
 * </pre>
 *
 * @note
@@ -59,6 +60,34 @@
 *
 ******************************************************************************/
 #include "xsem_client_api.h"
+#include "xil_smc.h"
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+/*****************************************************************************/
+/**
+ * @brief	This function copies SMC call result to response buffer
+ *
+ * @param[in]	Out		SMC call Result buffer
+ * @param[out]	Resp	Structure Pointer of IPI response
+ *
+ *****************************************************************************/
+static void XSem_CopyCmdResponse(XSemIpiResp *Resp, XSmc_OutVar Out)
+{
+	/* Copy response messages */
+	Resp->RespMsg1 = XSEM_UPPER_32_BITS(Out.Arg0);
+	Resp->RespMsg2 = XSEM_LOWER_32_BITS(Out.Arg1);
+	Resp->RespMsg3 = XSEM_UPPER_32_BITS(Out.Arg1);
+	Resp->RespMsg4 = XSEM_LOWER_32_BITS(Out.Arg2);
+	Resp->RespMsg5 = XSEM_UPPER_32_BITS(Out.Arg2);
+	Resp->RespMsg6 = XSEM_LOWER_32_BITS(Out.Arg3);
+	XSem_Dbg("[%s] Resp->RespMsg1 %x \n",__func__, Resp->RespMsg1);
+	XSem_Dbg("[%s] Resp->RespMsg2 %x \n",__func__, Resp->RespMsg2);
+	XSem_Dbg("[%s] Resp->RespMsg3 %x \n",__func__, Resp->RespMsg3);
+	XSem_Dbg("[%s] Resp->RespMsg4 %x \n",__func__, Resp->RespMsg4);
+	XSem_Dbg("[%s] Resp->RespMsg5 %x \n",__func__, Resp->RespMsg5);
+	XSem_Dbg("[%s] Resp->RespMsg6 %x \n",__func__, Resp->RespMsg6);
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -68,6 +97,10 @@
  *		SEM Event Notifier registration, waits for PLM to process the
  *		request and check the status. Since SLR slave devices do not support
  *		IPI, registering events to mater registers events on all slave SLRs
+ *		In case of EL1 Non-Secure mode, this function generates an SMC call
+ *		to TF-A. The SMC request goes to the PLM through the TF-A.
+ *		This function reads the response of the SMC call
+ *		and returns the status.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[in]	Notifier	Pointer of the notifier object to be associated
@@ -88,6 +121,20 @@
 XStatus XSem_RegisterEvent(XIpiPsu *IpiInst, XSem_Notifier* Notifier)
 {
 	XStatus Status = XST_FAILURE;
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+	XSemIpiResp IpiResp={0};
+	XSemIpiResp *Resp = &IpiResp;
+	(void) IpiInst;
+
+	Out = Xil_Smc(XSEM_EVENT_REG_SMC_FID, Notifier->Module,
+					Notifier->Event,
+					Notifier->Flag, 0, 0, 0, 0);
+	/* Copy response message */
+	XSem_CopyCmdResponse(Resp, Out);
+	Status = XST_SUCCESS;
+#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -124,7 +171,7 @@ XStatus XSem_RegisterEvent(XIpiPsu *IpiInst, XSem_Notifier* Notifier)
 
 	/* Print API status */
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
-
+#endif
 END:
 	return Status;
 }
@@ -135,7 +182,11 @@ END:
  *		 application.
  *		Primarily this function sends an IPI request to PLM to start CRAM
  *		Scan Initialization, waits for PLM to process the request and reads
- *		 the response message.
+ *		the response message.
+ *		In case of EL1 Non-Secure mode, this function generates an SMC call
+ *		to TF-A. The SMC request goes to the PLM through the TF-A.
+ *		This function reads the response of the SMC call
+ *		and returns the status.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
@@ -153,6 +204,16 @@ END:
 XStatus XSem_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 {
 	XStatus Status = XST_FAILURE;
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+	(void) IpiInst;
+
+	Out = Xil_Smc(XSEM_CFR_INIT_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
+	/* Copy response message*/
+	XSem_CopyCmdResponse(Resp, Out);
+	Status = XST_SUCCESS;
+#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -189,6 +250,7 @@ XStatus XSem_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 	Resp->RespMsg2 = Response[2U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
+#endif
 
 END:
 	return Status;
@@ -200,6 +262,10 @@ END:
  *		Primarily this function sends an IPI request to PLM to invoke SEM
  *		CRAM StartScan, waits for PLM to process the request and reads
  *		the response message.
+ *		In case of EL1 Non-Secure mode, this function generates an SMC call
+ *		to TF-A. The SMC request goes to the PLM through the TF-A.
+ *		This function reads the response of the SMC call
+ *		and returns the status.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
@@ -217,6 +283,16 @@ END:
 XStatus XSem_CmdCfrStartScan(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 {
 	XStatus Status = XST_FAILURE;
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+	(void) IpiInst;
+
+	Out = Xil_Smc(XSEM_CFR_START_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
+	/* Copy response message */
+	XSem_CopyCmdResponse(Resp, Out);
+	Status = XST_SUCCESS;
+#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -253,7 +329,7 @@ XStatus XSem_CmdCfrStartScan(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 	Resp->RespMsg2 = Response[2U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
-
+#endif
 END:
 	return Status;
 }
@@ -264,6 +340,10 @@ END:
  *		Primarily this function sends an IPI request to PLM to invoke SEM
  *		CRAM StopScan, waits for PLM to process the request and reads
  *		the response message.
+ *		In case of EL1 Non-Secure mode, this function generates an SMC call
+ *		to TF-A. The SMC request goes to the PLM through the TF-A.
+ *		This function reads the response of the SMC call
+ *		and returns the status.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
@@ -279,6 +359,16 @@ END:
 XStatus XSem_CmdCfrStopScan(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 {
 	XStatus Status = XST_FAILURE;
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+	(void) IpiInst;
+
+	Out = Xil_Smc(XSEM_CFR_STOP_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
+	/* Copy response message*/
+	XSem_CopyCmdResponse(Resp, Out);
+	Status = XST_SUCCESS;
+#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -314,7 +404,7 @@ XStatus XSem_CmdCfrStopScan(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 	Resp->RespMsg2 = Response[2U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
-
+#endif
 END:
 	return Status;
 }
@@ -327,6 +417,10 @@ END:
  *		error injection in CRAM with user provided arguments in
  *		*ErrDetail, waits for PLM to process the request and reads
  *		the response message.
+ *		In case of EL1 Non-Secure mode, this function generates an SMC call
+ *		to TF-A. The SMC request goes to the PLM through the TF-A.
+ *		This function reads the response of the SMC call
+ *		and returns the status.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[in]	ErrDetail	Structure Pointer with Error Injection details
@@ -372,6 +466,19 @@ XStatus XSem_CmdCfrNjctErr (XIpiPsu *IpiInst, \
 			XSemIpiResp *Resp)
 {
 	XStatus Status = XST_FAILURE;
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+	(void) IpiInst;
+
+	Out = Xil_Smc(XSEM_CFR_ERRINJ_SMC_FID, ErrDetail->Efar,
+					ErrDetail->Qword,
+					ErrDetail->Bit,
+					ErrDetail->Row, 0, 0, 0);
+	/* Copy response message*/
+	XSem_CopyCmdResponse(Resp, Out);
+	Status = XST_SUCCESS;
+#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -413,6 +520,7 @@ XStatus XSem_CmdCfrNjctErr (XIpiPsu *IpiInst, \
 	Resp->RespMsg2 = Response[2U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
+#endif
 
 END:
 	return Status;
@@ -572,6 +680,10 @@ END:
  *		Primarily this function sends an IPI request to PLM to invoke SEM
  *		CRAM SendFrameEcc, waits for PLM to process the request and reads
  *		the response message.
+ *		In case of EL1 Non-Secure mode, this function generates an SMC call
+ *		to TF-A. The SMC request goes to the PLM through the TF-A.
+ *		This function reads the response of the SMC call
+ *		and returns the status.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[in]	CframeAddr	Frame Address
@@ -605,6 +717,17 @@ XStatus XSem_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr, u32 RowLoc,
 		 XSemIpiResp *Resp)
 {
 	XStatus Status = XST_FAILURE;
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+	(void) IpiInst;
+
+	Out = Xil_Smc(XSEM_CFR_RD_ECC_SMC_FID, CframeAddr,
+					RowLoc, 0, 0, 0, 0, 0);
+	/* Copy response message*/
+	XSem_CopyCmdResponse(Resp, Out);
+	Status = XST_SUCCESS;
+#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -643,7 +766,7 @@ XStatus XSem_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr, u32 RowLoc,
 
 	/* Print API status */
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
-
+#endif
 END:
 	return Status;
 }
@@ -654,6 +777,10 @@ END:
  *		Primarily this function sends an IPI request to PLM to invoke
  *		SEM NPI StartScan, waits for PLM to process the request and
  *		reads the response message.
+ *		In case of EL1 Non-Secure mode, this function generates an SMC call
+ *		to TF-A. The SMC request goes to the PLM through the TF-A.
+ *		This function reads the response of the SMC call
+ *		and returns the status.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
@@ -667,6 +794,16 @@ END:
 XStatus XSem_CmdNpiStartScan (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 {
 	XStatus Status = XST_FAILURE;
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+	(void) IpiInst;
+
+	Out = Xil_Smc(XSEM_NPI_START_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
+	/* Copy response message*/
+	XSem_CopyCmdResponse(Resp, Out);
+	Status = XST_SUCCESS;
+#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -702,7 +839,7 @@ XStatus XSem_CmdNpiStartScan (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	Resp->RespMsg2 = Response[2U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
-
+#endif
 END:
 	return Status;
 }
@@ -713,6 +850,10 @@ END:
  *		Primarily this function sends an IPI request to PLM to invoke
  *		SEM NPI StopScan, waits for PLM to process the request and
  *		reads the response message.
+ *		In case of EL1 Non-Secure mode, this function generates an SMC call
+ *		to TF-A. The SMC request goes to the PLM through the TF-A.
+ *		This function reads the response of the SMC call
+ *		and returns the status.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
@@ -726,6 +867,15 @@ END:
 XStatus XSem_CmdNpiStopScan (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 {
 	XStatus Status = XST_FAILURE;
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+	(void) IpiInst;
+
+	Out = Xil_Smc(XSEM_NPI_STOP_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
+	/* Copy response message*/
+	XSem_CopyCmdResponse(Resp, Out);
+	Status = XST_SUCCESS;
+#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -761,6 +911,7 @@ XStatus XSem_CmdNpiStopScan (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	Resp->RespMsg2 = Response[2U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
+#endif
 
 END:
 	return Status;
@@ -773,6 +924,10 @@ END:
  *		Primarily this function sends an IPI request to PLM to invoke
  *		SEM NPI ErrorInject, waits for PLM to process the request and
  *		reads the response message.
+ *		In case of EL1 Non-Secure mode, this function generates an SMC call
+ *		to TF-A. The SMC request goes to the PLM through the TF-A.
+ *		This function reads the response of the SMC call
+ *		and returns the status.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
@@ -789,6 +944,16 @@ END:
 XStatus XSem_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 {
 	XStatus Status = XST_FAILURE;
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+	(void) IpiInst;
+
+	Out = Xil_Smc(XSEM_NPI_ERRINJ_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
+	/* Copy response message*/
+	XSem_CopyCmdResponse(Resp, Out);
+	Status = XST_SUCCESS;
+#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -824,7 +989,7 @@ XStatus XSem_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	Resp->RespMsg2 = Response[2U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
-
+#endif
 END:
 	return Status;
 }
@@ -832,6 +997,10 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to get golden SHA
+ *		In case of EL1 Non-Secure mode, this function generates an SMC call
+ *		to TF-A. The SMC request goes to the PLM through the TF-A.
+ *		This function reads the response of the SMC call
+ *		and returns the status.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
@@ -849,6 +1018,16 @@ XStatus XSem_CmdNpiGetGldnSha (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		XSem_DescriptorData * DescData)
 {
 	XStatus Status = XST_FAILURE;
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+	(void) IpiInst;
+
+	Out = Xil_Smc(XSEM_NPI_GLDNSHA_SMC_FID, DescData, 0, 0, 0, 0, 0, 0);
+	/* Copy response message*/
+	XSem_CopyCmdResponse(Resp, Out);
+	Status = XST_SUCCESS;
+#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -884,7 +1063,7 @@ XStatus XSem_CmdNpiGetGldnSha (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 	Resp->RespMsg2 = Response[2U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
-
+#endif
 END:
 	return Status;
 }
@@ -1057,6 +1236,10 @@ END:
  *		Primarily this function sends an IPI request to PLM to invoke SEM
  *		Get configuration command, waits for PLM to process the request and
  *		reads the response message.
+ *		In case of EL1 Non-Secure mode, this function generates an SMC call
+ *		to TF-A. The SMC request goes to the PLM through the TF-A.
+ *		This function reads the response of the SMC call
+ *		and returns the status.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
@@ -1115,6 +1298,16 @@ END:
 XStatus XSem_CmdGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 {
 	XStatus Status = XST_FAILURE;
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	XSmc_OutVar Out;
+	(void) IpiInst;
+
+	Out = Xil_Smc(XSEM_GET_CFG_SMC_FID, 0, 0, 0, 0, 0, 0, 0);
+	/* Copy response message*/
+	XSem_CopyCmdResponse(Resp, Out);
+	Status = XST_SUCCESS;
+#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
@@ -1153,7 +1346,7 @@ XStatus XSem_CmdGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 
 	/* Print API status */
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
-
+#endif
 END:
 	return Status;
 }
