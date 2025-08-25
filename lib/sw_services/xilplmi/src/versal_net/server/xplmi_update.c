@@ -44,6 +44,7 @@
 *       sk   05/07/2024 Added support for In Place Update Error Notify
 * 2.01  gam  01/07/2025 Added IPI macro protection for IPI related APIs to fix
 *                       PLM build failure in no IPI cases.
+*       sk   08/25/2025 Update in-place update print for versal 2VE and 2VM Devices
 *
 * </pre>
 *
@@ -682,9 +683,13 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 		/* Update from DDR location */
 		UpdatePdiAddr = Cmd->Payload[1U];
 	}
+#ifdef VERSAL_2VE_2VM
+	XPlmi_Printf(DEBUG_GENERAL, "In-Place Firmware Update started with new PLM "
+			"from PDI Address: 0x%x\n\r", UpdatePdiAddr);
+#else
 	XPlmi_Printf(DEBUG_GENERAL, "In-Place Firmware Update started with new PLM and PSM "
 			"from PDI Address: 0x%x\n\r", UpdatePdiAddr);
-
+#endif
 	/* Check if PLM Update is enabled in ROM_RSVD efuse */
 	RomRsvd = XPlmi_In32(EFUSE_CACHE_ROM_RSVD) &
 			EFUSE_PLM_UPDATE_MASK;
