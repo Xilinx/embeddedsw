@@ -19,6 +19,7 @@
  * 1.8   ht   07/24/23    Restructure the code for more modularity.
  * 1.11  ht   01/02/25    Fix GCC warnings
  * 1.12  ht   06/04/25    Refactor conditional inclusion of interrupt headers.
+ * 1.12  an   08/22/25    Refactor to skip interrupt registration for PMC, PSM
  *
  *  *</pre>
  *
@@ -37,9 +38,11 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xilmailbox.h"
 #include "xil_util.h"
-#if !defined (__MICROBLAZE__) && !defined (__riscv)
+#if !defined (VERSAL_PLM) && !defined (VERSAL_psm) && !defined (PSU_PMU)
 #ifndef SDT
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 #include "xscugic.h"
+#endif
 #else
 #include "xinterrupt_wrap.h"
 #endif
@@ -62,13 +65,17 @@ u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr,
 u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 		    u32 MsgLen, u8 BufferType);
 u32 XIpiPs_PollforDone(XMailbox *InstancePtr);
+#if !defined (VERSAL_PLM) && !defined (VERSAL_psm) && !defined (PSU_PMU)
+void XIpiPs_IntrHandler(void *XMailboxPtr);
 #if !defined (__MICROBLAZE__) && !defined (__riscv)
 void XIpiPs_ErrorIntrHandler(void *XMailboxPtr);
-void XIpiPs_IntrHandler(void *XMailboxPtr);
+#endif
 #ifndef SDT
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 			   XMailbox *InstancePtr,
 			   u32 IpiIntrId);
+#endif
 #else
 XStatus XIpiPs_RegisterIrq(XMailbox *InstancePtr, u32 IpiIntrId);
 #endif

@@ -22,6 +22,7 @@
  * 1.9   sd   11/23/23    Clear the interrupts after calling the user handler.
  * 1.11  ht   11/12/24    Update description of MsgLen
  * 1.11  ht   01/02/25    Fix GCC warnings.
+ * 1.12  an   08/22/25    Refactor to skip interrupt registration for PMC, PSM
  *
  *  *</pre>
  *
@@ -79,17 +80,18 @@ u32 XIpiPs_Init(XMailbox *InstancePtr, UINTPTR BaseAddress)
 	XIpiPsu_ClearInterruptStatus(IpiInstancePtr, XIPIPSU_ALL_MASK);
 
 	/* Register IRQ */
-#if !defined (__MICROBLAZE__) && !defined (__riscv)
+#if !defined (VERSAL_PLM) && !defined (VERSAL_psm) && !defined (PSU_PMU)
 
 #ifndef SDT
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 	Status = XIpiPs_RegisterIrq(&DataPtr->GicInst, InstancePtr,
 				    CfgPtr->IntId);
+#endif
 #else
 	Status = XIpiPs_RegisterIrq(InstancePtr, CfgPtr->IntId);
 #endif
 
 #endif
-
 	return (u32)Status;
 }
 
@@ -192,7 +194,7 @@ u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 	return Status;
 }
 
-#if !defined (__MICROBLAZE__) && !defined (__riscv)
+#if !defined (VERSAL_PLM) && !defined (VERSAL_psm) && !defined (PSU_PMU)
 /*****************************************************************************/
 /**
  * This function implements the interrupt handler
@@ -217,6 +219,7 @@ void XIpiPs_IntrHandler(void *XMailboxPtr)
 	XIpiPsu_ClearInterruptStatus(IpiInstancePtr, IntrStatus);
 }
 
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 /*****************************************************************************/
 /**
  * This function implements the interrupt handler for errors
@@ -239,4 +242,5 @@ void XIpiPs_ErrorIntrHandler(void *XMailboxPtr)
 		InstancePtr->ErrorHandler(InstancePtr->ErrorRefPtr, Status);
 	}
 }
+#endif
 #endif

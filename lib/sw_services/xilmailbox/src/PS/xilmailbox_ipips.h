@@ -22,6 +22,7 @@
  * 1.6   sd   28/02/21    Add support for microblaze
  * 1.8   ht   07/24/23    Restructure the code for more modularity
  * 1.12  ht   06/04/25    Refactor conditional inclusion of interrupt headers.
+ * 1.12  an   08/22/25    Refactor to skip interrupt registration for PMC, PSM
  *</pre>
  *
  *@note
@@ -36,9 +37,11 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xilmailbox.h"
 #include "xipipsu.h"
-#if !defined (__MICROBLAZE__) && !defined (__riscv)
+#if !defined (VERSAL_PLM) && !defined (VERSAL_psm) && !defined (PSU_PMU)
 #ifndef SDT
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 #include "xscugic.h"
+#endif
 #else
 #include "xinterrupt_wrap.h"
 #endif

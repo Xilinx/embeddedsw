@@ -23,6 +23,7 @@
  * 1.11  ht   01/02/25    Fix GCC warnings.
  * 1.11  ht   01/30/25    Update handler registration for XMAILBOX_INTR_ID
  *                        in SDT flow.
+ * 1.12  an   08/22/25    Refactor to skip interrupt registration for PMC, PSM
  *
  *  *</pre>
  *
@@ -73,7 +74,8 @@ u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
 	return Status;
 }
 
-#if !defined (__MICROBLAZE__) && !defined (__riscv)
+#if !defined (VERSAL_PLM) && !defined (VERSAL_psm) && !defined (PSU_PMU)
+#if defined (SDT) || (!defined (__MICROBLAZE__) && !defined (__riscv))
 /*****************************************************************************/
 /**
  * This function registers an irq
@@ -95,8 +97,8 @@ XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 XStatus XIpiPs_RegisterIrq(XMailbox *InstancePtr, u32 IpiIntrId)
 #endif
 {
-#ifndef SDT
 	s32 Status = (s32)XST_FAILURE;
+#ifndef SDT
 	XScuGic_Config *IntcConfigPtr;
 
 	/* Initialize the interrupt controller driver */
@@ -163,21 +165,29 @@ XStatus XIpiPs_RegisterIrq(XMailbox *InstancePtr, u32 IpiIntrId)
 
 	/* Enable interrupts */
 	Xil_ExceptionEnable();
-
-	return Status;
-
 #else
 	XMailbox_Agent *DataPtr = &InstancePtr->Agent;
 	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 
-	XSetupInterruptSystem(InstancePtr, (Xil_InterruptHandler)
-			      XIpiPs_IntrHandler, IpiIntrId, IpiInstancePtr->Config.IntrParent,
-			      XINTERRUPT_DEFAULT_PRIORITY);
 
-	XSetupInterruptSystem(InstancePtr, (Xil_InterruptHandler)
-			      XIpiPs_ErrorIntrHandler, XMAILBOX_INTR_ID, IpiInstancePtr->Config.IntrParent,
-			      XINTERRUPT_DEFAULT_PRIORITY);
-	return XST_SUCCESS;
+	Status = XSetupInterruptSystem(InstancePtr, XIpiPs_IntrHandler,
+				       IpiIntrId, IpiInstancePtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		return (s32)XST_FAILURE;
+	}
+
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
+	Status = XSetupInterruptSystem(InstancePtr, XIpiPs_ErrorIntrHandler,
+				       XMAILBOX_INTR_ID, IpiInstancePtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		return (s32)XST_FAILURE;
+	}
 #endif
+#endif
+
+	return Status;
 }
+#endif
 #endif
