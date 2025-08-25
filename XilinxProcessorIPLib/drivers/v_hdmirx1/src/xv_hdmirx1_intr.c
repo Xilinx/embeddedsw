@@ -1479,9 +1479,9 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 	/* DSC Stream Change Event */
 	if (Event & XV_HDMIRX1_PIO_IN_DSC_EN_STRM_CHG_EVT_MASK) {
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 		u32 val = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
 					     XV_HDMIRX1_PIO_IN_OFFSET);
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 		if (!(XV_HDMIRX1_PIO_IN_DSC_EN_STRM_MASK & val)) {
 			/*
 			 * When the DSC CVT is not preset, clear bit 7 DSC

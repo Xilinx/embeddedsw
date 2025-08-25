@@ -1287,13 +1287,6 @@ void XV_HdmiRx1_DebugInfo(XV_HdmiRx1 *InstancePtr)
 			(FrlStatus >> XV_HDMIRX1_FRL_STA_FRL_RATE_SHIFT) &
 			XV_HDMIRX1_FRL_STA_FRL_RATE_MASK);
 
-	/* HDMI/DVI Mode */
-	PioIn = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-				  (XV_HDMIRX1_PIO_IN_OFFSET));
-	xil_printf("HDMI/DVI Mode: %d\r\n",
-			(PioIn & XV_HDMIRX1_PIO_IN_MODE_MASK) &&
-			XV_HDMIRX1_PIO_IN_MODE_MASK);
-
 	/* FRL word aligner tap select changed Status */
 	DbgSta = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
 			  (XV_HDMIRX1_DBG_STA_OFFSET));
@@ -1306,6 +1299,12 @@ void XV_HdmiRx1_DebugInfo(XV_HdmiRx1 *InstancePtr)
 			(FrlStatus >> XV_HDMIRX1_DBG_STA_WA_LOCK_CHGALL_SHIFT) &
 			XV_HDMIRX1_DBG_STA_WA_LOCK_CHGALL_MASK);
 #endif
+	/* HDMI/DVI Mode */
+	PioIn = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+				  (XV_HDMIRX1_PIO_IN_OFFSET));
+	xil_printf("HDMI/DVI Mode: %d\r\n",
+			(PioIn & XV_HDMIRX1_PIO_IN_MODE_MASK) &&
+			XV_HDMIRX1_PIO_IN_MODE_MASK);
 
 	xil_printf("TMDS_ALN_LOCK: %d\r\n",
 			(PioIn & XV_HDMIRX1_PIO_IN_ALIGNER_LOCK_MASK) &&

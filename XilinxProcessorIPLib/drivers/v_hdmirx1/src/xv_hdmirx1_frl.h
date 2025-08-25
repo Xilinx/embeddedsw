@@ -30,13 +30,12 @@
 extern "C" {
 #endif
 
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
-
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/

@@ -23,12 +23,11 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 #include "xv_hdmirx1_frl.h"
 #include "xv_hdmirx1.h"
 /*#include "string.h"*/
 
-
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 /************************** Constant Definitions *****************************/
 #define Timer2MS		2
 #define Timer5MS		5
