@@ -60,6 +60,12 @@
 
 #define AES_PUF_KEY_SEL_MASK	0x2U
 #define EXPORT_EFUSE_BIT_MASK	0x8000U
+#define ADDRESS_HIGH_SHIFT	(32U)
+#define IV_SIZE_IN_BYTES	(12U)
+
+#define ADDR64(high, low)	(((u64)high << ADDRESS_HIGH_SHIFT) | low)
+#define SECURE_IMAGE_PRTN_TOTAL_LENGTH	(0x1108U)
+#define SECURE_IMAGE_PRTN_OFFSET	(0x1120U)
 
 #define INVALID_ACK_ARG(a)	(((a) < REQUEST_ACK_MIN) || ((a) > REQUEST_ACK_MAX))
 
@@ -1110,6 +1116,13 @@ static void PmSecureSha(const PmMaster *const master,
 			const u32 SrcSize, const u32 Flags)
 {
 	u32 Status;
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_CRYPTO_REQUEST)
+	if (0U == PmIsValidAddressRange(master, ADDR64(SrcAddrHigh, SrcAddrLow),
+				SrcSize, (u32)MEM_RANGE_ANY_ACCESS)) {
+		Status = XST_PM_NO_ACCESS;
+		goto END;
+	}
+#endif
 
 #if defined (ENABLE_WDT) &&	\
 	(XPFW_CFG_PMU_SHA3_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
@@ -1124,6 +1137,8 @@ static void PmSecureSha(const PmMaster *const master,
 	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT,
 				PM_NOTIFY_STL_NO_OP_EXIT);
 #endif
+
+END:
 	IPI_RESPONSE1(master->ipiMask, (u32)Status);
 }
 
@@ -1148,7 +1163,13 @@ static void PmSecureRsa(const PmMaster *const master,
 			const u32 SrcSize, const u32 Flags)
 {
 	u32 Status;
-
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_CRYPTO_REQUEST)
+	if (0U == PmIsValidAddressRange(master, ADDR64(SrcAddrHigh, SrcAddrLow),
+				SrcSize, (u32)MEM_RANGE_ANY_ACCESS)) {
+		Status = XST_PM_NO_ACCESS;
+		goto END;
+	}
+#endif
 #if defined (ENABLE_WDT) &&	\
 	(XPFW_CFG_PMU_RSA_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
 	PmNotifyR5AndModifyWdtTimeout(XPFW_CFG_PMU_RSA_WDT_TIMEOUT,
@@ -1164,6 +1185,7 @@ static void PmSecureRsa(const PmMaster *const master,
 				PM_NOTIFY_STL_NO_OP_EXIT);
 #endif
 
+END:
 	IPI_RESPONSE1(master->ipiMask, (u32)Status);
 }
 
@@ -1186,8 +1208,37 @@ static void PmSecureAes(const PmMaster *const master,
 #ifndef XSK_ACCESS_PUF_USER_EFUSE
 	XilSKey_Puf InstancePtr = {0U};
 #endif
-	u64 WrAddr = ((u64)SrcAddrHigh << 32U) | SrcAddrLow;
+	u64 WrAddr = ((u64)SrcAddrHigh << ADDRESS_HIGH_SHIFT) | SrcAddrLow;
 	XSecure_AesParams *Aes = (XSecure_AesParams *)(UINTPTR)WrAddr;
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_CRYPTO_REQUEST)
+	if (0U == PmIsValidAddressRange(master, WrAddr,
+				sizeof(XSecure_AesParams), (u32)MEM_RANGE_ANY_ACCESS)) {
+		Status = XST_PM_NO_ACCESS;
+		goto END;
+	}
+	if (0U == PmIsValidAddressRange(master, Aes->Src,
+				Aes->Size, (u32)MEM_RANGE_ANY_ACCESS)) {
+		Status = XST_PM_NO_ACCESS;
+		goto END;
+	}
+	if (0U == PmIsValidAddressRange(master, Aes->Dst,
+				Aes->Size, (u32)MEM_RANGE_ANY_ACCESS)) {
+		Status = XST_PM_NO_ACCESS;
+		goto END;
+	}
+	if (Aes->KeySrc == XSECURE_AES_KUP_KEY) {
+		if(0U == PmIsValidAddressRange(master, Aes->Key,
+					XSECURE_KEY_SIZE, (u32)MEM_RANGE_ANY_ACCESS)) {
+			Status = XST_PM_NO_ACCESS;
+			goto END;
+		}
+	}
+	if (0U == PmIsValidAddressRange(master, Aes->Iv,
+				IV_SIZE_IN_BYTES, (u32)MEM_RANGE_ANY_ACCESS)) {
+		Status = XST_PM_NO_ACCESS;
+		goto END;
+	}
+#endif
 
 #if defined (ENABLE_WDT) &&	\
 	(XPFW_CFG_PMU_AES_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
@@ -1242,6 +1293,35 @@ static void PmSecureImage(const PmMaster *const master,
 {
 	u32 Status;
 	XSecure_DataAddr Addr = {0U};
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_SECURE_IMAGE_LOAD)
+	u64 SrcAddr = ((u64)SrcAddrHigh << ADDRESS_HIGH_SHIFT) | SrcAddrLow;
+	u64 KupAddr = ((u64)KupAddrHigh << ADDRESS_HIGH_SHIFT) | KupAddrLow;
+	u32 SrcSize;
+
+	if (KupAddr != 0U) {
+		SrcSize = KupAddr - SrcAddr;
+		/** KUP key is placed at the end of Secure image */
+		if (0U == PmIsValidAddressRange(master, KupAddr,
+					XSECURE_KEY_SIZE, (u32)MEM_RANGE_ANY_ACCESS)) {
+			Status = XST_PM_NO_ACCESS;
+			goto END;
+		}
+	} else {
+		/**
+		 * In case of KUP key absense,
+		 * Total len of Secure image = TotalDataWordLength  + DataWordOffset
+		 * TotalDataWordLength and DataWordOffset are Partition Header attributes.
+		 */
+		SrcSize = (Xil_In32(SrcAddr + SECURE_IMAGE_PRTN_TOTAL_LENGTH) +
+			Xil_In32(SrcAddr + SECURE_IMAGE_PRTN_OFFSET)) * XSECURE_WORD_LEN;
+	}
+
+	if (0U == PmIsValidAddressRange(master, SrcAddr, SrcSize, (u32)MEM_RANGE_ANY_ACCESS)) {
+		Status = XST_PM_NO_ACCESS;
+		goto END;
+	}
+
+#endif
 
 #if defined (ENABLE_WDT) &&	\
 	(XPFW_CFG_PMU_SECURE_IMG_LOAD_WDT_TIMEOUT > XPFW_CFG_PMU_DEFAULT_WDT_TIMEOUT)
@@ -1261,6 +1341,7 @@ static void PmSecureImage(const PmMaster *const master,
 		 PmErr("Failed image loading  with error : %x\r\n", Status);
 	}
 
+END:
 	IPI_RESPONSE3(master->ipiMask, (u32)Status, Addr.AddrHigh, Addr.AddrLow);
 }
 #endif
@@ -1277,6 +1358,21 @@ static void PmEfuseAccess(const PmMaster *const master,
 			const u32 AddrHigh, const u32 AddrLow)
 {
 	u32 Status;
+#if defined(ENABLE_MEM_RANGE) && defined(ENABLE_MEM_RANGE_EFUSE_ACCESS)
+	u64 Addr = ((u64)AddrHigh << ADDRESS_HIGH_SHIFT) | AddrLow;
+	XilSKey_Efuse *EfuseAccess = (XilSKey_Efuse *)(UINTPTR)Addr;
+
+	if (0U == PmIsValidAddressRange(master, Addr,
+				sizeof(XilSKey_Efuse), (u32)MEM_RANGE_ANY_ACCESS)) {
+		Status = XST_PM_NO_ACCESS;
+		goto END;
+	}
+	if (0U == PmIsValidAddressRange(master, EfuseAccess->Src,
+				EfuseAccess->Size, (u32)MEM_RANGE_ANY_ACCESS)) {
+		Status = XST_PM_NO_ACCESS;
+		goto END;
+	}
+#endif
 
 #ifdef EFUSE_ACCESS
 	Status = XilSkey_ZynqMpEfuseAccess(AddrHigh, AddrLow);
@@ -1284,6 +1380,7 @@ static void PmEfuseAccess(const PmMaster *const master,
 	Status = XST_NOT_ENABLED;
 #endif
 
+END:
 	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, (u32)Status);
 }
 

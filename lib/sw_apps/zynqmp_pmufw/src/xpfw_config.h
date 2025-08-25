@@ -144,6 +144,12 @@ extern "C" {
  *				maintained during a restart.
  *	- ENABLE_MEM_RANGE: Validates the requested address details before proceeding
  *			    further.
+ *	- ENABLE_MEM_RANGE_CRYPTO_REQUEST: Enables address validation for
+ *				crypto function parameters.
+ *	- ENABLE_MEM_RANGE_SECURE_IMAGE_LOAD: Enables address validation for
+ *				secure load address parameters.
+ *	- ENABLE_MEM_RANGE_EFUSE_ACCESS: Enables address validation for efuse
+ *				access address parameters.
  */
 #ifndef ENABLE_PM_VAL
 #define	ENABLE_PM_VAL						(1U)
@@ -343,6 +349,18 @@ extern "C" {
 
 #ifndef ENABLE_SECURE_FLAG_VAL
 #define ENABLE_SECURE_FLAG_VAL				(1U)
+#endif
+
+#ifndef ENABLE_MEM_RANGE_CRYPTO_REQUEST_VAL
+#define ENABLE_MEM_RANGE_CRYPTO_REQUEST_VAL		(1U)
+#endif
+
+#ifndef ENABLE_MEM_RANGE_SECURE_IMAGE_LOAD_VAL
+#define ENABLE_MEM_RANGE_SECURE_IMAGE_LOAD_VAL		(1U)
+#endif
+
+#ifndef ENABLE_MEM_RANGE_EFUSE_ACCESS_VAL
+#define ENABLE_MEM_RANGE_EFUSE_ACCESS_VAL		(1U)
 #endif
 
 /*
@@ -679,6 +697,18 @@ extern "C" {
 
 #if (ENABLE_SECURE_FLAG_VAL) && (!defined(ENABLE_SECURE_FLAG))
 #define ENABLE_SECURE_FLAG
+#endif
+
+#if (ENABLE_MEM_RANGE_CRYPTO_REQUEST_VAL) && (!defined(ENABLE_MEM_RANGE_CRYPTO_REQUEST))
+#define ENABLE_MEM_RANGE_CRYPTO_REQUEST
+#endif
+
+#if (ENABLE_MEM_RANGE_SECURE_IMAGE_LOAD_VAL) && (!defined(ENABLE_MEM_RANGE_SECURE_IMAGE_LOAD))
+#define ENABLE_MEM_RANGE_SECURE_IMAGE_LOAD
+#endif
+
+#if (ENABLE_MEM_RANGE_EFUSE_ACCESS_VAL) && (!defined(ENABLE_MEM_RANGE_EFUSE_ACCESS))
+#define ENABLE_MEM_RANGE_EFUSE_ACCESS
 #endif
 
 #ifdef __cplusplus

@@ -105,7 +105,44 @@ static PmMemRange addressTable[] = {
 		.access = MEM_RANGE_ANY_ACCESS,
 	},
 #endif
+#ifdef ENABLE_MEM_RANGE_CRYPTO_REQUEST
+	{
+		/* PmSecureAes
+		 * This block is used to check the address details from which
+		 * the core is supposed to resume.
+		 */
+		.address = DDR_LOW_START_ADDR,
+		.length = DDR_LOW_END_ADDR - DDR_LOW_START_ADDR + 1U,
+		.ipiMask = IPI_PMU_0_IER_APU_MASK,
+		.access = MEM_RANGE_ANY_ACCESS,
+	},
+#endif
+#ifdef ENABLE_MEM_RANGE_SECURE_IMAGE_LOAD
+	{
+		/* PmSecureAes
+		 * This block is used to check the address details from which
+		 * the core is supposed to resume.
+		 */
+		.address = DDR_LOW_START_ADDR,
+		.length = DDR_LOW_END_ADDR - DDR_LOW_START_ADDR + 1U,
+		.ipiMask = IPI_PMU_0_IER_APU_MASK,
+		.access = MEM_RANGE_ANY_ACCESS,
+	},
+#endif
+#ifdef ENABLE_MEM_RANGE_EFUSE_ACCESS
+	{
+		/* PmSecureAes
+		 * This block is used to check the address details from which
+		 * the core is supposed to resume.
+		 */
+		.address = DDR_LOW_START_ADDR,
+		.length = DDR_LOW_END_ADDR - DDR_LOW_START_ADDR + 1U,
+		.ipiMask = IPI_PMU_0_IER_APU_MASK,
+		.access = MEM_RANGE_ANY_ACCESS,
+	},
+#endif
 };
+
 #endif
 
 /**
