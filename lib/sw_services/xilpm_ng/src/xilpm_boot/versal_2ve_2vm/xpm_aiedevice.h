@@ -25,7 +25,7 @@ typedef struct XPm_AieDeviceNode XPm_AieDevice;
 struct XPm_AieDeviceNode {
 	XPm_Device Device;		/**< Device: Base class */
 	XPm_PlDevice *Parent;		/**< Parent of Aie device */
-	XPm_AieNode *BaseDev;			/**< AIE device dependency */
+	u32 DefaultClockDiv;		/**< Default AIE clock divider */
 };
 
 /************************** Function Prototypes ******************************/

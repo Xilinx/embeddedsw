@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,7 +63,6 @@ struct XPm_AieDomain {
  */
 typedef struct XPm_AieNode {
 	XPm_Device Device;              /**< Device: Base class */
-	u32 DefaultClockDiv;            /**< Default AIE clock divider at boot */
 } XPm_AieNode;
 
 /************************** Function Prototypes ******************************/

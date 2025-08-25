@@ -8,6 +8,8 @@
 
 #include "xstatus.h"
 #include "xil_types.h"
+#include "xpm_aiedevice.h"
+#include "xpm_subsystem.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -117,6 +119,8 @@ struct XPm_AieCtrlPktTlastErr {
 } __attribute__ ((aligned(4)));
 
 XStatus XPmAie_Operations(u32 Part, u32 Ops, u32 Arg3);
+XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const u32 Divider);
+XStatus XPmAieDevice_QueryDivider(const XPm_Device *Device, u32 *Response);
 
 #ifdef __cplusplus
 }

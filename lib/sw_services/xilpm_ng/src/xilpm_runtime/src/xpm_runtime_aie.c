@@ -20,6 +20,9 @@
 /* Maximum buffer size in bytes for AIE Operations */
 #define AIE_OPS_MAX_BUF_SIZE		(200U)
 
+/* Max AIE clock frequency divider */
+#define AIE_MAX_DIVIDER 1023U
+
 struct XPmAieOpsHandlers {
 	enum XPmAieOperations Ops;
 	XStatus (*Handler)(const XPm_Device *AieDev, u32 StartCol, u32 EndCol, const void *Buffer);
@@ -958,5 +961,106 @@ XStatus XPmAie_Operations(u32 Size, u32 HighAddr, u32 LowAddr)
 	/* @TODO: Check if AIE device is added and initialized */
 	Status = Aie2ps_Operation(Size, HighAddr, LowAddr);
 
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Update AIE clock divider
+ *
+ * @param  Device: Pointer to Device
+ * @param  Divider: Requested divider value
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note None
+ *
+ *****************************************************************************/
+XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const u32 Divider)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_AieDevice *AieDev = (XPm_AieDevice *)Device;
+	u32 TempDiv = Divider;
+	const XPm_AieNode *AieNode = (XPm_AieNode *)XPmDevice_GetById(PM_DEV_AIE);
+
+	if (NULL == AieNode) {
+		Status = XPM_ERR_DEVICE;
+		goto done;
+	}
+
+	/* If 0 is passed as divider value, it is assumed the subsystem does not
+	 * care what divider value is used or does not wish to change the current
+	 * value.
+	 */
+	if (0U == Divider) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Check if requested divider is higher than max possible divider value */
+	if (AIE_MAX_DIVIDER < Divider) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * If default clock divider is 0 then it hasn't been set yet. Read and set
+	 * default divider value.
+	 */
+	if (0U == AieDev->DefaultClockDiv) {
+		AieDev->DefaultClockDiv = (XPm_In32(AieNode->Device.Node.BaseAddress + AIE2PS_ME_CORE_REF_CTRL_OFFSET) &
+					   AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_MASK) >>
+					   AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_SHIFT;
+	}
+
+	/* If the divider value is 1 or any number smaller than the default divider
+	 * value, it is assumed the subsystem would like the maximum frequency allowed,
+	 * i.e. the default divider value.
+	 */
+	if ((1U == Divider) || (Divider <= AieDev->DefaultClockDiv)) {
+		TempDiv = AieDev->DefaultClockDiv;
+	}
+
+	/* Unlock NPI space */
+	XPm_UnlockPcsr(AieNode->Device.Node.BaseAddress);
+
+	/* Update clock divider with new value */
+	XPm_RMW32(AieNode->Device.Node.BaseAddress + AIE2PS_ME_CORE_REF_CTRL_OFFSET,
+		  AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_MASK,
+		  TempDiv << AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_SHIFT);
+
+	/* Lock NPI space */
+	XPm_LockPcsr(AieNode->Device.Node.BaseAddress);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+XStatus XPmAieDevice_QueryDivider(const XPm_Device *Device, u32 *Response)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_AieDevice *AieDev = (const XPm_AieDevice *)Device;
+	const XPm_AieNode *AieNode = (XPm_AieNode *)XPmDevice_GetById(PM_DEV_AIE);
+	u32 DefaultDivider;
+	u32 Divider;
+
+	if (NULL == AieNode) {
+		Status = XPM_ERR_DEVICE;
+		goto done;
+	}
+
+	DefaultDivider = AieDev->DefaultClockDiv;
+	Divider = XPm_In32(AieNode->Device.Node.BaseAddress + AIE2PS_ME_CORE_REF_CTRL_OFFSET) &
+			AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_MASK;
+	Divider = Divider >> AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_SHIFT;
+
+	Response[0] = DefaultDivider;
+	Response[1] = Divider;
+
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }

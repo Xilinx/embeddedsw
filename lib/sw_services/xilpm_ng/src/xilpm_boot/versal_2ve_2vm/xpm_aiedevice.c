@@ -37,6 +37,7 @@ XStatus XPmAieDevice_Init(XPm_AieDevice *AieDevice, u32 NodeId,
 	}
 
 	AieDevice->Parent = NULL;
+	AieDevice->DefaultClockDiv = 0U;
 
 done:
 	return Status;

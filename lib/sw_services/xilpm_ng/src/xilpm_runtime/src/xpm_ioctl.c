@@ -77,13 +77,37 @@ done:
 	return Status;
 }
 
-maybe_unused static inline XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response)
+static XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response)
 {
-	(void)DeviceId;
-	(void)IoctlId;
-	(void)Response;
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device;
 
-	return XPM_ERR_IOCTL;
+	(void)IoctlId;
+
+	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	Device = XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	if (IS_DEV_AIE(DeviceId)) {
+		Status = XPmAieDevice_QueryDivider(Device, Response);
+	} else {
+		/* Device not supported */
+		Status = XST_INVALID_PARAM;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("Status = 0x%x", Status);
+	}
+
+	return Status;
 }
 
 maybe_unused static inline XStatus XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)

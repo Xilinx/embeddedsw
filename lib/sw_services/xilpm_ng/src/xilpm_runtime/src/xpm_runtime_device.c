@@ -17,6 +17,7 @@
 #include "xpm_mem_tcm.h"
 #include "xpm_aiedevice.h"
 #include "xpm_update.h"
+#include "xpm_runtime_aie.h"
 
 /* Device security bit in register */
 #define DEV_NONSECURE			(1U)
@@ -846,6 +847,14 @@ XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 	Status = SetDevRequirement(Device, Subsystem, Capabilities, QoS);
+
+	/*
+	 * SetRequirement is used for dynamic AIE clock frequency scaling where
+	 * QOS is the new divider value.
+	 */
+	if (IS_DEV_AIE(DeviceId)) {
+		Status = XPmAieDevice_UpdateClockDiv(Device, QoS);
+	}
 
 done:
 	if (XST_SUCCESS != Status) {
