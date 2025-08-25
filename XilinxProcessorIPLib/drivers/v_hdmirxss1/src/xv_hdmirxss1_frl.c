@@ -22,8 +22,6 @@
 *
 ******************************************************************************/
 
-#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
-
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xil_assert.h"
@@ -32,6 +30,7 @@
 #include "xv_hdmirxss1_frl.h"
 #include "xv_hdmirxss1.h"
 
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 /************************** Function Prototypes ******************************/
 
 /************************** Function Definition ******************************/

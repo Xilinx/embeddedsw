@@ -2277,6 +2277,7 @@ u8 XV_HdmiRxSs1_GetTransportMode(XV_HdmiRxSs1 *InstancePtr)
 #ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
     return (InstancePtr->HdmiRx1Ptr->Stream.IsFrl);
 #else
+    (void)InstancePtr; /* Prevent unused parameter warning */
     return (0);
 #endif
 }
@@ -2422,6 +2423,8 @@ void XV_HdmiRxSs1_DdcRegDump(XV_HdmiRxSs1 *InstancePtr)
 {
 #ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 	XV_HdmiRx1_DdcRegDump(InstancePtr->HdmiRx1Ptr);
+#else
+	(void)InstancePtr; /* Prevent unused parameter warning */
 #endif
 }
 
@@ -2488,7 +2491,9 @@ void XV_HdmiRxSs1_ReportLinkQuality(XV_HdmiRxSs1 *InstancePtr)
 {
 	u8 Channel;
 	u32 Errors;
+#ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 	u16 Data = 0;
+#endif
 
 #ifdef XPAR_XV_HDMI_RX_FRL_ENABLE
 	if (InstancePtr->HdmiRx1Ptr->Stream.IsFrl != TRUE) {
