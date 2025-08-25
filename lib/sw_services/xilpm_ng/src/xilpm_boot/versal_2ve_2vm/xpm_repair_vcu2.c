@@ -10,7 +10,7 @@
 
 #include    "xpm_repair.h"
 
-XStatus XPmRepair_Vcu2(u32 * EfuseTagAddr)
+XStatus XPmRepair_Vcu2(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 TagIdWd = *EfuseTagAddr++;
@@ -29,7 +29,7 @@ XStatus XPmRepair_Vcu2(u32 * EfuseTagAddr)
 	XPm_UnlockPcsr(BaseAddr);
 
 	/* Copy repair data */
-	XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 	/* Trigger BISR */
 	XPm_Out32(BaseAddr + NPI_PCSR_MASK_OFFSET, VCU2_NPI_0_MMD_NPI_PCSR_MASK_BISR_TRIGGER_MASK);

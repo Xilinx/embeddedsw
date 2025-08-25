@@ -13,7 +13,7 @@
 #define NUM_OF_BISR_CACHE_DATA_REGIONS		5U
 #define BISR_CACHE_SUB_SIZE			16U
 
-XStatus XPmRepair_Lpd(u32 * EfuseTagAddr)
+XStatus XPmRepair_Lpd(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 TagIdWd = *EfuseTagAddr++;
@@ -27,7 +27,7 @@ XStatus XPmRepair_Lpd(u32 * EfuseTagAddr)
 
 	XPm_RMW32(LPD_SLCR_BISR_CACHE_CTRL_0, LPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK, SET_ALLBITS_TO_ONE);
 	XPm_RMW32(LPD_SLCR_BISR_CACHE_CTRL_0, LPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK, 0U);
-	XPmBisr_CopyStandard(EfuseTagAddr, TagSize, (u64)BisrDataDestAddr);
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, (u64)BisrDataDestAddr);
 
 	XPm_RMW32(LPD_SLCR_BISR_CACHE_CTRL_1, LPD_SLCR_BISR_CACHE_CTRL_1_FULLMASK, SET_ALLBITS_TO_ONE);
 	XPm_RMW32(LPD_SLCR_BISR_CACHE_CTRL_0, LPD_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK, SET_ALLBITS_TO_ONE);
@@ -77,7 +77,7 @@ done:
 
 
 
-XStatus XPmRepair_Fpd(u32 * EfuseTagAddr)
+XStatus XPmRepair_Fpd(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 TagIdWd = *EfuseTagAddr++;
@@ -101,7 +101,7 @@ XStatus XPmRepair_Fpd(u32 * EfuseTagAddr)
 	u32 i = 0U;
 	while (0U < TagSize) {
 		u32 TempTagSize = (BISR_CACHE_SUB_SIZE <= TagSize) ? BISR_CACHE_SUB_SIZE : TagSize;
-		XPmBisr_CopyStandard(EfuseTagAddr, TempTagSize, (u64)BisrDataDestAddr[i]);
+		*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TempTagSize, (u64)BisrDataDestAddr[i]);
 		EfuseTagAddr += TempTagSize;	   // None issue for PMX, but may have issue for PMC
 		TagSize -= TempTagSize;
 		i++;

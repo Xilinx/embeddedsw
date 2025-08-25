@@ -42,7 +42,7 @@ extern "C" {
 #define LPD_SLCR_BISR_CACHE_CTRL_0_CLR_MASK		(0x00000010U)
 #define LPD_SLCR_BISR_CACHE_CTRL_0_TRIGGER_MASK		(0x00000001U)
 #define LPD_SLCR_BISR_CACHE_CTRL_1			(PSXC_LPX_SLCR_BASEADDR + (u32)0x00000104U)
-#define LPD_SLCR_BISR_CACHE_CTRL_1_FULLMASK		(0x0000007FU)
+#define LPD_SLCR_BISR_CACHE_CTRL_1_FULLMASK		(0x000007FFU)
 
 #define LPD_SLCR_BISR_CACHE_STATUS			(PSXC_LPX_SLCR_BASEADDR + (u32)0x00000108U)
 #define LPD_SLCR_BISR_CACHE_STATUS_DONE_GLOBAL_MASK	(0x40000000U)
@@ -318,21 +318,21 @@ enum BISR_TAG_IDs {
 
 /************************** Function Prototypes ******************************/
 XStatus XPmBisr_Repair(u32 TagId);
-void XPmBisr_CopyStandard(u32 * BisrDataAddr, u32 TagSize, u64 BisrDataDestAddr);
+u32 XPmBisr_CopyStandard(u32 * BisrDataAddr, u32 TagSize, u64 BisrDataDestAddr);
 XStatus XPmcFw_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutCount);
 u32 XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize);
 u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize);
 u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize);
-XStatus XPmRepair_GtmGtyGtyp(u32 * EfuseTagAddr);
-XStatus XPmRepair_Ddrmc5_Crypto(u32 * EfuseTagAddr);
-XStatus XPmRepair_Mmi(u32 * EfuseTagAddr);
-XStatus XPmRepair_Ddrmc5_Main(u32 * EfuseTagAddr);
-XStatus XPmRepair_ISP2(u32 * EfuseTagAddr);
-XStatus XPmRepair_Lpd(u32 * EfuseTagAddr);
-XStatus XPmRepair_Fpd(u32 * EfuseTagAddr);
-XStatus XPmRepair_Vcu2(u32 * EfuseTagAddr);
-XStatus XPmRepair_Aie2p_s(u32 * EfuseTagAddr);
-XStatus XPmRepair_Mmi_Gtyp(u32 * EfuseTagAddr);
+XStatus XPmRepair_GtmGtyGtyp(u32 * EfuseTagAddr, u32 * TagDataAddr);
+XStatus XPmRepair_Ddrmc5_Crypto(u32 * EfuseTagAddr, u32 * TagDataAddr);
+XStatus XPmRepair_Mmi(u32 * EfuseTagAddr, u32 * TagDataAddr);
+XStatus XPmRepair_Ddrmc5_Main(u32 * EfuseTagAddr, u32 * TagDataAddr);
+XStatus XPmRepair_ISP2(u32 * EfuseTagAddr, u32 * TagDataAddr);
+XStatus XPmRepair_Lpd(u32 * EfuseTagAddr, u32 * TagDataAddr);
+XStatus XPmRepair_Fpd(u32 * EfuseTagAddr, u32 * TagDataAddr);
+XStatus XPmRepair_Vcu2(u32 * EfuseTagAddr, u32 * TagDataAddr);
+XStatus XPmRepair_Aie2p_s(u32 * EfuseTagAddr, u32 * TagDataAddr);
+XStatus XPmRepair_Mmi_Gtyp(u32 * EfuseTagAddr, u32 * TagDataAddr);
 
 #ifdef __cplusplus
 }

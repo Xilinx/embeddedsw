@@ -11,7 +11,7 @@
 
 #include "xpm_repair.h"
 
-XStatus XPmRepair_Ddrmc5_Main(u32 * EfuseTagAddr)
+XStatus XPmRepair_Ddrmc5_Main(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
     u32 TagIdWd = *EfuseTagAddr++;
@@ -28,7 +28,7 @@ XStatus XPmRepair_Ddrmc5_Main(u32 * EfuseTagAddr)
     XPm_UnlockPcsr(BaseAddr);
 
     /* Copy repair data */
-    XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
     /* Enable BISR clock */
     XPm_RMW32((BaseAddr + (DDRMC5E_UB_0_CLK_GATE - DDRMC5E_UB_0_BASEADDR)),
@@ -63,7 +63,7 @@ done:
 
 
 
-XStatus XPmRepair_Ddrmc5_Crypto(u32 * EfuseTagAddr)
+XStatus XPmRepair_Ddrmc5_Crypto(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
     u32 TagIdWd = *EfuseTagAddr++;
@@ -79,7 +79,7 @@ XStatus XPmRepair_Ddrmc5_Crypto(u32 * EfuseTagAddr)
     }
     XPm_UnlockPcsr(BaseAddr);
     /* Copy repair data */
-    XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 
     /* Enable BISR clock */

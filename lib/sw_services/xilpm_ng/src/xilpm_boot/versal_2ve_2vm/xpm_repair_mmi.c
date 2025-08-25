@@ -8,7 +8,7 @@
 
 #include "xpm_repair.h"
 
-XStatus XPmRepair_Mmi(u32 * EfuseTagAddr)
+XStatus XPmRepair_Mmi(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
     u32 TagIdWd = *EfuseTagAddr++;
@@ -21,10 +21,10 @@ XStatus XPmRepair_Mmi(u32 * EfuseTagAddr)
         goto done;
     }
     /* Disable writing protection */
-    XPm_Out32(MMI_SLCR_WPROTP, 0U);
+    Xil_Out32(MMI_SLCR_WPROTP, 0U);
 
     /* Copy repair data */
-    XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
     /* Pulse test clr */
     XPm_RMW32(MMI_SLCR_BISR_CACHE_CTRL, MMI_SLCR_BISR_CACHE_CTRL_CLR_MASK, MMI_SLCR_BISR_CACHE_CTRL_CLR_MASK);
@@ -71,12 +71,12 @@ XStatus XPmRepair_Mmi(u32 * EfuseTagAddr)
 
 done:
     /* Enable write protect */
-    XPm_Out32(MMI_SLCR_WPROTP, 1U);
+    Xil_Out32(MMI_SLCR_WPROTP, 1U);
     return Status;
 }
 
 
-XStatus XPmRepair_Mmi_Gtyp(u32 * EfuseTagAddr)
+XStatus XPmRepair_Mmi_Gtyp(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
     u32 TagIdWd = *EfuseTagAddr++;
@@ -97,7 +97,7 @@ XStatus XPmRepair_Mmi_Gtyp(u32 * EfuseTagAddr)
     XPm_Out32(MMI_GTYP_CFG_REG_PCSR_CONTROL, 0U);
 
     /* Copy repair data */
-    XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
     /* Trigger BISR */
     XPm_Out32(MMI_GTYP_CFG_REG_PCSR_MASK, MMI_GTYP_CFG_REG_PCSR_MASK_BISR_TRIGGER_MASK);

@@ -10,7 +10,7 @@
 
 #include    "xpm_repair.h"
 
-XStatus XPmRepair_Aie2p_s(u32 * EfuseTagAddr)
+XStatus XPmRepair_Aie2p_s(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 TagIdWd = *EfuseTagAddr++;
@@ -24,7 +24,7 @@ XStatus XPmRepair_Aie2p_s(u32 * EfuseTagAddr)
 		goto done;
 	}
 	/* Copy repair data */
-	XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 	/* Trigger Bisr Repair */
 	swea((BaseAddr +(u64)(AIE2PS_PL_MODULE_0_0_BISR_CACHE_CTRL - AIE2PS_PL_MODULE_0_0_BASEADDR)), AIE2PS_PL_MODULE_0_0_BISR_CACHE_CTRL_TRIGGER_MASK);

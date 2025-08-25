@@ -17,7 +17,7 @@
 #define     GT_NPI_BISR_CACHE_DATA_OFFSET          (GTYP_NPI_SLAVE_0_BISR_CACHE_DATA_0 - GTYP_NPI_SLAVE_0_BASEADDR) //    0x64
 
 
-XStatus XPmRepair_GtmGtyGtyp(u32 * EfuseTagAddr)
+XStatus XPmRepair_GtmGtyGtyp(u32 * EfuseTagAddr, u32 * TagDataAddr)
 {
     XStatus Status = XST_FAILURE;
     u32 TagIdWd = *EfuseTagAddr++;
@@ -33,7 +33,7 @@ XStatus XPmRepair_GtmGtyGtyp(u32 * EfuseTagAddr)
     /* Unlock PCSR */
     XPm_Out32(BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 
-    XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+    *TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
     /* Trigger Bisr */
     XPm_Out32(BaseAddr + NPI_PCSR_MASK_OFFSET,    GT_PCSR_CTRL_BISR_TRIGGER_MASK);
