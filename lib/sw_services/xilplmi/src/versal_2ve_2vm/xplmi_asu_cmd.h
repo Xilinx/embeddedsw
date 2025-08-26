@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ======================================================
 * 1.00  am   02/19/25 Initial release
+*       rmv  08/26/25 Update function prototype of XPlmi_AsuModuleInit
 *
 * </pre>
 *
@@ -39,7 +40,9 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(void),
-	int (* const InitiateKeyXfer)(void));
+	int (* const InitiateKeyXfer)(void),
+	int (* const GetAsuCdiSeed)(u32 CdiAddr),
+	int (* const GetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr));
 
 /************************** Variable Definitions *****************************/
 

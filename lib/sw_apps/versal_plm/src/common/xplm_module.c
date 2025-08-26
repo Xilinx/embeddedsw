@@ -60,6 +60,7 @@
 *       pre  03/02/2025 Passing partial PDI functions to secure module
 * 1.2   tvp  08/19/2025 ssit is not required for Versal_2vp
 *       pre  08/21/2025 Removed TPM initialization here to add it after LPD initialization
+*       rmv  08/26/2025 Add ASU OCP functionality related callbacks to XPlmi_AsuModuleInit()
 *
 * </pre>
 *
@@ -110,6 +111,7 @@
 #endif
 #ifdef VERSAL_2VE_2VM
 #include "xplmi_asu_cmd.h"
+#include "xocp_plat.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -206,7 +208,13 @@ int XPlm_ModuleInit(void *Arg)
 #endif
 
 #ifdef VERSAL_2VE_2VM
-	XPlmi_AsuModuleInit(XPlmi_PufOnDemandRegeneration, XSecure_InitiateASUKeyTransfer);
+#ifdef PLM_OCP_ASUFW_KEY_MGMT
+	XPlmi_AsuModuleInit(XPlmi_PufOnDemandRegeneration, XSecure_InitiateASUKeyTransfer,
+			    XOcp_GetAsuCdiSeed, XOcp_GetSubsysDigest);
+#else
+	XPlmi_AsuModuleInit(XPlmi_PufOnDemandRegeneration, XSecure_InitiateASUKeyTransfer,
+			    NULL, NULL);
+#endif
 #endif
 
 	/* OCP module is applicable only for Versalnet */

@@ -20,6 +20,7 @@
 *		      ASU CDI to provided address.
 *       rmv  07/31/25 Add XPlmi_CmdAsuSubsystemHashTransfer() function to transfer
 *		      subsystem hash to provided address.
+*       rmv  08/26/25 Use callback functions instead of xilocp library functions
 *
 * </pre>
 *
@@ -31,7 +32,6 @@
  */
 
 /***************************** Include Files *********************************/
-#include "xocp_plat.h"
 #include "xplmi_modules.h"
 #include "xplmi.h"
 #include "xplmi_debug.h"
@@ -63,6 +63,10 @@ static int (* AsuGeneratePufKEK)(void) = NULL;
 	/** Static function pointer which holds address of Xplmi_PufOnDemandRegeneration. */
 static int (* AsuInitiateKeyXfer)(void) = NULL;
 	/** Static function pointer which holds address of XSecure_InitiateASUKeyTransfer. */
+static int (* AsuGetAsuCdiSeed)(u32 CdiAddr) = NULL;
+	/** Static function pointer which holds address of XOcp_GetAsuCdiSeed. */
+static int (* AsuGetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr) = NULL;
+	/** Static function pointer which holds address of XOcp_GetSubsysDigest. */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -177,14 +181,15 @@ static int XPlmi_CmdAsuCdiTransfer(XPlmi_Cmd *Cmd)
 	CdiAddr = Cmd->Payload[XPLMI_CMD_ID_ASU_CDI_ADDR_INDEX];
 
 	/* Copy ASU CDI to provided address. */
-	Status = XOcp_GetAsuCdiSeed(CdiAddr);
+	if (AsuGetAsuCdiSeed != NULL) {
+		Status = AsuGetAsuCdiSeed(CdiAddr);
+	}
 
 	Cmd->Response[XPLMI_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 
 END:
 	return Status;
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -212,13 +217,16 @@ static int XPlmi_CmdAsuSubsystemHashTransfer(XPlmi_Cmd *Cmd)
 	HashAddr = Cmd->Payload[XPLMI_CMD_ID_SUBSYSTEM_HASH_ADDR_INDEX];
 
 	/* Copy subsystem hash to provided address. */
-	Status = XOcp_GetSubsysDigest(SubsystemId, HashAddr);
+	if (AsuGetSubsysDigest != NULL) {
+		Status = AsuGetSubsysDigest(SubsystemId, HashAddr);
+	}
 
 	Cmd->Response[XPLMI_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 
 END:
 	return Status;
 }
+#endif
 
 /**
  * @{
@@ -283,16 +291,22 @@ static XPlmi_Module XPlmi_AsuModule =
  *
  * @param	GeneratePufKEK - Pointer to the PUF on demand regeneration function.
  * @param	InitiateKeyXfer - Pointer to the secure key transfer function.
+ * @param	GetAsuCdiSeed - Pointer to the function which provides ASU CDI.
+ * @param	GetSubsysDigest - Pointer to the function which provides subsystem digest.
  *
  *****************************************************************************/
 void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(void),
-	int (* const InitiateKeyXfer)(void))
+	int (* const InitiateKeyXfer)(void),
+	int (* const GetAsuCdiSeed)(u32 CdiAddr),
+	int (* const GetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr))
 {
 	XPlmi_ModuleRegister(&XPlmi_AsuModule);
 
 	/** Initialize the PUF and Key transfer function pointers */
 	AsuGeneratePufKEK = GeneratePufKEK;
 	AsuInitiateKeyXfer = InitiateKeyXfer;
+	AsuGetAsuCdiSeed = GetAsuCdiSeed;
+	AsuGetSubsysDigest = GetSubsysDigest;
 }
 
 /**
