@@ -580,10 +580,6 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					 Pload[1], (u8)Pload[2],
 					 Pload[3], Pload[4]);
 		break;
-	case PM_API(PM_REQUEST_SUSPEND):
-		Status = XPm_RequestSuspend(SubsystemId, Pload[0], Pload[1],
-					    Pload[2], Pload[3], Cmd->IpiReqType);
-		break;
 	case PM_API(PM_ABORT_SUSPEND):
 		Status = XPm_AbortSuspend(SubsystemId, Pload[0], Pload[1]);
 		break;
@@ -3924,93 +3920,6 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 	XPm_PlatChangeCoreState(Core, State);
 
 	XPm_ClearScanClear();
-
-done:
-	if (XST_SUCCESS != Status) {
-		PmErr("0x%x\n\r", Status);
-	}
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function can be used by a subsystem to send suspend request
- * to another subsystem.  If the target subsystem accepts the request, it
- * needs to initiate its own self suspend.
- *
- * @param SubsystemId		Subsystem ID
- * @param TargetSubsystemId	Target subsystem ID (cannot be the same subsystem)
- * @param Ack			Ack request
- * @param Latency		Desired wakeup latency
- * @param State			Desired power state
- * @param CmdType		IPI command request type
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   This function does not block.  A successful return code means that
- * the request has been sent.
- *
- ****************************************************************************/
-XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
-			   const u32 Ack, const u32 Latency, const u32 State,
-			   const u32 CmdType)
-{
-	XPM_EXPORT_CMD(PM_REQUEST_SUSPEND, XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
-	XStatus Status = XST_FAILURE;
-	u32 IpiMask = 0;
-	u32 Payload[5] = {0};
-	/* Warning Fix */
-	(void) (Ack);
-	const XPm_Subsystem *TargetSubsystem = NULL;
-
-	IpiMask = XPmSubsystem_GetIPIMask(TargetSubsystemId);
-	if (0U == IpiMask) {
-		PmErr("Unable to fetch IpiMask for given TargetSubsystem\r\n");
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-
-	if (SubsystemId == TargetSubsystemId) {
-		Status = XPM_INVALID_SUBSYSID;
-		PmErr("Cannot Suspend yourself\n\r");
-		goto done;
-	}
-
-	Status = XPmSubsystem_IsOperationAllowed(SubsystemId, TargetSubsystemId,
-						 SUB_PERM_SUSPEND_MASK,
-						 CmdType);
-	if (XST_SUCCESS != Status) {
-		Status = XPM_PM_NO_ACCESS;
-		PmErr("Subsystem %x not allowed to suspend Target %x\n", SubsystemId, TargetSubsystemId);
-		goto done;
-	}
-
-	TargetSubsystem = XPmSubsystem_GetById(TargetSubsystemId);
-	if (NULL == TargetSubsystem) {
-		Status = XPM_INVALID_SUBSYSID;
-		goto done;
-	}
-
-	if (0U != TargetSubsystem->PendCb.Reason) {
-		Status = XPM_PEND_SUSP_CB_FOUND;
-		goto done;
-	}
-
-	/* TODO: Target subsystem must be active to get the suspend request */
-
-	/* TODO: Check if other subsystem has sent suspend request to target subsystem */
-	/* Failure in this case should return XPM_PM_DOUBLE_REQ */
-
-	Payload[0] = (u32)PM_INIT_SUSPEND_CB;
-	Payload[1] = (u32)SUSPEND_REASON_PU_REQ;
-	Payload[2] = Latency;
-	Payload[3] = State;
-	/* Payload[4] is for timeout which is not considered */
-	Payload[4] = 0U;
-
-	/* Send the suspend request via callback */
-	XPmNotifier_NotifyTarget(IpiMask, Payload);
 
 done:
 	if (XST_SUCCESS != Status) {

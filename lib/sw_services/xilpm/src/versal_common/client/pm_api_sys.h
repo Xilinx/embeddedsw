@@ -135,8 +135,6 @@ XStatus XPm_SelfSuspend(const u32 DeviceId, const u32 Latency, const u8 State,
 XStatus XPm_RequestWakeUp(const u32 TargetDevId, const u8 SetAddress,
 			  const u64 Address, const u32 Ack);
 void XPm_SuspendFinalize(void);
-XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
-			   const u32 Latency, const u32 State);
 XStatus XPm_AbortSuspend(const enum XPmAbortReason Reason);
 XStatus XPm_ForcePowerDown(const u32 TargetDevId, const u32 Ack);
 XStatus XPm_SystemShutdown(const u32 Type, const u32 SubType);

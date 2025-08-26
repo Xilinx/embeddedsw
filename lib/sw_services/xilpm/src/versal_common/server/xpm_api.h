@@ -145,9 +145,6 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 			u32 AddrLow, u32 AddrHigh);
 XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 			 const u32 DeviceId);
-XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
-			   const u32 Ack, const u32 Latency, const u32 State,
-			   const u32 CmdType);
 XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx);
 void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 		       const u32 NodeId, const u32 NodeState);
