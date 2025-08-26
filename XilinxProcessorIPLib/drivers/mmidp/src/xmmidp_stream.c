@@ -28,7 +28,8 @@
 
 #include "xmmidp.h"
 
-#define XMMIDP_STREAM_OFFSET	0x10000
+#define XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT 	30
+#define XMMIDP_STREAM_OFFSET			0x10000
 
 /******************************************************************************/
 /**
@@ -192,10 +193,8 @@ void XMmiDp_SetVInputPolarityCtrl(XMmiDp *InstancePtr, u8 Stream)
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
 	RegVal = InstancePtr->VideoConfig[Stream - 1].VSyncInPolarity;
-
 	RegVal |= InstancePtr->VideoConfig[Stream - 1].HSyncInPolarity
 		  << XMMIDP_VINPUT_POLARITY_CTRL_HSYNC_IN_POLARITY_SHIFT;
-
 	RegVal |= InstancePtr->VideoConfig[Stream - 1].DeInPolarity
 		  << XMMIDP_VINPUT_POLARITY_CTRL_DIE_IN_POLARITY_SHIFT;
 
@@ -232,13 +231,10 @@ void XMmiDp_SetVideoConfig1(XMmiDp *InstancePtr, u8 Stream)
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
 	RegVal = InstancePtr->VideoConfig[Stream - 1].RVBlankInOsc;
-
 	RegVal |= InstancePtr->VideoConfig[Stream - 1].I_P
 		  << XMMIDP_VIDEO_CONFIG1_I_P_SHIFT ;
-
 	RegVal |= InstancePtr->VideoConfig[Stream - 1].HBlank
 		  << XMMIDP_VIDEO_CONFIG1_HBLANK_SHIFT;
-
 	RegVal |= InstancePtr->VideoConfig[Stream - 1].HActive
 		  << XMMIDP_VIDEO_CONFIG1_HACTIVE_SHIFT;
 
@@ -276,7 +272,6 @@ void XMmiDp_SetVideoConfig2(XMmiDp *InstancePtr, u8 Stream)
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
 	RegVal = InstancePtr->VideoConfig[Stream - 1].VActive;
-
 	RegVal |= InstancePtr->VideoConfig[Stream - 1].VBlank
 		  << XMMIDP_VIDEO_CONFIG2_VBLANK_SHIFT;
 
@@ -386,15 +381,12 @@ void XMmiDp_SetVideoConfig5(XMmiDp *InstancePtr, u8 Stream)
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
 	RegVal = InstancePtr->VideoConfig[Stream - 1].AvgBytesPerTu;
-
 	RegVal |= InstancePtr->VideoConfig[Stream - 1].InitThreshold
 		  << XMMIDP_VIDEO_CONFIG5_INIT_THRESHOLD_SHIFT;
 	RegVal |= InstancePtr->VideoConfig[Stream - 1].AvgBytesPerTuFrac
 		  << XMMIDP_VIDEO_CONFIG5_AVG_BYTES_PER_TU_FRAC_SHIFT;
-
 	RegVal |= InstancePtr->VideoConfig[Stream - 1].En3DFrameFieldSeq
 		  << XMMIDP_VIDEO_CONFIG5_EN_3D_FRAME_FILED_SEQ_SHIFT;
-
 	RegVal |= InstancePtr->VideoConfig[Stream - 1].InitThresholdHi
 		  << XMMIDP_VIDEO_CONFIG5_INIT_THRESHOLD_HI_SHIFT;
 
@@ -431,12 +423,10 @@ void XMmiDp_SetVSampleCtrl(XMmiDp *InstancePtr, u8 Stream)
 	RegOffset = XMMIDP_VSAMPLE_CTRL +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
-	RegVal |= InstancePtr->VSampleCtrl[Stream - 1].PixModeSel
-		  << XMMIDP_VSAMPLE_CTRL_PIXEL_MODE_SELECT_SHIFT;
-
+	RegVal = InstancePtr->VSampleCtrl[Stream - 1].PixModeSel
+		 << XMMIDP_VSAMPLE_CTRL_PIXEL_MODE_SELECT_SHIFT;
 	RegVal |= InstancePtr->VSampleCtrl[Stream - 1].VideoMapping
 		  << XMMIDP_VSAMPLE_CTRL_VIDEO_MAPPING_SHIFT;
-
 	RegVal |= InstancePtr->VSampleCtrl[Stream - 1].VidStreamEn
 		  << XMMIDP_VSAMPLE_CTRL_VIDEO_STREAM_EN_SHIFT;
 
@@ -473,10 +463,9 @@ void XMmiDp_SetVideoMsa1(XMmiDp *InstancePtr, u8 Stream)
 	RegOffset = XMMIDP_VIDEO_MSA1 +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
+	RegVal = InstancePtr->MsaConfig[Stream - 1].HStart;
 	RegVal |= InstancePtr->MsaConfig[Stream - 1].VStart
 		  << XMMIDP_VIDEO_MSA1_VSTART_SHIFT;
-
-	RegVal |= InstancePtr->MsaConfig[Stream - 1].HStart;
 
 	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
 			RegOffset, RegVal);
@@ -511,10 +500,9 @@ void XMmiDp_SetVideoMsa2(XMmiDp *InstancePtr, u8 Stream)
 	RegOffset = XMMIDP_VIDEO_MSA2 +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
+	RegVal = InstancePtr->MsaConfig[Stream - 1].MVid;
 	RegVal |= InstancePtr->MsaConfig[Stream - 1].Misc0
 		  << XMMIDP_VIDEO_MSA2_MISC0_SHIFT;
-
-	RegVal |= InstancePtr->MsaConfig[Stream - 1].MVid;
 
 	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
 			RegOffset, RegVal);
@@ -549,9 +537,8 @@ void XMmiDp_SetVideoMsa3(XMmiDp *InstancePtr, u8 Stream)
 	RegOffset = XMMIDP_VIDEO_MSA3 +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
-	RegVal |= InstancePtr->MsaConfig[Stream - 1].Misc1
-		  << XMMIDP_VIDEO_MSA3_MISC1_SHIFT;
-
+	RegVal = InstancePtr->MsaConfig[Stream - 1].Misc1
+		 << XMMIDP_VIDEO_MSA3_MISC1_SHIFT;
 	RegVal |= InstancePtr->MsaConfig[Stream - 1].NVid;
 
 	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
@@ -587,7 +574,7 @@ void XMmiDp_SetHBlankInterval(XMmiDp *InstancePtr, u8 Stream)
 	RegOffset = XMMIDP_VIDEO_HBLANK_INTERVAL +
 		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
 
-	RegVal |= InstancePtr->MsaConfig[Stream - 1].HBlankInterval;
+	RegVal = InstancePtr->MsaConfig[Stream - 1].HBlankInterval;
 
 	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
 			RegOffset, RegVal);
@@ -617,8 +604,6 @@ void XMmiDp_ConfigureVideoController(XMmiDp *InstancePtr, u8 Stream)
 		       (Stream == XMMIDP_STREAM_ID3) ||
 		       (Stream == XMMIDP_STREAM_ID4));
 
-	XMmiDp_SetVSampleCtrl(InstancePtr, Stream);
-
 	XMmiDp_SetVInputPolarityCtrl(InstancePtr, Stream);
 	XMmiDp_SetVideoConfig1(InstancePtr, Stream);
 	XMmiDp_SetVideoConfig2(InstancePtr, Stream);
@@ -631,6 +616,7 @@ void XMmiDp_ConfigureVideoController(XMmiDp *InstancePtr, u8 Stream)
 	XMmiDp_SetVideoMsa3(InstancePtr, Stream);
 	XMmiDp_SetHBlankInterval(InstancePtr, Stream);
 
+	XMmiDp_SetVSampleCtrl(InstancePtr, Stream);
 }
 
 /******************************************************************************/
@@ -1558,4 +1544,499 @@ void XMmiDp_SetSdpRegBank(XMmiDp *InstancePtr, u8 Stream, u32 SdpReg)
 	InstancePtr->SdpRegBank[Stream - 1] = SdpReg;
 }
 
+/******************************************************************************/
+/**
+ * This function sets the Scramble control for DpTx.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param       Controller enable or disable
+ *
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetControllerScrambleDis(XMmiDp *InstancePtr, u8 Stream, u8 ScrambleDis)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	Xil_AssertVoid((ScrambleDis == 0) || (ScrambleDis == 1));
+
+	InstancePtr->CtrlConfig[Stream - 1].ScrambleDis = ScrambleDis;
+
+}
+
+/******************************************************************************/
+/**
+ * This function sets the enhanced framing control for DpTx.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param       Controller enable or disable
+ *
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetControllerEnhanceFramingEn(XMmiDp *InstancePtr, u8 Stream, u8 EnhanceFramingEn)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	Xil_AssertVoid((EnhanceFramingEn == 0) || (EnhanceFramingEn == 1));
+
+	InstancePtr->CtrlConfig[Stream - 1].EnhanceFramingEn = EnhanceFramingEn;
+
+}
+
+/******************************************************************************/
+/**
+ * This function sets the enhanced framing control with FEC feature for DpTx.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param       Controller enable or disable
+ *
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetControllerEnhanceFramingWithFecEn(XMmiDp *InstancePtr, u8 Stream,
+	u8 EnhanceFramingWithFecEn)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	Xil_AssertVoid((EnhanceFramingWithFecEn == 0) || (EnhanceFramingWithFecEn == 1));
+
+	InstancePtr->CtrlConfig[Stream - 1].EnhanceFramingWithFecEn = EnhanceFramingWithFecEn;
+
+}
+
+/******************************************************************************/
+/**
+ * This function sets default fast link training for DpTx.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param       Controller enable or disable
+ *
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetControllerFastLinkTrainEn(XMmiDp *InstancePtr, u8 Stream, u8 FastLinkTrainEn)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	Xil_AssertVoid((FastLinkTrainEn == 0) || (FastLinkTrainEn == 1));
+
+	InstancePtr->CtrlConfig[Stream - 1].FastLinkTrainEn = FastLinkTrainEn;
+
+}
+
+/******************************************************************************/
+/**
+ * This function scales down debounce filter on HPD input for DpTx.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param       Controller enable or disable
+ *
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetControllerScaleDownModeEn(XMmiDp *InstancePtr, u8 Stream, u8 ScaleDownModeEn)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	Xil_AssertVoid((ScaleDownModeEn == 0) || (ScaleDownModeEn == 1));
+
+	InstancePtr->CtrlConfig[Stream - 1].ScaleDownModeEn = ScaleDownModeEn;
+
+}
+
+/******************************************************************************/
+/**
+ * This function disables SPD nibble interleaving DpTx.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param       Controller enable or disable
+ *
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetControllerDisableInterleaving(XMmiDp *InstancePtr, u8 Stream, u8 DisableInterleaving)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	Xil_AssertVoid((DisableInterleaving == 0) || (DisableInterleaving == 1));
+
+	InstancePtr->CtrlConfig[Stream - 1].DisableInterleaving = DisableInterleaving;
+
+}
+
+/******************************************************************************/
+/**
+ * This function sets aux reply timeout to either 400us or 3.2ms DpTx.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param       0x0 for 400us, 0x1 for 3.2ms
+ *
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetControllerSelAuxTimeout32Ms(XMmiDp *InstancePtr, u8 Stream, u8 SelAuxTimeout32Ms)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	Xil_AssertVoid((SelAuxTimeout32Ms == 0) || (SelAuxTimeout32Ms == 1));
+
+	InstancePtr->CtrlConfig[Stream - 1].SelAuxTimeout32Ms = SelAuxTimeout32Ms;
+
+}
+
+/******************************************************************************/
+/**
+ * This function enables MST mode for DpTx
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param       Controller enable/disable
+ *
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetControllerMstModeEn(XMmiDp *InstancePtr, u8 Stream, u8 MstModeEn)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	Xil_AssertVoid((MstModeEn == 0) || (MstModeEn == 1));
+
+	InstancePtr->CtrlConfig[Stream - 1].MstModeEn = MstModeEn;
+
+}
+
+/******************************************************************************/
+/**
+ * This function enables FEC feature for DpTx
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param       Controller enable/disable
+ *
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetControllerFecEn(XMmiDp *InstancePtr, u8 Stream, u8 FecEn)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	Xil_AssertVoid((FecEn == 0) || (FecEn == 1));
+
+	InstancePtr->CtrlConfig[Stream - 1].FecEn = FecEn;
+
+}
+
+/******************************************************************************/
+/**
+ * This function sets DpTx in eDP mode
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param       Controller enable/disable
+ *
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetControllereDpEn(XMmiDp *InstancePtr, u8 Stream, u8 eDpEn)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	Xil_AssertVoid((eDpEn == 0) || (eDpEn == 1));
+
+	InstancePtr->CtrlConfig[Stream - 1].eDpEn = eDpEn;
+
+}
+
+/******************************************************************************/
+/**
+ * This function use in MST mode only triggers link to start ACT sequence with DpRx of branch.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Stream is the stream number for which to set the color depth.
+ * @param       Controller enable/disable
+ *
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetControllerInitiateMstActSeq(XMmiDp *InstancePtr, u8 Stream, u8 InitiateMstActSeq)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	Xil_AssertVoid((InitiateMstActSeq == 0) || (InitiateMstActSeq == 1));
+
+	InstancePtr->CtrlConfig[Stream - 1].InitiateMstActSeq = InitiateMstActSeq;
+
+}
+
+/******************************************************************************/
+/**
+ * This function sets the core controller register
+ *
+ * @param       InstancePtr is a pointer to the XDpPsu instance.
+ * @param       Stream is the stream number for which to enable or disable
+ *              video stream.
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+void XMmiDp_SetCoreCtrl(XMmiDp *InstancePtr, u8 Stream)
+{
+
+	u32 RegOffset;
+	u32 RegVal;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XMMIDP_STREAM_ID1) ||
+		       (Stream == XMMIDP_STREAM_ID2) ||
+		       (Stream == XMMIDP_STREAM_ID3) ||
+		       (Stream == XMMIDP_STREAM_ID4));
+
+	RegOffset = XMMIDP_CCTL0 +
+		    ((Stream - 1) * XMMIDP_STREAM_OFFSET);
+
+	RegVal = InstancePtr->CtrlConfig[Stream - 1].ScrambleDis;
+	RegVal |= InstancePtr->CtrlConfig[Stream - 1].EnhanceFramingEn
+		  << XMMIDP_CCTL0_ENHANCE_FRAMING_EN_SHIFT;
+	RegVal |= InstancePtr->CtrlConfig[Stream - 1].FastLinkTrainEn
+		  << XMMIDP_CCTL0_DEFAULT_FAST_LINK_TRAIN_EN_SHIFT;
+	RegVal |= InstancePtr->CtrlConfig[Stream - 1].ScaleDownModeEn
+		  << XMMIDP_CCTL0_SCALE_DOWN_MODE_SHIFT;
+	RegVal |= InstancePtr->CtrlConfig[Stream - 1].DisableInterleaving
+		  << XMMIDP_CCTL0_DISABLING_INTERLEAVING_SHIFT;
+	RegVal |= InstancePtr->CtrlConfig[Stream - 1].SelAuxTimeout32Ms
+		  << XMMIDP_CCTL0_SEL_AUX_TIMEOUT_32MS_SHIFT;
+	RegVal |= InstancePtr->CtrlConfig[Stream - 1].MstModeEn
+		  << XMMIDP_CCTL0_ENABLE_MST_MODE_SHIFT;
+	RegVal |= InstancePtr->CtrlConfig[Stream - 1].FecEn
+		  << XMMIDP_CCTL0_ENABLE_FEC_SHIFT;
+	RegVal |= InstancePtr->CtrlConfig[Stream - 1].eDpEn
+		  << XMMIDP_CCTL0_ENABLE_EDP_SHIFT;
+	RegVal |= InstancePtr->CtrlConfig[Stream - 1].InitiateMstActSeq
+		  << XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_SHIFT;
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			RegOffset, RegVal);
+
+}
+
+/******************************************************************************/
+/**
+ * This function enables mst mode in the core controller
+ *
+ * @param       InstancePtr is a pointer to the XDpPsu instance.
+ * @return
+ *              - none.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+void XMmiDp_MstModeEnable(XMmiDp *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XMmiDp_RegReadModifyWrite(InstancePtr, XMMIDP_CCTL0,
+				  XMMIDP_CCTL0_ENABLE_MST_MODE_MASK,
+				  XMMIDP_CCTL0_ENABLE_MST_MODE_SHIFT,
+				  InstancePtr->RxConfig.MstCap);
+}
+
+/******************************************************************************/
+/**
+ * This function enables mst act seq in the core controller
+ *
+ * @param       InstancePtr is a pointer to the XDpPsu instance.
+ * @return
+ *              - none.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+void XMmiDp_MstActSeqEnable(XMmiDp *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Act Init Seq */
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr, XMMIDP_CCTL0,
+			(XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_MASK |
+			 XMMIDP_CCTL0_ENABLE_MST_MODE_MASK));
+
+}
+
+/******************************************************************************/
+/**
+ * This function initiates CCTL ACT sequence between DpTx and DpRx
+ * of the immediate branch device connected. Check DPCD Payload table update
+ * status. This ensures successful handling of ACT trigger sequence.
+ *
+ * @param       InstancePtr is a pointer to the XDpPsu instance.
+ * @return
+ *              - none.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+u32 XMmiDp_InitiateActSeq(XMmiDp *InstancePtr)
+{
+	u8 AuxReply;
+	u32 Status;
+	u8 TimeoutCount = 0;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XMmiDp_MstActSeqEnable(InstancePtr);
+
+	XMmiDp_AuxRead(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS,
+		       1, &AuxReply);
+
+	xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS slot is 0x%x\n", AuxReply);
+
+	do {
+		Status = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_CCTL0);
+		Status &= XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_MASK;
+
+		if (TimeoutCount > XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT) {
+			return XST_ERROR_COUNT_MAX;
+		}
+		TimeoutCount++;
+
+	} while (Status == XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_MASK);
+
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function sets the virtual channel payload allocation table.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       u32 Payload slot for each stream
+ *
+ * @return      None.
+ *
+*******************************************************************************/
+void XMmiDp_SetMstVcpTable0(XMmiDp *InstancePtr, u32 Payload)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_MST_VCP_TABLE_REG0, Payload);
+
+}
+
+void XMmiDp_SetMstVcpTable1(XMmiDp *InstancePtr, u32 Payload)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_MST_VCP_TABLE_REG1, Payload);
+
+}
+
+void XMmiDp_SetMstVcpTable2(XMmiDp *InstancePtr, u32 Payload)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_MST_VCP_TABLE_REG2, Payload);
+
+}
+
+void XMmiDp_SetMstVcpTable3(XMmiDp *InstancePtr, u32 Payload)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_MST_VCP_TABLE_REG3, Payload);
+
+}
+
+void XMmiDp_SetMstVcpTable4(XMmiDp *InstancePtr, u32 Payload)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_MST_VCP_TABLE_REG4, Payload);
+
+}
+
+void XMmiDp_SetMstVcpTable5(XMmiDp *InstancePtr, u32 Payload)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_MST_VCP_TABLE_REG5, Payload);
+
+}
+
+void XMmiDp_SetMstVcpTable6(XMmiDp *InstancePtr, u32 Payload)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_MST_VCP_TABLE_REG6, Payload);
+
+}
+
+void XMmiDp_SetMstVcpTable7(XMmiDp *InstancePtr, u32 Payload)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+			XMMIDP_MST_VCP_TABLE_REG7, Payload);
+
+}
 /** @} */

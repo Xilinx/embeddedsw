@@ -257,6 +257,7 @@ typedef struct {
 	u8 MaxDownspread;
 	u8 DpcdRev;
 	u8 ExtendedReceiverCap;
+	u8 MstCap;
 	u8 Reserved[2];
 } XMmiDp_RxConfig;
 
@@ -372,6 +373,20 @@ typedef struct {
 	u8 OverrideBytesReqVBlank;
 } XMmiDp_SdpConfig;
 
+typedef struct {
+	u8 ScrambleDis;
+	u8 EnhanceFramingEn;
+	u8 EnhanceFramingWithFecEn;
+	u8 FastLinkTrainEn;
+	u8 ScaleDownModeEn;
+	u8 DisableInterleaving;
+	u8 SelAuxTimeout32Ms;
+	u8 MstModeEn;
+	u8 FecEn;
+	u8 eDpEn;
+	u8 InitiateMstActSeq;
+} XMmiDp_Controller;
+
 typedef void (*XMmiDp_HpdIrqHandler)(void *InstancePtr);
 typedef void (*XMmiDp_HpdHotPlugHandler)(void *InstancePtr);
 
@@ -395,6 +410,7 @@ typedef struct {
 	XMmiDp_SdpConfig SdpCfg2[XMMIDP_MAX_LANES];
 	XMmiDp_SdpConfig SdpCfg3[XMMIDP_MAX_LANES];
 	u32 SdpRegBank[XMMIDP_MAX_LANES];
+	XMmiDp_Controller CtrlConfig[XMMIDP_MAX_LANES];
 	u32 AuxDelayUs;
 	XMmiDp_Config Config;
 	void *HpdHotPlugCallbackRef;
@@ -477,6 +493,7 @@ u32 XMmiDp_GetRxMaxLinkRate(XMmiDp *InstancePtr);
 u32 XMmiDp_SetSinkDpcdLinkCfgField(XMmiDp *InstancePtr);
 void XMmiDp_GetDpcdTrainingAuxRdInterval(XMmiDp *InstancePtr);
 u32 XMmiDp_GetDpcdLaneStatusAdjReqs(XMmiDp *InstancePtr);
+u32 XMmiDp_GetRxMstModeCap(XMmiDp *InstancePtr);
 
 /* Link Training */
 void XMmiDp_FastLinkTrainEnable(XMmiDp *InstancePtr);
@@ -555,4 +572,29 @@ void XMmiDp_SetSdpHorAudStreamEn(XMmiDp *InstancePtr, u8 Stream, u8 EnAudStream)
 void XMmiDp_SetSdpHorizontalEn(XMmiDp *InstancePtr, u8 Stream, u32 EnHorizontalSdp);
 void XMmiDp_SetSdpHorFixedPriority(XMmiDp *InstancePtr, u8 Stream, u8 EnFixedPriority);
 void XMmiDp_SetSdpHorizontalCtrl(XMmiDp *InstancePtr, u8 Stream);
+void XMmiDp_SetControllerScrambleDis(XMmiDp *InstancePtr, u8 Stream, u8 ScrambleDis);
+void XMmiDp_SetControllerEnhanceFramingEn(XMmiDp *InstancePtr, u8 Stream, u8 EnhanceFramingEn);
+void XMmiDp_SetControllerEnhanceFramingWithFecEn(XMmiDp *InstancePtr, u8 Stream,
+	u8 EnhanceFramingWithFecEn);
+void XMmiDp_SetControllerFastLinkTrainEn(XMmiDp *InstancePtr, u8 Stream, u8 FastLinkTrainEn);
+void XMmiDp_SetControllerScaleDownModeEn(XMmiDp *InstancePtr, u8 Stream, u8 ScaleDownModeEn);
+void XMmiDp_SetControllerDisableInterleaving(XMmiDp *InstancePtr, u8 Stream,
+	u8 DisableInterleaving);
+void XMmiDp_SetControllerSelAuxTimeout32Ms(XMmiDp *InstancePtr, u8 Stream, u8 SelAuxTimeout32Ms);
+void XMmiDp_SetControllerMstModeEn(XMmiDp *InstancePtr, u8 Stream, u8 MstModeEn);
+void XMmiDp_SetControllerFecEn(XMmiDp *InstancePtr, u8 Stream, u8 FecEn);
+void XMmiDp_SetControllereDpEn(XMmiDp *InstancePtr, u8 Stream, u8 eDpEn);
+void XMmiDp_SetControllerInitiateMstActSeq(XMmiDp *InstancePtr, u8 Stream, u8 InitiateMstActSeq);
+void XMmiDp_SetCoreCtrl(XMmiDp *InstancePtr, u8 Stream);
+void XMmiDp_MstActSeqEnable(XMmiDp *InstancePtr);
+void XMmiDp_MstModeEnable(XMmiDp *InstancePtr);
+u32 XMmiDp_InitiateActSeq(XMmiDp *InstancePtr);
+void XMmiDp_SetMstVcpTable0(XMmiDp *InstancePtr, u32 Payload);
+void XMmiDp_SetMstVcpTable1(XMmiDp *InstancePtr, u32 Payload);
+void XMmiDp_SetMstVcpTable2(XMmiDp *InstancePtr, u32 Payload);
+void XMmiDp_SetMstVcpTable3(XMmiDp *InstancePtr, u32 Payload);
+void XMmiDp_SetMstVcpTable4(XMmiDp *InstancePtr, u32 Payload);
+void XMmiDp_SetMstVcpTable5(XMmiDp *InstancePtr, u32 Payload);
+void XMmiDp_SetMstVcpTable6(XMmiDp *InstancePtr, u32 Payload);
+void XMmiDp_SetMstVcpTable7(XMmiDp *InstancePtr, u32 Payload);
 #endif /* __XMMIDP_H__ */

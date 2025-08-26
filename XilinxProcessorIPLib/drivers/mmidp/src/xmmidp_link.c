@@ -154,6 +154,34 @@ u32 XMmiDp_GetRxMaxLinkRate(XMmiDp *InstancePtr)
 
 /******************************************************************************/
 /**
+ * This function reads MST_CAP  from Rx DPCD register
+ *
+ * @param       InstancePtr is a pointer to the XDpPsu instance.
+ * @return
+ *              - none.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+u32 XMmiDp_GetRxMstModeCap(XMmiDp *InstancePtr)
+{
+	u32 Status;
+	u32 MstCap = 0;
+
+	Status = XMmiDp_AuxRead(InstancePtr,
+				XMMIDP_DPCD_MSTM_CAP, 1, &MstCap);
+
+	if ( Status != XST_SUCCESS ) {
+		xil_printf("AuxRead Err: %d\n", Status);
+		return Status;
+	}
+
+	InstancePtr->RxConfig.MstCap = (MstCap & XMMIDP_DPCD_MSTM_CAP_MST_CAP_MASK);
+
+	return XST_SUCCESS;
+}
+/******************************************************************************/
+/**
  * This function initates link training sequence with the Rx
  *
  * @param       InstancePtr is a pointer to the XDpPsu instance.
@@ -197,6 +225,7 @@ u32 XMmiDp_SetSinkDpcdLinkCfgField(XMmiDp *InstancePtr)
 {
 	u32 MaxLinkBW = InstancePtr->RxConfig.MaxLinkBW;
 	u32 ChannelCodingSet = InstancePtr->LinkConfig.ChannelCodingSet;
+	u8 MstmCtrl = 0x6 | InstancePtr->RxConfig.MstCap;
 
 	/* Link BW Set */
 	XMmiDp_AuxWrite(InstancePtr, XMMIDP_DPCD_LINK_BW_SET,
@@ -220,6 +249,9 @@ u32 XMmiDp_SetSinkDpcdLinkCfgField(XMmiDp *InstancePtr)
 	XMmiDp_AuxWrite(InstancePtr,
 			XMMIDP_DPCD_MAIN_LINK_CHANNEL_CODING_SET,
 			0x1, &ChannelCodingSet);
+
+	/* MultiStream Mode support*/
+	XMmiDp_AuxWrite(InstancePtr, XMMIDP_DPCD_MSTM_CTRL, 0x1, &MstmCtrl);
 
 	return XST_SUCCESS;
 }
@@ -945,6 +977,8 @@ u32 XMmiDp_GetRxCapabilities(XMmiDp *InstancePtr)
 	XMmiDp_GetDpcdMaxDownspread(InstancePtr);
 
 	XMmiDp_GetDpcdTrainingAuxRdInterval(InstancePtr);
+
+	XMmiDp_GetRxMstModeCap(InstancePtr);
 
 	if (InstancePtr->RxConfig.ExtendedReceiverCap) {
 		XMmiDp_AuxRead(InstancePtr, XMMIDP_DPCD_MAX_LINK_RATE_EXTENDED, 1, &MaxLinkBW);

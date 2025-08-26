@@ -1684,6 +1684,12 @@ void XMmiDp_Initialize(XMmiDp *InstancePtr)
 	memset(&InstancePtr->VSampleCtrl[1], 0, sizeof(XMmiDp_VSampleCtrl));
 	memset(&InstancePtr->VSampleCtrl[2], 0, sizeof(XMmiDp_VSampleCtrl));
 	memset(&InstancePtr->VSampleCtrl[3], 0, sizeof(XMmiDp_VSampleCtrl));
+
+	memset(&InstancePtr->CtrlConfig[0], 0, sizeof(XMmiDp_Controller));
+	memset(&InstancePtr->CtrlConfig[1], 0, sizeof(XMmiDp_Controller));
+	memset(&InstancePtr->CtrlConfig[2], 0, sizeof(XMmiDp_Controller));
+	memset(&InstancePtr->CtrlConfig[3], 0, sizeof(XMmiDp_Controller));
+
 }
 
 /******************************************************************************/
