@@ -15,6 +15,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
+*       pre  08/27/2025 Added prototype for XLoader_MeasureRomAndPlm function
 *
 * </pre>
 *
@@ -269,6 +270,20 @@ typedef struct {
 	} /**< PDI source info */
 
 #define XLoader_VerifyDataAuth NULL  /**< Reserved */
+
+/***************************************************************************************/
+/**
+ * @brief	This function extends the image hashes of ROM and PLM data
+ *
+ * @return
+ * 			- XST_SUCCESS on successful extension
+ * 			- error code on failure
+ *
+ ***************************************************************************************/
+static inline int XLoader_MeasureRomAndPlm(void)
+{
+	return XST_SUCCESS;
+}
 
 /**************************************************************************************************/
 /**
