@@ -129,7 +129,8 @@ if("${TEMPLATE}" STREQUAL "asufw")
 endif()
 
 string(FIND "${CMAKE_C_FLAGS}" "-flto" has_flto)
-if (${has_flto} EQUAL -1)
+string(FIND "${CMAKE_C_FLAGS}" "VERSAL_psm" is_psm_mb)
+if (${has_flto} EQUAL -1 AND ${is_psm_mb} EQUAL -1)
     set(XIL_INTERRUPT " ")
 endif()
 
