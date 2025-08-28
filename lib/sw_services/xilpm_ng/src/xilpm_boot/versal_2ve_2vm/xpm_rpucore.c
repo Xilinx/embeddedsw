@@ -265,7 +265,6 @@ static XStatus XPm_PlatRpucoreHalt(u32 CoreId) {
 	}
 	/* Safely cast to RpuCore since Type check passed */
 	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
-	u32 Reg = 0;
 
 	if((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State){
 		/* Put RPU in  halt state */
@@ -274,9 +273,6 @@ static XStatus XPm_PlatRpucoreHalt(u32 CoreId) {
 		 */
 		XPM_RPU_CORE_HALT(RpuCore->ResumeCfg);
 
-		Status = XST_SUCCESS;
-	} else if (0U == (Reg & Core->Device.Power->PwrStatMask)) {
-		/*skip halt if the core is powered down*/
 		Status = XST_SUCCESS;
 	} else {
 		Status = XPmRpuCore_ResetAndHalt(CoreId);
