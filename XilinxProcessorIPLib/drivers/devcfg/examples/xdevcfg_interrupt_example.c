@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,7 @@
 *       ms   04/10/17 Modified filename tag to include the file in doxygen
 *                     examples.
 * 3.8  Nava  06/21/23 Added support for system device-tree flow.
+* 3.9  Arvd  08/28/25 Fixed GCC warning
 *</pre>
 ******************************************************************************/
 
@@ -352,6 +353,7 @@ int XDcfg_IntrExample(XDcfg *DcfgInstPtr, UINTPTR BaseAddress)
 ******************************************************************************/
 static void DcfgIntrHandler(void *CallBackRef, u32 IntrStatus)
 {
+	(void)CallBackRef;
 
 	if (IntrStatus & XDCFG_IXR_DMA_DONE_MASK) {
 		DmaDone = TRUE;
