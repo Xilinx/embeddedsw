@@ -4,6 +4,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(xiltpm)
 
+find_package(common)
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 collector_create (PROJECT_LIB_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}")
 
