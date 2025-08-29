@@ -194,6 +194,19 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function returns DevIk structure address.
+ *
+ * @return
+ *	- Address of DevIk structure.
+ *
+ *************************************************************************************************/
+XOcp_DeviceKeys* XOcp_GetDevIk(void)
+{
+	return &DevIkData;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function generates a DevIk key pair(private and public key).
  *
  * @param	DmaPtr	Pointer to allocated DMA resource.

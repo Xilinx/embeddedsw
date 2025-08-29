@@ -85,6 +85,7 @@
 static s32 XAsufw_Init(void);
 static s32 XAsufw_ModulesInit(void);
 static void XAsufw_StartKatTasks(void);
+static void XAsufw_StartKeyTransferTasks(void);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -128,12 +129,11 @@ int main(void)
 		goto END;
 	}
 
-	/** Get keys from PMC. */
-	Status = XAsufw_PmcKeyTransfer();
-	if (XASUFW_SUCCESS != Status) {
-		XAsufw_Printf(DEBUG_GENERAL, "ASUFW key transfer failed. Error: 0x%x\r\n", Status);
-		goto END;
-	}
+	/**
+	 * Create and trigger task created for Key transfer and DME KEK derivation if PUF
+	 * regeneration is successful.
+	 */
+	XAsufw_StartKeyTransferTasks();
 
 	/**
 	 * Set FW_Is_Present bit in ASU_GLOBAL GLOBAL_CNTRL register.
@@ -142,7 +142,7 @@ int main(void)
 	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
 		   ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
 
-	/** Create and trigger KAT tasks. */
+	/** Create and trigger KAT task. */
 	XAsufw_StartKatTasks();
 
 	/**
@@ -355,6 +355,24 @@ static void XAsufw_StartKatTasks(void)
 		/* Self-reference for deletion. */
 		KatTask->PrivData = KatTask;
 		XTask_TriggerNow(KatTask);
+	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function creates key transfer tasks and triggers them, the task will be deleted
+ * 		after the execution of the key transfer tasks.
+ *
+ *************************************************************************************************/
+static void XAsufw_StartKeyTransferTasks(void)
+{
+	XTask_TaskNode *KeyTransferTask = XTask_Create(XTASK_PRIORITY_0,
+		XAsufw_RunKeyTransferTaskHandler, NULL, 0U);
+
+	if (KeyTransferTask != NULL) {
+		/* Self-reference for deletion. */
+		KeyTransferTask->PrivData = KeyTransferTask;
+		XTask_TriggerNow(KeyTransferTask);
 	}
 }
 /** @} */

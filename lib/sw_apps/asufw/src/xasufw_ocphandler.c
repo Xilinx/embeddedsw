@@ -39,6 +39,7 @@
 #include "xasufw_util.h"
 #include "xocp.h"
 #include "xsha_hw.h"
+#include "xocp_dme.h"
 
 #ifdef XASU_OCP_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -53,6 +54,8 @@ static s32 XAsufw_OcpDevIkCsrX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpDevIkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpDevAkX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpDevAkAttestation(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_OcpDmeChallengeReq(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+static s32 XAsufw_OcpDmePvtKeysEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_OcpResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
@@ -83,6 +86,10 @@ s32 XAsufw_OcpInit(void)
 			XASUFW_MODULE_COMMAND(XAsufw_OcpDevIkCsrX509CertGen),
 		[XASU_OCP_DEVAK_ATTESTATION_CMD_ID] =
 			XASUFW_MODULE_COMMAND(XAsufw_OcpDevAkAttestation),
+		[XASU_OCP_DME_CHALLENGE_REQ_CMD_ID] =
+			XASUFW_MODULE_COMMAND(XAsufw_OcpDmeChallengeReq),
+		[XASU_OCP_DME_PVT_KEYS_ENCRYPT_CMD_ID] =
+			XASUFW_MODULE_COMMAND(XAsufw_OcpDmePvtKeysEncrypt),
 	};
 
 	/**
@@ -92,16 +99,25 @@ s32 XAsufw_OcpInit(void)
 	static XAsufw_ResourcesRequired XAsufw_OcpResources[XASUFW_ARRAY_SIZE(XAsufw_OcpCmds)] = {
 		[XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
-			XASUFW_SHA3_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK,
+			XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_SHA3_RESOURCE_MASK |
+			XASUFW_ECC_RESOURCE_MASK,
 		[XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
-			XASUFW_SHA3_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK,
+			XASUFW_TRNG_RANDOM_BYTES_MASK |	XASUFW_SHA3_RESOURCE_MASK |
+			XASUFW_ECC_RESOURCE_MASK,
 		[XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
-			XASUFW_SHA3_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK,
+			XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_SHA3_RESOURCE_MASK |
+			XASUFW_ECC_RESOURCE_MASK,
 		[XASU_OCP_DEVAK_ATTESTATION_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
 			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
-			XASUFW_ECC_RESOURCE_MASK,
+			XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_ECC_RESOURCE_MASK,
+		[XASU_OCP_DME_CHALLENGE_REQ_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
+			XASUFW_OCP_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
+			XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_AES_RESOURCE_MASK |
+			XASUFW_SHA2_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK,
+		[XASU_OCP_DME_PVT_KEYS_ENCRYPT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK |
+			XASUFW_OCP_RESOURCE_MASK | XASUFW_AES_RESOURCE_MASK,
 	};
 
 	/** The XAsufw_OcpAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -110,6 +126,8 @@ s32 XAsufw_OcpInit(void)
 		[XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID),
 		[XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID),
 		[XASU_OCP_DEVAK_ATTESTATION_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_DEVAK_ATTESTATION_CMD_ID),
+		[XASU_OCP_DME_CHALLENGE_REQ_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_DME_CHALLENGE_REQ_CMD_ID),
+		[XASU_OCP_DME_PVT_KEYS_ENCRYPT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_OCP_DME_PVT_KEYS_ENCRYPT_CMD_ID),
 	};
 
 	XAsufw_OcpModule.Id = XASU_MODULE_OCP_ID;
@@ -430,6 +448,71 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function is a handler for DME challenge request.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if resource is allocated successfully.
+ *	- XASUFW_OCP_DME_CHALLENGE_RESPONSE_FAIL, if DME challenge response operation fails.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_OcpDmeChallengeReq(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_OcpDmeParams *OcpDmeParamsPtr = (const XAsu_OcpDmeParams *)(UINTPTR)ReqBuf->Arg;
+	(void)ReqId;
+
+	Status = XOcp_GenerateDmeResponse(XAsufw_OcpModule.AsuDmaPtr, OcpDmeParamsPtr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_DME_CHALLENGE_RESPONSE_FAIL);
+	}
+
+	if (XAsufw_ReleaseResource(XASUFW_OCP, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+
+	XAsufw_OcpModule.AsuDmaPtr = NULL;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for DME private keys encryption.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if resource is allocated successfully.
+ *	- XASUFW_OCP_DME_KEY_ENCRYPT_FAIL, in case of DME key encryption failure.
+ *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_OcpDmePvtKeysEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	const XAsu_OcpDmeKeyEncrypt *OcpDmeKeyEnc = (const XAsu_OcpDmeKeyEncrypt *)ReqBuf->Arg;
+	(void)ReqId;
+
+	Status = XOcp_EncryptDmeKeys(XAsufw_OcpModule.AsuDmaPtr, OcpDmeKeyEnc);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_DME_KEY_ENCRYPT_FAIL);
+	}
+
+	if (XAsufw_ReleaseResource(XASUFW_OCP, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_OcpModule.AsuDmaPtr = NULL;
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function allocates required resources for OCP module related commands.
  *
  * @param	ReqBuf	Pointer to the request buffer.
@@ -455,19 +538,31 @@ static s32 XAsufw_OcpResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Allocate OCP resource. */
 	XAsufw_AllocateResource(XASUFW_OCP, XASUFW_OCP, ReqId);
 
-	if ((CmdId == XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID) ||
-	    (CmdId == XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID) ||
-	    (CmdId == XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID)) {
-		/** Allocate SHA3 resource which are dependent on SHA3 HW. */
-		XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_OCP, ReqId);
-		XAsufw_OcpModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+	if (CmdId != XASU_OCP_DME_PVT_KEYS_ENCRYPT_CMD_ID) {
+		if ((CmdId == XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID) ||
+		    (CmdId == XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID) ||
+		    (CmdId == XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID)) {
+			/** Allocate SHA3 resource which are dependent on SHA3 HW. */
+			XAsufw_AllocateResource(XASUFW_SHA3, XASUFW_OCP, ReqId);
+			XAsufw_OcpModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+		} else if (CmdId == XASU_OCP_DME_CHALLENGE_REQ_CMD_ID) {
+			/** Allocate SHA2 resource which are dependent on SHA2 HW. */
+			XAsufw_AllocateResource(XASUFW_SHA2, XASUFW_OCP, ReqId);
+
+			/** Allocate AES resource. */
+			XAsufw_AllocateResource(XASUFW_AES, XASUFW_OCP, ReqId);
+		} else {
+			/* Do Nothing */
+		}
+		/** Allocate TRNG resource which are dependent on TRNG HW. */
+		XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_OCP, ReqId);
+
+		/** Allocate ECC resource. */
+		XAsufw_AllocateResource(XASUFW_ECC, XASUFW_OCP, ReqId);
+	} else {
+		/** Allocate AES resource. */
+		XAsufw_AllocateResource(XASUFW_AES, XASUFW_OCP, ReqId);
 	}
-
-	/** Allocate TRNG resource which are dependent on TRNG HW. */
-	XAsufw_AllocateResource(XASUFW_TRNG, XASUFW_OCP, ReqId);
-
-	/** Allocate ECC resource. */
-	XAsufw_AllocateResource(XASUFW_ECC, XASUFW_OCP, ReqId);
 
 	Status = XASUFW_SUCCESS;
 

@@ -486,19 +486,26 @@ static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 {
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+	u32 ModuleId = ((ReqBuf->Header & XASU_MODULE_ID_MASK) >> XASU_MODULE_ID_SHIFT);
 	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
 	XAsufw_Resource Resource = XASUFW_INVALID;
 
-	if (((CmdId == XASU_ECC_GEN_SIGNATURE_CMD_ID) ||
-	    (CmdId == XASU_ECC_VERIFY_SIGNATURE_CMD_ID) ||
-	    (CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID)) &&
-	    ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
-	    (EccParamsPtr->CurveType == XASU_ECC_NIST_P384))) {
-		Resource = XASUFW_ECC;
-	} else if (CmdId == XASU_ECC_KAT_CMD_ID) {
+	if (ModuleId == XASU_MODULE_ECC_ID) {
+		if (((CmdId == XASU_ECC_GEN_SIGNATURE_CMD_ID) ||
+		    (CmdId == XASU_ECC_VERIFY_SIGNATURE_CMD_ID) ||
+		    (CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID)) &&
+		    ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
+		    (EccParamsPtr->CurveType == XASU_ECC_NIST_P384))) {
+			Resource = XASUFW_ECC;
+		} else if (CmdId == XASU_ECC_KAT_CMD_ID) {
+			Resource = XASUFW_ECC;
+		} else {
+			Resource = XASUFW_RSA;
+		}
+	} else if (ModuleId == XASU_MODULE_OCP_ID) {
 		Resource = XASUFW_ECC;
 	} else {
-		Resource = XASUFW_RSA;
+		Resource = XASUFW_INVALID;
 	}
 
 	return Resource;

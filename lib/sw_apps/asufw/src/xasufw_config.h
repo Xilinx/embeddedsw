@@ -53,9 +53,9 @@ extern "C" {
 #define XASUFW_EFUSE_RED_KEY		(0X00000002U) /**< Efuse red key */
 
 /** Configure key transfer for either red key or black key */
-#define XASUFW_PMXC_EFUSE_USER_KEY_0 	(XASUFW_EFUSE_RED_KEY) /**< PMX eFuse user key 0
+#define XASUFW_PMXC_EFUSE_USER_KEY_0 	(XASUFW_EFUSE_BLACK_KEY) /**< PMX eFuse user key 0
 									configuration */
-#define XASUFW_PMXC_EFUSE_USER_KEY_1 	(XASUFW_EFUSE_RED_KEY) /**< PMX eFuse user key 1
+#define XASUFW_PMXC_EFUSE_USER_KEY_1 	(XASUFW_EFUSE_BLACK_KEY) /**< PMX eFuse user key 1
 									configuration */
 
 #define XASUFW_ENABLE_PERF_MEASUREMENT		(XASUFW_CONFIG_DISABLE) /**< To enable/disable

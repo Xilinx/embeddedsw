@@ -571,6 +571,21 @@ enum {
 	XASUFW_UPDATE_ACCESS_PERM_INVALID_MODULE_INFO, /**< 0x181U - Error when module information is
 						invalid */
 	XASUFW_ERR_UPDATE_ACCESS_PERM_FAILED, /**< 0x182U - Error when updating access permissions */
+	XASUFW_OCP_DME_ALL_PVT_KEYS_REVOKED, /**< 0x183U - Error when all DME private keys are revoked */
+	XASUFW_OCP_DME_EPHEMERAL_KEY_GEN_FAIL, /**< 0x184U - Error when DME ephemeral key generation is failed */
+	XASUFW_OCP_DEVICE_ID_CALC_FAIL, /**< 0x185U - Error when device ID calculation is failed */
+	XASUFW_OCP_NONCE_UPDATE_FAIL, /**< 0x186U - Error when nonce update is failed */
+	XASUFW_OCP_MEASUREMENT_UPDATE_FAIL, /**< 0x187U - Error when measurement update is failed */
+	XASUFW_OCP_DME_SIGNATURE_GEN_FAIL, /**< 0x188U - Error when DME signature generation is failed */
+	XASUFW_OCP_AES_WRITE_KEY_FAILURE, /**< 0x189U - Error when AES write key operation fails */
+	XASUFW_OCP_DME_KEY_ENCRYPT_FAIL, /**< 0x18AU - Error when DME key encryption is failed */
+	XASUFW_OCP_DME_KEY_DECRYPT_FAIL, /**< 0x18BU - Error when DME key decryption is failed */
+	XASUFW_DME_DECRYPT_BLACK_KEY_0_FAIL, /**< 0x18CU - Error when DME decrypts black key 0 fails */
+	XASUFW_DME_CMAC_KDF_FAIL, /**< 0x18DU - Error when DME CMAC KDF operation fails */
+	XASUFW_OCP_DME_AES_COMPUTE_FAIL, /**< 0x18EU - Error when DME AES compute operation fails */
+	XASUFW_OCP_DME_CHALLENGE_RESPONSE_FAIL, /**< 0x18FU - Error when DME challenge response operation fails */
+	XASUFW_OCP_SHA_DIGEST_FAIL, /**< 0x190U - Error when SHA digest operation fails */
+	XASUFW_OCP_DME_CHANGE_ENDIANNESS_ERROR, /**< 0x191U - Error when DME change endianness operation fails */
 
 	/* Additional status success codes */
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify

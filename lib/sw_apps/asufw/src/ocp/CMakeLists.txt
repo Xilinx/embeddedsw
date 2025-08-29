@@ -3,3 +3,5 @@
 
 collect (PROJECT_LIB_SOURCES xocp.c)
 collect (PROJECT_LIB_HEADERS xocp.h)
+collect (PROJECT_LIB_SOURCES xocp_dme.c)
+collect (PROJECT_LIB_HEADERS xocp_dme.h)

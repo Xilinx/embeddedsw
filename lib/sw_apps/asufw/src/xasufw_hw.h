@@ -55,6 +55,11 @@ extern "C" {
  #define PMC_TAP_VERSION_PLATFORM_COSIM				(0x7U) /**< QEMU+COSIM platform */
 
 /*
+ * Definitions required from pmc_global.h
+ */
+#define PMC_GLOBAL_HW_PCR_0_ADDR			(0xF1115200U)	/**< HW PCR 0 address */
+
+/*
  * Definitions required from asu_global.h
  */
 /** ASU_GLOBAL base address */
@@ -119,6 +124,27 @@ extern "C" {
 
 /** EFUSE_CACHE Device DNA Size in bytes */
 #define EFUSE_CACHE_DNA_SIZE				(16U)
+
+/**< EFUSE_CACHE DME FIPS address */
+#define EFUSE_CACHE_DME_FIPS_ADDRESS			(EFUSE_CACHE_BASEADDR + 0x0000234U)
+
+/**< EFUSE_CACHE DME Revoke 0 Mask */
+#define EFUSE_CACHE_DME_REVOKE_0_MASK			(0x30U)
+
+/**< EFUSE_CACHE DME Revoke 1 Mask */
+#define EFUSE_CACHE_DME_REVOKE_1_MASK			(0xC0U)
+
+/**< EFUSE_CACHE DME Revoke 2 Mask */
+#define EFUSE_CACHE_DME_REVOKE_2_MASK			(0x300U)
+
+/**< EFUSE_CACHE DME User Key 0 Address */
+#define EFUSE_CACHE_USERKEY_0_ADDR			(EFUSE_CACHE_BASEADDR + 0x00000240U)
+
+/**< EFUSE_CACHE DME User Key 1 Address */
+#define EFUSE_CACHE_USERKEY_1_ADDR			(EFUSE_CACHE_BASEADDR + 0x00000270U)
+
+/**< EFUSE_CACHE DME User Key 2 Address */
+#define EFUSE_CACHE_USERKEY_2_ADDR			(EFUSE_CACHE_BASEADDR + 0x000002A0U)
 
 /************************************** Type Definitions *****************************************/
 

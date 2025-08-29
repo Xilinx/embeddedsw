@@ -54,6 +54,7 @@
 #include "xasu_def.h"
 #include "xasufw_alginfo.h"
 #include "xasufw_kat.h"
+#include "xocp_dme.h"
 
 /************************************ Constant Definitions ***************************************/
 #define MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK	(0x2U) /**< IO Module PIT1 prescaler source mask */
@@ -72,7 +73,11 @@
 #define XASUFW_MEGA			(1000000U) /**< Value for mega */
 #define XASUFW_KILO			(1000UL) /**< Value for kilo */
 #define XASUFW_WORD_SIZE_IN_BITS	(32U) /**< Word size in bits */
-#define XASUFW_KEY_TX_PAYLOAD_RESP_SIZE (1U) /**< Key transfer payload response size */
+#define XASUFW_KEY_TX_PAYLOAD_SIZE 	(2U) /**< Key transfer payload size */
+#define XASUFW_PAYLOAD_INDEX_0		(0U) /**< Key transfer payload index 0 */
+#define XASUFW_PAYLOAD_INDEX_1		(1U) /**< Key transfer payload index 1 */
+#define XASUFW_RESPONSE_INDEX_0		(0U) /**< Key transfer response index 0 */
+#define XASUFW_RESPONSE_INDEX_1		(1U) /**< Key transfer response index 1 */
 
 /**
  * @brief	Initializes the version, NIST compliance status, and clears KAT bits for a
@@ -105,6 +110,7 @@ static void XAsufw_Pit3TimerHandler(const void *Data);
 
 /************************************ Variable Definitions ***************************************/
 static XIOModule IOModule; /* Instance of the IO Module */
+static u32 PufKekFlag = XASUFW_PUF_KEK_GEN_FAILURE; /**< PUF KEK generation status */
 
 /*************************************************************************************************/
 /**
@@ -424,8 +430,8 @@ void XAsufw_RtcaInit(void)
 s32 XAsufw_PmcKeyTransfer(void)
 {
 	s32 Status = XASUFW_FAILURE;
-	s32 Response = XASUFW_FAILURE;
-	u32 Payload;
+	u32 Response[XASUFW_KEY_TX_PAYLOAD_SIZE] = {0U};
+	u32 Payload[XASUFW_KEY_TX_PAYLOAD_SIZE];
 
 	/** Transfer efuse key_0 is black or red based on user configuration. */
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_0_BLACK_OR_RED_OFFSET),
@@ -439,10 +445,12 @@ s32 XAsufw_PmcKeyTransfer(void)
 	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_ASU_PMXC_KEY_TRANSFER_READY_OFFSET),
 		XAES_ASU_PMXC_KEY_TRANSFER_READY_MASK);
 
-	Payload = XASUFW_PLM_IPI_HEADER(0U, XASUFW_PLM_ASU_KEY_TX_API_ID, XASUFW_PLM_ASU_MODULE_ID);
+	Payload[XASUFW_PAYLOAD_INDEX_0] = XASUFW_PLM_IPI_HEADER(0U, XASUFW_PLM_ASU_KEY_TX_API_ID,
+			XASUFW_PLM_ASU_MODULE_ID);
+	Payload[XASUFW_PAYLOAD_INDEX_1] = XASU_RTCA_BH_IV_ADDR;
 
 	/** Send Key transfer IPI request to PLM. */
-	Status = XAsufw_SendIpiToPlm(&Payload, XASUFW_KEY_TX_PAYLOAD_RESP_SIZE);
+	Status = XAsufw_SendIpiToPlm(Payload, XASUFW_KEY_TX_PAYLOAD_SIZE);
 	if (Status != XASUFW_SUCCESS) {
 		XAsufw_Printf(DEBUG_INFO, "Send IPI to PLM failed\r\n");
 		goto END;
@@ -461,12 +469,52 @@ s32 XAsufw_PmcKeyTransfer(void)
 		XAES_KV_INTERRUPT_STATUS_CLEAR_MASK);
 
 	/** Read Key transfer response received from PLM. */
-	Status = XAsufw_ReadIpiRespFromPlm((u32 *)(UINTPTR)&Response, XASUFW_KEY_TX_PAYLOAD_RESP_SIZE);
-	if ((Status != XASUFW_SUCCESS) || (Response != XASUFW_SUCCESS)) {
+	Status = XAsufw_ReadIpiRespFromPlm(Response, XASUFW_KEY_TX_PAYLOAD_SIZE);
+	if ((Status != XASUFW_SUCCESS) || (Response[XASUFW_RESPONSE_INDEX_0] != (u32)XASUFW_SUCCESS)) {
 		XAsufw_Printf(DEBUG_INFO, "Read IPI response from PLM failed\r\n");
 	}
 
+	PufKekFlag = Response[XASUFW_RESPONSE_INDEX_1];
 END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function executes the key transfer task handler.
+ *
+ * @param	KeyTransferTask		Pointer to the key transfer task instance.
+ *
+ * @return
+ *	- Always returns XASUFW_SUCCESS.
+ *
+ *************************************************************************************************/
+s32 XAsufw_RunKeyTransferTaskHandler(void *KeyTransferTask)
+{
+	s32 Status = XASUFW_FAILURE;
+	XTask_TaskNode *SelfKeyTransferTask = (XTask_TaskNode *)KeyTransferTask;
+
+	/** Get keys from PMC. */
+	Status = XAsufw_PmcKeyTransfer();
+	if (XASUFW_SUCCESS != Status) {
+		XAsufw_Printf(DEBUG_GENERAL, "ASUFW key transfer failed. Error: 0x%x\r\n", Status);
+		goto END;
+	}
+
+	if (PufKekFlag == XASUFW_PUF_KEK_GEN_SUCCESS) {
+		/** Generate DME KEK if PUF KEK generation is successful. */
+		Status = XOcp_GenerateDmeKek();
+		if (Status != XASUFW_SUCCESS) {
+			XAsufw_Printf(DEBUG_GENERAL, "ASUFW DME KEK generation failed. Error: 0x%x\r\n", Status);
+		}
+	} else {
+		XAsufw_DisableResource(XASUFW_OCP);
+	}
+
+END:
+	/** Delete self task after completion. */
+	XTask_Delete(SelfKeyTransferTask);
+
 	return Status;
 }
 
