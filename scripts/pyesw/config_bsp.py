@@ -72,13 +72,14 @@ def configure_bsp(args):
                  Use config_bsp.py if you want to configure the library.
             """)
             sys.exit(1)
+        obj.gen_lib_list()
+        obj.is_valid_lib(lib_name,silent_discard=False)
+        lib_list = obj.get_depends_libs(lib_name, lib_list=[lib_name])
         validate_obj = ValidateHW(
             obj.domain_path, obj.proc, obj.os, obj.sdt,
             lib_name, obj.repo_yaml_path
         )
         validate_obj.validate_hw()
-        obj.gen_lib_list()
-        lib_list = obj.get_depends_libs(lib_name, lib_list=[lib_name])
         # Remove duplicate libs
         lib_list = list(dict.fromkeys(lib_list))
         for lib in lib_list:

@@ -282,21 +282,17 @@ class Library(Repo):
         return True
 
     def is_valid_lib(self, comp_name, silent_discard=True):
-        comp_dir = self.get_comp_dir(comp_name)
-        yaml_file = os.path.join(comp_dir, "data", f"{comp_name}.yaml")
-        schema = utils.load_yaml(yaml_file)
-        cpu_list_file = os.path.join(self.domain_path, "cpulist.yaml")
-        avail_cpu_data = utils.fetch_yaml_data(cpu_list_file, "cpulist")
-        if schema.get("supported_processors"):
-            proc_list = schema.get("supported_processors")
-            proc_ip_name = avail_cpu_data[self.proc]
-            if proc_ip_name in proc_list:
+        lib_list_file = os.path.join(self.domain_path, "lib_list.yaml")
+        avail_lib_data = utils.load_yaml(lib_list_file)
+        if avail_lib_data[self.proc]:
+            if comp_name in avail_lib_data[self.proc][self.os]:
                 return True
             else:
                 if not silent_discard:
-                    logger.warning(
+                    logger.error(
                         f"{comp_name} Library is not valid for the given processor: {self.proc}"
                     )
+                    sys.exit(1)
                 return False
         return True
 
@@ -304,9 +300,9 @@ class Library(Repo):
         app_dir = self.get_comp_dir(lib_name)
         yaml_file = os.path.join(app_dir, "data", f"{lib_name}.yaml")
         schema = utils.load_yaml(yaml_file)
-
         if schema and schema.get("depends_libs", {}):
-           for name, props in schema["depends_libs"].items():
+            logger.info(f"{lib_name} library depends on the following libraries: {list(schema.get('depends_libs', {}).keys())}")
+            for name, props in schema["depends_libs"].items():
                 if not self.is_valid_lib(name, silent_discard=False):
                     continue
                 lib_list += [name]
