@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
+* 5.2   se     08/24/25 Microblaze support added
 *
 * </pre>
 *
@@ -38,12 +39,15 @@ extern "C" {
 #if defined (ARMR5) || defined (__aarch64__)
 #include "xscugic.h"
 #endif
+#if defined (PLATFORM_MB) && defined (XIL_INTERRUPT) && defined (SDT)
+#include "xinterrupt_wrap.h"
+#endif
 
 int XSysMonPsv_EnableVoltageEvents(XSysMonPsv *InstancePtr, u32 Supply,
 				   u32 IntrNum);
 int XSysMonPsv_DisableVoltageEvents(XSysMonPsv *InstancePtr, u32 Supply);
 
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (PLATFORM_MB)
 void XSysMonPsv_RegisterDevTempCallback(XSysMonPsv *InstancePtr,
 					XSysMonPsv_Handler CallbackFunc,
 					void *CallbackRef);
@@ -58,6 +62,9 @@ void XSysMonPsv_RegisterSupplyCallback(XSysMonPsv *InstancePtr,
 				       void *CallbackRef);
 void XSysMonPsv_UnregisterSupplyCallback(XSysMonPsv *InstancePtr, u32 Supply);
 void XSysMonPsv_IntrHandler(XSysMonPsv *InstancePtr);
+#endif
+
+#if defined (ARMR5) || defined (__aarch64__)
 int XSysMonPsv_SetupInterrupts(XScuGic *IntcInstancePtr,
 			       XSysMonPsv *InstancePtr, u16 IntrId);
 #endif

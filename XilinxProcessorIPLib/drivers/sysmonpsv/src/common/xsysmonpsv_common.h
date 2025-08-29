@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,8 @@
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
 * 4.0   se     10/04/22 Update return value definitions
+* 5.2   se     08/24/25 Microblaze support added
+*
 * </pre>
 *
 ******************************************************************************/
@@ -57,6 +59,8 @@ extern "C" {
 
 #define XSYSMONPSV_UP_SAT_VAL 0xFFFF /**< Upper saturation value */
 #define XSYSMONPSV_LOW_SAT_VAL 0x0000 /**< Upper saturation value */
+
+#define XSYSMONPSV_MILLI_SCALE 1000
 
 #define compare(val, thresh)                                                   \
 	(((val)&0x8000) || ((thresh)&0x8000) ?                                 \

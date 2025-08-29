@@ -31,9 +31,11 @@
 * 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
 * 4.0   se     10/04/22 Update return value definitions
-*		se	   11/10/22 Secure and Non-Secure mode integration
+* 4.0   se     11/10/22 Secure and Non-Secure mode integration
 * 4.1   cog    07/18/23 Add support for SDT flow
 * 5.1   se     03/03/25 Compiler warnings fixed
+* 5.2   se     08/24/25 Microblaze support added
+*
 * </pre>
 *
 ******************************************************************************/
@@ -77,6 +79,10 @@ typedef struct {
 	char *Name;
 #endif
 	UINTPTR BaseAddress; /**< Register base address */
+#ifdef SDT
+	u16 IntrId;
+	UINTPTR IntrParent;
+#endif
 	u8 Supply_List[XSYSMONPSV_MAX_SUPPLIES]; /**< Maps voltage supplies in
                                                   use to the Supply registers */
 } XSysMonPsv_Config;
@@ -108,7 +114,7 @@ typedef struct {
  */
 typedef struct {
 	XSysMonPsv_Config Config; /**< Device configuration */
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (PLATFORM_MB)
 	XSysMonPsv_EventHandler
 		SupplyEvent[XSYSMONPSV_MAX_SUPPLIES]; /**< EventList will
                                                           have callbacks for

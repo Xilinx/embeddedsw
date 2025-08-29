@@ -31,6 +31,8 @@
 * 5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
 *                       voltage supplies and temperature satellites.
 * 5.1   se     03/03/25 Compiler warnings fixed
+* 5.2   se     08/24/25 Microblaze support added and processed values are
+*                       printed on milli scale.
 *
 * </pre>
 *
@@ -38,8 +40,9 @@
 
 /***************************** Include Files ********************************/
 
-#include <stdio.h>
+#include "xil_printf.h"
 #include "xsysmonpsv.h"
+#include "sleep.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -135,7 +138,12 @@ int SysMonPsvIntrExample()
 	float ProcessedValue;
 	XSysMonPsv Instance;
 	XSysMonPsv *InstancePtr = &Instance;
+#if defined (ARMR5) || defined (__aarch64__)
 	XScuGic IntcInst;
+#endif
+#if defined (PLATFORM_MB)
+	XIntc IntcInst;
+#endif
 	u32 ThresholdValue;
 	u32 Val;
 	XSysMonPsv_Supply Supply = (XSysMonPsv_Supply)0;
@@ -146,64 +154,65 @@ int SysMonPsvIntrExample()
 #endif
 
 	XSysMonPsv_Init(InstancePtr, &IntcInst);
-	printf("Entering the SysMon Intr Example\r\n");
+	xil_printf("Entering the SysMon Intr Example\r\n");
 
 	ret = XSysMonPsv_ReadTempProcessed(InstancePtr, XSYSMONPSV_TEMP_MAX,
 					   &ProcessedValue);
 	if (ret) {
-		printf("\tXSysMonPsv_ReadTempProcessed failed\r\n");
+		xil_printf("\tXSysMonPsv_ReadTempProcessed failed\r\n");
 	} else {
-		printf("\tTemperature Max Processed Value %f\r\n",
-		       ProcessedValue);
+		xil_printf("\tTemperature Max Processed Value %d mDeg C\r\n",
+			   (int)(ProcessedValue * XSYSMONPSV_MILLI_SCALE));
 	}
 
 	ret = XSysMonPsv_ReadTempProcessed(InstancePtr, XSYSMONPSV_TEMP_MIN,
 					   &ProcessedValue);
 	if (ret) {
-		printf("\tXSysMonPsv_ReadTempProcessed failed\r\n");
+		xil_printf("\tXSysMonPsv_ReadTempProcessed failed\r\n");
 	} else {
-		printf("\tTemperature Min Processed Value %f\r\n\n",
-		       ProcessedValue);
+		xil_printf("\tTemperature Min Processed Value %d mDeg C\r\n\n",
+			   (int)(ProcessedValue * XSYSMONPSV_MILLI_SCALE));
 	}
 
 	ret = XSysMonPsv_ReadTempRaw(InstancePtr, XSYSMONPSV_TEMP_MAX, &Val);
 	if (ret) {
-		printf("\tXSysMonPsv_ReadTempRaw failed\r\n");
+		xil_printf("\tXSysMonPsv_ReadTempRaw failed\r\n");
 	} else {
-		printf("\tTemperature Max Raw Value 0x%x\r\n", (unsigned int)Val);
+		xil_printf("\tTemperature Max Raw Value 0x%x\r\n", (unsigned int)Val);
 	}
 
 	ret = XSysMonPsv_ReadTempRaw(InstancePtr, XSYSMONPSV_TEMP_MIN, &Val);
 	if (ret) {
-		printf("\tXSysMonPsv_ReadTempRaw failed\r\n");
+		xil_printf("\tXSysMonPsv_ReadTempRaw failed\r\n");
 	} else {
-		printf("\tTemperature Min Raw Value 0x%x\r\n\n", (unsigned int)Val);
+		xil_printf("\tTemperature Min Raw Value 0x%x\r\n\n", (unsigned int)Val);
 	}
 
 	ret = XSysMonPsv_SetTempThresholdUpper(InstancePtr,
 					       XSYSMONPSV_TEMP_EVENT, 0x7FFF);
 	if (ret) {
-		printf("\tXSysMonPsv_SetTempThresholdUpper failed\r\n");
+		xil_printf("\tXSysMonPsv_SetTempThresholdUpper failed\r\n");
 	}
 
 	ret = XSysMonPsv_SetTempThresholdLower(InstancePtr,
 					       XSYSMONPSV_TEMP_EVENT, 0x0);
 	if (ret) {
-		printf("\tXSysMonPsv_SetTempThresholdLower failed\r\n");
+		xil_printf("\tXSysMonPsv_SetTempThresholdLower failed\r\n");
 	}
 
 	XSysMonPsv_GetTempThresholdUpper(InstancePtr, XSYSMONPSV_TEMP_EVENT,
 					 &ThresholdValue);
-	printf("\tTemperature Upper Threshold Value = 0x%x\r\n", (unsigned int)ThresholdValue);
+	xil_printf("\tTemperature Upper Threshold Value = 0x%x\r\n",
+		   (unsigned int)ThresholdValue);
 	XSysMonPsv_GetTempThresholdLower(InstancePtr, XSYSMONPSV_TEMP_EVENT,
 					 &ThresholdValue);
-	printf("\tTemperature Lower Threshold Value = 0x%x\r\n\n",
-	       (unsigned int)ThresholdValue);
+	xil_printf("\tTemperature Lower Threshold Value = 0x%x\r\n\n",
+		   (unsigned int)ThresholdValue);
 
 	ret = XSysMonPsv_RegisterDeviceTempOps(InstancePtr, &Temp_CallbackFunc,
 					       &Val);
 	if (ret) {
-		printf("\tXSysMonPsv_RegisterDeviceTempOps failed\r\n");
+		xil_printf("\tXSysMonPsv_RegisterDeviceTempOps failed\r\n");
 	}
 
 	/*Set Window Mode*/
@@ -211,29 +220,38 @@ int SysMonPsvIntrExample()
 
 	/* To Trigger Interrupt for temp*/
 	TempInterruptOccured = 0;
+	xil_printf("\tSet threshold and wait for Temperature Interrupt\r\n");
 	XSysMonPsv_SetTempThresholdUpper(InstancePtr, XSYSMONPSV_TEMP_EVENT,
 					 0x0);
-	xil_printf("\tWaiting for Temperature Interrupt\r\n");
-	while(TempInterruptOccured == 0);
-	xil_printf("\tInterrupt Triggered for Temperature\r\n");
+	do {
+		/* It is not mandatory to wait here by sleeping.
+		* Sleep here just because of PMC EAM warnings
+		* are printed to stdout at the same time with the following
+		* printf call. It prevents collision on prints by giving
+		* enough time without overlapping of messages.
+		*/
+		usleep(50000);
+	}while(TempInterruptOccured == 0);
+	xil_printf("\r\n\tInterrupt Triggered for Temperature\r\n");
 
 	if (Supply != EndList) {
 		ret = XSysMonPsv_ReadSupplyProcessed(InstancePtr, Supply,
 						     &ProcessedValue);
 		if (ret) {
-			printf("\tXSysMonPsv_ReadSupplyProcessed(%d) failed\r\n",
+			xil_printf("\tXSysMonPsv_ReadSupplyProcessed(%d) failed\r\n",
 			       Supply);
 		} else {
-			printf("\tSupply %s Processed Value %f\r\n",
-			       XSysMonPsv_Supply_Arr[Supply], ProcessedValue);
+			xil_printf("\tSupply %s Processed Value %d mV\r\n",
+				   XSysMonPsv_Supply_Arr[Supply],
+			           (int)(ProcessedValue * XSYSMONPSV_MILLI_SCALE));
 		}
 
 		ret = XSysMonPsv_ReadSupplyRaw(InstancePtr, Supply, &Val);
 		if (ret) {
-			printf("\tXSysMonPsv_ReadSupplyRaw(%d) failed\r\n",
+			xil_printf("\tXSysMonPsv_ReadSupplyRaw(%d) failed\r\n",
 			       Supply);
 		} else {
-			printf("\tSupply %s Raw Value 0x%x\r\n\n",
+			xil_printf("\tSupply %s Raw Value 0x%x\r\n\n",
 			       XSysMonPsv_Supply_Arr[Supply], (unsigned int)Val);
 		}
 
@@ -243,27 +261,35 @@ int SysMonPsvIntrExample()
 						   0x7fff);
 		XSysMonPsv_GetSupplyThresholdUpper(InstancePtr, Supply,
 						   &ThresholdValue);
-		printf("\tSupply Upper Threshold Value = 0x%x\r\n",
+		xil_printf("\tSupply Upper Threshold Value = 0x%x\r\n",
 		       (unsigned int)ThresholdValue);
 		XSysMonPsv_GetSupplyThresholdLower(InstancePtr, Supply,
 						   &ThresholdValue);
-		printf("\tSupply Lower Threshold Value = 0x%x\r\n\n",
+		xil_printf("\tSupply Lower Threshold Value = 0x%x\r\n\n",
 		       (unsigned int)ThresholdValue);
 
 		ret = XSysMonPsv_RegisterSupplyOps(
 			InstancePtr, Supply, &Supply_CallbackFunc, &Supply);
 		if (ret) {
-			printf("\tXSysMonPsv_RegisterSupplyOps failed\r\n");
+			xil_printf("\tXSysMonPsv_RegisterSupplyOps failed\r\n");
 		}
 
 		SupplyInterruptOccured = 0;
 		XSysMonPsv_EnableVoltageEvents(InstancePtr, Supply, 0);
 
 		/* To Trigger Interrupt for supply*/
+		xil_printf("\tSet threshold and wait for Supply Interrupt\r\n");
 		XSysMonPsv_SetSupplyThresholdUpper(InstancePtr, Supply, 0);
-		xil_printf("\tWaiting for Supply Interrupt\r\n");
-		while(SupplyInterruptOccured == 0);
-		xil_printf("\tInterrupt Triggered for Supply\r\n");
+		do {
+			/* It is not mandatory to wait here by sleeping.
+			* Sleep here just because of PMC EAM warnings
+			* are printed to stdout at the same time with the following
+			* printf call. It prevents collision on prints by giving
+			* enough time without overlapping of messages.
+			*/
+			usleep(50000);
+		}while(SupplyInterruptOccured == 0);
+		xil_printf("\r\n\tInterrupt Triggered for Supply\r\n");
 	}
 	return ret;
 }

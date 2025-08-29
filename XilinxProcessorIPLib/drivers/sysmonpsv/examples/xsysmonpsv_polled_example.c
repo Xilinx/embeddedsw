@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,8 @@
 * 3.1   cog    04/09/22 Fix supply iterator
 * 5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
 *                       voltage supplies and temperature satellites.
+* 5.2   se     08/24/25 Microblaze support added and processed values are
+*                       printed on milli scale.
 *
 * </pre>
 *
@@ -41,7 +43,7 @@
 #include "xsysmonpsv.h"
 #include "xparameters.h"
 #include "xstatus.h"
-#include "stdio.h"
+#include "xil_printf.h"
 
 /************************** Function Prototypes *****************************/
 
@@ -97,27 +99,31 @@ int SysMonPsvPolledExample()
 	int Supply = 0;
 
 	XSysMonPsv_Init(&InstancePtr, NULL);
+	xil_printf("Entering the SysMon Polled Example\r\n");
 
 	if (Supply != (int)EndList) {
 		do {
 			XSysMonPsv_ReadSupplyProcessed(&InstancePtr, Supply,
 						       &Voltage);
-			printf("Voltage for %s=%fv \r\n",
-			       XSysMonPsv_Supply_Arr[Supply], Voltage);
+			xil_printf("\tVoltage for %s\t= %d mV \r\n",
+				   XSysMonPsv_Supply_Arr[Supply],
+				   (int)(Voltage * XSYSMONPSV_MILLI_SCALE));
 			Supply++;
 		} while (Supply != (int)EndList);
 	} else {
-		printf("No Supplies Enabled\r\n");
+		xil_printf("No Supplies Enabled\r\n");
 	}
 
 	/* There is no polling mechanism to read the new temperature data */
 	XSysMonPsv_ReadTempProcessed(&InstancePtr, XSYSMONPSV_TEMP_MIN,
 				     &TempMin);
-	printf("Current Minimum Temperature on the chip = %fC \r\n", TempMin);
+	xil_printf("\tCurrent Minimum Temperature on the chip = %d mDeg C \r\n",
+		   (int)(TempMin * XSYSMONPSV_MILLI_SCALE));
 
 	XSysMonPsv_ReadTempProcessed(&InstancePtr, XSYSMONPSV_TEMP_MAX,
 				     &TempMax);
-	printf("Current Maximum Temperature on the chip = %fC \r\n", TempMax);
+	xil_printf("\tCurrent Maximum Temperature on the chip = %d mDeg C \r\n",
+		   (int)(TempMax * XSYSMONPSV_MILLI_SCALE));
 
 	return XST_SUCCESS;
 }

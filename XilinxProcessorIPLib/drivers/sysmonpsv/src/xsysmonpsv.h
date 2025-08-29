@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +40,7 @@
 * 4.0   se     10/04/22 Update return value definitions
 * 5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
 *                       voltage supplies and temperature satellites.
+* 5.2   se     08/24/25 Microblaze support added
 *
 * </pre>
 *
@@ -61,6 +62,9 @@ extern "C" {
 #include "xsysmonpsv_services.h"
 #if defined (ARMR5) || defined (__aarch64__)
 #include "xscugic.h"
+#endif
+#if defined (PLATFORM_MB) && defined (XIL_INTERRUPT) && defined (SDT)
+#include "xinterrupt_wrap.h"
 #endif
 /**************************** Type Definitions *******************************/
 
@@ -342,7 +346,7 @@ int XSysMonPsv_EnableSupplyAverage(XSysMonPsv *InstancePtr,
 void XSysMonPsv_SetSupplyAverageRate(XSysMonPsv *InstancePtr, u8 AverageRate);
 int XSysMonPsv_GetSupplyAverageRate(XSysMonPsv *InstancePtr, u8 *AverageRate);
 
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined  (PLATFORM_MB)
 int XSysMonPsv_RegisterDeviceTempOps(XSysMonPsv *InstancePtr,
 				     XSysMonPsv_Handler CallbackFunc,
 				     void *CallbackRef);
@@ -358,7 +362,7 @@ int XSysMonPsv_RegisterSupplyOps(XSysMonPsv *InstancePtr,
 int XSysMonPsv_UnregisterSupplyOps(XSysMonPsv *InstancePtr,
 				   XSysMonPsv_Supply Supply);
 
-int XSysMonPsv_Init(XSysMonPsv *InstancePtr, XScuGic *IntcInst);
+int XSysMonPsv_Init(XSysMonPsv *InstancePtr, void *IntcInst);
 #endif
 
 /* Interrupt functions in xsysmonpsv_intr.c */
@@ -370,7 +374,7 @@ void XSysMonPsv_IntrClear(XSysMonPsv *InstancePtr, u32 Mask);
 void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
 				 XSysMonPsv_Supply Supply, u32 Mask);
 
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (PLATFORM_MB)
 void XSysMonPsv_SetTempEventHandler(XSysMonPsv *InstancePtr,
 				    XSysMonPsv_Handler CallbackFunc,
 				    void *CallbackRef);

@@ -16,6 +16,7 @@
 # 2.1   aad  03/29/21 Add supply names in string format.
 # 2.3   aad  07/15/21 Add support for SSIT devices
 # 4.2   cog  04/09/24 Handle secondary SLRs
+# 5.2   se   08/24/25 Microblaze support added
 #
 ##############################################################################
 
@@ -199,7 +200,7 @@ proc generate_sysmon_config {drv_handle file_name drv_string args} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
     if {$proc_type == "psv_cortexa72" || $proc_type == "psv_cortexr5" || $proc_type == "psu_cortexa72" ||
-	    $proc_type == "psu_cortexr5"} {
+	    $proc_type == "psu_cortexr5" || $proc_type == "microblaze"} {
 	    puts $config_file "const char * [format "\ %s_Supply_Arr" $drv_string]\[\] = {"
 	    for {set index 0} {$index < 160} {incr index} {
 		    set measid "C_MEAS_${index}"

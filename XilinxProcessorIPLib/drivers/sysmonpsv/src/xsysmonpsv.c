@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
 *       se     11/10/22 Secure and Non-Secure mode integration
 * 5.0   se     08/01/24 Added new APIs to enable, set and get averaging for
 *                       voltage supplies and temperature satellites.
+* 5.2   se     08/24/25 Microblaze support added
 *
 * </pre>
 *
@@ -77,8 +78,17 @@ s64 XSysMonPsv_CfgInitialize(XSysMonPsv *InstancePtr, XSysMonPsv_Config *CfgPtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
 
+#ifdef SDT
+	InstancePtr->Config.Name = CfgPtr->Name;
+#endif
+
 	/* Set the values read from the device config and the base address. */
 	InstancePtr->Config.BaseAddress = CfgPtr->BaseAddress;
+
+#ifdef SDT
+	InstancePtr->Config.IntrId = CfgPtr->IntrId;
+	InstancePtr->Config.IntrParent = CfgPtr->IntrParent;
+#endif
 
 	/* Map Supplies to supply registers */
 	for (i = 0U; i < XSYSMONPSV_MAX_SUPPLIES; i++) {
@@ -1486,7 +1496,7 @@ int XSysMonPsv_GetSupplyAverageRate(XSysMonPsv *InstancePtr, u8 *AverageRate)
 	return XST_SUCCESS;
 }
 
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (PLATFORM_MB)
 /******************************************************************************/
 /**
  * Registers callback function for the device. This is wrapper
@@ -1641,7 +1651,6 @@ int XSysMonPsv_UnregisterSupplyOps(XSysMonPsv *InstancePtr,
 
 	return XST_SUCCESS;
 }
-
 /****************************************************************************/
 /**
 *
@@ -1657,9 +1666,9 @@ int XSysMonPsv_UnregisterSupplyOps(XSysMonPsv *InstancePtr,
 *
 *
 *****************************************************************************/
-int XSysMonPsv_Init(XSysMonPsv *InstancePtr, XScuGic *IntcInst)
+int XSysMonPsv_Init(XSysMonPsv *InstancePtr, void *IntcInst)
 {
-	int Status;
+	int Status = XST_FAILURE;
 	XSysMonPsv_Config *ConfigPtr;
 	u32 Mask;
 
@@ -1689,8 +1698,19 @@ int XSysMonPsv_Init(XSysMonPsv *InstancePtr, XScuGic *IntcInst)
 	XSysMonPsv_InterruptClear(InstancePtr, XSYSMONPSV_INTR_MASK);
 
 	if (IntcInst != NULL) {
-		Status = XSysMonPsv_SetupInterrupts(IntcInst, InstancePtr,
+#if defined (ARMR5) || defined (__aarch64__)
+		Status = XSysMonPsv_SetupInterrupts((XScuGic *)IntcInst, InstancePtr,
 						    XSYSMONPSV_INTR_0_ID);
+#endif
+#if defined (PLATFORM_MB) && defined (XIL_INTERRUPT) && defined (SDT)
+#if defined (XSYSMONPSV_AXI_INTR_ID) && defined (XSYSMONPSV_AXI_INTR_PAR)
+		InstancePtr->Config.IntrId = XSYSMONPSV_AXI_INTR_ID;
+		InstancePtr->Config.IntrParent = XSYSMONPSV_AXI_INTR_PAR;
+#endif
+		Status = XSetupInterruptSystem(InstancePtr, XSysMonPsv_IntrHandler,
+					       InstancePtr->Config.IntrId, InstancePtr->Config.IntrParent,
+					       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}

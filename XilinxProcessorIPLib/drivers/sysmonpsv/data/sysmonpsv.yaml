@@ -7,6 +7,7 @@ title: Bindings for Versal Sysmon controller
 
 maintainers:
   - Conall O Griofa <conall.ogriofa@amd.com>
+  - Salih Erim <salih.erim@amd.com>
 
 type: driver
 
@@ -26,6 +27,8 @@ config:
 required:
     - compatible
     - reg
+    - interrupts
+    - interrupt-parent
     - child,required:
         - reg
 
