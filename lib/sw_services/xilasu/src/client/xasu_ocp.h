@@ -52,6 +52,8 @@ s32 XAsu_OcpGetDevIkCsr(XAsu_ClientParams *ClientParamPtr,
 			XAsu_OcpCertParams *OcpCertClientParamPtr);
 s32 XAsu_OcpDevAkAttestation(XAsu_ClientParams *ClientParamPtr,
 			     XAsu_OcpDevAkAttest *OcpDevAkAttestParamPtr);
+s32 XAsu_OcpDmeChallengeReq(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDmeParams *OcpDmeParamsPtr);
+s32 XAsu_OcpDmeKeysEncrypt(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDmeKeyEncrypt *OcpDmeKeyEnc);
 
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus

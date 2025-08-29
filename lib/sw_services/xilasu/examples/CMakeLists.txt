@@ -15,7 +15,7 @@ collect(PROJECT_LIB_DEPS gcc)
 collect(PROJECT_LIB_DEPS c)
 collector_list (_deps PROJECT_LIB_DEPS)
 
-SET(COMMON_EXAMPLES xasu_aes_example.c;xasu_ecc_example.c;xasu_rsa_example.c;xasu_sha2_example.c;xasu_sha3_example.c;xasu_ecdh_example.c;xasu_hmac_example.c;xasu_kdf_example.c;xasu_trng_example.c;xasu_ecies_example.c;xasu_keywrap_example.c;)
+SET(COMMON_EXAMPLES xasu_aes_example.c;xasu_ecc_example.c;xasu_rsa_example.c;xasu_sha2_example.c;xasu_sha3_example.c;xasu_ecdh_example.c;xasu_hmac_example.c;xasu_kdf_example.c;xasu_trng_example.c;xasu_ecies_example.c;xasu_keywrap_example.c;xasu_ocp_dme_example.c;xasu_dme_keys_enc_example.c)
 
 linker_gen("${CMAKE_CURRENT_SOURCE_DIR}/../../../../scripts/linker_files/")
 foreach(EXAMPLE ${COMMON_EXAMPLES})

@@ -85,6 +85,9 @@ extern "C" {
 #define XASU_RTCA_DBG_LOG_BUF_INFO_ADDR		(XASU_RTCA_BASEADDR + 0x15CU)
 						/**< Debug log buffer info address */
 
+#define XASU_RTCA_BH_IV_ADDR			(XASU_RTCA_BASEADDR + 0x168U)
+						/**< Base address of BH IV of size 12 bytes */
+
 #define XASU_MAX_IPI_CHANNELS			(8U) /**< Maximum IPI channels supported by ASUFW */
 #define XASU_CHANNEL_MEMORY_OFFSET		(0x1000U) /**<Channel memory offset */
 #define XASU_CHANNEL_MEMORY_BASEADDR		(XASU_RTCA_BASEADDR + XASU_CHANNEL_MEMORY_OFFSET)
