@@ -30,7 +30,7 @@ void putnum(unsigned int num);
 s32 test_memory_range(struct memory_range_s *range)
 {
 	XStatus status;
-	u64 num_words, cnt;
+	u64 num_words;
 	UINTPTR base;
 
 	/* This application uses print statements instead of xil_printf/printf
@@ -76,6 +76,7 @@ s32 test_memory_range(struct memory_range_s *range)
 	}
 #endif
 #ifdef XIL_ENABLE_MEMTEST_4KB_CHUNK
+	u64 cnt;
 	num_words = range->size / 4096;
 
 	/*
@@ -151,11 +152,11 @@ s32 test_memory_range(struct memory_range_s *range)
                         return XST_FAILURE;
                 }
 #ifdef XIL_ENABLE_MEMORY_STRESS_TEST
-                status = Xil_TestMem16((u16 *)base, (num_words * 2), 0xAA55, XIL_TESTMEM_ALLMEMTESTS);
+                status = Xil_TestMem16((u16 *)base, (unsigned long)(num_words * 2), 0xAA55, XIL_TESTMEM_ALLMEMTESTS);
                 if (status != XST_SUCCESS) {
                         return XST_FAILURE;
                 }
-                status = Xil_TestMem8((u8 *)base, (num_words * 4), 0xA5, XIL_TESTMEM_ALLMEMTESTS);
+                status = Xil_TestMem8((u8 *)base, (unsigned long)(num_words * 4), 0xA5, XIL_TESTMEM_ALLMEMTESTS);
                 if (status != XST_SUCCESS) {
                         return XST_FAILURE;
                 }

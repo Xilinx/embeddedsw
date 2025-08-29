@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,14 +31,16 @@
 * 7.7	sk   01/10/22 Modify operands to fix misra_c_2012_rule_10_1 violation.
 * 7.7	sk   01/10/22 Typecast to make the both left and right sides expressions
 * 		      of same type and fix misra_c_2012_rule_10_6 violation.
-* 7.7	sk   01/10/22 Modify varaiable name from I to i to fix misra_c_2012_rule_
+* 7.7	sk   01/10/22 Modify variable name from I to i to fix misra_c_2012_rule_
 * 		      21_2 violation.
-* 7.7	sk   01/10/22 Remove arithematic operations on pointer varaible to fix
+* 7.7	sk   01/10/22 Remove arithematic operations on pointer variable to fix
 * 		      misra_c_2012_rule_18_4 violation.
 * 9.0   ml   08/30/23 Update Memory tests API in BSP, to not to stress test by
                       default.
 * 9.1   ml   02/02/23 Fix compilation warnings report with
 *                     XIL_ENABLE_MEMORY_STRESS_TEST
+* 9.4   vmt  26/08/25 Updated datatype of word count to unsigned long to fix the
+*                     size limit issue
 * </pre>
 *
 *****************************************************************************/
@@ -819,15 +821,15 @@ End_Label:
 * patterns used not to repeat over the region tested.
 *
 *****************************************************************************/
-s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
+s32 Xil_TestMem32(u32 *Addr, unsigned long Words, u32 Pattern, u8 Subtest)
 {
-	u32 i;
+	unsigned long i;
 	u32 Val;
 	u32 FirtVal;
 	u32 WordMem32;
 	s32 Status = 0;
 #ifdef XIL_ENABLE_MEMORY_STRESS_TEST
-	u32 j;
+	unsigned long j;
 #else
 	(void)Pattern;
 #endif
@@ -1068,15 +1070,15 @@ End_Label:
 * 			patterns used not to repeat over the region tested.
 *
 *****************************************************************************/
-s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
+s32 Xil_TestMem16(u16 *Addr, unsigned long Words, u16 Pattern, u8 Subtest)
 {
-	u32 i;
+	unsigned long i;
 	u16 Val;
 	u16 FirtVal;
 	u16 WordMem16;
 	s32 Status = 0;
 #ifdef XIL_ENABLE_MEMORY_STRESS_TEST
-	u32 j;
+	unsigned long j;
 #else
 	(void)Pattern;
 #endif
@@ -1302,15 +1304,15 @@ End_Label:
 * patterns used not to repeat over the region tested.
 *
 *****************************************************************************/
-s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
+s32 Xil_TestMem8(u8 *Addr, unsigned long Words, u8 Pattern, u8 Subtest)
 {
-	u32 i;
+	unsigned long i;
 	u8 Val;
 	u8 FirtVal;
 	u8 WordMem8;
 	s32 Status = 0;
 #ifdef XIL_ENABLE_MEMORY_STRESS_TEST
-	u32 j;
+	unsigned long j;
 #else
 	(void)Pattern;
 #endif

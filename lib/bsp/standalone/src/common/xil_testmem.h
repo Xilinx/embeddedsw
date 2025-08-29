@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -87,6 +87,8 @@
 *                     compiled only for 32 bit Microblaze processor, if
 *                     XPAR_MICROBLAZE_ADDR_SIZE is greater than 32.
 *                     It fixes CR#1089129.
+* 9.4   vmt  26/08/25 Updated datatype of word count to unsigned long to fix
+*                     the size limit issue
 * </pre>
 *
 ******************************************************************************/
@@ -154,9 +156,9 @@ extern s32 Xil_TestMem32(u32 AddrLow, u32 AddrHigh, u32 Words, u32 Pattern, u8 S
 extern s32 Xil_TestMem16(u32 AddrLow, u32 AddrHigh, u32 Words, u16 Pattern, u8 Subtest);
 extern s32 Xil_TestMem8(u32 AddrLow, u32 AddrHigh, u32 Words, u8 Pattern, u8 Subtest);
 #else
-extern s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest);
-extern s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest);
-extern s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest);
+extern s32 Xil_TestMem32(u32 *Addr, unsigned long Words, u32 Pattern, u8 Subtest);
+extern s32 Xil_TestMem16(u16 *Addr, unsigned long Words, u16 Pattern, u8 Subtest);
+extern s32 Xil_TestMem8(u8 *Addr, unsigned long Words, u8 Pattern, u8 Subtest);
 #endif
 
 #ifdef __cplusplus
