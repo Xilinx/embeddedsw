@@ -81,7 +81,7 @@ u32 XPlm_UpdatePsmCounterVal(u32 Val);
 void XPlm_EnablePlatformSlaveErrors(void);
 int XPlm_CompatibilityCheck(u32 PdiAddr);
 int XPlm_PostPlmUpdate(void);
-int XPlmi_PufOnDemandRegeneration(void);
+int XPlmi_PufOnDemandRegeneration(u8* StatusFlag);
 
 /************************** Variable Definitions *****************************/
 

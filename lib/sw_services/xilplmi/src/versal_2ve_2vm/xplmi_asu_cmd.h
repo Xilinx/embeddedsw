@@ -39,10 +39,11 @@ extern "C" {
 #include "xparameters.h"
 
 /************************** Function Prototypes ******************************/
-void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(void),
+void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(u8* PufRegenStatusFlag),
 	int (* const InitiateKeyXfer)(void),
 	int (* const GetAsuCdiSeed)(u32 CdiAddr),
-	int (* const GetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr));
+	int (* const GetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr),
+	u32 (* const GetKEKIvAddr)(void));
 
 /************************** Variable Definitions *****************************/
 

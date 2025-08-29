@@ -315,11 +315,13 @@ END:
  * @brief	This function reads PUF attributes from BootHeader and performs
  *              PUF on demand regeneration.
  *
+ * @param	StatusFlag	Pointer to PUF regeneration status flag
+ *
  * @return
  * 		XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_PufOnDemandRegeneration(void)
+int XPlmi_PufOnDemandRegeneration(u8* StatusFlag)
 {
 	s32 Status = XST_FAILURE;
 	XPuf_Data *PufData = (XPuf_Data *)(UINTPTR)XPLMI_PMCRAM_CHUNK_MEMORY_1;
@@ -350,6 +352,7 @@ int XPlmi_PufOnDemandRegeneration(void)
 		 */
 		if (XPlmi_In32(XPLMI_EFUSE_CACHE_ADDRESS +
 				XPLMI_EFUSE_CACHE_PUF_CHASH_OFFSET) == 0U) {
+			*StatusFlag = XST_FAILURE;
 			Status = XST_SUCCESS;
 			goto END;
 		}
@@ -362,6 +365,9 @@ int XPlmi_PufOnDemandRegeneration(void)
 		XPlmi_Printf(DEBUG_INFO, "Failed at PUF regeneration with status "
 			"%0x\n\r", Status);
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PUF_REGN_ERRR, Status);
+		*StatusFlag = XST_FAILURE;
+	} else {
+		*StatusFlag = XST_SUCCESS;
 	}
 
 END:

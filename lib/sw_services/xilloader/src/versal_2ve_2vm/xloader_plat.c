@@ -1485,6 +1485,21 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function returns the KEK IV Address in Boot Header.
+ *
+ * @return
+ * 		- Address of KEK IV.
+ *
+ *****************************************************************************/
+u32 XLoader_GetBootHeaderIvAddr(void)
+{
+	XilPdi* PdiPtr = XLoader_GetPdiInstance();
+
+	return (u32)PdiPtr->MetaHdr->BootHdrPtr->KekIv;
+}
+
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 /*****************************************************************************/
 /**

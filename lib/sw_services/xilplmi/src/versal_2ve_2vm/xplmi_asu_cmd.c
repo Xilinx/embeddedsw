@@ -57,9 +57,10 @@
 #define XPLMI_CMD_ID_ASU_CDI_ADDR_INDEX		(0U)
 #define XPLMI_CMD_ID_SUBSYSTEM_ID_INDEX		(0U)
 #define XPLMI_CMD_ID_SUBSYSTEM_HASH_ADDR_INDEX	(1U)
+#define XPLMI_BH_KEK_IV_SIZE_IN_BYTES		(12U) /**< BootHeader KEK IV size in bytes. */
 
 /**************************** Type Definitions *******************************/
-static int (* AsuGeneratePufKEK)(void) = NULL;
+static int (* AsuGeneratePufKEK)(u8* PufRegenStatusFlag) = NULL;
 	/** Static function pointer which holds address of Xplmi_PufOnDemandRegeneration. */
 static int (* AsuInitiateKeyXfer)(void) = NULL;
 	/** Static function pointer which holds address of XSecure_InitiateASUKeyTransfer. */
@@ -67,6 +68,8 @@ static int (* AsuGetAsuCdiSeed)(u32 CdiAddr) = NULL;
 	/** Static function pointer which holds address of XOcp_GetAsuCdiSeed. */
 static int (* AsuGetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr) = NULL;
 	/** Static function pointer which holds address of XOcp_GetSubsysDigest. */
+static u32 (* AsuGetKEKIvAddr)(void) = NULL;
+	/** Static function pointer which holds address of XLoader_GetBootHeaderIvAddr. */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -133,21 +136,35 @@ static int XPlmi_CmdAsuFeatures(XPlmi_Cmd * Cmd)
 static int XPlmi_CmdAsuKeyTransfer(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
+	u32 Addr = 0U;
+	u8 PufRegenStatusFlag = XST_FAILURE;
 
 	if (Cmd == NULL) {
 		goto RET;
 	}
 
-	if ((AsuInitiateKeyXfer == NULL) || (AsuGeneratePufKEK == NULL)) {
+	if ((AsuInitiateKeyXfer == NULL) || (AsuGeneratePufKEK == NULL) || (AsuGetKEKIvAddr == NULL)) {
 		goto END;
 	}
 
-	Status = AsuGeneratePufKEK();
+	Status = AsuGeneratePufKEK(&PufRegenStatusFlag);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	Status = AsuInitiateKeyXfer();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Cmd->Response[XPLMI_CMD_ID_ASU_RESPONSE_INDEX] = PufRegenStatusFlag;
+	if (PufRegenStatusFlag == XST_SUCCESS) {
+		Addr = AsuGetKEKIvAddr();
+
+		Status = Xil_SMemCpy((u8*)(UINTPTR)Cmd->Payload[0U], XPLMI_BH_KEK_IV_SIZE_IN_BYTES,
+			(u8*)(UINTPTR)Addr, XPLMI_BH_KEK_IV_SIZE_IN_BYTES,
+			XPLMI_BH_KEK_IV_SIZE_IN_BYTES);
+	}
 
 END:
 	Cmd->Response[XPLMI_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
@@ -293,12 +310,14 @@ static XPlmi_Module XPlmi_AsuModule =
  * @param	InitiateKeyXfer - Pointer to the secure key transfer function.
  * @param	GetAsuCdiSeed - Pointer to the function which provides ASU CDI.
  * @param	GetSubsysDigest - Pointer to the function which provides subsystem digest.
+ * @param	GetKEKIv - Pointer to the Get KEK IV address function.
  *
  *****************************************************************************/
-void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(void),
+void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(u8* PufRegenStatusFlag),
 	int (* const InitiateKeyXfer)(void),
 	int (* const GetAsuCdiSeed)(u32 CdiAddr),
-	int (* const GetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr))
+	int (* const GetSubsysDigest)(u32 SubsystemId, u32 SubsysHashAddrPtr),
+	u32 (* const GetKEKIvAddr)(void))
 {
 	XPlmi_ModuleRegister(&XPlmi_AsuModule);
 
@@ -307,8 +326,8 @@ void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(void),
 	AsuInitiateKeyXfer = InitiateKeyXfer;
 	AsuGetAsuCdiSeed = GetAsuCdiSeed;
 	AsuGetSubsysDigest = GetSubsysDigest;
+	AsuGetKEKIvAddr = GetKEKIvAddr;
 }
-
 /**
  * @}
  * @endcond

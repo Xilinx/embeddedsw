@@ -502,6 +502,7 @@ int XLoader_LoadLpdAndPsmElf(void);
 int XLoader_CheckAndUpdateSecureState(void);
 int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 void XLoader_ShaInstance1Reset(void);
+u32 XLoader_GetBootHeaderIvAddr(void);
 
 /************************** Variable Definitions *****************************/
 
