@@ -350,7 +350,7 @@ try_next:
 				if ((*(ctrl + 1) == '*') && (*(ctrl + 2) == 's')) {
 					width = va_arg(argp, u32);
 					string = va_arg(argp, const char *);
-					for (index = 0; index < width && string[index] != '\0' ; index++) {
+					for (index = 0; (index < width) && (string[index] != '\0') ; index++) {
 						outbyte(string[index]);
 					}
 					ctrl += 2;

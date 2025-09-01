@@ -45,7 +45,7 @@
 *                     The changes are made to fix the same.
 * 9.1   asa  31/01/24 Fix overflow issues under corner cases for various
 *                     cache maintenance APIs.
-*
+* 9.4   ml   01/09/25 Fix MISRA-C violations for Rules 10.4 and 12.1
 * </pre>
 *
 ******************************************************************************/
@@ -290,11 +290,11 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 		if (tempadr != (u32)adr) {
 			unalignedstart = 1;
 			Xil_DCacheFlushLine(tempadr);
-			tempadr >= LAST_CACHELINE_START ? (adr = end) : (adr = tempadr + cacheline);
+			(tempadr >= LAST_CACHELINE_START) ? (adr = end) : (adr = tempadr + cacheline);
 		}
 		if ((tempend != end) && ((tempend != tempadr) || (unalignedstart == 0x0U))) {
 			Xil_DCacheFlushLine(tempend);
-			end >= cacheline ? (end -= cacheline) : (end = 0);
+			(end >= cacheline) ? (end -= cacheline) : (end = 0);
 		}
 
 		while (adr < (INTPTR)end) {
