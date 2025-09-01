@@ -233,10 +233,10 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates the input ECC parameters.
+ * @brief	This function validates the input HMAC parameters.
  *
- * @param	EccParamsPtr	Pointer to XAsu_EccParams structure which holds the parameters of
- * 				ECC input arguments.
+ * @param	HmacParamsPtr	Pointer to XAsu_HmacParams structure which holds the parameters of
+ * 				HMAC input arguments.
  *
  * @return
  * 	- XST_SUCCESS, if HMAC input parameters validation is successful.
