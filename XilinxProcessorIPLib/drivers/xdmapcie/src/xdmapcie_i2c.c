@@ -5,10 +5,12 @@
 
 /***************************** Include Files ********************************/
 #include "xparameters.h"
-#include "xiicps.h"
 #include "stdio.h"
 #include "xil_printf.h"
 #include "sleep.h"
+
+#if defined(XPAR_XIICPS_NUM_INSTANCES)
+#include "xiicps.h"
 
 /************************** Constant Definitions ****************************/
 #ifndef SDT
@@ -68,7 +70,6 @@ int XDmaPcie_IicExpanderReset(void)
     int Status = XST_FAILURE;
     u8 Buffer[2U];
     u32 TimeOutCount;
-    u8 ReadData;
 
     /* Configure arbitrator to select channel 0 */
     Buffer[0] = XDMAPCIE_IIC1_CMD_CONTROL;
@@ -163,6 +164,7 @@ int XDmaPcie_IicExpanderReset(void)
 fail:
     return XST_FAILURE;
 }
+#endif
 /****************************************************************************
 * Initialize IIC controller and perform GPIO expander reset sequence
 *
@@ -172,6 +174,8 @@ fail:
 int XDmaPcie_IicInit(void)
 {
     int Status = XST_FAILURE;
+
+#if defined(XPAR_XIICPS_NUM_INSTANCES)
     XIicPs_Config *ConfigPtr;
     u32 TimeOutCount = XDMAPCIE_MAX_DELAY;
 
@@ -219,6 +223,7 @@ int XDmaPcie_IicInit(void)
         xil_printf("ERROR: IIC1 IO expander reset failed\n");
         return XST_FAILURE;
     }
+#endif
 
-    return XST_SUCCESS;
+    return Status;
 }
