@@ -29,7 +29,7 @@
 *       ng       03/25/25 Prevent compiler optimization by using volatile for status variable,
 *                         add checks for RISC-V MB proc and zeroize memory before return
 *       ng       04/07/25 Prevent overwriting of the status variable in Xil_SReverseData
-*
+* 9.4   ml       09/01/25 Fix MISRA-C violation for Rule 17.7
 * </pre>
 *
 *****************************************************************************/
@@ -994,7 +994,7 @@ void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 			}
 		}
 #else
-		memcpy((void *)(UINTPTR)DstAddr, (void *)(UINTPTR)SrcAddr, Cnt);
+		(void)memcpy((void *)(UINTPTR)DstAddr, (void *)(UINTPTR)SrcAddr, Cnt);
 	}
 #endif
 }
