@@ -31,6 +31,7 @@
 *                      added const qualifier for function prototypes and added explicit
 *                       parenthesis
 *       mb    07/22/25 Add XNvm_EfuseInitClockAndValidateFreq to set eFuse clock frequency and clk src
+*       mb    08/25/25 Add support for boot mode disable eFUSE bits programming
 *
 * </pre>
 *
@@ -93,6 +94,9 @@ static int XNvm_EfuseCheckZeros(u32 OffsetStart, u32 OffsetEnd);
 static int XNvm_EfusePrgmPufHDInvld(const XNvm_EfuseXilinxCtrl *PufHDInvld);
 static int XNvm_EfusePrgmXilinxCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl);
 static int XNvm_EfuseInitClockAndValidateFreq(XNvm_EfuseData *EfuseData);
+#ifdef SPARTANUPLUSAES1
+static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDis);
+#endif
 
 /************************** Function Definitions *****************************/
 /******************************************************************************/
@@ -180,7 +184,11 @@ int XNvm_EfuseWrite(XNvm_EfuseData *EfuseData)
 	    (EfuseData->SecCtrlBits == NULL) &&
 	    (EfuseData->SpkRevokeId == NULL) &&
 	    (EfuseData->XilinxCtrl == NULL) &&
+#ifndef SPARTANUPLUSAES1
 	    (EfuseData->UserFuse == NULL)) {
+#else
+	    (EfuseData->UserFuse == NULL) && (EfuseData->BootModeDis == NULL)) {
+#endif
 		Status = XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 		goto END;
 	}
@@ -280,7 +288,15 @@ int XNvm_EfuseWrite(XNvm_EfuseData *EfuseData)
 			goto END_RST;
 		}
 	}
-
+#ifdef SPARTANUPLUSAES1
+	if (EfuseData->BootModeDis != NULL) {
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePrgmBootModeDisBits(EfuseData->BootModeDis);
+		if (Status != XST_SUCCESS) {
+			goto END_RST;
+		}
+	}
+#endif
 	Status = XNvm_EfuseCacheReload();
 
 END_RST:
@@ -958,6 +974,173 @@ END:
 
 }
 
+#ifdef SPARTANUPLUSAES1
+/******************************************************************************/
+/**
+ * @brief	This function programs Boot mode disable bits
+ *
+ * @param	BootModeDis	Pointer to XNvm_EfuseBootModeDis.
+ *
+ * @return
+ * 		- XNVM_EFUSE_ERR_RD_BOOT_MODE_DIS_BITS, Error when read Boot mode disable bits
+ * 		  from cache is failed
+ * 		- XST_SUCCESS, If Boot mode disable bits are programmed successfully.
+ * 		- Errorcode, If there is any failure.
+ *
+ ******************************************************************************/
+static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDis)
+{
+	int Status = XST_FAILURE;
+	int StatusTmp = XST_FAILURE;
+	u32 BootModeDisVal = 0U;
+
+	/**
+	 * Read Boot mode disable bits from eFUSE cache before programming.
+	 * Return error incase of failure.
+	 */
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_BOOT_MODE_DIS_OFFSET, &BootModeDisVal);
+	if (Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERR_RD_CACHE_BOOT_MODE_DIS_BITS;
+		goto END;
+	}
+
+	/**
+	 * Program QSPI24 Boot mode disable bit when it's is not already set and
+	 * QSPI24 Boot mode disable Efuse programming is enabled
+	 */
+	if (((BootModeDis->PrgmQspi24ModDis) == (u32)TRUE) &&
+	    ((BootModeDisVal & XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_MASK) != XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_MASK))
+	{
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_BOOT_MODE_DIS_ROW_60,
+				      XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_COL_15, FALSE);
+
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = Status | XNVM_EFUSE_ERR_WRITE_QSPI24_BOOT_MODE_DIS;
+			goto END;
+		}
+	}
+
+	/**
+	 * Program QSPI32 Boot mode disable bit when it's is not already set and
+	 * QSPI32 Boot mode disable Efuse programming is enabled.
+	 */
+	if (((BootModeDis->PrgmQspi32ModDis) == (u32)TRUE) &&
+	    ((BootModeDisVal & XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_MASK) != XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_MASK))
+	{
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_BOOT_MODE_DIS_ROW_61,
+				      XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_COL_8, FALSE);
+
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = Status | XNVM_EFUSE_ERR_WRITE_QSPI32_BOOT_MODE_DIS;
+			goto END;
+		}
+	}
+
+	/**
+	 * Program OSPI Boot mode disable bit when it's is not already set and
+	 * OSPI Boot mode disable Efuse programming is enabled
+	 */
+	if (((BootModeDis->PrgmOspiModDis) == (u32)TRUE) &&
+	    ((BootModeDisVal & XNVM_EFUSE_OSPI_BOOT_MODE_DIS_MASK) != XNVM_EFUSE_OSPI_BOOT_MODE_DIS_MASK))
+	{
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_BOOT_MODE_DIS_ROW_61,
+				      XNVM_EFUSE_OSPI_BOOT_MODE_DIS_COL_9, FALSE);
+
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = Status | XNVM_EFUSE_ERR_WRITE_OSPI_BOOT_MODE_DIS;
+			goto END;
+		}
+	}
+
+	/**
+	 * Program SMAP Boot mode disable bit when it's is not already set and
+	 * SMAP Boot mode disable Efuse programming is enabled
+	 */
+	if (((BootModeDis->PrgmSmapModDis) == (u32)TRUE) &&
+	    ((BootModeDisVal & XNVM_EFUSE_SMAP_BOOT_MODE_DIS_MASK) != XNVM_EFUSE_SMAP_BOOT_MODE_DIS_MASK))
+	{
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_BOOT_MODE_DIS_ROW_61,
+				      XNVM_EFUSE_SMAP_BOOT_MODE_DIS_COL_12, FALSE);
+
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = Status | XNVM_EFUSE_ERR_WRITE_SMAP_BOOT_MODE_DIS;
+			goto END;
+		}
+	}
+
+	/**
+	 * Program SERIAL Boot mode disable bit when it's is not already set and
+	 * SERIAL Boot mode disable Efuse programming is enabled
+	 */
+	if (((BootModeDis->PrgmSerialModDis) == (u32)TRUE) &&
+	    ((BootModeDisVal & XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_MASK) != XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_MASK))
+	{
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_EfusePgmAndVerifyBit, XNVM_EFUSE_BOOT_MODE_DIS_ROW_61,
+				      XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_COL_13, FALSE);
+
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			Status = Status | XNVM_EFUSE_ERR_WRITE_SERIAL_BOOT_MODE_DIS;
+			goto END;
+		}
+	}
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function reads Boot mode disable fuses from eFUSE cache.
+ *
+ * @param	BootModeDisBits	Pointer to the Boot mode disable efuse data.
+ *
+ * @return
+ * 		- XST_SUCCESS, If Boot mode disable efuses are read successfully.
+ * 		- XNVM_EFUSE_ERR_RD_BOOT_MODE_DIS_BITS, Error when reading Boot mode disable bits
+ *		  from cache fails
+ *		- Errorcode, If there is any failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadBootModeDisBits(XNvm_EfuseBootModeDis *BootModeDisBits)
+{
+	int Status = XST_FAILURE;
+	u32 BootModeDisVal = 0U;
+
+	if (BootModeDisBits ==  NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Read Boot mode disable bits from eFUSE cache before programming.
+	 * Return error incase of failure.
+	 */
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_BOOT_MODE_DIS_OFFSET, &BootModeDisVal);
+	if (Status != XST_SUCCESS) {
+		Status = XNVM_EFUSE_ERR_RD_CACHE_BOOT_MODE_DIS_BITS;
+		goto END;
+	}
+
+	/**
+	 * Initialize XNvm_EfuseBootModeDis structure.
+	 */
+	BootModeDisBits->PrgmQspi24ModDis = XNVM_GET_8_BIT_VAL(BootModeDisVal, XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS,
+							XNVM_EFUSE_BOOT_MODE_DIS_QSPI24_EFUSE_SHIFT);
+	BootModeDisBits->PrgmQspi32ModDis = XNVM_GET_8_BIT_VAL(BootModeDisVal, XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS,
+							XNVM_EFUSE_BOOT_MODE_DIS_QSPI32_EFUSE_SHIFT);
+	BootModeDisBits->PrgmOspiModDis = XNVM_GET_8_BIT_VAL(BootModeDisVal, XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS,
+							XNVM_EFUSE_BOOT_MODE_DIS_OSPI_EFUSE_SHIFT);
+	BootModeDisBits->PrgmSmapModDis = XNVM_GET_8_BIT_VAL(BootModeDisVal, XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS,
+							XNVM_EFUSE_BOOT_MODE_DIS_SMAP_EFUSE_SHIFT);
+	BootModeDisBits->PrgmSerialModDis = XNVM_GET_8_BIT_VAL(BootModeDisVal, XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS,
+							XNVM_EFUSE_BOOT_MODE_DIS_SERIAL_EFUSE_SHIFT);
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+#endif
 
 /******************************************************************************/
 /**

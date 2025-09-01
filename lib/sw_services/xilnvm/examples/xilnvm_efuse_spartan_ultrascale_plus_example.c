@@ -51,6 +51,7 @@
  *       mb    06/10/2025 Added description on usage of shared memory
  * 3.6   hj    05/27/2025 Support XILINX_CTRL PUFHD_INVLD and DIS_SJTAG efuse bit programming
  *       mb    08/20/2025 Add support to configure the clock settings from application.
+ *       mb    08/20/2025 Add support to program the boot mode disable eFUSE bits.
  *
  * </pre>
  *
@@ -124,7 +125,11 @@ static int XNvm_ValidateAesKey(const char *Key);
 static int XilNvm_EfuseInitXilinxCtrl(XNvm_EfuseData *EfuseData,
 				      XNvm_EfuseXilinxCtrl *XilinxCtrl);
 static int XilNvm_EfuseShowXilinxCtrl(void);
-
+#ifdef SPARTANUPLUSAES1
+static int XilNvm_EfuseInitBootModeDis(XNvm_EfuseData *EfuseData,
+				      XNvm_EfuseBootModeDis *BootModeDis);
+static int XilNvm_EfuseShowBootModeDisBits(void);
+#endif
 /*****************************************************************************/
 int main(void)
 {
@@ -191,6 +196,9 @@ static int XilNvm_EfuseWriteFuses(void)
 	XNvm_EfuseSecCtrl SecCtrl;
 	XNvm_EfuseDecOnly DecOnly;
 	XNvm_EfuseXilinxCtrl XilinxCtrl;
+#ifdef SPARTANUPLUSAES1
+	XNvm_EfuseBootModeDis BootModeDis;
+#endif
 
 	/* Clear total shared memory */
 	Status = Xil_SMemSet(&EfuseData, sizeof(XNvm_EfuseData), 0U, sizeof(XNvm_EfuseData));
@@ -242,6 +250,12 @@ static int XilNvm_EfuseWriteFuses(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#ifdef SPARTANUPLUSAES1
+	Status = XilNvm_EfuseInitBootModeDis(&EfuseData, &BootModeDis);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 
 	/* If BSP configuration is disabled, set the freq and src provided by user */
 #ifdef XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER
@@ -325,6 +339,15 @@ static int XilNvm_EfuseReadFuses(void)
 	}
 
 	xil_printf("\n\r");
+
+#ifdef SPARTANUPLUSAES1
+	Status = XilNvm_EfuseShowBootModeDisBits();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	xil_printf("\n\r");
+#endif
 
 	Status = XilNvm_EfuseShowXilinxCtrl();
 END:
@@ -998,6 +1021,71 @@ static int XilNvm_EfuseInitUserFuses(XNvm_EfuseData *EfuseData,
 END:
 	return  Status;
 }
+
+#ifdef SPARTANUPLUSAES1
+/*****************************************************************************/
+/**
+ * This function is used to initialize XNvm_EfuseBootModeDis structure with
+ * user provided data and assign the same to global structure XNvm_EfuseData to
+ * program XNvm_EfuseBootModeDis eFuses.
+ *
+ * @param	EfuseData	Pointer to XNvm_EfuseData structure
+ *
+ * @param	BootModeDis	Pointer to XNvm_EfuseBootModeDis structure
+ *
+ * @return
+ *		- XST_SUCCESS, If the initialization of XNvm_EfuseBootModeDis
+ *				structure is successful
+ *		- Error Code, On Failure.
+ *
+ ******************************************************************************/
+static int XilNvm_EfuseInitBootModeDis(XNvm_EfuseData *EfuseData,
+				       XNvm_EfuseBootModeDis *BootModeDis)
+{
+	/**
+	 * Initialize  BootModeDis structure with the user provided flags
+	 */
+	BootModeDis->PrgmQspi24ModDis = XNVM_EFUSE_XNVM_EFUSE_QSPI24_MODE_DIS;
+	BootModeDis->PrgmQspi32ModDis = XNVM_EFUSE_XNVM_EFUSE_QSPI32_MODE_DIS;
+	BootModeDis->PrgmOspiModDis = XNVM_EFUSE_XNVM_EFUSE_OSPI_MODE_DIS;
+	BootModeDis->PrgmSmapModDis = XNVM_EFUSE_XNVM_EFUSE_SMAP_MODE_DIS;
+	BootModeDis->PrgmSerialModDis = XNVM_EFUSE_XNVM_EFUSE_SERIAL_MODE_DIS;
+
+	EfuseData->BootModeDis = BootModeDis;
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+ * This function read and display Boot mode disable eFuses data.
+ *
+ * @return
+ *	- XST_SUCCESS - If the read request is successful.
+ *	- Error code - On failure.
+ *
+ ******************************************************************************/
+static int XilNvm_EfuseShowBootModeDisBits(void)
+{
+	int Status = XST_FAILURE;
+	XNvm_EfuseBootModeDis BootModeDisBits;
+
+	Status = XNvm_EfuseReadBootModeDisBits(&BootModeDisBits);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	xil_printf("QSPI32 Boot Mode Disable Efuse : %x\r\n", BootModeDisBits.PrgmQspi32ModDis);
+	xil_printf("QSPI24 Boot Mode Disable Efuse : %x\r\n", BootModeDisBits.PrgmQspi24ModDis);
+	xil_printf("OSPI Boot Mode Disable Efuse : %x\r\n", BootModeDisBits.PrgmOspiModDis);
+	xil_printf("SMAP Boot Mode Disable Efuse : %x\r\n", BootModeDisBits.PrgmSmapModDis);
+	xil_printf("SERIAL Boot Mode Disable Efuse : %x\r\n", BootModeDisBits.PrgmSerialModDis);
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+#endif
 
 /****************************************************************************/
 /**

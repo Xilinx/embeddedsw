@@ -198,6 +198,9 @@ extern "C" {
 #define XNVM_EFUSE_SPK_REVOKE_ID_END_OFFSET 0x0000112CU /**< SPK revoke id cache end offset */
 #define XNVM_EFUSE_AES_REVOKE_ID_OFFSET     0x0000113CU /**< AES revoke id cache offset */
 #define XNVM_EFUSE_XILINX_CTRL_OFFSET       0x00001000U /**< Xilinx Control cache offset */
+#ifdef SPARTANUPLUSAES1
+#define XNVM_EFUSE_BOOT_MODE_DIS_OFFSET     0x0000104CU /**< Boot mode disable cache offset */
+#endif
 /** @} */
 
 #ifdef __cplusplus

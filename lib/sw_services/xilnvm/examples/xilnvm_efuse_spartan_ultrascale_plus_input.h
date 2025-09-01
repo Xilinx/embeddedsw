@@ -160,11 +160,9 @@
 *	TRUE will burn the DIS_SJTAG eFuse bit.
 *	FALSE will not modify DIS_SJTAG eFuse bit.
 *
-*	#define XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER	FALSE
-*	Default value is FALSE
-*	When XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA sets to FALSE, then
-*	XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER will be set to TRUE
-*	through xnvm_efuse.h.
+*	NOTE: When user opts to provide the clock and frequency via application,
+*	BSP default configuration "XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA" shall be
+*	disabled and provide the below configurations from input.h
 *	The clock frequency and source for the eFuse programming will be
 *	taken from the user provided at XNVM_EFUSE_SET_REF_CLK_FREQ and
 *	XNVM_EFUSE_SET_CLK_SRC_OP
@@ -177,6 +175,24 @@
 *	By default, the value is 0, this will select the IRO clock source.
 *	To set the clock source to EMC, set this macro to 1U
 *
+*	#define XNVM_EFUSE_XNVM_EFUSE_QSPI24_MODE_DIS	FALSE
+*	TRUE will disable QSPI24 bootmode.
+*
+*	#define XNVM_EFUSE_XNVM_EFUSE_QSPI32_MODE_DIS	FALSE
+*	TRUE will disable QSPI32 bootmode.
+*
+*	#define XNVM_EFUSE_XNVM_EFUSE_OSPI_MODE_DIS	FALSE
+*	TRUE will disable OSPI bootmode.
+*
+*	#define XNVM_EFUSE_XNVM_EFUSE_SMAP_MODE_DIS	FALSE
+*	TRUE will disable SMAP bootmode.
+*
+*	#define XNVM_EFUSE_XNVM_EFUSE_SERIAL_MODE_DIS	FALSE
+*	TRUE will disable SERIAL bootmode.
+*
+*	NOTE:Above Boot mode disable efuses are only applicable
+*	only for SPARTANUPLUSAES1 devices.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -188,6 +204,7 @@
 * 3.6   hj     05/27/25 Support XILINX_CTRL PUFHD_INVLD and DIS_SJTAG efuse bit programming
 *       mb     07/18/25 Add AES key CRC calculation steps
 *       mb     07/18/25 Add clock configuration support for eFuse programming from application
+*       mb     08/24/25 Add support to program boot mode disable efuses
 *
 * </pre>
 *
@@ -234,6 +251,18 @@ extern "C" {
 #define XNVM_EFUSE_XNVM_PPK0_INVLD              FALSE
 #define XNVM_EFUSE_XNVM_PPK1_INVLD              FALSE
 #define XNVM_EFUSE_XNVM_PPK2_INVLD              FALSE
+
+#ifdef SPARTANUPLUSAES1
+/**
+ * Following is the defines to select if the user wants to program
+ * boot mode disable efuses
+ */
+#define XNVM_EFUSE_XNVM_EFUSE_QSPI24_MODE_DIS	FALSE
+#define XNVM_EFUSE_XNVM_EFUSE_QSPI32_MODE_DIS	FALSE
+#define XNVM_EFUSE_XNVM_EFUSE_OSPI_MODE_DIS	FALSE
+#define XNVM_EFUSE_XNVM_EFUSE_SMAP_MODE_DIS	FALSE
+#define XNVM_EFUSE_XNVM_EFUSE_SERIAL_MODE_DIS	FALSE
+#endif
 
 /**
  * Following is the define to select if the user wants to select

@@ -27,6 +27,7 @@
 *       mb   07/02/2025 Update doxygen comments for structures definitions
 *       aa   07/24/2025 Remove unused macros
 *       mb   20/08/2025 Add EfuseCClkFreq and EfuseClkSrc to XNvm_EfuseData structure
+*       mb   08/24/2025 Add support to program boot mode disable efuses
 *
 * </pre>
 *
@@ -163,6 +164,29 @@ extern "C" {
 #ifndef XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA
 #define XNVM_SET_EFUSE_CLOCK_FREQUENCY_SRC_FROM_USER	/**< Set efuse clock frequency from user */
 #endif
+
+/**< Boot mode disable Efuse bits programming related macros */
+#define XNVM_EFUSE_BOOT_MODE_DIS_ROW_60	(60U) /* Boot mode disable row 60 */
+#define XNVM_EFUSE_BOOT_MODE_DIS_ROW_61	(61U) /* Boot mode disable row 61 */
+
+#define  XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_COL_8	(8U) /* QSPI32 Boot mode disable bit column value: 8 */
+#define  XNVM_EFUSE_OSPI_BOOT_MODE_DIS_COL_9	(9U) /* OSPI Boot mode disable bit column value: 9 */
+#define  XNVM_EFUSE_SMAP_BOOT_MODE_DIS_COL_12	(12U) /* SMAP Boot mode disable bit column value: 12 */
+#define  XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_COL_13	(13U) /* Serial Boot mode disable bit column value: 13 */
+#define  XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_COL_15	(15U) /* QSPI24 Boot mode disable bit column value: 15 */
+
+#define XNVM_EFUSE_QSPI24_BOOT_MODE_DIS_MASK	(0x00000001U) /* QSPI24 Boot mode disable Mask */
+#define XNVM_EFUSE_QSPI32_BOOT_MODE_DIS_MASK	(0x00000004U) /* QSPI32 Boot mode disable Mask */
+#define XNVM_EFUSE_OSPI_BOOT_MODE_DIS_MASK	(0x00000008U) /* OSPI Boot mode disable Mask */
+#define XNVM_EFUSE_SMAP_BOOT_MODE_DIS_MASK	(0x00000040U) /* SMAP Boot mode disable Mask */
+#define XNVM_EFUSE_SERIAL_BOOT_MODE_DIS_MASK	(0x00000080U) /* Serial Boot mode disable Mask */
+
+#define XNVM_EFUSE_BOOT_MODE_DISABLE_EFUSE_BITS		(0x01U) /*Boot mode disable efuse bits */
+#define XNVM_EFUSE_BOOT_MODE_DIS_QSPI24_EFUSE_SHIFT	(0x1U) /* QSPI24 Boot mode disable shift */
+#define XNVM_EFUSE_BOOT_MODE_DIS_QSPI32_EFUSE_SHIFT	(0x2U) /* QSPI32 Boot mode disable shift */
+#define XNVM_EFUSE_BOOT_MODE_DIS_OSPI_EFUSE_SHIFT	(0x3U) /* OSPI Boot mode disable shift */
+#define XNVM_EFUSE_BOOT_MODE_DIS_SMAP_EFUSE_SHIFT	(0x6U) /* SMAP Boot mode disable shift */
+#define XNVM_EFUSE_BOOT_MODE_DIS_SERIAL_EFUSE_SHIFT	(0x7U) /* Serial Boot mode disable shift */
 
 #define XNVM_PLM_CONFIG_BASE_ADDRESS	(0x0402B200U)
 #define XNVM_RTCA_EFUSE_CLK_FREQUENCY_OFFSET	(0x0000002CU)
@@ -338,6 +362,16 @@ typedef struct {
 	u8 PrgmUserEfuse; /**< Program user efuse */
 } XNvm_EfuseUserFuse;
 
+#ifdef SPARTANUPLUSAES1
+typedef struct {
+	u32 PrgmQspi24ModDis; /* Flag to program QSPI24 bootmode disable efuse bit */
+	u32 PrgmQspi32ModDis; /* Flag to program QSPI32 bootmode disable efuse bit */
+	u32 PrgmOspiModDis;   /* Flag to program OSPI bootmode disable efuse bit */
+	u32 PrgmSmapModDis;   /* Flag to program SMAP bootmode disable efuse bit */
+	u32 PrgmSerialModDis; /* Flag to program SERIAL bootmode disable efuse bit */
+} XNvm_EfuseBootModeDis;
+#endif
+
 /**
  * @name  Operation mode
  */
@@ -385,6 +419,9 @@ typedef struct {
 	XNvm_EfuseAesRevokeId *AesRevokeId; /**< Pointer to the AES revoke ID structure */
 	XNvm_EfuseUserFuse *UserFuse; /**< Pointer to the user efuse structure */
 	XNvm_EfuseXilinxCtrl *XilinxCtrl; /**< Pointer to the Xilinx Ctrl efuse structure */
+#ifdef SPARTANUPLUSAES1
+	XNvm_EfuseBootModeDis *BootModeDis; /**< Pointer to the boot mode disable structure */
+#endif
 	u64 EfuseClkFreq; /**< eFuse clock frequency */
 	u32 EfuseClkSrc; /**< eFuse clock source */
 } XNvm_EfuseData;
@@ -460,6 +497,12 @@ enum {
 	XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS = 0xC000, /**< 0xC000 - Error read secure control bits */
 	XNVM_EFUSE_ERR_INVALID_CLK_FREQUENCY = 0xD000, /**< 0xD000 - Error Invalid Clock Frequency */
 	XNVM_EFUSE_ERR_BEFORE_PROGRAMMING = 0x80000, /**< 0x80000 - Error before programming */
+	XNVM_EFUSE_ERR_RD_CACHE_BOOT_MODE_DIS_BITS = 0xB000, /**< 0xB000 - Error read Boot mode disable bits from cache */
+	XNVM_EFUSE_ERR_WRITE_QSPI24_BOOT_MODE_DIS = 0xB100, /**< 0xB100 - Error write QSPI24 Boot mode disable */
+	XNVM_EFUSE_ERR_WRITE_QSPI32_BOOT_MODE_DIS = 0xB200, /**< 0xB200 - Error write QSPI32 Boot mode disable */
+	XNVM_EFUSE_ERR_WRITE_OSPI_BOOT_MODE_DIS = 0xB300, /**< 0xB300 - Error write OSPI Boot mode disable */
+	XNVM_EFUSE_ERR_WRITE_SMAP_BOOT_MODE_DIS = 0xB400, /**< 0xB400 - Error write SMAP Boot mode disable */
+	XNVM_EFUSE_ERR_WRITE_SERIAL_BOOT_MODE_DIS = 0xB500, /**< 0xB500 - Error write SERIAL Boot mode disable */
 };
 
 /*************************** Function Prototypes ******************************/
@@ -474,6 +517,9 @@ int XNvm_EfuseReadDna(u32 *Dna);
 int XNvm_EfuseReadDecOnly(u32 *DecOnly);
 int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask, u32 Crc);
 int XNvm_EfuseReadXilinxCtrl(XNvm_EfuseXilinxCtrl *XilinxCtrl);
+#ifdef SPARTANUPLUSAES1
+int XNvm_EfuseReadBootModeDisBits(XNvm_EfuseBootModeDis *BootModeDisBits);
+#endif
 
 #ifdef __cplusplus
 }
