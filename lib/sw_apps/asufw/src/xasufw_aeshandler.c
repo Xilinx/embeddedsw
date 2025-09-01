@@ -49,11 +49,11 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASUFW_AES_OP_FLAGS_ALL	(XASU_AES_INIT | XASU_AES_UPDATE | XASU_AES_FINAL) /**< Combined
 							mask for all operation flags. */
+#define XAES_NON_BLOCKING_CMD_STAGE_INIT	(0x0U) /**< Initial Command stage value for AES operations */
 #define XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS	(0x1U) /**< AES AAD update in progress
 							stage for DMA non-blocking wait */
 #define XAES_NON_BLOCKING_DATA_UPDATE_INPROGRESS	(0x2U) /**< AES data update done stage for
 							DMA non-blocking wait */
-
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_AesKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
@@ -174,7 +174,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	const XAsu_AesParams *AesParamsPtr = (const XAsu_AesParams *)ReqBuf->Arg;
 	u8 EngineMode = XASUFW_AES_INVALID_ENGINE_MODE;
-	static u32 CmdStage = 0x0U;
+	static u32 CmdStage = XAES_NON_BLOCKING_CMD_STAGE_INIT;
 	u8 AadIsLast;
 
 	/**
@@ -301,7 +301,7 @@ XAES_STAGE_DATA_UPDATE:
 	}
 
 XAES_STAGE_DATA_UPDATE_DONE:
-	CmdStage = 0x0U;
+	CmdStage = XAES_NON_BLOCKING_CMD_STAGE_INIT;
 
 	if ((AesParamsPtr->OperationFlags & XASU_AES_FINAL) == XASU_AES_FINAL) {
 		/** Complete the AES operation. */
