@@ -634,7 +634,7 @@ void *XAsu_UpdateNGetCtx(u8 UniqueId)
  *************************************************************************************************/
 s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId)
 {
-	s32 Status = XASU_INVALID_CLIENT_CTX;
+	volatile s32 Status = XASU_INVALID_CLIENT_CTX;
 	u8 Index = 0U;
 	const XAsu_ClientCtx *ClientCtx = (const XAsu_ClientCtx *)Context;
 
