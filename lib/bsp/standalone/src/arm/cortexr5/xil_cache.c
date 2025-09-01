@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -281,7 +281,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 
 	if (len != 0U) {
 		tempadr = adr & (~(cacheline - 1U));
-		((MAX_ADDR - (u32)adr) < len) ? (end = MAX_ADDR) : (end = adr + len);
+		((MAX_ADDR - (u32)adr) < len) ? (end = MAX_ADDR) : (end = (u32)adr + len);
 		tempend = end & (~(cacheline - 1U));
 
 		/* Select L1 Data cache in CSSR */
@@ -300,7 +300,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 		while (adr < (INTPTR)end) {
 			/* Invalidate Data cache line */
 			asm_inval_dc_line_mva_poc(adr);
-			((MAX_ADDR - (u32)adr) < cacheline) ? (adr = MAX_ADDR) : (adr += cacheline);
+			((MAX_ADDR - (u32)adr) < cacheline) ? (adr = MAX_ADDR) : (adr += (s32)cacheline);
 		}
 	}
 

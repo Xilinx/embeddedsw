@@ -191,8 +191,8 @@ static void outnum1( const s64 n, const s32 base, params_t *par)
 	do {
 		outbuf[i] = digits[(num % base)];
 		i++;
-		num /= base;
-	} while (num > 0);
+		num /= (u64)base;
+	} while (num > 0U);
 
 	if (negative != 0) {
 		outbuf[i] = '-';
