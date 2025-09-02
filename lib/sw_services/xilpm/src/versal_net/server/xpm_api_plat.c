@@ -356,135 +356,62 @@ void XPm_PlatChangeCoreState(XPm_Core *Core, const u32 State)
 static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
-	u32 i = 0, j = 0UL, Prealloc = 0, Capability = 0;
+	u32 i = 0, Prealloc = 0, Capability = 0;
 	const XPm_Requirement *Req = NULL;
-	const u32 DefaultPreallocDevList[][2] = {
-		{PM_DEV_PSM_PROC, (u32)PM_CAP_ACCESS},
-		{PM_DEV_UART_0, (u32)XPM_MAX_CAPABILITY},
-		{PM_DEV_UART_1, (u32)XPM_MAX_CAPABILITY},
-		{PM_DEV_ACPU_0_0, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_0_1, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_0_2, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_0_3, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_1_0, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_1_1, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_1_2, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_1_3, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_2_0, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_2_1, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_2_2, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_2_3, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_3_0, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_3_1, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_3_2, (u32)PM_CAP_ACCESS},
-		{PM_DEV_ACPU_3_3, (u32)PM_CAP_ACCESS},
-		{PM_DEV_SDIO_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
-		{PM_DEV_QSPI, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
-		{PM_DEV_OSPI, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
-		{PM_DEV_RPU_A_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
-		{PM_DEV_RPU_B_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
-		{PM_DEV_IPI_0, (u32)PM_CAP_ACCESS},
-		{PM_DEV_IPI_1, (u32)PM_CAP_ACCESS},
-		{PM_DEV_IPI_2, (u32)PM_CAP_ACCESS},
-		{PM_DEV_IPI_3, (u32)PM_CAP_ACCESS},
-		{PM_DEV_IPI_4, (u32)PM_CAP_ACCESS},
-		{PM_DEV_IPI_5, (u32)PM_CAP_ACCESS},
-		{PM_DEV_IPI_6, (u32)PM_CAP_ACCESS},
-		{PM_DEV_SDIO_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
-		{PM_DEV_I2C_0, (u32)PM_CAP_ACCESS},
-		{PM_DEV_I2C_1, (u32)PM_CAP_ACCESS},
-		{PM_DEV_GEM_0, (u32)XPM_MAX_CAPABILITY | (u32)PM_CAP_SECURE},
-		{PM_DEV_GEM_1, (u32)XPM_MAX_CAPABILITY | (u32)PM_CAP_SECURE},
-		{PM_DEV_OCM_0_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_OCM_0_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_OCM_0_2, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_OCM_0_3, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_OCM_1_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_OCM_1_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_OCM_1_2, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_OCM_1_3, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_DDR_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_TTC_0, (u32)PM_CAP_ACCESS},
-		{PM_DEV_TTC_1, (u32)PM_CAP_ACCESS},
-		{PM_DEV_TTC_2, (u32)PM_CAP_ACCESS},
-		{PM_DEV_TTC_3, (u32)PM_CAP_ACCESS},
-		{PM_DEV_GPIO_PMC, (u32)PM_CAP_ACCESS},
-		{PM_DEV_GPIO, (u32)PM_CAP_ACCESS},
-		{PM_DEV_TCM_A_0A, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_TCM_A_0B, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_TCM_A_0C, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_TCM_A_1A, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_TCM_A_1B, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_TCM_A_1C, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_TCM_B_0A, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_TCM_B_0B, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_TCM_B_0C, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_TCM_B_1A, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_TCM_B_1B, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-		{PM_DEV_TCM_B_1C, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
-	};
 
-	/*
-	 * Only fill out default subsystem requirements:
-	 *   - if no proc/mem/periph requirements are present
-	 *   - if only 1 subsystem has been added
+	/**
+	 * We do not support any customizations in Default Subsystem
 	 */
 	Req = Subsystem->Requirements;
-	while (NULL != Req) {
-		u32 SubClass = NODESUBCLASS(Req->Device->Node.Id);
-		/**
-		 * Requirements can be present for non-plm managed nodes in PMC CDO
-		 * (e.g. regnodes, ddrmcs etc.), thus only check for proc/mem/periph
-		 * requirements which are usually present in subsystem definition;
-		 * and stop as soon as first such requirement is found.
-		 */
-		if (((u32)XPM_NODESUBCL_DEV_CORE == SubClass) ||
-		    ((u32)XPM_NODESUBCL_DEV_PERIPH == SubClass) ||
-		    ((u32)XPM_NODESUBCL_DEV_MEM == SubClass)) {
-			Status = XST_SUCCESS;
-			break;
-		}
-		Req = Req->NextDevice;
-	}
-	if (XST_SUCCESS ==  Status) {
-		XPm_SetOverlayCdoFlag(0U);
+	if (NULL != Req) {
+		/* We return error if any requirements exists in Default Subsystem */
 		goto done;
 	}
 
+	/* add DDR Mem-Regns for Default Subsystem. ( Needed for CMN Flush ) */
 	XPm_SetOverlayCdoFlag(1U);
 
 	for (i = 0; i < (u32)XPM_NODEIDX_DEV_MAX; i++) {
+		/* Always prealloc all requestable devices */
+		Prealloc = 1U;
+		/* Always use maximum capability and secure if applies */
+		Capability = XPM_MAX_CAPABILITY | PM_CAP_SECURE;
+
 		/*
 		 * Note: XPmDevice_GetByIndex() assumes that the caller
 		 * is responsible for validating the Node ID attributes
 		 * other than node index.
 		 */
 		XPm_Device *Device = XPmDevice_GetByIndex(i);
-		if ((NULL != Device) && (1U == XPmDevice_IsRequestable(Device->Node.Id))) {
-			Prealloc = 0;
-			Capability = 0;
+		if ((NULL == Device) || (1U != XPmDevice_IsRequestable(Device->Node.Id))) {
+			continue;
+		}
 
-			for (j = 0; j < ARRAY_SIZE(DefaultPreallocDevList); j++) {
-				if (Device->Node.Id == DefaultPreallocDevList[j][0]) {
-					Prealloc = 1;
-					Capability = DefaultPreallocDevList[j][1];
-					break;
-				}
-			}
-			/**
-			 * Since default subsystem is hard-coded for now, add security policy
-			 * for all peripherals as REQ_ACCESS_SECURE. This allows any device
-			 * with a _master_ port to be requested in secure mode if the topology
-			 * supports it.
-			 */
-			Status = XPmRequirement_Add(Subsystem, Device,
-					REQUIREMENT_FLAGS(Prealloc,
-						(u32)REQ_ACCESS_SECURE,
-						(u32)REQ_NO_RESTRICTION),
-					Capability, XPM_DEF_QOS);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
+		/* ADMAs [0-7] are non-secure access by linux */
+		if (((u32)XPM_NODEIDX_DEV_ADMA_0 <= NODEINDEX(Device->Node.Id)) && ((u32)XPM_NODEIDX_DEV_ADMA_7 >= NODEINDEX(Device->Node.Id))) {
+			Capability = (u32)XPM_MAX_CAPABILITY;
+		}
+		/* All MEM devices need CAP_CONTEXT */
+		else if ((u32)XPM_NODESUBCL_DEV_MEM == NODESUBCLASS(Device->Node.Id)) {
+			Capability = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE | (u32)PM_CAP_CONTEXT;
+		}
+		else {
+			/* to avoid MISRA violation */
+		}
+
+		/**
+		 * Since default subsystem is hard-coded for now, add security policy
+		 * for all peripherals as REQ_ACCESS_SECURE. This allows any device
+		 * with a _master_ port to be requested in secure mode if the topology
+		 * supports it.
+		 */
+		Status = XPmRequirement_Add(Subsystem, Device,
+				REQUIREMENT_FLAGS(Prealloc,
+					(u32)REQ_ACCESS_SECURE,
+					(u32)REQ_NO_RESTRICTION),
+				Capability, XPM_DEF_QOS);
+		if (XST_SUCCESS != Status) {
+			goto done;
 		}
 	}
 
@@ -494,20 +421,15 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		goto done;
 	}
 
-	/* Add xGGS Permissions */
-	j |= 1UL << IOCTL_PERM_READ_SHIFT_NS;
-	j |= 1UL << IOCTL_PERM_WRITE_SHIFT_NS;
-	j |= 1UL << IOCTL_PERM_READ_SHIFT_S;
-	j |= 1UL << IOCTL_PERM_WRITE_SHIFT_S;
 	for (i = PM_DEV_GGS_0; i <= PM_DEV_GGS_3; i++) {
-		Status = XPm_AddDevRequirement(Subsystem, i, j, NULL, 0);
+		Status = XPm_AddDevRequirement(Subsystem, i, IOCTL_PERM_READ_WRITE_MASK, NULL, 0);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
 	}
 
 	for (i = PM_DEV_PGGS_0; i <= PM_DEV_PGGS_1; i++) {
-		Status = XPm_AddDevRequirement(Subsystem, i, j, NULL, 0);
+		Status = XPm_AddDevRequirement(Subsystem, i, IOCTL_PERM_READ_WRITE_MASK, NULL, 0);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}

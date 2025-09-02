@@ -34,9 +34,29 @@ extern "C" {
 typedef struct XPm_DeviceNode XPm_Device;
 
 /************************** Function Prototypes ******************************/
+static u8 XPmDevice_IsExcluded(const u32 NodeId)
+{
+	u8 IsExcluded = 0U;
+
+	if (((u32)XPM_NODETYPE_DEV_SOC == NODETYPE(NodeId)) ||
+	    ((u32)XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(NodeId)) ||
+	    ((u32)XPM_NODETYPE_DEV_EFUSE == NODETYPE(NodeId)) ||
+	    ((u32)XPM_NODESUBCL_DEV_PHY == NODESUBCLASS(NodeId)) ||
+	    ((u32)XPM_NODEIDX_DEV_AMS_ROOT == NODEINDEX(NodeId))) {
+		IsExcluded = 1U;
+	}
+
+	return IsExcluded;
+}
+
 maybe_unused static u8 XPmDevice_IsRequestable(u32 NodeId)
 {
 	u8 Requestable = 0U;
+
+	if (XPmDevice_IsExcluded(NodeId)) {
+		/* Excluded device is not requestable */
+		return Requestable;
+	}
 
 	switch (NODESUBCLASS(NodeId)) {
 	case (u32)XPM_NODESUBCL_DEV_CORE:
