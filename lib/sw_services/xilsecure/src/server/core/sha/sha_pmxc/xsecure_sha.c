@@ -22,7 +22,7 @@
 * 5.6   aa   07/21/25 Typecast to essential datatype to avoid implicit conversions
 *                     fix dereference before null check
 *       tus  08/06/25 Add support for zero data length SHA use case
-*
+*       vss  09/02/25 Fixed GCC warnings
 * </pre>
 *
 * @note
@@ -351,7 +351,7 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 	/** Read out the Hash and store in Hash Buffer. */
 	for (Index = 0U; Index < ShaDigestSizeInWords; Index++) {
 		RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
-			XSECURE_SHA_DIGEST_OFFSET + (Index * XSECURE_WORD_SIZE));
+			(u16)(XSECURE_SHA_DIGEST_OFFSET + (Index * XSECURE_WORD_SIZE)));
 		XSecure_Out64(HashAddr + (Index * XSECURE_WORD_SIZE), RegVal);
 	}
 
