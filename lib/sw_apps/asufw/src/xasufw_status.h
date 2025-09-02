@@ -223,7 +223,7 @@ enum {
 						failed */
 	XASUFW_START_RESEED_FAILED, /**< 0x81U - TRNG reseed failed */
 	XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE, /**< 0x82U - TRNG invalid random bytes requested */
-	XASUFW_TRNG_KAT_NOT_SUPPORTED_ON_QEMU, /**< 0x83U - TRNG DRBG KAT is not supported on QEMU */
+	XASUFW_KAT_NOT_SUPPORTED_ON_QEMU, /**< 0x83U - KAT is not supported on QEMU */
 	XASUFW_TRNG_DFLEN_CONFIG_ERROR, /**< 0x84U - DF length configuration failure */
 	XASUFW_TRNG_ADAPTCUTOFF_CONFIG_ERROR, /**< 0x85U - Adaptive test cutoff configuration
 						failure */

@@ -79,9 +79,9 @@ extern "C" {
  *     - ASUFW_DEBUG_DETAILED - This print level is used to print detailed debug prints
  */
 //#define ASUFW_PRINT /**< ASUFW minimal prints */
-//#define ASUFW_DEBUG /**< ASUFW general debug information prints */
+#define ASUFW_DEBUG /**< ASUFW general debug information prints */
 //#define ASUFW_DEBUG_INFO /**< ASUFW more debug information prints */
-#define ASUFW_DEBUG_DETAILED /**< ASUFW detailed debug information prints */
+//#define ASUFW_DEBUG_DETAILED /**< ASUFW detailed debug information prints */
 
 /** Run TRNG in PTRNG mode */
 //#define XASUFW_TRNG_ENABLE_PTRNG_MODE

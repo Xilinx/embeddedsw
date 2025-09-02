@@ -61,6 +61,7 @@
 #include "xkeywrap.h"
 #include "xtrng.h"
 #include "xtrng_hw.h"
+#include "xasufw_hw.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -498,7 +499,7 @@ s32 XAsufw_RunKatTaskHandler(void *KatTask)
 #ifdef XASU_AES_CM_ENABLE
 			Status = XAsufw_AesDpaCmKat(AsuDmaPtr);
 #endif
-			if (Status != XASUFW_SUCCESS) {
+			if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_KAT_NOT_SUPPORTED_ON_QEMU)) {
 				/** On failure of KAT, disable the root resource. */
 				XAsufw_DisableResource(XASUFW_AES);
 				/** Mark KAT status as failed in RTCA area. */
@@ -667,6 +668,8 @@ s32 XAsufw_RunKatTaskHandler(void *KatTask)
 SLD:
 	/* TODO: To send IPI to PLM to trigger secure lockdown. */
 #endif
+
+	XAsufw_Printf(DEBUG_GENERAL, "KATs execution completed.\r\n");
 
 	/** Delete self task after completion. */
 	XTask_Delete(SelfKatTask);
@@ -1346,6 +1349,13 @@ s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr)
 	u32 Index;
 	u32 InputDataAddr = (u32)(UINTPTR)XRsa_GetDataBlockAddr();
 
+	if ((XASUFW_PLATFORM == PMC_TAP_VERSION_PLATFORM_QEMU) ||
+		(XASUFW_PLATFORM == PMC_TAP_VERSION_PLATFORM_COSIM)) {
+		XAsufw_Printf(DEBUG_INFO, "INFO: AES DPACM KAT is not supported on QEMU\r\n");
+		Status = XASUFW_KAT_NOT_SUPPORTED_ON_QEMU;
+		goto RET;
+	}
+
 	/** Mask the input data. */
 	XAsufw_ApplyMask(AesCmPt, MaskedPt, XASUFW_AES_CM_SPLIT_MASK, sizeof(AesCmPt));
 
@@ -1487,6 +1497,7 @@ END:
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_DPA_CM_KAT_FAILED);
 	}
 
+RET:
 	return Status;
 }
 #endif /* XASU_AES_CM_ENABLE */
