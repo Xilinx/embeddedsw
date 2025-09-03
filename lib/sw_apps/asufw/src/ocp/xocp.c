@@ -91,6 +91,12 @@ s32 XOcp_GenerateDeviceKeys(XAsufw_Dma *DmaPtr, u32 EventMask)
 	u32 Idx = XASUFW_VALUE_ONE;
 	u32 EvtMask = EventMask;
 
+	/** Validate input parameter. */
+	if (DmaPtr == NULL) {
+		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
 	/** Generate DevIK key pair. */
 	if (((EvtMask & XOCP_SUBSYS_EVENT_MASK) == XOCP_SUBSYS_EVENT_MASK)) {
 		Status = XOcp_GenerateDevIk(DmaPtr);
@@ -229,12 +235,6 @@ static s32 XOcp_GenerateDevIk(XAsufw_Dma *DmaPtr)
 	u32 AsuCdiAddr = 0U;
 	u8 PersonalString[XOCP_PERSONAL_STRING_LEN] = {0U};
 
-	/** Validate input parameter. */
-	if (DmaPtr == NULL) {
-		Status = XASUFW_OCP_INVALID_PARAM;
-		goto END;
-	}
-
 	/** Get ASU CDI seed. */
 	Status = XOcp_GetAsuCdiAddr(&AsuCdiAddr);
 	if (Status != XASUFW_SUCCESS) {
@@ -310,12 +310,6 @@ static s32 XOcp_GenerateDevAk(u32 SubsysIdx, XAsufw_Dma *DmaPtr)
 	u8 SwCdi[XOCP_DICE_CDI_SIZE_IN_BYTES];
 	const XOcp_CdoData *CdoData = (XOcp_CdoData *)XOCP_CDO_DATA_ADDR;
 	const u8 *PersStr = NULL;
-
-	/** Validate input DMA parameter. */
-	if (DmaPtr == NULL) {
-		Status = XASUFW_OCP_INVALID_PARAM;
-		goto END;
-	}
 
 	/**
 	 * Generate DevAk key pair only if subsystem index doesn't exceed the maximum number of
@@ -523,7 +517,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XOcp_CertData *CertPtr, void *PlatDa
 
 	/** Validate platform data and CSR flag parameter. */
 	if ((PlatData == NULL) || (CertPtr == NULL) || (CertPtr->CertAddr == 0U) ||
-	    ((IsCsr != XASU_FALSE) && (IsCsr != XASU_TRUE))) {
+	    (CertPtr->CertActualSize == NULL) || ((IsCsr != XASU_FALSE) && (IsCsr != XASU_TRUE))) {
 		Status = XASUFW_OCP_INVALID_PARAM;
 		goto END;
 
