@@ -378,6 +378,14 @@ extern "C" {
 #define XPM_INT_ERR_NPD_SCANCLEAR_BUS_IDLE	0x3807U
 /* Error activating bus during NPD ScanClear workaround for xcvm2152 */
 #define XPM_INT_ERR_NPD_SCANCLEAR_BUS_ACT	0x3808U
+/* Error during NIDB PCOMPLETE */
+#define XPM_INT_ERR_NIDB_PCOMPLETE		0x3809U
+/* Error during ODISABLE AXI */
+#define XPM_INT_ERR_ODISABLE_AXI 		0x380AU
+/* Error during Deassert Init State */
+#define XPM_INT_ERR_DEASSERT_INIT		0x380BU
+/* Error during Mask Removed and Hold State */
+#define XPM_INT_ERR_HOLDSTATE			0x380CU
 
 /************************* Clock specific errors *****************************/
 /************************** (0x3900) - (0x39FF) ******************************/

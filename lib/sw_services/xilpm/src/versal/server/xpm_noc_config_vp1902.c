@@ -7,6 +7,7 @@
 #include <sleep.h>
 #include "xil_util.h"
 #include "xpm_bisr.h"
+#include "xpm_debug.h"
 #include "xpm_noc_config.h"
 #include "xplmi_ssit.h"
 
@@ -85,10 +86,13 @@ done:
  *
  * @param	NSUId NSU id
  *
- * @return	none
+ * @return	XST_SUCCESS if successful else XST_FAILURE or error code
  *
  ****************************************************************************/
-static void XPm_NsuStartup_vp1902(const u32 NsuId) {
+static XStatus XPm_NsuStartup_vp1902(const u32 NsuId) {
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
 	/**
 	 * Unlock PCSR
 	 */
@@ -103,22 +107,40 @@ static void XPm_NsuStartup_vp1902(const u32 NsuId) {
 	/**
 	 * Mask Removed and Hold State
 	 */
-	XPm_PcsrWrite(NOC_NSU_1_BASEADDR, NOC_NSU_1_REG_PCSR_MASK_HOLDSTATE_MASK, 0U);
+	Status = XPm_PcsrWrite(NOC_NSU_1_BASEADDR, NOC_NSU_1_REG_PCSR_MASK_HOLDSTATE_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_HOLDSTATE;
+		goto done;
+	}
 
 	/**
 	 * Deassert Init State
 	 */
-	XPm_PcsrWrite(NOC_NSU_1_BASEADDR, NOC_NSU_1_REG_PCSR_MASK_INITSTATE_MASK, 0U);
+	Status = XPm_PcsrWrite(NOC_NSU_1_BASEADDR, NOC_NSU_1_REG_PCSR_MASK_INITSTATE_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_DEASSERT_INIT;
+		goto done;
+	}
 
 	/**
 	 * ODISABLE AXI
 	 */
-	XPm_PcsrWrite(NOC_NSU_1_BASEADDR, NOC_NSU_1_REG_PCSR_MASK_ODISABLE_AXI_MASK, 0U);
+	Status = XPm_PcsrWrite(NOC_NSU_1_BASEADDR, NOC_NSU_1_REG_PCSR_MASK_ODISABLE_AXI_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_ODISABLE_AXI;
+		goto done;
+	}
 
 	/**
 	 * Set PCOMPLETE
 	 */
-	XPm_PcsrWrite(NOC_NSU_1_BASEADDR, NOC_NSU_1_REG_PCSR_MASK_PCOMPLETE_MASK, NOC_NSU_1_REG_PCSR_MASK_PCOMPLETE_MASK);
+	Status = XPm_PcsrWrite(NOC_NSU_1_BASEADDR, NOC_NSU_1_REG_PCSR_MASK_PCOMPLETE_MASK, NOC_NSU_1_REG_PCSR_MASK_PCOMPLETE_MASK);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_NIDB_PCOMPLETE;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
 
 	/**
 	 * PCSR Lock
@@ -126,6 +148,7 @@ static void XPm_NsuStartup_vp1902(const u32 NsuId) {
 	 */
 	XPm_LockPcsr(NOC_NSU_1_BASEADDR);
 	XPm_LockPcsr(NOC_NSU_1_BASEADDR);
+	return Status;
 }
 
 /**********************************************************************************
@@ -195,7 +218,8 @@ static XStatus XPm_SlaveNocConfigure_vp1902(const u32 SlrType) {
 					SLR3_NPS_12_REQUEST_PATH_WRITE_VALUE,
 					SLR3_NPS_12_RESPONSE_PATH_WRITE_VALUE);
 
-			XPm_NsuStartup_vp1902(NSU_ID_SLR3);
+			XSECURE_TEMPORAL_CHECK(done, Status,
+					XPm_NsuStartup_vp1902, NSU_ID_SLR3);
 
 			XSECURE_TEMPORAL_CHECK(done, Status,
 					XPm_NidbStartup_vp1902, NIDB_8_BASE_ADDRESS);
@@ -203,7 +227,8 @@ static XStatus XPm_SlaveNocConfigure_vp1902(const u32 SlrType) {
 		}
 		case SLR_TYPE_SSIT_DEV_SLAVE_2_SLR_NTOP:
 		{
-			XPm_NsuStartup_vp1902(NSU_ID_SLR2);
+			XSECURE_TEMPORAL_CHECK(done, Status,
+					XPm_NsuStartup_vp1902, NSU_ID_SLR2);
 
 			XSECURE_TEMPORAL_CHECK(done, Status,
 					XPm_NidbStartup_vp1902, NIDB_0_BASE_ADDRESS);
@@ -235,7 +260,8 @@ static XStatus XPm_SlaveNocConfigure_vp1902(const u32 SlrType) {
 					SLR1_NPS_12_REQUEST_PATH_WRITE_VALUE,
 					SLR1_NPS_12_RESPONSE_PATH_WRITE_VALUE);
 
-			XPm_NsuStartup_vp1902(NSU_ID_SLR1);
+			XSECURE_TEMPORAL_CHECK(done, Status,
+					XPm_NsuStartup_vp1902, NSU_ID_SLR1);
 
 			XSECURE_TEMPORAL_CHECK(done, Status,
 					XPm_NidbStartup_vp1902,
@@ -310,6 +336,7 @@ done:
 static XStatus XPm_NidbStartup_vp1902(const u32 NidbAddress)
 {
 	volatile XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/**
 	 * Unlock Change
@@ -328,12 +355,14 @@ static XStatus XPm_NidbStartup_vp1902(const u32 NidbAddress)
 	/**
 	 * Set the PCOMPLETE
 	 */
-	XPm_PcsrWrite(NidbAddress, NIDB_REG_PCSR_MASK_PCOMPLETE_MASK, NIDB_REG_PCSR_CONTROL_PCOMPLETE_MASK);
-
-	Xil_Out32((NidbAddress + NIDB_REG_PCSR_CONTROL_OFFSET),
-			(NIDB_REG_PCSR_MASK_PCOMPLETE_MASK & NIDB_REG_PCSR_CONTROL_PCOMPLETE_MASK));
+	Status = XPm_PcsrWrite(NidbAddress, NIDB_REG_PCSR_MASK_PCOMPLETE_MASK, NIDB_REG_PCSR_CONTROL_PCOMPLETE_MASK);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_NIDB_PCOMPLETE;
+	}
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
+
 	/**
 	 * Lock PCSR. instead of blind writes, writing twice
 	 */
