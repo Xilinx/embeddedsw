@@ -140,7 +140,7 @@ static X509_SignatureOidDescriptor SignOidList[X509_SIGN_TYPE_MAX] = {
 	},
 };
 
-static X509_CertGenInfo *CertInstance; /**< X.509 certificate generation instance used to hold
+static X509_CertGenInfo CertInstance; /**< X.509 certificate generation instance used to hold
 					certificate information */
 
 /************************************ Function Prototypes ****************************************/
@@ -257,15 +257,15 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 	}
 
 	/** Initialize X.509 certificate generation instance. */
-	CertInstance->Buf = (u8 *)(UINTPTR)X509CertAddr;
-	CertInstance->Offset = 0U;
+	CertInstance.Buf = (u8 *)(UINTPTR)X509CertAddr;
+	CertInstance.Offset = 0U;
 
 	/** Add sequence tag and move buffer to next address. */
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
-	TBSCertStart = &(CertInstance->Buf[CertInstance->Offset]);
+	TBSCertStart = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Generate CSR or TBS depending on the request. */
 	if (Cfg->IsCsr == XASU_TRUE) {
@@ -318,7 +318,7 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 	/** Update the encoded length in the X.509 certificate SEQUENCE. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateEncodedLength(SequenceLenIdx,
-					  (u32)(&(CertInstance->Buf[CertInstance->Offset]) -
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
 						SequenceValIdx),
 					  SequenceValIdx);
 	if (Status != XASUFW_SUCCESS) {
@@ -326,10 +326,10 @@ s32 X509_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32 *X509CertSize,
 		goto END;
 	}
 	if ((*SequenceLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		CertInstance->Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
+		CertInstance.Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
 	}
 
-	CertSize = CertInstance->Offset;
+	CertSize = CertInstance.Offset;
 
 	*X509CertSize = CertSize;
 
@@ -492,17 +492,17 @@ static s32 X509_Asn1CreateIntegerFieldFromByteArray(const u8 *IntegerVal, u32 In
 	 * then the value must be prepended with 0x00.
 	 */
 	if ((IntegerVal[Offset] & X509_ASN1_BIT7_MASK) == X509_ASN1_BIT7_MASK) {
-		CertInstance->Buf[CertInstance->Offset++] = 0x0U;
+		CertInstance.Buf[CertInstance.Offset++] = 0x0U;
 	}
 
 	/** Copy integer values. */
-	Status = Xil_SMemCpy(&(CertInstance->Buf[CertInstance->Offset]), IntegerLen - Offset,
+	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), IntegerLen - Offset,
 			     &IntegerVal[Offset], IntegerLen - Offset, IntegerLen - Offset);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
-	CertInstance->Offset += (IntegerLen - Offset);
+	CertInstance.Offset += (IntegerLen - Offset);
 
 END:
 	return Status;
@@ -532,8 +532,8 @@ static s32 X509_Asn1CreateInteger(const u8 *IntegerVal, u32 IntegerLen)
 
 	X509_AddTagField(X509_ASN1_TAG_INTEGER);
 
-	IntegerLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	IntegerValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	IntegerLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	IntegerValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	Status = X509_Asn1CreateIntegerFieldFromByteArray(IntegerVal, IntegerLen);
 	if (Status != XASUFW_SUCCESS) {
@@ -542,7 +542,7 @@ static s32 X509_Asn1CreateInteger(const u8 *IntegerVal, u32 IntegerLen)
 		goto END;
 	}
 
-	End = &(CertInstance->Buf[CertInstance->Offset]);
+	End = &(CertInstance.Buf[CertInstance.Offset]);
 
 	*IntegerLenIdx = (u8)(End - IntegerValIdx);
 
@@ -568,14 +568,14 @@ static s32 X509_Asn1CreateRawDataFromByteArray(const u8 *RawData, const u32 LenO
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
-	Status = Xil_SMemCpy(&(CertInstance->Buf[CertInstance->Offset]), LenOfRawDataVal, RawData,
+	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), LenOfRawDataVal, RawData,
 			     LenOfRawDataVal, LenOfRawDataVal);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
 
-	CertInstance->Offset += LenOfRawDataVal;
+	CertInstance.Offset += LenOfRawDataVal;
 
 END:
 	return Status;
@@ -634,8 +634,8 @@ static s32 X509_Asn1CreateBitString(const u8 *BitStringVal, u32 BitStringLen, u3
 	const u8 *End;
 
 	X509_AddTagField(X509_ASN1_TAG_BIT_STRING);
-	BitStringLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	BitStringValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	BitStringLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	BitStringValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/**
 	 * The first byte of the value of the BITSTRING is used to show the number
@@ -645,17 +645,17 @@ static s32 X509_Asn1CreateBitString(const u8 *BitStringVal, u32 BitStringLen, u3
 		NumofTrailingZeroes = X509_Asn1GetTrailingZeroesCount(*(BitStringVal +
 								      BitStringLen - 1U));
 	}
-	CertInstance->Buf[CertInstance->Offset++] = NumofTrailingZeroes;
+	CertInstance.Buf[CertInstance.Offset++] = NumofTrailingZeroes;
 
-	Status = Xil_SMemCpy(&(CertInstance->Buf[CertInstance->Offset]), BitStringLen,
+	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), BitStringLen,
 			     BitStringVal, BitStringLen, BitStringLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
-	CertInstance->Offset += BitStringLen;
+	CertInstance.Offset += BitStringLen;
 
-	End = &(CertInstance->Buf[CertInstance->Offset]);
+	End = &(CertInstance.Buf[CertInstance.Offset]);
 
 	*BitStringLenIdx = (u8)(End - BitStringValIdx);
 
@@ -684,14 +684,14 @@ static s32 X509_Asn1CreateOctetString(const u8 *OctetStringVal, u32 OctetStringL
 	u8 *OctetStringLenIdx;
 
 	X509_AddTagField(X509_ASN1_TAG_OCTET_STRING);
-	OctetStringLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
+	OctetStringLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
 
 	if (OctetStringLen <= X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES) {
 		*OctetStringLenIdx = (u8)OctetStringLen;
 	} else if (OctetStringLen <= X509_ASN1_LONG_FORM_2_BYTES_MAX_LENGTH_IN_BYTES) {
 		*OctetStringLenIdx = X509_ASN1_LONG_FORM_LENGTH_1BYTE;
 		*(OctetStringLenIdx + XASUFW_BUFFER_INDEX_ONE) = (u8)OctetStringLen;
-		CertInstance->Offset++;
+		CertInstance.Offset++;
 	} else {
 		*OctetStringLenIdx = X509_ASN1_LONG_FORM_LENGTH_2BYTES;
 		*(OctetStringLenIdx + XASUFW_BUFFER_INDEX_ONE) = (u8)((OctetStringLen &
@@ -699,16 +699,16 @@ static s32 X509_Asn1CreateOctetString(const u8 *OctetStringVal, u32 OctetStringL
 								>> X509_ASN1_NO_OF_BITS_IN_BYTE);
 		*(OctetStringLenIdx + XASUFW_BUFFER_INDEX_TWO) = (u8)(OctetStringLen &
 								      X509_ASN1_BYTE0_MASK);
-		CertInstance->Offset += XASUFW_VALUE_TWO;
+		CertInstance.Offset += XASUFW_VALUE_TWO;
 	}
 
-	Status = Xil_SMemCpy(&(CertInstance->Buf[CertInstance->Offset]), OctetStringLen,
+	Status = Xil_SMemCpy(&(CertInstance.Buf[CertInstance.Offset]), OctetStringLen,
 			     OctetStringVal, OctetStringLen, OctetStringLen);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
-	CertInstance->Offset += OctetStringLen;
+	CertInstance.Offset += OctetStringLen;
 
 END:
 	return Status;
@@ -726,12 +726,12 @@ END:
 static void X509_Asn1CreateBoolean(const u32 BooleanVal)
 {
 	X509_AddTagField(X509_ASN1_TAG_BOOLEAN);
-	CertInstance->Buf[CertInstance->Offset++] = X509_ASN1_LEN_OF_VALUE_OF_BOOLEAN;
+	CertInstance.Buf[CertInstance.Offset++] = X509_ASN1_LEN_OF_VALUE_OF_BOOLEAN;
 
 	if (BooleanVal == XASU_TRUE) {
-		CertInstance->Buf[CertInstance->Offset++] = (u8)X509_ASN1_BOOLEAN_TRUE;
+		CertInstance.Buf[CertInstance.Offset++] = (u8)X509_ASN1_BOOLEAN_TRUE;
 	} else {
-		CertInstance->Buf[CertInstance->Offset++] = (u8)X509_ASN1_BOOLEAN_FALSE;
+		CertInstance.Buf[CertInstance.Offset++] = (u8)X509_ASN1_BOOLEAN_FALSE;
 	}
 }
 
@@ -799,8 +799,8 @@ static s32 X509_GenSignAlgoField(void)
 	const u8 *End;
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Check whether signature type is supported or not. */
 	if ((SignOidList[InitData->SignType].SignType != X509_SIGN_TYPE_ECC_SHA3_384) &&
@@ -820,9 +820,9 @@ static s32 X509_GenSignAlgoField(void)
 	}
 
 	X509_AddTagField(X509_ASN1_TAG_NULL);
-	CertInstance->Buf[CertInstance->Offset++] = X509_NULL_VALUE;
+	CertInstance.Buf[CertInstance.Offset++] = X509_NULL_VALUE;
 
-	End = &(CertInstance->Buf[CertInstance->Offset]);
+	End = &(CertInstance.Buf[CertInstance.Offset]);
 
 	*SequenceLenIdx = (u8)(End - SequenceValIdx);
 
@@ -954,11 +954,11 @@ static s32 X509_GenPubKeyAlgIdentifierField(const X509_SubjectPublicKeyInfo *Pub
 	}
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	X509_AddTagField(X509_ASN1_TAG_OID);
-	CertInstance->Buf[CertInstance->Offset++] = PubKeyOidList[PubKeyInfo->PubKeyType].OidLen;
+	CertInstance.Buf[CertInstance.Offset++] = PubKeyOidList[PubKeyInfo->PubKeyType].OidLen;
 
 	/** Copy public key type OID. */
 	Status = X509_Asn1CreateRawDataFromByteArray(PubKeyOidList[PubKeyInfo->PubKeyType].Oid,
@@ -981,7 +981,7 @@ static s32 X509_GenPubKeyAlgIdentifierField(const X509_SubjectPublicKeyInfo *Pub
 		goto END;
 	}
 
-	End = &(CertInstance->Buf[CertInstance->Offset]);
+	End = &(CertInstance.Buf[CertInstance.Offset]);
 
 	*SequenceLenIdx = (u8)(End - SequenceValIdx);
 
@@ -1021,8 +1021,8 @@ static s32 X509_GenPublicKeyInfoField(const X509_SubjectPublicKeyInfo *PubKeyInf
 	const u8 *End;
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Generate public key algorithm identifier field. */
 	Status = X509_GenPubKeyAlgIdentifierField(PubKeyInfo);
@@ -1056,7 +1056,7 @@ static s32 X509_GenPublicKeyInfoField(const X509_SubjectPublicKeyInfo *PubKeyInf
 		goto END;
 	}
 
-	End = &(CertInstance->Buf[CertInstance->Offset]);
+	End = &(CertInstance.Buf[CertInstance.Offset]);
 
 	*SequenceLenIdx = (u8)(End - SequenceValIdx);
 
@@ -1121,8 +1121,8 @@ static s32 X509_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey, u32 Sub
 	}
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Create field for subject key OID. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -1146,8 +1146,8 @@ static s32 X509_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey, u32 Sub
 	}
 
 	X509_AddTagField(X509_ASN1_TAG_OCTET_STRING);
-	OctetStrLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	OctetStrValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	OctetStrLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	OctetStrValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Create octet string field to store calculated hash. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -1157,7 +1157,7 @@ static s32 X509_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey, u32 Sub
 		goto END;
 	}
 
-	End = &(CertInstance->Buf[CertInstance->Offset]);
+	End = &(CertInstance.Buf[CertInstance.Offset]);
 
 	*OctetStrLenIdx = (u8)(End - OctetStrValIdx);
 	*SequenceLenIdx = (u8)(End - SequenceValIdx);
@@ -1231,8 +1231,8 @@ static s32 X509_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey, u32 Is
 	}
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Create field for authority key OID. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -1256,12 +1256,12 @@ static s32 X509_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey, u32 Is
 	}
 
 	X509_AddTagField(X509_ASN1_TAG_OCTET_STRING);
-	OctetStrLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	OctetStrValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	OctetStrLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	OctetStrValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	KeyIdSequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	KeyIdSequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	KeyIdSequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	KeyIdSequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Create octet string field to store calculated hash. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -1271,7 +1271,7 @@ static s32 X509_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey, u32 Is
 		goto END;
 	}
 
-	End = &(CertInstance->Buf[CertInstance->Offset]);
+	End = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/**
 	 * 0x80 indicates that the SEQUENCE contains the optional parameter tagged
@@ -1348,8 +1348,8 @@ static s32 X509_GenKeyUsageField(const X509_Config *Cfg)
 	const u8 *End;
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Create field for key usage extension OID. */
 	Status = X509_Asn1CreateRawDataFromByteArray(Oid_KeyUsageExtn,
@@ -1363,8 +1363,8 @@ static s32 X509_GenKeyUsageField(const X509_Config *Cfg)
 	X509_Asn1CreateBoolean(XASU_TRUE);
 
 	X509_AddTagField(X509_ASN1_TAG_OCTET_STRING);
-	OctetStrLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	OctetStrValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	OctetStrLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	OctetStrValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	if (Cfg->IsSelfSigned == XASU_TRUE) {
 		X509_UpdateKeyUsageVal(KeyUsageVal, X509_KEYCERTSIGN);
@@ -1387,7 +1387,7 @@ static s32 X509_GenKeyUsageField(const X509_Config *Cfg)
 		goto END;
 	}
 
-	End = &(CertInstance->Buf[CertInstance->Offset]);
+	End = &(CertInstance.Buf[CertInstance.Offset]);
 
 	*OctetStrLenIdx = (u8)(End - OctetStrValIdx);
 	*SequenceLenIdx = (u8)(End - SequenceValIdx);
@@ -1428,8 +1428,8 @@ static s32 X509_GenExtKeyUsageField(void)
 	const u8 *End;
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Create field for extended key usage extension OID. */
 	Status = X509_Asn1CreateRawDataFromByteArray(Oid_EkuExtn, sizeof(Oid_EkuExtn));
@@ -1442,12 +1442,12 @@ static s32 X509_GenExtKeyUsageField(void)
 	X509_Asn1CreateBoolean(XASU_TRUE);
 
 	X509_AddTagField(X509_ASN1_TAG_OCTET_STRING);
-	OctetStrLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	OctetStrValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	OctetStrLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	OctetStrValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	EkuSequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	EkuSequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	EkuSequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	EkuSequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Create field for extended key usage client authority OID. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -1458,7 +1458,7 @@ static s32 X509_GenExtKeyUsageField(void)
 		goto END;
 	}
 
-	End = &(CertInstance->Buf[CertInstance->Offset]);
+	End = &(CertInstance.Buf[CertInstance.Offset]);
 
 	*EkuSequenceLenIdx = (u8)(End - EkuSequenceValIdx);
 	*OctetStrLenIdx = (u8)(End - OctetStrValIdx);
@@ -1502,7 +1502,7 @@ static inline s32 X509_GenSubAltNameField(const u8 *SubAltName, const u32 SubAlt
  *************************************************************************************************/
 static inline void X509_AddTagField(u8 Asn1Tag)
 {
-	CertInstance->Buf[CertInstance->Offset++] = Asn1Tag;
+	CertInstance.Buf[CertInstance.Offset++] = Asn1Tag;
 }
 
 /*************************************************************************************************/
@@ -1551,12 +1551,12 @@ static s32 X509_GenX509v3ExtensionsField(const X509_Config *Cfg)
 	u8 *SequenceValIdx;
 
 	X509_AddTagField(X509_ASN1_TAG_OPTIONAL_PARAM_3_CONSTRUCTED_TAG);
-	OptionalTagLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	OptionalTagValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	OptionalTagLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	OptionalTagValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Generate subject key identifier field. */
 	Status = X509_GenSubjectKeyIdentifierField(Cfg->PubKeyInfo.SubjectPublicKey,
@@ -1609,7 +1609,7 @@ static s32 X509_GenX509v3ExtensionsField(const X509_Config *Cfg)
 	/** Update the length of each extensions field. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateEncodedLength(SequenceLenIdx,
-					  (u32)(&(CertInstance->Buf[CertInstance->Offset]) -
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
 						SequenceValIdx),
 					  SequenceValIdx);
 	if (Status != XASUFW_SUCCESS) {
@@ -1617,12 +1617,12 @@ static s32 X509_GenX509v3ExtensionsField(const X509_Config *Cfg)
 		goto END;
 	}
 	if ((*SequenceLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		CertInstance->Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
+		CertInstance.Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateEncodedLength(OptionalTagLenIdx,
-					  (u32)(&(CertInstance->Buf[CertInstance->Offset]) -
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
 						OptionalTagValIdx),
 					  OptionalTagValIdx);
 	if (Status != XASUFW_SUCCESS) {
@@ -1630,7 +1630,7 @@ static s32 X509_GenX509v3ExtensionsField(const X509_Config *Cfg)
 		goto END;
 	}
 	if ((*OptionalTagLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		CertInstance->Offset += (u32)((*OptionalTagLenIdx) & X509_LOWER_NIBBLE_MASK);
+		CertInstance.Offset += (u32)((*OptionalTagLenIdx) & X509_LOWER_NIBBLE_MASK);
 	}
 
 END:
@@ -1666,8 +1666,8 @@ static s32 X509_GenSerialField(const u8 *DataHash)
 	u32 Offset;
 
 	/** Temporary move offset to serial number to store serial number. */
-	Offset = CertInstance->Offset;
-	CertInstance->Offset = CertInstance->SerialOffset;
+	Offset = CertInstance.Offset;
+	CertInstance.Offset = CertInstance.SerialOffset;
 
 	/**
 	 * The value of serial field must be 20 bytes. If the most significant
@@ -1694,7 +1694,7 @@ static s32 X509_GenSerialField(const u8 *DataHash)
 
 END:
 	/** Restore offset. */
-	CertInstance->Offset = Offset;
+	CertInstance.Offset = Offset;
 
 	return Status;
 }
@@ -1742,18 +1742,18 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 	const X509_InitData *InitData = X509_GetInitData();
 	u32 HashLen = 0U;
 	const u8 Hash[X509_HASH_MAX_SIZE_IN_BYTES] = {0U};
-	u32 TbsStart = CertInstance->Offset;
+	u32 TbsStart = CertInstance.Offset;
 	u8 *SequenceLenIdx;
 	u8 *SequenceValIdx;
 	const u8 *SerialStartIdx;
 	const u8 *HashStartIdx;
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	X509_AddTagField(X509_ASN1_TAG_OPTIONAL_PARAM_0_CONSTRUCTED_TAG);
-	CertInstance->Buf[CertInstance->Offset++] = X509_VERSION_FIELD_LEN;
+	CertInstance.Buf[CertInstance.Offset++] = X509_VERSION_FIELD_LEN;
 
 	/** Generate Version field. */
 	Status = X509_GenVersionField((u8)X509_VERSION_VALUE_V3);
@@ -1769,10 +1769,10 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 	 * number is to be stored so this fields can be updated when digest is calculated over
 	 * required fields.
 	 */
-	SerialStartIdx = &(CertInstance->Buf[CertInstance->Offset]);
-	CertInstance->SerialOffset = CertInstance->Offset;
-	CertInstance->Offset += X509_SERIAL_FIELD_LEN;
-	HashStartIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SerialStartIdx = &(CertInstance.Buf[CertInstance.Offset]);
+	CertInstance.SerialOffset = CertInstance.Offset;
+	CertInstance.Offset += X509_SERIAL_FIELD_LEN;
+	HashStartIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Generate Signature Algorithm field. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -1829,7 +1829,7 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = InitData->GenerateDigest(HashStartIdx,
-					  (&(CertInstance->Buf[CertInstance->Offset]) -
+					  (&(CertInstance.Buf[CertInstance.Offset]) -
 					   SerialStartIdx),
 					  Hash, (u32)X509_HASH_MAX_SIZE_IN_BYTES, &HashLen,
 					  Cfg->PlatformData);
@@ -1849,7 +1849,7 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 	/** Update the encoded length in the TBS certificate SEQUENCE. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateEncodedLength(SequenceLenIdx,
-					  (u32)(&(CertInstance->Buf[CertInstance->Offset]) -
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
 						SequenceValIdx),
 					  SequenceValIdx);
 	if (Status != XASUFW_SUCCESS) {
@@ -1857,10 +1857,10 @@ static s32 X509_GenTBSCertificate(const X509_Config *Cfg, u32 *TBSCertLen)
 		goto END;
 	}
 	if ((*SequenceLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		CertInstance->Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
+		CertInstance.Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
 	}
 
-	*TBSCertLen = CertInstance->Offset - TbsStart;
+	*TBSCertLen = CertInstance.Offset - TbsStart;
 
 END:
 	return Status;
@@ -1901,13 +1901,13 @@ static s32 X509_GenSignField(const u8 *Signature, u32 SignLen)
 	const u8 *End;
 
 	X509_AddTagField(X509_ASN1_TAG_BIT_STRING);
-	BitStrLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	BitStrValIdx = &(CertInstance->Buf[CertInstance->Offset++]);
+	BitStrLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	BitStrValIdx = &(CertInstance.Buf[CertInstance.Offset++]);
 	*BitStrValIdx = 0x00U;
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	Status = X509_Asn1CreateInteger(Signature, (SignLen / 2U));
 	if (Status != XASUFW_SUCCESS) {
@@ -1922,7 +1922,7 @@ static s32 X509_GenSignField(const u8 *Signature, u32 SignLen)
 		goto END;
 	}
 
-	End = &(CertInstance->Buf[CertInstance->Offset]);
+	End = &(CertInstance.Buf[CertInstance.Offset]);
 
 	*SequenceLenIdx = (u8)(End - SequenceValIdx);
 	*BitStrLenIdx = (u8)(End - BitStrValIdx);
@@ -1965,12 +1965,12 @@ static s32 X509_GenCsrExtensions(const X509_Config *Cfg)
 	u8 *SetValIdx;
 
 	X509_AddTagField(X509_ASN1_TAG_OPTIONAL_PARAM_0_CONSTRUCTED_TAG);
-	OptionalTagLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	OptionalTagValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	OptionalTagLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	OptionalTagValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	ExtnReqSeqLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	ExtnReqSeqValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	ExtnReqSeqLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	ExtnReqSeqValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Create field for extension request OID in case of CSR. */
 	Status = X509_Asn1CreateRawDataFromByteArray(Oid_ExtnRequest, sizeof(Oid_ExtnRequest));
@@ -1981,12 +1981,12 @@ static s32 X509_GenCsrExtensions(const X509_Config *Cfg)
 	}
 
 	X509_AddTagField(X509_ASN1_TAG_SET);
-	SetLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SetValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SetLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SetValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Generate key usage field. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -2007,7 +2007,7 @@ static s32 X509_GenCsrExtensions(const X509_Config *Cfg)
 	/** Update the length of each CSR extensions field. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateEncodedLength(SequenceLenIdx,
-					  (u32)(&(CertInstance->Buf[CertInstance->Offset]) -
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
 						SequenceValIdx),
 					  SequenceValIdx);
 	if (Status != XASUFW_SUCCESS) {
@@ -2015,12 +2015,12 @@ static s32 X509_GenCsrExtensions(const X509_Config *Cfg)
 		goto END;
 	}
 	if ((*SequenceLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		CertInstance->Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
+		CertInstance.Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateEncodedLength(SetLenIdx,
-					  (u32)(&(CertInstance->Buf[CertInstance->Offset]) -
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
 						SetValIdx),
 					  SetValIdx);
 	if (Status != XASUFW_SUCCESS) {
@@ -2028,12 +2028,12 @@ static s32 X509_GenCsrExtensions(const X509_Config *Cfg)
 		goto END;
 	}
 	if ((*SetLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		CertInstance->Offset += (u32)((*SetLenIdx) & X509_LOWER_NIBBLE_MASK);
+		CertInstance.Offset += (u32)((*SetLenIdx) & X509_LOWER_NIBBLE_MASK);
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateEncodedLength(ExtnReqSeqLenIdx,
-					  (u32)(&(CertInstance->Buf[CertInstance->Offset]) -
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
 						ExtnReqSeqValIdx),
 					  ExtnReqSeqValIdx);
 	if (Status != XASUFW_SUCCESS) {
@@ -2041,12 +2041,12 @@ static s32 X509_GenCsrExtensions(const X509_Config *Cfg)
 		goto END;
 	}
 	if ((*ExtnReqSeqLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		CertInstance->Offset += (u32)((*ExtnReqSeqLenIdx) & X509_LOWER_NIBBLE_MASK);
+		CertInstance.Offset += (u32)((*ExtnReqSeqLenIdx) & X509_LOWER_NIBBLE_MASK);
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateEncodedLength(OptionalTagLenIdx,
-					  (u32)(&(CertInstance->Buf[CertInstance->Offset]) -
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
 						OptionalTagValIdx),
 					  OptionalTagValIdx);
 	if (Status != XASUFW_SUCCESS) {
@@ -2054,7 +2054,7 @@ static s32 X509_GenCsrExtensions(const X509_Config *Cfg)
 		goto END;
 	}
 	if ((*OptionalTagLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		CertInstance->Offset += (u32)((*OptionalTagLenIdx) & X509_LOWER_NIBBLE_MASK);
+		CertInstance.Offset += (u32)((*OptionalTagLenIdx) & X509_LOWER_NIBBLE_MASK);
 	}
 
 END:
@@ -2089,11 +2089,11 @@ static s32 X509_GenCertReqInfo(const X509_Config *Cfg, u32 *CsrLen)
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 *SequenceLenIdx;
 	u8 *SequenceValIdx;
-	u32 CsrStart = CertInstance->Offset;
+	u32 CsrStart = CertInstance.Offset;
 
 	X509_AddTagField(X509_ASN1_TAG_SEQUENCE);
-	SequenceLenIdx = &(CertInstance->Buf[CertInstance->Offset++]);
-	SequenceValIdx = &(CertInstance->Buf[CertInstance->Offset]);
+	SequenceLenIdx = &(CertInstance.Buf[CertInstance.Offset++]);
+	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Generate Version field. */
 	Status = X509_GenVersionField((u8)X509_VERSION_VALUE_V0);
@@ -2128,7 +2128,7 @@ static s32 X509_GenCertReqInfo(const X509_Config *Cfg, u32 *CsrLen)
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateEncodedLength(SequenceLenIdx,
-					  (u32)(&(CertInstance->Buf[CertInstance->Offset]) -
+					  (u32)(&(CertInstance.Buf[CertInstance.Offset]) -
 						SequenceValIdx),
 					  SequenceValIdx);
 	if (Status != XASUFW_SUCCESS) {
@@ -2136,10 +2136,10 @@ static s32 X509_GenCertReqInfo(const X509_Config *Cfg, u32 *CsrLen)
 		goto END;
 	}
 	if ((*SequenceLenIdx & (u8)(~X509_ASN1_SHORT_FORM_MAX_LENGTH_IN_BYTES)) != 0U) {
-		CertInstance->Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
+		CertInstance.Offset += (u32)((*SequenceLenIdx) & X509_LOWER_NIBBLE_MASK);
 	}
 
-	*CsrLen = CertInstance->Offset - CsrStart;
+	*CsrLen = CertInstance.Offset - CsrStart;
 
 END:
 	return Status;
