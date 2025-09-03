@@ -27,6 +27,8 @@
 *  			  defines for Versal 2VE and 2VM platforms.
 *  	adk      09/05/25 Adjust the delay calculation logic for the R52
 *  	                  processor to use XIOU_SCNTRS_FREQ.
+*  2.3  adk      02/09/25 Updated the code to initialize global timer only
+*  			  once to avoid issues in AMP systems.
  *</pre>
  *
  *@note
@@ -99,17 +101,30 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 static void XGlobalTimer_Start(XTimer *InstancePtr)
 {
 	(void) InstancePtr;
-	/* Take LPD_TIMESTAMP out of reset */
-	Xil_Out32(LPD_RST_TIMESTAMP, 0x0);
+	u32 IsEnabled;
+	u32 TimeStampFreq;
 
-	/*write frequency to System Time Stamp Generator Register*/
-	Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_FREQ_REG_OFFSET),
-		  XIOU_SCNTRS_FREQ);
-	/*Enable the timer/counter*/
-	Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET),
-		  XIOU_SCNTRS_CNT_CNTRL_REG_EN);
+	IsEnabled = Xil_In32(XIOU_SCNTRS_BASEADDR +
+			     XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET);
+	TimeStampFreq = Xil_In32(XIOU_SCNTRS_BASEADDR +
+				 XIOU_SCNTRS_FREQ_REG_OFFSET);
 
+	if ((!(IsEnabled & XIOU_SCNTRS_CNT_CNTRL_REG_EN)) && !TimeStampFreq) {
+		/* Take LPD_TIMESTAMP out of reset */
+		Xil_Out32(LPD_RST_TIMESTAMP, 0x0);
+
+		/* write frequency to System Time Stamp Generator Register */
+		Xil_Out32((XIOU_SCNTRS_BASEADDR +
+			   XIOU_SCNTRS_FREQ_REG_OFFSET),
+			  XIOU_SCNTRS_FREQ);
+
+		/* Enable the timer/counter */
+		Xil_Out32((XIOU_SCNTRS_BASEADDR +
+			   XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET),
+			  XIOU_SCNTRS_CNT_CNTRL_REG_EN);
+	}
 }
+
 static inline u64 arch_counter_get_cntvct(void)
  {
           u64 cval;
