@@ -58,6 +58,8 @@
 
 #define XASU_NO_OF_CONTEXTS				(10U)	/**< No of contexts can be saved by client */
 
+#define XASU_INITIAL_CALL_COUNT			(1U)	/**< Initial count for multi-update requests */
+
 /** @} */
 /************************************** Type Definitions *****************************************/
 /** This structure represents a client context, storing a unique identifier. */
@@ -82,7 +84,8 @@ typedef struct {
 	XAsu_ClientParams *ClientParams; /**< Pointer to the XAsu_ClientParams */
 	u8 *RespBufferPtr;		/**< Buffer to store the response data */
 	u32 Size;				/**< Size of the response buffer to be copied */
-	u8 Clear;				/**< Clear the contents after the callback */
+	u32 PendingMultiUpdates; /**< Number of pending multi-update requests */
+	u8 Clear;				/**< Clear the contents after the callback if no pending updates */
 } XAsu_RefToCallBack;
 
 /**
@@ -326,6 +329,7 @@ u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBuffe
 	AsuCallBackRef[UniqueId].ClientParams = ClientParamPtr;
 	AsuCallBackRef[UniqueId].RespBufferPtr = RespBufferPtr;
 	AsuCallBackRef[UniqueId].Size = Size;
+	AsuCallBackRef[UniqueId].PendingMultiUpdates = XASU_INITIAL_CALL_COUNT;
 	AsuCallBackRef[UniqueId].Clear = IsFinalCall;
 END:
 	return UniqueId;
@@ -459,8 +463,10 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 					/** Copy additional status from response buffer. */
 					AsuCallBackRef[UniqueId].ClientParams->AdditionalStatus =
 								ChannelQueueBufPtr->RespBuf.AdditionalStatus;
+					AsuCallBackRef[UniqueId].PendingMultiUpdates--;
 					/** Clear the callback info upon completion. */
-					if (AsuCallBackRef[UniqueId].Clear == XASU_TRUE) {
+					if ((AsuCallBackRef[UniqueId].PendingMultiUpdates == 0U) &&
+						(AsuCallBackRef[UniqueId].Clear == XASU_TRUE)) {
 						AsuCallBackRef[UniqueId].ClientParams = NULL;
 					}
 					/** Clear request and response status. */
@@ -646,6 +652,10 @@ s32 XAsu_VerifyNGetUniqueIdCtx(const void *Context, u8 *UniqueId)
 		}
 		Index++;
 	} while (Index < XASU_NO_OF_CONTEXTS);
+
+	if (Status == XST_SUCCESS) {
+		AsuCallBackRef[*UniqueId].PendingMultiUpdates++;
+	}
 
 	return Status;
 }

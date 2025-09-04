@@ -98,7 +98,7 @@ s32 XAsu_HmacCompute(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacPa
 				== XASU_HMAC_FINAL)) {
 				/** - Generate a Unique ID for the new request. */
 				UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr,
-								NULL, 0U, XASU_FALSE);
+								NULL, 0U, XASU_TRUE);
 				if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 					Status = XASU_INVALID_UNIQUE_ID;
 					goto END;

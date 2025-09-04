@@ -147,7 +147,7 @@ s32 XAsu_Sha3Operation(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *
 				== XASU_SHA_FINISH) {
 				/** - Generate a Unique ID for the new request. */
 				UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
-								NULL, 0U, XASU_FALSE);
+								NULL, 0U, XASU_TRUE);
 				if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 					Status = XASU_INVALID_UNIQUE_ID;
 					goto END;

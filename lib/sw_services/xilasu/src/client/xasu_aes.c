@@ -236,7 +236,7 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 				== XASU_AES_FINAL)) {
 				/** - Generate a Unique ID for the new request. */
 				UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
-								NULL, 0U, XASU_FALSE);
+								NULL, 0U, XASU_TRUE);
 				if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 					Status = XASU_INVALID_UNIQUE_ID;
 					goto END;
