@@ -167,7 +167,7 @@ static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,
 **************************************************************************************************/
 static void XPlmi_ResTimeoutHandling(void)
 {
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET)\
+#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
 	XPlmi_TaskNode *Task = NULL;
 	u32 CoreType;
@@ -443,7 +443,7 @@ int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	return Status;
 }
 
-#if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET)\
+#if ((defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)||defined(VERSAL_NET))\
      && defined(XPLMI_IPI_DEVICE_ID))
 /******************************************************************************/
 /**
