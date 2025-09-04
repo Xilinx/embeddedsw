@@ -18,6 +18,7 @@ properties:
         - enum:
           - xlnx,psx-pmc-trng-11.0
           - xlnx,pmc-trng-11.0
+          - xlnx,pmcl-trng-11.0
 
 config:
   - XTrngpsx_Config
