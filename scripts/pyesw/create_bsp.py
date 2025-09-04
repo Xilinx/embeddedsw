@@ -377,22 +377,23 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                     f'set( CMAKE_BSP_HW_LINK_FLAGS "{bsp_linkflags}" )\n',
                 )
 
-            relative_libpath = avail_cflag_data.get("libpath")
-            vitis_path = os.environ.get("XILINX_VITIS")
-            if os.name == "nt":
-                libpath = os.path.join(vitis_path, "gnu", processor, "nt", relative_libpath)
-            else:
-                libpath = os.path.join(vitis_path, "gnu", processor, "lin", relative_libpath)
+            if self.proc_ip_name == "microblaze":
+                relative_libpath = avail_cflag_data.get("libpath")
+                vitis_path = os.environ.get("XILINX_VITIS")
+                if os.name == "nt":
+                    libpath = os.path.join(vitis_path, "gnu", processor, "nt", relative_libpath)
+                else:
+                    libpath = os.path.join(vitis_path, "gnu", processor, "lin", relative_libpath)
 
-            libpath = libpath.replace('\\', '/')
+                libpath = libpath.replace('\\', '/')
 
-            assert utils.is_dir(libpath), f"{processor} compiler library path {libpath} is not found."
+                assert utils.is_dir(libpath), f"{processor} compiler library path {libpath} is not found."
 
-            utils.replace_line(
-                toolchain_file_copy,
-                f'set( CMAKE_COMPILER_LIB_PATH "" )',
-                f'set( CMAKE_COMPILER_LIB_PATH "{libpath}" )\n',
-            )
+                utils.replace_line(
+                    toolchain_file_copy,
+                    f'set( CMAKE_COMPILER_LIB_PATH "" )',
+                    f'set( CMAKE_COMPILER_LIB_PATH "{libpath}" )\n',
+                )
 
         self.compiler_flags = self.apps_cflags_update(
             toolchain_file_copy, self.app, self.proc
