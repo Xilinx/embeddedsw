@@ -53,6 +53,8 @@
 *                         given row in SSIT devices and Updated comments for
 *                         Ug643
 * 2.4   rama 08/22/2025   Added SMC call support for EL1 Non-secure apps
+* 2.5   gam  08/29/2025   Protected SMC header file inclusion for EL1 NS
+*                         applications.
 * </pre>
 *
 * @note
@@ -60,9 +62,9 @@
 *
 ******************************************************************************/
 #include "xsem_client_api.h"
-#include "xil_smc.h"
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
+#include "xil_smc.h"
 /*****************************************************************************/
 /**
  * @brief	This function copies SMC call result to response buffer

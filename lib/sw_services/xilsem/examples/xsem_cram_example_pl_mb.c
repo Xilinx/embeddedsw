@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -24,6 +24,9 @@
  *                           changed Uncorrectable and CRC error data.
  *                           Moved Error injection sequence in the end of
  *                           main function to get clear prints.
+ * 0.4   gam     08/29/2025  Updated IPI driver initialization & interrupts
+ *                           for SDT support.
+ *
  * </pre>
  *
  *****************************************************************************/
@@ -31,28 +34,47 @@
 #include "sleep.h"
 #include "xsem_client_api.h"
 #include "xintc.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
+
 
 #define CRAM_STATUS_INIT_DONE_MASK	(0X00010000U)
 #define CRAM_STATUS_COR_ERR_MASK	(0X00000800U)
 #define CRAM_STATUS_CRC_ERR_MASK	(0X00000400U)
 #define CRAM_STATUS_UNCOR_ERR_MASK	(0X00000200U)
 #define CRAM_STATUS_ECC_COR_DONE_MASK	(0X00004000U)
-/* Interrupt Controller device ID */
-#define INTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
-/* IPI device ID to use for this test */
-#define IPI_CHANNEL_ID			XPAR_XIPIPSU_0_DEVICE_ID
-/* Destination IPI channel mask used for this test */
-#define IPI_PMC_MASK			0x2U
+
+#ifndef SDT
+	/* Interrupt Controller device ID */
+	#define INTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
+	/* IPI device ID to use for this test */
+	#define IPI_CHANNEL_ID			XPAR_XIPIPSU_0_DEVICE_ID
+	/* Destination IPI channel mask used for this test */
+	#define IPI_PMC_MASK			0x2U
+#else
+	/* Interrupt Controller device ID */
+	#define INTC_DEVICE_ID			XPAR_XINTC_0_BASEADDR
+	/* IPI device ID to use for this test */
+	#define IPI_CHANNEL_ID			XPAR_XIPIPSU_0_BASEADDR
+	/* Destination IPI channel mask used for this test */
+	#define IPI_PMC_MASK			0x2U
+#endif
+
 /*
  * Interrupt Number of IPI whose interrupt output is connected to the input
  * of the Interrupt Controller
  */
-#ifdef VERSAL_NET
-	#define INTC_DEVICE_IPI_INT_ID	\
-		XPAR_AXI_INTC_0_PSX_WIZARD_0_PSXL_0_PSX_PL_IRQ_LPD_IPI4_INTR
+ #ifndef SDT
+	#ifdef VERSAL_NET
+		#define INTC_DEVICE_IPI_INT_ID	\
+			XPAR_AXI_INTC_0_PSX_WIZARD_0_PSXL_0_PSX_PL_IRQ_LPD_IPI4_INTR
+	#else
+		#define INTC_DEVICE_IPI_INT_ID	\
+			XPAR_AXI_INTC_0_VERSAL_CIPS_0_PSPMC_0_PS_PL_IRQ_LPD_IPI_IPI1_INTR
+	#endif
 #else
-	#define INTC_DEVICE_IPI_INT_ID	\
-		XPAR_AXI_INTC_0_VERSAL_CIPS_0_PSPMC_0_PS_PL_IRQ_LPD_IPI_IPI1_INTR
+		#define INTC_DEVICE_IPI_INT_ID	0x0U
 #endif
 
 static XIpiPsu IpiInst;
@@ -629,7 +651,14 @@ int IntcAndIpiInit(void)
 	xil_printf("Intc self test done\r\n");
 
 	/* Setup the Interrupt System. */
+#ifndef SDT
 	Status = SetUpInterruptSystem(&InterruptController);
+#else
+	Status = XSetupInterruptSystem(&IpiInst, &InterruptController,
+				   IpiInst.Config.IntId,
+				   IpiInst.Config.IntrParent,
+				   XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
