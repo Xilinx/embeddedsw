@@ -24,6 +24,12 @@
  * 1.11  ht   01/30/25    Update handler registration for XMAILBOX_INTR_ID
  *                        in SDT flow.
  * 1.12  an   08/22/25    Refactor to skip interrupt registration for PMC, PSM
+ * 1.12  ht   09/02/25    IPI operation relied on the RemoteId stored in XMailbox
+ * 			  Instance, which could lead to race conditions and data
+ * 			  corruption when handling multiple requests from
+ * 			  different IPI channels concurrently.
+ * 			  Use RemoteId based APIs to support concurrent IPI
+ * 			  channel requests.
  *
  *  *</pre>
  *
@@ -45,6 +51,10 @@
  *
  * @return      XST_SUCCESS in case of success
  *              XST_FAILURE in case of failure
+ *
+ * @attention This API will be deprecated in 2026.2 and will be made obsolete
+ *            in 2027.1 release. The functionality of this API can be reproduced
+ *            with XIpiPs_PollforDoneById.
  */
 /****************************************************************************/
 u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
@@ -60,6 +70,44 @@ u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
 	do {
 		Flag = (XIpiPsu_ReadReg(IpiInstancePtr->Config.BaseAddress,
 					XIPIPSU_OBS_OFFSET)) & (DataPtr->RemoteId);
+		if (Flag == 0U) {
+			break;
+		}
+		usleep(XIPI_IPI_DONE_BIT_SLEEP_IN_US);
+		Timeout--;
+	} while (Timeout != 0U);
+
+	if (Timeout == 0U) {
+		Status = XST_FAILURE;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * Poll for an acknowledgement using Observation Register.
+ *
+ * @param InstancePtr Pointer to the XMailbox instance
+ * @param RemoteId Mask of the destination CPU from which ACK is expected
+ *
+ * @return      XST_SUCCESS in case of success
+ *              XST_FAILURE in case of failure
+ */
+/****************************************************************************/
+u32 XIpiPs_PollforDoneById(XMailbox *InstancePtr, u32 RemoteId)
+{
+	/* Initialize the agent to store IPI channel information */
+	XMailbox_Agent *DataPtr = &InstancePtr->Agent;
+	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
+	u32 Timeout = XIPI_DONE_TIMEOUT_VAL;
+	u32 Status = XST_SUCCESS;
+	u32 Flag;
+
+	/* Poll for an acknowledgment using Observation register */
+	do {
+		Flag = (XIpiPsu_ReadReg(IpiInstancePtr->Config.BaseAddress,
+					XIPIPSU_OBS_OFFSET)) & (RemoteId);
 		if (Flag == 0U) {
 			break;
 		}

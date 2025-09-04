@@ -20,6 +20,12 @@
  * 1.11  ht   01/02/25    Fix GCC warnings
  * 1.12  ht   06/04/25    Refactor conditional inclusion of interrupt headers.
  * 1.12  an   08/22/25    Refactor to skip interrupt registration for PMC, PSM
+ * 1.12  ht   09/02/25    IPI operation relied on the RemoteId stored in XMailbox
+ * 			  Instance, which could lead to race conditions and data
+ * 			  corruption when handling multiple requests from
+ * 			  different IPI channels concurrently.
+ * 			  Use RemoteId based APIs to support concurrent IPI
+ * 			  channel requests.
  *
  *  *</pre>
  *
@@ -60,11 +66,17 @@ u32 XIpiPs_Init(XMailbox *InstancePtr, u8 DeviceId);
 u32 XIpiPs_Init(XMailbox *InstancePtr, UINTPTR BaseAddress);
 #endif
 u32 XIpiPs_Send(XMailbox *InstancePtr, u8 Is_Blocking);
-u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr,
-		    u32 MsgLen, u8 BufferType, u8 Is_Blocking);
-u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
-		    u32 MsgLen, u8 BufferType);
+u32 XIpiPs_SendById(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking);
+u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
+		    u8 BufferType, u8 Is_Blocking);
+u32 XIpiPs_SendDataById(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
+			u8 BufferType, u32 RemoteId, u8 Is_Blocking);
+u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
+		    u8 BufferType);
+u32 XIpiPs_RecvDataById(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
+			u32 SourceId, u8 BufferType);
 u32 XIpiPs_PollforDone(XMailbox *InstancePtr);
+u32 XIpiPs_PollforDoneById(XMailbox *InstancePtr, u32 RemoteId);
 #if !defined (VERSAL_PLM) && !defined (VERSAL_psm) && !defined (PSU_PMU)
 void XIpiPs_IntrHandler(void *XMailboxPtr);
 #if !defined (__MICROBLAZE__) && !defined (__riscv)

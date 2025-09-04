@@ -53,6 +53,12 @@
  * 1.11  ht   11/12/24    Update description of XMAILBOX_MAX_MSG_LEN
  *       ht   02/18/25    Update Max Message length to XIPIPSU_MAX_MSG_LEN to
  *                        accommodate for CRC bytes when IPI CRC is enabled.
+ * 1.12  ht   09/02/25    IPI operation relied on the RemoteId stored in XMailbox
+ * 			  Instance, which could lead to race conditions and data
+ * 			  corruption when handling multiple requests from
+ * 			  different IPI channels concurrently.
+ * 			  Use RemoteId based APIs to support concurrent IPI
+ * 			  channel requests.
  *
  *</pre>
  *
@@ -115,6 +121,9 @@ typedef struct {
 
 /**
  * Data structure used to refer XilMailbox
+ * @attention: The following function pointers XMbox_IPI_Send, XMbox_IPI_SendData,
+ *             XMbox_IPI_Recv  will be deprecated in 2026.2 and will be made
+ *             obsolete in 2027.1 release.
  */
 typedef struct XMboxTag {
 	u32 (*XMbox_IPI_Send)(struct XMboxTag *InstancePtr, u8 Is_Blocking); /**< Triggers an IPI to a destination CPU */
@@ -122,6 +131,11 @@ typedef struct XMboxTag {
 				  u32 MsgLen, u8 BufferType, u8 Is_Blocking); /**< Sends an IPI message to a destination CPU */
 	u32 (*XMbox_IPI_Recv)(struct XMboxTag *InstancePtr, void *BufferPtr,
 			      u32 MsgLen, u8 BufferType); /**< Reads an IPI message */
+	u32 (*XMbox_IPI_SendById)(struct XMboxTag *InstancePtr, u32 RemoteId, u8 Is_Blocking); /**< Triggers an IPI to a destination CPU */
+	u32 (*XMbox_IPI_SendDataById)(struct XMboxTag *InstancePtr, void *BufferPtr,
+				      u32 MsgLen, u8 BufferType, u32 RemoteId, u8 Is_Blocking); /**< Sends an IPI message to a destination CPU */
+	u32 (*XMbox_IPI_RecvById)(struct XMboxTag *InstancePtr, void *BufferPtr,
+				  u32 MsgLen, u32 SourceId, u8 BufferType); /**< Reads an IPI message */
 	XMailbox_RecvHandler RecvHandler;   /**< Receive handler */
 	XMailbox_ErrorHandler ErrorHandler; /**< Callback for rx IPI event */
 	void *ErrorRefPtr; /**<  To be passed to the error interrupt callback */

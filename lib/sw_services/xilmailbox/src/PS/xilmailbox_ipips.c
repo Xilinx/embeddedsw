@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,12 @@
  *	 ht   05/30/23	  Added support for system device-tree flow.
  *	 ht   06/12/23	  Fix MISRA-C warnings
  *	 ht   07/24/23	  Restructure the code for more modularity
+ * 1.12  ht   09/02/25	  IPI operation relied on the RemoteId stored in XMailbox
+ * 			  Instance, which could lead to race conditions and data
+ * 			  corruption when handling multiple requests from
+ * 			  different IPI channels concurrently.
+ * 			  Use RemoteId based APIs to support concurrent IPI
+ * 			  channel requests.
  *</pre>
  *
  *@note
@@ -75,9 +81,9 @@ u32 XMailbox_Initialize(XMailbox *InstancePtr, UINTPTR BaseAddress)
 		return Status;
 	}
 
-	InstancePtr->XMbox_IPI_SendData = XIpiPs_SendData;
-	InstancePtr->XMbox_IPI_Send = XIpiPs_Send;
-	InstancePtr->XMbox_IPI_Recv = XIpiPs_RecvData;
+	InstancePtr->XMbox_IPI_SendDataById = XIpiPs_SendDataById;
+	InstancePtr->XMbox_IPI_SendById = XIpiPs_SendById;
+	InstancePtr->XMbox_IPI_RecvById = XIpiPs_RecvDataById;
 
 	/* Initialize the InstancePtr */
 #ifndef SDT

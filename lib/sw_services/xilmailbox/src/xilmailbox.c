@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,12 @@
  * 1.4   sd   23/06/21    Fix MISRA-C warnings
  * 1.6   kpt  03/16/22    Added shared memory API's for IPI utilization
  * 1.11  ht   11/12/24    Update description of MsgLen
+ * 1.12  ht   09/02/25    IPI operation relied on the RemoteId stored in XMailbox
+ * 			  Instance, which could lead to race conditions and data
+ * 			  corruption when handling multiple requests from
+ * 			  different IPI channels concurrently.
+ * 			  Use RemoteId based APIs to support concurrent IPI
+ * 			  channel requests.
  *
  *</pre>
  *
@@ -57,7 +63,8 @@ u32 XMailbox_Send(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->Agent.RemoteId = RemoteId;
-	Status = InstancePtr->XMbox_IPI_Send(InstancePtr, Is_Blocking);
+	Status = InstancePtr->XMbox_IPI_SendById(InstancePtr, RemoteId,
+						 Is_Blocking);
 	return Status;
 }
 
@@ -94,9 +101,9 @@ u32 XMailbox_SendData(XMailbox *InstancePtr, u32 RemoteId, void *BufferPtr,
 	InstancePtr->Agent.RemoteId = RemoteId;
 
 	/* Send IPI message to a destination CPU */
-	Status = InstancePtr->XMbox_IPI_SendData(InstancePtr, BufferPtr,
-			MsgLen, BufferType,
-			Is_Blocking);
+	Status = InstancePtr->XMbox_IPI_SendDataById(InstancePtr, BufferPtr,
+						     MsgLen, BufferType,
+						     RemoteId, Is_Blocking);
 	/* Return statement */
 	return Status;
 }
@@ -134,8 +141,8 @@ u32 XMailbox_Recv(XMailbox *InstancePtr, u32 SourceId, void *BufferPtr,
 	InstancePtr->Agent.SourceId = SourceId;
 
 	/* Read IPI message from the buffer */
-	Status = InstancePtr->XMbox_IPI_Recv(InstancePtr, BufferPtr, MsgLen,
-					     BufferType);
+	Status = InstancePtr->XMbox_IPI_RecvById(InstancePtr, BufferPtr,
+						 MsgLen, SourceId, BufferType);
 
 	/* Check if there is any error while receiving message */
 	if (Status != (u32)XST_SUCCESS) {
