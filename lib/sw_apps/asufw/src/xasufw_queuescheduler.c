@@ -81,7 +81,6 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-static inline void XAsufw_InterruptRemoteProc(u32 IpiMask);
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_QueueTaskHandler(void *Arg);
@@ -97,18 +96,6 @@ static XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
 
 /* All channel's task related information */
 static XAsufw_ChannelTasks CommChannelTasks = { 0U };
-
-/*************************************************************************************************/
-/**
- * @brief	This function triggers the IPI interrupt to the sender.
- *
- * @param	IpiMask		IPI Mask of the remote processor.
- *
- *************************************************************************************************/
-static inline void XAsufw_InterruptRemoteProc(u32 IpiMask)
-{
-	XAsufw_WriteReg(IPI_ASU_TRIG, IpiMask);
-}
 
 /*************************************************************************************************/
 /**
@@ -131,7 +118,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 	XAsu_ChannelQueueBuf *QueueBuf;
 	u32 ReqId = 0x0U;
 	XTask_TaskNode *Task = NULL;
-	u32 IpiMask = 0U;
+	u8 WriteResp = FALSE;
 
 	/** Check which queue (P0/P1) has new command from client. */
 	if (PxQueue == XASUFW_P0_QUEUE) {
@@ -155,56 +142,72 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 	 * and update response after command is executed.
 	 */
 	for (; BufferIdx < XASU_MAX_BUFFERS; ++BufferIdx) {
-		if ((ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus == XASU_COMMAND_IS_PRESENT) ||
-			(ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
-				XASU_COMMAND_DMA_WAIT_COMPLETE)) {
+		QueueBuf = &ChannelQueue->ChannelQueueBufs[BufferIdx];
+		/** Create a Request ID with Queue task private data and Req Unique ID from client. */
+		ReqId = ((QueueBuf->ReqBuf.Header & XASU_UNIQUE_REQ_ID_MASK) >>
+				XASU_UNIQUE_REQ_ID_SHIFT) | (u32)Arg;
+
+		if ((QueueBuf->ReqBufStatus == XASU_COMMAND_IS_PRESENT) ||
+			(QueueBuf->ReqBufStatus == XASU_COMMAND_DMA_WAIT_COMPLETE) ||
+			(QueueBuf->ReqBufStatus == XASU_COMMAND_VALIDATED)) {
 			XAsufw_Printf(DEBUG_GENERAL, "Command is present. Channel: %d, Priority Queue: %d, "
 				      "BufferIdx: %d\r\n", ChannelIndex, PxQueue, BufferIdx);
-			QueueBuf = &ChannelQueue->ChannelQueueBufs[BufferIdx];
-			/** Create a Request ID with Queue task private data and Req Unique ID from client. */
-			ReqId = ((QueueBuf->ReqBuf.Header & XASU_UNIQUE_REQ_ID_MASK) >>
-						XASU_UNIQUE_REQ_ID_SHIFT) | (u32)Arg;
 			/**
 			 * If the queue buffer's request buffer status is XASU_COMMAND_IS_PRESENT, validate
 			 * the command, check if the required resources are available and allocate the
 			 * resources.
 			*/
-			if (ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
-				XASU_COMMAND_IS_PRESENT) {
-				Status = XAsufw_ValidateCommand(&QueueBuf->ReqBuf, ChannelIndex);
-				if (XASUFW_SUCCESS == Status) {
-					ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-					XAsufw_Printf(DEBUG_INFO, "Validate command successful\r\n");
+
+			switch(QueueBuf->ReqBufStatus) {
+				case XASU_COMMAND_IS_PRESENT:
+					/** Validate the command. */
+					Status = XAsufw_ValidateCommand(&QueueBuf->ReqBuf, ChannelIndex);
+					if (Status != XASUFW_SUCCESS) {
+						XAsufw_Printf(DEBUG_INFO, "Validate command failed\r\n");
+						/** - If command validation failed, update Status and set WriteResp to TRUE. */
+						Status = XAsufw_UpdateErrorStatus(Status, XASUFW_VALIDATE_COMMAND_FAILED);
+						WriteResp = TRUE;
+						break;
+					} else {
+						/** - If command validation succeeded, update status and proceed. */
+						XAsufw_Printf(DEBUG_INFO, "Validate command successful\r\n");
+						QueueBuf->ReqBufStatus = XASU_COMMAND_VALIDATED;
+					}
+				case XASU_COMMAND_VALIDATED:
+					/** Check and allocate resources for the command. */
 					Status = XAsufw_CheckAndAllocateResources(&QueueBuf->ReqBuf, ReqId);
-				}
-				if ((Status != XASUFW_RESOURCE_UNAVAILABLE) && (Status != XASUFW_SUCCESS)) {
-					XAsufw_Printf(DEBUG_INFO, "Validate command failed or module is disabled \r\n");
-					/** Update Status and write the response. */
-					Status = XAsufw_UpdateErrorStatus(Status, XASUFW_VALIDATE_COMMAND_FAILED);
-					XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, Status);
-				}
+					if (Status == XASUFW_RESOURCE_UNAVAILABLE) {
+						/** - If resources are not available, do not schedule the command. */
+						break;
+					} else if (Status != XASUFW_SUCCESS) {
+						/** - If resource allocation failed, set WriteResp to TRUE. */
+						XAsufw_Printf(DEBUG_INFO, "Allocate resource failed\r\n");
+						WriteResp = TRUE;
+						break;
+					} else {
+						/* - Otherwise, proceed to the next stage. */
+					}
+				case XASU_COMMAND_DMA_WAIT_COMPLETE:
+					/**
+					 * If command validation and resource allocation is successful, or the DMA
+					 * wait is complete, call the command handler.
+					 */
+					Status = XAsufw_CommandQueueHandler(QueueBuf, ReqId);
+					/** - If the command execution is complete, set WriteResp to TRUE. */
+					if (Status != XASUFW_CMD_IN_PROGRESS) {
+						WriteResp = TRUE;
+					}
+					break;
+				default:
+					XAsufw_Printf(DEBUG_GENERAL, "Invalid command stage: 0x%x\r\n",
+							QueueBuf->ReqBufStatus);
+					break;
 			}
-
-			/**
-			 * If it is a new request, and if the command validation and resource allocation are
-			 * successful, or if the command's non-blocking DMA operation is completed, the queue
-			 * handler should be called.
-			 */
-			if (((ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
-					XASU_COMMAND_IS_PRESENT) && (Status == XASUFW_SUCCESS)) ||
-				(ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
-					XASU_COMMAND_DMA_WAIT_COMPLETE)) {
-				ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-				Status = XAsufw_CommandQueueHandler(QueueBuf, ReqId);
-			}
-
-			/** Increment the requests served by ASUFW if the command execution is complete. */
-			if (ChannelQueue->ChannelQueueBufs[BufferIdx].ReqBufStatus ==
-					XASU_COMMAND_EXECUTION_COMPLETE) {
-				IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+			/** If response is to be written, write the response and increment requests served. */
+			if (WriteResp == TRUE) {
+				XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, ReqId, Status);
 				ChannelQueue->ReqServed++;
-				/** Trigger interrupt to the sender as the response is ready. */
-				XAsufw_InterruptRemoteProc(IpiMask);
+				WriteResp = FALSE;
 			}
 			break;
 		}

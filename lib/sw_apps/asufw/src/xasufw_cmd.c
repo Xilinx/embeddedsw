@@ -47,6 +47,18 @@
 
 /*************************************************************************************************/
 /**
+ * @brief	This function triggers the IPI interrupt to the sender.
+ *
+ * @param	IpiMask		IPI Mask of the remote processor.
+ *
+ *************************************************************************************************/
+static inline void XAsufw_InterruptRemoteProc(u32 IpiMask)
+{
+	XAsufw_WriteReg(IPI_ASU_TRIG, IpiMask);
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function returns module ID from the command header.
  *
  * @param	Header	Command Header.
@@ -99,14 +111,6 @@ s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 ReqId)
 	QueueBuf->ReqBufStatus = XASU_COMMAND_IN_PROGRESS;
 	Status = Module->Cmds[CmdId].CmdHandler(&QueueBuf->ReqBuf, ReqId);
 
-	/**
-	 * If the command execution is complete, call the command response handler with command
-	 * execution status.
-	 */
-	if (Status != XASUFW_CMD_IN_PROGRESS) {
-		XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, Status);
-	}
-
 END:
 	return Status;
 }
@@ -116,12 +120,14 @@ END:
  * @brief	This function writes the given response to the corresponding response buffer.
  *
  * @param	ReqBuf		Pointer	to the request buffer.
+ * @param	ReqId		Request Unique ID.
  * @param	Response	Status of the executed command.
  *
  *************************************************************************************************/
-void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, s32 Response)
+void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, u32 ReqId, s32 Response)
 {
 	XAsu_ChannelQueueBuf *QueueBuf = XLinkList_ContainerOf(ReqBuf, XAsu_ChannelQueueBuf, ReqBuf);
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
 	/**
 	 * Update command status with execution complete in the request queue.
@@ -134,6 +140,9 @@ void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, s32 Response)
 	ReturnStatus = XASUFW_FAILURE;
 	QueueBuf->RespBufStatus = XASU_RESPONSE_IS_PRESENT;
 	XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Command response: 0x%x\r\n", Response);
+
+	/** Trigger interrupt to the sender after writing the response. */
+	XAsufw_InterruptRemoteProc(IpiMask);
 }
 
 /*************************************************************************************************/
