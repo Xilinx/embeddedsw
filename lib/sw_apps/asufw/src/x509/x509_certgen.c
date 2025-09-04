@@ -37,12 +37,8 @@
 /**< OIDs used in X.509 Certificate and Certificate Signing Request */
 static const u8 Oid_SignAlgoSha3_384[] = {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U,
 					  0x04U, 0x03U, 0x0BU};
-static const u8 Oid_SignAlgoSha3_256[] = {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U,
-					  0x04U, 0x03U, 0x0AU};
-static const u8 Oid_EcPublicKey[] = {0x2AU, 0x86U, 0x48U, 0xCEU, 0x3DU, 0x02U, 0x01U};
+static const u8 Oid_EccPublicKey[] = {0x2AU, 0x86U, 0x48U, 0xCEU, 0x3DU, 0x02U, 0x01U};
 static const u8 Oid_P384[] = {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U, 0x00U, 0x22U};
-static const u8 Oid_P256[] = {0x06U, 0x08U, 0x2AU, 0x86U, 0x48U, 0xCEU, 0x3DU, 0x03U,
-					   0x01U, 0x07U};
 
 /************************************ Macro Definitions ******************************************/
 #define X509_VERSION_FIELD_LEN					(0x3U)	/**< Length of Version
@@ -107,18 +103,13 @@ static X509_OidPublicKeyDescriptor PubKeyOidList[X509_PUB_KEY_MAX] = {
 	},
 	[X509_PUB_KEY_ECC] = {
 		.PubKeyType = X509_PUB_KEY_ECC,
-		.Oid = Oid_EcPublicKey,
-		.OidLen = (u8)XASUFW_ARRAY_SIZE(Oid_EcPublicKey),
+		.Oid = Oid_EccPublicKey,
+		.OidLen = (u8)XASUFW_ARRAY_SIZE(Oid_EccPublicKey),
 	},
 };
 
 /**< X.509 algorithm parameter OID list */
 static X509_AlgoEccParam ParamOidList[X509_ECC_CURVE_TYPE_MAX] = {
-	[X509_ECC_CURVE_TYPE_256] = {
-		.EccCurveType = X509_ECC_CURVE_TYPE_256,
-		.ParamOid = Oid_P256,
-		.ParamOidLen = (u8)XASUFW_ARRAY_SIZE(Oid_P256),
-	},
 	[X509_ECC_CURVE_TYPE_384] = {
 		.EccCurveType = X509_ECC_CURVE_TYPE_384,
 		.ParamOid = Oid_P384,
@@ -128,11 +119,6 @@ static X509_AlgoEccParam ParamOidList[X509_ECC_CURVE_TYPE_MAX] = {
 
 /**< X.509 signature OID list */
 static X509_SignatureOidDescriptor SignOidList[X509_SIGN_TYPE_MAX] = {
-	[X509_SIGN_TYPE_ECC_SHA3_256] = {
-		.SignType = X509_SIGN_TYPE_ECC_SHA3_256,
-		.SignOid = Oid_SignAlgoSha3_256,
-		.SignLen = (u8)XASUFW_ARRAY_SIZE(Oid_SignAlgoSha3_256),
-	},
 	[X509_SIGN_TYPE_ECC_SHA3_384] = {
 		.SignType = X509_SIGN_TYPE_ECC_SHA3_384,
 		.SignOid = Oid_SignAlgoSha3_384,
@@ -804,8 +790,7 @@ static s32 X509_GenSignAlgoField(void)
 	SequenceValIdx = &(CertInstance.Buf[CertInstance.Offset]);
 
 	/** Check whether signature type is supported or not. */
-	if ((SignOidList[InitData->SignType].SignType != X509_SIGN_TYPE_ECC_SHA3_384) &&
-	    (SignOidList[InitData->SignType].SignType != X509_SIGN_TYPE_ECC_SHA3_256)) {
+	if (SignOidList[InitData->SignType].SignType != X509_SIGN_TYPE_ECC_SHA3_384) {
 		Status = XASUFW_X509_UNSUPPORTED_SIGN_TYPE;
 		goto END;
 	}
@@ -948,8 +933,7 @@ static s32 X509_GenPubKeyAlgIdentifierField(const X509_SubjectPublicKeyInfo *Pub
 	}
 
 	/** Check whether ECC curve type is supported or not. */
-	if ((EccCurveType != (u8)X509_ECC_CURVE_TYPE_384) &&
-	    (EccCurveType != (u8)X509_ECC_CURVE_TYPE_256)) {
+	if (EccCurveType != (u8)X509_ECC_CURVE_TYPE_384) {
 		Status = XASUFW_X509_UNSUPPORTED_CURVE_TYPE;
 		goto END;
 	}

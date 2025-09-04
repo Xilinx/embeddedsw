@@ -63,7 +63,6 @@ static s32 X509_ParseTimeAndDate(u8 YearLen, X509_DateTime *DateTime);
 static s32 X509_GetValidity(void);
 static s32 X509_GetAlgorithm(X509_PublicKeyType *KeyType);
 static s32 X509_GetEccPubKey(X509_CertInfo *CertInfo);
-static s32 X509_GetRsaPubKey(X509_CertInfo *CertInfo);
 static s32 X509_GetPublicKeyInfo(X509_CertInfo *CertInfo);
 static s32 X509_GetExtKeyUsage(X509_CertInfo *CertInfo);
 static s32 X509_GetExtTypeFromOid(u32 Len, X509_ExtensionType *ExtType);
@@ -81,8 +80,6 @@ static X509_CertParserInfo X509_CertInstance;	/**< X.509 certificate parser inst
 
 static const u8 Oid_EcPublicKey[] = {0X2AU, 0X86U, 0X48U, 0XCEU, 0X3DU, 0X02U,
 				     0X01U};	/**< ECC public key OID */
-static const u8 Oid_RsaPublicKey[] = {0X2AU, 0X86U, 0X48U, 0X86U, 0XF7U, 0X0DU, 0X01U, 0X01U,
-				      0X01U};	/**< RSA public key OID */
 static const u8 ExtnKeyUsage[] = {0X55U, 0X1DU, 0X0FU};	/**< Key usage extension OID */
 
 /**< X.509 public key OID list */
@@ -91,11 +88,6 @@ static X509_OidPublicKeyDescriptor PubKeyOidList[] = {
 		.PubKeyType = X509_PUB_KEY_ECC,
 		.Oid = Oid_EcPublicKey,
 		.OidLen = (u8)XASUFW_ARRAY_SIZE(Oid_EcPublicKey),
-	},
-	{
-		.PubKeyType = X509_PUB_KEY_RSA,
-		.Oid = Oid_RsaPublicKey,
-		.OidLen = (u8)XASUFW_ARRAY_SIZE(Oid_RsaPublicKey),
 	},
 };
 
@@ -591,108 +583,11 @@ static s32 X509_GetEccPubKey(X509_CertInfo *CertInfo)
 	PublicKeyLen = X509_CertInstance.FieldLen - XASUFW_VALUE_ONE;
 
 	/** Stores public key. */
-	CertInfo->PublicKey.EccPublicKey.PublicKey =
-		&X509_CertInstance.Buf[X509_CertInstance.Offset];
-	CertInfo->PublicKey.EccPublicKey.PublicKeyLen = PublicKeyLen;
+	CertInfo->PublicKey.PubKey = &X509_CertInstance.Buf[X509_CertInstance.Offset];
+	CertInfo->PublicKey.PubKeyLen = PublicKeyLen;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_UpdateOffsetToNextField(PublicKeyLen);
-
-END:
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function parses the RSA public key from DER encoded buffer.
- *
- * @param	CertInfo	Pointer to the structure containing addresses to store X.509 parsed
- *				fields information.
- *
- * @return
- *	- XASUFW_SUCCESS, if RSA public key is parsed successfully.
- *	- XASUFW_FAILURE, in case of failure.
- *	- XASUFW_X509_PARSER_TAG_VALIDATION_FAILED, if tag validation is failed.
- *	- XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL, if update offset is failed.
- *	- Error code received from called functions in case of other failure from the called
- *	  function.
- *
- *************************************************************************************************/
-static s32 X509_GetRsaPubKey(X509_CertInfo *CertInfo)
-{
-	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-
-	/** Validate tag for algorithm parameter and move buffer to next tag. */
-	Status = X509_ValidateTag(X509_ASN1_TAG_NULL);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
-		goto END;
-	}
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_UpdateOffsetToNextField(X509_CertInstance.FieldLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL);
-		goto END;
-	}
-
-	/** Validate tag for subject public key. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_ValidateTag(X509_ASN1_TAG_BIT_STRING);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
-		goto END;
-	}
-
-	/** Skip unused bit as it is always zero. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_UpdateOffsetToNextField(X509_ASN1_UNUSED_BITS_SIZE_IN_BYTE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL);
-		goto END;
-	}
-
-	/** Validate sequence tag. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_ValidateTag(X509_ASN1_TAG_SEQUENCE);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
-		goto END;
-	}
-
-	/** Validate tag for exponent field. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_ValidateTag(X509_ASN1_TAG_INTEGER);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
-		goto END;
-	}
-
-	/** Parse and stores exponent part of public key. */
-	CertInfo->PublicKey.RsaPublicKey.Exponent =
-		&X509_CertInstance.Buf[X509_CertInstance.Offset];
-	CertInfo->PublicKey.RsaPublicKey.ExponentLen = X509_CertInstance.FieldLen;
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_UpdateOffsetToNextField(X509_CertInstance.FieldLen);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_UPDATE_OFFSET_FAIL);
-		goto END;
-	}
-
-	/** Validate tag for modulus field. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_ValidateTag(X509_ASN1_TAG_INTEGER);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_PARSER_TAG_VALIDATION_FAILED);
-		goto END;
-	}
-
-	/** Parse and stores modulus part of public key. */
-	CertInfo->PublicKey.RsaPublicKey.Modulus = &X509_CertInstance.Buf[X509_CertInstance.Offset];
-	CertInfo->PublicKey.RsaPublicKey.ModulusLen = X509_CertInstance.FieldLen;
-
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = X509_UpdateOffsetToNextField(X509_CertInstance.FieldLen);
 
 END:
 	return Status;
@@ -743,14 +638,11 @@ static s32 X509_GetPublicKeyInfo(X509_CertInfo *CertInfo)
 		goto END;
 	}
 
-	/** Select ECC or RSA public key extraction function based on key type. */
+	/** Select public key extraction function based on key type. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	switch (KeyType) {
 	case X509_PUB_KEY_ECC:
 		Status = X509_GetEccPubKey(CertInfo);
-		break;
-	case X509_PUB_KEY_RSA:
-		Status = X509_GetRsaPubKey(CertInfo);
 		break;
 	default:
 		Status = XASUFW_X509_INVALID_DATA;
@@ -758,7 +650,7 @@ static s32 X509_GetPublicKeyInfo(X509_CertInfo *CertInfo)
 	}
 
 	if (Status == XASUFW_SUCCESS) {
-		CertInfo->PublicKeyType = KeyType;
+		CertInfo->PublicKey.PubKeyType = KeyType;
 	}
 
 END:

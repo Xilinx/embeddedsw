@@ -52,7 +52,6 @@ extern "C" {
 typedef enum {
 	X509_PUB_KEY_UNSUPPORTED = 0U,	/**< Unsupported or unknown key */
 	X509_PUB_KEY_ECC,		/**< ECC public key */
-	X509_PUB_KEY_RSA,		/**< RSA public key */
 	X509_PUB_KEY_MAX,		/**< Maximum public key supported */
 } X509_PublicKeyType;
 
@@ -118,29 +117,12 @@ enum {
 };
 
 /**
- * This structure holds RSA public key parameters information.
+ * This structure contains information about public key.
  */
 typedef struct {
-	u8 *Modulus;			/**< Pointer to the Modulus part of RSA public key */
-	u32 ModulusLen;			/**< Modulus length */
-	u8 *Exponent;			/**< Pointer to the Exponent part of RSA public key */
-	u32 ExponentLen;		/**< Exponent length */
-} X509_RsaPublicKey;
-
-/**
- * This structure holds ECC public key parameters information.
- */
-typedef struct {
-	u8 *PublicKey;			/**< Pointer to the uncompressed ECC public key */
-	u32 PublicKeyLen;		/**< ECC public key length */
-} X509_EccPublicKey;
-
-/**
- * This union holds public key value for RSA or ECC algorithms.
- */
-typedef union {
-	X509_EccPublicKey EccPublicKey;		/**< ECC public key */
-	X509_RsaPublicKey RsaPublicKey;		/**< RSA public key */
+	u8 *PubKey;			/**< Pointer to the uncompressed public key */
+	u32 PubKeyLen;			/**< Public key length */
+	X509_PublicKeyType PubKeyType;	/**< Public key type (e.g. ECC, RSA, etc) */
 } X509_PublicKey;
 
 /**
@@ -148,7 +130,6 @@ typedef union {
  */
 typedef struct {
 	X509_PublicKey PublicKey;		/**< Public key */
-	X509_PublicKeyType PublicKeyType;	/**< Public key type (e.g. ECC, RSA, etc) */
 	u32 KeyUsage;				/**< Key usage extension value */
 } X509_CertInfo;
 
@@ -156,8 +137,7 @@ typedef struct {
  * This typedef contains information about signature type.
  */
 typedef enum {
-	X509_SIGN_TYPE_ECC_SHA3_256 = 0U,	/**< Signature type SHA3-256 */
-	X509_SIGN_TYPE_ECC_SHA3_384,		/**< Signature type SHA3-384 */
+	X509_SIGN_TYPE_ECC_SHA3_384 = 0U,	/**< Signature type SHA3-384 */
 	X509_SIGN_TYPE_MAX,			/**< Maximum no of supported signature type */
 } X509_SignAlgoType;
 
@@ -174,8 +154,7 @@ typedef struct {
  * This typedef contains information about ECC curve type.
  */
 typedef enum {
-	X509_ECC_CURVE_TYPE_256 = 0U,	/**< ECC curve type P-256 */
-	X509_ECC_CURVE_TYPE_384,	/**< ECC curve type P-384 */
+	X509_ECC_CURVE_TYPE_384 = 0,	/**< ECC curve type P-384 */
 	X509_ECC_CURVE_TYPE_MAX,	/**< Maximum number of supported curve type */
 } X509_EccCurveType;
 
