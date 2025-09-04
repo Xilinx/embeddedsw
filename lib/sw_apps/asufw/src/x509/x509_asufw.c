@@ -57,6 +57,8 @@ static s32 X509_GenerateSignEcc(const u8 *Hash, u32 HashLen, const u8 *Sign, u32
 				u32 *SignActualLen, u8 *PvtKey, const void *PlatformData);
 static s32 X509_ShaDigest(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBufLen,
 			  u32 *HashLen, const void *PlatformData);
+static s32 X509_VerifySignEcc(const u8 *Hash, u32 HashLen, const u8 *PubKey, const u8 *Sign,
+			      u32 SignLen, const void *PlatformData);
 
 /*********************************** Variable Definitions ****************************************/
 
@@ -78,6 +80,7 @@ s32 X509_CfgInitialize(void)
 	InitData.SignType = X509_SIGN_TYPE_ECC_SHA3_384;
 	InitData.GenerateDigest = X509_ShaDigest;
 	InitData.GenerateSignature = X509_GenerateSignEcc;
+	InitData.VerifySignature = X509_VerifySignEcc;
 
 	Status = X509_Init(&InitData);
 
@@ -209,6 +212,55 @@ static s32 X509_ShaDigest(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBu
 	}
 
 	*HashLen = X509_SHA_HASH_LEN;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+ /**
+ * @brief	This function verifies ECC signature.
+ *
+ * @param	Hash		Pointer to variable containing hash.
+ * @param	HashLen		Hash length.
+ * @param	PubKey		Pointer to variable containing public key.
+ * @param	Sign		Pointer to variable containing signature.
+ * @param	SignLen		Signature length.
+ * @param	PlatformData	Pointer containing platform related data.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if ECC signature is verified successfully.
+ *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_X509_INVALID_PLAT_DATA, if platform data is invalid.
+ *	- XASUFW_X509_INVALID_DATA, if data is invalid.
+ *	- Error code received from called functions in case of other failure from the called
+ *	  function.
+ *
+ *************************************************************************************************/
+static s32 X509_VerifySignEcc(const u8 *Hash, u32 HashLen, const u8 *PubKey, const u8 *Sign,
+				u32 SignLen, const void *PlatformData)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XEcc *EccInstance = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
+	const X509_PlatData *PlatData = (X509_PlatData *)PlatformData;
+
+	/** Validate input parameters. */
+	if ((Sign == NULL) || (Hash == NULL) || (PubKey == NULL) || (PlatData == NULL) ||
+	    (HashLen == 0U)) {
+		Status = XASUFW_X509_INVALID_PLAT_DATA;
+		goto END;
+	}
+
+	/** Validate signature length. */
+	if (SignLen != XAsu_DoubleCurveLength(XASU_ECC_P384_SIZE_IN_BYTES)) {
+		Status = XASUFW_X509_INVALID_DATA;
+		goto END;
+	}
+
+	/** Verify ECC signature. */
+	Status = XEcc_VerifySignature(EccInstance, PlatData->DmaPtr, XASU_ECC_NIST_P384,
+				      XASU_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)PubKey,
+				      (u64)(UINTPTR)Hash, HashLen, (u64)(UINTPTR)Sign);
 
 END:
 	return Status;

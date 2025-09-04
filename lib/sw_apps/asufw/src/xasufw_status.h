@@ -586,6 +586,14 @@ enum {
 	XASUFW_OCP_DME_CHALLENGE_RESPONSE_FAIL, /**< 0x18FU - Error when DME challenge response operation fails */
 	XASUFW_OCP_SHA_DIGEST_FAIL, /**< 0x190U - Error when SHA digest operation fails */
 	XASUFW_OCP_DME_CHANGE_ENDIANNESS_ERROR, /**< 0x191U - Error when DME change endianness operation fails */
+	XASUFW_X509_PARSER_TBS_FAIL, /**< 0x192U - Error when TBS parsing is failed. */
+	XASUFW_X509_PARSER_SIGN_INFO_FAIL, /**< 0x193U - Error when signature information parsing
+							is failed. */
+	XASUFW_X509_PARSER_SIGN_FAIL, /**< 0x194U - Error when parsing signature is failed */
+	XASUFW_X509_PARSER_SIGN_ALGO_FAIL, /**< 0x195U - Error when signature algorithm parsing is
+						failed */
+	XASUFW_X509_PARSER_PUB_KEY_UNSUPPORTED, /**< 0x196U - Error when public key is
+							unsupported */
 
 	/* Additional status success codes */
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
