@@ -12,6 +12,7 @@
 *     Header file for the Xilinx Inc. first-stage bootloader FS-BOOT.
 *
 *******************************************************************************/
+#include "auto-config.h"
 #include "xparameters.h"
 
 #ifdef XPAR_XUARTLITE_NUM_INSTANCES
@@ -74,8 +75,10 @@ void __fs_bad_image(unsigned int reason) __attribute__((weak));
 //#define DEBUG
 
 /* enable SREC functionality for system without flash */
+#ifndef CONFIG_XILINX_FLASH_START /* without parallel flash */
 #ifndef XPAR_XSPI_NUM_INSTANCES /* without SPI flash */
 #define CONFIG_NO_FLASH
+#endif
 #endif
 
 /* Memory access type */
@@ -83,7 +86,13 @@ void __fs_bad_image(unsigned int reason) __attribute__((weak));
 #define REG32_READ(addr,offset)       (*(mtype *)(addr + offset))
 #define REG32_WRITE(addr,data)        (*(mtype *)(addr) = data)
 
+#ifndef CONFIG_NO_FLASH
+/*! FLASH size */
+#define FLASH_SIZE      CONFIG_XILINX_FLASH_SIZE
+#endif
 
+/*! SDRAM size */
+#define RAM_SIZE        CONFIG_XILINX_ERAM_SIZE
 
 /*! @defgroup mmap1 Memory Map Addressing Definitions
  * MEMORY MAP PERIPHERAL ADDRESS DEFINITIONS
@@ -106,20 +115,16 @@ void __fs_bad_image(unsigned int reason) __attribute__((weak));
 
 #ifndef CONFIG_NO_FLASH
 /*! Start address of FLASH device */
-#define FLASH_BASE      XPAR_SPI_0_BASEADDR
+#define FLASH_BASE      CONFIG_XILINX_FLASH_START
 /*! End address of FLASH device */
-#define FLASH_END       XPAR_SPI_0_HIGHADDR
-/*! FLASH size */
-#define FLASH_SIZE      (XPAR_SPI_0_HIGHADDR - XPAR_SPI_0_BASEADDR)
+#define FLASH_END       (FLASH_BASE + FLASH_SIZE)
 #endif
 
 /*! Start address of SDRAM device */
-#define RAM_START       DDR_BASEADDR
+#define RAM_START       CONFIG_XILINX_ERAM_START
 /*! End address of SDRAM device */
-#define RAM_END         DDR_HIGHADDR
+#define RAM_END         (RAM_START + RAM_SIZE - 1)
 
-/*! SDRAM size */
-#define RAM_SIZE        (DDR_HIGHADDR - DDR_BASEADDR)
 /*! @} */
 
 /* -FIXME
