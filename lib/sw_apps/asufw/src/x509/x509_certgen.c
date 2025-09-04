@@ -196,6 +196,7 @@ static s32 X509_GenCertReqInfo(const X509_Config *Cfg, u32 *CsrLen);
  *	- XASUFW_X509_DIGEST_SIGN_CALL_BACK_NOT_REGISTERED, if digest or sign callback is not
  *	  registered.
  *	- XASUFW_X509_GENERATE_DIGEST_FAIL, if digest calculation is failed.
+ *	- XASUFW_X509_GENERATE_SIGN_FAIL, if signature generation is failed.
  *	- XASUFW_X509_GEN_SIGN_ALGO_FIELD_FAIL, if signature algorithm field generation is failed.
  *	- XASUFW_X509_GEN_SIGN_FIELD_FAIL, if signature field generation is failed.
  *	- XASUFW_X509_UPDATE_ENCODED_LEN_FAIL, if update encoded length is failed.
@@ -1041,7 +1042,7 @@ static s32 X509_GenPublicKeyInfoField(const X509_SubjectPublicKeyInfo *PubKeyInf
 	Status = Xil_SMemCpy(&UncompressedPublicKey[1U], X509_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN,
 			     PubKeyInfo->SubjectPublicKey, PubKeyInfo->SubjectPubKeyLen,
 			     PubKeyInfo->SubjectPubKeyLen);
-	if (Status != XST_SUCCESS) {
+	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
@@ -1115,7 +1116,7 @@ static s32 X509_GenSubjectKeyIdentifierField(const u8 *SubjectPublicKey, u32 Sub
 	UncompressedPublicKey[0U] = X509_UNCOMPRESSED_PUB_KEY;
 	Status = Xil_SMemCpy(&UncompressedPublicKey[1U], X509_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN,
 			     SubjectPublicKey, SubjectPubKeyLen, SubjectPubKeyLen);
-	if (Status != XST_SUCCESS) {
+	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}
@@ -1225,7 +1226,7 @@ static s32 X509_GenAuthorityKeyIdentifierField(const u8 *IssuerPublicKey, u32 Is
 	UncompressedPublicKey[0U] = X509_UNCOMPRESSED_PUB_KEY;
 	Status = Xil_SMemCpy(&UncompressedPublicKey[1U], X509_ECC_P384_UNCOMPRESSED_PUBLIC_KEY_LEN,
 			     IssuerPublicKey, IssuerPubKeyLen, IssuerPubKeyLen);
-	if (Status != XST_SUCCESS) {
+	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_MEM_COPY_FAIL;
 		goto END;
 	}

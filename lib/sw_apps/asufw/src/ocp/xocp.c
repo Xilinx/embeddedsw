@@ -222,6 +222,7 @@ XOcp_DeviceKeys* XOcp_GetDevIk(void)
  *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_OCP_GET_ASU_CDI_FAIL, if ASU CDI is not retrieved successfully.
+ *	- XASUFW_MEM_COPY_FAIL, if memory copy is failed.
  *	- XASUFW_OCP_GEN_DEVIK_PVT_KEY_FAIL, if DevIk private key generation is failed.
  *	- XASUFW_OCP_GEN_DEVIK_PUB_KEY_FAIL, if DevIk public key generation is failed.
  *	- Error code received from called functions in case of other failure from the called
