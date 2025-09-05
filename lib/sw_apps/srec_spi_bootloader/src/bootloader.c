@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -146,7 +146,7 @@ static uint8_t sr_data_buf[SREC_DATA_MAX_BYTES];
 u32 flbuf;
 
 #ifdef VERBOSE
-static int8_t *errors[] = {
+static char *errors[] = {
 	"",
 	"Error while copying executable image into RAM",
 	"Error while reading an SREC line from flash",
