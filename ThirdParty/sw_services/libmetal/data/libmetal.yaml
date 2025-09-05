@@ -27,7 +27,8 @@ supported_os:
   - standalone
   - freertos10_xilinx
 
-depends:
+depends_libs:
     xiltimer: {}
+depends:
     ipipsu: []
 ...
