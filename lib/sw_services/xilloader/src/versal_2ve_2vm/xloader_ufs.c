@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  sk  09/23/2023 Initial release
 * 1.01  sk  03/28/2025 Updated UFS init and release calls using PM dev nodes
+* 1.02 	abh	07/21/2025 Fixed GCC warnings
 *
 * </pre>
 *
@@ -123,7 +124,7 @@ int XLoader_UfsInit(u32 DeviceFlags)
 
 	/** - Set logical drive number. */
 	/** - Register volume work area, initialize device. */
-	BootFile[0U] = (char)DrvNum + XLOADER_ASCII_ZERO_ENCODING;
+	BootFile[0U] = (char)((unsigned int)DrvNum + XLOADER_ASCII_ZERO_ENCODING);
 	BootFile[1U] = ':';
 	BootFile[2U] = '/';
 	Rc = f_mount(&FatFileSystem, BootFile, 0U);

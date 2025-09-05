@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -27,6 +27,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   02/13/24 Initial release
+ * 1.01	 abh  07/21/25 Fixed GCC warnings
  *
  * </pre>
  *
@@ -131,7 +132,7 @@ static int GetImageInfoList(XLoader_ClientInstance *InstancePtr)
 	int Status = XST_FAILURE;
 	u32 NumEntries= 0;
 
-	Status = XLoader_GetImageInfoList(InstancePtr, (u64)&Buffer[0U], sizeof(Buffer), &NumEntries);
+	Status = XLoader_GetImageInfoList(InstancePtr, (u64)(UINTPTR)&Buffer[0U], sizeof(Buffer), &NumEntries);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

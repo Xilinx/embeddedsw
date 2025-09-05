@@ -53,6 +53,7 @@
 *       ng   02/14/2024 removed int typecast for errors
 *       bm   03/02/2024 Make SD drive number logic order independent
 *       pre  04/17/2025 Passing baseaddress for XSdPs_LookupConfig in SDT flow
+* 2.01	abh	 07/21/2025 Fixed GCC warnings
 *
 * </pre>
 *
@@ -525,7 +526,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	if (DrvNum != XLOADER_SD_DRV_NUM_0) {
 #ifdef SDT
 #if (defined(XPAR_XSDPS_NUM_INSTANCES) && (XPAR_XSDPS_NUM_INSTANCES > 1))
-		if ((XLoader_IsPdiSrcSD0(DeviceFlags) != (u8)TRUE) &&
+		if ((XLoader_IsPdiSrcSD0((u8)DeviceFlags) != (u8)TRUE) &&
 			(DeviceFlags != XLOADER_PDI_SRC_EMMC0)) {
 			DrvNum = XPAR_XSDPS_1_BASEADDR;
 		}

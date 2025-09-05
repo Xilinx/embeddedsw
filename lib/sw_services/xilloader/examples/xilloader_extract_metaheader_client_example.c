@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -28,7 +28,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   02/13/24 Initial release
- *
+ * 1.01	 abh  07/21/25 Fixed GCC warnings
  * </pre>
  *
  *************************************************************************************************/
@@ -138,7 +138,7 @@ static int ExtractMetaheader(XLoader_ClientInstance *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
-	Status = XLoader_ExtractMetaheader(InstancePtr, DDR_ADDR, (u64)&Buffer[0U], sizeof(Buffer));
+	Status = XLoader_ExtractMetaheader(InstancePtr, DDR_ADDR, (u64)(UINTPTR)&Buffer[0U], sizeof(Buffer));
 #ifndef	XLOADER_CACHE_DISABLE
 	Xil_DCacheInvalidateRange((UINTPTR)Buffer, sizeof(Buffer));
 #endif
