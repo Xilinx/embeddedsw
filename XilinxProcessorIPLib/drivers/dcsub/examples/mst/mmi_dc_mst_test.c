@@ -461,7 +461,7 @@ int main()
 		return XST_FAILURE;
 	}
 
-	xil_printf("\nSuccessfully ran MMI_DC Live Mode Example\r\n");
+	xil_printf("\nSuccessfully ran MMI_DC MST Mode Example\r\n");
 
 	/* Do not exit application,
 	   required for monitor display */

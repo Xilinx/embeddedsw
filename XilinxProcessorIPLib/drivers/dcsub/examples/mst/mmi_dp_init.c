@@ -47,7 +47,6 @@ void XMmiDp_SinkPowerUp(XMmiDp *DpPsuPtr)
 			XMMIDP_DPCD_SET_POWER_DP_PWR_VOLTAGE, 1, Data);
 }
 
-
 void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 	XVidC_VideoMode VideoMode, u8 Stream)
 {
@@ -127,61 +126,69 @@ void XMmiDp_DpcdWriteByte(XMmiDp *InstancePtr, u32 DpcdAddr, u8 AuxData)
 
 void XMmiDp_ProgramVcpTableSlot1(XMmiDp *InstancePtr)
 {
-	u8 AuxReply = 0;
+	u32 Status = 0;
 
 	xil_printf("Config DPCD VCP table slot 1\n");
+	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 0x1);
 	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_ALLOCATE_SET, 1);
 	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_ALLOCATE_START_TIME_SLOT, 1);
 	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_ALLOCATE_TIME_SLOT_COUNT, 0xC);
-	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 3);
 
-	XMmiDp_AuxRead(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 1, &AuxReply);
-	xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS slot is 0x%x\n", AuxReply);
+	Status = XMmiDp_WaitPayloadTableUpdateStatus(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Payload ID Table Status not updated\n");
+	}
 
 }
 
 void XMmiDp_ProgramVcpTableSlot2(XMmiDp *InstancePtr)
 {
-	u8 AuxReply = 0;
+	u32 Status = 0;
 
 	xil_printf("Config DPCD VCP table slot 2\n");
+	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 0x1);
 	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_ALLOCATE_SET, 2);
 	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_ALLOCATE_START_TIME_SLOT, 0xD);
 	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_ALLOCATE_TIME_SLOT_COUNT, 0xC);
-	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 0x3);
 
-	XMmiDp_AuxRead(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 1, &AuxReply);
-	xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS slot is 0x%x\n", AuxReply);
+	Status = XMmiDp_WaitPayloadTableUpdateStatus(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Payload ID Table Status not updated\n");
+	}
 
 }
 
 void XMmiDp_ProgramVcpTableSlot3(XMmiDp *InstancePtr)
 {
-	u8 AuxReply = 0;
+	u32 Status = 0;
 
 	xil_printf("Config DPCD VCP table slot 3\n");
+	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 0x1);
 	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_ALLOCATE_SET, 3);
 	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_ALLOCATE_START_TIME_SLOT, 0x19);
 	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_ALLOCATE_TIME_SLOT_COUNT, 0xC);
-	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 0x3);
 
-	XMmiDp_AuxRead(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 1, &AuxReply);
-	xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS slot is 0x%x\n", AuxReply);
+	Status = XMmiDp_WaitPayloadTableUpdateStatus(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Payload ID Table Status not updated\n");
+	}
 
 }
 
 void XMmiDp_ProgramVcpTableSlot4(XMmiDp *InstancePtr)
 {
-	u8 AuxReply = 0;
+	u32 Status = 0;
 
 	xil_printf("Config DPCD VCP table slot 4\n");
+	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 0x1);
 	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_ALLOCATE_SET, 4);
 	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_ALLOCATE_START_TIME_SLOT, 0x25);
 	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_ALLOCATE_TIME_SLOT_COUNT, 0xC);
-	XMmiDp_DpcdWriteByte(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 0x3);
 
-	XMmiDp_AuxRead(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 1, &AuxReply);
-	xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS slot is 0x%x\n", AuxReply);
+	Status = XMmiDp_WaitPayloadTableUpdateStatus(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Payload ID Table Status not updated\n");
+	}
 
 }
 
@@ -210,7 +217,6 @@ void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr)
 		XMmiDp_SetVideoConfig5(InstancePtr, StreamId);
 	}
 
-
 	for (StreamId = XMMIDP_STREAM_ID1; StreamId <= XMMIDP_STREAM_ID4; StreamId++) {
 		XMmiDp_SetHBlankInterval(InstancePtr, StreamId);
 	}
@@ -227,8 +233,11 @@ void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr)
 
 	/* Act Init Seq */
 	XMmiDp_ProgramVcpTableSlot1(InstancePtr);
+	XMmiDp_InitiateActSeq(InstancePtr);
 	XMmiDp_ProgramVcpTableSlot2(InstancePtr);
+	XMmiDp_InitiateActSeq(InstancePtr);
 	XMmiDp_ProgramVcpTableSlot3(InstancePtr);
+	XMmiDp_InitiateActSeq(InstancePtr);
 	XMmiDp_ProgramVcpTableSlot4(InstancePtr);
 	XMmiDp_InitiateActSeq(InstancePtr);
 
@@ -380,7 +389,6 @@ u32 XMmiDp_StartFullLinkTraining(XMmiDp *InstancePtr)
 	XMmiDp_SetPhyTrainingPattern(InstancePtr, XMMIDP_PHY_NO_TRAIN);
 	XMmiDp_AuxWrite(InstancePtr,
 			XMMIDP_DPCD_TRAINING_PATTERN_SET, 1, &AuxData);
-
 
 	xil_printf("Link Trained for %d Lanes\n", InstancePtr->LinkConfig.NumLanes);
 	xil_printf("Link Trained for %d BW\n", InstancePtr->LinkConfig.LinkBW);
