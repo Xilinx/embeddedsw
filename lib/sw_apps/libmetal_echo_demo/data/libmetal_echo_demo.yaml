@@ -20,5 +20,6 @@ supported_os:
 depends_libs:
     xiltimer: {}
     xilpm: {}
+    xilpm_ng: {}
     libmetal: {}
 ...
