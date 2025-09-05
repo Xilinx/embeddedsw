@@ -164,6 +164,11 @@ END:
 		goto END;
 	}
 
+	if(CmdParamsPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	/** Generate unique ID and register callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
@@ -209,6 +214,11 @@ END:
 		goto END;
 	}
 
+	if(CmdParamsPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
 	/** Generate unique ID and register the callback. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
@@ -250,6 +260,11 @@ s32 XAsu_TrngDrbgGenerate(XAsu_ClientParams *ClientParamPtr, XAsu_DrbgGenerateCm
 	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
 	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if(CmdParamsPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
