@@ -588,6 +588,8 @@ void XMmiDp_SetControllerInitiateMstActSeq(XMmiDp *InstancePtr, u8 Stream, u8 In
 void XMmiDp_SetCoreCtrl(XMmiDp *InstancePtr, u8 Stream);
 void XMmiDp_MstActSeqEnable(XMmiDp *InstancePtr);
 void XMmiDp_MstModeEnable(XMmiDp *InstancePtr);
+u32 XMmiDp_WaitPayloadTableUpdateStatus(XMmiDp *InstancePtr);
+u32 XMmiDp_WaitActHandledStatus(XMmiDp *InstancePtr);
 u32 XMmiDp_InitiateActSeq(XMmiDp *InstancePtr);
 void XMmiDp_SetMstVcpTable0(XMmiDp *InstancePtr, u32 Payload);
 void XMmiDp_SetMstVcpTable1(XMmiDp *InstancePtr, u32 Payload);

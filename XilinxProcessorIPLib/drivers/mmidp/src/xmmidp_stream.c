@@ -1918,6 +1918,83 @@ void XMmiDp_MstActSeqEnable(XMmiDp *InstancePtr)
 
 /******************************************************************************/
 /**
+ * This function waits for VC_PAYLOAD_TABLE_UPDATE status bit to be set.
+ * status. This ensures successful update of VC_PAYLOAD_TABLE.
+ *
+ * @param       InstancePtr is a pointer to the XDpPsu instance.
+ * @return
+ *              - XST_SUCCESS/XST_FAILURE.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+u32 XMmiDp_WaitPayloadTableUpdateStatus(XMmiDp *InstancePtr)
+{
+	u8 AuxReply = 0;
+	u8 TimeoutCount = 0;
+
+	do {
+		XMmiDp_AuxRead(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS,
+			       1, &AuxReply);
+
+		if (TimeoutCount > XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT) {
+			xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS timeout error\n");
+
+			return XST_ERROR_COUNT_MAX;
+		}
+		TimeoutCount++;
+
+		XMmiDp_WaitUs(InstancePtr, 1000);
+
+	} while ((AuxReply & XMMIDP_DPCD_VC_PAYLOAD_ID_UPDATED_MASK) !=
+		 XMMIDP_DPCD_VC_PAYLOAD_ID_UPDATED_MASK);
+
+	xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS slot is 0x%x\n", AuxReply);
+
+	return XST_SUCCESS;
+
+}
+
+/******************************************************************************/
+/**
+ * This function waits for ACT_Handled status bit to be set.
+ * status. This ensures successful handling of ACT trigger.
+ *
+ * @param       InstancePtr is a pointer to the XDpPsu instance.
+ * @return
+ *              - XST_SUCCESS/XST_FAILURE.
+ *
+ * @note        None.
+ *
+*******************************************************************************/
+u32 XMmiDp_WaitActHandledStatus(XMmiDp *InstancePtr)
+{
+	u8 AuxReply = 0;
+	u8 TimeoutCount = 0;
+
+	do {
+		XMmiDp_AuxRead(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS,
+			       1, &AuxReply);
+
+		if (TimeoutCount > XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT) {
+			xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS timeout error\n");
+
+			return XST_ERROR_COUNT_MAX;
+		}
+		TimeoutCount++;
+
+		XMmiDp_WaitUs(InstancePtr, 1000);
+
+	} while ((AuxReply & XMMIDP_DPCD_VC_PAYLOAD_ACT_HANDLED_MASK) !=
+		 XMMIDP_DPCD_VC_PAYLOAD_ACT_HANDLED_MASK);
+
+	xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS slot is 0x%x\n", AuxReply);
+	return XST_SUCCESS;
+
+}
+
+/******************************************************************************/
+/**
  * This function initiates CCTL ACT sequence between DpTx and DpRx
  * of the immediate branch device connected. Check DPCD Payload table update
  * status. This ensures successful handling of ACT trigger sequence.
@@ -1931,24 +2008,27 @@ void XMmiDp_MstActSeqEnable(XMmiDp *InstancePtr)
 *******************************************************************************/
 u32 XMmiDp_InitiateActSeq(XMmiDp *InstancePtr)
 {
-	u8 AuxReply;
 	u32 Status;
 	u8 TimeoutCount = 0;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	XMmiDp_WaitUs(InstancePtr, 1000);
 	XMmiDp_MstActSeqEnable(InstancePtr);
 
-	XMmiDp_AuxRead(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS,
-		       1, &AuxReply);
-
-	xil_printf("DPCD_PAYLOAD_TABLE_UPDATE_STATUS slot is 0x%x\n", AuxReply);
+	Status = XMmiDp_WaitActHandledStatus(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Failed to handle ACT trigger sequence\n");
+		return Status;
+	}
 
 	do {
 		Status = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_CCTL0);
 		Status &= XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_MASK;
 
 		if (TimeoutCount > XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT) {
+			xil_printf("CCTL0_INITIATE_MST_ACT_SEQ timeout error\n");
+
 			return XST_ERROR_COUNT_MAX;
 		}
 		TimeoutCount++;
