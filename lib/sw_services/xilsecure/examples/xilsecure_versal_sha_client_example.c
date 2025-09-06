@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file	xilsecure_sha_client_example.c
+* @file	xilsecure_versal_sha_client_example.c
 * @addtogroup xsecure_sha3_example_apis XilSecure SHA3 API Example Usage
 * @{
 * This example illustrates the SHA3 hash calculation.
@@ -61,6 +61,7 @@
 *       kpt  04/11/22 Added comment on usage of shared memory
 * 5.2   am   05/03/23 Added KAT before crypto usage
 *       pre  08/29/24 Added SSIT support
+* 5.6   vss  09/06/25 Updated file name in comments
 *
 * </pre>
 ******************************************************************************/

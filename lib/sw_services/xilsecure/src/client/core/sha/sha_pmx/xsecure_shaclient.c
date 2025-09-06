@@ -32,6 +32,7 @@
 *	yog  05/04/23 Fixed HIS COMF violations
 * 5.4   yog  04/29/24 Fixed doxygen warnings
 *       pre  08/29/24 APIs are updated for SSIT support
+* 5.6   vss  09/06/25 Updated SHA init API to initialise whenever it is called.
 *
 * </pre>
 *
@@ -68,14 +69,9 @@ static XSecure_ShaState Sha3State = XSECURE_SHA_UNINITIALIZED;
  ******************************************************************************/
 int XSecure_Sha3Initialize(void)
 {
-	volatile int Status = XST_FAILURE;
+	Sha3State = XSECURE_SHA_INITIALIZED;
 
-	if (Sha3State == XSECURE_SHA_UNINITIALIZED) {
-		Sha3State = XSECURE_SHA_INITIALIZED;
-		Status = XST_SUCCESS;
-	}
-
-	return Status;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
