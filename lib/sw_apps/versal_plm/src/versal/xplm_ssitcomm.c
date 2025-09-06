@@ -28,6 +28,7 @@
 * 1.01  sk   02/05/2025 Added redundancy to check secure comm state
 *       pre  03/25/2025 Added redundancy to check message type in XPlm_SsitCommReceiveMessage
 * 1.02 	abh  07/22/2025 Added doxygen tag
+*       kd   09/04/2025 Modified status variable to volatile in XPlm_SsitCommSendMessage
 * </pre>
 *
 * @note
@@ -600,7 +601,7 @@ static int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsC
 	XPlm_SsitCommParams EncParams;
 	volatile u32 MsgType;
 	volatile u32 MsgTypeTmp;
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	/* Fetch SLR type */
 	u32 SlrType = XPlm_SsitCommGetSlrType();
 	u32 IsCfgSecCommCmdTemp = IsCfgSecCommCmd;
