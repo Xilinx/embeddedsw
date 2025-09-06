@@ -101,6 +101,15 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 		goto END;
 	}
 
+	/** Validate the received Rx public key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_EccValidatePubKey(DmaPtr, EciesParams->EccCurveType,
+		EciesParams->EccKeyLength, EciesParams->RxKeyAddr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_PUB_KEY_VALIDATE_FAILURE);
+		goto END;
+	}
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Generate the private key. */
 	Status = XRsa_EccGeneratePvtKey(EciesParams->EccCurveType, EciesParams->EccKeyLength,
@@ -110,7 +119,7 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 		goto END;
 	}
 
-	/** Calculate public key using the generated private key. */
+	/** Calculate Tx public key using the generated Tx private key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XRsa_EccGeneratePubKey(DmaPtr, EciesParams->EccCurveType,
 				EciesParams->EccKeyLength, (u64)(UINTPTR)PrivKey,
@@ -205,6 +214,15 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	Status = XAsu_ValidateEciesParameters(EciesParams);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ECIES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate the received Tx public key. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XRsa_EccValidatePubKey(DmaPtr, EciesParams->EccCurveType,
+		EciesParams->EccKeyLength, EciesParams->TxKeyAddr);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_PUB_KEY_VALIDATE_FAILURE);
 		goto END;
 	}
 

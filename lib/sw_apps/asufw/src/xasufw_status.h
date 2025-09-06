@@ -594,6 +594,8 @@ enum {
 						failed */
 	XASUFW_X509_PARSER_PUB_KEY_UNSUPPORTED, /**< 0x196U - Error when public key is
 							unsupported */
+	XASUFW_ECIES_PUB_KEY_VALIDATE_FAILURE, /**< 0x197U - Error when public key validation fails
+						in ECIES */
 
 	/* Additional status success codes */
 	XASUFW_RSA_PSS_SIGNATURE_VERIFIED = 0x3FA, /**< 0x3FAU - RSA PSS decode and sign verify
