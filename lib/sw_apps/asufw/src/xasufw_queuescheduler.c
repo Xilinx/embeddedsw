@@ -173,6 +173,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 						XAsufw_Printf(DEBUG_INFO, "Validate command successful\r\n");
 						QueueBuf->ReqBufStatus = XASU_COMMAND_VALIDATED;
 					}
+					/* fall through */
 				case XASU_COMMAND_VALIDATED:
 					/** Check and allocate resources for the command. */
 					Status = XAsufw_CheckAndAllocateResources(&QueueBuf->ReqBuf, ReqId);
@@ -187,6 +188,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 					} else {
 						/* - Otherwise, proceed to the next stage. */
 					}
+					/* fall through */
 				case XASU_COMMAND_DMA_WAIT_COMPLETE:
 					/**
 					 * If command validation and resource allocation is successful, or the DMA
