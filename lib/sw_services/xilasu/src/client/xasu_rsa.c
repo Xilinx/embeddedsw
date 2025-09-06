@@ -316,21 +316,7 @@ s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	/** Set the command ID based on the selected SHA type. */
-	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
-		CmdId = XASU_RSA_OAEP_ENC_SHA2_CMD_ID;
-	} else if (RsaClientParamPtr->ShaType == XASU_SHA3_TYPE) {
-		CmdId = XASU_RSA_OAEP_ENC_SHA3_CMD_ID;
-	} else {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_256) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_384) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_512) &&
-	    ((RsaClientParamPtr->ShaType != XASU_SHA3_TYPE) ||
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
+	if (XAsu_ShaValidateModeAndType(RsaClientParamPtr->ShaType, RsaClientParamPtr->ShaMode) != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -340,6 +326,13 @@ s32 XAsu_RsaOaepEnc(XAsu_ClientParams *ClientParamPtr,
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
+	}
+
+	/** Set the command ID based on the selected SHA type. */
+	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
+		CmdId = XASU_RSA_OAEP_ENC_SHA2_CMD_ID;
+	} else {
+		CmdId = XASU_RSA_OAEP_ENC_SHA3_CMD_ID;
 	}
 
 	/** Create command header. */
@@ -419,21 +412,7 @@ s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	/** Set the command ID based on the selected SHA type. */
-	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
-		CmdId = XASU_RSA_OAEP_DEC_SHA2_CMD_ID;
-	} else if (RsaClientParamPtr->ShaType == XASU_SHA3_TYPE) {
-		CmdId = XASU_RSA_OAEP_DEC_SHA3_CMD_ID;
-	} else {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_256) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_384) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_512) &&
-	    ((RsaClientParamPtr->ShaType != XASU_SHA3_TYPE) ||
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
+	if (XAsu_ShaValidateModeAndType(RsaClientParamPtr->ShaType, RsaClientParamPtr->ShaMode) != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -443,6 +422,13 @@ s32 XAsu_RsaOaepDec(XAsu_ClientParams *ClientParamPtr,
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
+	}
+
+	/** Set the command ID based on the selected SHA type. */
+	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
+		CmdId = XASU_RSA_OAEP_DEC_SHA2_CMD_ID;
+	} else {
+		CmdId = XASU_RSA_OAEP_DEC_SHA3_CMD_ID;
 	}
 
 	/** Create command header. */
@@ -519,20 +505,7 @@ s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
-	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
-		CmdId = XASU_RSA_PSS_SIGN_GEN_SHA2_CMD_ID;
-	} else if (RsaClientParamPtr->ShaType == XASU_SHA3_TYPE) {
-		CmdId = XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID;
-	} else {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_256) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_384) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_512) &&
-	    ((RsaClientParamPtr->ShaType != XASU_SHA3_TYPE) ||
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
+	if (XAsu_ShaValidateModeAndType(RsaClientParamPtr->ShaType, RsaClientParamPtr->ShaMode) != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -542,6 +515,12 @@ s32 XAsu_RsaPssSignGen(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
+	}
+
+	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
+		CmdId = XASU_RSA_PSS_SIGN_GEN_SHA2_CMD_ID;
+	} else{
+		CmdId = XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID;
 	}
 
 	/** Create command header. */
@@ -624,21 +603,7 @@ s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		goto END;
 	}
 
-	/** Select the command ID based on SHA type. */
-	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
-		CmdId = XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID;
-	} else if (RsaClientParamPtr->ShaType == XASU_SHA3_TYPE) {
-		CmdId = XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID;
-	} else {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if ((RsaClientParamPtr->ShaMode != XASU_SHA_MODE_256) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_384) &&
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_512) &&
-	    ((RsaClientParamPtr->ShaType != XASU_SHA3_TYPE) ||
-	    (RsaClientParamPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
+	if (XAsu_ShaValidateModeAndType(RsaClientParamPtr->ShaType, RsaClientParamPtr->ShaMode) != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -649,6 +614,14 @@ s32 XAsu_RsaPssSignVer(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams 
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
 	}
+
+	/** Select the command ID based on SHA type. */
+	if (RsaClientParamPtr->ShaType == XASU_SHA2_TYPE) {
+		CmdId = XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID;
+	} else {
+		CmdId = XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID;
+	}
+
 	/** Create command header. */
 	Header = XAsu_CreateHeader(CmdId, UniqueId, XASU_MODULE_RSA_ID, 0U,
 				ClientParamPtr->SecureFlag);

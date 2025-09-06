@@ -257,27 +257,12 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr)
 	}
 
 	if (((HmacParamsPtr->OperationFlags & XASU_HMAC_INIT) == XASU_HMAC_INIT)) {
-		if ((HmacParamsPtr->ShaType != XASU_SHA2_TYPE) &&
-		    (HmacParamsPtr->ShaType != XASU_SHA3_TYPE)) {
+		/** Validate SHA Mode and SHA Type. */
+		if (XAsu_ShaValidateModeAndType(HmacParamsPtr->ShaType, HmacParamsPtr->ShaMode) != XST_SUCCESS) {
 			goto END;
 		}
 
-		if ((HmacParamsPtr->ShaMode != XASU_SHA_MODE_256) &&
-		    (HmacParamsPtr->ShaMode != XASU_SHA_MODE_384) &&
-		    (HmacParamsPtr->ShaMode != XASU_SHA_MODE_512) &&
-		    (((HmacParamsPtr->ShaType != XASU_SHA3_TYPE) ||
-		    (HmacParamsPtr->ShaMode != XASU_SHA_MODE_SHAKE256)))) {
-			goto END;
-		}
-
-		if (((HmacParamsPtr->ShaMode == XASU_SHA_MODE_256) &&
-		     (HmacParamsPtr->HmacLen != XASU_SHA_256_HASH_LEN)) ||
-		    ((HmacParamsPtr->ShaMode == XASU_SHA_MODE_384) &&
-		     (HmacParamsPtr->HmacLen != XASU_SHA_384_HASH_LEN)) ||
-		    ((HmacParamsPtr->ShaMode == XASU_SHA_MODE_512) &&
-		     (HmacParamsPtr->HmacLen != XASU_SHA_512_HASH_LEN)) ||
-		    ((HmacParamsPtr->ShaMode == XASU_SHA_MODE_SHAKE256) &&
-		     (HmacParamsPtr->HmacLen != XASU_SHA_256_HASH_LEN))) {
+		if (XAsu_ShaValidateHashLen(HmacParamsPtr->ShaMode, HmacParamsPtr->HmacLen) != XST_SUCCESS) {
 			goto END;
 		}
 

@@ -38,6 +38,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xstatus.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -88,7 +89,71 @@ typedef struct {
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the specified SHA mode and SHA type.
+ *
+ * @param	ShaType	The SHA type to validate.
+ * @param	ShaMode	The SHA mode to validate.
+ *
+ * @return
+ * 	- XST_SUCCESS, if validation is successful.
+ * 	- XST_FAILURE, if validation fails.
+ *************************************************************************************************/
+static inline s32 XAsu_ShaValidateModeAndType(u8 ShaType, u8 ShaMode)
+{
+	volatile s32 Status = XST_FAILURE;
+
+	if ((ShaType != XASU_SHA2_TYPE) && (ShaType != XASU_SHA3_TYPE)) {
+		goto END;
+	}
+
+	if (((ShaMode != XASU_SHA_MODE_256) &&
+	    (ShaMode != XASU_SHA_MODE_384) &&
+	    (ShaMode != XASU_SHA_MODE_512) &&
+	    ((ShaType != XASU_SHA3_TYPE) ||
+	    (ShaMode != XASU_SHA_MODE_SHAKE256)))) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates the specified SHA length for respective SHA mode.
+ *
+ * @param	ShaMode	The SHA mode to validate.
+ * @param	HashLen	The hash length to validate.
+ *
+ * @return
+ * 	- XST_SUCCESS, if validation is successful.
+ * 	- XST_FAILURE, if validation fails.
+ *************************************************************************************************/
+static inline s32 XAsu_ShaValidateHashLen(u8 ShaMode, u32 HashLen)
+{
+	volatile s32 Status = XST_FAILURE;
+
+	if ((((ShaMode == XASU_SHA_MODE_256) &&
+	    (HashLen != XASU_SHA_256_HASH_LEN)) ||
+	    ((ShaMode == XASU_SHA_MODE_384) &&
+	    (HashLen != XASU_SHA_384_HASH_LEN)) ||
+	    ((ShaMode == XASU_SHA_MODE_512) &&
+	    (HashLen != XASU_SHA_512_HASH_LEN)))) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
 /************************************ Function Prototypes ****************************************/
+
 /************************************ Variable Definitions ***************************************/
 #ifdef __cplusplus
 }

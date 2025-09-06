@@ -163,16 +163,8 @@ static s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr)
 		goto END;
 	}
 
-	if ((KdfParamsPtr->ShaType != XASU_SHA2_TYPE) &&
-		(KdfParamsPtr->ShaType != XASU_SHA3_TYPE)) {
-		goto END;
-	}
-
-	if ((KdfParamsPtr->ShaMode != XASU_SHA_MODE_256) &&
-		(KdfParamsPtr->ShaMode != XASU_SHA_MODE_384) &&
-		(KdfParamsPtr->ShaMode != XASU_SHA_MODE_512) &&
-		((KdfParamsPtr->ShaType != XASU_SHA3_TYPE) ||
-		 (KdfParamsPtr->ShaMode != XASU_SHA_MODE_SHAKE256))) {
+	/** Validate SHA Mode and SHA Type. */
+	if (XAsu_ShaValidateModeAndType(KdfParamsPtr->ShaType, KdfParamsPtr->ShaMode) != XST_SUCCESS) {
 		goto END;
 	}
 

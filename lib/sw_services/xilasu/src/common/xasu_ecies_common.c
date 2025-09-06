@@ -65,16 +65,8 @@ s32 XAsu_ValidateEciesParameters(const XAsu_EciesParams *EciesParams)
 	if (EciesParams == NULL) {
 		goto END;
 	}
-	/** Validate SHA Type and SHA Mode. */
-	if ((EciesParams->ShaType != XASU_SHA2_TYPE) && (EciesParams->ShaType != XASU_SHA3_TYPE)) {
-		goto END;
-	}
-
-	if ((EciesParams->ShaMode != XASU_SHA_MODE_256) &&
-	    (EciesParams->ShaMode != XASU_SHA_MODE_384) &&
-	    (EciesParams->ShaMode != XASU_SHA_MODE_512) &&
-	    ((EciesParams->ShaType != XASU_SHA3_TYPE) ||
-	    (EciesParams->ShaMode != XASU_SHA_MODE_SHAKE256))) {
+	/** Validate SHA Mode and SHA Type. */
+	if (XAsu_ShaValidateModeAndType(EciesParams->ShaType, EciesParams->ShaMode) != XST_SUCCESS) {
 		goto END;
 	}
 	/** Validate AES key size. */
