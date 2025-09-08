@@ -15,6 +15,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
+*       har  09/08/25 Added XLoader_UpdateCfgLimitCount()
 *
 * </pre>
 *
@@ -186,6 +187,20 @@ static inline int XLoader_AddDeviceStateChangeToScheduler(void)
 static inline int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
 {
 	(void)UpdateFlag;
+	return XST_SUCCESS;
+}
+
+/**************************************************************************************************/
+/**
+ * @brief	This function is supported only for Versal_2ve_2vm, nothing to be done in Versal_2vp.
+ *
+ * @return
+ * 		- XST_SUCCESS always.
+ *
+ **************************************************************************************************/
+static inline int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase)
+{
+	(void)BootPhase;
 	return XST_SUCCESS;
 }
 
