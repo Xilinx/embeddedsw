@@ -12,7 +12,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XPM_MAJOR_VERSION	1U /**< Major Version of xilpm_ng */
-#define XPM_MINOR_VERSION	0U /**< Minor version of xilpm_ng */
+#define XPM_MINOR_VERSION	1U /**< Minor version of xilpm_ng */
 
 #ifdef __cplusplus
 }

@@ -604,7 +604,7 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 	} else {
 		/* Force powerdown of only Subsystem is allowed */
 		PmErr("ForcePowerdown support for processor and power domain is deprecated.\r\n");
-		Status = XST_INVALID_PARAM;
+		Status = XST_FEATURE_DEPRECATE;
 		goto done;
 	}
 
