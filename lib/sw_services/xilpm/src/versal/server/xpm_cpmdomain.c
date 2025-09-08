@@ -940,8 +940,9 @@ static XStatus Cpm6MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 {
 	volatile XStatus Status = XPM_ERR_MBIST_CLR;
 	volatile XStatus StatusTmp = XPM_ERR_MBIST_CLR;
+	volatile u32 i;
 	const XPm_CpmDomain *Cpm = (const XPm_CpmDomain *)PwrDomain;
-	u32 RegValue, i;
+	u32 RegValue;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 	u32 PollTimeOut = GetPollTimeOut(SecLockDownInfo, XPM_POLL_TIMEOUT);
