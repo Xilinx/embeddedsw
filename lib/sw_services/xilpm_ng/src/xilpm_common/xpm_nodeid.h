@@ -1259,6 +1259,7 @@ extern "C" {
 #define PM_REG_EFUSE_CACHE			(0x30000003U)
 #define PM_REG_PMC_GLOBAL			(0x30000004U)
 #define PM_REG_MMI_UDH_SLCR			(0x30000005U)
+#define PM_REG_MMI_UDH_SLCR_DC			(0x30000006U)
 /** @} */
 
 #ifdef __cplusplus
