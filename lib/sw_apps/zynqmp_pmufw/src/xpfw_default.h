@@ -2036,6 +2036,9 @@ extern "C" {
 
 #define FSBL_COMPLETION			1U
 
+/* PMUFW completion flag */
+#define PMUFW_COMPLETION		0x8U
+
 #define IPI_CRC_ERROR_OCCURRED	0x1U
 #define HW_EXCEPTION_RECEIVED	0x2U
 

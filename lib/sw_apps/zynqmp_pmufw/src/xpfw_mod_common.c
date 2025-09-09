@@ -109,6 +109,12 @@ static void CheckFsblCompletion(void)
 		 */
 		InitCsuPmuWdt();
 #endif
+		/*
+		 * Update PMUFW completion status in bit 3 of
+		 * PMU_GLOBAL_GLOBAL_GEN_STORAGE5 register.
+		 */
+		XPfw_RMW32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5, PMUFW_COMPLETION,
+					PMUFW_COMPLETION);
 
 		Status = XPfw_CoreRemoveTask(CommonModPtr, (u32)CHECK_FSBL_COMPLETION,
 				&CheckFsblCompletion);
