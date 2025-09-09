@@ -156,7 +156,7 @@ static int XOcp_CalculateSwPcr(u32 PcrNum, u8 *ExtendedHash);
 static int XOcp_DigestMeasurementAndUpdateLog(u32 PcrNum);
 static int XOcp_StoreNoOfDigestPerPcr(u32 PcrNum, u32 NumOfDigests);
 static int XOcp_StoreEventIdConfig(u32 *Pload, u32 CurrIdx, u32 DigestCount, u32 Len);
-static int XOcp_ClearDigestData(u32 PcrNum);
+static int XOcp_ClearDigestData(u32 PcrNum, u32 DigestIdx);
 static int XOcp_DmeStoreXppuDefaultConfig(void);
 static int XOcp_DmeRestoreXppuDefaultConfig(void);
 static int XOcp_GetPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize, u32 PcrType);
@@ -562,7 +562,7 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 	 */
 	if ((OverWrite == TRUE) &&
 		(SwPcr->Data[DigestIdxInLog].IsReqExtended == TRUE)) {
-		Status = XOcp_ClearDigestData(PcrNum);
+		Status = XOcp_ClearDigestData(PcrNum, DigestIdxInLog);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -1250,8 +1250,7 @@ int XOcp_CheckAndExtendSecureState(void)
 	  * eFuses and miscellaneous eFuses extend the new configuration to
 	  * respective measurement indices of SW PCR 1
 	  */
-	if ((MeasurePpkConfig == TRUE) || (MeasureSpkRevokeConfig == TRUE) ||
-			(MeasureOtherRevokeConfig == TRUE) || (MeasureMiscConfig == TRUE)) {
+	if (MeasurePpkConfig == TRUE) {
 		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
 				XOCP_SW_PCR_PPK_CONFIG_MEASUREMENT_IDX,
 				(u64)(UINTPTR)&PpkEfuseConfig,
@@ -1260,6 +1259,8 @@ int XOcp_CheckAndExtendSecureState(void)
 			Status = (int)XOCP_ERR_IN_EXTEND_PPK_CONFIG;
 			goto END;
 		}
+	}
+	if (MeasureSpkRevokeConfig == TRUE) {
 		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
 				XOCP_SW_PCR_SPK_REVOKE_CONFIG_MEASUREMENT_IDX,
 				(u64)(UINTPTR)&RevocationSpkEfuseConfig,
@@ -1268,6 +1269,8 @@ int XOcp_CheckAndExtendSecureState(void)
 			Status = (int)XOCP_ERR_IN_EXTEND_SPK_REVOKE_CONFIG;
 			goto END;
 		}
+	}
+	if (MeasureOtherRevokeConfig == TRUE) {
 		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
 				XOCP_SW_PCR_REVOKE_OTHER_CONFIG_MEASUREMENT_IDX,
 				(u64)(UINTPTR)&RevocationOtherEfuseConfig,
@@ -1276,13 +1279,14 @@ int XOcp_CheckAndExtendSecureState(void)
 			Status = (int)XOCP_ERR_IN_EXTEND_OTHER_REVOKE_CONFIG;
 			goto END;
 		}
+	}
+	if (MeasureMiscConfig == TRUE) {
 		Status = XOcp_ExtendSwPcr(XOCP_SW_PCR_NUM_1,
 				XOCP_SW_PCR_MISC_CONFIG_MEASUREMENT_IDX,
 				(u64)(UINTPTR)&MiscEfuseConfig,
 				sizeof(XOcp_MiscEfuseConfig), TRUE);
 		if (Status != XST_SUCCESS) {
 			Status = (int)XOCP_ERR_IN_EXTEND_MISC_CONFIG;
-			goto END;
 		}
 	}
 
@@ -1606,38 +1610,18 @@ END:
  *		- XST_FAILURE - Upon failure
  *
  ******************************************************************************/
-static int XOcp_ClearDigestData(u32 PcrNum)
+static int XOcp_ClearDigestData(u32 PcrNum, u32 DigestIdx)
 {
 	int Status = XST_FAILURE;
-	u32 DigestIdx = XOcp_GetPcrOffsetInLog(PcrNum);
 	XOcp_SwPcrStore *SwPcr = XOcp_GetSwPcrInstance();
-	u32 Index;
 
-	for (Index = DigestIdx; Index < (DigestIdx + SwPcr->CountPerPcr[PcrNum]); Index++) {
-		Status = Xil_SMemSet((void *)(UINTPTR)SwPcr->Data[Index].DataToExtend,
-				XOCP_PCR_HASH_SIZE_IN_BYTES, 0U, XOCP_PCR_HASH_SIZE_IN_BYTES);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-		Status = Xil_SMemSet((void *)(UINTPTR)SwPcr->Data[Index].Measurement.MeasuredData,
-				XOCP_PCR_HASH_SIZE_IN_BYTES, 0U, XOCP_PCR_HASH_SIZE_IN_BYTES);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-		Status = Xil_SMemSet((void *)(UINTPTR)SwPcr->Data[Index].Measurement.HashOfData,
-				XOCP_PCR_HASH_SIZE_IN_BYTES, 0U, XOCP_PCR_HASH_SIZE_IN_BYTES);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-		SwPcr->Data[Index].DataAddr = 0U;
-		SwPcr->Data[Index].Measurement.DataLength = 0U;
-		SwPcr->Data[Index].IsReqExtended = 0U;
+	Status = Xil_SMemSet((void *)(UINTPTR)&SwPcr->Data[DigestIdx],
+			sizeof(XOcp_SwPcrData), 0U, sizeof(XOcp_SwPcrData));
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
-	SwPcr->CountPerPcr[PcrNum] = 0U;
+	SwPcr->CountPerPcr[PcrNum] -= 1U;
 
 	Status = XST_SUCCESS;
 END:
