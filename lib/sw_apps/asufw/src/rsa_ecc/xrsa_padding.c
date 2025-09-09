@@ -506,17 +506,12 @@ s32 XRsa_OaepDecode(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	*/
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Index = HashLen;
-	while ((DataBlock[Index] != XRSA_OAEP_OUTPUT_DATA_BLOCK_MSG_SEPERATION_VALUE)
-		&& (Index != (DataBlockLen - XASUFW_BUFFER_INDEX_ONE))) {
-			if (DataBlock[Index] == XRSA_OAEP_ZERO_PADDING_DATA_VALUE){
-				Index++;
-			}
-			else {
-				Status = XASUFW_RSA_OAEP_DECODE_ERROR;
-				XFIH_GOTO(END);
-			}
+	while ((Index < (DataBlockLen - XASUFW_BUFFER_INDEX_ONE))
+		&& (DataBlock[Index] == XRSA_OAEP_ZERO_PADDING_DATA_VALUE)) {
+		Index++;
 	}
-	if (Index == (DataBlockLen - XASUFW_BUFFER_INDEX_ONE)) {
+	if ((Index >= (DataBlockLen - XASUFW_BUFFER_INDEX_ONE)) ||
+		(DataBlock[Index] != XRSA_OAEP_OUTPUT_DATA_BLOCK_MSG_SEPERATION_VALUE)) {
 		Status = XASUFW_RSA_OAEP_DECODE_ERROR;
 		XFIH_GOTO(END);
 	}
