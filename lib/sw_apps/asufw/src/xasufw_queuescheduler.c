@@ -99,6 +99,29 @@ static XAsufw_ChannelTasks CommChannelTasks = { 0U };
 
 /*************************************************************************************************/
 /**
+ * @brief	This function returns IPI Mask corresponding to the Channel Index.
+ *
+ * @param	ChannelIndex	IPI Channel Index.
+ *
+ * @return
+ *	- IPI Bit Mask.
+ *
+ *************************************************************************************************/
+u32 XAsufw_GetIpiMask(u32 ChannelIndex)
+{
+	u32 IpiBitMask;
+
+	if (ChannelIndex >= CommChannelInfo->NumOfIpiChannels) {
+		IpiBitMask = 0U;
+	} else {
+		IpiBitMask = CommChannelInfo->Channel[ChannelIndex].IpiBitMask;
+	}
+
+	return IpiBitMask;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function is the task handler for the channel queues.
  *
  * @param	Arg	Task private data.

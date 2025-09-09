@@ -84,6 +84,7 @@ typedef struct {
 void XAsufw_ChannelConfigInit(void);
 void XAsufw_TriggerQueueTask(u32 IpiMask);
 u32 XAsufw_GetSubsysIdFromIpiMask(u32 IpiMask);
+u32 XAsufw_GetIpiMask(u32 ChannelIndex);
 
 /************************************ Variable Definitions ***************************************/
 

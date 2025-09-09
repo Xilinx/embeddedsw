@@ -146,6 +146,19 @@ extern "C" {
 /**< EFUSE_CACHE DME User Key 2 Address */
 #define EFUSE_CACHE_USERKEY_2_ADDR			(EFUSE_CACHE_BASEADDR + 0x000002A0U)
 
+/*
+ * Definitions required from lpd_xppu.h
+ */
+/** LPD_XPPU base address */
+#define LPD_XPPU_BASEADDR						(0xEB990000U)
+
+/** LPD_XPPU APERPERM 49 Address */
+#define LPD_XPPU_APERPERM_49					(LPD_XPPU_BASEADDR + 0x000010C4U)
+/** LPD_XPPU_APERPERM_49_TRUSTZONE mask value */
+#define LPD_XPPU_APERPERM_49_TRUSTZONE_MASK	(0x08000000U)
+/** LPD_XPPU_APERPERM_49_TRUSTZONE shift value */
+#define LPD_XPPU_APERPERM_49_TRUSTZONE_SHIFT	(27U)
+
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

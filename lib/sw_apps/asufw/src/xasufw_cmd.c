@@ -38,6 +38,7 @@
 #include "xasufw_resourcemanager.h"
 #include "xasufw_util.h"
 #include "xasufw_debug.h"
+#include "xasufw_hw.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -73,6 +74,7 @@ static inline u32 XAsufw_GetModuleId(u32 Header)
 }
 
 /************************************ Function Prototypes ****************************************/
+static u32 XAsufw_GetReqType(u32 CmdHeader, u32 ChannelIndex);
 
 /************************************ Variable Definitions ***************************************/
 s32 ReturnStatus = XASUFW_FAILURE; /**< Redundant variable holds non-zero success value helps to
@@ -147,6 +149,51 @@ void XAsufw_CommandResponseHandler(XAsu_ReqBuf *ReqBuf, u32 ReqId, s32 Response)
 
 /*************************************************************************************************/
 /**
+ * @brief	This function checks IPI Command permission type and channel permissions and returns
+ * IPI request type to the caller.
+ *
+ * @param	CmdHeader		IPI command header.
+ * @param	ChannelIndex	IPI channel index.
+ *
+ * @return
+ *	- XASU_CMD_SECURE, if command request type is secure.
+ *	- XASU_CMD_NON_SECURE, if command request type is non-secure.
+ *
+ *************************************************************************************************/
+static u32 XAsufw_GetReqType(u32 CmdHeader, u32 ChannelIndex)
+{
+	u32 CmdPerm = (CmdHeader & XASU_COMMAND_SECURE_FLAG_MASK) >> XASU_COMMAND_SECURE_FLAG_SHIFT;
+	volatile u32 ChannelPerm = XASU_CMD_NON_SECURE;
+	u32 ReqType = XASU_CMD_NON_SECURE;
+	u32 IpiBitPos;
+
+	/** If command permission is not secure, return non-secure. */
+	if (CmdPerm != XASU_CMD_SECURE) {
+		goto END;
+	}
+
+	/** Get IPI bit position from the channel's IPI bit mask. */
+	IpiBitPos = (u32)(__builtin_ctz(XAsufw_GetIpiMask(ChannelIndex)));
+	if (IpiBitPos == 0U) {
+		goto END;
+	}
+
+	/** Get TrustZone status from the IPI channel's aperture permission register. */
+	ChannelPerm = XAsufw_ReadReg(LPD_XPPU_APERPERM_49 + (IpiBitPos * XASUFW_WORD_LEN_IN_BYTES));
+	ChannelPerm = (ChannelPerm & LPD_XPPU_APERPERM_49_TRUSTZONE_MASK) >>
+						LPD_XPPU_APERPERM_49_TRUSTZONE_SHIFT;
+
+	/** If command permission is secure and channel permission is secure, return secure. */
+	if ((CmdPerm == XASU_CMD_SECURE) && (ChannelPerm == XASU_CMD_SECURE)) {
+		ReqType = XASU_CMD_SECURE;
+	}
+
+END:
+	return ReqType;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function checks if the received command is valid and has required access
  * 		permissions or not and returns status accordingly.
  *
@@ -163,23 +210,15 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
-	u32 CmdPermission;
 	u32 ModuleId = XAsufw_GetModuleId(ReqBuf->Header);
 	const XAsufw_Module *Module = NULL;
 	u32 AccessPerm = XASUFW_NO_IPI_ACCESS;
+	u32 ReqType = XASU_CMD_NON_SECURE;
 
 	/** Validate channel index. */
 	if (ChannelIndex >= XASUFW_MAX_CHANNELS_SUPPORTED) {
 		Status = XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX;
 		goto END;
-	}
-
-	/** Determine command permission based on secure bit in command header. */
-	/* TODO: Need to identify a way to determine if the channel is secure or not. */
-	if ((ReqBuf->Header & XASU_COMMAND_SECURE_FLAG_MASK) == 0U) {
-		CmdPermission = XASU_CMD_SECURE;
-	} else {
-		CmdPermission = XASU_CMD_NON_SECURE;
 	}
 
 	/** Get module from the module ID received in the command header and validate. */
@@ -206,6 +245,9 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 		goto END;
 	}
 
+	/** Determine request type based on secure bit in command header and channel TZ settings. */
+	ReqType = XAsufw_GetReqType(ReqBuf->Header, ChannelIndex);
+
 	/** Perform access permission checks */
 	if (Module->AccessPermBufferPtr != NULL) {
 		AccessPerm = Module->AccessPermBufferPtr[CmdId] >>
@@ -220,7 +262,7 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 		 * - If the request type is Non-Secure and the requested API requires Secure access,
 		 * return an error.
 		 */
-		if ((CmdPermission == XASU_CMD_NON_SECURE) && (AccessPerm == XASUFW_SECURE_IPI_ACCESS)) {
+		if ((ReqType == XASU_CMD_NON_SECURE) && (AccessPerm == XASUFW_SECURE_IPI_ACCESS)) {
 			Status = XASUFW_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS;
 			goto END;
 		}
@@ -228,7 +270,7 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 		 * - If the request type is Non-Secure and the requested API requires Secure access,
 		 * return an error.
 		 */
-		if ((CmdPermission == XASU_CMD_SECURE) && (AccessPerm == XASUFW_NON_SECURE_IPI_ACCESS)) {
+		if ((ReqType == XASU_CMD_SECURE) && (AccessPerm == XASUFW_NON_SECURE_IPI_ACCESS)) {
 			Status = XASUFW_ERR_VALIDATE_IPI_NO_SECURE_ACCESS;
 			goto END;
 		}
