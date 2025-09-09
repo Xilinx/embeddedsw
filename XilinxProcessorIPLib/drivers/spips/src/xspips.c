@@ -58,6 +58,7 @@
 * 3.9   sb     07/27/23 Fix the issue of driver giving junk values when its
 *                       running at low clock speed in slave mode.
 * 3.12  sb     02/24/25 Use delay in interrupt handler for slave mode only.
+* 3.13  sb     09/09/25 Fix chip selection issues
 * </pre>
 *
 ******************************************************************************/
@@ -228,11 +229,12 @@ void XSpiPs_Reset(XSpiPs *InstancePtr)
 	XSpiPs_Abort(InstancePtr);
 
 	/*
-	 * Reset any values that are not reset by the hardware reset such that
-	 * the software state matches the hardware device
+	 * Initialize control register to reset state and deselect all slaves.
+	 * This synchronizes software state with hardware and prevents unintended
+	 * slave selection during device initialization.
 	 */
 	XSpiPs_WriteReg(InstancePtr->Config.BaseAddress, XSPIPS_CR_OFFSET,
-			XSPIPS_CR_RESET_STATE);
+			XSPIPS_CR_RESET_STATE | XSPIPS_CR_SSCTRL_MASK );
 
 }
 
@@ -685,16 +687,19 @@ s32 XSpiPs_SetSlaveSelect(XSpiPs *InstancePtr, u8 SlaveSel)
 						    XSPIPS_CR_SSCTRL_MAXIMUM) << XSPIPS_CR_SSCTRL_SHIFT;
 		}
 
-		/*
-		 * Read the config register, update the slave select value and write
-		 * back to config register.
-		 */
-		ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
-					   XSPIPS_CR_OFFSET);
-		ConfigReg &= (u32)(~XSPIPS_CR_SSCTRL_MASK);
-		ConfigReg |= InstancePtr->SlaveSelect;
-		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress, XSPIPS_CR_OFFSET,
+		if (XSpiPs_IsManualChipSelect(InstancePtr) == FALSE) {
+			/*
+			 * Read the config register, update the slave select value and write
+			 * back to config register.
+			 */
+			ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
+				XSPIPS_CR_OFFSET);
+			ConfigReg &= (u32)(~XSPIPS_CR_SSCTRL_MASK);
+			ConfigReg |= InstancePtr->SlaveSelect;
+			XSpiPs_WriteReg(InstancePtr->Config.BaseAddress, XSPIPS_CR_OFFSET,
 				ConfigReg);
+		}
+
 		Status_Slave = (s32)XST_SUCCESS;
 	}
 	return Status_Slave;
