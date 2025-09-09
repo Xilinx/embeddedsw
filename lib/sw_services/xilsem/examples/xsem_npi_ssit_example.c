@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -23,6 +23,7 @@
  * 0.6   anv   10/18/2023  Added macro protection to Enable Error Injection
  *                         Feature usage and Updated to get
  *                         XilSEM NPI status prints of all SLRs seperately
+ * 0.5   gayu  09/08/2025  Fixed Gcc warnings.
  * </pre>
  *
  *****************************************************************************/
@@ -87,7 +88,7 @@ struct XSem_Npi_Events_t{
  * @param[in]	InstancePtr : Pointer to IPI driver instance
  *
  *****************************************************************************/
-void XSem_IpiCallback(XIpiPsu *const InstancePtr)
+void XSem_IpiCallback(void)
 {
 	int Status;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};

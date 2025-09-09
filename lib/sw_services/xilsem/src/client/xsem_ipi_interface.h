@@ -32,6 +32,7 @@
 * 1.2   anv  02/18/2025   fixed IPI instance for versal_aiepg2
 * 1.3   ga   04/24/2025   Renamed device macro to VERSAL_2VE_2VM for
 *                         versal 2ve and 2vm.
+* 1.4   ga   09/08/2025   Fixed Gcc warnings.
 *
 * </pre>
 * @note
@@ -85,14 +86,14 @@ extern "C" {
 
 /* Payload Formation */
 #define PACK_PAYLOAD(Payload, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7) \
-	Payload[0] = (u32)Arg0;	\
-	Payload[1] = (u32)Arg1;	\
-	Payload[2] = (u32)Arg2;	\
-	Payload[3] = (u32)Arg3;	\
-	Payload[4] = (u32)Arg4;	\
-	Payload[5] = (u32)Arg5;	\
-	Payload[6] = (u32)Arg6;	\
-	Payload[7] = (u32)Arg7;
+	Payload[0] = (u32)(UINTPTR)Arg0;	\
+	Payload[1] = (u32)(UINTPTR)Arg1;	\
+	Payload[2] = (u32)(UINTPTR)Arg2;	\
+	Payload[3] = (u32)(UINTPTR)Arg3;	\
+	Payload[4] = (u32)(UINTPTR)Arg4;	\
+	Payload[5] = (u32)(UINTPTR)Arg5;	\
+	Payload[6] = (u32)(UINTPTR)Arg6;	\
+	Payload[7] = (u32)(UINTPTR)Arg7;
 
 
 /* For Payload with just API Id */

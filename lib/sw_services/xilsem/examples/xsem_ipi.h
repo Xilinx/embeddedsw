@@ -19,6 +19,7 @@
 * 0.5  anv   02/18/2025   Fixed IPI instance for versal_aiepg2
 * 0.6  gam   04/24/2025   Renamed device macro to VERSAL_2VE_2VM for
 *                         versal 2ve and 2vm.
+* 0.7  gam   09/08/2025   Fixed Gcc warnings.
 *
 * </pre>
 *
@@ -55,6 +56,6 @@ XStatus IpiRegisterCallback(XIpiPsu *const IpiInst, const u32 SrcMask,
 XStatus IpiInit(XIpiPsu *const InstancePtr, XScuGic *const GicInst);
 
 /* IPI Callback for SEM events */
-void XSem_IpiCallback(XIpiPsu *const InstancePtr);
+void XSem_IpiCallback(void);
 
 #endif /* XSEM_IPI_H */

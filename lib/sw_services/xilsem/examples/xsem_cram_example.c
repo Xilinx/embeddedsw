@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* (c) Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* (c) Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -34,6 +34,7 @@
  * 1.1   anv   07/24/2024  Fixed incorrect prints for last seven CE location
  *                         details & Added Macro protection to invoke
  *                         CORR/CRC/UNCORR Err injection functions.
+ * 1.2   gayu  09/08/2025  Fixed Gcc warnings.
  * </pre>
  *
  *****************************************************************************/
@@ -545,7 +546,7 @@ int Xsem_CfrEventRegisterNotifier(u32 Enable)
  * @param[in]	InstancePtr : Pointer to IPI driver instance
  *
  *****************************************************************************/
-void XSem_IpiCallback(XIpiPsu *const InstancePtr)
+void XSem_IpiCallback(void)
 {
 	int Status;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};

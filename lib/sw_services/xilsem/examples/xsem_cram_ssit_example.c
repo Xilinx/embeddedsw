@@ -30,6 +30,7 @@
  *                           modified XSemStatus structure element
  *                           ErrAddrLowHigh
  * 0.8  anv      03/24/2025  Correct status check masks for event notifications
+ * 0.9  gayu     09/08/2025  Fixed Gcc warnings.
  * </pre>
  *
  *****************************************************************************/
@@ -147,7 +148,7 @@ static int Xsem_CfrEventRegisterNotifier(u32 Enable)
  * @param[in]	InstancePtr : Pointer to IPI driver instance
  *
  *****************************************************************************/
-void XSem_IpiCallback(XIpiPsu *const InstancePtr)
+void XSem_IpiCallback(void)
 {
 	int Status;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
