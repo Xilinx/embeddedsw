@@ -473,6 +473,8 @@ s32 XAsufw_RunKatTaskHandler(void *KatTask)
 	/** Get the DMA instance pointer. */
 	XAsufw_Dma *AsuDmaPtr = XAsufw_GetDmaInstance(ASUDMA_0_DEVICE_ID);
 
+	XAsufw_Printf(DEBUG_GENERAL, "Running KAT tasks\r\n");
+
 	/** Run AES KAT. */
 	Status = XAsufw_AesOperationKat(AsuDmaPtr, XASU_AES_GCM_MODE);
 	if (Status != XASUFW_SUCCESS) {

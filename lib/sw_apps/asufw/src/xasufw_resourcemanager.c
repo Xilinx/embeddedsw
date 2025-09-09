@@ -447,6 +447,6 @@ void XAsufw_DisableResource(XAsufw_Resource Resource)
 	ResourceManager[Resource].State = XASUFW_RESOURCE_IS_DISABLED;
 	ResourceManager[Resource].OwnerId = 0U;
 	ResourceManager[Resource].AllocatedResources = 0U;
-	XAsufw_Printf(DEBUG_GENERAL, "KAT failed for Resource Id : %d, corresponding module is disabled\r\n", Resource);
+	XAsufw_Printf(DEBUG_GENERAL, "Disabling the module with Resource Id : %d due to failure\r\n", Resource);
 }
 /** @} */

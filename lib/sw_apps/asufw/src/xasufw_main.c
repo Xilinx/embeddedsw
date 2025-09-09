@@ -129,6 +129,9 @@ int main(void)
 		goto END;
 	}
 
+	/** Create and trigger KAT task. */
+	XAsufw_StartKatTasks();
+
 	/**
 	 * Create and trigger task created for Key transfer and DME KEK derivation if PUF
 	 * regeneration is successful.
@@ -141,9 +144,6 @@ int main(void)
 	 */
 	XAsufw_RMW(ASU_GLOBAL_GLOBAL_CNTRL, ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
 		   ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
-
-	/** Create and trigger KAT task. */
-	XAsufw_StartKatTasks();
 
 	/**
 	 * Call task dispatch loop to check and execute the tasks.

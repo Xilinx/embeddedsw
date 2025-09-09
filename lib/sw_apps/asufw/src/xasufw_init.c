@@ -493,6 +493,7 @@ s32 XAsufw_RunKeyTransferTaskHandler(void *KeyTransferTask)
 {
 	s32 Status = XASUFW_FAILURE;
 	XTask_TaskNode *SelfKeyTransferTask = (XTask_TaskNode *)KeyTransferTask;
+	u8 AesKatStatus = *XAsu_GetKatStatusPtr(XASU_MODULE_AES_ID);
 
 	/** Get keys from PMC. */
 	Status = XAsufw_PmcKeyTransfer();
@@ -501,14 +502,14 @@ s32 XAsufw_RunKeyTransferTaskHandler(void *KeyTransferTask)
 		goto END;
 	}
 
+	/** Generate DME KEK if PUF KEK generation and AES KAT are successful. */
 	if (PufKekFlag == XASUFW_PUF_KEK_GEN_SUCCESS) {
-		/** Generate DME KEK if PUF KEK generation is successful. */
-		Status = XOcp_GenerateDmeKek();
-		if (Status != XASUFW_SUCCESS) {
-			XAsufw_Printf(DEBUG_GENERAL, "ASUFW DME KEK generation failed. Error: 0x%x\r\n", Status);
+		if (AesKatStatus == XASUFW_KAT_STATUS_PASS) {
+			Status = XOcp_GenerateDmeKek();
+			if (Status != XASUFW_SUCCESS) {
+				XAsufw_Printf(DEBUG_GENERAL, "ASUFW DME KEK generation failed. Error: 0x%x\r\n", Status);
+			}
 		}
-	} else {
-		XAsufw_DisableResource(XASUFW_OCP);
 	}
 
 END:

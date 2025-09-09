@@ -54,6 +54,7 @@
 
 /********************************** Variable Definitions *****************************************/
 static u8 XOcp_DmeKek[XOCP_DME_KEK_SIZE_IN_BYTES] = {0U};	/**< DME KEK */
+static u8 DmeKekFlag = XASU_FALSE;
 
 /************************************ Function Prototypes ****************************************/
 static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAddr);
@@ -80,6 +81,7 @@ s32 XOcp_GenerateDmeKek(void)
 	const u8 *Context = (const u8 *)CtxStr;
 	u8 KekIv[XASU_OCP_DME_IV_SIZE_IN_BYTES] = {0U};
 	const u8 *IvPtr = (u8*)(UINTPTR)XASU_RTCA_BH_IV_ADDR;
+	XFih_Var FihStatus = XFih_VolatileAssignS32(XASUFW_FAILURE);
 
 	Status = Xil_SMemCpy(KekIv, XASU_OCP_DME_IV_SIZE_IN_BYTES, IvPtr,
 			XASU_OCP_DME_IV_SIZE_IN_BYTES, XASU_OCP_DME_IV_SIZE_IN_BYTES);
@@ -115,6 +117,11 @@ s32 XOcp_GenerateDmeKek(void)
 	}
 
 END:
+	FihStatus = XFih_VolatileAssignS32(Status);
+	XFIH_IF_FAILOUT (FihStatus, ==, XFIH_SUCCESS) {
+		DmeKekFlag = XASU_TRUE;
+	}
+
 	return Status;
 }
 
@@ -144,6 +151,12 @@ s32 XOcp_EncryptDmeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpDmeKeyEncrypt *OcpDmeK
 	/** Validate input parameters. */
 	if ((DmaPtr == NULL) || (OcpDmeKeyEnc == NULL)) {
 		Status = XASUFW_OCP_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Check if DME KEK is present. */
+	if (DmeKekFlag == XASU_FALSE) {
+		Status = XASUFW_OCP_DME_KEK_NOT_PRESENT;
 		goto END;
 	}
 
@@ -384,6 +397,12 @@ static s32 XOcp_DecryptPvtKey(XAsufw_Dma *DmaPtr, u32 DmeUserKeyAddr, u8* Iv, u8
 	u8 ZeroData[XASU_OCP_DME_KEY_SIZE_IN_BYTES] = {0U};
 	u8 DmeEncPvtKey[XASU_OCP_DME_KEY_SIZE_IN_BYTES] = {0U};
 	volatile u32 Index = 0U;
+
+	/** Check if DME KEK is present. */
+	if (DmeKekFlag == XASU_FALSE) {
+		Status = XASUFW_OCP_DME_KEK_NOT_PRESENT;
+		goto END;
+	}
 
 	/** Copy the DME user key data to the local buffer. */
 	Status = Xil_SMemCpy(DmeEncPvtKey, XASU_OCP_DME_KEY_SIZE_IN_BYTES,
