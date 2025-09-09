@@ -206,12 +206,8 @@ static s32 XAsu_OcpDmeEncNdPrgmDmeKey(XAsu_ClientParams *ClientParamPtr,
 		Status = XAsu_OcpDmeEncryptData(ClientParamPtr, DmePvtKey, XASU_OCP_DME_KEY_SIZE_IN_BYTES,
 			EncDmeKey, DmeKeyId);
 		if(Status != XST_SUCCESS) {
-			xil_printf("\r\n DME Priv Key 0 encryption failed");
+			xil_printf("\r\n DME Priv Key encryption failed");
 			goto END;
-		}
-		else {
-			xil_printf("\r\n Encrypted DME Private Key 0: ");
-			XAsu_OcpDmeKeyPrintData((u8*)EncDmeKey, XASU_OCP_DME_KEY_SIZE_IN_BYTES);
 		}
 	}
 
@@ -290,7 +286,8 @@ static s32 XAsu_OcpDmeEncryptData(XAsu_ClientParams *ClientParamPtr, char* Data,
 
 END:
 	if ((ErrorStatus == XST_SUCCESS) && (Status == XST_SUCCESS)) {
-		XilAsu_Printf("\r\n OCP-DME private key encryption of Key ID %02x successful", DmeKeyId);
+		XilAsu_Printf("\r\n OCP-DME private key encryption of Key ID %02x successful. Encrypted private key:", DmeKeyId);
+		XAsu_OcpDmeKeyPrintData((u8*)EncDmeKey, XASU_OCP_DME_KEY_SIZE_IN_BYTES);
 	} else {
 		XilAsu_Printf("\r\n OCP-DME private key encryption of Key ID %02x failed", DmeKeyId);
 	}

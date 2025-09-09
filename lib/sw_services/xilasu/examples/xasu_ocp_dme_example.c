@@ -149,8 +149,6 @@ int main(void)
 	while (!Notify);
 	Notify = 0;
 
-	XAsu_OcpDmePrintData((u8*)OcpDmeResponse.DmeSignatureR, (2U * XASU_OCP_DME_KEY_SIZE_IN_BYTES), "DmeSign");
-
 END:
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n OCP-DME Challenge request failed with Status = %08x", Status);
@@ -158,6 +156,8 @@ END:
 		xil_printf("\r\n OCP-DME Challenge request failed with error from server = %08x",
 				ErrorStatus);
 	} else {
+		XAsu_OcpDmePrintData((u8*)OcpDmeResponse.DmeSignatureR,
+					(2U * XASU_OCP_DME_KEY_SIZE_IN_BYTES), "DmeSign");
 		xil_printf("\r\n Successfully ran OCP-DME Challenge request ");
 	}
 
