@@ -483,7 +483,7 @@ s32 XRsa_PvtExp(XAsufw_Dma *DmaPtr, u32 Len, u64 InputDataAddr, u64 OutputDataAd
 			goto END;
 		}
 	} else if (KeyPtr->PrimeCompOrTotientPrsnt == XRSA_NO_PRIME_NO_TOT_PRSNT) {
-		Status = XASUFW_SUCCESS;
+		/* This is a valid scenario and does not return any error. */
 	} else {
 		Status = XASUFW_RSA_INVALID_PRIME_TOT_FLAG;
 		goto END;
