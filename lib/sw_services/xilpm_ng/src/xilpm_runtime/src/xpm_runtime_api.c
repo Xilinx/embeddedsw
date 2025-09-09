@@ -2790,7 +2790,7 @@ done:
 
 static XStatus XPm_DoSetClockDivider(XPlmi_Cmd *Cmd)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
 	u32 ClockId = Cmd->Payload[0];
 	u32 Divider = Cmd->Payload[1];
