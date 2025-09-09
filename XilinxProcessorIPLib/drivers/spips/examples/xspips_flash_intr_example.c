@@ -31,6 +31,7 @@
 *                    generation.
 * 3.2  nsk  03/26/19 Add support for versal
 * 3.9  sb   07/05/23 Added support for system device-tree flow.
+* 3.13 sb   09/09/25 Fix flash status register check in erase function
 *</pre>
 *
 ******************************************************************************/
@@ -877,7 +878,7 @@ static void FlashErase(XSpiPs *SpiPtr)
 		 * device slave select is possibly incorrect such that
 		 * the device status is not being read
 		 */
-		if ((FlashStatus[1] & 0x1C) == 0x0) {
+		if ((FlashStatus[1] & 0x3D) == 0x0) {
 			break;
 		}
 	}
