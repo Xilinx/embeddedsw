@@ -27,6 +27,7 @@
  * 1.2   am   05/18/25 Fixed implicit conversion of operands
  *	 rmv  07/16/25 Added PLM event to the resources list
  *	 rmv  07/16/25 Added OCP to the resources list
+ *	 rmv  09/09/25 Replace bitwise operations and values with macros
  *
  * </pre>
  *
@@ -74,6 +75,18 @@ typedef struct {
 * @{
 */
 /*************************** Macros (Inline Functions) Definitions *******************************/
+#define XASUFW_MARK_RESOURCE_ALLOCATED(mask, idx)	((mask) |= ((u32)1U << (u32)(idx)))
+					/**< Marks the resource with given index as allocated */
+#define XASUFW_MARK_RESOURCE_AVAILABLE(mask, idx)	((mask) &= ~((u32)1U << (u32)(idx)))
+					/**< Marks the resource with given index as available */
+#define XASUFW_IS_RESOURCE_ALLOCATED(mask, idx)		(((mask) & ((u32)1U << (u32)(idx))) != 0U)
+					/**< Checks if resource is available or not */
+#define XASUFW_SHIFT_AND_GET_NEXT_RESOURCE_MASK(mask)	((mask) >> (1U))
+					/**< Shift the mask to get mask for next resource */
+#define XASUFW_GET_RESOURCE_MASK(idx)			((u32)1U << (u32)(idx))
+					/**< Provides resource mask from the resource index */
+#define XASUFW_RESOURCE_INDEX_ZERO			(0U)
+					/**< Index for the first resource */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 ReqId);
@@ -113,7 +126,7 @@ s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 Index = 0x0U;
-	u32 AllocatedResources = ResourceManager[Resource].AllocatedResources;
+	u32 AllocatedResourcesMask = ResourceManager[Resource].AllocatedResources;
 
 	/** If ReqId is not matching with resource owner ID, return error code. */
 	if (ResourceManager[Resource].OwnerId != ReqId) {
@@ -126,9 +139,11 @@ s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 ReqId)
 	ResourceManager[Resource].OwnerId = 0x0U;
 
 	/** Release all the allocated resources of main resource. */
-	while (AllocatedResources != 0x0U) {
-		if ((AllocatedResources & 0x1U) != 0x0U) {
-			ResourceManager[Index].AllocatedResources &= ~((u32)1U << (u32)Resource);
+	while (AllocatedResourcesMask != 0x0U) {
+		if (XASUFW_IS_RESOURCE_ALLOCATED(AllocatedResourcesMask,
+						 XASUFW_RESOURCE_INDEX_ZERO)) {
+			XASUFW_MARK_RESOURCE_AVAILABLE(ResourceManager[Index].AllocatedResources,
+						       Resource);
 			/** If there are allocated resources for the dependency resource, make it free. */
 			if (ResourceManager[Index].AllocatedResources == 0x0U) {
 				ResourceManager[Index].State = XASUFW_RESOURCE_IS_FREE;
@@ -136,11 +151,11 @@ s32 XAsufw_ReleaseResource(XAsufw_Resource Resource, u32 ReqId)
 			}
 		}
 		Index++;
-		AllocatedResources = AllocatedResources >> 1U;
+		AllocatedResourcesMask = XASUFW_SHIFT_AND_GET_NEXT_RESOURCE_MASK(AllocatedResourcesMask);
 	}
 	ResourceManager[Resource].AllocatedResources = 0x0U;
 
-	if (AllocatedResources == 0x0U) {
+	if (AllocatedResourcesMask == 0x0U) {
 		Status = XASUFW_SUCCESS;
 	}
 END:
@@ -164,7 +179,8 @@ void XAsufw_AllocateResource(XAsufw_Resource Resource, XAsufw_Resource MainResou
 	 */
 	ResourceManager[Resource].OwnerId = ReqId;
 	ResourceManager[Resource].State = XASUFW_RESOURCE_IS_BUSY;
-	ResourceManager[MainResource].AllocatedResources |= ((u32)1U << (u32)Resource);
+		XASUFW_MARK_RESOURCE_ALLOCATED(ResourceManager[MainResource].AllocatedResources,
+					       Resource);
 }
 
 /*************************************************************************************************/
@@ -177,17 +193,18 @@ void XAsufw_AllocateResource(XAsufw_Resource Resource, XAsufw_Resource MainResou
  *************************************************************************************************/
 void XAsufw_IdleResource(XAsufw_Resource Resource)
 {
-	u32 AllocatedResources = ResourceManager[Resource].AllocatedResources;
+	u32 AllocatedResourcesMask = ResourceManager[Resource].AllocatedResources;
 	u32 Index = 0x0U;
 
 	/** Change the main resource and allocated resources state to IDLE */
 	ResourceManager[Resource].State = XASUFW_RESOURCE_IS_IDLE;
-	while (AllocatedResources != 0x0U) {
-		if ((AllocatedResources & 0x1U) != 0x0U) {
+	while (AllocatedResourcesMask != 0x0U) {
+		if (XASUFW_IS_RESOURCE_ALLOCATED(AllocatedResourcesMask,
+						 XASUFW_RESOURCE_INDEX_ZERO)) {
 			ResourceManager[Index].State = XASUFW_RESOURCE_IS_IDLE;
 		}
 		Index++;
-		AllocatedResources = AllocatedResources >> 1U;
+		AllocatedResourcesMask = XASUFW_SHIFT_AND_GET_NEXT_RESOURCE_MASK(AllocatedResourcesMask);
 	}
 }
 
@@ -253,7 +270,7 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 	}
 
 	for (Loop = 0U; ((Loop < (u32)XASUFW_INVALID) && (ReqResources != 0U)); ++Loop) {
-		TempResource = ReqResources & (u16)((u32)1U << Loop);
+		TempResource = ReqResources & (u16)XASUFW_GET_RESOURCE_MASK(Loop);
 		switch (TempResource) {
 			case XASUFW_DMA_RESOURCE_MASK:
 				if (XAsufw_IsResourceAvailable(XASUFW_DMA0, ReqId) == XASUFW_SUCCESS) {
@@ -374,8 +391,10 @@ XAsufw_Dma *XAsufw_AllocateDmaResource(XAsufw_Resource Resource, u32 ReqId)
 	if (DmaAllocate != XASUFW_INVALID) {
 		AsuDmaPtr = XAsufw_GetDmaInstance(DmaDeviceId);
 		XAsufw_AllocateResource(DmaAllocate, Resource, ReqId);
-		ResourceManager[Resource].AllocatedResources |= ((u32)1U << (u32)DmaAllocate);
-		ResourceManager[DmaAllocate].AllocatedResources |= ((u32)1U << (u32)Resource);
+		XASUFW_MARK_RESOURCE_ALLOCATED(ResourceManager[Resource].AllocatedResources,
+					       DmaAllocate);
+		XASUFW_MARK_RESOURCE_ALLOCATED(ResourceManager[DmaAllocate].AllocatedResources,
+					       Resource);
 	}
 
 END:
