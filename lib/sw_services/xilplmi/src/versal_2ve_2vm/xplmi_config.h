@@ -35,7 +35,7 @@
 *       rmv  07/17/2025 Disable PLM OCP key management
 *       rmv  07/17/2025 Added PLM_OCP_ASUFW_KEY_MGMT configuration macro and enable by default
 *       rmv  08/21/2025 Added option to enable/disable ASUFW OCP key management support
-*
+* 2.3   rpu  09/05/2025 Added PLM_CFG_LIMITER_EN macro
 * </pre>
 *
 * @note
@@ -110,6 +110,14 @@ extern "C" {
  * This definition is enabled by default.
  */
 //#define PLM_PRINT_PERF
+
+/**
+ * Enabling the PLM_CFG_LIMITER_EN enables the Configuration Limiter feature.
+ * Please note that below is defined in bsp_config.h based on the
+ * xilplmi library configuration, hence commented out here.
+ * This definition is disabled by default (i.e. not defined).
+ */
+//#define PLM_CFG_LIMITER_EN
 
 /**
  * @name PLM code include options

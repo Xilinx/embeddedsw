@@ -74,6 +74,13 @@ if (NOT XILPLMI_plm_secure_en)
   set(PLM_SECURE_EXCLUDE " ")
 endif()
 
+if ("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
+  option(XILPLMI_plm_cfg_limiter_en "Enables or Disables Configuration Limiter feature" OFF)
+  if (XILPLMI_plm_cfg_limiter_en)
+    set(PLM_CFG_LIMITER_EN " ")
+  endif()
+endif()
+
 option(XILPLMI_plm_usb_en "Enables (if enabled in hardware design too) or disables USB boot mode" OFF)
 if (NOT XILPLMI_plm_usb_en)
   set(PLM_USB_EXCLUDE " ")

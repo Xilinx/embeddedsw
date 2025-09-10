@@ -34,7 +34,7 @@
 *                       and XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR enum
 * 2.2   har  04/07/2025 Added XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK and
 *                       XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK macro
-*
+* 2.3   rpu  09/05/2025 Removed Configuration Limiter functions
 * </pre>
 *
 * @endcond
@@ -177,45 +177,6 @@ typedef struct {
 } XLoader_AesKekInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/*****************************************************************************/
-/**
-* @brief	This function updates the configuration limiter count if
-*		Configuration limiter feature is enabled in case of secure boot.
-*		In case of eny error, secure lockdown is triggered.
-*
-* @return	XST_SUCCESS on success.
-*		Error code in case of failure
-*
-* @note		Not applicable in case of Versal Net
-*
-******************************************************************************/
-static inline int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
-{
-	(void)UpdateFlag;
-	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
-* @brief	This function checks and updates the configuration limiter count
-*		based on the boot phase (before or after boot) and configured mode.
-*		In case of any error, secure lockdown is triggered.
-*
-* @param	BootPhase - Indicates the boot phase:
-*		XLOADER_CL_BEFORE_BOOT: Called before boot starts
-*		XLOADER_CL_AFTER_BOOT: Called after successful boot
-*
-* @return	XST_SUCCESS on success.
-*		Error code in case of failure
-*
-* @note		Not applicable in case of Versal Net
-*
-******************************************************************************/
-static inline int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase)
-{
-	(void)BootPhase;
-	return XST_SUCCESS;
-}
 
 /************************** Function Prototypes ******************************/
 u32 XLoader_GetKekSrc(void);

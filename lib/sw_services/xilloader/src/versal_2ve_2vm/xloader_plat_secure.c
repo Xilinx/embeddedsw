@@ -36,7 +36,7 @@
 *       kpt  03/15/2024 Updated RSA KAT to use 2048-bit key
 * 2.2   sk   02/04/2025 Added redundancy check for XLoader_CheckSecureState
 *       sk   03/05/2025 Added redundancy check for AHwRotStatus & SHwRotStatus
-*
+* 2.3   rpu  09/05/2025 Added PLM_CFG_LIMITER_EN macro
 * </pre>
 *
 ******************************************************************************/
@@ -508,6 +508,7 @@ int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 
 	return XST_FAILURE;
 }
 
+#ifdef PLM_CFG_LIMITER_EN
 /*****************************************************************************/
 /**
 * @brief	This function checks and updates the configuration limiter count
@@ -529,9 +530,7 @@ int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase)
 	u32 ReadCfgLimiterReg;
 	u32 ClMode;
 
-	/**
-	 * - Validate input parameters
-	 */
+	/** - Validate input parameters */
 	if ((BootPhase != XLOADER_CL_BEFORE_BOOT) && (BootPhase != XLOADER_CL_AFTER_BOOT)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
@@ -540,63 +539,47 @@ int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase)
 	ReadCfgLimiterReg = XPlmi_In32(XLOADER_BBRAM_8_MEM_ADDRESS);
 
 	if ((ReadCfgLimiterReg & XLOADER_BBRAM_CL_FEATURE_EN_MASK) == XLOADER_BBRAM_CL_FEATURE_EN_MASK) {
-		/**
-		 * - Configuration limiter feature is enabled - process based on mode and boot phase
-		 */
+		/** - Configuration limiter feature is enabled - process based on mode and boot phase */
 		ClMode = ReadCfgLimiterReg & XLOADER_BBRAM_CL_MODE_MASK;
 
 		if (ClMode == XLOADER_BBRAM_CL_TOTAL_CONFIGS_MODE) {
 			if (BootPhase == XLOADER_CL_BEFORE_BOOT) {
-				/**
-				 * - Decrement counter before boot attempt
-				 */
+				/** - Decrement counter before boot attempt */
 				XSECURE_TEMPORAL_CHECK(END, Status, XLoader_UpdateCfgLimitCount,
 						XLOADER_BBRAM_CL_DECREMENT_COUNT);
 			}
 			else {
-				/**
-				 *-  No action after successful boot - counter already decremented
-				 */
+				/** - No action after successful boot - counter already decremented */
 				Status = XST_SUCCESS;
 				XPlmi_Printf(DEBUG_DETAILED, "CL: Total configs mode - no action required after boot\n\r");
 			}
 		}
 		else if (ClMode == XLOADER_BBRAM_CL_FAILED_CONFIGS_MODE) {
 			if (BootPhase == XLOADER_CL_BEFORE_BOOT) {
-				/**
-				 * - Decrement counter before boot attempt
-				 */
+				/** - Decrement counter before boot attempt */
 				XSECURE_TEMPORAL_CHECK(END, Status, XLoader_UpdateCfgLimitCount,
 						XLOADER_BBRAM_CL_DECREMENT_COUNT);
 			}
 			else {
-				/**
-				 * - Boot was successful - increment counter back to restore the attempt
-				 */
+				/** - Boot was successful - increment counter back to restore the attempt */
 				XSECURE_TEMPORAL_CHECK(END, Status, XLoader_UpdateCfgLimitCount,
 						XLOADER_BBRAM_CL_INCREMENT_COUNT);
 			}
 		}
 		else {
-			/**
-			 * - Invalid/Corrupted CL Mode: Zeroize AES key in BBRAM and trigger Secure Lockdown
-			 */
+			/** - Invalid/Corrupted CL Mode: Zeroize AES key in BBRAM and trigger Secure Lockdown */
 			if (AesInstPtr != NULL) {
 				Status = XSecure_AesKeyZero(AesInstPtr, XSECURE_AES_BBRAM_RED_KEY);
 			}
 
-			/**
-			 * - Initiate Secure lockdown
-			 */
+			/** - Initiate Secure lockdown */
 			XPlmi_Printf(DEBUG_GENERAL, "CL: Triggering Secure Lockdown\n\r");
 			XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_TASK);
 			goto END;
 		}
 	}
 	else {
-		/**
-		 * - Configuration Limiter feature is disabled - no action required
-		 */
+		/** - Configuration Limiter feature is disabled - no action required */
 		Status = XST_SUCCESS;
 		XPlmi_Printf(DEBUG_DETAILED, "CL: Feature disabled - no action required\n\r");
 	}
@@ -692,6 +675,7 @@ END:
 
 }
 
+#endif	/* END OF PLM_CFG_LIMITER_EN */
 #endif /* END OF PLM_SECURE_EXCLUDE */
 
 /*****************************************************************************/

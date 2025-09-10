@@ -194,7 +194,7 @@
 * 2.3   vss 08/13/2025 Removed code which masks major errorcodes.
 *       har 08/21/2025 Added code to handle invalid CL mode
 *       pre 08/21/2025 Moved extension of image hashes of ROM and PLM to TPM after boot
-*
+*       rpu  09/05/2025 Added PLM_CFG_LIMITER_EN macro
 * </pre>
 *
 ******************************************************************************/
@@ -358,10 +358,12 @@ int XLoader_Init(void)
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SetSecureState);
 
 #ifndef PLM_SECURE_EXCLUDE
+#ifdef PLM_CFG_LIMITER_EN
 	Status = XLoader_CheckAndUpdateCfgLimit(XLOADER_CL_BEFORE_BOOT);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#endif /* PLM_CFG_LIMITER_EN */
 
 #ifndef PLM_AUTH_JTAG_EXCLUDE
 	/** - Add task to the scheduler to handle Authenticated JTAG message */

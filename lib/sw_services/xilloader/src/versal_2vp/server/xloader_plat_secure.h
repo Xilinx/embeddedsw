@@ -16,7 +16,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
 *       har  09/08/25 Added XLoader_UpdateCfgLimitCount()
-*
+*       rpu  09/08/25 Removed Configuration Limiter functions
 * </pre>
 *
 ***************************************************************************************************/
@@ -167,40 +167,6 @@ typedef struct {
  **************************************************************************************************/
 static inline int XLoader_AddDeviceStateChangeToScheduler(void)
 {
-	return XST_SUCCESS;
-}
-
-
-/**************************************************************************************************/
-/**
-* @brief	This function updates the configuration limiter count if
-*		Configuration limiter feature is enabled in case of secure boot.
-*		In case of eny error, secure lockdown is triggered.
-*
-* @return
-* 		- XST_SUCCESS on success.
-* 		- Error code in case of failure.
-*
-* @note		Not applicable in case of Versal_2vp.
-*
-***************************************************************************************************/
-static inline int XLoader_UpdateCfgLimitCount(u32 UpdateFlag)
-{
-	(void)UpdateFlag;
-	return XST_SUCCESS;
-}
-
-/**************************************************************************************************/
-/**
- * @brief	This function is supported only for Versal_2ve_2vm, nothing to be done in Versal_2vp.
- *
- * @return
- * 		- XST_SUCCESS always.
- *
- **************************************************************************************************/
-static inline int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase)
-{
-	(void)BootPhase;
 	return XST_SUCCESS;
 }
 

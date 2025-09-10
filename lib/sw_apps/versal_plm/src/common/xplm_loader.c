@@ -63,7 +63,7 @@
 *       har  04/28/2025 Increment counter in Configuration Limiter register
 *                       if CL mode is failed configurations only if boot is successful
 *       har 08/21/2025 Added code to handle invalid CL mode
-*
+*       rpu  09/05/2025 Added PLM_CFG_LIMITER_EN macro
 * </pre>
 *
 ******************************************************************************/
@@ -158,11 +158,13 @@ int XPlm_LoadBootPdi(void *Arg)
 	}
 
 #ifndef PLM_SECURE_EXCLUDE
+#ifdef PLM_CFG_LIMITER_EN
 	Status = XLoader_CheckAndUpdateCfgLimit(XLOADER_CL_AFTER_BOOT);
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
 	}
-#endif
+#endif /* PLM_CFG_LIMITER_EN */
+#endif /* PLM_SECURE_EXCLUDE */
 
 	/* Save Boot PDI info */
 	Xloader_SaveBootPdiInfo(PdiInstPtr);
