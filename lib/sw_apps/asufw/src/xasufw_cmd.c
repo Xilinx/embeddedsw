@@ -23,6 +23,7 @@
  *       ss   09/26/24 Fixed doxygen comments
  * 1.1   ma   12/12/24 Updated resource allocation logic
  *       ma   02/28/25 Move IPI triggering to remote processor to xasufw_queuescheduler.c
+ *       rmv  09/09/25 Added bound checks for command ID and handler in XAsufw_CommandQueueHandler()
  *
  * </pre>
  *
@@ -106,6 +107,23 @@ s32 XAsufw_CommandQueueHandler(XAsu_ChannelQueueBuf *QueueBuf, u32 ReqId)
 	Module = XAsufw_GetModule(ModuleId);
 	if (Module == NULL) {
 		Status = XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED;
+		goto END;
+	}
+
+	/**
+	 * Check if command ID received in the command header is greater than the max supported
+	 * commands by the module.
+	 */
+	if (CmdId >= Module->CmdCnt) {
+		Status = XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED;
+		goto END;
+	}
+
+	/**
+	 * Check if the command with the specified CmdId in the Module's Cmds array is NULL.
+	 */
+	if (Module->Cmds[CmdId].CmdHandler == NULL) {
+		Status = XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED;
 		goto END;
 	}
 
