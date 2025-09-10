@@ -85,7 +85,11 @@ static int TmrCtrLowLevelExample(u8 SettingsTableOffset);
  */
 static u32 TimerCounterBaseAddr[] = {
 	XPAR_XTTCPS_0_BASEADDR,
+#ifdef XPM_SUPPORT
+	XPAR_XTTCPS_6_BASEADDR
+#else
 	XPAR_XTTCPS_1_BASEADDR
+#endif
 };
 
 /*
