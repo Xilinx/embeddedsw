@@ -1,4 +1,4 @@
-# Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.3)
 include(${CMAKE_CURRENT_SOURCE_DIR}/Freertos10_xilinxExample.cmake * NO_POLICY_SCOPE)
@@ -241,7 +241,12 @@ elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5") OR
       )
     set(portPOINTER_SIZE_TYPE uint32_t)
 endif()
-
+option(freertos_xpm_support "Enable xpm support" OFF)
+if((("${CMAKE_MACHINE}" STREQUAL "Versal")
+	OR ("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
+                AND ${freertos_xpm_support})
+	set(XPM_SUPPORT " ")
+endif()
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa53") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa72") OR
    ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa78") OR

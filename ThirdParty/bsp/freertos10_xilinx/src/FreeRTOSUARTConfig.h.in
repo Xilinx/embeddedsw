@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef _FREERTOSUARTCONFIG_H
@@ -7,6 +7,7 @@
 
 @XPAR_PS_INCLUDE@
 
+#cmakedefine XPM_SUPPORT @XPM_SUPPORT@
 #cmakedefine XPAR_STDIN_IS_UARTLITE @XPAR_STDIN_IS_UARTLITE@
 #cmakedefine XPAR_STDIN_IS_UARTNS550 @XPAR_STDIN_IS_UARTNS550@
 #cmakedefine XPAR_STDIN_IS_UARTPS @XPAR_STDIN_IS_UARTPS@
