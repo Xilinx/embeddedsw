@@ -67,7 +67,7 @@
 *       sk   02/20/2025 Updated defines for RTCA EAM error address for Versal 2VE
 *            and 2VM Devices
 * 2.3   obs  03/20/2025 Added XPLMI_STATUS_GLITCH_DETECT macro
-*
+* 	    abh  07/21/2025 Fixed GCC warnings
 * </pre>
 *
 * @note
@@ -88,7 +88,9 @@ extern "C" {
 #include "xplmi_update.h"
 #include "xplmi_cmd.h"
 #include "xiomodule.h"
-
+#ifdef SDT
+#include "xiltimer.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 #define XPLMI_PLM_BANNER	"Xilinx Versal 2ve_2vm Platform Loader and Manager\n\r" /**< PLM banner */

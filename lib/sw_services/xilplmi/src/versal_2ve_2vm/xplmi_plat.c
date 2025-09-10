@@ -58,6 +58,7 @@
 *                       TCM memory ranges
 *       sk  03/25/2025 Corrected configuration of the PMC IRO Freq
 *       obs 04/11/2025 Removed HNIC and PKI related code in XPlmi_UpdateFipsState
+* 2.3   abh 07/21/2025 Fixed GCC warnings
 *
 * </pre>
 *
@@ -123,8 +124,9 @@
 #define XPLMI_PMC_VOLTAGE_MULTIPLIER	(32768.0f) /**< Voltage multiplier for Sysmon */
 
 /* PMC IRO Frequency related macros */
+#ifndef VERSAL_2VE_2VM
 #define XPLMI_PMC_IRO_FREQ_233_MHZ	(233000000U) /**< PMC IRO frequency 233Mhz */
-
+#endif
 #define XPLMI_PPU_BUFFER_DS_VER 	(1U) /**< PPU buffers Data structure version */
 #define XPLMI_PPU_BUFFER_DS_LCVER 	(1U) /**< PPU buffers Data structure LC version */
 #define XPLMI_PMC_BUFFER_DS_VER 	(1U) /**< PMC buffers Data structure version */

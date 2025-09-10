@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -27,6 +27,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  dd   02/13/24 Initial release
+ * 1.01  abh  08/07/25 Fixed GCC warnings
  *
  * </pre>
  *
@@ -129,7 +130,7 @@ static int GetBoard(XPlmi_ClientInstance *InstancePtr)
 	int Status = XST_FAILURE;
 	u32 ResponseLength = 0;
 
-	Status = XPlmi_GetBoard(InstancePtr, PDI_SRC_ADDR, (u32)&Buffer[0U], &ResponseLength);
+	Status = XPlmi_GetBoard(InstancePtr, PDI_SRC_ADDR, sizeof(Buffer) / sizeof(Buffer[0]) , &ResponseLength);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

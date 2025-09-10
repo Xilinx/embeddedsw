@@ -62,6 +62,7 @@
 *       pre  01/13/2025 Added macros for DDRMC register addresses
 * 2.2   vss  02/11/2025 Updated SSS configuration correctly.
 * 2.3   obs  03/20/2025 Added XPLMI_STATUS_GLITCH_DETECT macro
+* 		abh  07/21/2025 Fixed GCC warnings
 *
 * </pre>
 *
@@ -83,6 +84,9 @@ extern "C" {
 #include "xplmi_update.h"
 #include "xplmi_cmd.h"
 #include "xiomodule.h"
+#ifdef SDT
+#include "xiltimer.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

@@ -125,7 +125,7 @@
 *       pre  12/24/2024 Skip LPD initialized check for other than PSM_BUFFER_LIST type
 *       pre  01/13/2025 Added command to set access status of DDRMC main registers
 * 2.3   tvp  08/12/2025 ssit is not required for Versal_2vp
-*
+*		abh  08/15/2025 Fixed GCC warnings
 * </pre>
 *
 *
@@ -1689,8 +1689,9 @@ int XPlmi_SetBufferList(u32 Address, u16 Size)
 	BufferList->Data[0U].Addr = Address;
 	BufferList->BufferMemSize = Size;
 	BufferList->IsBufferMemAvailable = (u8)TRUE;
-
+#ifndef VERSAL_2VE_2VM
 END:
+#endif
 	return Status;
 }
 
