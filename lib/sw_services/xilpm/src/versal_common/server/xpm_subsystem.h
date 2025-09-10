@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,15 +42,12 @@ extern "C" {
 
 #define SUB_PERM_WAKE_MASK			(0x1U << 0U)
 #define SUB_PERM_PWRDWN_MASK			(0x1U << 1U)
-#define SUB_PERM_SUSPEND_MASK			(0x1U << 2U)
 
 #define SUB_PERM_WAKE_SHIFT_NS			(0U)
 #define SUB_PERM_PWRDWN_SHIFT_NS		(1U)
-#define SUB_PERM_SUSPEND_SHIFT_NS		(2U)
 
 #define SUB_PERM_WAKE_SHIFT_S			(0U + MAX_NUM_SUBSYSTEMS)
 #define SUB_PERM_PWRDWN_SHIFT_S			(1U + MAX_NUM_SUBSYSTEMS)
-#define SUB_PERM_SUSPEND_SHIFT_S		(2U + MAX_NUM_SUBSYSTEMS)
 
 #define PERM_BITMASK(Op, OpShift, SubShift)	((1U & ((Op) >> (OpShift))) << (SubShift))
 

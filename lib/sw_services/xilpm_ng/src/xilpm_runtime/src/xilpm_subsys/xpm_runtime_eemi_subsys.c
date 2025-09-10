@@ -161,9 +161,6 @@ static XStatus XPmSubsystem_Generic_AddPermissions(XPm_Subsystem *Host, u32 Targ
 	Target->Perms.PowerdownPerms    |= PERM_BITMASK(Operations,
 							SUB_PERM_PWRDWN_SHIFT_NS,
 							SUBSYS_TO_NS_BITPOS(Host->Id));
-	Target->Perms.SuspendPerms      |= PERM_BITMASK(Operations,
-							SUB_PERM_SUSPEND_SHIFT_NS,
-							SUBSYS_TO_NS_BITPOS(Host->Id));
 
 	Target->Perms.WakeupPerms       |= PERM_BITMASK(Operations,
 							SUB_PERM_WAKE_SHIFT_S,
@@ -171,10 +168,6 @@ static XStatus XPmSubsystem_Generic_AddPermissions(XPm_Subsystem *Host, u32 Targ
 	Target->Perms.PowerdownPerms    |= PERM_BITMASK(Operations,
 							SUB_PERM_PWRDWN_SHIFT_S,
 							SUBSYS_TO_S_BITPOS(Host->Id));
-	Target->Perms.SuspendPerms      |= PERM_BITMASK(Operations,
-							SUB_PERM_SUSPEND_SHIFT_S,
-							SUBSYS_TO_S_BITPOS(Host->Id));
-
 	Status = XST_SUCCESS;
 
 done:
@@ -454,10 +447,6 @@ XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 			break;
 		case SUB_PERM_PWRDWN_MASK:
 			PermissionMask = TargetSubsystem->Perms.PowerdownPerms;
-			Status = XST_SUCCESS;
-			break;
-		case SUB_PERM_SUSPEND_MASK:
-			PermissionMask = TargetSubsystem->Perms.SuspendPerms;
 			Status = XST_SUCCESS;
 			break;
 		default:

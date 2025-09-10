@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +24,6 @@ struct XPm_Permissions {
 	 *  bits[16:31] secure operations
 	 */
 	u32 WakeupPerms;
-	u32 SuspendPerms;
 	u32 PowerdownPerms;
 };
 

@@ -25,7 +25,6 @@ struct XPm_Permissions {
 	 *  bits[16:31] secure operations
 	 */
 	u32 WakeupPerms;
-	u32 SuspendPerms;
 	u32 PowerdownPerms;
 };
 
