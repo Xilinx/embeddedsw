@@ -134,6 +134,13 @@ if (${has_flto} EQUAL -1 AND ${is_psm_mb} EQUAL -1)
     set(XIL_INTERRUPT " ")
 endif()
 
+option(standalone_xpm_support "Enable xpm support" OFF)
+if((("${CMAKE_MACHINE}" STREQUAL "Versal")
+	OR ("${CMAKE_MACHINE}" STREQUAL "VersalNet"))
+		AND ${standalone_xpm_support})
+	set(XPM_SUPPORT " ")
+endif()
+
 if (DEFINED XPAR_CPU_ID)
     set(CPU_ID_VAL ${XPAR_CPU_ID})
 else()
@@ -246,8 +253,6 @@ set(standalone_enable_sw_intrusive_profiling "None" CACHE STRING "This option is
 SET_PROPERTY(CACHE standalone_enable_sw_intrusive_profiling PROPERTY STRINGS "None")
 set(standalone_profile_timer "None" CACHE STRING "This option is not supported in the Unified Vitis IDE in this version. Change to the classic IDE if you want to use this option")
 SET_PROPERTY(CACHE standalone_profile_timer PROPERTY STRINGS "None")
-set(standalone_xpm_support "None" CACHE STRING "This option is not supported in the Unified Vitis IDE in this version. Change to the classic IDE if you want to use this option.")
-SET_PROPERTY(CACHE standalone_xpm_support PROPERTY STRINGS "None")
 # Processor CMake Cache entires
 cmake_path(GET CMAKE_C_COMPILER_AR FILENAME compiler_ar)
 set(proc_archiver ${compiler_ar} CACHE STRING "Archiver used to archive libraries for both BSP generation as well as applications.")

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 *  1.0  gm      14/06/23 Initial release.
+*  9.4  ml      10/09/25 Added SDT support
 * </pre>
 ******************************************************************************/
 
@@ -34,8 +35,11 @@
 #include "xpm_init.h"
 
 /************************** Constant Definitions *****************************/
-
+#ifndef SDT
 #define XPMU_IPI_CHANNEL_ID      XPAR_XIPIPSU_0_DEVICE_ID
+#else
+#define XPMU_IPI_CHANNEL_ID      XPAR_XIPIPSU_0_BASEADDR
+#endif
 
 /**************************** Type Definitions *******************************/
 
