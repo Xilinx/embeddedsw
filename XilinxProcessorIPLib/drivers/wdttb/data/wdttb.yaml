@@ -27,6 +27,8 @@ properties:
     description: Maximum width of Second Sequence Timer (PL only)
   xlnx,wdt-clk-freq-hz:
     description: Input clock frequency (PS only)
+  xlnx,timeout:
+    description: Timeout is milli-seconds (PMC WWDT only)
 
 config:
     - XWdtTb_Config
@@ -40,6 +42,9 @@ required:
     - xlnx,wdt-clk-freq-hz
     - interrupts: 4
     - interrupt-parent
+
+additionalProperties:
+    - xlnx,timeout
 
 examples:
    xwdttb_selftest_example.c:
