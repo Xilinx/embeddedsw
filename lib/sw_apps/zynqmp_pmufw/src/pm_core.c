@@ -1708,6 +1708,36 @@ done:
 	return;
 }
 
+static void PmGetRpuState(const u32 node, u32 *State)
+{
+	PmProc *proc = &pmProcRpu1_g;
+	u32 rpucfg, reset, mode, clock, rstmask;
+	reset = XPfw_Read32(CRL_APB_RST_LPD_TOP);
+	mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
+	clock = XPfw_Read32(CRL_APB_CPU_R5_CTRL);
+
+	if(node == NODE_RPU_0 || node == NODE_RPU) {
+		rpucfg = XPfw_Read32(RPU_RPU_0_CFG);
+		proc = &pmProcRpu0_g;
+		rstmask = CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK;
+	}
+	else if(node == NODE_RPU_1) {
+		rpucfg = XPfw_Read32(RPU_RPU_1_CFG);
+		proc = &pmProcRpu1_g;
+		rstmask = CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK;
+	}
+
+	/* If reset is asserted or (deasserted and RPU_0 is halted) */
+	if (((0U == (reset & rstmask)) &&
+		(0U == (rpucfg & RPU_RPU_0_CFG_NCPUHALT_MASK)) &&
+		(0U != (clock & CRL_APB_CPU_R5_CTRL_CLKACT_CORE_MASK))) ) {
+		*State = PM_PROC_STATE_HALT;
+	}
+	else {
+		*State = proc->node.currState;
+	}
+}
+
 /**
  * PmGetNodeStatus() - Get the status of the node
  * @master  Initiator of the request
@@ -1717,7 +1747,7 @@ static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 {
 	u32 oppoint = 0U;
 	u32 currReq = 0U;
-	u32 usage = 0U;
+	u32 usage = 0U, State;
 	s32 status = XST_SUCCESS;
 	PmNode* nodePtr = PmGetNodeById(node);
 
@@ -1729,10 +1759,13 @@ static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 	}
 
 	if ((NODE_RPU == node) || (NODE_RPU_0 == node) || (NODE_RPU_1 == node)) {
-		PmProbeRpuState();
+		PmGetRpuState(node, &State);
+		oppoint = State;
+	}
+	else {
+		oppoint = nodePtr->currState;
 	}
 
-	oppoint = nodePtr->currState;
 	if (NODE_IS_SLAVE(nodePtr)) {
 		PmSlave* const slave = (PmSlave*)nodePtr->derived;
 

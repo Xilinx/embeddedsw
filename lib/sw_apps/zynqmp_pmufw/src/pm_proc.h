@@ -1,5 +1,6 @@
 /*
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -50,6 +51,11 @@ typedef u8 PmProcEvent;
  * interrupt from this processor is not yet received.
  */
 #define PM_PROC_STATE_SUSPENDING    3U
+
+/*
+ * Processor halt state. Indicates the processor is halted and not executing instructions.
+ */
+#define PM_PROC_STATE_HALT        12U
 
 /* Triggered when pm_self_suspend call is received for a processor */
 #define PM_PROC_EVENT_SELF_SUSPEND  1U
