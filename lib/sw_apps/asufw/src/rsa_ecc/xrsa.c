@@ -78,9 +78,6 @@ static s32 XRsa_ValidatePubExp(u8 *BuffAddr);
 static s32 XRsa_ValidateModulus(u8 *BuffAddr, u8 *InputData, u32 Len);
 
 /************************************ Variable Definitions ***************************************/
-/** RSA data block memory allocated in ASU RAM. */
-static u8  Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES] __attribute__ ((section (".rsa_data_block")));
-
 #if XASUFW_ENABLE_PERF_MEASUREMENT
 static u64 StartTime; /**< Performance measurement start time. */
 static XAsufw_PerfTime PerfTime; /**< Structure holding performance timing results. */
@@ -789,6 +786,9 @@ END:
  *************************************************************************************************/
 u8 *XRsa_GetDataBlockAddr(void)
 {
+	/* RSA data block memory allocated in ASU RAM. */
+	static u8  Rsa_Data[XRSA_MAX_PARAM_SIZE_IN_BYTES] __attribute__ ((section (".rsa_data_block")));
+
 	return Rsa_Data;
 }
 
