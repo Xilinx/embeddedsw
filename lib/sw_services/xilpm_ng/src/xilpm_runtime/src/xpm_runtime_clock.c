@@ -554,6 +554,7 @@ XStatus XPmClock_SetDivider(const XPm_OutClockNode *Clk, u32 Divider)
 	XStatus Status = XST_FAILURE;
 	const struct XPm_ClkTopologyNode *Ptr;
 	u32 Divider1;
+	XPm_ClockNode *ParentClk = NULL;
 
 	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_DIV1);
 	if (Ptr == NULL) {
@@ -572,7 +573,24 @@ XStatus XPmClock_SetDivider(const XPm_OutClockNode *Clk, u32 Divider)
 		goto done;
 	}
 
+	/* Assert PLL reset if parent is PLL */
+	ParentClk = XPmClock_GetByIdx(Clk->ClkNode.ParentIdx);
+	if ((NULL != ParentClk) && ISPLL(ParentClk->Node.Id)) {
+		Status = XPmClockPll_Reset((XPm_PllClockNode *)ParentClk, PLL_RESET_ASSERT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
 	XPm_RMW32(Ptr->Reg, BITNMASK(Ptr->Param1.Shift,Ptr->Param2.Width), Divider1 << Ptr->Param1.Shift);
+
+	/* Release PLL reset if parent is PLL */
+	if ((NULL != ParentClk) && ISPLL(ParentClk->Node.Id)) {
+		Status = XPmClockPll_Reset((XPm_PllClockNode *)ParentClk, PLL_RESET_RELEASE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
 
 	Status = XST_SUCCESS;
 
