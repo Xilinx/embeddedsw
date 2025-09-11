@@ -158,6 +158,8 @@ enum XPm_ClockSubnodeType {
 #define CLK_MUX_ROUND_CLOSEST		BIT(4)
 #define CLK_MUX_BIG_ENDIAN		BIT(5)
 
+#define XPM_CLK_STATE_INVALID		0xFFU
+
 /************************** Function Prototypes ******************************/
 XStatus XPmClock_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 			 u8 NumCustomNodes, u8 NumParents, u32 PowerDomainId,

@@ -15,6 +15,8 @@
 extern "C" {
 #endif
 
+#define XPM_RPU_CPUHALT_MASK		BIT(0)
+
 /**
  * The RPU core class.
  */
