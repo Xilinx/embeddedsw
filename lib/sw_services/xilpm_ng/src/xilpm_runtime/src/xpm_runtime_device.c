@@ -18,6 +18,7 @@
 #include "xpm_aiedevice.h"
 #include "xpm_update.h"
 #include "xpm_runtime_aie.h"
+#include "xpm_rpucore.h"
 
 /* Device security bit in register */
 #define DEV_NONSECURE			(1U)
@@ -1349,6 +1350,7 @@ XStatus XPmDevice_GetStatus(XPm_Subsystem *Subsystem,
 	XStatus Status = XPM_ERR_DEVICE_STATUS;
 	const XPm_Device *Device;
 	const XPm_Requirement *Reqm;
+	u32 ClkStatus = XPM_CLK_STATE_INVALID, RstStatus = XPM_RST_STATE_INVALID;
 
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
@@ -1356,7 +1358,39 @@ XStatus XPmDevice_GetStatus(XPm_Subsystem *Subsystem,
 		goto done;
 	}
 
-	DeviceStatus->Status = Device->Node.State;
+
+	/*
+	 * For RPU cores, we need to verify the following conditions:
+	 * 1. Check if the core is in halt state
+	 * 2. Verify that reset is released
+	 * 3. Confirm that clock is enabled
+	 * This ensures the RPU core is in halt state
+	 */
+	/* If RstStatus is invalid it returns current device state */
+	if(NODETYPE(Device->Node.Id) == (u32)XPM_NODETYPE_DEV_CORE_RPU){
+		Status = XPm_GetClockState(Device->ClkHandles->Clock->Node.Id, &ClkStatus);
+		const XPm_ResetHandle *RstHandle = Device->RstHandles;
+		while (NULL != RstHandle) {
+			Status = XPmReset_GetStateById(RstHandle->Reset->Node.Id, &RstStatus);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			if(0x1U == RstStatus){
+				break;
+			}
+			RstHandle = RstHandle->NextReset;
+		}
+		if((((XPm_In32(((XPm_RpuCore *)Device)->ResumeCfg) & XPM_RPU_CPUHALT_MASK) == XPM_RPU_CPUHALT_MASK)) &&
+			(0x1U == ClkStatus) && (0U == RstStatus)){
+				DeviceStatus->Status = (u32)XPM_DEVSTATE_HALT;
+		}
+		else{
+			DeviceStatus->Status = Device->Node.State;
+		}
+	}
+	else{
+		DeviceStatus->Status = Device->Node.State;
+	}
 
 	Reqm = FindReqm(Device, Subsystem);
 	if (NULL != Reqm) {

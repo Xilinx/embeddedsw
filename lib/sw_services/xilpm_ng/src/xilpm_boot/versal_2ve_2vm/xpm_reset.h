@@ -75,6 +75,7 @@ struct ResetCustomOps {
 
 #define XPM_RST_STATE_DEASSERTED 0U
 #define XPM_RST_STATE_ASSERTED 1U
+#define XPM_RST_STATE_INVALID 0xFFU
 
 
 
