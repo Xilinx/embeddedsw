@@ -29,7 +29,8 @@
 *       pre  03/25/2025 Added redundancy to check message type in XPlm_SsitCommReceiveMessage
 * 1.02 	abh  07/22/2025 Added doxygen tag
 *       kd   09/04/2025 Modified status variable to volatile in XPlm_SsitCommSendMessage
-* </pre>
+*       kd   09/11/2025 Modified status and ZeroizeStatus variables to volatile in XPlm_SsitCommAesKeyWrite
+*</pre>
 *
 * @note
 *
@@ -519,8 +520,8 @@ static void XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
  *************************************************************************************************/
 static int XPlm_SsitCommAesKeyWrite(u32 SlrIndex, u32 KeyAddr)
 {
-	int Status = XST_FAILURE;
-	int ZeroizeStatus = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int ZeroizeStatus = XST_FAILURE;
 	XSecure_AesKeySrc KeySrc = XPlm_SsitSecCommGetKeySrcofSlr(SlrIndex);
 	const XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
